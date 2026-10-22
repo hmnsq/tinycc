@@ -3,1474 +3,1474 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINBASE_
-#define _WINBASE_
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WINBASE_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _WINBASE_
 
-#define WINADVAPI DECLSPEC_IMPORT
-#define WINBASEAPI DECLSPEC_IMPORT
-#define ZAWPROXYAPI DECLSPEC_IMPORT
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WINADVAPI DECLSPEC_IMPORT
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WINBASEAPI DECLSPEC_IMPORT
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ZAWPROXYAPI DECLSPEC_IMPORT
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#define DefineHandleTable(w) ((w),TRUE)
-#define LimitEmsPages(dw)
-#define SetSwapAreaSize(w) (w)
-#define LockSegment(w) GlobalFix((HANDLE)(w))
-#define UnlockSegment(w) GlobalUnfix((HANDLE)(w))
-#define GetCurrentTime() GetTickCount()
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Define_Handle_ਸਾਰਣੀ(w) ((w),TRUE)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਹੱਦਬੰਦੀ_Ems_ਪੰਨੇ(dw)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_ਅਦਲਾ_ਬਦਲੀ_Area_ਮਾਪ(w) (w)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਤਾਲਾ_Segment(w) GlobalFix((HANDLE)(w))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ UnlockSegment(w) GlobalUnfix((HANDLE)(w))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Current_ਸਮਾਂ() Get_Tick_ਗਿਣਤੀ()
 
-#define Yield()
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Yield()
 
-#define INVALID_HANDLE_VALUE ((HANDLE)(LONG_PTR)-1)
-#define INVALID_FILE_SIZE ((DWORD)0xffffffff)
-#define INVALID_SET_FILE_POINTER ((DWORD)-1)
-#define INVALID_FILE_ATTRIBUTES ((DWORD)-1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INVALID_HANDLE_ਮੁੱਲ ((HANDLE)(LONG_PTR)-1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INVALID_FILE_ਮਾਪ ((DWORD)0xffffffff)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INVALID_ਸੈੱਟ_FILE_ਸੂਚਕ ((DWORD)-1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INVALID_FILE_ਗੁਣ ((DWORD)-1)
 
-#define FILE_BEGIN 0
-#define FILE_CURRENT 1
-#define FILE_END 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_BEGIN 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_CURRENT 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_ਸਿਰਾ 2
 
-#define TIME_ZONE_ID_INVALID ((DWORD)0xffffffff)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸਮਾਂ_ZONE_ID_INVALID ((DWORD)0xffffffff)
 
-#define WAIT_FAILED ((DWORD)0xffffffff)
-#define WAIT_OBJECT_0 ((STATUS_WAIT_0) + 0)
-#define WAIT_ABANDONED ((STATUS_ABANDONED_WAIT_0) + 0)
-#define WAIT_ABANDONED_0 ((STATUS_ABANDONED_WAIT_0) + 0)
-#define WAIT_IO_COMPLETION STATUS_USER_APC
-#define STILL_ACTIVE STATUS_PENDING
-#define EXCEPTION_ACCESS_VIOLATION STATUS_ACCESS_VIOLATION
-#define EXCEPTION_DATATYPE_MISALIGNMENT STATUS_DATATYPE_MISALIGNMENT
-#define EXCEPTION_BREAKPOINT STATUS_BREAKPOINT
-#define EXCEPTION_SINGLE_STEP STATUS_SINGLE_STEP
-#define EXCEPTION_ARRAY_BOUNDS_EXCEEDED STATUS_ARRAY_BOUNDS_EXCEEDED
-#define EXCEPTION_FLT_DENORMAL_OPERAND STATUS_FLOAT_DENORMAL_OPERAND
-#define EXCEPTION_FLT_DIVIDE_BY_ZERO STATUS_FLOAT_DIVIDE_BY_ZERO
-#define EXCEPTION_FLT_INEXACT_RESULT STATUS_FLOAT_INEXACT_RESULT
-#define EXCEPTION_FLT_INVALID_OPERATION STATUS_FLOAT_INVALID_OPERATION
-#define EXCEPTION_FLT_OVERFLOW STATUS_FLOAT_OVERFLOW
-#define EXCEPTION_FLT_STACK_CHECK STATUS_FLOAT_STACK_CHECK
-#define EXCEPTION_FLT_UNDERFLOW STATUS_FLOAT_UNDERFLOW
-#define EXCEPTION_INT_DIVIDE_BY_ZERO STATUS_INTEGER_DIVIDE_BY_ZERO
-#define EXCEPTION_INT_OVERFLOW STATUS_INTEGER_OVERFLOW
-#define EXCEPTION_PRIV_INSTRUCTION STATUS_PRIVILEGED_INSTRUCTION
-#define EXCEPTION_IN_PAGE_ERROR STATUS_IN_PAGE_ERROR
-#define EXCEPTION_ILLEGAL_INSTRUCTION STATUS_ILLEGAL_INSTRUCTION
-#define EXCEPTION_NONCONTINUABLE_EXCEPTION STATUS_NONCONTINUABLE_EXCEPTION
-#define EXCEPTION_STACK_OVERFLOW STATUS_STACK_OVERFLOW
-#define EXCEPTION_INVALID_DISPOSITION STATUS_INVALID_DISPOSITION
-#define EXCEPTION_GUARD_PAGE STATUS_GUARD_PAGE_VIOLATION
-#define EXCEPTION_INVALID_HANDLE STATUS_INVALID_HANDLE
-#define EXCEPTION_POSSIBLE_DEADLOCK STATUS_POSSIBLE_DEADLOCK
-#define CONTROL_C_EXIT STATUS_CONTROL_C_EXIT
-#define MoveMemory RtlMoveMemory
-#define CopyMemory RtlCopyMemory
-#define FillMemory RtlFillMemory
-#define ZeroMemory RtlZeroMemory
-#define SecureZeroMemory RtlSecureZeroMemory
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WAIT_FAILED ((DWORD)0xffffffff)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WAIT_OBJECT_0 ((ਸਥਿਤੀ_WAIT_0) + 0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WAIT_ABANDONED ((ਸਥਿਤੀ_ABANDONED_WAIT_0) + 0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WAIT_ABANDONED_0 ((ਸਥਿਤੀ_ABANDONED_WAIT_0) + 0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WAIT_IO_COMPLETION ਸਥਿਤੀ_USER_APC
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STILL_ਸਰਗਰਮ ਸਥਿਤੀ_PENDING
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_ACCESS_VIOLATION ਸਥਿਤੀ_ACCESS_VIOLATION
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_DATATYPE_MISALIGNMENT ਸਥਿਤੀ_DATATYPE_MISALIGNMENT
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_BREAKPOINT ਸਥਿਤੀ_BREAKPOINT
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_SINGLE_ਕਦਮ ਸਥਿਤੀ_SINGLE_ਕਦਮ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_ARRAY_BOUNDS_EXCEEDED ਸਥਿਤੀ_ARRAY_BOUNDS_EXCEEDED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_FLT_DENORMAL_ਸੰਕਾਰਜ ਸਥਿਤੀ_FLOAT_DENORMAL_ਸੰਕਾਰਜ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_FLT_DIVIDE_BY_ZERO ਸਥਿਤੀ_FLOAT_DIVIDE_BY_ZERO
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_FLT_INEXACT_ਨਤੀਜਾ ਸਥਿਤੀ_FLOAT_INEXACT_ਨਤੀਜਾ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_FLT_INVALID_OPERATION ਸਥਿਤੀ_FLOAT_INVALID_OPERATION
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_FLT_ਉਛਾਲ ਸਥਿਤੀ_FLOAT_ਉਛਾਲ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_FLT_ਢੇਰ_CHECK ਸਥਿਤੀ_FLOAT_ਢੇਰ_CHECK
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_FLT_UNDERFLOW ਸਥਿਤੀ_FLOAT_UNDERFLOW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_INT_DIVIDE_BY_ZERO ਸਥਿਤੀ_INTEGER_DIVIDE_BY_ZERO
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_INT_ਉਛਾਲ ਸਥਿਤੀ_INTEGER_ਉਛਾਲ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_PRIV_INSTRUCTION ਸਥਿਤੀ_PRIVILEGED_INSTRUCTION
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_ਵਿੱਚ_ਪੰਨਾ_ERROR ਸਥਿਤੀ_ਵਿੱਚ_ਪੰਨਾ_ERROR
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_ILLEGAL_INSTRUCTION ਸਥਿਤੀ_ILLEGAL_INSTRUCTION
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_NONCONTINUABLE_EXCEPTION ਸਥਿਤੀ_NONCONTINUABLE_EXCEPTION
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_ਢੇਰ_ਉਛਾਲ ਸਥਿਤੀ_ਢੇਰ_ਉਛਾਲ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_INVALID_DISPOSITION ਸਥਿਤੀ_INVALID_DISPOSITION
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_GUARD_ਪੰਨਾ ਸਥਿਤੀ_GUARD_ਪੰਨਾ_VIOLATION
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_INVALID_HANDLE ਸਥਿਤੀ_INVALID_HANDLE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_POSSIBLE_DEADLOCK ਸਥਿਤੀ_POSSIBLE_DEADLOCK
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CONTROL_C_EXIT ਸਥਿਤੀ_CONTROL_C_EXIT
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Move_ਸਮ੍ਰਿਤੀ Rtl_Move_ਸਮ੍ਰਿਤੀ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Copy_ਸਮ੍ਰਿਤੀ Rtl_Copy_ਸਮ੍ਰਿਤੀ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Fill_ਸਮ੍ਰਿਤੀ Rtl_Fill_ਸਮ੍ਰਿਤੀ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Zero_ਸਮ੍ਰਿਤੀ Rtl_Zero_ਸਮ੍ਰਿਤੀ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Secure_Zero_ਸਮ੍ਰਿਤੀ Rtl_Secure_Zero_ਸਮ੍ਰਿਤੀ
 
-#define FILE_FLAG_WRITE_THROUGH 0x80000000
-#define FILE_FLAG_OVERLAPPED 0x40000000
-#define FILE_FLAG_NO_BUFFERING 0x20000000
-#define FILE_FLAG_RANDOM_ACCESS 0x10000000
-#define FILE_FLAG_SEQUENTIAL_SCAN 0x8000000
-#define FILE_FLAG_DELETE_ON_CLOSE 0x4000000
-#define FILE_FLAG_BACKUP_SEMANTICS 0x2000000
-#define FILE_FLAG_POSIX_SEMANTICS 0x1000000
-#define FILE_FLAG_OPEN_REPARSE_POINT 0x200000
-#define FILE_FLAG_OPEN_NO_RECALL 0x100000
-#define FILE_FLAG_FIRST_PIPE_INSTANCE 0x80000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_FLAG_WRITE_THROUGH 0x80000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_FLAG_OVERLAPPED 0x40000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_FLAG_NO_BUFFERING 0x20000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_FLAG_RANDOM_ACCESS 0x10000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_FLAG_SEQUENTIAL_ਜਾਂਚ 0x8000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_FLAG_DELETE_ON_CLOSE 0x4000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_FLAG_BACKUP_SEMANTICS 0x2000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_FLAG_POSIX_SEMANTICS 0x1000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_FLAG_OPEN_REPARSE_ਬਿੰਦੂ 0x200000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_FLAG_OPEN_NO_RECALL 0x100000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_FLAG_ਪਹਿਲਾ_PIPE_INSTANCE 0x80000
 
-#define CREATE_NEW 1
-#define CREATE_ALWAYS 2
-#define OPEN_EXISTING 3
-#define OPEN_ALWAYS 4
-#define TRUNCATE_EXISTING 5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_NEW 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_ALWAYS 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OPEN_EXISTING 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OPEN_ALWAYS 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TRUNCATE_EXISTING 5
 
-#define PROGRESS_CONTINUE 0
-#define PROGRESS_CANCEL 1
-#define PROGRESS_STOP 2
-#define PROGRESS_QUIET 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਤਰੱਕੀ_CONTINUE 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਤਰੱਕੀ_CANCEL 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਤਰੱਕੀ_STOP 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਤਰੱਕੀ_QUIET 3
 
-#define CALLBACK_CHUNK_FINISHED 0x0
-#define CALLBACK_STREAM_SWITCH 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CALLBACK_CHUNK_ਮੁਕੰਮਲ 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CALLBACK_ਧਾਰਾ_SWITCH 0x1
 
-#define COPY_FILE_FAIL_IF_EXISTS 0x1
-#define COPY_FILE_RESTARTABLE 0x2
-#define COPY_FILE_OPEN_SOURCE_FOR_WRITE 0x4
-#define COPY_FILE_ALLOW_DECRYPTED_DESTINATION 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ COPY_FILE_FAIL_IF_EXISTS 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ COPY_FILE_RESTARTABLE 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ COPY_FILE_OPEN_ਸਰੋਤ_FOR_WRITE 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ COPY_FILE_ALLOW_DECRYPTED_DESTINATION 0x8
 
-#define REPLACEFILE_WRITE_THROUGH 0x1
-#define REPLACEFILE_IGNORE_MERGE_ERRORS 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REPLACEFILE_WRITE_THROUGH 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REPLACEFILE_IGNORE_ਮਿਲਾਓ_ERRORS 0x2
 
-#define PIPE_ACCESS_INBOUND 0x1
-#define PIPE_ACCESS_OUTBOUND 0x2
-#define PIPE_ACCESS_DUPLEX 0x3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_ACCESS_INBOUND 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_ACCESS_OUTBOUND 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_ACCESS_DUPLEX 0x3
 
-#define PIPE_CLIENT_END 0x0
-#define PIPE_SERVER_END 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_CLIENT_ਸਿਰਾ 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_SERVER_ਸਿਰਾ 0x1
 
-#define PIPE_WAIT 0x0
-#define PIPE_NOWAIT 0x1
-#define PIPE_READMODE_BYTE 0x0
-#define PIPE_READMODE_MESSAGE 0x2
-#define PIPE_TYPE_BYTE 0x0
-#define PIPE_TYPE_MESSAGE 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_WAIT 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_NOWAIT 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_READMODE_BYTE 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_READMODE_ਸੁਨੇਹਾ 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_TYPE_BYTE 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_TYPE_ਸੁਨੇਹਾ 0x4
 
-#define PIPE_UNLIMITED_INSTANCES 255
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PIPE_UNLIMITED_INSTANCES 255
 
-#define SECURITY_ANONYMOUS (SecurityAnonymous << 16)
-#define SECURITY_IDENTIFICATION (SecurityIdentification << 16)
-#define SECURITY_IMPERSONATION (SecurityImpersonation << 16)
-#define SECURITY_DELEGATION (SecurityDelegation << 16)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SECURITY_ANONYMOUS (SecurityAnonymous << 16)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SECURITY_IDENTIFICATION (SecurityIdentification << 16)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SECURITY_IMPERSONATION (SecurityImpersonation << 16)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SECURITY_DELEGATION (SecurityDelegation << 16)
 
-#define SECURITY_CONTEXT_TRACKING 0x40000
-#define SECURITY_EFFECTIVE_ONLY 0x80000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SECURITY_CONTEXT_TRACKING 0x40000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SECURITY_EFFECTIVE_ONLY 0x80000
 
-#define SECURITY_SQOS_PRESENT 0x100000
-#define SECURITY_VALID_SQOS_FLAGS 0x1f0000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SECURITY_SQOS_PRESENT 0x100000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SECURITY_VALID_SQOS_FLAGS 0x1f0000
 
-  typedef struct _OVERLAPPED {
-    ULONG_PTR Internal;
-    ULONG_PTR InternalHigh;
-    union {
-      struct {
-	DWORD Offset;
-	DWORD OffsetHigh;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _OVERLAPPED {
+    ULONG_PTR ਅੰਦਰੂਨੀ;
+    ULONG_PTR ਅੰਦਰੂਨੀ_ਉੱਚਾ;
+    ਸੰਘ {
+      ਬਣਤਰ {
+	DWORD ਵਿੱਥ_3;
+	DWORD ਵਿੱਥ_ਉੱਚਾ_2;
       };
-      PVOID Pointer;
+      PVOID ਸੂਚਕ_2;
     };
     HANDLE hEvent;
   } OVERLAPPED,*LPOVERLAPPED;
 
-  typedef struct _SECURITY_ATTRIBUTES {
-    DWORD nLength;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ SECURITY_ਗੁਣ {
+    DWORD n_ਲੰਮਾਈ;
     LPVOID lpSecurityDescriptor;
     WINBOOL bInheritHandle;
-  } SECURITY_ATTRIBUTES,*PSECURITY_ATTRIBUTES,*LPSECURITY_ATTRIBUTES;
+  } SECURITY_ਗੁਣ_2,*PSECURITY_ਗੁਣ,*LPSECURITY_ਗੁਣ;
 
-  typedef struct _PROCESS_INFORMATION {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _PROCESS_INFORMATION {
     HANDLE hProcess;
     HANDLE hThread;
     DWORD dwProcessId;
     DWORD dwThreadId;
   } PROCESS_INFORMATION,*PPROCESS_INFORMATION,*LPPROCESS_INFORMATION;
 
-#ifndef _FILETIME_
-#define _FILETIME_
-  typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _FILETIME_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _FILETIME_
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _FILETIME {
+    DWORD dw_ਨੀਵਾਂ_Date_ਸਮਾਂ;
+    DWORD dw_ਉੱਚਾ_Date_ਸਮਾਂ;
   } FILETIME,*PFILETIME,*LPFILETIME;
-#endif
+#ਜੇ_ਅੰਤ
 
-  typedef struct _SYSTEMTIME {
-    WORD wYear;
-    WORD wMonth;
-    WORD wDayOfWeek;
-    WORD wDay;
-    WORD wHour;
-    WORD wMinute;
-    WORD wSecond;
-    WORD wMilliseconds;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _SYSTEMTIME {
+    ਸ਼ਬਦ_3 wYear;
+    ਸ਼ਬਦ_3 wMonth;
+    ਸ਼ਬਦ_3 w_Day_ਦਾ_Week;
+    ਸ਼ਬਦ_3 wDay;
+    ਸ਼ਬਦ_3 wHour;
+    ਸ਼ਬਦ_3 wMinute;
+    ਸ਼ਬਦ_3 w_ਦੂਜਾ;
+    ਸ਼ਬਦ_3 wMilliseconds;
   } SYSTEMTIME,*PSYSTEMTIME,*LPSYSTEMTIME;
 
-  typedef DWORD (WINAPI *PTHREAD_START_ROUTINE)(LPVOID lpThreadParameter);
-  typedef PTHREAD_START_ROUTINE LPTHREAD_START_ROUTINE;
-  typedef VOID (WINAPI *PFIBER_START_ROUTINE)(LPVOID lpFiberParameter);
-  typedef PFIBER_START_ROUTINE LPFIBER_START_ROUTINE;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ DWORD (WINAPI *PTHREAD_ਸ਼ੁਰੂ_ROUTINE)(LPVOID lpThreadParameter);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PTHREAD_ਸ਼ੁਰੂ_ROUTINE LPTHREAD_ਸ਼ੁਰੂ_ROUTINE;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ VOID (WINAPI *PFIBER_ਸ਼ੁਰੂ_ROUTINE)(LPVOID lpFiberParameter);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PFIBER_ਸ਼ੁਰੂ_ROUTINE LPFIBER_ਸ਼ੁਰੂ_ROUTINE;
 
-  typedef RTL_CRITICAL_SECTION CRITICAL_SECTION;
-  typedef PRTL_CRITICAL_SECTION PCRITICAL_SECTION;
-  typedef PRTL_CRITICAL_SECTION LPCRITICAL_SECTION;
-  typedef RTL_CRITICAL_SECTION_DEBUG CRITICAL_SECTION_DEBUG;
-  typedef PRTL_CRITICAL_SECTION_DEBUG PCRITICAL_SECTION_DEBUG;
-  typedef PRTL_CRITICAL_SECTION_DEBUG LPCRITICAL_SECTION_DEBUG;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ RTL_CRITICAL_SECTION CRITICAL_SECTION;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PRTL_CRITICAL_SECTION PCRITICAL_SECTION;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PRTL_CRITICAL_SECTION LPCRITICAL_SECTION;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ RTL_CRITICAL_SECTION_DEBUG CRITICAL_SECTION_DEBUG;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PRTL_CRITICAL_SECTION_DEBUG PCRITICAL_SECTION_DEBUG;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PRTL_CRITICAL_SECTION_DEBUG LPCRITICAL_SECTION_DEBUG;
 
-  WINBASEAPI PVOID WINAPI EncodePointer(PVOID Ptr);
-  WINBASEAPI PVOID WINAPI DecodePointer(PVOID Ptr);
-  WINBASEAPI PVOID WINAPI EncodeSystemPointer(PVOID Ptr);
-  WINBASEAPI PVOID WINAPI DecodeSystemPointer(PVOID Ptr);
+  WINBASEAPI PVOID WINAPI Encode_ਸੂਚਕ(PVOID Ptr);
+  WINBASEAPI PVOID WINAPI Decode_ਸੂਚਕ(PVOID Ptr);
+  WINBASEAPI PVOID WINAPI Encode_System_ਸੂਚਕ(PVOID Ptr);
+  WINBASEAPI PVOID WINAPI Decode_System_ਸੂਚਕ(PVOID Ptr);
 
-#ifdef I_X86_
-  typedef PLDT_ENTRY LPLDT_ENTRY;
-#else
-  typedef LPVOID LPLDT_ENTRY;
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ I_X86_
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PLDT_ਇੰਦਰਾਜ LPLDT_ਇੰਦਰਾਜ;
+#ਨਹੀਂਤਾਂ
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ LPVOID LPLDT_ਇੰਦਰਾਜ;
+#ਜੇ_ਅੰਤ
 
-#define MUTEX_MODIFY_STATE MUTANT_QUERY_STATE
-#define MUTEX_ALL_ACCESS MUTANT_ALL_ACCESS
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MUTEX_MODIFY_STATE MUTANT_QUERY_STATE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MUTEX_ALL_ACCESS MUTANT_ALL_ACCESS
 
-#define SP_SERIALCOMM ((DWORD)0x1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SP_SERIALCOMM ((DWORD)0x1)
 
-#define PST_UNSPECIFIED ((DWORD)0x0)
-#define PST_RS232 ((DWORD)0x1)
-#define PST_PARALLELPORT ((DWORD)0x2)
-#define PST_RS422 ((DWORD)0x3)
-#define PST_RS423 ((DWORD)0x4)
-#define PST_RS449 ((DWORD)0x5)
-#define PST_MODEM ((DWORD)0x6)
-#define PST_FAX ((DWORD)0x21)
-#define PST_SCANNER ((DWORD)0x22)
-#define PST_NETWORK_BRIDGE ((DWORD)0x100)
-#define PST_LAT ((DWORD)0x101)
-#define PST_TCPIP_TELNET ((DWORD)0x102)
-#define PST_X25 ((DWORD)0x103)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_UNSPECIFIED ((DWORD)0x0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_RS232 ((DWORD)0x1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_PARALLELPORT ((DWORD)0x2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_RS422 ((DWORD)0x3)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_RS423 ((DWORD)0x4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_RS449 ((DWORD)0x5)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_MODEM ((DWORD)0x6)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_FAX ((DWORD)0x21)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_SCANNER ((DWORD)0x22)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_ਜਾਲ_BRIDGE ((DWORD)0x100)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_LAT ((DWORD)0x101)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_TCPIP_TELNET ((DWORD)0x102)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PST_X25 ((DWORD)0x103)
 
-#define PCF_DTRDSR ((DWORD)0x1)
-#define PCF_RTSCTS ((DWORD)0x2)
-#define PCF_RLSD ((DWORD)0x4)
-#define PCF_PARITY_CHECK ((DWORD)0x8)
-#define PCF_XONXOFF ((DWORD)0x10)
-#define PCF_SETXCHAR ((DWORD)0x20)
-#define PCF_TOTALTIMEOUTS ((DWORD)0x40)
-#define PCF_INTTIMEOUTS ((DWORD)0x80)
-#define PCF_SPECIALCHARS ((DWORD)0x100)
-#define PCF_16BITMODE ((DWORD)0x200)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PCF_DTRDSR ((DWORD)0x1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PCF_RTSCTS ((DWORD)0x2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PCF_RLSD ((DWORD)0x4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PCF_PARITY_CHECK ((DWORD)0x8)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PCF_XONXOFF ((DWORD)0x10)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PCF_SETXCHAR ((DWORD)0x20)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PCF_TOTALTIMEOUTS ((DWORD)0x40)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PCF_INTTIMEOUTS ((DWORD)0x80)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PCF_SPECIALCHARS ((DWORD)0x100)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PCF_16BITMODE ((DWORD)0x200)
 
-#define SP_PARITY ((DWORD)0x1)
-#define SP_BAUD ((DWORD)0x2)
-#define SP_DATABITS ((DWORD)0x4)
-#define SP_STOPBITS ((DWORD)0x8)
-#define SP_HANDSHAKING ((DWORD)0x10)
-#define SP_PARITY_CHECK ((DWORD)0x20)
-#define SP_RLSD ((DWORD)0x40)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SP_PARITY ((DWORD)0x1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SP_BAUD ((DWORD)0x2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SP_DATABITS ((DWORD)0x4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SP_STOPBITS ((DWORD)0x8)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SP_HANDSHAKING ((DWORD)0x10)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SP_PARITY_CHECK ((DWORD)0x20)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SP_RLSD ((DWORD)0x40)
 
-#define BAUD_075 ((DWORD)0x1)
-#define BAUD_110 ((DWORD)0x2)
-#define BAUD_134_5 ((DWORD)0x4)
-#define BAUD_150 ((DWORD)0x8)
-#define BAUD_300 ((DWORD)0x10)
-#define BAUD_600 ((DWORD)0x20)
-#define BAUD_1200 ((DWORD)0x40)
-#define BAUD_1800 ((DWORD)0x80)
-#define BAUD_2400 ((DWORD)0x100)
-#define BAUD_4800 ((DWORD)0x200)
-#define BAUD_7200 ((DWORD)0x400)
-#define BAUD_9600 ((DWORD)0x800)
-#define BAUD_14400 ((DWORD)0x1000)
-#define BAUD_19200 ((DWORD)0x2000)
-#define BAUD_38400 ((DWORD)0x4000)
-#define BAUD_56K ((DWORD)0x8000)
-#define BAUD_128K ((DWORD)0x10000)
-#define BAUD_115200 ((DWORD)0x20000)
-#define BAUD_57600 ((DWORD)0x40000)
-#define BAUD_USER ((DWORD)0x10000000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_075 ((DWORD)0x1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_110 ((DWORD)0x2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_134_5 ((DWORD)0x4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_150 ((DWORD)0x8)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_300 ((DWORD)0x10)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_600 ((DWORD)0x20)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_1200 ((DWORD)0x40)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_1800 ((DWORD)0x80)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_2400 ((DWORD)0x100)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_4800 ((DWORD)0x200)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_7200 ((DWORD)0x400)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_9600 ((DWORD)0x800)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_14400 ((DWORD)0x1000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_19200 ((DWORD)0x2000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_38400 ((DWORD)0x4000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_56K ((DWORD)0x8000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_128K ((DWORD)0x10000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_115200 ((DWORD)0x20000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_57600 ((DWORD)0x40000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BAUD_USER ((DWORD)0x10000000)
 
-#define DATABITS_5 ((WORD)0x1)
-#define DATABITS_6 ((WORD)0x2)
-#define DATABITS_7 ((WORD)0x4)
-#define DATABITS_8 ((WORD)0x8)
-#define DATABITS_16 ((WORD)0x10)
-#define DATABITS_16X ((WORD)0x20)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DATABITS_5 ((ਸ਼ਬਦ_3)0x1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DATABITS_6 ((ਸ਼ਬਦ_3)0x2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DATABITS_7 ((ਸ਼ਬਦ_3)0x4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DATABITS_8 ((ਸ਼ਬਦ_3)0x8)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DATABITS_16 ((ਸ਼ਬਦ_3)0x10)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DATABITS_16X ((ਸ਼ਬਦ_3)0x20)
 
-#define STOPBITS_10 ((WORD)0x1)
-#define STOPBITS_15 ((WORD)0x2)
-#define STOPBITS_20 ((WORD)0x4)
-#define PARITY_NONE ((WORD)0x100)
-#define PARITY_ODD ((WORD)0x200)
-#define PARITY_EVEN ((WORD)0x400)
-#define PARITY_MARK ((WORD)0x800)
-#define PARITY_SPACE ((WORD)0x1000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STOPBITS_10 ((ਸ਼ਬਦ_3)0x1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STOPBITS_15 ((ਸ਼ਬਦ_3)0x2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STOPBITS_20 ((ਸ਼ਬਦ_3)0x4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PARITY_NONE ((ਸ਼ਬਦ_3)0x100)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PARITY_ODD ((ਸ਼ਬਦ_3)0x200)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PARITY_EVEN ((ਸ਼ਬਦ_3)0x400)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PARITY_MARK ((ਸ਼ਬਦ_3)0x800)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PARITY_SPACE ((ਸ਼ਬਦ_3)0x1000)
 
-  typedef struct _COMMPROP {
-    WORD wPacketLength;
-    WORD wPacketVersion;
-    DWORD dwServiceMask;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _COMMPROP {
+    ਸ਼ਬਦ_3 w_Packet_ਲੰਮਾਈ;
+    ਸ਼ਬਦ_3 w_Packet_ਸੰਸਕਰਣ;
+    DWORD dw_Service_ਨਕਾਬ;
     DWORD dwReserved1;
-    DWORD dwMaxTxQueue;
-    DWORD dwMaxRxQueue;
+    DWORD dw_Max_Tx_ਕਤਾਰ;
+    DWORD dw_Max_Rx_ਕਤਾਰ;
     DWORD dwMaxBaud;
     DWORD dwProvSubType;
     DWORD dwProvCapabilities;
     DWORD dwSettableParams;
     DWORD dwSettableBaud;
-    WORD wSettableData;
-    WORD wSettableStopParity;
-    DWORD dwCurrentTxQueue;
-    DWORD dwCurrentRxQueue;
+    ਸ਼ਬਦ_3 w_Settable_ਅੰਕੜੇ;
+    ਸ਼ਬਦ_3 wSettableStopParity;
+    DWORD dw_Current_Tx_ਕਤਾਰ;
+    DWORD dw_Current_Rx_ਕਤਾਰ;
     DWORD dwProvSpec1;
     DWORD dwProvSpec2;
     WCHAR wcProvChar[1];
   } COMMPROP,*LPCOMMPROP;
 
-#define COMMPROP_INITIALIZED ((DWORD)0xE73CF52E)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ COMMPROP_INITIALIZED ((DWORD)0xE73CF52E)
 
-  typedef struct _COMSTAT {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _COMSTAT {
     DWORD fCtsHold : 1;
     DWORD fDsrHold : 1;
     DWORD fRlsdHold : 1;
     DWORD fXoffHold : 1;
-    DWORD fXoffSent : 1;
+    DWORD f_Xoff_ਭੇਜਿਆ : 1;
     DWORD fEof : 1;
     DWORD fTxim : 1;
     DWORD fReserved : 25;
-    DWORD cbInQue;
-    DWORD cbOutQue;
+    DWORD cb_ਵਿੱਚ_Que;
+    DWORD cb_ਬਾਹਰਲਾ_Que;
   } COMSTAT,*LPCOMSTAT;
 
-#define DTR_CONTROL_DISABLE 0x0
-#define DTR_CONTROL_ENABLE 0x1
-#define DTR_CONTROL_HANDSHAKE 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DTR_CONTROL_DISABLE 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DTR_CONTROL_ENABLE 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DTR_CONTROL_HANDSHAKE 0x2
 
-#define RTS_CONTROL_DISABLE 0x0
-#define RTS_CONTROL_ENABLE 0x1
-#define RTS_CONTROL_HANDSHAKE 0x2
-#define RTS_CONTROL_TOGGLE 0x3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RTS_CONTROL_DISABLE 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RTS_CONTROL_ENABLE 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RTS_CONTROL_HANDSHAKE 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RTS_CONTROL_TOGGLE 0x3
 
-  typedef struct _DCB {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _DCB {
     DWORD DCBlength;
-    DWORD BaudRate;
-    DWORD fBinary: 1;
+    DWORD Baud_ਦਰ;
+    DWORD f_ਦੁਆਧਾਰੀ: 1;
     DWORD fParity: 1;
     DWORD fOutxCtsFlow:1;
     DWORD fOutxDsrFlow:1;
     DWORD fDtrControl:2;
-    DWORD fDsrSensitivity:1;
+    DWORD f_Dsr_ਸੰਵੇਦਨਸ਼ੀਲਤਾ:1;
     DWORD fTXContinueOnXoff: 1;
-    DWORD fOutX: 1;
-    DWORD fInX: 1;
+    DWORD f_ਬਾਹਰਲਾ_X: 1;
+    DWORD f_ਵਿੱਚ_X: 1;
     DWORD fErrorChar: 1;
     DWORD fNull: 1;
     DWORD fRtsControl:2;
     DWORD fAbortOnError:1;
     DWORD fDummy2:17;
-    WORD wReserved;
-    WORD XonLim;
-    WORD XoffLim;
-    BYTE ByteSize;
+    ਸ਼ਬਦ_3 wReserved;
+    ਸ਼ਬਦ_3 XonLim;
+    ਸ਼ਬਦ_3 XoffLim;
+    BYTE Byte_ਮਾਪ;
     BYTE Parity;
-    BYTE StopBits;
-    char XonChar;
-    char XoffChar;
-    char ErrorChar;
-    char EofChar;
-    char EvtChar;
-    WORD wReserved1;
+    BYTE Stop_ਬਿੱਟ;
+    ਅੱਖਰ XonChar;
+    ਅੱਖਰ XoffChar;
+    ਅੱਖਰ ErrorChar;
+    ਅੱਖਰ EofChar;
+    ਅੱਖਰ EvtChar;
+    ਸ਼ਬਦ_3 wReserved1;
   } DCB,*LPDCB;
 
-  typedef struct _COMMTIMEOUTS {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _COMMTIMEOUTS {
     DWORD ReadIntervalTimeout;
-    DWORD ReadTotalTimeoutMultiplier;
-    DWORD ReadTotalTimeoutConstant;
-    DWORD WriteTotalTimeoutMultiplier;
-    DWORD WriteTotalTimeoutConstant;
+    DWORD Read_ਕੁੱਲ_Timeout_Multiplier;
+    DWORD Read_ਕੁੱਲ_Timeout_Constant;
+    DWORD Write_ਕੁੱਲ_Timeout_Multiplier;
+    DWORD Write_ਕੁੱਲ_Timeout_Constant;
   } COMMTIMEOUTS,*LPCOMMTIMEOUTS;
 
-  typedef struct _COMMCONFIG {
-    DWORD dwSize;
-    WORD wVersion;
-    WORD wReserved;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _COMMCONFIG {
+    DWORD dw_ਮਾਪ;
+    ਸ਼ਬਦ_3 w_ਸੰਸਕਰਣ;
+    ਸ਼ਬਦ_3 wReserved;
     DCB dcb;
     DWORD dwProviderSubType;
-    DWORD dwProviderOffset;
-    DWORD dwProviderSize;
-    WCHAR wcProviderData[1];
+    DWORD dw_Provider_ਵਿੱਥ;
+    DWORD dw_Provider_ਮਾਪ;
+    WCHAR wc_Provider_ਅੰਕੜੇ[1];
   } COMMCONFIG,*LPCOMMCONFIG;
 
-  typedef struct _SYSTEM_INFO {
-    union {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _SYSTEM_INFO {
+    ਸੰਘ {
       DWORD dwOemId;
-      struct {
-	WORD wProcessorArchitecture;
-	WORD wReserved;
+      ਬਣਤਰ {
+	ਸ਼ਬਦ_3 wProcessorArchitecture;
+	ਸ਼ਬਦ_3 wReserved;
       };
     };
-    DWORD dwPageSize;
-    LPVOID lpMinimumApplicationAddress;
-    LPVOID lpMaximumApplicationAddress;
-    DWORD_PTR dwActiveProcessorMask;
-    DWORD dwNumberOfProcessors;
+    DWORD dw_ਪੰਨਾ_ਮਾਪ;
+    LPVOID lp_Minimum_Application_ਪਤਾ;
+    LPVOID lp_ਵੱਧ_ਤੋਂ_ਵੱਧ_Application_ਪਤਾ;
+    DWORD_PTR dw_ਸਰਗਰਮ_Processor_ਨਕਾਬ;
+    DWORD dw_ਸੰਖਿਆ_ਦਾ_Processors;
     DWORD dwProcessorType;
-    DWORD dwAllocationGranularity;
-    WORD wProcessorLevel;
-    WORD wProcessorRevision;
+    DWORD dw_ਵੰਡ_Granularity;
+    ਸ਼ਬਦ_3 wProcessorLevel;
+    ਸ਼ਬਦ_3 wProcessorRevision;
   } SYSTEM_INFO,*LPSYSTEM_INFO;
 
-#define FreeModule(hLibModule) FreeLibrary((hLibModule))
-#define MakeProcInstance(lpProc,hInstance) (lpProc)
-#define FreeProcInstance(lpProc) (lpProc)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FreeModule(hLibModule) FreeLibrary((hLibModule))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MakeProcInstance(lpProc,hInstance) (lpProc)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FreeProcInstance(lpProc) (lpProc)
 
-#define GMEM_FIXED 0x0
-#define GMEM_MOVEABLE 0x2
-#define GMEM_NOCOMPACT 0x10
-#define GMEM_NODISCARD 0x20
-#define GMEM_ZEROINIT 0x40
-#define GMEM_MODIFY 0x80
-#define GMEM_DISCARDABLE 0x100
-#define GMEM_NOT_BANKED 0x1000
-#define GMEM_SHARE 0x2000
-#define GMEM_DDESHARE 0x2000
-#define GMEM_NOTIFY 0x4000
-#define GMEM_LOWER GMEM_NOT_BANKED
-#define GMEM_VALID_FLAGS 0x7F72
-#define GMEM_INVALID_HANDLE 0x8000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_FIXED 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_MOVEABLE 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_NOCOMPACT 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_NODISCARD 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_ZEROINIT 0x40
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_MODIFY 0x80
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_DISCARDABLE 0x100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_NOT_BANKED 0x1000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_SHARE 0x2000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_DDESHARE 0x2000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_NOTIFY 0x4000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_ਹੇਠਲਾ GMEM_NOT_BANKED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_VALID_FLAGS 0x7F72
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_INVALID_HANDLE 0x8000
 
-#define GHND (GMEM_MOVEABLE | GMEM_ZEROINIT)
-#define GPTR (GMEM_FIXED | GMEM_ZEROINIT)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GHND (GMEM_MOVEABLE | GMEM_ZEROINIT)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GPTR (GMEM_FIXED | GMEM_ZEROINIT)
 
-#define GlobalLRUNewest(h) ((HANDLE)(h))
-#define GlobalLRUOldest(h) ((HANDLE)(h))
-#define GlobalDiscard(h) GlobalReAlloc((h),0,GMEM_MOVEABLE)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GlobalLRUNewest(h) ((HANDLE)(h))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GlobalLRUOldest(h) ((HANDLE)(h))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GlobalDiscard(h) GlobalReAlloc((h),0,GMEM_MOVEABLE)
 
-#define GMEM_DISCARDED 0x4000
-#define GMEM_LOCKCOUNT 0xff
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_DISCARDED 0x4000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GMEM_LOCKCOUNT 0xff
 
-  typedef struct _MEMORYSTATUS {
-    DWORD dwLength;
-    DWORD dwMemoryLoad;
-    SIZE_T dwTotalPhys;
-    SIZE_T dwAvailPhys;
-    SIZE_T dwTotalPageFile;
-    SIZE_T dwAvailPageFile;
-    SIZE_T dwTotalVirtual;
-    SIZE_T dwAvailVirtual;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _MEMORYSTATUS {
+    DWORD dw_ਲੰਮਾਈ;
+    DWORD dw_ਸਮ੍ਰਿਤੀ_ਲੱਦੋ;
+    ਮਾਪ_T dw_ਕੁੱਲ_Phys;
+    ਮਾਪ_T dwAvailPhys;
+    ਮਾਪ_T dw_ਕੁੱਲ_ਪੰਨਾ_File;
+    ਮਾਪ_T dw_Avail_ਪੰਨਾ_File;
+    ਮਾਪ_T dw_ਕੁੱਲ_Virtual;
+    ਮਾਪ_T dwAvailVirtual;
   } MEMORYSTATUS,*LPMEMORYSTATUS;
 
-#define LMEM_FIXED 0x0
-#define LMEM_MOVEABLE 0x2
-#define LMEM_NOCOMPACT 0x10
-#define LMEM_NODISCARD 0x20
-#define LMEM_ZEROINIT 0x40
-#define LMEM_MODIFY 0x80
-#define LMEM_DISCARDABLE 0xf00
-#define LMEM_VALID_FLAGS 0xf72
-#define LMEM_INVALID_HANDLE 0x8000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LMEM_FIXED 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LMEM_MOVEABLE 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LMEM_NOCOMPACT 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LMEM_NODISCARD 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LMEM_ZEROINIT 0x40
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LMEM_MODIFY 0x80
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LMEM_DISCARDABLE 0xf00
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LMEM_VALID_FLAGS 0xf72
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LMEM_INVALID_HANDLE 0x8000
 
-#define LHND (LMEM_MOVEABLE | LMEM_ZEROINIT)
-#define LPTR (LMEM_FIXED | LMEM_ZEROINIT)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LHND (LMEM_MOVEABLE | LMEM_ZEROINIT)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LPTR (LMEM_FIXED | LMEM_ZEROINIT)
 
-#define NONZEROLHND (LMEM_MOVEABLE)
-#define NONZEROLPTR (LMEM_FIXED)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NONZEROLHND (LMEM_MOVEABLE)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NONZEROLPTR (LMEM_FIXED)
 
-#define LocalDiscard(h) LocalReAlloc((h),0,LMEM_MOVEABLE)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LocalDiscard(h) LocalReAlloc((h),0,LMEM_MOVEABLE)
 
-#define LMEM_DISCARDED 0x4000
-#define LMEM_LOCKCOUNT 0xff
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LMEM_DISCARDED 0x4000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LMEM_LOCKCOUNT 0xff
 
-#define DEBUG_PROCESS 0x1
-#define DEBUG_ONLY_THIS_PROCESS 0x2
-#define CREATE_SUSPENDED 0x4
-#define DETACHED_PROCESS 0x8
-#define CREATE_NEW_CONSOLE 0x10
-#define NORMAL_PRIORITY_CLASS 0x20
-#define IDLE_PRIORITY_CLASS 0x40
-#define HIGH_PRIORITY_CLASS 0x80
-#define REALTIME_PRIORITY_CLASS 0x100
-#define CREATE_NEW_PROCESS_GROUP 0x200
-#define CREATE_UNICODE_ENVIRONMENT 0x400
-#define CREATE_SEPARATE_WOW_VDM 0x800
-#define CREATE_SHARED_WOW_VDM 0x1000
-#define CREATE_FORCEDOS 0x2000
-#define BELOW_NORMAL_PRIORITY_CLASS 0x4000
-#define ABOVE_NORMAL_PRIORITY_CLASS 0x8000
-#define STACK_SIZE_PARAM_IS_A_RESERVATION 0x10000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEBUG_PROCESS 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEBUG_ONLY_THIS_PROCESS 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_SUSPENDED 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DETACHED_PROCESS 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_NEW_CONSOLE 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸਾਧਾਰਨ_ਤਰਜੀਹ_CLASS 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IDLE_ਤਰਜੀਹ_CLASS 0x40
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਉੱਚਾ_ਤਰਜੀਹ_CLASS 0x80
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REALTIME_ਤਰਜੀਹ_CLASS 0x100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_NEW_PROCESS_ਸਮੂਹ 0x200
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_UNICODE_ENVIRONMENT 0x400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_SEPARATE_WOW_VDM 0x800
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_SHARED_WOW_VDM 0x1000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_FORCEDOS 0x2000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਹੇਠਾਂ_ਸਾਧਾਰਨ_ਤਰਜੀਹ_CLASS 0x4000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ABOVE_ਸਾਧਾਰਨ_ਤਰਜੀਹ_CLASS 0x8000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਢੇਰ_ਮਾਪ_PARAM_IS_A_RESERVATION 0x10000
 
-#define CREATE_BREAKAWAY_FROM_JOB 0x1000000
-#define CREATE_PRESERVE_CODE_AUTHZ_LEVEL 0x2000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_BREAKAWAY_FROM_ਕੰਮ 0x1000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_PRESERVE_ਕੋਡ_AUTHZ_LEVEL 0x2000000
 
-#define CREATE_DEFAULT_ERROR_MODE 0x4000000
-#define CREATE_NO_WINDOW 0x8000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_DEFAULT_ERROR_ਬਹੁਲਕ 0x4000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_NO_ਖਿੜਕੀ 0x8000000
 
-#define PROFILE_USER 0x10000000
-#define PROFILE_KERNEL 0x20000000
-#define PROFILE_SERVER 0x40000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PROFILE_USER 0x10000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PROFILE_KERNEL 0x20000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PROFILE_SERVER 0x40000000
 
-#define CREATE_IGNORE_SYSTEM_DEFAULT 0x80000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_IGNORE_SYSTEM_DEFAULT 0x80000000
 
-#define THREAD_PRIORITY_LOWEST THREAD_BASE_PRIORITY_MIN
-#define THREAD_PRIORITY_BELOW_NORMAL (THREAD_PRIORITY_LOWEST+1)
-#define THREAD_PRIORITY_NORMAL 0
-#define THREAD_PRIORITY_HIGHEST THREAD_BASE_PRIORITY_MAX
-#define THREAD_PRIORITY_ABOVE_NORMAL (THREAD_PRIORITY_HIGHEST-1)
-#define THREAD_PRIORITY_ERROR_RETURN (MAXLONG)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THREAD_ਤਰਜੀਹ_ਸਭ_ਤੋਂ_ਨੀਵਾਂ THREAD_ਅਧਾਰ_ਤਰਜੀਹ_MIN
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THREAD_ਤਰਜੀਹ_ਹੇਠਾਂ_ਸਾਧਾਰਨ (THREAD_ਤਰਜੀਹ_ਸਭ_ਤੋਂ_ਨੀਵਾਂ+1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THREAD_ਤਰਜੀਹ_ਸਾਧਾਰਨ 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THREAD_ਤਰਜੀਹ_HIGHEST THREAD_ਅਧਾਰ_ਤਰਜੀਹ_MAX
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THREAD_ਤਰਜੀਹ_ABOVE_ਸਾਧਾਰਨ (THREAD_ਤਰਜੀਹ_HIGHEST-1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THREAD_ਤਰਜੀਹ_ERROR_RETURN (MAXLONG)
 
-#define THREAD_PRIORITY_TIME_CRITICAL THREAD_BASE_PRIORITY_LOWRT
-#define THREAD_PRIORITY_IDLE THREAD_BASE_PRIORITY_IDLE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THREAD_ਤਰਜੀਹ_ਸਮਾਂ_CRITICAL THREAD_ਅਧਾਰ_ਤਰਜੀਹ_LOWRT
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THREAD_ਤਰਜੀਹ_IDLE THREAD_ਅਧਾਰ_ਤਰਜੀਹ_IDLE
 
-#define EXCEPTION_DEBUG_EVENT 1
-#define CREATE_THREAD_DEBUG_EVENT 2
-#define CREATE_PROCESS_DEBUG_EVENT 3
-#define EXIT_THREAD_DEBUG_EVENT 4
-#define EXIT_PROCESS_DEBUG_EVENT 5
-#define LOAD_DLL_DEBUG_EVENT 6
-#define UNLOAD_DLL_DEBUG_EVENT 7
-#define OUTPUT_DEBUG_STRING_EVENT 8
-#define RIP_EVENT 9
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXCEPTION_DEBUG_EVENT 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_THREAD_DEBUG_EVENT 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_PROCESS_DEBUG_EVENT 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXIT_THREAD_DEBUG_EVENT 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXIT_PROCESS_DEBUG_EVENT 5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_DLL_DEBUG_EVENT 6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ UNLOAD_DLL_DEBUG_EVENT 7
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OUTPUT_DEBUG_STRING_EVENT 8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RIP_EVENT 9
 
-  typedef struct _EXCEPTION_DEBUG_INFO {
-    EXCEPTION_RECORD ExceptionRecord;
-    DWORD dwFirstChance;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _EXCEPTION_DEBUG_INFO {
+    EXCEPTION_ਰਿਕਾਰਡ_2 Exception_ਰਿਕਾਰਡ;
+    DWORD dw_ਪਹਿਲਾ_Chance;
   } EXCEPTION_DEBUG_INFO,*LPEXCEPTION_DEBUG_INFO;
 
-  typedef struct _CREATE_THREAD_DEBUG_INFO {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _CREATE_THREAD_DEBUG_INFO {
     HANDLE hThread;
-    LPVOID lpThreadLocalBase;
-    LPTHREAD_START_ROUTINE lpStartAddress;
+    LPVOID lp_Thread_Local_ਅਧਾਰ;
+    LPTHREAD_ਸ਼ੁਰੂ_ROUTINE lp_ਸ਼ੁਰੂ_ਪਤਾ;
   } CREATE_THREAD_DEBUG_INFO,*LPCREATE_THREAD_DEBUG_INFO;
 
-  typedef struct _CREATE_PROCESS_DEBUG_INFO {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _CREATE_PROCESS_DEBUG_INFO {
     HANDLE hFile;
     HANDLE hProcess;
     HANDLE hThread;
-    LPVOID lpBaseOfImage;
-    DWORD dwDebugInfoFileOffset;
-    DWORD nDebugInfoSize;
-    LPVOID lpThreadLocalBase;
-    LPTHREAD_START_ROUTINE lpStartAddress;
+    LPVOID lp_ਅਧਾਰ_ਦਾ_Image;
+    DWORD dw_Debug_Info_File_ਵਿੱਥ;
+    DWORD n_Debug_Info_ਮਾਪ;
+    LPVOID lp_Thread_Local_ਅਧਾਰ;
+    LPTHREAD_ਸ਼ੁਰੂ_ROUTINE lp_ਸ਼ੁਰੂ_ਪਤਾ;
     LPVOID lpImageName;
-    WORD fUnicode;
+    ਸ਼ਬਦ_3 fUnicode;
   } CREATE_PROCESS_DEBUG_INFO,*LPCREATE_PROCESS_DEBUG_INFO;
 
-  typedef struct _EXIT_THREAD_DEBUG_INFO {
-    DWORD dwExitCode;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _EXIT_THREAD_DEBUG_INFO {
+    DWORD dw_Exit_ਕੋਡ;
   } EXIT_THREAD_DEBUG_INFO,*LPEXIT_THREAD_DEBUG_INFO;
 
-  typedef struct _EXIT_PROCESS_DEBUG_INFO {
-    DWORD dwExitCode;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _EXIT_PROCESS_DEBUG_INFO {
+    DWORD dw_Exit_ਕੋਡ;
   } EXIT_PROCESS_DEBUG_INFO,*LPEXIT_PROCESS_DEBUG_INFO;
 
-  typedef struct _LOAD_DLL_DEBUG_INFO {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਲੱਦੋ_DLL_DEBUG_INFO {
     HANDLE hFile;
-    LPVOID lpBaseOfDll;
-    DWORD dwDebugInfoFileOffset;
-    DWORD nDebugInfoSize;
+    LPVOID lp_ਅਧਾਰ_ਦਾ_Dll;
+    DWORD dw_Debug_Info_File_ਵਿੱਥ;
+    DWORD n_Debug_Info_ਮਾਪ;
     LPVOID lpImageName;
-    WORD fUnicode;
-  } LOAD_DLL_DEBUG_INFO,*LPLOAD_DLL_DEBUG_INFO;
+    ਸ਼ਬਦ_3 fUnicode;
+  } ਲੱਦੋ_DLL_DEBUG_INFO_2,*LPLOAD_DLL_DEBUG_INFO;
 
-  typedef struct _UNLOAD_DLL_DEBUG_INFO {
-    LPVOID lpBaseOfDll;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _UNLOAD_DLL_DEBUG_INFO {
+    LPVOID lp_ਅਧਾਰ_ਦਾ_Dll;
   } UNLOAD_DLL_DEBUG_INFO,*LPUNLOAD_DLL_DEBUG_INFO;
 
-  typedef struct _OUTPUT_DEBUG_STRING_INFO {
-    LPSTR lpDebugStringData;
-    WORD fUnicode;
-    WORD nDebugStringLength;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _OUTPUT_DEBUG_STRING_INFO {
+    LPSTR lp_Debug_String_ਅੰਕੜੇ;
+    ਸ਼ਬਦ_3 fUnicode;
+    ਸ਼ਬਦ_3 n_Debug_String_ਲੰਮਾਈ;
   } OUTPUT_DEBUG_STRING_INFO,*LPOUTPUT_DEBUG_STRING_INFO;
 
-  typedef struct _RIP_INFO {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _RIP_INFO {
     DWORD dwError;
     DWORD dwType;
   } RIP_INFO,*LPRIP_INFO;
 
-  typedef struct _DEBUG_EVENT {
-    DWORD dwDebugEventCode;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _DEBUG_EVENT {
+    DWORD dw_Debug_Event_ਕੋਡ;
     DWORD dwProcessId;
     DWORD dwThreadId;
-    union {
+    ਸੰਘ {
       EXCEPTION_DEBUG_INFO Exception;
       CREATE_THREAD_DEBUG_INFO CreateThread;
       CREATE_PROCESS_DEBUG_INFO CreateProcessInfo;
       EXIT_THREAD_DEBUG_INFO ExitThread;
       EXIT_PROCESS_DEBUG_INFO ExitProcess;
-      LOAD_DLL_DEBUG_INFO LoadDll;
+      ਲੱਦੋ_DLL_DEBUG_INFO_2 ਲੱਦੋ_Dll;
       UNLOAD_DLL_DEBUG_INFO UnloadDll;
       OUTPUT_DEBUG_STRING_INFO DebugString;
       RIP_INFO RipInfo;
     } u;
   } DEBUG_EVENT,*LPDEBUG_EVENT;
 
-  typedef PCONTEXT LPCONTEXT;
-  typedef PEXCEPTION_RECORD LPEXCEPTION_RECORD;
-  typedef PEXCEPTION_POINTERS LPEXCEPTION_POINTERS;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PCONTEXT LPCONTEXT;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PEXCEPTION_ਰਿਕਾਰਡ LPEXCEPTION_ਰਿਕਾਰਡ;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PEXCEPTION_ਸੂਚਕ_ਸਾਰੇ LPEXCEPTION_ਸੂਚਕ_ਸਾਰੇ;
 
-#define DRIVE_UNKNOWN 0
-#define DRIVE_NO_ROOT_DIR 1
-#define DRIVE_REMOVABLE 2
-#define DRIVE_FIXED 3
-#define DRIVE_REMOTE 4
-#define DRIVE_CDROM 5
-#define DRIVE_RAMDISK 6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DRIVE_UNKNOWN 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DRIVE_NO_ਜੜ੍ਹ_DIR 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DRIVE_REMOVABLE 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DRIVE_FIXED 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DRIVE_REMOTE 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DRIVE_CDROM 5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DRIVE_RAMDISK 6
 
-#define GetFreeSpace(w) (0x100000L)
-#define FILE_TYPE_UNKNOWN 0x0
-#define FILE_TYPE_DISK 0x1
-#define FILE_TYPE_CHAR 0x2
-#define FILE_TYPE_PIPE 0x3
-#define FILE_TYPE_REMOTE 0x8000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetFreeSpace(w) (0x100000L)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_TYPE_UNKNOWN 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_TYPE_DISK 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_TYPE_CHAR 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_TYPE_PIPE 0x3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_TYPE_REMOTE 0x8000
 
-#define STD_INPUT_HANDLE ((DWORD)-10)
-#define STD_OUTPUT_HANDLE ((DWORD)-11)
-#define STD_ERROR_HANDLE ((DWORD)-12)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STD_ਨਿਵੇਸ਼_HANDLE ((DWORD)-10)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STD_OUTPUT_HANDLE ((DWORD)-11)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STD_ERROR_HANDLE ((DWORD)-12)
 
-#define NOPARITY 0
-#define ODDPARITY 1
-#define EVENPARITY 2
-#define MARKPARITY 3
-#define SPACEPARITY 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NOPARITY 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ODDPARITY 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EVENPARITY 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MARKPARITY 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SPACEPARITY 4
 
-#define ONESTOPBIT 0
-#define ONE5STOPBITS 1
-#define TWOSTOPBITS 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ONESTOPBIT 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ONE5STOPBITS 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TWOSTOPBITS 2
 
-#define IGNORE 0
-#define INFINITE 0xffffffff
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IGNORE 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INFINITE 0xffffffff
 
-#define CBR_110 110
-#define CBR_300 300
-#define CBR_600 600
-#define CBR_1200 1200
-#define CBR_2400 2400
-#define CBR_4800 4800
-#define CBR_9600 9600
-#define CBR_14400 14400
-#define CBR_19200 19200
-#define CBR_38400 38400
-#define CBR_56000 56000
-#define CBR_57600 57600
-#define CBR_115200 115200
-#define CBR_128000 128000
-#define CBR_256000 256000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_110 110
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_300 300
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_600 600
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_1200 1200
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_2400 2400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_4800 4800
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_9600 9600
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_14400 14400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_19200 19200
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_38400 38400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_56000 56000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_57600 57600
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_115200 115200
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_128000 128000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CBR_256000 256000
 
-#define CE_RXOVER 0x1
-#define CE_OVERRUN 0x2
-#define CE_RXPARITY 0x4
-#define CE_FRAME 0x8
-#define CE_BREAK 0x10
-#define CE_TXFULL 0x100
-#define CE_PTO 0x200
-#define CE_IOE 0x400
-#define CE_DNS 0x800
-#define CE_OOP 0x1000
-#define CE_MODE 0x8000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CE_RXOVER 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CE_OVERRUN 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CE_RXPARITY 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CE_ਚੌਖਟਾ 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CE_BREAK 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CE_TXFULL 0x100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CE_PTO 0x200
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CE_IOE 0x400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CE_DNS 0x800
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CE_OOP 0x1000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CE_ਬਹੁਲਕ 0x8000
 
-#define IE_BADID (-1)
-#define IE_OPEN (-2)
-#define IE_NOPEN (-3)
-#define IE_MEMORY (-4)
-#define IE_DEFAULT (-5)
-#define IE_HARDWARE (-10)
-#define IE_BYTESIZE (-11)
-#define IE_BAUDRATE (-12)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IE_BADID (-1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IE_OPEN (-2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IE_NOPEN (-3)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IE_ਸਮ੍ਰਿਤੀ (-4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IE_DEFAULT (-5)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IE_HARDWARE (-10)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IE_BYTESIZE (-11)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IE_BAUDRATE (-12)
 
-#define EV_RXCHAR 0x1
-#define EV_RXFLAG 0x2
-#define EV_TXEMPTY 0x4
-#define EV_CTS 0x8
-#define EV_DSR 0x10
-#define EV_RLSD 0x20
-#define EV_BREAK 0x40
-#define EV_ERR 0x80
-#define EV_RING 0x100
-#define EV_PERR 0x200
-#define EV_RX80FULL 0x400
-#define EV_EVENT1 0x800
-#define EV_EVENT2 0x1000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_RXCHAR 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_RXFLAG 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_TXEMPTY 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_CTS 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_DSR 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_RLSD 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_BREAK 0x40
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_ERR 0x80
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_RING 0x100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_PERR 0x200
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_RX80_ਭਰਿਆ 0x400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_EVENT1 0x800
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EV_EVENT2 0x1000
 
-#define SETXOFF 1
-#define SETXON 2
-#define SETRTS 3
-#define CLRRTS 4
-#define SETDTR 5
-#define CLRDTR 6
-#define RESETDEV 7
-#define SETBREAK 8
-#define CLRBREAK 9
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SETXOFF 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SETXON 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SETRTS 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CLRRTS 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SETDTR 5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CLRDTR 6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RESETDEV 7
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SETBREAK 8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CLRBREAK 9
 
-#define PURGE_TXABORT 0x1
-#define PURGE_RXABORT 0x2
-#define PURGE_TXCLEAR 0x4
-#define PURGE_RXCLEAR 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PURGE_TXABORT 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PURGE_RXABORT 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PURGE_TXCLEAR 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PURGE_RXCLEAR 0x8
 
-#define LPTx 0x80
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LPTx 0x80
 
-#define MS_CTS_ON ((DWORD)0x10)
-#define MS_DSR_ON ((DWORD)0x20)
-#define MS_RING_ON ((DWORD)0x40)
-#define MS_RLSD_ON ((DWORD)0x80)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MS_CTS_ON ((DWORD)0x10)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MS_DSR_ON ((DWORD)0x20)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MS_RING_ON ((DWORD)0x40)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MS_RLSD_ON ((DWORD)0x80)
 
-#define S_QUEUEEMPTY 0
-#define S_THRESHOLD 1
-#define S_ALLTHRESHOLD 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_QUEUEEMPTY 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_ਹੱਦ 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_ALLTHRESHOLD 2
 
-#define S_NORMAL 0
-#define S_LEGATO 1
-#define S_STACCATO 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_ਸਾਧਾਰਨ 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_LEGATO 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_STACCATO 2
 
-#define S_PERIOD512 0
-#define S_PERIOD1024 1
-#define S_PERIOD2048 2
-#define S_PERIODVOICE 3
-#define S_WHITE512 4
-#define S_WHITE1024 5
-#define S_WHITE2048 6
-#define S_WHITEVOICE 7
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_PERIOD512 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_PERIOD1024 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_PERIOD2048 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_PERIODVOICE 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_WHITE512 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_WHITE1024 5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_WHITE2048 6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_WHITEVOICE 7
 
-#define S_SERDVNA (-1)
-#define S_SEROFM (-2)
-#define S_SERMACT (-3)
-#define S_SERQFUL (-4)
-#define S_SERBDNT (-5)
-#define S_SERDLN (-6)
-#define S_SERDCC (-7)
-#define S_SERDTP (-8)
-#define S_SERDVL (-9)
-#define S_SERDMD (-10)
-#define S_SERDSH (-11)
-#define S_SERDPT (-12)
-#define S_SERDFQ (-13)
-#define S_SERDDR (-14)
-#define S_SERDSR (-15)
-#define S_SERDST (-16)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDVNA (-1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SEROFM (-2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERMACT (-3)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERQFUL (-4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERBDNT (-5)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDLN (-6)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDCC (-7)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDTP (-8)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDVL (-9)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDMD (-10)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDSH (-11)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDPT (-12)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDFQ (-13)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDDR (-14)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDSR (-15)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_SERDST (-16)
 
-#define NMPWAIT_WAIT_FOREVER 0xffffffff
-#define NMPWAIT_NOWAIT 0x1
-#define NMPWAIT_USE_DEFAULT_WAIT 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NMPWAIT_WAIT_FOREVER 0xffffffff
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NMPWAIT_NOWAIT 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NMPWAIT_USE_DEFAULT_WAIT 0x0
 
-#define FS_CASE_IS_PRESERVED FILE_CASE_PRESERVED_NAMES
-#define FS_CASE_SENSITIVE FILE_CASE_SENSITIVE_SEARCH
-#define FS_UNICODE_STORED_ON_DISK FILE_UNICODE_ON_DISK
-#define FS_PERSISTENT_ACLS FILE_PERSISTENT_ACLS
-#define FS_VOL_IS_COMPRESSED FILE_VOLUME_IS_COMPRESSED
-#define FS_FILE_COMPRESSION FILE_FILE_COMPRESSION
-#define FS_FILE_ENCRYPTION FILE_SUPPORTS_ENCRYPTION
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FS_CASE_IS_PRESERVED FILE_CASE_PRESERVED_ਨਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FS_CASE_SENSITIVE FILE_CASE_SENSITIVE_ਖੋਜ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FS_UNICODE_STORED_ON_DISK FILE_UNICODE_ON_DISK
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FS_PERSISTENT_ACLS FILE_PERSISTENT_ACLS
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FS_VOL_IS_COMPRESSED FILE_VOLUME_IS_COMPRESSED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FS_FILE_COMPRESSION FILE_FILE_COMPRESSION
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FS_FILE_ENCRYPTION FILE_SUPPORTS_ENCRYPTION
 
-#define FILE_MAP_COPY SECTION_QUERY
-#define FILE_MAP_WRITE SECTION_MAP_WRITE
-#define FILE_MAP_READ SECTION_MAP_READ
-#define FILE_MAP_ALL_ACCESS SECTION_ALL_ACCESS
-#define FILE_MAP_EXECUTE SECTION_MAP_EXECUTE_EXPLICIT
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_MAP_COPY SECTION_QUERY
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_MAP_WRITE SECTION_MAP_WRITE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_MAP_READ SECTION_MAP_READ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_MAP_ALL_ACCESS SECTION_ALL_ACCESS
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_MAP_EXECUTE SECTION_MAP_EXECUTE_EXPLICIT
 
-#define OF_READ 0x0
-#define OF_WRITE 0x1
-#define OF_READWRITE 0x2
-#define OF_SHARE_COMPAT 0x0
-#define OF_SHARE_EXCLUSIVE 0x10
-#define OF_SHARE_DENY_WRITE 0x20
-#define OF_SHARE_DENY_READ 0x30
-#define OF_SHARE_DENY_NONE 0x40
-#define OF_PARSE 0x100
-#define OF_DELETE 0x200
-#define OF_VERIFY 0x400
-#define OF_CANCEL 0x800
-#define OF_CREATE 0x1000
-#define OF_PROMPT 0x2000
-#define OF_EXIST 0x4000
-#define OF_REOPEN 0x8000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_READ 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_WRITE 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_READWRITE 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_SHARE_COMPAT 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_SHARE_EXCLUSIVE 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_SHARE_DENY_WRITE 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_SHARE_DENY_READ 0x30
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_SHARE_DENY_NONE 0x40
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_PARSE 0x100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_DELETE 0x200
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_VERIFY 0x400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_CANCEL 0x800
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_CREATE 0x1000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_PROMPT 0x2000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_EXIST 0x4000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਦਾ_REOPEN 0x8000
 
-#define OFS_MAXPATHNAME 128
-  typedef struct _OFSTRUCT {
-    BYTE cBytes;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OFS_MAXPATHNAME 128
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _OFSTRUCT {
+    BYTE c_ਬਾਈਟਾਂ;
     BYTE fFixedDisk;
-    WORD nErrCode;
-    WORD Reserved1;
-    WORD Reserved2;
-    CHAR szPathName[OFS_MAXPATHNAME];
+    ਸ਼ਬਦ_3 n_Err_ਕੋਡ;
+    ਸ਼ਬਦ_3 Reserved1;
+    ਸ਼ਬਦ_3 Reserved2;
+    CHAR sz_ਰਸਤਾ_Name[OFS_MAXPATHNAME];
   } OFSTRUCT,*LPOFSTRUCT,*POFSTRUCT;
 
-#ifndef NOWINBASEINTERLOCK
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ NOWINBASEINTERLOCK
 
-#ifndef _NTOS_
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _NTOS_
 
-#if defined(__ia64__) && !defined(RC_INVOKED)
+#ਜੇ defined(__ia64__) && !defined(RC_INVOKED)
 
-#define InterlockedIncrement _InterlockedIncrement
-#define InterlockedIncrementAcquire _InterlockedIncrement_acq
-#define InterlockedIncrementRelease _InterlockedIncrement_rel
-#define InterlockedDecrement _InterlockedDecrement
-#define InterlockedDecrementAcquire _InterlockedDecrement_acq
-#define InterlockedDecrementRelease _InterlockedDecrement_rel
-#define InterlockedExchange _InterlockedExchange
-#define InterlockedExchangeAdd _InterlockedExchangeAdd
-#define InterlockedCompareExchange _InterlockedCompareExchange
-#define InterlockedCompareExchangeAcquire _InterlockedCompareExchange_acq
-#define InterlockedCompareExchangeRelease _InterlockedCompareExchange_rel
-#define InterlockedExchangePointer _InterlockedExchangePointer
-#define InterlockedCompareExchangePointer _InterlockedCompareExchangePointer
-#define InterlockedCompareExchangePointerRelease _InterlockedCompareExchangePointer_rel
-#define InterlockedCompareExchangePointerAcquire _InterlockedCompareExchangePointer_acq
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrement _InterlockedIncrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrementAcquire _InterlockedIncrement_acq
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrementRelease _InterlockedIncrement_rel
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedDecrement _InterlockedDecrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedDecrementAcquire _InterlockedDecrement_acq
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedDecrementRelease _InterlockedDecrement_rel
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedExchange _InterlockedExchange
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Exchange_ਜੋੜੋ Interlocked_Exchange_ਜੋੜੋ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchange _InterlockedCompareExchange
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeAcquire _InterlockedCompareExchange_acq
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeRelease _InterlockedCompareExchange_rel
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Exchange_ਸੂਚਕ Interlocked_Exchange_ਸੂਚਕ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Compare_Exchange_ਸੂਚਕ Interlocked_Compare_Exchange_ਸੂਚਕ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Compare_Exchange_ਸੂਚਕ_Release Interlocked_Compare_Exchange_ਸੂਚਕ_rel
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Compare_Exchange_ਸੂਚਕ_Acquire Interlocked_Compare_Exchange_ਸੂਚਕ_acq
 
-#define InterlockedIncrement64 _InterlockedIncrement64
-#define InterlockedDecrement64 _InterlockedDecrement64
-#define InterlockedExchange64 _InterlockedExchange64
-#define InterlockedExchangeAcquire64 _InterlockedExchange64_acq
-#define InterlockedExchangeAdd64 _InterlockedExchangeAdd64
-#define InterlockedCompareExchange64 _InterlockedCompareExchange64
-#define InterlockedCompareExchangeAcquire64 _InterlockedCompareExchange64_acq
-#define InterlockedCompareExchangeRelease64 _InterlockedCompareExchange64_rel
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrement64 _InterlockedIncrement64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedDecrement64 _InterlockedDecrement64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedExchange64 _InterlockedExchange64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedExchangeAcquire64 _InterlockedExchange64_acq
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedExchangeAdd64 _InterlockedExchangeAdd64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchange64 _InterlockedCompareExchange64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeAcquire64 _InterlockedCompareExchange64_acq
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeRelease64 _InterlockedCompareExchange64_rel
 
-  LONGLONG __cdecl InterlockedIncrement64(LONGLONG volatile *Addend);
-  LONGLONG __cdecl InterlockedDecrement64(LONGLONG volatile *Addend);
-  LONG __cdecl InterlockedIncrementAcquire(LONG volatile *Addend);
-  LONG __cdecl InterlockedDecrementAcquire(LONG volatile *Addend);
-  LONG __cdecl InterlockedIncrementRelease(LONG volatile *Addend);
-  LONG __cdecl InterlockedDecrementRelease(LONG volatile *Addend);
-  LONGLONG __cdecl InterlockedExchange64 (LONGLONG volatile *Target,LONGLONG Value);
-  LONGLONG __cdecl InterlockedExchangeAcquire64 (LONGLONG volatile *Target,LONGLONG Value);
-  LONGLONG __cdecl InterlockedExchangeAdd64 (LONGLONG volatile *Addend,LONGLONG Value);
-  LONGLONG __cdecl InterlockedCompareExchange64 (LONGLONG volatile *Destination,LONGLONG ExChange,LONGLONG Comperand);
-  LONGLONG __cdecl InterlockedCompareExchangeAcquire64 (LONGLONG volatile *Destination,LONGLONG ExChange,LONGLONG Comperand);
-  LONGLONG __cdecl InterlockedCompareExchangeRelease64 (LONGLONG volatile *Destination,LONGLONG ExChange,LONGLONG Comperand);
-  LONG __cdecl InterlockedIncrement(LONG volatile *lpAddend);
-  LONG __cdecl InterlockedDecrement(LONG volatile *lpAddend);
-  LONG __cdecl InterlockedExchange(LONG volatile *Target,LONG Value);
-  LONG __cdecl InterlockedExchangeAdd(LONG volatile *Addend,LONG Value);
-  LONG __cdecl InterlockedCompareExchange(LONG volatile *Destination,LONG ExChange,LONG Comperand);
-  LONG __cdecl InterlockedCompareExchangeRelease(LONG volatile *Destination,LONG ExChange,LONG Comperand);
-  LONG __cdecl InterlockedCompareExchangeAcquire(LONG volatile *Destination,LONG ExChange,LONG Comperand);
-  PVOID __cdecl InterlockedExchangePointer(PVOID volatile *Target,PVOID Value);
-  PVOID __cdecl InterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID ExChange,PVOID Comperand);
-  PVOID __cdecl InterlockedCompareExchangePointerAcquire(PVOID volatile *Destination,PVOID Exchange,PVOID Comperand);
-  PVOID __cdecl InterlockedCompareExchangePointerRelease(PVOID volatile *Destination,PVOID Exchange,PVOID Comperand);
+  LONGLONG __cdecl InterlockedIncrement64(LONGLONG ਅਸਥਿਰ *Addend);
+  LONGLONG __cdecl InterlockedDecrement64(LONGLONG ਅਸਥਿਰ *Addend);
+  LONG __cdecl InterlockedIncrementAcquire(LONG ਅਸਥਿਰ *Addend);
+  LONG __cdecl InterlockedDecrementAcquire(LONG ਅਸਥਿਰ *Addend);
+  LONG __cdecl InterlockedIncrementRelease(LONG ਅਸਥਿਰ *Addend);
+  LONG __cdecl InterlockedDecrementRelease(LONG ਅਸਥਿਰ *Addend);
+  LONGLONG __cdecl InterlockedExchange64 (LONGLONG ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,LONGLONG ਮੁੱਲ_3);
+  LONGLONG __cdecl InterlockedExchangeAcquire64 (LONGLONG ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,LONGLONG ਮੁੱਲ_3);
+  LONGLONG __cdecl InterlockedExchangeAdd64 (LONGLONG ਅਸਥਿਰ *Addend,LONGLONG ਮੁੱਲ_3);
+  LONGLONG __cdecl InterlockedCompareExchange64 (LONGLONG ਅਸਥਿਰ *Destination,LONGLONG ExChange,LONGLONG Comperand);
+  LONGLONG __cdecl InterlockedCompareExchangeAcquire64 (LONGLONG ਅਸਥਿਰ *Destination,LONGLONG ExChange,LONGLONG Comperand);
+  LONGLONG __cdecl InterlockedCompareExchangeRelease64 (LONGLONG ਅਸਥਿਰ *Destination,LONGLONG ExChange,LONGLONG Comperand);
+  LONG __cdecl InterlockedIncrement(LONG ਅਸਥਿਰ *lpAddend);
+  LONG __cdecl InterlockedDecrement(LONG ਅਸਥਿਰ *lpAddend);
+  LONG __cdecl InterlockedExchange(LONG ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,LONG ਮੁੱਲ_3);
+  LONG __cdecl Interlocked_Exchange_ਜੋੜੋ(LONG ਅਸਥਿਰ *Addend,LONG ਮੁੱਲ_3);
+  LONG __cdecl InterlockedCompareExchange(LONG ਅਸਥਿਰ *Destination,LONG ExChange,LONG Comperand);
+  LONG __cdecl InterlockedCompareExchangeRelease(LONG ਅਸਥਿਰ *Destination,LONG ExChange,LONG Comperand);
+  LONG __cdecl InterlockedCompareExchangeAcquire(LONG ਅਸਥਿਰ *Destination,LONG ExChange,LONG Comperand);
+  PVOID __cdecl Interlocked_Exchange_ਸੂਚਕ(PVOID ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,PVOID ਮੁੱਲ_3);
+  PVOID __cdecl Interlocked_Compare_Exchange_ਸੂਚਕ(PVOID ਅਸਥਿਰ *Destination,PVOID ExChange,PVOID Comperand);
+  PVOID __cdecl Interlocked_Compare_Exchange_ਸੂਚਕ_Acquire(PVOID ਅਸਥਿਰ *Destination,PVOID Exchange,PVOID Comperand);
+  PVOID __cdecl Interlocked_Compare_Exchange_ਸੂਚਕ_Release(PVOID ਅਸਥਿਰ *Destination,PVOID Exchange,PVOID Comperand);
 
-#ifndef InterlockedAnd
-#define InterlockedAnd InterlockedAnd_Inline
-  __CRT_INLINE LONG InterlockedAnd_Inline(LONG volatile *Target,LONG Set) {
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ InterlockedAnd
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedAnd InterlockedAnd_Inline
+  __CRT_INLINE LONG InterlockedAnd_Inline(LONG ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,LONG ਸੈੱਟ_2) {
     LONG i;
     LONG j;
-    j = *Target;
-    do {
+    j = *ਨਿਸ਼ਾਨਾ_2;
+    ਕਰੋ {
       i = j;
-      j = InterlockedCompareExchange(Target,i & Set,i);
-    } while(i!=j);
-    return j;
+      j = InterlockedCompareExchange(ਨਿਸ਼ਾਨਾ_2,i & ਸੈੱਟ_2,i);
+    } ਜਦੋਂ(i!=j);
+    ਵਾਪਸ j;
   }
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef InterlockedOr
-#define InterlockedOr InterlockedOr_Inline
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ InterlockedOr
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedOr InterlockedOr_Inline
 
-  __CRT_INLINE LONG InterlockedOr_Inline(LONG volatile *Target,LONG Set) {
+  __CRT_INLINE LONG InterlockedOr_Inline(LONG ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,LONG ਸੈੱਟ_2) {
     LONG i;
     LONG j;
-    j = *Target;
-    do {
+    j = *ਨਿਸ਼ਾਨਾ_2;
+    ਕਰੋ {
       i = j;
-      j = InterlockedCompareExchange(Target,i | Set,i);
-    } while(i!=j);
-    return j;
+      j = InterlockedCompareExchange(ਨਿਸ਼ਾਨਾ_2,i | ਸੈੱਟ_2,i);
+    } ਜਦੋਂ(i!=j);
+    ਵਾਪਸ j;
   }
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef InterlockedXor
-#define InterlockedXor InterlockedXor_Inline
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ InterlockedXor
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedXor InterlockedXor_Inline
 
-  __CRT_INLINE LONG InterlockedXor_Inline(LONG volatile *Target,LONG Set) {
+  __CRT_INLINE LONG InterlockedXor_Inline(LONG ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,LONG ਸੈੱਟ_2) {
     LONG i;
     LONG j;
-    j = *Target;
-    do {
+    j = *ਨਿਸ਼ਾਨਾ_2;
+    ਕਰੋ {
       i = j;
-      j = InterlockedCompareExchange(Target,i ^ Set,i);
-    } while(i!=j);
-    return j;
+      j = InterlockedCompareExchange(ਨਿਸ਼ਾਨਾ_2,i ^ ਸੈੱਟ_2,i);
+    } ਜਦੋਂ(i!=j);
+    ਵਾਪਸ j;
   }
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef InterlockedAnd64
-#define InterlockedAnd64 InterlockedAnd64_Inline
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ InterlockedAnd64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedAnd64 InterlockedAnd64_Inline
 
-  __CRT_INLINE LONGLONG InterlockedAnd64_Inline (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedAnd64_Inline (LONGLONG ਅਸਥਿਰ *Destination,LONGLONG ਮੁੱਲ_3) {
     LONGLONG Old;
-    do {
+    ਕਰੋ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old & Value,Old)!=Old);
-    return Old;
+    } ਜਦੋਂ(InterlockedCompareExchange64(Destination,Old & ਮੁੱਲ_3,Old)!=Old);
+    ਵਾਪਸ Old;
   }
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef InterlockedOr64
-#define InterlockedOr64 InterlockedOr64_Inline
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ InterlockedOr64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedOr64 InterlockedOr64_Inline
 
-  __CRT_INLINE LONGLONG InterlockedOr64_Inline (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedOr64_Inline (LONGLONG ਅਸਥਿਰ *Destination,LONGLONG ਮੁੱਲ_3) {
     LONGLONG Old;
-    do {
+    ਕਰੋ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old | Value,Old)!=Old);
-    return Old;
+    } ਜਦੋਂ(InterlockedCompareExchange64(Destination,Old | ਮੁੱਲ_3,Old)!=Old);
+    ਵਾਪਸ Old;
   }
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef InterlockedXor64
-#define InterlockedXor64 InterlockedXor64_Inline
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ InterlockedXor64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedXor64 InterlockedXor64_Inline
 
-  __CRT_INLINE LONGLONG InterlockedXor64_Inline (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedXor64_Inline (LONGLONG ਅਸਥਿਰ *Destination,LONGLONG ਮੁੱਲ_3) {
     LONGLONG Old;
-    do {
+    ਕਰੋ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old ^ Value,Old)!=Old);
-    return Old;
+    } ਜਦੋਂ(InterlockedCompareExchange64(Destination,Old ^ ਮੁੱਲ_3,Old)!=Old);
+    ਵਾਪਸ Old;
   }
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef InterlockedBitTestAndSet
-#define InterlockedBitTestAndSet InterlockedBitTestAndSet_Inline
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_ਸੈੱਟ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_ਸੈੱਟ Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_ਸੈੱਟ_Inline
 
-  __CRT_INLINE BOOLEAN InterlockedBitTestAndSet_Inline(LONG *Base,LONG Bit) {
-    LONG tBit;
-    tBit = 1<<(Bit & (sizeof (*Base)*8-1));
-    return (BOOLEAN)((InterlockedOr(&Base[Bit/(sizeof(*Base)*8)],tBit)&tBit)!=0);
+  __CRT_INLINE BOOLEAN Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_ਸੈੱਟ_Inline(LONG *ਅਧਾਰ_2,LONG ਦੋਆਧਾਰੀ_ਅੰਕ_2) {
+    LONG t_ਦੋਆਧਾਰੀ_ਅੰਕ;
+    t_ਦੋਆਧਾਰੀ_ਅੰਕ = 1<<(ਦੋਆਧਾਰੀ_ਅੰਕ_2 & (ਆਕਾਰ (*ਅਧਾਰ_2)*8-1));
+    ਵਾਪਸ (BOOLEAN)((InterlockedOr(&ਅਧਾਰ_2[ਦੋਆਧਾਰੀ_ਅੰਕ_2/(ਆਕਾਰ(*ਅਧਾਰ_2)*8)],t_ਦੋਆਧਾਰੀ_ਅੰਕ)&t_ਦੋਆਧਾਰੀ_ਅੰਕ)!=0);
   }
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef InterlockedBitTestAndReset
-#define InterlockedBitTestAndReset InterlockedBitTestAndReset_Inline
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_Reset
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_Reset Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_Reset_Inline
 
-  __CRT_INLINE BOOLEAN InterlockedBitTestAndReset_Inline(LONG *Base,LONG Bit) {
-    LONG tBit;
-    tBit = 1<<(Bit & (sizeof (*Base)*8-1));
-    return (BOOLEAN)((InterlockedAnd(&Base[Bit/(sizeof(*Base)*8)],~tBit)&tBit)!=0);
+  __CRT_INLINE BOOLEAN Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_Reset_Inline(LONG *ਅਧਾਰ_2,LONG ਦੋਆਧਾਰੀ_ਅੰਕ_2) {
+    LONG t_ਦੋਆਧਾਰੀ_ਅੰਕ;
+    t_ਦੋਆਧਾਰੀ_ਅੰਕ = 1<<(ਦੋਆਧਾਰੀ_ਅੰਕ_2 & (ਆਕਾਰ (*ਅਧਾਰ_2)*8-1));
+    ਵਾਪਸ (BOOLEAN)((InterlockedAnd(&ਅਧਾਰ_2[ਦੋਆਧਾਰੀ_ਅੰਕ_2/(ਆਕਾਰ(*ਅਧਾਰ_2)*8)],~t_ਦੋਆਧਾਰੀ_ਅੰਕ)&t_ਦੋਆਧਾਰੀ_ਅੰਕ)!=0);
   }
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef InterlockedBitTestAndComplement
-#define InterlockedBitTestAndComplement InterlockedBitTestAndComplement_Inline
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_Complement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_Complement Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_Complement_Inline
 
-  __CRT_INLINE BOOLEAN InterlockedBitTestAndComplement_Inline(LONG *Base,LONG Bit) {
-    LONG tBit;
-    tBit = 1<<(Bit & (sizeof (*Base)*8-1));
-    return (BOOLEAN)((InterlockedXor(&Base[Bit/(sizeof(*Base)*8)],tBit)&tBit)!=0);
+  __CRT_INLINE BOOLEAN Interlocked_ਦੋਆਧਾਰੀ_ਅੰਕ_Test_And_Complement_Inline(LONG *ਅਧਾਰ_2,LONG ਦੋਆਧਾਰੀ_ਅੰਕ_2) {
+    LONG t_ਦੋਆਧਾਰੀ_ਅੰਕ;
+    t_ਦੋਆਧਾਰੀ_ਅੰਕ = 1<<(ਦੋਆਧਾਰੀ_ਅੰਕ_2 & (ਆਕਾਰ (*ਅਧਾਰ_2)*8-1));
+    ਵਾਪਸ (BOOLEAN)((InterlockedXor(&ਅਧਾਰ_2[ਦੋਆਧਾਰੀ_ਅੰਕ_2/(ਆਕਾਰ(*ਅਧਾਰ_2)*8)],t_ਦੋਆਧਾਰੀ_ਅੰਕ)&t_ਦੋਆਧਾਰੀ_ਅੰਕ)!=0);
   }
-#endif
-#elif defined(__x86_64) && !defined(RC_INVOKED)
+#ਜੇ_ਅੰਤ
+#ਜਾਂਜੇ defined(__x86_64) && !defined(RC_INVOKED)
 
-#define InterlockedIncrement _InterlockedIncrement
-#define InterlockedIncrementAcquire InterlockedIncrement
-#define InterlockedIncrementRelease InterlockedIncrement
-#define InterlockedDecrement _InterlockedDecrement
-#define InterlockedDecrementAcquire InterlockedDecrement
-#define InterlockedDecrementRelease InterlockedDecrement
-#define InterlockedExchange _InterlockedExchange
-#define InterlockedExchangeAdd _InterlockedExchangeAdd
-#define InterlockedCompareExchange _InterlockedCompareExchange
-#define InterlockedCompareExchangeAcquire InterlockedCompareExchange
-#define InterlockedCompareExchangeRelease InterlockedCompareExchange
-#define InterlockedExchangePointer _InterlockedExchangePointer
-#define InterlockedCompareExchangePointer _InterlockedCompareExchangePointer
-#define InterlockedCompareExchangePointerAcquire _InterlockedCompareExchangePointer
-#define InterlockedCompareExchangePointerRelease _InterlockedCompareExchangePointer
-#define InterlockedAnd64 _InterlockedAnd64
-#define InterlockedOr64 _InterlockedOr64
-#define InterlockedXor64 _InterlockedXor64
-#define InterlockedIncrement64 _InterlockedIncrement64
-#define InterlockedDecrement64 _InterlockedDecrement64
-#define InterlockedExchange64 _InterlockedExchange64
-#define InterlockedExchangeAdd64 _InterlockedExchangeAdd64
-#define InterlockedCompareExchange64 _InterlockedCompareExchange64
-#define InterlockedCompareExchangeAcquire64 InterlockedCompareExchange64
-#define InterlockedCompareExchangeRelease64 InterlockedCompareExchange64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrement _InterlockedIncrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrementAcquire InterlockedIncrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrementRelease InterlockedIncrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedDecrement _InterlockedDecrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedDecrementAcquire InterlockedDecrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedDecrementRelease InterlockedDecrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedExchange _InterlockedExchange
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Exchange_ਜੋੜੋ Interlocked_Exchange_ਜੋੜੋ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchange _InterlockedCompareExchange
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeAcquire InterlockedCompareExchange
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeRelease InterlockedCompareExchange
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Exchange_ਸੂਚਕ Interlocked_Exchange_ਸੂਚਕ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Compare_Exchange_ਸੂਚਕ Interlocked_Compare_Exchange_ਸੂਚਕ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Compare_Exchange_ਸੂਚਕ_Acquire Interlocked_Compare_Exchange_ਸੂਚਕ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Compare_Exchange_ਸੂਚਕ_Release Interlocked_Compare_Exchange_ਸੂਚਕ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedAnd64 _InterlockedAnd64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedOr64 _InterlockedOr64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedXor64 _InterlockedXor64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrement64 _InterlockedIncrement64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedDecrement64 _InterlockedDecrement64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedExchange64 _InterlockedExchange64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedExchangeAdd64 _InterlockedExchangeAdd64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchange64 _InterlockedCompareExchange64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeAcquire64 InterlockedCompareExchange64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeRelease64 InterlockedCompareExchange64
 
-  LONG InterlockedIncrement(LONG volatile *Addend);
-  LONG InterlockedDecrement(LONG volatile *Addend);
-  LONG InterlockedExchange(LONG volatile *Target,LONG Value);
-  LONG InterlockedExchangeAdd(LONG volatile *Addend,LONG Value);
-  LONG InterlockedCompareExchange(LONG volatile *Destination,LONG ExChange,LONG Comperand);
-  PVOID InterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID Exchange,PVOID Comperand);
-  PVOID InterlockedExchangePointer(PVOID volatile *Target,PVOID Value);
-  LONG64 InterlockedAnd64(LONG64 volatile *Destination,LONG64 Value);
-  LONG64 InterlockedOr64(LONG64 volatile *Destination,LONG64 Value);
-  LONG64 InterlockedXor64(LONG64 volatile *Destination,LONG64 Value);
-  LONG64 InterlockedIncrement64(LONG64 volatile *Addend);
-  LONG64 InterlockedDecrement64(LONG64 volatile *Addend);
-  LONG64 InterlockedExchange64(LONG64 volatile *Target,LONG64 Value);
-  LONG64 InterlockedExchangeAdd64(LONG64 volatile *Addend,LONG64 Value);
-  LONG64 InterlockedCompareExchange64(LONG64 volatile *Destination,LONG64 ExChange,LONG64 Comperand);
-#else
-  LONG WINAPI InterlockedIncrement(LONG volatile *lpAddend);
-  LONG WINAPI InterlockedDecrement(LONG volatile *lpAddend);
-  LONG WINAPI InterlockedExchange(LONG volatile *Target,LONG Value);
+  LONG InterlockedIncrement(LONG ਅਸਥਿਰ *Addend);
+  LONG InterlockedDecrement(LONG ਅਸਥਿਰ *Addend);
+  LONG InterlockedExchange(LONG ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,LONG ਮੁੱਲ_3);
+  LONG Interlocked_Exchange_ਜੋੜੋ(LONG ਅਸਥਿਰ *Addend,LONG ਮੁੱਲ_3);
+  LONG InterlockedCompareExchange(LONG ਅਸਥਿਰ *Destination,LONG ExChange,LONG Comperand);
+  PVOID Interlocked_Compare_Exchange_ਸੂਚਕ(PVOID ਅਸਥਿਰ *Destination,PVOID Exchange,PVOID Comperand);
+  PVOID Interlocked_Exchange_ਸੂਚਕ(PVOID ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,PVOID ਮੁੱਲ_3);
+  LONG64 InterlockedAnd64(LONG64 ਅਸਥਿਰ *Destination,LONG64 ਮੁੱਲ_3);
+  LONG64 InterlockedOr64(LONG64 ਅਸਥਿਰ *Destination,LONG64 ਮੁੱਲ_3);
+  LONG64 InterlockedXor64(LONG64 ਅਸਥਿਰ *Destination,LONG64 ਮੁੱਲ_3);
+  LONG64 InterlockedIncrement64(LONG64 ਅਸਥਿਰ *Addend);
+  LONG64 InterlockedDecrement64(LONG64 ਅਸਥਿਰ *Addend);
+  LONG64 InterlockedExchange64(LONG64 ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,LONG64 ਮੁੱਲ_3);
+  LONG64 InterlockedExchangeAdd64(LONG64 ਅਸਥਿਰ *Addend,LONG64 ਮੁੱਲ_3);
+  LONG64 InterlockedCompareExchange64(LONG64 ਅਸਥਿਰ *Destination,LONG64 ExChange,LONG64 Comperand);
+#ਨਹੀਂਤਾਂ
+  LONG WINAPI InterlockedIncrement(LONG ਅਸਥਿਰ *lpAddend);
+  LONG WINAPI InterlockedDecrement(LONG ਅਸਥਿਰ *lpAddend);
+  LONG WINAPI InterlockedExchange(LONG ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,LONG ਮੁੱਲ_3);
 
-#ifndef InterlockedExchangePointer
-#define InterlockedExchangePointer(Target,Value) (PVOID)InterlockedExchange((PLONG)(Target),(LONG)(Value))
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ Interlocked_Exchange_ਸੂਚਕ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Exchange_ਸੂਚਕ(ਨਿਸ਼ਾਨਾ_2,ਮੁੱਲ_3) (PVOID)InterlockedExchange((PLONG)(ਨਿਸ਼ਾਨਾ_2),(LONG)(ਮੁੱਲ_3))
+#ਜੇ_ਅੰਤ
 
-  LONG WINAPI InterlockedExchangeAdd(LONG volatile *Addend,LONG Value);
-  LONG WINAPI InterlockedCompareExchange(LONG volatile *Destination,LONG Exchange,LONG Comperand);
-  LONGLONG WINAPI InterlockedCompareExchange64(LONGLONG volatile *Destination,LONGLONG Exchange,LONGLONG Comperand);
+  LONG WINAPI Interlocked_Exchange_ਜੋੜੋ(LONG ਅਸਥਿਰ *Addend,LONG ਮੁੱਲ_3);
+  LONG WINAPI InterlockedCompareExchange(LONG ਅਸਥਿਰ *Destination,LONG Exchange,LONG Comperand);
+  LONGLONG WINAPI InterlockedCompareExchange64(LONGLONG ਅਸਥਿਰ *Destination,LONGLONG Exchange,LONGLONG Comperand);
 
-  __CRT_INLINE LONGLONG InterlockedAnd64 (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedAnd64 (LONGLONG ਅਸਥਿਰ *Destination,LONGLONG ਮੁੱਲ_3) {
     LONGLONG Old;
-    do {
+    ਕਰੋ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old & Value,Old)!=Old);
-    return Old;
+    } ਜਦੋਂ(InterlockedCompareExchange64(Destination,Old & ਮੁੱਲ_3,Old)!=Old);
+    ਵਾਪਸ Old;
   }
 
-  __CRT_INLINE LONGLONG InterlockedOr64 (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedOr64 (LONGLONG ਅਸਥਿਰ *Destination,LONGLONG ਮੁੱਲ_3) {
     LONGLONG Old;
-    do {
+    ਕਰੋ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old | Value,Old)!=Old);
-    return Old;
+    } ਜਦੋਂ(InterlockedCompareExchange64(Destination,Old | ਮੁੱਲ_3,Old)!=Old);
+    ਵਾਪਸ Old;
   }
 
-  __CRT_INLINE LONGLONG InterlockedXor64 (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedXor64 (LONGLONG ਅਸਥਿਰ *Destination,LONGLONG ਮੁੱਲ_3) {
     LONGLONG Old;
-    do {
+    ਕਰੋ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old ^ Value,Old)!=Old);
+    } ਜਦੋਂ(InterlockedCompareExchange64(Destination,Old ^ ਮੁੱਲ_3,Old)!=Old);
 
-    return Old;
+    ਵਾਪਸ Old;
   }
 
-  __CRT_INLINE LONGLONG InterlockedIncrement64(LONGLONG volatile *Addend) {
+  __CRT_INLINE LONGLONG InterlockedIncrement64(LONGLONG ਅਸਥਿਰ *Addend) {
     LONGLONG Old;
-    do {
+    ਕਰੋ {
       Old = *Addend;
-    } while(InterlockedCompareExchange64(Addend,Old + 1,Old)!=Old);
-    return Old + 1;
+    } ਜਦੋਂ(InterlockedCompareExchange64(Addend,Old + 1,Old)!=Old);
+    ਵਾਪਸ Old + 1;
   }
 
-  __CRT_INLINE LONGLONG InterlockedDecrement64(LONGLONG volatile *Addend) {
+  __CRT_INLINE LONGLONG InterlockedDecrement64(LONGLONG ਅਸਥਿਰ *Addend) {
     LONGLONG Old;
-    do {
+    ਕਰੋ {
       Old = *Addend;
-    } while(InterlockedCompareExchange64(Addend,Old - 1,Old)!=Old);
-    return Old - 1;
+    } ਜਦੋਂ(InterlockedCompareExchange64(Addend,Old - 1,Old)!=Old);
+    ਵਾਪਸ Old - 1;
   }
 
-  __CRT_INLINE LONGLONG InterlockedExchange64(LONGLONG volatile *Target,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedExchange64(LONGLONG ਅਸਥਿਰ *ਨਿਸ਼ਾਨਾ_2,LONGLONG ਮੁੱਲ_3) {
     LONGLONG Old;
-    do {
-      Old = *Target;
-    } while(InterlockedCompareExchange64(Target,Value,Old)!=Old);
-    return Old;
+    ਕਰੋ {
+      Old = *ਨਿਸ਼ਾਨਾ_2;
+    } ਜਦੋਂ(InterlockedCompareExchange64(ਨਿਸ਼ਾਨਾ_2,ਮੁੱਲ_3,Old)!=Old);
+    ਵਾਪਸ Old;
   }
 
-  __CRT_INLINE LONGLONG InterlockedExchangeAdd64(LONGLONG volatile *Addend,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedExchangeAdd64(LONGLONG ਅਸਥਿਰ *Addend,LONGLONG ਮੁੱਲ_3) {
     LONGLONG Old;
-    do {
+    ਕਰੋ {
       Old = *Addend;
-    } while(InterlockedCompareExchange64(Addend,Old + Value,Old)!=Old);
-    return Old;
+    } ਜਦੋਂ(InterlockedCompareExchange64(Addend,Old + ਮੁੱਲ_3,Old)!=Old);
+    ਵਾਪਸ Old;
   }
 
-#ifndef InterlockedCompareExchangePointer
-#ifdef __cplusplus
-  __CRT_INLINE PVOID __cdecl __InlineInterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID ExChange,PVOID Comperand) {
-    return((PVOID)(LONG_PTR)InterlockedCompareExchange((LONG volatile *)Destination,(LONG)(LONG_PTR)ExChange,(LONG)(LONG_PTR)Comperand));
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ Interlocked_Compare_Exchange_ਸੂਚਕ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+  __CRT_INLINE PVOID __cdecl __InlineInterlockedCompareExchangePointer(PVOID ਅਸਥਿਰ *Destination,PVOID ExChange,PVOID Comperand) {
+    ਵਾਪਸ((PVOID)(LONG_PTR)InterlockedCompareExchange((LONG ਅਸਥਿਰ *)Destination,(LONG)(LONG_PTR)ExChange,(LONG)(LONG_PTR)Comperand));
   }
-#define InterlockedCompareExchangePointer __InlineInterlockedCompareExchangePointer
-#else
-#define InterlockedCompareExchangePointer(Destination,ExChange,Comperand)(PVOID)(LONG_PTR)InterlockedCompareExchange((LONG volatile *)(Destination),(LONG)(LONG_PTR)(ExChange),(LONG)(LONG_PTR)(Comperand))
-#endif
-#endif
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Compare_Exchange_ਸੂਚਕ __InlineInterlockedCompareExchangePointer
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Compare_Exchange_ਸੂਚਕ(Destination,ExChange,Comperand)(PVOID)(LONG_PTR)InterlockedCompareExchange((LONG ਅਸਥਿਰ *)(Destination),(LONG)(LONG_PTR)(ExChange),(LONG)(LONG_PTR)(Comperand))
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define InterlockedIncrementAcquire InterlockedIncrement
-#define InterlockedIncrementRelease InterlockedIncrement
-#define InterlockedDecrementAcquire InterlockedDecrement
-#define InterlockedDecrementRelease InterlockedDecrement
-#define InterlockedIncrementAcquire InterlockedIncrement
-#define InterlockedIncrementRelease InterlockedIncrement
-#define InterlockedCompareExchangeAcquire InterlockedCompareExchange
-#define InterlockedCompareExchangeRelease InterlockedCompareExchange
-#define InterlockedCompareExchangeAcquire64 InterlockedCompareExchange64
-#define InterlockedCompareExchangeRelease64 InterlockedCompareExchange64
-#ifndef InterlockedCompareExchangePointerAcquire
-#define InterlockedCompareExchangePointerAcquire InterlockedCompareExchangePointer
-#endif
-#ifndef InterlockedCompareExchangePointerRelease
-#define InterlockedCompareExchangePointerRelease InterlockedCompareExchangePointer
-#endif
-#endif
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrementAcquire InterlockedIncrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrementRelease InterlockedIncrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedDecrementAcquire InterlockedDecrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedDecrementRelease InterlockedDecrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrementAcquire InterlockedIncrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedIncrementRelease InterlockedIncrement
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeAcquire InterlockedCompareExchange
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeRelease InterlockedCompareExchange
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeAcquire64 InterlockedCompareExchange64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InterlockedCompareExchangeRelease64 InterlockedCompareExchange64
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ Interlocked_Compare_Exchange_ਸੂਚਕ_Acquire
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Compare_Exchange_ਸੂਚਕ_Acquire Interlocked_Compare_Exchange_ਸੂਚਕ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ Interlocked_Compare_Exchange_ਸੂਚਕ_Release
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Interlocked_Compare_Exchange_ਸੂਚਕ_Release Interlocked_Compare_Exchange_ਸੂਚਕ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#if defined(_SLIST_HEADER_) && !defined(_NTOSP_)
-  WINBASEAPI VOID WINAPI InitializeSListHead(PSLIST_HEADER ListHead);
-  WINBASEAPI PSLIST_ENTRY WINAPI InterlockedPopEntrySList(PSLIST_HEADER ListHead);
-  WINBASEAPI PSLIST_ENTRY WINAPI InterlockedPushEntrySList(PSLIST_HEADER ListHead,PSLIST_ENTRY ListEntry);
-  WINBASEAPI PSLIST_ENTRY WINAPI InterlockedFlushSList(PSLIST_HEADER ListHead);
-  WINBASEAPI USHORT WINAPI QueryDepthSList(PSLIST_HEADER ListHead);
-#endif
-#endif
-#endif
+#ਜੇ defined(SLIST_ਸਿਰਲੇਖ) && !defined(_NTOSP_)
+  WINBASEAPI VOID WINAPI Initialize_SList_ਸਿਰ(PSLIST_ਸਿਰਲੇਖ List_ਸਿਰ);
+  WINBASEAPI PSLIST_ਇੰਦਰਾਜ WINAPI Interlocked_ਕੱਢੋ_ਇੰਦਰਾਜ_SList(PSLIST_ਸਿਰਲੇਖ List_ਸਿਰ);
+  WINBASEAPI PSLIST_ਇੰਦਰਾਜ WINAPI Interlocked_ਧੱਕੋ_ਇੰਦਰਾਜ_SList(PSLIST_ਸਿਰਲੇਖ List_ਸਿਰ,PSLIST_ਇੰਦਰਾਜ List_ਇੰਦਰਾਜ);
+  WINBASEAPI PSLIST_ਇੰਦਰਾਜ WINAPI InterlockedFlushSList(PSLIST_ਸਿਰਲੇਖ List_ਸਿਰ);
+  WINBASEAPI USHORT WINAPI Query_ਡੂੰਘਾਈ_SList(PSLIST_ਸਿਰਲੇਖ List_ਸਿਰ);
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI WINBOOL WINAPI FreeResource(HGLOBAL hResData);
-  WINBASEAPI LPVOID WINAPI LockResource(HGLOBAL hResData);
+  WINBASEAPI WINBOOL WINAPI FreeResource(HGLOBAL h_Res_ਅੰਕੜੇ);
+  WINBASEAPI LPVOID WINAPI ਤਾਲਾ_Resource(HGLOBAL h_Res_ਅੰਕੜੇ);
 
-#define UnlockResource(hResData) ((hResData),0)
-#define MAXINTATOM 0xC000
-#define MAKEINTATOM(i) (LPTSTR)((ULONG_PTR)((WORD)(i)))
-#define INVALID_ATOM ((ATOM)0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ UnlockResource(h_Res_ਅੰਕੜੇ) ((h_Res_ਅੰਕੜੇ),0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MAXINTATOM 0xC000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MAKEINTATOM(i) (LPTSTR)((ULONG_PTR)((ਸ਼ਬਦ_3)(i)))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INVALID_ATOM ((ATOM)0)
 
-  int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd);
+  ਪੂਰਨ WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lp_Cmd_ਸਤਰ,ਪੂਰਨ nShowCmd);
   WINBASEAPI WINBOOL WINAPI FreeLibrary(HMODULE hLibModule);
-  WINBASEAPI DECLSPEC_NORETURN VOID WINAPI FreeLibraryAndExitThread(HMODULE hLibModule,DWORD dwExitCode);
+  WINBASEAPI DECLSPEC_NORETURN VOID WINAPI FreeLibraryAndExitThread(HMODULE hLibModule,DWORD dw_Exit_ਕੋਡ);
   WINBASEAPI WINBOOL WINAPI DisableThreadLibraryCalls(HMODULE hLibModule);
-  WINBASEAPI FARPROC WINAPI GetProcAddress(HMODULE hModule,LPCSTR lpProcName);
-  WINBASEAPI DWORD WINAPI GetVersion(VOID);
-  WINBASEAPI HGLOBAL WINAPI GlobalAlloc(UINT uFlags,SIZE_T dwBytes);
-  WINBASEAPI HGLOBAL WINAPI GlobalReAlloc(HGLOBAL hMem,SIZE_T dwBytes,UINT uFlags);
-  WINBASEAPI SIZE_T WINAPI GlobalSize(HGLOBAL hMem);
+  WINBASEAPI FARPROC WINAPI Get_Proc_ਪਤਾ(HMODULE hModule,LPCSTR lpProcName);
+  WINBASEAPI DWORD WINAPI Get_ਸੰਸਕਰਣ(VOID);
+  WINBASEAPI HGLOBAL WINAPI GlobalAlloc(UINT uFlags,ਮਾਪ_T dw_ਬਾਈਟਾਂ);
+  WINBASEAPI HGLOBAL WINAPI GlobalReAlloc(HGLOBAL hMem,ਮਾਪ_T dw_ਬਾਈਟਾਂ,UINT uFlags);
+  WINBASEAPI ਮਾਪ_T WINAPI Global_ਮਾਪ(HGLOBAL hMem);
   WINBASEAPI UINT WINAPI GlobalFlags(HGLOBAL hMem);
-  WINBASEAPI LPVOID WINAPI GlobalLock(HGLOBAL hMem);
+  WINBASEAPI LPVOID WINAPI Global_ਤਾਲਾ(HGLOBAL hMem);
   WINBASEAPI HGLOBAL WINAPI GlobalHandle(LPCVOID pMem);
   WINBASEAPI WINBOOL WINAPI GlobalUnlock(HGLOBAL hMem);
   WINBASEAPI HGLOBAL WINAPI GlobalFree(HGLOBAL hMem);
-  WINBASEAPI SIZE_T WINAPI GlobalCompact(DWORD dwMinFree);
+  WINBASEAPI ਮਾਪ_T WINAPI GlobalCompact(DWORD dwMinFree);
   WINBASEAPI VOID WINAPI GlobalFix(HGLOBAL hMem);
   WINBASEAPI VOID WINAPI GlobalUnfix(HGLOBAL hMem);
   WINBASEAPI LPVOID WINAPI GlobalWire(HGLOBAL hMem);
   WINBASEAPI WINBOOL WINAPI GlobalUnWire(HGLOBAL hMem);
-  WINBASEAPI VOID WINAPI GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
+  WINBASEAPI VOID WINAPI Global_ਸਮ੍ਰਿਤੀ_ਸਥਿਤੀ(LPMEMORYSTATUS lp_ਬਫਰ);
 
-  typedef struct _MEMORYSTATUSEX {
-    DWORD dwLength;
-    DWORD dwMemoryLoad;
-    DWORDLONG ullTotalPhys;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _MEMORYSTATUSEX {
+    DWORD dw_ਲੰਮਾਈ;
+    DWORD dw_ਸਮ੍ਰਿਤੀ_ਲੱਦੋ;
+    DWORDLONG ull_ਕੁੱਲ_Phys;
     DWORDLONG ullAvailPhys;
-    DWORDLONG ullTotalPageFile;
-    DWORDLONG ullAvailPageFile;
-    DWORDLONG ullTotalVirtual;
+    DWORDLONG ull_ਕੁੱਲ_ਪੰਨਾ_File;
+    DWORDLONG ull_Avail_ਪੰਨਾ_File;
+    DWORDLONG ull_ਕੁੱਲ_Virtual;
     DWORDLONG ullAvailVirtual;
     DWORDLONG ullAvailExtendedVirtual;
   } MEMORYSTATUSEX,*LPMEMORYSTATUSEX;
 
-  WINBASEAPI WINBOOL WINAPI GlobalMemoryStatusEx(LPMEMORYSTATUSEX lpBuffer);
-  WINBASEAPI HLOCAL WINAPI LocalAlloc(UINT uFlags,SIZE_T uBytes);
-  WINBASEAPI HLOCAL WINAPI LocalReAlloc(HLOCAL hMem,SIZE_T uBytes,UINT uFlags);
-  WINBASEAPI LPVOID WINAPI LocalLock(HLOCAL hMem);
+  WINBASEAPI WINBOOL WINAPI Global_ਸਮ੍ਰਿਤੀ_ਸਥਿਤੀ_Ex(LPMEMORYSTATUSEX lp_ਬਫਰ);
+  WINBASEAPI HLOCAL WINAPI LocalAlloc(UINT uFlags,ਮਾਪ_T u_ਬਾਈਟਾਂ);
+  WINBASEAPI HLOCAL WINAPI LocalReAlloc(HLOCAL hMem,ਮਾਪ_T u_ਬਾਈਟਾਂ,UINT uFlags);
+  WINBASEAPI LPVOID WINAPI Local_ਤਾਲਾ(HLOCAL hMem);
   WINBASEAPI HLOCAL WINAPI LocalHandle(LPCVOID pMem);
   WINBASEAPI WINBOOL WINAPI LocalUnlock(HLOCAL hMem);
-  WINBASEAPI SIZE_T WINAPI LocalSize(HLOCAL hMem);
+  WINBASEAPI ਮਾਪ_T WINAPI Local_ਮਾਪ(HLOCAL hMem);
   WINBASEAPI UINT WINAPI LocalFlags(HLOCAL hMem);
   WINBASEAPI HLOCAL WINAPI LocalFree(HLOCAL hMem);
-  WINBASEAPI SIZE_T WINAPI LocalShrink(HLOCAL hMem,UINT cbNewSize);
-  WINBASEAPI SIZE_T WINAPI LocalCompact(UINT uMinFree);
-  WINBASEAPI WINBOOL WINAPI FlushInstructionCache(HANDLE hProcess,LPCVOID lpBaseAddress,SIZE_T dwSize);
-  WINBASEAPI LPVOID WINAPI VirtualAlloc(LPVOID lpAddress,SIZE_T dwSize,DWORD flAllocationType,DWORD flProtect);
-  WINBASEAPI WINBOOL WINAPI VirtualFree(LPVOID lpAddress,SIZE_T dwSize,DWORD dwFreeType);
-  WINBASEAPI WINBOOL WINAPI VirtualProtect(LPVOID lpAddress,SIZE_T dwSize,DWORD flNewProtect,PDWORD lpflOldProtect);
-  WINBASEAPI SIZE_T WINAPI VirtualQuery(LPCVOID lpAddress,PMEMORY_BASIC_INFORMATION lpBuffer,SIZE_T dwLength);
-  WINBASEAPI LPVOID WINAPI VirtualAllocEx(HANDLE hProcess,LPVOID lpAddress,SIZE_T dwSize,DWORD flAllocationType,DWORD flProtect);
-  WINBASEAPI UINT WINAPI GetWriteWatch(DWORD dwFlags,PVOID lpBaseAddress,SIZE_T dwRegionSize,PVOID *lpAddresses,ULONG_PTR *lpdwCount,PULONG lpdwGranularity);
-  WINBASEAPI UINT WINAPI ResetWriteWatch(LPVOID lpBaseAddress,SIZE_T dwRegionSize);
-  WINBASEAPI SIZE_T WINAPI GetLargePageMinimum(VOID);
-  WINBASEAPI UINT WINAPI EnumSystemFirmwareTables(DWORD FirmwareTableProviderSignature,PVOID pFirmwareTableEnumBuffer,DWORD BufferSize);
-  WINBASEAPI UINT WINAPI GetSystemFirmwareTable(DWORD FirmwareTableProviderSignature,DWORD FirmwareTableID,PVOID pFirmwareTableBuffer,DWORD BufferSize);
-  WINBASEAPI WINBOOL WINAPI VirtualFreeEx(HANDLE hProcess,LPVOID lpAddress,SIZE_T dwSize,DWORD dwFreeType);
-  WINBASEAPI WINBOOL WINAPI VirtualProtectEx(HANDLE hProcess,LPVOID lpAddress,SIZE_T dwSize,DWORD flNewProtect,PDWORD lpflOldProtect);
-  WINBASEAPI SIZE_T WINAPI VirtualQueryEx(HANDLE hProcess,LPCVOID lpAddress,PMEMORY_BASIC_INFORMATION lpBuffer,SIZE_T dwLength);
-  WINBASEAPI HANDLE WINAPI HeapCreate(DWORD flOptions,SIZE_T dwInitialSize,SIZE_T dwMaximumSize);
-  WINBASEAPI WINBOOL WINAPI HeapDestroy(HANDLE hHeap);
-  WINBASEAPI LPVOID WINAPI HeapAlloc(HANDLE hHeap,DWORD dwFlags,SIZE_T dwBytes);
-  WINBASEAPI LPVOID WINAPI HeapReAlloc(HANDLE hHeap,DWORD dwFlags,LPVOID lpMem,SIZE_T dwBytes);
-  WINBASEAPI WINBOOL WINAPI HeapFree(HANDLE hHeap,DWORD dwFlags,LPVOID lpMem);
-  WINBASEAPI SIZE_T WINAPI HeapSize(HANDLE hHeap,DWORD dwFlags,LPCVOID lpMem);
-  WINBASEAPI WINBOOL WINAPI HeapValidate(HANDLE hHeap,DWORD dwFlags,LPCVOID lpMem);
-  WINBASEAPI SIZE_T WINAPI HeapCompact(HANDLE hHeap,DWORD dwFlags);
-  WINBASEAPI HANDLE WINAPI GetProcessHeap(VOID);
-  WINBASEAPI DWORD WINAPI GetProcessHeaps(DWORD NumberOfHeaps,PHANDLE ProcessHeaps);
+  WINBASEAPI ਮਾਪ_T WINAPI LocalShrink(HLOCAL hMem,UINT cb_New_ਮਾਪ);
+  WINBASEAPI ਮਾਪ_T WINAPI LocalCompact(UINT uMinFree);
+  WINBASEAPI WINBOOL WINAPI FlushInstructionCache(HANDLE hProcess,LPCVOID lp_ਅਧਾਰ_ਪਤਾ,ਮਾਪ_T dw_ਮਾਪ);
+  WINBASEAPI LPVOID WINAPI VirtualAlloc(LPVOID lp_ਪਤਾ,ਮਾਪ_T dw_ਮਾਪ,DWORD fl_ਵੰਡ_Type,DWORD flProtect);
+  WINBASEAPI WINBOOL WINAPI VirtualFree(LPVOID lp_ਪਤਾ,ਮਾਪ_T dw_ਮਾਪ,DWORD dwFreeType);
+  WINBASEAPI WINBOOL WINAPI VirtualProtect(LPVOID lp_ਪਤਾ,ਮਾਪ_T dw_ਮਾਪ,DWORD flNewProtect,PDWORD lpflOldProtect);
+  WINBASEAPI ਮਾਪ_T WINAPI VirtualQuery(LPCVOID lp_ਪਤਾ,PMEMORY_BASIC_INFORMATION lp_ਬਫਰ,ਮਾਪ_T dw_ਲੰਮਾਈ);
+  WINBASEAPI LPVOID WINAPI VirtualAllocEx(HANDLE hProcess,LPVOID lp_ਪਤਾ,ਮਾਪ_T dw_ਮਾਪ,DWORD fl_ਵੰਡ_Type,DWORD flProtect);
+  WINBASEAPI UINT WINAPI GetWriteWatch(DWORD dwFlags,PVOID lp_ਅਧਾਰ_ਪਤਾ,ਮਾਪ_T dw_Region_ਮਾਪ,PVOID *lp_ਪਤੇ,ULONG_PTR *lpdw_ਗਿਣਤੀ,PULONG lpdwGranularity);
+  WINBASEAPI UINT WINAPI ResetWriteWatch(LPVOID lp_ਅਧਾਰ_ਪਤਾ,ਮਾਪ_T dw_Region_ਮਾਪ);
+  WINBASEAPI ਮਾਪ_T WINAPI Get_Large_ਪੰਨਾ_Minimum(VOID);
+  WINBASEAPI UINT WINAPI EnumSystemFirmwareTables(DWORD Firmware_ਸਾਰਣੀ_Provider_Signature,PVOID p_Firmware_ਸਾਰਣੀ_Enum_ਬਫਰ,DWORD ਬਫਰ_ਮਾਪ);
+  WINBASEAPI UINT WINAPI Get_System_Firmware_ਸਾਰਣੀ(DWORD Firmware_ਸਾਰਣੀ_Provider_Signature,DWORD Firmware_ਸਾਰਣੀ_ID,PVOID p_Firmware_ਸਾਰਣੀ_ਬਫਰ,DWORD ਬਫਰ_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI VirtualFreeEx(HANDLE hProcess,LPVOID lp_ਪਤਾ,ਮਾਪ_T dw_ਮਾਪ,DWORD dwFreeType);
+  WINBASEAPI WINBOOL WINAPI VirtualProtectEx(HANDLE hProcess,LPVOID lp_ਪਤਾ,ਮਾਪ_T dw_ਮਾਪ,DWORD flNewProtect,PDWORD lpflOldProtect);
+  WINBASEAPI ਮਾਪ_T WINAPI VirtualQueryEx(HANDLE hProcess,LPCVOID lp_ਪਤਾ,PMEMORY_BASIC_INFORMATION lp_ਬਫਰ,ਮਾਪ_T dw_ਲੰਮਾਈ);
+  WINBASEAPI HANDLE WINAPI ਢੇਰ_Create(DWORD flOptions,ਮਾਪ_T dw_Initial_ਮਾਪ,ਮਾਪ_T dw_ਵੱਧ_ਤੋਂ_ਵੱਧ_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI ਢੇਰ_Destroy(HANDLE h_ਢੇਰ);
+  WINBASEAPI LPVOID WINAPI ਢੇਰ_Alloc(HANDLE h_ਢੇਰ,DWORD dwFlags,ਮਾਪ_T dw_ਬਾਈਟਾਂ);
+  WINBASEAPI LPVOID WINAPI ਢੇਰ_Re_Alloc(HANDLE h_ਢੇਰ,DWORD dwFlags,LPVOID lpMem,ਮਾਪ_T dw_ਬਾਈਟਾਂ);
+  WINBASEAPI WINBOOL WINAPI ਢੇਰ_Free(HANDLE h_ਢੇਰ,DWORD dwFlags,LPVOID lpMem);
+  WINBASEAPI ਮਾਪ_T WINAPI ਢੇਰ_ਮਾਪ_3(HANDLE h_ਢੇਰ,DWORD dwFlags,LPCVOID lpMem);
+  WINBASEAPI WINBOOL WINAPI ਢੇਰ_Validate(HANDLE h_ਢੇਰ,DWORD dwFlags,LPCVOID lpMem);
+  WINBASEAPI ਮਾਪ_T WINAPI ਢੇਰ_Compact(HANDLE h_ਢੇਰ,DWORD dwFlags);
+  WINBASEAPI HANDLE WINAPI Get_Process_ਢੇਰ(VOID);
+  WINBASEAPI DWORD WINAPI GetProcessHeaps(DWORD ਸੰਖਿਆ_ਦਾ_Heaps,PHANDLE ProcessHeaps);
 
-  typedef struct _PROCESS_HEAP_ENTRY {
-    PVOID lpData;
-    DWORD cbData;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ PROCESS_ਢੇਰ_ਇੰਦਰਾਜ {
+    PVOID lp_ਅੰਕੜੇ;
+    DWORD cb_ਅੰਕੜੇ;
     BYTE cbOverhead;
-    BYTE iRegionIndex;
-    WORD wFlags;
-    union {
-      struct {
+    BYTE i_Region_ਸੂਚਕਾਂਕ;
+    ਸ਼ਬਦ_3 wFlags;
+    ਸੰਘ {
+      ਬਣਤਰ {
 	HANDLE hMem;
 	DWORD dwReserved[3];
-      } Block;
-      struct {
-	DWORD dwCommittedSize;
-	DWORD dwUnCommittedSize;
-	LPVOID lpFirstBlock;
-	LPVOID lpLastBlock;
+      } ਖੰਡ_2;
+      ਬਣਤਰ {
+	DWORD dw_Committed_ਮਾਪ;
+	DWORD dw_Un_Committed_ਮਾਪ;
+	LPVOID lp_ਪਹਿਲਾ_ਖੰਡ;
+	LPVOID lp_ਆਖਰੀ_ਖੰਡ;
       } Region;
     };
-  } PROCESS_HEAP_ENTRY,*LPPROCESS_HEAP_ENTRY,*PPROCESS_HEAP_ENTRY;
+  } PROCESS_ਢੇਰ_ਇੰਦਰਾਜ_2,*LPPROCESS_ਢੇਰ_ਇੰਦਰਾਜ,*PPROCESS_ਢੇਰ_ਇੰਦਰਾਜ;
 
-#define PROCESS_HEAP_REGION 0x1
-#define PROCESS_HEAP_UNCOMMITTED_RANGE 0x2
-#define PROCESS_HEAP_ENTRY_BUSY 0x4
-#define PROCESS_HEAP_ENTRY_MOVEABLE 0x10
-#define PROCESS_HEAP_ENTRY_DDESHARE 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PROCESS_ਢੇਰ_REGION 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PROCESS_ਢੇਰ_UNCOMMITTED_RANGE 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PROCESS_ਢੇਰ_ਇੰਦਰਾਜ_BUSY 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PROCESS_ਢੇਰ_ਇੰਦਰਾਜ_MOVEABLE 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PROCESS_ਢੇਰ_ਇੰਦਰਾਜ_DDESHARE 0x20
 
-  WINBASEAPI WINBOOL WINAPI HeapLock(HANDLE hHeap);
-  WINBASEAPI WINBOOL WINAPI HeapUnlock(HANDLE hHeap);
-  WINBASEAPI WINBOOL WINAPI HeapWalk(HANDLE hHeap,LPPROCESS_HEAP_ENTRY lpEntry);
-  WINBASEAPI WINBOOL WINAPI HeapSetInformation(HANDLE HeapHandle,HEAP_INFORMATION_CLASS HeapInformationClass,PVOID HeapInformation,SIZE_T HeapInformationLength);
-  WINBASEAPI WINBOOL WINAPI HeapQueryInformation(HANDLE HeapHandle,HEAP_INFORMATION_CLASS HeapInformationClass,PVOID HeapInformation,SIZE_T HeapInformationLength,PSIZE_T ReturnLength);
+  WINBASEAPI WINBOOL WINAPI ਢੇਰ_ਤਾਲਾ(HANDLE h_ਢੇਰ);
+  WINBASEAPI WINBOOL WINAPI ਢੇਰ_Unlock(HANDLE h_ਢੇਰ);
+  WINBASEAPI WINBOOL WINAPI ਢੇਰ_Walk(HANDLE h_ਢੇਰ,LPPROCESS_ਢੇਰ_ਇੰਦਰਾਜ lp_ਇੰਦਰਾਜ);
+  WINBASEAPI WINBOOL WINAPI ਢੇਰ_ਸੈੱਟ_Information(HANDLE ਢੇਰ_Handle,ਢੇਰ_INFORMATION_CLASS ਢੇਰ_Information_Class,PVOID ਢੇਰ_Information,ਮਾਪ_T ਢੇਰ_Information_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI ਢੇਰ_Query_Information(HANDLE ਢੇਰ_Handle,ਢੇਰ_INFORMATION_CLASS ਢੇਰ_Information_Class,PVOID ਢੇਰ_Information,ਮਾਪ_T ਢੇਰ_Information_ਲੰਮਾਈ,PSIZE_T Return_ਲੰਮਾਈ);
 
-#define SCS_32BIT_BINARY 0
-#define SCS_DOS_BINARY 1
-#define SCS_WOW_BINARY 2
-#define SCS_PIF_BINARY 3
-#define SCS_POSIX_BINARY 4
-#define SCS_OS216_BINARY 5
-#define SCS_64BIT_BINARY 6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SCS_32_ਦੋਆਧਾਰੀ_ਅੰਕ_ਦੁਆਧਾਰੀ 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SCS_DOS_ਦੁਆਧਾਰੀ 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SCS_WOW_ਦੁਆਧਾਰੀ 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SCS_PIF_ਦੁਆਧਾਰੀ 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SCS_POSIX_ਦੁਆਧਾਰੀ 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SCS_OS216_ਦੁਆਧਾਰੀ 5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SCS_64_ਦੋਆਧਾਰੀ_ਅੰਕ_ਦੁਆਧਾਰੀ 6
 
-#ifdef UNICODE
-#define GetBinaryType GetBinaryTypeW
-#define GetShortPathName GetShortPathNameW
-#define GetLongPathName GetLongPathNameW
-#define GetEnvironmentStrings GetEnvironmentStringsW
-#define SetEnvironmentStrings SetEnvironmentStringsW
-#define FreeEnvironmentStrings FreeEnvironmentStringsW
-#else
-#define GetBinaryType GetBinaryTypeA
-#define GetShortPathName GetShortPathNameA
-#define GetLongPathName GetLongPathNameA
-#define GetEnvironmentStringsA GetEnvironmentStrings
-#define SetEnvironmentStrings SetEnvironmentStringsA
-#define FreeEnvironmentStrings FreeEnvironmentStringsA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਦੁਆਧਾਰੀ_Type Get_ਦੁਆਧਾਰੀ_Type_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Short_ਰਸਤਾ_Name Get_Short_ਰਸਤਾ_Name_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Long_ਰਸਤਾ_Name Get_Long_ਰਸਤਾ_Name_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Environment_ਲੜੀਆਂ Get_Environment_ਲੜੀਆਂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Environment_ਲੜੀਆਂ ਸੈੱਟ_Environment_ਲੜੀਆਂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Free_Environment_ਲੜੀਆਂ Free_Environment_ਲੜੀਆਂ_W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਦੁਆਧਾਰੀ_Type Get_ਦੁਆਧਾਰੀ_Type_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Short_ਰਸਤਾ_Name Get_Short_ਰਸਤਾ_Name_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Long_ਰਸਤਾ_Name Get_Long_ਰਸਤਾ_Name_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Environment_ਲੜੀਆਂ_A Get_Environment_ਲੜੀਆਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Environment_ਲੜੀਆਂ ਸੈੱਟ_Environment_ਲੜੀਆਂ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Free_Environment_ਲੜੀਆਂ Free_Environment_ਲੜੀਆਂ_A
+#ਜੇ_ਅੰਤ
 
-#ifdef _WIN64
-#define SCS_THIS_PLATFORM_BINARY SCS_64BIT_BINARY
-#else
-#define SCS_THIS_PLATFORM_BINARY SCS_32BIT_BINARY
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _WIN64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SCS_THIS_PLATFORM_ਦੁਆਧਾਰੀ SCS_64_ਦੋਆਧਾਰੀ_ਅੰਕ_ਦੁਆਧਾਰੀ
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SCS_THIS_PLATFORM_ਦੁਆਧਾਰੀ SCS_32_ਦੋਆਧਾਰੀ_ਅੰਕ_ਦੁਆਧਾਰੀ
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI WINBOOL WINAPI GetBinaryTypeA(LPCSTR lpApplicationName,LPDWORD lpBinaryType);
-  WINBASEAPI WINBOOL WINAPI GetBinaryTypeW(LPCWSTR lpApplicationName,LPDWORD lpBinaryType);
-  WINBASEAPI DWORD WINAPI GetShortPathNameA(LPCSTR lpszLongPath,LPSTR lpszShortPath,DWORD cchBuffer);
-  WINBASEAPI DWORD WINAPI GetShortPathNameW(LPCWSTR lpszLongPath,LPWSTR lpszShortPath,DWORD cchBuffer);
-  WINBASEAPI DWORD WINAPI GetLongPathNameA(LPCSTR lpszShortPath,LPSTR lpszLongPath,DWORD cchBuffer);
-  WINBASEAPI DWORD WINAPI GetLongPathNameW(LPCWSTR lpszShortPath,LPWSTR lpszLongPath,DWORD cchBuffer);
-  WINBASEAPI WINBOOL WINAPI GetProcessAffinityMask(HANDLE hProcess,PDWORD_PTR lpProcessAffinityMask,PDWORD_PTR lpSystemAffinityMask);
-  WINBASEAPI WINBOOL WINAPI SetProcessAffinityMask(HANDLE hProcess,DWORD_PTR dwProcessAffinityMask);
-  WINBASEAPI WINBOOL WINAPI GetProcessHandleCount(HANDLE hProcess,PDWORD pdwHandleCount);
-  WINBASEAPI WINBOOL WINAPI GetProcessTimes(HANDLE hProcess,LPFILETIME lpCreationTime,LPFILETIME lpExitTime,LPFILETIME lpKernelTime,LPFILETIME lpUserTime);
+  WINBASEAPI WINBOOL WINAPI Get_ਦੁਆਧਾਰੀ_Type_A(LPCSTR lpApplicationName,LPDWORD lp_ਦੁਆਧਾਰੀ_Type);
+  WINBASEAPI WINBOOL WINAPI Get_ਦੁਆਧਾਰੀ_Type_W(LPCWSTR lpApplicationName,LPDWORD lp_ਦੁਆਧਾਰੀ_Type);
+  WINBASEAPI DWORD WINAPI Get_Short_ਰਸਤਾ_Name_A(LPCSTR lpsz_Long_ਰਸਤਾ,LPSTR lpsz_Short_ਰਸਤਾ,DWORD cch_ਬਫਰ);
+  WINBASEAPI DWORD WINAPI Get_Short_ਰਸਤਾ_Name_W(LPCWSTR lpsz_Long_ਰਸਤਾ,LPWSTR lpsz_Short_ਰਸਤਾ,DWORD cch_ਬਫਰ);
+  WINBASEAPI DWORD WINAPI Get_Long_ਰਸਤਾ_Name_A(LPCSTR lpsz_Short_ਰਸਤਾ,LPSTR lpsz_Long_ਰਸਤਾ,DWORD cch_ਬਫਰ);
+  WINBASEAPI DWORD WINAPI Get_Long_ਰਸਤਾ_Name_W(LPCWSTR lpsz_Short_ਰਸਤਾ,LPWSTR lpsz_Long_ਰਸਤਾ,DWORD cch_ਬਫਰ);
+  WINBASEAPI WINBOOL WINAPI Get_Process_Affinity_ਨਕਾਬ(HANDLE hProcess,PDWORD_PTR lp_Process_Affinity_ਨਕਾਬ,PDWORD_PTR lp_System_Affinity_ਨਕਾਬ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Process_Affinity_ਨਕਾਬ(HANDLE hProcess,DWORD_PTR dw_Process_Affinity_ਨਕਾਬ);
+  WINBASEAPI WINBOOL WINAPI Get_Process_Handle_ਗਿਣਤੀ(HANDLE hProcess,PDWORD pdw_Handle_ਗਿਣਤੀ);
+  WINBASEAPI WINBOOL WINAPI GetProcessTimes(HANDLE hProcess,LPFILETIME lp_Creation_ਸਮਾਂ,LPFILETIME lp_Exit_ਸਮਾਂ,LPFILETIME lp_Kernel_ਸਮਾਂ,LPFILETIME lp_User_ਸਮਾਂ);
   WINBASEAPI WINBOOL WINAPI GetProcessIoCounters(HANDLE hProcess,PIO_COUNTERS lpIoCounters);
-  WINBASEAPI WINBOOL WINAPI GetProcessWorkingSetSize(HANDLE hProcess,PSIZE_T lpMinimumWorkingSetSize,PSIZE_T lpMaximumWorkingSetSize);
-  WINBASEAPI WINBOOL WINAPI GetProcessWorkingSetSizeEx(HANDLE hProcess,PSIZE_T lpMinimumWorkingSetSize,PSIZE_T lpMaximumWorkingSetSize,PDWORD Flags);
-  WINBASEAPI WINBOOL WINAPI SetProcessWorkingSetSize(HANDLE hProcess,SIZE_T dwMinimumWorkingSetSize,SIZE_T dwMaximumWorkingSetSize);
-  WINBASEAPI WINBOOL WINAPI SetProcessWorkingSetSizeEx(HANDLE hProcess,SIZE_T dwMinimumWorkingSetSize,SIZE_T dwMaximumWorkingSetSize,DWORD Flags);
+  WINBASEAPI WINBOOL WINAPI Get_Process_Working_ਸੈੱਟ_ਮਾਪ(HANDLE hProcess,PSIZE_T lp_Minimum_Working_ਸੈੱਟ_ਮਾਪ,PSIZE_T lp_ਵੱਧ_ਤੋਂ_ਵੱਧ_Working_ਸੈੱਟ_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI Get_Process_Working_ਸੈੱਟ_ਮਾਪ_Ex(HANDLE hProcess,PSIZE_T lp_Minimum_Working_ਸੈੱਟ_ਮਾਪ,PSIZE_T lp_ਵੱਧ_ਤੋਂ_ਵੱਧ_Working_ਸੈੱਟ_ਮਾਪ,PDWORD Flags);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Process_Working_ਸੈੱਟ_ਮਾਪ(HANDLE hProcess,ਮਾਪ_T dw_Minimum_Working_ਸੈੱਟ_ਮਾਪ,ਮਾਪ_T dw_ਵੱਧ_ਤੋਂ_ਵੱਧ_Working_ਸੈੱਟ_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Process_Working_ਸੈੱਟ_ਮਾਪ_Ex(HANDLE hProcess,ਮਾਪ_T dw_Minimum_Working_ਸੈੱਟ_ਮਾਪ,ਮਾਪ_T dw_ਵੱਧ_ਤੋਂ_ਵੱਧ_Working_ਸੈੱਟ_ਮਾਪ,DWORD Flags);
   WINBASEAPI HANDLE WINAPI OpenProcess(DWORD dwDesiredAccess,WINBOOL bInheritHandle,DWORD dwProcessId);
   WINBASEAPI HANDLE WINAPI GetCurrentProcess(VOID);
   WINBASEAPI DWORD WINAPI GetCurrentProcessId(VOID);
-  WINBASEAPI DECLSPEC_NORETURN VOID WINAPI ExitProcess(UINT uExitCode);
-  WINBASEAPI WINBOOL WINAPI TerminateProcess(HANDLE hProcess,UINT uExitCode);
-  WINBASEAPI WINBOOL WINAPI GetExitCodeProcess(HANDLE hProcess,LPDWORD lpExitCode);
-  WINBASEAPI VOID WINAPI FatalExit(int ExitCode);
+  WINBASEAPI DECLSPEC_NORETURN VOID WINAPI ExitProcess(UINT u_Exit_ਕੋਡ);
+  WINBASEAPI WINBOOL WINAPI TerminateProcess(HANDLE hProcess,UINT u_Exit_ਕੋਡ);
+  WINBASEAPI WINBOOL WINAPI Get_Exit_ਕੋਡ_Process(HANDLE hProcess,LPDWORD lp_Exit_ਕੋਡ);
+  WINBASEAPI VOID WINAPI FatalExit(ਪੂਰਨ Exit_ਕੋਡ);
   /*	WINBASEAPI LPCH WINAPI GetEnvironmentStrings(VOID); */
-  WINBASEAPI LPWCH WINAPI GetEnvironmentStringsW(VOID);
-  WINBASEAPI WINBOOL WINAPI SetEnvironmentStringsA(LPCH NewEnvironment);
-  WINBASEAPI WINBOOL WINAPI SetEnvironmentStringsW(LPWCH NewEnvironment);
-  WINBASEAPI WINBOOL WINAPI FreeEnvironmentStringsA(LPCH);
-  WINBASEAPI WINBOOL WINAPI FreeEnvironmentStringsW(LPWCH);
-  WINBASEAPI VOID WINAPI RaiseException(DWORD dwExceptionCode,DWORD dwExceptionFlags,DWORD nNumberOfArguments,CONST ULONG_PTR *lpArguments);
-  WINBASEAPI LONG WINAPI UnhandledExceptionFilter(struct _EXCEPTION_POINTERS *ExceptionInfo);
+  WINBASEAPI LPWCH WINAPI Get_Environment_ਲੜੀਆਂ_W(VOID);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Environment_ਲੜੀਆਂ_A(LPCH NewEnvironment);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Environment_ਲੜੀਆਂ_W(LPWCH NewEnvironment);
+  WINBASEAPI WINBOOL WINAPI Free_Environment_ਲੜੀਆਂ_A(LPCH);
+  WINBASEAPI WINBOOL WINAPI Free_Environment_ਲੜੀਆਂ_W(LPWCH);
+  WINBASEAPI VOID WINAPI RaiseException(DWORD dw_Exception_ਕੋਡ,DWORD dwExceptionFlags,DWORD n_ਸੰਖਿਆ_ਦਾ_Arguments,CONST ULONG_PTR *lpArguments);
+  WINBASEAPI LONG WINAPI UnhandledExceptionFilter(ਬਣਤਰ EXCEPTION_ਸੂਚਕ_ਸਾਰੇ_2 *ExceptionInfo);
 
-  typedef LONG (WINAPI *PTOP_LEVEL_EXCEPTION_FILTER)(struct _EXCEPTION_POINTERS *ExceptionInfo);
-  typedef PTOP_LEVEL_EXCEPTION_FILTER LPTOP_LEVEL_EXCEPTION_FILTER;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ LONG (WINAPI *PTOP_LEVEL_EXCEPTION_FILTER)(ਬਣਤਰ EXCEPTION_ਸੂਚਕ_ਸਾਰੇ_2 *ExceptionInfo);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PTOP_LEVEL_EXCEPTION_FILTER LPTOP_LEVEL_EXCEPTION_FILTER;
 
-  WINBASEAPI LPTOP_LEVEL_EXCEPTION_FILTER WINAPI SetUnhandledExceptionFilter(LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter);
+  WINBASEAPI LPTOP_LEVEL_EXCEPTION_FILTER WINAPI ਸੈੱਟ_Unhandled_Exception_Filter(LPTOP_LEVEL_EXCEPTION_FILTER lp_ਸਿਖਰ_Level_Exception_Filter);
 
-#define FIBER_FLAG_FLOAT_SWITCH 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FIBER_FLAG_FLOAT_SWITCH 0x1
 
-  WINBASEAPI LPVOID WINAPI CreateFiber(SIZE_T dwStackSize,LPFIBER_START_ROUTINE lpStartAddress,LPVOID lpParameter);
-  WINBASEAPI LPVOID WINAPI CreateFiberEx(SIZE_T dwStackCommitSize,SIZE_T dwStackReserveSize,DWORD dwFlags,LPFIBER_START_ROUTINE lpStartAddress,LPVOID lpParameter);
+  WINBASEAPI LPVOID WINAPI CreateFiber(ਮਾਪ_T dw_ਢੇਰ_ਮਾਪ,LPFIBER_ਸ਼ੁਰੂ_ROUTINE lp_ਸ਼ੁਰੂ_ਪਤਾ,LPVOID lpParameter);
+  WINBASEAPI LPVOID WINAPI CreateFiberEx(ਮਾਪ_T dw_ਢੇਰ_Commit_ਮਾਪ,ਮਾਪ_T dw_ਢੇਰ_Reserve_ਮਾਪ,DWORD dwFlags,LPFIBER_ਸ਼ੁਰੂ_ROUTINE lp_ਸ਼ੁਰੂ_ਪਤਾ,LPVOID lpParameter);
   WINBASEAPI VOID WINAPI DeleteFiber(LPVOID lpFiber);
-  WINBASEAPI LPVOID WINAPI ConvertThreadToFiber(LPVOID lpParameter);
-  WINBASEAPI LPVOID WINAPI ConvertThreadToFiberEx(LPVOID lpParameter,DWORD dwFlags);
-  WINBASEAPI WINBOOL WINAPI ConvertFiberToThread(VOID);
-  WINBASEAPI VOID WINAPI SwitchToFiber(LPVOID lpFiber);
-  WINBASEAPI WINBOOL WINAPI SwitchToThread(VOID);
-  WINBASEAPI HANDLE WINAPI CreateThread(LPSECURITY_ATTRIBUTES lpThreadAttributes,SIZE_T dwStackSize,LPTHREAD_START_ROUTINE lpStartAddress,LPVOID lpParameter,DWORD dwCreationFlags,LPDWORD lpThreadId);
-  WINBASEAPI HANDLE WINAPI CreateRemoteThread(HANDLE hProcess,LPSECURITY_ATTRIBUTES lpThreadAttributes,SIZE_T dwStackSize,LPTHREAD_START_ROUTINE lpStartAddress,LPVOID lpParameter,DWORD dwCreationFlags,LPDWORD lpThreadId);
+  WINBASEAPI LPVOID WINAPI Convert_Thread_ਮੰਜ਼ਿਲ_Fiber(LPVOID lpParameter);
+  WINBASEAPI LPVOID WINAPI Convert_Thread_ਮੰਜ਼ਿਲ_Fiber_Ex(LPVOID lpParameter,DWORD dwFlags);
+  WINBASEAPI WINBOOL WINAPI Convert_Fiber_ਮੰਜ਼ਿਲ_Thread(VOID);
+  WINBASEAPI VOID WINAPI Switch_ਮੰਜ਼ਿਲ_Fiber(LPVOID lpFiber);
+  WINBASEAPI WINBOOL WINAPI Switch_ਮੰਜ਼ਿਲ_Thread(VOID);
+  WINBASEAPI HANDLE WINAPI CreateThread(LPSECURITY_ਗੁਣ lp_Thread_ਗੁਣ,ਮਾਪ_T dw_ਢੇਰ_ਮਾਪ,LPTHREAD_ਸ਼ੁਰੂ_ROUTINE lp_ਸ਼ੁਰੂ_ਪਤਾ,LPVOID lpParameter,DWORD dwCreationFlags,LPDWORD lpThreadId);
+  WINBASEAPI HANDLE WINAPI CreateRemoteThread(HANDLE hProcess,LPSECURITY_ਗੁਣ lp_Thread_ਗੁਣ,ਮਾਪ_T dw_ਢੇਰ_ਮਾਪ,LPTHREAD_ਸ਼ੁਰੂ_ROUTINE lp_ਸ਼ੁਰੂ_ਪਤਾ,LPVOID lpParameter,DWORD dwCreationFlags,LPDWORD lpThreadId);
   WINBASEAPI HANDLE WINAPI GetCurrentThread(VOID);
   WINBASEAPI DWORD WINAPI GetCurrentThreadId(VOID);
-  WINBASEAPI WINBOOL WINAPI SetThreadStackGuarantee (PULONG StackSizeInBytes);
-  WINBASEAPI DWORD WINAPI GetProcessIdOfThread(HANDLE Thread);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Thread_ਢੇਰ_Guarantee (PULONG ਢੇਰ_ਮਾਪ_ਵਿੱਚ_ਬਾਈਟਾਂ);
+  WINBASEAPI DWORD WINAPI Get_Process_Id_ਦਾ_Thread(HANDLE Thread);
   WINBASEAPI DWORD WINAPI GetThreadId(HANDLE Thread);
   WINBASEAPI DWORD WINAPI GetProcessId(HANDLE Process);
-  WINBASEAPI DWORD WINAPI GetCurrentProcessorNumber(VOID);
-  WINBASEAPI DWORD_PTR WINAPI SetThreadAffinityMask(HANDLE hThread,DWORD_PTR dwThreadAffinityMask);
-  WINBASEAPI DWORD WINAPI SetThreadIdealProcessor(HANDLE hThread,DWORD dwIdealProcessor);
-  WINBASEAPI WINBOOL WINAPI SetProcessPriorityBoost(HANDLE hProcess,WINBOOL bDisablePriorityBoost);
-  WINBASEAPI WINBOOL WINAPI GetProcessPriorityBoost(HANDLE hProcess,PBOOL pDisablePriorityBoost);
-  WINBASEAPI WINBOOL WINAPI RequestWakeupLatency(LATENCY_TIME latency);
+  WINBASEAPI DWORD WINAPI Get_Current_Processor_ਸੰਖਿਆ(VOID);
+  WINBASEAPI DWORD_PTR WINAPI ਸੈੱਟ_Thread_Affinity_ਨਕਾਬ(HANDLE hThread,DWORD_PTR dw_Thread_Affinity_ਨਕਾਬ);
+  WINBASEAPI DWORD WINAPI ਸੈੱਟ_Thread_Ideal_Processor(HANDLE hThread,DWORD dwIdealProcessor);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Process_ਤਰਜੀਹ_Boost(HANDLE hProcess,WINBOOL b_Disable_ਤਰਜੀਹ_Boost);
+  WINBASEAPI WINBOOL WINAPI Get_Process_ਤਰਜੀਹ_Boost(HANDLE hProcess,PBOOL p_Disable_ਤਰਜੀਹ_Boost);
+  WINBASEAPI WINBOOL WINAPI RequestWakeupLatency(LATENCY_ਸਮਾਂ latency);
   WINBASEAPI WINBOOL WINAPI IsSystemResumeAutomatic(VOID);
   WINBASEAPI HANDLE WINAPI OpenThread(DWORD dwDesiredAccess,WINBOOL bInheritHandle,DWORD dwThreadId);
-  WINBASEAPI WINBOOL WINAPI SetThreadPriority(HANDLE hThread,int nPriority);
-  WINBASEAPI WINBOOL WINAPI SetThreadPriorityBoost(HANDLE hThread,WINBOOL bDisablePriorityBoost);
-  WINBASEAPI WINBOOL WINAPI GetThreadPriorityBoost(HANDLE hThread,PBOOL pDisablePriorityBoost);
-  WINBASEAPI int WINAPI GetThreadPriority(HANDLE hThread);
-  WINBASEAPI WINBOOL WINAPI GetThreadTimes(HANDLE hThread,LPFILETIME lpCreationTime,LPFILETIME lpExitTime,LPFILETIME lpKernelTime,LPFILETIME lpUserTime);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Thread_ਤਰਜੀਹ(HANDLE hThread,ਪੂਰਨ n_ਤਰਜੀਹ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Thread_ਤਰਜੀਹ_Boost(HANDLE hThread,WINBOOL b_Disable_ਤਰਜੀਹ_Boost);
+  WINBASEAPI WINBOOL WINAPI Get_Thread_ਤਰਜੀਹ_Boost(HANDLE hThread,PBOOL p_Disable_ਤਰਜੀਹ_Boost);
+  WINBASEAPI ਪੂਰਨ WINAPI Get_Thread_ਤਰਜੀਹ(HANDLE hThread);
+  WINBASEAPI WINBOOL WINAPI GetThreadTimes(HANDLE hThread,LPFILETIME lp_Creation_ਸਮਾਂ,LPFILETIME lp_Exit_ਸਮਾਂ,LPFILETIME lp_Kernel_ਸਮਾਂ,LPFILETIME lp_User_ਸਮਾਂ);
   WINBASEAPI WINBOOL WINAPI GetThreadIOPendingFlag(HANDLE hThread,PBOOL lpIOIsPending);
-  WINBASEAPI DECLSPEC_NORETURN VOID WINAPI ExitThread(DWORD dwExitCode);
-  WINBASEAPI WINBOOL WINAPI TerminateThread(HANDLE hThread,DWORD dwExitCode);
-  WINBASEAPI WINBOOL WINAPI GetExitCodeThread(HANDLE hThread,LPDWORD lpExitCode);
-  WINBASEAPI WINBOOL WINAPI GetThreadSelectorEntry(HANDLE hThread,DWORD dwSelector,LPLDT_ENTRY lpSelectorEntry);
-  WINBASEAPI EXECUTION_STATE WINAPI SetThreadExecutionState(EXECUTION_STATE esFlags);
-  WINBASEAPI DWORD WINAPI GetLastError(VOID);
-  WINBASEAPI VOID WINAPI SetLastError(DWORD dwErrCode);
+  WINBASEAPI DECLSPEC_NORETURN VOID WINAPI ExitThread(DWORD dw_Exit_ਕੋਡ);
+  WINBASEAPI WINBOOL WINAPI TerminateThread(HANDLE hThread,DWORD dw_Exit_ਕੋਡ);
+  WINBASEAPI WINBOOL WINAPI Get_Exit_ਕੋਡ_Thread(HANDLE hThread,LPDWORD lp_Exit_ਕੋਡ);
+  WINBASEAPI WINBOOL WINAPI Get_Thread_Selector_ਇੰਦਰਾਜ(HANDLE hThread,DWORD dwSelector,LPLDT_ਇੰਦਰਾਜ lp_Selector_ਇੰਦਰਾਜ);
+  WINBASEAPI EXECUTION_STATE WINAPI ਸੈੱਟ_Thread_Execution_State(EXECUTION_STATE esFlags);
+  WINBASEAPI DWORD WINAPI Get_ਆਖਰੀ_Error(VOID);
+  WINBASEAPI VOID WINAPI ਸੈੱਟ_ਆਖਰੀ_Error(DWORD dw_Err_ਕੋਡ);
 
-#ifndef RC_INVOKED
-#ifdef WINBASE_DECLARE_RESTORE_LAST_ERROR
-  WINBASEAPI VOID WINAPI RestoreLastError(DWORD dwErrCode);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ RC_INVOKED
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ WINBASE_DECLARE_RESTORE_ਆਖਰੀ_ERROR
+  WINBASEAPI VOID WINAPI Restore_ਆਖਰੀ_Error(DWORD dw_Err_ਕੋਡ);
 
-  typedef VOID (WINAPI *PRESTORE_LAST_ERROR)(DWORD);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ VOID (WINAPI *PRESTORE_ਆਖਰੀ_ERROR)(DWORD);
 
-#define RESTORE_LAST_ERROR_NAME_A "RestoreLastError"
-#define RESTORE_LAST_ERROR_NAME_W L"RestoreLastError"
-#define RESTORE_LAST_ERROR_NAME TEXT("RestoreLastError")
-#endif
-#endif
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RESTORE_ਆਖਰੀ_ERROR_NAME_A "RestoreLastError"
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RESTORE_ਆਖਰੀ_ERROR_NAME_W L"RestoreLastError"
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RESTORE_ਆਖਰੀ_ERROR_NAME ਪਾਠ_3("RestoreLastError")
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define HasOverlappedIoCompleted(lpOverlapped) (((DWORD)(lpOverlapped)->Internal)!=STATUS_PENDING)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HasOverlappedIoCompleted(lpOverlapped) (((DWORD)(lpOverlapped)->ਅੰਦਰੂਨੀ)!=ਸਥਿਤੀ_PENDING)
 
-  WINBASEAPI WINBOOL WINAPI GetOverlappedResult(HANDLE hFile,LPOVERLAPPED lpOverlapped,LPDWORD lpNumberOfBytesTransferred,WINBOOL bWait);
-  WINBASEAPI HANDLE WINAPI CreateIoCompletionPort(HANDLE FileHandle,HANDLE ExistingCompletionPort,ULONG_PTR CompletionKey,DWORD NumberOfConcurrentThreads);
-  WINBASEAPI WINBOOL WINAPI GetQueuedCompletionStatus(HANDLE CompletionPort,LPDWORD lpNumberOfBytesTransferred,PULONG_PTR lpCompletionKey,LPOVERLAPPED *lpOverlapped,DWORD dwMilliseconds);
-  WINBASEAPI WINBOOL WINAPI PostQueuedCompletionStatus(HANDLE CompletionPort,DWORD dwNumberOfBytesTransferred,ULONG_PTR dwCompletionKey,LPOVERLAPPED lpOverlapped);
+  WINBASEAPI WINBOOL WINAPI Get_Overlapped_ਨਤੀਜਾ(HANDLE hFile,LPOVERLAPPED lpOverlapped,LPDWORD lp_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Transferred,WINBOOL bWait);
+  WINBASEAPI HANDLE WINAPI Create_Io_Completion_ਪੋਰਟ(HANDLE FileHandle,HANDLE Existing_Completion_ਪੋਰਟ,ULONG_PTR Completion_ਕੁੰਜੀ,DWORD ਸੰਖਿਆ_ਦਾ_Concurrent_ਧਾਗੇ);
+  WINBASEAPI WINBOOL WINAPI Get_Queued_Completion_ਸਥਿਤੀ(HANDLE Completion_ਪੋਰਟ,LPDWORD lp_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Transferred,PULONG_PTR lp_Completion_ਕੁੰਜੀ,LPOVERLAPPED *lpOverlapped,DWORD dwMilliseconds);
+  WINBASEAPI WINBOOL WINAPI Post_Queued_Completion_ਸਥਿਤੀ(HANDLE Completion_ਪੋਰਟ,DWORD dw_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Transferred,ULONG_PTR dw_Completion_ਕੁੰਜੀ,LPOVERLAPPED lpOverlapped);
 
-#define SEM_FAILCRITICALERRORS 0x1
-#define SEM_NOGPFAULTERRORBOX 0x2
-#define SEM_NOALIGNMENTFAULTEXCEPT 0x4
-#define SEM_NOOPENFILEERRORBOX 0x8000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SEM_FAILCRITICALERRORS 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SEM_NOGPFAULTERRORBOX 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SEM_NOALIGNMENTFAULTEXCEPT 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SEM_NOOPENFILEERRORBOX 0x8000
 
-  WINBASEAPI UINT WINAPI SetErrorMode(UINT uMode);
-  WINBASEAPI WINBOOL WINAPI ReadProcessMemory(HANDLE hProcess,LPCVOID lpBaseAddress,LPVOID lpBuffer,SIZE_T nSize,SIZE_T *lpNumberOfBytesRead);
-  WINBASEAPI WINBOOL WINAPI WriteProcessMemory(HANDLE hProcess,LPVOID lpBaseAddress,LPCVOID lpBuffer,SIZE_T nSize,SIZE_T *lpNumberOfBytesWritten);
+  WINBASEAPI UINT WINAPI ਸੈੱਟ_Error_ਬਹੁਲਕ(UINT u_ਬਹੁਲਕ);
+  WINBASEAPI WINBOOL WINAPI Read_Process_ਸਮ੍ਰਿਤੀ(HANDLE hProcess,LPCVOID lp_ਅਧਾਰ_ਪਤਾ,LPVOID lp_ਬਫਰ,ਮਾਪ_T n_ਮਾਪ,ਮਾਪ_T *lp_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Read);
+  WINBASEAPI WINBOOL WINAPI Write_Process_ਸਮ੍ਰਿਤੀ(HANDLE hProcess,LPVOID lp_ਅਧਾਰ_ਪਤਾ,LPCVOID lp_ਬਫਰ,ਮਾਪ_T n_ਮਾਪ,ਮਾਪ_T *lp_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Written);
   WINBASEAPI WINBOOL WINAPI GetThreadContext(HANDLE hThread,LPCONTEXT lpContext);
-  WINBASEAPI WINBOOL WINAPI SetThreadContext(HANDLE hThread,CONST CONTEXT *lpContext);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Thread_Context(HANDLE hThread,CONST CONTEXT *lpContext);
   WINBASEAPI DWORD WINAPI SuspendThread(HANDLE hThread);
   WINBASEAPI DWORD WINAPI ResumeThread(HANDLE hThread);
 
-  typedef VOID (WINAPI *PAPCFUNC)(ULONG_PTR dwParam);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ VOID (WINAPI *PAPCFUNC)(ULONG_PTR dwParam);
 
-  WINBASEAPI DWORD WINAPI QueueUserAPC(PAPCFUNC pfnAPC,HANDLE hThread,ULONG_PTR dwData);
+  WINBASEAPI DWORD WINAPI ਕਤਾਰ_User_APC(PAPCFUNC pfnAPC,HANDLE hThread,ULONG_PTR dw_ਅੰਕੜੇ);
   WINBASEAPI WINBOOL WINAPI IsDebuggerPresent(VOID);
   WINBASEAPI WINBOOL WINAPI CheckRemoteDebuggerPresent(HANDLE hProcess,PBOOL pbDebuggerPresent);
   WINBASEAPI VOID WINAPI DebugBreak(VOID);
   WINBASEAPI WINBOOL WINAPI WaitForDebugEvent(LPDEBUG_EVENT lpDebugEvent,DWORD dwMilliseconds);
-  WINBASEAPI WINBOOL WINAPI ContinueDebugEvent(DWORD dwProcessId,DWORD dwThreadId,DWORD dwContinueStatus);
-  WINBASEAPI WINBOOL WINAPI DebugActiveProcess(DWORD dwProcessId);
-  WINBASEAPI WINBOOL WINAPI DebugActiveProcessStop(DWORD dwProcessId);
-  WINBASEAPI WINBOOL WINAPI DebugSetProcessKillOnExit(WINBOOL KillOnExit);
+  WINBASEAPI WINBOOL WINAPI ContinueDebugEvent(DWORD dwProcessId,DWORD dwThreadId,DWORD dw_Continue_ਸਥਿਤੀ);
+  WINBASEAPI WINBOOL WINAPI Debug_ਸਰਗਰਮ_Process(DWORD dwProcessId);
+  WINBASEAPI WINBOOL WINAPI Debug_ਸਰਗਰਮ_Process_Stop(DWORD dwProcessId);
+  WINBASEAPI WINBOOL WINAPI Debug_ਸੈੱਟ_Process_Kill_On_Exit(WINBOOL KillOnExit);
   WINBASEAPI WINBOOL WINAPI DebugBreakProcess(HANDLE Process);
   WINBASEAPI VOID WINAPI InitializeCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
   WINBASEAPI VOID WINAPI EnterCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
   WINBASEAPI VOID WINAPI LeaveCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
-  WINBASEAPI WINBOOL WINAPI InitializeCriticalSectionAndSpinCount(LPCRITICAL_SECTION lpCriticalSection,DWORD dwSpinCount);
-  WINBASEAPI DWORD WINAPI SetCriticalSectionSpinCount(LPCRITICAL_SECTION lpCriticalSection,DWORD dwSpinCount);
+  WINBASEAPI WINBOOL WINAPI Initialize_Critical_Section_And_Spin_ਗਿਣਤੀ(LPCRITICAL_SECTION lpCriticalSection,DWORD dw_Spin_ਗਿਣਤੀ);
+  WINBASEAPI DWORD WINAPI ਸੈੱਟ_Critical_Section_Spin_ਗਿਣਤੀ(LPCRITICAL_SECTION lpCriticalSection,DWORD dw_Spin_ਗਿਣਤੀ);
   WINBASEAPI WINBOOL WINAPI TryEnterCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
   WINBASEAPI VOID WINAPI DeleteCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
-  WINBASEAPI WINBOOL WINAPI SetEvent(HANDLE hEvent);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Event(HANDLE hEvent);
   WINBASEAPI WINBOOL WINAPI ResetEvent(HANDLE hEvent);
   WINBASEAPI WINBOOL WINAPI PulseEvent(HANDLE hEvent);
-  WINBASEAPI WINBOOL WINAPI ReleaseSemaphore(HANDLE hSemaphore,LONG lReleaseCount,LPLONG lpPreviousCount);
+  WINBASEAPI WINBOOL WINAPI ReleaseSemaphore(HANDLE hSemaphore,LONG l_Release_ਗਿਣਤੀ,LPLONG lp_ਪਿਛਲਾ_ਗਿਣਤੀ);
   WINBASEAPI WINBOOL WINAPI ReleaseMutex(HANDLE hMutex);
   WINBASEAPI DWORD WINAPI WaitForSingleObject(HANDLE hHandle,DWORD dwMilliseconds);
-  WINBASEAPI DWORD WINAPI WaitForMultipleObjects(DWORD nCount,CONST HANDLE *lpHandles,WINBOOL bWaitAll,DWORD dwMilliseconds);
+  WINBASEAPI DWORD WINAPI Wait_For_ਗੁਣਜ_Objects(DWORD n_ਗਿਣਤੀ,CONST HANDLE *lpHandles,WINBOOL bWaitAll,DWORD dwMilliseconds);
   WINBASEAPI VOID WINAPI Sleep(DWORD dwMilliseconds);
-  WINBASEAPI HGLOBAL WINAPI LoadResource(HMODULE hModule,HRSRC hResInfo);
+  WINBASEAPI HGLOBAL WINAPI ਲੱਦੋ_Resource(HMODULE hModule,HRSRC hResInfo);
   WINBASEAPI DWORD WINAPI SizeofResource(HMODULE hModule,HRSRC hResInfo);
   WINBASEAPI ATOM WINAPI GlobalDeleteAtom(ATOM nAtom);
-  WINBASEAPI WINBOOL WINAPI InitAtomTable(DWORD nSize);
+  WINBASEAPI WINBOOL WINAPI Init_Atom_ਸਾਰਣੀ(DWORD n_ਮਾਪ);
   WINBASEAPI ATOM WINAPI DeleteAtom(ATOM nAtom);
-  WINBASEAPI UINT WINAPI SetHandleCount(UINT uNumber);
+  WINBASEAPI UINT WINAPI ਸੈੱਟ_Handle_ਗਿਣਤੀ(UINT u_ਸੰਖਿਆ);
   WINBASEAPI DWORD WINAPI GetLogicalDrives(VOID);
-  WINBASEAPI WINBOOL WINAPI LockFile(HANDLE hFile,DWORD dwFileOffsetLow,DWORD dwFileOffsetHigh,DWORD nNumberOfBytesToLockLow,DWORD nNumberOfBytesToLockHigh);
-  WINBASEAPI WINBOOL WINAPI UnlockFile(HANDLE hFile,DWORD dwFileOffsetLow,DWORD dwFileOffsetHigh,DWORD nNumberOfBytesToUnlockLow,DWORD nNumberOfBytesToUnlockHigh);
-  WINBASEAPI WINBOOL WINAPI LockFileEx(HANDLE hFile,DWORD dwFlags,DWORD dwReserved,DWORD nNumberOfBytesToLockLow,DWORD nNumberOfBytesToLockHigh,LPOVERLAPPED lpOverlapped);
+  WINBASEAPI WINBOOL WINAPI ਤਾਲਾ_File(HANDLE hFile,DWORD dw_File_ਵਿੱਥ_ਨੀਵਾਂ,DWORD dw_File_ਵਿੱਥ_ਉੱਚਾ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_ਤਾਲਾ_ਨੀਵਾਂ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_ਤਾਲਾ_ਉੱਚਾ);
+  WINBASEAPI WINBOOL WINAPI UnlockFile(HANDLE hFile,DWORD dw_File_ਵਿੱਥ_ਨੀਵਾਂ,DWORD dw_File_ਵਿੱਥ_ਉੱਚਾ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Unlock_ਨੀਵਾਂ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Unlock_ਉੱਚਾ);
+  WINBASEAPI WINBOOL WINAPI ਤਾਲਾ_File_Ex(HANDLE hFile,DWORD dwFlags,DWORD dwReserved,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_ਤਾਲਾ_ਨੀਵਾਂ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_ਤਾਲਾ_ਉੱਚਾ,LPOVERLAPPED lpOverlapped);
 
-#define LOCKFILE_FAIL_IMMEDIATELY 0x1
-#define LOCKFILE_EXCLUSIVE_LOCK 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOCKFILE_FAIL_IMMEDIATELY 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOCKFILE_EXCLUSIVE_ਤਾਲਾ 0x2
 
-  WINBASEAPI WINBOOL WINAPI UnlockFileEx(HANDLE hFile,DWORD dwReserved,DWORD nNumberOfBytesToUnlockLow,DWORD nNumberOfBytesToUnlockHigh,LPOVERLAPPED lpOverlapped);
+  WINBASEAPI WINBOOL WINAPI UnlockFileEx(HANDLE hFile,DWORD dwReserved,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Unlock_ਨੀਵਾਂ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Unlock_ਉੱਚਾ,LPOVERLAPPED lpOverlapped);
 
-  typedef struct _BY_HANDLE_FILE_INFORMATION {
-    DWORD dwFileAttributes;
-    FILETIME ftCreationTime;
-    FILETIME ftLastAccessTime;
-    FILETIME ftLastWriteTime;
-    DWORD dwVolumeSerialNumber;
-    DWORD nFileSizeHigh;
-    DWORD nFileSizeLow;
-    DWORD nNumberOfLinks;
-    DWORD nFileIndexHigh;
-    DWORD nFileIndexLow;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _BY_HANDLE_FILE_INFORMATION {
+    DWORD dw_File_ਗੁਣ;
+    FILETIME ft_Creation_ਸਮਾਂ;
+    FILETIME ft_ਆਖਰੀ_Access_ਸਮਾਂ;
+    FILETIME ft_ਆਖਰੀ_Write_ਸਮਾਂ;
+    DWORD dw_Volume_Serial_ਸੰਖਿਆ;
+    DWORD n_File_ਮਾਪ_ਉੱਚਾ;
+    DWORD n_File_ਮਾਪ_ਨੀਵਾਂ;
+    DWORD n_ਸੰਖਿਆ_ਦਾ_Links;
+    DWORD n_File_ਸੂਚਕਾਂਕ_ਉੱਚਾ;
+    DWORD n_File_ਸੂਚਕਾਂਕ_ਨੀਵਾਂ;
   } BY_HANDLE_FILE_INFORMATION,*PBY_HANDLE_FILE_INFORMATION,*LPBY_HANDLE_FILE_INFORMATION;
 
-#ifdef UNICODE
-#define SetFileShortName SetFileShortNameW
-#else
-#define SetFileShortName SetFileShortNameA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_File_Short_Name ਸੈੱਟ_File_Short_Name_W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_File_Short_Name ਸੈੱਟ_File_Short_Name_A
+#ਜੇ_ਅੰਤ
 
   WINBASEAPI WINBOOL WINAPI GetFileInformationByHandle(HANDLE hFile,LPBY_HANDLE_FILE_INFORMATION lpFileInformation);
   WINBASEAPI DWORD WINAPI GetFileType(HANDLE hFile);
-  WINBASEAPI DWORD WINAPI GetFileSize(HANDLE hFile,LPDWORD lpFileSizeHigh);
-  WINBASEAPI WINBOOL WINAPI GetFileSizeEx(HANDLE hFile,PLARGE_INTEGER lpFileSize);
+  WINBASEAPI DWORD WINAPI Get_File_ਮਾਪ(HANDLE hFile,LPDWORD lp_File_ਮਾਪ_ਉੱਚਾ);
+  WINBASEAPI WINBOOL WINAPI Get_File_ਮਾਪ_Ex(HANDLE hFile,PLARGE_INTEGER lp_File_ਮਾਪ);
   WINBASEAPI HANDLE WINAPI GetStdHandle(DWORD nStdHandle);
-  WINBASEAPI WINBOOL WINAPI SetStdHandle(DWORD nStdHandle,HANDLE hHandle);
-  WINBASEAPI WINBOOL WINAPI WriteFile(HANDLE hFile,LPCVOID lpBuffer,DWORD nNumberOfBytesToWrite,LPDWORD lpNumberOfBytesWritten,LPOVERLAPPED lpOverlapped);
-  WINBASEAPI WINBOOL WINAPI ReadFile(HANDLE hFile,LPVOID lpBuffer,DWORD nNumberOfBytesToRead,LPDWORD lpNumberOfBytesRead,LPOVERLAPPED lpOverlapped);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Std_Handle(DWORD nStdHandle,HANDLE hHandle);
+  WINBASEAPI WINBOOL WINAPI WriteFile(HANDLE hFile,LPCVOID lp_ਬਫਰ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Write,LPDWORD lp_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Written,LPOVERLAPPED lpOverlapped);
+  WINBASEAPI WINBOOL WINAPI ReadFile(HANDLE hFile,LPVOID lp_ਬਫਰ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Read,LPDWORD lp_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Read,LPOVERLAPPED lpOverlapped);
   WINBASEAPI WINBOOL WINAPI FlushFileBuffers(HANDLE hFile);
-  WINBASEAPI WINBOOL WINAPI DeviceIoControl(HANDLE hDevice,DWORD dwIoControlCode,LPVOID lpInBuffer,DWORD nInBufferSize,LPVOID lpOutBuffer,DWORD nOutBufferSize,LPDWORD lpBytesReturned,LPOVERLAPPED lpOverlapped);
+  WINBASEAPI WINBOOL WINAPI DeviceIoControl(HANDLE hDevice,DWORD dw_Io_Control_ਕੋਡ,LPVOID lp_ਵਿੱਚ_ਬਫਰ,DWORD n_ਵਿੱਚ_ਬਫਰ_ਮਾਪ,LPVOID lp_ਬਾਹਰਲਾ_ਬਫਰ,DWORD n_ਬਾਹਰਲਾ_ਬਫਰ_ਮਾਪ,LPDWORD lp_ਬਾਈਟਾਂ_Returned,LPOVERLAPPED lpOverlapped);
   WINBASEAPI WINBOOL WINAPI RequestDeviceWakeup(HANDLE hDevice);
   WINBASEAPI WINBOOL WINAPI CancelDeviceWakeupRequest(HANDLE hDevice);
   WINBASEAPI WINBOOL WINAPI GetDevicePowerState(HANDLE hDevice,WINBOOL *pfOn);
-  WINBASEAPI WINBOOL WINAPI SetMessageWaitingIndicator(HANDLE hMsgIndicator,ULONG ulMsgCount);
-  WINBASEAPI WINBOOL WINAPI SetEndOfFile(HANDLE hFile);
-  WINBASEAPI DWORD WINAPI SetFilePointer(HANDLE hFile,LONG lDistanceToMove,PLONG lpDistanceToMoveHigh,DWORD dwMoveMethod);
-  WINBASEAPI WINBOOL WINAPI SetFilePointerEx(HANDLE hFile,LARGE_INTEGER liDistanceToMove,PLARGE_INTEGER lpNewFilePointer,DWORD dwMoveMethod);
-  WINBASEAPI WINBOOL WINAPI FindClose(HANDLE hFindFile);
-  WINBASEAPI WINBOOL WINAPI GetFileTime(HANDLE hFile,LPFILETIME lpCreationTime,LPFILETIME lpLastAccessTime,LPFILETIME lpLastWriteTime);
-  WINBASEAPI WINBOOL WINAPI SetFileTime(HANDLE hFile,CONST FILETIME *lpCreationTime,CONST FILETIME *lpLastAccessTime,CONST FILETIME *lpLastWriteTime);
-  WINBASEAPI WINBOOL WINAPI SetFileValidData(HANDLE hFile,LONGLONG ValidDataLength);
-  WINBASEAPI WINBOOL WINAPI SetFileShortNameA(HANDLE hFile,LPCSTR lpShortName);
-  WINBASEAPI WINBOOL WINAPI SetFileShortNameW(HANDLE hFile,LPCWSTR lpShortName);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_ਸੁਨੇਹਾ_ਉਡੀਕ_Indicator(HANDLE h_ਸੁਨੇਹਾ_Indicator,ULONG ul_ਸੁਨੇਹਾ_ਗਿਣਤੀ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_ਸਿਰਾ_ਦਾ_File(HANDLE hFile);
+  WINBASEAPI DWORD WINAPI ਸੈੱਟ_File_ਸੂਚਕ(HANDLE hFile,LONG l_ਦੂਰੀ_ਮੰਜ਼ਿਲ_Move,PLONG lp_ਦੂਰੀ_ਮੰਜ਼ਿਲ_Move_ਉੱਚਾ,DWORD dw_Move_ਵਿਧੀ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_File_ਸੂਚਕ_Ex(HANDLE hFile,LARGE_INTEGER li_ਦੂਰੀ_ਮੰਜ਼ਿਲ_Move,PLARGE_INTEGER lp_New_File_ਸੂਚਕ,DWORD dw_Move_ਵਿਧੀ);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_Close(HANDLE h_ਲੱਭੋ_File);
+  WINBASEAPI WINBOOL WINAPI Get_File_ਸਮਾਂ(HANDLE hFile,LPFILETIME lp_Creation_ਸਮਾਂ,LPFILETIME lp_ਆਖਰੀ_Access_ਸਮਾਂ,LPFILETIME lp_ਆਖਰੀ_Write_ਸਮਾਂ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_File_ਸਮਾਂ(HANDLE hFile,CONST FILETIME *lp_Creation_ਸਮਾਂ,CONST FILETIME *lp_ਆਖਰੀ_Access_ਸਮਾਂ,CONST FILETIME *lp_ਆਖਰੀ_Write_ਸਮਾਂ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_File_Valid_ਅੰਕੜੇ(HANDLE hFile,LONGLONG Valid_ਅੰਕੜੇ_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_File_Short_Name_A(HANDLE hFile,LPCSTR lpShortName);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_File_Short_Name_W(HANDLE hFile,LPCWSTR lpShortName);
   WINBASEAPI WINBOOL WINAPI CloseHandle(HANDLE hObject);
-  WINBASEAPI WINBOOL WINAPI DuplicateHandle(HANDLE hSourceProcessHandle,HANDLE hSourceHandle,HANDLE hTargetProcessHandle,LPHANDLE lpTargetHandle,DWORD dwDesiredAccess,WINBOOL bInheritHandle,DWORD dwOptions);
+  WINBASEAPI WINBOOL WINAPI DuplicateHandle(HANDLE h_ਸਰੋਤ_Process_Handle,HANDLE h_ਸਰੋਤ_Handle,HANDLE h_ਨਿਸ਼ਾਨਾ_Process_Handle,LPHANDLE lp_ਨਿਸ਼ਾਨਾ_Handle,DWORD dwDesiredAccess,WINBOOL bInheritHandle,DWORD dwOptions);
   WINBASEAPI WINBOOL WINAPI GetHandleInformation(HANDLE hObject,LPDWORD lpdwFlags);
-  WINBASEAPI WINBOOL WINAPI SetHandleInformation(HANDLE hObject,DWORD dwMask,DWORD dwFlags);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Handle_Information(HANDLE hObject,DWORD dw_ਨਕਾਬ,DWORD dwFlags);
 
-#define HANDLE_FLAG_INHERIT 0x1
-#define HANDLE_FLAG_PROTECT_FROM_CLOSE 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HANDLE_FLAG_INHERIT 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HANDLE_FLAG_PROTECT_FROM_CLOSE 0x2
 
-#define HINSTANCE_ERROR 32
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HINSTANCE_ERROR 32
 
-  WINBASEAPI DWORD WINAPI LoadModule(LPCSTR lpModuleName,LPVOID lpParameterBlock);
-  WINBASEAPI UINT WINAPI WinExec(LPCSTR lpCmdLine,UINT uCmdShow);
+  WINBASEAPI DWORD WINAPI ਲੱਦੋ_Module(LPCSTR lpModuleName,LPVOID lp_Parameter_ਖੰਡ);
+  WINBASEAPI UINT WINAPI WinExec(LPCSTR lp_Cmd_ਸਤਰ,UINT uCmdShow);
   WINBASEAPI WINBOOL WINAPI ClearCommBreak(HANDLE hFile);
   WINBASEAPI WINBOOL WINAPI ClearCommError(HANDLE hFile,LPDWORD lpErrors,LPCOMSTAT lpStat);
-  WINBASEAPI WINBOOL WINAPI SetupComm(HANDLE hFile,DWORD dwInQueue,DWORD dwOutQueue);
+  WINBASEAPI WINBOOL WINAPI ਤਿਆਰੀ_Comm(HANDLE hFile,DWORD dw_ਵਿੱਚ_ਕਤਾਰ,DWORD dw_ਬਾਹਰਲਾ_ਕਤਾਰ);
   WINBASEAPI WINBOOL WINAPI EscapeCommFunction(HANDLE hFile,DWORD dwFunc);
-  WINBASEAPI WINBOOL WINAPI GetCommConfig(HANDLE hCommDev,LPCOMMCONFIG lpCC,LPDWORD lpdwSize);
-  WINBASEAPI WINBOOL WINAPI GetCommMask(HANDLE hFile,LPDWORD lpEvtMask);
+  WINBASEAPI WINBOOL WINAPI GetCommConfig(HANDLE hCommDev,LPCOMMCONFIG lpCC,LPDWORD lpdw_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI Get_Comm_ਨਕਾਬ(HANDLE hFile,LPDWORD lp_Evt_ਨਕਾਬ);
   WINBASEAPI WINBOOL WINAPI GetCommProperties(HANDLE hFile,LPCOMMPROP lpCommProp);
-  WINBASEAPI WINBOOL WINAPI GetCommModemStatus(HANDLE hFile,LPDWORD lpModemStat);
+  WINBASEAPI WINBOOL WINAPI Get_Comm_Modem_ਸਥਿਤੀ(HANDLE hFile,LPDWORD lpModemStat);
   WINBASEAPI WINBOOL WINAPI GetCommState(HANDLE hFile,LPDCB lpDCB);
   WINBASEAPI WINBOOL WINAPI GetCommTimeouts(HANDLE hFile,LPCOMMTIMEOUTS lpCommTimeouts);
   WINBASEAPI WINBOOL WINAPI PurgeComm(HANDLE hFile,DWORD dwFlags);
-  WINBASEAPI WINBOOL WINAPI SetCommBreak(HANDLE hFile);
-  WINBASEAPI WINBOOL WINAPI SetCommConfig(HANDLE hCommDev,LPCOMMCONFIG lpCC,DWORD dwSize);
-  WINBASEAPI WINBOOL WINAPI SetCommMask(HANDLE hFile,DWORD dwEvtMask);
-  WINBASEAPI WINBOOL WINAPI SetCommState(HANDLE hFile,LPDCB lpDCB);
-  WINBASEAPI WINBOOL WINAPI SetCommTimeouts(HANDLE hFile,LPCOMMTIMEOUTS lpCommTimeouts);
-  WINBASEAPI WINBOOL WINAPI TransmitCommChar(HANDLE hFile,char cChar);
-  WINBASEAPI WINBOOL WINAPI WaitCommEvent(HANDLE hFile,LPDWORD lpEvtMask,LPOVERLAPPED lpOverlapped);
-  WINBASEAPI DWORD WINAPI SetTapePosition(HANDLE hDevice,DWORD dwPositionMethod,DWORD dwPartition,DWORD dwOffsetLow,DWORD dwOffsetHigh,WINBOOL bImmediate);
-  WINBASEAPI DWORD WINAPI GetTapePosition(HANDLE hDevice,DWORD dwPositionType,LPDWORD lpdwPartition,LPDWORD lpdwOffsetLow,LPDWORD lpdwOffsetHigh);
-  WINBASEAPI DWORD WINAPI PrepareTape(HANDLE hDevice,DWORD dwOperation,WINBOOL bImmediate);
-  WINBASEAPI DWORD WINAPI EraseTape(HANDLE hDevice,DWORD dwEraseType,WINBOOL bImmediate);
-  WINBASEAPI DWORD WINAPI CreateTapePartition(HANDLE hDevice,DWORD dwPartitionMethod,DWORD dwCount,DWORD dwSize);
-  WINBASEAPI DWORD WINAPI WriteTapemark(HANDLE hDevice,DWORD dwTapemarkType,DWORD dwTapemarkCount,WINBOOL bImmediate);
-  WINBASEAPI DWORD WINAPI GetTapeStatus(HANDLE hDevice);
-  WINBASEAPI DWORD WINAPI GetTapeParameters(HANDLE hDevice,DWORD dwOperation,LPDWORD lpdwSize,LPVOID lpTapeInformation);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Comm_Break(HANDLE hFile);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Comm_Config(HANDLE hCommDev,LPCOMMCONFIG lpCC,DWORD dw_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Comm_ਨਕਾਬ(HANDLE hFile,DWORD dw_Evt_ਨਕਾਬ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Comm_State(HANDLE hFile,LPDCB lpDCB);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Comm_Timeouts(HANDLE hFile,LPCOMMTIMEOUTS lpCommTimeouts);
+  WINBASEAPI WINBOOL WINAPI TransmitCommChar(HANDLE hFile,ਅੱਖਰ cChar);
+  WINBASEAPI WINBOOL WINAPI WaitCommEvent(HANDLE hFile,LPDWORD lp_Evt_ਨਕਾਬ,LPOVERLAPPED lpOverlapped);
+  WINBASEAPI DWORD WINAPI ਸੈੱਟ_ਫੀਤਾ_Position(HANDLE hDevice,DWORD dw_Position_ਵਿਧੀ,DWORD dw_ਹਿੱਸੇ_ਕਰੋ,DWORD dw_ਵਿੱਥ_ਨੀਵਾਂ,DWORD dw_ਵਿੱਥ_ਉੱਚਾ,WINBOOL b_ਤੁਰੰਤ);
+  WINBASEAPI DWORD WINAPI Get_ਫੀਤਾ_Position(HANDLE hDevice,DWORD dwPositionType,LPDWORD lpdw_ਹਿੱਸੇ_ਕਰੋ,LPDWORD lpdw_ਵਿੱਥ_ਨੀਵਾਂ,LPDWORD lpdw_ਵਿੱਥ_ਉੱਚਾ);
+  WINBASEAPI DWORD WINAPI Prepare_ਫੀਤਾ(HANDLE hDevice,DWORD dwOperation,WINBOOL b_ਤੁਰੰਤ);
+  WINBASEAPI DWORD WINAPI Erase_ਫੀਤਾ(HANDLE hDevice,DWORD dwEraseType,WINBOOL b_ਤੁਰੰਤ);
+  WINBASEAPI DWORD WINAPI Create_ਫੀਤਾ_ਹਿੱਸੇ_ਕਰੋ(HANDLE hDevice,DWORD dw_ਹਿੱਸੇ_ਕਰੋ_ਵਿਧੀ,DWORD dw_ਗਿਣਤੀ,DWORD dw_ਮਾਪ);
+  WINBASEAPI DWORD WINAPI WriteTapemark(HANDLE hDevice,DWORD dwTapemarkType,DWORD dw_Tapemark_ਗਿਣਤੀ,WINBOOL b_ਤੁਰੰਤ);
+  WINBASEAPI DWORD WINAPI Get_ਫੀਤਾ_ਸਥਿਤੀ(HANDLE hDevice);
+  WINBASEAPI DWORD WINAPI Get_ਫੀਤਾ_Parameters(HANDLE hDevice,DWORD dwOperation,LPDWORD lpdw_ਮਾਪ,LPVOID lp_ਫੀਤਾ_Information);
 
-#define GET_TAPE_MEDIA_INFORMATION 0
-#define GET_TAPE_DRIVE_INFORMATION 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_ਫੀਤਾ_MEDIA_INFORMATION 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_ਫੀਤਾ_DRIVE_INFORMATION 1
 
-  WINBASEAPI DWORD WINAPI SetTapeParameters(HANDLE hDevice,DWORD dwOperation,LPVOID lpTapeInformation);
+  WINBASEAPI DWORD WINAPI ਸੈੱਟ_ਫੀਤਾ_Parameters(HANDLE hDevice,DWORD dwOperation,LPVOID lp_ਫੀਤਾ_Information);
 
-#define SET_TAPE_MEDIA_INFORMATION 0
-#define SET_TAPE_DRIVE_INFORMATION 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_ਫੀਤਾ_MEDIA_INFORMATION 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_ਫੀਤਾ_DRIVE_INFORMATION 1
 
   WINBASEAPI WINBOOL WINAPI Beep(DWORD dwFreq,DWORD dwDuration);
-  WINBASEAPI int WINAPI MulDiv(int nNumber,int nNumerator,int nDenominator);
-  WINBASEAPI VOID WINAPI GetSystemTime(LPSYSTEMTIME lpSystemTime);
-  WINBASEAPI VOID WINAPI GetSystemTimeAsFileTime(LPFILETIME lpSystemTimeAsFileTime);
-  WINBASEAPI WINBOOL WINAPI SetSystemTime(CONST SYSTEMTIME *lpSystemTime);
-  WINBASEAPI VOID WINAPI GetLocalTime(LPSYSTEMTIME lpSystemTime);
-  WINBASEAPI WINBOOL WINAPI SetLocalTime(CONST SYSTEMTIME *lpSystemTime);
+  WINBASEAPI ਪੂਰਨ WINAPI MulDiv(ਪੂਰਨ n_ਸੰਖਿਆ,ਪੂਰਨ nNumerator,ਪੂਰਨ nDenominator);
+  WINBASEAPI VOID WINAPI Get_System_ਸਮਾਂ(LPSYSTEMTIME lp_System_ਸਮਾਂ);
+  WINBASEAPI VOID WINAPI Get_System_ਸਮਾਂ_As_File_ਸਮਾਂ(LPFILETIME lp_System_ਸਮਾਂ_As_File_ਸਮਾਂ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_System_ਸਮਾਂ(CONST SYSTEMTIME *lp_System_ਸਮਾਂ);
+  WINBASEAPI VOID WINAPI Get_Local_ਸਮਾਂ(LPSYSTEMTIME lp_System_ਸਮਾਂ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Local_ਸਮਾਂ(CONST SYSTEMTIME *lp_System_ਸਮਾਂ);
   WINBASEAPI VOID WINAPI GetSystemInfo(LPSYSTEM_INFO lpSystemInfo);
-  WINBASEAPI WINBOOL WINAPI SetSystemFileCacheSize(SIZE_T MinimumFileCacheSize,SIZE_T MaximumFileCacheSize,DWORD Flags);
-  WINBASEAPI WINBOOL WINAPI GetSystemFileCacheSize(PSIZE_T lpMinimumFileCacheSize,PSIZE_T lpMaximumFileCacheSize,PDWORD lpFlags);
-  WINBASEAPI WINBOOL WINAPI GetSystemRegistryQuota(PDWORD pdwQuotaAllowed,PDWORD pdwQuotaUsed);
-  WINBOOL WINAPI GetSystemTimes(LPFILETIME lpIdleTime,LPFILETIME lpKernelTime,LPFILETIME lpUserTime);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_System_File_Cache_ਮਾਪ(ਮਾਪ_T Minimum_File_Cache_ਮਾਪ,ਮਾਪ_T ਵੱਧ_ਤੋਂ_ਵੱਧ_File_Cache_ਮਾਪ,DWORD Flags);
+  WINBASEAPI WINBOOL WINAPI Get_System_File_Cache_ਮਾਪ(PSIZE_T lp_Minimum_File_Cache_ਮਾਪ,PSIZE_T lp_ਵੱਧ_ਤੋਂ_ਵੱਧ_File_Cache_ਮਾਪ,PDWORD lpFlags);
+  WINBASEAPI WINBOOL WINAPI GetSystemRegistryQuota(PDWORD pdwQuotaAllowed,PDWORD pdw_Quota_ਵਰਤਿਆ);
+  WINBOOL WINAPI GetSystemTimes(LPFILETIME lp_Idle_ਸਮਾਂ,LPFILETIME lp_Kernel_ਸਮਾਂ,LPFILETIME lp_User_ਸਮਾਂ);
   WINBASEAPI VOID WINAPI GetNativeSystemInfo(LPSYSTEM_INFO lpSystemInfo);
   WINBASEAPI WINBOOL WINAPI IsProcessorFeaturePresent(DWORD ProcessorFeature);
 
-  typedef struct _TIME_ZONE_INFORMATION {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਸਮਾਂ_ZONE_INFORMATION {
     LONG Bias;
     WCHAR StandardName[32];
     SYSTEMTIME StandardDate;
@@ -1478,206 +1478,206 @@ extern "C" {
     WCHAR DaylightName[32];
     SYSTEMTIME DaylightDate;
     LONG DaylightBias;
-  } TIME_ZONE_INFORMATION,*PTIME_ZONE_INFORMATION,*LPTIME_ZONE_INFORMATION;
+  } ਸਮਾਂ_ZONE_INFORMATION_2,*PTIME_ZONE_INFORMATION,*LPTIME_ZONE_INFORMATION;
 
-#ifdef UNICODE
-#define FormatMessage FormatMessageW
-#else
-#define FormatMessage FormatMessageA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Format_ਸੁਨੇਹਾ Format_ਸੁਨੇਹਾ_W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Format_ਸੁਨੇਹਾ Format_ਸੁਨੇਹਾ_A
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI WINBOOL WINAPI SystemTimeToTzSpecificLocalTime(LPTIME_ZONE_INFORMATION lpTimeZoneInformation,LPSYSTEMTIME lpUniversalTime,LPSYSTEMTIME lpLocalTime);
-  WINBASEAPI WINBOOL WINAPI TzSpecificLocalTimeToSystemTime(LPTIME_ZONE_INFORMATION lpTimeZoneInformation,LPSYSTEMTIME lpLocalTime,LPSYSTEMTIME lpUniversalTime);
-  WINBASEAPI DWORD WINAPI GetTimeZoneInformation(LPTIME_ZONE_INFORMATION lpTimeZoneInformation);
-  WINBASEAPI WINBOOL WINAPI SetTimeZoneInformation(CONST TIME_ZONE_INFORMATION *lpTimeZoneInformation);
-  WINBASEAPI WINBOOL WINAPI SystemTimeToFileTime(CONST SYSTEMTIME *lpSystemTime,LPFILETIME lpFileTime);
-  WINBASEAPI WINBOOL WINAPI FileTimeToLocalFileTime(CONST FILETIME *lpFileTime,LPFILETIME lpLocalFileTime);
-  WINBASEAPI WINBOOL WINAPI LocalFileTimeToFileTime(CONST FILETIME *lpLocalFileTime,LPFILETIME lpFileTime);
-  WINBASEAPI WINBOOL WINAPI FileTimeToSystemTime(CONST FILETIME *lpFileTime,LPSYSTEMTIME lpSystemTime);
-  WINBASEAPI LONG WINAPI CompareFileTime(CONST FILETIME *lpFileTime1,CONST FILETIME *lpFileTime2);
-  WINBASEAPI WINBOOL WINAPI FileTimeToDosDateTime(CONST FILETIME *lpFileTime,LPWORD lpFatDate,LPWORD lpFatTime);
-  WINBASEAPI WINBOOL WINAPI DosDateTimeToFileTime(WORD wFatDate,WORD wFatTime,LPFILETIME lpFileTime);
-  WINBASEAPI DWORD WINAPI GetTickCount(VOID);
-  WINBASEAPI WINBOOL WINAPI SetSystemTimeAdjustment(DWORD dwTimeAdjustment,WINBOOL bTimeAdjustmentDisabled);
-  WINBASEAPI WINBOOL WINAPI GetSystemTimeAdjustment(PDWORD lpTimeAdjustment,PDWORD lpTimeIncrement,PBOOL lpTimeAdjustmentDisabled);
-  WINBASEAPI DWORD WINAPI FormatMessageA(DWORD dwFlags,LPCVOID lpSource,DWORD dwMessageId,DWORD dwLanguageId,LPSTR lpBuffer,DWORD nSize,va_list *Arguments);
-  WINBASEAPI DWORD WINAPI FormatMessageW(DWORD dwFlags,LPCVOID lpSource,DWORD dwMessageId,DWORD dwLanguageId,LPWSTR lpBuffer,DWORD nSize,va_list *Arguments);
+  WINBASEAPI WINBOOL WINAPI System_ਸਮਾਂ_ਮੰਜ਼ਿਲ_Tz_Specific_Local_ਸਮਾਂ(LPTIME_ZONE_INFORMATION lp_ਸਮਾਂ_Zone_Information,LPSYSTEMTIME lp_Universal_ਸਮਾਂ,LPSYSTEMTIME lp_Local_ਸਮਾਂ);
+  WINBASEAPI WINBOOL WINAPI Tz_Specific_Local_ਸਮਾਂ_ਮੰਜ਼ਿਲ_System_ਸਮਾਂ(LPTIME_ZONE_INFORMATION lp_ਸਮਾਂ_Zone_Information,LPSYSTEMTIME lp_Local_ਸਮਾਂ,LPSYSTEMTIME lp_Universal_ਸਮਾਂ);
+  WINBASEAPI DWORD WINAPI Get_ਸਮਾਂ_Zone_Information(LPTIME_ZONE_INFORMATION lp_ਸਮਾਂ_Zone_Information);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_ਸਮਾਂ_Zone_Information(CONST ਸਮਾਂ_ZONE_INFORMATION_2 *lp_ਸਮਾਂ_Zone_Information);
+  WINBASEAPI WINBOOL WINAPI System_ਸਮਾਂ_ਮੰਜ਼ਿਲ_File_ਸਮਾਂ(CONST SYSTEMTIME *lp_System_ਸਮਾਂ,LPFILETIME lp_File_ਸਮਾਂ);
+  WINBASEAPI WINBOOL WINAPI File_ਸਮਾਂ_ਮੰਜ਼ਿਲ_Local_File_ਸਮਾਂ(CONST FILETIME *lp_File_ਸਮਾਂ,LPFILETIME lp_Local_File_ਸਮਾਂ);
+  WINBASEAPI WINBOOL WINAPI Local_File_ਸਮਾਂ_ਮੰਜ਼ਿਲ_File_ਸਮਾਂ(CONST FILETIME *lp_Local_File_ਸਮਾਂ,LPFILETIME lp_File_ਸਮਾਂ);
+  WINBASEAPI WINBOOL WINAPI File_ਸਮਾਂ_ਮੰਜ਼ਿਲ_System_ਸਮਾਂ(CONST FILETIME *lp_File_ਸਮਾਂ,LPSYSTEMTIME lp_System_ਸਮਾਂ);
+  WINBASEAPI LONG WINAPI Compare_File_ਸਮਾਂ(CONST FILETIME *lpFileTime1,CONST FILETIME *lpFileTime2);
+  WINBASEAPI WINBOOL WINAPI File_ਸਮਾਂ_ਮੰਜ਼ਿਲ_Dos_Date_ਸਮਾਂ(CONST FILETIME *lp_File_ਸਮਾਂ,LPWORD lpFatDate,LPWORD lp_Fat_ਸਮਾਂ);
+  WINBASEAPI WINBOOL WINAPI Dos_Date_ਸਮਾਂ_ਮੰਜ਼ਿਲ_File_ਸਮਾਂ(ਸ਼ਬਦ_3 wFatDate,ਸ਼ਬਦ_3 w_Fat_ਸਮਾਂ,LPFILETIME lp_File_ਸਮਾਂ);
+  WINBASEAPI DWORD WINAPI Get_Tick_ਗਿਣਤੀ(VOID);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_System_ਸਮਾਂ_Adjustment(DWORD dw_ਸਮਾਂ_Adjustment,WINBOOL b_ਸਮਾਂ_Adjustment_Disabled);
+  WINBASEAPI WINBOOL WINAPI Get_System_ਸਮਾਂ_Adjustment(PDWORD lp_ਸਮਾਂ_Adjustment,PDWORD lp_ਸਮਾਂ_Increment,PBOOL lp_ਸਮਾਂ_Adjustment_Disabled);
+  WINBASEAPI DWORD WINAPI Format_ਸੁਨੇਹਾ_A(DWORD dwFlags,LPCVOID lp_ਸਰੋਤ,DWORD dw_ਸੁਨੇਹਾ_Id,DWORD dwLanguageId,LPSTR lp_ਬਫਰ,DWORD n_ਮਾਪ,va_list *Arguments);
+  WINBASEAPI DWORD WINAPI Format_ਸੁਨੇਹਾ_W(DWORD dwFlags,LPCVOID lp_ਸਰੋਤ,DWORD dw_ਸੁਨੇਹਾ_Id,DWORD dwLanguageId,LPWSTR lp_ਬਫਰ,DWORD n_ਮਾਪ,va_list *Arguments);
 
-#define FORMAT_MESSAGE_ALLOCATE_BUFFER 0x100
-#define FORMAT_MESSAGE_IGNORE_INSERTS 0x200
-#define FORMAT_MESSAGE_FROM_STRING 0x400
-#define FORMAT_MESSAGE_FROM_HMODULE 0x800
-#define FORMAT_MESSAGE_FROM_SYSTEM 0x1000
-#define FORMAT_MESSAGE_ARGUMENT_ARRAY 0x2000
-#define FORMAT_MESSAGE_MAX_WIDTH_MASK 0xff
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FORMAT_ਸੁਨੇਹਾ_ALLOCATE_ਬਫਰ 0x100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FORMAT_ਸੁਨੇਹਾ_IGNORE_INSERTS 0x200
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FORMAT_ਸੁਨੇਹਾ_FROM_STRING 0x400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FORMAT_ਸੁਨੇਹਾ_FROM_HMODULE 0x800
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FORMAT_ਸੁਨੇਹਾ_FROM_SYSTEM 0x1000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FORMAT_ਸੁਨੇਹਾ_ਦਲੀਲ_ARRAY 0x2000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FORMAT_ਸੁਨੇਹਾ_MAX_ਚੌੜਾਈ_ਨਕਾਬ 0xff
 
-#ifdef UNICODE
-#define CreateMailslot CreateMailslotW
-#define EncryptFile EncryptFileW
-#define DecryptFile DecryptFileW
-#define FileEncryptionStatus FileEncryptionStatusW
-#else
-#define CreateMailslot CreateMailslotA
-#define EncryptFile EncryptFileA
-#define DecryptFile DecryptFileA
-#define FileEncryptionStatus FileEncryptionStatusA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateMailslot CreateMailslotW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EncryptFile EncryptFileW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DecryptFile DecryptFileW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ File_Encryption_ਸਥਿਤੀ File_Encryption_ਸਥਿਤੀ_W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateMailslot CreateMailslotA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EncryptFile EncryptFileA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DecryptFile DecryptFileA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ File_Encryption_ਸਥਿਤੀ File_Encryption_ਸਥਿਤੀ_A
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI WINBOOL WINAPI CreatePipe(PHANDLE hReadPipe,PHANDLE hWritePipe,LPSECURITY_ATTRIBUTES lpPipeAttributes,DWORD nSize);
+  WINBASEAPI WINBOOL WINAPI CreatePipe(PHANDLE hReadPipe,PHANDLE hWritePipe,LPSECURITY_ਗੁਣ lp_Pipe_ਗੁਣ,DWORD n_ਮਾਪ);
   WINBASEAPI WINBOOL WINAPI ConnectNamedPipe(HANDLE hNamedPipe,LPOVERLAPPED lpOverlapped);
   WINBASEAPI WINBOOL WINAPI DisconnectNamedPipe(HANDLE hNamedPipe);
-  WINBASEAPI WINBOOL WINAPI SetNamedPipeHandleState(HANDLE hNamedPipe,LPDWORD lpMode,LPDWORD lpMaxCollectionCount,LPDWORD lpCollectDataTimeout);
-  WINBASEAPI WINBOOL WINAPI GetNamedPipeInfo(HANDLE hNamedPipe,LPDWORD lpFlags,LPDWORD lpOutBufferSize,LPDWORD lpInBufferSize,LPDWORD lpMaxInstances);
-  WINBASEAPI WINBOOL WINAPI PeekNamedPipe(HANDLE hNamedPipe,LPVOID lpBuffer,DWORD nBufferSize,LPDWORD lpBytesRead,LPDWORD lpTotalBytesAvail,LPDWORD lpBytesLeftThisMessage);
-  WINBASEAPI WINBOOL WINAPI TransactNamedPipe(HANDLE hNamedPipe,LPVOID lpInBuffer,DWORD nInBufferSize,LPVOID lpOutBuffer,DWORD nOutBufferSize,LPDWORD lpBytesRead,LPOVERLAPPED lpOverlapped);
-  WINBASEAPI HANDLE WINAPI CreateMailslotA(LPCSTR lpName,DWORD nMaxMessageSize,DWORD lReadTimeout,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-  WINBASEAPI HANDLE WINAPI CreateMailslotW(LPCWSTR lpName,DWORD nMaxMessageSize,DWORD lReadTimeout,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-  WINBASEAPI WINBOOL WINAPI GetMailslotInfo(HANDLE hMailslot,LPDWORD lpMaxMessageSize,LPDWORD lpNextSize,LPDWORD lpMessageCount,LPDWORD lpReadTimeout);
-  WINBASEAPI WINBOOL WINAPI SetMailslotInfo(HANDLE hMailslot,DWORD lReadTimeout);
-  WINBASEAPI LPVOID WINAPI MapViewOfFile(HANDLE hFileMappingObject,DWORD dwDesiredAccess,DWORD dwFileOffsetHigh,DWORD dwFileOffsetLow,SIZE_T dwNumberOfBytesToMap);
-  WINBASEAPI WINBOOL WINAPI FlushViewOfFile(LPCVOID lpBaseAddress,SIZE_T dwNumberOfBytesToFlush);
-  WINBASEAPI WINBOOL WINAPI UnmapViewOfFile(LPCVOID lpBaseAddress);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Named_Pipe_Handle_State(HANDLE hNamedPipe,LPDWORD lp_ਬਹੁਲਕ,LPDWORD lp_Max_Collection_ਗਿਣਤੀ,LPDWORD lp_Collect_ਅੰਕੜੇ_Timeout);
+  WINBASEAPI WINBOOL WINAPI GetNamedPipeInfo(HANDLE hNamedPipe,LPDWORD lpFlags,LPDWORD lp_ਬਾਹਰਲਾ_ਬਫਰ_ਮਾਪ,LPDWORD lp_ਵਿੱਚ_ਬਫਰ_ਮਾਪ,LPDWORD lpMaxInstances);
+  WINBASEAPI WINBOOL WINAPI PeekNamedPipe(HANDLE hNamedPipe,LPVOID lp_ਬਫਰ,DWORD n_ਬਫਰ_ਮਾਪ,LPDWORD lp_ਬਾਈਟਾਂ_Read,LPDWORD lp_ਕੁੱਲ_ਬਾਈਟਾਂ_Avail,LPDWORD lp_ਬਾਈਟਾਂ_ਖੱਬਾ_This_ਸੁਨੇਹਾ);
+  WINBASEAPI WINBOOL WINAPI TransactNamedPipe(HANDLE hNamedPipe,LPVOID lp_ਵਿੱਚ_ਬਫਰ,DWORD n_ਵਿੱਚ_ਬਫਰ_ਮਾਪ,LPVOID lp_ਬਾਹਰਲਾ_ਬਫਰ,DWORD n_ਬਾਹਰਲਾ_ਬਫਰ_ਮਾਪ,LPDWORD lp_ਬਾਈਟਾਂ_Read,LPOVERLAPPED lpOverlapped);
+  WINBASEAPI HANDLE WINAPI CreateMailslotA(LPCSTR lpName,DWORD n_Max_ਸੁਨੇਹਾ_ਮਾਪ,DWORD lReadTimeout,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
+  WINBASEAPI HANDLE WINAPI CreateMailslotW(LPCWSTR lpName,DWORD n_Max_ਸੁਨੇਹਾ_ਮਾਪ,DWORD lReadTimeout,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
+  WINBASEAPI WINBOOL WINAPI GetMailslotInfo(HANDLE hMailslot,LPDWORD lp_Max_ਸੁਨੇਹਾ_ਮਾਪ,LPDWORD lp_ਅਗਲਾ_ਮਾਪ,LPDWORD lp_ਸੁਨੇਹਾ_ਗਿਣਤੀ,LPDWORD lpReadTimeout);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Mailslot_Info(HANDLE hMailslot,DWORD lReadTimeout);
+  WINBASEAPI LPVOID WINAPI Map_View_ਦਾ_File(HANDLE hFileMappingObject,DWORD dwDesiredAccess,DWORD dw_File_ਵਿੱਥ_ਉੱਚਾ,DWORD dw_File_ਵਿੱਥ_ਨੀਵਾਂ,ਮਾਪ_T dw_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Map);
+  WINBASEAPI WINBOOL WINAPI Flush_View_ਦਾ_File(LPCVOID lp_ਅਧਾਰ_ਪਤਾ,ਮਾਪ_T dw_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Flush);
+  WINBASEAPI WINBOOL WINAPI Unmap_View_ਦਾ_File(LPCVOID lp_ਅਧਾਰ_ਪਤਾ);
   WINADVAPI WINBOOL WINAPI EncryptFileA(LPCSTR lpFileName);
   WINADVAPI WINBOOL WINAPI EncryptFileW(LPCWSTR lpFileName);
   WINADVAPI WINBOOL WINAPI DecryptFileA(LPCSTR lpFileName,DWORD dwReserved);
   WINADVAPI WINBOOL WINAPI DecryptFileW(LPCWSTR lpFileName,DWORD dwReserved);
 
-#define FILE_ENCRYPTABLE 0
-#define FILE_IS_ENCRYPTED 1
-#define FILE_SYSTEM_ATTR 2
-#define FILE_ROOT_DIR 3
-#define FILE_SYSTEM_DIR 4
-#define FILE_UNKNOWN 5
-#define FILE_SYSTEM_NOT_SUPPORT 6
-#define FILE_USER_DISALLOWED 7
-#define FILE_READ_ONLY 8
-#define FILE_DIR_DISALLOWED 9
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_ENCRYPTABLE 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_IS_ENCRYPTED 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_SYSTEM_ATTR 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_ਜੜ੍ਹ_DIR 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_SYSTEM_DIR 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_UNKNOWN 5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_SYSTEM_NOT_SUPPORT 6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_USER_DISALLOWED 7
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_READ_ONLY 8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FILE_DIR_DISALLOWED 9
 
-  WINADVAPI WINBOOL WINAPI FileEncryptionStatusA(LPCSTR lpFileName,LPDWORD lpStatus);
-  WINADVAPI WINBOOL WINAPI FileEncryptionStatusW(LPCWSTR lpFileName,LPDWORD lpStatus);
+  WINADVAPI WINBOOL WINAPI File_Encryption_ਸਥਿਤੀ_A(LPCSTR lpFileName,LPDWORD lp_ਸਥਿਤੀ);
+  WINADVAPI WINBOOL WINAPI File_Encryption_ਸਥਿਤੀ_W(LPCWSTR lpFileName,LPDWORD lp_ਸਥਿਤੀ);
 
-#define EFS_USE_RECOVERY_KEYS (0x1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EFS_USE_RECOVERY_ਕੁੰਜੀਆਂ (0x1)
 
-  typedef DWORD (WINAPI *PFE_EXPORT_FUNC)(PBYTE pbData,PVOID pvCallbackContext,ULONG ulLength);
-  typedef DWORD (WINAPI *PFE_IMPORT_FUNC)(PBYTE pbData,PVOID pvCallbackContext,PULONG ulLength);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ DWORD (WINAPI *PFE_EXPORT_FUNC)(PBYTE pb_ਅੰਕੜੇ,PVOID pvCallbackContext,ULONG ul_ਲੰਮਾਈ);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ DWORD (WINAPI *PFE_IMPORT_FUNC)(PBYTE pb_ਅੰਕੜੇ,PVOID pvCallbackContext,PULONG ul_ਲੰਮਾਈ);
 
-#define CREATE_FOR_IMPORT (1)
-#define CREATE_FOR_DIR (2)
-#define OVERWRITE_HIDDEN (4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_FOR_IMPORT (1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CREATE_FOR_DIR (2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OVERWRITE_HIDDEN (4)
 
-#ifdef UNICODE
-#define OpenEncryptedFileRaw OpenEncryptedFileRawW
-#define lstrcmp lstrcmpW
-#define lstrcmpi lstrcmpiW
-#define lstrcpyn lstrcpynW
-#define lstrcpy lstrcpyW
-#define lstrcat lstrcatW
-#define lstrlen lstrlenW
-#else
-#define OpenEncryptedFileRaw OpenEncryptedFileRawA
-#define lstrcmp lstrcmpA
-#define lstrcmpi lstrcmpiA
-#define lstrcpyn lstrcpynA
-#define lstrcpy lstrcpyA
-#define lstrcat lstrcatA
-#define lstrlen lstrlenA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenEncryptedFileRaw OpenEncryptedFileRawW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrcmp lstrcmpW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrcmpi lstrcmpiW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrcpyn lstrcpynW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrcpy lstrcpyW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrcat lstrcatW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrlen lstrlenW
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenEncryptedFileRaw OpenEncryptedFileRawA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrcmp lstrcmpA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrcmpi lstrcmpiA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrcpyn lstrcpynA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrcpy lstrcpyA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrcat lstrcatA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ lstrlen lstrlenA
+#ਜੇ_ਅੰਤ
 
   WINADVAPI DWORD WINAPI OpenEncryptedFileRawA(LPCSTR lpFileName,ULONG ulFlags,PVOID *pvContext);
   WINADVAPI DWORD WINAPI OpenEncryptedFileRawW(LPCWSTR lpFileName,ULONG ulFlags,PVOID *pvContext);
   WINADVAPI DWORD WINAPI ReadEncryptedFileRaw(PFE_EXPORT_FUNC pfExportCallback,PVOID pvCallbackContext,PVOID pvContext);
   WINADVAPI DWORD WINAPI WriteEncryptedFileRaw(PFE_IMPORT_FUNC pfImportCallback,PVOID pvCallbackContext,PVOID pvContext);
   WINADVAPI VOID WINAPI CloseEncryptedFileRaw(PVOID pvContext);
-  WINBASEAPI int WINAPI lstrcmpA(LPCSTR lpString1,LPCSTR lpString2);
-  WINBASEAPI int WINAPI lstrcmpW(LPCWSTR lpString1,LPCWSTR lpString2);
-  WINBASEAPI int WINAPI lstrcmpiA(LPCSTR lpString1,LPCSTR lpString2);
-  WINBASEAPI int WINAPI lstrcmpiW(LPCWSTR lpString1,LPCWSTR lpString2);
-  WINBASEAPI LPSTR WINAPI lstrcpynA(LPSTR lpString1,LPCSTR lpString2,int iMaxLength);
-  WINBASEAPI LPWSTR WINAPI lstrcpynW(LPWSTR lpString1,LPCWSTR lpString2,int iMaxLength);
+  WINBASEAPI ਪੂਰਨ WINAPI lstrcmpA(LPCSTR lpString1,LPCSTR lpString2);
+  WINBASEAPI ਪੂਰਨ WINAPI lstrcmpW(LPCWSTR lpString1,LPCWSTR lpString2);
+  WINBASEAPI ਪੂਰਨ WINAPI lstrcmpiA(LPCSTR lpString1,LPCSTR lpString2);
+  WINBASEAPI ਪੂਰਨ WINAPI lstrcmpiW(LPCWSTR lpString1,LPCWSTR lpString2);
+  WINBASEAPI LPSTR WINAPI lstrcpynA(LPSTR lpString1,LPCSTR lpString2,ਪੂਰਨ i_Max_ਲੰਮਾਈ);
+  WINBASEAPI LPWSTR WINAPI lstrcpynW(LPWSTR lpString1,LPCWSTR lpString2,ਪੂਰਨ i_Max_ਲੰਮਾਈ);
   WINBASEAPI LPSTR WINAPI lstrcpyA(LPSTR lpString1,LPCSTR lpString2);
   WINBASEAPI LPWSTR WINAPI lstrcpyW(LPWSTR lpString1,LPCWSTR lpString2);
   WINBASEAPI LPSTR WINAPI lstrcatA(LPSTR lpString1,LPCSTR lpString2);
   WINBASEAPI LPWSTR WINAPI lstrcatW(LPWSTR lpString1,LPCWSTR lpString2);
-  WINBASEAPI int WINAPI lstrlenA(LPCSTR lpString);
-  WINBASEAPI int WINAPI lstrlenW(LPCWSTR lpString);
+  WINBASEAPI ਪੂਰਨ WINAPI lstrlenA(LPCSTR lpString);
+  WINBASEAPI ਪੂਰਨ WINAPI lstrlenW(LPCWSTR lpString);
   WINBASEAPI HFILE WINAPI OpenFile(LPCSTR lpFileName,LPOFSTRUCT lpReOpenBuff,UINT uStyle);
-  WINBASEAPI HFILE WINAPI _lopen(LPCSTR lpPathName,int iReadWrite);
-  WINBASEAPI HFILE WINAPI _lcreat(LPCSTR lpPathName,int iAttribute);
-  WINBASEAPI UINT WINAPI _lread(HFILE hFile,LPVOID lpBuffer,UINT uBytes);
-  WINBASEAPI UINT WINAPI _lwrite(HFILE hFile,LPCCH lpBuffer,UINT uBytes);
-  WINBASEAPI long WINAPI _hread(HFILE hFile,LPVOID lpBuffer,long lBytes);
-  WINBASEAPI long WINAPI _hwrite(HFILE hFile,LPCCH lpBuffer,long lBytes);
+  WINBASEAPI HFILE WINAPI _lopen(LPCSTR lp_ਰਸਤਾ_Name,ਪੂਰਨ iReadWrite);
+  WINBASEAPI HFILE WINAPI _lcreat(LPCSTR lp_ਰਸਤਾ_Name,ਪੂਰਨ iAttribute);
+  WINBASEAPI UINT WINAPI _lread(HFILE hFile,LPVOID lp_ਬਫਰ,UINT u_ਬਾਈਟਾਂ);
+  WINBASEAPI UINT WINAPI _lwrite(HFILE hFile,LPCCH lp_ਬਫਰ,UINT u_ਬਾਈਟਾਂ);
+  WINBASEAPI ਲੰਮਾ WINAPI _hread(HFILE hFile,LPVOID lp_ਬਫਰ,ਲੰਮਾ l_ਬਾਈਟਾਂ);
+  WINBASEAPI ਲੰਮਾ WINAPI _hwrite(HFILE hFile,LPCCH lp_ਬਫਰ,ਲੰਮਾ l_ਬਾਈਟਾਂ);
   WINBASEAPI HFILE WINAPI _lclose(HFILE hFile);
-  WINBASEAPI LONG WINAPI _llseek(HFILE hFile,LONG lOffset,int iOrigin);
-  WINADVAPI WINBOOL WINAPI IsTextUnicode(CONST VOID *lpv,int iSize,LPINT lpiResult);
+  WINBASEAPI LONG WINAPI _llseek(HFILE hFile,LONG l_ਵਿੱਥ,ਪੂਰਨ iOrigin);
+  WINADVAPI WINBOOL WINAPI Is_ਪਾਠ_Unicode(CONST VOID *lpv,ਪੂਰਨ i_ਮਾਪ,LPINT lpi_ਨਤੀਜਾ);
 
-#define FLS_OUT_OF_INDEXES ((DWORD)0xffffffff)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLS_ਬਾਹਰਲਾ_ਦਾ_INDEXES ((DWORD)0xffffffff)
 
   WINBASEAPI DWORD WINAPI FlsAlloc(PFLS_CALLBACK_FUNCTION lpCallback);
-  WINBASEAPI PVOID WINAPI FlsGetValue(DWORD dwFlsIndex);
-  WINBASEAPI WINBOOL WINAPI FlsSetValue(DWORD dwFlsIndex,PVOID lpFlsData);
-  WINBASEAPI WINBOOL WINAPI FlsFree(DWORD dwFlsIndex);
+  WINBASEAPI PVOID WINAPI Fls_Get_ਮੁੱਲ(DWORD dw_Fls_ਸੂਚਕਾਂਕ);
+  WINBASEAPI WINBOOL WINAPI Fls_ਸੈੱਟ_ਮੁੱਲ(DWORD dw_Fls_ਸੂਚਕਾਂਕ,PVOID lp_Fls_ਅੰਕੜੇ);
+  WINBASEAPI WINBOOL WINAPI FlsFree(DWORD dw_Fls_ਸੂਚਕਾਂਕ);
 
-#define TLS_OUT_OF_INDEXES ((DWORD)0xffffffff)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TLS_ਬਾਹਰਲਾ_ਦਾ_INDEXES ((DWORD)0xffffffff)
 
   WINBASEAPI DWORD WINAPI TlsAlloc(VOID);
-  WINBASEAPI LPVOID WINAPI TlsGetValue(DWORD dwTlsIndex);
-  WINBASEAPI WINBOOL WINAPI TlsSetValue(DWORD dwTlsIndex,LPVOID lpTlsValue);
-  WINBASEAPI WINBOOL WINAPI TlsFree(DWORD dwTlsIndex);
+  WINBASEAPI LPVOID WINAPI Tls_Get_ਮੁੱਲ(DWORD dw_Tls_ਸੂਚਕਾਂਕ);
+  WINBASEAPI WINBOOL WINAPI Tls_ਸੈੱਟ_ਮੁੱਲ(DWORD dw_Tls_ਸੂਚਕਾਂਕ,LPVOID lp_Tls_ਮੁੱਲ);
+  WINBASEAPI WINBOOL WINAPI TlsFree(DWORD dw_Tls_ਸੂਚਕਾਂਕ);
 
-  typedef VOID (WINAPI *LPOVERLAPPED_COMPLETION_ROUTINE)(DWORD dwErrorCode,DWORD dwNumberOfBytesTransfered,LPOVERLAPPED lpOverlapped);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ VOID (WINAPI *LPOVERLAPPED_COMPLETION_ROUTINE)(DWORD dw_Error_ਕੋਡ,DWORD dw_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Transfered,LPOVERLAPPED lpOverlapped);
 
   WINBASEAPI DWORD WINAPI SleepEx(DWORD dwMilliseconds,WINBOOL bAlertable);
   WINBASEAPI DWORD WINAPI WaitForSingleObjectEx(HANDLE hHandle,DWORD dwMilliseconds,WINBOOL bAlertable);
-  WINBASEAPI DWORD WINAPI WaitForMultipleObjectsEx(DWORD nCount,CONST HANDLE *lpHandles,WINBOOL bWaitAll,DWORD dwMilliseconds,WINBOOL bAlertable);
-  WINBASEAPI DWORD WINAPI SignalObjectAndWait(HANDLE hObjectToSignal,HANDLE hObjectToWaitOn,DWORD dwMilliseconds,WINBOOL bAlertable);
-  WINBASEAPI WINBOOL WINAPI ReadFileEx(HANDLE hFile,LPVOID lpBuffer,DWORD nNumberOfBytesToRead,LPOVERLAPPED lpOverlapped,LPOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINBASEAPI WINBOOL WINAPI WriteFileEx(HANDLE hFile,LPCVOID lpBuffer,DWORD nNumberOfBytesToWrite,LPOVERLAPPED lpOverlapped,LPOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINBASEAPI WINBOOL WINAPI BackupRead(HANDLE hFile,LPBYTE lpBuffer,DWORD nNumberOfBytesToRead,LPDWORD lpNumberOfBytesRead,WINBOOL bAbort,WINBOOL bProcessSecurity,LPVOID *lpContext);
-  WINBASEAPI WINBOOL WINAPI BackupSeek(HANDLE hFile,DWORD dwLowBytesToSeek,DWORD dwHighBytesToSeek,LPDWORD lpdwLowByteSeeked,LPDWORD lpdwHighByteSeeked,LPVOID *lpContext);
-  WINBASEAPI WINBOOL WINAPI BackupWrite(HANDLE hFile,LPBYTE lpBuffer,DWORD nNumberOfBytesToWrite,LPDWORD lpNumberOfBytesWritten,WINBOOL bAbort,WINBOOL bProcessSecurity,LPVOID *lpContext);
+  WINBASEAPI DWORD WINAPI Wait_For_ਗੁਣਜ_Objects_Ex(DWORD n_ਗਿਣਤੀ,CONST HANDLE *lpHandles,WINBOOL bWaitAll,DWORD dwMilliseconds,WINBOOL bAlertable);
+  WINBASEAPI DWORD WINAPI SignalObjectAndWait(HANDLE h_Object_ਮੰਜ਼ਿਲ_Signal,HANDLE h_Object_ਮੰਜ਼ਿਲ_Wait_On,DWORD dwMilliseconds,WINBOOL bAlertable);
+  WINBASEAPI WINBOOL WINAPI ReadFileEx(HANDLE hFile,LPVOID lp_ਬਫਰ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Read,LPOVERLAPPED lpOverlapped,LPOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINBASEAPI WINBOOL WINAPI WriteFileEx(HANDLE hFile,LPCVOID lp_ਬਫਰ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Write,LPOVERLAPPED lpOverlapped,LPOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINBASEAPI WINBOOL WINAPI BackupRead(HANDLE hFile,LPBYTE lp_ਬਫਰ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Read,LPDWORD lp_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Read,WINBOOL bAbort,WINBOOL bProcessSecurity,LPVOID *lpContext);
+  WINBASEAPI WINBOOL WINAPI BackupSeek(HANDLE hFile,DWORD dw_ਨੀਵਾਂ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Seek,DWORD dw_ਉੱਚਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Seek,LPDWORD lpdw_ਨੀਵਾਂ_Byte_Seeked,LPDWORD lpdw_ਉੱਚਾ_Byte_Seeked,LPVOID *lpContext);
+  WINBASEAPI WINBOOL WINAPI BackupWrite(HANDLE hFile,LPBYTE lp_ਬਫਰ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Write,LPDWORD lp_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Written,WINBOOL bAbort,WINBOOL bProcessSecurity,LPVOID *lpContext);
 
-  typedef struct _WIN32_STREAM_ID {
-    DWORD dwStreamId;
-    DWORD dwStreamAttributes;
-    LARGE_INTEGER Size;
-    DWORD dwStreamNameSize;
-    WCHAR cStreamName[ANYSIZE_ARRAY];
-  } WIN32_STREAM_ID,*LPWIN32_STREAM_ID;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ WIN32_ਧਾਰਾ_ID {
+    DWORD dw_ਧਾਰਾ_Id;
+    DWORD dw_ਧਾਰਾ_ਗੁਣ;
+    LARGE_INTEGER ਮਾਪ_3;
+    DWORD dw_ਧਾਰਾ_Name_ਮਾਪ;
+    WCHAR c_ਧਾਰਾ_Name[ANYSIZE_ARRAY];
+  } WIN32_ਧਾਰਾ_ID_2,*LPWIN32_ਧਾਰਾ_ID;
 
-#define BACKUP_INVALID 0x0
-#define BACKUP_DATA 0x1
-#define BACKUP_EA_DATA 0x2
-#define BACKUP_SECURITY_DATA 0x3
-#define BACKUP_ALTERNATE_DATA 0x4
-#define BACKUP_LINK 0x5
-#define BACKUP_PROPERTY_DATA 0x6
-#define BACKUP_OBJECT_ID 0x7
-#define BACKUP_REPARSE_DATA 0x8
-#define BACKUP_SPARSE_BLOCK 0x9
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BACKUP_INVALID 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BACKUP_ਅੰਕੜੇ 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BACKUP_EA_ਅੰਕੜੇ 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BACKUP_SECURITY_ਅੰਕੜੇ 0x3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BACKUP_ALTERNATE_ਅੰਕੜੇ 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BACKUP_LINK 0x5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BACKUP_PROPERTY_ਅੰਕੜੇ 0x6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BACKUP_OBJECT_ID 0x7
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BACKUP_REPARSE_ਅੰਕੜੇ 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BACKUP_SPARSE_ਖੰਡ 0x9
 
-#define STREAM_NORMAL_ATTRIBUTE 0x0
-#define STREAM_MODIFIED_WHEN_READ 0x1
-#define STREAM_CONTAINS_SECURITY 0x2
-#define STREAM_CONTAINS_PROPERTIES 0x4
-#define STREAM_SPARSE_ATTRIBUTE 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਧਾਰਾ_ਸਾਧਾਰਨ_ATTRIBUTE 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਧਾਰਾ_MODIFIED_WHEN_READ 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਧਾਰਾ_ਸ਼ਾਮਲ_ਹੈ_SECURITY 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਧਾਰਾ_ਸ਼ਾਮਲ_ਹੈ_PROPERTIES 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਧਾਰਾ_SPARSE_ATTRIBUTE 0x8
 
-  WINBASEAPI WINBOOL WINAPI ReadFileScatter(HANDLE hFile,FILE_SEGMENT_ELEMENT aSegmentArray[],DWORD nNumberOfBytesToRead,LPDWORD lpReserved,LPOVERLAPPED lpOverlapped);
-  WINBASEAPI WINBOOL WINAPI WriteFileGather(HANDLE hFile,FILE_SEGMENT_ELEMENT aSegmentArray[],DWORD nNumberOfBytesToWrite,LPDWORD lpReserved,LPOVERLAPPED lpOverlapped);
+  WINBASEAPI WINBOOL WINAPI ReadFileScatter(HANDLE hFile,FILE_SEGMENT_ELEMENT aSegmentArray[],DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Read,LPDWORD lpReserved,LPOVERLAPPED lpOverlapped);
+  WINBASEAPI WINBOOL WINAPI WriteFileGather(HANDLE hFile,FILE_SEGMENT_ELEMENT aSegmentArray[],DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Write,LPDWORD lpReserved,LPOVERLAPPED lpOverlapped);
 
-#define STARTF_USESHOWWINDOW 0x1
-#define STARTF_USESIZE 0x2
-#define STARTF_USEPOSITION 0x4
-#define STARTF_USECOUNTCHARS 0x8
-#define STARTF_USEFILLATTRIBUTE 0x10
-#define STARTF_RUNFULLSCREEN 0x20
-#define STARTF_FORCEONFEEDBACK 0x40
-#define STARTF_FORCEOFFFEEDBACK 0x80
-#define STARTF_USESTDHANDLES 0x100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STARTF_USESHOWWINDOW 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STARTF_USESIZE 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STARTF_USEPOSITION 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STARTF_USECOUNTCHARS 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STARTF_USEFILLATTRIBUTE 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STARTF_RUNFULLSCREEN 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STARTF_FORCEONFEEDBACK 0x40
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STARTF_FORCEOFFFEEDBACK 0x80
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STARTF_USESTDHANDLES 0x100
 
-#define STARTF_USEHOTKEY 0x200
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STARTF_USEHOTKEY 0x200
 
-  typedef struct _STARTUPINFOA {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _STARTUPINFOA {
     DWORD cb;
     LPSTR lpReserved;
     LPSTR lpDesktop;
@@ -1690,15 +1690,15 @@ extern "C" {
     DWORD dwYCountChars;
     DWORD dwFillAttribute;
     DWORD dwFlags;
-    WORD wShowWindow;
-    WORD cbReserved2;
+    ਸ਼ਬਦ_3 w_Show_ਖਿੜਕੀ;
+    ਸ਼ਬਦ_3 cbReserved2;
     LPBYTE lpReserved2;
-    HANDLE hStdInput;
+    HANDLE h_Std_ਨਿਵੇਸ਼;
     HANDLE hStdOutput;
     HANDLE hStdError;
   } STARTUPINFOA,*LPSTARTUPINFOA;
 
-  typedef struct _STARTUPINFOW {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _STARTUPINFOW {
     DWORD cb;
     LPWSTR lpReserved;
     LPWSTR lpDesktop;
@@ -1711,858 +1711,858 @@ extern "C" {
     DWORD dwYCountChars;
     DWORD dwFillAttribute;
     DWORD dwFlags;
-    WORD wShowWindow;
-    WORD cbReserved2;
+    ਸ਼ਬਦ_3 w_Show_ਖਿੜਕੀ;
+    ਸ਼ਬਦ_3 cbReserved2;
     LPBYTE lpReserved2;
-    HANDLE hStdInput;
+    HANDLE h_Std_ਨਿਵੇਸ਼;
     HANDLE hStdOutput;
     HANDLE hStdError;
   } STARTUPINFOW,*LPSTARTUPINFOW;
 
-#ifdef UNICODE
-  typedef STARTUPINFOW STARTUPINFO;
-  typedef LPSTARTUPINFOW LPSTARTUPINFO;
-#else
-  typedef STARTUPINFOA STARTUPINFO;
-  typedef LPSTARTUPINFOA LPSTARTUPINFO;
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ STARTUPINFOW STARTUPINFO;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ LPSTARTUPINFOW LPSTARTUPINFO;
+#ਨਹੀਂਤਾਂ
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ STARTUPINFOA STARTUPINFO;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ LPSTARTUPINFOA LPSTARTUPINFO;
+#ਜੇ_ਅੰਤ
 
-#define SHUTDOWN_NORETRY 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SHUTDOWN_NORETRY 0x1
 
-  typedef struct _WIN32_FIND_DATAA {
-    DWORD dwFileAttributes;
-    FILETIME ftCreationTime;
-    FILETIME ftLastAccessTime;
-    FILETIME ftLastWriteTime;
-    DWORD nFileSizeHigh;
-    DWORD nFileSizeLow;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ WIN32_ਲੱਭੋ_DATAA {
+    DWORD dw_File_ਗੁਣ;
+    FILETIME ft_Creation_ਸਮਾਂ;
+    FILETIME ft_ਆਖਰੀ_Access_ਸਮਾਂ;
+    FILETIME ft_ਆਖਰੀ_Write_ਸਮਾਂ;
+    DWORD n_File_ਮਾਪ_ਉੱਚਾ;
+    DWORD n_File_ਮਾਪ_ਨੀਵਾਂ;
     DWORD dwReserved0;
     DWORD dwReserved1;
-    CHAR cFileName[MAX_PATH];
+    CHAR cFileName[MAX_ਰਸਤਾ];
     CHAR cAlternateFileName[14];
-  } WIN32_FIND_DATAA,*PWIN32_FIND_DATAA,*LPWIN32_FIND_DATAA;
+  } WIN32_ਲੱਭੋ_DATAA_2,*PWIN32_ਲੱਭੋ_DATAA,*LPWIN32_ਲੱਭੋ_DATAA;
 
-  typedef struct _WIN32_FIND_DATAW {
-    DWORD dwFileAttributes;
-    FILETIME ftCreationTime;
-    FILETIME ftLastAccessTime;
-    FILETIME ftLastWriteTime;
-    DWORD nFileSizeHigh;
-    DWORD nFileSizeLow;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ WIN32_ਲੱਭੋ_DATAW {
+    DWORD dw_File_ਗੁਣ;
+    FILETIME ft_Creation_ਸਮਾਂ;
+    FILETIME ft_ਆਖਰੀ_Access_ਸਮਾਂ;
+    FILETIME ft_ਆਖਰੀ_Write_ਸਮਾਂ;
+    DWORD n_File_ਮਾਪ_ਉੱਚਾ;
+    DWORD n_File_ਮਾਪ_ਨੀਵਾਂ;
     DWORD dwReserved0;
     DWORD dwReserved1;
-    WCHAR cFileName[MAX_PATH];
+    WCHAR cFileName[MAX_ਰਸਤਾ];
     WCHAR cAlternateFileName[14];
-  } WIN32_FIND_DATAW,*PWIN32_FIND_DATAW,*LPWIN32_FIND_DATAW;
+  } WIN32_ਲੱਭੋ_DATAW_2,*PWIN32_ਲੱਭੋ_DATAW,*LPWIN32_ਲੱਭੋ_DATAW;
 
-#ifdef UNICODE
-  typedef WIN32_FIND_DATAW WIN32_FIND_DATA;
-  typedef PWIN32_FIND_DATAW PWIN32_FIND_DATA;
-  typedef LPWIN32_FIND_DATAW LPWIN32_FIND_DATA;
-#else
-  typedef WIN32_FIND_DATAA WIN32_FIND_DATA;
-  typedef PWIN32_FIND_DATAA PWIN32_FIND_DATA;
-  typedef LPWIN32_FIND_DATAA LPWIN32_FIND_DATA;
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WIN32_ਲੱਭੋ_DATAW_2 WIN32_ਲੱਭੋ_ਅੰਕੜੇ;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PWIN32_ਲੱਭੋ_DATAW PWIN32_ਲੱਭੋ_ਅੰਕੜੇ;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ LPWIN32_ਲੱਭੋ_DATAW LPWIN32_ਲੱਭੋ_ਅੰਕੜੇ;
+#ਨਹੀਂਤਾਂ
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WIN32_ਲੱਭੋ_DATAA_2 WIN32_ਲੱਭੋ_ਅੰਕੜੇ;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PWIN32_ਲੱਭੋ_DATAA PWIN32_ਲੱਭੋ_ਅੰਕੜੇ;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ LPWIN32_ਲੱਭੋ_DATAA LPWIN32_ਲੱਭੋ_ਅੰਕੜੇ;
+#ਜੇ_ਅੰਤ
 
-  typedef struct _WIN32_FILE_ATTRIBUTE_DATA {
-    DWORD dwFileAttributes;
-    FILETIME ftCreationTime;
-    FILETIME ftLastAccessTime;
-    FILETIME ftLastWriteTime;
-    DWORD nFileSizeHigh;
-    DWORD nFileSizeLow;
-  } WIN32_FILE_ATTRIBUTE_DATA,*LPWIN32_FILE_ATTRIBUTE_DATA;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ WIN32_FILE_ATTRIBUTE_ਅੰਕੜੇ {
+    DWORD dw_File_ਗੁਣ;
+    FILETIME ft_Creation_ਸਮਾਂ;
+    FILETIME ft_ਆਖਰੀ_Access_ਸਮਾਂ;
+    FILETIME ft_ਆਖਰੀ_Write_ਸਮਾਂ;
+    DWORD n_File_ਮਾਪ_ਉੱਚਾ;
+    DWORD n_File_ਮਾਪ_ਨੀਵਾਂ;
+  } WIN32_FILE_ATTRIBUTE_ਅੰਕੜੇ_2,*LPWIN32_FILE_ATTRIBUTE_ਅੰਕੜੇ;
 
-#ifdef UNICODE
-#define CreateMutex CreateMutexW
-#define OpenMutex OpenMutexW
-#define CreateEvent CreateEventW
-#define OpenEvent OpenEventW
-#define CreateSemaphore CreateSemaphoreW
-#define OpenSemaphore OpenSemaphoreW
-#else
-#define CreateMutex CreateMutexA
-#define OpenMutex OpenMutexA
-#define CreateEvent CreateEventA
-#define OpenEvent OpenEventA
-#define CreateSemaphore CreateSemaphoreA
-#define OpenSemaphore OpenSemaphoreA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateMutex CreateMutexW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenMutex OpenMutexW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateEvent CreateEventW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenEvent OpenEventW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateSemaphore CreateSemaphoreW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenSemaphore OpenSemaphoreW
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateMutex CreateMutexA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenMutex OpenMutexA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateEvent CreateEventA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenEvent OpenEventA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateSemaphore CreateSemaphoreA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenSemaphore OpenSemaphoreA
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI HANDLE WINAPI CreateMutexA(LPSECURITY_ATTRIBUTES lpMutexAttributes,WINBOOL bInitialOwner,LPCSTR lpName);
-  WINBASEAPI HANDLE WINAPI CreateMutexW(LPSECURITY_ATTRIBUTES lpMutexAttributes,WINBOOL bInitialOwner,LPCWSTR lpName);
+  WINBASEAPI HANDLE WINAPI CreateMutexA(LPSECURITY_ਗੁਣ lp_Mutex_ਗੁਣ,WINBOOL bInitialOwner,LPCSTR lpName);
+  WINBASEAPI HANDLE WINAPI CreateMutexW(LPSECURITY_ਗੁਣ lp_Mutex_ਗੁਣ,WINBOOL bInitialOwner,LPCWSTR lpName);
   WINBASEAPI HANDLE WINAPI OpenMutexA(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCSTR lpName);
   WINBASEAPI HANDLE WINAPI OpenMutexW(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCWSTR lpName);
-  WINBASEAPI HANDLE WINAPI CreateEventA(LPSECURITY_ATTRIBUTES lpEventAttributes,WINBOOL bManualReset,WINBOOL bInitialState,LPCSTR lpName);
-  WINBASEAPI HANDLE WINAPI CreateEventW(LPSECURITY_ATTRIBUTES lpEventAttributes,WINBOOL bManualReset,WINBOOL bInitialState,LPCWSTR lpName);
+  WINBASEAPI HANDLE WINAPI CreateEventA(LPSECURITY_ਗੁਣ lp_Event_ਗੁਣ,WINBOOL bManualReset,WINBOOL bInitialState,LPCSTR lpName);
+  WINBASEAPI HANDLE WINAPI CreateEventW(LPSECURITY_ਗੁਣ lp_Event_ਗੁਣ,WINBOOL bManualReset,WINBOOL bInitialState,LPCWSTR lpName);
   WINBASEAPI HANDLE WINAPI OpenEventA(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCSTR lpName);
   WINBASEAPI HANDLE WINAPI OpenEventW(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCWSTR lpName);
-  WINBASEAPI HANDLE WINAPI CreateSemaphoreA(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,LONG lInitialCount,LONG lMaximumCount,LPCSTR lpName);
-  WINBASEAPI HANDLE WINAPI CreateSemaphoreW(LPSECURITY_ATTRIBUTES lpSemaphoreAttributes,LONG lInitialCount,LONG lMaximumCount,LPCWSTR lpName);
+  WINBASEAPI HANDLE WINAPI CreateSemaphoreA(LPSECURITY_ਗੁਣ lp_Semaphore_ਗੁਣ,LONG l_Initial_ਗਿਣਤੀ,LONG l_ਵੱਧ_ਤੋਂ_ਵੱਧ_ਗਿਣਤੀ,LPCSTR lpName);
+  WINBASEAPI HANDLE WINAPI CreateSemaphoreW(LPSECURITY_ਗੁਣ lp_Semaphore_ਗੁਣ,LONG l_Initial_ਗਿਣਤੀ,LONG l_ਵੱਧ_ਤੋਂ_ਵੱਧ_ਗਿਣਤੀ,LPCWSTR lpName);
   WINBASEAPI HANDLE WINAPI OpenSemaphoreA(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCSTR lpName);
   WINBASEAPI HANDLE WINAPI OpenSemaphoreW(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCWSTR lpName);
 
-  typedef VOID (WINAPI *PTIMERAPCROUTINE)(LPVOID lpArgToCompletionRoutine,DWORD dwTimerLowValue,DWORD dwTimerHighValue);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ VOID (WINAPI *PTIMERAPCROUTINE)(LPVOID lp_Arg_ਮੰਜ਼ਿਲ_Completion_Routine,DWORD dw_Timer_ਨੀਵਾਂ_ਮੁੱਲ,DWORD dw_Timer_ਉੱਚਾ_ਮੁੱਲ);
 
-#ifdef UNICODE
-#define CreateWaitableTimer CreateWaitableTimerW
-#define OpenWaitableTimer OpenWaitableTimerW
-#define CreateFileMapping CreateFileMappingW
-#define OpenFileMapping OpenFileMappingW
-#define GetLogicalDriveStrings GetLogicalDriveStringsW
-#define LoadLibrary LoadLibraryW
-#define LoadLibraryEx LoadLibraryExW
-#define GetModuleFileName GetModuleFileNameW
-#define GetModuleHandle GetModuleHandleW
-#else
-#define CreateWaitableTimer CreateWaitableTimerA
-#define OpenWaitableTimer OpenWaitableTimerA
-#define CreateFileMapping CreateFileMappingA
-#define OpenFileMapping OpenFileMappingA
-#define GetLogicalDriveStrings GetLogicalDriveStringsA
-#define LoadLibrary LoadLibraryA
-#define LoadLibraryEx LoadLibraryExA
-#define GetModuleFileName GetModuleFileNameA
-#define GetModuleHandle GetModuleHandleA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateWaitableTimer CreateWaitableTimerW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenWaitableTimer OpenWaitableTimerW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateFileMapping CreateFileMappingW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenFileMapping OpenFileMappingW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Logical_Drive_ਲੜੀਆਂ Get_Logical_Drive_ਲੜੀਆਂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_Library ਲੱਦੋ_Library_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_Library_Ex ਲੱਦੋ_Library_Ex_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetModuleFileName GetModuleFileNameW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetModuleHandle GetModuleHandleW
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateWaitableTimer CreateWaitableTimerA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenWaitableTimer OpenWaitableTimerA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateFileMapping CreateFileMappingA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenFileMapping OpenFileMappingA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Logical_Drive_ਲੜੀਆਂ Get_Logical_Drive_ਲੜੀਆਂ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_Library ਲੱਦੋ_Library_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_Library_Ex ਲੱਦੋ_Library_Ex_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetModuleFileName GetModuleFileNameA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetModuleHandle GetModuleHandleA
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI HANDLE WINAPI CreateWaitableTimerA(LPSECURITY_ATTRIBUTES lpTimerAttributes,WINBOOL bManualReset,LPCSTR lpTimerName);
-  WINBASEAPI HANDLE WINAPI CreateWaitableTimerW(LPSECURITY_ATTRIBUTES lpTimerAttributes,WINBOOL bManualReset,LPCWSTR lpTimerName);
+  WINBASEAPI HANDLE WINAPI CreateWaitableTimerA(LPSECURITY_ਗੁਣ lp_Timer_ਗੁਣ,WINBOOL bManualReset,LPCSTR lpTimerName);
+  WINBASEAPI HANDLE WINAPI CreateWaitableTimerW(LPSECURITY_ਗੁਣ lp_Timer_ਗੁਣ,WINBOOL bManualReset,LPCWSTR lpTimerName);
   WINBASEAPI HANDLE WINAPI OpenWaitableTimerA(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCSTR lpTimerName);
   WINBASEAPI HANDLE WINAPI OpenWaitableTimerW(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCWSTR lpTimerName);
-  WINBASEAPI WINBOOL WINAPI SetWaitableTimer(HANDLE hTimer,const LARGE_INTEGER *lpDueTime,LONG lPeriod,PTIMERAPCROUTINE pfnCompletionRoutine,LPVOID lpArgToCompletionRoutine,WINBOOL fResume);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Waitable_Timer(HANDLE hTimer,ਅਚਲ LARGE_INTEGER *lp_Due_ਸਮਾਂ,LONG lPeriod,PTIMERAPCROUTINE pfnCompletionRoutine,LPVOID lp_Arg_ਮੰਜ਼ਿਲ_Completion_Routine,WINBOOL fResume);
   WINBASEAPI WINBOOL WINAPI CancelWaitableTimer(HANDLE hTimer);
-  WINBASEAPI HANDLE WINAPI CreateFileMappingA(HANDLE hFile,LPSECURITY_ATTRIBUTES lpFileMappingAttributes,DWORD flProtect,DWORD dwMaximumSizeHigh,DWORD dwMaximumSizeLow,LPCSTR lpName);
-  WINBASEAPI HANDLE WINAPI CreateFileMappingW(HANDLE hFile,LPSECURITY_ATTRIBUTES lpFileMappingAttributes,DWORD flProtect,DWORD dwMaximumSizeHigh,DWORD dwMaximumSizeLow,LPCWSTR lpName);
+  WINBASEAPI HANDLE WINAPI CreateFileMappingA(HANDLE hFile,LPSECURITY_ਗੁਣ lp_File_Mapping_ਗੁਣ,DWORD flProtect,DWORD dw_ਵੱਧ_ਤੋਂ_ਵੱਧ_ਮਾਪ_ਉੱਚਾ,DWORD dw_ਵੱਧ_ਤੋਂ_ਵੱਧ_ਮਾਪ_ਨੀਵਾਂ,LPCSTR lpName);
+  WINBASEAPI HANDLE WINAPI CreateFileMappingW(HANDLE hFile,LPSECURITY_ਗੁਣ lp_File_Mapping_ਗੁਣ,DWORD flProtect,DWORD dw_ਵੱਧ_ਤੋਂ_ਵੱਧ_ਮਾਪ_ਉੱਚਾ,DWORD dw_ਵੱਧ_ਤੋਂ_ਵੱਧ_ਮਾਪ_ਨੀਵਾਂ,LPCWSTR lpName);
   WINBASEAPI HANDLE WINAPI OpenFileMappingA(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCSTR lpName);
   WINBASEAPI HANDLE WINAPI OpenFileMappingW(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCWSTR lpName);
-  WINBASEAPI DWORD WINAPI GetLogicalDriveStringsA(DWORD nBufferLength,LPSTR lpBuffer);
-  WINBASEAPI DWORD WINAPI GetLogicalDriveStringsW(DWORD nBufferLength,LPWSTR lpBuffer);
+  WINBASEAPI DWORD WINAPI Get_Logical_Drive_ਲੜੀਆਂ_A(DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPSTR lp_ਬਫਰ);
+  WINBASEAPI DWORD WINAPI Get_Logical_Drive_ਲੜੀਆਂ_W(DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPWSTR lp_ਬਫਰ);
 
-  typedef enum _MEMORY_RESOURCE_NOTIFICATION_TYPE {
-    LowMemoryResourceNotification,HighMemoryResourceNotification
-  } MEMORY_RESOURCE_NOTIFICATION_TYPE;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਗਿਣਤੀ ਸਮ੍ਰਿਤੀ_RESOURCE_NOTIFICATION_TYPE {
+    ਨੀਵਾਂ_ਸਮ੍ਰਿਤੀ_Resource_Notification,ਉੱਚਾ_ਸਮ੍ਰਿਤੀ_Resource_Notification
+  } ਸਮ੍ਰਿਤੀ_RESOURCE_NOTIFICATION_TYPE_2;
 
-  WINBASEAPI HANDLE WINAPI CreateMemoryResourceNotification(MEMORY_RESOURCE_NOTIFICATION_TYPE NotificationType);
-  WINBASEAPI WINBOOL WINAPI QueryMemoryResourceNotification(HANDLE ResourceNotificationHandle,PBOOL ResourceState);
-  WINBASEAPI HMODULE WINAPI LoadLibraryA(LPCSTR lpLibFileName);
-  WINBASEAPI HMODULE WINAPI LoadLibraryW(LPCWSTR lpLibFileName);
-  WINBASEAPI HMODULE WINAPI LoadLibraryExA(LPCSTR lpLibFileName,HANDLE hFile,DWORD dwFlags);
-  WINBASEAPI HMODULE WINAPI LoadLibraryExW(LPCWSTR lpLibFileName,HANDLE hFile,DWORD dwFlags);
+  WINBASEAPI HANDLE WINAPI Create_ਸਮ੍ਰਿਤੀ_Resource_Notification(ਸਮ੍ਰਿਤੀ_RESOURCE_NOTIFICATION_TYPE_2 NotificationType);
+  WINBASEAPI WINBOOL WINAPI Query_ਸਮ੍ਰਿਤੀ_Resource_Notification(HANDLE ResourceNotificationHandle,PBOOL ResourceState);
+  WINBASEAPI HMODULE WINAPI ਲੱਦੋ_Library_A(LPCSTR lpLibFileName);
+  WINBASEAPI HMODULE WINAPI ਲੱਦੋ_Library_W(LPCWSTR lpLibFileName);
+  WINBASEAPI HMODULE WINAPI ਲੱਦੋ_Library_Ex_A(LPCSTR lpLibFileName,HANDLE hFile,DWORD dwFlags);
+  WINBASEAPI HMODULE WINAPI ਲੱਦੋ_Library_Ex_W(LPCWSTR lpLibFileName,HANDLE hFile,DWORD dwFlags);
 
-#define DONT_RESOLVE_DLL_REFERENCES 0x1
-#define LOAD_LIBRARY_AS_DATAFILE 0x2
-#define LOAD_WITH_ALTERED_SEARCH_PATH 0x8
-#define LOAD_IGNORE_CODE_AUTHZ_LEVEL 0x10
-#define LOAD_LIBRARY_AS_IMAGE_RESOURCE 0x20
-#define LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE 0x40
-#define LOAD_LIBRARY_REQUIRE_SIGNED_TARGET 0x80
-#define LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR 0x100
-#define LOAD_LIBRARY_SEARCH_APPLICATION_DIR 0x200
-#define LOAD_LIBRARY_SEARCH_USER_DIRS 0x400
-#define LOAD_LIBRARY_SEARCH_SYSTEM32 0x800
-#define LOAD_LIBRARY_SEARCH_DEFAULT_DIRS 0x1000
-#define LOAD_LIBRARY_SAFE_CURRENT_DIRS 0x2000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DONT_RESOLVE_DLL_REFERENCES 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_LIBRARY_AS_DATAFILE 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_WITH_ALTERED_ਖੋਜ_ਰਸਤਾ 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_IGNORE_ਕੋਡ_AUTHZ_LEVEL 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_LIBRARY_AS_IMAGE_RESOURCE 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_LIBRARY_AS_DATAFILE_EXCLUSIVE 0x40
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_LIBRARY_REQUIRE_SIGNED_ਨਿਸ਼ਾਨਾ 0x80
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_LIBRARY_ਖੋਜ_DLL_ਲੱਦੋ_DIR 0x100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_LIBRARY_ਖੋਜ_APPLICATION_DIR 0x200
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_LIBRARY_ਖੋਜ_USER_DIRS 0x400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_LIBRARY_ਖੋਜ_SYSTEM32 0x800
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_LIBRARY_ਖੋਜ_DEFAULT_DIRS 0x1000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਦੋ_LIBRARY_ਸੁਰੱਖਿਅਤ_CURRENT_DIRS 0x2000
 
-  WINBASEAPI DWORD WINAPI GetModuleFileNameA(HMODULE hModule,LPCH lpFilename,DWORD nSize);
-  WINBASEAPI DWORD WINAPI GetModuleFileNameW(HMODULE hModule,LPWCH lpFilename,DWORD nSize);
+  WINBASEAPI DWORD WINAPI GetModuleFileNameA(HMODULE hModule,LPCH lpFilename,DWORD n_ਮਾਪ);
+  WINBASEAPI DWORD WINAPI GetModuleFileNameW(HMODULE hModule,LPWCH lpFilename,DWORD n_ਮਾਪ);
   WINBASEAPI HMODULE WINAPI GetModuleHandleA(LPCSTR lpModuleName);
   WINBASEAPI HMODULE WINAPI GetModuleHandleW(LPCWSTR lpModuleName);
 
-#ifndef RC_INVOKED
-#define GET_MODULE_HANDLE_EX_FLAG_PIN (0x1)
-#define GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT (0x2)
-#define GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS (0x4)
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ RC_INVOKED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_MODULE_HANDLE_EX_FLAG_PIN (0x1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT (0x2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_MODULE_HANDLE_EX_FLAG_FROM_ਪਤਾ (0x4)
 
-  typedef WINBOOL (WINAPI *PGET_MODULE_HANDLE_EXA)(DWORD dwFlags,LPCSTR lpModuleName,HMODULE *phModule);
-  typedef WINBOOL (WINAPI *PGET_MODULE_HANDLE_EXW)(DWORD dwFlags,LPCWSTR lpModuleName,HMODULE *phModule);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WINBOOL (WINAPI *PGET_MODULE_HANDLE_EXA)(DWORD dwFlags,LPCSTR lpModuleName,HMODULE *phModule);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WINBOOL (WINAPI *PGET_MODULE_HANDLE_EXW)(DWORD dwFlags,LPCWSTR lpModuleName,HMODULE *phModule);
 
-#ifdef UNICODE
-#define PGET_MODULE_HANDLE_EX PGET_MODULE_HANDLE_EXW
-#define GetModuleHandleEx GetModuleHandleExW
-#else
-#define PGET_MODULE_HANDLE_EX PGET_MODULE_HANDLE_EXA
-#define GetModuleHandleEx GetModuleHandleExA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PGET_MODULE_HANDLE_EX PGET_MODULE_HANDLE_EXW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetModuleHandleEx GetModuleHandleExW
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PGET_MODULE_HANDLE_EX PGET_MODULE_HANDLE_EXA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetModuleHandleEx GetModuleHandleExA
+#ਜੇ_ਅੰਤ
 
   WINBASEAPI WINBOOL WINAPI GetModuleHandleExA(DWORD dwFlags,LPCSTR lpModuleName,HMODULE *phModule);
   WINBASEAPI WINBOOL WINAPI GetModuleHandleExW(DWORD dwFlags,LPCWSTR lpModuleName,HMODULE *phModule);
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifdef UNICODE
-#define NeedCurrentDirectoryForExePath NeedCurrentDirectoryForExePathW
-#define CreateProcess CreateProcessW
-#define FatalAppExit FatalAppExitW
-#define GetStartupInfo GetStartupInfoW
-#define GetCommandLine GetCommandLineW
-#define GetEnvironmentVariable GetEnvironmentVariableW
-#define SetEnvironmentVariable SetEnvironmentVariableW
-#define ExpandEnvironmentStrings ExpandEnvironmentStringsW
-#define GetFirmwareEnvironmentVariable GetFirmwareEnvironmentVariableW
-#define SetFirmwareEnvironmentVariable SetFirmwareEnvironmentVariableW
-#define OutputDebugString OutputDebugStringW
-#define FindResource FindResourceW
-#define FindResourceEx FindResourceExW
-#else
-#define NeedCurrentDirectoryForExePath NeedCurrentDirectoryForExePathA
-#define CreateProcess CreateProcessA
-#define FatalAppExit FatalAppExitA
-#define GetStartupInfo GetStartupInfoA
-#define GetCommandLine GetCommandLineA
-#define GetEnvironmentVariable GetEnvironmentVariableA
-#define SetEnvironmentVariable SetEnvironmentVariableA
-#define ExpandEnvironmentStrings ExpandEnvironmentStringsA
-#define GetFirmwareEnvironmentVariable GetFirmwareEnvironmentVariableA
-#define SetFirmwareEnvironmentVariable SetFirmwareEnvironmentVariableA
-#define OutputDebugString OutputDebugStringA
-#define FindResource FindResourceA
-#define FindResourceEx FindResourceExA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Need_Current_Directory_For_Exe_ਰਸਤਾ Need_Current_Directory_For_Exe_ਰਸਤਾ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateProcess CreateProcessW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FatalAppExit FatalAppExitW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetStartupInfo GetStartupInfoW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Command_ਸਤਰ Get_Command_ਸਤਰ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetEnvironmentVariable GetEnvironmentVariableW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Environment_Variable ਸੈੱਟ_Environment_Variable_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Expand_Environment_ਲੜੀਆਂ Expand_Environment_ਲੜੀਆਂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetFirmwareEnvironmentVariable GetFirmwareEnvironmentVariableW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Firmware_Environment_Variable ਸੈੱਟ_Firmware_Environment_Variable_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OutputDebugString OutputDebugStringW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_Resource ਲੱਭੋ_Resource_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_Resource_Ex ਲੱਭੋ_Resource_Ex_W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Need_Current_Directory_For_Exe_ਰਸਤਾ Need_Current_Directory_For_Exe_ਰਸਤਾ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateProcess CreateProcessA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FatalAppExit FatalAppExitA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetStartupInfo GetStartupInfoA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Command_ਸਤਰ Get_Command_ਸਤਰ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetEnvironmentVariable GetEnvironmentVariableA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Environment_Variable ਸੈੱਟ_Environment_Variable_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Expand_Environment_ਲੜੀਆਂ Expand_Environment_ਲੜੀਆਂ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetFirmwareEnvironmentVariable GetFirmwareEnvironmentVariableA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Firmware_Environment_Variable ਸੈੱਟ_Firmware_Environment_Variable_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OutputDebugString OutputDebugStringA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_Resource ਲੱਭੋ_Resource_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_Resource_Ex ਲੱਭੋ_Resource_Ex_A
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI WINBOOL WINAPI NeedCurrentDirectoryForExePathA(LPCSTR ExeName);
-  WINBASEAPI WINBOOL WINAPI NeedCurrentDirectoryForExePathW(LPCWSTR ExeName);
-  WINBASEAPI WINBOOL WINAPI CreateProcessA(LPCSTR lpApplicationName,LPSTR lpCommandLine,LPSECURITY_ATTRIBUTES lpProcessAttributes,LPSECURITY_ATTRIBUTES lpThreadAttributes,WINBOOL bInheritHandles,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCSTR lpCurrentDirectory,LPSTARTUPINFOA lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
-  WINBASEAPI WINBOOL WINAPI CreateProcessW(LPCWSTR lpApplicationName,LPWSTR lpCommandLine,LPSECURITY_ATTRIBUTES lpProcessAttributes,LPSECURITY_ATTRIBUTES lpThreadAttributes,WINBOOL bInheritHandles,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCWSTR lpCurrentDirectory,LPSTARTUPINFOW lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
-  WINBASEAPI DWORD WINAPI AddLocalAlternateComputerNameA(LPCSTR lpDnsFQHostname,ULONG ulFlags);
-  WINBASEAPI DWORD WINAPI AddLocalAlternateComputerNameW(LPCWSTR lpDnsFQHostname,ULONG ulFlags);
-  WINBASEAPI WINBOOL WINAPI SetProcessShutdownParameters(DWORD dwLevel,DWORD dwFlags);
+  WINBASEAPI WINBOOL WINAPI Need_Current_Directory_For_Exe_ਰਸਤਾ_A(LPCSTR ExeName);
+  WINBASEAPI WINBOOL WINAPI Need_Current_Directory_For_Exe_ਰਸਤਾ_W(LPCWSTR ExeName);
+  WINBASEAPI WINBOOL WINAPI CreateProcessA(LPCSTR lpApplicationName,LPSTR lp_Command_ਸਤਰ,LPSECURITY_ਗੁਣ lp_Process_ਗੁਣ,LPSECURITY_ਗੁਣ lp_Thread_ਗੁਣ,WINBOOL bInheritHandles,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCSTR lpCurrentDirectory,LPSTARTUPINFOA lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
+  WINBASEAPI WINBOOL WINAPI CreateProcessW(LPCWSTR lpApplicationName,LPWSTR lp_Command_ਸਤਰ,LPSECURITY_ਗੁਣ lp_Process_ਗੁਣ,LPSECURITY_ਗੁਣ lp_Thread_ਗੁਣ,WINBOOL bInheritHandles,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCWSTR lpCurrentDirectory,LPSTARTUPINFOW lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
+  WINBASEAPI DWORD WINAPI ਜੋੜੋ_Local_Alternate_Computer_Name_A(LPCSTR lpDnsFQHostname,ULONG ulFlags);
+  WINBASEAPI DWORD WINAPI ਜੋੜੋ_Local_Alternate_Computer_Name_W(LPCWSTR lpDnsFQHostname,ULONG ulFlags);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Process_Shutdown_Parameters(DWORD dwLevel,DWORD dwFlags);
   WINBASEAPI WINBOOL WINAPI GetProcessShutdownParameters(LPDWORD lpdwLevel,LPDWORD lpdwFlags);
-  WINBASEAPI DWORD WINAPI GetProcessVersion(DWORD ProcessId);
-  WINBASEAPI VOID WINAPI FatalAppExitA(UINT uAction,LPCSTR lpMessageText);
-  WINBASEAPI VOID WINAPI FatalAppExitW(UINT uAction,LPCWSTR lpMessageText);
+  WINBASEAPI DWORD WINAPI Get_Process_ਸੰਸਕਰਣ(DWORD ProcessId);
+  WINBASEAPI VOID WINAPI FatalAppExitA(UINT uAction,LPCSTR lp_ਸੁਨੇਹਾ_ਪਾਠ);
+  WINBASEAPI VOID WINAPI FatalAppExitW(UINT uAction,LPCWSTR lp_ਸੁਨੇਹਾ_ਪਾਠ);
   WINBASEAPI VOID WINAPI GetStartupInfoA(LPSTARTUPINFOA lpStartupInfo);
   WINBASEAPI VOID WINAPI GetStartupInfoW(LPSTARTUPINFOW lpStartupInfo);
-  WINBASEAPI LPSTR WINAPI GetCommandLineA(VOID);
-  WINBASEAPI LPWSTR WINAPI GetCommandLineW(VOID);
-  WINBASEAPI DWORD WINAPI GetEnvironmentVariableA(LPCSTR lpName,LPSTR lpBuffer,DWORD nSize);
-  WINBASEAPI DWORD WINAPI GetEnvironmentVariableW(LPCWSTR lpName,LPWSTR lpBuffer,DWORD nSize);
-  WINBASEAPI WINBOOL WINAPI SetEnvironmentVariableA(LPCSTR lpName,LPCSTR lpValue);
-  WINBASEAPI WINBOOL WINAPI SetEnvironmentVariableW(LPCWSTR lpName,LPCWSTR lpValue);
-  WINBASEAPI DWORD WINAPI ExpandEnvironmentStringsA(LPCSTR lpSrc,LPSTR lpDst,DWORD nSize);
-  WINBASEAPI DWORD WINAPI ExpandEnvironmentStringsW(LPCWSTR lpSrc,LPWSTR lpDst,DWORD nSize);
-  WINBASEAPI DWORD WINAPI GetFirmwareEnvironmentVariableA(LPCSTR lpName,LPCSTR lpGuid,PVOID pBuffer,DWORD nSize);
-  WINBASEAPI DWORD WINAPI GetFirmwareEnvironmentVariableW(LPCWSTR lpName,LPCWSTR lpGuid,PVOID pBuffer,DWORD nSize);
-  WINBASEAPI WINBOOL WINAPI SetFirmwareEnvironmentVariableA(LPCSTR lpName,LPCSTR lpGuid,PVOID pValue,DWORD nSize);
-  WINBASEAPI WINBOOL WINAPI SetFirmwareEnvironmentVariableW(LPCWSTR lpName,LPCWSTR lpGuid,PVOID pValue,DWORD nSize);
+  WINBASEAPI LPSTR WINAPI Get_Command_ਸਤਰ_A(VOID);
+  WINBASEAPI LPWSTR WINAPI Get_Command_ਸਤਰ_W(VOID);
+  WINBASEAPI DWORD WINAPI GetEnvironmentVariableA(LPCSTR lpName,LPSTR lp_ਬਫਰ,DWORD n_ਮਾਪ);
+  WINBASEAPI DWORD WINAPI GetEnvironmentVariableW(LPCWSTR lpName,LPWSTR lp_ਬਫਰ,DWORD n_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Environment_Variable_A(LPCSTR lpName,LPCSTR lp_ਮੁੱਲ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Environment_Variable_W(LPCWSTR lpName,LPCWSTR lp_ਮੁੱਲ);
+  WINBASEAPI DWORD WINAPI Expand_Environment_ਲੜੀਆਂ_A(LPCSTR lpSrc,LPSTR lpDst,DWORD n_ਮਾਪ);
+  WINBASEAPI DWORD WINAPI Expand_Environment_ਲੜੀਆਂ_W(LPCWSTR lpSrc,LPWSTR lpDst,DWORD n_ਮਾਪ);
+  WINBASEAPI DWORD WINAPI GetFirmwareEnvironmentVariableA(LPCSTR lpName,LPCSTR lpGuid,PVOID p_ਬਫਰ,DWORD n_ਮਾਪ);
+  WINBASEAPI DWORD WINAPI GetFirmwareEnvironmentVariableW(LPCWSTR lpName,LPCWSTR lpGuid,PVOID p_ਬਫਰ,DWORD n_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Firmware_Environment_Variable_A(LPCSTR lpName,LPCSTR lpGuid,PVOID p_ਮੁੱਲ,DWORD n_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Firmware_Environment_Variable_W(LPCWSTR lpName,LPCWSTR lpGuid,PVOID p_ਮੁੱਲ,DWORD n_ਮਾਪ);
   WINBASEAPI VOID WINAPI OutputDebugStringA(LPCSTR lpOutputString);
   WINBASEAPI VOID WINAPI OutputDebugStringW(LPCWSTR lpOutputString);
-  WINBASEAPI HRSRC WINAPI FindResourceA(HMODULE hModule,LPCSTR lpName,LPCSTR lpType);
-  WINBASEAPI HRSRC WINAPI FindResourceW(HMODULE hModule,LPCWSTR lpName,LPCWSTR lpType);
-  WINBASEAPI HRSRC WINAPI FindResourceExA(HMODULE hModule,LPCSTR lpType,LPCSTR lpName,WORD wLanguage);
-  WINBASEAPI HRSRC WINAPI FindResourceExW(HMODULE hModule,LPCWSTR lpType,LPCWSTR lpName,WORD wLanguage);
+  WINBASEAPI HRSRC WINAPI ਲੱਭੋ_Resource_A(HMODULE hModule,LPCSTR lpName,LPCSTR lpType);
+  WINBASEAPI HRSRC WINAPI ਲੱਭੋ_Resource_W(HMODULE hModule,LPCWSTR lpName,LPCWSTR lpType);
+  WINBASEAPI HRSRC WINAPI ਲੱਭੋ_Resource_Ex_A(HMODULE hModule,LPCSTR lpType,LPCSTR lpName,ਸ਼ਬਦ_3 wLanguage);
+  WINBASEAPI HRSRC WINAPI ਲੱਭੋ_Resource_Ex_W(HMODULE hModule,LPCWSTR lpType,LPCWSTR lpName,ਸ਼ਬਦ_3 wLanguage);
 
-#ifdef UNICODE
-#define ENUMRESTYPEPROC ENUMRESTYPEPROCW
-#define ENUMRESNAMEPROC ENUMRESNAMEPROCW
-#define ENUMRESLANGPROC ENUMRESLANGPROCW
-#define EnumResourceTypes EnumResourceTypesW
-#define EnumResourceNames EnumResourceNamesW
-#define EnumResourceLanguages EnumResourceLanguagesW
-#define BeginUpdateResource BeginUpdateResourceW
-#define UpdateResource UpdateResourceW
-#define EndUpdateResource EndUpdateResourceW
-#define GlobalAddAtom GlobalAddAtomW
-#define GlobalFindAtom GlobalFindAtomW
-#define GlobalGetAtomName GlobalGetAtomNameW
-#define AddAtom AddAtomW
-#define FindAtom FindAtomW
-#define GetAtomName GetAtomNameW
-#define GetProfileInt GetProfileIntW
-#define GetProfileString GetProfileStringW
-#define WriteProfileString WriteProfileStringW
-#define GetProfileSection GetProfileSectionW
-#define WriteProfileSection WriteProfileSectionW
-#define GetPrivateProfileInt GetPrivateProfileIntW
-#define GetPrivateProfileString GetPrivateProfileStringW
-#define WritePrivateProfileString WritePrivateProfileStringW
-#define GetPrivateProfileSection GetPrivateProfileSectionW
-#define WritePrivateProfileSection WritePrivateProfileSectionW
-#define GetPrivateProfileSectionNames GetPrivateProfileSectionNamesW
-#define GetPrivateProfileStruct GetPrivateProfileStructW
-#define WritePrivateProfileStruct WritePrivateProfileStructW
-#define GetDriveType GetDriveTypeW
-#define GetSystemDirectory GetSystemDirectoryW
-#define GetTempPath GetTempPathW
-#define GetTempFileName GetTempFileNameW
-#define GetWindowsDirectory GetWindowsDirectoryW
-#define GetSystemWindowsDirectory GetSystemWindowsDirectoryW
-#define AddLocalAlternateComputerName AddLocalAlternateComputerNameW
-#else
-#define ENUMRESTYPEPROC ENUMRESTYPEPROCA
-#define ENUMRESNAMEPROC ENUMRESNAMEPROCA
-#define ENUMRESLANGPROC ENUMRESLANGPROCA
-#define EnumResourceTypes EnumResourceTypesA
-#define EnumResourceNames EnumResourceNamesA
-#define EnumResourceLanguages EnumResourceLanguagesA
-#define BeginUpdateResource BeginUpdateResourceA
-#define UpdateResource UpdateResourceA
-#define EndUpdateResource EndUpdateResourceA
-#define GlobalAddAtom GlobalAddAtomA
-#define GlobalFindAtom GlobalFindAtomA
-#define GlobalGetAtomName GlobalGetAtomNameA
-#define AddAtom AddAtomA
-#define FindAtom FindAtomA
-#define GetAtomName GetAtomNameA
-#define GetProfileInt GetProfileIntA
-#define GetProfileString GetProfileStringA
-#define WriteProfileString WriteProfileStringA
-#define GetProfileSection GetProfileSectionA
-#define WriteProfileSection WriteProfileSectionA
-#define GetPrivateProfileInt GetPrivateProfileIntA
-#define GetPrivateProfileString GetPrivateProfileStringA
-#define WritePrivateProfileString WritePrivateProfileStringA
-#define GetPrivateProfileSection GetPrivateProfileSectionA
-#define WritePrivateProfileSection WritePrivateProfileSectionA
-#define GetPrivateProfileSectionNames GetPrivateProfileSectionNamesA
-#define GetPrivateProfileStruct GetPrivateProfileStructA
-#define WritePrivateProfileStruct WritePrivateProfileStructA
-#define GetDriveType GetDriveTypeA
-#define GetSystemDirectory GetSystemDirectoryA
-#define GetTempPath GetTempPathA
-#define GetTempFileName GetTempFileNameA
-#define GetWindowsDirectory GetWindowsDirectoryA
-#define GetSystemWindowsDirectory GetSystemWindowsDirectoryA
-#define AddLocalAlternateComputerName AddLocalAlternateComputerNameA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENUMRESTYPEPROC ENUMRESTYPEPROCW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENUMRESNAMEPROC ENUMRESNAMEPROCW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENUMRESLANGPROC ENUMRESLANGPROCW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EnumResourceTypes EnumResourceTypesW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Enum_Resource_ਨਾਂ Enum_Resource_ਨਾਂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EnumResourceLanguages EnumResourceLanguagesW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BeginUpdateResource BeginUpdateResourceW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ UpdateResource UpdateResourceW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸਿਰਾ_Update_Resource ਸਿਰਾ_Update_Resource_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Global_ਜੋੜੋ_Atom Global_ਜੋੜੋ_Atom_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Global_ਲੱਭੋ_Atom Global_ਲੱਭੋ_Atom_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GlobalGetAtomName GlobalGetAtomNameW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਜੋੜੋ_Atom ਜੋੜੋ_Atom_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_Atom ਲੱਭੋ_Atom_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetAtomName GetAtomNameW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetProfileInt GetProfileIntW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetProfileString GetProfileStringW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WriteProfileString WriteProfileStringW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetProfileSection GetProfileSectionW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WriteProfileSection WriteProfileSectionW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਨਿੱਜੀ_Profile_Int Get_ਨਿੱਜੀ_Profile_Int_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਨਿੱਜੀ_Profile_String Get_ਨਿੱਜੀ_Profile_String_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Write_ਨਿੱਜੀ_Profile_String Write_ਨਿੱਜੀ_Profile_String_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਨਿੱਜੀ_Profile_Section Get_ਨਿੱਜੀ_Profile_Section_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Write_ਨਿੱਜੀ_Profile_Section Write_ਨਿੱਜੀ_Profile_Section_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਨਿੱਜੀ_Profile_Section_ਨਾਂ Get_ਨਿੱਜੀ_Profile_Section_ਨਾਂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਨਿੱਜੀ_Profile_Struct Get_ਨਿੱਜੀ_Profile_Struct_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Write_ਨਿੱਜੀ_Profile_Struct Write_ਨਿੱਜੀ_Profile_Struct_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetDriveType GetDriveTypeW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetSystemDirectory GetSystemDirectoryW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਆਰਜ਼ੀ_ਰਸਤਾ Get_ਆਰਜ਼ੀ_ਰਸਤਾ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਆਰਜ਼ੀ_File_Name Get_ਆਰਜ਼ੀ_File_Name_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetWindowsDirectory GetWindowsDirectoryW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetSystemWindowsDirectory GetSystemWindowsDirectoryW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਜੋੜੋ_Local_Alternate_Computer_Name ਜੋੜੋ_Local_Alternate_Computer_Name_W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENUMRESTYPEPROC ENUMRESTYPEPROCA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENUMRESNAMEPROC ENUMRESNAMEPROCA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENUMRESLANGPROC ENUMRESLANGPROCA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EnumResourceTypes EnumResourceTypesA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Enum_Resource_ਨਾਂ Enum_Resource_ਨਾਂ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EnumResourceLanguages EnumResourceLanguagesA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BeginUpdateResource BeginUpdateResourceA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ UpdateResource UpdateResourceA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸਿਰਾ_Update_Resource ਸਿਰਾ_Update_Resource_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Global_ਜੋੜੋ_Atom Global_ਜੋੜੋ_Atom_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Global_ਲੱਭੋ_Atom Global_ਲੱਭੋ_Atom_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GlobalGetAtomName GlobalGetAtomNameA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਜੋੜੋ_Atom ਜੋੜੋ_Atom_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_Atom ਲੱਭੋ_Atom_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetAtomName GetAtomNameA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetProfileInt GetProfileIntA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetProfileString GetProfileStringA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WriteProfileString WriteProfileStringA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetProfileSection GetProfileSectionA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WriteProfileSection WriteProfileSectionA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਨਿੱਜੀ_Profile_Int Get_ਨਿੱਜੀ_Profile_Int_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਨਿੱਜੀ_Profile_String Get_ਨਿੱਜੀ_Profile_String_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Write_ਨਿੱਜੀ_Profile_String Write_ਨਿੱਜੀ_Profile_String_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਨਿੱਜੀ_Profile_Section Get_ਨਿੱਜੀ_Profile_Section_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Write_ਨਿੱਜੀ_Profile_Section Write_ਨਿੱਜੀ_Profile_Section_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਨਿੱਜੀ_Profile_Section_ਨਾਂ Get_ਨਿੱਜੀ_Profile_Section_ਨਾਂ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਨਿੱਜੀ_Profile_Struct Get_ਨਿੱਜੀ_Profile_Struct_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Write_ਨਿੱਜੀ_Profile_Struct Write_ਨਿੱਜੀ_Profile_Struct_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetDriveType GetDriveTypeA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetSystemDirectory GetSystemDirectoryA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਆਰਜ਼ੀ_ਰਸਤਾ Get_ਆਰਜ਼ੀ_ਰਸਤਾ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਆਰਜ਼ੀ_File_Name Get_ਆਰਜ਼ੀ_File_Name_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetWindowsDirectory GetWindowsDirectoryA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetSystemWindowsDirectory GetSystemWindowsDirectoryA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਜੋੜੋ_Local_Alternate_Computer_Name ਜੋੜੋ_Local_Alternate_Computer_Name_A
+#ਜੇ_ਅੰਤ
 
-  typedef WINBOOL (CALLBACK *ENUMRESTYPEPROCA)(HMODULE hModule,LPSTR lpType,LONG_PTR lParam);
-  typedef WINBOOL (CALLBACK *ENUMRESTYPEPROCW)(HMODULE hModule,LPWSTR lpType,LONG_PTR lParam);
-  typedef WINBOOL (CALLBACK *ENUMRESNAMEPROCA)(HMODULE hModule,LPCSTR lpType,LPSTR lpName,LONG_PTR lParam);
-  typedef WINBOOL (CALLBACK *ENUMRESNAMEPROCW)(HMODULE hModule,LPCWSTR lpType,LPWSTR lpName,LONG_PTR lParam);
-  typedef WINBOOL (CALLBACK *ENUMRESLANGPROCA)(HMODULE hModule,LPCSTR lpType,LPCSTR lpName,WORD wLanguage,LONG_PTR lParam);
-  typedef WINBOOL (CALLBACK *ENUMRESLANGPROCW)(HMODULE hModule,LPCWSTR lpType,LPCWSTR lpName,WORD wLanguage,LONG_PTR lParam);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WINBOOL (CALLBACK *ENUMRESTYPEPROCA)(HMODULE hModule,LPSTR lpType,LONG_PTR lParam);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WINBOOL (CALLBACK *ENUMRESTYPEPROCW)(HMODULE hModule,LPWSTR lpType,LONG_PTR lParam);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WINBOOL (CALLBACK *ENUMRESNAMEPROCA)(HMODULE hModule,LPCSTR lpType,LPSTR lpName,LONG_PTR lParam);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WINBOOL (CALLBACK *ENUMRESNAMEPROCW)(HMODULE hModule,LPCWSTR lpType,LPWSTR lpName,LONG_PTR lParam);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WINBOOL (CALLBACK *ENUMRESLANGPROCA)(HMODULE hModule,LPCSTR lpType,LPCSTR lpName,ਸ਼ਬਦ_3 wLanguage,LONG_PTR lParam);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WINBOOL (CALLBACK *ENUMRESLANGPROCW)(HMODULE hModule,LPCWSTR lpType,LPCWSTR lpName,ਸ਼ਬਦ_3 wLanguage,LONG_PTR lParam);
 
   WINBASEAPI WINBOOL WINAPI EnumResourceTypesA(HMODULE hModule,ENUMRESTYPEPROCA lpEnumFunc,LONG_PTR lParam);
   WINBASEAPI WINBOOL WINAPI EnumResourceTypesW(HMODULE hModule,ENUMRESTYPEPROCW lpEnumFunc,LONG_PTR lParam);
-  WINBASEAPI WINBOOL WINAPI EnumResourceNamesA(HMODULE hModule,LPCSTR lpType,ENUMRESNAMEPROCA lpEnumFunc,LONG_PTR lParam);
-  WINBASEAPI WINBOOL WINAPI EnumResourceNamesW(HMODULE hModule,LPCWSTR lpType,ENUMRESNAMEPROCW lpEnumFunc,LONG_PTR lParam);
+  WINBASEAPI WINBOOL WINAPI Enum_Resource_ਨਾਂ_A(HMODULE hModule,LPCSTR lpType,ENUMRESNAMEPROCA lpEnumFunc,LONG_PTR lParam);
+  WINBASEAPI WINBOOL WINAPI Enum_Resource_ਨਾਂ_W(HMODULE hModule,LPCWSTR lpType,ENUMRESNAMEPROCW lpEnumFunc,LONG_PTR lParam);
   WINBASEAPI WINBOOL WINAPI EnumResourceLanguagesA(HMODULE hModule,LPCSTR lpType,LPCSTR lpName,ENUMRESLANGPROCA lpEnumFunc,LONG_PTR lParam);
   WINBASEAPI WINBOOL WINAPI EnumResourceLanguagesW(HMODULE hModule,LPCWSTR lpType,LPCWSTR lpName,ENUMRESLANGPROCW lpEnumFunc,LONG_PTR lParam);
   WINBASEAPI HANDLE WINAPI BeginUpdateResourceA(LPCSTR pFileName,WINBOOL bDeleteExistingResources);
   WINBASEAPI HANDLE WINAPI BeginUpdateResourceW(LPCWSTR pFileName,WINBOOL bDeleteExistingResources);
-  WINBASEAPI WINBOOL WINAPI UpdateResourceA(HANDLE hUpdate,LPCSTR lpType,LPCSTR lpName,WORD wLanguage,LPVOID lpData,DWORD cb);
-  WINBASEAPI WINBOOL WINAPI UpdateResourceW(HANDLE hUpdate,LPCWSTR lpType,LPCWSTR lpName,WORD wLanguage,LPVOID lpData,DWORD cb);
-  WINBASEAPI WINBOOL WINAPI EndUpdateResourceA(HANDLE hUpdate,WINBOOL fDiscard);
-  WINBASEAPI WINBOOL WINAPI EndUpdateResourceW(HANDLE hUpdate,WINBOOL fDiscard);
-  WINBASEAPI ATOM WINAPI GlobalAddAtomA(LPCSTR lpString);
-  WINBASEAPI ATOM WINAPI GlobalAddAtomW(LPCWSTR lpString);
-  WINBASEAPI ATOM WINAPI GlobalFindAtomA(LPCSTR lpString);
-  WINBASEAPI ATOM WINAPI GlobalFindAtomW(LPCWSTR lpString);
-  WINBASEAPI UINT WINAPI GlobalGetAtomNameA(ATOM nAtom,LPSTR lpBuffer,int nSize);
-  WINBASEAPI UINT WINAPI GlobalGetAtomNameW(ATOM nAtom,LPWSTR lpBuffer,int nSize);
-  WINBASEAPI ATOM WINAPI AddAtomA(LPCSTR lpString);
-  WINBASEAPI ATOM WINAPI AddAtomW(LPCWSTR lpString);
-  WINBASEAPI ATOM WINAPI FindAtomA(LPCSTR lpString);
-  WINBASEAPI ATOM WINAPI FindAtomW(LPCWSTR lpString);
-  WINBASEAPI UINT WINAPI GetAtomNameA(ATOM nAtom,LPSTR lpBuffer,int nSize);
-  WINBASEAPI UINT WINAPI GetAtomNameW(ATOM nAtom,LPWSTR lpBuffer,int nSize);
-  WINBASEAPI UINT WINAPI GetProfileIntA(LPCSTR lpAppName,LPCSTR lpKeyName,INT nDefault);
-  WINBASEAPI UINT WINAPI GetProfileIntW(LPCWSTR lpAppName,LPCWSTR lpKeyName,INT nDefault);
-  WINBASEAPI DWORD WINAPI GetProfileStringA(LPCSTR lpAppName,LPCSTR lpKeyName,LPCSTR lpDefault,LPSTR lpReturnedString,DWORD nSize);
-  WINBASEAPI DWORD WINAPI GetProfileStringW(LPCWSTR lpAppName,LPCWSTR lpKeyName,LPCWSTR lpDefault,LPWSTR lpReturnedString,DWORD nSize);
-  WINBASEAPI WINBOOL WINAPI WriteProfileStringA(LPCSTR lpAppName,LPCSTR lpKeyName,LPCSTR lpString);
-  WINBASEAPI WINBOOL WINAPI WriteProfileStringW(LPCWSTR lpAppName,LPCWSTR lpKeyName,LPCWSTR lpString);
-  WINBASEAPI DWORD WINAPI GetProfileSectionA(LPCSTR lpAppName,LPSTR lpReturnedString,DWORD nSize);
-  WINBASEAPI DWORD WINAPI GetProfileSectionW(LPCWSTR lpAppName,LPWSTR lpReturnedString,DWORD nSize);
+  WINBASEAPI WINBOOL WINAPI UpdateResourceA(HANDLE hUpdate,LPCSTR lpType,LPCSTR lpName,ਸ਼ਬਦ_3 wLanguage,LPVOID lp_ਅੰਕੜੇ,DWORD cb);
+  WINBASEAPI WINBOOL WINAPI UpdateResourceW(HANDLE hUpdate,LPCWSTR lpType,LPCWSTR lpName,ਸ਼ਬਦ_3 wLanguage,LPVOID lp_ਅੰਕੜੇ,DWORD cb);
+  WINBASEAPI WINBOOL WINAPI ਸਿਰਾ_Update_Resource_A(HANDLE hUpdate,WINBOOL fDiscard);
+  WINBASEAPI WINBOOL WINAPI ਸਿਰਾ_Update_Resource_W(HANDLE hUpdate,WINBOOL fDiscard);
+  WINBASEAPI ATOM WINAPI Global_ਜੋੜੋ_Atom_A(LPCSTR lpString);
+  WINBASEAPI ATOM WINAPI Global_ਜੋੜੋ_Atom_W(LPCWSTR lpString);
+  WINBASEAPI ATOM WINAPI Global_ਲੱਭੋ_Atom_A(LPCSTR lpString);
+  WINBASEAPI ATOM WINAPI Global_ਲੱਭੋ_Atom_W(LPCWSTR lpString);
+  WINBASEAPI UINT WINAPI GlobalGetAtomNameA(ATOM nAtom,LPSTR lp_ਬਫਰ,ਪੂਰਨ n_ਮਾਪ);
+  WINBASEAPI UINT WINAPI GlobalGetAtomNameW(ATOM nAtom,LPWSTR lp_ਬਫਰ,ਪੂਰਨ n_ਮਾਪ);
+  WINBASEAPI ATOM WINAPI ਜੋੜੋ_Atom_A(LPCSTR lpString);
+  WINBASEAPI ATOM WINAPI ਜੋੜੋ_Atom_W(LPCWSTR lpString);
+  WINBASEAPI ATOM WINAPI ਲੱਭੋ_Atom_A(LPCSTR lpString);
+  WINBASEAPI ATOM WINAPI ਲੱਭੋ_Atom_W(LPCWSTR lpString);
+  WINBASEAPI UINT WINAPI GetAtomNameA(ATOM nAtom,LPSTR lp_ਬਫਰ,ਪੂਰਨ n_ਮਾਪ);
+  WINBASEAPI UINT WINAPI GetAtomNameW(ATOM nAtom,LPWSTR lp_ਬਫਰ,ਪੂਰਨ n_ਮਾਪ);
+  WINBASEAPI UINT WINAPI GetProfileIntA(LPCSTR lpAppName,LPCSTR lp_ਕੁੰਜੀ_Name,INT nDefault);
+  WINBASEAPI UINT WINAPI GetProfileIntW(LPCWSTR lpAppName,LPCWSTR lp_ਕੁੰਜੀ_Name,INT nDefault);
+  WINBASEAPI DWORD WINAPI GetProfileStringA(LPCSTR lpAppName,LPCSTR lp_ਕੁੰਜੀ_Name,LPCSTR lpDefault,LPSTR lpReturnedString,DWORD n_ਮਾਪ);
+  WINBASEAPI DWORD WINAPI GetProfileStringW(LPCWSTR lpAppName,LPCWSTR lp_ਕੁੰਜੀ_Name,LPCWSTR lpDefault,LPWSTR lpReturnedString,DWORD n_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI WriteProfileStringA(LPCSTR lpAppName,LPCSTR lp_ਕੁੰਜੀ_Name,LPCSTR lpString);
+  WINBASEAPI WINBOOL WINAPI WriteProfileStringW(LPCWSTR lpAppName,LPCWSTR lp_ਕੁੰਜੀ_Name,LPCWSTR lpString);
+  WINBASEAPI DWORD WINAPI GetProfileSectionA(LPCSTR lpAppName,LPSTR lpReturnedString,DWORD n_ਮਾਪ);
+  WINBASEAPI DWORD WINAPI GetProfileSectionW(LPCWSTR lpAppName,LPWSTR lpReturnedString,DWORD n_ਮਾਪ);
   WINBASEAPI WINBOOL WINAPI WriteProfileSectionA(LPCSTR lpAppName,LPCSTR lpString);
   WINBASEAPI WINBOOL WINAPI WriteProfileSectionW(LPCWSTR lpAppName,LPCWSTR lpString);
-  WINBASEAPI UINT WINAPI GetPrivateProfileIntA(LPCSTR lpAppName,LPCSTR lpKeyName,INT nDefault,LPCSTR lpFileName);
-  WINBASEAPI UINT WINAPI GetPrivateProfileIntW(LPCWSTR lpAppName,LPCWSTR lpKeyName,INT nDefault,LPCWSTR lpFileName);
-  WINBASEAPI DWORD WINAPI GetPrivateProfileStringA(LPCSTR lpAppName,LPCSTR lpKeyName,LPCSTR lpDefault,LPSTR lpReturnedString,DWORD nSize,LPCSTR lpFileName);
-  WINBASEAPI DWORD WINAPI GetPrivateProfileStringW(LPCWSTR lpAppName,LPCWSTR lpKeyName,LPCWSTR lpDefault,LPWSTR lpReturnedString,DWORD nSize,LPCWSTR lpFileName);
-  WINBASEAPI WINBOOL WINAPI WritePrivateProfileStringA(LPCSTR lpAppName,LPCSTR lpKeyName,LPCSTR lpString,LPCSTR lpFileName);
-  WINBASEAPI WINBOOL WINAPI WritePrivateProfileStringW(LPCWSTR lpAppName,LPCWSTR lpKeyName,LPCWSTR lpString,LPCWSTR lpFileName);
-  WINBASEAPI DWORD WINAPI GetPrivateProfileSectionA(LPCSTR lpAppName,LPSTR lpReturnedString,DWORD nSize,LPCSTR lpFileName);
-  WINBASEAPI DWORD WINAPI GetPrivateProfileSectionW(LPCWSTR lpAppName,LPWSTR lpReturnedString,DWORD nSize,LPCWSTR lpFileName);
-  WINBASEAPI WINBOOL WINAPI WritePrivateProfileSectionA(LPCSTR lpAppName,LPCSTR lpString,LPCSTR lpFileName);
-  WINBASEAPI WINBOOL WINAPI WritePrivateProfileSectionW(LPCWSTR lpAppName,LPCWSTR lpString,LPCWSTR lpFileName);
-  WINBASEAPI DWORD WINAPI GetPrivateProfileSectionNamesA(LPSTR lpszReturnBuffer,DWORD nSize,LPCSTR lpFileName);
-  WINBASEAPI DWORD WINAPI GetPrivateProfileSectionNamesW(LPWSTR lpszReturnBuffer,DWORD nSize,LPCWSTR lpFileName);
-  WINBASEAPI WINBOOL WINAPI GetPrivateProfileStructA(LPCSTR lpszSection,LPCSTR lpszKey,LPVOID lpStruct,UINT uSizeStruct,LPCSTR szFile);
-  WINBASEAPI WINBOOL WINAPI GetPrivateProfileStructW(LPCWSTR lpszSection,LPCWSTR lpszKey,LPVOID lpStruct,UINT uSizeStruct,LPCWSTR szFile);
-  WINBASEAPI WINBOOL WINAPI WritePrivateProfileStructA(LPCSTR lpszSection,LPCSTR lpszKey,LPVOID lpStruct,UINT uSizeStruct,LPCSTR szFile);
-  WINBASEAPI WINBOOL WINAPI WritePrivateProfileStructW(LPCWSTR lpszSection,LPCWSTR lpszKey,LPVOID lpStruct,UINT uSizeStruct,LPCWSTR szFile);
-  WINBASEAPI UINT WINAPI GetDriveTypeA(LPCSTR lpRootPathName);
-  WINBASEAPI UINT WINAPI GetDriveTypeW(LPCWSTR lpRootPathName);
-  WINBASEAPI UINT WINAPI GetSystemDirectoryA(LPSTR lpBuffer,UINT uSize);
-  WINBASEAPI UINT WINAPI GetSystemDirectoryW(LPWSTR lpBuffer,UINT uSize);
-  WINBASEAPI DWORD WINAPI GetTempPathA(DWORD nBufferLength,LPSTR lpBuffer);
-  WINBASEAPI DWORD WINAPI GetTempPathW(DWORD nBufferLength,LPWSTR lpBuffer);
-  WINBASEAPI UINT WINAPI GetTempFileNameA(LPCSTR lpPathName,LPCSTR lpPrefixString,UINT uUnique,LPSTR lpTempFileName);
-  WINBASEAPI UINT WINAPI GetTempFileNameW(LPCWSTR lpPathName,LPCWSTR lpPrefixString,UINT uUnique,LPWSTR lpTempFileName);
-  WINBASEAPI UINT WINAPI GetWindowsDirectoryA(LPSTR lpBuffer,UINT uSize);
-  WINBASEAPI UINT WINAPI GetWindowsDirectoryW(LPWSTR lpBuffer,UINT uSize);
-  WINBASEAPI UINT WINAPI GetSystemWindowsDirectoryA(LPSTR lpBuffer,UINT uSize);
-  WINBASEAPI UINT WINAPI GetSystemWindowsDirectoryW(LPWSTR lpBuffer,UINT uSize);
+  WINBASEAPI UINT WINAPI Get_ਨਿੱਜੀ_Profile_Int_A(LPCSTR lpAppName,LPCSTR lp_ਕੁੰਜੀ_Name,INT nDefault,LPCSTR lpFileName);
+  WINBASEAPI UINT WINAPI Get_ਨਿੱਜੀ_Profile_Int_W(LPCWSTR lpAppName,LPCWSTR lp_ਕੁੰਜੀ_Name,INT nDefault,LPCWSTR lpFileName);
+  WINBASEAPI DWORD WINAPI Get_ਨਿੱਜੀ_Profile_String_A(LPCSTR lpAppName,LPCSTR lp_ਕੁੰਜੀ_Name,LPCSTR lpDefault,LPSTR lpReturnedString,DWORD n_ਮਾਪ,LPCSTR lpFileName);
+  WINBASEAPI DWORD WINAPI Get_ਨਿੱਜੀ_Profile_String_W(LPCWSTR lpAppName,LPCWSTR lp_ਕੁੰਜੀ_Name,LPCWSTR lpDefault,LPWSTR lpReturnedString,DWORD n_ਮਾਪ,LPCWSTR lpFileName);
+  WINBASEAPI WINBOOL WINAPI Write_ਨਿੱਜੀ_Profile_String_A(LPCSTR lpAppName,LPCSTR lp_ਕੁੰਜੀ_Name,LPCSTR lpString,LPCSTR lpFileName);
+  WINBASEAPI WINBOOL WINAPI Write_ਨਿੱਜੀ_Profile_String_W(LPCWSTR lpAppName,LPCWSTR lp_ਕੁੰਜੀ_Name,LPCWSTR lpString,LPCWSTR lpFileName);
+  WINBASEAPI DWORD WINAPI Get_ਨਿੱਜੀ_Profile_Section_A(LPCSTR lpAppName,LPSTR lpReturnedString,DWORD n_ਮਾਪ,LPCSTR lpFileName);
+  WINBASEAPI DWORD WINAPI Get_ਨਿੱਜੀ_Profile_Section_W(LPCWSTR lpAppName,LPWSTR lpReturnedString,DWORD n_ਮਾਪ,LPCWSTR lpFileName);
+  WINBASEAPI WINBOOL WINAPI Write_ਨਿੱਜੀ_Profile_Section_A(LPCSTR lpAppName,LPCSTR lpString,LPCSTR lpFileName);
+  WINBASEAPI WINBOOL WINAPI Write_ਨਿੱਜੀ_Profile_Section_W(LPCWSTR lpAppName,LPCWSTR lpString,LPCWSTR lpFileName);
+  WINBASEAPI DWORD WINAPI Get_ਨਿੱਜੀ_Profile_Section_ਨਾਂ_A(LPSTR lpsz_Return_ਬਫਰ,DWORD n_ਮਾਪ,LPCSTR lpFileName);
+  WINBASEAPI DWORD WINAPI Get_ਨਿੱਜੀ_Profile_Section_ਨਾਂ_W(LPWSTR lpsz_Return_ਬਫਰ,DWORD n_ਮਾਪ,LPCWSTR lpFileName);
+  WINBASEAPI WINBOOL WINAPI Get_ਨਿੱਜੀ_Profile_Struct_A(LPCSTR lpszSection,LPCSTR lpsz_ਕੁੰਜੀ,LPVOID lpStruct,UINT u_ਮਾਪ_Struct,LPCSTR szFile);
+  WINBASEAPI WINBOOL WINAPI Get_ਨਿੱਜੀ_Profile_Struct_W(LPCWSTR lpszSection,LPCWSTR lpsz_ਕੁੰਜੀ,LPVOID lpStruct,UINT u_ਮਾਪ_Struct,LPCWSTR szFile);
+  WINBASEAPI WINBOOL WINAPI Write_ਨਿੱਜੀ_Profile_Struct_A(LPCSTR lpszSection,LPCSTR lpsz_ਕੁੰਜੀ,LPVOID lpStruct,UINT u_ਮਾਪ_Struct,LPCSTR szFile);
+  WINBASEAPI WINBOOL WINAPI Write_ਨਿੱਜੀ_Profile_Struct_W(LPCWSTR lpszSection,LPCWSTR lpsz_ਕੁੰਜੀ,LPVOID lpStruct,UINT u_ਮਾਪ_Struct,LPCWSTR szFile);
+  WINBASEAPI UINT WINAPI GetDriveTypeA(LPCSTR lp_ਜੜ੍ਹ_ਰਸਤਾ_Name);
+  WINBASEAPI UINT WINAPI GetDriveTypeW(LPCWSTR lp_ਜੜ੍ਹ_ਰਸਤਾ_Name);
+  WINBASEAPI UINT WINAPI GetSystemDirectoryA(LPSTR lp_ਬਫਰ,UINT u_ਮਾਪ);
+  WINBASEAPI UINT WINAPI GetSystemDirectoryW(LPWSTR lp_ਬਫਰ,UINT u_ਮਾਪ);
+  WINBASEAPI DWORD WINAPI Get_ਆਰਜ਼ੀ_ਰਸਤਾ_A(DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPSTR lp_ਬਫਰ);
+  WINBASEAPI DWORD WINAPI Get_ਆਰਜ਼ੀ_ਰਸਤਾ_W(DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPWSTR lp_ਬਫਰ);
+  WINBASEAPI UINT WINAPI Get_ਆਰਜ਼ੀ_File_Name_A(LPCSTR lp_ਰਸਤਾ_Name,LPCSTR lp_ਅਗੇਤਰ_String,UINT uUnique,LPSTR lp_ਆਰਜ਼ੀ_File_Name);
+  WINBASEAPI UINT WINAPI Get_ਆਰਜ਼ੀ_File_Name_W(LPCWSTR lp_ਰਸਤਾ_Name,LPCWSTR lp_ਅਗੇਤਰ_String,UINT uUnique,LPWSTR lp_ਆਰਜ਼ੀ_File_Name);
+  WINBASEAPI UINT WINAPI GetWindowsDirectoryA(LPSTR lp_ਬਫਰ,UINT u_ਮਾਪ);
+  WINBASEAPI UINT WINAPI GetWindowsDirectoryW(LPWSTR lp_ਬਫਰ,UINT u_ਮਾਪ);
+  WINBASEAPI UINT WINAPI GetSystemWindowsDirectoryA(LPSTR lp_ਬਫਰ,UINT u_ਮਾਪ);
+  WINBASEAPI UINT WINAPI GetSystemWindowsDirectoryW(LPWSTR lp_ਬਫਰ,UINT u_ਮਾਪ);
 
-#ifndef RC_INVOKED
-#ifdef UNICODE
-#define GetSystemWow64Directory GetSystemWow64DirectoryW
-#else
-#define GetSystemWow64Directory GetSystemWow64DirectoryA
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ RC_INVOKED
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetSystemWow64Directory GetSystemWow64DirectoryW
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetSystemWow64Directory GetSystemWow64DirectoryA
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI UINT WINAPI GetSystemWow64DirectoryA(LPSTR lpBuffer,UINT uSize);
-  WINBASEAPI UINT WINAPI GetSystemWow64DirectoryW(LPWSTR lpBuffer,UINT uSize);
+  WINBASEAPI UINT WINAPI GetSystemWow64DirectoryA(LPSTR lp_ਬਫਰ,UINT u_ਮਾਪ);
+  WINBASEAPI UINT WINAPI GetSystemWow64DirectoryW(LPWSTR lp_ਬਫਰ,UINT u_ਮਾਪ);
   WINBASEAPI BOOLEAN WINAPI Wow64EnableWow64FsRedirection(BOOLEAN Wow64FsEnableRedirection);
-  WINBASEAPI WINBOOL WINAPI Wow64DisableWow64FsRedirection(PVOID *OldValue);
-  WINBASEAPI WINBOOL WINAPI Wow64RevertWow64FsRedirection(PVOID OlValue);
+  WINBASEAPI WINBOOL WINAPI Wow64DisableWow64FsRedirection(PVOID *Old_ਮੁੱਲ);
+  WINBASEAPI WINBOOL WINAPI Wow64RevertWow64FsRedirection(PVOID Ol_ਮੁੱਲ);
 
-  typedef UINT (WINAPI *PGET_SYSTEM_WOW64_DIRECTORY_A)(LPSTR lpBuffer,UINT uSize);
-  typedef UINT (WINAPI *PGET_SYSTEM_WOW64_DIRECTORY_W)(LPWSTR lpBuffer,UINT uSize);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ UINT (WINAPI *PGET_SYSTEM_WOW64_DIRECTORY_A)(LPSTR lp_ਬਫਰ,UINT u_ਮਾਪ);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ UINT (WINAPI *PGET_SYSTEM_WOW64_DIRECTORY_W)(LPWSTR lp_ਬਫਰ,UINT u_ਮਾਪ);
 
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A "GetSystemWow64DirectoryA"
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W L"GetSystemWow64DirectoryA"
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T TEXT("GetSystemWow64DirectoryA")
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A "GetSystemWow64DirectoryW"
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W L"GetSystemWow64DirectoryW"
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T TEXT("GetSystemWow64DirectoryW")
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A "GetSystemWow64DirectoryA"
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W L"GetSystemWow64DirectoryA"
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T ਪਾਠ_3("GetSystemWow64DirectoryA")
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A "GetSystemWow64DirectoryW"
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W L"GetSystemWow64DirectoryW"
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T ਪਾਠ_3("GetSystemWow64DirectoryW")
 
-#ifdef UNICODE
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T
-#else
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W
-#define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T
-#endif
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifdef UNICODE
-#define SetCurrentDirectory SetCurrentDirectoryW
-#define GetCurrentDirectory GetCurrentDirectoryW
-#define SetDllDirectory SetDllDirectoryW
-#define GetDllDirectory GetDllDirectoryW
-#define GetDiskFreeSpace GetDiskFreeSpaceW
-#define GetDiskFreeSpaceEx GetDiskFreeSpaceExW
-#define CreateDirectory CreateDirectoryW
-#define CreateDirectoryEx CreateDirectoryExW
-#define RemoveDirectory RemoveDirectoryW
-#define GetFullPathName GetFullPathNameW
-#define DefineDosDevice DefineDosDeviceW
-#define QueryDosDevice QueryDosDeviceW
-#define CreateFile CreateFileW
-#define SetFileAttributes SetFileAttributesW
-#define GetFileAttributes GetFileAttributesW
-#else
-#define SetCurrentDirectory SetCurrentDirectoryA
-#define GetCurrentDirectory GetCurrentDirectoryA
-#define SetDllDirectory SetDllDirectoryA
-#define GetDllDirectory GetDllDirectoryA
-#define GetDiskFreeSpace GetDiskFreeSpaceA
-#define GetDiskFreeSpaceEx GetDiskFreeSpaceExA
-#define CreateDirectory CreateDirectoryA
-#define CreateDirectoryEx CreateDirectoryExA
-#define RemoveDirectory RemoveDirectoryA
-#define GetFullPathName GetFullPathNameA
-#define DefineDosDevice DefineDosDeviceA
-#define QueryDosDevice QueryDosDeviceA
-#define CreateFile CreateFileA
-#define SetFileAttributes SetFileAttributesA
-#define GetFileAttributes GetFileAttributesA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Current_Directory ਸੈੱਟ_Current_Directory_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetCurrentDirectory GetCurrentDirectoryW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Dll_Directory ਸੈੱਟ_Dll_Directory_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetDllDirectory GetDllDirectoryW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetDiskFreeSpace GetDiskFreeSpaceW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetDiskFreeSpaceEx GetDiskFreeSpaceExW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateDirectory CreateDirectoryW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateDirectoryEx CreateDirectoryExW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RemoveDirectory RemoveDirectoryW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਭਰਿਆ_ਰਸਤਾ_Name Get_ਭਰਿਆ_ਰਸਤਾ_Name_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DefineDosDevice DefineDosDeviceW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ QueryDosDevice QueryDosDeviceW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateFile CreateFileW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_File_ਗੁਣ ਸੈੱਟ_File_ਗੁਣ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_File_ਗੁਣ Get_File_ਗੁਣ_W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Current_Directory ਸੈੱਟ_Current_Directory_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetCurrentDirectory GetCurrentDirectoryA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Dll_Directory ਸੈੱਟ_Dll_Directory_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetDllDirectory GetDllDirectoryA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetDiskFreeSpace GetDiskFreeSpaceA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetDiskFreeSpaceEx GetDiskFreeSpaceExA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateDirectory CreateDirectoryA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateDirectoryEx CreateDirectoryExA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RemoveDirectory RemoveDirectoryA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਭਰਿਆ_ਰਸਤਾ_Name Get_ਭਰਿਆ_ਰਸਤਾ_Name_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DefineDosDevice DefineDosDeviceA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ QueryDosDevice QueryDosDeviceA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateFile CreateFileA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_File_ਗੁਣ ਸੈੱਟ_File_ਗੁਣ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_File_ਗੁਣ Get_File_ਗੁਣ_A
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI WINBOOL WINAPI SetCurrentDirectoryA(LPCSTR lpPathName);
-  WINBASEAPI WINBOOL WINAPI SetCurrentDirectoryW(LPCWSTR lpPathName);
-  WINBASEAPI DWORD WINAPI GetCurrentDirectoryA(DWORD nBufferLength,LPSTR lpBuffer);
-  WINBASEAPI DWORD WINAPI GetCurrentDirectoryW(DWORD nBufferLength,LPWSTR lpBuffer);
-  WINBASEAPI WINBOOL WINAPI SetDllDirectoryA(LPCSTR lpPathName);
-  WINBASEAPI WINBOOL WINAPI SetDllDirectoryW(LPCWSTR lpPathName);
-  WINBASEAPI DWORD WINAPI GetDllDirectoryA(DWORD nBufferLength,LPSTR lpBuffer);
-  WINBASEAPI DWORD WINAPI GetDllDirectoryW(DWORD nBufferLength,LPWSTR lpBuffer);
-  WINBASEAPI WINBOOL WINAPI GetDiskFreeSpaceA(LPCSTR lpRootPathName,LPDWORD lpSectorsPerCluster,LPDWORD lpBytesPerSector,LPDWORD lpNumberOfFreeClusters,LPDWORD lpTotalNumberOfClusters);
-  WINBASEAPI WINBOOL WINAPI GetDiskFreeSpaceW(LPCWSTR lpRootPathName,LPDWORD lpSectorsPerCluster,LPDWORD lpBytesPerSector,LPDWORD lpNumberOfFreeClusters,LPDWORD lpTotalNumberOfClusters);
-  WINBASEAPI WINBOOL WINAPI GetDiskFreeSpaceExA(LPCSTR lpDirectoryName,PULARGE_INTEGER lpFreeBytesAvailableToCaller,PULARGE_INTEGER lpTotalNumberOfBytes,PULARGE_INTEGER lpTotalNumberOfFreeBytes);
-  WINBASEAPI WINBOOL WINAPI GetDiskFreeSpaceExW(LPCWSTR lpDirectoryName,PULARGE_INTEGER lpFreeBytesAvailableToCaller,PULARGE_INTEGER lpTotalNumberOfBytes,PULARGE_INTEGER lpTotalNumberOfFreeBytes);
-  WINBASEAPI WINBOOL WINAPI CreateDirectoryA(LPCSTR lpPathName,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-  WINBASEAPI WINBOOL WINAPI CreateDirectoryW(LPCWSTR lpPathName,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-  WINBASEAPI WINBOOL WINAPI CreateDirectoryExA(LPCSTR lpTemplateDirectory,LPCSTR lpNewDirectory,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-  WINBASEAPI WINBOOL WINAPI CreateDirectoryExW(LPCWSTR lpTemplateDirectory,LPCWSTR lpNewDirectory,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-  WINBASEAPI WINBOOL WINAPI RemoveDirectoryA(LPCSTR lpPathName);
-  WINBASEAPI WINBOOL WINAPI RemoveDirectoryW(LPCWSTR lpPathName);
-  WINBASEAPI DWORD WINAPI GetFullPathNameA(LPCSTR lpFileName,DWORD nBufferLength,LPSTR lpBuffer,LPSTR *lpFilePart);
-  WINBASEAPI DWORD WINAPI GetFullPathNameW(LPCWSTR lpFileName,DWORD nBufferLength,LPWSTR lpBuffer,LPWSTR *lpFilePart);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Current_Directory_A(LPCSTR lp_ਰਸਤਾ_Name);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Current_Directory_W(LPCWSTR lp_ਰਸਤਾ_Name);
+  WINBASEAPI DWORD WINAPI GetCurrentDirectoryA(DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPSTR lp_ਬਫਰ);
+  WINBASEAPI DWORD WINAPI GetCurrentDirectoryW(DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPWSTR lp_ਬਫਰ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Dll_Directory_A(LPCSTR lp_ਰਸਤਾ_Name);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Dll_Directory_W(LPCWSTR lp_ਰਸਤਾ_Name);
+  WINBASEAPI DWORD WINAPI GetDllDirectoryA(DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPSTR lp_ਬਫਰ);
+  WINBASEAPI DWORD WINAPI GetDllDirectoryW(DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPWSTR lp_ਬਫਰ);
+  WINBASEAPI WINBOOL WINAPI GetDiskFreeSpaceA(LPCSTR lp_ਜੜ੍ਹ_ਰਸਤਾ_Name,LPDWORD lp_Sectors_ਪ੍ਰਤੀ_Cluster,LPDWORD lp_ਬਾਈਟਾਂ_ਪ੍ਰਤੀ_Sector,LPDWORD lp_ਸੰਖਿਆ_ਦਾ_Free_Clusters,LPDWORD lp_ਕੁੱਲ_ਸੰਖਿਆ_ਦਾ_Clusters);
+  WINBASEAPI WINBOOL WINAPI GetDiskFreeSpaceW(LPCWSTR lp_ਜੜ੍ਹ_ਰਸਤਾ_Name,LPDWORD lp_Sectors_ਪ੍ਰਤੀ_Cluster,LPDWORD lp_ਬਾਈਟਾਂ_ਪ੍ਰਤੀ_Sector,LPDWORD lp_ਸੰਖਿਆ_ਦਾ_Free_Clusters,LPDWORD lp_ਕੁੱਲ_ਸੰਖਿਆ_ਦਾ_Clusters);
+  WINBASEAPI WINBOOL WINAPI GetDiskFreeSpaceExA(LPCSTR lpDirectoryName,PULARGE_INTEGER lp_Free_ਬਾਈਟਾਂ_ਉਪਲਬਧ_ਮੰਜ਼ਿਲ_Caller,PULARGE_INTEGER lp_ਕੁੱਲ_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ,PULARGE_INTEGER lp_ਕੁੱਲ_ਸੰਖਿਆ_ਦਾ_Free_ਬਾਈਟਾਂ);
+  WINBASEAPI WINBOOL WINAPI GetDiskFreeSpaceExW(LPCWSTR lpDirectoryName,PULARGE_INTEGER lp_Free_ਬਾਈਟਾਂ_ਉਪਲਬਧ_ਮੰਜ਼ਿਲ_Caller,PULARGE_INTEGER lp_ਕੁੱਲ_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ,PULARGE_INTEGER lp_ਕੁੱਲ_ਸੰਖਿਆ_ਦਾ_Free_ਬਾਈਟਾਂ);
+  WINBASEAPI WINBOOL WINAPI CreateDirectoryA(LPCSTR lp_ਰਸਤਾ_Name,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
+  WINBASEAPI WINBOOL WINAPI CreateDirectoryW(LPCWSTR lp_ਰਸਤਾ_Name,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
+  WINBASEAPI WINBOOL WINAPI CreateDirectoryExA(LPCSTR lpTemplateDirectory,LPCSTR lpNewDirectory,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
+  WINBASEAPI WINBOOL WINAPI CreateDirectoryExW(LPCWSTR lpTemplateDirectory,LPCWSTR lpNewDirectory,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
+  WINBASEAPI WINBOOL WINAPI RemoveDirectoryA(LPCSTR lp_ਰਸਤਾ_Name);
+  WINBASEAPI WINBOOL WINAPI RemoveDirectoryW(LPCWSTR lp_ਰਸਤਾ_Name);
+  WINBASEAPI DWORD WINAPI Get_ਭਰਿਆ_ਰਸਤਾ_Name_A(LPCSTR lpFileName,DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPSTR lp_ਬਫਰ,LPSTR *lpFilePart);
+  WINBASEAPI DWORD WINAPI Get_ਭਰਿਆ_ਰਸਤਾ_Name_W(LPCWSTR lpFileName,DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPWSTR lp_ਬਫਰ,LPWSTR *lpFilePart);
 
-#define DDD_RAW_TARGET_PATH 0x1
-#define DDD_REMOVE_DEFINITION 0x2
-#define DDD_EXACT_MATCH_ON_REMOVE 0x4
-#define DDD_NO_BROADCAST_SYSTEM 0x8
-#define DDD_LUID_BROADCAST_DRIVE 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DDD_RAW_ਨਿਸ਼ਾਨਾ_ਰਸਤਾ 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DDD_REMOVE_DEFINITION 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DDD_EXACT_ਮੇਲ_ON_REMOVE 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DDD_NO_ਪ੍ਰਸਾਰਣ_SYSTEM 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DDD_LUID_ਪ੍ਰਸਾਰਣ_DRIVE 0x10
 
-  WINBASEAPI WINBOOL WINAPI DefineDosDeviceA(DWORD dwFlags,LPCSTR lpDeviceName,LPCSTR lpTargetPath);
-  WINBASEAPI WINBOOL WINAPI DefineDosDeviceW(DWORD dwFlags,LPCWSTR lpDeviceName,LPCWSTR lpTargetPath);
-  WINBASEAPI DWORD WINAPI QueryDosDeviceA(LPCSTR lpDeviceName,LPSTR lpTargetPath,DWORD ucchMax);
-  WINBASEAPI DWORD WINAPI QueryDosDeviceW(LPCWSTR lpDeviceName,LPWSTR lpTargetPath,DWORD ucchMax);
+  WINBASEAPI WINBOOL WINAPI DefineDosDeviceA(DWORD dwFlags,LPCSTR lpDeviceName,LPCSTR lp_ਨਿਸ਼ਾਨਾ_ਰਸਤਾ);
+  WINBASEAPI WINBOOL WINAPI DefineDosDeviceW(DWORD dwFlags,LPCWSTR lpDeviceName,LPCWSTR lp_ਨਿਸ਼ਾਨਾ_ਰਸਤਾ);
+  WINBASEAPI DWORD WINAPI QueryDosDeviceA(LPCSTR lpDeviceName,LPSTR lp_ਨਿਸ਼ਾਨਾ_ਰਸਤਾ,DWORD ucchMax);
+  WINBASEAPI DWORD WINAPI QueryDosDeviceW(LPCWSTR lpDeviceName,LPWSTR lp_ਨਿਸ਼ਾਨਾ_ਰਸਤਾ,DWORD ucchMax);
 
-#define EXPAND_LOCAL_DRIVES
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXPAND_LOCAL_DRIVES
 
-  WINBASEAPI HANDLE WINAPI CreateFileA(LPCSTR lpFileName,DWORD dwDesiredAccess,DWORD dwShareMode,LPSECURITY_ATTRIBUTES lpSecurityAttributes,DWORD dwCreationDisposition,DWORD dwFlagsAndAttributes,HANDLE hTemplateFile);
-  WINBASEAPI HANDLE WINAPI CreateFileW(LPCWSTR lpFileName,DWORD dwDesiredAccess,DWORD dwShareMode,LPSECURITY_ATTRIBUTES lpSecurityAttributes,DWORD dwCreationDisposition,DWORD dwFlagsAndAttributes,HANDLE hTemplateFile);
-  WINBASEAPI HANDLE WINAPI ReOpenFile(HANDLE hOriginalFile,DWORD dwDesiredAccess,DWORD dwShareMode,DWORD dwFlagsAndAttributes);
-  WINBASEAPI WINBOOL WINAPI SetFileAttributesA(LPCSTR lpFileName,DWORD dwFileAttributes);
-  WINBASEAPI WINBOOL WINAPI SetFileAttributesW(LPCWSTR lpFileName,DWORD dwFileAttributes);
-  WINBASEAPI DWORD WINAPI GetFileAttributesA(LPCSTR lpFileName);
-  WINBASEAPI DWORD WINAPI GetFileAttributesW(LPCWSTR lpFileName);
+  WINBASEAPI HANDLE WINAPI CreateFileA(LPCSTR lpFileName,DWORD dwDesiredAccess,DWORD dw_Share_ਬਹੁਲਕ,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ,DWORD dwCreationDisposition,DWORD dw_Flags_And_ਗੁਣ,HANDLE hTemplateFile);
+  WINBASEAPI HANDLE WINAPI CreateFileW(LPCWSTR lpFileName,DWORD dwDesiredAccess,DWORD dw_Share_ਬਹੁਲਕ,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ,DWORD dwCreationDisposition,DWORD dw_Flags_And_ਗੁਣ,HANDLE hTemplateFile);
+  WINBASEAPI HANDLE WINAPI ReOpenFile(HANDLE hOriginalFile,DWORD dwDesiredAccess,DWORD dw_Share_ਬਹੁਲਕ,DWORD dw_Flags_And_ਗੁਣ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_File_ਗੁਣ_A(LPCSTR lpFileName,DWORD dw_File_ਗੁਣ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_File_ਗੁਣ_W(LPCWSTR lpFileName,DWORD dw_File_ਗੁਣ);
+  WINBASEAPI DWORD WINAPI Get_File_ਗੁਣ_A(LPCSTR lpFileName);
+  WINBASEAPI DWORD WINAPI Get_File_ਗੁਣ_W(LPCWSTR lpFileName);
 
-  typedef enum _GET_FILEEX_INFO_LEVELS {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਗਿਣਤੀ GET_FILEEX_INFO_ਪੱਧਰ {
     GetFileExInfoStandard,GetFileExMaxInfoLevel
-  } GET_FILEEX_INFO_LEVELS;
+  } GET_FILEEX_INFO_ਪੱਧਰ_2;
 
-#ifdef UNICODE
-#define GetFileAttributesEx GetFileAttributesExW
-#define GetCompressedFileSize GetCompressedFileSizeW
-#define DeleteFile DeleteFileW
-#define CheckNameLegalDOS8Dot3 CheckNameLegalDOS8Dot3W
-#else
-#define GetFileAttributesEx GetFileAttributesExA
-#define GetCompressedFileSize GetCompressedFileSizeA
-#define DeleteFile DeleteFileA
-#define CheckNameLegalDOS8Dot3 CheckNameLegalDOS8Dot3A
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_File_ਗੁਣ_Ex Get_File_ਗੁਣ_Ex_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Compressed_File_ਮਾਪ Get_Compressed_File_ਮਾਪ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DeleteFile DeleteFileW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CheckNameLegalDOS8Dot3 CheckNameLegalDOS8Dot3W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_File_ਗੁਣ_Ex Get_File_ਗੁਣ_Ex_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Compressed_File_ਮਾਪ Get_Compressed_File_ਮਾਪ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DeleteFile DeleteFileA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CheckNameLegalDOS8Dot3 CheckNameLegalDOS8Dot3A
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI WINBOOL WINAPI GetFileAttributesExA(LPCSTR lpFileName,GET_FILEEX_INFO_LEVELS fInfoLevelId,LPVOID lpFileInformation);
-  WINBASEAPI WINBOOL WINAPI GetFileAttributesExW(LPCWSTR lpFileName,GET_FILEEX_INFO_LEVELS fInfoLevelId,LPVOID lpFileInformation);
-  WINBASEAPI DWORD WINAPI GetCompressedFileSizeA(LPCSTR lpFileName,LPDWORD lpFileSizeHigh);
-  WINBASEAPI DWORD WINAPI GetCompressedFileSizeW(LPCWSTR lpFileName,LPDWORD lpFileSizeHigh);
+  WINBASEAPI WINBOOL WINAPI Get_File_ਗੁਣ_Ex_A(LPCSTR lpFileName,GET_FILEEX_INFO_ਪੱਧਰ_2 fInfoLevelId,LPVOID lpFileInformation);
+  WINBASEAPI WINBOOL WINAPI Get_File_ਗੁਣ_Ex_W(LPCWSTR lpFileName,GET_FILEEX_INFO_ਪੱਧਰ_2 fInfoLevelId,LPVOID lpFileInformation);
+  WINBASEAPI DWORD WINAPI Get_Compressed_File_ਮਾਪ_A(LPCSTR lpFileName,LPDWORD lp_File_ਮਾਪ_ਉੱਚਾ);
+  WINBASEAPI DWORD WINAPI Get_Compressed_File_ਮਾਪ_W(LPCWSTR lpFileName,LPDWORD lp_File_ਮਾਪ_ਉੱਚਾ);
   WINBASEAPI WINBOOL WINAPI DeleteFileA(LPCSTR lpFileName);
   WINBASEAPI WINBOOL WINAPI DeleteFileW(LPCWSTR lpFileName);
-  WINBASEAPI WINBOOL WINAPI CheckNameLegalDOS8Dot3A(LPCSTR lpName,LPSTR lpOemName,DWORD OemNameSize,PBOOL pbNameContainsSpaces,PBOOL pbNameLegal);
-  WINBASEAPI WINBOOL WINAPI CheckNameLegalDOS8Dot3W(LPCWSTR lpName,LPSTR lpOemName,DWORD OemNameSize,PBOOL pbNameContainsSpaces,PBOOL pbNameLegal);
+  WINBASEAPI WINBOOL WINAPI CheckNameLegalDOS8Dot3A(LPCSTR lpName,LPSTR lpOemName,DWORD Oem_Name_ਮਾਪ,PBOOL pb_Name_ਸ਼ਾਮਲ_ਹੈ_Spaces,PBOOL pbNameLegal);
+  WINBASEAPI WINBOOL WINAPI CheckNameLegalDOS8Dot3W(LPCWSTR lpName,LPSTR lpOemName,DWORD Oem_Name_ਮਾਪ,PBOOL pb_Name_ਸ਼ਾਮਲ_ਹੈ_Spaces,PBOOL pbNameLegal);
 
-  typedef enum _FINDEX_INFO_LEVELS {
-    FindExInfoStandard,FindExInfoMaxInfoLevel
-  } FINDEX_INFO_LEVELS;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਗਿਣਤੀ FINDEX_INFO_ਪੱਧਰ {
+    ਲੱਭੋ_Ex_Info_Standard,ਲੱਭੋ_Ex_Info_Max_Info_Level
+  } FINDEX_INFO_ਪੱਧਰ_2;
 
-  typedef enum _FINDEX_SEARCH_OPS {
-    FindExSearchNameMatch,FindExSearchLimitToDirectories,FindExSearchLimitToDevices,FindExSearchMaxSearchOp
-  } FINDEX_SEARCH_OPS;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਗਿਣਤੀ FINDEX_ਖੋਜ_OPS {
+    ਲੱਭੋ_Ex_ਖੋਜ_Name_ਮੇਲ,ਲੱਭੋ_Ex_ਖੋਜ_ਹੱਦਬੰਦੀ_ਮੰਜ਼ਿਲ_Directories,ਲੱਭੋ_Ex_ਖੋਜ_ਹੱਦਬੰਦੀ_ਮੰਜ਼ਿਲ_Devices,ਲੱਭੋ_Ex_ਖੋਜ_Max_ਖੋਜ_Op
+  } FINDEX_ਖੋਜ_OPS_2;
 
-#define FIND_FIRST_EX_CASE_SENSITIVE 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਪਹਿਲਾ_EX_CASE_SENSITIVE 0x1
 
-#ifdef UNICODE
-#define FindFirstFileEx FindFirstFileExW
-#define FindFirstFile FindFirstFileW
-#define FindNextFile FindNextFileW
-#define SearchPath SearchPathW
-#define CopyFile CopyFileW
-#define CopyFileEx CopyFileExW
-#define MoveFile MoveFileW
-#define MoveFileEx MoveFileExW
-#define MoveFileWithProgress MoveFileWithProgressW
-#define ReplaceFile ReplaceFileW
-#define CreateHardLink CreateHardLinkW
-#define CreateNamedPipe CreateNamedPipeW
-#define GetNamedPipeHandleState GetNamedPipeHandleStateW
-#define CallNamedPipe CallNamedPipeW
-#define WaitNamedPipe WaitNamedPipeW
-#define SetVolumeLabel SetVolumeLabelW
-#define GetVolumeInformation GetVolumeInformationW
-#define ClearEventLog ClearEventLogW
-#define BackupEventLog BackupEventLogW
-#define OpenEventLog OpenEventLogW
-#define RegisterEventSource RegisterEventSourceW
-#define OpenBackupEventLog OpenBackupEventLogW
-#define ReadEventLog ReadEventLogW
-#define ReportEvent ReportEventW
-#define AccessCheckAndAuditAlarm AccessCheckAndAuditAlarmW
-#define AccessCheckByTypeAndAuditAlarm AccessCheckByTypeAndAuditAlarmW
-#define AccessCheckByTypeResultListAndAuditAlarm AccessCheckByTypeResultListAndAuditAlarmW
-#define AccessCheckByTypeResultListAndAuditAlarmByHandle AccessCheckByTypeResultListAndAuditAlarmByHandleW
-#define ObjectOpenAuditAlarm ObjectOpenAuditAlarmW
-#define ObjectPrivilegeAuditAlarm ObjectPrivilegeAuditAlarmW
-#define ObjectCloseAuditAlarm ObjectCloseAuditAlarmW
-#define ObjectDeleteAuditAlarm ObjectDeleteAuditAlarmW
-#define PrivilegedServiceAuditAlarm PrivilegedServiceAuditAlarmW
-#define SetFileSecurity SetFileSecurityW
-#define GetFileSecurity GetFileSecurityW
-#define FindFirstChangeNotification FindFirstChangeNotificationW
-#define IsBadStringPtr IsBadStringPtrW
-#define LookupAccountSid LookupAccountSidW
-#define LookupAccountName LookupAccountNameW
-#define LookupPrivilegeValue LookupPrivilegeValueW
-#define LookupPrivilegeName LookupPrivilegeNameW
-#define LookupPrivilegeDisplayName LookupPrivilegeDisplayNameW
-#define BuildCommDCB BuildCommDCBW
-#define BuildCommDCBAndTimeouts BuildCommDCBAndTimeoutsW
-#define CommConfigDialog CommConfigDialogW
-#define GetDefaultCommConfig GetDefaultCommConfigW
-#define SetDefaultCommConfig SetDefaultCommConfigW
-#define GetComputerName GetComputerNameW
-#define SetComputerName SetComputerNameW
-#define GetComputerNameEx GetComputerNameExW
-#define SetComputerNameEx SetComputerNameExW
-#define DnsHostnameToComputerName DnsHostnameToComputerNameW
-#define GetUserName GetUserNameW
-#else
-#define FindFirstFileEx FindFirstFileExA
-#define FindFirstFile FindFirstFileA
-#define FindNextFile FindNextFileA
-#define SearchPath SearchPathA
-#define CopyFile CopyFileA
-#define CopyFileEx CopyFileExA
-#define MoveFile MoveFileA
-#define MoveFileEx MoveFileExA
-#define MoveFileWithProgress MoveFileWithProgressA
-#define ReplaceFile ReplaceFileA
-#define CreateHardLink CreateHardLinkA
-#define CreateNamedPipe CreateNamedPipeA
-#define GetNamedPipeHandleState GetNamedPipeHandleStateA
-#define CallNamedPipe CallNamedPipeA
-#define WaitNamedPipe WaitNamedPipeA
-#define SetVolumeLabel SetVolumeLabelA
-#define GetVolumeInformation GetVolumeInformationA
-#define ClearEventLog ClearEventLogA
-#define BackupEventLog BackupEventLogA
-#define OpenEventLog OpenEventLogA
-#define RegisterEventSource RegisterEventSourceA
-#define OpenBackupEventLog OpenBackupEventLogA
-#define ReadEventLog ReadEventLogA
-#define ReportEvent ReportEventA
-#define AccessCheckAndAuditAlarm AccessCheckAndAuditAlarmA
-#define AccessCheckByTypeAndAuditAlarm AccessCheckByTypeAndAuditAlarmA
-#define AccessCheckByTypeResultListAndAuditAlarm AccessCheckByTypeResultListAndAuditAlarmA
-#define AccessCheckByTypeResultListAndAuditAlarmByHandle AccessCheckByTypeResultListAndAuditAlarmByHandleA
-#define ObjectOpenAuditAlarm ObjectOpenAuditAlarmA
-#define ObjectPrivilegeAuditAlarm ObjectPrivilegeAuditAlarmA
-#define ObjectCloseAuditAlarm ObjectCloseAuditAlarmA
-#define ObjectDeleteAuditAlarm ObjectDeleteAuditAlarmA
-#define PrivilegedServiceAuditAlarm PrivilegedServiceAuditAlarmA
-#define SetFileSecurity SetFileSecurityA
-#define GetFileSecurity GetFileSecurityA
-#define FindFirstChangeNotification FindFirstChangeNotificationA
-#define IsBadStringPtr IsBadStringPtrA
-#define LookupAccountSid LookupAccountSidA
-#define LookupAccountName LookupAccountNameA
-#define LookupPrivilegeValue LookupPrivilegeValueA
-#define LookupPrivilegeName LookupPrivilegeNameA
-#define LookupPrivilegeDisplayName LookupPrivilegeDisplayNameA
-#define BuildCommDCB BuildCommDCBA
-#define BuildCommDCBAndTimeouts BuildCommDCBAndTimeoutsA
-#define CommConfigDialog CommConfigDialogA
-#define GetDefaultCommConfig GetDefaultCommConfigA
-#define SetDefaultCommConfig SetDefaultCommConfigA
-#define GetComputerName GetComputerNameA
-#define SetComputerName SetComputerNameA
-#define GetComputerNameEx GetComputerNameExA
-#define SetComputerNameEx SetComputerNameExA
-#define DnsHostnameToComputerName DnsHostnameToComputerNameA
-#define GetUserName GetUserNameA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਪਹਿਲਾ_File_Ex ਲੱਭੋ_ਪਹਿਲਾ_File_Ex_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਪਹਿਲਾ_File ਲੱਭੋ_ਪਹਿਲਾ_File_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਅਗਲਾ_File ਲੱਭੋ_ਅਗਲਾ_File_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਖੋਜ_ਰਸਤਾ ਖੋਜ_ਰਸਤਾ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CopyFile CopyFileW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CopyFileEx CopyFileExW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MoveFile MoveFileW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MoveFileEx MoveFileExW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Move_File_With_ਤਰੱਕੀ Move_File_With_ਤਰੱਕੀ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ReplaceFile ReplaceFileW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateHardLink CreateHardLinkW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateNamedPipe CreateNamedPipeW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetNamedPipeHandleState GetNamedPipeHandleStateW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CallNamedPipe CallNamedPipeW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WaitNamedPipe WaitNamedPipeW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Volume_Label ਸੈੱਟ_Volume_Label_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetVolumeInformation GetVolumeInformationW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ClearEventLog ClearEventLogW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BackupEventLog BackupEventLogW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenEventLog OpenEventLogW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਰਜਿਸਟਰ_Event_ਸਰੋਤ ਰਜਿਸਟਰ_Event_ਸਰੋਤ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenBackupEventLog OpenBackupEventLogW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ReadEventLog ReadEventLogW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ReportEvent ReportEventW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ AccessCheckAndAuditAlarm AccessCheckAndAuditAlarmW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ AccessCheckByTypeAndAuditAlarm AccessCheckByTypeAndAuditAlarmW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm_By_Handle Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm_By_Handle_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ObjectOpenAuditAlarm ObjectOpenAuditAlarmW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ObjectPrivilegeAuditAlarm ObjectPrivilegeAuditAlarmW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ObjectCloseAuditAlarm ObjectCloseAuditAlarmW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ObjectDeleteAuditAlarm ObjectDeleteAuditAlarmW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PrivilegedServiceAuditAlarm PrivilegedServiceAuditAlarmW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_File_Security ਸੈੱਟ_File_Security_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetFileSecurity GetFileSecurityW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਪਹਿਲਾ_Change_Notification ਲੱਭੋ_ਪਹਿਲਾ_Change_Notification_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IsBadStringPtr IsBadStringPtrW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LookupAccountSid LookupAccountSidW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LookupAccountName LookupAccountNameW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Lookup_Privilege_ਮੁੱਲ Lookup_Privilege_ਮੁੱਲ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LookupPrivilegeName LookupPrivilegeNameW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LookupPrivilegeDisplayName LookupPrivilegeDisplayNameW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BuildCommDCB BuildCommDCBW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BuildCommDCBAndTimeouts BuildCommDCBAndTimeoutsW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CommConfigDialog CommConfigDialogW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetDefaultCommConfig GetDefaultCommConfigW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Default_Comm_Config ਸੈੱਟ_Default_Comm_Config_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetComputerName GetComputerNameW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Computer_Name ਸੈੱਟ_Computer_Name_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetComputerNameEx GetComputerNameExW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Computer_Name_Ex ਸੈੱਟ_Computer_Name_Ex_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Dns_Hostname_ਮੰਜ਼ਿਲ_Computer_Name Dns_Hostname_ਮੰਜ਼ਿਲ_Computer_Name_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetUserName GetUserNameW
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਪਹਿਲਾ_File_Ex ਲੱਭੋ_ਪਹਿਲਾ_File_Ex_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਪਹਿਲਾ_File ਲੱਭੋ_ਪਹਿਲਾ_File_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਅਗਲਾ_File ਲੱਭੋ_ਅਗਲਾ_File_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਖੋਜ_ਰਸਤਾ ਖੋਜ_ਰਸਤਾ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CopyFile CopyFileA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CopyFileEx CopyFileExA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MoveFile MoveFileA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MoveFileEx MoveFileExA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Move_File_With_ਤਰੱਕੀ Move_File_With_ਤਰੱਕੀ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ReplaceFile ReplaceFileA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateHardLink CreateHardLinkA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateNamedPipe CreateNamedPipeA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetNamedPipeHandleState GetNamedPipeHandleStateA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CallNamedPipe CallNamedPipeA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WaitNamedPipe WaitNamedPipeA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Volume_Label ਸੈੱਟ_Volume_Label_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetVolumeInformation GetVolumeInformationA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ClearEventLog ClearEventLogA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BackupEventLog BackupEventLogA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenEventLog OpenEventLogA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਰਜਿਸਟਰ_Event_ਸਰੋਤ ਰਜਿਸਟਰ_Event_ਸਰੋਤ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OpenBackupEventLog OpenBackupEventLogA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ReadEventLog ReadEventLogA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ReportEvent ReportEventA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ AccessCheckAndAuditAlarm AccessCheckAndAuditAlarmA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ AccessCheckByTypeAndAuditAlarm AccessCheckByTypeAndAuditAlarmA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm_By_Handle Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm_By_Handle_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ObjectOpenAuditAlarm ObjectOpenAuditAlarmA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ObjectPrivilegeAuditAlarm ObjectPrivilegeAuditAlarmA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ObjectCloseAuditAlarm ObjectCloseAuditAlarmA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ObjectDeleteAuditAlarm ObjectDeleteAuditAlarmA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PrivilegedServiceAuditAlarm PrivilegedServiceAuditAlarmA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_File_Security ਸੈੱਟ_File_Security_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetFileSecurity GetFileSecurityA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਪਹਿਲਾ_Change_Notification ਲੱਭੋ_ਪਹਿਲਾ_Change_Notification_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IsBadStringPtr IsBadStringPtrA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LookupAccountSid LookupAccountSidA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LookupAccountName LookupAccountNameA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Lookup_Privilege_ਮੁੱਲ Lookup_Privilege_ਮੁੱਲ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LookupPrivilegeName LookupPrivilegeNameA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LookupPrivilegeDisplayName LookupPrivilegeDisplayNameA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BuildCommDCB BuildCommDCBA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BuildCommDCBAndTimeouts BuildCommDCBAndTimeoutsA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CommConfigDialog CommConfigDialogA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetDefaultCommConfig GetDefaultCommConfigA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Default_Comm_Config ਸੈੱਟ_Default_Comm_Config_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetComputerName GetComputerNameA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Computer_Name ਸੈੱਟ_Computer_Name_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetComputerNameEx GetComputerNameExA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Computer_Name_Ex ਸੈੱਟ_Computer_Name_Ex_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Dns_Hostname_ਮੰਜ਼ਿਲ_Computer_Name Dns_Hostname_ਮੰਜ਼ਿਲ_Computer_Name_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetUserName GetUserNameA
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI HANDLE WINAPI FindFirstFileExA(LPCSTR lpFileName,FINDEX_INFO_LEVELS fInfoLevelId,LPVOID lpFindFileData,FINDEX_SEARCH_OPS fSearchOp,LPVOID lpSearchFilter,DWORD dwAdditionalFlags);
-  WINBASEAPI HANDLE WINAPI FindFirstFileExW(LPCWSTR lpFileName,FINDEX_INFO_LEVELS fInfoLevelId,LPVOID lpFindFileData,FINDEX_SEARCH_OPS fSearchOp,LPVOID lpSearchFilter,DWORD dwAdditionalFlags);
-  WINBASEAPI HANDLE WINAPI FindFirstFileA(LPCSTR lpFileName,LPWIN32_FIND_DATAA lpFindFileData);
-  WINBASEAPI HANDLE WINAPI FindFirstFileW(LPCWSTR lpFileName,LPWIN32_FIND_DATAW lpFindFileData);
-  WINBASEAPI WINBOOL WINAPI FindNextFileA(HANDLE hFindFile,LPWIN32_FIND_DATAA lpFindFileData);
-  WINBASEAPI WINBOOL WINAPI FindNextFileW(HANDLE hFindFile,LPWIN32_FIND_DATAW lpFindFileData);
-  WINBASEAPI DWORD WINAPI SearchPathA(LPCSTR lpPath,LPCSTR lpFileName,LPCSTR lpExtension,DWORD nBufferLength,LPSTR lpBuffer,LPSTR *lpFilePart);
-  WINBASEAPI DWORD WINAPI SearchPathW(LPCWSTR lpPath,LPCWSTR lpFileName,LPCWSTR lpExtension,DWORD nBufferLength,LPWSTR lpBuffer,LPWSTR *lpFilePart);
+  WINBASEAPI HANDLE WINAPI ਲੱਭੋ_ਪਹਿਲਾ_File_Ex_A(LPCSTR lpFileName,FINDEX_INFO_ਪੱਧਰ_2 fInfoLevelId,LPVOID lp_ਲੱਭੋ_File_ਅੰਕੜੇ,FINDEX_ਖੋਜ_OPS_2 f_ਖੋਜ_Op,LPVOID lp_ਖੋਜ_Filter,DWORD dwAdditionalFlags);
+  WINBASEAPI HANDLE WINAPI ਲੱਭੋ_ਪਹਿਲਾ_File_Ex_W(LPCWSTR lpFileName,FINDEX_INFO_ਪੱਧਰ_2 fInfoLevelId,LPVOID lp_ਲੱਭੋ_File_ਅੰਕੜੇ,FINDEX_ਖੋਜ_OPS_2 f_ਖੋਜ_Op,LPVOID lp_ਖੋਜ_Filter,DWORD dwAdditionalFlags);
+  WINBASEAPI HANDLE WINAPI ਲੱਭੋ_ਪਹਿਲਾ_File_A(LPCSTR lpFileName,LPWIN32_ਲੱਭੋ_DATAA lp_ਲੱਭੋ_File_ਅੰਕੜੇ);
+  WINBASEAPI HANDLE WINAPI ਲੱਭੋ_ਪਹਿਲਾ_File_W(LPCWSTR lpFileName,LPWIN32_ਲੱਭੋ_DATAW lp_ਲੱਭੋ_File_ਅੰਕੜੇ);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_ਅਗਲਾ_File_A(HANDLE h_ਲੱਭੋ_File,LPWIN32_ਲੱਭੋ_DATAA lp_ਲੱਭੋ_File_ਅੰਕੜੇ);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_ਅਗਲਾ_File_W(HANDLE h_ਲੱਭੋ_File,LPWIN32_ਲੱਭੋ_DATAW lp_ਲੱਭੋ_File_ਅੰਕੜੇ);
+  WINBASEAPI DWORD WINAPI ਖੋਜ_ਰਸਤਾ_A(LPCSTR lp_ਰਸਤਾ,LPCSTR lpFileName,LPCSTR lpExtension,DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPSTR lp_ਬਫਰ,LPSTR *lpFilePart);
+  WINBASEAPI DWORD WINAPI ਖੋਜ_ਰਸਤਾ_W(LPCWSTR lp_ਰਸਤਾ,LPCWSTR lpFileName,LPCWSTR lpExtension,DWORD n_ਬਫਰ_ਲੰਮਾਈ,LPWSTR lp_ਬਫਰ,LPWSTR *lpFilePart);
   WINBASEAPI WINBOOL WINAPI CopyFileA(LPCSTR lpExistingFileName,LPCSTR lpNewFileName,WINBOOL bFailIfExists);
   WINBASEAPI WINBOOL WINAPI CopyFileW(LPCWSTR lpExistingFileName,LPCWSTR lpNewFileName,WINBOOL bFailIfExists);
 
-  typedef DWORD (WINAPI *LPPROGRESS_ROUTINE)(LARGE_INTEGER TotalFileSize,LARGE_INTEGER TotalBytesTransferred,LARGE_INTEGER StreamSize,LARGE_INTEGER StreamBytesTransferred,DWORD dwStreamNumber,DWORD dwCallbackReason,HANDLE hSourceFile,HANDLE hDestinationFile,LPVOID lpData);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ DWORD (WINAPI *LPPROGRESS_ROUTINE)(LARGE_INTEGER ਕੁੱਲ_File_ਮਾਪ,LARGE_INTEGER ਕੁੱਲ_ਬਾਈਟਾਂ_Transferred,LARGE_INTEGER ਧਾਰਾ_ਮਾਪ,LARGE_INTEGER ਧਾਰਾ_ਬਾਈਟਾਂ_Transferred,DWORD dw_ਧਾਰਾ_ਸੰਖਿਆ,DWORD dwCallbackReason,HANDLE h_ਸਰੋਤ_File,HANDLE hDestinationFile,LPVOID lp_ਅੰਕੜੇ);
 
-  WINBASEAPI WINBOOL WINAPI CopyFileExA(LPCSTR lpExistingFileName,LPCSTR lpNewFileName,LPPROGRESS_ROUTINE lpProgressRoutine,LPVOID lpData,LPBOOL pbCancel,DWORD dwCopyFlags);
-  WINBASEAPI WINBOOL WINAPI CopyFileExW(LPCWSTR lpExistingFileName,LPCWSTR lpNewFileName,LPPROGRESS_ROUTINE lpProgressRoutine,LPVOID lpData,LPBOOL pbCancel,DWORD dwCopyFlags);
+  WINBASEAPI WINBOOL WINAPI CopyFileExA(LPCSTR lpExistingFileName,LPCSTR lpNewFileName,LPPROGRESS_ROUTINE lp_ਤਰੱਕੀ_Routine,LPVOID lp_ਅੰਕੜੇ,LPBOOL pbCancel,DWORD dwCopyFlags);
+  WINBASEAPI WINBOOL WINAPI CopyFileExW(LPCWSTR lpExistingFileName,LPCWSTR lpNewFileName,LPPROGRESS_ROUTINE lp_ਤਰੱਕੀ_Routine,LPVOID lp_ਅੰਕੜੇ,LPBOOL pbCancel,DWORD dwCopyFlags);
   WINBASEAPI WINBOOL WINAPI MoveFileA(LPCSTR lpExistingFileName,LPCSTR lpNewFileName);
   WINBASEAPI WINBOOL WINAPI MoveFileW(LPCWSTR lpExistingFileName,LPCWSTR lpNewFileName);
   WINBASEAPI WINBOOL WINAPI MoveFileExA(LPCSTR lpExistingFileName,LPCSTR lpNewFileName,DWORD dwFlags);
   WINBASEAPI WINBOOL WINAPI MoveFileExW(LPCWSTR lpExistingFileName,LPCWSTR lpNewFileName,DWORD dwFlags);
-  WINBASEAPI WINBOOL WINAPI MoveFileWithProgressA(LPCSTR lpExistingFileName,LPCSTR lpNewFileName,LPPROGRESS_ROUTINE lpProgressRoutine,LPVOID lpData,DWORD dwFlags);
-  WINBASEAPI WINBOOL WINAPI MoveFileWithProgressW(LPCWSTR lpExistingFileName,LPCWSTR lpNewFileName,LPPROGRESS_ROUTINE lpProgressRoutine,LPVOID lpData,DWORD dwFlags);
+  WINBASEAPI WINBOOL WINAPI Move_File_With_ਤਰੱਕੀ_A(LPCSTR lpExistingFileName,LPCSTR lpNewFileName,LPPROGRESS_ROUTINE lp_ਤਰੱਕੀ_Routine,LPVOID lp_ਅੰਕੜੇ,DWORD dwFlags);
+  WINBASEAPI WINBOOL WINAPI Move_File_With_ਤਰੱਕੀ_W(LPCWSTR lpExistingFileName,LPCWSTR lpNewFileName,LPPROGRESS_ROUTINE lp_ਤਰੱਕੀ_Routine,LPVOID lp_ਅੰਕੜੇ,DWORD dwFlags);
 
-#define MOVEFILE_REPLACE_EXISTING 0x1
-#define MOVEFILE_COPY_ALLOWED 0x2
-#define MOVEFILE_DELAY_UNTIL_REBOOT 0x4
-#define MOVEFILE_WRITE_THROUGH 0x8
-#define MOVEFILE_CREATE_HARDLINK 0x10
-#define MOVEFILE_FAIL_IF_NOT_TRACKABLE 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MOVEFILE_REPLACE_EXISTING 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MOVEFILE_COPY_ALLOWED 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MOVEFILE_DELAY_UNTIL_REBOOT 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MOVEFILE_WRITE_THROUGH 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MOVEFILE_CREATE_HARDLINK 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MOVEFILE_FAIL_IF_NOT_TRACKABLE 0x20
 
   WINBASEAPI WINBOOL WINAPI ReplaceFileA(LPCSTR lpReplacedFileName,LPCSTR lpReplacementFileName,LPCSTR lpBackupFileName,DWORD dwReplaceFlags,LPVOID lpExclude,LPVOID lpReserved);
   WINBASEAPI WINBOOL WINAPI ReplaceFileW(LPCWSTR lpReplacedFileName,LPCWSTR lpReplacementFileName,LPCWSTR lpBackupFileName,DWORD dwReplaceFlags,LPVOID lpExclude,LPVOID lpReserved);
-  WINBASEAPI WINBOOL WINAPI CreateHardLinkA(LPCSTR lpFileName,LPCSTR lpExistingFileName,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-  WINBASEAPI WINBOOL WINAPI CreateHardLinkW(LPCWSTR lpFileName,LPCWSTR lpExistingFileName,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
+  WINBASEAPI WINBOOL WINAPI CreateHardLinkA(LPCSTR lpFileName,LPCSTR lpExistingFileName,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
+  WINBASEAPI WINBOOL WINAPI CreateHardLinkW(LPCWSTR lpFileName,LPCWSTR lpExistingFileName,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
 
-  typedef enum _STREAM_INFO_LEVELS {
-    FindStreamInfoStandard,FindStreamInfoMaxInfoLevel
-  } STREAM_INFO_LEVELS;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਗਿਣਤੀ ਧਾਰਾ_INFO_ਪੱਧਰ {
+    ਲੱਭੋ_ਧਾਰਾ_Info_Standard,ਲੱਭੋ_ਧਾਰਾ_Info_Max_Info_Level
+  } ਧਾਰਾ_INFO_ਪੱਧਰ_2;
 
-  typedef struct _WIN32_FIND_STREAM_DATA {
-    LARGE_INTEGER StreamSize;
-    WCHAR cStreamName[MAX_PATH + 36];
-  } WIN32_FIND_STREAM_DATA,*PWIN32_FIND_STREAM_DATA;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ WIN32_ਲੱਭੋ_ਧਾਰਾ_ਅੰਕੜੇ {
+    LARGE_INTEGER ਧਾਰਾ_ਮਾਪ;
+    WCHAR c_ਧਾਰਾ_Name[MAX_ਰਸਤਾ + 36];
+  } WIN32_ਲੱਭੋ_ਧਾਰਾ_ਅੰਕੜੇ_2,*PWIN32_ਲੱਭੋ_ਧਾਰਾ_ਅੰਕੜੇ;
 
-  HANDLE WINAPI FindFirstStreamW(LPCWSTR lpFileName,STREAM_INFO_LEVELS InfoLevel,LPVOID lpFindStreamData,DWORD dwFlags);
-  WINBOOL WINAPI FindNextStreamW(HANDLE hFindStream,LPVOID lpFindStreamData);
-  WINBASEAPI HANDLE WINAPI CreateNamedPipeA(LPCSTR lpName,DWORD dwOpenMode,DWORD dwPipeMode,DWORD nMaxInstances,DWORD nOutBufferSize,DWORD nInBufferSize,DWORD nDefaultTimeOut,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-  WINBASEAPI HANDLE WINAPI CreateNamedPipeW(LPCWSTR lpName,DWORD dwOpenMode,DWORD dwPipeMode,DWORD nMaxInstances,DWORD nOutBufferSize,DWORD nInBufferSize,DWORD nDefaultTimeOut,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-  WINBASEAPI WINBOOL WINAPI GetNamedPipeHandleStateA(HANDLE hNamedPipe,LPDWORD lpState,LPDWORD lpCurInstances,LPDWORD lpMaxCollectionCount,LPDWORD lpCollectDataTimeout,LPSTR lpUserName,DWORD nMaxUserNameSize);
-  WINBASEAPI WINBOOL WINAPI GetNamedPipeHandleStateW(HANDLE hNamedPipe,LPDWORD lpState,LPDWORD lpCurInstances,LPDWORD lpMaxCollectionCount,LPDWORD lpCollectDataTimeout,LPWSTR lpUserName,DWORD nMaxUserNameSize);
-  WINBASEAPI WINBOOL WINAPI CallNamedPipeA(LPCSTR lpNamedPipeName,LPVOID lpInBuffer,DWORD nInBufferSize,LPVOID lpOutBuffer,DWORD nOutBufferSize,LPDWORD lpBytesRead,DWORD nTimeOut);
-  WINBASEAPI WINBOOL WINAPI CallNamedPipeW(LPCWSTR lpNamedPipeName,LPVOID lpInBuffer,DWORD nInBufferSize,LPVOID lpOutBuffer,DWORD nOutBufferSize,LPDWORD lpBytesRead,DWORD nTimeOut);
-  WINBASEAPI WINBOOL WINAPI WaitNamedPipeA(LPCSTR lpNamedPipeName,DWORD nTimeOut);
-  WINBASEAPI WINBOOL WINAPI WaitNamedPipeW(LPCWSTR lpNamedPipeName,DWORD nTimeOut);
-  WINBASEAPI WINBOOL WINAPI SetVolumeLabelA(LPCSTR lpRootPathName,LPCSTR lpVolumeName);
-  WINBASEAPI WINBOOL WINAPI SetVolumeLabelW(LPCWSTR lpRootPathName,LPCWSTR lpVolumeName);
-  WINBASEAPI VOID WINAPI SetFileApisToOEM(VOID);
-  WINBASEAPI VOID WINAPI SetFileApisToANSI(VOID);
+  HANDLE WINAPI ਲੱਭੋ_ਪਹਿਲਾ_ਧਾਰਾ_W(LPCWSTR lpFileName,ਧਾਰਾ_INFO_ਪੱਧਰ_2 InfoLevel,LPVOID lp_ਲੱਭੋ_ਧਾਰਾ_ਅੰਕੜੇ,DWORD dwFlags);
+  WINBOOL WINAPI ਲੱਭੋ_ਅਗਲਾ_ਧਾਰਾ_W(HANDLE h_ਲੱਭੋ_ਧਾਰਾ,LPVOID lp_ਲੱਭੋ_ਧਾਰਾ_ਅੰਕੜੇ);
+  WINBASEAPI HANDLE WINAPI CreateNamedPipeA(LPCSTR lpName,DWORD dw_Open_ਬਹੁਲਕ,DWORD dw_Pipe_ਬਹੁਲਕ,DWORD nMaxInstances,DWORD n_ਬਾਹਰਲਾ_ਬਫਰ_ਮਾਪ,DWORD n_ਵਿੱਚ_ਬਫਰ_ਮਾਪ,DWORD n_Default_ਸਮਾਂ_ਬਾਹਰਲਾ,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
+  WINBASEAPI HANDLE WINAPI CreateNamedPipeW(LPCWSTR lpName,DWORD dw_Open_ਬਹੁਲਕ,DWORD dw_Pipe_ਬਹੁਲਕ,DWORD nMaxInstances,DWORD n_ਬਾਹਰਲਾ_ਬਫਰ_ਮਾਪ,DWORD n_ਵਿੱਚ_ਬਫਰ_ਮਾਪ,DWORD n_Default_ਸਮਾਂ_ਬਾਹਰਲਾ,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
+  WINBASEAPI WINBOOL WINAPI GetNamedPipeHandleStateA(HANDLE hNamedPipe,LPDWORD lpState,LPDWORD lpCurInstances,LPDWORD lp_Max_Collection_ਗਿਣਤੀ,LPDWORD lp_Collect_ਅੰਕੜੇ_Timeout,LPSTR lpUserName,DWORD n_Max_User_Name_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI GetNamedPipeHandleStateW(HANDLE hNamedPipe,LPDWORD lpState,LPDWORD lpCurInstances,LPDWORD lp_Max_Collection_ਗਿਣਤੀ,LPDWORD lp_Collect_ਅੰਕੜੇ_Timeout,LPWSTR lpUserName,DWORD n_Max_User_Name_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI CallNamedPipeA(LPCSTR lpNamedPipeName,LPVOID lp_ਵਿੱਚ_ਬਫਰ,DWORD n_ਵਿੱਚ_ਬਫਰ_ਮਾਪ,LPVOID lp_ਬਾਹਰਲਾ_ਬਫਰ,DWORD n_ਬਾਹਰਲਾ_ਬਫਰ_ਮਾਪ,LPDWORD lp_ਬਾਈਟਾਂ_Read,DWORD n_ਸਮਾਂ_ਬਾਹਰਲਾ);
+  WINBASEAPI WINBOOL WINAPI CallNamedPipeW(LPCWSTR lpNamedPipeName,LPVOID lp_ਵਿੱਚ_ਬਫਰ,DWORD n_ਵਿੱਚ_ਬਫਰ_ਮਾਪ,LPVOID lp_ਬਾਹਰਲਾ_ਬਫਰ,DWORD n_ਬਾਹਰਲਾ_ਬਫਰ_ਮਾਪ,LPDWORD lp_ਬਾਈਟਾਂ_Read,DWORD n_ਸਮਾਂ_ਬਾਹਰਲਾ);
+  WINBASEAPI WINBOOL WINAPI WaitNamedPipeA(LPCSTR lpNamedPipeName,DWORD n_ਸਮਾਂ_ਬਾਹਰਲਾ);
+  WINBASEAPI WINBOOL WINAPI WaitNamedPipeW(LPCWSTR lpNamedPipeName,DWORD n_ਸਮਾਂ_ਬਾਹਰਲਾ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Volume_Label_A(LPCSTR lp_ਜੜ੍ਹ_ਰਸਤਾ_Name,LPCSTR lpVolumeName);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Volume_Label_W(LPCWSTR lp_ਜੜ੍ਹ_ਰਸਤਾ_Name,LPCWSTR lpVolumeName);
+  WINBASEAPI VOID WINAPI ਸੈੱਟ_File_Apis_ਮੰਜ਼ਿਲ_OEM(VOID);
+  WINBASEAPI VOID WINAPI ਸੈੱਟ_File_Apis_ਮੰਜ਼ਿਲ_ANSI(VOID);
   WINBASEAPI WINBOOL WINAPI AreFileApisANSI(VOID);
-  WINBASEAPI WINBOOL WINAPI GetVolumeInformationA(LPCSTR lpRootPathName,LPSTR lpVolumeNameBuffer,DWORD nVolumeNameSize,LPDWORD lpVolumeSerialNumber,LPDWORD lpMaximumComponentLength,LPDWORD lpFileSystemFlags,LPSTR lpFileSystemNameBuffer,DWORD nFileSystemNameSize);
-  WINBASEAPI WINBOOL WINAPI GetVolumeInformationW(LPCWSTR lpRootPathName,LPWSTR lpVolumeNameBuffer,DWORD nVolumeNameSize,LPDWORD lpVolumeSerialNumber,LPDWORD lpMaximumComponentLength,LPDWORD lpFileSystemFlags,LPWSTR lpFileSystemNameBuffer,DWORD nFileSystemNameSize);
+  WINBASEAPI WINBOOL WINAPI GetVolumeInformationA(LPCSTR lp_ਜੜ੍ਹ_ਰਸਤਾ_Name,LPSTR lp_Volume_Name_ਬਫਰ,DWORD n_Volume_Name_ਮਾਪ,LPDWORD lp_Volume_Serial_ਸੰਖਿਆ,LPDWORD lp_ਵੱਧ_ਤੋਂ_ਵੱਧ_Component_ਲੰਮਾਈ,LPDWORD lpFileSystemFlags,LPSTR lp_File_System_Name_ਬਫਰ,DWORD n_File_System_Name_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI GetVolumeInformationW(LPCWSTR lp_ਜੜ੍ਹ_ਰਸਤਾ_Name,LPWSTR lp_Volume_Name_ਬਫਰ,DWORD n_Volume_Name_ਮਾਪ,LPDWORD lp_Volume_Serial_ਸੰਖਿਆ,LPDWORD lp_ਵੱਧ_ਤੋਂ_ਵੱਧ_Component_ਲੰਮਾਈ,LPDWORD lpFileSystemFlags,LPWSTR lp_File_System_Name_ਬਫਰ,DWORD n_File_System_Name_ਮਾਪ);
   WINBASEAPI WINBOOL WINAPI CancelIo(HANDLE hFile);
   WINADVAPI WINBOOL WINAPI ClearEventLogA(HANDLE hEventLog,LPCSTR lpBackupFileName);
   WINADVAPI WINBOOL WINAPI ClearEventLogW(HANDLE hEventLog,LPCWSTR lpBackupFileName);
   WINADVAPI WINBOOL WINAPI BackupEventLogA(HANDLE hEventLog,LPCSTR lpBackupFileName);
   WINADVAPI WINBOOL WINAPI BackupEventLogW(HANDLE hEventLog,LPCWSTR lpBackupFileName);
   WINADVAPI WINBOOL WINAPI CloseEventLog(HANDLE hEventLog);
-  WINADVAPI WINBOOL WINAPI DeregisterEventSource(HANDLE hEventLog);
+  WINADVAPI WINBOOL WINAPI Deregister_Event_ਸਰੋਤ(HANDLE hEventLog);
   WINADVAPI WINBOOL WINAPI NotifyChangeEventLog(HANDLE hEventLog,HANDLE hEvent);
-  WINADVAPI WINBOOL WINAPI GetNumberOfEventLogRecords(HANDLE hEventLog,PDWORD NumberOfRecords);
-  WINADVAPI WINBOOL WINAPI GetOldestEventLogRecord(HANDLE hEventLog,PDWORD OldestRecord);
-  WINADVAPI HANDLE WINAPI OpenEventLogA(LPCSTR lpUNCServerName,LPCSTR lpSourceName);
-  WINADVAPI HANDLE WINAPI OpenEventLogW(LPCWSTR lpUNCServerName,LPCWSTR lpSourceName);
-  WINADVAPI HANDLE WINAPI RegisterEventSourceA(LPCSTR lpUNCServerName,LPCSTR lpSourceName);
-  WINADVAPI HANDLE WINAPI RegisterEventSourceW(LPCWSTR lpUNCServerName,LPCWSTR lpSourceName);
+  WINADVAPI WINBOOL WINAPI Get_ਸੰਖਿਆ_ਦਾ_Event_Log_ਰਿਕਾਰਡਾਂ(HANDLE hEventLog,PDWORD ਸੰਖਿਆ_ਦਾ_ਰਿਕਾਰਡਾਂ);
+  WINADVAPI WINBOOL WINAPI Get_Oldest_Event_Log_ਰਿਕਾਰਡ(HANDLE hEventLog,PDWORD Oldest_ਰਿਕਾਰਡ);
+  WINADVAPI HANDLE WINAPI OpenEventLogA(LPCSTR lpUNCServerName,LPCSTR lp_ਸਰੋਤ_Name);
+  WINADVAPI HANDLE WINAPI OpenEventLogW(LPCWSTR lpUNCServerName,LPCWSTR lp_ਸਰੋਤ_Name);
+  WINADVAPI HANDLE WINAPI ਰਜਿਸਟਰ_Event_ਸਰੋਤ_A(LPCSTR lpUNCServerName,LPCSTR lp_ਸਰੋਤ_Name);
+  WINADVAPI HANDLE WINAPI ਰਜਿਸਟਰ_Event_ਸਰੋਤ_W(LPCWSTR lpUNCServerName,LPCWSTR lp_ਸਰੋਤ_Name);
   WINADVAPI HANDLE WINAPI OpenBackupEventLogA(LPCSTR lpUNCServerName,LPCSTR lpFileName);
   WINADVAPI HANDLE WINAPI OpenBackupEventLogW(LPCWSTR lpUNCServerName,LPCWSTR lpFileName);
-  WINADVAPI WINBOOL WINAPI ReadEventLogA(HANDLE hEventLog,DWORD dwReadFlags,DWORD dwRecordOffset,LPVOID lpBuffer,DWORD nNumberOfBytesToRead,DWORD *pnBytesRead,DWORD *pnMinNumberOfBytesNeeded);
-  WINADVAPI WINBOOL WINAPI ReadEventLogW(HANDLE hEventLog,DWORD dwReadFlags,DWORD dwRecordOffset,LPVOID lpBuffer,DWORD nNumberOfBytesToRead,DWORD *pnBytesRead,DWORD *pnMinNumberOfBytesNeeded);
-  WINADVAPI WINBOOL WINAPI ReportEventA(HANDLE hEventLog,WORD wType,WORD wCategory,DWORD dwEventID,PSID lpUserSid,WORD wNumStrings,DWORD dwDataSize,LPCSTR *lpStrings,LPVOID lpRawData);
-  WINADVAPI WINBOOL WINAPI ReportEventW(HANDLE hEventLog,WORD wType,WORD wCategory,DWORD dwEventID,PSID lpUserSid,WORD wNumStrings,DWORD dwDataSize,LPCWSTR *lpStrings,LPVOID lpRawData);
+  WINADVAPI WINBOOL WINAPI ReadEventLogA(HANDLE hEventLog,DWORD dwReadFlags,DWORD dw_ਰਿਕਾਰਡ_ਵਿੱਥ,LPVOID lp_ਬਫਰ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Read,DWORD *pn_ਬਾਈਟਾਂ_Read,DWORD *pn_Min_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Needed);
+  WINADVAPI WINBOOL WINAPI ReadEventLogW(HANDLE hEventLog,DWORD dwReadFlags,DWORD dw_ਰਿਕਾਰਡ_ਵਿੱਥ,LPVOID lp_ਬਫਰ,DWORD n_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Read,DWORD *pn_ਬਾਈਟਾਂ_Read,DWORD *pn_Min_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_Needed);
+  WINADVAPI WINBOOL WINAPI ReportEventA(HANDLE hEventLog,ਸ਼ਬਦ_3 wType,ਸ਼ਬਦ_3 wCategory,DWORD dwEventID,PSID lpUserSid,ਸ਼ਬਦ_3 w_ਅੰਕ_ਲੜੀਆਂ,DWORD dw_ਅੰਕੜੇ_ਮਾਪ,LPCSTR *lp_ਲੜੀਆਂ,LPVOID lp_Raw_ਅੰਕੜੇ);
+  WINADVAPI WINBOOL WINAPI ReportEventW(HANDLE hEventLog,ਸ਼ਬਦ_3 wType,ਸ਼ਬਦ_3 wCategory,DWORD dwEventID,PSID lpUserSid,ਸ਼ਬਦ_3 w_ਅੰਕ_ਲੜੀਆਂ,DWORD dw_ਅੰਕੜੇ_ਮਾਪ,LPCWSTR *lp_ਲੜੀਆਂ,LPVOID lp_Raw_ਅੰਕੜੇ);
 
-#define EVENTLOG_FULL_INFO 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EVENTLOG_ਭਰਿਆ_INFO 0
 
-  typedef struct _EVENTLOG_FULL_INFORMATION {
-    DWORD dwFull;
-  } EVENTLOG_FULL_INFORMATION,*LPEVENTLOG_FULL_INFORMATION;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ EVENTLOG_ਭਰਿਆ_INFORMATION {
+    DWORD dw_ਭਰਿਆ;
+  } EVENTLOG_ਭਰਿਆ_INFORMATION_2,*LPEVENTLOG_ਭਰਿਆ_INFORMATION;
 
-  WINADVAPI WINBOOL WINAPI GetEventLogInformation(HANDLE hEventLog,DWORD dwInfoLevel,LPVOID lpBuffer,DWORD cbBufSize,LPDWORD pcbBytesNeeded);
+  WINADVAPI WINBOOL WINAPI GetEventLogInformation(HANDLE hEventLog,DWORD dwInfoLevel,LPVOID lp_ਬਫਰ,DWORD cb_Buf_ਮਾਪ,LPDWORD pcb_ਬਾਈਟਾਂ_Needed);
   WINADVAPI WINBOOL WINAPI DuplicateToken(HANDLE ExistingTokenHandle,SECURITY_IMPERSONATION_LEVEL ImpersonationLevel,PHANDLE DuplicateTokenHandle);
-  WINADVAPI WINBOOL WINAPI GetKernelObjectSecurity(HANDLE Handle,SECURITY_INFORMATION RequestedInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor,DWORD nLength,LPDWORD lpnLengthNeeded);
+  WINADVAPI WINBOOL WINAPI GetKernelObjectSecurity(HANDLE Handle,SECURITY_INFORMATION RequestedInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor,DWORD n_ਲੰਮਾਈ,LPDWORD lpn_ਲੰਮਾਈ_Needed);
   WINADVAPI WINBOOL WINAPI ImpersonateNamedPipeClient(HANDLE hNamedPipe);
   WINADVAPI WINBOOL WINAPI ImpersonateSelf(SECURITY_IMPERSONATION_LEVEL ImpersonationLevel);
-  WINADVAPI WINBOOL WINAPI RevertToSelf(VOID);
-  WINADVAPI WINBOOL WINAPI SetThreadToken (PHANDLE Thread,HANDLE Token);
-  WINADVAPI WINBOOL WINAPI AccessCheck(PSECURITY_DESCRIPTOR pSecurityDescriptor,HANDLE ClientToken,DWORD DesiredAccess,PGENERIC_MAPPING GenericMapping,PPRIVILEGE_SET PrivilegeSet,LPDWORD PrivilegeSetLength,LPDWORD GrantedAccess,LPBOOL AccessStatus);
-  WINADVAPI WINBOOL WINAPI AccessCheckByType(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSID PrincipalSelfSid,HANDLE ClientToken,DWORD DesiredAccess,POBJECT_TYPE_LIST ObjectTypeList,DWORD ObjectTypeListLength,PGENERIC_MAPPING GenericMapping,PPRIVILEGE_SET PrivilegeSet,LPDWORD PrivilegeSetLength,LPDWORD GrantedAccess,LPBOOL AccessStatus);
-  WINADVAPI WINBOOL WINAPI AccessCheckByTypeResultList(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSID PrincipalSelfSid,HANDLE ClientToken,DWORD DesiredAccess,POBJECT_TYPE_LIST ObjectTypeList,DWORD ObjectTypeListLength,PGENERIC_MAPPING GenericMapping,PPRIVILEGE_SET PrivilegeSet,LPDWORD PrivilegeSetLength,LPDWORD GrantedAccessList,LPDWORD AccessStatusList);
+  WINADVAPI WINBOOL WINAPI Revert_ਮੰਜ਼ਿਲ_Self(VOID);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_Thread_Token (PHANDLE Thread,HANDLE Token);
+  WINADVAPI WINBOOL WINAPI AccessCheck(PSECURITY_DESCRIPTOR pSecurityDescriptor,HANDLE ClientToken,DWORD DesiredAccess,PGENERIC_MAPPING GenericMapping,PPRIVILEGE_ਸੈੱਟ Privilege_ਸੈੱਟ,LPDWORD Privilege_ਸੈੱਟ_ਲੰਮਾਈ,LPDWORD GrantedAccess,LPBOOL Access_ਸਥਿਤੀ);
+  WINADVAPI WINBOOL WINAPI AccessCheckByType(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSID PrincipalSelfSid,HANDLE ClientToken,DWORD DesiredAccess,POBJECT_TYPE_LIST ObjectTypeList,DWORD Object_Type_List_ਲੰਮਾਈ,PGENERIC_MAPPING GenericMapping,PPRIVILEGE_ਸੈੱਟ Privilege_ਸੈੱਟ,LPDWORD Privilege_ਸੈੱਟ_ਲੰਮਾਈ,LPDWORD GrantedAccess,LPBOOL Access_ਸਥਿਤੀ);
+  WINADVAPI WINBOOL WINAPI Access_Check_By_Type_ਨਤੀਜਾ_List(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSID PrincipalSelfSid,HANDLE ClientToken,DWORD DesiredAccess,POBJECT_TYPE_LIST ObjectTypeList,DWORD Object_Type_List_ਲੰਮਾਈ,PGENERIC_MAPPING GenericMapping,PPRIVILEGE_ਸੈੱਟ Privilege_ਸੈੱਟ,LPDWORD Privilege_ਸੈੱਟ_ਲੰਮਾਈ,LPDWORD GrantedAccessList,LPDWORD Access_ਸਥਿਤੀ_List);
   WINADVAPI WINBOOL WINAPI OpenProcessToken(HANDLE ProcessHandle,DWORD DesiredAccess,PHANDLE TokenHandle);
   WINADVAPI WINBOOL WINAPI OpenThreadToken(HANDLE ThreadHandle,DWORD DesiredAccess,WINBOOL OpenAsSelf,PHANDLE TokenHandle);
-  WINADVAPI WINBOOL WINAPI GetTokenInformation(HANDLE TokenHandle,TOKEN_INFORMATION_CLASS TokenInformationClass,LPVOID TokenInformation,DWORD TokenInformationLength,PDWORD ReturnLength);
-  WINADVAPI WINBOOL WINAPI SetTokenInformation(HANDLE TokenHandle,TOKEN_INFORMATION_CLASS TokenInformationClass,LPVOID TokenInformation,DWORD TokenInformationLength);
-  WINADVAPI WINBOOL WINAPI AdjustTokenPrivileges(HANDLE TokenHandle,WINBOOL DisableAllPrivileges,PTOKEN_PRIVILEGES NewState,DWORD BufferLength,PTOKEN_PRIVILEGES PreviousState,PDWORD ReturnLength);
-  WINADVAPI WINBOOL WINAPI AdjustTokenGroups(HANDLE TokenHandle,WINBOOL ResetToDefault,PTOKEN_GROUPS NewState,DWORD BufferLength,PTOKEN_GROUPS PreviousState,PDWORD ReturnLength);
-  WINADVAPI WINBOOL WINAPI PrivilegeCheck(HANDLE ClientToken,PPRIVILEGE_SET RequiredPrivileges,LPBOOL pfResult);
-  WINADVAPI WINBOOL WINAPI AccessCheckAndAuditAlarmA(LPCSTR SubsystemName,LPVOID HandleId,LPSTR ObjectTypeName,LPSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,DWORD DesiredAccess,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPBOOL AccessStatus,LPBOOL pfGenerateOnClose);
-  WINADVAPI WINBOOL WINAPI AccessCheckAndAuditAlarmW(LPCWSTR SubsystemName,LPVOID HandleId,LPWSTR ObjectTypeName,LPWSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,DWORD DesiredAccess,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPBOOL AccessStatus,LPBOOL pfGenerateOnClose);
-  WINADVAPI WINBOOL WINAPI AccessCheckByTypeAndAuditAlarmA(LPCSTR SubsystemName,LPVOID HandleId,LPCSTR ObjectTypeName,LPCSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD ObjectTypeListLength,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPBOOL AccessStatus,LPBOOL pfGenerateOnClose);
-  WINADVAPI WINBOOL WINAPI AccessCheckByTypeAndAuditAlarmW(LPCWSTR SubsystemName,LPVOID HandleId,LPCWSTR ObjectTypeName,LPCWSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD ObjectTypeListLength,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPBOOL AccessStatus,LPBOOL pfGenerateOnClose);
-  WINADVAPI WINBOOL WINAPI AccessCheckByTypeResultListAndAuditAlarmA(LPCSTR SubsystemName,LPVOID HandleId,LPCSTR ObjectTypeName,LPCSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD ObjectTypeListLength,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPDWORD AccessStatusList,LPBOOL pfGenerateOnClose);
-  WINADVAPI WINBOOL WINAPI AccessCheckByTypeResultListAndAuditAlarmW(LPCWSTR SubsystemName,LPVOID HandleId,LPCWSTR ObjectTypeName,LPCWSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD ObjectTypeListLength,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPDWORD AccessStatusList,LPBOOL pfGenerateOnClose);
-  WINADVAPI WINBOOL WINAPI AccessCheckByTypeResultListAndAuditAlarmByHandleA(LPCSTR SubsystemName,LPVOID HandleId,HANDLE ClientToken,LPCSTR ObjectTypeName,LPCSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD ObjectTypeListLength,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPDWORD AccessStatusList,LPBOOL pfGenerateOnClose);
-  WINADVAPI WINBOOL WINAPI AccessCheckByTypeResultListAndAuditAlarmByHandleW(LPCWSTR SubsystemName,LPVOID HandleId,HANDLE ClientToken,LPCWSTR ObjectTypeName,LPCWSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD ObjectTypeListLength,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPDWORD AccessStatusList,LPBOOL pfGenerateOnClose);
-  WINADVAPI WINBOOL WINAPI ObjectOpenAuditAlarmA(LPCSTR SubsystemName,LPVOID HandleId,LPSTR ObjectTypeName,LPSTR ObjectName,PSECURITY_DESCRIPTOR pSecurityDescriptor,HANDLE ClientToken,DWORD DesiredAccess,DWORD GrantedAccess,PPRIVILEGE_SET Privileges,WINBOOL ObjectCreation,WINBOOL AccessGranted,LPBOOL GenerateOnClose);
-  WINADVAPI WINBOOL WINAPI ObjectOpenAuditAlarmW(LPCWSTR SubsystemName,LPVOID HandleId,LPWSTR ObjectTypeName,LPWSTR ObjectName,PSECURITY_DESCRIPTOR pSecurityDescriptor,HANDLE ClientToken,DWORD DesiredAccess,DWORD GrantedAccess,PPRIVILEGE_SET Privileges,WINBOOL ObjectCreation,WINBOOL AccessGranted,LPBOOL GenerateOnClose);
-  WINADVAPI WINBOOL WINAPI ObjectPrivilegeAuditAlarmA(LPCSTR SubsystemName,LPVOID HandleId,HANDLE ClientToken,DWORD DesiredAccess,PPRIVILEGE_SET Privileges,WINBOOL AccessGranted);
-  WINADVAPI WINBOOL WINAPI ObjectPrivilegeAuditAlarmW(LPCWSTR SubsystemName,LPVOID HandleId,HANDLE ClientToken,DWORD DesiredAccess,PPRIVILEGE_SET Privileges,WINBOOL AccessGranted);
+  WINADVAPI WINBOOL WINAPI GetTokenInformation(HANDLE TokenHandle,TOKEN_INFORMATION_CLASS TokenInformationClass,LPVOID TokenInformation,DWORD Token_Information_ਲੰਮਾਈ,PDWORD Return_ਲੰਮਾਈ);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_Token_Information(HANDLE TokenHandle,TOKEN_INFORMATION_CLASS TokenInformationClass,LPVOID TokenInformation,DWORD Token_Information_ਲੰਮਾਈ);
+  WINADVAPI WINBOOL WINAPI AdjustTokenPrivileges(HANDLE TokenHandle,WINBOOL DisableAllPrivileges,PTOKEN_PRIVILEGES NewState,DWORD ਬਫਰ_ਲੰਮਾਈ,PTOKEN_PRIVILEGES ਪਿਛਲਾ_State,PDWORD Return_ਲੰਮਾਈ);
+  WINADVAPI WINBOOL WINAPI AdjustTokenGroups(HANDLE TokenHandle,WINBOOL Reset_ਮੰਜ਼ਿਲ_Default,PTOKEN_GROUPS NewState,DWORD ਬਫਰ_ਲੰਮਾਈ,PTOKEN_GROUPS ਪਿਛਲਾ_State,PDWORD Return_ਲੰਮਾਈ);
+  WINADVAPI WINBOOL WINAPI PrivilegeCheck(HANDLE ClientToken,PPRIVILEGE_ਸੈੱਟ RequiredPrivileges,LPBOOL pf_ਨਤੀਜਾ);
+  WINADVAPI WINBOOL WINAPI AccessCheckAndAuditAlarmA(LPCSTR SubsystemName,LPVOID HandleId,LPSTR ObjectTypeName,LPSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,DWORD DesiredAccess,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPBOOL Access_ਸਥਿਤੀ,LPBOOL pfGenerateOnClose);
+  WINADVAPI WINBOOL WINAPI AccessCheckAndAuditAlarmW(LPCWSTR SubsystemName,LPVOID HandleId,LPWSTR ObjectTypeName,LPWSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,DWORD DesiredAccess,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPBOOL Access_ਸਥਿਤੀ,LPBOOL pfGenerateOnClose);
+  WINADVAPI WINBOOL WINAPI AccessCheckByTypeAndAuditAlarmA(LPCSTR SubsystemName,LPVOID HandleId,LPCSTR ObjectTypeName,LPCSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD Object_Type_List_ਲੰਮਾਈ,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPBOOL Access_ਸਥਿਤੀ,LPBOOL pfGenerateOnClose);
+  WINADVAPI WINBOOL WINAPI AccessCheckByTypeAndAuditAlarmW(LPCWSTR SubsystemName,LPVOID HandleId,LPCWSTR ObjectTypeName,LPCWSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD Object_Type_List_ਲੰਮਾਈ,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPBOOL Access_ਸਥਿਤੀ,LPBOOL pfGenerateOnClose);
+  WINADVAPI WINBOOL WINAPI Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm_A(LPCSTR SubsystemName,LPVOID HandleId,LPCSTR ObjectTypeName,LPCSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD Object_Type_List_ਲੰਮਾਈ,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPDWORD Access_ਸਥਿਤੀ_List,LPBOOL pfGenerateOnClose);
+  WINADVAPI WINBOOL WINAPI Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm_W(LPCWSTR SubsystemName,LPVOID HandleId,LPCWSTR ObjectTypeName,LPCWSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD Object_Type_List_ਲੰਮਾਈ,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPDWORD Access_ਸਥਿਤੀ_List,LPBOOL pfGenerateOnClose);
+  WINADVAPI WINBOOL WINAPI Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm_By_Handle_A(LPCSTR SubsystemName,LPVOID HandleId,HANDLE ClientToken,LPCSTR ObjectTypeName,LPCSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD Object_Type_List_ਲੰਮਾਈ,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPDWORD Access_ਸਥਿਤੀ_List,LPBOOL pfGenerateOnClose);
+  WINADVAPI WINBOOL WINAPI Access_Check_By_Type_ਨਤੀਜਾ_List_And_Audit_Alarm_By_Handle_W(LPCWSTR SubsystemName,LPVOID HandleId,HANDLE ClientToken,LPCWSTR ObjectTypeName,LPCWSTR ObjectName,PSECURITY_DESCRIPTOR SecurityDescriptor,PSID PrincipalSelfSid,DWORD DesiredAccess,AUDIT_EVENT_TYPE AuditType,DWORD Flags,POBJECT_TYPE_LIST ObjectTypeList,DWORD Object_Type_List_ਲੰਮਾਈ,PGENERIC_MAPPING GenericMapping,WINBOOL ObjectCreation,LPDWORD GrantedAccess,LPDWORD Access_ਸਥਿਤੀ_List,LPBOOL pfGenerateOnClose);
+  WINADVAPI WINBOOL WINAPI ObjectOpenAuditAlarmA(LPCSTR SubsystemName,LPVOID HandleId,LPSTR ObjectTypeName,LPSTR ObjectName,PSECURITY_DESCRIPTOR pSecurityDescriptor,HANDLE ClientToken,DWORD DesiredAccess,DWORD GrantedAccess,PPRIVILEGE_ਸੈੱਟ Privileges,WINBOOL ObjectCreation,WINBOOL AccessGranted,LPBOOL GenerateOnClose);
+  WINADVAPI WINBOOL WINAPI ObjectOpenAuditAlarmW(LPCWSTR SubsystemName,LPVOID HandleId,LPWSTR ObjectTypeName,LPWSTR ObjectName,PSECURITY_DESCRIPTOR pSecurityDescriptor,HANDLE ClientToken,DWORD DesiredAccess,DWORD GrantedAccess,PPRIVILEGE_ਸੈੱਟ Privileges,WINBOOL ObjectCreation,WINBOOL AccessGranted,LPBOOL GenerateOnClose);
+  WINADVAPI WINBOOL WINAPI ObjectPrivilegeAuditAlarmA(LPCSTR SubsystemName,LPVOID HandleId,HANDLE ClientToken,DWORD DesiredAccess,PPRIVILEGE_ਸੈੱਟ Privileges,WINBOOL AccessGranted);
+  WINADVAPI WINBOOL WINAPI ObjectPrivilegeAuditAlarmW(LPCWSTR SubsystemName,LPVOID HandleId,HANDLE ClientToken,DWORD DesiredAccess,PPRIVILEGE_ਸੈੱਟ Privileges,WINBOOL AccessGranted);
   WINADVAPI WINBOOL WINAPI ObjectCloseAuditAlarmA(LPCSTR SubsystemName,LPVOID HandleId,WINBOOL GenerateOnClose);
   WINADVAPI WINBOOL WINAPI ObjectCloseAuditAlarmW(LPCWSTR SubsystemName,LPVOID HandleId,WINBOOL GenerateOnClose);
   WINADVAPI WINBOOL WINAPI ObjectDeleteAuditAlarmA(LPCSTR SubsystemName,LPVOID HandleId,WINBOOL GenerateOnClose);
   WINADVAPI WINBOOL WINAPI ObjectDeleteAuditAlarmW(LPCWSTR SubsystemName,LPVOID HandleId,WINBOOL GenerateOnClose);
-  WINADVAPI WINBOOL WINAPI PrivilegedServiceAuditAlarmA(LPCSTR SubsystemName,LPCSTR ServiceName,HANDLE ClientToken,PPRIVILEGE_SET Privileges,WINBOOL AccessGranted);
-  WINADVAPI WINBOOL WINAPI PrivilegedServiceAuditAlarmW(LPCWSTR SubsystemName,LPCWSTR ServiceName,HANDLE ClientToken,PPRIVILEGE_SET Privileges,WINBOOL AccessGranted);
-  WINADVAPI WINBOOL WINAPI IsWellKnownSid(PSID pSid,WELL_KNOWN_SID_TYPE WellKnownSidType);
-  WINADVAPI WINBOOL WINAPI CreateWellKnownSid(WELL_KNOWN_SID_TYPE WellKnownSidType,PSID DomainSid,PSID pSid,DWORD *cbSid);
+  WINADVAPI WINBOOL WINAPI PrivilegedServiceAuditAlarmA(LPCSTR SubsystemName,LPCSTR ServiceName,HANDLE ClientToken,PPRIVILEGE_ਸੈੱਟ Privileges,WINBOOL AccessGranted);
+  WINADVAPI WINBOOL WINAPI PrivilegedServiceAuditAlarmW(LPCWSTR SubsystemName,LPCWSTR ServiceName,HANDLE ClientToken,PPRIVILEGE_ਸੈੱਟ Privileges,WINBOOL AccessGranted);
+  WINADVAPI WINBOOL WINAPI Is_Well_ਗਿਆਤ_Sid(PSID pSid,WELL_ਗਿਆਤ_SID_TYPE Well_ਗਿਆਤ_Sid_Type);
+  WINADVAPI WINBOOL WINAPI Create_Well_ਗਿਆਤ_Sid(WELL_ਗਿਆਤ_SID_TYPE Well_ਗਿਆਤ_Sid_Type,PSID DomainSid,PSID pSid,DWORD *cbSid);
   WINADVAPI WINBOOL WINAPI EqualDomainSid(PSID pSid1,PSID pSid2,WINBOOL *pfEqual);
   WINADVAPI WINBOOL WINAPI GetWindowsAccountDomainSid(PSID pSid,PSID pDomainSid,DWORD *cbDomainSid);
   WINADVAPI WINBOOL WINAPI IsValidSid(PSID pSid);
   WINADVAPI WINBOOL WINAPI EqualSid(PSID pSid1,PSID pSid2);
-  WINADVAPI WINBOOL WINAPI EqualPrefixSid(PSID pSid1,PSID pSid2);
-  WINADVAPI DWORD WINAPI GetSidLengthRequired (UCHAR nSubAuthorityCount);
-  WINADVAPI WINBOOL WINAPI AllocateAndInitializeSid(PSID_IDENTIFIER_AUTHORITY pIdentifierAuthority,BYTE nSubAuthorityCount,DWORD nSubAuthority0,DWORD nSubAuthority1,DWORD nSubAuthority2,DWORD nSubAuthority3,DWORD nSubAuthority4,DWORD nSubAuthority5,DWORD nSubAuthority6,DWORD nSubAuthority7,PSID *pSid);
+  WINADVAPI WINBOOL WINAPI Equal_ਅਗੇਤਰ_Sid(PSID pSid1,PSID pSid2);
+  WINADVAPI DWORD WINAPI Get_Sid_ਲੰਮਾਈ_Required (UCHAR n_Sub_Authority_ਗਿਣਤੀ);
+  WINADVAPI WINBOOL WINAPI AllocateAndInitializeSid(PSID_IDENTIFIER_AUTHORITY pIdentifierAuthority,BYTE n_Sub_Authority_ਗਿਣਤੀ,DWORD nSubAuthority0,DWORD nSubAuthority1,DWORD nSubAuthority2,DWORD nSubAuthority3,DWORD nSubAuthority4,DWORD nSubAuthority5,DWORD nSubAuthority6,DWORD nSubAuthority7,PSID *pSid);
   WINADVAPI PVOID WINAPI FreeSid(PSID pSid);
-  WINADVAPI WINBOOL WINAPI InitializeSid(PSID Sid,PSID_IDENTIFIER_AUTHORITY pIdentifierAuthority,BYTE nSubAuthorityCount);
+  WINADVAPI WINBOOL WINAPI InitializeSid(PSID Sid,PSID_IDENTIFIER_AUTHORITY pIdentifierAuthority,BYTE n_Sub_Authority_ਗਿਣਤੀ);
   WINADVAPI PSID_IDENTIFIER_AUTHORITY WINAPI GetSidIdentifierAuthority(PSID pSid);
   WINADVAPI PDWORD WINAPI GetSidSubAuthority(PSID pSid,DWORD nSubAuthority);
-  WINADVAPI PUCHAR WINAPI GetSidSubAuthorityCount(PSID pSid);
-  WINADVAPI DWORD WINAPI GetLengthSid(PSID pSid);
-  WINADVAPI WINBOOL WINAPI CopySid(DWORD nDestinationSidLength,PSID pDestinationSid,PSID pSourceSid);
+  WINADVAPI PUCHAR WINAPI Get_Sid_Sub_Authority_ਗਿਣਤੀ(PSID pSid);
+  WINADVAPI DWORD WINAPI Get_ਲੰਮਾਈ_Sid(PSID pSid);
+  WINADVAPI WINBOOL WINAPI CopySid(DWORD n_Destination_Sid_ਲੰਮਾਈ,PSID pDestinationSid,PSID p_ਸਰੋਤ_Sid);
   WINADVAPI WINBOOL WINAPI AreAllAccessesGranted(DWORD GrantedAccess,DWORD DesiredAccess);
   WINADVAPI WINBOOL WINAPI AreAnyAccessesGranted(DWORD GrantedAccess,DWORD DesiredAccess);
-  WINADVAPI VOID WINAPI MapGenericMask(PDWORD AccessMask,PGENERIC_MAPPING GenericMapping);
+  WINADVAPI VOID WINAPI Map_Generic_ਨਕਾਬ(PDWORD Access_ਨਕਾਬ,PGENERIC_MAPPING GenericMapping);
   WINADVAPI WINBOOL WINAPI IsValidAcl(PACL pAcl);
-  WINADVAPI WINBOOL WINAPI InitializeAcl(PACL pAcl,DWORD nAclLength,DWORD dwAclRevision);
-  WINADVAPI WINBOOL WINAPI GetAclInformation(PACL pAcl,LPVOID pAclInformation,DWORD nAclInformationLength,ACL_INFORMATION_CLASS dwAclInformationClass);
-  WINADVAPI WINBOOL WINAPI SetAclInformation(PACL pAcl,LPVOID pAclInformation,DWORD nAclInformationLength,ACL_INFORMATION_CLASS dwAclInformationClass);
-  WINADVAPI WINBOOL WINAPI AddAce(PACL pAcl,DWORD dwAceRevision,DWORD dwStartingAceIndex,LPVOID pAceList,DWORD nAceListLength);
-  WINADVAPI WINBOOL WINAPI DeleteAce(PACL pAcl,DWORD dwAceIndex);
-  WINADVAPI WINBOOL WINAPI GetAce(PACL pAcl,DWORD dwAceIndex,LPVOID *pAce);
-  WINADVAPI WINBOOL WINAPI AddAccessAllowedAce(PACL pAcl,DWORD dwAceRevision,DWORD AccessMask,PSID pSid);
-  WINADVAPI WINBOOL WINAPI AddAccessAllowedAceEx(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD AccessMask,PSID pSid);
-  WINADVAPI WINBOOL WINAPI AddAccessDeniedAce(PACL pAcl,DWORD dwAceRevision,DWORD AccessMask,PSID pSid);
-  WINADVAPI WINBOOL WINAPI AddAccessDeniedAceEx(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD AccessMask,PSID pSid);
-  WINADVAPI WINBOOL WINAPI AddAuditAccessAce(PACL pAcl,DWORD dwAceRevision,DWORD dwAccessMask,PSID pSid,WINBOOL bAuditSuccess,WINBOOL bAuditFailure);
-  WINADVAPI WINBOOL WINAPI AddAuditAccessAceEx(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD dwAccessMask,PSID pSid,WINBOOL bAuditSuccess,WINBOOL bAuditFailure);
-  WINADVAPI WINBOOL WINAPI AddAccessAllowedObjectAce(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD AccessMask,GUID *ObjectTypeGuid,GUID *InheritedObjectTypeGuid,PSID pSid);
-  WINADVAPI WINBOOL WINAPI AddAccessDeniedObjectAce(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD AccessMask,GUID *ObjectTypeGuid,GUID *InheritedObjectTypeGuid,PSID pSid);
-  WINADVAPI WINBOOL WINAPI AddAuditAccessObjectAce(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD AccessMask,GUID *ObjectTypeGuid,GUID *InheritedObjectTypeGuid,PSID pSid,WINBOOL bAuditSuccess,WINBOOL bAuditFailure);
-  WINADVAPI WINBOOL WINAPI FindFirstFreeAce(PACL pAcl,LPVOID *pAce);
+  WINADVAPI WINBOOL WINAPI InitializeAcl(PACL pAcl,DWORD n_Acl_ਲੰਮਾਈ,DWORD dwAclRevision);
+  WINADVAPI WINBOOL WINAPI GetAclInformation(PACL pAcl,LPVOID pAclInformation,DWORD n_Acl_Information_ਲੰਮਾਈ,ACL_INFORMATION_CLASS dwAclInformationClass);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_Acl_Information(PACL pAcl,LPVOID pAclInformation,DWORD n_Acl_Information_ਲੰਮਾਈ,ACL_INFORMATION_CLASS dwAclInformationClass);
+  WINADVAPI WINBOOL WINAPI ਜੋੜੋ_Ace(PACL pAcl,DWORD dwAceRevision,DWORD dw_Starting_Ace_ਸੂਚਕਾਂਕ,LPVOID pAceList,DWORD n_Ace_List_ਲੰਮਾਈ);
+  WINADVAPI WINBOOL WINAPI DeleteAce(PACL pAcl,DWORD dw_Ace_ਸੂਚਕਾਂਕ);
+  WINADVAPI WINBOOL WINAPI GetAce(PACL pAcl,DWORD dw_Ace_ਸੂਚਕਾਂਕ,LPVOID *pAce);
+  WINADVAPI WINBOOL WINAPI ਜੋੜੋ_Access_Allowed_Ace(PACL pAcl,DWORD dwAceRevision,DWORD Access_ਨਕਾਬ,PSID pSid);
+  WINADVAPI WINBOOL WINAPI ਜੋੜੋ_Access_Allowed_Ace_Ex(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD Access_ਨਕਾਬ,PSID pSid);
+  WINADVAPI WINBOOL WINAPI ਜੋੜੋ_Access_Denied_Ace(PACL pAcl,DWORD dwAceRevision,DWORD Access_ਨਕਾਬ,PSID pSid);
+  WINADVAPI WINBOOL WINAPI ਜੋੜੋ_Access_Denied_Ace_Ex(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD Access_ਨਕਾਬ,PSID pSid);
+  WINADVAPI WINBOOL WINAPI ਜੋੜੋ_Audit_Access_Ace(PACL pAcl,DWORD dwAceRevision,DWORD dw_Access_ਨਕਾਬ,PSID pSid,WINBOOL bAuditSuccess,WINBOOL bAuditFailure);
+  WINADVAPI WINBOOL WINAPI ਜੋੜੋ_Audit_Access_Ace_Ex(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD dw_Access_ਨਕਾਬ,PSID pSid,WINBOOL bAuditSuccess,WINBOOL bAuditFailure);
+  WINADVAPI WINBOOL WINAPI ਜੋੜੋ_Access_Allowed_Object_Ace(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD Access_ਨਕਾਬ,GUID *ObjectTypeGuid,GUID *InheritedObjectTypeGuid,PSID pSid);
+  WINADVAPI WINBOOL WINAPI ਜੋੜੋ_Access_Denied_Object_Ace(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD Access_ਨਕਾਬ,GUID *ObjectTypeGuid,GUID *InheritedObjectTypeGuid,PSID pSid);
+  WINADVAPI WINBOOL WINAPI ਜੋੜੋ_Audit_Access_Object_Ace(PACL pAcl,DWORD dwAceRevision,DWORD AceFlags,DWORD Access_ਨਕਾਬ,GUID *ObjectTypeGuid,GUID *InheritedObjectTypeGuid,PSID pSid,WINBOOL bAuditSuccess,WINBOOL bAuditFailure);
+  WINADVAPI WINBOOL WINAPI ਲੱਭੋ_ਪਹਿਲਾ_Free_Ace(PACL pAcl,LPVOID *pAce);
   WINADVAPI WINBOOL WINAPI InitializeSecurityDescriptor(PSECURITY_DESCRIPTOR pSecurityDescriptor,DWORD dwRevision);
   WINADVAPI WINBOOL WINAPI IsValidSecurityDescriptor(PSECURITY_DESCRIPTOR pSecurityDescriptor);
-  WINADVAPI DWORD WINAPI GetSecurityDescriptorLength(PSECURITY_DESCRIPTOR pSecurityDescriptor);
+  WINADVAPI DWORD WINAPI Get_Security_Descriptor_ਲੰਮਾਈ(PSECURITY_DESCRIPTOR pSecurityDescriptor);
   WINADVAPI WINBOOL WINAPI GetSecurityDescriptorControl(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSECURITY_DESCRIPTOR_CONTROL pControl,LPDWORD lpdwRevision);
-  WINADVAPI WINBOOL WINAPI SetSecurityDescriptorControl(PSECURITY_DESCRIPTOR pSecurityDescriptor,SECURITY_DESCRIPTOR_CONTROL ControlBitsOfInterest,SECURITY_DESCRIPTOR_CONTROL ControlBitsToSet);
-  WINADVAPI WINBOOL WINAPI SetSecurityDescriptorDacl(PSECURITY_DESCRIPTOR pSecurityDescriptor,WINBOOL bDaclPresent,PACL pDacl,WINBOOL bDaclDefaulted);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_Security_Descriptor_Control(PSECURITY_DESCRIPTOR pSecurityDescriptor,SECURITY_DESCRIPTOR_CONTROL Control_ਬਿੱਟ_ਦਾ_Interest,SECURITY_DESCRIPTOR_CONTROL Control_ਬਿੱਟ_ਮੰਜ਼ਿਲ_ਸੈੱਟ);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_Security_Descriptor_Dacl(PSECURITY_DESCRIPTOR pSecurityDescriptor,WINBOOL bDaclPresent,PACL pDacl,WINBOOL bDaclDefaulted);
   WINADVAPI WINBOOL WINAPI GetSecurityDescriptorDacl(PSECURITY_DESCRIPTOR pSecurityDescriptor,LPBOOL lpbDaclPresent,PACL *pDacl,LPBOOL lpbDaclDefaulted);
-  WINADVAPI WINBOOL WINAPI SetSecurityDescriptorSacl(PSECURITY_DESCRIPTOR pSecurityDescriptor,WINBOOL bSaclPresent,PACL pSacl,WINBOOL bSaclDefaulted);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_Security_Descriptor_Sacl(PSECURITY_DESCRIPTOR pSecurityDescriptor,WINBOOL bSaclPresent,PACL pSacl,WINBOOL bSaclDefaulted);
   WINADVAPI WINBOOL WINAPI GetSecurityDescriptorSacl(PSECURITY_DESCRIPTOR pSecurityDescriptor,LPBOOL lpbSaclPresent,PACL *pSacl,LPBOOL lpbSaclDefaulted);
-  WINADVAPI WINBOOL WINAPI SetSecurityDescriptorOwner(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSID pOwner,WINBOOL bOwnerDefaulted);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_Security_Descriptor_Owner(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSID pOwner,WINBOOL bOwnerDefaulted);
   WINADVAPI WINBOOL WINAPI GetSecurityDescriptorOwner(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSID *pOwner,LPBOOL lpbOwnerDefaulted);
-  WINADVAPI WINBOOL WINAPI SetSecurityDescriptorGroup(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSID pGroup,WINBOOL bGroupDefaulted);
-  WINADVAPI WINBOOL WINAPI GetSecurityDescriptorGroup(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSID *pGroup,LPBOOL lpbGroupDefaulted);
-  WINADVAPI DWORD WINAPI SetSecurityDescriptorRMControl(PSECURITY_DESCRIPTOR SecurityDescriptor,PUCHAR RMControl);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_Security_Descriptor_ਸਮੂਹ(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSID p_ਸਮੂਹ,WINBOOL b_ਸਮੂਹ_Defaulted);
+  WINADVAPI WINBOOL WINAPI Get_Security_Descriptor_ਸਮੂਹ(PSECURITY_DESCRIPTOR pSecurityDescriptor,PSID *p_ਸਮੂਹ,LPBOOL lpb_ਸਮੂਹ_Defaulted);
+  WINADVAPI DWORD WINAPI ਸੈੱਟ_Security_Descriptor_RMControl(PSECURITY_DESCRIPTOR SecurityDescriptor,PUCHAR RMControl);
   WINADVAPI DWORD WINAPI GetSecurityDescriptorRMControl(PSECURITY_DESCRIPTOR SecurityDescriptor,PUCHAR RMControl);
-  WINADVAPI WINBOOL WINAPI CreatePrivateObjectSecurity(PSECURITY_DESCRIPTOR ParentDescriptor,PSECURITY_DESCRIPTOR CreatorDescriptor,PSECURITY_DESCRIPTOR *NewDescriptor,WINBOOL IsDirectoryObject,HANDLE Token,PGENERIC_MAPPING GenericMapping);
-  WINADVAPI WINBOOL WINAPI ConvertToAutoInheritPrivateObjectSecurity(PSECURITY_DESCRIPTOR ParentDescriptor,PSECURITY_DESCRIPTOR CurrentSecurityDescriptor,PSECURITY_DESCRIPTOR *NewSecurityDescriptor,GUID *ObjectType,BOOLEAN IsDirectoryObject,PGENERIC_MAPPING GenericMapping);
-  WINADVAPI WINBOOL WINAPI CreatePrivateObjectSecurityEx(PSECURITY_DESCRIPTOR ParentDescriptor,PSECURITY_DESCRIPTOR CreatorDescriptor,PSECURITY_DESCRIPTOR *NewDescriptor,GUID *ObjectType,WINBOOL IsContainerObject,ULONG AutoInheritFlags,HANDLE Token,PGENERIC_MAPPING GenericMapping);
-  WINADVAPI WINBOOL WINAPI CreatePrivateObjectSecurityWithMultipleInheritance(PSECURITY_DESCRIPTOR ParentDescriptor,PSECURITY_DESCRIPTOR CreatorDescriptor,PSECURITY_DESCRIPTOR *NewDescriptor,GUID **ObjectTypes,ULONG GuidCount,WINBOOL IsContainerObject,ULONG AutoInheritFlags,HANDLE Token,PGENERIC_MAPPING GenericMapping);
-  WINADVAPI WINBOOL WINAPI SetPrivateObjectSecurity (SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR ModificationDescriptor,PSECURITY_DESCRIPTOR *ObjectsSecurityDescriptor,PGENERIC_MAPPING GenericMapping,HANDLE Token);
-  WINADVAPI WINBOOL WINAPI SetPrivateObjectSecurityEx (SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR ModificationDescriptor,PSECURITY_DESCRIPTOR *ObjectsSecurityDescriptor,ULONG AutoInheritFlags,PGENERIC_MAPPING GenericMapping,HANDLE Token);
-  WINADVAPI WINBOOL WINAPI GetPrivateObjectSecurity(PSECURITY_DESCRIPTOR ObjectDescriptor,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR ResultantDescriptor,DWORD DescriptorLength,PDWORD ReturnLength);
-  WINADVAPI WINBOOL WINAPI DestroyPrivateObjectSecurity(PSECURITY_DESCRIPTOR *ObjectDescriptor);
-  WINADVAPI WINBOOL WINAPI MakeSelfRelativeSD(PSECURITY_DESCRIPTOR pAbsoluteSecurityDescriptor,PSECURITY_DESCRIPTOR pSelfRelativeSecurityDescriptor,LPDWORD lpdwBufferLength);
-  WINADVAPI WINBOOL WINAPI MakeAbsoluteSD(PSECURITY_DESCRIPTOR pSelfRelativeSecurityDescriptor,PSECURITY_DESCRIPTOR pAbsoluteSecurityDescriptor,LPDWORD lpdwAbsoluteSecurityDescriptorSize,PACL pDacl,LPDWORD lpdwDaclSize,PACL pSacl,LPDWORD lpdwSaclSize,PSID pOwner,LPDWORD lpdwOwnerSize,PSID pPrimaryGroup,LPDWORD lpdwPrimaryGroupSize);
-  WINADVAPI WINBOOL WINAPI MakeAbsoluteSD2(PSECURITY_DESCRIPTOR pSelfRelativeSecurityDescriptor,LPDWORD lpdwBufferSize);
-  WINADVAPI WINBOOL WINAPI SetFileSecurityA(LPCSTR lpFileName,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor);
-  WINADVAPI WINBOOL WINAPI SetFileSecurityW(LPCWSTR lpFileName,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor);
-  WINADVAPI WINBOOL WINAPI GetFileSecurityA(LPCSTR lpFileName,SECURITY_INFORMATION RequestedInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor,DWORD nLength,LPDWORD lpnLengthNeeded);
-  WINADVAPI WINBOOL WINAPI GetFileSecurityW(LPCWSTR lpFileName,SECURITY_INFORMATION RequestedInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor,DWORD nLength,LPDWORD lpnLengthNeeded);
-  WINADVAPI WINBOOL WINAPI SetKernelObjectSecurity(HANDLE Handle,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR SecurityDescriptor);
-  WINBASEAPI HANDLE WINAPI FindFirstChangeNotificationA(LPCSTR lpPathName,WINBOOL bWatchSubtree,DWORD dwNotifyFilter);
-  WINBASEAPI HANDLE WINAPI FindFirstChangeNotificationW(LPCWSTR lpPathName,WINBOOL bWatchSubtree,DWORD dwNotifyFilter);
-  WINBASEAPI WINBOOL WINAPI FindNextChangeNotification(HANDLE hChangeHandle);
-  WINBASEAPI WINBOOL WINAPI FindCloseChangeNotification(HANDLE hChangeHandle);
-  WINBASEAPI WINBOOL WINAPI ReadDirectoryChangesW(HANDLE hDirectory,LPVOID lpBuffer,DWORD nBufferLength,WINBOOL bWatchSubtree,DWORD dwNotifyFilter,LPDWORD lpBytesReturned,LPOVERLAPPED lpOverlapped,LPOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINBASEAPI WINBOOL WINAPI VirtualLock(LPVOID lpAddress,SIZE_T dwSize);
-  WINBASEAPI WINBOOL WINAPI VirtualUnlock(LPVOID lpAddress,SIZE_T dwSize);
-  WINBASEAPI LPVOID WINAPI MapViewOfFileEx(HANDLE hFileMappingObject,DWORD dwDesiredAccess,DWORD dwFileOffsetHigh,DWORD dwFileOffsetLow,SIZE_T dwNumberOfBytesToMap,LPVOID lpBaseAddress);
-  WINBASEAPI WINBOOL WINAPI SetPriorityClass(HANDLE hProcess,DWORD dwPriorityClass);
-  WINBASEAPI DWORD WINAPI GetPriorityClass(HANDLE hProcess);
+  WINADVAPI WINBOOL WINAPI Create_ਨਿੱਜੀ_Object_Security(PSECURITY_DESCRIPTOR ਮਾਪਾ_Descriptor,PSECURITY_DESCRIPTOR CreatorDescriptor,PSECURITY_DESCRIPTOR *NewDescriptor,WINBOOL IsDirectoryObject,HANDLE Token,PGENERIC_MAPPING GenericMapping);
+  WINADVAPI WINBOOL WINAPI Convert_ਮੰਜ਼ਿਲ_Auto_Inherit_ਨਿੱਜੀ_Object_Security(PSECURITY_DESCRIPTOR ਮਾਪਾ_Descriptor,PSECURITY_DESCRIPTOR CurrentSecurityDescriptor,PSECURITY_DESCRIPTOR *NewSecurityDescriptor,GUID *ObjectType,BOOLEAN IsDirectoryObject,PGENERIC_MAPPING GenericMapping);
+  WINADVAPI WINBOOL WINAPI Create_ਨਿੱਜੀ_Object_Security_Ex(PSECURITY_DESCRIPTOR ਮਾਪਾ_Descriptor,PSECURITY_DESCRIPTOR CreatorDescriptor,PSECURITY_DESCRIPTOR *NewDescriptor,GUID *ObjectType,WINBOOL IsContainerObject,ULONG AutoInheritFlags,HANDLE Token,PGENERIC_MAPPING GenericMapping);
+  WINADVAPI WINBOOL WINAPI Create_ਨਿੱਜੀ_Object_Security_With_ਗੁਣਜ_Inheritance(PSECURITY_DESCRIPTOR ਮਾਪਾ_Descriptor,PSECURITY_DESCRIPTOR CreatorDescriptor,PSECURITY_DESCRIPTOR *NewDescriptor,GUID **ObjectTypes,ULONG Guid_ਗਿਣਤੀ,WINBOOL IsContainerObject,ULONG AutoInheritFlags,HANDLE Token,PGENERIC_MAPPING GenericMapping);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_ਨਿੱਜੀ_Object_Security (SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR ModificationDescriptor,PSECURITY_DESCRIPTOR *ObjectsSecurityDescriptor,PGENERIC_MAPPING GenericMapping,HANDLE Token);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_ਨਿੱਜੀ_Object_Security_Ex (SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR ModificationDescriptor,PSECURITY_DESCRIPTOR *ObjectsSecurityDescriptor,ULONG AutoInheritFlags,PGENERIC_MAPPING GenericMapping,HANDLE Token);
+  WINADVAPI WINBOOL WINAPI Get_ਨਿੱਜੀ_Object_Security(PSECURITY_DESCRIPTOR ObjectDescriptor,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR ResultantDescriptor,DWORD Descriptor_ਲੰਮਾਈ,PDWORD Return_ਲੰਮਾਈ);
+  WINADVAPI WINBOOL WINAPI Destroy_ਨਿੱਜੀ_Object_Security(PSECURITY_DESCRIPTOR *ObjectDescriptor);
+  WINADVAPI WINBOOL WINAPI MakeSelfRelativeSD(PSECURITY_DESCRIPTOR pAbsoluteSecurityDescriptor,PSECURITY_DESCRIPTOR pSelfRelativeSecurityDescriptor,LPDWORD lpdw_ਬਫਰ_ਲੰਮਾਈ);
+  WINADVAPI WINBOOL WINAPI MakeAbsoluteSD(PSECURITY_DESCRIPTOR pSelfRelativeSecurityDescriptor,PSECURITY_DESCRIPTOR pAbsoluteSecurityDescriptor,LPDWORD lpdw_Absolute_Security_Descriptor_ਮਾਪ,PACL pDacl,LPDWORD lpdw_Dacl_ਮਾਪ,PACL pSacl,LPDWORD lpdw_Sacl_ਮਾਪ,PSID pOwner,LPDWORD lpdw_Owner_ਮਾਪ,PSID p_Primary_ਸਮੂਹ,LPDWORD lpdw_Primary_ਸਮੂਹ_ਮਾਪ);
+  WINADVAPI WINBOOL WINAPI MakeAbsoluteSD2(PSECURITY_DESCRIPTOR pSelfRelativeSecurityDescriptor,LPDWORD lpdw_ਬਫਰ_ਮਾਪ);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_File_Security_A(LPCSTR lpFileName,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_File_Security_W(LPCWSTR lpFileName,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor);
+  WINADVAPI WINBOOL WINAPI GetFileSecurityA(LPCSTR lpFileName,SECURITY_INFORMATION RequestedInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor,DWORD n_ਲੰਮਾਈ,LPDWORD lpn_ਲੰਮਾਈ_Needed);
+  WINADVAPI WINBOOL WINAPI GetFileSecurityW(LPCWSTR lpFileName,SECURITY_INFORMATION RequestedInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor,DWORD n_ਲੰਮਾਈ,LPDWORD lpn_ਲੰਮਾਈ_Needed);
+  WINADVAPI WINBOOL WINAPI ਸੈੱਟ_Kernel_Object_Security(HANDLE Handle,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR SecurityDescriptor);
+  WINBASEAPI HANDLE WINAPI ਲੱਭੋ_ਪਹਿਲਾ_Change_Notification_A(LPCSTR lp_ਰਸਤਾ_Name,WINBOOL bWatchSubtree,DWORD dwNotifyFilter);
+  WINBASEAPI HANDLE WINAPI ਲੱਭੋ_ਪਹਿਲਾ_Change_Notification_W(LPCWSTR lp_ਰਸਤਾ_Name,WINBOOL bWatchSubtree,DWORD dwNotifyFilter);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_ਅਗਲਾ_Change_Notification(HANDLE hChangeHandle);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_Close_Change_Notification(HANDLE hChangeHandle);
+  WINBASEAPI WINBOOL WINAPI ReadDirectoryChangesW(HANDLE hDirectory,LPVOID lp_ਬਫਰ,DWORD n_ਬਫਰ_ਲੰਮਾਈ,WINBOOL bWatchSubtree,DWORD dwNotifyFilter,LPDWORD lp_ਬਾਈਟਾਂ_Returned,LPOVERLAPPED lpOverlapped,LPOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINBASEAPI WINBOOL WINAPI Virtual_ਤਾਲਾ(LPVOID lp_ਪਤਾ,ਮਾਪ_T dw_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI VirtualUnlock(LPVOID lp_ਪਤਾ,ਮਾਪ_T dw_ਮਾਪ);
+  WINBASEAPI LPVOID WINAPI Map_View_ਦਾ_File_Ex(HANDLE hFileMappingObject,DWORD dwDesiredAccess,DWORD dw_File_ਵਿੱਥ_ਉੱਚਾ,DWORD dw_File_ਵਿੱਥ_ਨੀਵਾਂ,ਮਾਪ_T dw_ਸੰਖਿਆ_ਦਾ_ਬਾਈਟਾਂ_ਮੰਜ਼ਿਲ_Map,LPVOID lp_ਅਧਾਰ_ਪਤਾ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_ਤਰਜੀਹ_Class(HANDLE hProcess,DWORD dw_ਤਰਜੀਹ_Class);
+  WINBASEAPI DWORD WINAPI Get_ਤਰਜੀਹ_Class(HANDLE hProcess);
   WINBASEAPI WINBOOL WINAPI IsBadReadPtr(CONST VOID *lp,UINT_PTR ucb);
   WINBASEAPI WINBOOL WINAPI IsBadWritePtr(LPVOID lp,UINT_PTR ucb);
   WINBASEAPI WINBOOL WINAPI IsBadHugeReadPtr(CONST VOID *lp,UINT_PTR ucb);
   WINBASEAPI WINBOOL WINAPI IsBadHugeWritePtr(LPVOID lp,UINT_PTR ucb);
-  WINBASEAPI WINBOOL WINAPI IsBadCodePtr(FARPROC lpfn);
+  WINBASEAPI WINBOOL WINAPI Is_Bad_ਕੋਡ_Ptr(FARPROC lpfn);
   WINBASEAPI WINBOOL WINAPI IsBadStringPtrA(LPCSTR lpsz,UINT_PTR ucchMax);
   WINBASEAPI WINBOOL WINAPI IsBadStringPtrW(LPCWSTR lpsz,UINT_PTR ucchMax);
   WINADVAPI WINBOOL WINAPI LookupAccountSidA(LPCSTR lpSystemName,PSID Sid,LPSTR Name,LPDWORD cchName,LPSTR ReferencedDomainName,LPDWORD cchReferencedDomainName,PSID_NAME_USE peUse);
   WINADVAPI WINBOOL WINAPI LookupAccountSidW(LPCWSTR lpSystemName,PSID Sid,LPWSTR Name,LPDWORD cchName,LPWSTR ReferencedDomainName,LPDWORD cchReferencedDomainName,PSID_NAME_USE peUse);
   WINADVAPI WINBOOL WINAPI LookupAccountNameA(LPCSTR lpSystemName,LPCSTR lpAccountName,PSID Sid,LPDWORD cbSid,LPSTR ReferencedDomainName,LPDWORD cchReferencedDomainName,PSID_NAME_USE peUse);
   WINADVAPI WINBOOL WINAPI LookupAccountNameW(LPCWSTR lpSystemName,LPCWSTR lpAccountName,PSID Sid,LPDWORD cbSid,LPWSTR ReferencedDomainName,LPDWORD cchReferencedDomainName,PSID_NAME_USE peUse);
-  WINADVAPI WINBOOL WINAPI LookupPrivilegeValueA(LPCSTR lpSystemName,LPCSTR lpName,PLUID lpLuid);
-  WINADVAPI WINBOOL WINAPI LookupPrivilegeValueW(LPCWSTR lpSystemName,LPCWSTR lpName,PLUID lpLuid);
+  WINADVAPI WINBOOL WINAPI Lookup_Privilege_ਮੁੱਲ_A(LPCSTR lpSystemName,LPCSTR lpName,PLUID lpLuid);
+  WINADVAPI WINBOOL WINAPI Lookup_Privilege_ਮੁੱਲ_W(LPCWSTR lpSystemName,LPCWSTR lpName,PLUID lpLuid);
   WINADVAPI WINBOOL WINAPI LookupPrivilegeNameA(LPCSTR lpSystemName,PLUID lpLuid,LPSTR lpName,LPDWORD cchName);
   WINADVAPI WINBOOL WINAPI LookupPrivilegeNameW(LPCWSTR lpSystemName,PLUID lpLuid,LPWSTR lpName,LPDWORD cchName);
   WINADVAPI WINBOOL WINAPI LookupPrivilegeDisplayNameA(LPCSTR lpSystemName,LPCSTR lpName,LPSTR lpDisplayName,LPDWORD cchDisplayName,LPDWORD lpLanguageId);
@@ -2574,252 +2574,252 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI BuildCommDCBAndTimeoutsW(LPCWSTR lpDef,LPDCB lpDCB,LPCOMMTIMEOUTS lpCommTimeouts);
   WINBASEAPI WINBOOL WINAPI CommConfigDialogA(LPCSTR lpszName,HWND hWnd,LPCOMMCONFIG lpCC);
   WINBASEAPI WINBOOL WINAPI CommConfigDialogW(LPCWSTR lpszName,HWND hWnd,LPCOMMCONFIG lpCC);
-  WINBASEAPI WINBOOL WINAPI GetDefaultCommConfigA(LPCSTR lpszName,LPCOMMCONFIG lpCC,LPDWORD lpdwSize);
-  WINBASEAPI WINBOOL WINAPI GetDefaultCommConfigW(LPCWSTR lpszName,LPCOMMCONFIG lpCC,LPDWORD lpdwSize);
-  WINBASEAPI WINBOOL WINAPI SetDefaultCommConfigA(LPCSTR lpszName,LPCOMMCONFIG lpCC,DWORD dwSize);
-  WINBASEAPI WINBOOL WINAPI SetDefaultCommConfigW(LPCWSTR lpszName,LPCOMMCONFIG lpCC,DWORD dwSize);
+  WINBASEAPI WINBOOL WINAPI GetDefaultCommConfigA(LPCSTR lpszName,LPCOMMCONFIG lpCC,LPDWORD lpdw_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI GetDefaultCommConfigW(LPCWSTR lpszName,LPCOMMCONFIG lpCC,LPDWORD lpdw_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Default_Comm_Config_A(LPCSTR lpszName,LPCOMMCONFIG lpCC,DWORD dw_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Default_Comm_Config_W(LPCWSTR lpszName,LPCOMMCONFIG lpCC,DWORD dw_ਮਾਪ);
 
-#define MAX_COMPUTERNAME_LENGTH 15
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MAX_COMPUTERNAME_ਲੰਮਾਈ 15
 
-  WINBASEAPI WINBOOL WINAPI GetComputerNameA(LPSTR lpBuffer,LPDWORD nSize);
-  WINBASEAPI WINBOOL WINAPI GetComputerNameW(LPWSTR lpBuffer,LPDWORD nSize);
-  WINBASEAPI WINBOOL WINAPI SetComputerNameA(LPCSTR lpComputerName);
-  WINBASEAPI WINBOOL WINAPI SetComputerNameW(LPCWSTR lpComputerName);
+  WINBASEAPI WINBOOL WINAPI GetComputerNameA(LPSTR lp_ਬਫਰ,LPDWORD n_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI GetComputerNameW(LPWSTR lp_ਬਫਰ,LPDWORD n_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Computer_Name_A(LPCSTR lpComputerName);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Computer_Name_W(LPCWSTR lpComputerName);
 
-  typedef enum _COMPUTER_NAME_FORMAT {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਗਿਣਤੀ _COMPUTER_NAME_FORMAT {
     ComputerNameNetBIOS,ComputerNameDnsHostname,ComputerNameDnsDomain,ComputerNameDnsFullyQualified,ComputerNamePhysicalNetBIOS,ComputerNamePhysicalDnsHostname,ComputerNamePhysicalDnsDomain,ComputerNamePhysicalDnsFullyQualified,ComputerNameMax
   } COMPUTER_NAME_FORMAT;
 
-  WINBASEAPI WINBOOL WINAPI GetComputerNameExA(COMPUTER_NAME_FORMAT NameType,LPSTR lpBuffer,LPDWORD nSize);
-  WINBASEAPI WINBOOL WINAPI GetComputerNameExW(COMPUTER_NAME_FORMAT NameType,LPWSTR lpBuffer,LPDWORD nSize);
-  WINBASEAPI WINBOOL WINAPI SetComputerNameExA(COMPUTER_NAME_FORMAT NameType,LPCSTR lpBuffer);
-  WINBASEAPI WINBOOL WINAPI SetComputerNameExW(COMPUTER_NAME_FORMAT NameType,LPCWSTR lpBuffer);
-  WINBASEAPI WINBOOL WINAPI DnsHostnameToComputerNameA(LPCSTR Hostname,LPSTR ComputerName,LPDWORD nSize);
-  WINBASEAPI WINBOOL WINAPI DnsHostnameToComputerNameW(LPCWSTR Hostname,LPWSTR ComputerName,LPDWORD nSize);
-  WINADVAPI WINBOOL WINAPI GetUserNameA(LPSTR lpBuffer,LPDWORD pcbBuffer);
-  WINADVAPI WINBOOL WINAPI GetUserNameW(LPWSTR lpBuffer,LPDWORD pcbBuffer);
+  WINBASEAPI WINBOOL WINAPI GetComputerNameExA(COMPUTER_NAME_FORMAT NameType,LPSTR lp_ਬਫਰ,LPDWORD n_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI GetComputerNameExW(COMPUTER_NAME_FORMAT NameType,LPWSTR lp_ਬਫਰ,LPDWORD n_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Computer_Name_Ex_A(COMPUTER_NAME_FORMAT NameType,LPCSTR lp_ਬਫਰ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Computer_Name_Ex_W(COMPUTER_NAME_FORMAT NameType,LPCWSTR lp_ਬਫਰ);
+  WINBASEAPI WINBOOL WINAPI Dns_Hostname_ਮੰਜ਼ਿਲ_Computer_Name_A(LPCSTR Hostname,LPSTR ComputerName,LPDWORD n_ਮਾਪ);
+  WINBASEAPI WINBOOL WINAPI Dns_Hostname_ਮੰਜ਼ਿਲ_Computer_Name_W(LPCWSTR Hostname,LPWSTR ComputerName,LPDWORD n_ਮਾਪ);
+  WINADVAPI WINBOOL WINAPI GetUserNameA(LPSTR lp_ਬਫਰ,LPDWORD pcb_ਬਫਰ);
+  WINADVAPI WINBOOL WINAPI GetUserNameW(LPWSTR lp_ਬਫਰ,LPDWORD pcb_ਬਫਰ);
 
-#define LOGON32_LOGON_INTERACTIVE 2
-#define LOGON32_LOGON_NETWORK 3
-#define LOGON32_LOGON_BATCH 4
-#define LOGON32_LOGON_SERVICE 5
-#define LOGON32_LOGON_UNLOCK 7
-#define LOGON32_LOGON_NETWORK_CLEARTEXT 8
-#define LOGON32_LOGON_NEW_CREDENTIALS 9
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON32_LOGON_INTERACTIVE 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON32_LOGON_ਜਾਲ 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON32_LOGON_BATCH 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON32_LOGON_SERVICE 5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON32_LOGON_UNLOCK 7
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON32_LOGON_ਜਾਲ_CLEARTEXT 8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON32_LOGON_NEW_CREDENTIALS 9
 
-#define LOGON32_PROVIDER_DEFAULT 0
-#define LOGON32_PROVIDER_WINNT35 1
-#define LOGON32_PROVIDER_WINNT40 2
-#define LOGON32_PROVIDER_WINNT50 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON32_PROVIDER_DEFAULT 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON32_PROVIDER_WINNT35 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON32_PROVIDER_WINNT40 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON32_PROVIDER_WINNT50 3
 
-#ifdef UNICODE
-#define LogonUser LogonUserW
-#define LogonUserEx LogonUserExW
-#define CreateProcessAsUser CreateProcessAsUserW
-#else
-#define LogonUser LogonUserA
-#define LogonUserEx LogonUserExA
-#define CreateProcessAsUser CreateProcessAsUserA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LogonUser LogonUserW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LogonUserEx LogonUserExW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateProcessAsUser CreateProcessAsUserW
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LogonUser LogonUserA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LogonUserEx LogonUserExA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateProcessAsUser CreateProcessAsUserA
+#ਜੇ_ਅੰਤ
 
   WINADVAPI WINBOOL WINAPI LogonUserA(LPCSTR lpszUsername,LPCSTR lpszDomain,LPCSTR lpszPassword,DWORD dwLogonType,DWORD dwLogonProvider,PHANDLE phToken);
   WINADVAPI WINBOOL WINAPI LogonUserW(LPCWSTR lpszUsername,LPCWSTR lpszDomain,LPCWSTR lpszPassword,DWORD dwLogonType,DWORD dwLogonProvider,PHANDLE phToken);
-  WINADVAPI WINBOOL WINAPI LogonUserExA(LPCSTR lpszUsername,LPCSTR lpszDomain,LPCSTR lpszPassword,DWORD dwLogonType,DWORD dwLogonProvider,PHANDLE phToken,PSID *ppLogonSid,PVOID *ppProfileBuffer,LPDWORD pdwProfileLength,PQUOTA_LIMITS pQuotaLimits);
-  WINADVAPI WINBOOL WINAPI LogonUserExW(LPCWSTR lpszUsername,LPCWSTR lpszDomain,LPCWSTR lpszPassword,DWORD dwLogonType,DWORD dwLogonProvider,PHANDLE phToken,PSID *ppLogonSid,PVOID *ppProfileBuffer,LPDWORD pdwProfileLength,PQUOTA_LIMITS pQuotaLimits);
+  WINADVAPI WINBOOL WINAPI LogonUserExA(LPCSTR lpszUsername,LPCSTR lpszDomain,LPCSTR lpszPassword,DWORD dwLogonType,DWORD dwLogonProvider,PHANDLE phToken,PSID *ppLogonSid,PVOID *pp_Profile_ਬਫਰ,LPDWORD pdw_Profile_ਲੰਮਾਈ,PQUOTA_LIMITS pQuotaLimits);
+  WINADVAPI WINBOOL WINAPI LogonUserExW(LPCWSTR lpszUsername,LPCWSTR lpszDomain,LPCWSTR lpszPassword,DWORD dwLogonType,DWORD dwLogonProvider,PHANDLE phToken,PSID *ppLogonSid,PVOID *pp_Profile_ਬਫਰ,LPDWORD pdw_Profile_ਲੰਮਾਈ,PQUOTA_LIMITS pQuotaLimits);
   WINADVAPI WINBOOL WINAPI ImpersonateLoggedOnUser(HANDLE hToken);
-  WINADVAPI WINBOOL WINAPI CreateProcessAsUserA(HANDLE hToken,LPCSTR lpApplicationName,LPSTR lpCommandLine,LPSECURITY_ATTRIBUTES lpProcessAttributes,LPSECURITY_ATTRIBUTES lpThreadAttributes,WINBOOL bInheritHandles,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCSTR lpCurrentDirectory,LPSTARTUPINFOA lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
-  WINADVAPI WINBOOL WINAPI CreateProcessAsUserW(HANDLE hToken,LPCWSTR lpApplicationName,LPWSTR lpCommandLine,LPSECURITY_ATTRIBUTES lpProcessAttributes,LPSECURITY_ATTRIBUTES lpThreadAttributes,WINBOOL bInheritHandles,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCWSTR lpCurrentDirectory,LPSTARTUPINFOW lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
+  WINADVAPI WINBOOL WINAPI CreateProcessAsUserA(HANDLE hToken,LPCSTR lpApplicationName,LPSTR lp_Command_ਸਤਰ,LPSECURITY_ਗੁਣ lp_Process_ਗੁਣ,LPSECURITY_ਗੁਣ lp_Thread_ਗੁਣ,WINBOOL bInheritHandles,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCSTR lpCurrentDirectory,LPSTARTUPINFOA lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
+  WINADVAPI WINBOOL WINAPI CreateProcessAsUserW(HANDLE hToken,LPCWSTR lpApplicationName,LPWSTR lp_Command_ਸਤਰ,LPSECURITY_ਗੁਣ lp_Process_ਗੁਣ,LPSECURITY_ਗੁਣ lp_Thread_ਗੁਣ,WINBOOL bInheritHandles,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCWSTR lpCurrentDirectory,LPSTARTUPINFOW lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
 
-#define LOGON_WITH_PROFILE 0x1
-#define LOGON_NETCREDENTIALS_ONLY 0x2
-#define LOGON_ZERO_PASSWORD_BUFFER 0x80000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON_WITH_PROFILE 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON_NETCREDENTIALS_ONLY 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOGON_ZERO_PASSWORD_ਬਫਰ 0x80000000
 
-  WINADVAPI WINBOOL WINAPI CreateProcessWithLogonW(LPCWSTR lpUsername,LPCWSTR lpDomain,LPCWSTR lpPassword,DWORD dwLogonFlags,LPCWSTR lpApplicationName,LPWSTR lpCommandLine,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCWSTR lpCurrentDirectory,LPSTARTUPINFOW lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
-  WINADVAPI WINBOOL WINAPI CreateProcessWithTokenW(HANDLE hToken,DWORD dwLogonFlags,LPCWSTR lpApplicationName,LPWSTR lpCommandLine,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCWSTR lpCurrentDirectory,LPSTARTUPINFOW lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
+  WINADVAPI WINBOOL WINAPI CreateProcessWithLogonW(LPCWSTR lpUsername,LPCWSTR lpDomain,LPCWSTR lpPassword,DWORD dwLogonFlags,LPCWSTR lpApplicationName,LPWSTR lp_Command_ਸਤਰ,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCWSTR lpCurrentDirectory,LPSTARTUPINFOW lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
+  WINADVAPI WINBOOL WINAPI CreateProcessWithTokenW(HANDLE hToken,DWORD dwLogonFlags,LPCWSTR lpApplicationName,LPWSTR lp_Command_ਸਤਰ,DWORD dwCreationFlags,LPVOID lpEnvironment,LPCWSTR lpCurrentDirectory,LPSTARTUPINFOW lpStartupInfo,LPPROCESS_INFORMATION lpProcessInformation);
   WINADVAPI WINBOOL WINAPI ImpersonateAnonymousToken(HANDLE ThreadHandle);
-  WINADVAPI WINBOOL WINAPI DuplicateTokenEx(HANDLE hExistingToken,DWORD dwDesiredAccess,LPSECURITY_ATTRIBUTES lpTokenAttributes,SECURITY_IMPERSONATION_LEVEL ImpersonationLevel,TOKEN_TYPE TokenType,PHANDLE phNewToken);
-  WINADVAPI WINBOOL WINAPI CreateRestrictedToken(HANDLE ExistingTokenHandle,DWORD Flags,DWORD DisableSidCount,PSID_AND_ATTRIBUTES SidsToDisable,DWORD DeletePrivilegeCount,PLUID_AND_ATTRIBUTES PrivilegesToDelete,DWORD RestrictedSidCount,PSID_AND_ATTRIBUTES SidsToRestrict,PHANDLE NewTokenHandle);
+  WINADVAPI WINBOOL WINAPI DuplicateTokenEx(HANDLE hExistingToken,DWORD dwDesiredAccess,LPSECURITY_ਗੁਣ lp_Token_ਗੁਣ,SECURITY_IMPERSONATION_LEVEL ImpersonationLevel,TOKEN_TYPE TokenType,PHANDLE phNewToken);
+  WINADVAPI WINBOOL WINAPI CreateRestrictedToken(HANDLE ExistingTokenHandle,DWORD Flags,DWORD Disable_Sid_ਗਿਣਤੀ,PSID_AND_ਗੁਣ Sids_ਮੰਜ਼ਿਲ_Disable,DWORD Delete_Privilege_ਗਿਣਤੀ,PLUID_AND_ਗੁਣ Privileges_ਮੰਜ਼ਿਲ_Delete,DWORD Restricted_Sid_ਗਿਣਤੀ,PSID_AND_ਗੁਣ Sids_ਮੰਜ਼ਿਲ_Restrict,PHANDLE NewTokenHandle);
   WINADVAPI WINBOOL WINAPI IsTokenRestricted(HANDLE TokenHandle);
   WINADVAPI WINBOOL WINAPI IsTokenUntrusted(HANDLE TokenHandle);
-  WINADVAPI WINBOOL WINAPI CheckTokenMembership(HANDLE TokenHandle,PSID SidToCheck,PBOOL IsMember);
+  WINADVAPI WINBOOL WINAPI CheckTokenMembership(HANDLE TokenHandle,PSID Sid_ਮੰਜ਼ਿਲ_Check,PBOOL IsMember);
 
-  typedef WAITORTIMERCALLBACKFUNC WAITORTIMERCALLBACK;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WAITORTIMERCALLBACKFUNC WAITORTIMERCALLBACK;
 
-  WINBASEAPI WINBOOL WINAPI RegisterWaitForSingleObject(PHANDLE phNewWaitObject,HANDLE hObject,WAITORTIMERCALLBACK Callback,PVOID Context,ULONG dwMilliseconds,ULONG dwFlags);
-  WINBASEAPI HANDLE WINAPI RegisterWaitForSingleObjectEx(HANDLE hObject,WAITORTIMERCALLBACK Callback,PVOID Context,ULONG dwMilliseconds,ULONG dwFlags);
+  WINBASEAPI WINBOOL WINAPI ਰਜਿਸਟਰ_Wait_For_Single_Object(PHANDLE phNewWaitObject,HANDLE hObject,WAITORTIMERCALLBACK Callback,PVOID Context,ULONG dwMilliseconds,ULONG dwFlags);
+  WINBASEAPI HANDLE WINAPI ਰਜਿਸਟਰ_Wait_For_Single_Object_Ex(HANDLE hObject,WAITORTIMERCALLBACK Callback,PVOID Context,ULONG dwMilliseconds,ULONG dwFlags);
   WINBASEAPI WINBOOL WINAPI UnregisterWait(HANDLE WaitHandle);
   WINBASEAPI WINBOOL WINAPI UnregisterWaitEx(HANDLE WaitHandle,HANDLE CompletionEvent);
-  WINBASEAPI WINBOOL WINAPI QueueUserWorkItem(LPTHREAD_START_ROUTINE Function,PVOID Context,ULONG Flags);
+  WINBASEAPI WINBOOL WINAPI ਕਤਾਰ_User_Work_ਵਸਤੂ(LPTHREAD_ਸ਼ੁਰੂ_ROUTINE Function,PVOID Context,ULONG Flags);
   WINBASEAPI WINBOOL WINAPI BindIoCompletionCallback(HANDLE FileHandle,LPOVERLAPPED_COMPLETION_ROUTINE Function,ULONG Flags);
-  WINBASEAPI HANDLE WINAPI CreateTimerQueue(VOID);
-  WINBASEAPI WINBOOL WINAPI CreateTimerQueueTimer(PHANDLE phNewTimer,HANDLE TimerQueue,WAITORTIMERCALLBACK Callback,PVOID Parameter,DWORD DueTime,DWORD Period,ULONG Flags);
-  WINBASEAPI WINBOOL WINAPI ChangeTimerQueueTimer(HANDLE TimerQueue,HANDLE Timer,ULONG DueTime,ULONG Period);
-  WINBASEAPI WINBOOL WINAPI DeleteTimerQueueTimer(HANDLE TimerQueue,HANDLE Timer,HANDLE CompletionEvent);
-  WINBASEAPI WINBOOL WINAPI DeleteTimerQueueEx(HANDLE TimerQueue,HANDLE CompletionEvent);
-  WINBASEAPI HANDLE WINAPI SetTimerQueueTimer(HANDLE TimerQueue,WAITORTIMERCALLBACK Callback,PVOID Parameter,DWORD DueTime,DWORD Period,WINBOOL PreferIo);
-  WINBASEAPI WINBOOL WINAPI CancelTimerQueueTimer(HANDLE TimerQueue,HANDLE Timer);
-  WINBASEAPI WINBOOL WINAPI DeleteTimerQueue(HANDLE TimerQueue);
+  WINBASEAPI HANDLE WINAPI Create_Timer_ਕਤਾਰ(VOID);
+  WINBASEAPI WINBOOL WINAPI Create_Timer_ਕਤਾਰ_Timer(PHANDLE phNewTimer,HANDLE Timer_ਕਤਾਰ,WAITORTIMERCALLBACK Callback,PVOID Parameter,DWORD Due_ਸਮਾਂ,DWORD Period,ULONG Flags);
+  WINBASEAPI WINBOOL WINAPI Change_Timer_ਕਤਾਰ_Timer(HANDLE Timer_ਕਤਾਰ,HANDLE Timer,ULONG Due_ਸਮਾਂ,ULONG Period);
+  WINBASEAPI WINBOOL WINAPI Delete_Timer_ਕਤਾਰ_Timer(HANDLE Timer_ਕਤਾਰ,HANDLE Timer,HANDLE CompletionEvent);
+  WINBASEAPI WINBOOL WINAPI Delete_Timer_ਕਤਾਰ_Ex(HANDLE Timer_ਕਤਾਰ,HANDLE CompletionEvent);
+  WINBASEAPI HANDLE WINAPI ਸੈੱਟ_Timer_ਕਤਾਰ_Timer(HANDLE Timer_ਕਤਾਰ,WAITORTIMERCALLBACK Callback,PVOID Parameter,DWORD Due_ਸਮਾਂ,DWORD Period,WINBOOL PreferIo);
+  WINBASEAPI WINBOOL WINAPI Cancel_Timer_ਕਤਾਰ_Timer(HANDLE Timer_ਕਤਾਰ,HANDLE Timer);
+  WINBASEAPI WINBOOL WINAPI Delete_Timer_ਕਤਾਰ(HANDLE Timer_ਕਤਾਰ);
 
-#define HW_PROFILE_GUIDLEN 39
-#define MAX_PROFILE_LEN 80
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HW_PROFILE_GUIDLEN 39
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MAX_PROFILE_LEN 80
 
-#define DOCKINFO_UNDOCKED (0x1)
-#define DOCKINFO_DOCKED (0x2)
-#define DOCKINFO_USER_SUPPLIED (0x4)
-#define DOCKINFO_USER_UNDOCKED (DOCKINFO_USER_SUPPLIED | DOCKINFO_UNDOCKED)
-#define DOCKINFO_USER_DOCKED (DOCKINFO_USER_SUPPLIED | DOCKINFO_DOCKED)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DOCKINFO_UNDOCKED (0x1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DOCKINFO_DOCKED (0x2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DOCKINFO_USER_SUPPLIED (0x4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DOCKINFO_USER_UNDOCKED (DOCKINFO_USER_SUPPLIED | DOCKINFO_UNDOCKED)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DOCKINFO_USER_DOCKED (DOCKINFO_USER_SUPPLIED | DOCKINFO_DOCKED)
 
-  typedef struct tagHW_PROFILE_INFOA {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਟੈਗ_HW_PROFILE_INFOA {
     DWORD dwDockInfo;
     CHAR szHwProfileGuid[HW_PROFILE_GUIDLEN];
     CHAR szHwProfileName[MAX_PROFILE_LEN];
   } HW_PROFILE_INFOA,*LPHW_PROFILE_INFOA;
 
-  typedef struct tagHW_PROFILE_INFOW {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਟੈਗ_HW_PROFILE_INFOW {
     DWORD dwDockInfo;
     WCHAR szHwProfileGuid[HW_PROFILE_GUIDLEN];
     WCHAR szHwProfileName[MAX_PROFILE_LEN];
   } HW_PROFILE_INFOW,*LPHW_PROFILE_INFOW;
 
-#ifdef UNICODE
-  typedef HW_PROFILE_INFOW HW_PROFILE_INFO;
-  typedef LPHW_PROFILE_INFOW LPHW_PROFILE_INFO;
-#else
-  typedef HW_PROFILE_INFOA HW_PROFILE_INFO;
-  typedef LPHW_PROFILE_INFOA LPHW_PROFILE_INFO;
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ HW_PROFILE_INFOW HW_PROFILE_INFO;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ LPHW_PROFILE_INFOW LPHW_PROFILE_INFO;
+#ਨਹੀਂਤਾਂ
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ HW_PROFILE_INFOA HW_PROFILE_INFO;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ LPHW_PROFILE_INFOA LPHW_PROFILE_INFO;
+#ਜੇ_ਅੰਤ
 
-#ifdef UNICODE
-#define GetCurrentHwProfile GetCurrentHwProfileW
-#define GetVersionEx GetVersionExW
-#define VerifyVersionInfo VerifyVersionInfoW
-#else
-#define GetCurrentHwProfile GetCurrentHwProfileA
-#define GetVersionEx GetVersionExA
-#define VerifyVersionInfo VerifyVersionInfoA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetCurrentHwProfile GetCurrentHwProfileW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਸੰਸਕਰਣ_Ex Get_ਸੰਸਕਰਣ_Ex_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Verify_ਸੰਸਕਰਣ_Info Verify_ਸੰਸਕਰਣ_Info_W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GetCurrentHwProfile GetCurrentHwProfileA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_ਸੰਸਕਰਣ_Ex Get_ਸੰਸਕਰਣ_Ex_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Verify_ਸੰਸਕਰਣ_Info Verify_ਸੰਸਕਰਣ_Info_A
+#ਜੇ_ਅੰਤ
 
   WINADVAPI WINBOOL WINAPI GetCurrentHwProfileA (LPHW_PROFILE_INFOA lpHwProfileInfo);
   WINADVAPI WINBOOL WINAPI GetCurrentHwProfileW (LPHW_PROFILE_INFOW lpHwProfileInfo);
-  WINBASEAPI WINBOOL WINAPI QueryPerformanceCounter(LARGE_INTEGER *lpPerformanceCount);
+  WINBASEAPI WINBOOL WINAPI QueryPerformanceCounter(LARGE_INTEGER *lp_Performance_ਗਿਣਤੀ);
   WINBASEAPI WINBOOL WINAPI QueryPerformanceFrequency(LARGE_INTEGER *lpFrequency);
-  WINBASEAPI WINBOOL WINAPI GetVersionExA(LPOSVERSIONINFOA lpVersionInformation);
-  WINBASEAPI WINBOOL WINAPI GetVersionExW(LPOSVERSIONINFOW lpVersionInformation);
-  WINBASEAPI WINBOOL WINAPI VerifyVersionInfoA(LPOSVERSIONINFOEXA lpVersionInformation,DWORD dwTypeMask,DWORDLONG dwlConditionMask);
-  WINBASEAPI WINBOOL WINAPI VerifyVersionInfoW(LPOSVERSIONINFOEXW lpVersionInformation,DWORD dwTypeMask,DWORDLONG dwlConditionMask);
+  WINBASEAPI WINBOOL WINAPI Get_ਸੰਸਕਰਣ_Ex_A(LPOSVERSIONINFOA lp_ਸੰਸਕਰਣ_Information);
+  WINBASEAPI WINBOOL WINAPI Get_ਸੰਸਕਰਣ_Ex_W(LPOSVERSIONINFOW lp_ਸੰਸਕਰਣ_Information);
+  WINBASEAPI WINBOOL WINAPI Verify_ਸੰਸਕਰਣ_Info_A(LPOSVERSIONINFOEXA lp_ਸੰਸਕਰਣ_Information,DWORD dw_Type_ਨਕਾਬ,DWORDLONG dwl_Condition_ਨਕਾਬ);
+  WINBASEAPI WINBOOL WINAPI Verify_ਸੰਸਕਰਣ_Info_W(LPOSVERSIONINFOEXW lp_ਸੰਸਕਰਣ_Information,DWORD dw_Type_ਨਕਾਬ,DWORDLONG dwl_Condition_ਨਕਾਬ);
 
-#include <winerror.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <winerror.h>
 
-#define TC_NORMAL 0
-#define TC_HARDERR 1
-#define TC_GP_TRAP 2
-#define TC_SIGNAL 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TC_ਸਾਧਾਰਨ 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TC_HARDERR 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TC_GP_TRAP 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TC_SIGNAL 3
 
-#define AC_LINE_OFFLINE 0x0
-#define AC_LINE_ONLINE 0x1
-#define AC_LINE_BACKUP_POWER 0x2
-#define AC_LINE_UNKNOWN 0xff
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ AC_ਸਤਰ_OFFLINE 0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ AC_ਸਤਰ_ONLINE 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ AC_ਸਤਰ_BACKUP_POWER 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ AC_ਸਤਰ_UNKNOWN 0xff
 
-#define BATTERY_FLAG_HIGH 0x1
-#define BATTERY_FLAG_LOW 0x2
-#define BATTERY_FLAG_CRITICAL 0x4
-#define BATTERY_FLAG_CHARGING 0x8
-#define BATTERY_FLAG_NO_BATTERY 0x80
-#define BATTERY_FLAG_UNKNOWN 0xff
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BATTERY_FLAG_ਉੱਚਾ 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BATTERY_FLAG_ਨੀਵਾਂ 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BATTERY_FLAG_CRITICAL 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BATTERY_FLAG_CHARGING 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BATTERY_FLAG_NO_BATTERY 0x80
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BATTERY_FLAG_UNKNOWN 0xff
 
-#define BATTERY_PERCENTAGE_UNKNOWN 0xff
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BATTERY_PERCENTAGE_UNKNOWN 0xff
 
-#define BATTERY_LIFE_UNKNOWN 0xffffffff
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BATTERY_LIFE_UNKNOWN 0xffffffff
 
-  typedef struct _SYSTEM_POWER_STATUS {
-    BYTE ACLineStatus;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ SYSTEM_POWER_ਸਥਿਤੀ {
+    BYTE ACLine_ਸਥਿਤੀ;
     BYTE BatteryFlag;
     BYTE BatteryLifePercent;
     BYTE Reserved1;
-    DWORD BatteryLifeTime;
-    DWORD BatteryFullLifeTime;
-  } SYSTEM_POWER_STATUS,*LPSYSTEM_POWER_STATUS;
+    DWORD Battery_Life_ਸਮਾਂ;
+    DWORD Battery_ਭਰਿਆ_Life_ਸਮਾਂ;
+  } SYSTEM_POWER_ਸਥਿਤੀ_2,*LPSYSTEM_POWER_ਸਥਿਤੀ;
 
-#ifdef UNICODE
-#define CreateJobObject CreateJobObjectW
-#define OpenJobObject OpenJobObjectW
-#define FindFirstVolume FindFirstVolumeW
-#define FindNextVolume FindNextVolumeW
-#define FindFirstVolumeMountPoint FindFirstVolumeMountPointW
-#define FindNextVolumeMountPoint FindNextVolumeMountPointW
-#define SetVolumeMountPoint SetVolumeMountPointW
-#define DeleteVolumeMountPoint DeleteVolumeMountPointW
-#define GetVolumeNameForVolumeMountPoint GetVolumeNameForVolumeMountPointW
-#define GetVolumePathName GetVolumePathNameW
-#define GetVolumePathNamesForVolumeName GetVolumePathNamesForVolumeNameW
-#else
-#define CreateJobObject CreateJobObjectA
-#define OpenJobObject OpenJobObjectA
-#define FindFirstVolume FindFirstVolumeA
-#define FindNextVolume FindNextVolumeA
-#define FindFirstVolumeMountPoint FindFirstVolumeMountPointA
-#define FindNextVolumeMountPoint FindNextVolumeMountPointA
-#define SetVolumeMountPoint SetVolumeMountPointA
-#define DeleteVolumeMountPoint DeleteVolumeMountPointA
-#define GetVolumeNameForVolumeMountPoint GetVolumeNameForVolumeMountPointA
-#define GetVolumePathName GetVolumePathNameA
-#define GetVolumePathNamesForVolumeName GetVolumePathNamesForVolumeNameA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Create_ਕੰਮ_Object Create_ਕੰਮ_Object_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Open_ਕੰਮ_Object Open_ਕੰਮ_Object_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਪਹਿਲਾ_Volume ਲੱਭੋ_ਪਹਿਲਾ_Volume_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਅਗਲਾ_Volume ਲੱਭੋ_ਅਗਲਾ_Volume_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਪਹਿਲਾ_Volume_Mount_ਬਿੰਦੂ ਲੱਭੋ_ਪਹਿਲਾ_Volume_Mount_ਬਿੰਦੂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਅਗਲਾ_Volume_Mount_ਬਿੰਦੂ ਲੱਭੋ_ਅਗਲਾ_Volume_Mount_ਬਿੰਦੂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Volume_Mount_ਬਿੰਦੂ ਸੈੱਟ_Volume_Mount_ਬਿੰਦੂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Delete_Volume_Mount_ਬਿੰਦੂ Delete_Volume_Mount_ਬਿੰਦੂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Volume_Name_For_Volume_Mount_ਬਿੰਦੂ Get_Volume_Name_For_Volume_Mount_ਬਿੰਦੂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Volume_ਰਸਤਾ_Name Get_Volume_ਰਸਤਾ_Name_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Volume_ਰਸਤਾ_ਨਾਂ_For_Volume_Name Get_Volume_ਰਸਤਾ_ਨਾਂ_For_Volume_Name_W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Create_ਕੰਮ_Object Create_ਕੰਮ_Object_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Open_ਕੰਮ_Object Open_ਕੰਮ_Object_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਪਹਿਲਾ_Volume ਲੱਭੋ_ਪਹਿਲਾ_Volume_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਅਗਲਾ_Volume ਲੱਭੋ_ਅਗਲਾ_Volume_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਪਹਿਲਾ_Volume_Mount_ਬਿੰਦੂ ਲੱਭੋ_ਪਹਿਲਾ_Volume_Mount_ਬਿੰਦੂ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ਅਗਲਾ_Volume_Mount_ਬਿੰਦੂ ਲੱਭੋ_ਅਗਲਾ_Volume_Mount_ਬਿੰਦੂ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸੈੱਟ_Volume_Mount_ਬਿੰਦੂ ਸੈੱਟ_Volume_Mount_ਬਿੰਦੂ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Delete_Volume_Mount_ਬਿੰਦੂ Delete_Volume_Mount_ਬਿੰਦੂ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Volume_Name_For_Volume_Mount_ਬਿੰਦੂ Get_Volume_Name_For_Volume_Mount_ਬਿੰਦੂ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Volume_ਰਸਤਾ_Name Get_Volume_ਰਸਤਾ_Name_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Get_Volume_ਰਸਤਾ_ਨਾਂ_For_Volume_Name Get_Volume_ਰਸਤਾ_ਨਾਂ_For_Volume_Name_A
+#ਜੇ_ਅੰਤ
 
-  WINBOOL WINAPI GetSystemPowerStatus(LPSYSTEM_POWER_STATUS lpSystemPowerStatus);
-  WINBOOL WINAPI SetSystemPowerState(WINBOOL fSuspend,WINBOOL fForce);
-  WINBASEAPI WINBOOL WINAPI AllocateUserPhysicalPages(HANDLE hProcess,PULONG_PTR NumberOfPages,PULONG_PTR PageArray);
-  WINBASEAPI WINBOOL WINAPI FreeUserPhysicalPages(HANDLE hProcess,PULONG_PTR NumberOfPages,PULONG_PTR PageArray);
-  WINBASEAPI WINBOOL WINAPI MapUserPhysicalPages(PVOID VirtualAddress,ULONG_PTR NumberOfPages,PULONG_PTR PageArray);
-  WINBASEAPI WINBOOL WINAPI MapUserPhysicalPagesScatter(PVOID *VirtualAddresses,ULONG_PTR NumberOfPages,PULONG_PTR PageArray);
-  WINBASEAPI HANDLE WINAPI CreateJobObjectA(LPSECURITY_ATTRIBUTES lpJobAttributes,LPCSTR lpName);
-  WINBASEAPI HANDLE WINAPI CreateJobObjectW(LPSECURITY_ATTRIBUTES lpJobAttributes,LPCWSTR lpName);
-  WINBASEAPI HANDLE WINAPI OpenJobObjectA(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCSTR lpName);
-  WINBASEAPI HANDLE WINAPI OpenJobObjectW(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCWSTR lpName);
-  WINBASEAPI WINBOOL WINAPI AssignProcessToJobObject(HANDLE hJob,HANDLE hProcess);
-  WINBASEAPI WINBOOL WINAPI TerminateJobObject(HANDLE hJob,UINT uExitCode);
-  WINBASEAPI WINBOOL WINAPI QueryInformationJobObject(HANDLE hJob,JOBOBJECTINFOCLASS JobObjectInformationClass,LPVOID lpJobObjectInformation,DWORD cbJobObjectInformationLength,LPDWORD lpReturnLength);
-  WINBASEAPI WINBOOL WINAPI SetInformationJobObject(HANDLE hJob,JOBOBJECTINFOCLASS JobObjectInformationClass,LPVOID lpJobObjectInformation,DWORD cbJobObjectInformationLength);
-  WINBASEAPI WINBOOL WINAPI IsProcessInJob(HANDLE ProcessHandle,HANDLE JobHandle,PBOOL Result);
-  WINBASEAPI WINBOOL WINAPI CreateJobSet(ULONG NumJob,PJOB_SET_ARRAY UserJobSet,ULONG Flags);
-  WINBASEAPI PVOID WINAPI AddVectoredExceptionHandler (ULONG First,PVECTORED_EXCEPTION_HANDLER Handler);
+  WINBOOL WINAPI Get_System_Power_ਸਥਿਤੀ(LPSYSTEM_POWER_ਸਥਿਤੀ lp_System_Power_ਸਥਿਤੀ);
+  WINBOOL WINAPI ਸੈੱਟ_System_Power_State(WINBOOL fSuspend,WINBOOL fForce);
+  WINBASEAPI WINBOOL WINAPI Allocate_User_Physical_ਪੰਨੇ(HANDLE hProcess,PULONG_PTR ਸੰਖਿਆ_ਦਾ_ਪੰਨੇ,PULONG_PTR ਪੰਨਾ_Array);
+  WINBASEAPI WINBOOL WINAPI Free_User_Physical_ਪੰਨੇ(HANDLE hProcess,PULONG_PTR ਸੰਖਿਆ_ਦਾ_ਪੰਨੇ,PULONG_PTR ਪੰਨਾ_Array);
+  WINBASEAPI WINBOOL WINAPI Map_User_Physical_ਪੰਨੇ(PVOID Virtual_ਪਤਾ,ULONG_PTR ਸੰਖਿਆ_ਦਾ_ਪੰਨੇ,PULONG_PTR ਪੰਨਾ_Array);
+  WINBASEAPI WINBOOL WINAPI Map_User_Physical_ਪੰਨੇ_Scatter(PVOID *Virtual_ਪਤੇ,ULONG_PTR ਸੰਖਿਆ_ਦਾ_ਪੰਨੇ,PULONG_PTR ਪੰਨਾ_Array);
+  WINBASEAPI HANDLE WINAPI Create_ਕੰਮ_Object_A(LPSECURITY_ਗੁਣ lp_ਕੰਮ_ਗੁਣ,LPCSTR lpName);
+  WINBASEAPI HANDLE WINAPI Create_ਕੰਮ_Object_W(LPSECURITY_ਗੁਣ lp_ਕੰਮ_ਗੁਣ,LPCWSTR lpName);
+  WINBASEAPI HANDLE WINAPI Open_ਕੰਮ_Object_A(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCSTR lpName);
+  WINBASEAPI HANDLE WINAPI Open_ਕੰਮ_Object_W(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCWSTR lpName);
+  WINBASEAPI WINBOOL WINAPI ਸੌਂਪੋ_Process_ਮੰਜ਼ਿਲ_ਕੰਮ_Object(HANDLE h_ਕੰਮ,HANDLE hProcess);
+  WINBASEAPI WINBOOL WINAPI Terminate_ਕੰਮ_Object(HANDLE h_ਕੰਮ,UINT u_Exit_ਕੋਡ);
+  WINBASEAPI WINBOOL WINAPI Query_Information_ਕੰਮ_Object(HANDLE h_ਕੰਮ,JOBOBJECTINFOCLASS ਕੰਮ_Object_Information_Class,LPVOID lp_ਕੰਮ_Object_Information,DWORD cb_ਕੰਮ_Object_Information_ਲੰਮਾਈ,LPDWORD lp_Return_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Information_ਕੰਮ_Object(HANDLE h_ਕੰਮ,JOBOBJECTINFOCLASS ਕੰਮ_Object_Information_Class,LPVOID lp_ਕੰਮ_Object_Information,DWORD cb_ਕੰਮ_Object_Information_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI Is_Process_ਵਿੱਚ_ਕੰਮ(HANDLE ProcessHandle,HANDLE ਕੰਮ_Handle,PBOOL ਨਤੀਜਾ_3);
+  WINBASEAPI WINBOOL WINAPI Create_ਕੰਮ_ਸੈੱਟ(ULONG ਅੰਕ_ਕੰਮ,PJOB_ਸੈੱਟ_ARRAY User_ਕੰਮ_ਸੈੱਟ,ULONG Flags);
+  WINBASEAPI PVOID WINAPI ਜੋੜੋ_Vectored_Exception_Handler (ULONG ਪਹਿਲਾ_3,PVECTORED_EXCEPTION_HANDLER Handler);
   WINBASEAPI ULONG WINAPI RemoveVectoredExceptionHandler(PVOID Handle);
-  WINBASEAPI PVOID WINAPI AddVectoredContinueHandler (ULONG First,PVECTORED_EXCEPTION_HANDLER Handler);
+  WINBASEAPI PVOID WINAPI ਜੋੜੋ_Vectored_Continue_Handler (ULONG ਪਹਿਲਾ_3,PVECTORED_EXCEPTION_HANDLER Handler);
   WINBASEAPI ULONG WINAPI RemoveVectoredContinueHandler(PVOID Handle);
-  WINBASEAPI HANDLE WINAPI FindFirstVolumeA(LPSTR lpszVolumeName,DWORD cchBufferLength);
-  WINBASEAPI HANDLE WINAPI FindFirstVolumeW(LPWSTR lpszVolumeName,DWORD cchBufferLength);
-  WINBASEAPI WINBOOL WINAPI FindNextVolumeA(HANDLE hFindVolume,LPSTR lpszVolumeName,DWORD cchBufferLength);
-  WINBASEAPI WINBOOL WINAPI FindNextVolumeW(HANDLE hFindVolume,LPWSTR lpszVolumeName,DWORD cchBufferLength);
-  WINBASEAPI WINBOOL WINAPI FindVolumeClose(HANDLE hFindVolume);
-  WINBASEAPI HANDLE WINAPI FindFirstVolumeMountPointA(LPCSTR lpszRootPathName,LPSTR lpszVolumeMountPoint,DWORD cchBufferLength);
-  WINBASEAPI HANDLE WINAPI FindFirstVolumeMountPointW(LPCWSTR lpszRootPathName,LPWSTR lpszVolumeMountPoint,DWORD cchBufferLength);
-  WINBASEAPI WINBOOL WINAPI FindNextVolumeMountPointA(HANDLE hFindVolumeMountPoint,LPSTR lpszVolumeMountPoint,DWORD cchBufferLength);
-  WINBASEAPI WINBOOL WINAPI FindNextVolumeMountPointW(HANDLE hFindVolumeMountPoint,LPWSTR lpszVolumeMountPoint,DWORD cchBufferLength);
-  WINBASEAPI WINBOOL WINAPI FindVolumeMountPointClose(HANDLE hFindVolumeMountPoint);
-  WINBASEAPI WINBOOL WINAPI SetVolumeMountPointA(LPCSTR lpszVolumeMountPoint,LPCSTR lpszVolumeName);
-  WINBASEAPI WINBOOL WINAPI SetVolumeMountPointW(LPCWSTR lpszVolumeMountPoint,LPCWSTR lpszVolumeName);
-  WINBASEAPI WINBOOL WINAPI DeleteVolumeMountPointA(LPCSTR lpszVolumeMountPoint);
-  WINBASEAPI WINBOOL WINAPI DeleteVolumeMountPointW(LPCWSTR lpszVolumeMountPoint);
-  WINBASEAPI WINBOOL WINAPI GetVolumeNameForVolumeMountPointA(LPCSTR lpszVolumeMountPoint,LPSTR lpszVolumeName,DWORD cchBufferLength);
-  WINBASEAPI WINBOOL WINAPI GetVolumeNameForVolumeMountPointW(LPCWSTR lpszVolumeMountPoint,LPWSTR lpszVolumeName,DWORD cchBufferLength);
-  WINBASEAPI WINBOOL WINAPI GetVolumePathNameA(LPCSTR lpszFileName,LPSTR lpszVolumePathName,DWORD cchBufferLength);
-  WINBASEAPI WINBOOL WINAPI GetVolumePathNameW(LPCWSTR lpszFileName,LPWSTR lpszVolumePathName,DWORD cchBufferLength);
-  WINBASEAPI WINBOOL WINAPI GetVolumePathNamesForVolumeNameA(LPCSTR lpszVolumeName,LPCH lpszVolumePathNames,DWORD cchBufferLength,PDWORD lpcchReturnLength);
-  WINBASEAPI WINBOOL WINAPI GetVolumePathNamesForVolumeNameW(LPCWSTR lpszVolumeName,LPWCH lpszVolumePathNames,DWORD cchBufferLength,PDWORD lpcchReturnLength);
+  WINBASEAPI HANDLE WINAPI ਲੱਭੋ_ਪਹਿਲਾ_Volume_A(LPSTR lpszVolumeName,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI HANDLE WINAPI ਲੱਭੋ_ਪਹਿਲਾ_Volume_W(LPWSTR lpszVolumeName,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_ਅਗਲਾ_Volume_A(HANDLE h_ਲੱਭੋ_Volume,LPSTR lpszVolumeName,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_ਅਗਲਾ_Volume_W(HANDLE h_ਲੱਭੋ_Volume,LPWSTR lpszVolumeName,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_Volume_Close(HANDLE h_ਲੱਭੋ_Volume);
+  WINBASEAPI HANDLE WINAPI ਲੱਭੋ_ਪਹਿਲਾ_Volume_Mount_ਬਿੰਦੂ_A(LPCSTR lpsz_ਜੜ੍ਹ_ਰਸਤਾ_Name,LPSTR lpsz_Volume_Mount_ਬਿੰਦੂ,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI HANDLE WINAPI ਲੱਭੋ_ਪਹਿਲਾ_Volume_Mount_ਬਿੰਦੂ_W(LPCWSTR lpsz_ਜੜ੍ਹ_ਰਸਤਾ_Name,LPWSTR lpsz_Volume_Mount_ਬਿੰਦੂ,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_ਅਗਲਾ_Volume_Mount_ਬਿੰਦੂ_A(HANDLE h_ਲੱਭੋ_Volume_Mount_ਬਿੰਦੂ,LPSTR lpsz_Volume_Mount_ਬਿੰਦੂ,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_ਅਗਲਾ_Volume_Mount_ਬਿੰਦੂ_W(HANDLE h_ਲੱਭੋ_Volume_Mount_ਬਿੰਦੂ,LPWSTR lpsz_Volume_Mount_ਬਿੰਦੂ,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_Volume_Mount_ਬਿੰਦੂ_Close(HANDLE h_ਲੱਭੋ_Volume_Mount_ਬਿੰਦੂ);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Volume_Mount_ਬਿੰਦੂ_A(LPCSTR lpsz_Volume_Mount_ਬਿੰਦੂ,LPCSTR lpszVolumeName);
+  WINBASEAPI WINBOOL WINAPI ਸੈੱਟ_Volume_Mount_ਬਿੰਦੂ_W(LPCWSTR lpsz_Volume_Mount_ਬਿੰਦੂ,LPCWSTR lpszVolumeName);
+  WINBASEAPI WINBOOL WINAPI Delete_Volume_Mount_ਬਿੰਦੂ_A(LPCSTR lpsz_Volume_Mount_ਬਿੰਦੂ);
+  WINBASEAPI WINBOOL WINAPI Delete_Volume_Mount_ਬਿੰਦੂ_W(LPCWSTR lpsz_Volume_Mount_ਬਿੰਦੂ);
+  WINBASEAPI WINBOOL WINAPI Get_Volume_Name_For_Volume_Mount_ਬਿੰਦੂ_A(LPCSTR lpsz_Volume_Mount_ਬਿੰਦੂ,LPSTR lpszVolumeName,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI Get_Volume_Name_For_Volume_Mount_ਬਿੰਦੂ_W(LPCWSTR lpsz_Volume_Mount_ਬਿੰਦੂ,LPWSTR lpszVolumeName,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI Get_Volume_ਰਸਤਾ_Name_A(LPCSTR lpszFileName,LPSTR lpsz_Volume_ਰਸਤਾ_Name,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI Get_Volume_ਰਸਤਾ_Name_W(LPCWSTR lpszFileName,LPWSTR lpsz_Volume_ਰਸਤਾ_Name,DWORD cch_ਬਫਰ_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI Get_Volume_ਰਸਤਾ_ਨਾਂ_For_Volume_Name_A(LPCSTR lpszVolumeName,LPCH lpsz_Volume_ਰਸਤਾ_ਨਾਂ,DWORD cch_ਬਫਰ_ਲੰਮਾਈ,PDWORD lpcch_Return_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI Get_Volume_ਰਸਤਾ_ਨਾਂ_For_Volume_Name_W(LPCWSTR lpszVolumeName,LPWCH lpsz_Volume_ਰਸਤਾ_ਨਾਂ,DWORD cch_ਬਫਰ_ਲੰਮਾਈ,PDWORD lpcch_Return_ਲੰਮਾਈ);
 
-#define ACTCTX_FLAG_PROCESSOR_ARCHITECTURE_VALID 0x1
-#define ACTCTX_FLAG_LANGID_VALID 0x2
-#define ACTCTX_FLAG_ASSEMBLY_DIRECTORY_VALID 0x4
-#define ACTCTX_FLAG_RESOURCE_NAME_VALID 0x8
-#define ACTCTX_FLAG_SET_PROCESS_DEFAULT 0x10
-#define ACTCTX_FLAG_APPLICATION_NAME_VALID 0x20
-#define ACTCTX_FLAG_SOURCE_IS_ASSEMBLYREF 0x40
-#define ACTCTX_FLAG_HMODULE_VALID 0x80
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ACTCTX_FLAG_PROCESSOR_ARCHITECTURE_VALID 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ACTCTX_FLAG_LANGID_VALID 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ACTCTX_FLAG_ASSEMBLY_DIRECTORY_VALID 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ACTCTX_FLAG_RESOURCE_NAME_VALID 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ACTCTX_FLAG_ਸੈੱਟ_PROCESS_DEFAULT 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ACTCTX_FLAG_APPLICATION_NAME_VALID 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ACTCTX_FLAG_ਸਰੋਤ_IS_ASSEMBLYREF 0x40
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ACTCTX_FLAG_HMODULE_VALID 0x80
 
-  typedef struct tagACTCTXA {
-    ULONG cbSize;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਟੈਗ_ACTCTXA {
+    ULONG cb_ਮਾਪ;
     DWORD dwFlags;
-    LPCSTR lpSource;
+    LPCSTR lp_ਸਰੋਤ;
     USHORT wProcessorArchitecture;
     LANGID wLangId;
     LPCSTR lpAssemblyDirectory;
@@ -2828,10 +2828,10 @@ extern "C" {
     HMODULE hModule;
   } ACTCTXA,*PACTCTXA;
 
-  typedef struct tagACTCTXW {
-    ULONG cbSize;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਟੈਗ_ACTCTXW {
+    ULONG cb_ਮਾਪ;
     DWORD dwFlags;
-    LPCWSTR lpSource;
+    LPCWSTR lp_ਸਰੋਤ;
     USHORT wProcessorArchitecture;
     LANGID wLangId;
     LPCWSTR lpAssemblyDirectory;
@@ -2840,127 +2840,127 @@ extern "C" {
     HMODULE hModule;
   } ACTCTXW,*PACTCTXW;
 
-  typedef const ACTCTXA *PCACTCTXA;
-  typedef const ACTCTXW *PCACTCTXW;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਅਚਲ ACTCTXA *PCACTCTXA;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਅਚਲ ACTCTXW *PCACTCTXW;
 
-#ifdef UNICODE
-  typedef ACTCTXW ACTCTX;
-  typedef PACTCTXW PACTCTX;
-  typedef PCACTCTXW PCACTCTX;
-#else
-  typedef ACTCTXA ACTCTX;
-  typedef PACTCTXA PACTCTX;
-  typedef PCACTCTXA PCACTCTX;
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ACTCTXW ACTCTX;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PACTCTXW PACTCTX;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PCACTCTXW PCACTCTX;
+#ਨਹੀਂਤਾਂ
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ACTCTXA ACTCTX;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PACTCTXA PACTCTX;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PCACTCTXA PCACTCTX;
+#ਜੇ_ਅੰਤ
 
-#ifdef UNICODE
-#define CreateActCtx CreateActCtxW
-#else
-#define CreateActCtx CreateActCtxA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateActCtx CreateActCtxW
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CreateActCtx CreateActCtxA
+#ਜੇ_ਅੰਤ
 
   WINBASEAPI HANDLE WINAPI CreateActCtxA(PCACTCTXA pActCtx);
   WINBASEAPI HANDLE WINAPI CreateActCtxW(PCACTCTXW pActCtx);
-  WINBASEAPI VOID WINAPI AddRefActCtx(HANDLE hActCtx);
+  WINBASEAPI VOID WINAPI ਜੋੜੋ_Ref_Act_Ctx(HANDLE hActCtx);
   WINBASEAPI VOID WINAPI ReleaseActCtx(HANDLE hActCtx);
   WINBASEAPI WINBOOL WINAPI ZombifyActCtx(HANDLE hActCtx);
   WINBASEAPI WINBOOL WINAPI ActivateActCtx(HANDLE hActCtx,ULONG_PTR *lpCookie);
 
-#define DEACTIVATE_ACTCTX_FLAG_FORCE_EARLY_DEACTIVATION (0x1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEACTIVATE_ACTCTX_FLAG_FORCE_EARLY_DEACTIVATION (0x1)
 
   WINBASEAPI WINBOOL WINAPI DeactivateActCtx(DWORD dwFlags,ULONG_PTR ulCookie);
   WINBASEAPI WINBOOL WINAPI GetCurrentActCtx(HANDLE *lphActCtx);
 
-  typedef struct tagACTCTX_SECTION_KEYED_DATA_2600 {
-    ULONG cbSize;
-    ULONG ulDataFormatVersion;
-    PVOID lpData;
-    ULONG ulLength;
-    PVOID lpSectionGlobalData;
-    ULONG ulSectionGlobalDataLength;
-    PVOID lpSectionBase;
-    ULONG ulSectionTotalLength;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਟੈਗ_ACTCTX_SECTION_KEYED_ਅੰਕੜੇ_2600 {
+    ULONG cb_ਮਾਪ;
+    ULONG ul_ਅੰਕੜੇ_Format_ਸੰਸਕਰਣ;
+    PVOID lp_ਅੰਕੜੇ;
+    ULONG ul_ਲੰਮਾਈ;
+    PVOID lp_Section_Global_ਅੰਕੜੇ;
+    ULONG ul_Section_Global_ਅੰਕੜੇ_ਲੰਮਾਈ;
+    PVOID lp_Section_ਅਧਾਰ;
+    ULONG ul_Section_ਕੁੱਲ_ਲੰਮਾਈ;
     HANDLE hActCtx;
-    ULONG ulAssemblyRosterIndex;
-  } ACTCTX_SECTION_KEYED_DATA_2600,*PACTCTX_SECTION_KEYED_DATA_2600;
+    ULONG ul_Assembly_Roster_ਸੂਚਕਾਂਕ;
+  } ACTCTX_SECTION_KEYED_ਅੰਕੜੇ_2600,*PACTCTX_SECTION_KEYED_ਅੰਕੜੇ_2600;
 
-  typedef const ACTCTX_SECTION_KEYED_DATA_2600 *PCACTCTX_SECTION_KEYED_DATA_2600;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਅਚਲ ACTCTX_SECTION_KEYED_ਅੰਕੜੇ_2600 *PCACTCTX_SECTION_KEYED_ਅੰਕੜੇ_2600;
 
-  typedef struct tagACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਟੈਗ_ACTCTX_SECTION_KEYED_ਅੰਕੜੇ_ASSEMBLY_METADATA {
     PVOID lpInformation;
-    PVOID lpSectionBase;
-    ULONG ulSectionLength;
-    PVOID lpSectionGlobalDataBase;
-    ULONG ulSectionGlobalDataLength;
-  } ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA,*PACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA;
+    PVOID lp_Section_ਅਧਾਰ;
+    ULONG ul_Section_ਲੰਮਾਈ;
+    PVOID lp_Section_Global_ਅੰਕੜੇ_ਅਧਾਰ;
+    ULONG ul_Section_Global_ਅੰਕੜੇ_ਲੰਮਾਈ;
+  } ACTCTX_SECTION_KEYED_ਅੰਕੜੇ_ASSEMBLY_METADATA,*PACTCTX_SECTION_KEYED_ਅੰਕੜੇ_ASSEMBLY_METADATA;
 
-  typedef const ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA *PCACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਅਚਲ ACTCTX_SECTION_KEYED_ਅੰਕੜੇ_ASSEMBLY_METADATA *PCACTCTX_SECTION_KEYED_ਅੰਕੜੇ_ASSEMBLY_METADATA;
 
-  typedef struct tagACTCTX_SECTION_KEYED_DATA {
-    ULONG cbSize;
-    ULONG ulDataFormatVersion;
-    PVOID lpData;
-    ULONG ulLength;
-    PVOID lpSectionGlobalData;
-    ULONG ulSectionGlobalDataLength;
-    PVOID lpSectionBase;
-    ULONG ulSectionTotalLength;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਟੈਗ_ACTCTX_SECTION_KEYED_ਅੰਕੜੇ {
+    ULONG cb_ਮਾਪ;
+    ULONG ul_ਅੰਕੜੇ_Format_ਸੰਸਕਰਣ;
+    PVOID lp_ਅੰਕੜੇ;
+    ULONG ul_ਲੰਮਾਈ;
+    PVOID lp_Section_Global_ਅੰਕੜੇ;
+    ULONG ul_Section_Global_ਅੰਕੜੇ_ਲੰਮਾਈ;
+    PVOID lp_Section_ਅਧਾਰ;
+    ULONG ul_Section_ਕੁੱਲ_ਲੰਮਾਈ;
     HANDLE hActCtx;
-    ULONG ulAssemblyRosterIndex;
+    ULONG ul_Assembly_Roster_ਸੂਚਕਾਂਕ;
 
     ULONG ulFlags;
-    ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA AssemblyMetadata;
-  } ACTCTX_SECTION_KEYED_DATA,*PACTCTX_SECTION_KEYED_DATA;
+    ACTCTX_SECTION_KEYED_ਅੰਕੜੇ_ASSEMBLY_METADATA AssemblyMetadata;
+  } ACTCTX_SECTION_KEYED_ਅੰਕੜੇ,*PACTCTX_SECTION_KEYED_ਅੰਕੜੇ;
 
-  typedef const ACTCTX_SECTION_KEYED_DATA *PCACTCTX_SECTION_KEYED_DATA;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਅਚਲ ACTCTX_SECTION_KEYED_ਅੰਕੜੇ *PCACTCTX_SECTION_KEYED_ਅੰਕੜੇ;
 
-#define FIND_ACTCTX_SECTION_KEY_RETURN_HACTCTX 0x1
-#define FIND_ACTCTX_SECTION_KEY_RETURN_FLAGS 0x2
-#define FIND_ACTCTX_SECTION_KEY_RETURN_ASSEMBLY_METADATA 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ACTCTX_SECTION_ਕੁੰਜੀ_RETURN_HACTCTX 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ACTCTX_SECTION_ਕੁੰਜੀ_RETURN_FLAGS 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_ACTCTX_SECTION_ਕੁੰਜੀ_RETURN_ASSEMBLY_METADATA 0x4
 
-#ifdef UNICODE
-#define FindActCtxSectionString FindActCtxSectionStringW
-#else
-#define FindActCtxSectionString FindActCtxSectionStringA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_Act_Ctx_Section_String ਲੱਭੋ_Act_Ctx_Section_String_W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੱਭੋ_Act_Ctx_Section_String ਲੱਭੋ_Act_Ctx_Section_String_A
+#ਜੇ_ਅੰਤ
 
-  WINBASEAPI WINBOOL WINAPI FindActCtxSectionStringA(DWORD dwFlags,const GUID *lpExtensionGuid,ULONG ulSectionId,LPCSTR lpStringToFind,PACTCTX_SECTION_KEYED_DATA ReturnedData);
-  WINBASEAPI WINBOOL WINAPI FindActCtxSectionStringW(DWORD dwFlags,const GUID *lpExtensionGuid,ULONG ulSectionId,LPCWSTR lpStringToFind,PACTCTX_SECTION_KEYED_DATA ReturnedData);
-  WINBASEAPI WINBOOL WINAPI FindActCtxSectionGuid(DWORD dwFlags,const GUID *lpExtensionGuid,ULONG ulSectionId,const GUID *lpGuidToFind,PACTCTX_SECTION_KEYED_DATA ReturnedData);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_Act_Ctx_Section_String_A(DWORD dwFlags,ਅਚਲ GUID *lpExtensionGuid,ULONG ulSectionId,LPCSTR lp_String_ਮੰਜ਼ਿਲ_ਲੱਭੋ,PACTCTX_SECTION_KEYED_ਅੰਕੜੇ Returned_ਅੰਕੜੇ);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_Act_Ctx_Section_String_W(DWORD dwFlags,ਅਚਲ GUID *lpExtensionGuid,ULONG ulSectionId,LPCWSTR lp_String_ਮੰਜ਼ਿਲ_ਲੱਭੋ,PACTCTX_SECTION_KEYED_ਅੰਕੜੇ Returned_ਅੰਕੜੇ);
+  WINBASEAPI WINBOOL WINAPI ਲੱਭੋ_Act_Ctx_Section_Guid(DWORD dwFlags,ਅਚਲ GUID *lpExtensionGuid,ULONG ulSectionId,ਅਚਲ GUID *lp_Guid_ਮੰਜ਼ਿਲ_ਲੱਭੋ,PACTCTX_SECTION_KEYED_ਅੰਕੜੇ Returned_ਅੰਕੜੇ);
 
-#ifndef RC_INVOKED
-#ifndef ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ RC_INVOKED
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED
 
-  typedef struct _ACTIVATION_CONTEXT_BASIC_INFORMATION {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _ACTIVATION_CONTEXT_BASIC_INFORMATION {
     HANDLE hActCtx;
     DWORD dwFlags;
   } ACTIVATION_CONTEXT_BASIC_INFORMATION,*PACTIVATION_CONTEXT_BASIC_INFORMATION;
 
-  typedef const struct _ACTIVATION_CONTEXT_BASIC_INFORMATION *PCACTIVATION_CONTEXT_BASIC_INFORMATION;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਅਚਲ ਬਣਤਰ _ACTIVATION_CONTEXT_BASIC_INFORMATION *PCACTIVATION_CONTEXT_BASIC_INFORMATION;
 
-#define ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED 1
-#endif
-#endif
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED 1
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define QUERY_ACTCTX_FLAG_USE_ACTIVE_ACTCTX 0x4
-#define QUERY_ACTCTX_FLAG_ACTCTX_IS_HMODULE 0x8
-#define QUERY_ACTCTX_FLAG_ACTCTX_IS_ADDRESS 0x10
-#define QUERY_ACTCTX_FLAG_NO_ADDREF 0x80000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ QUERY_ACTCTX_FLAG_USE_ਸਰਗਰਮ_ACTCTX 0x4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ QUERY_ACTCTX_FLAG_ACTCTX_IS_HMODULE 0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ QUERY_ACTCTX_FLAG_ACTCTX_IS_ਪਤਾ 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ QUERY_ACTCTX_FLAG_NO_ADDREF 0x80000000
 
-  WINBASEAPI WINBOOL WINAPI QueryActCtxW(DWORD dwFlags,HANDLE hActCtx,PVOID pvSubInstance,ULONG ulInfoClass,PVOID pvBuffer,SIZE_T cbBuffer,SIZE_T *pcbWrittenOrRequired);
+  WINBASEAPI WINBOOL WINAPI QueryActCtxW(DWORD dwFlags,HANDLE hActCtx,PVOID pvSubInstance,ULONG ulInfoClass,PVOID pv_ਬਫਰ,ਮਾਪ_T cb_ਬਫਰ,ਮਾਪ_T *pcbWrittenOrRequired);
 
-  typedef WINBOOL (WINAPI *PQUERYACTCTXW_FUNC)(DWORD dwFlags,HANDLE hActCtx,PVOID pvSubInstance,ULONG ulInfoClass,PVOID pvBuffer,SIZE_T cbBuffer,SIZE_T *pcbWrittenOrRequired);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ WINBOOL (WINAPI *PQUERYACTCTXW_FUNC)(DWORD dwFlags,HANDLE hActCtx,PVOID pvSubInstance,ULONG ulInfoClass,PVOID pv_ਬਫਰ,ਮਾਪ_T cb_ਬਫਰ,ਮਾਪ_T *pcbWrittenOrRequired);
 
-  WINBASEAPI WINBOOL WINAPI ProcessIdToSessionId(DWORD dwProcessId,DWORD *pSessionId);
-  WINBASEAPI DWORD WINAPI WTSGetActiveConsoleSessionId();
+  WINBASEAPI WINBOOL WINAPI Process_Id_ਮੰਜ਼ਿਲ_Session_Id(DWORD dwProcessId,DWORD *pSessionId);
+  WINBASEAPI DWORD WINAPI WTSGet_ਸਰਗਰਮ_Console_Session_Id();
   WINBASEAPI WINBOOL WINAPI IsWow64Process(HANDLE hProcess,PBOOL Wow64Process);
-  WINBASEAPI WINBOOL WINAPI GetLogicalProcessorInformation(PSYSTEM_LOGICAL_PROCESSOR_INFORMATION Buffer,PDWORD ReturnedLength);
-  WINBASEAPI WINBOOL WINAPI GetNumaHighestNodeNumber(PULONG HighestNodeNumber);
-  WINBASEAPI WINBOOL WINAPI GetNumaProcessorNode(UCHAR Processor,PUCHAR NodeNumber);
-  WINBASEAPI WINBOOL WINAPI GetNumaNodeProcessorMask(UCHAR Node,PULONGLONG ProcessorMask);
-  WINBASEAPI WINBOOL WINAPI GetNumaAvailableMemoryNode(UCHAR Node,PULONGLONG AvailableBytes);
+  WINBASEAPI WINBOOL WINAPI GetLogicalProcessorInformation(PSYSTEM_LOGICAL_PROCESSOR_INFORMATION ਬਫਰ_3,PDWORD Returned_ਲੰਮਾਈ);
+  WINBASEAPI WINBOOL WINAPI Get_Numa_Highest_ਗੰਢ_ਸੰਖਿਆ(PULONG Highest_ਗੰਢ_ਸੰਖਿਆ);
+  WINBASEAPI WINBOOL WINAPI Get_Numa_Processor_ਗੰਢ(UCHAR Processor,PUCHAR ਗੰਢ_ਸੰਖਿਆ);
+  WINBASEAPI WINBOOL WINAPI Get_Numa_ਗੰਢ_Processor_ਨਕਾਬ(UCHAR ਗੰਢ_2,PULONGLONG Processor_ਨਕਾਬ);
+  WINBASEAPI WINBOOL WINAPI Get_Numa_ਉਪਲਬਧ_ਸਮ੍ਰਿਤੀ_ਗੰਢ(UCHAR ਗੰਢ_2,PULONGLONG ਉਪਲਬਧ_ਬਾਈਟਾਂ);
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
-#endif
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ

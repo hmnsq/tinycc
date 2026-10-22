@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-#define P(A,B) A ## B ; bob
-#define Q(A,B) A ## B+
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ P(A,B) A ## B ; bob
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Q(A,B) A ## B+
 
-int main(void)
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-    int bob, jim = 21;
+    ਪੂਰਨ bob, jim = 21;
     bob = P(jim,) *= 2;
-    printf("jim: %d, bob: %d\n", jim, bob);
+    ਲਿਖੋ("jim: %d, bob: %d\n", jim, bob);
     jim = 60 Q(+,)3;
-    printf("jim: %d\n", jim);
-    return 0;
+    ਲਿਖੋ("jim: %d\n", jim);
+    ਵਾਪਸ 0;
 }

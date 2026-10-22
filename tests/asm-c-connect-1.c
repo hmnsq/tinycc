@@ -1,42 +1,42 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#ਜੇ (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#ਨਹੀਂਤਾਂ
 # define _
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifdef __clang__
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
-#define __USED __attribute__((__used__))
-#else
-#define __USED
-#endif
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __USED __attribute__((__used__))
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __USED
+#ਜੇ_ਅੰਤ
 
-static int __USED x1_c (void)
+ਸਥਿਰ ਪੂਰਨ __USED x1_c (ਖਾਲੀ)
 {
-    printf(" x1");
-    return 1;
+    ਲਿਖੋ(" x1");
+    ਵਾਪਸ 1;
 }
 
-#if __i386__
+#ਜੇ __i386__
 asm(".text;"_"x1: call "_"x1_c; ret");
-#else
+#ਨਹੀਂਤਾਂ
 /* Keep stack aligned */
 asm(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
-#endif
+#ਜੇ_ਅੰਤ
 
-void callx4(void);
-void callx5_again(void);
+ਖਾਲੀ callx4(ਖਾਲੀ);
+ਖਾਲੀ callx5_again(ਖਾਲੀ);
 
-void x6()
+ਖਾਲੀ x6()
 {
-    printf(" x6-1");
+    ਲਿਖੋ(" x6-1");
 }
 
-int main(int argc, char *argv[])
+ਪੂਰਨ ਮੁੱਖ(ਪੂਰਨ argc, ਅੱਖਰ *argv[])
 {
-    printf("*");
+    ਲਿਖੋ("*");
     asm("call "_"x1");
     asm("call "_"x2");
     asm("call "_"x3");
@@ -44,26 +44,26 @@ int main(int argc, char *argv[])
     asm("call "_"x5");
     callx5_again();
     x6();
-    printf(" *\n");
-    return 0;
+    ਲਿਖੋ(" *\n");
+    ਵਾਪਸ 0;
 }
 
-static
-int __USED x2(void)
+ਸਥਿਰ
+ਪੂਰਨ __USED x2(ਖਾਲੀ)
 {
-    printf(" x2");
-    return 2;
+    ਲਿਖੋ(" x2");
+    ਵਾਪਸ 2;
 }
 
-extern int x3(void);
+ਬਾਹਰੀ ਪੂਰਨ x3(ਖਾਲੀ);
 
-void x4(void)
+ਖਾਲੀ x4(ਖਾਲੀ)
 {
-    printf(" x4");
+    ਲਿਖੋ(" x4");
 }
 
-void x5(void);
-void x5(void)
+ਖਾਲੀ x5(ਖਾਲੀ);
+ਖਾਲੀ x5(ਖਾਲੀ)
 {
-    printf(" x5");
+    ਲਿਖੋ(" x5");
 }

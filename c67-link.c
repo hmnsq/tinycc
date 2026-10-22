@@ -1,125 +1,125 @@
-#ifdef TARGET_DEFS_ONLY
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ ਨਿਸ਼ਾਨਾ_DEFS_ONLY
 
-#define EM_TCC_TARGET EM_C60
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EM_TCC_ਨਿਸ਼ਾਨਾ EM_C60
 
 /* relocation type for 32 bit data relocation */
-#define R_DATA_32   R_C60_32
-#define R_DATA_PTR  R_C60_32
-#define R_JMP_SLOT  R_C60_JMP_SLOT
-#define R_GLOB_DAT  R_C60_GLOB_DAT
-#define R_COPY      R_C60_COPY
-#define R_RELATIVE  R_C60_RELATIVE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ R_ਅੰਕੜੇ_32   R_C60_32
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ R_ਅੰਕੜੇ_PTR  R_C60_32
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ R_JMP_ਥਾਂ  R_C60_JMP_ਥਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ R_GLOB_DAT  R_C60_GLOB_DAT
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ R_COPY      R_C60_COPY
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ R_RELATIVE  R_C60_RELATIVE
 
-#define R_NUM       R_C60_NUM
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ R_ਅੰਕ       R_C60_ਅੰਕ
 
-#define ELF_START_ADDR 0x00000400
-#define ELF_PAGE_SIZE  0x1000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ELF_ਸ਼ੁਰੂ_ADDR 0x00000400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ELF_ਪੰਨਾ_ਮਾਪ  0x1000
 
-#define PCRELATIVE_DLLPLT 0
-#define RELOCATE_DLLPLT 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PCRELATIVE_DLLPLT 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RELOCATE_DLLPLT 0
 
-#else /* !TARGET_DEFS_ONLY */
+#ਨਹੀਂਤਾਂ /* !TARGET_DEFS_ONLY */
 
-#include "tcc.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "tcc.h"
 
 /* Returns 1 for a code relocation, 0 for a data relocation. For unknown
    relocations, returns -1. */
-ST_FUNC int code_reloc (int reloc_type)
+ST_FUNC ਪੂਰਨ ਕੋਡ_reloc (ਪੂਰਨ reloc_type)
 {
-    switch (reloc_type) {
-        case R_C60_32:
-	case R_C60LO16:
-	case R_C60HI16:
-        case R_C60_GOT32:
-        case R_C60_GOTOFF:
-        case R_C60_GOTPC:
-        case R_C60_COPY:
-            return 0;
+    ਚੋਣ (reloc_type) {
+        ਹਾਲਤ R_C60_32:
+	ਹਾਲਤ R_C60LO16:
+	ਹਾਲਤ R_C60HI16:
+        ਹਾਲਤ R_C60_GOT32:
+        ਹਾਲਤ R_C60_GOTOFF:
+        ਹਾਲਤ R_C60_GOTPC:
+        ਹਾਲਤ R_C60_COPY:
+            ਵਾਪਸ 0;
 
-        case R_C60_PLT32:
-            return 1;
+        ਹਾਲਤ R_C60_PLT32:
+            ਵਾਪਸ 1;
     }
-    return -1;
+    ਵਾਪਸ -1;
 }
 
 /* Returns an enumerator to describe whether and when the relocation needs a
    GOT and/or PLT entry to be created. See tcc.h for a description of the
    different values. */
-ST_FUNC int gotplt_entry_type (int reloc_type)
+ST_FUNC ਪੂਰਨ gotplt_ਇੰਦਰਾਜ_type (ਪੂਰਨ reloc_type)
 {
-    switch (reloc_type) {
-        case R_C60_32:
-	case R_C60LO16:
-	case R_C60HI16:
-        case R_C60_COPY:
-            return NO_GOTPLT_ENTRY;
+    ਚੋਣ (reloc_type) {
+        ਹਾਲਤ R_C60_32:
+	ਹਾਲਤ R_C60LO16:
+	ਹਾਲਤ R_C60HI16:
+        ਹਾਲਤ R_C60_COPY:
+            ਵਾਪਸ NO_GOTPLT_ਇੰਦਰਾਜ;
 
-        case R_C60_GOTOFF:
-        case R_C60_GOTPC:
-            return BUILD_GOT_ONLY;
+        ਹਾਲਤ R_C60_GOTOFF:
+        ਹਾਲਤ R_C60_GOTPC:
+            ਵਾਪਸ BUILD_GOT_ONLY;
 
-        case R_C60_PLT32:
-        case R_C60_GOT32:
-            return ALWAYS_GOTPLT_ENTRY;
+        ਹਾਲਤ R_C60_PLT32:
+        ਹਾਲਤ R_C60_GOT32:
+            ਵਾਪਸ ALWAYS_GOTPLT_ਇੰਦਰਾਜ;
     }
-    return -1;
+    ਵਾਪਸ -1;
 }
 
-ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr)
+ST_FUNC ਬਿਨਾਨਿਸ਼ਾਨੀ create_plt_ਇੰਦਰਾਜ(TCCState *s1, ਬਿਨਾਨਿਸ਼ਾਨੀ got_ਵਿੱਥ, ਬਣਤਰ sym_attr *attr)
 {
     tcc_error_noabort("C67 got not implemented");
-    return 0;
+    ਵਾਪਸ 0;
 }
 
 /* relocate the PLT: compute addresses and offsets in the PLT now that final
    address for PLT and GOT are known (see fill_program_header) */
-ST_FUNC void relocate_plt(TCCState *s1)
+ST_FUNC ਖਾਲੀ relocate_plt(TCCState *s1)
 {
-    uint8_t *p, *p_end;
+    uint8_t *p, *p_ਸਿਰਾ;
 
-    if (!s1->plt)
-      return;
+    ਜੇ (!s1->plt)
+      ਵਾਪਸ;
 
-    p = s1->plt->data;
-    p_end = p + s1->plt->data_offset;
+    p = s1->plt->ਅੰਕੜੇ;
+    p_ਸਿਰਾ = p + s1->plt->ਅੰਕੜੇ_ਵਿੱਥ;
 
-    if (p < p_end) {
+    ਜੇ (p < p_ਸਿਰਾ) {
         /* XXX: TODO */
-        while (p < p_end) {
+        ਜਦੋਂ (p < p_ਸਿਰਾ) {
             /* XXX: TODO */
         }
    }
 }
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr, addr_t addr, addr_t val)
+ST_FUNC ਖਾਲੀ relocate(TCCState *s1, ElfW_Rel *rel, ਪੂਰਨ type, ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ *ptr, addr_t addr, addr_t val)
 {
-    switch(type) {
-        case R_C60_32:
-            *(int *)ptr += val;
-            break;
-        case R_C60LO16:
+    ਚੋਣ(type) {
+        ਹਾਲਤ R_C60_32:
+            *(ਪੂਰਨ *)ptr += val;
+            ਰੋਕੋ;
+        ਹਾਲਤ R_C60LO16:
             {
                 uint32_t orig;
 
                 /* put the low 16 bits of the absolute address add to what is
                    already there */
-                orig  =   ((*(int *)(ptr  )) >> 7) & 0xffff;
-                orig |=  (((*(int *)(ptr+4)) >> 7) & 0xffff) << 16;
+                orig  =   ((*(ਪੂਰਨ *)(ptr  )) >> 7) & 0xffff;
+                orig |=  (((*(ਪੂਰਨ *)(ptr+4)) >> 7) & 0xffff) << 16;
 
                 /* patch both at once - assumes always in pairs Low - High */
-                *(int *) ptr    = (*(int *) ptr    & (~(0xffff << 7)) ) |
+                *(ਪੂਰਨ *) ptr    = (*(ਪੂਰਨ *) ptr    & (~(0xffff << 7)) ) |
                                    (((val+orig)      & 0xffff) << 7);
-                *(int *)(ptr+4) = (*(int *)(ptr+4) & (~(0xffff << 7)) ) |
+                *(ਪੂਰਨ *)(ptr+4) = (*(ਪੂਰਨ *)(ptr+4) & (~(0xffff << 7)) ) |
                                   ((((val+orig)>>16) & 0xffff) << 7);
             }
-            break;
-        case R_C60HI16:
-            break;
-        default:
+            ਰੋਕੋ;
+        ਹਾਲਤ R_C60HI16:
+            ਰੋਕੋ;
+        ਮੂਲ:
             fprintf(stderr,"FIXME: handle reloc type %x at %x [%p] to %x\n",
-                    type, (unsigned) addr, ptr, (unsigned) val);
-            break;
+                    type, (ਬਿਨਾਨਿਸ਼ਾਨੀ) addr, ptr, (ਬਿਨਾਨਿਸ਼ਾਨੀ) val);
+            ਰੋਕੋ;
     }
 }
 
-#endif /* !TARGET_DEFS_ONLY */
+#ਜੇ_ਅੰਤ /* !TARGET_DEFS_ONLY */

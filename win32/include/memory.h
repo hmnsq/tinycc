@@ -3,38 +3,38 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_MEMORY
-#define _INC_MEMORY
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ INC_ਸਮ੍ਰਿਤੀ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INC_ਸਮ੍ਰਿਤੀ
 
-#include <_mingw.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#ifndef _CONST_RETURN
-#define _CONST_RETURN
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CONST_RETURN
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CONST_RETURN
+#ਜੇ_ਅੰਤ
 
-#define _WConst_return _CONST_RETURN
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _WConst_return _CONST_RETURN
 
-#ifndef _CRT_MEMORY_DEFINED
-#define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ CRT_ਸਮ੍ਰਿਤੀ_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CRT_ਸਮ੍ਰਿਤੀ_DEFINED
+  _CRTIMP ਖਾਲੀ *__cdecl _memccpy(ਖਾਲੀ *_Dst,ਅਚਲ ਖਾਲੀ *_Src,ਪੂਰਨ _Val,ਮਾਪ_t Max_ਗਿਣਤੀ);
+  _CONST_RETURN ਖਾਲੀ *__cdecl memchr(ਅਚਲ ਖਾਲੀ *_Buf ,ਪੂਰਨ _Val,ਮਾਪ_t Max_ਗਿਣਤੀ);
+  _CRTIMP ਪੂਰਨ __cdecl _memicmp(ਅਚਲ ਖਾਲੀ *_Buf1,ਅਚਲ ਖਾਲੀ *_Buf2,ਮਾਪ_t ਮਾਪ_4);
+  _CRTIMP ਪੂਰਨ __cdecl _memicmp_l(ਅਚਲ ਖਾਲੀ *_Buf1,ਅਚਲ ਖਾਲੀ *_Buf2,ਮਾਪ_t ਮਾਪ_4,_locale_t _Locale);
+  ਪੂਰਨ __cdecl memcmp(ਅਚਲ ਖਾਲੀ *_Buf1,ਅਚਲ ਖਾਲੀ *_Buf2,ਮਾਪ_t ਮਾਪ_4);
+  ਖਾਲੀ *__cdecl ਸਮ੍ਰਿਤੀ_ਨਕਲ(ਖਾਲੀ *_Dst,ਅਚਲ ਖਾਲੀ *_Src,ਮਾਪ_t ਮਾਪ_4);
+  ਖਾਲੀ *__cdecl memset(ਖਾਲੀ *_Dst,ਪੂਰਨ _Val,ਮਾਪ_t ਮਾਪ_4);
 
-#ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ	NO_OLDNAMES
+  ਖਾਲੀ *__cdecl memccpy(ਖਾਲੀ *_Dst,ਅਚਲ ਖਾਲੀ *_Src,ਪੂਰਨ _Val,ਮਾਪ_t ਮਾਪ_4);
+  ਪੂਰਨ __cdecl memicmp(ਅਚਲ ਖਾਲੀ *_Buf1,ਅਚਲ ਖਾਲੀ *_Buf2,ਮਾਪ_t ਮਾਪ_4);
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
-#endif
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ

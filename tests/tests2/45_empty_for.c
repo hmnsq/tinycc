@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int Count = 0;
+   ਪੂਰਨ ਗਿਣਤੀ_4 = 0;
 
-   for (;;)
+   ਲਈ (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      ਗਿਣਤੀ_4++;
+      ਲਿਖੋ("%d\n", ਗਿਣਤੀ_4);
+      ਜੇ (ਗਿਣਤੀ_4 >= 10)
+         ਰੋਕੋ;
    }
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

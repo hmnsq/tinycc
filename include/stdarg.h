@@ -1,14 +1,14 @@
-#ifndef _STDARG_H
-#define _STDARG_H
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _STDARG_H
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _STDARG_H
 
-typedef __builtin_va_list va_list;
-#define va_start __builtin_va_start
-#define va_arg __builtin_va_arg
-#define va_copy __builtin_va_copy
-#define va_end __builtin_va_end
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ __builtin_va_list va_list;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ va_start __builtin_va_start
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ va_arg __builtin_va_arg
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ va_copy __builtin_va_copy
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ va_end __builtin_va_end
 
 /* fix a buggy dependency on GCC in libio.h */
-typedef va_list __gnuc_va_list;
-#define _VA_LIST_DEFINED
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ va_list __gnuc_va_list;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _VA_LIST_DEFINED
 
-#endif /* _STDARG_H */
+#ਜੇ_ਅੰਤ /* _STDARG_H */

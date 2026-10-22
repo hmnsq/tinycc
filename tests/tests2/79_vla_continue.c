@@ -1,113 +1,113 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int f(void)
+ਪੂਰਨ f(ਖਾਲੀ)
 {
-  return 5;
+  ਵਾਪਸ 5;
 }
 
-void test1()
+ਖਾਲੀ test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  ਪੂਰਨ ਗਿਣਤੀ_3 = 10;
+  ਖਾਲੀ *addr[10];
+  ਲਈ(;ਗਿਣਤੀ_3--;) {
+    ਪੂਰਨ a[f()];
 
-    addr[count] = a;
+    addr[ਗਿਣਤੀ_3] = a;
 
-    continue;
+    ਜਾਰੀ;
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
-  }
-}
-
-void test2()
-{
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
-
-    addr[count] = a;
-
-    continue;
-  }
-
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ਜੇ(addr[9] == addr[0]) {
+    ਲਿਖੋ("OK\n");
+  } ਨਹੀਂਤਾਂ {
+    ਲਿਖੋ("NOT OK\n");
   }
 }
 
-void test3()
+ਖਾਲੀ test2()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  ਪੂਰਨ ਗਿਣਤੀ_3 = 10;
+  ਖਾਲੀ *addr[ਗਿਣਤੀ_3];
+  ਲਈ(;ਗਿਣਤੀ_3--;) {
+    ਪੂਰਨ a[f()];
 
-          addr[count] = a;
+    addr[ਗਿਣਤੀ_3] = a;
 
-          continue;
+    ਜਾਰੀ;
+  }
+
+  ਜੇ(addr[9] == addr[0]) {
+    ਲਿਖੋ("OK\n");
+  } ਨਹੀਂਤਾਂ {
+    ਲਿਖੋ("NOT OK\n");
+  }
+}
+
+ਖਾਲੀ test3()
+{
+  ਪੂਰਨ ਗਿਣਤੀ_3 = 10;
+  ਖਾਲੀ *addr[ਗਿਣਤੀ_3];
+  ਜਦੋਂ(ਗਿਣਤੀ_3--) {
+      ਪੂਰਨ b[f()];
+      ਜੇ (ਗਿਣਤੀ_3 >= 0) {
+          ਪੂਰਨ a[f()];
+
+          addr[ਗਿਣਤੀ_3] = a;
+
+          ਜਾਰੀ;
       }
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ਜੇ(addr[9] == addr[0]) {
+    ਲਿਖੋ("OK\n");
+  } ਨਹੀਂਤਾਂ {
+    ਲਿਖੋ("NOT OK\n");
   }
 }
 
-void test4()
+ਖਾਲੀ test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  ਪੂਰਨ ਗਿਣਤੀ_3 = 10;
+  ਖਾਲੀ *addr[ਗਿਣਤੀ_3];
+  ਕਰੋ {
+    ਪੂਰਨ a[f()];
 
-    addr[--count] = a;
+    addr[--ਗਿਣਤੀ_3] = a;
 
-    continue;
-  } while (count);
+    ਜਾਰੀ;
+  } ਜਦੋਂ (ਗਿਣਤੀ_3);
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ਜੇ(addr[9] == addr[0]) {
+    ਲਿਖੋ("OK\n");
+  } ਨਹੀਂਤਾਂ {
+    ਲਿਖੋ("NOT OK\n");
   }
 }
 
-void test5()
+ਖਾਲੀ test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  ਪੂਰਨ ਗਿਣਤੀ_3 = 10;
+  ਪੂਰਨ a[f()];
+  ਪੂਰਨ c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  ਲਈ(;ਗਿਣਤੀ_3--;) {
+    ਪੂਰਨ b[f()];
+    ਪੂਰਨ i;
+    ਲਈ (i=0; i<f(); i++) {
+      b[i] = ਗਿਣਤੀ_3;
     }
   }
 
-  if (c[0] == 42) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ਜੇ (c[0] == 42) {
+    ਲਿਖੋ("OK\n");
+  } ਨਹੀਂਤਾਂ {
+    ਲਿਖੋ("NOT OK\n");
   }
 }
 
-int main(void)
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  ਵਾਪਸ 0;
 }

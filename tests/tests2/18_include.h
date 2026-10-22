@@ -1,5 +1,5 @@
-printf("included\n");
+ਲਿਖੋ("included\n");
 /* test file with missing newline */
-#ifndef INCLUDE
-#define INCLUDE
-#endif /* INCLUDE */
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ INCLUDE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INCLUDE
+#ਜੇ_ਅੰਤ /* INCLUDE */

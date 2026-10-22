@@ -1,53 +1,53 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
-} Node;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
+    ਪੂਰਨ ਅੰਕੜੇ[4];
+    ਦੁੱਗਣਾ d1;
+    ਦੁੱਗਣਾ d2;
+} ਗੰਢ_2;
 
-typedef struct {
-    int a, b, c;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
+    ਪੂਰਨ a, b, c;
 } A;
 
-Node init(Node self) {
-    self.data[0] = 0;
-    self.data[1] = 1;
-    self.data[2] = 2;
-    self.data[3] = 3;
+ਗੰਢ_2 init(ਗੰਢ_2 self) {
+    self.ਅੰਕੜੇ[0] = 0;
+    self.ਅੰਕੜੇ[1] = 1;
+    self.ਅੰਕੜੇ[2] = 2;
+    self.ਅੰਕੜੇ[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    ਵਾਪਸ self;
 }
 
-void dummy(Node self) {
+ਖਾਲੀ dummy(ਗੰਢ_2 self) {
 }
 
-void print_data(Node data) {
-    printf ("%d %d %d %d %g %g\n",
-            data.data[0], data.data[1], data.data[2], data.data[3],
-            data.d1, data.d2);
+ਖਾਲੀ print_ਅੰਕੜੇ(ਗੰਢ_2 ਅੰਕੜੇ) {
+    ਲਿਖੋ ("%d %d %d %d %g %g\n",
+            ਅੰਕੜੇ.ਅੰਕੜੇ[0], ਅੰਕੜੇ.ਅੰਕੜੇ[1], ਅੰਕੜੇ.ਅੰਕੜੇ[2], ਅੰਕੜੇ.ਅੰਕੜੇ[3],
+            ਅੰਕੜੇ.d1, ਅੰਕੜੇ.d2);
 }
 
-A test(void)
+A test(ਖਾਲੀ)
 {
-    int i;
+    ਪੂਰਨ i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    ਲਈ (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    ਵਾਪਸ arr[29];
 }
 
-int main(void) {
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    ਗੰਢ_2 ਅੰਕੜੇ;
     A a;
-    dummy (data);
-    char val;
-    data = init (data);
-    print_data(data);
+    dummy (ਅੰਕੜੇ);
+    ਅੱਖਰ val;
+    ਅੰਕੜੇ = init (ਅੰਕੜੇ);
+    print_ਅੰਕੜੇ(ਅੰਕੜੇ);
     a = test();
-    printf("%d\n", a.b);
-    return 0;
+    ਲਿਖੋ("%d\n", a.b);
+    ਵਾਪਸ 0;
 }

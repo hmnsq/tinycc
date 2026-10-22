@@ -39,7 +39,7 @@ p5:
     push    %eax
     push    %ecx
     push    %eax
-    call    _(__bound_new_region)
+    ਬੁਲਾਓ    _(__bound_new_region)
     add     $8, %esp
     pop     %eax
     pop     %edx
@@ -64,7 +64,7 @@ _(__bound_alloca_nr):
     mov     %rcx,%rdx
     mov     %rax,%rcx
     sub     $32,%rsp
-    call    _(__bound_new_region)
+    ਬੁਲਾਓ    _(__bound_new_region)
     add     $32,%rsp
     pop     %rax
     ret
@@ -83,7 +83,7 @@ _(__bound_alloca_nr):
 
     push    %rdx
     push    %rax
-    call    _(__bound_new_region)
+    ਬੁਲਾਓ    _(__bound_new_region)
     pop     %rax
     pop     %rdx
 

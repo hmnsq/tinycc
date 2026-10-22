@@ -1,30 +1,30 @@
-#define _ISOC99_SOURCE 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ISOC99_ਸਰੋਤ 1
 
-#include <stdio.h>
-#include <math.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <math.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   printf("%f\n", sin(0.12));
-   printf("%f\n", cos(0.12));
-   printf("%f\n", tan(0.12));
-   printf("%f\n", asin(0.12));
-   printf("%f\n", acos(0.12));
-   printf("%f\n", atan(0.12));
-   printf("%f\n", sinh(0.12));
-   printf("%f\n", cosh(0.12));
-   printf("%f\n", tanh(0.12));
-   printf("%f\n", exp(0.12));
-   printf("%f\n", fabs(-0.12));
-   printf("%f\n", log(0.12));
-   printf("%f\n", log10(0.12));
-   printf("%f\n", pow(0.12, 0.12));
-   printf("%f\n", sqrt(0.12));
-   printf("%f\n", round(12.34));
-   printf("%f\n", ceil(12.34));
-   printf("%f\n", floor(12.34));
+   ਲਿਖੋ("%f\n", ਜੀਵਾ(0.12));
+   ਲਿਖੋ("%f\n", ਕੋਜੀਵਾ(0.12));
+   ਲਿਖੋ("%f\n", tan(0.12));
+   ਲਿਖੋ("%f\n", asin(0.12));
+   ਲਿਖੋ("%f\n", acos(0.12));
+   ਲਿਖੋ("%f\n", atan(0.12));
+   ਲਿਖੋ("%f\n", sinh(0.12));
+   ਲਿਖੋ("%f\n", cosh(0.12));
+   ਲਿਖੋ("%f\n", tanh(0.12));
+   ਲਿਖੋ("%f\n", ਘਾਤਾਂਕ(0.12));
+   ਲਿਖੋ("%f\n", fabs(-0.12));
+   ਲਿਖੋ("%f\n", ਲਘੂਗਣਕ(0.12));
+   ਲਿਖੋ("%f\n", log10(0.12));
+   ਲਿਖੋ("%f\n", ਘਾਤ(0.12, 0.12));
+   ਲਿਖੋ("%f\n", ਵਰਗਮੂਲ(0.12));
+   ਲਿਖੋ("%f\n", ਗੇੜਾ(12.34));
+   ਲਿਖੋ("%f\n", ceil(12.34));
+   ਲਿਖੋ("%f\n", floor(12.34));
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

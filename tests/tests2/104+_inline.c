@@ -1,11 +1,11 @@
 
-#define GOT(f) \
-    __attribute__((weak)) void f(void); \
-    printf("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GOT(f) \
+    __attribute__((weak)) ਖਾਲੀ f(ਖਾਲੀ); \
+    ਲਿਖੋ("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
 
-int printf(const char*, ...);
+ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ*, ...);
 
-void check_exports()
+ਖਾਲੀ check_exports()
 {
     // 0
     GOT(inline_inline_2decl_only)
@@ -39,7 +39,7 @@ void check_exports()
     GOT(inst3_extern_inline_predeclared)
     GOT(inst_extern_inline_postdeclared)
     GOT(inst_extern_inline_predeclared)
-    GOT(main)
+    GOT(ਮੁੱਖ)
     GOT(noinst_extern_inline_func)
     GOT(noinst_extern_inline_postdeclared)
     GOT(noinst_extern_inline_postdeclared2)

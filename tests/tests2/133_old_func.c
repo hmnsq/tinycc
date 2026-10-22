@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ *s, ...);
 
-float fx(x)
-float x;
+ਦਸ਼ਮਲਵ fx(x)
+ਦਸ਼ਮਲਵ x;
 {
-    return 2.0 * x;
+    ਵਾਪਸ 2.0 * x;
 }
 
-void func(float a);
+ਖਾਲੀ func(ਦਸ਼ਮਲਵ a);
 
-void func3(struct p { int a; int b; } *q) {
+ਖਾਲੀ func3(ਬਣਤਰ p { ਪੂਰਨ a; ਪੂਰਨ b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+ਖਾਲੀ func4(q)
+ ਬਣਤਰ p { ਪੂਰਨ a; ਪੂਰਨ b; ਪੂਰਨ c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+ਬਣਤਰ p { ਪੂਰਨ a; ਪੂਰਨ b; ਪੂਰਨ c; ਪੂਰਨ d; };
 
-int
-main(void)
+ਪੂਰਨ
+ਮੁੱਖ(ਖਾਲੀ)
 {
-    float fy();
+    ਦਸ਼ਮਲਵ fy();
 
-    printf("%g %g\n", fx(2.0), fy(10.0));
-    printf("%g %g\n", fx(2.0f), fy(10.0f));
+    ਲਿਖੋ("%g %g\n", fx(2.0), fy(10.0));
+    ਲਿਖੋ("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+ਦਸ਼ਮਲਵ fy(x)
+ਦਸ਼ਮਲਵ x;
 {
-    return 3.0 * x;
+    ਵਾਪਸ 3.0 * x;
 }
 
-void func(a)
-float a;
+ਖਾਲੀ func(a)
+ਦਸ਼ਮਲਵ a;
 {
-    printf("%g\n", a);
+    ਲਿਖੋ("%g\n", a);
 }

@@ -1,6 +1,6 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-enum fred
+ਗਿਣਤੀ fred
 {
    a,
    b,
@@ -19,54 +19,54 @@ enum fred
 /* Strict ISO C doesn't allow this kind of forward declaration of
    enums, but GCC accepts it (and gives only pedantic warning), and
    it occurs in the wild.  */
-enum efoo;
-struct Sforward_use {
-    int (*fmember) (enum efoo x);
+ਗਿਣਤੀ efoo;
+ਬਣਤਰ Sforward_use {
+    ਪੂਰਨ (*fmember) (ਗਿਣਤੀ efoo x);
 };
 
-extern enum efoo it_real_fn(void);
-enum efoo {
+ਬਾਹਰੀ ਗਿਣਤੀ efoo it_real_fn(ਖਾਲੀ);
+ਗਿਣਤੀ efoo {
   ONE,
   TWO,
 };
-struct S2 {
-  enum efoo (*f2) (void);
+ਬਣਤਰ S2 {
+  ਗਿਣਤੀ efoo (*f2) (ਖਾਲੀ);
 };
-void should_compile(struct S2 *s)
+ਖਾਲੀ should_compile(ਬਣਤਰ S2 *s)
 {
   s->f2 = it_real_fn;
 }
 
-enum efoo it_real_fn(void)
+ਗਿਣਤੀ efoo it_real_fn(ਖਾਲੀ)
 {
-  return TWO;
+  ਵਾਪਸ TWO;
 }
 
-static unsigned int deref_uintptr(unsigned int *p)
+ਸਥਿਰ ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ deref_uintptr(ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *p)
 {
-  return *p;
+  ਵਾਪਸ *p;
 }
 
-enum Epositive {
+ਗਿਣਤੀ Epositive {
     epos_one, epos_two
 };
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   enum fred frod;
-   enum Epositive epos = epos_two;
+   ਗਿਣਤੀ fred frod;
+   ਗਿਣਤੀ Epositive epos = epos_two;
 
-   printf("%d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h);
+   ਲਿਖੋ("%d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h);
    /* printf("%d\n", frod); */
    frod = 12;
-   printf("%d\n", frod);
+   ਲਿਖੋ("%d\n", frod);
    frod = e;
-   printf("%d\n", frod);
+   ਲਿਖੋ("%d\n", frod);
 
    /* Following should compile without warning.  */
-   printf ("enum to int: %u\n", deref_uintptr(&epos));
+   ਲਿਖੋ ("enum to int: %u\n", deref_uintptr(&epos));
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

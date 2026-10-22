@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main(int argc, char **argv)
+ਪੂਰਨ ਮੁੱਖ(ਪੂਰਨ argc, ਅੱਖਰ **argv)
 {
-   int Count;
+   ਪੂਰਨ ਗਿਣਤੀ_4;
 
-   printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   ਲਿਖੋ("hello world %d\n", argc);
+   ਲਈ (ਗਿਣਤੀ_4 = 1; ਗਿਣਤੀ_4 < argc; ਗਿਣਤੀ_4++)
+      ਲਿਖੋ("arg %d: %s\n", ਗਿਣਤੀ_4, argv[ਗਿਣਤੀ_4]);
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

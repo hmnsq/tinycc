@@ -1,45 +1,45 @@
-#include <stdatomic.h>
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdatomic.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-static int value_calls;
-static int order_calls;
+ਸਥਿਰ ਪੂਰਨ ਮੁੱਲ_calls;
+ਸਥਿਰ ਪੂਰਨ ਕ੍ਰਮ_calls;
 
-static int next_value(void)
+ਸਥਿਰ ਪੂਰਨ ਅਗਲਾ_ਮੁੱਲ(ਖਾਲੀ)
 {
-    ++value_calls;
-    return 42;
+    ++ਮੁੱਲ_calls;
+    ਵਾਪਸ 42;
 }
 
-static int next_order(void)
+ਸਥਿਰ ਪੂਰਨ ਅਗਲਾ_ਕ੍ਰਮ(ਖਾਲੀ)
 {
-    ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    ++ਕ੍ਰਮ_calls;
+    ਵਾਪਸ __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
-    void (*signal_fence)(memory_order) = &atomic_signal_fence;
+    ਪੂਰਨ ਮੁੱਲਾਂ[2] = {7, 8};
+    ਪੂਰਨ ਸੂਚਕਾਂਕ = 0;
+    ਪੂਰਨ ਮੁੱਲ = 1;
+    ਅਸਥਿਰ ਪੂਰਨ vol = 0;
+    ਪੂਰਨ *ਸੂਚਕ = &ਮੁੱਲ;
+    ਖਾਲੀ (*signal_fence)(memory_order) = &atomic_signal_fence;
 
-    __atomic_store_n(&values[index++], next_value(), next_order());
-    printf("%d %d %d %d %d\n", index, value_calls, order_calls,
-           values[0], values[1]);
-    __atomic_store_n(&value, value + 1, __ATOMIC_RELAXED);
-    printf("%d\n", value);
+    __atomic_store_n(&ਮੁੱਲਾਂ[ਸੂਚਕਾਂਕ++], ਅਗਲਾ_ਮੁੱਲ(), ਅਗਲਾ_ਕ੍ਰਮ());
+    ਲਿਖੋ("%d %d %d %d %d\n", ਸੂਚਕਾਂਕ, ਮੁੱਲ_calls, ਕ੍ਰਮ_calls,
+           ਮੁੱਲਾਂ[0], ਮੁੱਲਾਂ[1]);
+    __atomic_store_n(&ਮੁੱਲ, ਮੁੱਲ + 1, __ATOMIC_RELAXED);
+    ਲਿਖੋ("%d\n", ਮੁੱਲ);
     __atomic_store_n(&vol, 13, __ATOMIC_RELEASE);
-    printf("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
-    __atomic_store_n(&pointer, &values[0], __ATOMIC_RELEASE);
-    printf("%d\n", *__atomic_load_n(&pointer, __ATOMIC_ACQUIRE));
+    ਲਿਖੋ("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
+    __atomic_store_n(&ਸੂਚਕ, &ਮੁੱਲਾਂ[0], __ATOMIC_RELEASE);
+    ਲਿਖੋ("%d\n", *__atomic_load_n(&ਸੂਚਕ, __ATOMIC_ACQUIRE));
 
-    atomic_signal_fence(memory_order_acquire);
+    atomic_signal_fence(ਸਮ੍ਰਿਤੀ_ਕ੍ਰਮ_acquire);
     __atomic_signal_fence(__ATOMIC_RELEASE);
-    signal_fence(memory_order_seq_cst);
-    atomic_thread_fence(memory_order_seq_cst);
+    signal_fence(ਸਮ੍ਰਿਤੀ_ਕ੍ਰਮ_seq_cst);
+    atomic_thread_fence(ਸਮ੍ਰਿਤੀ_ਕ੍ਰਮ_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
     puts("ok");
-    return 0;
+    ਵਾਪਸ 0;
 }

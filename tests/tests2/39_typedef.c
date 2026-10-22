@@ -1,85 +1,85 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-typedef int MyInt;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ MyInt;
 
-struct FunStruct
+ਬਣਤਰ FunStruct
 {
-   int i;
-   int j;
+   ਪੂਰਨ i;
+   ਪੂਰਨ j;
 };
 
-typedef struct FunStruct MyFunStruct;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ FunStruct MyFunStruct;
 
-typedef MyFunStruct *MoreFunThanEver;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ MyFunStruct *ਹੋਰ_Fun_Than_Ever;
 
-typedef int t[];
-int tints[];
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ t[];
+ਪੂਰਨ tints[];
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int i, *p;
+   ਪੂਰਨ i, *p;
    MyInt a = 1;
-   printf("%d\n", a);
+   ਲਿਖੋ("%d\n", a);
 
    MyFunStruct b;
    b.i = 12;
    b.j = 34;
-   printf("%d,%d\n", b.i, b.j);
+   ਲਿਖੋ("%d,%d\n", b.i, b.j);
 
-   MoreFunThanEver c = &b;
-   printf("%d,%d\n", c->i, c->j);
+   ਹੋਰ_Fun_Than_Ever c = &b;
+   ਲਿਖੋ("%d,%d\n", c->i, c->j);
 
    p = (t){1,2,3};
-   for (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
+   ਲਈ (i = 0; i < 3 ; i++) ਲਿਖੋ("%d ", *p++); ਲਿਖੋ("\n");
    p = (t){1,2,3,4};
-   for (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   ਲਈ (i = 0; i < 4 ; i++) ਲਿਖੋ("%d ", *p++); ਲਿਖੋ("\n");
 
-   printf("%d\n", (int)sizeof((t){1,2,3}));
-   printf("%d\n", (int)sizeof((t){1,2,3,4}));
+   ਲਿਖੋ("%d\n", (ਪੂਰਨ)ਆਕਾਰ((t){1,2,3}));
+   ਲਿਖੋ("%d\n", (ਪੂਰਨ)ਆਕਾਰ((t){1,2,3,4}));
 
    /* two arrays derived from same base type */
    t t3 = { 1,2,3 }, t4 = { 4,5,6,7 };
-   for (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   ਲਈ (p = t3, i = 0; i < 3 ; i++) ਲਿਖੋ("%d ", *p++);
+   ਲਈ (p = t4, i = 0; i < 4 ; i++) ਲਿਖੋ("%d ", *p++); ਲਿਖੋ("\n");
    typeof(tints) t5 = { 1,2,3 }, t6 = { 4,5,6,7 };
-   for (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   ਲਈ (p = t5, i = 0; i < 3 ; i++) ਲਿਖੋ("%d ", *p++);
+   ਲਈ (p = t6, i = 0; i < 4 ; i++) ਲਿਖੋ("%d ", *p++); ਲਿਖੋ("\n");
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* "If the specification of an array type includes any type qualifiers,
    the element type is so-qualified, not the array type." */
 
-typedef int A[3];
-extern A const ca;
-extern const A ca;
-extern const int ca[3];
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ A[3];
+ਬਾਹਰੀ A ਅਚਲ ca;
+ਬਾਹਰੀ ਅਚਲ A ca;
+ਬਾਹਰੀ ਅਚਲ ਪੂਰਨ ca[3];
 
-typedef A B[1][2];
-extern B const cb;
-extern const B cb;
-extern const int cb[1][2][3];
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ A B[1][2];
+ਬਾਹਰੀ B ਅਚਲ cb;
+ਬਾਹਰੀ ਅਚਲ B cb;
+ਬਾਹਰੀ ਅਚਲ ਪੂਰਨ cb[1][2][3];
 
-extern B b;
-extern int b[1][2][3];
+ਬਾਹਰੀ B b;
+ਬਾਹਰੀ ਪੂਰਨ b[1][2][3];
 
 /* Funny but valid function declaration.  */
-typedef int functype (int);
-extern functype func;
-int func(int i)
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ functype (ਪੂਰਨ);
+ਬਾਹਰੀ functype func;
+ਪੂਰਨ func(ਪੂਰਨ i)
 {
-   return i + 1;
+   ਵਾਪਸ i + 1;
 }
 
 /* Even funnier function decl and definition using typeof.  */
-int set_anon_super(void);
-int set_anon_super(void)
+ਪੂਰਨ ਸੈੱਟ_anon_super(ਖਾਲੀ);
+ਪੂਰਨ ਸੈੱਟ_anon_super(ਖਾਲੀ)
 {
-   return 42;
+   ਵਾਪਸ 42;
 }
-typedef int sas_type (void);
-extern typeof(set_anon_super) set_anon_super;
-extern sas_type set_anon_super;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ sas_type (ਖਾਲੀ);
+ਬਾਹਰੀ typeof(ਸੈੱਟ_anon_super) ਸੈੱਟ_anon_super;
+ਬਾਹਰੀ sas_type ਸੈੱਟ_anon_super;
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

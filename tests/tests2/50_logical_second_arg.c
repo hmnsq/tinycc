@@ -1,29 +1,29 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int fred()
+ਪੂਰਨ fred()
 {
-   printf("fred\n");
-   return 0;
+   ਲਿਖੋ("fred\n");
+   ਵਾਪਸ 0;
 }
 
-int joe()
+ਪੂਰਨ joe()
 {
-   printf("joe\n");
-   return 1;
+   ਲਿਖੋ("joe\n");
+   ਵਾਪਸ 1;
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   printf("%d\n", fred() && joe());
-   printf("%d\n", fred() || joe());
-   printf("%d\n", joe() && fred());
-   printf("%d\n", joe() || fred());
-   printf("%d\n", fred() && (1 + joe()));
-   printf("%d\n", fred() || (0 + joe()));
-   printf("%d\n", joe() && (0 + fred()));
-   printf("%d\n", joe() || (1 + fred()));
+   ਲਿਖੋ("%d\n", fred() && joe());
+   ਲਿਖੋ("%d\n", fred() || joe());
+   ਲਿਖੋ("%d\n", joe() && fred());
+   ਲਿਖੋ("%d\n", joe() || fred());
+   ਲਿਖੋ("%d\n", fred() && (1 + joe()));
+   ਲਿਖੋ("%d\n", fred() || (0 + joe()));
+   ਲਿਖੋ("%d\n", joe() && (0 + fred()));
+   ਲਿਖੋ("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

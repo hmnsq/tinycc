@@ -1,52 +1,52 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
    FILE *f = fopen("fred.txt", "w");
    fwrite("hello\nhello\n", 1, 12, f);
    fclose(f);
 
-   char freddy[7];
+   ਅੱਖਰ freddy[7];
    f = fopen("fred.txt", "r");
-   if (fread(freddy, 1, 6, f) != 6)
-      printf("couldn't read fred.txt\n");
+   ਜੇ (fread(freddy, 1, 6, f) != 6)
+      ਲਿਖੋ("couldn't read fred.txt\n");
 
    freddy[6] = '\0';
    fclose(f);
 
-   printf("%s", freddy);
+   ਲਿਖੋ("%s", freddy);
 
-   int InChar;
-   char ShowChar;
+   ਪੂਰਨ ਵਿੱਚ_Char;
+   ਅੱਖਰ ShowChar;
    f = fopen("fred.txt", "r");
-   while ( (InChar = fgetc(f)) != EOF)
+   ਜਦੋਂ ( (ਵਿੱਚ_Char = fgetc(f)) != EOF)
    {
-      ShowChar = InChar;
-      if (ShowChar < ' ')
+      ShowChar = ਵਿੱਚ_Char;
+      ਜੇ (ShowChar < ' ')
          ShowChar = '.';
 
-      printf("ch: %d '%c'\n", InChar, ShowChar);
+      ਲਿਖੋ("ch: %d '%c'\n", ਵਿੱਚ_Char, ShowChar);
    }
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while ( (InChar = getc(f)) != EOF)
+   ਜਦੋਂ ( (ਵਿੱਚ_Char = getc(f)) != EOF)
    {
-      ShowChar = InChar;
-      if (ShowChar < ' ')
+      ShowChar = ਵਿੱਚ_Char;
+      ਜੇ (ShowChar < ' ')
          ShowChar = '.';
 
-      printf("ch: %d '%c'\n", InChar, ShowChar);
+      ਲਿਖੋ("ch: %d '%c'\n", ਵਿੱਚ_Char, ShowChar);
    }
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while (fgets(freddy, sizeof(freddy), f) != NULL)
-      printf("x: %s", freddy);
+   ਜਦੋਂ (fgets(freddy, ਆਕਾਰ(freddy), f) != ਨਿਰਾ)
+      ਲਿਖੋ("x: %s", freddy);
 
    fclose(f);
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

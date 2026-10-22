@@ -1,49 +1,49 @@
 /* ------------------------------------------------------------- */
 /* minimal startup with runtime linker to msvcrt */
 
-#if 0
+#ਜੇ 0
 
-#define REDIR_ALL \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REDIR_ALL \
  REDIR(__set_app_type)\
  REDIR(__getmainargs)\
  REDIR(_controlfp)\
  REDIR(_vsnprintf)\
- REDIR(exit)\
+ REDIR(ਬਾਹਰ_ਨਿਕਲੋ)\
  \
  REDIR(puts)\
- REDIR(printf)\
- REDIR(putchar)\
+ REDIR(ਲਿਖੋ)\
+ REDIR(ਅੱਖਰ_ਲਿਖੋ)\
  REDIR(strtod)\
  REDIR(memset)\
  REDIR(strcpy)\
- REDIR(strlen)\
- REDIR(malloc)\
- REDIR(free)\
+ REDIR(ਲੜੀ_ਲੰਬਾਈ)\
+ REDIR(ਸਮ੍ਰਿਤੀ_ਦਿਓ)\
+ REDIR(ਮੁਕਤ)\
 
-#if defined __i386__ && !defined __TINYC__
+#ਜੇ defined __i386__ && !defined __TINYC__
 # define __leading_underscore 1
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifdef __leading_underscore
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __leading_underscore
 # define _(s) "_"#s
-#else
+#ਨਹੀਂਤਾਂ
 # define _(s) #s
-#endif
+#ਜੇ_ਅੰਤ
 
-#define REDIR(s) void *s;
-static struct { REDIR_ALL } all_ptrs;
-#undef REDIR
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REDIR(s) ਖਾਲੀ *s;
+ਸਥਿਰ ਬਣਤਰ { REDIR_ALL } all_ptrs;
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ REDIR
 
-#define REDIR(s) #s"\0"
-static const char all_names[] = REDIR_ALL;
-#undef REDIR
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REDIR(s) #s"\0"
+ਸਥਿਰ ਅਚਲ ਅੱਖਰ all_ਨਾਂ[] = REDIR_ALL;
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ REDIR
 
-#if __aarch64__
-  #if defined __TINYC__
+#ਜੇ __aarch64__
+  #ਜੇ defined __TINYC__
   # define ALIGN ".align 8"
-  #else
+  #ਨਹੀਂਤਾਂ
   # define ALIGN ".align 3" /* .align is power of 2 on non-ELF platforms */
-  #endif
+  #ਜੇ_ਅੰਤ
 # define REDIR(s) \
     __asm__("\n"_(s)":"); \
     __asm__(".int 0x58000090"); /* ldr x16, [pc, #16] */ \
@@ -55,110 +55,110 @@ static const char all_names[] = REDIR_ALL;
 
     __asm__("\t.text\n\t"ALIGN"\nall_jmps:");
     REDIR_ALL
-#else
+#ਨਹੀਂਤਾਂ
 # define REDIR(s) \
     __asm__("\n"_(s)":");\
     __asm__("jmp *%0"::"m"(all_ptrs.s));\
     __asm__(".global "_(s));
 
-    static void all_jmps() { REDIR_ALL }
-#endif
-#undef REDIR
+    ਸਥਿਰ ਖਾਲੀ all_jmps() { REDIR_ALL }
+#ਜੇ_ਅੰਤ
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ REDIR
 
-#if 0
+#ਜੇ 0
 # include <windows.h>
-#else
-# if __i386__
+#ਨਹੀਂਤਾਂ
+# ਜੇ __i386__
 #  define STDCALL __declspec(stdcall)
-# else
+# ਨਹੀਂਤਾਂ
 #  define STDCALL
 # endif
-# define DWORD long unsigned
-# define HMODULE void*
-# define HANDLE void*
-S TDCALL HMODULE LoadLibraryA(const char *);
-S TDCALL HMODULE GetProcAddress(HMODULE , char*);
-S TDCALL void ExitProcess(int);
-S TDCALL int WriteFile(HANDLE, const void*, DWORD, DWORD*, void*);
+# define DWORD ਲੰਮਾ ਬਿਨਾਨਿਸ਼ਾਨੀ
+# define HMODULE ਖਾਲੀ*
+# define HANDLE ਖਾਲੀ*
+S TDCALL HMODULE ਲੱਦੋ_Library_A(ਅਚਲ ਅੱਖਰ *);
+S TDCALL HMODULE Get_Proc_ਪਤਾ(HMODULE , ਅੱਖਰ*);
+S TDCALL ਖਾਲੀ ExitProcess(ਪੂਰਨ);
+S TDCALL ਪੂਰਨ WriteFile(HANDLE, ਅਚਲ ਖਾਲੀ*, DWORD, DWORD*, ਖਾਲੀ*);
 S TDCALL HANDLE GetStdHandle(DWORD);
-S TDCALL int FlushFileBuffers(HANDLE);
+S TDCALL ਪੂਰਨ FlushFileBuffers(HANDLE);
 # define STD_ERROR_HANDLE -12
-#endif
+#ਜੇ_ਅੰਤ
 
-static void eput(const char *s)
+ਸਥਿਰ ਖਾਲੀ eput(ਅਚਲ ਅੱਖਰ *s)
 {
-    DWORD n_out;
-    int n = 0;
-    while (s[n])
+    DWORD n_ਬਾਹਰਲਾ;
+    ਪੂਰਨ n = 0;
+    ਜਦੋਂ (s[n])
         ++n;
-    WriteFile(GetStdHandle(STD_ERROR_HANDLE), s, n, &n_out, 0);
+    WriteFile(GetStdHandle(STD_ERROR_HANDLE), s, n, &n_ਬਾਹਰਲਾ, 0);
 }
 
-static void rt_reloc()
+ਸਥਿਰ ਖਾਲੀ rt_reloc()
 {
-    const char *s = all_names;
-    void **p = (void**)&all_ptrs;
-    void *dll = LoadLibraryA("msvcrt.dll");
-    do {
-        char buf[100], *d = buf;
-        *p = (void*)GetProcAddress(dll, (char*)s);
-        *d++ = '_'; do *d++ = *s; while (*s++);
-        if (0 == *p)
-            *p = (void*)GetProcAddress(dll, buf);
-        if (0 == *p) {
+    ਅਚਲ ਅੱਖਰ *s = all_ਨਾਂ;
+    ਖਾਲੀ **p = (ਖਾਲੀ**)&all_ptrs;
+    ਖਾਲੀ *dll = ਲੱਦੋ_Library_A("msvcrt.dll");
+    ਕਰੋ {
+        ਅੱਖਰ buf[100], *d = buf;
+        *p = (ਖਾਲੀ*)Get_Proc_ਪਤਾ(dll, (ਅੱਖਰ*)s);
+        *d++ = '_'; ਕਰੋ *d++ = *s; ਜਦੋਂ (*s++);
+        ਜੇ (0 == *p)
+            *p = (ਖਾਲੀ*)Get_Proc_ਪਤਾ(dll, buf);
+        ਜੇ (0 == *p) {
             eput("MSVCRT_START.C: RUNTIME RELOCATION ERROR: '");
             eput(buf+1);
             eput("'\n");
             ExitProcess(-1);
         }
         ++p;
-    } while (*s);
+    } ਜਦੋਂ (*s);
 }
 
-#else
+#ਨਹੀਂਤਾਂ
 # define rt_reloc()
-#endif
+#ਜੇ_ਅੰਤ
 
-int main(int argc, char **argv, char **env);
-void exit(int);
-void __set_app_type(int apptype);
+ਪੂਰਨ ਮੁੱਖ(ਪੂਰਨ argc, ਅੱਖਰ **argv, ਅੱਖਰ **env);
+ਖਾਲੀ ਬਾਹਰ_ਨਿਕਲੋ(ਪੂਰਨ);
+ਖਾਲੀ __set_app_type(ਪੂਰਨ apptype);
 
-typedef struct { int newmode; } _startupinfo;
-int __getmainargs(int *pargc, char ***pargv, char ***penv, int globb, _startupinfo*);
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ { ਪੂਰਨ newmode; } _startupinfo;
+ਪੂਰਨ __getmainargs(ਪੂਰਨ *pargc, ਅੱਖਰ ***pargv, ਅੱਖਰ ***penv, ਪੂਰਨ globb, _startupinfo*);
 
-void _controlfp(unsigned a, unsigned b);
-#define _MCW_PC 0x00030000 // Precision Control
-#define _PC_53 0x00010000 // 53 bits
+ਖਾਲੀ _controlfp(ਬਿਨਾਨਿਸ਼ਾਨੀ a, ਬਿਨਾਨਿਸ਼ਾਨੀ b);
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _MCW_PC 0x00030000 // Precision Control
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _PC_53 0x00010000 // 53 bits
 
-int __argc;
-char **__argv;
-char **environ;
-_startupinfo start_info = {0};
+ਪੂਰਨ __argc;
+ਅੱਖਰ **__argv;
+ਅੱਖਰ **environ;
+_startupinfo ਸ਼ੁਰੂ_info = {0};
 
-void mainCRTStartup(void)
+ਖਾਲੀ mainCRTStartup(ਖਾਲੀ)
 {
     rt_reloc();
-#if defined __i386__ || defined __x86_64__
+#ਜੇ defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
-#endif
+#ਜੇ_ਅੰਤ
     __set_app_type(1);
-    __getmainargs(&__argc, &__argv, &environ, 0, &start_info);
-    exit(main(__argc, __argv, environ));
+    __getmainargs(&__argc, &__argv, &environ, 0, &ਸ਼ੁਰੂ_info);
+    ਬਾਹਰ_ਨਿਕਲੋ(ਮੁੱਖ(__argc, __argv, environ));
 }
 
-#include <stdarg.h>
-#define size_t __SIZE_TYPE__
-int printf(const char *, ...);
-int _vsnprintf(char *, size_t, const char *, va_list);
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdarg.h>
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਮਾਪ_t __SIZE_TYPE__
+ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ *, ...);
+ਪੂਰਨ _vsnprintf(ਅੱਖਰ *, ਮਾਪ_t, ਅਚਲ ਅੱਖਰ *, va_list);
 
 /* undefined on windows-11-arm64 */
-int vprintf(const char *format, va_list ap)
+ਪੂਰਨ vprintf(ਅਚਲ ਅੱਖਰ *format, va_list ap)
 {
-    char buf[1000];
-    _vsnprintf(buf, sizeof buf, format, ap);
-    return printf("%s", buf);
+    ਅੱਖਰ buf[1000];
+    _vsnprintf(buf, ਆਕਾਰ buf, format, ap);
+    ਵਾਪਸ ਲਿਖੋ("%s", buf);
 }
 
-void __main() {} /* for gcc */
-void _pei386_runtime_relocator(void) {} /* for gcc */
-void __chkstk(unsigned n) {} /* for clang */
+ਖਾਲੀ __main() {} /* for gcc */
+ਖਾਲੀ _pei386_runtime_relocator(ਖਾਲੀ) {} /* for gcc */
+ਖਾਲੀ __chkstk(ਬਿਨਾਨਿਸ਼ਾਨੀ n) {} /* for clang */

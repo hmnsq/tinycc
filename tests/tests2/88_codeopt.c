@@ -1,80 +1,80 @@
 /* Check some way in where code suppression caused various
    miscompilations.  */
-extern int printf (const char *, ...);
-typedef __SIZE_TYPE__ size_t;
+ਬਾਹਰੀ ਪੂਰਨ ਲਿਖੋ (ਅਚਲ ਅੱਖਰ *, ...);
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ __SIZE_TYPE__ ਮਾਪ_t;
 
-size_t _brk_start, _brk_end;
-void * extend_brk(size_t size, size_t align)
+ਮਾਪ_t brk_ਸ਼ੁਰੂ, brk_ਸਿਰਾ;
+ਖਾਲੀ * extend_brk(ਮਾਪ_t ਮਾਪ, ਮਾਪ_t align)
 {
-    size_t mask = align - 1;
-    void *ret = 0;
+    ਮਾਪ_t ਨਕਾਬ = align - 1;
+    ਖਾਲੀ *ret = 0;
 
-     do {
-	 if (__builtin_expect(!!(_brk_start == 0), 0))
-	   do {
-	       printf("wrong1\n");
-	   } while (0);
-     } while (0);
-     _brk_end = (_brk_end + mask) & ~mask;
-     ret = (void *)_brk_end;
-     _brk_end += size;
+     ਕਰੋ {
+	 ਜੇ (__builtin_expect(!!(brk_ਸ਼ੁਰੂ == 0), 0))
+	   ਕਰੋ {
+	       ਲਿਖੋ("wrong1\n");
+	   } ਜਦੋਂ (0);
+     } ਜਦੋਂ (0);
+     brk_ਸਿਰਾ = (brk_ਸਿਰਾ + ਨਕਾਬ) & ~ਨਕਾਬ;
+     ret = (ਖਾਲੀ *)brk_ਸਿਰਾ;
+     brk_ਸਿਰਾ += ਮਾਪ;
 
-     return ret;
+     ਵਾਪਸ ret;
 }
 
-static void get_args (int a, int b)
+ਸਥਿਰ ਖਾਲੀ get_ਦਲੀਲਾਂ (ਪੂਰਨ a, ਪੂਰਨ b)
 {
-  if (a != 1)
-    printf("wrong2\n");
-  else
-    printf("okay\n");
+  ਜੇ (a != 1)
+    ਲਿਖੋ("wrong2\n");
+  ਨਹੀਂਤਾਂ
+    ਲਿਖੋ("okay\n");
 }
 
-void bla(void)
+ਖਾਲੀ bla(ਖਾਲੀ)
 {
-  int __ret = 42;
+  ਪੂਰਨ __ret = 42;
   ({
-    if (__builtin_expect(!!(0), 0)) {
-      if (__builtin_expect(!!__ret, 0))
-        printf("wrong3\n");
-      int x = !!(__ret);
+    ਜੇ (__builtin_expect(!!(0), 0)) {
+      ਜੇ (__builtin_expect(!!__ret, 0))
+        ਲਿਖੋ("wrong3\n");
+      ਪੂਰਨ x = !!(__ret);
     }
     __ret;
   });
-  get_args(!!__ret, sizeof(__ret));
+  get_ਦਲੀਲਾਂ(!!__ret, ਆਕਾਰ(__ret));
 }
 
-int ext;
+ਪੂਰਨ ext;
 
-void broken_jumpopt (int xxx)
+ਖਾਲੀ broken_jumpopt (ਪੂਰਨ xxx)
 {
   /* This was broken in 8227db3a2 by code suppression during suppressed
      code :) */
   ext = (xxx || 1) || ((xxx && 1) || 1);
-  printf("okay: %d %d\n", xxx, ext);
+  ਲਿਖੋ("okay: %d %d\n", xxx, ext);
 }
 
-_Bool chk(unsigned long addr, unsigned long limit, unsigned long size)
+_Bool chk(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ addr, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਹੱਦਬੰਦੀ, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮਾਪ)
 {
   _Bool ret;
   /* This just needs to compile, no runtime test.  (And it doesn't compile
      only with certain internal checking added that's not committed).  */
-  if (0)
-    ret = 0 != (!!(addr > limit - size));
-  return 0;
+  ਜੇ (0)
+    ret = 0 != (!!(addr > ਹੱਦਬੰਦੀ - ਮਾਪ));
+  ਵਾਪਸ 0;
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-  void *r;
-  _brk_start = 1024;
-  _brk_end = 1024;
+  ਖਾਲੀ *r;
+  brk_ਸ਼ੁਰੂ = 1024;
+  brk_ਸਿਰਾ = 1024;
   r = extend_brk (4096, 16);
-  if (!r)
-    printf("wrong4\n");
-  else
-    printf("okay\n");
+  ਜੇ (!r)
+    ਲਿਖੋ("wrong4\n");
+  ਨਹੀਂਤਾਂ
+    ਲਿਖੋ("okay\n");
   bla();
   broken_jumpopt(42);
-  return 0;
+  ਵਾਪਸ 0;
 }

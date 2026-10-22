@@ -1,12 +1,12 @@
 /* va_list.c - tinycc support for va_list on X86_64 */
 
-#if defined __x86_64__
+#ਜੇ defined __x86_64__
 
 /* Avoid include files, they may not be available when cross compiling */
-extern void abort(void);
+ਬਾਹਰੀ ਖਾਲੀ abort(ਖਾਲੀ);
 
 /* This should be in sync with our include/stdarg.h */
-enum __va_arg_type {
+ਗਿਣਤੀ __va_arg_type {
     __va_gen_reg, __va_float_reg, __va_stack
 };
 
@@ -23,45 +23,45 @@ typedef struct {
 } __builtin_va_list[1];
 */
 
-extern void *memcpy(void *dest, const void *src, unsigned long n);
+ਬਾਹਰੀ ਖਾਲੀ *ਸਮ੍ਰਿਤੀ_ਨਕਲ(ਖਾਲੀ *dest, ਅਚਲ ਖਾਲੀ *src, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ n);
 
-void *__va_arg(__builtin_va_list ap,
-               int arg_type,
-               int size, int align)
+ਖਾਲੀ *__va_arg(__builtin_va_list ap,
+               ਪੂਰਨ arg_type,
+               ਪੂਰਨ ਮਾਪ, ਪੂਰਨ align)
 {
-    size = (size + 7) & ~7;
+    ਮਾਪ = (ਮਾਪ + 7) & ~7;
     align = (align + 7) & ~7;
-    switch ((enum __va_arg_type)arg_type) {
-    case __va_gen_reg:
-        if (ap->gp_offset + size <= 48) {
-            ap->gp_offset += size;
-            return ap->reg_save_area + ap->gp_offset - size;
+    ਚੋਣ ((ਗਿਣਤੀ __va_arg_type)arg_type) {
+    ਹਾਲਤ __va_gen_reg:
+        ਜੇ (ap->gp_ਵਿੱਥ + ਮਾਪ <= 48) {
+            ap->gp_ਵਿੱਥ += ਮਾਪ;
+            ਵਾਪਸ ap->reg_save_area + ap->gp_ਵਿੱਥ - ਮਾਪ;
         }
-        goto use_overflow_area;
+        ਜਾਓ use_ਉਛਾਲ_area;
 
-    case __va_float_reg:
-        if (ap->fp_offset < 128 + 48) {
-            ap->fp_offset += 16;
-            if (size == 8)
-                return ap->reg_save_area + ap->fp_offset - 16;
-            if (ap->fp_offset < 128 + 48) {
-                memcpy(ap->reg_save_area + ap->fp_offset - 8,
-                       ap->reg_save_area + ap->fp_offset, 8);
-                ap->fp_offset += 16;
-                return ap->reg_save_area + ap->fp_offset - 32;
+    ਹਾਲਤ __va_float_reg:
+        ਜੇ (ap->fp_ਵਿੱਥ < 128 + 48) {
+            ap->fp_ਵਿੱਥ += 16;
+            ਜੇ (ਮਾਪ == 8)
+                ਵਾਪਸ ap->reg_save_area + ap->fp_ਵਿੱਥ - 16;
+            ਜੇ (ap->fp_ਵਿੱਥ < 128 + 48) {
+                ਸਮ੍ਰਿਤੀ_ਨਕਲ(ap->reg_save_area + ap->fp_ਵਿੱਥ - 8,
+                       ap->reg_save_area + ap->fp_ਵਿੱਥ, 8);
+                ap->fp_ਵਿੱਥ += 16;
+                ਵਾਪਸ ap->reg_save_area + ap->fp_ਵਿੱਥ - 32;
             }
         }
-        goto use_overflow_area;
+        ਜਾਓ use_ਉਛਾਲ_area;
 
-    case __va_stack:
-    use_overflow_area:
-        ap->overflow_arg_area += size;
-        ap->overflow_arg_area = (char*)((long long)(ap->overflow_arg_area + align - 1) & -align);
-        return ap->overflow_arg_area - size;
+    ਹਾਲਤ __va_stack:
+    use_ਉਛਾਲ_area:
+        ap->ਉਛਾਲ_arg_area += ਮਾਪ;
+        ap->ਉਛਾਲ_arg_area = (ਅੱਖਰ*)((ਲੰਮਾ ਲੰਮਾ)(ap->ਉਛਾਲ_arg_area + align - 1) & -align);
+        ਵਾਪਸ ap->ਉਛਾਲ_arg_area - ਮਾਪ;
 
-    default: /* should never happen */
+    ਮੂਲ: /* should never happen */
         abort();
-        return 0;
+        ਵਾਪਸ 0;
     }
 }
-#endif
+#ਜੇ_ਅੰਤ

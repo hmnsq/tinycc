@@ -1,10 +1,10 @@
 /* ------------------------------------------------------------- */
 /* stubs for calling bcheck functions from a dll. */
 
-#include <windows.h>
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <windows.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-#define REDIR_ALL \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REDIR_ALL \
   REDIR(__bt_init) \
   REDIR(__bt_exit) \
   REDIR(tcc_backtrace) \
@@ -40,21 +40,21 @@
   REDIR(__bound_setjmp) \
   REDIR(__bound_longjmp)
 
-#ifdef __leading_underscore
-#define _(s) "_"#s
-#else
-#define _(s) #s
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __leading_underscore
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _(s) "_"#s
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _(s) #s
+#ਜੇ_ਅੰਤ
 
-#define REDIR(s) void *s;
-static struct { REDIR_ALL } all_ptrs;
-#undef REDIR
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REDIR(s) ਖਾਲੀ *s;
+ਸਥਿਰ ਬਣਤਰ { REDIR_ALL } all_ptrs;
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ REDIR
 
-#define REDIR(s) #s"\0"
-static const char all_names[] = REDIR_ALL;
-#undef REDIR
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REDIR(s) #s"\0"
+ਸਥਿਰ ਅਚਲ ਅੱਖਰ all_ਨਾਂ[] = REDIR_ALL;
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ REDIR
 
-#if __aarch64__
+#ਜੇ __aarch64__
 # define REDIR(s) \
     __asm__(".global "_(s)";"_(s)":"); \
     __asm__(".int 0x58000090"); /* ldr x16, [pc, #16] */ \
@@ -66,30 +66,30 @@ static const char all_names[] = REDIR_ALL;
 
     __asm__(".text\n.align 8\nall_jmps:");
     REDIR_ALL
-#else
+#ਨਹੀਂਤਾਂ
 # define REDIR(s) \
-    __asm__(".global "_(s)";"_(s)":"); goto *all_ptrs.s;
-    static void all_jmps() { REDIR_ALL }
-#endif
-#undef REDIR
+    __asm__(".global "_(s)";"_(s)":"); ਜਾਓ *all_ptrs.s;
+    ਸਥਿਰ ਖਾਲੀ all_jmps() { REDIR_ALL }
+#ਜੇ_ਅੰਤ
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ REDIR
 
-void __bt_init_dll(int bcheck)
+ਖਾਲੀ __bt_init_dll(ਪੂਰਨ bcheck)
 {
-    const char *s = all_names;
-    void **p = (void**)&all_ptrs;
-    do {
-        *p = (void*)GetProcAddress(GetModuleHandle(NULL), (char*)s);
-        if (NULL == *p) {
-            char buf[100];
+    ਅਚਲ ਅੱਖਰ *s = all_ਨਾਂ;
+    ਖਾਲੀ **p = (ਖਾਲੀ**)&all_ptrs;
+    ਕਰੋ {
+        *p = (ਖਾਲੀ*)Get_Proc_ਪਤਾ(GetModuleHandle(ਨਿਰਾ), (ਅੱਖਰ*)s);
+        ਜੇ (ਨਿਰਾ == *p) {
+            ਅੱਖਰ buf[100];
             sprintf(buf,
                 "Error: function '%s()' not found in executable. "
                 "(Need -bt or -b for linking the exe.)", s);
-            if (GetStdHandle(STD_ERROR_HANDLE))
+            ਜੇ (GetStdHandle(STD_ERROR_HANDLE))
                 fprintf(stderr, "TCC/BCHECK: %s\n", buf), fflush(stderr);
-            else
-                MessageBox(NULL, buf, "TCC/BCHECK", MB_ICONERROR);
+            ਨਹੀਂਤਾਂ
+                ਸੁਨੇਹਾ_Box(ਨਿਰਾ, buf, "TCC/BCHECK", MB_ICONERROR);
             ExitProcess(1);
         }
         s = strchr(s,'\0') + 1, ++p;
-    } while (*s && (bcheck || p < &all_ptrs.__bound_ptr_add));
+    } ਜਦੋਂ (*s && (bcheck || p < &all_ptrs.__bound_ptr_add));
 }

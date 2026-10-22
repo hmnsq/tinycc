@@ -1,40 +1,40 @@
-typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
-extern size_t strlen(const char*);
-char str[] = "blabla";
-int g;
-int main()
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ __SIZE_TYPE__ ਮਾਪ_t;
+ਬਾਹਰੀ ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ*, ...);
+ਬਾਹਰੀ ਮਾਪ_t ਲੜੀ_ਲੰਬਾਈ(ਅਚਲ ਅੱਖਰ*);
+ਅੱਖਰ str[] = "blabla";
+ਪੂਰਨ g;
+ਪੂਰਨ ਮੁੱਖ()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
-      char buf[strlen(str) + 10];
+  ਪੂਰਨ i = 0;
+#ਜੇ 0
+  ਜੇ (g) {
+      ਅੱਖਰ buf[ਲੜੀ_ਲੰਬਾਈ(str) + 10];
       buf[0] = 0;
   }
 alabel:
-  printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
-      switch (i) {
-      case 10:
-          if (g) {
-              char buf[strlen(str) + 10];
+  ਲਿਖੋ("default: i = %d\n", i);
+#ਨਹੀਂਤਾਂ
+  ਲਈ (i = 0; i < 5; i++) {
+      ਚੋਣ (i) {
+      ਹਾਲਤ 10:
+          ਜੇ (g) {
+              ਅੱਖਰ buf[ਲੜੀ_ਲੰਬਾਈ(str) + 10];
               buf[0] = 0;
-              goto do_cmd;
+              ਜਾਓ do_cmd;
           }
-          break;
-      case 1:
-          printf("reached 3\n");
+          ਰੋਕੋ;
+      ਹਾਲਤ 1:
+          ਲਿਖੋ("reached 3\n");
     do_cmd:
-          printf("after do_cmd");
-          break;
-      default:
+          ਲਿਖੋ("after do_cmd");
+          ਰੋਕੋ;
+      ਮੂਲ:
           g++;
-          printf("default: i = %d\n", i);
-          break;
+          ਲਿਖੋ("default: i = %d\n", i);
+          ਰੋਕੋ;
       }
   }
-#endif
-  return 0;
+#ਜੇ_ਅੰਤ
+  ਵਾਪਸ 0;
 }

@@ -1,75 +1,75 @@
-#ifndef _FLOAT_H_
-#define _FLOAT_H_
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _FLOAT_H_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _FLOAT_H_
 
-#define FLT_RADIX 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_RADIX 2
 
 /* IEEE float */
-#define FLT_MANT_DIG 24
-#define FLT_DIG 6
-#define FLT_ROUNDS 1
-#define FLT_EPSILON 1.19209290e-07F
-#define FLT_MIN_EXP (-125)
-#define FLT_MIN 1.17549435e-38F
-#define FLT_MIN_10_EXP (-37)
-#define FLT_MAX_EXP 128
-#define FLT_MAX 3.40282347e+38F
-#define FLT_MAX_10_EXP 38
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_MANT_DIG 24
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_DIG 6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_ROUNDS 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_EPSILON 1.19209290e-07F
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_MIN_EXP (-125)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_MIN 1.17549435e-38F
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_MIN_10_EXP (-37)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_MAX_EXP 128
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_MAX 3.40282347e+38F
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_MAX_10_EXP 38
 
 /* IEEE double */
-#define DBL_MANT_DIG 53
-#define DBL_DIG 15
-#define DBL_EPSILON 2.2204460492503131e-16
-#define DBL_MIN_EXP (-1021)
-#define DBL_MIN 2.2250738585072014e-308
-#define DBL_MIN_10_EXP (-307)
-#define DBL_MAX_EXP 1024
-#define DBL_MAX 1.7976931348623157e+308
-#define DBL_MAX_10_EXP 308
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DBL_MANT_DIG 53
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DBL_DIG 15
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DBL_EPSILON 2.2204460492503131e-16
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DBL_MIN_EXP (-1021)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DBL_MIN 2.2250738585072014e-308
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DBL_MIN_10_EXP (-307)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DBL_MAX_EXP 1024
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DBL_MAX 1.7976931348623157e+308
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DBL_MAX_10_EXP 308
 
 /* horrible intel long double */
-#if defined __i386__ || defined __x86_64__
+#ਜੇ defined __i386__ || defined __x86_64__
 
-#define LDBL_MANT_DIG 64
-#define LDBL_DIG 18
-#define LDBL_EPSILON 1.08420217248550443401e-19L
-#define LDBL_MIN_EXP (-16381)
-#define LDBL_MIN 3.36210314311209350626e-4932L
-#define LDBL_MIN_10_EXP (-4931)
-#define LDBL_MAX_EXP 16384
-#define LDBL_MAX 1.18973149535723176502e+4932L
-#define LDBL_MAX_10_EXP 4932
-#define DECIMAL_DIG 21
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MANT_DIG 64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_DIG 18
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_EPSILON 1.08420217248550443401e-19L
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MIN_EXP (-16381)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MIN 3.36210314311209350626e-4932L
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MIN_10_EXP (-4931)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MAX_EXP 16384
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MAX 1.18973149535723176502e+4932L
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MAX_10_EXP 4932
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DECIMAL_DIG 21
 
-#elif defined __aarch64__ || defined __riscv
+#ਜਾਂਜੇ defined __aarch64__ || defined __riscv
 /*
  * Use values from:
  * gcc -dM -E -xc /dev/null | grep LDBL | sed -e "s/__//g"
  */
-#define LDBL_MANT_DIG 113
-#define LDBL_DIG 33
-#define LDBL_EPSILON 1.92592994438723585305597794258492732e-34L
-#define LDBL_MIN_EXP (-16381)
-#define LDBL_MIN 3.36210314311209350626267781732175260e-4932L
-#define LDBL_MIN_10_EXP (-4931)
-#define LDBL_MAX_EXP 16384
-#define LDBL_MAX 1.18973149535723176508575932662800702e+4932L
-#define LDBL_MAX_10_EXP 4932
-#define DECIMAL_DIG 36
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MANT_DIG 113
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_DIG 33
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_EPSILON 1.92592994438723585305597794258492732e-34L
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MIN_EXP (-16381)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MIN 3.36210314311209350626267781732175260e-4932L
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MIN_10_EXP (-4931)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MAX_EXP 16384
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MAX 1.18973149535723176508575932662800702e+4932L
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MAX_10_EXP 4932
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DECIMAL_DIG 36
 
-#else
+#ਨਹੀਂਤਾਂ
 
 /* same as IEEE double */
-#define LDBL_MANT_DIG 53
-#define LDBL_DIG 15
-#define LDBL_EPSILON 2.2204460492503131e-16L
-#define LDBL_MIN_EXP (-1021)
-#define LDBL_MIN 2.2250738585072014e-308L
-#define LDBL_MIN_10_EXP (-307)
-#define LDBL_MAX_EXP 1024
-#define LDBL_MAX 1.7976931348623157e+308L
-#define LDBL_MAX_10_EXP 308
-#define DECIMAL_DIG 17
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MANT_DIG 53
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_DIG 15
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_EPSILON 2.2204460492503131e-16L
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MIN_EXP (-1021)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MIN 2.2250738585072014e-308L
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MIN_10_EXP (-307)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MAX_EXP 1024
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MAX 1.7976931348623157e+308L
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LDBL_MAX_10_EXP 308
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DECIMAL_DIG 17
 
-#endif
+#ਜੇ_ਅੰਤ
 
-#endif /* _FLOAT_H_ */
+#ਜੇ_ਅੰਤ /* _FLOAT_H_ */

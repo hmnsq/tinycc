@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main() 
+ਪੂਰਨ ਮੁੱਖ() 
 {
-   printf("Hello\n");
-   printf("Hello\n"); /* this is a comment */ printf("Hello\n");
-   printf("Hello\n");
+   ਲਿਖੋ("Hello\n");
+   ਲਿਖੋ("Hello\n"); /* this is a comment */ ਲਿਖੋ("Hello\n");
+   ਲਿਖੋ("Hello\n");
    // this is also a comment sayhello();
-   printf("Hello\n");
+   ਲਿਖੋ("Hello\n");
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

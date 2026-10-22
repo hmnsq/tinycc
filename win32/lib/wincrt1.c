@@ -1,86 +1,86 @@
 //+---------------------------------------------------------------------------
 
 // _UNICODE for tchar.h, UNICODE for API
-#include <tchar.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <tchar.h>
 
-#include <windows.h>
-#include <stdlib.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <windows.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdlib.h>
 
-#define __UNKNOWN_APP    0
-#define __CONSOLE_APP    1
-#define __GUI_APP        2
-void __set_app_type(int);
-void _controlfp(unsigned a, unsigned b);
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __UNKNOWN_APP    0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __CONSOLE_APP    1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __GUI_APP        2
+ਖਾਲੀ __set_app_type(ਪੂਰਨ);
+ਖਾਲੀ _controlfp(ਬਿਨਾਨਿਸ਼ਾਨੀ a, ਬਿਨਾਨਿਸ਼ਾਨੀ b);
 
-#ifdef _UNICODE
-#define __tgetmainargs __wgetmainargs
-#define _twinstart _wwinstart
-#define _runtwinmain _runwwinmain
-int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int);
-#else
-#define __tgetmainargs __getmainargs
-#define _twinstart _winstart
-#define _runtwinmain _runwinmain
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __tgetmainargs __wgetmainargs
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _twinstart _wwinstart
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _runtwinmain _runwwinmain
+ਪੂਰਨ APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, ਪੂਰਨ);
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __tgetmainargs __getmainargs
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _twinstart _winstart
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _runtwinmain _runwinmain
+#ਜੇ_ਅੰਤ
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ { ਪੂਰਨ newmode; } _startupinfo;
+ਪੂਰਨ __cdecl __tgetmainargs(ਪੂਰਨ *pargc, _TCHAR ***pargv, _TCHAR ***penv, ਪੂਰਨ globb, _startupinfo*);
 
-#include "crtinit.c"
+#ਅਨ੍ਤਰ੍ਭਾਵ "crtinit.c"
 
-static int go_winmain(TCHAR *arg1)
+ਸਥਿਰ ਪੂਰਨ go_winmain(TCHAR *arg1)
 {
     STARTUPINFO si;
     _TCHAR *szCmd, *p;
-    int fShow;
-    int retval;
+    ਪੂਰਨ fShow;
+    ਪੂਰਨ retval;
 
     GetStartupInfo(&si);
-    if (si.dwFlags & STARTF_USESHOWWINDOW)
-        fShow = si.wShowWindow;
-    else
+    ਜੇ (si.dwFlags & STARTF_USESHOWWINDOW)
+        fShow = si.w_Show_ਖਿੜਕੀ;
+    ਨਹੀਂਤਾਂ
         fShow = SW_SHOWDEFAULT;
 
-    szCmd = NULL, p = GetCommandLine();
-    if (arg1)
+    szCmd = ਨਿਰਾ, p = Get_Command_ਸਤਰ();
+    ਜੇ (arg1)
         szCmd = _tcsstr(p, arg1);
-    if (NULL == szCmd)
+    ਜੇ (ਨਿਰਾ == szCmd)
         szCmd = _tcsdup(__T(""));
-    else if (szCmd > p && szCmd[-1] == __T('"'))
+    ਨਹੀਂਤਾਂ ਜੇ (szCmd > p && szCmd[-1] == __T('"'))
         --szCmd;
-#if defined __i386__ || defined __x86_64__
+#ਜੇ defined __i386__ || defined __x86_64__
     _controlfp(0x10000, 0x30000);
-#endif
-    run_ctors(__argc, __targv, _tenviron);
-    retval = _tWinMain(GetModuleHandle(NULL), NULL, szCmd, fShow);
-    run_dtors();
-    return retval;
+#ਜੇ_ਅੰਤ
+    ਲੜੀਵਾਰ_ctors(__argc, __targv, _tenviron);
+    retval = _tWinMain(GetModuleHandle(ਨਿਰਾ), ਨਿਰਾ, szCmd, fShow);
+    ਲੜੀਵਾਰ_dtors();
+    ਵਾਪਸ retval;
 }
 
-static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
+ਸਥਿਰ LONG WINAPI catch_sig(EXCEPTION_ਸੂਚਕ_ਸਾਰੇ *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  ਵਾਪਸ _XcptFilter(ex->Exception_ਰਿਕਾਰਡ->Exception_ਕੋਡ, ex);
 }
 
-int _twinstart(void)
+ਪੂਰਨ _twinstart(ਖਾਲੀ)
 {
-    _startupinfo start_info_con = {0};
-    SetUnhandledExceptionFilter(catch_sig);
+    _startupinfo ਸ਼ੁਰੂ_info_con = {0};
+    ਸੈੱਟ_Unhandled_Exception_Filter(catch_sig);
     __set_app_type(__GUI_APP);
-    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info_con);
-    exit(go_winmain(__argc > 1 ? __targv[1] : NULL));
+    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &ਸ਼ੁਰੂ_info_con);
+    ਬਾਹਰ_ਨਿਕਲੋ(go_winmain(__argc > 1 ? __targv[1] : ਨਿਰਾ));
 }
 
-int _runtwinmain(int argc, /* as tcc passed in */ char **argv)
+ਪੂਰਨ _runtwinmain(ਪੂਰਨ argc, /* as tcc passed in */ ਅੱਖਰ **argv)
 {
-#ifdef UNICODE
-    _startupinfo start_info = {0};
-    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+    _startupinfo ਸ਼ੁਰੂ_info = {0};
+    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &ਸ਼ੁਰੂ_info);
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc)
+    ਜੇ (argc < __argc)
         __targv += __argc - argc, __argc = argc;
-#else
+#ਨਹੀਂਤਾਂ
     __argc = argc, __targv = argv;
-#endif
-    return go_winmain(__argc > 1 ? __targv[1] : NULL);
+#ਜੇ_ਅੰਤ
+    ਵਾਪਸ go_winmain(__argc > 1 ? __targv[1] : ਨਿਰਾ);
 }

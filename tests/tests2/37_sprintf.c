@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   char Buf[100];
-   int Count;
+   ਅੱਖਰ Buf[100];
+   ਪੂਰਨ ਗਿਣਤੀ_4;
 
-   for (Count = 1; Count <= 20; Count++)
+   ਲਈ (ਗਿਣਤੀ_4 = 1; ਗਿਣਤੀ_4 <= 20; ਗਿਣਤੀ_4++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
-      printf("%s", Buf);
+      sprintf(Buf, "->%02d<-\n", ਗਿਣਤੀ_4);
+      ਲਿਖੋ("%s", Buf);
    }
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

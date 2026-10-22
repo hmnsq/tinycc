@@ -1,155 +1,155 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <semaphore.h>
-#include <signal.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <setjmp.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <pthread.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <semaphore.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <signal.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <string.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <sys/types.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <sys/wait.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <sys/time.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <unistd.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdlib.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <errno.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <setjmp.h>
 
-static volatile int run = 1;
-static sem_t sem;
-static sem_t sem_child;
+ਸਥਿਰ ਅਸਥਿਰ ਪੂਰਨ ਲੜੀਵਾਰ = 1;
+ਸਥਿਰ sem_t sem;
+ਸਥਿਰ sem_t sem_ਬੱਚਾ;
 
-static void
-add (int n)
+ਸਥਿਰ ਖਾਲੀ
+ਜੋੜੋ (ਪੂਰਨ n)
 {
-    int i;
-    int arr[n];
+    ਪੂਰਨ i;
+    ਪੂਰਨ arr[n];
 
-    for (i = 0; i < n; i++) {
+    ਲਈ (i = 0; i < n; i++) {
         arr[i]++;
     }
-    memset (&arr[0], 0, n * sizeof(int));
+    memset (&arr[0], 0, n * ਆਕਾਰ(ਪੂਰਨ));
 }
 
-static void *
-high_load (void *unused)
+ਸਥਿਰ ਖਾਲੀ *
+ਉੱਚਾ_ਲੱਦੋ (ਖਾਲੀ *ਅਣਵਰਤਿਆ)
 {
-    while (run) {
-        add(10);
-        add(20);
+    ਜਦੋਂ (ਲੜੀਵਾਰ) {
+        ਜੋੜੋ(10);
+        ਜੋੜੋ(20);
     }
-    return NULL;
+    ਵਾਪਸ ਨਿਰਾ;
 }
 
-static void *
-do_signal (void *unused)
+ਸਥਿਰ ਖਾਲੀ *
+do_signal (ਖਾਲੀ *ਅਣਵਰਤਿਆ)
 {
-    while (run) {
+    ਜਦੋਂ (ਲੜੀਵਾਰ) {
         kill (getpid(), SIGUSR1);
-        while (sem_wait(&sem) < 0 && errno == EINTR);
+        ਜਦੋਂ (sem_wait(&sem) < 0 && errno == EINTR);
     }
-    return NULL;
+    ਵਾਪਸ ਨਿਰਾ;
 }
 
-static void *
-do_fork (void *unused)
+ਸਥਿਰ ਖਾਲੀ *
+do_fork (ਖਾਲੀ *ਅਣਵਰਤਿਆ)
 {
     pid_t pid;
 
-    while (run) {
-        switch ((pid = fork())) {
-        case 0:
-            add(1000);
-            add(2000);
-            exit(0);
-            break;
-        case -1:
-            return NULL;
-        default:
-            while (sem_wait(&sem_child) < 0 && errno == EINTR);
-            wait(NULL);
-            break;
+    ਜਦੋਂ (ਲੜੀਵਾਰ) {
+        ਚੋਣ ((pid = fork())) {
+        ਹਾਲਤ 0:
+            ਜੋੜੋ(1000);
+            ਜੋੜੋ(2000);
+            ਬਾਹਰ_ਨਿਕਲੋ(0);
+            ਰੋਕੋ;
+        ਹਾਲਤ -1:
+            ਵਾਪਸ ਨਿਰਾ;
+        ਮੂਲ:
+            ਜਦੋਂ (sem_wait(&sem_ਬੱਚਾ) < 0 && errno == EINTR);
+            wait(ਨਿਰਾ);
+            ਰੋਕੋ;
         }
     }
-    return NULL;
+    ਵਾਪਸ ਨਿਰਾ;
 }
 
-static void signal_handler(int sig)
+ਸਥਿਰ ਖਾਲੀ signal_handler(ਪੂਰਨ sig)
 {
-    add(10);
-    add(20);
+    ਜੋੜੋ(10);
+    ਜੋੜੋ(20);
     sem_post (&sem);
 }
 
-static void child_handler(int sig)
+ਸਥਿਰ ਖਾਲੀ ਬੱਚਾ_handler(ਪੂਰਨ sig)
 {
-    add(10);
-    add(20);
-    sem_post (&sem_child);
+    ਜੋੜੋ(10);
+    ਜੋੜੋ(20);
+    sem_post (&sem_ਬੱਚਾ);
 }
 
-static unsigned getclock_ms(void)
+ਸਥਿਰ ਬਿਨਾਨਿਸ਼ਾਨੀ getclock_ms(ਖਾਲੀ)
 {
-#ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _WIN32
+    ਵਾਪਸ Get_Tick_ਗਿਣਤੀ();
+#ਨਹੀਂਤਾਂ
+    ਬਣਤਰ timeval tv;
+    gettimeofday(&tv, ਨਿਰਾ);
+    ਵਾਪਸ tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+#ਜੇ_ਅੰਤ
 }
 
-int
-main (void)
+ਪੂਰਨ
+ਮੁੱਖ (ਖਾਲੀ)
 {
-    int i;
+    ਪੂਰਨ i;
     pthread_t id1, id2, id3;
-    struct sigaction act;
+    ਬਣਤਰ sigaction act;
     sigjmp_buf sj;
     sigset_t m;
-    time_t end;
+    time_t ਸਿਰਾ;
 
-    memset (&act, 0, sizeof (act));
+    memset (&act, 0, ਆਕਾਰ (act));
     act.sa_handler = signal_handler;
     act.sa_flags = 0;
     sigemptyset (&act.sa_mask);
-    sigaction (SIGUSR1, &act, NULL);
-    act.sa_handler = child_handler;
-    sigaction (SIGCHLD, &act, NULL);
+    sigaction (SIGUSR1, &act, ਨਿਰਾ);
+    act.sa_handler = ਬੱਚਾ_handler;
+    sigaction (SIGCHLD, &act, ਨਿਰਾ);
 
-    printf ("start\n"); fflush(stdout);
+    ਲਿਖੋ ("start\n"); fflush(stdout);
 
     sem_init (&sem, 0, 0);
-    sem_init (&sem_child, 0, 0);
-    pthread_create(&id1, NULL, high_load, NULL);
-    pthread_create(&id2, NULL, do_signal, NULL);
-#if !defined(__APPLE__)
-    pthread_create(&id3, NULL, do_fork, NULL);
-#endif
+    sem_init (&sem_ਬੱਚਾ, 0, 0);
+    pthread_create(&id1, ਨਿਰਾ, ਉੱਚਾ_ਲੱਦੋ, ਨਿਰਾ);
+    pthread_create(&id2, ਨਿਰਾ, do_signal, ਨਿਰਾ);
+#ਜੇ !defined(__APPLE__)
+    pthread_create(&id3, ਨਿਰਾ, do_fork, ਨਿਰਾ);
+#ਜੇ_ਅੰਤ
 
     /* sleep does not work !!! */
-    end = getclock_ms() + 200;
-    while (getclock_ms() < end) ;
-    run = 0;
+    ਸਿਰਾ = getclock_ms() + 200;
+    ਜਦੋਂ (getclock_ms() < ਸਿਰਾ) ;
+    ਲੜੀਵਾਰ = 0;
 
-    pthread_join(id1, NULL);
-    pthread_join(id2, NULL);
-#if !defined(__APPLE__)
-    pthread_join(id3, NULL);
-#endif
+    pthread_join(id1, ਨਿਰਾ);
+    pthread_join(id2, ਨਿਰਾ);
+#ਜੇ !defined(__APPLE__)
+    pthread_join(id3, ਨਿਰਾ);
+#ਜੇ_ਅੰਤ
     sem_destroy (&sem);
-    sem_destroy (&sem_child);
+    sem_destroy (&sem_ਬੱਚਾ);
 
-    printf ("end\n"); fflush(stdout);
+    ਲਿਖੋ ("end\n"); fflush(stdout);
 
     sigemptyset (&m);
-    sigprocmask (SIG_SETMASK, &m, NULL);
-    if (sigsetjmp (sj, 0) == 0)
+    sigprocmask (SIG_SETMASK, &m, ਨਿਰਾ);
+    ਜੇ (sigsetjmp (sj, 0) == 0)
     {
         sigaddset (&m, SIGUSR1);
-        sigprocmask (SIG_SETMASK, &m, NULL);
+        sigprocmask (SIG_SETMASK, &m, ਨਿਰਾ);
         siglongjmp (sj, 1);
-        printf ("failed");
-        return 1;
+        ਲਿਖੋ ("failed");
+        ਵਾਪਸ 1;
     }
-    sigprocmask (SIG_SETMASK, NULL, &m);
-    if (!sigismember (&m, SIGUSR1))
-        printf ("failed");
-    return 0;
+    sigprocmask (SIG_SETMASK, ਨਿਰਾ, &m);
+    ਜੇ (!sigismember (&m, SIGUSR1))
+        ਲਿਖੋ ("failed");
+    ਵਾਪਸ 0;
 }

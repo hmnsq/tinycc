@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#include "tcc.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "tcc.h"
 
 /* In order to make life easy for us we are generating Mach-O files which
    don't make use of some modern features, but which aren't entirely classic
@@ -31,100 +31,100 @@
    to setup our own crt code.  We're not using lazy linking, so even function
    calls are resolved at startup.  */
 
-#if !defined TCC_TARGET_X86_64 && !defined TCC_TARGET_ARM64
-#error Platform not supported
-#endif
+#ਜੇ !defined TCC_ਨਿਸ਼ਾਨਾ_X86_64 && !defined TCC_ਨਿਸ਼ਾਨਾ_ARM64
+#ਗਲਤੀ Platform not supported
+#ਜੇ_ਅੰਤ
 
 /* XXX: this file uses tcc_error() to the effect of exit(1) */
-#undef _tcc_error
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ _tcc_error
 
-#define DEBUG_MACHO 0
-#define dprintf if (DEBUG_MACHO) printf
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEBUG_MACHO 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ dprintf ਜੇ (DEBUG_MACHO) ਲਿਖੋ
 
-#define MH_EXECUTE              (0x2)
-#define MH_DYLDLINK             (0x4)
-#define MH_DYLIB                (0x6)
-#define MH_PIE                  (0x200000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MH_EXECUTE              (0x2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MH_DYLDLINK             (0x4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MH_DYLIB                (0x6)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MH_PIE                  (0x200000)
 
-#define CPU_SUBTYPE_LIB64       (0x80000000)
-#define CPU_SUBTYPE_X86_ALL     (3)
-#define CPU_SUBTYPE_ARM64_ALL   (0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CPU_SUBTYPE_LIB64       (0x80000000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CPU_SUBTYPE_X86_ALL     (3)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CPU_SUBTYPE_ARM64_ALL   (0)
 
-#define CPU_ARCH_ABI64          (0x01000000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CPU_ARCH_ABI64          (0x01000000)
 
-#define CPU_TYPE_X86            (7)
-#define CPU_TYPE_X86_64         (CPU_TYPE_X86 | CPU_ARCH_ABI64)
-#define CPU_TYPE_ARM            (12)
-#define CPU_TYPE_ARM64          (CPU_TYPE_ARM | CPU_ARCH_ABI64)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CPU_TYPE_X86            (7)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CPU_TYPE_X86_64         (CPU_TYPE_X86 | CPU_ARCH_ABI64)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CPU_TYPE_ARM            (12)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CPU_TYPE_ARM64          (CPU_TYPE_ARM | CPU_ARCH_ABI64)
 
-struct fat_header {
+ਬਣਤਰ fat_ਸਿਰਲੇਖ {
     uint32_t        magic;          /* FAT_MAGIC or FAT_MAGIC_64 */
     uint32_t        nfat_arch;      /* number of structs that follow */
 };
 
-struct fat_arch {
-    int             cputype;        /* cpu specifier (int) */
-    int             cpusubtype;     /* machine specifier (int) */
-    uint32_t        offset;         /* file offset to this object file */
-    uint32_t        size;           /* size of this object file */
+ਬਣਤਰ fat_arch {
+    ਪੂਰਨ             cputype;        /* cpu specifier (int) */
+    ਪੂਰਨ             cpusubtype;     /* machine specifier (int) */
+    uint32_t        ਵਿੱਥ;         /* file offset to this object file */
+    uint32_t        ਮਾਪ;           /* size of this object file */
     uint32_t        align;          /* alignment as a power of 2 */
 };
 
-#define FAT_MAGIC       0xcafebabe
-#define FAT_CIGAM       0xbebafeca
-#define FAT_MAGIC_64    0xcafebabf
-#define FAT_CIGAM_64    0xbfbafeca
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FAT_MAGIC       0xcafebabe
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FAT_CIGAM       0xbebafeca
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FAT_MAGIC_64    0xcafebabf
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FAT_CIGAM_64    0xbfbafeca
 
-struct mach_header {
+ਬਣਤਰ mach_ਸਿਰਲੇਖ {
     uint32_t        magic;          /* mach magic number identifier */
-    int             cputype;        /* cpu specifier */
-    int             cpusubtype;     /* machine specifier */
+    ਪੂਰਨ             cputype;        /* cpu specifier */
+    ਪੂਰਨ             cpusubtype;     /* machine specifier */
     uint32_t        filetype;       /* type of file */
     uint32_t        ncmds;          /* number of load commands */
     uint32_t        sizeofcmds;     /* the size of all the load commands */
     uint32_t        flags;          /* flags */
 };
 
-struct mach_header_64 {
-    struct mach_header  mh;
+ਬਣਤਰ mach_ਸਿਰਲੇਖ_64 {
+    ਬਣਤਰ mach_ਸਿਰਲੇਖ  mh;
     uint32_t            reserved;       /* reserved, pad to 64bit */
 };
 
 /* Constant for the magic field of the mach_header (32-bit architectures) */
-#define MH_MAGIC        0xfeedface      /* the mach magic number */
-#define MH_CIGAM        0xcefaedfe      /* NXSwapInt(MH_MAGIC) */
-#define MH_MAGIC_64     0xfeedfacf      /* the 64-bit mach magic number */
-#define MH_CIGAM_64     0xcffaedfe      /* NXSwapInt(MH_MAGIC_64) */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MH_MAGIC        0xfeedface      /* the mach magic number */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MH_CIGAM        0xcefaedfe      /* NXSwapInt(MH_MAGIC) */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MH_MAGIC_64     0xfeedfacf      /* the 64-bit mach magic number */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MH_CIGAM_64     0xcffaedfe      /* NXSwapInt(MH_MAGIC_64) */
 
-struct load_command {
+ਬਣਤਰ ਲੱਦੋ_command {
     uint32_t        cmd;            /* type of load command */
     uint32_t        cmdsize;        /* total size of command in bytes */
 };
 
-#define LC_REQ_DYLD 0x80000000
-#define LC_SYMTAB        0x2
-#define LC_DYSYMTAB      0xb
-#define LC_LOAD_DYLIB    0xc
-#define LC_ID_DYLIB      0xd
-#define LC_LOAD_DYLINKER 0xe
-#define LC_SEGMENT_64    0x19
-#define LC_RPATH (0x1c | LC_REQ_DYLD)
-#define LC_REEXPORT_DYLIB (0x1f | LC_REQ_DYLD)
-#define LC_DYLD_INFO_ONLY (0x22|LC_REQ_DYLD)
-#define LC_MAIN (0x28|LC_REQ_DYLD)
-#define LC_SOURCE_VERSION 0x2A
-#define LC_BUILD_VERSION 0x32
-#define LC_DYLD_EXPORTS_TRIE (0x33 | LC_REQ_DYLD)
-#define LC_DYLD_CHAINED_FIXUPS (0x34 | LC_REQ_DYLD)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_REQ_DYLD 0x80000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_SYMTAB        0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_DYSYMTAB      0xb
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_ਲੱਦੋ_DYLIB    0xc
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_ID_DYLIB      0xd
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_ਲੱਦੋ_DYLINKER 0xe
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_SEGMENT_64    0x19
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_RPATH (0x1c | LC_REQ_DYLD)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_REEXPORT_DYLIB (0x1f | LC_REQ_DYLD)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_DYLD_INFO_ONLY (0x22|LC_REQ_DYLD)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_MAIN (0x28|LC_REQ_DYLD)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_ਸਰੋਤ_ਸੰਸਕਰਣ 0x2A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_BUILD_ਸੰਸਕਰਣ 0x32
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_DYLD_EXPORTS_TRIE (0x33 | LC_REQ_DYLD)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_DYLD_CHAINED_FIXUPS (0x34 | LC_REQ_DYLD)
 
-#define SG_READ_ONLY    0x10 /* This segment is made read-only after fixups */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SG_READ_ONLY    0x10 /* This segment is made read-only after fixups */
 
-typedef int vm_prot_t;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ vm_prot_t;
 
-struct segment_command_64 { /* for 64-bit architectures */
+ਬਣਤਰ segment_command_64 { /* for 64-bit architectures */
     uint32_t        cmd;            /* LC_SEGMENT_64 */
     uint32_t        cmdsize;        /* includes sizeof section_64 structs */
-    char            segname[16];    /* segment name */
+    ਅੱਖਰ            segname[16];    /* segment name */
     uint64_t        vmaddr;         /* memory address of this segment */
     uint64_t        vmsize;         /* memory size of this segment */
     uint64_t        fileoff;        /* file offset of this segment */
@@ -135,12 +135,12 @@ struct segment_command_64 { /* for 64-bit architectures */
     uint32_t        flags;          /* flags */
 };
 
-struct section_64 { /* for 64-bit architectures */
-    char            sectname[16];   /* name of this section */
-    char            segname[16];    /* segment this section goes in */
+ਬਣਤਰ section_64 { /* for 64-bit architectures */
+    ਅੱਖਰ            sectname[16];   /* name of this section */
+    ਅੱਖਰ            segname[16];    /* segment this section goes in */
     uint64_t        addr;           /* memory address of this section */
-    uint64_t        size;           /* size in bytes of this section */
-    uint32_t        offset;         /* file offset of this section */
+    uint64_t        ਮਾਪ;           /* size in bytes of this section */
+    uint32_t        ਵਿੱਥ;         /* file offset of this section */
     uint32_t        align;          /* section alignment (power of 2) */
     uint32_t        reloff;         /* file offset of relocation entries */
     uint32_t        nreloc;         /* number of relocation entries */
@@ -150,118 +150,118 @@ struct section_64 { /* for 64-bit architectures */
     uint32_t        reserved3;      /* reserved */
 };
 
-enum {
+ਗਿਣਤੀ {
     DYLD_CHAINED_IMPORT          = 1,
 };
 
-struct dyld_chained_fixups_header {
-    uint32_t    fixups_version; ///< 0
-    uint32_t    starts_offset;  ///< Offset of dyld_chained_starts_in_image.
-    uint32_t    imports_offset; ///< Offset of imports table in chain_data.
-    uint32_t    symbols_offset; ///< Offset of symbol strings in chain_data.
-    uint32_t    imports_count;  ///< Number of imported symbol names.
+ਬਣਤਰ dyld_chained_fixups_ਸਿਰਲੇਖ {
+    uint32_t    fixups_ਸੰਸਕਰਣ; ///< 0
+    uint32_t    starts_ਵਿੱਥ;  ///< Offset of dyld_chained_starts_in_image.
+    uint32_t    imports_ਵਿੱਥ; ///< Offset of imports table in chain_data.
+    uint32_t    symbols_ਵਿੱਥ; ///< Offset of symbol strings in chain_data.
+    uint32_t    imports_ਗਿਣਤੀ;  ///< Number of imported symbol names.
     uint32_t    imports_format; ///< DYLD_CHAINED_IMPORT*
     uint32_t    symbols_format; ///< 0 => uncompressed, 1 => zlib compressed
 };
 
-struct dyld_chained_starts_in_image
+ਬਣਤਰ dyld_chained_starts_ਵਿੱਚ_image
 {
-    uint32_t    seg_count;
-    uint32_t    seg_info_offset[1];  // each entry is offset into this struct for that segment
+    uint32_t    seg_ਗਿਣਤੀ;
+    uint32_t    seg_info_ਵਿੱਥ[1];  // each entry is offset into this struct for that segment
     // followed by pool of dyld_chain_starts_in_segment data
 };
 
-enum {
+ਗਿਣਤੀ {
     DYLD_CHAINED_PTR_64                     =  2,    // target is vmaddr
-    DYLD_CHAINED_PTR_64_OFFSET              =  6,    // target is vm offset
+    DYLD_CHAINED_PTR_64_ਵਿੱਥ              =  6,    // target is vm offset
 };
 
-enum {
-    DYLD_CHAINED_PTR_START_NONE   = 0xFFFF, // used in page_start[] to denote a page with no fixups
+ਗਿਣਤੀ {
+    DYLD_CHAINED_PTR_ਸ਼ੁਰੂ_NONE   = 0xFFFF, // used in page_start[] to denote a page with no fixups
 };
 
-#define SEG_PAGE_SIZE 16384
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SEG_ਪੰਨਾ_ਮਾਪ 16384
 
-struct dyld_chained_starts_in_segment
+ਬਣਤਰ dyld_chained_starts_ਵਿੱਚ_segment
 {
-    uint32_t    size;               // size of this (amount kernel needs to copy)
-    uint16_t    page_size;          // 0x1000 or 0x4000
-    uint16_t    pointer_format;     // DYLD_CHAINED_PTR_*
-    uint64_t    segment_offset;     // offset in memory to start of segment
-    uint32_t    max_valid_pointer;  // for 32-bit OS, any value beyond this is not a pointer
-    uint16_t    page_count;         // how many pages are in array
-    uint16_t    page_start[1];      // each entry is offset in each page of first element in chain
+    uint32_t    ਮਾਪ;               // size of this (amount kernel needs to copy)
+    uint16_t    ਪੰਨਾ_ਮਾਪ;          // 0x1000 or 0x4000
+    uint16_t    ਸੂਚਕ_format;     // DYLD_CHAINED_PTR_*
+    uint64_t    segment_ਵਿੱਥ;     // offset in memory to start of segment
+    uint32_t    max_valid_ਸੂਚਕ;  // for 32-bit OS, any value beyond this is not a pointer
+    uint16_t    ਪੰਨਾ_ਗਿਣਤੀ;         // how many pages are in array
+    uint16_t    ਪੰਨਾ_ਸ਼ੁਰੂ[1];      // each entry is offset in each page of first element in chain
                                     // or DYLD_CHAINED_PTR_START_NONE if no fixups on page
 };
 
-enum BindSpecialDylib {
+ਗਿਣਤੀ BindSpecialDylib {
   BIND_SPECIAL_DYLIB_FLAT_LOOKUP = -2,
 };
 
-struct dyld_chained_import
+ਬਣਤਰ dyld_chained_import
 {
     uint32_t    lib_ordinal :  8,
                 weak_import :  1,
-                name_offset : 23;
+                name_ਵਿੱਥ : 23;
 };
 
-struct dyld_chained_ptr_64_rebase
+ਬਣਤਰ dyld_chained_ptr_64_rebase
 {
-    uint64_t    target    : 36,    // vmaddr, 64GB max image size
+    uint64_t    ਨਿਸ਼ਾਨਾ    : 36,    // vmaddr, 64GB max image size
                 high8     :  8,    // top 8 bits set to this after slide added
                 reserved  :  7,    // all zeros
-                next      : 12,    // 4-byte stride
+                ਅਗਲਾ      : 12,    // 4-byte stride
                 bind      :  1;    // == 0
 };
 
-struct dyld_chained_ptr_64_bind
+ਬਣਤਰ dyld_chained_ptr_64_bind
 {
     uint64_t    ordinal   : 24,
                 addend    :  8,   // 0 thru 255
                 reserved  : 19,   // all zeros
-                next      : 12,   // 4-byte stride
+                ਅਗਲਾ      : 12,   // 4-byte stride
                 bind      :  1;   // == 1
 };
 
-#define S_REGULAR                       0x0
-#define S_ZEROFILL                      0x1
-#define S_NON_LAZY_SYMBOL_POINTERS      0x6
-#define S_LAZY_SYMBOL_POINTERS          0x7
-#define S_SYMBOL_STUBS                  0x8
-#define S_MOD_INIT_FUNC_POINTERS        0x9
-#define S_MOD_TERM_FUNC_POINTERS        0xa
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_REGULAR                       0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_ZEROFILL                      0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_NON_LAZY_ਚਿੰਨ੍ਹ_ਸੂਚਕ_ਸਾਰੇ      0x6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_LAZY_ਚਿੰਨ੍ਹ_ਸੂਚਕ_ਸਾਰੇ          0x7
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_ਚਿੰਨ੍ਹ_STUBS                  0x8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_MOD_INIT_FUNC_ਸੂਚਕ_ਸਾਰੇ        0x9
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_MOD_ਪਦ_FUNC_ਸੂਚਕ_ਸਾਰੇ        0xa
 
-#define S_ATTR_PURE_INSTRUCTIONS        0x80000000
-#define S_ATTR_SOME_INSTRUCTIONS        0x00000400
-#define S_ATTR_DEBUG             	0x02000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_ATTR_ਸ਼ੁੱਧ_INSTRUCTIONS        0x80000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_ATTR_SOME_INSTRUCTIONS        0x00000400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ S_ATTR_DEBUG             	0x02000000
 
 
-typedef uint32_t lc_str;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ uint32_t lc_str;
 
-struct dylib_command {
+ਬਣਤਰ dylib_command {
     uint32_t cmd;                   /* LC_ID_DYLIB, LC_LOAD_{,WEAK_}DYLIB,
                                        LC_REEXPORT_DYLIB */
     uint32_t cmdsize;               /* includes pathname string */
     lc_str   name;                  /* library's path name */
     uint32_t timestamp;             /* library's build time stamp */
-    uint32_t current_version;       /* library's current version number */
-    uint32_t compatibility_version; /* library's compatibility vers number*/
+    uint32_t current_ਸੰਸਕਰਣ;       /* library's current version number */
+    uint32_t compatibility_ਸੰਸਕਰਣ; /* library's compatibility vers number*/
 };
 
-struct rpath_command {
+ਬਣਤਰ rpath_command {
     uint32_t     cmd;           /* LC_RPATH */
     uint32_t     cmdsize;       /* includes string */
-    lc_str       path;          /* path to add to run path */
+    lc_str       ਰਸਤਾ;          /* path to add to run path */
 };
 
-struct dylinker_command {
+ਬਣਤਰ dylinker_command {
     uint32_t        cmd;            /* LC_ID_DYLINKER, LC_LOAD_DYLINKER or
                                        LC_DYLD_ENVIRONMENT */
     uint32_t        cmdsize;        /* includes pathname string */
     lc_str          name;           /* dynamic linker's path name */
 };
 
-struct linkedit_data_command {
+ਬਣਤਰ linkedit_ਅੰਕੜੇ_command {
     uint32_t    cmd;            /* LC_CODE_SIGNATURE, LC_SEGMENT_SPLIT_INFO,
                                    LC_FUNCTION_STARTS, LC_DATA_IN_CODE,
                                    LC_DYLIB_CODE_SIGN_DRS,
@@ -273,9 +273,9 @@ struct linkedit_data_command {
     uint32_t    datasize;       /* file size of data in __LINKEDIT segment  */
 };
 
-#define PLATFORM_MACOS 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PLATFORM_MACOS 1
 
-struct build_version_command {
+ਬਣਤਰ build_ਸੰਸਕਰਣ_command {
     uint32_t    cmd;            /* LC_BUILD_VERSION */
     uint32_t    cmdsize;        /* sizeof(struct build_version_command) plus */
                                 /* ntools * sizeof(struct build_tool_version) */
@@ -285,13 +285,13 @@ struct build_version_command {
     uint32_t    ntools;         /* number of tool entries following this */
 };
 
-struct source_version_command {
+ਬਣਤਰ ਸਰੋਤ_ਸੰਸਕਰਣ_command {
     uint32_t  cmd;      /* LC_SOURCE_VERSION */
     uint32_t  cmdsize;  /* 16 */
-    uint64_t  version;  /* A.B.C.D.E packed as a24.b10.c10.d10.e10 */
+    uint64_t  ਸੰਸਕਰਣ;  /* A.B.C.D.E packed as a24.b10.c10.d10.e10 */
 };
 
-struct symtab_command {
+ਬਣਤਰ symtab_command {
     uint32_t        cmd;            /* LC_SYMTAB */
     uint32_t        cmdsize;        /* sizeof(struct symtab_command) */
     uint32_t        symoff;         /* symbol table offset */
@@ -300,7 +300,7 @@ struct symtab_command {
     uint32_t        strsize;        /* string table size in bytes */
 };
 
-struct dysymtab_command {
+ਬਣਤਰ dysymtab_command {
     uint32_t cmd;       /* LC_DYSYMTAB */
     uint32_t cmdsize;   /* sizeof(struct dysymtab_command) */
 
@@ -331,263 +331,263 @@ struct dysymtab_command {
     uint32_t nlocrel;   /* number of local relocation entries */
 };
 
-#define BIND_OPCODE_DONE                                        0x00
-#define BIND_OPCODE_SET_DYLIB_SPECIAL_IMM                       0x30
-#define BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM               0x40
-#define BIND_OPCODE_SET_TYPE_IMM                                0x50
-#define BIND_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB                 0x70
-#define BIND_OPCODE_DO_BIND                                     0x90
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BIND_OPCODE_ਪੂਰਾ                                        0x00
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BIND_OPCODE_ਸੈੱਟ_DYLIB_SPECIAL_IMM                       0x30
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BIND_OPCODE_ਸੈੱਟ_ਚਿੰਨ੍ਹ_TRAILING_FLAGS_IMM               0x40
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BIND_OPCODE_ਸੈੱਟ_TYPE_IMM                                0x50
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BIND_OPCODE_ਸੈੱਟ_SEGMENT_AND_ਵਿੱਥ_ULEB                 0x70
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BIND_OPCODE_DO_BIND                                     0x90
 
-#define BIND_SYMBOL_FLAGS_WEAK_IMPORT                           0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BIND_ਚਿੰਨ੍ਹ_FLAGS_WEAK_IMPORT                           0x1
 
-#define BIND_TYPE_POINTER                                       1
-#define BIND_SPECIAL_DYLIB_FLAT_LOOKUP                          -2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BIND_TYPE_ਸੂਚਕ                                       1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ BIND_SPECIAL_DYLIB_FLAT_LOOKUP                          -2
 
-#define REBASE_OPCODE_DONE                                      0x00
-#define REBASE_OPCODE_SET_TYPE_IMM                              0x10
-#define REBASE_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB               0x20
-#define REBASE_OPCODE_DO_REBASE_IMM_TIMES                       0x50
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REBASE_OPCODE_ਪੂਰਾ                                      0x00
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REBASE_OPCODE_ਸੈੱਟ_TYPE_IMM                              0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REBASE_OPCODE_ਸੈੱਟ_SEGMENT_AND_ਵਿੱਥ_ULEB               0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REBASE_OPCODE_DO_REBASE_IMM_TIMES                       0x50
 
-#define REBASE_TYPE_POINTER                                     1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REBASE_TYPE_ਸੂਚਕ                                     1
 
-#define EXPORT_SYMBOL_FLAGS_KIND_REGULAR                        0x00
-#define EXPORT_SYMBOL_FLAGS_KIND_ABSOLUTE                       0x02
-#define EXPORT_SYMBOL_FLAGS_WEAK_DEFINITION                     0x04
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXPORT_ਚਿੰਨ੍ਹ_FLAGS_ਕਿਸਮ_REGULAR                        0x00
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXPORT_ਚਿੰਨ੍ਹ_FLAGS_ਕਿਸਮ_ABSOLUTE                       0x02
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXPORT_ਚਿੰਨ੍ਹ_FLAGS_WEAK_DEFINITION                     0x04
 
-struct dyld_info_command {
+ਬਣਤਰ dyld_info_command {
     uint32_t cmd;             /* LC_DYLD_INFO or LC_DYLD_INFO_ONLY */
     uint32_t cmdsize;         /* sizeof(struct dyld_info_command) */
     uint32_t rebase_off;      /* file offset to rebase info  */
-    uint32_t rebase_size;     /* size of rebase info   */
+    uint32_t rebase_ਮਾਪ;     /* size of rebase info   */
     uint32_t bind_off;        /* file offset to binding info   */
-    uint32_t bind_size;       /* size of binding info  */
+    uint32_t bind_ਮਾਪ;       /* size of binding info  */
     uint32_t weak_bind_off;   /* file offset to weak binding info   */
-    uint32_t weak_bind_size;  /* size of weak binding info  */
+    uint32_t weak_bind_ਮਾਪ;  /* size of weak binding info  */
     uint32_t lazy_bind_off;   /* file offset to lazy binding info */
-    uint32_t lazy_bind_size;  /* size of lazy binding infs */
+    uint32_t lazy_bind_ਮਾਪ;  /* size of lazy binding infs */
     uint32_t export_off;      /* file offset to lazy binding info */
-    uint32_t export_size;     /* size of lazy binding infs */
+    uint32_t export_ਮਾਪ;     /* size of lazy binding infs */
 };
 
-#define INDIRECT_SYMBOL_LOCAL   0x80000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਅਸਿੱਧਾ_ਚਿੰਨ੍ਹ_LOCAL   0x80000000
 
-struct entry_point_command {
+ਬਣਤਰ ਇੰਦਰਾਜ_ਬਿੰਦੂ_command {
     uint32_t  cmd;      /* LC_MAIN only used in MH_EXECUTE filetypes */
     uint32_t  cmdsize;  /* 24 */
     uint64_t  entryoff; /* file (__TEXT) offset of main() */
     uint64_t  stacksize;/* if not zero, initial stack size */
 };
 
-enum skind {
+ਗਿਣਤੀ skind {
     sk_unknown = 0,
     sk_discard,
-    sk_text,
+    sk_ਪਾਠ,
     sk_stubs,
     sk_stub_helper,
-    sk_ro_data,
+    sk_ro_ਅੰਕੜੇ,
     sk_uw_info,
     sk_nl_ptr,  // non-lazy pointers, aka GOT
     sk_debug_info,
     sk_debug_abbrev,
-    sk_debug_line,
+    sk_debug_ਸਤਰ,
     sk_debug_aranges,
     sk_debug_str,
-    sk_debug_line_str,
+    sk_debug_ਸਤਰ_str,
     sk_stab,
     sk_stab_str,
     sk_la_ptr,  // lazy pointers
     sk_init,
     sk_fini,
-    sk_rw_data,
+    sk_rw_ਅੰਕੜੇ,
     sk_bss,
     sk_linkedit,
-    sk_last
+    sk_ਆਖਰੀ
 };
 
-struct nlist_64 {
+ਬਣਤਰ nlist_64 {
     uint32_t  n_strx;      /* index into the string table */
     uint8_t n_type;        /* type flag, see below */
     uint8_t n_sect;        /* section number or NO_SECT */
     uint16_t n_desc;       /* see <mach-o/stab.h> */
-    uint64_t n_value;      /* value of this symbol (or stab offset) */
+    uint64_t n_ਮੁੱਲ;      /* value of this symbol (or stab offset) */
 };
 
-#define N_UNDF  0x0
-#define N_ABS   0x2
-#define N_EXT   0x1
-#define N_SECT  0xe
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ N_UNDF  0x0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ N_ABS   0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ N_EXT   0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ N_SECT  0xe
 
-#define N_WEAK_REF      0x0040
-#define N_WEAK_DEF      0x0080
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ N_WEAK_REF      0x0040
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ N_WEAK_DEF      0x0080
 
-struct macho {
-    struct mach_header_64 mh;
-    int *seg2lc, nseg;
-    struct load_command **lc;
-    struct entry_point_command *ep;
-    int nlc;
-    struct {
+ਬਣਤਰ macho {
+    ਬਣਤਰ mach_ਸਿਰਲੇਖ_64 mh;
+    ਪੂਰਨ *seg2lc, nseg;
+    ਬਣਤਰ ਲੱਦੋ_command **lc;
+    ਬਣਤਰ ਇੰਦਰਾਜ_ਬਿੰਦੂ_command *ep;
+    ਪੂਰਨ nlc;
+    ਬਣਤਰ {
         Section *s;
-        int machosect;
-    } sk_to_sect[sk_last];
-    int *elfsectomacho;
-    int *e2msym;
+        ਪੂਰਨ machosect;
+    } sk_ਮੰਜ਼ਿਲ_sect[sk_ਆਖਰੀ];
+    ਪੂਰਨ *elfsectomacho;
+    ਪੂਰਨ *e2msym;
     Section *symtab, *strtab, *indirsyms, *stubs, *exports;
     uint32_t ilocal, iextdef, iundef;
-    int stubsym, n_got, nr_plt;
-    int segment[sk_last];
-#ifdef CONFIG_NEW_MACHO
+    ਪੂਰਨ stubsym, n_got, nr_plt;
+    ਪੂਰਨ segment[sk_ਆਖਰੀ];
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
     Section *chained_fixups;
-    int n_bind;
-    int n_bind_rebase;
-    struct bind_rebase {
-	int section;
-	int bind;
+    ਪੂਰਨ n_bind;
+    ਪੂਰਨ n_bind_rebase;
+    ਬਣਤਰ bind_rebase {
+	ਪੂਰਨ section;
+	ਪੂਰਨ bind;
 	ElfW_Rel rel;
     } *bind_rebase;
-#else
+#ਨਹੀਂਤਾਂ
     Section *rebase, *binding, *weak_binding, *lazy_binding;
-    Section *stub_helper, *la_symbol_ptr;
-    struct dyld_info_command *dyldinfo;
-    int helpsym, lasym, dyld_private, dyld_stub_binder;
-    int n_lazy_bind;    
-    struct s_lazy_bind {
-        int section;
-        int bind_offset;
-        int la_symbol_offset;
+    Section *stub_helper, *la_ਚਿੰਨ੍ਹ_ptr;
+    ਬਣਤਰ dyld_info_command *dyldinfo;
+    ਪੂਰਨ helpsym, lasym, dyld_ਨਿੱਜੀ, dyld_stub_binder;
+    ਪੂਰਨ n_lazy_bind;    
+    ਬਣਤਰ s_lazy_bind {
+        ਪੂਰਨ section;
+        ਪੂਰਨ bind_ਵਿੱਥ;
+        ਪੂਰਨ la_ਚਿੰਨ੍ਹ_ਵਿੱਥ;
         ElfW_Rel rel;
     } *s_lazy_bind;
-    int n_rebase;    
-    struct s_rebase {
-        int section;
+    ਪੂਰਨ n_rebase;    
+    ਬਣਤਰ s_rebase {
+        ਪੂਰਨ section;
         ElfW_Rel rel;
     } *s_rebase;
-    int n_bind; 
-    struct bind {
-        int section;
+    ਪੂਰਨ n_bind; 
+    ਬਣਤਰ bind {
+        ਪੂਰਨ section;
         ElfW_Rel rel;
     } *bind;
-#endif
+#ਜੇ_ਅੰਤ
 };
 
-#define SHT_LINKEDIT (SHT_LOOS + 42)
-#define SHN_FROMDLL  (SHN_LOOS + 2)  /* Symbol is undefined, comes from a DLL */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SHT_LINKEDIT (SHT_LOOS + 42)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SHN_FROMDLL  (SHN_LOOS + 2)  /* Symbol is undefined, comes from a DLL */
 
-static void * add_lc(struct macho *mo, uint32_t cmd, uint32_t cmdsize)
+ਸਥਿਰ ਖਾਲੀ * ਜੋੜੋ_lc(ਬਣਤਰ macho *mo, uint32_t cmd, uint32_t cmdsize)
 {
-    struct load_command *lc = tcc_mallocz(cmdsize);
+    ਬਣਤਰ ਲੱਦੋ_command *lc = tcc_mallocz(cmdsize);
     lc->cmd = cmd;
     lc->cmdsize = cmdsize;
-    mo->lc = tcc_realloc(mo->lc, sizeof(mo->lc[0]) * (mo->nlc + 1));
+    mo->lc = tcc_realloc(mo->lc, ਆਕਾਰ(mo->lc[0]) * (mo->nlc + 1));
     mo->lc[mo->nlc++] = lc;
-    return lc;
+    ਵਾਪਸ lc;
 }
 
-static struct segment_command_64 * add_segment(struct macho *mo, const char *name)
+ਸਥਿਰ ਬਣਤਰ segment_command_64 * ਜੋੜੋ_segment(ਬਣਤਰ macho *mo, ਅਚਲ ਅੱਖਰ *name)
 {
-    struct segment_command_64 *sc = add_lc(mo, LC_SEGMENT_64, sizeof(*sc));
+    ਬਣਤਰ segment_command_64 *sc = ਜੋੜੋ_lc(mo, LC_SEGMENT_64, ਆਕਾਰ(*sc));
     strncpy(sc->segname, name, 16);
-    mo->seg2lc = tcc_realloc(mo->seg2lc, sizeof(*mo->seg2lc) * (mo->nseg + 1));
+    mo->seg2lc = tcc_realloc(mo->seg2lc, ਆਕਾਰ(*mo->seg2lc) * (mo->nseg + 1));
     mo->seg2lc[mo->nseg++] = mo->nlc - 1;
-    return sc;
+    ਵਾਪਸ sc;
 }
 
-static struct segment_command_64 * get_segment(struct macho *mo, int i)
+ਸਥਿਰ ਬਣਤਰ segment_command_64 * get_segment(ਬਣਤਰ macho *mo, ਪੂਰਨ i)
 {
-    return (struct segment_command_64 *) (mo->lc[mo->seg2lc[i]]);
+    ਵਾਪਸ (ਬਣਤਰ segment_command_64 *) (mo->lc[mo->seg2lc[i]]);
 }
 
-static int add_section(struct macho *mo, struct segment_command_64 **_seg, const char *name)
+ਸਥਿਰ ਪੂਰਨ ਜੋੜੋ_section(ਬਣਤਰ macho *mo, ਬਣਤਰ segment_command_64 **_seg, ਅਚਲ ਅੱਖਰ *name)
 {
-    struct segment_command_64 *seg = *_seg;
-    int ret = seg->nsects;
-    struct section_64 *sec;
+    ਬਣਤਰ segment_command_64 *seg = *_seg;
+    ਪੂਰਨ ret = seg->nsects;
+    ਬਣਤਰ section_64 *sec;
     seg->nsects++;
-    seg->cmdsize += sizeof(*sec);
-    seg = tcc_realloc(seg, sizeof(*seg) + seg->nsects * sizeof(*sec));
-    sec = (struct section_64*)((char*)seg + sizeof(*seg)) + ret;
-    memset(sec, 0, sizeof(*sec));
+    seg->cmdsize += ਆਕਾਰ(*sec);
+    seg = tcc_realloc(seg, ਆਕਾਰ(*seg) + seg->nsects * ਆਕਾਰ(*sec));
+    sec = (ਬਣਤਰ section_64*)((ਅੱਖਰ*)seg + ਆਕਾਰ(*seg)) + ret;
+    memset(sec, 0, ਆਕਾਰ(*sec));
     strncpy(sec->sectname, name, 16);
     strncpy(sec->segname, seg->segname, 16);
     *_seg = seg;
-    return ret;
+    ਵਾਪਸ ret;
 }
 
-static struct section_64 *get_section(struct segment_command_64 *seg, int i)
+ਸਥਿਰ ਬਣਤਰ section_64 *get_section(ਬਣਤਰ segment_command_64 *seg, ਪੂਰਨ i)
 {
-    return (struct section_64*)((char*)seg + sizeof(*seg)) + i;
+    ਵਾਪਸ (ਬਣਤਰ section_64*)((ਅੱਖਰ*)seg + ਆਕਾਰ(*seg)) + i;
 }
 
-static void * add_dylib(struct macho *mo, char *name)
+ਸਥਿਰ ਖਾਲੀ * ਜੋੜੋ_dylib(ਬਣਤਰ macho *mo, ਅੱਖਰ *name)
 {
-    struct dylib_command *lc;
-    int sz = (sizeof(*lc) + strlen(name) + 1 + 7) & -8;
-    lc = add_lc(mo, LC_LOAD_DYLIB, sz);
-    lc->name = sizeof(*lc);
-    strcpy((char*)lc + lc->name, name);
+    ਬਣਤਰ dylib_command *lc;
+    ਪੂਰਨ sz = (ਆਕਾਰ(*lc) + ਲੜੀ_ਲੰਬਾਈ(name) + 1 + 7) & -8;
+    lc = ਜੋੜੋ_lc(mo, LC_ਲੱਦੋ_DYLIB, sz);
+    lc->name = ਆਕਾਰ(*lc);
+    strcpy((ਅੱਖਰ*)lc + lc->name, name);
     lc->timestamp = 2;
-    lc->current_version = 1 << 16;
-    lc->compatibility_version = 1 << 16;
-    return lc;
+    lc->current_ਸੰਸਕਰਣ = 1 << 16;
+    lc->compatibility_ਸੰਸਕਰਣ = 1 << 16;
+    ਵਾਪਸ lc;
 }
 
-static int uleb128_size (unsigned long long value)
+ਸਥਿਰ ਪੂਰਨ uleb128_ਮਾਪ (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ ਮੁੱਲ)
 {
-    int size =  0;
+    ਪੂਰਨ ਮਾਪ =  0;
 
-    do {
-        value >>= 7;
-        size++;
-    } while (value != 0);
-    return size;
+    ਕਰੋ {
+        ਮੁੱਲ >>= 7;
+        ਮਾਪ++;
+    } ਜਦੋਂ (ਮੁੱਲ != 0);
+    ਵਾਪਸ ਮਾਪ;
 }
 
-static void write_uleb128(Section *section, uint64_t value)
+ਸਥਿਰ ਖਾਲੀ write_uleb128(Section *section, uint64_t ਮੁੱਲ)
 {
-    do {
-        unsigned char byte = value & 0x7f;
-	uint8_t *ptr = section_ptr_add(section, 1);
+    ਕਰੋ {
+        ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ byte = ਮੁੱਲ & 0x7f;
+	uint8_t *ptr = section_ptr_ਜੋੜੋ(section, 1);
 
-        value >>= 7;
-        *ptr = byte | (value ? 0x80 : 0);
-    } while (value != 0);
+        ਮੁੱਲ >>= 7;
+        *ptr = byte | (ਮੁੱਲ ? 0x80 : 0);
+    } ਜਦੋਂ (ਮੁੱਲ != 0);
 }
 
-static void tcc_macho_add_destructor(TCCState *s1)
+ਸਥਿਰ ਖਾਲੀ tcc_macho_ਜੋੜੋ_destructor(TCCState *s1)
 {
-    int init_sym, mh_execute_header, at_exit_sym;
+    ਪੂਰਨ init_sym, mh_execute_ਸਿਰਲੇਖ, at_exit_sym;
     Section *s;
     ElfW_Rel *rel;
     uint8_t *ptr;
 
-    mh_execute_header = put_elf_sym(s1->symtab, -4096, 0,
+    mh_execute_ਸਿਰਲੇਖ = put_elf_sym(s1->symtab, -4096, 0,
 				    ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT), 0,
-				    text_section->sh_num, "__mh_execute_header");
-    s = find_section(s1, ".fini_array");
-    if (s->data_offset == 0)
-        return; 
-    init_sym = put_elf_sym(s1->symtab, text_section->data_offset, 0,
+				    ਪਾਠ_section->sh_ਅੰਕ, "__mh_execute_header");
+    s = ਲੱਭੋ_section(s1, ".fini_array");
+    ਜੇ (s->ਅੰਕੜੇ_ਵਿੱਥ == 0)
+        ਵਾਪਸ; 
+    init_sym = put_elf_sym(s1->symtab, ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ, 0,
                            ELFW(ST_INFO)(STB_LOCAL, STT_FUNC), 0,
-                           text_section->sh_num, "___GLOBAL_init_65535");
+                           ਪਾਠ_section->sh_ਅੰਕ, "___GLOBAL_init_65535");
     at_exit_sym = put_elf_sym(s1->symtab, 0, 0,
                               ELFW(ST_INFO)(STB_GLOBAL, STT_FUNC), 0,
                               SHN_UNDEF, "___cxa_atexit");
-#ifdef TCC_TARGET_X86_64
-    ptr = section_ptr_add(text_section, 4);
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
+    ptr = section_ptr_ਜੋੜੋ(ਪਾਠ_section, 4);
     ptr[0] = 0x55;  // pushq   %rbp
     ptr[1] = 0x48;  // movq    %rsp, %rbp
     ptr[2] = 0x89;
     ptr[3] = 0xe5;
     for_each_elem(s->reloc, 0, rel, ElfW_Rel) {
-        int sym_index = ELFW(R_SYM)(rel->r_info);
+        ਪੂਰਨ sym_ਸੂਚਕਾਂਕ = ELFW(R_SYM)(rel->r_info);
 
-        ptr = section_ptr_add(text_section, 26);
+        ptr = section_ptr_ਜੋੜੋ(ਪਾਠ_section, 26);
         ptr[0] = 0x48;  // lea destructor(%rip),%rax
         ptr[1] = 0x8d;
         ptr[2] = 0x05;
-        put_elf_reloca(s1->symtab, text_section, 
-		       text_section->data_offset - 23,
-		       R_X86_64_PC32, sym_index, -4);
+        put_elf_reloca(s1->symtab, ਪਾਠ_section, 
+		       ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ - 23,
+		       R_X86_64_PC32, sym_ਸੂਚਕਾਂਕ, -4);
         ptr[7] = 0x48;  // mov %rax,%rdi
         ptr[8] = 0x89;
         ptr[9] = 0xc7;
@@ -598,212 +598,212 @@ static void tcc_macho_add_destructor(TCCState *s1)
         ptr[14] = 0x48;  // lea mh_execute_header(%rip),%rdx
         ptr[15] = 0x8d;
         ptr[16] = 0x15;
-        put_elf_reloca(s1->symtab, text_section,
-		       text_section->data_offset - 9,
-		       R_X86_64_PC32, mh_execute_header, -4);
+        put_elf_reloca(s1->symtab, ਪਾਠ_section,
+		       ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ - 9,
+		       R_X86_64_PC32, mh_execute_ਸਿਰਲੇਖ, -4);
 	ptr[21] = 0xe8; // call __cxa_atexit
-        put_elf_reloca(s1->symtab, text_section,
-		       text_section->data_offset - 4,
+        put_elf_reloca(s1->symtab, ਪਾਠ_section,
+		       ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ - 4,
 		       R_X86_64_PLT32, at_exit_sym, -4);
     }
-    ptr = section_ptr_add(text_section, 2);
+    ptr = section_ptr_ਜੋੜੋ(ਪਾਠ_section, 2);
     ptr[0] = 0x5d;  // pop   %rbp
     ptr[1] = 0xc3;  // ret
-#elif defined TCC_TARGET_ARM64
-    ptr = section_ptr_add(text_section, 8);
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM64
+    ptr = section_ptr_ਜੋੜੋ(ਪਾਠ_section, 8);
     write32le(ptr, 0xa9bf7bfd);     // stp     x29, x30, [sp, #-16]!
     write32le(ptr + 4, 0x910003fd); // mov     x29, sp
     for_each_elem(s->reloc, 0, rel, ElfW_Rel) {
-        int sym_index = ELFW(R_SYM)(rel->r_info);
+        ਪੂਰਨ sym_ਸੂਚਕਾਂਕ = ELFW(R_SYM)(rel->r_info);
 
-        ptr = section_ptr_add(text_section, 24);
-        put_elf_reloc(s1->symtab, text_section, 
-		      text_section->data_offset - 24,
-		      R_AARCH64_ADR_PREL_PG_HI21, sym_index);
+        ptr = section_ptr_ਜੋੜੋ(ਪਾਠ_section, 24);
+        put_elf_reloc(s1->symtab, ਪਾਠ_section, 
+		      ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ - 24,
+		      R_AARCH64_ADR_PREL_PG_HI21, sym_ਸੂਚਕਾਂਕ);
         write32le(ptr, 0x90000000);      // adrp x0, destructor@page
-        put_elf_reloc(s1->symtab, text_section,
-		      text_section->data_offset - 20,
-		      R_AARCH64_LDST8_ABS_LO12_NC, sym_index);
+        put_elf_reloc(s1->symtab, ਪਾਠ_section,
+		      ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ - 20,
+		      R_AARCH64_LDST8_ABS_LO12_NC, sym_ਸੂਚਕਾਂਕ);
         write32le(ptr + 4, 0x91000000);  // add x0,x0,destructor@pageoff
         write32le(ptr + 8, 0xd2800001);  // mov x1, #0
-        put_elf_reloc(s1->symtab, text_section, 
-		      text_section->data_offset - 12,
-		      R_AARCH64_ADR_PREL_PG_HI21, mh_execute_header);
+        put_elf_reloc(s1->symtab, ਪਾਠ_section, 
+		      ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ - 12,
+		      R_AARCH64_ADR_PREL_PG_HI21, mh_execute_ਸਿਰਲੇਖ);
         write32le(ptr + 12, 0x90000002);      // adrp x2, mh_execute_header@page
-        put_elf_reloc(s1->symtab, text_section,
-		      text_section->data_offset - 8,
-		      R_AARCH64_LDST8_ABS_LO12_NC, mh_execute_header);
+        put_elf_reloc(s1->symtab, ਪਾਠ_section,
+		      ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ - 8,
+		      R_AARCH64_LDST8_ABS_LO12_NC, mh_execute_ਸਿਰਲੇਖ);
         write32le(ptr + 16, 0x91000042);  // add x2,x2,mh_execute_header@pageoff
-        put_elf_reloc(s1->symtab, text_section,
-		      text_section->data_offset - 4,
+        put_elf_reloc(s1->symtab, ਪਾਠ_section,
+		      ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ - 4,
 		      R_AARCH64_CALL26, at_exit_sym);
 	write32le(ptr + 20, 0x94000000); // bl __cxa_atexit
     }
-    ptr = section_ptr_add(text_section, 8);
+    ptr = section_ptr_ਜੋੜੋ(ਪਾਠ_section, 8);
     write32le(ptr, 0xa8c17bfd);     // ldp     x29, x30, [sp], #16
     write32le(ptr + 4, 0xd65f03c0); // ret
-#endif
-    s->reloc->data_offset = s->data_offset = 0;
+#ਜੇ_ਅੰਤ
+    s->reloc->ਅੰਕੜੇ_ਵਿੱਥ = s->ਅੰਕੜੇ_ਵਿੱਥ = 0;
     s->sh_flags &= ~SHF_ALLOC;
-    add_array (s1, ".init_array", init_sym);
+    ਜੋੜੋ_array (s1, ".init_array", init_sym);
 }
 
-#ifdef CONFIG_NEW_MACHO
-static void bind_rebase_add(struct macho *mo, int bind, int sh_info,
-			    ElfW_Rel *rel, struct sym_attr *attr)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
+ਸਥਿਰ ਖਾਲੀ bind_rebase_ਜੋੜੋ(ਬਣਤਰ macho *mo, ਪੂਰਨ bind, ਪੂਰਨ sh_info,
+			    ElfW_Rel *rel, ਬਣਤਰ sym_attr *attr)
 {
     mo->bind_rebase = tcc_realloc(mo->bind_rebase, (mo->n_bind_rebase + 1) *
-		                  sizeof(struct bind_rebase));
+		                  ਆਕਾਰ(ਬਣਤਰ bind_rebase));
     mo->bind_rebase[mo->n_bind_rebase].section = sh_info;
     mo->bind_rebase[mo->n_bind_rebase].bind = bind;
     mo->bind_rebase[mo->n_bind_rebase].rel = *rel;
-    if (attr)
-        mo->bind_rebase[mo->n_bind_rebase].rel.r_offset = attr->got_offset;
+    ਜੇ (attr)
+        mo->bind_rebase[mo->n_bind_rebase].rel.r_ਵਿੱਥ = attr->got_ਵਿੱਥ;
     mo->n_bind_rebase++;
     mo->n_bind += bind;
 }
 
-static void check_relocs(TCCState *s1, struct macho *mo)
+ਸਥਿਰ ਖਾਲੀ check_relocs(TCCState *s1, ਬਣਤਰ macho *mo)
 {
     Section *s;
     ElfW_Rel *rel, save_rel;
     ElfW(Sym) *sym;
-    int i, j, type, gotplt_entry, sym_index, for_code;
+    ਪੂਰਨ i, j, type, gotplt_ਇੰਦਰਾਜ, sym_ਸੂਚਕਾਂਕ, for_ਕੋਡ;
     uint32_t *pi, *goti;
-    struct sym_attr *attr;
+    ਬਣਤਰ sym_attr *attr;
 
-    goti = NULL;
+    goti = ਨਿਰਾ;
     mo->nr_plt = mo->n_got = 0;
-    for (i = 1; i < s1->nb_sections; i++) {
+    ਲਈ (i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_RELX ||
-	    !strncmp(s1->sections[s->sh_info]->name, ".debug_", 7))
-            continue;
+        ਜੇ (s->sh_type != SHT_RELX ||
+	    !ਲੜੀ_ਤੁਲਨਾ(s1->sections[s->sh_info]->name, ".debug_", 7))
+            ਜਾਰੀ;
         for_each_elem(s, 0, rel, ElfW_Rel) {
 	    save_rel = *rel;
             type = ELFW(R_TYPE)(rel->r_info);
-            gotplt_entry = gotplt_entry_type(type);
-            for_code = code_reloc(type);
+            gotplt_ਇੰਦਰਾਜ = gotplt_ਇੰਦਰਾਜ_type(type);
+            for_ਕੋਡ = ਕੋਡ_reloc(type);
             /* We generate a non-lazy pointer for used undefined symbols
                and for defined symbols that must have a place for their
                address due to codegen (i.e. a reloc requiring a got slot).  */
-            sym_index = ELFW(R_SYM)(rel->r_info);
-            sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-            if (sym->st_shndx == SHN_UNDEF
-                || gotplt_entry == ALWAYS_GOTPLT_ENTRY) {
-                attr = get_sym_attr(s1, sym_index, 1);
-                if (!attr->dyn_index) {
-                    attr->got_offset = s1->got->data_offset;
-                    attr->plt_offset = -1;
-                    attr->dyn_index = 1; /* used as flag */
-                    section_ptr_add(s1->got, PTR_SIZE);
-                    put_elf_reloc(s1->symtab, s1->got, attr->got_offset,
-                                  R_JMP_SLOT, sym_index);
-	 	    goti = tcc_realloc(goti, (mo->n_got + 1) * sizeof(*goti));
-                    if (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
-                        if (sym->st_shndx == SHN_UNDEF)
+            sym_ਸੂਚਕਾਂਕ = ELFW(R_SYM)(rel->r_info);
+            sym = &((ElfW(Sym) *)symtab_section->ਅੰਕੜੇ)[sym_ਸੂਚਕਾਂਕ];
+            ਜੇ (sym->st_shndx == SHN_UNDEF
+                || gotplt_ਇੰਦਰਾਜ == ALWAYS_GOTPLT_ਇੰਦਰਾਜ) {
+                attr = get_sym_attr(s1, sym_ਸੂਚਕਾਂਕ, 1);
+                ਜੇ (!attr->dyn_ਸੂਚਕਾਂਕ) {
+                    attr->got_ਵਿੱਥ = s1->got->ਅੰਕੜੇ_ਵਿੱਥ;
+                    attr->plt_ਵਿੱਥ = -1;
+                    attr->dyn_ਸੂਚਕਾਂਕ = 1; /* used as flag */
+                    section_ptr_ਜੋੜੋ(s1->got, PTR_ਮਾਪ);
+                    put_elf_reloc(s1->symtab, s1->got, attr->got_ਵਿੱਥ,
+                                  R_JMP_ਥਾਂ, sym_ਸੂਚਕਾਂਕ);
+	 	    goti = tcc_realloc(goti, (mo->n_got + 1) * ਆਕਾਰ(*goti));
+                    ਜੇ (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
+                        ਜੇ (sym->st_shndx == SHN_UNDEF)
                           tcc_error("unresolved local reference to '%s'",
-				    (char *) symtab_section->link->data + sym->st_name);
-			goti[mo->n_got++] = INDIRECT_SYMBOL_LOCAL;
-                    } else {
-                        goti[mo->n_got++] = mo->e2msym[sym_index];
-                        if (sym->st_shndx == SHN_UNDEF
-#ifdef TCC_TARGET_X86_64
+				    (ਅੱਖਰ *) symtab_section->link->ਅੰਕੜੇ + sym->st_name);
+			goti[mo->n_got++] = ਅਸਿੱਧਾ_ਚਿੰਨ੍ਹ_LOCAL;
+                    } ਨਹੀਂਤਾਂ {
+                        goti[mo->n_got++] = mo->e2msym[sym_ਸੂਚਕਾਂਕ];
+                        ਜੇ (sym->st_shndx == SHN_UNDEF
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
                             && type == R_X86_64_GOTPCREL
-#elif defined TCC_TARGET_ARM64
-                            && type == R_AARCH64_ADR_GOT_PAGE
-#endif
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM64
+                            && type == R_AARCH64_ADR_GOT_ਪੰਨਾ
+#ਜੇ_ਅੰਤ
                             ) {
-			    attr->plt_offset = -mo->n_bind_rebase - 2;
-			    bind_rebase_add(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
-			    s1->got->reloc->data_offset -= sizeof (ElfW_Rel);
+			    attr->plt_ਵਿੱਥ = -mo->n_bind_rebase - 2;
+			    bind_rebase_ਜੋੜੋ(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
+			    s1->got->reloc->ਅੰਕੜੇ_ਵਿੱਥ -= ਆਕਾਰ (ElfW_Rel);
 			}
-		        if (for_code && sym->st_shndx == SHN_UNDEF)
-			    s1->got->reloc->data_offset -= sizeof (ElfW_Rel);
+		        ਜੇ (for_ਕੋਡ && sym->st_shndx == SHN_UNDEF)
+			    s1->got->reloc->ਅੰਕੜੇ_ਵਿੱਥ -= ਆਕਾਰ (ElfW_Rel);
 		    }
                 }
-                if (for_code && sym->st_shndx == SHN_UNDEF) {
-		    if ((int)attr->plt_offset < -1) {
+                ਜੇ (for_ਕੋਡ && sym->st_shndx == SHN_UNDEF) {
+		    ਜੇ ((ਪੂਰਨ)attr->plt_ਵਿੱਥ < -1) {
 			/* remove above bind and replace with plt */
-			mo->bind_rebase[-attr->plt_offset - 2].bind = 2;
-			attr->plt_offset = -1;
+			mo->bind_rebase[-attr->plt_ਵਿੱਥ - 2].bind = 2;
+			attr->plt_ਵਿੱਥ = -1;
 		    }
-                    if (attr->plt_offset == -1) {
+                    ਜੇ (attr->plt_ਵਿੱਥ == -1) {
                         uint8_t *jmp;
 
-                        attr->plt_offset = mo->stubs->data_offset;
-#ifdef TCC_TARGET_X86_64
-                        if (type != R_X86_64_PLT32)
-                             continue;
-                        jmp = section_ptr_add(mo->stubs, 6);
+                        attr->plt_ਵਿੱਥ = mo->stubs->ਅੰਕੜੇ_ਵਿੱਥ;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
+                        ਜੇ (type != R_X86_64_PLT32)
+                             ਜਾਰੀ;
+                        jmp = section_ptr_ਜੋੜੋ(mo->stubs, 6);
                         jmp[0] = 0xff;  /* jmpq *ofs(%rip) */
                         jmp[1] = 0x25;
                         put_elf_reloc(s1->symtab, mo->stubs,
-                                      attr->plt_offset + 2,
-                                      R_X86_64_GOTPCREL, sym_index);
-#elif defined TCC_TARGET_ARM64
-                        if (type != R_AARCH64_CALL26)
-                             continue;
-                        jmp = section_ptr_add(mo->stubs, 12);
+                                      attr->plt_ਵਿੱਥ + 2,
+                                      R_X86_64_GOTPCREL, sym_ਸੂਚਕਾਂਕ);
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM64
+                        ਜੇ (type != R_AARCH64_CALL26)
+                             ਜਾਰੀ;
+                        jmp = section_ptr_ਜੋੜੋ(mo->stubs, 12);
                         put_elf_reloc(s1->symtab, mo->stubs,
-                                      attr->plt_offset,
-                                      R_AARCH64_ADR_GOT_PAGE, sym_index);
+                                      attr->plt_ਵਿੱਥ,
+                                      R_AARCH64_ADR_GOT_ਪੰਨਾ, sym_ਸੂਚਕਾਂਕ);
                         write32le(jmp, // adrp x16, #sym
                                   0x90000010);
                         put_elf_reloc(s1->symtab, mo->stubs,
-                                      attr->plt_offset + 4,
-                                      R_AARCH64_LD64_GOT_LO12_NC, sym_index);
+                                      attr->plt_ਵਿੱਥ + 4,
+                                      R_AARCH64_LD64_GOT_LO12_NC, sym_ਸੂਚਕਾਂਕ);
                         write32le(jmp + 4, // ld x16,[x16, #sym]
                                   0xf9400210);
                         write32le(jmp + 8, // br x16
                                   0xd61f0200);
-#endif
-			bind_rebase_add(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
-                        pi = section_ptr_add(mo->indirsyms, sizeof(*pi));
-                        *pi = mo->e2msym[sym_index];
+#ਜੇ_ਅੰਤ
+			bind_rebase_ਜੋੜੋ(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
+                        pi = section_ptr_ਜੋੜੋ(mo->indirsyms, ਆਕਾਰ(*pi));
+                        *pi = mo->e2msym[sym_ਸੂਚਕਾਂਕ];
                         mo->nr_plt++;
                     }
                     rel->r_info = ELFW(R_INFO)(mo->stubsym, type);
-                    rel->r_addend += attr->plt_offset;
+                    rel->r_addend += attr->plt_ਵਿੱਥ;
                 }
             }
-	    if (type == R_DATA_PTR || type == R_JMP_SLOT)
-		bind_rebase_add(mo, sym->st_shndx == SHN_UNDEF ? 1 : 0,
-				s->sh_info, &save_rel, NULL);
+	    ਜੇ (type == R_ਅੰਕੜੇ_PTR || type == R_JMP_ਥਾਂ)
+		bind_rebase_ਜੋੜੋ(mo, sym->st_shndx == SHN_UNDEF ? 1 : 0,
+				s->sh_info, &save_rel, ਨਿਰਾ);
         }
     }
     /* remove deleted binds */
-    for (i = 0, j = 0; i < mo->n_bind_rebase; i++)
-	if (mo->bind_rebase[i].bind == 2)
+    ਲਈ (i = 0, j = 0; i < mo->n_bind_rebase; i++)
+	ਜੇ (mo->bind_rebase[i].bind == 2)
 	    mo->n_bind--;
-	else
+	ਨਹੀਂਤਾਂ
 	    mo->bind_rebase[j++] = mo->bind_rebase[i];
     mo->n_bind_rebase = j;
-    pi = section_ptr_add(mo->indirsyms, mo->n_got * sizeof(*pi));
-    memcpy(pi, goti, mo->n_got * sizeof(*pi));
+    pi = section_ptr_ਜੋੜੋ(mo->indirsyms, mo->n_got * ਆਕਾਰ(*pi));
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(pi, goti, mo->n_got * ਆਕਾਰ(*pi));
     tcc_free(goti);
 }
 
-#else
+#ਨਹੀਂਤਾਂ
 
-static void check_relocs(TCCState *s1, struct macho *mo)
+ਸਥਿਰ ਖਾਲੀ check_relocs(TCCState *s1, ਬਣਤਰ macho *mo)
 {
     uint8_t *jmp;
     Section *s;
     ElfW_Rel *rel, save_rel;
     ElfW(Sym) *sym;
-    int i, type, gotplt_entry, sym_index, for_code;
-    int bind_offset, la_symbol_offset;
+    ਪੂਰਨ i, type, gotplt_ਇੰਦਰਾਜ, sym_ਸੂਚਕਾਂਕ, for_ਕੋਡ;
+    ਪੂਰਨ bind_ਵਿੱਥ, la_ਚਿੰਨ੍ਹ_ਵਿੱਥ;
     uint32_t *pi, *goti;
-    struct sym_attr *attr;
+    ਬਣਤਰ sym_attr *attr;
 
-#ifdef TCC_TARGET_X86_64
-    jmp = section_ptr_add(mo->stub_helper, 16);
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
+    jmp = section_ptr_ਜੋੜੋ(mo->stub_helper, 16);
     jmp[0] = 0x4c;  /* leaq _dyld_private(%rip), %r11 */
     jmp[1] = 0x8d;
     jmp[2] = 0x1d;
     put_elf_reloca(s1->symtab, mo->stub_helper, 3,
-		   R_X86_64_PC32, mo->dyld_private, -4);
+		   R_X86_64_PC32, mo->dyld_ਨਿੱਜੀ, -4);
     jmp[7] = 0x41;  /* pushq %r11 */
     jmp[8] = 0x53;
     jmp[9] = 0xff;  /* jmpq    *dyld_stub_binder@GOT(%rip) */
@@ -811,180 +811,180 @@ static void check_relocs(TCCState *s1, struct macho *mo)
     put_elf_reloca(s1->symtab, mo->stub_helper, 11,
 		   R_X86_64_GOTPCREL, mo->dyld_stub_binder, -4);
     jmp[15] = 0x90; /* nop */
-#elif defined TCC_TARGET_ARM64
-    jmp = section_ptr_add(mo->stub_helper, 24);
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM64
+    jmp = section_ptr_ਜੋੜੋ(mo->stub_helper, 24);
     put_elf_reloc(s1->symtab, mo->stub_helper, 0,
-		  R_AARCH64_ADR_PREL_PG_HI21, mo->dyld_private);
+		  R_AARCH64_ADR_PREL_PG_HI21, mo->dyld_ਨਿੱਜੀ);
     write32le(jmp, 0x90000011); // adrp x17, _dyld_private@page
     put_elf_reloc(s1->symtab, mo->stub_helper, 4,
-		  R_AARCH64_LDST64_ABS_LO12_NC, mo->dyld_private);
+		  R_AARCH64_LDST64_ABS_LO12_NC, mo->dyld_ਨਿੱਜੀ);
     write32le(jmp + 4, 0x91000231); // add x17,x17,_dyld_private@pageoff
     write32le(jmp + 8, 0xa9bf47f0); // stp x16/x17, [sp, #-16]!
     put_elf_reloc(s1->symtab, mo->stub_helper, 12,
-		  R_AARCH64_ADR_GOT_PAGE, mo->dyld_stub_binder);
+		  R_AARCH64_ADR_GOT_ਪੰਨਾ, mo->dyld_stub_binder);
     write32le(jmp + 12, 0x90000010); // adrp x16, dyld_stub_binder@page
     put_elf_reloc(s1->symtab, mo->stub_helper, 16,
 		  R_AARCH64_LD64_GOT_LO12_NC, mo->dyld_stub_binder);
     write32le(jmp + 16, 0xf9400210); // ldr x16,[x16,dyld_stub_binder@pageoff]
     write32le(jmp + 20, 0xd61f0200); // br x16
-#endif
+#ਜੇ_ਅੰਤ
     
-    goti = NULL;
+    goti = ਨਿਰਾ;
     mo->nr_plt = mo->n_got = 0;
-    for (i = 1; i < s1->nb_sections; i++) {
+    ਲਈ (i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_RELX ||
-	    !strncmp(s1->sections[s->sh_info]->name, ".debug_", 7))
-            continue;
+        ਜੇ (s->sh_type != SHT_RELX ||
+	    !ਲੜੀ_ਤੁਲਨਾ(s1->sections[s->sh_info]->name, ".debug_", 7))
+            ਜਾਰੀ;
         for_each_elem(s, 0, rel, ElfW_Rel) {
 	    save_rel = *rel;
             type = ELFW(R_TYPE)(rel->r_info);
-            gotplt_entry = gotplt_entry_type(type);
-            for_code = code_reloc(type);
+            gotplt_ਇੰਦਰਾਜ = gotplt_ਇੰਦਰਾਜ_type(type);
+            for_ਕੋਡ = ਕੋਡ_reloc(type);
             /* We generate a non-lazy pointer for used undefined symbols
                and for defined symbols that must have a place for their
                address due to codegen (i.e. a reloc requiring a got slot).  */
-            sym_index = ELFW(R_SYM)(rel->r_info);
-            sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-            if (sym->st_shndx == SHN_UNDEF
-                || gotplt_entry == ALWAYS_GOTPLT_ENTRY) {
-                attr = get_sym_attr(s1, sym_index, 1);
-                if (!attr->dyn_index) {
-                    attr->got_offset = s1->got->data_offset;
-                    attr->plt_offset = -1;
-                    attr->dyn_index = 1; /* used as flag */
-		    section_ptr_add(s1->got, PTR_SIZE);
-                    put_elf_reloc(s1->symtab, s1->got, attr->got_offset,
-                                  R_JMP_SLOT, sym_index);
-		    goti = tcc_realloc(goti, (mo->n_got + 1) * sizeof(*goti));
-                    if (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
-                        if (sym->st_shndx == SHN_UNDEF)
+            sym_ਸੂਚਕਾਂਕ = ELFW(R_SYM)(rel->r_info);
+            sym = &((ElfW(Sym) *)symtab_section->ਅੰਕੜੇ)[sym_ਸੂਚਕਾਂਕ];
+            ਜੇ (sym->st_shndx == SHN_UNDEF
+                || gotplt_ਇੰਦਰਾਜ == ALWAYS_GOTPLT_ਇੰਦਰਾਜ) {
+                attr = get_sym_attr(s1, sym_ਸੂਚਕਾਂਕ, 1);
+                ਜੇ (!attr->dyn_ਸੂਚਕਾਂਕ) {
+                    attr->got_ਵਿੱਥ = s1->got->ਅੰਕੜੇ_ਵਿੱਥ;
+                    attr->plt_ਵਿੱਥ = -1;
+                    attr->dyn_ਸੂਚਕਾਂਕ = 1; /* used as flag */
+		    section_ptr_ਜੋੜੋ(s1->got, PTR_ਮਾਪ);
+                    put_elf_reloc(s1->symtab, s1->got, attr->got_ਵਿੱਥ,
+                                  R_JMP_ਥਾਂ, sym_ਸੂਚਕਾਂਕ);
+		    goti = tcc_realloc(goti, (mo->n_got + 1) * ਆਕਾਰ(*goti));
+                    ਜੇ (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
+                        ਜੇ (sym->st_shndx == SHN_UNDEF)
                           tcc_error("unresolved local reference to '%s'",
-				    (char *) symtab_section->link->data + sym->st_name);
-			goti[mo->n_got++] = INDIRECT_SYMBOL_LOCAL;
-                    } else {
-			goti[mo->n_got++] = mo->e2msym[sym_index];
-			if (sym->st_shndx == SHN_UNDEF
-#ifdef TCC_TARGET_X86_64
+				    (ਅੱਖਰ *) symtab_section->link->ਅੰਕੜੇ + sym->st_name);
+			goti[mo->n_got++] = ਅਸਿੱਧਾ_ਚਿੰਨ੍ਹ_LOCAL;
+                    } ਨਹੀਂਤਾਂ {
+			goti[mo->n_got++] = mo->e2msym[sym_ਸੂਚਕਾਂਕ];
+			ਜੇ (sym->st_shndx == SHN_UNDEF
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
 			    && type == R_X86_64_GOTPCREL
-#elif defined TCC_TARGET_ARM64
-			    && type == R_AARCH64_ADR_GOT_PAGE
-#endif
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM64
+			    && type == R_AARCH64_ADR_GOT_ਪੰਨਾ
+#ਜੇ_ਅੰਤ
 			    ) {
 			    mo->bind =
 			        tcc_realloc(mo->bind,
 					    (mo->n_bind + 1) *
-					    sizeof(struct bind));
+					    ਆਕਾਰ(ਬਣਤਰ bind));
 			    mo->bind[mo->n_bind].section = s1->got->reloc->sh_info;
 			    mo->bind[mo->n_bind].rel = save_rel;
-                            mo->bind[mo->n_bind].rel.r_offset = attr->got_offset;
+                            mo->bind[mo->n_bind].rel.r_ਵਿੱਥ = attr->got_ਵਿੱਥ;
 			    mo->n_bind++;
-			    s1->got->reloc->data_offset -= sizeof (ElfW_Rel);
+			    s1->got->reloc->ਅੰਕੜੇ_ਵਿੱਥ -= ਆਕਾਰ (ElfW_Rel);
 			}
 		    }
                 }
-                if (for_code && sym->st_shndx == SHN_UNDEF) {
-                    if (attr->plt_offset == -1) {
-                        attr->plt_offset = mo->stubs->data_offset;
-#ifdef TCC_TARGET_X86_64
-			if (type != R_X86_64_PLT32)
-			     continue;
+                ਜੇ (for_ਕੋਡ && sym->st_shndx == SHN_UNDEF) {
+                    ਜੇ (attr->plt_ਵਿੱਥ == -1) {
+                        attr->plt_ਵਿੱਥ = mo->stubs->ਅੰਕੜੇ_ਵਿੱਥ;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
+			ਜੇ (type != R_X86_64_PLT32)
+			     ਜਾਰੀ;
 			/* __stubs */
-                        jmp = section_ptr_add(mo->stubs, 6);
+                        jmp = section_ptr_ਜੋੜੋ(mo->stubs, 6);
                         jmp[0] = 0xff;  /* jmpq *__la_symbol_ptr(%rip) */
                         jmp[1] = 0x25;
                         put_elf_reloca(s1->symtab, mo->stubs,
-                                       mo->stubs->data_offset - 4,
+                                       mo->stubs->ਅੰਕੜੇ_ਵਿੱਥ - 4,
                                        R_X86_64_PC32, mo->lasym,
-				       mo->la_symbol_ptr->data_offset - 4);
+				       mo->la_ਚਿੰਨ੍ਹ_ptr->ਅੰਕੜੇ_ਵਿੱਥ - 4);
 
 			/* __stub_helper */
-			bind_offset = mo->stub_helper->data_offset + 1;
-                        jmp = section_ptr_add(mo->stub_helper, 10);
+			bind_ਵਿੱਥ = mo->stub_helper->ਅੰਕੜੇ_ਵਿੱਥ + 1;
+                        jmp = section_ptr_ਜੋੜੋ(mo->stub_helper, 10);
                         jmp[0] = 0x68;  /* pushq $bind_offset */
                         jmp[5] = 0xe9;  /* jmpq __stub_helper */
-                        write32le(jmp + 6, -mo->stub_helper->data_offset);
+                        write32le(jmp + 6, -mo->stub_helper->ਅੰਕੜੇ_ਵਿੱਥ);
 
 			/* __la_symbol_ptr */
-			la_symbol_offset = mo->la_symbol_ptr->data_offset;
-                        put_elf_reloca(s1->symtab, mo->la_symbol_ptr,
-				       mo->la_symbol_ptr->data_offset,
-				       R_DATA_PTR, mo->helpsym,
-				       mo->stub_helper->data_offset - 10);
-			section_ptr_add(mo->la_symbol_ptr, PTR_SIZE);
-#elif defined TCC_TARGET_ARM64
-			if (type != R_AARCH64_CALL26)
-			     continue;
+			la_ਚਿੰਨ੍ਹ_ਵਿੱਥ = mo->la_ਚਿੰਨ੍ਹ_ptr->ਅੰਕੜੇ_ਵਿੱਥ;
+                        put_elf_reloca(s1->symtab, mo->la_ਚਿੰਨ੍ਹ_ptr,
+				       mo->la_ਚਿੰਨ੍ਹ_ptr->ਅੰਕੜੇ_ਵਿੱਥ,
+				       R_ਅੰਕੜੇ_PTR, mo->helpsym,
+				       mo->stub_helper->ਅੰਕੜੇ_ਵਿੱਥ - 10);
+			section_ptr_ਜੋੜੋ(mo->la_ਚਿੰਨ੍ਹ_ptr, PTR_ਮਾਪ);
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM64
+			ਜੇ (type != R_AARCH64_CALL26)
+			     ਜਾਰੀ;
 			/* __stubs */
-                        jmp = section_ptr_add(mo->stubs, 12);
+                        jmp = section_ptr_ਜੋੜੋ(mo->stubs, 12);
                         put_elf_reloca(s1->symtab, mo->stubs,
-                                       mo->stubs->data_offset - 12,
+                                       mo->stubs->ਅੰਕੜੇ_ਵਿੱਥ - 12,
                                        R_AARCH64_ADR_PREL_PG_HI21, mo->lasym,
-				       mo->la_symbol_ptr->data_offset);
+				       mo->la_ਚਿੰਨ੍ਹ_ptr->ਅੰਕੜੇ_ਵਿੱਥ);
                         write32le(jmp, // adrp x16, __la_symbol_ptr@page
                                   0x90000010);
                         put_elf_reloca(s1->symtab, mo->stubs,
-                                       mo->stubs->data_offset - 8,
+                                       mo->stubs->ਅੰਕੜੇ_ਵਿੱਥ - 8,
                                        R_AARCH64_LDST64_ABS_LO12_NC, mo->lasym,
-				       mo->la_symbol_ptr->data_offset);
+				       mo->la_ਚਿੰਨ੍ਹ_ptr->ਅੰਕੜੇ_ਵਿੱਥ);
                         write32le(jmp + 4, // ldr x16,[x16, __la_symbol_ptr@pageoff]
                                   0xf9400210);
                         write32le(jmp + 8, // br x16
                                   0xd61f0200);
 
 			/* __stub_helper */
-			bind_offset = mo->stub_helper->data_offset + 8;
-                        jmp = section_ptr_add(mo->stub_helper, 12);
+			bind_ਵਿੱਥ = mo->stub_helper->ਅੰਕੜੇ_ਵਿੱਥ + 8;
+                        jmp = section_ptr_ਜੋੜੋ(mo->stub_helper, 12);
                         write32le(jmp + 0, // ldr  w16, l0
                                   0x18000050);
                         write32le(jmp + 4, // b stubHelperHeader
                                   0x14000000 +
-				  ((-(mo->stub_helper->data_offset - 8) / 4) &
+				  ((-(mo->stub_helper->ਅੰਕੜੇ_ਵਿੱਥ - 8) / 4) &
 				   0x3ffffff));
                         write32le(jmp + 8, 0); // l0: .long bind_offset
 
 			/* __la_symbol_ptr */
-			la_symbol_offset = mo->la_symbol_ptr->data_offset;
-                        put_elf_reloca(s1->symtab, mo->la_symbol_ptr,
-				       mo->la_symbol_ptr->data_offset,
-				       R_DATA_PTR, mo->helpsym,
-				       mo->stub_helper->data_offset - 12);
-			section_ptr_add(mo->la_symbol_ptr, PTR_SIZE);
-#endif
+			la_ਚਿੰਨ੍ਹ_ਵਿੱਥ = mo->la_ਚਿੰਨ੍ਹ_ptr->ਅੰਕੜੇ_ਵਿੱਥ;
+                        put_elf_reloca(s1->symtab, mo->la_ਚਿੰਨ੍ਹ_ptr,
+				       mo->la_ਚਿੰਨ੍ਹ_ptr->ਅੰਕੜੇ_ਵਿੱਥ,
+				       R_ਅੰਕੜੇ_PTR, mo->helpsym,
+				       mo->stub_helper->ਅੰਕੜੇ_ਵਿੱਥ - 12);
+			section_ptr_ਜੋੜੋ(mo->la_ਚਿੰਨ੍ਹ_ptr, PTR_ਮਾਪ);
+#ਜੇ_ਅੰਤ
                         mo->s_lazy_bind =
                             tcc_realloc(mo->s_lazy_bind, (mo->n_lazy_bind + 1) *
-                                        sizeof(struct s_lazy_bind));
+                                        ਆਕਾਰ(ਬਣਤਰ s_lazy_bind));
                         mo->s_lazy_bind[mo->n_lazy_bind].section =
                             mo->stub_helper->reloc->sh_info;
-                        mo->s_lazy_bind[mo->n_lazy_bind].bind_offset =
-			    bind_offset;
-                        mo->s_lazy_bind[mo->n_lazy_bind].la_symbol_offset =
-			    la_symbol_offset;
+                        mo->s_lazy_bind[mo->n_lazy_bind].bind_ਵਿੱਥ =
+			    bind_ਵਿੱਥ;
+                        mo->s_lazy_bind[mo->n_lazy_bind].la_ਚਿੰਨ੍ਹ_ਵਿੱਥ =
+			    la_ਚਿੰਨ੍ਹ_ਵਿੱਥ;
                         mo->s_lazy_bind[mo->n_lazy_bind].rel = save_rel;
-                        mo->s_lazy_bind[mo->n_lazy_bind].rel.r_offset =
-                            attr->plt_offset;
+                        mo->s_lazy_bind[mo->n_lazy_bind].rel.r_ਵਿੱਥ =
+                            attr->plt_ਵਿੱਥ;
                         mo->n_lazy_bind++;
-			pi = section_ptr_add(mo->indirsyms, sizeof(*pi));
-			*pi = mo->e2msym[sym_index];
+			pi = section_ptr_ਜੋੜੋ(mo->indirsyms, ਆਕਾਰ(*pi));
+			*pi = mo->e2msym[sym_ਸੂਚਕਾਂਕ];
 			mo->nr_plt++;
                     }
                     rel->r_info = ELFW(R_INFO)(mo->stubsym, type);
-                    rel->r_addend += attr->plt_offset;
+                    rel->r_addend += attr->plt_ਵਿੱਥ;
                 }
             }
-            if (type == R_DATA_PTR || type == R_JMP_SLOT) {
-		if (sym->st_shndx == SHN_UNDEF) {
+            ਜੇ (type == R_ਅੰਕੜੇ_PTR || type == R_JMP_ਥਾਂ) {
+		ਜੇ (sym->st_shndx == SHN_UNDEF) {
 		    mo->bind = tcc_realloc(mo->bind,
 					   (mo->n_bind + 1) *
-					   sizeof(struct bind));
+					   ਆਕਾਰ(ਬਣਤਰ bind));
 		    mo->bind[mo->n_bind].section = s->sh_info;
 		    mo->bind[mo->n_bind].rel = save_rel;
 		    mo->n_bind++;
 		}
-		else {
+		ਨਹੀਂਤਾਂ {
                     mo->s_rebase =
                         tcc_realloc(mo->s_rebase, (mo->n_rebase + 1) *
-				    sizeof(struct s_rebase));
+				    ਆਕਾਰ(ਬਣਤਰ s_rebase));
                     mo->s_rebase[mo->n_rebase].section = s->sh_info;
                     mo->s_rebase[mo->n_rebase].rel = save_rel;
                     mo->n_rebase++;
@@ -992,176 +992,176 @@ static void check_relocs(TCCState *s1, struct macho *mo)
 	    }
         }
     }
-    pi = section_ptr_add(mo->indirsyms, mo->n_got * sizeof(*pi));
-    memcpy(pi, goti, mo->n_got * sizeof(*pi));
-    pi = section_ptr_add(mo->indirsyms, mo->nr_plt * sizeof(*pi));
-    memcpy(pi, mo->indirsyms->data, mo->nr_plt * sizeof(*pi));
+    pi = section_ptr_ਜੋੜੋ(mo->indirsyms, mo->n_got * ਆਕਾਰ(*pi));
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(pi, goti, mo->n_got * ਆਕਾਰ(*pi));
+    pi = section_ptr_ਜੋੜੋ(mo->indirsyms, mo->nr_plt * ਆਕਾਰ(*pi));
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(pi, mo->indirsyms->ਅੰਕੜੇ, mo->nr_plt * ਆਕਾਰ(*pi));
     tcc_free(goti);
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-static int check_symbols(TCCState *s1, struct macho *mo)
+ਸਥਿਰ ਪੂਰਨ check_symbols(TCCState *s1, ਬਣਤਰ macho *mo)
 {
-    int sym_index, sym_end;
-    int ret = 0;
+    ਪੂਰਨ sym_ਸੂਚਕਾਂਕ, sym_ਸਿਰਾ;
+    ਪੂਰਨ ret = 0;
 
     mo->ilocal = mo->iextdef = mo->iundef = -1;
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        int elf_index = ((struct nlist_64 *)mo->symtab->data + sym_index - 1)->n_value;
-        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + elf_index;
-        const char *name = (char*)symtab_section->link->data + sym->st_name;
-        unsigned type = ELFW(ST_TYPE)(sym->st_info);
-        unsigned bind = ELFW(ST_BIND)(sym->st_info);
-        unsigned vis  = ELFW(ST_VISIBILITY)(sym->st_other);
+    sym_ਸਿਰਾ = symtab_section->ਅੰਕੜੇ_ਵਿੱਥ / ਆਕਾਰ(ElfW(Sym));
+    ਲਈ (sym_ਸੂਚਕਾਂਕ = 1; sym_ਸੂਚਕਾਂਕ < sym_ਸਿਰਾ; ++sym_ਸੂਚਕਾਂਕ) {
+        ਪੂਰਨ elf_ਸੂਚਕਾਂਕ = ((ਬਣਤਰ nlist_64 *)mo->symtab->ਅੰਕੜੇ + sym_ਸੂਚਕਾਂਕ - 1)->n_ਮੁੱਲ;
+        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->ਅੰਕੜੇ + elf_ਸੂਚਕਾਂਕ;
+        ਅਚਲ ਅੱਖਰ *name = (ਅੱਖਰ*)symtab_section->link->ਅੰਕੜੇ + sym->st_name;
+        ਬਿਨਾਨਿਸ਼ਾਨੀ type = ELFW(ST_TYPE)(sym->st_info);
+        ਬਿਨਾਨਿਸ਼ਾਨੀ bind = ELFW(ST_BIND)(sym->st_info);
+        ਬਿਨਾਨਿਸ਼ਾਨੀ vis  = ELFW(ST_VISIBILITY)(sym->st_other);
 
         dprintf("%4d (%4d): %09lx %4d %4d %4d %3d %s\n",
-                sym_index, elf_index, (long)sym->st_value,
+                sym_ਸੂਚਕਾਂਕ, elf_ਸੂਚਕਾਂਕ, (ਲੰਮਾ)sym->st_ਮੁੱਲ,
                 type, bind, vis, sym->st_shndx, name);
-        if (bind == STB_LOCAL) {
-            if (mo->ilocal == -1)
-              mo->ilocal = sym_index - 1;
-            if (mo->iextdef != -1 || mo->iundef != -1)
+        ਜੇ (bind == STB_LOCAL) {
+            ਜੇ (mo->ilocal == -1)
+              mo->ilocal = sym_ਸੂਚਕਾਂਕ - 1;
+            ਜੇ (mo->iextdef != -1 || mo->iundef != -1)
               tcc_error("local syms after global ones");
-        } else if (sym->st_shndx != SHN_UNDEF) {
-            if (mo->iextdef == -1)
-              mo->iextdef = sym_index - 1;
-            if (mo->iundef != -1)
+        } ਨਹੀਂਤਾਂ ਜੇ (sym->st_shndx != SHN_UNDEF) {
+            ਜੇ (mo->iextdef == -1)
+              mo->iextdef = sym_ਸੂਚਕਾਂਕ - 1;
+            ਜੇ (mo->iundef != -1)
               tcc_error("external defined symbol after undefined");
-        } else if (sym->st_shndx == SHN_UNDEF) {
-            if (mo->iundef == -1)
-              mo->iundef = sym_index - 1;
-            if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK
+        } ਨਹੀਂਤਾਂ ਜੇ (sym->st_shndx == SHN_UNDEF) {
+            ਜੇ (mo->iundef == -1)
+              mo->iundef = sym_ਸੂਚਕਾਂਕ - 1;
+            ਜੇ (ELFW(ST_BIND)(sym->st_info) == STB_WEAK
 		|| s1->output_type != TCC_OUTPUT_EXE
-                || find_elf_sym(s1->dynsymtab_section, name)) {
+                || ਲੱਭੋ_elf_sym(s1->dynsymtab_section, name)) {
                 /* Mark the symbol as coming from a dylib so that
                    relocate_syms doesn't complain.  Normally bind_exe_dynsyms
                    would do this check, and place the symbol into dynsym
                    which is checked by relocate_syms.  But Mach-O doesn't use
                    bind_exe_dynsyms.  */
                 sym->st_shndx = SHN_FROMDLL;
-                continue;
+                ਜਾਰੀ;
             }
             tcc_error_noabort("unresolved reference to '%s'", name);
             ret = -1;
         }
     }
-    return ret;
+    ਵਾਪਸ ret;
 }
 
-static void convert_symbol(TCCState *s1, struct macho *mo, struct nlist_64 *pn)
+ਸਥਿਰ ਖਾਲੀ convert_ਚਿੰਨ੍ਹ(TCCState *s1, ਬਣਤਰ macho *mo, ਬਣਤਰ nlist_64 *pn)
 {
-    struct nlist_64 n = *pn;
-    ElfSym *sym = (ElfW(Sym) *)symtab_section->data + pn->n_value;
-    const char *name = (char*)symtab_section->link->data + sym->st_name;
-    switch(ELFW(ST_TYPE)(sym->st_info)) {
-    case STT_NOTYPE:
-    case STT_OBJECT:
-    case STT_FUNC:
-    case STT_TLS:
-    case STT_SECTION:
+    ਬਣਤਰ nlist_64 n = *pn;
+    ElfSym *sym = (ElfW(Sym) *)symtab_section->ਅੰਕੜੇ + pn->n_ਮੁੱਲ;
+    ਅਚਲ ਅੱਖਰ *name = (ਅੱਖਰ*)symtab_section->link->ਅੰਕੜੇ + sym->st_name;
+    ਚੋਣ(ELFW(ST_TYPE)(sym->st_info)) {
+    ਹਾਲਤ STT_NOTYPE:
+    ਹਾਲਤ STT_OBJECT:
+    ਹਾਲਤ STT_FUNC:
+    ਹਾਲਤ STT_TLS:
+    ਹਾਲਤ STT_SECTION:
         n.n_type = N_SECT;
-        break;
-    case STT_FILE:
+        ਰੋਕੋ;
+    ਹਾਲਤ STT_FILE:
         n.n_type = N_ABS;
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         tcc_error("unhandled ELF symbol type %d %s",
                   ELFW(ST_TYPE)(sym->st_info), name);
     }
-    if (sym->st_shndx == SHN_UNDEF)
+    ਜੇ (sym->st_shndx == SHN_UNDEF)
       tcc_error("should have been rewritten to SHN_FROMDLL: %s", name);
-    else if (sym->st_shndx == SHN_FROMDLL)
+    ਨਹੀਂਤਾਂ ਜੇ (sym->st_shndx == SHN_FROMDLL)
       n.n_type = N_UNDF, n.n_sect = 0;
-    else if (sym->st_shndx == SHN_ABS)
+    ਨਹੀਂਤਾਂ ਜੇ (sym->st_shndx == SHN_ABS)
       n.n_type = N_ABS, n.n_sect = 0;
-    else if (sym->st_shndx >= SHN_LORESERVE)
+    ਨਹੀਂਤਾਂ ਜੇ (sym->st_shndx >= SHN_LORESERVE)
       tcc_error("unhandled ELF symbol section %d %s", sym->st_shndx, name);
-    else if (!mo->elfsectomacho[sym->st_shndx]) {
-      if (strncmp(s1->sections[sym->st_shndx]->name, ".debug_", 7))
+    ਨਹੀਂਤਾਂ ਜੇ (!mo->elfsectomacho[sym->st_shndx]) {
+      ਜੇ (ਲੜੀ_ਤੁਲਨਾ(s1->sections[sym->st_shndx]->name, ".debug_", 7))
         tcc_error("ELF section %d(%s) not mapped into Mach-O for symbol %s",
                   sym->st_shndx, s1->sections[sym->st_shndx]->name, name);
     }
-    else
+    ਨਹੀਂਤਾਂ
       n.n_sect = mo->elfsectomacho[sym->st_shndx];
-    if (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL)
+    ਜੇ (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL)
       n.n_type |=  N_EXT;
-    else if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
+    ਨਹੀਂਤਾਂ ਜੇ (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
       n.n_desc |= N_WEAK_REF | (n.n_type != N_UNDF ? N_WEAK_DEF : 0);
     n.n_strx = pn->n_strx;
-    n.n_value = sym->st_value;
+    n.n_ਮੁੱਲ = sym->st_ਮੁੱਲ;
     *pn = n;
 }
 
-static void convert_symbols(TCCState *s1, struct macho *mo)
+ਸਥਿਰ ਖਾਲੀ convert_symbols(TCCState *s1, ਬਣਤਰ macho *mo)
 {
-    struct nlist_64 *pn;
-    for_each_elem(mo->symtab, 0, pn, struct nlist_64)
-        convert_symbol(s1, mo, pn);
+    ਬਣਤਰ nlist_64 *pn;
+    for_each_elem(mo->symtab, 0, pn, ਬਣਤਰ nlist_64)
+        convert_ਚਿੰਨ੍ਹ(s1, mo, pn);
 }
 
-static int machosymcmp(const void *_a, const void *_b, void *arg)
+ਸਥਿਰ ਪੂਰਨ machosymcmp(ਅਚਲ ਖਾਲੀ *_a, ਅਚਲ ਖਾਲੀ *_b, ਖਾਲੀ *arg)
 {
     TCCState *s1 = arg;
-    int ea = ((struct nlist_64 *)_a)->n_value;
-    int eb = ((struct nlist_64 *)_b)->n_value;
-    ElfSym *sa = (ElfSym *)symtab_section->data + ea;
-    ElfSym *sb = (ElfSym *)symtab_section->data + eb;
-    int r;
+    ਪੂਰਨ ea = ((ਬਣਤਰ nlist_64 *)_a)->n_ਮੁੱਲ;
+    ਪੂਰਨ eb = ((ਬਣਤਰ nlist_64 *)_b)->n_ਮੁੱਲ;
+    ElfSym *sa = (ElfSym *)symtab_section->ਅੰਕੜੇ + ea;
+    ElfSym *sb = (ElfSym *)symtab_section->ਅੰਕੜੇ + eb;
+    ਪੂਰਨ r;
     /* locals, then defined externals, then undefined externals, the
        last two sections also by name, otherwise stable sort */
     r = (ELFW(ST_BIND)(sb->st_info) == STB_LOCAL)
         - (ELFW(ST_BIND)(sa->st_info) == STB_LOCAL);
-    if (r)
-      return r;
+    ਜੇ (r)
+      ਵਾਪਸ r;
     r = (sa->st_shndx == SHN_UNDEF) - (sb->st_shndx == SHN_UNDEF);
-    if (r)
-      return r;
-    if (ELFW(ST_BIND)(sa->st_info) != STB_LOCAL) {
-        const char * na = (char*)symtab_section->link->data + sa->st_name;
-        const char * nb = (char*)symtab_section->link->data + sb->st_name;
+    ਜੇ (r)
+      ਵਾਪਸ r;
+    ਜੇ (ELFW(ST_BIND)(sa->st_info) != STB_LOCAL) {
+        ਅਚਲ ਅੱਖਰ * na = (ਅੱਖਰ*)symtab_section->link->ਅੰਕੜੇ + sa->st_name;
+        ਅਚਲ ਅੱਖਰ * nb = (ਅੱਖਰ*)symtab_section->link->ਅੰਕੜੇ + sb->st_name;
         r = strcmp(na, nb);
-        if (r)
-          return r;
+        ਜੇ (r)
+          ਵਾਪਸ r;
     }
-    return ea - eb;
+    ਵਾਪਸ ea - eb;
 }
 
 /* cannot use qsort because code has to be reentrant */
-static void tcc_qsort (void  *base, size_t nel, size_t width,
-                       int (*comp)(const void *, const void *, void *), void *arg)
+ਸਥਿਰ ਖਾਲੀ tcc_qsort (ਖਾਲੀ  *ਅਧਾਰ, ਮਾਪ_t nel, ਮਾਪ_t ਚੌੜਾਈ,
+                       ਪੂਰਨ (*comp)(ਅਚਲ ਖਾਲੀ *, ਅਚਲ ਖਾਲੀ *, ਖਾਲੀ *), ਖਾਲੀ *arg)
 {
-    size_t wnel, gap, wgap, i, j, k;
-    char *a, *b, tmp;
+    ਮਾਪ_t wnel, gap, wgap, i, j, k;
+    ਅੱਖਰ *a, *b, tmp;
 
-    wnel = width * nel;
-    for (gap = 0; ++gap < nel;)
+    wnel = ਚੌੜਾਈ * nel;
+    ਲਈ (gap = 0; ++gap < nel;)
         gap *= 3;
-    while ( gap /= 3 ) {
-        wgap = width * gap;
-        for (i = wgap; i < wnel; i += width) {
-            for (j = i - wgap; ;j -= wgap) {
-                a = j + (char *)base;
+    ਜਦੋਂ ( gap /= 3 ) {
+        wgap = ਚੌੜਾਈ * gap;
+        ਲਈ (i = wgap; i < wnel; i += ਚੌੜਾਈ) {
+            ਲਈ (j = i - wgap; ;j -= wgap) {
+                a = j + (ਅੱਖਰ *)ਅਧਾਰ;
                 b = a + wgap;
-                if ( (*comp)(a, b, arg) <= 0 )
-                    break;
-                k = width;
-                do {
+                ਜੇ ( (*comp)(a, b, arg) <= 0 )
+                    ਰੋਕੋ;
+                k = ਚੌੜਾਈ;
+                ਕਰੋ {
                     tmp = *a;
                     *a++ = *b;
                     *b++ = tmp;
-                } while ( --k );
-                if (j < wgap)
-                    break;
+                } ਜਦੋਂ ( --k );
+                ਜੇ (j < wgap)
+                    ਰੋਕੋ;
             }
         }
     }
 }
 
-static void create_symtab(TCCState *s1, struct macho *mo)
+ਸਥਿਰ ਖਾਲੀ create_symtab(TCCState *s1, ਬਣਤਰ macho *mo)
 {
-    int sym_index, sym_end;
-    struct nlist_64 *pn;
+    ਪੂਰਨ sym_ਸੂਚਕਾਂਕ, sym_ਸਿਰਾ;
+    ਬਣਤਰ nlist_64 *pn;
 
     /* Stub creation belongs to check_relocs, but we need to create
        the symbol now, so its included in the sorting.  */
@@ -1169,24 +1169,24 @@ static void create_symtab(TCCState *s1, struct macho *mo)
     s1->got = new_section(s1, ".got", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
     mo->stubsym = put_elf_sym(s1->symtab, 0, 0,
                               ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
-                              mo->stubs->sh_num, ".__stubs");
-#ifdef CONFIG_NEW_MACHO
+                              mo->stubs->sh_ਅੰਕ, ".__stubs");
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
     mo->chained_fixups = new_section(s1, "CHAINED_FIXUPS",
 				     SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
-#else
+#ਨਹੀਂਤਾਂ
     mo->stub_helper = new_section(s1, "__stub_helper", SHT_PROGBITS, SHF_ALLOC | SHF_EXECINSTR);
-    mo->la_symbol_ptr = new_section(s1, "__la_symbol_ptr", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
+    mo->la_ਚਿੰਨ੍ਹ_ptr = new_section(s1, "__la_symbol_ptr", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
     mo->helpsym = put_elf_sym(s1->symtab, 0, 0,
                               ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
-                              mo->stub_helper->sh_num, ".__stub_helper");
+                              mo->stub_helper->sh_ਅੰਕ, ".__stub_helper");
     mo->lasym = put_elf_sym(s1->symtab, 0, 0,
                             ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
-                            mo->la_symbol_ptr->sh_num, ".__la_symbol_ptr");
-    section_ptr_add(data_section, -data_section->data_offset & (PTR_SIZE - 1));
-    mo->dyld_private = put_elf_sym(s1->symtab, data_section->data_offset, PTR_SIZE,
+                            mo->la_ਚਿੰਨ੍ਹ_ptr->sh_ਅੰਕ, ".__la_symbol_ptr");
+    section_ptr_ਜੋੜੋ(ਅੰਕੜੇ_section, -ਅੰਕੜੇ_section->ਅੰਕੜੇ_ਵਿੱਥ & (PTR_ਮਾਪ - 1));
+    mo->dyld_ਨਿੱਜੀ = put_elf_sym(s1->symtab, ਅੰਕੜੇ_section->ਅੰਕੜੇ_ਵਿੱਥ, PTR_ਮਾਪ,
                                    ELFW(ST_INFO)(STB_LOCAL, STT_OBJECT), 0,
-                                   data_section->sh_num, ".__dyld_private");
-    section_ptr_add(data_section, PTR_SIZE);
+                                   ਅੰਕੜੇ_section->sh_ਅੰਕ, ".__dyld_private");
+    section_ptr_ਜੋੜੋ(ਅੰਕੜੇ_section, PTR_ਮਾਪ);
     mo->dyld_stub_binder = put_elf_sym(s1->symtab, 0, 0,
                 		       ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT), 0,
 				       SHN_UNDEF, "dyld_stub_binder");
@@ -1194,46 +1194,46 @@ static void create_symtab(TCCState *s1, struct macho *mo)
     mo->binding = new_section(s1, "BINDING", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->weak_binding = new_section(s1, "WEAK_BINDING", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->lazy_binding = new_section(s1, "LAZY_BINDING", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
-#endif
+#ਜੇ_ਅੰਤ
     mo->exports = new_section(s1, "EXPORT", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->indirsyms = new_section(s1, "LEINDIR", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
 
     mo->symtab = new_section(s1, "LESYMTAB", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->strtab = new_section(s1, "LESTRTAB", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     put_elf_str(mo->strtab, " "); /* Mach-O starts strtab with a space */
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    pn = section_ptr_add(mo->symtab, sizeof(*pn) * (sym_end - 1));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + sym_index;
-        const char *name = (char*)symtab_section->link->data + sym->st_name;
-        pn[sym_index - 1].n_strx = put_elf_str(mo->strtab, name);
-        pn[sym_index - 1].n_value = sym_index;
+    sym_ਸਿਰਾ = symtab_section->ਅੰਕੜੇ_ਵਿੱਥ / ਆਕਾਰ(ElfW(Sym));
+    pn = section_ptr_ਜੋੜੋ(mo->symtab, ਆਕਾਰ(*pn) * (sym_ਸਿਰਾ - 1));
+    ਲਈ (sym_ਸੂਚਕਾਂਕ = 1; sym_ਸੂਚਕਾਂਕ < sym_ਸਿਰਾ; ++sym_ਸੂਚਕਾਂਕ) {
+        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->ਅੰਕੜੇ + sym_ਸੂਚਕਾਂਕ;
+        ਅਚਲ ਅੱਖਰ *name = (ਅੱਖਰ*)symtab_section->link->ਅੰਕੜੇ + sym->st_name;
+        pn[sym_ਸੂਚਕਾਂਕ - 1].n_strx = put_elf_str(mo->strtab, name);
+        pn[sym_ਸੂਚਕਾਂਕ - 1].n_ਮੁੱਲ = sym_ਸੂਚਕਾਂਕ;
     }
-    section_ptr_add(mo->strtab, -mo->strtab->data_offset & (PTR_SIZE - 1));
-    tcc_qsort(pn, sym_end - 1, sizeof(*pn), machosymcmp, s1);
-    mo->e2msym = tcc_malloc(sym_end * sizeof(*mo->e2msym));
+    section_ptr_ਜੋੜੋ(mo->strtab, -mo->strtab->ਅੰਕੜੇ_ਵਿੱਥ & (PTR_ਮਾਪ - 1));
+    tcc_qsort(pn, sym_ਸਿਰਾ - 1, ਆਕਾਰ(*pn), machosymcmp, s1);
+    mo->e2msym = tcc_malloc(sym_ਸਿਰਾ * ਆਕਾਰ(*mo->e2msym));
     mo->e2msym[0] = -1;
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        mo->e2msym[pn[sym_index - 1].n_value] = sym_index - 1;
+    ਲਈ (sym_ਸੂਚਕਾਂਕ = 1; sym_ਸੂਚਕਾਂਕ < sym_ਸਿਰਾ; ++sym_ਸੂਚਕਾਂਕ) {
+        mo->e2msym[pn[sym_ਸੂਚਕਾਂਕ - 1].n_ਮੁੱਲ] = sym_ਸੂਚਕਾਂਕ - 1;
     }
 }
 
-const struct {
-    int seg_initial;
+ਅਚਲ ਬਣਤਰ {
+    ਪੂਰਨ seg_initial;
     uint32_t flags;
-    const char *name;
-} skinfo[sk_last] = {
+    ਅਚਲ ਅੱਖਰ *name;
+} skinfo[sk_ਆਖਰੀ] = {
     /*[sk_unknown] =*/        { 0 },
     /*[sk_discard] =*/        { 0 },
-    /*[sk_text] =*/           { 1, S_REGULAR | S_ATTR_PURE_INSTRUCTIONS
+    /*[sk_text] =*/           { 1, S_REGULAR | S_ATTR_ਸ਼ੁੱਧ_INSTRUCTIONS
                                    | S_ATTR_SOME_INSTRUCTIONS, "__text" },
-    /*[sk_stubs] =*/          { 1, S_REGULAR | S_ATTR_PURE_INSTRUCTIONS | S_SYMBOL_STUBS
+    /*[sk_stubs] =*/          { 1, S_REGULAR | S_ATTR_ਸ਼ੁੱਧ_INSTRUCTIONS | S_ਚਿੰਨ੍ਹ_STUBS
                                    | S_ATTR_SOME_INSTRUCTIONS , "__stubs" },
-    /*[sk_stub_helper] =*/    { 1, S_REGULAR | S_ATTR_PURE_INSTRUCTIONS
+    /*[sk_stub_helper] =*/    { 1, S_REGULAR | S_ATTR_ਸ਼ੁੱਧ_INSTRUCTIONS
                                    | S_ATTR_SOME_INSTRUCTIONS , "__stub_helper" },
     /*[sk_ro_data] =*/        { 2, S_REGULAR, "__rodata" },
     /*[sk_uw_info] =*/        { 0 },
-    /*[sk_nl_ptr] =*/         { 2, S_NON_LAZY_SYMBOL_POINTERS, "__got" },
+    /*[sk_nl_ptr] =*/         { 2, S_NON_LAZY_ਚਿੰਨ੍ਹ_ਸੂਚਕ_ਸਾਰੇ, "__got" },
     /*[sk_debug_info] =*/     { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_info" },
     /*[sk_debug_abbrev] =*/   { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_abbrev" },
     /*[sk_debug_line] =*/     { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_line" },
@@ -1242,650 +1242,650 @@ const struct {
     /*[sk_debug_line_str] =*/ { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_line_str" },
     /*[sk_stab] =*/           { 4, S_REGULAR, "__stab" },
     /*[sk_stab_str] =*/       { 4, S_REGULAR, "__stab_str" },
-    /*[sk_la_ptr] =*/         { 4, S_LAZY_SYMBOL_POINTERS, "__la_symbol_ptr" },
-    /*[sk_init] =*/           { 4, S_MOD_INIT_FUNC_POINTERS, "__mod_init_func" },
-    /*[sk_fini] =*/           { 4, S_MOD_TERM_FUNC_POINTERS, "__mod_term_func" },
+    /*[sk_la_ptr] =*/         { 4, S_LAZY_ਚਿੰਨ੍ਹ_ਸੂਚਕ_ਸਾਰੇ, "__la_symbol_ptr" },
+    /*[sk_init] =*/           { 4, S_MOD_INIT_FUNC_ਸੂਚਕ_ਸਾਰੇ, "__mod_init_func" },
+    /*[sk_fini] =*/           { 4, S_MOD_ਪਦ_FUNC_ਸੂਚਕ_ਸਾਰੇ, "__mod_term_func" },
     /*[sk_rw_data] =*/        { 4, S_REGULAR, "__data" },
     /*[sk_bss] =*/            { 4, S_ZEROFILL, "__bss" },
-    /*[sk_linkedit] =*/       { 5, S_REGULAR, NULL },
+    /*[sk_linkedit] =*/       { 5, S_REGULAR, ਨਿਰਾ },
 };
 
-#define	START	((uint64_t)1 << 32)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	ਸ਼ੁਰੂ_3	((uint64_t)1 << 32)
 
-const struct {
-    int used;
-    const char *name;
+ਅਚਲ ਬਣਤਰ {
+    ਪੂਰਨ ਵਰਤਿਆ;
+    ਅਚਲ ਅੱਖਰ *name;
     uint64_t vmaddr;
     uint64_t vmsize;
     vm_prot_t maxprot;
     vm_prot_t initprot;
     uint32_t flags;
 } all_segment[] = {
-    { 1, "__PAGEZERO",       0, START, 0, 0,            0 },
-    { 0, "__TEXT",       START,     0, 5, 5,            0 },
+    { 1, "__PAGEZERO",       0, ਸ਼ੁਰੂ_3, 0, 0,            0 },
+    { 0, "__TEXT",       ਸ਼ੁਰੂ_3,     0, 5, 5,            0 },
     { 0, "__DATA_CONST",    -1,     0, 3, 3, SG_READ_ONLY },
     { 0, "__DWARF",         -1,     0, 7, 3,            0 },
     { 0, "__DATA",          -1,     0, 3, 3,            0 },
     { 1, "__LINKEDIT",      -1,     0, 1, 1,            0 },
 };
 
-#define	N_SEGMENT	(sizeof(all_segment)/sizeof(all_segment[0]))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	N_SEGMENT	(ਆਕਾਰ(all_segment)/ਆਕਾਰ(all_segment[0]))
 
-#ifdef CONFIG_NEW_MACHO
-static void calc_fixup_size(TCCState *s1, struct macho *mo)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
+ਸਥਿਰ ਖਾਲੀ calc_fixup_ਮਾਪ(TCCState *s1, ਬਣਤਰ macho *mo)
 {
-    int i, size;
+    ਪੂਰਨ i, ਮਾਪ;
 
-    size = (sizeof(struct dyld_chained_fixups_header) + 7) & -8;
-    size += (sizeof(struct dyld_chained_starts_in_image) + (mo->nseg - 1) * sizeof(uint32_t) + 7) & -8;
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
-	int page_count = (get_segment(mo, i)->vmsize + SEG_PAGE_SIZE - 1) / SEG_PAGE_SIZE;
-	size += (sizeof(struct dyld_chained_starts_in_segment) + (page_count - 1) * sizeof(uint16_t) + 7) & -8;
+    ਮਾਪ = (ਆਕਾਰ(ਬਣਤਰ dyld_chained_fixups_ਸਿਰਲੇਖ) + 7) & -8;
+    ਮਾਪ += (ਆਕਾਰ(ਬਣਤਰ dyld_chained_starts_ਵਿੱਚ_image) + (mo->nseg - 1) * ਆਕਾਰ(uint32_t) + 7) & -8;
+    ਲਈ (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+	ਪੂਰਨ ਪੰਨਾ_ਗਿਣਤੀ = (get_segment(mo, i)->vmsize + SEG_ਪੰਨਾ_ਮਾਪ - 1) / SEG_ਪੰਨਾ_ਮਾਪ;
+	ਮਾਪ += (ਆਕਾਰ(ਬਣਤਰ dyld_chained_starts_ਵਿੱਚ_segment) + (ਪੰਨਾ_ਗਿਣਤੀ - 1) * ਆਕਾਰ(uint16_t) + 7) & -8;
     }
-    size += mo->n_bind * sizeof (struct dyld_chained_import) + 1;
-    for (i = 0; i < mo->n_bind_rebase; i++) {
-	if (mo->bind_rebase[i].bind) {
-	    int sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
-	    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	    const char *name = (char *) symtab_section->link->data + sym->st_name;
-	    size += strlen(name) + 1;
+    ਮਾਪ += mo->n_bind * ਆਕਾਰ (ਬਣਤਰ dyld_chained_import) + 1;
+    ਲਈ (i = 0; i < mo->n_bind_rebase; i++) {
+	ਜੇ (mo->bind_rebase[i].bind) {
+	    ਪੂਰਨ sym_ਸੂਚਕਾਂਕ = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
+	    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->ਅੰਕੜੇ)[sym_ਸੂਚਕਾਂਕ];
+	    ਅਚਲ ਅੱਖਰ *name = (ਅੱਖਰ *) symtab_section->link->ਅੰਕੜੇ + sym->st_name;
+	    ਮਾਪ += ਲੜੀ_ਲੰਬਾਈ(name) + 1;
 	}
     }
-    size = (size + 7) & -8;
-    section_ptr_add(mo->chained_fixups, size);
+    ਮਾਪ = (ਮਾਪ + 7) & -8;
+    section_ptr_ਜੋੜੋ(mo->chained_fixups, ਮਾਪ);
 }
 
-#else
+#ਨਹੀਂਤਾਂ
 
-static void set_segment_and_offset(TCCState *s1, struct macho *mo, addr_t addr,
-				   uint8_t *ptr, int opcode,
-				   Section *sec, addr_t offset)
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_segment_and_ਵਿੱਥ(TCCState *s1, ਬਣਤਰ macho *mo, addr_t addr,
+				   uint8_t *ptr, ਪੂਰਨ opcode,
+				   Section *sec, addr_t ਵਿੱਥ)
 {
-    int i;
-    struct segment_command_64 *seg = NULL;
+    ਪੂਰਨ i;
+    ਬਣਤਰ segment_command_64 *seg = ਨਿਰਾ;
 
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+    ਲਈ (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
 	seg = get_segment(mo, i);
-	if (addr >= seg->vmaddr && addr < (seg->vmaddr + seg->vmsize))
-	    break;
+	ਜੇ (addr >= seg->vmaddr && addr < (seg->vmaddr + seg->vmsize))
+	    ਰੋਕੋ;
     }
     *ptr = opcode | i;
-    write_uleb128(sec, offset - seg->vmaddr);
+    write_uleb128(sec, ਵਿੱਥ - seg->vmaddr);
 }
 
-static void bind_rebase(TCCState *s1, struct macho *mo)
+ਸਥਿਰ ਖਾਲੀ bind_rebase(TCCState *s1, ਬਣਤਰ macho *mo)
 {
-    int i;
+    ਪੂਰਨ i;
     uint8_t *ptr;
     ElfW(Sym) *sym;
-    const char *name;
+    ਅਚਲ ਅੱਖਰ *name;
 
-    for (i = 0; i < mo->n_lazy_bind; i++) {
-	int sym_index = ELFW(R_SYM)(mo->s_lazy_bind[i].rel.r_info);
+    ਲਈ (i = 0; i < mo->n_lazy_bind; i++) {
+	ਪੂਰਨ sym_ਸੂਚਕਾਂਕ = ELFW(R_SYM)(mo->s_lazy_bind[i].rel.r_info);
 
-	sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	name = (char *) symtab_section->link->data + sym->st_name;
-	write32le(mo->stub_helper->data +
-		  mo->s_lazy_bind[i].bind_offset,
-		  mo->lazy_binding->data_offset);
-	ptr = section_ptr_add(mo->lazy_binding, 1);
-	set_segment_and_offset(s1, mo, mo->la_symbol_ptr->sh_addr, ptr,
-			       BIND_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB,
+	sym = &((ElfW(Sym) *)symtab_section->ਅੰਕੜੇ)[sym_ਸੂਚਕਾਂਕ];
+	name = (ਅੱਖਰ *) symtab_section->link->ਅੰਕੜੇ + sym->st_name;
+	write32le(mo->stub_helper->ਅੰਕੜੇ +
+		  mo->s_lazy_bind[i].bind_ਵਿੱਥ,
+		  mo->lazy_binding->ਅੰਕੜੇ_ਵਿੱਥ);
+	ptr = section_ptr_ਜੋੜੋ(mo->lazy_binding, 1);
+	ਸੈੱਟ_segment_and_ਵਿੱਥ(s1, mo, mo->la_ਚਿੰਨ੍ਹ_ptr->sh_addr, ptr,
+			       BIND_OPCODE_ਸੈੱਟ_SEGMENT_AND_ਵਿੱਥ_ULEB,
 			       mo->lazy_binding,
-			       mo->s_lazy_bind[i].la_symbol_offset +
-			       mo->la_symbol_ptr->sh_addr);
-	ptr = section_ptr_add(mo->lazy_binding, 5 + strlen(name));
-	*ptr++ = BIND_OPCODE_SET_DYLIB_SPECIAL_IMM |
+			       mo->s_lazy_bind[i].la_ਚਿੰਨ੍ਹ_ਵਿੱਥ +
+			       mo->la_ਚਿੰਨ੍ਹ_ptr->sh_addr);
+	ptr = section_ptr_ਜੋੜੋ(mo->lazy_binding, 5 + ਲੜੀ_ਲੰਬਾਈ(name));
+	*ptr++ = BIND_OPCODE_ਸੈੱਟ_DYLIB_SPECIAL_IMM |
 		 (BIND_SPECIAL_DYLIB_FLAT_LOOKUP & 0xf);
-	*ptr++ = BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM | 0;
-	strcpy((char *)ptr, name);
-	ptr += strlen(name) + 1;
+	*ptr++ = BIND_OPCODE_ਸੈੱਟ_ਚਿੰਨ੍ਹ_TRAILING_FLAGS_IMM | 0;
+	strcpy((ਅੱਖਰ *)ptr, name);
+	ptr += ਲੜੀ_ਲੰਬਾਈ(name) + 1;
 	*ptr++ = BIND_OPCODE_DO_BIND;
-	*ptr = BIND_OPCODE_DONE;
+	*ptr = BIND_OPCODE_ਪੂਰਾ;
     }
-    for (i = 0; i < mo->n_rebase; i++) {
+    ਲਈ (i = 0; i < mo->n_rebase; i++) {
 	Section *s = s1->sections[mo->s_rebase[i].section];
 
-	ptr = section_ptr_add(mo->rebase, 2);
-	*ptr++ = REBASE_OPCODE_SET_TYPE_IMM | REBASE_TYPE_POINTER;
-	set_segment_and_offset(s1, mo, s->sh_addr, ptr,
-			       REBASE_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB,
+	ptr = section_ptr_ਜੋੜੋ(mo->rebase, 2);
+	*ptr++ = REBASE_OPCODE_ਸੈੱਟ_TYPE_IMM | REBASE_TYPE_ਸੂਚਕ;
+	ਸੈੱਟ_segment_and_ਵਿੱਥ(s1, mo, s->sh_addr, ptr,
+			       REBASE_OPCODE_ਸੈੱਟ_SEGMENT_AND_ਵਿੱਥ_ULEB,
 			       mo->rebase,
-			       mo->s_rebase[i].rel.r_offset +
+			       mo->s_rebase[i].rel.r_ਵਿੱਥ +
 			       s->sh_addr);
-	ptr = section_ptr_add(mo->rebase, 1);
+	ptr = section_ptr_ਜੋੜੋ(mo->rebase, 1);
 	*ptr = REBASE_OPCODE_DO_REBASE_IMM_TIMES | 1;
     }
-    for (i = 0; i < mo->n_bind; i++) {
-	int sym_index = ELFW(R_SYM)(mo->bind[i].rel.r_info);
+    ਲਈ (i = 0; i < mo->n_bind; i++) {
+	ਪੂਰਨ sym_ਸੂਚਕਾਂਕ = ELFW(R_SYM)(mo->bind[i].rel.r_info);
 	Section *s = s1->sections[mo->bind[i].section];
 	Section *binding;
 
-	sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	name = (char *) symtab_section->link->data + sym->st_name;
+	sym = &((ElfW(Sym) *)symtab_section->ਅੰਕੜੇ)[sym_ਸੂਚਕਾਂਕ];
+	name = (ਅੱਖਰ *) symtab_section->link->ਅੰਕੜੇ + sym->st_name;
 	binding = ELFW(ST_BIND)(sym->st_info) == STB_WEAK
 	    ? mo->weak_binding : mo->binding;
-        ptr = section_ptr_add(binding, 4 + (binding == mo->binding) +
-			     	       strlen(name));
-	if (binding == mo->binding)
-            *ptr++ = BIND_OPCODE_SET_DYLIB_SPECIAL_IMM |
+        ptr = section_ptr_ਜੋੜੋ(binding, 4 + (binding == mo->binding) +
+			     	       ਲੜੀ_ਲੰਬਾਈ(name));
+	ਜੇ (binding == mo->binding)
+            *ptr++ = BIND_OPCODE_ਸੈੱਟ_DYLIB_SPECIAL_IMM |
 	             (BIND_SPECIAL_DYLIB_FLAT_LOOKUP & 0xf);
-        *ptr++ = BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM |
+        *ptr++ = BIND_OPCODE_ਸੈੱਟ_ਚਿੰਨ੍ਹ_TRAILING_FLAGS_IMM |
 		 (binding == mo->weak_binding
-		  ? BIND_SYMBOL_FLAGS_WEAK_IMPORT : 0);
-        strcpy((char *)ptr, name);
-        ptr += strlen(name) + 1;
-        *ptr++ = BIND_OPCODE_SET_TYPE_IMM | BIND_TYPE_POINTER;
-	set_segment_and_offset(s1, mo, s->sh_addr, ptr,
-			       BIND_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB,
+		  ? BIND_ਚਿੰਨ੍ਹ_FLAGS_WEAK_IMPORT : 0);
+        strcpy((ਅੱਖਰ *)ptr, name);
+        ptr += ਲੜੀ_ਲੰਬਾਈ(name) + 1;
+        *ptr++ = BIND_OPCODE_ਸੈੱਟ_TYPE_IMM | BIND_TYPE_ਸੂਚਕ;
+	ਸੈੱਟ_segment_and_ਵਿੱਥ(s1, mo, s->sh_addr, ptr,
+			       BIND_OPCODE_ਸੈੱਟ_SEGMENT_AND_ਵਿੱਥ_ULEB,
 			       binding,
-			       mo->bind[i].rel.r_offset + s->sh_addr);
-        ptr = section_ptr_add(binding, 1);
+			       mo->bind[i].rel.r_ਵਿੱਥ + s->sh_addr);
+        ptr = section_ptr_ਜੋੜੋ(binding, 1);
         *ptr++ = BIND_OPCODE_DO_BIND;
     }
-    if (mo->rebase->data_offset) {
-        ptr = section_ptr_add(mo->rebase, 1);
-        *ptr = REBASE_OPCODE_DONE;
+    ਜੇ (mo->rebase->ਅੰਕੜੇ_ਵਿੱਥ) {
+        ptr = section_ptr_ਜੋੜੋ(mo->rebase, 1);
+        *ptr = REBASE_OPCODE_ਪੂਰਾ;
     }
-    if (mo->binding->data_offset) {
-        ptr = section_ptr_add(mo->binding, 1);
-        *ptr = BIND_OPCODE_DONE;
+    ਜੇ (mo->binding->ਅੰਕੜੇ_ਵਿੱਥ) {
+        ptr = section_ptr_ਜੋੜੋ(mo->binding, 1);
+        *ptr = BIND_OPCODE_ਪੂਰਾ;
     }
-    if (mo->weak_binding->data_offset) {
-        ptr = section_ptr_add(mo->weak_binding, 1);
-        *ptr = BIND_OPCODE_DONE;
+    ਜੇ (mo->weak_binding->ਅੰਕੜੇ_ਵਿੱਥ) {
+        ptr = section_ptr_ਜੋੜੋ(mo->weak_binding, 1);
+        *ptr = BIND_OPCODE_ਪੂਰਾ;
     }
     tcc_free(mo->s_lazy_bind);
     tcc_free(mo->s_rebase);
     tcc_free(mo->bind);
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-struct trie_info {
-    const char *name;
-    int flag;
+ਬਣਤਰ trie_info {
+    ਅਚਲ ਅੱਖਰ *name;
+    ਪੂਰਨ flag;
     addr_t addr;
-    int str_size;
-    int term_size;
+    ਪੂਰਨ str_ਮਾਪ;
+    ਪੂਰਨ ਪਦ_ਮਾਪ;
 };
 
-struct trie_node {
-    int start;
-    int end;
-    int index_start;
-    int index_end;
-    int n_child;
-    struct trie_node *child;
+ਬਣਤਰ trie_ਗੰਢ {
+    ਪੂਰਨ ਸ਼ੁਰੂ;
+    ਪੂਰਨ ਸਿਰਾ;
+    ਪੂਰਨ ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ;
+    ਪੂਰਨ ਸੂਚਕਾਂਕ_ਸਿਰਾ;
+    ਪੂਰਨ n_ਬੱਚਾ;
+    ਬਣਤਰ trie_ਗੰਢ *ਬੱਚਾ;
 };
 
-struct trie_seq {
-    int n_child;
-    struct trie_node *node;
-    int offset;
-    int nest_offset;
+ਬਣਤਰ trie_seq {
+    ਪੂਰਨ n_ਬੱਚਾ;
+    ਬਣਤਰ trie_ਗੰਢ *ਗੰਢ;
+    ਪੂਰਨ ਵਿੱਥ;
+    ਪੂਰਨ nest_ਵਿੱਥ;
 };
 
-static void create_trie(struct trie_node *node,
-                        int from, int to, int index_start,
-                        int n_trie, struct trie_info *trie)
+ਸਥਿਰ ਖਾਲੀ create_trie(ਬਣਤਰ trie_ਗੰਢ *ਗੰਢ,
+                        ਪੂਰਨ from, ਪੂਰਨ ਮੰਜ਼ਿਲ, ਪੂਰਨ ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ,
+                        ਪੂਰਨ n_trie, ਬਣਤਰ trie_info *trie)
 {
-    int i;
-    int start, end, index_end;
-    char cur;
-    struct trie_node *child;
+    ਪੂਰਨ i;
+    ਪੂਰਨ ਸ਼ੁਰੂ, ਸਿਰਾ, ਸੂਚਕਾਂਕ_ਸਿਰਾ;
+    ਅੱਖਰ cur;
+    ਬਣਤਰ trie_ਗੰਢ *ਬੱਚਾ;
 
-    for (i = from; i < to; i = end) {
-        cur = trie[i].name[index_start];
-        start = i++;
-        for (; i < to; i++)
-            if (cur != trie[i].name[index_start])
-                break;
-        end = i;
-        if (start == end - 1 ||
-            (trie[start].name[index_start] &&
-             trie[start].name[index_start + 1] == 0))
-            index_end = trie[start].str_size - 1;
-        else {
-            index_end = index_start + 1;
-            for (;;) {
-                cur = trie[start].name[index_end];
-                for (i = start + 1; i < end; i++)
-                    if (cur != trie[i].name[index_end])
-                        break;
-                if (trie[start].name[index_end] &&
-                    trie[start].name[index_end + 1] == 0) {
-                    end = start + 1;
-                    index_end = trie[start].str_size - 1;
-                    break;
+    ਲਈ (i = from; i < ਮੰਜ਼ਿਲ; i = ਸਿਰਾ) {
+        cur = trie[i].name[ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ];
+        ਸ਼ੁਰੂ = i++;
+        ਲਈ (; i < ਮੰਜ਼ਿਲ; i++)
+            ਜੇ (cur != trie[i].name[ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ])
+                ਰੋਕੋ;
+        ਸਿਰਾ = i;
+        ਜੇ (ਸ਼ੁਰੂ == ਸਿਰਾ - 1 ||
+            (trie[ਸ਼ੁਰੂ].name[ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ] &&
+             trie[ਸ਼ੁਰੂ].name[ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ + 1] == 0))
+            ਸੂਚਕਾਂਕ_ਸਿਰਾ = trie[ਸ਼ੁਰੂ].str_ਮਾਪ - 1;
+        ਨਹੀਂਤਾਂ {
+            ਸੂਚਕਾਂਕ_ਸਿਰਾ = ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ + 1;
+            ਲਈ (;;) {
+                cur = trie[ਸ਼ੁਰੂ].name[ਸੂਚਕਾਂਕ_ਸਿਰਾ];
+                ਲਈ (i = ਸ਼ੁਰੂ + 1; i < ਸਿਰਾ; i++)
+                    ਜੇ (cur != trie[i].name[ਸੂਚਕਾਂਕ_ਸਿਰਾ])
+                        ਰੋਕੋ;
+                ਜੇ (trie[ਸ਼ੁਰੂ].name[ਸੂਚਕਾਂਕ_ਸਿਰਾ] &&
+                    trie[ਸ਼ੁਰੂ].name[ਸੂਚਕਾਂਕ_ਸਿਰਾ + 1] == 0) {
+                    ਸਿਰਾ = ਸ਼ੁਰੂ + 1;
+                    ਸੂਚਕਾਂਕ_ਸਿਰਾ = trie[ਸ਼ੁਰੂ].str_ਮਾਪ - 1;
+                    ਰੋਕੋ;
                 }
-                if (i != end)
-                    break;
-                index_end++;
+                ਜੇ (i != ਸਿਰਾ)
+                    ਰੋਕੋ;
+                ਸੂਚਕਾਂਕ_ਸਿਰਾ++;
             }
         }
-        node->child = tcc_realloc(node->child,
-                                  (node->n_child + 1) *
-                                  sizeof(struct trie_node));
-        child = &node->child[node->n_child];
-        child->start = start;
-        child->end = end;
-        child->index_start = index_start;
-        child->index_end = index_end;
-        child->n_child = 0;
-        child->child = NULL;
-        node->n_child++;
-        if (start != end - 1)
-            create_trie(child, start, end, index_end, n_trie, trie);
+        ਗੰਢ->ਬੱਚਾ = tcc_realloc(ਗੰਢ->ਬੱਚਾ,
+                                  (ਗੰਢ->n_ਬੱਚਾ + 1) *
+                                  ਆਕਾਰ(ਬਣਤਰ trie_ਗੰਢ));
+        ਬੱਚਾ = &ਗੰਢ->ਬੱਚਾ[ਗੰਢ->n_ਬੱਚਾ];
+        ਬੱਚਾ->ਸ਼ੁਰੂ = ਸ਼ੁਰੂ;
+        ਬੱਚਾ->ਸਿਰਾ = ਸਿਰਾ;
+        ਬੱਚਾ->ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ = ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ;
+        ਬੱਚਾ->ਸੂਚਕਾਂਕ_ਸਿਰਾ = ਸੂਚਕਾਂਕ_ਸਿਰਾ;
+        ਬੱਚਾ->n_ਬੱਚਾ = 0;
+        ਬੱਚਾ->ਬੱਚਾ = ਨਿਰਾ;
+        ਗੰਢ->n_ਬੱਚਾ++;
+        ਜੇ (ਸ਼ੁਰੂ != ਸਿਰਾ - 1)
+            create_trie(ਬੱਚਾ, ਸ਼ੁਰੂ, ਸਿਰਾ, ਸੂਚਕਾਂਕ_ਸਿਰਾ, n_trie, trie);
     }
 }
 
-static int create_seq(int *offset, int *n_seq, struct trie_seq **seq,
-                        struct trie_node *node,
-                        int n_trie, struct trie_info *trie)
+ਸਥਿਰ ਪੂਰਨ create_seq(ਪੂਰਨ *ਵਿੱਥ, ਪੂਰਨ *n_seq, ਬਣਤਰ trie_seq **seq,
+                        ਬਣਤਰ trie_ਗੰਢ *ਗੰਢ,
+                        ਪੂਰਨ n_trie, ਬਣਤਰ trie_info *trie)
 {
-    int i, nest_offset, last_seq = *n_seq, retval = *offset;
-    struct trie_seq *p_seq;
-    struct trie_node *p_nest;
+    ਪੂਰਨ i, nest_ਵਿੱਥ, ਆਖਰੀ_seq = *n_seq, retval = *ਵਿੱਥ;
+    ਬਣਤਰ trie_seq *p_seq;
+    ਬਣਤਰ trie_ਗੰਢ *p_nest;
 
-    for (i = 0; i < node->n_child; i++) {
-        p_nest = &node->child[i];
-        *seq = tcc_realloc(*seq, (*n_seq + 1) * sizeof(struct trie_seq));
+    ਲਈ (i = 0; i < ਗੰਢ->n_ਬੱਚਾ; i++) {
+        p_nest = &ਗੰਢ->ਬੱਚਾ[i];
+        *seq = tcc_realloc(*seq, (*n_seq + 1) * ਆਕਾਰ(ਬਣਤਰ trie_seq));
         p_seq = &(*seq)[(*n_seq)++];
-        p_seq->n_child = i == 0 ? node->n_child : -1;
-        p_seq->node = p_nest;
-        p_seq->offset = *offset;
-        p_seq->nest_offset = 0;
-        *offset += (i == 0 ? 1 + 1 : 0) +
-                   p_nest->index_end - p_nest->index_start + 1 + 3;
+        p_seq->n_ਬੱਚਾ = i == 0 ? ਗੰਢ->n_ਬੱਚਾ : -1;
+        p_seq->ਗੰਢ = p_nest;
+        p_seq->ਵਿੱਥ = *ਵਿੱਥ;
+        p_seq->nest_ਵਿੱਥ = 0;
+        *ਵਿੱਥ += (i == 0 ? 1 + 1 : 0) +
+                   p_nest->ਸੂਚਕਾਂਕ_ਸਿਰਾ - p_nest->ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ + 1 + 3;
     }
-    for (i = 0; i < node->n_child; i++) {
-        nest_offset =
-            create_seq(offset, n_seq, seq, &node->child[i], n_trie, trie);
-        p_seq = &(*seq)[last_seq + i];
-        p_seq->nest_offset = nest_offset;
+    ਲਈ (i = 0; i < ਗੰਢ->n_ਬੱਚਾ; i++) {
+        nest_ਵਿੱਥ =
+            create_seq(ਵਿੱਥ, n_seq, seq, &ਗੰਢ->ਬੱਚਾ[i], n_trie, trie);
+        p_seq = &(*seq)[ਆਖਰੀ_seq + i];
+        p_seq->nest_ਵਿੱਥ = nest_ਵਿੱਥ;
     }
-    return retval;
+    ਵਾਪਸ retval;
 }
 
-static void node_free(struct trie_node *node)
+ਸਥਿਰ ਖਾਲੀ ਗੰਢ_free(ਬਣਤਰ trie_ਗੰਢ *ਗੰਢ)
 {
-    int i;
+    ਪੂਰਨ i;
 
-    for (i = 0; i < node->n_child; i++)
-	node_free(&node->child[i]);
-    tcc_free(node->child);
+    ਲਈ (i = 0; i < ਗੰਢ->n_ਬੱਚਾ; i++)
+	ਗੰਢ_free(&ਗੰਢ->ਬੱਚਾ[i]);
+    tcc_free(ਗੰਢ->ਬੱਚਾ);
 }
 
-static int triecmp(const void *_a, const void *_b, void *arg)
+ਸਥਿਰ ਪੂਰਨ triecmp(ਅਚਲ ਖਾਲੀ *_a, ਅਚਲ ਖਾਲੀ *_b, ਖਾਲੀ *arg)
 {
-    struct trie_info *a = (struct trie_info *) _a;
-    struct trie_info *b = (struct trie_info *) _b;
-    int len_a = strlen(a->name);
-    int len_b = strlen(b->name);
+    ਬਣਤਰ trie_info *a = (ਬਣਤਰ trie_info *) _a;
+    ਬਣਤਰ trie_info *b = (ਬਣਤਰ trie_info *) _b;
+    ਪੂਰਨ len_a = ਲੜੀ_ਲੰਬਾਈ(a->name);
+    ਪੂਰਨ len_b = ਲੜੀ_ਲੰਬਾਈ(b->name);
 
     /* strange sorting needed. Name 'xx' should be after 'xx1' */
-    if (!strncmp(a->name, b->name, len_a < len_b ? len_a : len_b))
-	return len_a < len_b ? 1 : (len_a > len_b ? -1 : 0);
-    return strcmp(a->name, b->name);
+    ਜੇ (!ਲੜੀ_ਤੁਲਨਾ(a->name, b->name, len_a < len_b ? len_a : len_b))
+	ਵਾਪਸ len_a < len_b ? 1 : (len_a > len_b ? -1 : 0);
+    ਵਾਪਸ strcmp(a->name, b->name);
 }
 
-static void export_trie(TCCState *s1, struct macho *mo)
+ਸਥਿਰ ਖਾਲੀ export_trie(TCCState *s1, ਬਣਤਰ macho *mo)
 {
-    int i, size, offset = 0, save_offset;
+    ਪੂਰਨ i, ਮਾਪ, ਵਿੱਥ = 0, save_ਵਿੱਥ;
     uint8_t *ptr;
-    int sym_index;
-    int sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    int n_trie = 0, n_seq = 0;
-    struct trie_info *trie = NULL, *p_trie;
-    struct trie_node node, *p_node;
-    struct trie_seq *seq = NULL;
+    ਪੂਰਨ sym_ਸੂਚਕਾਂਕ;
+    ਪੂਰਨ sym_ਸਿਰਾ = symtab_section->ਅੰਕੜੇ_ਵਿੱਥ / ਆਕਾਰ(ElfW(Sym));
+    ਪੂਰਨ n_trie = 0, n_seq = 0;
+    ਬਣਤਰ trie_info *trie = ਨਿਰਾ, *p_trie;
+    ਬਣਤਰ trie_ਗੰਢ ਗੰਢ, *p_ਗੰਢ;
+    ਬਣਤਰ trie_seq *seq = ਨਿਰਾ;
     addr_t vm_addr = get_segment(mo, s1->output_type == TCC_OUTPUT_EXE)->vmaddr;
 
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-	ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + sym_index;
-	const char *name = (char*)symtab_section->link->data + sym->st_name;
+    ਲਈ (sym_ਸੂਚਕਾਂਕ = 1; sym_ਸੂਚਕਾਂਕ < sym_ਸਿਰਾ; ++sym_ਸੂਚਕਾਂਕ) {
+	ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->ਅੰਕੜੇ + sym_ਸੂਚਕਾਂਕ;
+	ਅਚਲ ਅੱਖਰ *name = (ਅੱਖਰ*)symtab_section->link->ਅੰਕੜੇ + sym->st_name;
 
-	if (sym->st_shndx != SHN_UNDEF && sym->st_shndx < SHN_LORESERVE &&
+	ਜੇ (sym->st_shndx != SHN_UNDEF && sym->st_shndx < SHN_LORESERVE &&
             (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL ||
 	     ELFW(ST_BIND)(sym->st_info) == STB_WEAK)) {
-	    int flag = EXPORT_SYMBOL_FLAGS_KIND_REGULAR;
+	    ਪੂਰਨ flag = EXPORT_ਚਿੰਨ੍ਹ_FLAGS_ਕਿਸਮ_REGULAR;
 	    addr_t addr =
-		sym->st_value + s1->sections[sym->st_shndx]->sh_addr - vm_addr;
+		sym->st_ਮੁੱਲ + s1->sections[sym->st_shndx]->sh_addr - vm_addr;
 
-	    if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
-		flag |= EXPORT_SYMBOL_FLAGS_WEAK_DEFINITION;
-	    dprintf ("%s %d %llx\n", name, flag, (long long)addr + vm_addr);
-	    trie = tcc_realloc(trie, (n_trie + 1) * sizeof(struct trie_info));
+	    ਜੇ (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
+		flag |= EXPORT_ਚਿੰਨ੍ਹ_FLAGS_WEAK_DEFINITION;
+	    dprintf ("%s %d %llx\n", name, flag, (ਲੰਮਾ ਲੰਮਾ)addr + vm_addr);
+	    trie = tcc_realloc(trie, (n_trie + 1) * ਆਕਾਰ(ਬਣਤਰ trie_info));
 	    trie[n_trie].name = name;
 	    trie[n_trie].flag = flag;
 	    trie[n_trie].addr = addr;
-	    trie[n_trie].str_size = strlen(name) + 1;
-	    trie[n_trie].term_size = uleb128_size(flag) + uleb128_size(addr);
+	    trie[n_trie].str_ਮਾਪ = ਲੜੀ_ਲੰਬਾਈ(name) + 1;
+	    trie[n_trie].ਪਦ_ਮਾਪ = uleb128_ਮਾਪ(flag) + uleb128_ਮਾਪ(addr);
 	    n_trie++;
 	}
     }
-    if (n_trie) {
-        tcc_qsort(trie, n_trie, sizeof(struct trie_info), triecmp, NULL);
-	memset(&node, 0, sizeof(node));
-        create_trie(&node, 0, n_trie, 0, n_trie, trie);
-	create_seq(&offset, &n_seq, &seq, &node, n_trie, trie);
-        save_offset = offset;
-        for (i = 0; i < n_seq; i++) {
-            p_node = seq[i].node;
-            if (p_node->n_child == 0) {
-                p_trie = &trie[p_node->start];
-                seq[i].nest_offset = offset;
-                offset += 1 + p_trie->term_size + 1;
+    ਜੇ (n_trie) {
+        tcc_qsort(trie, n_trie, ਆਕਾਰ(ਬਣਤਰ trie_info), triecmp, ਨਿਰਾ);
+	memset(&ਗੰਢ, 0, ਆਕਾਰ(ਗੰਢ));
+        create_trie(&ਗੰਢ, 0, n_trie, 0, n_trie, trie);
+	create_seq(&ਵਿੱਥ, &n_seq, &seq, &ਗੰਢ, n_trie, trie);
+        save_ਵਿੱਥ = ਵਿੱਥ;
+        ਲਈ (i = 0; i < n_seq; i++) {
+            p_ਗੰਢ = seq[i].ਗੰਢ;
+            ਜੇ (p_ਗੰਢ->n_ਬੱਚਾ == 0) {
+                p_trie = &trie[p_ਗੰਢ->ਸ਼ੁਰੂ];
+                seq[i].nest_ਵਿੱਥ = ਵਿੱਥ;
+                ਵਿੱਥ += 1 + p_trie->ਪਦ_ਮਾਪ + 1;
             }
         }
-        for (i = 0; i < n_seq; i++) {
-            p_node = seq[i].node;
-            p_trie = &trie[p_node->start];
-            if (seq[i].n_child >= 0) {
-                section_ptr_add(mo->exports,
-				seq[i].offset - mo->exports->data_offset);
-                ptr = section_ptr_add(mo->exports, 2);
+        ਲਈ (i = 0; i < n_seq; i++) {
+            p_ਗੰਢ = seq[i].ਗੰਢ;
+            p_trie = &trie[p_ਗੰਢ->ਸ਼ੁਰੂ];
+            ਜੇ (seq[i].n_ਬੱਚਾ >= 0) {
+                section_ptr_ਜੋੜੋ(mo->exports,
+				seq[i].ਵਿੱਥ - mo->exports->ਅੰਕੜੇ_ਵਿੱਥ);
+                ptr = section_ptr_ਜੋੜੋ(mo->exports, 2);
                 *ptr++ = 0;
-                *ptr = seq[i].n_child;
+                *ptr = seq[i].n_ਬੱਚਾ;
             }
-            size = p_node->index_end - p_node->index_start;
-            ptr = section_ptr_add(mo->exports, size + 1);
-            memcpy(ptr, &p_trie->name[p_node->index_start], size);
-            ptr[size] = 0;
-            write_uleb128(mo->exports, seq[i].nest_offset);
+            ਮਾਪ = p_ਗੰਢ->ਸੂਚਕਾਂਕ_ਸਿਰਾ - p_ਗੰਢ->ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ;
+            ptr = section_ptr_ਜੋੜੋ(mo->exports, ਮਾਪ + 1);
+            ਸਮ੍ਰਿਤੀ_ਨਕਲ(ptr, &p_trie->name[p_ਗੰਢ->ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ], ਮਾਪ);
+            ptr[ਮਾਪ] = 0;
+            write_uleb128(mo->exports, seq[i].nest_ਵਿੱਥ);
         }
-        section_ptr_add(mo->exports, save_offset - mo->exports->data_offset);
-        for (i = 0; i < n_seq; i++) {
-            p_node = seq[i].node;
-            if (p_node->n_child == 0) {
-                p_trie = &trie[p_node->start];
-                write_uleb128(mo->exports, p_trie->term_size);
+        section_ptr_ਜੋੜੋ(mo->exports, save_ਵਿੱਥ - mo->exports->ਅੰਕੜੇ_ਵਿੱਥ);
+        ਲਈ (i = 0; i < n_seq; i++) {
+            p_ਗੰਢ = seq[i].ਗੰਢ;
+            ਜੇ (p_ਗੰਢ->n_ਬੱਚਾ == 0) {
+                p_trie = &trie[p_ਗੰਢ->ਸ਼ੁਰੂ];
+                write_uleb128(mo->exports, p_trie->ਪਦ_ਮਾਪ);
                 write_uleb128(mo->exports, p_trie->flag);
                 write_uleb128(mo->exports, p_trie->addr);
-                ptr = section_ptr_add(mo->exports, 1);
+                ptr = section_ptr_ਜੋੜੋ(mo->exports, 1);
                 *ptr = 0;
             }
         }
-        section_ptr_add(mo->exports, -mo->exports->data_offset & 7);
-	node_free(&node);
+        section_ptr_ਜੋੜੋ(mo->exports, -mo->exports->ਅੰਕੜੇ_ਵਿੱਥ & 7);
+	ਗੰਢ_free(&ਗੰਢ);
         tcc_free(seq);
     }
     tcc_free(trie);
 }
 
-static void collect_sections(TCCState *s1, struct macho *mo, const char *filename)
+ਸਥਿਰ ਖਾਲੀ collect_sections(TCCState *s1, ਬਣਤਰ macho *mo, ਅਚਲ ਅੱਖਰ *filename)
 {
-    int i, sk, numsec;
-    int used_segment[N_SEGMENT];
+    ਪੂਰਨ i, sk, numsec;
+    ਪੂਰਨ ਵਰਤਿਆ_segment[N_SEGMENT];
     uint64_t curaddr, fileofs;
     Section *s;
-    struct segment_command_64 *seg;
-    struct dylib_command *dylib;
-#ifdef CONFIG_NEW_MACHO
-    struct linkedit_data_command *chained_fixups_lc;
-    struct linkedit_data_command *export_trie_lc;
-#endif
-    struct build_version_command *dyldbv;
-    struct source_version_command *dyldsv;
-    struct rpath_command *rpath;
-    struct dylinker_command *dyldlc;
-    struct symtab_command *symlc;
-    struct dysymtab_command *dysymlc;
-    char *str;
+    ਬਣਤਰ segment_command_64 *seg;
+    ਬਣਤਰ dylib_command *dylib;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
+    ਬਣਤਰ linkedit_ਅੰਕੜੇ_command *chained_fixups_lc;
+    ਬਣਤਰ linkedit_ਅੰਕੜੇ_command *export_trie_lc;
+#ਜੇ_ਅੰਤ
+    ਬਣਤਰ build_ਸੰਸਕਰਣ_command *dyldbv;
+    ਬਣਤਰ ਸਰੋਤ_ਸੰਸਕਰਣ_command *dyldsv;
+    ਬਣਤਰ rpath_command *rpath;
+    ਬਣਤਰ dylinker_command *dyldlc;
+    ਬਣਤਰ symtab_command *symlc;
+    ਬਣਤਰ dysymtab_command *dysymlc;
+    ਅੱਖਰ *str;
 
-    for (i = 0; i < N_SEGMENT; i++)
-	used_segment[i] = all_segment[i].used;
+    ਲਈ (i = 0; i < N_SEGMENT; i++)
+	ਵਰਤਿਆ_segment[i] = all_segment[i].ਵਰਤਿਆ;
 
-    memset (mo->sk_to_sect, 0, sizeof(mo->sk_to_sect));
-    for (i = s1->nb_sections; i-- > 1;) {
-        int type, flags;
+    memset (mo->sk_ਮੰਜ਼ਿਲ_sect, 0, ਆਕਾਰ(mo->sk_ਮੰਜ਼ਿਲ_sect));
+    ਲਈ (i = s1->nb_sections; i-- > 1;) {
+        ਪੂਰਨ type, flags;
         s = s1->sections[i];
         type = s->sh_type;
         flags = s->sh_flags;
         sk = sk_unknown;
 	/* debug sections have sometimes no SHF_ALLOC */
-        if ((flags & SHF_ALLOC) || !strncmp(s->name, ".debug_", 7)) {
-            switch (type) {
-            default:           sk = sk_unknown; break;
-            case SHT_INIT_ARRAY: sk = sk_init; break;
-            case SHT_FINI_ARRAY: sk = sk_fini; break;
-            case SHT_NOBITS:   sk = sk_bss; break;
-            case SHT_SYMTAB:   sk = sk_discard; break;
-            case SHT_STRTAB:
-		if (s == stabstr_section)
+        ਜੇ ((flags & SHF_ALLOC) || !ਲੜੀ_ਤੁਲਨਾ(s->name, ".debug_", 7)) {
+            ਚੋਣ (type) {
+            ਮੂਲ:           sk = sk_unknown; ਰੋਕੋ;
+            ਹਾਲਤ SHT_INIT_ARRAY: sk = sk_init; ਰੋਕੋ;
+            ਹਾਲਤ SHT_FINI_ARRAY: sk = sk_fini; ਰੋਕੋ;
+            ਹਾਲਤ SHT_NOBITS:   sk = sk_bss; ਰੋਕੋ;
+            ਹਾਲਤ SHT_SYMTAB:   sk = sk_discard; ਰੋਕੋ;
+            ਹਾਲਤ SHT_STRTAB:
+		ਜੇ (s == stabstr_section)
 		  sk = sk_stab_str;
-		else
+		ਨਹੀਂਤਾਂ
 		  sk = sk_discard;
-		break;
-            case SHT_RELX:     sk = sk_discard; break;
-            case SHT_LINKEDIT: sk = sk_linkedit; break;
-            case SHT_PROGBITS:
-                if (s == mo->stubs)
+		ਰੋਕੋ;
+            ਹਾਲਤ SHT_RELX:     sk = sk_discard; ਰੋਕੋ;
+            ਹਾਲਤ SHT_LINKEDIT: sk = sk_linkedit; ਰੋਕੋ;
+            ਹਾਲਤ SHT_PROGBITS:
+                ਜੇ (s == mo->stubs)
                   sk = sk_stubs;
-#ifndef CONFIG_NEW_MACHO
-                else if (s == mo->stub_helper)
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
+                ਨਹੀਂਤਾਂ ਜੇ (s == mo->stub_helper)
                   sk = sk_stub_helper;
-                else if (s == mo->la_symbol_ptr)
+                ਨਹੀਂਤਾਂ ਜੇ (s == mo->la_ਚਿੰਨ੍ਹ_ptr)
                   sk = sk_la_ptr;
-#endif
-                else if (s == rodata_section)
-                  sk = sk_ro_data;
-                else if (s == s1->got)
+#ਜੇ_ਅੰਤ
+                ਨਹੀਂਤਾਂ ਜੇ (s == rodata_section)
+                  sk = sk_ro_ਅੰਕੜੇ;
+                ਨਹੀਂਤਾਂ ਜੇ (s == s1->got)
                   sk = sk_nl_ptr;
-                else if (s == stab_section)
+                ਨਹੀਂਤਾਂ ਜੇ (s == stab_section)
                   sk = sk_stab;
-                else if (s == dwarf_info_section)
+                ਨਹੀਂਤਾਂ ਜੇ (s == dwarf_info_section)
                   sk = sk_debug_info;
-                else if (s == dwarf_abbrev_section)
+                ਨਹੀਂਤਾਂ ਜੇ (s == dwarf_abbrev_section)
                   sk = sk_debug_abbrev;
-                else if (s == dwarf_line_section)
-                  sk = sk_debug_line;
-                else if (s == dwarf_aranges_section)
+                ਨਹੀਂਤਾਂ ਜੇ (s == dwarf_ਸਤਰ_section)
+                  sk = sk_debug_ਸਤਰ;
+                ਨਹੀਂਤਾਂ ਜੇ (s == dwarf_aranges_section)
                   sk = sk_debug_aranges;
-                else if (s == dwarf_str_section)
+                ਨਹੀਂਤਾਂ ਜੇ (s == dwarf_str_section)
                   sk = sk_debug_str;
-                else if (s == dwarf_line_str_section)
-                  sk = sk_debug_line_str;
-                else if (flags & SHF_EXECINSTR)
-                  sk = sk_text;
-                else if (flags & SHF_WRITE)
-                  sk = sk_rw_data;
-                else
-                  sk = sk_ro_data;
-                break;
+                ਨਹੀਂਤਾਂ ਜੇ (s == dwarf_ਸਤਰ_str_section)
+                  sk = sk_debug_ਸਤਰ_str;
+                ਨਹੀਂਤਾਂ ਜੇ (flags & SHF_EXECINSTR)
+                  sk = sk_ਪਾਠ;
+                ਨਹੀਂਤਾਂ ਜੇ (flags & SHF_WRITE)
+                  sk = sk_rw_ਅੰਕੜੇ;
+                ਨਹੀਂਤਾਂ
+                  sk = sk_ro_ਅੰਕੜੇ;
+                ਰੋਕੋ;
             }
-        } else
+        } ਨਹੀਂਤਾਂ
           sk = sk_discard;
-        s->prev = mo->sk_to_sect[sk].s;
-        mo->sk_to_sect[sk].s = s;
-	used_segment[skinfo[sk].seg_initial] = 1;
+        s->prev = mo->sk_ਮੰਜ਼ਿਲ_sect[sk].s;
+        mo->sk_ਮੰਜ਼ਿਲ_sect[sk].s = s;
+	ਵਰਤਿਆ_segment[skinfo[sk].seg_initial] = 1;
     }
 
-    if (s1->output_type != TCC_OUTPUT_EXE)
-	used_segment[0] = 0;
+    ਜੇ (s1->output_type != TCC_OUTPUT_EXE)
+	ਵਰਤਿਆ_segment[0] = 0;
 
-    for (i = 0; i < N_SEGMENT; i++)
-	if (used_segment[i]) {
-	    seg = add_segment(mo, all_segment[i].name);
-	    if (i == 1 && s1->output_type != TCC_OUTPUT_EXE)
+    ਲਈ (i = 0; i < N_SEGMENT; i++)
+	ਜੇ (ਵਰਤਿਆ_segment[i]) {
+	    seg = ਜੋੜੋ_segment(mo, all_segment[i].name);
+	    ਜੇ (i == 1 && s1->output_type != TCC_OUTPUT_EXE)
 	        seg->vmaddr = 0;
-	    else
+	    ਨਹੀਂਤਾਂ
 	        seg->vmaddr = all_segment[i].vmaddr;
 	    seg->vmsize = all_segment[i].vmsize;
 	    seg->maxprot = all_segment[i].maxprot;
 	    seg->initprot = all_segment[i].initprot;
 	    seg->flags = all_segment[i].flags;
-            for (sk = sk_unknown; sk < sk_last; sk++)
-		if (skinfo[sk].seg_initial == i)
+            ਲਈ (sk = sk_unknown; sk < sk_ਆਖਰੀ; sk++)
+		ਜੇ (skinfo[sk].seg_initial == i)
 	            mo->segment[sk] = mo->nseg - 1;
 	}
 
-    if (s1->output_type != TCC_OUTPUT_EXE) {
-	const char *name = s1->install_name ? s1->install_name : filename;
-        i = (sizeof(*dylib) + strlen(name) + 1 + 7) &-8;
-        dylib = add_lc(mo, LC_ID_DYLIB, i);
-	dylib->name = sizeof(*dylib);
+    ਜੇ (s1->output_type != TCC_OUTPUT_EXE) {
+	ਅਚਲ ਅੱਖਰ *name = s1->install_name ? s1->install_name : filename;
+        i = (ਆਕਾਰ(*dylib) + ਲੜੀ_ਲੰਬਾਈ(name) + 1 + 7) &-8;
+        dylib = ਜੋੜੋ_lc(mo, LC_ID_DYLIB, i);
+	dylib->name = ਆਕਾਰ(*dylib);
 	dylib->timestamp = 1;
-	dylib->current_version =
-	    s1->current_version ? s1->current_version : 1 << 16;
-	dylib->compatibility_version =
-	    s1->compatibility_version ? s1->compatibility_version : 1 << 16;
-        str = (char*)dylib + dylib->name;
+	dylib->current_ਸੰਸਕਰਣ =
+	    s1->current_ਸੰਸਕਰਣ ? s1->current_ਸੰਸਕਰਣ : 1 << 16;
+	dylib->compatibility_ਸੰਸਕਰਣ =
+	    s1->compatibility_ਸੰਸਕਰਣ ? s1->compatibility_ਸੰਸਕਰਣ : 1 << 16;
+        str = (ਅੱਖਰ*)dylib + dylib->name;
         strcpy(str, name);
     }
 
-#ifdef CONFIG_NEW_MACHO
-    chained_fixups_lc = add_lc(mo, LC_DYLD_CHAINED_FIXUPS,
-			       sizeof(struct linkedit_data_command));
-    export_trie_lc = add_lc(mo, LC_DYLD_EXPORTS_TRIE,
-			    sizeof(struct linkedit_data_command));
-#else
-    mo->dyldinfo = add_lc(mo, LC_DYLD_INFO_ONLY, sizeof(*mo->dyldinfo));
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
+    chained_fixups_lc = ਜੋੜੋ_lc(mo, LC_DYLD_CHAINED_FIXUPS,
+			       ਆਕਾਰ(ਬਣਤਰ linkedit_ਅੰਕੜੇ_command));
+    export_trie_lc = ਜੋੜੋ_lc(mo, LC_DYLD_EXPORTS_TRIE,
+			    ਆਕਾਰ(ਬਣਤਰ linkedit_ਅੰਕੜੇ_command));
+#ਨਹੀਂਤਾਂ
+    mo->dyldinfo = ਜੋੜੋ_lc(mo, LC_DYLD_INFO_ONLY, ਆਕਾਰ(*mo->dyldinfo));
+#ਜੇ_ਅੰਤ
 
-    symlc = add_lc(mo, LC_SYMTAB, sizeof(*symlc));
-    dysymlc = add_lc(mo, LC_DYSYMTAB, sizeof(*dysymlc));
+    symlc = ਜੋੜੋ_lc(mo, LC_SYMTAB, ਆਕਾਰ(*symlc));
+    dysymlc = ਜੋੜੋ_lc(mo, LC_DYSYMTAB, ਆਕਾਰ(*dysymlc));
 
-    if (s1->output_type == TCC_OUTPUT_EXE) {
-        i = (sizeof(*dyldlc) + strlen("/usr/lib/dyld") + 1 + 7) &-8;
-        dyldlc = add_lc(mo, LC_LOAD_DYLINKER, i);
-        dyldlc->name = sizeof(*dyldlc);
-        str = (char*)dyldlc + dyldlc->name;
+    ਜੇ (s1->output_type == TCC_OUTPUT_EXE) {
+        i = (ਆਕਾਰ(*dyldlc) + ਲੜੀ_ਲੰਬਾਈ("/usr/lib/dyld") + 1 + 7) &-8;
+        dyldlc = ਜੋੜੋ_lc(mo, LC_ਲੱਦੋ_DYLINKER, i);
+        dyldlc->name = ਆਕਾਰ(*dyldlc);
+        str = (ਅੱਖਰ*)dyldlc + dyldlc->name;
         strcpy(str, "/usr/lib/dyld");
     }
 
-    dyldbv = add_lc(mo, LC_BUILD_VERSION, sizeof(*dyldbv));
+    dyldbv = ਜੋੜੋ_lc(mo, LC_BUILD_ਸੰਸਕਰਣ, ਆਕਾਰ(*dyldbv));
     dyldbv->platform = PLATFORM_MACOS;
     dyldbv->minos = (10 << 16) + (6 << 8);
     dyldbv->sdk = (10 << 16) + (6 << 8);
     dyldbv->ntools = 0;
 
-    dyldsv = add_lc(mo, LC_SOURCE_VERSION, sizeof(*dyldsv));
-    dyldsv->version = 0;
+    dyldsv = ਜੋੜੋ_lc(mo, LC_ਸਰੋਤ_ਸੰਸਕਰਣ, ਆਕਾਰ(*dyldsv));
+    dyldsv->ਸੰਸਕਰਣ = 0;
 
-    if (s1->output_type == TCC_OUTPUT_EXE) {
-        mo->ep = add_lc(mo, LC_MAIN, sizeof(*mo->ep));
+    ਜੇ (s1->output_type == TCC_OUTPUT_EXE) {
+        mo->ep = ਜੋੜੋ_lc(mo, LC_MAIN, ਆਕਾਰ(*mo->ep));
         mo->ep->entryoff = 4096;
     }
 
-    for(i = 0; i < s1->nb_loaded_dlls; i++) {
+    ਲਈ(i = 0; i < s1->nb_loaded_dlls; i++) {
         DLLReference *dllref = s1->loaded_dlls[i];
-        if (dllref->level == 0)
-          add_dylib(mo, dllref->name);
+        ਜੇ (dllref->level == 0)
+          ਜੋੜੋ_dylib(mo, dllref->name);
     }
 
-    if (s1->rpath) {
-	char *path = s1->rpath, *end;
-	do {
-	    end = strchr(path, ':');
-	    if (!end)
-		end = strchr(path, 0);
-            i = (sizeof(*rpath) + (end - path) + 1 + 7) &-8;
-            rpath = add_lc(mo, LC_RPATH, i);
-            rpath->path = sizeof(*rpath);
-            str = (char*)rpath + rpath->path;
-            memcpy(str, path, end - path);
-	    str[end - path] = 0;
-	    path = end + 1;
-	} while (*end);
+    ਜੇ (s1->rpath) {
+	ਅੱਖਰ *ਰਸਤਾ = s1->rpath, *ਸਿਰਾ;
+	ਕਰੋ {
+	    ਸਿਰਾ = strchr(ਰਸਤਾ, ':');
+	    ਜੇ (!ਸਿਰਾ)
+		ਸਿਰਾ = strchr(ਰਸਤਾ, 0);
+            i = (ਆਕਾਰ(*rpath) + (ਸਿਰਾ - ਰਸਤਾ) + 1 + 7) &-8;
+            rpath = ਜੋੜੋ_lc(mo, LC_RPATH, i);
+            rpath->ਰਸਤਾ = ਆਕਾਰ(*rpath);
+            str = (ਅੱਖਰ*)rpath + rpath->ਰਸਤਾ;
+            ਸਮ੍ਰਿਤੀ_ਨਕਲ(str, ਰਸਤਾ, ਸਿਰਾ - ਰਸਤਾ);
+	    str[ਸਿਰਾ - ਰਸਤਾ] = 0;
+	    ਰਸਤਾ = ਸਿਰਾ + 1;
+	} ਜਦੋਂ (*ਸਿਰਾ);
     }
 
     fileofs = 4096;  /* leave space for mach-o headers */
     curaddr = get_segment(mo, s1->output_type == TCC_OUTPUT_EXE)->vmaddr;
     curaddr += 4096;
-    seg = NULL;
+    seg = ਨਿਰਾ;
     numsec = 0;
-    mo->elfsectomacho = tcc_mallocz(sizeof(*mo->elfsectomacho) * s1->nb_sections);
-    for (sk = sk_unknown; sk < sk_last; sk++) {
-        struct section_64 *sec = NULL;
-        if (seg) {
+    mo->elfsectomacho = tcc_mallocz(ਆਕਾਰ(*mo->elfsectomacho) * s1->nb_sections);
+    ਲਈ (sk = sk_unknown; sk < sk_ਆਖਰੀ; sk++) {
+        ਬਣਤਰ section_64 *sec = ਨਿਰਾ;
+        ਜੇ (seg) {
             seg->vmsize = curaddr - seg->vmaddr;
             seg->filesize = fileofs - seg->fileoff;
         }
-#ifdef CONFIG_NEW_MACHO
-	if (sk == sk_linkedit) {
-	    calc_fixup_size(s1, mo);
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
+	ਜੇ (sk == sk_linkedit) {
+	    calc_fixup_ਮਾਪ(s1, mo);
 	    export_trie(s1, mo);
 	}
-#else
-	if (sk == sk_linkedit) {
+#ਨਹੀਂਤਾਂ
+	ਜੇ (sk == sk_linkedit) {
 	    bind_rebase(s1, mo);
 	    export_trie(s1, mo);
 	}
-#endif
-        if (skinfo[sk].seg_initial &&
+#ਜੇ_ਅੰਤ
+        ਜੇ (skinfo[sk].seg_initial &&
 	    (s1->output_type != TCC_OUTPUT_EXE || mo->segment[sk]) &&
-	    mo->sk_to_sect[sk].s) {
+	    mo->sk_ਮੰਜ਼ਿਲ_sect[sk].s) {
             uint64_t al = 0;
-            int si;
+            ਪੂਰਨ si;
             seg = get_segment(mo, mo->segment[sk]);
-            if (skinfo[sk].name) {
-                si = add_section(mo, &seg, skinfo[sk].name);
+            ਜੇ (skinfo[sk].name) {
+                si = ਜੋੜੋ_section(mo, &seg, skinfo[sk].name);
                 numsec++;
-                mo->lc[mo->seg2lc[mo->segment[sk]]] = (struct load_command*)seg;
-                mo->sk_to_sect[sk].machosect = si;
+                mo->lc[mo->seg2lc[mo->segment[sk]]] = (ਬਣਤਰ ਲੱਦੋ_command*)seg;
+                mo->sk_ਮੰਜ਼ਿਲ_sect[sk].machosect = si;
                 sec = get_section(seg, si);
                 sec->flags = skinfo[sk].flags;
-		if (sk == sk_stubs)
-#ifdef TCC_TARGET_X86_64
+		ਜੇ (sk == sk_stubs)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
 	    	    sec->reserved2 = 6;
-#elif defined TCC_TARGET_ARM64
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM64
 	    	    sec->reserved2 = 12;
-#endif
-		if (sk == sk_nl_ptr)
+#ਜੇ_ਅੰਤ
+		ਜੇ (sk == sk_nl_ptr)
 	    	    sec->reserved1 = mo->nr_plt;
-#ifndef CONFIG_NEW_MACHO
-		if (sk == sk_la_ptr)
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
+		ਜੇ (sk == sk_la_ptr)
 	    	    sec->reserved1 = mo->nr_plt + mo->n_got;
-#endif
+#ਜੇ_ਅੰਤ
             }
-            if (seg->vmaddr == -1) {
-                curaddr = (curaddr + SEG_PAGE_SIZE - 1) & -SEG_PAGE_SIZE;
+            ਜੇ (seg->vmaddr == -1) {
+                curaddr = (curaddr + SEG_ਪੰਨਾ_ਮਾਪ - 1) & -SEG_ਪੰਨਾ_ਮਾਪ;
                 seg->vmaddr = curaddr;
-                fileofs = (fileofs + SEG_PAGE_SIZE - 1) & -SEG_PAGE_SIZE;
+                fileofs = (fileofs + SEG_ਪੰਨਾ_ਮਾਪ - 1) & -SEG_ਪੰਨਾ_ਮਾਪ;
                 seg->fileoff = fileofs;
             }
 
-            for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-                int a = exact_log2p1(s->sh_addralign);
-                if (a && al < (a - 1))
+            ਲਈ (s = mo->sk_ਮੰਜ਼ਿਲ_sect[sk].s; s; s = s->prev) {
+                ਪੂਰਨ a = exact_log2p1(s->sh_addralign);
+                ਜੇ (a && al < (a - 1))
                   al = a - 1;
-                s->sh_size = s->data_offset;
+                s->sh_ਮਾਪ = s->ਅੰਕੜੇ_ਵਿੱਥ;
             }
-            if (sec)
+            ਜੇ (sec)
               sec->align = al;
             al = 1ULL << al;
-            if (al > 4096)
+            ਜੇ (al > 4096)
               tcc_warning("alignment > 4096"), sec->align = 12, al = 4096;
             curaddr = (curaddr + al - 1) & -al;
             fileofs = (fileofs + al - 1) & -al;
-            if (sec) {
+            ਜੇ (sec) {
                 sec->addr = curaddr;
-                sec->offset = fileofs;
+                sec->ਵਿੱਥ = fileofs;
             }
-            for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
+            ਲਈ (s = mo->sk_ਮੰਜ਼ਿਲ_sect[sk].s; s; s = s->prev) {
                 al = s->sh_addralign;
                 curaddr = (curaddr + al - 1) & -al;
-                dprintf("%s: curaddr now 0x%lx\n", s->name, (long)curaddr);
+                dprintf("%s: curaddr now 0x%lx\n", s->name, (ਲੰਮਾ)curaddr);
                 s->sh_addr = curaddr;
-                curaddr += s->sh_size;
-                if (s->sh_type != SHT_NOBITS) {
+                curaddr += s->sh_ਮਾਪ;
+                ਜੇ (s->sh_type != SHT_NOBITS) {
                     fileofs = (fileofs + al - 1) & -al;
-                    s->sh_offset = fileofs;
-                    fileofs += s->sh_size;
-                    dprintf("%s: fileofs now %ld\n", s->name, (long)fileofs);
+                    s->sh_ਵਿੱਥ = fileofs;
+                    fileofs += s->sh_ਮਾਪ;
+                    dprintf("%s: fileofs now %ld\n", s->name, (ਲੰਮਾ)fileofs);
                 }
-                if (sec)
-                  mo->elfsectomacho[s->sh_num] = numsec;
+                ਜੇ (sec)
+                  mo->elfsectomacho[s->sh_ਅੰਕ] = numsec;
             }
-            if (sec)
-              sec->size = curaddr - sec->addr;
+            ਜੇ (sec)
+              sec->ਮਾਪ = curaddr - sec->addr;
         }
-        if (DEBUG_MACHO)
-          for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-              int type = s->sh_type;
-              int flags = s->sh_flags;
-              printf("%d section %-16s %-10s %09lx %04x %02d %s,%s,%s\n",
+        ਜੇ (DEBUG_MACHO)
+          ਲਈ (s = mo->sk_ਮੰਜ਼ਿਲ_sect[sk].s; s; s = s->prev) {
+              ਪੂਰਨ type = s->sh_type;
+              ਪੂਰਨ flags = s->sh_flags;
+              ਲਿਖੋ("%d section %-16s %-10s %09lx %04x %02d %s,%s,%s\n",
                      sk,
                      s->name,
                      type == SHT_PROGBITS ? "progbits" :
@@ -1895,8 +1895,8 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
                      type == SHT_INIT_ARRAY ? "init" :
                      type == SHT_FINI_ARRAY ? "fini" :
                      type == SHT_RELX ? "rel" : "???",
-                     (long)s->sh_addr,
-                     (unsigned)s->data_offset,
+                     (ਲੰਮਾ)s->sh_addr,
+                     (ਬਿਨਾਨਿਸ਼ਾਨੀ)s->ਅੰਕੜੇ_ਵਿੱਥ,
                      s->sh_addralign,
                      flags & SHF_ALLOC ? "alloc" : "",
                      flags & SHF_WRITE ? "write" : "",
@@ -1904,16 +1904,16 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
                     );
           }
     }
-    if (seg) {
+    ਜੇ (seg) {
         seg->vmsize = curaddr - seg->vmaddr;
         seg->filesize = fileofs - seg->fileoff;
     }
 
     /* Fill symtab info */
-    symlc->symoff = mo->symtab->sh_offset;
-    symlc->nsyms = mo->symtab->data_offset / sizeof(struct nlist_64);
-    symlc->stroff = mo->strtab->sh_offset;
-    symlc->strsize = mo->strtab->data_offset;
+    symlc->symoff = mo->symtab->sh_ਵਿੱਥ;
+    symlc->nsyms = mo->symtab->ਅੰਕੜੇ_ਵਿੱਥ / ਆਕਾਰ(ਬਣਤਰ nlist_64);
+    symlc->stroff = mo->strtab->sh_ਵਿੱਥ;
+    symlc->strsize = mo->strtab->ਅੰਕੜੇ_ਵਿੱਥ;
 
     dysymlc->iundefsym = mo->iundef == -1 ? symlc->nsyms : mo->iundef;
     dysymlc->iextdefsym = mo->iextdef == -1 ? dysymlc->iundefsym : mo->iextdef;
@@ -1921,312 +1921,312 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
     dysymlc->nlocalsym = dysymlc->iextdefsym - dysymlc->ilocalsym;
     dysymlc->nextdefsym = dysymlc->iundefsym - dysymlc->iextdefsym;
     dysymlc->nundefsym = symlc->nsyms - dysymlc->iundefsym;
-    dysymlc->indirectsymoff = mo->indirsyms->sh_offset;
-    dysymlc->nindirectsyms = mo->indirsyms->data_offset / sizeof(uint32_t);
+    dysymlc->indirectsymoff = mo->indirsyms->sh_ਵਿੱਥ;
+    dysymlc->nindirectsyms = mo->indirsyms->ਅੰਕੜੇ_ਵਿੱਥ / ਆਕਾਰ(uint32_t);
 
-#ifdef CONFIG_NEW_MACHO
-    if (mo->chained_fixups->data_offset) {
-        chained_fixups_lc->dataoff = mo->chained_fixups->sh_offset;
-        chained_fixups_lc->datasize = mo->chained_fixups->data_offset;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
+    ਜੇ (mo->chained_fixups->ਅੰਕੜੇ_ਵਿੱਥ) {
+        chained_fixups_lc->dataoff = mo->chained_fixups->sh_ਵਿੱਥ;
+        chained_fixups_lc->datasize = mo->chained_fixups->ਅੰਕੜੇ_ਵਿੱਥ;
     }
-    if (mo->exports->data_offset) {
-        export_trie_lc->dataoff = mo->exports->sh_offset;
-        export_trie_lc->datasize = mo->exports->data_offset;
+    ਜੇ (mo->exports->ਅੰਕੜੇ_ਵਿੱਥ) {
+        export_trie_lc->dataoff = mo->exports->sh_ਵਿੱਥ;
+        export_trie_lc->datasize = mo->exports->ਅੰਕੜੇ_ਵਿੱਥ;
     }
-#else
-    if (mo->rebase->data_offset) {
-        mo->dyldinfo->rebase_off = mo->rebase->sh_offset;
-        mo->dyldinfo->rebase_size = mo->rebase->data_offset;
+#ਨਹੀਂਤਾਂ
+    ਜੇ (mo->rebase->ਅੰਕੜੇ_ਵਿੱਥ) {
+        mo->dyldinfo->rebase_off = mo->rebase->sh_ਵਿੱਥ;
+        mo->dyldinfo->rebase_ਮਾਪ = mo->rebase->ਅੰਕੜੇ_ਵਿੱਥ;
     }
-    if (mo->binding->data_offset) {
-        mo->dyldinfo->bind_off = mo->binding->sh_offset;
-        mo->dyldinfo->bind_size = mo->binding->data_offset;
+    ਜੇ (mo->binding->ਅੰਕੜੇ_ਵਿੱਥ) {
+        mo->dyldinfo->bind_off = mo->binding->sh_ਵਿੱਥ;
+        mo->dyldinfo->bind_ਮਾਪ = mo->binding->ਅੰਕੜੇ_ਵਿੱਥ;
     }
-    if (mo->weak_binding->data_offset) {
-        mo->dyldinfo->weak_bind_off = mo->weak_binding->sh_offset;
-        mo->dyldinfo->weak_bind_size = mo->weak_binding->data_offset;
+    ਜੇ (mo->weak_binding->ਅੰਕੜੇ_ਵਿੱਥ) {
+        mo->dyldinfo->weak_bind_off = mo->weak_binding->sh_ਵਿੱਥ;
+        mo->dyldinfo->weak_bind_ਮਾਪ = mo->weak_binding->ਅੰਕੜੇ_ਵਿੱਥ;
     }
-    if (mo->lazy_binding->data_offset) {
-        mo->dyldinfo->lazy_bind_off = mo->lazy_binding->sh_offset;
-        mo->dyldinfo->lazy_bind_size = mo->lazy_binding->data_offset;
+    ਜੇ (mo->lazy_binding->ਅੰਕੜੇ_ਵਿੱਥ) {
+        mo->dyldinfo->lazy_bind_off = mo->lazy_binding->sh_ਵਿੱਥ;
+        mo->dyldinfo->lazy_bind_ਮਾਪ = mo->lazy_binding->ਅੰਕੜੇ_ਵਿੱਥ;
     }
-    if (mo->exports->data_offset) {
-        mo->dyldinfo->export_off = mo->exports->sh_offset;
-        mo->dyldinfo->export_size = mo->exports->data_offset;
+    ਜੇ (mo->exports->ਅੰਕੜੇ_ਵਿੱਥ) {
+        mo->dyldinfo->export_off = mo->exports->sh_ਵਿੱਥ;
+        mo->dyldinfo->export_ਮਾਪ = mo->exports->ਅੰਕੜੇ_ਵਿੱਥ;
     }
-#endif
+#ਜੇ_ਅੰਤ
 }
 
-static void macho_write(TCCState *s1, struct macho *mo, FILE *fp)
+ਸਥਿਰ ਖਾਲੀ macho_write(TCCState *s1, ਬਣਤਰ macho *mo, FILE *fp)
 {
-    int i, sk;
+    ਪੂਰਨ i, sk;
     uint64_t fileofs = 0;
     Section *s;
     mo->mh.mh.magic = MH_MAGIC_64;
-#ifdef TCC_TARGET_X86_64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
     mo->mh.mh.cputype = CPU_TYPE_X86_64;
     mo->mh.mh.cpusubtype = CPU_SUBTYPE_LIB64 | CPU_SUBTYPE_X86_ALL;
-#elif defined TCC_TARGET_ARM64
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM64
     mo->mh.mh.cputype = CPU_TYPE_ARM64;
     mo->mh.mh.cpusubtype = CPU_SUBTYPE_ARM64_ALL;
-#endif
-    if (s1->output_type == TCC_OUTPUT_EXE) {
+#ਜੇ_ਅੰਤ
+    ਜੇ (s1->output_type == TCC_OUTPUT_EXE) {
         mo->mh.mh.filetype = MH_EXECUTE;
         mo->mh.mh.flags = MH_DYLDLINK | MH_PIE;
     }
-    else {
+    ਨਹੀਂਤਾਂ {
         mo->mh.mh.filetype = MH_DYLIB;
         mo->mh.mh.flags = MH_DYLDLINK;
     }
     mo->mh.mh.ncmds = mo->nlc;
     mo->mh.mh.sizeofcmds = 0;
-    for (i = 0; i < mo->nlc; i++)
+    ਲਈ (i = 0; i < mo->nlc; i++)
       mo->mh.mh.sizeofcmds += mo->lc[i]->cmdsize;
 
-    fwrite(&mo->mh, 1, sizeof(mo->mh), fp);
-    fileofs += sizeof(mo->mh);
-    for (i = 0; i < mo->nlc; i++) {
+    fwrite(&mo->mh, 1, ਆਕਾਰ(mo->mh), fp);
+    fileofs += ਆਕਾਰ(mo->mh);
+    ਲਈ (i = 0; i < mo->nlc; i++) {
         fwrite(mo->lc[i], 1, mo->lc[i]->cmdsize, fp);
         fileofs += mo->lc[i]->cmdsize;
     }
 
-    for (sk = sk_unknown; sk < sk_last; sk++) {
+    ਲਈ (sk = sk_unknown; sk < sk_ਆਖਰੀ; sk++) {
         //struct segment_command_64 *seg;
-        if (skinfo[sk].seg_initial == 0 ||
+        ਜੇ (skinfo[sk].seg_initial == 0 ||
 	    (s1->output_type == TCC_OUTPUT_EXE && !mo->segment[sk]) ||
-	    !mo->sk_to_sect[sk].s)
-          continue;
+	    !mo->sk_ਮੰਜ਼ਿਲ_sect[sk].s)
+          ਜਾਰੀ;
         /*seg =*/ get_segment(mo, mo->segment[sk]);
-        for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-            if (s->sh_type != SHT_NOBITS) {
-                while (fileofs < s->sh_offset)
+        ਲਈ (s = mo->sk_ਮੰਜ਼ਿਲ_sect[sk].s; s; s = s->prev) {
+            ਜੇ (s->sh_type != SHT_NOBITS) {
+                ਜਦੋਂ (fileofs < s->sh_ਵਿੱਥ)
                   fputc(0, fp), fileofs++;
-                if (s->sh_size) {
-                    fwrite(s->data, 1, s->sh_size, fp);
-                    fileofs += s->sh_size;
+                ਜੇ (s->sh_ਮਾਪ) {
+                    fwrite(s->ਅੰਕੜੇ, 1, s->sh_ਮਾਪ, fp);
+                    fileofs += s->sh_ਮਾਪ;
                 }
             }
         }
     }
 }
 
-#ifdef CONFIG_NEW_MACHO
-static int bind_rebase_cmp(const void *_a, const void *_b, void *arg)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
+ਸਥਿਰ ਪੂਰਨ bind_rebase_cmp(ਅਚਲ ਖਾਲੀ *_a, ਅਚਲ ਖਾਲੀ *_b, ਖਾਲੀ *arg)
 {
     TCCState *s1 = arg;
-    struct bind_rebase *a = (struct bind_rebase *) _a;
-    struct bind_rebase *b = (struct bind_rebase *) _b;
-    addr_t aa = s1->sections[a->section]->sh_addr + a->rel.r_offset;
-    addr_t ab = s1->sections[b->section]->sh_addr + b->rel.r_offset;
+    ਬਣਤਰ bind_rebase *a = (ਬਣਤਰ bind_rebase *) _a;
+    ਬਣਤਰ bind_rebase *b = (ਬਣਤਰ bind_rebase *) _b;
+    addr_t aa = s1->sections[a->section]->sh_addr + a->rel.r_ਵਿੱਥ;
+    addr_t ab = s1->sections[b->section]->sh_addr + b->rel.r_ਵਿੱਥ;
 
-    return aa > ab ? 1 : aa < ab ? -1 : 0;
+    ਵਾਪਸ aa > ab ? 1 : aa < ab ? -1 : 0;
 }
 
-ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
+ST_FUNC ਖਾਲੀ bind_rebase_import(TCCState *s1, ਬਣਤਰ macho *mo)
 {
-    int i, j, k, bind_index, size, page_count, sym_index;
-    const char *name;
+    ਪੂਰਨ i, j, k, bind_ਸੂਚਕਾਂਕ, ਮਾਪ, ਪੰਨਾ_ਗਿਣਤੀ, sym_ਸੂਚਕਾਂਕ;
+    ਅਚਲ ਅੱਖਰ *name;
     ElfW(Sym) *sym;
-    unsigned char *data = mo->chained_fixups->data;
-    struct segment_command_64 *seg;
-    struct dyld_chained_fixups_header *header;
-    struct dyld_chained_starts_in_image *image;
-    struct dyld_chained_starts_in_segment *segment;
-    struct dyld_chained_import *import;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ *ਅੰਕੜੇ = mo->chained_fixups->ਅੰਕੜੇ;
+    ਬਣਤਰ segment_command_64 *seg;
+    ਬਣਤਰ dyld_chained_fixups_ਸਿਰਲੇਖ *ਸਿਰਲੇਖ;
+    ਬਣਤਰ dyld_chained_starts_ਵਿੱਚ_image *image;
+    ਬਣਤਰ dyld_chained_starts_ਵਿੱਚ_segment *segment;
+    ਬਣਤਰ dyld_chained_import *import;
 
-    tcc_qsort(mo->bind_rebase, mo->n_bind_rebase, sizeof(struct bind_rebase),
+    tcc_qsort(mo->bind_rebase, mo->n_bind_rebase, ਆਕਾਰ(ਬਣਤਰ bind_rebase),
 	      bind_rebase_cmp, s1);
-    for (i = 0; i < mo->n_bind_rebase - 1; i++)
-	if (mo->bind_rebase[i].section == mo->bind_rebase[i + 1].section &&
-	    mo->bind_rebase[i].rel.r_offset == mo->bind_rebase[i + 1].rel.r_offset) {
-	    sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
-            sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	    name = (char *) symtab_section->link->data + sym->st_name;
+    ਲਈ (i = 0; i < mo->n_bind_rebase - 1; i++)
+	ਜੇ (mo->bind_rebase[i].section == mo->bind_rebase[i + 1].section &&
+	    mo->bind_rebase[i].rel.r_ਵਿੱਥ == mo->bind_rebase[i + 1].rel.r_ਵਿੱਥ) {
+	    sym_ਸੂਚਕਾਂਕ = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
+            sym = &((ElfW(Sym) *)symtab_section->ਅੰਕੜੇ)[sym_ਸੂਚਕਾਂਕ];
+	    name = (ਅੱਖਰ *) symtab_section->link->ਅੰਕੜੇ + sym->st_name;
 	    tcc_error("Overlap %s/%s %s:%s",
 		      mo->bind_rebase[i].bind ? "bind" : "rebase",
 		      mo->bind_rebase[i + 1].bind ? "bind" : "rebase",
 		      s1->sections[mo->bind_rebase[i].section]->name, name);
 	}
-    header = (struct dyld_chained_fixups_header *) data;
-    data += (sizeof(struct dyld_chained_fixups_header) + 7) & -8;
-    header->starts_offset = data - mo->chained_fixups->data;
-    header->imports_count = mo->n_bind;
-    header->imports_format = DYLD_CHAINED_IMPORT;
-    header->symbols_format = 0;
-    size = sizeof(struct dyld_chained_starts_in_image) +
-	   (mo->nseg - 1) * sizeof(uint32_t);
-    image = (struct dyld_chained_starts_in_image *) data;
-    data += (size + 7) & -8;
-    image->seg_count = mo->nseg;
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
-        image->seg_info_offset[i] = (data - mo->chained_fixups->data) -
-				    header->starts_offset;
+    ਸਿਰਲੇਖ = (ਬਣਤਰ dyld_chained_fixups_ਸਿਰਲੇਖ *) ਅੰਕੜੇ;
+    ਅੰਕੜੇ += (ਆਕਾਰ(ਬਣਤਰ dyld_chained_fixups_ਸਿਰਲੇਖ) + 7) & -8;
+    ਸਿਰਲੇਖ->starts_ਵਿੱਥ = ਅੰਕੜੇ - mo->chained_fixups->ਅੰਕੜੇ;
+    ਸਿਰਲੇਖ->imports_ਗਿਣਤੀ = mo->n_bind;
+    ਸਿਰਲੇਖ->imports_format = DYLD_CHAINED_IMPORT;
+    ਸਿਰਲੇਖ->symbols_format = 0;
+    ਮਾਪ = ਆਕਾਰ(ਬਣਤਰ dyld_chained_starts_ਵਿੱਚ_image) +
+	   (mo->nseg - 1) * ਆਕਾਰ(uint32_t);
+    image = (ਬਣਤਰ dyld_chained_starts_ਵਿੱਚ_image *) ਅੰਕੜੇ;
+    ਅੰਕੜੇ += (ਮਾਪ + 7) & -8;
+    image->seg_ਗਿਣਤੀ = mo->nseg;
+    ਲਈ (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+        image->seg_info_ਵਿੱਥ[i] = (ਅੰਕੜੇ - mo->chained_fixups->ਅੰਕੜੇ) -
+				    ਸਿਰਲੇਖ->starts_ਵਿੱਥ;
 	seg = get_segment(mo, i);
-	page_count = (seg->vmsize + SEG_PAGE_SIZE - 1) / SEG_PAGE_SIZE;
-	size = sizeof(struct dyld_chained_starts_in_segment) +
-		      (page_count - 1) * sizeof(uint16_t);
-        segment = (struct dyld_chained_starts_in_segment *) data;
-        data += (size + 7) & -8;
-        segment->size = size;
-        segment->page_size = SEG_PAGE_SIZE;
-#if 1
-#define	PTR_64_OFFSET 0
-#define	PTR_64_MASK   0x7FFFFFFFFFFULL
-        segment->pointer_format = DYLD_CHAINED_PTR_64;
-#else
-#define	PTR_64_OFFSET 0x100000000ULL
-#define	PTR_64_MASK   0xFFFFFFFFFFFFFFULL
-        segment->pointer_format = DYLD_CHAINED_PTR_64_OFFSET;
-#endif
-        segment->segment_offset = seg->fileoff;
-        segment->max_valid_pointer = 0;
-        segment->page_count = page_count;
+	ਪੰਨਾ_ਗਿਣਤੀ = (seg->vmsize + SEG_ਪੰਨਾ_ਮਾਪ - 1) / SEG_ਪੰਨਾ_ਮਾਪ;
+	ਮਾਪ = ਆਕਾਰ(ਬਣਤਰ dyld_chained_starts_ਵਿੱਚ_segment) +
+		      (ਪੰਨਾ_ਗਿਣਤੀ - 1) * ਆਕਾਰ(uint16_t);
+        segment = (ਬਣਤਰ dyld_chained_starts_ਵਿੱਚ_segment *) ਅੰਕੜੇ;
+        ਅੰਕੜੇ += (ਮਾਪ + 7) & -8;
+        segment->ਮਾਪ = ਮਾਪ;
+        segment->ਪੰਨਾ_ਮਾਪ = SEG_ਪੰਨਾ_ਮਾਪ;
+#ਜੇ 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	PTR_64_ਵਿੱਥ 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	PTR_64_ਨਕਾਬ   0x7FFFFFFFFFFULL
+        segment->ਸੂਚਕ_format = DYLD_CHAINED_PTR_64;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	PTR_64_ਵਿੱਥ 0x100000000ULL
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	PTR_64_ਨਕਾਬ   0xFFFFFFFFFFFFFFULL
+        segment->ਸੂਚਕ_format = DYLD_CHAINED_PTR_64_ਵਿੱਥ;
+#ਜੇ_ਅੰਤ
+        segment->segment_ਵਿੱਥ = seg->fileoff;
+        segment->max_valid_ਸੂਚਕ = 0;
+        segment->ਪੰਨਾ_ਗਿਣਤੀ = ਪੰਨਾ_ਗਿਣਤੀ;
 	// add bind/rebase
-	bind_index = 0;
+	bind_ਸੂਚਕਾਂਕ = 0;
 	k = 0;
-	for (j = 0; j < page_count; j++) {
-	    addr_t start = seg->vmaddr + j * SEG_PAGE_SIZE;
-	    addr_t end = start + SEG_PAGE_SIZE;
-	    void *last = NULL;
-	    addr_t last_o = 0;
+	ਲਈ (j = 0; j < ਪੰਨਾ_ਗਿਣਤੀ; j++) {
+	    addr_t ਸ਼ੁਰੂ = seg->vmaddr + j * SEG_ਪੰਨਾ_ਮਾਪ;
+	    addr_t ਸਿਰਾ = ਸ਼ੁਰੂ + SEG_ਪੰਨਾ_ਮਾਪ;
+	    ਖਾਲੀ *ਆਖਰੀ = ਨਿਰਾ;
+	    addr_t ਆਖਰੀ_o = 0;
 	    addr_t cur_o, cur;
-	    struct dyld_chained_ptr_64_rebase *rebase;
-	    struct dyld_chained_ptr_64_bind *bind;
+	    ਬਣਤਰ dyld_chained_ptr_64_rebase *rebase;
+	    ਬਣਤਰ dyld_chained_ptr_64_bind *bind;
 
-	    segment->page_start[j] = DYLD_CHAINED_PTR_START_NONE;
-	    for (; k < mo->n_bind_rebase; k++) {
+	    segment->ਪੰਨਾ_ਸ਼ੁਰੂ[j] = DYLD_CHAINED_PTR_ਸ਼ੁਰੂ_NONE;
+	    ਲਈ (; k < mo->n_bind_rebase; k++) {
 	        Section *s = s1->sections[mo->bind_rebase[k].section];
-		addr_t r_offset = mo->bind_rebase[k].rel.r_offset;
-		addr_t addr = s->sh_addr + r_offset;
+		addr_t r_ਵਿੱਥ = mo->bind_rebase[k].rel.r_ਵਿੱਥ;
+		addr_t addr = s->sh_addr + r_ਵਿੱਥ;
 
-		if ((addr & 3) ||
-		    (addr & (SEG_PAGE_SIZE - 1)) > SEG_PAGE_SIZE - PTR_SIZE)
+		ਜੇ ((addr & 3) ||
+		    (addr & (SEG_ਪੰਨਾ_ਮਾਪ - 1)) > SEG_ਪੰਨਾ_ਮਾਪ - PTR_ਮਾਪ)
 		    tcc_error("Illegal rel_offset %s %lld",
-			      s->name, (long long)r_offset);
-		if (addr >= end)
-		    break;
-		if (addr >= start) {
-		    cur_o = addr - start;
-	            if (mo->bind_rebase[k].bind) {
-		        if (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
-			    segment->page_start[j] = cur_o;
-		        else {
-			    bind = (struct dyld_chained_ptr_64_bind *) last;
-			    bind->next = (cur_o - last_o) / 4;
+			      s->name, (ਲੰਮਾ ਲੰਮਾ)r_ਵਿੱਥ);
+		ਜੇ (addr >= ਸਿਰਾ)
+		    ਰੋਕੋ;
+		ਜੇ (addr >= ਸ਼ੁਰੂ) {
+		    cur_o = addr - ਸ਼ੁਰੂ;
+	            ਜੇ (mo->bind_rebase[k].bind) {
+		        ਜੇ (segment->ਪੰਨਾ_ਸ਼ੁਰੂ[j] == DYLD_CHAINED_PTR_ਸ਼ੁਰੂ_NONE)
+			    segment->ਪੰਨਾ_ਸ਼ੁਰੂ[j] = cur_o;
+		        ਨਹੀਂਤਾਂ {
+			    bind = (ਬਣਤਰ dyld_chained_ptr_64_bind *) ਆਖਰੀ;
+			    bind->ਅਗਲਾ = (cur_o - ਆਖਰੀ_o) / 4;
 		        }
-		        bind = (struct dyld_chained_ptr_64_bind *)
-				    (s->data + r_offset);
-		        last = bind;
-		        last_o = cur_o;
-		        bind->ordinal = bind_index;
+		        bind = (ਬਣਤਰ dyld_chained_ptr_64_bind *)
+				    (s->ਅੰਕੜੇ + r_ਵਿੱਥ);
+		        ਆਖਰੀ = bind;
+		        ਆਖਰੀ_o = cur_o;
+		        bind->ordinal = bind_ਸੂਚਕਾਂਕ;
 		        bind->addend = 0;
 		        bind->reserved = 0;
-		        bind->next = 0;
+		        bind->ਅਗਲਾ = 0;
 		        bind->bind = 1;
 		    }
-		    else {
-		        if (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
-			    segment->page_start[j] = cur_o;
-		        else {
-			    rebase = (struct dyld_chained_ptr_64_rebase *) last;
-			    rebase->next = (cur_o - last_o) / 4;
+		    ਨਹੀਂਤਾਂ {
+		        ਜੇ (segment->ਪੰਨਾ_ਸ਼ੁਰੂ[j] == DYLD_CHAINED_PTR_ਸ਼ੁਰੂ_NONE)
+			    segment->ਪੰਨਾ_ਸ਼ੁਰੂ[j] = cur_o;
+		        ਨਹੀਂਤਾਂ {
+			    rebase = (ਬਣਤਰ dyld_chained_ptr_64_rebase *) ਆਖਰੀ;
+			    rebase->ਅਗਲਾ = (cur_o - ਆਖਰੀ_o) / 4;
 		        }
-		        rebase = (struct dyld_chained_ptr_64_rebase *)
-				    (s->data + r_offset);
-		        last = rebase;
-		        last_o = cur_o;
-		        cur = (*(uint64_t *) (s->data + r_offset)) -
-			      PTR_64_OFFSET;
-		        rebase->target = cur & PTR_64_MASK;
+		        rebase = (ਬਣਤਰ dyld_chained_ptr_64_rebase *)
+				    (s->ਅੰਕੜੇ + r_ਵਿੱਥ);
+		        ਆਖਰੀ = rebase;
+		        ਆਖਰੀ_o = cur_o;
+		        cur = (*(uint64_t *) (s->ਅੰਕੜੇ + r_ਵਿੱਥ)) -
+			      PTR_64_ਵਿੱਥ;
+		        rebase->ਨਿਸ਼ਾਨਾ = cur & PTR_64_ਨਕਾਬ;
 		        rebase->high8 = cur >> (64 - 8);
-			if (cur != ((uint64_t)rebase->high8 << (64 - 8)) + rebase->target)
+			ਜੇ (cur != ((uint64_t)rebase->high8 << (64 - 8)) + rebase->ਨਿਸ਼ਾਨਾ)
 			    tcc_error("rebase error");
 		        rebase->reserved = 0;
-		        rebase->next = 0;
+		        rebase->ਅਗਲਾ = 0;
 		        rebase->bind = 0;
 		    }
 		}
-		bind_index += mo->bind_rebase[k].bind;
+		bind_ਸੂਚਕਾਂਕ += mo->bind_rebase[k].bind;
 	    }
 	}
     }
     // add imports
-    header->imports_offset = data - mo->chained_fixups->data;
-    import = (struct dyld_chained_import *) data;
-    data += mo->n_bind * sizeof (struct dyld_chained_import);
-    header->symbols_offset = data - mo->chained_fixups->data;
-    data++;
-    for (i = 0, bind_index = 0; i < mo->n_bind_rebase; i++) {
-	if (mo->bind_rebase[i].bind) {
-	    import[bind_index].lib_ordinal =
+    ਸਿਰਲੇਖ->imports_ਵਿੱਥ = ਅੰਕੜੇ - mo->chained_fixups->ਅੰਕੜੇ;
+    import = (ਬਣਤਰ dyld_chained_import *) ਅੰਕੜੇ;
+    ਅੰਕੜੇ += mo->n_bind * ਆਕਾਰ (ਬਣਤਰ dyld_chained_import);
+    ਸਿਰਲੇਖ->symbols_ਵਿੱਥ = ਅੰਕੜੇ - mo->chained_fixups->ਅੰਕੜੇ;
+    ਅੰਕੜੇ++;
+    ਲਈ (i = 0, bind_ਸੂਚਕਾਂਕ = 0; i < mo->n_bind_rebase; i++) {
+	ਜੇ (mo->bind_rebase[i].bind) {
+	    import[bind_ਸੂਚਕਾਂਕ].lib_ordinal =
 		BIND_SPECIAL_DYLIB_FLAT_LOOKUP & 0xffu;
-	    import[bind_index].name_offset =
-		(data - mo->chained_fixups->data) - header->symbols_offset;
-	    sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
-	    sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	    import[bind_index].weak_import =
+	    import[bind_ਸੂਚਕਾਂਕ].name_ਵਿੱਥ =
+		(ਅੰਕੜੇ - mo->chained_fixups->ਅੰਕੜੇ) - ਸਿਰਲੇਖ->symbols_ਵਿੱਥ;
+	    sym_ਸੂਚਕਾਂਕ = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
+	    sym = &((ElfW(Sym) *)symtab_section->ਅੰਕੜੇ)[sym_ਸੂਚਕਾਂਕ];
+	    import[bind_ਸੂਚਕਾਂਕ].weak_import =
 		ELFW(ST_BIND)(sym->st_info) == STB_WEAK;
-	    name = (char *) symtab_section->link->data + sym->st_name;
-            strcpy((char *) data, name);
-	    data += strlen(name) + 1;
-	    bind_index++;
+	    name = (ਅੱਖਰ *) symtab_section->link->ਅੰਕੜੇ + sym->st_name;
+            strcpy((ਅੱਖਰ *) ਅੰਕੜੇ, name);
+	    ਅੰਕੜੇ += ਲੜੀ_ਲੰਬਾਈ(name) + 1;
+	    bind_ਸੂਚਕਾਂਕ++;
 	}
     }
     tcc_free(mo->bind_rebase);
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-ST_FUNC int macho_output_file(TCCState *s1, const char *filename)
+ST_FUNC ਪੂਰਨ macho_output_file(TCCState *s1, ਅਚਲ ਅੱਖਰ *filename)
 {
-    int fd, mode, file_type;
+    ਪੂਰਨ fd, ਬਹੁਲਕ, file_type;
     FILE *fp;
-    int i, ret = -1;
-    struct macho mo;
+    ਪੂਰਨ i, ret = -1;
+    ਬਣਤਰ macho mo;
 
-    (void)memset(&mo, 0, sizeof(mo));
+    (ਖਾਲੀ)memset(&mo, 0, ਆਕਾਰ(mo));
 
     file_type = s1->output_type;
-    if (file_type == TCC_OUTPUT_OBJ)
-        mode = 0666;
-    else
-        mode = 0777;
+    ਜੇ (file_type == TCC_OUTPUT_OBJ)
+        ਬਹੁਲਕ = 0666;
+    ਨਹੀਂਤਾਂ
+        ਬਹੁਲਕ = 0777;
     unlink(filename);
-    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, mode);
-    if (fd < 0 || (fp = fdopen(fd, "wb")) == NULL) {
+    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_ਦੁਆਧਾਰੀ_2, ਬਹੁਲਕ);
+    ਜੇ (fd < 0 || (fp = fdopen(fd, "wb")) == ਨਿਰਾ) {
         tcc_error_noabort("could not write '%s: %s'", filename, strerror(errno));
-        return -1;
+        ਵਾਪਸ -1;
     }
-    tcc_add_runtime(s1);
-    tcc_macho_add_destructor(s1);
+    tcc_ਜੋੜੋ_runtime(s1);
+    tcc_macho_ਜੋੜੋ_destructor(s1);
     resolve_common_syms(s1);
     create_symtab(s1, &mo);
     check_relocs(s1, &mo);
     ret = check_symbols(s1, &mo);
-    if (!ret) {
-	int save_output = s1->output_type;
+    ਜੇ (!ret) {
+	ਪੂਰਨ save_output = s1->output_type;
 
         collect_sections(s1, &mo, filename);
         relocate_syms(s1, s1->symtab, 0);
-	if (s1->output_type == TCC_OUTPUT_EXE)
+	ਜੇ (s1->output_type == TCC_OUTPUT_EXE)
             mo.ep->entryoff = get_sym_addr(s1, "main", 1, 1)
                             -     get_segment(&mo, 1)->vmaddr;
-        if (s1->nb_errors)
-          goto do_ret;
+        ਜੇ (s1->nb_errors)
+          ਜਾਓ do_ret;
 	// Macho uses bind/rebase instead of dynsym
 	s1->output_type = TCC_OUTPUT_EXE;
         relocate_sections(s1);
 	s1->output_type = save_output;
-#ifdef CONFIG_NEW_MACHO
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_NEW_MACHO
 	bind_rebase_import(s1, &mo);
-#endif
+#ਜੇ_ਅੰਤ
         convert_symbols(s1, &mo);
-        if (s1->verbose)
-            printf("<- %s\n", filename);
+        ਜੇ (s1->verbose)
+            ਲਿਖੋ("<- %s\n", filename);
         macho_write(s1, &mo, fp);
     }
 
  do_ret:
-    for (i = 0; i < mo.nlc; i++)
+    ਲਈ (i = 0; i < mo.nlc; i++)
       tcc_free(mo.lc[i]);
     tcc_free(mo.seg2lc);
     tcc_free(mo.lc);
@@ -2234,244 +2234,244 @@ ST_FUNC int macho_output_file(TCCState *s1, const char *filename)
     tcc_free(mo.e2msym);
 
     fclose(fp);
-#ifdef CONFIG_CODESIGN
-    if (!ret) {
-	char command[1024];
-	int retval;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_CODESIGN
+    ਜੇ (!ret) {
+	ਅੱਖਰ command[1024];
+	ਪੂਰਨ retval;
 
-	snprintf(command, sizeof(command), "codesign -f -s - %s", filename);
+	snprintf(command, ਆਕਾਰ(command), "codesign -f -s - %s", filename);
 	retval = system (command);
-	if (retval == -1 || !(WIFEXITED(retval) && WEXITSTATUS(retval) == 0))
+	ਜੇ (retval == -1 || !(WIFEXITED(retval) && WEXITSTATUS(retval) == 0))
 	    tcc_error ("command failed '%s'", command);
     }
-#endif
-    return ret;
+#ਜੇ_ਅੰਤ
+    ਵਾਪਸ ret;
 }
 
-static uint32_t macho_swap32(uint32_t x)
+ਸਥਿਰ uint32_t macho_swap32(uint32_t x)
 {
-  return (x >> 24) | (x << 24) | ((x >> 8) & 0xff00) | ((x & 0xff00) << 8);
+  ਵਾਪਸ (x >> 24) | (x << 24) | ((x >> 8) & 0xff00) | ((x & 0xff00) << 8);
 }
-#define SWAP(x) (swap ? macho_swap32(x) : (x))
-#define tbd_parse_movepast(s) \
-    (pos = (pos = strstr(pos, s)) ? pos + strlen(s) : NULL)
-#define tbd_parse_movetoany(cs) (pos = strpbrk(pos, cs))
-#define tbd_parse_skipws while (*pos && (*pos==' '||*pos=='\n')) ++pos
-#define tbd_parse_tramplequote if(*pos=='\''||*pos=='"') tbd_parse_trample
-#define tbd_parse_tramplespace if(*pos==' ') tbd_parse_trample
-#define tbd_parse_trample *pos++=0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਅਦਲਾ_ਬਦਲੀ(x) (ਅਦਲਾ_ਬਦਲੀ_2 ? macho_swap32(x) : (x))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ tbd_parse_movepast(s) \
+    (pos = (pos = ਲੜੀ_ਖੋਜ(pos, s)) ? pos + ਲੜੀ_ਲੰਬਾਈ(s) : ਨਿਰਾ)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ tbd_parse_movetoany(cs) (pos = strpbrk(pos, cs))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ tbd_parse_skipws ਜਦੋਂ (*pos && (*pos==' '||*pos=='\n')) ++pos
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ tbd_parse_tramplequote ਜੇ(*pos=='\''||*pos=='"') tbd_parse_trample
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ tbd_parse_tramplespace ਜੇ(*pos==' ') tbd_parse_trample
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ tbd_parse_trample *pos++=0
 
-#ifdef TCC_IS_NATIVE
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_IS_NATIVE
 /* Looks for the active developer SDK set by xcode-select (or the default
    one set during installation.) */
-ST_FUNC void tcc_add_macos_sdkpath(TCCState* s)
+ST_FUNC ਖਾਲੀ tcc_ਜੋੜੋ_macos_sdkpath(TCCState* s)
 {
-    char *sdkroot = NULL, *pos = NULL;
-    void* xcs = dlopen("libxcselect.dylib", RTLD_GLOBAL | RTLD_LAZY);
-    CString path;
-    int (*f)(unsigned int, char**) = dlsym(xcs, "xcselect_host_sdk_path");
-    cstr_new(&path);
-    if (f) f(1, &sdkroot);
-    if (sdkroot)
-        pos = strstr(sdkroot,"SDKs/MacOSX");
-    if (pos)
-        cstr_printf(&path, "%.*s.sdk/usr/lib", (int)(pos - sdkroot + 11), sdkroot);
+    ਅੱਖਰ *sdkroot = ਨਿਰਾ, *pos = ਨਿਰਾ;
+    ਖਾਲੀ* xcs = dlopen("libxcselect.dylib", RTLD_GLOBAL | RTLD_LAZY);
+    CString ਰਸਤਾ;
+    ਪੂਰਨ (*f)(ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ, ਅੱਖਰ**) = dlsym(xcs, "xcselect_host_sdk_path");
+    cstr_new(&ਰਸਤਾ);
+    ਜੇ (f) f(1, &sdkroot);
+    ਜੇ (sdkroot)
+        pos = ਲੜੀ_ਖੋਜ(sdkroot,"SDKs/MacOSX");
+    ਜੇ (pos)
+        cstr_printf(&ਰਸਤਾ, "%.*s.sdk/usr/lib", (ਪੂਰਨ)(pos - sdkroot + 11), sdkroot);
     /* must use free from libc directly */
-#pragma push_macro("free")
-#undef free
-    free(sdkroot);
-#pragma pop_macro("free")
-    if (path.size)
-        tcc_add_library_path(s, (char*)path.data);
-    else
-        tcc_add_library_path(s,
+#ਹਦਾਇਤ ਧੱਕੋ_macro("free")
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ ਮੁਕਤ
+    ਮੁਕਤ(sdkroot);
+#ਹਦਾਇਤ ਕੱਢੋ_macro("free")
+    ਜੇ (ਰਸਤਾ.ਮਾਪ)
+        tcc_ਜੋੜੋ_library_ਰਸਤਾ(s, (ਅੱਖਰ*)ਰਸਤਾ.ਅੰਕੜੇ);
+    ਨਹੀਂਤਾਂ
+        tcc_ਜੋੜੋ_library_ਰਸਤਾ(s,
             "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"
             ":" "/Applications/Xcode.app/Developer/SDKs/MacOSX.sdk/usr/lib"
             );
-    cstr_free(&path);
+    cstr_free(&ਰਸਤਾ);
 }
 
-ST_FUNC char* macho_tbd_soname(int fd) {
-    char *soname, *data, *pos;
-    char *ret = 0;
-    pos = data = tcc_load_text(fd);
-    if (!tbd_parse_movepast("install-name: ")) goto the_end;
+ST_FUNC ਅੱਖਰ* macho_tbd_soname(ਪੂਰਨ fd) {
+    ਅੱਖਰ *soname, *ਅੰਕੜੇ, *pos;
+    ਅੱਖਰ *ret = 0;
+    pos = ਅੰਕੜੇ = tcc_ਲੱਦੋ_ਪਾਠ(fd);
+    ਜੇ (!tbd_parse_movepast("install-name: ")) ਜਾਓ the_ਸਿਰਾ;
     tbd_parse_skipws;
     tbd_parse_tramplequote;
     soname = pos;
-    if (!tbd_parse_movetoany("\n \"'")) goto the_end;
+    ਜੇ (!tbd_parse_movetoany("\n \"'")) ਜਾਓ the_ਸਿਰਾ;
     tbd_parse_trample;
     ret = tcc_strdup(soname);
-the_end:
-    tcc_free(data);
-    return ret;
+the_ਸਿਰਾ:
+    tcc_free(ਅੰਕੜੇ);
+    ਵਾਪਸ ret;
 }
-#endif /* TCC_IS_NATIVE */
+#ਜੇ_ਅੰਤ /* TCC_IS_NATIVE */
 
-ST_FUNC int macho_load_tbd(TCCState* s1, int fd, const char* filename, int lev)
+ST_FUNC ਪੂਰਨ macho_ਲੱਦੋ_tbd(TCCState* s1, ਪੂਰਨ fd, ਅਚਲ ਅੱਖਰ* filename, ਪੂਰਨ lev)
 {
-    char *soname, *data, *pos;
-    int ret = -1;
+    ਅੱਖਰ *soname, *ਅੰਕੜੇ, *pos;
+    ਪੂਰਨ ret = -1;
 
-    pos = data = tcc_load_text(fd);
-    if (!tbd_parse_movepast("install-name: ")) goto the_end;
+    pos = ਅੰਕੜੇ = tcc_ਲੱਦੋ_ਪਾਠ(fd);
+    ਜੇ (!tbd_parse_movepast("install-name: ")) ਜਾਓ the_ਸਿਰਾ;
     tbd_parse_skipws;
     tbd_parse_tramplequote;
     soname = pos;
-    if (!tbd_parse_movetoany("\n \"'")) goto the_end;
+    ਜੇ (!tbd_parse_movetoany("\n \"'")) ਜਾਓ the_ਸਿਰਾ;
     tbd_parse_trample;
     ret = 0;
-    if (tcc_add_dllref(s1, soname, lev)->found)
-        goto the_end;
-    while(pos) {
-        char* sym = NULL;
-        int cont = 1;
-        if (!tbd_parse_movepast("symbols: ")) break;
-        if (!tbd_parse_movepast("[")) break;
-        while (cont) {
+    ਜੇ (tcc_ਜੋੜੋ_dllref(s1, soname, lev)->ਮਿਲਿਆ)
+        ਜਾਓ the_ਸਿਰਾ;
+    ਜਦੋਂ(pos) {
+        ਅੱਖਰ* sym = ਨਿਰਾ;
+        ਪੂਰਨ cont = 1;
+        ਜੇ (!tbd_parse_movepast("symbols: ")) ਰੋਕੋ;
+        ਜੇ (!tbd_parse_movepast("[")) ਰੋਕੋ;
+        ਜਦੋਂ (cont) {
             tbd_parse_skipws;
             tbd_parse_tramplequote;
             sym = pos;
-            if (!tbd_parse_movetoany(",] \"'")) break;
+            ਜੇ (!tbd_parse_movetoany(",] \"'")) ਰੋਕੋ;
             tbd_parse_tramplequote;
             tbd_parse_tramplespace;
             tbd_parse_skipws;
-            if (*pos==0||*pos==']') cont=0;
+            ਜੇ (*pos==0||*pos==']') cont=0;
             tbd_parse_trample;
-            set_elf_sym(s1->dynsymtab_section, 0, 0,
+            ਸੈੱਟ_elf_sym(s1->dynsymtab_section, 0, 0,
                 ELFW(ST_INFO)(STB_GLOBAL, STT_NOTYPE), 0, SHN_UNDEF, sym);
         }
     }
 
-the_end:
-    tcc_free(data);
-    return ret;
+the_ਸਿਰਾ:
+    tcc_free(ਅੰਕੜੇ);
+    ਵਾਪਸ ret;
 }
 
-ST_FUNC int macho_load_dll(TCCState * s1, int fd, const char* filename, int lev)
+ST_FUNC ਪੂਰਨ macho_ਲੱਦੋ_dll(TCCState * s1, ਪੂਰਨ fd, ਅਚਲ ਅੱਖਰ* filename, ਪੂਰਨ lev)
 {
-    unsigned char buf[sizeof(struct mach_header_64)];
-    void *buf2;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ buf[ਆਕਾਰ(ਬਣਤਰ mach_ਸਿਰਲੇਖ_64)];
+    ਖਾਲੀ *buf2;
     uint32_t machofs = 0;
-    struct fat_header fh;
-    struct mach_header mh;
-    struct load_command *lc;
-    int i, swap = 0;
-    const char *soname = filename;
-    struct nlist_64 *symtab = 0;
+    ਬਣਤਰ fat_ਸਿਰਲੇਖ fh;
+    ਬਣਤਰ mach_ਸਿਰਲੇਖ mh;
+    ਬਣਤਰ ਲੱਦੋ_command *lc;
+    ਪੂਰਨ i, ਅਦਲਾ_ਬਦਲੀ_2 = 0;
+    ਅਚਲ ਅੱਖਰ *soname = filename;
+    ਬਣਤਰ nlist_64 *symtab = 0;
     uint32_t nsyms = 0;
-    char *strtab = 0;
+    ਅੱਖਰ *strtab = 0;
     uint32_t strsize = 0;
     uint32_t iextdef = 0;
     uint32_t nextdef = 0;
 
   again:
-    if (full_read(fd, buf, sizeof(buf)) != sizeof(buf))
-      return -1;
-    memcpy(&fh, buf, sizeof(fh));
-    if (fh.magic == FAT_MAGIC || fh.magic == FAT_CIGAM) {
-        struct fat_arch *fa = load_data(fd, sizeof(fh),
-                                        fh.nfat_arch * sizeof(*fa));
-        swap = fh.magic == FAT_CIGAM;
-        for (i = 0; i < SWAP(fh.nfat_arch); i++)
-#ifdef TCC_TARGET_X86_64
-          if (SWAP(fa[i].cputype) == CPU_TYPE_X86_64
-              && SWAP(fa[i].cpusubtype) == CPU_SUBTYPE_X86_ALL)
-#elif defined TCC_TARGET_ARM64
-          if (SWAP(fa[i].cputype) == CPU_TYPE_ARM64
-              && SWAP(fa[i].cpusubtype) == CPU_SUBTYPE_ARM64_ALL)
-#endif
-            break;
-        if (i == SWAP(fh.nfat_arch)) {
+    ਜੇ (ਭਰਿਆ_read(fd, buf, ਆਕਾਰ(buf)) != ਆਕਾਰ(buf))
+      ਵਾਪਸ -1;
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(&fh, buf, ਆਕਾਰ(fh));
+    ਜੇ (fh.magic == FAT_MAGIC || fh.magic == FAT_CIGAM) {
+        ਬਣਤਰ fat_arch *fa = ਲੱਦੋ_ਅੰਕੜੇ(fd, ਆਕਾਰ(fh),
+                                        fh.nfat_arch * ਆਕਾਰ(*fa));
+        ਅਦਲਾ_ਬਦਲੀ_2 = fh.magic == FAT_CIGAM;
+        ਲਈ (i = 0; i < ਅਦਲਾ_ਬਦਲੀ(fh.nfat_arch); i++)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
+          ਜੇ (ਅਦਲਾ_ਬਦਲੀ(fa[i].cputype) == CPU_TYPE_X86_64
+              && ਅਦਲਾ_ਬਦਲੀ(fa[i].cpusubtype) == CPU_SUBTYPE_X86_ALL)
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM64
+          ਜੇ (ਅਦਲਾ_ਬਦਲੀ(fa[i].cputype) == CPU_TYPE_ARM64
+              && ਅਦਲਾ_ਬਦਲੀ(fa[i].cpusubtype) == CPU_SUBTYPE_ARM64_ALL)
+#ਜੇ_ਅੰਤ
+            ਰੋਕੋ;
+        ਜੇ (i == ਅਦਲਾ_ਬਦਲੀ(fh.nfat_arch)) {
             tcc_free(fa);
-            return -1;
+            ਵਾਪਸ -1;
         }
-        machofs = SWAP(fa[i].offset);
+        machofs = ਅਦਲਾ_ਬਦਲੀ(fa[i].ਵਿੱਥ);
         tcc_free(fa);
         lseek(fd, machofs, SEEK_SET);
-        goto again;
-    } else if (fh.magic == FAT_MAGIC_64 || fh.magic == FAT_CIGAM_64) {
+        ਜਾਓ again;
+    } ਨਹੀਂਤਾਂ ਜੇ (fh.magic == FAT_MAGIC_64 || fh.magic == FAT_CIGAM_64) {
         tcc_warning("%s: Mach-O fat 64bit files of type 0x%x not handled",
                     filename, fh.magic);
-        return -1;
+        ਵਾਪਸ -1;
     }
 
-    memcpy(&mh, buf, sizeof(mh));
-    if (mh.magic != MH_MAGIC_64)
-      return -1;
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(&mh, buf, ਆਕਾਰ(mh));
+    ਜੇ (mh.magic != MH_MAGIC_64)
+      ਵਾਪਸ -1;
     dprintf("found Mach-O at %d\n", machofs);
-    buf2 = load_data(fd, machofs + sizeof(struct mach_header_64), mh.sizeofcmds);
-    for (i = 0, lc = buf2; i < mh.ncmds; i++) {
+    buf2 = ਲੱਦੋ_ਅੰਕੜੇ(fd, machofs + ਆਕਾਰ(ਬਣਤਰ mach_ਸਿਰਲੇਖ_64), mh.sizeofcmds);
+    ਲਈ (i = 0, lc = buf2; i < mh.ncmds; i++) {
         dprintf("lc %2d: 0x%08x\n", i, lc->cmd);
-        switch (lc->cmd) {
-        case LC_SYMTAB:
+        ਚੋਣ (lc->cmd) {
+        ਹਾਲਤ LC_SYMTAB:
         {
-            struct symtab_command *sc = (struct symtab_command*)lc;
+            ਬਣਤਰ symtab_command *sc = (ਬਣਤਰ symtab_command*)lc;
             nsyms = sc->nsyms;
-            symtab = load_data(fd, machofs + sc->symoff, nsyms * sizeof(*symtab));
+            symtab = ਲੱਦੋ_ਅੰਕੜੇ(fd, machofs + sc->symoff, nsyms * ਆਕਾਰ(*symtab));
             strsize = sc->strsize;
-            strtab = load_data(fd, machofs + sc->stroff, strsize);
-            break;
+            strtab = ਲੱਦੋ_ਅੰਕੜੇ(fd, machofs + sc->stroff, strsize);
+            ਰੋਕੋ;
         }
-        case LC_ID_DYLIB:
+        ਹਾਲਤ LC_ID_DYLIB:
         {
-            struct dylib_command *dc = (struct dylib_command*)lc;
-            soname = (char*)lc + dc->name;
+            ਬਣਤਰ dylib_command *dc = (ਬਣਤਰ dylib_command*)lc;
+            soname = (ਅੱਖਰ*)lc + dc->name;
             dprintf(" ID_DYLIB %d 0x%x 0x%x %s\n",
-                    dc->timestamp, dc->current_version,
-                    dc->compatibility_version, soname);
-            break;
+                    dc->timestamp, dc->current_ਸੰਸਕਰਣ,
+                    dc->compatibility_ਸੰਸਕਰਣ, soname);
+            ਰੋਕੋ;
         }
-        case LC_REEXPORT_DYLIB:
+        ਹਾਲਤ LC_REEXPORT_DYLIB:
         {
-            struct dylib_command *dc = (struct dylib_command*)lc;
-            char *name = (char*)lc + dc->name;
-            int subfd = open(name, O_RDONLY | O_BINARY);
+            ਬਣਤਰ dylib_command *dc = (ਬਣਤਰ dylib_command*)lc;
+            ਅੱਖਰ *name = (ਅੱਖਰ*)lc + dc->name;
+            ਪੂਰਨ subfd = open(name, O_RDONLY | O_ਦੁਆਧਾਰੀ_2);
             dprintf(" REEXPORT %s\n", name);
-            if (subfd < 0)
+            ਜੇ (subfd < 0)
               tcc_warning("can't open %s (reexported from %s)", name, filename);
-            else {
+            ਨਹੀਂਤਾਂ {
                 /* Hopefully the REEXPORTs never form a cycle, we don't check
                    for that!  */
-                macho_load_dll(s1, subfd, name, lev + 1);
+                macho_ਲੱਦੋ_dll(s1, subfd, name, lev + 1);
                 close(subfd);
             }
-            break;
+            ਰੋਕੋ;
         }
-        case LC_DYSYMTAB:
+        ਹਾਲਤ LC_DYSYMTAB:
         {
-            struct dysymtab_command *dc = (struct dysymtab_command*)lc;
+            ਬਣਤਰ dysymtab_command *dc = (ਬਣਤਰ dysymtab_command*)lc;
             iextdef = dc->iextdefsym;
             nextdef = dc->nextdefsym;
-            break;
+            ਰੋਕੋ;
         }
         }
-        lc = (struct load_command*) ((char*)lc + lc->cmdsize);
+        lc = (ਬਣਤਰ ਲੱਦੋ_command*) ((ਅੱਖਰ*)lc + lc->cmdsize);
     }
 
-    if (tcc_add_dllref(s1, soname, lev)->found)
-        goto the_end;
+    ਜੇ (tcc_ਜੋੜੋ_dllref(s1, soname, lev)->ਮਿਲਿਆ)
+        ਜਾਓ the_ਸਿਰਾ;
 
-    if (!nsyms || !nextdef)
+    ਜੇ (!nsyms || !nextdef)
       tcc_warning("%s doesn't export any symbols?", filename);
 
     //dprintf("symbols (all):\n");
     dprintf("symbols (exported):\n");
     dprintf("    n: typ sec   desc              value name\n");
     //for (i = 0; i < nsyms; i++) {
-    for (i = iextdef; i < iextdef + nextdef; i++) {
-        struct nlist_64 *sym = symtab + i;
+    ਲਈ (i = iextdef; i < iextdef + nextdef; i++) {
+        ਬਣਤਰ nlist_64 *sym = symtab + i;
         dprintf("%5d: %3d %3d 0x%04x 0x%016lx %s\n",
-                i, sym->n_type, sym->n_sect, sym->n_desc, (long)sym->n_value,
+                i, sym->n_type, sym->n_sect, sym->n_desc, (ਲੰਮਾ)sym->n_ਮੁੱਲ,
                 strtab + sym->n_strx);
-        set_elf_sym(s1->dynsymtab_section, 0, 0,
+        ਸੈੱਟ_elf_sym(s1->dynsymtab_section, 0, 0,
                     ELFW(ST_INFO)(STB_GLOBAL, STT_NOTYPE),
                     0, SHN_UNDEF, strtab + sym->n_strx);
     }
 
-  the_end:
+  the_ਸਿਰਾ:
     tcc_free(strtab);
     tcc_free(symtab);
     tcc_free(buf2);
-    return 0;
+    ਵਾਪਸ 0;
 }

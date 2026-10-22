@@ -1,52 +1,52 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int array[16];
+ਪੂਰਨ array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+ਖਾਲੀ ਅਦਲਾ_ਬਦਲੀ_2(ਪੂਰਨ a, ਪੂਰਨ b)
 {
-   int tmp  = array[a];
+   ਪੂਰਨ tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+ਪੂਰਨ ਹਿੱਸੇ_ਕਰੋ(ਪੂਰਨ ਖੱਬਾ, ਪੂਰਨ ਸੱਜਾ)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   ਪੂਰਨ ਧੁਰਾ_ਸੂਚਕਾਂਕ = ਖੱਬਾ;
+   ਪੂਰਨ ਧੁਰਾ_ਮੁੱਲ = array[ਧੁਰਾ_ਸੂਚਕਾਂਕ];
+   ਪੂਰਨ ਸੂਚਕਾਂਕ = ਖੱਬਾ;
+   ਪੂਰਨ i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   ਅਦਲਾ_ਬਦਲੀ_2(ਧੁਰਾ_ਸੂਚਕਾਂਕ, ਸੱਜਾ);
+   ਲਈ(i = ਖੱਬਾ; i < ਸੱਜਾ; i++)
    {
-      if(array[i] < pivotValue)
+      ਜੇ(array[i] < ਧੁਰਾ_ਮੁੱਲ)
       {
-         swap(i, index);
-         index += 1;
+         ਅਦਲਾ_ਬਦਲੀ_2(i, ਸੂਚਕਾਂਕ);
+         ਸੂਚਕਾਂਕ += 1;
       }
    }
-   swap(right, index);
+   ਅਦਲਾ_ਬਦਲੀ_2(ਸੱਜਾ, ਸੂਚਕਾਂਕ);
 
-   return index;
+   ਵਾਪਸ ਸੂਚਕਾਂਕ;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+ਖਾਲੀ quicksort(ਪੂਰਨ ਖੱਬਾ, ਪੂਰਨ ਸੱਜਾ)
 {
-   if(left >= right)
-      return;
+   ਜੇ(ਖੱਬਾ >= ਸੱਜਾ)
+      ਵਾਪਸ;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   ਪੂਰਨ ਸੂਚਕਾਂਕ = ਹਿੱਸੇ_ਕਰੋ(ਖੱਬਾ, ਸੱਜਾ);
+   quicksort(ਖੱਬਾ, ਸੂਚਕਾਂਕ - 1);
+   quicksort(ਸੂਚਕਾਂਕ + 1, ਸੱਜਾ);
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int i;
+   ਪੂਰਨ i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   ਲਈ (i = 0; i < 16; i++)
+      ਲਿਖੋ("%d ", array[i]);
 
-   printf("\n");
+   ਲਿਖੋ("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   ਲਈ (i = 0; i < 16; i++)
+      ਲਿਖੋ("%d ", array[i]);
 
-   printf("\n");
+   ਲਿਖੋ("\n");
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

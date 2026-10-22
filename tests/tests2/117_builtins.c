@@ -1,79 +1,79 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-struct big_struct { char a[262144]; };
+ਬਣਤਰ big_struct { ਅੱਖਰ a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+ਸਥਿਰ ਅਚਲ ਅੱਖਰ str[] = "abcdefghijklmnopqrstuvwxyz";
 
-int
-main (void)
+ਪੂਰਨ
+ਮੁੱਖ (ਖਾਲੀ)
 {
-  char *p;
-  char tmp[100];
-  int r = 0;
+  ਅੱਖਰ *p;
+  ਅੱਖਰ tmp[100];
+  ਪੂਰਨ r = 0;
 
-#if defined __TCC_BCHECK__
-  printf("BOUNDS ON:\n");
-#else
-  printf("BOUNDS OFF:\n");
-#endif
+#ਜੇ defined __TCC_BCHECK__
+  ਲਿਖੋ("BOUNDS ON:\n");
+#ਨਹੀਂਤਾਂ
+  ਲਿਖੋ("BOUNDS OFF:\n");
+#ਜੇ_ਅੰਤ
 
-  if (r != 0)
+  ਜੇ (r != 0)
     __builtin_abort();
 
-  r = (__builtin_offsetof(struct big_struct, a) != 0);
-  printf(" 1:%d", !r);
+  r = (__builtin_offsetof(ਬਣਤਰ big_struct, a) != 0);
+  ਲਿਖੋ(" 1:%d", !r);
 
-  p = __builtin_memcpy (tmp, str, sizeof(str));
+  p = __builtin_memcpy (tmp, str, ਆਕਾਰ(str));
   r = (p != tmp);
-  printf(" 2:%d", !r);
+  ਲਿਖੋ(" 2:%d", !r);
 
-  r = __builtin_memcmp (p, str, sizeof(str));
-  printf(" 3:%d", !r);
+  r = __builtin_memcmp (p, str, ਆਕਾਰ(str));
+  ਲਿਖੋ(" 3:%d", !r);
 
-  p = __builtin_memmove(tmp, str, sizeof(str));
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 4:%d", !r);
+  p = __builtin_memmove(tmp, str, ਆਕਾਰ(str));
+  r = (__builtin_memcmp (p, str, ਆਕਾਰ(str)));
+  ਲਿਖੋ(" 4:%d", !r);
 
-  p = __builtin_memset(tmp, 0, sizeof (tmp));
+  p = __builtin_memset(tmp, 0, ਆਕਾਰ (tmp));
   r = (p != tmp || tmp[0] != 0 || tmp[99] != 0);
-  printf(" 5:%d", !r);
+  ਲਿਖੋ(" 5:%d", !r);
 
-  r = (__builtin_strlen(str) != sizeof(str) - 1);
-  printf(" 6:%d", !r);
+  r = (__builtin_strlen(str) != ਆਕਾਰ(str) - 1);
+  ਲਿਖੋ(" 6:%d", !r);
 
   p = __builtin_strcpy(tmp, str);
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 7:%d", !r);
+  r = (__builtin_memcmp (p, str, ਆਕਾਰ(str)));
+  ਲਿਖੋ(" 7:%d", !r);
 
-  p = __builtin_strncpy(tmp, str, sizeof(str));
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 8:%d", !r);
+  p = __builtin_strncpy(tmp, str, ਆਕਾਰ(str));
+  r = (__builtin_memcmp (p, str, ਆਕਾਰ(str)));
+  ਲਿਖੋ(" 8:%d", !r);
 
   r = (__builtin_strcmp (p, str));
-  printf(" 9:%d", !r);
+  ਲਿਖੋ(" 9:%d", !r);
 
-  r = (__builtin_strncmp (p, str, sizeof(str)));
-  printf(" 10:%d", !r);
+  r = (__builtin_strncmp (p, str, ਆਕਾਰ(str)));
+  ਲਿਖੋ(" 10:%d", !r);
 
   tmp[0] = '\0';
   p = __builtin_strcat(tmp, str);
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 11:%d", !r);
+  r = (__builtin_memcmp (p, str, ਆਕਾਰ(str)));
+  ਲਿਖੋ(" 11:%d", !r);
 
   tmp[0] = '\0';
   p = __builtin_strncat(tmp, str, __builtin_strlen(str));
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 12:%d", !r);
+  r = (__builtin_memcmp (p, str, ਆਕਾਰ(str)));
+  ਲਿਖੋ(" 12:%d", !r);
 
   r = (__builtin_strchr(p, 'z') != &p[25]);
-  printf(" 13:%d", !r);
+  ਲਿਖੋ(" 13:%d", !r);
 
   r = (__builtin_strrchr(p, 'z') != &p[25]);
-  printf(" 14:%d", !r);
+  ਲਿਖੋ(" 14:%d", !r);
 
   p = __builtin_strdup (str);
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 15:%d", !r);
+  r = (__builtin_memcmp (p, str, ਆਕਾਰ(str)));
+  ਲਿਖੋ(" 15:%d", !r);
   __builtin_free(p);
 
   p = __builtin_malloc (100);
@@ -86,9 +86,9 @@ main (void)
   __builtin_memset(p, 0, 100);
   __builtin_free(p);
 
-#if defined(__i386__) || defined(__x86_64__)
+#ਜੇ defined(__i386__) || defined(__x86_64__)
   p = __builtin_alloca(100);
   __builtin_memset(p, 0, 100);
-#endif
-  printf("\n");
+#ਜੇ_ਅੰਤ
+  ਲਿਖੋ("\n");
 }

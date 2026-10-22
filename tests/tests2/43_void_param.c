@@ -1,15 +1,15 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-void fred(void)
+ਖਾਲੀ fred(ਖਾਲੀ)
 {
-   printf("yo\n");
+   ਲਿਖੋ("yo\n");
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
    fred();
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

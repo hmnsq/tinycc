@@ -1,13 +1,13 @@
-#define W Z
-#define Z(X) W(X,2)
-#define Y(X) Z(X)
-#define X Y
-return X(X(1));
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ W Z
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Z(X) W(X,2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Y(X) Z(X)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ X Y
+ਵਾਪਸ X(X(1));
 
-#define P Q
-#define Q(n) P(n,2)
-return P(1);
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ P Q
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Q(n) P(n,2)
+ਵਾਪਸ P(1);
 
-#define A (B * B)
-#define B (A + A)
-return A + B;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ A (B * B)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ B (A + A)
+ਵਾਪਸ A + B;

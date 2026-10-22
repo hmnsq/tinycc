@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main() 
+ਪੂਰਨ ਮੁੱਖ() 
 {
-   int Count;
-   int Array[10];
+   ਪੂਰਨ ਗਿਣਤੀ_4;
+   ਪੂਰਨ Array[10];
 
-   for (Count = 1; Count <= 10; Count++)
+   ਲਈ (ਗਿਣਤੀ_4 = 1; ਗਿਣਤੀ_4 <= 10; ਗਿਣਤੀ_4++)
    {
-      Array[Count-1] = Count * Count;
+      Array[ਗਿਣਤੀ_4-1] = ਗਿਣਤੀ_4 * ਗਿਣਤੀ_4;
    }
 
-   for (Count = 0; Count < 10; Count++)
+   ਲਈ (ਗਿਣਤੀ_4 = 0; ਗਿਣਤੀ_4 < 10; ਗਿਣਤੀ_4++)
    {
-      printf("%d\n", Array[Count]);
+      ਲਿਖੋ("%d\n", Array[ਗਿਣਤੀ_4]);
    }
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

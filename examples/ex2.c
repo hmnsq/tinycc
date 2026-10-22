@@ -1,98 +1,98 @@
-#include <stdlib.h>
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdlib.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-#define N 20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ N 20
 
-int nb_num;
-int tab[N];
-int stack_ptr;
-int stack_op[N];
-int stack_res[60];
-int result;
+ਪੂਰਨ nb_ਅੰਕ;
+ਪੂਰਨ tab[N];
+ਪੂਰਨ ਢੇਰ_ptr;
+ਪੂਰਨ ਢੇਰ_op[N];
+ਪੂਰਨ ਢੇਰ_res[60];
+ਪੂਰਨ ਨਤੀਜਾ;
 
-int find(int n, int i1, int a, int b, int op)
+ਪੂਰਨ ਲੱਭੋ(ਪੂਰਨ n, ਪੂਰਨ i1, ਪੂਰਨ a, ਪੂਰਨ b, ਪੂਰਨ op)
 {
-    int i, j;
-    int c;
+    ਪੂਰਨ i, j;
+    ਪੂਰਨ c;
 
-    if (stack_ptr >= 0) {
-        stack_res[3*stack_ptr] = a;
-        stack_op[stack_ptr] = op;
-        stack_res[3*stack_ptr+1] = b;
-        stack_res[3*stack_ptr+2] = n;
-        if (n == result)
-            return 1;
+    ਜੇ (ਢੇਰ_ptr >= 0) {
+        ਢੇਰ_res[3*ਢੇਰ_ptr] = a;
+        ਢੇਰ_op[ਢੇਰ_ptr] = op;
+        ਢੇਰ_res[3*ਢੇਰ_ptr+1] = b;
+        ਢੇਰ_res[3*ਢੇਰ_ptr+2] = n;
+        ਜੇ (n == ਨਤੀਜਾ)
+            ਵਾਪਸ 1;
         tab[i1] = n;
     }
 
-    for(i=0;i<nb_num;i++) {
-        for(j=i+1;j<nb_num;j++) {
+    ਲਈ(i=0;i<nb_ਅੰਕ;i++) {
+        ਲਈ(j=i+1;j<nb_ਅੰਕ;j++) {
             a = tab[i];
             b = tab[j];
-            if (a != 0 && b != 0) {
+            ਜੇ (a != 0 && b != 0) {
 
                 tab[j] = 0;
-                stack_ptr++;
+                ਢੇਰ_ptr++;
 
-                if (find(a + b, i, a, b, '+'))
-                    return 1;
-                if (find(a - b, i, a, b, '-'))
-                    return 1;
-                if (find(b - a, i, b, a, '-'))
-                    return 1;
-                if (find(a * b, i, a, b, '*'))
-                    return 1;
-                if (b != 0) {
+                ਜੇ (ਲੱਭੋ(a + b, i, a, b, '+'))
+                    ਵਾਪਸ 1;
+                ਜੇ (ਲੱਭੋ(a - b, i, a, b, '-'))
+                    ਵਾਪਸ 1;
+                ਜੇ (ਲੱਭੋ(b - a, i, b, a, '-'))
+                    ਵਾਪਸ 1;
+                ਜੇ (ਲੱਭੋ(a * b, i, a, b, '*'))
+                    ਵਾਪਸ 1;
+                ਜੇ (b != 0) {
                     c = a / b;
-                    if (find(c, i, a, b, '/'))
-                        return 1;
+                    ਜੇ (ਲੱਭੋ(c, i, a, b, '/'))
+                        ਵਾਪਸ 1;
                 }
 
-                if (a != 0) {
+                ਜੇ (a != 0) {
                     c = b / a;
-                    if (find(c, i, b, a, '/'))
-                        return 1;
+                    ਜੇ (ਲੱਭੋ(c, i, b, a, '/'))
+                        ਵਾਪਸ 1;
                 }
 
-                stack_ptr--;
+                ਢੇਰ_ptr--;
                 tab[i] = a;
                 tab[j] = b;
             }
         }
     }
 
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-int main(int argc, char **argv)
+ਪੂਰਨ ਮੁੱਖ(ਪੂਰਨ argc, ਅੱਖਰ **argv)
 {
-    int i, res, p;
+    ਪੂਰਨ i, res, p;
 
-    if (argc < 3) {
-        printf("usage: %s: result numbers...\n"
+    ਜੇ (argc < 3) {
+        ਲਿਖੋ("usage: %s: result numbers...\n"
                "Try to find result from numbers with the 4 basic operations.\n", argv[0]);
-        exit(1);
+        ਬਾਹਰ_ਨਿਕਲੋ(1);
     }
 
     p = 1;
-    result = atoi(argv[p]);
-    printf("result=%d\n", result);
-    nb_num = 0;
-    for(i=p+1;i<argc;i++) {
-        tab[nb_num++] = atoi(argv[i]);
+    ਨਤੀਜਾ = atoi(argv[p]);
+    ਲਿਖੋ("result=%d\n", ਨਤੀਜਾ);
+    nb_ਅੰਕ = 0;
+    ਲਈ(i=p+1;i<argc;i++) {
+        tab[nb_ਅੰਕ++] = atoi(argv[i]);
     }
 
-    stack_ptr = -1;
-    res = find(0, 0, 0, 0, ' ');
-    if (res) {
-        for(i=0;i<=stack_ptr;i++) {
-            printf("%d %c %d = %d\n",
-                   stack_res[3*i], stack_op[i],
-                   stack_res[3*i+1], stack_res[3*i+2]);
+    ਢੇਰ_ptr = -1;
+    res = ਲੱਭੋ(0, 0, 0, 0, ' ');
+    ਜੇ (res) {
+        ਲਈ(i=0;i<=ਢੇਰ_ptr;i++) {
+            ਲਿਖੋ("%d %c %d = %d\n",
+                   ਢੇਰ_res[3*i], ਢੇਰ_op[i],
+                   ਢੇਰ_res[3*i+1], ਢੇਰ_res[3*i+2]);
         }
-        return 0;
-    } else {
-        printf("Impossible\n");
-        return 1;
+        ਵਾਪਸ 0;
+    } ਨਹੀਂਤਾਂ {
+        ਲਿਖੋ("Impossible\n");
+        ਵਾਪਸ 1;
     }
 }

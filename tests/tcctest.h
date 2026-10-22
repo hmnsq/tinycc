@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਅਚਲ ਅੱਖਰ *get_basefile_from_ਸਿਰਲੇਖ(ਖਾਲੀ)
 {
-  return __BASE_FILE__;
+  ਵਾਪਸ __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਅਚਲ ਅੱਖਰ *get_file_from_ਸਿਰਲੇਖ(ਖਾਲੀ)
 {
-  return __FILE__;
+  ਵਾਪਸ __FILE__;
 }

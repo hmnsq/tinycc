@@ -1,153 +1,153 @@
-int printf(const char *, ...);
+ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ *, ...);
 
-#define assert(x) ((x) \
-    ? (printf(" 1 (%s)\n",#x),1) \
-    : (printf("%s:%d: error: (%s)\n",__FILE__,__LINE__,#x),0))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਪ੍ਰਤਿਜ੍ਞਾ(x) ((x) \
+    ? (ਲਿਖੋ(" 1 (%s)\n",#x),1) \
+    : (ਲਿਖੋ("%s:%d: error: (%s)\n",__FILE__,__LINE__,#x),0))
 
-#define O 100
-#define SO 200
-
-/* ------------------------------------------------------ */
-#if TEST-O == 1
-extern char etext[], _etext[];
-extern char edata[], _edata[];
-extern char end[], _end[];
-int check_linker_symbols(void)
-{
-    int errors = 0;
-    errors += !assert(etext == _etext);
-    errors += !assert(edata == _edata);
-    errors += !assert(end == _end);
-    return errors;
-}
-
-#elif TEST-MAIN == 1
-int check_linker_symbols(void);
-int main(void)
-{
-    printf("linker symbols test\n");
-    assert(check_linker_symbols() == 0);
-}
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ O 100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SO 200
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 2
-extern char etext[], edata[], end[];
-void get_dso_end(char **p)
+#ਜੇ TEST-O == 1
+ਬਾਹਰੀ ਅੱਖਰ etext[], _etext[];
+ਬਾਹਰੀ ਅੱਖਰ edata[], _edata[];
+ਬਾਹਰੀ ਅੱਖਰ ਸਿਰਾ[], ਸਿਰਾ_3[];
+ਪੂਰਨ check_linker_symbols(ਖਾਲੀ)
+{
+    ਪੂਰਨ errors = 0;
+    errors += !ਪ੍ਰਤਿਜ੍ਞਾ(etext == _etext);
+    errors += !ਪ੍ਰਤਿਜ੍ਞਾ(edata == _edata);
+    errors += !ਪ੍ਰਤਿਜ੍ਞਾ(ਸਿਰਾ == ਸਿਰਾ_3);
+    ਵਾਪਸ errors;
+}
+
+#ਜਾਂਜੇ TEST-MAIN == 1
+ਪੂਰਨ check_linker_symbols(ਖਾਲੀ);
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
+{
+    ਲਿਖੋ("linker symbols test\n");
+    ਪ੍ਰਤਿਜ੍ਞਾ(check_linker_symbols() == 0);
+}
+
+/* ------------------------------------------------------ */
+#ਜਾਂਜੇ TEST-SO == 2
+ਬਾਹਰੀ ਅੱਖਰ etext[], edata[], ਸਿਰਾ[];
+ਖਾਲੀ get_dso_ਸਿਰਾ(ਅੱਖਰ **p)
 {
     p[0] = etext;
     p[1] = edata;
-    p[2] = end;
+    p[2] = ਸਿਰਾ;
 }
 
-#elif TEST-MAIN == 2
-extern char _etext[], _edata[], _end[];
-extern void get_dso_end(char **);
-static int fill_data = 123;
-static int fill_bss;
+#ਜਾਂਜੇ TEST-MAIN == 2
+ਬਾਹਰੀ ਅੱਖਰ _etext[], _edata[], ਸਿਰਾ_3[];
+ਬਾਹਰੀ ਖਾਲੀ get_dso_ਸਿਰਾ(ਅੱਖਰ **);
+ਸਥਿਰ ਪੂਰਨ fill_ਅੰਕੜੇ = 123;
+ਸਥਿਰ ਪੂਰਨ fill_bss;
 
-int main(void)
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-    char *p[3];
-    printf("DSO linker symbols test\n");
-    get_dso_end(p);
-    assert(p[0] == _etext) || printf("-- %p %p\n", p[0], _etext);
-    assert(p[1] == _edata) || printf("-- %p %p\n", p[1], _edata);
-    assert(p[2] == _end)   || printf("-- %p %p\n", p[2], _end);
-}
-
-/* ------------------------------------------------------ */
-#elif TEST-MAIN == 3
-
-int etext(void) { return 1; }
-int edata(void) { return 2; }
-int end(void) { return 3; }
-int main(void)
-{
-    printf("user definition test\n");
-    assert(etext() + edata() + end() == 6);
+    ਅੱਖਰ *p[3];
+    ਲਿਖੋ("DSO linker symbols test\n");
+    get_dso_ਸਿਰਾ(p);
+    ਪ੍ਰਤਿਜ੍ਞਾ(p[0] == _etext) || ਲਿਖੋ("-- %p %p\n", p[0], _etext);
+    ਪ੍ਰਤਿਜ੍ਞਾ(p[1] == _edata) || ਲਿਖੋ("-- %p %p\n", p[1], _edata);
+    ਪ੍ਰਤਿਜ੍ਞਾ(p[2] == ਸਿਰਾ_3)   || ਲਿਖੋ("-- %p %p\n", p[2], ਸਿਰਾ_3);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 4
-unsigned char copy_reloc_data[257];
+#ਜਾਂਜੇ TEST-MAIN == 3
 
-#elif TEST-MAIN == 4
-extern unsigned char copy_reloc_data[257];
-extern char end[], _end[];
-
-int main(void)
+ਪੂਰਨ etext(ਖਾਲੀ) { ਵਾਪਸ 1; }
+ਪੂਰਨ edata(ਖਾਲੀ) { ਵਾਪਸ 2; }
+ਪੂਰਨ ਸਿਰਾ(ਖਾਲੀ) { ਵਾਪਸ 3; }
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-    unsigned long data_end;
-    printf("end copy relocation test\n");
-    copy_reloc_data[256] = 42;
-    data_end = (unsigned long)(copy_reloc_data + sizeof copy_reloc_data);
-    assert(end == _end);
-    assert((unsigned long)end >= data_end);
-    assert(copy_reloc_data[256] == 42);
+    ਲਿਖੋ("user definition test\n");
+    ਪ੍ਰਤਿਜ੍ਞਾ(etext() + edata() + ਸਿਰਾ() == 6);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-O == 5
-void __attribute__((section(".text.linker_test"), noinline, used))
-linker_test_text(void)
+#ਜਾਂਜੇ TEST-SO == 4
+ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ copy_reloc_ਅੰਕੜੇ[257];
+
+#ਜਾਂਜੇ TEST-MAIN == 4
+ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ copy_reloc_ਅੰਕੜੇ[257];
+ਬਾਹਰੀ ਅੱਖਰ ਸਿਰਾ[], ਸਿਰਾ_3[];
+
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
+{
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਅੰਕੜੇ_ਸਿਰਾ;
+    ਲਿਖੋ("end copy relocation test\n");
+    copy_reloc_ਅੰਕੜੇ[256] = 42;
+    ਅੰਕੜੇ_ਸਿਰਾ = (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ)(copy_reloc_ਅੰਕੜੇ + ਆਕਾਰ copy_reloc_ਅੰਕੜੇ);
+    ਪ੍ਰਤਿਜ੍ਞਾ(ਸਿਰਾ == ਸਿਰਾ_3);
+    ਪ੍ਰਤਿਜ੍ਞਾ((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ)ਸਿਰਾ >= ਅੰਕੜੇ_ਸਿਰਾ);
+    ਪ੍ਰਤਿਜ੍ਞਾ(copy_reloc_ਅੰਕੜੇ[256] == 42);
+}
+
+/* ------------------------------------------------------ */
+#ਜਾਂਜੇ TEST-O == 5
+ਖਾਲੀ __attribute__((section(".text.linker_test"), noinline, ਵਰਤਿਆ))
+linker_test_ਪਾਠ(ਖਾਲੀ)
 {
 }
-__attribute__((section(".bss.linker_test"), used))
-unsigned char linker_test_bss[257];
+__attribute__((section(".bss.linker_test"), ਵਰਤਿਆ))
+ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ linker_test_bss[257];
 
-__attribute__((section(".data.linker_test"), used))
-unsigned char linker_test_data[23] = { 1 };
+__attribute__((section(".data.linker_test"), ਵਰਤਿਆ))
+ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ linker_test_ਅੰਕੜੇ[23] = { 1 };
 
-#elif TEST-MAIN == 5
-extern void linker_test_text(void);
-extern unsigned char linker_test_data[23];
-extern unsigned char linker_test_bss[257];
-extern char etext[], _etext[];
-extern char edata[], _edata[];
-extern char end[], _end[];
+#ਜਾਂਜੇ TEST-MAIN == 5
+ਬਾਹਰੀ ਖਾਲੀ linker_test_ਪਾਠ(ਖਾਲੀ);
+ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ linker_test_ਅੰਕੜੇ[23];
+ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ linker_test_bss[257];
+ਬਾਹਰੀ ਅੱਖਰ etext[], _etext[];
+ਬਾਹਰੀ ਅੱਖਰ edata[], _edata[];
+ਬਾਹਰੀ ਅੱਖਰ ਸਿਰਾ[], ਸਿਰਾ_3[];
 
-int main(void)
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-    char* text_addr = (void*)linker_test_text;
-    char* data_end = linker_test_data + sizeof linker_test_data;
-    char* bss_end = linker_test_bss + sizeof linker_test_bss;
+    ਅੱਖਰ* ਪਾਠ_addr = (ਖਾਲੀ*)linker_test_ਪਾਠ;
+    ਅੱਖਰ* ਅੰਕੜੇ_ਸਿਰਾ = linker_test_ਅੰਕੜੇ + ਆਕਾਰ linker_test_ਅੰਕੜੇ;
+    ਅੱਖਰ* bss_ਸਿਰਾ = linker_test_bss + ਆਕਾਰ linker_test_bss;
 
-    printf("linker boundary test\n");
-    linker_test_data[22] = 42;
+    ਲਿਖੋ("linker boundary test\n");
+    linker_test_ਅੰਕੜੇ[22] = 42;
     linker_test_bss[256] = 42;
-    assert(linker_test_bss > linker_test_data);
-    assert(etext == _etext);
-    assert(edata == _edata);
-    assert(end == _end);
-    assert(etext >= text_addr);
-    assert(edata >= data_end);
-    assert(end >= bss_end);
-    assert(linker_test_data[22] == 42);
-    assert(linker_test_bss[256] == 42);
+    ਪ੍ਰਤਿਜ੍ਞਾ(linker_test_bss > linker_test_ਅੰਕੜੇ);
+    ਪ੍ਰਤਿਜ੍ਞਾ(etext == _etext);
+    ਪ੍ਰਤਿਜ੍ਞਾ(edata == _edata);
+    ਪ੍ਰਤਿਜ੍ਞਾ(ਸਿਰਾ == ਸਿਰਾ_3);
+    ਪ੍ਰਤਿਜ੍ਞਾ(etext >= ਪਾਠ_addr);
+    ਪ੍ਰਤਿਜ੍ਞਾ(edata >= ਅੰਕੜੇ_ਸਿਰਾ);
+    ਪ੍ਰਤਿਜ੍ਞਾ(ਸਿਰਾ >= bss_ਸਿਰਾ);
+    ਪ੍ਰਤਿਜ੍ਞਾ(linker_test_ਅੰਕੜੇ[22] == 42);
+    ਪ੍ਰਤਿਜ੍ਞਾ(linker_test_bss[256] == 42);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 6
-int end;
-int eight = 8;
-int nine;
-int dso_add() { return end + eight + nine; }
+#ਜਾਂਜੇ TEST-SO == 6
+ਪੂਰਨ ਸਿਰਾ;
+ਪੂਰਨ eight = 8;
+ਪੂਰਨ nine;
+ਪੂਰਨ dso_ਜੋੜੋ() { ਵਾਪਸ ਸਿਰਾ + eight + nine; }
 
-#elif TEST-MAIN == 6
-int end = 7;
-int eight;
-int nine = 9;
-int dso_add();
-int main()
+#ਜਾਂਜੇ TEST-MAIN == 6
+ਪੂਰਨ ਸਿਰਾ = 7;
+ਪੂਰਨ eight;
+ਪੂਰਨ nine = 9;
+ਪੂਰਨ dso_ਜੋੜੋ();
+ਪੂਰਨ ਮੁੱਖ()
 {
-    int sum;
-    printf("DSO initialized data test\n");
-    sum = dso_add();
-    assert(end == 7);
-    assert(eight == 8);
-    assert(nine == 9);
-    assert(sum == 24) || printf("-- %d + %d + %d = %d\n", end, eight, nine, sum);
+    ਪੂਰਨ ਜੋੜ;
+    ਲਿਖੋ("DSO initialized data test\n");
+    ਜੋੜ = dso_ਜੋੜੋ();
+    ਪ੍ਰਤਿਜ੍ਞਾ(ਸਿਰਾ == 7);
+    ਪ੍ਰਤਿਜ੍ਞਾ(eight == 8);
+    ਪ੍ਰਤਿਜ੍ਞਾ(nine == 9);
+    ਪ੍ਰਤਿਜ੍ਞਾ(ਜੋੜ == 24) || ਲਿਖੋ("-- %d + %d + %d = %d\n", ਸਿਰਾ, eight, nine, ਜੋੜ);
 }
 
 /* ------------------------------------------------------ */
-#endif
+#ਜੇ_ਅੰਤ

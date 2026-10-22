@@ -3,54 +3,54 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SETJMP
-#define _INC_SETJMP
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _INC_SETJMP
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _INC_SETJMP
 
-#include <_mingw.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ਹਦਾਇਤ pack(ਧੱਕੋ,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#if (defined(_X86_) && !defined(__x86_64))
+#ਜੇ (defined(_X86_) && !defined(__x86_64))
 
-#define _JBLEN 16
-#define _JBTYPE int
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _JBLEN 16
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _JBTYPE ਪੂਰਨ
 
-  typedef struct __JUMP_BUFFER {
-    unsigned long Ebp;
-    unsigned long Ebx;
-    unsigned long Edi;
-    unsigned long Esi;
-    unsigned long Esp;
-    unsigned long Eip;
-    unsigned long Registration;
-    unsigned long TryLevel;
-    unsigned long Cookie;
-    unsigned long UnwindFunc;
-    unsigned long UnwindData[6];
-  } _JUMP_BUFFER;
-#elif defined(__ia64__)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    __int64 LowPart;
-    __int64 HighPart;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ __JUMP_BUFFER {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Ebp;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Ebx;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Edi;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Esi;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Esp;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Eip;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Registration;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ TryLevel;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Cookie;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ UnwindFunc;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Unwind_ਅੰਕੜੇ[6];
+  } JUMP_ਬਫਰ;
+#ਜਾਂਜੇ defined(__ia64__)
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ _CRT_ALIGN(16) ਬਣਤਰ _SETJMP_FLOAT128 {
+    __int64 ਨੀਵਾਂ_Part;
+    __int64 ਉੱਚਾ_Part;
   } SETJMP_FLOAT128;
 
-#define _JBLEN 33
-  typedef SETJMP_FLOAT128 _JBTYPE;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _JBLEN 33
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct __JUMP_BUFFER {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ __JUMP_BUFFER {
 
-    unsigned long iAReserved[6];
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ iAReserved[6];
 
-    unsigned long Registration;
-    unsigned long TryLevel;
-    unsigned long Cookie;
-    unsigned long UnwindFunc;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Registration;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ TryLevel;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Cookie;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ UnwindFunc;
 
-    unsigned long UnwindData[6];
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Unwind_ਅੰਕੜੇ[6];
 
     SETJMP_FLOAT128 FltS0;
     SETJMP_FLOAT128 FltS1;
@@ -91,28 +91,28 @@ extern "C" {
     __int64 IntNats;
     __int64 Preds;
 
-  } _JUMP_BUFFER;
-#elif defined(__x86_64)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    unsigned __int64 Part[2];
+  } JUMP_ਬਫਰ;
+#ਜਾਂਜੇ defined(__x86_64)
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ _CRT_ALIGN(16) ਬਣਤਰ _SETJMP_FLOAT128 {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 Part[2];
   } SETJMP_FLOAT128;
 
-#define _JBLEN 16
-  typedef SETJMP_FLOAT128 _JBTYPE;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _JBLEN 16
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct _JUMP_BUFFER {
-    unsigned __int64 Frame;
-    unsigned __int64 Rbx;
-    unsigned __int64 Rsp;
-    unsigned __int64 Rbp;
-    unsigned __int64 Rsi;
-    unsigned __int64 Rdi;
-    unsigned __int64 R12;
-    unsigned __int64 R13;
-    unsigned __int64 R14;
-    unsigned __int64 R15;
-    unsigned __int64 Rip;
-    unsigned __int64 Spare;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ JUMP_ਬਫਰ {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਚੌਖਟਾ;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 Rbx;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 Rsp;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 Rbp;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 Rsi;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 Rdi;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 R12;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 R13;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 R14;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 R15;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 Rip;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਵਾਧੂ_2;
     SETJMP_FLOAT128 Xmm6;
     SETJMP_FLOAT128 Xmm7;
     SETJMP_FLOAT128 Xmm8;
@@ -123,77 +123,77 @@ extern "C" {
     SETJMP_FLOAT128 Xmm13;
     SETJMP_FLOAT128 Xmm14;
     SETJMP_FLOAT128 Xmm15;
-  } _JUMP_BUFFER;
-#elif defined(_ARM_)
+  } JUMP_ਬਫਰ;
+#ਜਾਂਜੇ defined(_ARM_)
 
-#define _JBLEN 28
-#define _JBTYPE int
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _JBLEN 28
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _JBTYPE ਪੂਰਨ
 
-  typedef struct __JUMP_BUFFER {
-    unsigned long Frame;
-    unsigned long R4;
-    unsigned long R5;
-    unsigned long R6;
-    unsigned long R7;
-    unsigned long R8;
-    unsigned long R9;
-    unsigned long R10;
-    unsigned long R11;
-    unsigned long Sp;
-    unsigned long Pc;
-    unsigned long Fpscr;
-    unsigned long long D[8];
-  } _JUMP_BUFFER;
-#elif defined(_ARM64_)
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ __JUMP_BUFFER {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਚੌਖਟਾ;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ R4;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ R5;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ R6;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ R7;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ R8;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ R9;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ R10;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ R11;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Sp;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Pc;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Fpscr;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ D[8];
+  } JUMP_ਬਫਰ;
+#ਜਾਂਜੇ defined(_ARM64_)
 
-#define _JBLEN 24
-#define _JBTYPE unsigned __int64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _JBLEN 24
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _JBTYPE ਬਿਨਾਨਿਸ਼ਾਨੀ __int64
 
-  typedef struct __JUMP_BUFFER {
-    unsigned __int64 Frame;
-    unsigned __int64 Reserved;
-    unsigned __int64 X19;
-    unsigned __int64 X20;
-    unsigned __int64 X21;
-    unsigned __int64 X22;
-    unsigned __int64 X23;
-    unsigned __int64 X24;
-    unsigned __int64 X25;
-    unsigned __int64 X26;
-    unsigned __int64 X27;
-    unsigned __int64 X28;
-    unsigned __int64 Fp;
-    unsigned __int64 Lr;
-    unsigned __int64 Sp;
-    unsigned long Fpcr;
-    unsigned long Fpsr;
-    double D[8];
-  } _JUMP_BUFFER;
-#else
-#define _JBLEN 1
-#define _JBTYPE int
-#endif
-#ifndef _JMP_BUF_DEFINED
-  typedef _JBTYPE jmp_buf[_JBLEN];
-#define _JMP_BUF_DEFINED
-#endif
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ __JUMP_BUFFER {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਚੌਖਟਾ;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 Reserved;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 X19;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 X20;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 X21;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 X22;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 X23;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 X24;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 X25;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 X26;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 X27;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 X28;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 Fp;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 Lr;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 Sp;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Fpcr;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Fpsr;
+    ਦੁੱਗਣਾ D[8];
+  } JUMP_ਬਫਰ;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _JBLEN 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _JBTYPE ਪੂਰਨ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _JMP_BUF_DEFINED
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ _JBTYPE jmp_buf[_JBLEN];
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _JMP_BUF_DEFINED
+#ਜੇ_ਅੰਤ
 
-#pragma pack(pop)
+#ਹਦਾਇਤ pack(ਕੱਢੋ)
 
-#if defined __aarch64__
-  int _setjmpex(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmpex((BUF), (char*)__builtin_frame_address(0) + 224)
-#elif defined __x86_64__
-  int _setjmp(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
-#else /* __i386__ */
-  int _setjmp(jmp_buf _Buf);
-  #define setjmp _setjmp
-#endif
+#ਜੇ defined __aarch64__
+  ਪੂਰਨ _setjmpex(jmp_buf _Buf, ਖਾਲੀ *ਚੌਖਟਾ_2);
+  #ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ setjmp(BUF) _setjmpex((BUF), (ਅੱਖਰ*)__builtin_frame_address(0) + 224)
+#ਜਾਂਜੇ defined __x86_64__
+  ਪੂਰਨ _setjmp(jmp_buf _Buf, ਖਾਲੀ *ਚੌਖਟਾ_2);
+  #ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
+#ਨਹੀਂਤਾਂ /* __i386__ */
+  ਪੂਰਨ _setjmp(jmp_buf _Buf);
+  #ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ setjmp _setjmp
+#ਜੇ_ਅੰਤ
 
-__declspec(noreturn) void longjmp(jmp_buf _Buf,int _Value);
+__declspec(noreturn) ਖਾਲੀ longjmp(jmp_buf _Buf,ਪੂਰਨ ਮੁੱਲ_2);
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
-#endif
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ

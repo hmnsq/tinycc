@@ -1,37 +1,37 @@
-#include <stdio.h>
-#include <float.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <float.h>
 
-union ieee_double_extract
+ਸੰਘ ieee_double_ਕੱਢੋ
 {
-    struct {
-        unsigned int manl:32;
-        unsigned int manh:20;
-        unsigned int exp:11;
-        unsigned int sig:1;
+    ਬਣਤਰ {
+        ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ manl:32;
+        ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ manh:20;
+        ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ ਘਾਤਾਂਕ:11;
+        ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ sig:1;
     } s;
-    double d;
+    ਦੁੱਗਣਾ d;
 };
 
-double scale(double d)
+ਦੁੱਗਣਾ scale(ਦੁੱਗਣਾ d)
 {
-    union ieee_double_extract x;
+    ਸੰਘ ieee_double_ਕੱਢੋ x;
 
     x.d = d;
     x.d *= 1000;
-    return x.d;
+    ਵਾਪਸ x.d;
 }
 
-void mul(double *p)
+ਖਾਲੀ mul(ਦੁੱਗਣਾ *p)
 {
     *p *= 2.0;
 }
 
-int
-main(void)
+ਪੂਰਨ
+ਮੁੱਖ(ਖਾਲੀ)
 {
-    double d = 4.0;
-    printf("%g\n", scale(42));
+    ਦੁੱਗਣਾ d = 4.0;
+    ਲਿਖੋ("%g\n", scale(42));
     mul(&d);
-    printf("%g\n", d);
-    return 0;
+    ਲਿਖੋ("%g\n", d);
+    ਵਾਪਸ 0;
 }

@@ -1,304 +1,304 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-#ifdef __riscv
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __riscv
 
 /* P0.4 + P1.4: riscv64 asm pseudo-instructions test.
    Exercises neg/negw, sext.w, fmv.s/d, fneg.s/d.  */
 
-int test_neg(int x)
+ਪੂਰਨ test_neg(ਪੂਰਨ x)
 {
-    int r;
+    ਪੂਰਨ r;
     asm("neg %0, %1" : "=r"(r) : "r"(x));
-    return r;
+    ਵਾਪਸ r;
 }
 
-long long test_negw(long long x)
+ਲੰਮਾ ਲੰਮਾ test_negw(ਲੰਮਾ ਲੰਮਾ x)
 {
-    int r;
-    asm("negw %0, %1" : "=r"(r) : "r"((int)x));
-    return (long long)r;
+    ਪੂਰਨ r;
+    asm("negw %0, %1" : "=r"(r) : "r"((ਪੂਰਨ)x));
+    ਵਾਪਸ (ਲੰਮਾ ਲੰਮਾ)r;
 }
 
-long long test_sextw(int x)
+ਲੰਮਾ ਲੰਮਾ test_sextw(ਪੂਰਨ x)
 {
-    long long r;
+    ਲੰਮਾ ਲੰਮਾ r;
     asm("sext.w %0, %1" : "=r"(r) : "r"(x));
-    return r;
+    ਵਾਪਸ r;
 }
 
-float test_fmv_s(float a)
+ਦਸ਼ਮਲਵ test_fmv_s(ਦਸ਼ਮਲਵ a)
 {
-    float r;
+    ਦਸ਼ਮਲਵ r;
     asm("fmv.s %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    ਵਾਪਸ r;
 }
 
-float test_fneg_s(float a)
+ਦਸ਼ਮਲਵ test_fneg_s(ਦਸ਼ਮਲਵ a)
 {
-    float r;
+    ਦਸ਼ਮਲਵ r;
     asm("fneg.s %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    ਵਾਪਸ r;
 }
 
-double test_fmv_d(double a)
+ਦੁੱਗਣਾ test_fmv_d(ਦੁੱਗਣਾ a)
 {
-    double r;
+    ਦੁੱਗਣਾ r;
     asm("fmv.d %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    ਵਾਪਸ r;
 }
 
-double test_fneg_d(double a)
+ਦੁੱਗਣਾ test_fneg_d(ਦੁੱਗਣਾ a)
 {
-    double r;
+    ਦੁੱਗਣਾ r;
     asm("fneg.d %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    ਵਾਪਸ r;
 }
 
-int test_pseudo(void)
+ਪੂਰਨ test_pseudo(ਖਾਲੀ)
 {
-    int ok = 1;
+    ਪੂਰਨ ok = 1;
 
-    if (test_neg(42) != -42) {
-        printf("FAIL: neg\n");
+    ਜੇ (test_neg(42) != -42) {
+        ਲਿਖੋ("FAIL: neg\n");
         ok = 0;
     }
-    if (test_negw(100) != -100) {
-        printf("FAIL: negw\n");
+    ਜੇ (test_negw(100) != -100) {
+        ਲਿਖੋ("FAIL: negw\n");
         ok = 0;
     }
-    if (test_sextw(0x80000000) != 0xffffffff80000000LL) {
-        printf("FAIL: sext.w\n");
+    ਜੇ (test_sextw(0x80000000) != 0xffffffff80000000LL) {
+        ਲਿਖੋ("FAIL: sext.w\n");
         ok = 0;
     }
-    if (test_fmv_s(3.14f) != 3.14f) {
-        printf("FAIL: fmv.s\n");
+    ਜੇ (test_fmv_s(3.14f) != 3.14f) {
+        ਲਿਖੋ("FAIL: fmv.s\n");
         ok = 0;
     }
-    if (test_fneg_s(3.14f) != -3.14f) {
-        printf("FAIL: fneg.s\n");
+    ਜੇ (test_fneg_s(3.14f) != -3.14f) {
+        ਲਿਖੋ("FAIL: fneg.s\n");
         ok = 0;
     }
-    if (test_fmv_d(2.718281828) != 2.718281828) {
-        printf("FAIL: fmv.d\n");
+    ਜੇ (test_fmv_d(2.718281828) != 2.718281828) {
+        ਲਿਖੋ("FAIL: fmv.d\n");
         ok = 0;
     }
-    if (test_fneg_d(2.718281828) != -2.718281828) {
-        printf("FAIL: fneg.d\n");
+    ਜੇ (test_fneg_d(2.718281828) != -2.718281828) {
+        ਲਿਖੋ("FAIL: fneg.d\n");
         ok = 0;
     }
-    return ok;
+    ਵਾਪਸ ok;
 }
 
 /* P1.1: riscv64 inline asm with 64-bit immediate (li).
    Tests that long long immediates assemble correctly,
    including the lui+addi sequence for large constants.  */
 
-long long test_li_small(void)
+ਲੰਮਾ ਲੰਮਾ test_li_small(ਖਾਲੀ)
 {
-    long long r;
+    ਲੰਮਾ ਲੰਮਾ r;
     asm("li %0, 42" : "=r"(r));
-    return r;
+    ਵਾਪਸ r;
 }
 
-long long test_li_large(void)
+ਲੰਮਾ ਲੰਮਾ test_li_large(ਖਾਲੀ)
 {
-    long long r;
+    ਲੰਮਾ ਲੰਮਾ r;
     asm("li %0, 0x123456789ABCDEF0" : "=r"(r));
-    return r;
+    ਵਾਪਸ r;
 }
 
-long long test_li_negative(void)
+ਲੰਮਾ ਲੰਮਾ test_li_negative(ਖਾਲੀ)
 {
-    long long r;
+    ਲੰਮਾ ਲੰਮਾ r;
     asm("li %0, -1" : "=r"(r));
-    return r;
+    ਵਾਪਸ r;
 }
 
-int test_ll(void)
+ਪੂਰਨ test_ll(ਖਾਲੀ)
 {
-    int ok = 1;
+    ਪੂਰਨ ok = 1;
 
-    if (test_li_small() != 42) {
-        printf("FAIL: li small\n");
+    ਜੇ (test_li_small() != 42) {
+        ਲਿਖੋ("FAIL: li small\n");
         ok = 0;
     }
-    if (test_li_large() != 0x123456789ABCDEF0LL) {
-        printf("FAIL: li large\n");
+    ਜੇ (test_li_large() != 0x123456789ABCDEF0LL) {
+        ਲਿਖੋ("FAIL: li large\n");
         ok = 0;
     }
-    if (test_li_negative() != -1) {
-        printf("FAIL: li negative\n");
+    ਜੇ (test_li_negative() != -1) {
+        ਲਿਖੋ("FAIL: li negative\n");
         ok = 0;
     }
-    return ok;
+    ਵਾਪਸ ok;
 }
 
 /* P1.3: riscv64 F/D extension arithmetic instructions.
    Tests fadd/fsub/fmul/fdiv for both single and double precision.  */
 
-float test_fadd_s(float a, float b)
+ਦਸ਼ਮਲਵ test_fadd_s(ਦਸ਼ਮਲਵ a, ਦਸ਼ਮਲਵ b)
 {
-    float r;
+    ਦਸ਼ਮਲਵ r;
     asm("fadd.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    ਵਾਪਸ r;
 }
 
-float test_fsub_s(float a, float b)
+ਦਸ਼ਮਲਵ test_fsub_s(ਦਸ਼ਮਲਵ a, ਦਸ਼ਮਲਵ b)
 {
-    float r;
+    ਦਸ਼ਮਲਵ r;
     asm("fsub.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    ਵਾਪਸ r;
 }
 
-float test_fmul_s(float a, float b)
+ਦਸ਼ਮਲਵ test_fmul_s(ਦਸ਼ਮਲਵ a, ਦਸ਼ਮਲਵ b)
 {
-    float r;
+    ਦਸ਼ਮਲਵ r;
     asm("fmul.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    ਵਾਪਸ r;
 }
 
-float test_fdiv_s(float a, float b)
+ਦਸ਼ਮਲਵ test_fdiv_s(ਦਸ਼ਮਲਵ a, ਦਸ਼ਮਲਵ b)
 {
-    float r;
+    ਦਸ਼ਮਲਵ r;
     asm("fdiv.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    ਵਾਪਸ r;
 }
 
-double test_fadd_d(double a, double b)
+ਦੁੱਗਣਾ test_fadd_d(ਦੁੱਗਣਾ a, ਦੁੱਗਣਾ b)
 {
-    double r;
+    ਦੁੱਗਣਾ r;
     asm("fadd.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    ਵਾਪਸ r;
 }
 
-double test_fsub_d(double a, double b)
+ਦੁੱਗਣਾ test_fsub_d(ਦੁੱਗਣਾ a, ਦੁੱਗਣਾ b)
 {
-    double r;
+    ਦੁੱਗਣਾ r;
     asm("fsub.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    ਵਾਪਸ r;
 }
 
-double test_fmul_d(double a, double b)
+ਦੁੱਗਣਾ test_fmul_d(ਦੁੱਗਣਾ a, ਦੁੱਗਣਾ b)
 {
-    double r;
+    ਦੁੱਗਣਾ r;
     asm("fmul.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    ਵਾਪਸ r;
 }
 
-double test_fdiv_d(double a, double b)
+ਦੁੱਗਣਾ test_fdiv_d(ਦੁੱਗਣਾ a, ਦੁੱਗਣਾ b)
 {
-    double r;
+    ਦੁੱਗਣਾ r;
     asm("fdiv.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    ਵਾਪਸ r;
 }
 
-int test_farith(void)
+ਪੂਰਨ test_farith(ਖਾਲੀ)
 {
-    int ok = 1;
+    ਪੂਰਨ ok = 1;
 
-    if (test_fadd_s(1.5f, 2.5f) != 4.0f) {
-        printf("FAIL: fadd.s\n");
+    ਜੇ (test_fadd_s(1.5f, 2.5f) != 4.0f) {
+        ਲਿਖੋ("FAIL: fadd.s\n");
         ok = 0;
     }
-    if (test_fsub_s(5.0f, 2.0f) != 3.0f) {
-        printf("FAIL: fsub.s\n");
+    ਜੇ (test_fsub_s(5.0f, 2.0f) != 3.0f) {
+        ਲਿਖੋ("FAIL: fsub.s\n");
         ok = 0;
     }
-    if (test_fmul_s(3.0f, 4.0f) != 12.0f) {
-        printf("FAIL: fmul.s\n");
+    ਜੇ (test_fmul_s(3.0f, 4.0f) != 12.0f) {
+        ਲਿਖੋ("FAIL: fmul.s\n");
         ok = 0;
     }
-    if (test_fdiv_s(12.0f, 4.0f) != 3.0f) {
-        printf("FAIL: fdiv.s\n");
+    ਜੇ (test_fdiv_s(12.0f, 4.0f) != 3.0f) {
+        ਲਿਖੋ("FAIL: fdiv.s\n");
         ok = 0;
     }
 
-    if (test_fadd_d(1.5, 2.5) != 4.0) {
-        printf("FAIL: fadd.d\n");
+    ਜੇ (test_fadd_d(1.5, 2.5) != 4.0) {
+        ਲਿਖੋ("FAIL: fadd.d\n");
         ok = 0;
     }
-    if (test_fsub_d(5.0, 2.0) != 3.0) {
-        printf("FAIL: fsub.d\n");
+    ਜੇ (test_fsub_d(5.0, 2.0) != 3.0) {
+        ਲਿਖੋ("FAIL: fsub.d\n");
         ok = 0;
     }
-    if (test_fmul_d(3.0, 4.0) != 12.0) {
-        printf("FAIL: fmul.d\n");
+    ਜੇ (test_fmul_d(3.0, 4.0) != 12.0) {
+        ਲਿਖੋ("FAIL: fmul.d\n");
         ok = 0;
     }
-    if (test_fdiv_d(12.0, 4.0) != 3.0) {
-        printf("FAIL: fdiv.d\n");
+    ਜੇ (test_fdiv_d(12.0, 4.0) != 3.0) {
+        ਲਿਖੋ("FAIL: fdiv.d\n");
         ok = 0;
     }
-    return ok;
+    ਵਾਪਸ ok;
 }
 
-int csr_pseudo_main(void)
+ਪੂਰਨ csr_pseudo_main(ਖਾਲੀ)
 {
-    int ok = 1;
-    int old, tmp;
+    ਪੂਰਨ ok = 1;
+    ਪੂਰਨ old, tmp;
 
-    asm volatile("csrr %0, 0x003" : "=r"(old));
+    asm ਅਸਥਿਰ("csrr %0, 0x003" : "=r"(old));
 
-    asm volatile("csrr %0, 0x003" : "=r"(tmp));
-    printf("csrr fcsr=%x\n", (unsigned)tmp);
+    asm ਅਸਥਿਰ("csrr %0, 0x003" : "=r"(tmp));
+    ਲਿਖੋ("csrr fcsr=%x\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ)tmp);
 
-    asm volatile("csrw 0x003, %0" : : "r"(0xE0));
-    asm volatile("csrr %0, 0x003" : "=r"(tmp));
-    printf("csrw: wrote e0 got %x\n", (unsigned)tmp);
-    if (tmp != 0xE0) { printf("FAIL: csrw\n"); ok = 0; }
-    asm volatile("csrw 0x003, %0" : : "r"(old));
+    asm ਅਸਥਿਰ("csrw 0x003, %0" : : "r"(0xE0));
+    asm ਅਸਥਿਰ("csrr %0, 0x003" : "=r"(tmp));
+    ਲਿਖੋ("csrw: wrote e0 got %x\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ)tmp);
+    ਜੇ (tmp != 0xE0) { ਲਿਖੋ("FAIL: csrw\n"); ok = 0; }
+    asm ਅਸਥਿਰ("csrw 0x003, %0" : : "r"(old));
 
-    asm volatile("csrwi 0x003, 0x10");
-    asm volatile("csrr %0, 0x003" : "=r"(tmp));
-    printf("csrwi: wrote 0x10 got %x\n", (unsigned)tmp);
-    if (tmp != 0x10) { printf("FAIL: csrwi\n"); ok = 0; }
-    asm volatile("csrw 0x003, %0" : : "r"(old));
+    asm ਅਸਥਿਰ("csrwi 0x003, 0x10");
+    asm ਅਸਥਿਰ("csrr %0, 0x003" : "=r"(tmp));
+    ਲਿਖੋ("csrwi: wrote 0x10 got %x\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ)tmp);
+    ਜੇ (tmp != 0x10) { ਲਿਖੋ("FAIL: csrwi\n"); ok = 0; }
+    asm ਅਸਥਿਰ("csrw 0x003, %0" : : "r"(old));
 
-    asm volatile("csrsi 0x003, 0x03");
-    asm volatile("csrr %0, 0x003" : "=r"(tmp));
-    printf("csrsi: old|3=%x\n", (unsigned)tmp);
-    if ((old | 0x03) != tmp) { printf("FAIL: csrsi\n"); ok = 0; }
-    asm volatile("csrw 0x003, %0" : : "r"(old));
+    asm ਅਸਥਿਰ("csrsi 0x003, 0x03");
+    asm ਅਸਥਿਰ("csrr %0, 0x003" : "=r"(tmp));
+    ਲਿਖੋ("csrsi: old|3=%x\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ)tmp);
+    ਜੇ ((old | 0x03) != tmp) { ਲਿਖੋ("FAIL: csrsi\n"); ok = 0; }
+    asm ਅਸਥਿਰ("csrw 0x003, %0" : : "r"(old));
 
-    asm volatile("csrci 0x003, 0x03");
-    asm volatile("csrr %0, 0x003" : "=r"(tmp));
-    printf("csrci: old&~3=%x\n", (unsigned)tmp);
-    if ((old & ~0x03) != tmp) { printf("FAIL: csrci\n"); ok = 0; }
-    asm volatile("csrw 0x003, %0" : : "r"(old));
+    asm ਅਸਥਿਰ("csrci 0x003, 0x03");
+    asm ਅਸਥਿਰ("csrr %0, 0x003" : "=r"(tmp));
+    ਲਿਖੋ("csrci: old&~3=%x\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ)tmp);
+    ਜੇ ((old & ~0x03) != tmp) { ਲਿਖੋ("FAIL: csrci\n"); ok = 0; }
+    asm ਅਸਥਿਰ("csrw 0x003, %0" : : "r"(old));
 
-    return ok;
+    ਵਾਪਸ ok;
 }
 
-int fp_cmp_cvt_main(void)
+ਪੂਰਨ fp_cmp_cvt_main(ਖਾਲੀ)
 {
     /* F/D comparison (use raw regs to avoid inline asm float→int bug) */
-    asm volatile("feq.s a0, fa0, fa1");
-    asm volatile("feq.d a0, fa0, fa1");
-    asm volatile("flt.s a0, fa0, fa1");
-    asm volatile("flt.d a0, fa0, fa1");
-    asm volatile("fle.s a0, fa0, fa1");
-    asm volatile("fle.d a0, fa0, fa1");
+    asm ਅਸਥਿਰ("feq.s a0, fa0, fa1");
+    asm ਅਸਥਿਰ("feq.d a0, fa0, fa1");
+    asm ਅਸਥਿਰ("flt.s a0, fa0, fa1");
+    asm ਅਸਥਿਰ("flt.d a0, fa0, fa1");
+    asm ਅਸਥਿਰ("fle.s a0, fa0, fa1");
+    asm ਅਸਥਿਰ("fle.d a0, fa0, fa1");
 
     /* fcvt conversions */
-    asm volatile("fcvt.w.s a0, fa0");
-    asm volatile("fcvt.wu.s a0, fa0");
-    asm volatile("fcvt.s.w fa0, a0");
-    asm volatile("fcvt.w.d a0, fa0");
-    asm volatile("fcvt.d.w fa0, a0");
-    asm volatile("fcvt.d.s fa0, fa0");
-    asm volatile("fcvt.s.d fa0, fa0");
+    asm ਅਸਥਿਰ("fcvt.w.s a0, fa0");
+    asm ਅਸਥਿਰ("fcvt.wu.s a0, fa0");
+    asm ਅਸਥਿਰ("fcvt.s.w fa0, a0");
+    asm ਅਸਥਿਰ("fcvt.w.d a0, fa0");
+    asm ਅਸਥਿਰ("fcvt.d.w fa0, a0");
+    asm ਅਸਥਿਰ("fcvt.d.s fa0, fa0");
+    asm ਅਸਥਿਰ("fcvt.s.d fa0, fa0");
 
     /* fclass */
-    asm volatile("fclass.s a0, fa0");
-    asm volatile("fclass.d a0, fa0");
+    asm ਅਸਥਿਰ("fclass.s a0, fa0");
+    asm ਅਸਥਿਰ("fclass.d a0, fa0");
 
-    return 1;
+    ਵਾਪਸ 1;
 }
 
-int amo_main(void)
+ਪੂਰਨ amo_main(ਖਾਲੀ)
 {
-    int x = 0, r;
-    long long xd = 0xCAFEBABECAFEBABELL, rd, val = 0xDEADBEEFDEADBEEFLL;
+    ਪੂਰਨ x = 0, r;
+    ਲੰਮਾ ਲੰਮਾ xd = 0xCAFEBABECAFEBABELL, rd, val = 0xDEADBEEFDEADBEEFLL;
     asm("amoadd.w %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
     asm("amoswap.w %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
     asm("amoand.w %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
@@ -321,36 +321,36 @@ int amo_main(void)
     asm("amomaxu.w.aqrl %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
     asm("amomin.w.rl %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
     asm("amominu.d.aq %0, %2, (%1)" : "=r"(rd) : "r"(&xd), "r"(val));
-    return 1;
+    ਵਾਪਸ 1;
 }
 
-int fcvt_round_main(void)
+ਪੂਰਨ fcvt_ਗੇੜਾ_main(ਖਾਲੀ)
 {
-    asm volatile("fcvt.w.s a0, fa0, rne");
-    asm volatile("fcvt.w.s a0, fa0, rtz");
-    asm volatile("fcvt.w.s a0, fa0, rup");
-    asm volatile("fcvt.w.d a0, fa0, rne");
-    asm volatile("fcvt.w.d a0, fa0, rtz");
-    return 1;
+    asm ਅਸਥਿਰ("fcvt.w.s a0, fa0, rne");
+    asm ਅਸਥਿਰ("fcvt.w.s a0, fa0, rtz");
+    asm ਅਸਥਿਰ("fcvt.w.s a0, fa0, rup");
+    asm ਅਸਥਿਰ("fcvt.w.d a0, fa0, rne");
+    asm ਅਸਥਿਰ("fcvt.w.d a0, fa0, rtz");
+    ਵਾਪਸ 1;
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-    int ok = 1;
+    ਪੂਰਨ ok = 1;
     ok &= test_pseudo();
     ok &= test_ll();
     ok &= test_farith();
     ok &= csr_pseudo_main();
     ok &= fp_cmp_cvt_main();
     ok &= amo_main();
-    ok &= fcvt_round_main();
-    printf("%s\n", ok ? "PASS" : "FAIL");
-    return !ok;
+    ok &= fcvt_ਗੇੜਾ_main();
+    ਲਿਖੋ("%s\n", ok ? "PASS" : "FAIL");
+    ਵਾਪਸ !ok;
 }
 
-#else
-int main()
+#ਨਹੀਂਤਾਂ
+ਪੂਰਨ ਮੁੱਖ()
 {
-    printf("SKIP\n");
+    ਲਿਖੋ("SKIP\n");
 }
-#endif
+#ਜੇ_ਅੰਤ

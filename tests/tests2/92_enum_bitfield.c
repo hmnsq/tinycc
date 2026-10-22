@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
-  SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+ਗਿਣਤੀ ਰੁੱਖ_ਕੋਡ {
+  SOME_ਕੋਡ = 148, /* has bit 7 set, and hence all further enum values as well */
+  ਆਖਰੀ_AND_ਅਣਵਰਤਿਆ_ਰੁੱਖ_ਕੋਡ
 };
-typedef union tree_node *tree;
-struct tree_common
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਸੰਘ ਰੁੱਖ_ਗੰਢ *ਰੁੱਖ_2;
+ਬਣਤਰ ਰੁੱਖ_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
-  unsigned side_effects_flag : 1;
+  ਸੰਘ ਰੁੱਖ_ਗੰਢ *chain;
+  ਸੰਘ ਰੁੱਖ_ਗੰਢ *type;
+  ਗਿਣਤੀ ਰੁੱਖ_ਕੋਡ ਕੋਡ : 8;
+  ਬਿਨਾਨਿਸ਼ਾਨੀ side_effects_flag : 1;
 };
-union tree_node
+ਸੰਘ ਰੁੱਖ_ਗੰਢ
 {
-  struct tree_common common;
+  ਬਣਤਰ ਰੁੱਖ_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+ਗਿਣਤੀ c_ਰੁੱਖ_ਕੋਡ {
+  C_DUMMY_ਰੁੱਖ_ਕੋਡ = ਆਖਰੀ_AND_ਅਣਵਰਤਿਆ_ਰੁੱਖ_ਕੋਡ,
+  STMT_ਵਿਅੰਜਕ,
+  ਆਖਰੀ_C_ਰੁੱਖ_ਕੋਡ
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+ਗਿਣਤੀ cplus_ਰੁੱਖ_ਕੋਡ {
+  CP_DUMMY_ਰੁੱਖ_ਕੋਡ = ਆਖਰੀ_C_ਰੁੱਖ_ਕੋਡ,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  ਆਖਰੀ_CPLUS_ਰੁੱਖ_ਕੋਡ
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+ਬਾਹਰੀ ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ *, ...);
+ਪੂਰਨ blah(){ਵਾਪਸ 0;}
 
-int convert_like_real (tree convs)
+ਪੂਰਨ convert_like_real (ਰੁੱਖ_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  ਚੋਣ (((ਗਿਣਤੀ ਰੁੱਖ_ਕੋਡ) (convs)->common.ਕੋਡ))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    ਹਾਲਤ AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      ਵਾਪਸ blah();
+    ਮੂਲ:
+      ਰੋਕੋ;
     };
-   printf("unsigned enum bit-fields broken\n");
-   return 0;
+   ਲਿਖੋ("unsigned enum bit-fields broken\n");
+   ਵਾਪਸ 0;
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-  union tree_node convs;
+  ਸੰਘ ਰੁੱਖ_ਗੰਢ convs;
 
-  convs.common.code = AMBIG_CONV;
+  convs.common.ਕੋਡ = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  ਵਾਪਸ 0;
 }

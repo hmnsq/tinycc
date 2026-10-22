@@ -1,236 +1,236 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdlib.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <string.h>
 
-#define NB_ITS 1000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NB_ITS 1000000
 //#define NB_ITS 1
-#define TAB_SIZE 100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TAB_ਮਾਪ 100
 
-int tab[TAB_SIZE];
-int ret_sum;
-char tab3[256];
+ਪੂਰਨ tab[TAB_ਮਾਪ];
+ਪੂਰਨ ret_ਜੋੜ;
+ਅੱਖਰ tab3[256];
 
-int test1(void)
+ਪੂਰਨ test1(ਖਾਲੀ)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE;i++) {
-        sum += tab[i];
+    ਪੂਰਨ i, ਜੋੜ = 0;
+    ਲਈ(i=0;i<TAB_ਮਾਪ;i++) {
+        ਜੋੜ += tab[i];
     }
-    return sum;
+    ਵਾਪਸ ਜੋੜ;
 }
 
 /* error */
-int test2(void)
+ਪੂਰਨ test2(ਖਾਲੀ)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE + 1;i++) {
-        sum += tab[i];
+    ਪੂਰਨ i, ਜੋੜ = 0;
+    ਲਈ(i=0;i<TAB_ਮਾਪ + 1;i++) {
+        ਜੋੜ += tab[i];
     }
-    return sum;
+    ਵਾਪਸ ਜੋੜ;
 }
 
 /* actually, profiling test */
-int test3(void)
+ਪੂਰਨ test3(ਖਾਲੀ)
 {
-    int sum;
-    int i, it;
+    ਪੂਰਨ ਜੋੜ;
+    ਪੂਰਨ i, it;
 
-    sum = 0;
-    for(it=0;it<NB_ITS;it++) {
-        for(i=0;i<TAB_SIZE;i++) {
-            sum += tab[i];
+    ਜੋੜ = 0;
+    ਲਈ(it=0;it<NB_ITS;it++) {
+        ਲਈ(i=0;i<TAB_ਮਾਪ;i++) {
+            ਜੋੜ += tab[i];
         }
     }
-    return sum;
+    ਵਾਪਸ ਜੋੜ;
 }
 
 /* ok */
-int test4(void)
+ਪੂਰਨ test4(ਖਾਲੀ)
 {
-    int i, sum = 0;
-    int *tab4;
+    ਪੂਰਨ i, ਜੋੜ = 0;
+    ਪੂਰਨ *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<20;i++) {
-        sum += tab4[i];
+    tab4 = ਸਮ੍ਰਿਤੀ_ਦਿਓ(20 * ਆਕਾਰ(ਪੂਰਨ));
+    ਲਈ(i=0;i<20;i++) {
+        ਜੋੜ += tab4[i];
     }
-    free(tab4);
+    ਮੁਕਤ(tab4);
 
-    return sum;
+    ਵਾਪਸ ਜੋੜ;
 }
 
 /* error */
-int test5(void)
+ਪੂਰਨ test5(ਖਾਲੀ)
 {
-    int i, sum = 0;
-    int *tab4;
+    ਪੂਰਨ i, ਜੋੜ = 0;
+    ਪੂਰਨ *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<21;i++) {
-        sum += tab4[i];
+    tab4 = ਸਮ੍ਰਿਤੀ_ਦਿਓ(20 * ਆਕਾਰ(ਪੂਰਨ));
+    ਲਈ(i=0;i<21;i++) {
+        ਜੋੜ += tab4[i];
     }
-    free(tab4);
+    ਮੁਕਤ(tab4);
 
-    return sum;
+    ਵਾਪਸ ਜੋੜ;
 }
 
 /* error */
-int test6(void)
+ਪੂਰਨ test6(ਖਾਲੀ)
 {
-    int i, sum = 0;
-    int *tab4;
+    ਪੂਰਨ i, ਜੋੜ = 0;
+    ਪੂਰਨ *tab4;
     
-    tab4 = malloc(20 * sizeof(int));
-    free(tab4);
-    for(i=0;i<21;i++) {
-        sum += tab4[i];
+    tab4 = ਸਮ੍ਰਿਤੀ_ਦਿਓ(20 * ਆਕਾਰ(ਪੂਰਨ));
+    ਮੁਕਤ(tab4);
+    ਲਈ(i=0;i<21;i++) {
+        ਜੋੜ += tab4[i];
     }
 
-    return sum;
+    ਵਾਪਸ ਜੋੜ;
 }
 
 /* error */
-int test7(void)
+ਪੂਰਨ test7(ਖਾਲੀ)
 {
-    int i, sum = 0;
-    int *p;
+    ਪੂਰਨ i, ਜੋੜ = 0;
+    ਪੂਰਨ *p;
 
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    ਲਈ(i=0;i<TAB_ਮਾਪ + 1;i++) {
         p = &tab[i];
-        if (i == TAB_SIZE)
-            printf("i=%d %x\n", i, p);
-        sum += *p;
+        ਜੇ (i == TAB_ਮਾਪ)
+            ਲਿਖੋ("i=%d %x\n", i, p);
+        ਜੋੜ += *p;
     }
-    return sum;
+    ਵਾਪਸ ਜੋੜ;
 }
 
 /* ok */
-int test8(void)
+ਪੂਰਨ test8(ਖਾਲੀ)
 {
-    int i, sum = 0;
-    int tab[10];
+    ਪੂਰਨ i, ਜੋੜ = 0;
+    ਪੂਰਨ tab[10];
 
-    for(i=0;i<10;i++) {
-        sum += tab[i];
+    ਲਈ(i=0;i<10;i++) {
+        ਜੋੜ += tab[i];
     }
-    return sum;
+    ਵਾਪਸ ਜੋੜ;
 }
 
 /* error */
-int test9(void)
+ਪੂਰਨ test9(ਖਾਲੀ)
 {
-    int i, sum = 0;
-    char tab[10];
+    ਪੂਰਨ i, ਜੋੜ = 0;
+    ਅੱਖਰ tab[10];
 
-    for(i=0;i<11;i++) {
-        sum += tab[i];
+    ਲਈ(i=0;i<11;i++) {
+        ਜੋੜ += tab[i];
     }
-    return sum;
+    ਵਾਪਸ ਜੋੜ;
 }
 
 /* ok */
-int test10(void)
+ਪੂਰਨ test10(ਖਾਲੀ)
 {
-    char tab[10];
-    char tab1[10];
+    ਅੱਖਰ tab[10];
+    ਅੱਖਰ tab1[10];
 
     memset(tab, 0, 10);
-    memcpy(tab, tab1, 10);
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(tab, tab1, 10);
     memmove(tab, tab1, 10);
-    return 0;
+    ਵਾਪਸ 0;
 }
 
 /* error */
-int test11(void)
+ਪੂਰਨ test11(ਖਾਲੀ)
 {
-    char tab[10];
+    ਅੱਖਰ tab[10];
 
     memset(tab, 0, 11);
-    return 0;
+    ਵਾਪਸ 0;
 }
 
 /* error */
-int test12(void)
+ਪੂਰਨ test12(ਖਾਲੀ)
 {
-    void *ptr;
-    ptr = malloc(10);
-    free(ptr);
-    free(ptr);
-    return 0;
+    ਖਾਲੀ *ptr;
+    ptr = ਸਮ੍ਰਿਤੀ_ਦਿਓ(10);
+    ਮੁਕਤ(ptr);
+    ਮੁਕਤ(ptr);
+    ਵਾਪਸ 0;
 }
 
 /* error */
-int test13(void)
+ਪੂਰਨ test13(ਖਾਲੀ)
 {
-    char pad1 = 0;
-    char tab[10];
-    char pad2 = 0;
-    memset(tab, 'a', sizeof(tab));
-    return strlen(tab);
+    ਅੱਖਰ pad1 = 0;
+    ਅੱਖਰ tab[10];
+    ਅੱਖਰ pad2 = 0;
+    memset(tab, 'a', ਆਕਾਰ(tab));
+    ਵਾਪਸ ਲੜੀ_ਲੰਬਾਈ(tab);
 }
 
-int test14(void)
+ਪੂਰਨ test14(ਖਾਲੀ)
 {
-    char *p = alloca(TAB_SIZE);
-    size_t ret;
-    memset(p, 'a', TAB_SIZE);
-    p[TAB_SIZE-1] = 0;
-    ret = strlen(p);
-    return ret;
+    ਅੱਖਰ *p = alloca(TAB_ਮਾਪ);
+    ਮਾਪ_t ret;
+    memset(p, 'a', TAB_ਮਾਪ);
+    p[TAB_ਮਾਪ-1] = 0;
+    ret = ਲੜੀ_ਲੰਬਾਈ(p);
+    ਵਾਪਸ ret;
 }
 
 /* error */
-int test15(void)
+ਪੂਰਨ test15(ਖਾਲੀ)
 {
-    char *p = alloca(TAB_SIZE-1);
-    size_t ret;
-    memset(p, 'a', TAB_SIZE);
-    p[TAB_SIZE-1] = 0;
-    ret = strlen(p);
-    return ret;
+    ਅੱਖਰ *p = alloca(TAB_ਮਾਪ-1);
+    ਮਾਪ_t ret;
+    memset(p, 'a', TAB_ਮਾਪ);
+    p[TAB_ਮਾਪ-1] = 0;
+    ret = ਲੜੀ_ਲੰਬਾਈ(p);
+    ਵਾਪਸ ret;
 }
 
 /* ok */
-int test16()
+ਪੂਰਨ test16()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    ਅੱਖਰ *demo = "This is only a test.";
+    ਅੱਖਰ *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
 
     /* Test alloca embedded in a larger expression */
-    printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)+1),demo) );
+    ਲਿਖੋ("alloca : %s : %s\n", p, strcpy(q=alloca(ਲੜੀ_ਲੰਬਾਈ(demo)+1),demo) );
 
-    return 0;
+    ਵਾਪਸ 0;
 }
 
 /* error */
-int test17()
+ਪੂਰਨ test17()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    ਅੱਖਰ *demo = "This is only a test.";
+    ਅੱਖਰ *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
 
     /* Test alloca embedded in a larger expression */
-    printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)),demo) );
+    ਲਿਖੋ("alloca : %s : %s\n", p, strcpy(q=alloca(ਲੜੀ_ਲੰਬਾਈ(demo)),demo) );
 
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-int test18(void)
+ਪੂਰਨ test18(ਖਾਲੀ)
 {
-    int i, sum = 0, n = TAB_SIZE;
-    int tab[n];
-    for(i=0;i<TAB_SIZE+1;i++) {
-        sum += tab[i];
+    ਪੂਰਨ i, ਜੋੜ = 0, n = TAB_ਮਾਪ;
+    ਪੂਰਨ tab[n];
+    ਲਈ(i=0;i<TAB_ਮਾਪ+1;i++) {
+        ਜੋੜ += tab[i];
     }
-    return sum;
+    ਵਾਪਸ ਜੋੜ;
 }
 
-int (*table_test[])(void) = {
+ਪੂਰਨ (*ਸਾਰਣੀ_test[])(ਖਾਲੀ) = {
     test1,
     test2,
     test3,
@@ -251,44 +251,44 @@ int (*table_test[])(void) = {
     test18
 };
 
-int main(int argc, char **argv)
+ਪੂਰਨ ਮੁੱਖ(ਪੂਰਨ argc, ਅੱਖਰ **argv)
 {
-    int i;
-    char *cp;
-    int index;
-    int (*ftest)(void);
-    int index_max = sizeof(table_test)/sizeof(table_test[0]);
+    ਪੂਰਨ i;
+    ਅੱਖਰ *cp;
+    ਪੂਰਨ ਸੂਚਕਾਂਕ;
+    ਪੂਰਨ (*ftest)(ਖਾਲੀ);
+    ਪੂਰਨ ਸੂਚਕਾਂਕ_max = ਆਕਾਰ(ਸਾਰਣੀ_test)/ਆਕਾਰ(ਸਾਰਣੀ_test[0]);
 
     /* check bounds checking main arg */
-    for (i = 0; i < argc; i++) {
+    ਲਈ (i = 0; i < argc; i++) {
         cp = argv[i];
-        while (*cp) {
+        ਜਦੋਂ (*cp) {
             cp++;
         }
     }
 
-    if (argc < 2) {
-        printf(
+    ਜੇ (argc < 2) {
+        ਲਿਖੋ(
     	    "test TCC bound checking system\n"
 	    "usage: boundtest N\n"
-            "  1 <= N <= %d\n", index_max);
-        exit(1);
+            "  1 <= N <= %d\n", ਸੂਚਕਾਂਕ_max);
+        ਬਾਹਰ_ਨਿਕਲੋ(1);
     }
 
-    index = 0;
-    if (argc >= 2)
-        index = atoi(argv[1]) - 1;
+    ਸੂਚਕਾਂਕ = 0;
+    ਜੇ (argc >= 2)
+        ਸੂਚਕਾਂਕ = atoi(argv[1]) - 1;
 
-    if ((index < 0) || (index >= index_max)) {
-        printf("N is outside of the valid range (%d)\n", index);
-        exit(2);
+    ਜੇ ((ਸੂਚਕਾਂਕ < 0) || (ਸੂਚਕਾਂਕ >= ਸੂਚਕਾਂਕ_max)) {
+        ਲਿਖੋ("N is outside of the valid range (%d)\n", ਸੂਚਕਾਂਕ);
+        ਬਾਹਰ_ਨਿਕਲੋ(2);
     }
 
     /* well, we also use bounds on this ! */
-    ftest = table_test[index];
+    ftest = ਸਾਰਣੀ_test[ਸੂਚਕਾਂਕ];
     ftest();
 
-    return 0;
+    ਵਾਪਸ 0;
 }
 
 /*

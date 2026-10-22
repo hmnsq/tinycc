@@ -1,41 +1,41 @@
-#include<stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ<stdio.h>
 
-struct s1 {
-    unsigned char a:4, b:4;
+ਬਣਤਰ s1 {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ a:4, b:4;
 } g1 = { 0x05, 0x0a };
 
-struct s2 {
-    unsigned char a, b;
+ਬਣਤਰ s2 {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ a, b;
 } g2 = { 0x12, 0x34 };
 
-struct s4 {
-    unsigned short a, b;
+ਬਣਤਰ s4 {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ a, b;
 } g4 = { 0x1245, 0x5678 };
 
-struct s8 {
-    unsigned a, b;
+ਬਣਤਰ s8 {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ a, b;
 } g8 = { 0x12345678, 0x9abcdef0 };
 
 /* returned in 2 registers on riscv64 */
-struct s16 {
-    unsigned long long a, b;
+ਬਣਤਰ s16 {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ a, b;
 } g16 = { 0x123456789abcdef0ULL, 0xfedcba9876543210ULL };
 
 /* Homogeneous float aggregate on ARM hard-float */
-struct s_f4 {
-    double a, b, c, d;
+ਬਣਤਰ s_f4 {
+    ਦੁੱਗਣਾ a, b, c, d;
 } g_f4 = { 1,2,3,4 };
 
-#define def(S) \
-struct s##S f##S(int x) \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ def(S) \
+ਬਣਤਰ s##S f##S(ਪੂਰਨ x) \
 { \
-    struct s##S l##S = g##S, *p##S = &l##S; \
-    if (x == 0) \
-        return g##S; \
-    else if (x == 1) \
-        return l##S; \
-    else \
-        return *p##S; \
+    ਬਣਤਰ s##S l##S = g##S, *p##S = &l##S; \
+    ਜੇ (x == 0) \
+        ਵਾਪਸ g##S; \
+    ਨਹੀਂਤਾਂ ਜੇ (x == 1) \
+        ਵਾਪਸ l##S; \
+    ਨਹੀਂਤਾਂ \
+        ਵਾਪਸ *p##S; \
 }
 
 def(1)
@@ -45,26 +45,26 @@ def(8)
 def(16)
 def(_f4)
 
-#define chk(S,x) \
-    struct s##S l##S = f##S(x); \
-    printf("%02llx %02llx\n", \
-        (unsigned long long)l##S.a, \
-        (unsigned long long)l##S.b \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ chk(S,x) \
+    ਬਣਤਰ s##S l##S = f##S(x); \
+    ਲਿਖੋ("%02llx %02llx\n", \
+        (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)l##S.a, \
+        (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)l##S.b \
         );
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-    for (int x = 0;;) {
+    ਲਈ (ਪੂਰਨ x = 0;;) {
         chk(1,x);
         chk(2,x);
         chk(4,x);
         chk(8,x);
         chk(16,x);
-        struct s_f4 l_f4 = f_f4(x);
-        printf("%.1f %.1f %.1f %.1f\n", l_f4.a, l_f4.b, l_f4.c, l_f4.d);
-        if (++x > 2)
-            break;
-        printf("\n");
+        ਬਣਤਰ s_f4 l_f4 = f_f4(x);
+        ਲਿਖੋ("%.1f %.1f %.1f %.1f\n", l_f4.a, l_f4.b, l_f4.c, l_f4.d);
+        ਜੇ (++x > 2)
+            ਰੋਕੋ;
+        ਲਿਖੋ("\n");
     }
-    return 0;
+    ਵਾਪਸ 0;
 }

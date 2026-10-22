@@ -1,8 +1,8 @@
-#!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#!/usr/local/bin/tcc -ਲੜੀਵਾਰ
+#ਅਨ੍ਤਰ੍ਭਾਵ <tcclib.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-    printf("Hello World\n");
-    return 0;
+    ਲਿਖੋ("Hello World\n");
+    ਵਾਪਸ 0;
 }

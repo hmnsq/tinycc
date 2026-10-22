@@ -1,18 +1,18 @@
 X1 __COUNTER__
 X2 __COUNTER__
-#if __COUNTER__
+#ਜੇ __COUNTER__
 X3 __COUNTER__
-#endif
-#define pass(x) x
-#define a x __COUNTER__ y
-#define a2 pass(__COUNTER__)
-#define f(c) c __COUNTER__
-#define apply(d) d d __COUNTER__ x2 f(d) y2 __COUNTER__
-#define _paste(a,b) a ## b
-#define paste(a,b) _paste(a,b)
-#define _paste3(a,b,c) a ## b ## c
-#define doublepaste(a,b) _paste3(a,b,b)
-#define str(x) #x
+#ਜੇ_ਅੰਤ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ pass(x) x
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ a x __COUNTER__ y
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ a2 pass(__COUNTER__)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ f(c) c __COUNTER__
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ apply(d) d d __COUNTER__ x2 f(d) y2 __COUNTER__
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _paste(a,b) a ## b
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ paste(a,b) _paste(a,b)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _paste3(a,b,c) a ## b ## c
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ doublepaste(a,b) _paste3(a,b,b)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ str(x) #x
 X4 a
 X5 f(a)
 X6 f(b)

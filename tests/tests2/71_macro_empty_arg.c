@@ -1,9 +1,9 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-#define T(a,b,c) a b c
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ T(a,b,c) a b c
 
-int main(void)
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-    printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    ਲਿਖੋ("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
+    ਵਾਪਸ 0;
 }

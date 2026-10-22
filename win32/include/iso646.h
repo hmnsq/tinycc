@@ -8,22 +8,22 @@
  * ISO C Standard:  7.9  Alternative spellings  <iso646.h>
  */
 
-#ifndef _ISO646_H_
-#define _ISO646_H_
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _ISO646_H_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _ISO646_H_
 
-#define and     &&
-#define and_eq  &=
-#define bitand  &
-#define bitor   |
-#define compl   ~
-#define not     !
-#define not_eq  !=
-#define or      ||
-#define or_eq   |=
-#define xor     ^
-#define xor_eq  ^=
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ and     &&
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ and_eq  &=
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ bitand  &
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ bitor   |
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ compl   ~
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ not     !
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ not_eq  !=
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ or      ||
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ or_eq   |=
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ xor     ^
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ xor_eq  ^=
 
-#endif /* _ISO646_H_ */
+#ਜੇ_ਅੰਤ /* _ISO646_H_ */
 
 
 

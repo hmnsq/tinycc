@@ -2,90 +2,90 @@
    Verify that invalid assembly produces proper error messages.
    Run with -dt; skipped on non-arm64 architectures. */
 
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-#if defined test_unknown_instruction
-int main(void)
+#ਜੇ defined test_unknown_instruction
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
     __asm__("fubar x0, x1, x2");
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-#elif defined test_shift_imm_range_32
-int main(void)
+#ਜਾਂਜੇ defined test_ਖਿਸਕਾਓ_imm_range_32
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
     /* LSL by 32 is out of range for 32-bit operand */
     __asm__("lsl w0, w1, #32");
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-#elif defined test_shift_imm_range_64
-int main(void)
+#ਜਾਂਜੇ defined test_ਖਿਸਕਾਓ_imm_range_64
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
     /* LSL by 64 is out of range for 64-bit operand */
     __asm__("lsl x0, x1, #64");
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-#elif defined test_invalid_sysreg
-int main(void)
+#ਜਾਂਜੇ defined test_invalid_sysreg
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
     /* Bogus system register name */
     __asm__("mrs x0, bogusreg");
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-#elif defined test_invalid_barrier_option
-int main(void)
+#ਜਾਂਜੇ defined test_invalid_barrier_option
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
     /* Invalid barrier scope name */
     __asm__("dmb xyz");
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-#elif defined test_missing_third_operand
-int main(void)
+#ਜਾਂਜੇ defined test_missing_ਤੀਜਾ_ਸੰਕਾਰਜ
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
     __asm__("add x0, x1");
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-#elif defined test_movz_imm_range
-int main(void)
+#ਜਾਂਜੇ defined test_movz_imm_range
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
     __asm__("movz x0, #0x10000");
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-#elif defined test_movz_shift_range
-int main(void)
+#ਜਾਂਜੇ defined test_movz_ਖਿਸਕਾਓ_range
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
     __asm__("movz x0, #1, lsl #8");
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-#elif defined test_invalid_muls
-int main(void)
+#ਜਾਂਜੇ defined test_invalid_muls
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
     __asm__("muls x0, x1, x2");
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-#elif defined test_extended_inline_asm
-int main(void)
+#ਜਾਂਜੇ defined test_extended_inline_asm
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-    int x = 1;
+    ਪੂਰਨ x = 1;
     /* Invalid operand reference in extended inline asm */
     __asm__("add %0, %1, #1" : "=r"(x) : "2"(x));
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-#elif defined test_extended_inline_clobber
-int main(void)
+#ਜਾਂਜੇ defined test_extended_inline_clobber
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
     /* Invalid clobber register name */
-    __asm__ volatile ("nop" : : : "bogus");
-    return 0;
+    __asm__ ਅਸਥਿਰ ("nop" : : : "bogus");
+    ਵਾਪਸ 0;
 }
 
-#endif
+#ਜੇ_ਅੰਤ

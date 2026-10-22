@@ -1,112 +1,112 @@
-extern int printf(const char *format, ...);
-static void kb_wait_1(void)
+ਬਾਹਰੀ ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ *format, ...);
+ਸਥਿਰ ਖਾਲੀ kb_wait_1(ਖਾਲੀ)
 {
-    unsigned long timeout = 2;
-    do {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ timeout = 2;
+    ਕਰੋ {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ਲਿਖੋ("timeout=%ld\n", timeout) :
             ({
-                while (1)
-                    printf("error\n");
+                ਜਦੋਂ (1)
+                    ਲਿਖੋ("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ਜਦੋਂ (timeout);
 }
-static void kb_wait_2(void)
+ਸਥਿਰ ਖਾਲੀ kb_wait_2(ਖਾਲੀ)
 {
-    unsigned long timeout = 2;
-    do {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ timeout = 2;
+    ਕਰੋ {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ਲਿਖੋ("timeout=%ld\n", timeout) :
             ({
-                for (;;)
-                    printf("error\n");
+                ਲਈ (;;)
+                    ਲਿਖੋ("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ਜਦੋਂ (timeout);
 }
-static void kb_wait_2_1(void)
+ਸਥਿਰ ਖਾਲੀ kb_wait_2_1(ਖਾਲੀ)
 {
-    unsigned long timeout = 2;
-    do {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ timeout = 2;
+    ਕਰੋ {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ਲਿਖੋ("timeout=%ld\n", timeout) :
             ({
-                do {
-                    printf("error\n");
-		} while (1);
+                ਕਰੋ {
+                    ਲਿਖੋ("error\n");
+		} ਜਦੋਂ (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } ਜਦੋਂ (timeout);
 }
-static void kb_wait_2_2(void)
+ਸਥਿਰ ਖਾਲੀ kb_wait_2_2(ਖਾਲੀ)
 {
-    unsigned long timeout = 2;
-    do {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ timeout = 2;
+    ਕਰੋ {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ਲਿਖੋ("timeout=%ld\n", timeout) :
             ({
                 label:
-                    printf("error\n");
-		goto label;
+                    ਲਿਖੋ("error\n");
+		ਜਾਓ label;
             })
         );
         timeout--;
-    } while (timeout);
+    } ਜਦੋਂ (timeout);
 }
-static void kb_wait_3(void)
+ਸਥਿਰ ਖਾਲੀ kb_wait_3(ਖਾਲੀ)
 {
-    unsigned long timeout = 2;
-    do {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ timeout = 2;
+    ਕਰੋ {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ਲਿਖੋ("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
-                goto label;
+                ਪੂਰਨ i = 1;
+                ਜਾਓ label;
                 i = i + 2;
             label:
                 i = i + 3;
             })
         );
         timeout--;
-    } while (timeout);
+    } ਜਦੋਂ (timeout);
 }
-static void kb_wait_4(void)
+ਸਥਿਰ ਖਾਲੀ kb_wait_4(ਖਾਲੀ)
 {
-    unsigned long timeout = 2;
-    do {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ timeout = 2;
+    ਕਰੋ {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ਲਿਖੋ("timeout=%ld\n", timeout) :
             ({
-                switch(timeout) {
-                    case 2:
-                        printf("timeout is 2");
-                        break;
-                    case 1:
-                        printf("timeout is 1");
-                        break;
-                    default:
-                        printf("timeout is 0?");
-                        break;
+                ਚੋਣ(timeout) {
+                    ਹਾਲਤ 2:
+                        ਲਿਖੋ("timeout is 2");
+                        ਰੋਕੋ;
+                    ਹਾਲਤ 1:
+                        ਲਿਖੋ("timeout is 1");
+                        ਰੋਕੋ;
+                    ਮੂਲ:
+                        ਲਿਖੋ("timeout is 0?");
+                        ਰੋਕੋ;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } ਜਦੋਂ (timeout);
 }
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-    printf("begin\n");
+    ਲਿਖੋ("begin\n");
     kb_wait_1();
     kb_wait_2();
     kb_wait_2_1();
     kb_wait_2_2();
     kb_wait_3();
     kb_wait_4();
-    printf("end\n");
-    return 0;
+    ਲਿਖੋ("end\n");
+    ਵਾਪਸ 0;
 }

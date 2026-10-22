@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int a = 1;
+   ਪੂਰਨ a = 1;
 
-   if (a)
-      printf("a is true\n");
-   else
-      printf("a is false\n");
+   ਜੇ (a)
+      ਲਿਖੋ("a is true\n");
+   ਨਹੀਂਤਾਂ
+      ਲਿਖੋ("a is false\n");
 
-   int b = 0;
-   if (b)
-      printf("b is true\n");
-   else
-      printf("b is false\n");
+   ਪੂਰਨ b = 0;
+   ਜੇ (b)
+      ਲਿਖੋ("b is true\n");
+   ਨਹੀਂਤਾਂ
+      ਲਿਖੋ("b is false\n");
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

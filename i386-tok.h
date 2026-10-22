@@ -1,16 +1,16 @@
 /* ------------------------------------------------------------------ */
 /* WARNING: relative order of tokens is important. */
 
-#define DEF_BWL(x) \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_BWL(x) \
  DEF(TOK_ASM_ ## x ## b, #x "b") \
  DEF(TOK_ASM_ ## x ## w, #x "w") \
  DEF(TOK_ASM_ ## x ## l, #x "l") \
  DEF(TOK_ASM_ ## x, #x)
-#define DEF_WL(x) \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_WL(x) \
  DEF(TOK_ASM_ ## x ## w, #x "w") \
  DEF(TOK_ASM_ ## x ## l, #x "l") \
  DEF(TOK_ASM_ ## x, #x)
-#ifdef TCC_TARGET_X86_64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
 # define DEF_BWLQ(x) \
  DEF(TOK_ASM_ ## x ## b, #x "b") \
  DEF(TOK_ASM_ ## x ## w, #x "w") \
@@ -26,25 +26,25 @@
 # define DEF_WLX DEF_WLQ
 /* number of sizes + 1 */
 # define NBWLX 5
-#else
+#ਨਹੀਂਤਾਂ
 # define DEF_BWLX DEF_BWL
 # define DEF_WLX DEF_WL
 /* number of sizes + 1 */
 # define NBWLX 4
-#endif
+#ਜੇ_ਅੰਤ
 
-#define DEF_FP1(x) \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_FP1(x) \
  DEF(TOK_ASM_ ## f ## x ## s, "f" #x "s") \
  DEF(TOK_ASM_ ## fi ## x ## l, "fi" #x "l") \
  DEF(TOK_ASM_ ## f ## x ## l, "f" #x "l") \
  DEF(TOK_ASM_ ## fi ## x ## s, "fi" #x "s")
 
-#define DEF_FP(x) \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_FP(x) \
  DEF(TOK_ASM_ ## f ## x, "f" #x ) \
  DEF(TOK_ASM_ ## f ## x ## p, "f" #x "p") \
  DEF_FP1(x)
 
-#define DEF_ASMTEST(x,suffix) \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASMTEST(x,suffix) \
  DEF_ASM(x ## o ## suffix) \
  DEF_ASM(x ## no ## suffix) \
  DEF_ASM(x ## b ## suffix) \
@@ -77,7 +77,7 @@
  DEF_ASM(x ## g ## suffix)
 
 /* ------------------------------------------------------------------ */
-/* register */
+/*ਰਜਿਸਟਰ*/
  DEF_ASM(al)
  DEF_ASM(cl)
  DEF_ASM(dl)
@@ -102,7 +102,7 @@
  DEF_ASM(ebp)
  DEF_ASM(esi)
  DEF_ASM(edi)
-#ifdef TCC_TARGET_X86_64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
  DEF_ASM(rax)
  DEF_ASM(rcx)
  DEF_ASM(rdx)
@@ -111,7 +111,7 @@
  DEF_ASM(rbp)
  DEF_ASM(rsi)
  DEF_ASM(rdi)
-#endif
+#ਜੇ_ਅੰਤ
  DEF_ASM(mm0)
  DEF_ASM(mm1)
  DEF_ASM(mm2)
@@ -169,18 +169,18 @@
  DEF_ASM(st)
  DEF_ASM(rip)
 
-#ifdef TCC_TARGET_X86_64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
  /* The four low parts of sp/bp/si/di that exist only on
     x86-64 (encoding aliased to ah,ch,dh,dh when not using REX). */
  DEF_ASM(spl)
  DEF_ASM(bpl)
  DEF_ASM(sil)
  DEF_ASM(dil)
-#endif
+#ਜੇ_ਅੰਤ
  /* generic two operands */
  DEF_BWLX(mov)
 
- DEF_BWLX(add)
+ DEF_BWLX(ਜੋੜੋ)
  DEF_BWLX(or)
  DEF_BWLX(adc)
  DEF_BWLX(sbb)
@@ -216,32 +216,32 @@
 
  DEF_ASM(pushw)
  DEF_ASM(pushl)
-#ifdef TCC_TARGET_X86_64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
  DEF_ASM(pushq)
-#endif
- DEF_ASM(push)
+#ਜੇ_ਅੰਤ
+ DEF_ASM(ਧੱਕੋ)
 
  DEF_ASM(popw)
  DEF_ASM(popl)
-#ifdef TCC_TARGET_X86_64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
  DEF_ASM(popq)
-#endif
- DEF_ASM(pop)
+#ਜੇ_ਅੰਤ
+ DEF_ASM(ਕੱਢੋ)
 
- DEF_BWL(in)
- DEF_BWL(out)
+ DEF_BWL(ਵਿੱਚ)
+ DEF_BWL(ਬਾਹਰਲਾ)
 
  DEF_WLX(movzb)
  DEF_ASM(movzwl)
  DEF_ASM(movsbw)
  DEF_ASM(movsbl)
  DEF_ASM(movswl)
-#ifdef TCC_TARGET_X86_64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
  DEF_ASM(movsbq)
  DEF_ASM(movswq)
  DEF_ASM(movzwq)
  DEF_ASM(movslq)
-#endif
+#ਜੇ_ਅੰਤ
 
  DEF_WLX(lea)
 
@@ -258,8 +258,8 @@
 
  DEF_ASMTEST(j,)
 
- DEF_ASMTEST(set,)
- DEF_ASMTEST(set,b)
+ DEF_ASMTEST(ਸੈੱਟ,)
+ DEF_ASMTEST(ਸੈੱਟ,b)
  DEF_ASMTEST(cmov,)
 
  DEF_WLX(bsf)
@@ -276,7 +276,7 @@
  DEF_WLX(lsl)
 
  /* generic FP ops */
- DEF_FP(add)
+ DEF_FP(ਜੋੜੋ)
  DEF_FP(mul)
 
  DEF_ASM(fcom)
@@ -307,26 +307,26 @@
  DEF_BWLX(ssto)
 
  /* generic asm ops */
-#define ALT(x)
-#define DEF_ASM_OP0(name, opcode) DEF_ASM(name)
-#define DEF_ASM_OP0L(name, opcode, group, instr_type)
-#define DEF_ASM_OP1(name, opcode, group, instr_type, op0)
-#define DEF_ASM_OP2(name, opcode, group, instr_type, op0, op1)
-#define DEF_ASM_OP3(name, opcode, group, instr_type, op0, op1, op2)
-#ifdef TCC_TARGET_X86_64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ALT(x)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_OP0(name, opcode) DEF_ASM(name)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_OP0L(name, opcode, ਸਮੂਹ, instr_type)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_OP1(name, opcode, ਸਮੂਹ, instr_type, op0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_OP2(name, opcode, ਸਮੂਹ, instr_type, op0, op1)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_OP3(name, opcode, ਸਮੂਹ, instr_type, op0, op1, op2)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
 # include "x86_64-asm.h"
-#else
+#ਨਹੀਂਤਾਂ
 # include "i386-asm.h"
-#endif
+#ਜੇ_ਅੰਤ
 
-#define ALT(x)
-#define DEF_ASM_OP0(name, opcode)
-#define DEF_ASM_OP0L(name, opcode, group, instr_type) DEF_ASM(name)
-#define DEF_ASM_OP1(name, opcode, group, instr_type, op0) DEF_ASM(name)
-#define DEF_ASM_OP2(name, opcode, group, instr_type, op0, op1) DEF_ASM(name)
-#define DEF_ASM_OP3(name, opcode, group, instr_type, op0, op1, op2) DEF_ASM(name)
-#ifdef TCC_TARGET_X86_64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ALT(x)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_OP0(name, opcode)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_OP0L(name, opcode, ਸਮੂਹ, instr_type) DEF_ASM(name)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_OP1(name, opcode, ਸਮੂਹ, instr_type, op0) DEF_ASM(name)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_OP2(name, opcode, ਸਮੂਹ, instr_type, op0, op1) DEF_ASM(name)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_OP3(name, opcode, ਸਮੂਹ, instr_type, op0, op1, op2) DEF_ASM(name)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
 # include "x86_64-asm.h"
-#else
+#ਨਹੀਂਤਾਂ
 # include "i386-asm.h"
-#endif
+#ਜੇ_ਅੰਤ

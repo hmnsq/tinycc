@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-void fred(int x)
+ਖਾਲੀ fred(ਪੂਰਨ x)
 {
-   switch (x)
+   ਚੋਣ (x)
    {
-      case 1: printf("1\n"); return;
-      case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      ਹਾਲਤ 1: ਲਿਖੋ("1\n"); ਵਾਪਸ;
+      ਹਾਲਤ 2: ਲਿਖੋ("2\n"); ਰੋਕੋ;
+      ਹਾਲਤ 3: ਲਿਖੋ("3\n"); ਵਾਪਸ;
    }
 
-   printf("out\n");
+   ਲਿਖੋ("out\n");
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   ਵਾਪਸ 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+ਖਾਲੀ defined_const(ਪੂਰਨ *ਸੂਚਕ);
 
-void defined_const(int *const pointer)
+ਖਾਲੀ defined_const(ਪੂਰਨ *ਅਚਲ ਸੂਚਕ)
 {
-    pointer = 0;
+    ਸੂਚਕ = 0;
 }
 
-int main(void)
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-    return 0;
+    ਵਾਪਸ 0;
 }

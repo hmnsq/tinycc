@@ -3,83 +3,83 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#if !defined(_BASETYPS_H_)
-#define _BASETYPS_H_
+#ਜੇ !defined(_BASETYPS_H_)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _BASETYPS_H_
 
-#ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXTERN_C ਬਾਹਰੀ "C"
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXTERN_C ਬਾਹਰੀ
+#ਜੇ_ਅੰਤ
 
-#define STDMETHODCALLTYPE WINAPI
-#define STDMETHODVCALLTYPE __cdecl
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHODCALLTYPE WINAPI
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHODVCALLTYPE __cdecl
 
-#define STDAPICALLTYPE WINAPI
-#define STDAPIVCALLTYPE __cdecl
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDAPICALLTYPE WINAPI
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDAPIVCALLTYPE __cdecl
 
-#define STDAPI EXTERN_C HRESULT WINAPI
-#define STDAPI_(type) EXTERN_C type WINAPI
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDAPI EXTERN_C HRESULT WINAPI
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDAPI_(type) EXTERN_C type WINAPI
 
-#define STDMETHODIMP HRESULT WINAPI
-#define STDMETHODIMP_(type) type WINAPI
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHODIMP HRESULT WINAPI
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHODIMP_(type) type WINAPI
 
-#define STDAPIV EXTERN_C HRESULT STDAPIVCALLTYPE
-#define STDAPIV_(type) EXTERN_C type STDAPIVCALLTYPE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDAPIV EXTERN_C HRESULT STDAPIVCALLTYPE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDAPIV_(type) EXTERN_C type STDAPIVCALLTYPE
 
-#define STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
-#define STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
 
-#if defined(__cplusplus) && !defined(CINTERFACE)
+#ਜੇ defined(__cplusplus) && !defined(CINTERFACE)
 
-#define __STRUCT__ struct
-#define STDMETHOD(method) virtual HRESULT WINAPI method
-#define STDMETHOD_(type,method) virtual type WINAPI method
-#define STDMETHODV(method) virtual HRESULT STDMETHODVCALLTYPE method
-#define STDMETHODV_(type,method) virtual type STDMETHODVCALLTYPE method
-#define PURE = 0
-#define THIS_
-#define THIS void
-#define DECLARE_INTERFACE(iface) __STRUCT__ iface
-#define DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : public baseiface
-#else
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __STRUCT__ ਬਣਤਰ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHOD(ਵਿਧੀ_2) ਆਭਾਸੀ HRESULT WINAPI ਵਿਧੀ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHOD_(type,ਵਿਧੀ_2) ਆਭਾਸੀ type WINAPI ਵਿਧੀ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHODV(ਵਿਧੀ_2) ਆਭਾਸੀ HRESULT STDMETHODVCALLTYPE ਵਿਧੀ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHODV_(type,ਵਿਧੀ_2) ਆਭਾਸੀ type STDMETHODVCALLTYPE ਵਿਧੀ_2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸ਼ੁੱਧ = 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THIS_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THIS ਖਾਲੀ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DECLARE_INTERFACE(iface) __STRUCT__ iface
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : ਜਨਤਕ baseiface
+#ਨਹੀਂਤਾਂ
 
-#ifndef __OBJC__
-#define interface struct
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __OBJC__
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ interface ਬਣਤਰ
+#ਜੇ_ਅੰਤ
 
-#define STDMETHOD(method) HRESULT (WINAPI *method)
-#define STDMETHOD_(type,method) type (WINAPI *method)
-#define STDMETHODV(method) HRESULT (STDMETHODVCALLTYPE *method)
-#define STDMETHODV_(type,method) type (STDMETHODVCALLTYPE *method)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHOD(ਵਿਧੀ_2) HRESULT (WINAPI *ਵਿਧੀ_2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHOD_(type,ਵਿਧੀ_2) type (WINAPI *ਵਿਧੀ_2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHODV(ਵਿਧੀ_2) HRESULT (STDMETHODVCALLTYPE *ਵਿਧੀ_2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STDMETHODV_(type,ਵਿਧੀ_2) type (STDMETHODVCALLTYPE *ਵਿਧੀ_2)
 
-#define PURE
-#define THIS_ INTERFACE *This,
-#define THIS INTERFACE *This
-#ifdef CONST_VTABLE
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-  const struct iface##Vtbl *lpVtbl; } iface; \
-  typedef const struct iface##Vtbl iface##Vtbl; \
-  const struct iface##Vtbl
-#else
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-    struct iface##Vtbl *lpVtbl; \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸ਼ੁੱਧ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THIS_ INTERFACE *This,
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ THIS INTERFACE *This
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONST_VTABLE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DECLARE_INTERFACE(iface) ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ iface { \
+  ਅਚਲ ਬਣਤਰ iface##Vtbl *lpVtbl; } iface; \
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਅਚਲ ਬਣਤਰ iface##Vtbl iface##Vtbl; \
+  ਅਚਲ ਬਣਤਰ iface##Vtbl
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DECLARE_INTERFACE(iface) ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ iface { \
+    ਬਣਤਰ iface##Vtbl *lpVtbl; \
   } iface; \
-  typedef struct iface##Vtbl iface##Vtbl; \
-  struct iface##Vtbl
-#endif
-#define DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
-#endif
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ iface##Vtbl iface##Vtbl; \
+  ਬਣਤਰ iface##Vtbl
+#ਜੇ_ਅੰਤ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
+#ਜੇ_ਅੰਤ
 
-#include <guiddef.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <guiddef.h>
 
-#ifndef _ERROR_STATUS_T_DEFINED
-#define _ERROR_STATUS_T_DEFINED
-typedef unsigned long error_status_t;
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ ERROR_ਸਥਿਤੀ_T_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ERROR_ਸਥਿਤੀ_T_DEFINED
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ error_ਸਥਿਤੀ_t;
+#ਜੇ_ਅੰਤ
 
-#ifndef _WCHAR_T_DEFINED
-typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WCHAR_T_DEFINED
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ wchar_t;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _WCHAR_T_DEFINED
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ

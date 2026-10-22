@@ -40,7 +40,7 @@
     /* Control-Flow Enforcement */
     DEF_ASM_OP0L(endbr32, 0xf30f1e, 7, OPC_MODRM)
 
-    /* strings */
+    /*ਲੜੀਆਂ*/
 ALT(DEF_ASM_OP0L(cmpsb, 0xa6, 0, OPC_BWLX))
 ALT(DEF_ASM_OP0L(scmpb, 0xa6, 0, OPC_BWLX))
 
@@ -59,7 +59,7 @@ ALT(DEF_ASM_OP0L(sscab, 0xae, 0, OPC_BWLX))
 ALT(DEF_ASM_OP0L(stosb, 0xaa, 0, OPC_BWLX))
 ALT(DEF_ASM_OP0L(sstob, 0xaa, 0, OPC_BWLX))
 
-     /* bits */
+     /*ਬਿੱਟ*/
      
 ALT(DEF_ASM_OP2(bsfw, 0x0fbc, 0, OPC_MODRM | OPC_WLX, OPT_REGW | OPT_EA, OPT_REGW))
 ALT(DEF_ASM_OP2(bsrw, 0x0fbd, 0, OPC_MODRM | OPC_WLX, OPT_REGW | OPT_EA, OPT_REGW))
@@ -86,9 +86,9 @@ ALT(DEF_ASM_OP2(lzcntw, 0xf30fbd, 0, OPC_MODRM | OPC_WLX, OPT_REGW | OPT_EA, OPT
      DEF_ASM_OP0(fwait, 0x9b)
      DEF_ASM_OP0(aword, 0x67)
      DEF_ASM_OP0(addr16, 0x67)
-     ALT(DEF_ASM_OP0(word, 0x66))
+     ALT(DEF_ASM_OP0(ਸ਼ਬਦ, 0x66))
      DEF_ASM_OP0(data16, 0x66)
-     DEF_ASM_OP0(lock, 0xf0)
+     DEF_ASM_OP0(ਤਾਲਾ, 0xf0)
      DEF_ASM_OP0(rep, 0xf3)
      DEF_ASM_OP0(repe, 0xf3)
      DEF_ASM_OP0(repz, 0xf3)
@@ -196,9 +196,9 @@ ALT(DEF_ASM_OP1(idivb, 0xf6, 7, OPC_MODRM | OPC_BWLX, OPT_REG | OPT_EA))
 ALT(DEF_ASM_OP2(idivb, 0xf6, 7, OPC_MODRM | OPC_BWLX, OPT_REG | OPT_EA, OPT_EAX))
 
      /* shifts */
-ALT(DEF_ASM_OP2(rolb, 0xc0, 0, OPC_MODRM | OPC_BWLX | OPC_SHIFT, OPT_IM8, OPT_EA | OPT_REG))
-ALT(DEF_ASM_OP2(rolb, 0xd2, 0, OPC_MODRM | OPC_BWLX | OPC_SHIFT, OPT_CL, OPT_EA | OPT_REG))
-ALT(DEF_ASM_OP1(rolb, 0xd0, 0, OPC_MODRM | OPC_BWLX | OPC_SHIFT, OPT_EA | OPT_REG))
+ALT(DEF_ASM_OP2(rolb, 0xc0, 0, OPC_MODRM | OPC_BWLX | OPC_ਖਿਸਕਾਓ, OPT_IM8, OPT_EA | OPT_REG))
+ALT(DEF_ASM_OP2(rolb, 0xd2, 0, OPC_MODRM | OPC_BWLX | OPC_ਖਿਸਕਾਓ, OPT_CL, OPT_EA | OPT_REG))
+ALT(DEF_ASM_OP1(rolb, 0xd0, 0, OPC_MODRM | OPC_BWLX | OPC_ਖਿਸਕਾਓ, OPT_EA | OPT_REG))
 
 ALT(DEF_ASM_OP3(shldw, 0x0fa4, 0, OPC_MODRM | OPC_WLX, OPT_IM8, OPT_REGW, OPT_EA | OPT_REGW))
 ALT(DEF_ASM_OP3(shldw, 0x0fa5, 0, OPC_MODRM | OPC_WLX, OPT_CL, OPT_REGW, OPT_EA | OPT_REGW))
@@ -217,7 +217,7 @@ ALT(DEF_ASM_OP1(lcall, 0xff, 3, OPC_MODRM, OPT_EA))
 ALT(DEF_ASM_OP2(ljmp, 0xea, 0, 0, OPT_IM16, OPT_IM32))
 ALT(DEF_ASM_OP1(ljmp, 0xff, 5, OPC_MODRM, OPT_EA))
 
-ALT(DEF_ASM_OP1(int, 0xcd, 0, 0, OPT_IM8))
+ALT(DEF_ASM_OP1(ਪੂਰਨ, 0xcd, 0, 0, OPT_IM8))
 ALT(DEF_ASM_OP1(seto, 0x0f90, 0, OPC_MODRM | OPC_TEST, OPT_REG8 | OPT_EA))
 ALT(DEF_ASM_OP1(setob, 0x0f90, 0, OPC_MODRM | OPC_TEST, OPT_REG8 | OPT_EA))
     DEF_ASM_OP2(enter, 0xc8, 0, 0, OPT_IM16, OPT_IM8)
@@ -482,9 +482,9 @@ ALT(DEF_ASM_OP2(movhps, 0x0f17, 0, OPC_MODRM, OPT_SSE, OPT_EA | OPT_REG32 ))
     DEF_ASM_OP2(sqrtps, 0x0f51, 0, OPC_MODRM, OPT_EA | OPT_SSE, OPT_SSE )
     DEF_ASM_OP2(subps, 0x0f5c, 0, OPC_MODRM, OPT_EA | OPT_SSE, OPT_SSE )
 
-#undef ALT
-#undef DEF_ASM_OP0
-#undef DEF_ASM_OP0L
-#undef DEF_ASM_OP1
-#undef DEF_ASM_OP2
-#undef DEF_ASM_OP3
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ ALT
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ DEF_ASM_OP0
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ DEF_ASM_OP0L
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ DEF_ASM_OP1
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ DEF_ASM_OP2
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ DEF_ASM_OP3

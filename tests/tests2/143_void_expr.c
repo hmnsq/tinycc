@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-static void f(int x)
+ਸਥਿਰ ਖਾਲੀ f(ਪੂਰਨ x)
 {
-     printf("f(%d)\n", x);
+     ਲਿਖੋ("f(%d)\n", x);
 }
 
-int main(void)
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
-         printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+     ਪੂਰਨ ਗਿਣਤੀ_3 = 0, i = 0;
+     ਲਈ (; i < 3; ++i) {
+         ਲਿਖੋ("%d\n", i);
+         (ਖਾਲੀ)(i || (f(i), ++ਗਿਣਤੀ_3));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     ਲਿਖੋ("count %d\n", ਗਿਣਤੀ_3);
+     ਵਾਪਸ ਗਿਣਤੀ_3 == 1 ? 0 : 1;
 }

@@ -1,54 +1,54 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+ਖਾਲੀ foo(ਪੂਰਨ [5]);
+ਖਾਲੀ fooc(ਪੂਰਨ x[ਅਚਲ 5]);
+ਖਾਲੀ foos(ਪੂਰਨ x[ਸਥਿਰ 5]);
+ਖਾਲੀ foov(ਪੂਰਨ x[ਅਸਥਿਰ 5]);
+ਖਾਲੀ foor(ਪੂਰਨ x[ਸੀਮਿਤ 5]);
+ਖਾਲੀ fooc(ਪੂਰਨ [ਅਚਲ 5]);
+ਖਾਲੀ foos(ਪੂਰਨ [ਸਥਿਰ 5]);
+ਖਾਲੀ foov(ਪੂਰਨ [ਅਸਥਿਰ 5]);
+ਖਾਲੀ foor(ਪੂਰਨ [ਸੀਮਿਤ 5]);
+ਖਾਲੀ fooc(ਪੂਰਨ (* ਅਚਲ x));
+ਖਾਲੀ foos(ਪੂਰਨ *x);
+ਖਾਲੀ foov(ਪੂਰਨ * ਅਸਥਿਰ x);
+ਖਾਲੀ foor(ਪੂਰਨ * ਸੀਮਿਤ x);
+ਖਾਲੀ fooc(ਪੂਰਨ x[ਅਸਥਿਰ 5])
 {
   x[3] = 42;
-#ifdef INVALID
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ INVALID
   x = 0;
-#endif
+#ਜੇ_ਅੰਤ
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+ਖਾਲੀ foovm(ਪੂਰਨ x[ਅਚਲ *]);
+ਖਾਲੀ foovm(ਪੂਰਨ * ਅਚਲ x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
-typedef restrict pointer_array restricted_pointer_array;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ *ਸੂਚਕ_array[2];
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ *ਸੀਮਿਤ restricted_ਸੂਚਕ;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਸੀਮਿਤ ਸੂਚਕ_array restricted_ਸੂਚਕ_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
-                                             restricted_pointer *),
+_Static_assert(!__builtin_types_compatible_p(ਪੂਰਨ **,
+                                             restricted_ਸੂਚਕ *),
                "nested restrict qualifier is retained");
-_Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
-                                            restricted_pointer[2]),
+_Static_assert(__builtin_types_compatible_p(restricted_ਸੂਚਕ_array,
+                                            restricted_ਸੂਚਕ[2]),
                "restrict can qualify an array of pointer types");
 
-restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+restricted_ਸੂਚਕ *restricted_pp;
+ਪੂਰਨ **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
-                   restricted_pointer *),
+                   restricted_ਸੂਚਕ *),
                "conditional expression combines restrict qualifiers");
 
-#ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ INVALID
+ਖਾਲੀ wrongc(ਪੂਰਨ x[3][ਅਚਲ 4]);
+ਖਾਲੀ wrongvm(ਪੂਰਨ x[ਸਥਿਰ *]);
+ਖਾਲੀ foovm(ਪੂਰਨ x[ਅਚਲ *])
 {
   x[2] = 1;
 }
-#endif
-int main()
+#ਜੇ_ਅੰਤ
+ਪੂਰਨ ਮੁੱਖ()
 {
-  return 0;
+  ਵਾਪਸ 0;
 }

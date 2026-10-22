@@ -5,12 +5,12 @@
    itself needs this function */
 
 /* ------------------------------------------------------------- */
-#if defined __arm__
+#ਜੇ defined __arm__
 
-#ifdef __TINYC__
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __TINYC__
 
 /* syscall wrapper */
-unsigned _tccsyscall(unsigned syscall_nr, ...);
+ਬਿਨਾਨਿਸ਼ਾਨੀ _tccsyscall(ਬਿਨਾਨਿਸ਼ਾਨੀ syscall_nr, ...);
 
 /* arm-tcc supports only fake asm currently */
 __asm__(
@@ -26,45 +26,45 @@ __asm__(
     );
 
 /* from unistd.h: */
-#if defined(__thumb__) || defined(__ARM_EABI__)
+#ਜੇ defined(__thumb__) || defined(__ARM_EABI__)
 # define __NR_SYSCALL_BASE      0x0
-#else
+#ਨਹੀਂਤਾਂ
 # define __NR_SYSCALL_BASE      0x900000
-#endif
-#define __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
-#define __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
+#ਜੇ_ਅੰਤ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
 
-#define syscall _tccsyscall
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ syscall _tccsyscall
 
-#else
+#ਨਹੀਂਤਾਂ
 
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <stdio.h>
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GNU_ਸਰੋਤ
+#ਅਨ੍ਤਰ੍ਭਾਵ <unistd.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <sys/syscall.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-#endif
+#ਜੇ_ਅੰਤ
 
 /* Flushing for tccrun */
-void __clear_cache(void *beginning, void *end)
+ਖਾਲੀ __clear_cache(ਖਾਲੀ *beginning, ਖਾਲੀ *ਸਿਰਾ)
 {
 /* __ARM_NR_cacheflush is kernel private and should not be used in user space.
  * However, there is no ARM asm parser in tcc so we use it for now */
-    syscall(__ARM_NR_cacheflush, beginning, end, 0);
+    syscall(__ARM_NR_cacheflush, beginning, ਸਿਰਾ, 0);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __aarch64__
-void __clear_cache(void *beg, void *end)
+#ਜਾਂਜੇ defined __aarch64__
+ਖਾਲੀ __clear_cache(ਖਾਲੀ *beg, ਖਾਲੀ *ਸਿਰਾ)
 {
-    __arm64_clear_cache(beg, end);
+    __arm64_clear_cache(beg, ਸਿਰਾ);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __riscv
-void __clear_cache(void *beg, void *end)
+#ਜਾਂਜੇ defined __riscv
+ਖਾਲੀ __clear_cache(ਖਾਲੀ *beg, ਖਾਲੀ *ਸਿਰਾ)
 {
-    __riscv64_clear_cache(beg, end);
+    __riscv64_clear_cache(beg, ਸਿਰਾ);
 }
 
-#endif
+#ਜੇ_ਅੰਤ

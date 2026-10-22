@@ -8,7 +8,7 @@
  *
  * unistd.h maps (roughly) to io.h
  */
-#ifndef __STRICT_ANSI__
-#include <io.h>
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __STRICT_ANSI__
+#ਅਨ੍ਤਰ੍ਭਾਵ <io.h>
+#ਜੇ_ਅੰਤ
 

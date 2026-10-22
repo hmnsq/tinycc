@@ -2,86 +2,86 @@
 /* for linking rt_printline and the signal/exception handler
    from tccrun.c into executables. */
 
-#define CONFIG_TCC_BACKTRACE_ONLY
-#define ONE_SOURCE 0
-#define pstrcpy tcc_pstrcpy
-#include "../tccrun.c"
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CONFIG_TCC_BACKTRACE_ONLY
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ONE_ਸਰੋਤ 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ pstrcpy tcc_pstrcpy
+#ਅਨ੍ਤਰ੍ਭਾਵ "../tccrun.c"
 
-#ifndef _WIN32
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WIN32
 # define __declspec(n)
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifdef _WIN64
-static void bt_init_pe_prog_base(rt_context *p)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _WIN64
+ਸਥਿਰ ਖਾਲੀ bt_init_pe_prog_ਅਧਾਰ(rt_context *p)
 {
-    MEMORY_BASIC_INFORMATION mbi;
+    ਸਮ੍ਰਿਤੀ_BASIC_INFORMATION mbi;
     addr_t imagebase;
 
-    if (!p->prog_base)
-        return;
-    if (!VirtualQuery(p, &mbi, sizeof(mbi)) || !mbi.AllocationBase)
-        return;
-    imagebase = (addr_t)mbi.AllocationBase - p->prog_base;
-    p->prog_base = (addr_t)mbi.AllocationBase - (imagebase & 0xffffffffu);
+    ਜੇ (!p->prog_ਅਧਾਰ)
+        ਵਾਪਸ;
+    ਜੇ (!VirtualQuery(p, &mbi, ਆਕਾਰ(mbi)) || !mbi.ਵੰਡ_ਅਧਾਰ)
+        ਵਾਪਸ;
+    imagebase = (addr_t)mbi.ਵੰਡ_ਅਧਾਰ - p->prog_ਅਧਾਰ;
+    p->prog_ਅਧਾਰ = (addr_t)mbi.ਵੰਡ_ਅਧਾਰ - (imagebase & 0xffffffffu);
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 __declspec(dllexport)
-void __bt_init(rt_context *p, int is_exe)
+ਖਾਲੀ __bt_init(rt_context *p, ਪੂਰਨ is_exe)
 {
-    __attribute__((weak)) int main();
-    __attribute__((weak)) void __bound_init(void*, int);
+    __attribute__((weak)) ਪੂਰਨ ਮੁੱਖ();
+    __attribute__((weak)) ਖਾਲੀ __bound_init(ਖਾਲੀ*, ਪੂਰਨ);
 
     //fprintf(stderr, "__bt_init %d %p %p %p\n", is_exe, p, p->stab_sym, p->bounds_start), fflush(stderr);
 
     /* call __bound_init here due to redirection of sigaction */
     /* needed to add global symbols */
-    if (p->bounds_start)
-	__bound_init(p->bounds_start, -1);
+    ਜੇ (p->bounds_ਸ਼ੁਰੂ)
+	__bound_init(p->bounds_ਸ਼ੁਰੂ, -1);
 
-#ifdef _WIN64
-    bt_init_pe_prog_base(p);
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _WIN64
+    bt_init_pe_prog_ਅਧਾਰ(p);
+#ਜੇ_ਅੰਤ
 
     /* add to chain */
     rt_wait_sem();
-    p->next = g_rc, g_rc = p;
+    p->ਅਗਲਾ = g_rc, g_rc = p;
     rt_post_sem();
-    if (is_exe) {
+    ਜੇ (is_exe) {
         /* we are the executable (not a dll) */
-        p->top_func = main;
-        set_exception_handler();
+        p->ਸਿਖਰ_func = ਮੁੱਖ;
+        ਸੈੱਟ_exception_handler();
     }
 }
 
 __declspec(dllexport)
-void __bt_exit(rt_context *p)
+ਖਾਲੀ __bt_exit(rt_context *p)
 {
-    struct rt_context *rc, **pp;
-    __attribute__((weak)) void __bound_exit_dll(void*);
+    ਬਣਤਰ rt_context *rc, **pp;
+    __attribute__((weak)) ਖਾਲੀ __bound_exit_dll(ਖਾਲੀ*);
 
     //fprintf(stderr, "__bt_exit %d %p\n", !!p->top_func, p);
 
-    if (p->bounds_start)
-	__bound_exit_dll(p->bounds_start);
+    ਜੇ (p->bounds_ਸ਼ੁਰੂ)
+	__bound_exit_dll(p->bounds_ਸ਼ੁਰੂ);
 
     /* remove from chain */
     rt_wait_sem();
-    for (pp = &g_rc; rc = *pp, rc; pp = &rc->next)
-        if (rc == p) {
-            *pp = rc->next;
-            break;
+    ਲਈ (pp = &g_rc; rc = *pp, rc; pp = &rc->ਅਗਲਾ)
+        ਜੇ (rc == p) {
+            *pp = rc->ਅਗਲਾ;
+            ਰੋਕੋ;
         }
     rt_post_sem();
 }
 
 /* copy a string and truncate it. */
-ST_FUNC char *pstrcpy(char *buf, size_t buf_size, const char *s)
+ST_FUNC ਅੱਖਰ *pstrcpy(ਅੱਖਰ *buf, ਮਾਪ_t buf_ਮਾਪ, ਅਚਲ ਅੱਖਰ *s)
 {
-    int l = strlen(s);
-    if (l >= buf_size)
-        l = buf_size - 1;
-    memcpy(buf, s, l);
+    ਪੂਰਨ l = ਲੜੀ_ਲੰਬਾਈ(s);
+    ਜੇ (l >= buf_ਮਾਪ)
+        l = buf_ਮਾਪ - 1;
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(buf, s, l);
     buf[l] = 0;
-    return buf;
+    ਵਾਪਸ buf;
 }

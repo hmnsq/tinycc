@@ -3,53 +3,53 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_DOS
-#define _INC_DOS
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _INC_DOS
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _INC_DOS
 
-#include <_mingw.h>
-#include <io.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <_mingw.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ਹਦਾਇਤ pack(ਧੱਕੋ,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#ifndef _DISKFREE_T_DEFINED
-#define _DISKFREE_T_DEFINED
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _DISKFREE_T_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _DISKFREE_T_DEFINED
 
-  struct _diskfree_t {
-    unsigned total_clusters;
-    unsigned avail_clusters;
-    unsigned sectors_per_cluster;
-    unsigned bytes_per_sector;
+  ਬਣਤਰ _diskfree_t {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਕੁੱਲ_clusters;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ avail_clusters;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ sectors_ਪ੍ਰਤੀ_cluster;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਬਾਈਟਾਂ_ਪ੍ਰਤੀ_sector;
   };
-#endif
+#ਜੇ_ਅੰਤ
 
-#define _A_NORMAL 0x00
-#define _A_RDONLY 0x01
-#define _A_HIDDEN 0x02
-#define _A_SYSTEM 0x04
-#define _A_SUBDIR 0x10
-#define _A_ARCH 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ A_ਸਾਧਾਰਨ 0x00
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _A_RDONLY 0x01
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _A_HIDDEN 0x02
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _A_SYSTEM 0x04
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _A_SUBDIR 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _A_ARCH 0x20
 
-#ifndef _GETDISKFREE_DEFINED
-#define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _GETDISKFREE_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _GETDISKFREE_DEFINED
+  _CRTIMP ਬਿਨਾਨਿਸ਼ਾਨੀ __cdecl _getdiskfree(ਬਿਨਾਨਿਸ਼ਾਨੀ _Drive,ਬਣਤਰ _diskfree_t *_DiskFree);
+#ਜੇ_ਅੰਤ
 
-#if (defined(_X86_) && !defined(__x86_64))
-  void __cdecl _disable(void);
-  void __cdecl _enable(void);
-#endif
+#ਜੇ (defined(_X86_) && !defined(__x86_64))
+  ਖਾਲੀ __cdecl _disable(ਖਾਲੀ);
+  ਖਾਲੀ __cdecl _enable(ਖਾਲੀ);
+#ਜੇ_ਅੰਤ
 
-#ifndef	NO_OLDNAMES
-#define diskfree_t _diskfree_t
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ	NO_OLDNAMES
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ diskfree_t _diskfree_t
+#ਜੇ_ਅੰਤ
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-#pragma pack(pop)
-#endif
+#ਹਦਾਇਤ pack(ਕੱਢੋ)
+#ਜੇ_ਅੰਤ

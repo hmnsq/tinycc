@@ -1,86 +1,86 @@
 /* ------------------------------------------------------------- */
 /* support for tcc_run() */
 
-#ifdef __leading_underscore
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __leading_underscore
 # define _(s) s
-#else
+#ਨਹੀਂਤਾਂ
 # define _(s) _##s
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef _WIN32
-extern void (*_(_init_array_start)[]) (int argc, char **argv, char **envp);
-extern void (*_(_init_array_end)[]) (int argc, char **argv, char **envp);
-static void run_ctors(int argc, char **argv, char **env)
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WIN32
+ਬਾਹਰੀ ਖਾਲੀ (*_(init_array_ਸ਼ੁਰੂ)[]) (ਪੂਰਨ argc, ਅੱਖਰ **argv, ਅੱਖਰ **envp);
+ਬਾਹਰੀ ਖਾਲੀ (*_(init_array_ਸਿਰਾ)[]) (ਪੂਰਨ argc, ਅੱਖਰ **argv, ਅੱਖਰ **envp);
+ਸਥਿਰ ਖਾਲੀ ਲੜੀਵਾਰ_ctors(ਪੂਰਨ argc, ਅੱਖਰ **argv, ਅੱਖਰ **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
-        (*_(_init_array_start)[i++])(argc, argv, env);
+    ਪੂਰਨ i = 0;
+    ਜਦੋਂ (&_(init_array_ਸ਼ੁਰੂ)[i] != _(init_array_ਸਿਰਾ))
+        (*_(init_array_ਸ਼ੁਰੂ)[i++])(argc, argv, env);
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
-static void run_dtors(void)
+ਬਾਹਰੀ ਖਾਲੀ (*_(fini_array_ਸ਼ੁਰੂ)[]) (ਖਾਲੀ);
+ਬਾਹਰੀ ਖਾਲੀ (*_(fini_array_ਸਿਰਾ)[]) (ਖਾਲੀ);
+ਸਥਿਰ ਖਾਲੀ ਲੜੀਵਾਰ_dtors(ਖਾਲੀ)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
-        (*_(_fini_array_end)[--i])();
-}
-
-static void *rt_exitfunc[32];
-static void *rt_exitarg[32];
-static int __rt_nr_exit;
-
-void __run_on_exit(int ret)
-{
-    int n = __rt_nr_exit;
-    while (n)
-	--n, ((void(*)(int,void*))rt_exitfunc[n])(ret, rt_exitarg[n]);
+    ਪੂਰਨ i = 0;
+    ਜਦੋਂ (&_(fini_array_ਸਿਰਾ)[i] != _(fini_array_ਸ਼ੁਰੂ))
+        (*_(fini_array_ਸਿਰਾ)[--i])();
 }
 
-int on_exit(void *function, void *arg)
+ਸਥਿਰ ਖਾਲੀ *rt_exitfunc[32];
+ਸਥਿਰ ਖਾਲੀ *rt_exitarg[32];
+ਸਥਿਰ ਪੂਰਨ __rt_nr_exit;
+
+ਖਾਲੀ __run_on_exit(ਪੂਰਨ ret)
 {
-    int n = __rt_nr_exit;
-    if (n < 32) {
+    ਪੂਰਨ n = __rt_nr_exit;
+    ਜਦੋਂ (n)
+	--n, ((ਖਾਲੀ(*)(ਪੂਰਨ,ਖਾਲੀ*))rt_exitfunc[n])(ret, rt_exitarg[n]);
+}
+
+ਪੂਰਨ on_exit(ਖਾਲੀ *function, ਖਾਲੀ *arg)
+{
+    ਪੂਰਨ n = __rt_nr_exit;
+    ਜੇ (n < 32) {
 	rt_exitfunc[n] = function;
 	rt_exitarg[n] = arg;
         __rt_nr_exit = n + 1;
-        return 0;
+        ਵਾਪਸ 0;
     }
-    return 1;
+    ਵਾਪਸ 1;
 }
 
-int atexit(void (*function)(void))
+ਪੂਰਨ atexit(ਖਾਲੀ (*function)(ਖਾਲੀ))
 {
-    return on_exit(function, 0);
+    ਵਾਪਸ on_exit(function, 0);
 }
 
-typedef struct rt_frame {
-    void *ip, *fp, *sp;
-} rt_frame;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ rt_ਚੌਖਟਾ {
+    ਖਾਲੀ *ip, *fp, *sp;
+} rt_ਚੌਖਟਾ;
 
-__attribute__((noreturn)) void __rt_exit(rt_frame *, int);
+__attribute__((noreturn)) ਖਾਲੀ __rt_exit(rt_ਚੌਖਟਾ *, ਪੂਰਨ);
 
-void exit(int code)
+ਖਾਲੀ ਬਾਹਰ_ਨਿਕਲੋ(ਪੂਰਨ ਕੋਡ)
 {
-    rt_frame f;
-    run_dtors();
-    __run_on_exit(code);
+    rt_ਚੌਖਟਾ f;
+    ਲੜੀਵਾਰ_dtors();
+    __run_on_exit(ਕੋਡ);
     f.fp = 0;
-    f.ip = exit;
-    __rt_exit(&f, code);
+    f.ip = ਬਾਹਰ_ਨਿਕਲੋ;
+    __rt_exit(&f, ਕੋਡ);
 }
 
-#ifndef _WIN32
-int main(int, char**, char**);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WIN32
+ਪੂਰਨ ਮੁੱਖ(ਪੂਰਨ, ਅੱਖਰ**, ਅੱਖਰ**);
 
-int _runmain(int argc, char **argv, char **envp)
+ਪੂਰਨ _runmain(ਪੂਰਨ argc, ਅੱਖਰ **argv, ਅੱਖਰ **envp)
 {
-    int ret;
-    run_ctors(argc, argv, envp);
-    ret = main(argc, argv, envp);
-    run_dtors();
+    ਪੂਰਨ ret;
+    ਲੜੀਵਾਰ_ctors(argc, argv, envp);
+    ret = ਮੁੱਖ(argc, argv, envp);
+    ਲੜੀਵਾਰ_dtors();
     __run_on_exit(ret);
-    return ret;
+    ਵਾਪਸ ret;
 }
-#endif
+#ਜੇ_ਅੰਤ

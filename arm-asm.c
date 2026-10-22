@@ -19,23 +19,23 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifdef TARGET_DEFS_ONLY
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ ਨਿਸ਼ਾਨਾ_DEFS_ONLY
 
-#define CONFIG_TCC_ASM
-#define NB_ASM_REGS 16
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CONFIG_TCC_ASM
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NB_ASM_REGS 16
 
-ST_FUNC void g(int c);
-ST_FUNC void gen_le16(int c);
-ST_FUNC void gen_le32(int c);
+ST_FUNC ਖਾਲੀ g(ਪੂਰਨ c);
+ST_FUNC ਖਾਲੀ gen_le16(ਪੂਰਨ c);
+ST_FUNC ਖਾਲੀ gen_le32(ਪੂਰਨ c);
 
 /*************************************************************/
-#else
+#ਨਹੀਂਤਾਂ
 /*************************************************************/
 
-#define USING_GLOBALS
-#include "tcc.h"
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ USING_GLOBALS
+#ਅਨ੍ਤਰ੍ਭਾਵ "tcc.h"
 
-enum {
+ਗਿਣਤੀ {
     OPT_REG32,
     OPT_REGSET32,
     OPT_IM8,
@@ -44,427 +44,427 @@ enum {
     OPT_VREG32,
     OPT_VREG64,
 };
-#define OP_REG32  (1 << OPT_REG32)
-#define OP_VREG32 (1 << OPT_VREG32)
-#define OP_VREG64 (1 << OPT_VREG64)
-#define OP_REG    (OP_REG32 | OP_VREG32 | OP_VREG64)
-#define OP_IM32   (1 << OPT_IM32)
-#define OP_IM8   (1 << OPT_IM8)
-#define OP_IM8N   (1 << OPT_IM8N)
-#define OP_REGSET32  (1 << OPT_REGSET32)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OP_REG32  (1 << OPT_REG32)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OP_VREG32 (1 << OPT_VREG32)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OP_VREG64 (1 << OPT_VREG64)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OP_REG    (OP_REG32 | OP_VREG32 | OP_VREG64)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OP_IM32   (1 << OPT_IM32)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OP_IM8   (1 << OPT_IM8)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OP_IM8N   (1 << OPT_IM8N)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ OP_REGSET32  (1 << OPT_REGSET32)
 
-typedef struct Operand {
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਸੰਕਾਰਜ {
     uint32_t type;
-    union {
+    ਸੰਘ {
         uint8_t reg;
         uint16_t regset;
-        ExprValue e;
+        ਵਿਅੰਜਕ_ਮੁੱਲ e;
     };
-} Operand;
+} ਸੰਕਾਰਜ;
 
 /* Read the VFP register referred to by token T.
    If OK, returns its number.
    If not OK, returns -1. */
-static int asm_parse_vfp_regvar(int t, int double_precision)
+ਸਥਿਰ ਪੂਰਨ asm_parse_vfp_regvar(ਪੂਰਨ t, ਪੂਰਨ double_precision)
 {
-    if (double_precision) {
-        if (t >= TOK_ASM_d0 && t <= TOK_ASM_d15)
-            return t - TOK_ASM_d0;
-    } else {
-        if (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
-            return t - TOK_ASM_s0;
+    ਜੇ (double_precision) {
+        ਜੇ (t >= TOK_ASM_d0 && t <= TOK_ASM_d15)
+            ਵਾਪਸ t - TOK_ASM_d0;
+    } ਨਹੀਂਤਾਂ {
+        ਜੇ (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
+            ਵਾਪਸ t - TOK_ASM_s0;
     }
-    return -1;
+    ਵਾਪਸ -1;
 }
 
 /* Parse a text containing operand and store the result in OP */
-static void parse_operand(TCCState *s1, Operand *op)
+ਸਥਿਰ ਖਾਲੀ parse_ਸੰਕਾਰਜ(TCCState *s1, ਸੰਕਾਰਜ *op)
 {
-    ExprValue e;
+    ਵਿਅੰਜਕ_ਮੁੱਲ e;
     int8_t reg;
     uint16_t regset = 0;
 
     op->type = 0;
 
-    if (tok == '{') { // regset literal
-        next(); // skip '{'
-        while (tok != '}' && tok != TOK_EOF) {
+    ਜੇ (tok == '{') { // regset literal
+        ਅਗਲਾ(); // skip '{'
+        ਜਦੋਂ (tok != '}' && tok != TOK_EOF) {
             reg = asm_parse_regvar(tok);
-            if (reg == -1) {
+            ਜੇ (reg == -1) {
                 expect("register");
-            } else
-                next(); // skip register name
+            } ਨਹੀਂਤਾਂ
+                ਅਗਲਾ(); // skip register name
 
-            if ((1 << reg) < regset)
+            ਜੇ ((1 << reg) < regset)
                 tcc_warning("registers will be processed in ascending order by hardware--but are not specified in ascending order here");
             regset |= 1 << reg;
-            if (tok != ',')
-                break;
-            next(); // skip ','
+            ਜੇ (tok != ',')
+                ਰੋਕੋ;
+            ਅਗਲਾ(); // skip ','
         }
         skip('}');
-        if (regset == 0) {
+        ਜੇ (regset == 0) {
             // ARM instructions don't support empty regset.
             tcc_error("empty register list is not supported");
-        } else {
+        } ਨਹੀਂਤਾਂ {
             op->type = OP_REGSET32;
             op->regset = regset;
         }
-        return;
-    } else if ((reg = asm_parse_regvar(tok)) != -1) {
-        next(); // skip register name
+        ਵਾਪਸ;
+    } ਨਹੀਂਤਾਂ ਜੇ ((reg = asm_parse_regvar(tok)) != -1) {
+        ਅਗਲਾ(); // skip register name
         op->type = OP_REG32;
         op->reg = (uint8_t) reg;
-        return;
-    } else if ((reg = asm_parse_vfp_regvar(tok, 0)) != -1) {
-        next(); // skip register name
+        ਵਾਪਸ;
+    } ਨਹੀਂਤਾਂ ਜੇ ((reg = asm_parse_vfp_regvar(tok, 0)) != -1) {
+        ਅਗਲਾ(); // skip register name
         op->type = OP_VREG32;
         op->reg = (uint8_t) reg;
-        return;
-    } else if ((reg = asm_parse_vfp_regvar(tok, 1)) != -1) {
-        next(); // skip register name
+        ਵਾਪਸ;
+    } ਨਹੀਂਤਾਂ ਜੇ ((reg = asm_parse_vfp_regvar(tok, 1)) != -1) {
+        ਅਗਲਾ(); // skip register name
         op->type = OP_VREG64;
         op->reg = (uint8_t) reg;
-        return;
-    } else if (tok == '#' || tok == '$') {
+        ਵਾਪਸ;
+    } ਨਹੀਂਤਾਂ ਜੇ (tok == '#' || tok == '$') {
         /* constant value */
-        next(); // skip '#' or '$'
+        ਅਗਲਾ(); // skip '#' or '$'
     }
-    asm_expr(s1, &e);
+    asm_ਵਿਅੰਜਕ(s1, &e);
     op->type = OP_IM32;
     op->e = e;
-    if (!op->e.sym) {
-        if ((int) op->e.v < 0 && (int) op->e.v >= -255)
+    ਜੇ (!op->e.sym) {
+        ਜੇ ((ਪੂਰਨ) op->e.v < 0 && (ਪੂਰਨ) op->e.v >= -255)
             op->type = OP_IM8N;
-        else if (op->e.v == (uint8_t)op->e.v)
+        ਨਹੀਂਤਾਂ ਜੇ (op->e.v == (uint8_t)op->e.v)
             op->type = OP_IM8;
-    } else
+    } ਨਹੀਂਤਾਂ
         expect("operand");
 }
 
 /* XXX: make it faster ? */
-ST_FUNC void g(int c)
+ST_FUNC ਖਾਲੀ g(ਪੂਰਨ c)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    ਪੂਰਨ ind1;
+    ਜੇ (nocode_wanted)
+        ਵਾਪਸ;
     ind1 = ind + 1;
-    if (ind1 > cur_text_section->data_allocated)
-        section_realloc(cur_text_section, ind1);
-    cur_text_section->data[ind] = c;
+    ਜੇ (ind1 > cur_ਪਾਠ_section->ਅੰਕੜੇ_allocated)
+        section_realloc(cur_ਪਾਠ_section, ind1);
+    cur_ਪਾਠ_section->ਅੰਕੜੇ[ind] = c;
     ind = ind1;
 }
 
-ST_FUNC void gen_le16 (int i)
+ST_FUNC ਖਾਲੀ gen_le16 (ਪੂਰਨ i)
 {
     g(i);
     g(i>>8);
 }
 
-ST_FUNC void gen_le32 (int i)
+ST_FUNC ਖਾਲੀ gen_le32 (ਪੂਰਨ i)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    ਪੂਰਨ ind1;
+    ਜੇ (nocode_wanted)
+        ਵਾਪਸ;
     ind1 = ind + 4;
-    if (ind1 > cur_text_section->data_allocated)
-        section_realloc(cur_text_section, ind1);
-    cur_text_section->data[ind++] = i & 0xFF;
-    cur_text_section->data[ind++] = (i >> 8) & 0xFF;
-    cur_text_section->data[ind++] = (i >> 16) & 0xFF;
-    cur_text_section->data[ind++] = (i >> 24) & 0xFF;
+    ਜੇ (ind1 > cur_ਪਾਠ_section->ਅੰਕੜੇ_allocated)
+        section_realloc(cur_ਪਾਠ_section, ind1);
+    cur_ਪਾਠ_section->ਅੰਕੜੇ[ind++] = i & 0xFF;
+    cur_ਪਾਠ_section->ਅੰਕੜੇ[ind++] = (i >> 8) & 0xFF;
+    cur_ਪਾਠ_section->ਅੰਕੜੇ[ind++] = (i >> 16) & 0xFF;
+    cur_ਪਾਠ_section->ਅੰਕੜੇ[ind++] = (i >> 24) & 0xFF;
 }
 
-ST_FUNC void gen_expr32(ExprValue *pe)
+ST_FUNC ਖਾਲੀ gen_expr32(ਵਿਅੰਜਕ_ਮੁੱਲ *pe)
 {
     gen_le32(pe->v);
 }
 
-static uint32_t condition_code_of_token(int token) {
-    if (token < TOK_ASM_nopeq) {
+ਸਥਿਰ uint32_t condition_ਕੋਡ_ਦਾ_token(ਪੂਰਨ token) {
+    ਜੇ (token < TOK_ASM_nopeq) {
         expect("condition-enabled instruction");
-    } else
-        return (token - TOK_ASM_nopeq) & 15;
+    } ਨਹੀਂਤਾਂ
+        ਵਾਪਸ (token - TOK_ASM_nopeq) & 15;
 }
 
-static void asm_emit_opcode(int token, uint32_t opcode) {
-    gen_le32((condition_code_of_token(token) << 28) | opcode);
+ਸਥਿਰ ਖਾਲੀ asm_emit_opcode(ਪੂਰਨ token, uint32_t opcode) {
+    gen_le32((condition_ਕੋਡ_ਦਾ_token(token) << 28) | opcode);
 }
 
-static void asm_emit_unconditional_opcode(uint32_t opcode) {
+ਸਥਿਰ ਖਾਲੀ asm_emit_unconditional_opcode(uint32_t opcode) {
     gen_le32(opcode);
 }
 
-static void asm_emit_coprocessor_opcode(uint32_t high_nibble, uint8_t cp_number, uint8_t cp_opcode, uint8_t cp_destination_register, uint8_t cp_n_operand_register, uint8_t cp_m_operand_register, uint8_t cp_opcode2, int inter_processor_transfer)
+ਸਥਿਰ ਖਾਲੀ asm_emit_coprocessor_opcode(uint32_t ਉੱਚਾ_nibble, uint8_t cp_ਸੰਖਿਆ, uint8_t cp_opcode, uint8_t cp_destination_ਰਜਿਸਟਰ, uint8_t cp_n_ਸੰਕਾਰਜ_ਰਜਿਸਟਰ, uint8_t cp_m_ਸੰਕਾਰਜ_ਰਜਿਸਟਰ, uint8_t cp_opcode2, ਪੂਰਨ inter_processor_transfer)
 {
     uint32_t opcode = 0xe000000;
-    if (inter_processor_transfer)
+    ਜੇ (inter_processor_transfer)
         opcode |= 1 << 4;
     //assert(cp_opcode < 16);
     opcode |= cp_opcode << 20;
     //assert(cp_n_operand_register < 16);
-    opcode |= cp_n_operand_register << 16;
+    opcode |= cp_n_ਸੰਕਾਰਜ_ਰਜਿਸਟਰ << 16;
     //assert(cp_destination_register < 16);
-    opcode |= cp_destination_register << 12;
+    opcode |= cp_destination_ਰਜਿਸਟਰ << 12;
     //assert(cp_number < 16);
-    opcode |= cp_number << 8;
+    opcode |= cp_ਸੰਖਿਆ << 8;
     //assert(cp_information < 8);
     opcode |= cp_opcode2 << 5;
     //assert(cp_m_operand_register < 16);
-    opcode |= cp_m_operand_register;
-    asm_emit_unconditional_opcode((high_nibble << 28) | opcode);
+    opcode |= cp_m_ਸੰਕਾਰਜ_ਰਜਿਸਟਰ;
+    asm_emit_unconditional_opcode((ਉੱਚਾ_nibble << 28) | opcode);
 }
 
-static void asm_nullary_opcode(int token)
+ਸਥਿਰ ਖਾਲੀ asm_nullary_opcode(ਪੂਰਨ token)
 {
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_nopeq:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_nopeq:
         asm_emit_opcode(token, 0xd << 21); // mov r0, r0
-        break;
-    case TOK_ASM_wfeeq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_wfeeq:
         asm_emit_opcode(token, 0x320f002);
-    case TOK_ASM_wfieq:
+    ਹਾਲਤ TOK_ASM_wfieq:
         asm_emit_opcode(token, 0x320f003);
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("nullary instruction");
     }
 }
 
-static void asm_unary_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_unary_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    Operand op;
-    parse_operand(s1, &op);
+    ਸੰਕਾਰਜ op;
+    parse_ਸੰਕਾਰਜ(s1, &op);
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_swieq:
-    case TOK_ASM_svceq:
-        if (op.type != OP_IM8)
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_swieq:
+    ਹਾਲਤ TOK_ASM_svceq:
+        ਜੇ (op.type != OP_IM8)
             expect("immediate 8-bit unsigned integer");
-        else {
+        ਨਹੀਂਤਾਂ {
             /* Note: Dummy operand (ignored by processor): ARM ref documented 0...255, ARM instruction set documented 24 bit */
             asm_emit_opcode(token, (0xf << 24) | op.e.v);
         }
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("unary instruction");
     }
 }
 
-static void asm_binary_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_ਦੁਆਧਾਰੀ_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    Operand ops[2];
-    Operand rotation;
+    ਸੰਕਾਰਜ ops[2];
+    ਸੰਕਾਰਜ rotation;
     uint32_t encoded_rotation = 0;
     uint64_t amount;
-    parse_operand(s1, &ops[0]);
+    parse_ਸੰਕਾਰਜ(s1, &ops[0]);
     skip(',');
-    parse_operand(s1, &ops[1]);
-    if (ops[0].type != OP_REG32) {
+    parse_ਸੰਕਾਰਜ(s1, &ops[1]);
+    ਜੇ (ops[0].type != OP_REG32) {
         expect("(destination operand) register");
     }
 
-    if (ops[0].reg == 15) {
-        tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, NULL));
+    ਜੇ (ops[0].reg == 15) {
+        tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, ਨਿਰਾ));
     }
 
-    if (ops[0].reg == 13)
-        tcc_warning("Using 'sp' as operand with '%s' is deprecated by ARM", get_tok_str(token, NULL));
+    ਜੇ (ops[0].reg == 13)
+        tcc_warning("Using 'sp' as operand with '%s' is deprecated by ARM", get_tok_str(token, ਨਿਰਾ));
 
-    if (ops[1].type != OP_REG32) {
-        switch (ARM_INSTRUCTION_GROUP(token)) {
-        case TOK_ASM_movteq:
-        case TOK_ASM_movweq:
-            if (ops[1].type == OP_IM8 || ops[1].type == OP_IM8N || ops[1].type == OP_IM32) {
-                if (ops[1].e.v >= 0 && ops[1].e.v <= 0xFFFF) {
-                    uint16_t immediate_value = ops[1].e.v;
-                    switch (ARM_INSTRUCTION_GROUP(token)) {
-                    case TOK_ASM_movteq:
-                        asm_emit_opcode(token, 0x3400000 | (ops[0].reg << 12) | (immediate_value & 0xF000) << 4 | (immediate_value & 0xFFF));
-                        break;
-                    case TOK_ASM_movweq:
-                        asm_emit_opcode(token, 0x3000000 | (ops[0].reg << 12) | (immediate_value & 0xF000) << 4 | (immediate_value & 0xFFF));
-                        break;
+    ਜੇ (ops[1].type != OP_REG32) {
+        ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+        ਹਾਲਤ TOK_ASM_movteq:
+        ਹਾਲਤ TOK_ASM_movweq:
+            ਜੇ (ops[1].type == OP_IM8 || ops[1].type == OP_IM8N || ops[1].type == OP_IM32) {
+                ਜੇ (ops[1].e.v >= 0 && ops[1].e.v <= 0xFFFF) {
+                    uint16_t ਤੁਰੰਤ_ਮੁੱਲ = ops[1].e.v;
+                    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+                    ਹਾਲਤ TOK_ASM_movteq:
+                        asm_emit_opcode(token, 0x3400000 | (ops[0].reg << 12) | (ਤੁਰੰਤ_ਮੁੱਲ & 0xF000) << 4 | (ਤੁਰੰਤ_ਮੁੱਲ & 0xFFF));
+                        ਰੋਕੋ;
+                    ਹਾਲਤ TOK_ASM_movweq:
+                        asm_emit_opcode(token, 0x3000000 | (ops[0].reg << 12) | (ਤੁਰੰਤ_ਮੁੱਲ & 0xF000) << 4 | (ਤੁਰੰਤ_ਮੁੱਲ & 0xFFF));
+                        ਰੋਕੋ;
                     }
-                } else
+                } ਨਹੀਂਤਾਂ
                     expect("(source operand) immediate 16 bit value");
-            } else
+            } ਨਹੀਂਤਾਂ
                 expect("(source operand) immediate");
-            break;
-        default:
+            ਰੋਕੋ;
+        ਮੂਲ:
             expect("(source operand) register");
         }
-        return;
+        ਵਾਪਸ;
     }
 
-    if (ops[1].reg == 15) {
-        tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, NULL));
+    ਜੇ (ops[1].reg == 15) {
+        tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, ਨਿਰਾ));
     }
 
-    if (ops[1].reg == 13)
-        tcc_warning("Using 'sp' as operand with '%s' is deprecated by ARM", get_tok_str(token, NULL));
+    ਜੇ (ops[1].reg == 13)
+        tcc_warning("Using 'sp' as operand with '%s' is deprecated by ARM", get_tok_str(token, ਨਿਰਾ));
 
-    if (tok == ',') {
-        next(); // skip ','
-        if (tok == TOK_ASM_ror) {
-            next(); // skip 'ror'
-            parse_operand(s1, &rotation);
-            if (rotation.type != OP_IM8) {
+    ਜੇ (tok == ',') {
+        ਅਗਲਾ(); // skip ','
+        ਜੇ (tok == TOK_ASM_ror) {
+            ਅਗਲਾ(); // skip 'ror'
+            parse_ਸੰਕਾਰਜ(s1, &rotation);
+            ਜੇ (rotation.type != OP_IM8) {
                 expect("immediate value for rotation");
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 amount = rotation.e.v;
-                switch (amount) {
-                case 8:
+                ਚੋਣ (amount) {
+                ਹਾਲਤ 8:
                     encoded_rotation = 1 << 10;
-                    break;
-                case 16:
+                    ਰੋਕੋ;
+                ਹਾਲਤ 16:
                     encoded_rotation = 2 << 10;
-                    break;
-                case 24:
+                    ਰੋਕੋ;
+                ਹਾਲਤ 24:
                     encoded_rotation = 3 << 10;
-                    break;
-                default:
+                    ਰੋਕੋ;
+                ਮੂਲ:
                     expect("'8' or '16' or '24'");
                 }
             }
         }
     }
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_clzeq:
-        if (encoded_rotation)
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_clzeq:
+        ਜੇ (encoded_rotation)
             tcc_error("clz does not support rotation");
         asm_emit_opcode(token, 0x16f0f10 | (ops[0].reg << 12) | ops[1].reg);
-        break;
-    case TOK_ASM_sxtbeq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_sxtbeq:
         asm_emit_opcode(token, 0x6af0070 | (ops[0].reg << 12) | ops[1].reg | encoded_rotation);
-        break;
-    case TOK_ASM_sxtheq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_sxtheq:
         asm_emit_opcode(token, 0x6bf0070 | (ops[0].reg << 12) | ops[1].reg | encoded_rotation);
-        break;
-    case TOK_ASM_uxtbeq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_uxtbeq:
         asm_emit_opcode(token, 0x6ef0070 | (ops[0].reg << 12) | ops[1].reg | encoded_rotation);
-        break;
-    case TOK_ASM_uxtheq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_uxtheq:
         asm_emit_opcode(token, 0x6ff0070 | (ops[0].reg << 12) | ops[1].reg | encoded_rotation);
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("binary instruction");
     }
 }
 
-static void asm_coprocessor_opcode(TCCState *s1, int token) {
+ਸਥਿਰ ਖਾਲੀ asm_coprocessor_opcode(TCCState *s1, ਪੂਰਨ token) {
     uint8_t coprocessor;
-    Operand opcode1;
-    Operand opcode2;
+    ਸੰਕਾਰਜ opcode1;
+    ਸੰਕਾਰਜ opcode2;
     uint8_t registers[3];
-    unsigned int i;
-    uint8_t high_nibble;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ i;
+    uint8_t ਉੱਚਾ_nibble;
     uint8_t mrc = 0;
 
-    if (tok >= TOK_ASM_p0 && tok <= TOK_ASM_p15) {
+    ਜੇ (tok >= TOK_ASM_p0 && tok <= TOK_ASM_p15) {
         coprocessor = tok - TOK_ASM_p0;
-        next();
-    } else {
+        ਅਗਲਾ();
+    } ਨਹੀਂਤਾਂ {
         expect("'p<number>'");
     }
     skip(',');
-    parse_operand(s1, &opcode1);
-    if (opcode1.type != OP_IM8 || opcode1.e.v > 15) {
-        tcc_error("opcode1 of instruction '%s' must be an immediate value between 0 and 15", get_tok_str(token, NULL));
+    parse_ਸੰਕਾਰਜ(s1, &opcode1);
+    ਜੇ (opcode1.type != OP_IM8 || opcode1.e.v > 15) {
+        tcc_error("opcode1 of instruction '%s' must be an immediate value between 0 and 15", get_tok_str(token, ਨਿਰਾ));
     }
 
-    for (i = 0; i < 3; ++i) {
+    ਲਈ (i = 0; i < 3; ++i) {
         skip(',');
-        if (i == 0 && token != TOK_ASM_cdp2 && (ARM_INSTRUCTION_GROUP(token) == TOK_ASM_mrceq || ARM_INSTRUCTION_GROUP(token) == TOK_ASM_mcreq)) {
-            if (tok >= TOK_ASM_r0 && tok <= TOK_ASM_pc) {
+        ਜੇ (i == 0 && token != TOK_ASM_cdp2 && (ARM_INSTRUCTION_ਸਮੂਹ(token) == TOK_ASM_mrceq || ARM_INSTRUCTION_ਸਮੂਹ(token) == TOK_ASM_mcreq)) {
+            ਜੇ (tok >= TOK_ASM_r0 && tok <= TOK_ASM_pc) {
                 registers[i] = asm_parse_regvar(tok);
-                next();
-            } else {
+                ਅਗਲਾ();
+            } ਨਹੀਂਤਾਂ {
                 expect("'r<number>'");
             }
-        } else {
-            if (tok >= TOK_ASM_c0 && tok <= TOK_ASM_c15) {
+        } ਨਹੀਂਤਾਂ {
+            ਜੇ (tok >= TOK_ASM_c0 && tok <= TOK_ASM_c15) {
                 registers[i] = tok - TOK_ASM_c0;
-                next();
-            } else {
+                ਅਗਲਾ();
+            } ਨਹੀਂਤਾਂ {
                 expect("'c<number>'");
             }
         }
     }
-    if (tok == ',') {
-        next();
-        parse_operand(s1, &opcode2);
-    } else {
+    ਜੇ (tok == ',') {
+        ਅਗਲਾ();
+        parse_ਸੰਕਾਰਜ(s1, &opcode2);
+    } ਨਹੀਂਤਾਂ {
         opcode2.type = OP_IM8;
         opcode2.e.v = 0;
     }
-    if (opcode2.type != OP_IM8 || opcode2.e.v > 15) {
-        tcc_error("opcode2 of instruction '%s' must be an immediate value between 0 and 15", get_tok_str(token, NULL));
+    ਜੇ (opcode2.type != OP_IM8 || opcode2.e.v > 15) {
+        tcc_error("opcode2 of instruction '%s' must be an immediate value between 0 and 15", get_tok_str(token, ਨਿਰਾ));
     }
 
-    if (token == TOK_ASM_cdp2) {
-        high_nibble = 0xF;
-        asm_emit_coprocessor_opcode(high_nibble, coprocessor, opcode1.e.v, registers[0], registers[1], registers[2], opcode2.e.v, 0);
-        return;
-    } else
-        high_nibble = condition_code_of_token(token);
+    ਜੇ (token == TOK_ASM_cdp2) {
+        ਉੱਚਾ_nibble = 0xF;
+        asm_emit_coprocessor_opcode(ਉੱਚਾ_nibble, coprocessor, opcode1.e.v, registers[0], registers[1], registers[2], opcode2.e.v, 0);
+        ਵਾਪਸ;
+    } ਨਹੀਂਤਾਂ
+        ਉੱਚਾ_nibble = condition_ਕੋਡ_ਦਾ_token(token);
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_cdpeq:
-        asm_emit_coprocessor_opcode(high_nibble, coprocessor, opcode1.e.v, registers[0], registers[1], registers[2], opcode2.e.v, 0);
-        break;
-    case TOK_ASM_mrceq:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_cdpeq:
+        asm_emit_coprocessor_opcode(ਉੱਚਾ_nibble, coprocessor, opcode1.e.v, registers[0], registers[1], registers[2], opcode2.e.v, 0);
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_mrceq:
         // opcode1 encoding changes! highest and lowest bit gone.
         mrc = 1;
         /* fallthrough */
-    case TOK_ASM_mcreq:
+    ਹਾਲਤ TOK_ASM_mcreq:
         // opcode1 encoding changes! highest and lowest bit gone.
-        if (opcode1.e.v > 7) {
-            tcc_error("opcode1 of instruction '%s' must be an immediate value between 0 and 7", get_tok_str(token, NULL));
+        ਜੇ (opcode1.e.v > 7) {
+            tcc_error("opcode1 of instruction '%s' must be an immediate value between 0 and 7", get_tok_str(token, ਨਿਰਾ));
         }
-        asm_emit_coprocessor_opcode(high_nibble, coprocessor, (opcode1.e.v << 1) | mrc, registers[0], registers[1], registers[2], opcode2.e.v, 1);
-        break;
-    default:
+        asm_emit_coprocessor_opcode(ਉੱਚਾ_nibble, coprocessor, (opcode1.e.v << 1) | mrc, registers[0], registers[1], registers[2], opcode2.e.v, 1);
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("known instruction");
     }
 }
 
 /* data processing and single data transfer instructions only */
-#define ENCODE_RN(register_index) ((register_index) << 16)
-#define ENCODE_RD(register_index) ((register_index) << 12)
-#define ENCODE_SET_CONDITION_CODES (1 << 20)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENCODE_RN(ਰਜਿਸਟਰ_ਸੂਚਕਾਂਕ) ((ਰਜਿਸਟਰ_ਸੂਚਕਾਂਕ) << 16)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENCODE_RD(ਰਜਿਸਟਰ_ਸੂਚਕਾਂਕ) ((ਰਜਿਸਟਰ_ਸੂਚਕਾਂਕ) << 12)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENCODE_ਸੈੱਟ_CONDITION_CODES (1 << 20)
 
 /* Note: For data processing instructions, "1" means immediate.
    Note: For single data transfer instructions, "0" means immediate. */
-#define ENCODE_IMMEDIATE_FLAG (1 << 25)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENCODE_ਤੁਰੰਤ_FLAG (1 << 25)
 
-#define ENCODE_BARREL_SHIFTER_SHIFT_BY_REGISTER (1 << 4)
-#define ENCODE_BARREL_SHIFTER_MODE_LSL (0 << 5)
-#define ENCODE_BARREL_SHIFTER_MODE_LSR (1 << 5)
-#define ENCODE_BARREL_SHIFTER_MODE_ASR (2 << 5)
-#define ENCODE_BARREL_SHIFTER_MODE_ROR (3 << 5)
-#define ENCODE_BARREL_SHIFTER_REGISTER(register_index) ((register_index) << 8)
-#define ENCODE_BARREL_SHIFTER_IMMEDIATE(value) ((value) << 7)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENCODE_BARREL_SHIFTER_ਖਿਸਕਾਓ_BY_ਰਜਿਸਟਰ (1 << 4)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_LSL (0 << 5)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_LSR (1 << 5)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_ASR (2 << 5)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_ROR (3 << 5)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENCODE_BARREL_SHIFTER_ਰਜਿਸਟਰ(ਰਜਿਸਟਰ_ਸੂਚਕਾਂਕ) ((ਰਜਿਸਟਰ_ਸੂਚਕਾਂਕ) << 8)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENCODE_BARREL_SHIFTER_ਤੁਰੰਤ(ਮੁੱਲ) ((ਮੁੱਲ) << 7)
 
-static void asm_block_data_transfer_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_ਖੰਡ_ਅੰਕੜੇ_transfer_opcode(TCCState *s1, ਪੂਰਨ token)
 {
     uint32_t opcode;
-    int op0_exclam = 0;
-    Operand ops[2];
-    int nb_ops = 1;
-    parse_operand(s1, &ops[0]);
-    if (tok == '!') {
+    ਪੂਰਨ op0_exclam = 0;
+    ਸੰਕਾਰਜ ops[2];
+    ਪੂਰਨ nb_ops = 1;
+    parse_ਸੰਕਾਰਜ(s1, &ops[0]);
+    ਜੇ (tok == '!') {
         op0_exclam = 1;
-        next(); // skip '!'
+        ਅਗਲਾ(); // skip '!'
     }
-    if (tok == ',') {
-        next(); // skip comma
-        parse_operand(s1, &ops[1]);
+    ਜੇ (tok == ',') {
+        ਅਗਲਾ(); // skip comma
+        parse_ਸੰਕਾਰਜ(s1, &ops[1]);
         ++nb_ops;
     }
-    if (nb_ops < 1) {
+    ਜੇ (nb_ops < 1) {
         expect("at least one operand");
-    } else if (ops[nb_ops - 1].type != OP_REGSET32) {
+    } ਨਹੀਂਤਾਂ ਜੇ (ops[nb_ops - 1].type != OP_REGSET32) {
         expect("(last operand) register list");
     }
 
@@ -473,81 +473,81 @@ static void asm_block_data_transfer_opcode(TCCState *s1, int token)
     //   Rn: bits 19...16 base register
     //   Register List: bits 15...0
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_pusheq: // TODO: Optimize 1-register case to: str ?, [sp, #-4]!
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_pusheq: // TODO: Optimize 1-register case to: str ?, [sp, #-4]!
         // Instruction: 1 I=0 P=1 U=0 S=0 W=1 L=0 << 20, op 1101
         //   operands:
         //      Rn: base register
         //      Register List: bits 15...0
-        if (nb_ops != 1)
+        ਜੇ (nb_ops != 1)
             expect("exactly one operand");
-        else
+        ਨਹੀਂਤਾਂ
             asm_emit_opcode(token, (0x92d << 16) | ops[0].regset); // TODO: base register ?
-        break;
-    case TOK_ASM_popeq: // TODO: Optimize 1-register case to: ldr ?, [sp], #4
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_popeq: // TODO: Optimize 1-register case to: ldr ?, [sp], #4
         // Instruction: 1 I=0 P=0 U=1 S=0 W=0 L=1 << 20, op 1101
         //   operands:
         //      Rn: base register
         //      Register List: bits 15...0
-        if (nb_ops != 1)
+        ਜੇ (nb_ops != 1)
             expect("exactly one operand");
-        else
+        ਨਹੀਂਤਾਂ
             asm_emit_opcode(token, (0x8bd << 16) | ops[0].regset); // TODO: base register ?
-        break;
-    case TOK_ASM_stmdaeq:
-    case TOK_ASM_ldmdaeq:
-    case TOK_ASM_stmeq:
-    case TOK_ASM_ldmeq:
-    case TOK_ASM_stmiaeq:
-    case TOK_ASM_ldmiaeq:
-    case TOK_ASM_stmdbeq:
-    case TOK_ASM_ldmdbeq:
-    case TOK_ASM_stmibeq:
-    case TOK_ASM_ldmibeq:
-        switch (ARM_INSTRUCTION_GROUP(token)) {
-        case TOK_ASM_stmdaeq: // post-decrement store
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_stmdaeq:
+    ਹਾਲਤ TOK_ASM_ldmdaeq:
+    ਹਾਲਤ TOK_ASM_stmeq:
+    ਹਾਲਤ TOK_ASM_ldmeq:
+    ਹਾਲਤ TOK_ASM_stmiaeq:
+    ਹਾਲਤ TOK_ASM_ldmiaeq:
+    ਹਾਲਤ TOK_ASM_stmdbeq:
+    ਹਾਲਤ TOK_ASM_ldmdbeq:
+    ਹਾਲਤ TOK_ASM_stmibeq:
+    ਹਾਲਤ TOK_ASM_ldmibeq:
+        ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+        ਹਾਲਤ TOK_ASM_stmdaeq: // post-decrement store
             opcode = 0x80 << 20;
-            break;
-        case TOK_ASM_ldmdaeq: // post-decrement load
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ASM_ldmdaeq: // post-decrement load
             opcode = 0x81 << 20;
-            break;
-        case TOK_ASM_stmeq: // post-increment store
-        case TOK_ASM_stmiaeq: // post-increment store
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ASM_stmeq: // post-increment store
+        ਹਾਲਤ TOK_ASM_stmiaeq: // post-increment store
             opcode = 0x88 << 20;
-            break;
-        case TOK_ASM_ldmeq: // post-increment load
-        case TOK_ASM_ldmiaeq: // post-increment load
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ASM_ldmeq: // post-increment load
+        ਹਾਲਤ TOK_ASM_ldmiaeq: // post-increment load
             opcode = 0x89 << 20;
-            break;
-        case TOK_ASM_stmdbeq: // pre-decrement store
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ASM_stmdbeq: // pre-decrement store
             opcode = 0x90 << 20;
-            break;
-        case TOK_ASM_ldmdbeq: // pre-decrement load
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ASM_ldmdbeq: // pre-decrement load
             opcode = 0x91 << 20;
-            break;
-        case TOK_ASM_stmibeq: // pre-increment store
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ASM_stmibeq: // pre-increment store
             opcode = 0x98 << 20;
-            break;
-        case TOK_ASM_ldmibeq: // pre-increment load
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ASM_ldmibeq: // pre-increment load
             opcode = 0x99 << 20;
-            break;
-        default:
+            ਰੋਕੋ;
+        ਮੂਲ:
             tcc_error("internal error: This place should not be reached (fallback in asm_block_data_transfer_opcode)");
         }
         // operands:
         //    Rn: first operand
         //    Register List: lower bits
-        if (nb_ops != 2)
+        ਜੇ (nb_ops != 2)
             expect("exactly two operands");
-        else if (ops[0].type != OP_REG32)
+        ਨਹੀਂਤਾਂ ਜੇ (ops[0].type != OP_REG32)
             expect("(first operand) register");
-        else {
-            if (op0_exclam)
+        ਨਹੀਂਤਾਂ {
+            ਜੇ (op0_exclam)
                 opcode |= 1 << 21; // writeback
             asm_emit_opcode(token, opcode | ENCODE_RN(ops[0].reg) | ops[1].regset);
         }
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("block data transfer instruction");
     }
 }
@@ -558,113 +558,113 @@ static void asm_block_data_transfer_opcode(TCCState *s1, int token)
 
    NB_SHIFT: will be set to 1 iff SHIFT is filled.  Note that for rrx, there's no need to fill SHIFT.
    SHIFT: will be filled in with the shift operand to use, if any. */
-static uint32_t asm_parse_optional_shift(TCCState* s1, int* nb_shift, Operand* shift)
+ਸਥਿਰ uint32_t asm_parse_optional_ਖਿਸਕਾਓ(TCCState* s1, ਪੂਰਨ* nb_ਖਿਸਕਾਓ, ਸੰਕਾਰਜ* ਖਿਸਕਾਓ)
 {
     uint32_t opcode = 0;
-    *nb_shift = 0;
-    switch (tok) {
-    case TOK_ASM_asl:
-    case TOK_ASM_lsl:
-    case TOK_ASM_asr:
-    case TOK_ASM_lsr:
-    case TOK_ASM_ror:
-        switch (tok) {
-        case TOK_ASM_asl:
+    *nb_ਖਿਸਕਾਓ = 0;
+    ਚੋਣ (tok) {
+    ਹਾਲਤ TOK_ASM_asl:
+    ਹਾਲਤ TOK_ASM_lsl:
+    ਹਾਲਤ TOK_ASM_asr:
+    ਹਾਲਤ TOK_ASM_lsr:
+    ਹਾਲਤ TOK_ASM_ror:
+        ਚੋਣ (tok) {
+        ਹਾਲਤ TOK_ASM_asl:
             /* fallthrough */
-        case TOK_ASM_lsl:
-            opcode = ENCODE_BARREL_SHIFTER_MODE_LSL;
-            break;
-        case TOK_ASM_asr:
-            opcode = ENCODE_BARREL_SHIFTER_MODE_ASR;
-            break;
-        case TOK_ASM_lsr:
-            opcode = ENCODE_BARREL_SHIFTER_MODE_LSR;
-            break;
-        case TOK_ASM_ror:
-            opcode = ENCODE_BARREL_SHIFTER_MODE_ROR;
-            break;
+        ਹਾਲਤ TOK_ASM_lsl:
+            opcode = ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_LSL;
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ASM_asr:
+            opcode = ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_ASR;
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ASM_lsr:
+            opcode = ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_LSR;
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ASM_ror:
+            opcode = ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_ROR;
+            ਰੋਕੋ;
         }
-        next();
-        parse_operand(s1, shift);
-        *nb_shift = 1;
-        break;
-    case TOK_ASM_rrx:
-        next();
-        opcode = ENCODE_BARREL_SHIFTER_MODE_ROR;
-        break;
+        ਅਗਲਾ();
+        parse_ਸੰਕਾਰਜ(s1, ਖਿਸਕਾਓ);
+        *nb_ਖਿਸਕਾਓ = 1;
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_rrx:
+        ਅਗਲਾ();
+        opcode = ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_ROR;
+        ਰੋਕੋ;
     }
-    return opcode;
+    ਵਾਪਸ opcode;
 }
 
-static uint32_t asm_encode_shift(Operand* shift)
+ਸਥਿਰ uint32_t asm_encode_ਖਿਸਕਾਓ(ਸੰਕਾਰਜ* ਖਿਸਕਾਓ)
 {
     uint64_t amount;
     uint32_t operands = 0;
-    switch (shift->type) {
-    case OP_REG32:
-        if (shift->reg == 15)
+    ਚੋਣ (ਖਿਸਕਾਓ->type) {
+    ਹਾਲਤ OP_REG32:
+        ਜੇ (ਖਿਸਕਾਓ->reg == 15)
             tcc_error("r15 cannot be used as a shift count");
-        else {
-            operands = ENCODE_BARREL_SHIFTER_SHIFT_BY_REGISTER;
-            operands |= ENCODE_BARREL_SHIFTER_REGISTER(shift->reg);
+        ਨਹੀਂਤਾਂ {
+            operands = ENCODE_BARREL_SHIFTER_ਖਿਸਕਾਓ_BY_ਰਜਿਸਟਰ;
+            operands |= ENCODE_BARREL_SHIFTER_ਰਜਿਸਟਰ(ਖਿਸਕਾਓ->reg);
         }
-        break;
-    case OP_IM8:
-        amount = shift->e.v;
-        if (amount > 0 && amount < 32)
-            operands = ENCODE_BARREL_SHIFTER_IMMEDIATE(amount);
-        else
+        ਰੋਕੋ;
+    ਹਾਲਤ OP_IM8:
+        amount = ਖਿਸਕਾਓ->e.v;
+        ਜੇ (amount > 0 && amount < 32)
+            operands = ENCODE_BARREL_SHIFTER_ਤੁਰੰਤ(amount);
+        ਨਹੀਂਤਾਂ
             tcc_error("shift count out of range");
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         tcc_error("unknown shift amount");
     }
-    return operands;
+    ਵਾਪਸ operands;
 }
 
-static void asm_data_processing_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_ਅੰਕੜੇ_processing_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    Operand ops[3];
-    int nb_ops;
-    Operand shift = {0};
-    int nb_shift = 0;
+    ਸੰਕਾਰਜ ops[3];
+    ਪੂਰਨ nb_ops;
+    ਸੰਕਾਰਜ ਖਿਸਕਾਓ = {0};
+    ਪੂਰਨ nb_ਖਿਸਕਾਓ = 0;
     uint32_t operands = 0;
 
     /* modulo 16 entries per instruction for the different condition codes */
-    uint32_t opcode_idx = (ARM_INSTRUCTION_GROUP(token) - TOK_ASM_andeq) >> 4;
+    uint32_t opcode_idx = (ARM_INSTRUCTION_ਸਮੂਹ(token) - TOK_ASM_andeq) >> 4;
     uint32_t opcode_nos = opcode_idx >> 1; // without "s"; "OpCode" in ARM docs
 
-    for (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ) {
-        if (tok == TOK_ASM_asl || tok == TOK_ASM_lsl || tok == TOK_ASM_lsr || tok == TOK_ASM_asr || tok == TOK_ASM_ror || tok == TOK_ASM_rrx)
-            break;
-        parse_operand(s1, &ops[nb_ops]);
+    ਲਈ (nb_ops = 0; nb_ops < ਆਕਾਰ(ops)/ਆਕਾਰ(ops[0]); ) {
+        ਜੇ (tok == TOK_ASM_asl || tok == TOK_ASM_lsl || tok == TOK_ASM_lsr || tok == TOK_ASM_asr || tok == TOK_ASM_ror || tok == TOK_ASM_rrx)
+            ਰੋਕੋ;
+        parse_ਸੰਕਾਰਜ(s1, &ops[nb_ops]);
         ++nb_ops;
-        if (tok != ',')
-            break;
-        next(); // skip ','
+        ਜੇ (tok != ',')
+            ਰੋਕੋ;
+        ਅਗਲਾ(); // skip ','
     }
-    if (tok == ',')
-        next();
-    operands |= asm_parse_optional_shift(s1, &nb_shift, &shift);
-    if (nb_ops < 2)
+    ਜੇ (tok == ',')
+        ਅਗਲਾ();
+    operands |= asm_parse_optional_ਖਿਸਕਾਓ(s1, &nb_ਖਿਸਕਾਓ, &ਖਿਸਕਾਓ);
+    ਜੇ (nb_ops < 2)
         expect("at least two operands");
-    else if (nb_ops == 2) {
-        memcpy(&ops[2], &ops[1], sizeof(ops[1])); // move ops[2]
-        memcpy(&ops[1], &ops[0], sizeof(ops[0])); // ops[1] was implicit
+    ਨਹੀਂਤਾਂ ਜੇ (nb_ops == 2) {
+        ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[2], &ops[1], ਆਕਾਰ(ops[1])); // move ops[2]
+        ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[1], &ops[0], ਆਕਾਰ(ops[0])); // ops[1] was implicit
         nb_ops = 3;
-    } else if (nb_ops == 3) {
-        if (opcode_nos == 0xd || opcode_nos == 0xf || opcode_nos == 0xa || opcode_nos == 0xb || opcode_nos == 0x8 || opcode_nos == 0x9) { // mov, mvn, cmp, cmn, tst, teq
-            tcc_error("'%s' cannot be used with three operands", get_tok_str(token, NULL));
+    } ਨਹੀਂਤਾਂ ਜੇ (nb_ops == 3) {
+        ਜੇ (opcode_nos == 0xd || opcode_nos == 0xf || opcode_nos == 0xa || opcode_nos == 0xb || opcode_nos == 0x8 || opcode_nos == 0x9) { // mov, mvn, cmp, cmn, tst, teq
+            tcc_error("'%s' cannot be used with three operands", get_tok_str(token, ਨਿਰਾ));
         }
     }
-    if (nb_ops != 3) {
+    ਜੇ (nb_ops != 3) {
         expect("two or three operands");
-    } else {
+    } ਨਹੀਂਤਾਂ {
         uint32_t opcode = 0;
-        uint32_t immediate_value;
-        uint8_t half_immediate_rotation;
-        if (nb_shift && shift.type == OP_REG32) {
-            if ((ops[0].type == OP_REG32 && ops[0].reg == 15) ||
+        uint32_t ਤੁਰੰਤ_ਮੁੱਲ;
+        uint8_t half_ਤੁਰੰਤ_rotation;
+        ਜੇ (nb_ਖਿਸਕਾਓ && ਖਿਸਕਾਓ.type == OP_REG32) {
+            ਜੇ ((ops[0].type == OP_REG32 && ops[0].reg == 15) ||
                 (ops[1].type == OP_REG32 && ops[1].reg == 15)) {
                 tcc_error("Using the 'pc' register in data processing instructions that have a register-controlled shift is not implemented by ARM");
             }
@@ -680,40 +680,40 @@ static void asm_data_processing_opcode(TCCState *s1, int token)
 
         /* operations in the token list are ordered by opcode */
         opcode = opcode_nos << 21; // drop "s"
-        if (ops[0].type != OP_REG32)
+        ਜੇ (ops[0].type != OP_REG32)
             expect("(destination operand) register");
-        else if (opcode_nos == 0xa || opcode_nos == 0xb || opcode_nos == 0x8 || opcode_nos == 0x9) // cmp, cmn, tst, teq
-            operands |= ENCODE_SET_CONDITION_CODES; // force S set, otherwise it's a completely different instruction.
-        else
+        ਨਹੀਂਤਾਂ ਜੇ (opcode_nos == 0xa || opcode_nos == 0xb || opcode_nos == 0x8 || opcode_nos == 0x9) // cmp, cmn, tst, teq
+            operands |= ENCODE_ਸੈੱਟ_CONDITION_CODES; // force S set, otherwise it's a completely different instruction.
+        ਨਹੀਂਤਾਂ
             operands |= ENCODE_RD(ops[0].reg);
-        if (ops[1].type != OP_REG32)
+        ਜੇ (ops[1].type != OP_REG32)
             expect("(first source operand) register");
-        else if (!(opcode_nos == 0xd || opcode_nos == 0xf)) // not: mov, mvn (those have only one source operand)
+        ਨਹੀਂਤਾਂ ਜੇ (!(opcode_nos == 0xd || opcode_nos == 0xf)) // not: mov, mvn (those have only one source operand)
             operands |= ENCODE_RN(ops[1].reg);
-        switch (ops[2].type) {
-        case OP_REG32:
+        ਚੋਣ (ops[2].type) {
+        ਹਾਲਤ OP_REG32:
             operands |= ops[2].reg;
-            break;
-        case OP_IM8:
-        case OP_IM32:
-            operands |= ENCODE_IMMEDIATE_FLAG;
-            immediate_value = ops[2].e.v;
-            for (half_immediate_rotation = 0; half_immediate_rotation < 16; ++half_immediate_rotation) {
-                if (immediate_value >= 0x00 && immediate_value < 0x100)
-                    break;
+            ਰੋਕੋ;
+        ਹਾਲਤ OP_IM8:
+        ਹਾਲਤ OP_IM32:
+            operands |= ENCODE_ਤੁਰੰਤ_FLAG;
+            ਤੁਰੰਤ_ਮੁੱਲ = ops[2].e.v;
+            ਲਈ (half_ਤੁਰੰਤ_rotation = 0; half_ਤੁਰੰਤ_rotation < 16; ++half_ਤੁਰੰਤ_rotation) {
+                ਜੇ (ਤੁਰੰਤ_ਮੁੱਲ >= 0x00 && ਤੁਰੰਤ_ਮੁੱਲ < 0x100)
+                    ਰੋਕੋ;
                 // rotate left by two
-                immediate_value = ((immediate_value & 0x3FFFFFFF) << 2) | ((immediate_value & 0xC0000000) >> 30);
+                ਤੁਰੰਤ_ਮੁੱਲ = ((ਤੁਰੰਤ_ਮੁੱਲ & 0x3FFFFFFF) << 2) | ((ਤੁਰੰਤ_ਮੁੱਲ & 0xC0000000) >> 30);
             }
-            if (half_immediate_rotation >= 16) {
+            ਜੇ (half_ਤੁਰੰਤ_rotation >= 16) {
                 /* fallthrough */
-            } else {
-                operands |= immediate_value;
-                operands |= half_immediate_rotation << 8;
-                break;
+            } ਨਹੀਂਤਾਂ {
+                operands |= ਤੁਰੰਤ_ਮੁੱਲ;
+                operands |= half_ਤੁਰੰਤ_rotation << 8;
+                ਰੋਕੋ;
             }
-        case OP_IM8N: // immediate negative value
-            operands |= ENCODE_IMMEDIATE_FLAG;
-            immediate_value = ops[2].e.v;
+        ਹਾਲਤ OP_IM8N: // immediate negative value
+            operands |= ENCODE_ਤੁਰੰਤ_FLAG;
+            ਤੁਰੰਤ_ਮੁੱਲ = ops[2].e.v;
             /* Instruction swapping:
                0001 = EOR - Rd:= Op1 EOR Op2     -> difficult
                0011 = RSB - Rd:= Op2 - Op1       -> difficult
@@ -722,209 +722,209 @@ static void asm_data_processing_opcode(TCCState *s1, int token)
                1001 = TEQ - CC on: Op1 EOR Op2   -> difficult
                1100 = ORR - Rd:= Op1 OR Op2      -> difficult
             */
-            switch (opcode_nos) {
-            case 0x0: // AND - Rd:= Op1 AND Op2
+            ਚੋਣ (opcode_nos) {
+            ਹਾਲਤ 0x0: // AND - Rd:= Op1 AND Op2
                 opcode = 0xe << 21; // BIC
-                immediate_value = ~immediate_value;
-                break;
-            case 0x2: // SUB - Rd:= Op1 - Op2
-                opcode = 0x4 << 21; // ADD
-                immediate_value = -immediate_value;
-                break;
-            case 0x4: // ADD - Rd:= Op1 + Op2
+                ਤੁਰੰਤ_ਮੁੱਲ = ~ਤੁਰੰਤ_ਮੁੱਲ;
+                ਰੋਕੋ;
+            ਹਾਲਤ 0x2: // SUB - Rd:= Op1 - Op2
+                opcode = 0x4 << 21; //ਜੋੜੋ
+                ਤੁਰੰਤ_ਮੁੱਲ = -ਤੁਰੰਤ_ਮੁੱਲ;
+                ਰੋਕੋ;
+            ਹਾਲਤ 0x4: // ADD - Rd:= Op1 + Op2
                 opcode = 0x2 << 21; // SUB
-                immediate_value = -immediate_value;
-                break;
-            case 0x5: // ADC - Rd:= Op1 + Op2 + C
+                ਤੁਰੰਤ_ਮੁੱਲ = -ਤੁਰੰਤ_ਮੁੱਲ;
+                ਰੋਕੋ;
+            ਹਾਲਤ 0x5: // ADC - Rd:= Op1 + Op2 + C
                 opcode = 0x6 << 21; // SBC
-                immediate_value = ~immediate_value;
-                break;
-            case 0x6: // SBC - Rd:= Op1 - Op2 + C
+                ਤੁਰੰਤ_ਮੁੱਲ = ~ਤੁਰੰਤ_ਮੁੱਲ;
+                ਰੋਕੋ;
+            ਹਾਲਤ 0x6: // SBC - Rd:= Op1 - Op2 + C
                 opcode = 0x5 << 21; // ADC
-                immediate_value = ~immediate_value;
-                break;
-            case 0xa: // CMP - CC on: Op1 - Op2
+                ਤੁਰੰਤ_ਮੁੱਲ = ~ਤੁਰੰਤ_ਮੁੱਲ;
+                ਰੋਕੋ;
+            ਹਾਲਤ 0xa: // CMP - CC on: Op1 - Op2
                 opcode = 0xb << 21; // CMN
-                immediate_value = -immediate_value;
-                break;
-            case 0xb: // CMN - CC on: Op1 + Op2
+                ਤੁਰੰਤ_ਮੁੱਲ = -ਤੁਰੰਤ_ਮੁੱਲ;
+                ਰੋਕੋ;
+            ਹਾਲਤ 0xb: // CMN - CC on: Op1 + Op2
                 opcode = 0xa << 21; // CMP
-                immediate_value = -immediate_value;
-                break;
-            case 0xd: // MOV - Rd:= Op2
+                ਤੁਰੰਤ_ਮੁੱਲ = -ਤੁਰੰਤ_ਮੁੱਲ;
+                ਰੋਕੋ;
+            ਹਾਲਤ 0xd: // MOV - Rd:= Op2
                 opcode = 0xf << 21; // MVN
-                immediate_value = ~immediate_value;
-                break;
-            case 0xe: // BIC - Rd:= Op1 AND NOT Op2
+                ਤੁਰੰਤ_ਮੁੱਲ = ~ਤੁਰੰਤ_ਮੁੱਲ;
+                ਰੋਕੋ;
+            ਹਾਲਤ 0xe: // BIC - Rd:= Op1 AND NOT Op2
                 opcode = 0x0 << 21; // AND
-                immediate_value = ~immediate_value;
-                break;
-            case 0xf: // MVN - Rd:= NOT Op2
+                ਤੁਰੰਤ_ਮੁੱਲ = ~ਤੁਰੰਤ_ਮੁੱਲ;
+                ਰੋਕੋ;
+            ਹਾਲਤ 0xf: // MVN - Rd:= NOT Op2
                 opcode = 0xd << 21; // MOV
-                immediate_value = ~immediate_value;
-                break;
-            default:
-                tcc_error("cannot use '%s' with a negative immediate value", get_tok_str(token, NULL));
+                ਤੁਰੰਤ_ਮੁੱਲ = ~ਤੁਰੰਤ_ਮੁੱਲ;
+                ਰੋਕੋ;
+            ਮੂਲ:
+                tcc_error("cannot use '%s' with a negative immediate value", get_tok_str(token, ਨਿਰਾ));
             }
-            for (half_immediate_rotation = 0; half_immediate_rotation < 16; ++half_immediate_rotation) {
-                if (immediate_value >= 0x00 && immediate_value < 0x100)
-                    break;
+            ਲਈ (half_ਤੁਰੰਤ_rotation = 0; half_ਤੁਰੰਤ_rotation < 16; ++half_ਤੁਰੰਤ_rotation) {
+                ਜੇ (ਤੁਰੰਤ_ਮੁੱਲ >= 0x00 && ਤੁਰੰਤ_ਮੁੱਲ < 0x100)
+                    ਰੋਕੋ;
                 // rotate left by two
-                immediate_value = ((immediate_value & 0x3FFFFFFF) << 2) | ((immediate_value & 0xC0000000) >> 30);
+                ਤੁਰੰਤ_ਮੁੱਲ = ((ਤੁਰੰਤ_ਮੁੱਲ & 0x3FFFFFFF) << 2) | ((ਤੁਰੰਤ_ਮੁੱਲ & 0xC0000000) >> 30);
             }
-            if (half_immediate_rotation >= 16) {
-                immediate_value = ops[2].e.v;
-                tcc_error("immediate value 0x%X cannot be encoded into ARM immediate", (unsigned) immediate_value);
+            ਜੇ (half_ਤੁਰੰਤ_rotation >= 16) {
+                ਤੁਰੰਤ_ਮੁੱਲ = ops[2].e.v;
+                tcc_error("immediate value 0x%X cannot be encoded into ARM immediate", (ਬਿਨਾਨਿਸ਼ਾਨੀ) ਤੁਰੰਤ_ਮੁੱਲ);
             }
-            operands |= immediate_value;
-            operands |= half_immediate_rotation << 8;
-            break;
-        default:
+            operands |= ਤੁਰੰਤ_ਮੁੱਲ;
+            operands |= half_ਤੁਰੰਤ_rotation << 8;
+            ਰੋਕੋ;
+        ਮੂਲ:
             expect("(second source operand) register or immediate value");
         }
 
-        if (nb_shift) {
-            if (operands & ENCODE_IMMEDIATE_FLAG)
+        ਜੇ (nb_ਖਿਸਕਾਓ) {
+            ਜੇ (operands & ENCODE_ਤੁਰੰਤ_FLAG)
                 tcc_error("immediate rotation not implemented");
-            else
-                operands |= asm_encode_shift(&shift);
+            ਨਹੀਂਤਾਂ
+                operands |= asm_encode_ਖਿਸਕਾਓ(&ਖਿਸਕਾਓ);
         }
 
         /* S=0 and S=1 entries alternate one after another, in that order */
-        opcode |= (opcode_idx & 1) ? ENCODE_SET_CONDITION_CODES : 0;
+        opcode |= (opcode_idx & 1) ? ENCODE_ਸੈੱਟ_CONDITION_CODES : 0;
         asm_emit_opcode(token, opcode | operands);
     }
 }
 
-static void asm_shift_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_ਖਿਸਕਾਓ_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    Operand ops[3];
-    int nb_ops;
-    int definitely_neutral = 0;
+    ਸੰਕਾਰਜ ops[3];
+    ਪੂਰਨ nb_ops;
+    ਪੂਰਨ definitely_neutral = 0;
     uint32_t opcode = 0xd << 21; // MOV
     uint32_t operands = 0;
 
-    for (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ++nb_ops) {
-        parse_operand(s1, &ops[nb_ops]);
-        if (tok != ',') {
+    ਲਈ (nb_ops = 0; nb_ops < ਆਕਾਰ(ops)/ਆਕਾਰ(ops[0]); ++nb_ops) {
+        parse_ਸੰਕਾਰਜ(s1, &ops[nb_ops]);
+        ਜੇ (tok != ',') {
             ++nb_ops;
-            break;
+            ਰੋਕੋ;
         }
-        next(); // skip ','
+        ਅਗਲਾ(); // skip ','
     }
-    if (nb_ops < 2) {
+    ਜੇ (nb_ops < 2) {
         expect("at least two operands");
     }
 
-    if (ops[0].type != OP_REG32) {
+    ਜੇ (ops[0].type != OP_REG32) {
         expect("(destination operand) register");
-    } else
+    } ਨਹੀਂਤਾਂ
         operands |= ENCODE_RD(ops[0].reg);
 
-    if (nb_ops == 2) {
-        switch (ARM_INSTRUCTION_GROUP(token)) {
-        case TOK_ASM_rrxseq:
-            opcode |= ENCODE_SET_CONDITION_CODES;
+    ਜੇ (nb_ops == 2) {
+        ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+        ਹਾਲਤ TOK_ASM_rrxseq:
+            opcode |= ENCODE_ਸੈੱਟ_CONDITION_CODES;
             /* fallthrough */
-        case TOK_ASM_rrxeq:
-            if (ops[1].type == OP_REG32) {
+        ਹਾਲਤ TOK_ASM_rrxeq:
+            ਜੇ (ops[1].type == OP_REG32) {
                 operands |= ops[1].reg;
-                operands |= ENCODE_BARREL_SHIFTER_MODE_ROR;
+                operands |= ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_ROR;
                 asm_emit_opcode(token, opcode | operands);
-            } else
+            } ਨਹੀਂਤਾਂ
                 tcc_error("(first source operand) register");
-            return;
-        default:
-            memcpy(&ops[2], &ops[1], sizeof(ops[1])); // move ops[2]
-            memcpy(&ops[1], &ops[0], sizeof(ops[0])); // ops[1] was implicit
+            ਵਾਪਸ;
+        ਮੂਲ:
+            ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[2], &ops[1], ਆਕਾਰ(ops[1])); // move ops[2]
+            ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[1], &ops[0], ਆਕਾਰ(ops[0])); // ops[1] was implicit
             nb_ops = 3;
         }
     }
-    if (nb_ops != 3) {
+    ਜੇ (nb_ops != 3) {
         expect("two or three operands");
     }
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_lslseq:
-    case TOK_ASM_lsrseq:
-    case TOK_ASM_asrseq:
-    case TOK_ASM_rorseq:
-        opcode |= ENCODE_SET_CONDITION_CODES;
-        break;
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_lslseq:
+    ਹਾਲਤ TOK_ASM_lsrseq:
+    ਹਾਲਤ TOK_ASM_asrseq:
+    ਹਾਲਤ TOK_ASM_rorseq:
+        opcode |= ENCODE_ਸੈੱਟ_CONDITION_CODES;
+        ਰੋਕੋ;
     }
 
-    switch (ops[1].type) {
-    case OP_REG32:
+    ਚੋਣ (ops[1].type) {
+    ਹਾਲਤ OP_REG32:
         operands |= ops[1].reg;
-        break;
-    case OP_IM8:
-        operands |= ENCODE_IMMEDIATE_FLAG;
+        ਰੋਕੋ;
+    ਹਾਲਤ OP_IM8:
+        operands |= ENCODE_ਤੁਰੰਤ_FLAG;
         operands |= ops[1].e.v;
-        tcc_error("Using an immediate value as the source operand is not possible with '%s' instruction on ARM", get_tok_str(token, NULL));
+        tcc_error("Using an immediate value as the source operand is not possible with '%s' instruction on ARM", get_tok_str(token, ਨਿਰਾ));
     }
 
-    switch (ops[2].type) {
-    case OP_REG32:
-        if ((ops[0].type == OP_REG32 && ops[0].reg == 15) ||
+    ਚੋਣ (ops[2].type) {
+    ਹਾਲਤ OP_REG32:
+        ਜੇ ((ops[0].type == OP_REG32 && ops[0].reg == 15) ||
             (ops[1].type == OP_REG32 && ops[1].reg == 15)) {
             tcc_error("Using the 'pc' register in data processing instructions that have a register-controlled shift is not implemented by ARM");
         }
-        operands |= asm_encode_shift(&ops[2]);
-        break;
-    case OP_IM8:
-        if (ops[2].e.v)
-            operands |= asm_encode_shift(&ops[2]);
-        else
+        operands |= asm_encode_ਖਿਸਕਾਓ(&ops[2]);
+        ਰੋਕੋ;
+    ਹਾਲਤ OP_IM8:
+        ਜੇ (ops[2].e.v)
+            operands |= asm_encode_ਖਿਸਕਾਓ(&ops[2]);
+        ਨਹੀਂਤਾਂ
             definitely_neutral = 1;
-        break;
+        ਰੋਕੋ;
     }
 
-    if (!definitely_neutral) switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_lslseq:
-    case TOK_ASM_lsleq:
-        operands |= ENCODE_BARREL_SHIFTER_MODE_LSL;
-        break;
-    case TOK_ASM_lsrseq:
-    case TOK_ASM_lsreq:
-        operands |= ENCODE_BARREL_SHIFTER_MODE_LSR;
-        break;
-    case TOK_ASM_asrseq:
-    case TOK_ASM_asreq:
-        operands |= ENCODE_BARREL_SHIFTER_MODE_ASR;
-        break;
-    case TOK_ASM_rorseq:
-    case TOK_ASM_roreq:
-        operands |= ENCODE_BARREL_SHIFTER_MODE_ROR;
-        break;
-    default:
+    ਜੇ (!definitely_neutral) ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_lslseq:
+    ਹਾਲਤ TOK_ASM_lsleq:
+        operands |= ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_LSL;
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_lsrseq:
+    ਹਾਲਤ TOK_ASM_lsreq:
+        operands |= ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_LSR;
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_asrseq:
+    ਹਾਲਤ TOK_ASM_asreq:
+        operands |= ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_ASR;
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_rorseq:
+    ਹਾਲਤ TOK_ASM_roreq:
+        operands |= ENCODE_BARREL_SHIFTER_ਬਹੁਲਕ_ROR;
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("shift instruction");
     }
     asm_emit_opcode(token, opcode | operands);
 }
 
-static void asm_multiplication_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_multiplication_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    Operand ops[4];
-    int nb_ops = 0;
+    ਸੰਕਾਰਜ ops[4];
+    ਪੂਰਨ nb_ops = 0;
     uint32_t opcode = 0x90;
 
-    for (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ++nb_ops) {
-        parse_operand(s1, &ops[nb_ops]);
-        if (tok != ',') {
+    ਲਈ (nb_ops = 0; nb_ops < ਆਕਾਰ(ops)/ਆਕਾਰ(ops[0]); ++nb_ops) {
+        parse_ਸੰਕਾਰਜ(s1, &ops[nb_ops]);
+        ਜੇ (tok != ',') {
             ++nb_ops;
-            break;
+            ਰੋਕੋ;
         }
-        next(); // skip ','
+        ਅਗਲਾ(); // skip ','
     }
-    if (nb_ops < 2)
+    ਜੇ (nb_ops < 2)
         expect("at least two operands");
-    else if (nb_ops == 2) {
-        switch (ARM_INSTRUCTION_GROUP(token)) {
-        case TOK_ASM_mulseq:
-        case TOK_ASM_muleq:
-            memcpy(&ops[2], &ops[0], sizeof(ops[1])); // ARM is actually like this!
-            break;
-        default:
+    ਨਹੀਂਤਾਂ ਜੇ (nb_ops == 2) {
+        ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+        ਹਾਲਤ TOK_ASM_mulseq:
+        ਹਾਲਤ TOK_ASM_muleq:
+            ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[2], &ops[0], ਆਕਾਰ(ops[1])); // ARM is actually like this!
+            ਰੋਕੋ;
+        ਮੂਲ:
             expect("at least three operands");
         }
         nb_ops = 3;
@@ -937,76 +937,76 @@ static void asm_multiplication_opcode(TCCState *s1, int token)
     //   Rs: bits 11...8
     //   Rn: bits 15...12
 
-    if (ops[0].type == OP_REG32)
+    ਜੇ (ops[0].type == OP_REG32)
         opcode |= ops[0].reg << 16;
-    else
+    ਨਹੀਂਤਾਂ
         expect("(destination operand) register");
-    if (ops[1].type == OP_REG32)
+    ਜੇ (ops[1].type == OP_REG32)
         opcode |= ops[1].reg;
-    else
+    ਨਹੀਂਤਾਂ
         expect("(first source operand) register");
-    if (ops[2].type == OP_REG32)
+    ਜੇ (ops[2].type == OP_REG32)
         opcode |= ops[2].reg << 8;
-    else
+    ਨਹੀਂਤਾਂ
         expect("(second source operand) register");
-    if (nb_ops > 3) {
-        if (ops[3].type == OP_REG32)
+    ਜੇ (nb_ops > 3) {
+        ਜੇ (ops[3].type == OP_REG32)
             opcode |= ops[3].reg << 12;
-        else
+        ਨਹੀਂਤਾਂ
             expect("(third source operand) register");
     }
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_mulseq:
-        opcode |= 1 << 20; // Status
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_mulseq:
+        opcode |= 1 << 20; //ਸਥਿਤੀ
         /* fallthrough */
-    case TOK_ASM_muleq:
-        if (nb_ops != 3)
+    ਹਾਲਤ TOK_ASM_muleq:
+        ਜੇ (nb_ops != 3)
             expect("three operands");
-        else {
+        ਨਹੀਂਤਾਂ {
             asm_emit_opcode(token, opcode);
         }
-        break;
-    case TOK_ASM_mlaseq:
-        opcode |= 1 << 20; // Status
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_mlaseq:
+        opcode |= 1 << 20; //ਸਥਿਤੀ
         /* fallthrough */
-    case TOK_ASM_mlaeq:
+    ਹਾਲਤ TOK_ASM_mlaeq:
     case_TOK_ASM_mlaeq:
-        if (nb_ops != 4)
+        ਜੇ (nb_ops != 4)
             expect("four operands");
-        else {
+        ਨਹੀਂਤਾਂ {
             opcode |= 1 << 21; // Accumulate
             asm_emit_opcode(token, opcode);
         }
-        break;
-    case TOK_ASM_mlseq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_mlseq:
         opcode |= 0x00400000;
-        goto case_TOK_ASM_mlaeq;
-    case TOK_ASM_udiveq:
+        ਜਾਓ case_TOK_ASM_mlaeq;
+    ਹਾਲਤ TOK_ASM_udiveq:
         opcode |= 0x00200000;
-    case TOK_ASM_sdiveq:
+    ਹਾਲਤ TOK_ASM_sdiveq:
         asm_emit_opcode(token, (opcode & ~0x80) | 0x0710f010);
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("known multiplication instruction");
     }
 }
 
-static void asm_long_multiplication_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_long_multiplication_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    Operand ops[4];
-    int nb_ops = 0;
+    ਸੰਕਾਰਜ ops[4];
+    ਪੂਰਨ nb_ops = 0;
     uint32_t opcode = 0x90 | (1 << 23);
 
-    for (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ++nb_ops) {
-        parse_operand(s1, &ops[nb_ops]);
-        if (tok != ',') {
+    ਲਈ (nb_ops = 0; nb_ops < ਆਕਾਰ(ops)/ਆਕਾਰ(ops[0]); ++nb_ops) {
+        parse_ਸੰਕਾਰਜ(s1, &ops[nb_ops]);
+        ਜੇ (tok != ',') {
             ++nb_ops;
-            break;
+            ਰੋਕੋ;
         }
-        next(); // skip ','
+        ਅਗਲਾ(); // skip ','
     }
-    if (nb_ops != 4) {
+    ਜੇ (nb_ops != 4) {
         expect("four operands");
     }
 
@@ -1017,138 +1017,138 @@ static void asm_long_multiplication_opcode(TCCState *s1, int token)
     //   Rs: bits 11...8
     //   Rm: bits 3...0
 
-    if (ops[0].type == OP_REG32)
+    ਜੇ (ops[0].type == OP_REG32)
         opcode |= ops[0].reg << 12;
-    else
+    ਨਹੀਂਤਾਂ
         expect("(destination lo accumulator) register");
-    if (ops[1].type == OP_REG32)
+    ਜੇ (ops[1].type == OP_REG32)
         opcode |= ops[1].reg << 16;
-    else
+    ਨਹੀਂਤਾਂ
         expect("(destination hi accumulator) register");
-    if (ops[2].type == OP_REG32)
+    ਜੇ (ops[2].type == OP_REG32)
         opcode |= ops[2].reg;
-    else
+    ਨਹੀਂਤਾਂ
         expect("(first source operand) register");
-    if (ops[3].type == OP_REG32)
+    ਜੇ (ops[3].type == OP_REG32)
         opcode |= ops[3].reg << 8;
-    else
+    ਨਹੀਂਤਾਂ
         expect("(second source operand) register");
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_smullseq:
-        opcode |= 1 << 20; // Status
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_smullseq:
+        opcode |= 1 << 20; //ਸਥਿਤੀ
         /* fallthrough */
-    case TOK_ASM_smulleq:
+    ਹਾਲਤ TOK_ASM_smulleq:
         opcode |= 1 << 22; // signed
         asm_emit_opcode(token, opcode);
-        break;
-    case TOK_ASM_umullseq:
-        opcode |= 1 << 20; // Status
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_umullseq:
+        opcode |= 1 << 20; //ਸਥਿਤੀ
         /* fallthrough */
-    case TOK_ASM_umulleq:
+    ਹਾਲਤ TOK_ASM_umulleq:
         asm_emit_opcode(token, opcode);
-        break;
-    case TOK_ASM_smlalseq:
-        opcode |= 1 << 20; // Status
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_smlalseq:
+        opcode |= 1 << 20; //ਸਥਿਤੀ
         /* fallthrough */
-    case TOK_ASM_smlaleq:
+    ਹਾਲਤ TOK_ASM_smlaleq:
         opcode |= 1 << 22; // signed
         opcode |= 1 << 21; // Accumulate
         asm_emit_opcode(token, opcode);
-        break;
-    case TOK_ASM_umlalseq:
-        opcode |= 1 << 20; // Status
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_umlalseq:
+        opcode |= 1 << 20; //ਸਥਿਤੀ
         /* fallthrough */
-    case TOK_ASM_umlaleq:
+    ਹਾਲਤ TOK_ASM_umlaleq:
         opcode |= 1 << 21; // Accumulate
         asm_emit_opcode(token, opcode);
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("known long multiplication instruction");
     }
 }
 
-static void asm_single_data_transfer_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_single_ਅੰਕੜੇ_transfer_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    Operand ops[3];
-    Operand strex_operand;
-    Operand shift;
-    int nb_shift = 0;
-    int exclam = 0;
-    int closed_bracket = 0;
-    int op2_minus = 0;
+    ਸੰਕਾਰਜ ops[3];
+    ਸੰਕਾਰਜ strex_ਸੰਕਾਰਜ;
+    ਸੰਕਾਰਜ ਖਿਸਕਾਓ;
+    ਪੂਰਨ nb_ਖਿਸਕਾਓ = 0;
+    ਪੂਰਨ exclam = 0;
+    ਪੂਰਨ closed_bracket = 0;
+    ਪੂਰਨ op2_minus = 0;
     uint32_t opcode = 0;
     // Note: ldr r0, [r4, #4]  ; simple offset: r0 = *(int*)(r4+4); r4 unchanged
     // Note: ldr r0, [r4, #4]! ; pre-indexed:   r0 = *(int*)(r4+4); r4 = r4+4
     // Note: ldr r0, [r4], #4  ; post-indexed:  r0 = *(int*)(r4+0); r4 = r4+4
 
-    parse_operand(s1, &ops[0]);
-    if (ops[0].type == OP_REG32)
+    parse_ਸੰਕਾਰਜ(s1, &ops[0]);
+    ਜੇ (ops[0].type == OP_REG32)
         opcode |= ENCODE_RD(ops[0].reg);
-    else {
+    ਨਹੀਂਤਾਂ {
         expect("(destination operand) register");
     }
-    if (tok != ',')
+    ਜੇ (tok != ',')
         expect("at least two arguments");
-    next(); // skip ','
+    ਅਗਲਾ(); // skip ','
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_strexheq:
-    case TOK_ASM_strexbeq:
-    case TOK_ASM_strexeq:
-        parse_operand(s1, &strex_operand);
-        if (strex_operand.type != OP_REG32) {
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_strexheq:
+    ਹਾਲਤ TOK_ASM_strexbeq:
+    ਹਾਲਤ TOK_ASM_strexeq:
+        parse_ਸੰਕਾਰਜ(s1, &strex_ਸੰਕਾਰਜ);
+        ਜੇ (strex_ਸੰਕਾਰਜ.type != OP_REG32) {
             expect("register");
         }
-        if (tok != ',')
+        ਜੇ (tok != ',')
             expect("at least three arguments");
-        else
-            next(); // skip ','
-        break;
+        ਨਹੀਂਤਾਂ
+            ਅਗਲਾ(); // skip ','
+        ਰੋਕੋ;
     }
 
     skip('[');
-    parse_operand(s1, &ops[1]);
-    if (ops[1].type == OP_REG32)
+    parse_ਸੰਕਾਰਜ(s1, &ops[1]);
+    ਜੇ (ops[1].type == OP_REG32)
         opcode |= ENCODE_RN(ops[1].reg);
-    else {
+    ਨਹੀਂਤਾਂ {
         expect("(first source operand) register");
     }
-    if (tok == ']') {
-        next();
+    ਜੇ (tok == ']') {
+        ਅਗਲਾ();
         closed_bracket = 1;
         // exclam = 1; // implicit in hardware; don't do it in software
     }
-    if (tok == ',') {
-        next(); // skip ','
-        if (tok == '-') {
+    ਜੇ (tok == ',') {
+        ਅਗਲਾ(); // skip ','
+        ਜੇ (tok == '-') {
             op2_minus = 1;
-            next();
+            ਅਗਲਾ();
         }
-        parse_operand(s1, &ops[2]);
-        if (ops[2].type == OP_REG32) {
-            if (ops[2].reg == 15) {
-                tcc_error("Using 'pc' for register offset in '%s' is not implemented by ARM", get_tok_str(token, NULL));
+        parse_ਸੰਕਾਰਜ(s1, &ops[2]);
+        ਜੇ (ops[2].type == OP_REG32) {
+            ਜੇ (ops[2].reg == 15) {
+                tcc_error("Using 'pc' for register offset in '%s' is not implemented by ARM", get_tok_str(token, ਨਿਰਾ));
             }
-            if (tok == ',') {
-                next();
-                opcode |= asm_parse_optional_shift(s1, &nb_shift, &shift);
-                if (opcode == 0)
+            ਜੇ (tok == ',') {
+                ਅਗਲਾ();
+                opcode |= asm_parse_optional_ਖਿਸਕਾਓ(s1, &nb_ਖਿਸਕਾਓ, &ਖਿਸਕਾਓ);
+                ਜੇ (opcode == 0)
                     expect("shift directive, or no comma");
             }
         }
-    } else {
+    } ਨਹੀਂਤਾਂ {
         // end of input expression in brackets--assume 0 offset
         ops[2].type = OP_IM8;
         ops[2].e.v = 0;
         opcode |= 1 << 24; // add offset before transfer
     }
-    if (!closed_bracket) {
+    ਜੇ (!closed_bracket) {
         skip(']');
         opcode |= 1 << 24; // add offset before transfer
-        if (tok == '!') {
+        ਜੇ (tok == '!') {
             exclam = 1;
-            next(); // skip '!'
+            ਅਗਲਾ(); // skip '!'
         }
     }
 
@@ -1163,745 +1163,745 @@ static void asm_single_data_transfer_opcode(TCCState *s1, int token)
     // B: Byte/word is byte?  [ok]
     // W: Write address back into base? [ok]
     // L: Load/store is load? [ok]
-    if (exclam)
+    ਜੇ (exclam)
         opcode |= 1 << 21; // write offset back into register
 
-    if (ops[2].type == OP_IM32 || ops[2].type == OP_IM8 || ops[2].type == OP_IM8N) {
-        int v = ops[2].e.v;
-        if (op2_minus)
+    ਜੇ (ops[2].type == OP_IM32 || ops[2].type == OP_IM8 || ops[2].type == OP_IM8N) {
+        ਪੂਰਨ v = ops[2].e.v;
+        ਜੇ (op2_minus)
             tcc_error("minus before '#' not supported for immediate values");
-        if (v >= 0) {
-            opcode |= 1 << 23; // up
-            if (v >= 0x1000)
-                tcc_error("offset out of range for '%s'", get_tok_str(token, NULL));
-            else
+        ਜੇ (v >= 0) {
+            opcode |= 1 << 23; //ਉੱਪਰ
+            ਜੇ (v >= 0x1000)
+                tcc_error("offset out of range for '%s'", get_tok_str(token, ਨਿਰਾ));
+            ਨਹੀਂਤਾਂ
                 opcode |= v;
-        } else { // down
-            if (v <= -0x1000)
-                tcc_error("offset out of range for '%s'", get_tok_str(token, NULL));
-            else
+        } ਨਹੀਂਤਾਂ { //ਥੱਲੇ
+            ਜੇ (v <= -0x1000)
+                tcc_error("offset out of range for '%s'", get_tok_str(token, ਨਿਰਾ));
+            ਨਹੀਂਤਾਂ
                 opcode |= -v;
         }
-    } else if (ops[2].type == OP_REG32) {
-        if (!op2_minus)
-            opcode |= 1 << 23; // up
-        opcode |= ENCODE_IMMEDIATE_FLAG; /* if set, it means it's NOT immediate */
+    } ਨਹੀਂਤਾਂ ਜੇ (ops[2].type == OP_REG32) {
+        ਜੇ (!op2_minus)
+            opcode |= 1 << 23; //ਉੱਪਰ
+        opcode |= ENCODE_ਤੁਰੰਤ_FLAG; /* if set, it means it's NOT immediate */
         opcode |= ops[2].reg;
-    } else
+    } ਨਹੀਂਤਾਂ
         expect("register");
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_strbeq:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_strbeq:
         opcode |= 1 << 22; // B
         /* fallthrough */
-    case TOK_ASM_streq:
+    ਹਾਲਤ TOK_ASM_streq:
         opcode |= 1 << 26; // Load/Store
-        if (nb_shift)
-            opcode |= asm_encode_shift(&shift);
+        ਜੇ (nb_ਖਿਸਕਾਓ)
+            opcode |= asm_encode_ਖਿਸਕਾਓ(&ਖਿਸਕਾਓ);
         asm_emit_opcode(token, opcode);
-        break;
-    case TOK_ASM_ldrbeq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_ldrbeq:
         opcode |= 1 << 22; // B
         /* fallthrough */
-    case TOK_ASM_ldreq:
+    ਹਾਲਤ TOK_ASM_ldreq:
         opcode |= 1 << 20; // L
         opcode |= 1 << 26; // Load/Store
-        if (nb_shift)
-            opcode |= asm_encode_shift(&shift);
+        ਜੇ (nb_ਖਿਸਕਾਓ)
+            opcode |= asm_encode_ਖਿਸਕਾਓ(&ਖਿਸਕਾਓ);
         asm_emit_opcode(token, opcode);
-        break;
-    case TOK_ASM_strexheq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_strexheq:
         opcode |= 1 << 21;
-    case TOK_ASM_strexbeq:
+    ਹਾਲਤ TOK_ASM_strexbeq:
         opcode |= 1 << 22; // B
         /* fallthrough */
-    case TOK_ASM_strexeq:
-        if ((opcode & 0xFFF) || nb_shift) {
+    ਹਾਲਤ TOK_ASM_strexeq:
+        ਜੇ ((opcode & 0xFFF) || nb_ਖਿਸਕਾਓ) {
             tcc_error("neither offset nor shift allowed with 'strex'");
-        } else if (opcode & ENCODE_IMMEDIATE_FLAG) { // if set, it means it's NOT immediate
+        } ਨਹੀਂਤਾਂ ਜੇ (opcode & ENCODE_ਤੁਰੰਤ_FLAG) { // if set, it means it's NOT immediate
             tcc_error("offset not allowed with 'strex'");
         }
-        if ((opcode & (1 << 24)) == 0) { // add offset after transfer
+        ਜੇ ((opcode & (1 << 24)) == 0) { // add offset after transfer
             tcc_error("adding offset after transfer not allowed with 'strex'");
         }
 
         opcode |= 0xf90; // Used to mean: barrel shifter is enabled, barrel shift register is r15, mode is LSL
-        opcode |= strex_operand.reg;
+        opcode |= strex_ਸੰਕਾਰਜ.reg;
         asm_emit_opcode(token, opcode);
-        break;
-    case TOK_ASM_ldrexheq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_ldrexheq:
         opcode |= 1 << 21;
-    case TOK_ASM_ldrexbeq:
+    ਹਾਲਤ TOK_ASM_ldrexbeq:
         opcode |= 1 << 22; // B
         /* fallthrough */
-    case TOK_ASM_ldrexeq:
-        if ((opcode & 0xFFF) || nb_shift) {
+    ਹਾਲਤ TOK_ASM_ldrexeq:
+        ਜੇ ((opcode & 0xFFF) || nb_ਖਿਸਕਾਓ) {
             tcc_error("neither offset nor shift allowed with 'ldrex'");
-        } else if (opcode & ENCODE_IMMEDIATE_FLAG) { // if set, it means it's NOT immediate
+        } ਨਹੀਂਤਾਂ ਜੇ (opcode & ENCODE_ਤੁਰੰਤ_FLAG) { // if set, it means it's NOT immediate
             tcc_error("offset not allowed with 'ldrex'");
         }
-        if ((opcode & (1 << 24)) == 0) { // add offset after transfer
+        ਜੇ ((opcode & (1 << 24)) == 0) { // add offset after transfer
             tcc_error("adding offset after transfer not allowed with 'ldrex'");
         }
         opcode |= 1 << 20; // L
         opcode |= 0x00f;
         opcode |= 0xf90; // Used to mean: barrel shifter is enabled, barrel shift register is r15, mode is LSL
         asm_emit_opcode(token, opcode);
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("data transfer instruction");
     }
 }
 
 // Note: Only call this using a VFP register if you know exactly what you are doing (i.e. cp_number is 10 or 11 and you are doing a vmov)
-static void asm_emit_coprocessor_data_transfer(uint32_t high_nibble, uint8_t cp_number, uint8_t CRd, const Operand* Rn, const Operand* offset, int offset_minus, int preincrement, int writeback, int long_transfer, int load) {
+ਸਥਿਰ ਖਾਲੀ asm_emit_coprocessor_ਅੰਕੜੇ_transfer(uint32_t ਉੱਚਾ_nibble, uint8_t cp_ਸੰਖਿਆ, uint8_t CRd, ਅਚਲ ਸੰਕਾਰਜ* Rn, ਅਚਲ ਸੰਕਾਰਜ* ਵਿੱਥ, ਪੂਰਨ ਵਿੱਥ_minus, ਪੂਰਨ preincrement, ਪੂਰਨ writeback, ਪੂਰਨ long_transfer, ਪੂਰਨ ਲੱਦੋ) {
     uint32_t opcode = 0x0;
     opcode |= 1 << 26; // Load/Store
     opcode |= 1 << 27; // coprocessor
 
-    if (long_transfer)
+    ਜੇ (long_transfer)
         opcode |= 1 << 22; // long transfer
 
-    if (load)
+    ਜੇ (ਲੱਦੋ)
         opcode |= 1 << 20; // L
 
-    opcode |= cp_number << 8;
+    opcode |= cp_ਸੰਖਿਆ << 8;
 
     //assert(CRd < 16);
     opcode |= ENCODE_RD(CRd);
 
-    if (Rn->type != OP_REG32)
+    ਜੇ (Rn->type != OP_REG32)
         expect("register");
 
     //assert(Rn->reg < 16);
     opcode |= ENCODE_RN(Rn->reg);
-    if (preincrement)
+    ਜੇ (preincrement)
         opcode |= 1 << 24; // add offset before transfer
 
-    if (writeback)
+    ਜੇ (writeback)
         opcode |= 1 << 21; // write offset back into register
 
-    if (offset->type == OP_IM8 || offset->type == OP_IM8N || offset->type == OP_IM32) {
-        int v = offset->e.v;
-        if (offset_minus)
+    ਜੇ (ਵਿੱਥ->type == OP_IM8 || ਵਿੱਥ->type == OP_IM8N || ਵਿੱਥ->type == OP_IM32) {
+        ਪੂਰਨ v = ਵਿੱਥ->e.v;
+        ਜੇ (ਵਿੱਥ_minus)
             tcc_error("minus before '#' not supported for immediate values");
-        if (offset->type == OP_IM8N || v < 0)
+        ਜੇ (ਵਿੱਥ->type == OP_IM8N || v < 0)
             v = -v;
-        else
-            opcode |= 1 << 23; // up
-        if (v & 3) {
+        ਨਹੀਂਤਾਂ
+            opcode |= 1 << 23; //ਉੱਪਰ
+        ਜੇ (v & 3) {
             tcc_error("immediate offset must be a multiple of 4");
         }
         v >>= 2;
-        if (v > 255) {
+        ਜੇ (v > 255) {
             tcc_error("immediate offset must be between -1020 and 1020");
         }
         opcode |= v;
-    } else if (offset->type == OP_REG32) {
-        if (!offset_minus)
-            opcode |= 1 << 23; // up
-        opcode |= ENCODE_IMMEDIATE_FLAG; /* if set, it means it's NOT immediate */
-        opcode |= offset->reg;
+    } ਨਹੀਂਤਾਂ ਜੇ (ਵਿੱਥ->type == OP_REG32) {
+        ਜੇ (!ਵਿੱਥ_minus)
+            opcode |= 1 << 23; //ਉੱਪਰ
+        opcode |= ENCODE_ਤੁਰੰਤ_FLAG; /* if set, it means it's NOT immediate */
+        opcode |= ਵਿੱਥ->reg;
         tcc_error("Using register offset to register address is not possible here");
-    } else if (offset->type == OP_VREG64) {
+    } ਨਹੀਂਤਾਂ ਜੇ (ਵਿੱਥ->type == OP_VREG64) {
         opcode |= 16;
-        opcode |= offset->reg;
-    } else
+        opcode |= ਵਿੱਥ->reg;
+    } ਨਹੀਂਤਾਂ
         expect("immediate or register");
 
-    asm_emit_unconditional_opcode((high_nibble << 28) | opcode);
+    asm_emit_unconditional_opcode((ਉੱਚਾ_nibble << 28) | opcode);
 }
 
 // Almost exactly the same as asm_single_data_transfer_opcode.
 // Difference: Offsets are smaller and multiples of 4; no shifts, no STREX, ENCODE_IMMEDIATE_FLAG is inverted again.
-static void asm_coprocessor_data_transfer_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_coprocessor_ਅੰਕੜੇ_transfer_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    Operand ops[3];
+    ਸੰਕਾਰਜ ops[3];
     uint8_t coprocessor;
-    uint8_t coprocessor_destination_register;
-    int preincrement = 0;
-    int exclam = 0;
-    int closed_bracket = 0;
-    int op2_minus = 0;
-    int long_transfer = 0;
+    uint8_t coprocessor_destination_ਰਜਿਸਟਰ;
+    ਪੂਰਨ preincrement = 0;
+    ਪੂਰਨ exclam = 0;
+    ਪੂਰਨ closed_bracket = 0;
+    ਪੂਰਨ op2_minus = 0;
+    ਪੂਰਨ long_transfer = 0;
     // Note: ldc p1, c0, [r4, #4]  ; simple offset: r0 = *(int*)(r4+4); r4 unchanged
     // Note: ldc p2, c0, [r4, #4]! ; pre-indexed:   r0 = *(int*)(r4+4); r4 = r4+4
     // Note: ldc p3, c0, [r4], #4  ; post-indexed:  r0 = *(int*)(r4+0); r4 = r4+4
 
-    if (tok >= TOK_ASM_p0 && tok <= TOK_ASM_p15) {
+    ਜੇ (tok >= TOK_ASM_p0 && tok <= TOK_ASM_p15) {
         coprocessor = tok - TOK_ASM_p0;
-        next();
-    } else {
+        ਅਗਲਾ();
+    } ਨਹੀਂਤਾਂ {
         expect("'c<number>'");
     }
 
     skip(',');
 
-    if (tok >= TOK_ASM_c0 && tok <= TOK_ASM_c15) {
-        coprocessor_destination_register = tok - TOK_ASM_c0;
-        next();
-    } else {
+    ਜੇ (tok >= TOK_ASM_c0 && tok <= TOK_ASM_c15) {
+        coprocessor_destination_ਰਜਿਸਟਰ = tok - TOK_ASM_c0;
+        ਅਗਲਾ();
+    } ਨਹੀਂਤਾਂ {
         expect("'c<number>'");
     }
 
     skip(',');
     skip('[');
-    parse_operand(s1, &ops[1]);
-    if (ops[1].type != OP_REG32) {
+    parse_ਸੰਕਾਰਜ(s1, &ops[1]);
+    ਜੇ (ops[1].type != OP_REG32) {
         expect("(first source operand) register");
     }
-    if (tok == ']') {
-        next();
+    ਜੇ (tok == ']') {
+        ਅਗਲਾ();
         closed_bracket = 1;
         // exclam = 1; // implicit in hardware; don't do it in software
     }
-    if (tok == ',') {
-        next(); // skip ','
-        if (tok == '-') {
+    ਜੇ (tok == ',') {
+        ਅਗਲਾ(); // skip ','
+        ਜੇ (tok == '-') {
             op2_minus = 1;
-            next();
+            ਅਗਲਾ();
         }
-        parse_operand(s1, &ops[2]);
-        if (ops[2].type == OP_REG32) {
-            if (ops[2].reg == 15) {
-                tcc_error("Using 'pc' for register offset in '%s' is not implemented by ARM", get_tok_str(token, NULL));
+        parse_ਸੰਕਾਰਜ(s1, &ops[2]);
+        ਜੇ (ops[2].type == OP_REG32) {
+            ਜੇ (ops[2].reg == 15) {
+                tcc_error("Using 'pc' for register offset in '%s' is not implemented by ARM", get_tok_str(token, ਨਿਰਾ));
             }
-        } else if (ops[2].type == OP_VREG64) {
-            tcc_error("'%s' does not support VFP register operand", get_tok_str(token, NULL));
+        } ਨਹੀਂਤਾਂ ਜੇ (ops[2].type == OP_VREG64) {
+            tcc_error("'%s' does not support VFP register operand", get_tok_str(token, ਨਿਰਾ));
         }
-    } else {
+    } ਨਹੀਂਤਾਂ {
         // end of input expression in brackets--assume 0 offset
         ops[2].type = OP_IM8;
         ops[2].e.v = 0;
         preincrement = 1; // add offset before transfer
     }
-    if (!closed_bracket) {
+    ਜੇ (!closed_bracket) {
         skip(']');
         preincrement = 1; // add offset before transfer
-        if (tok == '!') {
+        ਜੇ (tok == '!') {
             exclam = 1;
-            next(); // skip '!'
+            ਅਗਲਾ(); // skip '!'
         }
     }
 
     // TODO: Support options.
 
-    if (token == TOK_ASM_ldc2 || token == TOK_ASM_stc2 || token == TOK_ASM_ldc2l || token == TOK_ASM_stc2l) {
-        switch (token) {
-        case TOK_ASM_ldc2l:
+    ਜੇ (token == TOK_ASM_ldc2 || token == TOK_ASM_stc2 || token == TOK_ASM_ldc2l || token == TOK_ASM_stc2l) {
+        ਚੋਣ (token) {
+        ਹਾਲਤ TOK_ASM_ldc2l:
             long_transfer = 1; // long transfer
             /* fallthrough */
-        case TOK_ASM_ldc2:
-            asm_emit_coprocessor_data_transfer(0xF, coprocessor, coprocessor_destination_register, &ops[1], &ops[2], op2_minus, preincrement, exclam, long_transfer, 1);
-            break;
-        case TOK_ASM_stc2l:
+        ਹਾਲਤ TOK_ASM_ldc2:
+            asm_emit_coprocessor_ਅੰਕੜੇ_transfer(0xF, coprocessor, coprocessor_destination_ਰਜਿਸਟਰ, &ops[1], &ops[2], op2_minus, preincrement, exclam, long_transfer, 1);
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ASM_stc2l:
             long_transfer = 1; // long transfer
             /* fallthrough */
-        case TOK_ASM_stc2:
-            asm_emit_coprocessor_data_transfer(0xF, coprocessor, coprocessor_destination_register, &ops[1], &ops[2], op2_minus, preincrement, exclam, long_transfer, 0);
-            break;
+        ਹਾਲਤ TOK_ASM_stc2:
+            asm_emit_coprocessor_ਅੰਕੜੇ_transfer(0xF, coprocessor, coprocessor_destination_ਰਜਿਸਟਰ, &ops[1], &ops[2], op2_minus, preincrement, exclam, long_transfer, 0);
+            ਰੋਕੋ;
         }
-    } else switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_stcleq:
+    } ਨਹੀਂਤਾਂ ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_stcleq:
         long_transfer = 1;
         /* fallthrough */
-    case TOK_ASM_stceq:
-        asm_emit_coprocessor_data_transfer(condition_code_of_token(token), coprocessor, coprocessor_destination_register, &ops[1], &ops[2], op2_minus, preincrement, exclam, long_transfer, 0);
-        break;
-    case TOK_ASM_ldcleq:
+    ਹਾਲਤ TOK_ASM_stceq:
+        asm_emit_coprocessor_ਅੰਕੜੇ_transfer(condition_ਕੋਡ_ਦਾ_token(token), coprocessor, coprocessor_destination_ਰਜਿਸਟਰ, &ops[1], &ops[2], op2_minus, preincrement, exclam, long_transfer, 0);
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_ldcleq:
         long_transfer = 1;
         /* fallthrough */
-    case TOK_ASM_ldceq:
-        asm_emit_coprocessor_data_transfer(condition_code_of_token(token), coprocessor, coprocessor_destination_register, &ops[1], &ops[2], op2_minus, preincrement, exclam, long_transfer, 1);
-        break;
-    default:
+    ਹਾਲਤ TOK_ASM_ldceq:
+        asm_emit_coprocessor_ਅੰਕੜੇ_transfer(condition_ਕੋਡ_ਦਾ_token(token), coprocessor, coprocessor_destination_ਰਜਿਸਟਰ, &ops[1], &ops[2], op2_minus, preincrement, exclam, long_transfer, 1);
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("coprocessor data transfer instruction");
     }
 }
 
-#if defined(TCC_ARM_VFP)
-#define CP_SINGLE_PRECISION_FLOAT 10
-#define CP_DOUBLE_PRECISION_FLOAT 11
+#ਜੇ defined(TCC_ARM_VFP)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CP_SINGLE_PRECISION_FLOAT 10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CP_DOUBLE_PRECISION_FLOAT 11
 
-static void asm_floating_point_single_data_transfer_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_floating_ਬਿੰਦੂ_single_ਅੰਕੜੇ_transfer_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    Operand ops[3];
+    ਸੰਕਾਰਜ ops[3];
     uint8_t coprocessor = 0;
-    uint8_t coprocessor_destination_register = 0;
-    int long_transfer = 0;
+    uint8_t coprocessor_destination_ਰਜਿਸਟਰ = 0;
+    ਪੂਰਨ long_transfer = 0;
     // Note: vldr p1, c0, [r4, #4]  ; simple offset: r0 = *(int*)(r4+4); r4 unchanged
     // Note: Not allowed: vldr p2, c0, [r4, #4]! ; pre-indexed:   r0 = *(int*)(r4+4); r4 = r4+4
     // Note: Not allowed: vldr p3, c0, [r4], #4  ; post-indexed:  r0 = *(int*)(r4+0); r4 = r4+4
 
-    parse_operand(s1, &ops[0]);
-    if (ops[0].type == OP_VREG32) {
+    parse_ਸੰਕਾਰਜ(s1, &ops[0]);
+    ਜੇ (ops[0].type == OP_VREG32) {
         coprocessor = CP_SINGLE_PRECISION_FLOAT;
-        coprocessor_destination_register = ops[0].reg;
-        long_transfer = coprocessor_destination_register & 1;
-        coprocessor_destination_register >>= 1;
-    } else if (ops[0].type == OP_VREG64) {
+        coprocessor_destination_ਰਜਿਸਟਰ = ops[0].reg;
+        long_transfer = coprocessor_destination_ਰਜਿਸਟਰ & 1;
+        coprocessor_destination_ਰਜਿਸਟਰ >>= 1;
+    } ਨਹੀਂਤਾਂ ਜੇ (ops[0].type == OP_VREG64) {
         coprocessor = CP_DOUBLE_PRECISION_FLOAT;
-        coprocessor_destination_register = ops[0].reg;
-        next();
-    } else {
+        coprocessor_destination_ਰਜਿਸਟਰ = ops[0].reg;
+        ਅਗਲਾ();
+    } ਨਹੀਂਤਾਂ {
         expect("floating point register");
     }
 
     skip(',');
     skip('[');
-    parse_operand(s1, &ops[1]);
-    if (ops[1].type != OP_REG32) {
+    parse_ਸੰਕਾਰਜ(s1, &ops[1]);
+    ਜੇ (ops[1].type != OP_REG32) {
         expect("(first source operand) register");
     }
-    if (tok == ',') {
-        next(); // skip ','
-        parse_operand(s1, &ops[2]);
-        if (ops[2].type != OP_IM8 && ops[2].type != OP_IM8N) {
+    ਜੇ (tok == ',') {
+        ਅਗਲਾ(); // skip ','
+        parse_ਸੰਕਾਰਜ(s1, &ops[2]);
+        ਜੇ (ops[2].type != OP_IM8 && ops[2].type != OP_IM8N) {
             expect("immediate offset");
         }
-    } else {
+    } ਨਹੀਂਤਾਂ {
         // end of input expression in brackets--assume 0 offset
         ops[2].type = OP_IM8;
         ops[2].e.v = 0;
     }
     skip(']');
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_vldreq:
-        asm_emit_coprocessor_data_transfer(condition_code_of_token(token), coprocessor, coprocessor_destination_register, &ops[1], &ops[2], 0, 1, 0, long_transfer, 1);
-        break;
-    case TOK_ASM_vstreq:
-        asm_emit_coprocessor_data_transfer(condition_code_of_token(token), coprocessor, coprocessor_destination_register, &ops[1], &ops[2], 0, 1, 0, long_transfer, 0);
-        break;
-    default:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_vldreq:
+        asm_emit_coprocessor_ਅੰਕੜੇ_transfer(condition_ਕੋਡ_ਦਾ_token(token), coprocessor, coprocessor_destination_ਰਜਿਸਟਰ, &ops[1], &ops[2], 0, 1, 0, long_transfer, 1);
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vstreq:
+        asm_emit_coprocessor_ਅੰਕੜੇ_transfer(condition_ਕੋਡ_ਦਾ_token(token), coprocessor, coprocessor_destination_ਰਜਿਸਟਰ, &ops[1], &ops[2], 0, 1, 0, long_transfer, 0);
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("floating point data transfer instruction");
     }
 }
 
-static void asm_floating_point_block_data_transfer_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_floating_ਬਿੰਦੂ_ਖੰਡ_ਅੰਕੜੇ_transfer_opcode(TCCState *s1, ਪੂਰਨ token)
 {
     uint8_t coprocessor = 0;
-    int first_regset_register;
-    int last_regset_register;
-    uint8_t regset_item_count;
-    uint8_t extra_register_bit = 0;
-    int op0_exclam = 0;
-    int load = 0;
-    int preincrement = 0;
-    Operand ops[1];
-    Operand offset;
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_vpusheq:
-    case TOK_ASM_vpopeq:
+    ਪੂਰਨ ਪਹਿਲਾ_regset_ਰਜਿਸਟਰ;
+    ਪੂਰਨ ਆਖਰੀ_regset_ਰਜਿਸਟਰ;
+    uint8_t regset_ਵਸਤੂ_ਗਿਣਤੀ;
+    uint8_t extra_ਰਜਿਸਟਰ_ਦੋਆਧਾਰੀ_ਅੰਕ = 0;
+    ਪੂਰਨ op0_exclam = 0;
+    ਪੂਰਨ ਲੱਦੋ = 0;
+    ਪੂਰਨ preincrement = 0;
+    ਸੰਕਾਰਜ ops[1];
+    ਸੰਕਾਰਜ ਵਿੱਥ;
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_vpusheq:
+    ਹਾਲਤ TOK_ASM_vpopeq:
         ops[0].type = OP_REG32;
         ops[0].reg = 13; // sp
         op0_exclam = 1;
-        break;
-    default:
-        parse_operand(s1, &ops[0]);
-        if (tok == '!') {
+        ਰੋਕੋ;
+    ਮੂਲ:
+        parse_ਸੰਕਾਰਜ(s1, &ops[0]);
+        ਜੇ (tok == '!') {
             op0_exclam = 1;
-            next(); // skip '!'
+            ਅਗਲਾ(); // skip '!'
         }
         skip(',');
     }
 
     skip('{');
-    first_regset_register = asm_parse_vfp_regvar(tok, 1);
-    if ((first_regset_register = asm_parse_vfp_regvar(tok, 1)) != -1) {
+    ਪਹਿਲਾ_regset_ਰਜਿਸਟਰ = asm_parse_vfp_regvar(tok, 1);
+    ਜੇ ((ਪਹਿਲਾ_regset_ਰਜਿਸਟਰ = asm_parse_vfp_regvar(tok, 1)) != -1) {
         coprocessor = CP_DOUBLE_PRECISION_FLOAT;
-        next();
-    } else if ((first_regset_register = asm_parse_vfp_regvar(tok, 0)) != -1) {
+        ਅਗਲਾ();
+    } ਨਹੀਂਤਾਂ ਜੇ ((ਪਹਿਲਾ_regset_ਰਜਿਸਟਰ = asm_parse_vfp_regvar(tok, 0)) != -1) {
         coprocessor = CP_SINGLE_PRECISION_FLOAT;
-        next();
-    } else {
+        ਅਗਲਾ();
+    } ਨਹੀਂਤਾਂ {
         expect("floating-point register");
     }
 
-    if (tok == '-') {
-        next();
-        if ((last_regset_register = asm_parse_vfp_regvar(tok, coprocessor == CP_DOUBLE_PRECISION_FLOAT)) != -1)
-            next();
-        else {
+    ਜੇ (tok == '-') {
+        ਅਗਲਾ();
+        ਜੇ ((ਆਖਰੀ_regset_ਰਜਿਸਟਰ = asm_parse_vfp_regvar(tok, coprocessor == CP_DOUBLE_PRECISION_FLOAT)) != -1)
+            ਅਗਲਾ();
+        ਨਹੀਂਤਾਂ {
             expect("floating-point register");
         }
-    } else
-        last_regset_register = first_regset_register;
+    } ਨਹੀਂਤਾਂ
+        ਆਖਰੀ_regset_ਰਜਿਸਟਰ = ਪਹਿਲਾ_regset_ਰਜਿਸਟਰ;
 
-    if (last_regset_register < first_regset_register) {
+    ਜੇ (ਆਖਰੀ_regset_ਰਜਿਸਟਰ < ਪਹਿਲਾ_regset_ਰਜਿਸਟਰ) {
         tcc_error("registers will be processed in ascending order by hardware--but are not specified in ascending order here");
     }
     skip('}');
     // Note: 0 (one down) is not implemented by us regardless.
-    regset_item_count = last_regset_register - first_regset_register + 1;
-    if (coprocessor == CP_DOUBLE_PRECISION_FLOAT)
-        regset_item_count <<= 1;
-    else {
-        extra_register_bit = first_regset_register & 1;
-        first_regset_register >>= 1;
+    regset_ਵਸਤੂ_ਗਿਣਤੀ = ਆਖਰੀ_regset_ਰਜਿਸਟਰ - ਪਹਿਲਾ_regset_ਰਜਿਸਟਰ + 1;
+    ਜੇ (coprocessor == CP_DOUBLE_PRECISION_FLOAT)
+        regset_ਵਸਤੂ_ਗਿਣਤੀ <<= 1;
+    ਨਹੀਂਤਾਂ {
+        extra_ਰਜਿਸਟਰ_ਦੋਆਧਾਰੀ_ਅੰਕ = ਪਹਿਲਾ_regset_ਰਜਿਸਟਰ & 1;
+        ਪਹਿਲਾ_regset_ਰਜਿਸਟਰ >>= 1;
     }
-    offset.type = OP_IM8;
-    offset.e.v = regset_item_count << 2;
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_vstmeq: // post-increment store
-    case TOK_ASM_vstmiaeq: // post-increment store
-        break;
-    case TOK_ASM_vpopeq:
-    case TOK_ASM_vldmeq: // post-increment load
-    case TOK_ASM_vldmiaeq: // post-increment load
-        load = 1;
-        break;
-    case TOK_ASM_vldmdbeq: // pre-decrement load
-        load = 1;
+    ਵਿੱਥ.type = OP_IM8;
+    ਵਿੱਥ.e.v = regset_ਵਸਤੂ_ਗਿਣਤੀ << 2;
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_vstmeq: // post-increment store
+    ਹਾਲਤ TOK_ASM_vstmiaeq: // post-increment store
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vpopeq:
+    ਹਾਲਤ TOK_ASM_vldmeq: // post-increment load
+    ਹਾਲਤ TOK_ASM_vldmiaeq: // post-increment load
+        ਲੱਦੋ = 1;
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vldmdbeq: // pre-decrement load
+        ਲੱਦੋ = 1;
         /* fallthrough */
-    case TOK_ASM_vpusheq:
-    case TOK_ASM_vstmdbeq: // pre-decrement store
-        offset.type = OP_IM8N;
-        offset.e.v = -offset.e.v;
+    ਹਾਲਤ TOK_ASM_vpusheq:
+    ਹਾਲਤ TOK_ASM_vstmdbeq: // pre-decrement store
+        ਵਿੱਥ.type = OP_IM8N;
+        ਵਿੱਥ.e.v = -ਵਿੱਥ.e.v;
         preincrement = 1;
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("floating point block data transfer instruction");
     }
-    if (ops[0].type != OP_REG32)
+    ਜੇ (ops[0].type != OP_REG32)
         expect("(first operand) register");
-    else if (ops[0].reg == 15)
-        tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, NULL));
-    else if (!op0_exclam && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vldmeq && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vldmiaeq && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vstmeq && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vstmiaeq)
-        tcc_error("first operand of '%s' should have an exclamation mark", get_tok_str(token, NULL));
-    else
-        asm_emit_coprocessor_data_transfer(condition_code_of_token(token), coprocessor, first_regset_register, &ops[0], &offset, 0, preincrement, op0_exclam, extra_register_bit, load);
+    ਨਹੀਂਤਾਂ ਜੇ (ops[0].reg == 15)
+        tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, ਨਿਰਾ));
+    ਨਹੀਂਤਾਂ ਜੇ (!op0_exclam && ARM_INSTRUCTION_ਸਮੂਹ(token) != TOK_ASM_vldmeq && ARM_INSTRUCTION_ਸਮੂਹ(token) != TOK_ASM_vldmiaeq && ARM_INSTRUCTION_ਸਮੂਹ(token) != TOK_ASM_vstmeq && ARM_INSTRUCTION_ਸਮੂਹ(token) != TOK_ASM_vstmiaeq)
+        tcc_error("first operand of '%s' should have an exclamation mark", get_tok_str(token, ਨਿਰਾ));
+    ਨਹੀਂਤਾਂ
+        asm_emit_coprocessor_ਅੰਕੜੇ_transfer(condition_ਕੋਡ_ਦਾ_token(token), coprocessor, ਪਹਿਲਾ_regset_ਰਜਿਸਟਰ, &ops[0], &ਵਿੱਥ, 0, preincrement, op0_exclam, extra_ਰਜਿਸਟਰ_ਦੋਆਧਾਰੀ_ਅੰਕ, ਲੱਦੋ);
 }
 
-#define VMOV_FRACTIONAL_DIGITS 7
-#define VMOV_ONE 10000000 /* pow(10, VMOV_FRACTIONAL_DIGITS) */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ VMOV_FRACTIONAL_DIGITS 7
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ VMOV_ONE 10000000 /* pow(10, VMOV_FRACTIONAL_DIGITS) */
 
-static uint32_t vmov_parse_fractional_part(const char* s)
+ਸਥਿਰ uint32_t vmov_parse_fractional_part(ਅਚਲ ਅੱਖਰ* s)
 {
-    uint32_t result = 0;
-    int i;
-    for (i = 0; i < VMOV_FRACTIONAL_DIGITS; ++i) {
-        char c = *s;
-        result *= 10;
-        if (c >= '0' && c <= '9') {
-            result += (c - '0');
+    uint32_t ਨਤੀਜਾ = 0;
+    ਪੂਰਨ i;
+    ਲਈ (i = 0; i < VMOV_FRACTIONAL_DIGITS; ++i) {
+        ਅੱਖਰ c = *s;
+        ਨਤੀਜਾ *= 10;
+        ਜੇ (c >= '0' && c <= '9') {
+            ਨਤੀਜਾ += (c - '0');
             ++s;
         }
     }
-    if (*s)
+    ਜੇ (*s)
         expect("decimal numeral");
-    return result;
+    ਵਾਪਸ ਨਤੀਜਾ;
 }
 
-static int vmov_linear_approx_index(uint32_t beginning, uint32_t end, uint32_t value)
+ਸਥਿਰ ਪੂਰਨ vmov_ਰੇਖਿਕ_approx_ਸੂਚਕਾਂਕ(uint32_t beginning, uint32_t ਸਿਰਾ, uint32_t ਮੁੱਲ)
 {
-    int i;
+    ਪੂਰਨ i;
     uint32_t k;
     uint32_t xvalue;
 
-    k = (end - beginning)/16;
-    for (xvalue = beginning, i = 0; i < 16; ++i, xvalue += k) {
-        if (value == xvalue)
-            return i;
+    k = (ਸਿਰਾ - beginning)/16;
+    ਲਈ (xvalue = beginning, i = 0; i < 16; ++i, xvalue += k) {
+        ਜੇ (ਮੁੱਲ == xvalue)
+            ਵਾਪਸ i;
     }
     //assert(0);
-    return -1;
+    ਵਾਪਸ -1;
 }
 
-static uint32_t vmov_parse_immediate_value() {
-    uint32_t value;
-    unsigned long integral_value;
-    const char *p;
+ਸਥਿਰ uint32_t vmov_parse_ਤੁਰੰਤ_ਮੁੱਲ() {
+    uint32_t ਮੁੱਲ;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ integral_ਮੁੱਲ;
+    ਅਚਲ ਅੱਖਰ *p;
 
-    if (tok != TOK_PPNUM) {
+    ਜੇ (tok != TOK_PPNUM) {
         expect("immediate value");
     }
-    p = tokc.str.data;
+    p = tokc.str.ਅੰਕੜੇ;
     errno = 0;
-    integral_value = strtoul(p, (char **)&p, 0);
+    integral_ਮੁੱਲ = strtoul(p, (ਅੱਖਰ **)&p, 0);
 
-    if (errno || integral_value >= 32) {
+    ਜੇ (errno || integral_ਮੁੱਲ >= 32) {
         tcc_error("invalid floating-point immediate value");
     }
 
-    value = (uint32_t) integral_value * VMOV_ONE;
-    if (*p == '.') {
+    ਮੁੱਲ = (uint32_t) integral_ਮੁੱਲ * VMOV_ONE;
+    ਜੇ (*p == '.') {
         ++p;
-        value += vmov_parse_fractional_part(p);
+        ਮੁੱਲ += vmov_parse_fractional_part(p);
     }
-    next();
-    return value;
+    ਅਗਲਾ();
+    ਵਾਪਸ ਮੁੱਲ;
 }
 
-static uint8_t vmov_encode_immediate_value(uint32_t value)
+ਸਥਿਰ uint8_t vmov_encode_ਤੁਰੰਤ_ਮੁੱਲ(uint32_t ਮੁੱਲ)
 {
-    uint32_t limit;
-    uint32_t end = 0;
+    uint32_t ਹੱਦਬੰਦੀ;
+    uint32_t ਸਿਰਾ = 0;
     uint32_t beginning = 0;
-    int r = -1;
-    int n;
-    int i;
+    ਪੂਰਨ r = -1;
+    ਪੂਰਨ n;
+    ਪੂਰਨ i;
 
-    limit = 32 * VMOV_ONE;
-    for (i = 0; i < 8; ++i) {
-        if (value < limit) {
-            end = limit;
-            limit >>= 1;
-            beginning = limit;
+    ਹੱਦਬੰਦੀ = 32 * VMOV_ONE;
+    ਲਈ (i = 0; i < 8; ++i) {
+        ਜੇ (ਮੁੱਲ < ਹੱਦਬੰਦੀ) {
+            ਸਿਰਾ = ਹੱਦਬੰਦੀ;
+            ਹੱਦਬੰਦੀ >>= 1;
+            beginning = ਹੱਦਬੰਦੀ;
             r = i;
-        } else
-            limit >>= 1;
+        } ਨਹੀਂਤਾਂ
+            ਹੱਦਬੰਦੀ >>= 1;
     }
-    if (r == -1 || value < beginning || value > end) {
-        tcc_error("invalid decimal number for vmov: %d", value);
+    ਜੇ (r == -1 || ਮੁੱਲ < beginning || ਮੁੱਲ > ਸਿਰਾ) {
+        tcc_error("invalid decimal number for vmov: %d", ਮੁੱਲ);
     }
-    n = vmov_linear_approx_index(beginning, end, value);
-    return n | (((3 - r) & 0x7) << 4);
+    n = vmov_ਰੇਖਿਕ_approx_ਸੂਚਕਾਂਕ(beginning, ਸਿਰਾ, ਮੁੱਲ);
+    ਵਾਪਸ n | (((3 - r) & 0x7) << 4);
 }
 
 // Not standalone.
-static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s1, int token, uint8_t coprocessor, uint8_t CRd) {
+ਸਥਿਰ ਖਾਲੀ asm_floating_ਬਿੰਦੂ_ਤੁਰੰਤ_ਅੰਕੜੇ_processing_opcode_ਪੂਛ(TCCState *s1, ਪੂਰਨ token, uint8_t coprocessor, uint8_t CRd) {
     uint8_t opcode1 = 0;
     uint8_t opcode2 = 0;
     uint8_t operands[3] = {0, 0, 0};
-    uint32_t immediate_value = 0;
-    int op_minus = 0;
-    uint8_t code;
+    uint32_t ਤੁਰੰਤ_ਮੁੱਲ = 0;
+    ਪੂਰਨ op_minus = 0;
+    uint8_t ਕੋਡ;
 
     operands[0] = CRd;
 
-    if (tok == '#' || tok == '$') {
-        next();
+    ਜੇ (tok == '#' || tok == '$') {
+        ਅਗਲਾ();
     }
-    if (tok == '-') {
+    ਜੇ (tok == '-') {
         op_minus = 1;
-        next();
+        ਅਗਲਾ();
     }
-    immediate_value = vmov_parse_immediate_value();
+    ਤੁਰੰਤ_ਮੁੱਲ = vmov_parse_ਤੁਰੰਤ_ਮੁੱਲ();
 
     opcode1 = 11; // "Other" instruction
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_vcmpeq_f32:
-    case TOK_ASM_vcmpeq_f64:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_vcmpeq_f32:
+    ਹਾਲਤ TOK_ASM_vcmpeq_f64:
         opcode2 = 2;
         operands[1] = 5;
-        if (immediate_value) {
+        ਜੇ (ਤੁਰੰਤ_ਮੁੱਲ) {
             expect("Immediate value 0");
         }
-        break;
-    case TOK_ASM_vcmpeeq_f32:
-    case TOK_ASM_vcmpeeq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vcmpeeq_f32:
+    ਹਾਲਤ TOK_ASM_vcmpeeq_f64:
         opcode2 = 6;
         operands[1] = 5;
-        if (immediate_value) {
+        ਜੇ (ਤੁਰੰਤ_ਮੁੱਲ) {
             expect("Immediate value 0");
         }
-        break;
-    case TOK_ASM_vmoveq_f32:
-    case TOK_ASM_vmoveq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vmoveq_f32:
+    ਹਾਲਤ TOK_ASM_vmoveq_f64:
         opcode2 = 0;
-        if (op_minus)
+        ਜੇ (op_minus)
             operands[1] = 0x8;
-        else
+        ਨਹੀਂਤਾਂ
             operands[1] = 0x0;
-        code = vmov_encode_immediate_value(immediate_value);
-        operands[1] |= code >> 4;
-        operands[2] = code & 0xF;
-        break;
-    default:
+        ਕੋਡ = vmov_encode_ਤੁਰੰਤ_ਮੁੱਲ(ਤੁਰੰਤ_ਮੁੱਲ);
+        operands[1] |= ਕੋਡ >> 4;
+        operands[2] = ਕੋਡ & 0xF;
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("known floating point with immediate instruction");
     }
 
-    if (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
-        if (operands[0] & 1)
+    ਜੇ (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
+        ਜੇ (operands[0] & 1)
             opcode1 |= 4;
         operands[0] >>= 1;
     }
 
-    asm_emit_coprocessor_opcode(condition_code_of_token(token), coprocessor, opcode1, operands[0], operands[1], operands[2], opcode2, 0);
+    asm_emit_coprocessor_opcode(condition_ਕੋਡ_ਦਾ_token(token), coprocessor, opcode1, operands[0], operands[1], operands[2], opcode2, 0);
 }
 
-static void asm_floating_point_reg_arm_reg_transfer_opcode_tail(TCCState *s1, int token, int coprocessor, int nb_arm_regs, int nb_ops, Operand ops[3]) {
+ਸਥਿਰ ਖਾਲੀ asm_floating_ਬਿੰਦੂ_reg_arm_reg_transfer_opcode_ਪੂਛ(TCCState *s1, ਪੂਰਨ token, ਪੂਰਨ coprocessor, ਪੂਰਨ nb_arm_regs, ਪੂਰਨ nb_ops, ਸੰਕਾਰਜ ops[3]) {
     uint8_t opcode1 = 0;
     uint8_t opcode2 = 0;
-    switch (coprocessor) {
-    case CP_SINGLE_PRECISION_FLOAT:
+    ਚੋਣ (coprocessor) {
+    ਹਾਲਤ CP_SINGLE_PRECISION_FLOAT:
         // "vmov.f32 r2, s3" or "vmov.f32 s3, r2"
-        if (nb_ops != 2 || nb_arm_regs != 1) {
+        ਜੇ (nb_ops != 2 || nb_arm_regs != 1) {
             tcc_error("vmov.f32 only implemented for one VFP register operand and one ARM register operands");
         }
-        if (ops[0].type != OP_REG32) { // determine mode: load or store
+        ਜੇ (ops[0].type != OP_REG32) { // determine mode: load or store
             // need to swap operands 0 and 1
-            memcpy(&ops[2], &ops[1], sizeof(ops[2]));
-            memcpy(&ops[1], &ops[0], sizeof(ops[1]));
-            memcpy(&ops[0], &ops[2], sizeof(ops[0]));
-        } else
+            ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[2], &ops[1], ਆਕਾਰ(ops[2]));
+            ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[1], &ops[0], ਆਕਾਰ(ops[1]));
+            ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[0], &ops[2], ਆਕਾਰ(ops[0]));
+        } ਨਹੀਂਤਾਂ
             opcode1 |= 1;
 
-        if (ops[1].type == OP_VREG32) {
-            if (ops[1].reg & 1)
+        ਜੇ (ops[1].type == OP_VREG32) {
+            ਜੇ (ops[1].reg & 1)
                 opcode2 |= 4;
             ops[1].reg >>= 1;
         }
 
-        if (ops[0].type == OP_VREG32) {
-            if (ops[0].reg & 1)
+        ਜੇ (ops[0].type == OP_VREG32) {
+            ਜੇ (ops[0].reg & 1)
                 opcode1 |= 4;
             ops[0].reg >>= 1;
         }
 
-        asm_emit_coprocessor_opcode(condition_code_of_token(token), coprocessor, opcode1, ops[0].reg, (ops[1].type == OP_IM8) ? ops[1].e.v : ops[1].reg, 0x10, opcode2, 0);
-        break;
-    case CP_DOUBLE_PRECISION_FLOAT:
-        if (nb_ops != 3 || nb_arm_regs != 2) {
+        asm_emit_coprocessor_opcode(condition_ਕੋਡ_ਦਾ_token(token), coprocessor, opcode1, ops[0].reg, (ops[1].type == OP_IM8) ? ops[1].e.v : ops[1].reg, 0x10, opcode2, 0);
+        ਰੋਕੋ;
+    ਹਾਲਤ CP_DOUBLE_PRECISION_FLOAT:
+        ਜੇ (nb_ops != 3 || nb_arm_regs != 2) {
             tcc_error("vmov.f32 only implemented for one VFP register operand and two ARM register operands");
         }
         // Determine whether it's a store into a VFP register (vmov "d1, r2, r3") rather than "vmov r2, r3, d1"
-        if (ops[0].type == OP_VREG64) {
-            if (ops[2].type == OP_REG32) {
-                Operand temp;
+        ਜੇ (ops[0].type == OP_VREG64) {
+            ਜੇ (ops[2].type == OP_REG32) {
+                ਸੰਕਾਰਜ ਆਰਜ਼ੀ;
                 // need to rotate operand list to the left
-                memcpy(&temp, &ops[0], sizeof(temp));
-                memcpy(&ops[0], &ops[1], sizeof(ops[0]));
-                memcpy(&ops[1], &ops[2], sizeof(ops[1]));
-                memcpy(&ops[2], &temp, sizeof(ops[2]));
-            } else {
+                ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ਆਰਜ਼ੀ, &ops[0], ਆਕਾਰ(ਆਰਜ਼ੀ));
+                ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[0], &ops[1], ਆਕਾਰ(ops[0]));
+                ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[1], &ops[2], ਆਕਾਰ(ops[1]));
+                ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[2], &ਆਰਜ਼ੀ, ਆਕਾਰ(ops[2]));
+            } ਨਹੀਂਤਾਂ {
                 tcc_error("vmov.f64 only implemented for one VFP register operand and two ARM register operands");
             }
-        } else if (ops[0].type != OP_REG32 || ops[1].type != OP_REG32 || ops[2].type != OP_VREG64) {
+        } ਨਹੀਂਤਾਂ ਜੇ (ops[0].type != OP_REG32 || ops[1].type != OP_REG32 || ops[2].type != OP_VREG64) {
             tcc_error("vmov.f64 only implemented for one VFP register operand and two ARM register operands");
-        } else {
+        } ਨਹੀਂਤਾਂ {
             opcode1 |= 1;
         }
-        asm_emit_coprocessor_data_transfer(condition_code_of_token(token), coprocessor, ops[0].reg, &ops[1], &ops[2], 0, 0, 0, 1, opcode1);
-        break;
-    default:
-        tcc_internal_error("unknown coprocessor");
+        asm_emit_coprocessor_ਅੰਕੜੇ_transfer(condition_ਕੋਡ_ਦਾ_token(token), coprocessor, ops[0].reg, &ops[1], &ops[2], 0, 0, 0, 1, opcode1);
+        ਰੋਕੋ;
+    ਮੂਲ:
+        tcc_ਅੰਦਰੂਨੀ_error("unknown coprocessor");
     }
 }
 
-static void asm_floating_point_vcvt_data_processing_opcode(TCCState *s1, int token) {
+ਸਥਿਰ ਖਾਲੀ asm_floating_ਬਿੰਦੂ_vcvt_ਅੰਕੜੇ_processing_opcode(TCCState *s1, ਪੂਰਨ token) {
     uint8_t coprocessor = 0;
-    Operand ops[3];
+    ਸੰਕਾਰਜ ops[3];
     uint8_t opcode1 = 11;
     uint8_t opcode2 = 2;
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_vcvtreq_s32_f64:
-    case TOK_ASM_vcvtreq_u32_f64:
-    case TOK_ASM_vcvteq_s32_f64:
-    case TOK_ASM_vcvteq_u32_f64:
-    case TOK_ASM_vcvteq_f64_s32:
-    case TOK_ASM_vcvteq_f64_u32:
-    case TOK_ASM_vcvteq_f32_f64:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_vcvtreq_s32_f64:
+    ਹਾਲਤ TOK_ASM_vcvtreq_u32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_s32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_u32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_s32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_u32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f32_f64:
        coprocessor = CP_DOUBLE_PRECISION_FLOAT;
-       break;
-    case TOK_ASM_vcvtreq_s32_f32:
-    case TOK_ASM_vcvtreq_u32_f32:
-    case TOK_ASM_vcvteq_s32_f32:
-    case TOK_ASM_vcvteq_u32_f32:
-    case TOK_ASM_vcvteq_f32_s32:
-    case TOK_ASM_vcvteq_f32_u32:
-    case TOK_ASM_vcvteq_f64_f32:
+       ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vcvtreq_s32_f32:
+    ਹਾਲਤ TOK_ASM_vcvtreq_u32_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_s32_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_u32_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f32_s32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f32_u32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_f32:
        coprocessor = CP_SINGLE_PRECISION_FLOAT;
-       break;
-    default:
-       tcc_error("Unknown coprocessor for instruction '%s'", get_tok_str(token, NULL));
+       ਰੋਕੋ;
+    ਮੂਲ:
+       tcc_error("Unknown coprocessor for instruction '%s'", get_tok_str(token, ਨਿਰਾ));
     }
 
-    parse_operand(s1, &ops[0]);
+    parse_ਸੰਕਾਰਜ(s1, &ops[0]);
     ops[1].type = OP_IM8;
     ops[1].e.v = 8;
     /* floating-point -> integer */
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_vcvtreq_s32_f32:
-    case TOK_ASM_vcvtreq_s32_f64:
-    case TOK_ASM_vcvteq_s32_f32:
-    case TOK_ASM_vcvteq_s32_f64:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_vcvtreq_s32_f32:
+    ਹਾਲਤ TOK_ASM_vcvtreq_s32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_s32_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_s32_f64:
         ops[1].e.v |= 1; // signed
         /* fall through */
-    case TOK_ASM_vcvteq_u32_f32:
-    case TOK_ASM_vcvteq_u32_f64:
-    case TOK_ASM_vcvtreq_u32_f32:
-    case TOK_ASM_vcvtreq_u32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_u32_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_u32_f64:
+    ਹਾਲਤ TOK_ASM_vcvtreq_u32_f32:
+    ਹਾਲਤ TOK_ASM_vcvtreq_u32_f64:
         ops[1].e.v |= 4; // to_integer (opc2)
-        break;
+        ਰੋਕੋ;
     /* floating-point size conversion */
-    case TOK_ASM_vcvteq_f64_f32:
-    case TOK_ASM_vcvteq_f32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f32_f64:
         ops[1].e.v = 7;
-        break;
+        ਰੋਕੋ;
     }
 
     skip(',');
-    parse_operand(s1, &ops[2]);
+    parse_ਸੰਕਾਰਜ(s1, &ops[2]);
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
     /* floating-point -> integer */
-    case TOK_ASM_vcvteq_s32_f32:
-    case TOK_ASM_vcvteq_s32_f64:
-    case TOK_ASM_vcvteq_u32_f32:
-    case TOK_ASM_vcvteq_u32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_s32_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_s32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_u32_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_u32_f64:
         opcode2 |= 4; // round_zero
-        break;
+        ਰੋਕੋ;
 
     /* integer -> floating-point */
-    case TOK_ASM_vcvteq_f64_s32:
-    case TOK_ASM_vcvteq_f32_s32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_s32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f32_s32:
         opcode2 |= 4; // signed--special
-        break;
+        ਰੋਕੋ;
 
     /* floating-point size conversion */
-    case TOK_ASM_vcvteq_f64_f32:
-    case TOK_ASM_vcvteq_f32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f32_f64:
         opcode2 |= 4; // always set
-        break;
+        ਰੋਕੋ;
     }
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_vcvteq_f64_u32:
-    case TOK_ASM_vcvteq_f64_s32:
-    case TOK_ASM_vcvteq_f64_f32:
-        if (ops[0].type == OP_VREG64 && ops[2].type == OP_VREG32) {
-        } else {
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_u32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_s32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_f32:
+        ਜੇ (ops[0].type == OP_VREG64 && ops[2].type == OP_VREG32) {
+        } ਨਹੀਂਤਾਂ {
             expect("d<number>, s<number>");
         }
-        break;
-    default:
-        if (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
-            if (ops[0].type == OP_VREG32 && ops[2].type == OP_VREG32) {
-            } else {
+        ਰੋਕੋ;
+    ਮੂਲ:
+        ਜੇ (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
+            ਜੇ (ops[0].type == OP_VREG32 && ops[2].type == OP_VREG32) {
+            } ਨਹੀਂਤਾਂ {
                 expect("s<number>, s<number>");
             }
-        } else if (coprocessor == CP_DOUBLE_PRECISION_FLOAT) {
-            if (ops[0].type == OP_VREG32 && ops[2].type == OP_VREG64) {
-            } else {
+        } ਨਹੀਂਤਾਂ ਜੇ (coprocessor == CP_DOUBLE_PRECISION_FLOAT) {
+            ਜੇ (ops[0].type == OP_VREG32 && ops[2].type == OP_VREG64) {
+            } ਨਹੀਂਤਾਂ {
                 expect("s<number>, d<number>");
             }
         }
     }
 
-    if (ops[2].type == OP_VREG32) {
-        if (ops[2].reg & 1)
+    ਜੇ (ops[2].type == OP_VREG32) {
+        ਜੇ (ops[2].reg & 1)
             opcode2 |= 1;
         ops[2].reg >>= 1;
     }
-    if (ops[0].type == OP_VREG32) {
-        if (ops[0].reg & 1)
+    ਜੇ (ops[0].type == OP_VREG32) {
+        ਜੇ (ops[0].reg & 1)
             opcode1 |= 4;
         ops[0].reg >>= 1;
     }
-    asm_emit_coprocessor_opcode(condition_code_of_token(token), coprocessor, opcode1, ops[0].reg, (ops[1].type == OP_IM8) ? ops[1].e.v : ops[1].reg, (ops[2].type == OP_IM8) ? ops[2].e.v : ops[2].reg, opcode2, 0);
+    asm_emit_coprocessor_opcode(condition_ਕੋਡ_ਦਾ_token(token), coprocessor, opcode1, ops[0].reg, (ops[1].type == OP_IM8) ? ops[1].e.v : ops[1].reg, (ops[2].type == OP_IM8) ? ops[2].e.v : ops[2].reg, opcode2, 0);
 }
 
-static void asm_floating_point_data_processing_opcode(TCCState *s1, int token) {
+ਸਥਿਰ ਖਾਲੀ asm_floating_ਬਿੰਦੂ_ਅੰਕੜੇ_processing_opcode(TCCState *s1, ਪੂਰਨ token) {
     uint8_t coprocessor = CP_SINGLE_PRECISION_FLOAT;
     uint8_t opcode1 = 0;
     uint8_t opcode2 = 0; // (0 || 2) | register selection
-    Operand ops[3];
+    ਸੰਕਾਰਜ ops[3];
     uint8_t nb_ops = 0;
-    int vmov = 0;
-    int nb_arm_regs = 0;
+    ਪੂਰਨ vmov = 0;
+    ਪੂਰਨ nb_arm_regs = 0;
 
 /* TODO:
    Instruction    opcode opcode2  Reason
@@ -1921,261 +1921,261 @@ static void asm_floating_point_data_processing_opcode(TCCState *s1, int token) {
    VMOV Rd, Dn[1]
 */
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_vmlaeq_f64:
-    case TOK_ASM_vmlseq_f64:
-    case TOK_ASM_vnmlseq_f64:
-    case TOK_ASM_vnmlaeq_f64:
-    case TOK_ASM_vmuleq_f64:
-    case TOK_ASM_vnmuleq_f64:
-    case TOK_ASM_vaddeq_f64:
-    case TOK_ASM_vsubeq_f64:
-    case TOK_ASM_vdiveq_f64:
-    case TOK_ASM_vnegeq_f64:
-    case TOK_ASM_vabseq_f64:
-    case TOK_ASM_vsqrteq_f64:
-    case TOK_ASM_vcmpeq_f64:
-    case TOK_ASM_vcmpeeq_f64:
-    case TOK_ASM_vmoveq_f64:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_vmlaeq_f64:
+    ਹਾਲਤ TOK_ASM_vmlseq_f64:
+    ਹਾਲਤ TOK_ASM_vnmlseq_f64:
+    ਹਾਲਤ TOK_ASM_vnmlaeq_f64:
+    ਹਾਲਤ TOK_ASM_vmuleq_f64:
+    ਹਾਲਤ TOK_ASM_vnmuleq_f64:
+    ਹਾਲਤ TOK_ASM_vaddeq_f64:
+    ਹਾਲਤ TOK_ASM_vsubeq_f64:
+    ਹਾਲਤ TOK_ASM_vdiveq_f64:
+    ਹਾਲਤ TOK_ASM_vnegeq_f64:
+    ਹਾਲਤ TOK_ASM_vabseq_f64:
+    ਹਾਲਤ TOK_ASM_vsqrteq_f64:
+    ਹਾਲਤ TOK_ASM_vcmpeq_f64:
+    ਹਾਲਤ TOK_ASM_vcmpeeq_f64:
+    ਹਾਲਤ TOK_ASM_vmoveq_f64:
         coprocessor = CP_DOUBLE_PRECISION_FLOAT;
     }
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_vmoveq_f32:
-    case TOK_ASM_vmoveq_f64:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_vmoveq_f32:
+    ਹਾਲਤ TOK_ASM_vmoveq_f64:
         vmov = 1;
-        break;
+        ਰੋਕੋ;
     }
 
-    for (nb_ops = 0; nb_ops < 3; ) {
+    ਲਈ (nb_ops = 0; nb_ops < 3; ) {
         // Note: Necessary because parse_operand can't parse decimal numerals.
-        if (nb_ops == 1 && (tok == '#' || tok == '$' || tok == TOK_PPNUM || tok == '-')) {
-            asm_floating_point_immediate_data_processing_opcode_tail(s1, token, coprocessor, ops[0].reg);
-            return;
+        ਜੇ (nb_ops == 1 && (tok == '#' || tok == '$' || tok == TOK_PPNUM || tok == '-')) {
+            asm_floating_ਬਿੰਦੂ_ਤੁਰੰਤ_ਅੰਕੜੇ_processing_opcode_ਪੂਛ(s1, token, coprocessor, ops[0].reg);
+            ਵਾਪਸ;
         }
-        parse_operand(s1, &ops[nb_ops]);
-        if (vmov && ops[nb_ops].type == OP_REG32) {
+        parse_ਸੰਕਾਰਜ(s1, &ops[nb_ops]);
+        ਜੇ (vmov && ops[nb_ops].type == OP_REG32) {
             ++nb_arm_regs;
-        } else if (ops[nb_ops].type == OP_VREG32) {
-            if (coprocessor != CP_SINGLE_PRECISION_FLOAT) {
+        } ਨਹੀਂਤਾਂ ਜੇ (ops[nb_ops].type == OP_VREG32) {
+            ਜੇ (coprocessor != CP_SINGLE_PRECISION_FLOAT) {
                 expect("'s<number>'");
             }
-        } else if (ops[nb_ops].type == OP_VREG64) {
-            if (coprocessor != CP_DOUBLE_PRECISION_FLOAT) {
+        } ਨਹੀਂਤਾਂ ਜੇ (ops[nb_ops].type == OP_VREG64) {
+            ਜੇ (coprocessor != CP_DOUBLE_PRECISION_FLOAT) {
                 expect("'d<number>'");
             }
-        } else {
+        } ਨਹੀਂਤਾਂ {
             expect("floating point register");
         }
         ++nb_ops;
-        if (tok == ',')
-            next();
-        else
-            break;
+        ਜੇ (tok == ',')
+            ਅਗਲਾ();
+        ਨਹੀਂਤਾਂ
+            ਰੋਕੋ;
     }
 
-    if (nb_arm_regs == 0) {
-        if (nb_ops == 2) { // implicit
-            memcpy(&ops[2], &ops[1], sizeof(ops[1])); // move ops[2]
-            memcpy(&ops[1], &ops[0], sizeof(ops[0])); // ops[1] was implicit
+    ਜੇ (nb_arm_regs == 0) {
+        ਜੇ (nb_ops == 2) { // implicit
+            ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[2], &ops[1], ਆਕਾਰ(ops[1])); // move ops[2]
+            ਸਮ੍ਰਿਤੀ_ਨਕਲ(&ops[1], &ops[0], ਆਕਾਰ(ops[0])); // ops[1] was implicit
             nb_ops = 3;
         }
-        if (nb_ops < 3) {
-            tcc_error("Not enough operands for '%s' (%u)", get_tok_str(token, NULL), nb_ops);
+        ਜੇ (nb_ops < 3) {
+            tcc_error("Not enough operands for '%s' (%u)", get_tok_str(token, ਨਿਰਾ), nb_ops);
         }
     }
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_vmlaeq_f32:
-    case TOK_ASM_vmlaeq_f64:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_vmlaeq_f32:
+    ਹਾਲਤ TOK_ASM_vmlaeq_f64:
         opcode1 = 0;
         opcode2 = 0;
-        break;
-    case TOK_ASM_vmlseq_f32:
-    case TOK_ASM_vmlseq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vmlseq_f32:
+    ਹਾਲਤ TOK_ASM_vmlseq_f64:
         opcode1 = 0;
         opcode2 = 2;
-        break;
-    case TOK_ASM_vnmlseq_f32:
-    case TOK_ASM_vnmlseq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vnmlseq_f32:
+    ਹਾਲਤ TOK_ASM_vnmlseq_f64:
         opcode1 = 1;
         opcode2 = 0;
-        break;
-    case TOK_ASM_vnmlaeq_f32:
-    case TOK_ASM_vnmlaeq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vnmlaeq_f32:
+    ਹਾਲਤ TOK_ASM_vnmlaeq_f64:
         opcode1 = 1;
         opcode2 = 2;
-        break;
-    case TOK_ASM_vmuleq_f32:
-    case TOK_ASM_vmuleq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vmuleq_f32:
+    ਹਾਲਤ TOK_ASM_vmuleq_f64:
         opcode1 = 2;
         opcode2 = 0;
-        break;
-    case TOK_ASM_vnmuleq_f32:
-    case TOK_ASM_vnmuleq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vnmuleq_f32:
+    ਹਾਲਤ TOK_ASM_vnmuleq_f64:
         opcode1 = 2;
         opcode2 = 2;
-        break;
-    case TOK_ASM_vaddeq_f32:
-    case TOK_ASM_vaddeq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vaddeq_f32:
+    ਹਾਲਤ TOK_ASM_vaddeq_f64:
         opcode1 = 3;
         opcode2 = 0;
-        break;
-    case TOK_ASM_vsubeq_f32:
-    case TOK_ASM_vsubeq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vsubeq_f32:
+    ਹਾਲਤ TOK_ASM_vsubeq_f64:
         opcode1 = 3;
         opcode2 = 2;
-        break;
-    case TOK_ASM_vdiveq_f32:
-    case TOK_ASM_vdiveq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vdiveq_f32:
+    ਹਾਲਤ TOK_ASM_vdiveq_f64:
         opcode1 = 8;
         opcode2 = 0;
-        break;
-    case TOK_ASM_vnegeq_f32:
-    case TOK_ASM_vnegeq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vnegeq_f32:
+    ਹਾਲਤ TOK_ASM_vnegeq_f64:
         opcode1 = 11; // Other" instruction
         opcode2 = 2;
         ops[1].type = OP_IM8;
         ops[1].e.v = 1;
-        break;
-    case TOK_ASM_vabseq_f32:
-    case TOK_ASM_vabseq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vabseq_f32:
+    ਹਾਲਤ TOK_ASM_vabseq_f64:
         opcode1 = 11; // "Other" instruction
         opcode2 = 6;
         ops[1].type = OP_IM8;
         ops[1].e.v = 0;
-        break;
-    case TOK_ASM_vsqrteq_f32:
-    case TOK_ASM_vsqrteq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vsqrteq_f32:
+    ਹਾਲਤ TOK_ASM_vsqrteq_f64:
         opcode1 = 11; // "Other" instruction
         opcode2 = 6;
         ops[1].type = OP_IM8;
         ops[1].e.v = 1;
-        break;
-    case TOK_ASM_vcmpeq_f32:
-    case TOK_ASM_vcmpeq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vcmpeq_f32:
+    ਹਾਲਤ TOK_ASM_vcmpeq_f64:
         opcode1 = 11; // "Other" instruction
         opcode2 = 2;
         ops[1].type = OP_IM8;
         ops[1].e.v = 4;
-        break;
-    case TOK_ASM_vcmpeeq_f32:
-    case TOK_ASM_vcmpeeq_f64:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vcmpeeq_f32:
+    ਹਾਲਤ TOK_ASM_vcmpeeq_f64:
         opcode1 = 11; // "Other" instruction
         opcode2 = 6;
         ops[1].type = OP_IM8;
         ops[1].e.v = 4;
-        break;
-    case TOK_ASM_vmoveq_f32:
-    case TOK_ASM_vmoveq_f64:
-        if (nb_arm_regs > 0) { // vmov.f32 r2, s3 or similar
-            asm_floating_point_reg_arm_reg_transfer_opcode_tail(s1, token, coprocessor, nb_arm_regs, nb_ops, ops);
-            return;
-        } else {
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vmoveq_f32:
+    ਹਾਲਤ TOK_ASM_vmoveq_f64:
+        ਜੇ (nb_arm_regs > 0) { // vmov.f32 r2, s3 or similar
+            asm_floating_ਬਿੰਦੂ_reg_arm_reg_transfer_opcode_ਪੂਛ(s1, token, coprocessor, nb_arm_regs, nb_ops, ops);
+            ਵਾਪਸ;
+        } ਨਹੀਂਤਾਂ {
             opcode1 = 11; // "Other" instruction
             opcode2 = 2;
             ops[1].type = OP_IM8;
             ops[1].e.v = 0;
         }
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("known floating point instruction");
     }
 
-    if (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
-        if (ops[2].type == OP_VREG32) {
-            if (ops[2].reg & 1)
+    ਜੇ (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
+        ਜੇ (ops[2].type == OP_VREG32) {
+            ਜੇ (ops[2].reg & 1)
                 opcode2 |= 1;
             ops[2].reg >>= 1;
         }
 
-        if (ops[1].type == OP_VREG32) {
-            if (ops[1].reg & 1)
+        ਜੇ (ops[1].type == OP_VREG32) {
+            ਜੇ (ops[1].reg & 1)
                 opcode2 |= 4;
             ops[1].reg >>= 1;
         }
 
-        if (ops[0].type == OP_VREG32) {
-            if (ops[0].reg & 1)
+        ਜੇ (ops[0].type == OP_VREG32) {
+            ਜੇ (ops[0].reg & 1)
                 opcode1 |= 4;
             ops[0].reg >>= 1;
         }
     }
 
-    asm_emit_coprocessor_opcode(condition_code_of_token(token), coprocessor, opcode1, ops[0].reg, (ops[1].type == OP_IM8) ? ops[1].e.v : ops[1].reg, (ops[2].type == OP_IM8) ? ops[2].e.v : ops[2].reg, opcode2, 0);
+    asm_emit_coprocessor_opcode(condition_ਕੋਡ_ਦਾ_token(token), coprocessor, opcode1, ops[0].reg, (ops[1].type == OP_IM8) ? ops[1].e.v : ops[1].reg, (ops[2].type == OP_IM8) ? ops[2].e.v : ops[2].reg, opcode2, 0);
 }
 
-static int asm_parse_vfp_status_regvar(int t)
+ਸਥਿਰ ਪੂਰਨ asm_parse_vfp_ਸਥਿਤੀ_regvar(ਪੂਰਨ t)
 {
-    switch (t) {
-    case TOK_ASM_fpsid:
-        return 0;
-    case TOK_ASM_fpscr:
-        return 1;
-    case TOK_ASM_fpexc:
-        return 8;
-    default:
-        return -1;
+    ਚੋਣ (t) {
+    ਹਾਲਤ TOK_ASM_fpsid:
+        ਵਾਪਸ 0;
+    ਹਾਲਤ TOK_ASM_fpscr:
+        ਵਾਪਸ 1;
+    ਹਾਲਤ TOK_ASM_fpexc:
+        ਵਾਪਸ 8;
+    ਮੂਲ:
+        ਵਾਪਸ -1;
     }
 }
 
-static void asm_floating_point_status_register_opcode(TCCState* s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_floating_ਬਿੰਦੂ_ਸਥਿਤੀ_ਰਜਿਸਟਰ_opcode(TCCState* s1, ਪੂਰਨ token)
 {
     uint8_t coprocessor = CP_SINGLE_PRECISION_FLOAT;
     uint8_t opcode;
-    int vfp_sys_reg = -1;
-    Operand arm_operand;
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_vmrseq:
+    ਪੂਰਨ vfp_sys_reg = -1;
+    ਸੰਕਾਰਜ arm_ਸੰਕਾਰਜ;
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_vmrseq:
         opcode = 0xf;
-        if (tok == TOK_ASM_apsr_nzcv) {
-            arm_operand.type = OP_REG32;
-            arm_operand.reg = 15; // not PC
-            next(); // skip apsr_nzcv
-        } else {
-            parse_operand(s1, &arm_operand);
-            if (arm_operand.type == OP_REG32 && arm_operand.reg == 15) {
-                tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, NULL));
+        ਜੇ (tok == TOK_ASM_apsr_nzcv) {
+            arm_ਸੰਕਾਰਜ.type = OP_REG32;
+            arm_ਸੰਕਾਰਜ.reg = 15; // not PC
+            ਅਗਲਾ(); // skip apsr_nzcv
+        } ਨਹੀਂਤਾਂ {
+            parse_ਸੰਕਾਰਜ(s1, &arm_ਸੰਕਾਰਜ);
+            ਜੇ (arm_ਸੰਕਾਰਜ.type == OP_REG32 && arm_ਸੰਕਾਰਜ.reg == 15) {
+                tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, ਨਿਰਾ));
             }
         }
 
         skip(',');
-        vfp_sys_reg = asm_parse_vfp_status_regvar(tok);
-        next(); // skip vfp sys reg
-        if (arm_operand.type == OP_REG32 && arm_operand.reg == 15 && vfp_sys_reg != 1) {
-            tcc_error("'%s' only supports the variant 'vmrs apsr_nzcv, fpscr' here", get_tok_str(token, NULL));
+        vfp_sys_reg = asm_parse_vfp_ਸਥਿਤੀ_regvar(tok);
+        ਅਗਲਾ(); // skip vfp sys reg
+        ਜੇ (arm_ਸੰਕਾਰਜ.type == OP_REG32 && arm_ਸੰਕਾਰਜ.reg == 15 && vfp_sys_reg != 1) {
+            tcc_error("'%s' only supports the variant 'vmrs apsr_nzcv, fpscr' here", get_tok_str(token, ਨਿਰਾ));
         }
-        break;
-    case TOK_ASM_vmsreq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_vmsreq:
         opcode = 0xe;
-        vfp_sys_reg = asm_parse_vfp_status_regvar(tok);
-        next(); // skip vfp sys reg
+        vfp_sys_reg = asm_parse_vfp_ਸਥਿਤੀ_regvar(tok);
+        ਅਗਲਾ(); // skip vfp sys reg
         skip(',');
-        parse_operand(s1, &arm_operand);
-        if (arm_operand.type == OP_REG32 && arm_operand.reg == 15) {
-            tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, NULL));
+        parse_ਸੰਕਾਰਜ(s1, &arm_ਸੰਕਾਰਜ);
+        ਜੇ (arm_ਸੰਕਾਰਜ.type == OP_REG32 && arm_ਸੰਕਾਰਜ.reg == 15) {
+            tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, ਨਿਰਾ));
         }
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("floating point status register instruction");
     }
-    if (vfp_sys_reg == -1) {
+    ਜੇ (vfp_sys_reg == -1) {
         expect("VFP system register");
     }
-    if (arm_operand.type != OP_REG32) {
+    ਜੇ (arm_ਸੰਕਾਰਜ.type != OP_REG32) {
         expect("ARM register");
     }
-    asm_emit_coprocessor_opcode(condition_code_of_token(token), coprocessor, opcode, arm_operand.reg, vfp_sys_reg, 0x10, 0, 0);
+    asm_emit_coprocessor_opcode(condition_ਕੋਡ_ਦਾ_token(token), coprocessor, opcode, arm_ਸੰਕਾਰਜ.reg, vfp_sys_reg, 0x10, 0, 0);
 }
 
-#endif
+#ਜੇ_ਅੰਤ
 
-static void asm_misc_single_data_transfer_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_misc_single_ਅੰਕੜੇ_transfer_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    Operand ops[3];
-    int exclam = 0;
-    int closed_bracket = 0;
-    int op2_minus = 0;
+    ਸੰਕਾਰਜ ops[3];
+    ਪੂਰਨ exclam = 0;
+    ਪੂਰਨ closed_bracket = 0;
+    ਪੂਰਨ op2_minus = 0;
     uint32_t opcode = (1 << 7) | (1 << 4);
 
     /* Note:
@@ -2190,75 +2190,75 @@ static void asm_misc_single_data_transfer_opcode(TCCState *s1, int token)
     // Here: 0 0 0 P U I W L << 20
     // [compare single data transfer: 0 1 I P U B W L << 20]
 
-    parse_operand(s1, &ops[0]);
-    if (ops[0].type == OP_REG32)
+    parse_ਸੰਕਾਰਜ(s1, &ops[0]);
+    ਜੇ (ops[0].type == OP_REG32)
         opcode |= ENCODE_RD(ops[0].reg);
-    else {
+    ਨਹੀਂਤਾਂ {
         expect("(destination operand) register");
     }
-    if (tok != ',')
+    ਜੇ (tok != ',')
         expect("at least two arguments");
-    else
-        next(); // skip ','
+    ਨਹੀਂਤਾਂ
+        ਅਗਲਾ(); // skip ','
     skip('[');
-    parse_operand(s1, &ops[1]);
-    if (ops[1].type == OP_REG32)
+    parse_ਸੰਕਾਰਜ(s1, &ops[1]);
+    ਜੇ (ops[1].type == OP_REG32)
         opcode |= ENCODE_RN(ops[1].reg);
-    else {
+    ਨਹੀਂਤਾਂ {
         expect("(first source operand) register");
     }
-    if (tok == ']') {
-        next();
+    ਜੇ (tok == ']') {
+        ਅਗਲਾ();
         closed_bracket = 1;
         // exclam = 1; // implicit in hardware; don't do it in software
     }
-    if (tok == ',') {
-        next(); // skip ','
-        if (tok == '-') {
+    ਜੇ (tok == ',') {
+        ਅਗਲਾ(); // skip ','
+        ਜੇ (tok == '-') {
             op2_minus = 1;
-            next();
+            ਅਗਲਾ();
         }
-        parse_operand(s1, &ops[2]);
-    } else {
+        parse_ਸੰਕਾਰਜ(s1, &ops[2]);
+    } ਨਹੀਂਤਾਂ {
         // end of input expression in brackets--assume 0 offset
         ops[2].type = OP_IM8;
         ops[2].e.v = 0;
         opcode |= 1 << 24; // add offset before transfer
     }
-    if (!closed_bracket) {
+    ਜੇ (!closed_bracket) {
         skip(']');
         opcode |= 1 << 24; // add offset before transfer
-        if (tok == '!') {
+        ਜੇ (tok == '!') {
             exclam = 1;
-            next(); // skip '!'
+            ਅਗਲਾ(); // skip '!'
         }
     }
 
-    if (exclam) {
-        if ((opcode & (1 << 24)) == 0) {
-            tcc_error("result of '%s' would be unpredictable here", get_tok_str(token, NULL));
+    ਜੇ (exclam) {
+        ਜੇ ((opcode & (1 << 24)) == 0) {
+            tcc_error("result of '%s' would be unpredictable here", get_tok_str(token, ਨਿਰਾ));
         }
         opcode |= 1 << 21; // write offset back into register
     }
 
-    if (ops[2].type == OP_IM32 || ops[2].type == OP_IM8 || ops[2].type == OP_IM8N) {
-        int v = ops[2].e.v;
-        if (op2_minus)
+    ਜੇ (ops[2].type == OP_IM32 || ops[2].type == OP_IM8 || ops[2].type == OP_IM8N) {
+        ਪੂਰਨ v = ops[2].e.v;
+        ਜੇ (op2_minus)
             tcc_error("minus before '#' not supported for immediate values");
-        if (v >= 0) {
-            opcode |= 1 << 23; // up
-            if (v >= 0x100)
-                tcc_error("offset out of range for '%s'", get_tok_str(token, NULL));
-            else {
+        ਜੇ (v >= 0) {
+            opcode |= 1 << 23; //ਉੱਪਰ
+            ਜੇ (v >= 0x100)
+                tcc_error("offset out of range for '%s'", get_tok_str(token, ਨਿਰਾ));
+            ਨਹੀਂਤਾਂ {
                 // bits 11...8: immediate hi nibble
                 // bits 3...0: immediate lo nibble
                 opcode |= (v & 0xF0) << 4;
                 opcode |= v & 0xF;
             }
-        } else { // down
-            if (v <= -0x100)
-                tcc_error("offset out of range for '%s'", get_tok_str(token, NULL));
-            else {
+        } ਨਹੀਂਤਾਂ { //ਥੱਲੇ
+            ਜੇ (v <= -0x100)
+                tcc_error("offset out of range for '%s'", get_tok_str(token, ਨਿਰਾ));
+            ਨਹੀਂਤਾਂ {
                 v = -v;
                 // bits 11...8: immediate hi nibble
                 // bits 3...0: immediate lo nibble
@@ -2267,535 +2267,535 @@ static void asm_misc_single_data_transfer_opcode(TCCState *s1, int token)
             }
         }
         opcode |= 1 << 22; // not ENCODE_IMMEDIATE_FLAG;
-    } else if (ops[2].type == OP_REG32) {
-        if (!op2_minus)
-            opcode |= 1 << 23; // up
+    } ਨਹੀਂਤਾਂ ਜੇ (ops[2].type == OP_REG32) {
+        ਜੇ (!op2_minus)
+            opcode |= 1 << 23; //ਉੱਪਰ
         opcode |= ops[2].reg;
-    } else
+    } ਨਹੀਂਤਾਂ
         expect("register");
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_ldrsheq:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_ldrsheq:
         opcode |= 1 << 5; // halfword, not byte
         /* fallthrough */
-    case TOK_ASM_ldrsbeq:
+    ਹਾਲਤ TOK_ASM_ldrsbeq:
         opcode |= 1 << 6; // sign extend
         opcode |= 1 << 20; // L
         asm_emit_opcode(token, opcode);
-        break;
-    case TOK_ASM_ldrheq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_ldrheq:
         opcode |= 1 << 5; // halfword, not byte
         opcode |= 1 << 20; // L
         asm_emit_opcode(token, opcode);
-        break;
-    case TOK_ASM_strheq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_strheq:
         opcode |= 1 << 5; // halfword, not byte
         asm_emit_opcode(token, opcode);
-        break;
+        ਰੋਕੋ;
     }
 }
 
 /* Note: almost dupe of encbranch in arm-gen.c */
-static uint32_t encbranchoffset(int pos, int addr, int fail)
+ਸਥਿਰ uint32_t encbranchoffset(ਪੂਰਨ pos, ਪੂਰਨ addr, ਪੂਰਨ fail)
 {
   addr-=pos+8;
   addr/=4;
-  if(addr>=0x7fffff || addr<-0x800000) {
-    if(fail)
+  ਜੇ(addr>=0x7fffff || addr<-0x800000) {
+    ਜੇ(fail)
       tcc_error("branch offset is too far");
-    return 0;
+    ਵਾਪਸ 0;
   }
-  return /*not 0x0A000000|*/(addr&0xffffff);
+  ਵਾਪਸ /*not 0x0A000000|*/(addr&0xffffff);
 }
 
-static void asm_branch_opcode(TCCState *s1, int token)
+ਸਥਿਰ ਖਾਲੀ asm_branch_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    int jmp_disp = 0;
-    Operand op;
-    ExprValue e;
+    ਪੂਰਨ jmp_disp = 0;
+    ਸੰਕਾਰਜ op;
+    ਵਿਅੰਜਕ_ਮੁੱਲ e;
     ElfSym *esym;
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_beq:
-    case TOK_ASM_bleq:
-        asm_expr(s1, &e);
-        if (e.sym) {
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_beq:
+    ਹਾਲਤ TOK_ASM_bleq:
+        asm_ਵਿਅੰਜਕ(s1, &e);
+        ਜੇ (e.sym) {
             esym = elfsym(e.sym);
-            if (esym && esym->st_shndx == cur_text_section->sh_num) {
-                jmp_disp = esym->st_value;
-            } else {
-                greloca(cur_text_section, e.sym, ind, R_ARM_PC24, 0);
+            ਜੇ (esym && esym->st_shndx == cur_ਪਾਠ_section->sh_ਅੰਕ) {
+                jmp_disp = esym->st_ਮੁੱਲ;
+            } ਨਹੀਂਤਾਂ {
+                greloca(cur_ਪਾਠ_section, e.sym, ind, R_ARM_PC24, 0);
                 jmp_disp = ind;
             }
         }
         jmp_disp = encbranchoffset(ind, e.v + jmp_disp, 1);
-        break;
-    default:
-        parse_operand(s1, &op);
-        break;
+        ਰੋਕੋ;
+    ਮੂਲ:
+        parse_ਸੰਕਾਰਜ(s1, &op);
+        ਰੋਕੋ;
     }
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_beq:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_beq:
         asm_emit_opcode(token, (0xa << 24) | (jmp_disp & 0xffffff));
-        break;
-    case TOK_ASM_bleq:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_bleq:
         asm_emit_opcode(token, (0xb << 24) | (jmp_disp & 0xffffff));
-        break;
-    case TOK_ASM_bxeq:
-        if (op.type != OP_REG32)
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_bxeq:
+        ਜੇ (op.type != OP_REG32)
             expect("register");
-        else
+        ਨਹੀਂਤਾਂ
             asm_emit_opcode(token, (0x12fff1 << 4) | op.reg);
-        break;
-    case TOK_ASM_blxeq:
-        if (op.type != OP_REG32)
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASM_blxeq:
+        ਜੇ (op.type != OP_REG32)
             expect("register");
-        else
+        ਨਹੀਂਤਾਂ
             asm_emit_opcode(token, (0x12fff3 << 4) | op.reg);
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         expect("branch instruction");
     }
 }
 
-ST_FUNC void asm_opcode(TCCState *s1, int token)
+ST_FUNC ਖਾਲੀ asm_opcode(TCCState *s1, ਪੂਰਨ token)
 {
-    while (token == TOK_LINEFEED) {
-        next();
+    ਜਦੋਂ (token == TOK_LINEFEED) {
+        ਅਗਲਾ();
         token = tok;
     }
-    if (token == TOK_EOF)
-        return;
-    if (token < TOK_ASM_nopeq) { // no condition code
-        switch (token) {
-        case TOK_ASM_cdp2:
+    ਜੇ (token == TOK_EOF)
+        ਵਾਪਸ;
+    ਜੇ (token < TOK_ASM_nopeq) { // no condition code
+        ਚੋਣ (token) {
+        ਹਾਲਤ TOK_ASM_cdp2:
             asm_coprocessor_opcode(s1, token);
-            return;
-        case TOK_ASM_ldc2:
-        case TOK_ASM_ldc2l:
-        case TOK_ASM_stc2:
-        case TOK_ASM_stc2l:
-            asm_coprocessor_data_transfer_opcode(s1, token);
-            return;
-        default:
+            ਵਾਪਸ;
+        ਹਾਲਤ TOK_ASM_ldc2:
+        ਹਾਲਤ TOK_ASM_ldc2l:
+        ਹਾਲਤ TOK_ASM_stc2:
+        ਹਾਲਤ TOK_ASM_stc2l:
+            asm_coprocessor_ਅੰਕੜੇ_transfer_opcode(s1, token);
+            ਵਾਪਸ;
+        ਮੂਲ:
             expect("instruction");
         }
     }
 
-    switch (ARM_INSTRUCTION_GROUP(token)) {
-    case TOK_ASM_pusheq:
-    case TOK_ASM_popeq:
-    case TOK_ASM_stmdaeq:
-    case TOK_ASM_ldmdaeq:
-    case TOK_ASM_stmeq:
-    case TOK_ASM_ldmeq:
-    case TOK_ASM_stmiaeq:
-    case TOK_ASM_ldmiaeq:
-    case TOK_ASM_stmdbeq:
-    case TOK_ASM_ldmdbeq:
-    case TOK_ASM_stmibeq:
-    case TOK_ASM_ldmibeq:
-        asm_block_data_transfer_opcode(s1, token);
-        return;
-    case TOK_ASM_nopeq:
-    case TOK_ASM_wfeeq:
-    case TOK_ASM_wfieq:
+    ਚੋਣ (ARM_INSTRUCTION_ਸਮੂਹ(token)) {
+    ਹਾਲਤ TOK_ASM_pusheq:
+    ਹਾਲਤ TOK_ASM_popeq:
+    ਹਾਲਤ TOK_ASM_stmdaeq:
+    ਹਾਲਤ TOK_ASM_ldmdaeq:
+    ਹਾਲਤ TOK_ASM_stmeq:
+    ਹਾਲਤ TOK_ASM_ldmeq:
+    ਹਾਲਤ TOK_ASM_stmiaeq:
+    ਹਾਲਤ TOK_ASM_ldmiaeq:
+    ਹਾਲਤ TOK_ASM_stmdbeq:
+    ਹਾਲਤ TOK_ASM_ldmdbeq:
+    ਹਾਲਤ TOK_ASM_stmibeq:
+    ਹਾਲਤ TOK_ASM_ldmibeq:
+        asm_ਖੰਡ_ਅੰਕੜੇ_transfer_opcode(s1, token);
+        ਵਾਪਸ;
+    ਹਾਲਤ TOK_ASM_nopeq:
+    ਹਾਲਤ TOK_ASM_wfeeq:
+    ਹਾਲਤ TOK_ASM_wfieq:
         asm_nullary_opcode(token);
-        return;
-    case TOK_ASM_swieq:
-    case TOK_ASM_svceq:
+        ਵਾਪਸ;
+    ਹਾਲਤ TOK_ASM_swieq:
+    ਹਾਲਤ TOK_ASM_svceq:
         asm_unary_opcode(s1, token);
-        return;
-    case TOK_ASM_beq:
-    case TOK_ASM_bleq:
-    case TOK_ASM_bxeq:
-    case TOK_ASM_blxeq:
+        ਵਾਪਸ;
+    ਹਾਲਤ TOK_ASM_beq:
+    ਹਾਲਤ TOK_ASM_bleq:
+    ਹਾਲਤ TOK_ASM_bxeq:
+    ਹਾਲਤ TOK_ASM_blxeq:
         asm_branch_opcode(s1, token);
-        return;
-    case TOK_ASM_clzeq:
-    case TOK_ASM_sxtbeq:
-    case TOK_ASM_sxtheq:
-    case TOK_ASM_uxtbeq:
-    case TOK_ASM_uxtheq:
-    case TOK_ASM_movteq:
-    case TOK_ASM_movweq:
-        asm_binary_opcode(s1, token);
-        return;
+        ਵਾਪਸ;
+    ਹਾਲਤ TOK_ASM_clzeq:
+    ਹਾਲਤ TOK_ASM_sxtbeq:
+    ਹਾਲਤ TOK_ASM_sxtheq:
+    ਹਾਲਤ TOK_ASM_uxtbeq:
+    ਹਾਲਤ TOK_ASM_uxtheq:
+    ਹਾਲਤ TOK_ASM_movteq:
+    ਹਾਲਤ TOK_ASM_movweq:
+        asm_ਦੁਆਧਾਰੀ_opcode(s1, token);
+        ਵਾਪਸ;
 
-    case TOK_ASM_ldreq:
-    case TOK_ASM_ldrbeq:
-    case TOK_ASM_streq:
-    case TOK_ASM_strbeq:
-    case TOK_ASM_ldrexeq:
-    case TOK_ASM_ldrexbeq:
-    case TOK_ASM_ldrexheq:
-    case TOK_ASM_strexeq:
-    case TOK_ASM_strexbeq:
-    case TOK_ASM_strexheq:
-        asm_single_data_transfer_opcode(s1, token);
-        return;
+    ਹਾਲਤ TOK_ASM_ldreq:
+    ਹਾਲਤ TOK_ASM_ldrbeq:
+    ਹਾਲਤ TOK_ASM_streq:
+    ਹਾਲਤ TOK_ASM_strbeq:
+    ਹਾਲਤ TOK_ASM_ldrexeq:
+    ਹਾਲਤ TOK_ASM_ldrexbeq:
+    ਹਾਲਤ TOK_ASM_ldrexheq:
+    ਹਾਲਤ TOK_ASM_strexeq:
+    ਹਾਲਤ TOK_ASM_strexbeq:
+    ਹਾਲਤ TOK_ASM_strexheq:
+        asm_single_ਅੰਕੜੇ_transfer_opcode(s1, token);
+        ਵਾਪਸ;
 
-    case TOK_ASM_ldrheq:
-    case TOK_ASM_ldrsheq:
-    case TOK_ASM_ldrsbeq:
-    case TOK_ASM_strheq:
-       asm_misc_single_data_transfer_opcode(s1, token);
-       return;
+    ਹਾਲਤ TOK_ASM_ldrheq:
+    ਹਾਲਤ TOK_ASM_ldrsheq:
+    ਹਾਲਤ TOK_ASM_ldrsbeq:
+    ਹਾਲਤ TOK_ASM_strheq:
+       asm_misc_single_ਅੰਕੜੇ_transfer_opcode(s1, token);
+       ਵਾਪਸ;
 
-    case TOK_ASM_andeq:
-    case TOK_ASM_eoreq:
-    case TOK_ASM_subeq:
-    case TOK_ASM_rsbeq:
-    case TOK_ASM_addeq:
-    case TOK_ASM_adceq:
-    case TOK_ASM_sbceq:
-    case TOK_ASM_rsceq:
-    case TOK_ASM_tsteq:
-    case TOK_ASM_teqeq:
-    case TOK_ASM_cmpeq:
-    case TOK_ASM_cmneq:
-    case TOK_ASM_orreq:
-    case TOK_ASM_moveq:
-    case TOK_ASM_biceq:
-    case TOK_ASM_mvneq:
-    case TOK_ASM_andseq:
-    case TOK_ASM_eorseq:
-    case TOK_ASM_subseq:
-    case TOK_ASM_rsbseq:
-    case TOK_ASM_addseq:
-    case TOK_ASM_adcseq:
-    case TOK_ASM_sbcseq:
-    case TOK_ASM_rscseq:
+    ਹਾਲਤ TOK_ASM_andeq:
+    ਹਾਲਤ TOK_ASM_eoreq:
+    ਹਾਲਤ TOK_ASM_subeq:
+    ਹਾਲਤ TOK_ASM_rsbeq:
+    ਹਾਲਤ TOK_ASM_addeq:
+    ਹਾਲਤ TOK_ASM_adceq:
+    ਹਾਲਤ TOK_ASM_sbceq:
+    ਹਾਲਤ TOK_ASM_rsceq:
+    ਹਾਲਤ TOK_ASM_tsteq:
+    ਹਾਲਤ TOK_ASM_teqeq:
+    ਹਾਲਤ TOK_ASM_cmpeq:
+    ਹਾਲਤ TOK_ASM_cmneq:
+    ਹਾਲਤ TOK_ASM_orreq:
+    ਹਾਲਤ TOK_ASM_moveq:
+    ਹਾਲਤ TOK_ASM_biceq:
+    ਹਾਲਤ TOK_ASM_mvneq:
+    ਹਾਲਤ TOK_ASM_andseq:
+    ਹਾਲਤ TOK_ASM_eorseq:
+    ਹਾਲਤ TOK_ASM_subseq:
+    ਹਾਲਤ TOK_ASM_rsbseq:
+    ਹਾਲਤ TOK_ASM_addseq:
+    ਹਾਲਤ TOK_ASM_adcseq:
+    ਹਾਲਤ TOK_ASM_sbcseq:
+    ਹਾਲਤ TOK_ASM_rscseq:
 //  case TOK_ASM_tstseq:
 //  case TOK_ASM_teqseq:
 //  case TOK_ASM_cmpseq:
 //  case TOK_ASM_cmnseq:
-    case TOK_ASM_orrseq:
-    case TOK_ASM_movseq:
-    case TOK_ASM_bicseq:
-    case TOK_ASM_mvnseq:
-        asm_data_processing_opcode(s1, token);
-        return;
+    ਹਾਲਤ TOK_ASM_orrseq:
+    ਹਾਲਤ TOK_ASM_movseq:
+    ਹਾਲਤ TOK_ASM_bicseq:
+    ਹਾਲਤ TOK_ASM_mvnseq:
+        asm_ਅੰਕੜੇ_processing_opcode(s1, token);
+        ਵਾਪਸ;
 
-    case TOK_ASM_lsleq:
-    case TOK_ASM_lslseq:
-    case TOK_ASM_lsreq:
-    case TOK_ASM_lsrseq:
-    case TOK_ASM_asreq:
-    case TOK_ASM_asrseq:
-    case TOK_ASM_roreq:
-    case TOK_ASM_rorseq:
-    case TOK_ASM_rrxseq:
-    case TOK_ASM_rrxeq:
-        asm_shift_opcode(s1, token);
-        return;
+    ਹਾਲਤ TOK_ASM_lsleq:
+    ਹਾਲਤ TOK_ASM_lslseq:
+    ਹਾਲਤ TOK_ASM_lsreq:
+    ਹਾਲਤ TOK_ASM_lsrseq:
+    ਹਾਲਤ TOK_ASM_asreq:
+    ਹਾਲਤ TOK_ASM_asrseq:
+    ਹਾਲਤ TOK_ASM_roreq:
+    ਹਾਲਤ TOK_ASM_rorseq:
+    ਹਾਲਤ TOK_ASM_rrxseq:
+    ਹਾਲਤ TOK_ASM_rrxeq:
+        asm_ਖਿਸਕਾਓ_opcode(s1, token);
+        ਵਾਪਸ;
 
-    case TOK_ASM_muleq:
-    case TOK_ASM_mulseq:
-    case TOK_ASM_mlaeq:
-    case TOK_ASM_mlaseq:
-    case TOK_ASM_mlseq:
-    case TOK_ASM_udiveq:
-    case TOK_ASM_sdiveq:
+    ਹਾਲਤ TOK_ASM_muleq:
+    ਹਾਲਤ TOK_ASM_mulseq:
+    ਹਾਲਤ TOK_ASM_mlaeq:
+    ਹਾਲਤ TOK_ASM_mlaseq:
+    ਹਾਲਤ TOK_ASM_mlseq:
+    ਹਾਲਤ TOK_ASM_udiveq:
+    ਹਾਲਤ TOK_ASM_sdiveq:
         asm_multiplication_opcode(s1, token);
-        return;
+        ਵਾਪਸ;
 
-    case TOK_ASM_smulleq:
-    case TOK_ASM_smullseq:
-    case TOK_ASM_umulleq:
-    case TOK_ASM_umullseq:
-    case TOK_ASM_smlaleq:
-    case TOK_ASM_smlalseq:
-    case TOK_ASM_umlaleq:
-    case TOK_ASM_umlalseq:
+    ਹਾਲਤ TOK_ASM_smulleq:
+    ਹਾਲਤ TOK_ASM_smullseq:
+    ਹਾਲਤ TOK_ASM_umulleq:
+    ਹਾਲਤ TOK_ASM_umullseq:
+    ਹਾਲਤ TOK_ASM_smlaleq:
+    ਹਾਲਤ TOK_ASM_smlalseq:
+    ਹਾਲਤ TOK_ASM_umlaleq:
+    ਹਾਲਤ TOK_ASM_umlalseq:
         asm_long_multiplication_opcode(s1, token);
-        return;
+        ਵਾਪਸ;
 
-    case TOK_ASM_cdpeq:
-    case TOK_ASM_mcreq:
-    case TOK_ASM_mrceq:
+    ਹਾਲਤ TOK_ASM_cdpeq:
+    ਹਾਲਤ TOK_ASM_mcreq:
+    ਹਾਲਤ TOK_ASM_mrceq:
         asm_coprocessor_opcode(s1, token);
-        return;
+        ਵਾਪਸ;
 
-    case TOK_ASM_ldceq:
-    case TOK_ASM_ldcleq:
-    case TOK_ASM_stceq:
-    case TOK_ASM_stcleq:
-        asm_coprocessor_data_transfer_opcode(s1, token);
-        return;
+    ਹਾਲਤ TOK_ASM_ldceq:
+    ਹਾਲਤ TOK_ASM_ldcleq:
+    ਹਾਲਤ TOK_ASM_stceq:
+    ਹਾਲਤ TOK_ASM_stcleq:
+        asm_coprocessor_ਅੰਕੜੇ_transfer_opcode(s1, token);
+        ਵਾਪਸ;
 
-#if defined(TCC_ARM_VFP)
-    case TOK_ASM_vldreq:
-    case TOK_ASM_vstreq:
-        asm_floating_point_single_data_transfer_opcode(s1, token);
-        return;
+#ਜੇ defined(TCC_ARM_VFP)
+    ਹਾਲਤ TOK_ASM_vldreq:
+    ਹਾਲਤ TOK_ASM_vstreq:
+        asm_floating_ਬਿੰਦੂ_single_ਅੰਕੜੇ_transfer_opcode(s1, token);
+        ਵਾਪਸ;
 
-    case TOK_ASM_vmlaeq_f32:
-    case TOK_ASM_vmlseq_f32:
-    case TOK_ASM_vnmlseq_f32:
-    case TOK_ASM_vnmlaeq_f32:
-    case TOK_ASM_vmuleq_f32:
-    case TOK_ASM_vnmuleq_f32:
-    case TOK_ASM_vaddeq_f32:
-    case TOK_ASM_vsubeq_f32:
-    case TOK_ASM_vdiveq_f32:
-    case TOK_ASM_vnegeq_f32:
-    case TOK_ASM_vabseq_f32:
-    case TOK_ASM_vsqrteq_f32:
-    case TOK_ASM_vcmpeq_f32:
-    case TOK_ASM_vcmpeeq_f32:
-    case TOK_ASM_vmoveq_f32:
-    case TOK_ASM_vmlaeq_f64:
-    case TOK_ASM_vmlseq_f64:
-    case TOK_ASM_vnmlseq_f64:
-    case TOK_ASM_vnmlaeq_f64:
-    case TOK_ASM_vmuleq_f64:
-    case TOK_ASM_vnmuleq_f64:
-    case TOK_ASM_vaddeq_f64:
-    case TOK_ASM_vsubeq_f64:
-    case TOK_ASM_vdiveq_f64:
-    case TOK_ASM_vnegeq_f64:
-    case TOK_ASM_vabseq_f64:
-    case TOK_ASM_vsqrteq_f64:
-    case TOK_ASM_vcmpeq_f64:
-    case TOK_ASM_vcmpeeq_f64:
-    case TOK_ASM_vmoveq_f64:
-        asm_floating_point_data_processing_opcode(s1, token);
-        return;
+    ਹਾਲਤ TOK_ASM_vmlaeq_f32:
+    ਹਾਲਤ TOK_ASM_vmlseq_f32:
+    ਹਾਲਤ TOK_ASM_vnmlseq_f32:
+    ਹਾਲਤ TOK_ASM_vnmlaeq_f32:
+    ਹਾਲਤ TOK_ASM_vmuleq_f32:
+    ਹਾਲਤ TOK_ASM_vnmuleq_f32:
+    ਹਾਲਤ TOK_ASM_vaddeq_f32:
+    ਹਾਲਤ TOK_ASM_vsubeq_f32:
+    ਹਾਲਤ TOK_ASM_vdiveq_f32:
+    ਹਾਲਤ TOK_ASM_vnegeq_f32:
+    ਹਾਲਤ TOK_ASM_vabseq_f32:
+    ਹਾਲਤ TOK_ASM_vsqrteq_f32:
+    ਹਾਲਤ TOK_ASM_vcmpeq_f32:
+    ਹਾਲਤ TOK_ASM_vcmpeeq_f32:
+    ਹਾਲਤ TOK_ASM_vmoveq_f32:
+    ਹਾਲਤ TOK_ASM_vmlaeq_f64:
+    ਹਾਲਤ TOK_ASM_vmlseq_f64:
+    ਹਾਲਤ TOK_ASM_vnmlseq_f64:
+    ਹਾਲਤ TOK_ASM_vnmlaeq_f64:
+    ਹਾਲਤ TOK_ASM_vmuleq_f64:
+    ਹਾਲਤ TOK_ASM_vnmuleq_f64:
+    ਹਾਲਤ TOK_ASM_vaddeq_f64:
+    ਹਾਲਤ TOK_ASM_vsubeq_f64:
+    ਹਾਲਤ TOK_ASM_vdiveq_f64:
+    ਹਾਲਤ TOK_ASM_vnegeq_f64:
+    ਹਾਲਤ TOK_ASM_vabseq_f64:
+    ਹਾਲਤ TOK_ASM_vsqrteq_f64:
+    ਹਾਲਤ TOK_ASM_vcmpeq_f64:
+    ਹਾਲਤ TOK_ASM_vcmpeeq_f64:
+    ਹਾਲਤ TOK_ASM_vmoveq_f64:
+        asm_floating_ਬਿੰਦੂ_ਅੰਕੜੇ_processing_opcode(s1, token);
+        ਵਾਪਸ;
 
-    case TOK_ASM_vcvtreq_s32_f32:
-    case TOK_ASM_vcvtreq_s32_f64:
-    case TOK_ASM_vcvteq_s32_f32:
-    case TOK_ASM_vcvteq_s32_f64:
-    case TOK_ASM_vcvtreq_u32_f32:
-    case TOK_ASM_vcvtreq_u32_f64:
-    case TOK_ASM_vcvteq_u32_f32:
-    case TOK_ASM_vcvteq_u32_f64:
-    case TOK_ASM_vcvteq_f64_s32:
-    case TOK_ASM_vcvteq_f32_s32:
-    case TOK_ASM_vcvteq_f64_u32:
-    case TOK_ASM_vcvteq_f32_u32:
-    case TOK_ASM_vcvteq_f64_f32:
-    case TOK_ASM_vcvteq_f32_f64:
-        asm_floating_point_vcvt_data_processing_opcode(s1, token);
-        return;
+    ਹਾਲਤ TOK_ASM_vcvtreq_s32_f32:
+    ਹਾਲਤ TOK_ASM_vcvtreq_s32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_s32_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_s32_f64:
+    ਹਾਲਤ TOK_ASM_vcvtreq_u32_f32:
+    ਹਾਲਤ TOK_ASM_vcvtreq_u32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_u32_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_u32_f64:
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_s32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f32_s32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_u32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f32_u32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f64_f32:
+    ਹਾਲਤ TOK_ASM_vcvteq_f32_f64:
+        asm_floating_ਬਿੰਦੂ_vcvt_ਅੰਕੜੇ_processing_opcode(s1, token);
+        ਵਾਪਸ;
 
-    case TOK_ASM_vpusheq:
-    case TOK_ASM_vpopeq:
-    case TOK_ASM_vldmeq:
-    case TOK_ASM_vldmiaeq:
-    case TOK_ASM_vldmdbeq:
-    case TOK_ASM_vstmeq:
-    case TOK_ASM_vstmiaeq:
-    case TOK_ASM_vstmdbeq:
-        asm_floating_point_block_data_transfer_opcode(s1, token);
-        return;
+    ਹਾਲਤ TOK_ASM_vpusheq:
+    ਹਾਲਤ TOK_ASM_vpopeq:
+    ਹਾਲਤ TOK_ASM_vldmeq:
+    ਹਾਲਤ TOK_ASM_vldmiaeq:
+    ਹਾਲਤ TOK_ASM_vldmdbeq:
+    ਹਾਲਤ TOK_ASM_vstmeq:
+    ਹਾਲਤ TOK_ASM_vstmiaeq:
+    ਹਾਲਤ TOK_ASM_vstmdbeq:
+        asm_floating_ਬਿੰਦੂ_ਖੰਡ_ਅੰਕੜੇ_transfer_opcode(s1, token);
+        ਵਾਪਸ;
 
-    case TOK_ASM_vmsreq:
-    case TOK_ASM_vmrseq:
-        asm_floating_point_status_register_opcode(s1, token);
-        return;
-#endif
+    ਹਾਲਤ TOK_ASM_vmsreq:
+    ਹਾਲਤ TOK_ASM_vmrseq:
+        asm_floating_ਬਿੰਦੂ_ਸਥਿਤੀ_ਰਜਿਸਟਰ_opcode(s1, token);
+        ਵਾਪਸ;
+#ਜੇ_ਅੰਤ
 
-    default:
+    ਮੂਲ:
         expect("known instruction");
     }
 }
 
-ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
+ST_FUNC ਖਾਲੀ subst_asm_ਸੰਕਾਰਜ(CString *ਜੋੜੋ_str, SValue *sv, ਪੂਰਨ modifier)
 {
-    int r, reg, size, val;
+    ਪੂਰਨ r, reg, ਮਾਪ, val;
 
     r = sv->r;
-    if ((r & VT_VALMASK) == VT_CONST) {
-        if (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
+    ਜੇ ((r & VT_VALMASK) == VT_CONST) {
+        ਜੇ (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
             modifier != 'P')
-            cstr_ccat(add_str, '#');
-        if (r & VT_SYM) {
-            const char *name = get_tok_str(sv->sym->v, NULL);
-            if (sv->sym->v >= SYM_FIRST_ANOM) {
+            cstr_ccat(ਜੋੜੋ_str, '#');
+        ਜੇ (r & VT_SYM) {
+            ਅਚਲ ਅੱਖਰ *name = get_tok_str(sv->sym->v, ਨਿਰਾ);
+            ਜੇ (sv->sym->v >= SYM_ਪਹਿਲਾ_ANOM) {
                 /* In case of anonymous symbols ("L.42", used
                    for static data labels) we can't find them
                    in the C symbol table when later looking up
                    this name.  So enter them now into the asm label
                    list when we still know the symbol.  */
-                get_asm_sym(tok_alloc(name, strlen(name))->tok, sv->sym);
+                get_asm_sym(tok_alloc(name, ਲੜੀ_ਲੰਬਾਈ(name))->tok, sv->sym);
             }
-            if (tcc_state->leading_underscore)
-                cstr_ccat(add_str, '_');
-            cstr_cat(add_str, name, -1);
-            if ((uint32_t) sv->c.i == 0)
-                goto no_offset;
-            cstr_ccat(add_str, '+');
+            ਜੇ (tcc_state->leading_underscore)
+                cstr_ccat(ਜੋੜੋ_str, '_');
+            cstr_cat(ਜੋੜੋ_str, name, -1);
+            ਜੇ ((uint32_t) sv->c.i == 0)
+                ਜਾਓ no_ਵਿੱਥ;
+            cstr_ccat(ਜੋੜੋ_str, '+');
         }
         val = sv->c.i;
-        if (modifier == 'n')
+        ਜੇ (modifier == 'n')
             val = -val;
-        cstr_printf(add_str, "%d", val);
-      no_offset:;
-    } else if ((r & VT_VALMASK) == VT_LOCAL) {
-        cstr_printf(add_str, "[fp,#%d]", (int) sv->c.i);
-    } else if (r & VT_LVAL) {
+        cstr_printf(ਜੋੜੋ_str, "%d", val);
+      no_ਵਿੱਥ:;
+    } ਨਹੀਂਤਾਂ ਜੇ ((r & VT_VALMASK) == VT_LOCAL) {
+        cstr_printf(ਜੋੜੋ_str, "[fp,#%d]", (ਪੂਰਨ) sv->c.i);
+    } ਨਹੀਂਤਾਂ ਜੇ (r & VT_LVAL) {
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
-            tcc_internal_error("");
-        cstr_printf(add_str, "[%s]",
-                 get_tok_str(TOK_ASM_r0 + reg, NULL));
-    } else {
+        ਜੇ (reg >= VT_CONST)
+            tcc_ਅੰਦਰੂਨੀ_error("");
+        cstr_printf(ਜੋੜੋ_str, "[%s]",
+                 get_tok_str(TOK_ASM_r0 + reg, ਨਿਰਾ));
+    } ਨਹੀਂਤਾਂ {
         /* register case */
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
-            tcc_internal_error("");
+        ਜੇ (reg >= VT_CONST)
+            tcc_ਅੰਦਰੂਨੀ_error("");
 
         /* choose register operand size */
-        if ((sv->type.t & VT_BTYPE) == VT_BYTE ||
+        ਜੇ ((sv->type.t & VT_BTYPE) == VT_BYTE ||
             (sv->type.t & VT_BTYPE) == VT_BOOL)
-            size = 1;
-        else if ((sv->type.t & VT_BTYPE) == VT_SHORT)
-            size = 2;
-        else
-            size = 4;
+            ਮਾਪ = 1;
+        ਨਹੀਂਤਾਂ ਜੇ ((sv->type.t & VT_BTYPE) == VT_SHORT)
+            ਮਾਪ = 2;
+        ਨਹੀਂਤਾਂ
+            ਮਾਪ = 4;
 
-        if (modifier == 'b') {
-            size = 1;
-        } else if (modifier == 'w') {
-            size = 2;
-        } else if (modifier == 'k') {
-            size = 4;
+        ਜੇ (modifier == 'b') {
+            ਮਾਪ = 1;
+        } ਨਹੀਂਤਾਂ ਜੇ (modifier == 'w') {
+            ਮਾਪ = 2;
+        } ਨਹੀਂਤਾਂ ਜੇ (modifier == 'k') {
+            ਮਾਪ = 4;
         }
 
-        switch (size) {
-        default:
+        ਚੋਣ (ਮਾਪ) {
+        ਮੂਲ:
             reg = TOK_ASM_r0 + reg;
-            break;
+            ਰੋਕੋ;
         }
-        cstr_printf(add_str, "%s", get_tok_str(reg, NULL));
+        cstr_printf(ਜੋੜੋ_str, "%s", get_tok_str(reg, ਨਿਰਾ));
     }
 }
 
 /* generate prolog and epilog code for asm statement */
-ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
-                          int nb_outputs, int is_output,
+ST_FUNC ਖਾਲੀ asm_gen_ਕੋਡ(ASMOperand *operands, ਪੂਰਨ nb_operands,
+                          ਪੂਰਨ nb_outputs, ਪੂਰਨ is_output,
                           uint8_t *clobber_regs,
-                          int out_reg)
+                          ਪੂਰਨ ਬਾਹਰਲਾ_reg)
 {
     uint8_t regs_allocated[NB_ASM_REGS];
     ASMOperand *op;
-    int i, reg;
+    ਪੂਰਨ i, reg;
     uint32_t saved_regset = 0;
 
     // TODO: Check non-E ABI.
     // Note: Technically, r13 (sp) is also callee-saved--but that does not matter yet
-    static const uint8_t reg_saved[] = { 4, 5, 6, 7, 8, 9 /* Note: sometimes special reg "sb" */ , 10, 11 };
+    ਸਥਿਰ ਅਚਲ uint8_t reg_saved[] = { 4, 5, 6, 7, 8, 9 /* Note: sometimes special reg "sb" */ , 10, 11 };
 
     /* mark all used registers */
-    memcpy(regs_allocated, clobber_regs, sizeof(regs_allocated));
-    for(i = 0; i < nb_operands;i++) {
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(regs_allocated, clobber_regs, ਆਕਾਰ(regs_allocated));
+    ਲਈ(i = 0; i < nb_operands;i++) {
         op = &operands[i];
-        if (op->reg >= 0)
+        ਜੇ (op->reg >= 0)
             regs_allocated[op->reg] = 1;
     }
-    for(i = 0; i < sizeof(reg_saved)/sizeof(reg_saved[0]); i++) {
+    ਲਈ(i = 0; i < ਆਕਾਰ(reg_saved)/ਆਕਾਰ(reg_saved[0]); i++) {
         reg = reg_saved[i];
-        if (regs_allocated[reg])
+        ਜੇ (regs_allocated[reg])
             saved_regset |= 1 << reg;
     }
 
-    if (!is_output) { // prolog
+    ਜੇ (!is_output) { // prolog
         /* generate reg save code */
-        if (saved_regset)
+        ਜੇ (saved_regset)
             gen_le32(0xe92d0000 | saved_regset); // push {...}
 
         /* generate load code */
-        for(i = 0; i < nb_operands; i++) {
+        ਲਈ(i = 0; i < nb_operands; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL &&
-                    op->is_memory) {
+            ਜੇ (op->reg >= 0) {
+                ਜੇ ((op->vt->r & VT_VALMASK) == VT_LLOCAL &&
+                    op->is_ਸਮ੍ਰਿਤੀ) {
                     /* memory reference case (for both input and
                        output cases) */
                     SValue sv;
                     sv = *op->vt;
                     sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL | VT_LVAL;
                     sv.type.t = VT_PTR;
-                    load(op->reg, &sv);
-                } else if (i >= nb_outputs || op->is_rw) { // not write-only
+                    ਲੱਦੋ(op->reg, &sv);
+                } ਨਹੀਂਤਾਂ ਜੇ (i >= nb_outputs || op->is_rw) { // not write-only
                     /* load value in register */
-                    load(op->reg, op->vt);
-                    if (op->is_llong)
+                    ਲੱਦੋ(op->reg, op->vt);
+                    ਜੇ (op->is_llong)
                         tcc_error("long long not implemented");
                 }
             }
         }
-    } else { // epilog
+    } ਨਹੀਂਤਾਂ { // epilog
         /* generate save code */
-        for(i = 0 ; i < nb_outputs; i++) {
+        ਲਈ(i = 0 ; i < nb_outputs; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
-                    if (!op->is_memory) {
+            ਜੇ (op->reg >= 0) {
+                ਜੇ ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+                    ਜੇ (!op->is_ਸਮ੍ਰਿਤੀ) {
                         SValue sv;
                         sv = *op->vt;
                         sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL;
                         sv.type.t = VT_PTR;
-                        load(out_reg, &sv);
+                        ਲੱਦੋ(ਬਾਹਰਲਾ_reg, &sv);
 
                         sv = *op->vt;
-                        sv.r = (sv.r & ~VT_VALMASK) | out_reg;
+                        sv.r = (sv.r & ~VT_VALMASK) | ਬਾਹਰਲਾ_reg;
                         store(op->reg, &sv);
                     }
-                } else {
+                } ਨਹੀਂਤਾਂ {
                     store(op->reg, op->vt);
-                    if (op->is_llong)
+                    ਜੇ (op->is_llong)
                         tcc_error("long long not implemented");
                 }
             }
         }
 
         /* generate reg restore code */
-        if (saved_regset)
+        ਜੇ (saved_regset)
             gen_le32(0xe8bd0000 | saved_regset); // pop {...}
     }
 }
 
 /* return the constraint priority (we allocate first the lowest
    numbered constraints) */
-static inline int constraint_priority(const char *str)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਪੂਰਨ constraint_ਤਰਜੀਹ(ਅਚਲ ਅੱਖਰ *str)
 {
-    int priority, c, pr;
+    ਪੂਰਨ ਤਰਜੀਹ, c, pr;
 
     /* we take the lowest priority */
-    priority = 0;
-    for(;;) {
+    ਤਰਜੀਹ = 0;
+    ਲਈ(;;) {
         c = *str;
-        if (c == '\0')
-            break;
+        ਜੇ (c == '\0')
+            ਰੋਕੋ;
         str++;
-        switch(c) {
-        case 'l': // in ARM mode, that's  an alias for 'r' [ARM].
-        case 'r': // register [general]
-        case 'p': // valid memory address for load,store [general]
+        ਚੋਣ(c) {
+        ਹਾਲਤ 'l': // in ARM mode, that's  an alias for 'r' [ARM].
+        ਹਾਲਤ 'r': // register [general]
+        ਹਾਲਤ 'p': // valid memory address for load,store [general]
             pr = 3;
-            break;
-        case 'M': // integer constant for shifts [ARM]
-        case 'I': // integer valid for data processing instruction immediate
-        case 'J': // integer in range -4095...4095
+            ਰੋਕੋ;
+        ਹਾਲਤ 'M': // integer constant for shifts [ARM]
+        ਹਾਲਤ 'I': // integer valid for data processing instruction immediate
+        ਹਾਲਤ 'J': // integer in range -4095...4095
 
-        case 'i': // immediate integer operand, including symbolic constants [general]
-        case 'm': // memory operand [general]
-        case 'g': // general-purpose-register, memory, immediate integer [general]
+        ਹਾਲਤ 'i': // immediate integer operand, including symbolic constants [general]
+        ਹਾਲਤ 'm': // memory operand [general]
+        ਹਾਲਤ 'g': // general-purpose-register, memory, immediate integer [general]
             pr = 4;
-            break;
-        default:
+            ਰੋਕੋ;
+        ਮੂਲ:
             tcc_error("unknown constraint '%c'", c);
         }
-        if (pr > priority)
-            priority = pr;
+        ਜੇ (pr > ਤਰਜੀਹ)
+            ਤਰਜੀਹ = pr;
     }
-    return priority;
+    ਵਾਪਸ ਤਰਜੀਹ;
 }
 
-static const char *skip_constraint_modifiers(const char *p)
+ਸਥਿਰ ਅਚਲ ਅੱਖਰ *skip_constraint_modifiers(ਅਚਲ ਅੱਖਰ *p)
 {
     /* Constraint modifier:
         =   Operand is written to by this instruction
@@ -2805,20 +2805,20 @@ static const char *skip_constraint_modifiers(const char *p)
        Per-alternative constraint modifier:
         &   Operand is clobbered before the instruction is done using the input operands
     */
-    while (*p == '=' || *p == '&' || *p == '+' || *p == '%')
+    ਜਦੋਂ (*p == '=' || *p == '&' || *p == '+' || *p == '%')
         p++;
-    return p;
+    ਵਾਪਸ p;
 }
 
-#define REG_OUT_MASK 0x01
-#define REG_IN_MASK  0x02
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REG_ਬਾਹਰਲਾ_ਨਕਾਬ 0x01
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REG_ਵਿੱਚ_ਨਕਾਬ  0x02
 
-#define is_reg_allocated(reg) (regs_allocated[reg] & reg_mask)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ is_reg_allocated(reg) (regs_allocated[reg] & reg_ਨਕਾਬ)
 
-ST_FUNC void asm_compute_constraints(ASMOperand *operands,
-                                    int nb_operands, int nb_outputs,
-                                    const uint8_t *clobber_regs,
-                                    int *pout_reg)
+ST_FUNC ਖਾਲੀ asm_compute_constraints(ASMOperand *operands,
+                                    ਪੂਰਨ nb_operands, ਪੂਰਨ nb_outputs,
+                                    ਅਚਲ uint8_t *clobber_regs,
+                                    ਪੂਰਨ *pout_reg)
 {
     /* overall format: modifier, then ,-seperated list of alternatives; all operands for a single instruction must have the same number of alternatives */
     /* TODO: Simple constraints
@@ -2846,55 +2846,55 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         Uq memory reference suitable for the ARMv4 ldrsb instruction
     */
     ASMOperand *op;
-    int sorted_op[MAX_ASM_OPERANDS];
-    int i, j, k, p1, p2, tmp, reg, c, reg_mask;
-    const char *str;
+    ਪੂਰਨ sorted_op[MAX_ASM_OPERANDS];
+    ਪੂਰਨ i, j, k, p1, p2, tmp, reg, c, reg_ਨਕਾਬ;
+    ਅਚਲ ਅੱਖਰ *str;
     uint8_t regs_allocated[NB_ASM_REGS];
 
     /* init fields */
-    for (i = 0; i < nb_operands; i++) {
+    ਲਈ (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        op->input_index = -1;
-        op->ref_index = -1;
+        op->ਨਿਵੇਸ਼_ਸੂਚਕਾਂਕ = -1;
+        op->ref_ਸੂਚਕਾਂਕ = -1;
         op->reg = -1;
-        op->is_memory = 0;
+        op->is_ਸਮ੍ਰਿਤੀ = 0;
         op->is_rw = 0;
     }
     /* compute constraint priority and evaluate references to output
        constraints if input constraints */
-    for (i = 0; i < nb_operands; i++) {
+    ਲਈ (i = 0; i < nb_operands; i++) {
         op = &operands[i];
         str = op->constraint;
         str = skip_constraint_modifiers(str);
-        if (isnum(*str) || *str == '[') {
+        ਜੇ (isnum(*str) || *str == '[') {
             /* this is a reference to another constraint */
-            k = find_constraint(operands, nb_operands, str, NULL);
-            if ((unsigned) k >= i || i < nb_outputs)
+            k = ਲੱਭੋ_constraint(operands, nb_operands, str, ਨਿਰਾ);
+            ਜੇ ((ਬਿਨਾਨਿਸ਼ਾਨੀ) k >= i || i < nb_outputs)
                 tcc_error("invalid reference in constraint %d ('%s')",
                           i, str);
-            op->ref_index = k;
-            if (operands[k].input_index >= 0)
+            op->ref_ਸੂਚਕਾਂਕ = k;
+            ਜੇ (operands[k].ਨਿਵੇਸ਼_ਸੂਚਕਾਂਕ >= 0)
                 tcc_error("cannot reference twice the same operand");
-            operands[k].input_index = i;
-            op->priority = 5;
-        } else if ((op->vt->r & VT_VALMASK) == VT_LOCAL
+            operands[k].ਨਿਵੇਸ਼_ਸੂਚਕਾਂਕ = i;
+            op->ਤਰਜੀਹ = 5;
+        } ਨਹੀਂਤਾਂ ਜੇ ((op->vt->r & VT_VALMASK) == VT_LOCAL
                    && op->vt->sym
                    && (reg = op->vt->sym->r & VT_VALMASK) < VT_CONST) {
-            op->priority = 1;
+            op->ਤਰਜੀਹ = 1;
             op->reg = reg;
-        } else {
-            op->priority = constraint_priority(str);
+        } ਨਹੀਂਤਾਂ {
+            op->ਤਰਜੀਹ = constraint_ਤਰਜੀਹ(str);
         }
     }
 
     /* sort operands according to their priority */
-    for (i = 0; i < nb_operands; i++)
+    ਲਈ (i = 0; i < nb_operands; i++)
         sorted_op[i] = i;
-    for (i = 0; i < nb_operands - 1; i++) {
-        for (j = i + 1; j < nb_operands; j++) {
-            p1 = operands[sorted_op[i]].priority;
-            p2 = operands[sorted_op[j]].priority;
-            if (p2 < p1) {
+    ਲਈ (i = 0; i < nb_operands - 1; i++) {
+        ਲਈ (j = i + 1; j < nb_operands; j++) {
+            p1 = operands[sorted_op[i]].ਤਰਜੀਹ;
+            p2 = operands[sorted_op[j]].ਤਰਜੀਹ;
+            ਜੇ (p2 < p1) {
                 tmp = sorted_op[i];
                 sorted_op[i] = sorted_op[j];
                 sorted_op[j] = tmp;
@@ -2902,86 +2902,86 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         }
     }
 
-    for (i = 0; i < NB_ASM_REGS; i++) {
-        if (clobber_regs[i])
-            regs_allocated[i] = REG_IN_MASK | REG_OUT_MASK;
-        else
+    ਲਈ (i = 0; i < NB_ASM_REGS; i++) {
+        ਜੇ (clobber_regs[i])
+            regs_allocated[i] = REG_ਵਿੱਚ_ਨਕਾਬ | REG_ਬਾਹਰਲਾ_ਨਕਾਬ;
+        ਨਹੀਂਤਾਂ
             regs_allocated[i] = 0;
     }
     /* sp cannot be used */
-    regs_allocated[13] = REG_IN_MASK | REG_OUT_MASK;
+    regs_allocated[13] = REG_ਵਿੱਚ_ਨਕਾਬ | REG_ਬਾਹਰਲਾ_ਨਕਾਬ;
     /* fp cannot be used yet */
-    regs_allocated[11] = REG_IN_MASK | REG_OUT_MASK;
+    regs_allocated[11] = REG_ਵਿੱਚ_ਨਕਾਬ | REG_ਬਾਹਰਲਾ_ਨਕਾਬ;
 
     /* allocate registers and generate corresponding asm moves */
-    for (i = 0; i < nb_operands; i++) {
+    ਲਈ (i = 0; i < nb_operands; i++) {
         j = sorted_op[i];
         op = &operands[j];
         str = op->constraint;
         /* no need to allocate references */
-        if (op->ref_index >= 0)
-            continue;
+        ਜੇ (op->ref_ਸੂਚਕਾਂਕ >= 0)
+            ਜਾਰੀ;
         /* select if register is used for output, input or both */
-        if (op->input_index >= 0) {
-            reg_mask = REG_IN_MASK | REG_OUT_MASK;
-        } else if (j < nb_outputs) {
-            reg_mask = REG_OUT_MASK;
-        } else {
-            reg_mask = REG_IN_MASK;
+        ਜੇ (op->ਨਿਵੇਸ਼_ਸੂਚਕਾਂਕ >= 0) {
+            reg_ਨਕਾਬ = REG_ਵਿੱਚ_ਨਕਾਬ | REG_ਬਾਹਰਲਾ_ਨਕਾਬ;
+        } ਨਹੀਂਤਾਂ ਜੇ (j < nb_outputs) {
+            reg_ਨਕਾਬ = REG_ਬਾਹਰਲਾ_ਨਕਾਬ;
+        } ਨਹੀਂਤਾਂ {
+            reg_ਨਕਾਬ = REG_ਵਿੱਚ_ਨਕਾਬ;
         }
-        if (op->reg >= 0) {
-            if (is_reg_allocated(op->reg))
+        ਜੇ (op->reg >= 0) {
+            ਜੇ (is_reg_allocated(op->reg))
                 tcc_error
                     ("asm regvar requests register that's taken already");
             reg = op->reg;
         }
-      try_next:
+      try_ਅਗਲਾ:
         c = *str++;
-        switch (c) {
-        case '=': // Operand is written-to
-            goto try_next;
-        case '+': // Operand is both READ and written-to
+        ਚੋਣ (c) {
+        ਹਾਲਤ '=': // Operand is written-to
+            ਜਾਓ try_ਅਗਲਾ;
+        ਹਾਲਤ '+': // Operand is both READ and written-to
             op->is_rw = 1;
             /* FALL THRU */
-        case '&': // Operand is clobbered before the instruction is done using the input operands
-            if (j >= nb_outputs)
+        ਹਾਲਤ '&': // Operand is clobbered before the instruction is done using the input operands
+            ਜੇ (j >= nb_outputs)
                 tcc_error("'%c' modifier can only be applied to outputs",
                           c);
-            reg_mask = REG_IN_MASK | REG_OUT_MASK;
-            goto try_next;
-        case 'l': // In non-thumb mode, alias for 'r'--otherwise r0-r7 [ARM]
-        case 'r': // general-purpose register
-        case 'p': // loadable/storable address
+            reg_ਨਕਾਬ = REG_ਵਿੱਚ_ਨਕਾਬ | REG_ਬਾਹਰਲਾ_ਨਕਾਬ;
+            ਜਾਓ try_ਅਗਲਾ;
+        ਹਾਲਤ 'l': // In non-thumb mode, alias for 'r'--otherwise r0-r7 [ARM]
+        ਹਾਲਤ 'r': // general-purpose register
+        ਹਾਲਤ 'p': // loadable/storable address
             /* any general register */
-            if ((reg = op->reg) >= 0)
-                goto reg_found;
-            else for (reg = 0; reg <= 8; reg++) {
-                if (!is_reg_allocated(reg))
-                    goto reg_found;
+            ਜੇ ((reg = op->reg) >= 0)
+                ਜਾਓ reg_ਮਿਲਿਆ;
+            ਨਹੀਂਤਾਂ ਲਈ (reg = 0; reg <= 8; reg++) {
+                ਜੇ (!is_reg_allocated(reg))
+                    ਜਾਓ reg_ਮਿਲਿਆ;
             }
-            goto try_next;
-          reg_found:
+            ਜਾਓ try_ਅਗਲਾ;
+          reg_ਮਿਲਿਆ:
             /* now we can reload in the register */
             op->is_llong = 0;
             op->reg = reg;
-            regs_allocated[reg] |= reg_mask;
-            break;
-        case 'I': // integer that is valid as an data processing instruction immediate (0...255, rotated by a multiple of two)
-        case 'J': // integer in the range -4095 to 4095 [ARM]
-        case 'K': // integer that satisfies constraint I when inverted (one's complement)
-        case 'L': // integer that satisfies constraint I when inverted (two's complement)
-        case 'i': // immediate integer operand, including symbolic constants
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
-                goto try_next;
-            break;
-        case 'M': // integer in the range 0 to 32
-            if (!
+            regs_allocated[reg] |= reg_ਨਕਾਬ;
+            ਰੋਕੋ;
+        ਹਾਲਤ 'I': // integer that is valid as an data processing instruction immediate (0...255, rotated by a multiple of two)
+        ਹਾਲਤ 'J': // integer in the range -4095 to 4095 [ARM]
+        ਹਾਲਤ 'K': // integer that satisfies constraint I when inverted (one's complement)
+        ਹਾਲਤ 'L': // integer that satisfies constraint I when inverted (two's complement)
+        ਹਾਲਤ 'i': // immediate integer operand, including symbolic constants
+            ਜੇ (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
+                ਜਾਓ try_ਅਗਲਾ;
+            ਰੋਕੋ;
+        ਹਾਲਤ 'M': // integer in the range 0 to 32
+            ਜੇ (!
                 ((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) ==
                  VT_CONST))
-                goto try_next;
-            break;
-        case 'm': // memory operand
-        case 'g':
+                ਜਾਓ try_ਅਗਲਾ;
+            ਰੋਕੋ;
+        ਹਾਲਤ 'm': // memory operand
+        ਹਾਲਤ 'g':
             /* nothing special to do because the operand is already in
                memory, except if the pointer itself is stored in a
                memory variable (VT_LLOCAL case) */
@@ -2990,79 +2990,79 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                in a register, so we reserve the register in the
                input registers and a load will be generated
                later */
-            if (j < nb_outputs || c == 'm') {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+            ਜੇ (j < nb_outputs || c == 'm') {
+                ਜੇ ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
                     /* any general register */
-                    for (reg = 0; reg <= 8; reg++) {
-                        if (!(regs_allocated[reg] & REG_IN_MASK))
-                            goto reg_found1;
+                    ਲਈ (reg = 0; reg <= 8; reg++) {
+                        ਜੇ (!(regs_allocated[reg] & REG_ਵਿੱਚ_ਨਕਾਬ))
+                            ਜਾਓ reg_found1;
                     }
-                    goto try_next;
+                    ਜਾਓ try_ਅਗਲਾ;
                   reg_found1:
                     /* now we can reload in the register */
-                    regs_allocated[reg] |= REG_IN_MASK;
+                    regs_allocated[reg] |= REG_ਵਿੱਚ_ਨਕਾਬ;
                     op->reg = reg;
-                    op->is_memory = 1;
+                    op->is_ਸਮ੍ਰਿਤੀ = 1;
                 }
             }
-            break;
-        default:
+            ਰੋਕੋ;
+        ਮੂਲ:
             tcc_error("asm constraint %d ('%s') could not be satisfied",
                       j, op->constraint);
-            break;
+            ਰੋਕੋ;
         }
         /* if a reference is present for that operand, we assign it too */
-        if (op->input_index >= 0) {
-            operands[op->input_index].reg = op->reg;
-            operands[op->input_index].is_llong = op->is_llong;
+        ਜੇ (op->ਨਿਵੇਸ਼_ਸੂਚਕਾਂਕ >= 0) {
+            operands[op->ਨਿਵੇਸ਼_ਸੂਚਕਾਂਕ].reg = op->reg;
+            operands[op->ਨਿਵੇਸ਼_ਸੂਚਕਾਂਕ].is_llong = op->is_llong;
         }
     }
 
     /* compute out_reg. It is used to store outputs registers to memory
        locations references by pointers (VT_LLOCAL case) */
     *pout_reg = -1;
-    for (i = 0; i < nb_operands; i++) {
+    ਲਈ (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        if (op->reg >= 0 &&
-            (op->vt->r & VT_VALMASK) == VT_LLOCAL && !op->is_memory) {
-            for (reg = 0; reg <= 8; reg++) {
-                if (!(regs_allocated[reg] & REG_OUT_MASK))
-                    goto reg_found2;
+        ਜੇ (op->reg >= 0 &&
+            (op->vt->r & VT_VALMASK) == VT_LLOCAL && !op->is_ਸਮ੍ਰਿਤੀ) {
+            ਲਈ (reg = 0; reg <= 8; reg++) {
+                ਜੇ (!(regs_allocated[reg] & REG_ਬਾਹਰਲਾ_ਨਕਾਬ))
+                    ਜਾਓ reg_found2;
             }
             tcc_error("could not find free output register for reloading");
           reg_found2:
             *pout_reg = reg;
-            break;
+            ਰੋਕੋ;
         }
     }
 
     /* print sorted constraints */
-#ifdef ASM_DEBUG
-    for (i = 0; i < nb_operands; i++) {
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ ASM_DEBUG
+    ਲਈ (i = 0; i < nb_operands; i++) {
         j = sorted_op[i];
         op = &operands[j];
-        printf("%%%d [%s]: \"%s\" r=0x%04x reg=%d\n",
+        ਲਿਖੋ("%%%d [%s]: \"%s\" r=0x%04x reg=%d\n",
                j,
-               op->id ? get_tok_str(op->id, NULL) : "",
+               op->id ? get_tok_str(op->id, ਨਿਰਾ) : "",
                op->constraint, op->vt->r, op->reg);
     }
-    if (*pout_reg >= 0)
-        printf("out_reg=%d\n", *pout_reg);
-#endif
+    ਜੇ (*pout_reg >= 0)
+        ਲਿਖੋ("out_reg=%d\n", *pout_reg);
+#ਜੇ_ਅੰਤ
 }
 
-ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str)
+ST_FUNC ਖਾਲੀ asm_clobber(uint8_t *clobber_regs, ਅਚਲ ਅੱਖਰ *str)
 {
-    int reg;
+    ਪੂਰਨ reg;
     TokenSym *ts;
 
-    if (!strcmp(str, "memory") ||
+    ਜੇ (!strcmp(str, "memory") ||
         !strcmp(str, "cc") ||
         !strcmp(str, "flags"))
-        return;
-    ts = tok_alloc(str, strlen(str));
+        ਵਾਪਸ;
+    ts = tok_alloc(str, ਲੜੀ_ਲੰਬਾਈ(str));
     reg = asm_parse_regvar(ts->tok);
-    if (reg == -1) {
+    ਜੇ (reg == -1) {
         tcc_error("invalid clobber register '%s'", str);
     }
     clobber_regs[reg] = 1;
@@ -3070,23 +3070,23 @@ ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str)
 
 /* If T refers to a register then return the register number and type.
    Otherwise return -1.  */
-ST_FUNC int asm_parse_regvar (int t)
+ST_FUNC ਪੂਰਨ asm_parse_regvar (ਪੂਰਨ t)
 {
     /* coprocessors (p0-p15) and coprocessor registers (c0-c15) are handled elsewere */
     /* single fp (s0-s31) and double fp registers (d0-d15) are handled elsewere */
 
-    if (t < TOK_ASM_r0 || t > TOK_ASM_pc) /* filter unrelated registers */
-        return -1;
+    ਜੇ (t < TOK_ASM_r0 || t > TOK_ASM_pc) /* filter unrelated registers */
+        ਵਾਪਸ -1;
 
-    if (t <= TOK_ASM_r15)       /* default register names r0-r15 */
-        return t - TOK_ASM_r0;
+    ਜੇ (t <= TOK_ASM_r15)       /* default register names r0-r15 */
+        ਵਾਪਸ t - TOK_ASM_r0;
 
-    if (t <= TOK_ASM_v8)        /* synonym register names a1-a4,v1-v8 (alias: r0-r11) */
-        return t - TOK_ASM_a1;
+    ਜੇ (t <= TOK_ASM_v8)        /* synonym register names a1-a4,v1-v8 (alias: r0-r11) */
+        ਵਾਪਸ t - TOK_ASM_a1;
 
     /* special register names sb/sl/fp/ip/sp/lr/pc (alias: r9-r15) */
-    return t - TOK_ASM_sb + (TOK_ASM_r9 - TOK_ASM_r0);
+    ਵਾਪਸ t - TOK_ASM_sb + (TOK_ASM_r9 - TOK_ASM_r0);
 }
 
 /*************************************************************/
-#endif /* ndef TARGET_DEFS_ONLY */
+#ਜੇ_ਅੰਤ /* ndef TARGET_DEFS_ONLY */

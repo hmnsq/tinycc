@@ -1,9 +1,9 @@
-#include <stdio.h>
-double привет=0.1;
-int Lefèvre=2;
-int main(){
-    printf("привет=%g\n",привет);
-    printf("Lefèvre=%d\n",Lefèvre);
-    return 0;
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+ਦੁੱਗਣਾ привет=0.1;
+ਪੂਰਨ Lefèvre=2;
+ਪੂਰਨ ਮੁੱਖ(){
+    ਲਿਖੋ("привет=%g\n",привет);
+    ਲਿਖੋ("Lefèvre=%d\n",Lefèvre);
+    ਵਾਪਸ 0;
 }
 // pcc & tcc only

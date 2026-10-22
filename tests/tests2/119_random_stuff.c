@@ -1,135 +1,135 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-struct big_struct { char a[262144]; };
+ਬਣਤਰ big_struct { ਅੱਖਰ a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+ਸਥਿਰ ਅਚਲ ਅੱਖਰ str[] = "abcdefghijklmnopqrstuvwxyz";
 
-void tst_branch(void)
+ਖਾਲੀ tst_branch(ਖਾਲੀ)
 {
-  printf("tst_branch --");
-  goto *&&a; 
-  printf (" dummy");
+  ਲਿਖੋ("tst_branch --");
+  ਜਾਓ *&&a; 
+  ਲਿਖੋ (" dummy");
 a: ;
-  printf(" --\n");
+  ਲਿਖੋ(" --\n");
 }
 
-void tst_void_ptr(void *pv, int i) 
+ਖਾਲੀ tst_void_ptr(ਖਾਲੀ *pv, ਪੂਰਨ i) 
 {
   i ? *pv : *pv; // dr106
 }
 
-void tst_shift(void)
+ਖਾਲੀ tst_ਖਿਸਕਾਓ(ਖਾਲੀ)
 {
-  int i = 1;
-  long long l = 1;
+  ਪੂਰਨ i = 1;
+  ਲੰਮਾ ਲੰਮਾ l = 1;
   i = i << 32; // illegal. just test
   l = l << 64; // illegal. just test
 }
 
-#if !defined(_WIN32)
-#include <sys/mman.h>
+#ਜੇ !defined(_WIN32)
+#ਅਨ੍ਤਰ੍ਭਾਵ <sys/mman.h>
 
-void tst_const_addr(void)
+ਖਾਲੀ tst_const_addr(ਖਾਲੀ)
 {
-  void *addr = mmap ((void *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
-  if (addr != (void *) -1) {
-    *(int *)0x20000000 += 42;
+  ਖਾਲੀ *addr = mmap ((ਖਾਲੀ *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
+  ਜੇ (addr != (ਖਾਲੀ *) -1) {
+    *(ਪੂਰਨ *)0x20000000 += 42;
     munmap (addr, 4096);
   }
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-struct zero_struct {};
+ਬਣਤਰ zero_struct {};
 
-struct zero_struct tst_zero_struct(void)
+ਬਣਤਰ zero_struct tst_zero_struct(ਖਾਲੀ)
 {
-  struct zero_struct ret;
-  return ret;
+  ਬਣਤਰ zero_struct ret;
+  ਵਾਪਸ ret;
 }
 
-struct big_struct tst_big(struct big_struct tst)
+ਬਣਤਰ big_struct tst_big(ਬਣਤਰ big_struct tst)
 {
-   return tst;
+   ਵਾਪਸ tst;
 }
 
-void tst_adr (int (*fp)(char *, const char *, ...))
+ਖਾਲੀ tst_adr (ਪੂਰਨ (*fp)(ਅੱਖਰ *, ਅਚਲ ਅੱਖਰ *, ...))
 {
-  char buf[10];
+  ਅੱਖਰ buf[10];
   (*fp)(buf, "%.0f", 5.0);
-  printf("tst_adr %s\n", buf);
+  ਲਿਖੋ("tst_adr %s\n", buf);
 }
 
-int tst(void)
+ਪੂਰਨ tst(ਖਾਲੀ)
 {
-  long long value = 3;
-  return -value;
+  ਲੰਮਾ ਲੰਮਾ ਮੁੱਲ = 3;
+  ਵਾਪਸ -ਮੁੱਲ;
 }
 
-void tst_compare(void)
+ਖਾਲੀ tst_compare(ਖਾਲੀ)
 {
   /* This failed on risc64 */
-  printf ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
+  ਲਿਖੋ ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
 }
 
-#pragma pack(1)
-struct S { int d:24; int f:14; } i, j;
-#pragma pack()
+#ਹਦਾਇਤ pack(1)
+ਬਣਤਰ S { ਪੂਰਨ d:24; ਪੂਰਨ f:14; } i, j;
+#ਹਦਾਇਤ pack()
 
-void tst_pack (void)
+ਖਾਲੀ tst_pack (ਖਾਲੀ)
 {
   i.f = 5; j.f = 5;
-  printf("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
+  ਲਿਖੋ("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
 }
 
-void tst_cast(void)
+ਖਾਲੀ tst_cast(ਖਾਲੀ)
 {
-  signed char c = (signed char) 0xaaaaaaaa;
-  int r = (unsigned short) c ^ (signed char) 0x99999999;
-  printf ("schar to ushort cast: %x\n", r);
+  ਨਿਸ਼ਾਨੀਵਾਲਾ ਅੱਖਰ c = (ਨਿਸ਼ਾਨੀਵਾਲਾ ਅੱਖਰ) 0xaaaaaaaa;
+  ਪੂਰਨ r = (ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ) c ^ (ਨਿਸ਼ਾਨੀਵਾਲਾ ਅੱਖਰ) 0x99999999;
+  ਲਿਖੋ ("schar to ushort cast: %x\n", r);
 }
 
-struct {
-    int (*print)(const char *format, ...);
+ਬਣਤਰ {
+    ਪੂਰਨ (*print)(ਅਚਲ ਅੱਖਰ *format, ...);
 } tst_indir = {
-    printf
+    ਲਿਖੋ
 };
 
-void tst_indir_func(void)
+ਖਾਲੀ tst_indir_func(ਖਾਲੀ)
 {
     tst_indir.print("tst_indir_func %d\n", 10);
 }
 
-struct V {
-  int x, y, z;
+ਬਣਤਰ V {
+  ਪੂਰਨ x, y, z;
 };
 
-struct V vec(void)
+ਬਣਤਰ V vec(ਖਾਲੀ)
 {
-  return (struct V) { 1, 2, 3 };
+  ਵਾਪਸ (ਬਣਤਰ V) { 1, 2, 3 };
 }
 
-void func(float f, struct V v)
+ਖਾਲੀ func(ਦਸ਼ਮਲਵ f, ਬਣਤਰ V v)
 {
-  printf("%g\n", f);
+  ਲਿਖੋ("%g\n", f);
 }
 
-void tst_struct_return_align(void)
+ਖਾਲੀ tst_struct_return_align(ਖਾਲੀ)
 {
-  float d = 5.0f;
+  ਦਸ਼ਮਲਵ d = 5.0f;
   func(d, vec());
 }
 
-int
-main (void)
+ਪੂਰਨ
+ਮੁੱਖ (ਖਾਲੀ)
 {
-  struct big_struct big;
+  ਬਣਤਰ big_struct big;
 
   tst_branch();
-  tst_shift();
+  tst_ਖਿਸਕਾਓ();
   tst_void_ptr(&big.a[0], 0);
-#if !defined(_WIN32)
+#ਜੇ !defined(_WIN32)
   tst_const_addr();
-#endif
+#ਜੇ_ਅੰਤ
   tst_zero_struct();
   tst_big(big);
   tst_adr(&sprintf);

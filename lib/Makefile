@@ -96,7 +96,7 @@ $(TOP)/%.o : %.c $(TCC)
 
 $(TOP)/bcheck.o : XFLAGS += $(BFLAGS)
 $(TOP)/bcheck_run.o : bcheck.c $(TCC)
-	$S$(XCC) -c bcheck.c -o $@ $(XFLAGS)  $(BFLAGS) -DBCHECK_RUN
+	$S$(XCC) -c bcheck.c -o $@ $(XFLAGS)  $(BFLAGS) -DBCHECK_ਲੜੀਵਾਰ
 
 $(X)crt1w.o : crt1.c
 $(X)wincrt1w.o : wincrt1.c

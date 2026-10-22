@@ -1,17 +1,17 @@
-#include <stdio.h>
-int main() {
-  printf("%d\n", (int)-1.0);
-  double d = -1.0;
-  printf("%d\n", (int)d);
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+ਪੂਰਨ ਮੁੱਖ() {
+  ਲਿਖੋ("%d\n", (ਪੂਰਨ)-1.0);
+  ਦੁੱਗਣਾ d = -1.0;
+  ਲਿਖੋ("%d\n", (ਪੂਰਨ)d);
 
-  printf("%d\n", (int)-2147483648.0);
+  ਲਿਖੋ("%d\n", (ਪੂਰਨ)-2147483648.0);
   d = -2147483648.0;
-  printf("%d\n", (int)d);
+  ਲਿਖੋ("%d\n", (ਪੂਰਨ)d);
 
-#ifndef _WIN32
-  printf("%llu\n", (unsigned long long)1e19);
-#else
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WIN32
+  ਲਿਖੋ("%llu\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)1e19);
+#ਨਹੀਂਤਾਂ
   /* some msvc compiler won't compile tcc correctly in this ragard */
-  printf("10000000000000000000\n");
-#endif
+  ਲਿਖੋ("10000000000000000000\n");
+#ਜੇ_ਅੰਤ
 }

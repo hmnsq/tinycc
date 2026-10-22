@@ -7,46 +7,46 @@ each of the operands. The type of the result is that of the promoted
 left operand."
 */
 
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (int) sizeof((M)+0)
-#define CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
-#define TEST1(X,T) do { CHECK(X,T); CHECK(X,unsigned T); } while (0)
-#define TEST2(X)                 \
-  do                             \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (ਪੂਰਨ) ਆਕਾਰ((M)+0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TEST1(X,T) ਕਰੋ { CHECK(X,T); CHECK(X,ਬਿਨਾਨਿਸ਼ਾਨੀ T); } ਜਦੋਂ (0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TEST2(X)                 \
+  ਕਰੋ                             \
     {                            \
-      TEST1((X),short);          \
-      TEST1((X),int);            \
-      TEST1((X),long);           \
-      TEST1((X),long long);      \
+      TEST1((X),ਛੋਟਾ);          \
+      TEST1((X),ਪੂਰਨ);            \
+      TEST1((X),ਲੰਮਾ);           \
+      TEST1((X),ਲੰਮਾ ਲੰਮਾ);      \
     }                            \
-  while (0)
-#define TEST3(X,T) do { TEST2((T)(X)); TEST2((unsigned T)(X)); } while (0)
-#define TEST4(X)                 \
-  do                             \
+  ਜਦੋਂ (0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TEST3(X,T) ਕਰੋ { TEST2((T)(X)); TEST2((ਬਿਨਾਨਿਸ਼ਾਨੀ T)(X)); } ਜਦੋਂ (0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TEST4(X)                 \
+  ਕਰੋ                             \
     {                            \
-      TEST3((X),short);          \
-      TEST3((X),int);            \
-      TEST3((X),long);           \
-      TEST3((X),long long);      \
+      TEST3((X),ਛੋਟਾ);          \
+      TEST3((X),ਪੂਰਨ);            \
+      TEST3((X),ਲੰਮਾ);           \
+      TEST3((X),ਲੰਮਾ ਲੰਮਾ);      \
     }                            \
- while (0)
+ ਜਦੋਂ (0)
 
-static int debug, nfailed = 0;
+ਸਥਿਰ ਪੂਰਨ debug, nfailed = 0;
 
-static void check (const char *s, int arg1, int shift)
+ਸਥਿਰ ਖਾਲੀ check (ਅਚਲ ਅੱਖਰ *s, ਪੂਰਨ arg1, ਪੂਰਨ ਖਿਸਕਾਓ)
 {
-  int failed = arg1 != shift;
-  if (debug || failed)
-    printf ("%s %d %d\n", s, arg1, shift);
+  ਪੂਰਨ failed = arg1 != ਖਿਸਕਾਓ;
+  ਜੇ (debug || failed)
+    ਲਿਖੋ ("%s %d %d\n", s, arg1, ਖਿਸਕਾਓ);
   nfailed += failed;
 }
 
-int main (int argc, char **argv)
+ਪੂਰਨ ਮੁੱਖ (ਪੂਰਨ argc, ਅੱਖਰ **argv)
 {
   debug = argc > 1;
   TEST4(1);
   TEST4(-1);
-  printf ("%d test(s) failed\n", nfailed);
-  return nfailed != 0;
+  ਲਿਖੋ ("%d test(s) failed\n", nfailed);
+  ਵਾਪਸ nfailed != 0;
 }

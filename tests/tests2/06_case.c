@@ -1,29 +1,29 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int Count;
+   ਪੂਰਨ ਗਿਣਤੀ_4;
 
-   for (Count = 0; Count < 4; Count++)
+   ਲਈ (ਗਿਣਤੀ_4 = 0; ਗਿਣਤੀ_4 < 4; ਗਿਣਤੀ_4++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      ਲਿਖੋ("%d\n", ਗਿਣਤੀ_4);
+      ਚੋਣ (ਗਿਣਤੀ_4)
       {
-         case 1:
-            printf("%d\n", 1);
-            break;
+         ਹਾਲਤ 1:
+            ਲਿਖੋ("%d\n", 1);
+            ਰੋਕੋ;
 
-         case 2:
-            printf("%d\n", 2);
-            break;
+         ਹਾਲਤ 2:
+            ਲਿਖੋ("%d\n", 2);
+            ਰੋਕੋ;
 
-         default:
-            printf("%d\n", 0);
-            break;
+         ਮੂਲ:
+            ਲਿਖੋ("%d\n", 0);
+            ਰੋਕੋ;
       }
    }
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

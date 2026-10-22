@@ -1,26 +1,26 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int a;
-   char b;
+   ਪੂਰਨ a;
+   ਅੱਖਰ b;
 
    a = 0;
-   while (a < 2)
+   ਜਦੋਂ (a < 2)
    {
-      printf("%d", a++);
-      break;
+      ਲਿਖੋ("%d", a++);
+      ਰੋਕੋ;
 
       b = 'A';
-      while (b < 'C')
+      ਜਦੋਂ (b < 'C')
       {
-         printf("%c", b++);
+         ਲਿਖੋ("%c", b++);
       }
-      printf("e");
+      ਲਿਖੋ("e");
    }
-   printf("\n");
+   ਲਿਖੋ("\n");
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

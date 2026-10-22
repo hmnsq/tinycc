@@ -1,20 +1,20 @@
-extern int write (int fd, void *buf, int len);
+ਬਾਹਰੀ ਪੂਰਨ ਲਿਖ (ਪੂਰਨ fd, ਖਾਲੀ *buf, ਪੂਰਨ len);
 
-static void __attribute__ ((constructor))
-testc (void)
+ਸਥਿਰ ਖਾਲੀ __attribute__ ((constructor))
+testc (ਖਾਲੀ)
 {
-  write (1, "constructor\n", 12);
+  ਲਿਖ (1, "constructor\n", 12);
 }
 
-static void __attribute__ ((destructor))
-testd (void)
+ਸਥਿਰ ਖਾਲੀ __attribute__ ((destructor))
+testd (ਖਾਲੀ)
 {
-  write (1, "destructor\n", 11);
+  ਲਿਖ (1, "destructor\n", 11);
 }
 
-int
-main (void)
+ਪੂਰਨ
+ਮੁੱਖ (ਖਾਲੀ)
 {
-  write (1, "main\n", 5);
-  return 0;
+  ਲਿਖ (1, "main\n", 5);
+  ਵਾਪਸ 0;
 }

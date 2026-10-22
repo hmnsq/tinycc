@@ -1,28 +1,28 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int a;
-   int *b;
-   int *c;
+   ਪੂਰਨ a;
+   ਪੂਰਨ *b;
+   ਪੂਰਨ *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = ਨਿਰਾ;
 
-   printf("%d\n", *b);
+   ਲਿਖੋ("%d\n", *b);
 
-   if (b == NULL)
-      printf("b is NULL\n");
-   else
-      printf("b is not NULL\n");
+   ਜੇ (b == ਨਿਰਾ)
+      ਲਿਖੋ("b is NULL\n");
+   ਨਹੀਂਤਾਂ
+      ਲਿਖੋ("b is not NULL\n");
 
-   if (c == NULL)
-      printf("c is NULL\n");
-   else
-      printf("c is not NULL\n");
+   ਜੇ (c == ਨਿਰਾ)
+      ਲਿਖੋ("c is NULL\n");
+   ਨਹੀਂਤਾਂ
+      ਲਿਖੋ("c is not NULL\n");
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

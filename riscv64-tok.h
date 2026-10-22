@@ -5,16 +5,16 @@
  * The specifications are available under https://riscv.org/technical/specifications/
  */
 
-#define DEF_ASM_WITH_SUFFIX(x, y) \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_WITH_SUFFIX(x, y) \
   DEF(TOK_ASM_ ## x ## _ ## y, #x "." #y)
 
-#define DEF_ASM_WITH_SUFFIXES(x, y, z) \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_WITH_SUFFIXES(x, y, z) \
   DEF(TOK_ASM_ ## x ## _ ## y ## _ ## z, #x "." #y "." #z)
 
-#define DEF_ASM_FENCE(x) \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF_ASM_FENCE(x) \
   DEF(TOK_ASM_ ## x ## _fence, #x)
 
-/* register */
+/*ਰਜਿਸਟਰ*/
  /* integer */
  DEF_ASM(x0)
  DEF_ASM(x1)
@@ -189,7 +189,7 @@
 
 /* Arithmetic */
 
- DEF_ASM(add)
+ DEF_ASM(ਜੋੜੋ)
  DEF_ASM(addi)
  DEF_ASM(sub)
  DEF_ASM(lui)
@@ -350,7 +350,7 @@
  DEF_ASM_WITH_SUFFIX(c, srai)
 
 /* Arithmetic */
- DEF_ASM_WITH_SUFFIX(c, add)
+ DEF_ASM_WITH_SUFFIX(c, ਜੋੜੋ)
  DEF_ASM_WITH_SUFFIX(c, addi)
  DEF_ASM_WITH_SUFFIX(c, addi16sp)
  DEF_ASM_WITH_SUFFIX(c, addi4spn)
@@ -393,12 +393,12 @@
  DEF_ASM(csrrsi)
  DEF_ASM(csrrci)
  /* registers */
- DEF_ASM(cycle)
+ DEF_ASM(ਚੱਕਰ)
  DEF_ASM(fcsr)
  DEF_ASM(fflags)
  DEF_ASM(frm)
  DEF_ASM(instret)
- DEF_ASM(time)
+ DEF_ASM(ਸਮਾਂ)
  /* RV32I-only */
  DEF_ASM(cycleh)
  DEF_ASM(instreth)
@@ -464,7 +464,7 @@
  DEF_ASM(sgtz)
  DEF_ASM(sltz)
  DEF_ASM(snez)
- DEF_ASM(tail)
+ DEF_ASM(ਪੂਛ_2)
 
 /* Possible values for .option directive */
  DEF_ASM(arch)
@@ -474,8 +474,8 @@
  DEF_ASM(nopic)
  DEF_ASM(relax)
  DEF_ASM(norelax)
- DEF_ASM(push)
- DEF_ASM(pop)
+ DEF_ASM(ਧੱਕੋ)
+ DEF_ASM(ਕੱਢੋ)
 
 /* “A” Standard Extension for Atomic Instructions, Version 2.1 */
  /* XXX: Atomic memory operations */
@@ -607,6 +607,6 @@
  DEF_ASM_FENCE(ior)
  DEF_ASM_FENCE(iorw)
 
-#undef DEF_ASM_FENCE
-#undef DEF_ASM_WITH_SUFFIX
-#undef DEF_ASM_WITH_SUFFIXES
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ DEF_ASM_FENCE
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ DEF_ASM_WITH_SUFFIX
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ DEF_ASM_WITH_SUFFIXES

@@ -3,144 +3,144 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_UTIME
-#define _INC_UTIME
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _INC_UTIME
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _INC_UTIME
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WIN32
+#ਗਲਤੀ Only Win32 ਨਿਸ਼ਾਨਾ is supported!
+#ਜੇ_ਅੰਤ
 
-#include <_mingw.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ਹਦਾਇਤ pack(ਧੱਕੋ,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRTIMP
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRTIMP __declspec(dllimport)
+#ਜੇ_ਅੰਤ
 
-#ifndef _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WCHAR_T_DEFINED
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ wchar_t;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _WCHAR_T_DEFINED
+#ਜੇ_ਅੰਤ
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __TINYC__ /* gr */
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ USE_32_ਦੋਆਧਾਰੀ_ਅੰਕ_ਸਮਾਂ_T
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _WIN64
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ USE_32_ਦੋਆਧਾਰੀ_ਅੰਕ_ਸਮਾਂ_T
+#ਜੇ_ਅੰਤ
+#ਨਹੀਂਤਾਂ
+#ਜੇ INTEGRAL_MAX_ਬਿੱਟ < 64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ USE_32_ਦੋਆਧਾਰੀ_ਅੰਕ_ਸਮਾਂ_T
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-  typedef long __time32_t;
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _TIME32_T_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _TIME32_T_DEFINED
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਲੰਮਾ __time32_t;
+#ਜੇ_ਅੰਤ
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _TIME64_T_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _TIME64_T_DEFINED
+#ਜੇ INTEGRAL_MAX_ਬਿੱਟ >= 64
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ __int64 __time64_t;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ ਸਮਾਂ_T_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਸਮਾਂ_T_DEFINED
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ USE_32_ਦੋਆਧਾਰੀ_ਅੰਕ_ਸਮਾਂ_T
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ __time32_t time_t;
+#ਨਹੀਂਤਾਂ
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ __time64_t time_t;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _UTIMBUF_DEFINED
-#define _UTIMBUF_DEFINED
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _UTIMBUF_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _UTIMBUF_DEFINED
 
-  struct _utimbuf {
+  ਬਣਤਰ _utimbuf {
     time_t actime;
     time_t modtime;
   };
 
-  struct __utimbuf32 {
+  ਬਣਤਰ __utimbuf32 {
     __time32_t actime;
     __time32_t modtime;
   };
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __utimbuf64 {
+#ਜੇ INTEGRAL_MAX_ਬਿੱਟ >= 64
+  ਬਣਤਰ __utimbuf64 {
     __time64_t actime;
     __time64_t modtime;
   };
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef	NO_OLDNAMES
-  struct utimbuf {
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ	NO_OLDNAMES
+  ਬਣਤਰ utimbuf {
     time_t actime;
     time_t modtime;
   };
 
-  struct utimbuf32 {
+  ਬਣਤਰ utimbuf32 {
     __time32_t actime;
     __time32_t modtime;
   };
-#endif
-#endif
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-  _CRTIMP int __cdecl _utime32(const char *_Filename,struct __utimbuf32 *_Time);
-  _CRTIMP int __cdecl _futime32(int _FileDes,struct __utimbuf32 *_Time);
-  _CRTIMP int __cdecl _wutime32(const wchar_t *_Filename,struct __utimbuf32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _utime64(const char *_Filename,struct __utimbuf64 *_Time);
-  _CRTIMP int __cdecl _futime64(int _FileDes,struct __utimbuf64 *_Time);
-  _CRTIMP int __cdecl _wutime64(const wchar_t *_Filename,struct __utimbuf64 *_Time);
-#endif
+  _CRTIMP ਪੂਰਨ __cdecl _utime32(ਅਚਲ ਅੱਖਰ *_Filename,ਬਣਤਰ __utimbuf32 *ਸਮਾਂ_2);
+  _CRTIMP ਪੂਰਨ __cdecl _futime32(ਪੂਰਨ _FileDes,ਬਣਤਰ __utimbuf32 *ਸਮਾਂ_2);
+  _CRTIMP ਪੂਰਨ __cdecl _wutime32(ਅਚਲ wchar_t *_Filename,ਬਣਤਰ __utimbuf32 *ਸਮਾਂ_2);
+#ਜੇ INTEGRAL_MAX_ਬਿੱਟ >= 64
+  _CRTIMP ਪੂਰਨ __cdecl _utime64(ਅਚਲ ਅੱਖਰ *_Filename,ਬਣਤਰ __utimbuf64 *ਸਮਾਂ_2);
+  _CRTIMP ਪੂਰਨ __cdecl _futime64(ਪੂਰਨ _FileDes,ਬਣਤਰ __utimbuf64 *ਸਮਾਂ_2);
+  _CRTIMP ਪੂਰਨ __cdecl _wutime64(ਅਚਲ wchar_t *_Filename,ਬਣਤਰ __utimbuf64 *ਸਮਾਂ_2);
+#ਜੇ_ਅੰਤ
 
-#ifndef RC_INVOKED
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl _utime(const char *_Filename,struct _utimbuf *_Utimbuf) {
-  return _utime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ RC_INVOKED
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ USE_32_ਦੋਆਧਾਰੀ_ਅੰਕ_ਸਮਾਂ_T
+__CRT_INLINE ਪੂਰਨ __cdecl _utime(ਅਚਲ ਅੱਖਰ *_Filename,ਬਣਤਰ _utimbuf *_Utimbuf) {
+  ਵਾਪਸ _utime32(_Filename,(ਬਣਤਰ __utimbuf32 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _futime(int _Desc,struct _utimbuf *_Utimbuf) {
-  return _futime32(_Desc,(struct __utimbuf32 *)_Utimbuf);
+__CRT_INLINE ਪੂਰਨ __cdecl _futime(ਪੂਰਨ _Desc,ਬਣਤਰ _utimbuf *_Utimbuf) {
+  ਵਾਪਸ _futime32(_Desc,(ਬਣਤਰ __utimbuf32 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _wutime(const wchar_t *_Filename,struct _utimbuf *_Utimbuf) {
-  return _wutime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+__CRT_INLINE ਪੂਰਨ __cdecl _wutime(ਅਚਲ wchar_t *_Filename,ਬਣਤਰ _utimbuf *_Utimbuf) {
+  ਵਾਪਸ _wutime32(_Filename,(ਬਣਤਰ __utimbuf32 *)_Utimbuf);
 }
-#else
-__CRT_INLINE int __cdecl _utime(const char *_Filename,struct _utimbuf *_Utimbuf) {
-  return _utime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+#ਨਹੀਂਤਾਂ
+__CRT_INLINE ਪੂਰਨ __cdecl _utime(ਅਚਲ ਅੱਖਰ *_Filename,ਬਣਤਰ _utimbuf *_Utimbuf) {
+  ਵਾਪਸ _utime64(_Filename,(ਬਣਤਰ __utimbuf64 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _futime(int _Desc,struct _utimbuf *_Utimbuf) {
-  return _futime64(_Desc,(struct __utimbuf64 *)_Utimbuf);
+__CRT_INLINE ਪੂਰਨ __cdecl _futime(ਪੂਰਨ _Desc,ਬਣਤਰ _utimbuf *_Utimbuf) {
+  ਵਾਪਸ _futime64(_Desc,(ਬਣਤਰ __utimbuf64 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _wutime(const wchar_t *_Filename,struct _utimbuf *_Utimbuf) {
-  return _wutime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+__CRT_INLINE ਪੂਰਨ __cdecl _wutime(ਅਚਲ wchar_t *_Filename,ਬਣਤਰ _utimbuf *_Utimbuf) {
+  ਵਾਪਸ _wutime64(_Filename,(ਬਣਤਰ __utimbuf64 *)_Utimbuf);
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef	NO_OLDNAMES
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl utime(const char *_Filename,struct utimbuf *_Utimbuf) {
-  return _utime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ	NO_OLDNAMES
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ USE_32_ਦੋਆਧਾਰੀ_ਅੰਕ_ਸਮਾਂ_T
+__CRT_INLINE ਪੂਰਨ __cdecl utime(ਅਚਲ ਅੱਖਰ *_Filename,ਬਣਤਰ utimbuf *_Utimbuf) {
+  ਵਾਪਸ _utime32(_Filename,(ਬਣਤਰ __utimbuf32 *)_Utimbuf);
 }
-#else
-__CRT_INLINE int __cdecl utime(const char *_Filename,struct utimbuf *_Utimbuf) {
-  return _utime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+#ਨਹੀਂਤਾਂ
+__CRT_INLINE ਪੂਰਨ __cdecl utime(ਅਚਲ ਅੱਖਰ *_Filename,ਬਣਤਰ utimbuf *_Utimbuf) {
+  ਵਾਪਸ _utime64(_Filename,(ਬਣਤਰ __utimbuf64 *)_Utimbuf);
 }
-#endif
-#endif
-#endif
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-#pragma pack(pop)
-#endif
+#ਹਦਾਇਤ pack(ਕੱਢੋ)
+#ਜੇ_ਅੰਤ

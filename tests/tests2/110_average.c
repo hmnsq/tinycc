@@ -1,27 +1,27 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-typedef struct
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ
 {
-    double average;
-    int count;
+    ਦੁੱਗਣਾ ਔਸਤਨ;
+    ਪੂਰਨ ਗਿਣਤੀ_3;
 }
 stats_type;
 
-static void
-testc (stats_type *s, long long data)
+ਸਥਿਰ ਖਾਲੀ
+testc (stats_type *s, ਲੰਮਾ ਲੰਮਾ ਅੰਕੜੇ)
 {
-    s->average = (s->average * s->count + data) / (s->count + 1);
-    s->count++;
+    s->ਔਸਤਨ = (s->ਔਸਤਨ * s->ਗਿਣਤੀ_3 + ਅੰਕੜੇ) / (s->ਗਿਣਤੀ_3 + 1);
+    s->ਗਿਣਤੀ_3++;
 }
 
-int main (void)
+ਪੂਰਨ ਮੁੱਖ (ਖਾਲੀ)
 {
     stats_type s;
 
-    s.average = 0;
-    s.count = 0;
+    s.ਔਸਤਨ = 0;
+    s.ਗਿਣਤੀ_3 = 0;
     testc (&s, 10);
     testc (&s, 20);
-    printf ("%g %d\n", s.average, s.count);
-    return 0;
+    ਲਿਖੋ ("%g %d\n", s.ਔਸਤਨ, s.ਗਿਣਤੀ_3);
+    ਵਾਪਸ 0;
 }

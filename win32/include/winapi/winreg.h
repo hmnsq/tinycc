@@ -3,270 +3,270 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINREG_
-#define _WINREG_
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WINREG_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _WINREG_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ WINVER
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WINVER 0x0502
+#ਜੇ_ਅੰਤ
 
-#define RRF_RT_REG_NONE 0x00000001
-#define RRF_RT_REG_SZ 0x00000002
-#define RRF_RT_REG_EXPAND_SZ 0x00000004
-#define RRF_RT_REG_BINARY 0x00000008
-#define RRF_RT_REG_DWORD 0x00000010
-#define RRF_RT_REG_MULTI_SZ 0x00000020
-#define RRF_RT_REG_QWORD 0x00000040
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_RT_REG_NONE 0x00000001
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_RT_REG_SZ 0x00000002
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_RT_REG_EXPAND_SZ 0x00000004
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_RT_REG_ਦੁਆਧਾਰੀ 0x00000008
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_RT_REG_DWORD 0x00000010
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_RT_REG_MULTI_SZ 0x00000020
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_RT_REG_QWORD 0x00000040
 
-#define RRF_RT_DWORD (RRF_RT_REG_BINARY | RRF_RT_REG_DWORD)
-#define RRF_RT_QWORD (RRF_RT_REG_BINARY | RRF_RT_REG_QWORD)
-#define RRF_RT_ANY 0x0000ffff
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_RT_DWORD (RRF_RT_REG_ਦੁਆਧਾਰੀ | RRF_RT_REG_DWORD)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_RT_QWORD (RRF_RT_REG_ਦੁਆਧਾਰੀ | RRF_RT_REG_QWORD)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_RT_ANY 0x0000ffff
 
-#define RRF_NOEXPAND 0x10000000
-#define RRF_ZEROONFAILURE 0x20000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_NOEXPAND 0x10000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RRF_ZEROONFAILURE 0x20000000
 
-  typedef ACCESS_MASK REGSAM;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ACCESS_ਨਕਾਬ REGSAM;
 
-#define HKEY_CLASSES_ROOT ((HKEY) (ULONG_PTR)((LONG)0x80000000))
-#define HKEY_CURRENT_USER ((HKEY) (ULONG_PTR)((LONG)0x80000001))
-#define HKEY_LOCAL_MACHINE ((HKEY) (ULONG_PTR)((LONG)0x80000002))
-#define HKEY_USERS ((HKEY) (ULONG_PTR)((LONG)0x80000003))
-#define HKEY_PERFORMANCE_DATA ((HKEY) (ULONG_PTR)((LONG)0x80000004))
-#define HKEY_PERFORMANCE_TEXT ((HKEY) (ULONG_PTR)((LONG)0x80000050))
-#define HKEY_PERFORMANCE_NLSTEXT ((HKEY) (ULONG_PTR)((LONG)0x80000060))
-#define HKEY_CURRENT_CONFIG ((HKEY) (ULONG_PTR)((LONG)0x80000005))
-#define HKEY_DYN_DATA ((HKEY) (ULONG_PTR)((LONG)0x80000006))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HKEY_CLASSES_ਜੜ੍ਹ ((HKEY) (ULONG_PTR)((LONG)0x80000000))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HKEY_CURRENT_USER ((HKEY) (ULONG_PTR)((LONG)0x80000001))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HKEY_LOCAL_MACHINE ((HKEY) (ULONG_PTR)((LONG)0x80000002))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HKEY_USERS ((HKEY) (ULONG_PTR)((LONG)0x80000003))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HKEY_PERFORMANCE_ਅੰਕੜੇ ((HKEY) (ULONG_PTR)((LONG)0x80000004))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HKEY_PERFORMANCE_ਪਾਠ ((HKEY) (ULONG_PTR)((LONG)0x80000050))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HKEY_PERFORMANCE_NLSTEXT ((HKEY) (ULONG_PTR)((LONG)0x80000060))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HKEY_CURRENT_CONFIG ((HKEY) (ULONG_PTR)((LONG)0x80000005))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HKEY_DYN_ਅੰਕੜੇ ((HKEY) (ULONG_PTR)((LONG)0x80000006))
 
-#define REG_SECURE_CONNECTION 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REG_SECURE_CONNECTION 1
 
-#ifndef _PROVIDER_STRUCTS_DEFINED
-#define _PROVIDER_STRUCTS_DEFINED
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _PROVIDER_STRUCTS_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _PROVIDER_STRUCTS_DEFINED
 
-#define PROVIDER_KEEPS_VALUE_LENGTH 0x1
-  struct val_context {
-    int valuelen;
-    LPVOID value_context;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PROVIDER_KEEPS_ਮੁੱਲ_ਲੰਮਾਈ 0x1
+  ਬਣਤਰ val_context {
+    ਪੂਰਨ valuelen;
+    LPVOID ਮੁੱਲ_context;
     LPVOID val_buff_ptr;
   };
 
-  typedef struct val_context *PVALCONTEXT;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ val_context *PVALCONTEXT;
 
-  typedef struct pvalueA {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ pvalueA {
     LPSTR pv_valuename;
-    int pv_valuelen;
-    LPVOID pv_value_context;
+    ਪੂਰਨ pv_valuelen;
+    LPVOID pv_ਮੁੱਲ_context;
     DWORD pv_type;
   }PVALUEA,*PPVALUEA;
 
-  typedef struct pvalueW {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ pvalueW {
     LPWSTR pv_valuename;
-    int pv_valuelen;
-    LPVOID pv_value_context;
+    ਪੂਰਨ pv_valuelen;
+    LPVOID pv_ਮੁੱਲ_context;
     DWORD pv_type;
   }PVALUEW,*PPVALUEW;
 
-#ifdef UNICODE
-  typedef PVALUEW PVALUE;
-  typedef PPVALUEW PPVALUE;
-#else
-  typedef PVALUEA PVALUE;
-  typedef PPVALUEA PPVALUE;
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PVALUEW PVALUE;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PPVALUEW PPVALUE;
+#ਨਹੀਂਤਾਂ
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PVALUEA PVALUE;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PPVALUEA PPVALUE;
+#ਜੇ_ਅੰਤ
 
-  typedef DWORD __cdecl QUERYHANDLER(LPVOID keycontext,PVALCONTEXT val_list,DWORD num_vals,LPVOID outputbuffer,DWORD *total_outlen,DWORD input_blen);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ DWORD __cdecl QUERYHANDLER(LPVOID keycontext,PVALCONTEXT val_list,DWORD ਅੰਕ_vals,LPVOID outputbuffer,DWORD *ਕੁੱਲ_outlen,DWORD ਨਿਵੇਸ਼_blen);
 
-  typedef QUERYHANDLER *PQUERYHANDLER;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ QUERYHANDLER *PQUERYHANDLER;
 
-  typedef struct provider_info {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ provider_info {
     PQUERYHANDLER pi_R0_1val;
     PQUERYHANDLER pi_R0_allvals;
     PQUERYHANDLER pi_R3_1val;
     PQUERYHANDLER pi_R3_allvals;
     DWORD pi_flags;
-    LPVOID pi_key_context;
+    LPVOID pi_ਕੁੰਜੀ_context;
   } REG_PROVIDER;
 
-  typedef struct provider_info *PPROVIDER;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ provider_info *PPROVIDER;
 
-  typedef struct value_entA {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਮੁੱਲ_ent_A {
     LPSTR ve_valuename;
     DWORD ve_valuelen;
     DWORD_PTR ve_valueptr;
     DWORD ve_type;
   } VALENTA,*PVALENTA;
 
-  typedef struct value_entW {
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ ਮੁੱਲ_ent_W {
     LPWSTR ve_valuename;
     DWORD ve_valuelen;
     DWORD_PTR ve_valueptr;
     DWORD ve_type;
   } VALENTW,*PVALENTW;
 
-#ifdef UNICODE
-  typedef VALENTW VALENT;
-  typedef PVALENTW PVALENT;
-#else
-  typedef VALENTA VALENT;
-  typedef PVALENTA PVALENT;
-#endif
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ VALENTW VALENT;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PVALENTW PVALENT;
+#ਨਹੀਂਤਾਂ
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ VALENTA VALENT;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ PVALENTA PVALENT;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define WIN31_CLASS NULL
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WIN31_CLASS ਨਿਰਾ
 
-#ifdef UNICODE
-#define RegConnectRegistry RegConnectRegistryW
-#define RegConnectRegistryEx RegConnectRegistryExW
-#define RegCreateKey RegCreateKeyW
-#define RegCreateKeyEx RegCreateKeyExW
-#define RegDeleteKey RegDeleteKeyW
-#define RegDeleteKeyEx RegDeleteKeyExW
-#define RegDeleteValue RegDeleteValueW
-#define RegEnumKey RegEnumKeyW
-#define RegEnumKeyEx RegEnumKeyExW
-#define RegEnumValue RegEnumValueW
-#define RegLoadKey RegLoadKeyW
-#define RegOpenKey RegOpenKeyW
-#define RegOpenKeyEx RegOpenKeyExW
-#define RegQueryInfoKey RegQueryInfoKeyW
-#define RegQueryValue RegQueryValueW
-#define RegQueryMultipleValues RegQueryMultipleValuesW
-#define RegQueryValueEx RegQueryValueExW
-#define RegReplaceKey RegReplaceKeyW
-#define RegRestoreKey RegRestoreKeyW
-#define RegSaveKey RegSaveKeyW
-#define RegSetValue RegSetValueW
-#define RegSetValueEx RegSetValueExW
-#define RegUnLoadKey RegUnLoadKeyW
-#define RegGetValue RegGetValueW
-#define InitiateSystemShutdown InitiateSystemShutdownW
-#define AbortSystemShutdown AbortSystemShutdownW
-#else
-#define RegConnectRegistry RegConnectRegistryA
-#define RegConnectRegistryEx RegConnectRegistryExA
-#define RegCreateKey RegCreateKeyA
-#define RegCreateKeyEx RegCreateKeyExA
-#define RegDeleteKey RegDeleteKeyA
-#define RegDeleteKeyEx RegDeleteKeyExA
-#define RegDeleteValue RegDeleteValueA
-#define RegEnumKey RegEnumKeyA
-#define RegEnumKeyEx RegEnumKeyExA
-#define RegEnumValue RegEnumValueA
-#define RegLoadKey RegLoadKeyA
-#define RegOpenKey RegOpenKeyA
-#define RegOpenKeyEx RegOpenKeyExA
-#define RegQueryInfoKey RegQueryInfoKeyA
-#define RegQueryValue RegQueryValueA
-#define RegQueryMultipleValues RegQueryMultipleValuesA
-#define RegQueryValueEx RegQueryValueExA
-#define RegReplaceKey RegReplaceKeyA
-#define RegRestoreKey RegRestoreKeyA
-#define RegSaveKey RegSaveKeyA
-#define RegSetValue RegSetValueA
-#define RegSetValueEx RegSetValueExA
-#define RegUnLoadKey RegUnLoadKeyA
-#define RegGetValue RegGetValueA
-#define InitiateSystemShutdown InitiateSystemShutdownA
-#define AbortSystemShutdown AbortSystemShutdownA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RegConnectRegistry RegConnectRegistryW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RegConnectRegistryEx RegConnectRegistryExW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Create_ਕੁੰਜੀ Reg_Create_ਕੁੰਜੀ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Create_ਕੁੰਜੀ_Ex Reg_Create_ਕੁੰਜੀ_Ex_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Delete_ਕੁੰਜੀ Reg_Delete_ਕੁੰਜੀ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Delete_ਕੁੰਜੀ_Ex Reg_Delete_ਕੁੰਜੀ_Ex_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Delete_ਮੁੱਲ Reg_Delete_ਮੁੱਲ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Enum_ਕੁੰਜੀ Reg_Enum_ਕੁੰਜੀ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Enum_ਕੁੰਜੀ_Ex Reg_Enum_ਕੁੰਜੀ_Ex_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Enum_ਮੁੱਲ Reg_Enum_ਮੁੱਲ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_ਲੱਦੋ_ਕੁੰਜੀ Reg_ਲੱਦੋ_ਕੁੰਜੀ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Open_ਕੁੰਜੀ Reg_Open_ਕੁੰਜੀ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Open_ਕੁੰਜੀ_Ex Reg_Open_ਕੁੰਜੀ_Ex_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Query_Info_ਕੁੰਜੀ Reg_Query_Info_ਕੁੰਜੀ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Query_ਮੁੱਲ Reg_Query_ਮੁੱਲ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Query_ਗੁਣਜ_ਮੁੱਲਾਂ Reg_Query_ਗੁਣਜ_ਮੁੱਲਾਂ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Query_ਮੁੱਲ_Ex Reg_Query_ਮੁੱਲ_Ex_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Replace_ਕੁੰਜੀ Reg_Replace_ਕੁੰਜੀ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Restore_ਕੁੰਜੀ Reg_Restore_ਕੁੰਜੀ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Save_ਕੁੰਜੀ Reg_Save_ਕੁੰਜੀ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_ਸੈੱਟ_ਮੁੱਲ Reg_ਸੈੱਟ_ਮੁੱਲ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_ਸੈੱਟ_ਮੁੱਲ_Ex Reg_ਸੈੱਟ_ਮੁੱਲ_Ex_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Un_ਲੱਦੋ_ਕੁੰਜੀ Reg_Un_ਲੱਦੋ_ਕੁੰਜੀ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Get_ਮੁੱਲ Reg_Get_ਮੁੱਲ_W
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InitiateSystemShutdown InitiateSystemShutdownW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ AbortSystemShutdown AbortSystemShutdownW
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RegConnectRegistry RegConnectRegistryA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RegConnectRegistryEx RegConnectRegistryExA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Create_ਕੁੰਜੀ Reg_Create_ਕੁੰਜੀ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Create_ਕੁੰਜੀ_Ex Reg_Create_ਕੁੰਜੀ_Ex_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Delete_ਕੁੰਜੀ Reg_Delete_ਕੁੰਜੀ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Delete_ਕੁੰਜੀ_Ex Reg_Delete_ਕੁੰਜੀ_Ex_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Delete_ਮੁੱਲ Reg_Delete_ਮੁੱਲ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Enum_ਕੁੰਜੀ Reg_Enum_ਕੁੰਜੀ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Enum_ਕੁੰਜੀ_Ex Reg_Enum_ਕੁੰਜੀ_Ex_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Enum_ਮੁੱਲ Reg_Enum_ਮੁੱਲ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_ਲੱਦੋ_ਕੁੰਜੀ Reg_ਲੱਦੋ_ਕੁੰਜੀ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Open_ਕੁੰਜੀ Reg_Open_ਕੁੰਜੀ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Open_ਕੁੰਜੀ_Ex Reg_Open_ਕੁੰਜੀ_Ex_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Query_Info_ਕੁੰਜੀ Reg_Query_Info_ਕੁੰਜੀ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Query_ਮੁੱਲ Reg_Query_ਮੁੱਲ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Query_ਗੁਣਜ_ਮੁੱਲਾਂ Reg_Query_ਗੁਣਜ_ਮੁੱਲਾਂ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Query_ਮੁੱਲ_Ex Reg_Query_ਮੁੱਲ_Ex_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Replace_ਕੁੰਜੀ Reg_Replace_ਕੁੰਜੀ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Restore_ਕੁੰਜੀ Reg_Restore_ਕੁੰਜੀ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Save_ਕੁੰਜੀ Reg_Save_ਕੁੰਜੀ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_ਸੈੱਟ_ਮੁੱਲ Reg_ਸੈੱਟ_ਮੁੱਲ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_ਸੈੱਟ_ਮੁੱਲ_Ex Reg_ਸੈੱਟ_ਮੁੱਲ_Ex_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Un_ਲੱਦੋ_ਕੁੰਜੀ Reg_Un_ਲੱਦੋ_ਕੁੰਜੀ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Get_ਮੁੱਲ Reg_Get_ਮੁੱਲ_A
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InitiateSystemShutdown InitiateSystemShutdownA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ AbortSystemShutdown AbortSystemShutdownA
+#ਜੇ_ਅੰਤ
 
-  WINADVAPI LONG WINAPI RegCloseKey(HKEY hKey);
-  WINADVAPI LONG WINAPI RegOverridePredefKey(HKEY hKey,HKEY hNewHKey);
-  WINADVAPI LONG WINAPI RegOpenUserClassesRoot(HANDLE hToken,DWORD dwOptions,REGSAM samDesired,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegOpenCurrentUser(REGSAM samDesired,PHKEY phkResult);
+  WINADVAPI LONG WINAPI Reg_Close_ਕੁੰਜੀ(HKEY h_ਕੁੰਜੀ);
+  WINADVAPI LONG WINAPI Reg_Override_Predef_ਕੁੰਜੀ(HKEY h_ਕੁੰਜੀ,HKEY hNewHKey);
+  WINADVAPI LONG WINAPI Reg_Open_User_Classes_ਜੜ੍ਹ(HANDLE hToken,DWORD dwOptions,REGSAM samDesired,PHKEY phk_ਨਤੀਜਾ);
+  WINADVAPI LONG WINAPI RegOpenCurrentUser(REGSAM samDesired,PHKEY phk_ਨਤੀਜਾ);
   WINADVAPI LONG WINAPI RegDisablePredefinedCache();
-  WINADVAPI LONG WINAPI RegConnectRegistryA(LPCSTR lpMachineName,HKEY hKey,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegConnectRegistryW(LPCWSTR lpMachineName,HKEY hKey,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegConnectRegistryExA(LPCSTR lpMachineName,HKEY hKey,ULONG Flags,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegConnectRegistryExW(LPCWSTR lpMachineName,HKEY hKey,ULONG Flags,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegCreateKeyA(HKEY hKey,LPCSTR lpSubKey,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegCreateKeyW(HKEY hKey,LPCWSTR lpSubKey,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegCreateKeyExA(HKEY hKey,LPCSTR lpSubKey,DWORD Reserved,LPSTR lpClass,DWORD dwOptions,REGSAM samDesired,LPSECURITY_ATTRIBUTES lpSecurityAttributes,PHKEY phkResult,LPDWORD lpdwDisposition);
-  WINADVAPI LONG WINAPI RegCreateKeyExW(HKEY hKey,LPCWSTR lpSubKey,DWORD Reserved,LPWSTR lpClass,DWORD dwOptions,REGSAM samDesired,LPSECURITY_ATTRIBUTES lpSecurityAttributes,PHKEY phkResult,LPDWORD lpdwDisposition);
-  WINADVAPI LONG WINAPI RegDeleteKeyA(HKEY hKey,LPCSTR lpSubKey);
-  WINADVAPI LONG WINAPI RegDeleteKeyW(HKEY hKey,LPCWSTR lpSubKey);
-  WINADVAPI LONG WINAPI RegDeleteKeyExA(HKEY hKey,LPCSTR lpSubKey,REGSAM samDesired,DWORD Reserved);
-  WINADVAPI LONG WINAPI RegDeleteKeyExW(HKEY hKey,LPCWSTR lpSubKey,REGSAM samDesired,DWORD Reserved);
-  WINADVAPI LONG WINAPI RegDisableReflectionKey(HKEY hBase);
-  WINADVAPI LONG WINAPI RegEnableReflectionKey(HKEY hBase);
-  WINADVAPI LONG WINAPI RegQueryReflectionKey(HKEY hBase,WINBOOL *bIsReflectionDisabled);
-  WINADVAPI LONG WINAPI RegDeleteValueA(HKEY hKey,LPCSTR lpValueName);
-  WINADVAPI LONG WINAPI RegDeleteValueW(HKEY hKey,LPCWSTR lpValueName);
-  WINADVAPI LONG WINAPI RegEnumKeyA(HKEY hKey,DWORD dwIndex,LPSTR lpName,DWORD cchName);
-  WINADVAPI LONG WINAPI RegEnumKeyW(HKEY hKey,DWORD dwIndex,LPWSTR lpName,DWORD cchName);
-  WINADVAPI LONG WINAPI RegEnumKeyExA(HKEY hKey,DWORD dwIndex,LPSTR lpName,LPDWORD lpcchName,LPDWORD lpReserved,LPSTR lpClass,LPDWORD lpcchClass,PFILETIME lpftLastWriteTime);
-  WINADVAPI LONG WINAPI RegEnumKeyExW(HKEY hKey,DWORD dwIndex,LPWSTR lpName,LPDWORD lpcchName,LPDWORD lpReserved,LPWSTR lpClass,LPDWORD lpcchClass,PFILETIME lpftLastWriteTime);
-  WINADVAPI LONG WINAPI RegEnumValueA(HKEY hKey,DWORD dwIndex,LPSTR lpValueName,LPDWORD lpcchValueName,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lpData,LPDWORD lpcbData);
-  WINADVAPI LONG WINAPI RegEnumValueW(HKEY hKey,DWORD dwIndex,LPWSTR lpValueName,LPDWORD lpcchValueName,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lpData,LPDWORD lpcbData);
-  WINADVAPI LONG WINAPI RegFlushKey(HKEY hKey);
-  WINADVAPI LONG WINAPI RegGetKeySecurity(HKEY hKey,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor,LPDWORD lpcbSecurityDescriptor);
-  WINADVAPI LONG WINAPI RegLoadKeyA(HKEY hKey,LPCSTR lpSubKey,LPCSTR lpFile);
-  WINADVAPI LONG WINAPI RegLoadKeyW(HKEY hKey,LPCWSTR lpSubKey,LPCWSTR lpFile);
-  WINADVAPI LONG WINAPI RegNotifyChangeKeyValue(HKEY hKey,WINBOOL bWatchSubtree,DWORD dwNotifyFilter,HANDLE hEvent,WINBOOL fAsynchronous);
-  WINADVAPI LONG WINAPI RegOpenKeyA(HKEY hKey,LPCSTR lpSubKey,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegOpenKeyW(HKEY hKey,LPCWSTR lpSubKey,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegOpenKeyExA(HKEY hKey,LPCSTR lpSubKey,DWORD ulOptions,REGSAM samDesired,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegOpenKeyExW(HKEY hKey,LPCWSTR lpSubKey,DWORD ulOptions,REGSAM samDesired,PHKEY phkResult);
-  WINADVAPI LONG WINAPI RegQueryInfoKeyA(HKEY hKey,LPSTR lpClass,LPDWORD lpcchClass,LPDWORD lpReserved,LPDWORD lpcSubKeys,LPDWORD lpcbMaxSubKeyLen,LPDWORD lpcbMaxClassLen,LPDWORD lpcValues,LPDWORD lpcbMaxValueNameLen,LPDWORD lpcbMaxValueLen,LPDWORD lpcbSecurityDescriptor,PFILETIME lpftLastWriteTime);
-  WINADVAPI LONG WINAPI RegQueryInfoKeyW(HKEY hKey,LPWSTR lpClass,LPDWORD lpcchClass,LPDWORD lpReserved,LPDWORD lpcSubKeys,LPDWORD lpcbMaxSubKeyLen,LPDWORD lpcbMaxClassLen,LPDWORD lpcValues,LPDWORD lpcbMaxValueNameLen,LPDWORD lpcbMaxValueLen,LPDWORD lpcbSecurityDescriptor,PFILETIME lpftLastWriteTime);
-  WINADVAPI LONG WINAPI RegQueryValueA(HKEY hKey,LPCSTR lpSubKey,LPSTR lpData,PLONG lpcbData);
-  WINADVAPI LONG WINAPI RegQueryValueW(HKEY hKey,LPCWSTR lpSubKey,LPWSTR lpData,PLONG lpcbData);
-  WINADVAPI LONG WINAPI RegQueryMultipleValuesA(HKEY hKey,PVALENTA val_list,DWORD num_vals,LPSTR lpValueBuf,LPDWORD ldwTotsize);
-  WINADVAPI LONG WINAPI RegQueryMultipleValuesW(HKEY hKey,PVALENTW val_list,DWORD num_vals,LPWSTR lpValueBuf,LPDWORD ldwTotsize);
-  WINADVAPI LONG WINAPI RegQueryValueExA(HKEY hKey,LPCSTR lpValueName,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lpData,LPDWORD lpcbData);
-  WINADVAPI LONG WINAPI RegQueryValueExW(HKEY hKey,LPCWSTR lpValueName,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lpData,LPDWORD lpcbData);
-  WINADVAPI LONG WINAPI RegReplaceKeyA(HKEY hKey,LPCSTR lpSubKey,LPCSTR lpNewFile,LPCSTR lpOldFile);
-  WINADVAPI LONG WINAPI RegReplaceKeyW(HKEY hKey,LPCWSTR lpSubKey,LPCWSTR lpNewFile,LPCWSTR lpOldFile);
-  WINADVAPI LONG WINAPI RegRestoreKeyA(HKEY hKey,LPCSTR lpFile,DWORD dwFlags);
-  WINADVAPI LONG WINAPI RegRestoreKeyW(HKEY hKey,LPCWSTR lpFile,DWORD dwFlags);
-  WINADVAPI LONG WINAPI RegSaveKeyA(HKEY hKey,LPCSTR lpFile,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-  WINADVAPI LONG WINAPI RegSaveKeyW(HKEY hKey,LPCWSTR lpFile,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
-  WINADVAPI LONG WINAPI RegSetKeySecurity(HKEY hKey,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor);
-  WINADVAPI LONG WINAPI RegSetValueA(HKEY hKey,LPCSTR lpSubKey,DWORD dwType,LPCSTR lpData,DWORD cbData);
-  WINADVAPI LONG WINAPI RegSetValueW(HKEY hKey,LPCWSTR lpSubKey,DWORD dwType,LPCWSTR lpData,DWORD cbData);
-  WINADVAPI LONG WINAPI RegSetValueExA(HKEY hKey,LPCSTR lpValueName,DWORD Reserved,DWORD dwType,CONST BYTE *lpData,DWORD cbData);
-  WINADVAPI LONG WINAPI RegSetValueExW(HKEY hKey,LPCWSTR lpValueName,DWORD Reserved,DWORD dwType,CONST BYTE *lpData,DWORD cbData);
-  WINADVAPI LONG WINAPI RegUnLoadKeyA(HKEY hKey,LPCSTR lpSubKey);
-  WINADVAPI LONG WINAPI RegUnLoadKeyW(HKEY hKey,LPCWSTR lpSubKey);
-  WINADVAPI LONG WINAPI RegGetValueA(HKEY hkey,LPCSTR lpSubKey,LPCSTR lpValue,DWORD dwFlags,LPDWORD pdwType,PVOID pvData,LPDWORD pcbData);
-  WINADVAPI LONG WINAPI RegGetValueW(HKEY hkey,LPCWSTR lpSubKey,LPCWSTR lpValue,DWORD dwFlags,LPDWORD pdwType,PVOID pvData,LPDWORD pcbData);
-  WINADVAPI WINBOOL WINAPI InitiateSystemShutdownA(LPSTR lpMachineName,LPSTR lpMessage,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown);
-  WINADVAPI WINBOOL WINAPI InitiateSystemShutdownW(LPWSTR lpMachineName,LPWSTR lpMessage,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown);
+  WINADVAPI LONG WINAPI RegConnectRegistryA(LPCSTR lpMachineName,HKEY h_ਕੁੰਜੀ,PHKEY phk_ਨਤੀਜਾ);
+  WINADVAPI LONG WINAPI RegConnectRegistryW(LPCWSTR lpMachineName,HKEY h_ਕੁੰਜੀ,PHKEY phk_ਨਤੀਜਾ);
+  WINADVAPI LONG WINAPI RegConnectRegistryExA(LPCSTR lpMachineName,HKEY h_ਕੁੰਜੀ,ULONG Flags,PHKEY phk_ਨਤੀਜਾ);
+  WINADVAPI LONG WINAPI RegConnectRegistryExW(LPCWSTR lpMachineName,HKEY h_ਕੁੰਜੀ,ULONG Flags,PHKEY phk_ਨਤੀਜਾ);
+  WINADVAPI LONG WINAPI Reg_Create_ਕੁੰਜੀ_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_Sub_ਕੁੰਜੀ,PHKEY phk_ਨਤੀਜਾ);
+  WINADVAPI LONG WINAPI Reg_Create_ਕੁੰਜੀ_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_Sub_ਕੁੰਜੀ,PHKEY phk_ਨਤੀਜਾ);
+  WINADVAPI LONG WINAPI Reg_Create_ਕੁੰਜੀ_Ex_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_Sub_ਕੁੰਜੀ,DWORD Reserved,LPSTR lpClass,DWORD dwOptions,REGSAM samDesired,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ,PHKEY phk_ਨਤੀਜਾ,LPDWORD lpdwDisposition);
+  WINADVAPI LONG WINAPI Reg_Create_ਕੁੰਜੀ_Ex_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_Sub_ਕੁੰਜੀ,DWORD Reserved,LPWSTR lpClass,DWORD dwOptions,REGSAM samDesired,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ,PHKEY phk_ਨਤੀਜਾ,LPDWORD lpdwDisposition);
+  WINADVAPI LONG WINAPI Reg_Delete_ਕੁੰਜੀ_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_Sub_ਕੁੰਜੀ);
+  WINADVAPI LONG WINAPI Reg_Delete_ਕੁੰਜੀ_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_Sub_ਕੁੰਜੀ);
+  WINADVAPI LONG WINAPI Reg_Delete_ਕੁੰਜੀ_Ex_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_Sub_ਕੁੰਜੀ,REGSAM samDesired,DWORD Reserved);
+  WINADVAPI LONG WINAPI Reg_Delete_ਕੁੰਜੀ_Ex_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_Sub_ਕੁੰਜੀ,REGSAM samDesired,DWORD Reserved);
+  WINADVAPI LONG WINAPI Reg_Disable_Reflection_ਕੁੰਜੀ(HKEY h_ਅਧਾਰ);
+  WINADVAPI LONG WINAPI Reg_Enable_Reflection_ਕੁੰਜੀ(HKEY h_ਅਧਾਰ);
+  WINADVAPI LONG WINAPI Reg_Query_Reflection_ਕੁੰਜੀ(HKEY h_ਅਧਾਰ,WINBOOL *bIsReflectionDisabled);
+  WINADVAPI LONG WINAPI Reg_Delete_ਮੁੱਲ_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_ਮੁੱਲ_Name);
+  WINADVAPI LONG WINAPI Reg_Delete_ਮੁੱਲ_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_ਮੁੱਲ_Name);
+  WINADVAPI LONG WINAPI Reg_Enum_ਕੁੰਜੀ_A(HKEY h_ਕੁੰਜੀ,DWORD dw_ਸੂਚਕਾਂਕ,LPSTR lpName,DWORD cchName);
+  WINADVAPI LONG WINAPI Reg_Enum_ਕੁੰਜੀ_W(HKEY h_ਕੁੰਜੀ,DWORD dw_ਸੂਚਕਾਂਕ,LPWSTR lpName,DWORD cchName);
+  WINADVAPI LONG WINAPI Reg_Enum_ਕੁੰਜੀ_Ex_A(HKEY h_ਕੁੰਜੀ,DWORD dw_ਸੂਚਕਾਂਕ,LPSTR lpName,LPDWORD lpcchName,LPDWORD lpReserved,LPSTR lpClass,LPDWORD lpcchClass,PFILETIME lpft_ਆਖਰੀ_Write_ਸਮਾਂ);
+  WINADVAPI LONG WINAPI Reg_Enum_ਕੁੰਜੀ_Ex_W(HKEY h_ਕੁੰਜੀ,DWORD dw_ਸੂਚਕਾਂਕ,LPWSTR lpName,LPDWORD lpcchName,LPDWORD lpReserved,LPWSTR lpClass,LPDWORD lpcchClass,PFILETIME lpft_ਆਖਰੀ_Write_ਸਮਾਂ);
+  WINADVAPI LONG WINAPI Reg_Enum_ਮੁੱਲ_A(HKEY h_ਕੁੰਜੀ,DWORD dw_ਸੂਚਕਾਂਕ,LPSTR lp_ਮੁੱਲ_Name,LPDWORD lpcch_ਮੁੱਲ_Name,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lp_ਅੰਕੜੇ,LPDWORD lpcb_ਅੰਕੜੇ);
+  WINADVAPI LONG WINAPI Reg_Enum_ਮੁੱਲ_W(HKEY h_ਕੁੰਜੀ,DWORD dw_ਸੂਚਕਾਂਕ,LPWSTR lp_ਮੁੱਲ_Name,LPDWORD lpcch_ਮੁੱਲ_Name,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lp_ਅੰਕੜੇ,LPDWORD lpcb_ਅੰਕੜੇ);
+  WINADVAPI LONG WINAPI Reg_Flush_ਕੁੰਜੀ(HKEY h_ਕੁੰਜੀ);
+  WINADVAPI LONG WINAPI Reg_Get_ਕੁੰਜੀ_Security(HKEY h_ਕੁੰਜੀ,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor,LPDWORD lpcbSecurityDescriptor);
+  WINADVAPI LONG WINAPI Reg_ਲੱਦੋ_ਕੁੰਜੀ_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_Sub_ਕੁੰਜੀ,LPCSTR lpFile);
+  WINADVAPI LONG WINAPI Reg_ਲੱਦੋ_ਕੁੰਜੀ_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_Sub_ਕੁੰਜੀ,LPCWSTR lpFile);
+  WINADVAPI LONG WINAPI Reg_Notify_Change_ਕੁੰਜੀ_ਮੁੱਲ(HKEY h_ਕੁੰਜੀ,WINBOOL bWatchSubtree,DWORD dwNotifyFilter,HANDLE hEvent,WINBOOL fAsynchronous);
+  WINADVAPI LONG WINAPI Reg_Open_ਕੁੰਜੀ_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_Sub_ਕੁੰਜੀ,PHKEY phk_ਨਤੀਜਾ);
+  WINADVAPI LONG WINAPI Reg_Open_ਕੁੰਜੀ_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_Sub_ਕੁੰਜੀ,PHKEY phk_ਨਤੀਜਾ);
+  WINADVAPI LONG WINAPI Reg_Open_ਕੁੰਜੀ_Ex_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_Sub_ਕੁੰਜੀ,DWORD ulOptions,REGSAM samDesired,PHKEY phk_ਨਤੀਜਾ);
+  WINADVAPI LONG WINAPI Reg_Open_ਕੁੰਜੀ_Ex_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_Sub_ਕੁੰਜੀ,DWORD ulOptions,REGSAM samDesired,PHKEY phk_ਨਤੀਜਾ);
+  WINADVAPI LONG WINAPI Reg_Query_Info_ਕੁੰਜੀ_A(HKEY h_ਕੁੰਜੀ,LPSTR lpClass,LPDWORD lpcchClass,LPDWORD lpReserved,LPDWORD lpc_Sub_ਕੁੰਜੀਆਂ,LPDWORD lpcb_Max_Sub_ਕੁੰਜੀ_Len,LPDWORD lpcbMaxClassLen,LPDWORD lpc_ਮੁੱਲਾਂ,LPDWORD lpcb_Max_ਮੁੱਲ_Name_Len,LPDWORD lpcb_Max_ਮੁੱਲ_Len,LPDWORD lpcbSecurityDescriptor,PFILETIME lpft_ਆਖਰੀ_Write_ਸਮਾਂ);
+  WINADVAPI LONG WINAPI Reg_Query_Info_ਕੁੰਜੀ_W(HKEY h_ਕੁੰਜੀ,LPWSTR lpClass,LPDWORD lpcchClass,LPDWORD lpReserved,LPDWORD lpc_Sub_ਕੁੰਜੀਆਂ,LPDWORD lpcb_Max_Sub_ਕੁੰਜੀ_Len,LPDWORD lpcbMaxClassLen,LPDWORD lpc_ਮੁੱਲਾਂ,LPDWORD lpcb_Max_ਮੁੱਲ_Name_Len,LPDWORD lpcb_Max_ਮੁੱਲ_Len,LPDWORD lpcbSecurityDescriptor,PFILETIME lpft_ਆਖਰੀ_Write_ਸਮਾਂ);
+  WINADVAPI LONG WINAPI Reg_Query_ਮੁੱਲ_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_Sub_ਕੁੰਜੀ,LPSTR lp_ਅੰਕੜੇ,PLONG lpcb_ਅੰਕੜੇ);
+  WINADVAPI LONG WINAPI Reg_Query_ਮੁੱਲ_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_Sub_ਕੁੰਜੀ,LPWSTR lp_ਅੰਕੜੇ,PLONG lpcb_ਅੰਕੜੇ);
+  WINADVAPI LONG WINAPI Reg_Query_ਗੁਣਜ_ਮੁੱਲਾਂ_A(HKEY h_ਕੁੰਜੀ,PVALENTA val_list,DWORD ਅੰਕ_vals,LPSTR lp_ਮੁੱਲ_Buf,LPDWORD ldwTotsize);
+  WINADVAPI LONG WINAPI Reg_Query_ਗੁਣਜ_ਮੁੱਲਾਂ_W(HKEY h_ਕੁੰਜੀ,PVALENTW val_list,DWORD ਅੰਕ_vals,LPWSTR lp_ਮੁੱਲ_Buf,LPDWORD ldwTotsize);
+  WINADVAPI LONG WINAPI Reg_Query_ਮੁੱਲ_Ex_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_ਮੁੱਲ_Name,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lp_ਅੰਕੜੇ,LPDWORD lpcb_ਅੰਕੜੇ);
+  WINADVAPI LONG WINAPI Reg_Query_ਮੁੱਲ_Ex_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_ਮੁੱਲ_Name,LPDWORD lpReserved,LPDWORD lpType,LPBYTE lp_ਅੰਕੜੇ,LPDWORD lpcb_ਅੰਕੜੇ);
+  WINADVAPI LONG WINAPI Reg_Replace_ਕੁੰਜੀ_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_Sub_ਕੁੰਜੀ,LPCSTR lpNewFile,LPCSTR lpOldFile);
+  WINADVAPI LONG WINAPI Reg_Replace_ਕੁੰਜੀ_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_Sub_ਕੁੰਜੀ,LPCWSTR lpNewFile,LPCWSTR lpOldFile);
+  WINADVAPI LONG WINAPI Reg_Restore_ਕੁੰਜੀ_A(HKEY h_ਕੁੰਜੀ,LPCSTR lpFile,DWORD dwFlags);
+  WINADVAPI LONG WINAPI Reg_Restore_ਕੁੰਜੀ_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lpFile,DWORD dwFlags);
+  WINADVAPI LONG WINAPI Reg_Save_ਕੁੰਜੀ_A(HKEY h_ਕੁੰਜੀ,LPCSTR lpFile,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
+  WINADVAPI LONG WINAPI Reg_Save_ਕੁੰਜੀ_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lpFile,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ);
+  WINADVAPI LONG WINAPI Reg_ਸੈੱਟ_ਕੁੰਜੀ_Security(HKEY h_ਕੁੰਜੀ,SECURITY_INFORMATION SecurityInformation,PSECURITY_DESCRIPTOR pSecurityDescriptor);
+  WINADVAPI LONG WINAPI Reg_ਸੈੱਟ_ਮੁੱਲ_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_Sub_ਕੁੰਜੀ,DWORD dwType,LPCSTR lp_ਅੰਕੜੇ,DWORD cb_ਅੰਕੜੇ);
+  WINADVAPI LONG WINAPI Reg_ਸੈੱਟ_ਮੁੱਲ_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_Sub_ਕੁੰਜੀ,DWORD dwType,LPCWSTR lp_ਅੰਕੜੇ,DWORD cb_ਅੰਕੜੇ);
+  WINADVAPI LONG WINAPI Reg_ਸੈੱਟ_ਮੁੱਲ_Ex_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_ਮੁੱਲ_Name,DWORD Reserved,DWORD dwType,CONST BYTE *lp_ਅੰਕੜੇ,DWORD cb_ਅੰਕੜੇ);
+  WINADVAPI LONG WINAPI Reg_ਸੈੱਟ_ਮੁੱਲ_Ex_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_ਮੁੱਲ_Name,DWORD Reserved,DWORD dwType,CONST BYTE *lp_ਅੰਕੜੇ,DWORD cb_ਅੰਕੜੇ);
+  WINADVAPI LONG WINAPI Reg_Un_ਲੱਦੋ_ਕੁੰਜੀ_A(HKEY h_ਕੁੰਜੀ,LPCSTR lp_Sub_ਕੁੰਜੀ);
+  WINADVAPI LONG WINAPI Reg_Un_ਲੱਦੋ_ਕੁੰਜੀ_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lp_Sub_ਕੁੰਜੀ);
+  WINADVAPI LONG WINAPI Reg_Get_ਮੁੱਲ_A(HKEY hkey,LPCSTR lp_Sub_ਕੁੰਜੀ,LPCSTR lp_ਮੁੱਲ,DWORD dwFlags,LPDWORD pdwType,PVOID pv_ਅੰਕੜੇ,LPDWORD pcb_ਅੰਕੜੇ);
+  WINADVAPI LONG WINAPI Reg_Get_ਮੁੱਲ_W(HKEY hkey,LPCWSTR lp_Sub_ਕੁੰਜੀ,LPCWSTR lp_ਮੁੱਲ,DWORD dwFlags,LPDWORD pdwType,PVOID pv_ਅੰਕੜੇ,LPDWORD pcb_ਅੰਕੜੇ);
+  WINADVAPI WINBOOL WINAPI InitiateSystemShutdownA(LPSTR lpMachineName,LPSTR lp_ਸੁਨੇਹਾ,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown);
+  WINADVAPI WINBOOL WINAPI InitiateSystemShutdownW(LPWSTR lpMachineName,LPWSTR lp_ਸੁਨੇਹਾ,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown);
   WINADVAPI WINBOOL WINAPI AbortSystemShutdownA(LPSTR lpMachineName);
   WINADVAPI WINBOOL WINAPI AbortSystemShutdownW(LPWSTR lpMachineName);
 
 //gr #include <reason.h>
 
-#define REASON_SWINSTALL SHTDN_REASON_MAJOR_SOFTWARE|SHTDN_REASON_MINOR_INSTALLATION
-#define REASON_HWINSTALL SHTDN_REASON_MAJOR_HARDWARE|SHTDN_REASON_MINOR_INSTALLATION
-#define REASON_SERVICEHANG SHTDN_REASON_MAJOR_SOFTWARE|SHTDN_REASON_MINOR_HUNG
-#define REASON_UNSTABLE SHTDN_REASON_MAJOR_SYSTEM|SHTDN_REASON_MINOR_UNSTABLE
-#define REASON_SWHWRECONF SHTDN_REASON_MAJOR_SOFTWARE|SHTDN_REASON_MINOR_RECONFIG
-#define REASON_OTHER SHTDN_REASON_MAJOR_OTHER|SHTDN_REASON_MINOR_OTHER
-#define REASON_UNKNOWN SHTDN_REASON_UNKNOWN
-#define REASON_LEGACY_API SHTDN_REASON_LEGACY_API
-#define REASON_PLANNED_FLAG SHTDN_REASON_FLAG_PLANNED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REASON_SWINSTALL SHTDN_REASON_MAJOR_SOFTWARE|SHTDN_REASON_MINOR_INSTALLATION
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REASON_HWINSTALL SHTDN_REASON_MAJOR_HARDWARE|SHTDN_REASON_MINOR_INSTALLATION
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REASON_SERVICEHANG SHTDN_REASON_MAJOR_SOFTWARE|SHTDN_REASON_MINOR_HUNG
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REASON_UNSTABLE SHTDN_REASON_MAJOR_SYSTEM|SHTDN_REASON_MINOR_UNSTABLE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REASON_SWHWRECONF SHTDN_REASON_MAJOR_SOFTWARE|SHTDN_REASON_MINOR_RECONFIG
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REASON_OTHER SHTDN_REASON_MAJOR_OTHER|SHTDN_REASON_MINOR_OTHER
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REASON_UNKNOWN SHTDN_REASON_UNKNOWN
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REASON_LEGACY_API SHTDN_REASON_LEGACY_API
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REASON_PLANNED_FLAG SHTDN_REASON_FLAG_PLANNED
 
-#define MAX_SHUTDOWN_TIMEOUT (10*365*24*60*60)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MAX_SHUTDOWN_TIMEOUT (10*365*24*60*60)
 
-#ifdef UNICODE
-#define InitiateSystemShutdownEx InitiateSystemShutdownExW
-#define RegSaveKeyEx RegSaveKeyExW
-#else
-#define InitiateSystemShutdownEx InitiateSystemShutdownExA
-#define RegSaveKeyEx RegSaveKeyExA
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ UNICODE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InitiateSystemShutdownEx InitiateSystemShutdownExW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Save_ਕੁੰਜੀ_Ex Reg_Save_ਕੁੰਜੀ_Ex_W
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InitiateSystemShutdownEx InitiateSystemShutdownExA
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ Reg_Save_ਕੁੰਜੀ_Ex Reg_Save_ਕੁੰਜੀ_Ex_A
+#ਜੇ_ਅੰਤ
 
-  WINADVAPI WINBOOL WINAPI InitiateSystemShutdownExA(LPSTR lpMachineName,LPSTR lpMessage,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown,DWORD dwReason);
-  WINADVAPI WINBOOL WINAPI InitiateSystemShutdownExW(LPWSTR lpMachineName,LPWSTR lpMessage,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown,DWORD dwReason);
-  WINADVAPI LONG WINAPI RegSaveKeyExA(HKEY hKey,LPCSTR lpFile,LPSECURITY_ATTRIBUTES lpSecurityAttributes,DWORD Flags);
-  WINADVAPI LONG WINAPI RegSaveKeyExW(HKEY hKey,LPCWSTR lpFile,LPSECURITY_ATTRIBUTES lpSecurityAttributes,DWORD Flags);
-  WINADVAPI LONG WINAPI Wow64Win32ApiEntry (DWORD dwFuncNumber,DWORD dwFlag,DWORD dwRes);
+  WINADVAPI WINBOOL WINAPI InitiateSystemShutdownExA(LPSTR lpMachineName,LPSTR lp_ਸੁਨੇਹਾ,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown,DWORD dwReason);
+  WINADVAPI WINBOOL WINAPI InitiateSystemShutdownExW(LPWSTR lpMachineName,LPWSTR lp_ਸੁਨੇਹਾ,DWORD dwTimeout,WINBOOL bForceAppsClosed,WINBOOL bRebootAfterShutdown,DWORD dwReason);
+  WINADVAPI LONG WINAPI Reg_Save_ਕੁੰਜੀ_Ex_A(HKEY h_ਕੁੰਜੀ,LPCSTR lpFile,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ,DWORD Flags);
+  WINADVAPI LONG WINAPI Reg_Save_ਕੁੰਜੀ_Ex_W(HKEY h_ਕੁੰਜੀ,LPCWSTR lpFile,LPSECURITY_ਗੁਣ lp_Security_ਗੁਣ,DWORD Flags);
+  WINADVAPI LONG WINAPI Wow64_Win32_Api_ਇੰਦਰਾਜ (DWORD dw_Func_ਸੰਖਿਆ,DWORD dwFlag,DWORD dwRes);
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
-#endif
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ

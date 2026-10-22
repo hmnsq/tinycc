@@ -1,19 +1,19 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-    long long int res = 0;
+    ਲੰਮਾ ਲੰਮਾ ਪੂਰਨ res = 0;
 
-    if (res < -2147483648LL) {
-        printf("Error: 0 < -2147483648\n");
-        return 1;
+    ਜੇ (res < -2147483648LL) {
+        ਲਿਖੋ("Error: 0 < -2147483648\n");
+        ਵਾਪਸ 1;
     }
-    else
-    if (2147483647LL < res) {
-        printf("Error: 2147483647 < 0\n");
-        return 2;
+    ਨਹੀਂਤਾਂ
+    ਜੇ (2147483647LL < res) {
+        ਲਿਖੋ("Error: 2147483647 < 0\n");
+        ਵਾਪਸ 2;
     }
-    else
-        printf("long long constant test ok.\n");
-    return 0;
+    ਨਹੀਂਤਾਂ
+        ਲਿਖੋ("long long constant test ok.\n");
+    ਵਾਪਸ 0;
 }

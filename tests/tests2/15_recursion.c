@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int factorial(int i) 
+ਪੂਰਨ ਕ੍ਰਮਗੁਣਿਤ(ਪੂਰਨ i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   ਜੇ (i < 2)
+      ਵਾਪਸ i;
+   ਨਹੀਂਤਾਂ
+      ਵਾਪਸ i * ਕ੍ਰਮਗੁਣਿਤ(i - 1);
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int Count;
+   ਪੂਰਨ ਗਿਣਤੀ_4;
 
-   for (Count = 1; Count <= 10; Count++)
-      printf("%d\n", factorial(Count));
+   ਲਈ (ਗਿਣਤੀ_4 = 1; ਗਿਣਤੀ_4 <= 10; ਗਿਣਤੀ_4++)
+      ਲਿਖੋ("%d\n", ਕ੍ਰਮਗੁਣਿਤ(ਗਿਣਤੀ_4));
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-union u {
-    unsigned long ul;
-    long double ld;
+ਸੰਘ u {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ul;
+    ਲੰਮਾ ਦੁੱਗਣਾ ld;
 };
 
-void
-conv (union u *p)
+ਖਾਲੀ
+conv (ਸੰਘ u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ) p->ld;
 }
 
-int main (void)
+ਪੂਰਨ ਮੁੱਖ (ਖਾਲੀ)
 {
-    union u v;
-    double d = 1234567890.0;
+    ਸੰਘ u v;
+    ਦੁੱਗਣਾ d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
-    printf ("%lu\n", v.ul);
-    printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    ਲਿਖੋ ("%lu\n", v.ul);
+    ਲਿਖੋ ("%llu\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)d);
+    ਵਾਪਸ 0;
 }

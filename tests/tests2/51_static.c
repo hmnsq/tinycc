@@ -1,30 +1,30 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-static int fred = 1234;
-static int joe;
+ਸਥਿਰ ਪੂਰਨ fred = 1234;
+ਸਥਿਰ ਪੂਰਨ joe;
 
-void henry()
+ਖਾਲੀ henry()
 {
-   static int fred = 4567;
+   ਸਥਿਰ ਪੂਰਨ fred = 4567;
 
-   printf("%d\n", fred);
+   ਲਿਖੋ("%d\n", fred);
    fred++;
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   printf("%d\n", fred);
+   ਲਿਖੋ("%d\n", fred);
    henry();
    henry();
    henry();
    henry();
-   printf("%d\n", fred);
+   ਲਿਖੋ("%d\n", fred);
    fred = 8901;
    joe = 2345;
-   printf("%d\n", fred);
-   printf("%d\n", joe);
+   ਲਿਖੋ("%d\n", fred);
+   ਲਿਖੋ("%d\n", joe);
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

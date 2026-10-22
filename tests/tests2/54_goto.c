@@ -1,56 +1,56 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-void fred()
+ਖਾਲੀ fred()
 {
-   printf("In fred()\n");
-   goto done;
-   printf("In middle\n");
-done:
-   printf("At end\n");
+   ਲਿਖੋ("In fred()\n");
+   ਜਾਓ ਪੂਰਾ;
+   ਲਿਖੋ("In middle\n");
+ਪੂਰਾ:
+   ਲਿਖੋ("At end\n");
 }
 
-void joe()
+ਖਾਲੀ joe()
 {
-   int b = 5678;
+   ਪੂਰਨ b = 5678;
 
-   printf("In joe()\n");
+   ਲਿਖੋ("In joe()\n");
 
    {
-      int c = 1234;
-      printf("c = %d\n", c);
-      goto outer;
-      printf("uh-oh\n");
+      ਪੂਰਨ c = 1234;
+      ਲਿਖੋ("c = %d\n", c);
+      ਜਾਓ outer;
+      ਲਿਖੋ("uh-oh\n");
    }
 
 outer:    
 
-   printf("done\n");
+   ਲਿਖੋ("done\n");
 }
 
-void henry()
+ਖਾਲੀ henry()
 {
-   int a;
+   ਪੂਰਨ a;
 
-   printf("In henry()\n");
-   goto inner;
+   ਲਿਖੋ("In henry()\n");
+   ਜਾਓ inner;
 
    {
-      int b;
+      ਪੂਰਨ b;
 inner:    
       b = 1234;
-      printf("b = %d\n", b);
+      ਲਿਖੋ("b = %d\n", b);
    }
 
-   printf("done\n");
+   ਲਿਖੋ("done\n");
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

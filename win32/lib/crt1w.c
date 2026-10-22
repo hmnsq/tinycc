@@ -1,3 +1,3 @@
-#define _UNICODE 1
-#define UNICODE 1
-#include "crt1.c"
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _UNICODE 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ UNICODE 1
+#ਅਨ੍ਤਰ੍ਭਾਵ "crt1.c"

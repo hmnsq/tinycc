@@ -1,85 +1,85 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   printf("#include test\n");
+   ਲਿਖੋ("#include test\n");
 
-#if 1
-#if 0
-   printf("a\n");
-#else
-   printf("b\n");
-#endif
-#else
-#if 0
-   printf("c\n");
-#else
-   printf("d\n");
-#endif
-#endif
+#ਜੇ 1
+#ਜੇ 0
+   ਲਿਖੋ("a\n");
+#ਨਹੀਂਤਾਂ
+   ਲਿਖੋ("b\n");
+#ਜੇ_ਅੰਤ
+#ਨਹੀਂਤਾਂ
+#ਜੇ 0
+   ਲਿਖੋ("c\n");
+#ਨਹੀਂਤਾਂ
+   ਲਿਖੋ("d\n");
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#if 0
-#if 1
-   printf("e\n");
-#else
-   printf("f\n");
-#endif
-#else
-#if 1
-   printf("g\n");
-#else
-   printf("h\n");
-#endif
-#endif
+#ਜੇ 0
+#ਜੇ 1
+   ਲਿਖੋ("e\n");
+#ਨਹੀਂਤਾਂ
+   ਲਿਖੋ("f\n");
+#ਜੇ_ਅੰਤ
+#ਨਹੀਂਤਾਂ
+#ਜੇ 1
+   ਲਿਖੋ("g\n");
+#ਨਹੀਂਤਾਂ
+   ਲਿਖੋ("h\n");
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define DEF
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEF
 
-#ifdef DEF
-#ifdef DEF
-   printf("i\n");
-#else
-   printf("j\n");
-#endif
-#else
-#ifdef DEF
-   printf("k\n");
-#else
-   printf("l\n");
-#endif
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ DEF
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ DEF
+   ਲਿਖੋ("i\n");
+#ਨਹੀਂਤਾਂ
+   ਲਿਖੋ("j\n");
+#ਜੇ_ਅੰਤ
+#ਨਹੀਂਤਾਂ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ DEF
+   ਲਿਖੋ("k\n");
+#ਨਹੀਂਤਾਂ
+   ਲਿਖੋ("l\n");
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef DEF
-#ifndef DEF
-   printf("m\n");
-#else
-   printf("n\n");
-#endif
-#else
-#ifndef DEF
-   printf("o\n");
-#else
-   printf("p\n");
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ DEF
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ DEF
+   ਲਿਖੋ("m\n");
+#ਨਹੀਂਤਾਂ
+   ਲਿਖੋ("n\n");
+#ਜੇ_ਅੰਤ
+#ਨਹੀਂਤਾਂ
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ DEF
+   ਲਿਖੋ("o\n");
+#ਨਹੀਂਤਾਂ
+   ਲਿਖੋ("p\n");
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define ONE 1
-#define ZERO 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ONE 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ZERO 0
 
-#if ONE
-#if ZERO
-   printf("q\n");
-#else
-   printf("r\n");
-#endif
-#else
-#if ZERO
-   printf("s\n");
-#else
-   printf("t\n");
-#endif
-#endif
+#ਜੇ ONE
+#ਜੇ ZERO
+   ਲਿਖੋ("q\n");
+#ਨਹੀਂਤਾਂ
+   ਲਿਖੋ("r\n");
+#ਜੇ_ਅੰਤ
+#ਨਹੀਂਤਾਂ
+#ਜੇ ZERO
+   ਲਿਖੋ("s\n");
+#ਨਹੀਂਤਾਂ
+   ਲਿਖੋ("t\n");
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

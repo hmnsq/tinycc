@@ -1,23 +1,23 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-struct point
+ਬਣਤਰ ਬਿੰਦੂ
 {
-   double x;
-   double y;
+   ਦੁੱਗਣਾ x;
+   ਦੁੱਗਣਾ y;
 };
 
-struct point point_array[100];
+ਬਣਤਰ ਬਿੰਦੂ ਬਿੰਦੂ_array[100];
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int my_point = 10;
+   ਪੂਰਨ my_ਬਿੰਦੂ = 10;
 
-   point_array[my_point].x = 12.34;
-   point_array[my_point].y = 56.78;
+   ਬਿੰਦੂ_array[my_ਬਿੰਦੂ].x = 12.34;
+   ਬਿੰਦੂ_array[my_ਬਿੰਦੂ].y = 56.78;
 
-   printf("%f, %f\n", point_array[my_point].x, point_array[my_point].y);
+   ਲਿਖੋ("%f, %f\n", ਬਿੰਦੂ_array[my_ਬਿੰਦੂ].x, ਬਿੰਦੂ_array[my_ਬਿੰਦੂ].y);
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

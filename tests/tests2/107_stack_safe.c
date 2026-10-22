@@ -1,13 +1,13 @@
-extern int printf(const char *, ...);
+ਬਾਹਰੀ ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ *, ...);
 
-static void func_ull_ull(unsigned long long l1,unsigned long long l2){
+ਸਥਿਰ ਖਾਲੀ func_ull_ull(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ l1,ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ l2){
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-  int a,b,c,d;
+  ਪੂਰਨ a,b,c,d;
   a=1;b=2;c=3;d=4;
-  func_ull_ull((unsigned long long)a/1.0,(unsigned long long)b/1.0);
-  printf("%d %d %d %d",a,b,c,d);
-  return 0;
+  func_ull_ull((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)a/1.0,(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)b/1.0);
+  ਲਿਖੋ("%d %d %d %d",a,b,c,d);
+  ਵਾਪਸ 0;
 }

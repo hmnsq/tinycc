@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+ਬਾਹਰੀ ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ *, ...);
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   ਪੂਰਨ a;
+   ਪੂਰਨ b;
+   ਪੂਰਨ c;
+   ਪੂਰਨ d;
+   ਪੂਰਨ e;
+   ਪੂਰਨ f;
+   ਪੂਰਨ x;
+   ਪੂਰਨ y;
 
    a = 12;
    b = 34;
@@ -19,23 +19,23 @@ int main()
    e = 0;
    f = 1;
 
-   printf("%d\n", c + d);
-   printf("%d\n", (y = c + d));
-   printf("%d\n", e || e && f);
-   printf("%d\n", e || f && f);
-   printf("%d\n", e && e || f);
-   printf("%d\n", e && f || f);
-   printf("%d\n", a && f | f);
-   printf("%d\n", a | b ^ c & d);
-   printf("%d, %d\n", a == a, a == b);
-   printf("%d, %d\n", a != a, a != b);
-   printf("%d\n", a != b && c != d);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", (4 << 4));
-   printf("%d\n", (64 >> 4));
+   ਲਿਖੋ("%d\n", c + d);
+   ਲਿਖੋ("%d\n", (y = c + d));
+   ਲਿਖੋ("%d\n", e || e && f);
+   ਲਿਖੋ("%d\n", e || f && f);
+   ਲਿਖੋ("%d\n", e && e || f);
+   ਲਿਖੋ("%d\n", e && f || f);
+   ਲਿਖੋ("%d\n", a && f | f);
+   ਲਿਖੋ("%d\n", a | b ^ c & d);
+   ਲਿਖੋ("%d, %d\n", a == a, a == b);
+   ਲਿਖੋ("%d, %d\n", a != a, a != b);
+   ਲਿਖੋ("%d\n", a != b && c != d);
+   ਲਿਖੋ("%d\n", a + b * c / f);
+   ਲਿਖੋ("%d\n", a + b * c / f);
+   ਲਿਖੋ("%d\n", (4 << 4));
+   ਲਿਖੋ("%d\n", (64 >> 4));
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

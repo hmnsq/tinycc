@@ -1,15 +1,15 @@
-static int simple_jump(void)
+ਸਥਿਰ ਪੂਰਨ simple_jump(ਖਾਲੀ)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 0;
+  asm ਜਾਓ ("jmp %l[label]" : : : : label);
+  ਵਾਪਸ 0;
 label:
-  return 1;
+  ਵਾਪਸ 1;
 }
 
-static int three_way_jump(int val, int *addr)
+ਸਥਿਰ ਪੂਰਨ three_way_jump(ਪੂਰਨ val, ਪੂਰਨ *addr)
 {
   *addr = 42;
-  asm goto ("cmp $0, %1\n\t"
+  asm ਜਾਓ ("cmp $0, %1\n\t"
             "jg %l[larger]\n\t"
             "jl %l[smaller]\n\t"
             "incl %0\n\t"
@@ -17,46 +17,46 @@ static int three_way_jump(int val, int *addr)
             : "r" (val)
             :
             : smaller, larger);
-  return 1;
+  ਵਾਪਸ 1;
 smaller:
-  return 2;
+  ਵਾਪਸ 2;
 larger:
-  return 3;
+  ਵਾਪਸ 3;
 }
 
-static int another_jump(void)
+ਸਥਿਰ ਪੂਰਨ another_jump(ਖਾਲੀ)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 70;
+  asm ਜਾਓ ("jmp %l[label]" : : : : label);
+  ਵਾਪਸ 70;
   /* Use the same label name as in simple_jump to check that
      that doesn't confuse our C/ASM symbol tables */
 label:
-  return 71;
+  ਵਾਪਸ 71;
 }
 
-extern int printf (const char *, ...);
-int main(void)
+ਬਾਹਰੀ ਪੂਰਨ ਲਿਖੋ (ਅਚਲ ਅੱਖਰ *, ...);
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-  int i;
-  if (simple_jump () == 1)
-    printf ("simple_jump: okay\n");
-  else
-    printf ("simple_jump: wrong\n");
-  if (another_jump () == 71)
-    printf ("another_jump: okay\n");
-  else
-    printf ("another_jump: wrong\n");
-  if (three_way_jump(0, &i) == 1 && i == 43)
-    printf ("three_way_jump(0): okay\n");
-  else
-    printf ("three_way_jump(0): wrong (i=%d)\n", i);
-  if (three_way_jump(1, &i) == 3 && i == 42)
-    printf ("three_way_jump(1): okay\n");
-  else
-    printf ("three_way_jump(1): wrong (i=%d)\n", i);
-  if (three_way_jump(-1, &i) == 2 && i == 42)
-    printf ("three_way_jump(-1): okay\n");
-  else
-    printf ("three_way_jump(-1): wrong (i=%d)\n", i);
-  return 0;
+  ਪੂਰਨ i;
+  ਜੇ (simple_jump () == 1)
+    ਲਿਖੋ ("simple_jump: okay\n");
+  ਨਹੀਂਤਾਂ
+    ਲਿਖੋ ("simple_jump: wrong\n");
+  ਜੇ (another_jump () == 71)
+    ਲਿਖੋ ("another_jump: okay\n");
+  ਨਹੀਂਤਾਂ
+    ਲਿਖੋ ("another_jump: wrong\n");
+  ਜੇ (three_way_jump(0, &i) == 1 && i == 43)
+    ਲਿਖੋ ("three_way_jump(0): okay\n");
+  ਨਹੀਂਤਾਂ
+    ਲਿਖੋ ("three_way_jump(0): wrong (i=%d)\n", i);
+  ਜੇ (three_way_jump(1, &i) == 3 && i == 42)
+    ਲਿਖੋ ("three_way_jump(1): okay\n");
+  ਨਹੀਂਤਾਂ
+    ਲਿਖੋ ("three_way_jump(1): wrong (i=%d)\n", i);
+  ਜੇ (three_way_jump(-1, &i) == 2 && i == 42)
+    ਲਿਖੋ ("three_way_jump(-1): okay\n");
+  ਨਹੀਂਤਾਂ
+    ਲਿਖੋ ("three_way_jump(-1): wrong (i=%d)\n", i);
+  ਵਾਪਸ 0;
 }

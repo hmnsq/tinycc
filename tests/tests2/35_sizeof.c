@@ -1,30 +1,30 @@
-int printf(const char*, ...);
+ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ*, ...);
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-    char a;
-    short b;
+    ਅੱਖਰ a;
+    ਛੋਟਾ b;
 
-    printf("sizeof a : %d %d\n", sizeof(char), sizeof(a));
-    printf("sizeof b : %d %d\n", sizeof(short), sizeof(b));
+    ਲਿਖੋ("sizeof a : %d %d\n", ਆਕਾਰ(ਅੱਖਰ), ਆਕਾਰ(a));
+    ਲਿਖੋ("sizeof b : %d %d\n", ਆਕਾਰ(ਛੋਟਾ), ਆਕਾਰ(b));
 
-    int ii[] = {}; /* gnu extension, size = 0 */
-    printf("sizeof ii : %d\n", sizeof ii);
+    ਪੂਰਨ ii[] = {}; /* gnu extension, size = 0 */
+    ਲਿਖੋ("sizeof ii : %d\n", ਆਕਾਰ ii);
 
-    int kk[] = { 1 };
-    printf("sizeof kk : %d\n", sizeof kk);
+    ਪੂਰਨ kk[] = { 1 };
+    ਲਿਖੋ("sizeof kk : %d\n", ਆਕਾਰ kk);
 
-    char cc[] = "12";
-    printf("sizeof cc : %d\n", sizeof cc);
+    ਅੱਖਰ cc[] = "12";
+    ਲਿਖੋ("sizeof cc : %d\n", ਆਕਾਰ cc);
 
     __WCHAR_TYPE__ ll[] = L"12345";
-    printf("len-of ll : %d\n", sizeof ll / sizeof ll[0]);
+    ਲਿਖੋ("len-of ll : %d\n", ਆਕਾਰ ll / ਆਕਾਰ ll[0]);
 
-    static struct {
-        int a,b,c;
-        int d[];
+    ਸਥਿਰ ਬਣਤਰ {
+        ਪੂਰਨ a,b,c;
+        ਪੂਰਨ d[];
     } ss[] = {{ 1, 2, 3, {} }};
-    printf("sizeof ss : %d\n", sizeof ss);
+    ਲਿਖੋ("sizeof ss : %d\n", ਆਕਾਰ ss);
 
-    return 0;
+    ਵਾਪਸ 0;
 }

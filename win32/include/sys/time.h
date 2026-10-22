@@ -4,44 +4,44 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _SYS_TIME_H_
-#define _SYS_TIME_H_
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ SYS_ਸਮਾਂ_H
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SYS_ਸਮਾਂ_H
 
-#include <time.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <time.h>
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ  __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#ifndef __STRICT_ANSI__
-#ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
-#define _TIMEVAL_DEFINED
-struct timeval {
-  long tv_sec;
-  long tv_usec;
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __STRICT_ANSI__
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _TIMEVAL_DEFINED /* also in winsock[2].h */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _TIMEVAL_DEFINED
+ਬਣਤਰ timeval {
+  ਲੰਮਾ tv_sec;
+  ਲੰਮਾ tv_usec;
 };
-#define timerisset(tvp)	 ((tvp)->tv_sec || (tvp)->tv_usec)
-#define timercmp(tvp, uvp, cmp) \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ timerisset(tvp)	 ((tvp)->tv_sec || (tvp)->tv_usec)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ timercmp(tvp, uvp, cmp) \
   (((tvp)->tv_sec != (uvp)->tv_sec) ? \
   ((tvp)->tv_sec cmp (uvp)->tv_sec) : \
   ((tvp)->tv_usec cmp (uvp)->tv_usec))
-#define timerclear(tvp)	 (tvp)->tv_sec = (tvp)->tv_usec = 0
-#endif /* _TIMEVAL_DEFINED */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ timerclear(tvp)	 (tvp)->tv_sec = (tvp)->tv_usec = 0
+#ਜੇ_ਅੰਤ /* _TIMEVAL_DEFINED */
 
-#ifndef _TIMEZONE_DEFINED /* also in sys/time.h */
-#define _TIMEZONE_DEFINED
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _TIMEZONE_DEFINED /* also in sys/time.h */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _TIMEZONE_DEFINED
 /* Provided for compatibility with code that assumes that
    the presence of gettimeofday function implies a definition
    of struct timezone. */
-struct timezone
+ਬਣਤਰ timezone
 {
-  int tz_minuteswest; /* of Greenwich */
-  int tz_dsttime;     /* type of dst correction to apply */
+  ਪੂਰਨ tz_minuteswest; /* of Greenwich */
+  ਪੂਰਨ tz_dsttime;     /* type of dst correction to apply */
 };
 
-  extern int __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
+  ਬਾਹਰੀ ਪੂਰਨ __cdecl mingw_gettimeofday (ਬਣਤਰ timeval *p, ਬਣਤਰ timezone *z);
 
-#endif
+#ਜੇ_ਅੰਤ
 
 /*
    Implementation as per:
@@ -50,20 +50,20 @@ struct timezone
 
    The timezone pointer arg is ignored.  Errors are ignored.
 */
-#ifndef _GETTIMEOFDAY_DEFINED
-#define _GETTIMEOFDAY_DEFINED
-int __cdecl gettimeofday(struct timeval *__restrict__,
-                         void *__restrict__  /* tzp (unused) */);
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _GETTIMEOFDAY_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _GETTIMEOFDAY_DEFINED
+ਪੂਰਨ __cdecl gettimeofday(ਬਣਤਰ timeval *__restrict__,
+                         ਖਾਲੀ *__restrict__  /* tzp (unused) */);
+#ਜੇ_ਅੰਤ
 
-#endif /* __STRICT_ANSI__ */
+#ਜੇ_ਅੰਤ /* __STRICT_ANSI__ */
 
-#ifdef  __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ  __cplusplus
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 /* Adding timespec definition.  */
-#include <sys/timeb.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <sys/timeb.h>
 
 
-#endif /* _SYS_TIME_H_ */
+#ਜੇ_ਅੰਤ /* _SYS_TIME_H_ */

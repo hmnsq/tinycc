@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main() 
+ਪੂਰਨ ਮੁੱਖ() 
 {
-   printf("Hello world\n");
+   ਲਿਖੋ("Hello world\n");
 
-   int Count;
-   for (Count = -5; Count <= 5; Count++)
-      printf("Count = %d\n", Count);
+   ਪੂਰਨ ਗਿਣਤੀ_4;
+   ਲਈ (ਗਿਣਤੀ_4 = -5; ਗਿਣਤੀ_4 <= 5; ਗਿਣਤੀ_4++)
+      ਲਿਖੋ("Count = %d\n", ਗਿਣਤੀ_4);
 
-   printf("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
-   printf("Character 'A' is '%c'\n", 65);
-   printf("Character 'a' is '%c'\n", 'a');
+   ਲਿਖੋ("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
+   ਲਿਖੋ("Character 'A' is '%c'\n", 65);
+   ਲਿਖੋ("Character 'a' is '%c'\n", 'a');
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

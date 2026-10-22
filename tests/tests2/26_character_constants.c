@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   printf("%d\n", '\1');
-   printf("%d\n", '\10');
-   printf("%d\n", '\100');
-   printf("%d\n", '\x01');
-   printf("%d\n", '\x0e');
-   printf("%d\n", '\x10');
-   printf("%d\n", '\x40');
-   printf("test \x40\n");
+   ਲਿਖੋ("%d\n", '\1');
+   ਲਿਖੋ("%d\n", '\10');
+   ਲਿਖੋ("%d\n", '\100');
+   ਲਿਖੋ("%d\n", '\x01');
+   ਲਿਖੋ("%d\n", '\x0e');
+   ਲਿਖੋ("%d\n", '\x10');
+   ਲਿਖੋ("%d\n", '\x40');
+   ਲਿਖੋ("test \x40\n");
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

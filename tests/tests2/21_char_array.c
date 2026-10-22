@@ -1,33 +1,33 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int x = 'a';
-   char y = x;
+   ਪੂਰਨ x = 'a';
+   ਅੱਖਰ y = x;
 
-   char *a = "hello";
+   ਅੱਖਰ *a = "hello";
 
-   printf("%s\n", a);
+   ਲਿਖੋ("%s\n", a);
 
-   int c;
+   ਪੂਰਨ c;
    c = *a;
 
-   char *b;
-   for (b = a; *b != 0; b++)
-      printf("%c: %d\n", *b, *b);
+   ਅੱਖਰ *b;
+   ਲਈ (b = a; *b != 0; b++)
+      ਲਿਖੋ("%c: %d\n", *b, *b);
 
-   char destarray[10];
-   char *dest = &destarray[0];
-   char *src = a;
+   ਅੱਖਰ destarray[10];
+   ਅੱਖਰ *dest = &destarray[0];
+   ਅੱਖਰ *src = a;
 
-   while (*src != 0)
+   ਜਦੋਂ (*src != 0)
       *dest++ = *src++;
 
    *dest = 0;
 
-   printf("copied string is %s\n", destarray);
+   ਲਿਖੋ("copied string is %s\n", destarray);
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

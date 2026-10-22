@@ -1,32 +1,32 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   ਪੂਰਨ a[4][4];
+   ਪੂਰਨ b = 0;
+   ਪੂਰਨ x;
+   ਪੂਰਨ y;
 
-   for (x = 0; x < 4; x++)
+   ਲਈ (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      ਲਈ (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   ਲਈ (x = 0; x < 4; x++)
    {
-      printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      ਲਿਖੋ("x=%d: ", x);
+      ਲਈ (y = 0; y < 4; y++)
       {
-         printf("%d ", a[x][y]);
+         ਲਿਖੋ("%d ", a[x][y]);
       }
-      printf("\n");
+      ਲਿਖੋ("\n");
    }
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -3,73 +3,73 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_ERRNO
-#define _INC_ERRNO
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _INC_ERRNO
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _INC_ERRNO
 
-#include <_mingw.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#ifndef _CRT_ERRNO_DEFINED
-#define _CRT_ERRNO_DEFINED
-  _CRTIMP int *__cdecl _errno(void);
-#define errno (*_errno())
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_ERRNO_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_ERRNO_DEFINED
+  _CRTIMP ਪੂਰਨ *__cdecl _errno(ਖਾਲੀ);
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ errno (*_errno())
 
-  errno_t __cdecl _set_errno(int _Value);
-  errno_t __cdecl _get_errno(int *_Value);
-#endif
+  errno_t __cdecl ਸੈੱਟ_errno(ਪੂਰਨ ਮੁੱਲ_2);
+  errno_t __cdecl _get_errno(ਪੂਰਨ *ਮੁੱਲ_2);
+#ਜੇ_ਅੰਤ
 
-#define EPERM 1
-#define ENOENT 2
-#define ESRCH 3
-#define EINTR 4
-#define EIO 5
-#define ENXIO 6
-#define E2BIG 7
-#define ENOEXEC 8
-#define EBADF 9
-#define ECHILD 10
-#define EAGAIN 11
-#define ENOMEM 12
-#define EACCES 13
-#define EFAULT 14
-#define EBUSY 16
-#define EEXIST 17
-#define EXDEV 18
-#define ENODEV 19
-#define ENOTDIR 20
-#define EISDIR 21
-#define ENFILE 23
-#define EMFILE 24
-#define ENOTTY 25
-#define EFBIG 27
-#define ENOSPC 28
-#define ESPIPE 29
-#define EROFS 30
-#define EMLINK 31
-#define EPIPE 32
-#define EDOM 33
-#define EDEADLK 36
-#define ENAMETOOLONG 38
-#define ENOLCK 39
-#define ENOSYS 40
-#define ENOTEMPTY 41
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EPERM 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENOENT 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ESRCH 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EINTR 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EIO 5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENXIO 6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ E2BIG 7
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENOEXEC 8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EBADF 9
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ECHILD 10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EAGAIN 11
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENOMEM 12
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EACCES 13
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EFAULT 14
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EBUSY 16
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EEXIST 17
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXDEV 18
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENODEV 19
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENOTDIR 20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EISDIR 21
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENFILE 23
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EMFILE 24
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENOTTY 25
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EFBIG 27
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENOSPC 28
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ESPIPE 29
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EROFS 30
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EMLINK 31
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EPIPE 32
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EDOM 33
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EDEADLK 36
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENAMETOOLONG 38
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENOLCK 39
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENOSYS 40
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENOTEMPTY 41
 
-#ifndef RC_INVOKED
-#if !defined(_SECURECRT_ERRCODE_VALUES_DEFINED)
-#define _SECURECRT_ERRCODE_VALUES_DEFINED
-#define EINVAL 22
-#define ERANGE 34
-#define EILSEQ 42
-#define STRUNCATE 80
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ RC_INVOKED
+#ਜੇ !defined(SECURECRT_ERRCODE_ਮੁੱਲਾਂ_DEFINED)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SECURECRT_ERRCODE_ਮੁੱਲਾਂ_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EINVAL 22
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ERANGE 34
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EILSEQ 42
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STRUNCATE 80
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define EDEADLOCK EDEADLK
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EDEADLOCK EDEADLK
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
-#endif
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ

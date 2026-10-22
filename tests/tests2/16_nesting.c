@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int x, y, z;
+   ਪੂਰਨ x, y, z;
 
-   for (x = 0; x < 2; x++)
+   ਲਈ (x = 0; x < 2; x++)
    {
-      for (y = 0; y < 3; y++)
+      ਲਈ (y = 0; y < 3; y++)
       {
-         for (z = 0; z < 3; z++)
+         ਲਈ (z = 0; z < 3; z++)
          {
-            printf("%d %d %d\n", x, y, z);
+            ਲਿਖੋ("%d %d %d\n", x, y, z);
          }
       }
    }
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

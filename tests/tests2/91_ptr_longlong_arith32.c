@@ -1,15 +1,15 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ *, ...);
+ਅੱਖਰ t[] = "012345678";
 
-int main(void)
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-    char *data = t;
-    unsigned long long r = 4;
-    unsigned a = 5;
-    unsigned long long b = 12;
+    ਅੱਖਰ *ਅੰਕੜੇ = t;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ r = 4;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ a = 5;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ b = 12;
 
-    *(unsigned*)(data + r) += a - b;
+    *(ਬਿਨਾਨਿਸ਼ਾਨੀ*)(ਅੰਕੜੇ + r) += a - b;
 
-    printf("data = \"%s\"\n", data);
-    return 0;
+    ਲਿਖੋ("data = \"%s\"\n", ਅੰਕੜੇ);
+    ਵਾਪਸ 0;
 }

@@ -1,45 +1,45 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+ਖਾਲੀ f1(ਪੂਰਨ argc)
 {
-  char test[argc];
-  if(0)
+  ਅੱਖਰ test[argc];
+  ਜੇ(0)
   label:
-    printf("boom!\n");
-  if(argc-- == 0)
-    return;
-  goto label;
+    ਲਿਖੋ("boom!\n");
+  ਜੇ(argc-- == 0)
+    ਵਾਪਸ;
+  ਜਾਓ label;
 }
 
 /* This segfaulted on 2015-11-19. */
-void f2(void)
+ਖਾਲੀ f2(ਖਾਲੀ)
 {
-    goto start;
+    ਜਾਓ ਸ਼ੁਰੂ;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
-    start:
+        ਪੂਰਨ a[1 && 1]; /* not a variable-length array */
+        ਪੂਰਨ b[1 || 1]; /* not a variable-length array */
+        ਪੂਰਨ c[1 ? 1 : 1]; /* not a variable-length array */
+    ਸ਼ੁਰੂ:
         a[0] = 0;
         b[0] = 0;
         c[0] = 0;
     }
 }
 
-void f3(void)
+ਖਾਲੀ f3(ਖਾਲੀ)
 {
-    printf("%d\n", 0 ? printf("x1\n") : 11);
-    printf("%d\n", 1 ? 12 : printf("x2\n"));
-    printf("%d\n", 0 && printf("x3\n"));
-    printf("%d\n", 1 || printf("x4\n"));
+    ਲਿਖੋ("%d\n", 0 ? ਲਿਖੋ("x1\n") : 11);
+    ਲਿਖੋ("%d\n", 1 ? 12 : ਲਿਖੋ("x2\n"));
+    ਲਿਖੋ("%d\n", 0 && ਲਿਖੋ("x3\n"));
+    ਲਿਖੋ("%d\n", 1 || ਲਿਖੋ("x4\n"));
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  ਵਾਪਸ 0;
 }

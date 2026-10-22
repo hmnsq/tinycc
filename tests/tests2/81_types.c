@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+ਗਿਣਤੀ E *e;
+ਅਚਲ ਗਿਣਤੀ E *e1;
+ਗਿਣਤੀ E ਅਚਲ *e2;
+ਬਣਤਰ S *s;
+ਅਚਲ ਬਣਤਰ S *s1;
+ਬਣਤਰ S ਅਚਲ *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ (*fptr1)();
+ਪੂਰਨ f1 (ਪੂਰਨ (), ਪੂਰਨ);
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ (*fptr2)(ਪੂਰਨ x);
+ਪੂਰਨ f2 (ਪੂਰਨ (ਪੂਰਨ x), ਪੂਰਨ);
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ (*fptr3)(ਪੂਰਨ);
+ਪੂਰਨ f3 (ਪੂਰਨ (ਪੂਰਨ), ਪੂਰਨ);
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ (*fptr4[4])(ਪੂਰਨ);
+ਪੂਰਨ f4 (ਪੂਰਨ (*[4])(ਪੂਰਨ), ਪੂਰਨ);
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ (*fptr5)(fptr1);
+ਪੂਰਨ f5 (ਪੂਰਨ (ਪੂਰਨ()), fptr1);
+ਪੂਰਨ f1 (fptr1 fp, ਪੂਰਨ i)
 {
-  return (*fp)(i);
+  ਵਾਪਸ (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+ਪੂਰਨ f2 (fptr2 fp, ਪੂਰਨ i)
 {
-  return (*fp)(i);
+  ਵਾਪਸ (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+ਪੂਰਨ f3 (fptr3 fp, ਪੂਰਨ i)
 {
-  return (*fp)(i);
+  ਵਾਪਸ (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+ਪੂਰਨ f4 (fptr4 fp, ਪੂਰਨ i)
 {
-  return (*fp[i])(i);
+  ਵਾਪਸ (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+ਪੂਰਨ f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  ਵਾਪਸ fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ intx4[4];
+ਪੂਰਨ f8 (intx4, ਪੂਰਨ);
+ਪੂਰਨ f8 (ਪੂਰਨ ([4]), ਪੂਰਨ);
+ਪੂਰਨ f8 (ਪੂਰਨ y[4], ਪੂਰਨ i)
 {
-  return y[i];
+  ਵਾਪਸ y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+ਪੂਰਨ f9 (ਪੂਰਨ (*)(ਪੂਰਨ), ਪੂਰਨ);
+ਪੂਰਨ f9 (ਪੂਰਨ ((ਪੂਰਨ)), ਪੂਰਨ);
+ਪੂਰਨ f9 (ਪੂਰਨ f(ਪੂਰਨ), ਪੂਰਨ i)
 {
-  return f(i);
+  ਵਾਪਸ f(i);
 }
-int main () { return 0; }
+ਪੂਰਨ ਮੁੱਖ () { ਵਾਪਸ 0; }

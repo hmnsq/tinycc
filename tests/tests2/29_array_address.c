@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <string.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <string.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   char a[10];
+   ਅੱਖਰ a[10];
    strcpy(a, "abcdef");
-   printf("%s\n", &a[1]);
+   ਲਿਖੋ("%s\n", &a[1]);
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

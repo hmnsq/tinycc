@@ -1,35 +1,35 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int myfunc(int x)
+ਪੂਰਨ myfunc(ਪੂਰਨ x)
 {
-   return x * x;
+   ਵਾਪਸ x * x;
 }
 
-void vfunc(int a)
+ਖਾਲੀ vfunc(ਪੂਰਨ a)
 {
-   printf("a=%d\n", a);
+   ਲਿਖੋ("a=%d\n", a);
 }
 
-void qfunc()
+ਖਾਲੀ qfunc()
 {
-   printf("qfunc()\n");
+   ਲਿਖੋ("qfunc()\n");
 }
 
-void zfunc()
+ਖਾਲੀ zfunc()
 {
-	((void (*)(void))0) ();
+	((ਖਾਲੀ (*)(ਖਾਲੀ))0) ();
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   printf("%d\n", myfunc(3));
-   printf("%d\n", myfunc(4));
+   ਲਿਖੋ("%d\n", myfunc(3));
+   ਲਿਖੋ("%d\n", myfunc(4));
 
    vfunc(1234);
 
    qfunc();
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   char a;
-   int b;
-   double c;
+   ਅੱਖਰ a;
+   ਪੂਰਨ b;
+   ਦੁੱਗਣਾ c;
 
-   printf("%d\n", sizeof(a));
-   printf("%d\n", sizeof(b));
-   printf("%d\n", sizeof(c));
+   ਲਿਖੋ("%d\n", ਆਕਾਰ(a));
+   ਲਿਖੋ("%d\n", ਆਕਾਰ(b));
+   ਲਿਖੋ("%d\n", ਆਕਾਰ(c));
 
-   printf("%d\n", sizeof(!a));
+   ਲਿਖੋ("%d\n", ਆਕਾਰ(!a));
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

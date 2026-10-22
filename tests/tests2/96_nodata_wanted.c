@@ -1,102 +1,102 @@
 /*****************************************************************************/
 /* test 'nodata_wanted' data output suppression */
 
-#if defined test_static_data_error
-void foo() {
-    if (1) {
-	static short w = (int)&foo; /* initializer not computable */
+#ਜੇ defined test_static_ਅੰਕੜੇ_error
+ਖਾਲੀ foo() {
+    ਜੇ (1) {
+	ਸਥਿਰ ਛੋਟਾ w = (ਪੂਰਨ)&foo; /* initializer not computable */
     }
 }
 
-#elif defined test_static_nodata_error
-void foo() {
-    if (0) {
-	static short w = (int)&foo; /* initializer not computable */
+#ਜਾਂਜੇ defined test_static_nodata_error
+ਖਾਲੀ foo() {
+    ਜੇ (0) {
+	ਸਥਿਰ ਛੋਟਾ w = (ਪੂਰਨ)&foo; /* initializer not computable */
     }
 }
 
-#elif defined test_global_data_error
-void foo();
-static short w = (int)&foo; /* initializer not computable */
+#ਜਾਂਜੇ defined test_global_ਅੰਕੜੇ_error
+ਖਾਲੀ foo();
+ਸਥਿਰ ਛੋਟਾ w = (ਪੂਰਨ)&foo; /* initializer not computable */
 
 
-#elif defined test_local_data_noerror
-void foo() {
-    short w = &foo; /* 2 cast warnings */
+#ਜਾਂਜੇ defined test_local_ਅੰਕੜੇ_noerror
+ਖਾਲੀ foo() {
+    ਛੋਟਾ w = &foo; /* 2 cast warnings */
 }
 
-#elif defined test_data_suppression_off || defined test_data_suppression_on
+#ਜਾਂਜੇ defined test_ਅੰਕੜੇ_suppression_off || defined test_ਅੰਕੜੇ_suppression_on
 
-#if defined test_data_suppression_on
+#ਜੇ defined test_ਅੰਕੜੇ_suppression_on
 # define SKIP 1
-#else
+#ਨਹੀਂਤਾਂ
 # define SKIP 0
-#endif
+#ਜੇ_ਅੰਤ
 
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 /* some gcc headers #define __attribute__ to empty if it's not gcc */
-#undef __attribute__
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ __attribute__
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
     __label__ ts0, te0, ts1, te1;
-    int tl, dl;
+    ਪੂਰਨ tl, dl;
 
-    static const char ds0 = 0;
-    static const char de0 = 0;
+    ਸਥਿਰ ਅਚਲ ਅੱਖਰ ds0 = 0;
+    ਸਥਿਰ ਅਚਲ ਅੱਖਰ de0 = 0;
     /* get reference size of empty jmp */
 ts0:;
-    if (!SKIP) {}
+    ਜੇ (!SKIP) {}
 te0:;
     dl = -(&de0 - &ds0);
     tl = -(&&te0 - &&ts0);
 
     /* test data and code suppression */
-    static const char ds1 = 0;
+    ਸਥਿਰ ਅਚਲ ਅੱਖਰ ds1 = 0;
 ts1:;
-    if (!SKIP) {
-        void *p = (void*)&main;
-        char cc[] = "static string";
-        double d = 8.0;
-        struct
-#ifndef __arm__
+    ਜੇ (!SKIP) {
+        ਖਾਲੀ *p = (ਖਾਲੀ*)&ਮੁੱਖ;
+        ਅੱਖਰ cc[] = "static string";
+        ਦੁੱਗਣਾ d = 8.0;
+        ਬਣਤਰ
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __arm__
         __attribute__((packed))
-#endif
+#ਜੇ_ਅੰਤ
         {
-            unsigned x : 12;
-            unsigned char y : 7;
-            unsigned z : 28, a: 4, b: 5;
+            ਬਿਨਾਨਿਸ਼ਾਨੀ x : 12;
+            ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ y : 7;
+            ਬਿਨਾਨਿਸ਼ਾਨੀ z : 28, a: 4, b: 5;
         } s = { 0x333,0x44,0x555555,6,7 };
 
-        printf("data:\n");
-        printf("  %d - %.1f - %.1f - %s - %s\n",
-            sizeof 8.0, 8.0, d, __FUNCTION__, cc);
-        printf("  %x %x %x %x %x\n",
+        ਲਿਖੋ("data:\n");
+        ਲਿਖੋ("  %d - %.1f - %.1f - %s - %s\n",
+            ਆਕਾਰ 8.0, 8.0, d, __FUNCTION__, cc);
+        ਲਿਖੋ("  %x %x %x %x %x\n",
             s.x, s.y, s.z, s.a, s.b);
     }
 te1:;
-    static const char de1 = 0;
+    ਸਥਿਰ ਅਚਲ ਅੱਖਰ de1 = 0;
 
     dl += &de1 - &ds1;
     tl += &&te1 - &&ts1;
-    printf("size of data/text:\n  %s/%s\n",
+    ਲਿਖੋ("size of data/text:\n  %s/%s\n",
         dl ? "non-zero":"zero", tl ? "non-zero":"zero");
     /*printf("# %d/%d\n", dl, tl);*/
 }
 
-#elif defined test_static_data
+#ਜਾਂਜੇ defined test_static_ਅੰਕੜੇ
 
-#include <stdio.h>
-int main(int argc, char **argv)
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+ਪੂਰਨ ਮੁੱਖ(ਪੂਰਨ argc, ਅੱਖਰ **argv)
 {
-    goto there;
-    if (0) {
-        static int a = 1;
-        printf("hello\n"); /* the "hello\n" string is still suppressed */
+    ਜਾਓ there;
+    ਜੇ (0) {
+        ਸਥਿਰ ਪੂਰਨ a = 1;
+        ਲਿਖੋ("hello\n"); /* the "hello\n" string is still suppressed */
 there:
-        printf("a = %d\n", a);
+        ਲਿਖੋ("a = %d\n", a);
     }
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-#endif
+#ਜੇ_ਅੰਤ

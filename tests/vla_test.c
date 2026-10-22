@@ -3,82 +3,82 @@
  * does not use up a linear amount of memory
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdlib.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <string.h>
 
-#define LOOP_COUNT 1000
-#define ARRAY_SIZE 100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LOOP_ਗਿਣਤੀ 1000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ARRAY_ਮਾਪ 100
 
 /* Overwrite a VLA. This will overwrite the return address if SP is incorrect */
-void smash(char *p, int n) {
+ਖਾਲੀ smash(ਅੱਖਰ *p, ਪੂਰਨ n) {
   memset(p, 0, n);
 }
 
-int test1(int n) {
-  int i;
-  char *array_ptrs[LOOP_COUNT];
+ਪੂਰਨ test1(ਪੂਰਨ n) {
+  ਪੂਰਨ i;
+  ਅੱਖਰ *array_ptrs[LOOP_ਗਿਣਤੀ];
   
-  for (i = 0; i < LOOP_COUNT; ++i) {
-    char test[n];
+  ਲਈ (i = 0; i < LOOP_ਗਿਣਤੀ; ++i) {
+    ਅੱਖਰ test[n];
     smash(test, n);
     array_ptrs[i] = test;
   }
   
-  return (array_ptrs[0]-array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  ਵਾਪਸ (array_ptrs[0]-array_ptrs[LOOP_ਗਿਣਤੀ-1] < n) ? 0 : 1;
 }
 
 /* ensure goto does not circumvent array free */
-int test2(int n) {
-  char *array_ptrs[LOOP_COUNT];
+ਪੂਰਨ test2(ਪੂਰਨ n) {
+  ਅੱਖਰ *array_ptrs[LOOP_ਗਿਣਤੀ];
 
-  int i = 0;
+  ਪੂਰਨ i = 0;
 loop:;
-  char test[n];
+  ਅੱਖਰ test[n];
   smash(test, n);
-  if (i >= LOOP_COUNT)
-    goto end;
+  ਜੇ (i >= LOOP_ਗਿਣਤੀ)
+    ਜਾਓ ਸਿਰਾ;
   array_ptrs[i] = test;
   ++i;
-  goto loop;
+  ਜਾਓ loop;
 
-end:
+ਸਿਰਾ:
   smash(test, n);
-  char test2[n];
+  ਅੱਖਰ test2[n];
   smash(test2, n);
-  return (array_ptrs[0] - array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  ਵਾਪਸ (array_ptrs[0] - array_ptrs[LOOP_ਗਿਣਤੀ-1] < n) ? 0 : 1;
 }
 
-int test3(int n) {
-  char test[n];
+ਪੂਰਨ test3(ਪੂਰਨ n) {
+  ਅੱਖਰ test[n];
   smash(test, n);
-  goto label;
+  ਜਾਓ label;
 label:
   smash(test, n);
-  char test2[n];
+  ਅੱਖਰ test2[n];
   smash(test2, n);
-  return (test-test2 >= n) ? 0 : 1;
+  ਵਾਪਸ (test-test2 >= n) ? 0 : 1;
 }
 
-#define RUN_TEST(t) \
-  if (!testname || (strcmp(#t, testname) == 0)) { \
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਲੜੀਵਾਰ_TEST(t) \
+  ਜੇ (!testname || (strcmp(#t, testname) == 0)) { \
     fputs(#t "... ", stdout); \
     fflush(stdout); \
-    if (t(ARRAY_SIZE) == 0) { \
+    ਜੇ (t(ARRAY_ਮਾਪ) == 0) { \
       fputs("success\n", stdout); \
-    } else { \
+    } ਨਹੀਂਤਾਂ { \
       fputs("failure\n", stdout); \
       retval = EXIT_FAILURE; \
     } \
   }
 
-int main(int argc, char **argv) {
-  const char *testname = NULL;
-  int retval = EXIT_SUCCESS;
-  if (argc > 1)
+ਪੂਰਨ ਮੁੱਖ(ਪੂਰਨ argc, ਅੱਖਰ **argv) {
+  ਅਚਲ ਅੱਖਰ *testname = ਨਿਰਾ;
+  ਪੂਰਨ retval = EXIT_SUCCESS;
+  ਜੇ (argc > 1)
     testname = argv[1];
-  RUN_TEST(test1)
-  RUN_TEST(test2)
-  RUN_TEST(test3)
-  return retval;
+  ਲੜੀਵਾਰ_TEST(test1)
+  ਲੜੀਵਾਰ_TEST(test2)
+  ਲੜੀਵਾਰ_TEST(test3)
+  ਵਾਪਸ retval;
 }

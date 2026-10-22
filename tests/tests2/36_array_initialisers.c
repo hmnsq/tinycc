@@ -1,25 +1,25 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-extern int Array3[10];
-int Array3[] = { 12, 34, };
-int main()
+ਬਾਹਰੀ ਪੂਰਨ Array3[10];
+ਪੂਰਨ Array3[] = { 12, 34, };
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int Count;
+   ਪੂਰਨ ਗਿਣਤੀ_4;
 
-   int Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
+   ਪੂਰਨ Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array[Count]);
+   ਲਈ (ਗਿਣਤੀ_4 = 0; ਗਿਣਤੀ_4 < 10; ਗਿਣਤੀ_4++)
+      ਲਿਖੋ("%d: %d\n", ਗਿਣਤੀ_4, Array[ਗਿਣਤੀ_4]);
 
-   int Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
+   ਪੂਰਨ Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array2[Count]);
+   ਲਈ (ਗਿਣਤੀ_4 = 0; ਗਿਣਤੀ_4 < 10; ਗਿਣਤੀ_4++)
+      ਲਿਖੋ("%d: %d\n", ਗਿਣਤੀ_4, Array2[ਗਿਣਤੀ_4]);
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array3[Count]);
+   ਲਈ (ਗਿਣਤੀ_4 = 0; ਗਿਣਤੀ_4 < 10; ਗਿਣਤੀ_4++)
+      ਲਿਖੋ("%d: %d\n", ਗਿਣਤੀ_4, Array3[ਗਿਣਤੀ_4]);
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -28,35 +28,35 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "tcc.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "tcc.h"
 
 //#define ARMAG  "!<arch>\n"
-#define ARFMAG "`\n"
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ARFMAG "`\n"
 
-typedef struct {
-    char ar_name[16];
-    char ar_date[12];
-    char ar_uid[6];
-    char ar_gid[6];
-    char ar_mode[8];
-    char ar_size[10];
-    char ar_fmag[2];
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
+    ਅੱਖਰ ar_name[16];
+    ਅੱਖਰ ar_date[12];
+    ਅੱਖਰ ar_uid[6];
+    ਅੱਖਰ ar_gid[6];
+    ਅੱਖਰ ar_ਬਹੁਲਕ[8];
+    ਅੱਖਰ ar_ਮਾਪ[10];
+    ਅੱਖਰ ar_fmag[2];
 } ArHdr;
 
-static unsigned long le2belong(unsigned long ul) {
-    return ((ul & 0xFF0000)>>8)+((ul & 0xFF000000)>>24) +
+ਸਥਿਰ ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ le2belong(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ul) {
+    ਵਾਪਸ ((ul & 0xFF0000)>>8)+((ul & 0xFF000000)>>24) +
         ((ul & 0xFF)<<24)+((ul & 0xFF00)<<8);
 }
 
-static int ar_usage(int ret) {
+ਸਥਿਰ ਪੂਰਨ ar_usage(ਪੂਰਨ ret) {
     fprintf(stderr, "usage: tcc -ar [crstvx] lib [files]\n");
     fprintf(stderr, "create library ([abdiopN] not supported).\n");
-    return ret;
+    ਵਾਪਸ ret;
 }
 
-ST_FUNC int tcc_tool_ar(int argc, char **argv)
+ST_FUNC ਪੂਰਨ tcc_tool_ar(ਪੂਰਨ argc, ਅੱਖਰ **argv)
 {
-    static const ArHdr arhdr_init = {
+    ਸਥਿਰ ਅਚਲ ArHdr arhdr_init = {
         "/               ",
         "0           ",
         "0     ",
@@ -69,141 +69,141 @@ ST_FUNC int tcc_tool_ar(int argc, char **argv)
     ArHdr arhdr = arhdr_init;
     ArHdr arhdro = arhdr_init;
 
-    FILE *fi, *fh = NULL, *fo = NULL;
-    const char *created_file = NULL; // must delete on error
+    FILE *fi, *fh = ਨਿਰਾ, *fo = ਨਿਰਾ;
+    ਅਚਲ ਅੱਖਰ *created_file = ਨਿਰਾ; // must delete on error
     ElfW(Ehdr) *ehdr;
     ElfW(Shdr) *shdr;
     ElfW(Sym) *sym;
-    int i, fsize, i_lib, i_obj;
-    char *buf, *shstr, *symtab, *strtab;
-    int symtabsize = 0;//, strtabsize = 0;
-    char *anames = NULL;
-    int *afpos = NULL;
-    int istrlen, strpos = 0, fpos = 0, funccnt = 0, funcmax, hofs;
-    char tfile[260], stmp[20];
-    char *file, *name;
-    int ret = 2;
-    const char *ops_conflict = "habdiopN";  // unsupported but destructive if ignored.
-    int extract = 0;
-    int table = 0;
-    int verbose = 0;
+    ਪੂਰਨ i, fsize, i_lib, i_obj;
+    ਅੱਖਰ *buf, *shstr, *symtab, *strtab;
+    ਪੂਰਨ symtabsize = 0;//, strtabsize = 0;
+    ਅੱਖਰ *anames = ਨਿਰਾ;
+    ਪੂਰਨ *afpos = ਨਿਰਾ;
+    ਪੂਰਨ istrlen, strpos = 0, fpos = 0, funccnt = 0, funcmax, hofs;
+    ਅੱਖਰ tfile[260], stmp[20];
+    ਅੱਖਰ *file, *name;
+    ਪੂਰਨ ret = 2;
+    ਅਚਲ ਅੱਖਰ *ops_conflict = "habdiopN";  // unsupported but destructive if ignored.
+    ਪੂਰਨ ਕੱਢੋ_3 = 0;
+    ਪੂਰਨ ਸਾਰਣੀ = 0;
+    ਪੂਰਨ verbose = 0;
 
     i_lib = 0; i_obj = 0;  // will hold the index of the lib and first obj
-    for (i = 1; i < argc; i++) {
-        const char *a = argv[i];
-        if (*a == '-' && strchr(a, '.'))
+    ਲਈ (i = 1; i < argc; i++) {
+        ਅਚਲ ਅੱਖਰ *a = argv[i];
+        ਜੇ (*a == '-' && strchr(a, '.'))
             ret = 1; // -x.y is always invalid (same as gnu ar)
-        if ((*a == '-') || (i == 1 && !strchr(a, '.'))) {  // options argument
-            if (strpbrk(a, ops_conflict))
+        ਜੇ ((*a == '-') || (i == 1 && !strchr(a, '.'))) {  // options argument
+            ਜੇ (strpbrk(a, ops_conflict))
                 ret = 1;
-            if (strchr(a, 'x'))
-                extract = 1;
-            if (strchr(a, 't'))
-                table = 1;
-            if (strchr(a, 'v'))
+            ਜੇ (strchr(a, 'x'))
+                ਕੱਢੋ_3 = 1;
+            ਜੇ (strchr(a, 't'))
+                ਸਾਰਣੀ = 1;
+            ਜੇ (strchr(a, 'v'))
                 verbose = 1;
-        } else {  // lib or obj files: don't abort - keep validating all args.
-            if (!i_lib)  // first file is the lib
+        } ਨਹੀਂਤਾਂ {  // lib or obj files: don't abort - keep validating all args.
+            ਜੇ (!i_lib)  // first file is the lib
                 i_lib = i;
-            else if (!i_obj)  // second file is the first obj
+            ਨਹੀਂਤਾਂ ਜੇ (!i_obj)  // second file is the first obj
                 i_obj = i;
         }
     }
 
-    if (!i_lib)  // i_obj implies also i_lib.
+    ਜੇ (!i_lib)  // i_obj implies also i_lib.
         ret = 1;
     i_obj = i_obj ? i_obj : argc;  // An empty archive will be generated if no input file is given
 
-    if (ret == 1)
-        return ar_usage(ret);
+    ਜੇ (ret == 1)
+        ਵਾਪਸ ar_usage(ret);
 
-    if (extract || table) {
-        if ((fh = fopen(argv[i_lib], "rb")) == NULL)
+    ਜੇ (ਕੱਢੋ_3 || ਸਾਰਣੀ) {
+        ਜੇ ((fh = fopen(argv[i_lib], "rb")) == ਨਿਰਾ)
         {
             fprintf(stderr, "tcc: ar: can't open file %s\n", argv[i_lib]);
-            goto finish;
+            ਜਾਓ ਅੰਤ_2;
         }
         fread(stmp, 1, 8, fh);
-	if (memcmp(stmp,ARMAG,8))
+	ਜੇ (memcmp(stmp,ARMAG,8))
 	{
 no_ar:
             fprintf(stderr, "tcc: ar: not an ar archive %s\n", argv[i_lib]);
-            goto finish;
+            ਜਾਓ ਅੰਤ_2;
 	}
-	while (fread(&arhdr, 1, sizeof(arhdr), fh) == sizeof(arhdr)) {
-	    char *p, *e;
+	ਜਦੋਂ (fread(&arhdr, 1, ਆਕਾਰ(arhdr), fh) == ਆਕਾਰ(arhdr)) {
+	    ਅੱਖਰ *p, *e;
 
-	    if (memcmp(arhdr.ar_fmag, ARFMAG, 2))
-		goto no_ar;
+	    ਜੇ (memcmp(arhdr.ar_fmag, ARFMAG, 2))
+		ਜਾਓ no_ar;
 	    p = arhdr.ar_name;
-	    for (e = p + sizeof arhdr.ar_name; e > p && e[-1] == ' ';)
+	    ਲਈ (e = p + ਆਕਾਰ arhdr.ar_name; e > p && e[-1] == ' ';)
 		e--;
 	    *e = '\0';
-	    arhdr.ar_size[sizeof arhdr.ar_size-1] = 0;
-	    fsize = atoi(arhdr.ar_size);
+	    arhdr.ar_ਮਾਪ[ਆਕਾਰ arhdr.ar_ਮਾਪ-1] = 0;
+	    fsize = atoi(arhdr.ar_ਮਾਪ);
 	    buf = tcc_malloc(fsize + 1);
 	    fread(buf, fsize, 1, fh);
-	    if (strcmp(arhdr.ar_name,"/") && strcmp(arhdr.ar_name,"/SYM64/")) {
-		if (e > p && e[-1] == '/')
+	    ਜੇ (strcmp(arhdr.ar_name,"/") && strcmp(arhdr.ar_name,"/SYM64/")) {
+		ਜੇ (e > p && e[-1] == '/')
 		    e[-1] = '\0';
 		/* tv not implemented */
-	        if (table || verbose)
-		    printf("%s%s\n", extract ? "x - " : "", arhdr.ar_name);
-		if (extract) {
-		    if ((fo = fopen(arhdr.ar_name, "wb")) == NULL)
+	        ਜੇ (ਸਾਰਣੀ || verbose)
+		    ਲਿਖੋ("%s%s\n", ਕੱਢੋ_3 ? "x - " : "", arhdr.ar_name);
+		ਜੇ (ਕੱਢੋ_3) {
+		    ਜੇ ((fo = fopen(arhdr.ar_name, "wb")) == ਨਿਰਾ)
 		    {
 			fprintf(stderr, "tcc: ar: can't create file %s\n",
 				arhdr.ar_name);
 		        tcc_free(buf);
-			goto finish;
+			ਜਾਓ ਅੰਤ_2;
 		    }
 		    fwrite(buf, fsize, 1, fo);
 		    fclose(fo);
 		    /* ignore date/uid/gid/mode */
 		}
 	    }
-            if (fsize & 1)
+            ਜੇ (fsize & 1)
                 fgetc(fh);
             tcc_free(buf);
 	}
 	ret = 0;
-finish:
-	if (fh)
+ਅੰਤ_2:
+	ਜੇ (fh)
 		fclose(fh);
-	return ret;
+	ਵਾਪਸ ret;
     }
 
-    if ((fh = fopen(argv[i_lib], "wb")) == NULL)
+    ਜੇ ((fh = fopen(argv[i_lib], "wb")) == ਨਿਰਾ)
     {
         fprintf(stderr, "tcc: ar: can't create file %s\n", argv[i_lib]);
-        goto the_end;
+        ਜਾਓ the_ਸਿਰਾ;
     }
     created_file = argv[i_lib];
 
     sprintf(tfile, "%s.tmp", argv[i_lib]);
-    if ((fo = fopen(tfile, "wb+")) == NULL)
+    ਜੇ ((fo = fopen(tfile, "wb+")) == ਨਿਰਾ)
     {
         fprintf(stderr, "tcc: ar: can't create temporary file %s\n", tfile);
-        goto the_end;
+        ਜਾਓ the_ਸਿਰਾ;
     }
 
     funcmax = 250;
-    afpos = tcc_realloc(NULL, funcmax * sizeof *afpos); // 250 func
-    memcpy(&arhdro.ar_mode, "100644", 6);
+    afpos = tcc_realloc(ਨਿਰਾ, funcmax * ਆਕਾਰ *afpos); // 250 func
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(&arhdro.ar_ਬਹੁਲਕ, "100644", 6);
 
     // i_obj = first input object file
-    while (i_obj < argc)
+    ਜਦੋਂ (i_obj < argc)
     {
-        if (*argv[i_obj] == '-') {  // by now, all options start with '-'
+        ਜੇ (*argv[i_obj] == '-') {  // by now, all options start with '-'
             i_obj++;
-            continue;
+            ਜਾਰੀ;
         }
-        if ((fi = fopen(argv[i_obj], "rb")) == NULL) {
+        ਜੇ ((fi = fopen(argv[i_obj], "rb")) == ਨਿਰਾ) {
             fprintf(stderr, "tcc: ar: can't open file %s \n", argv[i_obj]);
-            goto the_end;
+            ਜਾਓ the_ਸਿਰਾ;
         }
-        if (verbose)
-            printf("a - %s\n", argv[i_obj]);
+        ਜੇ (verbose)
+            ਲਿਖੋ("a - %s\n", argv[i_obj]);
 
         fseek(fi, 0, SEEK_END);
         fsize = ftell(fi);
@@ -214,43 +214,43 @@ finish:
 
         // elf header
         ehdr = (ElfW(Ehdr) *)buf;
-        if (ehdr->e_ident[4] != ELFCLASSW)
+        ਜੇ (ehdr->e_ident[4] != ELFCLASSW)
         {
             fprintf(stderr, "tcc: ar: Unsupported Elf Class: %s\n", argv[i_obj]);
-            goto the_end;
+            ਜਾਓ the_ਸਿਰਾ;
         }
 
         shdr = (ElfW(Shdr) *) (buf + ehdr->e_shoff + ehdr->e_shstrndx * ehdr->e_shentsize);
-        shstr = (char *)(buf + shdr->sh_offset);
-        symtab = strtab = NULL;
-        for (i = 0; i < ehdr->e_shnum; i++)
+        shstr = (ਅੱਖਰ *)(buf + shdr->sh_ਵਿੱਥ);
+        symtab = strtab = ਨਿਰਾ;
+        ਲਈ (i = 0; i < ehdr->e_shnum; i++)
         {
             shdr = (ElfW(Shdr) *) (buf + ehdr->e_shoff + i * ehdr->e_shentsize);
-            if (!shdr->sh_offset)
-                continue;
-            if (shdr->sh_type == SHT_SYMTAB)
+            ਜੇ (!shdr->sh_ਵਿੱਥ)
+                ਜਾਰੀ;
+            ਜੇ (shdr->sh_type == SHT_SYMTAB)
             {
-                symtab = (char *)(buf + shdr->sh_offset);
-                symtabsize = shdr->sh_size;
+                symtab = (ਅੱਖਰ *)(buf + shdr->sh_ਵਿੱਥ);
+                symtabsize = shdr->sh_ਮਾਪ;
             }
-            if (shdr->sh_type == SHT_STRTAB)
+            ਜੇ (shdr->sh_type == SHT_STRTAB)
             {
-                if (!strcmp(shstr + shdr->sh_name, ".strtab"))
+                ਜੇ (!strcmp(shstr + shdr->sh_name, ".strtab"))
                 {
-                    strtab = (char *)(buf + shdr->sh_offset);
+                    strtab = (ਅੱਖਰ *)(buf + shdr->sh_ਵਿੱਥ);
                     //strtabsize = shdr->sh_size;
                 }
             }
         }
 
-        if (symtab && strtab)
+        ਜੇ (symtab && strtab)
         {
-            int nsym = symtabsize / sizeof(ElfW(Sym));
+            ਪੂਰਨ nsym = symtabsize / ਆਕਾਰ(ElfW(Sym));
             //printf("symtab: info size shndx name\n");
-            for (i = 1; i < nsym; i++)
+            ਲਈ (i = 1; i < nsym; i++)
             {
-                sym = (ElfW(Sym) *) (symtab + i * sizeof(ElfW(Sym)));
-                if (sym->st_shndx &&
+                sym = (ElfW(Sym) *) (symtab + i * ਆਕਾਰ(ElfW(Sym)));
+                ਜੇ (sym->st_shndx &&
                     (sym->st_info == 0x10
                     || sym->st_info == 0x11
                     || sym->st_info == 0x12
@@ -259,13 +259,13 @@ finish:
                     || sym->st_info == 0x22
                     )) {
                     //printf("symtab: %2Xh %4Xh %2Xh %s\n", sym->st_info, sym->st_size, sym->st_shndx, strtab + sym->st_name);
-                    istrlen = strlen(strtab + sym->st_name)+1;
+                    istrlen = ਲੜੀ_ਲੰਬਾਈ(strtab + sym->st_name)+1;
                     anames = tcc_realloc(anames, strpos+istrlen);
                     strcpy(anames + strpos, strtab + sym->st_name);
                     strpos += istrlen;
-                    if (++funccnt >= funcmax) {
+                    ਜੇ (++funccnt >= funcmax) {
                         funcmax += 250;
-                        afpos = tcc_realloc(afpos, funcmax * sizeof *afpos); // 250 func more
+                        afpos = tcc_realloc(afpos, funcmax * ਆਕਾਰ *afpos); // 250 func more
                     }
                     afpos[funccnt] = fpos;
                 }
@@ -273,45 +273,45 @@ finish:
         }
 
         file = argv[i_obj];
-        for (name = strchr(file, 0);
+        ਲਈ (name = strchr(file, 0);
              name > file && name[-1] != '/' && name[-1] != '\\';
              --name);
-        istrlen = strlen(name);
-        if (istrlen >= sizeof(arhdro.ar_name))
-            istrlen = sizeof(arhdro.ar_name) - 1;
-        memset(arhdro.ar_name, ' ', sizeof(arhdro.ar_name));
-        memcpy(arhdro.ar_name, name, istrlen);
+        istrlen = ਲੜੀ_ਲੰਬਾਈ(name);
+        ਜੇ (istrlen >= ਆਕਾਰ(arhdro.ar_name))
+            istrlen = ਆਕਾਰ(arhdro.ar_name) - 1;
+        memset(arhdro.ar_name, ' ', ਆਕਾਰ(arhdro.ar_name));
+        ਸਮ੍ਰਿਤੀ_ਨਕਲ(arhdro.ar_name, name, istrlen);
         arhdro.ar_name[istrlen] = '/';
         sprintf(stmp, "%-10d", fsize);
-        memcpy(&arhdro.ar_size, stmp, 10);
-        fwrite(&arhdro, sizeof(arhdro), 1, fo);
+        ਸਮ੍ਰਿਤੀ_ਨਕਲ(&arhdro.ar_ਮਾਪ, stmp, 10);
+        fwrite(&arhdro, ਆਕਾਰ(arhdro), 1, fo);
         fwrite(buf, fsize, 1, fo);
         tcc_free(buf);
         i_obj++;
-        fpos += (fsize + sizeof(arhdro));
-        if (fpos & 1)
+        fpos += (fsize + ਆਕਾਰ(arhdro));
+        ਜੇ (fpos & 1)
             fputc(0, fo), ++fpos;
     }
-    hofs = 8 + sizeof(arhdr) + strpos + (funccnt+1) * sizeof(int);
+    hofs = 8 + ਆਕਾਰ(arhdr) + strpos + (funccnt+1) * ਆਕਾਰ(ਪੂਰਨ);
     fpos = 0;
-    if ((hofs & 1)) // align
+    ਜੇ ((hofs & 1)) // align
         hofs++, fpos = 1;
     // write header
     fwrite(ARMAG, 8, 1, fh);
     // create an empty archive
-    if (!funccnt) {
+    ਜੇ (!funccnt) {
         ret = 0;
-        goto the_end;
+        ਜਾਓ the_ਸਿਰਾ;
     }
-    sprintf(stmp, "%-10d", (int)(strpos + (funccnt+1) * sizeof(int)) + fpos);
-    memcpy(&arhdr.ar_size, stmp, 10);
-    fwrite(&arhdr, sizeof(arhdr), 1, fh);
+    sprintf(stmp, "%-10d", (ਪੂਰਨ)(strpos + (funccnt+1) * ਆਕਾਰ(ਪੂਰਨ)) + fpos);
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(&arhdr.ar_ਮਾਪ, stmp, 10);
+    fwrite(&arhdr, ਆਕਾਰ(arhdr), 1, fh);
     afpos[0] = le2belong(funccnt);
-    for (i=1; i<=funccnt; i++)
+    ਲਈ (i=1; i<=funccnt; i++)
         afpos[i] = le2belong(afpos[i] + hofs);
-    fwrite(afpos, (funccnt+1) * sizeof(int), 1, fh);
+    fwrite(afpos, (funccnt+1) * ਆਕਾਰ(ਪੂਰਨ), 1, fh);
     fwrite(anames, strpos, 1, fh);
-    if (fpos)
+    ਜੇ (fpos)
         fwrite("", 1, 1, fh);
     // write objects
     fseek(fo, 0, SEEK_END);
@@ -322,18 +322,18 @@ finish:
     fwrite(buf, fsize, 1, fh);
     tcc_free(buf);
     ret = 0;
-the_end:
-    if (anames)
+the_ਸਿਰਾ:
+    ਜੇ (anames)
         tcc_free(anames);
-    if (afpos)
+    ਜੇ (afpos)
         tcc_free(afpos);
-    if (fh)
+    ਜੇ (fh)
         fclose(fh);
-    if (created_file && ret != 0)
+    ਜੇ (created_file && ret != 0)
         remove(created_file);
-    if (fo)
+    ਜੇ (fo)
         fclose(fo), remove(tfile);
-    return ret;
+    ਵਾਪਸ ret;
 }
 
 /* -------------------------------------------------------------- */
@@ -358,109 +358,109 @@ the_end:
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifdef TCC_TARGET_PE
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
 
-ST_FUNC int tcc_tool_impdef(int argc, char **argv)
+ST_FUNC ਪੂਰਨ tcc_tool_impdef(ਪੂਰਨ argc, ਅੱਖਰ **argv)
 {
-    int ret, v, i;
-    char infile[260];
-    char outfile[260];
+    ਪੂਰਨ ret, v, i;
+    ਅੱਖਰ infile[260];
+    ਅੱਖਰ outfile[260];
 
-    const char *file;
-    char *p, *q;
+    ਅਚਲ ਅੱਖਰ *file;
+    ਅੱਖਰ *p, *q;
     FILE *fp, *op;
 
-#ifdef _WIN32
-    char path[260];
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _WIN32
+    ਅੱਖਰ ਰਸਤਾ[260];
+#ਜੇ_ਅੰਤ
 
     infile[0] = outfile[0] = 0;
-    fp = op = NULL;
+    fp = op = ਨਿਰਾ;
     ret = 1;
-    p = NULL;
+    p = ਨਿਰਾ;
     v = 0;
 
-    for (i = 1; i < argc; ++i) {
-        const char *a = argv[i];
-        if ('-' == a[0]) {
-            if (0 == strcmp(a, "-v")) {
+    ਲਈ (i = 1; i < argc; ++i) {
+        ਅਚਲ ਅੱਖਰ *a = argv[i];
+        ਜੇ ('-' == a[0]) {
+            ਜੇ (0 == strcmp(a, "-v")) {
                 v = 1;
-            } else if (0 == strcmp(a, "-o")) {
-                if (++i == argc)
-                    goto usage;
+            } ਨਹੀਂਤਾਂ ਜੇ (0 == strcmp(a, "-o")) {
+                ਜੇ (++i == argc)
+                    ਜਾਓ usage;
                 strcpy(outfile, argv[i]);
-            } else
-                goto usage;
-        } else if (0 == infile[0])
+            } ਨਹੀਂਤਾਂ
+                ਜਾਓ usage;
+        } ਨਹੀਂਤਾਂ ਜੇ (0 == infile[0])
             strcpy(infile, a);
-        else
-            goto usage;
+        ਨਹੀਂਤਾਂ
+            ਜਾਓ usage;
     }
 
-    if (0 == infile[0]) {
+    ਜੇ (0 == infile[0]) {
 usage:
         fprintf(stderr,
             "usage: tcc -impdef library.dll [-v] [-o outputfile]\n"
             "create export definition file (.def) from dll\n"
             );
-        goto the_end;
+        ਜਾਓ the_ਸਿਰਾ;
     }
 
-    if (0 == outfile[0]) {
+    ਜੇ (0 == outfile[0]) {
         strcpy(outfile, tcc_basename(infile));
         q = strrchr(outfile, '.');
-        if (NULL == q)
+        ਜੇ (ਨਿਰਾ == q)
             q = strchr(outfile, 0);
         strcpy(q, ".def");
     }
 
     file = infile;
-#ifdef _WIN32
-    if (SearchPath(NULL, file, ".dll", sizeof path, path, NULL))
-        file = path;
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _WIN32
+    ਜੇ (ਖੋਜ_ਰਸਤਾ(ਨਿਰਾ, file, ".dll", ਆਕਾਰ ਰਸਤਾ, ਰਸਤਾ, ਨਿਰਾ))
+        file = ਰਸਤਾ;
+#ਜੇ_ਅੰਤ
     ret = tcc_get_dllexports(file, &p);
-    if (ret || !p) {
+    ਜੇ (ret || !p) {
         fprintf(stderr, "tcc: impdef: %s '%s'\n",
             ret == -1 ? "can't find file" :
             ret ==  1 ? "can't read symbols" :
             ret ==  0 ? "no symbols found in" :
             "unknown file type", file);
         ret = 1;
-        goto the_end;
+        ਜਾਓ the_ਸਿਰਾ;
     }
 
-    if (v)
-        printf("-> %s\n", file);
+    ਜੇ (v)
+        ਲਿਖੋ("-> %s\n", file);
 
     op = fopen(outfile, "wb");
-    if (NULL == op) {
+    ਜੇ (ਨਿਰਾ == op) {
         fprintf(stderr, "tcc: impdef: could not create output file: %s\n", outfile);
-        goto the_end;
+        ਜਾਓ the_ਸਿਰਾ;
     }
 
     fprintf(op, "LIBRARY %s\n\nEXPORTS\n", tcc_basename(file));
-    for (q = p, i = 0; *q; ++i) {
+    ਲਈ (q = p, i = 0; *q; ++i) {
         fprintf(op, "%s\n", q);
-        q += strlen(q) + 1;
+        q += ਲੜੀ_ਲੰਬਾਈ(q) + 1;
     }
 
-    if (v)
-        printf("<- %s (%d symbol%s)\n", outfile, i, &"s"[i<2]);
+    ਜੇ (v)
+        ਲਿਖੋ("<- %s (%d symbol%s)\n", outfile, i, &"s"[i<2]);
 
     ret = 0;
 
-the_end:
-    if (p)
+the_ਸਿਰਾ:
+    ਜੇ (p)
         tcc_free(p);
-    if (fp)
+    ਜੇ (fp)
         fclose(fp);
-    if (op)
+    ਜੇ (op)
         fclose(op);
-    return ret;
+    ਵਾਪਸ ret;
 }
 
-#endif /* TCC_TARGET_PE */
+#ਜੇ_ਅੰਤ /* TCC_TARGET_PE */
 
 /* -------------------------------------------------------------- */
 /*
@@ -485,17 +485,17 @@ the_end:
 
 /* re-execute the i386/x86_64 cross-compilers with tcc -m32/-m64: */
 
-#if !defined TCC_TARGET_I386 && !defined TCC_TARGET_X86_64
+#ਜੇ !defined TCC_ਨਿਸ਼ਾਨਾ_I386 && !defined TCC_ਨਿਸ਼ਾਨਾ_X86_64
 
-ST_FUNC int tcc_tool_cross(char **argv, int option)
+ST_FUNC ਪੂਰਨ tcc_tool_cross(ਅੱਖਰ **argv, ਪੂਰਨ option)
 {
     fprintf(stderr, "tcc -m%d not implemented\n", option);
-    return 1;
+    ਵਾਪਸ 1;
 }
 
-#else
-#ifdef _WIN32
-#include <process.h>
+#ਨਹੀਂਤਾਂ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _WIN32
+#ਅਨ੍ਤਰ੍ਭਾਵ <process.h>
 
 /* - Empty argument or with space/tab (not newline) requires quoting.
  * - Double-quotes at the value require '\'-escape, regardless of quoting.
@@ -507,145 +507,145 @@ ST_FUNC int tcc_tool_cross(char **argv, int option)
  *
  * https://learn.microsoft.com/en-us/cpp/c-language/parsing-c-command-line-arguments
  */
-static char *quote_win32(const char *s)
+ਸਥਿਰ ਅੱਖਰ *quote_win32(ਅਚਲ ਅੱਖਰ *s)
 {
-    char *o, *r = tcc_malloc(2 * strlen(s) + 3);   /* max-esc, quotes, \0 */
-    int cbs = 0, quoted = !*s;  /* consecutive backslashes before current */
+    ਅੱਖਰ *o, *r = tcc_malloc(2 * ਲੜੀ_ਲੰਬਾਈ(s) + 3);   /* max-esc, quotes, \0 */
+    ਪੂਰਨ cbs = 0, quoted = !*s;  /* consecutive backslashes before current */
 
-    for (o = r; *s; *o++ = *s++) {
+    ਲਈ (o = r; *s; *o++ = *s++) {
         quoted |= *s == ' ' || *s == '\t';
-        if (*s == '\\' || *s == '"')
+        ਜੇ (*s == '\\' || *s == '"')
             *o++ = '\\';
-        else
+        ਨਹੀਂਤਾਂ
             o -= cbs;  /* undo cbs escapes, if any (not followed by DQ) */
         cbs = *s == '\\' ? cbs + 1 : 0;
     }
-    if (quoted) {
+    ਜੇ (quoted) {
         memmove(r + 1, r, o++ - r);
         *r = *o++ = '"';
-    } else {
+    } ਨਹੀਂਤਾਂ {
         o -= cbs;
     }
 
     *o = 0;
-    return r; /* don't bother with realloc(r, o-r+1) */
+    ਵਾਪਸ r; /* don't bother with realloc(r, o-r+1) */
 }
 
-static int execvp_win32(const char *prog, char **argv)
+ਸਥਿਰ ਪੂਰਨ execvp_win32(ਅਚਲ ਅੱਖਰ *prog, ਅੱਖਰ **argv)
 {
-    int ret; char **p;
+    ਪੂਰਨ ret; ਅੱਖਰ **p;
     /* replace all " by \" */
-    for (p = argv; *p; ++p)
+    ਲਈ (p = argv; *p; ++p)
         *p = quote_win32(*p);
-    ret = _spawnvp(P_NOWAIT, prog, (const char *const*)argv);
-    if (-1 == ret)
-        return ret;
-    _cwait(&ret, ret, WAIT_CHILD);
-    exit(ret);
+    ret = _spawnvp(P_NOWAIT, prog, (ਅਚਲ ਅੱਖਰ *ਅਚਲ*)argv);
+    ਜੇ (-1 == ret)
+        ਵਾਪਸ ret;
+    _cwait(&ret, ret, WAIT_ਬੱਚਾ);
+    ਬਾਹਰ_ਨਿਕਲੋ(ret);
 }
-#define execvp execvp_win32
-#endif /* _WIN32 */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ execvp execvp_win32
+#ਜੇ_ਅੰਤ /* _WIN32 */
 
-ST_FUNC int tcc_tool_cross(char **argv, int target)
+ST_FUNC ਪੂਰਨ tcc_tool_cross(ਅੱਖਰ **argv, ਪੂਰਨ ਨਿਸ਼ਾਨਾ)
 {
-    char program[4096];
-    char *a0 = argv[0];
-    int prefix = tcc_basename(a0) - a0;
+    ਅੱਖਰ ਪ੍ਰੋਗਰਾਮ[4096];
+    ਅੱਖਰ *a0 = argv[0];
+    ਪੂਰਨ ਅਗੇਤਰ = tcc_basename(a0) - a0;
 
-    snprintf(program, sizeof program,
+    snprintf(ਪ੍ਰੋਗਰਾਮ, ਆਕਾਰ ਪ੍ਰੋਗਰਾਮ,
         "%.*s%s"
-#ifdef TCC_TARGET_PE
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
         "-win32"
-#endif
+#ਜੇ_ਅੰਤ
         "-tcc"
-#ifdef _WIN32
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _WIN32
         ".exe"
-#endif
-        , prefix, a0, target == 64 ? "x86_64" : "i386");
+#ਜੇ_ਅੰਤ
+        , ਅਗੇਤਰ, a0, ਨਿਸ਼ਾਨਾ == 64 ? "x86_64" : "i386");
 
-    if (strcmp(a0, program))
-        execvp(argv[0] = program, argv);
-    fprintf(stderr, "tcc: could not run '%s'\n", program);
-    return 1;
+    ਜੇ (strcmp(a0, ਪ੍ਰੋਗਰਾਮ))
+        execvp(argv[0] = ਪ੍ਰੋਗਰਾਮ, argv);
+    fprintf(stderr, "tcc: could not run '%s'\n", ਪ੍ਰੋਗਰਾਮ);
+    ਵਾਪਸ 1;
 }
 
-#endif /* TCC_TARGET_I386 && TCC_TARGET_X86_64 */
+#ਜੇ_ਅੰਤ /* TCC_TARGET_I386 && TCC_TARGET_X86_64 */
 /* -------------------------------------------------------------- */
 /* enable commandline wildcard expansion (tcc -o x.exe *.c) */
 
-#ifdef _WIN32
-const int _CRT_glob = 1;
-#ifndef _CRT_glob
-const int _dowildcard = 1;
-#endif
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _WIN32
+ਅਚਲ ਪੂਰਨ _CRT_glob = 1;
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_glob
+ਅਚਲ ਪੂਰਨ _dowildcard = 1;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
 /* -------------------------------------------------------------- */
 /* generate xxx.d file */
 
-static char *escape_target_dep(const char *s) {
-    char *res = tcc_malloc(strlen(s) * 2 + 1);
-    int j;
-    for (j = 0; *s; s++, j++) {
-        if (is_space(*s)) {
+ਸਥਿਰ ਅੱਖਰ *escape_ਨਿਸ਼ਾਨਾ_dep(ਅਚਲ ਅੱਖਰ *s) {
+    ਅੱਖਰ *res = tcc_malloc(ਲੜੀ_ਲੰਬਾਈ(s) * 2 + 1);
+    ਪੂਰਨ j;
+    ਲਈ (j = 0; *s; s++, j++) {
+        ਜੇ (is_space(*s)) {
             res[j++] = '\\';
         }
         res[j] = *s;
     }
     res[j] = '\0';
-    return res;
+    ਵਾਪਸ res;
 }
 
-ST_FUNC int gen_makedeps(TCCState *s1, const char *target, const char *filename)
+ST_FUNC ਪੂਰਨ gen_makedeps(TCCState *s1, ਅਚਲ ਅੱਖਰ *ਨਿਸ਼ਾਨਾ, ਅਚਲ ਅੱਖਰ *filename)
 {
     FILE *depout;
-    char buf[1024];
-    char **escaped_targets;
-    int i, k, num_targets;
+    ਅੱਖਰ buf[1024];
+    ਅੱਖਰ **escaped_targets;
+    ਪੂਰਨ i, k, ਅੰਕ_targets;
 
-    if (!filename) {
+    ਜੇ (!filename) {
         /* compute filename automatically: dir/file.o -> dir/file.d */
-        snprintf(buf, sizeof buf, "%.*s.d",
-            (int)(tcc_fileextension(target) - target), target);
+        snprintf(buf, ਆਕਾਰ buf, "%.*s.d",
+            (ਪੂਰਨ)(tcc_fileextension(ਨਿਸ਼ਾਨਾ) - ਨਿਸ਼ਾਨਾ), ਨਿਸ਼ਾਨਾ);
         filename = buf;
     }
 
-    if(!strcmp(filename, "-"))
+    ਜੇ(!strcmp(filename, "-"))
         depout = fdopen(1, "w");
-    else
+    ਨਹੀਂਤਾਂ
         /* XXX return err codes instead of error() ? */
         depout = fopen(filename, "w");
-    if (!depout)
-        return tcc_error_noabort("could not open '%s'", filename);
-    if (s1->verbose)
-        printf("<- %s\n", filename);
+    ਜੇ (!depout)
+        ਵਾਪਸ tcc_error_noabort("could not open '%s'", filename);
+    ਜੇ (s1->verbose)
+        ਲਿਖੋ("<- %s\n", filename);
 
-    escaped_targets = tcc_malloc(s1->nb_target_deps * sizeof(*escaped_targets));
-    num_targets = 0;
-    for (i = 0; i<s1->nb_target_deps; ++i) {
-        for (k = 0; k < i; ++k)
-            if (0 == strcmp(s1->target_deps[i], s1->target_deps[k]))
-                goto next;
-        escaped_targets[num_targets++] = escape_target_dep(s1->target_deps[i]);
-    next:;
+    escaped_targets = tcc_malloc(s1->nb_ਨਿਸ਼ਾਨਾ_deps * ਆਕਾਰ(*escaped_targets));
+    ਅੰਕ_targets = 0;
+    ਲਈ (i = 0; i<s1->nb_ਨਿਸ਼ਾਨਾ_deps; ++i) {
+        ਲਈ (k = 0; k < i; ++k)
+            ਜੇ (0 == strcmp(s1->ਨਿਸ਼ਾਨਾ_deps[i], s1->ਨਿਸ਼ਾਨਾ_deps[k]))
+                ਜਾਓ ਅਗਲਾ;
+        escaped_targets[ਅੰਕ_targets++] = escape_ਨਿਸ਼ਾਨਾ_dep(s1->ਨਿਸ਼ਾਨਾ_deps[i]);
+    ਅਗਲਾ:;
     }
 
-    fprintf(depout, "%s:", target);
-    for (i = 0; i < num_targets; ++i)
+    fprintf(depout, "%s:", ਨਿਸ਼ਾਨਾ);
+    ਲਈ (i = 0; i < ਅੰਕ_targets; ++i)
         fprintf(depout, " \\\n  %s", escaped_targets[i]);
     fprintf(depout, "\n");
-    if (s1->gen_phony_deps) {
+    ਜੇ (s1->gen_phony_deps) {
         /* Skip first file, which is the c file.
          * Only works for single file give on command-line,
          * but other compilers have the same limitation */
-        for (i = 1; i < num_targets; ++i)
+        ਲਈ (i = 1; i < ਅੰਕ_targets; ++i)
             fprintf(depout, "%s:\n", escaped_targets[i]);
     }
-    for (i = 0; i < num_targets; ++i)
+    ਲਈ (i = 0; i < ਅੰਕ_targets; ++i)
         tcc_free(escaped_targets[i]);
     tcc_free(escaped_targets);
     fclose(depout);
-    return 0;
+    ਵਾਪਸ 0;
 }
 
 /* -------------------------------------------------------------- */

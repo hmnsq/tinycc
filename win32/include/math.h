@@ -3,229 +3,229 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _MATH_H_
-#define _MATH_H_
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _MATH_H_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _MATH_H_
 
-#if __GNUC__ >= 3
-#pragma GCC system_header
-#endif
+#ਜੇ __GNUC__ >= 3
+#ਹਦਾਇਤ GCC system_ਸਿਰਲੇਖ
+#ਜੇ_ਅੰਤ
 
-#include <_mingw.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <_mingw.h>
 
-struct exception;
+ਬਣਤਰ exception;
 
-#pragma pack(push,_CRT_PACKING)
+#ਹਦਾਇਤ pack(ਧੱਕੋ,_CRT_PACKING)
 
-#define _DOMAIN 1
-#define _SING 2
-#define _OVERFLOW 3
-#define _UNDERFLOW 4
-#define _TLOSS 5
-#define _PLOSS 6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _DOMAIN 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _SING 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਉਛਾਲ 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _UNDERFLOW 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _TLOSS 5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _PLOSS 6
 
-#ifndef __STRICT_ANSI__
-#ifndef	NO_OLDNAMES
-#define DOMAIN _DOMAIN
-#define SING _SING
-#define OVERFLOW _OVERFLOW
-#define UNDERFLOW _UNDERFLOW
-#define TLOSS _TLOSS
-#define PLOSS _PLOSS
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __STRICT_ANSI__
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ	NO_OLDNAMES
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DOMAIN _DOMAIN
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SING _SING
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਉਛਾਲ_2 ਉਛਾਲ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ UNDERFLOW _UNDERFLOW
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ TLOSS _TLOSS
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ PLOSS _PLOSS
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef __STRICT_ANSI__
-#define M_E 2.71828182845904523536
-#define M_LOG2E 1.44269504088896340736
-#define M_LOG10E 0.434294481903251827651
-#define M_LN2 0.693147180559945309417
-#define M_LN10 2.30258509299404568402
-#define M_PI 3.14159265358979323846
-#define M_PI_2 1.57079632679489661923
-#define M_PI_4 0.785398163397448309616
-#define M_1_PI 0.318309886183790671538
-#define M_2_PI 0.636619772367581343076
-#define M_2_SQRTPI 1.12837916709551257390
-#define M_SQRT2 1.41421356237309504880
-#define M_SQRT1_2 0.707106781186547524401
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __STRICT_ANSI__
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_E 2.71828182845904523536
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_LOG2E 1.44269504088896340736
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_LOG10E 0.434294481903251827651
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_LN2 0.693147180559945309417
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_LN10 2.30258509299404568402
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_PI 3.14159265358979323846
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_PI_2 1.57079632679489661923
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_PI_4 0.785398163397448309616
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_1_PI 0.318309886183790671538
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_2_PI 0.636619772367581343076
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_2_SQRTPI 1.12837916709551257390
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_SQRT2 1.41421356237309504880
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ M_SQRT1_2 0.707106781186547524401
+#ਜੇ_ਅੰਤ
 
-#ifndef __STRICT_ANSI__
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __STRICT_ANSI__
 /* See also float.h  */
-#ifndef __MINGW_FPCLASS_DEFINED
-#define __MINGW_FPCLASS_DEFINED 1
-#define	_FPCLASS_SNAN	0x0001	/* Signaling "Not a Number" */
-#define	_FPCLASS_QNAN	0x0002	/* Quiet "Not a Number" */
-#define	_FPCLASS_NINF	0x0004	/* Negative Infinity */
-#define	_FPCLASS_NN	0x0008	/* Negative Normal */
-#define	_FPCLASS_ND	0x0010	/* Negative Denormal */
-#define	_FPCLASS_NZ	0x0020	/* Negative Zero */
-#define	_FPCLASS_PZ	0x0040	/* Positive Zero */
-#define	_FPCLASS_PD	0x0080	/* Positive Denormal */
-#define	_FPCLASS_PN	0x0100	/* Positive Normal */
-#define	_FPCLASS_PINF	0x0200	/* Positive Infinity */
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __MINGW_FPCLASS_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __MINGW_FPCLASS_DEFINED 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	_FPCLASS_SNAN	0x0001	/* Signaling "Not a Number" */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	_FPCLASS_QNAN	0x0002	/* Quiet "Not a Number" */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	_FPCLASS_NINF	0x0004	/* Negative Infinity */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	_FPCLASS_NN	0x0008	/* Negative Normal */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	_FPCLASS_ND	0x0010	/* Negative Denormal */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	_FPCLASS_NZ	0x0020	/* Negative Zero */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	_FPCLASS_PZ	0x0040	/* Positive Zero */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	_FPCLASS_PD	0x0080	/* Positive Denormal */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	_FPCLASS_PN	0x0100	/* Positive Normal */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	_FPCLASS_PINF	0x0200	/* Positive Infinity */
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#ifndef _EXCEPTION_DEFINED
-#define _EXCEPTION_DEFINED
-  struct _exception {
-    int type;
-    char *name;
-    double arg1;
-    double arg2;
-    double retval;
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _EXCEPTION_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _EXCEPTION_DEFINED
+  ਬਣਤਰ _exception {
+    ਪੂਰਨ type;
+    ਅੱਖਰ *name;
+    ਦੁੱਗਣਾ arg1;
+    ਦੁੱਗਣਾ arg2;
+    ਦੁੱਗਣਾ retval;
   };
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef _COMPLEX_DEFINED
-#define _COMPLEX_DEFINED
-  struct _complex {
-    double x,y;
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _COMPLEX_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _COMPLEX_DEFINED
+  ਬਣਤਰ _complex {
+    ਦੁੱਗਣਾ x,y;
   };
-#endif
+#ਜੇ_ਅੰਤ
 
-#define EDOM 33
-#define ERANGE 34
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EDOM 33
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ERANGE 34
 
-#ifndef _HUGE
-#ifdef _MSVCRT_
-  extern double *_HUGE;
-#else
-  extern double *_imp___HUGE;
-#define _HUGE	(*_imp___HUGE)
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _HUGE
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਦੁੱਗਣਾ *_HUGE;
+#ਨਹੀਂਤਾਂ
+  ਬਾਹਰੀ ਦੁੱਗਣਾ *_imp___HUGE;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _HUGE	(*_imp___HUGE)
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define HUGE_VAL _HUGE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HUGE_VAL _HUGE
 
-#ifndef _CRT_ABS_DEFINED
-#define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
-  long __cdecl labs(long _X);
-#endif
-  double __cdecl acos(double _X);
-  double __cdecl asin(double _X);
-  double __cdecl atan(double _X);
-  double __cdecl atan2(double _Y,double _X);
-#ifndef _SIGN_DEFINED
-#define _SIGN_DEFINED
-  _CRTIMP double __cdecl _copysign (double _Number,double _Sign);
-  _CRTIMP double __cdecl _chgsign (double _X);
-#endif
-  double __cdecl cos(double _X);
-  double __cdecl cosh(double _X);
-  double __cdecl exp(double _X);
-  double __cdecl expm1(double _X);
-  double __cdecl fabs(double _X);
-  double __cdecl fmod(double _X,double _Y);
-  double __cdecl log(double _X);
-  double __cdecl log10(double _X);
-  double __cdecl pow(double _X,double _Y);
-  double __cdecl sin(double _X);
-  double __cdecl sinh(double _X);
-  double __cdecl tan(double _X);
-  double __cdecl tanh(double _X);
-  double __cdecl sqrt(double _X);
-#ifndef _CRT_ATOF_DEFINED
-#define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_ABS_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_ABS_DEFINED
+  ਪੂਰਨ __cdecl ਨਿਰਪੇਖ(ਪੂਰਨ _X);
+  ਲੰਮਾ __cdecl labs(ਲੰਮਾ _X);
+#ਜੇ_ਅੰਤ
+  ਦੁੱਗਣਾ __cdecl acos(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl asin(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl atan(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl atan2(ਦੁੱਗਣਾ _Y,ਦੁੱਗਣਾ _X);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _SIGN_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _SIGN_DEFINED
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _copysign (ਦੁੱਗਣਾ ਸੰਖਿਆ,ਦੁੱਗਣਾ _Sign);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _chgsign (ਦੁੱਗਣਾ _X);
+#ਜੇ_ਅੰਤ
+  ਦੁੱਗਣਾ __cdecl ਕੋਜੀਵਾ(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl cosh(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl ਘਾਤਾਂਕ(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl expm1(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl fabs(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl fmod(ਦੁੱਗਣਾ _X,ਦੁੱਗਣਾ _Y);
+  ਦੁੱਗਣਾ __cdecl ਲਘੂਗਣਕ(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl log10(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl ਘਾਤ(ਦੁੱਗਣਾ _X,ਦੁੱਗਣਾ _Y);
+  ਦੁੱਗਣਾ __cdecl ਜੀਵਾ(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl sinh(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl tan(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl tanh(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl ਵਰਗਮੂਲ(ਦੁੱਗਣਾ _X);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_ATOF_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_ATOF_DEFINED
+  ਦੁੱਗਣਾ __cdecl atof(ਅਚਲ ਅੱਖਰ *_String);
+  ਦੁੱਗਣਾ __cdecl _atof_l(ਅਚਲ ਅੱਖਰ *_String,_locale_t _Locale);
+#ਜੇ_ਅੰਤ
 
-  _CRTIMP double __cdecl _cabs(struct _complex _ComplexA);
-  double __cdecl ceil(double _X);
-  double __cdecl floor(double _X);
-  double __cdecl frexp(double _X,int *_Y);
-  double __cdecl _hypot(double _X,double _Y);
-  _CRTIMP double __cdecl _j0(double _X);
-  _CRTIMP double __cdecl _j1(double _X);
-  _CRTIMP double __cdecl _jn(int _X,double _Y);
-  double __cdecl ldexp(double _X,int _Y);
-#ifndef _CRT_MATHERR_DEFINED
-#define _CRT_MATHERR_DEFINED
-  int __cdecl _matherr(struct _exception *_Except);
-#endif
-  double __cdecl modf(double _X,double *_Y);
-  _CRTIMP double __cdecl _y0(double _X);
-  _CRTIMP double __cdecl _y1(double _X);
-  _CRTIMP double __cdecl _yn(int _X,double _Y);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _cabs(ਬਣਤਰ _complex _ComplexA);
+  ਦੁੱਗਣਾ __cdecl ceil(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl floor(ਦੁੱਗਣਾ _X);
+  ਦੁੱਗਣਾ __cdecl frexp(ਦੁੱਗਣਾ _X,ਪੂਰਨ *_Y);
+  ਦੁੱਗਣਾ __cdecl _hypot(ਦੁੱਗਣਾ _X,ਦੁੱਗਣਾ _Y);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _j0(ਦੁੱਗਣਾ _X);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _j1(ਦੁੱਗਣਾ _X);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _jn(ਪੂਰਨ _X,ਦੁੱਗਣਾ _Y);
+  ਦੁੱਗਣਾ __cdecl ldexp(ਦੁੱਗਣਾ _X,ਪੂਰਨ _Y);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_MATHERR_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_MATHERR_DEFINED
+  ਪੂਰਨ __cdecl _matherr(ਬਣਤਰ _exception *_Except);
+#ਜੇ_ਅੰਤ
+  ਦੁੱਗਣਾ __cdecl modf(ਦੁੱਗਣਾ _X,ਦੁੱਗਣਾ *_Y);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _y0(ਦੁੱਗਣਾ _X);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _y1(ਦੁੱਗਣਾ _X);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _yn(ਪੂਰਨ _X,ਦੁੱਗਣਾ _Y);
 
-#if(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _set_SSE2_enable(int _Flag);
+#ਜੇ(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP ਪੂਰਨ __cdecl ਸੈੱਟ_SSE2_enable(ਪੂਰਨ _Flag);
   /* from libmingwex */
-  float __cdecl _hypotf(float _X,float _Y);
-#endif
+  ਦਸ਼ਮਲਵ __cdecl _hypotf(ਦਸ਼ਮਲਵ _X,ਦਸ਼ਮਲਵ _Y);
+#ਜੇ_ਅੰਤ
 
-  float frexpf(float _X,int *_Y);
-  float __cdecl ldexpf(float _X,int _Y);
-  long double __cdecl ldexpl(long double _X,int _Y);
-  float __cdecl acosf(float _X);
-  float __cdecl asinf(float _X);
-   float __cdecl atanf(float _X);
-   float __cdecl atan2f(float _X,float _Y);
-   float __cdecl cosf(float _X);
-   float __cdecl sinf(float _X);
-   float __cdecl tanf(float _X);
-   float __cdecl coshf(float _X);
-   float __cdecl sinhf(float _X);
-   float __cdecl tanhf(float _X);
-   float __cdecl expf(float _X);
-   float __cdecl expm1f(float _X);
-   float __cdecl logf(float _X);
-   float __cdecl log10f(float _X);
-   float __cdecl modff(float _X,float *_Y);
-   float __cdecl powf(float _X,float _Y);
-   float __cdecl sqrtf(float _X);
-   float __cdecl ceilf(float _X);
-   float __cdecl floorf(float _X);
-  float __cdecl fmodf(float _X,float _Y);
-   float __cdecl _hypotf(float _X,float _Y);
-  float __cdecl fabsf(float _X);
-#if !defined(__ia64__)
+  ਦਸ਼ਮਲਵ frexpf(ਦਸ਼ਮਲਵ _X,ਪੂਰਨ *_Y);
+  ਦਸ਼ਮਲਵ __cdecl ldexpf(ਦਸ਼ਮਲਵ _X,ਪੂਰਨ _Y);
+  ਲੰਮਾ ਦੁੱਗਣਾ __cdecl ldexpl(ਲੰਮਾ ਦੁੱਗਣਾ _X,ਪੂਰਨ _Y);
+  ਦਸ਼ਮਲਵ __cdecl acosf(ਦਸ਼ਮਲਵ _X);
+  ਦਸ਼ਮਲਵ __cdecl asinf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl atanf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl atan2f(ਦਸ਼ਮਲਵ _X,ਦਸ਼ਮਲਵ _Y);
+   ਦਸ਼ਮਲਵ __cdecl cosf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl sinf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl tanf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl coshf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl sinhf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl tanhf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl expf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl expm1f(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl logf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl log10f(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl modff(ਦਸ਼ਮਲਵ _X,ਦਸ਼ਮਲਵ *_Y);
+   ਦਸ਼ਮਲਵ __cdecl powf(ਦਸ਼ਮਲਵ _X,ਦਸ਼ਮਲਵ _Y);
+   ਦਸ਼ਮਲਵ __cdecl sqrtf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl ceilf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl floorf(ਦਸ਼ਮਲਵ _X);
+  ਦਸ਼ਮਲਵ __cdecl fmodf(ਦਸ਼ਮਲਵ _X,ਦਸ਼ਮਲਵ _Y);
+   ਦਸ਼ਮਲਵ __cdecl _hypotf(ਦਸ਼ਮਲਵ _X,ਦਸ਼ਮਲਵ _Y);
+  ਦਸ਼ਮਲਵ __cdecl fabsf(ਦਸ਼ਮਲਵ _X);
+#ਜੇ !defined(__ia64__)
    /* from libmingwex */
-   float __cdecl _copysignf (float _Number,float _Sign);
-   float __cdecl _chgsignf (float _X);
-   float __cdecl _logbf(float _X);
-   float __cdecl _nextafterf(float _X,float _Y);
-   int __cdecl _finitef(float _X);
-   int __cdecl _isnanf(float _X);
-   int __cdecl _fpclassf(float _X);
-#endif
+   ਦਸ਼ਮਲਵ __cdecl _copysignf (ਦਸ਼ਮਲਵ ਸੰਖਿਆ,ਦਸ਼ਮਲਵ _Sign);
+   ਦਸ਼ਮਲਵ __cdecl _chgsignf (ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl _logbf(ਦਸ਼ਮਲਵ _X);
+   ਦਸ਼ਮਲਵ __cdecl _nextafterf(ਦਸ਼ਮਲਵ _X,ਦਸ਼ਮਲਵ _Y);
+   ਪੂਰਨ __cdecl _finitef(ਦਸ਼ਮਲਵ _X);
+   ਪੂਰਨ __cdecl _isnanf(ਦਸ਼ਮਲਵ _X);
+   ਪੂਰਨ __cdecl _fpclassf(ਦਸ਼ਮਲਵ _X);
+#ਜੇ_ਅੰਤ
 
-#ifndef	NO_OLDNAMES
-#define matherr _matherr
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ	NO_OLDNAMES
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ matherr _matherr
 
-#define HUGE	_HUGE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HUGE	_HUGE
   /*	double __cdecl cabs(struct _complex _X); */
-  double __cdecl hypot(double _X,double _Y);
-  _CRTIMP double __cdecl j0(double _X);
-  _CRTIMP double __cdecl j1(double _X);
-  _CRTIMP double __cdecl jn(int _X,double _Y);
-  _CRTIMP double __cdecl y0(double _X);
-  _CRTIMP double __cdecl y1(double _X);
-  _CRTIMP double __cdecl yn(int _X,double _Y);
-#endif
+  ਦੁੱਗਣਾ __cdecl hypot(ਦੁੱਗਣਾ _X,ਦੁੱਗਣਾ _Y);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl j0(ਦੁੱਗਣਾ _X);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl j1(ਦੁੱਗਣਾ _X);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl jn(ਪੂਰਨ _X,ਦੁੱਗਣਾ _Y);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl y0(ਦੁੱਗਣਾ _X);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl y1(ਦੁੱਗਣਾ _X);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl yn(ਪੂਰਨ _X,ਦੁੱਗਣਾ _Y);
+#ਜੇ_ਅੰਤ
 
-#ifndef __NO_ISOCEXT
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __NO_ISOCEXT
+#ਜੇ (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
   || !defined __STRICT_ANSI__ || defined __GLIBCPP__
 
-#define NAN (0.0F/0.0F)
-#define HUGE_VALF (1.0F/0.0F)
-#define HUGE_VALL (1.0L/0.0L)
-#define INFINITY (1.0F/0.0F)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NAN (0.0F/0.0F)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HUGE_VALF (1.0F/0.0F)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ HUGE_VALL (1.0L/0.0L)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INFINITY (1.0F/0.0F)
 
 
-#define FP_NAN		0x0100
-#define FP_NORMAL	0x0400
-#define FP_INFINITE	(FP_NAN | FP_NORMAL)
-#define FP_ZERO		0x4000
-#define FP_SUBNORMAL	(FP_NORMAL | FP_ZERO)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FP_NAN		0x0100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FP_NORMAL	0x0400
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FP_INFINITE	(FP_NAN | FP_NORMAL)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FP_ZERO		0x4000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FP_SUBNORMAL	(FP_NORMAL | FP_ZERO)
   /* 0x0200 is signbit mask */
 
 
@@ -236,220 +236,220 @@ extern "C" {
   converted to double, and zero when converted to float.)
   */
 
-  extern int __cdecl __fpclassifyf (float);
-  extern int __cdecl __fpclassify (double);
-  extern int __cdecl __fpclassifyl (long double);
+  ਬਾਹਰੀ ਪੂਰਨ __cdecl __fpclassifyf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਪੂਰਨ __cdecl __fpclassify (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਪੂਰਨ __cdecl __fpclassifyl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
 /* Implemented at tcc/tcc_libm.h
 #define fpclassify(x) (sizeof (x) == sizeof (float) ? __fpclassifyf (x)	  \
   : sizeof (x) == sizeof (double) ? __fpclassify (x) \
   : __fpclassifyl (x))
 */
-#define fpclassify(x) \
-  _Generic(x, float: __fpclassifyf, double: __fpclassify, long double: __fpclassifyl)(x)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ fpclassify(x) \
+  _Generic(x, ਦਸ਼ਮਲਵ: __fpclassifyf, ਦੁੱਗਣਾ: __fpclassify, ਲੰਮਾ ਦੁੱਗਣਾ: __fpclassifyl)(x)
 
   /* 7.12.3.2 */
-#define isfinite(x) ((fpclassify(x) & FP_NAN) == 0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ isfinite(x) ((fpclassify(x) & FP_NAN) == 0)
 
   /* 7.12.3.3 */
-#define isinf(x) (fpclassify(x) == FP_INFINITE)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ isinf(x) (fpclassify(x) == FP_INFINITE)
 
   /* 7.12.3.4 */
   /* We don't need to worry about truncation here:
   A NaN stays a NaN. */
-#define isnan(x) (fpclassify(x) == FP_NAN)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ isnan(x) (fpclassify(x) == FP_NAN)
 
   /* 7.12.3.5 */
-#define isnormal(x) (fpclassify(x) == FP_NORMAL)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ isnormal(x) (fpclassify(x) == FP_NORMAL)
 
   /* 7.12.3.6 The signbit macro */
 
-  extern int __cdecl __signbitf (float);
-  extern int __cdecl __signbit (double);
-  extern int __cdecl __signbitl (long double);
+  ਬਾਹਰੀ ਪੂਰਨ __cdecl __signbitf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਪੂਰਨ __cdecl __signbit (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਪੂਰਨ __cdecl __signbitl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
 /* Implemented at tcc/tcc_libm.h
 #define signbit(x) (sizeof (x) == sizeof (float) ? __signbitf (x)	\
   : sizeof (x) == sizeof (double) ? __signbit (x)	\
   : __signbitl (x))
 */
-#define signbit(x) \
-  _Generic(x, float: __signbitf, double: __signbit, long double: __signbitl)(x)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ signbit(x) \
+  _Generic(x, ਦਸ਼ਮਲਵ: __signbitf, ਦੁੱਗਣਾ: __signbit, ਲੰਮਾ ਦੁੱਗਣਾ: __signbitl)(x)
 
-  extern double __cdecl exp2(double);
-  extern float __cdecl exp2f(float);
-  extern long double __cdecl exp2l(long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl exp2(ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl exp2f(ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl exp2l(ਲੰਮਾ ਦੁੱਗਣਾ);
 
-#define FP_ILOGB0 ((int)0x80000000)
-#define FP_ILOGBNAN ((int)0x80000000)
-  extern int __cdecl ilogb (double);
-  extern int __cdecl ilogbf (float);
-  extern int __cdecl ilogbl (long double);
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FP_ILOGB0 ((ਪੂਰਨ)0x80000000)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FP_ILOGBNAN ((ਪੂਰਨ)0x80000000)
+  ਬਾਹਰੀ ਪੂਰਨ __cdecl ilogb (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਪੂਰਨ __cdecl ilogbf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਪੂਰਨ __cdecl ilogbl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  extern double __cdecl log1p(double);
-  extern float __cdecl log1pf(float);
-  extern long double __cdecl log1pl(long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl log1p(ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl log1pf(ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl log1pl(ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  extern double __cdecl log2 (double);
-  extern float __cdecl log2f (float);
-  extern long double __cdecl log2l (long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl log2 (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl log2f (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl log2l (ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  extern double __cdecl logb (double);
-  extern float __cdecl logbf (float);
-  extern long double __cdecl logbl (long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl logb (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl logbf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl logbl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  extern long double __cdecl modfl (long double, long double*);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl modfl (ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ*);
 
   /* 7.12.6.13 */
-  extern double __cdecl scalbn (double, int);
-  extern float __cdecl scalbnf (float, int);
-  extern long double __cdecl scalbnl (long double, int);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl scalbn (ਦੁੱਗਣਾ, ਪੂਰਨ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl scalbnf (ਦਸ਼ਮਲਵ, ਪੂਰਨ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl scalbnl (ਲੰਮਾ ਦੁੱਗਣਾ, ਪੂਰਨ);
 
-  extern double __cdecl scalbln (double, long);
-  extern float __cdecl scalblnf (float, long);
-  extern long double __cdecl scalblnl (long double, long);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl scalbln (ਦੁੱਗਣਾ, ਲੰਮਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl scalblnf (ਦਸ਼ਮਲਵ, ਲੰਮਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl scalblnl (ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ);
 
   /* 7.12.7.1 */
   /* Implementations adapted from Cephes versions */ 
-  extern double __cdecl cbrt (double);
-  extern float __cdecl cbrtf (float);
-  extern long double __cdecl cbrtl (long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl cbrt (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl cbrtf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl cbrtl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  extern double __cdecl hypot (double, double);
-  extern float __cdecl hypotf (float, float);
-  extern long double __cdecl hypotl (long double, long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl hypot (ਦੁੱਗਣਾ, ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl hypotf (ਦਸ਼ਮਲਵ, ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl hypotl (ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  extern long double __cdecl powl (long double, long double);
-  extern long double __cdecl expl(long double);
-  extern long double __cdecl expm1l(long double);
-  extern long double __cdecl coshl(long double);
-  extern long double __cdecl fabsl (long double);
-  extern long double __cdecl acosl(long double);
-  extern long double __cdecl asinl(long double);
-  extern long double __cdecl atanl(long double);
-  extern long double __cdecl atan2l(long double,long double);
-  extern long double __cdecl sinhl(long double);
-  extern long double __cdecl tanhl(long double);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl powl (ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl expl(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl expm1l(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl coshl(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl fabsl (ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl acosl(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl asinl(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl atanl(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl atan2l(ਲੰਮਾ ਦੁੱਗਣਾ,ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl sinhl(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl tanhl(ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.8.1 The erf functions  */
-  extern double __cdecl erf (double);
-  extern float __cdecl erff (float);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl erf (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl erff (ਦਸ਼ਮਲਵ);
   /* TODO
   extern long double __cdecl erfl (long double);
   */ 
 
   /* 7.12.8.2 The erfc functions  */
-  extern double __cdecl erfc (double);
-  extern float __cdecl erfcf (float);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl erfc (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl erfcf (ਦਸ਼ਮਲਵ);
   /* TODO
   extern long double __cdecl erfcl (long double);
   */ 
 
   /* 7.12.8.3 The lgamma functions */
-  extern double __cdecl lgamma (double);
-  extern float __cdecl lgammaf (float);
-  extern long double __cdecl lgammal (long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl lgamma (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl lgammaf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl lgammal (ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.8.4 The tgamma functions */
-  extern double __cdecl tgamma (double);
-  extern float __cdecl tgammaf (float);
-  extern long double __cdecl tgammal (long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl tgamma (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl tgammaf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl tgammal (ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  extern long double __cdecl ceill (long double);
-  extern long double __cdecl floorl (long double);
-  extern long double __cdecl frexpl(long double,int *);
-  extern long double __cdecl log10l(long double);
-  extern long double __cdecl logl(long double);
-  extern long double __cdecl cosl(long double);
-  extern long double __cdecl sinl(long double);
-  extern long double __cdecl tanl(long double);
-  extern long double sqrtl(long double);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl ceill (ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl floorl (ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl frexpl(ਲੰਮਾ ਦੁੱਗਣਾ,ਪੂਰਨ *);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl log10l(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl logl(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl cosl(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl sinl(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl tanl(ਲੰਮਾ ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ sqrtl(ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.9.3 */
-  extern double __cdecl nearbyint ( double);
-  extern float __cdecl nearbyintf (float);
-  extern long double __cdecl nearbyintl (long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl nearbyint ( ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl nearbyintf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl nearbyintl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.9.4 */
   /* round, using fpu control word settings */
-  extern double __cdecl rint (double);
-  extern float __cdecl rintf (float);
-  extern long double __cdecl rintl (long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl rint (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl rintf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl rintl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  extern long __cdecl lrint (double);
-  extern long __cdecl lrintf (float);
-  extern long __cdecl lrintl (long double);
+  ਬਾਹਰੀ ਲੰਮਾ __cdecl lrint (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ __cdecl lrintf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ __cdecl lrintl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  extern long long __cdecl llrint (double);
-  extern long long __cdecl llrintf (float);
-  extern long long __cdecl llrintl (long double);
+  ਬਾਹਰੀ ਲੰਮਾ ਲੰਮਾ __cdecl llrint (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਲੰਮਾ __cdecl llrintf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਲੰਮਾ __cdecl llrintl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  #define FE_TONEAREST	0x0000
-  #define FE_DOWNWARD	0x0400
-  #define FE_UPWARD	0x0800
-  #define FE_TOWARDZERO	0x0c00
+  #ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FE_TONEAREST	0x0000
+  #ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FE_DOWNWARD	0x0400
+  #ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FE_UPWARD	0x0800
+  #ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FE_TOWARDZERO	0x0c00
 
   /* 7.12.9.6 */
   /* round away from zero, regardless of fpu control word settings */
-  extern double __cdecl round (double);
-  extern float __cdecl roundf (float);
-  extern long double __cdecl roundl (long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl ਗੇੜਾ (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl roundf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl roundl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.9.7  */
-  extern long __cdecl lround (double);
-  extern long __cdecl lroundf (float);
-  extern long __cdecl lroundl (long double);
+  ਬਾਹਰੀ ਲੰਮਾ __cdecl lround (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ __cdecl lroundf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ __cdecl lroundl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  extern long long __cdecl llround (double);
-  extern long long __cdecl llroundf (float);
-  extern long long __cdecl llroundl (long double);
+  ਬਾਹਰੀ ਲੰਮਾ ਲੰਮਾ __cdecl llround (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਲੰਮਾ ਲੰਮਾ __cdecl llroundf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਲੰਮਾ __cdecl llroundl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.9.8 */
   /* round towards zero, regardless of fpu control word settings */
-  extern double __cdecl trunc (double);
-  extern float __cdecl truncf (float);
-  extern long double __cdecl truncl (long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl trunc (ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl truncf (ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl truncl (ਲੰਮਾ ਦੁੱਗਣਾ);
 
-  extern long double __cdecl fmodl (long double, long double);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl fmodl (ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.10.2 */ 
-  extern double __cdecl remainder (double, double);
-  extern float __cdecl remainderf (float, float);
-  extern long double __cdecl remainderl (long double, long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl remainder (ਦੁੱਗਣਾ, ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl remainderf (ਦਸ਼ਮਲਵ, ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl remainderl (ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.10.3 */
-  extern double __cdecl remquo(double, double, int *);
-  extern float __cdecl remquof(float, float, int *);
-  extern long double __cdecl remquol(long double, long double, int *);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl remquo(ਦੁੱਗਣਾ, ਦੁੱਗਣਾ, ਪੂਰਨ *);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl remquof(ਦਸ਼ਮਲਵ, ਦਸ਼ਮਲਵ, ਪੂਰਨ *);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl remquol(ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ, ਪੂਰਨ *);
 
   /* 7.12.11.1 */
-  extern double __cdecl copysign (double, double); /* in libmoldname.a */
-  extern float __cdecl copysignf (float, float);
-  extern long double __cdecl copysignl (long double, long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl copysign (ਦੁੱਗਣਾ, ਦੁੱਗਣਾ); /* in libmoldname.a */
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl copysignf (ਦਸ਼ਮਲਵ, ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl copysignl (ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.11.2 Return a NaN */
-  extern double __cdecl nan(const char *tagp);
-  extern float __cdecl nanf(const char *tagp);
-  extern long double __cdecl nanl(const char *tagp);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl nan(ਅਚਲ ਅੱਖਰ *tagp);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl nanf(ਅਚਲ ਅੱਖਰ *tagp);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl nanl(ਅਚਲ ਅੱਖਰ *tagp);
 
-#ifndef __STRICT_ANSI__
-#define _nan() nan("")
-#define _nanf() nanf("")
-#define _nanl() nanl("")
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __STRICT_ANSI__
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _nan() nan("")
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _nanf() nanf("")
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _nanl() nanl("")
+#ਜੇ_ਅੰਤ
 
   /* 7.12.11.3 */
-  extern double __cdecl nextafter (double, double); /* in libmoldname.a */
-  extern float __cdecl nextafterf (float, float);
-  extern long double __cdecl nextafterl (long double, long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl nextafter (ਦੁੱਗਣਾ, ਦੁੱਗਣਾ); /* in libmoldname.a */
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl nextafterf (ਦਸ਼ਮਲਵ, ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl nextafterl (ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.11.4 The nexttoward functions: TODO */
 
   /* 7.12.12.1 */
   /*  x > y ? (x - y) : 0.0  */
-  extern double __cdecl fdim (double x, double y);
-  extern float __cdecl fdimf (float x, float y);
-  extern long double __cdecl fdiml (long double x, long double y);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl fdim (ਦੁੱਗਣਾ x, ਦੁੱਗਣਾ y);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl fdimf (ਦਸ਼ਮਲਵ x, ਦਸ਼ਮਲਵ y);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl fdiml (ਲੰਮਾ ਦੁੱਗਣਾ x, ਲੰਮਾ ਦੁੱਗਣਾ y);
 
   /* fmax and fmin.
   NaN arguments are treated as missing data: if one argument is a NaN
@@ -457,29 +457,29 @@ extern "C" {
   value. */
 
   /* 7.12.12.2 */
-  extern double __cdecl fmax  (double, double);
-  extern float __cdecl fmaxf (float, float);
-  extern long double __cdecl fmaxl (long double, long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl fmax  (ਦੁੱਗਣਾ, ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl fmaxf (ਦਸ਼ਮਲਵ, ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl fmaxl (ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.12.3 */
-  extern double __cdecl fmin (double, double);
-  extern float __cdecl fminf (float, float);
-  extern long double __cdecl fminl (long double, long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl fmin (ਦੁੱਗਣਾ, ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl fminf (ਦਸ਼ਮਲਵ, ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl fminl (ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ);
 
   /* 7.12.13.1 */
   /* return x * y + z as a ternary op */ 
-  extern double __cdecl fma (double, double, double);
-  extern float __cdecl fmaf (float, float, float);
-  extern long double __cdecl fmal (long double, long double, long double);
+  ਬਾਹਰੀ ਦੁੱਗਣਾ __cdecl fma (ਦੁੱਗਣਾ, ਦੁੱਗਣਾ, ਦੁੱਗਣਾ);
+  ਬਾਹਰੀ ਦਸ਼ਮਲਵ __cdecl fmaf (ਦਸ਼ਮਲਵ, ਦਸ਼ਮਲਵ, ਦਸ਼ਮਲਵ);
+  ਬਾਹਰੀ ਲੰਮਾ ਦੁੱਗਣਾ __cdecl fmal (ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ, ਲੰਮਾ ਦੁੱਗਣਾ);
 
 
-#endif /* __STDC_VERSION__ >= 199901L */
-#endif /* __NO_ISOCEXT */
+#ਜੇ_ਅੰਤ /* __STDC_VERSION__ >= 199901L */
+#ਜੇ_ਅੰਤ /* __NO_ISOCEXT */
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
-#pragma pack(pop)
+#ਜੇ_ਅੰਤ
+#ਹਦਾਇਤ pack(ਕੱਢੋ)
 
 /* 7.12.14 */
 /* 
@@ -491,7 +491,7 @@ extern "C" {
  */
 
 /* Mini libm (inline __fpclassify*, __signbit* and variants) */
-#include "tcc/tcc_libm.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "tcc/tcc_libm.h"
 
-#endif /* End _MATH_H_ */
+#ਜੇ_ਅੰਤ /* End _MATH_H_ */
 

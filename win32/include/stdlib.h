@@ -3,604 +3,604 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_STDLIB
-#define _INC_STDLIB
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _INC_STDLIB
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _INC_STDLIB
 
-#include <_mingw.h>
-#include <limits.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <_mingw.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <limits.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ਹਦਾਇਤ pack(ਧੱਕੋ,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ ਨਿਰਾ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਨਿਰਾ 0
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਨਿਰਾ ((ਖਾਲੀ *)0)
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define EXIT_SUCCESS 0
-#define EXIT_FAILURE 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXIT_SUCCESS 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXIT_FAILURE 1
 
-#ifndef _ONEXIT_T_DEFINED
-#define _ONEXIT_T_DEFINED
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _ONEXIT_T_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _ONEXIT_T_DEFINED
 
-  typedef int (__cdecl *_onexit_t)(void);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ (__cdecl *_onexit_t)(ਖਾਲੀ);
 
-#ifndef NO_OLDNAMES
-#define onexit_t _onexit_t
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ NO_OLDNAMES
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ onexit_t _onexit_t
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _DIV_T_DEFINED
-#define _DIV_T_DEFINED
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _DIV_T_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _DIV_T_DEFINED
 
-  typedef struct _div_t {
-    int quot;
-    int rem;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _div_t {
+    ਪੂਰਨ quot;
+    ਪੂਰਨ rem;
   } div_t;
 
-  typedef struct _ldiv_t {
-    long quot;
-    long rem;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _ldiv_t {
+    ਲੰਮਾ quot;
+    ਲੰਮਾ rem;
   } ldiv_t;
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef _CRT_DOUBLE_DEC
-#define _CRT_DOUBLE_DEC
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_DOUBLE_DEC
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_DOUBLE_DEC
 
-#pragma pack(4)
-  typedef struct {
-    unsigned char ld[10];
+#ਹਦਾਇਤ pack(4)
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ ld[10];
   } _LDOUBLE;
-#pragma pack()
+#ਹਦਾਇਤ pack()
 
-#define _PTR_LD(x) ((unsigned char *)(&(x)->ld))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _PTR_LD(x) ((ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ *)(&(x)->ld))
 
-  typedef struct {
-    double x;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
+    ਦੁੱਗਣਾ x;
   } _CRT_DOUBLE;
 
-  typedef struct {
-    float f;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
+    ਦਸ਼ਮਲਵ f;
   } _CRT_FLOAT;
 
-#pragma push_macro("long")
-#undef long
+#ਹਦਾਇਤ ਧੱਕੋ_macro("long")
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ ਲੰਮਾ
 
-  typedef struct {
-    long double x;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
+    ਲੰਮਾ ਦੁੱਗਣਾ x;
   } _LONGDOUBLE;
 
-#pragma pop_macro("long")
+#ਹਦਾਇਤ ਕੱਢੋ_macro("long")
 
-#pragma pack(4)
-  typedef struct {
-    unsigned char ld12[12];
+#ਹਦਾਇਤ pack(4)
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ ld12[12];
   } _LDBL12;
-#pragma pack()
-#endif
+#ਹਦਾਇਤ pack()
+#ਜੇ_ਅੰਤ
 
-#define RAND_MAX 0x7fff
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ RAND_MAX 0x7fff
 
-#ifndef MB_CUR_MAX
-#define MB_CUR_MAX ___mb_cur_max_func()
-#ifndef __mb_cur_max
-#ifdef _MSVCRT_
-  extern int __mb_cur_max;
-#else
-#define __mb_cur_max    (*_imp____mb_cur_max)
-  extern int *_imp____mb_cur_max;
-#endif
-#endif
-#ifdef _MSVCRT_
-  extern int __mbcur_max;
-#define ___mb_cur_max_func() (__mb_cur_max)
-#else
-  extern int* _imp____mbcur_max;
-#define ___mb_cur_max_func() (*_imp____mb_cur_max)
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ MB_CUR_MAX
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MB_CUR_MAX ___mb_cur_max_func()
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __mb_cur_max
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਪੂਰਨ __mb_cur_max;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __mb_cur_max    (*_imp____mb_cur_max)
+  ਬਾਹਰੀ ਪੂਰਨ *_imp____mb_cur_max;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਪੂਰਨ __mbcur_max;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ___mb_cur_max_func() (__mb_cur_max)
+#ਨਹੀਂਤਾਂ
+  ਬਾਹਰੀ ਪੂਰਨ* _imp____mbcur_max;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ___mb_cur_max_func() (*_imp____mb_cur_max)
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define __max(a,b) (((a) > (b)) ? (a) : (b))
-#define __min(a,b) (((a) < (b)) ? (a) : (b))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __max(a,b) (((a) > (b)) ? (a) : (b))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __min(a,b) (((a) < (b)) ? (a) : (b))
 
-#define _MAX_PATH 260
-#define _MAX_DRIVE 3
-#define _MAX_DIR 256
-#define _MAX_FNAME 256
-#define _MAX_EXT 256
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MAX_ਰਸਤਾ_2 260
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _MAX_DRIVE 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _MAX_DIR 256
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _MAX_FNAME 256
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _MAX_EXT 256
 
-#define _OUT_TO_DEFAULT 0
-#define _OUT_TO_STDERR 1
-#define _OUT_TO_MSGBOX 2
-#define _REPORT_ERRMODE 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਬਾਹਰਲਾ_ਮੰਜ਼ਿਲ_DEFAULT 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਬਾਹਰਲਾ_ਮੰਜ਼ਿਲ_STDERR 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਬਾਹਰਲਾ_ਮੰਜ਼ਿਲ_MSGBOX 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _REPORT_ERRMODE 3
 
-#define _WRITE_ABORT_MSG 0x1
-#define _CALL_REPORTFAULT 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WRITE_ABORT_ਸੁਨੇਹਾ 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CALL_REPORTFAULT 0x2
 
-#define _MAX_ENV 32767
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _MAX_ENV 32767
 
-  typedef void (__cdecl *_purecall_handler)(void);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਖਾਲੀ (__cdecl *_purecall_handler)(ਖਾਲੀ);
 
-  _CRTIMP _purecall_handler __cdecl _set_purecall_handler(_purecall_handler _Handler);
-  _CRTIMP _purecall_handler __cdecl _get_purecall_handler(void);
+  _CRTIMP _purecall_handler __cdecl ਸੈੱਟ_purecall_handler(_purecall_handler _Handler);
+  _CRTIMP _purecall_handler __cdecl _get_purecall_handler(ਖਾਲੀ);
 
-  typedef void (__cdecl *_invalid_parameter_handler)(const wchar_t *,const wchar_t *,const wchar_t *,unsigned int,uintptr_t);
-  _invalid_parameter_handler __cdecl _set_invalid_parameter_handler(_invalid_parameter_handler _Handler);
-  _invalid_parameter_handler __cdecl _get_invalid_parameter_handler(void);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਖਾਲੀ (__cdecl *_invalid_parameter_handler)(ਅਚਲ wchar_t *,ਅਚਲ wchar_t *,ਅਚਲ wchar_t *,ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ,uintptr_t);
+  _invalid_parameter_handler __cdecl ਸੈੱਟ_invalid_parameter_handler(_invalid_parameter_handler _Handler);
+  _invalid_parameter_handler __cdecl _get_invalid_parameter_handler(ਖਾਲੀ);
 
-#ifndef _CRT_ERRNO_DEFINED
-#define _CRT_ERRNO_DEFINED
-  _CRTIMP int *__cdecl _errno(void);
-#define errno (*_errno())
-  errno_t __cdecl _set_errno(int _Value);
-  errno_t __cdecl _get_errno(int *_Value);
-#endif
-  _CRTIMP unsigned long *__cdecl __doserrno(void);
-#define _doserrno (*__doserrno())
-  errno_t __cdecl _set_doserrno(unsigned long _Value);
-  errno_t __cdecl _get_doserrno(unsigned long *_Value);
-#ifdef _MSVCRT_
-  extern char *_sys_errlist[];
-  extern int _sys_nerr;
-#else
-  _CRTIMP char *_sys_errlist[1];
-  _CRTIMP int _sys_nerr;
-#endif
-#if (defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int *__cdecl __p___argc(void);
-  _CRTIMP char ***__cdecl __p___argv(void);
-  _CRTIMP wchar_t ***__cdecl __p___wargv(void);
-  _CRTIMP char ***__cdecl __p__environ(void);
-  _CRTIMP wchar_t ***__cdecl __p__wenviron(void);
-  _CRTIMP char **__cdecl __p__pgmptr(void);
-  _CRTIMP wchar_t **__cdecl __p__wpgmptr(void);
-#endif
-#ifndef __argc
-#ifdef _MSVCRT_
-  extern int __argc;
-#else
-#define __argc (*_imp____argc)
-  extern int *_imp____argc;
-#endif
-#endif
-#ifndef __argv
-#ifdef _MSVCRT_
-  extern char **__argv;
-#else
-#define __argv  (*_imp____argv)
-  extern char ***_imp____argv;
-#endif
-#endif
-#ifndef __wargv
-#ifdef _MSVCRT_
-  extern wchar_t **__wargv;
-#else
-#define __wargv (*_imp____wargv)
-  extern wchar_t ***_imp____wargv;
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_ERRNO_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_ERRNO_DEFINED
+  _CRTIMP ਪੂਰਨ *__cdecl _errno(ਖਾਲੀ);
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ errno (*_errno())
+  errno_t __cdecl ਸੈੱਟ_errno(ਪੂਰਨ ਮੁੱਲ_2);
+  errno_t __cdecl _get_errno(ਪੂਰਨ *ਮੁੱਲ_2);
+#ਜੇ_ਅੰਤ
+  _CRTIMP ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *__cdecl __doserrno(ਖਾਲੀ);
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _doserrno (*__doserrno())
+  errno_t __cdecl ਸੈੱਟ_doserrno(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮੁੱਲ_2);
+  errno_t __cdecl _get_doserrno(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *ਮੁੱਲ_2);
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਅੱਖਰ *_sys_errlist[];
+  ਬਾਹਰੀ ਪੂਰਨ _sys_nerr;
+#ਨਹੀਂਤਾਂ
+  _CRTIMP ਅੱਖਰ *_sys_errlist[1];
+  _CRTIMP ਪੂਰਨ _sys_nerr;
+#ਜੇ_ਅੰਤ
+#ਜੇ (defined(_X86_) && !defined(__x86_64))
+  _CRTIMP ਪੂਰਨ *__cdecl __p___argc(ਖਾਲੀ);
+  _CRTIMP ਅੱਖਰ ***__cdecl __p___argv(ਖਾਲੀ);
+  _CRTIMP wchar_t ***__cdecl __p___wargv(ਖਾਲੀ);
+  _CRTIMP ਅੱਖਰ ***__cdecl __p__environ(ਖਾਲੀ);
+  _CRTIMP wchar_t ***__cdecl __p__wenviron(ਖਾਲੀ);
+  _CRTIMP ਅੱਖਰ **__cdecl __p__pgmptr(ਖਾਲੀ);
+  _CRTIMP wchar_t **__cdecl __p__wpgmptr(ਖਾਲੀ);
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __argc
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਪੂਰਨ __argc;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __argc (*_imp____argc)
+  ਬਾਹਰੀ ਪੂਰਨ *_imp____argc;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __argv
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਅੱਖਰ **__argv;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __argv  (*_imp____argv)
+  ਬਾਹਰੀ ਅੱਖਰ ***_imp____argv;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __wargv
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ wchar_t **__wargv;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __wargv (*_imp____wargv)
+  ਬਾਹਰੀ wchar_t ***_imp____wargv;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifdef _POSIX_
-  extern char **environ;
-#else
-#ifndef _environ
-#ifdef _MSVCRT_
-  extern char **_environ;
-#else
-#define _environ (*_imp___environ)
-  extern char ***_imp___environ;
-#endif
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _POSIX_
+  ਬਾਹਰੀ ਅੱਖਰ **environ;
+#ਨਹੀਂਤਾਂ
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _environ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਅੱਖਰ **_environ;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _environ (*_imp___environ)
+  ਬਾਹਰੀ ਅੱਖਰ ***_imp___environ;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _wenviron
-#ifdef _MSVCRT_
-  extern wchar_t **_wenviron;
-#else
-#define _wenviron       (*_imp___wenviron)
-  extern wchar_t ***_imp___wenviron;
-#endif
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _wenviron
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ wchar_t **_wenviron;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _wenviron       (*_imp___wenviron)
+  ਬਾਹਰੀ wchar_t ***_imp___wenviron;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#if defined __aarch64__
+#ਜੇ defined __aarch64__
 /* something does not work using those from msvcrt.dll */
 # undef __argc
 # undef __argv
 # undef __wargv
 # undef _wenviron
 # undef _environ
-extern int __argc;
-extern char **__argv;
-extern wchar_t **__wargv;
-extern char **_environ;
-extern wchar_t **_wenviron;
-#endif
+ਬਾਹਰੀ ਪੂਰਨ __argc;
+ਬਾਹਰੀ ਅੱਖਰ **__argv;
+ਬਾਹਰੀ wchar_t **__wargv;
+ਬਾਹਰੀ ਅੱਖਰ **_environ;
+ਬਾਹਰੀ wchar_t **_wenviron;
+#ਜੇ_ਅੰਤ
 
-#ifndef _pgmptr
-#ifdef _MSVCRT_
-  extern char *_pgmptr;
-#else
-#define _pgmptr (*_imp___pgmptr)
-  extern char **_imp___pgmptr;
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _pgmptr
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਅੱਖਰ *_pgmptr;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _pgmptr (*_imp___pgmptr)
+  ਬਾਹਰੀ ਅੱਖਰ **_imp___pgmptr;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _wpgmptr
-#ifdef _MSVCRT_
-  extern wchar_t *_wpgmptr;
-#else
-#define _wpgmptr        (*_imp___wpgmptr)
-  extern wchar_t **_imp___wpgmptr;
-#endif
-#endif
-  errno_t __cdecl _get_pgmptr(char **_Value);
-  errno_t __cdecl _get_wpgmptr(wchar_t **_Value);
-#ifndef _fmode
-#ifdef _MSVCRT_
-  extern int _fmode;
-#else
-#define _fmode  (*_imp___fmode)
-  extern int *_imp___fmode;
-#endif
-#endif
-  _CRTIMP errno_t __cdecl _set_fmode(int _Mode);
-  _CRTIMP errno_t __cdecl _get_fmode(int *_PMode);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _wpgmptr
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ wchar_t *_wpgmptr;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _wpgmptr        (*_imp___wpgmptr)
+  ਬਾਹਰੀ wchar_t **_imp___wpgmptr;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+  errno_t __cdecl _get_pgmptr(ਅੱਖਰ **ਮੁੱਲ_2);
+  errno_t __cdecl _get_wpgmptr(wchar_t **ਮੁੱਲ_2);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _fmode
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਪੂਰਨ _fmode;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _fmode  (*_imp___fmode)
+  ਬਾਹਰੀ ਪੂਰਨ *_imp___fmode;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+  _CRTIMP errno_t __cdecl ਸੈੱਟ_fmode(ਪੂਰਨ ਬਹੁਲਕ_3);
+  _CRTIMP errno_t __cdecl _get_fmode(ਪੂਰਨ *_PMode);
 
-#ifndef _osplatform
-#ifdef _MSVCRT_
-  extern unsigned int _osplatform;
-#else
-#define _osplatform (*_imp___osplatform)
-  extern unsigned int *_imp___osplatform;
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _osplatform
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ _osplatform;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _osplatform (*_imp___osplatform)
+  ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *_imp___osplatform;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _osver
-#ifdef _MSVCRT_
-  extern unsigned int _osver;
-#else
-#define _osver  (*_imp___osver)
-  extern unsigned int *_imp___osver;
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _osver
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ _osver;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _osver  (*_imp___osver)
+  ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *_imp___osver;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _winver
-#ifdef _MSVCRT_
-  extern unsigned int _winver;
-#else
-#define _winver (*_imp___winver)
-  extern unsigned int *_imp___winver;
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _winver
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ _winver;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _winver (*_imp___winver)
+  ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *_imp___winver;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _winmajor
-#ifdef _MSVCRT_
-  extern unsigned int _winmajor;
-#else
-#define _winmajor       (*_imp___winmajor)
-  extern unsigned int *_imp___winmajor;
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _winmajor
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ _winmajor;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _winmajor       (*_imp___winmajor)
+  ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *_imp___winmajor;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _winminor
-#ifdef _MSVCRT_
-  extern unsigned int _winminor;
-#else
-#define _winminor       (*_imp___winminor)
-  extern unsigned int *_imp___winminor;
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _winminor
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _MSVCRT_
+  ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ _winminor;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _winminor       (*_imp___winminor)
+  ਬਾਹਰੀ ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *_imp___winminor;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-  errno_t __cdecl _get_osplatform(unsigned int *_Value);
-  errno_t __cdecl _get_osver(unsigned int *_Value);
-  errno_t __cdecl _get_winver(unsigned int *_Value);
-  errno_t __cdecl _get_winmajor(unsigned int *_Value);
-  errno_t __cdecl _get_winminor(unsigned int *_Value);
-#ifndef _countof
-#ifndef __cplusplus
-#define _countof(_Array) (sizeof(_Array) / sizeof(_Array[0]))
-#else
-  extern "C++" {
-    template <typename _CountofType,size_t _SizeOfArray> char (*__countof_helper(UNALIGNED _CountofType (&_Array)[_SizeOfArray]))[_SizeOfArray];
-#define _countof(_Array) sizeof(*__countof_helper(_Array))
+  errno_t __cdecl _get_osplatform(ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *ਮੁੱਲ_2);
+  errno_t __cdecl _get_osver(ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *ਮੁੱਲ_2);
+  errno_t __cdecl _get_winver(ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *ਮੁੱਲ_2);
+  errno_t __cdecl _get_winmajor(ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *ਮੁੱਲ_2);
+  errno_t __cdecl _get_winminor(ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *ਮੁੱਲ_2);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _countof
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _countof(_Array) (ਆਕਾਰ(_Array) / ਆਕਾਰ(_Array[0]))
+#ਨਹੀਂਤਾਂ
+  ਬਾਹਰੀ "C++" {
+    ਸਾਂਚਾ <typename _CountofType,ਮਾਪ_t ਮਾਪ_ਦਾ_Array> ਅੱਖਰ (*__countof_helper(UNALIGNED _CountofType (&_Array)[ਮਾਪ_ਦਾ_Array]))[ਮਾਪ_ਦਾ_Array];
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _countof(_Array) ਆਕਾਰ(*__countof_helper(_Array))
   }
-#endif
-#endif
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _CRT_TERMINATE_DEFINED
-#define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
-  _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_TERMINATE_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_TERMINATE_DEFINED
+  ਖਾਲੀ __cdecl __MINGW_NOTHROW ਬਾਹਰ_ਨਿਕਲੋ(ਪੂਰਨ ਕੋਡ_3) __MINGW_ATTRIB_NORETURN;
+  _CRTIMP ਖਾਲੀ __cdecl __MINGW_NOTHROW _exit(ਪੂਰਨ ਕੋਡ_3) __MINGW_ATTRIB_NORETURN;
+#ਜੇ !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
   /* C99 function name */
-  void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-  __CRT_INLINE __MINGW_ATTRIB_NORETURN void  __cdecl _Exit(int status)
-  {  _exit(status); }
-#endif
+  ਖਾਲੀ __cdecl _Exit(ਪੂਰਨ) __MINGW_ATTRIB_NORETURN;
+  __CRT_INLINE __MINGW_ATTRIB_NORETURN ਖਾਲੀ  __cdecl _Exit(ਪੂਰਨ ਸਥਿਤੀ)
+  {  _exit(ਸਥਿਤੀ); }
+#ਜੇ_ਅੰਤ
 
-#pragma push_macro("abort")
-#undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#ਹਦਾਇਤ ਧੱਕੋ_macro("abort")
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ abort
+  ਖਾਲੀ __cdecl __declspec(noreturn) abort(ਖਾਲੀ);
+#ਹਦਾਇਤ ਕੱਢੋ_macro("abort")
 
-#endif
+#ਜੇ_ਅੰਤ
 
-  _CRTIMP unsigned int __cdecl _set_abort_behavior(unsigned int _Flags,unsigned int _Mask);
+  _CRTIMP ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ __cdecl ਸੈੱਟ_abort_behavior(ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ _Flags,ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ ਨਕਾਬ_2);
 
-#ifndef _CRT_ABS_DEFINED
-#define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
-  long __cdecl labs(long _X);
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_ABS_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_ABS_DEFINED
+  ਪੂਰਨ __cdecl ਨਿਰਪੇਖ(ਪੂਰਨ _X);
+  ਲੰਮਾ __cdecl labs(ਲੰਮਾ _X);
+#ਜੇ_ਅੰਤ
 
-#if _INTEGRAL_MAX_BITS >= 64
+#ਜੇ INTEGRAL_MAX_ਬਿੱਟ >= 64
   __int64 __cdecl _abs64(__int64);
-#endif
-  int __cdecl atexit(void (__cdecl *)(void));
-#ifndef _CRT_ATOF_DEFINED
-#define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
-#endif
-  int __cdecl atoi(const char *_Str);
-  _CRTIMP int __cdecl _atoi_l(const char *_Str,_locale_t _Locale);
-  long __cdecl atol(const char *_Str);
-  _CRTIMP long __cdecl _atol_l(const char *_Str,_locale_t _Locale);
-#ifndef _CRT_ALGO_DEFINED
-#define _CRT_ALGO_DEFINED
-  void *__cdecl bsearch(const void *_Key,const void *_Base,size_t _NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(const void *,const void *));
-  void __cdecl qsort(void *_Base,size_t _NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(const void *,const void *));
-#endif
-  unsigned short __cdecl _byteswap_ushort(unsigned short _Short);
+#ਜੇ_ਅੰਤ
+  ਪੂਰਨ __cdecl atexit(ਖਾਲੀ (__cdecl *)(ਖਾਲੀ));
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_ATOF_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_ATOF_DEFINED
+  ਦੁੱਗਣਾ __cdecl atof(ਅਚਲ ਅੱਖਰ *_String);
+  ਦੁੱਗਣਾ __cdecl _atof_l(ਅਚਲ ਅੱਖਰ *_String,_locale_t _Locale);
+#ਜੇ_ਅੰਤ
+  ਪੂਰਨ __cdecl atoi(ਅਚਲ ਅੱਖਰ *_Str);
+  _CRTIMP ਪੂਰਨ __cdecl _atoi_l(ਅਚਲ ਅੱਖਰ *_Str,_locale_t _Locale);
+  ਲੰਮਾ __cdecl atol(ਅਚਲ ਅੱਖਰ *_Str);
+  _CRTIMP ਲੰਮਾ __cdecl _atol_l(ਅਚਲ ਅੱਖਰ *_Str,_locale_t _Locale);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_ALGO_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_ALGO_DEFINED
+  ਖਾਲੀ *__cdecl bsearch(ਅਚਲ ਖਾਲੀ *ਕੁੰਜੀ_2,ਅਚਲ ਖਾਲੀ *ਅਧਾਰ_3,ਮਾਪ_t ਅੰਕ_ਦਾ_Elements,ਮਾਪ_t ਮਾਪ_ਦਾ_Elements,ਪੂਰਨ (__cdecl *_PtFuncCompare)(ਅਚਲ ਖਾਲੀ *,ਅਚਲ ਖਾਲੀ *));
+  ਖਾਲੀ __cdecl qsort(ਖਾਲੀ *ਅਧਾਰ_3,ਮਾਪ_t ਅੰਕ_ਦਾ_Elements,ਮਾਪ_t ਮਾਪ_ਦਾ_Elements,ਪੂਰਨ (__cdecl *_PtFuncCompare)(ਅਚਲ ਖਾਲੀ *,ਅਚਲ ਖਾਲੀ *));
+#ਜੇ_ਅੰਤ
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ __cdecl _byteswap_ushort(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ _Short);
   /*unsigned long __cdecl _byteswap_ulong (unsigned long _Long); */
-#if _INTEGRAL_MAX_BITS >= 64
-  unsigned __int64 __cdecl _byteswap_uint64(unsigned __int64 _Int64);
-#endif
-  div_t __cdecl div(int _Numerator,int _Denominator);
-  char *__cdecl getenv(const char *_VarName);
-  _CRTIMP char *__cdecl _itoa(int _Value,char *_Dest,int _Radix);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP char *__cdecl _i64toa(__int64 _Val,char *_DstBuf,int _Radix);
-  _CRTIMP char *__cdecl _ui64toa(unsigned __int64 _Val,char *_DstBuf,int _Radix);
-  _CRTIMP __int64 __cdecl _atoi64(const char *_String);
-  _CRTIMP __int64 __cdecl _atoi64_l(const char *_String,_locale_t _Locale);
-  _CRTIMP __int64 __cdecl _strtoi64(const char *_String,char **_EndPtr,int _Radix);
-  _CRTIMP __int64 __cdecl _strtoi64_l(const char *_String,char **_EndPtr,int _Radix,_locale_t _Locale);
-  _CRTIMP unsigned __int64 __cdecl _strtoui64(const char *_String,char **_EndPtr,int _Radix);
-  _CRTIMP unsigned __int64 __cdecl _strtoui64_l(const char *_String,char **_EndPtr,int _Radix,_locale_t _Locale);
-#endif
-  ldiv_t __cdecl ldiv(long _Numerator,long _Denominator);
-  _CRTIMP char *__cdecl _ltoa(long _Value,char *_Dest,int _Radix);
-  int __cdecl mblen(const char *_Ch,size_t _MaxCount);
-  _CRTIMP int __cdecl _mblen_l(const char *_Ch,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _mbstrlen(const char *_Str);
-  _CRTIMP size_t __cdecl _mbstrlen_l(const char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _mbstrnlen(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _mbstrnlen_l(const char *_Str,size_t _MaxCount,_locale_t _Locale);
-  int __cdecl mbtowc(wchar_t *_DstCh,const char *_SrcCh,size_t _SrcSizeInBytes);
-  _CRTIMP int __cdecl _mbtowc_l(wchar_t *_DstCh,const char *_SrcCh,size_t _SrcSizeInBytes,_locale_t _Locale);
-  size_t __cdecl mbstowcs(wchar_t *_Dest,const char *_Source,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _mbstowcs_l(wchar_t *_Dest,const char *_Source,size_t _MaxCount,_locale_t _Locale);
-  int __cdecl rand(void);
-  _CRTIMP int __cdecl _set_error_mode(int _Mode);
-  void __cdecl srand(unsigned int _Seed);
-  double __cdecl strtod(const char *_Str,char **_EndPtr);
-#if !defined __NO_ISOCEXT  /* in libmingwex.a */
-#if __TINYC__
-  __CRT_INLINE float __cdecl strtof (const char *p, char ** e) { return strtod(p, e); }
-  __CRT_INLINE long double __cdecl strtold(const char *p, char ** e) { return strtod(p, e); }
-#else
-  float __cdecl strtof (const char * __restrict__, char ** __restrict__);
-  long double __cdecl strtold(const char * __restrict__, char ** __restrict__);
-#endif
-#else
-  float __cdecl strtof(const char *nptr, char **endptr);
-#endif /* __NO_ISOCEXT */
-  _CRTIMP double __cdecl _strtod_l(const char *_Str,char **_EndPtr,_locale_t _Locale);
-  long __cdecl strtol(const char *_Str,char **_EndPtr,int _Radix);
-  _CRTIMP long __cdecl _strtol_l(const char *_Str,char **_EndPtr,int _Radix,_locale_t _Locale);
-  unsigned long __cdecl strtoul(const char *_Str,char **_EndPtr,int _Radix);
-  _CRTIMP unsigned long __cdecl _strtoul_l(const char *_Str,char **_EndPtr,int _Radix,_locale_t _Locale);
-#ifndef _CRT_SYSTEM_DEFINED
-#define _CRT_SYSTEM_DEFINED
-  int __cdecl system(const char *_Command);
-#endif
-  _CRTIMP char *__cdecl _ultoa(unsigned long _Value,char *_Dest,int _Radix);
-  int __cdecl wctomb(char *_MbCh,wchar_t _WCh);
-  _CRTIMP int __cdecl _wctomb_l(char *_MbCh,wchar_t _WCh,_locale_t _Locale);
-  size_t __cdecl wcstombs(char *_Dest,const wchar_t *_Source,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _wcstombs_l(char *_Dest,const wchar_t *_Source,size_t _MaxCount,_locale_t _Locale);
+#ਜੇ INTEGRAL_MAX_ਬਿੱਟ >= 64
+  ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __cdecl _byteswap_uint64(ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 _Int64);
+#ਜੇ_ਅੰਤ
+  div_t __cdecl div(ਪੂਰਨ _Numerator,ਪੂਰਨ _Denominator);
+  ਅੱਖਰ *__cdecl getenv(ਅਚਲ ਅੱਖਰ *_VarName);
+  _CRTIMP ਅੱਖਰ *__cdecl _itoa(ਪੂਰਨ ਮੁੱਲ_2,ਅੱਖਰ *_Dest,ਪੂਰਨ _Radix);
+#ਜੇ INTEGRAL_MAX_ਬਿੱਟ >= 64
+  _CRTIMP ਅੱਖਰ *__cdecl _i64toa(__int64 _Val,ਅੱਖਰ *_DstBuf,ਪੂਰਨ _Radix);
+  _CRTIMP ਅੱਖਰ *__cdecl _ui64toa(ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 _Val,ਅੱਖਰ *_DstBuf,ਪੂਰਨ _Radix);
+  _CRTIMP __int64 __cdecl _atoi64(ਅਚਲ ਅੱਖਰ *_String);
+  _CRTIMP __int64 __cdecl _atoi64_l(ਅਚਲ ਅੱਖਰ *_String,_locale_t _Locale);
+  _CRTIMP __int64 __cdecl _strtoi64(ਅਚਲ ਅੱਖਰ *_String,ਅੱਖਰ **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix);
+  _CRTIMP __int64 __cdecl _strtoi64_l(ਅਚਲ ਅੱਖਰ *_String,ਅੱਖਰ **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix,_locale_t _Locale);
+  _CRTIMP ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __cdecl _strtoui64(ਅਚਲ ਅੱਖਰ *_String,ਅੱਖਰ **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix);
+  _CRTIMP ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __cdecl _strtoui64_l(ਅਚਲ ਅੱਖਰ *_String,ਅੱਖਰ **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix,_locale_t _Locale);
+#ਜੇ_ਅੰਤ
+  ldiv_t __cdecl ldiv(ਲੰਮਾ _Numerator,ਲੰਮਾ _Denominator);
+  _CRTIMP ਅੱਖਰ *__cdecl _ltoa(ਲੰਮਾ ਮੁੱਲ_2,ਅੱਖਰ *_Dest,ਪੂਰਨ _Radix);
+  ਪੂਰਨ __cdecl mblen(ਅਚਲ ਅੱਖਰ *_Ch,ਮਾਪ_t Max_ਗਿਣਤੀ);
+  _CRTIMP ਪੂਰਨ __cdecl _mblen_l(ਅਚਲ ਅੱਖਰ *_Ch,ਮਾਪ_t Max_ਗਿਣਤੀ,_locale_t _Locale);
+  _CRTIMP ਮਾਪ_t __cdecl _mbstrlen(ਅਚਲ ਅੱਖਰ *_Str);
+  _CRTIMP ਮਾਪ_t __cdecl _mbstrlen_l(ਅਚਲ ਅੱਖਰ *_Str,_locale_t _Locale);
+  _CRTIMP ਮਾਪ_t __cdecl _mbstrnlen(ਅਚਲ ਅੱਖਰ *_Str,ਮਾਪ_t Max_ਗਿਣਤੀ);
+  _CRTIMP ਮਾਪ_t __cdecl _mbstrnlen_l(ਅਚਲ ਅੱਖਰ *_Str,ਮਾਪ_t Max_ਗਿਣਤੀ,_locale_t _Locale);
+  ਪੂਰਨ __cdecl mbtowc(wchar_t *_DstCh,ਅਚਲ ਅੱਖਰ *_SrcCh,ਮਾਪ_t Src_ਮਾਪ_ਵਿੱਚ_ਬਾਈਟਾਂ);
+  _CRTIMP ਪੂਰਨ __cdecl _mbtowc_l(wchar_t *_DstCh,ਅਚਲ ਅੱਖਰ *_SrcCh,ਮਾਪ_t Src_ਮਾਪ_ਵਿੱਚ_ਬਾਈਟਾਂ,_locale_t _Locale);
+  ਮਾਪ_t __cdecl mbstowcs(wchar_t *_Dest,ਅਚਲ ਅੱਖਰ *ਸਰੋਤ_3,ਮਾਪ_t Max_ਗਿਣਤੀ);
+  _CRTIMP ਮਾਪ_t __cdecl _mbstowcs_l(wchar_t *_Dest,ਅਚਲ ਅੱਖਰ *ਸਰੋਤ_3,ਮਾਪ_t Max_ਗਿਣਤੀ,_locale_t _Locale);
+  ਪੂਰਨ __cdecl rand(ਖਾਲੀ);
+  _CRTIMP ਪੂਰਨ __cdecl ਸੈੱਟ_error_ਬਹੁਲਕ(ਪੂਰਨ ਬਹੁਲਕ_3);
+  ਖਾਲੀ __cdecl srand(ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ ਬੀਜ);
+  ਦੁੱਗਣਾ __cdecl strtod(ਅਚਲ ਅੱਖਰ *_Str,ਅੱਖਰ **ਸਿਰਾ_Ptr);
+#ਜੇ !defined __NO_ISOCEXT  /* in libmingwex.a */
+#ਜੇ __TINYC__
+  __CRT_INLINE ਦਸ਼ਮਲਵ __cdecl strtof (ਅਚਲ ਅੱਖਰ *p, ਅੱਖਰ ** e) { ਵਾਪਸ strtod(p, e); }
+  __CRT_INLINE ਲੰਮਾ ਦੁੱਗਣਾ __cdecl strtold(ਅਚਲ ਅੱਖਰ *p, ਅੱਖਰ ** e) { ਵਾਪਸ strtod(p, e); }
+#ਨਹੀਂਤਾਂ
+  ਦਸ਼ਮਲਵ __cdecl strtof (ਅਚਲ ਅੱਖਰ * __restrict__, ਅੱਖਰ ** __restrict__);
+  ਲੰਮਾ ਦੁੱਗਣਾ __cdecl strtold(ਅਚਲ ਅੱਖਰ * __restrict__, ਅੱਖਰ ** __restrict__);
+#ਜੇ_ਅੰਤ
+#ਨਹੀਂਤਾਂ
+  ਦਸ਼ਮਲਵ __cdecl strtof(ਅਚਲ ਅੱਖਰ *nptr, ਅੱਖਰ **endptr);
+#ਜੇ_ਅੰਤ /* __NO_ISOCEXT */
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _strtod_l(ਅਚਲ ਅੱਖਰ *_Str,ਅੱਖਰ **ਸਿਰਾ_Ptr,_locale_t _Locale);
+  ਲੰਮਾ __cdecl strtol(ਅਚਲ ਅੱਖਰ *_Str,ਅੱਖਰ **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix);
+  _CRTIMP ਲੰਮਾ __cdecl _strtol_l(ਅਚਲ ਅੱਖਰ *_Str,ਅੱਖਰ **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix,_locale_t _Locale);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __cdecl strtoul(ਅਚਲ ਅੱਖਰ *_Str,ਅੱਖਰ **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix);
+  _CRTIMP ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __cdecl _strtoul_l(ਅਚਲ ਅੱਖਰ *_Str,ਅੱਖਰ **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix,_locale_t _Locale);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_SYSTEM_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_SYSTEM_DEFINED
+  ਪੂਰਨ __cdecl system(ਅਚਲ ਅੱਖਰ *_Command);
+#ਜੇ_ਅੰਤ
+  _CRTIMP ਅੱਖਰ *__cdecl _ultoa(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮੁੱਲ_2,ਅੱਖਰ *_Dest,ਪੂਰਨ _Radix);
+  ਪੂਰਨ __cdecl wctomb(ਅੱਖਰ *_MbCh,wchar_t _WCh);
+  _CRTIMP ਪੂਰਨ __cdecl _wctomb_l(ਅੱਖਰ *_MbCh,wchar_t _WCh,_locale_t _Locale);
+  ਮਾਪ_t __cdecl wcstombs(ਅੱਖਰ *_Dest,ਅਚਲ wchar_t *ਸਰੋਤ_3,ਮਾਪ_t Max_ਗਿਣਤੀ);
+  _CRTIMP ਮਾਪ_t __cdecl _wcstombs_l(ਅੱਖਰ *_Dest,ਅਚਲ wchar_t *ਸਰੋਤ_3,ਮਾਪ_t Max_ਗਿਣਤੀ,_locale_t _Locale);
 
-#ifndef _CRT_ALLOCATION_DEFINED
-#define _CRT_ALLOCATION_DEFINED
-  void *__cdecl calloc(size_t _NumOfElements,size_t _SizeOfElements);
-  void __cdecl free(void *_Memory);
-  void *__cdecl malloc(size_t _Size);
-  void *__cdecl realloc(void *_Memory,size_t _NewSize);
-  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t _Count,size_t _Size);
-  _CRTIMP void __cdecl _aligned_free(void *_Memory);
-  _CRTIMP void *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_realloc(void *_Memory,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_realloc(void *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment,size_t _Offset);
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ CRT_ਵੰਡ_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CRT_ਵੰਡ_DEFINED
+  ਖਾਲੀ *__cdecl ਸਿਫਰ_ਸਮ੍ਰਿਤੀ_ਦਿਓ(ਮਾਪ_t ਅੰਕ_ਦਾ_Elements,ਮਾਪ_t ਮਾਪ_ਦਾ_Elements);
+  ਖਾਲੀ __cdecl ਮੁਕਤ(ਖਾਲੀ *ਸਮ੍ਰਿਤੀ);
+  ਖਾਲੀ *__cdecl ਸਮ੍ਰਿਤੀ_ਦਿਓ(ਮਾਪ_t ਮਾਪ_4);
+  ਖਾਲੀ *__cdecl realloc(ਖਾਲੀ *ਸਮ੍ਰਿਤੀ,ਮਾਪ_t New_ਮਾਪ);
+  _CRTIMP ਖਾਲੀ *__cdecl _recalloc(ਖਾਲੀ *ਸਮ੍ਰਿਤੀ,ਮਾਪ_t ਗਿਣਤੀ_6,ਮਾਪ_t ਮਾਪ_4);
+  _CRTIMP ਖਾਲੀ __cdecl _aligned_free(ਖਾਲੀ *ਸਮ੍ਰਿਤੀ);
+  _CRTIMP ਖਾਲੀ *__cdecl _aligned_malloc(ਮਾਪ_t ਮਾਪ_4,ਮਾਪ_t _Alignment);
+  _CRTIMP ਖਾਲੀ *__cdecl aligned_ਵਿੱਥ_malloc(ਮਾਪ_t ਮਾਪ_4,ਮਾਪ_t _Alignment,ਮਾਪ_t ਵਿੱਥ_2);
+  _CRTIMP ਖਾਲੀ *__cdecl _aligned_realloc(ਖਾਲੀ *ਸਮ੍ਰਿਤੀ,ਮਾਪ_t ਮਾਪ_4,ਮਾਪ_t _Alignment);
+  _CRTIMP ਖਾਲੀ *__cdecl _aligned_recalloc(ਖਾਲੀ *ਸਮ੍ਰਿਤੀ,ਮਾਪ_t ਗਿਣਤੀ_6,ਮਾਪ_t ਮਾਪ_4,ਮਾਪ_t _Alignment);
+  _CRTIMP ਖਾਲੀ *__cdecl aligned_ਵਿੱਥ_realloc(ਖਾਲੀ *ਸਮ੍ਰਿਤੀ,ਮਾਪ_t ਮਾਪ_4,ਮਾਪ_t _Alignment,ਮਾਪ_t ਵਿੱਥ_2);
+  _CRTIMP ਖਾਲੀ *__cdecl aligned_ਵਿੱਥ_recalloc(ਖਾਲੀ *ਸਮ੍ਰਿਤੀ,ਮਾਪ_t ਗਿਣਤੀ_6,ਮਾਪ_t ਮਾਪ_4,ਮਾਪ_t _Alignment,ਮਾਪ_t ਵਿੱਥ_2);
+#ਜੇ_ਅੰਤ
 
-#ifndef _WSTDLIB_DEFINED
-#define _WSTDLIB_DEFINED
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WSTDLIB_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _WSTDLIB_DEFINED
 
-  _CRTIMP wchar_t *__cdecl _itow(int _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ltow(long _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ultow(unsigned long _Value,wchar_t *_Dest,int _Radix);
-  double __cdecl wcstod(const wchar_t *_Str,wchar_t **_EndPtr);
-  float __cdecl wcstof(const wchar_t *nptr, wchar_t **endptr);
-#if !defined __NO_ISOCEXT /* in libmingwex.a */
-  float __cdecl wcstof( const wchar_t * __restrict__, wchar_t ** __restrict__);
-  long double __cdecl wcstold(const wchar_t * __restrict__, wchar_t ** __restrict__);
-#endif /* __NO_ISOCEXT */
-  _CRTIMP double __cdecl _wcstod_l(const wchar_t *_Str,wchar_t **_EndPtr,_locale_t _Locale);
-  long __cdecl wcstol(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP long __cdecl _wcstol_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  unsigned long __cdecl wcstoul(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP unsigned long __cdecl _wcstoul_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wgetenv(const wchar_t *_VarName);
-#ifndef _CRT_WSYSTEM_DEFINED
-#define _CRT_WSYSTEM_DEFINED
-  _CRTIMP int __cdecl _wsystem(const wchar_t *_Command);
-#endif
-  _CRTIMP double __cdecl _wtof(const wchar_t *_Str);
-  _CRTIMP double __cdecl _wtof_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP int __cdecl _wtoi(const wchar_t *_Str);
-  _CRTIMP int __cdecl _wtoi_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP long __cdecl _wtol(const wchar_t *_Str);
-  _CRTIMP long __cdecl _wtol_l(const wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP wchar_t *__cdecl _itow(ਪੂਰਨ ਮੁੱਲ_2,wchar_t *_Dest,ਪੂਰਨ _Radix);
+  _CRTIMP wchar_t *__cdecl _ltow(ਲੰਮਾ ਮੁੱਲ_2,wchar_t *_Dest,ਪੂਰਨ _Radix);
+  _CRTIMP wchar_t *__cdecl _ultow(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮੁੱਲ_2,wchar_t *_Dest,ਪੂਰਨ _Radix);
+  ਦੁੱਗਣਾ __cdecl wcstod(ਅਚਲ wchar_t *_Str,wchar_t **ਸਿਰਾ_Ptr);
+  ਦਸ਼ਮਲਵ __cdecl wcstof(ਅਚਲ wchar_t *nptr, wchar_t **endptr);
+#ਜੇ !defined __NO_ISOCEXT /* in libmingwex.a */
+  ਦਸ਼ਮਲਵ __cdecl wcstof( ਅਚਲ wchar_t * __restrict__, wchar_t ** __restrict__);
+  ਲੰਮਾ ਦੁੱਗਣਾ __cdecl wcstold(ਅਚਲ wchar_t * __restrict__, wchar_t ** __restrict__);
+#ਜੇ_ਅੰਤ /* __NO_ISOCEXT */
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _wcstod_l(ਅਚਲ wchar_t *_Str,wchar_t **ਸਿਰਾ_Ptr,_locale_t _Locale);
+  ਲੰਮਾ __cdecl wcstol(ਅਚਲ wchar_t *_Str,wchar_t **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix);
+  _CRTIMP ਲੰਮਾ __cdecl _wcstol_l(ਅਚਲ wchar_t *_Str,wchar_t **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix,_locale_t _Locale);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __cdecl wcstoul(ਅਚਲ wchar_t *_Str,wchar_t **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix);
+  _CRTIMP ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __cdecl _wcstoul_l(ਅਚਲ wchar_t *_Str,wchar_t **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix,_locale_t _Locale);
+  _CRTIMP wchar_t *__cdecl _wgetenv(ਅਚਲ wchar_t *_VarName);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_WSYSTEM_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_WSYSTEM_DEFINED
+  _CRTIMP ਪੂਰਨ __cdecl _wsystem(ਅਚਲ wchar_t *_Command);
+#ਜੇ_ਅੰਤ
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _wtof(ਅਚਲ wchar_t *_Str);
+  _CRTIMP ਦੁੱਗਣਾ __cdecl _wtof_l(ਅਚਲ wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP ਪੂਰਨ __cdecl _wtoi(ਅਚਲ wchar_t *_Str);
+  _CRTIMP ਪੂਰਨ __cdecl _wtoi_l(ਅਚਲ wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP ਲੰਮਾ __cdecl _wtol(ਅਚਲ wchar_t *_Str);
+  _CRTIMP ਲੰਮਾ __cdecl _wtol_l(ਅਚਲ wchar_t *_Str,_locale_t _Locale);
 
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP wchar_t *__cdecl _i64tow(__int64 _Val,wchar_t *_DstBuf,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ui64tow(unsigned __int64 _Val,wchar_t *_DstBuf,int _Radix);
-  _CRTIMP __int64 __cdecl _wtoi64(const wchar_t *_Str);
-  _CRTIMP __int64 __cdecl _wtoi64_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP __int64 __cdecl _wcstoi64(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP __int64 __cdecl _wcstoi64_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  _CRTIMP unsigned __int64 __cdecl _wcstoui64(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP unsigned __int64 __cdecl _wcstoui64_l(const wchar_t *_Str ,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-#endif
-#endif
+#ਜੇ INTEGRAL_MAX_ਬਿੱਟ >= 64
+  _CRTIMP wchar_t *__cdecl _i64tow(__int64 _Val,wchar_t *_DstBuf,ਪੂਰਨ _Radix);
+  _CRTIMP wchar_t *__cdecl _ui64tow(ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 _Val,wchar_t *_DstBuf,ਪੂਰਨ _Radix);
+  _CRTIMP __int64 __cdecl _wtoi64(ਅਚਲ wchar_t *_Str);
+  _CRTIMP __int64 __cdecl _wtoi64_l(ਅਚਲ wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP __int64 __cdecl _wcstoi64(ਅਚਲ wchar_t *_Str,wchar_t **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix);
+  _CRTIMP __int64 __cdecl _wcstoi64_l(ਅਚਲ wchar_t *_Str,wchar_t **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix,_locale_t _Locale);
+  _CRTIMP ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __cdecl _wcstoui64(ਅਚਲ wchar_t *_Str,wchar_t **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix);
+  _CRTIMP ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __cdecl _wcstoui64_l(ਅਚਲ wchar_t *_Str ,wchar_t **ਸਿਰਾ_Ptr,ਪੂਰਨ _Radix,_locale_t _Locale);
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _POSIX_
-#define _CVTBUFSIZE (309+40)
-  _CRTIMP char *__cdecl _fullpath(char *_FullPath,const char *_Path,size_t _SizeInBytes);
-  _CRTIMP char *__cdecl _ecvt(double _Val,int _NumOfDigits,int *_PtDec,int *_PtSign);
-  _CRTIMP char *__cdecl _fcvt(double _Val,int _NumOfDec,int *_PtDec,int *_PtSign);
-  _CRTIMP char *__cdecl _gcvt(double _Val,int _NumOfDigits,char *_DstBuf);
-  _CRTIMP int __cdecl _atodbl(_CRT_DOUBLE *_Result,char *_Str);
-  _CRTIMP int __cdecl _atoldbl(_LDOUBLE *_Result,char *_Str);
-  _CRTIMP int __cdecl _atoflt(_CRT_FLOAT *_Result,char *_Str);
-  _CRTIMP int __cdecl _atodbl_l(_CRT_DOUBLE *_Result,char *_Str,_locale_t _Locale);
-  _CRTIMP int __cdecl _atoldbl_l(_LDOUBLE *_Result,char *_Str,_locale_t _Locale);
-  _CRTIMP int __cdecl _atoflt_l(_CRT_FLOAT *_Result,char *_Str,_locale_t _Locale);
-  unsigned long __cdecl _lrotl(unsigned long _Val,int _Shift);
-  unsigned long __cdecl _lrotr(unsigned long _Val,int _Shift);
-  _CRTIMP void __cdecl _makepath(char *_Path,const char *_Drive,const char *_Dir,const char *_Filename,const char *_Ext);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _POSIX_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CVTBUFSIZE (309+40)
+  _CRTIMP ਅੱਖਰ *__cdecl _fullpath(ਅੱਖਰ *ਭਰਿਆ_ਰਸਤਾ,ਅਚਲ ਅੱਖਰ *ਰਸਤਾ_2,ਮਾਪ_t ਮਾਪ_ਵਿੱਚ_ਬਾਈਟਾਂ);
+  _CRTIMP ਅੱਖਰ *__cdecl _ecvt(ਦੁੱਗਣਾ _Val,ਪੂਰਨ ਅੰਕ_ਦਾ_Digits,ਪੂਰਨ *_PtDec,ਪੂਰਨ *_PtSign);
+  _CRTIMP ਅੱਖਰ *__cdecl _fcvt(ਦੁੱਗਣਾ _Val,ਪੂਰਨ ਅੰਕ_ਦਾ_Dec,ਪੂਰਨ *_PtDec,ਪੂਰਨ *_PtSign);
+  _CRTIMP ਅੱਖਰ *__cdecl _gcvt(ਦੁੱਗਣਾ _Val,ਪੂਰਨ ਅੰਕ_ਦਾ_Digits,ਅੱਖਰ *_DstBuf);
+  _CRTIMP ਪੂਰਨ __cdecl _atodbl(_CRT_DOUBLE *ਨਤੀਜਾ_2,ਅੱਖਰ *_Str);
+  _CRTIMP ਪੂਰਨ __cdecl _atoldbl(_LDOUBLE *ਨਤੀਜਾ_2,ਅੱਖਰ *_Str);
+  _CRTIMP ਪੂਰਨ __cdecl _atoflt(_CRT_FLOAT *ਨਤੀਜਾ_2,ਅੱਖਰ *_Str);
+  _CRTIMP ਪੂਰਨ __cdecl _atodbl_l(_CRT_DOUBLE *ਨਤੀਜਾ_2,ਅੱਖਰ *_Str,_locale_t _Locale);
+  _CRTIMP ਪੂਰਨ __cdecl _atoldbl_l(_LDOUBLE *ਨਤੀਜਾ_2,ਅੱਖਰ *_Str,_locale_t _Locale);
+  _CRTIMP ਪੂਰਨ __cdecl _atoflt_l(_CRT_FLOAT *ਨਤੀਜਾ_2,ਅੱਖਰ *_Str,_locale_t _Locale);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __cdecl _lrotl(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ _Val,ਪੂਰਨ ਖਿਸਕਾਓ_2);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __cdecl _lrotr(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ _Val,ਪੂਰਨ ਖਿਸਕਾਓ_2);
+  _CRTIMP ਖਾਲੀ __cdecl _makepath(ਅੱਖਰ *ਰਸਤਾ_2,ਅਚਲ ਅੱਖਰ *_Drive,ਅਚਲ ਅੱਖਰ *_Dir,ਅਚਲ ਅੱਖਰ *_Filename,ਅਚਲ ਅੱਖਰ *_Ext);
   _onexit_t __cdecl _onexit(_onexit_t _Func);
 
-#ifndef _CRT_PERROR_DEFINED
-#define _CRT_PERROR_DEFINED
-  void __cdecl perror(const char *_ErrMsg);
-#endif
-  _CRTIMP int __cdecl _putenv(const char *_EnvString);
-  unsigned int __cdecl _rotl(unsigned int _Val,int _Shift);
-#if _INTEGRAL_MAX_BITS >= 64
-  unsigned __int64 __cdecl _rotl64(unsigned __int64 _Val,int _Shift);
-#endif
-  unsigned int __cdecl _rotr(unsigned int _Val,int _Shift);
-#if _INTEGRAL_MAX_BITS >= 64
-  unsigned __int64 __cdecl _rotr64(unsigned __int64 _Val,int _Shift);
-#endif
-  _CRTIMP void __cdecl _searchenv(const char *_Filename,const char *_EnvVar,char *_ResultPath);
-  _CRTIMP void __cdecl _splitpath(const char *_FullPath,char *_Drive,char *_Dir,char *_Filename,char *_Ext);
-  _CRTIMP void __cdecl _swab(char *_Buf1,char *_Buf2,int _SizeInBytes);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_PERROR_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_PERROR_DEFINED
+  ਖਾਲੀ __cdecl perror(ਅਚਲ ਅੱਖਰ *Err_ਸੁਨੇਹਾ);
+#ਜੇ_ਅੰਤ
+  _CRTIMP ਪੂਰਨ __cdecl _putenv(ਅਚਲ ਅੱਖਰ *_EnvString);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ __cdecl _rotl(ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ _Val,ਪੂਰਨ ਖਿਸਕਾਓ_2);
+#ਜੇ INTEGRAL_MAX_ਬਿੱਟ >= 64
+  ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __cdecl _rotl64(ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 _Val,ਪੂਰਨ ਖਿਸਕਾਓ_2);
+#ਜੇ_ਅੰਤ
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ __cdecl _rotr(ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ _Val,ਪੂਰਨ ਖਿਸਕਾਓ_2);
+#ਜੇ INTEGRAL_MAX_ਬਿੱਟ >= 64
+  ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __cdecl _rotr64(ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 _Val,ਪੂਰਨ ਖਿਸਕਾਓ_2);
+#ਜੇ_ਅੰਤ
+  _CRTIMP ਖਾਲੀ __cdecl _searchenv(ਅਚਲ ਅੱਖਰ *_Filename,ਅਚਲ ਅੱਖਰ *_EnvVar,ਅੱਖਰ *ਨਤੀਜਾ_ਰਸਤਾ);
+  _CRTIMP ਖਾਲੀ __cdecl _splitpath(ਅਚਲ ਅੱਖਰ *ਭਰਿਆ_ਰਸਤਾ,ਅੱਖਰ *_Drive,ਅੱਖਰ *_Dir,ਅੱਖਰ *_Filename,ਅੱਖਰ *_Ext);
+  _CRTIMP ਖਾਲੀ __cdecl _swab(ਅੱਖਰ *_Buf1,ਅੱਖਰ *_Buf2,ਪੂਰਨ ਮਾਪ_ਵਿੱਚ_ਬਾਈਟਾਂ);
 
-#ifndef _WSTDLIBP_DEFINED
-#define _WSTDLIBP_DEFINED
-  _CRTIMP wchar_t *__cdecl _wfullpath(wchar_t *_FullPath,const wchar_t *_Path,size_t _SizeInWords);
-  _CRTIMP void __cdecl _wmakepath(wchar_t *_ResultPath,const wchar_t *_Drive,const wchar_t *_Dir,const wchar_t *_Filename,const wchar_t *_Ext);
-#ifndef _CRT_WPERROR_DEFINED
-#define _CRT_WPERROR_DEFINED
-  _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
-#endif
-  _CRTIMP int __cdecl _wputenv(const wchar_t *_EnvString);
-  _CRTIMP void __cdecl _wsearchenv(const wchar_t *_Filename,const wchar_t *_EnvVar,wchar_t *_ResultPath);
-  _CRTIMP void __cdecl _wsplitpath(const wchar_t *_FullPath,wchar_t *_Drive,wchar_t *_Dir,wchar_t *_Filename,wchar_t *_Ext);
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WSTDLIBP_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _WSTDLIBP_DEFINED
+  _CRTIMP wchar_t *__cdecl _wfullpath(wchar_t *ਭਰਿਆ_ਰਸਤਾ,ਅਚਲ wchar_t *ਰਸਤਾ_2,ਮਾਪ_t ਮਾਪ_ਵਿੱਚ_ਸ਼ਬਦ);
+  _CRTIMP ਖਾਲੀ __cdecl _wmakepath(wchar_t *ਨਤੀਜਾ_ਰਸਤਾ,ਅਚਲ wchar_t *_Drive,ਅਚਲ wchar_t *_Dir,ਅਚਲ wchar_t *_Filename,ਅਚਲ wchar_t *_Ext);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_WPERROR_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_WPERROR_DEFINED
+  _CRTIMP ਖਾਲੀ __cdecl _wperror(ਅਚਲ wchar_t *Err_ਸੁਨੇਹਾ);
+#ਜੇ_ਅੰਤ
+  _CRTIMP ਪੂਰਨ __cdecl _wputenv(ਅਚਲ wchar_t *_EnvString);
+  _CRTIMP ਖਾਲੀ __cdecl _wsearchenv(ਅਚਲ wchar_t *_Filename,ਅਚਲ wchar_t *_EnvVar,wchar_t *ਨਤੀਜਾ_ਰਸਤਾ);
+  _CRTIMP ਖਾਲੀ __cdecl _wsplitpath(ਅਚਲ wchar_t *ਭਰਿਆ_ਰਸਤਾ,wchar_t *_Drive,wchar_t *_Dir,wchar_t *_Filename,wchar_t *_Ext);
+#ਜੇ_ਅੰਤ
 
-  _CRTIMP void __cdecl _beep(unsigned _Frequency,unsigned _Duration) __MINGW_ATTRIB_DEPRECATED;
+  _CRTIMP ਖਾਲੀ __cdecl _beep(ਬਿਨਾਨਿਸ਼ਾਨੀ _Frequency,ਬਿਨਾਨਿਸ਼ਾਨੀ _Duration) __MINGW_ATTRIB_DEPRECATED;
   /* Not to be confused with  _set_error_mode (int).  */
-  _CRTIMP void __cdecl _seterrormode(int _Mode) __MINGW_ATTRIB_DEPRECATED;
-  _CRTIMP void __cdecl _sleep(unsigned long _Duration) __MINGW_ATTRIB_DEPRECATED;
-#endif
+  _CRTIMP ਖਾਲੀ __cdecl _seterrormode(ਪੂਰਨ ਬਹੁਲਕ_3) __MINGW_ATTRIB_DEPRECATED;
+  _CRTIMP ਖਾਲੀ __cdecl _sleep(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ _Duration) __MINGW_ATTRIB_DEPRECATED;
+#ਜੇ_ਅੰਤ
 
-#ifndef NO_OLDNAMES
-#ifndef _POSIX_
-#if 0
-#ifndef __cplusplus
-#ifndef NOMINMAX
-#ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#endif
-#ifndef min
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#endif
-#endif
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ NO_OLDNAMES
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _POSIX_
+#ਜੇ 0
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ NOMINMAX
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ max
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ max(a,b) (((a) > (b)) ? (a) : (b))
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ min
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ min(a,b) (((a) < (b)) ? (a) : (b))
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define sys_errlist _sys_errlist
-#define sys_nerr _sys_nerr
-#define environ _environ
-  char *__cdecl ecvt(double _Val,int _NumOfDigits,int *_PtDec,int *_PtSign);
-  char *__cdecl fcvt(double _Val,int _NumOfDec,int *_PtDec,int *_PtSign);
-  char *__cdecl gcvt(double _Val,int _NumOfDigits,char *_DstBuf);
-  char *__cdecl itoa(int _Val,char *_DstBuf,int _Radix);
-  char *__cdecl ltoa(long _Val,char *_DstBuf,int _Radix);
-  int __cdecl putenv(const char *_EnvString);
-  void __cdecl swab(char *_Buf1,char *_Buf2,int _SizeInBytes);
-  char *__cdecl ultoa(unsigned long _Val,char *_Dstbuf,int _Radix);
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ sys_errlist _sys_errlist
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ sys_nerr _sys_nerr
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ environ _environ
+  ਅੱਖਰ *__cdecl ecvt(ਦੁੱਗਣਾ _Val,ਪੂਰਨ ਅੰਕ_ਦਾ_Digits,ਪੂਰਨ *_PtDec,ਪੂਰਨ *_PtSign);
+  ਅੱਖਰ *__cdecl fcvt(ਦੁੱਗਣਾ _Val,ਪੂਰਨ ਅੰਕ_ਦਾ_Dec,ਪੂਰਨ *_PtDec,ਪੂਰਨ *_PtSign);
+  ਅੱਖਰ *__cdecl gcvt(ਦੁੱਗਣਾ _Val,ਪੂਰਨ ਅੰਕ_ਦਾ_Digits,ਅੱਖਰ *_DstBuf);
+  ਅੱਖਰ *__cdecl itoa(ਪੂਰਨ _Val,ਅੱਖਰ *_DstBuf,ਪੂਰਨ _Radix);
+  ਅੱਖਰ *__cdecl ltoa(ਲੰਮਾ _Val,ਅੱਖਰ *_DstBuf,ਪੂਰਨ _Radix);
+  ਪੂਰਨ __cdecl putenv(ਅਚਲ ਅੱਖਰ *_EnvString);
+  ਖਾਲੀ __cdecl swab(ਅੱਖਰ *_Buf1,ਅੱਖਰ *_Buf2,ਪੂਰਨ ਮਾਪ_ਵਿੱਚ_ਬਾਈਟਾਂ);
+  ਅੱਖਰ *__cdecl ultoa(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ _Val,ਅੱਖਰ *_Dstbuf,ਪੂਰਨ _Radix);
   onexit_t __cdecl onexit(onexit_t _Func);
-#endif
-#endif
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#if !defined __NO_ISOCEXT /* externs in static libmingwex.a */
+#ਜੇ !defined __NO_ISOCEXT /* externs in static libmingwex.a */
 
-  typedef struct { long long quot, rem; } lldiv_t;
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ { ਲੰਮਾ ਲੰਮਾ quot, rem; } lldiv_t;
 
-  lldiv_t __cdecl lldiv(long long, long long);
+  lldiv_t __cdecl lldiv(ਲੰਮਾ ਲੰਮਾ, ਲੰਮਾ ਲੰਮਾ);
 
-  __CRT_INLINE long long __cdecl llabs(long long _j) { return (_j >= 0 ? _j : -_j); }
+  __CRT_INLINE ਲੰਮਾ ਲੰਮਾ __cdecl llabs(ਲੰਮਾ ਲੰਮਾ _j) { ਵਾਪਸ (_j >= 0 ? _j : -_j); }
 
- #ifdef __TINYC__ /* gr */
-  #define strtoll _strtoi64
-  #define strtoull _strtoui64
- #else
-  long long  __cdecl strtoll(const char* __restrict__, char** __restrict, int);
-  unsigned long long  __cdecl strtoull(const char* __restrict__, char** __restrict__, int);
- #endif
+ #ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __TINYC__ /* gr */
+  #ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ strtoll _strtoi64
+  #ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ strtoull _strtoui64
+ #ਨਹੀਂਤਾਂ
+  ਲੰਮਾ ਲੰਮਾ  __cdecl strtoll(ਅਚਲ ਅੱਖਰ* __restrict__, ਅੱਖਰ** __restrict, ਪੂਰਨ);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ  __cdecl strtoull(ਅਚਲ ਅੱਖਰ* __restrict__, ਅੱਖਰ** __restrict__, ਪੂਰਨ);
+ #ਜੇ_ਅੰਤ
 
   /* these are stubs for MS _i64 versions */
-  long long  __cdecl atoll (const char *);
+  ਲੰਮਾ ਲੰਮਾ  __cdecl atoll (ਅਚਲ ਅੱਖਰ *);
 
-#ifndef __STRICT_ANSI__
-  long long  __cdecl wtoll (const wchar_t *);
-  char *__cdecl lltoa (long long, char *, int);
-  char *__cdecl ulltoa (unsigned long long , char *, int);
-  wchar_t *__cdecl lltow (long long, wchar_t *, int);
-  wchar_t *__cdecl ulltow (unsigned long long, wchar_t *, int);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __STRICT_ANSI__
+  ਲੰਮਾ ਲੰਮਾ  __cdecl wtoll (ਅਚਲ wchar_t *);
+  ਅੱਖਰ *__cdecl lltoa (ਲੰਮਾ ਲੰਮਾ, ਅੱਖਰ *, ਪੂਰਨ);
+  ਅੱਖਰ *__cdecl ulltoa (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ , ਅੱਖਰ *, ਪੂਰਨ);
+  wchar_t *__cdecl lltow (ਲੰਮਾ ਲੰਮਾ, wchar_t *, ਪੂਰਨ);
+  wchar_t *__cdecl ulltow (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ, wchar_t *, ਪੂਰਨ);
 
   /* __CRT_INLINE using non-ansi functions */
-  __CRT_INLINE long long  __cdecl atoll (const char * _c) { return _atoi64 (_c); }
-  __CRT_INLINE char *__cdecl lltoa (long long _n, char * _c, int _i) { return _i64toa (_n, _c, _i); }
-  __CRT_INLINE char *__cdecl ulltoa (unsigned long long _n, char * _c, int _i) { return _ui64toa (_n, _c, _i); }
-  __CRT_INLINE long long  __cdecl wtoll (const wchar_t * _w) { return _wtoi64 (_w); }
-  __CRT_INLINE wchar_t *__cdecl lltow (long long _n, wchar_t * _w, int _i) { return _i64tow (_n, _w, _i); }
-  __CRT_INLINE wchar_t *__cdecl ulltow (unsigned long long _n, wchar_t * _w, int _i) { return _ui64tow (_n, _w, _i); }
-#endif /* (__STRICT_ANSI__)  */
+  __CRT_INLINE ਲੰਮਾ ਲੰਮਾ  __cdecl atoll (ਅਚਲ ਅੱਖਰ * _c) { ਵਾਪਸ _atoi64 (_c); }
+  __CRT_INLINE ਅੱਖਰ *__cdecl lltoa (ਲੰਮਾ ਲੰਮਾ _n, ਅੱਖਰ * _c, ਪੂਰਨ _i) { ਵਾਪਸ _i64toa (_n, _c, _i); }
+  __CRT_INLINE ਅੱਖਰ *__cdecl ulltoa (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ _n, ਅੱਖਰ * _c, ਪੂਰਨ _i) { ਵਾਪਸ _ui64toa (_n, _c, _i); }
+  __CRT_INLINE ਲੰਮਾ ਲੰਮਾ  __cdecl wtoll (ਅਚਲ wchar_t * _w) { ਵਾਪਸ _wtoi64 (_w); }
+  __CRT_INLINE wchar_t *__cdecl lltow (ਲੰਮਾ ਲੰਮਾ _n, wchar_t * _w, ਪੂਰਨ _i) { ਵਾਪਸ _i64tow (_n, _w, _i); }
+  __CRT_INLINE wchar_t *__cdecl ulltow (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ _n, wchar_t * _w, ਪੂਰਨ _i) { ਵਾਪਸ _ui64tow (_n, _w, _i); }
+#ਜੇ_ਅੰਤ /* (__STRICT_ANSI__)  */
 
-#endif /* !__NO_ISOCEXT */
+#ਜੇ_ਅੰਤ /* !__NO_ISOCEXT */
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-#pragma pack(pop)
+#ਹਦਾਇਤ pack(ਕੱਢੋ)
 
-#include <sec_api/stdlib_s.h>
-#include <malloc.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <sec_api/stdlib_s.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <malloc.h>
 
-#endif
+#ਜੇ_ਅੰਤ

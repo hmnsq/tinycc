@@ -3,61 +3,61 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SIGNAL
-#define _INC_SIGNAL
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _INC_SIGNAL
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _INC_SIGNAL
 
-#include <_mingw.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#ifndef _SIG_ATOMIC_T_DEFINED
-#define _SIG_ATOMIC_T_DEFINED
-  typedef int sig_atomic_t;
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _SIG_ATOMIC_T_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _SIG_ATOMIC_T_DEFINED
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਪੂਰਨ sig_atomic_t;
+#ਜੇ_ਅੰਤ
 
-#define NSIG 23
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NSIG 23
 
-#define	SIGHUP	1	/* hangup */
-#define SIGINT 2
-#define	SIGQUIT	3	/* quit */
-#define SIGILL 4
-#define	SIGTRAP	5	/* trace trap (not reset when caught) */
-#define	SIGIOT	6	/* IOT instruction */
-#define	SIGABRT 6	/* used by abort, replace SIGIOT in the future */
-#define	SIGEMT	7	/* EMT instruction */
-#define SIGFPE 8
-#define	SIGKILL	9	/* kill (cannot be caught or ignored) */
-#define	SIGBUS	10	/* bus error */
-#define SIGSEGV 11
-#define	SIGSYS	12	/* bad argument to system call */
-#define	SIGPIPE	13	/* write on a pipe with no one to read it */
-#ifdef __USE_MINGW_ALARM
-#define	SIGALRM	14	/* alarm clock */
-#endif
-#define SIGTERM 15
-#define SIGBREAK 21
-#define SIGABRT2 22
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	SIGHUP	1	/* hangup */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIGINT 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	SIGQUIT	3	/* quit */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIGILL 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	SIGTRAP	5	/* trace trap (not reset when caught) */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	SIGIOT	6	/* IOT instruction */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	SIGABRT 6	/* used by abort, replace SIGIOT in the future */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	SIGEMT	7	/* EMT instruction */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIGFPE 8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	SIGKILL	9	/* kill (cannot be caught or ignored) */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	SIGBUS	10	/* bus error */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIGSEGV 11
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	SIGSYS	12	/* bad argument to system call */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	SIGPIPE	13	/* write on a pipe with no one to read it */
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __USE_MINGW_ALARM
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ	SIGALRM	14	/* alarm clock */
+#ਜੇ_ਅੰਤ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIGTERM 15
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIGBREAK 21
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIGABRT2 22
 
-#define SIGABRT_COMPAT 6
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIGABRT_COMPAT 6
 
-  typedef	void (*__p_sig_fn_t)(int);
+  ਕਿਸਮਪਰਿਭਾਸ਼ਾ	ਖਾਲੀ (*__p_sig_fn_t)(ਪੂਰਨ);
 
-#define SIG_DFL (__p_sig_fn_t)0
-#define SIG_IGN (__p_sig_fn_t)1
-#define SIG_GET (__p_sig_fn_t)2
-#define SIG_SGE (__p_sig_fn_t)3
-#define SIG_ACK (__p_sig_fn_t)4
-#define SIG_ERR (__p_sig_fn_t)-1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIG_DFL (__p_sig_fn_t)0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIG_IGN (__p_sig_fn_t)1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIG_GET (__p_sig_fn_t)2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIG_SGE (__p_sig_fn_t)3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIG_ACK (__p_sig_fn_t)4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ SIG_ERR (__p_sig_fn_t)-1
 
-  extern void **__cdecl __pxcptinfoptrs(void);
-#define _pxcptinfoptrs (*__pxcptinfoptrs())
+  ਬਾਹਰੀ ਖਾਲੀ **__cdecl __pxcptinfoptrs(ਖਾਲੀ);
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _pxcptinfoptrs (*__pxcptinfoptrs())
 
-  __p_sig_fn_t __cdecl signal(int _SigNum,__p_sig_fn_t _Func);
-  int __cdecl raise(int _SigNum);
+  __p_sig_fn_t __cdecl ਸੰਕੇਤ(ਪੂਰਨ Sig_ਅੰਕ_2,__p_sig_fn_t _Func);
+  ਪੂਰਨ __cdecl ਉਠਾਓ(ਪੂਰਨ Sig_ਅੰਕ_2);
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
-#endif
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ

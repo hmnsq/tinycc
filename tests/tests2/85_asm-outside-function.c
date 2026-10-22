@@ -1,15 +1,15 @@
-#ifdef __leading_underscore
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __leading_underscore
 # define _ "_"
-#else
+#ਨਹੀਂਤਾਂ
 # define _
-#endif
+#ਜੇ_ਅੰਤ
 
-extern int printf (const char *, ...);
-extern void vide(void);
+ਬਾਹਰੀ ਪੂਰਨ ਲਿਖੋ (ਅਚਲ ਅੱਖਰ *, ...);
+ਬਾਹਰੀ ਖਾਲੀ vide(ਖਾਲੀ);
 __asm__(_"vide: ret");
 
-int main() {
+ਪੂਰਨ ਮੁੱਖ() {
     vide();
-    printf ("okay\n");
-    return 0;
+    ਲਿਖੋ ("okay\n");
+    ਵਾਪਸ 0;
 }

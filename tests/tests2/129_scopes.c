@@ -1,179 +1,179 @@
-int printf(const char*, ...);
+ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ*, ...);
 
-#define myassert(x) \
-    printf("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ myassert(x) \
+    ਲਿਖੋ("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
 
-enum{ in = 0};
+ਗਿਣਤੀ{ ਵਿੱਚ = 0};
 
-int main_1(){
+ਪੂਰਨ main_1(){
     {
-        myassert(!in);
-        if(sizeof(enum{in=1})) myassert(in);
-        myassert(!in); //OOPS
+        myassert(!ਵਿੱਚ);
+        ਜੇ(ਆਕਾਰ(ਗਿਣਤੀ{ਵਿੱਚ=1})) myassert(ਵਿੱਚ);
+        myassert(!ਵਿੱਚ); //OOPS
     }
     {
-        myassert(!in);
-        switch(sizeof(enum{in=1})) { default: myassert(in); }
-        myassert(!in); //OOPS
+        myassert(!ਵਿੱਚ);
+        ਚੋਣ(ਆਕਾਰ(ਗਿਣਤੀ{ਵਿੱਚ=1})) { ਮੂਲ: myassert(ਵਿੱਚ); }
+        myassert(!ਵਿੱਚ); //OOPS
     }
     {
-        myassert(!in);
-        while(sizeof(enum{in=1})) { myassert(in); break; }
-        myassert(!in); //OOPS
+        myassert(!ਵਿੱਚ);
+        ਜਦੋਂ(ਆਕਾਰ(ਗਿਣਤੀ{ਵਿੱਚ=1})) { myassert(ਵਿੱਚ); ਰੋਕੋ; }
+        myassert(!ਵਿੱਚ); //OOPS
     }
     {
-        myassert(!in);
-        do{ myassert(!in);}while(0*sizeof(enum{in=1}));
-        myassert(!in); //OOPS
+        myassert(!ਵਿੱਚ);
+        ਕਰੋ{ myassert(!ਵਿੱਚ);}ਜਦੋਂ(0*ਆਕਾਰ(ਗਿਣਤੀ{ਵਿੱਚ=1}));
+        myassert(!ਵਿੱਚ); //OOPS
     }
 
     {
-        myassert(!in);
-        for(sizeof(enum{in=1});;){ myassert(in); break; }
-        myassert(!in); //OK
+        myassert(!ਵਿੱਚ);
+        ਲਈ(ਆਕਾਰ(ਗਿਣਤੀ{ਵਿੱਚ=1});;){ myassert(ਵਿੱਚ); ਰੋਕੋ; }
+        myassert(!ਵਿੱਚ); //OK
     }
     {
-        myassert(!in);
-        for(;;sizeof(enum{in=1})){ myassert(in); break; }
-        myassert(!in); //OK
+        myassert(!ਵਿੱਚ);
+        ਲਈ(;;ਆਕਾਰ(ਗਿਣਤੀ{ਵਿੱਚ=1})){ myassert(ਵਿੱਚ); ਰੋਕੋ; }
+        myassert(!ਵਿੱਚ); //OK
     }
     {
-        myassert(!in);
-        for(;sizeof(enum{in=1});){ myassert(in); break; }
-        myassert(!in); //OK
+        myassert(!ਵਿੱਚ);
+        ਲਈ(;ਆਕਾਰ(ਗਿਣਤੀ{ਵਿੱਚ=1});){ myassert(ਵਿੱਚ); ਰੋਕੋ; }
+        myassert(!ਵਿੱਚ); //OK
     }
-    return 0;
+    ਵਾਪਸ 0;
 }
 
 /* --------------------------------------------- */
-int main_2()
+ਪੂਰਨ main_2()
 {
-  char c = 'a';
-  void func1(char c); /* param 'c' must not shadow local 'c' */
+  ਅੱਖਰ c = 'a';
+  ਖਾਲੀ func1(ਅੱਖਰ c); /* param 'c' must not shadow local 'c' */
   func1(c);
-  return 0;
+  ਵਾਪਸ 0;
 }
 
-void func1(char c)
+ਖਾਲੀ func1(ਅੱਖਰ c)
 {
     myassert(c == 'a');
 }
 
-struct st { int a; };
+ਬਣਤਰ st { ਪੂਰਨ a; };
 
 /* --------------------------------------------- */
-int main_3()
+ਪੂਰਨ main_3()
 {
-  struct st func(void);
-  struct st st = func(); /* not an 'incompatible redefinition' */
+  ਬਣਤਰ st func(ਖਾਲੀ);
+  ਬਣਤਰ st st = func(); /* not an 'incompatible redefinition' */
   myassert(st.a == 10);
-  return 0;
+  ਵਾਪਸ 0;
 }
 
-struct st func(void)
+ਬਣਤਰ st func(ਖਾਲੀ)
 {
-  struct st st = { 10 };
-  return st;
+  ਬਣਤਰ st st = { 10 };
+  ਵਾਪਸ st;
 }
 
 /* --------------------------------------------- */
 /* func* 'md' must not be shadowed by param 'md' */
-static void f4(char *(*md)(char *md))
+ਸਥਿਰ ਖਾਲੀ f4(ਅੱਖਰ *(*md)(ਅੱਖਰ *md))
 {
    (*md)("test");
 }
-static char *a4(char *a)
+ਸਥਿਰ ਅੱਖਰ *a4(ਅੱਖਰ *a)
 {
-    int strcmp();
+    ਪੂਰਨ strcmp();
     myassert(!strcmp(a, "test"));
-    return a;
+    ਵਾਪਸ a;
 }
 
-int main_4()
+ਪੂਰਨ main_4()
 {
     f4(a4);
-    return 0;
+    ਵਾਪਸ 0;
 }
 
 /* --------------------------------------------- */
-int a5[3], b5[];
-int f5(void);
-int main_5()
+ਪੂਰਨ a5[3], b5[];
+ਪੂਰਨ f5(ਖਾਲੀ);
+ਪੂਰਨ main_5()
 {
-    extern int a5[3], b5[3];
+    ਬਾਹਰੀ ਪੂਰਨ a5[3], b5[3];
     a5[2]=10, b5[2]=4;
     myassert(f5() == 10 + 4);
-    return 0;
+    ਵਾਪਸ 0;
 }
-int f5(void)
+ਪੂਰਨ f5(ਖਾਲੀ)
 {
-    return a5[2]+b5[2];
+    ਵਾਪਸ a5[2]+b5[2];
 }
-int b5[3];
+ਪੂਰਨ b5[3];
 
 /* --------------------------------------------- */
-static int f6(int);
-int i6 = 11;
+ਸਥਿਰ ਪੂਰਨ f6(ਪੂਰਨ);
+ਪੂਰਨ i6 = 11;
 
-int main_6()
+ਪੂਰਨ main_6()
 {
     {
-        int i6 = 33, f6 = 44;
+        ਪੂਰਨ i6 = 33, f6 = 44;
         myassert(i6 == 33 && f6 == 44);
         {
-            int f6(int);
-            extern int i6;
+            ਪੂਰਨ f6(ਪੂਰਨ);
+            ਬਾਹਰੀ ਪੂਰਨ i6;
             myassert(i6 == 11 && f6(22) == 22);
         }
         myassert(i6 == 33 && f6 == 44);
     }
     myassert(i6 == 11 && f6(22) == 22);
-    return 0;
+    ਵਾਪਸ 0;
 }
 
-int f6(int x)
+ਪੂਰਨ f6(ਪੂਰਨ x)
 {
-    return x;
+    ਵਾਪਸ x;
 }
 
 /* --------------------------------------------- */
 
-#if defined __TINYC__ \
+#ਜੇ defined __TINYC__ \
     ? !defined __leading_underscore \
     : !(defined __APPLE__ || defined _WIN32)
 # define _
-#else
+#ਨਹੀਂਤਾਂ
 # define _ "_"
-#endif
+#ਜੇ_ਅੰਤ
 
-struct xx7 { int a, b; };
+ਬਣਤਰ xx7 { ਪੂਰਨ a, b; };
 
-void f7()
+ਖਾਲੀ f7()
 {
-    struct xx7 { int c; } x;
+    ਬਣਤਰ xx7 { ਪੂਰਨ c; } x;
     {
-        extern struct xx7 { int a, b; } x __asm__(_"z7");
+        ਬਾਹਰੀ ਬਣਤਰ xx7 { ਪੂਰਨ a, b; } x __asm__(_"z7");
         x.a = 12;
-        struct xx7 y = { 0,0 };
+        ਬਣਤਰ xx7 y = { 0,0 };
     }
-    struct xx7 y = { 90 };
+    ਬਣਤਰ xx7 y = { 90 };
     x.c = 78;
-    printf("xx7 (1) : %d %d\n", x.c, y.c);
+    ਲਿਖੋ("xx7 (1) : %d %d\n", x.c, y.c);
 }
 
-int main_7()
+ਪੂਰਨ main_7()
 {
     f7();
-    extern struct xx7 y __asm__(_"z7");
-    printf("xx7 (2) : %d %d\n", y.a, y.b);
-    return 0;
+    ਬਾਹਰੀ ਬਣਤਰ xx7 y __asm__(_"z7");
+    ਲਿਖੋ("xx7 (2) : %d %d\n", y.a, y.b);
+    ਵਾਪਸ 0;
 }
 
 
-struct xx7 z7 = { 0, 34 };
+ਬਣਤਰ xx7 z7 = { 0, 34 };
 
 /* --------------------------------------------- */
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
     main_1();
     main_2();
@@ -182,5 +182,5 @@ int main()
     main_5();
     main_6();
     main_7();
-    return 0;
+    ਵਾਪਸ 0;
 }

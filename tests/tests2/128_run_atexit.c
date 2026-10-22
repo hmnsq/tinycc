@@ -1,41 +1,41 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+ਪੂਰਨ atexit(ਖਾਲੀ (*function)(ਖਾਲੀ));
+ਪੂਰਨ on_exit(ਖਾਲੀ (*function)(ਪੂਰਨ, ਖਾਲੀ *), ਖਾਲੀ *arg);
+ਖਾਲੀ ਬਾਹਰ_ਨਿਕਲੋ(ਪੂਰਨ ਸਥਿਤੀ);
 
-void __attribute((constructor)) startup5(void)
+ਖਾਲੀ __attribute((constructor)) startup5(ਖਾਲੀ)
 {
-    printf ("startup5\n");
+    ਲਿਖੋ ("startup5\n");
 }
 
-void cleanup1(void)
+ਖਾਲੀ cleanup1(ਖਾਲੀ)
 {
-    printf ("cleanup1\n");
+    ਲਿਖੋ ("cleanup1\n");
     fflush(stdout);
 }
 
-void cleanup2(void)
+ਖਾਲੀ cleanup2(ਖਾਲੀ)
 {
-    printf ("cleanup2\n");
+    ਲਿਖੋ ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+ਖਾਲੀ cleanup3(ਪੂਰਨ ret, ਖਾਲੀ *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    ਲਿਖੋ ("%d %s\n", ret, (ਅੱਖਰ *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+ਖਾਲੀ cleanup4(ਪੂਰਨ ret, ਖਾਲੀ *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    ਲਿਖੋ ("%d %s\n", ret, (ਅੱਖਰ *) arg);
 }
 
-void __attribute((destructor)) cleanup5(void)
+ਖਾਲੀ __attribute((destructor)) cleanup5(ਖਾਲੀ)
 {
-    printf ("cleanup5\n");
+    ਲਿਖੋ ("cleanup5\n");
 }
 
-void test(void)
+ਖਾਲੀ test(ਖਾਲੀ)
 {
     atexit(cleanup1);
     atexit(cleanup2);
@@ -43,17 +43,17 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#ਜੇ defined test_128_return
+ਪੂਰਨ ਮੁੱਖ(ਪੂਰਨ argc, ਅੱਖਰ **argv)
 {
     test();
-    return 1;
+    ਵਾਪਸ 1;
 } 
 
-#elif defined test_128_exit
-int main(int argc, char **argv)
+#ਜਾਂਜੇ defined test_128_exit
+ਪੂਰਨ ਮੁੱਖ(ਪੂਰਨ argc, ਅੱਖਰ **argv)
 {
     test();
-    exit(2);
+    ਬਾਹਰ_ਨਿਕਲੋ(2);
 } 
-#endif
+#ਜੇ_ਅੰਤ

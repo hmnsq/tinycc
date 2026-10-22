@@ -1,13 +1,13 @@
 /* This file is to test compute #include directives.  It's named so
    that it starts with a pre-processing number which isn't a valid
    number (42test.h).  Including this must work.  */
-#ifndef INC42_FIRST
-int have_included_42test_h;
-#define INC42_FIRST
-#elif !defined INC42_SECOND
-#define INC42_SECOND
-int have_included_42test_h_second;
-#else
-#define INC42_THIRD
-int have_included_42test_h_third;
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ INC42_ਪਹਿਲਾ
+ਪੂਰਨ have_included_42test_h;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INC42_ਪਹਿਲਾ
+#ਜਾਂਜੇ !defined INC42_ਦੂਜਾ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INC42_ਦੂਜਾ
+ਪੂਰਨ have_included_42test_h_ਦੂਜਾ;
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INC42_ਤੀਜਾ
+ਪੂਰਨ have_included_42test_h_ਤੀਜਾ;
+#ਜੇ_ਅੰਤ

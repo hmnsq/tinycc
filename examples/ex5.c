@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdlib.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-    printf("Hello World\n");
-    return 0;
+    ਲਿਖੋ("Hello World\n");
+    ਵਾਪਸ 0;
 }

@@ -18,8 +18,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#define USING_GLOBALS
-#include "tcc.h"
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ USING_GLOBALS
+#ਅਨ੍ਤਰ੍ਭਾਵ "tcc.h"
 
 /********************************************************/
 /* global variables */
@@ -29,583 +29,583 @@
    rsym: return symbol
    anon_sym: anonymous symbol index
 */
-ST_DATA int rsym, anon_sym, ind, loc;
+ST_ਅੰਕੜੇ ਪੂਰਨ rsym, anon_sym, ind, loc;
 
-ST_DATA Sym *global_stack;
-ST_DATA Sym *local_stack;
-ST_DATA Sym *define_stack;
-ST_DATA Sym *global_label_stack;
-ST_DATA Sym *local_label_stack;
+ST_ਅੰਕੜੇ Sym *global_ਢੇਰ;
+ST_ਅੰਕੜੇ Sym *local_ਢੇਰ;
+ST_ਅੰਕੜੇ Sym *define_ਢੇਰ;
+ST_ਅੰਕੜੇ Sym *global_label_ਢੇਰ;
+ST_ਅੰਕੜੇ Sym *local_label_ਢੇਰ;
 
-static Sym *sym_free_first;
-static void **sym_pools;
-static int nb_sym_pools;
+ਸਥਿਰ Sym *sym_free_ਪਹਿਲਾ;
+ਸਥਿਰ ਖਾਲੀ **sym_pools;
+ਸਥਿਰ ਪੂਰਨ nb_sym_pools;
 
-static Sym *all_cleanups, *pending_gotos;
-static int local_scope;
-ST_DATA char debug_modes;
+ਸਥਿਰ Sym *all_cleanups, *pending_gotos;
+ਸਥਿਰ ਪੂਰਨ local_scope;
+ST_ਅੰਕੜੇ ਅੱਖਰ debug_modes;
 
-ST_DATA SValue *vtop;
-static SValue _vstack[1 + VSTACK_SIZE];
-#define vstack (_vstack + 1)
+ST_ਅੰਕੜੇ SValue *vtop;
+ਸਥਿਰ SValue _vstack[1 + VSTACK_ਮਾਪ];
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ vstack (_vstack + 1)
 
-ST_DATA int nocode_wanted; /* no code generation wanted */
-#define NODATA_WANTED (nocode_wanted > 0) /* no static data output wanted either */
-#define DATA_ONLY_WANTED 0x80000000 /* ON outside of functions and for static initializers */
+ST_ਅੰਕੜੇ ਪੂਰਨ nocode_wanted; /* no code generation wanted */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NODATA_WANTED (nocode_wanted > 0) /* no static data output wanted either */
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਅੰਕੜੇ_ONLY_WANTED 0x80000000 /* ON outside of functions and for static initializers */
 
 /* no code output after unconditional jumps such as with if (0) ... */
-#define CODE_OFF_BIT 0x20000000
-#define CODE_OFF() if(!nocode_wanted)(nocode_wanted |= CODE_OFF_BIT)
-#define CODE_ON() (nocode_wanted &= ~CODE_OFF_BIT)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਕੋਡ_OFF_ਦੋਆਧਾਰੀ_ਅੰਕ 0x20000000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਕੋਡ_OFF() ਜੇ(!nocode_wanted)(nocode_wanted |= ਕੋਡ_OFF_ਦੋਆਧਾਰੀ_ਅੰਕ)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਕੋਡ_ON() (nocode_wanted &= ~ਕੋਡ_OFF_ਦੋਆਧਾਰੀ_ਅੰਕ)
 
 /* no code output when parsing sizeof()/typeof() etc. (using nocode_wanted++/--) */
-#define NOEVAL_MASK 0x0000FFFF
-#define NOEVAL_WANTED (nocode_wanted & NOEVAL_MASK)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NOEVAL_ਨਕਾਬ 0x0000FFFF
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ NOEVAL_WANTED (nocode_wanted & NOEVAL_ਨਕਾਬ)
 
 /* no code output when parsing constant expressions */
-#define CONST_WANTED_BIT  0x00010000
-#define CONST_WANTED_MASK 0x0FFF0000
-#define CONST_WANTED  (nocode_wanted & CONST_WANTED_MASK)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CONST_WANTED_ਦੋਆਧਾਰੀ_ਅੰਕ  0x00010000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CONST_WANTED_ਨਕਾਬ 0x0FFF0000
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CONST_WANTED  (nocode_wanted & CONST_WANTED_ਨਕਾਬ)
 
-ST_DATA int global_expr;  /* true if compound literals must be allocated globally (used during initializers parsing */
-ST_DATA CType func_vt; /* current function return type (used by return instruction) */
-ST_DATA int func_var; /* true if current function is variadic (used by return instruction) */
-ST_DATA int func_vc; /* stack address for implicit struct return storage */
-ST_DATA int func_ind; /* function start address */
-static int func_old;
-ST_DATA const char *funcname;
-ST_DATA CType int_type, func_old_type, char_type, char_pointer_type;
-static CString initstr;
+ST_ਅੰਕੜੇ ਪੂਰਨ global_ਵਿਅੰਜਕ;  /* true if compound literals must be allocated globally (used during initializers parsing */
+ST_ਅੰਕੜੇ CType func_vt; /* current function return type (used by return instruction) */
+ST_ਅੰਕੜੇ ਪੂਰਨ func_var; /* true if current function is variadic (used by return instruction) */
+ST_ਅੰਕੜੇ ਪੂਰਨ func_vc; /* stack address for implicit struct return storage */
+ST_ਅੰਕੜੇ ਪੂਰਨ func_ind; /* function start address */
+ਸਥਿਰ ਪੂਰਨ func_old;
+ST_ਅੰਕੜੇ ਅਚਲ ਅੱਖਰ *funcname;
+ST_ਅੰਕੜੇ CType int_type, func_old_type, char_type, char_ਸੂਚਕ_type;
+ਸਥਿਰ CString initstr;
 
-#if PTR_SIZE == 4
-#define VT_SIZE_T (VT_INT | VT_UNSIGNED)
-#define VT_PTRDIFF_T VT_INT
-#elif LONG_SIZE == 4
-#define VT_SIZE_T (VT_LLONG | VT_UNSIGNED)
-#define VT_PTRDIFF_T VT_LLONG
-#else
-#define VT_SIZE_T (VT_LONG | VT_LLONG | VT_UNSIGNED)
-#define VT_PTRDIFF_T (VT_LONG | VT_LLONG)
-#endif
+#ਜੇ PTR_ਮਾਪ == 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ VT_ਮਾਪ_T (VT_INT | VT_UNSIGNED)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ VT_PTRDIFF_T VT_INT
+#ਜਾਂਜੇ LONG_ਮਾਪ == 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ VT_ਮਾਪ_T (VT_LLONG | VT_UNSIGNED)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ VT_PTRDIFF_T VT_LLONG
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ VT_ਮਾਪ_T (VT_LONG | VT_LLONG | VT_UNSIGNED)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ VT_PTRDIFF_T (VT_LONG | VT_LLONG)
+#ਜੇ_ਅੰਤ
 
-static struct switch_t {
-    struct case_t {
+ਸਥਿਰ ਬਣਤਰ switch_t {
+    ਬਣਤਰ case_t {
         int64_t v1, v2;
-        int ind, line;
-    } **p; int n; /* list of case ranges */
-    int def_sym; /* default symbol */
-    int nocode_wanted;
-    int *bsym;
-    struct scope *scope;
-    struct switch_t *prev;
+        ਪੂਰਨ ind, ਸਤਰ;
+    } **p; ਪੂਰਨ n; /* list of case ranges */
+    ਪੂਰਨ def_sym; /* default symbol */
+    ਪੂਰਨ nocode_wanted;
+    ਪੂਰਨ *bsym;
+    ਬਣਤਰ scope *scope;
+    ਬਣਤਰ switch_t *prev;
     SValue sv;
 } *cur_switch; /* current switch */
 
-#define MAX_TEMP_LOCAL_VARIABLE_NUMBER 8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ MAX_ਆਰਜ਼ੀ_LOCAL_VARIABLE_ਸੰਖਿਆ 8
 /*list of temporary local variables on the stack in current function. */
-static struct temp_local_variable {
-	int location; //offset on stack. Svalue.c.i
-	short size;
-	short align;
-} arr_temp_local_vars[MAX_TEMP_LOCAL_VARIABLE_NUMBER];
-static int nb_temp_local_vars;
+ਸਥਿਰ ਬਣਤਰ ਆਰਜ਼ੀ_local_variable {
+	ਪੂਰਨ location; //offset on stack. Svalue.c.i
+	ਛੋਟਾ ਮਾਪ;
+	ਛੋਟਾ align;
+} arr_ਆਰਜ਼ੀ_local_vars[MAX_ਆਰਜ਼ੀ_LOCAL_VARIABLE_ਸੰਖਿਆ];
+ਸਥਿਰ ਪੂਰਨ nb_ਆਰਜ਼ੀ_local_vars;
 
-static struct scope {
-    struct scope *prev;
-    struct { int loc, locorig, num; } vla;
-    struct { Sym *s; int n; } cl;
-    int *bsym, *csym;
+ਸਥਿਰ ਬਣਤਰ scope {
+    ਬਣਤਰ scope *prev;
+    ਬਣਤਰ { ਪੂਰਨ loc, locorig, ਅੰਕ; } vla;
+    ਬਣਤਰ { Sym *s; ਪੂਰਨ n; } cl;
+    ਪੂਰਨ *bsym, *csym;
     Sym *lstk, *llstk;
-} *cur_scope, *loop_scope, *root_scope;
+} *cur_scope, *loop_scope, *ਜੜ੍ਹ_scope;
 
-typedef struct {
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
     Section *sec;
-    int local_offset;
+    ਪੂਰਨ local_ਵਿੱਥ;
     Sym *flex_array_ref;
 } init_params;
 
-#if 1
-#define precedence_parser
-static void init_prec(void);
-#endif
+#ਜੇ 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ precedence_parser
+ਸਥਿਰ ਖਾਲੀ init_prec(ਖਾਲੀ);
+#ਜੇ_ਅੰਤ
 
-static void block(int flags);
-#define STMT_EXPR 1
-#define STMT_COMPOUND 2
+ਸਥਿਰ ਖਾਲੀ ਖੰਡ(ਪੂਰਨ flags);
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STMT_ਵਿਅੰਜਕ 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ STMT_COMPOUND 2
 
-static void gen_cast(CType *type);
-static void gen_cast_s(int t);
-static inline CType *pointed_type(CType *type);
-static void check_restrict_type(CType *type);
-static int type_qualifiers(CType *type);
-static void parse_btype_qualify(CType *type, int qualifiers);
-static int is_compatible_types(CType *type1, CType *type2);
-static int parse_btype(CType *type, AttributeDef *ad, int ignore_label);
-static CType *type_decl(CType *type, AttributeDef *ad, int *v, int td);
-static void parse_expr_type(CType *type);
-static void init_putv(init_params *p, CType *type, unsigned long c);
-static void decl_initializer(init_params *p, CType *type, unsigned long c, int flags);
-static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r, int has_init, int v, int scope);
-static int decl(int l);
-static void expr_eq(void);
-static void vpush_type_size(CType *type, int *a);
-static int is_compatible_unqualified_types(CType *type1, CType *type2);
-static inline int64_t expr_const64(void);
-static void vpush64(int ty, unsigned long long v);
-static void vpush(CType *type);
-static int gvtst(int inv, int t);
-static void gen_inline_functions(TCCState *s);
-static void free_inline_functions(TCCState *s);
-static void skip_or_save_block(TokenString **str);
-static void gv_dup(void);
-static int get_temp_local_var(int size,int align,int *r2);
-static void cast_error(CType *st, CType *dt);
-static void end_switch(void);
-static void do_Static_assert(void);
+ਸਥਿਰ ਖਾਲੀ gen_cast(CType *type);
+ਸਥਿਰ ਖਾਲੀ gen_cast_s(ਪੂਰਨ t);
+ਸਥਿਰ ਸਤਰਅੰਦਰ CType *pointed_type(CType *type);
+ਸਥਿਰ ਖਾਲੀ check_restrict_type(CType *type);
+ਸਥਿਰ ਪੂਰਨ type_qualifiers(CType *type);
+ਸਥਿਰ ਖਾਲੀ parse_btype_qualify(CType *type, ਪੂਰਨ qualifiers);
+ਸਥਿਰ ਪੂਰਨ is_compatible_types(CType *type1, CType *type2);
+ਸਥਿਰ ਪੂਰਨ parse_btype(CType *type, AttributeDef *ad, ਪੂਰਨ ignore_label);
+ਸਥਿਰ CType *type_decl(CType *type, AttributeDef *ad, ਪੂਰਨ *v, ਪੂਰਨ td);
+ਸਥਿਰ ਖਾਲੀ parse_ਵਿਅੰਜਕ_type(CType *type);
+ਸਥਿਰ ਖਾਲੀ init_putv(init_params *p, CType *type, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ c);
+ਸਥਿਰ ਖਾਲੀ decl_initializer(init_params *p, CType *type, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ c, ਪੂਰਨ flags);
+ਸਥਿਰ ਖਾਲੀ decl_initializer_alloc(CType *type, AttributeDef *ad, ਪੂਰਨ r, ਪੂਰਨ has_init, ਪੂਰਨ v, ਪੂਰਨ scope);
+ਸਥਿਰ ਪੂਰਨ decl(ਪੂਰਨ l);
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_eq(ਖਾਲੀ);
+ਸਥਿਰ ਖਾਲੀ vpush_type_ਮਾਪ(CType *type, ਪੂਰਨ *a);
+ਸਥਿਰ ਪੂਰਨ is_compatible_unqualified_types(CType *type1, CType *type2);
+ਸਥਿਰ ਸਤਰਅੰਦਰ int64_t ਵਿਅੰਜਕ_const64(ਖਾਲੀ);
+ਸਥਿਰ ਖਾਲੀ vpush64(ਪੂਰਨ ty, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ v);
+ਸਥਿਰ ਖਾਲੀ vpush(CType *type);
+ਸਥਿਰ ਪੂਰਨ gvtst(ਪੂਰਨ inv, ਪੂਰਨ t);
+ਸਥਿਰ ਖਾਲੀ gen_inline_functions(TCCState *s);
+ਸਥਿਰ ਖਾਲੀ free_inline_functions(TCCState *s);
+ਸਥਿਰ ਖਾਲੀ skip_or_save_ਖੰਡ(TokenString **str);
+ਸਥਿਰ ਖਾਲੀ gv_dup(ਖਾਲੀ);
+ਸਥਿਰ ਪੂਰਨ get_ਆਰਜ਼ੀ_local_var(ਪੂਰਨ ਮਾਪ,ਪੂਰਨ align,ਪੂਰਨ *r2);
+ਸਥਿਰ ਖਾਲੀ cast_error(CType *st, CType *dt);
+ਸਥਿਰ ਖਾਲੀ ਸਿਰਾ_switch(ਖਾਲੀ);
+ਸਥਿਰ ਖਾਲੀ do_Static_assert(ਖਾਲੀ);
 
 /* ------------------------------------------------------------------------- */
 /* Automagical code suppression */
 
 /* Clear 'nocode_wanted' at forward label if it was used */
-ST_FUNC void gsym(int t)
+ST_FUNC ਖਾਲੀ gsym(ਪੂਰਨ t)
 {
-  if (t) {
+  ਜੇ (t) {
     gsym_addr(t, ind);
-    CODE_ON();
+    ਕੋਡ_ON();
   }
 }
 
 /* Clear 'nocode_wanted' if current pc is a label */
-static int gind()
+ਸਥਿਰ ਪੂਰਨ gind()
 {
-  int t = ind;
-  CODE_ON();
-  if (debug_modes)
-    tcc_tcov_block_begin(tcc_state);
-  return t;
+  ਪੂਰਨ t = ind;
+  ਕੋਡ_ON();
+  ਜੇ (debug_modes)
+    tcc_tcov_ਖੰਡ_begin(tcc_state);
+  ਵਾਪਸ t;
 }
 
 /* Set 'nocode_wanted' after unconditional (backwards) jump */
-static void gjmp_addr_acs(int t)
+ਸਥਿਰ ਖਾਲੀ gjmp_addr_acs(ਪੂਰਨ t)
 {
   gjmp_addr(t);
-  CODE_OFF();
+  ਕੋਡ_OFF();
 }
 
 /* Set 'nocode_wanted' after unconditional (forwards) jump */
-static int gjmp_acs(int t)
+ਸਥਿਰ ਪੂਰਨ gjmp_acs(ਪੂਰਨ t)
 {
   t = gjmp(t);
-  CODE_OFF();
-  return t;
+  ਕੋਡ_OFF();
+  ਵਾਪਸ t;
 }
 
 /* These are #undef'd at the end of this file */
-#define gjmp_addr gjmp_addr_acs
-#define gjmp gjmp_acs
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ gjmp_addr gjmp_addr_acs
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ gjmp gjmp_acs
 /* ------------------------------------------------------------------------- */
 
-ST_INLN int is_float(int t)
+ST_INLN ਪੂਰਨ is_float(ਪੂਰਨ t)
 {
-    int bt = t & VT_BTYPE;
-    return bt == VT_LDOUBLE
+    ਪੂਰਨ bt = t & VT_BTYPE;
+    ਵਾਪਸ bt == VT_LDOUBLE
         || bt == VT_DOUBLE
         || bt == VT_FLOAT
         || bt == VT_QFLOAT;
 }
 
-static inline int is_integer_btype(int bt)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਪੂਰਨ is_integer_btype(ਪੂਰਨ bt)
 {
-    return bt == VT_BYTE
+    ਵਾਪਸ bt == VT_BYTE
         || bt == VT_BOOL
         || bt == VT_SHORT
         || bt == VT_INT
         || bt == VT_LLONG;
 }
 
-static int btype_size(int bt)
+ਸਥਿਰ ਪੂਰਨ btype_ਮਾਪ(ਪੂਰਨ bt)
 {
-    return bt == VT_BYTE || bt == VT_BOOL ? 1 :
+    ਵਾਪਸ bt == VT_BYTE || bt == VT_BOOL ? 1 :
         bt == VT_SHORT ? 2 :
         bt == VT_INT ? 4 :
         bt == VT_LLONG ? 8 :
-        bt == VT_PTR ? PTR_SIZE : 0;
+        bt == VT_PTR ? PTR_ਮਾਪ : 0;
 }
 
 /* returns function return register from type */
-static int R_RET(int t)
+ਸਥਿਰ ਪੂਰਨ R_RET(ਪੂਰਨ t)
 {
-    if (!is_float(t))
-        return REG_IRET;
-#ifdef TCC_TARGET_X86_64
-    if ((t & VT_BTYPE) == VT_LDOUBLE)
-        return TREG_ST0;
-#elif defined TCC_TARGET_RISCV64
-    if ((t & VT_BTYPE) == VT_LDOUBLE)
-        return REG_IRET;
-#endif
-    return REG_FRET;
+    ਜੇ (!is_float(t))
+        ਵਾਪਸ REG_IRET;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
+    ਜੇ ((t & VT_BTYPE) == VT_LDOUBLE)
+        ਵਾਪਸ TREG_ST0;
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_RISCV64
+    ਜੇ ((t & VT_BTYPE) == VT_LDOUBLE)
+        ਵਾਪਸ REG_IRET;
+#ਜੇ_ਅੰਤ
+    ਵਾਪਸ REG_FRET;
 }
 
 /* returns 2nd function return register, if any */
-static int R2_RET(int t)
+ਸਥਿਰ ਪੂਰਨ R2_RET(ਪੂਰਨ t)
 {
     t &= VT_BTYPE;
-#if PTR_SIZE == 4
-    if (t == VT_LLONG)
-        return REG_IRE2;
-#elif defined TCC_TARGET_X86_64
-    if (t == VT_QLONG)
-        return REG_IRE2;
-    if (t == VT_QFLOAT)
-        return REG_FRE2;
-#elif defined TCC_TARGET_RISCV64
-    if (t == VT_LDOUBLE)
-        return REG_IRE2;
-#endif
-    return VT_CONST;
+#ਜੇ PTR_ਮਾਪ == 4
+    ਜੇ (t == VT_LLONG)
+        ਵਾਪਸ REG_IRE2;
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_X86_64
+    ਜੇ (t == VT_QLONG)
+        ਵਾਪਸ REG_IRE2;
+    ਜੇ (t == VT_QFLOAT)
+        ਵਾਪਸ REG_FRE2;
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_RISCV64
+    ਜੇ (t == VT_LDOUBLE)
+        ਵਾਪਸ REG_IRE2;
+#ਜੇ_ਅੰਤ
+    ਵਾਪਸ VT_CONST;
 }
 
 /* returns true for two-word types */
-#define USING_TWO_WORDS(t) (R2_RET(t) != VT_CONST)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ USING_TWO_ਸ਼ਬਦ(t) (R2_RET(t) != VT_CONST)
 
 /* put function return registers to stack value */
-static void PUT_R_RET(SValue *sv, int t)
+ਸਥਿਰ ਖਾਲੀ PUT_R_RET(SValue *sv, ਪੂਰਨ t)
 {
     sv->r = R_RET(t), sv->r2 = R2_RET(t);
 }
 
 /* returns function return register class for type t */
-static int RC_RET(int t)
+ਸਥਿਰ ਪੂਰਨ RC_RET(ਪੂਰਨ t)
 {
-    return reg_classes[R_RET(t)] & ~(RC_FLOAT | RC_INT);
+    ਵਾਪਸ reg_classes[R_RET(t)] & ~(RC_FLOAT | RC_INT);
 }
 
 /* returns generic register class for type t */
-static int RC_TYPE(int t)
+ਸਥਿਰ ਪੂਰਨ RC_TYPE(ਪੂਰਨ t)
 {
-    if (!is_float(t))
-        return RC_INT;
-#ifdef TCC_TARGET_X86_64
-    if ((t & VT_BTYPE) == VT_LDOUBLE)
-        return RC_ST0;
-    if ((t & VT_BTYPE) == VT_QFLOAT)
-        return RC_FRET;
-#elif defined TCC_TARGET_RISCV64
-    if ((t & VT_BTYPE) == VT_LDOUBLE)
-        return RC_INT;
-#endif
-    return RC_FLOAT;
+    ਜੇ (!is_float(t))
+        ਵਾਪਸ RC_INT;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
+    ਜੇ ((t & VT_BTYPE) == VT_LDOUBLE)
+        ਵਾਪਸ RC_ST0;
+    ਜੇ ((t & VT_BTYPE) == VT_QFLOAT)
+        ਵਾਪਸ RC_FRET;
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_RISCV64
+    ਜੇ ((t & VT_BTYPE) == VT_LDOUBLE)
+        ਵਾਪਸ RC_INT;
+#ਜੇ_ਅੰਤ
+    ਵਾਪਸ RC_FLOAT;
 }
 
 /* returns 2nd register class corresponding to t and rc */
-static int RC2_TYPE(int t, int rc)
+ਸਥਿਰ ਪੂਰਨ RC2_TYPE(ਪੂਰਨ t, ਪੂਰਨ rc)
 {
-    if (!USING_TWO_WORDS(t))
-        return 0;
-#ifdef RC_IRE2
-    if (rc == RC_IRET)
-        return RC_IRE2;
-#endif
-#ifdef RC_FRE2
-    if (rc == RC_FRET)
-        return RC_FRE2;
-#endif
-    if (rc & RC_FLOAT)
-        return RC_FLOAT;
-    return RC_INT;
+    ਜੇ (!USING_TWO_ਸ਼ਬਦ(t))
+        ਵਾਪਸ 0;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ RC_IRE2
+    ਜੇ (rc == RC_IRET)
+        ਵਾਪਸ RC_IRE2;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ RC_FRE2
+    ਜੇ (rc == RC_FRET)
+        ਵਾਪਸ RC_FRE2;
+#ਜੇ_ਅੰਤ
+    ਜੇ (rc & RC_FLOAT)
+        ਵਾਪਸ RC_FLOAT;
+    ਵਾਪਸ RC_INT;
 }
 
 /* we use our own 'finite' function to avoid potential problems with
    non standard math libs */
 /* XXX: endianness dependent */
-ST_FUNC int ieee_finite(double d)
+ST_FUNC ਪੂਰਨ ieee_finite(ਦੁੱਗਣਾ d)
 {
-    int p[4];
-    memcpy(p, &d, sizeof(double));
-    return ((unsigned)((p[1] | 0x800fffff) + 1)) >> 31;
+    ਪੂਰਨ p[4];
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(p, &d, ਆਕਾਰ(ਦੁੱਗਣਾ));
+    ਵਾਪਸ ((ਬਿਨਾਨਿਸ਼ਾਨੀ)((p[1] | 0x800fffff) + 1)) >> 31;
 }
 
-ST_FUNC void test_lvalue(void)
+ST_FUNC ਖਾਲੀ test_lvalue(ਖਾਲੀ)
 {
-    if (!(vtop->r & VT_LVAL))
+    ਜੇ (!(vtop->r & VT_LVAL))
         expect("lvalue");
 }
 
-ST_FUNC void check_vstack(void)
+ST_FUNC ਖਾਲੀ check_vstack(ਖਾਲੀ)
 {
-    if (vtop != vstack - 1)
+    ਜੇ (vtop != vstack - 1)
         tcc_error("internal compiler error: vstack leak (%d)",
-                  (int)(vtop - vstack + 1));
+                  (ਪੂਰਨ)(vtop - vstack + 1));
 }
 
-#if 0
+#ਜੇ 0
 /* dump 'b' vstack entries starting with 'a'  */
-void pv (const char *lbl, int a, int b)
+ਖਾਲੀ pv (ਅਚਲ ਅੱਖਰ *lbl, ਪੂਰਨ a, ਪੂਰਨ b)
 {
-    int i;
-    for (i = a; i < a + b; ++i) {
+    ਪੂਰਨ i;
+    ਲਈ (i = a; i < a + b; ++i) {
         SValue *p = &vtop[-i];
-        printf("%s vtop[-%d] : type.t:%04x  r:%04x  r2:%04x  c.i:%d\n",
-            lbl, i, p->type.t, p->r, p->r2, (int)p->c.i);
+        ਲਿਖੋ("%s vtop[-%d] : type.t:%04x  r:%04x  r2:%04x  c.i:%d\n",
+            lbl, i, p->type.t, p->r, p->r2, (ਪੂਰਨ)p->c.i);
     }
 }
 
 /* dump symbols on stack from s ... last */
-static inline void psyms(const char *msg, Sym *s, Sym *last)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ psyms(ਅਚਲ ਅੱਖਰ *ਸੁਨੇਹਾ, Sym *s, Sym *ਆਖਰੀ)
 {
-    printf("%-8s scope         v        c        r   type.t\n", msg);
-    while (s && s != last) {
-        printf("      %8x  %08x %08x %08x %08x %s\n",
+    ਲਿਖੋ("%-8s scope         v        c        r   type.t\n", ਸੁਨੇਹਾ);
+    ਜਦੋਂ (s && s != ਆਖਰੀ) {
+        ਲਿਖੋ("      %8x  %08x %08x %08x %08x %s\n",
             s->sym_scope, s->v, s->c, s->r, s->type.t, get_tok_str(s->v, 0));
         s = s->prev;
     }
 }
 
-static void type_to_str(char *buf, int buf_size, CType *type, const char *varstr);
+ਸਥਿਰ ਖਾਲੀ type_ਮੰਜ਼ਿਲ_str(ਅੱਖਰ *buf, ਪੂਰਨ buf_ਮਾਪ, CType *type, ਅਚਲ ਅੱਖਰ *varstr);
 
 /* print type */
-static void ptype(const char *msg, CType *type, int v)
+ਸਥਿਰ ਖਾਲੀ ptype(ਅਚਲ ਅੱਖਰ *ਸੁਨੇਹਾ, CType *type, ਪੂਰਨ v)
 {
-    char buf[500];
-    type_to_str(buf, sizeof(buf), type,
-        (v & ~SYM_FIELD) ? get_tok_str(v, NULL) : NULL);
-    printf("%s : %s;\n", msg, buf);
+    ਅੱਖਰ buf[500];
+    type_ਮੰਜ਼ਿਲ_str(buf, ਆਕਾਰ(buf), type,
+        (v & ~SYM_ਖੇਤਰ) ? get_tok_str(v, ਨਿਰਾ) : ਨਿਰਾ);
+    ਲਿਖੋ("%s : %s;\n", ਸੁਨੇਹਾ, buf);
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 /* ------------------------------------------------------------------------- */
 /* initialize vstack and types.  This must be done also for tcc -E */
-ST_FUNC void tccgen_init(TCCState *s1)
+ST_FUNC ਖਾਲੀ tccgen_init(TCCState *s1)
 {
     vtop = vstack - 1;
-    memset(vtop, 0, sizeof *vtop);
+    memset(vtop, 0, ਆਕਾਰ *vtop);
 
     /* define some often used types */
     int_type.t = VT_INT;
 
     char_type.t = VT_BYTE;
-    if (s1->char_is_unsigned)
+    ਜੇ (s1->char_is_unsigned)
         char_type.t |= VT_UNSIGNED;
-    char_pointer_type = char_type;
-    mk_pointer(&char_pointer_type);
+    char_ਸੂਚਕ_type = char_type;
+    mk_ਸੂਚਕ(&char_ਸੂਚਕ_type);
 
     func_old_type.t = VT_FUNC;
-    func_old_type.ref = sym_push(SYM_FIELD, &int_type, 0, 0);
+    func_old_type.ref = sym_ਧੱਕੋ(SYM_ਖੇਤਰ, &int_type, 0, 0);
     func_old_type.ref->f.func_call = FUNC_CDECL;
     func_old_type.ref->f.func_type = FUNC_OLD;
-#ifdef precedence_parser
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ precedence_parser
     init_prec();
-#endif
+#ਜੇ_ਅੰਤ
     cstr_new(&initstr);
 }
 
-ST_FUNC int tccgen_compile(TCCState *s1)
+ST_FUNC ਪੂਰਨ tccgen_compile(TCCState *s1)
 {
     funcname = "";
     func_ind = -1;
-    anon_sym = SYM_FIRST_ANOM;
-    nocode_wanted = DATA_ONLY_WANTED; /* no code outside of functions */
+    anon_sym = SYM_ਪਹਿਲਾ_ANOM;
+    nocode_wanted = ਅੰਕੜੇ_ONLY_WANTED; /* no code outside of functions */
     debug_modes = (s1->do_debug ? 1 : 0) | s1->test_coverage << 1;
-    global_expr = 0;
+    global_ਵਿਅੰਜਕ = 0;
 
-    tcc_debug_start(s1);
-    tcc_tcov_start (s1);
-#ifdef TCC_TARGET_ARM
+    tcc_debug_ਸ਼ੁਰੂ(s1);
+    tcc_tcov_ਸ਼ੁਰੂ (s1);
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_ARM
     arm_init(s1);
-#endif
-#ifdef INC_DEBUG
-    printf("%s: **** new file\n", file->filename);
-#endif
-    parse_flags = PARSE_FLAG_PREPROCESS | PARSE_FLAG_TOK_NUM | PARSE_FLAG_TOK_STR;
-    next();
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ INC_DEBUG
+    ਲਿਖੋ("%s: **** new file\n", file->filename);
+#ਜੇ_ਅੰਤ
+    parse_flags = PARSE_FLAG_PREPROCESS | PARSE_FLAG_TOK_ਅੰਕ | PARSE_FLAG_TOK_STR;
+    ਅਗਲਾ();
     decl(VT_CONST);
     gen_inline_functions(s1);
     check_vstack();
     /* end of translation unit info */
-#if TCC_EH_FRAME
-    tcc_eh_frame_end(s1);
-#endif
-    tcc_debug_end(s1);
-    tcc_tcov_end(s1);
-    return 0;
+#ਜੇ TCC_EH_ਚੌਖਟਾ
+    tcc_eh_ਚੌਖਟਾ_ਸਿਰਾ(s1);
+#ਜੇ_ਅੰਤ
+    tcc_debug_ਸਿਰਾ(s1);
+    tcc_tcov_ਸਿਰਾ(s1);
+    ਵਾਪਸ 0;
 }
 
-ST_FUNC void tccgen_finish(TCCState *s1)
+ST_FUNC ਖਾਲੀ tccgen_ਅੰਤ(TCCState *s1)
 {
-    tcc_debug_end(s1); /* just in case of errors: free memory */
+    tcc_debug_ਸਿਰਾ(s1); /* just in case of errors: free memory */
     free_inline_functions(s1);
-    sym_pop(&global_stack, NULL, 0);
-    sym_pop(&local_stack, NULL, 0);
+    sym_ਕੱਢੋ(&global_ਢੇਰ, ਨਿਰਾ, 0);
+    sym_ਕੱਢੋ(&local_ਢੇਰ, ਨਿਰਾ, 0);
     /* free preprocessor macros */
-    free_defines(NULL);
+    free_ਨਿਰਧਾਰਤ_ਕਰਦਾ(ਨਿਰਾ);
     /* free sym_pools */
     dynarray_reset(&sym_pools, &nb_sym_pools);
     cstr_free(&initstr);
-    dynarray_reset(&stk_data, &nb_stk_data);
-    while (cur_switch)
-        end_switch();
+    dynarray_reset(&stk_ਅੰਕੜੇ, &nb_stk_ਅੰਕੜੇ);
+    ਜਦੋਂ (cur_switch)
+        ਸਿਰਾ_switch();
     local_scope = 0;
-    loop_scope = NULL;
-    all_cleanups = NULL;
-    pending_gotos = NULL;
-    nb_temp_local_vars = 0;
-    global_label_stack = NULL;
-    local_label_stack = NULL;
-    cur_text_section = NULL;
-    sym_free_first = NULL;
+    loop_scope = ਨਿਰਾ;
+    all_cleanups = ਨਿਰਾ;
+    pending_gotos = ਨਿਰਾ;
+    nb_ਆਰਜ਼ੀ_local_vars = 0;
+    global_label_ਢੇਰ = ਨਿਰਾ;
+    local_label_ਢੇਰ = ਨਿਰਾ;
+    cur_ਪਾਠ_section = ਨਿਰਾ;
+    sym_free_ਪਹਿਲਾ = ਨਿਰਾ;
 }
 
 /* ------------------------------------------------------------------------- */
 ST_FUNC ElfSym *elfsym(Sym *s)
 {
-  if (!s || !s->c)
-    return NULL;
-  return &((ElfSym *)symtab_section->data)[s->c];
+  ਜੇ (!s || !s->c)
+    ਵਾਪਸ ਨਿਰਾ;
+  ਵਾਪਸ &((ElfSym *)symtab_section->ਅੰਕੜੇ)[s->c];
 }
 
 /* apply storage attributes to Elf symbol */
-ST_FUNC void update_storage(Sym *sym)
+ST_FUNC ਖਾਲੀ update_storage(Sym *sym)
 {
     ElfSym *esym;
-    int sym_bind, old_sym_bind;
+    ਪੂਰਨ sym_bind, old_sym_bind;
 
     esym = elfsym(sym);
-    if (!esym)
-        return;
+    ਜੇ (!esym)
+        ਵਾਪਸ;
 
-    if (sym->a.visibility)
+    ਜੇ (sym->a.visibility)
         esym->st_other = (esym->st_other & ~ELFW(ST_VISIBILITY)(-1))
             | sym->a.visibility;
 
-    if (sym->type.t & (VT_STATIC | VT_INLINE))
+    ਜੇ (sym->type.t & (VT_STATIC | VT_INLINE))
         sym_bind = STB_LOCAL;
-    else if (sym->a.weak)
+    ਨਹੀਂਤਾਂ ਜੇ (sym->a.weak)
         sym_bind = STB_WEAK;
-    else
+    ਨਹੀਂਤਾਂ
         sym_bind = STB_GLOBAL;
     old_sym_bind = ELFW(ST_BIND)(esym->st_info);
-    if (sym_bind != old_sym_bind) {
+    ਜੇ (sym_bind != old_sym_bind) {
         esym->st_info = ELFW(ST_INFO)(sym_bind, ELFW(ST_TYPE)(esym->st_info));
     }
 
-#ifdef TCC_TARGET_PE
-    if (sym->a.dllimport)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
+    ਜੇ (sym->a.dllimport)
         esym->st_other |= ST_PE_IMPORT;
-    if (sym->a.dllexport)
+    ਜੇ (sym->a.dllexport)
         esym->st_other |= ST_PE_EXPORT;
-#endif
+#ਜੇ_ਅੰਤ
 
-#if 0
-    printf("storage %s: bind=%c vis=%d exp=%d imp=%d\n",
-        get_tok_str(sym->v, NULL),
+#ਜੇ 0
+    ਲਿਖੋ("storage %s: bind=%c vis=%d exp=%d imp=%d\n",
+        get_tok_str(sym->v, ਨਿਰਾ),
         sym_bind == STB_WEAK ? 'w' : sym_bind == STB_LOCAL ? 'l' : 'g',
         sym->a.visibility,
         sym->a.dllexport,
         sym->a.dllimport
         );
-#endif
+#ਜੇ_ਅੰਤ
 }
 
 /* ------------------------------------------------------------------------- */
 /* update sym->c so that it points to an external symbol in section
    'section' with value 'value' */
 
-ST_FUNC void put_extern_sym2(Sym *sym, int sh_num,
-                            addr_t value, unsigned long size,
-                            int can_add_underscore)
+ST_FUNC ਖਾਲੀ put_extern_sym2(Sym *sym, ਪੂਰਨ sh_ਅੰਕ,
+                            addr_t ਮੁੱਲ, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮਾਪ,
+                            ਪੂਰਨ can_ਜੋੜੋ_underscore)
 {
-    int sym_type, sym_bind, info, other, t;
+    ਪੂਰਨ sym_type, sym_bind, info, other, t;
     ElfSym *esym;
-    const char *name;
-    char buf1[256];
+    ਅਚਲ ਅੱਖਰ *name;
+    ਅੱਖਰ buf1[256];
 
-    if (!sym->c) {
-        name = get_tok_str(sym->v, NULL);
+    ਜੇ (!sym->c) {
+        name = get_tok_str(sym->v, ਨਿਰਾ);
         t = sym->type.t;
-        if ((t & VT_BTYPE) == VT_FUNC) {
+        ਜੇ ((t & VT_BTYPE) == VT_FUNC) {
             sym_type = STT_FUNC;
-        } else if ((t & VT_BTYPE) == VT_VOID) {
+        } ਨਹੀਂਤਾਂ ਜੇ ((t & VT_BTYPE) == VT_VOID) {
             sym_type = STT_NOTYPE;
-            if (IS_ASM_FUNC(t))
+            ਜੇ (IS_ASM_FUNC(t))
                 sym_type = STT_FUNC;
-        } else if (t & VT_TLS) {
+        } ਨਹੀਂਤਾਂ ਜੇ (t & VT_TLS) {
             sym_type = STT_TLS;
-        } else {
+        } ਨਹੀਂਤਾਂ {
             sym_type = STT_OBJECT;
         }
-        if (t & (VT_STATIC | VT_INLINE))
+        ਜੇ (t & (VT_STATIC | VT_INLINE))
             sym_bind = STB_LOCAL;
-        else
+        ਨਹੀਂਤਾਂ
             sym_bind = STB_GLOBAL;
         other = 0;
 
-#ifdef TCC_TARGET_PE
-        if (sym_type == STT_FUNC && sym->type.ref) {
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
+        ਜੇ (sym_type == STT_FUNC && sym->type.ref) {
             Sym *ref = sym->type.ref;
-            if (ref->a.nodecorate) {
-                can_add_underscore = 0;
+            ਜੇ (ref->a.nodecorate) {
+                can_ਜੋੜੋ_underscore = 0;
             }
-            if (ref->f.func_call == FUNC_STDCALL && can_add_underscore) {
-                sprintf(buf1, "_%s@%d", name, ref->f.func_args * PTR_SIZE);
+            ਜੇ (ref->f.func_call == FUNC_STDCALL && can_ਜੋੜੋ_underscore) {
+                sprintf(buf1, "_%s@%d", name, ref->f.func_ਦਲੀਲਾਂ * PTR_ਮਾਪ);
                 name = buf1;
                 other |= ST_PE_STDCALL;
-                can_add_underscore = 0;
+                can_ਜੋੜੋ_underscore = 0;
             }
         }
-#endif
+#ਜੇ_ਅੰਤ
 
-        if (sym->asm_label) {
-            name = get_tok_str(sym->asm_label, NULL);
-            can_add_underscore = 0;
+        ਜੇ (sym->asm_label) {
+            name = get_tok_str(sym->asm_label, ਨਿਰਾ);
+            can_ਜੋੜੋ_underscore = 0;
         }
 
-        if (tcc_state->leading_underscore && can_add_underscore) {
+        ਜੇ (tcc_state->leading_underscore && can_ਜੋੜੋ_underscore) {
             buf1[0] = '_';
-            pstrcpy(buf1 + 1, sizeof(buf1) - 1, name);
+            pstrcpy(buf1 + 1, ਆਕਾਰ(buf1) - 1, name);
             name = buf1;
         }
 
         info = ELFW(ST_INFO)(sym_bind, sym_type);
-        sym->c = put_elf_sym(symtab_section, value, size, info, other, sh_num, name);
+        sym->c = put_elf_sym(symtab_section, ਮੁੱਲ, ਮਾਪ, info, other, sh_ਅੰਕ, name);
 
-        if (debug_modes)
-            tcc_debug_extern_sym(tcc_state, sym, sh_num, sym_bind, sym_type);
+        ਜੇ (debug_modes)
+            tcc_debug_extern_sym(tcc_state, sym, sh_ਅੰਕ, sym_bind, sym_type);
 
-    } else {
+    } ਨਹੀਂਤਾਂ {
         esym = elfsym(sym);
-        esym->st_value = value;
-        esym->st_size = size;
-        esym->st_shndx = sh_num;
+        esym->st_ਮੁੱਲ = ਮੁੱਲ;
+        esym->st_ਮਾਪ = ਮਾਪ;
+        esym->st_shndx = sh_ਅੰਕ;
     }
     update_storage(sym);
 }
 
-ST_FUNC void put_extern_sym(Sym *sym, Section *s, addr_t value, unsigned long size)
+ST_FUNC ਖਾਲੀ put_extern_sym(Sym *sym, Section *s, addr_t ਮੁੱਲ, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮਾਪ)
 {
-    if (nocode_wanted && (NODATA_WANTED || (s && s == cur_text_section)))
-        return;
-    put_extern_sym2(sym, s ? s->sh_num : SHN_UNDEF, value, size, 1);
+    ਜੇ (nocode_wanted && (NODATA_WANTED || (s && s == cur_ਪਾਠ_section)))
+        ਵਾਪਸ;
+    put_extern_sym2(sym, s ? s->sh_ਅੰਕ : SHN_UNDEF, ਮੁੱਲ, ਮਾਪ, 1);
 }
 
 /* add a new relocation entry to symbol 'sym' in section 's' */
-ST_FUNC void greloca(Section *s, Sym *sym, unsigned long offset, int type,
+ST_FUNC ਖਾਲੀ greloca(Section *s, Sym *sym, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਵਿੱਥ, ਪੂਰਨ type,
                      addr_t addend)
 {
-    int c = 0;
+    ਪੂਰਨ c = 0;
 
-    if (nocode_wanted && s == cur_text_section)
-        return;
+    ਜੇ (nocode_wanted && s == cur_ਪਾਠ_section)
+        ਵਾਪਸ;
 
-    if (sym) {
-        if (0 == sym->c) {
-            put_extern_sym(sym, NULL, 0, 0);
-            if (sym->sym_scope
+    ਜੇ (sym) {
+        ਜੇ (0 == sym->c) {
+            put_extern_sym(sym, ਨਿਰਾ, 0, 0);
+            ਜੇ (sym->sym_scope
                 && (sym->type.t & (VT_STATIC|VT_EXTERN)) == (VT_STATIC|VT_EXTERN)) {
                 /* when a local function declaraion redeclares a global static one
                    then tccelf would not resolve them to the same symbol. */
                 Sym *s = sym;
-                while (s->prev_tok)
+                ਜਦੋਂ (s->prev_tok)
                     s = s->prev_tok;
                 s->c = sym->c;
             }
@@ -614,254 +614,254 @@ ST_FUNC void greloca(Section *s, Sym *sym, unsigned long offset, int type,
     }
 
     /* now we can add ELF relocation info */
-    put_elf_reloca(symtab_section, s, offset, type, c, addend);
+    put_elf_reloca(symtab_section, s, ਵਿੱਥ, type, c, addend);
 }
 
-#if PTR_SIZE == 4
-ST_FUNC void greloc(Section *s, Sym *sym, unsigned long offset, int type)
+#ਜੇ PTR_ਮਾਪ == 4
+ST_FUNC ਖਾਲੀ greloc(Section *s, Sym *sym, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਵਿੱਥ, ਪੂਰਨ type)
 {
-    greloca(s, sym, offset, type, 0);
+    greloca(s, sym, ਵਿੱਥ, type, 0);
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 /* ------------------------------------------------------------------------- */
 /* symbol allocator */
-static Sym *__sym_malloc(void)
+ਸਥਿਰ Sym *__sym_malloc(ਖਾਲੀ)
 {
-    Sym *sym_pool, *sym, *last_sym;
-    int i;
+    Sym *sym_pool, *sym, *ਆਖਰੀ_sym;
+    ਪੂਰਨ i;
 
-    sym_pool = tcc_malloc(SYM_POOL_NB * sizeof(Sym));
-    dynarray_add(&sym_pools, &nb_sym_pools, sym_pool);
+    sym_pool = tcc_malloc(SYM_POOL_NB * ਆਕਾਰ(Sym));
+    dynarray_ਜੋੜੋ(&sym_pools, &nb_sym_pools, sym_pool);
 
-    last_sym = sym_free_first;
+    ਆਖਰੀ_sym = sym_free_ਪਹਿਲਾ;
     sym = sym_pool;
-    for(i = 0; i < SYM_POOL_NB; i++) {
-        sym->next = last_sym;
-        last_sym = sym;
+    ਲਈ(i = 0; i < SYM_POOL_NB; i++) {
+        sym->ਅਗਲਾ = ਆਖਰੀ_sym;
+        ਆਖਰੀ_sym = sym;
         sym++;
     }
-    sym_free_first = last_sym;
-    return last_sym;
+    sym_free_ਪਹਿਲਾ = ਆਖਰੀ_sym;
+    ਵਾਪਸ ਆਖਰੀ_sym;
 }
 
-static inline Sym *sym_malloc(void)
+ਸਥਿਰ ਸਤਰਅੰਦਰ Sym *sym_malloc(ਖਾਲੀ)
 {
     Sym *sym;
-#ifndef SYM_DEBUG
-    sym = sym_free_first;
-    if (!sym)
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ SYM_DEBUG
+    sym = sym_free_ਪਹਿਲਾ;
+    ਜੇ (!sym)
         sym = __sym_malloc();
-    sym_free_first = sym->next;
-    return sym;
-#else
-    sym = tcc_malloc(sizeof(Sym));
-    return sym;
-#endif
+    sym_free_ਪਹਿਲਾ = sym->ਅਗਲਾ;
+    ਵਾਪਸ sym;
+#ਨਹੀਂਤਾਂ
+    sym = tcc_malloc(ਆਕਾਰ(Sym));
+    ਵਾਪਸ sym;
+#ਜੇ_ਅੰਤ
 }
 
-ST_INLN void sym_free(Sym *sym)
+ST_INLN ਖਾਲੀ sym_free(Sym *sym)
 {
-#ifndef SYM_DEBUG
-    sym->next = sym_free_first;
-    sym_free_first = sym;
-#else
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ SYM_DEBUG
+    sym->ਅਗਲਾ = sym_free_ਪਹਿਲਾ;
+    sym_free_ਪਹਿਲਾ = sym;
+#ਨਹੀਂਤਾਂ
     tcc_free(sym);
-#endif
+#ਜੇ_ਅੰਤ
 }
 
 /* push, without hashing */
-ST_FUNC Sym *sym_push2(Sym **ps, int v, int t, int c)
+ST_FUNC Sym *sym_push2(Sym **ps, ਪੂਰਨ v, ਪੂਰਨ t, ਪੂਰਨ c)
 {
     Sym *s;
 
     s = sym_malloc();
-    memset(s, 0, sizeof *s);
+    memset(s, 0, ਆਕਾਰ *s);
     s->v = v;
     s->type.t = t;
     s->c = c;
     /* add in stack */
     s->prev = *ps;
     *ps = s;
-    return s;
+    ਵਾਪਸ s;
 }
 
 /* find a symbol and return its associated structure. 's' is the top
    of the symbol stack */
-ST_FUNC Sym *sym_find2(Sym *s, int v)
+ST_FUNC Sym *sym_find2(Sym *s, ਪੂਰਨ v)
 {
-    while (s) {
-        if (s->v == v)
-            return s;
+    ਜਦੋਂ (s) {
+        ਜੇ (s->v == v)
+            ਵਾਪਸ s;
         s = s->prev;
     }
-    return NULL;
+    ਵਾਪਸ ਨਿਰਾ;
 }
 
 /* structure lookup */
-ST_INLN Sym *struct_find(int v)
+ST_INLN Sym *struct_ਲੱਭੋ(ਪੂਰਨ v)
 {
     v -= TOK_IDENT;
-    if ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
-        return NULL;
-    return table_ident[v]->sym_struct;
+    ਜੇ ((ਬਿਨਾਨਿਸ਼ਾਨੀ)v >= (ਬਿਨਾਨਿਸ਼ਾਨੀ)(tok_ident - TOK_IDENT))
+        ਵਾਪਸ ਨਿਰਾ;
+    ਵਾਪਸ ਸਾਰਣੀ_ident[v]->sym_struct;
 }
 
 /* find an identifier */
-ST_INLN Sym *sym_find(int v)
+ST_INLN Sym *sym_ਲੱਭੋ(ਪੂਰਨ v)
 {
     v -= TOK_IDENT;
-    if ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
-        return NULL;
-    return table_ident[v]->sym_identifier;
+    ਜੇ ((ਬਿਨਾਨਿਸ਼ਾਨੀ)v >= (ਬਿਨਾਨਿਸ਼ਾਨੀ)(tok_ident - TOK_IDENT))
+        ਵਾਪਸ ਨਿਰਾ;
+    ਵਾਪਸ ਸਾਰਣੀ_ident[v]->sym_identifier;
 }
 
 /* make sym in-/visible to the parser */
-static inline void sym_link(Sym *s, int yes)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ sym_link(Sym *s, ਪੂਰਨ yes)
 {
-    TokenSym *ts = table_ident[(s->v & ~SYM_STRUCT) - TOK_IDENT];
+    TokenSym *ts = ਸਾਰਣੀ_ident[(s->v & ~SYM_STRUCT) - TOK_IDENT];
     Sym **ps;
-    if (s->v & SYM_STRUCT)
+    ਜੇ (s->v & SYM_STRUCT)
         ps = &ts->sym_struct;
-    else
+    ਨਹੀਂਤਾਂ
         ps = &ts->sym_identifier;
-    if (yes) {
+    ਜੇ (yes) {
         s->prev_tok = *ps, *ps = s;
         s->sym_scope = local_scope;
-    } else {
+    } ਨਹੀਂਤਾਂ {
         *ps = s->prev_tok;
     }
 }
 
-static inline int sym_scope_ex(Sym *s)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਪੂਰਨ sym_scope_ex(Sym *s)
 {
     /* enums have 'sym_scope' overwritten by 'enum_val' */
-    return IS_ENUM_VAL (s->type.t)
+    ਵਾਪਸ IS_ENUM_VAL (s->type.t)
         ? s->type.ref->sym_scope
         : s->sym_scope;
 }
 
 /* push a given symbol on the symbol stack */
-ST_FUNC Sym *sym_push(int v, CType *type, int r, int c)
+ST_FUNC Sym *sym_ਧੱਕੋ(ਪੂਰਨ v, CType *type, ਪੂਰਨ r, ਪੂਰਨ c)
 {
     Sym *s, **ps;
-    if (local_stack)
-        ps = &local_stack;
-    else
-        ps = &global_stack;
+    ਜੇ (local_ਢੇਰ)
+        ps = &local_ਢੇਰ;
+    ਨਹੀਂਤਾਂ
+        ps = &global_ਢੇਰ;
     s = sym_push2(ps, v, type->t, c);
     s->type.ref = type->ref;
     s->r = r;
     /* don't record fields or anonymous symbols */
-    if ((v & ~SYM_STRUCT) < SYM_FIRST_ANOM) {
+    ਜੇ ((v & ~SYM_STRUCT) < SYM_ਪਹਿਲਾ_ANOM) {
         /* record symbol in token array */
         sym_link(s, 1);
-        if (s->prev_tok && sym_scope_ex(s->prev_tok) == local_scope)
-            tcc_error("redeclaration of '%s'", get_tok_str(s->v, NULL));
+        ਜੇ (s->prev_tok && sym_scope_ex(s->prev_tok) == local_scope)
+            tcc_error("redeclaration of '%s'", get_tok_str(s->v, ਨਿਰਾ));
     }
-    return s;
+    ਵਾਪਸ s;
 }
 
 /* push a global identifier */
-ST_FUNC Sym *global_identifier_push(int v, int t, int c)
+ST_FUNC Sym *global_identifier_ਧੱਕੋ(ਪੂਰਨ v, ਪੂਰਨ t, ਪੂਰਨ c)
 {
     Sym *s, **ps;
-    s = sym_push2(&global_stack, v, t, c);
+    s = sym_push2(&global_ਢੇਰ, v, t, c);
     s->r = VT_CONST | VT_SYM;
     /* don't record anonymous symbol */
-    if (v < SYM_FIRST_ANOM) {
-        ps = &table_ident[v - TOK_IDENT]->sym_identifier;
+    ਜੇ (v < SYM_ਪਹਿਲਾ_ANOM) {
+        ps = &ਸਾਰਣੀ_ident[v - TOK_IDENT]->sym_identifier;
         /* modify the top most local identifier, so that sym_identifier will
            point to 's' when popped; happens when called from inline asm */
-        while (*ps != NULL && (*ps)->sym_scope)
+        ਜਦੋਂ (*ps != ਨਿਰਾ && (*ps)->sym_scope)
             ps = &(*ps)->prev_tok;
         s->prev_tok = *ps;
         *ps = s;
     }
-    return s;
+    ਵਾਪਸ s;
 }
 
 /* pop symbols until top reaches 'b'.  If KEEP is non-zero don't really
    pop them yet from the list, but do remove them from the token array.  */
-ST_FUNC void sym_pop(Sym **ptop, Sym *b, int keep)
+ST_FUNC ਖਾਲੀ sym_ਕੱਢੋ(Sym **ptop, Sym *b, ਪੂਰਨ keep)
 {
     Sym *s, *ss;
-    int v;
+    ਪੂਰਨ v;
 
     s = *ptop;
-    while(s != b) {
+    ਜਦੋਂ(s != b) {
         ss = s->prev;
         v = s->v;
         /* remove symbol in token array */
-        if ((v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
+        ਜੇ ((v & ~SYM_STRUCT) < SYM_ਪਹਿਲਾ_ANOM)
             sym_link(s, 0);
-	if (!keep)
+	ਜੇ (!keep)
 	    sym_free(s);
         s = ss;
     }
-    if (!keep)
+    ਜੇ (!keep)
 	*ptop = b;
 }
 
 /* label lookup */
-ST_FUNC Sym *label_find(int v)
+ST_FUNC Sym *label_ਲੱਭੋ(ਪੂਰਨ v)
 {
     v -= TOK_IDENT;
-    if ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
-        return NULL;
-    return table_ident[v]->sym_label;
+    ਜੇ ((ਬਿਨਾਨਿਸ਼ਾਨੀ)v >= (ਬਿਨਾਨਿਸ਼ਾਨੀ)(tok_ident - TOK_IDENT))
+        ਵਾਪਸ ਨਿਰਾ;
+    ਵਾਪਸ ਸਾਰਣੀ_ident[v]->sym_label;
 }
 
-ST_FUNC Sym *label_push(Sym **ptop, int v, int flags)
+ST_FUNC Sym *label_ਧੱਕੋ(Sym **ptop, ਪੂਰਨ v, ਪੂਰਨ flags)
 {
     Sym *s, **ps;
     s = sym_push2(ptop, v, VT_STATIC, 0);
     s->r = flags;
-    ps = &table_ident[v - TOK_IDENT]->sym_label;
-    if (ptop == &global_label_stack) {
+    ps = &ਸਾਰਣੀ_ident[v - TOK_IDENT]->sym_label;
+    ਜੇ (ptop == &global_label_ਢੇਰ) {
         /* modify the top most local identifier, so that
            sym_identifier will point to 's' when popped */
-        while (*ps != NULL)
+        ਜਦੋਂ (*ps != ਨਿਰਾ)
             ps = &(*ps)->prev_tok;
     }
     s->prev_tok = *ps;
     *ps = s;
-    return s;
+    ਵਾਪਸ s;
 }
 
 /* pop labels until element last is reached. Look if any labels are
    undefined. Define symbols if '&&label' was used. */
-ST_FUNC void label_pop(Sym **ptop, Sym *slast, int keep)
+ST_FUNC ਖਾਲੀ label_ਕੱਢੋ(Sym **ptop, Sym *slast, ਪੂਰਨ keep)
 {
     Sym *s, *s1;
-    for(s = *ptop; s != slast; s = s1) {
+    ਲਈ(s = *ptop; s != slast; s = s1) {
         s1 = s->prev;
-        if (s->r == LABEL_DECLARED) {
-            tcc_warning_c(warn_all)("label '%s' declared but not used", get_tok_str(s->v, NULL));
-        } else if (s->r == LABEL_FORWARD) {
+        ਜੇ (s->r == LABEL_DECLARED) {
+            tcc_warning_c(warn_all)("label '%s' declared but not used", get_tok_str(s->v, ਨਿਰਾ));
+        } ਨਹੀਂਤਾਂ ਜੇ (s->r == LABEL_FORWARD) {
                 tcc_error("label '%s' used but not defined",
-                      get_tok_str(s->v, NULL));
-        } else {
-            if (s->c) {
+                      get_tok_str(s->v, ਨਿਰਾ));
+        } ਨਹੀਂਤਾਂ {
+            ਜੇ (s->c) {
                 /* define corresponding symbol. A size of
                    1 is put. */
-                put_extern_sym(s, cur_text_section, s->jind, 1);
+                put_extern_sym(s, cur_ਪਾਠ_section, s->jind, 1);
             }
         }
         /* remove label */
-        if (s->r != LABEL_GONE)
-            table_ident[s->v - TOK_IDENT]->sym_label = s->prev_tok;
-        if (!keep)
+        ਜੇ (s->r != LABEL_GONE)
+            ਸਾਰਣੀ_ident[s->v - TOK_IDENT]->sym_label = s->prev_tok;
+        ਜੇ (!keep)
             sym_free(s);
-        else
+        ਨਹੀਂਤਾਂ
             s->r = LABEL_GONE;
     }
-    if (!keep)
+    ਜੇ (!keep)
         *ptop = slast;
 }
 
 /* ------------------------------------------------------------------------- */
-static void vcheck_cmp(void)
+ਸਥਿਰ ਖਾਲੀ vcheck_cmp(ਖਾਲੀ)
 {
     /* cannot let cpu flags if other instruction are generated. Also
        avoid leaving VT_JMP anywhere except on the top of the stack
@@ -881,13 +881,13 @@ static void vcheck_cmp(void)
        actually clear it at the gsym() in load()/VT_JMP in the
        generator backends */
 
-    if (vtop->r == VT_CMP && 0 == (nocode_wanted & ~CODE_OFF_BIT))
+    ਜੇ (vtop->r == VT_CMP && 0 == (nocode_wanted & ~ਕੋਡ_OFF_ਦੋਆਧਾਰੀ_ਅੰਕ))
         gv(RC_INT);
 }
 
-static void vsetc(CType *type, int r, CValue *vc)
+ਸਥਿਰ ਖਾਲੀ vsetc(CType *type, ਪੂਰਨ r, CValue *vc)
 {
-    if (vtop >= vstack + (VSTACK_SIZE - 1))
+    ਜੇ (vtop >= vstack + (VSTACK_ਮਾਪ - 1))
         tcc_error("memory full (vstack)");
     vcheck_cmp();
     vtop++;
@@ -895,10 +895,10 @@ static void vsetc(CType *type, int r, CValue *vc)
     vtop->r = r;
     vtop->r2 = VT_CONST;
     vtop->c = *vc;
-    vtop->sym = NULL;
+    vtop->sym = ਨਿਰਾ;
 }
 
-ST_FUNC void vswap(void)
+ST_FUNC ਖਾਲੀ vswap(ਖਾਲੀ)
 {
     SValue tmp;
 
@@ -909,17 +909,17 @@ ST_FUNC void vswap(void)
 }
 
 /* pop stack value */
-ST_FUNC void vpop(void)
+ST_FUNC ਖਾਲੀ vpop(ਖਾਲੀ)
 {
-    int v;
+    ਪੂਰਨ v;
     v = vtop->r & VT_VALMASK;
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
+#ਜੇ defined(TCC_ਨਿਸ਼ਾਨਾ_I386) || defined(TCC_ਨਿਸ਼ਾਨਾ_X86_64)
     /* for x86, we need to pop the FP stack */
-    if (v == TREG_ST0) {
+    ਜੇ (v == TREG_ST0) {
         o(0xd8dd); /* fstp %st(0) */
-    } else
-#endif
-    if (v == VT_CMP) {
+    } ਨਹੀਂਤਾਂ
+#ਜੇ_ਅੰਤ
+    ਜੇ (v == VT_CMP) {
         /* need to put correct jump if && or || without test */
         gsym(vtop->jtrue);
         gsym(vtop->jfalse);
@@ -928,99 +928,99 @@ ST_FUNC void vpop(void)
 }
 
 /* push constant of type "type" with useless value */
-static void vpush(CType *type)
+ਸਥਿਰ ਖਾਲੀ vpush(CType *type)
 {
     vset(type, VT_CONST, 0);
 }
 
 /* push arbitrary 64bit constant */
-static void vpush64(int ty, unsigned long long v)
+ਸਥਿਰ ਖਾਲੀ vpush64(ਪੂਰਨ ty, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ v)
 {
     CValue cval;
     CType ctype;
     ctype.t = ty;
-    ctype.ref = NULL;
+    ctype.ref = ਨਿਰਾ;
     cval.i = v;
     vsetc(&ctype, VT_CONST, &cval);
 }
 
 /* push integer constant */
-ST_FUNC void vpushi(int v)
+ST_FUNC ਖਾਲੀ vpushi(ਪੂਰਨ v)
 {
     vpush64(VT_INT, v);
 }
 
 /* push a pointer sized constant */
-static void vpushs(addr_t v)
+ਸਥਿਰ ਖਾਲੀ vpushs(addr_t v)
 {
-    vpush64(VT_SIZE_T, v);
+    vpush64(VT_ਮਾਪ_T, v);
 }
 
 /* push long long constant */
-static inline void vpushll(long long v)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ vpushll(ਲੰਮਾ ਲੰਮਾ v)
 {
     vpush64(VT_LLONG, v);
 }
 
-ST_FUNC void vset(CType *type, int r, int v)
+ST_FUNC ਖਾਲੀ vset(CType *type, ਪੂਰਨ r, ਪੂਰਨ v)
 {
     CValue cval;
     cval.i = v;
     vsetc(type, r, &cval);
 }
 
-static void vseti(int r, int v)
+ਸਥਿਰ ਖਾਲੀ vseti(ਪੂਰਨ r, ਪੂਰਨ v)
 {
     CType type;
     type.t = VT_INT;
-    type.ref = NULL;
+    type.ref = ਨਿਰਾ;
     vset(&type, r, v);
 }
 
-ST_FUNC void vpushv(SValue *v)
+ST_FUNC ਖਾਲੀ vpushv(SValue *v)
 {
-    if (vtop >= vstack + (VSTACK_SIZE - 1))
+    ਜੇ (vtop >= vstack + (VSTACK_ਮਾਪ - 1))
         tcc_error("memory full (vstack)");
     vtop++;
     *vtop = *v;
 }
 
-static void vdup(void)
+ਸਥਿਰ ਖਾਲੀ vdup(ਖਾਲੀ)
 {
     vpushv(vtop);
 }
 
 /* rotate the stack element at position n-1 to the top */
-ST_FUNC void vrotb(int n)
+ST_FUNC ਖਾਲੀ vrotb(ਪੂਰਨ n)
 {
     SValue tmp;
-    if (--n < 1)
-        return;
+    ਜੇ (--n < 1)
+        ਵਾਪਸ;
     vcheck_cmp();
     tmp = vtop[-n];
-    memmove(vtop - n, vtop - n + 1, sizeof *vtop * n);
+    memmove(vtop - n, vtop - n + 1, ਆਕਾਰ *vtop * n);
     vtop[0] = tmp;
 }
 
 /* rotate the top stack element into position n-1 */
-ST_FUNC void vrott(int n)
+ST_FUNC ਖਾਲੀ vrott(ਪੂਰਨ n)
 {
     SValue tmp;
-    if (--n < 1)
-        return;
+    ਜੇ (--n < 1)
+        ਵਾਪਸ;
     vcheck_cmp();
     tmp = vtop[0];
-    memmove(vtop - n + 1, vtop - n, sizeof *vtop * n);
+    memmove(vtop - n + 1, vtop - n, ਆਕਾਰ *vtop * n);
     vtop[-n] = tmp;
 }
 
 /* reverse order of the the first n stack elements */
-ST_FUNC void vrev(int n)
+ST_FUNC ਖਾਲੀ vrev(ਪੂਰਨ n)
 {
-    int i;
+    ਪੂਰਨ i;
     SValue tmp;
     vcheck_cmp();
-    for (i = 0, n = -n; i > ++n; --i)
+    ਲਈ (i = 0, n = -n; i > ++n; --i)
         tmp = vtop[i], vtop[i] = vtop[n], vtop[n] = tmp;
 }
 
@@ -1028,7 +1028,7 @@ ST_FUNC void vrev(int n)
 /* vtop->r = VT_CMP means CPU-flags have been set from comparison or test. */
 
 /* called from generators to set the result from relational ops  */
-ST_FUNC void vset_VT_CMP(int op)
+ST_FUNC ਖਾਲੀ vset_VT_CMP(ਪੂਰਨ op)
 {
     vtop->r = VT_CMP;
     vtop->cmp_op = op;
@@ -1037,33 +1037,33 @@ ST_FUNC void vset_VT_CMP(int op)
 }
 
 /* called once before asking generators to load VT_CMP to a register */
-static void vset_VT_JMP(void)
+ਸਥਿਰ ਖਾਲੀ vset_VT_JMP(ਖਾਲੀ)
 {
-    int op = vtop->cmp_op;
+    ਪੂਰਨ op = vtop->cmp_op;
 
-    if (vtop->jtrue || vtop->jfalse) {
-        int origt = vtop->type.t;
+    ਜੇ (vtop->jtrue || vtop->jfalse) {
+        ਪੂਰਨ origt = vtop->type.t;
         /* we need to jump to 'mov $0,%R' or 'mov $1,%R' */
-        int inv = op & (op < 2); /* small optimization */
+        ਪੂਰਨ inv = op & (op < 2); /* small optimization */
         vseti(VT_JMP+inv, gvtst(inv, 0));
         vtop->type.t |= origt & (VT_UNSIGNED | VT_DEFSIGN);
-    } else {
+    } ਨਹੀਂਤਾਂ {
         /* otherwise convert flags (rsp. 0/1) to register */
         vtop->c.i = op;
-        if (op < 2) /* doesn't seem to happen */
+        ਜੇ (op < 2) /* doesn't seem to happen */
             vtop->r = VT_CONST;
     }
 }
 
 /* Set CPU Flags, doesn't yet jump */
-static void gvtst_set(int inv, int t)
+ਸਥਿਰ ਖਾਲੀ gvtst_ਸੈੱਟ(ਪੂਰਨ inv, ਪੂਰਨ t)
 {
-    int *p;
+    ਪੂਰਨ *p;
 
-    if (vtop->r != VT_CMP) {
+    ਜੇ (vtop->r != VT_CMP) {
         vpushi(0);
         gen_op(TOK_NE);
-        if (vtop->r != VT_CMP) /* must be VT_CONST then */
+        ਜੇ (vtop->r != VT_CMP) /* must be VT_CONST then */
             vset_VT_CMP(vtop->c.i != 0);
     }
 
@@ -1074,40 +1074,40 @@ static void gvtst_set(int inv, int t)
 /* Generate value test
  *
  * Generate a test for any value (jump, comparison and integers) */
-static int gvtst(int inv, int t)
+ਸਥਿਰ ਪੂਰਨ gvtst(ਪੂਰਨ inv, ਪੂਰਨ t)
 {
-    int op, x, u;
+    ਪੂਰਨ op, x, u;
 
-    gvtst_set(inv, t);
+    gvtst_ਸੈੱਟ(inv, t);
     t = vtop->jtrue, u = vtop->jfalse;
-    if (inv)
+    ਜੇ (inv)
         x = u, u = t, t = x;
     op = vtop->cmp_op;
 
     /* jump to the wanted target */
-    if (op > 1)
+    ਜੇ (op > 1)
         t = gjmp_cond(op ^ inv, t);
-    else if (op != inv)
+    ਨਹੀਂਤਾਂ ਜੇ (op != inv)
         t = gjmp(t);
     /* resolve complementary jumps to here */
     gsym(u);
 
     vtop--;
-    return t;
+    ਵਾਪਸ t;
 }
 
 /* generate a zero or nozero test */
-static void gen_test_zero(int op)
+ਸਥਿਰ ਖਾਲੀ gen_test_zero(ਪੂਰਨ op)
 {
-    if (vtop->r == VT_CMP) {
-        int j;
-        if (op == TOK_EQ) {
+    ਜੇ (vtop->r == VT_CMP) {
+        ਪੂਰਨ j;
+        ਜੇ (op == TOK_EQ) {
             j = vtop->jfalse;
             vtop->jfalse = vtop->jtrue;
             vtop->jtrue = j;
             vtop->cmp_op ^= 1;
         }
-    } else {
+    } ਨਹੀਂਤਾਂ {
         vpushi(0);
         gen_op(op);
     }
@@ -1115,7 +1115,7 @@ static void gen_test_zero(int op)
 
 /* ------------------------------------------------------------------------- */
 /* push a symbol value of TYPE */
-ST_FUNC void vpushsym(CType *type, Sym *sym)
+ST_FUNC ਖਾਲੀ vpushsym(CType *type, Sym *sym)
 {
     CValue cval;
     cval.i = 0;
@@ -1124,67 +1124,67 @@ ST_FUNC void vpushsym(CType *type, Sym *sym)
 }
 
 /* Return a static symbol pointing to a section */
-ST_FUNC Sym *get_sym_ref(CType *type, Section *sec, unsigned long offset, unsigned long size)
+ST_FUNC Sym *get_sym_ref(CType *type, Section *sec, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਵਿੱਥ, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮਾਪ)
 {
-    int v;
+    ਪੂਰਨ v;
     Sym *sym;
 
     v = anon_sym++;
-    sym = sym_push(v, type, VT_CONST | VT_SYM, 0);
+    sym = sym_ਧੱਕੋ(v, type, VT_CONST | VT_SYM, 0);
     sym->type.t |= VT_STATIC;
-    put_extern_sym(sym, sec, offset, size);
-    return sym;
+    put_extern_sym(sym, sec, ਵਿੱਥ, ਮਾਪ);
+    ਵਾਪਸ sym;
 }
 
 /* push a reference to a section offset by adding a dummy symbol */
-static void vpush_ref(CType *type, Section *sec, unsigned long offset, unsigned long size)
+ਸਥਿਰ ਖਾਲੀ vpush_ref(CType *type, Section *sec, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਵਿੱਥ, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮਾਪ)
 {
-    vpushsym(type, get_sym_ref(type, sec, offset, size));  
+    vpushsym(type, get_sym_ref(type, sec, ਵਿੱਥ, ਮਾਪ));  
 }
 
 /* define a new external reference to a symbol 'v' of type 'u' */
-ST_FUNC Sym *external_global_sym(int v, CType *type)
+ST_FUNC Sym *external_global_sym(ਪੂਰਨ v, CType *type)
 {
     Sym *s;
 
-    s = sym_find(v);
-    if (!s) {
+    s = sym_ਲੱਭੋ(v);
+    ਜੇ (!s) {
         /* push forward reference */
-        s = global_identifier_push(v, type->t | VT_EXTERN, 0);
+        s = global_identifier_ਧੱਕੋ(v, type->t | VT_EXTERN, 0);
         s->type.ref = type->ref;
-    } else if (IS_ASM_SYM(s)) {
+    } ਨਹੀਂਤਾਂ ਜੇ (IS_ASM_SYM(s)) {
         s->type.t = type->t | (s->type.t & VT_EXTERN);
         s->type.ref = type->ref;
         update_storage(s);
     }
-    return s;
+    ਵਾਪਸ s;
 }
 
 /* create an external reference with no specific type similar to asm labels.
    This avoids type conflicts if the symbol is used from C too */
-ST_FUNC Sym *external_helper_sym(int v)
+ST_FUNC Sym *external_helper_sym(ਪੂਰਨ v)
 {
-    CType ct = { VT_ASM_FUNC, NULL };
-    return external_global_sym(v, &ct);
+    CType ct = { VT_ASM_FUNC, ਨਿਰਾ };
+    ਵਾਪਸ external_global_sym(v, &ct);
 }
 
 /* push a reference to an helper function (such as memmove) */
-ST_FUNC void vpush_helper_func(int v)
+ST_FUNC ਖਾਲੀ vpush_helper_func(ਪੂਰਨ v)
 {
     vpushsym(&func_old_type, external_helper_sym(v));
 }
 
 /* Merge symbol attributes.  */
-static void merge_symattr(struct SymAttr *sa, struct SymAttr *sa1)
+ਸਥਿਰ ਖਾਲੀ ਮਿਲਾਓ_symattr(ਬਣਤਰ SymAttr *sa, ਬਣਤਰ SymAttr *sa1)
 {
-    if (sa1->aligned && !sa->aligned)
+    ਜੇ (sa1->aligned && !sa->aligned)
       sa->aligned = sa1->aligned;
     sa->packed |= sa1->packed;
     sa->weak |= sa1->weak;
     sa->nodebug |= sa1->nodebug;
-    if (sa1->visibility != STV_DEFAULT) {
-	int vis = sa->visibility;
-	if (vis == STV_DEFAULT
+    ਜੇ (sa1->visibility != STV_DEFAULT) {
+	ਪੂਰਨ vis = sa->visibility;
+	ਜੇ (vis == STV_DEFAULT
 	    || vis > sa1->visibility)
 	  vis = sa1->visibility;
 	sa->visibility = vis;
@@ -1195,314 +1195,314 @@ static void merge_symattr(struct SymAttr *sa, struct SymAttr *sa1)
 }
 
 /* Merge function attributes.  */
-static void merge_funcattr(struct FuncAttr *fa, struct FuncAttr *fa1)
+ਸਥਿਰ ਖਾਲੀ ਮਿਲਾਓ_funcattr(ਬਣਤਰ FuncAttr *fa, ਬਣਤਰ FuncAttr *fa1)
 {
-    if (fa1->func_call && !fa->func_call)
+    ਜੇ (fa1->func_call && !fa->func_call)
       fa->func_call = fa1->func_call;
-    if (fa1->func_type && !fa->func_type)
+    ਜੇ (fa1->func_type && !fa->func_type)
       fa->func_type = fa1->func_type;
-    if (fa1->func_args && !fa->func_args)
-      fa->func_args = fa1->func_args;
-    if (fa1->func_noreturn)
+    ਜੇ (fa1->func_ਦਲੀਲਾਂ && !fa->func_ਦਲੀਲਾਂ)
+      fa->func_ਦਲੀਲਾਂ = fa1->func_ਦਲੀਲਾਂ;
+    ਜੇ (fa1->func_noreturn)
       fa->func_noreturn = 1;
-    if (fa1->func_ctor)
+    ਜੇ (fa1->func_ctor)
       fa->func_ctor = 1;
-    if (fa1->func_dtor)
+    ਜੇ (fa1->func_dtor)
       fa->func_dtor = 1;
 }
 
 /* Merge attributes.  */
-static void merge_attr(AttributeDef *ad, AttributeDef *ad1)
+ਸਥਿਰ ਖਾਲੀ ਮਿਲਾਓ_attr(AttributeDef *ad, AttributeDef *ad1)
 {
-    merge_symattr(&ad->a, &ad1->a);
-    merge_funcattr(&ad->f, &ad1->f);
+    ਮਿਲਾਓ_symattr(&ad->a, &ad1->a);
+    ਮਿਲਾਓ_funcattr(&ad->f, &ad1->f);
 
-    if (ad1->section)
+    ਜੇ (ad1->section)
       ad->section = ad1->section;
-    if (ad1->alias_target)
-      ad->alias_target = ad1->alias_target;
-    if (ad1->asm_label)
+    ਜੇ (ad1->alias_ਨਿਸ਼ਾਨਾ)
+      ad->alias_ਨਿਸ਼ਾਨਾ = ad1->alias_ਨਿਸ਼ਾਨਾ;
+    ਜੇ (ad1->asm_label)
       ad->asm_label = ad1->asm_label;
-    if (ad1->attr_mode)
-      ad->attr_mode = ad1->attr_mode;
+    ਜੇ (ad1->attr_ਬਹੁਲਕ)
+      ad->attr_ਬਹੁਲਕ = ad1->attr_ਬਹੁਲਕ;
 }
 
 /* Merge some type attributes.  */
-static void patch_type(Sym *sym, CType *type)
+ਸਥਿਰ ਖਾਲੀ patch_type(Sym *sym, CType *type)
 {
-    if (!(type->t & VT_EXTERN) || IS_ENUM_VAL(sym->type.t)) {
-        if (!(sym->type.t & VT_EXTERN))
-            tcc_error("redefinition of '%s'", get_tok_str(sym->v, NULL));
+    ਜੇ (!(type->t & VT_EXTERN) || IS_ENUM_VAL(sym->type.t)) {
+        ਜੇ (!(sym->type.t & VT_EXTERN))
+            tcc_error("redefinition of '%s'", get_tok_str(sym->v, ਨਿਰਾ));
         sym->type.t &= ~VT_EXTERN;
     }
 
-    if (IS_ASM_SYM(sym)) {
+    ਜੇ (IS_ASM_SYM(sym)) {
         /* stay static if both are static */
         sym->type.t = type->t & (sym->type.t | ~VT_STATIC);
         sym->type.ref = type->ref;
-        if ((type->t & VT_BTYPE) != VT_FUNC && !(type->t & VT_ARRAY))
+        ਜੇ ((type->t & VT_BTYPE) != VT_FUNC && !(type->t & VT_ARRAY))
             sym->r |= VT_LVAL;
     }
 
-    if (!is_compatible_types(&sym->type, type)) {
+    ਜੇ (!is_compatible_types(&sym->type, type)) {
         tcc_error("incompatible types for redefinition of '%s'",
-                  get_tok_str(sym->v, NULL));
+                  get_tok_str(sym->v, ਨਿਰਾ));
 
-    } else if ((sym->type.t & VT_BTYPE) == VT_FUNC) {
-        int static_proto = sym->type.t & VT_STATIC;
-        int ft1 = sym->type.ref->f.func_type;
-        int ft2 = type->ref->f.func_type;
+    } ਨਹੀਂਤਾਂ ਜੇ ((sym->type.t & VT_BTYPE) == VT_FUNC) {
+        ਪੂਰਨ static_proto = sym->type.t & VT_STATIC;
+        ਪੂਰਨ ft1 = sym->type.ref->f.func_type;
+        ਪੂਰਨ ft2 = type->ref->f.func_type;
 
         /* warn if static follows non-static function declaration */
-        if ((type->t & VT_STATIC) && !static_proto
+        ਜੇ ((type->t & VT_STATIC) && !static_proto
             /* XXX this test for inline shouldn't be here.  Until we
                implement gnu-inline mode again it silences a warning for
                mingw caused by our workarounds.  */
             && !((type->t | sym->type.t) & VT_INLINE))
             tcc_warning("static storage ignored for redefinition of '%s'",
-                get_tok_str(sym->v, NULL));
+                get_tok_str(sym->v, ਨਿਰਾ));
 
         /* set 'inline' if both agree or if one has static */
-        if ((type->t | sym->type.t) & VT_INLINE) {
-            if (!((type->t ^ sym->type.t) & VT_INLINE)
+        ਜੇ ((type->t | sym->type.t) & VT_INLINE) {
+            ਜੇ (!((type->t ^ sym->type.t) & VT_INLINE)
              || ((type->t | sym->type.t) & VT_STATIC))
                 static_proto |= VT_INLINE;
         }
 
-        if (0 == (type->t & VT_EXTERN)) {
-            struct FuncAttr f = sym->type.ref->f;
+        ਜੇ (0 == (type->t & VT_EXTERN)) {
+            ਬਣਤਰ FuncAttr f = sym->type.ref->f;
             /* put complete type, use static from prototype */
             sym->type.t = (type->t & ~(VT_STATIC|VT_INLINE)) | static_proto;
-            if (ft1 != FUNC_OLD)
+            ਜੇ (ft1 != FUNC_OLD)
                 type->ref->f.func_type = ft1;
             sym->type.ref = type->ref;
-            merge_funcattr(&sym->type.ref->f, &f);
-        } else {
+            ਮਿਲਾਓ_funcattr(&sym->type.ref->f, &f);
+        } ਨਹੀਂਤਾਂ {
             sym->type.t &= ~VT_INLINE | static_proto;
-            if (ft1 == FUNC_OLD && ft2 != FUNC_OLD)
+            ਜੇ (ft1 == FUNC_OLD && ft2 != FUNC_OLD)
                 sym->type.ref = type->ref;
         }
 
-    } else {
-        if ((sym->type.t & VT_ARRAY) && type->ref->c >= 0) {
+    } ਨਹੀਂਤਾਂ {
+        ਜੇ ((sym->type.t & VT_ARRAY) && type->ref->c >= 0) {
             /* set array size if it was omitted in extern declaration */
             sym->type.ref->c = type->ref->c;
         }
-        if ((type->t ^ sym->type.t) & VT_STATIC)
+        ਜੇ ((type->t ^ sym->type.t) & VT_STATIC)
             tcc_warning("storage mismatch for redefinition of '%s'",
-                get_tok_str(sym->v, NULL));
+                get_tok_str(sym->v, ਨਿਰਾ));
     }
 }
 
 /* Merge some storage attributes.  */
-static void patch_storage(Sym *sym, AttributeDef *ad, CType *type)
+ਸਥਿਰ ਖਾਲੀ patch_storage(Sym *sym, AttributeDef *ad, CType *type)
 {
-    if (type)
+    ਜੇ (type)
         patch_type(sym, type);
 
-#ifdef TCC_TARGET_PE
-    if (sym->a.dllimport != ad->a.dllimport)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
+    ਜੇ (sym->a.dllimport != ad->a.dllimport)
         tcc_error("incompatible dll linkage for redefinition of '%s'",
-            get_tok_str(sym->v, NULL));
-#endif
-    merge_symattr(&sym->a, &ad->a);
-    if (ad->asm_label)
+            get_tok_str(sym->v, ਨਿਰਾ));
+#ਜੇ_ਅੰਤ
+    ਮਿਲਾਓ_symattr(&sym->a, &ad->a);
+    ਜੇ (ad->asm_label)
         sym->asm_label = ad->asm_label;
     update_storage(sym);
 }
 
 /* copy sym to other stack */
-static Sym *sym_copy(Sym *s0, Sym **ps)
+ਸਥਿਰ Sym *sym_copy(Sym *s0, Sym **ps)
 {
     Sym *s;
     s = sym_malloc(), *s = *s0;
     s->prev = *ps, *ps = s;
-    if ((s->v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
+    ਜੇ ((s->v & ~SYM_STRUCT) < SYM_ਪਹਿਲਾ_ANOM)
         sym_link(s, 1);
-    return s;
+    ਵਾਪਸ s;
 }
 
 /* Symbol 's' was locally declared 'extern' (or as function), and is
    on global_stack.  Now must copy its 'ref' to global_stack too */
-static void move_ref_to_global(Sym *s)
+ਸਥਿਰ ਖਾਲੀ move_ref_ਮੰਜ਼ਿਲ_global(Sym *s)
 {
     Sym *l, **lp;
-    int n, bt;
+    ਪੂਰਨ n, bt;
 
     bt = s->type.t & VT_BTYPE;
-    if (!(bt == VT_PTR
+    ਜੇ (!(bt == VT_PTR
        || bt == VT_FUNC
        || bt == VT_STRUCT
        || IS_ENUM(s->type.t)))
-        return;
+        ਵਾਪਸ;
 
-    for (s = s->type.ref, n = 0; s; s = s->next) {
-        for (lp = &local_stack; !!(l = *lp); lp = &l->prev) {
-            if (l == s) {
+    ਲਈ (s = s->type.ref, n = 0; s; s = s->ਅਗਲਾ) {
+        ਲਈ (lp = &local_ਢੇਰ; !!(l = *lp); lp = &l->prev) {
+            ਜੇ (l == s) {
                 *lp = s->prev;
-                s->prev = global_stack, global_stack = s;
-                if (n || bt == VT_PTR || bt == VT_FUNC) {
-                    move_ref_to_global(s);
-                } else {
-                    if ((s->v & ~SYM_STRUCT) < SYM_FIRST_ANOM) {
+                s->prev = global_ਢੇਰ, global_ਢੇਰ = s;
+                ਜੇ (n || bt == VT_PTR || bt == VT_FUNC) {
+                    move_ref_ਮੰਜ਼ਿਲ_global(s);
+                } ਨਹੀਂਤਾਂ {
+                    ਜੇ ((s->v & ~SYM_STRUCT) < SYM_ਪਹਿਲਾ_ANOM) {
                         /* copy struct/enum tag to local scope */
-                        s->v |= SYM_FIELD;
+                        s->v |= SYM_ਖੇਤਰ;
                         l = sym_copy(s, lp);
-                        l->v &= ~SYM_FIELD;
+                        l->v &= ~SYM_ਖੇਤਰ;
                     }
                 }
-                if (bt != VT_PTR)
+                ਜੇ (bt != VT_PTR)
                     n = 1;
-                break;
+                ਰੋਕੋ;
             }
         }
-        if (n == 0) /* no next (VT_PTR) or ref not on local_stack */
-            break;
+        ਜੇ (n == 0) /* no next (VT_PTR) or ref not on local_stack */
+            ਰੋਕੋ;
     }
 }
 
 /* define a new external reference to a symbol 'v' */
-static Sym *external_sym(int v, CType *type, int r, AttributeDef *ad)
+ਸਥਿਰ Sym *external_sym(ਪੂਰਨ v, CType *type, ਪੂਰਨ r, AttributeDef *ad)
 {
     Sym *s;
 
     /* look for global symbol */
-    s = sym_find(v);
-    while (s && s->sym_scope)
+    s = sym_ਲੱਭੋ(v);
+    ਜਦੋਂ (s && s->sym_scope)
         s = s->prev_tok;
 
-    if (!s) {
+    ਜੇ (!s) {
         /* push forward reference */
-        s = global_identifier_push(v, type->t, 0);
+        s = global_identifier_ਧੱਕੋ(v, type->t, 0);
         s->r |= r;
         s->a = ad->a;
         s->asm_label = ad->asm_label;
         s->type.ref = type->ref;
-    } else {
+    } ਨਹੀਂਤਾਂ {
         patch_storage(s, ad, type);
     }
-    if (local_stack) {
+    ਜੇ (local_ਢੇਰ) {
         /* make sure that type->ref is on global stack */
-        move_ref_to_global(s);
+        move_ref_ਮੰਜ਼ਿਲ_global(s);
         /* put into local scope */
-        sym_copy(s, &local_stack);
+        sym_copy(s, &local_ਢੇਰ);
     }
-    return s;
+    ਵਾਪਸ s;
 }
 
 /* save registers up to (vtop - n) stack entry */
-ST_FUNC void save_regs(int n)
+ST_FUNC ਖਾਲੀ save_regs(ਪੂਰਨ n)
 {
     SValue *p, *p1;
-    for(p = vstack, p1 = vtop - n; p <= p1; p++)
+    ਲਈ(p = vstack, p1 = vtop - n; p <= p1; p++)
         save_reg(p->r);
 }
 
 /* save r to the memory stack, and mark it as being free */
-ST_FUNC void save_reg(int r)
+ST_FUNC ਖਾਲੀ save_reg(ਪੂਰਨ r)
 {
     save_reg_upstack(r, 0);
 }
 
 /* save r to the memory stack, and mark it as being free,
    if seen up to (vtop - n) stack entry */
-ST_FUNC void save_reg_upstack(int r, int n)
+ST_FUNC ਖਾਲੀ save_reg_upstack(ਪੂਰਨ r, ਪੂਰਨ n)
 {
-    int l, size, align, bt, r2;
+    ਪੂਰਨ l, ਮਾਪ, align, bt, r2;
     SValue *p, *p1, sv;
 
-    if ((r &= VT_VALMASK) >= VT_CONST)
-        return;
-    if (nocode_wanted)
-        return;
+    ਜੇ ((r &= VT_VALMASK) >= VT_CONST)
+        ਵਾਪਸ;
+    ਜੇ (nocode_wanted)
+        ਵਾਪਸ;
     l = r2 = 0;
-    for(p = vstack, p1 = vtop - n; p <= p1; p++) {
-        if ((p->r & VT_VALMASK) == r || p->r2 == r) {
+    ਲਈ(p = vstack, p1 = vtop - n; p <= p1; p++) {
+        ਜੇ ((p->r & VT_VALMASK) == r || p->r2 == r) {
             /* must save value on stack if not already done */
-            if (!l) {
+            ਜੇ (!l) {
                 bt = p->type.t & VT_BTYPE;
-                if (bt == VT_VOID)
-                    continue;
-                if ((p->r & VT_LVAL) || bt == VT_FUNC)
+                ਜੇ (bt == VT_VOID)
+                    ਜਾਰੀ;
+                ਜੇ ((p->r & VT_LVAL) || bt == VT_FUNC)
                     bt = VT_PTR;
                 sv.type.t = bt;
-                size = type_size(&sv.type, &align);
-                l = get_temp_local_var(size, align, &r2);
+                ਮਾਪ = type_ਮਾਪ(&sv.type, &align);
+                l = get_ਆਰਜ਼ੀ_local_var(ਮਾਪ, align, &r2);
                 sv.r = VT_LOCAL | VT_LVAL;
                 sv.c.i = l;
-		sv.sym = NULL;
+		sv.sym = ਨਿਰਾ;
                 store(p->r & VT_VALMASK, &sv);
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
+#ਜੇ defined(TCC_ਨਿਸ਼ਾਨਾ_I386) || defined(TCC_ਨਿਸ਼ਾਨਾ_X86_64)
                 /* x86 specific: need to pop fp register ST0 if saved */
-                if (r == TREG_ST0) {
+                ਜੇ (r == TREG_ST0) {
                     o(0xd8dd); /* fstp %st(0) */
                 }
-#endif
+#ਜੇ_ਅੰਤ
                 /* special long long case */
-                if (p->r2 < VT_CONST && USING_TWO_WORDS(bt)) {
-                    sv.c.i += PTR_SIZE;
+                ਜੇ (p->r2 < VT_CONST && USING_TWO_ਸ਼ਬਦ(bt)) {
+                    sv.c.i += PTR_ਮਾਪ;
                     store(p->r2, &sv);
                 }
             }
             /* mark that stack entry as being saved on the stack */
-            if (p->r & VT_LVAL) {
+            ਜੇ (p->r & VT_LVAL) {
                 /* also clear the bounded flag because the
                    relocation address of the function was stored in
                    p->c.i */
                 p->r = (p->r & ~(VT_VALMASK | VT_BOUNDED)) | VT_LLOCAL;
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 p->r = VT_LVAL | VT_LOCAL;
                 p->type.t &= ~VT_ARRAY; /* cannot combine VT_LVAL with VT_ARRAY */
             }
-            p->sym = NULL;
+            p->sym = ਨਿਰਾ;
             p->r2 = r2;
             p->c.i = l;
         }
     }
 }
 
-#ifdef TCC_TARGET_ARM
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_ARM
 /* find a register of class 'rc2' with at most one reference on stack.
  * If none, call get_reg(rc) */
-ST_FUNC int get_reg_ex(int rc, int rc2)
+ST_FUNC ਪੂਰਨ get_reg_ex(ਪੂਰਨ rc, ਪੂਰਨ rc2)
 {
-    int r;
+    ਪੂਰਨ r;
     SValue *p;
     
-    for(r=0;r<NB_REGS;r++) {
-        if (reg_classes[r] & rc2) {
-            int n;
+    ਲਈ(r=0;r<NB_REGS;r++) {
+        ਜੇ (reg_classes[r] & rc2) {
+            ਪੂਰਨ n;
             n=0;
-            for(p = vstack; p <= vtop; p++) {
-                if ((p->r & VT_VALMASK) == r ||
+            ਲਈ(p = vstack; p <= vtop; p++) {
+                ਜੇ ((p->r & VT_VALMASK) == r ||
                     p->r2 == r)
                     n++;
             }
-            if (n <= 1)
-                return r;
+            ਜੇ (n <= 1)
+                ਵਾਪਸ r;
         }
     }
-    return get_reg(rc);
+    ਵਾਪਸ get_reg(rc);
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 /* find a free register of class 'rc'. If none, save one register */
-ST_FUNC int get_reg(int rc)
+ST_FUNC ਪੂਰਨ get_reg(ਪੂਰਨ rc)
 {
-    int r;
+    ਪੂਰਨ r;
     SValue *p;
 
     /* find a free register */
-    for(r=0;r<NB_REGS;r++) {
-        if (reg_classes[r] & rc) {
-            if (nocode_wanted)
-                return r;
-            for(p=vstack;p<=vtop;p++) {
-                if ((p->r & VT_VALMASK) == r ||
+    ਲਈ(r=0;r<NB_REGS;r++) {
+        ਜੇ (reg_classes[r] & rc) {
+            ਜੇ (nocode_wanted)
+                ਵਾਪਸ r;
+            ਲਈ(p=vstack;p<=vtop;p++) {
+                ਜੇ ((p->r & VT_VALMASK) == r ||
                     p->r2 == r)
-                    goto notfound;
+                    ਜਾਓ notfound;
             }
-            return r;
+            ਵਾਪਸ r;
         }
     notfound: ;
     }
@@ -1510,160 +1510,160 @@ ST_FUNC int get_reg(int rc)
     /* no register left : free the first one on the stack (VERY
        IMPORTANT to start from the bottom to ensure that we don't
        spill registers used in gen_opi()) */
-    for(p=vstack;p<=vtop;p++) {
+    ਲਈ(p=vstack;p<=vtop;p++) {
         /* look at second register (if long long) */
         r = p->r2;
-        if (r < VT_CONST && (reg_classes[r] & rc))
-            goto save_found;
+        ਜੇ (r < VT_CONST && (reg_classes[r] & rc))
+            ਜਾਓ save_ਮਿਲਿਆ;
         r = p->r & VT_VALMASK;
-        if (r < VT_CONST && (reg_classes[r] & rc)) {
-        save_found:
+        ਜੇ (r < VT_CONST && (reg_classes[r] & rc)) {
+        save_ਮਿਲਿਆ:
             save_reg(r);
-            return r;
+            ਵਾਪਸ r;
         }
     }
     /* Should never comes here */
-    return -1;
+    ਵਾਪਸ -1;
 }
 
 /* find a free temporary local variable (return the offset on stack) match
    size and align. If none, add new temporary stack variable */
-static int get_temp_local_var(int size,int align, int *r2)
+ਸਥਿਰ ਪੂਰਨ get_ਆਰਜ਼ੀ_local_var(ਪੂਰਨ ਮਾਪ,ਪੂਰਨ align, ਪੂਰਨ *r2)
 {
-    int i;
-    struct temp_local_variable *temp_var;
+    ਪੂਰਨ i;
+    ਬਣਤਰ ਆਰਜ਼ੀ_local_variable *ਆਰਜ਼ੀ_var;
     SValue *p;
-    int r;
-    unsigned used = 0;
+    ਪੂਰਨ r;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਵਰਤਿਆ = 0;
 
     /* mark locations that are still in use */
-    for (p = vstack; p <= vtop; p++) {
+    ਲਈ (p = vstack; p <= vtop; p++) {
 	r = p->r & VT_VALMASK;
-	if (r == VT_LOCAL || r == VT_LLOCAL) {
+	ਜੇ (r == VT_LOCAL || r == VT_LLOCAL) {
 	    r = p->r2 - (VT_CONST + 1);
-	    if (r >= 0 && r < MAX_TEMP_LOCAL_VARIABLE_NUMBER)
-	        used |= 1<<r;
+	    ਜੇ (r >= 0 && r < MAX_ਆਰਜ਼ੀ_LOCAL_VARIABLE_ਸੰਖਿਆ)
+	        ਵਰਤਿਆ |= 1<<r;
 	}
     }
-    for (i=0;i<nb_temp_local_vars;i++) {
-	temp_var=&arr_temp_local_vars[i];
-	if(!(used & 1<<i)
-	 && temp_var->size>=size
-	 && temp_var->align>=align) {
+    ਲਈ (i=0;i<nb_ਆਰਜ਼ੀ_local_vars;i++) {
+	ਆਰਜ਼ੀ_var=&arr_ਆਰਜ਼ੀ_local_vars[i];
+	ਜੇ(!(ਵਰਤਿਆ & 1<<i)
+	 && ਆਰਜ਼ੀ_var->ਮਾਪ>=ਮਾਪ
+	 && ਆਰਜ਼ੀ_var->align>=align) {
 ret_tmp:
 	    *r2 = (VT_CONST + 1) + i;
-	    return temp_var->location;
+	    ਵਾਪਸ ਆਰਜ਼ੀ_var->location;
 	}
     }
-    loc = (loc - size) & -align;
-    if (nb_temp_local_vars<MAX_TEMP_LOCAL_VARIABLE_NUMBER) {
-	temp_var=&arr_temp_local_vars[i];
-	temp_var->location=loc;
-	temp_var->size=size;
-	temp_var->align=align;
-	nb_temp_local_vars++;
-	goto ret_tmp;
+    loc = (loc - ਮਾਪ) & -align;
+    ਜੇ (nb_ਆਰਜ਼ੀ_local_vars<MAX_ਆਰਜ਼ੀ_LOCAL_VARIABLE_ਸੰਖਿਆ) {
+	ਆਰਜ਼ੀ_var=&arr_ਆਰਜ਼ੀ_local_vars[i];
+	ਆਰਜ਼ੀ_var->location=loc;
+	ਆਰਜ਼ੀ_var->ਮਾਪ=ਮਾਪ;
+	ਆਰਜ਼ੀ_var->align=align;
+	nb_ਆਰਜ਼ੀ_local_vars++;
+	ਜਾਓ ret_tmp;
     }
     *r2 = VT_CONST;
-    return loc;
+    ਵਾਪਸ loc;
 }
 
 /* move register 's' (of type 't') to 'r', and flush previous value of r to memory
    if needed */
-static void move_reg(int r, int s, int t)
+ਸਥਿਰ ਖਾਲੀ move_reg(ਪੂਰਨ r, ਪੂਰਨ s, ਪੂਰਨ t)
 {
     SValue sv;
 
-    if (r != s) {
+    ਜੇ (r != s) {
         save_reg(r);
         sv.type.t = t;
-        sv.type.ref = NULL;
+        sv.type.ref = ਨਿਰਾ;
         sv.r = s;
         sv.c.i = 0;
-        load(r, &sv);
+        ਲੱਦੋ(r, &sv);
     }
 }
 
 /* get address of vtop (vtop MUST BE an lvalue) */
-ST_FUNC void gaddrof(void)
+ST_FUNC ਖਾਲੀ gaddrof(ਖਾਲੀ)
 {
     vtop->r &= ~VT_LVAL;
     /* tricky: if saved lvalue, then we can go back to lvalue */
-    if ((vtop->r & VT_VALMASK) == VT_LLOCAL)
+    ਜੇ ((vtop->r & VT_VALMASK) == VT_LLOCAL)
         vtop->r = (vtop->r & ~VT_VALMASK) | VT_LOCAL | VT_LVAL;
 }
 
-#ifdef CONFIG_TCC_BCHECK
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
 /* generate a bounded pointer addition */
-static void gen_bounded_ptr_add(void)
+ਸਥਿਰ ਖਾਲੀ gen_bounded_ptr_ਜੋੜੋ(ਖਾਲੀ)
 {
-    int save = (vtop[-1].r & VT_VALMASK) == VT_LOCAL;
-    if (save) {
+    ਪੂਰਨ save = (vtop[-1].r & VT_VALMASK) == VT_LOCAL;
+    ਜੇ (save) {
       vpushv(&vtop[-1]);
       vrott(3);
     }
-    vpush_helper_func(TOK___bound_ptr_add);
+    vpush_helper_func(TOK_bound_ptr_ਜੋੜੋ);
     vrott(3);
     gfunc_call(2);
     vtop -= save;
     vpushi(0);
     /* returned pointer is in REG_IRET */
     vtop->r = REG_IRET | VT_BOUNDED;
-    if (nocode_wanted)
-        return;
+    ਜੇ (nocode_wanted)
+        ਵਾਪਸ;
     /* relocation offset of the bounding function call point */
-    vtop->c.i = (cur_text_section->reloc->data_offset - sizeof(ElfW_Rel));
+    vtop->c.i = (cur_ਪਾਠ_section->reloc->ਅੰਕੜੇ_ਵਿੱਥ - ਆਕਾਰ(ElfW_Rel));
 }
 
 /* patch pointer addition in vtop so that pointer dereferencing is
    also tested */
-static void gen_bounded_ptr_deref(void)
+ਸਥਿਰ ਖਾਲੀ gen_bounded_ptr_deref(ਖਾਲੀ)
 {
     addr_t func;
-    int size, align;
+    ਪੂਰਨ ਮਾਪ, align;
     ElfW_Rel *rel;
     Sym *sym;
 
-    if (nocode_wanted)
-        return;
+    ਜੇ (nocode_wanted)
+        ਵਾਪਸ;
 
-    size = type_size(&vtop->type, &align);
-    switch(size) {
-    case  1: func = TOK___bound_ptr_indir1; break;
-    case  2: func = TOK___bound_ptr_indir2; break;
-    case  4: func = TOK___bound_ptr_indir4; break;
-    case  8: func = TOK___bound_ptr_indir8; break;
-    case 12: func = TOK___bound_ptr_indir12; break;
-    case 16: func = TOK___bound_ptr_indir16; break;
-    default:
+    ਮਾਪ = type_ਮਾਪ(&vtop->type, &align);
+    ਚੋਣ(ਮਾਪ) {
+    ਹਾਲਤ  1: func = TOK___bound_ptr_indir1; ਰੋਕੋ;
+    ਹਾਲਤ  2: func = TOK___bound_ptr_indir2; ਰੋਕੋ;
+    ਹਾਲਤ  4: func = TOK___bound_ptr_indir4; ਰੋਕੋ;
+    ਹਾਲਤ  8: func = TOK___bound_ptr_indir8; ਰੋਕੋ;
+    ਹਾਲਤ 12: func = TOK___bound_ptr_indir12; ਰੋਕੋ;
+    ਹਾਲਤ 16: func = TOK___bound_ptr_indir16; ਰੋਕੋ;
+    ਮੂਲ:
         /* may happen with struct member access */
-        return;
+        ਵਾਪਸ;
     }
     sym = external_helper_sym(func);
-    if (!sym->c)
-        put_extern_sym(sym, NULL, 0, 0);
+    ਜੇ (!sym->c)
+        put_extern_sym(sym, ਨਿਰਾ, 0, 0);
     /* patch relocation */
     /* XXX: find a better solution ? */
-    rel = (ElfW_Rel *)(cur_text_section->reloc->data + vtop->c.i);
+    rel = (ElfW_Rel *)(cur_ਪਾਠ_section->reloc->ਅੰਕੜੇ + vtop->c.i);
     rel->r_info = ELFW(R_INFO)(sym->c, ELFW(R_TYPE)(rel->r_info));
 }
 
 /* generate lvalue bound code */
-static void gbound(void)
+ਸਥਿਰ ਖਾਲੀ gbound(ਖਾਲੀ)
 {
     CType type1;
 
     vtop->r &= ~VT_MUSTBOUND;
     /* if lvalue, then use checking code before dereferencing */
-    if (vtop->r & VT_LVAL) {
+    ਜੇ (vtop->r & VT_LVAL) {
         /* if not VT_BOUNDED value, then make one */
-        if (!(vtop->r & VT_BOUNDED)) {
+        ਜੇ (!(vtop->r & VT_BOUNDED)) {
             /* must save type because we must set it to int to get pointer */
             type1 = vtop->type;
             vtop->type.t = VT_PTR;
             gaddrof();
             vpushi(0);
-            gen_bounded_ptr_add();
+            gen_bounded_ptr_ਜੋੜੋ();
             vtop->r |= VT_LVAL;
             vtop->type = type1;
         }
@@ -1674,147 +1674,147 @@ static void gbound(void)
 
 /* we need to call __bound_ptr_add before we start to load function
    args into registers */
-ST_FUNC void gbound_args(int nb_args)
+ST_FUNC ਖਾਲੀ gbound_ਦਲੀਲਾਂ(ਪੂਰਨ nb_ਦਲੀਲਾਂ)
 {
-    int i, v;
+    ਪੂਰਨ i, v;
     SValue *sv;
 
-    for (i = 1; i <= nb_args; ++i)
-        if (vtop[1 - i].r & VT_MUSTBOUND) {
+    ਲਈ (i = 1; i <= nb_ਦਲੀਲਾਂ; ++i)
+        ਜੇ (vtop[1 - i].r & VT_MUSTBOUND) {
             vrotb(i);
             gbound();
             vrott(i);
         }
 
-    sv = vtop - nb_args;
-    if (sv->r & VT_SYM) {
+    sv = vtop - nb_ਦਲੀਲਾਂ;
+    ਜੇ (sv->r & VT_SYM) {
         v = sv->sym->v;
-        if (v == TOK_setjmp
+        ਜੇ (v == TOK_setjmp
           || v == TOK__setjmp
-#ifndef TCC_TARGET_PE
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
           || v == TOK_sigsetjmp
           || v == TOK___sigsetjmp
-#endif
+#ਜੇ_ਅੰਤ
           ) {
             vpush_helper_func(TOK___bound_setjmp);
             vpushv(sv + 1);
             gfunc_call(1);
-            func_bound_add_epilog = 1;
+            func_bound_ਜੋੜੋ_epilog = 1;
         }
-        if (v == TOK_alloca)
-            func_bound_add_epilog = 1;
-#if TARGETOS_NetBSD
-        if (v == TOK_longjmp) /* undo rename to __longjmp14 */
+        ਜੇ (v == TOK_alloca)
+            func_bound_ਜੋੜੋ_epilog = 1;
+#ਜੇ TARGETOS_NetBSD
+        ਜੇ (v == TOK_longjmp) /* undo rename to __longjmp14 */
             sv->sym->asm_label = TOK___bound_longjmp;
-#endif
+#ਜੇ_ਅੰਤ
     }
 }
 
 /* Add bounds for local symbols from S to E (via ->prev) */
-static void add_local_bounds(Sym *s, Sym *e)
+ਸਥਿਰ ਖਾਲੀ ਜੋੜੋ_local_bounds(Sym *s, Sym *e)
 {
-    for (; s != e; s = s->prev) {
-        if (!s->v || (s->r & VT_VALMASK) != VT_LOCAL)
-          continue;
+    ਲਈ (; s != e; s = s->prev) {
+        ਜੇ (!s->v || (s->r & VT_VALMASK) != VT_LOCAL)
+          ਜਾਰੀ;
         /* Add arrays/structs/unions because we always take address */
-        if ((s->type.t & VT_ARRAY)
+        ਜੇ ((s->type.t & VT_ARRAY)
             || (s->type.t & VT_BTYPE) == VT_STRUCT
             || s->a.addrtaken) {
             /* add local bound info */
-            int align, size = type_size(&s->type, &align);
-            addr_t *bounds_ptr = section_ptr_add(lbounds_section,
-                                                 2 * sizeof(addr_t));
+            ਪੂਰਨ align, ਮਾਪ = type_ਮਾਪ(&s->type, &align);
+            addr_t *bounds_ptr = section_ptr_ਜੋੜੋ(lbounds_section,
+                                                 2 * ਆਕਾਰ(addr_t));
             bounds_ptr[0] = s->c;
-            bounds_ptr[1] = size;
+            bounds_ptr[1] = ਮਾਪ;
         }
     }
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 /* add debug info for locals or function parameters, optionally
    register bounds */
-static void tcc_debug_end_scope(Sym *b, int bounds)
+ਸਥਿਰ ਖਾਲੀ tcc_debug_ਸਿਰਾ_scope(Sym *b, ਪੂਰਨ bounds)
 {
-#ifdef CONFIG_TCC_BCHECK
-    if (tcc_state->do_bounds_check && bounds)
-        add_local_bounds(local_stack, b);
-#endif
-    tcc_add_debug_info (tcc_state, local_stack, b);
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
+    ਜੇ (tcc_state->do_bounds_check && bounds)
+        ਜੋੜੋ_local_bounds(local_ਢੇਰ, b);
+#ਜੇ_ਅੰਤ
+    tcc_ਜੋੜੋ_debug_info (tcc_state, local_ਢੇਰ, b);
 }
 
 /* increment an lvalue pointer */
-static void incr_offset(int offset)
+ਸਥਿਰ ਖਾਲੀ incr_ਵਿੱਥ(ਪੂਰਨ ਵਿੱਥ)
 {
-    int t = vtop->type.t;
+    ਪੂਰਨ t = vtop->type.t;
     gaddrof(); /* remove VT_LVAL */
     vtop->type.t = VT_PTRDIFF_T; /* set scalar type */
-    vpushs(offset);
+    vpushs(ਵਿੱਥ);
     gen_op('+');
     vtop->r |= VT_LVAL;
     vtop->type.t = t;
 }
 
-static void incr_bf_adr(int o)
+ਸਥਿਰ ਖਾਲੀ incr_bf_adr(ਪੂਰਨ o)
 {
     vtop->type.t = VT_BYTE | VT_UNSIGNED;
-    incr_offset(o);
+    incr_ਵਿੱਥ(o);
 }
 
 /* single-byte load mode for packed or otherwise unaligned bitfields */
-static void load_packed_bf(CType *type, int bit_pos, int bit_size)
+ਸਥਿਰ ਖਾਲੀ ਲੱਦੋ_packed_bf(CType *type, ਪੂਰਨ ਦੋਆਧਾਰੀ_ਅੰਕ_pos, ਪੂਰਨ ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2)
 {
-    int n, o, bits;
+    ਪੂਰਨ n, o, ਬਿੱਟ;
     save_reg_upstack(vtop->r, 1);
     vpush64(type->t & VT_BTYPE, 0); // B X
-    bits = 0, o = bit_pos >> 3, bit_pos &= 7;
-    do {
+    ਬਿੱਟ = 0, o = ਦੋਆਧਾਰੀ_ਅੰਕ_pos >> 3, ਦੋਆਧਾਰੀ_ਅੰਕ_pos &= 7;
+    ਕਰੋ {
         vswap(); // X B
         incr_bf_adr(o);
         vdup(); // X B B
-        n = 8 - bit_pos;
-        if (n > bit_size)
-            n = bit_size;
-        if (bit_pos)
-            vpushi(bit_pos), gen_op(TOK_SHR), bit_pos = 0; // X B Y
-        if (n < 8)
+        n = 8 - ਦੋਆਧਾਰੀ_ਅੰਕ_pos;
+        ਜੇ (n > ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2)
+            n = ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2;
+        ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_pos)
+            vpushi(ਦੋਆਧਾਰੀ_ਅੰਕ_pos), gen_op(TOK_SHR), ਦੋਆਧਾਰੀ_ਅੰਕ_pos = 0; // X B Y
+        ਜੇ (n < 8)
             vpushi((1 << n) - 1), gen_op('&');
         gen_cast(type);
-        if (bits)
-            vpushi(bits), gen_op(TOK_SHL);
+        ਜੇ (ਬਿੱਟ)
+            vpushi(ਬਿੱਟ), gen_op(TOK_SHL);
         vrotb(3); // B Y X
         gen_op('|'); // B X
-        bits += n, bit_size -= n, o = 1;
-    } while (bit_size);
+        ਬਿੱਟ += n, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 -= n, o = 1;
+    } ਜਦੋਂ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2);
     vswap(), vpop();
-    if (!(type->t & VT_UNSIGNED)) {
-        n = ((type->t & VT_BTYPE) == VT_LLONG ? 64 : 32) - bits;
+    ਜੇ (!(type->t & VT_UNSIGNED)) {
+        n = ((type->t & VT_BTYPE) == VT_LLONG ? 64 : 32) - ਬਿੱਟ;
         vpushi(n), gen_op(TOK_SHL);
         vpushi(n), gen_op(TOK_SAR);
     }
 }
 
 /* single-byte store mode for packed or otherwise unaligned bitfields */
-static void store_packed_bf(int bit_pos, int bit_size)
+ਸਥਿਰ ਖਾਲੀ store_packed_bf(ਪੂਰਨ ਦੋਆਧਾਰੀ_ਅੰਕ_pos, ਪੂਰਨ ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2)
 {
-    int bits, n, o, m, c;
+    ਪੂਰਨ ਬਿੱਟ, n, o, m, c;
     c = (vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
     vswap(); // X B
     save_reg_upstack(vtop->r, 1);
-    bits = 0, o = bit_pos >> 3, bit_pos &= 7;
-    do {
+    ਬਿੱਟ = 0, o = ਦੋਆਧਾਰੀ_ਅੰਕ_pos >> 3, ਦੋਆਧਾਰੀ_ਅੰਕ_pos &= 7;
+    ਕਰੋ {
         incr_bf_adr(o); // X B
         vswap(); //B X
         c ? vdup() : gv_dup(); // B V X
         vrott(3); // X B V
-        if (bits)
-            vpushi(bits), gen_op(TOK_SHR);
-        if (bit_pos)
-            vpushi(bit_pos), gen_op(TOK_SHL);
-        n = 8 - bit_pos;
-        if (n > bit_size)
-            n = bit_size;
-        if (n < 8) {
-            m = ((1 << n) - 1) << bit_pos;
+        ਜੇ (ਬਿੱਟ)
+            vpushi(ਬਿੱਟ), gen_op(TOK_SHR);
+        ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_pos)
+            vpushi(ਦੋਆਧਾਰੀ_ਅੰਕ_pos), gen_op(TOK_SHL);
+        n = 8 - ਦੋਆਧਾਰੀ_ਅੰਕ_pos;
+        ਜੇ (n > ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2)
+            n = ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2;
+        ਜੇ (n < 8) {
+            m = ((1 << n) - 1) << ਦੋਆਧਾਰੀ_ਅੰਕ_pos;
             vpushi(m), gen_op('&'); // X B V1
             vpushv(vtop-1); // X B V1 B
             vpushi(m & 0x80 ? ~m & 0x7f : ~m);
@@ -1823,97 +1823,97 @@ static void store_packed_bf(int bit_pos, int bit_size)
         }
         vdup(), vtop[-1] = vtop[-2]; // X B B V2
         vstore(), vpop(); // X B
-        bits += n, bit_size -= n, bit_pos = 0, o = 1;
-    } while (bit_size);
+        ਬਿੱਟ += n, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 -= n, ਦੋਆਧਾਰੀ_ਅੰਕ_pos = 0, o = 1;
+    } ਜਦੋਂ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2);
     vpop(), vpop();
 }
 
-static int adjust_bf(SValue *sv, int bit_pos, int bit_size)
+ਸਥਿਰ ਪੂਰਨ adjust_bf(SValue *sv, ਪੂਰਨ ਦੋਆਧਾਰੀ_ਅੰਕ_pos, ਪੂਰਨ ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2)
 {
-    int t;
-    if (0 == sv->type.ref)
-        return 0;
+    ਪੂਰਨ t;
+    ਜੇ (0 == sv->type.ref)
+        ਵਾਪਸ 0;
     t = sv->type.ref->auxtype;
-    if (t != -1 && t != VT_STRUCT) {
+    ਜੇ (t != -1 && t != VT_STRUCT) {
         sv->type.t = (sv->type.t & ~(VT_BTYPE | VT_LONG)) | t;
         sv->r |= VT_LVAL;
     }
-    return t;
+    ਵਾਪਸ t;
 }
 
 /* store vtop a register belonging to class 'rc'. lvalues are
    converted to values. Cannot be used if cannot be converted to
    register value (such as structures). */
-ST_FUNC int gv(int rc)
+ST_FUNC ਪੂਰਨ gv(ਪੂਰਨ rc)
 {
-    int r, r2, r_ok, r2_ok, rc2, bt;
-    int bit_pos, bit_size, size, align;
+    ਪੂਰਨ r, r2, r_ok, r2_ok, rc2, bt;
+    ਪੂਰਨ ਦੋਆਧਾਰੀ_ਅੰਕ_pos, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2, ਮਾਪ, align;
 
     /* NOTE: get_reg can modify vstack[] */
-    if (vtop->type.t & VT_BITFIELD) {
+    ਜੇ (vtop->type.t & VT_BITFIELD) {
         CType type;
 
-        bit_pos = BIT_POS(vtop->type.t);
-        bit_size = BIT_SIZE(vtop->type.t);
+        ਦੋਆਧਾਰੀ_ਅੰਕ_pos = ਦੋਆਧਾਰੀ_ਅੰਕ_POS(vtop->type.t);
+        ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 = ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ(vtop->type.t);
         /* remove bit field info to avoid loops */
-        vtop->type.t &= ~VT_STRUCT_MASK;
+        vtop->type.t &= ~VT_STRUCT_ਨਕਾਬ;
 
-        type.ref = NULL;
+        type.ref = ਨਿਰਾ;
         type.t = vtop->type.t & VT_UNSIGNED;
-        if ((vtop->type.t & VT_BTYPE) == VT_BOOL)
+        ਜੇ ((vtop->type.t & VT_BTYPE) == VT_BOOL)
             type.t |= VT_UNSIGNED;
 
-        r = adjust_bf(vtop, bit_pos, bit_size);
+        r = adjust_bf(vtop, ਦੋਆਧਾਰੀ_ਅੰਕ_pos, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2);
 
-        if ((vtop->type.t & VT_BTYPE) == VT_LLONG)
+        ਜੇ ((vtop->type.t & VT_BTYPE) == VT_LLONG)
             type.t |= VT_LLONG;
-        else
+        ਨਹੀਂਤਾਂ
             type.t |= VT_INT;
 
-        if (r == VT_STRUCT) {
-            load_packed_bf(&type, bit_pos, bit_size);
-        } else {
-            int bits = (type.t & VT_BTYPE) == VT_LLONG ? 64 : 32;
+        ਜੇ (r == VT_STRUCT) {
+            ਲੱਦੋ_packed_bf(&type, ਦੋਆਧਾਰੀ_ਅੰਕ_pos, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2);
+        } ਨਹੀਂਤਾਂ {
+            ਪੂਰਨ ਬਿੱਟ = (type.t & VT_BTYPE) == VT_LLONG ? 64 : 32;
             /* cast to int to propagate signedness in following ops */
             gen_cast(&type);
             /* generate shifts */
-            vpushi(bits - (bit_pos + bit_size));
+            vpushi(ਬਿੱਟ - (ਦੋਆਧਾਰੀ_ਅੰਕ_pos + ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2));
             gen_op(TOK_SHL);
-            vpushi(bits - bit_size);
+            vpushi(ਬਿੱਟ - ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2);
             /* NOTE: transformed to SHR if unsigned */
             gen_op(TOK_SAR);
         }
         r = gv(rc);
-    } else {
-        if (is_float(vtop->type.t) && 
+    } ਨਹੀਂਤਾਂ {
+        ਜੇ (is_float(vtop->type.t) && 
             (vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
             /* CPUs usually cannot use float constants, so we store them
                generically in data segment */
             init_params p = { rodata_section };
-            unsigned long offset;
-            size = type_size(&vtop->type, &align);
-            if (NODATA_WANTED)
-                size = 0, align = 1;
-            offset = section_add(p.sec, size, align);
-            vpush_ref(&vtop->type, p.sec, offset, size);
+            ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਵਿੱਥ;
+            ਮਾਪ = type_ਮਾਪ(&vtop->type, &align);
+            ਜੇ (NODATA_WANTED)
+                ਮਾਪ = 0, align = 1;
+            ਵਿੱਥ = section_ਜੋੜੋ(p.sec, ਮਾਪ, align);
+            vpush_ref(&vtop->type, p.sec, ਵਿੱਥ, ਮਾਪ);
 	    vswap();
-	    init_putv(&p, &vtop->type, offset);
+	    init_putv(&p, &vtop->type, ਵਿੱਥ);
 	    vtop->r |= VT_LVAL;
         }
-#ifdef CONFIG_TCC_BCHECK
-        if (vtop->r & VT_MUSTBOUND) 
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
+        ਜੇ (vtop->r & VT_MUSTBOUND) 
             gbound();
-#endif
+#ਜੇ_ਅੰਤ
 
         bt = vtop->type.t & VT_BTYPE;
-        if (bt == VT_VOID || bt == VT_STRUCT) /* should not happen */
-            return vtop->r;
+        ਜੇ (bt == VT_VOID || bt == VT_STRUCT) /* should not happen */
+            ਵਾਪਸ vtop->r;
 
-#ifdef TCC_TARGET_RISCV64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_RISCV64
         /* XXX mega hack */
-        if (bt == VT_LDOUBLE && rc == RC_FLOAT)
+        ਜੇ (bt == VT_LDOUBLE && rc == RC_FLOAT)
           rc = RC_INT;
-#endif
+#ਜੇ_ਅੰਤ
         rc2 = RC2_TYPE(bt, rc);
 
         /* need to reload if:
@@ -1924,49 +1924,49 @@ ST_FUNC int gv(int rc)
         r_ok = !(vtop->r & VT_LVAL) && (r < VT_CONST) && (reg_classes[r] & rc);
         r2_ok = !rc2 || ((vtop->r2 < VT_CONST) && (reg_classes[vtop->r2] & rc2));
 
-        if (!r_ok || !r2_ok) {
+        ਜੇ (!r_ok || !r2_ok) {
 
-            if (!r_ok) {
-                if (1 /* we can 'mov (r),r' in cases */
+            ਜੇ (!r_ok) {
+                ਜੇ (1 /* we can 'mov (r),r' in cases */
                     && r < VT_CONST
                     && (reg_classes[r] & rc)
                     && !rc2
                     )
                     save_reg_upstack(r, 1);
-                else
+                ਨਹੀਂਤਾਂ
                     r = get_reg(rc);
             }
 
-            if (rc2) {
-                int load_type = (bt == VT_QFLOAT) ? VT_DOUBLE : VT_PTRDIFF_T;
-                int original_type = vtop->type.t;
+            ਜੇ (rc2) {
+                ਪੂਰਨ ਲੱਦੋ_type = (bt == VT_QFLOAT) ? VT_DOUBLE : VT_PTRDIFF_T;
+                ਪੂਰਨ original_type = vtop->type.t;
 
                 /* two register type load :
                    expand to two words temporarily */
-                if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+                ਜੇ ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
                     /* load constant */
-                    unsigned long long ll = vtop->c.i;
+                    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ ll = vtop->c.i;
                     vtop->c.i = ll; /* first word */
-                    load(r, vtop);
+                    ਲੱਦੋ(r, vtop);
                     vtop->r = r; /* save register value */
                     vpushi(ll >> 32); /* second word */
-                } else if (vtop->r & VT_LVAL) {
+                } ਨਹੀਂਤਾਂ ਜੇ (vtop->r & VT_LVAL) {
                     /* We do not want to modifier the long long pointer here.
                        So we save any other instances down the stack */
                     save_reg_upstack(vtop->r, 1);
                     /* load from memory */
-                    vtop->type.t = load_type;
-                    load(r, vtop);
+                    vtop->type.t = ਲੱਦੋ_type;
+                    ਲੱਦੋ(r, vtop);
                     vdup();
                     vtop[-1].r = r; /* save register value */
                     /* increment pointer to get second word */
-                    incr_offset(PTR_SIZE);
-                } else {
+                    incr_ਵਿੱਥ(PTR_ਮਾਪ);
+                } ਨਹੀਂਤਾਂ {
                     /* move registers */
-                    if (!r_ok)
-                        load(r, vtop);
-                    if (r2_ok && vtop->r2 < VT_CONST)
-                        goto done;
+                    ਜੇ (!r_ok)
+                        ਲੱਦੋ(r, vtop);
+                    ਜੇ (r2_ok && vtop->r2 < VT_CONST)
+                        ਜਾਓ ਪੂਰਾ;
                     vdup();
                     vtop[-1].r = r; /* save register value */
                     vtop->r = vtop[-1].r2;
@@ -1974,72 +1974,72 @@ ST_FUNC int gv(int rc)
                 /* Allocate second register. Here we rely on the fact that
                    get_reg() tries first to free r2 of an SValue. */
                 r2 = get_reg(rc2);
-                load(r2, vtop);
+                ਲੱਦੋ(r2, vtop);
                 vpop();
                 /* write second register */
                 vtop->r2 = r2;
-            done:
+            ਪੂਰਾ:
                 vtop->type.t = original_type;
-            } else {
-                if (vtop->r == VT_CMP)
+            } ਨਹੀਂਤਾਂ {
+                ਜੇ (vtop->r == VT_CMP)
                     vset_VT_JMP();
                 /* one register type load */
-                load(r, vtop);
+                ਲੱਦੋ(r, vtop);
             }
         }
         vtop->r = r;
-#ifdef TCC_TARGET_C67
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_C67
         /* uses register pairs for doubles */
-        if (bt == VT_DOUBLE)
+        ਜੇ (bt == VT_DOUBLE)
             vtop->r2 = r+1;
-#endif
+#ਜੇ_ਅੰਤ
     }
-    return r;
+    ਵਾਪਸ r;
 }
 
 /* generate vtop[-1] and vtop[0] in resp. classes rc1 and rc2 */
-ST_FUNC void gv2(int rc1, int rc2)
+ST_FUNC ਖਾਲੀ gv2(ਪੂਰਨ rc1, ਪੂਰਨ rc2)
 {
     /* generate more generic register first. But VT_JMP or VT_CMP
        values must be generated first in all cases to avoid possible
        reload errors */
-    if (vtop->r != VT_CMP && rc1 <= rc2) {
+    ਜੇ (vtop->r != VT_CMP && rc1 <= rc2) {
         vswap();
         gv(rc1);
         vswap();
         gv(rc2);
         /* test if reload is needed for first register */
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        ਜੇ ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
             vswap();
             gv(rc1);
             vswap();
         }
-    } else {
+    } ਨਹੀਂਤਾਂ {
         gv(rc2);
         vswap();
         gv(rc1);
         vswap();
         /* test if reload is needed for first register */
-        if ((vtop[0].r & VT_VALMASK) >= VT_CONST) {
+        ਜੇ ((vtop[0].r & VT_VALMASK) >= VT_CONST) {
             gv(rc2);
         }
     }
 }
 
-#if PTR_SIZE == 4
+#ਜੇ PTR_ਮਾਪ == 4
 /* expand 64bit on stack in two ints */
-ST_FUNC void lexpand(void)
+ST_FUNC ਖਾਲੀ lexpand(ਖਾਲੀ)
 {
-    int u, v;
+    ਪੂਰਨ u, v;
     u = vtop->type.t & (VT_DEFSIGN | VT_UNSIGNED);
     v = vtop->r & (VT_VALMASK | VT_LVAL);
-    if (v == VT_CONST) {
+    ਜੇ (v == VT_CONST) {
         vdup();
         vtop[0].c.i >>= 32;
-    } else if (v == (VT_LVAL|VT_CONST) || v == (VT_LVAL|VT_LOCAL)) {
+    } ਨਹੀਂਤਾਂ ਜੇ (v == (VT_LVAL|VT_CONST) || v == (VT_LVAL|VT_LOCAL)) {
         vdup();
         vtop[0].c.i += 4;
-    } else {
+    } ਨਹੀਂਤਾਂ {
         gv(RC_INT);
         vdup();
         vtop[0].r = vtop[-1].r2;
@@ -2047,29 +2047,29 @@ ST_FUNC void lexpand(void)
     }
     vtop[0].type.t = vtop[-1].type.t = VT_INT | u;
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-#if PTR_SIZE == 4
+#ਜੇ PTR_ਮਾਪ == 4
 /* build a long long from two ints */
-static void lbuild(int t)
+ਸਥਿਰ ਖਾਲੀ lbuild(ਪੂਰਨ t)
 {
     gv2(RC_INT, RC_INT);
     vtop[-1].r2 = vtop[0].r;
     vtop[-1].type.t = t;
     vpop();
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 /* convert stack entry to register and duplicate its value in another
-   register */
-static void gv_dup(void)
+ਰਜਿਸਟਰ*/
+ਸਥਿਰ ਖਾਲੀ gv_dup(ਖਾਲੀ)
 {
-    int t, rc, r;
+    ਪੂਰਨ t, rc, r;
 
     t = vtop->type.t;
-#if PTR_SIZE == 4
-    if ((t & VT_BTYPE) == VT_LLONG) {
-        if (t & VT_BITFIELD) {
+#ਜੇ PTR_ਮਾਪ == 4
+    ਜੇ ((t & VT_BTYPE) == VT_LLONG) {
+        ਜੇ (t & VT_BITFIELD) {
             gv(RC_INT);
             t = vtop->type.t;
         }
@@ -2086,46 +2086,46 @@ static void gv_dup(void)
         vswap();
         lbuild(t);
         vswap();
-        return;
+        ਵਾਪਸ;
     }
-#endif
+#ਜੇ_ਅੰਤ
     /* duplicate value */
     rc = RC_TYPE(t);
     gv(rc);
     r = get_reg(rc);
     vdup();
-    load(r, vtop);
+    ਲੱਦੋ(r, vtop);
     vtop->r = r;
 }
 
-#if PTR_SIZE == 4
+#ਜੇ PTR_ਮਾਪ == 4
 /* generate CPU independent (unsigned) long long operations */
-static void gen_opl(int op)
+ਸਥਿਰ ਖਾਲੀ gen_opl(ਪੂਰਨ op)
 {
-    int t, a, b, op1, c, i;
-    int func;
-    unsigned short reg_iret = REG_IRET;
-    unsigned short reg_lret = REG_IRE2;
+    ਪੂਰਨ t, a, b, op1, c, i;
+    ਪੂਰਨ func;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ reg_iret = REG_IRET;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ reg_lret = REG_IRE2;
     SValue tmp;
 
-    switch(op) {
-    case '/':
-    case TOK_PDIV:
+    ਚੋਣ(op) {
+    ਹਾਲਤ '/':
+    ਹਾਲਤ TOK_PDIV:
         func = TOK___divdi3;
-        goto gen_func;
-    case TOK_UDIV:
+        ਜਾਓ gen_func;
+    ਹਾਲਤ TOK_UDIV:
         func = TOK___udivdi3;
-        goto gen_func;
-    case '%':
+        ਜਾਓ gen_func;
+    ਹਾਲਤ '%':
         func = TOK___moddi3;
-        goto gen_mod_func;
-    case TOK_UMOD:
+        ਜਾਓ gen_mod_func;
+    ਹਾਲਤ TOK_UMOD:
         func = TOK___umoddi3;
     gen_mod_func:
-#ifdef TCC_ARM_EABI
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ARM_EABI
         reg_iret = TREG_R2;
         reg_lret = TREG_R3;
-#endif
+#ਜੇ_ਅੰਤ
     gen_func:
         /* call generic long long function */
         vpush_helper_func(func);
@@ -2134,13 +2134,13 @@ static void gen_opl(int op)
         vpushi(0);
         vtop->r = reg_iret;
         vtop->r2 = reg_lret;
-        break;
-    case '^':
-    case '&':
-    case '|':
-    case '*':
-    case '+':
-    case '-':
+        ਰੋਕੋ;
+    ਹਾਲਤ '^':
+    ਹਾਲਤ '&':
+    ਹਾਲਤ '|':
+    ਹਾਲਤ '*':
+    ਹਾਲਤ '+':
+    ਹਾਲਤ '-':
         //pv("gen_opl A",0,2);
         t = vtop->type.t;
         vswap();
@@ -2157,13 +2157,13 @@ static void gen_opl(int op)
         vswap();
         /* stack: H1 H2 L1 L2 */
         //pv("gen_opl B",0,4);
-        if (op == '*') {
+        ਜੇ (op == '*') {
             vpushv(vtop - 1);
             vpushv(vtop - 1);
             gen_op(TOK_UMULL);
             lexpand();
             /* stack: H1 H2 L1 L2 ML MH */
-            for(i=0;i<4;i++)
+            ਲਈ(i=0;i<4;i++)
                 vrotb(6);
             /* stack: ML MH H1 H2 L1 L2 */
             tmp = vtop[0];
@@ -2177,18 +2177,18 @@ static void gen_opl(int op)
             /* stack: ML MH M1 M2 */
             gen_op('+');
             gen_op('+');
-        } else if (op == '+' || op == '-') {
+        } ਨਹੀਂਤਾਂ ਜੇ (op == '+' || op == '-') {
             /* XXX: add non carry method too (for MIPS or alpha) */
-            if (op == '+')
+            ਜੇ (op == '+')
                 op1 = TOK_ADDC1;
-            else
+            ਨਹੀਂਤਾਂ
                 op1 = TOK_SUBC1;
             gen_op(op1);
             /* stack: H1 H2 (L1 op L2) */
             vrotb(3);
             vrotb(3);
             gen_op(op1 + 1); /* TOK_xxxC2 */
-        } else {
+        } ਨਹੀਂਤਾਂ {
             gen_op(op);
             /* stack: H1 H2 (L1 op L2) */
             vrotb(3);
@@ -2199,39 +2199,39 @@ static void gen_opl(int op)
         }
         /* stack: L H */
         lbuild(t);
-        break;
-    case TOK_SAR:
-    case TOK_SHR:
-    case TOK_SHL:
-        if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_SAR:
+    ਹਾਲਤ TOK_SHR:
+    ਹਾਲਤ TOK_SHL:
+        ਜੇ ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
             t = vtop[-1].type.t;
             vswap();
             lexpand();
             vrotb(3);
             /* stack: L H shift */
-            c = (int)vtop->c.i;
+            c = (ਪੂਰਨ)vtop->c.i;
             /* constant: simpler */
             /* NOTE: all comments are for SHL. the other cases are
                done by swapping words */
             vpop();
-            if (op != TOK_SHL)
+            ਜੇ (op != TOK_SHL)
                 vswap();
-            if (c >= 32) {
+            ਜੇ (c >= 32) {
                 /* stack: L H */
                 vpop();
-                if (c > 32) {
+                ਜੇ (c > 32) {
                     vpushi(c - 32);
                     gen_op(op);
                 }
-                if (op != TOK_SAR) {
+                ਜੇ (op != TOK_SAR) {
                     vpushi(0);
-                } else {
+                } ਨਹੀਂਤਾਂ {
                     gv_dup();
                     vpushi(31);
                     gen_op(TOK_SAR);
                 }
                 vswap();
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 vswap();
                 gv_dup();
                 /* stack: H L L */
@@ -2239,38 +2239,38 @@ static void gen_opl(int op)
                 gen_op(op);
                 vswap();
                 vpushi(32 - c);
-                if (op == TOK_SHL)
+                ਜੇ (op == TOK_SHL)
                     gen_op(TOK_SHR);
-                else
+                ਨਹੀਂਤਾਂ
                     gen_op(TOK_SHL);
                 vrotb(3);
                 /* stack: L L H */
                 vpushi(c);
-                if (op == TOK_SHL)
+                ਜੇ (op == TOK_SHL)
                     gen_op(TOK_SHL);
-                else
+                ਨਹੀਂਤਾਂ
                     gen_op(TOK_SHR);
                 gen_op('|');
             }
-            if (op != TOK_SHL)
+            ਜੇ (op != TOK_SHL)
                 vswap();
             lbuild(t);
-        } else {
+        } ਨਹੀਂਤਾਂ {
             /* XXX: should provide a faster fallback on x86 ? */
-            switch(op) {
-            case TOK_SAR:
+            ਚੋਣ(op) {
+            ਹਾਲਤ TOK_SAR:
                 func = TOK___ashrdi3;
-                goto gen_func;
-            case TOK_SHR:
+                ਜਾਓ gen_func;
+            ਹਾਲਤ TOK_SHR:
                 func = TOK___lshrdi3;
-                goto gen_func;
-            case TOK_SHL:
+                ਜਾਓ gen_func;
+            ਹਾਲਤ TOK_SHL:
                 func = TOK___ashldi3;
-                goto gen_func;
+                ਜਾਓ gen_func;
             }
         }
-        break;
-    default:
+        ਰੋਕੋ;
+    ਮੂਲ:
         /* compare operations */
         t = vtop->type.t;
         vswap();
@@ -2282,7 +2282,7 @@ static void gen_opl(int op)
         vtop[-1] = vtop[-2];
         vtop[-2] = tmp;
         /* stack: L1 L2 H1 H2 */
-        if (!cur_switch || cur_switch->bsym) {
+        ਜੇ (!cur_switch || cur_switch->bsym) {
             /* avoid differnt registers being saved in branches.
                This is not needed when comparing switch cases */
             save_regs(4);
@@ -2291,22 +2291,22 @@ static void gen_opl(int op)
         op1 = op;
         /* when values are equal, we need to compare low words. since
            the jump is inverted, we invert the test too. */
-        if (op1 == TOK_LT)
+        ਜੇ (op1 == TOK_LT)
             op1 = TOK_LE;
-        else if (op1 == TOK_GT)
+        ਨਹੀਂਤਾਂ ਜੇ (op1 == TOK_GT)
             op1 = TOK_GE;
-        else if (op1 == TOK_ULT)
+        ਨਹੀਂਤਾਂ ਜੇ (op1 == TOK_ULT)
             op1 = TOK_ULE;
-        else if (op1 == TOK_UGT)
+        ਨਹੀਂਤਾਂ ਜੇ (op1 == TOK_UGT)
             op1 = TOK_UGE;
         a = 0;
         b = 0;
         gen_op(op1);
-        if (op == TOK_NE) {
+        ਜੇ (op == TOK_NE) {
             b = gvtst(0, 0);
-        } else {
+        } ਨਹੀਂਤਾਂ {
             a = gvtst(1, 0);
-            if (op != TOK_EQ) {
+            ਜੇ (op != TOK_EQ) {
                 /* generate non equal test */
                 vpushi(0);
                 vset_VT_CMP(TOK_NE);
@@ -2315,139 +2315,139 @@ static void gen_opl(int op)
         }
         /* compare low. Always unsigned */
         op1 = op;
-        if (op1 == TOK_LT)
+        ਜੇ (op1 == TOK_LT)
             op1 = TOK_ULT;
-        else if (op1 == TOK_LE)
+        ਨਹੀਂਤਾਂ ਜੇ (op1 == TOK_LE)
             op1 = TOK_ULE;
-        else if (op1 == TOK_GT)
+        ਨਹੀਂਤਾਂ ਜੇ (op1 == TOK_GT)
             op1 = TOK_UGT;
-        else if (op1 == TOK_GE)
+        ਨਹੀਂਤਾਂ ਜੇ (op1 == TOK_GE)
             op1 = TOK_UGE;
         gen_op(op1);
-#if 0//def TCC_TARGET_I386
-        if (op == TOK_NE) { gsym(b); break; }
-        if (op == TOK_EQ) { gsym(a); break; }
-#endif
-        gvtst_set(1, a);
-        gvtst_set(0, b);
-        break;
+#ਜੇ 0//def TCC_TARGET_I386
+        ਜੇ (op == TOK_NE) { gsym(b); ਰੋਕੋ; }
+        ਜੇ (op == TOK_EQ) { gsym(a); ਰੋਕੋ; }
+#ਜੇ_ਅੰਤ
+        gvtst_ਸੈੱਟ(1, a);
+        gvtst_ਸੈੱਟ(0, b);
+        ਰੋਕੋ;
     }
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 /* normalize values */
-static uint64_t value64(uint64_t l1, int t)
+ਸਥਿਰ uint64_t value64(uint64_t l1, ਪੂਰਨ t)
 {
-    if ((t & VT_BTYPE) == VT_LLONG
-        || (PTR_SIZE == 8 && (t & VT_BTYPE) == VT_PTR))
-        return l1;
-    else if (t & VT_UNSIGNED)
-        return (uint32_t)l1;
-    else
-        return (uint32_t)l1 | -(l1 & 0x80000000);
+    ਜੇ ((t & VT_BTYPE) == VT_LLONG
+        || (PTR_ਮਾਪ == 8 && (t & VT_BTYPE) == VT_PTR))
+        ਵਾਪਸ l1;
+    ਨਹੀਂਤਾਂ ਜੇ (t & VT_UNSIGNED)
+        ਵਾਪਸ (uint32_t)l1;
+    ਨਹੀਂਤਾਂ
+        ਵਾਪਸ (uint32_t)l1 | -(l1 & 0x80000000);
 }
 
-static uint64_t gen_opic_sdiv(uint64_t a, uint64_t b)
+ਸਥਿਰ uint64_t gen_opic_sdiv(uint64_t a, uint64_t b)
 {
     uint64_t x = (a >> 63 ? -a : a) / (b >> 63 ? -b : b);
-    return (a ^ b) >> 63 ? -x : x;
+    ਵਾਪਸ (a ^ b) >> 63 ? -x : x;
 }
 
-static int gen_opic_lt(uint64_t a, uint64_t b)
+ਸਥਿਰ ਪੂਰਨ gen_opic_lt(uint64_t a, uint64_t b)
 {
-    return (a ^ (uint64_t)1 << 63) < (b ^ (uint64_t)1 << 63);
+    ਵਾਪਸ (a ^ (uint64_t)1 << 63) < (b ^ (uint64_t)1 << 63);
 }
 
 /* handle integer constant optimizations and various machine
    independent opt */
-static void gen_opic(int op)
+ਸਥਿਰ ਖਾਲੀ gen_opic(ਪੂਰਨ op)
 {
     SValue *v1 = vtop - 1;
     SValue *v2 = vtop;
-    int t1 = v1->type.t & VT_BTYPE;
-    int t2 = v2->type.t & VT_BTYPE;
-    int c1 = (v1->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
-    int c2 = (v2->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
+    ਪੂਰਨ t1 = v1->type.t & VT_BTYPE;
+    ਪੂਰਨ t2 = v2->type.t & VT_BTYPE;
+    ਪੂਰਨ c1 = (v1->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
+    ਪੂਰਨ c2 = (v2->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
     uint64_t l1 = c1 ? value64(v1->c.i, v1->type.t) : 0;
     uint64_t l2 = c2 ? value64(v2->c.i, v2->type.t) : 0;
-    int shm = (t1 == VT_LLONG) ? 63 : 31;
-    int r;
+    ਪੂਰਨ shm = (t1 == VT_LLONG) ? 63 : 31;
+    ਪੂਰਨ r;
 
-    if (c1 && c2) {
-        switch(op) {
-        case '+': l1 += l2; break;
-        case '-': l1 -= l2; break;
-        case '&': l1 &= l2; break;
-        case '^': l1 ^= l2; break;
-        case '|': l1 |= l2; break;
-        case '*': l1 *= l2; break;
+    ਜੇ (c1 && c2) {
+        ਚੋਣ(op) {
+        ਹਾਲਤ '+': l1 += l2; ਰੋਕੋ;
+        ਹਾਲਤ '-': l1 -= l2; ਰੋਕੋ;
+        ਹਾਲਤ '&': l1 &= l2; ਰੋਕੋ;
+        ਹਾਲਤ '^': l1 ^= l2; ਰੋਕੋ;
+        ਹਾਲਤ '|': l1 |= l2; ਰੋਕੋ;
+        ਹਾਲਤ '*': l1 *= l2; ਰੋਕੋ;
 
-        case TOK_PDIV:
-        case '/':
-        case '%':
-        case TOK_UDIV:
-        case TOK_UMOD:
+        ਹਾਲਤ TOK_PDIV:
+        ਹਾਲਤ '/':
+        ਹਾਲਤ '%':
+        ਹਾਲਤ TOK_UDIV:
+        ਹਾਲਤ TOK_UMOD:
             /* if division by zero, generate explicit division */
-            if (l2 == 0) {
-                if (CONST_WANTED && !NOEVAL_WANTED)
+            ਜੇ (l2 == 0) {
+                ਜੇ (CONST_WANTED && !NOEVAL_WANTED)
                     tcc_error("division by zero in constant");
-                goto general_case;
+                ਜਾਓ general_case;
             }
-            switch(op) {
-            default: l1 = gen_opic_sdiv(l1, l2); break;
-            case '%': l1 = l1 - l2 * gen_opic_sdiv(l1, l2); break;
-            case TOK_UDIV: l1 = l1 / l2; break;
-            case TOK_UMOD: l1 = l1 % l2; break;
+            ਚੋਣ(op) {
+            ਮੂਲ: l1 = gen_opic_sdiv(l1, l2); ਰੋਕੋ;
+            ਹਾਲਤ '%': l1 = l1 - l2 * gen_opic_sdiv(l1, l2); ਰੋਕੋ;
+            ਹਾਲਤ TOK_UDIV: l1 = l1 / l2; ਰੋਕੋ;
+            ਹਾਲਤ TOK_UMOD: l1 = l1 % l2; ਰੋਕੋ;
             }
-            break;
-        case TOK_SHL: l1 <<= (l2 & shm); break;
-        case TOK_SHR: l1 >>= (l2 & shm); break;
-        case TOK_SAR:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_SHL: l1 <<= (l2 & shm); ਰੋਕੋ;
+        ਹਾਲਤ TOK_SHR: l1 >>= (l2 & shm); ਰੋਕੋ;
+        ਹਾਲਤ TOK_SAR:
             l1 = (l1 >> 63) ? ~(~l1 >> (l2 & shm)) : l1 >> (l2 & shm);
-            break;
+            ਰੋਕੋ;
             /* tests */
-        case TOK_ULT: l1 = l1 < l2; break;
-        case TOK_UGE: l1 = l1 >= l2; break;
-        case TOK_EQ: l1 = l1 == l2; break;
-        case TOK_NE: l1 = l1 != l2; break;
-        case TOK_ULE: l1 = l1 <= l2; break;
-        case TOK_UGT: l1 = l1 > l2; break;
-        case TOK_LT: l1 = gen_opic_lt(l1, l2); break;
-        case TOK_GE: l1 = !gen_opic_lt(l1, l2); break;
-        case TOK_LE: l1 = !gen_opic_lt(l2, l1); break;
-        case TOK_GT: l1 = gen_opic_lt(l2, l1); break;
+        ਹਾਲਤ TOK_ULT: l1 = l1 < l2; ਰੋਕੋ;
+        ਹਾਲਤ TOK_UGE: l1 = l1 >= l2; ਰੋਕੋ;
+        ਹਾਲਤ TOK_EQ: l1 = l1 == l2; ਰੋਕੋ;
+        ਹਾਲਤ TOK_NE: l1 = l1 != l2; ਰੋਕੋ;
+        ਹਾਲਤ TOK_ULE: l1 = l1 <= l2; ਰੋਕੋ;
+        ਹਾਲਤ TOK_UGT: l1 = l1 > l2; ਰੋਕੋ;
+        ਹਾਲਤ TOK_LT: l1 = gen_opic_lt(l1, l2); ਰੋਕੋ;
+        ਹਾਲਤ TOK_GE: l1 = !gen_opic_lt(l1, l2); ਰੋਕੋ;
+        ਹਾਲਤ TOK_LE: l1 = !gen_opic_lt(l2, l1); ਰੋਕੋ;
+        ਹਾਲਤ TOK_GT: l1 = gen_opic_lt(l2, l1); ਰੋਕੋ;
             /* logical */
-        case TOK_LAND: l1 = l1 && l2; break;
-        case TOK_LOR: l1 = l1 || l2; break;
-        default:
-            goto general_case;
+        ਹਾਲਤ TOK_LAND: l1 = l1 && l2; ਰੋਕੋ;
+        ਹਾਲਤ TOK_LOR: l1 = l1 || l2; ਰੋਕੋ;
+        ਮੂਲ:
+            ਜਾਓ general_case;
         }
         v1->c.i = value64(l1, v1->type.t);
         v1->r |= v2->r & VT_NONCONST;
         vtop--;
-    } else {
+    } ਨਹੀਂਤਾਂ {
         /* if commutative ops, put c2 as constant */
-        if (c1 && (op == '+' || op == '&' || op == '^' || 
+        ਜੇ (c1 && (op == '+' || op == '&' || op == '^' || 
                    op == '|' || op == '*' || op == TOK_EQ || op == TOK_NE)) {
             vswap();
             c2 = c1; //c = c1, c1 = c2, c2 = c;
             l2 = l1; //l = l1, l1 = l2, l2 = l;
         }
-        if (c1 && ((l1 == 0 &&
+        ਜੇ (c1 && ((l1 == 0 &&
                     (op == TOK_SHL || op == TOK_SHR || op == TOK_SAR)) ||
                    (l1 == -1 && op == TOK_SAR))) {
             /* treat (0 << x), (0 >> x) and (-1 >> x) as constant */
             vpop();
-        } else if (c2 && ((l2 == 0 && (op == '&' || op == '*')) ||
+        } ਨਹੀਂਤਾਂ ਜੇ (c2 && ((l2 == 0 && (op == '&' || op == '*')) ||
                           (op == '|' &&
                             (l2 == -1 || (l2 == 0xFFFFFFFF && t2 != VT_LLONG))) ||
                           (l2 == 1 && (op == '%' || op == TOK_UMOD)))) {
             /* treat (x & 0), (x * 0), (x | -1) and (x % 1) as constant */
-            if (l2 == 1)
+            ਜੇ (l2 == 1)
                 vtop->c.i = 0;
             vswap();
             vtop--;
-        } else if (c2 && (((op == '*' || op == '/' || op == TOK_UDIV ||
+        } ਨਹੀਂਤਾਂ ਜੇ (c2 && (((op == '*' || op == '/' || op == TOK_UDIV ||
                           op == TOK_PDIV) &&
                            l2 == 1) ||
                           ((op == '+' || op == '-' || op == '|' || op == '^' ||
@@ -2457,86 +2457,86 @@ static void gen_opic(int op)
                             (l2 == -1 || (l2 == 0xFFFFFFFF && t2 != VT_LLONG))))) {
             /* filter out NOP operations like x*1, x-0, x&-1... */
             vtop--;
-        } else if (c2 && (op == '*' || op == TOK_PDIV || op == TOK_UDIV || op == TOK_UMOD)) {
+        } ਨਹੀਂਤਾਂ ਜੇ (c2 && (op == '*' || op == TOK_PDIV || op == TOK_UDIV || op == TOK_UMOD)) {
             /* try to use shifts instead of muls or divs */
-            if (l2 > 0 && (l2 & (l2 - 1)) == 0) {
-                int n = -1;
-                if (op == TOK_UMOD) {
+            ਜੇ (l2 > 0 && (l2 & (l2 - 1)) == 0) {
+                ਪੂਰਨ n = -1;
+                ਜੇ (op == TOK_UMOD) {
                     vtop->c.i = l2 - 1;
                     op = '&';
-                    goto general_case;
+                    ਜਾਓ general_case;
                 }
-                while (l2) {
+                ਜਦੋਂ (l2) {
                     l2 >>= 1;
                     n++;
                 }
                 vtop->c.i = n;
-                if (op == '*')
+                ਜੇ (op == '*')
                     op = TOK_SHL;
-                else if (op == TOK_PDIV)
+                ਨਹੀਂਤਾਂ ਜੇ (op == TOK_PDIV)
                     op = TOK_SAR;
-                else
+                ਨਹੀਂਤਾਂ
                     op = TOK_SHR;
             }
-            goto general_case;
-        } else if (c2 && (op == '+' || op == '-') &&
+            ਜਾਓ general_case;
+        } ਨਹੀਂਤਾਂ ਜੇ (c2 && (op == '+' || op == '-') &&
                    (r = vtop[-1].r & (VT_VALMASK | VT_LVAL | VT_SYM),
                     r == (VT_CONST | VT_SYM) || r == VT_LOCAL)) {
             /* symbol + constant case */
-            if (op == '-')
+            ਜੇ (op == '-')
                 l2 = -l2;
 	    l2 += vtop[-1].c.i;
 	    /* The backends can't always deal with addends to symbols
 	       larger than +-1<<31.  Don't construct such.  */
-	    if ((int)l2 != l2)
-	        goto general_case;
+	    ਜੇ ((ਪੂਰਨ)l2 != l2)
+	        ਜਾਓ general_case;
             vtop--;
             vtop->c.i = l2;
-        } else {
+        } ਨਹੀਂਤਾਂ {
         general_case:
                 /* call low level op generator */
-                if (t1 == VT_LLONG || t2 == VT_LLONG ||
-                    (PTR_SIZE == 8 && (t1 == VT_PTR || t2 == VT_PTR)))
+                ਜੇ (t1 == VT_LLONG || t2 == VT_LLONG ||
+                    (PTR_ਮਾਪ == 8 && (t1 == VT_PTR || t2 == VT_PTR)))
                     gen_opl(op);
-                else
+                ਨਹੀਂਤਾਂ
                     gen_opi(op);
         }
-        if (vtop->r == VT_CONST)
+        ਜੇ (vtop->r == VT_CONST)
             vtop->r |= VT_NONCONST; /* is const, but only by optimization */
     }
 }
 
-#if defined TCC_TARGET_X86_64 || defined TCC_TARGET_I386 || defined TCC_TARGET_ARM64
+#ਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_X86_64 || defined TCC_ਨਿਸ਼ਾਨਾ_I386 || defined TCC_ਨਿਸ਼ਾਨਾ_ARM64
 # define gen_negf gen_opf
-#elif defined TCC_TARGET_ARM
-void gen_negf(int op)
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM
+ਖਾਲੀ gen_negf(ਪੂਰਨ op)
 {
     /* arm will detect 0-x and replace by vneg */
     vpushi(0), vswap(), gen_op('-');
 }
-#else
+#ਨਹੀਂਤਾਂ
 /* XXX: implement in gen_opf() for other backends too */
-void gen_negf(int op)
+ਖਾਲੀ gen_negf(ਪੂਰਨ op)
 {
     /* In IEEE negate(x) isn't subtract(0,x).  Without NaNs it's
        subtract(-0, x), but with them it's really a sign flip
        operation.  We implement this with bit manipulation and have
        to do some type reinterpretation for this, which TCC can do
        only via memory.  */
-    int align, size, bt;
-    size = type_size(&vtop->type, &align);
+    ਪੂਰਨ align, ਮਾਪ, bt;
+    ਮਾਪ = type_ਮਾਪ(&vtop->type, &align);
     bt = vtop->type.t & VT_BTYPE;
-#if defined TCC_TARGET_X86_64 || defined TCC_TARGET_I386
+#ਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_X86_64 || defined TCC_ਨਿਸ਼ਾਨਾ_I386
     /* sizeof long double is 12 or 16 here, but it's really the 80bit
        extended float format.  */
-    if (bt == VT_LDOUBLE)
-        size = 10;
-#endif
-    if (nocode_wanted) /* save_reg() wont work */
-        goto gv2;
+    ਜੇ (bt == VT_LDOUBLE)
+        ਮਾਪ = 10;
+#ਜੇ_ਅੰਤ
+    ਜੇ (nocode_wanted) /* save_reg() wont work */
+        ਜਾਓ gv2;
     save_reg(gv(RC_TYPE(bt)));
     vdup();
-    incr_bf_adr(size - 1);
+    incr_bf_adr(ਮਾਪ - 1);
     vdup();
     vpushi(0x80); /* flip sign */
     gen_op('^');
@@ -2545,109 +2545,109 @@ void gen_negf(int op)
 gv2:
     gv(RC_TYPE(bt)); /* -n is not a lvalue */
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 /* generate a floating point operation with constant propagation */
-static void gen_opif(int op)
+ਸਥਿਰ ਖਾਲੀ gen_opif(ਪੂਰਨ op)
 {
-    int c1, c2, i, bt;
+    ਪੂਰਨ c1, c2, i, bt;
     SValue *v1, *v2;
-#if defined _MSC_VER && defined __x86_64__
+#ਜੇ defined _MSC_VER && defined __x86_64__
     /* avoid bad optimization with f1 -= f2 for f1:-0.0, f2:0.0 */
-    volatile
-#endif
-    long double f1, f2;
+    ਅਸਥਿਰ
+#ਜੇ_ਅੰਤ
+    ਲੰਮਾ ਦੁੱਗਣਾ f1, f2;
 
     v1 = vtop - 1;
     v2 = vtop;
-    if (op == TOK_NEG)
+    ਜੇ (op == TOK_NEG)
         v1 = v2;
     bt = v1->type.t & VT_BTYPE;
 
     /* currently, we cannot do computations with forward symbols */
     c1 = (v1->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
     c2 = (v2->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
-    if (c1 && c2) {
-        if (bt == VT_FLOAT) {
+    ਜੇ (c1 && c2) {
+        ਜੇ (bt == VT_FLOAT) {
             f1 = v1->c.f;
             f2 = v2->c.f;
-        } else if (bt == VT_DOUBLE) {
+        } ਨਹੀਂਤਾਂ ਜੇ (bt == VT_DOUBLE) {
             f1 = v1->c.d;
             f2 = v2->c.d;
-        } else {
+        } ਨਹੀਂਤਾਂ {
             f1 = v1->c.ld;
             f2 = v2->c.ld;
         }
         /* NOTE: we only do constant propagation if finite number (not
            NaN or infinity) (ANSI spec) */
-        if (!(ieee_finite(f1) || !ieee_finite(f2)) && !CONST_WANTED)
-            goto general_case;
-        switch(op) {
-        case '+': f1 += f2; break;
-        case '-': f1 -= f2; break;
-        case '*': f1 *= f2; break;
-        case '/': 
-            if (f2 == 0.0) {
-                union { float f; unsigned u; } x1, x2, y;
+        ਜੇ (!(ieee_finite(f1) || !ieee_finite(f2)) && !CONST_WANTED)
+            ਜਾਓ general_case;
+        ਚੋਣ(op) {
+        ਹਾਲਤ '+': f1 += f2; ਰੋਕੋ;
+        ਹਾਲਤ '-': f1 -= f2; ਰੋਕੋ;
+        ਹਾਲਤ '*': f1 *= f2; ਰੋਕੋ;
+        ਹਾਲਤ '/': 
+            ਜੇ (f2 == 0.0) {
+                ਸੰਘ { ਦਸ਼ਮਲਵ f; ਬਿਨਾਨਿਸ਼ਾਨੀ u; } x1, x2, y;
 		/* If not in initializer we need to potentially generate
 		   FP exceptions at runtime, otherwise we want to fold.  */
-                if (!CONST_WANTED)
-                    goto general_case;
+                ਜੇ (!CONST_WANTED)
+                    ਜਾਓ general_case;
                 /* the run-time result of 0.0/0.0 on x87, also of other compilers
                    when used to compile the f1 /= f2 below, would be -nan */
                 x1.f = f1, x2.f = f2;
-                if (f1 == 0.0)
+                ਜੇ (f1 == 0.0)
                     y.u = 0x7fc00000; /* nan */
-                else
+                ਨਹੀਂਤਾਂ
                     y.u = 0x7f800000; /* infinity */
                 y.u |= (x1.u ^ x2.u) & 0x80000000; /* set sign */
                 f1 = y.f;
-                break;
+                ਰੋਕੋ;
             }
             f1 /= f2;
-            break;
-        case TOK_NEG:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_NEG:
             f1 = -f1;
-            goto unary_result;
-        case TOK_EQ:
+            ਜਾਓ unary_ਨਤੀਜਾ;
+        ਹਾਲਤ TOK_EQ:
             i = f1 == f2;
 	make_int:
             vtop -= 2;
             vpushi(i);
-            return;
-        case TOK_NE:
+            ਵਾਪਸ;
+        ਹਾਲਤ TOK_NE:
             i = f1 != f2;
-	    goto make_int;
-        case TOK_LT:
+	    ਜਾਓ make_int;
+        ਹਾਲਤ TOK_LT:
             i = f1 < f2;
-	    goto make_int;
-        case TOK_GE:
+	    ਜਾਓ make_int;
+        ਹਾਲਤ TOK_GE:
             i = f1 >= f2;
-	    goto make_int;
-        case TOK_LE:
+	    ਜਾਓ make_int;
+        ਹਾਲਤ TOK_LE:
             i = f1 <= f2;
-	    goto make_int;
-        case TOK_GT:
+	    ਜਾਓ make_int;
+        ਹਾਲਤ TOK_GT:
             i = f1 > f2;
-	    goto make_int;
-        default:
-            goto general_case;
+	    ਜਾਓ make_int;
+        ਮੂਲ:
+            ਜਾਓ general_case;
         }
         vtop--;
-    unary_result:
+    unary_ਨਤੀਜਾ:
         /* XXX: overflow test ? */
-        if (bt == VT_FLOAT) {
+        ਜੇ (bt == VT_FLOAT) {
             v1->c.f = f1;
-        } else if (bt == VT_DOUBLE) {
+        } ਨਹੀਂਤਾਂ ਜੇ (bt == VT_DOUBLE) {
             v1->c.d = f1;
-        } else {
+        } ਨਹੀਂਤਾਂ {
             v1->c.ld = f1;
         }
-    } else {
+    } ਨਹੀਂਤਾਂ {
     general_case:
-        if (op == TOK_NEG) {
+        ਜੇ (op == TOK_NEG) {
             gen_negf(op);
-        } else {
+        } ਨਹੀਂਤਾਂ {
             gen_opf(op);
         }
     }
@@ -2657,274 +2657,274 @@ static void gen_opif(int op)
    printed in the type */
 /* XXX: union */
 /* XXX: add array and function pointers */
-static void type_to_str(char *buf, int buf_size,
-                 CType *type, const char *varstr)
+ਸਥਿਰ ਖਾਲੀ type_ਮੰਜ਼ਿਲ_str(ਅੱਖਰ *buf, ਪੂਰਨ buf_ਮਾਪ,
+                 CType *type, ਅਚਲ ਅੱਖਰ *varstr)
 {
-    int bt, v, t;
+    ਪੂਰਨ bt, v, t;
     Sym *s, *sa;
-    char buf1[256];
-    const char *tstr;
+    ਅੱਖਰ buf1[256];
+    ਅਚਲ ਅੱਖਰ *tstr;
 
     t = type->t;
     bt = t & VT_BTYPE;
     buf[0] = '\0';
 
-    if (t & VT_EXTERN)
-        pstrcat(buf, buf_size, "extern ");
-    if (t & VT_STATIC)
-        pstrcat(buf, buf_size, "static ");
-    if (t & VT_TYPEDEF)
-        pstrcat(buf, buf_size, "typedef ");
-    if (t & VT_INLINE)
-        pstrcat(buf, buf_size, "inline ");
-    if (bt != VT_PTR) {
-        if (t & VT_RESTRICT)
-            pstrcat(buf, buf_size, "restrict ");
-        if (t & VT_VOLATILE)
-            pstrcat(buf, buf_size, "volatile ");
-        if (t & VT_CONSTANT)
-            pstrcat(buf, buf_size, "const ");
+    ਜੇ (t & VT_EXTERN)
+        pstrcat(buf, buf_ਮਾਪ, "extern ");
+    ਜੇ (t & VT_STATIC)
+        pstrcat(buf, buf_ਮਾਪ, "static ");
+    ਜੇ (t & VT_TYPEDEF)
+        pstrcat(buf, buf_ਮਾਪ, "typedef ");
+    ਜੇ (t & VT_INLINE)
+        pstrcat(buf, buf_ਮਾਪ, "inline ");
+    ਜੇ (bt != VT_PTR) {
+        ਜੇ (t & VT_RESTRICT)
+            pstrcat(buf, buf_ਮਾਪ, "restrict ");
+        ਜੇ (t & VT_VOLATILE)
+            pstrcat(buf, buf_ਮਾਪ, "volatile ");
+        ਜੇ (t & VT_CONSTANT)
+            pstrcat(buf, buf_ਮਾਪ, "const ");
     }
-    if (((t & VT_DEFSIGN) && bt == VT_BYTE)
+    ਜੇ (((t & VT_DEFSIGN) && bt == VT_BYTE)
         || ((t & VT_UNSIGNED)
             && (bt == VT_SHORT || bt == VT_INT || bt == VT_LLONG)
             && !IS_ENUM(t)
             ))
-        pstrcat(buf, buf_size, (t & VT_UNSIGNED) ? "unsigned " : "signed ");
+        pstrcat(buf, buf_ਮਾਪ, (t & VT_UNSIGNED) ? "unsigned " : "signed ");
 
-    buf_size -= strlen(buf);
-    buf += strlen(buf);
+    buf_ਮਾਪ -= ਲੜੀ_ਲੰਬਾਈ(buf);
+    buf += ਲੜੀ_ਲੰਬਾਈ(buf);
 
-    switch(bt) {
-    case VT_VOID:
+    ਚੋਣ(bt) {
+    ਹਾਲਤ VT_VOID:
         tstr = "void";
-        goto add_tstr;
-    case VT_BOOL:
+        ਜਾਓ ਜੋੜੋ_tstr;
+    ਹਾਲਤ VT_BOOL:
         tstr = "_Bool";
-        goto add_tstr;
-    case VT_BYTE:
+        ਜਾਓ ਜੋੜੋ_tstr;
+    ਹਾਲਤ VT_BYTE:
         tstr = "char";
-        goto add_tstr;
-    case VT_SHORT:
+        ਜਾਓ ਜੋੜੋ_tstr;
+    ਹਾਲਤ VT_SHORT:
         tstr = "short";
-        goto add_tstr;
-    case VT_INT:
+        ਜਾਓ ਜੋੜੋ_tstr;
+    ਹਾਲਤ VT_INT:
         tstr = "int";
-        goto maybe_long;
-    case VT_LLONG:
+        ਜਾਓ maybe_long;
+    ਹਾਲਤ VT_LLONG:
         tstr = "long long";
     maybe_long:
-        if (t & VT_LONG)
+        ਜੇ (t & VT_LONG)
             tstr = "long";
-        if (!IS_ENUM(t))
-            goto add_tstr;
+        ਜੇ (!IS_ENUM(t))
+            ਜਾਓ ਜੋੜੋ_tstr;
         tstr = "enum ";
-        goto tstruct;
-    case VT_FLOAT:
+        ਜਾਓ tstruct;
+    ਹਾਲਤ VT_FLOAT:
         tstr = "float";
-        goto add_tstr;
-    case VT_DOUBLE:
+        ਜਾਓ ਜੋੜੋ_tstr;
+    ਹਾਲਤ VT_DOUBLE:
         tstr = "double";
-        if (!(t & VT_LONG))
-            goto add_tstr;
-    case VT_LDOUBLE:
+        ਜੇ (!(t & VT_LONG))
+            ਜਾਓ ਜੋੜੋ_tstr;
+    ਹਾਲਤ VT_LDOUBLE:
         tstr = "long double";
-    add_tstr:
-        pstrcat(buf, buf_size, tstr);
-        break;
-    case VT_STRUCT:
+    ਜੋੜੋ_tstr:
+        pstrcat(buf, buf_ਮਾਪ, tstr);
+        ਰੋਕੋ;
+    ਹਾਲਤ VT_STRUCT:
         tstr = "struct ";
-        if (IS_UNION(t))
+        ਜੇ (IS_UNION(t))
             tstr = "union ";
     tstruct:
-        pstrcat(buf, buf_size, tstr);
+        pstrcat(buf, buf_ਮਾਪ, tstr);
         v = type->ref->v & ~SYM_STRUCT;
-        if (v >= SYM_FIRST_ANOM)
-            pstrcat(buf, buf_size, "<anonymous>");
-        else
-            pstrcat(buf, buf_size, get_tok_str(v, NULL));
-        break;
-    case VT_FUNC:
+        ਜੇ (v >= SYM_ਪਹਿਲਾ_ANOM)
+            pstrcat(buf, buf_ਮਾਪ, "<anonymous>");
+        ਨਹੀਂਤਾਂ
+            pstrcat(buf, buf_ਮਾਪ, get_tok_str(v, ਨਿਰਾ));
+        ਰੋਕੋ;
+    ਹਾਲਤ VT_FUNC:
         s = type->ref;
         buf1[0]=0;
-        if (varstr && '*' == *varstr) {
-            pstrcat(buf1, sizeof(buf1), "(");
-            pstrcat(buf1, sizeof(buf1), varstr);
-            pstrcat(buf1, sizeof(buf1), ")");
+        ਜੇ (varstr && '*' == *varstr) {
+            pstrcat(buf1, ਆਕਾਰ(buf1), "(");
+            pstrcat(buf1, ਆਕਾਰ(buf1), varstr);
+            pstrcat(buf1, ਆਕਾਰ(buf1), ")");
         }
-        pstrcat(buf1, sizeof(buf1), "(");
-        sa = s->next;
-        while (sa != NULL) {
-            char buf2[256];
-            type_to_str(buf2, sizeof(buf2), &sa->type, NULL);
-            pstrcat(buf1, sizeof(buf1), buf2);
-            sa = sa->next;
-            if (sa)
-                pstrcat(buf1, sizeof(buf1), ", ");
+        pstrcat(buf1, ਆਕਾਰ(buf1), "(");
+        sa = s->ਅਗਲਾ;
+        ਜਦੋਂ (sa != ਨਿਰਾ) {
+            ਅੱਖਰ buf2[256];
+            type_ਮੰਜ਼ਿਲ_str(buf2, ਆਕਾਰ(buf2), &sa->type, ਨਿਰਾ);
+            pstrcat(buf1, ਆਕਾਰ(buf1), buf2);
+            sa = sa->ਅਗਲਾ;
+            ਜੇ (sa)
+                pstrcat(buf1, ਆਕਾਰ(buf1), ", ");
         }
-        if (s->f.func_type == FUNC_ELLIPSIS)
-            pstrcat(buf1, sizeof(buf1), ", ...");
-        pstrcat(buf1, sizeof(buf1), ")");
-        type_to_str(buf, buf_size, &s->type, buf1);
-        goto no_var;
-    case VT_PTR:
+        ਜੇ (s->f.func_type == FUNC_ELLIPSIS)
+            pstrcat(buf1, ਆਕਾਰ(buf1), ", ...");
+        pstrcat(buf1, ਆਕਾਰ(buf1), ")");
+        type_ਮੰਜ਼ਿਲ_str(buf, buf_ਮਾਪ, &s->type, buf1);
+        ਜਾਓ no_var;
+    ਹਾਲਤ VT_PTR:
         s = type->ref;
-        if (t & (VT_ARRAY|VT_VLA)) {
-            if (varstr && '*' == *varstr)
-                snprintf(buf1, sizeof(buf1), "(%s)[%d]", varstr, s->c);
-            else
-                snprintf(buf1, sizeof(buf1), "%s[%d]", varstr ? varstr : "", s->c);
-            type_to_str(buf, buf_size, &s->type, buf1);
-            goto no_var;
+        ਜੇ (t & (VT_ARRAY|VT_VLA)) {
+            ਜੇ (varstr && '*' == *varstr)
+                snprintf(buf1, ਆਕਾਰ(buf1), "(%s)[%d]", varstr, s->c);
+            ਨਹੀਂਤਾਂ
+                snprintf(buf1, ਆਕਾਰ(buf1), "%s[%d]", varstr ? varstr : "", s->c);
+            type_ਮੰਜ਼ਿਲ_str(buf, buf_ਮਾਪ, &s->type, buf1);
+            ਜਾਓ no_var;
         }
-        pstrcpy(buf1, sizeof(buf1), "*");
-        if (t & VT_RESTRICT)
-            pstrcat(buf1, sizeof(buf1), "restrict ");
-        if (t & VT_CONSTANT)
-            pstrcat(buf1, sizeof(buf1), "const ");
-        if (t & VT_VOLATILE)
-            pstrcat(buf1, sizeof(buf1), "volatile ");
-        if (varstr)
-            pstrcat(buf1, sizeof(buf1), varstr);
-        type_to_str(buf, buf_size, &s->type, buf1);
-        goto no_var;
+        pstrcpy(buf1, ਆਕਾਰ(buf1), "*");
+        ਜੇ (t & VT_RESTRICT)
+            pstrcat(buf1, ਆਕਾਰ(buf1), "restrict ");
+        ਜੇ (t & VT_CONSTANT)
+            pstrcat(buf1, ਆਕਾਰ(buf1), "const ");
+        ਜੇ (t & VT_VOLATILE)
+            pstrcat(buf1, ਆਕਾਰ(buf1), "volatile ");
+        ਜੇ (varstr)
+            pstrcat(buf1, ਆਕਾਰ(buf1), varstr);
+        type_ਮੰਜ਼ਿਲ_str(buf, buf_ਮਾਪ, &s->type, buf1);
+        ਜਾਓ no_var;
     }
-    if (varstr) {
-        pstrcat(buf, buf_size, " ");
-        pstrcat(buf, buf_size, varstr);
+    ਜੇ (varstr) {
+        pstrcat(buf, buf_ਮਾਪ, " ");
+        pstrcat(buf, buf_ਮਾਪ, varstr);
     }
  no_var: ;
 }
 
-static void type_incompatibility_error(CType* st, CType* dt, const char* fmt)
+ਸਥਿਰ ਖਾਲੀ type_incompatibility_error(CType* st, CType* dt, ਅਚਲ ਅੱਖਰ* fmt)
 {
-    char buf1[256], buf2[256];
-    type_to_str(buf1, sizeof(buf1), st, NULL);
-    type_to_str(buf2, sizeof(buf2), dt, NULL);
+    ਅੱਖਰ buf1[256], buf2[256];
+    type_ਮੰਜ਼ਿਲ_str(buf1, ਆਕਾਰ(buf1), st, ਨਿਰਾ);
+    type_ਮੰਜ਼ਿਲ_str(buf2, ਆਕਾਰ(buf2), dt, ਨਿਰਾ);
     tcc_error(fmt, buf1, buf2);
 }
 
-static void type_incompatibility_warning(CType* st, CType* dt, const char* fmt)
+ਸਥਿਰ ਖਾਲੀ type_incompatibility_warning(CType* st, CType* dt, ਅਚਲ ਅੱਖਰ* fmt)
 {
-    char buf1[256], buf2[256];
-    type_to_str(buf1, sizeof(buf1), st, NULL);
-    type_to_str(buf2, sizeof(buf2), dt, NULL);
+    ਅੱਖਰ buf1[256], buf2[256];
+    type_ਮੰਜ਼ਿਲ_str(buf1, ਆਕਾਰ(buf1), st, ਨਿਰਾ);
+    type_ਮੰਜ਼ਿਲ_str(buf2, ਆਕਾਰ(buf2), dt, ਨਿਰਾ);
     tcc_warning(fmt, buf1, buf2);
 }
 
-static int pointed_size(CType *type)
+ਸਥਿਰ ਪੂਰਨ pointed_ਮਾਪ(CType *type)
 {
-    int align;
-    return type_size(pointed_type(type), &align);
+    ਪੂਰਨ align;
+    ਵਾਪਸ type_ਮਾਪ(pointed_type(type), &align);
 }
 
-static inline int is_null_pointer(SValue *p)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਪੂਰਨ is_null_ਸੂਚਕ(SValue *p)
 {
-    if ((p->r & (VT_VALMASK | VT_LVAL | VT_SYM | VT_NONCONST)) != VT_CONST)
-        return 0;
-    return ((p->type.t & VT_BTYPE) == VT_INT && (uint32_t)p->c.i == 0) ||
+    ਜੇ ((p->r & (VT_VALMASK | VT_LVAL | VT_SYM | VT_NONCONST)) != VT_CONST)
+        ਵਾਪਸ 0;
+    ਵਾਪਸ ((p->type.t & VT_BTYPE) == VT_INT && (uint32_t)p->c.i == 0) ||
         ((p->type.t & VT_BTYPE) == VT_LLONG && p->c.i == 0) ||
         ((p->type.t & VT_BTYPE) == VT_PTR &&
-         (PTR_SIZE == 4 ? (uint32_t)p->c.i == 0 : p->c.i == 0) &&
+         (PTR_ਮਾਪ == 4 ? (uint32_t)p->c.i == 0 : p->c.i == 0) &&
          ((pointed_type(&p->type)->t & VT_BTYPE) == VT_VOID) &&
          0 == (pointed_type(&p->type)->t & VT_QUAL)
          );
 }
 
 /* compare function types. OLD functions match any new functions */
-static int is_compatible_func(CType *type1, CType *type2)
+ਸਥਿਰ ਪੂਰਨ is_compatible_func(CType *type1, CType *type2)
 {
     Sym *s1, *s2;
 
     s1 = type1->ref;
     s2 = type2->ref;
-    if (s1->f.func_call != s2->f.func_call)
-        return 0;
-    if (s1->f.func_type != s2->f.func_type
+    ਜੇ (s1->f.func_call != s2->f.func_call)
+        ਵਾਪਸ 0;
+    ਜੇ (s1->f.func_type != s2->f.func_type
         && s1->f.func_type != FUNC_OLD
         && s2->f.func_type != FUNC_OLD)
-        return 0;
-    for (;;) {
-        if (!is_compatible_unqualified_types(&s1->type, &s2->type))
-            return 0;
-        if (s1->f.func_type == FUNC_OLD || s2->f.func_type == FUNC_OLD )
-            return 1;
-        s1 = s1->next;
-        s2 = s2->next;
-        if (!s1)
-            return !s2;
-        if (!s2)
-            return 0;
+        ਵਾਪਸ 0;
+    ਲਈ (;;) {
+        ਜੇ (!is_compatible_unqualified_types(&s1->type, &s2->type))
+            ਵਾਪਸ 0;
+        ਜੇ (s1->f.func_type == FUNC_OLD || s2->f.func_type == FUNC_OLD )
+            ਵਾਪਸ 1;
+        s1 = s1->ਅਗਲਾ;
+        s2 = s2->ਅਗਲਾ;
+        ਜੇ (!s1)
+            ਵਾਪਸ !s2;
+        ਜੇ (!s2)
+            ਵਾਪਸ 0;
     }
 }
 
 /* return true if type1 and type2 are the same.  If unqualified is
    true, qualifiers on the types are ignored.
  */
-static int compare_types(CType *type1, CType *type2, int unqualified)
+ਸਥਿਰ ਪੂਰਨ compare_types(CType *type1, CType *type2, ਪੂਰਨ unqualified)
 {
-    int bt1, t1, t2;
+    ਪੂਰਨ bt1, t1, t2;
 
-    if (IS_ENUM(type1->t)) {
-        if (IS_ENUM(type2->t))
-            return type1->ref == type2->ref;
+    ਜੇ (IS_ENUM(type1->t)) {
+        ਜੇ (IS_ENUM(type2->t))
+            ਵਾਪਸ type1->ref == type2->ref;
         type1 = &type1->ref->type;
-    } else if (IS_ENUM(type2->t))
+    } ਨਹੀਂਤਾਂ ਜੇ (IS_ENUM(type2->t))
         type2 = &type2->ref->type;
 
     t1 = type1->t & VT_TYPE;
     t2 = type2->t & VT_TYPE;
-    if (unqualified) {
+    ਜੇ (unqualified) {
         /* strip qualifiers before comparing */
         t1 &= ~VT_QUAL;
         t2 &= ~VT_QUAL;
     }
 
     /* Default Vs explicit signedness only matters for char */
-    if ((t1 & VT_BTYPE) != VT_BYTE) {
+    ਜੇ ((t1 & VT_BTYPE) != VT_BYTE) {
         t1 &= ~VT_DEFSIGN;
         t2 &= ~VT_DEFSIGN;
     }
     /* XXX: bitfields ? */
-    if (t1 != t2)
-        return 0;
+    ਜੇ (t1 != t2)
+        ਵਾਪਸ 0;
 
-    if ((t1 & VT_ARRAY)
+    ਜੇ ((t1 & VT_ARRAY)
         && !(type1->ref->c < 0
           || type2->ref->c < 0
           || type1->ref->c == type2->ref->c))
-            return 0;
+            ਵਾਪਸ 0;
 
     /* test more complicated cases */
     bt1 = t1 & VT_BTYPE;
-    if (bt1 == VT_PTR) {
+    ਜੇ (bt1 == VT_PTR) {
         type1 = pointed_type(type1);
         type2 = pointed_type(type2);
-        if (unqualified && (t1 & VT_ARRAY))
-            return compare_types(type1, type2, 1);
-        return is_compatible_types(type1, type2);
-    } else if (bt1 == VT_STRUCT) {
-        return (type1->ref == type2->ref);
-    } else if (bt1 == VT_FUNC) {
-        return is_compatible_func(type1, type2);
-    } else {
-        return 1;
+        ਜੇ (unqualified && (t1 & VT_ARRAY))
+            ਵਾਪਸ compare_types(type1, type2, 1);
+        ਵਾਪਸ is_compatible_types(type1, type2);
+    } ਨਹੀਂਤਾਂ ਜੇ (bt1 == VT_STRUCT) {
+        ਵਾਪਸ (type1->ref == type2->ref);
+    } ਨਹੀਂਤਾਂ ਜੇ (bt1 == VT_FUNC) {
+        ਵਾਪਸ is_compatible_func(type1, type2);
+    } ਨਹੀਂਤਾਂ {
+        ਵਾਪਸ 1;
     }
 }
 
-#define CMP_OP 'C'
-#define SHIFT_OP 'S'
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CMP_OP 'C'
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਖਿਸਕਾਓ_OP 'S'
 
 /* Check if OP1 and OP2 can be "combined" with operation OP, the combined
    type is stored in DEST if non-null (except for pointer plus/minus) . */
-static int combine_types(CType *dest, SValue *op1, SValue *op2, int op)
+ਸਥਿਰ ਪੂਰਨ combine_types(CType *dest, SValue *op1, SValue *op2, ਪੂਰਨ op)
 {
     CType *type1, *type2, type;
-    int t1, t2, bt1, bt2;
-    int ret = 1;
+    ਪੂਰਨ t1, t2, bt1, bt2;
+    ਪੂਰਨ ret = 1;
 
     /* for shifts, 'combine' only left operand */
-    if (op == SHIFT_OP)
+    ਜੇ (op == ਖਿਸਕਾਓ_OP)
         op2 = op1;
 
     type1 = &op1->type, type2 = &op2->type;
@@ -2932,130 +2932,130 @@ static int combine_types(CType *dest, SValue *op1, SValue *op2, int op)
     bt1 = t1 & VT_BTYPE, bt2 = t2 & VT_BTYPE;
 
     type.t = VT_VOID;
-    type.ref = NULL;
+    type.ref = ਨਿਰਾ;
 
-    if (bt1 == VT_VOID || bt2 == VT_VOID) {
-        if (op != '?')
+    ਜੇ (bt1 == VT_VOID || bt2 == VT_VOID) {
+        ਜੇ (op != '?')
             tcc_error("operation on void value");
         /* NOTE: as an extension, we accept void on only one side */
         type.t = VT_VOID;
-    } else if (bt1 == VT_PTR || bt2 == VT_PTR) {
-        if (op == '+') {
-          if (!is_integer_btype(bt1 == VT_PTR ? bt2 : bt1))
+    } ਨਹੀਂਤਾਂ ਜੇ (bt1 == VT_PTR || bt2 == VT_PTR) {
+        ਜੇ (op == '+') {
+          ਜੇ (!is_integer_btype(bt1 == VT_PTR ? bt2 : bt1))
             ret = 0;
         }
         /* http://port70.net/~nsz/c/c99/n1256.html#6.5.15p6 */
         /* If one is a null ptr constant the result type is the other.  */
-        else if (is_null_pointer (op2)) type = *type1;
-        else if (is_null_pointer (op1)) type = *type2;
-        else if (bt1 != bt2) {
+        ਨਹੀਂਤਾਂ ਜੇ (is_null_ਸੂਚਕ (op2)) type = *type1;
+        ਨਹੀਂਤਾਂ ਜੇ (is_null_ਸੂਚਕ (op1)) type = *type2;
+        ਨਹੀਂਤਾਂ ਜੇ (bt1 != bt2) {
             /* accept comparison or cond-expr between pointer and integer
                with a warning */
-            if ((op == '?' || op == CMP_OP)
+            ਜੇ ((op == '?' || op == CMP_OP)
                 && (is_integer_btype(bt1) || is_integer_btype(bt2)))
               tcc_warning("pointer/integer mismatch in %s",
                           op == '?' ? "conditional expression" : "comparison");
-            else if (op != '-' || !is_integer_btype(bt2))
+            ਨਹੀਂਤਾਂ ਜੇ (op != '-' || !is_integer_btype(bt2))
               ret = 0;
             type = *(bt1 == VT_PTR ? type1 : type2);
-        } else {
+        } ਨਹੀਂਤਾਂ {
             CType *pt1 = pointed_type(type1);
             CType *pt2 = pointed_type(type2);
-            int pbt1 = pt1->t & VT_BTYPE;
-            int pbt2 = pt2->t & VT_BTYPE;
-            int newquals, copied = 0;
-            if (pbt1 != VT_VOID && pbt2 != VT_VOID
+            ਪੂਰਨ pbt1 = pt1->t & VT_BTYPE;
+            ਪੂਰਨ pbt2 = pt2->t & VT_BTYPE;
+            ਪੂਰਨ newquals, copied = 0;
+            ਜੇ (pbt1 != VT_VOID && pbt2 != VT_VOID
                 && !compare_types(pt1, pt2, 1/*unqualif*/)) {
-                if (op != '?' && op != CMP_OP)
+                ਜੇ (op != '?' && op != CMP_OP)
                   ret = 0;
-                else
+                ਨਹੀਂਤਾਂ
                   type_incompatibility_warning(type1, type2,
                     op == '?'
                      ? "pointer type mismatch in conditional expression ('%s' and '%s')"
                      : "pointer type mismatch in comparison('%s' and '%s')");
             }
-            if (op == '?') {
+            ਜੇ (op == '?') {
                 /* pointers to void get preferred, otherwise the
                    pointed to types minus qualifs should be compatible */
                 type = *((pbt1 == VT_VOID) ? type1 : type2);
                 /* combine qualifs */
                 newquals = type_qualifiers(pt1) | type_qualifiers(pt2);
-                if ((~type_qualifiers(pointed_type(&type))) & newquals)
+                ਜੇ ((~type_qualifiers(pointed_type(&type))) & newquals)
                   {
                     /* copy the pointer target symbol */
-                    type.ref = sym_push(SYM_FIELD, &type.ref->type,
+                    type.ref = sym_ਧੱਕੋ(SYM_ਖੇਤਰ, &type.ref->type,
                                         0, type.ref->c);
                     copied = 1;
                     parse_btype_qualify(pointed_type(&type), newquals);
                   }
                 /* pointers to incomplete arrays get converted to
                    pointers to completed ones if possible */
-                if (pt1->t & VT_ARRAY
+                ਜੇ (pt1->t & VT_ARRAY
                     && pt2->t & VT_ARRAY
                     && pointed_type(&type)->ref->c < 0
                     && (pt1->ref->c > 0 || pt2->ref->c > 0))
                   {
-                    if (!copied)
-                      type.ref = sym_push(SYM_FIELD, &type.ref->type,
+                    ਜੇ (!copied)
+                      type.ref = sym_ਧੱਕੋ(SYM_ਖੇਤਰ, &type.ref->type,
                                           0, type.ref->c);
                     pointed_type(&type)->ref =
-                        sym_push(SYM_FIELD, &pointed_type(&type)->ref->type,
+                        sym_ਧੱਕੋ(SYM_ਖੇਤਰ, &pointed_type(&type)->ref->type,
                                  0, pointed_type(&type)->ref->c);
                     pointed_type(&type)->ref->c =
                         0 < pt1->ref->c ? pt1->ref->c : pt2->ref->c;
                   }
             }
         }
-        if (op == CMP_OP)
-          type.t = VT_SIZE_T;
-    } else if (bt1 == VT_STRUCT || bt2 == VT_STRUCT) {
-        if (op != '?' || !compare_types(type1, type2, 1))
+        ਜੇ (op == CMP_OP)
+          type.t = VT_ਮਾਪ_T;
+    } ਨਹੀਂਤਾਂ ਜੇ (bt1 == VT_STRUCT || bt2 == VT_STRUCT) {
+        ਜੇ (op != '?' || !compare_types(type1, type2, 1))
           ret = 0;
         type = *type1;
-    } else if (is_float(bt1) || is_float(bt2)) {
-        if (bt1 == VT_LDOUBLE || bt2 == VT_LDOUBLE) {
+    } ਨਹੀਂਤਾਂ ਜੇ (is_float(bt1) || is_float(bt2)) {
+        ਜੇ (bt1 == VT_LDOUBLE || bt2 == VT_LDOUBLE) {
             type.t = VT_LDOUBLE;
-        } else if (bt1 == VT_DOUBLE || bt2 == VT_DOUBLE) {
+        } ਨਹੀਂਤਾਂ ਜੇ (bt1 == VT_DOUBLE || bt2 == VT_DOUBLE) {
             type.t = VT_DOUBLE;
-        } else {
+        } ਨਹੀਂਤਾਂ {
             type.t = VT_FLOAT;
         }
-    } else if (bt1 == VT_LLONG || bt2 == VT_LLONG) {
+    } ਨਹੀਂਤਾਂ ਜੇ (bt1 == VT_LLONG || bt2 == VT_LLONG) {
         /* cast to biggest op */
         type.t = VT_LLONG | VT_LONG;
-        if (bt1 == VT_LLONG)
+        ਜੇ (bt1 == VT_LLONG)
           type.t &= t1;
-        if (bt2 == VT_LLONG)
+        ਜੇ (bt2 == VT_LLONG)
           type.t &= t2;
         /* convert to unsigned if it does not fit in a long long */
-        if ((t1 & (VT_BTYPE | VT_UNSIGNED)) == (VT_LLONG | VT_UNSIGNED) ||
+        ਜੇ ((t1 & (VT_BTYPE | VT_UNSIGNED)) == (VT_LLONG | VT_UNSIGNED) ||
             (t2 & (VT_BTYPE | VT_UNSIGNED)) == (VT_LLONG | VT_UNSIGNED))
           type.t |= VT_UNSIGNED;
-    } else {
+    } ਨਹੀਂਤਾਂ {
         /* integer operations */
         type.t = VT_INT | (VT_LONG & (t1 | t2));
         /* convert to unsigned if it does not fit in an integer */
-        if (((t1 & (VT_BTYPE | VT_UNSIGNED)) == (VT_INT | VT_UNSIGNED)
-                && (!(t1 & VT_BITFIELD) || BIT_SIZE(t1) == 32))
+        ਜੇ (((t1 & (VT_BTYPE | VT_UNSIGNED)) == (VT_INT | VT_UNSIGNED)
+                && (!(t1 & VT_BITFIELD) || ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ(t1) == 32))
          || ((t2 & (VT_BTYPE | VT_UNSIGNED)) == (VT_INT | VT_UNSIGNED)
-                && (!(t2 & VT_BITFIELD) || BIT_SIZE(t2) == 32)))
+                && (!(t2 & VT_BITFIELD) || ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ(t2) == 32)))
           type.t |= VT_UNSIGNED;
     }
-    if (dest)
+    ਜੇ (dest)
       *dest = type;
-    return ret;
+    ਵਾਪਸ ret;
 }
 
 /* generic gen_op: handles types problems */
-ST_FUNC void gen_op(int op)
+ST_FUNC ਖਾਲੀ gen_op(ਪੂਰਨ op)
 {
-    int t1, t2, bt1, bt2, t;
+    ਪੂਰਨ t1, t2, bt1, bt2, t;
     CType type1, combtype;
-    int op_class = op;
+    ਪੂਰਨ op_class = op;
 
-    if (op == TOK_SHR || op == TOK_SAR || op == TOK_SHL)
-        op_class = SHIFT_OP;
-    else if (TOK_ISCOND(op)) /* == != > ... */
+    ਜੇ (op == TOK_SHR || op == TOK_SAR || op == TOK_SHL)
+        op_class = ਖਿਸਕਾਓ_OP;
+    ਨਹੀਂਤਾਂ ਜੇ (TOK_ISCOND(op)) /* == != > ... */
         op_class = CMP_OP;
 
 redo:
@@ -3064,69 +3064,69 @@ redo:
     bt1 = t1 & VT_BTYPE;
     bt2 = t2 & VT_BTYPE;
         
-    if (bt1 == VT_FUNC || bt2 == VT_FUNC) {
-	if (bt2 == VT_FUNC) {
-	    mk_pointer(&vtop->type);
+    ਜੇ (bt1 == VT_FUNC || bt2 == VT_FUNC) {
+	ਜੇ (bt2 == VT_FUNC) {
+	    mk_ਸੂਚਕ(&vtop->type);
 	    gaddrof();
 	}
-	if (bt1 == VT_FUNC) {
+	ਜੇ (bt1 == VT_FUNC) {
 	    vswap();
-	    mk_pointer(&vtop->type);
+	    mk_ਸੂਚਕ(&vtop->type);
 	    gaddrof();
 	    vswap();
 	}
-	goto redo;
-    } else if (!combine_types(&combtype, vtop - 1, vtop, op_class)) {
+	ਜਾਓ redo;
+    } ਨਹੀਂਤਾਂ ਜੇ (!combine_types(&combtype, vtop - 1, vtop, op_class)) {
 op_err:
         tcc_error("invalid operand types for binary operation");
-    } else if (bt1 == VT_PTR || bt2 == VT_PTR) {
+    } ਨਹੀਂਤਾਂ ਜੇ (bt1 == VT_PTR || bt2 == VT_PTR) {
         /* at least one operand is a pointer */
         /* relational op: must be both pointers */
-        int align;
-        if (op_class == CMP_OP)
-            goto std_op;
+        ਪੂਰਨ align;
+        ਜੇ (op_class == CMP_OP)
+            ਜਾਓ std_op;
         /* if both pointers, then it must be the '-' op */
-        if (bt1 == VT_PTR && bt2 == VT_PTR) {
-            if (op != '-')
-                goto op_err;
-            vpush_type_size(pointed_type(&vtop[-1].type), &align);
+        ਜੇ (bt1 == VT_PTR && bt2 == VT_PTR) {
+            ਜੇ (op != '-')
+                ਜਾਓ op_err;
+            vpush_type_ਮਾਪ(pointed_type(&vtop[-1].type), &align);
             vtop->type.t &= ~VT_UNSIGNED;
             vrott(3);
             gen_opic(op);
             vtop->type.t = VT_PTRDIFF_T;
             vswap();
             gen_op(TOK_PDIV);
-        } else {
+        } ਨਹੀਂਤਾਂ {
             /* exactly one pointer : must be '+' or '-'. */
-            if (op != '-' && op != '+')
-                goto op_err;
+            ਜੇ (op != '-' && op != '+')
+                ਜਾਓ op_err;
             /* Put pointer as first operand */
-            if (bt2 == VT_PTR) {
+            ਜੇ (bt2 == VT_PTR) {
                 vswap();
                 t = t1, t1 = t2, t2 = t;
                 bt2 = bt1;
             }
-#if PTR_SIZE == 4
-            if (bt2 == VT_LLONG)
+#ਜੇ PTR_ਮਾਪ == 4
+            ਜੇ (bt2 == VT_LLONG)
                 /* XXX: truncate here because gen_opl can't handle ptr + long long */
                 gen_cast_s(VT_INT);
-#endif
+#ਜੇ_ਅੰਤ
             type1 = vtop[-1].type;
-            vpush_type_size(pointed_type(&vtop[-1].type), &align);
+            vpush_type_ਮਾਪ(pointed_type(&vtop[-1].type), &align);
             vtop->type.t &= ~VT_UNSIGNED;
             gen_op('*');
-#ifdef CONFIG_TCC_BCHECK
-            if (tcc_state->do_bounds_check && !CONST_WANTED) {
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
+            ਜੇ (tcc_state->do_bounds_check && !CONST_WANTED) {
                 /* if bounded pointers, we generate a special code to
                    test bounds */
-                if (op == '-') {
+                ਜੇ (op == '-') {
                     vpushi(0);
                     vswap();
                     gen_op('-');
                 }
-                gen_bounded_ptr_add();
-            } else
-#endif
+                gen_bounded_ptr_ਜੋੜੋ();
+            } ਨਹੀਂਤਾਂ
+#ਜੇ_ਅੰਤ
             {
                 gen_opic(op);
             }
@@ -3134,470 +3134,470 @@ op_err:
             /* put again type if gen_opic() swaped operands */
             vtop->type = type1;
         }
-    } else {
+    } ਨਹੀਂਤਾਂ {
         /* floats can only be used for a few operations */
-        if (is_float(combtype.t)
+        ਜੇ (is_float(combtype.t)
             && op != '+' && op != '-' && op != '*' && op != '/'
             && op_class != CMP_OP) {
-            goto op_err;
+            ਜਾਓ op_err;
         }
     std_op:
         t = t2 = combtype.t;
         /* special case for shifts and long long: we keep the shift as
            an integer */
-        if (op_class == SHIFT_OP)
+        ਜੇ (op_class == ਖਿਸਕਾਓ_OP)
             t2 = VT_INT;
         /* XXX: currently, some unsigned operations are explicit, so
            we modify them here */
-        if (t & VT_UNSIGNED) {
-            if (op == TOK_SAR)
+        ਜੇ (t & VT_UNSIGNED) {
+            ਜੇ (op == TOK_SAR)
                 op = TOK_SHR;
-            else if (op == '/')
+            ਨਹੀਂਤਾਂ ਜੇ (op == '/')
                 op = TOK_UDIV;
-            else if (op == '%')
+            ਨਹੀਂਤਾਂ ਜੇ (op == '%')
                 op = TOK_UMOD;
-            else if (op == TOK_LT)
+            ਨਹੀਂਤਾਂ ਜੇ (op == TOK_LT)
                 op = TOK_ULT;
-            else if (op == TOK_GT)
+            ਨਹੀਂਤਾਂ ਜੇ (op == TOK_GT)
                 op = TOK_UGT;
-            else if (op == TOK_LE)
+            ਨਹੀਂਤਾਂ ਜੇ (op == TOK_LE)
                 op = TOK_ULE;
-            else if (op == TOK_GE)
+            ਨਹੀਂਤਾਂ ਜੇ (op == TOK_GE)
                 op = TOK_UGE;
         }
         vswap();
         gen_cast_s(t);
         vswap();
         gen_cast_s(t2);
-        if (is_float(t))
+        ਜੇ (is_float(t))
             gen_opif(op);
-        else
+        ਨਹੀਂਤਾਂ
             gen_opic(op);
-        if (op_class == CMP_OP) {
+        ਜੇ (op_class == CMP_OP) {
             /* relational op: the result is an int */
             vtop->type.t = VT_INT;
-        } else {
+        } ਨਹੀਂਤਾਂ {
             vtop->type.t = t;
         }
     }
     // Make sure that we have converted to an rvalue:
-    if (vtop->r & VT_LVAL)
+    ਜੇ (vtop->r & VT_LVAL)
         gv(RC_TYPE(vtop->type.t));
 }
 
-#if defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64 || defined TCC_TARGET_ARM
-#define gen_cvt_itof1 gen_cvt_itof
-#else
+#ਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM64 || defined TCC_ਨਿਸ਼ਾਨਾ_RISCV64 || defined TCC_ਨਿਸ਼ਾਨਾ_ARM
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ gen_cvt_itof1 gen_cvt_itof
+#ਨਹੀਂਤਾਂ
 /* generic itof for unsigned long long case */
-static void gen_cvt_itof1(int t)
+ਸਥਿਰ ਖਾਲੀ gen_cvt_itof1(ਪੂਰਨ t)
 {
-    if ((vtop->type.t & (VT_BTYPE | VT_UNSIGNED)) == 
+    ਜੇ ((vtop->type.t & (VT_BTYPE | VT_UNSIGNED)) == 
         (VT_LLONG | VT_UNSIGNED)) {
 
-        if (t == VT_FLOAT)
+        ਜੇ (t == VT_FLOAT)
             vpush_helper_func(TOK___floatundisf);
-#if LDOUBLE_SIZE != 8
-        else if (t == VT_LDOUBLE)
+#ਜੇ LDOUBLE_ਮਾਪ != 8
+        ਨਹੀਂਤਾਂ ਜੇ (t == VT_LDOUBLE)
             vpush_helper_func(TOK___floatundixf);
-#endif
-        else
+#ਜੇ_ਅੰਤ
+        ਨਹੀਂਤਾਂ
             vpush_helper_func(TOK___floatundidf);
         vrott(2);
         gfunc_call(1);
         vpushi(0);
         PUT_R_RET(vtop, t);
-    } else {
+    } ਨਹੀਂਤਾਂ {
         gen_cvt_itof(t);
     }
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-#if defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
-#define gen_cvt_ftoi1 gen_cvt_ftoi
-#else
+#ਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM64 || defined TCC_ਨਿਸ਼ਾਨਾ_RISCV64
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ gen_cvt_ftoi1 gen_cvt_ftoi
+#ਨਹੀਂਤਾਂ
 /* generic ftoi for unsigned long long case */
-static void gen_cvt_ftoi1(int t)
+ਸਥਿਰ ਖਾਲੀ gen_cvt_ftoi1(ਪੂਰਨ t)
 {
-    int st;
-    if (t == (VT_LLONG | VT_UNSIGNED)) {
+    ਪੂਰਨ st;
+    ਜੇ (t == (VT_LLONG | VT_UNSIGNED)) {
         /* not handled natively */
         st = vtop->type.t & VT_BTYPE;
-        if (st == VT_FLOAT)
+        ਜੇ (st == VT_FLOAT)
             vpush_helper_func(TOK___fixunssfdi);
-#if LDOUBLE_SIZE != 8
-        else if (st == VT_LDOUBLE)
+#ਜੇ LDOUBLE_ਮਾਪ != 8
+        ਨਹੀਂਤਾਂ ਜੇ (st == VT_LDOUBLE)
             vpush_helper_func(TOK___fixunsxfdi);
-#endif
-        else
+#ਜੇ_ਅੰਤ
+        ਨਹੀਂਤਾਂ
             vpush_helper_func(TOK___fixunsdfdi);
         vrott(2);
         gfunc_call(1);
         vpushi(0);
         PUT_R_RET(vtop, t);
-    } else {
+    } ਨਹੀਂਤਾਂ {
         gen_cvt_ftoi(t);
     }
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 /* special delayed cast for char/short */
-static void force_charshort_cast(void)
+ਸਥਿਰ ਖਾਲੀ force_charshort_cast(ਖਾਲੀ)
 {
-    int sbt = BFGET(vtop->r, VT_MUSTCAST) == 2 ? VT_LLONG : VT_INT;
-    int dbt = vtop->type.t;
+    ਪੂਰਨ sbt = BFGET(vtop->r, VT_MUSTCAST) == 2 ? VT_LLONG : VT_INT;
+    ਪੂਰਨ dbt = vtop->type.t;
     vtop->r &= ~VT_MUSTCAST;
     vtop->type.t = sbt;
     gen_cast_s(dbt == VT_BOOL ? VT_BYTE|VT_UNSIGNED : dbt);
     vtop->type.t = dbt;
 }
 
-static void gen_cast_s(int t)
+ਸਥਿਰ ਖਾਲੀ gen_cast_s(ਪੂਰਨ t)
 {
     CType type;
     type.t = t;
-    type.ref = NULL;
+    type.ref = ਨਿਰਾ;
     gen_cast(&type);
 }
 
 /* cast 'vtop' to 'type'. Casting to bitfields is forbidden. */
-static void gen_cast(CType *type)
+ਸਥਿਰ ਖਾਲੀ gen_cast(CType *type)
 {
-    int sbt, dbt, sf, df, c;
-    int dbt_bt, sbt_bt, ds, ss, bits, trunc;
+    ਪੂਰਨ sbt, dbt, sf, df, c;
+    ਪੂਰਨ dbt_bt, sbt_bt, ds, ss, ਬਿੱਟ, trunc;
 
     /* special delayed cast for char/short */
-    if (vtop->r & VT_MUSTCAST)
+    ਜੇ (vtop->r & VT_MUSTCAST)
         force_charshort_cast();
 
     /* bitfields first get cast to ints */
-    if (vtop->type.t & VT_BITFIELD)
+    ਜੇ (vtop->type.t & VT_BITFIELD)
         gv(RC_INT);
 
-    if (IS_ENUM(type->t) && type->ref->c < 0)
+    ਜੇ (IS_ENUM(type->t) && type->ref->c < 0)
         tcc_error("cast to incomplete type");
 
     dbt = type->t & (VT_BTYPE | VT_UNSIGNED);
     sbt = vtop->type.t & (VT_BTYPE | VT_UNSIGNED);
-    if (sbt == VT_FUNC)
+    ਜੇ (sbt == VT_FUNC)
         sbt = VT_PTR;
 
 again:
-    if (sbt != dbt) {
+    ਜੇ (sbt != dbt) {
         sf = is_float(sbt);
         df = is_float(dbt);
         dbt_bt = dbt & VT_BTYPE;
         sbt_bt = sbt & VT_BTYPE;
-        if (dbt_bt == VT_VOID) {
+        ਜੇ (dbt_bt == VT_VOID) {
             /* do not confuse backends with VT_VOID in registers */
             vpop(), vpushi(0);
-            goto done;
+            ਜਾਓ ਪੂਰਾ;
         }
-        if (sbt_bt == VT_VOID) {
+        ਜੇ (sbt_bt == VT_VOID) {
 error:
             cast_error(&vtop->type, type);
         }
 
         c = (vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
-        if (c) {
+        ਜੇ (c) {
             /* constant case: we can do it now */
             /* XXX: in ISOC, cannot do it if error in convert */
-            if (sbt == VT_FLOAT)
+            ਜੇ (sbt == VT_FLOAT)
                 vtop->c.ld = vtop->c.f;
-            else if (sbt == VT_DOUBLE)
+            ਨਹੀਂਤਾਂ ਜੇ (sbt == VT_DOUBLE)
                 vtop->c.ld = vtop->c.d;
 
-            if (df) {
-                if (sbt_bt == VT_LLONG) {
-                    if ((sbt & VT_UNSIGNED) || !(vtop->c.i >> 63))
+            ਜੇ (df) {
+                ਜੇ (sbt_bt == VT_LLONG) {
+                    ਜੇ ((sbt & VT_UNSIGNED) || !(vtop->c.i >> 63))
                         vtop->c.ld = vtop->c.i;
-                    else
-                        vtop->c.ld = -(long double)-vtop->c.i;
-                } else if(!sf) {
-                    if ((sbt & VT_UNSIGNED) || !(vtop->c.i >> 31))
+                    ਨਹੀਂਤਾਂ
+                        vtop->c.ld = -(ਲੰਮਾ ਦੁੱਗਣਾ)-vtop->c.i;
+                } ਨਹੀਂਤਾਂ ਜੇ(!sf) {
+                    ਜੇ ((sbt & VT_UNSIGNED) || !(vtop->c.i >> 31))
                         vtop->c.ld = (uint32_t)vtop->c.i;
-                    else
-                        vtop->c.ld = -(long double)-(uint32_t)vtop->c.i;
+                    ਨਹੀਂਤਾਂ
+                        vtop->c.ld = -(ਲੰਮਾ ਦੁੱਗਣਾ)-(uint32_t)vtop->c.i;
                 }
 
-                if (dbt == VT_FLOAT)
-                    vtop->c.f = (float)vtop->c.ld;
-                else if (dbt == VT_DOUBLE)
-                    vtop->c.d = (double)vtop->c.ld;
-            } else if (sf && dbt == VT_BOOL) {
+                ਜੇ (dbt == VT_FLOAT)
+                    vtop->c.f = (ਦਸ਼ਮਲਵ)vtop->c.ld;
+                ਨਹੀਂਤਾਂ ਜੇ (dbt == VT_DOUBLE)
+                    vtop->c.d = (ਦੁੱਗਣਾ)vtop->c.ld;
+            } ਨਹੀਂਤਾਂ ਜੇ (sf && dbt == VT_BOOL) {
                 vtop->c.i = (vtop->c.ld != 0);
-            } else {
-                if(sf) {
-                    if (dbt & VT_UNSIGNED)
+            } ਨਹੀਂਤਾਂ {
+                ਜੇ(sf) {
+                    ਜੇ (dbt & VT_UNSIGNED)
                         vtop->c.i = (uint64_t)vtop->c.ld;
-                    else
+                    ਨਹੀਂਤਾਂ
                         vtop->c.i = (int64_t)vtop->c.ld;
                 }
-                else if (sbt_bt == VT_LLONG || (PTR_SIZE == 8 && sbt == VT_PTR))
+                ਨਹੀਂਤਾਂ ਜੇ (sbt_bt == VT_LLONG || (PTR_ਮਾਪ == 8 && sbt == VT_PTR))
                     ;
-                else if (sbt & VT_UNSIGNED)
+                ਨਹੀਂਤਾਂ ਜੇ (sbt & VT_UNSIGNED)
                     vtop->c.i = (uint32_t)vtop->c.i;
-                else
+                ਨਹੀਂਤਾਂ
                     vtop->c.i = ((uint32_t)vtop->c.i | -(vtop->c.i & 0x80000000));
 
-                if (dbt_bt == VT_LLONG || (PTR_SIZE == 8 && dbt == VT_PTR))
+                ਜੇ (dbt_bt == VT_LLONG || (PTR_ਮਾਪ == 8 && dbt == VT_PTR))
                     ;
-                else if (dbt == VT_BOOL)
+                ਨਹੀਂਤਾਂ ਜੇ (dbt == VT_BOOL)
                     vtop->c.i = (vtop->c.i != 0);
-                else {
+                ਨਹੀਂਤਾਂ {
                     uint32_t m = dbt_bt == VT_BYTE ? 0xff :
                                  dbt_bt == VT_SHORT ? 0xffff :
                                   0xffffffff;
                     vtop->c.i &= m;
-                    if (!(dbt & VT_UNSIGNED))
+                    ਜੇ (!(dbt & VT_UNSIGNED))
                         vtop->c.i |= -(vtop->c.i & ((m >> 1) + 1));
                 }
             }
-            goto done;
+            ਜਾਓ ਪੂਰਾ;
 
-        } else if (dbt == VT_BOOL
+        } ਨਹੀਂਤਾਂ ਜੇ (dbt == VT_BOOL
             && (vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM))
                 == (VT_CONST | VT_SYM)) {
             /* addresses are considered non-zero (see tcctest.c:sinit23) */
             vtop->r = VT_CONST;
             vtop->c.i = 1;
-            goto done;
+            ਜਾਓ ਪੂਰਾ;
         }
 
         /* cannot generate code for global or static initializers */
-        if (nocode_wanted & DATA_ONLY_WANTED) {
-            if (df)
+        ਜੇ (nocode_wanted & ਅੰਕੜੇ_ONLY_WANTED) {
+            ਜੇ (df)
                 vtop->r = get_reg(RC_FLOAT); /* don't confuse backends */
-            goto done;
+            ਜਾਓ ਪੂਰਾ;
         }
 
         /* non constant case: generate code */
-        if (dbt == VT_BOOL) {
+        ਜੇ (dbt == VT_BOOL) {
             gen_test_zero(TOK_NE);
-            goto done;
+            ਜਾਓ ਪੂਰਾ;
         }
 
-        if (sf || df) {
-            if (sf && df) {
+        ਜੇ (sf || df) {
+            ਜੇ (sf && df) {
                 /* convert from fp to fp */
                 gen_cvt_ftof(dbt);
-            } else if (df) {
+            } ਨਹੀਂਤਾਂ ਜੇ (df) {
                 /* convert int to fp */
                 gen_cvt_itof1(dbt);
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 /* convert fp to int */
                 sbt = dbt;
-                if (dbt_bt != VT_LLONG && dbt_bt != VT_INT)
+                ਜੇ (dbt_bt != VT_LLONG && dbt_bt != VT_INT)
                     sbt = VT_INT;
                 gen_cvt_ftoi1(sbt);
-                goto again; /* may need char/short cast */
+                ਜਾਓ again; /* may need char/short cast */
             }
-            goto done;
+            ਜਾਓ ਪੂਰਾ;
         }
 
-        ds = btype_size(dbt_bt);
-        ss = btype_size(sbt_bt);
-        if (ds == 0 || ss == 0)
-            goto error;
+        ds = btype_ਮਾਪ(dbt_bt);
+        ss = btype_ਮਾਪ(sbt_bt);
+        ਜੇ (ds == 0 || ss == 0)
+            ਜਾਓ error;
 
         /* same size and no sign conversion needed */
-        if (ds == ss && ds >= 4)
-            goto done;
-        if (dbt_bt == VT_PTR || sbt_bt == VT_PTR) {
+        ਜੇ (ds == ss && ds >= 4)
+            ਜਾਓ ਪੂਰਾ;
+        ਜੇ (dbt_bt == VT_PTR || sbt_bt == VT_PTR) {
             tcc_warning("cast between pointer and integer of different size");
-            if (sbt_bt == VT_PTR) {
+            ਜੇ (sbt_bt == VT_PTR) {
                 /* put integer type to allow logical operations below */
-                vtop->type.t = (PTR_SIZE == 8 ? VT_LLONG : VT_INT);
+                vtop->type.t = (PTR_ਮਾਪ == 8 ? VT_LLONG : VT_INT);
             }
         }
 
         /* processor allows { int a = 0, b = *(char*)&a; }
            That means that if we cast to less width, we can just
            change the type and read it still later. */
-        #define ALLOW_SUBTYPE_ACCESS 1
+        #ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ALLOW_SUBTYPE_ACCESS 1
 
-        if (ALLOW_SUBTYPE_ACCESS && (vtop->r & VT_LVAL)) {
+        ਜੇ (ALLOW_SUBTYPE_ACCESS && (vtop->r & VT_LVAL)) {
             /* value still in memory */
-            if (ds <= ss)
-                goto done;
+            ਜੇ (ds <= ss)
+                ਜਾਓ ਪੂਰਾ;
             /* ss <= 4 here */
-            if (ds <= 4 && !(dbt == (VT_SHORT | VT_UNSIGNED) && sbt == VT_BYTE)) {
+            ਜੇ (ds <= 4 && !(dbt == (VT_SHORT | VT_UNSIGNED) && sbt == VT_BYTE)) {
                 gv(RC_INT);
-                goto done; /* no 64bit envolved */
+                ਜਾਓ ਪੂਰਾ; /* no 64bit envolved */
             }
         }
         gv(RC_INT);
 
         trunc = 0;
-#if PTR_SIZE == 4
-        if (ds == 8) {
+#ਜੇ PTR_ਮਾਪ == 4
+        ਜੇ (ds == 8) {
             /* generate high word */
-            if (sbt & VT_UNSIGNED) {
+            ਜੇ (sbt & VT_UNSIGNED) {
                 vpushi(0);
                 gv(RC_INT);
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 gv_dup();
                 vpushi(31);
                 gen_op(TOK_SAR);
             }
             lbuild(dbt);
-        } else if (ss == 8) {
+        } ਨਹੀਂਤਾਂ ਜੇ (ss == 8) {
             /* from long long: just take low order word */
             lexpand();
             vpop();
         }
         ss = 4;
 
-#elif PTR_SIZE == 8
-        if (ds == 8) {
+#ਜਾਂਜੇ PTR_ਮਾਪ == 8
+        ਜੇ (ds == 8) {
             /* need to convert from 32bit to 64bit */
-            if (sbt & VT_UNSIGNED) {
-#if defined(TCC_TARGET_RISCV64)
+            ਜੇ (sbt & VT_UNSIGNED) {
+#ਜੇ defined(TCC_ਨਿਸ਼ਾਨਾ_RISCV64)
                 /* RISC-V keeps 32bit vals in registers sign-extended.
                    So here we need a zero-extension.  */
                 trunc = 32;
-#else
-                goto done;
-#endif
-            } else {
+#ਨਹੀਂਤਾਂ
+                ਜਾਓ ਪੂਰਾ;
+#ਜੇ_ਅੰਤ
+            } ਨਹੀਂਤਾਂ {
                 gen_cvt_sxtw();
-                goto done;
+                ਜਾਓ ਪੂਰਾ;
             }
             ss = ds, ds = 4, dbt = sbt;
-        } else if (ss == 8) {
+        } ਨਹੀਂਤਾਂ ਜੇ (ss == 8) {
             /* RISC-V keeps 32bit vals in registers sign-extended.
                So here we need a sign-extension for signed types and
                zero-extension. for unsigned types. */
-#if !defined(TCC_TARGET_RISCV64)
+#ਜੇ !defined(TCC_ਨਿਸ਼ਾਨਾ_RISCV64)
             trunc = 32; /* zero upper 32 bits for non RISC-V targets */
-#endif
-        } else {
+#ਜੇ_ਅੰਤ
+        } ਨਹੀਂਤਾਂ {
             ss = 4;
         }
-#endif
+#ਜੇ_ਅੰਤ
 
-        if (ds >= ss)
-            goto done;
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64 || defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
-    if (ss == 4) {
+        ਜੇ (ds >= ss)
+            ਜਾਓ ਪੂਰਾ;
+#ਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_I386 || defined TCC_ਨਿਸ਼ਾਨਾ_X86_64 || defined TCC_ਨਿਸ਼ਾਨਾ_ARM64 || defined TCC_ਨਿਸ਼ਾਨਾ_RISCV64
+    ਜੇ (ss == 4) {
         gen_cvt_csti(dbt);
-        goto done;
+        ਜਾਓ ਪੂਰਾ;
     }
-#endif
-        bits = (ss - ds) * 8;
+#ਜੇ_ਅੰਤ
+        ਬਿੱਟ = (ss - ds) * 8;
         /* for unsigned, gen_op will convert SAR to SHR */
         vtop->type.t = (ss == 8 ? VT_LLONG : VT_INT) | (dbt & VT_UNSIGNED);
-        vpushi(bits);
+        vpushi(ਬਿੱਟ);
         gen_op(TOK_SHL);
-        vpushi(bits - trunc);
+        vpushi(ਬਿੱਟ - trunc);
         gen_op(TOK_SAR);
         vpushi(trunc);
         gen_op(TOK_SHR);
     }
-done:
+ਪੂਰਾ:
     vtop->type = *type;
     vtop->type.t &= ~ ( VT_QUAL | VT_ARRAY | VT_TLS );
 }
 
 /* return type size as known at compile time. Put alignment at 'a' */
-ST_FUNC int type_size(CType *type, int *a)
+ST_FUNC ਪੂਰਨ type_ਮਾਪ(CType *type, ਪੂਰਨ *a)
 {
     Sym *s;
-    int bt;
+    ਪੂਰਨ bt;
 
     bt = type->t & VT_BTYPE;
-    if (bt == VT_STRUCT) {
+    ਜੇ (bt == VT_STRUCT) {
         /* struct/union */
         s = type->ref;
         *a = s->r;
-        return s->c;
-    } else if (bt == VT_PTR) {
-        if (type->t & VT_ARRAY) {
-            int ts;
+        ਵਾਪਸ s->c;
+    } ਨਹੀਂਤਾਂ ਜੇ (bt == VT_PTR) {
+        ਜੇ (type->t & VT_ARRAY) {
+            ਪੂਰਨ ts;
             s = type->ref;
-            ts = type_size(&s->type, a);
-            if (s->c < 0)
-                return s->c;
-            return ts * s->c;
-        } else {
-            *a = PTR_SIZE;
-            return PTR_SIZE;
+            ts = type_ਮਾਪ(&s->type, a);
+            ਜੇ (s->c < 0)
+                ਵਾਪਸ s->c;
+            ਵਾਪਸ ts * s->c;
+        } ਨਹੀਂਤਾਂ {
+            *a = PTR_ਮਾਪ;
+            ਵਾਪਸ PTR_ਮਾਪ;
         }
-    } else if (IS_ENUM(type->t) && type->ref->c < 0) {
+    } ਨਹੀਂਤਾਂ ਜੇ (IS_ENUM(type->t) && type->ref->c < 0) {
         *a = 0;
-        return -1; /* incomplete enum */
-    } else if (bt == VT_LDOUBLE) {
+        ਵਾਪਸ -1; /* incomplete enum */
+    } ਨਹੀਂਤਾਂ ਜੇ (bt == VT_LDOUBLE) {
         *a = LDOUBLE_ALIGN;
-        return LDOUBLE_SIZE;
-    } else if (bt == VT_DOUBLE || bt == VT_LLONG) {
-#if (defined TCC_TARGET_I386 && !defined TCC_TARGET_PE) \
- || (defined TCC_TARGET_ARM && !defined TCC_ARM_EABI)
+        ਵਾਪਸ LDOUBLE_ਮਾਪ;
+    } ਨਹੀਂਤਾਂ ਜੇ (bt == VT_DOUBLE || bt == VT_LLONG) {
+#ਜੇ (defined TCC_ਨਿਸ਼ਾਨਾ_I386 && !defined TCC_ਨਿਸ਼ਾਨਾ_PE) \
+ || (defined TCC_ਨਿਸ਼ਾਨਾ_ARM && !defined TCC_ARM_EABI)
         *a = 4;
-#else
+#ਨਹੀਂਤਾਂ
         *a = 8;
-#endif
-        return 8;
-    } else if (bt == VT_INT || bt == VT_FLOAT) {
+#ਜੇ_ਅੰਤ
+        ਵਾਪਸ 8;
+    } ਨਹੀਂਤਾਂ ਜੇ (bt == VT_INT || bt == VT_FLOAT) {
         *a = 4;
-        return 4;
-    } else if (bt == VT_SHORT) {
+        ਵਾਪਸ 4;
+    } ਨਹੀਂਤਾਂ ਜੇ (bt == VT_SHORT) {
         *a = 2;
-        return 2;
-    } else if (bt == VT_QLONG || bt == VT_QFLOAT) {
+        ਵਾਪਸ 2;
+    } ਨਹੀਂਤਾਂ ਜੇ (bt == VT_QLONG || bt == VT_QFLOAT) {
         *a = 8;
-        return 16;
-    } else {
+        ਵਾਪਸ 16;
+    } ਨਹੀਂਤਾਂ {
         /* char, void, function, _Bool */
         *a = 1;
-        return 1;
+        ਵਾਪਸ 1;
     }
 }
 
 /* push type size as known at runtime time on top of value stack. Put
    alignment at 'a' */
-static void vpush_type_size(CType *type, int *a)
+ਸਥਿਰ ਖਾਲੀ vpush_type_ਮਾਪ(CType *type, ਪੂਰਨ *a)
 {
-    if (type->t & VT_VLA) {
-        type_size(&type->ref->type, a);
+    ਜੇ (type->t & VT_VLA) {
+        type_ਮਾਪ(&type->ref->type, a);
         vset(&int_type, VT_LOCAL|VT_LVAL, type->ref->c);
-    } else {
-        int size = type_size(type, a);
-        if (size < 0)
+    } ਨਹੀਂਤਾਂ {
+        ਪੂਰਨ ਮਾਪ = type_ਮਾਪ(type, a);
+        ਜੇ (ਮਾਪ < 0)
             tcc_error("unknown type size");
-        vpushs(size);
+        vpushs(ਮਾਪ);
     }
 }
 
 /* return the pointed type of t */
-static inline CType *pointed_type(CType *type)
+ਸਥਿਰ ਸਤਰਅੰਦਰ CType *pointed_type(CType *type)
 {
-    return &type->ref->type;
+    ਵਾਪਸ &type->ref->type;
 }
 
-static void check_restrict_type(CType *type)
+ਸਥਿਰ ਖਾਲੀ check_restrict_type(CType *type)
 {
-    while ((type->t & VT_BTYPE) == VT_PTR) {
-        if ((type->t & VT_RESTRICT)
+    ਜਦੋਂ ((type->t & VT_BTYPE) == VT_PTR) {
+        ਜੇ ((type->t & VT_RESTRICT)
             && (pointed_type(type)->t & VT_BTYPE) == VT_FUNC)
             tcc_error("restrict-qualified type must be a pointer to object or incomplete type");
         type = pointed_type(type);
     }
-    if (type->t & VT_RESTRICT)
+    ਜੇ (type->t & VT_RESTRICT)
         tcc_error("restrict-qualified type must be a pointer to object or incomplete type");
 }
 
 /* Array qualifiers are represented on the element type. */
-static int type_qualifiers(CType *type)
+ਸਥਿਰ ਪੂਰਨ type_qualifiers(CType *type)
 {
-    while (type->t & VT_ARRAY)
+    ਜਦੋਂ (type->t & VT_ARRAY)
         type = pointed_type(type);
-    return type->t & VT_QUAL;
+    ਵਾਪਸ type->t & VT_QUAL;
 }
 
 /* modify type so that its it is a pointer to type. */
-ST_FUNC void mk_pointer(CType *type)
+ST_FUNC ਖਾਲੀ mk_ਸੂਚਕ(CType *type)
 {
     Sym *s;
-    s = sym_push(SYM_FIELD, type, 0, -1);
+    s = sym_ਧੱਕੋ(SYM_ਖੇਤਰ, type, 0, -1);
     type->t = VT_PTR | (type->t & VT_STORAGE);
     type->ref = s;
 }
@@ -3605,72 +3605,72 @@ ST_FUNC void mk_pointer(CType *type)
 /* return true if type1 and type2 are exactly the same (including
    qualifiers). 
 */
-static int is_compatible_types(CType *type1, CType *type2)
+ਸਥਿਰ ਪੂਰਨ is_compatible_types(CType *type1, CType *type2)
 {
-    return compare_types(type1,type2,0);
+    ਵਾਪਸ compare_types(type1,type2,0);
 }
 
 /* return true if type1 and type2 are the same (ignoring qualifiers).
 */
-static int is_compatible_unqualified_types(CType *type1, CType *type2)
+ਸਥਿਰ ਪੂਰਨ is_compatible_unqualified_types(CType *type1, CType *type2)
 {
-    return compare_types(type1,type2,1);
+    ਵਾਪਸ compare_types(type1,type2,1);
 }
 
-static void cast_error(CType *st, CType *dt)
+ਸਥਿਰ ਖਾਲੀ cast_error(CType *st, CType *dt)
 {
     type_incompatibility_error(st, dt, "cannot convert '%s' to '%s'");
 }
 
 /* verify type compatibility to store vtop in 'dt' type */
-static void verify_assign_cast(CType *dt)
+ਸਥਿਰ ਖਾਲੀ verify_ਸੌਂਪੋ_cast(CType *dt)
 {
     CType *st, *type1, *type2;
-    int dbt, sbt, qualwarn, lvl;
+    ਪੂਰਨ dbt, sbt, qualwarn, lvl;
 
     st = &vtop->type; /* source type */
     dbt = dt->t & VT_BTYPE;
     sbt = st->t & VT_BTYPE;
-    if (dt->t & VT_CONSTANT)
+    ਜੇ (dt->t & VT_CONSTANT)
         tcc_warning("assignment of read-only location");
-    switch(dbt) {
-    case VT_VOID:
-        if (sbt != dbt)
+    ਚੋਣ(dbt) {
+    ਹਾਲਤ VT_VOID:
+        ਜੇ (sbt != dbt)
             tcc_error("assignment to void expression");
-        break;
-    case VT_PTR:
+        ਰੋਕੋ;
+    ਹਾਲਤ VT_PTR:
         /* special cases for pointers */
         /* '0' can also be a pointer */
-        if (is_null_pointer(vtop))
-            break;
+        ਜੇ (is_null_ਸੂਚਕ(vtop))
+            ਰੋਕੋ;
         /* accept implicit pointer to integer cast with warning */
-        if (is_integer_btype(sbt)) {
+        ਜੇ (is_integer_btype(sbt)) {
             tcc_warning("assignment makes pointer from integer without a cast");
-            break;
+            ਰੋਕੋ;
         }
         type1 = pointed_type(dt);
-        if (sbt == VT_PTR)
+        ਜੇ (sbt == VT_PTR)
             type2 = pointed_type(st);
-        else if (sbt == VT_FUNC)
+        ਨਹੀਂਤਾਂ ਜੇ (sbt == VT_FUNC)
             type2 = st; /* a function is implicitly a function pointer */
-        else
-            goto error;
-        if (is_compatible_types(type1, type2))
-            break;
-        for (qualwarn = lvl = 0;; ++lvl) {
-            if ((type2->t & ~type1->t) & VT_QUAL)
+        ਨਹੀਂਤਾਂ
+            ਜਾਓ error;
+        ਜੇ (is_compatible_types(type1, type2))
+            ਰੋਕੋ;
+        ਲਈ (qualwarn = lvl = 0;; ++lvl) {
+            ਜੇ ((type2->t & ~type1->t) & VT_QUAL)
                 qualwarn = 1;
             dbt = type1->t & (VT_BTYPE|VT_LONG);
             sbt = type2->t & (VT_BTYPE|VT_LONG);
-            if (dbt != VT_PTR || sbt != VT_PTR)
-                break;
+            ਜੇ (dbt != VT_PTR || sbt != VT_PTR)
+                ਰੋਕੋ;
             type1 = pointed_type(type1);
             type2 = pointed_type(type2);
         }
-        if (!is_compatible_unqualified_types(type1, type2)) {
-            if ((dbt == VT_VOID || sbt == VT_VOID) && lvl == 0) {
+        ਜੇ (!is_compatible_unqualified_types(type1, type2)) {
+            ਜੇ ((dbt == VT_VOID || sbt == VT_VOID) && lvl == 0) {
                 /* void * can match anything */
-            } else if (dbt == sbt
+            } ਨਹੀਂਤਾਂ ਜੇ (dbt == sbt
                 && is_integer_btype(sbt & VT_BTYPE)
                 && IS_ENUM(type1->t) + IS_ENUM(type2->t)
                     + !!((type1->t ^ type2->t) & VT_UNSIGNED) < 2) {
@@ -3678,141 +3678,141 @@ static void verify_assign_cast(CType *dt)
 		   in pointer target signedness.  Do warn for different
 		   base types, though, in particular for unsigned enums
 		   and signed int targets.  */
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 tcc_warning("assignment from incompatible pointer type");
-                break;
+                ਰੋਕੋ;
             }
         }
-        if (qualwarn)
+        ਜੇ (qualwarn)
             tcc_warning_c(warn_discarded_qualifiers)("assignment discards qualifiers from pointer target type");
-        break;
-    case VT_BYTE:
-    case VT_SHORT:
-    case VT_INT:
-    case VT_LLONG:
-        if (sbt == VT_PTR || sbt == VT_FUNC) {
+        ਰੋਕੋ;
+    ਹਾਲਤ VT_BYTE:
+    ਹਾਲਤ VT_SHORT:
+    ਹਾਲਤ VT_INT:
+    ਹਾਲਤ VT_LLONG:
+        ਜੇ (sbt == VT_PTR || sbt == VT_FUNC) {
             tcc_warning("assignment makes integer from pointer without a cast");
-        } else if (sbt == VT_STRUCT) {
-            goto case_VT_STRUCT;
+        } ਨਹੀਂਤਾਂ ਜੇ (sbt == VT_STRUCT) {
+            ਜਾਓ case_VT_STRUCT;
         }
         /* XXX: more tests */
-        break;
-    case VT_STRUCT:
+        ਰੋਕੋ;
+    ਹਾਲਤ VT_STRUCT:
     case_VT_STRUCT:
-        if (!is_compatible_unqualified_types(dt, st)) {
+        ਜੇ (!is_compatible_unqualified_types(dt, st)) {
     error:
             cast_error(st, dt);
         }
-        break;
+        ਰੋਕੋ;
     }
 }
 
-static void gen_assign_cast(CType *dt)
+ਸਥਿਰ ਖਾਲੀ gen_ਸੌਂਪੋ_cast(CType *dt)
 {
-    verify_assign_cast(dt);
+    verify_ਸੌਂਪੋ_cast(dt);
     gen_cast(dt);
 }
 
 /* store vtop in lvalue pushed on stack */
-ST_FUNC void vstore(void)
+ST_FUNC ਖਾਲੀ vstore(ਖਾਲੀ)
 {
-    int sbt, dbt, ft, r, size, align, bit_size, bit_pos, delayed_cast;
+    ਪੂਰਨ sbt, dbt, ft, r, ਮਾਪ, align, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2, ਦੋਆਧਾਰੀ_ਅੰਕ_pos, delayed_cast;
 
     ft = vtop[-1].type.t;
     sbt = vtop->type.t & VT_BTYPE;
     dbt = ft & VT_BTYPE;
-    verify_assign_cast(&vtop[-1].type);
+    verify_ਸੌਂਪੋ_cast(&vtop[-1].type);
 
-    if (sbt == VT_STRUCT) {
+    ਜੇ (sbt == VT_STRUCT) {
         /* if structure, only generate pointer */
         /* structure assignment : generate memcpy */
-        size = type_size(&vtop->type, &align);
+        ਮਾਪ = type_ਮਾਪ(&vtop->type, &align);
         /* destination, keep on stack() as result */
         vpushv(vtop - 1);
-#ifdef CONFIG_TCC_BCHECK
-        if (vtop->r & VT_MUSTBOUND)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
+        ਜੇ (vtop->r & VT_MUSTBOUND)
             gbound(); /* check would be wrong after gaddrof() */
-#endif
+#ਜੇ_ਅੰਤ
         vtop->type.t = VT_PTR;
         gaddrof();
-        /* source */
+        /*ਸਰੋਤ*/
         vswap();
-#ifdef CONFIG_TCC_BCHECK
-        if (vtop->r & VT_MUSTBOUND)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
+        ਜੇ (vtop->r & VT_MUSTBOUND)
             gbound();
-#endif
+#ਜੇ_ਅੰਤ
         vtop->type.t = VT_PTR;
         gaddrof();
 
-#ifdef TCC_TARGET_NATIVE_STRUCT_COPY
-        if (1
-#ifdef CONFIG_TCC_BCHECK
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_NATIVE_STRUCT_COPY
+        ਜੇ (1
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
             && !tcc_state->do_bounds_check
-#endif
+#ਜੇ_ਅੰਤ
             ) {
-            gen_struct_copy(size);
-        } else
-#endif
+            gen_struct_copy(ਮਾਪ);
+        } ਨਹੀਂਤਾਂ
+#ਜੇ_ਅੰਤ
         {
             /* type size */
-            vpushi(size);
+            vpushi(ਮਾਪ);
             /* Use memmove, rather than memcpy, as dest and src may be same: */
-#ifdef TCC_ARM_EABI
-            if(!(align & 7))
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ARM_EABI
+            ਜੇ(!(align & 7))
                 vpush_helper_func(TOK_memmove8);
-            else if(!(align & 3))
+            ਨਹੀਂਤਾਂ ਜੇ(!(align & 3))
                 vpush_helper_func(TOK_memmove4);
-            else
-#endif
+            ਨਹੀਂਤਾਂ
+#ਜੇ_ਅੰਤ
             vpush_helper_func(TOK_memmove);
             vrott(4);
             gfunc_call(3);
         }
 
-    } else if (ft & VT_BITFIELD) {
+    } ਨਹੀਂਤਾਂ ਜੇ (ft & VT_BITFIELD) {
         /* bitfield store handling */
 
         /* save lvalue as expression result (example: s.b = s.a = n;) */
         vdup(), vtop[-1] = vtop[-2];
 
-        bit_pos = BIT_POS(ft);
-        bit_size = BIT_SIZE(ft);
+        ਦੋਆਧਾਰੀ_ਅੰਕ_pos = ਦੋਆਧਾਰੀ_ਅੰਕ_POS(ft);
+        ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 = ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ(ft);
         /* remove bit field info to avoid loops */
-        vtop[-1].type.t = ft & ~VT_STRUCT_MASK;
+        vtop[-1].type.t = ft & ~VT_STRUCT_ਨਕਾਬ;
 
-        if (dbt == VT_BOOL) {
+        ਜੇ (dbt == VT_BOOL) {
             gen_cast(&vtop[-1].type);
             vtop[-1].type.t = (vtop[-1].type.t & ~VT_BTYPE) | (VT_BYTE | VT_UNSIGNED);
         }
-        r = adjust_bf(vtop - 1, bit_pos, bit_size);
-        if (dbt != VT_BOOL) {
+        r = adjust_bf(vtop - 1, ਦੋਆਧਾਰੀ_ਅੰਕ_pos, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2);
+        ਜੇ (dbt != VT_BOOL) {
             gen_cast(&vtop[-1].type);
             dbt = vtop[-1].type.t & VT_BTYPE;
         }
-        if (r == VT_STRUCT) {
-            store_packed_bf(bit_pos, bit_size);
-        } else {
-            unsigned long long mask = (1ULL << bit_size) - 1;
-            if (dbt != VT_BOOL) {
+        ਜੇ (r == VT_STRUCT) {
+            store_packed_bf(ਦੋਆਧਾਰੀ_ਅੰਕ_pos, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2);
+        } ਨਹੀਂਤਾਂ {
+            ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ ਨਕਾਬ = (1ULL << ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2) - 1;
+            ਜੇ (dbt != VT_BOOL) {
                 /* mask source */
-                if (dbt == VT_LLONG)
-                    vpushll(mask);
-                else
-                    vpushi((unsigned)mask);
+                ਜੇ (dbt == VT_LLONG)
+                    vpushll(ਨਕਾਬ);
+                ਨਹੀਂਤਾਂ
+                    vpushi((ਬਿਨਾਨਿਸ਼ਾਨੀ)ਨਕਾਬ);
                 gen_op('&');
             }
             /* shift source */
-            vpushi(bit_pos);
+            vpushi(ਦੋਆਧਾਰੀ_ਅੰਕ_pos);
             gen_op(TOK_SHL);
             vswap();
             /* duplicate destination */
             vdup();
             vrott(3);
             /* load destination, mask and or with source */
-            if (dbt == VT_LLONG)
-                vpushll(~(mask << bit_pos));
-            else
-                vpushi(~((unsigned)mask << bit_pos));
+            ਜੇ (dbt == VT_LLONG)
+                vpushll(~(ਨਕਾਬ << ਦੋਆਧਾਰੀ_ਅੰਕ_pos));
+            ਨਹੀਂਤਾਂ
+                vpushi(~((ਬਿਨਾਨਿਸ਼ਾਨੀ)ਨਕਾਬ << ਦੋਆਧਾਰੀ_ਅੰਕ_pos));
             gen_op('&');
             gen_op('|');
             /* store result */
@@ -3820,64 +3820,64 @@ ST_FUNC void vstore(void)
             /* ... and discard */
             vpop();
         }
-    } else if (dbt == VT_VOID) {
+    } ਨਹੀਂਤਾਂ ਜੇ (dbt == VT_VOID) {
         --vtop;
-    } else {
+    } ਨਹੀਂਤਾਂ {
             /* optimize char/short casts */
             delayed_cast = 0;
-            if ((dbt == VT_BYTE || dbt == VT_SHORT)
+            ਜੇ ((dbt == VT_BYTE || dbt == VT_SHORT)
                 && is_integer_btype(sbt)
                 ) {
-                if ((vtop->r & VT_MUSTCAST)
-                    && btype_size(dbt) > btype_size(sbt)
+                ਜੇ ((vtop->r & VT_MUSTCAST)
+                    && btype_ਮਾਪ(dbt) > btype_ਮਾਪ(sbt)
                     )
                     force_charshort_cast();
                 delayed_cast = 1;
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 gen_cast(&vtop[-1].type);
             }
 
-#ifdef CONFIG_TCC_BCHECK
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
             /* bound check case */
-            if (vtop[-1].r & VT_MUSTBOUND) {
+            ਜੇ (vtop[-1].r & VT_MUSTBOUND) {
                 vswap();
                 gbound();
                 vswap();
             }
-#endif
+#ਜੇ_ਅੰਤ
             gv(RC_TYPE(dbt)); /* generate value */
 
-            if (delayed_cast) {
+            ਜੇ (delayed_cast) {
                 vtop->r |= BFVAL(VT_MUSTCAST, (sbt == VT_LLONG) + 1);
                 //tcc_warning("deley cast %x -> %x", sbt, dbt);
                 vtop->type.t = ft & VT_TYPE;
             }
 
             /* if lvalue was saved on stack, must read it */
-            if ((vtop[-1].r & VT_VALMASK) == VT_LLOCAL) {
+            ਜੇ ((vtop[-1].r & VT_VALMASK) == VT_LLOCAL) {
                 SValue sv;
                 r = get_reg(RC_INT);
                 sv.type.t = VT_PTRDIFF_T;
                 sv.r = VT_LOCAL | VT_LVAL;
                 sv.c.i = vtop[-1].c.i;
-		sv.sym = NULL;
-                load(r, &sv);
+		sv.sym = ਨਿਰਾ;
+                ਲੱਦੋ(r, &sv);
                 vtop[-1].r = r | VT_LVAL;
             }
 
             r = vtop->r & VT_VALMASK;
             /* two word case handling :
                store second register at word + 4 (or +8 for x86-64)  */
-            if (USING_TWO_WORDS(dbt)) {
-                int load_type = (dbt == VT_QFLOAT) ? VT_DOUBLE : VT_PTRDIFF_T;
-                vtop[-1].type.t = load_type;
+            ਜੇ (USING_TWO_ਸ਼ਬਦ(dbt)) {
+                ਪੂਰਨ ਲੱਦੋ_type = (dbt == VT_QFLOAT) ? VT_DOUBLE : VT_PTRDIFF_T;
+                vtop[-1].type.t = ਲੱਦੋ_type;
                 store(r, vtop - 1);
                 vswap();
-                incr_offset(PTR_SIZE);
+                incr_ਵਿੱਥ(PTR_ਮਾਪ);
                 vswap();
                 /* XXX: it works because r2 is spilled last ! */
                 store(vtop->r2, vtop - 1);
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 /* single word */
                 store(r, vtop - 1);
             }
@@ -3887,11 +3887,11 @@ ST_FUNC void vstore(void)
 }
 
 /* post defines POST/PRE add. c is the token ++ or -- */
-ST_FUNC void inc(int post, int c)
+ST_FUNC ਖਾਲੀ inc(ਪੂਰਨ post, ਪੂਰਨ c)
 {
     test_lvalue();
     vdup(); /* save lvalue */
-    if (post) {
+    ਜੇ (post) {
         gv_dup(); /* duplicate value */
         vrotb(3);
         vrotb(3);
@@ -3900,848 +3900,848 @@ ST_FUNC void inc(int post, int c)
     vpushi(c - TOK_MID); 
     gen_op('+');
     vstore(); /* store value */
-    if (post)
+    ਜੇ (post)
         vpop(); /* if post op, return saved value */
 }
 
-ST_FUNC CString* parse_mult_str (const char *msg)
+ST_FUNC CString* parse_mult_str (ਅਚਲ ਅੱਖਰ *ਸੁਨੇਹਾ)
 {
     /* read the string */
-    if (tok != TOK_STR)
-        expect(msg);
+    ਜੇ (tok != TOK_STR)
+        expect(ਸੁਨੇਹਾ);
     cstr_reset(&initstr);
-    while (tok == TOK_STR) {
+    ਜਦੋਂ (tok == TOK_STR) {
         /* XXX: add \0 handling too ? */
-        cstr_cat(&initstr, tokc.str.data, -1);
-        next();
+        cstr_cat(&initstr, tokc.str.ਅੰਕੜੇ, -1);
+        ਅਗਲਾ();
     }
     cstr_ccat(&initstr, '\0');
-    return &initstr;
+    ਵਾਪਸ &initstr;
 }
 
 /* If I is >= 1 and a power of two, returns log2(i)+1.
    If I is 0 returns 0.  */
-ST_FUNC int exact_log2p1(int i)
+ST_FUNC ਪੂਰਨ exact_log2p1(ਪੂਰਨ i)
 {
-  int ret;
-  if (!i)
-    return 0;
-  for (ret = 1; i >= 1 << 8; ret += 8)
+  ਪੂਰਨ ret;
+  ਜੇ (!i)
+    ਵਾਪਸ 0;
+  ਲਈ (ret = 1; i >= 1 << 8; ret += 8)
     i >>= 8;
-  if (i >= 1 << 4)
+  ਜੇ (i >= 1 << 4)
     ret += 4, i >>= 4;
-  if (i >= 1 << 2)
+  ਜੇ (i >= 1 << 2)
     ret += 2, i >>= 2;
-  if (i >= 1 << 1)
+  ਜੇ (i >= 1 << 1)
     ret++;
-  return ret;
+  ਵਾਪਸ ret;
 }
 
 /* Parse __attribute__((...)) GNUC extension. */
-static void parse_attribute(AttributeDef *ad)
+ਸਥਿਰ ਖਾਲੀ parse_attribute(AttributeDef *ad)
 {
-    int t, n;
-    char *astr;
+    ਪੂਰਨ t, n;
+    ਅੱਖਰ *astr;
     AttributeDef ad_tmp;
     
 redo:
-    if (tok != TOK_ATTRIBUTE1 && tok != TOK_ATTRIBUTE2)
-        return;
-    if (NULL == ad) /* skip over / ignore attributes */
+    ਜੇ (tok != TOK_ATTRIBUTE1 && tok != TOK_ATTRIBUTE2)
+        ਵਾਪਸ;
+    ਜੇ (ਨਿਰਾ == ad) /* skip over / ignore attributes */
         ad = &ad_tmp;
 
-    next();
+    ਅਗਲਾ();
     skip('(');
     skip('(');
-    while (tok != ')') {
-        if (tok < TOK_IDENT)
+    ਜਦੋਂ (tok != ')') {
+        ਜੇ (tok < TOK_IDENT)
             expect("attribute name");
         t = tok;
-        next();
-        switch(t) {
-	case TOK_CLEANUP1:
-	case TOK_CLEANUP2:
+        ਅਗਲਾ();
+        ਚੋਣ(t) {
+	ਹਾਲਤ TOK_CLEANUP1:
+	ਹਾਲਤ TOK_CLEANUP2:
 	{
 	    Sym *s;
 
 	    skip('(');
-	    s = sym_find(tok);
-	    if (!s) {
+	    s = sym_ਲੱਭੋ(tok);
+	    ਜੇ (!s) {
 	        tcc_warning_c(warn_implicit_function_declaration)(
                     "implicit declaration of function '%s'", get_tok_str(tok, &tokc));
 	        s = external_global_sym(tok, &func_old_type);
-            } else if ((s->type.t & VT_BTYPE) != VT_FUNC)
+            } ਨਹੀਂਤਾਂ ਜੇ ((s->type.t & VT_BTYPE) != VT_FUNC)
                 tcc_error("'%s' is not declared as function", get_tok_str(tok, &tokc));
 	    ad->cleanup_func = s;
-	    next();
+	    ਅਗਲਾ();
             skip(')');
-	    break;
+	    ਰੋਕੋ;
 	}
-        case TOK_CONSTRUCTOR1:
-        case TOK_CONSTRUCTOR2:
+        ਹਾਲਤ TOK_CONSTRUCTOR1:
+        ਹਾਲਤ TOK_CONSTRUCTOR2:
             ad->f.func_ctor = 1;
-            break;
-        case TOK_DESTRUCTOR1:
-        case TOK_DESTRUCTOR2:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_DESTRUCTOR1:
+        ਹਾਲਤ TOK_DESTRUCTOR2:
             ad->f.func_dtor = 1;
-            break;
-        case TOK_ALWAYS_INLINE1:
-        case TOK_ALWAYS_INLINE2:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ALWAYS_INLINE1:
+        ਹਾਲਤ TOK_ALWAYS_INLINE2:
             ad->f.func_alwinl = 1;
-            break;
-        case TOK_SECTION1:
-        case TOK_SECTION2:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_SECTION1:
+        ਹਾਲਤ TOK_SECTION2:
             skip('(');
-	    astr = parse_mult_str("section name")->data;
+	    astr = parse_mult_str("section name")->ਅੰਕੜੇ;
             n = tcc_state->nb_sections;
-            ad->section = find_section(tcc_state, astr);
+            ad->section = ਲੱਭੋ_section(tcc_state, astr);
             ad->new_section = n < tcc_state->nb_sections;
             skip(')');
-            break;
-        case TOK_ALIAS1:
-        case TOK_ALIAS2:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ALIAS1:
+        ਹਾਲਤ TOK_ALIAS2:
             skip('(');
-	    astr = parse_mult_str("alias(\"target\")")->data;
+	    astr = parse_mult_str("alias(\"target\")")->ਅੰਕੜੇ;
             /* save string as token, for later */
-            ad->alias_target = tok_alloc_const(astr);
+            ad->alias_ਨਿਸ਼ਾਨਾ = tok_alloc_const(astr);
             skip(')');
-            break;
-	case TOK_VISIBILITY1:
-	case TOK_VISIBILITY2:
+            ਰੋਕੋ;
+	ਹਾਲਤ TOK_VISIBILITY1:
+	ਹਾਲਤ TOK_VISIBILITY2:
             skip('(');
-	    astr = parse_mult_str("visibility(\"default|hidden|internal|protected\")")->data;
-	    if (!strcmp (astr, "default"))
+	    astr = parse_mult_str("visibility(\"default|hidden|internal|protected\")")->ਅੰਕੜੇ;
+	    ਜੇ (!strcmp (astr, "default"))
 	        ad->a.visibility = STV_DEFAULT;
-	    else if (!strcmp (astr, "hidden"))
+	    ਨਹੀਂਤਾਂ ਜੇ (!strcmp (astr, "hidden"))
 	        ad->a.visibility = STV_HIDDEN;
-	    else if (!strcmp (astr, "internal"))
-	        ad->a.visibility = STV_INTERNAL;
-	    else if (!strcmp (astr, "protected"))
+	    ਨਹੀਂਤਾਂ ਜੇ (!strcmp (astr, "internal"))
+	        ad->a.visibility = STV_ਅੰਦਰੂਨੀ;
+	    ਨਹੀਂਤਾਂ ਜੇ (!strcmp (astr, "protected"))
 	        ad->a.visibility = STV_PROTECTED;
-	    else
+	    ਨਹੀਂਤਾਂ
                 expect("visibility(\"default|hidden|internal|protected\")");
             skip(')');
-            break;
-        case TOK_ALIGNED1:
-        case TOK_ALIGNED2:
-            if (tok == '(') {
-                next();
-                n = expr_const();
-                if (n <= 0 || (n & (n - 1)) != 0) 
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ALIGNED1:
+        ਹਾਲਤ TOK_ALIGNED2:
+            ਜੇ (tok == '(') {
+                ਅਗਲਾ();
+                n = ਵਿਅੰਜਕ_const();
+                ਜੇ (n <= 0 || (n & (n - 1)) != 0) 
                     tcc_error("alignment must be a positive power of two");
                 skip(')');
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 n = MAX_ALIGN;
             }
             ad->a.aligned = exact_log2p1(n);
-	    if (n != 1 << (ad->a.aligned - 1))
+	    ਜੇ (n != 1 << (ad->a.aligned - 1))
 	      tcc_error("alignment of %d is larger than implemented", n);
-            break;
-        case TOK_PACKED1:
-        case TOK_PACKED2:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_PACKED1:
+        ਹਾਲਤ TOK_PACKED2:
             ad->a.packed = 1;
-            break;
-        case TOK_WEAK1:
-        case TOK_WEAK2:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_WEAK1:
+        ਹਾਲਤ TOK_WEAK2:
             ad->a.weak = 1;
-            break;
-        case TOK_NODEBUG1:
-        case TOK_NODEBUG2:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_NODEBUG1:
+        ਹਾਲਤ TOK_NODEBUG2:
             ad->a.nodebug = 1;
-            break;
-        case TOK_USED1:
-        case TOK_USED2:
-        case TOK_UNUSED1:
-        case TOK_UNUSED2:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_USED1:
+        ਹਾਲਤ TOK_USED2:
+        ਹਾਲਤ TOK_UNUSED1:
+        ਹਾਲਤ TOK_UNUSED2:
             /* currently, no need to handle it because tcc does not
                track used/unused objects */
-            break;
-        case TOK_CONST1:
-        case TOK_CONST2:
-        case TOK_CONST3:
-        case TOK_PURE1:
-        case TOK_PURE2:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_CONST1:
+        ਹਾਲਤ TOK_CONST2:
+        ਹਾਲਤ TOK_CONST3:
+        ਹਾਲਤ TOK_PURE1:
+        ਹਾਲਤ TOK_PURE2:
 	    /* ignored */
-            break;
-        case TOK_NOINLINE:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_NOINLINE:
 	    /* ignored */
-	    break;
-        case TOK_FORMAT1:
-        case TOK_FORMAT2:
+	    ਰੋਕੋ;
+        ਹਾਲਤ TOK_FORMAT1:
+        ਹਾਲਤ TOK_FORMAT2:
 	    /* ignored */
-            goto skip_param;
-        case TOK_NORETURN1:
-        case TOK_NORETURN2:
+            ਜਾਓ skip_param;
+        ਹਾਲਤ TOK_NORETURN1:
+        ਹਾਲਤ TOK_NORETURN2:
             ad->f.func_noreturn = 1;
-            break;
-        case TOK_CDECL1:
-        case TOK_CDECL2:
-        case TOK_CDECL3:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_CDECL1:
+        ਹਾਲਤ TOK_CDECL2:
+        ਹਾਲਤ TOK_CDECL3:
             ad->f.func_call = FUNC_CDECL;
-            break;
-        case TOK_STDCALL1:
-        case TOK_STDCALL2:
-        case TOK_STDCALL3:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_STDCALL1:
+        ਹਾਲਤ TOK_STDCALL2:
+        ਹਾਲਤ TOK_STDCALL3:
             ad->f.func_call = FUNC_STDCALL;
-            break;
-#ifdef TCC_TARGET_I386
-        case TOK_REGPARM1:
-        case TOK_REGPARM2:
+            ਰੋਕੋ;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_I386
+        ਹਾਲਤ TOK_REGPARM1:
+        ਹਾਲਤ TOK_REGPARM2:
             skip('(');
-            n = expr_const();
-            if (n > 3) 
+            n = ਵਿਅੰਜਕ_const();
+            ਜੇ (n > 3) 
                 n = 3;
-            else if (n < 0)
+            ਨਹੀਂਤਾਂ ਜੇ (n < 0)
                 n = 0;
-            if (n > 0)
+            ਜੇ (n > 0)
                 ad->f.func_call = FUNC_FASTCALL1 + n - 1;
             skip(')');
-            break;
-        case TOK_FASTCALL1:
-        case TOK_FASTCALL2:
-        case TOK_FASTCALL3:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_FASTCALL1:
+        ਹਾਲਤ TOK_FASTCALL2:
+        ਹਾਲਤ TOK_FASTCALL3:
             ad->f.func_call = FUNC_FASTCALLW;
-            break;
-        case TOK_THISCALL1:
-        case TOK_THISCALL2:
-        case TOK_THISCALL3:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_THISCALL1:
+        ਹਾਲਤ TOK_THISCALL2:
+        ਹਾਲਤ TOK_THISCALL3:
             ad->f.func_call = FUNC_THISCALL;
-            break;
-#endif
-        case TOK_MODE:
+            ਰੋਕੋ;
+#ਜੇ_ਅੰਤ
+        ਹਾਲਤ TOK_ਬਹੁਲਕ:
             skip('(');
-            switch(tok) {
-                case TOK_MODE_DI:
-                    ad->attr_mode = VT_LLONG + 1;
-                    break;
-                case TOK_MODE_QI:
-                    ad->attr_mode = VT_BYTE + 1;
-                    break;
-                case TOK_MODE_HI:
-                    ad->attr_mode = VT_SHORT + 1;
-                    break;
-                case TOK_MODE_SI:
-                case TOK_MODE_word:
-                    ad->attr_mode = VT_INT + 1;
-                    break;
-                default:
-                    tcc_warning("__mode__(%s) not supported\n", get_tok_str(tok, NULL));
-                    break;
+            ਚੋਣ(tok) {
+                ਹਾਲਤ TOK_ਬਹੁਲਕ_DI:
+                    ad->attr_ਬਹੁਲਕ = VT_LLONG + 1;
+                    ਰੋਕੋ;
+                ਹਾਲਤ TOK_ਬਹੁਲਕ_QI:
+                    ad->attr_ਬਹੁਲਕ = VT_BYTE + 1;
+                    ਰੋਕੋ;
+                ਹਾਲਤ TOK_ਬਹੁਲਕ_HI:
+                    ad->attr_ਬਹੁਲਕ = VT_SHORT + 1;
+                    ਰੋਕੋ;
+                ਹਾਲਤ TOK_ਬਹੁਲਕ_SI:
+                ਹਾਲਤ TOK_ਬਹੁਲਕ_ਸ਼ਬਦ:
+                    ad->attr_ਬਹੁਲਕ = VT_INT + 1;
+                    ਰੋਕੋ;
+                ਮੂਲ:
+                    tcc_warning("__mode__(%s) not supported\n", get_tok_str(tok, ਨਿਰਾ));
+                    ਰੋਕੋ;
             }
-            next();
+            ਅਗਲਾ();
             skip(')');
-            break;
-        case TOK_DLLEXPORT:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_DLLEXPORT:
             ad->a.dllexport = 1;
-            break;
-        case TOK_NODECORATE:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_NODECORATE:
             ad->a.nodecorate = 1;
-            break;
-        case TOK_DLLIMPORT:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_DLLIMPORT:
             ad->a.dllimport = 1;
-            break;
-        default:
-            tcc_warning_c(warn_unsupported)("'%s' attribute ignored", get_tok_str(t, NULL));
+            ਰੋਕੋ;
+        ਮੂਲ:
+            tcc_warning_c(warn_unsupported)("'%s' attribute ignored", get_tok_str(t, ਨਿਰਾ));
             /* skip parameters */
 skip_param:
-            if (tok == '(') {
-                int parenthesis = 0;
-                do {
-                    if (tok == '(') 
+            ਜੇ (tok == '(') {
+                ਪੂਰਨ parenthesis = 0;
+                ਕਰੋ {
+                    ਜੇ (tok == '(') 
                         parenthesis++;
-                    else if (tok == ')') 
+                    ਨਹੀਂਤਾਂ ਜੇ (tok == ')') 
                         parenthesis--;
-                    next();
-                } while (parenthesis && tok != -1);
+                    ਅਗਲਾ();
+                } ਜਦੋਂ (parenthesis && tok != -1);
             }
-            break;
+            ਰੋਕੋ;
         }
-        if (tok != ',')
-            break;
-        next();
+        ਜੇ (tok != ',')
+            ਰੋਕੋ;
+        ਅਗਲਾ();
     }
     skip(')');
     skip(')');
-    goto redo;
+    ਜਾਓ redo;
 }
 
-static Sym * find_field (CType *type, int v, int *cumofs)
+ਸਥਿਰ Sym * ਲੱਭੋ_ਖੇਤਰ (CType *type, ਪੂਰਨ v, ਪੂਰਨ *cumofs)
 {
     Sym *s = type->ref;
-    int v1 = v | SYM_FIELD;
-    if (!(v & SYM_FIELD)) { /* top-level call */
-        if ((type->t & VT_BTYPE) != VT_STRUCT)
+    ਪੂਰਨ v1 = v | SYM_ਖੇਤਰ;
+    ਜੇ (!(v & SYM_ਖੇਤਰ)) { /* top-level call */
+        ਜੇ ((type->t & VT_BTYPE) != VT_STRUCT)
             expect("struct or union");
-        if (v < TOK_UIDENT)
+        ਜੇ (v < TOK_UIDENT)
             expect("field name");
-        if (s->c < 0)
+        ਜੇ (s->c < 0)
             tcc_error("dereferencing incomplete type '%s'",
                 get_tok_str(s->v & ~SYM_STRUCT, 0));
     }
-    while ((s = s->next) != NULL) {
-        if (s->v == v1) {
+    ਜਦੋਂ ((s = s->ਅਗਲਾ) != ਨਿਰਾ) {
+        ਜੇ (s->v == v1) {
             *cumofs = s->c;
-            return s;
+            ਵਾਪਸ s;
         }
-        if ((s->type.t & VT_BTYPE) == VT_STRUCT
-          && s->v >= (SYM_FIRST_ANOM | SYM_FIELD)) {
+        ਜੇ ((s->type.t & VT_BTYPE) == VT_STRUCT
+          && s->v >= (SYM_ਪਹਿਲਾ_ANOM | SYM_ਖੇਤਰ)) {
             /* try to find field in anonymous sub-struct/union */
-            Sym *ret = find_field (&s->type, v1, cumofs);
-            if (ret) {
+            Sym *ret = ਲੱਭੋ_ਖੇਤਰ (&s->type, v1, cumofs);
+            ਜੇ (ret) {
                 *cumofs += s->c;
-                return ret;
+                ਵਾਪਸ ret;
             }
         }
     }
-    if (!(v & SYM_FIELD))
-        tcc_error("field not found: %s", get_tok_str(v, NULL));
-    return s;
+    ਜੇ (!(v & SYM_ਖੇਤਰ))
+        tcc_error("field not found: %s", get_tok_str(v, ਨਿਰਾ));
+    ਵਾਪਸ s;
 }
 
-static void check_fields (CType *type, int check)
+ਸਥਿਰ ਖਾਲੀ check_fields (CType *type, ਪੂਰਨ check)
 {
     Sym *s = type->ref;
 
-    while ((s = s->next) != NULL) {
-        int v = s->v & ~SYM_FIELD;
-        if (v < SYM_FIRST_ANOM) {
-            TokenSym *ts = table_ident[v - TOK_IDENT];
-            if (check && (ts->tok & SYM_FIELD))
-                tcc_error("duplicate member '%s'", get_tok_str(v, NULL));
-            ts->tok ^= SYM_FIELD;
-        } else if ((s->type.t & VT_BTYPE) == VT_STRUCT)
+    ਜਦੋਂ ((s = s->ਅਗਲਾ) != ਨਿਰਾ) {
+        ਪੂਰਨ v = s->v & ~SYM_ਖੇਤਰ;
+        ਜੇ (v < SYM_ਪਹਿਲਾ_ANOM) {
+            TokenSym *ts = ਸਾਰਣੀ_ident[v - TOK_IDENT];
+            ਜੇ (check && (ts->tok & SYM_ਖੇਤਰ))
+                tcc_error("duplicate member '%s'", get_tok_str(v, ਨਿਰਾ));
+            ts->tok ^= SYM_ਖੇਤਰ;
+        } ਨਹੀਂਤਾਂ ਜੇ ((s->type.t & VT_BTYPE) == VT_STRUCT)
             check_fields (&s->type, check);
     }
 }
 
-static void struct_layout(CType *type, AttributeDef *ad)
+ਸਥਿਰ ਖਾਲੀ struct_layout(CType *type, AttributeDef *ad)
 {
-    int size, align, maxalign, offset, c, bit_pos, bit_size;
-    int packed, a, bt, prevbt, prev_bit_size;
-    int pcc = !tcc_state->ms_bitfields;
-    int pragma_pack = *tcc_state->pack_stack_ptr;
+    ਪੂਰਨ ਮਾਪ, align, maxalign, ਵਿੱਥ, c, ਦੋਆਧਾਰੀ_ਅੰਕ_pos, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2;
+    ਪੂਰਨ packed, a, bt, prevbt, prev_ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ;
+    ਪੂਰਨ pcc = !tcc_state->ms_bitfields;
+    ਪੂਰਨ pragma_pack = *tcc_state->pack_ਢੇਰ_ptr;
     Sym *f;
 
     maxalign = 1;
-    offset = 0;
+    ਵਿੱਥ = 0;
     c = 0;
-    bit_pos = 0;
+    ਦੋਆਧਾਰੀ_ਅੰਕ_pos = 0;
     prevbt = VT_STRUCT; /* make it never match */
-    prev_bit_size = 0;
+    prev_ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ = 0;
 
 //#define BF_DEBUG
 
-    for (f = type->ref->next; f; f = f->next) {
-        if (f->type.t & VT_BITFIELD)
-            bit_size = BIT_SIZE(f->type.t);
-        else
-            bit_size = -1;
-        size = type_size(&f->type, &align);
+    ਲਈ (f = type->ref->ਅਗਲਾ; f; f = f->ਅਗਲਾ) {
+        ਜੇ (f->type.t & VT_BITFIELD)
+            ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 = ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ(f->type.t);
+        ਨਹੀਂਤਾਂ
+            ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 = -1;
+        ਮਾਪ = type_ਮਾਪ(&f->type, &align);
         a = f->a.aligned ? 1 << (f->a.aligned - 1) : 0;
         packed = 0;
 
-        if (pcc && bit_size == 0) {
+        ਜੇ (pcc && ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 == 0) {
             /* in pcc mode, packing does not affect zero-width bitfields */
 
-        } else {
+        } ਨਹੀਂਤਾਂ {
             /* in pcc mode, attribute packed overrides if set. */
-            if (pcc && (f->a.packed || ad->a.packed))
+            ਜੇ (pcc && (f->a.packed || ad->a.packed))
                 align = packed = 1;
 
             /* pragma pack overrides align if lesser and packs bitfields always */
-            if (pragma_pack) {
+            ਜੇ (pragma_pack) {
                 packed = 1;
-                if (pragma_pack < align)
+                ਜੇ (pragma_pack < align)
                     align = pragma_pack;
                 /* in pcc mode pragma pack also overrides individual align */
-                if (pcc && pragma_pack < a)
+                ਜੇ (pcc && pragma_pack < a)
                     a = 0;
             }
         }
         /* some individual align was specified */
-        if (a)
+        ਜੇ (a)
             align = a;
 
-        if (type->ref->type.t == VT_UNION) {
-	    if (pcc && bit_size >= 0)
-	        size = (bit_size + 7) >> 3;
-	    offset = 0;
-	    if (size > c)
-	        c = size;
+        ਜੇ (type->ref->type.t == VT_UNION) {
+	    ਜੇ (pcc && ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 >= 0)
+	        ਮਾਪ = (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 + 7) >> 3;
+	    ਵਿੱਥ = 0;
+	    ਜੇ (ਮਾਪ > c)
+	        c = ਮਾਪ;
 
-	} else if (bit_size < 0) {
-            if (pcc)
-                c += (bit_pos + 7) >> 3;
+	} ਨਹੀਂਤਾਂ ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 < 0) {
+            ਜੇ (pcc)
+                c += (ਦੋਆਧਾਰੀ_ਅੰਕ_pos + 7) >> 3;
 	    c = (c + align - 1) & -align;
-	    offset = c;
-	    if (size > 0)
-	        c += size;
-	    bit_pos = 0;
+	    ਵਿੱਥ = c;
+	    ਜੇ (ਮਾਪ > 0)
+	        c += ਮਾਪ;
+	    ਦੋਆਧਾਰੀ_ਅੰਕ_pos = 0;
 	    prevbt = VT_STRUCT;
-	    prev_bit_size = 0;
+	    prev_ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ = 0;
 
-	} else {
+	} ਨਹੀਂਤਾਂ {
 	    /* A bit-field.  Layout is more complicated.  There are two
 	       options: PCC (GCC) compatible and MS compatible */
-            if (pcc) {
+            ਜੇ (pcc) {
 		/* In PCC layout a bit-field is placed adjacent to the
                    preceding bit-fields, except if:
                    - it has zero-width
                    - an individual alignment was given
                    - it would overflow its base type container and
                      there is no packing */
-                if (bit_size == 0) {
-            new_field:
-		    c = (c + ((bit_pos + 7) >> 3) + align - 1) & -align;
-		    bit_pos = 0;
-                } else if (f->a.aligned) {
-                    goto new_field;
-                } else if (!packed) {
-                    int a8 = align * 8;
-	            int ofs = ((c * 8 + bit_pos) % a8 + bit_size + a8 - 1) / a8;
-                    if (ofs > size / align)
-                        goto new_field;
+                ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 == 0) {
+            new_ਖੇਤਰ:
+		    c = (c + ((ਦੋਆਧਾਰੀ_ਅੰਕ_pos + 7) >> 3) + align - 1) & -align;
+		    ਦੋਆਧਾਰੀ_ਅੰਕ_pos = 0;
+                } ਨਹੀਂਤਾਂ ਜੇ (f->a.aligned) {
+                    ਜਾਓ new_ਖੇਤਰ;
+                } ਨਹੀਂਤਾਂ ਜੇ (!packed) {
+                    ਪੂਰਨ a8 = align * 8;
+	            ਪੂਰਨ ofs = ((c * 8 + ਦੋਆਧਾਰੀ_ਅੰਕ_pos) % a8 + ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 + a8 - 1) / a8;
+                    ਜੇ (ofs > ਮਾਪ / align)
+                        ਜਾਓ new_ਖੇਤਰ;
                 }
 
                 /* in pcc mode, long long bitfields have type int if they fit */
-                if (size == 8 && bit_size <= 32)
-                    f->type.t = (f->type.t & ~VT_BTYPE) | VT_INT, size = 4;
+                ਜੇ (ਮਾਪ == 8 && ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 <= 32)
+                    f->type.t = (f->type.t & ~VT_BTYPE) | VT_INT, ਮਾਪ = 4;
 
-                while (bit_pos >= align * 8)
-                    c += align, bit_pos -= align * 8;
-                offset = c;
+                ਜਦੋਂ (ਦੋਆਧਾਰੀ_ਅੰਕ_pos >= align * 8)
+                    c += align, ਦੋਆਧਾਰੀ_ਅੰਕ_pos -= align * 8;
+                ਵਿੱਥ = c;
 
 		/* In PCC layout named bit-fields influence the alignment
 		   of the containing struct using the base types alignment,
 		   except for packed fields (which here have correct align).  */
-		if (f->v & SYM_FIRST_ANOM
+		ਜੇ (f->v & SYM_ਪਹਿਲਾ_ANOM
                     // && bit_size // ??? gcc on ARM/rpi does that
                     )
 		    align = 1;
 
-	    } else {
+	    } ਨਹੀਂਤਾਂ {
 		bt = f->type.t & VT_BTYPE;
-		if ((bit_pos + bit_size > size * 8)
-                    || (bit_size > 0) == (bt != prevbt)
+		ਜੇ ((ਦੋਆਧਾਰੀ_ਅੰਕ_pos + ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 > ਮਾਪ * 8)
+                    || (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 > 0) == (bt != prevbt)
                     ) {
 		    c = (c + align - 1) & -align;
-		    offset = c;
-		    bit_pos = 0;
+		    ਵਿੱਥ = c;
+		    ਦੋਆਧਾਰੀ_ਅੰਕ_pos = 0;
 		    /* In MS bitfield mode a bit-field run always uses
 		       at least as many bits as the underlying type.
 		       To start a new run it's also required that this
 		       or the last bit-field had non-zero width.  */
-		    if (bit_size || prev_bit_size)
-		        c += size;
+		    ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 || prev_ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ)
+		        c += ਮਾਪ;
 		}
 		/* In MS layout the records alignment is normally
 		   influenced by the field, except for a zero-width
 		   field at the start of a run (but by further zero-width
 		   fields it is again).  */
-		if (bit_size == 0 && prevbt != bt)
+		ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 == 0 && prevbt != bt)
 		    align = 1;
 		prevbt = bt;
-                prev_bit_size = bit_size;
+                prev_ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ = ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2;
 	    }
 
-	    f->type.t = (f->type.t & ~(0x3f << VT_STRUCT_SHIFT))
-		        | (bit_pos << VT_STRUCT_SHIFT);
-	    bit_pos += bit_size;
+	    f->type.t = (f->type.t & ~(0x3f << VT_STRUCT_ਖਿਸਕਾਓ))
+		        | (ਦੋਆਧਾਰੀ_ਅੰਕ_pos << VT_STRUCT_ਖਿਸਕਾਓ);
+	    ਦੋਆਧਾਰੀ_ਅੰਕ_pos += ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2;
 	}
-	if (align > maxalign)
+	ਜੇ (align > maxalign)
 	    maxalign = align;
 
-#ifdef BF_DEBUG
-	printf("set field %s offset %-2d size %-2d align %-2d",
-	       get_tok_str(f->v & ~SYM_FIELD, NULL), offset, size, align);
-	if (f->type.t & VT_BITFIELD) {
-	    printf(" pos %-2d bits %-2d",
-                    BIT_POS(f->type.t),
-                    BIT_SIZE(f->type.t)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ BF_DEBUG
+	ਲਿਖੋ("set field %s offset %-2d size %-2d align %-2d",
+	       get_tok_str(f->v & ~SYM_ਖੇਤਰ, ਨਿਰਾ), ਵਿੱਥ, ਮਾਪ, align);
+	ਜੇ (f->type.t & VT_BITFIELD) {
+	    ਲਿਖੋ(" pos %-2d bits %-2d",
+                    ਦੋਆਧਾਰੀ_ਅੰਕ_POS(f->type.t),
+                    ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ(f->type.t)
                     );
 	}
-	printf("\n");
-#endif
+	ਲਿਖੋ("\n");
+#ਜੇ_ਅੰਤ
 
-        f->c = offset;
+        f->c = ਵਿੱਥ;
 	f->r = 0;
     }
 
-    if (pcc)
-        c += (bit_pos + 7) >> 3;
+    ਜੇ (pcc)
+        c += (ਦੋਆਧਾਰੀ_ਅੰਕ_pos + 7) >> 3;
 
     /* store size and alignment */
     a = bt = ad->a.aligned ? 1 << (ad->a.aligned - 1) : 1;
-    if (a < maxalign)
+    ਜੇ (a < maxalign)
         a = maxalign;
     type->ref->r = a;
-    if (pragma_pack && pragma_pack < maxalign && 0 == pcc) {
+    ਜੇ (pragma_pack && pragma_pack < maxalign && 0 == pcc) {
         /* can happen if individual align for some member was given.  In
            this case MSVC ignores maxalign when aligning the size */
         a = pragma_pack;
-        if (a < bt)
+        ਜੇ (a < bt)
             a = bt;
     }
     c = (c + a - 1) & -a;
     type->ref->c = c;
 
-#ifdef BF_DEBUG
-    printf("struct size %-2d align %-2d\n\n", c, a), fflush(stdout);
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ BF_DEBUG
+    ਲਿਖੋ("struct size %-2d align %-2d\n\n", c, a), fflush(stdout);
+#ਜੇ_ਅੰਤ
 
     /* check whether we can access bitfields by their type */
-    for (f = type->ref->next; f; f = f->next) {
-        int s, px, cx, c0;
+    ਲਈ (f = type->ref->ਅਗਲਾ; f; f = f->ਅਗਲਾ) {
+        ਪੂਰਨ s, px, cx, c0;
         CType t;
 
-        if (0 == (f->type.t & VT_BITFIELD))
-            continue;
+        ਜੇ (0 == (f->type.t & VT_BITFIELD))
+            ਜਾਰੀ;
         f->type.ref = f;
         f->auxtype = -1;
-        bit_size = BIT_SIZE(f->type.t);
-        if (bit_size == 0)
-            continue;
-        bit_pos = BIT_POS(f->type.t);
-        size = type_size(&f->type, &align);
+        ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 = ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ(f->type.t);
+        ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 == 0)
+            ਜਾਰੀ;
+        ਦੋਆਧਾਰੀ_ਅੰਕ_pos = ਦੋਆਧਾਰੀ_ਅੰਕ_POS(f->type.t);
+        ਮਾਪ = type_ਮਾਪ(&f->type, &align);
 
-        if (bit_pos + bit_size <= size * 8 && f->c + size <= c
-#ifdef TCC_TARGET_ARM
+        ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_pos + ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 <= ਮਾਪ * 8 && f->c + ਮਾਪ <= c
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_ARM
             && !(f->c & (align - 1))
-#endif
+#ਜੇ_ਅੰਤ
             )
-            continue;
+            ਜਾਰੀ;
 
         /* try to access the field using a different type */
         c0 = -1, s = align = 1;
         t.t = VT_BYTE;
-        for (;;) {
-            px = f->c * 8 + bit_pos;
+        ਲਈ (;;) {
+            px = f->c * 8 + ਦੋਆਧਾਰੀ_ਅੰਕ_pos;
             cx = (px >> 3) & -align;
             px = px - (cx << 3);
-            if (c0 == cx)
-                break;
-            s = (px + bit_size + 7) >> 3;
-            if (s > 4) {
+            ਜੇ (c0 == cx)
+                ਰੋਕੋ;
+            s = (px + ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 + 7) >> 3;
+            ਜੇ (s > 4) {
                 t.t = VT_LLONG;
-            } else if (s > 2) {
+            } ਨਹੀਂਤਾਂ ਜੇ (s > 2) {
                 t.t = VT_INT;
-            } else if (s > 1) {
+            } ਨਹੀਂਤਾਂ ਜੇ (s > 1) {
                 t.t = VT_SHORT;
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 t.t = VT_BYTE;
             }
-            s = type_size(&t, &align);
+            s = type_ਮਾਪ(&t, &align);
             c0 = cx;
         }
 
-        if (px + bit_size <= s * 8 && cx + s <= c
-#ifdef TCC_TARGET_ARM
+        ਜੇ (px + ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 <= s * 8 && cx + s <= c
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_ARM
             && !(cx & (align - 1))
-#endif
+#ਜੇ_ਅੰਤ
             ) {
             /* update offset and bit position */
             f->c = cx;
-            bit_pos = px;
-	    f->type.t = (f->type.t & ~(0x3f << VT_STRUCT_SHIFT))
-		        | (bit_pos << VT_STRUCT_SHIFT);
-            if (s != size)
+            ਦੋਆਧਾਰੀ_ਅੰਕ_pos = px;
+	    f->type.t = (f->type.t & ~(0x3f << VT_STRUCT_ਖਿਸਕਾਓ))
+		        | (ਦੋਆਧਾਰੀ_ਅੰਕ_pos << VT_STRUCT_ਖਿਸਕਾਓ);
+            ਜੇ (s != ਮਾਪ)
                 f->auxtype = t.t;
-#ifdef BF_DEBUG
-            printf("FIX field %s offset %-2d size %-2d align %-2d "
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ BF_DEBUG
+            ਲਿਖੋ("FIX field %s offset %-2d size %-2d align %-2d "
                 "pos %-2d bits %-2d\n",
-                get_tok_str(f->v & ~SYM_FIELD, NULL),
-                cx, s, align, px, bit_size);
-#endif
-        } else {
+                get_tok_str(f->v & ~SYM_ਖੇਤਰ, ਨਿਰਾ),
+                cx, s, align, px, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2);
+#ਜੇ_ਅੰਤ
+        } ਨਹੀਂਤਾਂ {
             /* fall back to load/store single-byte wise */
             f->auxtype = VT_STRUCT;
-#ifdef BF_DEBUG
-            printf("FIX field %s : load byte-wise\n",
-                 get_tok_str(f->v & ~SYM_FIELD, NULL));
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ BF_DEBUG
+            ਲਿਖੋ("FIX field %s : load byte-wise\n",
+                 get_tok_str(f->v & ~SYM_ਖੇਤਰ, ਨਿਰਾ));
+#ਜੇ_ਅੰਤ
         }
     }
 }
 
 /* Does 'n' fit into integer type 't' ? */
-static int in_range(long long n, int t)
+ਸਥਿਰ ਪੂਰਨ ਵਿੱਚ_range(ਲੰਮਾ ਲੰਮਾ n, ਪੂਰਨ t)
 {
-    unsigned long long m = (1ULL << (btype_size(t & VT_BTYPE) * 8 - 1)) - 1;
-    if (t & VT_UNSIGNED)
-        return n <= (m << 1) + 1;
-    return n >= -(long long)m - 1 && n <= (long long)m;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ m = (1ULL << (btype_ਮਾਪ(t & VT_BTYPE) * 8 - 1)) - 1;
+    ਜੇ (t & VT_UNSIGNED)
+        ਵਾਪਸ n <= (m << 1) + 1;
+    ਵਾਪਸ n >= -(ਲੰਮਾ ਲੰਮਾ)m - 1 && n <= (ਲੰਮਾ ਲੰਮਾ)m;
 }
 
 /* enum/struct/union declaration. u is VT_ENUM/VT_STRUCT/VT_UNION */
-static void struct_decl(CType *type, int u)
+ਸਥਿਰ ਖਾਲੀ struct_decl(CType *type, ਪੂਰਨ u)
 {
-    int v, c, size, align, flexible;
-    int bit_size, bsize, bt, ut;
+    ਪੂਰਨ v, c, ਮਾਪ, align, flexible;
+    ਪੂਰਨ ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2, bsize, bt, ut;
     Sym *s, *ss, **ps;
     AttributeDef ad, ad1;
     CType type1, btype;
 
-    memset(&ad, 0, sizeof ad);
-    next();
+    memset(&ad, 0, ਆਕਾਰ ad);
+    ਅਗਲਾ();
     parse_attribute(&ad);
 
     v = 0;
-    if (tok >= TOK_IDENT) /* struct/enum tag */
-        v = tok, next();
+    ਜੇ (tok >= TOK_IDENT) /* struct/enum tag */
+        v = tok, ਅਗਲਾ();
 
     bt = ut = 0;
-    if (u == VT_ENUM) {
+    ਜੇ (u == VT_ENUM) {
         ut = VT_INT;
-        if (tok == ':') { /* C2x enum : <type> ... */
-            next();
-            if (!parse_btype(&btype, &ad1, 0)
+        ਜੇ (tok == ':') { /* C2x enum : <type> ... */
+            ਅਗਲਾ();
+            ਜੇ (!parse_btype(&btype, &ad1, 0)
              || !is_integer_btype(btype.t & VT_BTYPE))
                 expect("enum type");
             bt = ut = btype.t & (VT_BTYPE|VT_LONG|VT_UNSIGNED|VT_DEFSIGN);
         }
     }
 
-    if (v) {
+    ਜੇ (v) {
         /* struct already defined ? return it */
-        s = struct_find(v);
-        if (s && (s->sym_scope == local_scope || (tok != '{' && tok != ';'))) {
-            if (u == s->type.t)
-                goto do_decl;
-            if (u == VT_ENUM && IS_ENUM(s->type.t)) /* XXX: check integral types */
-                goto do_decl;
-            tcc_error("redeclaration of '%s'", get_tok_str(v, NULL));
+        s = struct_ਲੱਭੋ(v);
+        ਜੇ (s && (s->sym_scope == local_scope || (tok != '{' && tok != ';'))) {
+            ਜੇ (u == s->type.t)
+                ਜਾਓ do_decl;
+            ਜੇ (u == VT_ENUM && IS_ENUM(s->type.t)) /* XXX: check integral types */
+                ਜਾਓ do_decl;
+            tcc_error("redeclaration of '%s'", get_tok_str(v, ਨਿਰਾ));
         }
-    } else {
-        if (tok != '{')
+    } ਨਹੀਂਤਾਂ {
+        ਜੇ (tok != '{')
             expect("struct/union/enum name");
         v = anon_sym++;
     }
     /* Record the original enum/struct/union token.  */
     type1.t = u | ut;
-    type1.ref = NULL;
+    type1.ref = ਨਿਰਾ;
     /* we put an undefined size for struct/union */
-    s = sym_push(v | SYM_STRUCT, &type1, 0, bt ? 0 : -1);
+    s = sym_ਧੱਕੋ(v | SYM_STRUCT, &type1, 0, bt ? 0 : -1);
     s->r = 0; /* default alignment is zero as gcc */
 do_decl:
     type->t = s->type.t;
     type->ref = s;
 
-    if (tok == '{') {
-        next();
-        if (s->c != -1
+    ਜੇ (tok == '{') {
+        ਅਗਲਾ();
+        ਜੇ (s->c != -1
             && !(u == VT_ENUM && s->c == 0)) /* not yet defined typed enum */
             tcc_error("struct/union/enum already defined");
         s->c = -2;
         /* cannot be empty */
         /* non empty enums are not allowed */
-        ps = &s->next;
-        if (u == VT_ENUM) {
-            long long ll = 0, pl = 0, nl = 0;
+        ps = &s->ਅਗਲਾ;
+        ਜੇ (u == VT_ENUM) {
+            ਲੰਮਾ ਲੰਮਾ ll = 0, pl = 0, nl = 0;
 	    CType t;
             t.ref = s;
             s->sym_scope = local_scope; /* anonymous symbol won't have set */
             /* enum symbols have static storage */
             t.t = VT_INT|VT_STATIC|VT_ENUM_VAL;
-            if (bt)
+            ਜੇ (bt)
                 t.t = bt|VT_STATIC|VT_ENUM_VAL;
-            for(;;) {
+            ਲਈ(;;) {
                 v = tok;
-                if (v < TOK_UIDENT)
+                ਜੇ (v < TOK_UIDENT)
                     expect("identifier");
-                next();
-                if (tok == '=') {
-                    next();
-		    ll = expr_const64();
+                ਅਗਲਾ();
+                ਜੇ (tok == '=') {
+                    ਅਗਲਾ();
+		    ll = ਵਿਅੰਜਕ_const64();
                 }
-                if (bt && !in_range(ll, t.t))
+                ਜੇ (bt && !ਵਿੱਚ_range(ll, t.t))
 		    tcc_error("enumerator '%s' out of range of its type",
-			get_tok_str(v, NULL));
-                ss = sym_push(v, &t, VT_CONST, 0);
+			get_tok_str(v, ਨਿਰਾ));
+                ss = sym_ਧੱਕੋ(v, &t, VT_CONST, 0);
                 ss->enum_val = ll;
-                *ps = ss, ps = &ss->next;
-                if (ll < nl)
+                *ps = ss, ps = &ss->ਅਗਲਾ;
+                ਜੇ (ll < nl)
                     nl = ll;
-                if (ll > pl)
+                ਜੇ (ll > pl)
                     pl = ll;
-                if (tok != ',')
-                    break;
-                next();
+                ਜੇ (tok != ',')
+                    ਰੋਕੋ;
+                ਅਗਲਾ();
                 ll++;
                 /* NOTE: we accept a trailing comma */
-                if (tok == '}')
-                    break;
+                ਜੇ (tok == '}')
+                    ਰੋਕੋ;
             }
             skip('}');
 
-            if (bt) {
+            ਜੇ (bt) {
                 t.t = bt;
                 s->c = 2;
-                goto enum_done;
+                ਜਾਓ enum_ਪੂਰਾ;
             }
 
             /* set integral type of the enum */
             t.t = VT_INT;
-            if (nl >= 0) {
-                if (pl != (unsigned)pl)
-                    t.t = (LONG_SIZE==8 ? VT_LLONG|VT_LONG : VT_LLONG);
+            ਜੇ (nl >= 0) {
+                ਜੇ (pl != (ਬਿਨਾਨਿਸ਼ਾਨੀ)pl)
+                    t.t = (LONG_ਮਾਪ==8 ? VT_LLONG|VT_LONG : VT_LLONG);
                 t.t |= VT_UNSIGNED;
-            } else if (pl != (int)pl || nl != (int)nl)
-                t.t = (LONG_SIZE==8 ? VT_LLONG|VT_LONG : VT_LLONG);
+            } ਨਹੀਂਤਾਂ ਜੇ (pl != (ਪੂਰਨ)pl || nl != (ਪੂਰਨ)nl)
+                t.t = (LONG_ਮਾਪ==8 ? VT_LLONG|VT_LONG : VT_LLONG);
 
             /* set type for enum members */
-            for (ss = s->next; ss; ss = ss->next) {
+            ਲਈ (ss = s->ਅਗਲਾ; ss; ss = ss->ਅਗਲਾ) {
                 ll = ss->enum_val;
-                if (ll == (int)ll) /* default is int if it fits */
-                    continue;
-                if (t.t & VT_UNSIGNED) {
+                ਜੇ (ll == (ਪੂਰਨ)ll) /* default is int if it fits */
+                    ਜਾਰੀ;
+                ਜੇ (t.t & VT_UNSIGNED) {
                     ss->type.t |= VT_UNSIGNED;
-                    if (ll == (unsigned)ll)
-                        continue;
+                    ਜੇ (ll == (ਬਿਨਾਨਿਸ਼ਾਨੀ)ll)
+                        ਜਾਰੀ;
                 }
                 ss->type.t = (ss->type.t & ~VT_BTYPE)
-                    | (LONG_SIZE==8 ? VT_LLONG|VT_LONG : VT_LLONG);
+                    | (LONG_ਮਾਪ==8 ? VT_LLONG|VT_LONG : VT_LLONG);
             }
             s->c = 1;
-        enum_done:
+        enum_ਪੂਰਾ:
             s->type.t = type->t = t.t | VT_ENUM;
 
-        } else {
+        } ਨਹੀਂਤਾਂ {
             c = 0;
             flexible = 0;
-            while (tok != '}') {
-                if (!parse_btype(&btype, &ad1, 0)) {
-                    if (tok == TOK_STATIC_ASSERT) {
+            ਜਦੋਂ (tok != '}') {
+                ਜੇ (!parse_btype(&btype, &ad1, 0)) {
+                    ਜੇ (tok == TOK_STATIC_ASSERT) {
                         do_Static_assert();
-                        continue;
+                        ਜਾਰੀ;
                     }
 		    skip(';');
-		    continue;
+		    ਜਾਰੀ;
 		}
-                while (1) {
-		    if (flexible)
+                ਜਦੋਂ (1) {
+		    ਜੇ (flexible)
 		        tcc_error("flexible array member '%s' not at the end of struct",
-                              get_tok_str(v, NULL));
-                    bit_size = -1;
+                              get_tok_str(v, ਨਿਰਾ));
+                    ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 = -1;
                     v = 0;
                     type1 = btype;
-                    if (tok != ':') {
-			if (tok != ';')
-                            type_decl(&type1, &ad1, &v, TYPE_DIRECT);
-                        if (v == 0) {
-                    	    if ((type1.t & VT_BTYPE) != VT_STRUCT)
+                    ਜੇ (tok != ':') {
+			ਜੇ (tok != ';')
+                            type_decl(&type1, &ad1, &v, TYPE_ਸਿੱਧਾ);
+                        ਜੇ (v == 0) {
+                    	    ਜੇ ((type1.t & VT_BTYPE) != VT_STRUCT)
                         	expect("identifier");
-                    	    else {
-				int v = btype.ref->v;
-				if ((v & ~SYM_STRUCT) < SYM_FIRST_ANOM) {
-				    if (tcc_state->ms_extensions == 0)
+                    	    ਨਹੀਂਤਾਂ {
+				ਪੂਰਨ v = btype.ref->v;
+				ਜੇ ((v & ~SYM_STRUCT) < SYM_ਪਹਿਲਾ_ANOM) {
+				    ਜੇ (tcc_state->ms_extensions == 0)
                         		expect("identifier");
 				}
                     	    }
                         }
-                        if (type_size(&type1, &align) < 0) {
-			    if ((u == VT_STRUCT) && (type1.t & VT_ARRAY) && c)
+                        ਜੇ (type_ਮਾਪ(&type1, &align) < 0) {
+			    ਜੇ ((u == VT_STRUCT) && (type1.t & VT_ARRAY) && c)
 			        flexible = 1;
-			    else
+			    ਨਹੀਂਤਾਂ
 			        tcc_error("field '%s' has incomplete type",
-                                      get_tok_str(v, NULL));
+                                      get_tok_str(v, ਨਿਰਾ));
                         }
-                        if ((type1.t & VT_BTYPE) == VT_FUNC ||
+                        ਜੇ ((type1.t & VT_BTYPE) == VT_FUNC ||
 			    (type1.t & VT_BTYPE) == VT_VOID ||
                             (type1.t & VT_STORAGE))
                             tcc_error("invalid type for '%s'", 
-                                  get_tok_str(v, NULL));
+                                  get_tok_str(v, ਨਿਰਾ));
                     }
-                    if (tok == ':') {
-                        next();
-                        bit_size = expr_const();
+                    ਜੇ (tok == ':') {
+                        ਅਗਲਾ();
+                        ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 = ਵਿਅੰਜਕ_const();
                         /* XXX: handle v = 0 case for messages */
-                        if (bit_size < 0)
+                        ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 < 0)
                             tcc_error("negative width in bit-field '%s'", 
-                                  get_tok_str(v, NULL));
-                        if (v && bit_size == 0)
+                                  get_tok_str(v, ਨਿਰਾ));
+                        ਜੇ (v && ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 == 0)
                             tcc_error("zero width for bit-field '%s'", 
-                                  get_tok_str(v, NULL));
+                                  get_tok_str(v, ਨਿਰਾ));
 			parse_attribute(&ad1);
                     }
-                    size = type_size(&type1, &align);
-                    if (bit_size >= 0) {
+                    ਮਾਪ = type_ਮਾਪ(&type1, &align);
+                    ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 >= 0) {
                         bt = type1.t & VT_BTYPE;
-                        if (bt != VT_INT && 
+                        ਜੇ (bt != VT_INT && 
                             bt != VT_BYTE && 
                             bt != VT_SHORT &&
                             bt != VT_BOOL &&
                             bt != VT_LLONG)
                             tcc_error("bitfields must have scalar type");
-                        bsize = size * 8;
-                        if (bit_size > bsize) {
+                        bsize = ਮਾਪ * 8;
+                        ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 > bsize) {
                             tcc_error("width of '%s' exceeds its type",
-                                  get_tok_str(v, NULL));
-                        } else if (bit_size == bsize
-				    && !*tcc_state->pack_stack_ptr
+                                  get_tok_str(v, ਨਿਰਾ));
+                        } ਨਹੀਂਤਾਂ ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 == bsize
+				    && !*tcc_state->pack_ਢੇਰ_ptr
                                     && !ad.a.packed && !ad1.a.packed) {
                             /* no need for bit fields */
                             ;
-                        } else if (bit_size == 64) {
+                        } ਨਹੀਂਤਾਂ ਜੇ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 == 64) {
                             tcc_error("field width 64 not implemented");
-                        } else {
-                            type1.t = (type1.t & ~VT_STRUCT_MASK)
+                        } ਨਹੀਂਤਾਂ {
+                            type1.t = (type1.t & ~VT_STRUCT_ਨਕਾਬ)
                                 | VT_BITFIELD
-                                | ((unsigned)bit_size << (VT_STRUCT_SHIFT + 6));
+                                | ((ਬਿਨਾਨਿਸ਼ਾਨੀ)ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 << (VT_STRUCT_ਖਿਸਕਾਓ + 6));
                         }
                     }
-                    if (v != 0 || (type1.t & VT_BTYPE) == VT_STRUCT) {
+                    ਜੇ (v != 0 || (type1.t & VT_BTYPE) == VT_STRUCT) {
                         /* Remember we've seen a real field to check
 			   for placement of flexible array member. */
 			c = 1;
                     }
 		    /* If member is a struct or bit-field, enforce
 		       placing into the struct (as anonymous).  */
-                    if (v == 0 &&
+                    ਜੇ (v == 0 &&
 			((type1.t & VT_BTYPE) == VT_STRUCT ||
-			 bit_size >= 0)) {
+			 ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 >= 0)) {
 		        v = anon_sym++;
 		    }
-                    if (v) {
-                        ss = sym_push(v | SYM_FIELD, &type1, 0, 0);
+                    ਜੇ (v) {
+                        ss = sym_ਧੱਕੋ(v | SYM_ਖੇਤਰ, &type1, 0, 0);
                         ss->a = ad1.a;
                         *ps = ss;
-                        ps = &ss->next;
+                        ps = &ss->ਅਗਲਾ;
                     }
-                    if (tok == ';' || tok == TOK_EOF)
-                        break;
+                    ਜੇ (tok == ';' || tok == TOK_EOF)
+                        ਰੋਕੋ;
                     skip(',');
                 }
                 skip(';');
             }
             skip('}');
 	    parse_attribute(&ad);
-            if (ad.cleanup_func) {
+            ਜੇ (ad.cleanup_func) {
                 tcc_warning("attribute '__cleanup__' ignored on type");
             }
 	    check_fields(type, 1);
 	    check_fields(type, 0);
             struct_layout(type, &ad);
         }
-        if (debug_modes)
+        ਜੇ (debug_modes)
             tcc_debug_fix_forw(tcc_state, type);
     }
 }
 
-static void sym_to_attr(AttributeDef *ad, Sym *s)
+ਸਥਿਰ ਖਾਲੀ sym_ਮੰਜ਼ਿਲ_attr(AttributeDef *ad, Sym *s)
 {
-    merge_symattr(&ad->a, &s->a);
-    merge_funcattr(&ad->f, &s->f);
+    ਮਿਲਾਓ_symattr(&ad->a, &s->a);
+    ਮਿਲਾਓ_funcattr(&ad->f, &s->f);
 }
 
 /* Add type qualifiers to a type. If the type is an array then the qualifiers
    are added to the element type, copied because it could be a typedef. */
-static void parse_btype_qualify(CType *type, int qualifiers)
+ਸਥਿਰ ਖਾਲੀ parse_btype_qualify(CType *type, ਪੂਰਨ qualifiers)
 {
-    while (type->t & VT_ARRAY) {
-        type->ref = sym_push(SYM_FIELD, &type->ref->type, 0, type->ref->c);
+    ਜਦੋਂ (type->t & VT_ARRAY) {
+        type->ref = sym_ਧੱਕੋ(SYM_ਖੇਤਰ, &type->ref->type, 0, type->ref->c);
         type = &type->ref->type;
     }
-    if (qualifiers & VT_RESTRICT)
+    ਜੇ (qualifiers & VT_RESTRICT)
         check_restrict_type(type);
     type->t |= qualifiers;
 }
@@ -4749,395 +4749,395 @@ static void parse_btype_qualify(CType *type, int qualifiers)
 /* return 0 if no type declaration. otherwise, return the basic type
    and skip it. 
  */
-static int parse_btype(CType *type, AttributeDef *ad, int ignore_label)
+ਸਥਿਰ ਪੂਰਨ parse_btype(CType *type, AttributeDef *ad, ਪੂਰਨ ignore_label)
 {
-    int t, u, bt, st, type_found, typespec_found, g, n;
+    ਪੂਰਨ t, u, bt, st, type_ਮਿਲਿਆ, typespec_ਮਿਲਿਆ, g, n;
     Sym *s;
     CType type1;
 
-    memset(ad, 0, sizeof(AttributeDef));
-    type_found = 0;
-    typespec_found = 0;
+    memset(ad, 0, ਆਕਾਰ(AttributeDef));
+    type_ਮਿਲਿਆ = 0;
+    typespec_ਮਿਲਿਆ = 0;
     t = VT_INT;
     bt = st = -1;
-    type->ref = NULL;
+    type->ref = ਨਿਰਾ;
 
-    while(1) {
-        switch(tok) {
-        case TOK_EXTENSION:
+    ਜਦੋਂ(1) {
+        ਚੋਣ(tok) {
+        ਹਾਲਤ TOK_EXTENSION:
             /* currently, we really ignore extension */
-            next();
-            continue;
+            ਅਗਲਾ();
+            ਜਾਰੀ;
 
             /* basic types */
-        case TOK_CHAR:
+        ਹਾਲਤ TOK_CHAR:
             u = VT_BYTE;
         basic_type:
-            next();
+            ਅਗਲਾ();
         basic_type1:
-            if (u == VT_SHORT || u == VT_LONG) {
-                if (st != -1 || (bt != -1 && bt != VT_INT))
+            ਜੇ (u == VT_SHORT || u == VT_LONG) {
+                ਜੇ (st != -1 || (bt != -1 && bt != VT_INT))
                     tmbt: tcc_error("too many basic types");
                 st = u;
-            } else {
-                if (bt != -1 || (st != -1 && u != VT_INT))
-                    goto tmbt;
-                if ((t & VT_DEFSIGN) && (u == VT_VOID || u > VT_LLONG))
-                    goto tmbt;
+            } ਨਹੀਂਤਾਂ {
+                ਜੇ (bt != -1 || (st != -1 && u != VT_INT))
+                    ਜਾਓ tmbt;
+                ਜੇ ((t & VT_DEFSIGN) && (u == VT_VOID || u > VT_LLONG))
+                    ਜਾਓ tmbt;
                 bt = u;
             }
-            if (u != VT_INT)
+            ਜੇ (u != VT_INT)
                 t = (t & ~(VT_BTYPE|VT_LONG)) | u;
-            typespec_found = 1;
-            break;
-        case TOK_VOID:
+            typespec_ਮਿਲਿਆ = 1;
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_VOID:
             u = VT_VOID;
-            goto basic_type;
-        case TOK_SHORT:
+            ਜਾਓ basic_type;
+        ਹਾਲਤ TOK_SHORT:
             u = VT_SHORT;
-            goto basic_type;
-        case TOK_INT:
+            ਜਾਓ basic_type;
+        ਹਾਲਤ TOK_INT:
             u = VT_INT;
-            goto basic_type;
-        case TOK_ALIGNAS:
-            { int n;
+            ਜਾਓ basic_type;
+        ਹਾਲਤ TOK_ALIGNAS:
+            { ਪੂਰਨ n;
               AttributeDef ad1;
-              next();
+              ਅਗਲਾ();
               skip('(');
-              memset(&ad1, 0, sizeof(AttributeDef));
-              if (parse_btype(&type1, &ad1, 0)) {
+              memset(&ad1, 0, ਆਕਾਰ(AttributeDef));
+              ਜੇ (parse_btype(&type1, &ad1, 0)) {
                   type_decl(&type1, &ad1, &n, TYPE_ABSTRACT);
-                  if (ad1.a.aligned)
+                  ਜੇ (ad1.a.aligned)
                     n = 1 << (ad1.a.aligned - 1);
-                  else
-                    type_size(&type1, &n);
-              } else {
-                  n = expr_const();
-                  if (n < 0 || (n & (n - 1)) != 0)
+                  ਨਹੀਂਤਾਂ
+                    type_ਮਾਪ(&type1, &n);
+              } ਨਹੀਂਤਾਂ {
+                  n = ਵਿਅੰਜਕ_const();
+                  ਜੇ (n < 0 || (n & (n - 1)) != 0)
                     tcc_error("alignment must be a positive power of two");
               }
               skip(')');
               ad->a.aligned = exact_log2p1(n);
             }
-            continue;
-        case TOK_LONG:
-            if ((t & VT_BTYPE) == VT_DOUBLE) {
+            ਜਾਰੀ;
+        ਹਾਲਤ TOK_LONG:
+            ਜੇ ((t & VT_BTYPE) == VT_DOUBLE) {
                 t = (t & ~(VT_BTYPE|VT_LONG)) | VT_LDOUBLE;
-            } else if ((t & (VT_BTYPE|VT_LONG)) == VT_LONG) {
+            } ਨਹੀਂਤਾਂ ਜੇ ((t & (VT_BTYPE|VT_LONG)) == VT_LONG) {
                 t = (t & ~(VT_BTYPE|VT_LONG)) | VT_LLONG;
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 u = VT_LONG;
-                goto basic_type;
+                ਜਾਓ basic_type;
             }
-            next();
-            break;
-        case TOK_BOOL:
+            ਅਗਲਾ();
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_BOOL:
             u = VT_BOOL;
-            goto basic_type;
-        case TOK_COMPLEX:
+            ਜਾਓ basic_type;
+        ਹਾਲਤ TOK_COMPLEX:
             tcc_error("_Complex is not yet supported");
-        case TOK_FLOAT:
+        ਹਾਲਤ TOK_FLOAT:
             u = VT_FLOAT;
-            goto basic_type;
-        case TOK_DOUBLE:
-            if ((t & (VT_BTYPE|VT_LONG)) == VT_LONG) {
+            ਜਾਓ basic_type;
+        ਹਾਲਤ TOK_DOUBLE:
+            ਜੇ ((t & (VT_BTYPE|VT_LONG)) == VT_LONG) {
                 t = (t & ~(VT_BTYPE|VT_LONG)) | VT_LDOUBLE;
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 u = VT_DOUBLE;
-                goto basic_type;
+                ਜਾਓ basic_type;
             }
-            next();
-            break;
-        case TOK_ENUM:
+            ਅਗਲਾ();
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ENUM:
             struct_decl(&type1, VT_ENUM);
         basic_type2:
             u = type1.t;
             type->ref = type1.ref;
-            goto basic_type1;
-        case TOK_STRUCT:
+            ਜਾਓ basic_type1;
+        ਹਾਲਤ TOK_STRUCT:
             struct_decl(&type1, VT_STRUCT);
-            goto basic_type2;
-        case TOK_UNION:
+            ਜਾਓ basic_type2;
+        ਹਾਲਤ TOK_UNION:
             struct_decl(&type1, VT_UNION);
-            goto basic_type2;
+            ਜਾਓ basic_type2;
 
             /* type modifiers */
-        case TOK__Atomic:
-            next();
+        ਹਾਲਤ TOK__Atomic:
+            ਅਗਲਾ();
             type->t = t;
             parse_btype_qualify(type, VT_ATOMIC);
             t = type->t;
-            if (tok == '(') {
-                parse_expr_type(&type1);
+            ਜੇ (tok == '(') {
+                parse_ਵਿਅੰਜਕ_type(&type1);
                 /* remove all storage modifiers except typedef */
                 type1.t &= ~(VT_STORAGE&~VT_TYPEDEF);
-                if (type1.ref)
-                    sym_to_attr(ad, type1.ref);
-                goto basic_type2;
+                ਜੇ (type1.ref)
+                    sym_ਮੰਜ਼ਿਲ_attr(ad, type1.ref);
+                ਜਾਓ basic_type2;
             }
-            break;
-        case TOK_CONST1:
-        case TOK_CONST2:
-        case TOK_CONST3:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_CONST1:
+        ਹਾਲਤ TOK_CONST2:
+        ਹਾਲਤ TOK_CONST3:
             type->t = t;
             parse_btype_qualify(type, VT_CONSTANT);
             t = type->t;
-            next();
-            break;
-        case TOK_VOLATILE1:
-        case TOK_VOLATILE2:
-        case TOK_VOLATILE3:
+            ਅਗਲਾ();
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_VOLATILE1:
+        ਹਾਲਤ TOK_VOLATILE2:
+        ਹਾਲਤ TOK_VOLATILE3:
             type->t = t;
             parse_btype_qualify(type, VT_VOLATILE);
             t = type->t;
-            next();
-            break;
-        case TOK_SIGNED1:
-        case TOK_SIGNED2:
-        case TOK_SIGNED3:
-            if ((t & (VT_DEFSIGN|VT_UNSIGNED)) == (VT_DEFSIGN|VT_UNSIGNED))
+            ਅਗਲਾ();
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_SIGNED1:
+        ਹਾਲਤ TOK_SIGNED2:
+        ਹਾਲਤ TOK_SIGNED3:
+            ਜੇ ((t & (VT_DEFSIGN|VT_UNSIGNED)) == (VT_DEFSIGN|VT_UNSIGNED))
                 tcc_error("signed and unsigned modifier");
             t |= VT_DEFSIGN;
-            next();
-            typespec_found = 1;
-            break;
-        case TOK_RESTRICT1:
-        case TOK_RESTRICT2:
-        case TOK_RESTRICT3:
+            ਅਗਲਾ();
+            typespec_ਮਿਲਿਆ = 1;
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_RESTRICT1:
+        ਹਾਲਤ TOK_RESTRICT2:
+        ਹਾਲਤ TOK_RESTRICT3:
             t |= VT_RESTRICT;
-            next();
-            break;
-        case TOK_REGISTER:
-        case TOK_AUTO:
-            next();
-            break;
-        case TOK_UNSIGNED:
-            if ((t & (VT_DEFSIGN|VT_UNSIGNED)) == VT_DEFSIGN)
+            ਅਗਲਾ();
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_ਰਜਿਸਟਰ:
+        ਹਾਲਤ TOK_AUTO:
+            ਅਗਲਾ();
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_UNSIGNED:
+            ਜੇ ((t & (VT_DEFSIGN|VT_UNSIGNED)) == VT_DEFSIGN)
                 tcc_error("signed and unsigned modifier");
             t |= VT_DEFSIGN | VT_UNSIGNED;
-            next();
-            typespec_found = 1;
-            break;
+            ਅਗਲਾ();
+            typespec_ਮਿਲਿਆ = 1;
+            ਰੋਕੋ;
 
             /* storage */
-        case TOK_EXTERN:
+        ਹਾਲਤ TOK_EXTERN:
             g = VT_EXTERN;
-            goto storage;
-        case TOK_STATIC:
+            ਜਾਓ storage;
+        ਹਾਲਤ TOK_STATIC:
             g = VT_STATIC;
-            goto storage;
-        case TOK_TYPEDEF:
+            ਜਾਓ storage;
+        ਹਾਲਤ TOK_TYPEDEF:
             g = VT_TYPEDEF;
-            goto storage;
+            ਜਾਓ storage;
        storage:
-            if (t & (VT_EXTERN|VT_STATIC|VT_TYPEDEF) & ~g)
+            ਜੇ (t & (VT_EXTERN|VT_STATIC|VT_TYPEDEF) & ~g)
                 tcc_error("multiple storage classes");
             t |= g;
-            next();
-            break;
-        case TOK_INLINE1:
-        case TOK_INLINE2:
-        case TOK_INLINE3:
+            ਅਗਲਾ();
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_INLINE1:
+        ਹਾਲਤ TOK_INLINE2:
+        ਹਾਲਤ TOK_INLINE3:
             t |= VT_INLINE;
-            next();
-            break;
-        case TOK_NORETURN3:
-            next();
+            ਅਗਲਾ();
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_NORETURN3:
+            ਅਗਲਾ();
             ad->f.func_noreturn = 1;
-            break;
+            ਰੋਕੋ;
             /* GNUC attribute */
-        case TOK_ATTRIBUTE1:
-        case TOK_ATTRIBUTE2:
+        ਹਾਲਤ TOK_ATTRIBUTE1:
+        ਹਾਲਤ TOK_ATTRIBUTE2:
             parse_attribute(ad);
-            if (ad->attr_mode) {
-                u = ad->attr_mode -1;
+            ਜੇ (ad->attr_ਬਹੁਲਕ) {
+                u = ad->attr_ਬਹੁਲਕ -1;
                 t = (t & ~(VT_BTYPE|VT_LONG)) | u;
             }
-            continue;
+            ਜਾਰੀ;
             /* GNUC typeof */
-        case TOK_TYPEOF1:
-        case TOK_TYPEOF2:
-        case TOK_TYPEOF3:
-            next();
-            parse_expr_type(&type1);
+        ਹਾਲਤ TOK_TYPEOF1:
+        ਹਾਲਤ TOK_TYPEOF2:
+        ਹਾਲਤ TOK_TYPEOF3:
+            ਅਗਲਾ();
+            parse_ਵਿਅੰਜਕ_type(&type1);
             /* remove all storage modifiers except typedef */
             type1.t &= ~(VT_STORAGE&~VT_TYPEDEF);
-            if (type1.ref) {
-                sym_to_attr(ad, type1.ref);
-                if (type1.t & VT_ARRAY)
+            ਜੇ (type1.ref) {
+                sym_ਮੰਜ਼ਿਲ_attr(ad, type1.ref);
+                ਜੇ (type1.t & VT_ARRAY)
                     type1.t |= VT_BT_ARRAY;
             }
-            goto basic_type2;
-        case TOK_THREAD_LOCAL:
-        case TOK___thread:
-            if (t & VT_TLS)
+            ਜਾਓ basic_type2;
+        ਹਾਲਤ TOK_THREAD_LOCAL:
+        ਹਾਲਤ TOK___thread:
+            ਜੇ (t & VT_TLS)
                 tcc_error("multiple thread-local storage specifiers");
             t |= VT_TLS;
-            next();
-            break;
-        default:
-            if (typespec_found)
-                goto the_end;
-            s = sym_find(tok);
-            if (!s || !(s->type.t & VT_TYPEDEF))
-                goto the_end;
+            ਅਗਲਾ();
+            ਰੋਕੋ;
+        ਮੂਲ:
+            ਜੇ (typespec_ਮਿਲਿਆ)
+                ਜਾਓ the_ਸਿਰਾ;
+            s = sym_ਲੱਭੋ(tok);
+            ਜੇ (!s || !(s->type.t & VT_TYPEDEF))
+                ਜਾਓ the_ਸਿਰਾ;
 
-            n = tok, next();
-            if (tok == ':' && ignore_label) {
+            n = tok, ਅਗਲਾ();
+            ਜੇ (tok == ':' && ignore_label) {
                 /* ignore if it's a label */
                 unget_tok(n);
-                goto the_end;
+                ਜਾਓ the_ਸਿਰਾ;
             }
 
             t &= ~(VT_BTYPE|VT_LONG);
             u = t & ~VT_QUAL, t ^= u;
             type->t = (s->type.t & ~VT_TYPEDEF) | u;
             type->ref = s->type.ref;
-            if (t)
+            ਜੇ (t)
                 parse_btype_qualify(type, t);
             t = type->t;
-            if (t & VT_ARRAY)
+            ਜੇ (t & VT_ARRAY)
                 t |= VT_BT_ARRAY;
             /* get attributes from typedef */
-            sym_to_attr(ad, s);
-            typespec_found = 1;
+            sym_ਮੰਜ਼ਿਲ_attr(ad, s);
+            typespec_ਮਿਲਿਆ = 1;
             st = bt = -2;
-            break;
+            ਰੋਕੋ;
         }
-        type_found = 1;
+        type_ਮਿਲਿਆ = 1;
     }
-the_end:
-    if (tcc_state->char_is_unsigned) {
-        if ((t & (VT_DEFSIGN|VT_BTYPE)) == VT_BYTE)
+the_ਸਿਰਾ:
+    ਜੇ (tcc_state->char_is_unsigned) {
+        ਜੇ ((t & (VT_DEFSIGN|VT_BTYPE)) == VT_BYTE)
             t |= VT_UNSIGNED;
     }
     /* VT_LONG is used just as a modifier for VT_INT / VT_LLONG */
     bt = t & (VT_BTYPE|VT_LONG);
-    if (bt == VT_LONG)
-        t |= LONG_SIZE == 8 ? VT_LLONG : VT_INT;
-#ifdef TCC_USING_DOUBLE_FOR_LDOUBLE
-    if (bt == VT_LDOUBLE)
+    ਜੇ (bt == VT_LONG)
+        t |= LONG_ਮਾਪ == 8 ? VT_LLONG : VT_INT;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_USING_DOUBLE_FOR_LDOUBLE
+    ਜੇ (bt == VT_LDOUBLE)
         t = (t & ~(VT_BTYPE|VT_LONG)) | (VT_DOUBLE|VT_LONG);
-#endif
+#ਜੇ_ਅੰਤ
     type->t = t;
     check_restrict_type(type);
-    return type_found;
+    ਵਾਪਸ type_ਮਿਲਿਆ;
 }
 
 /* convert a function parameter type (array to pointer and function to
    function pointer) */
-static inline void convert_parameter_type(CType *pt)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ convert_parameter_type(CType *pt)
 {
     /* array must be transformed to pointer according to ANSI C */
     pt->t &= ~(VT_ARRAY | VT_VLA);
-    if ((pt->t & VT_BTYPE) == VT_FUNC) {
-        mk_pointer(pt);
+    ਜੇ ((pt->t & VT_BTYPE) == VT_FUNC) {
+        mk_ਸੂਚਕ(pt);
     }
 }
 
 /* apply the conversions required for an expression value */
-static inline void convert_expression_type(CType *pt)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ convert_ਵਿਅੰਜਕ_type(CType *pt)
 {
     pt->t &= ~VT_QUAL;
     convert_parameter_type(pt);
 }
 
-ST_FUNC CString* parse_asm_str(void)
+ST_FUNC CString* parse_asm_str(ਖਾਲੀ)
 {
     skip('(');
-    return parse_mult_str("string constant");
+    ਵਾਪਸ parse_mult_str("string constant");
 }
 
 /* Parse an asm label and return the token */
-static int asm_label_instr(void)
+ਸਥਿਰ ਪੂਰਨ asm_label_instr(ਖਾਲੀ)
 {
-    int v;
-    char *astr;
+    ਪੂਰਨ v;
+    ਅੱਖਰ *astr;
 
-    next();
-    astr = parse_asm_str()->data;
+    ਅਗਲਾ();
+    astr = parse_asm_str()->ਅੰਕੜੇ;
     skip(')');
-#ifdef ASM_DEBUG
-    printf("asm_alias: \"%s\"\n", astr);
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ ASM_DEBUG
+    ਲਿਖੋ("asm_alias: \"%s\"\n", astr);
+#ਜੇ_ਅੰਤ
     v = tok_alloc_const(astr);
-    return v;
+    ਵਾਪਸ v;
 }
 
-static int post_type(CType *type, AttributeDef *ad, int storage, int td)
+ਸਥਿਰ ਪੂਰਨ post_type(CType *type, AttributeDef *ad, ਪੂਰਨ storage, ਪੂਰਨ td)
 {
-    int n, l, t1, arg_size, align;
-    Sym **plast, *s, *first, **ps, *sr;
+    ਪੂਰਨ n, l, t1, arg_ਮਾਪ, align;
+    Sym **plast, *s, *ਪਹਿਲਾ, **ps, *sr;
     AttributeDef ad1;
     CType pt;
-    TokenString *vla_array_tok = NULL;
-    int *vla_array_str = NULL;
+    TokenString *vla_array_tok = ਨਿਰਾ;
+    ਪੂਰਨ *vla_array_str = ਨਿਰਾ;
 
-    if (tok == '(') {
+    ਜੇ (tok == '(') {
         /* function type, or recursive declarator (return if so) */
-        next();
-	if (TYPE_DIRECT == (td & (TYPE_DIRECT|TYPE_ABSTRACT)))
-	  return 0;
+        ਅਗਲਾ();
+	ਜੇ (TYPE_ਸਿੱਧਾ == (td & (TYPE_ਸਿੱਧਾ|TYPE_ABSTRACT)))
+	  ਵਾਪਸ 0;
 
         /* we push a anonymous symbol which will contain the function prototype */
         /* it also serves as a boundary for the function parameter scope */
-        ps = local_stack ? &local_stack : &global_stack;
+        ps = local_ਢੇਰ ? &local_ਢੇਰ : &global_ਢੇਰ;
         ++local_scope;
-        sr = sym_push2(ps, SYM_FIELD, 0, 0);
+        sr = sym_push2(ps, SYM_ਖੇਤਰ, 0, 0);
 
-	if (tok == ')')
+	ਜੇ (tok == ')')
 	  l = 0;
-	else if (parse_btype(&pt, &ad1, 0))
+	ਨਹੀਂਤਾਂ ਜੇ (parse_btype(&pt, &ad1, 0))
 	  l = FUNC_NEW;
-	else if (td & (TYPE_DIRECT|TYPE_ABSTRACT)) {
-            sym_pop(ps, sr->prev, 0);
+	ਨਹੀਂਤਾਂ ਜੇ (td & (TYPE_ਸਿੱਧਾ|TYPE_ABSTRACT)) {
+            sym_ਕੱਢੋ(ps, sr->prev, 0);
             --local_scope;
-	    merge_attr (ad, &ad1);
-	    return 0;
-	} else
+	    ਮਿਲਾਓ_attr (ad, &ad1);
+	    ਵਾਪਸ 0;
+	} ਨਹੀਂਤਾਂ
 	  l = FUNC_OLD;
 
-        first = NULL;
-        plast = &first;
-        arg_size = 0;
-        if (l) {
-            for(;;) {
+        ਪਹਿਲਾ = ਨਿਰਾ;
+        plast = &ਪਹਿਲਾ;
+        arg_ਮਾਪ = 0;
+        ਜੇ (l) {
+            ਲਈ(;;) {
                 /* read param name and compute offset */
-                if (l != FUNC_OLD) {
-                    if ((pt.t & VT_BTYPE) == VT_VOID && tok == ')')
-                        break;
-                    type_decl(&pt, &ad1, &n, TYPE_DIRECT | TYPE_ABSTRACT | TYPE_PARAM);
-                    if ((pt.t & VT_BTYPE) == VT_VOID)
+                ਜੇ (l != FUNC_OLD) {
+                    ਜੇ ((pt.t & VT_BTYPE) == VT_VOID && tok == ')')
+                        ਰੋਕੋ;
+                    type_decl(&pt, &ad1, &n, TYPE_ਸਿੱਧਾ | TYPE_ABSTRACT | TYPE_PARAM);
+                    ਜੇ ((pt.t & VT_BTYPE) == VT_VOID)
                         tcc_error("parameter declared as void");
-                    if (n == 0 || (td & TYPE_PARAM))
-                        n |= SYM_FIELD;
-                } else {
+                    ਜੇ (n == 0 || (td & TYPE_PARAM))
+                        n |= SYM_ਖੇਤਰ;
+                } ਨਹੀਂਤਾਂ {
                     n = tok;
                     pt.t = VT_INT | VT_EXTERN; /* default type */
-                    pt.ref = NULL;
-                    next();
+                    pt.ref = ਨਿਰਾ;
+                    ਅਗਲਾ();
                 }
-                if (n < TOK_UIDENT)
+                ਜੇ (n < TOK_UIDENT)
                     expect("identifier");
                 convert_parameter_type(&pt);
-                arg_size += (type_size(&pt, &align) + PTR_SIZE - 1) / PTR_SIZE;
+                arg_ਮਾਪ += (type_ਮਾਪ(&pt, &align) + PTR_ਮਾਪ - 1) / PTR_ਮਾਪ;
                 /* these symbols may be evaluated for VLArrays (see below, under
                    nocode_wanted) Example: int func(int a, int b[++a]); */
-                s = sym_push(n, &pt, VT_LOCAL|VT_LVAL, 0);
+                s = sym_ਧੱਕੋ(n, &pt, VT_LOCAL|VT_LVAL, 0);
                 *plast = s;
-                plast = &s->next;
-                if (tok == ')')
-                    break;
+                plast = &s->ਅਗਲਾ;
+                ਜੇ (tok == ')')
+                    ਰੋਕੋ;
                 skip(',');
-                if (l == FUNC_NEW && tok == TOK_DOTS) {
+                ਜੇ (l == FUNC_NEW && tok == TOK_DOTS) {
                     l = FUNC_ELLIPSIS;
-                    next();
-                    break;
+                    ਅਗਲਾ();
+                    ਰੋਕੋ;
                 }
-		if (l == FUNC_NEW && !parse_btype(&pt, &ad1, 0))
+		ਜੇ (l == FUNC_NEW && !parse_btype(&pt, &ad1, 0))
 		    tcc_error("invalid type");
             }
-        } else
+        } ਨਹੀਂਤਾਂ
             /* if no parameters, then old type prototype */
             l = FUNC_OLD;
         skip(')');
@@ -5147,74 +5147,74 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
         /* some ancient pre-K&R C allows a function to return an array
            and the array brackets to be put after the arguments, such 
            that "int c()[]" means something like "int[] c()" */
-        if (tok == '[') {
-            next();
+        ਜੇ (tok == '[') {
+            ਅਗਲਾ();
             skip(']'); /* only handle simple "[]" */
-            mk_pointer(type);
+            mk_ਸੂਚਕ(type);
         }
-        ad->f.func_args = arg_size;
+        ad->f.func_ਦਲੀਲਾਂ = arg_ਮਾਪ;
         ad->f.func_type = l;
         sr->type = *type, s = sr;
         s->a = ad->a;
         s->f = ad->f;
-        s->next = first;
+        s->ਅਗਲਾ = ਪਹਿਲਾ;
         type->t = VT_FUNC;
         type->ref = s;
         /* unlink parameter symbols from the token table, keep on stack */
-        sym_pop(ps, sr, 1);
+        sym_ਕੱਢੋ(ps, sr, 1);
         --local_scope;
 
-    } else if (tok == '[') {
-	int saved_nocode_wanted = nocode_wanted;
-        int array_qualifiers = 0;
+    } ਨਹੀਂਤਾਂ ਜੇ (tok == '[') {
+	ਪੂਰਨ saved_nocode_wanted = nocode_wanted;
+        ਪੂਰਨ array_qualifiers = 0;
         /* array definition */
-        next();
+        ਅਗਲਾ();
         n = -1;
         t1 = 0;
-        if (td & TYPE_PARAM) while (1) {
+        ਜੇ (td & TYPE_PARAM) ਜਦੋਂ (1) {
 	    /* XXX The optional type-quals and static should only be accepted
 	       in parameter decls.  The '*' as well, and then even only
 	       in prototypes (not function defs).  */
-	    switch (tok) {
-	    case TOK_CONST1: case TOK_CONST2: case TOK_CONST3:
+	    ਚੋਣ (tok) {
+	    ਹਾਲਤ TOK_CONST1: ਹਾਲਤ TOK_CONST2: ਹਾਲਤ TOK_CONST3:
 		array_qualifiers |= VT_CONSTANT;
-		next();
-		continue;
-	    case TOK_VOLATILE1: case TOK_VOLATILE2: case TOK_VOLATILE3:
+		ਅਗਲਾ();
+		ਜਾਰੀ;
+	    ਹਾਲਤ TOK_VOLATILE1: ਹਾਲਤ TOK_VOLATILE2: ਹਾਲਤ TOK_VOLATILE3:
 		array_qualifiers |= VT_VOLATILE;
-		next();
-		continue;
-	    case TOK_RESTRICT1: case TOK_RESTRICT2: case TOK_RESTRICT3:
+		ਅਗਲਾ();
+		ਜਾਰੀ;
+	    ਹਾਲਤ TOK_RESTRICT1: ਹਾਲਤ TOK_RESTRICT2: ਹਾਲਤ TOK_RESTRICT3:
 		array_qualifiers |= VT_RESTRICT;
-		next();
-		continue;
-	    case TOK_STATIC:
-	    case '*':
-		next();
-		continue;
-	    default:
-		break;
+		ਅਗਲਾ();
+		ਜਾਰੀ;
+	    ਹਾਲਤ TOK_STATIC:
+	    ਹਾਲਤ '*':
+		ਅਗਲਾ();
+		ਜਾਰੀ;
+	    ਮੂਲ:
+		ਰੋਕੋ;
 	    }
-            if (tok != ']') {
+            ਜੇ (tok != ']') {
 		/* Code generation is not done now but has to be done
 		   at start of function. Save code here for later use. */
 	        nocode_wanted = 1;
-		skip_or_save_block(&vla_array_tok);
+		skip_or_save_ਖੰਡ(&vla_array_tok);
 		unget_tok(0);
 		vla_array_str = vla_array_tok->str;
 		begin_macro(vla_array_tok, 2);
-		next();
+		ਅਗਲਾ();
 	        gexpr();
-		end_macro();
-		next();
-		goto check;
+		ਸਿਰਾ_macro();
+		ਅਗਲਾ();
+		ਜਾਓ check;
             }
-            break;
+            ਰੋਕੋ;
 
-	} else if (tok != ']') {
-            if (!local_stack || (storage & VT_STATIC))
-                vpushi(expr_const());
-            else {
+	} ਨਹੀਂਤਾਂ ਜੇ (tok != ']') {
+            ਜੇ (!local_ਢੇਰ || (storage & VT_STATIC))
+                vpushi(ਵਿਅੰਜਕ_const());
+            ਨਹੀਂਤਾਂ {
 		/* VLAs (which can only happen with local_stack && !VT_STATIC)
 		   length must always be evaluated, even under nocode_wanted,
 		   so that its size slot is initialized (e.g. under sizeof
@@ -5223,12 +5223,12 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
 		gexpr();
 	    }
 check:
-            if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+            ਜੇ ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
                 n = vtop->c.i;
-                if (n < 0)
+                ਜੇ (n < 0)
                     tcc_error("invalid array size");
-            } else {
-                if (!is_integer_btype(vtop->type.t & VT_BTYPE))
+            } ਨਹੀਂਤਾਂ {
+                ਜੇ (!is_integer_btype(vtop->type.t & VT_BTYPE))
                     tcc_error("size of variable length array should be an integer");
                 n = 0;
                 t1 = VT_VLA;
@@ -5236,53 +5236,53 @@ check:
         }
         skip(']');
         /* parse next post type */
-        post_type(type, ad, storage, (td & ~(TYPE_DIRECT|TYPE_ABSTRACT)) | TYPE_NEST);
+        post_type(type, ad, storage, (td & ~(TYPE_ਸਿੱਧਾ|TYPE_ABSTRACT)) | TYPE_NEST);
 
-        if ((type->t & VT_BTYPE) == VT_FUNC)
+        ਜੇ ((type->t & VT_BTYPE) == VT_FUNC)
             tcc_error("declaration of an array of functions");
-        if ((type->t & VT_BTYPE) == VT_VOID
-            || type_size(type, &align) < 0)
+        ਜੇ ((type->t & VT_BTYPE) == VT_VOID
+            || type_ਮਾਪ(type, &align) < 0)
             tcc_error("declaration of an array of incomplete type elements");
 
         t1 |= type->t & VT_VLA;
 
-        if (t1 & VT_VLA) {
-            if (n < 0) {
-		if  (td & TYPE_NEST)
+        ਜੇ (t1 & VT_VLA) {
+            ਜੇ (n < 0) {
+		ਜੇ  (td & TYPE_NEST)
                     tcc_error("need explicit inner array size in VLAs");
 	    }
-	    else {
-                loc -= type_size(&int_type, &align);
+	    ਨਹੀਂਤਾਂ {
+                loc -= type_ਮਾਪ(&int_type, &align);
                 loc &= -align;
                 n = loc;
 
-                vpush_type_size(type, &align);
+                vpush_type_ਮਾਪ(type, &align);
                 gen_op('*');
                 vset(&int_type, VT_LOCAL|VT_LVAL, n);
                 vswap();
                 vstore();
 	    }
         }
-        if (n != -1)
+        ਜੇ (n != -1)
             vpop();
 	nocode_wanted = saved_nocode_wanted;
                 
         /* we push an anonymous symbol which will contain the array
            element type */
-        s = sym_push(SYM_FIELD, type, 0, n);
+        s = sym_ਧੱਕੋ(SYM_ਖੇਤਰ, type, 0, n);
         type->t = (t1 ? VT_VLA : VT_ARRAY) | VT_PTR;
         type->ref = s;
         type->t |= array_qualifiers;
 
-        if (vla_array_str) {
+        ਜੇ (vla_array_str) {
             /* for function args, the top dimension is converted to pointer */
-	    if ((t1 & VT_VLA) && (td & TYPE_NEST))
+	    ਜੇ ((t1 & VT_VLA) && (td & TYPE_NEST))
 	        s->vla_array_str = vla_array_str;
-	    else
+	    ਨਹੀਂਤਾਂ
 	        tok_str_free_str(vla_array_str);
 	}
     }
-    return 1;
+    ਵਾਪਸ 1;
 }
 
 /* Parse a type declarator (except basic type), and return the type
@@ -5292,56 +5292,56 @@ check:
    type_decl().  If this (possibly abstract) declarator is a pointer chain
    it returns the innermost pointed to type (equals *type, but is a different
    pointer), otherwise returns type itself, that's used for recursive calls.  */
-static CType *type_decl(CType *type, AttributeDef *ad, int *v, int td)
+ਸਥਿਰ CType *type_decl(CType *type, AttributeDef *ad, ਪੂਰਨ *v, ਪੂਰਨ td)
 {
     CType *post, *ret;
-    int qualifiers, storage;
+    ਪੂਰਨ qualifiers, storage;
 
     /* recursive type, remove storage bits first, apply them later again */
     storage = type->t & VT_STORAGE;
     type->t &= ~VT_STORAGE;
     post = ret = type;
 
-    while (tok == '*') {
+    ਜਦੋਂ (tok == '*') {
         qualifiers = 0;
     redo:
-        next();
-        switch(tok) {
-        case TOK__Atomic:
+        ਅਗਲਾ();
+        ਚੋਣ(tok) {
+        ਹਾਲਤ TOK__Atomic:
             qualifiers |= VT_ATOMIC;
-            goto redo;
-        case TOK_CONST1:
-        case TOK_CONST2:
-        case TOK_CONST3:
+            ਜਾਓ redo;
+        ਹਾਲਤ TOK_CONST1:
+        ਹਾਲਤ TOK_CONST2:
+        ਹਾਲਤ TOK_CONST3:
             qualifiers |= VT_CONSTANT;
-            goto redo;
-        case TOK_VOLATILE1:
-        case TOK_VOLATILE2:
-        case TOK_VOLATILE3:
+            ਜਾਓ redo;
+        ਹਾਲਤ TOK_VOLATILE1:
+        ਹਾਲਤ TOK_VOLATILE2:
+        ਹਾਲਤ TOK_VOLATILE3:
             qualifiers |= VT_VOLATILE;
-            goto redo;
-        case TOK_RESTRICT1:
-        case TOK_RESTRICT2:
-        case TOK_RESTRICT3:
+            ਜਾਓ redo;
+        ਹਾਲਤ TOK_RESTRICT1:
+        ਹਾਲਤ TOK_RESTRICT2:
+        ਹਾਲਤ TOK_RESTRICT3:
             qualifiers |= VT_RESTRICT;
-            goto redo;
+            ਜਾਓ redo;
 	/* XXX: clarify attribute handling */
-	case TOK_ATTRIBUTE1:
-	case TOK_ATTRIBUTE2:
+	ਹਾਲਤ TOK_ATTRIBUTE1:
+	ਹਾਲਤ TOK_ATTRIBUTE2:
 	    parse_attribute(ad);
-	    break;
+	    ਰੋਕੋ;
         }
-        mk_pointer(type);
+        mk_ਸੂਚਕ(type);
         type->t |= qualifiers;
-	if (ret == type)
+	ਜੇ (ret == type)
 	    /* innermost pointed to type is the one for the first derivation */
 	    ret = pointed_type(type);
     }
 
-    if (tok == '(') {
+    ਜੇ (tok == '(') {
 	/* This is possibly a parameter type list for abstract declarators
 	   ('int ()'), use post_type for testing this.  */
-	if (!post_type(type, ad, 0, td)) {
+	ਜੇ (!post_type(type, ad, 0, td)) {
 	    /* It's not, so it's a nested declarator, and the post operations
 	       apply to the innermost pointed to type (if any).  */
 	    /* XXX: this is not correct to modify 'ad' at this point, but
@@ -5349,82 +5349,82 @@ static CType *type_decl(CType *type, AttributeDef *ad, int *v, int td)
 	    parse_attribute(ad);
 	    post = type_decl(type, ad, v, td);
 	    skip(')');
-	} else
-	  goto abstract;
-    } else if (tok >= TOK_IDENT && (td & TYPE_DIRECT)) {
+	} ਨਹੀਂਤਾਂ
+	  ਜਾਓ abstract;
+    } ਨਹੀਂਤਾਂ ਜੇ (tok >= TOK_IDENT && (td & TYPE_ਸਿੱਧਾ)) {
 	/* type identifier */
 	*v = tok;
-	next();
-    } else {
+	ਅਗਲਾ();
+    } ਨਹੀਂਤਾਂ {
   abstract:
-	if (!(td & TYPE_ABSTRACT))
+	ਜੇ (!(td & TYPE_ABSTRACT))
 	  expect("identifier");
 	*v = 0;
     }
     post_type(post, ad, post != ret ? 0 : storage,
-              td & ~(TYPE_DIRECT|TYPE_ABSTRACT));
+              td & ~(TYPE_ਸਿੱਧਾ|TYPE_ABSTRACT));
     check_restrict_type(type);
     parse_attribute(ad);
     type->t |= storage;
-    return ret;
+    ਵਾਪਸ ret;
 }
 
 /* indirection with full error checking and bound check */
-ST_FUNC void indir(void)
+ST_FUNC ਖਾਲੀ indir(ਖਾਲੀ)
 {
-    if ((vtop->type.t & VT_BTYPE) != VT_PTR) {
-        if ((vtop->type.t & VT_BTYPE) == VT_FUNC)
-            return;
+    ਜੇ ((vtop->type.t & VT_BTYPE) != VT_PTR) {
+        ਜੇ ((vtop->type.t & VT_BTYPE) == VT_FUNC)
+            ਵਾਪਸ;
         expect("pointer");
     }
-    if (vtop->r & VT_LVAL)
+    ਜੇ (vtop->r & VT_LVAL)
         gv(RC_INT);
     vtop->type = *pointed_type(&vtop->type);
     /* Arrays and functions are never lvalues */
-    if (!(vtop->type.t & (VT_ARRAY | VT_VLA))
+    ਜੇ (!(vtop->type.t & (VT_ARRAY | VT_VLA))
         && (vtop->type.t & VT_BTYPE) != VT_FUNC) {
         vtop->r |= VT_LVAL;
         /* if bound checking, the referenced pointer must be checked */
-#ifdef CONFIG_TCC_BCHECK
-        if (tcc_state->do_bounds_check)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
+        ਜੇ (tcc_state->do_bounds_check)
             vtop->r |= VT_MUSTBOUND;
-#endif
+#ਜੇ_ਅੰਤ
     }
 }
 
 /* pass a parameter to a function and do type checking and casting */
-static void gfunc_param_typed(Sym *func, Sym *arg)
+ਸਥਿਰ ਖਾਲੀ gfunc_param_typed(Sym *func, Sym *arg)
 {
-    int func_type;
+    ਪੂਰਨ func_type;
     CType type;
 
     func_type = func->f.func_type;
-    if (func_type == FUNC_OLD ||
-        (func_type == FUNC_ELLIPSIS && arg == NULL)) {
+    ਜੇ (func_type == FUNC_OLD ||
+        (func_type == FUNC_ELLIPSIS && arg == ਨਿਰਾ)) {
         /* default casting : only need to convert float to double */
-        if ((vtop->type.t & VT_BTYPE) == VT_FLOAT) {
+        ਜੇ ((vtop->type.t & VT_BTYPE) == VT_FLOAT) {
             gen_cast_s(VT_DOUBLE);
-        } else if (vtop->type.t & VT_BITFIELD) {
+        } ਨਹੀਂਤਾਂ ਜੇ (vtop->type.t & VT_BITFIELD) {
             type.t = vtop->type.t & (VT_BTYPE | VT_UNSIGNED);
 	    type.ref = vtop->type.ref;
             gen_cast(&type);
-        } else if (vtop->r & VT_MUSTCAST) {
+        } ਨਹੀਂਤਾਂ ਜੇ (vtop->r & VT_MUSTCAST) {
             force_charshort_cast();
         }
-    } else if (arg == NULL) {
+    } ਨਹੀਂਤਾਂ ਜੇ (arg == ਨਿਰਾ) {
         tcc_error("too many arguments to function");
-    } else {
+    } ਨਹੀਂਤਾਂ {
         type = arg->type;
         type.t &= ~VT_CONSTANT; /* need to do that to avoid false warning */
-        gen_assign_cast(&type);
+        gen_ਸੌਂਪੋ_cast(&type);
     }
 }
 
 /* parse an expression and return its type without any side effect. */
-static void expr_type(CType *type, void (*expr_fn)(void))
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_type(CType *type, ਖਾਲੀ (*ਵਿਅੰਜਕ_fn)(ਖਾਲੀ))
 {
     nocode_wanted++;
-    expr_fn();
+    ਵਿਅੰਜਕ_fn();
     *type = vtop->type;
     vpop();
     nocode_wanted--;
@@ -5432,89 +5432,89 @@ static void expr_type(CType *type, void (*expr_fn)(void))
 
 /* parse an expression of the form '(type)' or '(expr)' and return its
    type */
-static void parse_expr_type(CType *type)
+ਸਥਿਰ ਖਾਲੀ parse_ਵਿਅੰਜਕ_type(CType *type)
 {
-    int n;
+    ਪੂਰਨ n;
     AttributeDef ad;
 
     skip('(');
-    if (parse_btype(type, &ad, 0)) {
+    ਜੇ (parse_btype(type, &ad, 0)) {
         type_decl(type, &ad, &n, TYPE_ABSTRACT);
-    } else {
-        expr_type(type, gexpr);
+    } ਨਹੀਂਤਾਂ {
+        ਵਿਅੰਜਕ_type(type, gexpr);
     }
     skip(')');
 }
 
-static void parse_type(CType *type)
+ਸਥਿਰ ਖਾਲੀ parse_type(CType *type)
 {
     AttributeDef ad;
-    int n;
+    ਪੂਰਨ n;
 
-    if (!parse_btype(type, &ad, 0)) {
+    ਜੇ (!parse_btype(type, &ad, 0)) {
         expect("type");
     }
     type_decl(type, &ad, &n, TYPE_ABSTRACT);
 }
 
-static void parse_builtin_params(int nc, const char *args)
+ਸਥਿਰ ਖਾਲੀ parse_builtin_params(ਪੂਰਨ nc, ਅਚਲ ਅੱਖਰ *ਦਲੀਲਾਂ)
 {
-    char c, sep = '(';
+    ਅੱਖਰ c, sep = '(';
     CType type;
-    if (nc)
+    ਜੇ (nc)
         nocode_wanted++;
-    next();
-    if (*args == 0)
+    ਅਗਲਾ();
+    ਜੇ (*ਦਲੀਲਾਂ == 0)
 	skip(sep);
-    while ((c = *args++)) {
+    ਜਦੋਂ ((c = *ਦਲੀਲਾਂ++)) {
 	skip(sep);
 	sep = ',';
-        if (c == 't') {
+        ਜੇ (c == 't') {
             parse_type(&type);
 	    vpush(&type);
-	    continue;
+	    ਜਾਰੀ;
         }
-        expr_eq();
-        type.ref = NULL;
+        ਵਿਅੰਜਕ_eq();
+        type.ref = ਨਿਰਾ;
         type.t = 0;
-	switch (c) {
-	    case 'e':
-		continue;
-	    case 'V':
+	ਚੋਣ (c) {
+	    ਹਾਲਤ 'e':
+		ਜਾਰੀ;
+	    ਹਾਲਤ 'V':
                 type.t = VT_CONSTANT;
-	    case 'v':
+	    ਹਾਲਤ 'v':
                 type.t |= VT_VOID;
-                mk_pointer (&type);
-                break;
-	    case 'S':
+                mk_ਸੂਚਕ (&type);
+                ਰੋਕੋ;
+	    ਹਾਲਤ 'S':
                 type.t = VT_CONSTANT;
-	    case 's':
+	    ਹਾਲਤ 's':
                 type.t |= char_type.t;
-                mk_pointer (&type);
-                break;
-	    case 'i':
+                mk_ਸੂਚਕ (&type);
+                ਰੋਕੋ;
+	    ਹਾਲਤ 'i':
                 type.t = VT_INT;
-                break;
-	    case 'l':
-                type.t = VT_SIZE_T;
-                break;
-	    default:
-                break;
+                ਰੋਕੋ;
+	    ਹਾਲਤ 'l':
+                type.t = VT_ਮਾਪ_T;
+                ਰੋਕੋ;
+	    ਮੂਲ:
+                ਰੋਕੋ;
 	}
-        gen_assign_cast(&type);
+        gen_ਸੌਂਪੋ_cast(&type);
     }
     skip(')');
-    if (nc)
+    ਜੇ (nc)
         nocode_wanted--;
 }
 
-static void parse_atomic(int atok)
+ਸਥਿਰ ਖਾਲੀ parse_atomic(ਪੂਰਨ atok)
 {
-    int size, align, arg, t, save = 0;
+    ਪੂਰਨ ਮਾਪ, align, arg, t, save = 0;
     CType *atom, *atom_ptr, ct = {0};
     SValue store;
-    char buf[40];
-    static const char *const templates[] = {
+    ਅੱਖਰ buf[40];
+    ਸਥਿਰ ਅਚਲ ਅੱਖਰ *ਅਚਲ templates[] = {
         /*
          * Each entry consists of callback and function template.
          * The template represents argument types and return type.
@@ -5548,77 +5548,77 @@ static void parse_atomic(int atok)
         /* __atomic_and_fetch */        "avm.v",
         /* __atomic_nand_fetch */       "avm.v"
     };
-    const char *template = templates[(atok - TOK___atomic_store)];
+    ਅਚਲ ਅੱਖਰ *ਸਾਂਚਾ = templates[(atok - TOK___atomic_store)];
 
-    atom = atom_ptr = NULL;
-    size = 0; /* pacify compiler */
-    next();
+    atom = atom_ptr = ਨਿਰਾ;
+    ਮਾਪ = 0; /* pacify compiler */
+    ਅਗਲਾ();
     skip('(');
-    for (arg = 0;;) {
-        expr_eq();
-        switch (template[arg]) {
-        case 'a':
-        case 'A':
+    ਲਈ (arg = 0;;) {
+        ਵਿਅੰਜਕ_eq();
+        ਚੋਣ (ਸਾਂਚਾ[arg]) {
+        ਹਾਲਤ 'a':
+        ਹਾਲਤ 'A':
             atom_ptr = &vtop->type;
-            if ((atom_ptr->t & VT_BTYPE) != VT_PTR)
+            ਜੇ ((atom_ptr->t & VT_BTYPE) != VT_PTR)
                 expect("pointer");
             atom = pointed_type(atom_ptr);
-            size = type_size(atom, &align);
-            if (size > 8
-                || (size & (size - 1))
+            ਮਾਪ = type_ਮਾਪ(atom, &align);
+            ਜੇ (ਮਾਪ > 8
+                || (ਮਾਪ & (ਮਾਪ - 1))
                 || (atok > TOK___atomic_compare_exchange
-                    && (0 == btype_size(atom->t & VT_BTYPE)
+                    && (0 == btype_ਮਾਪ(atom->t & VT_BTYPE)
                         || (atom->t & VT_BTYPE) == VT_PTR)))
                 expect("integral or integer-sized pointer target type");
             /* GCC does not care either: */
             /* if (!(atom->t & VT_ATOMIC))
                 tcc_warning("pointer target declaration is missing '_Atomic'"); */
-            break;
+            ਰੋਕੋ;
 
-        case 'p':
-            if ((vtop->type.t & VT_BTYPE) != VT_PTR
-             || type_size(pointed_type(&vtop->type), &align) != size)
+        ਹਾਲਤ 'p':
+            ਜੇ ((vtop->type.t & VT_BTYPE) != VT_PTR
+             || type_ਮਾਪ(pointed_type(&vtop->type), &align) != ਮਾਪ)
                 tcc_error("pointer target type mismatch in argument %d", arg + 1);
-            gen_assign_cast(atom_ptr);
-            break;
-        case 'v':
-            gen_assign_cast(atom);
-            break;
-        case 'l':
+            gen_ਸੌਂਪੋ_cast(atom_ptr);
+            ਰੋਕੋ;
+        ਹਾਲਤ 'v':
+            gen_ਸੌਂਪੋ_cast(atom);
+            ਰੋਕੋ;
+        ਹਾਲਤ 'l':
             indir();
-            gen_assign_cast(atom);
-            break;
-        case 's':
+            gen_ਸੌਂਪੋ_cast(atom);
+            ਰੋਕੋ;
+        ਹਾਲਤ 's':
             save = 1;
             indir();
             store = *vtop;
             vpop();
-            break;
-        case 'm':
-            gen_assign_cast(&int_type);
-            break;
-        case 'b':
+            ਰੋਕੋ;
+        ਹਾਲਤ 'm':
+            gen_ਸੌਂਪੋ_cast(&int_type);
+            ਰੋਕੋ;
+        ਹਾਲਤ 'b':
             ct.t = VT_BOOL;
-            gen_assign_cast(&ct);
-            break;
+            gen_ਸੌਂਪੋ_cast(&ct);
+            ਰੋਕੋ;
         }
-        if ('.' == template[++arg])
-            break;
+        ਜੇ ('.' == ਸਾਂਚਾ[++arg])
+            ਰੋਕੋ;
         skip(',');
     }
     skip(')');
 
     ct.t = VT_VOID;
-    switch (template[arg + 1]) {
-    case 'b':
+    ਚੋਣ (ਸਾਂਚਾ[arg + 1]) {
+    ਹਾਲਤ 'b':
         ct.t = VT_BOOL;
-        break;
-    case 'v':
+        ਰੋਕੋ;
+    ਹਾਲਤ 'v':
         ct = *atom;
-        break;
+        ਰੋਕੋ;
     }
 
-    sprintf(buf, "%s_%d", get_tok_str(atok, 0), size);
+    sprintf(buf, "%s_%d", get_tok_str(atok, 0), ਮਾਪ);
     vpush_helper_func(tok_alloc_const(buf));
     vrott(arg - save + 1);
     gfunc_call(arg - save);
@@ -5626,15 +5626,15 @@ static void parse_atomic(int atok)
     vpush(&ct);
     PUT_R_RET(vtop, ct.t);
     t = ct.t & VT_BTYPE;
-    if (t == VT_BYTE || t == VT_SHORT || t == VT_BOOL) {
-#ifdef PROMOTE_RET
+    ਜੇ (t == VT_BYTE || t == VT_SHORT || t == VT_BOOL) {
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ PROMOTE_RET
         vtop->r |= BFVAL(VT_MUSTCAST, 1);
-#else
+#ਨਹੀਂਤਾਂ
         vtop->type.t = VT_INT;
-#endif
+#ਜੇ_ਅੰਤ
     }
     gen_cast(&ct);
-    if (save) {
+    ਜੇ (save) {
         vpush(&ct);
         *vtop = store;
         vswap();
@@ -5642,131 +5642,131 @@ static void parse_atomic(int atok)
     }
 }
 
-ST_FUNC void unary(void)
+ST_FUNC ਖਾਲੀ unary(ਖਾਲੀ)
 {
-    int n, t, align, size, r;
+    ਪੂਰਨ n, t, align, ਮਾਪ, r;
     CType type;
     Sym *s;
     AttributeDef ad;
 
     /* generate line number info */
-    if (debug_modes)
-        tcc_debug_line(tcc_state), tcc_tcov_check_line (tcc_state, 1);
+    ਜੇ (debug_modes)
+        tcc_debug_ਸਤਰ(tcc_state), tcc_tcov_check_ਸਤਰ (tcc_state, 1);
 
-    type.ref = NULL;
+    type.ref = ਨਿਰਾ;
     /* XXX: GCC 2.95.3 does not generate a table although it should be
        better here */
- tok_next:
-    switch(tok) {
-    case TOK_EXTENSION:
-        next();
-        goto tok_next;
-    case TOK_LCHAR:
-#ifdef TCC_TARGET_PE
+ tok_ਅਗਲਾ:
+    ਚੋਣ(tok) {
+    ਹਾਲਤ TOK_EXTENSION:
+        ਅਗਲਾ();
+        ਜਾਓ tok_ਅਗਲਾ;
+    ਹਾਲਤ TOK_LCHAR:
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
         t = VT_SHORT|VT_UNSIGNED;
-        goto push_tokc;
-#endif
-    case TOK_CINT:
-    case TOK_CCHAR: 
+        ਜਾਓ ਧੱਕੋ_tokc;
+#ਜੇ_ਅੰਤ
+    ਹਾਲਤ TOK_CINT:
+    ਹਾਲਤ TOK_CCHAR: 
 	t = VT_INT;
- push_tokc:
+ ਧੱਕੋ_tokc:
 	type.t = t;
 	vsetc(&type, VT_CONST, &tokc);
-        next();
-        break;
-    case TOK_CUINT:
+        ਅਗਲਾ();
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_CUINT:
         t = VT_INT | VT_UNSIGNED;
-        goto push_tokc;
-    case TOK_CLLONG:
+        ਜਾਓ ਧੱਕੋ_tokc;
+    ਹਾਲਤ TOK_CLLONG:
         t = VT_LLONG;
-	goto push_tokc;
-    case TOK_CULLONG:
+	ਜਾਓ ਧੱਕੋ_tokc;
+    ਹਾਲਤ TOK_CULLONG:
         t = VT_LLONG | VT_UNSIGNED;
-	goto push_tokc;
-    case TOK_CFLOAT:
+	ਜਾਓ ਧੱਕੋ_tokc;
+    ਹਾਲਤ TOK_CFLOAT:
         t = VT_FLOAT;
-	goto push_tokc;
-    case TOK_CDOUBLE:
+	ਜਾਓ ਧੱਕੋ_tokc;
+    ਹਾਲਤ TOK_CDOUBLE:
         t = VT_DOUBLE;
-	goto push_tokc;
-    case TOK_CLDOUBLE:
-#ifdef TCC_USING_DOUBLE_FOR_LDOUBLE
+	ਜਾਓ ਧੱਕੋ_tokc;
+    ਹਾਲਤ TOK_CLDOUBLE:
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_USING_DOUBLE_FOR_LDOUBLE
         t = VT_DOUBLE | VT_LONG;
         tokc.d = tokc.ld;
-#else
+#ਨਹੀਂਤਾਂ
         t = VT_LDOUBLE;
-#endif
-	goto push_tokc;
-    case TOK_CLONG:
-        t = (LONG_SIZE == 8 ? VT_LLONG : VT_INT) | VT_LONG;
-	goto push_tokc;
-    case TOK_CULONG:
-        t = (LONG_SIZE == 8 ? VT_LLONG : VT_INT) | VT_LONG | VT_UNSIGNED;
-	goto push_tokc;
-    case TOK___FUNCTION__:
-        if (!gnu_ext)
-            goto tok_identifier;
+#ਜੇ_ਅੰਤ
+	ਜਾਓ ਧੱਕੋ_tokc;
+    ਹਾਲਤ TOK_CLONG:
+        t = (LONG_ਮਾਪ == 8 ? VT_LLONG : VT_INT) | VT_LONG;
+	ਜਾਓ ਧੱਕੋ_tokc;
+    ਹਾਲਤ TOK_CULONG:
+        t = (LONG_ਮਾਪ == 8 ? VT_LLONG : VT_INT) | VT_LONG | VT_UNSIGNED;
+	ਜਾਓ ਧੱਕੋ_tokc;
+    ਹਾਲਤ TOK___FUNCTION__:
+        ਜੇ (!gnu_ext)
+            ਜਾਓ tok_identifier;
         /* fall thru */
-    case TOK___FUNC__:
+    ਹਾਲਤ TOK___FUNC__:
         tok = TOK_STR;
         cstr_reset(&tokcstr);
         cstr_cat(&tokcstr, funcname, 0);
-        tokc.str.size = tokcstr.size;
-        tokc.str.data = tokcstr.data;
-        goto case_TOK_STR;
-    case TOK_LSTR:
-#ifdef TCC_TARGET_PE
+        tokc.str.ਮਾਪ = tokcstr.ਮਾਪ;
+        tokc.str.ਅੰਕੜੇ = tokcstr.ਅੰਕੜੇ;
+        ਜਾਓ case_TOK_STR;
+    ਹਾਲਤ TOK_LSTR:
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
         t = VT_SHORT | VT_UNSIGNED;
-#else
+#ਨਹੀਂਤਾਂ
         t = VT_INT;
-#endif
-        goto str_init;
-    case TOK_STR:
+#ਜੇ_ਅੰਤ
+        ਜਾਓ str_init;
+    ਹਾਲਤ TOK_STR:
     case_TOK_STR:
         /* string parsing */
         t = char_type.t;
     str_init:
-        if (tcc_state->warn_write_strings & WARN_ON)
+        ਜੇ (tcc_state->warn_write_ਲੜੀਆਂ & WARN_ON)
             t |= VT_CONSTANT;
         type.t = t;
-        mk_pointer(&type);
+        mk_ਸੂਚਕ(&type);
         type.t |= VT_ARRAY;
-        memset(&ad, 0, sizeof(AttributeDef));
+        memset(&ad, 0, ਆਕਾਰ(AttributeDef));
         ad.section = rodata_section;
         decl_initializer_alloc(&type, &ad, VT_CONST, 2, 0, 0);
-        break;
-    case TOK_SOTYPE:
-    case '(':
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_SOTYPE:
+    ਹਾਲਤ '(':
         t = tok;
-        next();
+        ਅਗਲਾ();
         /* cast ? */
-        if (parse_btype(&type, &ad, 0)) {
+        ਜੇ (parse_btype(&type, &ad, 0)) {
             type_decl(&type, &ad, &n, TYPE_ABSTRACT);
             skip(')');
             /* check ISOC99 compound literal */
-            if (tok == '{') {
+            ਜੇ (tok == '{') {
                     /* data is allocated locally by default */
-                if (global_expr)
+                ਜੇ (global_ਵਿਅੰਜਕ)
                     r = VT_CONST;
-                else
+                ਨਹੀਂਤਾਂ
                     r = VT_LOCAL;
                 /* all except arrays are lvalues */
-                if (!(type.t & VT_ARRAY))
+                ਜੇ (!(type.t & VT_ARRAY))
                     r |= VT_LVAL;
-                memset(&ad, 0, sizeof(AttributeDef));
+                memset(&ad, 0, ਆਕਾਰ(AttributeDef));
                 decl_initializer_alloc(&type, &ad, r, 1, 0, 0);
-            } else if (t == TOK_SOTYPE) { /* from sizeof/alignof (...) */
+            } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_SOTYPE) { /* from sizeof/alignof (...) */
                 vpush(&type);
-                return;
-            } else {
+                ਵਾਪਸ;
+            } ਨਹੀਂਤਾਂ {
                 unary();
                 gen_cast(&type);
             }
-        } else if (tok == '{') {
-	    int saved_nocode_wanted = nocode_wanted;
-            if (CONST_WANTED && !NOEVAL_WANTED)
+        } ਨਹੀਂਤਾਂ ਜੇ (tok == '{') {
+	    ਪੂਰਨ saved_nocode_wanted = nocode_wanted;
+            ਜੇ (CONST_WANTED && !NOEVAL_WANTED)
                 expect("constant");
-            if (0 == local_scope)
+            ਜੇ (0 == local_scope)
                 tcc_error("statement expression outside of function");
             /* save all registers */
             save_regs(0);
@@ -5777,411 +5777,411 @@ ST_FUNC void unary(void)
 	       or loop heads) can be disabled again after the end of it. */
             /* default return value is (void) */
             vpushi(0), vtop->type.t = VT_VOID;
-            block(STMT_EXPR);
+            ਖੰਡ(STMT_ਵਿਅੰਜਕ);
             /* If the statement expr can be entered, then we retain the current
                nocode_wanted state (from e.g. a 'return 0;' in the stmt-expr).
                If it can't be entered then the state is that from before the
                statement expression.  */
-            if (saved_nocode_wanted)
+            ਜੇ (saved_nocode_wanted)
               nocode_wanted = saved_nocode_wanted;
             skip(')');
-        } else {
+        } ਨਹੀਂਤਾਂ {
             gexpr();
             skip(')');
         }
-        break;
-    case '*':
-        next();
+        ਰੋਕੋ;
+    ਹਾਲਤ '*':
+        ਅਗਲਾ();
         unary();
         indir();
-        break;
-    case '&':
-        next();
+        ਰੋਕੋ;
+    ਹਾਲਤ '&':
+        ਅਗਲਾ();
         unary();
         /* functions names must be treated as function pointers,
            except for unary '&' and sizeof. Since we consider that
            functions are not lvalues, we only have to handle it
            there and in function calls. */
         /* arrays can also be used although they are not lvalues */
-        if ((vtop->type.t & VT_BTYPE) != VT_FUNC &&
+        ਜੇ ((vtop->type.t & VT_BTYPE) != VT_FUNC &&
             !(vtop->type.t & (VT_ARRAY | VT_VLA)))
             test_lvalue();
-        if (vtop->sym)
+        ਜੇ (vtop->sym)
           vtop->sym->a.addrtaken = 1;
-        mk_pointer(&vtop->type);
+        mk_ਸੂਚਕ(&vtop->type);
         gaddrof();
-        break;
-    case '!':
-        next();
+        ਰੋਕੋ;
+    ਹਾਲਤ '!':
+        ਅਗਲਾ();
         unary();
         gen_test_zero(TOK_EQ);
-        break;
-    case '~':
-        next();
+        ਰੋਕੋ;
+    ਹਾਲਤ '~':
+        ਅਗਲਾ();
         unary();
         vpushi(-1);
         gen_op('^');
-        break;
-    case '+':
-        next();
+        ਰੋਕੋ;
+    ਹਾਲਤ '+':
+        ਅਗਲਾ();
         unary();
-        if ((vtop->type.t & VT_BTYPE) == VT_PTR)
+        ਜੇ ((vtop->type.t & VT_BTYPE) == VT_PTR)
             tcc_error("pointer not accepted for unary plus");
         /* In order to force cast, we add zero, except for floating point
 	   where we really need an noop (otherwise -0.0 will be transformed
 	   into +0.0).  */
-	if (!is_float(vtop->type.t)) {
+	ਜੇ (!is_float(vtop->type.t)) {
 	    vpushi(0);
 	    gen_op('+');
 	}
-        break;
-    case TOK_SIZEOF:
-    case TOK_ALIGNOF1:
-    case TOK_ALIGNOF2:
-    case TOK_ALIGNOF3:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_SIZEOF:
+    ਹਾਲਤ TOK_ALIGNOF1:
+    ਹਾਲਤ TOK_ALIGNOF2:
+    ਹਾਲਤ TOK_ALIGNOF3:
         t = tok;
-        next();
-        if (tok == '(')
+        ਅਗਲਾ();
+        ਜੇ (tok == '(')
             tok = TOK_SOTYPE;
-        expr_type(&type, unary);
-        if (t == TOK_SIZEOF) {
-            vpush_type_size(&type, &align);
-            gen_cast_s(VT_SIZE_T);
-        } else {
-            type_size(&type, &align);
-            s = NULL;
-            if (vtop[1].r & VT_SYM)
+        ਵਿਅੰਜਕ_type(&type, unary);
+        ਜੇ (t == TOK_SIZEOF) {
+            vpush_type_ਮਾਪ(&type, &align);
+            gen_cast_s(VT_ਮਾਪ_T);
+        } ਨਹੀਂਤਾਂ {
+            type_ਮਾਪ(&type, &align);
+            s = ਨਿਰਾ;
+            ਜੇ (vtop[1].r & VT_SYM)
                 s = vtop[1].sym; /* hack: accessing previous vtop */
-            if (s && s->a.aligned)
+            ਜੇ (s && s->a.aligned)
                 align = 1 << (s->a.aligned - 1);
             vpushs(align);
         }
-        break;
+        ਰੋਕੋ;
 
-    case TOK_builtin_expect:
+    ਹਾਲਤ TOK_builtin_expect:
 	/* __builtin_expect is a no-op for now */
 	parse_builtin_params(0, "ee");
 	vpop();
-        break;
-    case TOK_builtin_types_compatible_p:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_builtin_types_compatible_p:
 	parse_builtin_params(0, "tt");
 	n = compare_types(&vtop[-1].type, &vtop[0].type, 1);
 	vtop -= 2;
 	vpushi(n);
-        break;
-    case TOK_builtin_choose_expr:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_builtin_ਚੁਣੋ_ਵਿਅੰਜਕ:
 	{
 	    int64_t c;
-	    next();
+	    ਅਗਲਾ();
 	    skip('(');
-	    c = expr_const64();
+	    c = ਵਿਅੰਜਕ_const64();
 	    skip(',');
-	    if (!c) {
+	    ਜੇ (!c) {
 		nocode_wanted++;
 	    }
-	    expr_eq();
-	    if (!c) {
+	    ਵਿਅੰਜਕ_eq();
+	    ਜੇ (!c) {
 		vpop();
 		nocode_wanted--;
 	    }
 	    skip(',');
-	    if (c) {
+	    ਜੇ (c) {
 		nocode_wanted++;
 	    }
-	    expr_eq();
-	    if (c) {
+	    ਵਿਅੰਜਕ_eq();
+	    ਜੇ (c) {
 		vpop();
 		nocode_wanted--;
 	    }
 	    skip(')');
 	}
-        break;
-    case TOK_builtin_constant_p:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_builtin_constant_p:
 	parse_builtin_params(1, "e");
 	n = 1;
-	if ((vtop->r & (VT_VALMASK | VT_LVAL)) != VT_CONST
+	ਜੇ ((vtop->r & (VT_VALMASK | VT_LVAL)) != VT_CONST
 	    || ((vtop->r & VT_SYM) && vtop->sym->a.addrtaken)
 	    )
 	    n = 0;
 	vtop--;
 	vpushi(n);
-        break;
-    case TOK_builtin_unreachable:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_builtin_unreachable:
 	parse_builtin_params(0, ""); /* just skip '()' */
         type.t = VT_VOID;
         vpush(&type);
-        CODE_OFF();
-        break;
-    case TOK_builtin_frame_address:
-    case TOK_builtin_return_address:
+        ਕੋਡ_OFF();
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_builtin_ਚੌਖਟਾ_ਪਤਾ:
+    ਹਾਲਤ TOK_builtin_return_ਪਤਾ:
         {
-            int tok1 = tok;
-            int level;
-            next();
+            ਪੂਰਨ tok1 = tok;
+            ਪੂਰਨ level;
+            ਅਗਲਾ();
             skip('(');
-            level = expr_const();
-            if (level < 0)
+            level = ਵਿਅੰਜਕ_const();
+            ਜੇ (level < 0)
                 tcc_error("%s only takes positive integers", get_tok_str(tok1, 0));
             skip(')');
             type.t = VT_VOID;
-            mk_pointer(&type);
+            mk_ਸੂਚਕ(&type);
             vset(&type, VT_LOCAL, 0);       /* local frame */
-            while (level--) {
-#ifdef TCC_TARGET_RISCV64
-                vpushi(2*PTR_SIZE);
+            ਜਦੋਂ (level--) {
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_RISCV64
+                vpushi(2*PTR_ਮਾਪ);
                 gen_op('-');
-#endif
-                mk_pointer(&vtop->type);
+#ਜੇ_ਅੰਤ
+                mk_ਸੂਚਕ(&vtop->type);
                 indir();                    /* -> parent frame */
             }
-            if (tok1 == TOK_builtin_return_address) {
+            ਜੇ (tok1 == TOK_builtin_return_ਪਤਾ) {
                 // assume return address is just above frame pointer on stack
-#ifdef TCC_TARGET_ARM
-                vpushi(2*PTR_SIZE);
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_ARM
+                vpushi(2*PTR_ਮਾਪ);
                 gen_op('+');
-#elif defined TCC_TARGET_RISCV64
-                vpushi(PTR_SIZE);
+#ਜਾਂਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_RISCV64
+                vpushi(PTR_ਮਾਪ);
                 gen_op('-');
-#else
-                vpushi(PTR_SIZE);
+#ਨਹੀਂਤਾਂ
+                vpushi(PTR_ਮਾਪ);
                 gen_op('+');
-#endif
-                mk_pointer(&vtop->type);
+#ਜੇ_ਅੰਤ
+                mk_ਸੂਚਕ(&vtop->type);
                 indir();
             }
         }
-        break;
-#ifdef TCC_TARGET_RISCV64
-    case TOK_builtin_va_start:
+        ਰੋਕੋ;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_RISCV64
+    ਹਾਲਤ TOK_builtin_va_ਸ਼ੁਰੂ:
         parse_builtin_params(0, "ee");
         r = vtop->r & VT_VALMASK;
-        if (r == VT_LLOCAL)
+        ਜੇ (r == VT_LLOCAL)
             r = VT_LOCAL;
-        if (r != VT_LOCAL)
+        ਜੇ (r != VT_LOCAL)
             tcc_error("__builtin_va_start expects a local variable");
-        gen_va_start();
+        gen_va_ਸ਼ੁਰੂ();
 	vstore();
-        break;
-#endif
-#ifdef TCC_TARGET_X86_64
-#ifdef TCC_TARGET_PE
-    case TOK_builtin_va_start:
+        ਰੋਕੋ;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_X86_64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
+    ਹਾਲਤ TOK_builtin_va_ਸ਼ੁਰੂ:
 	parse_builtin_params(0, "ee");
         r = vtop->r & VT_VALMASK;
-        if (r == VT_LLOCAL)
+        ਜੇ (r == VT_LLOCAL)
             r = VT_LOCAL;
-        if (r != VT_LOCAL)
+        ਜੇ (r != VT_LOCAL)
             tcc_error("__builtin_va_start expects a local variable");
         vtop->r = r;
-	vtop->type = char_pointer_type;
+	vtop->type = char_ਸੂਚਕ_type;
 	vtop->c.i += 8;
 	vstore();
-        break;
-#else
-    case TOK_builtin_va_arg_types:
+        ਰੋਕੋ;
+#ਨਹੀਂਤਾਂ
+    ਹਾਲਤ TOK_builtin_va_arg_types:
 	parse_builtin_params(0, "t");
 	vpushi(classify_x86_64_va_arg(&vtop->type));
 	vswap();
 	vpop();
-	break;
-#endif
-#endif
+	ਰੋਕੋ;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifdef TCC_TARGET_ARM64
-    case TOK_builtin_va_start: {
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_ARM64
+    ਹਾਲਤ TOK_builtin_va_ਸ਼ੁਰੂ: {
 	parse_builtin_params(0, "ee");
         //xx check types
-        gen_va_start();
+        gen_va_ਸ਼ੁਰੂ();
         vpushi(0);
         vtop->type.t = VT_VOID;
-        break;
+        ਰੋਕੋ;
     }
-    case TOK_builtin_va_arg: {
+    ਹਾਲਤ TOK_builtin_va_arg: {
 	parse_builtin_params(0, "et");
 	type = vtop->type;
 	vpop();
         //xx check types
         gen_va_arg(&type);
         vtop->type = type;
-        break;
+        ਰੋਕੋ;
     }
-#endif
-#ifdef TCC_TARGET_ARM64
-    case TOK___arm64_clear_cache: {
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_ARM64
+    ਹਾਲਤ TOK___arm64_clear_cache: {
 	parse_builtin_params(0, "ee");
         gen_clear_cache();
         vpushi(0);
         vtop->type.t = VT_VOID;
-        break;
+        ਰੋਕੋ;
     }
-#endif
-#ifdef TCC_TARGET_RISCV64
-    case TOK___riscv64_clear_cache: {
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_RISCV64
+    ਹਾਲਤ TOK___riscv64_clear_cache: {
 	parse_builtin_params(0, "ee");
 	vpop();
 	vpop();
         gen_clear_cache();
         vpushi(0);
         vtop->type.t = VT_VOID;
-        break;
+        ਰੋਕੋ;
     }
-#endif
+#ਜੇ_ਅੰਤ
 
     /* atomic operations */
-    case TOK___atomic_store:
-    case TOK___atomic_load:
-    case TOK___atomic_exchange:
-    case TOK___atomic_compare_exchange:
-    case TOK___atomic_fetch_add:
-    case TOK___atomic_fetch_sub:
-    case TOK___atomic_fetch_or:
-    case TOK___atomic_fetch_xor:
-    case TOK___atomic_fetch_and:
-    case TOK___atomic_fetch_nand:
-    case TOK___atomic_add_fetch:
-    case TOK___atomic_sub_fetch:
-    case TOK___atomic_or_fetch:
-    case TOK___atomic_xor_fetch:
-    case TOK___atomic_and_fetch:
-    case TOK___atomic_nand_fetch:
+    ਹਾਲਤ TOK___atomic_store:
+    ਹਾਲਤ TOK_atomic_ਲੱਦੋ:
+    ਹਾਲਤ TOK___atomic_exchange:
+    ਹਾਲਤ TOK___atomic_compare_exchange:
+    ਹਾਲਤ TOK_atomic_fetch_ਜੋੜੋ:
+    ਹਾਲਤ TOK___atomic_fetch_sub:
+    ਹਾਲਤ TOK___atomic_fetch_or:
+    ਹਾਲਤ TOK___atomic_fetch_xor:
+    ਹਾਲਤ TOK___atomic_fetch_and:
+    ਹਾਲਤ TOK___atomic_fetch_nand:
+    ਹਾਲਤ TOK_atomic_ਜੋੜੋ_fetch:
+    ਹਾਲਤ TOK___atomic_sub_fetch:
+    ਹਾਲਤ TOK___atomic_or_fetch:
+    ਹਾਲਤ TOK___atomic_xor_fetch:
+    ਹਾਲਤ TOK___atomic_and_fetch:
+    ਹਾਲਤ TOK___atomic_nand_fetch:
         parse_atomic(tok);
-        break;
+        ਰੋਕੋ;
 
     /* pre operations */
-    case TOK_INC:
-    case TOK_DEC:
+    ਹਾਲਤ TOK_INC:
+    ਹਾਲਤ TOK_DEC:
         t = tok;
-        next();
+        ਅਗਲਾ();
         unary();
         inc(0, t);
-        break;
-    case '-':
-        next();
+        ਰੋਕੋ;
+    ਹਾਲਤ '-':
+        ਅਗਲਾ();
         unary();
-	if (is_float(vtop->type.t)) {
+	ਜੇ (is_float(vtop->type.t)) {
             gen_opif(TOK_NEG);
-	} else {
+	} ਨਹੀਂਤਾਂ {
             vpushi(0);
             vswap();
             gen_op('-');
         }
-        break;
-    case TOK_LAND:
-        if (!gnu_ext)
-            goto tok_identifier;
-        next();
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_LAND:
+        ਜੇ (!gnu_ext)
+            ਜਾਓ tok_identifier;
+        ਅਗਲਾ();
         /* allow to take the address of a label */
-        if (tok < TOK_UIDENT)
+        ਜੇ (tok < TOK_UIDENT)
             expect("label identifier");
-        s = label_find(tok);
-        if (!s) {
-            s = label_push(&global_label_stack, tok, LABEL_FORWARD);
-        } else {
-            if (s->r == LABEL_DECLARED)
+        s = label_ਲੱਭੋ(tok);
+        ਜੇ (!s) {
+            s = label_ਧੱਕੋ(&global_label_ਢੇਰ, tok, LABEL_FORWARD);
+        } ਨਹੀਂਤਾਂ {
+            ਜੇ (s->r == LABEL_DECLARED)
                 s->r = LABEL_FORWARD;
         }
-        if ((s->type.t & VT_BTYPE) != VT_PTR) {
+        ਜੇ ((s->type.t & VT_BTYPE) != VT_PTR) {
             s->type.t = VT_VOID;
-            mk_pointer(&s->type);
+            mk_ਸੂਚਕ(&s->type);
             s->type.t |= VT_STATIC;
         }
         vpushsym(&s->type, s);
-        next();
-        break;
+        ਅਗਲਾ();
+        ਰੋਕੋ;
 
-    case TOK_GENERIC:
+    ਹਾਲਤ TOK_GENERIC:
     {
 	CType controlling_type;
-	int has_default = 0;
-	int has_match = 0;
-	int learn = 0;
-	TokenString *str = NULL;
-	int saved_nocode_wanted = nocode_wanted;
-        nocode_wanted &= ~CONST_WANTED_MASK;
+	ਪੂਰਨ has_default = 0;
+	ਪੂਰਨ has_ਮੇਲ = 0;
+	ਪੂਰਨ learn = 0;
+	TokenString *str = ਨਿਰਾ;
+	ਪੂਰਨ saved_nocode_wanted = nocode_wanted;
+        nocode_wanted &= ~CONST_WANTED_ਨਕਾਬ;
 
-        next();
+        ਅਗਲਾ();
 	skip('(');
-	expr_type(&controlling_type, expr_eq);
-	convert_expression_type(&controlling_type);
+	ਵਿਅੰਜਕ_type(&controlling_type, ਵਿਅੰਜਕ_eq);
+	convert_ਵਿਅੰਜਕ_type(&controlling_type);
 
         nocode_wanted = saved_nocode_wanted;
 
-        for (;;) {
+        ਲਈ (;;) {
 	    learn = 0;
 	    skip(',');
-	    if (tok == TOK_DEFAULT) {
-		if (has_default)
+	    ਜੇ (tok == TOK_DEFAULT) {
+		ਜੇ (has_default)
 		    tcc_error("too many 'default'");
 		has_default = 1;
-		if (!has_match)
+		ਜੇ (!has_ਮੇਲ)
 		    learn = 1;
-		next();
-	    } else {
-		int v;
+		ਅਗਲਾ();
+	    } ਨਹੀਂਤਾਂ {
+		ਪੂਰਨ v;
 		parse_btype(&type, &ad, 0);
 		type_decl(&type, &ad, &v, TYPE_ABSTRACT);
-		if (compare_types(&controlling_type, &type, 0)) {
-		    if (has_match) {
+		ਜੇ (compare_types(&controlling_type, &type, 0)) {
+		    ਜੇ (has_ਮੇਲ) {
 		      tcc_error("type match twice");
 		    }
-		    has_match = 1;
+		    has_ਮੇਲ = 1;
 		    learn = 1;
 		}
 	    }
 	    skip(':');
-	    if (learn) {
-		if (str)
+	    ਜੇ (learn) {
+		ਜੇ (str)
 		    tok_str_free(str);
-		skip_or_save_block(&str);
-	    } else {
-		skip_or_save_block(NULL);
+		skip_or_save_ਖੰਡ(&str);
+	    } ਨਹੀਂਤਾਂ {
+		skip_or_save_ਖੰਡ(ਨਿਰਾ);
 	    }
-	    if (tok == ')')
-		break;
+	    ਜੇ (tok == ')')
+		ਰੋਕੋ;
 	}
-	if (!str) {
-	    char buf[60];
-	    type_to_str(buf, sizeof buf, &controlling_type, NULL);
+	ਜੇ (!str) {
+	    ਅੱਖਰ buf[60];
+	    type_ਮੰਜ਼ਿਲ_str(buf, ਆਕਾਰ buf, &controlling_type, ਨਿਰਾ);
 	    tcc_error("type '%s' does not match any association", buf);
 	}
 	begin_macro(str, 1);
-	next();
-	expr_eq();
-	if (tok != TOK_EOF)
+	ਅਗਲਾ();
+	ਵਿਅੰਜਕ_eq();
+	ਜੇ (tok != TOK_EOF)
 	    expect(",");
-	end_macro();
-        next();
-	break;
+	ਸਿਰਾ_macro();
+        ਅਗਲਾ();
+	ਰੋਕੋ;
     }
     // special qnan , snan and infinity values
-    case TOK___NAN__:
+    ਹਾਲਤ TOK___NAN__:
         n = 0x7fc00000;
 special_math_val:
 	vpushi(n);
 	vtop->type.t = VT_FLOAT;
-        next();
-        break;
-    case TOK___SNAN__:
+        ਅਗਲਾ();
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK___SNAN__:
 	n = 0x7f800001;
-	goto special_math_val;
-    case TOK___INF__:
+	ਜਾਓ special_math_val;
+    ਹਾਲਤ TOK___INF__:
 	n = 0x7f800000;
-	goto special_math_val;
+	ਜਾਓ special_math_val;
 
-    default:
+    ਮੂਲ:
     tok_identifier:
-        if (tok < TOK_UIDENT)
+        ਜੇ (tok < TOK_UIDENT)
             tcc_error("expression expected before '%s'", get_tok_str(tok, &tokc));
         t = tok;
-        next();
-        s = sym_find(t);
-        if (!s || IS_ASM_SYM(s)) {
-            const char *name = get_tok_str(t, NULL);
-            if (tok != '(')
+        ਅਗਲਾ();
+        s = sym_ਲੱਭੋ(t);
+        ਜੇ (!s || IS_ASM_SYM(s)) {
+            ਅਚਲ ਅੱਖਰ *name = get_tok_str(t, ਨਿਰਾ);
+            ਜੇ (tok != '(')
                 tcc_error("'%s' undeclared", name);
             /* for simple function calls, we tolerate undeclared
                external reference to int() function */
-            if (!func_old)
+            ਜੇ (!func_old)
             tcc_warning_c(warn_implicit_function_declaration)(
                 "implicit declaration of function '%s'", name);
             s = external_global_sym(t, &func_old_type);
@@ -6190,7 +6190,7 @@ special_math_val:
         r = s->r;
         /* A symbol that has a register is a local register variable,
            which starts out as VT_LOCAL value.  */
-        if ((r & VT_VALMASK) < VT_CONST)
+        ਜੇ ((r & VT_VALMASK) < VT_CONST)
             r = (r & ~VT_VALMASK) | VT_LOCAL;
 
         vset(&s->type, r, s->c);
@@ -6199,215 +6199,215 @@ special_math_val:
 	   regvars.  */
 	vtop->sym = s;
 
-        if (r & VT_SYM) {
+        ਜੇ (r & VT_SYM) {
             vtop->c.i = 0;
-#ifdef TCC_TARGET_PE
-            if (s->a.dllimport) {
-                mk_pointer(&vtop->type);
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
+            ਜੇ (s->a.dllimport) {
+                mk_ਸੂਚਕ(&vtop->type);
                 vtop->r |= VT_LVAL;
                 indir();
             }
-#endif
-        } else if (r == VT_CONST && IS_ENUM_VAL(s->type.t)) {
+#ਜੇ_ਅੰਤ
+        } ਨਹੀਂਤਾਂ ਜੇ (r == VT_CONST && IS_ENUM_VAL(s->type.t)) {
             vtop->c.i = s->enum_val;
         }
-        break;
+        ਰੋਕੋ;
     }
     
     /* post operations */
-    while (1) {
-        if (tok == TOK_INC || tok == TOK_DEC) {
+    ਜਦੋਂ (1) {
+        ਜੇ (tok == TOK_INC || tok == TOK_DEC) {
             inc(1, tok);
-            next();
-        } else if (tok == '.' || tok == TOK_ARROW) {
-            int qualifiers, cumofs;
-            /* field */ 
-            if (tok == TOK_ARROW) 
+            ਅਗਲਾ();
+        } ਨਹੀਂਤਾਂ ਜੇ (tok == '.' || tok == TOK_ARROW) {
+            ਪੂਰਨ qualifiers, cumofs;
+            /*ਖੇਤਰ*/ 
+            ਜੇ (tok == TOK_ARROW) 
                 indir();
             qualifiers = vtop->type.t & VT_QUAL;
             test_lvalue();
             /* expect pointer on structure */
-            next();
-	    s = find_field(&vtop->type, tok, &cumofs);
+            ਅਗਲਾ();
+	    s = ਲੱਭੋ_ਖੇਤਰ(&vtop->type, tok, &cumofs);
             /* add field offset to pointer */
             gaddrof();
-            vtop->type = char_pointer_type; /* change type to 'char *' */
+            vtop->type = char_ਸੂਚਕ_type; /* change type to 'char *' */
             vpushi(cumofs);
             gen_op('+');
             /* change type to field type, and set to lvalue */
             vtop->type = s->type;
-            if (qualifiers)
+            ਜੇ (qualifiers)
                 parse_btype_qualify(&vtop->type, qualifiers);
             /* an array is never an lvalue */
-            if (!(vtop->type.t & VT_ARRAY)) {
+            ਜੇ (!(vtop->type.t & VT_ARRAY)) {
                 vtop->r |= VT_LVAL;
-#ifdef CONFIG_TCC_BCHECK
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
                 /* if bound checking, the referenced pointer must be checked */
-                if (tcc_state->do_bounds_check)
+                ਜੇ (tcc_state->do_bounds_check)
                     vtop->r |= VT_MUSTBOUND;
-#endif
+#ਜੇ_ਅੰਤ
             }
-            next();
-        } else if (tok == '[') {
-            next();
+            ਅਗਲਾ();
+        } ਨਹੀਂਤਾਂ ਜੇ (tok == '[') {
+            ਅਗਲਾ();
             gexpr();
             gen_op('+');
             indir();
             skip(']');
-        } else if (tok == '(') {
+        } ਨਹੀਂਤਾਂ ਜੇ (tok == '(') {
             SValue ret;
             Sym *sa;
-            int nb_args, ret_nregs, ret_align, regsize, variadic;
+            ਪੂਰਨ nb_ਦਲੀਲਾਂ, ret_nregs, ret_align, regsize, variadic;
             TokenString *p, *p2;
 
             /* function call  */
-            if ((vtop->type.t & VT_BTYPE) != VT_FUNC) {
+            ਜੇ ((vtop->type.t & VT_BTYPE) != VT_FUNC) {
                 /* pointer test (no array accepted) */
-                if ((vtop->type.t & (VT_BTYPE | VT_ARRAY)) == VT_PTR) {
+                ਜੇ ((vtop->type.t & (VT_BTYPE | VT_ARRAY)) == VT_PTR) {
                     vtop->type = *pointed_type(&vtop->type);
-                    if ((vtop->type.t & VT_BTYPE) != VT_FUNC)
-                        goto error_func;
-                } else {
+                    ਜੇ ((vtop->type.t & VT_BTYPE) != VT_FUNC)
+                        ਜਾਓ error_func;
+                } ਨਹੀਂਤਾਂ {
                 error_func:
                     expect("function pointer");
                 }
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 vtop->r &= ~VT_LVAL; /* no lvalue */
             }
             /* get return type */
             s = vtop->type.ref;
-            next();
-            sa = s->next; /* first parameter */
-            nb_args = regsize = 0;
+            ਅਗਲਾ();
+            sa = s->ਅਗਲਾ; /* first parameter */
+            nb_ਦਲੀਲਾਂ = regsize = 0;
             ret.r2 = VT_CONST;
             /* compute first implicit argument if a structure is returned */
-            if ((s->type.t & VT_BTYPE) == VT_STRUCT) {
+            ਜੇ ((s->type.t & VT_BTYPE) == VT_STRUCT) {
                 variadic = (s->f.func_type == FUNC_ELLIPSIS);
                 ret_nregs = gfunc_sret(&s->type, variadic, &ret.type,
                                        &ret_align, &regsize);
-                if (ret_nregs <= 0) {
+                ਜੇ (ret_nregs <= 0) {
                     /* get some space for the returned structure */
-                    size = type_size(&s->type, &align);
-#ifdef TCC_TARGET_ARM64
+                    ਮਾਪ = type_ਮਾਪ(&s->type, &align);
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_ARM64
                 /* On arm64, a small struct is return in registers.
                    It is much easier to write it to memory if we know
                    that we are allowed to write some extra bytes, so
                    round the allocated space up to a power of 2: */
-                if (size < 16)
-                    while (size & (size - 1))
-                        size = (size | (size - 1)) + 1;
-#endif
-                    loc = (loc - size) & -align;
+                ਜੇ (ਮਾਪ < 16)
+                    ਜਦੋਂ (ਮਾਪ & (ਮਾਪ - 1))
+                        ਮਾਪ = (ਮਾਪ | (ਮਾਪ - 1)) + 1;
+#ਜੇ_ਅੰਤ
+                    loc = (loc - ਮਾਪ) & -align;
                     ret.type = s->type;
                     ret.r = VT_LOCAL | VT_LVAL;
                     /* pass it as 'int' to avoid structure arg passing
                        problems */
                     vseti(VT_LOCAL, loc);
-#ifdef CONFIG_TCC_BCHECK
-                    if (tcc_state->do_bounds_check)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
+                    ਜੇ (tcc_state->do_bounds_check)
                         --loc;
-#endif
+#ਜੇ_ਅੰਤ
                     ret.c = vtop->c;
-                    if (ret_nregs < 0)
+                    ਜੇ (ret_nregs < 0)
                       vtop--;
-                    else
-                      nb_args++;
+                    ਨਹੀਂਤਾਂ
+                      nb_ਦਲੀਲਾਂ++;
                 }
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 ret_nregs = 1;
                 ret.type = s->type;
             }
 
-            if (ret_nregs > 0) {
+            ਜੇ (ret_nregs > 0) {
                 /* return in register */
                 ret.c.i = 0;
                 PUT_R_RET(&ret, ret.type.t);
             }
 
-            p = NULL;
-            if (tok != ')') {
-                r = tcc_state->reverse_funcargs;
-                for(;;) {
-                    if (r) {
-                        skip_or_save_block(&p2);
+            p = ਨਿਰਾ;
+            ਜੇ (tok != ')') {
+                r = tcc_state->ਉਲਟ_funcargs;
+                ਲਈ(;;) {
+                    ਜੇ (r) {
+                        skip_or_save_ਖੰਡ(&p2);
                         p2->prev = p, p = p2;
-                    } else {
-                        expr_eq();
+                    } ਨਹੀਂਤਾਂ {
+                        ਵਿਅੰਜਕ_eq();
                         gfunc_param_typed(s, sa);
                     }
-                    nb_args++;
-                    if (sa)
-                        sa = sa->next;
-                    if (tok == ')')
-                        break;
+                    nb_ਦਲੀਲਾਂ++;
+                    ਜੇ (sa)
+                        sa = sa->ਅਗਲਾ;
+                    ਜੇ (tok == ')')
+                        ਰੋਕੋ;
                     skip(',');
                 }
             }
-            if (sa)
+            ਜੇ (sa)
                 tcc_error("too few arguments to function");
 
-            if (p) { /* with reverse_funcargs */
-                for (n = 0; p; p = p2, ++n) {
+            ਜੇ (p) { /* with reverse_funcargs */
+                ਲਈ (n = 0; p; p = p2, ++n) {
                     p2 = p, sa = s;
-                    do {
-                        sa = sa->next, p2 = p2->prev;
-                    } while (p2 && sa);
+                    ਕਰੋ {
+                        sa = sa->ਅਗਲਾ, p2 = p2->prev;
+                    } ਜਦੋਂ (p2 && sa);
                     p2 = p->prev;
-                    begin_macro(p, 1), next();
-                    expr_eq();
+                    begin_macro(p, 1), ਅਗਲਾ();
+                    ਵਿਅੰਜਕ_eq();
                     gfunc_param_typed(s, sa);
-                    end_macro();
+                    ਸਿਰਾ_macro();
                 }
                 vrev(n);
             }
 
-            next();
+            ਅਗਲਾ();
             vcheck_cmp(); /* the generators don't like VT_CMP on vtop */
-            gfunc_call(nb_args);
+            gfunc_call(nb_ਦਲੀਲਾਂ);
 
-            if (ret_nregs < 0) {
+            ਜੇ (ret_nregs < 0) {
                 vsetc(&ret.type, ret.r, &ret.c);
-#ifdef TCC_TARGET_RISCV64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_RISCV64
                 arch_transfer_ret_regs(1);
-#endif
-            } else {
+#ਜੇ_ਅੰਤ
+            } ਨਹੀਂਤਾਂ {
                 /* return value */
                 n = ret_nregs;
-                while (n > 1) {
-                    int rc = reg_classes[ret.r] & ~(RC_INT | RC_FLOAT);
+                ਜਦੋਂ (n > 1) {
+                    ਪੂਰਨ rc = reg_classes[ret.r] & ~(RC_INT | RC_FLOAT);
                     /* We assume that when a structure is returned in multiple
                        registers, their classes are consecutive values of the
                        suite s(n) = 2^n */
                     rc <<= --n;
-                    for (r = 0; r < NB_REGS; ++r)
-                        if (reg_classes[r] & rc)
-                            break;
+                    ਲਈ (r = 0; r < NB_REGS; ++r)
+                        ਜੇ (reg_classes[r] & rc)
+                            ਰੋਕੋ;
                     vsetc(&ret.type, r, &ret.c);
                 }
                 vsetc(&ret.type, ret.r, &ret.c);
                 vtop->r2 = ret.r2;
 
                 /* handle packed struct return */
-                if (((s->type.t & VT_BTYPE) == VT_STRUCT) && ret_nregs) {
-                    int addr, offset;
+                ਜੇ (((s->type.t & VT_BTYPE) == VT_STRUCT) && ret_nregs) {
+                    ਪੂਰਨ addr, ਵਿੱਥ;
 
-                    size = type_size(&s->type, &align);
+                    ਮਾਪ = type_ਮਾਪ(&s->type, &align);
                     /* We're writing whole regs often, make sure there's enough
                        space.  Assume register size is power of 2.  */
-                    size = (size + regsize - 1) & -regsize;
-                    if (ret_align > align)
+                    ਮਾਪ = (ਮਾਪ + regsize - 1) & -regsize;
+                    ਜੇ (ret_align > align)
                         align = ret_align;
-                    loc = (loc - size) & -align;
+                    loc = (loc - ਮਾਪ) & -align;
                     addr = loc;
-                    offset = 0;
-                    for (;;) {
-                        vset(&ret.type, VT_LOCAL | VT_LVAL, addr + offset);
+                    ਵਿੱਥ = 0;
+                    ਲਈ (;;) {
+                        vset(&ret.type, VT_LOCAL | VT_LVAL, addr + ਵਿੱਥ);
                         vswap();
                         vstore();
                         vtop--;
-                        if (--ret_nregs == 0)
-                          break;
-                        offset += regsize;
+                        ਜੇ (--ret_nregs == 0)
+                          ਰੋਕੋ;
+                        ਵਿੱਥ += regsize;
                     }
                     vset(&s->type, VT_LOCAL | VT_LVAL, addr);
                 }
@@ -6418,261 +6418,261 @@ special_math_val:
                    matter we expect things to be already promoted to int,
                    but not larger.  */
                 t = s->type.t & VT_BTYPE;
-                if (t == VT_BYTE || t == VT_SHORT || t == VT_BOOL) {
-#ifdef PROMOTE_RET
+                ਜੇ (t == VT_BYTE || t == VT_SHORT || t == VT_BOOL) {
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ PROMOTE_RET
                     vtop->r |= BFVAL(VT_MUSTCAST, 1);
-#else
+#ਨਹੀਂਤਾਂ
                     vtop->type.t = VT_INT;
-#endif
+#ਜੇ_ਅੰਤ
                 }
             }
-            if (s->f.func_noreturn) {
-                if (debug_modes)
-	            tcc_tcov_block_end(tcc_state, -1);
-                CODE_OFF();
+            ਜੇ (s->f.func_noreturn) {
+                ਜੇ (debug_modes)
+	            tcc_tcov_ਖੰਡ_ਸਿਰਾ(tcc_state, -1);
+                ਕੋਡ_OFF();
 	    }
-        } else {
-            break;
+        } ਨਹੀਂਤਾਂ {
+            ਰੋਕੋ;
         }
     }
 }
 
-#ifndef precedence_parser /* original top-down parser */
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ precedence_parser /* original top-down parser */
 
-static void expr_prod(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_prod(ਖਾਲੀ)
 {
-    int t;
+    ਪੂਰਨ t;
 
     unary();
-    while ((t = tok) == '*' || t == '/' || t == '%') {
-        next();
+    ਜਦੋਂ ((t = tok) == '*' || t == '/' || t == '%') {
+        ਅਗਲਾ();
         unary();
         gen_op(t);
     }
 }
 
-static void expr_sum(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_ਜੋੜ(ਖਾਲੀ)
 {
-    int t;
+    ਪੂਰਨ t;
 
-    expr_prod();
-    while ((t = tok) == '+' || t == '-') {
-        next();
-        expr_prod();
+    ਵਿਅੰਜਕ_prod();
+    ਜਦੋਂ ((t = tok) == '+' || t == '-') {
+        ਅਗਲਾ();
+        ਵਿਅੰਜਕ_prod();
         gen_op(t);
     }
 }
 
-static void expr_shift(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_ਖਿਸਕਾਓ(ਖਾਲੀ)
 {
-    int t;
+    ਪੂਰਨ t;
 
-    expr_sum();
-    while ((t = tok) == TOK_SHL || t == TOK_SAR) {
-        next();
-        expr_sum();
+    ਵਿਅੰਜਕ_ਜੋੜ();
+    ਜਦੋਂ ((t = tok) == TOK_SHL || t == TOK_SAR) {
+        ਅਗਲਾ();
+        ਵਿਅੰਜਕ_ਜੋੜ();
         gen_op(t);
     }
 }
 
-static void expr_cmp(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_cmp(ਖਾਲੀ)
 {
-    int t;
+    ਪੂਰਨ t;
 
-    expr_shift();
-    while (((t = tok) >= TOK_ULE && t <= TOK_GT) ||
+    ਵਿਅੰਜਕ_ਖਿਸਕਾਓ();
+    ਜਦੋਂ (((t = tok) >= TOK_ULE && t <= TOK_GT) ||
            t == TOK_ULT || t == TOK_UGE) {
-        next();
-        expr_shift();
+        ਅਗਲਾ();
+        ਵਿਅੰਜਕ_ਖਿਸਕਾਓ();
         gen_op(t);
     }
 }
 
-static void expr_cmpeq(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_cmpeq(ਖਾਲੀ)
 {
-    int t;
+    ਪੂਰਨ t;
 
-    expr_cmp();
-    while ((t = tok) == TOK_EQ || t == TOK_NE) {
-        next();
-        expr_cmp();
+    ਵਿਅੰਜਕ_cmp();
+    ਜਦੋਂ ((t = tok) == TOK_EQ || t == TOK_NE) {
+        ਅਗਲਾ();
+        ਵਿਅੰਜਕ_cmp();
         gen_op(t);
     }
 }
 
-static void expr_and(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_and(ਖਾਲੀ)
 {
-    expr_cmpeq();
-    while (tok == '&') {
-        next();
-        expr_cmpeq();
+    ਵਿਅੰਜਕ_cmpeq();
+    ਜਦੋਂ (tok == '&') {
+        ਅਗਲਾ();
+        ਵਿਅੰਜਕ_cmpeq();
         gen_op('&');
     }
 }
 
-static void expr_xor(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_xor(ਖਾਲੀ)
 {
-    expr_and();
-    while (tok == '^') {
-        next();
-        expr_and();
+    ਵਿਅੰਜਕ_and();
+    ਜਦੋਂ (tok == '^') {
+        ਅਗਲਾ();
+        ਵਿਅੰਜਕ_and();
         gen_op('^');
     }
 }
 
-static void expr_or(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_or(ਖਾਲੀ)
 {
-    expr_xor();
-    while (tok == '|') {
-        next();
-        expr_xor();
+    ਵਿਅੰਜਕ_xor();
+    ਜਦੋਂ (tok == '|') {
+        ਅਗਲਾ();
+        ਵਿਅੰਜਕ_xor();
         gen_op('|');
     }
 }
 
-static void expr_landor(int op);
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_landor(ਪੂਰਨ op);
 
-static void expr_land(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_land(ਖਾਲੀ)
 {
-    expr_or();
-    if (tok == TOK_LAND)
-        expr_landor(tok);
+    ਵਿਅੰਜਕ_or();
+    ਜੇ (tok == TOK_LAND)
+        ਵਿਅੰਜਕ_landor(tok);
 }
 
-static void expr_lor(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_lor(ਖਾਲੀ)
 {
-    expr_land();
-    if (tok == TOK_LOR)
-        expr_landor(tok);
+    ਵਿਅੰਜਕ_land();
+    ਜੇ (tok == TOK_LOR)
+        ਵਿਅੰਜਕ_landor(tok);
 }
 
-# define expr_landor_next(op) op == TOK_LAND ? expr_or() : expr_land()
-#else /* defined precedence_parser */
-# define expr_landor_next(op) unary(), expr_infix(precedence(op) + 1)
-# define expr_lor() unary(), expr_infix(1)
+# define ਵਿਅੰਜਕ_landor_ਅਗਲਾ(op) op == TOK_LAND ? ਵਿਅੰਜਕ_or() : ਵਿਅੰਜਕ_land()
+#ਨਹੀਂਤਾਂ /* defined precedence_parser */
+# define ਵਿਅੰਜਕ_landor_ਅਗਲਾ(op) unary(), ਵਿਅੰਜਕ_infix(precedence(op) + 1)
+# define ਵਿਅੰਜਕ_lor() unary(), ਵਿਅੰਜਕ_infix(1)
 
-static int precedence(int tok)
+ਸਥਿਰ ਪੂਰਨ precedence(ਪੂਰਨ tok)
 {
-    switch (tok) {
-        case TOK_LOR: return 1;
-        case TOK_LAND: return 2;
-	case '|': return 3;
-	case '^': return 4;
-	case '&': return 5;
-	case TOK_EQ: case TOK_NE: return 6;
- relat: case TOK_ULT: case TOK_UGE: return 7;
-	case TOK_SHL: case TOK_SAR: return 8;
-	case '+': case '-': return 9;
-	case '*': case '/': case '%': return 10;
-	default:
-	    if (tok >= TOK_ULE && tok <= TOK_GT)
-	        goto relat;
-	    return 0;
+    ਚੋਣ (tok) {
+        ਹਾਲਤ TOK_LOR: ਵਾਪਸ 1;
+        ਹਾਲਤ TOK_LAND: ਵਾਪਸ 2;
+	ਹਾਲਤ '|': ਵਾਪਸ 3;
+	ਹਾਲਤ '^': ਵਾਪਸ 4;
+	ਹਾਲਤ '&': ਵਾਪਸ 5;
+	ਹਾਲਤ TOK_EQ: ਹਾਲਤ TOK_NE: ਵਾਪਸ 6;
+ relat: ਹਾਲਤ TOK_ULT: ਹਾਲਤ TOK_UGE: ਵਾਪਸ 7;
+	ਹਾਲਤ TOK_SHL: ਹਾਲਤ TOK_SAR: ਵਾਪਸ 8;
+	ਹਾਲਤ '+': ਹਾਲਤ '-': ਵਾਪਸ 9;
+	ਹਾਲਤ '*': ਹਾਲਤ '/': ਹਾਲਤ '%': ਵਾਪਸ 10;
+	ਮੂਲ:
+	    ਜੇ (tok >= TOK_ULE && tok <= TOK_GT)
+	        ਜਾਓ relat;
+	    ਵਾਪਸ 0;
     }
 }
-static unsigned char prec[256];
-static void init_prec(void)
+ਸਥਿਰ ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ prec[256];
+ਸਥਿਰ ਖਾਲੀ init_prec(ਖਾਲੀ)
 {
-    int i;
-    for (i = 0; i < 256; i++)
+    ਪੂਰਨ i;
+    ਲਈ (i = 0; i < 256; i++)
 	prec[i] = precedence(i);
 }
-#define precedence(i) ((unsigned)i < 256 ? prec[i] : 0)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ precedence(i) ((ਬਿਨਾਨਿਸ਼ਾਨੀ)i < 256 ? prec[i] : 0)
 
-static void expr_landor(int op);
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_landor(ਪੂਰਨ op);
 
-static void expr_infix(int p)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_infix(ਪੂਰਨ p)
 {
-    int t = tok, p2;
-    while ((p2 = precedence(t)) >= p) {
-        if (t == TOK_LOR || t == TOK_LAND) {
-            expr_landor(t);
-        } else {
-            next();
+    ਪੂਰਨ t = tok, p2;
+    ਜਦੋਂ ((p2 = precedence(t)) >= p) {
+        ਜੇ (t == TOK_LOR || t == TOK_LAND) {
+            ਵਿਅੰਜਕ_landor(t);
+        } ਨਹੀਂਤਾਂ {
+            ਅਗਲਾ();
             unary();
-            if (precedence(tok) > p2)
-              expr_infix(p2 + 1);
+            ਜੇ (precedence(tok) > p2)
+              ਵਿਅੰਜਕ_infix(p2 + 1);
             gen_op(t);
         }
         t = tok;
     }
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 /* Assuming vtop is a value used in a conditional context
    (i.e. compared with zero) return 0 if it's false, 1 if
    true and -1 if it can't be statically determined.  */
-static int condition_3way(void)
+ਸਥਿਰ ਪੂਰਨ condition_3way(ਖਾਲੀ)
 {
-    int c = -1;
-    if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST &&
+    ਪੂਰਨ c = -1;
+    ਜੇ ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST &&
 	(!(vtop->r & VT_SYM) || !vtop->sym->a.weak)) {
 	vdup();
         gen_cast_s(VT_BOOL);
 	c = vtop->c.i;
 	vpop();
     }
-    return c;
+    ਵਾਪਸ c;
 }
 
-static void expr_landor(int op)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_landor(ਪੂਰਨ op)
 {
-    int t = 0, cc = 1, f = 0, i = op == TOK_LAND, c;
-    for(;;) {
+    ਪੂਰਨ t = 0, cc = 1, f = 0, i = op == TOK_LAND, c;
+    ਲਈ(;;) {
         c = f ? i : condition_3way();
-        if (c < 0)
+        ਜੇ (c < 0)
             save_regs(1), cc = 0;
-        else if (c != i)
+        ਨਹੀਂਤਾਂ ਜੇ (c != i)
             nocode_wanted++, f = 1;
-        if (tok != op)
-            break;
-        if (c < 0)
+        ਜੇ (tok != op)
+            ਰੋਕੋ;
+        ਜੇ (c < 0)
             t = gvtst(i, t);
-        else
+        ਨਹੀਂਤਾਂ
             vpop();
-        next();
-        expr_landor_next(op);
+        ਅਗਲਾ();
+        ਵਿਅੰਜਕ_landor_ਅਗਲਾ(op);
     }
-    if (cc || f) {
+    ਜੇ (cc || f) {
         vpop();
         vpushi(i ^ f);
         gsym(t);
         nocode_wanted -= f;
-    } else {
-        gvtst_set(i, t);
+    } ਨਹੀਂਤਾਂ {
+        gvtst_ਸੈੱਟ(i, t);
     }
 }
 
-static int is_cond_bool(SValue *sv)
+ਸਥਿਰ ਪੂਰਨ is_cond_bool(SValue *sv)
 {
-    if ((sv->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST
+    ਜੇ ((sv->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST
         && (sv->type.t & VT_BTYPE) == VT_INT)
-        return (unsigned)sv->c.i < 2;
-    if (sv->r == VT_CMP)
-        return 1;
-    return 0;
+        ਵਾਪਸ (ਬਿਨਾਨਿਸ਼ਾਨੀ)sv->c.i < 2;
+    ਜੇ (sv->r == VT_CMP)
+        ਵਾਪਸ 1;
+    ਵਾਪਸ 0;
 }
 
-static void expr_cond(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_cond(ਖਾਲੀ)
 {
-    int tt, u, r1, r2, rc, t1, t2, islv, c, g;
+    ਪੂਰਨ tt, u, r1, r2, rc, t1, t2, islv, c, g;
     SValue sv;
     CType type;
 
-    expr_lor();
-    if (tok == '?') {
-        next();
+    ਵਿਅੰਜਕ_lor();
+    ਜੇ (tok == '?') {
+        ਅਗਲਾ();
 	c = condition_3way();
         g = (tok == ':' && gnu_ext);
         tt = 0;
-        if (!g) {
-            if (c < 0) {
+        ਜੇ (!g) {
+            ਜੇ (c < 0) {
                 save_regs(1);
                 tt = gvtst(1, 0);
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 vpop();
             }
-        } else if (c < 0) {
+        } ਨਹੀਂਤਾਂ ਜੇ (c < 0) {
             /* needed to avoid having different registers saved in
                each branch */
             save_regs(1);
@@ -6680,40 +6680,40 @@ static void expr_cond(void)
             tt = gvtst(0, 0);
         }
 
-        if (c == 0)
+        ਜੇ (c == 0)
           nocode_wanted++;
-        if (!g)
+        ਜੇ (!g)
           gexpr();
 
-        if ((vtop->type.t & VT_BTYPE) == VT_FUNC)
-          mk_pointer(&vtop->type);
+        ਜੇ ((vtop->type.t & VT_BTYPE) == VT_FUNC)
+          mk_ਸੂਚਕ(&vtop->type);
         sv = *vtop; /* save value to handle it later */
         vtop--; /* no vpop so that FP stack is not flushed */
 
-        if (g) {
+        ਜੇ (g) {
             u = tt;
-        } else if (c < 0) {
+        } ਨਹੀਂਤਾਂ ਜੇ (c < 0) {
             u = gjmp(0);
             gsym(tt);
-        } else
+        } ਨਹੀਂਤਾਂ
           u = 0;
 
-        if (c == 0)
+        ਜੇ (c == 0)
           nocode_wanted--;
-        if (c == 1)
+        ਜੇ (c == 1)
           nocode_wanted++;
         skip(':');
-        expr_cond();
+        ਵਿਅੰਜਕ_cond();
 
-        if ((vtop->type.t & VT_BTYPE) == VT_FUNC)
-          mk_pointer(&vtop->type);
+        ਜੇ ((vtop->type.t & VT_BTYPE) == VT_FUNC)
+          mk_ਸੂਚਕ(&vtop->type);
 
         /* cast operands to correct type according to ISOC rules */
-        if (!combine_types(&type, &sv, vtop, '?'))
+        ਜੇ (!combine_types(&type, &sv, vtop, '?'))
           type_incompatibility_error(&sv.type, &vtop->type,
             "type mismatch in conditional expression (have '%s' and '%s')");
 
-        if (c < 0 && is_cond_bool(vtop) && is_cond_bool(&sv)) {
+        ਜੇ (c < 0 && is_cond_bool(vtop) && is_cond_bool(&sv)) {
             /* optimize "if (f ? a > b : c || d) ..." for example, where normally
                "a < b" and "c || d" would be forced to "(int)0/1" first, whereas
                this code jumps directly to the if's then/else branches. */
@@ -6722,11 +6722,11 @@ static void expr_cond(void)
             gsym(u);
             vpushv(&sv);
             /* combine jump targets of 2nd op with VT_CMP of 1st op */
-            gvtst_set(0, t1);
-            gvtst_set(1, t2);
+            gvtst_ਸੈੱਟ(0, t1);
+            gvtst_ਸੈੱਟ(1, t2);
             gen_cast(&type);
             //  tcc_warning("two conditions expr_cond");
-            return;
+            ਵਾਪਸ;
         }
 
         /* keep structs lvalue by transforming `(expr ? a : b)` to `*(expr ? &a : &b)` so
@@ -6734,10 +6734,10 @@ static void expr_cond(void)
         islv = VT_STRUCT == (type.t & VT_BTYPE);
 
         /* now we convert second operand */
-        if (c != 1) {
+        ਜੇ (c != 1) {
             gen_cast(&type);
-            if (islv) {
-                mk_pointer(&vtop->type);
+            ਜੇ (islv) {
+                mk_ਸੂਚਕ(&vtop->type);
                 gaddrof();
             }
         }
@@ -6745,32 +6745,32 @@ static void expr_cond(void)
         rc = RC_TYPE(type.t);
         /* for long longs, we use fixed registers to avoid having
            to handle a complicated move */
-        if (USING_TWO_WORDS(type.t))
+        ਜੇ (USING_TWO_ਸ਼ਬਦ(type.t))
           rc = RC_RET(type.t);
 
         tt = r2 = 0;
-        if (c < 0) {
-            if (type.t != VT_VOID)
+        ਜੇ (c < 0) {
+            ਜੇ (type.t != VT_VOID)
                 r2 = gv(rc);
             tt = gjmp(0);
         }
         gsym(u);
-        if (c == 1)
+        ਜੇ (c == 1)
           nocode_wanted--;
 
         /* this is horrible, but we must also convert first
-           operand */
-        if (c != 0) {
+ਸੰਕਾਰਜ*/
+        ਜੇ (c != 0) {
             *vtop = sv;
             gen_cast(&type);
-            if (islv) {
-                mk_pointer(&vtop->type);
+            ਜੇ (islv) {
+                mk_ਸੂਚਕ(&vtop->type);
                 gaddrof();
             }
         }
 
-        if (c < 0) {
-            if (type.t != VT_VOID) {
+        ਜੇ (c < 0) {
+            ਜੇ (type.t != VT_VOID) {
                 r1 = gv(rc);
                 move_reg(r2, r1, islv ? VT_PTR : type.t);
                 vtop->r = r2;
@@ -6778,121 +6778,121 @@ static void expr_cond(void)
             gsym(tt);
         }
 
-        if (islv)
+        ਜੇ (islv)
           indir();
     }
 }
 
-static void expr_eq(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_eq(ਖਾਲੀ)
 {
-    int t;
+    ਪੂਰਨ t;
     
-    expr_cond();
-    if ((t = tok) == '=' || TOK_ASSIGN(t)) {
+    ਵਿਅੰਜਕ_cond();
+    ਜੇ ((t = tok) == '=' || TOK_ਸੌਂਪੋ(t)) {
         test_lvalue();
-        next();
-        if (t == '=') {
-            expr_eq();
-        } else {
+        ਅਗਲਾ();
+        ਜੇ (t == '=') {
+            ਵਿਅੰਜਕ_eq();
+        } ਨਹੀਂਤਾਂ {
             vdup();
-            expr_eq();
-            gen_op(TOK_ASSIGN_OP(t));
+            ਵਿਅੰਜਕ_eq();
+            gen_op(TOK_ਸੌਂਪੋ_OP(t));
         }
         vstore();
     }
 }
 
-ST_FUNC void gexpr(void)
+ST_FUNC ਖਾਲੀ gexpr(ਖਾਲੀ)
 {
-    expr_eq();
-    if (tok == ',') {
-        do {
+    ਵਿਅੰਜਕ_eq();
+    ਜੇ (tok == ',') {
+        ਕਰੋ {
             vpop();
-            next();
-            expr_eq();
-        } while (tok == ',');
+            ਅਗਲਾ();
+            ਵਿਅੰਜਕ_eq();
+        } ਜਦੋਂ (tok == ',');
 
         /* convert array & function to pointer */
-        convert_expression_type(&vtop->type);
+        convert_ਵਿਅੰਜਕ_type(&vtop->type);
 
         /* make builtin_constant_p((1,2)) return 0 (like on gcc) */
-        if ((vtop->r & VT_VALMASK) == VT_CONST && nocode_wanted && !CONST_WANTED)
-            if (vtop->type.t != VT_VOID && (vtop->type.t & VT_BTYPE) != VT_STRUCT)
+        ਜੇ ((vtop->r & VT_VALMASK) == VT_CONST && nocode_wanted && !CONST_WANTED)
+            ਜੇ (vtop->type.t != VT_VOID && (vtop->type.t & VT_BTYPE) != VT_STRUCT)
                 gv(RC_TYPE(vtop->type.t));
     }
 }
 
 /* parse a constant expression and return value in vtop.  */
-static void expr_const1(void)
+ਸਥਿਰ ਖਾਲੀ ਵਿਅੰਜਕ_const1(ਖਾਲੀ)
 {
-    nocode_wanted += CONST_WANTED_BIT;
-    expr_cond();
-    nocode_wanted -= CONST_WANTED_BIT;
+    nocode_wanted += CONST_WANTED_ਦੋਆਧਾਰੀ_ਅੰਕ;
+    ਵਿਅੰਜਕ_cond();
+    nocode_wanted -= CONST_WANTED_ਦੋਆਧਾਰੀ_ਅੰਕ;
 }
 
 /* parse an integer constant and return its value. */
-static inline int64_t expr_const64(void)
+ਸਥਿਰ ਸਤਰਅੰਦਰ int64_t ਵਿਅੰਜਕ_const64(ਖਾਲੀ)
 {
     int64_t c;
-    expr_const1();
-    if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM | VT_NONCONST)) != VT_CONST)
+    ਵਿਅੰਜਕ_const1();
+    ਜੇ ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM | VT_NONCONST)) != VT_CONST)
         expect("constant expression");
     c = vtop->c.i;
     vpop();
-    return c;
+    ਵਾਪਸ c;
 }
 
 /* parse an integer constant and return its value.
    Complain if it doesn't fit 32bit (signed or unsigned).  */
-ST_FUNC int expr_const(void)
+ST_FUNC ਪੂਰਨ ਵਿਅੰਜਕ_const(ਖਾਲੀ)
 {
-    int c;
-    int64_t wc = expr_const64();
+    ਪੂਰਨ c;
+    int64_t wc = ਵਿਅੰਜਕ_const64();
     c = wc;
-    if (c != wc && (unsigned)c != wc)
+    ਜੇ (c != wc && (ਬਿਨਾਨਿਸ਼ਾਨੀ)c != wc)
         tcc_error("constant exceeds 32 bit");
-    return c;
+    ਵਾਪਸ c;
 }
 
 /* ------------------------------------------------------------------------- */
 /* return from function */
 
-#ifndef TCC_TARGET_ARM64
-static void gfunc_return(CType *func_type)
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_ARM64
+ਸਥਿਰ ਖਾਲੀ gfunc_return(CType *func_type)
 {
-    if ((func_type->t & VT_BTYPE) == VT_STRUCT) {
+    ਜੇ ((func_type->t & VT_BTYPE) == VT_STRUCT) {
         CType type, ret_type;
-        int ret_align, ret_nregs, regsize;
+        ਪੂਰਨ ret_align, ret_nregs, regsize;
         ret_nregs = gfunc_sret(func_type, func_var, &ret_type,
                                &ret_align, &regsize);
-        if (ret_nregs < 0) {
-#ifdef TCC_TARGET_RISCV64
+        ਜੇ (ret_nregs < 0) {
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_RISCV64
             arch_transfer_ret_regs(0);
-#endif
-        } else if (0 == ret_nregs) {
+#ਜੇ_ਅੰਤ
+        } ਨਹੀਂਤਾਂ ਜੇ (0 == ret_nregs) {
             /* if returning structure, must copy it to implicit
                first pointer arg location */
             type = *func_type;
-            mk_pointer(&type);
+            mk_ਸੂਚਕ(&type);
             vset(&type, VT_LOCAL | VT_LVAL, func_vc);
             indir();
             vswap();
             /* copy structure value to pointer */
             vstore();
-        } else {
+        } ਨਹੀਂਤਾਂ {
             /* returning structure packed into registers */
-            int size, addr, align, rc, n;
-            size = type_size(func_type,&align);
-            if (ret_nregs * regsize > size ||
+            ਪੂਰਨ ਮਾਪ, addr, align, rc, n;
+            ਮਾਪ = type_ਮਾਪ(func_type,&align);
+            ਜੇ (ret_nregs * regsize > ਮਾਪ ||
 		((align & (ret_align - 1))
                  && ((vtop->r & VT_VALMASK) < VT_CONST /* pointer to struct */
                      || (vtop->c.i & (ret_align - 1))
                      ))) {
-		if (ret_nregs * regsize > size)
-		    size = ret_nregs * regsize;
-		if (ret_align > align)
+		ਜੇ (ret_nregs * regsize > ਮਾਪ)
+		    ਮਾਪ = ret_nregs * regsize;
+		ਜੇ (ret_align > align)
 		    align = ret_align;
-                loc = (loc - size) & -align;
+                loc = (loc - ਮਾਪ) & -align;
                 addr = loc;
                 type = *func_type;
                 vset(&type, VT_LOCAL | VT_LVAL, addr);
@@ -6904,11 +6904,11 @@ static void gfunc_return(CType *func_type)
             vtop->type = ret_type;
             rc = RC_RET(ret_type.t);
             //printf("struct return: n:%d t:%02x rc:%02x\n", ret_nregs, ret_type.t, rc);
-            for (n = ret_nregs; --n > 0;) {
+            ਲਈ (n = ret_nregs; --n > 0;) {
                 vdup();
                 gv(rc);
                 vswap();
-                incr_offset(regsize);
+                incr_ਵਿੱਥ(regsize);
                 /* We assume that when a structure is returned in multiple
                    registers, their classes are consecutive values of the
                    suite s(n) = 2^n */
@@ -6917,23 +6917,23 @@ static void gfunc_return(CType *func_type)
             gv(rc);
             vtop -= ret_nregs - 1;
         }
-    } else {
+    } ਨਹੀਂਤਾਂ {
         gv(RC_RET(func_type->t));
     }
     vtop--; /* NOT vpop() because on x86 it would flush the fp stack */
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-static void check_func_return(void)
+ਸਥਿਰ ਖਾਲੀ check_func_return(ਖਾਲੀ)
 {
-    if ((func_vt.t & VT_BTYPE) == VT_VOID)
-        return;
-    if ((!strcmp(funcname, "main") || func_old)
+    ਜੇ ((func_vt.t & VT_BTYPE) == VT_VOID)
+        ਵਾਪਸ;
+    ਜੇ ((!strcmp(funcname, "main") || func_old)
         && (func_vt.t & VT_BTYPE) == VT_INT) {
         /* main returns 0 by default */
         vpushi(0);
         gfunc_return(&func_vt);
-    } else {
+    } ਨਹੀਂਤਾਂ {
         tcc_warning("function might return no value: '%s'", funcname);
     }
 }
@@ -6941,79 +6941,79 @@ static void check_func_return(void)
 /* ------------------------------------------------------------------------- */
 /* switch/case */
 
-static int case_cmp(uint64_t a, uint64_t b)
+ਸਥਿਰ ਪੂਰਨ case_cmp(uint64_t a, uint64_t b)
 {
-    if (cur_switch->sv.type.t & VT_UNSIGNED)
-        return a < b ? -1 : a > b;
-    else
-        return (int64_t)a < (int64_t)b ? -1 : (int64_t)a > (int64_t)b;
+    ਜੇ (cur_switch->sv.type.t & VT_UNSIGNED)
+        ਵਾਪਸ a < b ? -1 : a > b;
+    ਨਹੀਂਤਾਂ
+        ਵਾਪਸ (int64_t)a < (int64_t)b ? -1 : (int64_t)a > (int64_t)b;
 }
 
-static int case_cmp_qs(const void *pa, const void *pb)
+ਸਥਿਰ ਪੂਰਨ case_cmp_qs(ਅਚਲ ਖਾਲੀ *pa, ਅਚਲ ਖਾਲੀ *pb)
 {
-    return case_cmp((*(struct case_t**)pa)->v1, (*(struct case_t**)pb)->v1);
+    ਵਾਪਸ case_cmp((*(ਬਣਤਰ case_t**)pa)->v1, (*(ਬਣਤਰ case_t**)pb)->v1);
 }
 
-static void case_sort(struct switch_t *sw)
+ਸਥਿਰ ਖਾਲੀ case_ਛਾਂਟੋ(ਬਣਤਰ switch_t *sw)
 {
-    struct case_t **p;
-    if (sw->n < 2)
-        return;
-    qsort(sw->p, sw->n, sizeof *sw->p, case_cmp_qs);
+    ਬਣਤਰ case_t **p;
+    ਜੇ (sw->n < 2)
+        ਵਾਪਸ;
+    qsort(sw->p, sw->n, ਆਕਾਰ *sw->p, case_cmp_qs);
     p = sw->p;
-    while (p < sw->p + sw->n - 1) {
-        if (case_cmp(p[0]->v2, p[1]->v1) >= 0) {
-            int l1 = p[0]->line, l2 = p[1]->line;
+    ਜਦੋਂ (p < sw->p + sw->n - 1) {
+        ਜੇ (case_cmp(p[0]->v2, p[1]->v1) >= 0) {
+            ਪੂਰਨ l1 = p[0]->ਸਤਰ, l2 = p[1]->ਸਤਰ;
             /* using special format "%i:..." to show specific line */
             tcc_error("%i:duplicate case value", l1 > l2 ? l1 : l2);
-        } else if (p[0]->v2 + 1 == p[1]->v1 && p[0]->ind == p[1]->ind) {
+        } ਨਹੀਂਤਾਂ ਜੇ (p[0]->v2 + 1 == p[1]->v1 && p[0]->ind == p[1]->ind) {
             /* treat "case 1: case 2: case 3:" like "case 1 ... 3: */
             p[1]->v1 = p[0]->v1;
             tcc_free(p[0]);
-            memmove(p, p + 1, (--sw->n - (p - sw->p)) * sizeof *p);
-        } else
+            memmove(p, p + 1, (--sw->n - (p - sw->p)) * ਆਕਾਰ *p);
+        } ਨਹੀਂਤਾਂ
             ++p;
     }
 }
 
-static int gcase(struct case_t **base, int len, int dsym)
+ਸਥਿਰ ਪੂਰਨ gcase(ਬਣਤਰ case_t **ਅਧਾਰ, ਪੂਰਨ len, ਪੂਰਨ dsym)
 {
-    struct case_t *p;
-    int t, l2, e;
+    ਬਣਤਰ case_t *p;
+    ਪੂਰਨ t, l2, e;
 
     t = vtop->type.t & VT_BTYPE;
-    if (t != VT_LLONG)
+    ਜੇ (t != VT_LLONG)
         t = VT_INT;
-    while (len) {
+    ਜਦੋਂ (len) {
         /* binary search while len > 8, else linear */
         l2 = len > 8 ? len/2 : 0;
-        p = base[l2];
+        p = ਅਧਾਰ[l2];
         vdup(), vpush64(t, p->v2);
-        if (l2 == 0 && p->v1 == p->v2) {
+        ਜੇ (l2 == 0 && p->v1 == p->v2) {
             gen_op(TOK_EQ); /* jmp to case when equal */
             gsym_addr(gvtst(0, 0), p->ind);
-        } else {
+        } ਨਹੀਂਤਾਂ {
             /* case v1 ... v2 */
             gen_op(TOK_GT); /* jmp over when > V2 */
-            if (len == 1) /* last case test jumps to default when false */
+            ਜੇ (len == 1) /* last case test jumps to default when false */
                 dsym = gvtst(0, dsym), e = 0;
-            else
+            ਨਹੀਂਤਾਂ
                 e = gvtst(0, 0);
             vdup(), vpush64(t, p->v1);
             gen_op(TOK_GE); /* jmp to case when >= V1 */
             gsym_addr(gvtst(0, 0), p->ind);
-            dsym = gcase(base, l2, dsym);
+            dsym = gcase(ਅਧਾਰ, l2, dsym);
             gsym(e);
         }
-        ++l2, base += l2, len -= l2;
+        ++l2, ਅਧਾਰ += l2, len -= l2;
     }
     /* jump automagically will suppress more jumps */
-    return gjmp(dsym);
+    ਵਾਪਸ gjmp(dsym);
 }
 
-static void end_switch(void)
+ਸਥਿਰ ਖਾਲੀ ਸਿਰਾ_switch(ਖਾਲੀ)
 {
-    struct switch_t *sw = cur_switch;
+    ਬਣਤਰ switch_t *sw = cur_switch;
     dynarray_reset(&sw->p, &sw->n);
     cur_switch = sw->prev;
     tcc_free(sw);
@@ -7023,13 +7023,13 @@ static void end_switch(void)
 /* __attribute__((cleanup(fn))) */
 
 /* protect symbol lvalues from further modification  */
-static void save_lvalues(void)
+ਸਥਿਰ ਖਾਲੀ save_lvalues(ਖਾਲੀ)
 {
     SValue *sv = vtop;
-    while (sv >= vstack) {
-        if (sv->sym && (sv->r & VT_LVAL)) {
-            int align, size = type_size(&sv->type, &align);
-            int r2, l = get_temp_local_var(size, align, &r2);
+    ਜਦੋਂ (sv >= vstack) {
+        ਜੇ (sv->sym && (sv->r & VT_LVAL)) {
+            ਪੂਰਨ align, ਮਾਪ = type_ਮਾਪ(&sv->type, &align);
+            ਪੂਰਨ r2, l = get_ਆਰਜ਼ੀ_local_var(ਮਾਪ, align, &r2);
             vset(&sv->type, VT_LOCAL | VT_LVAL, l), vtop->r2 = r2;
             vpushv(sv), *sv = vtop[-1], vstore(), --vtop;
         }
@@ -7037,61 +7037,61 @@ static void save_lvalues(void)
     }
 }
 
-static void try_call_scope_cleanup(Sym *stop)
+ਸਥਿਰ ਖਾਲੀ try_call_scope_cleanup(Sym *stop)
 {
     Sym *cls = cur_scope->cl.s;
-    for (; cls != stop; cls = cls->next) {
+    ਲਈ (; cls != stop; cls = cls->ਅਗਲਾ) {
 	Sym *fs = cls->cleanup_func;
 	Sym *vs = cls->cleanup_sym;
 	save_lvalues();
 	vpushsym(&fs->type, fs);
 	vset(&vs->type, vs->r, vs->c);
 	vtop->sym = vs;
-        mk_pointer(&vtop->type);
+        mk_ਸੂਚਕ(&vtop->type);
 	gaddrof();
 	gfunc_call(1);
     }
 }
 
 
-static void try_call_cleanup_goto(Sym *cleanupstate)
+ਸਥਿਰ ਖਾਲੀ try_call_cleanup_goto(Sym *cleanupstate)
 {
     Sym *oc, *cc;
-    int ocd, ccd;
+    ਪੂਰਨ ocd, ccd;
 
-    if (!cur_scope->cl.s)
-	return;
+    ਜੇ (!cur_scope->cl.s)
+	ਵਾਪਸ;
 
     /* search NCA of both cleanup chains given parents and initial depth */
-    ocd = cleanupstate ? cleanupstate->v & ~SYM_FIELD : 0;
-    for (ccd = cur_scope->cl.n, oc = cleanupstate; ocd > ccd; --ocd, oc = oc->next)
+    ocd = cleanupstate ? cleanupstate->v & ~SYM_ਖੇਤਰ : 0;
+    ਲਈ (ccd = cur_scope->cl.n, oc = cleanupstate; ocd > ccd; --ocd, oc = oc->ਅਗਲਾ)
       ;
-    for (cc = cur_scope->cl.s; ccd > ocd; --ccd, cc = cc->next)
+    ਲਈ (cc = cur_scope->cl.s; ccd > ocd; --ccd, cc = cc->ਅਗਲਾ)
       ;
-    for (; cc != oc; cc = cc->next, oc = oc->next, --ccd)
+    ਲਈ (; cc != oc; cc = cc->ਅਗਲਾ, oc = oc->ਅਗਲਾ, --ccd)
       ;
 
     try_call_scope_cleanup(cc);
 }
 
 /* call 'func' for each __attribute__((cleanup(func))) */
-static void block_cleanup(struct scope *o)
+ਸਥਿਰ ਖਾਲੀ ਖੰਡ_cleanup(ਬਣਤਰ scope *o)
 {
-    int jmp = 0;
+    ਪੂਰਨ jmp = 0;
     Sym *g, **pg;
-    for (pg = &pending_gotos; (g = *pg) && g->c > o->cl.n;) {
-        if (g->cleanup_label->r & LABEL_FORWARD) {
-            Sym *pcl = g->next;
-            if (!jmp)
+    ਲਈ (pg = &pending_gotos; (g = *pg) && g->c > o->cl.n;) {
+        ਜੇ (g->cleanup_label->r & LABEL_FORWARD) {
+            Sym *pcl = g->ਅਗਲਾ;
+            ਜੇ (!jmp)
                 jmp = gjmp(0);
             gsym(pcl->jnext);
             try_call_scope_cleanup(o->cl.s);
             pcl->jnext = gjmp(0);
-            if (!o->cl.n)
-                goto remove_pending;
+            ਜੇ (!o->cl.n)
+                ਜਾਓ remove_pending;
             g->c = o->cl.n;
             pg = &g->prev;
-        } else {
+        } ਨਹੀਂਤਾਂ {
     remove_pending:
             *pg = g->prev;
             sym_free(g);
@@ -7104,51 +7104,51 @@ static void block_cleanup(struct scope *o)
 /* ------------------------------------------------------------------------- */
 /* VLA */
 
-static void vla_restore(int loc)
+ਸਥਿਰ ਖਾਲੀ vla_restore(ਪੂਰਨ loc)
 {
-    if (loc)
+    ਜੇ (loc)
         gen_vla_sp_restore(loc);
 }
 
-static void vla_leave(struct scope *o)
+ਸਥਿਰ ਖਾਲੀ vla_leave(ਬਣਤਰ scope *o)
 {
-    struct scope *c = cur_scope, *v = NULL;
-    for (; c != o && c; c = c->prev)
-      if (c->vla.num)
+    ਬਣਤਰ scope *c = cur_scope, *v = ਨਿਰਾ;
+    ਲਈ (; c != o && c; c = c->prev)
+      ਜੇ (c->vla.ਅੰਕ)
         v = c;
-    if (v)
+    ਜੇ (v)
       vla_restore(v->vla.locorig);
 }
 
 /* ------------------------------------------------------------------------- */
 /* local scopes */
 
-static void new_scope(struct scope *o)
+ਸਥਿਰ ਖਾਲੀ new_scope(ਬਣਤਰ scope *o)
 {
     /* copy and link previous scope */
     *o = *cur_scope;
     o->prev = cur_scope;
     cur_scope = o;
-    cur_scope->vla.num = 0;
+    cur_scope->vla.ਅੰਕ = 0;
 
     /* record local declaration stack position */
-    o->lstk = local_stack;
-    o->llstk = local_label_stack;
+    o->lstk = local_ਢੇਰ;
+    o->llstk = local_label_ਢੇਰ;
     ++local_scope;
 }
 
-static void prev_scope(struct scope *o, int is_expr)
+ਸਥਿਰ ਖਾਲੀ prev_scope(ਬਣਤਰ scope *o, ਪੂਰਨ is_ਵਿਅੰਜਕ)
 {
     vla_leave(o->prev);
 
-    if (o->cl.s != o->prev->cl.s)
-        block_cleanup(o->prev);
+    ਜੇ (o->cl.s != o->prev->cl.s)
+        ਖੰਡ_cleanup(o->prev);
 
-    if (debug_modes)
-        tcc_debug_end_scope(o->lstk, !is_expr);
+    ਜੇ (debug_modes)
+        tcc_debug_ਸਿਰਾ_scope(o->lstk, !is_ਵਿਅੰਜਕ);
 
     /* pop locally defined labels */
-    label_pop(&local_label_stack, o->llstk, is_expr);
+    label_ਕੱਢੋ(&local_label_ਢੇਰ, o->llstk, is_ਵਿਅੰਜਕ);
 
     /* In the is_expr case (a statement expression is finished here),
        vtop might refer to symbols on the local_stack.  Either via the
@@ -7159,105 +7159,105 @@ static void prev_scope(struct scope *o, int is_expr)
        tables, though.  sym_pop will do that.  */
 
     /* pop locally defined symbols */
-    sym_pop(&local_stack, o->lstk, is_expr);
+    sym_ਕੱਢੋ(&local_ਢੇਰ, o->lstk, is_ਵਿਅੰਜਕ);
     cur_scope = o->prev;
     --local_scope;
 }
 
 /* leave a scope via break/continue(/goto) */
-static void leave_scope(struct scope *o)
+ਸਥਿਰ ਖਾਲੀ leave_scope(ਬਣਤਰ scope *o)
 {
-    if (!o)
-        return;
+    ਜੇ (!o)
+        ਵਾਪਸ;
     try_call_scope_cleanup(o->cl.s);
     vla_leave(o);
 }
 
 /* short versiona for scopes with 'if/do/while/switch' which can
    declare only types (of struct/union/enum) */
-static void new_scope_s(struct scope *o)
+ਸਥਿਰ ਖਾਲੀ new_scope_s(ਬਣਤਰ scope *o)
 {
-    o->lstk = local_stack;
+    o->lstk = local_ਢੇਰ;
     ++local_scope;
 }
 
-static void prev_scope_s(struct scope *o)
+ਸਥਿਰ ਖਾਲੀ prev_scope_s(ਬਣਤਰ scope *o)
 {
-    sym_pop(&local_stack, o->lstk, 0);
+    sym_ਕੱਢੋ(&local_ਢੇਰ, o->lstk, 0);
     --local_scope;
 }
 
 /* ------------------------------------------------------------------------- */
 /* call block from 'for do while' loops */
 
-static void lblock(int *bsym, int *csym)
+ਸਥਿਰ ਖਾਲੀ lblock(ਪੂਰਨ *bsym, ਪੂਰਨ *csym)
 {
-    struct scope *lo = loop_scope, *co = cur_scope;
-    int *b = co->bsym, *c = co->csym;
-    if (csym) {
+    ਬਣਤਰ scope *lo = loop_scope, *co = cur_scope;
+    ਪੂਰਨ *b = co->bsym, *c = co->csym;
+    ਜੇ (csym) {
         co->csym = csym;
         loop_scope = co;
     }
     co->bsym = bsym;
-    block(0);
+    ਖੰਡ(0);
     co->bsym = b;
-    if (csym) {
+    ਜੇ (csym) {
         co->csym = c;
         loop_scope = lo;
     }
 }
 
 /* c2y if/switch declaration */
-static void gexpr_decl(void)
+ਸਥਿਰ ਖਾਲੀ gexpr_decl(ਖਾਲੀ)
 {
-    int v = decl(VT_JMP);
-    if (v > 1 && tok != ';') {
-        Sym *s = sym_find(v);
+    ਪੂਰਨ v = decl(VT_JMP);
+    ਜੇ (v > 1 && tok != ';') {
+        Sym *s = sym_ਲੱਭੋ(v);
         vset(&s->type, s->r, (s->r & VT_SYM) ? 0 : s->c);
         vtop->sym = s;
-    } else {
-        if (v)
+    } ਨਹੀਂਤਾਂ {
+        ਜੇ (v)
             skip(';');
         gexpr();
     }
 }
 
-static void block(int flags)
+ਸਥਿਰ ਖਾਲੀ ਖੰਡ(ਪੂਰਨ flags)
 {
-    int a, b, c, d, e, t;
-    struct scope o;
+    ਪੂਰਨ a, b, c, d, e, t;
+    ਬਣਤਰ scope o;
     Sym *s;
 
 again:
     t = tok;
     /* If the token carries a value, next() might destroy it. Only with
        invalid code such as f(){"123"4;} */
-    if (TOK_HAS_VALUE(t))
-        goto expr;
-    next();
+    ਜੇ (TOK_HAS_ਮੁੱਲ(t))
+        ਜਾਓ ਵਿਅੰਜਕ;
+    ਅਗਲਾ();
 
-    if (debug_modes)
-        tcc_tcov_check_line (tcc_state, 0), tcc_tcov_block_begin (tcc_state);
+    ਜੇ (debug_modes)
+        tcc_tcov_check_ਸਤਰ (tcc_state, 0), tcc_tcov_ਖੰਡ_begin (tcc_state);
 
-    if (t == TOK_IF) {
+    ਜੇ (t == TOK_IF) {
         new_scope_s(&o);
         skip('(');
         gexpr_decl();
         a = gvtst(1, 0);
         skip(')');
-        block(0);
-        if (tok == TOK_ELSE) {
+        ਖੰਡ(0);
+        ਜੇ (tok == TOK_ELSE) {
             d = gjmp(0);
             gsym(a);
-            next();
-            block(0);
+            ਅਗਲਾ();
+            ਖੰਡ(0);
             gsym(d); /* patch else jmp */
-        } else {
+        } ਨਹੀਂਤਾਂ {
             gsym(a);
         }
         prev_scope_s(&o);
 
-    } else if (t == TOK_WHILE) {
+    } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_WHILE) {
         new_scope_s(&o);
         d = gind();
         skip('(');
@@ -7271,92 +7271,92 @@ again:
         gsym(a);
         prev_scope_s(&o);
 
-    } else if (t == '{') {
-        if (debug_modes)
+    } ਨਹੀਂਤਾਂ ਜੇ (t == '{') {
+        ਜੇ (debug_modes)
             tcc_debug_stabn(tcc_state, N_LBRAC, ind - func_ind);
         new_scope(&o);
 
         /* handle local labels declarations */
-        while (tok == TOK_LABEL) {
-            do {
-                next();
-                if (tok < TOK_UIDENT)
+        ਜਦੋਂ (tok == TOK_LABEL) {
+            ਕਰੋ {
+                ਅਗਲਾ();
+                ਜੇ (tok < TOK_UIDENT)
                     expect("label identifier");
-                label_push(&local_label_stack, tok, LABEL_DECLARED);
-                next();
-            } while (tok == ',');
+                label_ਧੱਕੋ(&local_label_ਢੇਰ, tok, LABEL_DECLARED);
+                ਅਗਲਾ();
+            } ਜਦੋਂ (tok == ',');
             skip(';');
         }
 
-        while (tok != '}') {
+        ਜਦੋਂ (tok != '}') {
 	    decl(VT_LOCAL);
-            if (tok != '}') {
-                block(flags | STMT_COMPOUND);
+            ਜੇ (tok != '}') {
+                ਖੰਡ(flags | STMT_COMPOUND);
             }
         }
 
-        prev_scope(&o, flags & STMT_EXPR);
-        if (debug_modes)
+        prev_scope(&o, flags & STMT_ਵਿਅੰਜਕ);
+        ਜੇ (debug_modes)
             tcc_debug_stabn(tcc_state, N_RBRAC, ind - func_ind);
-        if (local_scope)
-            next();
-        else if (!nocode_wanted)
+        ਜੇ (local_scope)
+            ਅਗਲਾ();
+        ਨਹੀਂਤਾਂ ਜੇ (!nocode_wanted)
             check_func_return();
 
-    } else if (t == TOK_RETURN) {
+    } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_RETURN) {
         b = (func_vt.t & VT_BTYPE) != VT_VOID;
-        if (tok != ';') {
+        ਜੇ (tok != ';') {
             gexpr();
-            if (b) {
-                gen_assign_cast(&func_vt);
-            } else {
-                if (vtop->type.t != VT_VOID)
+            ਜੇ (b) {
+                gen_ਸੌਂਪੋ_cast(&func_vt);
+            } ਨਹੀਂਤਾਂ {
+                ਜੇ (vtop->type.t != VT_VOID)
                     tcc_warning("void function returns a value");
                 vtop--;
             }
-        } else if (b && func_old && (func_vt.t & VT_BTYPE) == VT_INT) {
+        } ਨਹੀਂਤਾਂ ਜੇ (b && func_old && (func_vt.t & VT_BTYPE) == VT_INT) {
             vpushi(0);
-        } else if (b) {
+        } ਨਹੀਂਤਾਂ ਜੇ (b) {
             tcc_warning("'return' with no value");
             b = 0;
         }
-        leave_scope(root_scope);
-        if (b)
+        leave_scope(ਜੜ੍ਹ_scope);
+        ਜੇ (b)
             gfunc_return(&func_vt);
         skip(';');
         /* jump unless last stmt in top-level block */
-        if (tok != '}' || local_scope != 1)
+        ਜੇ (tok != '}' || local_scope != 1)
             rsym = gjmp(rsym);
-        if (debug_modes)
-	    tcc_tcov_block_end (tcc_state, -1);
-        CODE_OFF();
+        ਜੇ (debug_modes)
+	    tcc_tcov_ਖੰਡ_ਸਿਰਾ (tcc_state, -1);
+        ਕੋਡ_OFF();
 
-    } else if (t == TOK_BREAK) {
+    } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_BREAK) {
         /* compute jump */
-        if (!cur_scope->bsym)
+        ਜੇ (!cur_scope->bsym)
             tcc_error("cannot break");
-        if (cur_switch && cur_scope->bsym == cur_switch->bsym)
+        ਜੇ (cur_switch && cur_scope->bsym == cur_switch->bsym)
             leave_scope(cur_switch->scope);
-        else
+        ਨਹੀਂਤਾਂ
             leave_scope(loop_scope);
         *cur_scope->bsym = gjmp(*cur_scope->bsym);
         skip(';');
 
-    } else if (t == TOK_CONTINUE) {
+    } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_CONTINUE) {
         /* compute jump */
-        if (!cur_scope->csym)
+        ਜੇ (!cur_scope->csym)
             tcc_error("cannot continue");
         leave_scope(loop_scope);
         *cur_scope->csym = gjmp(*cur_scope->csym);
         skip(';');
 
-    } else if (t == TOK_FOR) {
+    } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_FOR) {
         new_scope(&o);
 
         skip('(');
-        if (tok != ';') {
+        ਜੇ (tok != ';') {
             /* c99 for-loop init decl? */
-            if (!decl(VT_JMP)) {
+            ਜੇ (!decl(VT_JMP)) {
                 /* no, regular for-loop init expr */
                 gexpr();
                 vpop();
@@ -7365,12 +7365,12 @@ again:
         skip(';');
         a = b = 0;
         c = d = gind();
-        if (tok != ';') {
+        ਜੇ (tok != ';') {
             gexpr();
             a = gvtst(1, 0);
         }
         skip(';');
-        if (tok != ')') {
+        ਜੇ (tok != ')') {
             e = gjmp(0);
             d = gind();
             gexpr();
@@ -7385,7 +7385,7 @@ again:
         gsym(a);
         prev_scope(&o, 0);
 
-    } else if (t == TOK_DO) {
+    } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_DO) {
         new_scope_s(&o);
         a = b = 0;
         d = gind();
@@ -7401,10 +7401,10 @@ again:
         gsym(a);
         prev_scope_s(&o);
 
-    } else if (t == TOK_SWITCH) {
-        struct switch_t *sw;
+    } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_SWITCH) {
+        ਬਣਤਰ switch_t *sw;
 
-        sw = tcc_mallocz(sizeof *sw);
+        sw = tcc_mallocz(ਆਕਾਰ *sw);
         sw->bsym = &a;
         sw->scope = cur_scope;
         sw->prev = cur_switch;
@@ -7414,152 +7414,152 @@ again:
         new_scope_s(&o);
         skip('(');
         gexpr_decl();
-        if (!is_integer_btype(vtop->type.t & VT_BTYPE))
+        ਜੇ (!is_integer_btype(vtop->type.t & VT_BTYPE))
             tcc_error("switch value not an integer");
         skip(')');
         sw->sv = *vtop--; /* save switch value */
         a = 0;
         b = gjmp(0); /* jump to first case */
-        lblock(&a, NULL);
+        lblock(&a, ਨਿਰਾ);
         a = gjmp(a); /* add implicit break */
         /* case lookup */
         gsym(b);
         prev_scope_s(&o);
-        if (sw->nocode_wanted)
-            goto skip_switch;
-        case_sort(sw);
-        sw->bsym = NULL; /* marker for 32bit:gen_opl() */
+        ਜੇ (sw->nocode_wanted)
+            ਜਾਓ skip_switch;
+        case_ਛਾਂਟੋ(sw);
+        sw->bsym = ਨਿਰਾ; /* marker for 32bit:gen_opl() */
         vpushv(&sw->sv);
         gv(RC_INT);
         d = gcase(sw->p, sw->n, 0);
         vpop();
-        if (sw->def_sym)
+        ਜੇ (sw->def_sym)
             gsym_addr(d, sw->def_sym);
-        else
+        ਨਹੀਂਤਾਂ
             gsym(d);
     skip_switch:
         /* break label */
         gsym(a);
-        end_switch();
+        ਸਿਰਾ_switch();
 
-    } else if (t == TOK_CASE) {
-        struct case_t *cr;
-        if (!cur_switch)
+    } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_CASE) {
+        ਬਣਤਰ case_t *cr;
+        ਜੇ (!cur_switch)
             expect("switch");
-        cr = tcc_malloc(sizeof(struct case_t));
-        dynarray_add(&cur_switch->p, &cur_switch->n, cr);
+        cr = tcc_malloc(ਆਕਾਰ(ਬਣਤਰ case_t));
+        dynarray_ਜੋੜੋ(&cur_switch->p, &cur_switch->n, cr);
         t = cur_switch->sv.type.t;
-        cr->v1 = cr->v2 = value64(expr_const64(), t);
-        if (tok == TOK_DOTS && gnu_ext) {
-            next();
-            cr->v2 = value64(expr_const64(), t);
-            if (case_cmp(cr->v2, cr->v1) < 0)
+        cr->v1 = cr->v2 = value64(ਵਿਅੰਜਕ_const64(), t);
+        ਜੇ (tok == TOK_DOTS && gnu_ext) {
+            ਅਗਲਾ();
+            cr->v2 = value64(ਵਿਅੰਜਕ_const64(), t);
+            ਜੇ (case_cmp(cr->v2, cr->v1) < 0)
                 tcc_warning("empty case range");
         }
         /* case and default are unreachable from a switch under nocode_wanted */
-        if (!cur_switch->nocode_wanted)
+        ਜੇ (!cur_switch->nocode_wanted)
             cr->ind = gind();
-        cr->line = file->line_num;
+        cr->ਸਤਰ = file->ਸਤਰ_ਅੰਕ;
         skip(':');
-        goto block_after_label;
+        ਜਾਓ ਖੰਡ_after_label;
 
-    } else if (t == TOK_DEFAULT) {
-        if (!cur_switch)
+    } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_DEFAULT) {
+        ਜੇ (!cur_switch)
             expect("switch");
-        if (cur_switch->def_sym)
+        ਜੇ (cur_switch->def_sym)
             tcc_error("too many 'default'");
         cur_switch->def_sym = cur_switch->nocode_wanted ? -1 : gind();
         skip(':');
-        goto block_after_label;
+        ਜਾਓ ਖੰਡ_after_label;
 
-    } else if (t == TOK_GOTO) {
+    } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_GOTO) {
         vla_restore(cur_scope->vla.locorig);
-        if (tok == '*' && gnu_ext) {
+        ਜੇ (tok == '*' && gnu_ext) {
             /* computed goto */
-            next();
+            ਅਗਲਾ();
             gexpr();
-            if ((vtop->type.t & VT_BTYPE) != VT_PTR)
+            ਜੇ ((vtop->type.t & VT_BTYPE) != VT_PTR)
                 expect("pointer");
             ggoto();
 
-        } else if (tok >= TOK_UIDENT) {
-	    s = label_find(tok);
+        } ਨਹੀਂਤਾਂ ਜੇ (tok >= TOK_UIDENT) {
+	    s = label_ਲੱਭੋ(tok);
 	    /* put forward definition if needed */
-            if (!s)
-              s = label_push(&global_label_stack, tok, LABEL_FORWARD);
-            else if (s->r == LABEL_DECLARED)
+            ਜੇ (!s)
+              s = label_ਧੱਕੋ(&global_label_ਢੇਰ, tok, LABEL_FORWARD);
+            ਨਹੀਂਤਾਂ ਜੇ (s->r == LABEL_DECLARED)
               s->r = LABEL_FORWARD;
 
-	    if (s->r & LABEL_FORWARD) {
+	    ਜੇ (s->r & LABEL_FORWARD) {
 		/* start new goto chain for cleanups, linked via label->next */
-		if (cur_scope->cl.s && !nocode_wanted) {
-                    sym_push2(&pending_gotos, SYM_FIELD, 0, cur_scope->cl.n);
+		ਜੇ (cur_scope->cl.s && !nocode_wanted) {
+                    sym_push2(&pending_gotos, SYM_ਖੇਤਰ, 0, cur_scope->cl.n);
                     pending_gotos->cleanup_label = s;
-                    s = sym_push2(&s->next, SYM_FIELD, 0, 0);
-                    pending_gotos->next = s;
+                    s = sym_push2(&s->ਅਗਲਾ, SYM_ਖੇਤਰ, 0, 0);
+                    pending_gotos->ਅਗਲਾ = s;
                 }
 		s->jnext = gjmp(s->jnext);
-	    } else {
+	    } ਨਹੀਂਤਾਂ {
 		try_call_cleanup_goto(s->cleanupstate);
 		gjmp_addr(s->jind);
 	    }
-	    next();
+	    ਅਗਲਾ();
 
-        } else {
+        } ਨਹੀਂਤਾਂ {
             expect("label identifier");
         }
         skip(';');
 
-    } else if (t == TOK_ASM1 || t == TOK_ASM2 || t == TOK_ASM3) {
+    } ਨਹੀਂਤਾਂ ਜੇ (t == TOK_ASM1 || t == TOK_ASM2 || t == TOK_ASM3) {
         asm_instr();
 
-    } else {
-        if (tok == ':' && t >= TOK_UIDENT) {
+    } ਨਹੀਂਤਾਂ {
+        ਜੇ (tok == ':' && t >= TOK_UIDENT) {
             /* label case */
-	    next();
-            s = label_find(t);
-            if (s) {
-                if (s->r == LABEL_DEFINED)
-                    tcc_error("duplicate label '%s'", get_tok_str(s->v, NULL));
+	    ਅਗਲਾ();
+            s = label_ਲੱਭੋ(t);
+            ਜੇ (s) {
+                ਜੇ (s->r == LABEL_DEFINED)
+                    tcc_error("duplicate label '%s'", get_tok_str(s->v, ਨਿਰਾ));
                 s->r = LABEL_DEFINED;
-		if (s->next) {
+		ਜੇ (s->ਅਗਲਾ) {
 		    Sym *pcl; /* pending cleanup goto */
-		    for (pcl = s->next; pcl; pcl = pcl->prev)
+		    ਲਈ (pcl = s->ਅਗਲਾ; pcl; pcl = pcl->prev)
 		      gsym(pcl->jnext);
-		    sym_pop(&s->next, NULL, 0);
-		} else
+		    sym_ਕੱਢੋ(&s->ਅਗਲਾ, ਨਿਰਾ, 0);
+		} ਨਹੀਂਤਾਂ
 		  gsym(s->jnext);
-            } else {
-                s = label_push(&global_label_stack, t, LABEL_DEFINED);
+            } ਨਹੀਂਤਾਂ {
+                s = label_ਧੱਕੋ(&global_label_ਢੇਰ, t, LABEL_DEFINED);
             }
             s->jind = gind();
             s->cleanupstate = cur_scope->cl.s;
 
-    block_after_label:
+    ਖੰਡ_after_label:
             /* Accept attributes after labels (e.g. 'unused') */
-            parse_attribute(NULL);
+            parse_attribute(ਨਿਰਾ);
 
-            if (debug_modes)
+            ਜੇ (debug_modes)
                 tcc_tcov_reset_ind(tcc_state);
             vla_restore(cur_scope->vla.loc);
 
-            if (tok != '}') {
-                if (0 == (flags & STMT_COMPOUND))
-                    goto again;
+            ਜੇ (tok != '}') {
+                ਜੇ (0 == (flags & STMT_COMPOUND))
+                    ਜਾਓ again;
                 /* C23: insert implicit null-statement whithin compound statement */
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 /* we accept this, but it is a mistake */
                 tcc_warning_c(warn_all)("deprecated use of label at end of compound statement");
             }
-        } else {
+        } ਨਹੀਂਤਾਂ {
             /* expression case */
-            if (t != ';') {
+            ਜੇ (t != ';') {
                 unget_tok(t);
-    expr:
-                if (flags & STMT_EXPR) {
+    ਵਿਅੰਜਕ:
+                ਜੇ (flags & STMT_ਵਿਅੰਜਕ) {
                     vpop();
                     gexpr();
-                } else {
+                } ਨਹੀਂਤਾਂ {
                     gexpr();
                     vpop();
                 }
@@ -7568,8 +7568,8 @@ again:
         }
     }
 
-    if (debug_modes)
-        tcc_tcov_check_line (tcc_state, 0), tcc_tcov_block_end (tcc_state, 0);
+    ਜੇ (debug_modes)
+        tcc_tcov_check_ਸਤਰ (tcc_state, 0), tcc_tcov_ਖੰਡ_ਸਿਰਾ (tcc_state, 0);
 }
 
 /* This skips over a stream of tokens containing balanced {} and ()
@@ -7577,134 +7577,134 @@ again:
    with a '{').  If STR then allocates and stores the skipped tokens
    in *STR.  This doesn't check if () and {} are nested correctly,
    i.e. "({)}" is accepted.  */
-static void skip_or_save_block(TokenString **str)
+ਸਥਿਰ ਖਾਲੀ skip_or_save_ਖੰਡ(TokenString **str)
 {
-    int braces = tok == '{';
-    int level = 0;
-    if (str)
+    ਪੂਰਨ braces = tok == '{';
+    ਪੂਰਨ level = 0;
+    ਜੇ (str)
       *str = tok_str_alloc();
 
-    while (1) {
-	int t = tok;
-        if (level == 0
+    ਜਦੋਂ (1) {
+	ਪੂਰਨ t = tok;
+        ਜੇ (level == 0
             && (t == ','
              || t == ';'
              || t == '}'
              || t == ')'
              || t == ']'))
-             break;
-	if (t == TOK_EOF) {
-	     if (str || level > 0)
+             ਰੋਕੋ;
+	ਜੇ (t == TOK_EOF) {
+	     ਜੇ (str || level > 0)
 	       tcc_error("unexpected end of file");
-	     else
-	       break;
+	     ਨਹੀਂਤਾਂ
+	       ਰੋਕੋ;
 	}
-	if (str)
-	  tok_str_add_tok(*str);
-	next();
-	if (t == '{' || t == '(' || t == '[') {
+	ਜੇ (str)
+	  tok_str_ਜੋੜੋ_tok(*str);
+	ਅਗਲਾ();
+	ਜੇ (t == '{' || t == '(' || t == '[') {
 	    level++;
-	} else if (t == '}' || t == ')' || t == ']') {
+	} ਨਹੀਂਤਾਂ ਜੇ (t == '}' || t == ')' || t == ']') {
 	    level--;
-	    if (level == 0 && braces && t == '}')
-	      break;
+	    ਜੇ (level == 0 && braces && t == '}')
+	      ਰੋਕੋ;
 	}
     }
-    if (str)
-	tok_str_add(*str, TOK_EOF);
+    ਜੇ (str)
+	tok_str_ਜੋੜੋ(*str, TOK_EOF);
 }
 
-#define EXPR_CONST 1
-#define EXPR_ANY   2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਵਿਅੰਜਕ_CONST 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਵਿਅੰਜਕ_ANY   2
 
-static void parse_init_elem(int expr_type)
+ਸਥਿਰ ਖਾਲੀ parse_init_elem(ਪੂਰਨ ਵਿਅੰਜਕ_type)
 {
-    int saved_global_expr;
-    switch(expr_type) {
-    case EXPR_CONST:
+    ਪੂਰਨ saved_global_ਵਿਅੰਜਕ;
+    ਚੋਣ(ਵਿਅੰਜਕ_type) {
+    ਹਾਲਤ ਵਿਅੰਜਕ_CONST:
         /* compound literals must be allocated globally in this case */
-        saved_global_expr = global_expr;
-        global_expr = 1;
-        expr_const1();
-        global_expr = saved_global_expr;
+        saved_global_ਵਿਅੰਜਕ = global_ਵਿਅੰਜਕ;
+        global_ਵਿਅੰਜਕ = 1;
+        ਵਿਅੰਜਕ_const1();
+        global_ਵਿਅੰਜਕ = saved_global_ਵਿਅੰਜਕ;
         /* NOTE: symbols are accepted, as well as lvalue for anon symbols
 	   (compound literals).  */
-        if (((vtop->r & (VT_VALMASK | VT_LVAL)) != VT_CONST
+        ਜੇ (((vtop->r & (VT_VALMASK | VT_LVAL)) != VT_CONST
              && ((vtop->r & (VT_SYM|VT_LVAL)) != (VT_SYM|VT_LVAL)
-                 || vtop->sym->v < SYM_FIRST_ANOM))
-#ifdef TCC_TARGET_PE
+                 || vtop->sym->v < SYM_ਪਹਿਲਾ_ANOM))
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
                  || ((vtop->r & VT_SYM) && vtop->sym->a.dllimport)
-#endif
+#ਜੇ_ਅੰਤ
            )
             tcc_error("initializer element is not constant");
-        break;
-    case EXPR_ANY:
-        expr_eq();
-        break;
+        ਰੋਕੋ;
+    ਹਾਲਤ ਵਿਅੰਜਕ_ANY:
+        ਵਿਅੰਜਕ_eq();
+        ਰੋਕੋ;
     }
 }
 
-#if 1
-static void init_assert(init_params *p, int offset)
+#ਜੇ 1
+ਸਥਿਰ ਖਾਲੀ init_assert(init_params *p, ਪੂਰਨ ਵਿੱਥ)
 {
-    if (p->sec ? !NODATA_WANTED && offset > p->sec->data_offset
-               : !nocode_wanted && offset > p->local_offset)
-        tcc_internal_error("initializer overflow");
+    ਜੇ (p->sec ? !NODATA_WANTED && ਵਿੱਥ > p->sec->ਅੰਕੜੇ_ਵਿੱਥ
+               : !nocode_wanted && ਵਿੱਥ > p->local_ਵਿੱਥ)
+        tcc_ਅੰਦਰੂਨੀ_error("initializer overflow");
 }
-#else
-#define init_assert(sec, offset)
-#endif
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ init_assert(sec, ਵਿੱਥ)
+#ਜੇ_ਅੰਤ
 
 /* put zeros for variable based init */
-static void init_putz(init_params *p, unsigned long c, int size)
+ਸਥਿਰ ਖਾਲੀ init_putz(init_params *p, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ c, ਪੂਰਨ ਮਾਪ)
 {
-    init_assert(p, c + size);
-    if (p->sec) {
+    init_assert(p, c + ਮਾਪ);
+    ਜੇ (p->sec) {
         /* nothing to do because globals are already set to zero */
-    } else {
+    } ਨਹੀਂਤਾਂ {
         vpush_helper_func(TOK_memset);
         vseti(VT_LOCAL, c);
         vpushi(0);
-        vpushs(size);
-#if defined TCC_TARGET_ARM && defined TCC_ARM_EABI
+        vpushs(ਮਾਪ);
+#ਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_ARM && defined TCC_ARM_EABI
         vswap();  /* using __aeabi_memset(void*, size_t, int) */
-#endif
+#ਜੇ_ਅੰਤ
         gfunc_call(3);
     }
 }
 
-#define DIF_FIRST     1
-#define DIF_SIZE_ONLY 2
-#define DIF_HAVE_ELEM 4
-#define DIF_CLEAR     8
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DIF_ਪਹਿਲਾ     1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DIF_ਮਾਪ_ONLY 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DIF_HAVE_ELEM 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DIF_CLEAR     8
 
 /* delete relocations for specified range c ... c + size. Unfortunatly
    in very special cases, relocations may occur unordered */
-static void decl_design_delrels(Section *sec, int c, int size)
+ਸਥਿਰ ਖਾਲੀ decl_design_delrels(Section *sec, ਪੂਰਨ c, ਪੂਰਨ ਮਾਪ)
 {
-    ElfW_Rel *rel, *rel2, *rel_end;
-    if (!sec || !sec->reloc)
-        return;
-    rel = rel2 = (ElfW_Rel*)sec->reloc->data;
-    rel_end = (ElfW_Rel*)(sec->reloc->data + sec->reloc->data_offset);
-    while (rel < rel_end) {
-        if (rel->r_offset >= c && rel->r_offset < c + size) {
-            sec->reloc->data_offset -= sizeof *rel;
-        } else {
-            if (rel2 != rel)
-                memcpy(rel2, rel, sizeof *rel);
+    ElfW_Rel *rel, *rel2, *rel_ਸਿਰਾ;
+    ਜੇ (!sec || !sec->reloc)
+        ਵਾਪਸ;
+    rel = rel2 = (ElfW_Rel*)sec->reloc->ਅੰਕੜੇ;
+    rel_ਸਿਰਾ = (ElfW_Rel*)(sec->reloc->ਅੰਕੜੇ + sec->reloc->ਅੰਕੜੇ_ਵਿੱਥ);
+    ਜਦੋਂ (rel < rel_ਸਿਰਾ) {
+        ਜੇ (rel->r_ਵਿੱਥ >= c && rel->r_ਵਿੱਥ < c + ਮਾਪ) {
+            sec->reloc->ਅੰਕੜੇ_ਵਿੱਥ -= ਆਕਾਰ *rel;
+        } ਨਹੀਂਤਾਂ {
+            ਜੇ (rel2 != rel)
+                ਸਮ੍ਰਿਤੀ_ਨਕਲ(rel2, rel, ਆਕਾਰ *rel);
             ++rel2;
         }
         ++rel;
     }
 }
 
-static void decl_design_flex(init_params *p, Sym *ref, int index)
+ਸਥਿਰ ਖਾਲੀ decl_design_flex(init_params *p, Sym *ref, ਪੂਰਨ ਸੂਚਕਾਂਕ)
 {
-    if (ref == p->flex_array_ref) {
-        if (index >= ref->c)
-            ref->c = index + 1;
-    } else if (ref->c < 0 && index >= 0)
+    ਜੇ (ref == p->flex_array_ref) {
+        ਜੇ (ਸੂਚਕਾਂਕ >= ref->c)
+            ref->c = ਸੂਚਕਾਂਕ + 1;
+    } ਨਹੀਂਤਾਂ ਜੇ (ref->c < 0 && ਸੂਚਕਾਂਕ >= 0)
         tcc_error("flexible array has zero size in this context");
 }
 
@@ -7714,239 +7714,239 @@ static void decl_design_flex(init_params *p, Sym *ref, int index)
    index.  'flags' is as in decl_initializer.
    'al' contains the already initialized length of the
    current container (starting at c).  This returns the new length of that.  */
-static int decl_designator(init_params *p, CType *type, unsigned long c,
-                           Sym **cur_field, int flags, int al)
+ਸਥਿਰ ਪੂਰਨ decl_designator(init_params *p, CType *type, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ c,
+                           Sym **cur_ਖੇਤਰ, ਪੂਰਨ flags, ਪੂਰਨ al)
 {
     Sym *s, *f;
-    int index, index_last, align, l, nb_elems, elem_size;
-    unsigned long corig = c;
+    ਪੂਰਨ ਸੂਚਕਾਂਕ, ਸੂਚਕਾਂਕ_ਆਖਰੀ, align, l, nb_elems, elem_ਮਾਪ;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ corig = c;
 
-    elem_size = 0;
+    elem_ਮਾਪ = 0;
     nb_elems = 1;
 
-    if (flags & DIF_HAVE_ELEM)
-        goto no_designator;
+    ਜੇ (flags & DIF_HAVE_ELEM)
+        ਜਾਓ no_designator;
 
-    if (gnu_ext && tok >= TOK_UIDENT) {
-        l = tok, next();
-        if (tok == ':')
-            goto struct_field;
+    ਜੇ (gnu_ext && tok >= TOK_UIDENT) {
+        l = tok, ਅਗਲਾ();
+        ਜੇ (tok == ':')
+            ਜਾਓ struct_ਖੇਤਰ;
         unget_tok(l);
     }
 
     /* NOTE: we only support ranges for last designator */
-    while (nb_elems == 1 && (tok == '[' || tok == '.')) {
-        if (tok == '[') {
-            if (!(type->t & VT_ARRAY))
+    ਜਦੋਂ (nb_elems == 1 && (tok == '[' || tok == '.')) {
+        ਜੇ (tok == '[') {
+            ਜੇ (!(type->t & VT_ARRAY))
                 expect("array type");
-            next();
-            index = index_last = expr_const();
-            if (tok == TOK_DOTS && gnu_ext) {
-                next();
-                index_last = expr_const();
+            ਅਗਲਾ();
+            ਸੂਚਕਾਂਕ = ਸੂਚਕਾਂਕ_ਆਖਰੀ = ਵਿਅੰਜਕ_const();
+            ਜੇ (tok == TOK_DOTS && gnu_ext) {
+                ਅਗਲਾ();
+                ਸੂਚਕਾਂਕ_ਆਖਰੀ = ਵਿਅੰਜਕ_const();
             }
             skip(']');
             s = type->ref;
-            decl_design_flex(p, s, index_last);
-            if (index < 0 || index_last >= s->c || index_last < index)
+            decl_design_flex(p, s, ਸੂਚਕਾਂਕ_ਆਖਰੀ);
+            ਜੇ (ਸੂਚਕਾਂਕ < 0 || ਸੂਚਕਾਂਕ_ਆਖਰੀ >= s->c || ਸੂਚਕਾਂਕ_ਆਖਰੀ < ਸੂਚਕਾਂਕ)
 	        tcc_error("index exceeds array bounds or range is empty");
-            if (cur_field)
-		(*cur_field)->c = index_last;
+            ਜੇ (cur_ਖੇਤਰ)
+		(*cur_ਖੇਤਰ)->c = ਸੂਚਕਾਂਕ_ਆਖਰੀ;
             type = pointed_type(type);
-            elem_size = type_size(type, &align);
-            c += index * elem_size;
-            nb_elems = index_last - index + 1;
-        } else {
-            int cumofs;
-            next();
+            elem_ਮਾਪ = type_ਮਾਪ(type, &align);
+            c += ਸੂਚਕਾਂਕ * elem_ਮਾਪ;
+            nb_elems = ਸੂਚਕਾਂਕ_ਆਖਰੀ - ਸੂਚਕਾਂਕ + 1;
+        } ਨਹੀਂਤਾਂ {
+            ਪੂਰਨ cumofs;
+            ਅਗਲਾ();
             l = tok;
-        struct_field:
-            next();
-	    f = find_field(type, l, &cumofs);
-            if (cur_field)
-                *cur_field = f;
+        struct_ਖੇਤਰ:
+            ਅਗਲਾ();
+	    f = ਲੱਭੋ_ਖੇਤਰ(type, l, &cumofs);
+            ਜੇ (cur_ਖੇਤਰ)
+                *cur_ਖੇਤਰ = f;
 	    type = &f->type;
             c += cumofs;
         }
-        cur_field = NULL;
+        cur_ਖੇਤਰ = ਨਿਰਾ;
     }
-    if (!cur_field) {
-        if (tok == '=') {
-            next();
-        } else if (!gnu_ext) {
+    ਜੇ (!cur_ਖੇਤਰ) {
+        ਜੇ (tok == '=') {
+            ਅਗਲਾ();
+        } ਨਹੀਂਤਾਂ ਜੇ (!gnu_ext) {
 	    expect("=");
         }
-    } else {
+    } ਨਹੀਂਤਾਂ {
     no_designator:
-        if (type->t & VT_ARRAY) {
-	    index = (*cur_field)->c;
+        ਜੇ (type->t & VT_ARRAY) {
+	    ਸੂਚਕਾਂਕ = (*cur_ਖੇਤਰ)->c;
             s = type->ref;
-            decl_design_flex(p, s, index);
-            if (index >= s->c)
+            decl_design_flex(p, s, ਸੂਚਕਾਂਕ);
+            ਜੇ (ਸੂਚਕਾਂਕ >= s->c)
                 tcc_error("too many initializers");
             type = pointed_type(type);
-            elem_size = type_size(type, &align);
-            c += index * elem_size;
-        } else {
-            f = *cur_field;
+            elem_ਮਾਪ = type_ਮਾਪ(type, &align);
+            c += ਸੂਚਕਾਂਕ * elem_ਮਾਪ;
+        } ਨਹੀਂਤਾਂ {
+            f = *cur_ਖੇਤਰ;
 	    /* Skip bitfield padding. Also with size 32 and 64. */
-	    while (f && (f->v & SYM_FIRST_ANOM) &&
+	    ਜਦੋਂ (f && (f->v & SYM_ਪਹਿਲਾ_ANOM) &&
 		   is_integer_btype(f->type.t & VT_BTYPE))
-	        *cur_field = f = f->next;
-            if (!f)
+	        *cur_ਖੇਤਰ = f = f->ਅਗਲਾ;
+            ਜੇ (!f)
                 tcc_error("too many initializers");
 	    type = &f->type;
             c += f->c;
         }
     }
 
-    if (!elem_size) /* for structs */
-        elem_size = type_size(type, &align);
+    ਜੇ (!elem_ਮਾਪ) /* for structs */
+        elem_ਮਾਪ = type_ਮਾਪ(type, &align);
 
     /* Using designators the same element can be initialized more
        than once.  In that case we need to delete possibly already
        existing relocations. */
-    if (!(flags & DIF_SIZE_ONLY) && c - corig < al) {
-        decl_design_delrels(p->sec, c, elem_size * nb_elems);
+    ਜੇ (!(flags & DIF_ਮਾਪ_ONLY) && c - corig < al) {
+        decl_design_delrels(p->sec, c, elem_ਮਾਪ * nb_elems);
         flags &= ~DIF_CLEAR; /* mark stack dirty too */
     }
 
-    decl_initializer(p, type, c, flags & ~DIF_FIRST);
+    decl_initializer(p, type, c, flags & ~DIF_ਪਹਿਲਾ);
 
-    if (!(flags & DIF_SIZE_ONLY) && nb_elems > 1) {
+    ਜੇ (!(flags & DIF_ਮਾਪ_ONLY) && nb_elems > 1) {
         Sym aref = {0};
         CType t1;
-        int i;
-        if (p->sec || (type->t & VT_ARRAY)) {
+        ਪੂਰਨ i;
+        ਜੇ (p->sec || (type->t & VT_ARRAY)) {
             /* make init_putv/vstore believe it were a struct */
-            aref.c = elem_size;
+            aref.c = elem_ਮਾਪ;
             t1.t = VT_STRUCT, t1.ref = &aref;
             type = &t1;
         }
-        if (p->sec)
-            vpush_ref(type, p->sec, c, elem_size);
-        else
+        ਜੇ (p->sec)
+            vpush_ref(type, p->sec, c, elem_ਮਾਪ);
+        ਨਹੀਂਤਾਂ
 	    vset(type, VT_LOCAL|VT_LVAL, c);
-        for (i = 1; i < nb_elems; i++) {
+        ਲਈ (i = 1; i < nb_elems; i++) {
             vdup();
-            init_putv(p, type, c + elem_size * i);
+            init_putv(p, type, c + elem_ਮਾਪ * i);
 	}
         vpop();
     }
 
-    c += nb_elems * elem_size;
-    if (c - corig > al)
+    c += nb_elems * elem_ਮਾਪ;
+    ਜੇ (c - corig > al)
       al = c - corig;
-    return al;
+    ਵਾਪਸ al;
 }
 
-static void write_ldouble(unsigned char *d, void *s)
+ਸਥਿਰ ਖਾਲੀ write_ldouble(ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ *d, ਖਾਲੀ *s)
 {
     //printf("long double %Lf\n", *(long double*)s);
-#ifdef TCC_CROSS_TEST
-    if (LDOUBLE_SIZE >= 10) {
-        double b = *(long double*)s;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_CROSS_TEST
+    ਜੇ (LDOUBLE_ਮਾਪ >= 10) {
+        ਦੁੱਗਣਾ b = *(ਲੰਮਾ ਦੁੱਗਣਾ*)s;
         s = &b;
-#else
-    if (sizeof (long double) == 8 && LDOUBLE_SIZE >= 10) {
-#endif
+#ਨਹੀਂਤਾਂ
+    ਜੇ (ਆਕਾਰ (ਲੰਮਾ ਦੁੱਗਣਾ) == 8 && LDOUBLE_ਮਾਪ >= 10) {
+#ਜੇ_ਅੰਤ
         /* our 'long double' is a double really (_WIN32, __APPLE__) */
         uint64_t m = *(uint64_t*)s;
-        int e = m >> 48;
-        int f = e >> 4 & 0x7FF;
+        ਪੂਰਨ e = m >> 48;
+        ਪੂਰਨ f = e >> 4 & 0x7FF;
         m <<= 11;
-        if (0 == f) {
-            if (0 == m)
-                goto set;
-            for (f = 1; !(m & 1ULL<<63); --f)
+        ਜੇ (0 == f) {
+            ਜੇ (0 == m)
+                ਜਾਓ ਸੈੱਟ;
+            ਲਈ (f = 1; !(m & 1ULL<<63); --f)
                 m <<= 1;
         }
-        if (f == 0x7ff)
+        ਜੇ (f == 0x7ff)
             f = 0x43FF;
         e = (e & 0x8000) | (f + 0x3C00);
         m |= 1ULL<<63;
-    set:
-    #if (defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64)
+    ਸੈੱਟ:
+    #ਜੇ (defined TCC_ਨਿਸ਼ਾਨਾ_I386 || defined TCC_ਨਿਸ਼ਾਨਾ_X86_64)
         /* double -> extended */
         write64le(d, m);
         write16le(d+8, e);
-    #elif LDOUBLE_SIZE == 16
+    #ਜਾਂਜੇ LDOUBLE_ਮਾਪ == 16
         /* double -> quad */
         write64le(d+6, m << 1);
         write16le(d+14, e);
-    #endif
+    #ਜੇ_ਅੰਤ
         ;
-    } else {
-    #if LDOUBLE_SIZE == 8
+    } ਨਹੀਂਤਾਂ {
+    #ਜੇ LDOUBLE_ਮਾਪ == 8
         /* long double -> double */
-        double b = *(long double*)s;
-        memcpy(d, &b, 8);
-    #elif (__i386__ || __x86_64__) && (defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64)
+        ਦੁੱਗਣਾ b = *(ਲੰਮਾ ਦੁੱਗਣਾ*)s;
+        ਸਮ੍ਰਿਤੀ_ਨਕਲ(d, &b, 8);
+    #ਜਾਂਜੇ (__i386__ || __x86_64__) && (defined TCC_ਨਿਸ਼ਾਨਾ_I386 || defined TCC_ਨਿਸ਼ਾਨਾ_X86_64)
         /* extended -> extended */
-        memcpy(d, s, 10);
-    #elif (__i386__ || __x86_64__) && (defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64)
+        ਸਮ੍ਰਿਤੀ_ਨਕਲ(d, s, 10);
+    #ਜਾਂਜੇ (__i386__ || __x86_64__) && (defined TCC_ਨਿਸ਼ਾਨਾ_ARM64 || defined TCC_ਨਿਸ਼ਾਨਾ_RISCV64)
         /* extended -> quad */
         uint64_t m = *(uint64_t*)s;
-        int e = *(uint16_t*)((char*)s + 8);
+        ਪੂਰਨ e = *(uint16_t*)((ਅੱਖਰ*)s + 8);
         write64le(d+6, m << 1);
         write16le(d+14, e);
-    #elif (__aarch64__ || __riscv) && (defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64)
+    #ਜਾਂਜੇ (__aarch64__ || __riscv) && (defined TCC_ਨਿਸ਼ਾਨਾ_I386 || defined TCC_ਨਿਸ਼ਾਨਾ_X86_64)
         /* quad -> extended */
-        uint64_t m = read64le((char*)s + 6);
-        int e = read16le((char*)s + 14);
+        uint64_t m = read64le((ਅੱਖਰ*)s + 6);
+        ਪੂਰਨ e = read16le((ਅੱਖਰ*)s + 14);
         (e & 0x7fff) && (m & 1) && 0 == ++m && ++e;
         write64le(d, m >> 1 | ((e & 0x7fff) ? 1ULL<<63 : 0));
         write16le(d+8, e);
-    #else
+    #ਨਹੀਂਤਾਂ
         /* unknown */
-        if (sizeof (long double) == LDOUBLE_SIZE)
-            memcpy(d, s, LDOUBLE_SIZE);
-    #endif
+        ਜੇ (ਆਕਾਰ (ਲੰਮਾ ਦੁੱਗਣਾ) == LDOUBLE_ਮਾਪ)
+            ਸਮ੍ਰਿਤੀ_ਨਕਲ(d, s, LDOUBLE_ਮਾਪ);
+    #ਜੇ_ਅੰਤ
     }
 }
 
 /* store a value or an expression directly in global data or in local array */
-static void init_putv(init_params *p, CType *type, unsigned long c)
+ਸਥਿਰ ਖਾਲੀ init_putv(init_params *p, CType *type, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ c)
 {
-    int bt;
-    void *ptr;
+    ਪੂਰਨ bt;
+    ਖਾਲੀ *ptr;
     CType dtype;
-    int size, align;
+    ਪੂਰਨ ਮਾਪ, align;
     Section *sec = p->sec;
     uint64_t val;
 
     dtype = *type;
     dtype.t &= ~VT_CONSTANT; /* need to do that to avoid false warning */
 
-    size = type_size(type, &align);
-    if (type->t & VT_BITFIELD)
-        size = (BIT_POS(type->t) + BIT_SIZE(type->t) + 7) / 8;
-    init_assert(p, c + size);
+    ਮਾਪ = type_ਮਾਪ(type, &align);
+    ਜੇ (type->t & VT_BITFIELD)
+        ਮਾਪ = (ਦੋਆਧਾਰੀ_ਅੰਕ_POS(type->t) + ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ(type->t) + 7) / 8;
+    init_assert(p, c + ਮਾਪ);
 
-    if (sec) {
+    ਜੇ (sec) {
         /* XXX: not portable */
         /* XXX: generate error if incorrect relocation */
-        gen_assign_cast(&dtype);
+        gen_ਸੌਂਪੋ_cast(&dtype);
         bt = type->t & VT_BTYPE;
 
-        if ((vtop->r & VT_SYM)
+        ਜੇ ((vtop->r & VT_SYM)
             && bt != VT_PTR
-            && (bt != (PTR_SIZE == 8 ? VT_LLONG : VT_INT)
+            && (bt != (PTR_ਮਾਪ == 8 ? VT_LLONG : VT_INT)
                 || (type->t & VT_BITFIELD))
-            && !((vtop->r & VT_CONST) && vtop->sym->v >= SYM_FIRST_ANOM)
+            && !((vtop->r & VT_CONST) && vtop->sym->v >= SYM_ਪਹਿਲਾ_ANOM)
             )
             tcc_error("initializer element is not computable at load time");
 
-        if (NODATA_WANTED) {
+        ਜੇ (NODATA_WANTED) {
             vtop--;
-            return;
+            ਵਾਪਸ;
         }
 
-        ptr = sec->data + c;
+        ptr = sec->ਅੰਕੜੇ + c;
         val = vtop->c.i;
 
-	if ((vtop->r & (VT_SYM|VT_CONST)) == (VT_SYM|VT_CONST)
-            && vtop->sym->v >= SYM_FIRST_ANOM
+	ਜੇ ((vtop->r & (VT_SYM|VT_CONST)) == (VT_SYM|VT_CONST)
+            && vtop->sym->v >= SYM_ਪਹਿਲਾ_ANOM
             && ((vtop->r & VT_LVAL) /* compound literal */
                 || bt == VT_STRUCT /* designator */
                 )) {
@@ -7956,100 +7956,100 @@ static void init_putv(init_params *p, CType *type, unsigned long c)
 	    ElfW_Rel *rel;
 	    esym = elfsym(vtop->sym);
 	    ssec = tcc_state->sections[esym->st_shndx];
-	    memmove (ptr, ssec->data + esym->st_value + (int)vtop->c.i, size);
-	    if (ssec->reloc) {
+	    memmove (ptr, ssec->ਅੰਕੜੇ + esym->st_ਮੁੱਲ + (ਪੂਰਨ)vtop->c.i, ਮਾਪ);
+	    ਜੇ (ssec->reloc) {
 		/* We need to copy over all memory contents, and that
 		   includes relocations.  Use the fact that relocs are
 		   created it order, so look from the end of relocs
 		   until we hit one before the copied region.  */
-                unsigned long relofs = ssec->reloc->data_offset;
-		while (relofs >= sizeof(*rel)) {
-                    relofs -= sizeof(*rel);
-                    rel = (ElfW_Rel*)(ssec->reloc->data + relofs);
-		    if (rel->r_offset >= esym->st_value + size)
-		      continue;
-		    if (rel->r_offset < esym->st_value)
-		      break;
+                ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ relofs = ssec->reloc->ਅੰਕੜੇ_ਵਿੱਥ;
+		ਜਦੋਂ (relofs >= ਆਕਾਰ(*rel)) {
+                    relofs -= ਆਕਾਰ(*rel);
+                    rel = (ElfW_Rel*)(ssec->reloc->ਅੰਕੜੇ + relofs);
+		    ਜੇ (rel->r_ਵਿੱਥ >= esym->st_ਮੁੱਲ + ਮਾਪ)
+		      ਜਾਰੀ;
+		    ਜੇ (rel->r_ਵਿੱਥ < esym->st_ਮੁੱਲ)
+		      ਰੋਕੋ;
 		    put_elf_reloca(symtab_section, sec,
-				   c + rel->r_offset - esym->st_value,
+				   c + rel->r_ਵਿੱਥ - esym->st_ਮੁੱਲ,
 				   ELFW(R_TYPE)(rel->r_info),
 				   ELFW(R_SYM)(rel->r_info),
-#if PTR_SIZE == 8
+#ਜੇ PTR_ਮਾਪ == 8
 				   rel->r_addend
-#else
+#ਨਹੀਂਤਾਂ
 				   0
-#endif
+#ਜੇ_ਅੰਤ
 				  );
 		}
 	    }
-	} else {
-            if (type->t & VT_BITFIELD) {
-                int bit_pos, bit_size, bits, n;
-                unsigned char *p, v, m;
-                bit_pos = BIT_POS(vtop->type.t);
-                bit_size = BIT_SIZE(vtop->type.t);
-                p = (unsigned char*)ptr + (bit_pos >> 3);
-                bit_pos &= 7, bits = 0;
-                while (bit_size) {
-                    n = 8 - bit_pos;
-                    if (n > bit_size)
-                        n = bit_size;
-                    v = val >> bits << bit_pos;
-                    m = ((1 << n) - 1) << bit_pos;
+	} ਨਹੀਂਤਾਂ {
+            ਜੇ (type->t & VT_BITFIELD) {
+                ਪੂਰਨ ਦੋਆਧਾਰੀ_ਅੰਕ_pos, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2, ਬਿੱਟ, n;
+                ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ *p, v, m;
+                ਦੋਆਧਾਰੀ_ਅੰਕ_pos = ਦੋਆਧਾਰੀ_ਅੰਕ_POS(vtop->type.t);
+                ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 = ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ(vtop->type.t);
+                p = (ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ*)ptr + (ਦੋਆਧਾਰੀ_ਅੰਕ_pos >> 3);
+                ਦੋਆਧਾਰੀ_ਅੰਕ_pos &= 7, ਬਿੱਟ = 0;
+                ਜਦੋਂ (ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2) {
+                    n = 8 - ਦੋਆਧਾਰੀ_ਅੰਕ_pos;
+                    ਜੇ (n > ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2)
+                        n = ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2;
+                    v = val >> ਬਿੱਟ << ਦੋਆਧਾਰੀ_ਅੰਕ_pos;
+                    m = ((1 << n) - 1) << ਦੋਆਧਾਰੀ_ਅੰਕ_pos;
                     *p = (*p & ~m) | (v & m);
-                    bits += n, bit_size -= n, bit_pos = 0, ++p;
+                    ਬਿੱਟ += n, ਦੋਆਧਾਰੀ_ਅੰਕ_ਮਾਪ_2 -= n, ਦੋਆਧਾਰੀ_ਅੰਕ_pos = 0, ++p;
                 }
-            } else
-            switch(bt) {
-	    case VT_BOOL:
-		*(char *)ptr = val != 0;
-                break;
-	    case VT_BYTE:
-		*(char *)ptr = val;
-		break;
-	    case VT_SHORT:
+            } ਨਹੀਂਤਾਂ
+            ਚੋਣ(bt) {
+	    ਹਾਲਤ VT_BOOL:
+		*(ਅੱਖਰ *)ptr = val != 0;
+                ਰੋਕੋ;
+	    ਹਾਲਤ VT_BYTE:
+		*(ਅੱਖਰ *)ptr = val;
+		ਰੋਕੋ;
+	    ਹਾਲਤ VT_SHORT:
                 write16le(ptr, val);
-		break;
-	    case VT_FLOAT:
+		ਰੋਕੋ;
+	    ਹਾਲਤ VT_FLOAT:
                 write32le(ptr, val);
-		break;
-	    case VT_DOUBLE:
+		ਰੋਕੋ;
+	    ਹਾਲਤ VT_DOUBLE:
                 write64le(ptr, val);
-		break;
-	    case VT_LDOUBLE:
+		ਰੋਕੋ;
+	    ਹਾਲਤ VT_LDOUBLE:
                 write_ldouble(ptr, &vtop->c.ld);
-		break;
+		ਰੋਕੋ;
 
-#if PTR_SIZE == 8
+#ਜੇ PTR_ਮਾਪ == 8
             /* intptr_t may need a reloc too, see tcctest.c:relocation_test() */
-	    case VT_LLONG:
-	    case VT_PTR:
-	        if (vtop->r & VT_SYM)
-	          greloca(sec, vtop->sym, c, R_DATA_PTR, val);
-	        else
+	    ਹਾਲਤ VT_LLONG:
+	    ਹਾਲਤ VT_PTR:
+	        ਜੇ (vtop->r & VT_SYM)
+	          greloca(sec, vtop->sym, c, R_ਅੰਕੜੇ_PTR, val);
+	        ਨਹੀਂਤਾਂ
 	          write64le(ptr, val);
-	        break;
-            case VT_INT:
+	        ਰੋਕੋ;
+            ਹਾਲਤ VT_INT:
                 write32le(ptr, val);
-                break;
-#else
-	    case VT_LLONG:
+                ਰੋਕੋ;
+#ਨਹੀਂਤਾਂ
+	    ਹਾਲਤ VT_LLONG:
                 write64le(ptr, val);
-                break;
-            case VT_PTR:
-            case VT_INT:
-	        if (vtop->r & VT_SYM)
-	          greloc(sec, vtop->sym, c, R_DATA_PTR);
+                ਰੋਕੋ;
+            ਹਾਲਤ VT_PTR:
+            ਹਾਲਤ VT_INT:
+	        ਜੇ (vtop->r & VT_SYM)
+	          greloc(sec, vtop->sym, c, R_ਅੰਕੜੇ_PTR);
 	        write32le(ptr, val);
-	        break;
-#endif
-	    default:
+	        ਰੋਕੋ;
+#ਜੇ_ਅੰਤ
+	    ਮੂਲ:
                 //tcc_internal_error("unexpected type");
-                break;
+                ਰੋਕੋ;
 	    }
 	}
         vtop--;
-    } else {
+    } ਨਹੀਂਤਾਂ {
         vset(&dtype, VT_LOCAL|VT_LVAL, c);
         vswap();
         vstore();
@@ -8062,41 +8062,41 @@ static void init_putv(init_params *p, CType *type, unsigned long c)
    allocation. 'flags & DIF_FIRST' is true if array '{' must be read (multi
    dimension implicit array init handling). 'flags & DIF_SIZE_ONLY' is true if
    size only evaluation is wanted (only for arrays). */
-static void decl_initializer(init_params *p, CType *type, unsigned long c, int flags)
+ਸਥਿਰ ਖਾਲੀ decl_initializer(init_params *p, CType *type, ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ c, ਪੂਰਨ flags)
 {
-    int len, n, no_oblock, i;
-    int size1, align1;
+    ਪੂਰਨ len, n, no_oblock, i;
+    ਪੂਰਨ size1, align1;
     Sym *s, *f;
     Sym indexsym;
     CType *t1;
 
     /* generate line number info */
-    if (debug_modes && !(flags & DIF_SIZE_ONLY) && !p->sec)
-        tcc_debug_line(tcc_state), tcc_tcov_check_line (tcc_state, 1);
+    ਜੇ (debug_modes && !(flags & DIF_ਮਾਪ_ONLY) && !p->sec)
+        tcc_debug_ਸਤਰ(tcc_state), tcc_tcov_check_ਸਤਰ (tcc_state, 1);
 
-    if (!(flags & DIF_HAVE_ELEM) && tok != '{' &&
+    ਜੇ (!(flags & DIF_HAVE_ELEM) && tok != '{' &&
 	/* In case of strings we have special handling for arrays, so
 	   don't consume them as initializer value (which would commit them
 	   to some anonymous symbol).  */
 	tok != TOK_LSTR && tok != TOK_STR &&
-	(!(flags & DIF_SIZE_ONLY)
+	(!(flags & DIF_ਮਾਪ_ONLY)
             /* a struct may be initialized from a struct of same type, as in
                     struct {int x,y;} a = {1,2}, b = {3,4}, c[] = {a,b};
                In that case we need to parse the element in order to check
                it for compatibility below */
             || (type->t & VT_BTYPE) == VT_STRUCT)
         ) {
-        int ncw_prev = nocode_wanted;
-        if ((flags & DIF_SIZE_ONLY) && !p->sec)
+        ਪੂਰਨ ncw_prev = nocode_wanted;
+        ਜੇ ((flags & DIF_ਮਾਪ_ONLY) && !p->sec)
             ++nocode_wanted;
-	parse_init_elem(!p->sec ? EXPR_ANY : EXPR_CONST);
+	parse_init_elem(!p->sec ? ਵਿਅੰਜਕ_ANY : ਵਿਅੰਜਕ_CONST);
         nocode_wanted = ncw_prev;
         flags |= DIF_HAVE_ELEM;
     }
 
-    if (type->t & VT_ARRAY) {
+    ਜੇ (type->t & VT_ARRAY) {
         no_oblock = 1;
-        if (((flags & DIF_FIRST) && tok != TOK_LSTR && tok != TOK_STR) ||
+        ਜੇ (((flags & DIF_ਪਹਿਲਾ) && tok != TOK_LSTR && tok != TOK_STR) ||
             tok == '{') {
             skip('{');
             no_oblock = 0;
@@ -8105,79 +8105,79 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
         s = type->ref;
         n = s->c;
         t1 = pointed_type(type);
-        size1 = type_size(t1, &align1);
+        size1 = type_ਮਾਪ(t1, &align1);
 
         /* only parse strings here if correct type (otherwise: handle
            them as ((w)char *) expressions */
-        if ((tok == TOK_LSTR && 
-#ifdef TCC_TARGET_PE
+        ਜੇ ((tok == TOK_LSTR && 
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
              (t1->t & VT_BTYPE) == VT_SHORT && (t1->t & VT_UNSIGNED)
-#else
+#ਨਹੀਂਤਾਂ
              (t1->t & VT_BTYPE) == VT_INT
-#endif
+#ਜੇ_ਅੰਤ
             ) || (tok == TOK_STR && (t1->t & VT_BTYPE) == VT_BYTE)) {
 	    len = 0;
             cstr_reset(&initstr);
-            if (size1 != (tok == TOK_STR ? 1 : sizeof(nwchar_t)))
+            ਜੇ (size1 != (tok == TOK_STR ? 1 : ਆਕਾਰ(nwchar_t)))
               tcc_error("unhandled string literal merging");
-            while (tok == TOK_STR || tok == TOK_LSTR) {
-                if (initstr.size)
-                  initstr.size -= size1;
-                if (tok == TOK_STR)
-                  len += tokc.str.size;
-                else
-                  len += tokc.str.size / sizeof(nwchar_t);
+            ਜਦੋਂ (tok == TOK_STR || tok == TOK_LSTR) {
+                ਜੇ (initstr.ਮਾਪ)
+                  initstr.ਮਾਪ -= size1;
+                ਜੇ (tok == TOK_STR)
+                  len += tokc.str.ਮਾਪ;
+                ਨਹੀਂਤਾਂ
+                  len += tokc.str.ਮਾਪ / ਆਕਾਰ(nwchar_t);
                 len--;
-                cstr_cat(&initstr, tokc.str.data, tokc.str.size);
-                next();
+                cstr_cat(&initstr, tokc.str.ਅੰਕੜੇ, tokc.str.ਮਾਪ);
+                ਅਗਲਾ();
             }
-            if (tok != ')' && tok != '}' && tok != ',' && tok != ';'
+            ਜੇ (tok != ')' && tok != '}' && tok != ',' && tok != ';'
                 && tok != TOK_EOF) {
                 /* Not a lone literal but part of a bigger expression.  */
                 unget_tok(size1 == 1 ? TOK_STR : TOK_LSTR);
-                tokc.str.size = initstr.size;
-                tokc.str.data = initstr.data;
-                goto do_init_array;
+                tokc.str.ਮਾਪ = initstr.ਮਾਪ;
+                tokc.str.ਅੰਕੜੇ = initstr.ਅੰਕੜੇ;
+                ਜਾਓ do_init_array;
             }
 
             decl_design_flex(p, s, len);
-            if (!(flags & DIF_SIZE_ONLY)) {
-                int nb = n, ch;
-                if (len < nb)
+            ਜੇ (!(flags & DIF_ਮਾਪ_ONLY)) {
+                ਪੂਰਨ nb = n, ch;
+                ਜੇ (len < nb)
                     nb = len;
-                if (len > nb)
+                ਜੇ (len > nb)
                   tcc_warning("initializer-string for array is too long");
                 /* in order to go faster for common case (char
                    string in global variable, we handle it
                    specifically */
-                if (p->sec && size1 == 1) {
+                ਜੇ (p->sec && size1 == 1) {
                     init_assert(p, c + nb);
-                    if (!NODATA_WANTED)
-                      memcpy(p->sec->data + c, initstr.data, nb);
-                } else {
-                    for(i=0;i<n;i++) {
-                        if (i >= nb) {
+                    ਜੇ (!NODATA_WANTED)
+                      ਸਮ੍ਰਿਤੀ_ਨਕਲ(p->sec->ਅੰਕੜੇ + c, initstr.ਅੰਕੜੇ, nb);
+                } ਨਹੀਂਤਾਂ {
+                    ਲਈ(i=0;i<n;i++) {
+                        ਜੇ (i >= nb) {
                           /* only add trailing zero if enough storage (no
                              warning in this case since it is standard) */
-                          if (flags & DIF_CLEAR)
-                            break;
-                          if (n - i >= 4) {
+                          ਜੇ (flags & DIF_CLEAR)
+                            ਰੋਕੋ;
+                          ਜੇ (n - i >= 4) {
                             init_putz(p, c + i * size1, (n - i) * size1);
-                            break;
+                            ਰੋਕੋ;
                           }
                           ch = 0;
-                        } else if (size1 == 1)
-                          ch = ((unsigned char *)initstr.data)[i];
-                        else
-                          ch = ((nwchar_t *)initstr.data)[i];
+                        } ਨਹੀਂਤਾਂ ਜੇ (size1 == 1)
+                          ch = ((ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ *)initstr.ਅੰਕੜੇ)[i];
+                        ਨਹੀਂਤਾਂ
+                          ch = ((nwchar_t *)initstr.ਅੰਕੜੇ)[i];
                         vpushi(ch);
                         init_putv(p, t1, c + i * size1);
                     }
                 }
             }
-            if (tok == ',' && !no_oblock) /* static const char s[] = { "123", }; */
-                next();
-        } else {
+            ਜੇ (tok == ',' && !no_oblock) /* static const char s[] = { "123", }; */
+                ਅਗਲਾ();
+        } ਨਹੀਂਤਾਂ {
 
           do_init_array:
 	    indexsym.c = 0;
@@ -8185,7 +8185,7 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
 
           do_init_list:
             /* zero memory once in advance */
-            if (!(flags & (DIF_CLEAR | DIF_SIZE_ONLY))) {
+            ਜੇ (!(flags & (DIF_CLEAR | DIF_ਮਾਪ_ONLY))) {
                 init_putz(p, c, n*size1);
                 flags |= DIF_CLEAR;
             }
@@ -8195,60 +8195,60 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
                it's size is zero.  We won't enter the loop, so set the size
                now.  */
             decl_design_flex(p, s, len - 1);
-	    while (tok != '}' || (flags & DIF_HAVE_ELEM)) {
+	    ਜਦੋਂ (tok != '}' || (flags & DIF_HAVE_ELEM)) {
 		len = decl_designator(p, type, c, &f, flags, len);
 		flags &= ~DIF_HAVE_ELEM;
-		if (type->t & VT_ARRAY) {
+		ਜੇ (type->t & VT_ARRAY) {
 		    ++indexsym.c;
 		    /* special test for multi dimensional arrays (may not
 		       be strictly correct if designators are used at the
 		       same time) */
-		    if (no_oblock && len >= n*size1)
-		        break;
-		} else {
-		    if (s->type.t == VT_UNION)
-		        f = NULL;
-		    else
-		        f = f->next;
-		    if (no_oblock && f == NULL)
-		        break;
+		    ਜੇ (no_oblock && len >= n*size1)
+		        ਰੋਕੋ;
+		} ਨਹੀਂਤਾਂ {
+		    ਜੇ (s->type.t == VT_UNION)
+		        f = ਨਿਰਾ;
+		    ਨਹੀਂਤਾਂ
+		        f = f->ਅਗਲਾ;
+		    ਜੇ (no_oblock && f == ਨਿਰਾ)
+		        ਰੋਕੋ;
 		}
 
-		if (tok == '}')
-		    break;
+		ਜੇ (tok == '}')
+		    ਰੋਕੋ;
 		skip(',');
 	    }
         }
-        if (!no_oblock)
+        ਜੇ (!no_oblock)
             skip('}');
 
-    } else if ((flags & DIF_HAVE_ELEM)
+    } ਨਹੀਂਤਾਂ ਜੇ ((flags & DIF_HAVE_ELEM)
         /* Use i_c_parameter_t, to strip toplevel qualifiers.
            The source type might have VT_CONSTANT set, which is
            of course assignable to non-const elements.  */
             && is_compatible_unqualified_types(type, &vtop->type)) {
-        goto one_elem;
+        ਜਾਓ one_elem;
 
-    } else if ((type->t & VT_BTYPE) == VT_STRUCT) {
+    } ਨਹੀਂਤਾਂ ਜੇ ((type->t & VT_BTYPE) == VT_STRUCT) {
         no_oblock = 1;
-        if ((flags & DIF_FIRST) || tok == '{') {
+        ਜੇ ((flags & DIF_ਪਹਿਲਾ) || tok == '{') {
             skip('{');
             no_oblock = 0;
         }
         s = type->ref;
-        f = s->next;
+        f = s->ਅਗਲਾ;
         n = s->c;
         size1 = 1;
-	goto do_init_list;
+	ਜਾਓ do_init_list;
 
-    } else if (tok == '{') {
-        if (flags & DIF_HAVE_ELEM)
+    } ਨਹੀਂਤਾਂ ਜੇ (tok == '{') {
+        ਜੇ (flags & DIF_HAVE_ELEM)
           skip(';');
-        next();
+        ਅਗਲਾ();
         decl_initializer(p, type, c, flags & ~DIF_HAVE_ELEM);
         skip('}');
 
-    } else one_elem: if ((flags & DIF_SIZE_ONLY)) {
+    } ਨਹੀਂਤਾਂ one_elem: ਜੇ ((flags & DIF_ਮਾਪ_ONLY)) {
 	/* If we supported only ISO C we wouldn't have to accept calling
 	   this on anything than an array if DIF_SIZE_ONLY (and even then
 	   only on the outermost level, so no recursion would be needed),
@@ -8256,27 +8256,27 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
 	   But GNU C supports it, so we need to recurse even into
 	   subfields of structs and arrays when DIF_SIZE_ONLY is set.  */
         /* just skip expression */
-        if (flags & DIF_HAVE_ELEM)
+        ਜੇ (flags & DIF_HAVE_ELEM)
             vpop();
-        else
-            skip_or_save_block(NULL);
+        ਨਹੀਂਤਾਂ
+            skip_or_save_ਖੰਡ(ਨਿਰਾ);
 
-    } else {
-	if (!(flags & DIF_HAVE_ELEM)) {
+    } ਨਹੀਂਤਾਂ {
+	ਜੇ (!(flags & DIF_HAVE_ELEM)) {
 	    /* This should happen only when we haven't parsed
 	       the init element above for fear of committing a
 	       string constant to memory too early.  */
-	    if (tok != TOK_STR && tok != TOK_LSTR)
+	    ਜੇ (tok != TOK_STR && tok != TOK_LSTR)
 	      expect("string constant");
-	    parse_init_elem(!p->sec ? EXPR_ANY : EXPR_CONST);
+	    parse_init_elem(!p->sec ? ਵਿਅੰਜਕ_ANY : ਵਿਅੰਜਕ_CONST);
 	}
-        if (!p->sec && (flags & DIF_CLEAR) /* container was already zero'd */
+        ਜੇ (!p->sec && (flags & DIF_CLEAR) /* container was already zero'd */
             && (vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST
             && vtop->c.i == 0
-            && btype_size(type->t & VT_BTYPE) /* not for fp constants */
+            && btype_ਮਾਪ(type->t & VT_BTYPE) /* not for fp constants */
             )
             vpop();
-        else
+        ਨਹੀਂਤਾਂ
             init_putv(p, type, c);
     }
 }
@@ -8288,291 +8288,291 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
    are parsed. If 'v' is zero, then a reference to the new object
    is put in the value stack. If 'has_init' is 2, a special parsing
    is done to handle string constants. */
-static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r, 
-                                   int has_init, int v, int scope)
+ਸਥਿਰ ਖਾਲੀ decl_initializer_alloc(CType *type, AttributeDef *ad, ਪੂਰਨ r, 
+                                   ਪੂਰਨ has_init, ਪੂਰਨ v, ਪੂਰਨ scope)
 {
-    int size, align, addr;
-    TokenString *init_str = NULL;
+    ਪੂਰਨ ਮਾਪ, align, addr;
+    TokenString *init_str = ਨਿਰਾ;
 
     Section *sec;
     Sym *flexible_array;
-    Sym *sym = NULL;
-    int saved_nocode_wanted = nocode_wanted;
-#ifdef CONFIG_TCC_BCHECK
-    int bcheck = tcc_state->do_bounds_check && !NODATA_WANTED;
-#endif
+    Sym *sym = ਨਿਰਾ;
+    ਪੂਰਨ saved_nocode_wanted = nocode_wanted;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
+    ਪੂਰਨ bcheck = tcc_state->do_bounds_check && !NODATA_WANTED;
+#ਜੇ_ਅੰਤ
     init_params p = {0};
 
-    if (scope == VT_CONST) {
+    ਜੇ (scope == VT_CONST) {
         /* see if a global symbol was already defined */
-        sym = sym_find(v);
-        if (sym) {
+        sym = sym_ਲੱਭੋ(v);
+        ਜੇ (sym) {
             patch_storage(sym, ad, type);
             /* we accept several definitions of the same global variable. */
-            if (!has_init && sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)
-                return;
+            ਜੇ (!has_init && sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)
+                ਵਾਪਸ;
             type = &sym->type;
         }
     }
 
     /* Always allocate static or global variables */
-    if (v && (r & VT_VALMASK) == VT_CONST)
-        nocode_wanted |= DATA_ONLY_WANTED;
+    ਜੇ (v && (r & VT_VALMASK) == VT_CONST)
+        nocode_wanted |= ਅੰਕੜੇ_ONLY_WANTED;
 
-    flexible_array = NULL;
-    size = type_size(type, &align);
+    flexible_array = ਨਿਰਾ;
+    ਮਾਪ = type_ਮਾਪ(type, &align);
 
     /* exactly one flexible array may be initialized, either the
        toplevel array or the last member of the toplevel struct */
 
-    if (size < 0) {
+    ਜੇ (ਮਾਪ < 0) {
         // error out except for top-level incomplete arrays
         // (arrays of incomplete types are handled in array parsing)
-        if (!(type->t & VT_ARRAY))
+        ਜੇ (!(type->t & VT_ARRAY))
             tcc_error("initialization of incomplete type");
         /* If the base type itself was an array type of unspecified
            size (like in 'typedef int arr[]; arr x = {1};') then
            we will overwrite the unknown size by the real one for
            this decl.  We need to unshare the ref symbol holding
            that size.  */
-        if (IS_BT_ARRAY(type->t))
-            type->ref = sym_push(SYM_FIELD, &type->ref->type, 0, type->ref->c);
+        ਜੇ (IS_BT_ARRAY(type->t))
+            type->ref = sym_ਧੱਕੋ(SYM_ਖੇਤਰ, &type->ref->type, 0, type->ref->c);
         p.flex_array_ref = type->ref;
 
-    } else if (has_init && (type->t & VT_BTYPE) == VT_STRUCT) {
-        Sym *field = type->ref->next;
-        if (field) {
-            while (field->next)
-                field = field->next;
-            if (field->type.t & VT_ARRAY && field->type.ref->c < 0) {
-                flexible_array = field;
-                p.flex_array_ref = field->type.ref;
-                size = -1;
+    } ਨਹੀਂਤਾਂ ਜੇ (has_init && (type->t & VT_BTYPE) == VT_STRUCT) {
+        Sym *ਖੇਤਰ = type->ref->ਅਗਲਾ;
+        ਜੇ (ਖੇਤਰ) {
+            ਜਦੋਂ (ਖੇਤਰ->ਅਗਲਾ)
+                ਖੇਤਰ = ਖੇਤਰ->ਅਗਲਾ;
+            ਜੇ (ਖੇਤਰ->type.t & VT_ARRAY && ਖੇਤਰ->type.ref->c < 0) {
+                flexible_array = ਖੇਤਰ;
+                p.flex_array_ref = ਖੇਤਰ->type.ref;
+                ਮਾਪ = -1;
             }
         }
     }
 
-    if (size < 0) {
+    ਜੇ (ਮਾਪ < 0) {
         /* If unknown size, do a dry-run 1st pass */
-        if (!has_init)
-            goto err_size;
-        if (has_init == 2) {
+        ਜੇ (!has_init)
+            ਜਾਓ err_ਮਾਪ;
+        ਜੇ (has_init == 2) {
             /* only get strings */
             init_str = tok_str_alloc();
-            while (tok == TOK_STR || tok == TOK_LSTR) {
-                tok_str_add_tok(init_str);
-                next();
+            ਜਦੋਂ (tok == TOK_STR || tok == TOK_LSTR) {
+                tok_str_ਜੋੜੋ_tok(init_str);
+                ਅਗਲਾ();
             }
-            tok_str_add(init_str, TOK_EOF);
-        } else
-            skip_or_save_block(&init_str);
+            tok_str_ਜੋੜੋ(init_str, TOK_EOF);
+        } ਨਹੀਂਤਾਂ
+            skip_or_save_ਖੰਡ(&init_str);
         unget_tok(0);
 
         /* compute size */
         begin_macro(init_str, 1);
-        next();
-        decl_initializer(&p, type, 0, DIF_FIRST | DIF_SIZE_ONLY);
+        ਅਗਲਾ();
+        decl_initializer(&p, type, 0, DIF_ਪਹਿਲਾ | DIF_ਮਾਪ_ONLY);
         /* prepare second initializer parsing */
         macro_ptr = init_str->str;
-        next();
+        ਅਗਲਾ();
 
         /* if still unknown size, error */
-        size = type_size(type, &align);
-        if (size < 0)
-    err_size:
+        ਮਾਪ = type_ਮਾਪ(type, &align);
+        ਜੇ (ਮਾਪ < 0)
+    err_ਮਾਪ:
             tcc_error("unknown type size");
 
         /* If there's a flex member and it was used in the initializer
            adjust size.  */
-        if (flexible_array && flexible_array->type.ref->c > 0)
-            size += flexible_array->type.ref->c
-                    * pointed_size(&flexible_array->type);
+        ਜੇ (flexible_array && flexible_array->type.ref->c > 0)
+            ਮਾਪ += flexible_array->type.ref->c
+                    * pointed_ਮਾਪ(&flexible_array->type);
     }
 
     /* take into account specified alignment if bigger */
-    if (ad->a.aligned) {
-	int speca = 1 << (ad->a.aligned - 1);
-        if (speca > align)
+    ਜੇ (ad->a.aligned) {
+	ਪੂਰਨ speca = 1 << (ad->a.aligned - 1);
+        ਜੇ (speca > align)
             align = speca;
-    } else if (ad->a.packed) {
+    } ਨਹੀਂਤਾਂ ਜੇ (ad->a.packed) {
         align = 1;
     }
 
-    if (!v && NODATA_WANTED)
-        size = 0, align = 1;
+    ਜੇ (!v && NODATA_WANTED)
+        ਮਾਪ = 0, align = 1;
 
-    if ((r & VT_VALMASK) == VT_LOCAL) {
-        sec = NULL;
-#ifdef CONFIG_TCC_BCHECK
-        if (bcheck && v) {
+    ਜੇ ((r & VT_VALMASK) == VT_LOCAL) {
+        sec = ਨਿਰਾ;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
+        ਜੇ (bcheck && v) {
             /* add padding between stack variables for bound checking */
             loc -= align;
         }
-#endif
-        loc = (loc - size) & -align;
+#ਜੇ_ਅੰਤ
+        loc = (loc - ਮਾਪ) & -align;
         addr = loc;
-        p.local_offset = addr + size;
-#ifdef CONFIG_TCC_BCHECK
-        if (bcheck && v) {
+        p.local_ਵਿੱਥ = addr + ਮਾਪ;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
+        ਜੇ (bcheck && v) {
             /* add padding between stack variables for bound checking */
             loc -= align;
         }
-#endif
-        if (v) {
+#ਜੇ_ਅੰਤ
+        ਜੇ (v) {
             /* local variable */
-#ifdef CONFIG_TCC_ASM
-	    if (ad->asm_label) {
-		int reg = asm_parse_regvar(ad->asm_label);
-		if (reg >= 0)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_ASM
+	    ਜੇ (ad->asm_label) {
+		ਪੂਰਨ reg = asm_parse_regvar(ad->asm_label);
+		ਜੇ (reg >= 0)
 		    r = (r & ~VT_VALMASK) | reg;
 	    }
-#endif
-            sym = sym_push(v, type, r, addr);
-	    if (ad->cleanup_func) {
+#ਜੇ_ਅੰਤ
+            sym = sym_ਧੱਕੋ(v, type, r, addr);
+	    ਜੇ (ad->cleanup_func) {
 		Sym *cls = sym_push2(&all_cleanups,
-                    SYM_FIELD | ++cur_scope->cl.n, 0, 0);
+                    SYM_ਖੇਤਰ | ++cur_scope->cl.n, 0, 0);
 		cls->cleanup_sym = sym;
 		cls->cleanup_func = ad->cleanup_func;
-		cls->next = cur_scope->cl.s;
+		cls->ਅਗਲਾ = cur_scope->cl.s;
 		cur_scope->cl.s = cls;
 	    }
 
             sym->a = ad->a;
-        } else {
+        } ਨਹੀਂਤਾਂ {
             /* push local reference */
             vset(type, r, addr);
         }
-    } else {
+    } ਨਹੀਂਤਾਂ {
         CType *tp = type;
-        int is_const;
+        ਪੂਰਨ is_const;
 
-        while ((tp->t & (VT_BTYPE|VT_ARRAY)) == (VT_PTR|VT_ARRAY))
+        ਜਦੋਂ ((tp->t & (VT_BTYPE|VT_ARRAY)) == (VT_PTR|VT_ARRAY))
             tp = &tp->ref->type;
         is_const = tp->t & VT_CONSTANT;
 
         /* allocate symbol in corresponding section */
         sec = ad->section;
-        if (!sec) {
-            if (type->t & VT_TLS) {
-                sec = find_section(tcc_state, has_init ? ".tdata" : ".tbss");
+        ਜੇ (!sec) {
+            ਜੇ (type->t & VT_TLS) {
+                sec = ਲੱਭੋ_section(tcc_state, has_init ? ".tdata" : ".tbss");
                 sec->sh_flags = SHF_ALLOC | SHF_WRITE | SHF_TLS;
                 sec->sh_type = has_init ? SHT_PROGBITS : SHT_NOBITS;
-            } else if (is_const) {
+            } ਨਹੀਂਤਾਂ ਜੇ (is_const) {
 		sec = rodata_section;
-            } else if (has_init) {
-		sec = data_section;
+            } ਨਹੀਂਤਾਂ ਜੇ (has_init) {
+		sec = ਅੰਕੜੇ_section;
                 /*if (g_debug & 4)
                     tcc_warning("rw data: %s", get_tok_str(v, 0));*/
-            } else if (tcc_state->nocommon)
+            } ਨਹੀਂਤਾਂ ਜੇ (tcc_state->nocommon)
                 sec = bss_section;
-        } else if (ad->new_section) {
+        } ਨਹੀਂਤਾਂ ਜੇ (ad->new_section) {
             /* XXX: DWIM logic: set section flags according to first usage */
-            if (!is_const) {
+            ਜੇ (!is_const) {
                 sec->sh_flags |= SHF_WRITE;
-                if (!has_init)
+                ਜੇ (!has_init)
                     sec->sh_type = SHT_NOBITS;
             }
         }
 
-#ifdef CONFIG_TCC_BCHECK
-        if (bcheck)
-            size = size + 1; /* add padding */
-#endif
-        if (sec) {
-	    addr = section_add(sec, size, align);
-        } else {
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
+        ਜੇ (bcheck)
+            ਮਾਪ = ਮਾਪ + 1; /* add padding */
+#ਜੇ_ਅੰਤ
+        ਜੇ (sec) {
+	    addr = section_ਜੋੜੋ(sec, ਮਾਪ, align);
+        } ਨਹੀਂਤਾਂ {
             addr = align; /* SHN_COMMON is special, symbol value is align */
 	    sec = common_section;
         }
 
-        if (v) {
-            if (!sym) {
-                sym = sym_push(v, type, r | VT_SYM, 0);
-                patch_storage(sym, ad, NULL);
+        ਜੇ (v) {
+            ਜੇ (!sym) {
+                sym = sym_ਧੱਕੋ(v, type, r | VT_SYM, 0);
+                patch_storage(sym, ad, ਨਿਰਾ);
             }
             /* update symbol definition */
-	    put_extern_sym(sym, sec, addr, size);
-        } else {
+	    put_extern_sym(sym, sec, addr, ਮਾਪ);
+        } ਨਹੀਂਤਾਂ {
             /* push global reference */
-            vpush_ref(type, sec, addr, size);
+            vpush_ref(type, sec, addr, ਮਾਪ);
             sym = vtop->sym;
 	    vtop->r |= r;
         }
 
-#ifdef CONFIG_TCC_BCHECK
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_BCHECK
         /* handles bounds now because the symbol must be defined
            before for the relocation */
-        if (bcheck) {
+        ਜੇ (bcheck) {
             addr_t *bounds_ptr;
 
-            greloca(bounds_section, sym, bounds_section->data_offset, R_DATA_PTR, 0);
+            greloca(bounds_section, sym, bounds_section->ਅੰਕੜੇ_ਵਿੱਥ, R_ਅੰਕੜੇ_PTR, 0);
             /* then add global bound info */
-            bounds_ptr = section_ptr_add(bounds_section, 2 * sizeof(addr_t));
+            bounds_ptr = section_ptr_ਜੋੜੋ(bounds_section, 2 * ਆਕਾਰ(addr_t));
             bounds_ptr[0] = 0; /* relocated */
-            bounds_ptr[1] = size - 1;
+            bounds_ptr[1] = ਮਾਪ - 1;
         }
-#endif
+#ਜੇ_ਅੰਤ
     }
 
-    if (type->t & VT_VLA) {
-        int a;
+    ਜੇ (type->t & VT_VLA) {
+        ਪੂਰਨ a;
 
-        if (has_init)
+        ਜੇ (has_init)
             tcc_error("variable length array cannot be initialized");
 
-        if (NODATA_WANTED)
-            goto no_alloc;
+        ਜੇ (NODATA_WANTED)
+            ਜਾਓ no_alloc;
 
         /* save before-VLA stack pointer if needed */
-        if (cur_scope->vla.num == 0) {
-            if (cur_scope->prev && cur_scope->prev->vla.num) {
+        ਜੇ (cur_scope->vla.ਅੰਕ == 0) {
+            ਜੇ (cur_scope->prev && cur_scope->prev->vla.ਅੰਕ) {
                 cur_scope->vla.locorig = cur_scope->prev->vla.loc;
-            } else {
-                gen_vla_sp_save(loc -= PTR_SIZE);
+            } ਨਹੀਂਤਾਂ {
+                gen_vla_sp_save(loc -= PTR_ਮਾਪ);
                 cur_scope->vla.locorig = loc;
             }
         }
 
-        vpush_type_size(type, &a);
+        vpush_type_ਮਾਪ(type, &a);
         gen_vla_alloc(type, a);
-#if defined TCC_TARGET_PE && defined TCC_TARGET_X86_64
+#ਜੇ defined TCC_ਨਿਸ਼ਾਨਾ_PE && defined TCC_ਨਿਸ਼ਾਨਾ_X86_64
         /* on _WIN64, because of the function args scratch area, the
            result of alloca differs from RSP and is returned in RAX.  */
-        gen_vla_result(addr), addr = (loc -= PTR_SIZE);
-#endif
+        gen_vla_ਨਤੀਜਾ(addr), addr = (loc -= PTR_ਮਾਪ);
+#ਜੇ_ਅੰਤ
         gen_vla_sp_save(addr);
         cur_scope->vla.loc = addr;
-        cur_scope->vla.num++;
-    } else if (has_init) {
+        cur_scope->vla.ਅੰਕ++;
+    } ਨਹੀਂਤਾਂ ਜੇ (has_init) {
         p.sec = sec;
-        decl_initializer(&p, type, addr, DIF_FIRST);
+        decl_initializer(&p, type, addr, DIF_ਪਹਿਲਾ);
         /* patch flexible array member size back to -1, */
         /* for possible subsequent similar declarations */
-        if (flexible_array)
+        ਜੇ (flexible_array)
             flexible_array->type.ref->c = -1;
     }
 
  no_alloc:
     /* restore parse state if needed */
-    if (init_str) {
-        end_macro();
-        next();
+    ਜੇ (init_str) {
+        ਸਿਰਾ_macro();
+        ਅਗਲਾ();
     }
 
     nocode_wanted = saved_nocode_wanted;
 }
 
 /* generate vla code saved in post_type() */
-static void func_vla_arg_code(Sym *arg)
+ਸਥਿਰ ਖਾਲੀ func_vla_arg_ਕੋਡ(Sym *arg)
 {
-    int align;
-    TokenString *vla_array_tok = NULL;
+    ਪੂਰਨ align;
+    TokenString *vla_array_tok = ਨਿਰਾ;
 
-    if (arg->type.ref)
-        func_vla_arg_code(arg->type.ref);
+    ਜੇ (arg->type.ref)
+        func_vla_arg_ਕੋਡ(arg->type.ref);
 
-    if ((arg->type.t & VT_VLA) && arg->type.ref->vla_array_str) {
-	loc -= type_size(&int_type, &align);
+    ਜੇ ((arg->type.t & VT_VLA) && arg->type.ref->vla_array_str) {
+	loc -= type_ਮਾਪ(&int_type, &align);
 	loc &= -align;
 	arg->type.ref->c = loc;
 
@@ -8580,11 +8580,11 @@ static void func_vla_arg_code(Sym *arg)
 	vla_array_tok = tok_str_alloc();
 	vla_array_tok->str = arg->type.ref->vla_array_str;
 	begin_macro(vla_array_tok, 1);
-	next();
+	ਅਗਲਾ();
 	gexpr();
-	end_macro();
-	next();
-	vpush_type_size(&arg->type.ref->type, &align);
+	ਸਿਰਾ_macro();
+	ਅਗਲਾ();
+	vpush_type_ਮਾਪ(&arg->type.ref->type, &align);
 	gen_op('*');
 	vset(&int_type, VT_LOCAL|VT_LVAL, arg->type.ref->c);
 	vswap();
@@ -8593,90 +8593,90 @@ static void func_vla_arg_code(Sym *arg)
     }
 }
 
-static void func_vla_arg(Sym *sym)
+ਸਥਿਰ ਖਾਲੀ func_vla_arg(Sym *sym)
 {
     Sym *arg;
 
-    for (arg = sym->type.ref->next; arg; arg = arg->next)
-        if ((arg->type.t & VT_BTYPE) == VT_PTR && (arg->type.ref->type.t & VT_VLA))
-            func_vla_arg_code(arg->type.ref);
+    ਲਈ (arg = sym->type.ref->ਅਗਲਾ; arg; arg = arg->ਅਗਲਾ)
+        ਜੇ ((arg->type.t & VT_BTYPE) == VT_PTR && (arg->type.ref->type.t & VT_VLA))
+            func_vla_arg_ਕੋਡ(arg->type.ref);
 }
 
 /* set the local stack address for function parameter from gfunc_prolog() */
-ST_FUNC Sym *gfunc_set_param(Sym *s, int c, int byref)
+ST_FUNC Sym *gfunc_ਸੈੱਟ_param(Sym *s, ਪੂਰਨ c, ਪੂਰਨ byref)
 {
-    s = sym_find(s->v);
-    if (!s) /* unnamed parameters, not enabled */
-        return NULL;
+    s = sym_ਲੱਭੋ(s->v);
+    ਜੇ (!s) /* unnamed parameters, not enabled */
+        ਵਾਪਸ ਨਿਰਾ;
     s->c = c;
-    if (byref)
+    ਜੇ (byref)
         s->r = VT_LLOCAL | VT_LVAL; /* otherwise VT_LOCAL */
-    return s;
+    ਵਾਪਸ s;
 }
 
 /* push parameters (and their types), last first */
-static void sym_push_params(Sym *ref)
+ਸਥਿਰ ਖਾਲੀ sym_ਧੱਕੋ_params(Sym *ref)
 {
     Sym *s = ref;
-    while (s->next)
-        s = s->next;
-    while (s != ref) {
-        if ((s->v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
-            sym_copy(s, &local_stack);
+    ਜਦੋਂ (s->ਅਗਲਾ)
+        s = s->ਅਗਲਾ;
+    ਜਦੋਂ (s != ref) {
+        ਜੇ ((s->v & ~SYM_STRUCT) < SYM_ਪਹਿਲਾ_ANOM)
+            sym_copy(s, &local_ਢੇਰ);
         s = s->prev;
     }
 }
 
 /* parse a function defined by symbol 'sym' and generate its code in
    'cur_text_section' */
-static void gen_function(Sym *sym)
+ਸਥਿਰ ਖਾਲੀ gen_function(Sym *sym)
 {
-    struct scope f = { 0 };
+    ਬਣਤਰ scope f = { 0 };
 
-    cur_scope = root_scope = &f;
+    cur_scope = ਜੜ੍ਹ_scope = &f;
     nocode_wanted = 0;
 
-    ind = cur_text_section->data_offset;
-    if (sym->a.aligned) {
-	size_t newoff = section_add(cur_text_section, 0,
+    ind = cur_ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ;
+    ਜੇ (sym->a.aligned) {
+	ਮਾਪ_t newoff = section_ਜੋੜੋ(cur_ਪਾਠ_section, 0,
 				    1 << (sym->a.aligned - 1));
 	gen_fill_nops(newoff - ind);
     }
 
-    funcname = get_tok_str(sym->v, NULL);
+    funcname = get_tok_str(sym->v, ਨਿਰਾ);
     func_ind = ind;
     func_vt = sym->type.ref->type;
     func_var = sym->type.ref->f.func_type == FUNC_ELLIPSIS;
     func_old = sym->type.ref->f.func_type == FUNC_OLD;
 
     /* NOTE: we patch the symbol size later */
-    put_extern_sym(sym, cur_text_section, ind, 0);
+    put_extern_sym(sym, cur_ਪਾਠ_section, ind, 0);
 
-    if (sym->type.ref->f.func_ctor)
-        add_array (tcc_state, ".init_array", sym->c);
-    if (sym->type.ref->f.func_dtor)
-        add_array (tcc_state, ".fini_array", sym->c);
+    ਜੇ (sym->type.ref->f.func_ctor)
+        ਜੋੜੋ_array (tcc_state, ".init_array", sym->c);
+    ਜੇ (sym->type.ref->f.func_dtor)
+        ਜੋੜੋ_array (tcc_state, ".fini_array", sym->c);
 
     /* put debug symbol */
     tcc_debug_funcstart(tcc_state, sym);
 
     /* push a dummy symbol to enable local sym storage */
-    sym_push2(&local_stack, SYM_FIELD, 0, 0);
+    sym_push2(&local_ਢੇਰ, SYM_ਖੇਤਰ, 0, 0);
     /* push parameters */
     local_scope = 1;
-    sym_push_params(sym->type.ref);
+    sym_ਧੱਕੋ_params(sym->type.ref);
 
     local_scope = 0;
     rsym = 0;
-    nb_temp_local_vars = 0;
+    nb_ਆਰਜ਼ੀ_local_vars = 0;
 
     gfunc_prolog(sym);
     tcc_debug_prolog_epilog(tcc_state, 0);
     func_vla_arg(sym);
-    block(0);
+    ਖੰਡ(0);
     gsym(rsym);
     nocode_wanted = 0;
-    tcc_debug_end_scope(NULL, !func_var);
+    tcc_debug_ਸਿਰਾ_scope(ਨਿਰਾ, !func_var);
     tcc_debug_prolog_epilog(tcc_state, 1);
     gfunc_epilog();
 
@@ -8684,235 +8684,235 @@ static void gen_function(Sym *sym)
     tcc_debug_funcend(tcc_state, ind - func_ind);
 
     /* patch symbol size */
-    elfsym(sym)->st_size = ind - func_ind;
-    cur_text_section->data_offset = ind;
+    elfsym(sym)->st_ਮਾਪ = ind - func_ind;
+    cur_ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ = ind;
 
-    sym_pop(&local_stack, NULL, 0);
-    label_pop(&global_label_stack, NULL, 0);
-    sym_pop(&all_cleanups, NULL, 0);
+    sym_ਕੱਢੋ(&local_ਢੇਰ, ਨਿਰਾ, 0);
+    label_ਕੱਢੋ(&global_label_ਢੇਰ, ਨਿਰਾ, 0);
+    sym_ਕੱਢੋ(&all_cleanups, ਨਿਰਾ, 0);
     local_scope = 0;
 
     /* It's better to crash than to generate wrong code */
-    cur_text_section = NULL;
+    cur_ਪਾਠ_section = ਨਿਰਾ;
     funcname = ""; /* for safety */
     func_vt.t = VT_VOID; /* for safety */
     func_var = 0; /* for safety */
     ind = 0; /* for safety */
     func_ind = -1;
-    nocode_wanted = DATA_ONLY_WANTED;
+    nocode_wanted = ਅੰਕੜੇ_ONLY_WANTED;
     check_vstack();
 
     /* do this after funcend debug info */
-    next();
+    ਅਗਲਾ();
 }
 
-static void gen_inline_functions(TCCState *s)
+ਸਥਿਰ ਖਾਲੀ gen_inline_functions(TCCState *s)
 {
     Sym *sym;
-    int inline_generated, i;
-    struct InlineFunc *fn;
+    ਪੂਰਨ inline_generated, i;
+    ਬਣਤਰ InlineFunc *fn;
 
     tcc_open_bf(s, ":inline:", 0);
     /* iterate while inline function are referenced */
-    do {
+    ਕਰੋ {
         inline_generated = 0;
-        for (i = 0; i < s->nb_inline_fns; ++i) {
+        ਲਈ (i = 0; i < s->nb_inline_fns; ++i) {
             fn = s->inline_fns[i];
             sym = fn->sym;
-            if (sym && (sym->c || !(sym->type.t & VT_INLINE))) {
+            ਜੇ (sym && (sym->c || !(sym->type.t & VT_INLINE))) {
                 /* the function was used or forced (and then not internal):
                    generate its code and convert it to a normal function */
-                fn->sym = NULL;
+                fn->sym = ਨਿਰਾ;
                 tccpp_putfile(fn->filename);
                 begin_macro(fn->func_str, 1);
-                next();
-                cur_text_section = text_section;
+                ਅਗਲਾ();
+                cur_ਪਾਠ_section = ਪਾਠ_section;
                 gen_function(sym);
-                end_macro();
+                ਸਿਰਾ_macro();
 
                 inline_generated = 1;
             }
         }
-    } while (inline_generated);
+    } ਜਦੋਂ (inline_generated);
     tcc_close();
 }
 
-static void free_inline_functions(TCCState *s)
+ਸਥਿਰ ਖਾਲੀ free_inline_functions(TCCState *s)
 {
-    int i;
+    ਪੂਰਨ i;
     /* free tokens of unused inline functions */
-    for (i = 0; i < s->nb_inline_fns; ++i) {
-        struct InlineFunc *fn = s->inline_fns[i];
-        if (fn->sym)
+    ਲਈ (i = 0; i < s->nb_inline_fns; ++i) {
+        ਬਣਤਰ InlineFunc *fn = s->inline_fns[i];
+        ਜੇ (fn->sym)
             tok_str_free(fn->func_str);
     }
     dynarray_reset(&s->inline_fns, &s->nb_inline_fns);
 }
 
-static void do_Static_assert(void)
+ਸਥਿਰ ਖਾਲੀ do_Static_assert(ਖਾਲੀ)
 {
-    int c;
-    const char *msg;
+    ਪੂਰਨ c;
+    ਅਚਲ ਅੱਖਰ *ਸੁਨੇਹਾ;
 
-    next();
+    ਅਗਲਾ();
     skip('(');
-    c = expr_const();
-    msg = "_Static_assert fail";
-    if (tok == ',') {
-        next();
-        msg = parse_mult_str("string constant")->data;
+    c = ਵਿਅੰਜਕ_const();
+    ਸੁਨੇਹਾ = "_Static_assert fail";
+    ਜੇ (tok == ',') {
+        ਅਗਲਾ();
+        ਸੁਨੇਹਾ = parse_mult_str("string constant")->ਅੰਕੜੇ;
     }
     skip(')');
-    if (c == 0)
-        tcc_error("%s", msg);
+    ਜੇ (c == 0)
+        tcc_error("%s", ਸੁਨੇਹਾ);
     skip(';');
 }
 
-#ifdef TCC_TARGET_PE
-static void pe_check_linkage(CType *type, AttributeDef *ad)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
+ਸਥਿਰ ਖਾਲੀ pe_check_linkage(CType *type, AttributeDef *ad)
 {
-    if (!ad->a.dllimport && !ad->a.dllexport)
-        return;
-    if (type->t & VT_STATIC)
+    ਜੇ (!ad->a.dllimport && !ad->a.dllexport)
+        ਵਾਪਸ;
+    ਜੇ (type->t & VT_STATIC)
         tcc_error("cannot have dll linkage with static");
-    if (type->t & VT_TYPEDEF) {
-        const char *m = ad->a.dllimport ? "im" : "ex";
+    ਜੇ (type->t & VT_TYPEDEF) {
+        ਅਚਲ ਅੱਖਰ *m = ad->a.dllimport ? "im" : "ex";
         tcc_warning("'dll%sport' attribute ignored for typedef", m);
         ad->a.dllimport = 0;
         ad->a.dllexport = 0;
-    } else if (ad->a.dllimport) {
-        if ((type->t & VT_BTYPE) == VT_FUNC)
+    } ਨਹੀਂਤਾਂ ਜੇ (ad->a.dllimport) {
+        ਜੇ ((type->t & VT_BTYPE) == VT_FUNC)
             ad->a.dllimport = 0;
-        else
+        ਨਹੀਂਤਾਂ
             type->t |= VT_EXTERN;
     }
 }
-#endif
+#ਜੇ_ਅੰਤ
 
 /* 'l' is VT_LOCAL or VT_CONST to define default storage type
    or VT_CMP if parsing old style parameter list
    or VT_JMP if parsing c99 for decl: for (int i = 0, ...) */
-static int decl(int l)
+ਸਥਿਰ ਪੂਰਨ decl(ਪੂਰਨ l)
 {
-    int v, has_init, r, oldint;
+    ਪੂਰਨ v, has_init, r, oldint;
     CType type, btype;
     Sym *sym, *sa;
     AttributeDef ad, adbase;
     ElfSym *esym;
 
-    while (1) {
+    ਜਦੋਂ (1) {
 
         oldint = 0;
-        if (!parse_btype(&btype, &adbase, l == VT_LOCAL)) {
-            if (l == VT_JMP)
-                return 0;
+        ਜੇ (!parse_btype(&btype, &adbase, l == VT_LOCAL)) {
+            ਜੇ (l == VT_JMP)
+                ਵਾਪਸ 0;
             /* skip redundant ';' if not in old parameter decl scope */
-            if (tok == ';' && l != VT_CMP) {
-                next();
-                continue;
+            ਜੇ (tok == ';' && l != VT_CMP) {
+                ਅਗਲਾ();
+                ਜਾਰੀ;
             }
-            if (tok == TOK_STATIC_ASSERT) {
+            ਜੇ (tok == TOK_STATIC_ASSERT) {
                 do_Static_assert();
-                continue;
+                ਜਾਰੀ;
             }
-            if (l != VT_CONST)
-                break;
-            if (tok == TOK_ASM1 || tok == TOK_ASM2 || tok == TOK_ASM3) {
+            ਜੇ (l != VT_CONST)
+                ਰੋਕੋ;
+            ਜੇ (tok == TOK_ASM1 || tok == TOK_ASM2 || tok == TOK_ASM3) {
                 /* global asm block */
                 asm_global_instr();
-                continue;
+                ਜਾਰੀ;
             }
-            if (tok >= TOK_UIDENT) {
+            ਜੇ (tok >= TOK_UIDENT) {
                /* special test for old K&R protos without explicit int
                   type. Only accepted when defining global data */
                 btype.t = VT_INT;
                 oldint = 1;
-            } else {
-                if (tok != TOK_EOF)
+            } ਨਹੀਂਤਾਂ {
+                ਜੇ (tok != TOK_EOF)
                     expect("declaration");
-                break;
+                ਰੋਕੋ;
             }
         }
 
-        if (tok == ';') {
-            if ((btype.t & VT_BTYPE) == VT_STRUCT
-                && (btype.ref->v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
+        ਜੇ (tok == ';') {
+            ਜੇ ((btype.t & VT_BTYPE) == VT_STRUCT
+                && (btype.ref->v & ~SYM_STRUCT) < SYM_ਪਹਿਲਾ_ANOM)
                 ; /* struct decl with named tag */
-            else if (IS_ENUM(btype.t))
+            ਨਹੀਂਤਾਂ ਜੇ (IS_ENUM(btype.t))
                 ; /* enum decl */
-            else
+            ਨਹੀਂਤਾਂ
                 tcc_warning("useless type defines no instances");
-            if (l == VT_JMP)
-                return 1;
-            next();
-            continue;
+            ਜੇ (l == VT_JMP)
+                ਵਾਪਸ 1;
+            ਅਗਲਾ();
+            ਜਾਰੀ;
         }
 
-        while (1) { /* iterate thru each declaration */
+        ਜਦੋਂ (1) { /* iterate thru each declaration */
             type = btype;
 	    ad = adbase;
-            type_decl(&type, &ad, &v, l == VT_CMP ? TYPE_DIRECT | TYPE_PARAM : TYPE_DIRECT);
+            type_decl(&type, &ad, &v, l == VT_CMP ? TYPE_ਸਿੱਧਾ | TYPE_PARAM : TYPE_ਸਿੱਧਾ);
             /*ptype("decl", &type, v);*/
-            if ((type.t & VT_BTYPE) == VT_FUNC) {
-                if ((type.t & VT_STATIC) && (l != VT_CONST))
+            ਜੇ ((type.t & VT_BTYPE) == VT_FUNC) {
+                ਜੇ ((type.t & VT_STATIC) && (l != VT_CONST))
                     tcc_error("function without file scope cannot be static");
                 /* if old style function prototype, we accept a
                    declaration list */
                 sym = type.ref;
-                if (sym->f.func_type == FUNC_OLD && l == VT_CONST) {
+                ਜੇ (sym->f.func_type == FUNC_OLD && l == VT_CONST) {
                     func_vt = type;
 		    ++local_scope;
                     decl(VT_CMP);
 		    --local_scope;
                 }
-                if ((type.t & (VT_EXTERN|VT_INLINE)) == (VT_EXTERN|VT_INLINE)) {
+                ਜੇ ((type.t & (VT_EXTERN|VT_INLINE)) == (VT_EXTERN|VT_INLINE)) {
                     /* always_inline functions must be handled as if they
                        don't generate multiple global defs, even if extern
                        inline, i.e. GNU inline semantics for those.  Rewrite
                        them into static inline.  */
-                    if (tcc_state->gnu89_inline || sym->f.func_alwinl)
+                    ਜੇ (tcc_state->gnu89_inline || sym->f.func_alwinl)
                         type.t = (type.t & ~VT_EXTERN) | VT_STATIC;
-                    else
+                    ਨਹੀਂਤਾਂ
                         type.t &= ~VT_INLINE; /* always compile otherwise */
                 }
 
-            } else if (oldint) {
+            } ਨਹੀਂਤਾਂ ਜੇ (oldint) {
                 tcc_warning("type defaults to int");
             }
 
-            if (gnu_ext && (tok == TOK_ASM1 || tok == TOK_ASM2 || tok == TOK_ASM3)) {
+            ਜੇ (gnu_ext && (tok == TOK_ASM1 || tok == TOK_ASM2 || tok == TOK_ASM3)) {
                 ad.asm_label = asm_label_instr();
                 /* parse one last attribute list, after asm label */
                 parse_attribute(&ad);
-            #if 0
+            #ਜੇ 0
                 /* gcc does not allow __asm__("label") with function definition,
                    but why not ... */
-                if (tok == '{')
+                ਜੇ (tok == '{')
                     expect(";");
-            #endif
+            #ਜੇ_ਅੰਤ
             }
 
-#ifdef TCC_TARGET_PE
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_PE
             pe_check_linkage(&type, &ad);
-#endif
-            if (tok == '{') {
-                if (l != VT_CONST)
+#ਜੇ_ਅੰਤ
+            ਜੇ (tok == '{') {
+                ਜੇ (l != VT_CONST)
                     tcc_error("cannot use local functions");
-                if ((type.t & VT_BTYPE) != VT_FUNC)
+                ਜੇ ((type.t & VT_BTYPE) != VT_FUNC)
                     expect("function definition");
 
                 /* apply post-declaraton attributes */
-                merge_funcattr(&type.ref->f, &ad.f);
+                ਮਿਲਾਓ_funcattr(&type.ref->f, &ad.f);
                 /* put function symbol */
                 type.t &= ~VT_EXTERN;
                 sym = external_sym(v, &type, 0, &ad);
 
                 /* reject abstract declarators in function definition
                    make old-style float params double */
-                for (sa = sym->type.ref; (sa = sa->next) != NULL;) {
-                    if (!(sa->v & ~SYM_FIELD))
+                ਲਈ (sa = sym->type.ref; (sa = sa->ਅਗਲਾ) != ਨਿਰਾ;) {
+                    ਜੇ (!(sa->v & ~SYM_ਖੇਤਰ))
                         expect("identifier");
-                    if (sa->type.t == VT_FLOAT
+                    ਜੇ (sa->type.t == VT_FLOAT
                         && sym->type.ref->f.func_type == FUNC_OLD) {
                         sa->type.t = VT_DOUBLE;
                     }
@@ -8921,79 +8921,79 @@ static int decl(int l)
                 /* static inline functions are just recorded as a kind
                    of macro. Their code will be emitted at the end of
                    the compilation unit only if they are used */
-                if (sym->type.t & VT_INLINE) {
-                    struct InlineFunc *fn;
-                    fn = tcc_malloc(sizeof *fn + strlen(file->filename));
+                ਜੇ (sym->type.t & VT_INLINE) {
+                    ਬਣਤਰ InlineFunc *fn;
+                    fn = tcc_malloc(ਆਕਾਰ *fn + ਲੜੀ_ਲੰਬਾਈ(file->filename));
                     strcpy(fn->filename, file->filename);
                     fn->sym = sym;
-                    dynarray_add(&tcc_state->inline_fns,
+                    dynarray_ਜੋੜੋ(&tcc_state->inline_fns,
 				 &tcc_state->nb_inline_fns, fn);
-                    skip_or_save_block(&fn->func_str);
-                } else {
+                    skip_or_save_ਖੰਡ(&fn->func_str);
+                } ਨਹੀਂਤਾਂ {
                     /* compute text section */
-                    cur_text_section = text_section;
-                    if (ad.section) {
-                        cur_text_section = ad.section;
-                        if (ad.new_section)
-                            ad.section->sh_flags = text_section->sh_flags;
+                    cur_ਪਾਠ_section = ਪਾਠ_section;
+                    ਜੇ (ad.section) {
+                        cur_ਪਾਠ_section = ad.section;
+                        ਜੇ (ad.new_section)
+                            ad.section->sh_flags = ਪਾਠ_section->sh_flags;
                     }
                     gen_function(sym);
                 }
-                break;
-            } else {
+                ਰੋਕੋ;
+            } ਨਹੀਂਤਾਂ {
                 has_init = 0;
-		if (l == VT_CMP) {
+		ਜੇ (l == VT_CMP) {
 		    /* find parameter in function parameter list */
-		    for (sym = func_vt.ref->next; sym; sym = sym->next)
-			if ((sym->v & ~SYM_FIELD) == v)
-			    goto found;
+		    ਲਈ (sym = func_vt.ref->ਅਗਲਾ; sym; sym = sym->ਅਗਲਾ)
+			ਜੇ ((sym->v & ~SYM_ਖੇਤਰ) == v)
+			    ਜਾਓ ਮਿਲਿਆ;
 		    tcc_error("declaration for parameter '%s' but no such parameter",
-			      get_tok_str(v, NULL));
-                found:
-		    if (type.t & VT_STORAGE) /* 'register' is okay */
+			      get_tok_str(v, ਨਿਰਾ));
+                ਮਿਲਿਆ:
+		    ਜੇ (type.t & VT_STORAGE) /* 'register' is okay */
 		        tcc_error("storage class specified for '%s'",
-				  get_tok_str(v, NULL));
-		    if (!(sym->type.t & VT_EXTERN))
+				  get_tok_str(v, ਨਿਰਾ));
+		    ਜੇ (!(sym->type.t & VT_EXTERN))
 		        tcc_error("redefinition of parameter '%s'",
-				  get_tok_str(v, NULL));
+				  get_tok_str(v, ਨਿਰਾ));
 		    convert_parameter_type(&type);
 		    sym->type = type;
-		} else if (type.t & VT_TYPEDEF) {
+		} ਨਹੀਂਤਾਂ ਜੇ (type.t & VT_TYPEDEF) {
                     /* save typedefed type  */
                     /* XXX: test storage specifiers ? */
-                    sym = sym_find(v);
-                    if (sym && sym->sym_scope == local_scope) {
-                        if (!is_compatible_types(&sym->type, &type)
+                    sym = sym_ਲੱਭੋ(v);
+                    ਜੇ (sym && sym->sym_scope == local_scope) {
+                        ਜੇ (!is_compatible_types(&sym->type, &type)
                             || !(sym->type.t & VT_TYPEDEF))
                             tcc_error("incompatible redefinition of '%s'",
-                                get_tok_str(v, NULL));
+                                get_tok_str(v, ਨਿਰਾ));
                         sym->type = type;
-                    } else {
-                        sym = sym_push(v, &type, 0, 0);
+                    } ਨਹੀਂਤਾਂ {
+                        sym = sym_ਧੱਕੋ(v, &type, 0, 0);
                     }
                     sym->a = ad.a;
-                    if ((type.t & VT_BTYPE) == VT_FUNC)
-                      merge_funcattr(&sym->type.ref->f, &ad.f);
-                    if (debug_modes)
+                    ਜੇ ((type.t & VT_BTYPE) == VT_FUNC)
+                      ਮਿਲਾਓ_funcattr(&sym->type.ref->f, &ad.f);
+                    ਜੇ (debug_modes)
                         tcc_debug_typedef (tcc_state, sym);
-		} else if ((type.t & VT_BTYPE) == VT_VOID
+		} ਨਹੀਂਤਾਂ ਜੇ ((type.t & VT_BTYPE) == VT_VOID
 			   && !(type.t & VT_EXTERN)) {
 		    tcc_error("declaration of void object");
-                } else {
+                } ਨਹੀਂਤਾਂ {
                     r = 0;
-                    if ((type.t & VT_BTYPE) == VT_FUNC) {
+                    ਜੇ ((type.t & VT_BTYPE) == VT_FUNC) {
                         /* external function definition */
                         /* specific case for func_call attribute */
-                        merge_funcattr(&type.ref->f, &ad.f);
-                    } else if (!(type.t & VT_ARRAY)) {
+                        ਮਿਲਾਓ_funcattr(&type.ref->f, &ad.f);
+                    } ਨਹੀਂਤਾਂ ਜੇ (!(type.t & VT_ARRAY)) {
                         /* not lvalue if array */
                         r |= VT_LVAL;
                     }
 
-                    if (tok == '=')
+                    ਜੇ (tok == '=')
                         has_init = 1;
 
-                    if (((type.t & VT_EXTERN) && (!has_init || l != VT_CONST))
+                    ਜੇ (((type.t & VT_EXTERN) && (!has_init || l != VT_CONST))
 		        || (type.t & VT_BTYPE) == VT_FUNC
                         /* as with GCC, uninitialized global arrays with no size
                            are considered extern: */
@@ -9003,47 +9003,47 @@ static int decl(int l)
                         /* external variable or function */
                         type.t |= VT_EXTERN;
                         external_sym(v, &type, r, &ad);
-                    } else {
-                        if (l == VT_CONST || (type.t & VT_STATIC))
+                    } ਨਹੀਂਤਾਂ {
+                        ਜੇ (l == VT_CONST || (type.t & VT_STATIC))
                             r |= VT_CONST;
-                        else
+                        ਨਹੀਂਤਾਂ
                             r |= VT_LOCAL;
                         type.t &= ~VT_EXTERN;
-                        if (has_init)
-                            next();
-                        else if (l == VT_CONST)
+                        ਜੇ (has_init)
+                            ਅਗਲਾ();
+                        ਨਹੀਂਤਾਂ ਜੇ (l == VT_CONST)
                             /* uninitialized global variables may be overridden */
                             type.t |= VT_EXTERN;
                         decl_initializer_alloc(&type, &ad, r, has_init, v, l);
                     }
 
-                    if (ad.alias_target && l == VT_CONST) {
+                    ਜੇ (ad.alias_ਨਿਸ਼ਾਨਾ && l == VT_CONST) {
                         /* Aliases need to be emitted when their target symbol
                            is emitted, even if perhaps unreferenced.
                            We only support the case where the base is already
                            defined, otherwise we would need deferring to emit
                            the aliases until the end of the compile unit.  */
-                        esym = elfsym(sym_find(ad.alias_target));
-                        if (!esym)
+                        esym = elfsym(sym_ਲੱਭੋ(ad.alias_ਨਿਸ਼ਾਨਾ));
+                        ਜੇ (!esym)
                             tcc_error("unsupported forward __alias__ attribute");
-                        put_extern_sym2(sym_find(v), esym->st_shndx,
-                                        esym->st_value, esym->st_size, 1);
+                        put_extern_sym2(sym_ਲੱਭੋ(v), esym->st_shndx,
+                                        esym->st_ਮੁੱਲ, esym->st_ਮਾਪ, 1);
                     }
                 }
-                if (tok != ',') {
-                    if (l == VT_JMP)
-                        return has_init ? v : 1;
+                ਜੇ (tok != ',') {
+                    ਜੇ (l == VT_JMP)
+                        ਵਾਪਸ has_init ? v : 1;
                     skip(';');
-                    break;
+                    ਰੋਕੋ;
                 }
-                next();
+                ਅਗਲਾ();
             }
         }
     }
-    return 0;
+    ਵਾਪਸ 0;
 }
 
 /* ------------------------------------------------------------------------- */
-#undef gjmp_addr
-#undef gjmp
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ gjmp_addr
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ gjmp
 /* ------------------------------------------------------------------------- */

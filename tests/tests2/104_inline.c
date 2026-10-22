@@ -1,123 +1,123 @@
-inline void inline_inline_2decl_only(void);
-inline void inline_inline_2decl_only(void);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_2decl_only(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_2decl_only(ਖਾਲੀ);
 
-inline void inline_inline_undeclared(void){}
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_undeclared(ਖਾਲੀ){}
 
-inline void inline_inline_predeclared(void);
-inline void inline_inline_predeclared(void){}
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_predeclared(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_predeclared(ਖਾਲੀ){}
 
-inline void inline_inline_postdeclared(void){}
-inline void inline_inline_postdeclared(void);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_postdeclared(ਖਾਲੀ){}
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_postdeclared(ਖਾਲੀ);
 
-inline void inline_inline_prepostdeclared(void);
-inline void inline_inline_prepostdeclared(void){}
-inline void inline_inline_prepostdeclared(void);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_prepostdeclared(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_prepostdeclared(ਖਾਲੀ){}
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_prepostdeclared(ਖਾਲੀ);
 
-inline void inline_inline_undeclared2(void){}
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_undeclared2(ਖਾਲੀ){}
 
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void){}
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_predeclared2(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_predeclared2(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_predeclared2(ਖਾਲੀ){}
 
-inline void inline_inline_postdeclared2(void){}
-inline void inline_inline_postdeclared2(void);
-inline void inline_inline_postdeclared2(void);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_postdeclared2(ਖਾਲੀ){}
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_postdeclared2(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_postdeclared2(ਖਾਲੀ);
 
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void){}
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_prepostdeclared2(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_prepostdeclared2(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_prepostdeclared2(ਖਾਲੀ){}
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_prepostdeclared2(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inline_inline_prepostdeclared2(ਖਾਲੀ);
 
-extern void extern_extern_undeclared(void){}
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_undeclared(ਖਾਲੀ){}
 
-extern void extern_extern_predeclared(void);
-extern void extern_extern_predeclared(void){}
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_predeclared(ਖਾਲੀ);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_predeclared(ਖਾਲੀ){}
 
-extern void extern_extern_postdeclared(void){}
-extern void extern_extern_postdeclared(void);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_postdeclared(ਖਾਲੀ){}
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_postdeclared(ਖਾਲੀ);
 
-extern void extern_extern_prepostdeclared(void);
-extern void extern_extern_prepostdeclared(void){}
-extern void extern_extern_prepostdeclared(void);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_prepostdeclared(ਖਾਲੀ);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_prepostdeclared(ਖਾਲੀ){}
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_prepostdeclared(ਖਾਲੀ);
 
-extern void extern_extern_undeclared2(void){}
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_undeclared2(ਖਾਲੀ){}
 
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void){}
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_predeclared2(ਖਾਲੀ);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_predeclared2(ਖਾਲੀ);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_predeclared2(ਖਾਲੀ){}
 
-extern void extern_extern_postdeclared2(void){}
-extern void extern_extern_postdeclared2(void);
-extern void extern_extern_postdeclared2(void);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_postdeclared2(ਖਾਲੀ){}
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_postdeclared2(ਖਾਲੀ);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_postdeclared2(ਖਾਲੀ);
 
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void){}
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_prepostdeclared2(ਖਾਲੀ);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_prepostdeclared2(ਖਾਲੀ);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_prepostdeclared2(ਖਾਲੀ){}
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_prepostdeclared2(ਖਾਲੀ);
+ਬਾਹਰੀ ਖਾਲੀ extern_extern_prepostdeclared2(ਖਾਲੀ);
 
-void extern_undeclared(void){}
+ਖਾਲੀ extern_undeclared(ਖਾਲੀ){}
 
-void extern_predeclared(void);
-void extern_predeclared(void){}
+ਖਾਲੀ extern_predeclared(ਖਾਲੀ);
+ਖਾਲੀ extern_predeclared(ਖਾਲੀ){}
 
-void extern_postdeclared(void){}
-void extern_postdeclared(void);
+ਖਾਲੀ extern_postdeclared(ਖਾਲੀ){}
+ਖਾਲੀ extern_postdeclared(ਖਾਲੀ);
 
-void extern_prepostdeclared(void);
-void extern_prepostdeclared(void){}
-void extern_prepostdeclared(void);
+ਖਾਲੀ extern_prepostdeclared(ਖਾਲੀ);
+ਖਾਲੀ extern_prepostdeclared(ਖਾਲੀ){}
+ਖਾਲੀ extern_prepostdeclared(ਖਾਲੀ);
 
-void extern_undeclared2(void){}
+ਖਾਲੀ extern_undeclared2(ਖਾਲੀ){}
 
-void extern_predeclared2(void);
-void extern_predeclared2(void);
-void extern_predeclared2(void){}
+ਖਾਲੀ extern_predeclared2(ਖਾਲੀ);
+ਖਾਲੀ extern_predeclared2(ਖਾਲੀ);
+ਖਾਲੀ extern_predeclared2(ਖਾਲੀ){}
 
-void extern_postdeclared2(void){}
-void extern_postdeclared2(void);
-void extern_postdeclared2(void);
+ਖਾਲੀ extern_postdeclared2(ਖਾਲੀ){}
+ਖਾਲੀ extern_postdeclared2(ਖਾਲੀ);
+ਖਾਲੀ extern_postdeclared2(ਖਾਲੀ);
 
 
-extern inline void noinst_extern_inline_undeclared(void){}
+ਬਾਹਰੀ ਸਤਰਅੰਦਰ ਖਾਲੀ noinst_extern_inline_undeclared(ਖਾਲੀ){}
 
-extern inline void noinst_extern_inline_postdeclared(void){}
-inline void noinst_extern_inline_postdeclared(void);
+ਬਾਹਰੀ ਸਤਰਅੰਦਰ ਖਾਲੀ noinst_extern_inline_postdeclared(ਖਾਲੀ){}
+ਸਤਰਅੰਦਰ ਖਾਲੀ noinst_extern_inline_postdeclared(ਖਾਲੀ);
 
-extern inline void noinst_extern_inline_postdeclared2(void){}
-inline void noinst_extern_inline_postdeclared2(void);
-inline void noinst_extern_inline_postdeclared2(void);
+ਬਾਹਰੀ ਸਤਰਅੰਦਰ ਖਾਲੀ noinst_extern_inline_postdeclared2(ਖਾਲੀ){}
+ਸਤਰਅੰਦਰ ਖਾਲੀ noinst_extern_inline_postdeclared2(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ noinst_extern_inline_postdeclared2(ਖਾਲੀ);
 
-extern inline void inst_extern_inline_postdeclared(void){}
-extern inline void inst_extern_inline_postdeclared(void);
-inline void inst2_extern_inline_postdeclared(void){}
-void inst2_extern_inline_postdeclared(void);
+ਬਾਹਰੀ ਸਤਰਅੰਦਰ ਖਾਲੀ inst_extern_inline_postdeclared(ਖਾਲੀ){}
+ਬਾਹਰੀ ਸਤਰਅੰਦਰ ਖਾਲੀ inst_extern_inline_postdeclared(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inst2_extern_inline_postdeclared(ਖਾਲੀ){}
+ਖਾਲੀ inst2_extern_inline_postdeclared(ਖਾਲੀ);
 
-void inst_extern_inline_predeclared(void);
-extern inline void inst_extern_inline_predeclared(void){}
-void inst2_extern_inline_predeclared(void);
-inline void inst2_extern_inline_predeclared(void){}
-extern inline void inst3_extern_inline_predeclared(void);
-inline void inst3_extern_inline_predeclared(void){}
+ਖਾਲੀ inst_extern_inline_predeclared(ਖਾਲੀ);
+ਬਾਹਰੀ ਸਤਰਅੰਦਰ ਖਾਲੀ inst_extern_inline_predeclared(ਖਾਲੀ){}
+ਖਾਲੀ inst2_extern_inline_predeclared(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inst2_extern_inline_predeclared(ਖਾਲੀ){}
+ਬਾਹਰੀ ਸਤਰਅੰਦਰ ਖਾਲੀ inst3_extern_inline_predeclared(ਖਾਲੀ);
+ਸਤਰਅੰਦਰ ਖਾਲੀ inst3_extern_inline_predeclared(ਖਾਲੀ){}
 
-static inline void noinst_static_inline_postdeclared(void){}
-static inline void noinst_static_inline_postdeclared(void);
-static inline void noinst2_static_inline_postdeclared(void){}
-static void noinst2_static_inline_postdeclared(void);
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ noinst_static_inline_postdeclared(ਖਾਲੀ){}
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ noinst_static_inline_postdeclared(ਖਾਲੀ);
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ noinst2_static_inline_postdeclared(ਖਾਲੀ){}
+ਸਥਿਰ ਖਾਲੀ noinst2_static_inline_postdeclared(ਖਾਲੀ);
 
-static void noinst_static_inline_predeclared(void);
-static inline void noinst_static_inline_predeclared(void){}
-static void noinst2_static_inline_predeclared(void);
-static inline void noinst2_static_inline_predeclared(void){}
+ਸਥਿਰ ਖਾਲੀ noinst_static_inline_predeclared(ਖਾਲੀ);
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ noinst_static_inline_predeclared(ਖਾਲੀ){}
+ਸਥਿਰ ਖਾਲੀ noinst2_static_inline_predeclared(ਖਾਲੀ);
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ noinst2_static_inline_predeclared(ਖਾਲੀ){}
 
-static void static_func(void);
-void static_func(void) { }
+ਸਥਿਰ ਖਾਲੀ static_func(ਖਾਲੀ);
+ਖਾਲੀ static_func(ਖਾਲੀ) { }
 
-inline void noinst_extern_inline_func(void);
-void noinst_extern_inline_func(void) { }
+ਸਤਰਅੰਦਰ ਖਾਲੀ noinst_extern_inline_func(ਖਾਲੀ);
+ਖਾਲੀ noinst_extern_inline_func(ਖਾਲੀ) { }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
         inline_inline_undeclared(); inline_inline_predeclared(); inline_inline_postdeclared();
         inline_inline_undeclared2(); inline_inline_predeclared2(); inline_inline_postdeclared2();
@@ -126,7 +126,7 @@ int main()
 	noinst_static_inline_predeclared();
 	noinst2_static_inline_predeclared();
 
-        void check_exports();
+        ਖਾਲੀ check_exports();
         check_exports();
-        return 0;
+        ਵਾਪਸ 0;
 }

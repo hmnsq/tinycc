@@ -1,20 +1,20 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-   int a = 24680;
-   int b = 01234567;
-   int c = 0x2468ac;
-   int d = 0x2468AC;
-   int e = 0b010101010101;
+   ਪੂਰਨ a = 24680;
+   ਪੂਰਨ b = 01234567;
+   ਪੂਰਨ c = 0x2468ac;
+   ਪੂਰਨ d = 0x2468AC;
+   ਪੂਰਨ e = 0b010101010101;
 
-   printf("%d\n", a);
-   printf("%d\n", b);
-   printf("%d\n", c);
-   printf("%d\n", d);
-   printf("%d\n", e);
+   ਲਿਖੋ("%d\n", a);
+   ਲਿਖੋ("%d\n", b);
+   ਲਿਖੋ("%d\n", c);
+   ਲਿਖੋ("%d\n", d);
+   ਲਿਖੋ("%d\n", e);
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

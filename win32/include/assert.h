@@ -3,60 +3,60 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef __ASSERT_H_
-#define __ASSERT_H_
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __ASSERT_H_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __ASSERT_H_
 
-#include <_mingw.h>
-#ifdef __cplusplus
-#include <stdlib.h>
-#endif
+#ਅਨ੍ਤਰ੍ਭਾਵ <_mingw.h>
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdlib.h>
+#ਜੇ_ਅੰਤ
 
-#ifdef NDEBUG
-#ifndef assert
-#define assert(_Expression) ((void)0)
-#endif
-#else
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ NDEBUG
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ ਪ੍ਰਤਿਜ੍ਞਾ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਪ੍ਰਤਿਜ੍ਞਾ(ਵਿਅੰਜਕ_2) ((ਖਾਲੀ)0)
+#ਜੇ_ਅੰਤ
+#ਨਹੀਂਤਾਂ
 
-#ifndef _CRT_TERMINATE_DEFINED
-#define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
- _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CRT_TERMINATE_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CRT_TERMINATE_DEFINED
+  ਖਾਲੀ __cdecl __MINGW_NOTHROW ਬਾਹਰ_ਨਿਕਲੋ(ਪੂਰਨ ਕੋਡ_3) __MINGW_ATTRIB_NORETURN;
+ _CRTIMP ਖਾਲੀ __cdecl __MINGW_NOTHROW _exit(ਪੂਰਨ ਕੋਡ_3) __MINGW_ATTRIB_NORETURN;
+#ਜੇ !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
 /* C99 function name */
-void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-__CRT_INLINE __MINGW_ATTRIB_NORETURN void __cdecl _Exit(int status)
-{  _exit(status); }
-#endif
+ਖਾਲੀ __cdecl _Exit(ਪੂਰਨ) __MINGW_ATTRIB_NORETURN;
+__CRT_INLINE __MINGW_ATTRIB_NORETURN ਖਾਲੀ __cdecl _Exit(ਪੂਰਨ ਸਥਿਤੀ)
+{  _exit(ਸਥਿਤੀ); }
+#ਜੇ_ਅੰਤ
 
-#pragma push_macro("abort")
-#undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#ਹਦਾਇਤ ਧੱਕੋ_macro("abort")
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ abort
+  ਖਾਲੀ __cdecl __declspec(noreturn) abort(ਖਾਲੀ);
+#ਹਦਾਇਤ ਕੱਢੋ_macro("abort")
 
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
 
-extern void __cdecl _wassert(const wchar_t *_Message,const wchar_t *_File,unsigned _Line);
-extern void __cdecl _assert(const char *, const char *, unsigned);
+ਬਾਹਰੀ ਖਾਲੀ __cdecl _wassert(ਅਚਲ wchar_t *ਸੁਨੇਹਾ_4,ਅਚਲ wchar_t *_File,ਬਿਨਾਨਿਸ਼ਾਨੀ ਸਤਰ_2);
+ਬਾਹਰੀ ਖਾਲੀ __cdecl _assert(ਅਚਲ ਅੱਖਰ *, ਅਚਲ ਅੱਖਰ *, ਬਿਨਾਨਿਸ਼ਾਨੀ);
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef assert
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ ਪ੍ਰਤਿਜ੍ਞਾ
 //#define assert(_Expression) (void)((!!(_Expression)) || (_wassert(_CRT_WIDE(#_Expression),_CRT_WIDE(__FILE__),__LINE__),0))
-#define assert(e) ((e) ? (void)0 : _assert(#e, __FILE__, __LINE__))
-#endif
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਪ੍ਰਤਿਜ੍ਞਾ(e) ((e) ? (ਖਾਲੀ)0 : _assert(#e, __FILE__, __LINE__))
+#ਜੇ_ਅੰਤ
 
-#endif
+#ਜੇ_ਅੰਤ
 
-#if (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
+#ਜੇ (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
 /* C11, section 7.2: The macro static_assert expands to _Static_assert. */
-#define static_assert(exp, str) _Static_assert(exp, str) 
-#endif
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ static_assert(ਘਾਤਾਂਕ, str) _Static_assert(ਘਾਤਾਂਕ, str) 
+#ਜੇ_ਅੰਤ
 
-#endif
+#ਜੇ_ਅੰਤ

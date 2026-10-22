@@ -1,20 +1,20 @@
 // this file contains BMP chars encoded in UTF-8
-#include <stdio.h>
-#include <wchar.h>
-#include <stdlib.h>
-#include <string.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <wchar.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdlib.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <string.h>
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
-    char hello_world_in_czech[] = "čau, světe";
-    char hello_world_in_czech_ucn[] = "\u010dau, sv\u011bte";
-    if (sizeof(hello_world_in_czech) != sizeof(hello_world_in_czech_ucn)
-            || strcmp(hello_world_in_czech, hello_world_in_czech_ucn))
+    ਅੱਖਰ hello_world_ਵਿੱਚ_czech[] = "čau, světe";
+    ਅੱਖਰ hello_world_ਵਿੱਚ_czech_ucn[] = "\u010dau, sv\u011bte";
+    ਜੇ (ਆਕਾਰ(hello_world_ਵਿੱਚ_czech) != ਆਕਾਰ(hello_world_ਵਿੱਚ_czech_ucn)
+            || strcmp(hello_world_ਵਿੱਚ_czech, hello_world_ਵਿੱਚ_czech_ucn))
         abort();
 
     wchar_t s[] = L"hello$$你好¢¢世界€€world";
     wchar_t *p;
-    for (p = s; *p; p++) printf("%04X ", (unsigned) *p);
-    printf("\n");
-    return 0;
+    ਲਈ (p = s; *p; p++) ਲਿਖੋ("%04X ", (ਬਿਨਾਨਿਸ਼ਾਨੀ) *p);
+    ਲਿਖੋ("\n");
+    ਵਾਪਸ 0;
 }

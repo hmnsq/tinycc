@@ -3,23 +3,23 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SEARCH_S
-#define _INC_SEARCH_S
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ INC_ਖੋਜ_S
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ INC_ਖੋਜ_S
 
-#include <search.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <search.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ਜੇ defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-  _CRTIMP void *__cdecl _lfind_s(const void *_Key,const void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
-  _CRTIMP void *__cdecl _lsearch_s(const void *_Key,void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
+  _CRTIMP ਖਾਲੀ *__cdecl _lfind_s(ਅਚਲ ਖਾਲੀ *ਕੁੰਜੀ_2,ਅਚਲ ਖਾਲੀ *ਅਧਾਰ_3,ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *ਅੰਕ_ਦਾ_Elements,ਮਾਪ_t ਮਾਪ_ਦਾ_Elements,ਪੂਰਨ (__cdecl *_PtFuncCompare)(ਖਾਲੀ *,ਅਚਲ ਖਾਲੀ *,ਅਚਲ ਖਾਲੀ *),ਖਾਲੀ *_Context);
+  _CRTIMP ਖਾਲੀ *__cdecl _lsearch_s(ਅਚਲ ਖਾਲੀ *ਕੁੰਜੀ_2,ਖਾਲੀ *ਅਧਾਰ_3,ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ *ਅੰਕ_ਦਾ_Elements,ਮਾਪ_t ਮਾਪ_ਦਾ_Elements,ਪੂਰਨ (__cdecl *_PtFuncCompare)(ਖਾਲੀ *,ਅਚਲ ਖਾਲੀ *,ਅਚਲ ਖਾਲੀ *),ਖਾਲੀ *_Context);
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-#endif
-#endif
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ

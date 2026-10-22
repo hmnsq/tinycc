@@ -3,154 +3,154 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef GUID_DEFINED
-#define GUID_DEFINED
-typedef struct _GUID {
-  unsigned long Data1;
-  unsigned short Data2;
-  unsigned short Data3;
-  unsigned char Data4[8 ];
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ GUID_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ GUID_DEFINED
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ _GUID {
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ Data1;
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ Data2;
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ Data3;
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ Data4[8 ];
 } GUID;
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef UUID_DEFINED
-#define UUID_DEFINED
-typedef GUID UUID;
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ UUID_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ UUID_DEFINED
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ GUID UUID;
+#ਜੇ_ਅੰਤ
 
-#ifndef FAR
-#define FAR
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ FAR
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FAR
+#ਜੇ_ਅੰਤ
 
-#ifndef DECLSPEC_SELECTANY
-#define DECLSPEC_SELECTANY __declspec(selectany)
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ DECLSPEC_SELECTANY
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DECLSPEC_SELECTANY __declspec(selectany)
+#ਜੇ_ਅੰਤ
 
-#ifndef EXTERN_C
-#ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ EXTERN_C
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXTERN_C ਬਾਹਰੀ "C"
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ EXTERN_C ਬਾਹਰੀ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifdef DEFINE_GUID
-#undef DEFINE_GUID
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ DEFINE_GUID
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ DEFINE_GUID
+#ਜੇ_ਅੰਤ
 
-#ifdef INITGUID
-#ifdef __cplusplus
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#else
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#endif
-#else
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID name
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ INITGUID
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C ਅਚਲ GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) ਅਚਲ GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
+#ਜੇ_ਅੰਤ
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C ਅਚਲ GUID name
+#ਜੇ_ਅੰਤ
 
-#define DEFINE_OLEGUID(name,l,w1,w2) DEFINE_GUID(name,l,w1,w2,0xC0,0,0,0,0,0,0,0x46)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DEFINE_OLEGUID(name,l,w1,w2) DEFINE_GUID(name,l,w1,w2,0xC0,0,0,0,0,0,0,0x46)
 
-#ifndef _GUIDDEF_H_
-#define _GUIDDEF_H_
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _GUIDDEF_H_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _GUIDDEF_H_
 
-#ifndef __LPGUID_DEFINED__
-#define __LPGUID_DEFINED__
-typedef GUID *LPGUID;
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __LPGUID_DEFINED__
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __LPGUID_DEFINED__
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ GUID *LPGUID;
+#ਜੇ_ਅੰਤ
 
-#ifndef __LPCGUID_DEFINED__
-#define __LPCGUID_DEFINED__
-typedef const GUID *LPCGUID;
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __LPCGUID_DEFINED__
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __LPCGUID_DEFINED__
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਅਚਲ GUID *LPCGUID;
+#ਜੇ_ਅੰਤ
 
-#ifndef __IID_DEFINED__
-#define __IID_DEFINED__
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ __IID_DEFINED__
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __IID_DEFINED__
 
-typedef GUID IID;
-typedef IID *LPIID;
-#define IID_NULL GUID_NULL
-#define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
-typedef GUID CLSID;
-typedef CLSID *LPCLSID;
-#define CLSID_NULL GUID_NULL
-#define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
-typedef GUID FMTID;
-typedef FMTID *LPFMTID;
-#define FMTID_NULL GUID_NULL
-#define IsEqualFMTID(rfmtid1,rfmtid2) IsEqualGUID(rfmtid1,rfmtid2)
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ GUID IID;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ IID *LPIID;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IID_NULL GUID_NULL
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ GUID CLSID;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ CLSID *LPCLSID;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CLSID_NULL GUID_NULL
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ GUID FMTID;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ FMTID *LPFMTID;
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FMTID_NULL GUID_NULL
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IsEqualFMTID(rfmtid1,rfmtid2) IsEqualGUID(rfmtid1,rfmtid2)
 
-#ifdef __midl_proxy
-#define __MIDL_CONST
-#else
-#define __MIDL_CONST const
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __midl_proxy
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __MIDL_CONST
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ __MIDL_CONST ਅਚਲ
+#ਜੇ_ਅੰਤ
 
-#ifndef _REFGUID_DEFINED
-#define _REFGUID_DEFINED
-#ifdef __cplusplus
-#define REFGUID const GUID &
-#else
-#define REFGUID const GUID *__MIDL_CONST
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _REFGUID_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _REFGUID_DEFINED
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REFGUID ਅਚਲ GUID &
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REFGUID ਅਚਲ GUID *__MIDL_CONST
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _REFIID_DEFINED
-#define _REFIID_DEFINED
-#ifdef __cplusplus
-#define REFIID const IID &
-#else
-#define REFIID const IID *__MIDL_CONST
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _REFIID_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _REFIID_DEFINED
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REFIID ਅਚਲ IID &
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REFIID ਅਚਲ IID *__MIDL_CONST
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _REFCLSID_DEFINED
-#define _REFCLSID_DEFINED
-#ifdef __cplusplus
-#define REFCLSID const IID &
-#else
-#define REFCLSID const IID *__MIDL_CONST
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _REFCLSID_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _REFCLSID_DEFINED
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REFCLSID ਅਚਲ IID &
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REFCLSID ਅਚਲ IID *__MIDL_CONST
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _REFFMTID_DEFINED
-#define _REFFMTID_DEFINED
-#ifdef __cplusplus
-#define REFFMTID const IID &
-#else
-#define REFFMTID const IID *__MIDL_CONST
-#endif
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _REFFMTID_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _REFFMTID_DEFINED
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REFFMTID ਅਚਲ IID &
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ REFFMTID ਅਚਲ IID *__MIDL_CONST
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#ifndef _SYS_GUID_OPERATORS_
-#define _SYS_GUID_OPERATORS_
-#include <string.h>
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _SYS_GUID_OPERATORS_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _SYS_GUID_OPERATORS_
+#ਅਨ੍ਤਰ੍ਭਾਵ <string.h>
 
-#ifdef __cplusplus
-__inline int InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
-  return (((unsigned long *) &rguid1)[0]==((unsigned long *) &rguid2)[0] && ((unsigned long *) &rguid1)[1]==((unsigned long *) &rguid2)[1] &&
-    ((unsigned long *) &rguid1)[2]==((unsigned long *) &rguid2)[2] && ((unsigned long *) &rguid1)[3]==((unsigned long *) &rguid2)[3]);
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+__inline ਪੂਰਨ InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
+  ਵਾਪਸ (((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) &rguid1)[0]==((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) &rguid2)[0] && ((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) &rguid1)[1]==((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) &rguid2)[1] &&
+    ((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) &rguid1)[2]==((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) &rguid2)[2] && ((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) &rguid1)[3]==((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) &rguid2)[3]);
 }
-__inline int IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { return !memcmp(&rguid1,&rguid2,sizeof(GUID)); }
-#else
-#define InlineIsEqualGUID(rguid1,rguid2) (((unsigned long *) rguid1)[0]==((unsigned long *) rguid2)[0] && ((unsigned long *) rguid1)[1]==((unsigned long *) rguid2)[1] && ((unsigned long *) rguid1)[2]==((unsigned long *) rguid2)[2] && ((unsigned long *) rguid1)[3]==((unsigned long *) rguid2)[3])
-#define IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,sizeof(GUID)))
-#endif
+__inline ਪੂਰਨ IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { ਵਾਪਸ !memcmp(&rguid1,&rguid2,ਆਕਾਰ(GUID)); }
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ InlineIsEqualGUID(rguid1,rguid2) (((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) rguid1)[0]==((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) rguid2)[0] && ((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) rguid1)[1]==((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) rguid2)[1] && ((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) rguid1)[2]==((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) rguid2)[2] && ((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) rguid1)[3]==((ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *) rguid2)[3])
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,ਆਕਾਰ(GUID)))
+#ਜੇ_ਅੰਤ
 
-#ifdef __INLINE_ISEQUAL_GUID
-#undef IsEqualGUID
-#define IsEqualGUID(rguid1,rguid2) InlineIsEqualGUID(rguid1,rguid2)
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __INLINE_ISEQUAL_GUID
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ IsEqualGUID
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IsEqualGUID(rguid1,rguid2) InlineIsEqualGUID(rguid1,rguid2)
+#ਜੇ_ਅੰਤ
 
-#define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
-#define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
 
-#if !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
-#define _SYS_GUID_OPERATOR_EQ_
-#ifdef __cplusplus
-__inline int operator==(REFGUID guidOne,REFGUID guidOther) { return IsEqualGUID(guidOne,guidOther); }
-__inline int operator!=(REFGUID guidOne,REFGUID guidOther) { return !(guidOne==guidOther); }
-#endif
-#endif
-#endif
-#endif
+#ਜੇ !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _SYS_GUID_OPERATOR_EQ_
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+__inline ਪੂਰਨ ਸੰਚਾਲਕ==(REFGUID guidOne,REFGUID guidOther) { ਵਾਪਸ IsEqualGUID(guidOne,guidOther); }
+__inline ਪੂਰਨ ਸੰਚਾਲਕ!=(REFGUID guidOne,REFGUID guidOther) { ਵਾਪਸ !(guidOne==guidOther); }
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ

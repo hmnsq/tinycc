@@ -3,89 +3,89 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_LOCALE
-#define _INC_LOCALE
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _INC_LOCALE
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _INC_LOCALE
 
-#include <_mingw.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ਹਦਾਇਤ pack(ਧੱਕੋ,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ ਨਿਰਾ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਨਿਰਾ 0
+#ਨਹੀਂਤਾਂ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਨਿਰਾ ((ਖਾਲੀ *)0)
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-#define LC_ALL 0
-#define LC_COLLATE 1
-#define LC_CTYPE 2
-#define LC_MONETARY 3
-#define LC_NUMERIC 4
-#define LC_TIME 5
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_ALL 0
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_COLLATE 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_CTYPE 2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_MONETARY 3
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_NUMERIC 4
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_ਸਮਾਂ 5
 
-#define LC_MIN LC_ALL
-#define LC_MAX LC_TIME
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_MIN LC_ALL
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LC_MAX LC_ਸਮਾਂ
 
-#ifndef _LCONV_DEFINED
-#define _LCONV_DEFINED
-  struct lconv {
-    char *decimal_point;
-    char *thousands_sep;
-    char *grouping;
-    char *int_curr_symbol;
-    char *currency_symbol;
-    char *mon_decimal_point;
-    char *mon_thousands_sep;
-    char *mon_grouping;
-    char *positive_sign;
-    char *negative_sign;
-    char int_frac_digits;
-    char frac_digits;
-    char p_cs_precedes;
-    char p_sep_by_space;
-    char n_cs_precedes;
-    char n_sep_by_space;
-    char p_sign_posn;
-    char n_sign_posn;
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _LCONV_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _LCONV_DEFINED
+  ਬਣਤਰ lconv {
+    ਅੱਖਰ *decimal_ਬਿੰਦੂ;
+    ਅੱਖਰ *thousands_sep;
+    ਅੱਖਰ *grouping;
+    ਅੱਖਰ *int_curr_ਚਿੰਨ੍ਹ;
+    ਅੱਖਰ *currency_ਚਿੰਨ੍ਹ;
+    ਅੱਖਰ *mon_decimal_ਬਿੰਦੂ;
+    ਅੱਖਰ *mon_thousands_sep;
+    ਅੱਖਰ *mon_grouping;
+    ਅੱਖਰ *ਸਕਾਰਾਤਮਕ_sign;
+    ਅੱਖਰ *negative_sign;
+    ਅੱਖਰ int_frac_digits;
+    ਅੱਖਰ frac_digits;
+    ਅੱਖਰ p_cs_precedes;
+    ਅੱਖਰ p_sep_by_space;
+    ਅੱਖਰ n_cs_precedes;
+    ਅੱਖਰ n_sep_by_space;
+    ਅੱਖਰ p_sign_posn;
+    ਅੱਖਰ n_sign_posn;
   };
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef _CONFIG_LOCALE_SWT
-#define _CONFIG_LOCALE_SWT
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _CONFIG_LOCALE_SWT
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _CONFIG_LOCALE_SWT
 
-#define _ENABLE_PER_THREAD_LOCALE 0x1
-#define _DISABLE_PER_THREAD_LOCALE 0x2
-#define _ENABLE_PER_THREAD_LOCALE_GLOBAL 0x10
-#define _DISABLE_PER_THREAD_LOCALE_GLOBAL 0x20
-#define _ENABLE_PER_THREAD_LOCALE_NEW 0x100
-#define _DISABLE_PER_THREAD_LOCALE_NEW 0x200
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENABLE_ਪ੍ਰਤੀ_THREAD_LOCALE 0x1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DISABLE_ਪ੍ਰਤੀ_THREAD_LOCALE 0x2
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENABLE_ਪ੍ਰਤੀ_THREAD_LOCALE_GLOBAL 0x10
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DISABLE_ਪ੍ਰਤੀ_THREAD_LOCALE_GLOBAL 0x20
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ENABLE_ਪ੍ਰਤੀ_THREAD_LOCALE_NEW 0x100
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ DISABLE_ਪ੍ਰਤੀ_THREAD_LOCALE_NEW 0x200
 
-#endif
+#ਜੇ_ਅੰਤ
 
-  int __cdecl _configthreadlocale(int _Flag);
-  char *__cdecl setlocale(int _Category,const char *_Locale);
-  _CRTIMP struct lconv *__cdecl localeconv(void);
-  _locale_t __cdecl _get_current_locale(void);
-  _locale_t __cdecl _create_locale(int _Category,const char *_Locale);
-  void __cdecl _free_locale(_locale_t _Locale);
-  _locale_t __cdecl __get_current_locale(void);
-  _locale_t __cdecl __create_locale(int _Category,const char *_Locale);
-  void __cdecl __free_locale(_locale_t _Locale);
+  ਪੂਰਨ __cdecl _configthreadlocale(ਪੂਰਨ _Flag);
+  ਅੱਖਰ *__cdecl setlocale(ਪੂਰਨ _Category,ਅਚਲ ਅੱਖਰ *_Locale);
+  _CRTIMP ਬਣਤਰ lconv *__cdecl localeconv(ਖਾਲੀ);
+  _locale_t __cdecl _get_current_locale(ਖਾਲੀ);
+  _locale_t __cdecl _create_locale(ਪੂਰਨ _Category,ਅਚਲ ਅੱਖਰ *_Locale);
+  ਖਾਲੀ __cdecl _free_locale(_locale_t _Locale);
+  _locale_t __cdecl __get_current_locale(ਖਾਲੀ);
+  _locale_t __cdecl __create_locale(ਪੂਰਨ _Category,ਅਚਲ ਅੱਖਰ *_Locale);
+  ਖਾਲੀ __cdecl __free_locale(_locale_t _Locale);
 
-#ifndef _WLOCALE_DEFINED
-#define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WLOCALE_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _WLOCALE_DEFINED
+  _CRTIMP wchar_t *__cdecl _wsetlocale(ਪੂਰਨ _Category,ਅਚਲ wchar_t *_Locale);
+#ਜੇ_ਅੰਤ
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-#pragma pack(pop)
-#endif
+#ਹਦਾਇਤ pack(ਕੱਢੋ)
+#ਜੇ_ਅੰਤ

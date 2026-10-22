@@ -1,12 +1,12 @@
-#include <stdio.h>	// printf()
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>	// printf()
 
-#define CAT2(a,b) a##b
-#define CAT(a,b) CAT2(a,b)
-#define AB(x) CAT(x,y)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CAT2(a,b) a##b
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ CAT(a,b) CAT2(a,b)
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ AB(x) CAT(x,y)
 
-int main(void)
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
-  int xy = 42;
-  printf("%d\n", CAT(A,B)(x));
-  return 0;
+  ਪੂਰਨ xy = 42;
+  ਲਿਖੋ("%d\n", CAT(A,B)(x));
+  ਵਾਪਸ 0;
 }

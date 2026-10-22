@@ -1,4 +1,4 @@
-#define foobar 1
-#define C(x,y) x##y
-#define D(x) (C(x,bar))
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ foobar 1
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ C(x,y) x##y
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ D(x) (C(x,bar))
 D(foo)

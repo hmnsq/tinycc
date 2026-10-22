@@ -1,35 +1,35 @@
-#include <stdio.h>
-#include <stdarg.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdarg.h>
 
-int compile_errors(void)
+ਪੂਰਨ compile_errors(ਖਾਲੀ)
 {
-#if TEST == 1
+#ਜੇ TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    ਸਥਿਰ ਪੂਰਨ i = (&"Foobar"[1] - &"Foobar"[0]);
   }
-#endif
-#if TEST == 2
+#ਜੇ_ਅੰਤ
+#ਜੇ TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
-    static long i=((char*)&(v.c)-(char*)&v);
+    ਬਣਤਰ{ਪੂਰਨ c;}v;
+    ਸਥਿਰ ਲੰਮਾ i=((ਅੱਖਰ*)&(v.c)-(ਅੱਖਰ*)&v);
   }
-#endif
-#if TEST == 3
+#ਜੇ_ਅੰਤ
+#ਜੇ TEST == 3
   {
     /* Not constant */
-    static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
-    void *p = &&l1 + ar[0];
-    goto *p;
-   l1: return 1;
-   l2: return 2;
+    ਸਥਿਰ ਅਚਲ ਛੋਟਾ ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
+    ਖਾਲੀ *p = &&l1 + ar[0];
+    ਜਾਓ *p;
+   l1: ਵਾਪਸ 1;
+   l2: ਵਾਪਸ 2;
   }
-#endif
-  return 0;
+#ਜੇ_ਅੰਤ
+  ਵਾਪਸ 0;
 }
 
-int
-main(void)
+ਪੂਰਨ
+ਮੁੱਖ(ਖਾਲੀ)
 {
 }

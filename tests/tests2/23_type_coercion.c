@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
 
-void charfunc(char a)
+ਖਾਲੀ charfunc(ਅੱਖਰ a)
 {
-   printf("char: %c\n", a);
+   ਲਿਖੋ("char: %c\n", a);
 }
 
-void intfunc(int a)
+ਖਾਲੀ intfunc(ਪੂਰਨ a)
 {
-   printf("int: %d\n", a);
+   ਲਿਖੋ("int: %d\n", a);
 }
 
-void floatfunc(float a)
+ਖਾਲੀ floatfunc(ਦਸ਼ਮਲਵ a)
 {
-   printf("float: %f\n", a);
+   ਲਿਖੋ("float: %f\n", a);
 }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
    charfunc('a');
    charfunc(98);
@@ -33,22 +33,22 @@ int main()
    /* printf("%c %d %f\n", 97, 98, 99); */
    /* printf("%c %d %f\n", 97.0, 98.0, 99.0); */
 
-   char b = 97;
-   char c = 97.0;
+   ਅੱਖਰ b = 97;
+   ਅੱਖਰ c = 97.0;
 
-   printf("%d %d\n", b, c);
+   ਲਿਖੋ("%d %d\n", b, c);
 
-   int d = 'a';
-   int e = 97.0;
+   ਪੂਰਨ d = 'a';
+   ਪੂਰਨ e = 97.0;
 
-   printf("%d %d\n", d, e);
+   ਲਿਖੋ("%d %d\n", d, e);
 
-   float f = 'a';
-   float g = 97;
+   ਦਸ਼ਮਲਵ f = 'a';
+   ਦਸ਼ਮਲਵ g = 97;
 
-   printf("%f %f\n", f, g);
+   ਲਿਖੋ("%f %f\n", f, g);
 
-   return 0;
+   ਵਾਪਸ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

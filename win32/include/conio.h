@@ -3,394 +3,394 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_CONIO
-#define _INC_CONIO
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _INC_CONIO
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _INC_CONIO
 
-#include <_mingw.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
-  _CRTIMP char *_cgets(char *_Buffer);
-  _CRTIMP int __cdecl _cprintf(const char *_Format,...);
-  _CRTIMP int __cdecl _cputs(const char *_Str);
-  _CRTIMP int __cdecl _cscanf(const char *_Format,...);
-  _CRTIMP int __cdecl _cscanf_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _getch(void);
-  _CRTIMP int __cdecl _getche(void);
-  _CRTIMP int __cdecl _vcprintf(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_p(const char *_Format,...);
-  _CRTIMP int __cdecl _vcprintf_p(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_p_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_p_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _kbhit(void);
+  _CRTIMP ਅੱਖਰ *_cgets(ਅੱਖਰ *ਬਫਰ_2);
+  _CRTIMP ਪੂਰਨ __cdecl _cprintf(ਅਚਲ ਅੱਖਰ *_Format,...);
+  _CRTIMP ਪੂਰਨ __cdecl _cputs(ਅਚਲ ਅੱਖਰ *_Str);
+  _CRTIMP ਪੂਰਨ __cdecl _cscanf(ਅਚਲ ਅੱਖਰ *_Format,...);
+  _CRTIMP ਪੂਰਨ __cdecl _cscanf_l(ਅਚਲ ਅੱਖਰ *_Format,_locale_t _Locale,...);
+  _CRTIMP ਪੂਰਨ __cdecl _getch(ਖਾਲੀ);
+  _CRTIMP ਪੂਰਨ __cdecl _getche(ਖਾਲੀ);
+  _CRTIMP ਪੂਰਨ __cdecl _vcprintf(ਅਚਲ ਅੱਖਰ *_Format,va_list _ArgList);
+  _CRTIMP ਪੂਰਨ __cdecl _cprintf_p(ਅਚਲ ਅੱਖਰ *_Format,...);
+  _CRTIMP ਪੂਰਨ __cdecl _vcprintf_p(ਅਚਲ ਅੱਖਰ *_Format,va_list _ArgList);
+  _CRTIMP ਪੂਰਨ __cdecl _cprintf_l(ਅਚਲ ਅੱਖਰ *_Format,_locale_t _Locale,...);
+  _CRTIMP ਪੂਰਨ __cdecl _vcprintf_l(ਅਚਲ ਅੱਖਰ *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP ਪੂਰਨ __cdecl _cprintf_p_l(ਅਚਲ ਅੱਖਰ *_Format,_locale_t _Locale,...);
+  _CRTIMP ਪੂਰਨ __cdecl _vcprintf_p_l(ਅਚਲ ਅੱਖਰ *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP ਪੂਰਨ __cdecl _kbhit(ਖਾਲੀ);
 
-#if defined(_X86_) && !defined(__x86_64)
-  int __cdecl _inp(unsigned short);
-  unsigned short __cdecl _inpw(unsigned short);
-  unsigned long __cdecl _inpd(unsigned short);
-  int __cdecl _outp(unsigned short,int);
-  unsigned short __cdecl _outpw(unsigned short,unsigned short);
-  unsigned long __cdecl _outpd(unsigned short,unsigned long);
-#endif
+#ਜੇ defined(_X86_) && !defined(__x86_64)
+  ਪੂਰਨ __cdecl _inp(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ __cdecl _inpw(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __cdecl _inpd(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ);
+  ਪੂਰਨ __cdecl _outp(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ,ਪੂਰਨ);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ __cdecl _outpw(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __cdecl _outpd(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ);
+#ਜੇ_ਅੰਤ
 
-  _CRTIMP int __cdecl _putch(int _Ch);
-  _CRTIMP int __cdecl _ungetch(int _Ch);
-  _CRTIMP int __cdecl _getch_nolock(void);
-  _CRTIMP int __cdecl _getche_nolock(void);
-  _CRTIMP int __cdecl _putch_nolock(int _Ch);
-  _CRTIMP int __cdecl _ungetch_nolock(int _Ch);
+  _CRTIMP ਪੂਰਨ __cdecl _putch(ਪੂਰਨ _Ch);
+  _CRTIMP ਪੂਰਨ __cdecl _ungetch(ਪੂਰਨ _Ch);
+  _CRTIMP ਪੂਰਨ __cdecl _getch_nolock(ਖਾਲੀ);
+  _CRTIMP ਪੂਰਨ __cdecl _getche_nolock(ਖਾਲੀ);
+  _CRTIMP ਪੂਰਨ __cdecl _putch_nolock(ਪੂਰਨ _Ch);
+  _CRTIMP ਪੂਰਨ __cdecl _ungetch_nolock(ਪੂਰਨ _Ch);
 
-#ifndef _WCONIO_DEFINED
-#define _WCONIO_DEFINED
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WCONIO_DEFINED
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _WCONIO_DEFINED
 
-#ifndef WEOF
-#define WEOF (wint_t)(0xFFFF)
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ WEOF
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ WEOF (wint_t)(0xFFFF)
+#ਜੇ_ਅੰਤ
 
-  _CRTIMP wchar_t *_cgetws(wchar_t *_Buffer);
-  _CRTIMP wint_t __cdecl _getwch(void);
-  _CRTIMP wint_t __cdecl _getwche(void);
+  _CRTIMP wchar_t *_cgetws(wchar_t *ਬਫਰ_2);
+  _CRTIMP wint_t __cdecl _getwch(ਖਾਲੀ);
+  _CRTIMP wint_t __cdecl _getwche(ਖਾਲੀ);
   _CRTIMP wint_t __cdecl _putwch(wchar_t _WCh);
   _CRTIMP wint_t __cdecl _ungetwch(wint_t _WCh);
-  _CRTIMP int __cdecl _cputws(const wchar_t *_String);
-  _CRTIMP int __cdecl _cwprintf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vcwprintf_p(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP ਪੂਰਨ __cdecl _cputws(ਅਚਲ wchar_t *_String);
+  _CRTIMP ਪੂਰਨ __cdecl _cwprintf(ਅਚਲ wchar_t *_Format,...);
+  _CRTIMP ਪੂਰਨ __cdecl _cwscanf(ਅਚਲ wchar_t *_Format,...);
+  _CRTIMP ਪੂਰਨ __cdecl _cwscanf_l(ਅਚਲ wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP ਪੂਰਨ __cdecl _vcwprintf(ਅਚਲ wchar_t *_Format,va_list _ArgList);
+  _CRTIMP ਪੂਰਨ __cdecl _cwprintf_p(ਅਚਲ wchar_t *_Format,...);
+  _CRTIMP ਪੂਰਨ __cdecl _vcwprintf_p(ਅਚਲ wchar_t *_Format,va_list _ArgList);
+  _CRTIMP ਪੂਰਨ __cdecl _cwprintf_l(ਅਚਲ wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP ਪੂਰਨ __cdecl _vcwprintf_l(ਅਚਲ wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP ਪੂਰਨ __cdecl _cwprintf_p_l(ਅਚਲ wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP ਪੂਰਨ __cdecl _vcwprintf_p_l(ਅਚਲ wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
   _CRTIMP wint_t __cdecl _putwch_nolock(wchar_t _WCh);
-  _CRTIMP wint_t __cdecl _getwch_nolock(void);
-  _CRTIMP wint_t __cdecl _getwche_nolock(void);
+  _CRTIMP wint_t __cdecl _getwch_nolock(ਖਾਲੀ);
+  _CRTIMP wint_t __cdecl _getwche_nolock(ਖਾਲੀ);
   _CRTIMP wint_t __cdecl _ungetwch_nolock(wint_t _WCh);
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifndef	NO_OLDNAMES
-  char *__cdecl cgets(char *_Buffer);
-  int __cdecl cprintf(const char *_Format,...);
-  int __cdecl cputs(const char *_Str);
-  int __cdecl cscanf(const char *_Format,...);
-  int __cdecl getch(void);
-  int __cdecl getche(void);
-  int __cdecl kbhit(void);
-  int __cdecl putch(int _Ch);
-  int __cdecl ungetch(int _Ch);
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ	NO_OLDNAMES
+  ਅੱਖਰ *__cdecl cgets(ਅੱਖਰ *ਬਫਰ_2);
+  ਪੂਰਨ __cdecl cprintf(ਅਚਲ ਅੱਖਰ *_Format,...);
+  ਪੂਰਨ __cdecl cputs(ਅਚਲ ਅੱਖਰ *_Str);
+  ਪੂਰਨ __cdecl cscanf(ਅਚਲ ਅੱਖਰ *_Format,...);
+  ਪੂਰਨ __cdecl getch(ਖਾਲੀ);
+  ਪੂਰਨ __cdecl getche(ਖਾਲੀ);
+  ਪੂਰਨ __cdecl kbhit(ਖਾਲੀ);
+  ਪੂਰਨ __cdecl putch(ਪੂਰਨ _Ch);
+  ਪੂਰਨ __cdecl ungetch(ਪੂਰਨ _Ch);
 
-#if (defined(_X86_) && !defined(__x86_64))
-  int __cdecl inp(unsigned short);
-  unsigned short __cdecl inpw(unsigned short);
-  int __cdecl outp(unsigned short,int);
-  unsigned short __cdecl outpw(unsigned short,unsigned short);
-#endif
+#ਜੇ (defined(_X86_) && !defined(__x86_64))
+  ਪੂਰਨ __cdecl inp(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ __cdecl inpw(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ);
+  ਪੂਰਨ __cdecl outp(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ,ਪੂਰਨ);
+  ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ __cdecl outpw(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ);
+#ਜੇ_ਅੰਤ
 
   /* I/O intrin functions.  */
-  __CRT_INLINE unsigned char __inbyte(unsigned short Port)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ __inbyte(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ)
   {
-      unsigned char value;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ ਮੁੱਲ;
       __asm__ __volatile__ ("inb %w1,%b0"
-          : "=a" (value)
-          : "Nd" (Port));
-      return value;
+          : "=a" (ਮੁੱਲ)
+          : "Nd" (ਪੋਰਟ));
+      ਵਾਪਸ ਮੁੱਲ;
   }
-  __CRT_INLINE unsigned short __inword(unsigned short Port)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ __inword(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ)
   {
-      unsigned short value;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਮੁੱਲ;
       __asm__ __volatile__ ("inw %w1,%w0"
-          : "=a" (value)
-          : "Nd" (Port));
-      return value;
+          : "=a" (ਮੁੱਲ)
+          : "Nd" (ਪੋਰਟ));
+      ਵਾਪਸ ਮੁੱਲ;
   }
-  __CRT_INLINE unsigned long __indword(unsigned short Port)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __indword(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ)
   {
-      unsigned long value;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮੁੱਲ;
       __asm__ __volatile__ ("inl %w1,%0"
-          : "=a" (value)
-          : "Nd" (Port));
-      return value;
+          : "=a" (ਮੁੱਲ)
+          : "Nd" (ਪੋਰਟ));
+      ਵਾਪਸ ਮੁੱਲ;
   }
-  __CRT_INLINE void __outbyte(unsigned short Port,unsigned char Data)
+  __CRT_INLINE ਖਾਲੀ __outbyte(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ ਅੰਕੜੇ_3)
   {
       __asm__ __volatile__ ("outb %b0,%w1"
           :
-          : "a" (Data), "Nd" (Port));
+          : "a" (ਅੰਕੜੇ_3), "Nd" (ਪੋਰਟ));
   }
-  __CRT_INLINE void __outword(unsigned short Port,unsigned short Data)
+  __CRT_INLINE ਖਾਲੀ __outword(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਅੰਕੜੇ_3)
   {
       __asm__ __volatile__ ("outw %w0,%w1"
           :
-          : "a" (Data), "Nd" (Port));
+          : "a" (ਅੰਕੜੇ_3), "Nd" (ਪੋਰਟ));
   }
-  __CRT_INLINE void __outdword(unsigned short Port,unsigned long Data)
+  __CRT_INLINE ਖਾਲੀ __outdword(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਅੰਕੜੇ_3)
   {
       __asm__ __volatile__ ("outl %0,%w1"
           :
-          : "a" (Data), "Nd" (Port));
+          : "a" (ਅੰਕੜੇ_3), "Nd" (ਪੋਰਟ));
   }
-  __CRT_INLINE void __inbytestring(unsigned short Port,unsigned char *Buffer,unsigned long Count)
+  __CRT_INLINE ਖਾਲੀ __inbytestring(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ *ਬਫਰ_3,ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਗਿਣਤੀ_4)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insb " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (ਬਫਰ_3), "=c" (ਗਿਣਤੀ_4)
+		: "d"(ਪੋਰਟ), "0"(ਬਫਰ_3), "1" (ਗਿਣਤੀ_4)
 		);
   }
-  __CRT_INLINE void __inwordstring(unsigned short Port,unsigned short *Buffer,unsigned long Count)
+  __CRT_INLINE ਖਾਲੀ __inwordstring(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ *ਬਫਰ_3,ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਗਿਣਤੀ_4)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insw " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (ਬਫਰ_3), "=c" (ਗਿਣਤੀ_4)
+		: "d"(ਪੋਰਟ), "0"(ਬਫਰ_3), "1" (ਗਿਣਤੀ_4)
 		);
   }
-  __CRT_INLINE void __indwordstring(unsigned short Port,unsigned long *Buffer,unsigned long Count)
+  __CRT_INLINE ਖਾਲੀ __indwordstring(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *ਬਫਰ_3,ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਗਿਣਤੀ_4)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insl " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (ਬਫਰ_3), "=c" (ਗਿਣਤੀ_4)
+		: "d"(ਪੋਰਟ), "0"(ਬਫਰ_3), "1" (ਗਿਣਤੀ_4)
 		);
   }
 
-  __CRT_INLINE void __outbytestring(unsigned short Port,unsigned char *Buffer,unsigned long Count)
+  __CRT_INLINE ਖਾਲੀ __outbytestring(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੱਖਰ *ਬਫਰ_3,ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਗਿਣਤੀ_4)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsb " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (ਬਫਰ_3), "=c" (ਗਿਣਤੀ_4)
+          : "d"(ਪੋਰਟ), "0"(ਬਫਰ_3), "1" (ਗਿਣਤੀ_4)
           );
   }
-  __CRT_INLINE void __outwordstring(unsigned short Port,unsigned short *Buffer,unsigned long Count)
+  __CRT_INLINE ਖਾਲੀ __outwordstring(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ *ਬਫਰ_3,ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਗਿਣਤੀ_4)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsw " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (ਬਫਰ_3), "=c" (ਗਿਣਤੀ_4)
+          : "d"(ਪੋਰਟ), "0"(ਬਫਰ_3), "1" (ਗਿਣਤੀ_4)
           );
   }
-  __CRT_INLINE void __outdwordstring(unsigned short Port,unsigned long *Buffer,unsigned long Count)
+  __CRT_INLINE ਖਾਲੀ __outdwordstring(ਬਿਨਾਨਿਸ਼ਾਨੀ ਛੋਟਾ ਪੋਰਟ,ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ *ਬਫਰ_3,ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਗਿਣਤੀ_4)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsl " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (ਬਫਰ_3), "=c" (ਗਿਣਤੀ_4)
+          : "d"(ਪੋਰਟ), "0"(ਬਫਰ_3), "1" (ਗਿਣਤੀ_4)
           );
   }
 
-  __CRT_INLINE unsigned __int64 __readcr0(void)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __readcr0(ਖਾਲੀ)
   {
-      unsigned __int64 value;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਮੁੱਲ;
       __asm__ __volatile__ (
           "mov %%cr0, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [ਮੁੱਲ] "=q" (ਮੁੱਲ));
+      ਵਾਪਸ ਮੁੱਲ;
   }
  
   /* Register sizes are different between 32/64 bit mode. So we have to do this for _WIN64 and _WIN32
      separately.  */
  
-#ifdef _WIN64
-  __CRT_INLINE void __writecr0(unsigned __int64 Data)
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ _WIN64
+  __CRT_INLINE ਖਾਲੀ __writecr0(ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਅੰਕੜੇ_3)
   {
    __asm__ __volatile__ (
        "mov %[Data], %%cr0"
        :
-       : [Data] "q" (Data)
+       : [ਅੰਕੜੇ_3] "q" (ਅੰਕੜੇ_3)
        : "memory");
   }
  
-  __CRT_INLINE unsigned __int64 __readcr2(void)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __readcr2(ਖਾਲੀ)
   {
-      unsigned __int64 value;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਮੁੱਲ;
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [ਮੁੱਲ] "=q" (ਮੁੱਲ));
+      ਵਾਪਸ ਮੁੱਲ;
   }
 
- __CRT_INLINE void __writecr2(unsigned __int64 Data)
+ __CRT_INLINE ਖਾਲੀ __writecr2(ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਅੰਕੜੇ_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr2"
        :
-       : [Data] "q" (Data)
+       : [ਅੰਕੜੇ_3] "q" (ਅੰਕੜੇ_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned __int64 __readcr3(void)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __readcr3(ਖਾਲੀ)
   {
-      unsigned __int64 value;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਮੁੱਲ;
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [ਮੁੱਲ] "=q" (ਮੁੱਲ));
+      ਵਾਪਸ ਮੁੱਲ;
   }
 
- __CRT_INLINE void __writecr3(unsigned __int64 Data)
+ __CRT_INLINE ਖਾਲੀ __writecr3(ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਅੰਕੜੇ_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr3"
        :
-       : [Data] "q" (Data)
+       : [ਅੰਕੜੇ_3] "q" (ਅੰਕੜੇ_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned __int64 __readcr4(void)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __readcr4(ਖਾਲੀ)
   {
-      unsigned __int64 value;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਮੁੱਲ;
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [ਮੁੱਲ] "=q" (ਮੁੱਲ));
+      ਵਾਪਸ ਮੁੱਲ;
   }
 
- __CRT_INLINE void __writecr4(unsigned __int64 Data)
+ __CRT_INLINE ਖਾਲੀ __writecr4(ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਅੰਕੜੇ_3)
  {
      __asm__ __volatile__ (
          "mov %[Data], %%cr4"
          :
-         : [Data] "q" (Data)
+         : [ਅੰਕੜੇ_3] "q" (ਅੰਕੜੇ_3)
          : "memory");
  }
  
-  __CRT_INLINE unsigned __int64 __readcr8(void)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __readcr8(ਖਾਲੀ)
   {
-      unsigned __int64 value;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਮੁੱਲ;
       __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [ਮੁੱਲ] "=q" (ਮੁੱਲ));
+      ਵਾਪਸ ਮੁੱਲ;
   }
 
- __CRT_INLINE void __writecr8(unsigned __int64 Data)
+ __CRT_INLINE ਖਾਲੀ __writecr8(ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਅੰਕੜੇ_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr8"
        :
-       : [Data] "q" (Data)
+       : [ਅੰਕੜੇ_3] "q" (ਅੰਕੜੇ_3)
        : "memory");
  }
  
-#elif defined(_WIN32)
+#ਜਾਂਜੇ defined(_WIN32)
 
-  __CRT_INLINE void __writecr0(unsigned Data)
+  __CRT_INLINE ਖਾਲੀ __writecr0(ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੰਕੜੇ_3)
   {
     __asm__ __volatile__ (
        "mov %[Data], %%cr0"
        :
-       : [Data] "q" (Data)
+       : [ਅੰਕੜੇ_3] "q" (ਅੰਕੜੇ_3)
        : "memory");
   }
  
-  __CRT_INLINE unsigned long __readcr2(void)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __readcr2(ਖਾਲੀ)
   {
-      unsigned long value;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮੁੱਲ;
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [ਮੁੱਲ] "=q" (ਮੁੱਲ));
+      ਵਾਪਸ ਮੁੱਲ;
   }
 
- __CRT_INLINE void __writecr2(unsigned Data)
+ __CRT_INLINE ਖਾਲੀ __writecr2(ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੰਕੜੇ_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr2"
        :
-       : [Data] "q" (Data)
+       : [ਅੰਕੜੇ_3] "q" (ਅੰਕੜੇ_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned long __readcr3(void)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __readcr3(ਖਾਲੀ)
   {
-      unsigned long value;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮੁੱਲ;
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [ਮੁੱਲ] "=q" (ਮੁੱਲ));
+      ਵਾਪਸ ਮੁੱਲ;
   }
 
- __CRT_INLINE void __writecr3(unsigned Data)
+ __CRT_INLINE ਖਾਲੀ __writecr3(ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੰਕੜੇ_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr3"
        :
-       : [Data] "q" (Data)
+       : [ਅੰਕੜੇ_3] "q" (ਅੰਕੜੇ_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned long __readcr4(void)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __readcr4(ਖਾਲੀ)
   {
-      unsigned long value;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮੁੱਲ;
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [ਮੁੱਲ] "=q" (ਮੁੱਲ));
+      ਵਾਪਸ ਮੁੱਲ;
   }
 
- __CRT_INLINE void __writecr4(unsigned Data)
+ __CRT_INLINE ਖਾਲੀ __writecr4(ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੰਕੜੇ_3)
  {
      __asm__ __volatile__ (
          "mov %[Data], %%cr4"
          :
-         : [Data] "q" (Data)
+         : [ਅੰਕੜੇ_3] "q" (ਅੰਕੜੇ_3)
          : "memory");
  }
  
- __CRT_INLINE unsigned long __readcr8(void)
+ __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ __readcr8(ਖਾਲੀ)
  {
-   unsigned long value;      __asm__ __volatile__ (
+   ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਮੁੱਲ;      __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
-          : [value] "=q" (value));
-     return value;
+          : [ਮੁੱਲ] "=q" (ਮੁੱਲ));
+     ਵਾਪਸ ਮੁੱਲ;
  }
 
- __CRT_INLINE void __writecr8(unsigned Data)
+ __CRT_INLINE ਖਾਲੀ __writecr8(ਬਿਨਾਨਿਸ਼ਾਨੀ ਅੰਕੜੇ_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr8"
        :
-       : [Data] "q" (Data)
+       : [ਅੰਕੜੇ_3] "q" (ਅੰਕੜੇ_3)
        : "memory");
  }
  
-#endif
+#ਜੇ_ਅੰਤ
 
-  __CRT_INLINE unsigned __int64 __readmsr(unsigned long msr)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __readmsr(ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ msr)
   {
-      unsigned __int64 val1, val2;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 val1, val2;
        __asm__ __volatile__(
            "rdmsr"
            : "=a" (val1), "=d" (val2)
            : "c" (msr));
-      return val1 | (val2 << 32);
+      ਵਾਪਸ val1 | (val2 << 32);
   }
 
- __CRT_INLINE void __writemsr (unsigned long msr, unsigned __int64 Value)
+ __CRT_INLINE ਖਾਲੀ __writemsr (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ msr, ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 ਮੁੱਲ_3)
  {
-    unsigned long val1 = Value, val2 = Value >> 32;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ val1 = ਮੁੱਲ_3, val2 = ਮੁੱਲ_3 >> 32;
    __asm__ __volatile__ (
        "wrmsr"
        :
        : "c" (msr), "a" (val1), "d" (val2));
  }
  
-  __CRT_INLINE unsigned __int64 __rdtsc(void)
+  __CRT_INLINE ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 __rdtsc(ਖਾਲੀ)
   {
-      unsigned __int64 val1, val2;
+      ਬਿਨਾਨਿਸ਼ਾਨੀ __int64 val1, val2;
       __asm__ __volatile__ (
           "rdtsc" 
           : "=a" (val1), "=d" (val2));
-      return val1 | (val2 << 32);
+      ਵਾਪਸ val1 | (val2 << 32);
   }
 
-  __CRT_INLINE void __cpuid(int CPUInfo[4], int InfoType)
+  __CRT_INLINE ਖਾਲੀ __cpuid(ਪੂਰਨ CPUInfo[4], ਪੂਰਨ InfoType)
   {
       __asm__ __volatile__ (
           "cpuid"
@@ -398,12 +398,12 @@ extern "C" {
           : "a" (InfoType));
   }
 
-#endif
+#ਜੇ_ਅੰਤ
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-#include <sec_api/conio_s.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <sec_api/conio_s.h>
 
-#endif
+#ਜੇ_ਅੰਤ

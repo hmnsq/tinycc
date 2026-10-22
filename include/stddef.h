@@ -1,27 +1,27 @@
-#ifndef _STDDEF_H
-#define _STDDEF_H
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _STDDEF_H
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _STDDEF_H
 
-typedef __SIZE_TYPE__ size_t;
-typedef __PTRDIFF_TYPE__ ssize_t;
-typedef __WCHAR_TYPE__ wchar_t;
-typedef __PTRDIFF_TYPE__ ptrdiff_t;
-typedef __PTRDIFF_TYPE__ intptr_t;
-typedef __SIZE_TYPE__ uintptr_t;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ __SIZE_TYPE__ ਮਾਪ_t;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ __PTRDIFF_TYPE__ ssize_t;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ __WCHAR_TYPE__ wchar_t;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ __PTRDIFF_TYPE__ ptrdiff_t;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ __PTRDIFF_TYPE__ intptr_t;
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ __SIZE_TYPE__ uintptr_t;
 
-#if __STDC_VERSION__ >= 201112L
-typedef union { long long __ll; long double __ld; } max_align_t;
-#endif
+#ਜੇ __STDC_VERSION__ >= 201112L
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਸੰਘ { ਲੰਮਾ ਲੰਮਾ __ll; ਲੰਮਾ ਦੁੱਗਣਾ __ld; } max_align_t;
+#ਜੇ_ਅੰਤ
 
-#ifndef NULL
-#define NULL ((void*)0)
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ ਨਿਰਾ
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ ਨਿਰਾ ((ਖਾਲੀ*)0)
+#ਜੇ_ਅੰਤ
 
-#undef offsetof
-#define offsetof(type, field) __builtin_offsetof(type, field)
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ offsetof
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ offsetof(type, ਖੇਤਰ) __builtin_offsetof(type, ਖੇਤਰ)
 
-void *alloca(size_t size);
+ਖਾਲੀ *alloca(ਮਾਪ_t ਮਾਪ);
 
-#endif
+#ਜੇ_ਅੰਤ
 
 /* Older glibc require a wint_t from <stddef.h> (when requested
    by __need_wint_t, as otherwise stddef.h isn't allowed to
@@ -30,10 +30,10 @@ void *alloca(size_t size);
    already (without requiring wint_t).  Some other libs define _WINT_T
    if they've already provided that type, so we can use that as guard.
    TCC defines __WINT_TYPE__ for us.  */
-#if defined (__need_wint_t)
-#ifndef _WINT_T
-#define _WINT_T
-typedef __WINT_TYPE__ wint_t;
-#endif
-#undef __need_wint_t
-#endif
+#ਜੇ defined (__need_wint_t)
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ _WINT_T
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ _WINT_T
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ __WINT_TYPE__ wint_t;
+#ਜੇ_ਅੰਤ
+#ਪਰਿਭਾਸ਼ਾ_ਰੱਦ __need_wint_t
+#ਜੇ_ਅੰਤ

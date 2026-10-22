@@ -1,26 +1,26 @@
 //+---------------------------------------------------------------------------
 
-#ifdef __leading_underscore
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __leading_underscore
 # define _(s) s
-#else
+#ਨਹੀਂਤਾਂ
 # define _(s) _##s
-#endif
+#ਜੇ_ਅੰਤ
 
-extern void (*_(_init_array_start)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_init_array_end)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
+ਬਾਹਰੀ ਖਾਲੀ (*_(init_array_ਸ਼ੁਰੂ)[]) (ਪੂਰਨ argc, _TCHAR **argv, _TCHAR **envp);
+ਬਾਹਰੀ ਖਾਲੀ (*_(init_array_ਸਿਰਾ)[]) (ਪੂਰਨ argc, _TCHAR **argv, _TCHAR **envp);
+ਬਾਹਰੀ ਖਾਲੀ (*_(fini_array_ਸ਼ੁਰੂ)[]) (ਖਾਲੀ);
+ਬਾਹਰੀ ਖਾਲੀ (*_(fini_array_ਸਿਰਾ)[]) (ਖਾਲੀ);
 
-static void run_ctors(int argc, _TCHAR **argv, _TCHAR **env)
+ਸਥਿਰ ਖਾਲੀ ਲੜੀਵਾਰ_ctors(ਪੂਰਨ argc, _TCHAR **argv, _TCHAR **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
-        (*_(_init_array_start)[i++])(argc, argv, env);
+    ਪੂਰਨ i = 0;
+    ਜਦੋਂ (&_(init_array_ਸ਼ੁਰੂ)[i] != _(init_array_ਸਿਰਾ))
+        (*_(init_array_ਸ਼ੁਰੂ)[i++])(argc, argv, env);
 }
 
-static void run_dtors(void)
+ਸਥਿਰ ਖਾਲੀ ਲੜੀਵਾਰ_dtors(ਖਾਲੀ)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
-        (*_(_fini_array_end)[--i])();
+    ਪੂਰਨ i = 0;
+    ਜਦੋਂ (&_(fini_array_ਸਿਰਾ)[i] != _(fini_array_ਸ਼ੁਰੂ))
+        (*_(fini_array_ਸਿਰਾ)[--i])();
 }

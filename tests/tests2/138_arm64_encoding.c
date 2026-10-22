@@ -2,39 +2,39 @@
    Exercises shift-by-immediate, load/store addressing modes,
    conditional branches, and system register access. */
 
-#include <stdio.h>
-#include <stdint.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdio.h>
+#ਅਨ੍ਤਰ੍ਭਾਵ <stdint.h>
 
 /* ---- shift-by-immediate helpers ---- */
 
-static uint32_t lsl32(uint32_t x, int n) { return x << n; }
-static uint32_t lsr32(uint32_t x, int n) { return x >> n; }
-static int32_t  asr32(int32_t  x, int n) { return x >> n; }
-static uint64_t lsl64(uint64_t x, int n) { return x << n; }
-static uint64_t lsr64(uint64_t x, int n) { return x >> n; }
-static int64_t  asr64(int64_t  x, int n) { return x >> n; }
+ਸਥਿਰ uint32_t lsl32(uint32_t x, ਪੂਰਨ n) { ਵਾਪਸ x << n; }
+ਸਥਿਰ uint32_t lsr32(uint32_t x, ਪੂਰਨ n) { ਵਾਪਸ x >> n; }
+ਸਥਿਰ int32_t  asr32(int32_t  x, ਪੂਰਨ n) { ਵਾਪਸ x >> n; }
+ਸਥਿਰ uint64_t lsl64(uint64_t x, ਪੂਰਨ n) { ਵਾਪਸ x << n; }
+ਸਥਿਰ uint64_t lsr64(uint64_t x, ਪੂਰਨ n) { ਵਾਪਸ x >> n; }
+ਸਥਿਰ int64_t  asr64(int64_t  x, ਪੂਰਨ n) { ਵਾਪਸ x >> n; }
 
-static void test_shifts(void)
+ਸਥਿਰ ਖਾਲੀ test_shifts(ਖਾਲੀ)
 {
-    printf("shift-imm:\n");
-    printf("%x\n", lsl32(1, 0));
-    printf("%x\n", lsl32(1, 15));
-    printf("%x\n", lsl32(1, 31));
-    printf("%x\n", lsr32(0x80000000U, 31));
-    printf("%x\n", lsr32(0x80000000U, 16));
-    printf("%x\n", asr32(-1, 1));
-    printf("%x\n", asr32(-256, 4));
-    printf("%llx\n", (unsigned long long)lsl64(1ULL, 0));
-    printf("%llx\n", (unsigned long long)lsl64(1ULL, 32));
-    printf("%llx\n", (unsigned long long)lsl64(1ULL, 63));
-    printf("%llx\n", (unsigned long long)lsr64(0x8000000000000000ULL, 63));
-    printf("%llx\n", (unsigned long long)asr64(-1LL, 1));
-    printf("%llx\n", (unsigned long long)asr64(-256LL, 4));
+    ਲਿਖੋ("shift-imm:\n");
+    ਲਿਖੋ("%x\n", lsl32(1, 0));
+    ਲਿਖੋ("%x\n", lsl32(1, 15));
+    ਲਿਖੋ("%x\n", lsl32(1, 31));
+    ਲਿਖੋ("%x\n", lsr32(0x80000000U, 31));
+    ਲਿਖੋ("%x\n", lsr32(0x80000000U, 16));
+    ਲਿਖੋ("%x\n", asr32(-1, 1));
+    ਲਿਖੋ("%x\n", asr32(-256, 4));
+    ਲਿਖੋ("%llx\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)lsl64(1ULL, 0));
+    ਲਿਖੋ("%llx\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)lsl64(1ULL, 32));
+    ਲਿਖੋ("%llx\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)lsl64(1ULL, 63));
+    ਲਿਖੋ("%llx\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)lsr64(0x8000000000000000ULL, 63));
+    ਲਿਖੋ("%llx\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)asr64(-1LL, 1));
+    ਲਿਖੋ("%llx\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)asr64(-256LL, 4));
 }
 
 /* ---- load/store with various addressing modes ---- */
 
-static void test_ldr_str(void)
+ਸਥਿਰ ਖਾਲੀ test_ldr_str(ਖਾਲੀ)
 {
     int64_t buf[4] = { 0x1122334455667788LL, 0x99AABBCCDDEEFF00LL,
                        0x0F1E2D3C4B5A6978LL, 0x0000000000000001LL };
@@ -42,34 +42,34 @@ static void test_ldr_str(void)
     int32_t wval;
     int64_t *p;
 
-    printf("ldr-str:\n");
+    ਲਿਖੋ("ldr-str:\n");
 
     /* LDR X, [Xn, #offset] */
     val = buf[0];
-    printf("%llx\n", (unsigned long long)val);
+    ਲਿਖੋ("%llx\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)val);
     val = buf[1];
-    printf("%llx\n", (unsigned long long)val);
+    ਲਿਖੋ("%llx\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)val);
 
     /* LDR W, [Xn, #offset] (32-bit load) */
     wval = *(int32_t*)&buf[0];
-    printf("%x\n", (unsigned)wval);
+    ਲਿਖੋ("%x\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ)wval);
 
     /* Pre-indexed: store pointer, modify */
     p = &buf[0];
     val = *(p + 2);
-    printf("%llx\n", (unsigned long long)val);
+    ਲਿਖੋ("%llx\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)val);
 
     /* Post-indexed simulation via pointer arithmetic */
     p = &buf[0];
     val = *p;
     p++;
-    printf("%llx %llx\n", (unsigned long long)val,
-           (unsigned long long)*p);
+    ਲਿਖੋ("%llx %llx\n", (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)val,
+           (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)*p);
 }
 
 /* ---- STP/LDP (store/load pair) ---- */
 
-static void test_ldp_stp(void)
+ਸਥਿਰ ਖਾਲੀ test_ldp_stp(ਖਾਲੀ)
 {
     int64_t src[2] = { 0xAAAABBBBCCCCDDDDLL, 0x1111222233334444LL };
     int64_t dst[2];
@@ -78,192 +78,192 @@ static void test_ldp_stp(void)
     dst[0] = src[0];
     dst[1] = src[1];
 
-    printf("ldp-stp:\n");
-    printf("%llx %llx\n",
-           (unsigned long long)dst[0],
-           (unsigned long long)dst[1]);
+    ਲਿਖੋ("ldp-stp:\n");
+    ਲਿਖੋ("%llx %llx\n",
+           (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)dst[0],
+           (ਬਿਨਾਨਿਸ਼ਾਨੀ ਲੰਮਾ ਲੰਮਾ)dst[1]);
 }
 
 /* ---- CBZ / CBNZ via C patterns ---- */
 
-static const char *cbz_test(int x)
+ਸਥਿਰ ਅਚਲ ਅੱਖਰ *cbz_test(ਪੂਰਨ x)
 {
-    if (x == 0)
-        return "zero";
-    return "nonzero";
+    ਜੇ (x == 0)
+        ਵਾਪਸ "zero";
+    ਵਾਪਸ "nonzero";
 }
 
-static const char *cbnz_test(int x)
+ਸਥਿਰ ਅਚਲ ਅੱਖਰ *cbnz_test(ਪੂਰਨ x)
 {
-    if (x != 0)
-        return "nonzero";
-    return "zero";
+    ਜੇ (x != 0)
+        ਵਾਪਸ "nonzero";
+    ਵਾਪਸ "zero";
 }
 
-static void test_cond_branches(void)
+ਸਥਿਰ ਖਾਲੀ test_cond_branches(ਖਾਲੀ)
 {
-    printf("cbz-cbnz:\n");
-    printf("%s\n", cbz_test(0));
-    printf("%s\n", cbz_test(42));
-    printf("%s\n", cbnz_test(0));
-    printf("%s\n", cbnz_test(42));
+    ਲਿਖੋ("cbz-cbnz:\n");
+    ਲਿਖੋ("%s\n", cbz_test(0));
+    ਲਿਖੋ("%s\n", cbz_test(42));
+    ਲਿਖੋ("%s\n", cbnz_test(0));
+    ਲਿਖੋ("%s\n", cbnz_test(42));
 }
 
 /* ---- conditional compare patterns (CCMP/CCMN) ---- */
 
-static int cond_select(int a, int b)
+ਸਥਿਰ ਪੂਰਨ cond_select(ਪੂਰਨ a, ਪੂਰਨ b)
 {
     /* TCC should generate csel or equivalent */
-    return a > b ? a : b;
+    ਵਾਪਸ a > b ? a : b;
 }
 
-static void test_cond_select(void)
+ਸਥਿਰ ਖਾਲੀ test_cond_select(ਖਾਲੀ)
 {
-    printf("csel:\n");
-    printf("%d\n", cond_select(5, 10));
-    printf("%d\n", cond_select(10, 5));
-    printf("%d\n", cond_select(0, 0));
-    printf("%d\n", cond_select(-1, 1));
+    ਲਿਖੋ("csel:\n");
+    ਲਿਖੋ("%d\n", cond_select(5, 10));
+    ਲਿਖੋ("%d\n", cond_select(10, 5));
+    ਲਿਖੋ("%d\n", cond_select(0, 0));
+    ਲਿਖੋ("%d\n", cond_select(-1, 1));
 }
 
 /* ---- MRS/MSR system registers (FPCR/FPSR) ---- */
 
-static void test_sysregs(void)
+ਸਥਿਰ ਖਾਲੀ test_sysregs(ਖਾਲੀ)
 {
-    unsigned int fpcr, fpsr;
+    ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ fpcr, fpsr;
 
-    printf("sysregs:\n");
+    ਲਿਖੋ("sysregs:\n");
 
     /* Read FPCR */
-    __asm__ volatile ("mrs %0, fpcr" : "=r"(fpcr));
-    printf("%u\n", fpcr & 0x0F);
+    __asm__ ਅਸਥਿਰ ("mrs %0, fpcr" : "=r"(fpcr));
+    ਲਿਖੋ("%u\n", fpcr & 0x0F);
 
     /* Read FPSR */
-    __asm__ volatile ("mrs %0, fpsr" : "=r"(fpsr));
-    printf("%u\n", fpsr);
+    __asm__ ਅਸਥਿਰ ("mrs %0, fpsr" : "=r"(fpsr));
+    ਲਿਖੋ("%u\n", fpsr);
 
     /* Write/restore FPCR (should be same value) */
-    __asm__ volatile ("msr fpcr, %0" : : "r"(fpcr));
+    __asm__ ਅਸਥਿਰ ("msr fpcr, %0" : : "r"(fpcr));
 
     /* Read back and verify */
     {
-        unsigned int check;
-        __asm__ volatile ("mrs %0, fpcr" : "=r"(check));
-        printf("%s\n", check == fpcr ? "ok" : "fail");
+        ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ check;
+        __asm__ ਅਸਥਿਰ ("mrs %0, fpcr" : "=r"(check));
+        ਲਿਖੋ("%s\n", check == fpcr ? "ok" : "fail");
     }
 }
 
 /* ---- NOP encoding (should not crash) ---- */
 
-static void test_nop(void)
+ਸਥਿਰ ਖਾਲੀ test_nop(ਖਾਲੀ)
 {
-    printf("nop:\n");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    printf("ok\n");
+    ਲਿਖੋ("nop:\n");
+    __asm__ ਅਸਥਿਰ ("nop");
+    __asm__ ਅਸਥਿਰ ("nop");
+    __asm__ ਅਸਥਿਰ ("nop");
+    ਲਿਖੋ("ok\n");
 }
 
 /* ---- barrier instructions ---- */
 
-static void test_barriers(void)
+ਸਥਿਰ ਖਾਲੀ test_barriers(ਖਾਲੀ)
 {
-    printf("barriers:\n");
-    __asm__ volatile ("dmb sy");
-    __asm__ volatile ("dsb sy");
-    __asm__ volatile ("isb");
-    printf("ok\n");
+    ਲਿਖੋ("barriers:\n");
+    __asm__ ਅਸਥਿਰ ("dmb sy");
+    __asm__ ਅਸਥਿਰ ("dsb sy");
+    __asm__ ਅਸਥਿਰ ("isb");
+    ਲਿਖੋ("ok\n");
 }
 
 /* ---- MOV (register) patterns ---- */
 
-static int64_t mov_x0_x1(int64_t x)
+ਸਥਿਰ int64_t mov_x0_x1(int64_t x)
 {
-    register int64_t r __asm__("x0") = x;
-    __asm__ volatile ("" : "=r"(r) : "0"(r));
-    return r;
+    ਰਜਿਸਟਰ int64_t r __asm__("x0") = x;
+    __asm__ ਅਸਥਿਰ ("" : "=r"(r) : "0"(r));
+    ਵਾਪਸ r;
 }
 
-static void test_mov_reg(void)
+ਸਥਿਰ ਖਾਲੀ test_mov_reg(ਖਾਲੀ)
 {
-    printf("mov-reg:\n");
-    printf("%lld\n", (long long)mov_x0_x1(42));
-    printf("%lld\n", (long long)mov_x0_x1(-1));
+    ਲਿਖੋ("mov-reg:\n");
+    ਲਿਖੋ("%lld\n", (ਲੰਮਾ ਲੰਮਾ)mov_x0_x1(42));
+    ਲਿਖੋ("%lld\n", (ਲੰਮਾ ਲੰਮਾ)mov_x0_x1(-1));
 }
 
 /* ---- large struct passing (reference semantics) ---- */
 
-struct large { int64_t a, b, c, d; };
+ਬਣਤਰ large { int64_t a, b, c, d; };
 
-static int64_t sum_large(struct large s)
+ਸਥਿਰ int64_t ਜੋੜ_large(ਬਣਤਰ large s)
 {
-    return s.a + s.b + s.c + s.d;
+    ਵਾਪਸ s.a + s.b + s.c + s.d;
 }
 
-static struct large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
+ਸਥਿਰ ਬਣਤਰ large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
 {
-    struct large s = { a, b, c, d };
-    return s;
+    ਬਣਤਰ large s = { a, b, c, d };
+    ਵਾਪਸ s;
 }
 
-static void test_large_structs(void)
+ਸਥਿਰ ਖਾਲੀ test_large_structs(ਖਾਲੀ)
 {
-    struct large s = { 1, 2, 3, 4 };
-    struct large t;
+    ਬਣਤਰ large s = { 1, 2, 3, 4 };
+    ਬਣਤਰ large t;
 
-    printf("large-struct:\n");
-    printf("%lld\n", (long long)sum_large(s));
+    ਲਿਖੋ("large-struct:\n");
+    ਲਿਖੋ("%lld\n", (ਲੰਮਾ ਲੰਮਾ)ਜੋੜ_large(s));
 
     t = make_large(10, 20, 30, 40);
-    printf("%lld %lld %lld %lld\n",
-           (long long)t.a, (long long)t.b,
-           (long long)t.c, (long long)t.d);
+    ਲਿਖੋ("%lld %lld %lld %lld\n",
+           (ਲੰਮਾ ਲੰਮਾ)t.a, (ਲੰਮਾ ਲੰਮਾ)t.b,
+           (ਲੰਮਾ ਲੰਮਾ)t.c, (ਲੰਮਾ ਲੰਮਾ)t.d);
 }
 
 /* ---- boundary-sized structs ---- */
 
-struct s18 { char x[18]; };
-struct s24 { char x[24]; };
-struct s32 { char x[32]; };
+ਬਣਤਰ s18 { ਅੱਖਰ x[18]; };
+ਬਣਤਰ s24 { ਅੱਖਰ x[24]; };
+ਬਣਤਰ s32 { ਅੱਖਰ x[32]; };
 
-static void print_s18(struct s18 s) { printf("%.18s\n", s.x); }
-static void print_s24(struct s24 s) { printf("%.24s\n", s.x); }
-static void print_s32(struct s32 s) { printf("%.32s\n", s.x); }
+ਸਥਿਰ ਖਾਲੀ print_s18(ਬਣਤਰ s18 s) { ਲਿਖੋ("%.18s\n", s.x); }
+ਸਥਿਰ ਖਾਲੀ print_s24(ਬਣਤਰ s24 s) { ਲਿਖੋ("%.24s\n", s.x); }
+ਸਥਿਰ ਖਾਲੀ print_s32(ਬਣਤਰ s32 s) { ਲਿਖੋ("%.32s\n", s.x); }
 
-static struct s18 ret_s18(void)
+ਸਥਿਰ ਬਣਤਰ s18 ret_s18(ਖਾਲੀ)
 {
-    struct s18 s = { "123456789012345678" };
-    return s;
+    ਬਣਤਰ s18 s = { "123456789012345678" };
+    ਵਾਪਸ s;
 }
 
-static struct s24 ret_s24(void)
+ਸਥਿਰ ਬਣਤਰ s24 ret_s24(ਖਾਲੀ)
 {
-    struct s24 s = { "123456789012345678901234" };
-    return s;
+    ਬਣਤਰ s24 s = { "123456789012345678901234" };
+    ਵਾਪਸ s;
 }
 
-static struct s32 ret_s32(void)
+ਸਥਿਰ ਬਣਤਰ s32 ret_s32(ਖਾਲੀ)
 {
-    struct s32 s = { "12345678901234567890123456789012" };
-    return s;
+    ਬਣਤਰ s32 s = { "12345678901234567890123456789012" };
+    ਵਾਪਸ s;
 }
 
-static void test_boundary_structs(void)
+ਸਥਿਰ ਖਾਲੀ test_boundary_structs(ਖਾਲੀ)
 {
-    struct s18 a;
-    struct s24 b;
-    struct s32 c;
+    ਬਣਤਰ s18 a;
+    ਬਣਤਰ s24 b;
+    ਬਣਤਰ s32 c;
 
-    printf("boundary-structs:\n");
+    ਲਿਖੋ("boundary-structs:\n");
     a = ret_s18();
-    printf("%.18s\n", a.x);
+    ਲਿਖੋ("%.18s\n", a.x);
     b = ret_s24();
-    printf("%.24s\n", b.x);
+    ਲਿਖੋ("%.24s\n", b.x);
     c = ret_s32();
-    printf("%.32s\n", c.x);
+    ਲਿਖੋ("%.32s\n", c.x);
 }
 
-int main(void)
+ਪੂਰਨ ਮੁੱਖ(ਖਾਲੀ)
 {
     test_shifts();
     test_ldr_str();
@@ -276,5 +276,5 @@ int main(void)
     test_mov_reg();
     test_large_structs();
     test_boundary_structs();
-    return 0;
+    ਵਾਪਸ 0;
 }

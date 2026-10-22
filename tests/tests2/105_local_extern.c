@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+ਬਾਹਰੀ ਪੂਰਨ ਲਿਖੋ(ਅਚਲ ਅੱਖਰ *, ...);
+ਖਾਲੀ f(ਖਾਲੀ);
+ਖਾਲੀ bar(ਖਾਲੀ) { ਖਾਲੀ f(ਖਾਲੀ); f(); }
+ਖਾਲੀ foo(ਖਾਲੀ) { ਬਾਹਰੀ ਖਾਲੀ f(ਖਾਲੀ); f(); }
+ਖਾਲੀ f(ਖਾਲੀ) { ਲਿਖੋ("f\n"); }
 
-int main()
+ਪੂਰਨ ਮੁੱਖ()
 {
   bar();
   foo();
-  return 0;
+  ਵਾਪਸ 0;
 }

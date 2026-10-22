@@ -18,43 +18,43 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#define USING_GLOBALS
-#include "tcc.h"
-#ifdef CONFIG_TCC_ASM
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ USING_GLOBALS
+#ਅਨ੍ਤਰ੍ਭਾਵ "tcc.h"
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ CONFIG_TCC_ASM
 
-static Section *last_text_section; /* to handle .previous asm directive */
-static int asmgoto_n;
+ਸਥਿਰ Section *ਆਖਰੀ_ਪਾਠ_section; /* to handle .previous asm directive */
+ਸਥਿਰ ਪੂਰਨ asmgoto_n;
 
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global);
-static Sym* asm_new_label(TCCState *s1, int label, int is_local);
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local, int sh_num, int value);
+ਸਥਿਰ ਪੂਰਨ tcc_assemble_ਅੰਦਰੂਨੀ(TCCState *s1, ਪੂਰਨ do_preprocess, ਪੂਰਨ global);
+ਸਥਿਰ Sym* asm_new_label(TCCState *s1, ਪੂਰਨ label, ਪੂਰਨ is_local);
+ਸਥਿਰ Sym* asm_new_label1(TCCState *s1, ਪੂਰਨ label, ਪੂਰਨ is_local, ਪੂਰਨ sh_ਅੰਕ, ਪੂਰਨ ਮੁੱਲ);
 
-#if PTR_SIZE == 8
+#ਜੇ PTR_ਮਾਪ == 8
 /* output constant with relocation if 'r & VT_SYM' is true */
-ST_FUNC void gen_addr64(int r, Sym *sym, int64_t c)
+ST_FUNC ਖਾਲੀ gen_addr64(ਪੂਰਨ r, Sym *sym, int64_t c)
 {
-    if (r & VT_SYM)
-        greloca(cur_text_section, sym, ind, R_DATA_PTR, c), c=0;
+    ਜੇ (r & VT_SYM)
+        greloca(cur_ਪਾਠ_section, sym, ind, R_ਅੰਕੜੇ_PTR, c), c=0;
     gen_le32(c);
     gen_le32(c>>32);
 }
 
-ST_FUNC void gen_expr64(ExprValue *pe)
+ST_FUNC ਖਾਲੀ gen_expr64(ਵਿਅੰਜਕ_ਮੁੱਲ *pe)
 {
     gen_addr64(pe->sym ? VT_SYM : 0, pe->sym, pe->v);
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-static int asm_get_prefix_name(TCCState *s1, const char *prefix, unsigned int n)
+ਸਥਿਰ ਪੂਰਨ asm_get_ਅਗੇਤਰ_name(TCCState *s1, ਅਚਲ ਅੱਖਰ *ਅਗੇਤਰ, ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ n)
 {
-    char buf[64];
-    snprintf(buf, sizeof(buf), "%s%u", prefix, n);
-    return tok_alloc_const(buf);
+    ਅੱਖਰ buf[64];
+    snprintf(buf, ਆਕਾਰ(buf), "%s%u", ਅਗੇਤਰ, n);
+    ਵਾਪਸ tok_alloc_const(buf);
 }
 
-ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
+ST_FUNC ਪੂਰਨ asm_get_local_label_name(TCCState *s1, ਬਿਨਾਨਿਸ਼ਾਨੀ ਪੂਰਨ n)
 {
-    return asm_get_prefix_name(s1, "L..", n);
+    ਵਾਪਸ asm_get_ਅਗੇਤਰ_name(s1, "L..", n);
 }
 
 /* If a C name has an _ prepended then only asm labels that start
@@ -63,47 +63,47 @@ ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
    the global C symbol table to track ASM names as well, so we need to
    transform those into ones that don't conflict with a C name,
    so prepend a '.' for them, but force the ELF asm name to be set.  */
-static int asm2cname(int v, int *addeddot)
+ਸਥਿਰ ਪੂਰਨ asm2cname(ਪੂਰਨ v, ਪੂਰਨ *addeddot)
 {
-    const char *name;
+    ਅਚਲ ਅੱਖਰ *name;
     *addeddot = 0;
-    if (!tcc_state->leading_underscore)
-      return v;
-    name = get_tok_str(v, NULL);
-    if (!name)
-      return v;
-    if (name[0] == '_') {
+    ਜੇ (!tcc_state->leading_underscore)
+      ਵਾਪਸ v;
+    name = get_tok_str(v, ਨਿਰਾ);
+    ਜੇ (!name)
+      ਵਾਪਸ v;
+    ਜੇ (name[0] == '_') {
         v = tok_alloc_const(name + 1);
-    } else if (!strchr(name, '.')) {
-        char newname[256];
-        snprintf(newname, sizeof newname, ".%s", name);
+    } ਨਹੀਂਤਾਂ ਜੇ (!strchr(name, '.')) {
+        ਅੱਖਰ newname[256];
+        snprintf(newname, ਆਕਾਰ newname, ".%s", name);
         v = tok_alloc_const(newname);
         *addeddot = 1;
     }
-    return v;
+    ਵਾਪਸ v;
 }
 
-static Sym *asm_label_find(int v)
+ਸਥਿਰ Sym *asm_label_ਲੱਭੋ(ਪੂਰਨ v)
 {
     Sym *sym;
-    int addeddot;
+    ਪੂਰਨ addeddot;
     v = asm2cname(v, &addeddot);
-    sym = sym_find(v);
-    while (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
+    sym = sym_ਲੱਭੋ(v);
+    ਜਦੋਂ (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
         sym = sym->prev_tok;
-    return sym;
+    ਵਾਪਸ sym;
 }
 
-static Sym *asm_label_push(int v)
+ਸਥਿਰ Sym *asm_label_ਧੱਕੋ(ਪੂਰਨ v)
 {
-    int addeddot, v2 = asm2cname(v, &addeddot);
+    ਪੂਰਨ addeddot, v2 = asm2cname(v, &addeddot);
     /* We always add VT_EXTERN, for sym definition that's tentative
        (for .set, removed for real defs), for mere references it's correct
        as is.  */
-    Sym *sym = global_identifier_push(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
-    if (addeddot)
+    Sym *sym = global_identifier_ਧੱਕੋ(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
+    ਜੇ (addeddot)
         sym->asm_label = v;
-    return sym;
+    ਵਾਪਸ sym;
 }
 
 /* Return a symbol we can use inside the assembler, having name NAME.
@@ -116,243 +116,243 @@ static Sym *asm_label_push(int v)
    are anonymous in C, in this case CSYM can be used to transfer
    all information from that symbol to the (possibly newly created)
    asm symbol.  */
-ST_FUNC Sym* get_asm_sym(int name, Sym *csym)
+ST_FUNC Sym* get_asm_sym(ਪੂਰਨ name, Sym *csym)
 {
-    Sym *sym = asm_label_find(name);
-    if (!sym) {
-	sym = asm_label_push(name);
-	if (csym)
+    Sym *sym = asm_label_ਲੱਭੋ(name);
+    ਜੇ (!sym) {
+	sym = asm_label_ਧੱਕੋ(name);
+	ਜੇ (csym)
 	  sym->c = csym->c;
     }
-    return sym;
+    ਵਾਪਸ sym;
 }
 
-static Sym* asm_section_sym(TCCState *s1, Section *sec)
+ਸਥਿਰ Sym* asm_section_sym(TCCState *s1, Section *sec)
 {
-    char buf[100]; int label; Sym *sym;
-    snprintf(buf, sizeof buf, "L.%s", sec->name);
+    ਅੱਖਰ buf[100]; ਪੂਰਨ label; Sym *sym;
+    snprintf(buf, ਆਕਾਰ buf, "L.%s", sec->name);
     label = tok_alloc_const(buf);
-    sym = asm_label_find(label);
-    return sym ? sym : asm_new_label1(s1, label, 1, sec->sh_num, 0);
+    sym = asm_label_ਲੱਭੋ(label);
+    ਵਾਪਸ sym ? sym : asm_new_label1(s1, label, 1, sec->sh_ਅੰਕ, 0);
 }
 
 /* We do not use the C expression parser to handle symbols. Maybe the
    C expression parser could be tweaked to do so. */
 
-static void asm_expr_unary(TCCState *s1, ExprValue *pe)
+ਸਥਿਰ ਖਾਲੀ asm_ਵਿਅੰਜਕ_unary(TCCState *s1, ਵਿਅੰਜਕ_ਮੁੱਲ *pe)
 {
     Sym *sym;
-    int op, label;
+    ਪੂਰਨ op, label;
     uint64_t n;
-    const char *p;
+    ਅਚਲ ਅੱਖਰ *p;
 
-    switch(tok) {
-    case TOK_PPNUM:
-        p = tokc.str.data;
-        n = strtoull(p, (char **)&p, 0);
-        if (*p == 'b' || *p == 'f') {
+    ਚੋਣ(tok) {
+    ਹਾਲਤ TOK_PPNUM:
+        p = tokc.str.ਅੰਕੜੇ;
+        n = strtoull(p, (ਅੱਖਰ **)&p, 0);
+        ਜੇ (*p == 'b' || *p == 'f') {
             /* backward or forward label */
             label = asm_get_local_label_name(s1, n);
-            sym = asm_label_find(label);
-            if (*p == 'b') {
+            sym = asm_label_ਲੱਭੋ(label);
+            ਜੇ (*p == 'b') {
                 /* backward : find the last corresponding defined label */
-                if (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
+                ਜੇ (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
                     sym = sym->prev_tok;
-                if (!sym)
-                    tcc_error("local label '%d' not found backward", (int)n);
-            } else {
+                ਜੇ (!sym)
+                    tcc_error("local label '%d' not found backward", (ਪੂਰਨ)n);
+            } ਨਹੀਂਤਾਂ {
                 /* forward */
-                if (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
+                ਜੇ (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
                     /* if the last label is defined, then define a new one */
-		    sym = asm_label_push(label);
+		    sym = asm_label_ਧੱਕੋ(label);
                 }
             }
 	    pe->v = 0;
 	    pe->sym = sym;
 	    pe->pcrel = 0;
-        } else if (*p == '\0') {
+        } ਨਹੀਂਤਾਂ ਜੇ (*p == '\0') {
             pe->v = n;
-            pe->sym = NULL;
+            pe->sym = ਨਿਰਾ;
 	    pe->pcrel = 0;
-        } else {
+        } ਨਹੀਂਤਾਂ {
             tcc_error("invalid number syntax");
         }
-        next();
-        break;
-    case '+':
-        next();
-        asm_expr_unary(s1, pe);
-        break;
-    case '-':
-    case '~':
+        ਅਗਲਾ();
+        ਰੋਕੋ;
+    ਹਾਲਤ '+':
+        ਅਗਲਾ();
+        asm_ਵਿਅੰਜਕ_unary(s1, pe);
+        ਰੋਕੋ;
+    ਹਾਲਤ '-':
+    ਹਾਲਤ '~':
         op = tok;
-        next();
-        asm_expr_unary(s1, pe);
-        if (pe->sym)
+        ਅਗਲਾ();
+        asm_ਵਿਅੰਜਕ_unary(s1, pe);
+        ਜੇ (pe->sym)
             tcc_error("invalid operation with label");
-        if (op == '-')
+        ਜੇ (op == '-')
             pe->v = -pe->v;
-        else
+        ਨਹੀਂਤਾਂ
             pe->v = ~pe->v;
-        break;
-    case TOK_CCHAR:
-    case TOK_LCHAR:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_CCHAR:
+    ਹਾਲਤ TOK_LCHAR:
 	pe->v = tokc.i;
-	pe->sym = NULL;
+	pe->sym = ਨਿਰਾ;
 	pe->pcrel = 0;
-	next();
-	break;
-    case '(':
-        next();
-        asm_expr(s1, pe);
+	ਅਗਲਾ();
+	ਰੋਕੋ;
+    ਹਾਲਤ '(':
+        ਅਗਲਾ();
+        asm_ਵਿਅੰਜਕ(s1, pe);
         skip(')');
-        break;
-    case '.':
+        ਰੋਕੋ;
+    ਹਾਲਤ '.':
         pe->v = ind;
-        pe->sym = asm_section_sym(s1, cur_text_section);
+        pe->sym = asm_section_sym(s1, cur_ਪਾਠ_section);
         pe->pcrel = 0;
-        next();
-        break;
-    default:
-        if (tok >= TOK_IDENT) {
+        ਅਗਲਾ();
+        ਰੋਕੋ;
+    ਮੂਲ:
+        ਜੇ (tok >= TOK_IDENT) {
 	    ElfSym *esym;
             /* label case : if the label was not found, add one */
-	    sym = get_asm_sym(tok, NULL);
+	    sym = get_asm_sym(tok, ਨਿਰਾ);
 	    esym = elfsym(sym);
-            if (esym && esym->st_shndx == SHN_ABS) {
+            ਜੇ (esym && esym->st_shndx == SHN_ABS) {
                 /* if absolute symbol, no need to put a symbol value */
-                pe->v = esym->st_value;
-                pe->sym = NULL;
+                pe->v = esym->st_ਮੁੱਲ;
+                pe->sym = ਨਿਰਾ;
 		pe->pcrel = 0;
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 pe->v = 0;
                 pe->sym = sym;
 		pe->pcrel = 0;
             }
-            next();
-        } else {
+            ਅਗਲਾ();
+        } ਨਹੀਂਤਾਂ {
             tcc_error("bad expression syntax [%s]", get_tok_str(tok, &tokc));
         }
-        break;
+        ਰੋਕੋ;
     }
 }
     
-static void asm_expr_prod(TCCState *s1, ExprValue *pe)
+ਸਥਿਰ ਖਾਲੀ asm_ਵਿਅੰਜਕ_prod(TCCState *s1, ਵਿਅੰਜਕ_ਮੁੱਲ *pe)
 {
-    int op;
-    ExprValue e2;
+    ਪੂਰਨ op;
+    ਵਿਅੰਜਕ_ਮੁੱਲ e2;
 
-    asm_expr_unary(s1, pe);
-    for(;;) {
+    asm_ਵਿਅੰਜਕ_unary(s1, pe);
+    ਲਈ(;;) {
         op = tok;
-        if (op != '*' && op != '/' && op != '%' && 
+        ਜੇ (op != '*' && op != '/' && op != '%' && 
             op != TOK_SHL && op != TOK_SAR)
-            break;
-        next();
-        asm_expr_unary(s1, &e2);
-        if (pe->sym || e2.sym)
+            ਰੋਕੋ;
+        ਅਗਲਾ();
+        asm_ਵਿਅੰਜਕ_unary(s1, &e2);
+        ਜੇ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-        case '*':
+        ਚੋਣ(op) {
+        ਹਾਲਤ '*':
             pe->v *= e2.v;
-            break;
-        case '/':  
-            if (e2.v == 0) {
+            ਰੋਕੋ;
+        ਹਾਲਤ '/':  
+            ਜੇ (e2.v == 0) {
             div_error:
                 tcc_error("division by zero");
             }
             pe->v /= e2.v;
-            break;
-        case '%':  
-            if (e2.v == 0)
-                goto div_error;
+            ਰੋਕੋ;
+        ਹਾਲਤ '%':  
+            ਜੇ (e2.v == 0)
+                ਜਾਓ div_error;
             pe->v %= e2.v;
-            break;
-        case TOK_SHL:
+            ਰੋਕੋ;
+        ਹਾਲਤ TOK_SHL:
             pe->v <<= e2.v;
-            break;
-        default:
-        case TOK_SAR:
+            ਰੋਕੋ;
+        ਮੂਲ:
+        ਹਾਲਤ TOK_SAR:
             pe->v >>= e2.v;
-            break;
+            ਰੋਕੋ;
         }
     }
 }
 
-static void asm_expr_logic(TCCState *s1, ExprValue *pe)
+ਸਥਿਰ ਖਾਲੀ asm_ਵਿਅੰਜਕ_logic(TCCState *s1, ਵਿਅੰਜਕ_ਮੁੱਲ *pe)
 {
-    int op;
-    ExprValue e2;
+    ਪੂਰਨ op;
+    ਵਿਅੰਜਕ_ਮੁੱਲ e2;
 
-    asm_expr_prod(s1, pe);
-    for(;;) {
+    asm_ਵਿਅੰਜਕ_prod(s1, pe);
+    ਲਈ(;;) {
         op = tok;
-        if (op != '&' && op != '|' && op != '^')
-            break;
-        next();
-        asm_expr_prod(s1, &e2);
-        if (pe->sym || e2.sym)
+        ਜੇ (op != '&' && op != '|' && op != '^')
+            ਰੋਕੋ;
+        ਅਗਲਾ();
+        asm_ਵਿਅੰਜਕ_prod(s1, &e2);
+        ਜੇ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-        case '&':
+        ਚੋਣ(op) {
+        ਹਾਲਤ '&':
             pe->v &= e2.v;
-            break;
-        case '|':  
+            ਰੋਕੋ;
+        ਹਾਲਤ '|':  
             pe->v |= e2.v;
-            break;
-        default:
-        case '^':
+            ਰੋਕੋ;
+        ਮੂਲ:
+        ਹਾਲਤ '^':
             pe->v ^= e2.v;
-            break;
+            ਰੋਕੋ;
         }
     }
 }
 
-static inline void asm_expr_sum(TCCState *s1, ExprValue *pe)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ asm_ਵਿਅੰਜਕ_ਜੋੜ(TCCState *s1, ਵਿਅੰਜਕ_ਮੁੱਲ *pe)
 {
-    int op;
-    ExprValue e2;
+    ਪੂਰਨ op;
+    ਵਿਅੰਜਕ_ਮੁੱਲ e2;
 
-    asm_expr_logic(s1, pe);
-    for(;;) {
+    asm_ਵਿਅੰਜਕ_logic(s1, pe);
+    ਲਈ(;;) {
         op = tok;
-        if (op != '+' && op != '-')
-            break;
-        next();
-        asm_expr_logic(s1, &e2);
-        if (op == '+') {
-            if (pe->sym != NULL && e2.sym != NULL)
-                goto cannot_relocate;
+        ਜੇ (op != '+' && op != '-')
+            ਰੋਕੋ;
+        ਅਗਲਾ();
+        asm_ਵਿਅੰਜਕ_logic(s1, &e2);
+        ਜੇ (op == '+') {
+            ਜੇ (pe->sym != ਨਿਰਾ && e2.sym != ਨਿਰਾ)
+                ਜਾਓ cannot_relocate;
             pe->v += e2.v;
-            if (pe->sym == NULL && e2.sym != NULL)
+            ਜੇ (pe->sym == ਨਿਰਾ && e2.sym != ਨਿਰਾ)
                 pe->sym = e2.sym;
-        } else {
+        } ਨਹੀਂਤਾਂ {
             pe->v -= e2.v;
             /* NOTE: we are less powerful than gas in that case
                because we store only one symbol in the expression */
-	    if (!e2.sym) {
+	    ਜੇ (!e2.sym) {
 		/* OK */
-	    } else if (pe->sym == e2.sym) { 
+	    } ਨਹੀਂਤਾਂ ਜੇ (pe->sym == e2.sym) { 
 		/* OK */
-		pe->sym = NULL; /* same symbols can be subtracted to NULL */
-	    } else {
+		pe->sym = ਨਿਰਾ; /* same symbols can be subtracted to NULL */
+	    } ਨਹੀਂਤਾਂ {
 		ElfSym *esym1, *esym2;
 		esym1 = elfsym(pe->sym);
 		esym2 = elfsym(e2.sym);
-		if (!esym2)
-		    goto cannot_relocate;
-		if (esym1 && esym1->st_shndx == esym2->st_shndx
+		ਜੇ (!esym2)
+		    ਜਾਓ cannot_relocate;
+		ਜੇ (esym1 && esym1->st_shndx == esym2->st_shndx
 		    && esym1->st_shndx != SHN_UNDEF) {
 		    /* we also accept defined symbols in the same section */
-		    pe->v += (int)(esym1->st_value - esym2->st_value);
-		    pe->sym = NULL;
-		} else if (esym2->st_shndx == cur_text_section->sh_num) {
+		    pe->v += (ਪੂਰਨ)(esym1->st_ਮੁੱਲ - esym2->st_ਮੁੱਲ);
+		    pe->sym = ਨਿਰਾ;
+		} ਨਹੀਂਤਾਂ ਜੇ (esym2->st_shndx == cur_ਪਾਠ_section->sh_ਅੰਕ) {
 		    /* When subtracting a defined symbol in current section
 		       this actually makes the value PC-relative.  */
-		    pe->v += (int)(0 - esym2->st_value);
+		    pe->v += (ਪੂਰਨ)(0 - esym2->st_ਮੁੱਲ);
 		    pe->pcrel = 1;
-		    e2.sym = NULL;
-		} else {
+		    e2.sym = ਨਿਰਾ;
+		} ਨਹੀਂਤਾਂ {
 cannot_relocate:
 		    tcc_error("invalid operation with label");
 		}
@@ -361,304 +361,304 @@ cannot_relocate:
     }
 }
 
-static inline void asm_expr_cmp(TCCState *s1, ExprValue *pe)
+ਸਥਿਰ ਸਤਰਅੰਦਰ ਖਾਲੀ asm_ਵਿਅੰਜਕ_cmp(TCCState *s1, ਵਿਅੰਜਕ_ਮੁੱਲ *pe)
 {
-    int op;
-    ExprValue e2;
+    ਪੂਰਨ op;
+    ਵਿਅੰਜਕ_ਮੁੱਲ e2;
 
-    asm_expr_sum(s1, pe);
-    for(;;) {
+    asm_ਵਿਅੰਜਕ_ਜੋੜ(s1, pe);
+    ਲਈ(;;) {
         op = tok;
-	if (op != TOK_EQ && op != TOK_NE
+	ਜੇ (op != TOK_EQ && op != TOK_NE
 	    && (op > TOK_GT || op < TOK_ULE))
-            break;
-        next();
-        asm_expr_sum(s1, &e2);
-        if (pe->sym || e2.sym)
+            ਰੋਕੋ;
+        ਅਗਲਾ();
+        asm_ਵਿਅੰਜਕ_ਜੋੜ(s1, &e2);
+        ਜੇ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-	case TOK_EQ:
+        ਚੋਣ(op) {
+	ਹਾਲਤ TOK_EQ:
 	    pe->v = pe->v == e2.v;
-	    break;
-	case TOK_NE:
+	    ਰੋਕੋ;
+	ਹਾਲਤ TOK_NE:
 	    pe->v = pe->v != e2.v;
-	    break;
-	case TOK_LT:
+	    ਰੋਕੋ;
+	ਹਾਲਤ TOK_LT:
 	    pe->v = (int64_t)pe->v < (int64_t)e2.v;
-	    break;
-	case TOK_GE:
+	    ਰੋਕੋ;
+	ਹਾਲਤ TOK_GE:
 	    pe->v = (int64_t)pe->v >= (int64_t)e2.v;
-	    break;
-	case TOK_LE:
+	    ਰੋਕੋ;
+	ਹਾਲਤ TOK_LE:
 	    pe->v = (int64_t)pe->v <= (int64_t)e2.v;
-	    break;
-	case TOK_GT:
+	    ਰੋਕੋ;
+	ਹਾਲਤ TOK_GT:
 	    pe->v = (int64_t)pe->v > (int64_t)e2.v;
-	    break;
-        default:
-            break;
+	    ਰੋਕੋ;
+        ਮੂਲ:
+            ਰੋਕੋ;
         }
 	/* GAS compare results are -1/0 not 1/0.  */
 	pe->v = -(int64_t)pe->v;
     }
 }
 
-ST_FUNC void asm_expr(TCCState *s1, ExprValue *pe)
+ST_FUNC ਖਾਲੀ asm_ਵਿਅੰਜਕ(TCCState *s1, ਵਿਅੰਜਕ_ਮੁੱਲ *pe)
 {
-    asm_expr_cmp(s1, pe);
+    asm_ਵਿਅੰਜਕ_cmp(s1, pe);
 }
 
-ST_FUNC int asm_int_expr(TCCState *s1)
+ST_FUNC ਪੂਰਨ asm_int_ਵਿਅੰਜਕ(TCCState *s1)
 {
-    ExprValue e;
-    asm_expr(s1, &e);
-    if (e.sym)
+    ਵਿਅੰਜਕ_ਮੁੱਲ e;
+    asm_ਵਿਅੰਜਕ(s1, &e);
+    ਜੇ (e.sym)
         expect("constant");
-    if ((int)e.v != e.v)
-	tcc_error("integer out of range %lld", (long long)e.v);
-    return e.v;
+    ਜੇ ((ਪੂਰਨ)e.v != e.v)
+	tcc_error("integer out of range %lld", (ਲੰਮਾ ਲੰਮਾ)e.v);
+    ਵਾਪਸ e.v;
 }
 
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local,
-                           int sh_num, int value)
+ਸਥਿਰ Sym* asm_new_label1(TCCState *s1, ਪੂਰਨ label, ਪੂਰਨ is_local,
+                           ਪੂਰਨ sh_ਅੰਕ, ਪੂਰਨ ਮੁੱਲ)
 {
     Sym *sym;
     ElfSym *esym;
 
-    sym = asm_label_find(label);
-    if (sym) {
+    sym = asm_label_ਲੱਭੋ(label);
+    ਜੇ (sym) {
 	esym = elfsym(sym);
 	/* A VT_EXTERN symbol, even if it has a section is considered
 	   overridable.  This is how we "define" .set targets.  Real
 	   definitions won't have VT_EXTERN set.  */
-        if (esym && esym->st_shndx != SHN_UNDEF) {
+        ਜੇ (esym && esym->st_shndx != SHN_UNDEF) {
             /* the label is already defined */
-            if (IS_ASM_SYM(sym)
+            ਜੇ (IS_ASM_SYM(sym)
                 && (is_local == 1 || (sym->type.t & VT_EXTERN)))
-                goto new_label;
-            if (!(sym->type.t & VT_EXTERN))
+                ਜਾਓ new_label;
+            ਜੇ (!(sym->type.t & VT_EXTERN))
                 tcc_error("assembler label '%s' already defined",
-                          get_tok_str(label, NULL));
+                          get_tok_str(label, ਨਿਰਾ));
         }
-    } else {
+    } ਨਹੀਂਤਾਂ {
     new_label:
-        sym = asm_label_push(label);
+        sym = asm_label_ਧੱਕੋ(label);
     }
-    if (!sym->c)
+    ਜੇ (!sym->c)
       put_extern_sym2(sym, SHN_UNDEF, 0, 0, 1);
     esym = elfsym(sym);
-    esym->st_shndx = sh_num;
-    esym->st_value = value;
-    if (is_local != 2)
+    esym->st_shndx = sh_ਅੰਕ;
+    esym->st_ਮੁੱਲ = ਮੁੱਲ;
+    ਜੇ (is_local != 2)
         sym->type.t &= ~VT_EXTERN;
-    return sym;
+    ਵਾਪਸ sym;
 }
 
-static Sym* asm_new_label(TCCState *s1, int label, int is_local)
+ਸਥਿਰ Sym* asm_new_label(TCCState *s1, ਪੂਰਨ label, ਪੂਰਨ is_local)
 {
-    return asm_new_label1(s1, label, is_local, cur_text_section->sh_num, ind);
+    ਵਾਪਸ asm_new_label1(s1, label, is_local, cur_ਪਾਠ_section->sh_ਅੰਕ, ind);
 }
 
 /* Set the value of LABEL to that of some expression (possibly
    involving other symbols).  LABEL can be overwritten later still.  */
-static Sym* set_symbol(TCCState *s1, int label)
+ਸਥਿਰ Sym* ਸੈੱਟ_ਚਿੰਨ੍ਹ(TCCState *s1, ਪੂਰਨ label)
 {
-    long n;
-    ExprValue e;
+    ਲੰਮਾ n;
+    ਵਿਅੰਜਕ_ਮੁੱਲ e;
     Sym *sym;
     ElfSym *esym;
-    next();
-    asm_expr(s1, &e);
+    ਅਗਲਾ();
+    asm_ਵਿਅੰਜਕ(s1, &e);
     n = e.v;
     esym = elfsym(e.sym);
-    if (esym)
-	n += esym->st_value;
+    ਜੇ (esym)
+	n += esym->st_ਮੁੱਲ;
     sym = asm_new_label1(s1, label, 2, esym ? esym->st_shndx : SHN_ABS, n);
-    elfsym(sym)->st_other |= ST_ASM_SET;
-    return sym;
+    elfsym(sym)->st_other |= ST_ASM_ਸੈੱਟ;
+    ਵਾਪਸ sym;
 }
 
-static void use_section1(TCCState *s1, Section *sec)
+ਸਥਿਰ ਖਾਲੀ use_section1(TCCState *s1, Section *sec)
 {
-    cur_text_section->data_offset = ind;
-    cur_text_section = sec;
-    ind = cur_text_section->data_offset;
+    cur_ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ = ind;
+    cur_ਪਾਠ_section = sec;
+    ind = cur_ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ;
 }
 
-static void use_section(TCCState *s1, const char *name)
+ਸਥਿਰ ਖਾਲੀ use_section(TCCState *s1, ਅਚਲ ਅੱਖਰ *name)
 {
     Section *sec;
-    sec = find_section(s1, name);
+    sec = ਲੱਭੋ_section(s1, name);
     use_section1(s1, sec);
 }
 
-static void push_section(TCCState *s1, const char *name)
+ਸਥਿਰ ਖਾਲੀ ਧੱਕੋ_section(TCCState *s1, ਅਚਲ ਅੱਖਰ *name)
 {
-    Section *sec = find_section(s1, name);
-    sec->prev = cur_text_section;
+    Section *sec = ਲੱਭੋ_section(s1, name);
+    sec->prev = cur_ਪਾਠ_section;
     use_section1(s1, sec);
 }
 
-static void pop_section(TCCState *s1)
+ਸਥਿਰ ਖਾਲੀ ਕੱਢੋ_section(TCCState *s1)
 {
-    Section *prev = cur_text_section->prev;
-    if (!prev)
+    Section *prev = cur_ਪਾਠ_section->prev;
+    ਜੇ (!prev)
         tcc_error(".popsection without .pushsection");
-    cur_text_section->prev = NULL;
+    cur_ਪਾਠ_section->prev = ਨਿਰਾ;
     use_section1(s1, prev);
 }
 
-static void asm_parse_directive(TCCState *s1, int global)
+ਸਥਿਰ ਖਾਲੀ asm_parse_directive(TCCState *s1, ਪੂਰਨ global)
 {
-    int n, offset, v, size, tok1, c;
+    ਪੂਰਨ n, ਵਿੱਥ, v, ਮਾਪ, tok1, c;
     Section *sec;
     uint8_t *ptr;
 
     /* assembler directive */
-    sec = cur_text_section;
-    switch(tok) {
-    case TOK_ASMDIR_align:
-    case TOK_ASMDIR_balign:
-    case TOK_ASMDIR_p2align:
-    case TOK_ASMDIR_skip:
-    case TOK_ASMDIR_space:
+    sec = cur_ਪਾਠ_section;
+    ਚੋਣ(tok) {
+    ਹਾਲਤ TOK_ASMDIR_align:
+    ਹਾਲਤ TOK_ASMDIR_balign:
+    ਹਾਲਤ TOK_ASMDIR_p2align:
+    ਹਾਲਤ TOK_ASMDIR_skip:
+    ਹਾਲਤ TOK_ASMDIR_space:
         tok1 = tok;
-        next();
-        n = asm_int_expr(s1);
-        if (tok1 == TOK_ASMDIR_p2align)
+        ਅਗਲਾ();
+        n = asm_int_ਵਿਅੰਜਕ(s1);
+        ਜੇ (tok1 == TOK_ASMDIR_p2align)
         {
-            if (n < 0 || n > 30)
+            ਜੇ (n < 0 || n > 30)
                 tcc_error("invalid p2align, must be between 0 and 30");
             n = 1 << n;
             tok1 = TOK_ASMDIR_align;
         }
-        if (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
-            if (n <= 0 || (n & (n-1)) != 0)
+        ਜੇ (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
+            ਜੇ (n <= 0 || (n & (n-1)) != 0)
                 tcc_error("alignment must be a positive power of two");
-            offset = (ind + n - 1) & -n;
-            size = offset - ind;
+            ਵਿੱਥ = (ind + n - 1) & -n;
+            ਮਾਪ = ਵਿੱਥ - ind;
             /* the section must have a compatible alignment */
-            if (sec->sh_addralign < n)
+            ਜੇ (sec->sh_addralign < n)
                 sec->sh_addralign = n;
             c = sec->sh_flags & SHF_EXECINSTR;
-        } else {
-	    if (n < 0)
+        } ਨਹੀਂਤਾਂ {
+	    ਜੇ (n < 0)
 	        n = 0;
-            size = n, c = 0;
+            ਮਾਪ = n, c = 0;
         }
         v = 0;
-        if (tok == ',') {
-            next();
-            v = asm_int_expr(s1), c = 0;
+        ਜੇ (tok == ',') {
+            ਅਗਲਾ();
+            v = asm_int_ਵਿਅੰਜਕ(s1), c = 0;
         }
     zero_pad:
-	if ((uint64_t)ind + size >= 1<<30)
+	ਜੇ ((uint64_t)ind + ਮਾਪ >= 1<<30)
 	    tcc_error("too much data");
-        if (sec->sh_type != SHT_NOBITS) {
-            if (c) {
-                gen_fill_nops(size);
-                break;
+        ਜੇ (sec->sh_type != SHT_NOBITS) {
+            ਜੇ (c) {
+                gen_fill_nops(ਮਾਪ);
+                ਰੋਕੋ;
             }
-            sec->data_offset = ind;
-            ptr = section_ptr_add(sec, size);
-            memset(ptr, v, size);
+            sec->ਅੰਕੜੇ_ਵਿੱਥ = ind;
+            ptr = section_ptr_ਜੋੜੋ(sec, ਮਾਪ);
+            memset(ptr, v, ਮਾਪ);
         }
-        ind += size;
-        break;
-    case TOK_ASMDIR_quad:
-#if PTR_SIZE == 8
-	size = 8;
-	goto asm_data;
-#else
-        next();
-        for(;;) {
+        ind += ਮਾਪ;
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_quad:
+#ਜੇ PTR_ਮਾਪ == 8
+	ਮਾਪ = 8;
+	ਜਾਓ asm_ਅੰਕੜੇ;
+#ਨਹੀਂਤਾਂ
+        ਅਗਲਾ();
+        ਲਈ(;;) {
             uint64_t vl;
-            const char *p;
+            ਅਚਲ ਅੱਖਰ *p;
 
-            p = tokc.str.data;
-            if (tok != TOK_PPNUM) {
+            p = tokc.str.ਅੰਕੜੇ;
+            ਜੇ (tok != TOK_PPNUM) {
             error_constant:
                 tcc_error("64 bit constant");
             }
-            vl = strtoll(p, (char **)&p, 0);
-            if (*p != '\0')
-                goto error_constant;
-            next();
-            if (sec->sh_type != SHT_NOBITS) {
+            vl = strtoll(p, (ਅੱਖਰ **)&p, 0);
+            ਜੇ (*p != '\0')
+                ਜਾਓ error_constant;
+            ਅਗਲਾ();
+            ਜੇ (sec->sh_type != SHT_NOBITS) {
                 /* XXX: endianness */
                 gen_le32(vl);
                 gen_le32(vl >> 32);
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 ind += 8;
             }
-            if (tok != ',')
-                break;
-            next();
+            ਜੇ (tok != ',')
+                ਰੋਕੋ;
+            ਅਗਲਾ();
         }
-        break;
-#endif
-    case TOK_ASMDIR_byte:
-        size = 1;
-        goto asm_data;
-    case TOK_ASMDIR_word:
-    case TOK_ASMDIR_short:
-        size = 2;
-        goto asm_data;
-    case TOK_ASMDIR_long:
-    case TOK_ASMDIR_int:
-        size = 4;
-    asm_data:
-        next();
-        for(;;) {
-            ExprValue e;
-            asm_expr(s1, &e);
-            if (sec->sh_type != SHT_NOBITS) {
-                if (size == 4) {
+        ਰੋਕੋ;
+#ਜੇ_ਅੰਤ
+    ਹਾਲਤ TOK_ASMDIR_byte:
+        ਮਾਪ = 1;
+        ਜਾਓ asm_ਅੰਕੜੇ;
+    ਹਾਲਤ TOK_ASMDIR_ਸ਼ਬਦ:
+    ਹਾਲਤ TOK_ASMDIR_short:
+        ਮਾਪ = 2;
+        ਜਾਓ asm_ਅੰਕੜੇ;
+    ਹਾਲਤ TOK_ASMDIR_long:
+    ਹਾਲਤ TOK_ASMDIR_int:
+        ਮਾਪ = 4;
+    asm_ਅੰਕੜੇ:
+        ਅਗਲਾ();
+        ਲਈ(;;) {
+            ਵਿਅੰਜਕ_ਮੁੱਲ e;
+            asm_ਵਿਅੰਜਕ(s1, &e);
+            ਜੇ (sec->sh_type != SHT_NOBITS) {
+                ਜੇ (ਮਾਪ == 4) {
                     gen_expr32(&e);
-#if PTR_SIZE == 8
-		} else if (size == 8) {
+#ਜੇ PTR_ਮਾਪ == 8
+		} ਨਹੀਂਤਾਂ ਜੇ (ਮਾਪ == 8) {
 		    gen_expr64(&e);
-#endif
-                } else {
-                    if (e.sym)
+#ਜੇ_ਅੰਤ
+                } ਨਹੀਂਤਾਂ {
+                    ਜੇ (e.sym)
                         expect("constant");
-                    if (size == 1)
+                    ਜੇ (ਮਾਪ == 1)
                         g(e.v);
-                    else
+                    ਨਹੀਂਤਾਂ
                         gen_le16(e.v);
                 }
-            } else {
-                ind += size;
+            } ਨਹੀਂਤਾਂ {
+                ind += ਮਾਪ;
             }
-            if (tok != ',')
-                break;
-            next();
+            ਜੇ (tok != ',')
+                ਰੋਕੋ;
+            ਅਗਲਾ();
         }
-        break;
-    case TOK_ASMDIR_fill:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_fill:
         {
-            int repeat, size, val, i, j;
+            ਪੂਰਨ repeat, ਮਾਪ, val, i, j;
             uint8_t repeat_buf[8];
-            next();
-            repeat = asm_int_expr(s1);
-            if (repeat < 0) {
+            ਅਗਲਾ();
+            repeat = asm_int_ਵਿਅੰਜਕ(s1);
+            ਜੇ (repeat < 0) {
                 tcc_error("repeat < 0; .fill ignored");
-                break;
+                ਰੋਕੋ;
             }
-            size = 1;
+            ਮਾਪ = 1;
             val = 0;
-            if (tok == ',') {
-                next();
-                size = asm_int_expr(s1);
-                if (size < 0) {
+            ਜੇ (tok == ',') {
+                ਅਗਲਾ();
+                ਮਾਪ = asm_int_ਵਿਅੰਜਕ(s1);
+                ਜੇ (ਮਾਪ < 0) {
                     tcc_error("size < 0; .fill ignored");
-                    break;
+                    ਰੋਕੋ;
                 }
-                if (size > 8)
-                    size = 8;
-                if (tok == ',') {
-                    next();
-                    val = asm_int_expr(s1);
+                ਜੇ (ਮਾਪ > 8)
+                    ਮਾਪ = 8;
+                ਜੇ (tok == ',') {
+                    ਅਗਲਾ();
+                    val = asm_int_ਵਿਅੰਜਕ(s1);
                 }
             }
             /* XXX: endianness */
@@ -670,476 +670,476 @@ static void asm_parse_directive(TCCState *s1, int global)
             repeat_buf[5] = 0;
             repeat_buf[6] = 0;
             repeat_buf[7] = 0;
-            for(i = 0; i < repeat; i++) {
-                for(j = 0; j < size; j++) {
+            ਲਈ(i = 0; i < repeat; i++) {
+                ਲਈ(j = 0; j < ਮਾਪ; j++) {
                     g(repeat_buf[j]);
                 }
             }
         }
-        break;
-    case TOK_ASMDIR_rept:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_rept:
         {
-            int repeat;
+            ਪੂਰਨ repeat;
             TokenString *init_str;
-            next();
-            repeat = asm_int_expr(s1);
+            ਅਗਲਾ();
+            repeat = asm_int_ਵਿਅੰਜਕ(s1);
             init_str = tok_str_alloc();
-            while (next(), tok != TOK_ASMDIR_endr) {
-                if (tok == CH_EOF)
+            ਜਦੋਂ (ਅਗਲਾ(), tok != TOK_ASMDIR_endr) {
+                ਜੇ (tok == CH_EOF)
                     tcc_error("we at end of file, .endr not found");
-                tok_str_add_tok(init_str);
+                tok_str_ਜੋੜੋ_tok(init_str);
             }
-            tok_str_add(init_str, TOK_EOF);
+            tok_str_ਜੋੜੋ(init_str, TOK_EOF);
             begin_macro(init_str, 1);
-            while (repeat-- > 0) {
-                tcc_assemble_internal(s1, (parse_flags & PARSE_FLAG_PREPROCESS),
+            ਜਦੋਂ (repeat-- > 0) {
+                tcc_assemble_ਅੰਦਰੂਨੀ(s1, (parse_flags & PARSE_FLAG_PREPROCESS),
 				      global);
                 macro_ptr = init_str->str;
             }
-            end_macro();
-            next();
-            break;
+            ਸਿਰਾ_macro();
+            ਅਗਲਾ();
+            ਰੋਕੋ;
         }
-    case TOK_ASMDIR_org:
+    ਹਾਲਤ TOK_ASMDIR_org:
         {
-	    ExprValue e;
+	    ਵਿਅੰਜਕ_ਮੁੱਲ e;
 	    ElfSym *esym;
-            next();
-	    asm_expr(s1, &e);
+            ਅਗਲਾ();
+	    asm_ਵਿਅੰਜਕ(s1, &e);
 	    n = e.v;
 	    esym = elfsym(e.sym);
-	    if (esym) {
-		if (esym->st_shndx != cur_text_section->sh_num)
+	    ਜੇ (esym) {
+		ਜੇ (esym->st_shndx != cur_ਪਾਠ_section->sh_ਅੰਕ)
 		  expect("constant or same-section symbol");
-		n += esym->st_value;
+		n += esym->st_ਮੁੱਲ;
 	    }
-            if (n < ind)
+            ਜੇ (n < ind)
                 tcc_error("attempt to .org backwards");
             v = c = 0;
-            size = n - ind;
-            goto zero_pad;
+            ਮਾਪ = n - ind;
+            ਜਾਓ zero_pad;
         }
-        break;
-    case TOK_ASMDIR_set:
-	next();
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_ਸੈੱਟ:
+	ਅਗਲਾ();
 	tok1 = tok;
-	next();
+	ਅਗਲਾ();
 	/* Also accept '.set stuff', but don't do anything with this.
 	   It's used in GAS to set various features like '.set mips16'.  */
-	if (tok == ',')
-	    set_symbol(s1, tok1);
-	break;
-    case TOK_ASMDIR_globl:
-    case TOK_ASMDIR_global:
-    case TOK_ASMDIR_weak:
-    case TOK_ASMDIR_hidden:
+	ਜੇ (tok == ',')
+	    ਸੈੱਟ_ਚਿੰਨ੍ਹ(s1, tok1);
+	ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_globl:
+    ਹਾਲਤ TOK_ASMDIR_global:
+    ਹਾਲਤ TOK_ASMDIR_weak:
+    ਹਾਲਤ TOK_ASMDIR_hidden:
 	tok1 = tok;
-	do { 
+	ਕਰੋ { 
             Sym *sym;
-            next();
-	    if (tok < TOK_IDENT)
+            ਅਗਲਾ();
+	    ਜੇ (tok < TOK_IDENT)
 		expect("identifier");
-            sym = get_asm_sym(tok, NULL);
-	    if (tok1 != TOK_ASMDIR_hidden)
+            sym = get_asm_sym(tok, ਨਿਰਾ);
+	    ਜੇ (tok1 != TOK_ASMDIR_hidden)
                 sym->type.t &= ~VT_STATIC;
-            if (tok1 == TOK_ASMDIR_weak)
+            ਜੇ (tok1 == TOK_ASMDIR_weak)
                 sym->a.weak = 1;
-	    else if (tok1 == TOK_ASMDIR_hidden)
+	    ਨਹੀਂਤਾਂ ਜੇ (tok1 == TOK_ASMDIR_hidden)
 	        sym->a.visibility = STV_HIDDEN;
             update_storage(sym);
-            next();
-	} while (tok == ',');
-	break;
-    case TOK_ASMDIR_string:
-    case TOK_ASMDIR_ascii:
-    case TOK_ASMDIR_asciz:
+            ਅਗਲਾ();
+	} ਜਦੋਂ (tok == ',');
+	ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_string:
+    ਹਾਲਤ TOK_ASMDIR_ascii:
+    ਹਾਲਤ TOK_ASMDIR_asciz:
         {
-            const char *p;
-            int i, size, t;
+            ਅਚਲ ਅੱਖਰ *p;
+            ਪੂਰਨ i, ਮਾਪ, t;
 
             t = tok;
-            next();
-            for(;;) {
-                if (tok != TOK_STR)
+            ਅਗਲਾ();
+            ਲਈ(;;) {
+                ਜੇ (tok != TOK_STR)
                     expect("string constant");
-                p = tokc.str.data;
-                size = tokc.str.size;
-                if (t == TOK_ASMDIR_ascii && size > 0)
-                    size--;
-                for(i = 0; i < size; i++)
+                p = tokc.str.ਅੰਕੜੇ;
+                ਮਾਪ = tokc.str.ਮਾਪ;
+                ਜੇ (t == TOK_ASMDIR_ascii && ਮਾਪ > 0)
+                    ਮਾਪ--;
+                ਲਈ(i = 0; i < ਮਾਪ; i++)
                     g(p[i]);
-                next();
-                if (tok == ',') {
-                    next();
-                } else if (tok != TOK_STR) {
-                    break;
+                ਅਗਲਾ();
+                ਜੇ (tok == ',') {
+                    ਅਗਲਾ();
+                } ਨਹੀਂਤਾਂ ਜੇ (tok != TOK_STR) {
+                    ਰੋਕੋ;
                 }
             }
 	}
-	break;
-    case TOK_ASMDIR_text:
-    case TOK_ASMDIR_data:
-    case TOK_ASMDIR_bss:
+	ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_ਪਾਠ:
+    ਹਾਲਤ TOK_ASMDIR_ਅੰਕੜੇ:
+    ਹਾਲਤ TOK_ASMDIR_bss:
 	{ 
-            char sname[64];
+            ਅੱਖਰ sname[64];
             tok1 = tok;
             n = 0;
-            next();
-            if (tok != ';' && tok != TOK_LINEFEED) {
-		n = asm_int_expr(s1);
-		next();
+            ਅਗਲਾ();
+            ਜੇ (tok != ';' && tok != TOK_LINEFEED) {
+		n = asm_int_ਵਿਅੰਜਕ(s1);
+		ਅਗਲਾ();
             }
-            if (n)
-                sprintf(sname, "%s%d", get_tok_str(tok1, NULL), n);
-            else
-                sprintf(sname, "%s", get_tok_str(tok1, NULL));
+            ਜੇ (n)
+                sprintf(sname, "%s%d", get_tok_str(tok1, ਨਿਰਾ), n);
+            ਨਹੀਂਤਾਂ
+                sprintf(sname, "%s", get_tok_str(tok1, ਨਿਰਾ));
             use_section(s1, sname);
 	}
-	break;
-    case TOK_ASMDIR_file:
+	ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_file:
         {
-            const char *p;
+            ਅਚਲ ਅੱਖਰ *p;
             parse_flags &= ~PARSE_FLAG_TOK_STR;
-            next();
-            if (tok == TOK_PPNUM)
-                next();
-            if (tok == TOK_PPSTR && tokc.str.data[0] == '"') {
-                tokc.str.data[tokc.str.size - 2] = 0;
-                p = tokc.str.data + 1;
-            } else if (tok >= TOK_IDENT) {
+            ਅਗਲਾ();
+            ਜੇ (tok == TOK_PPNUM)
+                ਅਗਲਾ();
+            ਜੇ (tok == TOK_PPSTR && tokc.str.ਅੰਕੜੇ[0] == '"') {
+                tokc.str.ਅੰਕੜੇ[tokc.str.ਮਾਪ - 2] = 0;
+                p = tokc.str.ਅੰਕੜੇ + 1;
+            } ਨਹੀਂਤਾਂ ਜੇ (tok >= TOK_IDENT) {
                 p = get_tok_str(tok, &tokc);
-            } else {
-                skip_to_eol(0);
-                break;
+            } ਨਹੀਂਤਾਂ {
+                skip_ਮੰਜ਼ਿਲ_eol(0);
+                ਰੋਕੋ;
             }
             tccpp_putfile(p);
-            next();
+            ਅਗਲਾ();
         }
-        break;
-    case TOK_ASMDIR_ident:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_ident:
         {
-            char ident[256];
+            ਅੱਖਰ ident[256];
 
             ident[0] = '\0';
-            next();
-            if (tok == TOK_STR)
-                pstrcat(ident, sizeof(ident), tokc.str.data);
-            else
-                pstrcat(ident, sizeof(ident), get_tok_str(tok, &tokc));
+            ਅਗਲਾ();
+            ਜੇ (tok == TOK_STR)
+                pstrcat(ident, ਆਕਾਰ(ident), tokc.str.ਅੰਕੜੇ);
+            ਨਹੀਂਤਾਂ
+                pstrcat(ident, ਆਕਾਰ(ident), get_tok_str(tok, &tokc));
             tcc_warning_c(warn_unsupported)("ignoring .ident %s", ident);
-            next();
+            ਅਗਲਾ();
         }
-        break;
-    case TOK_ASMDIR_size:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_ਮਾਪ:
         { 
             Sym *sym;
             ElfSym *esym;
 
-            next();
-	    if (tok < TOK_IDENT)
+            ਅਗਲਾ();
+	    ਜੇ (tok < TOK_IDENT)
 		expect("identifier");
-            sym = asm_label_find(tok);
-            if (!sym)
-                tcc_error("label not found: %s", get_tok_str(tok, NULL));
+            sym = asm_label_ਲੱਭੋ(tok);
+            ਜੇ (!sym)
+                tcc_error("label not found: %s", get_tok_str(tok, ਨਿਰਾ));
             /* XXX .size name,label2-label1 */
-            tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, NULL));
-            next();
+            tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, ਨਿਰਾ));
+            ਅਗਲਾ();
             skip(',');
-            n = asm_int_expr(s1);
+            n = asm_int_ਵਿਅੰਜਕ(s1);
             esym = elfsym(sym);
-            if (esym) {
-                esym->st_size = n;
+            ਜੇ (esym) {
+                esym->st_ਮਾਪ = n;
             }
         }
-        break;
-    case TOK_ASMDIR_type:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_type:
         { 
             Sym *sym;
-            const char *newtype;
-            int st_type;
+            ਅਚਲ ਅੱਖਰ *newtype;
+            ਪੂਰਨ st_type;
 
-            next();
-	    if (tok < TOK_IDENT)
+            ਅਗਲਾ();
+	    ਜੇ (tok < TOK_IDENT)
 		expect("identifier");
-            sym = get_asm_sym(tok, NULL);
-            next();
+            sym = get_asm_sym(tok, ਨਿਰਾ);
+            ਅਗਲਾ();
             skip(',');
-            if (tok == TOK_STR) {
-                newtype = tokc.str.data;
-            } else {
-                if (tok == '@' || tok == '%')
-                    next();
-                newtype = get_tok_str(tok, NULL);
+            ਜੇ (tok == TOK_STR) {
+                newtype = tokc.str.ਅੰਕੜੇ;
+            } ਨਹੀਂਤਾਂ {
+                ਜੇ (tok == '@' || tok == '%')
+                    ਅਗਲਾ();
+                newtype = get_tok_str(tok, ਨਿਰਾ);
             }
 
-            if (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
-                if (IS_ASM_SYM(sym))
+            ਜੇ (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
+                ਜੇ (IS_ASM_SYM(sym))
                     sym->type.t |= VT_ASM_FUNC;
                 st_type = STT_FUNC;
-            set_st_type:
-                if (sym->c) {
+            ਸੈੱਟ_st_type:
+                ਜੇ (sym->c) {
                     ElfSym *esym = elfsym(sym);
                     esym->st_info = ELFW(ST_INFO)(ELFW(ST_BIND)(esym->st_info), st_type);
                 }
-            } else if (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
+            } ਨਹੀਂਤਾਂ ਜੇ (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
                 st_type = STT_OBJECT;
-                goto set_st_type;
-            } else
+                ਜਾਓ ਸੈੱਟ_st_type;
+            } ਨਹੀਂਤਾਂ
                 tcc_warning_c(warn_unsupported)("change type of '%s' from 0x%x to '%s' ignored",
-                    get_tok_str(sym->v, NULL), sym->type.t, newtype);
+                    get_tok_str(sym->v, ਨਿਰਾ), sym->type.t, newtype);
 
-            next();
+            ਅਗਲਾ();
         }
-        break;
-    case TOK_ASMDIR_pushsection:
-    case TOK_ASMDIR_section:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_pushsection:
+    ਹਾਲਤ TOK_ASMDIR_section:
         {
-            char sname[256];
-	    int old_nb_section = s1->nb_sections;
-            int flags = SHF_ALLOC;
+            ਅੱਖਰ sname[256];
+	    ਪੂਰਨ old_nb_section = s1->nb_sections;
+            ਪੂਰਨ flags = SHF_ALLOC;
 
 	    tok1 = tok;
             /* XXX: support more options */
-            next();
+            ਅਗਲਾ();
             sname[0] = '\0';
-            while (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
-                if (tok == TOK_STR)
-                    pstrcat(sname, sizeof(sname), tokc.str.data);
-                else
-                    pstrcat(sname, sizeof(sname), get_tok_str(tok, NULL));
-                next();
+            ਜਦੋਂ (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
+                ਜੇ (tok == TOK_STR)
+                    pstrcat(sname, ਆਕਾਰ(sname), tokc.str.ਅੰਕੜੇ);
+                ਨਹੀਂਤਾਂ
+                    pstrcat(sname, ਆਕਾਰ(sname), get_tok_str(tok, ਨਿਰਾ));
+                ਅਗਲਾ();
             }
-            if (tok == ',') {
-                const char *p;
+            ਜੇ (tok == ',') {
+                ਅਚਲ ਅੱਖਰ *p;
                 /* skip section options */
-                next();
-                if (tok != TOK_STR)
+                ਅਗਲਾ();
+                ਜੇ (tok != TOK_STR)
                     expect("string constant");
-                for (p = tokc.str.data; *p; ++p) {
-                    if (*p == 'w')
+                ਲਈ (p = tokc.str.ਅੰਕੜੇ; *p; ++p) {
+                    ਜੇ (*p == 'w')
                         flags |= SHF_WRITE;
-                    if (*p == 'x')
+                    ਜੇ (*p == 'x')
                         flags |= SHF_EXECINSTR;
                 }
-                next();
-                if (tok == ',') {
-                    next();
-                    if (tok == '@' || tok == '%')
-                        next();
-                    next();
+                ਅਗਲਾ();
+                ਜੇ (tok == ',') {
+                    ਅਗਲਾ();
+                    ਜੇ (tok == '@' || tok == '%')
+                        ਅਗਲਾ();
+                    ਅਗਲਾ();
                 }
             }
-            last_text_section = cur_text_section;
-	    if (tok1 == TOK_ASMDIR_section)
+            ਆਖਰੀ_ਪਾਠ_section = cur_ਪਾਠ_section;
+	    ਜੇ (tok1 == TOK_ASMDIR_section)
 	        use_section(s1, sname);
-	    else
-	        push_section(s1, sname);
+	    ਨਹੀਂਤਾਂ
+	        ਧੱਕੋ_section(s1, sname);
 	    /* If we just allocated a new section reset its alignment to
 	       1.  new_section normally acts for GCC compatibility and
 	       sets alignment to PTR_SIZE.  The assembler behaves different. */
-	    if (old_nb_section != s1->nb_sections) {
-	        cur_text_section->sh_addralign = 1;
+	    ਜੇ (old_nb_section != s1->nb_sections) {
+	        cur_ਪਾਠ_section->sh_addralign = 1;
                 /* Make .init and .fini sections executable by default.
                    GAS does so, too, and musl relies on it. */
-                if (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
+                ਜੇ (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
                     flags |= SHF_EXECINSTR;
-	        cur_text_section->sh_flags = flags;
+	        cur_ਪਾਠ_section->sh_flags = flags;
             }
         }
-        break;
-    case TOK_ASMDIR_previous:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_ਪਿਛਲਾ:
         { 
             Section *sec;
-            next();
-            if (!last_text_section)
+            ਅਗਲਾ();
+            ਜੇ (!ਆਖਰੀ_ਪਾਠ_section)
                 tcc_error("no previous section referenced");
-            sec = cur_text_section;
-            use_section1(s1, last_text_section);
-            last_text_section = sec;
+            sec = cur_ਪਾਠ_section;
+            use_section1(s1, ਆਖਰੀ_ਪਾਠ_section);
+            ਆਖਰੀ_ਪਾਠ_section = sec;
         }
-        break;
-    case TOK_ASMDIR_popsection:
-	next();
-	pop_section(s1);
-	break;
-#ifdef TCC_TARGET_I386
-    case TOK_ASMDIR_code16:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_popsection:
+	ਅਗਲਾ();
+	ਕੱਢੋ_section(s1);
+	ਰੋਕੋ;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_I386
+    ਹਾਲਤ TOK_ASMDIR_code16:
         {
-            next();
-            s1->seg_size = 16;
+            ਅਗਲਾ();
+            s1->seg_ਮਾਪ = 16;
         }
-        break;
-    case TOK_ASMDIR_code32:
+        ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_code32:
         {
-            next();
-            s1->seg_size = 32;
+            ਅਗਲਾ();
+            s1->seg_ਮਾਪ = 32;
         }
-        break;
-#endif
-#if PTR_SIZE == 8
+        ਰੋਕੋ;
+#ਜੇ_ਅੰਤ
+#ਜੇ PTR_ਮਾਪ == 8
     /* added for compatibility with GAS */
-    case TOK_ASMDIR_code64:
-        next();
-        break;
-#endif
-#ifdef TCC_TARGET_RISCV64
-    case TOK_ASMDIR_option:
-        next();
-        switch(tok){
-            case TOK_ASM_rvc:    /* Will be deprecated soon in favor of arch */
-            case TOK_ASM_norvc:  /* Will be deprecated soon in favor of arch */
-            case TOK_ASM_pic:
-            case TOK_ASM_nopic:
-            case TOK_ASM_relax:
-            case TOK_ASM_norelax:
-            case TOK_ASM_push:
-            case TOK_ASM_pop:
+    ਹਾਲਤ TOK_ASMDIR_code64:
+        ਅਗਲਾ();
+        ਰੋਕੋ;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_RISCV64
+    ਹਾਲਤ TOK_ASMDIR_option:
+        ਅਗਲਾ();
+        ਚੋਣ(tok){
+            ਹਾਲਤ TOK_ASM_rvc:    /* Will be deprecated soon in favor of arch */
+            ਹਾਲਤ TOK_ASM_norvc:  /* Will be deprecated soon in favor of arch */
+            ਹਾਲਤ TOK_ASM_pic:
+            ਹਾਲਤ TOK_ASM_nopic:
+            ਹਾਲਤ TOK_ASM_relax:
+            ਹਾਲਤ TOK_ASM_norelax:
+            ਹਾਲਤ TOK_ASM_ਧੱਕੋ:
+            ਹਾਲਤ TOK_ASM_ਕੱਢੋ:
                 /* TODO: unimplemented */
-                next();
-                break;
-            case TOK_ASM_arch:
+                ਅਗਲਾ();
+                ਰੋਕੋ;
+            ਹਾਲਤ TOK_ASM_arch:
                 /* TODO: unimplemented, requires extra parsing */
-                tcc_error("unimp .option '.%s'", get_tok_str(tok, NULL));
-                break;
-            default:
-                tcc_error("unknown .option '.%s'", get_tok_str(tok, NULL));
-                break;
+                tcc_error("unimp .option '.%s'", get_tok_str(tok, ਨਿਰਾ));
+                ਰੋਕੋ;
+            ਮੂਲ:
+                tcc_error("unknown .option '.%s'", get_tok_str(tok, ਨਿਰਾ));
+                ਰੋਕੋ;
         }
-        break;
-#endif
+        ਰੋਕੋ;
+#ਜੇ_ਅੰਤ
     /* TODO: Implement symvar support. FreeBSD >= 14 needs this */
-    case TOK_ASMDIR_symver:
-	next();
-	next();
+    ਹਾਲਤ TOK_ASMDIR_symver:
+	ਅਗਲਾ();
+	ਅਗਲਾ();
         skip(',');
-	next();
+	ਅਗਲਾ();
         skip('@');
-	next();
-	break;
-    case TOK_ASMDIR_reloc:
+	ਅਗਲਾ();
+	ਰੋਕੋ;
+    ਹਾਲਤ TOK_ASMDIR_reloc:
 	{
-	    ExprValue e;
-	    const char *reloc_name;
-	    int reloc_type = -1;
+	    ਵਿਅੰਜਕ_ਮੁੱਲ e;
+	    ਅਚਲ ਅੱਖਰ *reloc_name;
+	    ਪੂਰਨ reloc_type = -1;
 
-	    next();
-	    asm_expr(s1, &e);
+	    ਅਗਲਾ();
+	    asm_ਵਿਅੰਜਕ(s1, &e);
 	    skip(',');
-	    reloc_name = get_tok_str(tok, NULL);
-#if defined(TCC_TARGET_ARM64)
-	    if (!strcmp(reloc_name, "R_AARCH64_CALL26"))
+	    reloc_name = get_tok_str(tok, ਨਿਰਾ);
+#ਜੇ defined(TCC_ਨਿਸ਼ਾਨਾ_ARM64)
+	    ਜੇ (!strcmp(reloc_name, "R_AARCH64_CALL26"))
 	        reloc_type = R_AARCH64_CALL26;
-#elif defined(TCC_TARGET_RISCV64)
-	    if (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
+#ਜਾਂਜੇ defined(TCC_ਨਿਸ਼ਾਨਾ_RISCV64)
+	    ਜੇ (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
 	        reloc_type = R_RISCV_CALL;
-	    else if (!strcmp(reloc_name, "R_RISCV_BRANCH"))
+	    ਨਹੀਂਤਾਂ ਜੇ (!strcmp(reloc_name, "R_RISCV_BRANCH"))
 	        reloc_type = R_RISCV_BRANCH;
-	    else if (!strcmp(reloc_name, "R_RISCV_JAL"))
+	    ਨਹੀਂਤਾਂ ਜੇ (!strcmp(reloc_name, "R_RISCV_JAL"))
 	        reloc_type = R_RISCV_JAL;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
+	    ਨਹੀਂਤਾਂ ਜੇ (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
 	        reloc_type = R_RISCV_PCREL_HI20;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
+	    ਨਹੀਂਤਾਂ ਜੇ (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
 	        reloc_type = R_RISCV_PCREL_LO12_I;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
+	    ਨਹੀਂਤਾਂ ਜੇ (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
 	        reloc_type = R_RISCV_PCREL_LO12_S;
-	    else if (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
+	    ਨਹੀਂਤਾਂ ਜੇ (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
 	        reloc_type = R_RISCV_32_PCREL;
-	    else if (!strcmp(reloc_name, "R_RISCV_32"))
+	    ਨਹੀਂਤਾਂ ਜੇ (!strcmp(reloc_name, "R_RISCV_32"))
 	        reloc_type = R_RISCV_32;
-	    else if (!strcmp(reloc_name, "R_RISCV_64"))
+	    ਨਹੀਂਤਾਂ ਜੇ (!strcmp(reloc_name, "R_RISCV_64"))
 	        reloc_type = R_RISCV_64;
-#endif
-	    if (reloc_type < 0)
+#ਜੇ_ਅੰਤ
+	    ਜੇ (reloc_type < 0)
 	        tcc_error("unimp: reloc '%s' unknown", reloc_name);
-	    next();
+	    ਅਗਲਾ();
 	    skip(',');
-	    greloca(cur_text_section, get_asm_sym(tok, NULL), e.v, reloc_type, 0);
-	    next();
+	    greloca(cur_ਪਾਠ_section, get_asm_sym(tok, ਨਿਰਾ), e.v, reloc_type, 0);
+	    ਅਗਲਾ();
 	}
-	break;
-    default:
-        tcc_error("unknown assembler directive '.%s'", get_tok_str(tok, NULL));
-        break;
+	ਰੋਕੋ;
+    ਮੂਲ:
+        tcc_error("unknown assembler directive '.%s'", get_tok_str(tok, ਨਿਰਾ));
+        ਰੋਕੋ;
     }
 }
 
 
 /* assemble a file */
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global)
+ਸਥਿਰ ਪੂਰਨ tcc_assemble_ਅੰਦਰੂਨੀ(TCCState *s1, ਪੂਰਨ do_preprocess, ਪੂਰਨ global)
 {
-    int opcode;
-    int saved_parse_flags = parse_flags;
+    ਪੂਰਨ opcode;
+    ਪੂਰਨ saved_parse_flags = parse_flags;
 
     parse_flags = PARSE_FLAG_ASM_FILE | PARSE_FLAG_TOK_STR;
-    if (do_preprocess)
+    ਜੇ (do_preprocess)
         parse_flags |= PARSE_FLAG_PREPROCESS;
-    for(;;) {
-        next();
-        if (tok == TOK_EOF)
-            break;
-        tcc_debug_line(s1);
+    ਲਈ(;;) {
+        ਅਗਲਾ();
+        ਜੇ (tok == TOK_EOF)
+            ਰੋਕੋ;
+        tcc_debug_ਸਤਰ(s1);
         parse_flags |= PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     redo:
-#if !defined(TCC_TARGET_ARM64)
-        if (tok == '#') {
+#ਜੇ !defined(TCC_ਨਿਸ਼ਾਨਾ_ARM64)
+        ਜੇ (tok == '#') {
             /* horrible gas comment */
-            while (tok != TOK_LINEFEED)
-                next();
-        } else
-#endif
-        if (tok >= TOK_ASMDIR_FIRST && tok <= TOK_ASMDIR_LAST) {
+            ਜਦੋਂ (tok != TOK_LINEFEED)
+                ਅਗਲਾ();
+        } ਨਹੀਂਤਾਂ
+#ਜੇ_ਅੰਤ
+        ਜੇ (tok >= TOK_ASMDIR_ਪਹਿਲਾ && tok <= TOK_ASMDIR_ਆਖਰੀ) {
             asm_parse_directive(s1, global);
-        } else if (tok == TOK_PPNUM) {
-            const char *p;
-            int n;
-            p = tokc.str.data;
-            n = strtoul(p, (char **)&p, 10);
-            if (*p != '\0')
+        } ਨਹੀਂਤਾਂ ਜੇ (tok == TOK_PPNUM) {
+            ਅਚਲ ਅੱਖਰ *p;
+            ਪੂਰਨ n;
+            p = tokc.str.ਅੰਕੜੇ;
+            n = strtoul(p, (ਅੱਖਰ **)&p, 10);
+            ਜੇ (*p != '\0')
                 expect("':'");
             /* new local label */
             asm_new_label(s1, asm_get_local_label_name(s1, n), 1);
-            next();
+            ਅਗਲਾ();
             skip(':');
-            goto redo;
-        } else if (tok >= TOK_IDENT) {
+            ਜਾਓ redo;
+        } ਨਹੀਂਤਾਂ ਜੇ (tok >= TOK_IDENT) {
             /* instruction or label */
             opcode = tok;
-            next();
-            if (tok == ':') {
+            ਅਗਲਾ();
+            ਜੇ (tok == ':') {
                 /* new label */
                 asm_new_label(s1, opcode, 0);
-                next();
-                goto redo;
-            } else if (tok == '=') {
-		set_symbol(s1, opcode);
-                goto redo;
-            } else {
+                ਅਗਲਾ();
+                ਜਾਓ redo;
+            } ਨਹੀਂਤਾਂ ਜੇ (tok == '=') {
+		ਸੈੱਟ_ਚਿੰਨ੍ਹ(s1, opcode);
+                ਜਾਓ redo;
+            } ਨਹੀਂਤਾਂ {
                 asm_opcode(s1, opcode);
             }
         }
         /* end of line */
-        if (tok != ';' && tok != TOK_LINEFEED)
+        ਜੇ (tok != ';' && tok != TOK_LINEFEED)
             expect("end of line");
         parse_flags &= ~PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     }
 
     parse_flags = saved_parse_flags;
-    return 0;
+    ਵਾਪਸ 0;
 }
 
 /* Assemble the current file */
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+ST_FUNC ਪੂਰਨ tcc_assemble(TCCState *s1, ਪੂਰਨ do_preprocess)
 {
-    int ret;
-    tcc_debug_start(s1);
+    ਪੂਰਨ ret;
+    tcc_debug_ਸ਼ੁਰੂ(s1);
     /* default section is text */
-    cur_text_section = text_section;
-    ind = cur_text_section->data_offset;
+    cur_ਪਾਠ_section = ਪਾਠ_section;
+    ind = cur_ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ;
     nocode_wanted = 0;
-    ret = tcc_assemble_internal(s1, do_preprocess, 1);
-    cur_text_section->data_offset = ind;
-    tcc_debug_end(s1);
-    return ret;
+    ret = tcc_assemble_ਅੰਦਰੂਨੀ(s1, do_preprocess, 1);
+    cur_ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ = ind;
+    tcc_debug_ਸਿਰਾ(s1);
+    ਵਾਪਸ ret;
 }
 
 /********************************************************************/
@@ -1147,176 +1147,176 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
 
 /* assemble the string 'str' in the current C compilation unit without
    C preprocessing. */
-static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int global)
+ਸਥਿਰ ਖਾਲੀ tcc_assemble_inline(TCCState *s1, ਅਚਲ ਅੱਖਰ *str, ਪੂਰਨ len, ਪੂਰਨ global)
 {
-    const int *saved_macro_ptr = macro_ptr;
-    int dotid = set_idnum('.', IS_ID);
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
-    int dolid = set_idnum('$', 0);
-#endif
+    ਅਚਲ ਪੂਰਨ *saved_macro_ptr = macro_ptr;
+    ਪੂਰਨ dotid = ਸੈੱਟ_idnum('.', IS_ID);
+#ਜੇ !defined(TCC_ਨਿਸ਼ਾਨਾ_RISCV64) && !defined(TCC_ਨਿਸ਼ਾਨਾ_X86_64)
+    ਪੂਰਨ dolid = ਸੈੱਟ_idnum('$', 0);
+#ਜੇ_ਅੰਤ
 
     tcc_open_bf(s1, ":asm:", len);
-    memcpy(file->buffer, str, len);
-    macro_ptr = NULL;
-    tcc_assemble_internal(s1, 0, global);
+    ਸਮ੍ਰਿਤੀ_ਨਕਲ(file->ਬਫਰ, str, len);
+    macro_ptr = ਨਿਰਾ;
+    tcc_assemble_ਅੰਦਰੂਨੀ(s1, 0, global);
     tcc_close();
 
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
-    set_idnum('$', dolid);
-#endif
-    set_idnum('.', dotid);
+#ਜੇ !defined(TCC_ਨਿਸ਼ਾਨਾ_RISCV64) && !defined(TCC_ਨਿਸ਼ਾਨਾ_X86_64)
+    ਸੈੱਟ_idnum('$', dolid);
+#ਜੇ_ਅੰਤ
+    ਸੈੱਟ_idnum('.', dotid);
     macro_ptr = saved_macro_ptr;
 }
 
 /* find a constraint by its number or id (gcc 3 extended
    syntax). return -1 if not found. Return in *pp in char after the
    constraint */
-ST_FUNC int find_constraint(ASMOperand *operands, int nb_operands, 
-                           const char *name, const char **pp)
+ST_FUNC ਪੂਰਨ ਲੱਭੋ_constraint(ASMOperand *operands, ਪੂਰਨ nb_operands, 
+                           ਅਚਲ ਅੱਖਰ *name, ਅਚਲ ਅੱਖਰ **pp)
 {
-    int index;
+    ਪੂਰਨ ਸੂਚਕਾਂਕ;
     TokenSym *ts;
-    const char *p;
+    ਅਚਲ ਅੱਖਰ *p;
 
-    if (isnum(*name)) {
-        index = 0;
-        while (isnum(*name)) {
-            index = (index * 10) + (*name) - '0';
+    ਜੇ (isnum(*name)) {
+        ਸੂਚਕਾਂਕ = 0;
+        ਜਦੋਂ (isnum(*name)) {
+            ਸੂਚਕਾਂਕ = (ਸੂਚਕਾਂਕ * 10) + (*name) - '0';
             name++;
         }
-        if ((unsigned)index >= nb_operands)
-            index = -1;
-    } else if (*name == '[') {
+        ਜੇ ((ਬਿਨਾਨਿਸ਼ਾਨੀ)ਸੂਚਕਾਂਕ >= nb_operands)
+            ਸੂਚਕਾਂਕ = -1;
+    } ਨਹੀਂਤਾਂ ਜੇ (*name == '[') {
         name++;
         p = strchr(name, ']');
-        if (p) {
+        ਜੇ (p) {
             ts = tok_alloc(name, p - name);
-            for(index = 0; index < nb_operands; index++) {
-                if (operands[index].id == ts->tok)
-                    goto found;
+            ਲਈ(ਸੂਚਕਾਂਕ = 0; ਸੂਚਕਾਂਕ < nb_operands; ਸੂਚਕਾਂਕ++) {
+                ਜੇ (operands[ਸੂਚਕਾਂਕ].id == ts->tok)
+                    ਜਾਓ ਮਿਲਿਆ;
             }
-            index = -1;
-        found:
+            ਸੂਚਕਾਂਕ = -1;
+        ਮਿਲਿਆ:
             name = p + 1;
-        } else {
-            index = -1;
+        } ਨਹੀਂਤਾਂ {
+            ਸੂਚਕਾਂਕ = -1;
         }
-    } else {
-        index = -1;
+    } ਨਹੀਂਤਾਂ {
+        ਸੂਚਕਾਂਕ = -1;
     }
-    if (pp)
+    ਜੇ (pp)
         *pp = name;
-    return index;
+    ਵਾਪਸ ਸੂਚਕਾਂਕ;
 }
 
-static void subst_asm_operands(ASMOperand *operands, int nb_operands, 
-                               CString *out_str, const char *str)
+ਸਥਿਰ ਖਾਲੀ subst_asm_operands(ASMOperand *operands, ਪੂਰਨ nb_operands, 
+                               CString *ਬਾਹਰਲਾ_str, ਅਚਲ ਅੱਖਰ *str)
 {
-    int c, index, modifier;
+    ਪੂਰਨ c, ਸੂਚਕਾਂਕ, modifier;
     ASMOperand *op;
     SValue sv;
 
-    for(;;) {
+    ਲਈ(;;) {
         c = *str++;
-        if (c == '%') {
-            if (*str == '%') {
+        ਜੇ (c == '%') {
+            ਜੇ (*str == '%') {
                 str++;
-                goto add_char;
+                ਜਾਓ ਜੋੜੋ_char;
             }
             modifier = 0;
-            if (*str == 'c' || *str == 'n' ||
+            ਜੇ (*str == 'c' || *str == 'n' ||
                 *str == 'b' || *str == 'w' || *str == 'h' || *str == 'k' ||
 		*str == 'q' || *str == 'l' ||
-#ifdef TCC_TARGET_ARM64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_ARM64
                 *str == 'x' || *str == 's' || *str == 'd' || *str == 'Z' ||
-#endif
-#ifdef TCC_TARGET_RISCV64
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_RISCV64
 		*str == 'z' ||
-#endif
+#ਜੇ_ਅੰਤ
 		/* P in GCC would add "@PLT" to symbol refs in PIC mode,
 		   and make literal operands not be decorated with '$'.  */
 		*str == 'P')
                 modifier = *str++;
-            index = find_constraint(operands, nb_operands, str, &str);
-            if (index < 0)
+            ਸੂਚਕਾਂਕ = ਲੱਭੋ_constraint(operands, nb_operands, str, &str);
+            ਜੇ (ਸੂਚਕਾਂਕ < 0)
         error:
                 tcc_error("invalid operand reference after %%");
-            op = &operands[index];
-            if (modifier == 'l') {
-                cstr_cat(out_str, get_tok_str(op->is_label, NULL), -1);
-            } else {
-		if (op->vt == NULL)
-		    goto error;
+            op = &operands[ਸੂਚਕਾਂਕ];
+            ਜੇ (modifier == 'l') {
+                cstr_cat(ਬਾਹਰਲਾ_str, get_tok_str(op->is_label, ਨਿਰਾ), -1);
+            } ਨਹੀਂਤਾਂ {
+		ਜੇ (op->vt == ਨਿਰਾ)
+		    ਜਾਓ error;
                 sv = *op->vt;
-                if (op->reg >= 0) {
+                ਜੇ (op->reg >= 0) {
                     sv.r = op->reg;
-                    if (op->is_memory)
+                    ਜੇ (op->is_ਸਮ੍ਰਿਤੀ)
                       sv.r |= VT_LVAL;
                 }
-                subst_asm_operand(out_str, &sv, modifier);
+                subst_asm_ਸੰਕਾਰਜ(ਬਾਹਰਲਾ_str, &sv, modifier);
             }
-        } else {
-        add_char:
-            cstr_ccat(out_str, c);
-            if (c == '\0')
-                break;
+        } ਨਹੀਂਤਾਂ {
+        ਜੋੜੋ_char:
+            cstr_ccat(ਬਾਹਰਲਾ_str, c);
+            ਜੇ (c == '\0')
+                ਰੋਕੋ;
         }
     }
 }
 
 
-static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
-                               int is_output)
+ਸਥਿਰ ਖਾਲੀ parse_asm_operands(ASMOperand *operands, ਪੂਰਨ *nb_operands_ptr,
+                               ਪੂਰਨ is_output)
 {
     ASMOperand *op;
-    int nb_operands;
-    char* astr;
+    ਪੂਰਨ nb_operands;
+    ਅੱਖਰ* astr;
 
-    if (tok != ':') {
+    ਜੇ (tok != ':') {
         nb_operands = *nb_operands_ptr;
-        for(;;) {
-            if (nb_operands >= MAX_ASM_OPERANDS)
+        ਲਈ(;;) {
+            ਜੇ (nb_operands >= MAX_ASM_OPERANDS)
                 tcc_error("too many asm operands");
             op = &operands[nb_operands++];
             op->id = 0;
-            if (tok == '[') {
-                next();
-                if (tok < TOK_IDENT)
+            ਜੇ (tok == '[') {
+                ਅਗਲਾ();
+                ਜੇ (tok < TOK_IDENT)
                     expect("identifier");
                 op->id = tok;
-                next();
+                ਅਗਲਾ();
                 skip(']');
             }
-	    astr = parse_mult_str("string constant")->data;
-            pstrcpy(op->constraint, sizeof op->constraint, astr);
+	    astr = parse_mult_str("string constant")->ਅੰਕੜੇ;
+            pstrcpy(op->constraint, ਆਕਾਰ op->constraint, astr);
             skip('(');
             gexpr();
-            if (is_output) {
-                if (!(vtop->type.t & VT_ARRAY))
+            ਜੇ (is_output) {
+                ਜੇ (!(vtop->type.t & VT_ARRAY))
                     test_lvalue();
-            } else {
+            } ਨਹੀਂਤਾਂ {
                 /* we want to avoid LLOCAL case, except when the 'm'
                    constraint is used. Note that it may come from
                    register storage, so we need to convert (reg)
                    case */
-                if ((vtop->r & VT_LVAL) &&
+                ਜੇ ((vtop->r & VT_LVAL) &&
                     ((vtop->r & VT_VALMASK) == VT_LLOCAL ||
                      (vtop->r & VT_VALMASK) < VT_CONST) &&
                     !strchr(op->constraint, 'm')
-#ifdef TCC_TARGET_ARM64
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ TCC_ਨਿਸ਼ਾਨਾ_ARM64
                     && !strchr(op->constraint, 'Q')
-                    && !strstr(op->constraint, "Ump")
-#endif
+                    && !ਲੜੀ_ਖੋਜ(op->constraint, "Ump")
+#ਜੇ_ਅੰਤ
                     ) {
                     gv(RC_INT);
                 }
             }
             op->vt = vtop;
             skip(')');
-            if (tok == ',') {
-                next();
-            } else {
-                break;
+            ਜੇ (tok == ',') {
+                ਅਗਲਾ();
+            } ਨਹੀਂਤਾਂ {
+                ਰੋਕੋ;
             }
         }
         *nb_operands_ptr = nb_operands;
@@ -1324,93 +1324,93 @@ static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
 }
 
 /* parse the GCC asm() instruction */
-ST_FUNC void asm_instr(void)
+ST_FUNC ਖਾਲੀ asm_instr(ਖਾਲੀ)
 {
     CString astr, *astr1;
 
     ASMOperand operands[MAX_ASM_OPERANDS];
-    int nb_outputs, nb_operands, i, must_subst, out_reg, nb_labels;
+    ਪੂਰਨ nb_outputs, nb_operands, i, must_subst, ਬਾਹਰਲਾ_reg, nb_labels;
     uint8_t clobber_regs[NB_ASM_REGS];
     Section *sec;
 
     /* since we always generate the asm() instruction, we can ignore
        volatile */
-    while (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
+    ਜਦੋਂ (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
            || tok == TOK_GOTO) {
-        next();
+        ਅਗਲਾ();
     }
 
     astr1 = parse_asm_str();
     cstr_new_s(&astr);
-    cstr_cat(&astr, astr1->data, astr1->size);
+    cstr_cat(&astr, astr1->ਅੰਕੜੇ, astr1->ਮਾਪ);
 
     nb_operands = 0;
     nb_outputs = 0;
     nb_labels = 0;
     must_subst = 0;
-    memset(clobber_regs, 0, sizeof(clobber_regs));
-    if (tok == ':') {
-        next();
+    memset(clobber_regs, 0, ਆਕਾਰ(clobber_regs));
+    ਜੇ (tok == ':') {
+        ਅਗਲਾ();
         must_subst = 1;
         /* output args */
         parse_asm_operands(operands, &nb_operands, 1);
         nb_outputs = nb_operands;
-        if (tok == ':') {
-            next();
-            if (tok != ')') {
+        ਜੇ (tok == ':') {
+            ਅਗਲਾ();
+            ਜੇ (tok != ')') {
                 /* input args */
                 parse_asm_operands(operands, &nb_operands, 0);
-                if (tok == ':') {
+                ਜੇ (tok == ':') {
                     /* clobber list */
                     /* XXX: handle registers */
-                    next();
-                    for(;;) {
-                        if (tok == ':')
-                          break;
-                        if (tok != TOK_STR)
+                    ਅਗਲਾ();
+                    ਲਈ(;;) {
+                        ਜੇ (tok == ':')
+                          ਰੋਕੋ;
+                        ਜੇ (tok != TOK_STR)
                             expect("string constant");
-                        asm_clobber(clobber_regs, tokc.str.data);
-                        next();
-                        if (tok == ',') {
-                            next();
-                        } else {
-                            break;
+                        asm_clobber(clobber_regs, tokc.str.ਅੰਕੜੇ);
+                        ਅਗਲਾ();
+                        ਜੇ (tok == ',') {
+                            ਅਗਲਾ();
+                        } ਨਹੀਂਤਾਂ {
+                            ਰੋਕੋ;
                         }
                     }
                 }
-                if (tok == ':') {
+                ਜੇ (tok == ':') {
                     /* goto labels */
-                    next();
-                    for (;;) {
+                    ਅਗਲਾ();
+                    ਲਈ (;;) {
                         Sym *csym;
-                        int asmname;
-                        if (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
+                        ਪੂਰਨ asmname;
+                        ਜੇ (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
                           tcc_error("too many asm operands");
-                        if (tok < TOK_UIDENT)
+                        ਜੇ (tok < TOK_UIDENT)
                           expect("label identifier");
 			memset(operands + nb_operands + nb_labels, 0,
-			       sizeof(operands[0]));
+			       ਆਕਾਰ(operands[0]));
                         operands[nb_operands + nb_labels++].id = tok;
 
-                        csym = label_find(tok);
-                        if (!csym) {
-                            csym = label_push(&global_label_stack, tok,
+                        csym = label_ਲੱਭੋ(tok);
+                        ਜੇ (!csym) {
+                            csym = label_ਧੱਕੋ(&global_label_ਢੇਰ, tok,
                                               LABEL_FORWARD);
-                        } else {
-                            if (csym->r == LABEL_DECLARED)
+                        } ਨਹੀਂਤਾਂ {
+                            ਜੇ (csym->r == LABEL_DECLARED)
                               csym->r = LABEL_FORWARD;
                         }
-                        next();
-                        asmname = asm_get_prefix_name(tcc_state, "LG.",
+                        ਅਗਲਾ();
+                        asmname = asm_get_ਅਗੇਤਰ_name(tcc_state, "LG.",
                                                       ++asmgoto_n);
-                        if (!csym->c)
+                        ਜੇ (!csym->c)
                           put_extern_sym2(csym, SHN_UNDEF, 0, 0, 1);
                         get_asm_sym(asmname, csym);
                         operands[nb_operands + nb_labels - 1].is_label = asmname;
 
-                        if (tok != ',')
-                          break;
-                        next();
+                        ਜੇ (tok != ',')
+                          ਰੋਕੋ;
+                        ਅਗਲਾ();
                     }
                 }
             }
@@ -1419,7 +1419,7 @@ ST_FUNC void asm_instr(void)
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    ਜੇ (tok != ';')
         expect("';'");
     
     /* save all values in the memory */
@@ -1427,99 +1427,99 @@ ST_FUNC void asm_instr(void)
 
     /* compute constraints */
     asm_compute_constraints(operands, nb_operands, nb_outputs, 
-                            clobber_regs, &out_reg);
+                            clobber_regs, &ਬਾਹਰਲਾ_reg);
 
     /* substitute the operands in the asm string. No substitution is
        done if no operands (GCC behaviour) */
-#ifdef ASM_DEBUG
-    printf("asm: \"%s\"\n", (char *)astr.data);
-#endif
-    if (must_subst) {
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ ASM_DEBUG
+    ਲਿਖੋ("asm: \"%s\"\n", (ਅੱਖਰ *)astr.ਅੰਕੜੇ);
+#ਜੇ_ਅੰਤ
+    ਜੇ (must_subst) {
         cstr_reset(astr1);
-        cstr_cat(astr1, astr.data, astr.size);
+        cstr_cat(astr1, astr.ਅੰਕੜੇ, astr.ਮਾਪ);
         cstr_reset(&astr);
-        subst_asm_operands(operands, nb_operands + nb_labels, &astr, astr1->data);
+        subst_asm_operands(operands, nb_operands + nb_labels, &astr, astr1->ਅੰਕੜੇ);
     }
 
-#ifdef ASM_DEBUG
-    printf("subst_asm: \"%s\"\n", (char *)astr.data);
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ ASM_DEBUG
+    ਲਿਖੋ("subst_asm: \"%s\"\n", (ਅੱਖਰ *)astr.ਅੰਕੜੇ);
+#ਜੇ_ਅੰਤ
 
     /* generate loads */
-    asm_gen_code(operands, nb_operands, nb_outputs, 0, 
-                 clobber_regs, out_reg);    
+    asm_gen_ਕੋਡ(operands, nb_operands, nb_outputs, 0, 
+                 clobber_regs, ਬਾਹਰਲਾ_reg);    
 
     /* We don't allow switching section within inline asm to
        bleed out to surrounding code.  */
-    sec = cur_text_section;
+    sec = cur_ਪਾਠ_section;
     /* assemble the string with tcc internal assembler */
-    tcc_assemble_inline(tcc_state, astr.data, astr.size - 1, 0);
+    tcc_assemble_inline(tcc_state, astr.ਅੰਕੜੇ, astr.ਮਾਪ - 1, 0);
     cstr_free_s(&astr);
-    if (sec != cur_text_section) {
+    ਜੇ (sec != cur_ਪਾਠ_section) {
         tcc_warning("inline asm tries to change current section");
         use_section1(tcc_state, sec);
     }
 
     /* restore the current C token */
-    next();
+    ਅਗਲਾ();
 
     /* store the output values if needed */
-    asm_gen_code(operands, nb_operands, nb_outputs, 1, 
-                 clobber_regs, out_reg);
+    asm_gen_ਕੋਡ(operands, nb_operands, nb_outputs, 1, 
+                 clobber_regs, ਬਾਹਰਲਾ_reg);
     
     /* free everything */
-    for(i=0;i<nb_operands;i++) {
+    ਲਈ(i=0;i<nb_operands;i++) {
         vpop();
     }
 
 }
 
-ST_FUNC void asm_global_instr(void)
+ST_FUNC ਖਾਲੀ asm_global_instr(ਖਾਲੀ)
 {
     CString *astr;
-    int saved_nocode_wanted = nocode_wanted;
+    ਪੂਰਨ saved_nocode_wanted = nocode_wanted;
 
     /* Global asm blocks are always emitted.  */
     nocode_wanted = 0;
-    next();
+    ਅਗਲਾ();
     astr = parse_asm_str();
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    ਜੇ (tok != ';')
         expect("';'");
     
-#ifdef ASM_DEBUG
-    printf("asm_global: \"%s\"\n", (char *)astr->data);
-#endif
-    cur_text_section = text_section;
-    ind = cur_text_section->data_offset;
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ ASM_DEBUG
+    ਲਿਖੋ("asm_global: \"%s\"\n", (ਅੱਖਰ *)astr->ਅੰਕੜੇ);
+#ਜੇ_ਅੰਤ
+    cur_ਪਾਠ_section = ਪਾਠ_section;
+    ind = cur_ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ;
 
     /* assemble the string with tcc internal assembler */
-    tcc_assemble_inline(tcc_state, astr->data, astr->size - 1, 1);
+    tcc_assemble_inline(tcc_state, astr->ਅੰਕੜੇ, astr->ਮਾਪ - 1, 1);
     
-    cur_text_section->data_offset = ind;
+    cur_ਪਾਠ_section->ਅੰਕੜੇ_ਵਿੱਥ = ind;
 
     /* restore the current C token */
-    next();
+    ਅਗਲਾ();
 
     nocode_wanted = saved_nocode_wanted;
 }
 
 /********************************************************/
-#else
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+#ਨਹੀਂਤਾਂ
+ST_FUNC ਪੂਰਨ tcc_assemble(TCCState *s1, ਪੂਰਨ do_preprocess)
 {
     tcc_error("asm not supported");
 }
 
-ST_FUNC void asm_instr(void)
+ST_FUNC ਖਾਲੀ asm_instr(ਖਾਲੀ)
 {
     tcc_error("inline asm() not supported");
 }
 
-ST_FUNC void asm_global_instr(void)
+ST_FUNC ਖਾਲੀ asm_global_instr(ਖਾਲੀ)
 {
     tcc_error("inline asm() not supported");
 }
-#endif /* CONFIG_TCC_ASM */
+#ਜੇ_ਅੰਤ /* CONFIG_TCC_ASM */
