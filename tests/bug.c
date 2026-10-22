@@ -1,35 +1,35 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-int compile_errors(void)
+정수 compile_errors(void)
 {
-#if TEST == 1
+#만약 TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    static 정수 i = (&"Foobar"[1] - &"Foobar"[0]);
   }
 #endif
-#if TEST == 2
+#만약 TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
+    struct{정수 c;}v;
     static long i=((char*)&(v.c)-(char*)&v);
   }
 #endif
-#if TEST == 3
+#만약 TEST == 3
   {
     /* Not constant */
     static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
     void *p = &&l1 + ar[0];
     goto *p;
-   l1: return 1;
-   l2: return 2;
+   l1: 반환 1;
+   l2: 반환 2;
   }
 #endif
-  return 0;
+  반환 0;
 }
 
-int
+정수
 main(void)
 {
 }

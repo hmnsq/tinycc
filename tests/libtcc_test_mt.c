@@ -17,35 +17,35 @@
 #define TF_TYPE(func, param) DWORD WINAPI func(void *param)
 typedef TF_TYPE(ThreadFunc, x);
 HANDLE hh[M];
-void create_thread(ThreadFunc f, int n)
+void create_thread(ThreadFunc f, 정수 n)
 {
     DWORD tid;
     hh[n] = CreateThread(NULL, 0, f, (void*)(size_t)n, 0, &tid);
 }
-void wait_threads(int n)
+void wait_threads(정수 n)
 {
     WaitForMultipleObjects(n, hh, TRUE, INFINITE);
-    while (n)
+    동안 (n)
         CloseHandle(hh[--n]);
 }
 void sleep_ms(unsigned n)
 {
     Sleep(n);
 }
-#else
+#아니면
 #include <sys/time.h>
 #include <unistd.h>
 #include <pthread.h>
 #define TF_TYPE(func, param) void* func(void *param)
 typedef TF_TYPE(ThreadFunc, x);
 pthread_t hh[M];
-void create_thread(ThreadFunc f, int n)
+void create_thread(ThreadFunc f, 정수 n)
 {
     pthread_create(&hh[n], NULL, f, (void*)(size_t)n);
 }
-void wait_threads(int n)
+void wait_threads(정수 n)
 {
-    while (n)
+    동안 (n)
         pthread_join(hh[--n], NULL);
 
 }
@@ -61,9 +61,9 @@ void handle_error(void *opaque, const char *msg)
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+정수 add(정수 a, 정수 b)
 {
-    return a + b;
+    반환 a + b;
 }
 
 #define _str(s) #s
@@ -94,68 +94,68 @@ PROG(my_program)
 "#  warning is this the correct file:line...\n"
 "}\n";
 
-int g_argc; char **g_argv;
+정수 g_argc; char **g_argv;
 
 void parse_args(TCCState *s)
 {
-    int i;
+    정수 i;
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-    for (i = 1; i < g_argc; ++i) {
+    위해 (i = 1; i < g_argc; ++i) {
         char *a = g_argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
+        만약 (a[0] == '-') {
+            만약 (a[1] == 'B')
                 tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
+            아니면 만약 (a[1] == 'I')
                 tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
+            아니면 만약 (a[1] == 'L')
                 tcc_add_library_path(s, a+2);
-            else if (a[1] == 'D')
+            아니면 만약 (a[1] == 'D')
                 tcc_define_symbol(s, a+2, NULL);
         }
     }
 }
 
-int backtrace_func(
+정수 backtrace_func(
     void *ud,
     void *pc,
     const char *file,
-    int line,
+    정수 line,
     const char *func,
     const char *msg)
 {
-#if 0
+#만약 0
     printf("\n  *** %p %s %s:%d in '%s'",
         pc,
         msg ? "at" : "by",
         file ? file : "?",
         line,
         func ? func : "?");
-    return 1; // want more backtrace levels
-#else
+    반환 1; // want more backtrace levels
+#아니면
     //printf(" [%d]", *(int*)ud);
     printf("!");
-    return 0; // cancel backtrace
+    반환 0; // cancel backtrace
 #endif
 }
 
-TCCState *new_state(int w)
+TCCState *new_state(정수 w)
 {
     TCCState *s = tcc_new();
-    if (!s) {
+    만약 (!s) {
         fprintf(stderr, __FILE__ ": could not create tcc state\n");
         exit(1);
     }
     tcc_set_error_func(s, stdout, handle_error);
     parse_args(s);
-    if (0 == (w & 1))
+    만약 (0 == (w & 1))
         tcc_set_options(s, "-w");
-    if (w & 2) {
+    만약 (w & 2) {
         tcc_set_options(s, "-bt");
         tcc_define_symbol(s, "N_CRASH", str(M/2));
-    } else
+    } 아니면
         tcc_define_symbol(s, "N_CRASH", "-1000");
     tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
-    return s;
+    반환 s;
 }
 
 void *reloc_state(TCCState *s, const char *entry)
@@ -163,84 +163,84 @@ void *reloc_state(TCCState *s, const char *entry)
     void *func;
     tcc_add_symbol(s, "add", add);
     tcc_add_symbol(s, "printf", printf);
-    if (tcc_relocate(s) < 0) {
+    만약 (tcc_relocate(s) < 0) {
         fprintf(stderr, __FILE__ ": could not relocate tcc state.\n");
-        return NULL;
+        반환 NULL;
     }
     func = tcc_get_symbol(s, entry);
-    if (!func)
+    만약 (!func)
         fprintf(stderr, __FILE__ ": could not get entry symbol.\n");
-    return func;
+    반환 func;
 }
 
 /* work with several states at the same time */
-int state_test(int w)
+정수 state_test(정수 w)
 {
     TCCState *s[M];
-    int (*funcs[M])(int);
-    int n;
+    정수 (*funcs[M])(정수);
+    정수 n;
     jmp_buf jb;
 
-    for (n = 0; n < M + 4; ++n) {
+    위해 (n = 0; n < M + 4; ++n) {
         unsigned a = n, b = n - 1, c = n - 2, d = n - 3, e = n - 4;
-        if (a < M)
+        만약 (a < M)
             s[a] = new_state(w);
-        if (b < M)
-            if (tcc_compile_string(s[b], my_program) == -1)
+        만약 (b < M)
+            만약 (tcc_compile_string(s[b], my_program) == -1)
                 break;
-        if (c < M)
+        만약 (c < M)
             funcs[c] = reloc_state(s[c], "foo");
-        if (d < M && funcs[d]) {
+        만약 (d < M && funcs[d]) {
             tcc_set_backtrace_func(s[d], &d, backtrace_func);
-            if (0 == tcc_setjmp(s[d], jb, funcs[d]))
+            만약 (0 == tcc_setjmp(s[d], jb, funcs[d]))
                 funcs[d](F(d));
         }
-        if (e < M)
+        만약 (e < M)
             tcc_delete(s[e]);
     }
-    return 0;
+    반환 0;
 }
 
 /* simple compilation in threads */
 TF_TYPE(thread_test_simple, vn)
 {
     TCCState *s;
-    int (*func)(int);
-    int ret;
-    int n = (size_t)vn;
+    정수 (*func)(정수);
+    정수 ret;
+    정수 n = (size_t)vn;
     jmp_buf jb;
 
     s = new_state(0); /* '2' for exceptions */
     sleep_ms(1);
     ret = tcc_compile_string(s, my_program);
     sleep_ms(1);
-    if (ret >= 0) {
+    만약 (ret >= 0) {
         func = reloc_state(s, "foo");
         tcc_set_backtrace_func(s, &n, backtrace_func);
-        if (func) {
-            if (0 == tcc_setjmp(s, jb, func))
+        만약 (func) {
+            만약 (0 == tcc_setjmp(s, jb, func))
                 func(F(n));
         }
     }
     tcc_delete(s);
-    return 0;
+    반환 0;
 }
 
 /* more complex compilation in threads */
 TF_TYPE(thread_test_complex, vn)
 {
     TCCState *s;
-    int ret;
-    int n = (size_t)vn;
+    정수 ret;
+    정수 n = (size_t)vn;
     char *argv[30], b[10];
-    int argc = 0, i;
+    정수 argc = 0, i;
 
     sprintf(b, "%d", F(n));
 
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
-#if 0
+    위해 (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+#만약 0
     argv[argc++] = "-run";
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+    위해 (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
 #endif
     argv[argc++] = "-DFIB";
     argv[argc++] = "-run";
@@ -252,23 +252,23 @@ TF_TYPE(thread_test_complex, vn)
     sleep_ms(2);
     ret = tcc_add_file(s, argv[0]);
     sleep_ms(3);
-    if (ret == 0)
+    만약 (ret == 0)
         tcc_run(s, argc, argv);
     tcc_delete(s);
     fflush(stdout);
-    return 0;
+    반환 0;
 }
 
-void time_tcc(int n, const char *src)
+void time_tcc(정수 n, const char *src)
 {
     TCCState *s;
-    int ret, i = 0;
-    while (i++ < n) {
+    정수 ret, i = 0;
+    동안 (i++ < n) {
         s = new_state(1);
         printf(" %d", i), fflush(stdout);
         ret = tcc_add_file(s, src);
         tcc_delete(s);
-        if (ret < 0)
+        만약 (ret < 0)
             exit(1);
     }
 }
@@ -276,67 +276,67 @@ void time_tcc(int n, const char *src)
 static unsigned getclock_ms(void)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
+    반환 GetTickCount();
+#아니면
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    반환 tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int main(int argc, char **argv)
+정수 main(정수 argc, char **argv)
 {
-    int n;
+    정수 n;
     unsigned t;
 
     g_argc = argc;
     g_argv = argv;
 
-    if (argc < 2) {
+    만약 (argc < 2) {
         fprintf(stderr, "usage: libtcc_test_mt tcc.c <options>\n");
-        return 1;
+        반환 1;
     }
 
-#if 1
+#만약 1
     printf("running fib with mixed calls\n "), fflush(stdout);
     t = getclock_ms();
     state_test(0);
     printf("\n (%u ms)\n", getclock_ms() - t);
 #endif
-#if 1
+#만약 1
     printf("producing some exceptions (!)\n "), fflush(stdout);
     t = getclock_ms();
     state_test(2);
     printf("\n (%u ms)\n", getclock_ms() - t);
 #endif
-#if 1
+#만약 1
     //{ int i; for (i = 0; i < 100; ++i) { printf("(%d) ", i);
     printf("running fib in threads\n "), fflush(stdout);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    위해 (n = 0; n < M; ++n)
         create_thread(thread_test_simple, n);
     wait_threads(n);
     printf("\n (%u ms)\n", getclock_ms() - t);
         //}}
 #endif
-#if 1
+#만약 1
     printf("running tcc.c in threads to run fib\n "), fflush(stdout);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    위해 (n = 0; n < M; ++n)
         create_thread(thread_test_complex, n);
     wait_threads(n);
     printf("\n (%u ms)\n", getclock_ms() - t);
 #endif
-#if 1
+#만약 1
     printf("compiling tcc.c 10 times\n "), fflush(stdout);
     t = getclock_ms();
     time_tcc(10, argv[1]);
     printf("\n (%u ms)\n", getclock_ms() - t), fflush(stdout);
 #endif
-    return 0;
+    반환 0;
 }
 
-#else
+#아니면
 #include <tcclib.h>
 #ifdef _WIN32
 # ifndef _WIN64
@@ -344,20 +344,20 @@ int main(int argc, char **argv)
 # endif
     void Sleep(unsigned);
 # define sleep_ms Sleep
-#else
-    int usleep(unsigned long);
+#아니면
+    정수 usleep(unsigned long);
 # define sleep_ms(x) usleep((x)*1000);
 #endif
 
-int fib(n)
+정수 fib(n)
 {
-    return (n <= 2) ? 1 : fib(n-1) + fib(n-2);
+    반환 (n <= 2) ? 1 : fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+정수 main(정수 argc, char **argv)
 {
     sleep_ms(333);
     printf(" %d", fib(atoi(argv[1])));
-    return 0;
+    반환 0;
 }
 #endif

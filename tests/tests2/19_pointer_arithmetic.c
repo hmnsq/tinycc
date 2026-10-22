@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+정수 main()
 {
-   int a;
-   int *b;
-   int *c;
+   정수 a;
+   정수 *b;
+   정수 *c;
 
    a = 42;
    b = &a;
@@ -12,17 +12,17 @@ int main()
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   만약 (b == NULL)
       printf("b is NULL\n");
-   else
+   아니면
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   만약 (c == NULL)
       printf("c is NULL\n");
-   else
+   아니면
       printf("c is not NULL\n");
 
-   return 0;
+   반환 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,28 +1,28 @@
 #include <stdio.h>
 
-int array[16];
+정수 array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+void swap(정수 a, 정수 b)
 {
-   int tmp  = array[a];
+   정수 tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+정수 partition(정수 left, 정수 right)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   정수 pivotIndex = left;
+   정수 pivotValue = array[pivotIndex];
+   정수 index = left;
+   정수 i;
 
    swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   위해(i = left; i < right; i++)
    {
-      if(array[i] < pivotValue)
+      만약(array[i] < pivotValue)
       {
          swap(i, index);
          index += 1;
@@ -30,23 +30,23 @@ int partition(int left, int right)
    }
    swap(right, index);
 
-   return index;
+   반환 index;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+void quicksort(정수 left, 정수 right)
 {
-   if(left >= right)
-      return;
+   만약(left >= right)
+      반환;
 
-   int index = partition(left, right);
+   정수 index = partition(left, right);
    quicksort(left, index - 1);
    quicksort(index + 1, right);
 }
 
-int main()
+정수 main()
 {
-   int i;
+   정수 i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
+   위해 (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
+   위해 (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
-   return 0;
+   반환 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

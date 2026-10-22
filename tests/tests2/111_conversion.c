@@ -8,10 +8,10 @@ union u {
 void
 conv (union u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (unsigned 정수) p->ld;
 }
 
-int main (void)
+정수 main (void)
 {
     union u v;
     double d = 1234567890.0;
@@ -20,5 +20,5 @@ int main (void)
     conv (&v);
     printf ("%lu\n", v.ul);
     printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    반환 0;
 }

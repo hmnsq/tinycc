@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+정수 main()
 {
-   int a;
-   int p;
-   int t;
+   정수 a;
+   정수 p;
+   정수 t;
 
    a = 1;
    p = 0;
@@ -16,9 +16,9 @@ int main()
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } 동안 (a < 100);
 
-   return 0;
+   반환 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

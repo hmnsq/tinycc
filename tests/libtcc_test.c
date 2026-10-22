@@ -14,9 +14,9 @@ void handle_error(void *opaque, const char *msg)
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+정수 add(정수 a, 정수 b)
 {
-    return a + b;
+    반환 a + b;
 }
 
 /* this strinc is referenced by the generated code */
@@ -45,14 +45,14 @@ char my_program[] =
 "    return 0;\n"
 "}\n";
 
-int main(int argc, char **argv)
+정수 main(정수 argc, char **argv)
 {
     TCCState *s;
-    int i;
-    int (*func)(int);
+    정수 i;
+    정수 (*func)(정수);
 
     s = tcc_new();
-    if (!s) {
+    만약 (!s) {
         fprintf(stderr, "Could not create tcc state\n");
         exit(1);
     }
@@ -61,14 +61,14 @@ int main(int argc, char **argv)
     tcc_set_error_func(s, stderr, handle_error);
 
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-    for (i = 1; i < argc; ++i) {
+    위해 (i = 1; i < argc; ++i) {
         char *a = argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
+        만약 (a[0] == '-') {
+            만약 (a[1] == 'B')
                 tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
+            아니면 만약 (a[1] == 'I')
                 tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
+            아니면 만약 (a[1] == 'L')
                 tcc_add_library_path(s, a+2);
         }
     }
@@ -76,8 +76,8 @@ int main(int argc, char **argv)
     /* MUST BE CALLED before any compilation */
     tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
 
-    if (tcc_compile_string(s, my_program) == -1)
-        return 1;
+    만약 (tcc_compile_string(s, my_program) == -1)
+        반환 1;
 
     /* as a test, we add symbols that the compiled program can use.
        You may also open a dll with tcc_add_dll() and use symbols from that */
@@ -85,13 +85,13 @@ int main(int argc, char **argv)
     tcc_add_symbol(s, "hello", hello);
 
     /* relocate the code */
-    if (tcc_relocate(s) < 0)
-        return 1;
+    만약 (tcc_relocate(s) < 0)
+        반환 1;
 
     /* get entry symbol */
     func = tcc_get_symbol(s, "foo");
-    if (!func)
-        return 1;
+    만약 (!func)
+        반환 1;
 
     /* run the code */
     func(32);
@@ -99,5 +99,5 @@ int main(int argc, char **argv)
     /* delete the state */
     tcc_delete(s);
 
-    return 0;
+    반환 0;
 }

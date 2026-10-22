@@ -1,32 +1,32 @@
 #include <stdio.h>
 
-int main()
+정수 main()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   정수 a[4][4];
+   정수 b = 0;
+   정수 x;
+   정수 y;
 
-   for (x = 0; x < 4; x++)
+   위해 (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      위해 (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   위해 (x = 0; x < 4; x++)
    {
       printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      위해 (y = 0; y < 4; y++)
       {
          printf("%d ", a[x][y]);
       }
       printf("\n");
    }
 
-   return 0;
+   반환 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

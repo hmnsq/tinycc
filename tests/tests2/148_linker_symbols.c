@@ -1,4 +1,4 @@
-int printf(const char *, ...);
+정수 printf(const char *, ...);
 
 #define assert(x) ((x) \
     ? (printf(" 1 (%s)\n",#x),1) \
@@ -8,22 +8,22 @@ int printf(const char *, ...);
 #define SO 200
 
 /* ------------------------------------------------------ */
-#if TEST-O == 1
+#만약 TEST-O == 1
 extern char etext[], _etext[];
 extern char edata[], _edata[];
 extern char end[], _end[];
-int check_linker_symbols(void)
+정수 check_linker_symbols(void)
 {
-    int errors = 0;
+    정수 errors = 0;
     errors += !assert(etext == _etext);
     errors += !assert(edata == _edata);
     errors += !assert(end == _end);
-    return errors;
+    반환 errors;
 }
 
 #elif TEST-MAIN == 1
-int check_linker_symbols(void);
-int main(void)
+정수 check_linker_symbols(void);
+정수 main(void)
 {
     printf("linker symbols test\n");
     assert(check_linker_symbols() == 0);
@@ -42,10 +42,10 @@ void get_dso_end(char **p)
 #elif TEST-MAIN == 2
 extern char _etext[], _edata[], _end[];
 extern void get_dso_end(char **);
-static int fill_data = 123;
-static int fill_bss;
+static 정수 fill_data = 123;
+static 정수 fill_bss;
 
-int main(void)
+정수 main(void)
 {
     char *p[3];
     printf("DSO linker symbols test\n");
@@ -58,10 +58,10 @@ int main(void)
 /* ------------------------------------------------------ */
 #elif TEST-MAIN == 3
 
-int etext(void) { return 1; }
-int edata(void) { return 2; }
-int end(void) { return 3; }
-int main(void)
+정수 etext(void) { 반환 1; }
+정수 edata(void) { 반환 2; }
+정수 end(void) { 반환 3; }
+정수 main(void)
 {
     printf("user definition test\n");
     assert(etext() + edata() + end() == 6);
@@ -75,7 +75,7 @@ unsigned char copy_reloc_data[257];
 extern unsigned char copy_reloc_data[257];
 extern char end[], _end[];
 
-int main(void)
+정수 main(void)
 {
     unsigned long data_end;
     printf("end copy relocation test\n");
@@ -106,7 +106,7 @@ extern char etext[], _etext[];
 extern char edata[], _edata[];
 extern char end[], _end[];
 
-int main(void)
+정수 main(void)
 {
     char* text_addr = (void*)linker_test_text;
     char* data_end = linker_test_data + sizeof linker_test_data;
@@ -128,19 +128,19 @@ int main(void)
 
 /* ------------------------------------------------------ */
 #elif TEST-SO == 6
-int end;
-int eight = 8;
-int nine;
-int dso_add() { return end + eight + nine; }
+정수 end;
+정수 eight = 8;
+정수 nine;
+정수 dso_add() { 반환 end + eight + nine; }
 
 #elif TEST-MAIN == 6
-int end = 7;
-int eight;
-int nine = 9;
-int dso_add();
-int main()
+정수 end = 7;
+정수 eight;
+정수 nine = 9;
+정수 dso_add();
+정수 main()
 {
-    int sum;
+    정수 sum;
     printf("DSO initialized data test\n");
     sum = dso_add();
     assert(end == 7);

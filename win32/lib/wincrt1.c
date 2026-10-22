@@ -9,60 +9,60 @@
 #define __UNKNOWN_APP    0
 #define __CONSOLE_APP    1
 #define __GUI_APP        2
-void __set_app_type(int);
+void __set_app_type(정수);
 void _controlfp(unsigned a, unsigned b);
 
 #ifdef _UNICODE
 #define __tgetmainargs __wgetmainargs
 #define _twinstart _wwinstart
 #define _runtwinmain _runwwinmain
-int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int);
-#else
+정수 APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, 정수);
+#아니면
 #define __tgetmainargs __getmainargs
 #define _twinstart _winstart
 #define _runtwinmain _runwinmain
 #endif
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
+typedef struct { 정수 newmode; } _startupinfo;
+정수 __cdecl __tgetmainargs(정수 *pargc, _TCHAR ***pargv, _TCHAR ***penv, 정수 globb, _startupinfo*);
 
 #include "crtinit.c"
 
-static int go_winmain(TCHAR *arg1)
+static 정수 go_winmain(TCHAR *arg1)
 {
     STARTUPINFO si;
     _TCHAR *szCmd, *p;
-    int fShow;
-    int retval;
+    정수 fShow;
+    정수 retval;
 
     GetStartupInfo(&si);
-    if (si.dwFlags & STARTF_USESHOWWINDOW)
+    만약 (si.dwFlags & STARTF_USESHOWWINDOW)
         fShow = si.wShowWindow;
-    else
+    아니면
         fShow = SW_SHOWDEFAULT;
 
     szCmd = NULL, p = GetCommandLine();
-    if (arg1)
+    만약 (arg1)
         szCmd = _tcsstr(p, arg1);
-    if (NULL == szCmd)
+    만약 (NULL == szCmd)
         szCmd = _tcsdup(__T(""));
-    else if (szCmd > p && szCmd[-1] == __T('"'))
+    아니면 만약 (szCmd > p && szCmd[-1] == __T('"'))
         --szCmd;
-#if defined __i386__ || defined __x86_64__
+#만약 defined __i386__ || defined __x86_64__
     _controlfp(0x10000, 0x30000);
 #endif
     run_ctors(__argc, __targv, _tenviron);
     retval = _tWinMain(GetModuleHandle(NULL), NULL, szCmd, fShow);
     run_dtors();
-    return retval;
+    반환 retval;
 }
 
 static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  반환 _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
 }
 
-int _twinstart(void)
+정수 _twinstart(void)
 {
     _startupinfo start_info_con = {0};
     SetUnhandledExceptionFilter(catch_sig);
@@ -71,16 +71,16 @@ int _twinstart(void)
     exit(go_winmain(__argc > 1 ? __targv[1] : NULL));
 }
 
-int _runtwinmain(int argc, /* as tcc passed in */ char **argv)
+정수 _runtwinmain(정수 argc, /* as tcc passed in */ char **argv)
 {
 #ifdef UNICODE
     _startupinfo start_info = {0};
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc)
+    만약 (argc < __argc)
         __targv += __argc - argc, __argc = argc;
-#else
+#아니면
     __argc = argc, __targv = argv;
 #endif
-    return go_winmain(__argc > 1 ? __targv[1] : NULL);
+    반환 go_winmain(__argc > 1 ? __targv[1] : NULL);
 }

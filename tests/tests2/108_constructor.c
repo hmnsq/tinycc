@@ -1,4 +1,4 @@
-extern int write (int fd, void *buf, int len);
+extern 정수 write (정수 fd, void *buf, 정수 len);
 
 static void __attribute__ ((constructor))
 testc (void)
@@ -12,9 +12,9 @@ testd (void)
   write (1, "destructor\n", 11);
 }
 
-int
+정수
 main (void)
 {
   write (1, "main\n", 5);
-  return 0;
+  반환 0;
 }

@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#아니면
 # define _
 #endif
 
-extern int printf (const char *, ...);
+extern 정수 printf (const char *, ...);
 extern void vide(void);
 __asm__(_"vide: ret");
 
-int main() {
+정수 main() {
     vide();
     printf ("okay\n");
-    return 0;
+    반환 0;
 }

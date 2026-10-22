@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <setjmp.h>
-#if !defined(_WIN32)
+#만약 !defined(_WIN32)
 #include <pthread.h>
-#else
+#아니면
 #include <windows.h>
 #endif
 
 #define	SIZE	10
 #define	COUNT	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   정수 i, a[2], b[2];                \
+              위해 (i = 0; i < 2; i++) a[i] = 0; \
+              위해 (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+static 정수 count[SIZE];
 
 static void tst1 (jmp_buf loc)
 {
@@ -34,51 +34,51 @@ static void tst2(jmp_buf loc)
 static void *tst (void * index)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    정수 i = *(정수 *) index;
+    static 정수 v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    위해 (v[i] = 0; v[i] < COUNT; v[i]++) {
+        만약 (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
+        아니면 {
             count[i]++;
         }
-        i = *(int *) index;
+        i = *(정수 *) index;
     }
-    return NULL;
+    반환 NULL;
 }
 
-int
+정수
 main (void)
 {
-    int i;
-#if !defined(_WIN32)
+    정수 i;
+#만약 !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#아니면
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    정수 index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    위해 (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
+#만약 !defined(_WIN32)
         pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
+#아니면
         id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
+    위해 (i = 0; i < SIZE; i++) {
+#만약 !defined(_WIN32)
         pthread_join (id[i], NULL);
-#else
+#아니면
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
+    위해 (i = 0; i < SIZE; i++) {
+        만약 (count[i] != COUNT)
             printf ("error: %d %d\n", i, count[i]);
     }
-    return 0;
+    반환 0;
 }

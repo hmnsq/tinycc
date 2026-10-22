@@ -34,7 +34,7 @@ extern "C" {
 #ifndef NULL
 #ifdef __cplusplus
 #define NULL 0
-#else
+#아니면
 #define NULL ((void *)0)
 #endif
 #endif
@@ -92,7 +92,7 @@ extern "C" {
 #endif
 
   typedef unsigned long DWORD;
-  typedef int WINBOOL;
+  typedef 정수 WINBOOL;
 #define BOOL WINBOOL
   typedef unsigned char BYTE;
   typedef unsigned short WORD;
@@ -102,8 +102,8 @@ extern "C" {
   typedef WINBOOL *LPBOOL;
   typedef BYTE *PBYTE;
   typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
+  typedef 정수 *PINT;
+  typedef 정수 *LPINT;
   typedef WORD *PWORD;
   typedef WORD *LPWORD;
   typedef long *LPLONG;
@@ -114,9 +114,9 @@ extern "C" {
 #define _LPCVOID_DEFINED
 typedef CONST void *LPCVOID;
 #endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+  typedef 정수 INT;
+  typedef unsigned 정수 UINT;
+  typedef unsigned 정수 *PUINT;
 
 #ifndef NT_INCLUDED
 #include <winnt.h>
@@ -167,10 +167,10 @@ typedef CONST void *LPCVOID;
   typedef INT_PTR (WINAPI *FARPROC)();
   typedef INT_PTR (WINAPI *NEARPROC)();
   typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
+#아니면
+  typedef 정수 (WINAPI *FARPROC)();
+  typedef 정수 (WINAPI *NEARPROC)();
+  typedef 정수 (WINAPI *PROC)();
 #endif
 
   typedef void *HGDIOBJ;
@@ -204,7 +204,7 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
+  typedef 정수 HFILE;
   typedef HICON HCURSOR;
   typedef DWORD COLORREF;
   typedef DWORD *LPCOLORREF;

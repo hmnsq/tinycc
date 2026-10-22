@@ -5,11 +5,11 @@ void fred(void)
    printf("yo\n");
 }
 
-int main()
+정수 main()
 {
    fred();
 
-   return 0;
+   반환 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

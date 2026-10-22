@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-int main()
+정수 main()
 {
-    long long int res = 0;
+    long long 정수 res = 0;
 
-    if (res < -2147483648LL) {
+    만약 (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        반환 1;
     }
-    else
-    if (2147483647LL < res) {
+    아니면
+    만약 (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        반환 2;
     }
-    else
+    아니면
         printf("long long constant test ok.\n");
-    return 0;
+    반환 0;
 }

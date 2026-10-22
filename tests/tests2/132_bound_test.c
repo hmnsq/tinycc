@@ -4,10 +4,10 @@
 union ieee_double_extract
 {
     struct {
-        unsigned int manl:32;
-        unsigned int manh:20;
-        unsigned int exp:11;
-        unsigned int sig:1;
+        unsigned 정수 manl:32;
+        unsigned 정수 manh:20;
+        unsigned 정수 exp:11;
+        unsigned 정수 sig:1;
     } s;
     double d;
 };
@@ -18,7 +18,7 @@ double scale(double d)
 
     x.d = d;
     x.d *= 1000;
-    return x.d;
+    반환 x.d;
 }
 
 void mul(double *p)
@@ -26,12 +26,12 @@ void mul(double *p)
     *p *= 2.0;
 }
 
-int
+정수
 main(void)
 {
     double d = 4.0;
     printf("%g\n", scale(42));
     mul(&d);
     printf("%g\n", d);
-    return 0;
+    반환 0;
 }

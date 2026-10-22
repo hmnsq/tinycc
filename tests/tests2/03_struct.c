@@ -1,4 +1,4 @@
-extern int printf(const char*, ...);
+extern 정수 printf(const char*, ...);
 
 struct fred;
 
@@ -9,11 +9,11 @@ void fred$(struct fred* this)
 
 struct __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   정수 boris;
+   정수 natasha;
 };
 
-int main()
+정수 main()
 {
     struct fred  __attribute__((__cleanup__(fred$))) bloggs;
 
@@ -34,5 +34,5 @@ int main()
    printf("%d\n", jones[1].boris);
    printf("%d\n", jones[1].natasha);
 
-   return 0;
+   반환 0;
 }

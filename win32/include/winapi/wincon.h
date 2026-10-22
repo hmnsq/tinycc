@@ -199,7 +199,7 @@ extern "C" {
 #define GetConsoleAliasExesLength GetConsoleAliasExesLengthW
 #define GetConsoleAliases GetConsoleAliasesW
 #define GetConsoleAliasExes GetConsoleAliasExesW
-#else
+#아니면
 #define PeekConsoleInput PeekConsoleInputA
 #define ReadConsoleInput ReadConsoleInputA
 #define WriteConsoleInput WriteConsoleInputA

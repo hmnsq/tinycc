@@ -9,47 +9,47 @@ struct S const *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+typedef 정수 (*fptr1)();
+정수 f1 (정수 (), 정수);
+typedef 정수 (*fptr2)(정수 x);
+정수 f2 (정수 (정수 x), 정수);
+typedef 정수 (*fptr3)(정수);
+정수 f3 (정수 (정수), 정수);
+typedef 정수 (*fptr4[4])(정수);
+정수 f4 (정수 (*[4])(정수), 정수);
+typedef 정수 (*fptr5)(fptr1);
+정수 f5 (정수 (정수()), fptr1);
+정수 f1 (fptr1 fp, 정수 i)
 {
-  return (*fp)(i);
+  반환 (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+정수 f2 (fptr2 fp, 정수 i)
 {
-  return (*fp)(i);
+  반환 (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+정수 f3 (fptr3 fp, 정수 i)
 {
-  return (*fp)(i);
+  반환 (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+정수 f4 (fptr4 fp, 정수 i)
 {
-  return (*fp[i])(i);
+  반환 (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+정수 f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  반환 fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+typedef 정수 intx4[4];
+정수 f8 (intx4, 정수);
+정수 f8 (정수 ([4]), 정수);
+정수 f8 (정수 y[4], 정수 i)
 {
-  return y[i];
+  반환 y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+정수 f9 (정수 (*)(정수), 정수);
+정수 f9 (정수 ((정수)), 정수);
+정수 f9 (정수 f(정수), 정수 i)
 {
-  return f(i);
+  반환 f(i);
 }
-int main () { return 0; }
+정수 main () { 반환 0; }

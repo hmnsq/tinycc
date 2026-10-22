@@ -1,28 +1,28 @@
 #include <stdatomic.h>
 #include <stdio.h>
 
-static int value_calls;
-static int order_calls;
+static 정수 value_calls;
+static 정수 order_calls;
 
-static int next_value(void)
+static 정수 next_value(void)
 {
     ++value_calls;
-    return 42;
+    반환 42;
 }
 
-static int next_order(void)
+static 정수 next_order(void)
 {
     ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    반환 __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+정수 main(void)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
+    정수 values[2] = {7, 8};
+    정수 index = 0;
+    정수 value = 1;
+    volatile 정수 vol = 0;
+    정수 *pointer = &value;
     void (*signal_fence)(memory_order) = &atomic_signal_fence;
 
     __atomic_store_n(&values[index++], next_value(), next_order());
@@ -41,5 +41,5 @@ int main(void)
     atomic_thread_fence(memory_order_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
     puts("ok");
-    return 0;
+    반환 0;
 }

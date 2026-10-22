@@ -48,7 +48,7 @@ extern "C" {
 
 #define PROVIDER_KEEPS_VALUE_LENGTH 0x1
   struct val_context {
-    int valuelen;
+    정수 valuelen;
     LPVOID value_context;
     LPVOID val_buff_ptr;
   };
@@ -57,14 +57,14 @@ extern "C" {
 
   typedef struct pvalueA {
     LPSTR pv_valuename;
-    int pv_valuelen;
+    정수 pv_valuelen;
     LPVOID pv_value_context;
     DWORD pv_type;
   }PVALUEA,*PPVALUEA;
 
   typedef struct pvalueW {
     LPWSTR pv_valuename;
-    int pv_valuelen;
+    정수 pv_valuelen;
     LPVOID pv_value_context;
     DWORD pv_type;
   }PVALUEW,*PPVALUEW;
@@ -72,7 +72,7 @@ extern "C" {
 #ifdef UNICODE
   typedef PVALUEW PVALUE;
   typedef PPVALUEW PPVALUE;
-#else
+#아니면
   typedef PVALUEA PVALUE;
   typedef PPVALUEA PPVALUE;
 #endif
@@ -109,7 +109,7 @@ extern "C" {
 #ifdef UNICODE
   typedef VALENTW VALENT;
   typedef PVALENTW PVALENT;
-#else
+#아니면
   typedef VALENTA VALENT;
   typedef PVALENTA PVALENT;
 #endif
@@ -144,7 +144,7 @@ extern "C" {
 #define RegGetValue RegGetValueW
 #define InitiateSystemShutdown InitiateSystemShutdownW
 #define AbortSystemShutdown AbortSystemShutdownW
-#else
+#아니면
 #define RegConnectRegistry RegConnectRegistryA
 #define RegConnectRegistryEx RegConnectRegistryExA
 #define RegCreateKey RegCreateKeyA
@@ -255,7 +255,7 @@ extern "C" {
 #ifdef UNICODE
 #define InitiateSystemShutdownEx InitiateSystemShutdownExW
 #define RegSaveKeyEx RegSaveKeyExW
-#else
+#아니면
 #define InitiateSystemShutdownEx InitiateSystemShutdownExA
 #define RegSaveKeyEx RegSaveKeyExA
 #endif

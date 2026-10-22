@@ -17,7 +17,7 @@ extern "C" {
 #ifndef NULL
 #ifdef __cplusplus
 #define NULL 0
-#else
+#아니면
 #define NULL ((void *)0)
 #endif
 #endif
@@ -68,19 +68,19 @@ extern "C" {
 
 #endif
 
-  int __cdecl _configthreadlocale(int _Flag);
-  char *__cdecl setlocale(int _Category,const char *_Locale);
+  정수 __cdecl _configthreadlocale(정수 _Flag);
+  char *__cdecl setlocale(정수 _Category,const char *_Locale);
   _CRTIMP struct lconv *__cdecl localeconv(void);
   _locale_t __cdecl _get_current_locale(void);
-  _locale_t __cdecl _create_locale(int _Category,const char *_Locale);
+  _locale_t __cdecl _create_locale(정수 _Category,const char *_Locale);
   void __cdecl _free_locale(_locale_t _Locale);
   _locale_t __cdecl __get_current_locale(void);
-  _locale_t __cdecl __create_locale(int _Category,const char *_Locale);
+  _locale_t __cdecl __create_locale(정수 _Category,const char *_Locale);
   void __cdecl __free_locale(_locale_t _Locale);
 
 #ifndef _WLOCALE_DEFINED
 #define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
+  _CRTIMP wchar_t *__cdecl _wsetlocale(정수 _Category,const wchar_t *_Locale);
 #endif
 
 #ifdef __cplusplus

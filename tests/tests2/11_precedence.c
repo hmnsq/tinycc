@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+extern 정수 printf(const char *, ...);
 
-int main()
+정수 main()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   정수 a;
+   정수 b;
+   정수 c;
+   정수 d;
+   정수 e;
+   정수 f;
+   정수 x;
+   정수 y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   반환 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

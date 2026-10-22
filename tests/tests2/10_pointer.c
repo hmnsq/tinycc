@@ -2,16 +2,16 @@
 
 struct ziggy
 {
-   int a;
-   int b;
-   int c;
+   정수 a;
+   정수 b;
+   정수 c;
 } bolshevic;
 
-int main()
+정수 main()
 {
-   int a;
-   int *b;
-   int c;
+   정수 a;
+   정수 *b;
+   정수 c;
 
    a = 42;
    b = &a;
@@ -34,7 +34,7 @@ int main()
    b = &(bolshevic.b);
    printf("bolshevic.b = %d\n", *b);
 
-   return 0;
+   반환 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int factorial(int i) 
+정수 factorial(정수 i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   만약 (i < 2)
+      반환 i;
+   아니면
+      반환 i * factorial(i - 1);
 }
 
-int main()
+정수 main()
 {
-   int Count;
+   정수 Count;
 
-   for (Count = 1; Count <= 10; Count++)
+   위해 (Count = 1; Count <= 10; Count++)
       printf("%d\n", factorial(Count));
 
-   return 0;
+   반환 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

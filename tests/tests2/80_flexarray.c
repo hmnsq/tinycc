@@ -3,24 +3,24 @@ struct wchar {
     char *data; char mem[];
 };
 struct wint {
-    char *data; int mem[];
+    char *data; 정수 mem[];
 };
-int f1char (void) {
+정수 f1char (void) {
     char s[9]="nonono";
     struct wchar q = {"bugs"};
-    return !s[0];
+    반환 !s[0];
 }
-int f1int (void) {
+정수 f1int (void) {
     char s[9]="nonono";
     struct wint q = {"bugs"};
-    return !s[0];
+    반환 !s[0];
 }
-int empty[] = {}; // GNU extension
-int main (void) {
+정수 empty[] = {}; // GNU extension
+정수 main (void) {
    char s[9]="nonono";
    static struct wchar q = {"bugs", {'c'}};
    //printf ("tcc has %s %s\n", s, q.data);
-   if (f1char() || f1int())
+   만약 (f1char() || f1int())
      printf ("bla\n");
-   return !s[0];
+   반환 !s[0];
 }

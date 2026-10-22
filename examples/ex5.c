@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main()
+정수 main()
 {
     printf("Hello World\n");
-    return 0;
+    반환 0;
 }

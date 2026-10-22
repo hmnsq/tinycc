@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+정수 main()
 {
-   int a;
+   정수 a;
    char b;
 
    a = 0;
-   while (a < 2)
+   동안 (a < 2)
    {
       printf("%d", a++);
       break;
 
       b = 'A';
-      while (b < 'C')
+      동안 (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   반환 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

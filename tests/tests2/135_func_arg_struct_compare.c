@@ -5,19 +5,19 @@
 
 struct string {
 	char *str;
-	int len;
+	정수 len;
 };
 
-void dummy(struct string fpath, int dump_arg) {
+void dummy(struct string fpath, 정수 dump_arg) {
 }
 
-int main() {
-	int a = 1;
+정수 main() {
+	정수 a = 1;
 	struct string x;
 	x.str = "gg.v";
 	x.len = 4;
 	dummy(x, a == 0);
 	printf("done\n");
-	return 0;
+	반환 0;
 }
 

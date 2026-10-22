@@ -38,7 +38,7 @@ cursor to a previous line.
 /* Print the top line of the digit d into buffer. 
    Does not null terminate buffer. */
 
-void topline(int d, char *p){
+void topline(정수 d, char *p){
 
    *p++ = ' ';
    switch(d){
@@ -64,7 +64,7 @@ void topline(int d, char *p){
 /* Print the middle line of the digit d into the buffer. 
    Does not null terminate. */
 
-void midline(int d, char *p){
+void midline(정수 d, char *p){
 
    switch(d){
 
@@ -120,7 +120,7 @@ void midline(int d, char *p){
 
 /* Print the bottom line of the digit d. Does not null terminate. */
 
-void botline(int d, char *p){
+void botline(정수 d, char *p){
 
 
    switch(d){
@@ -178,23 +178,23 @@ void botline(int d, char *p){
 void print_led(unsigned long x, char *buf)
 {
 
-   int i=0,n;
-   static int d[MAX_DIGITS];
+   정수 i=0,n;
+   static 정수 d[MAX_DIGITS];
 
 
    /* extract digits from x */
 
    n = ( x == 0L ? 1 : 0 );  /* 0 is a digit, hence a special case */
 
-   while(x){
-      d[n++] = (int)(x%10L);
-      if(n >= MAX_DIGITS)break;
+   동안(x){
+      d[n++] = (정수)(x%10L);
+      만약(n >= MAX_DIGITS)break;
       x = x/10L;
    }
 
    /* print top lines of all digits */
 
-   for(i=n-1;i>=0;i--){
+   위해(i=n-1;i>=0;i--){
       topline(d[i],buf);
       buf += 3;
       *buf++=' ';
@@ -203,7 +203,7 @@ void print_led(unsigned long x, char *buf)
 
    /* print middle lines of all digits */
 
-   for(i=n-1;i>=0;i--){
+   위해(i=n-1;i>=0;i--){
       midline(d[i],buf);
       buf += 3;
       *buf++=' ';
@@ -212,7 +212,7 @@ void print_led(unsigned long x, char *buf)
 
    /* print bottom lines of all digits */
 
-   for(i=n-1;i>=0;i--){
+   위해(i=n-1;i>=0;i--){
       botline(d[i],buf);
       buf += 3;
       *buf++=' ';
@@ -221,27 +221,27 @@ void print_led(unsigned long x, char *buf)
    *buf='\0';
 }
 
-int main()
+정수 main()
 {
    char buf[5*MAX_DIGITS];
    print_led(1234567, buf);
    printf("%s\n",buf);
 
-   return 0;
+   반환 0;
 }
 
 #ifndef NO_MAIN
-int main(int argc, char **argv)
+정수 main(정수 argc, char **argv)
 {
 
-   int i=0,n;
+   정수 i=0,n;
    long x;
-   static int d[MAX_DIGITS];
+   static 정수 d[MAX_DIGITS];
    char buf[5*MAX_DIGITS];
 
-   if(argc != 2){
+   만약(argc != 2){
       fprintf(stderr,"led: usage: led integer\n");
-      return 1;
+      반환 1;
    }
 
    /* fetch argument from command line */
@@ -250,15 +250,15 @@ int main(int argc, char **argv)
 
    /* sanity check */
 
-   if(x<0){
+   만약(x<0){
       fprintf(stderr,"led: %d must be non-negative\n",x);
-      return 1;
+      반환 1;
    }
 
    print_led(x,buf);
    printf("%s\n",buf);
 
-   return 0;
+   반환 0;
 
 }
 #endif

@@ -1,24 +1,24 @@
-int printf(const char *s, ...);
+정수 printf(const char *s, ...);
 
 float fx(x)
 float x;
 {
-    return 2.0 * x;
+    반환 2.0 * x;
 }
 
 void func(float a);
 
-void func3(struct p { int a; int b; } *q) {
+void func3(struct p { 정수 a; 정수 b; } *q) {
 }
 
 void func4(q)
- struct p { int a; int b; int c; } *q;
+ struct p { 정수 a; 정수 b; 정수 c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+struct p { 정수 a; 정수 b; 정수 c; 정수 d; };
 
-int
+정수
 main(void)
 {
     float fy();
@@ -31,7 +31,7 @@ main(void)
 float fy(x)
 float x;
 {
-    return 3.0 * x;
+    반환 3.0 * x;
 }
 
 void func(a)

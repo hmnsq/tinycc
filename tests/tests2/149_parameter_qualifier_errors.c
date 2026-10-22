@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+void defined_const(정수 *pointer);
 
-void defined_const(int *const pointer)
+void defined_const(정수 *const pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+정수 main(void)
 {
-    return 0;
+    반환 0;
 }

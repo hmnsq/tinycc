@@ -31,16 +31,16 @@ typedef void TCCErrorFunc(void *opaque, const char *msg);
 LIBTCCAPI void tcc_set_error_func(TCCState *s, void *error_opaque, TCCErrorFunc *error_func);
 
 /* set options as from command line (multiple supported) */
-LIBTCCAPI int tcc_set_options(TCCState *s, const char *str);
+LIBTCCAPI 정수 tcc_set_options(TCCState *s, const char *str);
 
 /*****************************/
 /* preprocessor */
 
 /* add include path */
-LIBTCCAPI int tcc_add_include_path(TCCState *s, const char *pathname);
+LIBTCCAPI 정수 tcc_add_include_path(TCCState *s, const char *pathname);
 
 /* add in system include path */
-LIBTCCAPI int tcc_add_sysinclude_path(TCCState *s, const char *pathname);
+LIBTCCAPI 정수 tcc_add_sysinclude_path(TCCState *s, const char *pathname);
 
 /* define preprocessor symbol 'sym'. value can be NULL, sym can be "sym=val" */
 LIBTCCAPI void tcc_define_symbol(TCCState *s, const char *sym, const char *value);
@@ -52,10 +52,10 @@ LIBTCCAPI void tcc_undefine_symbol(TCCState *s, const char *sym);
 /* compiling */
 
 /* add a file (C file, dll, object, library, ld script). Return -1 if error. */
-LIBTCCAPI int tcc_add_file(TCCState *s, const char *filename);
+LIBTCCAPI 정수 tcc_add_file(TCCState *s, const char *filename);
 
 /* compile a string containing a C source. Return -1 if error. */
-LIBTCCAPI int tcc_compile_string(TCCState *s, const char *buf);
+LIBTCCAPI 정수 tcc_compile_string(TCCState *s, const char *buf);
 
 /* Tip: to have more specific errors/warnings from tcc_compile_string(),
    you can prefix the string with "#line <num> \"<filename>\"\n" */
@@ -64,7 +64,7 @@ LIBTCCAPI int tcc_compile_string(TCCState *s, const char *buf);
 /* linking commands */
 
 /* set output type. MUST BE CALLED before any compilation */
-LIBTCCAPI int tcc_set_output_type(TCCState *s, int output_type);
+LIBTCCAPI 정수 tcc_set_output_type(TCCState *s, 정수 output_type);
 #define TCC_OUTPUT_MEMORY   1 /* output will be run in memory */
 #define TCC_OUTPUT_EXE      2 /* executable file */
 #define TCC_OUTPUT_DLL      4 /* dynamic library */
@@ -72,24 +72,24 @@ LIBTCCAPI int tcc_set_output_type(TCCState *s, int output_type);
 #define TCC_OUTPUT_PREPROCESS 5 /* only preprocess */
 
 /* equivalent to -Lpath option */
-LIBTCCAPI int tcc_add_library_path(TCCState *s, const char *pathname);
+LIBTCCAPI 정수 tcc_add_library_path(TCCState *s, const char *pathname);
 
 /* the library name is the same as the argument of the '-l' option */
-LIBTCCAPI int tcc_add_library(TCCState *s, const char *libraryname);
+LIBTCCAPI 정수 tcc_add_library(TCCState *s, const char *libraryname);
 
 /* add a symbol to the compiled program */
-LIBTCCAPI int tcc_add_symbol(TCCState *s, const char *name, const void *val);
+LIBTCCAPI 정수 tcc_add_symbol(TCCState *s, const char *name, const void *val);
 
 /* output an executable, library or object file. DO NOT call
    tcc_relocate() before. */
-LIBTCCAPI int tcc_output_file(TCCState *s, const char *filename);
+LIBTCCAPI 정수 tcc_output_file(TCCState *s, const char *filename);
 
 /* link and run main() function and return its value. DO NOT call
    tcc_relocate() before. */
-LIBTCCAPI int tcc_run(TCCState *s, int argc, char **argv);
+LIBTCCAPI 정수 tcc_run(TCCState *s, 정수 argc, char **argv);
 
 /* do all relocations (needed before using tcc_get_symbol()) */
-LIBTCCAPI int tcc_relocate(TCCState *s1);
+LIBTCCAPI 정수 tcc_relocate(TCCState *s1);
 
 /* return symbol value or NULL if not found */
 LIBTCCAPI void *tcc_get_symbol(TCCState *s, const char *name);
@@ -106,7 +106,7 @@ LIBTCCAPI void *_tcc_setjmp(TCCState *s1, void *jmp_buf, void *top_func, void *l
 #define tcc_setjmp(s1,jb,f) setjmp(_tcc_setjmp(s1, jb, f, longjmp))
 
 /* custom error printer for runtime exceptions. Returning 0 stops backtrace */
-typedef int TCCBtFunc(void *udata, void *pc, const char *file, int line, const char* func, const char *msg);
+typedef 정수 TCCBtFunc(void *udata, void *pc, const char *file, 정수 line, const char* func, const char *msg);
 LIBTCCAPI void tcc_set_backtrace_func(TCCState *s1, void* userdata, TCCBtFunc*);
 
 #ifdef __cplusplus

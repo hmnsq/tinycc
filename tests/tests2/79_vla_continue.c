@@ -1,56 +1,56 @@
 #include <stdio.h>
 
-int f(void)
+정수 f(void)
 {
-  return 5;
+  반환 5;
 }
 
 void test1()
 {
-  int count = 10;
+  정수 count = 10;
   void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  위해(;count--;) {
+    정수 a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  만약(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 아니면 {
     printf("NOT OK\n");
   }
 }
 
 void test2()
 {
-  int count = 10;
+  정수 count = 10;
   void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  위해(;count--;) {
+    정수 a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  만약(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 아니면 {
     printf("NOT OK\n");
   }
 }
 
 void test3()
 {
-  int count = 10;
+  정수 count = 10;
   void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  동안(count--) {
+      정수 b[f()];
+      만약 (count >= 0) {
+          정수 a[f()];
 
           addr[count] = a;
 
@@ -58,56 +58,56 @@ void test3()
       }
   }
 
-  if(addr[9] == addr[0]) {
+  만약(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 아니면 {
     printf("NOT OK\n");
   }
 }
 
 void test4()
 {
-  int count = 10;
+  정수 count = 10;
   void *addr[count];
   do {
-    int a[f()];
+    정수 a[f()];
 
     addr[--count] = a;
 
     continue;
-  } while (count);
+  } 동안 (count);
 
-  if(addr[9] == addr[0]) {
+  만약(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 아니면 {
     printf("NOT OK\n");
   }
 }
 
 void test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  정수 count = 10;
+  정수 a[f()];
+  정수 c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
+  위해(;count--;) {
+    정수 b[f()];
+    정수 i;
+    위해 (i=0; i<f(); i++) {
       b[i] = count;
     }
   }
 
-  if (c[0] == 42) {
+  만약 (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } 아니면 {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+정수 main(void)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  반환 0;
 }

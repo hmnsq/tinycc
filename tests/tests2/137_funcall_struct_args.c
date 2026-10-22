@@ -11,7 +11,7 @@ void bug(float x, float y) {
 }
 
 float dot(struct vec v) {
-    return 999.5;
+    반환 999.5;
 }
 
 void main(void) {

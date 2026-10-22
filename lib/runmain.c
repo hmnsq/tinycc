@@ -3,17 +3,17 @@
 
 #ifdef __leading_underscore
 # define _(s) s
-#else
+#아니면
 # define _(s) _##s
 #endif
 
 #ifndef _WIN32
-extern void (*_(_init_array_start)[]) (int argc, char **argv, char **envp);
-extern void (*_(_init_array_end)[]) (int argc, char **argv, char **envp);
-static void run_ctors(int argc, char **argv, char **env)
+extern void (*_(_init_array_start)[]) (정수 argc, char **argv, char **envp);
+extern void (*_(_init_array_end)[]) (정수 argc, char **argv, char **envp);
+static void run_ctors(정수 argc, char **argv, char **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
+    정수 i = 0;
+    동안 (&_(_init_array_start)[i] != _(_init_array_end))
         (*_(_init_array_start)[i++])(argc, argv, env);
 }
 #endif
@@ -22,46 +22,46 @@ extern void (*_(_fini_array_start)[]) (void);
 extern void (*_(_fini_array_end)[]) (void);
 static void run_dtors(void)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
+    정수 i = 0;
+    동안 (&_(_fini_array_end)[i] != _(_fini_array_start))
         (*_(_fini_array_end)[--i])();
 }
 
 static void *rt_exitfunc[32];
 static void *rt_exitarg[32];
-static int __rt_nr_exit;
+static 정수 __rt_nr_exit;
 
-void __run_on_exit(int ret)
+void __run_on_exit(정수 ret)
 {
-    int n = __rt_nr_exit;
-    while (n)
-	--n, ((void(*)(int,void*))rt_exitfunc[n])(ret, rt_exitarg[n]);
+    정수 n = __rt_nr_exit;
+    동안 (n)
+	--n, ((void(*)(정수,void*))rt_exitfunc[n])(ret, rt_exitarg[n]);
 }
 
-int on_exit(void *function, void *arg)
+정수 on_exit(void *function, void *arg)
 {
-    int n = __rt_nr_exit;
-    if (n < 32) {
+    정수 n = __rt_nr_exit;
+    만약 (n < 32) {
 	rt_exitfunc[n] = function;
 	rt_exitarg[n] = arg;
         __rt_nr_exit = n + 1;
-        return 0;
+        반환 0;
     }
-    return 1;
+    반환 1;
 }
 
-int atexit(void (*function)(void))
+정수 atexit(void (*function)(void))
 {
-    return on_exit(function, 0);
+    반환 on_exit(function, 0);
 }
 
 typedef struct rt_frame {
     void *ip, *fp, *sp;
 } rt_frame;
 
-__attribute__((noreturn)) void __rt_exit(rt_frame *, int);
+__attribute__((noreturn)) void __rt_exit(rt_frame *, 정수);
 
-void exit(int code)
+void exit(정수 code)
 {
     rt_frame f;
     run_dtors();
@@ -72,15 +72,15 @@ void exit(int code)
 }
 
 #ifndef _WIN32
-int main(int, char**, char**);
+정수 main(정수, char**, char**);
 
-int _runmain(int argc, char **argv, char **envp)
+정수 _runmain(정수 argc, char **argv, char **envp)
 {
-    int ret;
+    정수 ret;
     run_ctors(argc, argv, envp);
     ret = main(argc, argv, envp);
     run_dtors();
     __run_on_exit(ret);
-    return ret;
+    반환 ret;
 }
 #endif

@@ -31,7 +31,7 @@
    to setup our own crt code.  We're not using lazy linking, so even function
    calls are resolved at startup.  */
 
-#if !defined TCC_TARGET_X86_64 && !defined TCC_TARGET_ARM64
+#만약 !defined TCC_TARGET_X86_64 && !defined TCC_TARGET_ARM64
 #error Platform not supported
 #endif
 
@@ -39,7 +39,7 @@
 #undef _tcc_error
 
 #define DEBUG_MACHO 0
-#define dprintf if (DEBUG_MACHO) printf
+#define dprintf 만약 (DEBUG_MACHO) printf
 
 #define MH_EXECUTE              (0x2)
 #define MH_DYLDLINK             (0x4)
@@ -63,8 +63,8 @@ struct fat_header {
 };
 
 struct fat_arch {
-    int             cputype;        /* cpu specifier (int) */
-    int             cpusubtype;     /* machine specifier (int) */
+    정수             cputype;        /* cpu specifier (int) */
+    정수             cpusubtype;     /* machine specifier (int) */
     uint32_t        offset;         /* file offset to this object file */
     uint32_t        size;           /* size of this object file */
     uint32_t        align;          /* alignment as a power of 2 */
@@ -77,8 +77,8 @@ struct fat_arch {
 
 struct mach_header {
     uint32_t        magic;          /* mach magic number identifier */
-    int             cputype;        /* cpu specifier */
-    int             cpusubtype;     /* machine specifier */
+    정수             cputype;        /* cpu specifier */
+    정수             cpusubtype;     /* machine specifier */
     uint32_t        filetype;       /* type of file */
     uint32_t        ncmds;          /* number of load commands */
     uint32_t        sizeofcmds;     /* the size of all the load commands */
@@ -119,7 +119,7 @@ struct load_command {
 
 #define SG_READ_ONLY    0x10 /* This segment is made read-only after fixups */
 
-typedef int vm_prot_t;
+typedef 정수 vm_prot_t;
 
 struct segment_command_64 { /* for 64-bit architectures */
     uint32_t        cmd;            /* LC_SEGMENT_64 */
@@ -422,49 +422,49 @@ struct nlist_64 {
 
 struct macho {
     struct mach_header_64 mh;
-    int *seg2lc, nseg;
+    정수 *seg2lc, nseg;
     struct load_command **lc;
     struct entry_point_command *ep;
-    int nlc;
+    정수 nlc;
     struct {
         Section *s;
-        int machosect;
+        정수 machosect;
     } sk_to_sect[sk_last];
-    int *elfsectomacho;
-    int *e2msym;
+    정수 *elfsectomacho;
+    정수 *e2msym;
     Section *symtab, *strtab, *indirsyms, *stubs, *exports;
     uint32_t ilocal, iextdef, iundef;
-    int stubsym, n_got, nr_plt;
-    int segment[sk_last];
+    정수 stubsym, n_got, nr_plt;
+    정수 segment[sk_last];
 #ifdef CONFIG_NEW_MACHO
     Section *chained_fixups;
-    int n_bind;
-    int n_bind_rebase;
+    정수 n_bind;
+    정수 n_bind_rebase;
     struct bind_rebase {
-	int section;
-	int bind;
+	정수 section;
+	정수 bind;
 	ElfW_Rel rel;
     } *bind_rebase;
-#else
+#아니면
     Section *rebase, *binding, *weak_binding, *lazy_binding;
     Section *stub_helper, *la_symbol_ptr;
     struct dyld_info_command *dyldinfo;
-    int helpsym, lasym, dyld_private, dyld_stub_binder;
-    int n_lazy_bind;    
+    정수 helpsym, lasym, dyld_private, dyld_stub_binder;
+    정수 n_lazy_bind;    
     struct s_lazy_bind {
-        int section;
-        int bind_offset;
-        int la_symbol_offset;
+        정수 section;
+        정수 bind_offset;
+        정수 la_symbol_offset;
         ElfW_Rel rel;
     } *s_lazy_bind;
-    int n_rebase;    
+    정수 n_rebase;    
     struct s_rebase {
-        int section;
+        정수 section;
         ElfW_Rel rel;
     } *s_rebase;
-    int n_bind; 
+    정수 n_bind; 
     struct bind {
-        int section;
+        정수 section;
         ElfW_Rel rel;
     } *bind;
 #endif
@@ -480,7 +480,7 @@ static void * add_lc(struct macho *mo, uint32_t cmd, uint32_t cmdsize)
     lc->cmdsize = cmdsize;
     mo->lc = tcc_realloc(mo->lc, sizeof(mo->lc[0]) * (mo->nlc + 1));
     mo->lc[mo->nlc++] = lc;
-    return lc;
+    반환 lc;
 }
 
 static struct segment_command_64 * add_segment(struct macho *mo, const char *name)
@@ -489,18 +489,18 @@ static struct segment_command_64 * add_segment(struct macho *mo, const char *nam
     strncpy(sc->segname, name, 16);
     mo->seg2lc = tcc_realloc(mo->seg2lc, sizeof(*mo->seg2lc) * (mo->nseg + 1));
     mo->seg2lc[mo->nseg++] = mo->nlc - 1;
-    return sc;
+    반환 sc;
 }
 
-static struct segment_command_64 * get_segment(struct macho *mo, int i)
+static struct segment_command_64 * get_segment(struct macho *mo, 정수 i)
 {
-    return (struct segment_command_64 *) (mo->lc[mo->seg2lc[i]]);
+    반환 (struct segment_command_64 *) (mo->lc[mo->seg2lc[i]]);
 }
 
-static int add_section(struct macho *mo, struct segment_command_64 **_seg, const char *name)
+static 정수 add_section(struct macho *mo, struct segment_command_64 **_seg, const char *name)
 {
     struct segment_command_64 *seg = *_seg;
-    int ret = seg->nsects;
+    정수 ret = seg->nsects;
     struct section_64 *sec;
     seg->nsects++;
     seg->cmdsize += sizeof(*sec);
@@ -510,36 +510,36 @@ static int add_section(struct macho *mo, struct segment_command_64 **_seg, const
     strncpy(sec->sectname, name, 16);
     strncpy(sec->segname, seg->segname, 16);
     *_seg = seg;
-    return ret;
+    반환 ret;
 }
 
-static struct section_64 *get_section(struct segment_command_64 *seg, int i)
+static struct section_64 *get_section(struct segment_command_64 *seg, 정수 i)
 {
-    return (struct section_64*)((char*)seg + sizeof(*seg)) + i;
+    반환 (struct section_64*)((char*)seg + sizeof(*seg)) + i;
 }
 
 static void * add_dylib(struct macho *mo, char *name)
 {
     struct dylib_command *lc;
-    int sz = (sizeof(*lc) + strlen(name) + 1 + 7) & -8;
+    정수 sz = (sizeof(*lc) + strlen(name) + 1 + 7) & -8;
     lc = add_lc(mo, LC_LOAD_DYLIB, sz);
     lc->name = sizeof(*lc);
     strcpy((char*)lc + lc->name, name);
     lc->timestamp = 2;
     lc->current_version = 1 << 16;
     lc->compatibility_version = 1 << 16;
-    return lc;
+    반환 lc;
 }
 
-static int uleb128_size (unsigned long long value)
+static 정수 uleb128_size (unsigned long long value)
 {
-    int size =  0;
+    정수 size =  0;
 
     do {
         value >>= 7;
         size++;
-    } while (value != 0);
-    return size;
+    } 동안 (value != 0);
+    반환 size;
 }
 
 static void write_uleb128(Section *section, uint64_t value)
@@ -550,12 +550,12 @@ static void write_uleb128(Section *section, uint64_t value)
 
         value >>= 7;
         *ptr = byte | (value ? 0x80 : 0);
-    } while (value != 0);
+    } 동안 (value != 0);
 }
 
 static void tcc_macho_add_destructor(TCCState *s1)
 {
-    int init_sym, mh_execute_header, at_exit_sym;
+    정수 init_sym, mh_execute_header, at_exit_sym;
     Section *s;
     ElfW_Rel *rel;
     uint8_t *ptr;
@@ -564,8 +564,8 @@ static void tcc_macho_add_destructor(TCCState *s1)
 				    ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT), 0,
 				    text_section->sh_num, "__mh_execute_header");
     s = find_section(s1, ".fini_array");
-    if (s->data_offset == 0)
-        return; 
+    만약 (s->data_offset == 0)
+        반환; 
     init_sym = put_elf_sym(s1->symtab, text_section->data_offset, 0,
                            ELFW(ST_INFO)(STB_LOCAL, STT_FUNC), 0,
                            text_section->sh_num, "___GLOBAL_init_65535");
@@ -579,7 +579,7 @@ static void tcc_macho_add_destructor(TCCState *s1)
     ptr[2] = 0x89;
     ptr[3] = 0xe5;
     for_each_elem(s->reloc, 0, rel, ElfW_Rel) {
-        int sym_index = ELFW(R_SYM)(rel->r_info);
+        정수 sym_index = ELFW(R_SYM)(rel->r_info);
 
         ptr = section_ptr_add(text_section, 26);
         ptr[0] = 0x48;  // lea destructor(%rip),%rax
@@ -614,7 +614,7 @@ static void tcc_macho_add_destructor(TCCState *s1)
     write32le(ptr, 0xa9bf7bfd);     // stp     x29, x30, [sp, #-16]!
     write32le(ptr + 4, 0x910003fd); // mov     x29, sp
     for_each_elem(s->reloc, 0, rel, ElfW_Rel) {
-        int sym_index = ELFW(R_SYM)(rel->r_info);
+        정수 sym_index = ELFW(R_SYM)(rel->r_info);
 
         ptr = section_ptr_add(text_section, 24);
         put_elf_reloc(s1->symtab, text_section, 
@@ -649,7 +649,7 @@ static void tcc_macho_add_destructor(TCCState *s1)
 }
 
 #ifdef CONFIG_NEW_MACHO
-static void bind_rebase_add(struct macho *mo, int bind, int sh_info,
+static void bind_rebase_add(struct macho *mo, 정수 bind, 정수 sh_info,
 			    ElfW_Rel *rel, struct sym_attr *attr)
 {
     mo->bind_rebase = tcc_realloc(mo->bind_rebase, (mo->n_bind_rebase + 1) *
@@ -657,7 +657,7 @@ static void bind_rebase_add(struct macho *mo, int bind, int sh_info,
     mo->bind_rebase[mo->n_bind_rebase].section = sh_info;
     mo->bind_rebase[mo->n_bind_rebase].bind = bind;
     mo->bind_rebase[mo->n_bind_rebase].rel = *rel;
-    if (attr)
+    만약 (attr)
         mo->bind_rebase[mo->n_bind_rebase].rel.r_offset = attr->got_offset;
     mo->n_bind_rebase++;
     mo->n_bind += bind;
@@ -668,15 +668,15 @@ static void check_relocs(TCCState *s1, struct macho *mo)
     Section *s;
     ElfW_Rel *rel, save_rel;
     ElfW(Sym) *sym;
-    int i, j, type, gotplt_entry, sym_index, for_code;
+    정수 i, j, type, gotplt_entry, sym_index, for_code;
     uint32_t *pi, *goti;
     struct sym_attr *attr;
 
     goti = NULL;
     mo->nr_plt = mo->n_got = 0;
-    for (i = 1; i < s1->nb_sections; i++) {
+    위해 (i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_RELX ||
+        만약 (s->sh_type != SHT_RELX ||
 	    !strncmp(s1->sections[s->sh_info]->name, ".debug_", 7))
             continue;
         for_each_elem(s, 0, rel, ElfW_Rel) {
@@ -689,10 +689,10 @@ static void check_relocs(TCCState *s1, struct macho *mo)
                address due to codegen (i.e. a reloc requiring a got slot).  */
             sym_index = ELFW(R_SYM)(rel->r_info);
             sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-            if (sym->st_shndx == SHN_UNDEF
+            만약 (sym->st_shndx == SHN_UNDEF
                 || gotplt_entry == ALWAYS_GOTPLT_ENTRY) {
                 attr = get_sym_attr(s1, sym_index, 1);
-                if (!attr->dyn_index) {
+                만약 (!attr->dyn_index) {
                     attr->got_offset = s1->got->data_offset;
                     attr->plt_offset = -1;
                     attr->dyn_index = 1; /* used as flag */
@@ -700,14 +700,14 @@ static void check_relocs(TCCState *s1, struct macho *mo)
                     put_elf_reloc(s1->symtab, s1->got, attr->got_offset,
                                   R_JMP_SLOT, sym_index);
 	 	    goti = tcc_realloc(goti, (mo->n_got + 1) * sizeof(*goti));
-                    if (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
-                        if (sym->st_shndx == SHN_UNDEF)
+                    만약 (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
+                        만약 (sym->st_shndx == SHN_UNDEF)
                           tcc_error("unresolved local reference to '%s'",
 				    (char *) symtab_section->link->data + sym->st_name);
 			goti[mo->n_got++] = INDIRECT_SYMBOL_LOCAL;
-                    } else {
+                    } 아니면 {
                         goti[mo->n_got++] = mo->e2msym[sym_index];
-                        if (sym->st_shndx == SHN_UNDEF
+                        만약 (sym->st_shndx == SHN_UNDEF
 #ifdef TCC_TARGET_X86_64
                             && type == R_X86_64_GOTPCREL
 #elif defined TCC_TARGET_ARM64
@@ -718,22 +718,22 @@ static void check_relocs(TCCState *s1, struct macho *mo)
 			    bind_rebase_add(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
 			    s1->got->reloc->data_offset -= sizeof (ElfW_Rel);
 			}
-		        if (for_code && sym->st_shndx == SHN_UNDEF)
+		        만약 (for_code && sym->st_shndx == SHN_UNDEF)
 			    s1->got->reloc->data_offset -= sizeof (ElfW_Rel);
 		    }
                 }
-                if (for_code && sym->st_shndx == SHN_UNDEF) {
-		    if ((int)attr->plt_offset < -1) {
+                만약 (for_code && sym->st_shndx == SHN_UNDEF) {
+		    만약 ((정수)attr->plt_offset < -1) {
 			/* remove above bind and replace with plt */
 			mo->bind_rebase[-attr->plt_offset - 2].bind = 2;
 			attr->plt_offset = -1;
 		    }
-                    if (attr->plt_offset == -1) {
+                    만약 (attr->plt_offset == -1) {
                         uint8_t *jmp;
 
                         attr->plt_offset = mo->stubs->data_offset;
 #ifdef TCC_TARGET_X86_64
-                        if (type != R_X86_64_PLT32)
+                        만약 (type != R_X86_64_PLT32)
                              continue;
                         jmp = section_ptr_add(mo->stubs, 6);
                         jmp[0] = 0xff;  /* jmpq *ofs(%rip) */
@@ -742,7 +742,7 @@ static void check_relocs(TCCState *s1, struct macho *mo)
                                       attr->plt_offset + 2,
                                       R_X86_64_GOTPCREL, sym_index);
 #elif defined TCC_TARGET_ARM64
-                        if (type != R_AARCH64_CALL26)
+                        만약 (type != R_AARCH64_CALL26)
                              continue;
                         jmp = section_ptr_add(mo->stubs, 12);
                         put_elf_reloc(s1->symtab, mo->stubs,
@@ -767,16 +767,16 @@ static void check_relocs(TCCState *s1, struct macho *mo)
                     rel->r_addend += attr->plt_offset;
                 }
             }
-	    if (type == R_DATA_PTR || type == R_JMP_SLOT)
+	    만약 (type == R_DATA_PTR || type == R_JMP_SLOT)
 		bind_rebase_add(mo, sym->st_shndx == SHN_UNDEF ? 1 : 0,
 				s->sh_info, &save_rel, NULL);
         }
     }
     /* remove deleted binds */
-    for (i = 0, j = 0; i < mo->n_bind_rebase; i++)
-	if (mo->bind_rebase[i].bind == 2)
+    위해 (i = 0, j = 0; i < mo->n_bind_rebase; i++)
+	만약 (mo->bind_rebase[i].bind == 2)
 	    mo->n_bind--;
-	else
+	아니면
 	    mo->bind_rebase[j++] = mo->bind_rebase[i];
     mo->n_bind_rebase = j;
     pi = section_ptr_add(mo->indirsyms, mo->n_got * sizeof(*pi));
@@ -784,7 +784,7 @@ static void check_relocs(TCCState *s1, struct macho *mo)
     tcc_free(goti);
 }
 
-#else
+#아니면
 
 static void check_relocs(TCCState *s1, struct macho *mo)
 {
@@ -792,8 +792,8 @@ static void check_relocs(TCCState *s1, struct macho *mo)
     Section *s;
     ElfW_Rel *rel, save_rel;
     ElfW(Sym) *sym;
-    int i, type, gotplt_entry, sym_index, for_code;
-    int bind_offset, la_symbol_offset;
+    정수 i, type, gotplt_entry, sym_index, for_code;
+    정수 bind_offset, la_symbol_offset;
     uint32_t *pi, *goti;
     struct sym_attr *attr;
 
@@ -831,9 +831,9 @@ static void check_relocs(TCCState *s1, struct macho *mo)
     
     goti = NULL;
     mo->nr_plt = mo->n_got = 0;
-    for (i = 1; i < s1->nb_sections; i++) {
+    위해 (i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_RELX ||
+        만약 (s->sh_type != SHT_RELX ||
 	    !strncmp(s1->sections[s->sh_info]->name, ".debug_", 7))
             continue;
         for_each_elem(s, 0, rel, ElfW_Rel) {
@@ -846,10 +846,10 @@ static void check_relocs(TCCState *s1, struct macho *mo)
                address due to codegen (i.e. a reloc requiring a got slot).  */
             sym_index = ELFW(R_SYM)(rel->r_info);
             sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-            if (sym->st_shndx == SHN_UNDEF
+            만약 (sym->st_shndx == SHN_UNDEF
                 || gotplt_entry == ALWAYS_GOTPLT_ENTRY) {
                 attr = get_sym_attr(s1, sym_index, 1);
-                if (!attr->dyn_index) {
+                만약 (!attr->dyn_index) {
                     attr->got_offset = s1->got->data_offset;
                     attr->plt_offset = -1;
                     attr->dyn_index = 1; /* used as flag */
@@ -857,14 +857,14 @@ static void check_relocs(TCCState *s1, struct macho *mo)
                     put_elf_reloc(s1->symtab, s1->got, attr->got_offset,
                                   R_JMP_SLOT, sym_index);
 		    goti = tcc_realloc(goti, (mo->n_got + 1) * sizeof(*goti));
-                    if (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
-                        if (sym->st_shndx == SHN_UNDEF)
+                    만약 (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
+                        만약 (sym->st_shndx == SHN_UNDEF)
                           tcc_error("unresolved local reference to '%s'",
 				    (char *) symtab_section->link->data + sym->st_name);
 			goti[mo->n_got++] = INDIRECT_SYMBOL_LOCAL;
-                    } else {
+                    } 아니면 {
 			goti[mo->n_got++] = mo->e2msym[sym_index];
-			if (sym->st_shndx == SHN_UNDEF
+			만약 (sym->st_shndx == SHN_UNDEF
 #ifdef TCC_TARGET_X86_64
 			    && type == R_X86_64_GOTPCREL
 #elif defined TCC_TARGET_ARM64
@@ -883,11 +883,11 @@ static void check_relocs(TCCState *s1, struct macho *mo)
 			}
 		    }
                 }
-                if (for_code && sym->st_shndx == SHN_UNDEF) {
-                    if (attr->plt_offset == -1) {
+                만약 (for_code && sym->st_shndx == SHN_UNDEF) {
+                    만약 (attr->plt_offset == -1) {
                         attr->plt_offset = mo->stubs->data_offset;
 #ifdef TCC_TARGET_X86_64
-			if (type != R_X86_64_PLT32)
+			만약 (type != R_X86_64_PLT32)
 			     continue;
 			/* __stubs */
                         jmp = section_ptr_add(mo->stubs, 6);
@@ -913,7 +913,7 @@ static void check_relocs(TCCState *s1, struct macho *mo)
 				       mo->stub_helper->data_offset - 10);
 			section_ptr_add(mo->la_symbol_ptr, PTR_SIZE);
 #elif defined TCC_TARGET_ARM64
-			if (type != R_AARCH64_CALL26)
+			만약 (type != R_AARCH64_CALL26)
 			     continue;
 			/* __stubs */
                         jmp = section_ptr_add(mo->stubs, 12);
@@ -972,8 +972,8 @@ static void check_relocs(TCCState *s1, struct macho *mo)
                     rel->r_addend += attr->plt_offset;
                 }
             }
-            if (type == R_DATA_PTR || type == R_JMP_SLOT) {
-		if (sym->st_shndx == SHN_UNDEF) {
+            만약 (type == R_DATA_PTR || type == R_JMP_SLOT) {
+		만약 (sym->st_shndx == SHN_UNDEF) {
 		    mo->bind = tcc_realloc(mo->bind,
 					   (mo->n_bind + 1) *
 					   sizeof(struct bind));
@@ -981,7 +981,7 @@ static void check_relocs(TCCState *s1, struct macho *mo)
 		    mo->bind[mo->n_bind].rel = save_rel;
 		    mo->n_bind++;
 		}
-		else {
+		아니면 {
                     mo->s_rebase =
                         tcc_realloc(mo->s_rebase, (mo->n_rebase + 1) *
 				    sizeof(struct s_rebase));
@@ -1000,15 +1000,15 @@ static void check_relocs(TCCState *s1, struct macho *mo)
 }
 #endif
 
-static int check_symbols(TCCState *s1, struct macho *mo)
+static 정수 check_symbols(TCCState *s1, struct macho *mo)
 {
-    int sym_index, sym_end;
-    int ret = 0;
+    정수 sym_index, sym_end;
+    정수 ret = 0;
 
     mo->ilocal = mo->iextdef = mo->iundef = -1;
     sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        int elf_index = ((struct nlist_64 *)mo->symtab->data + sym_index - 1)->n_value;
+    위해 (sym_index = 1; sym_index < sym_end; ++sym_index) {
+        정수 elf_index = ((struct nlist_64 *)mo->symtab->data + sym_index - 1)->n_value;
         ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + elf_index;
         const char *name = (char*)symtab_section->link->data + sym->st_name;
         unsigned type = ELFW(ST_TYPE)(sym->st_info);
@@ -1018,20 +1018,20 @@ static int check_symbols(TCCState *s1, struct macho *mo)
         dprintf("%4d (%4d): %09lx %4d %4d %4d %3d %s\n",
                 sym_index, elf_index, (long)sym->st_value,
                 type, bind, vis, sym->st_shndx, name);
-        if (bind == STB_LOCAL) {
-            if (mo->ilocal == -1)
+        만약 (bind == STB_LOCAL) {
+            만약 (mo->ilocal == -1)
               mo->ilocal = sym_index - 1;
-            if (mo->iextdef != -1 || mo->iundef != -1)
+            만약 (mo->iextdef != -1 || mo->iundef != -1)
               tcc_error("local syms after global ones");
-        } else if (sym->st_shndx != SHN_UNDEF) {
-            if (mo->iextdef == -1)
+        } 아니면 만약 (sym->st_shndx != SHN_UNDEF) {
+            만약 (mo->iextdef == -1)
               mo->iextdef = sym_index - 1;
-            if (mo->iundef != -1)
+            만약 (mo->iundef != -1)
               tcc_error("external defined symbol after undefined");
-        } else if (sym->st_shndx == SHN_UNDEF) {
-            if (mo->iundef == -1)
+        } 아니면 만약 (sym->st_shndx == SHN_UNDEF) {
+            만약 (mo->iundef == -1)
               mo->iundef = sym_index - 1;
-            if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK
+            만약 (ELFW(ST_BIND)(sym->st_info) == STB_WEAK
 		|| s1->output_type != TCC_OUTPUT_EXE
                 || find_elf_sym(s1->dynsymtab_section, name)) {
                 /* Mark the symbol as coming from a dylib so that
@@ -1046,7 +1046,7 @@ static int check_symbols(TCCState *s1, struct macho *mo)
             ret = -1;
         }
     }
-    return ret;
+    반환 ret;
 }
 
 static void convert_symbol(TCCState *s1, struct macho *mo, struct nlist_64 *pn)
@@ -1069,24 +1069,24 @@ static void convert_symbol(TCCState *s1, struct macho *mo, struct nlist_64 *pn)
         tcc_error("unhandled ELF symbol type %d %s",
                   ELFW(ST_TYPE)(sym->st_info), name);
     }
-    if (sym->st_shndx == SHN_UNDEF)
+    만약 (sym->st_shndx == SHN_UNDEF)
       tcc_error("should have been rewritten to SHN_FROMDLL: %s", name);
-    else if (sym->st_shndx == SHN_FROMDLL)
+    아니면 만약 (sym->st_shndx == SHN_FROMDLL)
       n.n_type = N_UNDF, n.n_sect = 0;
-    else if (sym->st_shndx == SHN_ABS)
+    아니면 만약 (sym->st_shndx == SHN_ABS)
       n.n_type = N_ABS, n.n_sect = 0;
-    else if (sym->st_shndx >= SHN_LORESERVE)
+    아니면 만약 (sym->st_shndx >= SHN_LORESERVE)
       tcc_error("unhandled ELF symbol section %d %s", sym->st_shndx, name);
-    else if (!mo->elfsectomacho[sym->st_shndx]) {
-      if (strncmp(s1->sections[sym->st_shndx]->name, ".debug_", 7))
+    아니면 만약 (!mo->elfsectomacho[sym->st_shndx]) {
+      만약 (strncmp(s1->sections[sym->st_shndx]->name, ".debug_", 7))
         tcc_error("ELF section %d(%s) not mapped into Mach-O for symbol %s",
                   sym->st_shndx, s1->sections[sym->st_shndx]->name, name);
     }
-    else
+    아니면
       n.n_sect = mo->elfsectomacho[sym->st_shndx];
-    if (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL)
+    만약 (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL)
       n.n_type |=  N_EXT;
-    else if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
+    아니면 만약 (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
       n.n_desc |= N_WEAK_REF | (n.n_type != N_UNDF ? N_WEAK_DEF : 0);
     n.n_strx = pn->n_strx;
     n.n_value = sym->st_value;
@@ -1100,58 +1100,58 @@ static void convert_symbols(TCCState *s1, struct macho *mo)
         convert_symbol(s1, mo, pn);
 }
 
-static int machosymcmp(const void *_a, const void *_b, void *arg)
+static 정수 machosymcmp(const void *_a, const void *_b, void *arg)
 {
     TCCState *s1 = arg;
-    int ea = ((struct nlist_64 *)_a)->n_value;
-    int eb = ((struct nlist_64 *)_b)->n_value;
+    정수 ea = ((struct nlist_64 *)_a)->n_value;
+    정수 eb = ((struct nlist_64 *)_b)->n_value;
     ElfSym *sa = (ElfSym *)symtab_section->data + ea;
     ElfSym *sb = (ElfSym *)symtab_section->data + eb;
-    int r;
+    정수 r;
     /* locals, then defined externals, then undefined externals, the
        last two sections also by name, otherwise stable sort */
     r = (ELFW(ST_BIND)(sb->st_info) == STB_LOCAL)
         - (ELFW(ST_BIND)(sa->st_info) == STB_LOCAL);
-    if (r)
-      return r;
+    만약 (r)
+      반환 r;
     r = (sa->st_shndx == SHN_UNDEF) - (sb->st_shndx == SHN_UNDEF);
-    if (r)
-      return r;
-    if (ELFW(ST_BIND)(sa->st_info) != STB_LOCAL) {
+    만약 (r)
+      반환 r;
+    만약 (ELFW(ST_BIND)(sa->st_info) != STB_LOCAL) {
         const char * na = (char*)symtab_section->link->data + sa->st_name;
         const char * nb = (char*)symtab_section->link->data + sb->st_name;
         r = strcmp(na, nb);
-        if (r)
-          return r;
+        만약 (r)
+          반환 r;
     }
-    return ea - eb;
+    반환 ea - eb;
 }
 
 /* cannot use qsort because code has to be reentrant */
 static void tcc_qsort (void  *base, size_t nel, size_t width,
-                       int (*comp)(const void *, const void *, void *), void *arg)
+                       정수 (*comp)(const void *, const void *, void *), void *arg)
 {
     size_t wnel, gap, wgap, i, j, k;
     char *a, *b, tmp;
 
     wnel = width * nel;
-    for (gap = 0; ++gap < nel;)
+    위해 (gap = 0; ++gap < nel;)
         gap *= 3;
-    while ( gap /= 3 ) {
+    동안 ( gap /= 3 ) {
         wgap = width * gap;
-        for (i = wgap; i < wnel; i += width) {
-            for (j = i - wgap; ;j -= wgap) {
+        위해 (i = wgap; i < wnel; i += width) {
+            위해 (j = i - wgap; ;j -= wgap) {
                 a = j + (char *)base;
                 b = a + wgap;
-                if ( (*comp)(a, b, arg) <= 0 )
+                만약 ( (*comp)(a, b, arg) <= 0 )
                     break;
                 k = width;
                 do {
                     tmp = *a;
                     *a++ = *b;
                     *b++ = tmp;
-                } while ( --k );
-                if (j < wgap)
+                } 동안 ( --k );
+                만약 (j < wgap)
                     break;
             }
         }
@@ -1160,7 +1160,7 @@ static void tcc_qsort (void  *base, size_t nel, size_t width,
 
 static void create_symtab(TCCState *s1, struct macho *mo)
 {
-    int sym_index, sym_end;
+    정수 sym_index, sym_end;
     struct nlist_64 *pn;
 
     /* Stub creation belongs to check_relocs, but we need to create
@@ -1173,7 +1173,7 @@ static void create_symtab(TCCState *s1, struct macho *mo)
 #ifdef CONFIG_NEW_MACHO
     mo->chained_fixups = new_section(s1, "CHAINED_FIXUPS",
 				     SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
-#else
+#아니면
     mo->stub_helper = new_section(s1, "__stub_helper", SHT_PROGBITS, SHF_ALLOC | SHF_EXECINSTR);
     mo->la_symbol_ptr = new_section(s1, "__la_symbol_ptr", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
     mo->helpsym = put_elf_sym(s1->symtab, 0, 0,
@@ -1203,7 +1203,7 @@ static void create_symtab(TCCState *s1, struct macho *mo)
     put_elf_str(mo->strtab, " "); /* Mach-O starts strtab with a space */
     sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
     pn = section_ptr_add(mo->symtab, sizeof(*pn) * (sym_end - 1));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
+    위해 (sym_index = 1; sym_index < sym_end; ++sym_index) {
         ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + sym_index;
         const char *name = (char*)symtab_section->link->data + sym->st_name;
         pn[sym_index - 1].n_strx = put_elf_str(mo->strtab, name);
@@ -1213,13 +1213,13 @@ static void create_symtab(TCCState *s1, struct macho *mo)
     tcc_qsort(pn, sym_end - 1, sizeof(*pn), machosymcmp, s1);
     mo->e2msym = tcc_malloc(sym_end * sizeof(*mo->e2msym));
     mo->e2msym[0] = -1;
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
+    위해 (sym_index = 1; sym_index < sym_end; ++sym_index) {
         mo->e2msym[pn[sym_index - 1].n_value] = sym_index - 1;
     }
 }
 
 const struct {
-    int seg_initial;
+    정수 seg_initial;
     uint32_t flags;
     const char *name;
 } skinfo[sk_last] = {
@@ -1253,7 +1253,7 @@ const struct {
 #define	START	((uint64_t)1 << 32)
 
 const struct {
-    int used;
+    정수 used;
     const char *name;
     uint64_t vmaddr;
     uint64_t vmsize;
@@ -1274,18 +1274,18 @@ const struct {
 #ifdef CONFIG_NEW_MACHO
 static void calc_fixup_size(TCCState *s1, struct macho *mo)
 {
-    int i, size;
+    정수 i, size;
 
     size = (sizeof(struct dyld_chained_fixups_header) + 7) & -8;
     size += (sizeof(struct dyld_chained_starts_in_image) + (mo->nseg - 1) * sizeof(uint32_t) + 7) & -8;
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
-	int page_count = (get_segment(mo, i)->vmsize + SEG_PAGE_SIZE - 1) / SEG_PAGE_SIZE;
+    위해 (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+	정수 page_count = (get_segment(mo, i)->vmsize + SEG_PAGE_SIZE - 1) / SEG_PAGE_SIZE;
 	size += (sizeof(struct dyld_chained_starts_in_segment) + (page_count - 1) * sizeof(uint16_t) + 7) & -8;
     }
     size += mo->n_bind * sizeof (struct dyld_chained_import) + 1;
-    for (i = 0; i < mo->n_bind_rebase; i++) {
-	if (mo->bind_rebase[i].bind) {
-	    int sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
+    위해 (i = 0; i < mo->n_bind_rebase; i++) {
+	만약 (mo->bind_rebase[i].bind) {
+	    정수 sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
 	    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
 	    const char *name = (char *) symtab_section->link->data + sym->st_name;
 	    size += strlen(name) + 1;
@@ -1295,18 +1295,18 @@ static void calc_fixup_size(TCCState *s1, struct macho *mo)
     section_ptr_add(mo->chained_fixups, size);
 }
 
-#else
+#아니면
 
 static void set_segment_and_offset(TCCState *s1, struct macho *mo, addr_t addr,
-				   uint8_t *ptr, int opcode,
+				   uint8_t *ptr, 정수 opcode,
 				   Section *sec, addr_t offset)
 {
-    int i;
+    정수 i;
     struct segment_command_64 *seg = NULL;
 
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+    위해 (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
 	seg = get_segment(mo, i);
-	if (addr >= seg->vmaddr && addr < (seg->vmaddr + seg->vmsize))
+	만약 (addr >= seg->vmaddr && addr < (seg->vmaddr + seg->vmsize))
 	    break;
     }
     *ptr = opcode | i;
@@ -1315,13 +1315,13 @@ static void set_segment_and_offset(TCCState *s1, struct macho *mo, addr_t addr,
 
 static void bind_rebase(TCCState *s1, struct macho *mo)
 {
-    int i;
+    정수 i;
     uint8_t *ptr;
     ElfW(Sym) *sym;
     const char *name;
 
-    for (i = 0; i < mo->n_lazy_bind; i++) {
-	int sym_index = ELFW(R_SYM)(mo->s_lazy_bind[i].rel.r_info);
+    위해 (i = 0; i < mo->n_lazy_bind; i++) {
+	정수 sym_index = ELFW(R_SYM)(mo->s_lazy_bind[i].rel.r_info);
 
 	sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
 	name = (char *) symtab_section->link->data + sym->st_name;
@@ -1343,7 +1343,7 @@ static void bind_rebase(TCCState *s1, struct macho *mo)
 	*ptr++ = BIND_OPCODE_DO_BIND;
 	*ptr = BIND_OPCODE_DONE;
     }
-    for (i = 0; i < mo->n_rebase; i++) {
+    위해 (i = 0; i < mo->n_rebase; i++) {
 	Section *s = s1->sections[mo->s_rebase[i].section];
 
 	ptr = section_ptr_add(mo->rebase, 2);
@@ -1356,8 +1356,8 @@ static void bind_rebase(TCCState *s1, struct macho *mo)
 	ptr = section_ptr_add(mo->rebase, 1);
 	*ptr = REBASE_OPCODE_DO_REBASE_IMM_TIMES | 1;
     }
-    for (i = 0; i < mo->n_bind; i++) {
-	int sym_index = ELFW(R_SYM)(mo->bind[i].rel.r_info);
+    위해 (i = 0; i < mo->n_bind; i++) {
+	정수 sym_index = ELFW(R_SYM)(mo->bind[i].rel.r_info);
 	Section *s = s1->sections[mo->bind[i].section];
 	Section *binding;
 
@@ -1367,7 +1367,7 @@ static void bind_rebase(TCCState *s1, struct macho *mo)
 	    ? mo->weak_binding : mo->binding;
         ptr = section_ptr_add(binding, 4 + (binding == mo->binding) +
 			     	       strlen(name));
-	if (binding == mo->binding)
+	만약 (binding == mo->binding)
             *ptr++ = BIND_OPCODE_SET_DYLIB_SPECIAL_IMM |
 	             (BIND_SPECIAL_DYLIB_FLAT_LOOKUP & 0xf);
         *ptr++ = BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM |
@@ -1383,15 +1383,15 @@ static void bind_rebase(TCCState *s1, struct macho *mo)
         ptr = section_ptr_add(binding, 1);
         *ptr++ = BIND_OPCODE_DO_BIND;
     }
-    if (mo->rebase->data_offset) {
+    만약 (mo->rebase->data_offset) {
         ptr = section_ptr_add(mo->rebase, 1);
         *ptr = REBASE_OPCODE_DONE;
     }
-    if (mo->binding->data_offset) {
+    만약 (mo->binding->data_offset) {
         ptr = section_ptr_add(mo->binding, 1);
         *ptr = BIND_OPCODE_DONE;
     }
-    if (mo->weak_binding->data_offset) {
+    만약 (mo->weak_binding->data_offset) {
         ptr = section_ptr_add(mo->weak_binding, 1);
         *ptr = BIND_OPCODE_DONE;
     }
@@ -1403,62 +1403,62 @@ static void bind_rebase(TCCState *s1, struct macho *mo)
 
 struct trie_info {
     const char *name;
-    int flag;
+    정수 flag;
     addr_t addr;
-    int str_size;
-    int term_size;
+    정수 str_size;
+    정수 term_size;
 };
 
 struct trie_node {
-    int start;
-    int end;
-    int index_start;
-    int index_end;
-    int n_child;
+    정수 start;
+    정수 end;
+    정수 index_start;
+    정수 index_end;
+    정수 n_child;
     struct trie_node *child;
 };
 
 struct trie_seq {
-    int n_child;
+    정수 n_child;
     struct trie_node *node;
-    int offset;
-    int nest_offset;
+    정수 offset;
+    정수 nest_offset;
 };
 
 static void create_trie(struct trie_node *node,
-                        int from, int to, int index_start,
-                        int n_trie, struct trie_info *trie)
+                        정수 from, 정수 to, 정수 index_start,
+                        정수 n_trie, struct trie_info *trie)
 {
-    int i;
-    int start, end, index_end;
+    정수 i;
+    정수 start, end, index_end;
     char cur;
     struct trie_node *child;
 
-    for (i = from; i < to; i = end) {
+    위해 (i = from; i < to; i = end) {
         cur = trie[i].name[index_start];
         start = i++;
-        for (; i < to; i++)
-            if (cur != trie[i].name[index_start])
+        위해 (; i < to; i++)
+            만약 (cur != trie[i].name[index_start])
                 break;
         end = i;
-        if (start == end - 1 ||
+        만약 (start == end - 1 ||
             (trie[start].name[index_start] &&
              trie[start].name[index_start + 1] == 0))
             index_end = trie[start].str_size - 1;
-        else {
+        아니면 {
             index_end = index_start + 1;
-            for (;;) {
+            위해 (;;) {
                 cur = trie[start].name[index_end];
-                for (i = start + 1; i < end; i++)
-                    if (cur != trie[i].name[index_end])
+                위해 (i = start + 1; i < end; i++)
+                    만약 (cur != trie[i].name[index_end])
                         break;
-                if (trie[start].name[index_end] &&
+                만약 (trie[start].name[index_end] &&
                     trie[start].name[index_end + 1] == 0) {
                     end = start + 1;
                     index_end = trie[start].str_size - 1;
                     break;
                 }
-                if (i != end)
+                만약 (i != end)
                     break;
                 index_end++;
             }
@@ -1474,20 +1474,20 @@ static void create_trie(struct trie_node *node,
         child->n_child = 0;
         child->child = NULL;
         node->n_child++;
-        if (start != end - 1)
+        만약 (start != end - 1)
             create_trie(child, start, end, index_end, n_trie, trie);
     }
 }
 
-static int create_seq(int *offset, int *n_seq, struct trie_seq **seq,
+static 정수 create_seq(정수 *offset, 정수 *n_seq, struct trie_seq **seq,
                         struct trie_node *node,
-                        int n_trie, struct trie_info *trie)
+                        정수 n_trie, struct trie_info *trie)
 {
-    int i, nest_offset, last_seq = *n_seq, retval = *offset;
+    정수 i, nest_offset, last_seq = *n_seq, retval = *offset;
     struct trie_seq *p_seq;
     struct trie_node *p_nest;
 
-    for (i = 0; i < node->n_child; i++) {
+    위해 (i = 0; i < node->n_child; i++) {
         p_nest = &node->child[i];
         *seq = tcc_realloc(*seq, (*n_seq + 1) * sizeof(struct trie_seq));
         p_seq = &(*seq)[(*n_seq)++];
@@ -1498,61 +1498,61 @@ static int create_seq(int *offset, int *n_seq, struct trie_seq **seq,
         *offset += (i == 0 ? 1 + 1 : 0) +
                    p_nest->index_end - p_nest->index_start + 1 + 3;
     }
-    for (i = 0; i < node->n_child; i++) {
+    위해 (i = 0; i < node->n_child; i++) {
         nest_offset =
             create_seq(offset, n_seq, seq, &node->child[i], n_trie, trie);
         p_seq = &(*seq)[last_seq + i];
         p_seq->nest_offset = nest_offset;
     }
-    return retval;
+    반환 retval;
 }
 
 static void node_free(struct trie_node *node)
 {
-    int i;
+    정수 i;
 
-    for (i = 0; i < node->n_child; i++)
+    위해 (i = 0; i < node->n_child; i++)
 	node_free(&node->child[i]);
     tcc_free(node->child);
 }
 
-static int triecmp(const void *_a, const void *_b, void *arg)
+static 정수 triecmp(const void *_a, const void *_b, void *arg)
 {
     struct trie_info *a = (struct trie_info *) _a;
     struct trie_info *b = (struct trie_info *) _b;
-    int len_a = strlen(a->name);
-    int len_b = strlen(b->name);
+    정수 len_a = strlen(a->name);
+    정수 len_b = strlen(b->name);
 
     /* strange sorting needed. Name 'xx' should be after 'xx1' */
-    if (!strncmp(a->name, b->name, len_a < len_b ? len_a : len_b))
-	return len_a < len_b ? 1 : (len_a > len_b ? -1 : 0);
-    return strcmp(a->name, b->name);
+    만약 (!strncmp(a->name, b->name, len_a < len_b ? len_a : len_b))
+	반환 len_a < len_b ? 1 : (len_a > len_b ? -1 : 0);
+    반환 strcmp(a->name, b->name);
 }
 
 static void export_trie(TCCState *s1, struct macho *mo)
 {
-    int i, size, offset = 0, save_offset;
+    정수 i, size, offset = 0, save_offset;
     uint8_t *ptr;
-    int sym_index;
-    int sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    int n_trie = 0, n_seq = 0;
+    정수 sym_index;
+    정수 sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
+    정수 n_trie = 0, n_seq = 0;
     struct trie_info *trie = NULL, *p_trie;
     struct trie_node node, *p_node;
     struct trie_seq *seq = NULL;
     addr_t vm_addr = get_segment(mo, s1->output_type == TCC_OUTPUT_EXE)->vmaddr;
 
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
+    위해 (sym_index = 1; sym_index < sym_end; ++sym_index) {
 	ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + sym_index;
 	const char *name = (char*)symtab_section->link->data + sym->st_name;
 
-	if (sym->st_shndx != SHN_UNDEF && sym->st_shndx < SHN_LORESERVE &&
+	만약 (sym->st_shndx != SHN_UNDEF && sym->st_shndx < SHN_LORESERVE &&
             (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL ||
 	     ELFW(ST_BIND)(sym->st_info) == STB_WEAK)) {
-	    int flag = EXPORT_SYMBOL_FLAGS_KIND_REGULAR;
+	    정수 flag = EXPORT_SYMBOL_FLAGS_KIND_REGULAR;
 	    addr_t addr =
 		sym->st_value + s1->sections[sym->st_shndx]->sh_addr - vm_addr;
 
-	    if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
+	    만약 (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
 		flag |= EXPORT_SYMBOL_FLAGS_WEAK_DEFINITION;
 	    dprintf ("%s %d %llx\n", name, flag, (long long)addr + vm_addr);
 	    trie = tcc_realloc(trie, (n_trie + 1) * sizeof(struct trie_info));
@@ -1564,24 +1564,24 @@ static void export_trie(TCCState *s1, struct macho *mo)
 	    n_trie++;
 	}
     }
-    if (n_trie) {
+    만약 (n_trie) {
         tcc_qsort(trie, n_trie, sizeof(struct trie_info), triecmp, NULL);
 	memset(&node, 0, sizeof(node));
         create_trie(&node, 0, n_trie, 0, n_trie, trie);
 	create_seq(&offset, &n_seq, &seq, &node, n_trie, trie);
         save_offset = offset;
-        for (i = 0; i < n_seq; i++) {
+        위해 (i = 0; i < n_seq; i++) {
             p_node = seq[i].node;
-            if (p_node->n_child == 0) {
+            만약 (p_node->n_child == 0) {
                 p_trie = &trie[p_node->start];
                 seq[i].nest_offset = offset;
                 offset += 1 + p_trie->term_size + 1;
             }
         }
-        for (i = 0; i < n_seq; i++) {
+        위해 (i = 0; i < n_seq; i++) {
             p_node = seq[i].node;
             p_trie = &trie[p_node->start];
-            if (seq[i].n_child >= 0) {
+            만약 (seq[i].n_child >= 0) {
                 section_ptr_add(mo->exports,
 				seq[i].offset - mo->exports->data_offset);
                 ptr = section_ptr_add(mo->exports, 2);
@@ -1595,9 +1595,9 @@ static void export_trie(TCCState *s1, struct macho *mo)
             write_uleb128(mo->exports, seq[i].nest_offset);
         }
         section_ptr_add(mo->exports, save_offset - mo->exports->data_offset);
-        for (i = 0; i < n_seq; i++) {
+        위해 (i = 0; i < n_seq; i++) {
             p_node = seq[i].node;
-            if (p_node->n_child == 0) {
+            만약 (p_node->n_child == 0) {
                 p_trie = &trie[p_node->start];
                 write_uleb128(mo->exports, p_trie->term_size);
                 write_uleb128(mo->exports, p_trie->flag);
@@ -1615,8 +1615,8 @@ static void export_trie(TCCState *s1, struct macho *mo)
 
 static void collect_sections(TCCState *s1, struct macho *mo, const char *filename)
 {
-    int i, sk, numsec;
-    int used_segment[N_SEGMENT];
+    정수 i, sk, numsec;
+    정수 used_segment[N_SEGMENT];
     uint64_t curaddr, fileofs;
     Section *s;
     struct segment_command_64 *seg;
@@ -1633,18 +1633,18 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
     struct dysymtab_command *dysymlc;
     char *str;
 
-    for (i = 0; i < N_SEGMENT; i++)
+    위해 (i = 0; i < N_SEGMENT; i++)
 	used_segment[i] = all_segment[i].used;
 
     memset (mo->sk_to_sect, 0, sizeof(mo->sk_to_sect));
-    for (i = s1->nb_sections; i-- > 1;) {
-        int type, flags;
+    위해 (i = s1->nb_sections; i-- > 1;) {
+        정수 type, flags;
         s = s1->sections[i];
         type = s->sh_type;
         flags = s->sh_flags;
         sk = sk_unknown;
 	/* debug sections have sometimes no SHF_ALLOC */
-        if ((flags & SHF_ALLOC) || !strncmp(s->name, ".debug_", 7)) {
+        만약 ((flags & SHF_ALLOC) || !strncmp(s->name, ".debug_", 7)) {
             switch (type) {
             default:           sk = sk_unknown; break;
             case SHT_INIT_ARRAY: sk = sk_init; break;
@@ -1652,75 +1652,75 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
             case SHT_NOBITS:   sk = sk_bss; break;
             case SHT_SYMTAB:   sk = sk_discard; break;
             case SHT_STRTAB:
-		if (s == stabstr_section)
+		만약 (s == stabstr_section)
 		  sk = sk_stab_str;
-		else
+		아니면
 		  sk = sk_discard;
 		break;
             case SHT_RELX:     sk = sk_discard; break;
             case SHT_LINKEDIT: sk = sk_linkedit; break;
             case SHT_PROGBITS:
-                if (s == mo->stubs)
+                만약 (s == mo->stubs)
                   sk = sk_stubs;
 #ifndef CONFIG_NEW_MACHO
-                else if (s == mo->stub_helper)
+                아니면 만약 (s == mo->stub_helper)
                   sk = sk_stub_helper;
-                else if (s == mo->la_symbol_ptr)
+                아니면 만약 (s == mo->la_symbol_ptr)
                   sk = sk_la_ptr;
 #endif
-                else if (s == rodata_section)
+                아니면 만약 (s == rodata_section)
                   sk = sk_ro_data;
-                else if (s == s1->got)
+                아니면 만약 (s == s1->got)
                   sk = sk_nl_ptr;
-                else if (s == stab_section)
+                아니면 만약 (s == stab_section)
                   sk = sk_stab;
-                else if (s == dwarf_info_section)
+                아니면 만약 (s == dwarf_info_section)
                   sk = sk_debug_info;
-                else if (s == dwarf_abbrev_section)
+                아니면 만약 (s == dwarf_abbrev_section)
                   sk = sk_debug_abbrev;
-                else if (s == dwarf_line_section)
+                아니면 만약 (s == dwarf_line_section)
                   sk = sk_debug_line;
-                else if (s == dwarf_aranges_section)
+                아니면 만약 (s == dwarf_aranges_section)
                   sk = sk_debug_aranges;
-                else if (s == dwarf_str_section)
+                아니면 만약 (s == dwarf_str_section)
                   sk = sk_debug_str;
-                else if (s == dwarf_line_str_section)
+                아니면 만약 (s == dwarf_line_str_section)
                   sk = sk_debug_line_str;
-                else if (flags & SHF_EXECINSTR)
+                아니면 만약 (flags & SHF_EXECINSTR)
                   sk = sk_text;
-                else if (flags & SHF_WRITE)
+                아니면 만약 (flags & SHF_WRITE)
                   sk = sk_rw_data;
-                else
+                아니면
                   sk = sk_ro_data;
                 break;
             }
-        } else
+        } 아니면
           sk = sk_discard;
         s->prev = mo->sk_to_sect[sk].s;
         mo->sk_to_sect[sk].s = s;
 	used_segment[skinfo[sk].seg_initial] = 1;
     }
 
-    if (s1->output_type != TCC_OUTPUT_EXE)
+    만약 (s1->output_type != TCC_OUTPUT_EXE)
 	used_segment[0] = 0;
 
-    for (i = 0; i < N_SEGMENT; i++)
-	if (used_segment[i]) {
+    위해 (i = 0; i < N_SEGMENT; i++)
+	만약 (used_segment[i]) {
 	    seg = add_segment(mo, all_segment[i].name);
-	    if (i == 1 && s1->output_type != TCC_OUTPUT_EXE)
+	    만약 (i == 1 && s1->output_type != TCC_OUTPUT_EXE)
 	        seg->vmaddr = 0;
-	    else
+	    아니면
 	        seg->vmaddr = all_segment[i].vmaddr;
 	    seg->vmsize = all_segment[i].vmsize;
 	    seg->maxprot = all_segment[i].maxprot;
 	    seg->initprot = all_segment[i].initprot;
 	    seg->flags = all_segment[i].flags;
-            for (sk = sk_unknown; sk < sk_last; sk++)
-		if (skinfo[sk].seg_initial == i)
+            위해 (sk = sk_unknown; sk < sk_last; sk++)
+		만약 (skinfo[sk].seg_initial == i)
 	            mo->segment[sk] = mo->nseg - 1;
 	}
 
-    if (s1->output_type != TCC_OUTPUT_EXE) {
+    만약 (s1->output_type != TCC_OUTPUT_EXE) {
 	const char *name = s1->install_name ? s1->install_name : filename;
         i = (sizeof(*dylib) + strlen(name) + 1 + 7) &-8;
         dylib = add_lc(mo, LC_ID_DYLIB, i);
@@ -1739,14 +1739,14 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
 			       sizeof(struct linkedit_data_command));
     export_trie_lc = add_lc(mo, LC_DYLD_EXPORTS_TRIE,
 			    sizeof(struct linkedit_data_command));
-#else
+#아니면
     mo->dyldinfo = add_lc(mo, LC_DYLD_INFO_ONLY, sizeof(*mo->dyldinfo));
 #endif
 
     symlc = add_lc(mo, LC_SYMTAB, sizeof(*symlc));
     dysymlc = add_lc(mo, LC_DYSYMTAB, sizeof(*dysymlc));
 
-    if (s1->output_type == TCC_OUTPUT_EXE) {
+    만약 (s1->output_type == TCC_OUTPUT_EXE) {
         i = (sizeof(*dyldlc) + strlen("/usr/lib/dyld") + 1 + 7) &-8;
         dyldlc = add_lc(mo, LC_LOAD_DYLINKER, i);
         dyldlc->name = sizeof(*dyldlc);
@@ -1763,22 +1763,22 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
     dyldsv = add_lc(mo, LC_SOURCE_VERSION, sizeof(*dyldsv));
     dyldsv->version = 0;
 
-    if (s1->output_type == TCC_OUTPUT_EXE) {
+    만약 (s1->output_type == TCC_OUTPUT_EXE) {
         mo->ep = add_lc(mo, LC_MAIN, sizeof(*mo->ep));
         mo->ep->entryoff = 4096;
     }
 
-    for(i = 0; i < s1->nb_loaded_dlls; i++) {
+    위해(i = 0; i < s1->nb_loaded_dlls; i++) {
         DLLReference *dllref = s1->loaded_dlls[i];
-        if (dllref->level == 0)
+        만약 (dllref->level == 0)
           add_dylib(mo, dllref->name);
     }
 
-    if (s1->rpath) {
+    만약 (s1->rpath) {
 	char *path = s1->rpath, *end;
 	do {
 	    end = strchr(path, ':');
-	    if (!end)
+	    만약 (!end)
 		end = strchr(path, 0);
             i = (sizeof(*rpath) + (end - path) + 1 + 7) &-8;
             rpath = add_lc(mo, LC_RPATH, i);
@@ -1787,7 +1787,7 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
             memcpy(str, path, end - path);
 	    str[end - path] = 0;
 	    path = end + 1;
-	} while (*end);
+	} 동안 (*end);
     }
 
     fileofs = 4096;  /* leave space for mach-o headers */
@@ -1796,95 +1796,95 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
     seg = NULL;
     numsec = 0;
     mo->elfsectomacho = tcc_mallocz(sizeof(*mo->elfsectomacho) * s1->nb_sections);
-    for (sk = sk_unknown; sk < sk_last; sk++) {
+    위해 (sk = sk_unknown; sk < sk_last; sk++) {
         struct section_64 *sec = NULL;
-        if (seg) {
+        만약 (seg) {
             seg->vmsize = curaddr - seg->vmaddr;
             seg->filesize = fileofs - seg->fileoff;
         }
 #ifdef CONFIG_NEW_MACHO
-	if (sk == sk_linkedit) {
+	만약 (sk == sk_linkedit) {
 	    calc_fixup_size(s1, mo);
 	    export_trie(s1, mo);
 	}
-#else
-	if (sk == sk_linkedit) {
+#아니면
+	만약 (sk == sk_linkedit) {
 	    bind_rebase(s1, mo);
 	    export_trie(s1, mo);
 	}
 #endif
-        if (skinfo[sk].seg_initial &&
+        만약 (skinfo[sk].seg_initial &&
 	    (s1->output_type != TCC_OUTPUT_EXE || mo->segment[sk]) &&
 	    mo->sk_to_sect[sk].s) {
             uint64_t al = 0;
-            int si;
+            정수 si;
             seg = get_segment(mo, mo->segment[sk]);
-            if (skinfo[sk].name) {
+            만약 (skinfo[sk].name) {
                 si = add_section(mo, &seg, skinfo[sk].name);
                 numsec++;
                 mo->lc[mo->seg2lc[mo->segment[sk]]] = (struct load_command*)seg;
                 mo->sk_to_sect[sk].machosect = si;
                 sec = get_section(seg, si);
                 sec->flags = skinfo[sk].flags;
-		if (sk == sk_stubs)
+		만약 (sk == sk_stubs)
 #ifdef TCC_TARGET_X86_64
 	    	    sec->reserved2 = 6;
 #elif defined TCC_TARGET_ARM64
 	    	    sec->reserved2 = 12;
 #endif
-		if (sk == sk_nl_ptr)
+		만약 (sk == sk_nl_ptr)
 	    	    sec->reserved1 = mo->nr_plt;
 #ifndef CONFIG_NEW_MACHO
-		if (sk == sk_la_ptr)
+		만약 (sk == sk_la_ptr)
 	    	    sec->reserved1 = mo->nr_plt + mo->n_got;
 #endif
             }
-            if (seg->vmaddr == -1) {
+            만약 (seg->vmaddr == -1) {
                 curaddr = (curaddr + SEG_PAGE_SIZE - 1) & -SEG_PAGE_SIZE;
                 seg->vmaddr = curaddr;
                 fileofs = (fileofs + SEG_PAGE_SIZE - 1) & -SEG_PAGE_SIZE;
                 seg->fileoff = fileofs;
             }
 
-            for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-                int a = exact_log2p1(s->sh_addralign);
-                if (a && al < (a - 1))
+            위해 (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
+                정수 a = exact_log2p1(s->sh_addralign);
+                만약 (a && al < (a - 1))
                   al = a - 1;
                 s->sh_size = s->data_offset;
             }
-            if (sec)
+            만약 (sec)
               sec->align = al;
             al = 1ULL << al;
-            if (al > 4096)
+            만약 (al > 4096)
               tcc_warning("alignment > 4096"), sec->align = 12, al = 4096;
             curaddr = (curaddr + al - 1) & -al;
             fileofs = (fileofs + al - 1) & -al;
-            if (sec) {
+            만약 (sec) {
                 sec->addr = curaddr;
                 sec->offset = fileofs;
             }
-            for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
+            위해 (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
                 al = s->sh_addralign;
                 curaddr = (curaddr + al - 1) & -al;
                 dprintf("%s: curaddr now 0x%lx\n", s->name, (long)curaddr);
                 s->sh_addr = curaddr;
                 curaddr += s->sh_size;
-                if (s->sh_type != SHT_NOBITS) {
+                만약 (s->sh_type != SHT_NOBITS) {
                     fileofs = (fileofs + al - 1) & -al;
                     s->sh_offset = fileofs;
                     fileofs += s->sh_size;
                     dprintf("%s: fileofs now %ld\n", s->name, (long)fileofs);
                 }
-                if (sec)
+                만약 (sec)
                   mo->elfsectomacho[s->sh_num] = numsec;
             }
-            if (sec)
+            만약 (sec)
               sec->size = curaddr - sec->addr;
         }
-        if (DEBUG_MACHO)
-          for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-              int type = s->sh_type;
-              int flags = s->sh_flags;
+        만약 (DEBUG_MACHO)
+          위해 (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
+              정수 type = s->sh_type;
+              정수 flags = s->sh_flags;
               printf("%d section %-16s %-10s %09lx %04x %02d %s,%s,%s\n",
                      sk,
                      s->name,
@@ -1904,7 +1904,7 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
                     );
           }
     }
-    if (seg) {
+    만약 (seg) {
         seg->vmsize = curaddr - seg->vmaddr;
         seg->filesize = fileofs - seg->fileoff;
     }
@@ -1925,32 +1925,32 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
     dysymlc->nindirectsyms = mo->indirsyms->data_offset / sizeof(uint32_t);
 
 #ifdef CONFIG_NEW_MACHO
-    if (mo->chained_fixups->data_offset) {
+    만약 (mo->chained_fixups->data_offset) {
         chained_fixups_lc->dataoff = mo->chained_fixups->sh_offset;
         chained_fixups_lc->datasize = mo->chained_fixups->data_offset;
     }
-    if (mo->exports->data_offset) {
+    만약 (mo->exports->data_offset) {
         export_trie_lc->dataoff = mo->exports->sh_offset;
         export_trie_lc->datasize = mo->exports->data_offset;
     }
-#else
-    if (mo->rebase->data_offset) {
+#아니면
+    만약 (mo->rebase->data_offset) {
         mo->dyldinfo->rebase_off = mo->rebase->sh_offset;
         mo->dyldinfo->rebase_size = mo->rebase->data_offset;
     }
-    if (mo->binding->data_offset) {
+    만약 (mo->binding->data_offset) {
         mo->dyldinfo->bind_off = mo->binding->sh_offset;
         mo->dyldinfo->bind_size = mo->binding->data_offset;
     }
-    if (mo->weak_binding->data_offset) {
+    만약 (mo->weak_binding->data_offset) {
         mo->dyldinfo->weak_bind_off = mo->weak_binding->sh_offset;
         mo->dyldinfo->weak_bind_size = mo->weak_binding->data_offset;
     }
-    if (mo->lazy_binding->data_offset) {
+    만약 (mo->lazy_binding->data_offset) {
         mo->dyldinfo->lazy_bind_off = mo->lazy_binding->sh_offset;
         mo->dyldinfo->lazy_bind_size = mo->lazy_binding->data_offset;
     }
-    if (mo->exports->data_offset) {
+    만약 (mo->exports->data_offset) {
         mo->dyldinfo->export_off = mo->exports->sh_offset;
         mo->dyldinfo->export_size = mo->exports->data_offset;
     }
@@ -1959,7 +1959,7 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
 
 static void macho_write(TCCState *s1, struct macho *mo, FILE *fp)
 {
-    int i, sk;
+    정수 i, sk;
     uint64_t fileofs = 0;
     Section *s;
     mo->mh.mh.magic = MH_MAGIC_64;
@@ -1970,38 +1970,38 @@ static void macho_write(TCCState *s1, struct macho *mo, FILE *fp)
     mo->mh.mh.cputype = CPU_TYPE_ARM64;
     mo->mh.mh.cpusubtype = CPU_SUBTYPE_ARM64_ALL;
 #endif
-    if (s1->output_type == TCC_OUTPUT_EXE) {
+    만약 (s1->output_type == TCC_OUTPUT_EXE) {
         mo->mh.mh.filetype = MH_EXECUTE;
         mo->mh.mh.flags = MH_DYLDLINK | MH_PIE;
     }
-    else {
+    아니면 {
         mo->mh.mh.filetype = MH_DYLIB;
         mo->mh.mh.flags = MH_DYLDLINK;
     }
     mo->mh.mh.ncmds = mo->nlc;
     mo->mh.mh.sizeofcmds = 0;
-    for (i = 0; i < mo->nlc; i++)
+    위해 (i = 0; i < mo->nlc; i++)
       mo->mh.mh.sizeofcmds += mo->lc[i]->cmdsize;
 
     fwrite(&mo->mh, 1, sizeof(mo->mh), fp);
     fileofs += sizeof(mo->mh);
-    for (i = 0; i < mo->nlc; i++) {
+    위해 (i = 0; i < mo->nlc; i++) {
         fwrite(mo->lc[i], 1, mo->lc[i]->cmdsize, fp);
         fileofs += mo->lc[i]->cmdsize;
     }
 
-    for (sk = sk_unknown; sk < sk_last; sk++) {
+    위해 (sk = sk_unknown; sk < sk_last; sk++) {
         //struct segment_command_64 *seg;
-        if (skinfo[sk].seg_initial == 0 ||
+        만약 (skinfo[sk].seg_initial == 0 ||
 	    (s1->output_type == TCC_OUTPUT_EXE && !mo->segment[sk]) ||
 	    !mo->sk_to_sect[sk].s)
           continue;
         /*seg =*/ get_segment(mo, mo->segment[sk]);
-        for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-            if (s->sh_type != SHT_NOBITS) {
-                while (fileofs < s->sh_offset)
+        위해 (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
+            만약 (s->sh_type != SHT_NOBITS) {
+                동안 (fileofs < s->sh_offset)
                   fputc(0, fp), fileofs++;
-                if (s->sh_size) {
+                만약 (s->sh_size) {
                     fwrite(s->data, 1, s->sh_size, fp);
                     fileofs += s->sh_size;
                 }
@@ -2011,7 +2011,7 @@ static void macho_write(TCCState *s1, struct macho *mo, FILE *fp)
 }
 
 #ifdef CONFIG_NEW_MACHO
-static int bind_rebase_cmp(const void *_a, const void *_b, void *arg)
+static 정수 bind_rebase_cmp(const void *_a, const void *_b, void *arg)
 {
     TCCState *s1 = arg;
     struct bind_rebase *a = (struct bind_rebase *) _a;
@@ -2019,12 +2019,12 @@ static int bind_rebase_cmp(const void *_a, const void *_b, void *arg)
     addr_t aa = s1->sections[a->section]->sh_addr + a->rel.r_offset;
     addr_t ab = s1->sections[b->section]->sh_addr + b->rel.r_offset;
 
-    return aa > ab ? 1 : aa < ab ? -1 : 0;
+    반환 aa > ab ? 1 : aa < ab ? -1 : 0;
 }
 
 ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
 {
-    int i, j, k, bind_index, size, page_count, sym_index;
+    정수 i, j, k, bind_index, size, page_count, sym_index;
     const char *name;
     ElfW(Sym) *sym;
     unsigned char *data = mo->chained_fixups->data;
@@ -2036,8 +2036,8 @@ ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
 
     tcc_qsort(mo->bind_rebase, mo->n_bind_rebase, sizeof(struct bind_rebase),
 	      bind_rebase_cmp, s1);
-    for (i = 0; i < mo->n_bind_rebase - 1; i++)
-	if (mo->bind_rebase[i].section == mo->bind_rebase[i + 1].section &&
+    위해 (i = 0; i < mo->n_bind_rebase - 1; i++)
+	만약 (mo->bind_rebase[i].section == mo->bind_rebase[i + 1].section &&
 	    mo->bind_rebase[i].rel.r_offset == mo->bind_rebase[i + 1].rel.r_offset) {
 	    sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
             sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
@@ -2058,7 +2058,7 @@ ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
     image = (struct dyld_chained_starts_in_image *) data;
     data += (size + 7) & -8;
     image->seg_count = mo->nseg;
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+    위해 (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
         image->seg_info_offset[i] = (data - mo->chained_fixups->data) -
 				    header->starts_offset;
 	seg = get_segment(mo, i);
@@ -2069,11 +2069,11 @@ ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
         data += (size + 7) & -8;
         segment->size = size;
         segment->page_size = SEG_PAGE_SIZE;
-#if 1
+#만약 1
 #define	PTR_64_OFFSET 0
 #define	PTR_64_MASK   0x7FFFFFFFFFFULL
         segment->pointer_format = DYLD_CHAINED_PTR_64;
-#else
+#아니면
 #define	PTR_64_OFFSET 0x100000000ULL
 #define	PTR_64_MASK   0xFFFFFFFFFFFFFFULL
         segment->pointer_format = DYLD_CHAINED_PTR_64_OFFSET;
@@ -2084,7 +2084,7 @@ ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
 	// add bind/rebase
 	bind_index = 0;
 	k = 0;
-	for (j = 0; j < page_count; j++) {
+	위해 (j = 0; j < page_count; j++) {
 	    addr_t start = seg->vmaddr + j * SEG_PAGE_SIZE;
 	    addr_t end = start + SEG_PAGE_SIZE;
 	    void *last = NULL;
@@ -2094,23 +2094,23 @@ ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
 	    struct dyld_chained_ptr_64_bind *bind;
 
 	    segment->page_start[j] = DYLD_CHAINED_PTR_START_NONE;
-	    for (; k < mo->n_bind_rebase; k++) {
+	    위해 (; k < mo->n_bind_rebase; k++) {
 	        Section *s = s1->sections[mo->bind_rebase[k].section];
 		addr_t r_offset = mo->bind_rebase[k].rel.r_offset;
 		addr_t addr = s->sh_addr + r_offset;
 
-		if ((addr & 3) ||
+		만약 ((addr & 3) ||
 		    (addr & (SEG_PAGE_SIZE - 1)) > SEG_PAGE_SIZE - PTR_SIZE)
 		    tcc_error("Illegal rel_offset %s %lld",
 			      s->name, (long long)r_offset);
-		if (addr >= end)
+		만약 (addr >= end)
 		    break;
-		if (addr >= start) {
+		만약 (addr >= start) {
 		    cur_o = addr - start;
-	            if (mo->bind_rebase[k].bind) {
-		        if (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
+	            만약 (mo->bind_rebase[k].bind) {
+		        만약 (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
 			    segment->page_start[j] = cur_o;
-		        else {
+		        아니면 {
 			    bind = (struct dyld_chained_ptr_64_bind *) last;
 			    bind->next = (cur_o - last_o) / 4;
 		        }
@@ -2124,10 +2124,10 @@ ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
 		        bind->next = 0;
 		        bind->bind = 1;
 		    }
-		    else {
-		        if (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
+		    아니면 {
+		        만약 (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
 			    segment->page_start[j] = cur_o;
-		        else {
+		        아니면 {
 			    rebase = (struct dyld_chained_ptr_64_rebase *) last;
 			    rebase->next = (cur_o - last_o) / 4;
 		        }
@@ -2139,7 +2139,7 @@ ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
 			      PTR_64_OFFSET;
 		        rebase->target = cur & PTR_64_MASK;
 		        rebase->high8 = cur >> (64 - 8);
-			if (cur != ((uint64_t)rebase->high8 << (64 - 8)) + rebase->target)
+			만약 (cur != ((uint64_t)rebase->high8 << (64 - 8)) + rebase->target)
 			    tcc_error("rebase error");
 		        rebase->reserved = 0;
 		        rebase->next = 0;
@@ -2156,8 +2156,8 @@ ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
     data += mo->n_bind * sizeof (struct dyld_chained_import);
     header->symbols_offset = data - mo->chained_fixups->data;
     data++;
-    for (i = 0, bind_index = 0; i < mo->n_bind_rebase; i++) {
-	if (mo->bind_rebase[i].bind) {
+    위해 (i = 0, bind_index = 0; i < mo->n_bind_rebase; i++) {
+	만약 (mo->bind_rebase[i].bind) {
 	    import[bind_index].lib_ordinal =
 		BIND_SPECIAL_DYLIB_FLAT_LOOKUP & 0xffu;
 	    import[bind_index].name_offset =
@@ -2176,25 +2176,25 @@ ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
 }
 #endif
 
-ST_FUNC int macho_output_file(TCCState *s1, const char *filename)
+ST_FUNC 정수 macho_output_file(TCCState *s1, const char *filename)
 {
-    int fd, mode, file_type;
+    정수 fd, mode, file_type;
     FILE *fp;
-    int i, ret = -1;
+    정수 i, ret = -1;
     struct macho mo;
 
     (void)memset(&mo, 0, sizeof(mo));
 
     file_type = s1->output_type;
-    if (file_type == TCC_OUTPUT_OBJ)
+    만약 (file_type == TCC_OUTPUT_OBJ)
         mode = 0666;
-    else
+    아니면
         mode = 0777;
     unlink(filename);
     fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, mode);
-    if (fd < 0 || (fp = fdopen(fd, "wb")) == NULL) {
+    만약 (fd < 0 || (fp = fdopen(fd, "wb")) == NULL) {
         tcc_error_noabort("could not write '%s: %s'", filename, strerror(errno));
-        return -1;
+        반환 -1;
     }
     tcc_add_runtime(s1);
     tcc_macho_add_destructor(s1);
@@ -2202,15 +2202,15 @@ ST_FUNC int macho_output_file(TCCState *s1, const char *filename)
     create_symtab(s1, &mo);
     check_relocs(s1, &mo);
     ret = check_symbols(s1, &mo);
-    if (!ret) {
-	int save_output = s1->output_type;
+    만약 (!ret) {
+	정수 save_output = s1->output_type;
 
         collect_sections(s1, &mo, filename);
         relocate_syms(s1, s1->symtab, 0);
-	if (s1->output_type == TCC_OUTPUT_EXE)
+	만약 (s1->output_type == TCC_OUTPUT_EXE)
             mo.ep->entryoff = get_sym_addr(s1, "main", 1, 1)
                             -     get_segment(&mo, 1)->vmaddr;
-        if (s1->nb_errors)
+        만약 (s1->nb_errors)
           goto do_ret;
 	// Macho uses bind/rebase instead of dynsym
 	s1->output_type = TCC_OUTPUT_EXE;
@@ -2220,13 +2220,13 @@ ST_FUNC int macho_output_file(TCCState *s1, const char *filename)
 	bind_rebase_import(s1, &mo);
 #endif
         convert_symbols(s1, &mo);
-        if (s1->verbose)
+        만약 (s1->verbose)
             printf("<- %s\n", filename);
         macho_write(s1, &mo, fp);
     }
 
  do_ret:
-    for (i = 0; i < mo.nlc; i++)
+    위해 (i = 0; i < mo.nlc; i++)
       tcc_free(mo.lc[i]);
     tcc_free(mo.seg2lc);
     tcc_free(mo.lc);
@@ -2235,30 +2235,30 @@ ST_FUNC int macho_output_file(TCCState *s1, const char *filename)
 
     fclose(fp);
 #ifdef CONFIG_CODESIGN
-    if (!ret) {
+    만약 (!ret) {
 	char command[1024];
-	int retval;
+	정수 retval;
 
 	snprintf(command, sizeof(command), "codesign -f -s - %s", filename);
 	retval = system (command);
-	if (retval == -1 || !(WIFEXITED(retval) && WEXITSTATUS(retval) == 0))
+	만약 (retval == -1 || !(WIFEXITED(retval) && WEXITSTATUS(retval) == 0))
 	    tcc_error ("command failed '%s'", command);
     }
 #endif
-    return ret;
+    반환 ret;
 }
 
 static uint32_t macho_swap32(uint32_t x)
 {
-  return (x >> 24) | (x << 24) | ((x >> 8) & 0xff00) | ((x & 0xff00) << 8);
+  반환 (x >> 24) | (x << 24) | ((x >> 8) & 0xff00) | ((x & 0xff00) << 8);
 }
 #define SWAP(x) (swap ? macho_swap32(x) : (x))
 #define tbd_parse_movepast(s) \
     (pos = (pos = strstr(pos, s)) ? pos + strlen(s) : NULL)
 #define tbd_parse_movetoany(cs) (pos = strpbrk(pos, cs))
-#define tbd_parse_skipws while (*pos && (*pos==' '||*pos=='\n')) ++pos
-#define tbd_parse_tramplequote if(*pos=='\''||*pos=='"') tbd_parse_trample
-#define tbd_parse_tramplespace if(*pos==' ') tbd_parse_trample
+#define tbd_parse_skipws 동안 (*pos && (*pos==' '||*pos=='\n')) ++pos
+#define tbd_parse_tramplequote 만약(*pos=='\''||*pos=='"') tbd_parse_trample
+#define tbd_parse_tramplespace 만약(*pos==' ') tbd_parse_trample
 #define tbd_parse_trample *pos++=0
 
 #ifdef TCC_IS_NATIVE
@@ -2269,21 +2269,21 @@ ST_FUNC void tcc_add_macos_sdkpath(TCCState* s)
     char *sdkroot = NULL, *pos = NULL;
     void* xcs = dlopen("libxcselect.dylib", RTLD_GLOBAL | RTLD_LAZY);
     CString path;
-    int (*f)(unsigned int, char**) = dlsym(xcs, "xcselect_host_sdk_path");
+    정수 (*f)(unsigned 정수, char**) = dlsym(xcs, "xcselect_host_sdk_path");
     cstr_new(&path);
-    if (f) f(1, &sdkroot);
-    if (sdkroot)
+    만약 (f) f(1, &sdkroot);
+    만약 (sdkroot)
         pos = strstr(sdkroot,"SDKs/MacOSX");
-    if (pos)
-        cstr_printf(&path, "%.*s.sdk/usr/lib", (int)(pos - sdkroot + 11), sdkroot);
+    만약 (pos)
+        cstr_printf(&path, "%.*s.sdk/usr/lib", (정수)(pos - sdkroot + 11), sdkroot);
     /* must use free from libc directly */
 #pragma push_macro("free")
 #undef free
     free(sdkroot);
 #pragma pop_macro("free")
-    if (path.size)
+    만약 (path.size)
         tcc_add_library_path(s, (char*)path.data);
-    else
+    아니면
         tcc_add_library_path(s,
             "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"
             ":" "/Applications/Xcode.app/Developer/SDKs/MacOSX.sdk/usr/lib"
@@ -2291,52 +2291,52 @@ ST_FUNC void tcc_add_macos_sdkpath(TCCState* s)
     cstr_free(&path);
 }
 
-ST_FUNC char* macho_tbd_soname(int fd) {
+ST_FUNC char* macho_tbd_soname(정수 fd) {
     char *soname, *data, *pos;
     char *ret = 0;
     pos = data = tcc_load_text(fd);
-    if (!tbd_parse_movepast("install-name: ")) goto the_end;
+    만약 (!tbd_parse_movepast("install-name: ")) goto the_end;
     tbd_parse_skipws;
     tbd_parse_tramplequote;
     soname = pos;
-    if (!tbd_parse_movetoany("\n \"'")) goto the_end;
+    만약 (!tbd_parse_movetoany("\n \"'")) goto the_end;
     tbd_parse_trample;
     ret = tcc_strdup(soname);
 the_end:
     tcc_free(data);
-    return ret;
+    반환 ret;
 }
 #endif /* TCC_IS_NATIVE */
 
-ST_FUNC int macho_load_tbd(TCCState* s1, int fd, const char* filename, int lev)
+ST_FUNC 정수 macho_load_tbd(TCCState* s1, 정수 fd, const char* filename, 정수 lev)
 {
     char *soname, *data, *pos;
-    int ret = -1;
+    정수 ret = -1;
 
     pos = data = tcc_load_text(fd);
-    if (!tbd_parse_movepast("install-name: ")) goto the_end;
+    만약 (!tbd_parse_movepast("install-name: ")) goto the_end;
     tbd_parse_skipws;
     tbd_parse_tramplequote;
     soname = pos;
-    if (!tbd_parse_movetoany("\n \"'")) goto the_end;
+    만약 (!tbd_parse_movetoany("\n \"'")) goto the_end;
     tbd_parse_trample;
     ret = 0;
-    if (tcc_add_dllref(s1, soname, lev)->found)
+    만약 (tcc_add_dllref(s1, soname, lev)->found)
         goto the_end;
-    while(pos) {
+    동안(pos) {
         char* sym = NULL;
-        int cont = 1;
-        if (!tbd_parse_movepast("symbols: ")) break;
-        if (!tbd_parse_movepast("[")) break;
-        while (cont) {
+        정수 cont = 1;
+        만약 (!tbd_parse_movepast("symbols: ")) break;
+        만약 (!tbd_parse_movepast("[")) break;
+        동안 (cont) {
             tbd_parse_skipws;
             tbd_parse_tramplequote;
             sym = pos;
-            if (!tbd_parse_movetoany(",] \"'")) break;
+            만약 (!tbd_parse_movetoany(",] \"'")) break;
             tbd_parse_tramplequote;
             tbd_parse_tramplespace;
             tbd_parse_skipws;
-            if (*pos==0||*pos==']') cont=0;
+            만약 (*pos==0||*pos==']') cont=0;
             tbd_parse_trample;
             set_elf_sym(s1->dynsymtab_section, 0, 0,
                 ELFW(ST_INFO)(STB_GLOBAL, STT_NOTYPE), 0, SHN_UNDEF, sym);
@@ -2345,10 +2345,10 @@ ST_FUNC int macho_load_tbd(TCCState* s1, int fd, const char* filename, int lev)
 
 the_end:
     tcc_free(data);
-    return ret;
+    반환 ret;
 }
 
-ST_FUNC int macho_load_dll(TCCState * s1, int fd, const char* filename, int lev)
+ST_FUNC 정수 macho_load_dll(TCCState * s1, 정수 fd, const char* filename, 정수 lev)
 {
     unsigned char buf[sizeof(struct mach_header_64)];
     void *buf2;
@@ -2356,7 +2356,7 @@ ST_FUNC int macho_load_dll(TCCState * s1, int fd, const char* filename, int lev)
     struct fat_header fh;
     struct mach_header mh;
     struct load_command *lc;
-    int i, swap = 0;
+    정수 i, swap = 0;
     const char *soname = filename;
     struct nlist_64 *symtab = 0;
     uint32_t nsyms = 0;
@@ -2366,42 +2366,42 @@ ST_FUNC int macho_load_dll(TCCState * s1, int fd, const char* filename, int lev)
     uint32_t nextdef = 0;
 
   again:
-    if (full_read(fd, buf, sizeof(buf)) != sizeof(buf))
-      return -1;
+    만약 (full_read(fd, buf, sizeof(buf)) != sizeof(buf))
+      반환 -1;
     memcpy(&fh, buf, sizeof(fh));
-    if (fh.magic == FAT_MAGIC || fh.magic == FAT_CIGAM) {
+    만약 (fh.magic == FAT_MAGIC || fh.magic == FAT_CIGAM) {
         struct fat_arch *fa = load_data(fd, sizeof(fh),
                                         fh.nfat_arch * sizeof(*fa));
         swap = fh.magic == FAT_CIGAM;
-        for (i = 0; i < SWAP(fh.nfat_arch); i++)
+        위해 (i = 0; i < SWAP(fh.nfat_arch); i++)
 #ifdef TCC_TARGET_X86_64
-          if (SWAP(fa[i].cputype) == CPU_TYPE_X86_64
+          만약 (SWAP(fa[i].cputype) == CPU_TYPE_X86_64
               && SWAP(fa[i].cpusubtype) == CPU_SUBTYPE_X86_ALL)
 #elif defined TCC_TARGET_ARM64
-          if (SWAP(fa[i].cputype) == CPU_TYPE_ARM64
+          만약 (SWAP(fa[i].cputype) == CPU_TYPE_ARM64
               && SWAP(fa[i].cpusubtype) == CPU_SUBTYPE_ARM64_ALL)
 #endif
             break;
-        if (i == SWAP(fh.nfat_arch)) {
+        만약 (i == SWAP(fh.nfat_arch)) {
             tcc_free(fa);
-            return -1;
+            반환 -1;
         }
         machofs = SWAP(fa[i].offset);
         tcc_free(fa);
         lseek(fd, machofs, SEEK_SET);
         goto again;
-    } else if (fh.magic == FAT_MAGIC_64 || fh.magic == FAT_CIGAM_64) {
+    } 아니면 만약 (fh.magic == FAT_MAGIC_64 || fh.magic == FAT_CIGAM_64) {
         tcc_warning("%s: Mach-O fat 64bit files of type 0x%x not handled",
                     filename, fh.magic);
-        return -1;
+        반환 -1;
     }
 
     memcpy(&mh, buf, sizeof(mh));
-    if (mh.magic != MH_MAGIC_64)
-      return -1;
+    만약 (mh.magic != MH_MAGIC_64)
+      반환 -1;
     dprintf("found Mach-O at %d\n", machofs);
     buf2 = load_data(fd, machofs + sizeof(struct mach_header_64), mh.sizeofcmds);
-    for (i = 0, lc = buf2; i < mh.ncmds; i++) {
+    위해 (i = 0, lc = buf2; i < mh.ncmds; i++) {
         dprintf("lc %2d: 0x%08x\n", i, lc->cmd);
         switch (lc->cmd) {
         case LC_SYMTAB:
@@ -2426,11 +2426,11 @@ ST_FUNC int macho_load_dll(TCCState * s1, int fd, const char* filename, int lev)
         {
             struct dylib_command *dc = (struct dylib_command*)lc;
             char *name = (char*)lc + dc->name;
-            int subfd = open(name, O_RDONLY | O_BINARY);
+            정수 subfd = open(name, O_RDONLY | O_BINARY);
             dprintf(" REEXPORT %s\n", name);
-            if (subfd < 0)
+            만약 (subfd < 0)
               tcc_warning("can't open %s (reexported from %s)", name, filename);
-            else {
+            아니면 {
                 /* Hopefully the REEXPORTs never form a cycle, we don't check
                    for that!  */
                 macho_load_dll(s1, subfd, name, lev + 1);
@@ -2449,17 +2449,17 @@ ST_FUNC int macho_load_dll(TCCState * s1, int fd, const char* filename, int lev)
         lc = (struct load_command*) ((char*)lc + lc->cmdsize);
     }
 
-    if (tcc_add_dllref(s1, soname, lev)->found)
+    만약 (tcc_add_dllref(s1, soname, lev)->found)
         goto the_end;
 
-    if (!nsyms || !nextdef)
+    만약 (!nsyms || !nextdef)
       tcc_warning("%s doesn't export any symbols?", filename);
 
     //dprintf("symbols (all):\n");
     dprintf("symbols (exported):\n");
     dprintf("    n: typ sec   desc              value name\n");
     //for (i = 0; i < nsyms; i++) {
-    for (i = iextdef; i < iextdef + nextdef; i++) {
+    위해 (i = iextdef; i < iextdef + nextdef; i++) {
         struct nlist_64 *sym = symtab + i;
         dprintf("%5d: %3d %3d 0x%04x 0x%016lx %s\n",
                 i, sym->n_type, sym->n_sect, sym->n_desc, (long)sym->n_value,
@@ -2473,5 +2473,5 @@ ST_FUNC int macho_load_dll(TCCState * s1, int fd, const char* filename, int lev)
     tcc_free(strtab);
     tcc_free(symtab);
     tcc_free(buf2);
-    return 0;
+    반환 0;
 }

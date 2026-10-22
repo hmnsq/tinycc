@@ -1,24 +1,24 @@
 typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
+extern 정수 printf(const char*, ...);
 extern size_t strlen(const char*);
 char str[] = "blabla";
-int g;
-int main()
+정수 g;
+정수 main()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
+  정수 i = 0;
+#만약 0
+  만약 (g) {
       char buf[strlen(str) + 10];
       buf[0] = 0;
   }
 alabel:
   printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
+#아니면
+  위해 (i = 0; i < 5; i++) {
       switch (i) {
       case 10:
-          if (g) {
+          만약 (g) {
               char buf[strlen(str) + 10];
               buf[0] = 0;
               goto do_cmd;
@@ -36,5 +36,5 @@ alabel:
       }
   }
 #endif
-  return 0;
+  반환 0;
 }

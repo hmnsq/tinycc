@@ -1,13 +1,13 @@
 /* test bound checking code without -run */
 
-int arr[10];
+정수 arr[10];
 
-int
-main(int argc, char **argv)
+정수
+main(정수 argc, char **argv)
 {
-  int i;
+  정수 i;
 
-  for (i = 0; i <= sizeof(arr)/sizeof(arr[0]); i++)
+  위해 (i = 0; i <= sizeof(arr)/sizeof(arr[0]); i++)
         arr[i] = 0;
-  return 0;
+  반환 0;
 }

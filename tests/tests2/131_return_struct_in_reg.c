@@ -27,15 +27,15 @@ struct s_f4 {
 } g_f4 = { 1,2,3,4 };
 
 #define def(S) \
-struct s##S f##S(int x) \
+struct s##S f##S(정수 x) \
 { \
     struct s##S l##S = g##S, *p##S = &l##S; \
-    if (x == 0) \
-        return g##S; \
-    else if (x == 1) \
-        return l##S; \
-    else \
-        return *p##S; \
+    만약 (x == 0) \
+        반환 g##S; \
+    아니면 만약 (x == 1) \
+        반환 l##S; \
+    아니면 \
+        반환 *p##S; \
 }
 
 def(1)
@@ -52,9 +52,9 @@ def(_f4)
         (unsigned long long)l##S.b \
         );
 
-int main()
+정수 main()
 {
-    for (int x = 0;;) {
+    위해 (정수 x = 0;;) {
         chk(1,x);
         chk(2,x);
         chk(4,x);
@@ -62,9 +62,9 @@ int main()
         chk(16,x);
         struct s_f4 l_f4 = f_f4(x);
         printf("%.1f %.1f %.1f %.1f\n", l_f4.a, l_f4.b, l_f4.c, l_f4.d);
-        if (++x > 2)
+        만약 (++x > 2)
             break;
         printf("\n");
     }
-    return 0;
+    반환 0;
 }

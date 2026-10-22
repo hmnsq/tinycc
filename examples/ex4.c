@@ -5,13 +5,13 @@
 
 /* Yes, TCC can use X11 too ! */
 
-int main(int argc, char **argv)
+정수 main(정수 argc, char **argv)
 {
     Display *display;
     Screen *screen;
 
     display = XOpenDisplay("");
-    if (!display) {
+    만약 (!display) {
         fprintf(stderr, "Could not open X11 display\n");
         exit(1);
     }
@@ -22,5 +22,5 @@ int main(int argc, char **argv)
            screen->height,
            screen->root_depth);
     XCloseDisplay(display);
-    return 0;
+    반환 0;
 }

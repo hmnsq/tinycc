@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-static int fred = 1234;
-static int joe;
+static 정수 fred = 1234;
+static 정수 joe;
 
 void henry()
 {
-   static int fred = 4567;
+   static 정수 fred = 4567;
 
    printf("%d\n", fred);
    fred++;
 }
 
-int main()
+정수 main()
 {
    printf("%d\n", fred);
    henry();
@@ -24,7 +24,7 @@ int main()
    printf("%d\n", fred);
    printf("%d\n", joe);
 
-   return 0;
+   반환 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

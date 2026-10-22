@@ -2,10 +2,10 @@
 #include <pthread.h>
 #include <errno.h>
 
-int
+정수
 main(void)
 {
-  int ret;
+  정수 ret;
   pthread_condattr_t attr;
   pthread_cond_t condition;
 
@@ -14,5 +14,5 @@ main(void)
   pthread_condattr_setpshared (&attr, PTHREAD_PROCESS_SHARED);
   printf ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
   pthread_condattr_destroy (&attr);
-  return 0;
+  반환 0;
 }

@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+const 정수 const_return(void);
+volatile 정수 volatile_return(void);
+정수 *restrict restrict_return(void);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, 정수 *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, 정수 *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, 정수 **),
                "restrict is removed from a return type");
 
-int const_return(void)
+정수 const_return(void)
 {
-   return 0;
+   반환 0;
 }
 
-int volatile_return(void)
+정수 volatile_return(void)
 {
-   return 0;
+   반환 0;
 }
 
-int *restrict_return(void)
+정수 *restrict_return(void)
 {
-   return 0;
+   반환 0;
 }
 
-int main(void)
+정수 main(void)
 {
-   return 0;
+   반환 0;
 }

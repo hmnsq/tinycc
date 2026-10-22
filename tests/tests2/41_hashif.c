@@ -1,33 +1,33 @@
 #include <stdio.h>
 
-int main()
+정수 main()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#만약 1
+#만약 0
    printf("a\n");
-#else
+#아니면
    printf("b\n");
 #endif
-#else
-#if 0
+#아니면
+#만약 0
    printf("c\n");
-#else
+#아니면
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#만약 0
+#만약 1
    printf("e\n");
-#else
+#아니면
    printf("f\n");
 #endif
-#else
-#if 1
+#아니면
+#만약 1
    printf("g\n");
-#else
+#아니면
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#아니면
    printf("j\n");
 #endif
-#else
+#아니면
 #ifdef DEF
    printf("k\n");
-#else
+#아니면
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#아니면
    printf("n\n");
 #endif
-#else
+#아니면
 #ifndef DEF
    printf("o\n");
-#else
+#아니면
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#만약 ONE
+#만약 ZERO
    printf("q\n");
-#else
+#아니면
    printf("r\n");
 #endif
-#else
-#if ZERO
+#아니면
+#만약 ZERO
    printf("s\n");
-#else
+#아니면
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   반환 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

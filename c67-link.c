@@ -18,13 +18,13 @@
 #define PCRELATIVE_DLLPLT 0
 #define RELOCATE_DLLPLT 0
 
-#else /* !TARGET_DEFS_ONLY */
+#아니면 /* !TARGET_DEFS_ONLY */
 
 #include "tcc.h"
 
 /* Returns 1 for a code relocation, 0 for a data relocation. For unknown
    relocations, returns -1. */
-ST_FUNC int code_reloc (int reloc_type)
+ST_FUNC 정수 code_reloc (정수 reloc_type)
 {
     switch (reloc_type) {
         case R_C60_32:
@@ -34,41 +34,41 @@ ST_FUNC int code_reloc (int reloc_type)
         case R_C60_GOTOFF:
         case R_C60_GOTPC:
         case R_C60_COPY:
-            return 0;
+            반환 0;
 
         case R_C60_PLT32:
-            return 1;
+            반환 1;
     }
-    return -1;
+    반환 -1;
 }
 
 /* Returns an enumerator to describe whether and when the relocation needs a
    GOT and/or PLT entry to be created. See tcc.h for a description of the
    different values. */
-ST_FUNC int gotplt_entry_type (int reloc_type)
+ST_FUNC 정수 gotplt_entry_type (정수 reloc_type)
 {
     switch (reloc_type) {
         case R_C60_32:
 	case R_C60LO16:
 	case R_C60HI16:
         case R_C60_COPY:
-            return NO_GOTPLT_ENTRY;
+            반환 NO_GOTPLT_ENTRY;
 
         case R_C60_GOTOFF:
         case R_C60_GOTPC:
-            return BUILD_GOT_ONLY;
+            반환 BUILD_GOT_ONLY;
 
         case R_C60_PLT32:
         case R_C60_GOT32:
-            return ALWAYS_GOTPLT_ENTRY;
+            반환 ALWAYS_GOTPLT_ENTRY;
     }
-    return -1;
+    반환 -1;
 }
 
 ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr)
 {
     tcc_error_noabort("C67 got not implemented");
-    return 0;
+    반환 0;
 }
 
 /* relocate the PLT: compute addresses and offsets in the PLT now that final
@@ -77,25 +77,25 @@ ST_FUNC void relocate_plt(TCCState *s1)
 {
     uint8_t *p, *p_end;
 
-    if (!s1->plt)
-      return;
+    만약 (!s1->plt)
+      반환;
 
     p = s1->plt->data;
     p_end = p + s1->plt->data_offset;
 
-    if (p < p_end) {
+    만약 (p < p_end) {
         /* XXX: TODO */
-        while (p < p_end) {
+        동안 (p < p_end) {
             /* XXX: TODO */
         }
    }
 }
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr, addr_t addr, addr_t val)
+ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, 정수 type, unsigned char *ptr, addr_t addr, addr_t val)
 {
     switch(type) {
         case R_C60_32:
-            *(int *)ptr += val;
+            *(정수 *)ptr += val;
             break;
         case R_C60LO16:
             {
@@ -103,13 +103,13 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
 
                 /* put the low 16 bits of the absolute address add to what is
                    already there */
-                orig  =   ((*(int *)(ptr  )) >> 7) & 0xffff;
-                orig |=  (((*(int *)(ptr+4)) >> 7) & 0xffff) << 16;
+                orig  =   ((*(정수 *)(ptr  )) >> 7) & 0xffff;
+                orig |=  (((*(정수 *)(ptr+4)) >> 7) & 0xffff) << 16;
 
                 /* patch both at once - assumes always in pairs Low - High */
-                *(int *) ptr    = (*(int *) ptr    & (~(0xffff << 7)) ) |
+                *(정수 *) ptr    = (*(정수 *) ptr    & (~(0xffff << 7)) ) |
                                    (((val+orig)      & 0xffff) << 7);
-                *(int *)(ptr+4) = (*(int *)(ptr+4) & (~(0xffff << 7)) ) |
+                *(정수 *)(ptr+4) = (*(정수 *)(ptr+4) & (~(0xffff << 7)) ) |
                                   ((((val+orig)>>16) & 0xffff) << 7);
             }
             break;

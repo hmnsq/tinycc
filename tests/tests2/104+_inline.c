@@ -3,7 +3,7 @@
     __attribute__((weak)) void f(void); \
     printf("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
 
-int printf(const char*, ...);
+정수 printf(const char*, ...);
 
 void check_exports()
 {

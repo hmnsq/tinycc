@@ -1,8 +1,8 @@
-extern int printf (const char *, ...);
+extern 정수 printf (const char *, ...);
 extern void target(void);
 extern void alias_for_target(void);
 extern void asm_for_target(void);
-extern int g_int, alias_int;
+extern 정수 g_int, alias_int;
 
 void inunit2(void);
 

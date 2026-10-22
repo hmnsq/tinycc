@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+정수 main()
 {
-   int a = 1;
+   정수 a = 1;
 
-   if (a)
+   만약 (a)
       printf("a is true\n");
-   else
+   아니면
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   정수 b = 0;
+   만약 (b)
       printf("b is true\n");
-   else
+   아니면
       printf("b is false\n");
 
-   return 0;
+   반환 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :
