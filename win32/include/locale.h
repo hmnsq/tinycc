@@ -6,19 +6,19 @@
 #ifndef _INC_LOCALE
 #define _INC_LOCALE
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ڈالو,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
-#ifndef NULL
+#ifndef عدم
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define عدم 0
+#وإلا
+#define عدم ((فراغ *)0)
 #endif
 #endif
 
@@ -34,25 +34,25 @@ extern "C" {
 
 #ifndef _LCONV_DEFINED
 #define _LCONV_DEFINED
-  struct lconv {
-    char *decimal_point;
-    char *thousands_sep;
-    char *grouping;
-    char *int_curr_symbol;
-    char *currency_symbol;
-    char *mon_decimal_point;
-    char *mon_thousands_sep;
-    char *mon_grouping;
-    char *positive_sign;
-    char *negative_sign;
-    char int_frac_digits;
-    char frac_digits;
-    char p_cs_precedes;
-    char p_sep_by_space;
-    char n_cs_precedes;
-    char n_sep_by_space;
-    char p_sign_posn;
-    char n_sign_posn;
+  بنية lconv {
+    حرف *decimal_point;
+    حرف *thousands_sep;
+    حرف *grouping;
+    حرف *int_curr_علامت;
+    حرف *currency_علامت;
+    حرف *mon_decimal_point;
+    حرف *mon_thousands_sep;
+    حرف *mon_grouping;
+    حرف *positive_sign;
+    حرف *negative_sign;
+    حرف int_frac_digits;
+    حرف frac_digits;
+    حرف p_cs_precedes;
+    حرف p_sep_by_space;
+    حرف n_cs_precedes;
+    حرف n_sep_by_space;
+    حرف p_sign_posn;
+    حرف n_sign_posn;
   };
 #endif
 
@@ -68,24 +68,24 @@ extern "C" {
 
 #endif
 
-  int __cdecl _configthreadlocale(int _Flag);
-  char *__cdecl setlocale(int _Category,const char *_Locale);
-  _CRTIMP struct lconv *__cdecl localeconv(void);
-  _locale_t __cdecl _get_current_locale(void);
-  _locale_t __cdecl _create_locale(int _Category,const char *_Locale);
-  void __cdecl _free_locale(_locale_t _Locale);
-  _locale_t __cdecl __get_current_locale(void);
-  _locale_t __cdecl __create_locale(int _Category,const char *_Locale);
-  void __cdecl __free_locale(_locale_t _Locale);
+  صحيح __cdecl _configthreadlocale(صحيح _Flag);
+  حرف *__cdecl setlocale(صحيح _Category,ثابت حرف *_Locale);
+  _CRTIMP بنية lconv *__cdecl localeconv(فراغ);
+  _locale_t __cdecl _get_current_locale(فراغ);
+  _locale_t __cdecl _create_locale(صحيح _Category,ثابت حرف *_Locale);
+  فراغ __cdecl _free_locale(_locale_t _Locale);
+  _locale_t __cdecl __get_current_locale(فراغ);
+  _locale_t __cdecl __create_locale(صحيح _Category,ثابت حرف *_Locale);
+  فراغ __cdecl __free_locale(_locale_t _Locale);
 
 #ifndef _WLOCALE_DEFINED
 #define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
+  _CRTIMP wchar_t *__cdecl _wsetlocale(صحيح _Category,ثابت wchar_t *_Locale);
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(نکالو)
 #endif
