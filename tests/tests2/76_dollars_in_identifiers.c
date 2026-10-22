@@ -8,7 +8,7 @@
 #define $10(x) x*10
 #define _$10(x) x/10
 
-int main()
+целое основной()
 {
    printf("fred=%d\n", $fred);
    printf("joe=%d\n", joe$);
@@ -21,11 +21,11 @@ int main()
    printf("fred10=%d\n", $10($fred));
    printf("joe_10=%d\n", _$10(joe$));
 
-   int $ = 10;
-   int a100$ = 100;
-   int a$$ = 1000;
-   int a$c$b = 2121;
-   int $100 = 10000;
+   целое $ = 10;
+   целое a100$ = 100;
+   целое a$$ = 1000;
+   целое a$c$b = 2121;
+   целое $100 = 10000;
    const char *$$$ = "money";
 
    printf("local=%d\n", $);
@@ -35,7 +35,7 @@ int main()
    printf("$100=%d\n", $100);
    printf("$$$=%s", $$$);
 
-   return 0;
+   вернуть 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

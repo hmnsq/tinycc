@@ -21,7 +21,7 @@ enum fred
    it occurs in the wild.  */
 enum efoo;
 struct Sforward_use {
-    int (*fmember) (enum efoo x);
+    целое (*fmember) (enum efoo x);
 };
 
 extern enum efoo it_real_fn(void);
@@ -39,19 +39,19 @@ void should_compile(struct S2 *s)
 
 enum efoo it_real_fn(void)
 {
-  return TWO;
+  вернуть TWO;
 }
 
-static unsigned int deref_uintptr(unsigned int *p)
+static unsigned целое deref_uintptr(unsigned целое *p)
 {
-  return *p;
+  вернуть *p;
 }
 
 enum Epositive {
     epos_one, epos_two
 };
 
-int main()
+целое основной()
 {
    enum fred frod;
    enum Epositive epos = epos_two;
@@ -66,7 +66,7 @@ int main()
    /* Following should compile without warning.  */
    printf ("enum to int: %u\n", deref_uintptr(&epos));
 
-   return 0;
+   вернуть 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

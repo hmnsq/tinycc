@@ -2,7 +2,7 @@
 
 enum fred { a, b, c };
 
-int main()
+целое основной()
 {
    printf("a=%d\n", a);
    printf("b=%d\n", b);
@@ -21,7 +21,7 @@ int main()
    printf("j=%d\n", j);
    printf("k=%d\n", k);
 
-   return 0;
+   вернуть 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

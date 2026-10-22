@@ -1,23 +1,23 @@
 #include <tcclib.h>
 
-int fib(int n)
+целое fib(целое n)
 {
-    if (n <= 2)
-        return 1;
-    else
-        return fib(n-1) + fib(n-2);
+    если (n <= 2)
+        вернуть 1;
+    иначе
+        вернуть fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+целое основной(целое argc, char **argv)
 {
-    int n;
-    if (argc < 2) {
+    целое n;
+    если (argc < 2) {
         printf("usage: fib n\n"
                "Compute nth Fibonacci number\n");
-        return 1;
+        вернуть 1;
     }
 
     n = atoi(argv[1]);
     printf("fib(%d) = %d\n", n, fib(n));
-    return 0;
+    вернуть 0;
 }

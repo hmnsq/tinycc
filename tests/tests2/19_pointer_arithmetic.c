@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+целое основной()
 {
-   int a;
-   int *b;
-   int *c;
+   целое a;
+   целое *b;
+   целое *c;
 
    a = 42;
    b = &a;
@@ -12,17 +12,17 @@ int main()
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   если (b == NULL)
       printf("b is NULL\n");
-   else
+   иначе
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   если (c == NULL)
       printf("c is NULL\n");
-   else
+   иначе
       printf("c is not NULL\n");
 
-   return 0;
+   вернуть 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

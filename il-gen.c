@@ -43,7 +43,7 @@ enum {
     REG_ST2,
 };
 
-const int reg_classes[NB_REGS] = {
+const целое reg_classes[NB_REGS] = {
     /* ST0 */ RC_ST | RC_ST0,
     /* ST1 */ RC_ST | RC_ST1,
     /* ST2 */ RC_ST,
@@ -70,7 +70,7 @@ const int reg_classes[NB_REGS] = {
 
 /* function call context */
 typedef struct GFuncContext {
-    int func_call; /* func call type (FUNC_STDCALL or FUNC_CDECL) */
+    целое func_call; /* func call type (FUNC_STDCALL or FUNC_CDECL) */
 } GFuncContext;
 
 /******************************************************/
@@ -97,12 +97,12 @@ char *il_opcodes_str[] = {
 
 static FILE *il_outfile;
 
-static void out_byte(int c)
+static void out_byte(целое c)
 {
     *(char *)ind++ = c;
 }
 
-static void out_le32(int c)
+static void out_le32(целое c)
 {
     out_byte(c);
     out_byte(c >> 8);
@@ -112,7 +112,7 @@ static void out_le32(int c)
 
 static void init_outfile(void)
 {
-    if (!il_outfile) {
+    если (!il_outfile) {
         il_outfile = stdout;
         fprintf(il_outfile, 
                 ".assembly extern mscorlib\n"
@@ -122,28 +122,28 @@ static void init_outfile(void)
     }
 }
 
-static void out_op1(int op)
+static void out_op1(целое op)
 {
-    if (op & 0x100)
+    если (op & 0x100)
         out_byte(IL_OP_PREFIX);
     out_byte(op & 0xff);
 }
 
 /* output an opcode with prefix */
-static void out_op(int op)
+static void out_op(целое op)
 {
     out_op1(op);
     fprintf(il_outfile, " %s\n", il_opcodes_str[op]);
 }
 
-static void out_opb(int op, int c)
+static void out_opb(целое op, целое c)
 {
     out_op1(op);
     out_byte(c);
     fprintf(il_outfile, " %s %d\n", il_opcodes_str[op], c);
 }
 
-static void out_opi(int op, int c)
+static void out_opi(целое op, целое c)
 {
     out_op1(op);
     out_le32(c);
@@ -151,10 +151,10 @@ static void out_opi(int op, int c)
 }
 
 /* XXX: not complete */
-static void il_type_to_str(char *buf, int buf_size, 
-                           int t, const char *varstr)
+static void il_type_to_str(char *buf, целое buf_size, 
+                           целое t, const char *varstr)
 {
-    int bt;
+    целое bt;
     Sym *s, *sa;
     char buf1[256];
     const char *tstr;
@@ -162,7 +162,7 @@ static void il_type_to_str(char *buf, int buf_size,
     t = t & VT_TYPE;
     bt = t & VT_BTYPE;
     buf[0] = '\0';
-    if (t & VT_UNSIGNED)
+    если (t & VT_UNSIGNED)
         pstrcat(buf, buf_size, "unsigned ");
     switch(bt) {
     case VT_VOID:
@@ -202,11 +202,11 @@ static void il_type_to_str(char *buf, int buf_size,
         il_type_to_str(buf, buf_size, s->t, varstr);
         pstrcat(buf, buf_size, "(");
         sa = s->next;
-        while (sa != NULL) {
+        пока (sa != NULL) {
             il_type_to_str(buf1, sizeof(buf1), sa->t, NULL);
             pstrcat(buf, buf_size, buf1);
             sa = sa->next;
-            if (sa)
+            если (sa)
                 pstrcat(buf, buf_size, ", ");
         }
         pstrcat(buf, buf_size, ")");
@@ -214,12 +214,12 @@ static void il_type_to_str(char *buf, int buf_size,
     case VT_PTR:
         s = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
         pstrcpy(buf1, sizeof(buf1), "*");
-        if (varstr)
+        если (varstr)
             pstrcat(buf1, sizeof(buf1), varstr);
         il_type_to_str(buf, buf_size, s->t, buf1);
         goto no_var;
     }
-    if (varstr) {
+    если (varstr) {
         pstrcat(buf, buf_size, " ");
         pstrcat(buf, buf_size, varstr);
     }
@@ -228,7 +228,7 @@ static void il_type_to_str(char *buf, int buf_size,
 
 
 /* patch relocation entry with value 'val' */
-void greloc_patch1(Reloc *p, int val)
+void greloc_patch1(Reloc *p, целое val)
 {
 }
 
@@ -238,148 +238,148 @@ void gsym_addr(t, a)
 }
 
 /* output jump and return symbol */
-static int out_opj(int op, int c)
+static целое out_opj(целое op, целое c)
 {
     out_op1(op);
     out_le32(0);
-    if (c == 0) {
-        c = ind - (int)cur_text_section->data;
+    если (c == 0) {
+        c = ind - (целое)cur_text_section->data;
     }
     fprintf(il_outfile, " %s L%d\n", il_opcodes_str[op], c);
-    return c;
+    вернуть c;
 }
 
-void gsym(int t)
+void gsym(целое t)
 {
     fprintf(il_outfile, "L%d:\n", t);
 }
 
 /* load 'r' from value 'sv' */
-void load(int r, SValue *sv)
+void load(целое r, SValue *sv)
 {
-    int v, fc, ft;
+    целое v, fc, ft;
 
     v = sv->r & VT_VALMASK;
     fc = sv->c.i;
     ft = sv->t;
 
-    if (sv->r & VT_LVAL) {
-        if (v == VT_LOCAL) {
-            if (fc >= ARG_BASE) {
+    если (sv->r & VT_LVAL) {
+        если (v == VT_LOCAL) {
+            если (fc >= ARG_BASE) {
                 fc -= ARG_BASE;
-                if (fc >= 0 && fc <= 4) {
+                если (fc >= 0 && fc <= 4) {
                     out_op(IL_OP_LDARG_0 + fc);
-                } else if (fc <= 0xff) {
+                } иначе если (fc <= 0xff) {
                     out_opb(IL_OP_LDARG_S, fc);
-                } else {
+                } иначе {
                     out_opi(IL_OP_LDARG, fc);
                 }
-            } else {
-                if (fc >= 0 && fc <= 4) {
+            } иначе {
+                если (fc >= 0 && fc <= 4) {
                     out_op(IL_OP_LDLOC_0 + fc);
-                } else if (fc <= 0xff) {
+                } иначе если (fc <= 0xff) {
                     out_opb(IL_OP_LDLOC_S, fc);
-                } else {
+                } иначе {
                     out_opi(IL_OP_LDLOC, fc);
                 }
             }
-        } else if (v == VT_CONST) {
+        } иначе если (v == VT_CONST) {
                 /* XXX: handle globals */
                 out_opi(IL_OP_LDSFLD, 0);
-        } else {
-            if ((ft & VT_BTYPE) == VT_FLOAT) {
+        } иначе {
+            если ((ft & VT_BTYPE) == VT_FLOAT) {
                 out_op(IL_OP_LDIND_R4);
-            } else if ((ft & VT_BTYPE) == VT_DOUBLE) {
+            } иначе если ((ft & VT_BTYPE) == VT_DOUBLE) {
                 out_op(IL_OP_LDIND_R8);
-            } else if ((ft & VT_BTYPE) == VT_LDOUBLE) {
+            } иначе если ((ft & VT_BTYPE) == VT_LDOUBLE) {
                 out_op(IL_OP_LDIND_R8);
-            } else if ((ft & VT_TYPE) == VT_BYTE)
+            } иначе если ((ft & VT_TYPE) == VT_BYTE)
                 out_op(IL_OP_LDIND_I1);
-            else if ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED))
+            иначе если ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED))
                 out_op(IL_OP_LDIND_U1);
-            else if ((ft & VT_TYPE) == VT_SHORT)
+            иначе если ((ft & VT_TYPE) == VT_SHORT)
                 out_op(IL_OP_LDIND_I2);
-            else if ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED))
+            иначе если ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED))
                 out_op(IL_OP_LDIND_U2);
-            else
+            иначе
                 out_op(IL_OP_LDIND_I4);
         } 
-    } else {
-        if (v == VT_CONST) {
+    } иначе {
+        если (v == VT_CONST) {
             /* XXX: handle globals */
-            if (fc >= -1 && fc <= 8) {
+            если (fc >= -1 && fc <= 8) {
                 out_op(IL_OP_LDC_I4_M1 + fc + 1); 
-            } else {
+            } иначе {
                 out_opi(IL_OP_LDC_I4, fc);
             }
-        } else if (v == VT_LOCAL) {
-            if (fc >= ARG_BASE) {
+        } иначе если (v == VT_LOCAL) {
+            если (fc >= ARG_BASE) {
                 fc -= ARG_BASE;
-                if (fc <= 0xff) {
+                если (fc <= 0xff) {
                     out_opb(IL_OP_LDARGA_S, fc);
-                } else {
+                } иначе {
                     out_opi(IL_OP_LDARGA, fc);
                 }
-            } else {
-                if (fc <= 0xff) {
+            } иначе {
+                если (fc <= 0xff) {
                     out_opb(IL_OP_LDLOCA_S, fc);
-                } else {
+                } иначе {
                     out_opi(IL_OP_LDLOCA, fc);
                 }
             }
-        } else {
+        } иначе {
             /* XXX: do it */
         }
     }
 }
 
 /* store register 'r' in lvalue 'v' */
-void store(int r, SValue *sv)
+void store(целое r, SValue *sv)
 {
-    int v, fc, ft;
+    целое v, fc, ft;
 
     v = sv->r & VT_VALMASK;
     fc = sv->c.i;
     ft = sv->t;
-    if (v == VT_LOCAL) {
-        if (fc >= ARG_BASE) {
+    если (v == VT_LOCAL) {
+        если (fc >= ARG_BASE) {
             fc -= ARG_BASE;
             /* XXX: check IL arg store semantics */
-            if (fc <= 0xff) {
+            если (fc <= 0xff) {
                 out_opb(IL_OP_STARG_S, fc);
-            } else {
+            } иначе {
                 out_opi(IL_OP_STARG, fc);
             }
-        } else {
-            if (fc >= 0 && fc <= 4) {
+        } иначе {
+            если (fc >= 0 && fc <= 4) {
                 out_op(IL_OP_STLOC_0 + fc);
-            } else if (fc <= 0xff) {
+            } иначе если (fc <= 0xff) {
                 out_opb(IL_OP_STLOC_S, fc);
-            } else {
+            } иначе {
                 out_opi(IL_OP_STLOC, fc);
             }
         }
-    } else if (v == VT_CONST) {
+    } иначе если (v == VT_CONST) {
         /* XXX: handle globals */
         out_opi(IL_OP_STSFLD, 0);
-    } else {
-        if ((ft & VT_BTYPE) == VT_FLOAT)
+    } иначе {
+        если ((ft & VT_BTYPE) == VT_FLOAT)
             out_op(IL_OP_STIND_R4);
-        else if ((ft & VT_BTYPE) == VT_DOUBLE)
+        иначе если ((ft & VT_BTYPE) == VT_DOUBLE)
             out_op(IL_OP_STIND_R8);
-        else if ((ft & VT_BTYPE) == VT_LDOUBLE)
+        иначе если ((ft & VT_BTYPE) == VT_LDOUBLE)
             out_op(IL_OP_STIND_R8);
-        else if ((ft & VT_BTYPE) == VT_BYTE)
+        иначе если ((ft & VT_BTYPE) == VT_BYTE)
             out_op(IL_OP_STIND_I1);
-        else if ((ft & VT_BTYPE) == VT_SHORT)
+        иначе если ((ft & VT_BTYPE) == VT_SHORT)
             out_op(IL_OP_STIND_I2);
-        else
+        иначе
             out_op(IL_OP_STIND_I4);
     }
 }
 
 /* start function call and return function call context */
-void gfunc_start(GFuncContext *c, int func_call)
+void gfunc_start(GFuncContext *c, целое func_call)
 {
     c->func_call = func_call;
 }
@@ -388,9 +388,9 @@ void gfunc_start(GFuncContext *c, int func_call)
    is then popped. */
 void gfunc_param(GFuncContext *c)
 {
-    if ((vtop->t & VT_BTYPE) == VT_STRUCT) {
+    если ((vtop->t & VT_BTYPE) == VT_STRUCT) {
         tcc_error("structures passed as value not handled yet");
-    } else {
+    } иначе {
         /* simply push on stack */
         gv(RC_ST0);
     }
@@ -403,11 +403,11 @@ void gfunc_call(GFuncContext *c)
 {
     char buf[1024];
 
-    if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+    если ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
         /* XXX: more info needed from tcc */
         il_type_to_str(buf, sizeof(buf), vtop->t, "xxx");
         fprintf(il_outfile, " call %s\n", buf);
-    } else {
+    } иначе {
         /* indirect call */
         gv(RC_INT);
         il_type_to_str(buf, sizeof(buf), vtop->t, NULL);
@@ -417,9 +417,9 @@ void gfunc_call(GFuncContext *c)
 }
 
 /* generate function prolog of type 't' */
-void gfunc_prolog(int t)
+void gfunc_prolog(целое t)
 {
-    int addr, u, func_call;
+    целое addr, u, func_call;
     Sym *sym;
     char buf[1024];
 
@@ -433,7 +433,7 @@ void gfunc_prolog(int t)
     fprintf(il_outfile, " .maxstack %d\n", NB_REGS);
     fprintf(il_outfile, " .locals (int32, int32, int32, int32, int32, int32, int32, int32)\n");
     
-    if (!strcmp(funcname, "main"))
+    если (!strcmp(funcname, "main"))
         fprintf(il_outfile, " .entrypoint\n");
         
     sym = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
@@ -444,12 +444,12 @@ void gfunc_prolog(int t)
        implicit pointer parameter */
     func_vt = sym->t;
     func_var = (sym->c == FUNC_ELLIPSIS);
-    if ((func_vt & VT_BTYPE) == VT_STRUCT) {
+    если ((func_vt & VT_BTYPE) == VT_STRUCT) {
         func_vc = addr;
         addr++;
     }
     /* define parameters */
-    while ((sym = sym->next) != NULL) {
+    пока ((sym = sym->next) != NULL) {
         u = sym->t;
         sym_push(sym->v & ~SYM_FIELD, u,
                  VT_LOCAL | lvalue_type(sym->type.t), addr);
@@ -465,25 +465,25 @@ void gfunc_epilog(void)
 }
 
 /* generate a jump to a label */
-int gjmp(int t)
+целое gjmp(целое t)
 {
-    return out_opj(IL_OP_BR, t);
+    вернуть out_opj(IL_OP_BR, t);
 }
 
 /* generate a jump to a fixed address */
-void gjmp_addr(int a)
+void gjmp_addr(целое a)
 {
     /* XXX: handle syms */
     out_opi(IL_OP_BR, a);
 }
 
 /* generate a test. set 'inv' to invert test. Stack entry is popped */
-int gtst(int inv, int t)
+целое gtst(целое inv, целое t)
 {
-    int v, *p, c;
+    целое v, *p, c;
 
     v = vtop->r & VT_VALMASK;
-    if (v == VT_CMP) {
+    если (v == VT_CMP) {
         c = vtop->c.i ^ inv;
         switch(c) {
         case TOK_EQ:
@@ -518,26 +518,26 @@ int gtst(int inv, int t)
             break;
         }
         t = out_opj(c, t);
-    } else if (v == VT_JMP || v == VT_JMPI) {
+    } иначе если (v == VT_JMP || v == VT_JMPI) {
         /* && or || optimization */
-        if ((v & 1) == inv) {
+        если ((v & 1) == inv) {
             /* insert vtop->c jump list in t */
             p = &vtop->c.i;
-            while (*p != 0)
-                p = (int *)*p;
+            пока (*p != 0)
+                p = (целое *)*p;
             *p = t;
             t = vtop->c.i;
-        } else {
+        } иначе {
             t = gjmp(t);
             gsym(vtop->c.i);
         }
     }
     vtop--;
-    return t;
+    вернуть t;
 }
 
 /* generate an integer binary operation */
-void gen_opi(int op)
+void gen_opi(целое op)
 {
     gv2(RC_ST1, RC_ST0);
     switch(op) {
@@ -603,7 +603,7 @@ void gen_opi(int op)
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
    two operands are guaranteed to have the same floating point type */
-void gen_opf(int op)
+void gen_opf(целое op)
 {
     /* same as integer */
     gen_opi(op);
@@ -611,18 +611,18 @@ void gen_opf(int op)
 
 /* convert integers to fp 't' type. Must handle 'int', 'unsigned int'
    and 'long long' cases. */
-void gen_cvt_itof(int t)
+void gen_cvt_itof(целое t)
 {
     gv(RC_ST0);
-    if (t == VT_FLOAT)
+    если (t == VT_FLOAT)
         out_op(IL_OP_CONV_R4);
-    else
+    иначе
         out_op(IL_OP_CONV_R8);
 }
 
 /* convert fp to int 't' type */
 /* XXX: handle long long case */
-void gen_cvt_ftoi(int t)
+void gen_cvt_ftoi(целое t)
 {
     gv(RC_ST0);
     switch(t) {
@@ -642,12 +642,12 @@ void gen_cvt_ftoi(int t)
 }
 
 /* convert from one floating point type to another */
-void gen_cvt_ftof(int t)
+void gen_cvt_ftof(целое t)
 {
     gv(RC_ST0);
-    if (t == VT_FLOAT) {
+    если (t == VT_FLOAT) {
         out_op(IL_OP_CONV_R4);
-    } else {
+    } иначе {
         out_op(IL_OP_CONV_R8);
     }
 }

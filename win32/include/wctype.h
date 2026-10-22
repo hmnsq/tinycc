@@ -45,7 +45,7 @@ extern "C" {
 #define __PCTYPE_FUNC __pctype_func()
 #ifdef _MSVCRT_
 #define __pctype_func() (_pctype)
-#else
+#иначе
 #define __pctype_func() (*_imp___pctype)
 #endif
 #endif
@@ -53,7 +53,7 @@ extern "C" {
 #ifndef _pctype
 #ifdef _MSVCRT_
   extern unsigned short *_pctype;
-#else
+#иначе
   extern unsigned short **_imp___pctype;
 #define _pctype (*_imp___pctype)
 #endif
@@ -68,7 +68,7 @@ extern "C" {
 #ifndef _wctype
 #ifdef _MSVCRT_
   extern unsigned short *_wctype;
-#else
+#иначе
   extern unsigned short **_imp___wctype;
 #define _wctype (*_imp___wctype)
 #endif
@@ -77,7 +77,7 @@ extern "C" {
 #ifndef _pwctype
 #ifdef _MSVCRT_
   extern unsigned short *_pwctype;
-#else
+#иначе
   extern unsigned short **_imp___pwctype;
 #define _pwctype (*_imp___pwctype)
 #define __pwctype_func() (*_imp___pwctype)
@@ -102,27 +102,27 @@ extern "C" {
 #ifndef _WCTYPE_DEFINED
 #define _WCTYPE_DEFINED
 
-  int __cdecl iswalpha(wint_t);
-  int __cdecl iswupper(wint_t);
-  int __cdecl iswlower(wint_t);
-  int __cdecl iswdigit(wint_t);
-  int __cdecl iswxdigit(wint_t);
-  int __cdecl iswspace(wint_t);
-  int __cdecl iswpunct(wint_t);
-  int __cdecl iswalnum(wint_t);
-  int __cdecl iswprint(wint_t);
-  int __cdecl iswgraph(wint_t);
-  int __cdecl iswcntrl(wint_t);
-  int __cdecl iswascii(wint_t);
-  int __cdecl isleadbyte(int);
+  целое __cdecl iswalpha(wint_t);
+  целое __cdecl iswupper(wint_t);
+  целое __cdecl iswlower(wint_t);
+  целое __cdecl iswdigit(wint_t);
+  целое __cdecl iswxdigit(wint_t);
+  целое __cdecl iswspace(wint_t);
+  целое __cdecl iswpunct(wint_t);
+  целое __cdecl iswalnum(wint_t);
+  целое __cdecl iswprint(wint_t);
+  целое __cdecl iswgraph(wint_t);
+  целое __cdecl iswcntrl(wint_t);
+  целое __cdecl iswascii(wint_t);
+  целое __cdecl isleadbyte(целое);
   wint_t __cdecl towupper(wint_t);
   wint_t __cdecl towlower(wint_t);
-  int __cdecl iswctype(wint_t,wctype_t);
-  _CRTIMP int __cdecl __iswcsymf(wint_t);
-  _CRTIMP int __cdecl __iswcsym(wint_t);
-  int __cdecl is_wctype(wint_t,wctype_t);
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl isblank(int _C);
+  целое __cdecl iswctype(wint_t,wctype_t);
+  _CRTIMP целое __cdecl __iswcsymf(wint_t);
+  _CRTIMP целое __cdecl __iswcsym(wint_t);
+  целое __cdecl is_wctype(wint_t,wctype_t);
+#если (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+целое __cdecl isblank(целое _C);
 #endif
 #endif
 
@@ -142,20 +142,20 @@ int __cdecl isblank(int _C);
 #define iswcntrl(_c) (iswctype(_c,_CONTROL))
 #define iswascii(_c) ((unsigned)(_c) < 0x80)
 #define isleadbyte(c) (__pctype_func()[(unsigned char)(c)] & _LEADBYTE)
-#else
-  __CRT_INLINE int __cdecl iswalpha(wint_t _C) {return (iswctype(_C,_ALPHA)); }
-  __CRT_INLINE int __cdecl iswupper(wint_t _C) {return (iswctype(_C,_UPPER)); }
-  __CRT_INLINE int __cdecl iswlower(wint_t _C) {return (iswctype(_C,_LOWER)); }
-  __CRT_INLINE int __cdecl iswdigit(wint_t _C) {return (iswctype(_C,_DIGIT)); }
-  __CRT_INLINE int __cdecl iswxdigit(wint_t _C) {return (iswctype(_C,_HEX)); }
-  __CRT_INLINE int __cdecl iswspace(wint_t _C) {return (iswctype(_C,_SPACE)); }
-  __CRT_INLINE int __cdecl iswpunct(wint_t _C) {return (iswctype(_C,_PUNCT)); }
-  __CRT_INLINE int __cdecl iswalnum(wint_t _C) {return (iswctype(_C,_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswprint(wint_t _C) {return (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswgraph(wint_t _C) {return (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswcntrl(wint_t _C) {return (iswctype(_C,_CONTROL)); }
-  __CRT_INLINE int __cdecl iswascii(wint_t _C) {return ((unsigned)(_C) < 0x80); }
-  __CRT_INLINE int __cdecl isleadbyte(int _C) {return (__pctype_func()[(unsigned char)(_C)] & _LEADBYTE); }
+#иначе
+  __CRT_INLINE целое __cdecl iswalpha(wint_t _C) {вернуть (iswctype(_C,_ALPHA)); }
+  __CRT_INLINE целое __cdecl iswupper(wint_t _C) {вернуть (iswctype(_C,_UPPER)); }
+  __CRT_INLINE целое __cdecl iswlower(wint_t _C) {вернуть (iswctype(_C,_LOWER)); }
+  __CRT_INLINE целое __cdecl iswdigit(wint_t _C) {вернуть (iswctype(_C,_DIGIT)); }
+  __CRT_INLINE целое __cdecl iswxdigit(wint_t _C) {вернуть (iswctype(_C,_HEX)); }
+  __CRT_INLINE целое __cdecl iswspace(wint_t _C) {вернуть (iswctype(_C,_SPACE)); }
+  __CRT_INLINE целое __cdecl iswpunct(wint_t _C) {вернуть (iswctype(_C,_PUNCT)); }
+  __CRT_INLINE целое __cdecl iswalnum(wint_t _C) {вернуть (iswctype(_C,_ALPHA|_DIGIT)); }
+  __CRT_INLINE целое __cdecl iswprint(wint_t _C) {вернуть (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE целое __cdecl iswgraph(wint_t _C) {вернуть (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE целое __cdecl iswcntrl(wint_t _C) {вернуть (iswctype(_C,_CONTROL)); }
+  __CRT_INLINE целое __cdecl iswascii(wint_t _C) {вернуть ((unsigned)(_C) < 0x80); }
+  __CRT_INLINE целое __cdecl isleadbyte(целое _C) {вернуть (__pctype_func()[(unsigned char)(_C)] & _LEADBYTE); }
 #endif
 #endif
 

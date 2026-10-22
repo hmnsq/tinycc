@@ -6,7 +6,7 @@
 #ifndef _WS2TCPIP_H
 #define _WS2TCPIP_H
 
-#if __GNUC__ >=3
+#если __GNUC__ >=3
 #pragma GCC system_header
 #endif
 
@@ -91,7 +91,7 @@ struct in6_addr {
 
 typedef struct ipv6_mreq {
   struct in6_addr ipv6mr_multiaddr;
-  unsigned int ipv6mr_interface;
+  unsigned целое ipv6mr_interface;
 } IPV6_MREQ;
 
 struct sockaddr_in6_old {
@@ -135,42 +135,42 @@ extern "C" {
 
 #define WS2TCPIP_INLINE __CRT_INLINE
 
-int IN6_ADDR_EQUAL(const struct in6_addr *,const struct in6_addr *);
-int IN6_IS_ADDR_UNSPECIFIED(const struct in6_addr *);
-int IN6_IS_ADDR_LOOPBACK(const struct in6_addr *);
-int IN6_IS_ADDR_MULTICAST(const struct in6_addr *);
-int IN6_IS_ADDR_LINKLOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_SITELOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_V4MAPPED(const struct in6_addr *);
-int IN6_IS_ADDR_V4COMPAT(const struct in6_addr *);
-int IN6_IS_ADDR_MC_NODELOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_LINKLOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_SITELOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_ORGLOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_GLOBAL(const struct in6_addr *);
-int IN6ADDR_ISANY(const struct sockaddr_in6 *);
-int IN6ADDR_ISLOOPBACK(const struct sockaddr_in6 *);
+целое IN6_ADDR_EQUAL(const struct in6_addr *,const struct in6_addr *);
+целое IN6_IS_ADDR_UNSPECIFIED(const struct in6_addr *);
+целое IN6_IS_ADDR_LOOPBACK(const struct in6_addr *);
+целое IN6_IS_ADDR_MULTICAST(const struct in6_addr *);
+целое IN6_IS_ADDR_LINKLOCAL(const struct in6_addr *);
+целое IN6_IS_ADDR_SITELOCAL(const struct in6_addr *);
+целое IN6_IS_ADDR_V4MAPPED(const struct in6_addr *);
+целое IN6_IS_ADDR_V4COMPAT(const struct in6_addr *);
+целое IN6_IS_ADDR_MC_NODELOCAL(const struct in6_addr *);
+целое IN6_IS_ADDR_MC_LINKLOCAL(const struct in6_addr *);
+целое IN6_IS_ADDR_MC_SITELOCAL(const struct in6_addr *);
+целое IN6_IS_ADDR_MC_ORGLOCAL(const struct in6_addr *);
+целое IN6_IS_ADDR_MC_GLOBAL(const struct in6_addr *);
+целое IN6ADDR_ISANY(const struct sockaddr_in6 *);
+целое IN6ADDR_ISLOOPBACK(const struct sockaddr_in6 *);
 void IN6_SET_ADDR_UNSPECIFIED(struct in6_addr *);
 void IN6_SET_ADDR_LOOPBACK(struct in6_addr *);
 void IN6ADDR_SETANY(struct sockaddr_in6 *);
 void IN6ADDR_SETLOOPBACK(struct sockaddr_in6 *);
 
 #ifndef __CRT__NO_INLINE
-WS2TCPIP_INLINE int IN6_ADDR_EQUAL(const struct in6_addr *a,const struct in6_addr *b) { return (memcmp(a,b,sizeof(struct in6_addr))==0); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_UNSPECIFIED(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && (a->s6_words[6]==0) && (a->s6_words[7]==0)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_LOOPBACK(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && (a->s6_words[6]==0) && (a->s6_words[7]==0x0100)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MULTICAST(const struct in6_addr *a) { return (a->s6_bytes[0]==0xff); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_LINKLOCAL(const struct in6_addr *a) { return ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0x80)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_SITELOCAL(const struct in6_addr *a) { return ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0xc0)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_V4MAPPED(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0xffff)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_V4COMPAT(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && !((a->s6_words[6]==0) && (a->s6_addr[14]==0) && ((a->s6_addr[15]==0) || (a->s6_addr[15]==1)))); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_NODELOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==1); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_LINKLOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==2); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_SITELOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==5); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_ORGLOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==8); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_GLOBAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==0xe); }
-WS2TCPIP_INLINE int IN6ADDR_ISANY(const struct sockaddr_in6 *a) { return ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_UNSPECIFIED(&a->sin6_addr)); }
-WS2TCPIP_INLINE int IN6ADDR_ISLOOPBACK(const struct sockaddr_in6 *a) { return ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_LOOPBACK(&a->sin6_addr)); }
+WS2TCPIP_INLINE целое IN6_ADDR_EQUAL(const struct in6_addr *a,const struct in6_addr *b) { вернуть (memcmp(a,b,sizeof(struct in6_addr))==0); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_UNSPECIFIED(const struct in6_addr *a) { вернуть ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && (a->s6_words[6]==0) && (a->s6_words[7]==0)); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_LOOPBACK(const struct in6_addr *a) { вернуть ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && (a->s6_words[6]==0) && (a->s6_words[7]==0x0100)); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_MULTICAST(const struct in6_addr *a) { вернуть (a->s6_bytes[0]==0xff); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_LINKLOCAL(const struct in6_addr *a) { вернуть ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0x80)); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_SITELOCAL(const struct in6_addr *a) { вернуть ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0xc0)); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_V4MAPPED(const struct in6_addr *a) { вернуть ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0xffff)); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_V4COMPAT(const struct in6_addr *a) { вернуть ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && !((a->s6_words[6]==0) && (a->s6_addr[14]==0) && ((a->s6_addr[15]==0) || (a->s6_addr[15]==1)))); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_MC_NODELOCAL(const struct in6_addr *a) { вернуть IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==1); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_MC_LINKLOCAL(const struct in6_addr *a) { вернуть IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==2); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_MC_SITELOCAL(const struct in6_addr *a) { вернуть IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==5); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_MC_ORGLOCAL(const struct in6_addr *a) { вернуть IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==8); }
+WS2TCPIP_INLINE целое IN6_IS_ADDR_MC_GLOBAL(const struct in6_addr *a) { вернуть IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==0xe); }
+WS2TCPIP_INLINE целое IN6ADDR_ISANY(const struct sockaddr_in6 *a) { вернуть ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_UNSPECIFIED(&a->sin6_addr)); }
+WS2TCPIP_INLINE целое IN6ADDR_ISLOOPBACK(const struct sockaddr_in6 *a) { вернуть ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_LOOPBACK(&a->sin6_addr)); }
 WS2TCPIP_INLINE void IN6_SET_ADDR_UNSPECIFIED(struct in6_addr *a) { memset(a->s6_bytes,0,sizeof(struct in6_addr)); }
 WS2TCPIP_INLINE void IN6_SET_ADDR_LOOPBACK(struct in6_addr *a) {
   memset(a->s6_bytes,0,sizeof(struct in6_addr));
@@ -245,10 +245,10 @@ C_ASSERT(sizeof(IN6_PKTINFO)==20);
 #define EAI_NODATA EAI_NONAME
 
 typedef struct addrinfo {
-  int ai_flags;
-  int ai_family;
-  int ai_socktype;
-  int ai_protocol;
+  целое ai_flags;
+  целое ai_family;
+  целое ai_socktype;
+  целое ai_protocol;
   size_t ai_addrlen;
   char *ai_canonname;
   struct sockaddr *ai_addr;
@@ -256,10 +256,10 @@ typedef struct addrinfo {
 } ADDRINFOA,*PADDRINFOA;
 
 typedef struct addrinfoW {
-  int ai_flags;
-  int ai_family;
-  int ai_socktype;
-  int ai_protocol;
+  целое ai_flags;
+  целое ai_family;
+  целое ai_socktype;
+  целое ai_protocol;
   size_t ai_addrlen;
   PWSTR ai_canonname;
   struct sockaddr *ai_addr;
@@ -268,7 +268,7 @@ typedef struct addrinfoW {
 
 #ifdef UNICODE
 typedef ADDRINFOW ADDRINFOT,*PADDRINFOT;
-#else
+#иначе
 typedef ADDRINFOA ADDRINFOT,*PADDRINFOT;
 #endif
 
@@ -284,31 +284,31 @@ extern "C" {
 
 #ifdef UNICODE
 #define GetAddrInfo GetAddrInfoW
-#else
+#иначе
 #define GetAddrInfo GetAddrInfoA
 #endif
 
-  WINSOCK_API_LINKAGE int WSAAPI getaddrinfo(const char *nodename,const char *servname,const struct addrinfo *hints,struct addrinfo **res);
-  WINSOCK_API_LINKAGE int WSAAPI GetAddrInfoW(PCWSTR pNodeName,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
+  WINSOCK_API_LINKAGE целое WSAAPI getaddrinfo(const char *nodename,const char *servname,const struct addrinfo *hints,struct addrinfo **res);
+  WINSOCK_API_LINKAGE целое WSAAPI GetAddrInfoW(PCWSTR pNodeName,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
 
 #define GetAddrInfoA getaddrinfo
 
-#if INCL_WINSOCK_API_TYPEDEFS
-  typedef int (WSAAPI *LPFN_GETADDRINFO)(const char *nodename,const char *servname,const struct addrinfo *hints,struct addrinfo **res);
-  typedef int (WSAAPI *LPFN_GETADDRINFOW)(PCWSTR pNodeName,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
+#если INCL_WINSOCK_API_TYPEDEFS
+  typedef целое (WSAAPI *LPFN_GETADDRINFO)(const char *nodename,const char *servname,const struct addrinfo *hints,struct addrinfo **res);
+  typedef целое (WSAAPI *LPFN_GETADDRINFOW)(PCWSTR pNodeName,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
 
 #define LPFN_GETADDRINFOA LPFN_GETADDRINFO
 
 #ifdef UNICODE
 #define LPFN_GETADDRINFOT LPFN_GETADDRINFOW
-#else
+#иначе
 #define LPFN_GETADDRINFOT LPFN_GETADDRINFOA
 #endif
 #endif
 
 #ifdef UNICODE
 #define FreeAddrInfo FreeAddrInfoW
-#else
+#иначе
 #define FreeAddrInfo FreeAddrInfoA
 #endif
 
@@ -317,7 +317,7 @@ extern "C" {
 
 #define FreeAddrInfoA freeaddrinfo
 
-#if INCL_WINSOCK_API_TYPEDEFS
+#если INCL_WINSOCK_API_TYPEDEFS
   typedef void (WSAAPI *LPFN_FREEADDRINFO)(struct addrinfo *ai);
   typedef void (WSAAPI *LPFN_FREEADDRINFOW)(PADDRINFOW pAddrInfo);
 
@@ -325,7 +325,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define LPFN_FREEADDRINFOT LPFN_FREEADDRINFOW
-#else
+#иначе
 #define LPFN_FREEADDRINFOT LPFN_FREEADDRINFOA
 #endif
 #endif
@@ -333,28 +333,28 @@ extern "C" {
 #pragma push_macro("socklen_t")
 #undef socklen_t
 
-  typedef int socklen_t;
+  typedef целое socklen_t;
 
 #ifdef UNICODE
 #define GetNameInfo GetNameInfoW
-#else
+#иначе
 #define GetNameInfo GetNameInfoA
 #endif
 
-  WINSOCK_API_LINKAGE int WSAAPI getnameinfo(const struct sockaddr *sa,socklen_t salen,char *host,DWORD hostlen,char *serv,DWORD servlen,int flags);
+  WINSOCK_API_LINKAGE целое WSAAPI getnameinfo(const struct sockaddr *sa,socklen_t salen,char *host,DWORD hostlen,char *serv,DWORD servlen,целое flags);
   WINSOCK_API_LINKAGE INT WSAAPI GetNameInfoW(const SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR pNodeBuffer,DWORD NodeBufferSize,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
 
 #define GetNameInfoA getnameinfo
 
-#if INCL_WINSOCK_API_TYPEDEFS
-  typedef int (WSAAPI *LPFN_GETNAMEINFO)(const struct sockaddr *sa,socklen_t salen,char *host,DWORD hostlen,char *serv,DWORD servlen,int flags);
+#если INCL_WINSOCK_API_TYPEDEFS
+  typedef целое (WSAAPI *LPFN_GETNAMEINFO)(const struct sockaddr *sa,socklen_t salen,char *host,DWORD hostlen,char *serv,DWORD servlen,целое flags);
   typedef INT (WSAAPI *LPFN_GETNAMEINFOW)(const SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR pNodeBuffer,DWORD NodeBufferSize,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
 
 #define LPFN_GETNAMEINFOA LPFN_GETNAMEINFO
 
 #ifdef UNICODE
 #define LPFN_GETNAMEINFOT LPFN_GETNAMEINFOW
-#else
+#иначе
 #define LPFN_GETNAMEINFOT LPFN_GETNAMEINFOA
 #endif
 #endif
@@ -363,14 +363,14 @@ extern "C" {
 
 #ifdef UNICODE
 #define gai_strerror gai_strerrorW
-#else
+#иначе
 #define gai_strerror gai_strerrorA
 #endif
 
 #define GAI_STRERROR_BUFFER_SIZE 1024
 
-char *gai_strerrorA (int);
-WCHAR *gai_strerrorW(int);
+char *gai_strerrorA (целое);
+WCHAR *gai_strerrorW(целое);
 
 #define NI_MAXHOST 1025
 #define NI_MAXSERV 32

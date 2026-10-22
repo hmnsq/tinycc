@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main()
+целое основной()
 {
     printf("Hello World\n");
-    return 0;
+    вернуть 0;
 }

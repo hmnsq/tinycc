@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+целое основной()
 {
     /* decimal floating constant */
     float fa0 = .123f;
@@ -75,5 +75,5 @@ int main()
     printf("%Lf\n%Lf\n%Lf\n\n", ld0, ld1, ld2);
 #endif
 
-    return 0;
+    вернуть 0;
 }

@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
 #include <tcclib.h>
 
-int main()
+целое основной()
 {
     printf("Hello World\n");
-    return 0;
+    вернуть 0;
 }

@@ -1,31 +1,31 @@
 #include <stdio.h>
 
-int
-main (void)
+целое
+основной (void)
 {
-    int n = 0;
-    int  first=1;
-    int *p[101];
-    if (0) {
+    целое n = 0;
+    целое  first=1;
+    целое *p[101];
+    если (0) {
         lab:;
     }
-    int x[n % 100 + 1];
-    if (first == 0) {
-        if (&x[0] != p[n % 100 + 1]) {
+    целое x[n % 100 + 1];
+    если (first == 0) {
+        если (&x[0] != p[n % 100 + 1]) {
             printf ("ERROR: %p %p\n", &x[0], p[n % 100 + 1]);
-            return(1);
+            вернуть(1);
         }
     }
-    else {
+    иначе {
         p[n % 100 + 1] = &x[0];
         first = n < 100;
     }
     x[0] = 1;
     x[n % 100] = 2;
     n++;
-    if (n < 100000)
+    если (n < 100000)
         goto lab;
     printf ("OK\n");
-    return 0;
+    вернуть 0;
 }
 

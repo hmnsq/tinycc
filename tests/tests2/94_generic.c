@@ -1,92 +1,92 @@
 #include <stdio.h>
 
-const int a = 0;
+const целое a = 0;
 
 struct a {
-	int a;
+	целое a;
 };
 
 struct b {
-	int a;
+	целое a;
 };
 
-int a_f()
+целое a_f()
 {
-	return 20;
+	вернуть 20;
 }
 
-int b_f()
+целое b_f()
 {
-	return 10;
+	вернуть 10;
 }
 
-typedef int (*fptr)(int);
-typedef void (*vfptr)(int);
-int foo(int i)
+typedef целое (*fptr)(целое);
+typedef void (*vfptr)(целое);
+целое foo(целое i)
 {
-  return i;
+  вернуть i;
 }
-void void_foo(int i) {}
+void void_foo(целое i) {}
 
-typedef int int_type1;
+typedef целое int_type1;
 
-typedef int T[4];
-int f(T t)
+typedef целое T[4];
+целое f(T t)
 {
-	return _Generic(t, __typeof__( ((void)0, (T){0}) ) : 1 );
+	вернуть _Generic(t, __typeof__( ((void)0, (T){0}) ) : 1 );
 }
 
-#define gen_sw(a) _Generic(a, const char *: 1, default: 8, int: 123);
+#define gen_sw(a) _Generic(a, const char *: 1, default: 8, целое: 123);
 
-int main()
+целое основной()
 {
-	int i = 0;
-	signed long int l = 2;
+	целое i = 0;
+	signed long целое l = 2;
 	struct b titi;
-	const int * const ptr;
+	const целое * const ptr;
 	const char *ti;
 	int_type1 i2;
 	T t;
 
-	i = _Generic(a, int: a_f, const int: b_f)();
+	i = _Generic(a, целое: a_f, const целое: b_f)();
 	printf("%d\n", i);
-	i = _Generic(a, int: a_f() / 2, const int: b_f() / 2);
+	i = _Generic(a, целое: a_f() / 2, const целое: b_f() / 2);
 	printf("%d\n", i);
-	i = _Generic(ptr, int *:1, int * const:2, default:20);
+	i = _Generic(ptr, целое *:1, целое * const:2, default:20);
 	printf("%d\n", i);
 	i = gen_sw(a);
 	printf("%d\n", i);
 	i = _Generic(titi, struct a:1, struct b:2, default:20);
 	printf("%d\n", i);
-	i = _Generic(i2, char: 1, int : 0);
+	i = _Generic(i2, char: 1, целое : 0);
 	printf("%d\n", i);
-	i = _Generic(a, char:1, int[4]:2, default:5);
+	i = _Generic(a, char:1, целое[4]:2, default:5);
 	printf("%d\n", i);
-	i = _Generic(17, int :1, int **:2);
+	i = _Generic(17, целое :1, целое **:2);
 	printf("%d\n", i);
-	i = _Generic(17L, int :1, long :2, long long : 3);
+	i = _Generic(17L, целое :1, long :2, long long : 3);
 	printf("%d\n", i);
 	i = _Generic("17, io", char *: 3, const char *: 1);
 	printf("%d\n", i);
 	i = _Generic(ti, const unsigned char *:1, const char *:4, char *:3,
 		     const signed char *:2);
 	printf("%d\n", i);
-	printf("%s\n", _Generic(i + 2L, long: "long", int: "int",
+	printf("%s\n", _Generic(i + 2L, long: "long", целое: "int",
 				long long: "long long"));
-	i = _Generic(l, long: 1, int: 2);
+	i = _Generic(l, long: 1, целое: 2);
 	printf("%d\n", i);
-	i = _Generic(foo, fptr: 3, int: 4, vfptr: 5);
+	i = _Generic(foo, fptr: 3, целое: 4, vfptr: 5);
 	printf("%d\n", i);
-	i = _Generic(void_foo, fptr: 3, int: 4, vfptr: 5);
+	i = _Generic(void_foo, fptr: 3, целое: 4, vfptr: 5);
 	printf("%d\n", i);
 
-	(void)_Generic((int(*)[2]){0}, int(*)[2]:0, int(*)[4]:0); //shouldn't match twice
+	(void)_Generic((целое(*)[2]){0}, целое(*)[2]:0, целое(*)[4]:0); //shouldn't match twice
 
 	//should accept ({ }) in the controlling expr of _Generic even in const_wanted contexts
 	struct { _Bool x_0: _Generic(({0;}),default:1); } my_x;
 
 	_Generic((__typeof((float const)((float const){42}))*){0}, float*: 0); //casts lose top-level qualifiers
-	int const x = 42; __typeof((__typeof(x))x) *xp = 0; (void)_Generic(xp, int*: 0); //casts lose top-level qualifiers
+	целое const x = 42; __typeof((__typeof(x))x) *xp = 0; (void)_Generic(xp, целое*: 0); //casts lose top-level qualifiers
 
 	//TEST TERNARY:
 	//Same type
@@ -98,16 +98,16 @@ int main()
 	_Generic( 0?(long*)0:(void*)0, long*: (void)0);
 
 	//void ptrs get chosen preferentially; qualifs still combine
-	_Generic( 0?(int volatile*)0: (void const*)1, void volatile const*: (void)0);
+	_Generic( 0?(целое volatile*)0: (void const*)1, void volatile const*: (void)0);
         //but this is no null-ptr constant, so fallback to void-choice
         i = 0;
         _Generic( 1?(void*)(i*0LL):&i, void*:0);
 	//like gcc but not clang, don't treat (void* const as the null-ptr constant)
-	_Generic( 0?(int volatile*)0: (void const*)0, void volatile const*: (void)0);
+	_Generic( 0?(целое volatile*)0: (void const*)0, void volatile const*: (void)0);
 
 	//ptrs to incomplete types get completed
-	(void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : (int (*)[])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	(void)(sizeof(struct { int x:_Generic( 0?(int (*)[])0 : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
+	(void)(sizeof(struct { целое x:_Generic( 0?(целое (*)[4])0 : (целое (*)[])0, целое (*)[4]:+1, целое (*)[5]:(void)0); }));
+	(void)(sizeof(struct { целое x:_Generic( 0?(целое (*)[])0 : (целое (*)[4])0, целое (*)[4]:+1, целое (*)[5]:(void)0); }));
 
 	{
 	  /* completion shouldn't affect the type of decl */
@@ -117,15 +117,15 @@ int main()
 		_Generic(argv, char**: (void)0);
 	}
 	{
-	  extern int (*ar)[];
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : (int (*)[])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[])0 : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?ar : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : ar, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[5])0 : ar, int (*)[5]:+1, int (*)[4]:(void)0); }));
+	  extern целое (*ar)[];
+	  (void)(sizeof(struct { целое x:_Generic( 0?(целое (*)[4])0 : (целое (*)[])0, целое (*)[4]:+1, целое (*)[5]:(void)0); }));
+	  (void)(sizeof(struct { целое x:_Generic( 0?(целое (*)[])0 : (целое (*)[4])0, целое (*)[4]:+1, целое (*)[5]:(void)0); }));
+	  (void)(sizeof(struct { целое x:_Generic( 0?ar : (целое (*)[4])0, целое (*)[4]:+1, целое (*)[5]:(void)0); }));
+	  (void)(sizeof(struct { целое x:_Generic( 0?(целое (*)[4])0 : ar, целое (*)[4]:+1, целое (*)[5]:(void)0); }));
+	  (void)(sizeof(struct { целое x:_Generic( 0?(целое (*)[5])0 : ar, целое (*)[5]:+1, целое (*)[4]:(void)0); }));
 	}
 
 	printf ("%d\n", f(t));
 
-	return 0;
+	вернуть 0;
 }

@@ -4,9 +4,9 @@
 #define CAT(a,b) CAT2(a,b)
 #define AB(x) CAT(x,y)
 
-int main(void)
+целое основной(void)
 {
-  int xy = 42;
+  целое xy = 42;
   printf("%d\n", CAT(A,B)(x));
-  return 0;
+  вернуть 0;
 }

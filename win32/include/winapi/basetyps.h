@@ -3,12 +3,12 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#if !defined(_BASETYPS_H_)
+#если !defined(_BASETYPS_H_)
 #define _BASETYPS_H_
 
 #ifdef __cplusplus
 #define EXTERN_C extern "C"
-#else
+#иначе
 #define EXTERN_C extern
 #endif
 
@@ -30,7 +30,7 @@
 #define STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
 #define STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
 
-#if defined(__cplusplus) && !defined(CINTERFACE)
+#если defined(__cplusplus) && !defined(CINTERFACE)
 
 #define __STRUCT__ struct
 #define STDMETHOD(method) virtual HRESULT WINAPI method
@@ -42,7 +42,7 @@
 #define THIS void
 #define DECLARE_INTERFACE(iface) __STRUCT__ iface
 #define DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : public baseiface
-#else
+#иначе
 
 #ifndef __OBJC__
 #define interface struct
@@ -61,7 +61,7 @@
   const struct iface##Vtbl *lpVtbl; } iface; \
   typedef const struct iface##Vtbl iface##Vtbl; \
   const struct iface##Vtbl
-#else
+#иначе
 #define DECLARE_INTERFACE(iface) typedef struct iface { \
     struct iface##Vtbl *lpVtbl; \
   } iface; \

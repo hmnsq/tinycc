@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+void defined_const(целое *pointer);
 
-void defined_const(int *const pointer)
+void defined_const(целое *const pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+целое основной(void)
 {
-    return 0;
+    вернуть 0;
 }

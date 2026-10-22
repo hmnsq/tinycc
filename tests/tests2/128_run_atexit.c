@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+целое atexit(void (*function)(void));
+целое on_exit(void (*function)(целое, void *), void *arg);
+void exit(целое status);
 
 void __attribute((constructor)) startup5(void)
 {
@@ -20,12 +20,12 @@ void cleanup2(void)
     printf ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+void cleanup3(целое ret, void *arg)
 {
     printf ("%d %s\n", ret, (char *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+void cleanup4(целое ret, void *arg)
 {
     printf ("%d %s\n", ret, (char *) arg);
 }
@@ -43,15 +43,15 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#если defined test_128_return
+целое основной(целое argc, char **argv)
 {
     test();
-    return 1;
+    вернуть 1;
 } 
 
 #elif defined test_128_exit
-int main(int argc, char **argv)
+целое основной(целое argc, char **argv)
 {
     test();
     exit(2);
