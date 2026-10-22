@@ -1,37 +1,37 @@
-#include <stdio.h>
-#include <float.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <float.h>
 
-union ieee_double_extract
+सङ्घ ieee_double_extract
 {
-    struct {
-        unsigned int manl:32;
-        unsigned int manh:20;
-        unsigned int exp:11;
-        unsigned int sig:1;
+    संरचना {
+        unsigned पूर्णाङ्क manl:32;
+        unsigned पूर्णाङ्क manh:20;
+        unsigned पूर्णाङ्क exp:11;
+        unsigned पूर्णाङ्क sig:1;
     } s;
-    double d;
+    द्विगुण d;
 };
 
-double scale(double d)
+द्विगुण scale(द्विगुण d)
 {
-    union ieee_double_extract x;
+    सङ्घ ieee_double_extract x;
 
     x.d = d;
     x.d *= 1000;
-    return x.d;
+    प्रत्यागम x.d;
 }
 
-void mul(double *p)
+शून्य mul(द्विगुण *p)
 {
     *p *= 2.0;
 }
 
-int
-main(void)
+पूर्णाङ्क
+main(शून्य)
 {
-    double d = 4.0;
+    द्विगुण d = 4.0;
     printf("%g\n", scale(42));
     mul(&d);
     printf("%g\n", d);
-    return 0;
+    प्रत्यागम 0;
 }

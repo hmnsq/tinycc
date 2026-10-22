@@ -6,20 +6,20 @@
 #ifndef _INC_STDLIB
 #define _INC_STDLIB
 
-#include <_mingw.h>
-#include <limits.h>
+#अन्तर्भाव <_mingw.h>
+#अन्तर्भाव <limits.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(धकेलो,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
-#ifndef NULL
+#ifndef रिक्त
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define रिक्त 0
+#अन्यथा
+#define रिक्त ((शून्य *)0)
 #endif
 #endif
 
@@ -29,7 +29,7 @@ extern "C" {
 #ifndef _ONEXIT_T_DEFINED
 #define _ONEXIT_T_DEFINED
 
-  typedef int (__cdecl *_onexit_t)(void);
+  प्रकारनिर्देश पूर्णाङ्क (__cdecl *_onexit_t)(शून्य);
 
 #ifndef NO_OLDNAMES
 #define onexit_t _onexit_t
@@ -39,12 +39,12 @@ extern "C" {
 #ifndef _DIV_T_DEFINED
 #define _DIV_T_DEFINED
 
-  typedef struct _div_t {
-    int quot;
-    int rem;
+  प्रकारनिर्देश संरचना _div_t {
+    पूर्णाङ्क quot;
+    पूर्णाङ्क rem;
   } div_t;
 
-  typedef struct _ldiv_t {
+  प्रकारनिर्देश संरचना _ldiv_t {
     long quot;
     long rem;
   } ldiv_t;
@@ -54,33 +54,33 @@ extern "C" {
 #define _CRT_DOUBLE_DEC
 
 #pragma pack(4)
-  typedef struct {
-    unsigned char ld[10];
+  प्रकारनिर्देश संरचना {
+    unsigned वर्ण ld[10];
   } _LDOUBLE;
 #pragma pack()
 
-#define _PTR_LD(x) ((unsigned char *)(&(x)->ld))
+#define _PTR_LD(x) ((unsigned वर्ण *)(&(x)->ld))
 
-  typedef struct {
-    double x;
+  प्रकारनिर्देश संरचना {
+    द्विगुण x;
   } _CRT_DOUBLE;
 
-  typedef struct {
-    float f;
+  प्रकारनिर्देश संरचना {
+    भिन्न f;
   } _CRT_FLOAT;
 
-#pragma push_macro("long")
+#pragma धकेलो_macro("long")
 #undef long
 
-  typedef struct {
-    long double x;
+  प्रकारनिर्देश संरचना {
+    long द्विगुण x;
   } _LONGDOUBLE;
 
-#pragma pop_macro("long")
+#pragma निकालो_macro("long")
 
 #pragma pack(4)
-  typedef struct {
-    unsigned char ld12[12];
+  प्रकारनिर्देश संरचना {
+    unsigned वर्ण ld12[12];
   } _LDBL12;
 #pragma pack()
 #endif
@@ -91,17 +91,17 @@ extern "C" {
 #define MB_CUR_MAX ___mb_cur_max_func()
 #ifndef __mb_cur_max
 #ifdef _MSVCRT_
-  extern int __mb_cur_max;
-#else
+  बाह्य पूर्णाङ्क __mb_cur_max;
+#अन्यथा
 #define __mb_cur_max    (*_imp____mb_cur_max)
-  extern int *_imp____mb_cur_max;
+  बाह्य पूर्णाङ्क *_imp____mb_cur_max;
 #endif
 #endif
 #ifdef _MSVCRT_
-  extern int __mbcur_max;
+  बाह्य पूर्णाङ्क __mbcur_max;
 #define ___mb_cur_max_func() (__mb_cur_max)
-#else
-  extern int* _imp____mbcur_max;
+#अन्यथा
+  बाह्य पूर्णाङ्क* _imp____mbcur_max;
 #define ___mb_cur_max_func() (*_imp____mb_cur_max)
 #endif
 #endif
@@ -120,416 +120,416 @@ extern "C" {
 #define _OUT_TO_MSGBOX 2
 #define _REPORT_ERRMODE 3
 
-#define _WRITE_ABORT_MSG 0x1
+#define WRITE_ABORT_संदेश 0x1
 #define _CALL_REPORTFAULT 0x2
 
 #define _MAX_ENV 32767
 
-  typedef void (__cdecl *_purecall_handler)(void);
+  प्रकारनिर्देश शून्य (__cdecl *_purecall_handler)(शून्य);
 
   _CRTIMP _purecall_handler __cdecl _set_purecall_handler(_purecall_handler _Handler);
-  _CRTIMP _purecall_handler __cdecl _get_purecall_handler(void);
+  _CRTIMP _purecall_handler __cdecl _get_purecall_handler(शून्य);
 
-  typedef void (__cdecl *_invalid_parameter_handler)(const wchar_t *,const wchar_t *,const wchar_t *,unsigned int,uintptr_t);
+  प्रकारनिर्देश शून्य (__cdecl *_invalid_parameter_handler)(ध्रुव wchar_t *,ध्रुव wchar_t *,ध्रुव wchar_t *,unsigned पूर्णाङ्क,uintptr_t);
   _invalid_parameter_handler __cdecl _set_invalid_parameter_handler(_invalid_parameter_handler _Handler);
-  _invalid_parameter_handler __cdecl _get_invalid_parameter_handler(void);
+  _invalid_parameter_handler __cdecl _get_invalid_parameter_handler(शून्य);
 
 #ifndef _CRT_ERRNO_DEFINED
 #define _CRT_ERRNO_DEFINED
-  _CRTIMP int *__cdecl _errno(void);
+  _CRTIMP पूर्णाङ्क *__cdecl _errno(शून्य);
 #define errno (*_errno())
-  errno_t __cdecl _set_errno(int _Value);
-  errno_t __cdecl _get_errno(int *_Value);
+  errno_t __cdecl _set_errno(पूर्णाङ्क मूल्य_2);
+  errno_t __cdecl _get_errno(पूर्णाङ्क *मूल्य_2);
 #endif
-  _CRTIMP unsigned long *__cdecl __doserrno(void);
+  _CRTIMP unsigned long *__cdecl __doserrno(शून्य);
 #define _doserrno (*__doserrno())
-  errno_t __cdecl _set_doserrno(unsigned long _Value);
-  errno_t __cdecl _get_doserrno(unsigned long *_Value);
+  errno_t __cdecl _set_doserrno(unsigned long मूल्य_2);
+  errno_t __cdecl _get_doserrno(unsigned long *मूल्य_2);
 #ifdef _MSVCRT_
-  extern char *_sys_errlist[];
-  extern int _sys_nerr;
-#else
-  _CRTIMP char *_sys_errlist[1];
-  _CRTIMP int _sys_nerr;
+  बाह्य वर्ण *_sys_errlist[];
+  बाह्य पूर्णाङ्क _sys_nerr;
+#अन्यथा
+  _CRTIMP वर्ण *_sys_errlist[1];
+  _CRTIMP पूर्णाङ्क _sys_nerr;
 #endif
-#if (defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int *__cdecl __p___argc(void);
-  _CRTIMP char ***__cdecl __p___argv(void);
-  _CRTIMP wchar_t ***__cdecl __p___wargv(void);
-  _CRTIMP char ***__cdecl __p__environ(void);
-  _CRTIMP wchar_t ***__cdecl __p__wenviron(void);
-  _CRTIMP char **__cdecl __p__pgmptr(void);
-  _CRTIMP wchar_t **__cdecl __p__wpgmptr(void);
+#यदि (defined(_X86_) && !defined(__x86_64))
+  _CRTIMP पूर्णाङ्क *__cdecl __p___argc(शून्य);
+  _CRTIMP वर्ण ***__cdecl __p___argv(शून्य);
+  _CRTIMP wchar_t ***__cdecl __p___wargv(शून्य);
+  _CRTIMP वर्ण ***__cdecl __p__environ(शून्य);
+  _CRTIMP wchar_t ***__cdecl __p__wenviron(शून्य);
+  _CRTIMP वर्ण **__cdecl __p__pgmptr(शून्य);
+  _CRTIMP wchar_t **__cdecl __p__wpgmptr(शून्य);
 #endif
 #ifndef __argc
 #ifdef _MSVCRT_
-  extern int __argc;
-#else
+  बाह्य पूर्णाङ्क __argc;
+#अन्यथा
 #define __argc (*_imp____argc)
-  extern int *_imp____argc;
+  बाह्य पूर्णाङ्क *_imp____argc;
 #endif
 #endif
 #ifndef __argv
 #ifdef _MSVCRT_
-  extern char **__argv;
-#else
+  बाह्य वर्ण **__argv;
+#अन्यथा
 #define __argv  (*_imp____argv)
-  extern char ***_imp____argv;
+  बाह्य वर्ण ***_imp____argv;
 #endif
 #endif
 #ifndef __wargv
 #ifdef _MSVCRT_
-  extern wchar_t **__wargv;
-#else
+  बाह्य wchar_t **__wargv;
+#अन्यथा
 #define __wargv (*_imp____wargv)
-  extern wchar_t ***_imp____wargv;
+  बाह्य wchar_t ***_imp____wargv;
 #endif
 #endif
 
 #ifdef _POSIX_
-  extern char **environ;
-#else
+  बाह्य वर्ण **environ;
+#अन्यथा
 #ifndef _environ
 #ifdef _MSVCRT_
-  extern char **_environ;
-#else
+  बाह्य वर्ण **_environ;
+#अन्यथा
 #define _environ (*_imp___environ)
-  extern char ***_imp___environ;
+  बाह्य वर्ण ***_imp___environ;
 #endif
 #endif
 
 #ifndef _wenviron
 #ifdef _MSVCRT_
-  extern wchar_t **_wenviron;
-#else
+  बाह्य wchar_t **_wenviron;
+#अन्यथा
 #define _wenviron       (*_imp___wenviron)
-  extern wchar_t ***_imp___wenviron;
+  बाह्य wchar_t ***_imp___wenviron;
 #endif
 #endif
 #endif
 
-#if defined __aarch64__
+#यदि defined __aarch64__
 /* something does not work using those from msvcrt.dll */
 # undef __argc
 # undef __argv
 # undef __wargv
 # undef _wenviron
 # undef _environ
-extern int __argc;
-extern char **__argv;
-extern wchar_t **__wargv;
-extern char **_environ;
-extern wchar_t **_wenviron;
+बाह्य पूर्णाङ्क __argc;
+बाह्य वर्ण **__argv;
+बाह्य wchar_t **__wargv;
+बाह्य वर्ण **_environ;
+बाह्य wchar_t **_wenviron;
 #endif
 
 #ifndef _pgmptr
 #ifdef _MSVCRT_
-  extern char *_pgmptr;
-#else
+  बाह्य वर्ण *_pgmptr;
+#अन्यथा
 #define _pgmptr (*_imp___pgmptr)
-  extern char **_imp___pgmptr;
+  बाह्य वर्ण **_imp___pgmptr;
 #endif
 #endif
 
 #ifndef _wpgmptr
 #ifdef _MSVCRT_
-  extern wchar_t *_wpgmptr;
-#else
+  बाह्य wchar_t *_wpgmptr;
+#अन्यथा
 #define _wpgmptr        (*_imp___wpgmptr)
-  extern wchar_t **_imp___wpgmptr;
+  बाह्य wchar_t **_imp___wpgmptr;
 #endif
 #endif
-  errno_t __cdecl _get_pgmptr(char **_Value);
-  errno_t __cdecl _get_wpgmptr(wchar_t **_Value);
+  errno_t __cdecl _get_pgmptr(वर्ण **मूल्य_2);
+  errno_t __cdecl _get_wpgmptr(wchar_t **मूल्य_2);
 #ifndef _fmode
 #ifdef _MSVCRT_
-  extern int _fmode;
-#else
+  बाह्य पूर्णाङ्क _fmode;
+#अन्यथा
 #define _fmode  (*_imp___fmode)
-  extern int *_imp___fmode;
+  बाह्य पूर्णाङ्क *_imp___fmode;
 #endif
 #endif
-  _CRTIMP errno_t __cdecl _set_fmode(int _Mode);
-  _CRTIMP errno_t __cdecl _get_fmode(int *_PMode);
+  _CRTIMP errno_t __cdecl _set_fmode(पूर्णाङ्क _Mode);
+  _CRTIMP errno_t __cdecl _get_fmode(पूर्णाङ्क *_PMode);
 
 #ifndef _osplatform
 #ifdef _MSVCRT_
-  extern unsigned int _osplatform;
-#else
+  बाह्य unsigned पूर्णाङ्क _osplatform;
+#अन्यथा
 #define _osplatform (*_imp___osplatform)
-  extern unsigned int *_imp___osplatform;
+  बाह्य unsigned पूर्णाङ्क *_imp___osplatform;
 #endif
 #endif
 
 #ifndef _osver
 #ifdef _MSVCRT_
-  extern unsigned int _osver;
-#else
+  बाह्य unsigned पूर्णाङ्क _osver;
+#अन्यथा
 #define _osver  (*_imp___osver)
-  extern unsigned int *_imp___osver;
+  बाह्य unsigned पूर्णाङ्क *_imp___osver;
 #endif
 #endif
 
 #ifndef _winver
 #ifdef _MSVCRT_
-  extern unsigned int _winver;
-#else
+  बाह्य unsigned पूर्णाङ्क _winver;
+#अन्यथा
 #define _winver (*_imp___winver)
-  extern unsigned int *_imp___winver;
+  बाह्य unsigned पूर्णाङ्क *_imp___winver;
 #endif
 #endif
 
 #ifndef _winmajor
 #ifdef _MSVCRT_
-  extern unsigned int _winmajor;
-#else
+  बाह्य unsigned पूर्णाङ्क _winmajor;
+#अन्यथा
 #define _winmajor       (*_imp___winmajor)
-  extern unsigned int *_imp___winmajor;
+  बाह्य unsigned पूर्णाङ्क *_imp___winmajor;
 #endif
 #endif
 
 #ifndef _winminor
 #ifdef _MSVCRT_
-  extern unsigned int _winminor;
-#else
+  बाह्य unsigned पूर्णाङ्क _winminor;
+#अन्यथा
 #define _winminor       (*_imp___winminor)
-  extern unsigned int *_imp___winminor;
+  बाह्य unsigned पूर्णाङ्क *_imp___winminor;
 #endif
 #endif
 
-  errno_t __cdecl _get_osplatform(unsigned int *_Value);
-  errno_t __cdecl _get_osver(unsigned int *_Value);
-  errno_t __cdecl _get_winver(unsigned int *_Value);
-  errno_t __cdecl _get_winmajor(unsigned int *_Value);
-  errno_t __cdecl _get_winminor(unsigned int *_Value);
+  errno_t __cdecl _get_osplatform(unsigned पूर्णाङ्क *मूल्य_2);
+  errno_t __cdecl _get_osver(unsigned पूर्णाङ्क *मूल्य_2);
+  errno_t __cdecl _get_winver(unsigned पूर्णाङ्क *मूल्य_2);
+  errno_t __cdecl _get_winmajor(unsigned पूर्णाङ्क *मूल्य_2);
+  errno_t __cdecl _get_winminor(unsigned पूर्णाङ्क *मूल्य_2);
 #ifndef _countof
 #ifndef __cplusplus
-#define _countof(_Array) (sizeof(_Array) / sizeof(_Array[0]))
-#else
-  extern "C++" {
-    template <typename _CountofType,size_t _SizeOfArray> char (*__countof_helper(UNALIGNED _CountofType (&_Array)[_SizeOfArray]))[_SizeOfArray];
-#define _countof(_Array) sizeof(*__countof_helper(_Array))
+#define _countof(_Array) (परिमाण(_Array) / परिमाण(_Array[0]))
+#अन्यथा
+  बाह्य "C++" {
+    template <typename _CountofType,size_t _SizeOfArray> वर्ण (*__countof_helper(UNALIGNED _CountofType (&_Array)[_SizeOfArray]))[_SizeOfArray];
+#define _countof(_Array) परिमाण(*__countof_helper(_Array))
   }
 #endif
 #endif
 
 #ifndef _CRT_TERMINATE_DEFINED
 #define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
-  _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+  शून्य __cdecl __MINGW_NOTHROW exit(पूर्णाङ्क _Code) __MINGW_ATTRIB_NORETURN;
+  _CRTIMP शून्य __cdecl __MINGW_NOTHROW _exit(पूर्णाङ्क _Code) __MINGW_ATTRIB_NORETURN;
+#यदि !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
   /* C99 function name */
-  void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-  __CRT_INLINE __MINGW_ATTRIB_NORETURN void  __cdecl _Exit(int status)
+  शून्य __cdecl _Exit(पूर्णाङ्क) __MINGW_ATTRIB_NORETURN;
+  __CRT_INLINE __MINGW_ATTRIB_NORETURN शून्य  __cdecl _Exit(पूर्णाङ्क status)
   {  _exit(status); }
 #endif
 
-#pragma push_macro("abort")
+#pragma धकेलो_macro("abort")
 #undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+  शून्य __cdecl __declspec(noreturn) abort(शून्य);
+#pragma निकालो_macro("abort")
 
 #endif
 
-  _CRTIMP unsigned int __cdecl _set_abort_behavior(unsigned int _Flags,unsigned int _Mask);
+  _CRTIMP unsigned पूर्णाङ्क __cdecl _set_abort_behavior(unsigned पूर्णाङ्क _Flags,unsigned पूर्णाङ्क _Mask);
 
 #ifndef _CRT_ABS_DEFINED
 #define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
+  पूर्णाङ्क __cdecl abs(पूर्णाङ्क _X);
   long __cdecl labs(long _X);
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
+#यदि _INTEGRAL_MAX_BITS >= 64
   __int64 __cdecl _abs64(__int64);
 #endif
-  int __cdecl atexit(void (__cdecl *)(void));
+  पूर्णाङ्क __cdecl atexit(शून्य (__cdecl *)(शून्य));
 #ifndef _CRT_ATOF_DEFINED
 #define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
+  द्विगुण __cdecl atof(ध्रुव वर्ण *_String);
+  द्विगुण __cdecl _atof_l(ध्रुव वर्ण *_String,_locale_t _Locale);
 #endif
-  int __cdecl atoi(const char *_Str);
-  _CRTIMP int __cdecl _atoi_l(const char *_Str,_locale_t _Locale);
-  long __cdecl atol(const char *_Str);
-  _CRTIMP long __cdecl _atol_l(const char *_Str,_locale_t _Locale);
+  पूर्णाङ्क __cdecl atoi(ध्रुव वर्ण *_Str);
+  _CRTIMP पूर्णाङ्क __cdecl _atoi_l(ध्रुव वर्ण *_Str,_locale_t _Locale);
+  long __cdecl atol(ध्रुव वर्ण *_Str);
+  _CRTIMP long __cdecl _atol_l(ध्रुव वर्ण *_Str,_locale_t _Locale);
 #ifndef _CRT_ALGO_DEFINED
 #define _CRT_ALGO_DEFINED
-  void *__cdecl bsearch(const void *_Key,const void *_Base,size_t _NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(const void *,const void *));
-  void __cdecl qsort(void *_Base,size_t _NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(const void *,const void *));
+  शून्य *__cdecl bsearch(ध्रुव शून्य *कुंजी_2,ध्रुव शून्य *_Base,size_t अंक_Of_Elements,size_t _SizeOfElements,पूर्णाङ्क (__cdecl *_PtFuncCompare)(ध्रुव शून्य *,ध्रुव शून्य *));
+  शून्य __cdecl qsort(शून्य *_Base,size_t अंक_Of_Elements,size_t _SizeOfElements,पूर्णाङ्क (__cdecl *_PtFuncCompare)(ध्रुव शून्य *,ध्रुव शून्य *));
 #endif
   unsigned short __cdecl _byteswap_ushort(unsigned short _Short);
   /*unsigned long __cdecl _byteswap_ulong (unsigned long _Long); */
-#if _INTEGRAL_MAX_BITS >= 64
+#यदि _INTEGRAL_MAX_BITS >= 64
   unsigned __int64 __cdecl _byteswap_uint64(unsigned __int64 _Int64);
 #endif
-  div_t __cdecl div(int _Numerator,int _Denominator);
-  char *__cdecl getenv(const char *_VarName);
-  _CRTIMP char *__cdecl _itoa(int _Value,char *_Dest,int _Radix);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP char *__cdecl _i64toa(__int64 _Val,char *_DstBuf,int _Radix);
-  _CRTIMP char *__cdecl _ui64toa(unsigned __int64 _Val,char *_DstBuf,int _Radix);
-  _CRTIMP __int64 __cdecl _atoi64(const char *_String);
-  _CRTIMP __int64 __cdecl _atoi64_l(const char *_String,_locale_t _Locale);
-  _CRTIMP __int64 __cdecl _strtoi64(const char *_String,char **_EndPtr,int _Radix);
-  _CRTIMP __int64 __cdecl _strtoi64_l(const char *_String,char **_EndPtr,int _Radix,_locale_t _Locale);
-  _CRTIMP unsigned __int64 __cdecl _strtoui64(const char *_String,char **_EndPtr,int _Radix);
-  _CRTIMP unsigned __int64 __cdecl _strtoui64_l(const char *_String,char **_EndPtr,int _Radix,_locale_t _Locale);
+  div_t __cdecl div(पूर्णाङ्क _Numerator,पूर्णाङ्क _Denominator);
+  वर्ण *__cdecl getenv(ध्रुव वर्ण *_VarName);
+  _CRTIMP वर्ण *__cdecl _itoa(पूर्णाङ्क मूल्य_2,वर्ण *_Dest,पूर्णाङ्क _Radix);
+#यदि _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP वर्ण *__cdecl _i64toa(__int64 _Val,वर्ण *_DstBuf,पूर्णाङ्क _Radix);
+  _CRTIMP वर्ण *__cdecl _ui64toa(unsigned __int64 _Val,वर्ण *_DstBuf,पूर्णाङ्क _Radix);
+  _CRTIMP __int64 __cdecl _atoi64(ध्रुव वर्ण *_String);
+  _CRTIMP __int64 __cdecl _atoi64_l(ध्रुव वर्ण *_String,_locale_t _Locale);
+  _CRTIMP __int64 __cdecl _strtoi64(ध्रुव वर्ण *_String,वर्ण **_EndPtr,पूर्णाङ्क _Radix);
+  _CRTIMP __int64 __cdecl _strtoi64_l(ध्रुव वर्ण *_String,वर्ण **_EndPtr,पूर्णाङ्क _Radix,_locale_t _Locale);
+  _CRTIMP unsigned __int64 __cdecl _strtoui64(ध्रुव वर्ण *_String,वर्ण **_EndPtr,पूर्णाङ्क _Radix);
+  _CRTIMP unsigned __int64 __cdecl _strtoui64_l(ध्रुव वर्ण *_String,वर्ण **_EndPtr,पूर्णाङ्क _Radix,_locale_t _Locale);
 #endif
   ldiv_t __cdecl ldiv(long _Numerator,long _Denominator);
-  _CRTIMP char *__cdecl _ltoa(long _Value,char *_Dest,int _Radix);
-  int __cdecl mblen(const char *_Ch,size_t _MaxCount);
-  _CRTIMP int __cdecl _mblen_l(const char *_Ch,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _mbstrlen(const char *_Str);
-  _CRTIMP size_t __cdecl _mbstrlen_l(const char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _mbstrnlen(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _mbstrnlen_l(const char *_Str,size_t _MaxCount,_locale_t _Locale);
-  int __cdecl mbtowc(wchar_t *_DstCh,const char *_SrcCh,size_t _SrcSizeInBytes);
-  _CRTIMP int __cdecl _mbtowc_l(wchar_t *_DstCh,const char *_SrcCh,size_t _SrcSizeInBytes,_locale_t _Locale);
-  size_t __cdecl mbstowcs(wchar_t *_Dest,const char *_Source,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _mbstowcs_l(wchar_t *_Dest,const char *_Source,size_t _MaxCount,_locale_t _Locale);
-  int __cdecl rand(void);
-  _CRTIMP int __cdecl _set_error_mode(int _Mode);
-  void __cdecl srand(unsigned int _Seed);
-  double __cdecl strtod(const char *_Str,char **_EndPtr);
-#if !defined __NO_ISOCEXT  /* in libmingwex.a */
-#if __TINYC__
-  __CRT_INLINE float __cdecl strtof (const char *p, char ** e) { return strtod(p, e); }
-  __CRT_INLINE long double __cdecl strtold(const char *p, char ** e) { return strtod(p, e); }
-#else
-  float __cdecl strtof (const char * __restrict__, char ** __restrict__);
-  long double __cdecl strtold(const char * __restrict__, char ** __restrict__);
+  _CRTIMP वर्ण *__cdecl _ltoa(long मूल्य_2,वर्ण *_Dest,पूर्णाङ्क _Radix);
+  पूर्णाङ्क __cdecl mblen(ध्रुव वर्ण *_Ch,size_t Max_गिनती);
+  _CRTIMP पूर्णाङ्क __cdecl _mblen_l(ध्रुव वर्ण *_Ch,size_t Max_गिनती,_locale_t _Locale);
+  _CRTIMP size_t __cdecl _mbstrlen(ध्रुव वर्ण *_Str);
+  _CRTIMP size_t __cdecl _mbstrlen_l(ध्रुव वर्ण *_Str,_locale_t _Locale);
+  _CRTIMP size_t __cdecl _mbstrnlen(ध्रुव वर्ण *_Str,size_t Max_गिनती);
+  _CRTIMP size_t __cdecl _mbstrnlen_l(ध्रुव वर्ण *_Str,size_t Max_गिनती,_locale_t _Locale);
+  पूर्णाङ्क __cdecl mbtowc(wchar_t *_DstCh,ध्रुव वर्ण *_SrcCh,size_t _SrcSizeInBytes);
+  _CRTIMP पूर्णाङ्क __cdecl _mbtowc_l(wchar_t *_DstCh,ध्रुव वर्ण *_SrcCh,size_t _SrcSizeInBytes,_locale_t _Locale);
+  size_t __cdecl mbstowcs(wchar_t *_Dest,ध्रुव वर्ण *_Source,size_t Max_गिनती);
+  _CRTIMP size_t __cdecl _mbstowcs_l(wchar_t *_Dest,ध्रुव वर्ण *_Source,size_t Max_गिनती,_locale_t _Locale);
+  पूर्णाङ्क __cdecl rand(शून्य);
+  _CRTIMP पूर्णाङ्क __cdecl _set_error_mode(पूर्णाङ्क _Mode);
+  शून्य __cdecl srand(unsigned पूर्णाङ्क _Seed);
+  द्विगुण __cdecl strtod(ध्रुव वर्ण *_Str,वर्ण **_EndPtr);
+#यदि !defined __NO_ISOCEXT  /* in libmingwex.a */
+#यदि __TINYC__
+  __CRT_INLINE भिन्न __cdecl strtof (ध्रुव वर्ण *p, वर्ण ** e) { प्रत्यागम strtod(p, e); }
+  __CRT_INLINE long द्विगुण __cdecl strtold(ध्रुव वर्ण *p, वर्ण ** e) { प्रत्यागम strtod(p, e); }
+#अन्यथा
+  भिन्न __cdecl strtof (ध्रुव वर्ण * __restrict__, वर्ण ** __restrict__);
+  long द्विगुण __cdecl strtold(ध्रुव वर्ण * __restrict__, वर्ण ** __restrict__);
 #endif
-#else
-  float __cdecl strtof(const char *nptr, char **endptr);
+#अन्यथा
+  भिन्न __cdecl strtof(ध्रुव वर्ण *nptr, वर्ण **endptr);
 #endif /* __NO_ISOCEXT */
-  _CRTIMP double __cdecl _strtod_l(const char *_Str,char **_EndPtr,_locale_t _Locale);
-  long __cdecl strtol(const char *_Str,char **_EndPtr,int _Radix);
-  _CRTIMP long __cdecl _strtol_l(const char *_Str,char **_EndPtr,int _Radix,_locale_t _Locale);
-  unsigned long __cdecl strtoul(const char *_Str,char **_EndPtr,int _Radix);
-  _CRTIMP unsigned long __cdecl _strtoul_l(const char *_Str,char **_EndPtr,int _Radix,_locale_t _Locale);
+  _CRTIMP द्विगुण __cdecl _strtod_l(ध्रुव वर्ण *_Str,वर्ण **_EndPtr,_locale_t _Locale);
+  long __cdecl strtol(ध्रुव वर्ण *_Str,वर्ण **_EndPtr,पूर्णाङ्क _Radix);
+  _CRTIMP long __cdecl _strtol_l(ध्रुव वर्ण *_Str,वर्ण **_EndPtr,पूर्णाङ्क _Radix,_locale_t _Locale);
+  unsigned long __cdecl strtoul(ध्रुव वर्ण *_Str,वर्ण **_EndPtr,पूर्णाङ्क _Radix);
+  _CRTIMP unsigned long __cdecl _strtoul_l(ध्रुव वर्ण *_Str,वर्ण **_EndPtr,पूर्णाङ्क _Radix,_locale_t _Locale);
 #ifndef _CRT_SYSTEM_DEFINED
 #define _CRT_SYSTEM_DEFINED
-  int __cdecl system(const char *_Command);
+  पूर्णाङ्क __cdecl system(ध्रुव वर्ण *_Command);
 #endif
-  _CRTIMP char *__cdecl _ultoa(unsigned long _Value,char *_Dest,int _Radix);
-  int __cdecl wctomb(char *_MbCh,wchar_t _WCh);
-  _CRTIMP int __cdecl _wctomb_l(char *_MbCh,wchar_t _WCh,_locale_t _Locale);
-  size_t __cdecl wcstombs(char *_Dest,const wchar_t *_Source,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _wcstombs_l(char *_Dest,const wchar_t *_Source,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _ultoa(unsigned long मूल्य_2,वर्ण *_Dest,पूर्णाङ्क _Radix);
+  पूर्णाङ्क __cdecl wctomb(वर्ण *_MbCh,wchar_t _WCh);
+  _CRTIMP पूर्णाङ्क __cdecl _wctomb_l(वर्ण *_MbCh,wchar_t _WCh,_locale_t _Locale);
+  size_t __cdecl wcstombs(वर्ण *_Dest,ध्रुव wchar_t *_Source,size_t Max_गिनती);
+  _CRTIMP size_t __cdecl _wcstombs_l(वर्ण *_Dest,ध्रुव wchar_t *_Source,size_t Max_गिनती,_locale_t _Locale);
 
 #ifndef _CRT_ALLOCATION_DEFINED
 #define _CRT_ALLOCATION_DEFINED
-  void *__cdecl calloc(size_t _NumOfElements,size_t _SizeOfElements);
-  void __cdecl free(void *_Memory);
-  void *__cdecl malloc(size_t _Size);
-  void *__cdecl realloc(void *_Memory,size_t _NewSize);
-  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t _Count,size_t _Size);
-  _CRTIMP void __cdecl _aligned_free(void *_Memory);
-  _CRTIMP void *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_realloc(void *_Memory,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_realloc(void *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment,size_t _Offset);
+  शून्य *__cdecl calloc(size_t अंक_Of_Elements,size_t _SizeOfElements);
+  शून्य __cdecl मुक्त(शून्य *_Memory);
+  शून्य *__cdecl malloc(size_t _Size);
+  शून्य *__cdecl realloc(शून्य *_Memory,size_t _NewSize);
+  _CRTIMP शून्य *__cdecl _recalloc(शून्य *_Memory,size_t गिनती_5,size_t _Size);
+  _CRTIMP शून्य __cdecl _aligned_free(शून्य *_Memory);
+  _CRTIMP शून्य *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
+  _CRTIMP शून्य *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
+  _CRTIMP शून्य *__cdecl _aligned_realloc(शून्य *_Memory,size_t _Size,size_t _Alignment);
+  _CRTIMP शून्य *__cdecl _aligned_recalloc(शून्य *_Memory,size_t गिनती_5,size_t _Size,size_t _Alignment);
+  _CRTIMP शून्य *__cdecl _aligned_offset_realloc(शून्य *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
+  _CRTIMP शून्य *__cdecl _aligned_offset_recalloc(शून्य *_Memory,size_t गिनती_5,size_t _Size,size_t _Alignment,size_t _Offset);
 #endif
 
 #ifndef _WSTDLIB_DEFINED
 #define _WSTDLIB_DEFINED
 
-  _CRTIMP wchar_t *__cdecl _itow(int _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ltow(long _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ultow(unsigned long _Value,wchar_t *_Dest,int _Radix);
-  double __cdecl wcstod(const wchar_t *_Str,wchar_t **_EndPtr);
-  float __cdecl wcstof(const wchar_t *nptr, wchar_t **endptr);
-#if !defined __NO_ISOCEXT /* in libmingwex.a */
-  float __cdecl wcstof( const wchar_t * __restrict__, wchar_t ** __restrict__);
-  long double __cdecl wcstold(const wchar_t * __restrict__, wchar_t ** __restrict__);
+  _CRTIMP wchar_t *__cdecl _itow(पूर्णाङ्क मूल्य_2,wchar_t *_Dest,पूर्णाङ्क _Radix);
+  _CRTIMP wchar_t *__cdecl _ltow(long मूल्य_2,wchar_t *_Dest,पूर्णाङ्क _Radix);
+  _CRTIMP wchar_t *__cdecl _ultow(unsigned long मूल्य_2,wchar_t *_Dest,पूर्णाङ्क _Radix);
+  द्विगुण __cdecl wcstod(ध्रुव wchar_t *_Str,wchar_t **_EndPtr);
+  भिन्न __cdecl wcstof(ध्रुव wchar_t *nptr, wchar_t **endptr);
+#यदि !defined __NO_ISOCEXT /* in libmingwex.a */
+  भिन्न __cdecl wcstof( ध्रुव wchar_t * __restrict__, wchar_t ** __restrict__);
+  long द्विगुण __cdecl wcstold(ध्रुव wchar_t * __restrict__, wchar_t ** __restrict__);
 #endif /* __NO_ISOCEXT */
-  _CRTIMP double __cdecl _wcstod_l(const wchar_t *_Str,wchar_t **_EndPtr,_locale_t _Locale);
-  long __cdecl wcstol(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP long __cdecl _wcstol_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  unsigned long __cdecl wcstoul(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP unsigned long __cdecl _wcstoul_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wgetenv(const wchar_t *_VarName);
+  _CRTIMP द्विगुण __cdecl _wcstod_l(ध्रुव wchar_t *_Str,wchar_t **_EndPtr,_locale_t _Locale);
+  long __cdecl wcstol(ध्रुव wchar_t *_Str,wchar_t **_EndPtr,पूर्णाङ्क _Radix);
+  _CRTIMP long __cdecl _wcstol_l(ध्रुव wchar_t *_Str,wchar_t **_EndPtr,पूर्णाङ्क _Radix,_locale_t _Locale);
+  unsigned long __cdecl wcstoul(ध्रुव wchar_t *_Str,wchar_t **_EndPtr,पूर्णाङ्क _Radix);
+  _CRTIMP unsigned long __cdecl _wcstoul_l(ध्रुव wchar_t *_Str,wchar_t **_EndPtr,पूर्णाङ्क _Radix,_locale_t _Locale);
+  _CRTIMP wchar_t *__cdecl _wgetenv(ध्रुव wchar_t *_VarName);
 #ifndef _CRT_WSYSTEM_DEFINED
 #define _CRT_WSYSTEM_DEFINED
-  _CRTIMP int __cdecl _wsystem(const wchar_t *_Command);
+  _CRTIMP पूर्णाङ्क __cdecl _wsystem(ध्रुव wchar_t *_Command);
 #endif
-  _CRTIMP double __cdecl _wtof(const wchar_t *_Str);
-  _CRTIMP double __cdecl _wtof_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP int __cdecl _wtoi(const wchar_t *_Str);
-  _CRTIMP int __cdecl _wtoi_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP long __cdecl _wtol(const wchar_t *_Str);
-  _CRTIMP long __cdecl _wtol_l(const wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP द्विगुण __cdecl _wtof(ध्रुव wchar_t *_Str);
+  _CRTIMP द्विगुण __cdecl _wtof_l(ध्रुव wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _wtoi(ध्रुव wchar_t *_Str);
+  _CRTIMP पूर्णाङ्क __cdecl _wtoi_l(ध्रुव wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP long __cdecl _wtol(ध्रुव wchar_t *_Str);
+  _CRTIMP long __cdecl _wtol_l(ध्रुव wchar_t *_Str,_locale_t _Locale);
 
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP wchar_t *__cdecl _i64tow(__int64 _Val,wchar_t *_DstBuf,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ui64tow(unsigned __int64 _Val,wchar_t *_DstBuf,int _Radix);
-  _CRTIMP __int64 __cdecl _wtoi64(const wchar_t *_Str);
-  _CRTIMP __int64 __cdecl _wtoi64_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP __int64 __cdecl _wcstoi64(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP __int64 __cdecl _wcstoi64_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  _CRTIMP unsigned __int64 __cdecl _wcstoui64(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP unsigned __int64 __cdecl _wcstoui64_l(const wchar_t *_Str ,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
+#यदि _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP wchar_t *__cdecl _i64tow(__int64 _Val,wchar_t *_DstBuf,पूर्णाङ्क _Radix);
+  _CRTIMP wchar_t *__cdecl _ui64tow(unsigned __int64 _Val,wchar_t *_DstBuf,पूर्णाङ्क _Radix);
+  _CRTIMP __int64 __cdecl _wtoi64(ध्रुव wchar_t *_Str);
+  _CRTIMP __int64 __cdecl _wtoi64_l(ध्रुव wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP __int64 __cdecl _wcstoi64(ध्रुव wchar_t *_Str,wchar_t **_EndPtr,पूर्णाङ्क _Radix);
+  _CRTIMP __int64 __cdecl _wcstoi64_l(ध्रुव wchar_t *_Str,wchar_t **_EndPtr,पूर्णाङ्क _Radix,_locale_t _Locale);
+  _CRTIMP unsigned __int64 __cdecl _wcstoui64(ध्रुव wchar_t *_Str,wchar_t **_EndPtr,पूर्णाङ्क _Radix);
+  _CRTIMP unsigned __int64 __cdecl _wcstoui64_l(ध्रुव wchar_t *_Str ,wchar_t **_EndPtr,पूर्णाङ्क _Radix,_locale_t _Locale);
 #endif
 #endif
 
 #ifndef _POSIX_
 #define _CVTBUFSIZE (309+40)
-  _CRTIMP char *__cdecl _fullpath(char *_FullPath,const char *_Path,size_t _SizeInBytes);
-  _CRTIMP char *__cdecl _ecvt(double _Val,int _NumOfDigits,int *_PtDec,int *_PtSign);
-  _CRTIMP char *__cdecl _fcvt(double _Val,int _NumOfDec,int *_PtDec,int *_PtSign);
-  _CRTIMP char *__cdecl _gcvt(double _Val,int _NumOfDigits,char *_DstBuf);
-  _CRTIMP int __cdecl _atodbl(_CRT_DOUBLE *_Result,char *_Str);
-  _CRTIMP int __cdecl _atoldbl(_LDOUBLE *_Result,char *_Str);
-  _CRTIMP int __cdecl _atoflt(_CRT_FLOAT *_Result,char *_Str);
-  _CRTIMP int __cdecl _atodbl_l(_CRT_DOUBLE *_Result,char *_Str,_locale_t _Locale);
-  _CRTIMP int __cdecl _atoldbl_l(_LDOUBLE *_Result,char *_Str,_locale_t _Locale);
-  _CRTIMP int __cdecl _atoflt_l(_CRT_FLOAT *_Result,char *_Str,_locale_t _Locale);
-  unsigned long __cdecl _lrotl(unsigned long _Val,int _Shift);
-  unsigned long __cdecl _lrotr(unsigned long _Val,int _Shift);
-  _CRTIMP void __cdecl _makepath(char *_Path,const char *_Drive,const char *_Dir,const char *_Filename,const char *_Ext);
+  _CRTIMP वर्ण *__cdecl _fullpath(वर्ण *_FullPath,ध्रुव वर्ण *_Path,size_t _SizeInBytes);
+  _CRTIMP वर्ण *__cdecl _ecvt(द्विगुण _Val,पूर्णाङ्क अंक_Of_Digits,पूर्णाङ्क *_PtDec,पूर्णाङ्क *_PtSign);
+  _CRTIMP वर्ण *__cdecl _fcvt(द्विगुण _Val,पूर्णाङ्क अंक_Of_Dec,पूर्णाङ्क *_PtDec,पूर्णाङ्क *_PtSign);
+  _CRTIMP वर्ण *__cdecl _gcvt(द्विगुण _Val,पूर्णाङ्क अंक_Of_Digits,वर्ण *_DstBuf);
+  _CRTIMP पूर्णाङ्क __cdecl _atodbl(_CRT_DOUBLE *_Result,वर्ण *_Str);
+  _CRTIMP पूर्णाङ्क __cdecl _atoldbl(_LDOUBLE *_Result,वर्ण *_Str);
+  _CRTIMP पूर्णाङ्क __cdecl _atoflt(_CRT_FLOAT *_Result,वर्ण *_Str);
+  _CRTIMP पूर्णाङ्क __cdecl _atodbl_l(_CRT_DOUBLE *_Result,वर्ण *_Str,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _atoldbl_l(_LDOUBLE *_Result,वर्ण *_Str,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _atoflt_l(_CRT_FLOAT *_Result,वर्ण *_Str,_locale_t _Locale);
+  unsigned long __cdecl _lrotl(unsigned long _Val,पूर्णाङ्क _Shift);
+  unsigned long __cdecl _lrotr(unsigned long _Val,पूर्णाङ्क _Shift);
+  _CRTIMP शून्य __cdecl _makepath(वर्ण *_Path,ध्रुव वर्ण *_Drive,ध्रुव वर्ण *_Dir,ध्रुव वर्ण *_Filename,ध्रुव वर्ण *_Ext);
   _onexit_t __cdecl _onexit(_onexit_t _Func);
 
 #ifndef _CRT_PERROR_DEFINED
 #define _CRT_PERROR_DEFINED
-  void __cdecl perror(const char *_ErrMsg);
+  शून्य __cdecl perror(ध्रुव वर्ण *Err_संदेश);
 #endif
-  _CRTIMP int __cdecl _putenv(const char *_EnvString);
-  unsigned int __cdecl _rotl(unsigned int _Val,int _Shift);
-#if _INTEGRAL_MAX_BITS >= 64
-  unsigned __int64 __cdecl _rotl64(unsigned __int64 _Val,int _Shift);
+  _CRTIMP पूर्णाङ्क __cdecl _putenv(ध्रुव वर्ण *_EnvString);
+  unsigned पूर्णाङ्क __cdecl _rotl(unsigned पूर्णाङ्क _Val,पूर्णाङ्क _Shift);
+#यदि _INTEGRAL_MAX_BITS >= 64
+  unsigned __int64 __cdecl _rotl64(unsigned __int64 _Val,पूर्णाङ्क _Shift);
 #endif
-  unsigned int __cdecl _rotr(unsigned int _Val,int _Shift);
-#if _INTEGRAL_MAX_BITS >= 64
-  unsigned __int64 __cdecl _rotr64(unsigned __int64 _Val,int _Shift);
+  unsigned पूर्णाङ्क __cdecl _rotr(unsigned पूर्णाङ्क _Val,पूर्णाङ्क _Shift);
+#यदि _INTEGRAL_MAX_BITS >= 64
+  unsigned __int64 __cdecl _rotr64(unsigned __int64 _Val,पूर्णाङ्क _Shift);
 #endif
-  _CRTIMP void __cdecl _searchenv(const char *_Filename,const char *_EnvVar,char *_ResultPath);
-  _CRTIMP void __cdecl _splitpath(const char *_FullPath,char *_Drive,char *_Dir,char *_Filename,char *_Ext);
-  _CRTIMP void __cdecl _swab(char *_Buf1,char *_Buf2,int _SizeInBytes);
+  _CRTIMP शून्य __cdecl _searchenv(ध्रुव वर्ण *_Filename,ध्रुव वर्ण *_EnvVar,वर्ण *_ResultPath);
+  _CRTIMP शून्य __cdecl _splitpath(ध्रुव वर्ण *_FullPath,वर्ण *_Drive,वर्ण *_Dir,वर्ण *_Filename,वर्ण *_Ext);
+  _CRTIMP शून्य __cdecl _swab(वर्ण *_Buf1,वर्ण *_Buf2,पूर्णाङ्क _SizeInBytes);
 
 #ifndef _WSTDLIBP_DEFINED
 #define _WSTDLIBP_DEFINED
-  _CRTIMP wchar_t *__cdecl _wfullpath(wchar_t *_FullPath,const wchar_t *_Path,size_t _SizeInWords);
-  _CRTIMP void __cdecl _wmakepath(wchar_t *_ResultPath,const wchar_t *_Drive,const wchar_t *_Dir,const wchar_t *_Filename,const wchar_t *_Ext);
+  _CRTIMP wchar_t *__cdecl _wfullpath(wchar_t *_FullPath,ध्रुव wchar_t *_Path,size_t Size_In_शब्दगण);
+  _CRTIMP शून्य __cdecl _wmakepath(wchar_t *_ResultPath,ध्रुव wchar_t *_Drive,ध्रुव wchar_t *_Dir,ध्रुव wchar_t *_Filename,ध्रुव wchar_t *_Ext);
 #ifndef _CRT_WPERROR_DEFINED
 #define _CRT_WPERROR_DEFINED
-  _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
+  _CRTIMP शून्य __cdecl _wperror(ध्रुव wchar_t *Err_संदेश);
 #endif
-  _CRTIMP int __cdecl _wputenv(const wchar_t *_EnvString);
-  _CRTIMP void __cdecl _wsearchenv(const wchar_t *_Filename,const wchar_t *_EnvVar,wchar_t *_ResultPath);
-  _CRTIMP void __cdecl _wsplitpath(const wchar_t *_FullPath,wchar_t *_Drive,wchar_t *_Dir,wchar_t *_Filename,wchar_t *_Ext);
+  _CRTIMP पूर्णाङ्क __cdecl _wputenv(ध्रुव wchar_t *_EnvString);
+  _CRTIMP शून्य __cdecl _wsearchenv(ध्रुव wchar_t *_Filename,ध्रुव wchar_t *_EnvVar,wchar_t *_ResultPath);
+  _CRTIMP शून्य __cdecl _wsplitpath(ध्रुव wchar_t *_FullPath,wchar_t *_Drive,wchar_t *_Dir,wchar_t *_Filename,wchar_t *_Ext);
 #endif
 
-  _CRTIMP void __cdecl _beep(unsigned _Frequency,unsigned _Duration) __MINGW_ATTRIB_DEPRECATED;
+  _CRTIMP शून्य __cdecl _beep(unsigned _Frequency,unsigned _Duration) __MINGW_ATTRIB_DEPRECATED;
   /* Not to be confused with  _set_error_mode (int).  */
-  _CRTIMP void __cdecl _seterrormode(int _Mode) __MINGW_ATTRIB_DEPRECATED;
-  _CRTIMP void __cdecl _sleep(unsigned long _Duration) __MINGW_ATTRIB_DEPRECATED;
+  _CRTIMP शून्य __cdecl _seterrormode(पूर्णाङ्क _Mode) __MINGW_ATTRIB_DEPRECATED;
+  _CRTIMP शून्य __cdecl _sleep(unsigned long _Duration) __MINGW_ATTRIB_DEPRECATED;
 #endif
 
 #ifndef NO_OLDNAMES
 #ifndef _POSIX_
-#if 0
+#यदि 0
 #ifndef __cplusplus
 #ifndef NOMINMAX
 #ifndef max
@@ -545,51 +545,51 @@ extern wchar_t **_wenviron;
 #define sys_errlist _sys_errlist
 #define sys_nerr _sys_nerr
 #define environ _environ
-  char *__cdecl ecvt(double _Val,int _NumOfDigits,int *_PtDec,int *_PtSign);
-  char *__cdecl fcvt(double _Val,int _NumOfDec,int *_PtDec,int *_PtSign);
-  char *__cdecl gcvt(double _Val,int _NumOfDigits,char *_DstBuf);
-  char *__cdecl itoa(int _Val,char *_DstBuf,int _Radix);
-  char *__cdecl ltoa(long _Val,char *_DstBuf,int _Radix);
-  int __cdecl putenv(const char *_EnvString);
-  void __cdecl swab(char *_Buf1,char *_Buf2,int _SizeInBytes);
-  char *__cdecl ultoa(unsigned long _Val,char *_Dstbuf,int _Radix);
+  वर्ण *__cdecl ecvt(द्विगुण _Val,पूर्णाङ्क अंक_Of_Digits,पूर्णाङ्क *_PtDec,पूर्णाङ्क *_PtSign);
+  वर्ण *__cdecl fcvt(द्विगुण _Val,पूर्णाङ्क अंक_Of_Dec,पूर्णाङ्क *_PtDec,पूर्णाङ्क *_PtSign);
+  वर्ण *__cdecl gcvt(द्विगुण _Val,पूर्णाङ्क अंक_Of_Digits,वर्ण *_DstBuf);
+  वर्ण *__cdecl itoa(पूर्णाङ्क _Val,वर्ण *_DstBuf,पूर्णाङ्क _Radix);
+  वर्ण *__cdecl ltoa(long _Val,वर्ण *_DstBuf,पूर्णाङ्क _Radix);
+  पूर्णाङ्क __cdecl putenv(ध्रुव वर्ण *_EnvString);
+  शून्य __cdecl swab(वर्ण *_Buf1,वर्ण *_Buf2,पूर्णाङ्क _SizeInBytes);
+  वर्ण *__cdecl ultoa(unsigned long _Val,वर्ण *_Dstbuf,पूर्णाङ्क _Radix);
   onexit_t __cdecl onexit(onexit_t _Func);
 #endif
 #endif
 
-#if !defined __NO_ISOCEXT /* externs in static libmingwex.a */
+#यदि !defined __NO_ISOCEXT /* externs in static libmingwex.a */
 
-  typedef struct { long long quot, rem; } lldiv_t;
+  प्रकारनिर्देश संरचना { long long quot, rem; } lldiv_t;
 
   lldiv_t __cdecl lldiv(long long, long long);
 
-  __CRT_INLINE long long __cdecl llabs(long long _j) { return (_j >= 0 ? _j : -_j); }
+  __CRT_INLINE long long __cdecl llabs(long long _j) { प्रत्यागम (_j >= 0 ? _j : -_j); }
 
  #ifdef __TINYC__ /* gr */
   #define strtoll _strtoi64
   #define strtoull _strtoui64
- #else
-  long long  __cdecl strtoll(const char* __restrict__, char** __restrict, int);
-  unsigned long long  __cdecl strtoull(const char* __restrict__, char** __restrict__, int);
+ #अन्यथा
+  long long  __cdecl strtoll(ध्रुव वर्ण* __restrict__, वर्ण** __restrict, पूर्णाङ्क);
+  unsigned long long  __cdecl strtoull(ध्रुव वर्ण* __restrict__, वर्ण** __restrict__, पूर्णाङ्क);
  #endif
 
   /* these are stubs for MS _i64 versions */
-  long long  __cdecl atoll (const char *);
+  long long  __cdecl atoll (ध्रुव वर्ण *);
 
 #ifndef __STRICT_ANSI__
-  long long  __cdecl wtoll (const wchar_t *);
-  char *__cdecl lltoa (long long, char *, int);
-  char *__cdecl ulltoa (unsigned long long , char *, int);
-  wchar_t *__cdecl lltow (long long, wchar_t *, int);
-  wchar_t *__cdecl ulltow (unsigned long long, wchar_t *, int);
+  long long  __cdecl wtoll (ध्रुव wchar_t *);
+  वर्ण *__cdecl lltoa (long long, वर्ण *, पूर्णाङ्क);
+  वर्ण *__cdecl ulltoa (unsigned long long , वर्ण *, पूर्णाङ्क);
+  wchar_t *__cdecl lltow (long long, wchar_t *, पूर्णाङ्क);
+  wchar_t *__cdecl ulltow (unsigned long long, wchar_t *, पूर्णाङ्क);
 
   /* __CRT_INLINE using non-ansi functions */
-  __CRT_INLINE long long  __cdecl atoll (const char * _c) { return _atoi64 (_c); }
-  __CRT_INLINE char *__cdecl lltoa (long long _n, char * _c, int _i) { return _i64toa (_n, _c, _i); }
-  __CRT_INLINE char *__cdecl ulltoa (unsigned long long _n, char * _c, int _i) { return _ui64toa (_n, _c, _i); }
-  __CRT_INLINE long long  __cdecl wtoll (const wchar_t * _w) { return _wtoi64 (_w); }
-  __CRT_INLINE wchar_t *__cdecl lltow (long long _n, wchar_t * _w, int _i) { return _i64tow (_n, _w, _i); }
-  __CRT_INLINE wchar_t *__cdecl ulltow (unsigned long long _n, wchar_t * _w, int _i) { return _ui64tow (_n, _w, _i); }
+  __CRT_INLINE long long  __cdecl atoll (ध्रुव वर्ण * _c) { प्रत्यागम _atoi64 (_c); }
+  __CRT_INLINE वर्ण *__cdecl lltoa (long long _n, वर्ण * _c, पूर्णाङ्क _i) { प्रत्यागम _i64toa (_n, _c, _i); }
+  __CRT_INLINE वर्ण *__cdecl ulltoa (unsigned long long _n, वर्ण * _c, पूर्णाङ्क _i) { प्रत्यागम _ui64toa (_n, _c, _i); }
+  __CRT_INLINE long long  __cdecl wtoll (ध्रुव wchar_t * _w) { प्रत्यागम _wtoi64 (_w); }
+  __CRT_INLINE wchar_t *__cdecl lltow (long long _n, wchar_t * _w, पूर्णाङ्क _i) { प्रत्यागम _i64tow (_n, _w, _i); }
+  __CRT_INLINE wchar_t *__cdecl ulltow (unsigned long long _n, wchar_t * _w, पूर्णाङ्क _i) { प्रत्यागम _ui64tow (_n, _w, _i); }
 #endif /* (__STRICT_ANSI__)  */
 
 #endif /* !__NO_ISOCEXT */
@@ -598,9 +598,9 @@ extern wchar_t **_wenviron;
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(निकालो)
 
-#include <sec_api/stdlib_s.h>
-#include <malloc.h>
+#अन्तर्भाव <sec_api/stdlib_s.h>
+#अन्तर्भाव <malloc.h>
 
 #endif
