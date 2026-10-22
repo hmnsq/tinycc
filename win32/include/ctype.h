@@ -6,10 +6,10 @@
 #ifndef _INC_CTYPE
 #define _INC_CTYPE
 
-#include <_mingw.h>
+#അന്തര്ഭാവ <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+ബാഹ്യ "C" {
 #endif
 
 #ifndef WEOF
@@ -24,16 +24,16 @@ extern "C" {
 #define __PCTYPE_FUNC __pctype_func()
 #ifdef _MSVCRT_
 #define __pctype_func()	(_pctype)
-#else
+#അല്ലെങ്കിൽ
 #define __pctype_func()	(*_imp___pctype)
 #endif
 #endif
 
 #ifndef _pctype
 #ifdef _MSVCRT_
-  extern unsigned short *_pctype;
-#else
-  extern unsigned short **_imp___pctype;
+  ബാഹ്യ unsigned short *_pctype;
+#അല്ലെങ്കിൽ
+  ബാഹ്യ unsigned short **_imp___pctype;
 #define _pctype (*_imp___pctype)
 #endif
 #endif
@@ -46,21 +46,21 @@ extern "C" {
 #ifndef _CTYPE_DISABLE_MACROS
 #ifndef _wctype
 #ifdef _MSVCRT_
-  extern unsigned short *_wctype;
-#else
-  extern unsigned short **_imp___wctype;
+  ബാഹ്യ unsigned short *_wctype;
+#അല്ലെങ്കിൽ
+  ബാഹ്യ unsigned short **_imp___wctype;
 #define _wctype (*_imp___wctype)
 #endif
 #endif
 #ifdef _MSVCRT_
 #define __pwctype_func() (_pwctype)
 #ifndef _pwctype
-  extern unsigned short *_pwctype;
+  ബാഹ്യ unsigned short *_pwctype;
 #endif
-#else
+#അല്ലെങ്കിൽ
 #define __pwctype_func() (*_imp___pwctype)
 #ifndef _pwctype
-  extern unsigned short **_imp___pwctype;
+  ബാഹ്യ unsigned short **_imp___pwctype;
 #define _pwctype (*_imp___pwctype)
 #endif
 #endif
@@ -68,17 +68,17 @@ extern "C" {
 #endif
 
   /* CRT stuff */
-#if 1
-  extern const unsigned char __newclmap[];
-  extern const unsigned char __newcumap[];
-  extern pthreadlocinfo __ptlocinfo;
-  extern pthreadmbcinfo __ptmbcinfo;
-  extern int __globallocalestatus;
-  extern int __locale_changed;
-  extern struct threadlocaleinfostruct __initiallocinfo;
-  extern _locale_tstruct __initiallocalestructinfo;
-  pthreadlocinfo __cdecl __updatetlocinfo(void);
-  pthreadmbcinfo __cdecl __updatetmbcinfo(void);
+#എങ്കിൽ 1
+  ബാഹ്യ സ്ഥിരം unsigned അക്ഷരം __newclmap[];
+  ബാഹ്യ സ്ഥിരം unsigned അക്ഷരം __newcumap[];
+  ബാഹ്യ pthreadlocinfo __ptlocinfo;
+  ബാഹ്യ pthreadmbcinfo __ptmbcinfo;
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __globallocalestatus;
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __locale_changed;
+  ബാഹ്യ ഘടന threadlocaleinfostruct __initiallocinfo;
+  ബാഹ്യ _locale_tstruct __initiallocalestructinfo;
+  pthreadlocinfo __cdecl __updatetlocinfo(ശൂന്യം);
+  pthreadmbcinfo __cdecl __updatetmbcinfo(ശൂന്യം);
 #endif
 
 #define _UPPER 0x1
@@ -97,88 +97,88 @@ extern "C" {
 #ifndef _CTYPE_DEFINED
 #define _CTYPE_DEFINED
 
-  _CRTIMP int __cdecl _isctype(int _C,int _Type);
-  _CRTIMP int __cdecl _isctype_l(int _C,int _Type,_locale_t _Locale);
-  _CRTIMP int __cdecl isalpha(int _C);
-  _CRTIMP int __cdecl _isalpha_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isupper(int _C);
-  _CRTIMP int __cdecl _isupper_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl islower(int _C);
-  _CRTIMP int __cdecl _islower_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isdigit(int _C);
-  _CRTIMP int __cdecl _isdigit_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isxdigit(int _C);
-  _CRTIMP int __cdecl _isxdigit_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isspace(int _C);
-  _CRTIMP int __cdecl _isspace_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl ispunct(int _C);
-  _CRTIMP int __cdecl _ispunct_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isalnum(int _C);
-  _CRTIMP int __cdecl _isalnum_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isprint(int _C);
-  _CRTIMP int __cdecl _isprint_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isgraph(int _C);
-  _CRTIMP int __cdecl _isgraph_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl iscntrl(int _C);
-  _CRTIMP int __cdecl _iscntrl_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl toupper(int _C);
-  _CRTIMP int __cdecl tolower(int _C);
-  _CRTIMP int __cdecl _tolower(int _C);
-  _CRTIMP int __cdecl _tolower_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl _toupper(int _C);
-  _CRTIMP int __cdecl _toupper_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl __isascii(int _C);
-  _CRTIMP int __cdecl __toascii(int _C);
-  _CRTIMP int __cdecl __iscsymf(int _C);
-  _CRTIMP int __cdecl __iscsym(int _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _isctype(പൂർണ്ണസംഖ്യ _C,പൂർണ്ണസംഖ്യ _Type);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _isctype_l(പൂർണ്ണസംഖ്യ _C,പൂർണ്ണസംഖ്യ _Type,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl isalpha(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _isalpha_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl isupper(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _isupper_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl islower(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _islower_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl isdigit(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _isdigit_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl isxdigit(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _isxdigit_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl isspace(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _isspace_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl ispunct(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _ispunct_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl isalnum(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _isalnum_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl isprint(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _isprint_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl isgraph(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _isgraph_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl iscntrl(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iscntrl_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl toupper(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl tolower(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _tolower(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _tolower_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _toupper(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _toupper_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl __isascii(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl __toascii(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl __iscsymf(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl __iscsym(പൂർണ്ണസംഖ്യ _C);
 
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl isblank(int _C);
+#എങ്കിൽ (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+പൂർണ്ണസംഖ്യ __cdecl isblank(പൂർണ്ണസംഖ്യ _C);
 #endif
 #endif
 
 #ifndef _WCTYPE_DEFINED
 #define _WCTYPE_DEFINED
 
-  int __cdecl iswalpha(wint_t _C);
-  _CRTIMP int __cdecl _iswalpha_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswupper(wint_t _C);
-  _CRTIMP int __cdecl _iswupper_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswlower(wint_t _C);
-  _CRTIMP int __cdecl _iswlower_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswdigit(wint_t _C);
-  _CRTIMP int __cdecl _iswdigit_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswxdigit(wint_t _C);
-  _CRTIMP int __cdecl _iswxdigit_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswspace(wint_t _C);
-  _CRTIMP int __cdecl _iswspace_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswpunct(wint_t _C);
-  _CRTIMP int __cdecl _iswpunct_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswalnum(wint_t _C);
-  _CRTIMP int __cdecl _iswalnum_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswprint(wint_t _C);
-  _CRTIMP int __cdecl _iswprint_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswgraph(wint_t _C);
-  _CRTIMP int __cdecl _iswgraph_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswcntrl(wint_t _C);
-  _CRTIMP int __cdecl _iswcntrl_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswascii(wint_t _C);
-  int __cdecl isleadbyte(int _C);
-  _CRTIMP int __cdecl _isleadbyte_l(int _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswalpha(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswalpha_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswupper(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswupper_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswlower(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswlower_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswdigit(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswdigit_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswxdigit(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswxdigit_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswspace(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswspace_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswpunct(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswpunct_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswalnum(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswalnum_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswprint(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswprint_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswgraph(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswgraph_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswcntrl(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswcntrl_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl iswascii(wint_t _C);
+  പൂർണ്ണസംഖ്യ __cdecl isleadbyte(പൂർണ്ണസംഖ്യ _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _isleadbyte_l(പൂർണ്ണസംഖ്യ _C,_locale_t _Locale);
   wint_t __cdecl towupper(wint_t _C);
   _CRTIMP wint_t __cdecl _towupper_l(wint_t _C,_locale_t _Locale);
   wint_t __cdecl towlower(wint_t _C);
   _CRTIMP wint_t __cdecl _towlower_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswctype(wint_t _C,wctype_t _Type);
-  _CRTIMP int __cdecl _iswctype_l(wint_t _C,wctype_t _Type,_locale_t _Locale);
-  _CRTIMP int __cdecl __iswcsymf(wint_t _C);
-  _CRTIMP int __cdecl _iswcsymf_l(wint_t _C,_locale_t _Locale);
-  _CRTIMP int __cdecl __iswcsym(wint_t _C);
-  _CRTIMP int __cdecl _iswcsym_l(wint_t _C,_locale_t _Locale);
-  int __cdecl is_wctype(wint_t _C,wctype_t _Type);
+  പൂർണ്ണസംഖ്യ __cdecl iswctype(wint_t _C,wctype_t _Type);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswctype_l(wint_t _C,wctype_t _Type,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl __iswcsymf(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswcsymf_l(wint_t _C,_locale_t _Locale);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl __iswcsym(wint_t _C);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _iswcsym_l(wint_t _C,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl is_wctype(wint_t _C,wctype_t _Type);
 
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl iswblank(wint_t _C);
+#എങ്കിൽ (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+പൂർണ്ണസംഖ്യ __cdecl iswblank(wint_t _C);
 #endif
 #endif
 
@@ -188,22 +188,22 @@ int __cdecl iswblank(wint_t _C);
 #define MB_CUR_MAX ___mb_cur_max_func()
 #ifndef __mb_cur_max
 #ifdef _MSVCRT_
-  extern int __mb_cur_max;
-#else
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __mb_cur_max;
+#അല്ലെങ്കിൽ
 #define __mb_cur_max	(*_imp____mb_cur_max)
-  extern int *_imp____mb_cur_max;
+  ബാഹ്യ പൂർണ്ണസംഖ്യ *_imp____mb_cur_max;
 #endif
 #endif
 #ifdef _MSVCRT_
 #define ___mb_cur_max_func() (__mb_cur_max)
-#else
+#അല്ലെങ്കിൽ
 #define ___mb_cur_max_func() (*_imp____mb_cur_max)
 #endif
 #endif
 
 #define __chvalidchk(a,b) (__PCTYPE_FUNC[(a)] & (b))
 #define _chvalidchk_l(_Char,_Flag,_Locale) (!_Locale ? __chvalidchk(_Char,_Flag) : ((_locale_t)_Locale)->locinfo->pctype[_Char] & (_Flag))
-#define _ischartype_l(_Char,_Flag,_Locale) (((_Locale)!=NULL && (((_locale_t)(_Locale))->locinfo->mb_cur_max) > 1) ? _isctype_l(_Char,(_Flag),_Locale) : _chvalidchk_l(_Char,_Flag,_Locale))
+#define _ischartype_l(_Char,_Flag,_Locale) (((_Locale)!=ശൂന്യ && (((_locale_t)(_Locale))->locinfo->mb_cur_max) > 1) ? _isctype_l(_Char,(_Flag),_Locale) : _chvalidchk_l(_Char,_Flag,_Locale))
 #define _isalpha_l(_Char,_Locale) _ischartype_l(_Char,_ALPHA,_Locale)
 #define _isupper_l(_Char,_Locale) _ischartype_l(_Char,_UPPER,_Locale)
 #define _islower_l(_Char,_Locale) _ischartype_l(_Char,_LOWER,_Locale)
@@ -263,11 +263,11 @@ int __cdecl iswblank(wint_t _C);
 
 #ifndef	NO_OLDNAMES
 #ifndef _CTYPE_DEFINED
-  int __cdecl isascii(int _C);
-  int __cdecl toascii(int _C);
-  int __cdecl iscsymf(int _C);
-  int __cdecl iscsym(int _C);
-#else
+  പൂർണ്ണസംഖ്യ __cdecl isascii(പൂർണ്ണസംഖ്യ _C);
+  പൂർണ്ണസംഖ്യ __cdecl toascii(പൂർണ്ണസംഖ്യ _C);
+  പൂർണ്ണസംഖ്യ __cdecl iscsymf(പൂർണ്ണസംഖ്യ _C);
+  പൂർണ്ണസംഖ്യ __cdecl iscsym(പൂർണ്ണസംഖ്യ _C);
+#അല്ലെങ്കിൽ
 #define isascii __isascii
 #define toascii __toascii
 #define iscsymf __iscsymf

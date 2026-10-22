@@ -1,15 +1,15 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-void fred(void)
+ശൂന്യം fred(ശൂന്യം)
 {
    printf("yo\n");
 }
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
    fred();
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -6,23 +6,23 @@
 #ifndef _INC_IO_S
 #define _INC_IO_S
 
-#include <io.h>
+#അന്തര്ഭാവ <io.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#എങ്കിൽ defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+ബാഹ്യ "C" {
 #endif
 
-  _CRTIMP errno_t __cdecl _access_s(const char *_Filename,int _AccessMode);
-  _CRTIMP errno_t __cdecl _chsize_s(int _FileHandle,__int64 _Size);
-  _CRTIMP errno_t __cdecl _mktemp_s(char *_TemplateName,size_t _Size);
-  _CRTIMP errno_t __cdecl _umask_s(int _NewMode,int *_OldMode);
+  _CRTIMP errno_t __cdecl _access_s(സ്ഥിരം അക്ഷരം *_Filename,പൂർണ്ണസംഖ്യ _AccessMode);
+  _CRTIMP errno_t __cdecl _chsize_s(പൂർണ്ണസംഖ്യ _FileHandle,__int64 _Size);
+  _CRTIMP errno_t __cdecl _mktemp_s(അക്ഷരം *_TemplateName,size_t _Size);
+  _CRTIMP errno_t __cdecl _umask_s(പൂർണ്ണസംഖ്യ _NewMode,പൂർണ്ണസംഖ്യ *_OldMode);
 
 #ifndef _WIO_S_DEFINED
 #define _WIO_S_DEFINED
-  _CRTIMP errno_t __cdecl _waccess_s(const wchar_t *_Filename,int _AccessMode);
-  _CRTIMP errno_t __cdecl _wmktemp_s(wchar_t *_TemplateName,size_t _SizeInWords);
+  _CRTIMP errno_t __cdecl _waccess_s(സ്ഥിരം wchar_t *_Filename,പൂർണ്ണസംഖ്യ _AccessMode);
+  _CRTIMP errno_t __cdecl _wmktemp_s(wchar_t *_TemplateName,size_t Size_In_വാക്കുകൾ);
 #endif
 
 #ifdef __cplusplus

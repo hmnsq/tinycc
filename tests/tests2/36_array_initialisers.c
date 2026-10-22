@@ -1,25 +1,25 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-extern int Array3[10];
-int Array3[] = { 12, 34, };
-int main()
+ബാഹ്യ പൂർണ്ണസംഖ്യ Array3[10];
+പൂർണ്ണസംഖ്യ Array3[] = { 12, 34, };
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int Count;
+   പൂർണ്ണസംഖ്യ എണ്ണം_3;
 
-   int Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
+   പൂർണ്ണസംഖ്യ Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array[Count]);
+   വേണ്ടി (എണ്ണം_3 = 0; എണ്ണം_3 < 10; എണ്ണം_3++)
+      printf("%d: %d\n", എണ്ണം_3, Array[എണ്ണം_3]);
 
-   int Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
+   പൂർണ്ണസംഖ്യ Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array2[Count]);
+   വേണ്ടി (എണ്ണം_3 = 0; എണ്ണം_3 < 10; എണ്ണം_3++)
+      printf("%d: %d\n", എണ്ണം_3, Array2[എണ്ണം_3]);
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array3[Count]);
+   വേണ്ടി (എണ്ണം_3 = 0; എണ്ണം_3 < 10; എണ്ണം_3++)
+      printf("%d: %d\n", എണ്ണം_3, Array3[എണ്ണം_3]);
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

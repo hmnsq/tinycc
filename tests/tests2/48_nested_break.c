@@ -1,18 +1,18 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int a;
-   char b;
+   പൂർണ്ണസംഖ്യ a;
+   അക്ഷരം b;
 
    a = 0;
-   while (a < 2)
+   ആകുമ്പോൾ (a < 2)
    {
       printf("%d", a++);
-      break;
+      നിർത്തുക;
 
       b = 'A';
-      while (b < 'C')
+      ആകുമ്പോൾ (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

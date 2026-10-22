@@ -1,17 +1,17 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   char Buf[100];
-   int Count;
+   അക്ഷരം Buf[100];
+   പൂർണ്ണസംഖ്യ എണ്ണം_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   വേണ്ടി (എണ്ണം_3 = 1; എണ്ണം_3 <= 20; എണ്ണം_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
+      sprintf(Buf, "->%02d<-\n", എണ്ണം_3);
       printf("%s", Buf);
    }
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

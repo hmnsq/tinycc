@@ -3,82 +3,82 @@
  * does not use up a linear amount of memory
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#അന്തര്ഭാവ <stdlib.h>
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <string.h>
 
-#define LOOP_COUNT 1000
+#define LOOP_എണ്ണം 1000
 #define ARRAY_SIZE 100
 
 /* Overwrite a VLA. This will overwrite the return address if SP is incorrect */
-void smash(char *p, int n) {
+ശൂന്യം smash(അക്ഷരം *p, പൂർണ്ണസംഖ്യ n) {
   memset(p, 0, n);
 }
 
-int test1(int n) {
-  int i;
-  char *array_ptrs[LOOP_COUNT];
+പൂർണ്ണസംഖ്യ test1(പൂർണ്ണസംഖ്യ n) {
+  പൂർണ്ണസംഖ്യ i;
+  അക്ഷരം *array_ptrs[LOOP_എണ്ണം];
   
-  for (i = 0; i < LOOP_COUNT; ++i) {
-    char test[n];
+  വേണ്ടി (i = 0; i < LOOP_എണ്ണം; ++i) {
+    അക്ഷരം test[n];
     smash(test, n);
     array_ptrs[i] = test;
   }
   
-  return (array_ptrs[0]-array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  തിരികെ (array_ptrs[0]-array_ptrs[LOOP_എണ്ണം-1] < n) ? 0 : 1;
 }
 
 /* ensure goto does not circumvent array free */
-int test2(int n) {
-  char *array_ptrs[LOOP_COUNT];
+പൂർണ്ണസംഖ്യ test2(പൂർണ്ണസംഖ്യ n) {
+  അക്ഷരം *array_ptrs[LOOP_എണ്ണം];
 
-  int i = 0;
+  പൂർണ്ണസംഖ്യ i = 0;
 loop:;
-  char test[n];
+  അക്ഷരം test[n];
   smash(test, n);
-  if (i >= LOOP_COUNT)
-    goto end;
+  എങ്കിൽ (i >= LOOP_എണ്ണം)
+    പോകുക end;
   array_ptrs[i] = test;
   ++i;
-  goto loop;
+  പോകുക loop;
 
 end:
   smash(test, n);
-  char test2[n];
+  അക്ഷരം test2[n];
   smash(test2, n);
-  return (array_ptrs[0] - array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  തിരികെ (array_ptrs[0] - array_ptrs[LOOP_എണ്ണം-1] < n) ? 0 : 1;
 }
 
-int test3(int n) {
-  char test[n];
+പൂർണ്ണസംഖ്യ test3(പൂർണ്ണസംഖ്യ n) {
+  അക്ഷരം test[n];
   smash(test, n);
-  goto label;
+  പോകുക label;
 label:
   smash(test, n);
-  char test2[n];
+  അക്ഷരം test2[n];
   smash(test2, n);
-  return (test-test2 >= n) ? 0 : 1;
+  തിരികെ (test-test2 >= n) ? 0 : 1;
 }
 
 #define RUN_TEST(t) \
-  if (!testname || (strcmp(#t, testname) == 0)) { \
+  എങ്കിൽ (!testname || (strcmp(#t, testname) == 0)) { \
     fputs(#t "... ", stdout); \
     fflush(stdout); \
-    if (t(ARRAY_SIZE) == 0) { \
+    എങ്കിൽ (t(ARRAY_SIZE) == 0) { \
       fputs("success\n", stdout); \
-    } else { \
+    } അല്ലെങ്കിൽ { \
       fputs("failure\n", stdout); \
       retval = EXIT_FAILURE; \
     } \
   }
 
-int main(int argc, char **argv) {
-  const char *testname = NULL;
-  int retval = EXIT_SUCCESS;
-  if (argc > 1)
+പൂർണ്ണസംഖ്യ പ്രധാന(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv) {
+  സ്ഥിരം അക്ഷരം *testname = ശൂന്യ;
+  പൂർണ്ണസംഖ്യ retval = EXIT_SUCCESS;
+  എങ്കിൽ (argc > 1)
     testname = argv[1];
   RUN_TEST(test1)
   RUN_TEST(test2)
   RUN_TEST(test3)
-  return retval;
+  തിരികെ retval;
 }

@@ -1,11 +1,11 @@
 /* This checks various ways of dead code inside if statements
    where there are non-obvious ways of how the code is actually
    not dead due to reachable by labels.  */
-extern int printf (const char *, ...);
-static void kb_wait_1(void)
+ബാഹ്യ പൂർണ്ണസംഖ്യ printf (സ്ഥിരം അക്ഷരം *, ...);
+സ്ഥിതം ശൂന്യം kb_wait_1(ശൂന്യം)
 {
   unsigned long timeout = 2;
-  do {
+  ചെയ്യുക {
       /* Here the else arm is a statement expression that's supposed
          to be suppressed.  The label inside the while would unsuppress
 	 code generation again if not handled correctly.  And that
@@ -15,145 +15,145 @@ static void kb_wait_1(void)
       (1 ? 
        printf("timeout=%ld\n", timeout) :
        ({
-	int i = 1;
-	while (1)
-	  while (i--)
+	പൂർണ്ണസംഖ്യ i = 1;
+	ആകുമ്പോൾ (1)
+	  ആകുമ്പോൾ (i--)
 	    some_label:
 	      printf("error\n");
-	goto some_label;
+	പോകുക some_label;
 	})
       );
       timeout--;
-  } while (timeout);
+  } ആകുമ്പോൾ (timeout);
 }
 
-static int global;
+സ്ഥിതം പൂർണ്ണസംഖ്യ global;
 
-static void foo(int i)
+സ്ഥിതം ശൂന്യം foo(പൂർണ്ണസംഖ്യ i)
 {
   global+=i;
   printf ("g=%d\n", global);
 }
 
-static int check(void)
+സ്ഥിതം പൂർണ്ണസംഖ്യ check(ശൂന്യം)
 {
   printf ("check %d\n", global);
-  return 1;
+  തിരികെ 1;
 }
 
-static void dowhile(void)
+സ്ഥിതം ശൂന്യം dowhile(ശൂന്യം)
 {
-  do {
+  ചെയ്യുക {
       foo(1);
-      if (global == 1) {
-	  continue;
-      } else if (global == 2) {
-	  continue;
+      എങ്കിൽ (global == 1) {
+	  തുടരുക;
+      } അല്ലെങ്കിൽ എങ്കിൽ (global == 2) {
+	  തുടരുക;
       }
       /* The following break shouldn't disable the check() call,
          as it's reachable by the continues above.  */
-      break;
-  } while (check());
+      നിർത്തുക;
+  } ആകുമ്പോൾ (check());
 }
 
-static void nondead_after_dead_return(void)
+സ്ഥിതം ശൂന്യം nondead_after_dead_return(ശൂന്യം)
 {
   /* This statement expr is not entered, and hence that fact that it
      doesn't fall-through should not influence the surrounding code.  */
-  0 && ({ return; 0;});
+  0 && ({ തിരികെ; 0;});
   printf ("nondead works\n");
-  return;
+  തിരികെ;
 }
 
-int main (void)
+പൂർണ്ണസംഖ്യ പ്രധാന (ശൂന്യം)
 {
-  int i = 1;
+  പൂർണ്ണസംഖ്യ i = 1;
   kb_wait_1();
 
   /* Simple test of dead code at first sight which isn't actually dead. */
-  if (0) {
+  എങ്കിൽ (0) {
 yeah:
       printf ("yeah\n");
-  } else {
+  } അല്ലെങ്കിൽ {
       printf ("boo\n");
   }
-  if (i--)
-    goto yeah;
+  എങ്കിൽ (i--)
+    പോകുക yeah;
 
   /* Some more non-obvious uses where the problems are loops, so that even
      the first loop statements aren't actually dead.  */
   i = 1;
-  if (0) {
-      while (i--) {
+  എങ്കിൽ (0) {
+      ആകുമ്പോൾ (i--) {
 	  printf ("once\n");
 enterloop:
 	  printf ("twice\n");
       }
   }
-  if (i >= 0)
-    goto enterloop;
+  എങ്കിൽ (i >= 0)
+    പോകുക enterloop;
 
   /* The same with statement expressions.  One might be tempted to
      handle them specially by counting if inside statement exprs and
      not unsuppressing code at loops at all then.
      See kb_wait_1 for the other side of the medal where that wouldn't work.  */
   i = ({
-      int j = 1;
-      if (0) {
-	  while (j--) {
+      പൂർണ്ണസംഖ്യ j = 1;
+      എങ്കിൽ (0) {
+	  ആകുമ്പോൾ (j--) {
 	      printf ("SEonce\n");
     enterexprloop:
 	      printf ("SEtwice\n");
 	  }
       }
-      if (j >= 0)
-	goto enterexprloop;
+      എങ്കിൽ (j >= 0)
+	പോകുക enterexprloop;
       j; });
 
   /* The other two loop forms: */
   i = 1;
-  if (0) {
-      for (i = 1; i--;) {
+  എങ്കിൽ (0) {
+      വേണ്ടി (i = 1; i--;) {
 	  printf ("once2\n");
 enterloop2:
 	  printf ("twice2\n");
       }
   }
-  if (i > 0)
-    goto enterloop2;
+  എങ്കിൽ (i > 0)
+    പോകുക enterloop2;
 
   i = 1;
-  if (0) {
-      do {
+  എങ്കിൽ (0) {
+      ചെയ്യുക {
 	  printf ("once3\n");
 enterloop3:
 	  printf ("twice3\n");
-      } while (i--);
+      } ആകുമ്പോൾ (i--);
   }
-  if (i > 0)
-    goto enterloop3;
+  എങ്കിൽ (i > 0)
+    പോകുക enterloop3;
 
   /* And check that case and default labels have the same effect
      of disabling code suppression.  */
   i = 41;
-  switch (i) {
-      if (0) {
+  തിരഞ്ഞെടുപ്പ് (i) {
+      എങ്കിൽ (0) {
 	  printf ("error\n");
-      case 42:
+      അവസ്ഥ 42:
 	  printf ("error2\n");
-      case 41:
+      അവസ്ഥ 41:
 	  printf ("caseok\n");
       }
   }
 
   i = 41;
-  switch (i) {
-      if (0) {
+  തിരഞ്ഞെടുപ്പ് (i) {
+      എങ്കിൽ (0) {
 	  printf ("error3\n");
-      default:
+      സ്ഥിരസ്ഥിതി:
 	  printf ("caseok2\n");
-	  break;
-      case 42:
+	  നിർത്തുക;
+      അവസ്ഥ 42:
 	  printf ("error4\n");
       }
   }
@@ -161,5 +161,5 @@ enterloop3:
   dowhile();
   nondead_after_dead_return();
 
-  return 0;
+  തിരികെ 0;
 }

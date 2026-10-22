@@ -1,21 +1,21 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int a = 1;
+   പൂർണ്ണസംഖ്യ a = 1;
 
-   if (a)
+   എങ്കിൽ (a)
       printf("a is true\n");
-   else
+   അല്ലെങ്കിൽ
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   പൂർണ്ണസംഖ്യ b = 0;
+   എങ്കിൽ (b)
       printf("b is true\n");
-   else
+   അല്ലെങ്കിൽ
       printf("b is false\n");
 
-   return 0;
+   തിരികെ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -31,25 +31,25 @@ Boston, MA 02111-1307, USA.
 #define W_TYPE_SIZE   32
 #define BITS_PER_UNIT 8
 
-typedef int Wtype;
-typedef unsigned int UWtype;
-typedef unsigned int USItype;
-typedef long long DWtype;
-typedef unsigned long long UDWtype;
+തരനിർവചനം പൂർണ്ണസംഖ്യ Wtype;
+തരനിർവചനം unsigned പൂർണ്ണസംഖ്യ UWtype;
+തരനിർവചനം unsigned പൂർണ്ണസംഖ്യ USItype;
+തരനിർവചനം long long DWtype;
+തരനിർവചനം unsigned long long UDWtype;
 
-struct DWstruct {
-    Wtype low, high;
+ഘടന DWstruct {
+    Wtype താഴെയുള്ള, മുകളിലെ;
 };
 
-typedef union
+തരനിർവചനം സംഘം
 {
-  struct DWstruct s;
+  ഘടന DWstruct s;
   DWtype ll;
 } DWunion;
 
-typedef long double XFtype;
-#define WORD_SIZE (sizeof (Wtype) * BITS_PER_UNIT)
-#define HIGH_WORD_COEFF (((UDWtype) 1) << WORD_SIZE)
+തരനിർവചനം long ഇരട്ട XFtype;
+#define WORD_SIZE (വലുപ്പം (Wtype) * BITS_PER_UNIT)
+#define മുകളിലെ_WORD_COEFF (((UDWtype) 1) << WORD_SIZE)
 
 /* the following deal with IEEE single-precision numbers */
 #define EXCESS		126
@@ -77,37 +77,37 @@ typedef long double XFtype;
 #define SIGNLD(fp)	((fp.l.upper) & 0x8000)
 
 /* only for x86 */
-union ldouble_long {
-    long double ld;
-    struct {
+സംഘം ldouble_long {
+    long ഇരട്ട ld;
+    ഘടന {
         unsigned long long lower;
         unsigned short upper;
     } l;
 };
 
-union double_long {
-    double d;
-#if 1
-    struct {
-        unsigned int lower;
-        int upper;
+സംഘം double_long {
+    ഇരട്ട d;
+#എങ്കിൽ 1
+    ഘടന {
+        unsigned പൂർണ്ണസംഖ്യ lower;
+        പൂർണ്ണസംഖ്യ upper;
     } l;
-#else
-    struct {
-        int upper;
-        unsigned int lower;
+#അല്ലെങ്കിൽ
+    ഘടന {
+        പൂർണ്ണസംഖ്യ upper;
+        unsigned പൂർണ്ണസംഖ്യ lower;
     } l;
 #endif
     long long ll;
 };
 
-union float_long {
-    float f;
-    unsigned int l;
+സംഘം float_long {
+    ദശാംശം f;
+    unsigned പൂർണ്ണസംഖ്യ l;
 };
 
 /* XXX: we don't support several builtin supports for now */
-#if defined __i386__
+#എങ്കിൽ defined __i386__
 
 /* XXX: use gcc/tcc intrinsic ? */
 #define sub_ddmmss(sh, sl, ah, al, bh, bl) \
@@ -131,17 +131,17 @@ union float_long {
 	   : "0" ((USItype) (n0)),					\
 	     "1" ((USItype) (n1)),					\
 	     "rm" ((USItype) (dv)))
-#define count_leading_zeros(count, x) \
-  do {									\
+#define എണ്ണം_leading_zeros(എണ്ണം_2, x) \
+  ചെയ്യുക {									\
     USItype __cbtmp;							\
     __asm__ ("bsrl %1,%0"						\
 	     : "=r" (__cbtmp) : "rm" ((USItype) (x)));			\
-    (count) = __cbtmp ^ 31;						\
-  } while (0)
+    (എണ്ണം_2) = __cbtmp ^ 31;						\
+  } ആകുമ്പോൾ (0)
 
 /* most of this code is taken from libgcc2.c from gcc */
 
-static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
+സ്ഥിതം UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 {
   DWunion ww;
   DWunion nn, dd;
@@ -153,15 +153,15 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
   nn.ll = n;
   dd.ll = d;
 
-  d0 = dd.s.low;
-  d1 = dd.s.high;
-  n0 = nn.s.low;
-  n1 = nn.s.high;
+  d0 = dd.s.താഴെയുള്ള;
+  d1 = dd.s.മുകളിലെ;
+  n0 = nn.s.താഴെയുള്ള;
+  n1 = nn.s.മുകളിലെ;
 
-#if !defined(UDIV_NEEDS_NORMALIZATION)
-  if (d1 == 0)
+#എങ്കിൽ !defined(UDIV_NEEDS_NORMALIZATION)
+  എങ്കിൽ (d1 == 0)
     {
-      if (d0 > n1)
+      എങ്കിൽ (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
@@ -170,11 +170,11 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0.  */
 	}
-      else
+      അല്ലെങ്കിൽ
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  എങ്കിൽ (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
 	  udiv_qrnnd (q1, n1, 0, n1, d0);
@@ -183,25 +183,25 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0.  */
 	}
 
-      if (rp != 0)
+      എങ്കിൽ (rp != 0)
 	{
-	  rr.s.low = n0;
-	  rr.s.high = 0;
+	  rr.s.താഴെയുള്ള = n0;
+	  rr.s.മുകളിലെ = 0;
 	  *rp = rr.ll;
 	}
     }
 
-#else /* UDIV_NEEDS_NORMALIZATION */
+#അല്ലെങ്കിൽ /* UDIV_NEEDS_NORMALIZATION */
 
-  if (d1 == 0)
+  എങ്കിൽ (d1 == 0)
     {
-      if (d0 > n1)
+      എങ്കിൽ (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
-	  count_leading_zeros (bm, d0);
+	  എണ്ണം_leading_zeros (bm, d0);
 
-	  if (bm != 0)
+	  എങ്കിൽ (bm != 0)
 	    {
 	      /* Normalize, i.e. make the most significant bit of the
 		 denominator set.  */
@@ -216,16 +216,16 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0 >> bm.  */
 	}
-      else
+      അല്ലെങ്കിൽ
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  എങ്കിൽ (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
-	  count_leading_zeros (bm, d0);
+	  എണ്ണം_leading_zeros (bm, d0);
 
-	  if (bm == 0)
+	  എങ്കിൽ (bm == 0)
 	    {
 	      /* From (n1 >= d0) /\ (the most significant bit of d0 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -237,7 +237,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      n1 -= d0;
 	      q1 = 1;
 	    }
-	  else
+	  അല്ലെങ്കിൽ
 	    {
 	      /* Normalize.  */
 
@@ -258,18 +258,18 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0 >> bm.  */
 	}
 
-      if (rp != 0)
+      എങ്കിൽ (rp != 0)
 	{
-	  rr.s.low = n0 >> bm;
-	  rr.s.high = 0;
+	  rr.s.താഴെയുള്ള = n0 >> bm;
+	  rr.s.മുകളിലെ = 0;
 	  *rp = rr.ll;
 	}
     }
 #endif /* UDIV_NEEDS_NORMALIZATION */
 
-  else
+  അല്ലെങ്കിൽ
     {
-      if (d1 > n1)
+      എങ്കിൽ (d1 > n1)
 	{
 	  /* 00 = nn / DD */
 
@@ -277,19 +277,19 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  q1 = 0;
 
 	  /* Remainder in n1n0.  */
-	  if (rp != 0)
+	  എങ്കിൽ (rp != 0)
 	    {
-	      rr.s.low = n0;
-	      rr.s.high = n1;
+	      rr.s.താഴെയുള്ള = n0;
+	      rr.s.മുകളിലെ = n1;
 	      *rp = rr.ll;
 	    }
 	}
-      else
+      അല്ലെങ്കിൽ
 	{
 	  /* 0q = NN / dd */
 
-	  count_leading_zeros (bm, d1);
-	  if (bm == 0)
+	  എണ്ണം_leading_zeros (bm, d1);
+	  എങ്കിൽ (bm == 0)
 	    {
 	      /* From (n1 >= d1) /\ (the most significant bit of d1 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -299,24 +299,24 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	      /* The condition on the next line takes advantage of that
 		 n1 >= d1 (true due to program flow).  */
-	      if (n1 > d1 || n0 >= d0)
+	      എങ്കിൽ (n1 > d1 || n0 >= d0)
 		{
 		  q0 = 1;
 		  sub_ddmmss (n1, n0, n1, n0, d1, d0);
 		}
-	      else
+	      അല്ലെങ്കിൽ
 		q0 = 0;
 
 	      q1 = 0;
 
-	      if (rp != 0)
+	      എങ്കിൽ (rp != 0)
 		{
-		  rr.s.low = n0;
-		  rr.s.high = n1;
+		  rr.s.താഴെയുള്ള = n0;
+		  rr.s.മുകളിലെ = n1;
 		  *rp = rr.ll;
 		}
 	    }
-	  else
+	  അല്ലെങ്കിൽ
 	    {
 	      UWtype m1, m0;
 	      /* Normalize.  */
@@ -332,7 +332,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      udiv_qrnnd (q0, n1, n2, n1, d1);
 	      umul_ppmm (m1, m0, q0, d0);
 
-	      if (m1 > n1 || (m1 == n1 && m0 > n0))
+	      എങ്കിൽ (m1 > n1 || (m1 == n1 && m0 > n0))
 		{
 		  q0--;
 		  sub_ddmmss (m1, m0, m1, m0, d1, d0);
@@ -341,72 +341,72 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      q1 = 0;
 
 	      /* Remainder in (n1n0 - m1m0) >> bm.  */
-	      if (rp != 0)
+	      എങ്കിൽ (rp != 0)
 		{
 		  sub_ddmmss (n1, n0, n1, n0, m1, m0);
-		  rr.s.low = (n1 << b) | (n0 >> bm);
-		  rr.s.high = n1 >> bm;
+		  rr.s.താഴെയുള്ള = (n1 << b) | (n0 >> bm);
+		  rr.s.മുകളിലെ = n1 >> bm;
 		  *rp = rr.ll;
 		}
 	    }
 	}
     }
 
-  ww.s.low = q0;
-  ww.s.high = q1;
-  return ww.ll;
+  ww.s.താഴെയുള്ള = q0;
+  ww.s.മുകളിലെ = q1;
+  തിരികെ ww.ll;
 }
 
 #define __negdi2(a) (-(a))
 
 long long __divdi3(long long u, long long v)
 {
-    int c = 0;
+    പൂർണ്ണസംഖ്യ c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    എങ്കിൽ (uu.s.മുകളിലെ < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0) {
+    എങ്കിൽ (vv.s.മുകളിലെ < 0) {
         c = ~c;
         vv.ll = __negdi2 (vv.ll);
     }
     w = __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) 0);
-    if (c)
+    എങ്കിൽ (c)
         w = __negdi2 (w);
-    return w;
+    തിരികെ w;
 }
 
 long long __moddi3(long long u, long long v)
 {
-    int c = 0;
+    പൂർണ്ണസംഖ്യ c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    എങ്കിൽ (uu.s.മുകളിലെ < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0)
+    എങ്കിൽ (vv.s.മുകളിലെ < 0)
         vv.ll = __negdi2 (vv.ll);
     
     __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) &w);
-    if (c)
+    എങ്കിൽ (c)
         w = __negdi2 (w);
-    return w;
+    തിരികെ w;
 }
 
 unsigned long long __udivdi3(unsigned long long u, unsigned long long v)
 {
-    return __udivmoddi4 (u, v, (UDWtype *) 0);
+    തിരികെ __udivmoddi4 (u, v, (UDWtype *) 0);
 }
 
 unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
@@ -414,210 +414,210 @@ unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
     UDWtype w;
     
     __udivmoddi4 (u, v, &w);
-    return w;
+    തിരികെ w;
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashrdi3(long long a, int b)
+long long __ashrdi3(long long a, പൂർണ്ണസംഖ്യ b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.low = u.s.high >> (b - 32);
-        u.s.high = u.s.high >> 31;
-    } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = u.s.high >> b;
+    എങ്കിൽ (b >= 32) {
+        u.s.താഴെയുള്ള = u.s.മുകളിലെ >> (b - 32);
+        u.s.മുകളിലെ = u.s.മുകളിലെ >> 31;
+    } അല്ലെങ്കിൽ എങ്കിൽ (b != 0) {
+        u.s.താഴെയുള്ള = ((unsigned)u.s.താഴെയുള്ള >> b) | (u.s.മുകളിലെ << (32 - b));
+        u.s.മുകളിലെ = u.s.മുകളിലെ >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
+    തിരികെ u.ll;
+#അല്ലെങ്കിൽ
+    തിരികെ a >> b;
 #endif
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-unsigned long long __lshrdi3(unsigned long long a, int b)
+unsigned long long __lshrdi3(unsigned long long a, പൂർണ്ണസംഖ്യ b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.low = (unsigned)u.s.high >> (b - 32);
-        u.s.high = 0;
-    } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = (unsigned)u.s.high >> b;
+    എങ്കിൽ (b >= 32) {
+        u.s.താഴെയുള്ള = (unsigned)u.s.മുകളിലെ >> (b - 32);
+        u.s.മുകളിലെ = 0;
+    } അല്ലെങ്കിൽ എങ്കിൽ (b != 0) {
+        u.s.താഴെയുള്ള = ((unsigned)u.s.താഴെയുള്ള >> b) | (u.s.മുകളിലെ << (32 - b));
+        u.s.മുകളിലെ = (unsigned)u.s.മുകളിലെ >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
+    തിരികെ u.ll;
+#അല്ലെങ്കിൽ
+    തിരികെ a >> b;
 #endif
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashldi3(long long a, int b)
+long long __ashldi3(long long a, പൂർണ്ണസംഖ്യ b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.high = (unsigned)u.s.low << (b - 32);
-        u.s.low = 0;
-    } else if (b != 0) {
-        u.s.high = ((unsigned)u.s.high << b) | ((unsigned)u.s.low >> (32 - b));
-        u.s.low = (unsigned)u.s.low << b;
+    എങ്കിൽ (b >= 32) {
+        u.s.മുകളിലെ = (unsigned)u.s.താഴെയുള്ള << (b - 32);
+        u.s.താഴെയുള്ള = 0;
+    } അല്ലെങ്കിൽ എങ്കിൽ (b != 0) {
+        u.s.മുകളിലെ = ((unsigned)u.s.മുകളിലെ << b) | ((unsigned)u.s.താഴെയുള്ള >> (32 - b));
+        u.s.താഴെയുള്ള = (unsigned)u.s.താഴെയുള്ള << b;
     }
-    return u.ll;
-#else
-    return a << b;
+    തിരികെ u.ll;
+#അല്ലെങ്കിൽ
+    തിരികെ a << b;
 #endif
 }
 
 #endif /* __i386__ */
 
 /* XXX: fix tcc's code generator to do this instead */
-float __floatundisf(unsigned long long a)
+ദശാംശം __floatundisf(unsigned long long a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (float)uu.ll;
-    } else {
+    എങ്കിൽ (uu.s.മുകളിലെ >= 0) {
+        തിരികെ (ദശാംശം)uu.ll;
+    } അല്ലെങ്കിൽ {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (float)r;
+        തിരികെ (ദശാംശം)r;
     }
 }
 
-double __floatundidf(unsigned long long a)
+ഇരട്ട __floatundidf(unsigned long long a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (double)uu.ll;
-    } else {
+    എങ്കിൽ (uu.s.മുകളിലെ >= 0) {
+        തിരികെ (ഇരട്ട)uu.ll;
+    } അല്ലെങ്കിൽ {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (double)r;
+        തിരികെ (ഇരട്ട)r;
     }
 }
 
-long double __floatundixf(unsigned long long a)
+long ഇരട്ട __floatundixf(unsigned long long a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (long double)uu.ll;
-    } else {
+    എങ്കിൽ (uu.s.മുകളിലെ >= 0) {
+        തിരികെ (long ഇരട്ട)uu.ll;
+    } അല്ലെങ്കിൽ {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (long double)r;
+        തിരികെ (long ഇരട്ട)r;
     }
 }
 
-unsigned long long __fixunssfdi (float a1)
+unsigned long long __fixunssfdi (ദശാംശം a1)
 {
-    register union float_long fl1;
-    register int exp;
-    register unsigned long long l;
+    രജിസ്റ്റർ സംഘം float_long fl1;
+    രജിസ്റ്റർ പൂർണ്ണസംഖ്യ exp;
+    രജിസ്റ്റർ unsigned long long l;
 
     fl1.f = a1;
 
-    if (fl1.l == 0)
-	return (0);
+    എങ്കിൽ (fl1.l == 0)
+	തിരികെ (0);
 
     exp = EXP (fl1.l) - EXCESS - 24;
     l = MANT(fl1.l);
 
-    if (exp >= 41)
-        return 1ULL << 63;
-    else if (exp >= 0)
+    എങ്കിൽ (exp >= 41)
+        തിരികെ 1ULL << 63;
+    അല്ലെങ്കിൽ എങ്കിൽ (exp >= 0)
         l <<= exp;
-    else if (exp >= -23)
+    അല്ലെങ്കിൽ എങ്കിൽ (exp >= -23)
         l >>= -exp;
-    else
-	return 0;
-    if (SIGN(fl1.l))
+    അല്ലെങ്കിൽ
+	തിരികെ 0;
+    എങ്കിൽ (SIGN(fl1.l))
         l = (unsigned long long)-l;
-    return l;
+    തിരികെ l;
 }
 
-long long __fixsfdi (float a1)
+long long __fixsfdi (ദശാംശം a1)
 {
-    long long ret; int s;
+    long long ret; പൂർണ്ണസംഖ്യ s;
     ret = __fixunssfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    തിരികെ s ? ret : -ret;
 }
 
-unsigned long long __fixunsdfdi (double a1)
+unsigned long long __fixunsdfdi (ഇരട്ട a1)
 {
-    register union double_long dl1;
-    register int exp;
-    register unsigned long long l;
+    രജിസ്റ്റർ സംഘം double_long dl1;
+    രജിസ്റ്റർ പൂർണ്ണസംഖ്യ exp;
+    രജിസ്റ്റർ unsigned long long l;
 
     dl1.d = a1;
 
-    if (dl1.ll == 0)
-	return (0);
+    എങ്കിൽ (dl1.ll == 0)
+	തിരികെ (0);
 
     exp = EXPD (dl1) - EXCESSD - 53;
     l = MANTD_LL(dl1);
 
-    if (exp >= 12)
-        return 1ULL << 63; /* overflow result (like gcc, somewhat) */
-    else if (exp >= 0)
+    എങ്കിൽ (exp >= 12)
+        തിരികെ 1ULL << 63; /* overflow result (like gcc, somewhat) */
+    അല്ലെങ്കിൽ എങ്കിൽ (exp >= 0)
         l <<= exp;
-    else if (exp >= -52)
+    അല്ലെങ്കിൽ എങ്കിൽ (exp >= -52)
         l >>= -exp;
-    else
-        return 0;
-    if (SIGND(dl1))
+    അല്ലെങ്കിൽ
+        തിരികെ 0;
+    എങ്കിൽ (SIGND(dl1))
         l = (unsigned long long)-l;
-    return l;
+    തിരികെ l;
 }
 
-long long __fixdfdi (double a1)
+long long __fixdfdi (ഇരട്ട a1)
 {
-    long long ret; int s;
+    long long ret; പൂർണ്ണസംഖ്യ s;
     ret = __fixunsdfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    തിരികെ s ? ret : -ret;
 }
 
 #ifndef __arm__
-unsigned long long __fixunsxfdi (long double a1)
+unsigned long long __fixunsxfdi (long ഇരട്ട a1)
 {
-    register union ldouble_long dl1;
-    register int exp;
-    register unsigned long long l;
+    രജിസ്റ്റർ സംഘം ldouble_long dl1;
+    രജിസ്റ്റർ പൂർണ്ണസംഖ്യ exp;
+    രജിസ്റ്റർ unsigned long long l;
 
     dl1.ld = a1;
 
-    if (dl1.l.lower == 0 && dl1.l.upper == 0)
-	return (0);
+    എങ്കിൽ (dl1.l.lower == 0 && dl1.l.upper == 0)
+	തിരികെ (0);
 
     exp = EXPLD (dl1) - EXCESSLD - 64;
     l = dl1.l.lower;
-    if (exp > 0)
-	return 1ULL << 63;
-    if (exp < -63)
-        return 0;
+    എങ്കിൽ (exp > 0)
+	തിരികെ 1ULL << 63;
+    എങ്കിൽ (exp < -63)
+        തിരികെ 0;
     l >>= -exp;
-    if (SIGNLD(dl1))
+    എങ്കിൽ (SIGNLD(dl1))
         l = (unsigned long long)-l;
-    return l;
+    തിരികെ l;
 }
 
-long long __fixxfdi (long double a1)
+long long __fixxfdi (long ഇരട്ട a1)
 {
-    long long ret; int s;
+    long long ret; പൂർണ്ണസംഖ്യ s;
     ret = __fixunsxfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    തിരികെ s ? ret : -ret;
 }
 #endif /* !ARM */

@@ -37,13 +37,13 @@
 #define RC_FRET    RC_ST0 /* function return: float register */
 
 /* pretty names for the registers */
-enum {
+എണ്ണൽ {
     REG_ST0 = 0,
     REG_ST1,
     REG_ST2,
 };
 
-const int reg_classes[NB_REGS] = {
+സ്ഥിരം പൂർണ്ണസംഖ്യ reg_classes[NB_REGS] = {
     /* ST0 */ RC_ST | RC_ST0,
     /* ST1 */ RC_ST | RC_ST1,
     /* ST2 */ RC_ST,
@@ -69,8 +69,8 @@ const int reg_classes[NB_REGS] = {
 #define LDOUBLE_ALIGN 8
 
 /* function call context */
-typedef struct GFuncContext {
-    int func_call; /* func call type (FUNC_STDCALL or FUNC_CDECL) */
+തരനിർവചനം ഘടന GFuncContext {
+    പൂർണ്ണസംഖ്യ func_call; /* func call type (FUNC_STDCALL or FUNC_CDECL) */
 } GFuncContext;
 
 /******************************************************/
@@ -78,15 +78,15 @@ typedef struct GFuncContext {
 
 #define IL_OP_PREFIX 0xFE
 
-enum ILOPCodes {
+എണ്ണൽ ILOPCodes {
 #define OP(name, str, n) IL_OP_ ## name = n,
-#include "il-opcodes.h"
+#അന്തര്ഭാവ "il-opcodes.h"
 #undef OP
 };
 
-char *il_opcodes_str[] = {
+അക്ഷരം *il_opcodes_str[] = {
 #define OP(name, str, n) [n] = str,
-#include "il-opcodes.h"
+#അന്തര്ഭാവ "il-opcodes.h"
 #undef OP
 };
 
@@ -95,14 +95,14 @@ char *il_opcodes_str[] = {
 /* arguments variable numbers start from there */
 #define ARG_BASE 0x70000000
 
-static FILE *il_outfile;
+സ്ഥിതം FILE *il_outfile;
 
-static void out_byte(int c)
+സ്ഥിതം ശൂന്യം out_byte(പൂർണ്ണസംഖ്യ c)
 {
-    *(char *)ind++ = c;
+    *(അക്ഷരം *)ind++ = c;
 }
 
-static void out_le32(int c)
+സ്ഥിതം ശൂന്യം out_le32(പൂർണ്ണസംഖ്യ c)
 {
     out_byte(c);
     out_byte(c >> 8);
@@ -110,9 +110,9 @@ static void out_le32(int c)
     out_byte(c >> 24);
 }
 
-static void init_outfile(void)
+സ്ഥിതം ശൂന്യം init_outfile(ശൂന്യം)
 {
-    if (!il_outfile) {
+    എങ്കിൽ (!il_outfile) {
         il_outfile = stdout;
         fprintf(il_outfile, 
                 ".assembly extern mscorlib\n"
@@ -122,28 +122,28 @@ static void init_outfile(void)
     }
 }
 
-static void out_op1(int op)
+സ്ഥിതം ശൂന്യം out_op1(പൂർണ്ണസംഖ്യ op)
 {
-    if (op & 0x100)
+    എങ്കിൽ (op & 0x100)
         out_byte(IL_OP_PREFIX);
     out_byte(op & 0xff);
 }
 
 /* output an opcode with prefix */
-static void out_op(int op)
+സ്ഥിതം ശൂന്യം out_op(പൂർണ്ണസംഖ്യ op)
 {
     out_op1(op);
     fprintf(il_outfile, " %s\n", il_opcodes_str[op]);
 }
 
-static void out_opb(int op, int c)
+സ്ഥിതം ശൂന്യം out_opb(പൂർണ്ണസംഖ്യ op, പൂർണ്ണസംഖ്യ c)
 {
     out_op1(op);
     out_byte(c);
     fprintf(il_outfile, " %s %d\n", il_opcodes_str[op], c);
 }
 
-static void out_opi(int op, int c)
+സ്ഥിതം ശൂന്യം out_opi(പൂർണ്ണസംഖ്യ op, പൂർണ്ണസംഖ്യ c)
 {
     out_op1(op);
     out_le32(c);
@@ -151,75 +151,75 @@ static void out_opi(int op, int c)
 }
 
 /* XXX: not complete */
-static void il_type_to_str(char *buf, int buf_size, 
-                           int t, const char *varstr)
+സ്ഥിതം ശൂന്യം il_type_to_str(അക്ഷരം *buf, പൂർണ്ണസംഖ്യ buf_size, 
+                           പൂർണ്ണസംഖ്യ t, സ്ഥിരം അക്ഷരം *varstr)
 {
-    int bt;
+    പൂർണ്ണസംഖ്യ bt;
     Sym *s, *sa;
-    char buf1[256];
-    const char *tstr;
+    അക്ഷരം buf1[256];
+    സ്ഥിരം അക്ഷരം *tstr;
 
     t = t & VT_TYPE;
     bt = t & VT_BTYPE;
     buf[0] = '\0';
-    if (t & VT_UNSIGNED)
+    എങ്കിൽ (t & VT_UNSIGNED)
         pstrcat(buf, buf_size, "unsigned ");
-    switch(bt) {
-    case VT_VOID:
+    തിരഞ്ഞെടുപ്പ്(bt) {
+    അവസ്ഥ VT_VOID:
         tstr = "void";
-        goto add_tstr;
-    case VT_BOOL:
+        പോകുക add_tstr;
+    അവസ്ഥ VT_BOOL:
         tstr = "bool";
-        goto add_tstr;
-    case VT_BYTE:
+        പോകുക add_tstr;
+    അവസ്ഥ VT_BYTE:
         tstr = "int8";
-        goto add_tstr;
-    case VT_SHORT:
+        പോകുക add_tstr;
+    അവസ്ഥ VT_SHORT:
         tstr = "int16";
-        goto add_tstr;
-    case VT_ENUM:
-    case VT_INT:
-    case VT_LONG:
+        പോകുക add_tstr;
+    അവസ്ഥ VT_ENUM:
+    അവസ്ഥ VT_INT:
+    അവസ്ഥ VT_LONG:
         tstr = "int32";
-        goto add_tstr;
-    case VT_LLONG:
+        പോകുക add_tstr;
+    അവസ്ഥ VT_LLONG:
         tstr = "int64";
-        goto add_tstr;
-    case VT_FLOAT:
+        പോകുക add_tstr;
+    അവസ്ഥ VT_FLOAT:
         tstr = "float32";
-        goto add_tstr;
-    case VT_DOUBLE:
-    case VT_LDOUBLE:
+        പോകുക add_tstr;
+    അവസ്ഥ VT_DOUBLE:
+    അവസ്ഥ VT_LDOUBLE:
         tstr = "float64";
     add_tstr:
         pstrcat(buf, buf_size, tstr);
-        break;
-    case VT_STRUCT:
+        നിർത്തുക;
+    അവസ്ഥ VT_STRUCT:
         tcc_error("structures not handled yet");
-        break;
-    case VT_FUNC:
+        നിർത്തുക;
+    അവസ്ഥ VT_FUNC:
         s = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
         il_type_to_str(buf, buf_size, s->t, varstr);
         pstrcat(buf, buf_size, "(");
         sa = s->next;
-        while (sa != NULL) {
-            il_type_to_str(buf1, sizeof(buf1), sa->t, NULL);
+        ആകുമ്പോൾ (sa != ശൂന്യ) {
+            il_type_to_str(buf1, വലുപ്പം(buf1), sa->t, ശൂന്യ);
             pstrcat(buf, buf_size, buf1);
             sa = sa->next;
-            if (sa)
+            എങ്കിൽ (sa)
                 pstrcat(buf, buf_size, ", ");
         }
         pstrcat(buf, buf_size, ")");
-        goto no_var;
-    case VT_PTR:
+        പോകുക no_var;
+    അവസ്ഥ VT_PTR:
         s = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
-        pstrcpy(buf1, sizeof(buf1), "*");
-        if (varstr)
-            pstrcat(buf1, sizeof(buf1), varstr);
+        pstrcpy(buf1, വലുപ്പം(buf1), "*");
+        എങ്കിൽ (varstr)
+            pstrcat(buf1, വലുപ്പം(buf1), varstr);
         il_type_to_str(buf, buf_size, s->t, buf1);
-        goto no_var;
+        പോകുക no_var;
     }
-    if (varstr) {
+    എങ്കിൽ (varstr) {
         pstrcat(buf, buf_size, " ");
         pstrcat(buf, buf_size, varstr);
     }
@@ -228,169 +228,169 @@ static void il_type_to_str(char *buf, int buf_size,
 
 
 /* patch relocation entry with value 'val' */
-void greloc_patch1(Reloc *p, int val)
+ശൂന്യം greloc_patch1(Reloc *p, പൂർണ്ണസംഖ്യ val)
 {
 }
 
 /* output a symbol and patch all calls to it */
-void gsym_addr(t, a)
+ശൂന്യം gsym_addr(t, a)
 {
 }
 
 /* output jump and return symbol */
-static int out_opj(int op, int c)
+സ്ഥിതം പൂർണ്ണസംഖ്യ out_opj(പൂർണ്ണസംഖ്യ op, പൂർണ്ണസംഖ്യ c)
 {
     out_op1(op);
     out_le32(0);
-    if (c == 0) {
-        c = ind - (int)cur_text_section->data;
+    എങ്കിൽ (c == 0) {
+        c = ind - (പൂർണ്ണസംഖ്യ)cur_text_section->data;
     }
     fprintf(il_outfile, " %s L%d\n", il_opcodes_str[op], c);
-    return c;
+    തിരികെ c;
 }
 
-void gsym(int t)
+ശൂന്യം gsym(പൂർണ്ണസംഖ്യ t)
 {
     fprintf(il_outfile, "L%d:\n", t);
 }
 
 /* load 'r' from value 'sv' */
-void load(int r, SValue *sv)
+ശൂന്യം load(പൂർണ്ണസംഖ്യ r, SValue *sv)
 {
-    int v, fc, ft;
+    പൂർണ്ണസംഖ്യ v, fc, ft;
 
     v = sv->r & VT_VALMASK;
     fc = sv->c.i;
     ft = sv->t;
 
-    if (sv->r & VT_LVAL) {
-        if (v == VT_LOCAL) {
-            if (fc >= ARG_BASE) {
+    എങ്കിൽ (sv->r & VT_LVAL) {
+        എങ്കിൽ (v == VT_LOCAL) {
+            എങ്കിൽ (fc >= ARG_BASE) {
                 fc -= ARG_BASE;
-                if (fc >= 0 && fc <= 4) {
+                എങ്കിൽ (fc >= 0 && fc <= 4) {
                     out_op(IL_OP_LDARG_0 + fc);
-                } else if (fc <= 0xff) {
+                } അല്ലെങ്കിൽ എങ്കിൽ (fc <= 0xff) {
                     out_opb(IL_OP_LDARG_S, fc);
-                } else {
+                } അല്ലെങ്കിൽ {
                     out_opi(IL_OP_LDARG, fc);
                 }
-            } else {
-                if (fc >= 0 && fc <= 4) {
+            } അല്ലെങ്കിൽ {
+                എങ്കിൽ (fc >= 0 && fc <= 4) {
                     out_op(IL_OP_LDLOC_0 + fc);
-                } else if (fc <= 0xff) {
+                } അല്ലെങ്കിൽ എങ്കിൽ (fc <= 0xff) {
                     out_opb(IL_OP_LDLOC_S, fc);
-                } else {
+                } അല്ലെങ്കിൽ {
                     out_opi(IL_OP_LDLOC, fc);
                 }
             }
-        } else if (v == VT_CONST) {
+        } അല്ലെങ്കിൽ എങ്കിൽ (v == VT_CONST) {
                 /* XXX: handle globals */
                 out_opi(IL_OP_LDSFLD, 0);
-        } else {
-            if ((ft & VT_BTYPE) == VT_FLOAT) {
+        } അല്ലെങ്കിൽ {
+            എങ്കിൽ ((ft & VT_BTYPE) == VT_FLOAT) {
                 out_op(IL_OP_LDIND_R4);
-            } else if ((ft & VT_BTYPE) == VT_DOUBLE) {
+            } അല്ലെങ്കിൽ എങ്കിൽ ((ft & VT_BTYPE) == VT_DOUBLE) {
                 out_op(IL_OP_LDIND_R8);
-            } else if ((ft & VT_BTYPE) == VT_LDOUBLE) {
+            } അല്ലെങ്കിൽ എങ്കിൽ ((ft & VT_BTYPE) == VT_LDOUBLE) {
                 out_op(IL_OP_LDIND_R8);
-            } else if ((ft & VT_TYPE) == VT_BYTE)
+            } അല്ലെങ്കിൽ എങ്കിൽ ((ft & VT_TYPE) == VT_BYTE)
                 out_op(IL_OP_LDIND_I1);
-            else if ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED))
+            അല്ലെങ്കിൽ എങ്കിൽ ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED))
                 out_op(IL_OP_LDIND_U1);
-            else if ((ft & VT_TYPE) == VT_SHORT)
+            അല്ലെങ്കിൽ എങ്കിൽ ((ft & VT_TYPE) == VT_SHORT)
                 out_op(IL_OP_LDIND_I2);
-            else if ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED))
+            അല്ലെങ്കിൽ എങ്കിൽ ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED))
                 out_op(IL_OP_LDIND_U2);
-            else
+            അല്ലെങ്കിൽ
                 out_op(IL_OP_LDIND_I4);
         } 
-    } else {
-        if (v == VT_CONST) {
+    } അല്ലെങ്കിൽ {
+        എങ്കിൽ (v == VT_CONST) {
             /* XXX: handle globals */
-            if (fc >= -1 && fc <= 8) {
+            എങ്കിൽ (fc >= -1 && fc <= 8) {
                 out_op(IL_OP_LDC_I4_M1 + fc + 1); 
-            } else {
+            } അല്ലെങ്കിൽ {
                 out_opi(IL_OP_LDC_I4, fc);
             }
-        } else if (v == VT_LOCAL) {
-            if (fc >= ARG_BASE) {
+        } അല്ലെങ്കിൽ എങ്കിൽ (v == VT_LOCAL) {
+            എങ്കിൽ (fc >= ARG_BASE) {
                 fc -= ARG_BASE;
-                if (fc <= 0xff) {
+                എങ്കിൽ (fc <= 0xff) {
                     out_opb(IL_OP_LDARGA_S, fc);
-                } else {
+                } അല്ലെങ്കിൽ {
                     out_opi(IL_OP_LDARGA, fc);
                 }
-            } else {
-                if (fc <= 0xff) {
+            } അല്ലെങ്കിൽ {
+                എങ്കിൽ (fc <= 0xff) {
                     out_opb(IL_OP_LDLOCA_S, fc);
-                } else {
+                } അല്ലെങ്കിൽ {
                     out_opi(IL_OP_LDLOCA, fc);
                 }
             }
-        } else {
+        } അല്ലെങ്കിൽ {
             /* XXX: do it */
         }
     }
 }
 
 /* store register 'r' in lvalue 'v' */
-void store(int r, SValue *sv)
+ശൂന്യം store(പൂർണ്ണസംഖ്യ r, SValue *sv)
 {
-    int v, fc, ft;
+    പൂർണ്ണസംഖ്യ v, fc, ft;
 
     v = sv->r & VT_VALMASK;
     fc = sv->c.i;
     ft = sv->t;
-    if (v == VT_LOCAL) {
-        if (fc >= ARG_BASE) {
+    എങ്കിൽ (v == VT_LOCAL) {
+        എങ്കിൽ (fc >= ARG_BASE) {
             fc -= ARG_BASE;
             /* XXX: check IL arg store semantics */
-            if (fc <= 0xff) {
+            എങ്കിൽ (fc <= 0xff) {
                 out_opb(IL_OP_STARG_S, fc);
-            } else {
+            } അല്ലെങ്കിൽ {
                 out_opi(IL_OP_STARG, fc);
             }
-        } else {
-            if (fc >= 0 && fc <= 4) {
+        } അല്ലെങ്കിൽ {
+            എങ്കിൽ (fc >= 0 && fc <= 4) {
                 out_op(IL_OP_STLOC_0 + fc);
-            } else if (fc <= 0xff) {
+            } അല്ലെങ്കിൽ എങ്കിൽ (fc <= 0xff) {
                 out_opb(IL_OP_STLOC_S, fc);
-            } else {
+            } അല്ലെങ്കിൽ {
                 out_opi(IL_OP_STLOC, fc);
             }
         }
-    } else if (v == VT_CONST) {
+    } അല്ലെങ്കിൽ എങ്കിൽ (v == VT_CONST) {
         /* XXX: handle globals */
         out_opi(IL_OP_STSFLD, 0);
-    } else {
-        if ((ft & VT_BTYPE) == VT_FLOAT)
+    } അല്ലെങ്കിൽ {
+        എങ്കിൽ ((ft & VT_BTYPE) == VT_FLOAT)
             out_op(IL_OP_STIND_R4);
-        else if ((ft & VT_BTYPE) == VT_DOUBLE)
+        അല്ലെങ്കിൽ എങ്കിൽ ((ft & VT_BTYPE) == VT_DOUBLE)
             out_op(IL_OP_STIND_R8);
-        else if ((ft & VT_BTYPE) == VT_LDOUBLE)
+        അല്ലെങ്കിൽ എങ്കിൽ ((ft & VT_BTYPE) == VT_LDOUBLE)
             out_op(IL_OP_STIND_R8);
-        else if ((ft & VT_BTYPE) == VT_BYTE)
+        അല്ലെങ്കിൽ എങ്കിൽ ((ft & VT_BTYPE) == VT_BYTE)
             out_op(IL_OP_STIND_I1);
-        else if ((ft & VT_BTYPE) == VT_SHORT)
+        അല്ലെങ്കിൽ എങ്കിൽ ((ft & VT_BTYPE) == VT_SHORT)
             out_op(IL_OP_STIND_I2);
-        else
+        അല്ലെങ്കിൽ
             out_op(IL_OP_STIND_I4);
     }
 }
 
 /* start function call and return function call context */
-void gfunc_start(GFuncContext *c, int func_call)
+ശൂന്യം gfunc_start(GFuncContext *c, പൂർണ്ണസംഖ്യ func_call)
 {
     c->func_call = func_call;
 }
 
 /* push function parameter which is in (vtop->t, vtop->c). Stack entry
    is then popped. */
-void gfunc_param(GFuncContext *c)
+ശൂന്യം gfunc_param(GFuncContext *c)
 {
-    if ((vtop->t & VT_BTYPE) == VT_STRUCT) {
+    എങ്കിൽ ((vtop->t & VT_BTYPE) == VT_STRUCT) {
         tcc_error("structures passed as value not handled yet");
-    } else {
+    } അല്ലെങ്കിൽ {
         /* simply push on stack */
         gv(RC_ST0);
     }
@@ -399,41 +399,41 @@ void gfunc_param(GFuncContext *c)
 
 /* generate function call with address in (vtop->t, vtop->c) and free function
    context. Stack entry is popped */
-void gfunc_call(GFuncContext *c)
+ശൂന്യം gfunc_call(GFuncContext *c)
 {
-    char buf[1024];
+    അക്ഷരം buf[1024];
 
-    if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+    എങ്കിൽ ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
         /* XXX: more info needed from tcc */
-        il_type_to_str(buf, sizeof(buf), vtop->t, "xxx");
+        il_type_to_str(buf, വലുപ്പം(buf), vtop->t, "xxx");
         fprintf(il_outfile, " call %s\n", buf);
-    } else {
+    } അല്ലെങ്കിൽ {
         /* indirect call */
         gv(RC_INT);
-        il_type_to_str(buf, sizeof(buf), vtop->t, NULL);
+        il_type_to_str(buf, വലുപ്പം(buf), vtop->t, ശൂന്യ);
         fprintf(il_outfile, " calli %s\n", buf);
     }
     vtop--;
 }
 
 /* generate function prolog of type 't' */
-void gfunc_prolog(int t)
+ശൂന്യം gfunc_prolog(പൂർണ്ണസംഖ്യ t)
 {
-    int addr, u, func_call;
+    പൂർണ്ണസംഖ്യ addr, u, func_call;
     Sym *sym;
-    char buf[1024];
+    അക്ഷരം buf[1024];
 
     init_outfile();
 
     /* XXX: pass function name to gfunc_prolog */
-    il_type_to_str(buf, sizeof(buf), t, funcname);
+    il_type_to_str(buf, വലുപ്പം(buf), t, funcname);
     fprintf(il_outfile, ".method static %s il managed\n", buf);
     fprintf(il_outfile, "{\n");
     /* XXX: cannot do better now */
     fprintf(il_outfile, " .maxstack %d\n", NB_REGS);
     fprintf(il_outfile, " .locals (int32, int32, int32, int32, int32, int32, int32, int32)\n");
     
-    if (!strcmp(funcname, "main"))
+    എങ്കിൽ (!strcmp(funcname, "main"))
         fprintf(il_outfile, " .entrypoint\n");
         
     sym = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
@@ -444,166 +444,166 @@ void gfunc_prolog(int t)
        implicit pointer parameter */
     func_vt = sym->t;
     func_var = (sym->c == FUNC_ELLIPSIS);
-    if ((func_vt & VT_BTYPE) == VT_STRUCT) {
+    എങ്കിൽ ((func_vt & VT_BTYPE) == VT_STRUCT) {
         func_vc = addr;
         addr++;
     }
     /* define parameters */
-    while ((sym = sym->next) != NULL) {
+    ആകുമ്പോൾ ((sym = sym->next) != ശൂന്യ) {
         u = sym->t;
-        sym_push(sym->v & ~SYM_FIELD, u,
+        sym_തള്ളുക(sym->v & ~SYM_FIELD, u,
                  VT_LOCAL | lvalue_type(sym->type.t), addr);
         addr++;
     }
 }
 
 /* generate function epilog */
-void gfunc_epilog(void)
+ശൂന്യം gfunc_epilog(ശൂന്യം)
 {
     out_op(IL_OP_RET);
     fprintf(il_outfile, "}\n\n");
 }
 
 /* generate a jump to a label */
-int gjmp(int t)
+പൂർണ്ണസംഖ്യ gjmp(പൂർണ്ണസംഖ്യ t)
 {
-    return out_opj(IL_OP_BR, t);
+    തിരികെ out_opj(IL_OP_BR, t);
 }
 
 /* generate a jump to a fixed address */
-void gjmp_addr(int a)
+ശൂന്യം gjmp_addr(പൂർണ്ണസംഖ്യ a)
 {
     /* XXX: handle syms */
     out_opi(IL_OP_BR, a);
 }
 
 /* generate a test. set 'inv' to invert test. Stack entry is popped */
-int gtst(int inv, int t)
+പൂർണ്ണസംഖ്യ gtst(പൂർണ്ണസംഖ്യ inv, പൂർണ്ണസംഖ്യ t)
 {
-    int v, *p, c;
+    പൂർണ്ണസംഖ്യ v, *p, c;
 
     v = vtop->r & VT_VALMASK;
-    if (v == VT_CMP) {
+    എങ്കിൽ (v == VT_CMP) {
         c = vtop->c.i ^ inv;
-        switch(c) {
-        case TOK_EQ:
+        തിരഞ്ഞെടുപ്പ്(c) {
+        അവസ്ഥ TOK_EQ:
             c = IL_OP_BEQ;
-            break;
-        case TOK_NE:
+            നിർത്തുക;
+        അവസ്ഥ TOK_NE:
             c = IL_OP_BNE_UN;
-            break;
-        case TOK_LT:
+            നിർത്തുക;
+        അവസ്ഥ TOK_LT:
             c = IL_OP_BLT;
-            break;
-        case TOK_LE:
+            നിർത്തുക;
+        അവസ്ഥ TOK_LE:
             c = IL_OP_BLE;
-            break;
-        case TOK_GT:
+            നിർത്തുക;
+        അവസ്ഥ TOK_GT:
             c = IL_OP_BGT;
-            break;
-        case TOK_GE:
+            നിർത്തുക;
+        അവസ്ഥ TOK_GE:
             c = IL_OP_BGE;
-            break;
-        case TOK_ULT:
+            നിർത്തുക;
+        അവസ്ഥ TOK_ULT:
             c = IL_OP_BLT_UN;
-            break;
-        case TOK_ULE:
+            നിർത്തുക;
+        അവസ്ഥ TOK_ULE:
             c = IL_OP_BLE_UN;
-            break;
-        case TOK_UGT:
+            നിർത്തുക;
+        അവസ്ഥ TOK_UGT:
             c = IL_OP_BGT_UN;
-            break;
-        case TOK_UGE:
+            നിർത്തുക;
+        അവസ്ഥ TOK_UGE:
             c = IL_OP_BGE_UN;
-            break;
+            നിർത്തുക;
         }
         t = out_opj(c, t);
-    } else if (v == VT_JMP || v == VT_JMPI) {
+    } അല്ലെങ്കിൽ എങ്കിൽ (v == VT_JMP || v == VT_JMPI) {
         /* && or || optimization */
-        if ((v & 1) == inv) {
+        എങ്കിൽ ((v & 1) == inv) {
             /* insert vtop->c jump list in t */
             p = &vtop->c.i;
-            while (*p != 0)
-                p = (int *)*p;
+            ആകുമ്പോൾ (*p != 0)
+                p = (പൂർണ്ണസംഖ്യ *)*p;
             *p = t;
             t = vtop->c.i;
-        } else {
+        } അല്ലെങ്കിൽ {
             t = gjmp(t);
             gsym(vtop->c.i);
         }
     }
     vtop--;
-    return t;
+    തിരികെ t;
 }
 
 /* generate an integer binary operation */
-void gen_opi(int op)
+ശൂന്യം gen_opi(പൂർണ്ണസംഖ്യ op)
 {
     gv2(RC_ST1, RC_ST0);
-    switch(op) {
-    case '+':
+    തിരഞ്ഞെടുപ്പ്(op) {
+    അവസ്ഥ '+':
         out_op(IL_OP_ADD);
-        goto std_op;
-    case '-':
+        പോകുക std_op;
+    അവസ്ഥ '-':
         out_op(IL_OP_SUB);
-        goto std_op;
-    case '&':
+        പോകുക std_op;
+    അവസ്ഥ '&':
         out_op(IL_OP_AND);
-        goto std_op;
-    case '^':
+        പോകുക std_op;
+    അവസ്ഥ '^':
         out_op(IL_OP_XOR);
-        goto std_op;
-    case '|':
+        പോകുക std_op;
+    അവസ്ഥ '|':
         out_op(IL_OP_OR);
-        goto std_op;
-    case '*':
+        പോകുക std_op;
+    അവസ്ഥ '*':
         out_op(IL_OP_MUL);
-        goto std_op;
-    case TOK_SHL:
+        പോകുക std_op;
+    അവസ്ഥ TOK_SHL:
         out_op(IL_OP_SHL);
-        goto std_op;
-    case TOK_SHR:
+        പോകുക std_op;
+    അവസ്ഥ TOK_SHR:
         out_op(IL_OP_SHR_UN);
-        goto std_op;
-    case TOK_SAR:
+        പോകുക std_op;
+    അവസ്ഥ TOK_SAR:
         out_op(IL_OP_SHR);
-        goto std_op;
-    case '/':
-    case TOK_PDIV:
+        പോകുക std_op;
+    അവസ്ഥ '/':
+    അവസ്ഥ TOK_PDIV:
         out_op(IL_OP_DIV);
-        goto std_op;
-    case TOK_UDIV:
+        പോകുക std_op;
+    അവസ്ഥ TOK_UDIV:
         out_op(IL_OP_DIV_UN);
-        goto std_op;
-    case '%':
+        പോകുക std_op;
+    അവസ്ഥ '%':
         out_op(IL_OP_REM);
-        goto std_op;
-    case TOK_UMOD:
+        പോകുക std_op;
+    അവസ്ഥ TOK_UMOD:
         out_op(IL_OP_REM_UN);
     std_op:
         vtop--;
         vtop[0].r = REG_ST0;
-        break;
-    case TOK_EQ:
-    case TOK_NE:
-    case TOK_LT:
-    case TOK_LE:
-    case TOK_GT:
-    case TOK_GE:
-    case TOK_ULT:
-    case TOK_ULE:
-    case TOK_UGT:
-    case TOK_UGE:
+        നിർത്തുക;
+    അവസ്ഥ TOK_EQ:
+    അവസ്ഥ TOK_NE:
+    അവസ്ഥ TOK_LT:
+    അവസ്ഥ TOK_LE:
+    അവസ്ഥ TOK_GT:
+    അവസ്ഥ TOK_GE:
+    അവസ്ഥ TOK_ULT:
+    അവസ്ഥ TOK_ULE:
+    അവസ്ഥ TOK_UGT:
+    അവസ്ഥ TOK_UGE:
         vtop--;
         vtop[0].r = VT_CMP;
         vtop[0].c.i = op;
-        break;
+        നിർത്തുക;
     }
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
    two operands are guaranteed to have the same floating point type */
-void gen_opf(int op)
+ശൂന്യം gen_opf(പൂർണ്ണസംഖ്യ op)
 {
     /* same as integer */
     gen_opi(op);
@@ -611,43 +611,43 @@ void gen_opf(int op)
 
 /* convert integers to fp 't' type. Must handle 'int', 'unsigned int'
    and 'long long' cases. */
-void gen_cvt_itof(int t)
+ശൂന്യം gen_cvt_itof(പൂർണ്ണസംഖ്യ t)
 {
     gv(RC_ST0);
-    if (t == VT_FLOAT)
+    എങ്കിൽ (t == VT_FLOAT)
         out_op(IL_OP_CONV_R4);
-    else
+    അല്ലെങ്കിൽ
         out_op(IL_OP_CONV_R8);
 }
 
 /* convert fp to int 't' type */
 /* XXX: handle long long case */
-void gen_cvt_ftoi(int t)
+ശൂന്യം gen_cvt_ftoi(പൂർണ്ണസംഖ്യ t)
 {
     gv(RC_ST0);
-    switch(t) {
-    case VT_INT | VT_UNSIGNED:
+    തിരഞ്ഞെടുപ്പ്(t) {
+    അവസ്ഥ VT_INT | VT_UNSIGNED:
         out_op(IL_OP_CONV_U4);
-        break;
-    case VT_LLONG:
+        നിർത്തുക;
+    അവസ്ഥ VT_LLONG:
         out_op(IL_OP_CONV_I8);
-        break;
-    case VT_LLONG | VT_UNSIGNED:
+        നിർത്തുക;
+    അവസ്ഥ VT_LLONG | VT_UNSIGNED:
         out_op(IL_OP_CONV_U8);
-        break;
-    default:
+        നിർത്തുക;
+    സ്ഥിരസ്ഥിതി:
         out_op(IL_OP_CONV_I4);
-        break;
+        നിർത്തുക;
     }
 }
 
 /* convert from one floating point type to another */
-void gen_cvt_ftof(int t)
+ശൂന്യം gen_cvt_ftof(പൂർണ്ണസംഖ്യ t)
 {
     gv(RC_ST0);
-    if (t == VT_FLOAT) {
+    എങ്കിൽ (t == VT_FLOAT) {
         out_op(IL_OP_CONV_R4);
-    } else {
+    } അല്ലെങ്കിൽ {
         out_op(IL_OP_CONV_R8);
     }
 }

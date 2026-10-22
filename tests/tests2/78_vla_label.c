@@ -1,25 +1,25 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+ശൂന്യം f1(പൂർണ്ണസംഖ്യ argc)
 {
-  char test[argc];
-  if(0)
+  അക്ഷരം test[argc];
+  എങ്കിൽ(0)
   label:
     printf("boom!\n");
-  if(argc-- == 0)
-    return;
-  goto label;
+  എങ്കിൽ(argc-- == 0)
+    തിരികെ;
+  പോകുക label;
 }
 
 /* This segfaulted on 2015-11-19. */
-void f2(void)
+ശൂന്യം f2(ശൂന്യം)
 {
-    goto start;
+    പോകുക start;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
+        പൂർണ്ണസംഖ്യ a[1 && 1]; /* not a variable-length array */
+        പൂർണ്ണസംഖ്യ b[1 || 1]; /* not a variable-length array */
+        പൂർണ്ണസംഖ്യ c[1 ? 1 : 1]; /* not a variable-length array */
     start:
         a[0] = 0;
         b[0] = 0;
@@ -27,7 +27,7 @@ void f2(void)
     }
 }
 
-void f3(void)
+ശൂന്യം f3(ശൂന്യം)
 {
     printf("%d\n", 0 ? printf("x1\n") : 11);
     printf("%d\n", 1 ? 12 : printf("x2\n"));
@@ -35,11 +35,11 @@ void f3(void)
     printf("%d\n", 1 || printf("x4\n"));
 }
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  തിരികെ 0;
 }

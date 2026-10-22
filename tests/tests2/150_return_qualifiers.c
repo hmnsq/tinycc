@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+സ്ഥിരം പൂർണ്ണസംഖ്യ const_return(ശൂന്യം);
+അസ്ഥിര പൂർണ്ണസംഖ്യ volatile_return(ശൂന്യം);
+പൂർണ്ണസംഖ്യ *restrict restrict_return(ശൂന്യം);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, പൂർണ്ണസംഖ്യ *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, പൂർണ്ണസംഖ്യ *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, പൂർണ്ണസംഖ്യ **),
                "restrict is removed from a return type");
 
-int const_return(void)
+പൂർണ്ണസംഖ്യ const_return(ശൂന്യം)
 {
-   return 0;
+   തിരികെ 0;
 }
 
-int volatile_return(void)
+പൂർണ്ണസംഖ്യ volatile_return(ശൂന്യം)
 {
-   return 0;
+   തിരികെ 0;
 }
 
-int *restrict_return(void)
+പൂർണ്ണസംഖ്യ *restrict_return(ശൂന്യം)
 {
-   return 0;
+   തിരികെ 0;
 }
 
-int main(void)
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
-   return 0;
+   തിരികെ 0;
 }

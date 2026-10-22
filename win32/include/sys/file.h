@@ -10,5 +10,5 @@
  * TODO?
  */
 #ifndef __STRICT_ANSI__
-#include <fcntl.h>
+#അന്തര്ഭാവ <fcntl.h>
 #endif

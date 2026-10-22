@@ -1,104 +1,104 @@
-extern int printf(const char *format, ...);
-static void kb_wait_1(void)
+ബാഹ്യ പൂർണ്ണസംഖ്യ printf(സ്ഥിരം അക്ഷരം *format, ...);
+സ്ഥിതം ശൂന്യം kb_wait_1(ശൂന്യം)
 {
     unsigned long timeout = 2;
-    do {
+    ചെയ്യുക {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                while (1)
+                ആകുമ്പോൾ (1)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ആകുമ്പോൾ (timeout);
 }
-static void kb_wait_2(void)
+സ്ഥിതം ശൂന്യം kb_wait_2(ശൂന്യം)
 {
     unsigned long timeout = 2;
-    do {
+    ചെയ്യുക {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                for (;;)
+                വേണ്ടി (;;)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ആകുമ്പോൾ (timeout);
 }
-static void kb_wait_2_1(void)
+സ്ഥിതം ശൂന്യം kb_wait_2_1(ശൂന്യം)
 {
     unsigned long timeout = 2;
-    do {
+    ചെയ്യുക {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                do {
+                ചെയ്യുക {
                     printf("error\n");
-		} while (1);
+		} ആകുമ്പോൾ (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } ആകുമ്പോൾ (timeout);
 }
-static void kb_wait_2_2(void)
+സ്ഥിതം ശൂന്യം kb_wait_2_2(ശൂന്യം)
 {
     unsigned long timeout = 2;
-    do {
+    ചെയ്യുക {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
                 label:
                     printf("error\n");
-		goto label;
+		പോകുക label;
             })
         );
         timeout--;
-    } while (timeout);
+    } ആകുമ്പോൾ (timeout);
 }
-static void kb_wait_3(void)
+സ്ഥിതം ശൂന്യം kb_wait_3(ശൂന്യം)
 {
     unsigned long timeout = 2;
-    do {
+    ചെയ്യുക {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
-                goto label;
+                പൂർണ്ണസംഖ്യ i = 1;
+                പോകുക label;
                 i = i + 2;
             label:
                 i = i + 3;
             })
         );
         timeout--;
-    } while (timeout);
+    } ആകുമ്പോൾ (timeout);
 }
-static void kb_wait_4(void)
+സ്ഥിതം ശൂന്യം kb_wait_4(ശൂന്യം)
 {
     unsigned long timeout = 2;
-    do {
+    ചെയ്യുക {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                switch(timeout) {
-                    case 2:
+                തിരഞ്ഞെടുപ്പ്(timeout) {
+                    അവസ്ഥ 2:
                         printf("timeout is 2");
-                        break;
-                    case 1:
+                        നിർത്തുക;
+                    അവസ്ഥ 1:
                         printf("timeout is 1");
-                        break;
-                    default:
+                        നിർത്തുക;
+                    സ്ഥിരസ്ഥിതി:
                         printf("timeout is 0?");
-                        break;
+                        നിർത്തുക;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } ആകുമ്പോൾ (timeout);
 }
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
     printf("begin\n");
     kb_wait_1();
@@ -108,5 +108,5 @@ int main()
     kb_wait_3();
     kb_wait_4();
     printf("end\n");
-    return 0;
+    തിരികെ 0;
 }

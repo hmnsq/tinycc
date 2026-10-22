@@ -1,29 +1,29 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int Count;
+   പൂർണ്ണസംഖ്യ എണ്ണം_3;
 
-   for (Count = 0; Count < 4; Count++)
+   വേണ്ടി (എണ്ണം_3 = 0; എണ്ണം_3 < 4; എണ്ണം_3++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      printf("%d\n", എണ്ണം_3);
+      തിരഞ്ഞെടുപ്പ് (എണ്ണം_3)
       {
-         case 1:
+         അവസ്ഥ 1:
             printf("%d\n", 1);
-            break;
+            നിർത്തുക;
 
-         case 2:
+         അവസ്ഥ 2:
             printf("%d\n", 2);
-            break;
+            നിർത്തുക;
 
-         default:
+         സ്ഥിരസ്ഥിതി:
             printf("%d\n", 0);
-            break;
+            നിർത്തുക;
       }
    }
 
-   return 0;
+   തിരികെ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

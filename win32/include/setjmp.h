@@ -6,20 +6,20 @@
 #ifndef _INC_SETJMP
 #define _INC_SETJMP
 
-#include <_mingw.h>
+#അന്തര്ഭാവ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(തള്ളുക,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+ബാഹ്യ "C" {
 #endif
 
-#if (defined(_X86_) && !defined(__x86_64))
+#എങ്കിൽ (defined(_X86_) && !defined(__x86_64))
 
 #define _JBLEN 16
-#define _JBTYPE int
+#define _JBTYPE പൂർണ്ണസംഖ്യ
 
-  typedef struct __JUMP_BUFFER {
+  തരനിർവചനം ഘടന __JUMP_BUFFER {
     unsigned long Ebp;
     unsigned long Ebx;
     unsigned long Edi;
@@ -32,16 +32,16 @@ extern "C" {
     unsigned long UnwindFunc;
     unsigned long UnwindData[6];
   } _JUMP_BUFFER;
-#elif defined(__ia64__)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    __int64 LowPart;
-    __int64 HighPart;
+#അല്ലെങ്കിലെങ്കിൽ defined(__ia64__)
+  തരനിർവചനം _CRT_ALIGN(16) ഘടന _SETJMP_FLOAT128 {
+    __int64 താഴെയുള്ള_Part;
+    __int64 മുകളിലെ_Part;
   } SETJMP_FLOAT128;
 
 #define _JBLEN 33
-  typedef SETJMP_FLOAT128 _JBTYPE;
+  തരനിർവചനം SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct __JUMP_BUFFER {
+  തരനിർവചനം ഘടന __JUMP_BUFFER {
 
     unsigned long iAReserved[6];
 
@@ -92,15 +92,15 @@ extern "C" {
     __int64 Preds;
 
   } _JUMP_BUFFER;
-#elif defined(__x86_64)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
+#അല്ലെങ്കിലെങ്കിൽ defined(__x86_64)
+  തരനിർവചനം _CRT_ALIGN(16) ഘടന _SETJMP_FLOAT128 {
     unsigned __int64 Part[2];
   } SETJMP_FLOAT128;
 
 #define _JBLEN 16
-  typedef SETJMP_FLOAT128 _JBTYPE;
+  തരനിർവചനം SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct _JUMP_BUFFER {
+  തരനിർവചനം ഘടന _JUMP_BUFFER {
     unsigned __int64 Frame;
     unsigned __int64 Rbx;
     unsigned __int64 Rsp;
@@ -124,12 +124,12 @@ extern "C" {
     SETJMP_FLOAT128 Xmm14;
     SETJMP_FLOAT128 Xmm15;
   } _JUMP_BUFFER;
-#elif defined(_ARM_)
+#അല്ലെങ്കിലെങ്കിൽ defined(_ARM_)
 
 #define _JBLEN 28
-#define _JBTYPE int
+#define _JBTYPE പൂർണ്ണസംഖ്യ
 
-  typedef struct __JUMP_BUFFER {
+  തരനിർവചനം ഘടന __JUMP_BUFFER {
     unsigned long Frame;
     unsigned long R4;
     unsigned long R5;
@@ -144,12 +144,12 @@ extern "C" {
     unsigned long Fpscr;
     unsigned long long D[8];
   } _JUMP_BUFFER;
-#elif defined(_ARM64_)
+#അല്ലെങ്കിലെങ്കിൽ defined(_ARM64_)
 
 #define _JBLEN 24
 #define _JBTYPE unsigned __int64
 
-  typedef struct __JUMP_BUFFER {
+  തരനിർവചനം ഘടന __JUMP_BUFFER {
     unsigned __int64 Frame;
     unsigned __int64 Reserved;
     unsigned __int64 X19;
@@ -167,31 +167,31 @@ extern "C" {
     unsigned __int64 Sp;
     unsigned long Fpcr;
     unsigned long Fpsr;
-    double D[8];
+    ഇരട്ട D[8];
   } _JUMP_BUFFER;
-#else
+#അല്ലെങ്കിൽ
 #define _JBLEN 1
-#define _JBTYPE int
+#define _JBTYPE പൂർണ്ണസംഖ്യ
 #endif
 #ifndef _JMP_BUF_DEFINED
-  typedef _JBTYPE jmp_buf[_JBLEN];
+  തരനിർവചനം _JBTYPE jmp_buf[_JBLEN];
 #define _JMP_BUF_DEFINED
 #endif
 
-#pragma pack(pop)
+#pragma pack(എടുക്കുക)
 
-#if defined __aarch64__
-  int _setjmpex(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmpex((BUF), (char*)__builtin_frame_address(0) + 224)
-#elif defined __x86_64__
-  int _setjmp(jmp_buf _Buf, void *frame);
+#എങ്കിൽ defined __aarch64__
+  പൂർണ്ണസംഖ്യ _setjmpex(jmp_buf _Buf, ശൂന്യം *frame);
+  #define setjmp(BUF) _setjmpex((BUF), (അക്ഷരം*)__builtin_frame_address(0) + 224)
+#അല്ലെങ്കിലെങ്കിൽ defined __x86_64__
+  പൂർണ്ണസംഖ്യ _setjmp(jmp_buf _Buf, ശൂന്യം *frame);
   #define setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
-#else /* __i386__ */
-  int _setjmp(jmp_buf _Buf);
+#അല്ലെങ്കിൽ /* __i386__ */
+  പൂർണ്ണസംഖ്യ _setjmp(jmp_buf _Buf);
   #define setjmp _setjmp
 #endif
 
-__declspec(noreturn) void longjmp(jmp_buf _Buf,int _Value);
+__declspec(noreturn) ശൂന്യം longjmp(jmp_buf _Buf,പൂർണ്ണസംഖ്യ മൂല്യം_2);
 
 #ifdef __cplusplus
 }

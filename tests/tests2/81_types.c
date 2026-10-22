@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+എണ്ണൽ E *e;
+സ്ഥിരം എണ്ണൽ E *e1;
+എണ്ണൽ E സ്ഥിരം *e2;
+ഘടന S *s;
+സ്ഥിരം ഘടന S *s1;
+ഘടന S സ്ഥിരം *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+തരനിർവചനം പൂർണ്ണസംഖ്യ (*fptr1)();
+പൂർണ്ണസംഖ്യ f1 (പൂർണ്ണസംഖ്യ (), പൂർണ്ണസംഖ്യ);
+തരനിർവചനം പൂർണ്ണസംഖ്യ (*fptr2)(പൂർണ്ണസംഖ്യ x);
+പൂർണ്ണസംഖ്യ f2 (പൂർണ്ണസംഖ്യ (പൂർണ്ണസംഖ്യ x), പൂർണ്ണസംഖ്യ);
+തരനിർവചനം പൂർണ്ണസംഖ്യ (*fptr3)(പൂർണ്ണസംഖ്യ);
+പൂർണ്ണസംഖ്യ f3 (പൂർണ്ണസംഖ്യ (പൂർണ്ണസംഖ്യ), പൂർണ്ണസംഖ്യ);
+തരനിർവചനം പൂർണ്ണസംഖ്യ (*fptr4[4])(പൂർണ്ണസംഖ്യ);
+പൂർണ്ണസംഖ്യ f4 (പൂർണ്ണസംഖ്യ (*[4])(പൂർണ്ണസംഖ്യ), പൂർണ്ണസംഖ്യ);
+തരനിർവചനം പൂർണ്ണസംഖ്യ (*fptr5)(fptr1);
+പൂർണ്ണസംഖ്യ f5 (പൂർണ്ണസംഖ്യ (പൂർണ്ണസംഖ്യ()), fptr1);
+പൂർണ്ണസംഖ്യ f1 (fptr1 fp, പൂർണ്ണസംഖ്യ i)
 {
-  return (*fp)(i);
+  തിരികെ (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+പൂർണ്ണസംഖ്യ f2 (fptr2 fp, പൂർണ്ണസംഖ്യ i)
 {
-  return (*fp)(i);
+  തിരികെ (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+പൂർണ്ണസംഖ്യ f3 (fptr3 fp, പൂർണ്ണസംഖ്യ i)
 {
-  return (*fp)(i);
+  തിരികെ (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+പൂർണ്ണസംഖ്യ f4 (fptr4 fp, പൂർണ്ണസംഖ്യ i)
 {
-  return (*fp[i])(i);
+  തിരികെ (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+പൂർണ്ണസംഖ്യ f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  തിരികെ fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+തരനിർവചനം പൂർണ്ണസംഖ്യ intx4[4];
+പൂർണ്ണസംഖ്യ f8 (intx4, പൂർണ്ണസംഖ്യ);
+പൂർണ്ണസംഖ്യ f8 (പൂർണ്ണസംഖ്യ ([4]), പൂർണ്ണസംഖ്യ);
+പൂർണ്ണസംഖ്യ f8 (പൂർണ്ണസംഖ്യ y[4], പൂർണ്ണസംഖ്യ i)
 {
-  return y[i];
+  തിരികെ y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+പൂർണ്ണസംഖ്യ f9 (പൂർണ്ണസംഖ്യ (*)(പൂർണ്ണസംഖ്യ), പൂർണ്ണസംഖ്യ);
+പൂർണ്ണസംഖ്യ f9 (പൂർണ്ണസംഖ്യ ((പൂർണ്ണസംഖ്യ)), പൂർണ്ണസംഖ്യ);
+പൂർണ്ണസംഖ്യ f9 (പൂർണ്ണസംഖ്യ f(പൂർണ്ണസംഖ്യ), പൂർണ്ണസംഖ്യ i)
 {
-  return f(i);
+  തിരികെ f(i);
 }
-int main () { return 0; }
+പൂർണ്ണസംഖ്യ പ്രധാന () { തിരികെ 0; }

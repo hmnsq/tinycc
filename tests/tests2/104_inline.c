@@ -1,123 +1,123 @@
-inline void inline_inline_2decl_only(void);
-inline void inline_inline_2decl_only(void);
+വരിയിൽ ശൂന്യം inline_inline_2decl_only(ശൂന്യം);
+വരിയിൽ ശൂന്യം inline_inline_2decl_only(ശൂന്യം);
 
-inline void inline_inline_undeclared(void){}
+വരിയിൽ ശൂന്യം inline_inline_undeclared(ശൂന്യം){}
 
-inline void inline_inline_predeclared(void);
-inline void inline_inline_predeclared(void){}
+വരിയിൽ ശൂന്യം inline_inline_predeclared(ശൂന്യം);
+വരിയിൽ ശൂന്യം inline_inline_predeclared(ശൂന്യം){}
 
-inline void inline_inline_postdeclared(void){}
-inline void inline_inline_postdeclared(void);
+വരിയിൽ ശൂന്യം inline_inline_postdeclared(ശൂന്യം){}
+വരിയിൽ ശൂന്യം inline_inline_postdeclared(ശൂന്യം);
 
-inline void inline_inline_prepostdeclared(void);
-inline void inline_inline_prepostdeclared(void){}
-inline void inline_inline_prepostdeclared(void);
+വരിയിൽ ശൂന്യം inline_inline_prepostdeclared(ശൂന്യം);
+വരിയിൽ ശൂന്യം inline_inline_prepostdeclared(ശൂന്യം){}
+വരിയിൽ ശൂന്യം inline_inline_prepostdeclared(ശൂന്യം);
 
-inline void inline_inline_undeclared2(void){}
+വരിയിൽ ശൂന്യം inline_inline_undeclared2(ശൂന്യം){}
 
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void){}
+വരിയിൽ ശൂന്യം inline_inline_predeclared2(ശൂന്യം);
+വരിയിൽ ശൂന്യം inline_inline_predeclared2(ശൂന്യം);
+വരിയിൽ ശൂന്യം inline_inline_predeclared2(ശൂന്യം){}
 
-inline void inline_inline_postdeclared2(void){}
-inline void inline_inline_postdeclared2(void);
-inline void inline_inline_postdeclared2(void);
+വരിയിൽ ശൂന്യം inline_inline_postdeclared2(ശൂന്യം){}
+വരിയിൽ ശൂന്യം inline_inline_postdeclared2(ശൂന്യം);
+വരിയിൽ ശൂന്യം inline_inline_postdeclared2(ശൂന്യം);
 
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void){}
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
+വരിയിൽ ശൂന്യം inline_inline_prepostdeclared2(ശൂന്യം);
+വരിയിൽ ശൂന്യം inline_inline_prepostdeclared2(ശൂന്യം);
+വരിയിൽ ശൂന്യം inline_inline_prepostdeclared2(ശൂന്യം){}
+വരിയിൽ ശൂന്യം inline_inline_prepostdeclared2(ശൂന്യം);
+വരിയിൽ ശൂന്യം inline_inline_prepostdeclared2(ശൂന്യം);
 
-extern void extern_extern_undeclared(void){}
+ബാഹ്യ ശൂന്യം extern_extern_undeclared(ശൂന്യം){}
 
-extern void extern_extern_predeclared(void);
-extern void extern_extern_predeclared(void){}
+ബാഹ്യ ശൂന്യം extern_extern_predeclared(ശൂന്യം);
+ബാഹ്യ ശൂന്യം extern_extern_predeclared(ശൂന്യം){}
 
-extern void extern_extern_postdeclared(void){}
-extern void extern_extern_postdeclared(void);
+ബാഹ്യ ശൂന്യം extern_extern_postdeclared(ശൂന്യം){}
+ബാഹ്യ ശൂന്യം extern_extern_postdeclared(ശൂന്യം);
 
-extern void extern_extern_prepostdeclared(void);
-extern void extern_extern_prepostdeclared(void){}
-extern void extern_extern_prepostdeclared(void);
+ബാഹ്യ ശൂന്യം extern_extern_prepostdeclared(ശൂന്യം);
+ബാഹ്യ ശൂന്യം extern_extern_prepostdeclared(ശൂന്യം){}
+ബാഹ്യ ശൂന്യം extern_extern_prepostdeclared(ശൂന്യം);
 
-extern void extern_extern_undeclared2(void){}
+ബാഹ്യ ശൂന്യം extern_extern_undeclared2(ശൂന്യം){}
 
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void){}
+ബാഹ്യ ശൂന്യം extern_extern_predeclared2(ശൂന്യം);
+ബാഹ്യ ശൂന്യം extern_extern_predeclared2(ശൂന്യം);
+ബാഹ്യ ശൂന്യം extern_extern_predeclared2(ശൂന്യം){}
 
-extern void extern_extern_postdeclared2(void){}
-extern void extern_extern_postdeclared2(void);
-extern void extern_extern_postdeclared2(void);
+ബാഹ്യ ശൂന്യം extern_extern_postdeclared2(ശൂന്യം){}
+ബാഹ്യ ശൂന്യം extern_extern_postdeclared2(ശൂന്യം);
+ബാഹ്യ ശൂന്യം extern_extern_postdeclared2(ശൂന്യം);
 
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void){}
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
+ബാഹ്യ ശൂന്യം extern_extern_prepostdeclared2(ശൂന്യം);
+ബാഹ്യ ശൂന്യം extern_extern_prepostdeclared2(ശൂന്യം);
+ബാഹ്യ ശൂന്യം extern_extern_prepostdeclared2(ശൂന്യം){}
+ബാഹ്യ ശൂന്യം extern_extern_prepostdeclared2(ശൂന്യം);
+ബാഹ്യ ശൂന്യം extern_extern_prepostdeclared2(ശൂന്യം);
 
-void extern_undeclared(void){}
+ശൂന്യം extern_undeclared(ശൂന്യം){}
 
-void extern_predeclared(void);
-void extern_predeclared(void){}
+ശൂന്യം extern_predeclared(ശൂന്യം);
+ശൂന്യം extern_predeclared(ശൂന്യം){}
 
-void extern_postdeclared(void){}
-void extern_postdeclared(void);
+ശൂന്യം extern_postdeclared(ശൂന്യം){}
+ശൂന്യം extern_postdeclared(ശൂന്യം);
 
-void extern_prepostdeclared(void);
-void extern_prepostdeclared(void){}
-void extern_prepostdeclared(void);
+ശൂന്യം extern_prepostdeclared(ശൂന്യം);
+ശൂന്യം extern_prepostdeclared(ശൂന്യം){}
+ശൂന്യം extern_prepostdeclared(ശൂന്യം);
 
-void extern_undeclared2(void){}
+ശൂന്യം extern_undeclared2(ശൂന്യം){}
 
-void extern_predeclared2(void);
-void extern_predeclared2(void);
-void extern_predeclared2(void){}
+ശൂന്യം extern_predeclared2(ശൂന്യം);
+ശൂന്യം extern_predeclared2(ശൂന്യം);
+ശൂന്യം extern_predeclared2(ശൂന്യം){}
 
-void extern_postdeclared2(void){}
-void extern_postdeclared2(void);
-void extern_postdeclared2(void);
+ശൂന്യം extern_postdeclared2(ശൂന്യം){}
+ശൂന്യം extern_postdeclared2(ശൂന്യം);
+ശൂന്യം extern_postdeclared2(ശൂന്യം);
 
 
-extern inline void noinst_extern_inline_undeclared(void){}
+ബാഹ്യ വരിയിൽ ശൂന്യം noinst_extern_inline_undeclared(ശൂന്യം){}
 
-extern inline void noinst_extern_inline_postdeclared(void){}
-inline void noinst_extern_inline_postdeclared(void);
+ബാഹ്യ വരിയിൽ ശൂന്യം noinst_extern_inline_postdeclared(ശൂന്യം){}
+വരിയിൽ ശൂന്യം noinst_extern_inline_postdeclared(ശൂന്യം);
 
-extern inline void noinst_extern_inline_postdeclared2(void){}
-inline void noinst_extern_inline_postdeclared2(void);
-inline void noinst_extern_inline_postdeclared2(void);
+ബാഹ്യ വരിയിൽ ശൂന്യം noinst_extern_inline_postdeclared2(ശൂന്യം){}
+വരിയിൽ ശൂന്യം noinst_extern_inline_postdeclared2(ശൂന്യം);
+വരിയിൽ ശൂന്യം noinst_extern_inline_postdeclared2(ശൂന്യം);
 
-extern inline void inst_extern_inline_postdeclared(void){}
-extern inline void inst_extern_inline_postdeclared(void);
-inline void inst2_extern_inline_postdeclared(void){}
-void inst2_extern_inline_postdeclared(void);
+ബാഹ്യ വരിയിൽ ശൂന്യം inst_extern_inline_postdeclared(ശൂന്യം){}
+ബാഹ്യ വരിയിൽ ശൂന്യം inst_extern_inline_postdeclared(ശൂന്യം);
+വരിയിൽ ശൂന്യം inst2_extern_inline_postdeclared(ശൂന്യം){}
+ശൂന്യം inst2_extern_inline_postdeclared(ശൂന്യം);
 
-void inst_extern_inline_predeclared(void);
-extern inline void inst_extern_inline_predeclared(void){}
-void inst2_extern_inline_predeclared(void);
-inline void inst2_extern_inline_predeclared(void){}
-extern inline void inst3_extern_inline_predeclared(void);
-inline void inst3_extern_inline_predeclared(void){}
+ശൂന്യം inst_extern_inline_predeclared(ശൂന്യം);
+ബാഹ്യ വരിയിൽ ശൂന്യം inst_extern_inline_predeclared(ശൂന്യം){}
+ശൂന്യം inst2_extern_inline_predeclared(ശൂന്യം);
+വരിയിൽ ശൂന്യം inst2_extern_inline_predeclared(ശൂന്യം){}
+ബാഹ്യ വരിയിൽ ശൂന്യം inst3_extern_inline_predeclared(ശൂന്യം);
+വരിയിൽ ശൂന്യം inst3_extern_inline_predeclared(ശൂന്യം){}
 
-static inline void noinst_static_inline_postdeclared(void){}
-static inline void noinst_static_inline_postdeclared(void);
-static inline void noinst2_static_inline_postdeclared(void){}
-static void noinst2_static_inline_postdeclared(void);
+സ്ഥിതം വരിയിൽ ശൂന്യം noinst_static_inline_postdeclared(ശൂന്യം){}
+സ്ഥിതം വരിയിൽ ശൂന്യം noinst_static_inline_postdeclared(ശൂന്യം);
+സ്ഥിതം വരിയിൽ ശൂന്യം noinst2_static_inline_postdeclared(ശൂന്യം){}
+സ്ഥിതം ശൂന്യം noinst2_static_inline_postdeclared(ശൂന്യം);
 
-static void noinst_static_inline_predeclared(void);
-static inline void noinst_static_inline_predeclared(void){}
-static void noinst2_static_inline_predeclared(void);
-static inline void noinst2_static_inline_predeclared(void){}
+സ്ഥിതം ശൂന്യം noinst_static_inline_predeclared(ശൂന്യം);
+സ്ഥിതം വരിയിൽ ശൂന്യം noinst_static_inline_predeclared(ശൂന്യം){}
+സ്ഥിതം ശൂന്യം noinst2_static_inline_predeclared(ശൂന്യം);
+സ്ഥിതം വരിയിൽ ശൂന്യം noinst2_static_inline_predeclared(ശൂന്യം){}
 
-static void static_func(void);
-void static_func(void) { }
+സ്ഥിതം ശൂന്യം static_func(ശൂന്യം);
+ശൂന്യം static_func(ശൂന്യം) { }
 
-inline void noinst_extern_inline_func(void);
-void noinst_extern_inline_func(void) { }
+വരിയിൽ ശൂന്യം noinst_extern_inline_func(ശൂന്യം);
+ശൂന്യം noinst_extern_inline_func(ശൂന്യം) { }
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
         inline_inline_undeclared(); inline_inline_predeclared(); inline_inline_postdeclared();
         inline_inline_undeclared2(); inline_inline_predeclared2(); inline_inline_postdeclared2();
@@ -126,7 +126,7 @@ int main()
 	noinst_static_inline_predeclared();
 	noinst2_static_inline_predeclared();
 
-        void check_exports();
+        ശൂന്യം check_exports();
         check_exports();
-        return 0;
+        തിരികെ 0;
 }

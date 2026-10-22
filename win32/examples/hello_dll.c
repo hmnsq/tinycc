@@ -3,18 +3,18 @@
 //  HELLO_DLL.C - Windows DLL example - main application part
 //
 
-#include <windows.h>
+#അന്തര്ഭാവ <windows.h>
 
-void hello_func (void);
-__declspec(dllimport) extern const char *hello_data;
+ശൂന്യം hello_func (ശൂന്യം);
+__declspec(dllimport) ബാഹ്യ സ്ഥിരം അക്ഷരം *hello_data;
 
-int WINAPI WinMain(
+പൂർണ്ണസംഖ്യ WINAPI WinMain(
     HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
-    LPSTR     lpCmdLine,
-    int       nCmdShow)
+    LPSTR     lp_Cmd_വരി,
+    പൂർണ്ണസംഖ്യ       nCmdShow)
 {
     hello_data = "Hello World!";
     hello_func();
-    return 0;
+    തിരികെ 0;
 }

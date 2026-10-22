@@ -1,12 +1,12 @@
 /* va_list.c - tinycc support for va_list on X86_64 */
 
-#if defined __x86_64__
+#എങ്കിൽ defined __x86_64__
 
 /* Avoid include files, they may not be available when cross compiling */
-extern void abort(void);
+ബാഹ്യ ശൂന്യം abort(ശൂന്യം);
 
 /* This should be in sync with our include/stdarg.h */
-enum __va_arg_type {
+എണ്ണൽ __va_arg_type {
     __va_gen_reg, __va_float_reg, __va_stack
 };
 
@@ -23,45 +23,45 @@ typedef struct {
 } __builtin_va_list[1];
 */
 
-extern void *memcpy(void *dest, const void *src, unsigned long n);
+ബാഹ്യ ശൂന്യം *memcpy(ശൂന്യം *dest, സ്ഥിരം ശൂന്യം *src, unsigned long n);
 
-void *__va_arg(__builtin_va_list ap,
-               int arg_type,
-               int size, int align)
+ശൂന്യം *__va_arg(__builtin_va_list ap,
+               പൂർണ്ണസംഖ്യ arg_type,
+               പൂർണ്ണസംഖ്യ size, പൂർണ്ണസംഖ്യ align)
 {
     size = (size + 7) & ~7;
     align = (align + 7) & ~7;
-    switch ((enum __va_arg_type)arg_type) {
-    case __va_gen_reg:
-        if (ap->gp_offset + size <= 48) {
+    തിരഞ്ഞെടുപ്പ് ((എണ്ണൽ __va_arg_type)arg_type) {
+    അവസ്ഥ __va_gen_reg:
+        എങ്കിൽ (ap->gp_offset + size <= 48) {
             ap->gp_offset += size;
-            return ap->reg_save_area + ap->gp_offset - size;
+            തിരികെ ap->reg_save_area + ap->gp_offset - size;
         }
-        goto use_overflow_area;
+        പോകുക use_overflow_area;
 
-    case __va_float_reg:
-        if (ap->fp_offset < 128 + 48) {
+    അവസ്ഥ __va_float_reg:
+        എങ്കിൽ (ap->fp_offset < 128 + 48) {
             ap->fp_offset += 16;
-            if (size == 8)
-                return ap->reg_save_area + ap->fp_offset - 16;
-            if (ap->fp_offset < 128 + 48) {
+            എങ്കിൽ (size == 8)
+                തിരികെ ap->reg_save_area + ap->fp_offset - 16;
+            എങ്കിൽ (ap->fp_offset < 128 + 48) {
                 memcpy(ap->reg_save_area + ap->fp_offset - 8,
                        ap->reg_save_area + ap->fp_offset, 8);
                 ap->fp_offset += 16;
-                return ap->reg_save_area + ap->fp_offset - 32;
+                തിരികെ ap->reg_save_area + ap->fp_offset - 32;
             }
         }
-        goto use_overflow_area;
+        പോകുക use_overflow_area;
 
-    case __va_stack:
+    അവസ്ഥ __va_stack:
     use_overflow_area:
         ap->overflow_arg_area += size;
-        ap->overflow_arg_area = (char*)((long long)(ap->overflow_arg_area + align - 1) & -align);
-        return ap->overflow_arg_area - size;
+        ap->overflow_arg_area = (അക്ഷരം*)((long long)(ap->overflow_arg_area + align - 1) & -align);
+        തിരികെ ap->overflow_arg_area - size;
 
-    default: /* should never happen */
+    സ്ഥിരസ്ഥിതി: /* should never happen */
         abort();
-        return 0;
+        തിരികെ 0;
     }
 }
 #endif

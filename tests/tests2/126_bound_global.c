@@ -1,13 +1,13 @@
 /* test bound checking code without -run */
 
-int arr[10];
+പൂർണ്ണസംഖ്യ arr[10];
 
-int
-main(int argc, char **argv)
+പൂർണ്ണസംഖ്യ
+പ്രധാന(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv)
 {
-  int i;
+  പൂർണ്ണസംഖ്യ i;
 
-  for (i = 0; i <= sizeof(arr)/sizeof(arr[0]); i++)
+  വേണ്ടി (i = 0; i <= വലുപ്പം(arr)/വലുപ്പം(arr[0]); i++)
         arr[i] = 0;
-  return 0;
+  തിരികെ 0;
 }

@@ -1,72 +1,72 @@
-#include <stdio.h>
-#include "threads.h"
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ "threads.h"
 
-#if __SIZEOF_POINTER__ == 8
+#എങ്കിൽ __SIZEOF_POINTER__ == 8
 # define pFMT "0x%llx"
-#else
+#അല്ലെങ്കിൽ
 # define pFMT "0x%x"
 #endif
 
-#define	CHECK(var,fmt,val)	printf(fmt "\n",var); if (var != val) errors = 1
+#define	CHECK(var,fmt,val)	printf(fmt "\n",var); എങ്കിൽ (var != val) errors = 1
 
-typedef enum { tls_a, tls_b, tls_c } tls_enum_type;
-typedef struct { int tls_d, tls_e, tls_f; } tls_struct_type;
+തരനിർവചനം എണ്ണൽ { tls_a, tls_b, tls_c } tls_enum_type;
+തരനിർവചനം ഘടന { പൂർണ്ണസംഖ്യ tls_d, tls_e, tls_f; } tls_struct_type;
 
-typedef struct {
-    int *init;
+തരനിർവചനം ഘടന {
+    പൂർണ്ണസംഖ്യ *init;
     signed short *element;
 } tls_address_type;
 
-__thread char tls_char = 42;
+__thread അക്ഷരം tls_char = 42;
 __thread short tls_short = 43;
-__thread int tls_init = 44;
+__thread പൂർണ്ണസംഖ്യ tls_init = 44;
 __thread long long tls_long_long = 45;
-__thread int tls_zero;
-__thread float tls_float = 46.0;
-__thread double tls_double = 47.0;
-__thread long double tls_long_double = 48.0;
-__thread int *tls_ptr = (int *)49;
+__thread പൂർണ്ണസംഖ്യ tls_zero;
+__thread ദശാംശം tls_float = 46.0;
+__thread ഇരട്ട tls_double = 47.0;
+__thread long ഇരട്ട tls_long_double = 48.0;
+__thread പൂർണ്ണസംഖ്യ *tls_ptr = (പൂർണ്ണസംഖ്യ *)49;
 __thread tls_enum_type tls_enum = tls_b;
 __thread tls_struct_type tls_struct = { 50, 51, 52 };
-__thread signed char tls_signed_char = -5;
-__thread unsigned char tls_unsigned_char = 250;
+__thread signed അക്ഷരം tls_signed_char = -5;
+__thread unsigned അക്ഷരം tls_unsigned_char = 250;
 __thread signed short tls_signed_short = -1234;
 __thread unsigned short tls_unsigned_short = 60000;
 __thread signed short tls_array[4] = { -1000, 2000, -3000, 4000 };
 
-#if defined __riscv && __riscv_xlen == 64
-typedef struct {
-    char padding[4096];
-    int value;
+#എങ്കിൽ defined __riscv && __riscv_xlen == 64
+തരനിർവചനം ഘടന {
+    അക്ഷരം padding[4096];
+    പൂർണ്ണസംഖ്യ മൂല്യം;
 } tls_large_type;
 
 __thread tls_large_type tls_large = { { 0 }, 123456 };
 #endif
 
-static int check_extra(int changed)
+സ്ഥിതം പൂർണ്ണസംഖ്യ check_extra(പൂർണ്ണസംഖ്യ changed)
 {
-    volatile int index = 2;
+    അസ്ഥിര പൂർണ്ണസംഖ്യ index = 2;
 
-    if (changed)
-        return tls_signed_char != -7 || tls_unsigned_char != 42
+    എങ്കിൽ (changed)
+        തിരികെ tls_signed_char != -7 || tls_unsigned_char != 42
             || tls_signed_short != -2222 || tls_unsigned_short != 12345
             || tls_array[1] != 2222 || tls_array[index] != -3333;
 
-    if (tls_signed_char != -5 || tls_unsigned_char != 250
+    എങ്കിൽ (tls_signed_char != -5 || tls_unsigned_char != 250
         || tls_signed_short != -1234 || tls_unsigned_short != 60000
         || tls_array[1] != 2000 || tls_array[index] != -3000)
-        return 1;
+        തിരികെ 1;
 
-#if defined __riscv && __riscv_xlen == 64
-    if (tls_large.value != 123456)
-        return 1;
+#എങ്കിൽ defined __riscv && __riscv_xlen == 64
+    എങ്കിൽ (tls_large.മൂല്യം != 123456)
+        തിരികെ 1;
 #endif
-    return 0;
+    തിരികെ 0;
 }
 
-static int check(void)
+സ്ഥിതം പൂർണ്ണസംഖ്യ check(ശൂന്യം)
 {
-    int errors = 0;
+    പൂർണ്ണസംഖ്യ errors = 0;
 
     CHECK(tls_char, "%d", 42);
     CHECK(tls_short, "%d", 43);
@@ -76,23 +76,23 @@ static int check(void)
     CHECK(tls_float, "%g", 46.0);
     CHECK(tls_double, "%g", 47.0);
     CHECK(tls_long_double, "%Lg", 48.0);
-    CHECK(tls_ptr, pFMT, (int *)49);
+    CHECK(tls_ptr, pFMT, (പൂർണ്ണസംഖ്യ *)49);
     CHECK(tls_enum, "%d", tls_b);
     CHECK(tls_struct.tls_d, "%d", 50);
     CHECK(tls_struct.tls_e, "%d", 51);
     CHECK(tls_struct.tls_f, "%d", 52);
-    return errors;
+    തിരികെ errors;
 }
 
-static void *thread_func(void *arg)
+സ്ഥിതം ശൂന്യം *thread_func(ശൂന്യം *arg)
 {
     tls_address_type *main_addresses = arg;
-    int *init_address = &tls_init;
+    പൂർണ്ണസംഖ്യ *init_address = &tls_init;
     signed short *element_address = &tls_array[1];
-    volatile int index = 2;
+    അസ്ഥിര പൂർണ്ണസംഖ്യ index = 2;
     long errors = check();
 
-    if (init_address == main_addresses->init
+    എങ്കിൽ (init_address == main_addresses->init
         || element_address == main_addresses->element
         || *init_address != 44 || *element_address != 2000
         || tls_array[index] != -3000 || check_extra(0))
@@ -106,7 +106,7 @@ static void *thread_func(void *arg)
     tls_float = 60.0;
     tls_double = 70.0;
     tls_long_double = 80.0;
-    tls_ptr = (int *)90;
+    tls_ptr = (പൂർണ്ണസംഖ്യ *)90;
     tls_enum = tls_c;
     tls_struct.tls_d = 100;
     tls_struct.tls_e = 110;
@@ -127,37 +127,37 @@ static void *thread_func(void *arg)
     CHECK(tls_double, "%g", 70.0);
     CHECK(tls_long_double, "%Lg", 80.0);
     CHECK(tls_enum, "%d", tls_c);
-    CHECK(tls_ptr, pFMT, (int *)90);
+    CHECK(tls_ptr, pFMT, (പൂർണ്ണസംഖ്യ *)90);
     CHECK(tls_struct.tls_d, "%d", 100);
     CHECK(tls_struct.tls_e, "%d", 110);
     CHECK(tls_struct.tls_f, "%d", 120);
 
-    if (*init_address != 30 || *element_address != 2222
+    എങ്കിൽ (*init_address != 30 || *element_address != 2222
         || tls_array[index] != -3333 || check_extra(1))
         errors = 1;
 
-    return (void *)(size_t)errors;
+    തിരികെ (ശൂന്യം *)(size_t)errors;
 }
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
     pthread_t t;
-    void *ret;
-    int errors = check();
+    ശൂന്യം *ret;
+    പൂർണ്ണസംഖ്യ errors = check();
     tls_address_type addresses = { &tls_init, &tls_array[1] };
 
-    if (*addresses.init != 44 || *addresses.element != 2000
+    എങ്കിൽ (*addresses.init != 44 || *addresses.element != 2000
         || check_extra(0))
         errors = 1;
 
-    pthread_create(&t, NULL, thread_func, &addresses);
+    pthread_create(&t, ശൂന്യ, thread_func, &addresses);
     pthread_join(t, &ret);
 
     errors |= (ret ? 1 : 0) | check();
-    if (*addresses.init != 44 || *addresses.element != 2000
+    എങ്കിൽ (*addresses.init != 44 || *addresses.element != 2000
         || check_extra(0))
         errors = 1;
 
     printf("errors: %d\n", errors);
-    return errors;
+    തിരികെ errors;
 }

@@ -1,18 +1,18 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main() 
+പൂർണ്ണസംഖ്യ പ്രധാന() 
 {
-   int a;
+   പൂർണ്ണസംഖ്യ a;
    a = 42;
    printf("%d\n", a);
 
-   int b = 64;
+   പൂർണ്ണസംഖ്യ b = 64;
    printf("%d\n", b);
 
-   int c = 12, d = 34;
+   പൂർണ്ണസംഖ്യ c = 12, d = 34;
    printf("%d, %d\n", c, d);
 
-   return 0;
+   തിരികെ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -1,18 +1,18 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int Count = 0;
+   പൂർണ്ണസംഖ്യ എണ്ണം_3 = 0;
 
-   for (;;)
+   വേണ്ടി (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      എണ്ണം_3++;
+      printf("%d\n", എണ്ണം_3);
+      എങ്കിൽ (എണ്ണം_3 >= 10)
+         നിർത്തുക;
    }
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

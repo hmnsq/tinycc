@@ -1,11 +1,11 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <errno.h>
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <pthread.h>
+#അന്തര്ഭാവ <errno.h>
 
-int
-main(void)
+പൂർണ്ണസംഖ്യ
+പ്രധാന(ശൂന്യം)
 {
-  int ret;
+  പൂർണ്ണസംഖ്യ ret;
   pthread_condattr_t attr;
   pthread_cond_t condition;
 
@@ -14,5 +14,5 @@ main(void)
   pthread_condattr_setpshared (&attr, PTHREAD_PROCESS_SHARED);
   printf ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
   pthread_condattr_destroy (&attr);
-  return 0;
+  തിരികെ 0;
 }

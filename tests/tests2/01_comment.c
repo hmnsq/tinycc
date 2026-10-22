@@ -1,6 +1,6 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main() 
+പൂർണ്ണസംഖ്യ പ്രധാന() 
 {
    printf("Hello\n");
    printf("Hello\n"); /* this is a comment */ printf("Hello\n");
@@ -8,7 +8,7 @@ int main()
    // this is also a comment sayhello();
    printf("Hello\n");
 
-   return 0;
+   തിരികെ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

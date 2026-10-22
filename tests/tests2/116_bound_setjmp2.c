@@ -1,28 +1,28 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
-#if !defined(_WIN32)
-#include <pthread.h>
-#else
-#include <windows.h>
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <string.h>
+#അന്തര്ഭാവ <setjmp.h>
+#എങ്കിൽ !defined(_WIN32)
+#അന്തര്ഭാവ <pthread.h>
+#അല്ലെങ്കിൽ
+#അന്തര്ഭാവ <windows.h>
 #endif
 
 #define	SIZE	10
-#define	COUNT	10
+#define	എണ്ണം_4	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   പൂർണ്ണസംഖ്യ i, a[2], b[2];                \
+              വേണ്ടി (i = 0; i < 2; i++) a[i] = 0; \
+              വേണ്ടി (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+സ്ഥിതം പൂർണ്ണസംഖ്യ എണ്ണം_2[SIZE];
 
-static void tst1 (jmp_buf loc)
+സ്ഥിതം ശൂന്യം tst1 (jmp_buf loc)
 {
     TST;
     longjmp(loc, 1);
 }
 
-static void tst2(jmp_buf loc)
+സ്ഥിതം ശൂന്യം tst2(jmp_buf loc)
 {
     jmp_buf jmp;
 
@@ -31,54 +31,54 @@ static void tst2(jmp_buf loc)
     tst1(loc);
 }
 
-static void *tst (void * index)
+സ്ഥിതം ശൂന്യം *tst (ശൂന്യം * index)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    പൂർണ്ണസംഖ്യ i = *(പൂർണ്ണസംഖ്യ *) index;
+    സ്ഥിതം പൂർണ്ണസംഖ്യ v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    വേണ്ടി (v[i] = 0; v[i] < എണ്ണം_4; v[i]++) {
+        എങ്കിൽ (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
-            count[i]++;
+        അല്ലെങ്കിൽ {
+            എണ്ണം_2[i]++;
         }
-        i = *(int *) index;
+        i = *(പൂർണ്ണസംഖ്യ *) index;
     }
-    return NULL;
+    തിരികെ ശൂന്യ;
 }
 
-int
-main (void)
+പൂർണ്ണസംഖ്യ
+പ്രധാന (ശൂന്യം)
 {
-    int i;
-#if !defined(_WIN32)
+    പൂർണ്ണസംഖ്യ i;
+#എങ്കിൽ !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#അല്ലെങ്കിൽ
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    പൂർണ്ണസംഖ്യ index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    വേണ്ടി (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
-        pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
-        id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
+#എങ്കിൽ !defined(_WIN32)
+        pthread_create (&id[i], ശൂന്യ, tst, (ശൂന്യം *) &index[i]);
+#അല്ലെങ്കിൽ
+        id[i] = CreateThread(ശൂന്യ, 8192, (LPTHREAD_START_ROUTINE) tst, (ശൂന്യം *) &index[i], 0, ശൂന്യ);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
-        pthread_join (id[i], NULL);
-#else
+    വേണ്ടി (i = 0; i < SIZE; i++) {
+#എങ്കിൽ !defined(_WIN32)
+        pthread_join (id[i], ശൂന്യ);
+#അല്ലെങ്കിൽ
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
-            printf ("error: %d %d\n", i, count[i]);
+    വേണ്ടി (i = 0; i < SIZE; i++) {
+        എങ്കിൽ (എണ്ണം_2[i] != എണ്ണം_4)
+            printf ("error: %d %d\n", i, എണ്ണം_2[i]);
     }
-    return 0;
+    തിരികെ 0;
 }

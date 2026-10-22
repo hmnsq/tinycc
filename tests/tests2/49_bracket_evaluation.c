@@ -1,23 +1,23 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-struct point
+ഘടന point
 {
-   double x;
-   double y;
+   ഇരട്ട x;
+   ഇരട്ട y;
 };
 
-struct point point_array[100];
+ഘടന point point_array[100];
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int my_point = 10;
+   പൂർണ്ണസംഖ്യ my_point = 10;
 
    point_array[my_point].x = 12.34;
    point_array[my_point].y = 56.78;
 
    printf("%f, %f\n", point_array[my_point].x, point_array[my_point].y);
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,21 +1,21 @@
-extern int printf(const char*, ...);
+ബാഹ്യ പൂർണ്ണസംഖ്യ printf(സ്ഥിരം അക്ഷരം*, ...);
 
-struct fred;
+ഘടന fred;
 
-void fred$(struct fred* this)
+ശൂന്യം fred$(ഘടന fred* this)
 {
     printf("~fred()\n");
 }
 
-struct __attribute__((__cleanup__(fred$))) fred
+ഘടന __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   പൂർണ്ണസംഖ്യ boris;
+   പൂർണ്ണസംഖ്യ natasha;
 };
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-    struct fred  __attribute__((__cleanup__(fred$))) bloggs;
+    ഘടന fred  __attribute__((__cleanup__(fred$))) bloggs;
 
    bloggs.boris = 12;
    bloggs.natasha = 34;
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", bloggs.boris);
    printf("%d\n", bloggs.natasha);
 
-   struct fred jones[2];
+   ഘടന fred jones[2];
    jones[0].boris = 12;
    jones[0].natasha = 34;
    jones[1].boris = 56;
@@ -34,5 +34,5 @@ int main()
    printf("%d\n", jones[1].boris);
    printf("%d\n", jones[1].natasha);
 
-   return 0;
+   തിരികെ 0;
 }

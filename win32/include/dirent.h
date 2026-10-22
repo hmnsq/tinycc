@@ -4,7 +4,7 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 /* All the headers include this file. */
-#include <_mingw.h>
+#അന്തര്ഭാവ <_mingw.h>
 
 #ifndef	__STRICT_ANSI__
 
@@ -12,22 +12,22 @@
 #define _DIRENT_H_
 
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(തള്ളുക,_CRT_PACKING)
 
-#include <io.h>
+#അന്തര്ഭാവ <io.h>
 
 #ifndef RC_INVOKED
 
 #ifdef __cplusplus
-extern "C" {
+ബാഹ്യ "C" {
 #endif
 
-  struct dirent
+  ഘടന dirent
   {
     long		d_ino;		/* Always zero. */
     unsigned short	d_reclen;	/* Always zero. */
     unsigned short	d_namlen;	/* Length of name in d_name. */
-    char*		d_name;		/* File name. */
+    അക്ഷരം*		d_name;		/* File name. */
     /* NOTE: The name in the dirent structure points to the name in the
     *       finddata_t structure in the DIR. */
   };
@@ -37,15 +37,15 @@ extern "C" {
   * except as an argument to one of the functions below.
   * dd_stat field is now int (was short in older versions).
   */
-  typedef struct
+  തരനിർവചനം ഘടന
   {
     /* disk transfer area for this dir */
-    struct _finddata_t	dd_dta;
+    ഘടന _finddata_t	dd_dta;
 
     /* dirent struct to return from dir (NOTE: this makes this thread
     * safe as long as only one thread uses a particular DIR struct at
     * a time) */
-    struct dirent		dd_dir;
+    ഘടന dirent		dd_dir;
 
     /* _findnext handle */
     long			dd_handle;
@@ -56,23 +56,23 @@ extern "C" {
     *  -1 = off the end
     *   positive = 0 based index of next entry
     */
-    int			dd_stat;
+    പൂർണ്ണസംഖ്യ			dd_stat;
 
     /* given path for dir with search pattern (struct is extended) */
-    char			dd_name[1];
+    അക്ഷരം			dd_name[1];
   } DIR;
 
-  DIR* __cdecl opendir (const char*);
-  struct dirent* __cdecl readdir (DIR*);
-  int __cdecl closedir (DIR*);
-  void __cdecl rewinddir (DIR*);
+  DIR* __cdecl opendir (സ്ഥിരം അക്ഷരം*);
+  ഘടന dirent* __cdecl readdir (DIR*);
+  പൂർണ്ണസംഖ്യ __cdecl closedir (DIR*);
+  ശൂന്യം __cdecl rewinddir (DIR*);
   long __cdecl telldir (DIR*);
-  void __cdecl seekdir (DIR*, long);
+  ശൂന്യം __cdecl seekdir (DIR*, long);
 
 
   /* wide char versions */
 
-  struct _wdirent
+  ഘടന _wdirent
   {
     long		d_ino;		/* Always zero. */
     unsigned short	d_reclen;	/* Always zero. */
@@ -85,15 +85,15 @@ extern "C" {
   * This is an internal data structure. Good programmers will not use it
   * except as an argument to one of the functions below.
   */
-  typedef struct
+  തരനിർവചനം ഘടന
   {
     /* disk transfer area for this dir */
-    struct _wfinddata_t	dd_dta;
+    ഘടന _wfinddata_t	dd_dta;
 
     /* dirent struct to return from dir (NOTE: this makes this thread
     * safe as long as only one thread uses a particular DIR struct at
     * a time) */
-    struct _wdirent		dd_dir;
+    ഘടന _wdirent		dd_dir;
 
     /* _findnext handle */
     long			dd_handle;
@@ -104,7 +104,7 @@ extern "C" {
     *  -1 = off the end
     *   positive = 0 based index of next entry
     */
-    int			dd_stat;
+    പൂർണ്ണസംഖ്യ			dd_stat;
 
     /* given path for dir with search pattern (struct is extended) */
     wchar_t			dd_name[1];
@@ -112,12 +112,12 @@ extern "C" {
 
 
 
-  _WDIR* __cdecl _wopendir (const wchar_t*);
-  struct _wdirent*  __cdecl _wreaddir (_WDIR*);
-  int __cdecl _wclosedir (_WDIR*);
-  void __cdecl _wrewinddir (_WDIR*);
+  _WDIR* __cdecl _wopendir (സ്ഥിരം wchar_t*);
+  ഘടന _wdirent*  __cdecl _wreaddir (_WDIR*);
+  പൂർണ്ണസംഖ്യ __cdecl _wclosedir (_WDIR*);
+  ശൂന്യം __cdecl _wrewinddir (_WDIR*);
   long __cdecl _wtelldir (_WDIR*);
-  void __cdecl _wseekdir (_WDIR*, long);
+  ശൂന്യം __cdecl _wseekdir (_WDIR*, long);
 
 
 #ifdef	__cplusplus
@@ -126,7 +126,7 @@ extern "C" {
 
 #endif	/* Not RC_INVOKED */
 
-#pragma pack(pop)
+#pragma pack(എടുക്കുക)
 
 #endif	/* Not _DIRENT_H_ */
 

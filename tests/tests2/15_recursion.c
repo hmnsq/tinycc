@@ -1,21 +1,21 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int factorial(int i) 
+പൂർണ്ണസംഖ്യ factorial(പൂർണ്ണസംഖ്യ i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   എങ്കിൽ (i < 2)
+      തിരികെ i;
+   അല്ലെങ്കിൽ
+      തിരികെ i * factorial(i - 1);
 }
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int Count;
+   പൂർണ്ണസംഖ്യ എണ്ണം_3;
 
-   for (Count = 1; Count <= 10; Count++)
-      printf("%d\n", factorial(Count));
+   വേണ്ടി (എണ്ണം_3 = 1; എണ്ണം_3 <= 10; എണ്ണം_3++)
+      printf("%d\n", factorial(എണ്ണം_3));
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

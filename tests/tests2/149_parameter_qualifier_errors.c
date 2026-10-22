@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+ശൂന്യം defined_const(പൂർണ്ണസംഖ്യ *pointer);
 
-void defined_const(int *const pointer)
+ശൂന്യം defined_const(പൂർണ്ണസംഖ്യ *സ്ഥിരം pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
-    return 0;
+    തിരികെ 0;
 }

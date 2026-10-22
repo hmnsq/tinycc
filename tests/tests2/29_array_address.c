@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <string.h>
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <string.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   char a[10];
+   അക്ഷരം a[10];
    strcpy(a, "abcdef");
    printf("%s\n", &a[1]);
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

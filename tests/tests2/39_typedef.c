@@ -1,23 +1,23 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-typedef int MyInt;
+തരനിർവചനം പൂർണ്ണസംഖ്യ MyInt;
 
-struct FunStruct
+ഘടന FunStruct
 {
-   int i;
-   int j;
+   പൂർണ്ണസംഖ്യ i;
+   പൂർണ്ണസംഖ്യ j;
 };
 
-typedef struct FunStruct MyFunStruct;
+തരനിർവചനം ഘടന FunStruct MyFunStruct;
 
-typedef MyFunStruct *MoreFunThanEver;
+തരനിർവചനം MyFunStruct *MoreFunThanEver;
 
-typedef int t[];
-int tints[];
+തരനിർവചനം പൂർണ്ണസംഖ്യ t[];
+പൂർണ്ണസംഖ്യ tints[];
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int i, *p;
+   പൂർണ്ണസംഖ്യ i, *p;
    MyInt a = 1;
    printf("%d\n", a);
 
@@ -30,56 +30,56 @@ int main()
    printf("%d,%d\n", c->i, c->j);
 
    p = (t){1,2,3};
-   for (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
+   വേണ്ടി (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
    p = (t){1,2,3,4};
-   for (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   വേണ്ടി (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
 
-   printf("%d\n", (int)sizeof((t){1,2,3}));
-   printf("%d\n", (int)sizeof((t){1,2,3,4}));
+   printf("%d\n", (പൂർണ്ണസംഖ്യ)വലുപ്പം((t){1,2,3}));
+   printf("%d\n", (പൂർണ്ണസംഖ്യ)വലുപ്പം((t){1,2,3,4}));
 
    /* two arrays derived from same base type */
    t t3 = { 1,2,3 }, t4 = { 4,5,6,7 };
-   for (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   വേണ്ടി (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
+   വേണ്ടി (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
    typeof(tints) t5 = { 1,2,3 }, t6 = { 4,5,6,7 };
-   for (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   വേണ്ടി (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
+   വേണ്ടി (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* "If the specification of an array type includes any type qualifiers,
    the element type is so-qualified, not the array type." */
 
-typedef int A[3];
-extern A const ca;
-extern const A ca;
-extern const int ca[3];
+തരനിർവചനം പൂർണ്ണസംഖ്യ A[3];
+ബാഹ്യ A സ്ഥിരം ca;
+ബാഹ്യ സ്ഥിരം A ca;
+ബാഹ്യ സ്ഥിരം പൂർണ്ണസംഖ്യ ca[3];
 
-typedef A B[1][2];
-extern B const cb;
-extern const B cb;
-extern const int cb[1][2][3];
+തരനിർവചനം A B[1][2];
+ബാഹ്യ B സ്ഥിരം cb;
+ബാഹ്യ സ്ഥിരം B cb;
+ബാഹ്യ സ്ഥിരം പൂർണ്ണസംഖ്യ cb[1][2][3];
 
-extern B b;
-extern int b[1][2][3];
+ബാഹ്യ B b;
+ബാഹ്യ പൂർണ്ണസംഖ്യ b[1][2][3];
 
 /* Funny but valid function declaration.  */
-typedef int functype (int);
-extern functype func;
-int func(int i)
+തരനിർവചനം പൂർണ്ണസംഖ്യ functype (പൂർണ്ണസംഖ്യ);
+ബാഹ്യ functype func;
+പൂർണ്ണസംഖ്യ func(പൂർണ്ണസംഖ്യ i)
 {
-   return i + 1;
+   തിരികെ i + 1;
 }
 
 /* Even funnier function decl and definition using typeof.  */
-int set_anon_super(void);
-int set_anon_super(void)
+പൂർണ്ണസംഖ്യ set_anon_super(ശൂന്യം);
+പൂർണ്ണസംഖ്യ set_anon_super(ശൂന്യം)
 {
-   return 42;
+   തിരികെ 42;
 }
-typedef int sas_type (void);
-extern typeof(set_anon_super) set_anon_super;
-extern sas_type set_anon_super;
+തരനിർവചനം പൂർണ്ണസംഖ്യ sas_type (ശൂന്യം);
+ബാഹ്യ typeof(set_anon_super) set_anon_super;
+ബാഹ്യ sas_type set_anon_super;
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

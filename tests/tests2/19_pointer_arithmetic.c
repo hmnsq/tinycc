@@ -1,28 +1,28 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int a;
-   int *b;
-   int *c;
+   പൂർണ്ണസംഖ്യ a;
+   പൂർണ്ണസംഖ്യ *b;
+   പൂർണ്ണസംഖ്യ *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = ശൂന്യ;
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   എങ്കിൽ (b == ശൂന്യ)
       printf("b is NULL\n");
-   else
+   അല്ലെങ്കിൽ
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   എങ്കിൽ (c == ശൂന്യ)
       printf("c is NULL\n");
-   else
+   അല്ലെങ്കിൽ
       printf("c is not NULL\n");
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

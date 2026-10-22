@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+ബാഹ്യ പൂർണ്ണസംഖ്യ printf(സ്ഥിരം അക്ഷരം *, ...);
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   പൂർണ്ണസംഖ്യ a;
+   പൂർണ്ണസംഖ്യ b;
+   പൂർണ്ണസംഖ്യ c;
+   പൂർണ്ണസംഖ്യ d;
+   പൂർണ്ണസംഖ്യ e;
+   പൂർണ്ണസംഖ്യ f;
+   പൂർണ്ണസംഖ്യ x;
+   പൂർണ്ണസംഖ്യ y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   തിരികെ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

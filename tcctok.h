@@ -83,9 +83,9 @@
      DEF(TOK_UNDEF, "undef")
      DEF(TOK_ERROR, "error")
      DEF(TOK_WARNING, "warning")
-     DEF(TOK_LINE, "line")
+     DEF(TOK_വരി, "line")
      DEF(TOK_PRAGMA, "pragma")
-     DEF(TOK___LINE__, "__LINE__")
+     DEF(TOK_വരി_2, "__LINE__")
      DEF(TOK___FILE__, "__FILE__")
      DEF(TOK___DATE__, "__DATE__")
      DEF(TOK___TIME__, "__TIME__")
@@ -166,21 +166,21 @@
      DEF(TOK_VISIBILITY2, "__visibility__")
 
      DEF(TOK_builtin_types_compatible_p, "__builtin_types_compatible_p")
-     DEF(TOK_builtin_choose_expr, "__builtin_choose_expr")
+     DEF(TOK_builtin_choose_വ്യഞ്ജകം, "__builtin_choose_expr")
      DEF(TOK_builtin_constant_p, "__builtin_constant_p")
      DEF(TOK_builtin_frame_address, "__builtin_frame_address")
      DEF(TOK_builtin_return_address, "__builtin_return_address")
      DEF(TOK_builtin_expect, "__builtin_expect")
      DEF(TOK_builtin_unreachable, "__builtin_unreachable")
      /*DEF(TOK_builtin_va_list, "__builtin_va_list")*/
-#if defined TCC_TARGET_PE && defined TCC_TARGET_X86_64
+#എങ്കിൽ defined TCC_TARGET_PE && defined TCC_TARGET_X86_64
      DEF(TOK_builtin_va_start, "__builtin_va_start")
-#elif defined TCC_TARGET_X86_64
+#അല്ലെങ്കിലെങ്കിൽ defined TCC_TARGET_X86_64
      DEF(TOK_builtin_va_arg_types, "__builtin_va_arg_types")
-#elif defined TCC_TARGET_ARM64
+#അല്ലെങ്കിലെങ്കിൽ defined TCC_TARGET_ARM64
      DEF(TOK_builtin_va_start, "__builtin_va_start")
      DEF(TOK_builtin_va_arg, "__builtin_va_arg")
-#elif defined TCC_TARGET_RISCV64
+#അല്ലെങ്കിലെങ്കിൽ defined TCC_TARGET_RISCV64
      DEF(TOK_builtin_va_start, "__builtin_va_start")
 #endif
 
@@ -205,17 +205,17 @@
 
 /* pragma */
      DEF(TOK_pack, "pack")
-#if !defined(TCC_TARGET_I386) && !defined(TCC_TARGET_X86_64) && \
+#എങ്കിൽ !defined(TCC_TARGET_I386) && !defined(TCC_TARGET_X86_64) && \
     !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64) && \
     !defined(TCC_TARGET_RISCV64)
      /* already defined for assembler */
-     DEF(TOK_ASM_push, "push")
-     DEF(TOK_ASM_pop, "pop")
+     DEF(TOK_ASM_തള്ളുക, "push")
+     DEF(TOK_ASM_എടുക്കുക, "pop")
 #endif
      DEF(TOK_comment, "comment")
      DEF(TOK_lib, "lib")
-     DEF(TOK_push_macro, "push_macro")
-     DEF(TOK_pop_macro, "pop_macro")
+     DEF(TOK_തള്ളുക_macro, "push_macro")
+     DEF(TOK_എടുക്കുക_macro, "pop_macro")
      DEF(TOK_once, "once")
      DEF(TOK_option, "option")
 
@@ -241,7 +241,7 @@
      DEF(TOK___fixunsdfdi, "__fixunsdfdi")
 #endif
 
-#if defined TCC_TARGET_ARM
+#എങ്കിൽ defined TCC_TARGET_ARM
 # ifdef TCC_ARM_EABI
      DEF(TOK_memcpy, "__aeabi_memcpy")
      DEF(TOK_memmove, "__aeabi_memmove")
@@ -265,7 +265,7 @@
      DEF(TOK___floatundidf, "__aeabi_ul2d")
      DEF(TOK___fixunssfdi, "__aeabi_f2ulz")
      DEF(TOK___fixunsdfdi, "__aeabi_d2ulz")
-# else
+# അല്ലെങ്കിൽ
      DEF(TOK___modsi3, "__modsi3")
      DEF(TOK___umodsi3, "__umodsi3")
      DEF(TOK___divsi3, "__divsi3")
@@ -284,7 +284,7 @@
 # endif
 #endif
 
-#if defined TCC_TARGET_C67
+#എങ്കിൽ defined TCC_TARGET_C67
      DEF(TOK__divi, "_divi")
      DEF(TOK__divu, "_divu")
      DEF(TOK__divf, "_divf")
@@ -293,18 +293,18 @@
      DEF(TOK__remu, "_remu")
 #endif
 
-#if defined TCC_TARGET_I386
+#എങ്കിൽ defined TCC_TARGET_I386
      DEF(TOK___fixsfdi, "__fixsfdi")
      DEF(TOK___fixdfdi, "__fixdfdi")
      DEF(TOK___fixxfdi, "__fixxfdi")
 #endif
-#if defined TCC_TARGET_X86_64
+#എങ്കിൽ defined TCC_TARGET_X86_64
      DEF(TOK___fixxfdi, "__fixxfdi")
 #endif
 
      DEF(TOK_alloca, "alloca")
 
-#if defined TCC_TARGET_PE
+#എങ്കിൽ defined TCC_TARGET_PE
      DEF(TOK___chkstk, "__chkstk")
      DEF(TOK___tls_index, "__tls_index")
 #endif
@@ -314,7 +314,7 @@
 #ifdef TCC_TARGET_RISCV64
      DEF(TOK___riscv64_clear_cache, "__riscv64_clear_cache")
 #endif
-#if defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
+#എങ്കിൽ defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
      DEF(TOK___addtf3, "__addtf3")
      DEF(TOK___subtf3, "__subtf3")
      DEF(TOK___multf3, "__multf3")
@@ -359,7 +359,7 @@
 #  ifdef TCC_TARGET_X86_64
      DEF(TOK___bound_alloca_nr, "__bound_alloca_nr")
 #  endif
-# else
+# അല്ലെങ്കിൽ
      DEF(TOK_sigsetjmp, "sigsetjmp")
      DEF(TOK___sigsetjmp, "__sigsetjmp")
      DEF(TOK_siglongjmp, "siglongjmp")
@@ -409,34 +409,34 @@
  DEF_ASMDIR(endr)
  DEF_ASMDIR(org)
  DEF_ASMDIR(quad)
-#if PTR_SIZE == 4
+#എങ്കിൽ PTR_SIZE == 4
  DEF_ASMDIR(code16)
  DEF_ASMDIR(code32)
-#else
+#അല്ലെങ്കിൽ
  DEF_ASMDIR(code64)
 #endif
-#if defined(TCC_TARGET_RISCV64)
+#എങ്കിൽ defined(TCC_TARGET_RISCV64)
  DEF_ASMDIR(option)
 #endif
  DEF_ASMDIR(short)
  DEF_ASMDIR(long)
- DEF_ASMDIR(int)
+ DEF_ASMDIR(പൂർണ്ണസംഖ്യ)
  DEF_ASMDIR(symver)
  DEF_ASMDIR(reloc)
  DEF_ASMDIR(section)    /* must be last directive */
 
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
-#include "i386-tok.h"
+#എങ്കിൽ defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
+#അന്തര്ഭാവ "i386-tok.h"
 #endif
 
-#if defined TCC_TARGET_ARM
-#include "arm-tok.h"
+#എങ്കിൽ defined TCC_TARGET_ARM
+#അന്തര്ഭാവ "arm-tok.h"
 #endif
 
-#if defined TCC_TARGET_ARM64
-#include "arm64-tok.h"
+#എങ്കിൽ defined TCC_TARGET_ARM64
+#അന്തര്ഭാവ "arm64-tok.h"
 #endif
 
-#if defined TCC_TARGET_RISCV64
-#include "riscv64-tok.h"
+#എങ്കിൽ defined TCC_TARGET_RISCV64
+#അന്തര്ഭാവ "riscv64-tok.h"
 #endif

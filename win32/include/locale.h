@@ -6,19 +6,19 @@
 #ifndef _INC_LOCALE
 #define _INC_LOCALE
 
-#include <_mingw.h>
+#അന്തര്ഭാവ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(തള്ളുക,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+ബാഹ്യ "C" {
 #endif
 
-#ifndef NULL
+#ifndef ശൂന്യ
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define ശൂന്യ 0
+#അല്ലെങ്കിൽ
+#define ശൂന്യ ((ശൂന്യം *)0)
 #endif
 #endif
 
@@ -34,25 +34,25 @@ extern "C" {
 
 #ifndef _LCONV_DEFINED
 #define _LCONV_DEFINED
-  struct lconv {
-    char *decimal_point;
-    char *thousands_sep;
-    char *grouping;
-    char *int_curr_symbol;
-    char *currency_symbol;
-    char *mon_decimal_point;
-    char *mon_thousands_sep;
-    char *mon_grouping;
-    char *positive_sign;
-    char *negative_sign;
-    char int_frac_digits;
-    char frac_digits;
-    char p_cs_precedes;
-    char p_sep_by_space;
-    char n_cs_precedes;
-    char n_sep_by_space;
-    char p_sign_posn;
-    char n_sign_posn;
+  ഘടന lconv {
+    അക്ഷരം *decimal_point;
+    അക്ഷരം *thousands_sep;
+    അക്ഷരം *grouping;
+    അക്ഷരം *int_curr_ചിഹ്നം;
+    അക്ഷരം *currency_ചിഹ്നം;
+    അക്ഷരം *mon_decimal_point;
+    അക്ഷരം *mon_thousands_sep;
+    അക്ഷരം *mon_grouping;
+    അക്ഷരം *positive_sign;
+    അക്ഷരം *negative_sign;
+    അക്ഷരം int_frac_digits;
+    അക്ഷരം frac_digits;
+    അക്ഷരം p_cs_precedes;
+    അക്ഷരം p_sep_by_space;
+    അക്ഷരം n_cs_precedes;
+    അക്ഷരം n_sep_by_space;
+    അക്ഷരം p_sign_posn;
+    അക്ഷരം n_sign_posn;
   };
 #endif
 
@@ -68,24 +68,24 @@ extern "C" {
 
 #endif
 
-  int __cdecl _configthreadlocale(int _Flag);
-  char *__cdecl setlocale(int _Category,const char *_Locale);
-  _CRTIMP struct lconv *__cdecl localeconv(void);
-  _locale_t __cdecl _get_current_locale(void);
-  _locale_t __cdecl _create_locale(int _Category,const char *_Locale);
-  void __cdecl _free_locale(_locale_t _Locale);
-  _locale_t __cdecl __get_current_locale(void);
-  _locale_t __cdecl __create_locale(int _Category,const char *_Locale);
-  void __cdecl __free_locale(_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl _configthreadlocale(പൂർണ്ണസംഖ്യ _Flag);
+  അക്ഷരം *__cdecl setlocale(പൂർണ്ണസംഖ്യ _Category,സ്ഥിരം അക്ഷരം *_Locale);
+  _CRTIMP ഘടന lconv *__cdecl localeconv(ശൂന്യം);
+  _locale_t __cdecl _get_current_locale(ശൂന്യം);
+  _locale_t __cdecl _create_locale(പൂർണ്ണസംഖ്യ _Category,സ്ഥിരം അക്ഷരം *_Locale);
+  ശൂന്യം __cdecl _free_locale(_locale_t _Locale);
+  _locale_t __cdecl __get_current_locale(ശൂന്യം);
+  _locale_t __cdecl __create_locale(പൂർണ്ണസംഖ്യ _Category,സ്ഥിരം അക്ഷരം *_Locale);
+  ശൂന്യം __cdecl __free_locale(_locale_t _Locale);
 
 #ifndef _WLOCALE_DEFINED
 #define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
+  _CRTIMP wchar_t *__cdecl _wsetlocale(പൂർണ്ണസംഖ്യ _Category,സ്ഥിരം wchar_t *_Locale);
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(എടുക്കുക)
 #endif

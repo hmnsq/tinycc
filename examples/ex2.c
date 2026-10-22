@@ -1,74 +1,74 @@
-#include <stdlib.h>
-#include <stdio.h>
+#അന്തര്ഭാവ <stdlib.h>
+#അന്തര്ഭാവ <stdio.h>
 
 #define N 20
 
-int nb_num;
-int tab[N];
-int stack_ptr;
-int stack_op[N];
-int stack_res[60];
-int result;
+പൂർണ്ണസംഖ്യ nb_അക്കം;
+പൂർണ്ണസംഖ്യ tab[N];
+പൂർണ്ണസംഖ്യ അട്ടി_ptr;
+പൂർണ്ണസംഖ്യ അട്ടി_op[N];
+പൂർണ്ണസംഖ്യ അട്ടി_res[60];
+പൂർണ്ണസംഖ്യ result;
 
-int find(int n, int i1, int a, int b, int op)
+പൂർണ്ണസംഖ്യ find(പൂർണ്ണസംഖ്യ n, പൂർണ്ണസംഖ്യ i1, പൂർണ്ണസംഖ്യ a, പൂർണ്ണസംഖ്യ b, പൂർണ്ണസംഖ്യ op)
 {
-    int i, j;
-    int c;
+    പൂർണ്ണസംഖ്യ i, j;
+    പൂർണ്ണസംഖ്യ c;
 
-    if (stack_ptr >= 0) {
-        stack_res[3*stack_ptr] = a;
-        stack_op[stack_ptr] = op;
-        stack_res[3*stack_ptr+1] = b;
-        stack_res[3*stack_ptr+2] = n;
-        if (n == result)
-            return 1;
+    എങ്കിൽ (അട്ടി_ptr >= 0) {
+        അട്ടി_res[3*അട്ടി_ptr] = a;
+        അട്ടി_op[അട്ടി_ptr] = op;
+        അട്ടി_res[3*അട്ടി_ptr+1] = b;
+        അട്ടി_res[3*അട്ടി_ptr+2] = n;
+        എങ്കിൽ (n == result)
+            തിരികെ 1;
         tab[i1] = n;
     }
 
-    for(i=0;i<nb_num;i++) {
-        for(j=i+1;j<nb_num;j++) {
+    വേണ്ടി(i=0;i<nb_അക്കം;i++) {
+        വേണ്ടി(j=i+1;j<nb_അക്കം;j++) {
             a = tab[i];
             b = tab[j];
-            if (a != 0 && b != 0) {
+            എങ്കിൽ (a != 0 && b != 0) {
 
                 tab[j] = 0;
-                stack_ptr++;
+                അട്ടി_ptr++;
 
-                if (find(a + b, i, a, b, '+'))
-                    return 1;
-                if (find(a - b, i, a, b, '-'))
-                    return 1;
-                if (find(b - a, i, b, a, '-'))
-                    return 1;
-                if (find(a * b, i, a, b, '*'))
-                    return 1;
-                if (b != 0) {
+                എങ്കിൽ (find(a + b, i, a, b, '+'))
+                    തിരികെ 1;
+                എങ്കിൽ (find(a - b, i, a, b, '-'))
+                    തിരികെ 1;
+                എങ്കിൽ (find(b - a, i, b, a, '-'))
+                    തിരികെ 1;
+                എങ്കിൽ (find(a * b, i, a, b, '*'))
+                    തിരികെ 1;
+                എങ്കിൽ (b != 0) {
                     c = a / b;
-                    if (find(c, i, a, b, '/'))
-                        return 1;
+                    എങ്കിൽ (find(c, i, a, b, '/'))
+                        തിരികെ 1;
                 }
 
-                if (a != 0) {
+                എങ്കിൽ (a != 0) {
                     c = b / a;
-                    if (find(c, i, b, a, '/'))
-                        return 1;
+                    എങ്കിൽ (find(c, i, b, a, '/'))
+                        തിരികെ 1;
                 }
 
-                stack_ptr--;
+                അട്ടി_ptr--;
                 tab[i] = a;
                 tab[j] = b;
             }
         }
     }
 
-    return 0;
+    തിരികെ 0;
 }
 
-int main(int argc, char **argv)
+പൂർണ്ണസംഖ്യ പ്രധാന(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv)
 {
-    int i, res, p;
+    പൂർണ്ണസംഖ്യ i, res, p;
 
-    if (argc < 3) {
+    എങ്കിൽ (argc < 3) {
         printf("usage: %s: result numbers...\n"
                "Try to find result from numbers with the 4 basic operations.\n", argv[0]);
         exit(1);
@@ -77,22 +77,22 @@ int main(int argc, char **argv)
     p = 1;
     result = atoi(argv[p]);
     printf("result=%d\n", result);
-    nb_num = 0;
-    for(i=p+1;i<argc;i++) {
-        tab[nb_num++] = atoi(argv[i]);
+    nb_അക്കം = 0;
+    വേണ്ടി(i=p+1;i<argc;i++) {
+        tab[nb_അക്കം++] = atoi(argv[i]);
     }
 
-    stack_ptr = -1;
+    അട്ടി_ptr = -1;
     res = find(0, 0, 0, 0, ' ');
-    if (res) {
-        for(i=0;i<=stack_ptr;i++) {
+    എങ്കിൽ (res) {
+        വേണ്ടി(i=0;i<=അട്ടി_ptr;i++) {
             printf("%d %c %d = %d\n",
-                   stack_res[3*i], stack_op[i],
-                   stack_res[3*i+1], stack_res[3*i+2]);
+                   അട്ടി_res[3*i], അട്ടി_op[i],
+                   അട്ടി_res[3*i+1], അട്ടി_res[3*i+2]);
         }
-        return 0;
-    } else {
+        തിരികെ 0;
+    } അല്ലെങ്കിൽ {
         printf("Impossible\n");
-        return 1;
+        തിരികെ 1;
     }
 }

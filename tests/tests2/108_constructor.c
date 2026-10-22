@@ -1,20 +1,20 @@
-extern int write (int fd, void *buf, int len);
+ബാഹ്യ പൂർണ്ണസംഖ്യ ലിഖ (പൂർണ്ണസംഖ്യ fd, ശൂന്യം *buf, പൂർണ്ണസംഖ്യ len);
 
-static void __attribute__ ((constructor))
-testc (void)
+സ്ഥിതം ശൂന്യം __attribute__ ((constructor))
+testc (ശൂന്യം)
 {
-  write (1, "constructor\n", 12);
+  ലിഖ (1, "constructor\n", 12);
 }
 
-static void __attribute__ ((destructor))
-testd (void)
+സ്ഥിതം ശൂന്യം __attribute__ ((destructor))
+testd (ശൂന്യം)
 {
-  write (1, "destructor\n", 11);
+  ലിഖ (1, "destructor\n", 11);
 }
 
-int
-main (void)
+പൂർണ്ണസംഖ്യ
+പ്രധാന (ശൂന്യം)
 {
-  write (1, "main\n", 5);
-  return 0;
+  ലിഖ (1, "main\n", 5);
+  തിരികെ 0;
 }

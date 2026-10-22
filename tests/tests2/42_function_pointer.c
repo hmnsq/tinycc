@@ -1,22 +1,22 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int fred(int p)
+പൂർണ്ണസംഖ്യ fred(പൂർണ്ണസംഖ്യ p)
 {
    printf("yo %d\n", p);
-   return 42;
+   തിരികെ 42;
 }
 
-int (*f)(int) = &fred;
+പൂർണ്ണസംഖ്യ (*f)(പൂർണ്ണസംഖ്യ) = &fred;
 
 /* To test what this is supposed to test the destination function
    (fprint here) must not be called directly anywhere in the test.  */
-int (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
+പൂർണ്ണസംഖ്യ (*fprintfptr)(FILE *, സ്ഥിരം അക്ഷരം *, ...) = &fprintf;
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
    fprintfptr(stdout, "%d\n", (*f)(24));
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

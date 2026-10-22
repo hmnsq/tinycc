@@ -1,200 +1,200 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#അന്തര്ഭാവ <stdlib.h>
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <string.h>
 
 #define NB_ITS 1000000
 //#define NB_ITS 1
 #define TAB_SIZE 100
 
-int tab[TAB_SIZE];
-int ret_sum;
-char tab3[256];
+പൂർണ്ണസംഖ്യ tab[TAB_SIZE];
+പൂർണ്ണസംഖ്യ ret_sum;
+അക്ഷരം tab3[256];
 
-int test1(void)
+പൂർണ്ണസംഖ്യ test1(ശൂന്യം)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE;i++) {
+    പൂർണ്ണസംഖ്യ i, sum = 0;
+    വേണ്ടി(i=0;i<TAB_SIZE;i++) {
         sum += tab[i];
     }
-    return sum;
+    തിരികെ sum;
 }
 
 /* error */
-int test2(void)
+പൂർണ്ണസംഖ്യ test2(ശൂന്യം)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    പൂർണ്ണസംഖ്യ i, sum = 0;
+    വേണ്ടി(i=0;i<TAB_SIZE + 1;i++) {
         sum += tab[i];
     }
-    return sum;
+    തിരികെ sum;
 }
 
 /* actually, profiling test */
-int test3(void)
+പൂർണ്ണസംഖ്യ test3(ശൂന്യം)
 {
-    int sum;
-    int i, it;
+    പൂർണ്ണസംഖ്യ sum;
+    പൂർണ്ണസംഖ്യ i, it;
 
     sum = 0;
-    for(it=0;it<NB_ITS;it++) {
-        for(i=0;i<TAB_SIZE;i++) {
+    വേണ്ടി(it=0;it<NB_ITS;it++) {
+        വേണ്ടി(i=0;i<TAB_SIZE;i++) {
             sum += tab[i];
         }
     }
-    return sum;
+    തിരികെ sum;
 }
 
 /* ok */
-int test4(void)
+പൂർണ്ണസംഖ്യ test4(ശൂന്യം)
 {
-    int i, sum = 0;
-    int *tab4;
+    പൂർണ്ണസംഖ്യ i, sum = 0;
+    പൂർണ്ണസംഖ്യ *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<20;i++) {
+    tab4 = malloc(20 * വലുപ്പം(പൂർണ്ണസംഖ്യ));
+    വേണ്ടി(i=0;i<20;i++) {
         sum += tab4[i];
     }
-    free(tab4);
+    സ്വതന്ത്രം(tab4);
 
-    return sum;
+    തിരികെ sum;
 }
 
 /* error */
-int test5(void)
+പൂർണ്ണസംഖ്യ test5(ശൂന്യം)
 {
-    int i, sum = 0;
-    int *tab4;
+    പൂർണ്ണസംഖ്യ i, sum = 0;
+    പൂർണ്ണസംഖ്യ *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<21;i++) {
+    tab4 = malloc(20 * വലുപ്പം(പൂർണ്ണസംഖ്യ));
+    വേണ്ടി(i=0;i<21;i++) {
         sum += tab4[i];
     }
-    free(tab4);
+    സ്വതന്ത്രം(tab4);
 
-    return sum;
+    തിരികെ sum;
 }
 
 /* error */
-int test6(void)
+പൂർണ്ണസംഖ്യ test6(ശൂന്യം)
 {
-    int i, sum = 0;
-    int *tab4;
+    പൂർണ്ണസംഖ്യ i, sum = 0;
+    പൂർണ്ണസംഖ്യ *tab4;
     
-    tab4 = malloc(20 * sizeof(int));
-    free(tab4);
-    for(i=0;i<21;i++) {
+    tab4 = malloc(20 * വലുപ്പം(പൂർണ്ണസംഖ്യ));
+    സ്വതന്ത്രം(tab4);
+    വേണ്ടി(i=0;i<21;i++) {
         sum += tab4[i];
     }
 
-    return sum;
+    തിരികെ sum;
 }
 
 /* error */
-int test7(void)
+പൂർണ്ണസംഖ്യ test7(ശൂന്യം)
 {
-    int i, sum = 0;
-    int *p;
+    പൂർണ്ണസംഖ്യ i, sum = 0;
+    പൂർണ്ണസംഖ്യ *p;
 
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    വേണ്ടി(i=0;i<TAB_SIZE + 1;i++) {
         p = &tab[i];
-        if (i == TAB_SIZE)
+        എങ്കിൽ (i == TAB_SIZE)
             printf("i=%d %x\n", i, p);
         sum += *p;
     }
-    return sum;
+    തിരികെ sum;
 }
 
 /* ok */
-int test8(void)
+പൂർണ്ണസംഖ്യ test8(ശൂന്യം)
 {
-    int i, sum = 0;
-    int tab[10];
+    പൂർണ്ണസംഖ്യ i, sum = 0;
+    പൂർണ്ണസംഖ്യ tab[10];
 
-    for(i=0;i<10;i++) {
+    വേണ്ടി(i=0;i<10;i++) {
         sum += tab[i];
     }
-    return sum;
+    തിരികെ sum;
 }
 
 /* error */
-int test9(void)
+പൂർണ്ണസംഖ്യ test9(ശൂന്യം)
 {
-    int i, sum = 0;
-    char tab[10];
+    പൂർണ്ണസംഖ്യ i, sum = 0;
+    അക്ഷരം tab[10];
 
-    for(i=0;i<11;i++) {
+    വേണ്ടി(i=0;i<11;i++) {
         sum += tab[i];
     }
-    return sum;
+    തിരികെ sum;
 }
 
 /* ok */
-int test10(void)
+പൂർണ്ണസംഖ്യ test10(ശൂന്യം)
 {
-    char tab[10];
-    char tab1[10];
+    അക്ഷരം tab[10];
+    അക്ഷരം tab1[10];
 
     memset(tab, 0, 10);
     memcpy(tab, tab1, 10);
     memmove(tab, tab1, 10);
-    return 0;
+    തിരികെ 0;
 }
 
 /* error */
-int test11(void)
+പൂർണ്ണസംഖ്യ test11(ശൂന്യം)
 {
-    char tab[10];
+    അക്ഷരം tab[10];
 
     memset(tab, 0, 11);
-    return 0;
+    തിരികെ 0;
 }
 
 /* error */
-int test12(void)
+പൂർണ്ണസംഖ്യ test12(ശൂന്യം)
 {
-    void *ptr;
+    ശൂന്യം *ptr;
     ptr = malloc(10);
-    free(ptr);
-    free(ptr);
-    return 0;
+    സ്വതന്ത്രം(ptr);
+    സ്വതന്ത്രം(ptr);
+    തിരികെ 0;
 }
 
 /* error */
-int test13(void)
+പൂർണ്ണസംഖ്യ test13(ശൂന്യം)
 {
-    char pad1 = 0;
-    char tab[10];
-    char pad2 = 0;
-    memset(tab, 'a', sizeof(tab));
-    return strlen(tab);
+    അക്ഷരം pad1 = 0;
+    അക്ഷരം tab[10];
+    അക്ഷരം pad2 = 0;
+    memset(tab, 'a', വലുപ്പം(tab));
+    തിരികെ strlen(tab);
 }
 
-int test14(void)
+പൂർണ്ണസംഖ്യ test14(ശൂന്യം)
 {
-    char *p = alloca(TAB_SIZE);
+    അക്ഷരം *p = alloca(TAB_SIZE);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    തിരികെ ret;
 }
 
 /* error */
-int test15(void)
+പൂർണ്ണസംഖ്യ test15(ശൂന്യം)
 {
-    char *p = alloca(TAB_SIZE-1);
+    അക്ഷരം *p = alloca(TAB_SIZE-1);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    തിരികെ ret;
 }
 
 /* ok */
-int test16()
+പൂർണ്ണസംഖ്യ test16()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    അക്ഷരം *demo = "This is only a test.";
+    അക്ഷരം *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
@@ -202,14 +202,14 @@ int test16()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)+1),demo) );
 
-    return 0;
+    തിരികെ 0;
 }
 
 /* error */
-int test17()
+പൂർണ്ണസംഖ്യ test17()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    അക്ഷരം *demo = "This is only a test.";
+    അക്ഷരം *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
@@ -217,20 +217,20 @@ int test17()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)),demo) );
 
-    return 0;
+    തിരികെ 0;
 }
 
-int test18(void)
+പൂർണ്ണസംഖ്യ test18(ശൂന്യം)
 {
-    int i, sum = 0, n = TAB_SIZE;
-    int tab[n];
-    for(i=0;i<TAB_SIZE+1;i++) {
+    പൂർണ്ണസംഖ്യ i, sum = 0, n = TAB_SIZE;
+    പൂർണ്ണസംഖ്യ tab[n];
+    വേണ്ടി(i=0;i<TAB_SIZE+1;i++) {
         sum += tab[i];
     }
-    return sum;
+    തിരികെ sum;
 }
 
-int (*table_test[])(void) = {
+പൂർണ്ണസംഖ്യ (*table_test[])(ശൂന്യം) = {
     test1,
     test2,
     test3,
@@ -251,23 +251,23 @@ int (*table_test[])(void) = {
     test18
 };
 
-int main(int argc, char **argv)
+പൂർണ്ണസംഖ്യ പ്രധാന(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv)
 {
-    int i;
-    char *cp;
-    int index;
-    int (*ftest)(void);
-    int index_max = sizeof(table_test)/sizeof(table_test[0]);
+    പൂർണ്ണസംഖ്യ i;
+    അക്ഷരം *cp;
+    പൂർണ്ണസംഖ്യ index;
+    പൂർണ്ണസംഖ്യ (*ftest)(ശൂന്യം);
+    പൂർണ്ണസംഖ്യ index_max = വലുപ്പം(table_test)/വലുപ്പം(table_test[0]);
 
     /* check bounds checking main arg */
-    for (i = 0; i < argc; i++) {
+    വേണ്ടി (i = 0; i < argc; i++) {
         cp = argv[i];
-        while (*cp) {
+        ആകുമ്പോൾ (*cp) {
             cp++;
         }
     }
 
-    if (argc < 2) {
+    എങ്കിൽ (argc < 2) {
         printf(
     	    "test TCC bound checking system\n"
 	    "usage: boundtest N\n"
@@ -276,10 +276,10 @@ int main(int argc, char **argv)
     }
 
     index = 0;
-    if (argc >= 2)
+    എങ്കിൽ (argc >= 2)
         index = atoi(argv[1]) - 1;
 
-    if ((index < 0) || (index >= index_max)) {
+    എങ്കിൽ ((index < 0) || (index >= index_max)) {
         printf("N is outside of the valid range (%d)\n", index);
         exit(2);
     }
@@ -288,7 +288,7 @@ int main(int argc, char **argv)
     ftest = table_test[index];
     ftest();
 
-    return 0;
+    തിരികെ 0;
 }
 
 /*

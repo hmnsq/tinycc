@@ -1,35 +1,35 @@
-#include <stdio.h>
-#include <stdarg.h>
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <stdarg.h>
 
-int compile_errors(void)
+പൂർണ്ണസംഖ്യ compile_errors(ശൂന്യം)
 {
-#if TEST == 1
+#എങ്കിൽ TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    സ്ഥിതം പൂർണ്ണസംഖ്യ i = (&"Foobar"[1] - &"Foobar"[0]);
   }
 #endif
-#if TEST == 2
+#എങ്കിൽ TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
-    static long i=((char*)&(v.c)-(char*)&v);
+    ഘടന{പൂർണ്ണസംഖ്യ c;}v;
+    സ്ഥിതം long i=((അക്ഷരം*)&(v.c)-(അക്ഷരം*)&v);
   }
 #endif
-#if TEST == 3
+#എങ്കിൽ TEST == 3
   {
     /* Not constant */
-    static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
-    void *p = &&l1 + ar[0];
-    goto *p;
-   l1: return 1;
-   l2: return 2;
+    സ്ഥിതം സ്ഥിരം short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
+    ശൂന്യം *p = &&l1 + ar[0];
+    പോകുക *p;
+   l1: തിരികെ 1;
+   l2: തിരികെ 2;
   }
 #endif
-  return 0;
+  തിരികെ 0;
 }
 
-int
-main(void)
+പൂർണ്ണസംഖ്യ
+പ്രധാന(ശൂന്യം)
 {
 }

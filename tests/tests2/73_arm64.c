@@ -1,123 +1,123 @@
 // This program is designed to test some arm64-specific things, such as the
 // calling convention, but should give the same results on any architecture.
 
-#include <stdarg.h>
-#include <stdint.h>
-#include <stdio.h>
+#അന്തര്ഭാവ <stdarg.h>
+#അന്തര്ഭാവ <stdint.h>
+#അന്തര്ഭാവ <stdio.h>
 
-struct s1 { char x[1]; } s1 = { "0" };
-struct s2 { char x[2]; } s2 = { "12" };
-struct s3 { char x[3]; } s3 = { "345" };
-struct s4 { char x[4]; } s4 = { "6789" };
-struct s5 { char x[5]; } s5 = { "abcde" };
-struct s6 { char x[6]; } s6 = { "fghijk" };
-struct s7 { char x[7]; } s7 = { "lmnopqr" };
-struct s8 { char x[8]; } s8 = { "stuvwxyz" };
-struct s9 { char x[9]; } s9 = { "ABCDEFGHI" };
-struct s10 { char x[10]; } s10 = { "JKLMNOPQRS" };
-struct s11 { char x[11]; } s11 = { "TUVWXYZ0123" };
-struct s12 { char x[12]; } s12 = { "456789abcdef" };
-struct s13 { char x[13]; } s13 = { "ghijklmnopqrs" };
-struct s14 { char x[14]; } s14 = { "tuvwxyzABCDEFG" };
-struct s15 { char x[15]; } s15 = { "HIJKLMNOPQRSTUV" };
-struct s16 { char x[16]; } s16 = { "WXYZ0123456789ab" };
-struct s17 { char x[17]; } s17 = { "cdefghijklmnopqrs" };
+ഘടന s1 { അക്ഷരം x[1]; } s1 = { "0" };
+ഘടന s2 { അക്ഷരം x[2]; } s2 = { "12" };
+ഘടന s3 { അക്ഷരം x[3]; } s3 = { "345" };
+ഘടന s4 { അക്ഷരം x[4]; } s4 = { "6789" };
+ഘടന s5 { അക്ഷരം x[5]; } s5 = { "abcde" };
+ഘടന s6 { അക്ഷരം x[6]; } s6 = { "fghijk" };
+ഘടന s7 { അക്ഷരം x[7]; } s7 = { "lmnopqr" };
+ഘടന s8 { അക്ഷരം x[8]; } s8 = { "stuvwxyz" };
+ഘടന s9 { അക്ഷരം x[9]; } s9 = { "ABCDEFGHI" };
+ഘടന s10 { അക്ഷരം x[10]; } s10 = { "JKLMNOPQRS" };
+ഘടന s11 { അക്ഷരം x[11]; } s11 = { "TUVWXYZ0123" };
+ഘടന s12 { അക്ഷരം x[12]; } s12 = { "456789abcdef" };
+ഘടന s13 { അക്ഷരം x[13]; } s13 = { "ghijklmnopqrs" };
+ഘടന s14 { അക്ഷരം x[14]; } s14 = { "tuvwxyzABCDEFG" };
+ഘടന s15 { അക്ഷരം x[15]; } s15 = { "HIJKLMNOPQRSTUV" };
+ഘടന s16 { അക്ഷരം x[16]; } s16 = { "WXYZ0123456789ab" };
+ഘടന s17 { അക്ഷരം x[17]; } s17 = { "cdefghijklmnopqrs" };
 
-struct hfa11 { float a; } hfa11 = { 11.1 };
-struct hfa12 { float a, b; } hfa12 = { 12.1, 12.2 };
-struct hfa13 { float a, b, c; } hfa13 = { 13.1, 13.2, 13.3 };
-struct hfa14 { float a, b, c, d; } hfa14 = { 14.1, 14.2, 14.3, 14.4 };
+ഘടന hfa11 { ദശാംശം a; } hfa11 = { 11.1 };
+ഘടന hfa12 { ദശാംശം a, b; } hfa12 = { 12.1, 12.2 };
+ഘടന hfa13 { ദശാംശം a, b, c; } hfa13 = { 13.1, 13.2, 13.3 };
+ഘടന hfa14 { ദശാംശം a, b, c, d; } hfa14 = { 14.1, 14.2, 14.3, 14.4 };
 
-struct hfa21 { double a; } hfa21 = { 21.1 };
-struct hfa22 { double a, b; } hfa22 = { 22.1, 22.2 };
-struct hfa23 { double a, b, c; } hfa23 = { 23.1, 23.2, 23.3 };
-struct hfa24 { double a, b, c, d; } hfa24 = { 24.1, 24.2, 24.3, 24.4 };
+ഘടന hfa21 { ഇരട്ട a; } hfa21 = { 21.1 };
+ഘടന hfa22 { ഇരട്ട a, b; } hfa22 = { 22.1, 22.2 };
+ഘടന hfa23 { ഇരട്ട a, b, c; } hfa23 = { 23.1, 23.2, 23.3 };
+ഘടന hfa24 { ഇരട്ട a, b, c, d; } hfa24 = { 24.1, 24.2, 24.3, 24.4 };
 
-struct hfa31 { long double a; } hfa31 = { 31.1 };
-struct hfa32 { long double a, b; } hfa32 = { 32.1, 32.2 };
-struct hfa33 { long double a, b, c; } hfa33 = { 33.1, 33.2, 33.3 };
-struct hfa34 { long double a, b, c, d; } hfa34 = { 34.1, 34.2, 34.3, 34.4 };
+ഘടന hfa31 { long ഇരട്ട a; } hfa31 = { 31.1 };
+ഘടന hfa32 { long ഇരട്ട a, b; } hfa32 = { 32.1, 32.2 };
+ഘടന hfa33 { long ഇരട്ട a, b, c; } hfa33 = { 33.1, 33.2, 33.3 };
+ഘടന hfa34 { long ഇരട്ട a, b, c, d; } hfa34 = { 34.1, 34.2, 34.3, 34.4 };
 
-struct empty { };
+ഘടന empty { };
 /* Keep the top-level offsets at zero without changing the type into a union. */
-struct hfae12 { struct empty e; struct hfa12 h; } hfae12 = { { }, { 112.1, 112.2 } };
-struct hfae22 { struct empty e; struct hfa22 h; } hfae22 = { { }, { 122.1, 122.2 } };
+ഘടന hfae12 { ഘടന empty e; ഘടന hfa12 h; } hfae12 = { { }, { 112.1, 112.2 } };
+ഘടന hfae22 { ഘടന empty e; ഘടന hfa22 h; } hfae22 = { { }, { 122.1, 122.2 } };
 
-void fa_s1(struct s1 a) { printf("%.1s\n", a.x); }
-void fa_s2(struct s2 a) { printf("%.2s\n", a.x); }
-void fa_s3(struct s3 a) { printf("%.3s\n", a.x); }
-void fa_s4(struct s4 a) { printf("%.4s\n", a.x); }
-void fa_s5(struct s5 a) { printf("%.5s\n", a.x); }
-void fa_s6(struct s6 a) { printf("%.6s\n", a.x); }
-void fa_s7(struct s7 a) { printf("%.7s\n", a.x); }
-void fa_s8(struct s8 a) { printf("%.8s\n", a.x); }
-void fa_s9(struct s9 a) { printf("%.9s\n", a.x); }
-void fa_s10(struct s10 a) { printf("%.10s\n", a.x); }
-void fa_s11(struct s11 a) { printf("%.11s\n", a.x); }
-void fa_s12(struct s12 a) { printf("%.12s\n", a.x); }
-void fa_s13(struct s13 a) { printf("%.13s\n", a.x); }
-void fa_s14(struct s14 a) { printf("%.14s\n", a.x); }
-void fa_s15(struct s15 a) { printf("%.15s\n", a.x); }
-void fa_s16(struct s16 a) { printf("%.16s\n", a.x); }
-void fa_s17(struct s17 a) { printf("%.17s\n", a.x); }
+ശൂന്യം fa_s1(ഘടന s1 a) { printf("%.1s\n", a.x); }
+ശൂന്യം fa_s2(ഘടന s2 a) { printf("%.2s\n", a.x); }
+ശൂന്യം fa_s3(ഘടന s3 a) { printf("%.3s\n", a.x); }
+ശൂന്യം fa_s4(ഘടന s4 a) { printf("%.4s\n", a.x); }
+ശൂന്യം fa_s5(ഘടന s5 a) { printf("%.5s\n", a.x); }
+ശൂന്യം fa_s6(ഘടന s6 a) { printf("%.6s\n", a.x); }
+ശൂന്യം fa_s7(ഘടന s7 a) { printf("%.7s\n", a.x); }
+ശൂന്യം fa_s8(ഘടന s8 a) { printf("%.8s\n", a.x); }
+ശൂന്യം fa_s9(ഘടന s9 a) { printf("%.9s\n", a.x); }
+ശൂന്യം fa_s10(ഘടന s10 a) { printf("%.10s\n", a.x); }
+ശൂന്യം fa_s11(ഘടന s11 a) { printf("%.11s\n", a.x); }
+ശൂന്യം fa_s12(ഘടന s12 a) { printf("%.12s\n", a.x); }
+ശൂന്യം fa_s13(ഘടന s13 a) { printf("%.13s\n", a.x); }
+ശൂന്യം fa_s14(ഘടന s14 a) { printf("%.14s\n", a.x); }
+ശൂന്യം fa_s15(ഘടന s15 a) { printf("%.15s\n", a.x); }
+ശൂന്യം fa_s16(ഘടന s16 a) { printf("%.16s\n", a.x); }
+ശൂന്യം fa_s17(ഘടന s17 a) { printf("%.17s\n", a.x); }
 
-void fa_hfa11(struct hfa11 a)
+ശൂന്യം fa_hfa11(ഘടന hfa11 a)
 { printf("%.1f\n", a.a); }
-void fa_hfa12(struct hfa12 a)
+ശൂന്യം fa_hfa12(ഘടന hfa12 a)
 { printf("%.1f %.1f\n", a.a, a.a); }
-void fa_hfa13(struct hfa13 a)
+ശൂന്യം fa_hfa13(ഘടന hfa13 a)
 { printf("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
-void fa_hfa14(struct hfa14 a)
+ശൂന്യം fa_hfa14(ഘടന hfa14 a)
 { printf("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
 
-void fa_hfa21(struct hfa21 a)
+ശൂന്യം fa_hfa21(ഘടന hfa21 a)
 { printf("%.1f\n", a.a); }
-void fa_hfa22(struct hfa22 a)
+ശൂന്യം fa_hfa22(ഘടന hfa22 a)
 { printf("%.1f %.1f\n", a.a, a.a); }
-void fa_hfa23(struct hfa23 a)
+ശൂന്യം fa_hfa23(ഘടന hfa23 a)
 { printf("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
-void fa_hfa24(struct hfa24 a)
+ശൂന്യം fa_hfa24(ഘടന hfa24 a)
 { printf("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
 
-void fa_hfa31(struct hfa31 a)
+ശൂന്യം fa_hfa31(ഘടന hfa31 a)
 { printf("%.1Lf\n", a.a); }
-void fa_hfa32(struct hfa32 a)
+ശൂന്യം fa_hfa32(ഘടന hfa32 a)
 { printf("%.1Lf %.1Lf\n", a.a, a.a); }
-void fa_hfa33(struct hfa33 a)
+ശൂന്യം fa_hfa33(ഘടന hfa33 a)
 { printf("%.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c); }
-void fa_hfa34(struct hfa34 a)
+ശൂന്യം fa_hfa34(ഘടന hfa34 a)
 { printf("%.1Lf %.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c, a.d); }
-void fa_hfae12(struct hfae12 a)
+ശൂന്യം fa_hfae12(ഘടന hfae12 a)
 { printf("%.1f %.1f\n", a.h.a, a.h.b); }
-void fa_hfae22(struct hfae22 a)
+ശൂന്യം fa_hfae22(ഘടന hfae22 a)
 { printf("%.1f %.1f\n", a.h.a, a.h.b); }
 
-void fa1(struct s8 a, struct s9 b, struct s10 c, struct s11 d,
-         struct s12 e, struct s13 f)
+ശൂന്യം fa1(ഘടന s8 a, ഘടന s9 b, ഘടന s10 c, ഘടന s11 d,
+         ഘടന s12 e, ഘടന s13 f)
 {
     printf("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
 }
 
-void fa2(struct s9 a, struct s10 b, struct s11 c, struct s12 d,
-         struct s13 e, struct s14 f)
+ശൂന്യം fa2(ഘടന s9 a, ഘടന s10 b, ഘടന s11 c, ഘടന s12 d,
+         ഘടന s13 e, ഘടന s14 f)
 {
     printf("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
 }
 
-void fa3(struct hfa14 a, struct hfa23 b, struct hfa32 c)
+ശൂന്യം fa3(ഘടന hfa14 a, ഘടന hfa23 b, ഘടന hfa32 c)
 {
     printf("%.1f %.1f %.1f %.1f %.1Lf %.1Lf\n",
            a.a, a.d, b.a, b.c, c.a, c.b);
 }
 
-void fa4(struct s1 a, struct hfa14 b, struct s2 c, struct hfa24 d,
-         struct s3 e, struct hfa34 f)
+ശൂന്യം fa4(ഘടന s1 a, ഘടന hfa14 b, ഘടന s2 c, ഘടന hfa24 d,
+         ഘടന s3 e, ഘടന hfa34 f)
 {
     printf("%.1s %.1f %.1f %.2s %.1f %.1f %.3s %.1Lf %.1Lf\n",
            a.x, b.a, b.d, c.x, d.a, d.d, e.x, f.a, f.d);
 }
 
-void arg(void)
+ശൂന്യം arg(ശൂന്യം)
 {
     printf("Arguments:\n");
     fa_s1(s1);
@@ -157,60 +157,60 @@ void arg(void)
     fa4(s1, hfa14, s2, hfa24, s3, hfa34);
 }
 
-struct s1 fr_s1(void) { return s1; }
-struct s2 fr_s2(void) { return s2; }
-struct s3 fr_s3(void) { return s3; }
-struct s4 fr_s4(void) { return s4; }
-struct s5 fr_s5(void) { return s5; }
-struct s6 fr_s6(void) { return s6; }
-struct s7 fr_s7(void) { return s7; }
-struct s8 fr_s8(void) { return s8; }
-struct s9 fr_s9(void) { return s9; }
-struct s10 fr_s10(void) { return s10; }
-struct s11 fr_s11(void) { return s11; }
-struct s12 fr_s12(void) { return s12; }
-struct s13 fr_s13(void) { return s13; }
-struct s14 fr_s14(void) { return s14; }
-struct s15 fr_s15(void) { return s15; }
-struct s16 fr_s16(void) { return s16; }
-struct s17 fr_s17(void) { return s17; }
+ഘടന s1 fr_s1(ശൂന്യം) { തിരികെ s1; }
+ഘടന s2 fr_s2(ശൂന്യം) { തിരികെ s2; }
+ഘടന s3 fr_s3(ശൂന്യം) { തിരികെ s3; }
+ഘടന s4 fr_s4(ശൂന്യം) { തിരികെ s4; }
+ഘടന s5 fr_s5(ശൂന്യം) { തിരികെ s5; }
+ഘടന s6 fr_s6(ശൂന്യം) { തിരികെ s6; }
+ഘടന s7 fr_s7(ശൂന്യം) { തിരികെ s7; }
+ഘടന s8 fr_s8(ശൂന്യം) { തിരികെ s8; }
+ഘടന s9 fr_s9(ശൂന്യം) { തിരികെ s9; }
+ഘടന s10 fr_s10(ശൂന്യം) { തിരികെ s10; }
+ഘടന s11 fr_s11(ശൂന്യം) { തിരികെ s11; }
+ഘടന s12 fr_s12(ശൂന്യം) { തിരികെ s12; }
+ഘടന s13 fr_s13(ശൂന്യം) { തിരികെ s13; }
+ഘടന s14 fr_s14(ശൂന്യം) { തിരികെ s14; }
+ഘടന s15 fr_s15(ശൂന്യം) { തിരികെ s15; }
+ഘടന s16 fr_s16(ശൂന്യം) { തിരികെ s16; }
+ഘടന s17 fr_s17(ശൂന്യം) { തിരികെ s17; }
 
-struct hfa11 fr_hfa11(void) { return hfa11; }
-struct hfa12 fr_hfa12(void) { return hfa12; }
-struct hfa13 fr_hfa13(void) { return hfa13; }
-struct hfa14 fr_hfa14(void) { return hfa14; }
+ഘടന hfa11 fr_hfa11(ശൂന്യം) { തിരികെ hfa11; }
+ഘടന hfa12 fr_hfa12(ശൂന്യം) { തിരികെ hfa12; }
+ഘടന hfa13 fr_hfa13(ശൂന്യം) { തിരികെ hfa13; }
+ഘടന hfa14 fr_hfa14(ശൂന്യം) { തിരികെ hfa14; }
 
-struct hfa21 fr_hfa21(void) { return hfa21; }
-struct hfa22 fr_hfa22(void) { return hfa22; }
-struct hfa23 fr_hfa23(void) { return hfa23; }
-struct hfa24 fr_hfa24(void) { return hfa24; }
+ഘടന hfa21 fr_hfa21(ശൂന്യം) { തിരികെ hfa21; }
+ഘടന hfa22 fr_hfa22(ശൂന്യം) { തിരികെ hfa22; }
+ഘടന hfa23 fr_hfa23(ശൂന്യം) { തിരികെ hfa23; }
+ഘടന hfa24 fr_hfa24(ശൂന്യം) { തിരികെ hfa24; }
 
-struct hfa31 fr_hfa31(void) { return hfa31; }
-struct hfa32 fr_hfa32(void) { return hfa32; }
-struct hfa33 fr_hfa33(void) { return hfa33; }
-struct hfa34 fr_hfa34(void) { return hfa34; }
-struct hfae12 fr_hfae12(void) { return hfae12; }
-struct hfae22 fr_hfae22(void) { return hfae22; }
+ഘടന hfa31 fr_hfa31(ശൂന്യം) { തിരികെ hfa31; }
+ഘടന hfa32 fr_hfa32(ശൂന്യം) { തിരികെ hfa32; }
+ഘടന hfa33 fr_hfa33(ശൂന്യം) { തിരികെ hfa33; }
+ഘടന hfa34 fr_hfa34(ശൂന്യം) { തിരികെ hfa34; }
+ഘടന hfae12 fr_hfae12(ശൂന്യം) { തിരികെ hfae12; }
+ഘടന hfae22 fr_hfae22(ശൂന്യം) { തിരികെ hfae22; }
 
-void ret(void)
+ശൂന്യം ret(ശൂന്യം)
 {
-    struct s1 t1 = fr_s1();
-    struct s2 t2 = fr_s2();
-    struct s3 t3 = fr_s3();
-    struct s4 t4 = fr_s4();
-    struct s5 t5 = fr_s5();
-    struct s6 t6 = fr_s6();
-    struct s7 t7 = fr_s7();
-    struct s8 t8 = fr_s8();
-    struct s9 t9 = fr_s9();
-    struct s10 t10 = fr_s10();
-    struct s11 t11 = fr_s11();
-    struct s12 t12 = fr_s12();
-    struct s13 t13 = fr_s13();
-    struct s14 t14 = fr_s14();
-    struct s15 t15 = fr_s15();
-    struct s16 t16 = fr_s16();
-    struct s17 t17 = fr_s17();
+    ഘടന s1 t1 = fr_s1();
+    ഘടന s2 t2 = fr_s2();
+    ഘടന s3 t3 = fr_s3();
+    ഘടന s4 t4 = fr_s4();
+    ഘടന s5 t5 = fr_s5();
+    ഘടന s6 t6 = fr_s6();
+    ഘടന s7 t7 = fr_s7();
+    ഘടന s8 t8 = fr_s8();
+    ഘടന s9 t9 = fr_s9();
+    ഘടന s10 t10 = fr_s10();
+    ഘടന s11 t11 = fr_s11();
+    ഘടന s12 t12 = fr_s12();
+    ഘടന s13 t13 = fr_s13();
+    ഘടന s14 t14 = fr_s14();
+    ഘടന s15 t15 = fr_s15();
+    ഘടന s16 t16 = fr_s16();
+    ഘടന s17 t17 = fr_s17();
     printf("Return values:\n");
     printf("%.1s\n", t1.x);
     printf("%.2s\n", t2.x);
@@ -245,98 +245,98 @@ void ret(void)
     printf("%.1f %.1f\n", fr_hfae22().h.a, fr_hfae22().h.b);
 }
 
-void*
+ശൂന്യം*
 va_arg_with_struct_ptr(va_list ap) {
         /*
          * This was a BUG identified with FFTW-3.3.8 on arm64.
          * The test case only checks it compiles.
          */
-        struct X { int _x; };
-        struct X *x = va_arg(ap, struct X *);
-        return x;
+        ഘടന X { പൂർണ്ണസംഖ്യ _x; };
+        ഘടന X *x = va_arg(ap, ഘടന X *);
+        തിരികെ x;
 }
 
-int match(const char **s, const char *f)
+പൂർണ്ണസംഖ്യ match(സ്ഥിരം അക്ഷരം **s, സ്ഥിരം അക്ഷരം *f)
 {
-    const char *p = *s;
-    for (p = *s; *f && *f == *p; f++, p++)
+    സ്ഥിരം അക്ഷരം *p = *s;
+    വേണ്ടി (p = *s; *f && *f == *p; f++, p++)
         ;
-    if (!*f) {
+    എങ്കിൽ (!*f) {
         *s = p - 1;
-        return 1;
+        തിരികെ 1;
     }
-    return 0;
+    തിരികെ 0;
 }
 
-void myprintf(const char *format, ...)
+ശൂന്യം myprintf(സ്ഥിരം അക്ഷരം *format, ...)
 {
-    const char *s;
+    സ്ഥിരം അക്ഷരം *s;
     va_list ap;
     va_start(ap, format);
-    for (s = format; *s; s++) {
-        if (match(&s, "%7s")) {
-            struct s7 t7 = va_arg(ap, struct s7);
+    വേണ്ടി (s = format; *s; s++) {
+        എങ്കിൽ (match(&s, "%7s")) {
+            ഘടന s7 t7 = va_arg(ap, ഘടന s7);
             printf("%.7s", t7.x);
         }
-        else if (match(&s, "%9s")) {
-            struct s9 t9 = va_arg(ap, struct s9);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%9s")) {
+            ഘടന s9 t9 = va_arg(ap, ഘടന s9);
             printf("%.9s", t9.x);
         }
-        else if (match(&s, "%hfa11")) {
-            struct hfa11 x = va_arg(ap, struct hfa11);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa11")) {
+            ഘടന hfa11 x = va_arg(ap, ഘടന hfa11);
             printf("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa12")) {
-            struct hfa12 x = va_arg(ap, struct hfa12);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa12")) {
+            ഘടന hfa12 x = va_arg(ap, ഘടന hfa12);
             printf("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa13")) {
-            struct hfa13 x = va_arg(ap, struct hfa13);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa13")) {
+            ഘടന hfa13 x = va_arg(ap, ഘടന hfa13);
             printf("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa14")) {
-            struct hfa14 x = va_arg(ap, struct hfa14);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa14")) {
+            ഘടന hfa14 x = va_arg(ap, ഘടന hfa14);
             printf("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa21")) {
-            struct hfa21 x = va_arg(ap, struct hfa21);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa21")) {
+            ഘടന hfa21 x = va_arg(ap, ഘടന hfa21);
             printf("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa22")) {
-            struct hfa22 x = va_arg(ap, struct hfa22);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa22")) {
+            ഘടന hfa22 x = va_arg(ap, ഘടന hfa22);
             printf("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa23")) {
-            struct hfa23 x = va_arg(ap, struct hfa23);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa23")) {
+            ഘടന hfa23 x = va_arg(ap, ഘടന hfa23);
             printf("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa24")) {
-            struct hfa24 x = va_arg(ap, struct hfa24);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa24")) {
+            ഘടന hfa24 x = va_arg(ap, ഘടന hfa24);
             printf("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa31")) {
-            struct hfa31 x = va_arg(ap, struct hfa31);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa31")) {
+            ഘടന hfa31 x = va_arg(ap, ഘടന hfa31);
             printf("%.1Lf,%.1Lf", x.a, x.a);
         }
-        else if (match(&s, "%hfa32")) {
-            struct hfa32 x = va_arg(ap, struct hfa32);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa32")) {
+            ഘടന hfa32 x = va_arg(ap, ഘടന hfa32);
             printf("%.1Lf,%.1Lf", x.a, x.b);
         }
-        else if (match(&s, "%hfa33")) {
-            struct hfa33 x = va_arg(ap, struct hfa33);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa33")) {
+            ഘടന hfa33 x = va_arg(ap, ഘടന hfa33);
             printf("%.1Lf,%.1Lf", x.a, x.c);
         }
-        else if (match(&s, "%hfa34")) {
-            struct hfa34 x = va_arg(ap, struct hfa34);
+        അല്ലെങ്കിൽ എങ്കിൽ (match(&s, "%hfa34")) {
+            ഘടന hfa34 x = va_arg(ap, ഘടന hfa34);
             printf("%.1Lf,%.1Lf", x.a, x.d);
         }
-        else
+        അല്ലെങ്കിൽ
             putchar(*s);
     }
     putchar('\n');
 }
 
-void stdarg(void)
+ശൂന്യം stdarg(ശൂന്യം)
 {
     printf("stdarg:\n");
     myprintf("%9s %9s %9s %9s %9s %9s", s9, s9, s9, s9, s9, s9);
@@ -406,12 +406,12 @@ void stdarg(void)
              hfa14, hfa12, hfa11, hfa11, hfa11, hfa11);
 }
 
-void pll(unsigned long long x)
+ശൂന്യം pll(unsigned long long x)
 {
     printf("%llx\n", x);
 }
 
-void movi(void)
+ശൂന്യം movi(ശൂന്യം)
 {
     printf("MOVI:\n");
     pll(0);
@@ -456,49 +456,49 @@ void movi(void)
     pll(0xabcdef0123456789);
 }
 
-static uint32_t addip0(uint32_t x) { return x + 0; }
-static uint64_t sublp0(uint64_t x) { return x - 0; }
-static uint32_t addip123(uint32_t x) { return x + 123; }
-static uint64_t addlm123(uint64_t x) { return x + -123; }
-static uint64_t sublp4095(uint64_t x) { return x - 4095; }
-static uint32_t subim503808(uint32_t x) { return x - -503808; }
-static uint64_t addp12345(uint64_t x) { return x + 12345; }
-static uint32_t subp12345(uint32_t x) { return x - 12345; }
+സ്ഥിതം uint32_t addip0(uint32_t x) { തിരികെ x + 0; }
+സ്ഥിതം uint64_t sublp0(uint64_t x) { തിരികെ x - 0; }
+സ്ഥിതം uint32_t addip123(uint32_t x) { തിരികെ x + 123; }
+സ്ഥിതം uint64_t addlm123(uint64_t x) { തിരികെ x + -123; }
+സ്ഥിതം uint64_t sublp4095(uint64_t x) { തിരികെ x - 4095; }
+സ്ഥിതം uint32_t subim503808(uint32_t x) { തിരികെ x - -503808; }
+സ്ഥിതം uint64_t addp12345(uint64_t x) { തിരികെ x + 12345; }
+സ്ഥിതം uint32_t subp12345(uint32_t x) { തിരികെ x - 12345; }
 
-static uint32_t mvni(uint32_t x) { return 0xffffffff - x; }
-static uint64_t negl(uint64_t x) { return 0 - x; }
-static uint32_t rsbi123(uint32_t x) { return 123 - x; }
-static uint64_t rsbl123(uint64_t x) { return 123 - x; }
+സ്ഥിതം uint32_t mvni(uint32_t x) { തിരികെ 0xffffffff - x; }
+സ്ഥിതം uint64_t negl(uint64_t x) { തിരികെ 0 - x; }
+സ്ഥിതം uint32_t rsbi123(uint32_t x) { തിരികെ 123 - x; }
+സ്ഥിതം uint64_t rsbl123(uint64_t x) { തിരികെ 123 - x; }
 
-static uint32_t andi0(uint32_t x) { return x & 0; }
-static uint64_t andlm1(uint64_t x) { return x & -1; }
-static uint64_t orrl0(uint64_t x) { return x | 0; }
-static uint32_t orrim1(uint32_t x) { return x | -1; }
-static uint32_t eori0(uint32_t x) { return x ^ 0; }
-static uint64_t eorlm1(uint64_t x) { return x ^ -1; }
-static uint32_t and0xf0(uint32_t x) { return x & 0xf0; }
-static uint64_t orr0xf0(uint64_t x) { return x | 0xf0; }
-static uint64_t eor0xf0(uint64_t x) { return x ^ 0xf0; }
+സ്ഥിതം uint32_t andi0(uint32_t x) { തിരികെ x & 0; }
+സ്ഥിതം uint64_t andlm1(uint64_t x) { തിരികെ x & -1; }
+സ്ഥിതം uint64_t orrl0(uint64_t x) { തിരികെ x | 0; }
+സ്ഥിതം uint32_t orrim1(uint32_t x) { തിരികെ x | -1; }
+സ്ഥിതം uint32_t eori0(uint32_t x) { തിരികെ x ^ 0; }
+സ്ഥിതം uint64_t eorlm1(uint64_t x) { തിരികെ x ^ -1; }
+സ്ഥിതം uint32_t and0xf0(uint32_t x) { തിരികെ x & 0xf0; }
+സ്ഥിതം uint64_t orr0xf0(uint64_t x) { തിരികെ x | 0xf0; }
+സ്ഥിതം uint64_t eor0xf0(uint64_t x) { തിരികെ x ^ 0xf0; }
 
-static uint32_t lsli0(uint32_t x) { return x << 0; }
-static uint32_t lsri0(uint32_t x) { return x >> 0; }
-static int64_t asrl0(int64_t x) { return x >> 0; }
-static uint32_t lsli1(uint32_t x) { return x << 1; }
-static uint32_t lsli31(uint32_t x) { return x << 31; }
-static uint64_t lsll1(uint64_t x) { return x << 1; }
-static uint64_t lsll63(uint64_t x) { return x << 63; }
-static uint32_t lsri1(uint32_t x) { return x >> 1; }
-static uint32_t lsri31(uint32_t x) { return x >> 31; }
-static uint64_t lsrl1(uint64_t x) { return x >> 1; }
-static uint64_t lsrl63(uint64_t x) { return x >> 63; }
-static int32_t asri1(int32_t x) { return x >> 1; }
-static int32_t asri31(int32_t x) { return x >> 31; }
-static int64_t asrl1(int64_t x) { return x >> 1; }
-static int64_t asrl63(int64_t x) { return x >> 63; }
+സ്ഥിതം uint32_t lsli0(uint32_t x) { തിരികെ x << 0; }
+സ്ഥിതം uint32_t lsri0(uint32_t x) { തിരികെ x >> 0; }
+സ്ഥിതം int64_t asrl0(int64_t x) { തിരികെ x >> 0; }
+സ്ഥിതം uint32_t lsli1(uint32_t x) { തിരികെ x << 1; }
+സ്ഥിതം uint32_t lsli31(uint32_t x) { തിരികെ x << 31; }
+സ്ഥിതം uint64_t lsll1(uint64_t x) { തിരികെ x << 1; }
+സ്ഥിതം uint64_t lsll63(uint64_t x) { തിരികെ x << 63; }
+സ്ഥിതം uint32_t lsri1(uint32_t x) { തിരികെ x >> 1; }
+സ്ഥിതം uint32_t lsri31(uint32_t x) { തിരികെ x >> 31; }
+സ്ഥിതം uint64_t lsrl1(uint64_t x) { തിരികെ x >> 1; }
+സ്ഥിതം uint64_t lsrl63(uint64_t x) { തിരികെ x >> 63; }
+സ്ഥിതം int32_t asri1(int32_t x) { തിരികെ x >> 1; }
+സ്ഥിതം int32_t asri31(int32_t x) { തിരികെ x >> 31; }
+സ്ഥിതം int64_t asrl1(int64_t x) { തിരികെ x >> 1; }
+സ്ഥിതം int64_t asrl63(int64_t x) { തിരികെ x >> 63; }
 
-void opi(void)
+ശൂന്യം opi(ശൂന്യം)
 {
-    int x = 1000;
+    പൂർണ്ണസംഖ്യ x = 1000;
     pll(addip0(x));
     pll(sublp0(x));
     pll(addip123(x));
@@ -537,7 +537,7 @@ void opi(void)
     pll(asrl63(x));
 }
 
-void pcs(void)
+ശൂന്യം pcs(ശൂന്യം)
 {
     arg();
     ret();
@@ -546,8 +546,8 @@ void pcs(void)
     opi();
 }
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
     pcs();
-    return 0;
+    തിരികെ 0;
 }

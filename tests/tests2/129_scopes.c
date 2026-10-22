@@ -1,179 +1,179 @@
-int printf(const char*, ...);
+പൂർണ്ണസംഖ്യ printf(സ്ഥിരം അക്ഷരം*, ...);
 
 #define myassert(x) \
     printf("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
 
-enum{ in = 0};
+എണ്ണൽ{ in = 0};
 
-int main_1(){
+പൂർണ്ണസംഖ്യ main_1(){
     {
         myassert(!in);
-        if(sizeof(enum{in=1})) myassert(in);
+        എങ്കിൽ(വലുപ്പം(എണ്ണൽ{in=1})) myassert(in);
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        switch(sizeof(enum{in=1})) { default: myassert(in); }
+        തിരഞ്ഞെടുപ്പ്(വലുപ്പം(എണ്ണൽ{in=1})) { സ്ഥിരസ്ഥിതി: myassert(in); }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        while(sizeof(enum{in=1})) { myassert(in); break; }
+        ആകുമ്പോൾ(വലുപ്പം(എണ്ണൽ{in=1})) { myassert(in); നിർത്തുക; }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        do{ myassert(!in);}while(0*sizeof(enum{in=1}));
+        ചെയ്യുക{ myassert(!in);}ആകുമ്പോൾ(0*വലുപ്പം(എണ്ണൽ{in=1}));
         myassert(!in); //OOPS
     }
 
     {
         myassert(!in);
-        for(sizeof(enum{in=1});;){ myassert(in); break; }
+        വേണ്ടി(വലുപ്പം(എണ്ണൽ{in=1});;){ myassert(in); നിർത്തുക; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;;sizeof(enum{in=1})){ myassert(in); break; }
+        വേണ്ടി(;;വലുപ്പം(എണ്ണൽ{in=1})){ myassert(in); നിർത്തുക; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;sizeof(enum{in=1});){ myassert(in); break; }
+        വേണ്ടി(;വലുപ്പം(എണ്ണൽ{in=1});){ myassert(in); നിർത്തുക; }
         myassert(!in); //OK
     }
-    return 0;
+    തിരികെ 0;
 }
 
 /* --------------------------------------------- */
-int main_2()
+പൂർണ്ണസംഖ്യ main_2()
 {
-  char c = 'a';
-  void func1(char c); /* param 'c' must not shadow local 'c' */
+  അക്ഷരം c = 'a';
+  ശൂന്യം func1(അക്ഷരം c); /* param 'c' must not shadow local 'c' */
   func1(c);
-  return 0;
+  തിരികെ 0;
 }
 
-void func1(char c)
+ശൂന്യം func1(അക്ഷരം c)
 {
     myassert(c == 'a');
 }
 
-struct st { int a; };
+ഘടന st { പൂർണ്ണസംഖ്യ a; };
 
 /* --------------------------------------------- */
-int main_3()
+പൂർണ്ണസംഖ്യ main_3()
 {
-  struct st func(void);
-  struct st st = func(); /* not an 'incompatible redefinition' */
+  ഘടന st func(ശൂന്യം);
+  ഘടന st st = func(); /* not an 'incompatible redefinition' */
   myassert(st.a == 10);
-  return 0;
+  തിരികെ 0;
 }
 
-struct st func(void)
+ഘടന st func(ശൂന്യം)
 {
-  struct st st = { 10 };
-  return st;
+  ഘടന st st = { 10 };
+  തിരികെ st;
 }
 
 /* --------------------------------------------- */
 /* func* 'md' must not be shadowed by param 'md' */
-static void f4(char *(*md)(char *md))
+സ്ഥിതം ശൂന്യം f4(അക്ഷരം *(*md)(അക്ഷരം *md))
 {
    (*md)("test");
 }
-static char *a4(char *a)
+സ്ഥിതം അക്ഷരം *a4(അക്ഷരം *a)
 {
-    int strcmp();
+    പൂർണ്ണസംഖ്യ strcmp();
     myassert(!strcmp(a, "test"));
-    return a;
+    തിരികെ a;
 }
 
-int main_4()
+പൂർണ്ണസംഖ്യ main_4()
 {
     f4(a4);
-    return 0;
+    തിരികെ 0;
 }
 
 /* --------------------------------------------- */
-int a5[3], b5[];
-int f5(void);
-int main_5()
+പൂർണ്ണസംഖ്യ a5[3], b5[];
+പൂർണ്ണസംഖ്യ f5(ശൂന്യം);
+പൂർണ്ണസംഖ്യ main_5()
 {
-    extern int a5[3], b5[3];
+    ബാഹ്യ പൂർണ്ണസംഖ്യ a5[3], b5[3];
     a5[2]=10, b5[2]=4;
     myassert(f5() == 10 + 4);
-    return 0;
+    തിരികെ 0;
 }
-int f5(void)
+പൂർണ്ണസംഖ്യ f5(ശൂന്യം)
 {
-    return a5[2]+b5[2];
+    തിരികെ a5[2]+b5[2];
 }
-int b5[3];
+പൂർണ്ണസംഖ്യ b5[3];
 
 /* --------------------------------------------- */
-static int f6(int);
-int i6 = 11;
+സ്ഥിതം പൂർണ്ണസംഖ്യ f6(പൂർണ്ണസംഖ്യ);
+പൂർണ്ണസംഖ്യ i6 = 11;
 
-int main_6()
+പൂർണ്ണസംഖ്യ main_6()
 {
     {
-        int i6 = 33, f6 = 44;
+        പൂർണ്ണസംഖ്യ i6 = 33, f6 = 44;
         myassert(i6 == 33 && f6 == 44);
         {
-            int f6(int);
-            extern int i6;
+            പൂർണ്ണസംഖ്യ f6(പൂർണ്ണസംഖ്യ);
+            ബാഹ്യ പൂർണ്ണസംഖ്യ i6;
             myassert(i6 == 11 && f6(22) == 22);
         }
         myassert(i6 == 33 && f6 == 44);
     }
     myassert(i6 == 11 && f6(22) == 22);
-    return 0;
+    തിരികെ 0;
 }
 
-int f6(int x)
+പൂർണ്ണസംഖ്യ f6(പൂർണ്ണസംഖ്യ x)
 {
-    return x;
+    തിരികെ x;
 }
 
 /* --------------------------------------------- */
 
-#if defined __TINYC__ \
+#എങ്കിൽ defined __TINYC__ \
     ? !defined __leading_underscore \
     : !(defined __APPLE__ || defined _WIN32)
 # define _
-#else
+#അല്ലെങ്കിൽ
 # define _ "_"
 #endif
 
-struct xx7 { int a, b; };
+ഘടന xx7 { പൂർണ്ണസംഖ്യ a, b; };
 
-void f7()
+ശൂന്യം f7()
 {
-    struct xx7 { int c; } x;
+    ഘടന xx7 { പൂർണ്ണസംഖ്യ c; } x;
     {
-        extern struct xx7 { int a, b; } x __asm__(_"z7");
+        ബാഹ്യ ഘടന xx7 { പൂർണ്ണസംഖ്യ a, b; } x __asm__(_"z7");
         x.a = 12;
-        struct xx7 y = { 0,0 };
+        ഘടന xx7 y = { 0,0 };
     }
-    struct xx7 y = { 90 };
+    ഘടന xx7 y = { 90 };
     x.c = 78;
     printf("xx7 (1) : %d %d\n", x.c, y.c);
 }
 
-int main_7()
+പൂർണ്ണസംഖ്യ main_7()
 {
     f7();
-    extern struct xx7 y __asm__(_"z7");
+    ബാഹ്യ ഘടന xx7 y __asm__(_"z7");
     printf("xx7 (2) : %d %d\n", y.a, y.b);
-    return 0;
+    തിരികെ 0;
 }
 
 
-struct xx7 z7 = { 0, 34 };
+ഘടന xx7 z7 = { 0, 34 };
 
 /* --------------------------------------------- */
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
     main_1();
     main_2();
@@ -182,5 +182,5 @@ int main()
     main_5();
     main_6();
     main_7();
-    return 0;
+    തിരികെ 0;
 }

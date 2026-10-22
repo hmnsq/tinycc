@@ -69,7 +69,7 @@
   M_IF(M_TEST_METHOD_P(INIT, op))(ok, nok)
 #define TEST4(op) \
   TEST1(TEST2(op))
-#define KO(a) ((void)1)
+#define KO(a) ((ശൂന്യം)1)
 
 /* This checks that the various expansions that ultimately lead to
    something like 'KO(arg,arg)', where 'KO' comes from a macro

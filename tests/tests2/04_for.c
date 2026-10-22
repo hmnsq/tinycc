@@ -1,15 +1,15 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main() 
+പൂർണ്ണസംഖ്യ പ്രധാന() 
 {
-   int Count;
+   പൂർണ്ണസംഖ്യ എണ്ണം_3;
 
-   for (Count = 1; Count <= 10; Count++)
+   വേണ്ടി (എണ്ണം_3 = 1; എണ്ണം_3 <= 10; എണ്ണം_3++)
    {
-      printf("%d\n", Count);
+      printf("%d\n", എണ്ണം_3);
    }
 
-   return 0;
+   തിരികെ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

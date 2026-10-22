@@ -1,6 +1,6 @@
-int printf(const char *, ...);
+പൂർണ്ണസംഖ്യ printf(സ്ഥിരം അക്ഷരം *, ...);
 
-#define assert(x) ((x) \
+#define പ്രതിജ്ഞാ(x) ((x) \
     ? (printf(" 1 (%s)\n",#x),1) \
     : (printf("%s:%d: error: (%s)\n",__FILE__,__LINE__,#x),0))
 
@@ -8,145 +8,145 @@ int printf(const char *, ...);
 #define SO 200
 
 /* ------------------------------------------------------ */
-#if TEST-O == 1
-extern char etext[], _etext[];
-extern char edata[], _edata[];
-extern char end[], _end[];
-int check_linker_symbols(void)
+#എങ്കിൽ TEST-O == 1
+ബാഹ്യ അക്ഷരം etext[], _etext[];
+ബാഹ്യ അക്ഷരം edata[], _edata[];
+ബാഹ്യ അക്ഷരം end[], _end[];
+പൂർണ്ണസംഖ്യ check_linker_symbols(ശൂന്യം)
 {
-    int errors = 0;
-    errors += !assert(etext == _etext);
-    errors += !assert(edata == _edata);
-    errors += !assert(end == _end);
-    return errors;
+    പൂർണ്ണസംഖ്യ errors = 0;
+    errors += !പ്രതിജ്ഞാ(etext == _etext);
+    errors += !പ്രതിജ്ഞാ(edata == _edata);
+    errors += !പ്രതിജ്ഞാ(end == _end);
+    തിരികെ errors;
 }
 
-#elif TEST-MAIN == 1
-int check_linker_symbols(void);
-int main(void)
+#അല്ലെങ്കിലെങ്കിൽ TEST-MAIN == 1
+പൂർണ്ണസംഖ്യ check_linker_symbols(ശൂന്യം);
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
     printf("linker symbols test\n");
-    assert(check_linker_symbols() == 0);
+    പ്രതിജ്ഞാ(check_linker_symbols() == 0);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 2
-extern char etext[], edata[], end[];
-void get_dso_end(char **p)
+#അല്ലെങ്കിലെങ്കിൽ TEST-SO == 2
+ബാഹ്യ അക്ഷരം etext[], edata[], end[];
+ശൂന്യം get_dso_end(അക്ഷരം **p)
 {
     p[0] = etext;
     p[1] = edata;
     p[2] = end;
 }
 
-#elif TEST-MAIN == 2
-extern char _etext[], _edata[], _end[];
-extern void get_dso_end(char **);
-static int fill_data = 123;
-static int fill_bss;
+#അല്ലെങ്കിലെങ്കിൽ TEST-MAIN == 2
+ബാഹ്യ അക്ഷരം _etext[], _edata[], _end[];
+ബാഹ്യ ശൂന്യം get_dso_end(അക്ഷരം **);
+സ്ഥിതം പൂർണ്ണസംഖ്യ fill_data = 123;
+സ്ഥിതം പൂർണ്ണസംഖ്യ fill_bss;
 
-int main(void)
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
-    char *p[3];
+    അക്ഷരം *p[3];
     printf("DSO linker symbols test\n");
     get_dso_end(p);
-    assert(p[0] == _etext) || printf("-- %p %p\n", p[0], _etext);
-    assert(p[1] == _edata) || printf("-- %p %p\n", p[1], _edata);
-    assert(p[2] == _end)   || printf("-- %p %p\n", p[2], _end);
+    പ്രതിജ്ഞാ(p[0] == _etext) || printf("-- %p %p\n", p[0], _etext);
+    പ്രതിജ്ഞാ(p[1] == _edata) || printf("-- %p %p\n", p[1], _edata);
+    പ്രതിജ്ഞാ(p[2] == _end)   || printf("-- %p %p\n", p[2], _end);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-MAIN == 3
+#അല്ലെങ്കിലെങ്കിൽ TEST-MAIN == 3
 
-int etext(void) { return 1; }
-int edata(void) { return 2; }
-int end(void) { return 3; }
-int main(void)
+പൂർണ്ണസംഖ്യ etext(ശൂന്യം) { തിരികെ 1; }
+പൂർണ്ണസംഖ്യ edata(ശൂന്യം) { തിരികെ 2; }
+പൂർണ്ണസംഖ്യ end(ശൂന്യം) { തിരികെ 3; }
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
     printf("user definition test\n");
-    assert(etext() + edata() + end() == 6);
+    പ്രതിജ്ഞാ(etext() + edata() + end() == 6);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 4
-unsigned char copy_reloc_data[257];
+#അല്ലെങ്കിലെങ്കിൽ TEST-SO == 4
+unsigned അക്ഷരം copy_reloc_data[257];
 
-#elif TEST-MAIN == 4
-extern unsigned char copy_reloc_data[257];
-extern char end[], _end[];
+#അല്ലെങ്കിലെങ്കിൽ TEST-MAIN == 4
+ബാഹ്യ unsigned അക്ഷരം copy_reloc_data[257];
+ബാഹ്യ അക്ഷരം end[], _end[];
 
-int main(void)
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
     unsigned long data_end;
     printf("end copy relocation test\n");
     copy_reloc_data[256] = 42;
-    data_end = (unsigned long)(copy_reloc_data + sizeof copy_reloc_data);
-    assert(end == _end);
-    assert((unsigned long)end >= data_end);
-    assert(copy_reloc_data[256] == 42);
+    data_end = (unsigned long)(copy_reloc_data + വലുപ്പം copy_reloc_data);
+    പ്രതിജ്ഞാ(end == _end);
+    പ്രതിജ്ഞാ((unsigned long)end >= data_end);
+    പ്രതിജ്ഞാ(copy_reloc_data[256] == 42);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-O == 5
-void __attribute__((section(".text.linker_test"), noinline, used))
-linker_test_text(void)
+#അല്ലെങ്കിലെങ്കിൽ TEST-O == 5
+ശൂന്യം __attribute__((section(".text.linker_test"), noinline, used))
+linker_test_text(ശൂന്യം)
 {
 }
 __attribute__((section(".bss.linker_test"), used))
-unsigned char linker_test_bss[257];
+unsigned അക്ഷരം linker_test_bss[257];
 
 __attribute__((section(".data.linker_test"), used))
-unsigned char linker_test_data[23] = { 1 };
+unsigned അക്ഷരം linker_test_data[23] = { 1 };
 
-#elif TEST-MAIN == 5
-extern void linker_test_text(void);
-extern unsigned char linker_test_data[23];
-extern unsigned char linker_test_bss[257];
-extern char etext[], _etext[];
-extern char edata[], _edata[];
-extern char end[], _end[];
+#അല്ലെങ്കിലെങ്കിൽ TEST-MAIN == 5
+ബാഹ്യ ശൂന്യം linker_test_text(ശൂന്യം);
+ബാഹ്യ unsigned അക്ഷരം linker_test_data[23];
+ബാഹ്യ unsigned അക്ഷരം linker_test_bss[257];
+ബാഹ്യ അക്ഷരം etext[], _etext[];
+ബാഹ്യ അക്ഷരം edata[], _edata[];
+ബാഹ്യ അക്ഷരം end[], _end[];
 
-int main(void)
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
-    char* text_addr = (void*)linker_test_text;
-    char* data_end = linker_test_data + sizeof linker_test_data;
-    char* bss_end = linker_test_bss + sizeof linker_test_bss;
+    അക്ഷരം* text_addr = (ശൂന്യം*)linker_test_text;
+    അക്ഷരം* data_end = linker_test_data + വലുപ്പം linker_test_data;
+    അക്ഷരം* bss_end = linker_test_bss + വലുപ്പം linker_test_bss;
 
     printf("linker boundary test\n");
     linker_test_data[22] = 42;
     linker_test_bss[256] = 42;
-    assert(linker_test_bss > linker_test_data);
-    assert(etext == _etext);
-    assert(edata == _edata);
-    assert(end == _end);
-    assert(etext >= text_addr);
-    assert(edata >= data_end);
-    assert(end >= bss_end);
-    assert(linker_test_data[22] == 42);
-    assert(linker_test_bss[256] == 42);
+    പ്രതിജ്ഞാ(linker_test_bss > linker_test_data);
+    പ്രതിജ്ഞാ(etext == _etext);
+    പ്രതിജ്ഞാ(edata == _edata);
+    പ്രതിജ്ഞാ(end == _end);
+    പ്രതിജ്ഞാ(etext >= text_addr);
+    പ്രതിജ്ഞാ(edata >= data_end);
+    പ്രതിജ്ഞാ(end >= bss_end);
+    പ്രതിജ്ഞാ(linker_test_data[22] == 42);
+    പ്രതിജ്ഞാ(linker_test_bss[256] == 42);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 6
-int end;
-int eight = 8;
-int nine;
-int dso_add() { return end + eight + nine; }
+#അല്ലെങ്കിലെങ്കിൽ TEST-SO == 6
+പൂർണ്ണസംഖ്യ end;
+പൂർണ്ണസംഖ്യ eight = 8;
+പൂർണ്ണസംഖ്യ nine;
+പൂർണ്ണസംഖ്യ dso_add() { തിരികെ end + eight + nine; }
 
-#elif TEST-MAIN == 6
-int end = 7;
-int eight;
-int nine = 9;
-int dso_add();
-int main()
+#അല്ലെങ്കിലെങ്കിൽ TEST-MAIN == 6
+പൂർണ്ണസംഖ്യ end = 7;
+പൂർണ്ണസംഖ്യ eight;
+പൂർണ്ണസംഖ്യ nine = 9;
+പൂർണ്ണസംഖ്യ dso_add();
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-    int sum;
+    പൂർണ്ണസംഖ്യ sum;
     printf("DSO initialized data test\n");
     sum = dso_add();
-    assert(end == 7);
-    assert(eight == 8);
-    assert(nine == 9);
-    assert(sum == 24) || printf("-- %d + %d + %d = %d\n", end, eight, nine, sum);
+    പ്രതിജ്ഞാ(end == 7);
+    പ്രതിജ്ഞാ(eight == 8);
+    പ്രതിജ്ഞാ(nine == 9);
+    പ്രതിജ്ഞാ(sum == 24) || printf("-- %d + %d + %d = %d\n", end, eight, nine, sum);
 }
 
 /* ------------------------------------------------------ */

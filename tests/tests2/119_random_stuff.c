@@ -1,133 +1,133 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-struct big_struct { char a[262144]; };
+ഘടന big_struct { അക്ഷരം a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+സ്ഥിതം സ്ഥിരം അക്ഷരം str[] = "abcdefghijklmnopqrstuvwxyz";
 
-void tst_branch(void)
+ശൂന്യം tst_branch(ശൂന്യം)
 {
   printf("tst_branch --");
-  goto *&&a; 
+  പോകുക *&&a; 
   printf (" dummy");
 a: ;
   printf(" --\n");
 }
 
-void tst_void_ptr(void *pv, int i) 
+ശൂന്യം tst_void_ptr(ശൂന്യം *pv, പൂർണ്ണസംഖ്യ i) 
 {
   i ? *pv : *pv; // dr106
 }
 
-void tst_shift(void)
+ശൂന്യം tst_shift(ശൂന്യം)
 {
-  int i = 1;
+  പൂർണ്ണസംഖ്യ i = 1;
   long long l = 1;
   i = i << 32; // illegal. just test
   l = l << 64; // illegal. just test
 }
 
-#if !defined(_WIN32)
-#include <sys/mman.h>
+#എങ്കിൽ !defined(_WIN32)
+#അന്തര്ഭാവ <sys/mman.h>
 
-void tst_const_addr(void)
+ശൂന്യം tst_const_addr(ശൂന്യം)
 {
-  void *addr = mmap ((void *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
-  if (addr != (void *) -1) {
-    *(int *)0x20000000 += 42;
+  ശൂന്യം *addr = mmap ((ശൂന്യം *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
+  എങ്കിൽ (addr != (ശൂന്യം *) -1) {
+    *(പൂർണ്ണസംഖ്യ *)0x20000000 += 42;
     munmap (addr, 4096);
   }
 }
 #endif
 
-struct zero_struct {};
+ഘടന zero_struct {};
 
-struct zero_struct tst_zero_struct(void)
+ഘടന zero_struct tst_zero_struct(ശൂന്യം)
 {
-  struct zero_struct ret;
-  return ret;
+  ഘടന zero_struct ret;
+  തിരികെ ret;
 }
 
-struct big_struct tst_big(struct big_struct tst)
+ഘടന big_struct tst_big(ഘടന big_struct tst)
 {
-   return tst;
+   തിരികെ tst;
 }
 
-void tst_adr (int (*fp)(char *, const char *, ...))
+ശൂന്യം tst_adr (പൂർണ്ണസംഖ്യ (*fp)(അക്ഷരം *, സ്ഥിരം അക്ഷരം *, ...))
 {
-  char buf[10];
+  അക്ഷരം buf[10];
   (*fp)(buf, "%.0f", 5.0);
   printf("tst_adr %s\n", buf);
 }
 
-int tst(void)
+പൂർണ്ണസംഖ്യ tst(ശൂന്യം)
 {
-  long long value = 3;
-  return -value;
+  long long മൂല്യം = 3;
+  തിരികെ -മൂല്യം;
 }
 
-void tst_compare(void)
+ശൂന്യം tst_compare(ശൂന്യം)
 {
   /* This failed on risc64 */
   printf ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
 }
 
 #pragma pack(1)
-struct S { int d:24; int f:14; } i, j;
+ഘടന S { പൂർണ്ണസംഖ്യ d:24; പൂർണ്ണസംഖ്യ f:14; } i, j;
 #pragma pack()
 
-void tst_pack (void)
+ശൂന്യം tst_pack (ശൂന്യം)
 {
   i.f = 5; j.f = 5;
   printf("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
 }
 
-void tst_cast(void)
+ശൂന്യം tst_cast(ശൂന്യം)
 {
-  signed char c = (signed char) 0xaaaaaaaa;
-  int r = (unsigned short) c ^ (signed char) 0x99999999;
+  signed അക്ഷരം c = (signed അക്ഷരം) 0xaaaaaaaa;
+  പൂർണ്ണസംഖ്യ r = (unsigned short) c ^ (signed അക്ഷരം) 0x99999999;
   printf ("schar to ushort cast: %x\n", r);
 }
 
-struct {
-    int (*print)(const char *format, ...);
+ഘടന {
+    പൂർണ്ണസംഖ്യ (*print)(സ്ഥിരം അക്ഷരം *format, ...);
 } tst_indir = {
     printf
 };
 
-void tst_indir_func(void)
+ശൂന്യം tst_indir_func(ശൂന്യം)
 {
     tst_indir.print("tst_indir_func %d\n", 10);
 }
 
-struct V {
-  int x, y, z;
+ഘടന V {
+  പൂർണ്ണസംഖ്യ x, y, z;
 };
 
-struct V vec(void)
+ഘടന V vec(ശൂന്യം)
 {
-  return (struct V) { 1, 2, 3 };
+  തിരികെ (ഘടന V) { 1, 2, 3 };
 }
 
-void func(float f, struct V v)
+ശൂന്യം func(ദശാംശം f, ഘടന V v)
 {
   printf("%g\n", f);
 }
 
-void tst_struct_return_align(void)
+ശൂന്യം tst_struct_return_align(ശൂന്യം)
 {
-  float d = 5.0f;
+  ദശാംശം d = 5.0f;
   func(d, vec());
 }
 
-int
-main (void)
+പൂർണ്ണസംഖ്യ
+പ്രധാന (ശൂന്യം)
 {
-  struct big_struct big;
+  ഘടന big_struct big;
 
   tst_branch();
   tst_shift();
   tst_void_ptr(&big.a[0], 0);
-#if !defined(_WIN32)
+#എങ്കിൽ !defined(_WIN32)
   tst_const_addr();
 #endif
   tst_zero_struct();

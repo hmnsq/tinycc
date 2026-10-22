@@ -1,24 +1,24 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-void fred()
+ശൂന്യം fred()
 {
    printf("In fred()\n");
-   goto done;
+   പോകുക done;
    printf("In middle\n");
 done:
    printf("At end\n");
 }
 
-void joe()
+ശൂന്യം joe()
 {
-   int b = 5678;
+   പൂർണ്ണസംഖ്യ b = 5678;
 
    printf("In joe()\n");
 
    {
-      int c = 1234;
+      പൂർണ്ണസംഖ്യ c = 1234;
       printf("c = %d\n", c);
-      goto outer;
+      പോകുക outer;
       printf("uh-oh\n");
    }
 
@@ -27,15 +27,15 @@ outer:
    printf("done\n");
 }
 
-void henry()
+ശൂന്യം henry()
 {
-   int a;
+   പൂർണ്ണസംഖ്യ a;
 
    printf("In henry()\n");
-   goto inner;
+   പോകുക inner;
 
    {
-      int b;
+      പൂർണ്ണസംഖ്യ b;
 inner:    
       b = 1234;
       printf("b = %d\n", b);
@@ -44,13 +44,13 @@ inner:
    printf("done\n");
 }
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

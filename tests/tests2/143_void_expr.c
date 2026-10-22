@@ -1,17 +1,17 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-static void f(int x)
+സ്ഥിതം ശൂന്യം f(പൂർണ്ണസംഖ്യ x)
 {
      printf("f(%d)\n", x);
 }
 
-int main(void)
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
+     പൂർണ്ണസംഖ്യ എണ്ണം_2 = 0, i = 0;
+     വേണ്ടി (; i < 3; ++i) {
          printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+         (ശൂന്യം)(i || (f(i), ++എണ്ണം_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     printf("count %d\n", എണ്ണം_2);
+     തിരികെ എണ്ണം_2 == 1 ? 0 : 1;
 }

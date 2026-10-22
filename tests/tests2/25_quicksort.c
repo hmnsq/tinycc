@@ -1,52 +1,52 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int array[16];
+പൂർണ്ണസംഖ്യ array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+ശൂന്യം swap(പൂർണ്ണസംഖ്യ a, പൂർണ്ണസംഖ്യ b)
 {
-   int tmp  = array[a];
+   പൂർണ്ണസംഖ്യ tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+പൂർണ്ണസംഖ്യ partition(പൂർണ്ണസംഖ്യ ഇടത്, പൂർണ്ണസംഖ്യ വലത്)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   പൂർണ്ണസംഖ്യ pivotIndex = ഇടത്;
+   പൂർണ്ണസംഖ്യ pivot_മൂല്യം = array[pivotIndex];
+   പൂർണ്ണസംഖ്യ index = ഇടത്;
+   പൂർണ്ണസംഖ്യ i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   swap(pivotIndex, വലത്);
+   വേണ്ടി(i = ഇടത്; i < വലത്; i++)
    {
-      if(array[i] < pivotValue)
+      എങ്കിൽ(array[i] < pivot_മൂല്യം)
       {
          swap(i, index);
          index += 1;
       }
    }
-   swap(right, index);
+   swap(വലത്, index);
 
-   return index;
+   തിരികെ index;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+ശൂന്യം quicksort(പൂർണ്ണസംഖ്യ ഇടത്, പൂർണ്ണസംഖ്യ വലത്)
 {
-   if(left >= right)
-      return;
+   എങ്കിൽ(ഇടത് >= വലത്)
+      തിരികെ;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   പൂർണ്ണസംഖ്യ index = partition(ഇടത്, വലത്);
+   quicksort(ഇടത്, index - 1);
+   quicksort(index + 1, വലത്);
 }
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int i;
+   പൂർണ്ണസംഖ്യ i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
+   വേണ്ടി (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
+   വേണ്ടി (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

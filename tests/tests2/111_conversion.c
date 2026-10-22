@@ -1,24 +1,24 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-union u {
+സംഘം u {
     unsigned long ul;
-    long double ld;
+    long ഇരട്ട ld;
 };
 
-void
-conv (union u *p)
+ശൂന്യം
+conv (സംഘം u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (unsigned പൂർണ്ണസംഖ്യ) p->ld;
 }
 
-int main (void)
+പൂർണ്ണസംഖ്യ പ്രധാന (ശൂന്യം)
 {
-    union u v;
-    double d = 1234567890.0;
+    സംഘം u v;
+    ഇരട്ട d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
     printf ("%lu\n", v.ul);
     printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    തിരികെ 0;
 }

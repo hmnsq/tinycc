@@ -6,10 +6,10 @@
 #ifndef _INC_MEMORY
 #define _INC_MEMORY
 
-#include <_mingw.h>
+#അന്തര്ഭാവ <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+ബാഹ്യ "C" {
 #endif
 
 #ifndef _CONST_RETURN
@@ -20,17 +20,17 @@ extern "C" {
 
 #ifndef _CRT_MEMORY_DEFINED
 #define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+  _CRTIMP ശൂന്യം *__cdecl _memccpy(ശൂന്യം *_Dst,സ്ഥിരം ശൂന്യം *_Src,പൂർണ്ണസംഖ്യ _Val,size_t Max_എണ്ണം);
+  _CONST_RETURN ശൂന്യം *__cdecl memchr(സ്ഥിരം ശൂന്യം *_Buf ,പൂർണ്ണസംഖ്യ _Val,size_t Max_എണ്ണം);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _memicmp(സ്ഥിരം ശൂന്യം *_Buf1,സ്ഥിരം ശൂന്യം *_Buf2,size_t _Size);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _memicmp_l(സ്ഥിരം ശൂന്യം *_Buf1,സ്ഥിരം ശൂന്യം *_Buf2,size_t _Size,_locale_t _Locale);
+  പൂർണ്ണസംഖ്യ __cdecl memcmp(സ്ഥിരം ശൂന്യം *_Buf1,സ്ഥിരം ശൂന്യം *_Buf2,size_t _Size);
+  ശൂന്യം *__cdecl memcpy(ശൂന്യം *_Dst,സ്ഥിരം ശൂന്യം *_Src,size_t _Size);
+  ശൂന്യം *__cdecl memset(ശൂന്യം *_Dst,പൂർണ്ണസംഖ്യ _Val,size_t _Size);
 
 #ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
+  ശൂന്യം *__cdecl memccpy(ശൂന്യം *_Dst,സ്ഥിരം ശൂന്യം *_Src,പൂർണ്ണസംഖ്യ _Val,size_t _Size);
+  പൂർണ്ണസംഖ്യ __cdecl memicmp(സ്ഥിരം ശൂന്യം *_Buf1,സ്ഥിരം ശൂന്യം *_Buf2,size_t _Size);
 #endif
 #endif
 

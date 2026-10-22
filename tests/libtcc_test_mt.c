@@ -3,74 +3,74 @@
  */
 
 #ifndef FIB
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
-#include "libtcc.h"
+#അന്തര്ഭാവ <stdlib.h>
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <string.h>
+#അന്തര്ഭാവ <setjmp.h>
+#അന്തര്ഭാവ "libtcc.h"
 
 #define M 20 /* number of states */
 #define F(n) (n % 20 + 2) /* fib argument */
 
 #ifdef _WIN32
-#include <windows.h>
-#define TF_TYPE(func, param) DWORD WINAPI func(void *param)
-typedef TF_TYPE(ThreadFunc, x);
+#അന്തര്ഭാവ <windows.h>
+#define TF_TYPE(func, param) DWORD WINAPI func(ശൂന്യം *param)
+തരനിർവചനം TF_TYPE(ThreadFunc, x);
 HANDLE hh[M];
-void create_thread(ThreadFunc f, int n)
+ശൂന്യം create_thread(ThreadFunc f, പൂർണ്ണസംഖ്യ n)
 {
     DWORD tid;
-    hh[n] = CreateThread(NULL, 0, f, (void*)(size_t)n, 0, &tid);
+    hh[n] = CreateThread(ശൂന്യ, 0, f, (ശൂന്യം*)(size_t)n, 0, &tid);
 }
-void wait_threads(int n)
+ശൂന്യം wait_threads(പൂർണ്ണസംഖ്യ n)
 {
     WaitForMultipleObjects(n, hh, TRUE, INFINITE);
-    while (n)
+    ആകുമ്പോൾ (n)
         CloseHandle(hh[--n]);
 }
-void sleep_ms(unsigned n)
+ശൂന്യം sleep_ms(unsigned n)
 {
     Sleep(n);
 }
-#else
-#include <sys/time.h>
-#include <unistd.h>
-#include <pthread.h>
-#define TF_TYPE(func, param) void* func(void *param)
-typedef TF_TYPE(ThreadFunc, x);
+#അല്ലെങ്കിൽ
+#അന്തര്ഭാവ <sys/time.h>
+#അന്തര്ഭാവ <unistd.h>
+#അന്തര്ഭാവ <pthread.h>
+#define TF_TYPE(func, param) ശൂന്യം* func(ശൂന്യം *param)
+തരനിർവചനം TF_TYPE(ThreadFunc, x);
 pthread_t hh[M];
-void create_thread(ThreadFunc f, int n)
+ശൂന്യം create_thread(ThreadFunc f, പൂർണ്ണസംഖ്യ n)
 {
-    pthread_create(&hh[n], NULL, f, (void*)(size_t)n);
+    pthread_create(&hh[n], ശൂന്യ, f, (ശൂന്യം*)(size_t)n);
 }
-void wait_threads(int n)
+ശൂന്യം wait_threads(പൂർണ്ണസംഖ്യ n)
 {
-    while (n)
-        pthread_join(hh[--n], NULL);
+    ആകുമ്പോൾ (n)
+        pthread_join(hh[--n], ശൂന്യ);
 
 }
-void sleep_ms(unsigned n)
+ശൂന്യം sleep_ms(unsigned n)
 {
     usleep(n * 1000);
 }
 #endif
 
-void handle_error(void *opaque, const char *msg)
+ശൂന്യം handle_error(ശൂന്യം *opaque, സ്ഥിരം അക്ഷരം *സന്ദേശം)
 {
-    fprintf(opaque, "%s\n", msg);
+    fprintf(opaque, "%s\n", സന്ദേശം);
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+പൂർണ്ണസംഖ്യ add(പൂർണ്ണസംഖ്യ a, പൂർണ്ണസംഖ്യ b)
 {
-    return a + b;
+    തിരികെ a + b;
 }
 
 #define _str(s) #s
 #define str(s) _str(s)
 /* as a trick, prepend #line directive for better error/warning messages */
 #define PROG(lbl) \
-    char lbl[] = "#line " str(__LINE__) " " str(__FILE__) "\n\n"
+    അക്ഷരം lbl[] = "#line " str(__LINE__) " " str(__FILE__) "\n\n"
 
 PROG(my_program)
 "#include <tcclib.h>\n" /* include the "Simple libc header for TCC" */
@@ -94,270 +94,270 @@ PROG(my_program)
 "#  warning is this the correct file:line...\n"
 "}\n";
 
-int g_argc; char **g_argv;
+പൂർണ്ണസംഖ്യ g_argc; അക്ഷരം **g_argv;
 
-void parse_args(TCCState *s)
+ശൂന്യം parse_args(TCCState *s)
 {
-    int i;
+    പൂർണ്ണസംഖ്യ i;
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-    for (i = 1; i < g_argc; ++i) {
-        char *a = g_argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
+    വേണ്ടി (i = 1; i < g_argc; ++i) {
+        അക്ഷരം *a = g_argv[i];
+        എങ്കിൽ (a[0] == '-') {
+            എങ്കിൽ (a[1] == 'B')
                 tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
+            അല്ലെങ്കിൽ എങ്കിൽ (a[1] == 'I')
                 tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
+            അല്ലെങ്കിൽ എങ്കിൽ (a[1] == 'L')
                 tcc_add_library_path(s, a+2);
-            else if (a[1] == 'D')
-                tcc_define_symbol(s, a+2, NULL);
+            അല്ലെങ്കിൽ എങ്കിൽ (a[1] == 'D')
+                tcc_define_ചിഹ്നം(s, a+2, ശൂന്യ);
         }
     }
 }
 
-int backtrace_func(
-    void *ud,
-    void *pc,
-    const char *file,
-    int line,
-    const char *func,
-    const char *msg)
+പൂർണ്ണസംഖ്യ backtrace_func(
+    ശൂന്യം *ud,
+    ശൂന്യം *pc,
+    സ്ഥിരം അക്ഷരം *file,
+    പൂർണ്ണസംഖ്യ വരി,
+    സ്ഥിരം അക്ഷരം *func,
+    സ്ഥിരം അക്ഷരം *സന്ദേശം)
 {
-#if 0
+#എങ്കിൽ 0
     printf("\n  *** %p %s %s:%d in '%s'",
         pc,
-        msg ? "at" : "by",
+        സന്ദേശം ? "at" : "by",
         file ? file : "?",
-        line,
+        വരി,
         func ? func : "?");
-    return 1; // want more backtrace levels
-#else
+    തിരികെ 1; // want more backtrace levels
+#അല്ലെങ്കിൽ
     //printf(" [%d]", *(int*)ud);
     printf("!");
-    return 0; // cancel backtrace
+    തിരികെ 0; // cancel backtrace
 #endif
 }
 
-TCCState *new_state(int w)
+TCCState *new_state(പൂർണ്ണസംഖ്യ w)
 {
     TCCState *s = tcc_new();
-    if (!s) {
+    എങ്കിൽ (!s) {
         fprintf(stderr, __FILE__ ": could not create tcc state\n");
         exit(1);
     }
     tcc_set_error_func(s, stdout, handle_error);
     parse_args(s);
-    if (0 == (w & 1))
+    എങ്കിൽ (0 == (w & 1))
         tcc_set_options(s, "-w");
-    if (w & 2) {
+    എങ്കിൽ (w & 2) {
         tcc_set_options(s, "-bt");
-        tcc_define_symbol(s, "N_CRASH", str(M/2));
-    } else
-        tcc_define_symbol(s, "N_CRASH", "-1000");
+        tcc_define_ചിഹ്നം(s, "N_CRASH", str(M/2));
+    } അല്ലെങ്കിൽ
+        tcc_define_ചിഹ്നം(s, "N_CRASH", "-1000");
     tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
-    return s;
+    തിരികെ s;
 }
 
-void *reloc_state(TCCState *s, const char *entry)
+ശൂന്യം *reloc_state(TCCState *s, സ്ഥിരം അക്ഷരം *entry)
 {
-    void *func;
-    tcc_add_symbol(s, "add", add);
-    tcc_add_symbol(s, "printf", printf);
-    if (tcc_relocate(s) < 0) {
+    ശൂന്യം *func;
+    tcc_add_ചിഹ്നം(s, "add", add);
+    tcc_add_ചിഹ്നം(s, "printf", printf);
+    എങ്കിൽ (tcc_relocate(s) < 0) {
         fprintf(stderr, __FILE__ ": could not relocate tcc state.\n");
-        return NULL;
+        തിരികെ ശൂന്യ;
     }
-    func = tcc_get_symbol(s, entry);
-    if (!func)
+    func = tcc_get_ചിഹ്നം(s, entry);
+    എങ്കിൽ (!func)
         fprintf(stderr, __FILE__ ": could not get entry symbol.\n");
-    return func;
+    തിരികെ func;
 }
 
 /* work with several states at the same time */
-int state_test(int w)
+പൂർണ്ണസംഖ്യ state_test(പൂർണ്ണസംഖ്യ w)
 {
     TCCState *s[M];
-    int (*funcs[M])(int);
-    int n;
+    പൂർണ്ണസംഖ്യ (*funcs[M])(പൂർണ്ണസംഖ്യ);
+    പൂർണ്ണസംഖ്യ n;
     jmp_buf jb;
 
-    for (n = 0; n < M + 4; ++n) {
+    വേണ്ടി (n = 0; n < M + 4; ++n) {
         unsigned a = n, b = n - 1, c = n - 2, d = n - 3, e = n - 4;
-        if (a < M)
+        എങ്കിൽ (a < M)
             s[a] = new_state(w);
-        if (b < M)
-            if (tcc_compile_string(s[b], my_program) == -1)
-                break;
-        if (c < M)
+        എങ്കിൽ (b < M)
+            എങ്കിൽ (tcc_compile_string(s[b], my_program) == -1)
+                നിർത്തുക;
+        എങ്കിൽ (c < M)
             funcs[c] = reloc_state(s[c], "foo");
-        if (d < M && funcs[d]) {
+        എങ്കിൽ (d < M && funcs[d]) {
             tcc_set_backtrace_func(s[d], &d, backtrace_func);
-            if (0 == tcc_setjmp(s[d], jb, funcs[d]))
+            എങ്കിൽ (0 == tcc_setjmp(s[d], jb, funcs[d]))
                 funcs[d](F(d));
         }
-        if (e < M)
+        എങ്കിൽ (e < M)
             tcc_delete(s[e]);
     }
-    return 0;
+    തിരികെ 0;
 }
 
 /* simple compilation in threads */
 TF_TYPE(thread_test_simple, vn)
 {
     TCCState *s;
-    int (*func)(int);
-    int ret;
-    int n = (size_t)vn;
+    പൂർണ്ണസംഖ്യ (*func)(പൂർണ്ണസംഖ്യ);
+    പൂർണ്ണസംഖ്യ ret;
+    പൂർണ്ണസംഖ്യ n = (size_t)vn;
     jmp_buf jb;
 
     s = new_state(0); /* '2' for exceptions */
     sleep_ms(1);
     ret = tcc_compile_string(s, my_program);
     sleep_ms(1);
-    if (ret >= 0) {
+    എങ്കിൽ (ret >= 0) {
         func = reloc_state(s, "foo");
         tcc_set_backtrace_func(s, &n, backtrace_func);
-        if (func) {
-            if (0 == tcc_setjmp(s, jb, func))
+        എങ്കിൽ (func) {
+            എങ്കിൽ (0 == tcc_setjmp(s, jb, func))
                 func(F(n));
         }
     }
     tcc_delete(s);
-    return 0;
+    തിരികെ 0;
 }
 
 /* more complex compilation in threads */
 TF_TYPE(thread_test_complex, vn)
 {
     TCCState *s;
-    int ret;
-    int n = (size_t)vn;
-    char *argv[30], b[10];
-    int argc = 0, i;
+    പൂർണ്ണസംഖ്യ ret;
+    പൂർണ്ണസംഖ്യ n = (size_t)vn;
+    അക്ഷരം *argv[30], b[10];
+    പൂർണ്ണസംഖ്യ argc = 0, i;
 
     sprintf(b, "%d", F(n));
 
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
-#if 0
+    വേണ്ടി (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+#എങ്കിൽ 0
     argv[argc++] = "-run";
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+    വേണ്ടി (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
 #endif
     argv[argc++] = "-DFIB";
     argv[argc++] = "-run";
     argv[argc++] = __FILE__;
     argv[argc++] = b;
-    argv[argc] = NULL;
+    argv[argc] = ശൂന്യ;
 
     s = new_state(1);
     sleep_ms(2);
     ret = tcc_add_file(s, argv[0]);
     sleep_ms(3);
-    if (ret == 0)
+    എങ്കിൽ (ret == 0)
         tcc_run(s, argc, argv);
     tcc_delete(s);
     fflush(stdout);
-    return 0;
+    തിരികെ 0;
 }
 
-void time_tcc(int n, const char *src)
+ശൂന്യം time_tcc(പൂർണ്ണസംഖ്യ n, സ്ഥിരം അക്ഷരം *src)
 {
     TCCState *s;
-    int ret, i = 0;
-    while (i++ < n) {
+    പൂർണ്ണസംഖ്യ ret, i = 0;
+    ആകുമ്പോൾ (i++ < n) {
         s = new_state(1);
         printf(" %d", i), fflush(stdout);
         ret = tcc_add_file(s, src);
         tcc_delete(s);
-        if (ret < 0)
+        എങ്കിൽ (ret < 0)
             exit(1);
     }
 }
 
-static unsigned getclock_ms(void)
+സ്ഥിതം unsigned getclock_ms(ശൂന്യം)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    തിരികെ Get_Tick_എണ്ണം();
+#അല്ലെങ്കിൽ
+    ഘടന timeval tv;
+    gettimeofday(&tv, ശൂന്യ);
+    തിരികെ tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int main(int argc, char **argv)
+പൂർണ്ണസംഖ്യ പ്രധാന(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv)
 {
-    int n;
+    പൂർണ്ണസംഖ്യ n;
     unsigned t;
 
     g_argc = argc;
     g_argv = argv;
 
-    if (argc < 2) {
+    എങ്കിൽ (argc < 2) {
         fprintf(stderr, "usage: libtcc_test_mt tcc.c <options>\n");
-        return 1;
+        തിരികെ 1;
     }
 
-#if 1
+#എങ്കിൽ 1
     printf("running fib with mixed calls\n "), fflush(stdout);
     t = getclock_ms();
     state_test(0);
     printf("\n (%u ms)\n", getclock_ms() - t);
 #endif
-#if 1
+#എങ്കിൽ 1
     printf("producing some exceptions (!)\n "), fflush(stdout);
     t = getclock_ms();
     state_test(2);
     printf("\n (%u ms)\n", getclock_ms() - t);
 #endif
-#if 1
+#എങ്കിൽ 1
     //{ int i; for (i = 0; i < 100; ++i) { printf("(%d) ", i);
     printf("running fib in threads\n "), fflush(stdout);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    വേണ്ടി (n = 0; n < M; ++n)
         create_thread(thread_test_simple, n);
     wait_threads(n);
     printf("\n (%u ms)\n", getclock_ms() - t);
         //}}
 #endif
-#if 1
+#എങ്കിൽ 1
     printf("running tcc.c in threads to run fib\n "), fflush(stdout);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    വേണ്ടി (n = 0; n < M; ++n)
         create_thread(thread_test_complex, n);
     wait_threads(n);
     printf("\n (%u ms)\n", getclock_ms() - t);
 #endif
-#if 1
+#എങ്കിൽ 1
     printf("compiling tcc.c 10 times\n "), fflush(stdout);
     t = getclock_ms();
     time_tcc(10, argv[1]);
     printf("\n (%u ms)\n", getclock_ms() - t), fflush(stdout);
 #endif
-    return 0;
+    തിരികെ 0;
 }
 
-#else
-#include <tcclib.h>
+#അല്ലെങ്കിൽ
+#അന്തര്ഭാവ <tcclib.h>
 #ifdef _WIN32
 # ifndef _WIN64
     __declspec(stdcall)
 # endif
-    void Sleep(unsigned);
+    ശൂന്യം Sleep(unsigned);
 # define sleep_ms Sleep
-#else
-    int usleep(unsigned long);
+#അല്ലെങ്കിൽ
+    പൂർണ്ണസംഖ്യ usleep(unsigned long);
 # define sleep_ms(x) usleep((x)*1000);
 #endif
 
-int fib(n)
+പൂർണ്ണസംഖ്യ fib(n)
 {
-    return (n <= 2) ? 1 : fib(n-1) + fib(n-2);
+    തിരികെ (n <= 2) ? 1 : fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+പൂർണ്ണസംഖ്യ പ്രധാന(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv)
 {
     sleep_ms(333);
     printf(" %d", fib(atoi(argv[1])));
-    return 0;
+    തിരികെ 0;
 }
 #endif

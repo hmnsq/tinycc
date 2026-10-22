@@ -14,9 +14,9 @@
  * included and reference made to  the  fact  that  reproduction
  * privileges were granted by DECUS.
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>	// tolower()
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <stdlib.h>
+#അന്തര്ഭാവ <ctype.h>	// tolower()
 
 /*
  * grep
@@ -27,7 +27,7 @@
  * See below for more information.
  */
 
-char    *documentation[] = {
+അക്ഷരം    *documentation[] = {
    "grep searches a file for a given pattern.  Execute by",
    "   grep [flags] regular_expression file_list\n",
    "Flags are single characters preceded by '-':",
@@ -40,7 +40,7 @@ char    *documentation[] = {
    "The -f flag reverses this action (print name no file, not if more).\n",
    0 };
 
-char    *patdoc[] = {
+അക്ഷരം    *patdoc[] = {
    "The regular_expression defines the pattern to search for.  Upper- and",
    "lower-case are always ignored.  Blank lines never match.  The expression",
    "should be quoted to prevent file-name translation.",
@@ -91,41 +91,41 @@ char    *patdoc[] = {
 #define RANGE   14
 #define ENDPAT  15
 
-int cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
+പൂർണ്ണസംഖ്യ cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
 
-char *pp, lbuf[LMAX], pbuf[PMAX];
+അക്ഷരം *pp, lbuf[LMAX], pbuf[PMAX];
 
-char *cclass();
-char *pmatch();
-void store(int);
-void error(char *);
-void badpat(char *, char *, char *);
-int match(void);
+അക്ഷരം *cclass();
+അക്ഷരം *pmatch();
+ശൂന്യം store(പൂർണ്ണസംഖ്യ);
+ശൂന്യം error(അക്ഷരം *);
+ശൂന്യം badpat(അക്ഷരം *, അക്ഷരം *, അക്ഷരം *);
+പൂർണ്ണസംഖ്യ match(ശൂന്യം);
 
 
 /*** Display a file name *******************************/
-void file(char *s)
+ശൂന്യം file(അക്ഷരം *s)
 {
    printf("File %s:\n", s);
 }
 
 /*** Report unopenable file ****************************/
-void cant(char *s)
+ശൂന്യം cant(അക്ഷരം *s)
 {
    fprintf(stderr, "%s: cannot open\n", s);
 }
 
 /*** Give good help ************************************/
-void help(char **hp)
+ശൂന്യം help(അക്ഷരം **hp)
 {
-   char   **dp;
+   അക്ഷരം   **dp;
 
-   for (dp = hp; *dp; ++dp)
+   വേണ്ടി (dp = hp; *dp; ++dp)
       printf("%s\n", *dp);
 }
 
 /*** Display usage summary *****************************/
-void usage(char *s)
+ശൂന്യം usage(അക്ഷരം *s)
 {
    fprintf(stderr, "?GREP-E-%s\n", s);
    fprintf(stderr,
@@ -134,24 +134,24 @@ void usage(char *s)
 }
 
 /*** Compile the pattern into global pbuf[] ************/
-void compile(char *source)
+ശൂന്യം compile(അക്ഷരം *source)
 {
-   char  *s;         /* Source string pointer     */
-   char  *lp;        /* Last pattern pointer      */
-   int   c;          /* Current character         */
-   int            o;          /* Temp                      */
-   char           *spp;       /* Save beginning of pattern */
+   അക്ഷരം  *s;         /* Source string pointer     */
+   അക്ഷരം  *lp;        /* Last pattern pointer      */
+   പൂർണ്ണസംഖ്യ   c;          /* Current character         */
+   പൂർണ്ണസംഖ്യ            o;          /* Temp                      */
+   അക്ഷരം           *spp;       /* Save beginning of pattern */
 
    s = source;
-   if (debug)
+   എങ്കിൽ (debug)
       printf("Pattern = \"%s\"\n", s);
    pp = pbuf;
-   while (c = *s++) {
+   ആകുമ്പോൾ (c = *s++) {
       /*
        * STAR, PLUS and MINUS are special.
        */
-      if (c == '*' || c == '+' || c == '-') {
-         if (pp == pbuf ||
+      എങ്കിൽ (c == '*' || c == '+' || c == '-') {
+         എങ്കിൽ (pp == pbuf ||
                (o=pp[-1]) == BOL ||
                o == EOL ||
                o == STAR ||
@@ -161,113 +161,113 @@ void compile(char *source)
          store(ENDPAT);
          store(ENDPAT);
          spp = pp;               /* Save pattern end     */
-         while (--pp > lp)       /* Move pattern down    */
+         ആകുമ്പോൾ (--pp > lp)       /* Move pattern down    */
             *pp = pp[-1];        /* one byte             */
          *pp =   (c == '*') ? STAR :
             (c == '-') ? MINUS : PLUS;
          pp = spp;               /* Restore pattern end  */
-         continue;
+         തുടരുക;
       }
       /*
        * All the rest.
        */
       lp = pp;         /* Remember start       */
-      switch(c) {
+      തിരഞ്ഞെടുപ്പ്(c) {
 
-         case '^':
+         അവസ്ഥ '^':
             store(BOL);
-            break;
+            നിർത്തുക;
 
-         case '$':
+         അവസ്ഥ '$':
             store(EOL);
-            break;
+            നിർത്തുക;
 
-         case '.':
+         അവസ്ഥ '.':
             store(ANY);
-            break;
+            നിർത്തുക;
 
-         case '[':
+         അവസ്ഥ '[':
             s = cclass(source, s);
-            break;
+            നിർത്തുക;
 
-         case ':':
-            if (*s) {
-               switch(tolower(c = *s++)) {
+         അവസ്ഥ ':':
+            എങ്കിൽ (*s) {
+               തിരഞ്ഞെടുപ്പ്(tolower(c = *s++)) {
 
-                  case 'a':
-                  case 'A':
+                  അവസ്ഥ 'a':
+                  അവസ്ഥ 'A':
                      store(ALPHA);
-                     break;
+                     നിർത്തുക;
 
-                  case 'd':
-                  case 'D':
+                  അവസ്ഥ 'd':
+                  അവസ്ഥ 'D':
                      store(DIGIT);
-                     break;
+                     നിർത്തുക;
 
-                  case 'n':
-                  case 'N':
+                  അവസ്ഥ 'n':
+                  അവസ്ഥ 'N':
                      store(NALPHA);
-                     break;
+                     നിർത്തുക;
 
-                  case ' ':
+                  അവസ്ഥ ' ':
                      store(PUNCT);
-                     break;
+                     നിർത്തുക;
 
-                  default:
+                  സ്ഥിരസ്ഥിതി:
                      badpat("Unknown : type", source, s);
 
                }
-               break;
+               നിർത്തുക;
             }
-            else    badpat("No : type", source, s);
+            അല്ലെങ്കിൽ    badpat("No : type", source, s);
 
-         case '\\':
-            if (*s)
+         അവസ്ഥ '\\':
+            എങ്കിൽ (*s)
                c = *s++;
 
-         default:
+         സ്ഥിരസ്ഥിതി:
             store(CHAR);
             store(tolower(c));
       }
    }
    store(ENDPAT);
    store(0);                /* Terminate string     */
-   if (debug) {
-      for (lp = pbuf; lp < pp;) {
-         if ((c = (*lp++ & 0377)) < ' ')
+   എങ്കിൽ (debug) {
+      വേണ്ടി (lp = pbuf; lp < pp;) {
+         എങ്കിൽ ((c = (*lp++ & 0377)) < ' ')
             printf("\\%o ", c);
-         else    printf("%c ", c);
+         അല്ലെങ്കിൽ    printf("%c ", c);
       }
       printf("\n");
    }
 }
 
 /*** Compile a class (within []) ***********************/
-char *cclass(char *source, char *src)
+അക്ഷരം *cclass(അക്ഷരം *source, അക്ഷരം *src)
    /* char       *source;   // Pattern start -- for error msg. */
    /* char       *src;      // Class start */
 {
-   char   *s;        /* Source pointer    */
-   char   *cp;       /* Pattern start     */
-   int    c;         /* Current character */
-   int             o;         /* Temp              */
+   അക്ഷരം   *s;        /* Source pointer    */
+   അക്ഷരം   *cp;       /* Pattern start     */
+   പൂർണ്ണസംഖ്യ    c;         /* Current character */
+   പൂർണ്ണസംഖ്യ             o;         /* Temp              */
 
    s = src;
    o = CLASS;
-   if (*s == '^') {
+   എങ്കിൽ (*s == '^') {
       ++s;
       o = NCLASS;
    }
    store(o);
    cp = pp;
    store(0);                          /* Byte count      */
-   while ((c = *s++) && c!=']') {
-      if (c == '\\') {                /* Store quoted char    */
-         if ((c = *s++) == '\0')      /* Gotta get something  */
+   ആകുമ്പോൾ ((c = *s++) && c!=']') {
+      എങ്കിൽ (c == '\\') {                /* Store quoted char    */
+         എങ്കിൽ ((c = *s++) == '\0')      /* Gotta get something  */
             badpat("Class terminates badly", source, s);
-         else    store(tolower(c));
+         അല്ലെങ്കിൽ    store(tolower(c));
       }
-      else if (c == '-' &&
+      അല്ലെങ്കിൽ എങ്കിൽ (c == '-' &&
             (pp - cp) > 1 && *s != ']' && *s != '\0') {
          c = pp[-1];             /* Range start     */
          pp[-1] = RANGE;         /* Range signal    */
@@ -275,30 +275,30 @@ char *cclass(char *source, char *src)
          c = *s++;               /* Get end char and*/
          store(tolower(c));      /* Store it        */
       }
-      else {
+      അല്ലെങ്കിൽ {
          store(tolower(c));      /* Store normal char */
       }
    }
-   if (c != ']')
+   എങ്കിൽ (c != ']')
       badpat("Unterminated class", source, s);
-   if ((c = (pp - cp)) >= 256)
+   എങ്കിൽ ((c = (pp - cp)) >= 256)
       badpat("Class too large", source, s);
-   if (c == 0)
+   എങ്കിൽ (c == 0)
       badpat("Empty class", source, s);
    *cp = c;
-   return(s);
+   തിരികെ(s);
 }
 
 /*** Store an entry in the pattern buffer **************/
-void store(int op)
+ശൂന്യം store(പൂർണ്ണസംഖ്യ op)
 {
-   if (pp >= &pbuf[PMAX])
+   എങ്കിൽ (pp >= &pbuf[PMAX])
       error("Pattern too complex\n");
    *pp++ = op;
 }
 
 /*** Report a bad pattern specification ****************/
-void badpat(char *message, char *source, char *stop)
+ശൂന്യം badpat(അക്ഷരം *message, അക്ഷരം *source, അക്ഷരം *stop)
    /* char  *message;       // Error message */
    /* char  *source;        // Pattern start */
    /* char  *stop;          // Pattern end   */
@@ -310,261 +310,261 @@ void badpat(char *message, char *source, char *stop)
 }
 
 /*** Scan the file for the pattern in pbuf[] ***********/
-void grep(FILE *fp, char *fn)
+ശൂന്യം grep(FILE *fp, അക്ഷരം *fn)
    /* FILE       *fp;       // File to process            */
    /* char       *fn;       // File name (for -f option)  */
 {
-   int lno, count, m;
+   പൂർണ്ണസംഖ്യ lno, എണ്ണം_2, m;
 
    lno = 0;
-   count = 0;
-   while (fgets(lbuf, LMAX, fp)) {
+   എണ്ണം_2 = 0;
+   ആകുമ്പോൾ (fgets(lbuf, LMAX, fp)) {
       ++lno;
       m = match();
-      if ((m && !vflag) || (!m && vflag)) {
-         ++count;
-         if (!cflag) {
-            if (fflag && fn) {
+      എങ്കിൽ ((m && !vflag) || (!m && vflag)) {
+         ++എണ്ണം_2;
+         എങ്കിൽ (!cflag) {
+            എങ്കിൽ (fflag && fn) {
                file(fn);
                fn = 0;
             }
-            if (nflag)
+            എങ്കിൽ (nflag)
                printf("%d\t", lno);
             printf("%s\n", lbuf);
          }
       }
    }
-   if (cflag) {
-      if (fflag && fn)
+   എങ്കിൽ (cflag) {
+      എങ്കിൽ (fflag && fn)
          file(fn);
-      printf("%d\n", count);
+      printf("%d\n", എണ്ണം_2);
    }
 }
 
 /*** Match line (lbuf) with pattern (pbuf) return 1 if match ***/
-int match()
+പൂർണ്ണസംഖ്യ match()
 {
-   char   *l;        /* Line pointer       */
+   അക്ഷരം   *l;        /* Line pointer       */
 
-   for (l = lbuf; *l; ++l) {
-      if (pmatch(l, pbuf))
-         return(1);
+   വേണ്ടി (l = lbuf; *l; ++l) {
+      എങ്കിൽ (pmatch(l, pbuf))
+         തിരികെ(1);
    }
-   return(0);
+   തിരികെ(0);
 }
 
 /*** Match partial line with pattern *******************/
-char *pmatch(char *line, char *pattern)
+അക്ഷരം *pmatch(അക്ഷരം *വരി, അക്ഷരം *pattern)
    /* char               *line;     // (partial) line to match      */
    /* char               *pattern;  // (partial) pattern to match   */
 {
-   char   *l;        /* Current line pointer         */
-   char   *p;        /* Current pattern pointer      */
-   char   c;         /* Current character            */
-   char            *e;        /* End for STAR and PLUS match  */
-   int             op;        /* Pattern operation            */
-   int             n;         /* Class counter                */
-   char            *are;      /* Start of STAR match          */
+   അക്ഷരം   *l;        /* Current line pointer         */
+   അക്ഷരം   *p;        /* Current pattern pointer      */
+   അക്ഷരം   c;         /* Current character            */
+   അക്ഷരം            *e;        /* End for STAR and PLUS match  */
+   പൂർണ്ണസംഖ്യ             op;        /* Pattern operation            */
+   പൂർണ്ണസംഖ്യ             n;         /* Class counter                */
+   അക്ഷരം            *are;      /* Start of STAR match          */
 
-   l = line;
-   if (debug > 1)
-      printf("pmatch(\"%s\")\n", line);
+   l = വരി;
+   എങ്കിൽ (debug > 1)
+      printf("pmatch(\"%s\")\n", വരി);
    p = pattern;
-   while ((op = *p++) != ENDPAT) {
-      if (debug > 1)
+   ആകുമ്പോൾ ((op = *p++) != ENDPAT) {
+      എങ്കിൽ (debug > 1)
          printf("byte[%ld] = 0%o, '%c', op = 0%o\n",
-               l-line, *l, *l, op);
-      switch(op) {
+               l-വരി, *l, *l, op);
+      തിരഞ്ഞെടുപ്പ്(op) {
 
-         case CHAR:
-            if (tolower(*l++) != *p++)
-               return(0);
-            break;
+         അവസ്ഥ CHAR:
+            എങ്കിൽ (tolower(*l++) != *p++)
+               തിരികെ(0);
+            നിർത്തുക;
 
-         case BOL:
-            if (l != lbuf)
-               return(0);
-            break;
+         അവസ്ഥ BOL:
+            എങ്കിൽ (l != lbuf)
+               തിരികെ(0);
+            നിർത്തുക;
 
-         case EOL:
-            if (*l != '\0')
-               return(0);
-            break;
+         അവസ്ഥ EOL:
+            എങ്കിൽ (*l != '\0')
+               തിരികെ(0);
+            നിർത്തുക;
 
-         case ANY:
-            if (*l++ == '\0')
-               return(0);
-            break;
+         അവസ്ഥ ANY:
+            എങ്കിൽ (*l++ == '\0')
+               തിരികെ(0);
+            നിർത്തുക;
 
-         case DIGIT:
-            if ((c = *l++) < '0' || (c > '9'))
-               return(0);
-            break;
+         അവസ്ഥ DIGIT:
+            എങ്കിൽ ((c = *l++) < '0' || (c > '9'))
+               തിരികെ(0);
+            നിർത്തുക;
 
-         case ALPHA:
+         അവസ്ഥ ALPHA:
             c = tolower(*l++);
-            if (c < 'a' || c > 'z')
-               return(0);
-            break;
+            എങ്കിൽ (c < 'a' || c > 'z')
+               തിരികെ(0);
+            നിർത്തുക;
 
-         case NALPHA:
+         അവസ്ഥ NALPHA:
             c = tolower(*l++);
-            if (c >= 'a' && c <= 'z')
-               break;
-            else if (c < '0' || c > '9')
-               return(0);
-            break;
+            എങ്കിൽ (c >= 'a' && c <= 'z')
+               നിർത്തുക;
+            അല്ലെങ്കിൽ എങ്കിൽ (c < '0' || c > '9')
+               തിരികെ(0);
+            നിർത്തുക;
 
-         case PUNCT:
+         അവസ്ഥ PUNCT:
             c = *l++;
-            if (c == 0 || c > ' ')
-               return(0);
-            break;
+            എങ്കിൽ (c == 0 || c > ' ')
+               തിരികെ(0);
+            നിർത്തുക;
 
-         case CLASS:
-         case NCLASS:
+         അവസ്ഥ CLASS:
+         അവസ്ഥ NCLASS:
             c = tolower(*l++);
             n = *p++ & 0377;
-            do {
-               if (*p == RANGE) {
+            ചെയ്യുക {
+               എങ്കിൽ (*p == RANGE) {
                   p += 3;
                   n -= 2;
-                  if (c >= p[-2] && c <= p[-1])
-                     break;
+                  എങ്കിൽ (c >= p[-2] && c <= p[-1])
+                     നിർത്തുക;
                }
-               else if (c == *p++)
-                  break;
-            } while (--n > 1);
-            if ((op == CLASS) == (n <= 1))
-               return(0);
-            if (op == CLASS)
+               അല്ലെങ്കിൽ എങ്കിൽ (c == *p++)
+                  നിർത്തുക;
+            } ആകുമ്പോൾ (--n > 1);
+            എങ്കിൽ ((op == CLASS) == (n <= 1))
+               തിരികെ(0);
+            എങ്കിൽ (op == CLASS)
                p += n - 2;
-            break;
+            നിർത്തുക;
 
-         case MINUS:
+         അവസ്ഥ MINUS:
             e = pmatch(l, p);       /* Look for a match    */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            if (e)                  /* Got a match?        */
+            ആകുമ്പോൾ (*p++ != ENDPAT); /* Skip over pattern   */
+            എങ്കിൽ (e)                  /* Got a match?        */
                l = e;               /* Yes, update string  */
-            break;                  /* Always succeeds     */
+            നിർത്തുക;                  /* Always succeeds     */
 
-         case PLUS:                 /* One or more ...     */
-            if ((l = pmatch(l, p)) == 0)
-               return(0);           /* Gotta have a match  */
-         case STAR:                 /* Zero or more ...    */
+         അവസ്ഥ PLUS:                 /* One or more ...     */
+            എങ്കിൽ ((l = pmatch(l, p)) == 0)
+               തിരികെ(0);           /* Gotta have a match  */
+         അവസ്ഥ STAR:                 /* Zero or more ...    */
             are = l;                /* Remember line start */
-            while (*l && (e = pmatch(l, p)))
+            ആകുമ്പോൾ (*l && (e = pmatch(l, p)))
                l = e;               /* Get longest match   */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            while (l > are) {       /* Try to match rest   */
-               if (e = pmatch(l, p))
-                  return(e);
+            ആകുമ്പോൾ (*p++ != ENDPAT); /* Skip over pattern   */
+            ആകുമ്പോൾ (l > are) {       /* Try to match rest   */
+               എങ്കിൽ (e = pmatch(l, p))
+                  തിരികെ(e);
                --l;                 /* Nope, try earlier   */
             }
-            if (e = pmatch(l, p))
-               return(e);
-            return(0);              /* Nothing else worked */
+            എങ്കിൽ (e = pmatch(l, p))
+               തിരികെ(e);
+            തിരികെ(0);              /* Nothing else worked */
 
-         default:
+         സ്ഥിരസ്ഥിതി:
             printf("Bad op code %d\n", op);
             error("Cannot happen -- match\n");
       }
    }
-   return(l);
+   തിരികെ(l);
 }
 
 /*** Report an error ***********************************/
-void error(char *s)
+ശൂന്യം error(അക്ഷരം *s)
 {
    fprintf(stderr, "%s", s);
    exit(1);
 }
 
 /*** Main program - parse arguments & grep *************/
-int main(int argc, char **argv)
+പൂർണ്ണസംഖ്യ പ്രധാന(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv)
 {
-   char   *p;
-   int    c, i;
-   int             gotpattern;
+   അക്ഷരം   *p;
+   പൂർണ്ണസംഖ്യ    c, i;
+   പൂർണ്ണസംഖ്യ             gotpattern;
 
    FILE            *f;
 
-   if (argc <= 1)
+   എങ്കിൽ (argc <= 1)
       usage("No arguments");
-   if (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
+   എങ്കിൽ (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
       help(documentation);
       help(patdoc);
-      return 0;
+      തിരികെ 0;
    }
    nfile = argc-1;
    gotpattern = 0;
-   for (i=1; i < argc; ++i) {
+   വേണ്ടി (i=1; i < argc; ++i) {
       p = argv[i];
-      if (*p == '-') {
+      എങ്കിൽ (*p == '-') {
          ++p;
-         while (c = *p++) {
-            switch(tolower(c)) {
+         ആകുമ്പോൾ (c = *p++) {
+            തിരഞ്ഞെടുപ്പ്(tolower(c)) {
 
-               case '?':
+               അവസ്ഥ '?':
                   help(documentation);
-                  break;
+                  നിർത്തുക;
 
-               case 'C':
-               case 'c':
+               അവസ്ഥ 'C':
+               അവസ്ഥ 'c':
                   ++cflag;
-                  break;
+                  നിർത്തുക;
 
-               case 'D':
-               case 'd':
+               അവസ്ഥ 'D':
+               അവസ്ഥ 'd':
                   ++debug;
-                  break;
+                  നിർത്തുക;
 
-               case 'F':
-               case 'f':
+               അവസ്ഥ 'F':
+               അവസ്ഥ 'f':
                   ++fflag;
-                  break;
+                  നിർത്തുക;
 
-               case 'n':
-               case 'N':
+               അവസ്ഥ 'n':
+               അവസ്ഥ 'N':
                   ++nflag;
-                  break;
+                  നിർത്തുക;
 
-               case 'v':
-               case 'V':
+               അവസ്ഥ 'v':
+               അവസ്ഥ 'V':
                   ++vflag;
-                  break;
+                  നിർത്തുക;
 
-               default:
+               സ്ഥിരസ്ഥിതി:
                   usage("Unknown flag");
             }
          }
          argv[i] = 0;
          --nfile;
-      } else if (!gotpattern) {
+      } അല്ലെങ്കിൽ എങ്കിൽ (!gotpattern) {
          compile(p);
          argv[i] = 0;
          ++gotpattern;
          --nfile;
       }
    }
-   if (!gotpattern)
+   എങ്കിൽ (!gotpattern)
       usage("No pattern");
-   if (nfile == 0)
+   എങ്കിൽ (nfile == 0)
       grep(stdin, 0);
-   else {
+   അല്ലെങ്കിൽ {
       fflag = fflag ^ (nfile > 0);
-      for (i=1; i < argc; ++i) {
-         if (p = argv[i]) {
-            if ((f=fopen(p, "r")) == NULL)
+      വേണ്ടി (i=1; i < argc; ++i) {
+         എങ്കിൽ (p = argv[i]) {
+            എങ്കിൽ ((f=fopen(p, "r")) == ശൂന്യ)
                cant(p);
-            else {
+            അല്ലെങ്കിൽ {
                grep(f, p);
                fclose(f);
             }
          }
       }
    }
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

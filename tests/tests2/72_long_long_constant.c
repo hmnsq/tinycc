@@ -1,19 +1,19 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-    long long int res = 0;
+    long long പൂർണ്ണസംഖ്യ res = 0;
 
-    if (res < -2147483648LL) {
+    എങ്കിൽ (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        തിരികെ 1;
     }
-    else
-    if (2147483647LL < res) {
+    അല്ലെങ്കിൽ
+    എങ്കിൽ (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        തിരികെ 2;
     }
-    else
+    അല്ലെങ്കിൽ
         printf("long long constant test ok.\n");
-    return 0;
+    തിരികെ 0;
 }

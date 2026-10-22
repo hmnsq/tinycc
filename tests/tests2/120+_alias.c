@@ -1,12 +1,12 @@
-extern int printf (const char *, ...);
-extern void target(void);
-extern void alias_for_target(void);
-extern void asm_for_target(void);
-extern int g_int, alias_int;
+ബാഹ്യ പൂർണ്ണസംഖ്യ printf (സ്ഥിരം അക്ഷരം *, ...);
+ബാഹ്യ ശൂന്യം target(ശൂന്യം);
+ബാഹ്യ ശൂന്യം alias_for_target(ശൂന്യം);
+ബാഹ്യ ശൂന്യം asm_for_target(ശൂന്യം);
+ബാഹ്യ പൂർണ്ണസംഖ്യ g_int, alias_int;
 
-void inunit2(void);
+ശൂന്യം inunit2(ശൂന്യം);
 
-void inunit2(void)
+ശൂന്യം inunit2(ശൂന്യം)
 {
   printf("in unit2:\n");
   target();

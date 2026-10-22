@@ -2,19 +2,19 @@
    Exercises shift-by-immediate, load/store addressing modes,
    conditional branches, and system register access. */
 
-#include <stdio.h>
-#include <stdint.h>
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <stdint.h>
 
 /* ---- shift-by-immediate helpers ---- */
 
-static uint32_t lsl32(uint32_t x, int n) { return x << n; }
-static uint32_t lsr32(uint32_t x, int n) { return x >> n; }
-static int32_t  asr32(int32_t  x, int n) { return x >> n; }
-static uint64_t lsl64(uint64_t x, int n) { return x << n; }
-static uint64_t lsr64(uint64_t x, int n) { return x >> n; }
-static int64_t  asr64(int64_t  x, int n) { return x >> n; }
+സ്ഥിതം uint32_t lsl32(uint32_t x, പൂർണ്ണസംഖ്യ n) { തിരികെ x << n; }
+സ്ഥിതം uint32_t lsr32(uint32_t x, പൂർണ്ണസംഖ്യ n) { തിരികെ x >> n; }
+സ്ഥിതം int32_t  asr32(int32_t  x, പൂർണ്ണസംഖ്യ n) { തിരികെ x >> n; }
+സ്ഥിതം uint64_t lsl64(uint64_t x, പൂർണ്ണസംഖ്യ n) { തിരികെ x << n; }
+സ്ഥിതം uint64_t lsr64(uint64_t x, പൂർണ്ണസംഖ്യ n) { തിരികെ x >> n; }
+സ്ഥിതം int64_t  asr64(int64_t  x, പൂർണ്ണസംഖ്യ n) { തിരികെ x >> n; }
 
-static void test_shifts(void)
+സ്ഥിതം ശൂന്യം test_shifts(ശൂന്യം)
 {
     printf("shift-imm:\n");
     printf("%x\n", lsl32(1, 0));
@@ -34,7 +34,7 @@ static void test_shifts(void)
 
 /* ---- load/store with various addressing modes ---- */
 
-static void test_ldr_str(void)
+സ്ഥിതം ശൂന്യം test_ldr_str(ശൂന്യം)
 {
     int64_t buf[4] = { 0x1122334455667788LL, 0x99AABBCCDDEEFF00LL,
                        0x0F1E2D3C4B5A6978LL, 0x0000000000000001LL };
@@ -69,7 +69,7 @@ static void test_ldr_str(void)
 
 /* ---- STP/LDP (store/load pair) ---- */
 
-static void test_ldp_stp(void)
+സ്ഥിതം ശൂന്യം test_ldp_stp(ശൂന്യം)
 {
     int64_t src[2] = { 0xAAAABBBBCCCCDDDDLL, 0x1111222233334444LL };
     int64_t dst[2];
@@ -86,21 +86,21 @@ static void test_ldp_stp(void)
 
 /* ---- CBZ / CBNZ via C patterns ---- */
 
-static const char *cbz_test(int x)
+സ്ഥിതം സ്ഥിരം അക്ഷരം *cbz_test(പൂർണ്ണസംഖ്യ x)
 {
-    if (x == 0)
-        return "zero";
-    return "nonzero";
+    എങ്കിൽ (x == 0)
+        തിരികെ "zero";
+    തിരികെ "nonzero";
 }
 
-static const char *cbnz_test(int x)
+സ്ഥിതം സ്ഥിരം അക്ഷരം *cbnz_test(പൂർണ്ണസംഖ്യ x)
 {
-    if (x != 0)
-        return "nonzero";
-    return "zero";
+    എങ്കിൽ (x != 0)
+        തിരികെ "nonzero";
+    തിരികെ "zero";
 }
 
-static void test_cond_branches(void)
+സ്ഥിതം ശൂന്യം test_cond_branches(ശൂന്യം)
 {
     printf("cbz-cbnz:\n");
     printf("%s\n", cbz_test(0));
@@ -111,13 +111,13 @@ static void test_cond_branches(void)
 
 /* ---- conditional compare patterns (CCMP/CCMN) ---- */
 
-static int cond_select(int a, int b)
+സ്ഥിതം പൂർണ്ണസംഖ്യ cond_select(പൂർണ്ണസംഖ്യ a, പൂർണ്ണസംഖ്യ b)
 {
     /* TCC should generate csel or equivalent */
-    return a > b ? a : b;
+    തിരികെ a > b ? a : b;
 }
 
-static void test_cond_select(void)
+സ്ഥിതം ശൂന്യം test_cond_select(ശൂന്യം)
 {
     printf("csel:\n");
     printf("%d\n", cond_select(5, 10));
@@ -128,63 +128,63 @@ static void test_cond_select(void)
 
 /* ---- MRS/MSR system registers (FPCR/FPSR) ---- */
 
-static void test_sysregs(void)
+സ്ഥിതം ശൂന്യം test_sysregs(ശൂന്യം)
 {
-    unsigned int fpcr, fpsr;
+    unsigned പൂർണ്ണസംഖ്യ fpcr, fpsr;
 
     printf("sysregs:\n");
 
     /* Read FPCR */
-    __asm__ volatile ("mrs %0, fpcr" : "=r"(fpcr));
+    __asm__ അസ്ഥിര ("mrs %0, fpcr" : "=r"(fpcr));
     printf("%u\n", fpcr & 0x0F);
 
     /* Read FPSR */
-    __asm__ volatile ("mrs %0, fpsr" : "=r"(fpsr));
+    __asm__ അസ്ഥിര ("mrs %0, fpsr" : "=r"(fpsr));
     printf("%u\n", fpsr);
 
     /* Write/restore FPCR (should be same value) */
-    __asm__ volatile ("msr fpcr, %0" : : "r"(fpcr));
+    __asm__ അസ്ഥിര ("msr fpcr, %0" : : "r"(fpcr));
 
     /* Read back and verify */
     {
-        unsigned int check;
-        __asm__ volatile ("mrs %0, fpcr" : "=r"(check));
+        unsigned പൂർണ്ണസംഖ്യ check;
+        __asm__ അസ്ഥിര ("mrs %0, fpcr" : "=r"(check));
         printf("%s\n", check == fpcr ? "ok" : "fail");
     }
 }
 
 /* ---- NOP encoding (should not crash) ---- */
 
-static void test_nop(void)
+സ്ഥിതം ശൂന്യം test_nop(ശൂന്യം)
 {
     printf("nop:\n");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
+    __asm__ അസ്ഥിര ("nop");
+    __asm__ അസ്ഥിര ("nop");
+    __asm__ അസ്ഥിര ("nop");
     printf("ok\n");
 }
 
 /* ---- barrier instructions ---- */
 
-static void test_barriers(void)
+സ്ഥിതം ശൂന്യം test_barriers(ശൂന്യം)
 {
     printf("barriers:\n");
-    __asm__ volatile ("dmb sy");
-    __asm__ volatile ("dsb sy");
-    __asm__ volatile ("isb");
+    __asm__ അസ്ഥിര ("dmb sy");
+    __asm__ അസ്ഥിര ("dsb sy");
+    __asm__ അസ്ഥിര ("isb");
     printf("ok\n");
 }
 
 /* ---- MOV (register) patterns ---- */
 
-static int64_t mov_x0_x1(int64_t x)
+സ്ഥിതം int64_t mov_x0_x1(int64_t x)
 {
-    register int64_t r __asm__("x0") = x;
-    __asm__ volatile ("" : "=r"(r) : "0"(r));
-    return r;
+    രജിസ്റ്റർ int64_t r __asm__("x0") = x;
+    __asm__ അസ്ഥിര ("" : "=r"(r) : "0"(r));
+    തിരികെ r;
 }
 
-static void test_mov_reg(void)
+സ്ഥിതം ശൂന്യം test_mov_reg(ശൂന്യം)
 {
     printf("mov-reg:\n");
     printf("%lld\n", (long long)mov_x0_x1(42));
@@ -193,23 +193,23 @@ static void test_mov_reg(void)
 
 /* ---- large struct passing (reference semantics) ---- */
 
-struct large { int64_t a, b, c, d; };
+ഘടന large { int64_t a, b, c, d; };
 
-static int64_t sum_large(struct large s)
+സ്ഥിതം int64_t sum_large(ഘടന large s)
 {
-    return s.a + s.b + s.c + s.d;
+    തിരികെ s.a + s.b + s.c + s.d;
 }
 
-static struct large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
+സ്ഥിതം ഘടന large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
 {
-    struct large s = { a, b, c, d };
-    return s;
+    ഘടന large s = { a, b, c, d };
+    തിരികെ s;
 }
 
-static void test_large_structs(void)
+സ്ഥിതം ശൂന്യം test_large_structs(ശൂന്യം)
 {
-    struct large s = { 1, 2, 3, 4 };
-    struct large t;
+    ഘടന large s = { 1, 2, 3, 4 };
+    ഘടന large t;
 
     printf("large-struct:\n");
     printf("%lld\n", (long long)sum_large(s));
@@ -222,37 +222,37 @@ static void test_large_structs(void)
 
 /* ---- boundary-sized structs ---- */
 
-struct s18 { char x[18]; };
-struct s24 { char x[24]; };
-struct s32 { char x[32]; };
+ഘടന s18 { അക്ഷരം x[18]; };
+ഘടന s24 { അക്ഷരം x[24]; };
+ഘടന s32 { അക്ഷരം x[32]; };
 
-static void print_s18(struct s18 s) { printf("%.18s\n", s.x); }
-static void print_s24(struct s24 s) { printf("%.24s\n", s.x); }
-static void print_s32(struct s32 s) { printf("%.32s\n", s.x); }
+സ്ഥിതം ശൂന്യം print_s18(ഘടന s18 s) { printf("%.18s\n", s.x); }
+സ്ഥിതം ശൂന്യം print_s24(ഘടന s24 s) { printf("%.24s\n", s.x); }
+സ്ഥിതം ശൂന്യം print_s32(ഘടന s32 s) { printf("%.32s\n", s.x); }
 
-static struct s18 ret_s18(void)
+സ്ഥിതം ഘടന s18 ret_s18(ശൂന്യം)
 {
-    struct s18 s = { "123456789012345678" };
-    return s;
+    ഘടന s18 s = { "123456789012345678" };
+    തിരികെ s;
 }
 
-static struct s24 ret_s24(void)
+സ്ഥിതം ഘടന s24 ret_s24(ശൂന്യം)
 {
-    struct s24 s = { "123456789012345678901234" };
-    return s;
+    ഘടന s24 s = { "123456789012345678901234" };
+    തിരികെ s;
 }
 
-static struct s32 ret_s32(void)
+സ്ഥിതം ഘടന s32 ret_s32(ശൂന്യം)
 {
-    struct s32 s = { "12345678901234567890123456789012" };
-    return s;
+    ഘടന s32 s = { "12345678901234567890123456789012" };
+    തിരികെ s;
 }
 
-static void test_boundary_structs(void)
+സ്ഥിതം ശൂന്യം test_boundary_structs(ശൂന്യം)
 {
-    struct s18 a;
-    struct s24 b;
-    struct s32 c;
+    ഘടന s18 a;
+    ഘടന s24 b;
+    ഘടന s32 c;
 
     printf("boundary-structs:\n");
     a = ret_s18();
@@ -263,7 +263,7 @@ static void test_boundary_structs(void)
     printf("%.32s\n", c.x);
 }
 
-int main(void)
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
     test_shifts();
     test_ldr_str();
@@ -276,5 +276,5 @@ int main(void)
     test_mov_reg();
     test_large_structs();
     test_boundary_structs();
-    return 0;
+    തിരികെ 0;
 }

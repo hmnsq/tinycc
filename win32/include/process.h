@@ -6,14 +6,14 @@
 #ifndef _INC_PROCESS
 #define _INC_PROCESS
 
-#include <_mingw.h>
+#അന്തര്ഭാവ <_mingw.h>
 
 /* Includes a definition of _pid_t and pid_t */
-#include <sys/types.h>
+#അന്തര്ഭാവ <sys/types.h>
 
 #ifndef _POSIX_
 #ifdef __cplusplus
-extern "C" {
+ബാഹ്യ "C" {
 #endif
 
 #define _P_WAIT 0
@@ -26,98 +26,98 @@ extern "C" {
 #define _WAIT_CHILD 0
 #define _WAIT_GRANDCHILD 1
 
-  _CRTIMP uintptr_t __cdecl _beginthread(void (__cdecl *_StartAddress) (void *),unsigned _StackSize,void *_ArgList);
-  _CRTIMP void __cdecl _endthread(void);
-  _CRTIMP uintptr_t __cdecl _beginthreadex(void *_Security,unsigned _StackSize,unsigned (__stdcall *_StartAddress) (void *),void *_ArgList,unsigned _InitFlag,unsigned *_ThrdAddr);
-  _CRTIMP void __cdecl _endthreadex(unsigned _Retval);
+  _CRTIMP uintptr_t __cdecl _beginthread(ശൂന്യം (__cdecl *_StartAddress) (ശൂന്യം *),unsigned അട്ടി_Size,ശൂന്യം *_ArgList);
+  _CRTIMP ശൂന്യം __cdecl _endthread(ശൂന്യം);
+  _CRTIMP uintptr_t __cdecl _beginthreadex(ശൂന്യം *_Security,unsigned അട്ടി_Size,unsigned (__stdcall *_StartAddress) (ശൂന്യം *),ശൂന്യം *_ArgList,unsigned _InitFlag,unsigned *_ThrdAddr);
+  _CRTIMP ശൂന്യം __cdecl _endthreadex(unsigned _Retval);
 
 #ifndef _CRT_TERMINATE_DEFINED
 #define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
-  _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
+  ശൂന്യം __cdecl __MINGW_NOTHROW exit(പൂർണ്ണസംഖ്യ _Code) __MINGW_ATTRIB_NORETURN;
+  _CRTIMP ശൂന്യം __cdecl __MINGW_NOTHROW _exit(പൂർണ്ണസംഖ്യ _Code) __MINGW_ATTRIB_NORETURN;
 
-#pragma push_macro("abort")
+#pragma തള്ളുക_macro("abort")
 #undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+  ശൂന്യം __cdecl __declspec(noreturn) abort(ശൂന്യം);
+#pragma എടുക്കുക_macro("abort")
 
 #endif
 
-  _CRTIMP void __cdecl __MINGW_NOTHROW _cexit(void);
-  _CRTIMP void __cdecl __MINGW_NOTHROW _c_exit(void);
-  _CRTIMP int __cdecl _getpid(void);
-  _CRTIMP intptr_t __cdecl _cwait(int *_TermStat,intptr_t _ProcHandle,int _Action);
-  _CRTIMP intptr_t __cdecl _execl(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execle(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execlp(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execlpe(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execv(const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _execve(const char *_Filename,const char *const *_ArgList,const char *const *_Env);
-  _CRTIMP intptr_t __cdecl _execvp(const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _execvpe(const char *_Filename,const char *const *_ArgList,const char *const *_Env);
-  _CRTIMP intptr_t __cdecl _spawnl(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnle(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnlp(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnlpe(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnv(int _Mode,const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _spawnve(int _Mode,const char *_Filename,const char *const *_ArgList,const char *const *_Env);
-  _CRTIMP intptr_t __cdecl _spawnvp(int _Mode,const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _spawnvpe(int _Mode,const char *_Filename,const char *const *_ArgList,const char *const *_Env);
+  _CRTIMP ശൂന്യം __cdecl __MINGW_NOTHROW _cexit(ശൂന്യം);
+  _CRTIMP ശൂന്യം __cdecl __MINGW_NOTHROW _c_exit(ശൂന്യം);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _getpid(ശൂന്യം);
+  _CRTIMP intptr_t __cdecl _cwait(പൂർണ്ണസംഖ്യ *_TermStat,intptr_t _ProcHandle,പൂർണ്ണസംഖ്യ _Action);
+  _CRTIMP intptr_t __cdecl _execl(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execle(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execlp(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execlpe(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execv(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_ArgList);
+  _CRTIMP intptr_t __cdecl _execve(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_ArgList,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_Env);
+  _CRTIMP intptr_t __cdecl _execvp(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_ArgList);
+  _CRTIMP intptr_t __cdecl _execvpe(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_ArgList,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_Env);
+  _CRTIMP intptr_t __cdecl _spawnl(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnle(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnlp(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnlpe(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnv(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_ArgList);
+  _CRTIMP intptr_t __cdecl _spawnve(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_ArgList,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_Env);
+  _CRTIMP intptr_t __cdecl _spawnvp(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_ArgList);
+  _CRTIMP intptr_t __cdecl _spawnvpe(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_ArgList,സ്ഥിരം അക്ഷരം *സ്ഥിരം *_Env);
 
 #ifndef _CRT_SYSTEM_DEFINED
 #define _CRT_SYSTEM_DEFINED
-  int __cdecl system(const char *_Command);
+  പൂർണ്ണസംഖ്യ __cdecl system(സ്ഥിരം അക്ഷരം *_Command);
 #endif
 
 #ifndef _WPROCESS_DEFINED
 #define _WPROCESS_DEFINED
-  _CRTIMP intptr_t __cdecl _wexecl(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexecle(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexeclp(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexeclpe(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexecv(const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wexecve(const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wexecvp(const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wexecvpe(const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wspawnl(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnle(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnlp(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnlpe(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnv(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wspawnve(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wspawnvp(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wspawnvpe(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
+  _CRTIMP intptr_t __cdecl _wexecl(സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexecle(സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexeclp(സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexeclpe(സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexecv(സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *സ്ഥിരം *_ArgList);
+  _CRTIMP intptr_t __cdecl _wexecve(സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *സ്ഥിരം *_ArgList,സ്ഥിരം wchar_t *സ്ഥിരം *_Env);
+  _CRTIMP intptr_t __cdecl _wexecvp(സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *സ്ഥിരം *_ArgList);
+  _CRTIMP intptr_t __cdecl _wexecvpe(സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *സ്ഥിരം *_ArgList,സ്ഥിരം wchar_t *സ്ഥിരം *_Env);
+  _CRTIMP intptr_t __cdecl _wspawnl(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnle(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnlp(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnlpe(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnv(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *സ്ഥിരം *_ArgList);
+  _CRTIMP intptr_t __cdecl _wspawnve(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *സ്ഥിരം *_ArgList,സ്ഥിരം wchar_t *സ്ഥിരം *_Env);
+  _CRTIMP intptr_t __cdecl _wspawnvp(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *സ്ഥിരം *_ArgList);
+  _CRTIMP intptr_t __cdecl _wspawnvpe(പൂർണ്ണസംഖ്യ _Mode,സ്ഥിരം wchar_t *_Filename,സ്ഥിരം wchar_t *സ്ഥിരം *_ArgList,സ്ഥിരം wchar_t *സ്ഥിരം *_Env);
 #ifndef _CRT_WSYSTEM_DEFINED
 #define _CRT_WSYSTEM_DEFINED
-  _CRTIMP int __cdecl _wsystem(const wchar_t *_Command);
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _wsystem(സ്ഥിരം wchar_t *_Command);
 #endif
 #endif
 
-  void __cdecl __security_init_cookie(void);
-#if (defined(_X86_) && !defined(__x86_64))
-  void __fastcall __security_check_cookie(uintptr_t _StackCookie);
-  __declspec(noreturn) void __cdecl __report_gsfailure(void);
-#else
-  void __cdecl __security_check_cookie(uintptr_t _StackCookie);
-  __declspec(noreturn) void __cdecl __report_gsfailure(uintptr_t _StackCookie);
+  ശൂന്യം __cdecl __security_init_cookie(ശൂന്യം);
+#എങ്കിൽ (defined(_X86_) && !defined(__x86_64))
+  ശൂന്യം __fastcall __security_check_cookie(uintptr_t അട്ടി_Cookie);
+  __declspec(noreturn) ശൂന്യം __cdecl __report_gsfailure(ശൂന്യം);
+#അല്ലെങ്കിൽ
+  ശൂന്യം __cdecl __security_check_cookie(uintptr_t അട്ടി_Cookie);
+  __declspec(noreturn) ശൂന്യം __cdecl __report_gsfailure(uintptr_t അട്ടി_Cookie);
 #endif
-  extern uintptr_t __security_cookie;
+  ബാഹ്യ uintptr_t __security_cookie;
 
-  intptr_t __cdecl _loaddll(char *_Filename);
-  int __cdecl _unloaddll(intptr_t _Handle);
-  int (__cdecl *__cdecl _getdllprocaddr(intptr_t _Handle,char *_ProcedureName,intptr_t _Ordinal))(void);
+  intptr_t __cdecl _loaddll(അക്ഷരം *_Filename);
+  പൂർണ്ണസംഖ്യ __cdecl _unloaddll(intptr_t _Handle);
+  പൂർണ്ണസംഖ്യ (__cdecl *__cdecl _getdllprocaddr(intptr_t _Handle,അക്ഷരം *_ProcedureName,intptr_t _Ordinal))(ശൂന്യം);
 
 #ifdef _DECL_DLLMAIN
 #ifdef _WINDOWS_
   WINBOOL WINAPI DllMain(HANDLE _HDllHandle,DWORD _Reason,LPVOID _Reserved);
   WINBOOL WINAPI _CRT_INIT(HANDLE _HDllHandle,DWORD _Reason,LPVOID _Reserved);
   WINBOOL WINAPI _wCRT_INIT(HANDLE _HDllHandle,DWORD _Reason,LPVOID _Reserved);
-  extern WINBOOL (WINAPI *const _pRawDllMain)(HANDLE,DWORD,LPVOID);
-#else
-  int __stdcall DllMain(void *_HDllHandle,unsigned _Reason,void *_Reserved);
-  int __stdcall _CRT_INIT(void *_HDllHandle,unsigned _Reason,void *_Reserved);
-  int __stdcall _wCRT_INIT(void *_HDllHandle,unsigned _Reason,void *_Reserved);
-  extern int (__stdcall *const _pRawDllMain)(void *,unsigned,void *);
+  ബാഹ്യ WINBOOL (WINAPI *സ്ഥിരം _pRawDllMain)(HANDLE,DWORD,LPVOID);
+#അല്ലെങ്കിൽ
+  പൂർണ്ണസംഖ്യ __stdcall DllMain(ശൂന്യം *_HDllHandle,unsigned _Reason,ശൂന്യം *_Reserved);
+  പൂർണ്ണസംഖ്യ __stdcall _CRT_INIT(ശൂന്യം *_HDllHandle,unsigned _Reason,ശൂന്യം *_Reserved);
+  പൂർണ്ണസംഖ്യ __stdcall _wCRT_INIT(ശൂന്യം *_HDllHandle,unsigned _Reason,ശൂന്യം *_Reserved);
+  ബാഹ്യ പൂർണ്ണസംഖ്യ (__stdcall *സ്ഥിരം _pRawDllMain)(ശൂന്യം *,unsigned,ശൂന്യം *);
 #endif
 #endif
 
@@ -131,42 +131,42 @@ extern "C" {
 #define WAIT_CHILD _WAIT_CHILD
 #define WAIT_GRANDCHILD _WAIT_GRANDCHILD
 
-  intptr_t __cdecl cwait(int *_TermStat,intptr_t _ProcHandle,int _Action);
+  intptr_t __cdecl cwait(പൂർണ്ണസംഖ്യ *_TermStat,intptr_t _ProcHandle,പൂർണ്ണസംഖ്യ _Action);
 #ifdef __GNUC__
-  int __cdecl execl(const char *_Filename,const char *_ArgList,...);
-  int __cdecl execle(const char *_Filename,const char *_ArgList,...);
-  int __cdecl execlp(const char *_Filename,const char *_ArgList,...);
-  int __cdecl execlpe(const char *_Filename,const char *_ArgList,...);
-#else
-    intptr_t __cdecl execl(const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl execle(const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl execlp(const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl execlpe(const char *_Filename,const char *_ArgList,...);
+  പൂർണ്ണസംഖ്യ __cdecl execl(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  പൂർണ്ണസംഖ്യ __cdecl execle(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  പൂർണ്ണസംഖ്യ __cdecl execlp(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  പൂർണ്ണസംഖ്യ __cdecl execlpe(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+#അല്ലെങ്കിൽ
+    intptr_t __cdecl execl(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  intptr_t __cdecl execle(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  intptr_t __cdecl execlp(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  intptr_t __cdecl execlpe(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
 #endif
-  intptr_t __cdecl spawnl(int,const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl spawnle(int,const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl spawnlp(int,const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl spawnlpe(int,const char *_Filename,const char *_ArgList,...);
-  int __cdecl getpid(void);
+  intptr_t __cdecl spawnl(പൂർണ്ണസംഖ്യ,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  intptr_t __cdecl spawnle(പൂർണ്ണസംഖ്യ,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  intptr_t __cdecl spawnlp(പൂർണ്ണസംഖ്യ,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  intptr_t __cdecl spawnlpe(പൂർണ്ണസംഖ്യ,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *_ArgList,...);
+  പൂർണ്ണസംഖ്യ __cdecl getpid(ശൂന്യം);
 #ifdef __GNUC__
   /* Those methods are predefined by gcc builtins to return int. So to prevent
      stupid warnings, define them in POSIX way.  This is save, because those
      methods do not return in success case, so that the return value is not
      really dependent to its scalar width.  */
-  int __cdecl execv(const char *_Filename,const char *const _ArgList[]);
-  int __cdecl execve(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-  int __cdecl execvp(const char *_Filename,const char *const _ArgList[]);
-  int __cdecl execvpe(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-#else
-  intptr_t __cdecl execv(const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl execve(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-  intptr_t __cdecl execvp(const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl execvpe(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
+  പൂർണ്ണസംഖ്യ __cdecl execv(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[]);
+  പൂർണ്ണസംഖ്യ __cdecl execve(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[],സ്ഥിരം അക്ഷരം *സ്ഥിരം _Env[]);
+  പൂർണ്ണസംഖ്യ __cdecl execvp(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[]);
+  പൂർണ്ണസംഖ്യ __cdecl execvpe(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[],സ്ഥിരം അക്ഷരം *സ്ഥിരം _Env[]);
+#അല്ലെങ്കിൽ
+  intptr_t __cdecl execv(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[]);
+  intptr_t __cdecl execve(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[],സ്ഥിരം അക്ഷരം *സ്ഥിരം _Env[]);
+  intptr_t __cdecl execvp(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[]);
+  intptr_t __cdecl execvpe(സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[],സ്ഥിരം അക്ഷരം *സ്ഥിരം _Env[]);
 #endif
-  intptr_t __cdecl spawnv(int,const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl spawnve(int,const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-  intptr_t __cdecl spawnvp(int,const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl spawnvpe(int,const char *_Filename,const char *const _ArgList[],char *const _Env[]);
+  intptr_t __cdecl spawnv(പൂർണ്ണസംഖ്യ,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[]);
+  intptr_t __cdecl spawnve(പൂർണ്ണസംഖ്യ,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[],സ്ഥിരം അക്ഷരം *സ്ഥിരം _Env[]);
+  intptr_t __cdecl spawnvp(പൂർണ്ണസംഖ്യ,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[]);
+  intptr_t __cdecl spawnvpe(പൂർണ്ണസംഖ്യ,സ്ഥിരം അക്ഷരം *_Filename,സ്ഥിരം അക്ഷരം *സ്ഥിരം _ArgList[],അക്ഷരം *സ്ഥിരം _Env[]);
 #endif
 
 #ifdef __cplusplus

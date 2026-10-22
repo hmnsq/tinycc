@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+പൂർണ്ണസംഖ്യ printf(സ്ഥിരം അക്ഷരം *s, ...);
 
-float fx(x)
-float x;
+ദശാംശം fx(x)
+ദശാംശം x;
 {
-    return 2.0 * x;
+    തിരികെ 2.0 * x;
 }
 
-void func(float a);
+ശൂന്യം func(ദശാംശം a);
 
-void func3(struct p { int a; int b; } *q) {
+ശൂന്യം func3(ഘടന p { പൂർണ്ണസംഖ്യ a; പൂർണ്ണസംഖ്യ b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+ശൂന്യം func4(q)
+ ഘടന p { പൂർണ്ണസംഖ്യ a; പൂർണ്ണസംഖ്യ b; പൂർണ്ണസംഖ്യ c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+ഘടന p { പൂർണ്ണസംഖ്യ a; പൂർണ്ണസംഖ്യ b; പൂർണ്ണസംഖ്യ c; പൂർണ്ണസംഖ്യ d; };
 
-int
-main(void)
+പൂർണ്ണസംഖ്യ
+പ്രധാന(ശൂന്യം)
 {
-    float fy();
+    ദശാംശം fy();
 
     printf("%g %g\n", fx(2.0), fy(10.0));
     printf("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+ദശാംശം fy(x)
+ദശാംശം x;
 {
-    return 3.0 * x;
+    തിരികെ 3.0 * x;
 }
 
-void func(a)
-float a;
+ശൂന്യം func(a)
+ദശാംശം a;
 {
     printf("%g\n", a);
 }

@@ -1,40 +1,40 @@
-typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
-extern size_t strlen(const char*);
-char str[] = "blabla";
-int g;
-int main()
+തരനിർവചനം __SIZE_TYPE__ size_t;
+ബാഹ്യ പൂർണ്ണസംഖ്യ printf(സ്ഥിരം അക്ഷരം*, ...);
+ബാഹ്യ size_t strlen(സ്ഥിരം അക്ഷരം*);
+അക്ഷരം str[] = "blabla";
+പൂർണ്ണസംഖ്യ g;
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
-      char buf[strlen(str) + 10];
+  പൂർണ്ണസംഖ്യ i = 0;
+#എങ്കിൽ 0
+  എങ്കിൽ (g) {
+      അക്ഷരം buf[strlen(str) + 10];
       buf[0] = 0;
   }
 alabel:
   printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
-      switch (i) {
-      case 10:
-          if (g) {
-              char buf[strlen(str) + 10];
+#അല്ലെങ്കിൽ
+  വേണ്ടി (i = 0; i < 5; i++) {
+      തിരഞ്ഞെടുപ്പ് (i) {
+      അവസ്ഥ 10:
+          എങ്കിൽ (g) {
+              അക്ഷരം buf[strlen(str) + 10];
               buf[0] = 0;
-              goto do_cmd;
+              പോകുക do_cmd;
           }
-          break;
-      case 1:
+          നിർത്തുക;
+      അവസ്ഥ 1:
           printf("reached 3\n");
     do_cmd:
           printf("after do_cmd");
-          break;
-      default:
+          നിർത്തുക;
+      സ്ഥിരസ്ഥിതി:
           g++;
           printf("default: i = %d\n", i);
-          break;
+          നിർത്തുക;
       }
   }
 #endif
-  return 0;
+  തിരികെ 0;
 }

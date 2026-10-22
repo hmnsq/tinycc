@@ -1,11 +1,11 @@
 /* integer promotion */
 
-int printf(const char*, ...);
+പൂർണ്ണസംഖ്യ printf(സ്ഥിരം അക്ഷരം*, ...);
 #define promote(s) printf(" %ssigned : %s\n", (s) - 100 < 0 ? "  " : "un", #s);
 
-int main (void)
+പൂർണ്ണസംഖ്യ പ്രധാന (ശൂന്യം)
 {
-    struct {
+    ഘടന {
         unsigned u3:3;
         unsigned u31:31;
         unsigned u32:32;
@@ -15,7 +15,7 @@ int main (void)
         unsigned long long ull32:32;
         unsigned long long ull33:33;
         unsigned long long ull64:64;
-        unsigned char c;
+        unsigned അക്ഷരം c;
     } s = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
     promote(s.u3);
@@ -107,5 +107,5 @@ int main (void)
     promote(~(unsigned)s.u3);
     promote(!(unsigned)s.u3);
 
-    return 0;
+    തിരികെ 0;
 }

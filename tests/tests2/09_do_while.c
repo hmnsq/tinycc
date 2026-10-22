@@ -1,24 +1,24 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-   int a;
-   int p;
-   int t;
+   പൂർണ്ണസംഖ്യ a;
+   പൂർണ്ണസംഖ്യ p;
+   പൂർണ്ണസംഖ്യ t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   do
+   ചെയ്യുക
    {
       printf("%d\n", a);
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } ആകുമ്പോൾ (a < 100);
 
-   return 0;
+   തിരികെ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

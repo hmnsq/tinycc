@@ -1,113 +1,113 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int f(void)
+പൂർണ്ണസംഖ്യ f(ശൂന്യം)
 {
-  return 5;
+  തിരികെ 5;
 }
 
-void test1()
+ശൂന്യം test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  പൂർണ്ണസംഖ്യ എണ്ണം_2 = 10;
+  ശൂന്യം *addr[10];
+  വേണ്ടി(;എണ്ണം_2--;) {
+    പൂർണ്ണസംഖ്യ a[f()];
 
-    addr[count] = a;
+    addr[എണ്ണം_2] = a;
 
-    continue;
+    തുടരുക;
   }
 
-  if(addr[9] == addr[0]) {
+  എങ്കിൽ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } അല്ലെങ്കിൽ {
     printf("NOT OK\n");
   }
 }
 
-void test2()
+ശൂന്യം test2()
 {
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  പൂർണ്ണസംഖ്യ എണ്ണം_2 = 10;
+  ശൂന്യം *addr[എണ്ണം_2];
+  വേണ്ടി(;എണ്ണം_2--;) {
+    പൂർണ്ണസംഖ്യ a[f()];
 
-    addr[count] = a;
+    addr[എണ്ണം_2] = a;
 
-    continue;
+    തുടരുക;
   }
 
-  if(addr[9] == addr[0]) {
+  എങ്കിൽ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } അല്ലെങ്കിൽ {
     printf("NOT OK\n");
   }
 }
 
-void test3()
+ശൂന്യം test3()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  പൂർണ്ണസംഖ്യ എണ്ണം_2 = 10;
+  ശൂന്യം *addr[എണ്ണം_2];
+  ആകുമ്പോൾ(എണ്ണം_2--) {
+      പൂർണ്ണസംഖ്യ b[f()];
+      എങ്കിൽ (എണ്ണം_2 >= 0) {
+          പൂർണ്ണസംഖ്യ a[f()];
 
-          addr[count] = a;
+          addr[എണ്ണം_2] = a;
 
-          continue;
+          തുടരുക;
       }
   }
 
-  if(addr[9] == addr[0]) {
+  എങ്കിൽ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } അല്ലെങ്കിൽ {
     printf("NOT OK\n");
   }
 }
 
-void test4()
+ശൂന്യം test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  പൂർണ്ണസംഖ്യ എണ്ണം_2 = 10;
+  ശൂന്യം *addr[എണ്ണം_2];
+  ചെയ്യുക {
+    പൂർണ്ണസംഖ്യ a[f()];
 
-    addr[--count] = a;
+    addr[--എണ്ണം_2] = a;
 
-    continue;
-  } while (count);
+    തുടരുക;
+  } ആകുമ്പോൾ (എണ്ണം_2);
 
-  if(addr[9] == addr[0]) {
+  എങ്കിൽ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } അല്ലെങ്കിൽ {
     printf("NOT OK\n");
   }
 }
 
-void test5()
+ശൂന്യം test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  പൂർണ്ണസംഖ്യ എണ്ണം_2 = 10;
+  പൂർണ്ണസംഖ്യ a[f()];
+  പൂർണ്ണസംഖ്യ c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  വേണ്ടി(;എണ്ണം_2--;) {
+    പൂർണ്ണസംഖ്യ b[f()];
+    പൂർണ്ണസംഖ്യ i;
+    വേണ്ടി (i=0; i<f(); i++) {
+      b[i] = എണ്ണം_2;
     }
   }
 
-  if (c[0] == 42) {
+  എങ്കിൽ (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } അല്ലെങ്കിൽ {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  തിരികെ 0;
 }

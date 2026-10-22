@@ -1,21 +1,21 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main() 
+പൂർണ്ണസംഖ്യ പ്രധാന() 
 {
-   int Count;
-   int Array[10];
+   പൂർണ്ണസംഖ്യ എണ്ണം_3;
+   പൂർണ്ണസംഖ്യ Array[10];
 
-   for (Count = 1; Count <= 10; Count++)
+   വേണ്ടി (എണ്ണം_3 = 1; എണ്ണം_3 <= 10; എണ്ണം_3++)
    {
-      Array[Count-1] = Count * Count;
+      Array[എണ്ണം_3-1] = എണ്ണം_3 * എണ്ണം_3;
    }
 
-   for (Count = 0; Count < 10; Count++)
+   വേണ്ടി (എണ്ണം_3 = 0; എണ്ണം_3 < 10; എണ്ണം_3++)
    {
-      printf("%d\n", Array[Count]);
+      printf("%d\n", Array[എണ്ണം_3]);
    }
 
-   return 0;
+   തിരികെ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

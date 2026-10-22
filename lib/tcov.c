@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <fcntl.h>
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <string.h>
+#അന്തര്ഭാവ <stdlib.h>
+#അന്തര്ഭാവ <fcntl.h>
 #ifndef _WIN32
-#include <unistd.h>
-#include <errno.h>
-#else
-#include <windows.h>
-#include <io.h>
+#അന്തര്ഭാവ <unistd.h>
+#അന്തര്ഭാവ <errno.h>
+#അല്ലെങ്കിൽ
+#അന്തര്ഭാവ <windows.h>
+#അന്തര്ഭാവ <io.h>
 #endif
 
 /* section layout (all little endian):
@@ -24,33 +24,33 @@
    executable/so file name \0
  */
 
-typedef struct tcov_line {
-    unsigned int fline;
-    unsigned int lline;
-    unsigned long long count;
-} tcov_line;
+തരനിർവചനം ഘടന tcov_വരി {
+    unsigned പൂർണ്ണസംഖ്യ fline;
+    unsigned പൂർണ്ണസംഖ്യ lline;
+    unsigned long long എണ്ണം_2;
+} tcov_വരി;
 
-typedef struct tcov_function {
-    char *function;
-    unsigned int first_line;
-    unsigned int n_line;
-    unsigned int m_line;
-    tcov_line *line;
+തരനിർവചനം ഘടന tcov_function {
+    അക്ഷരം *function;
+    unsigned പൂർണ്ണസംഖ്യ first_വരി;
+    unsigned പൂർണ്ണസംഖ്യ n_വരി;
+    unsigned പൂർണ്ണസംഖ്യ m_വരി;
+    tcov_വരി *വരി;
 } tcov_function;
 
-typedef struct tcov_file {
-    char *filename;
-    unsigned int n_func;
-    unsigned int m_func;
+തരനിർവചനം ഘടന tcov_file {
+    അക്ഷരം *filename;
+    unsigned പൂർണ്ണസംഖ്യ n_func;
+    unsigned പൂർണ്ണസംഖ്യ m_func;
     tcov_function *func;
-    struct tcov_file *next;
+    ഘടന tcov_file *next;
 } tcov_file;
 
-static FILE *open_tcov_file (char *cov_filename)
+സ്ഥിതം FILE *open_tcov_file (അക്ഷരം *cov_filename)
 {
-    int fd;
+    പൂർണ്ണസംഖ്യ fd;
 #ifndef _WIN32
-    struct flock lock;
+    ഘടന flock lock;
 
     lock.l_type = F_WRLCK;
     lock.l_whence = SEEK_SET;
@@ -59,13 +59,13 @@ static FILE *open_tcov_file (char *cov_filename)
     lock.l_pid = getpid ();
 #endif
     fd = open (cov_filename, O_RDWR | O_CREAT, 0666);
-    if (fd < 0)
-	return NULL;
+    എങ്കിൽ (fd < 0)
+	തിരികെ ശൂന്യ;
   
 #ifndef _WIN32
-    while (fcntl (fd, F_SETLKW, &lock) && errno == EINTR)
-        continue;
-#else
+    ആകുമ്പോൾ (fcntl (fd, F_SETLKW, &lock) && errno == EINTR)
+        തുടരുക;
+#അല്ലെങ്കിൽ
     {
         OVERLAPPED overlapped = { 0 };
         LockFileEx((HANDLE)_get_osfhandle(fd), LOCKFILE_EXCLUSIVE_LOCK,
@@ -73,129 +73,129 @@ static FILE *open_tcov_file (char *cov_filename)
     }
 #endif
 
-    return fdopen (fd, "r+");
+    തിരികെ fdopen (fd, "r+");
 }
 
-static unsigned long long get_value(unsigned char *p, int size)
+സ്ഥിതം unsigned long long get_മൂല്യം(unsigned അക്ഷരം *p, പൂർണ്ണസംഖ്യ size)
 {
-    unsigned long long value = 0;
+    unsigned long long മൂല്യം = 0;
 
     p += size;
-    while (size--)
- 	value = (value << 8) | *--p;
-    return value;
+    ആകുമ്പോൾ (size--)
+ 	മൂല്യം = (മൂല്യം << 8) | *--p;
+    തിരികെ മൂല്യം;
 }
 
-static int sort_func (const void *p, const void *q)
+സ്ഥിതം പൂർണ്ണസംഖ്യ sort_func (സ്ഥിരം ശൂന്യം *p, സ്ഥിരം ശൂന്യം *q)
 {
-    const tcov_function *pp = (const tcov_function *) p;
-    const tcov_function *pq = (const tcov_function *) q;
+    സ്ഥിരം tcov_function *pp = (സ്ഥിരം tcov_function *) p;
+    സ്ഥിരം tcov_function *pq = (സ്ഥിരം tcov_function *) q;
 
-    return pp->first_line > pq->first_line ? 1 :
-	   pp->first_line < pq->first_line ? -1 : 0;
+    തിരികെ pp->first_വരി > pq->first_വരി ? 1 :
+	   pp->first_വരി < pq->first_വരി ? -1 : 0;
 }
 
-static int sort_line (const void *p, const void *q)
+സ്ഥിതം പൂർണ്ണസംഖ്യ sort_വരി (സ്ഥിരം ശൂന്യം *p, സ്ഥിരം ശൂന്യം *q)
 {
-    const tcov_line *pp = (const tcov_line *) p;
-    const tcov_line *pq = (const tcov_line *) q;
+    സ്ഥിരം tcov_വരി *pp = (സ്ഥിരം tcov_വരി *) p;
+    സ്ഥിരം tcov_വരി *pq = (സ്ഥിരം tcov_വരി *) q;
 
-    return pp->fline > pq->fline ? 1 :
+    തിരികെ pp->fline > pq->fline ? 1 :
 	   pp->fline < pq->fline ? -1 :
-           pp->count < pq->count ? 1 :
-	   pp->count > pq->count ? -1 : 0;
+           pp->എണ്ണം_2 < pq->എണ്ണം_2 ? 1 :
+	   pp->എണ്ണം_2 > pq->എണ്ണം_2 ? -1 : 0;
 }
 
 /* sort to let inline functions work */
-static tcov_file *sort_test_coverage (unsigned char *p)
+സ്ഥിതം tcov_file *sort_test_coverage (unsigned അക്ഷരം *p)
 {
-    int i, j, k;
-    unsigned char *start = p;
-    tcov_file *file = NULL;
+    പൂർണ്ണസംഖ്യ i, j, k;
+    unsigned അക്ഷരം *start = p;
+    tcov_file *file = ശൂന്യ;
     tcov_file *nfile;
 
     p += 4;
-    while (*p) {
-        char *filename = (char *)p;
+    ആകുമ്പോൾ (*p) {
+        അക്ഷരം *filename = (അക്ഷരം *)p;
 	size_t len = strlen (filename);
 
 	nfile = file;
-	while (nfile) {
-	    if (strcmp (nfile->filename, filename) == 0)
-		break;
+	ആകുമ്പോൾ (nfile) {
+	    എങ്കിൽ (strcmp (nfile->filename, filename) == 0)
+		നിർത്തുക;
 	    nfile = nfile->next;
 	}
-	if (nfile == NULL) {
-	    nfile = malloc (sizeof(tcov_file));
-	    if (nfile == NULL) {
+	എങ്കിൽ (nfile == ശൂന്യ) {
+	    nfile = malloc (വലുപ്പം(tcov_file));
+	    എങ്കിൽ (nfile == ശൂന്യ) {
 	        fprintf (stderr, "Malloc error test_coverage\n");
-	        return file;
+	        തിരികെ file;
     	    }
 	    nfile->filename = filename;
 	    nfile->n_func = 0;
 	    nfile->m_func = 0;
-	    nfile->func = NULL;
-	    nfile->next = NULL;
-	    if (file == NULL)
+	    nfile->func = ശൂന്യ;
+	    nfile->next = ശൂന്യ;
+	    എങ്കിൽ (file == ശൂന്യ)
 	        file = nfile;
-	    else {
+	    അല്ലെങ്കിൽ {
 		tcov_file *lfile = file;
 
-	        while (lfile->next)
+	        ആകുമ്പോൾ (lfile->next)
 		    lfile = lfile->next;
 		lfile->next = nfile;
 	    }
 	}
 	p += len + 1;
-	while (*p) {
-	    int i;
-	    char *function = (char *)p;
+	ആകുമ്പോൾ (*p) {
+	    പൂർണ്ണസംഖ്യ i;
+	    അക്ഷരം *function = (അക്ഷരം *)p;
 	    tcov_function *func;
 
 	    p += strlen (function) + 1;
 	    p += -(p - start) & 7;
-	    for (i = 0; i < nfile->n_func; i++) {
+	    വേണ്ടി (i = 0; i < nfile->n_func; i++) {
 		func = &nfile->func[i];
-		if (strcmp (func->function, function) == 0)
-		    break;
+		എങ്കിൽ (strcmp (func->function, function) == 0)
+		    നിർത്തുക;
 	    }
-	    if (i == nfile->n_func) {
-	        if (nfile->n_func >= nfile->m_func) {
+	    എങ്കിൽ (i == nfile->n_func) {
+	        എങ്കിൽ (nfile->n_func >= nfile->m_func) {
 		    nfile->m_func = nfile->m_func == 0 ? 4 : nfile->m_func * 2;
 		    nfile->func = realloc (nfile->func,
 					   nfile->m_func *
-					   sizeof (tcov_function));
-		    if (nfile->func == NULL) {
+					   വലുപ്പം (tcov_function));
+		    എങ്കിൽ (nfile->func == ശൂന്യ) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        തിരികെ file;
 		    }
 	        }
 	        func = &nfile->func[nfile->n_func++];
 	        func->function = function;
-	        func->first_line = get_value (p, 8);
-	        func->n_line = 0;
-	        func->m_line = 0;
-	        func->line = NULL;
+	        func->first_വരി = get_മൂല്യം (p, 8);
+	        func->n_വരി = 0;
+	        func->m_വരി = 0;
+	        func->വരി = ശൂന്യ;
 	    }
 	    p += 8;
-	    while (*p) {
-		tcov_line *line;
+	    ആകുമ്പോൾ (*p) {
+		tcov_വരി *വരി;
 		unsigned long long val;
 
-		if (func->n_line >= func->m_line) {
-		    func->m_line = func->m_line == 0 ? 4 : func->m_line * 2;
-		    func->line = realloc (func->line,
-					  func->m_line * sizeof (tcov_line));
-		    if (func->line == NULL) {
+		എങ്കിൽ (func->n_വരി >= func->m_വരി) {
+		    func->m_വരി = func->m_വരി == 0 ? 4 : func->m_വരി * 2;
+		    func->വരി = realloc (func->വരി,
+					  func->m_വരി * വലുപ്പം (tcov_വരി));
+		    എങ്കിൽ (func->വരി == ശൂന്യ) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        തിരികെ file;
 		    }
 		}
-		line = &func->line[func->n_line++];
-		val = get_value (p, 8);
-	        line->fline = (val >> 8) & 0xfffffffULL;
-	        line->lline = val >> 36;
-	        line->count = get_value (p + 8, 8);
+		വരി = &func->വരി[func->n_വരി++];
+		val = get_മൂല്യം (p, 8);
+	        വരി->fline = (val >> 8) & 0xfffffffULL;
+	        വരി->lline = val >> 36;
+	        വരി->എണ്ണം_2 = get_മൂല്യം (p + 8, 8);
 	 	p += 16;
 	    }
 	    p++;
@@ -203,63 +203,63 @@ static tcov_file *sort_test_coverage (unsigned char *p)
 	p++;
     }
     nfile = file;
-    while (nfile) {
-	qsort (nfile->func, nfile->n_func, sizeof (tcov_function), sort_func);
-	for (i = 0; i < nfile->n_func; i++) {
+    ആകുമ്പോൾ (nfile) {
+	qsort (nfile->func, nfile->n_func, വലുപ്പം (tcov_function), sort_func);
+	വേണ്ടി (i = 0; i < nfile->n_func; i++) {
 	    tcov_function *func = &nfile->func[i];
-	    qsort (func->line, func->n_line, sizeof (tcov_line), sort_line);
+	    qsort (func->വരി, func->n_വരി, വലുപ്പം (tcov_വരി), sort_വരി);
         }
 	nfile = nfile->next;
     }
-    return file;
+    തിരികെ file;
 }
 
 /* merge with previous tcov file */
-static void merge_test_coverage (tcov_file *file, FILE *fp,
-				 unsigned int *pruns)
+സ്ഥിതം ശൂന്യം merge_test_coverage (tcov_file *file, FILE *fp,
+				 unsigned പൂർണ്ണസംഖ്യ *pruns)
 {
-    unsigned int runs;
-    char *p;
-    char str[10000];
+    unsigned പൂർണ്ണസംഖ്യ runs;
+    അക്ഷരം *p;
+    അക്ഷരം str[10000];
     
     *pruns = 1;
-    if (fp == NULL)
-        return;
-    if (fgets(str, sizeof(str), fp) &&
+    എങ്കിൽ (fp == ശൂന്യ)
+        തിരികെ;
+    എങ്കിൽ (fgets(str, വലുപ്പം(str), fp) &&
         (p = strrchr (str, ':')) &&
         (sscanf (p + 1, "%u", &runs) == 1)) 
         *pruns = runs + 1;
-    while (file) {
-	int i;
+    ആകുമ്പോൾ (file) {
+	പൂർണ്ണസംഖ്യ i;
 	size_t len = strlen (file->filename);
 
-	while (fgets(str, sizeof(str), fp) &&
-	       (p = strstr(str, "0:File:")) == NULL) {}
-        if ((p = strstr(str, "0:File:")) == NULL ||
+	ആകുമ്പോൾ (fgets(str, വലുപ്പം(str), fp) &&
+	       (p = strstr(str, "0:File:")) == ശൂന്യ) {}
+        എങ്കിൽ ((p = strstr(str, "0:File:")) == ശൂന്യ ||
 	    strncmp (p + strlen("0:File:"), file->filename, len) != 0 ||
 	    p[strlen("0:File:") + len] != ' ')
-	    break;
-	for (i = 0; i < file->n_func; i++) {
-	    int j;
+	    നിർത്തുക;
+	വേണ്ടി (i = 0; i < file->n_func; i++) {
+	    പൂർണ്ണസംഖ്യ j;
 	    tcov_function *func = &file->func[i];
-	    unsigned int next_zero = 0;
-	    unsigned int curline = 0;
+	    unsigned പൂർണ്ണസംഖ്യ next_zero = 0;
+	    unsigned പൂർണ്ണസംഖ്യ curline = 0;
 
-	    for (j = 0; j < func->n_line; j++) {
-		tcov_line *line = &func->line[j];
-	        unsigned int fline = line->fline;
-	        unsigned long long count;
-		unsigned int tmp;
-		char c;
+	    വേണ്ടി (j = 0; j < func->n_വരി; j++) {
+		tcov_വരി *വരി = &func->വരി[j];
+	        unsigned പൂർണ്ണസംഖ്യ fline = വരി->fline;
+	        unsigned long long എണ്ണം_2;
+		unsigned പൂർണ്ണസംഖ്യ tmp;
+		അക്ഷരം c;
 
-		while (curline < fline &&
-		       fgets(str, sizeof(str), fp))
-		    if ((p = strchr(str, ':')) &&
+		ആകുമ്പോൾ (curline < fline &&
+		       fgets(str, വലുപ്പം(str), fp))
+		    എങ്കിൽ ((p = strchr(str, ':')) &&
 			sscanf (p + 1, "%u", &tmp) == 1)
 			curline = tmp;
-		if (sscanf (str, "%llu%c\n", &count, &c) == 2) {
-		    if (next_zero == 0)
-		        line->count += count;
+		എങ്കിൽ (sscanf (str, "%llu%c\n", &എണ്ണം_2, &c) == 2) {
+		    എങ്കിൽ (next_zero == 0)
+		        വരി->എണ്ണം_2 += എണ്ണം_2;
 		    next_zero = c == '*';
 		}
 	    }
@@ -269,25 +269,25 @@ static void merge_test_coverage (tcov_file *file, FILE *fp,
 }
 
 /* store tcov data in file */
-void __store_test_coverage (unsigned char * p)
+ശൂന്യം __store_test_coverage (unsigned അക്ഷരം * p)
 {
-    int i, j;
-    unsigned int files;
-    unsigned int funcs;
-    unsigned int blocks;
-    unsigned int blocks_run;
-    unsigned int runs;
-    char *cov_filename = (char *)p + get_value (p, 4);
+    പൂർണ്ണസംഖ്യ i, j;
+    unsigned പൂർണ്ണസംഖ്യ files;
+    unsigned പൂർണ്ണസംഖ്യ funcs;
+    unsigned പൂർണ്ണസംഖ്യ blocks;
+    unsigned പൂർണ്ണസംഖ്യ blocks_run;
+    unsigned പൂർണ്ണസംഖ്യ runs;
+    അക്ഷരം *cov_filename = (അക്ഷരം *)p + get_മൂല്യം (p, 4);
     FILE *fp;
-    char *q;
+    അക്ഷരം *q;
     tcov_file *file;
     tcov_file *nfile;
     tcov_function *func;
 
     fp = open_tcov_file (cov_filename);
-    if (fp == NULL) {
+    എങ്കിൽ (fp == ശൂന്യ) {
 	fprintf (stderr, "Cannot create coverage file: %s\n", cov_filename);
-	return;
+	തിരികെ;
     }
     file = sort_test_coverage (p);
     merge_test_coverage (file, fp, &runs);
@@ -298,131 +298,131 @@ void __store_test_coverage (unsigned char * p)
     blocks = 0;
     blocks_run = 0;
     nfile = file;
-    while (nfile) {
+    ആകുമ്പോൾ (nfile) {
 	files++;
-	for (i = 0; i < nfile->n_func; i++) {
+	വേണ്ടി (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
+	    വേണ്ടി (j = 0; j < func->n_വരി; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->വരി[j].എണ്ണം_2 != 0;
 	    }
 	}
 	nfile = nfile->next;
     }
-    if (blocks == 0)
+    എങ്കിൽ (blocks == 0)
 	blocks = 1;
     fprintf (fp, "        -:    0:All:%s Files:%u Functions:%u %.02f%%\n",
-	     cov_filename, files, funcs, 100.0 * (double) blocks_run / blocks);
+	     cov_filename, files, funcs, 100.0 * (ഇരട്ട) blocks_run / blocks);
     nfile = file;
-    while (nfile) {
+    ആകുമ്പോൾ (nfile) {
 	FILE *src = fopen (nfile->filename, "r");
-	unsigned int curline = 1;
-	char str[10000];
+	unsigned പൂർണ്ണസംഖ്യ curline = 1;
+	അക്ഷരം str[10000];
 
-        if (src == NULL)
-	     goto next;
+        എങ്കിൽ (src == ശൂന്യ)
+	     പോകുക next;
 	funcs = 0;
 	blocks = 0;
 	blocks_run = 0;
-	for (i = 0; i < nfile->n_func; i++) {
+	വേണ്ടി (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
+	    വേണ്ടി (j = 0; j < func->n_വരി; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->വരി[j].എണ്ണം_2 != 0;
 	    }
 	}
-	if (blocks == 0)
+	എങ്കിൽ (blocks == 0)
 	    blocks = 1;
         fprintf (fp, "        -:    0:File:%s Functions:%u %.02f%%\n",
-		 nfile->filename, funcs, 100.0 * (double) blocks_run / blocks);
-        for (i = 0; i < nfile->n_func; i++) {
+		 nfile->filename, funcs, 100.0 * (ഇരട്ട) blocks_run / blocks);
+        വേണ്ടി (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	
-	    while (curline < func->first_line &&
-		   fgets(str, sizeof(str), src))
+	    ആകുമ്പോൾ (curline < func->first_വരി &&
+		   fgets(str, വലുപ്പം(str), src))
 		fprintf (fp, "        -:%5u:%s", curline++, str);
 	    blocks = 0;
 	    blocks_run = 0;
-	    for (j = 0; j < func->n_line; j++) {
+	    വേണ്ടി (j = 0; j < func->n_വരി; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->വരി[j].എണ്ണം_2 != 0;
 	    }
-	    if (blocks == 0)
+	    എങ്കിൽ (blocks == 0)
 		blocks = 1;
             fprintf (fp, "        -:    0:Function:%s %.02f%%\n",
-		     func->function, 100.0 * (double) blocks_run / blocks);
-#if 0
-	    for (j = 0; j < func->n_line; j++) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-		unsigned long long count = func->line[j].count;
+		     func->function, 100.0 * (ഇരട്ട) blocks_run / blocks);
+#എങ്കിൽ 0
+	    വേണ്ടി (j = 0; j < func->n_വരി; j++) {
+	        unsigned പൂർണ്ണസംഖ്യ fline = func->വരി[j].fline;
+	        unsigned പൂർണ്ണസംഖ്യ lline = func->വരി[j].lline;
+		unsigned long long എണ്ണം_2 = func->വരി[j].എണ്ണം_2;
 
-		fprintf (fp, "%u %u %llu\n", fline, lline, count);
+		fprintf (fp, "%u %u %llu\n", fline, lline, എണ്ണം_2);
 	    }
 #endif
-	    for (j = 0; j < func->n_line;) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-	        unsigned long long count = func->line[j].count;
-		unsigned int has_zero = 0;
-		unsigned int same_line = fline == lline;
+	    വേണ്ടി (j = 0; j < func->n_വരി;) {
+	        unsigned പൂർണ്ണസംഖ്യ fline = func->വരി[j].fline;
+	        unsigned പൂർണ്ണസംഖ്യ lline = func->വരി[j].lline;
+	        unsigned long long എണ്ണം_2 = func->വരി[j].എണ്ണം_2;
+		unsigned പൂർണ്ണസംഖ്യ has_zero = 0;
+		unsigned പൂർണ്ണസംഖ്യ same_വരി = fline == lline;
 
 		j++;
-		while (j < func->n_line) {
-	            unsigned int nfline = func->line[j].fline;
-	            unsigned int nlline = func->line[j].lline;
-	            unsigned long long ncount = func->line[j].count;
+		ആകുമ്പോൾ (j < func->n_വരി) {
+	            unsigned പൂർണ്ണസംഖ്യ nfline = func->വരി[j].fline;
+	            unsigned പൂർണ്ണസംഖ്യ nlline = func->വരി[j].lline;
+	            unsigned long long ncount = func->വരി[j].എണ്ണം_2;
 
-		    if (fline == nfline) {
-			if (ncount == 0)
+		    എങ്കിൽ (fline == nfline) {
+			എങ്കിൽ (ncount == 0)
 			    has_zero = 1;
-			else if (ncount > count)
-			    count =  ncount;
-			same_line = nfline == nlline;
+			അല്ലെങ്കിൽ എങ്കിൽ (ncount > എണ്ണം_2)
+			    എണ്ണം_2 =  ncount;
+			same_വരി = nfline == nlline;
 			lline = nlline;
 			j++;
 		    }
-		    else
-			break;
+		    അല്ലെങ്കിൽ
+			നിർത്തുക;
 		}
-		if (same_line)
+		എങ്കിൽ (same_വരി)
 		     lline++;
 
-	        while (curline < fline &&
-		       fgets(str, sizeof(str), src))
+	        ആകുമ്പോൾ (curline < fline &&
+		       fgets(str, വലുപ്പം(str), src))
 		     fprintf (fp, "        -:%5u:%s", curline++, str);
-		while (curline < lline &&
-		       fgets(str, sizeof(str), src)) {
-		    if (count == 0)
+		ആകുമ്പോൾ (curline < lline &&
+		       fgets(str, വലുപ്പം(str), src)) {
+		    എങ്കിൽ (എണ്ണം_2 == 0)
 		        fprintf (fp, "    #####:%5u:%s",
 				 curline, str);
-		    else if (has_zero)
+		    അല്ലെങ്കിൽ എങ്കിൽ (has_zero)
 		        fprintf (fp, "%8llu*:%5u:%s", 
-				 count, curline, str);
-		    else
+				 എണ്ണം_2, curline, str);
+		    അല്ലെങ്കിൽ
 		        fprintf (fp, "%9llu:%5u:%s",
-				 count, curline, str);
+				 എണ്ണം_2, curline, str);
 		    curline++;
 		}
 	    }
 	}
-	while (fgets(str, sizeof(str), src))
+	ആകുമ്പോൾ (fgets(str, വലുപ്പം(str), src))
 	    fprintf (fp, "        -:%5u:%s", curline++, str);
 	fclose (src);
 next:
 	nfile = nfile->next;
     }
-    while (file) {
-        for (i = 0; i < file->n_func; i++) {
+    ആകുമ്പോൾ (file) {
+        വേണ്ടി (i = 0; i < file->n_func; i++) {
 	    func = &file->func[i];
-	    free (func->line);
+	    സ്വതന്ത്രം (func->വരി);
         }
-	free (file->func);
+	സ്വതന്ത്രം (file->func);
 	nfile = file;
 	file = file->next;
-	free (nfile);
+	സ്വതന്ത്രം (nfile);
     }
     fclose (fp);
 }

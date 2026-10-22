@@ -1,12 +1,12 @@
-#include <stdio.h>
-#include <windows.h>
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <windows.h>
 
 #define PTR(x) ((PVOID)(ULONG_PTR)(x))
-#define CHECK(name, expr) printf("%s: %s\n", name, (expr) ? "yes" : "no")
+#define CHECK(name, വ്യഞ്ജകം) printf("%s: %s\n", name, (വ്യഞ്ജകം) ? "yes" : "no")
 
-int main(void)
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
-    PVOID volatile slot = PTR(0x1111222233334444ULL);
+    PVOID അസ്ഥിര slot = PTR(0x1111222233334444ULL);
     PVOID old;
 
     old = InterlockedExchangePointer(&slot, PTR(0x5555666677778888ULL));
@@ -31,5 +31,5 @@ int main(void)
     CHECK("release old", old == PTR(0x9999aaaabbbbccccULL));
     CHECK("release stored", slot == PTR(0xdddd111122223333ULL));
 
-    return 0;
+    തിരികെ 0;
 }

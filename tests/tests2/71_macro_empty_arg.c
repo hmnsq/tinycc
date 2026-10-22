@@ -1,9 +1,9 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
 #define T(a,b,c) a b c
 
-int main(void)
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
     printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    തിരികെ 0;
 }

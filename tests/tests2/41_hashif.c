@@ -1,33 +1,33 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#എങ്കിൽ 1
+#എങ്കിൽ 0
    printf("a\n");
-#else
+#അല്ലെങ്കിൽ
    printf("b\n");
 #endif
-#else
-#if 0
+#അല്ലെങ്കിൽ
+#എങ്കിൽ 0
    printf("c\n");
-#else
+#അല്ലെങ്കിൽ
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#എങ്കിൽ 0
+#എങ്കിൽ 1
    printf("e\n");
-#else
+#അല്ലെങ്കിൽ
    printf("f\n");
 #endif
-#else
-#if 1
+#അല്ലെങ്കിൽ
+#എങ്കിൽ 1
    printf("g\n");
-#else
+#അല്ലെങ്കിൽ
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#അല്ലെങ്കിൽ
    printf("j\n");
 #endif
-#else
+#അല്ലെങ്കിൽ
 #ifdef DEF
    printf("k\n");
-#else
+#അല്ലെങ്കിൽ
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#അല്ലെങ്കിൽ
    printf("n\n");
 #endif
-#else
+#അല്ലെങ്കിൽ
 #ifndef DEF
    printf("o\n");
-#else
+#അല്ലെങ്കിൽ
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#എങ്കിൽ ONE
+#എങ്കിൽ ZERO
    printf("q\n");
-#else
+#അല്ലെങ്കിൽ
    printf("r\n");
 #endif
-#else
-#if ZERO
+#അല്ലെങ്കിൽ
+#എങ്കിൽ ZERO
    printf("s\n");
-#else
+#അല്ലെങ്കിൽ
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

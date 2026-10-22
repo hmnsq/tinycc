@@ -1,41 +1,41 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+പൂർണ്ണസംഖ്യ atexit(ശൂന്യം (*function)(ശൂന്യം));
+പൂർണ്ണസംഖ്യ on_exit(ശൂന്യം (*function)(പൂർണ്ണസംഖ്യ, ശൂന്യം *), ശൂന്യം *arg);
+ശൂന്യം exit(പൂർണ്ണസംഖ്യ status);
 
-void __attribute((constructor)) startup5(void)
+ശൂന്യം __attribute((constructor)) startup5(ശൂന്യം)
 {
     printf ("startup5\n");
 }
 
-void cleanup1(void)
+ശൂന്യം cleanup1(ശൂന്യം)
 {
     printf ("cleanup1\n");
     fflush(stdout);
 }
 
-void cleanup2(void)
+ശൂന്യം cleanup2(ശൂന്യം)
 {
     printf ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+ശൂന്യം cleanup3(പൂർണ്ണസംഖ്യ ret, ശൂന്യം *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (അക്ഷരം *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+ശൂന്യം cleanup4(പൂർണ്ണസംഖ്യ ret, ശൂന്യം *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (അക്ഷരം *) arg);
 }
 
-void __attribute((destructor)) cleanup5(void)
+ശൂന്യം __attribute((destructor)) cleanup5(ശൂന്യം)
 {
     printf ("cleanup5\n");
 }
 
-void test(void)
+ശൂന്യം test(ശൂന്യം)
 {
     atexit(cleanup1);
     atexit(cleanup2);
@@ -43,15 +43,15 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#എങ്കിൽ defined test_128_return
+പൂർണ്ണസംഖ്യ പ്രധാന(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv)
 {
     test();
-    return 1;
+    തിരികെ 1;
 } 
 
-#elif defined test_128_exit
-int main(int argc, char **argv)
+#അല്ലെങ്കിലെങ്കിൽ defined test_128_exit
+പൂർണ്ണസംഖ്യ പ്രധാന(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv)
 {
     test();
     exit(2);

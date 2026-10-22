@@ -307,17 +307,17 @@ shrd %cl, %eax, %edx
 shrd %eax, %edx
 
 L4:
-call 0x1000
-call L4
+വിളിക്കുക 0x1000
+വിളിക്കുക L4
 #ifdef __i386__
-call *%eax
+വിളിക്കുക *%eax
 #else
-call *%rax
+വിളിക്കുക *%rax
 #endif
-call *0x1000
-call func1
+വിളിക്കുക *0x1000
+വിളിക്കുക func1
 
-.global L5,L6
+.വൈശ്വിക L5,L6
 
 L5:
 L6:

@@ -1,9 +1,9 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+പൂർണ്ണസംഖ്യ printf(സ്ഥിരം അക്ഷരം *, ...);
+അക്ഷരം t[] = "012345678";
 
-int main(void)
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
-    char *data = t;
+    അക്ഷരം *data = t;
     unsigned long long r = 4;
     unsigned a = 5;
     unsigned long long b = 12;
@@ -11,5 +11,5 @@ int main(void)
     *(unsigned*)(data + r) += a - b;
 
     printf("data = \"%s\"\n", data);
-    return 0;
+    തിരികെ 0;
 }

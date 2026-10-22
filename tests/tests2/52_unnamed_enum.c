@@ -1,17 +1,17 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-enum fred { a, b, c };
+എണ്ണൽ fred { a, b, c };
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
    printf("a=%d\n", a);
    printf("b=%d\n", b);
    printf("c=%d\n", c);
 
-   enum fred d;
+   എണ്ണൽ fred d;
 
-   typedef enum { e, f, g } h;
-   typedef enum { i, j, k } m;
+   തരനിർവചനം എണ്ണൽ { e, f, g } h;
+   തരനിർവചനം എണ്ണൽ { i, j, k } m;
 
    printf("e=%d\n", e);
    printf("f=%d\n", f);
@@ -21,7 +21,7 @@ int main()
    printf("j=%d\n", j);
    printf("k=%d\n", k);
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

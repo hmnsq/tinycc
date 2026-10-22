@@ -1,37 +1,37 @@
-#include <stdio.h>
-#include <float.h>
+#അന്തര്ഭാവ <stdio.h>
+#അന്തര്ഭാവ <float.h>
 
-union ieee_double_extract
+സംഘം ieee_double_extract
 {
-    struct {
-        unsigned int manl:32;
-        unsigned int manh:20;
-        unsigned int exp:11;
-        unsigned int sig:1;
+    ഘടന {
+        unsigned പൂർണ്ണസംഖ്യ manl:32;
+        unsigned പൂർണ്ണസംഖ്യ manh:20;
+        unsigned പൂർണ്ണസംഖ്യ exp:11;
+        unsigned പൂർണ്ണസംഖ്യ sig:1;
     } s;
-    double d;
+    ഇരട്ട d;
 };
 
-double scale(double d)
+ഇരട്ട scale(ഇരട്ട d)
 {
-    union ieee_double_extract x;
+    സംഘം ieee_double_extract x;
 
     x.d = d;
     x.d *= 1000;
-    return x.d;
+    തിരികെ x.d;
 }
 
-void mul(double *p)
+ശൂന്യം mul(ഇരട്ട *p)
 {
     *p *= 2.0;
 }
 
-int
-main(void)
+പൂർണ്ണസംഖ്യ
+പ്രധാന(ശൂന്യം)
 {
-    double d = 4.0;
+    ഇരട്ട d = 4.0;
     printf("%g\n", scale(42));
     mul(&d);
     printf("%g\n", d);
-    return 0;
+    തിരികെ 0;
 }

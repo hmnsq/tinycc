@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+ബാഹ്യ പൂർണ്ണസംഖ്യ printf(സ്ഥിരം അക്ഷരം *, ...);
+ശൂന്യം f(ശൂന്യം);
+ശൂന്യം bar(ശൂന്യം) { ശൂന്യം f(ശൂന്യം); f(); }
+ശൂന്യം foo(ശൂന്യം) { ബാഹ്യ ശൂന്യം f(ശൂന്യം); f(); }
+ശൂന്യം f(ശൂന്യം) { printf("f\n"); }
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
   bar();
   foo();
-  return 0;
+  തിരികെ 0;
 }

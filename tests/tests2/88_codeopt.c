@@ -1,52 +1,52 @@
 /* Check some way in where code suppression caused various
    miscompilations.  */
-extern int printf (const char *, ...);
-typedef __SIZE_TYPE__ size_t;
+ബാഹ്യ പൂർണ്ണസംഖ്യ printf (സ്ഥിരം അക്ഷരം *, ...);
+തരനിർവചനം __SIZE_TYPE__ size_t;
 
 size_t _brk_start, _brk_end;
-void * extend_brk(size_t size, size_t align)
+ശൂന്യം * extend_brk(size_t size, size_t align)
 {
     size_t mask = align - 1;
-    void *ret = 0;
+    ശൂന്യം *ret = 0;
 
-     do {
-	 if (__builtin_expect(!!(_brk_start == 0), 0))
-	   do {
+     ചെയ്യുക {
+	 എങ്കിൽ (__builtin_expect(!!(_brk_start == 0), 0))
+	   ചെയ്യുക {
 	       printf("wrong1\n");
-	   } while (0);
-     } while (0);
+	   } ആകുമ്പോൾ (0);
+     } ആകുമ്പോൾ (0);
      _brk_end = (_brk_end + mask) & ~mask;
-     ret = (void *)_brk_end;
+     ret = (ശൂന്യം *)_brk_end;
      _brk_end += size;
 
-     return ret;
+     തിരികെ ret;
 }
 
-static void get_args (int a, int b)
+സ്ഥിതം ശൂന്യം get_args (പൂർണ്ണസംഖ്യ a, പൂർണ്ണസംഖ്യ b)
 {
-  if (a != 1)
+  എങ്കിൽ (a != 1)
     printf("wrong2\n");
-  else
+  അല്ലെങ്കിൽ
     printf("okay\n");
 }
 
-void bla(void)
+ശൂന്യം bla(ശൂന്യം)
 {
-  int __ret = 42;
+  പൂർണ്ണസംഖ്യ __ret = 42;
   ({
-    if (__builtin_expect(!!(0), 0)) {
-      if (__builtin_expect(!!__ret, 0))
+    എങ്കിൽ (__builtin_expect(!!(0), 0)) {
+      എങ്കിൽ (__builtin_expect(!!__ret, 0))
         printf("wrong3\n");
-      int x = !!(__ret);
+      പൂർണ്ണസംഖ്യ x = !!(__ret);
     }
     __ret;
   });
-  get_args(!!__ret, sizeof(__ret));
+  get_args(!!__ret, വലുപ്പം(__ret));
 }
 
-int ext;
+പൂർണ്ണസംഖ്യ ext;
 
-void broken_jumpopt (int xxx)
+ശൂന്യം broken_jumpopt (പൂർണ്ണസംഖ്യ xxx)
 {
   /* This was broken in 8227db3a2 by code suppression during suppressed
      code :) */
@@ -59,22 +59,22 @@ _Bool chk(unsigned long addr, unsigned long limit, unsigned long size)
   _Bool ret;
   /* This just needs to compile, no runtime test.  (And it doesn't compile
      only with certain internal checking added that's not committed).  */
-  if (0)
+  എങ്കിൽ (0)
     ret = 0 != (!!(addr > limit - size));
-  return 0;
+  തിരികെ 0;
 }
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
-  void *r;
+  ശൂന്യം *r;
   _brk_start = 1024;
   _brk_end = 1024;
   r = extend_brk (4096, 16);
-  if (!r)
+  എങ്കിൽ (!r)
     printf("wrong4\n");
-  else
+  അല്ലെങ്കിൽ
     printf("okay\n");
   bla();
   broken_jumpopt(42);
-  return 0;
+  തിരികെ 0;
 }

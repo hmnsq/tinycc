@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#അല്ലെങ്കിൽ
 # define _
 #endif
 
-extern int printf (const char *, ...);
-extern void vide(void);
+ബാഹ്യ പൂർണ്ണസംഖ്യ printf (സ്ഥിരം അക്ഷരം *, ...);
+ബാഹ്യ ശൂന്യം vide(ശൂന്യം);
 __asm__(_"vide: ret");
 
-int main() {
+പൂർണ്ണസംഖ്യ പ്രധാന() {
     vide();
     printf ("okay\n");
-    return 0;
+    തിരികെ 0;
 }

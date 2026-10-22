@@ -12,11 +12,11 @@
 #endif
 
 #ifndef _INC_WINDOWS
-#include <windows.h>
+#അന്തര്ഭാവ <windows.h>
 #endif
 
 #ifndef MAKEWORD
-#define MAKEWORD(low,high) ((WORD)(((BYTE)(low)) | ((WORD)((BYTE)(high))) << 8))
+#define MAKEWORD(താഴെയുള്ള,മുകളിലെ) ((WORD)(((BYTE)(താഴെയുള്ള)) | ((WORD)((BYTE)(മുകളിലെ))) << 8))
 #endif
 
 #ifndef WINSOCK_VERSION
@@ -26,44 +26,44 @@
 #ifndef WINSOCK_API_LINKAGE
 #ifdef DECLSPEC_IMPORT
 #define WINSOCK_API_LINKAGE DECLSPEC_IMPORT
-#else
+#അല്ലെങ്കിൽ
 #define WINSOCK_API_LINKAGE
 #endif
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+ബാഹ്യ "C" {
 #endif
 
 #ifndef _WINSOCK_SOCKET_DEFINED
 #define _WINSOCK_SOCKET_DEFINED
-  typedef unsigned char u_char;
-  typedef unsigned short u_short;
-  typedef unsigned int u_int;
-  typedef unsigned long u_long;
-  __MINGW_EXTENSION typedef unsigned __int64 u_int64;
-  typedef INT_PTR SOCKET;
+  തരനിർവചനം unsigned അക്ഷരം u_char;
+  തരനിർവചനം unsigned short u_short;
+  തരനിർവചനം unsigned പൂർണ്ണസംഖ്യ u_int;
+  തരനിർവചനം unsigned long u_long;
+  __MINGW_EXTENSION തരനിർവചനം unsigned __int64 u_int64;
+  തരനിർവചനം INT_PTR SOCKET;
 #endif
 
 #ifndef FD_SETSIZE
 #define FD_SETSIZE 64
 #endif
 
-  typedef struct fd_set {
-    u_int fd_count;
+  തരനിർവചനം ഘടന fd_set {
+    u_int fd_എണ്ണം;
     SOCKET fd_array[FD_SETSIZE];
   } fd_set;
 
-  extern int WINAPI __WSAFDIsSet(SOCKET,fd_set *);
+  ബാഹ്യ പൂർണ്ണസംഖ്യ WINAPI __WSAFDIsSet(SOCKET,fd_set *);
 
-#define FD_CLR(fd,set) do { u_int __i; for(__i = 0;__i < ((fd_set *)(set))->fd_count;__i++) { if (((fd_set *)(set))->fd_array[__i]==fd) { while (__i < ((fd_set *)(set))->fd_count-1) { ((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i+1]; __i++; } ((fd_set *)(set))->fd_count--; break; } } } while(0)
-#define FD_SET(fd,set) do { u_int __i; for(__i = 0;__i < ((fd_set *)(set))->fd_count;__i++) { if (((fd_set *)(set))->fd_array[__i]==(fd)) { break; } } if (__i==((fd_set *)(set))->fd_count) { if (((fd_set *)(set))->fd_count < FD_SETSIZE) { ((fd_set *)(set))->fd_array[__i] = (fd); ((fd_set *)(set))->fd_count++; } } } while(0)
-#define FD_ZERO(set) (((fd_set *)(set))->fd_count=0)
+#define FD_CLR(fd,set) ചെയ്യുക { u_int __i; വേണ്ടി(__i = 0;__i < ((fd_set *)(set))->fd_എണ്ണം;__i++) { എങ്കിൽ (((fd_set *)(set))->fd_array[__i]==fd) { ആകുമ്പോൾ (__i < ((fd_set *)(set))->fd_എണ്ണം-1) { ((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i+1]; __i++; } ((fd_set *)(set))->fd_എണ്ണം--; നിർത്തുക; } } } ആകുമ്പോൾ(0)
+#define FD_SET(fd,set) ചെയ്യുക { u_int __i; വേണ്ടി(__i = 0;__i < ((fd_set *)(set))->fd_എണ്ണം;__i++) { എങ്കിൽ (((fd_set *)(set))->fd_array[__i]==(fd)) { നിർത്തുക; } } എങ്കിൽ (__i==((fd_set *)(set))->fd_എണ്ണം) { എങ്കിൽ (((fd_set *)(set))->fd_എണ്ണം < FD_SETSIZE) { ((fd_set *)(set))->fd_array[__i] = (fd); ((fd_set *)(set))->fd_എണ്ണം++; } } } ആകുമ്പോൾ(0)
+#define FD_ZERO(set) (((fd_set *)(set))->fd_എണ്ണം=0)
 #define FD_ISSET(fd,set) __WSAFDIsSet((SOCKET)(fd),(fd_set *)(set))
 
 #ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
 #define _TIMEVAL_DEFINED
-  struct timeval {
+  ഘടന timeval {
     long tv_sec;
     long tv_usec;
   };
@@ -80,8 +80,8 @@ extern "C" {
 #define IOC_INOUT (IOC_IN|IOC_OUT)
 
 #define _IO(x,y) (IOC_VOID|((x)<<8)|(y))
-#define _IOR(x,y,t) (IOC_OUT|(((long)sizeof(t)&IOCPARM_MASK)<<16)|((x)<<8)|(y))
-#define _IOW(x,y,t) (IOC_IN|(((long)sizeof(t)&IOCPARM_MASK)<<16)|((x)<<8)|(y))
+#define _IOR(x,y,t) (IOC_OUT|(((long)വലുപ്പം(t)&IOCPARM_MASK)<<16)|((x)<<8)|(y))
+#define _IOW(x,y,t) (IOC_IN|(((long)വലുപ്പം(t)&IOCPARM_MASK)<<16)|((x)<<8)|(y))
 
 #define FIONREAD _IOR('f',127,u_long)
 #define FIONBIO _IOW('f',126,u_long)
@@ -95,36 +95,36 @@ extern "C" {
 
 #define h_addr h_addr_list[0]
 
-  struct hostent {
-    char *h_name;
-    char **h_aliases;
+  ഘടന hostent {
+    അക്ഷരം *h_name;
+    അക്ഷരം **h_aliases;
     short h_addrtype;
     short h_length;
-    char **h_addr_list;
+    അക്ഷരം **h_addr_list;
   };
 
-  struct netent {
-    char *n_name;
-    char **n_aliases;
+  ഘടന netent {
+    അക്ഷരം *n_name;
+    അക്ഷരം **n_aliases;
     short n_addrtype;
     u_long n_net;
   };
 
-  struct servent {
-    char *s_name;
-    char **s_aliases;
+  ഘടന servent {
+    അക്ഷരം *s_name;
+    അക്ഷരം **s_aliases;
 #ifdef _WIN64
-    char *s_proto;
+    അക്ഷരം *s_proto;
     short s_port;
-#else
+#അല്ലെങ്കിൽ
     short s_port;
-    char *s_proto;
+    അക്ഷരം *s_proto;
 #endif
   };
 
-  struct protoent {
-    char *p_name;
-    char **p_aliases;
+  ഘടന protoent {
+    അക്ഷരം *p_name;
+    അക്ഷരം **p_aliases;
     short p_proto;
   };
 
@@ -188,10 +188,10 @@ extern "C" {
 
 #ifndef s_addr
 
-  struct in_addr {
-    union {
-      struct { u_char s_b1,s_b2,s_b3,s_b4; } S_un_b;
-      struct { u_short s_w1,s_w2; } S_un_w;
+  ഘടന in_addr {
+    സംഘം {
+      ഘടന { u_char s_b1,s_b2,s_b3,s_b4; } S_un_b;
+      ഘടന { u_short s_w1,s_w2; } S_un_w;
       u_long S_addr;
     } S_un;
   };
@@ -235,31 +235,31 @@ extern "C" {
 
 #define ADDR_ANY INADDR_ANY
 
-  struct sockaddr_in {
+  ഘടന sockaddr_in {
     short sin_family;
     u_short sin_port;
-    struct in_addr sin_addr;
-    char sin_zero[8];
+    ഘടന in_addr sin_addr;
+    അക്ഷരം sin_zero[8];
   };
 
 #define WSADESCRIPTION_LEN 256
 #define WSASYS_STATUS_LEN 128
 
-  typedef struct WSAData {
+  തരനിർവചനം ഘടന WSAData {
     WORD wVersion;
-    WORD wHighVersion;
+    WORD w_മുകളിലെ_Version;
 #ifdef _WIN64
     unsigned short iMaxSockets;
     unsigned short iMaxUdpDg;
-    char *lpVendorInfo;
-    char szDescription[WSADESCRIPTION_LEN+1];
-    char szSystemStatus[WSASYS_STATUS_LEN+1];
-#else
-    char szDescription[WSADESCRIPTION_LEN+1];
-    char szSystemStatus[WSASYS_STATUS_LEN+1];
+    അക്ഷരം *lpVendorInfo;
+    അക്ഷരം szDescription[WSADESCRIPTION_LEN+1];
+    അക്ഷരം szSystemStatus[WSASYS_STATUS_LEN+1];
+#അല്ലെങ്കിൽ
+    അക്ഷരം szDescription[WSADESCRIPTION_LEN+1];
+    അക്ഷരം szSystemStatus[WSASYS_STATUS_LEN+1];
     unsigned short iMaxSockets;
     unsigned short iMaxUdpDg;
-    char *lpVendorInfo;
+    അക്ഷരം *lpVendorInfo;
 #endif
   } WSADATA,*LPWSADATA;
 
@@ -284,8 +284,8 @@ extern "C" {
 #define SO_LINGER 0x0080
 #define SO_OOBINLINE 0x0100
 
-#define SO_DONTLINGER (int)(~SO_LINGER)
-#define SO_EXCLUSIVEADDRUSE ((int)(~SO_REUSEADDR))
+#define SO_DONTLINGER (പൂർണ്ണസംഖ്യ)(~SO_LINGER)
+#define SO_EXCLUSIVEADDRUSE ((പൂർണ്ണസംഖ്യ)(~SO_REUSEADDR))
 
 #define SO_SNDBUF 0x1001
 #define SO_RCVBUF 0x1002
@@ -298,12 +298,12 @@ extern "C" {
 
 #define SO_GROUP_ID 0x2001
 #define SO_GROUP_PRIORITY 0x2002
-#define SO_MAX_MSG_SIZE 0x2003
+#define SO_MAX_സന്ദേശം_SIZE 0x2003
 #define SO_PROTOCOL_INFOA 0x2004
 #define SO_PROTOCOL_INFOW 0x2005
 #ifdef UNICODE
 #define SO_PROTOCOL_INFO SO_PROTOCOL_INFOW
-#else
+#അല്ലെങ്കിൽ
 #define SO_PROTOCOL_INFO SO_PROTOCOL_INFOA
 #endif
 #define PVD_CONFIG 0x3001
@@ -348,27 +348,27 @@ extern "C" {
 
 #define AF_MAX 32
 
-  struct sockaddr {
+  ഘടന sockaddr {
     u_short sa_family;
-    char sa_data[14];
+    അക്ഷരം sa_data[14];
   };
 
 #define _SS_MAXSIZE 128
 #define _SS_ALIGNSIZE (8)
 
-#define _SS_PAD1SIZE (_SS_ALIGNSIZE - sizeof (short))
-#define _SS_PAD2SIZE (_SS_MAXSIZE - (sizeof (short) + _SS_PAD1SIZE + _SS_ALIGNSIZE))
+#define _SS_PAD1SIZE (_SS_ALIGNSIZE - വലുപ്പം (short))
+#define _SS_PAD2SIZE (_SS_MAXSIZE - (വലുപ്പം (short) + _SS_PAD1SIZE + _SS_ALIGNSIZE))
 
-  struct sockaddr_storage {
+  ഘടന sockaddr_storage {
     short ss_family;
-    char __ss_pad1[_SS_PAD1SIZE];
+    അക്ഷരം __ss_pad1[_SS_PAD1SIZE];
 
     __MINGW_EXTENSION __int64 __ss_align;
-    char __ss_pad2[_SS_PAD2SIZE];
+    അക്ഷരം __ss_pad2[_SS_PAD2SIZE];
 
   };
 
-  struct sockproto {
+  ഘടന sockproto {
     u_short sp_family;
     u_short sp_protocol;
   };
@@ -401,7 +401,7 @@ extern "C" {
 
 #define PF_MAX AF_MAX
 
-  struct linger {
+  ഘടന linger {
     u_short l_onoff;
     u_short l_linger;
   };
@@ -410,16 +410,16 @@ extern "C" {
 
 #define SOMAXCONN 0x7fffffff
 
-#define MSG_OOB 0x1
-#define MSG_PEEK 0x2
-#define MSG_DONTROUTE 0x4
-#define MSG_WAITALL 0x8
+#define സന്ദേശം_OOB 0x1
+#define സന്ദേശം_PEEK 0x2
+#define സന്ദേശം_DONTROUTE 0x4
+#define സന്ദേശം_WAITALL 0x8
 
-#define MSG_PARTIAL 0x8000
+#define സന്ദേശം_PARTIAL 0x8000
 
-#define MSG_INTERRUPT 0x10
+#define സന്ദേശം_INTERRUPT 0x10
 
-#define MSG_MAXIOVLEN 16
+#define സന്ദേശം_MAXIOVLEN 16
 
 #define MAXGETHOSTSTRUCT 1024
 
@@ -603,7 +603,7 @@ extern "C" {
 #define WSANO_ADDRESS WSANO_DATA
 #define NO_ADDRESS WSANO_ADDRESS
 
-#if 0
+#എങ്കിൽ 0
 #define EWOULDBLOCK WSAEWOULDBLOCK
 #define EINPROGRESS WSAEINPROGRESS
 #define EALREADY WSAEALREADY
@@ -647,7 +647,7 @@ extern "C" {
 #define WSAEVENT HANDLE
 #define LPWSAEVENT LPHANDLE
 #define WSAOVERLAPPED OVERLAPPED
-  typedef struct _OVERLAPPED *LPWSAOVERLAPPED;
+  തരനിർവചനം ഘടന _OVERLAPPED *LPWSAOVERLAPPED;
 
 #define WSA_IO_PENDING (ERROR_IO_PENDING)
 #define WSA_IO_INCOMPLETE (ERROR_IO_INCOMPLETE)
@@ -656,7 +656,7 @@ extern "C" {
 #define WSA_NOT_ENOUGH_MEMORY (ERROR_NOT_ENOUGH_MEMORY)
 #define WSA_OPERATION_ABORTED (ERROR_OPERATION_ABORTED)
 
-#define WSA_INVALID_EVENT ((WSAEVENT)NULL)
+#define WSA_INVALID_EVENT ((WSAEVENT)ശൂന്യ)
 #define WSA_MAXIMUM_WAIT_EVENTS (MAXIMUM_WAIT_OBJECTS)
 #define WSA_WAIT_FAILED (WAIT_FAILED)
 #define WSA_WAIT_EVENT_0 (WAIT_OBJECT_0)
@@ -664,14 +664,14 @@ extern "C" {
 #define WSA_WAIT_TIMEOUT (WAIT_TIMEOUT)
 #define WSA_INFINITE (INFINITE)
 
-  typedef struct _WSABUF {
+  തരനിർവചനം ഘടന _WSABUF {
     u_long len;
-    char *buf;
+    അക്ഷരം *buf;
   } WSABUF,*LPWSABUF;
 
-#include <qos.h>
+#അന്തര്ഭാവ <qos.h>
 
-  typedef struct _QualityOfService {
+  തരനിർവചനം ഘടന _QualityOfService {
     FLOWSPEC SendingFlowspec;
     FLOWSPEC ReceivingFlowspec;
     WSABUF ProviderSpecific;
@@ -685,18 +685,18 @@ extern "C" {
 #define SD_SEND 0x01
 #define SD_BOTH 0x02
 
-  typedef unsigned int GROUP;
+  തരനിർവചനം unsigned പൂർണ്ണസംഖ്യ GROUP;
 
 #define SG_UNCONSTRAINED_GROUP 0x01
 #define SG_CONSTRAINED_GROUP 0x02
 
-  typedef struct _WSANETWORKEVENTS {
+  തരനിർവചനം ഘടന _WSANETWORKEVENTS {
     long lNetworkEvents;
-    int iErrorCode[FD_MAX_EVENTS];
+    പൂർണ്ണസംഖ്യ iErrorCode[FD_MAX_EVENTS];
   } WSANETWORKEVENTS,*LPWSANETWORKEVENTS;
 
 #ifndef GUID_DEFINED
-#include <guiddef.h>
+#അന്തര്ഭാവ <guiddef.h>
 #endif
 
 #define MAX_PROTOCOL_CHAIN 7
@@ -704,15 +704,15 @@ extern "C" {
 #define BASE_PROTOCOL 1
 #define LAYERED_PROTOCOL 0
 
-  typedef struct _WSAPROTOCOLCHAIN {
-    int ChainLen;
+  തരനിർവചനം ഘടന _WSAPROTOCOLCHAIN {
+    പൂർണ്ണസംഖ്യ ChainLen;
 
     DWORD ChainEntries[MAX_PROTOCOL_CHAIN];
   } WSAPROTOCOLCHAIN,*LPWSAPROTOCOLCHAIN;
 
 #define WSAPROTOCOL_LEN 255
 
-  typedef struct _WSAPROTOCOL_INFOA {
+  തരനിർവചനം ഘടന _WSAPROTOCOL_INFOA {
     DWORD dwServiceFlags1;
     DWORD dwServiceFlags2;
     DWORD dwServiceFlags3;
@@ -721,20 +721,20 @@ extern "C" {
     GUID ProviderId;
     DWORD dwCatalogEntryId;
     WSAPROTOCOLCHAIN ProtocolChain;
-    int iVersion;
-    int iAddressFamily;
-    int iMaxSockAddr;
-    int iMinSockAddr;
-    int iSocketType;
-    int iProtocol;
-    int iProtocolMaxOffset;
-    int iNetworkByteOrder;
-    int iSecurityScheme;
+    പൂർണ്ണസംഖ്യ iVersion;
+    പൂർണ്ണസംഖ്യ iAddressFamily;
+    പൂർണ്ണസംഖ്യ iMaxSockAddr;
+    പൂർണ്ണസംഖ്യ iMinSockAddr;
+    പൂർണ്ണസംഖ്യ iSocketType;
+    പൂർണ്ണസംഖ്യ iProtocol;
+    പൂർണ്ണസംഖ്യ iProtocolMaxOffset;
+    പൂർണ്ണസംഖ്യ iNetworkByteOrder;
+    പൂർണ്ണസംഖ്യ iSecurityScheme;
     DWORD dwMessageSize;
     DWORD dwProviderReserved;
     CHAR szProtocol[WSAPROTOCOL_LEN+1];
   } WSAPROTOCOL_INFOA,*LPWSAPROTOCOL_INFOA;
-  typedef struct _WSAPROTOCOL_INFOW {
+  തരനിർവചനം ഘടന _WSAPROTOCOL_INFOW {
     DWORD dwServiceFlags1;
     DWORD dwServiceFlags2;
     DWORD dwServiceFlags3;
@@ -743,25 +743,25 @@ extern "C" {
     GUID ProviderId;
     DWORD dwCatalogEntryId;
     WSAPROTOCOLCHAIN ProtocolChain;
-    int iVersion;
-    int iAddressFamily;
-    int iMaxSockAddr;
-    int iMinSockAddr;
-    int iSocketType;
-    int iProtocol;
-    int iProtocolMaxOffset;
-    int iNetworkByteOrder;
-    int iSecurityScheme;
+    പൂർണ്ണസംഖ്യ iVersion;
+    പൂർണ്ണസംഖ്യ iAddressFamily;
+    പൂർണ്ണസംഖ്യ iMaxSockAddr;
+    പൂർണ്ണസംഖ്യ iMinSockAddr;
+    പൂർണ്ണസംഖ്യ iSocketType;
+    പൂർണ്ണസംഖ്യ iProtocol;
+    പൂർണ്ണസംഖ്യ iProtocolMaxOffset;
+    പൂർണ്ണസംഖ്യ iNetworkByteOrder;
+    പൂർണ്ണസംഖ്യ iSecurityScheme;
     DWORD dwMessageSize;
     DWORD dwProviderReserved;
     WCHAR szProtocol[WSAPROTOCOL_LEN+1];
   } WSAPROTOCOL_INFOW,*LPWSAPROTOCOL_INFOW;
 #ifdef UNICODE
-  typedef WSAPROTOCOL_INFOW WSAPROTOCOL_INFO;
-  typedef LPWSAPROTOCOL_INFOW LPWSAPROTOCOL_INFO;
-#else
-  typedef WSAPROTOCOL_INFOA WSAPROTOCOL_INFO;
-  typedef LPWSAPROTOCOL_INFOA LPWSAPROTOCOL_INFO;
+  തരനിർവചനം WSAPROTOCOL_INFOW WSAPROTOCOL_INFO;
+  തരനിർവചനം LPWSAPROTOCOL_INFOW LPWSAPROTOCOL_INFO;
+#അല്ലെങ്കിൽ
+  തരനിർവചനം WSAPROTOCOL_INFOA WSAPROTOCOL_INFO;
+  തരനിർവചനം LPWSAPROTOCOL_INFOA LPWSAPROTOCOL_INFO;
 #endif
 
 #define PFL_MULTIPLE_PROTO_ENTRIES 0x00000001
@@ -799,9 +799,9 @@ extern "C" {
 #define JL_BOTH 0x04
 
 #define WSA_FLAG_OVERLAPPED 0x01
-#define WSA_FLAG_MULTIPOINT_C_ROOT 0x02
+#define WSA_FLAG_MULTIPOINT_C_വേര് 0x02
 #define WSA_FLAG_MULTIPOINT_C_LEAF 0x04
-#define WSA_FLAG_MULTIPOINT_D_ROOT 0x08
+#define WSA_FLAG_MULTIPOINT_D_വേര് 0x08
 #define WSA_FLAG_MULTIPOINT_D_LEAF 0x10
 
 #define IOC_UNIX 0x00000000
@@ -834,34 +834,34 @@ extern "C" {
 #define SIO_QUERY_TARGET_PNP_HANDLE _WSAIOR(IOC_WS2,24)
 #define SIO_ADDRESS_LIST_SORT _WSAIORW(IOC_WS2,25)
 
-  typedef int (CALLBACK *LPCONDITIONPROC)(LPWSABUF lpCallerId,LPWSABUF lpCallerData,LPQOS lpSQOS,LPQOS lpGQOS,LPWSABUF lpCalleeId,LPWSABUF lpCalleeData,GROUP *g,DWORD_PTR dwCallbackData);
-  typedef void (CALLBACK *LPWSAOVERLAPPED_COMPLETION_ROUTINE)(DWORD dwError,DWORD cbTransferred,LPWSAOVERLAPPED lpOverlapped,DWORD dwFlags);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (CALLBACK *LPCONDITIONPROC)(LPWSABUF lpCallerId,LPWSABUF lpCallerData,LPQOS lpSQOS,LPQOS lpGQOS,LPWSABUF lpCalleeId,LPWSABUF lpCalleeData,GROUP *g,DWORD_PTR dwCallbackData);
+  തരനിർവചനം ശൂന്യം (CALLBACK *LPWSAOVERLAPPED_COMPLETION_ROUTINE)(DWORD dwError,DWORD cbTransferred,LPWSAOVERLAPPED lpOverlapped,DWORD dwFlags);
 
 #define SIO_NSP_NOTIFY_CHANGE _WSAIOW(IOC_WS2,25)
 
-  typedef enum _WSACOMPLETIONTYPE {
+  തരനിർവചനം എണ്ണൽ _WSACOMPLETIONTYPE {
     NSP_NOTIFY_IMMEDIATELY = 0,NSP_NOTIFY_HWND,NSP_NOTIFY_EVENT,NSP_NOTIFY_PORT,NSP_NOTIFY_APC
   } WSACOMPLETIONTYPE,*PWSACOMPLETIONTYPE,*LPWSACOMPLETIONTYPE;
 
-  typedef struct _WSACOMPLETION {
+  തരനിർവചനം ഘടന _WSACOMPLETION {
     WSACOMPLETIONTYPE Type;
-    union {
-      struct {
+    സംഘം {
+      ഘടന {
 	HWND hWnd;
-	UINT uMsg;
+	UINT u_സന്ദേശം;
 	WPARAM context;
       } WindowMessage;
-      struct {
+      ഘടന {
 	LPWSAOVERLAPPED lpOverlapped;
       } Event;
-      struct {
+      ഘടന {
 	LPWSAOVERLAPPED lpOverlapped;
 	LPWSAOVERLAPPED_COMPLETION_ROUTINE lpfnCompletionProc;
       } Apc;
-      struct {
+      ഘടന {
 	LPWSAOVERLAPPED lpOverlapped;
 	HANDLE hPort;
-	ULONG_PTR Key;
+	ULONG_PTR താക്കോൽ_3;
       } Port;
     } Parameters;
   } WSACOMPLETION,*PWSACOMPLETION,*LPWSACOMPLETION;
@@ -869,18 +869,18 @@ extern "C" {
 #define TH_NETDEV 0x00000001
 #define TH_TAPI 0x00000002
 
-  typedef struct sockaddr SOCKADDR;
-  typedef struct sockaddr *PSOCKADDR;
-  typedef struct sockaddr *LPSOCKADDR;
-  typedef struct sockaddr_storage SOCKADDR_STORAGE;
-  typedef struct sockaddr_storage *PSOCKADDR_STORAGE;
-  typedef struct sockaddr_storage *LPSOCKADDR_STORAGE;
+  തരനിർവചനം ഘടന sockaddr SOCKADDR;
+  തരനിർവചനം ഘടന sockaddr *PSOCKADDR;
+  തരനിർവചനം ഘടന sockaddr *LPSOCKADDR;
+  തരനിർവചനം ഘടന sockaddr_storage SOCKADDR_STORAGE;
+  തരനിർവചനം ഘടന sockaddr_storage *PSOCKADDR_STORAGE;
+  തരനിർവചനം ഘടന sockaddr_storage *LPSOCKADDR_STORAGE;
 
 #ifndef _tagBLOB_DEFINED
 #define _tagBLOB_DEFINED
 #define _BLOB_DEFINED
 #define _LPBLOB_DEFINED
-  typedef struct _BLOB {
+  തരനിർവചനം ഘടന _BLOB {
     ULONG cbSize;
     BYTE *pBlobData;
   } BLOB,*LPBLOB;
@@ -923,43 +923,43 @@ extern "C" {
 #define RES_SERVICE (0x00000004)
 #endif
 
-#define SERVICE_TYPE_VALUE_IPXPORTA "IpxSocket"
-#define SERVICE_TYPE_VALUE_IPXPORTW L"IpxSocket"
-#define SERVICE_TYPE_VALUE_SAPIDA "SapId"
-#define SERVICE_TYPE_VALUE_SAPIDW L"SapId"
+#define SERVICE_TYPE_മൂല്യം_IPXPORTA "IpxSocket"
+#define SERVICE_TYPE_മൂല്യം_IPXPORTW L"IpxSocket"
+#define SERVICE_TYPE_മൂല്യം_SAPIDA "SapId"
+#define SERVICE_TYPE_മൂല്യം_SAPIDW L"SapId"
 
-#define SERVICE_TYPE_VALUE_TCPPORTA "TcpPort"
-#define SERVICE_TYPE_VALUE_TCPPORTW L"TcpPort"
+#define SERVICE_TYPE_മൂല്യം_TCPPORTA "TcpPort"
+#define SERVICE_TYPE_മൂല്യം_TCPPORTW L"TcpPort"
 
-#define SERVICE_TYPE_VALUE_UDPPORTA "UdpPort"
-#define SERVICE_TYPE_VALUE_UDPPORTW L"UdpPort"
+#define SERVICE_TYPE_മൂല്യം_UDPPORTA "UdpPort"
+#define SERVICE_TYPE_മൂല്യം_UDPPORTW L"UdpPort"
 
-#define SERVICE_TYPE_VALUE_OBJECTIDA "ObjectId"
-#define SERVICE_TYPE_VALUE_OBJECTIDW L"ObjectId"
+#define SERVICE_TYPE_മൂല്യം_OBJECTIDA "ObjectId"
+#define SERVICE_TYPE_മൂല്യം_OBJECTIDW L"ObjectId"
 
 #ifdef UNICODE
 
-#define SERVICE_TYPE_VALUE_SAPID SERVICE_TYPE_VALUE_SAPIDW
-#define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTW
-#define SERVICE_TYPE_VALUE_UDPPORT SERVICE_TYPE_VALUE_UDPPORTW
-#define SERVICE_TYPE_VALUE_OBJECTID SERVICE_TYPE_VALUE_OBJECTIDW
-#else
+#define SERVICE_TYPE_മൂല്യം_SAPID SERVICE_TYPE_മൂല്യം_SAPIDW
+#define SERVICE_TYPE_മൂല്യം_TCPPORT SERVICE_TYPE_മൂല്യം_TCPPORTW
+#define SERVICE_TYPE_മൂല്യം_UDPPORT SERVICE_TYPE_മൂല്യം_UDPPORTW
+#define SERVICE_TYPE_മൂല്യം_OBJECTID SERVICE_TYPE_മൂല്യം_OBJECTIDW
+#അല്ലെങ്കിൽ
 
-#define SERVICE_TYPE_VALUE_SAPID SERVICE_TYPE_VALUE_SAPIDA
-#define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTA
-#define SERVICE_TYPE_VALUE_UDPPORT SERVICE_TYPE_VALUE_UDPPORTA
-#define SERVICE_TYPE_VALUE_OBJECTID SERVICE_TYPE_VALUE_OBJECTIDA
+#define SERVICE_TYPE_മൂല്യം_SAPID SERVICE_TYPE_മൂല്യം_SAPIDA
+#define SERVICE_TYPE_മൂല്യം_TCPPORT SERVICE_TYPE_മൂല്യം_TCPPORTA
+#define SERVICE_TYPE_മൂല്യം_UDPPORT SERVICE_TYPE_മൂല്യം_UDPPORTA
+#define SERVICE_TYPE_മൂല്യം_OBJECTID SERVICE_TYPE_മൂല്യം_OBJECTIDA
 #endif
 
 #ifndef __CSADDR_DEFINED__
 #define __CSADDR_DEFINED__
 
-  typedef struct _SOCKET_ADDRESS {
+  തരനിർവചനം ഘടന _SOCKET_ADDRESS {
     LPSOCKADDR lpSockaddr;
     INT iSockaddrLength;
   } SOCKET_ADDRESS,*PSOCKET_ADDRESS,*LPSOCKET_ADDRESS;
 
-  typedef struct _CSADDR_INFO {
+  തരനിർവചനം ഘടന _CSADDR_INFO {
     SOCKET_ADDRESS LocalAddr;
     SOCKET_ADDRESS RemoteAddr;
     INT iSocketType;
@@ -967,26 +967,26 @@ extern "C" {
   } CSADDR_INFO,*PCSADDR_INFO,*LPCSADDR_INFO;
 #endif
 
-  typedef struct _SOCKET_ADDRESS_LIST {
-    INT iAddressCount;
+  തരനിർവചനം ഘടന _SOCKET_ADDRESS_LIST {
+    INT i_Address_എണ്ണം;
     SOCKET_ADDRESS Address[1];
   } SOCKET_ADDRESS_LIST,*LPSOCKET_ADDRESS_LIST;
 
-  typedef struct _AFPROTOCOLS {
+  തരനിർവചനം ഘടന _AFPROTOCOLS {
     INT iAddressFamily;
     INT iProtocol;
   } AFPROTOCOLS,*PAFPROTOCOLS,*LPAFPROTOCOLS;
 
-  typedef enum _WSAEcomparator {
+  തരനിർവചനം എണ്ണൽ _WSAEcomparator {
     COMP_EQUAL = 0,COMP_NOTLESS
   } WSAECOMPARATOR,*PWSAECOMPARATOR,*LPWSAECOMPARATOR;
 
-  typedef struct _WSAVersion {
+  തരനിർവചനം ഘടന _WSAVersion {
     DWORD dwVersion;
     WSAECOMPARATOR ecHow;
   } WSAVERSION,*PWSAVERSION,*LPWSAVERSION;
 
-  typedef struct _WSAQuerySetA {
+  തരനിർവചനം ഘടന _WSAQuerySetA {
     DWORD dwSize;
     LPSTR lpszServiceInstanceName;
     LPGUID lpServiceClassId;
@@ -995,16 +995,16 @@ extern "C" {
     DWORD dwNameSpace;
     LPGUID lpNSProviderId;
     LPSTR lpszContext;
-    DWORD dwNumberOfProtocols;
+    DWORD dw_സംഖ്യ_Of_Protocols;
     LPAFPROTOCOLS lpafpProtocols;
     LPSTR lpszQueryString;
-    DWORD dwNumberOfCsAddrs;
+    DWORD dw_സംഖ്യ_Of_Cs_Addrs;
     LPCSADDR_INFO lpcsaBuffer;
     DWORD dwOutputFlags;
     LPBLOB lpBlob;
   } WSAQUERYSETA,*PWSAQUERYSETA,*LPWSAQUERYSETA;
 
-  typedef struct _WSAQuerySetW {
+  തരനിർവചനം ഘടന _WSAQuerySetW {
     DWORD dwSize;
     LPWSTR lpszServiceInstanceName;
     LPGUID lpServiceClassId;
@@ -1013,23 +1013,23 @@ extern "C" {
     DWORD dwNameSpace;
     LPGUID lpNSProviderId;
     LPWSTR lpszContext;
-    DWORD dwNumberOfProtocols;
+    DWORD dw_സംഖ്യ_Of_Protocols;
     LPAFPROTOCOLS lpafpProtocols;
     LPWSTR lpszQueryString;
-    DWORD dwNumberOfCsAddrs;
+    DWORD dw_സംഖ്യ_Of_Cs_Addrs;
     LPCSADDR_INFO lpcsaBuffer;
     DWORD dwOutputFlags;
     LPBLOB lpBlob;
   } WSAQUERYSETW,*PWSAQUERYSETW,*LPWSAQUERYSETW;
 
 #ifdef UNICODE
-  typedef WSAQUERYSETW WSAQUERYSET;
-  typedef PWSAQUERYSETW PWSAQUERYSET;
-  typedef LPWSAQUERYSETW LPWSAQUERYSET;
-#else
-  typedef WSAQUERYSETA WSAQUERYSET;
-  typedef PWSAQUERYSETA PWSAQUERYSET;
-  typedef LPWSAQUERYSETA LPWSAQUERYSET;
+  തരനിർവചനം WSAQUERYSETW WSAQUERYSET;
+  തരനിർവചനം PWSAQUERYSETW PWSAQUERYSET;
+  തരനിർവചനം LPWSAQUERYSETW LPWSAQUERYSET;
+#അല്ലെങ്കിൽ
+  തരനിർവചനം WSAQUERYSETA WSAQUERYSET;
+  തരനിർവചനം PWSAQUERYSETA PWSAQUERYSET;
+  തരനിർവചനം LPWSAQUERYSETA LPWSAQUERYSET;
 #endif
 
 #define LUP_DEEP 0x0001
@@ -1055,61 +1055,61 @@ extern "C" {
 #define RESULT_IS_CHANGED 0x0020
 #define RESULT_IS_DELETED 0x0040
 
-  typedef enum _WSAESETSERVICEOP {
+  തരനിർവചനം എണ്ണൽ _WSAESETSERVICEOP {
     RNRSERVICE_REGISTER=0,RNRSERVICE_DEREGISTER,RNRSERVICE_DELETE
   } WSAESETSERVICEOP,*PWSAESETSERVICEOP,*LPWSAESETSERVICEOP;
 
-  typedef struct _WSANSClassInfoA {
+  തരനിർവചനം ഘടന _WSANSClassInfoA {
     LPSTR lpszName;
     DWORD dwNameSpace;
-    DWORD dwValueType;
-    DWORD dwValueSize;
-    LPVOID lpValue;
+    DWORD dw_മൂല്യം_Type;
+    DWORD dw_മൂല്യം_Size;
+    LPVOID lp_മൂല്യം;
   } WSANSCLASSINFOA,*PWSANSCLASSINFOA,*LPWSANSCLASSINFOA;
 
-  typedef struct _WSANSClassInfoW {
+  തരനിർവചനം ഘടന _WSANSClassInfoW {
     LPWSTR lpszName;
     DWORD dwNameSpace;
-    DWORD dwValueType;
-    DWORD dwValueSize;
-    LPVOID lpValue;
+    DWORD dw_മൂല്യം_Type;
+    DWORD dw_മൂല്യം_Size;
+    LPVOID lp_മൂല്യം;
   } WSANSCLASSINFOW,*PWSANSCLASSINFOW,*LPWSANSCLASSINFOW;
 
 #ifdef UNICODE
-  typedef WSANSCLASSINFOW WSANSCLASSINFO;
-  typedef PWSANSCLASSINFOW PWSANSCLASSINFO;
-  typedef LPWSANSCLASSINFOW LPWSANSCLASSINFO;
-#else
-  typedef WSANSCLASSINFOA WSANSCLASSINFO;
-  typedef PWSANSCLASSINFOA PWSANSCLASSINFO;
-  typedef LPWSANSCLASSINFOA LPWSANSCLASSINFO;
+  തരനിർവചനം WSANSCLASSINFOW WSANSCLASSINFO;
+  തരനിർവചനം PWSANSCLASSINFOW PWSANSCLASSINFO;
+  തരനിർവചനം LPWSANSCLASSINFOW LPWSANSCLASSINFO;
+#അല്ലെങ്കിൽ
+  തരനിർവചനം WSANSCLASSINFOA WSANSCLASSINFO;
+  തരനിർവചനം PWSANSCLASSINFOA PWSANSCLASSINFO;
+  തരനിർവചനം LPWSANSCLASSINFOA LPWSANSCLASSINFO;
 #endif
 
-  typedef struct _WSAServiceClassInfoA {
+  തരനിർവചനം ഘടന _WSAServiceClassInfoA {
     LPGUID lpServiceClassId;
     LPSTR lpszServiceClassName;
-    DWORD dwCount;
+    DWORD dw_എണ്ണം;
     LPWSANSCLASSINFOA lpClassInfos;
   } WSASERVICECLASSINFOA,*PWSASERVICECLASSINFOA,*LPWSASERVICECLASSINFOA;
 
-  typedef struct _WSAServiceClassInfoW {
+  തരനിർവചനം ഘടന _WSAServiceClassInfoW {
     LPGUID lpServiceClassId;
     LPWSTR lpszServiceClassName;
-    DWORD dwCount;
+    DWORD dw_എണ്ണം;
     LPWSANSCLASSINFOW lpClassInfos;
   } WSASERVICECLASSINFOW,*PWSASERVICECLASSINFOW,*LPWSASERVICECLASSINFOW;
 
 #ifdef UNICODE
-  typedef WSASERVICECLASSINFOW WSASERVICECLASSINFO;
-  typedef PWSASERVICECLASSINFOW PWSASERVICECLASSINFO;
-  typedef LPWSASERVICECLASSINFOW LPWSASERVICECLASSINFO;
-#else
-  typedef WSASERVICECLASSINFOA WSASERVICECLASSINFO;
-  typedef PWSASERVICECLASSINFOA PWSASERVICECLASSINFO;
-  typedef LPWSASERVICECLASSINFOA LPWSASERVICECLASSINFO;
+  തരനിർവചനം WSASERVICECLASSINFOW WSASERVICECLASSINFO;
+  തരനിർവചനം PWSASERVICECLASSINFOW PWSASERVICECLASSINFO;
+  തരനിർവചനം LPWSASERVICECLASSINFOW LPWSASERVICECLASSINFO;
+#അല്ലെങ്കിൽ
+  തരനിർവചനം WSASERVICECLASSINFOA WSASERVICECLASSINFO;
+  തരനിർവചനം PWSASERVICECLASSINFOA PWSASERVICECLASSINFO;
+  തരനിർവചനം LPWSASERVICECLASSINFOA LPWSASERVICECLASSINFO;
 #endif
 
-  typedef struct _WSANAMESPACE_INFOA {
+  തരനിർവചനം ഘടന _WSANAMESPACE_INFOA {
     GUID NSProviderId;
     DWORD dwNameSpace;
     WINBOOL fActive;
@@ -1117,7 +1117,7 @@ extern "C" {
     LPSTR lpszIdentifier;
   } WSANAMESPACE_INFOA,*PWSANAMESPACE_INFOA,*LPWSANAMESPACE_INFOA;
 
-  typedef struct _WSANAMESPACE_INFOW {
+  തരനിർവചനം ഘടന _WSANAMESPACE_INFOW {
     GUID NSProviderId;
     DWORD dwNameSpace;
     WINBOOL fActive;
@@ -1126,16 +1126,16 @@ extern "C" {
   } WSANAMESPACE_INFOW,*PWSANAMESPACE_INFOW,*LPWSANAMESPACE_INFOW;
 
 #ifdef UNICODE
-  typedef WSANAMESPACE_INFOW WSANAMESPACE_INFO;
-  typedef PWSANAMESPACE_INFOW PWSANAMESPACE_INFO;
-  typedef LPWSANAMESPACE_INFOW LPWSANAMESPACE_INFO;
-#else
-  typedef WSANAMESPACE_INFOA WSANAMESPACE_INFO;
-  typedef PWSANAMESPACE_INFOA PWSANAMESPACE_INFO;
-  typedef LPWSANAMESPACE_INFOA LPWSANAMESPACE_INFO;
+  തരനിർവചനം WSANAMESPACE_INFOW WSANAMESPACE_INFO;
+  തരനിർവചനം PWSANAMESPACE_INFOW PWSANAMESPACE_INFO;
+  തരനിർവചനം LPWSANAMESPACE_INFOW LPWSANAMESPACE_INFO;
+#അല്ലെങ്കിൽ
+  തരനിർവചനം WSANAMESPACE_INFOA WSANAMESPACE_INFO;
+  തരനിർവചനം PWSANAMESPACE_INFOA PWSANAMESPACE_INFO;
+  തരനിർവചനം LPWSANAMESPACE_INFOA LPWSANAMESPACE_INFO;
 #endif
 
-#if INCL_WINSOCK_API_TYPEDEFS
+#എങ്കിൽ INCL_WINSOCK_API_TYPEDEFS
 #ifdef UNICODE
 #define LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETW
 #define LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSW
@@ -1149,7 +1149,7 @@ extern "C" {
 #define LPFN_WSAENUMNAMESPACEPROVIDERS LPFN_WSAENUMNAMESPACEPROVIDERSW
 #define LPFN_WSAGETSERVICECLASSNAMEBYCLASSID LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW
 #define LPFN_WSASETSERVICE LPFN_WSASETSERVICEW
-#else
+#അല്ലെങ്കിൽ
 #define LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETA
 #define LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSA
 #define LPFN_WSASOCKET LPFN_WSASOCKETA
@@ -1164,103 +1164,103 @@ extern "C" {
 #define LPFN_WSASETSERVICE LPFN_WSASETSERVICEA
 #endif
 
-  typedef SOCKET (WSAAPI *LPFN_ACCEPT)(SOCKET s,struct sockaddr *addr,int *addrlen);
-  typedef int (WSAAPI *LPFN_BIND)(SOCKET s,const struct sockaddr *name,int namelen);
-  typedef int (WSAAPI *LPFN_CLOSESOCKET)(SOCKET s);
-  typedef int (WSAAPI *LPFN_CONNECT)(SOCKET s,const struct sockaddr *name,int namelen);
-  typedef int (WSAAPI *LPFN_IOCTLSOCKET)(SOCKET s,long cmd,u_long *argp);
-  typedef int (WSAAPI *LPFN_GETPEERNAME)(SOCKET s,struct sockaddr *name,int *namelen);
-  typedef int (WSAAPI *LPFN_GETSOCKNAME)(SOCKET s,struct sockaddr *name,int *namelen);
-  typedef int (WSAAPI *LPFN_GETSOCKOPT)(SOCKET s,int level,int optname,char *optval,int *optlen);
-  typedef u_long (WSAAPI *LPFN_HTONL)(u_long hostlong);
-  typedef u_short (WSAAPI *LPFN_HTONS)(u_short hostshort);
-  typedef unsigned long (WSAAPI *LPFN_INET_ADDR)(const char *cp);
-  typedef char *(WSAAPI *LPFN_INET_NTOA)(struct in_addr in);
-  typedef int (WSAAPI *LPFN_LISTEN)(SOCKET s,int backlog);
-  typedef u_long (WSAAPI *LPFN_NTOHL)(u_long netlong);
-  typedef u_short (WSAAPI *LPFN_NTOHS)(u_short netshort);
-  typedef int (WSAAPI *LPFN_RECV)(SOCKET s,char *buf,int len,int flags);
-  typedef int (WSAAPI *LPFN_RECVFROM)(SOCKET s,char *buf,int len,int flags,struct sockaddr *from,int *fromlen);
-  typedef int (WSAAPI *LPFN_SELECT)(int nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,const struct timeval *timeout);
-  typedef int (WSAAPI *LPFN_SEND)(SOCKET s,const char *buf,int len,int flags);
-  typedef int (WSAAPI *LPFN_SENDTO)(SOCKET s,const char *buf,int len,int flags,const struct sockaddr *to,int tolen);
-  typedef int (WSAAPI *LPFN_SETSOCKOPT)(SOCKET s,int level,int optname,const char *optval,int optlen);
-  typedef int (WSAAPI *LPFN_SHUTDOWN)(SOCKET s,int how);
-  typedef SOCKET (WSAAPI *LPFN_SOCKET)(int af,int type,int protocol);
-  typedef struct hostent *(WSAAPI *LPFN_GETHOSTBYADDR)(const char *addr,int len,int type);
-  typedef struct hostent *(WSAAPI *LPFN_GETHOSTBYNAME)(const char *name);
-  typedef int (WSAAPI *LPFN_GETHOSTNAME)(char *name,int namelen);
-  typedef struct servent *(WSAAPI *LPFN_GETSERVBYPORT)(int port,const char *proto);
-  typedef struct servent *(WSAAPI *LPFN_GETSERVBYNAME)(const char *name,const char *proto);
-  typedef struct protoent *(WSAAPI *LPFN_GETPROTOBYNUMBER)(int number);
-  typedef struct protoent *(WSAAPI *LPFN_GETPROTOBYNAME)(const char *name);
-  typedef int (WSAAPI *LPFN_WSASTARTUP)(WORD wVersionRequested,LPWSADATA lpWSAData);
-  typedef int (WSAAPI *LPFN_WSACLEANUP)(void);
-  typedef void (WSAAPI *LPFN_WSASETLASTERROR)(int iError);
-  typedef int (WSAAPI *LPFN_WSAGETLASTERROR)(void);
-  typedef WINBOOL (WSAAPI *LPFN_WSAISBLOCKING)(void);
-  typedef int (WSAAPI *LPFN_WSAUNHOOKBLOCKINGHOOK)(void);
-  typedef FARPROC (WSAAPI *LPFN_WSASETBLOCKINGHOOK)(FARPROC lpBlockFunc);
-  typedef int (WSAAPI *LPFN_WSACANCELBLOCKINGCALL)(void);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYNAME)(HWND hWnd,u_int wMsg,const char *name,const char *proto,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYPORT)(HWND hWnd,u_int wMsg,int port,const char *proto,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNAME)(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNUMBER)(HWND hWnd,u_int wMsg,int number,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYNAME)(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYADDR)(HWND hWnd,u_int wMsg,const char *addr,int len,int type,char *buf,int buflen);
-  typedef int (WSAAPI *LPFN_WSACANCELASYNCREQUEST)(HANDLE hAsyncTaskHandle);
-  typedef int (WSAAPI *LPFN_WSAASYNCSELECT)(SOCKET s,HWND hWnd,u_int wMsg,long lEvent);
-  typedef SOCKET (WSAAPI *LPFN_WSAACCEPT)(SOCKET s,struct sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dwCallbackData);
-  typedef WINBOOL (WSAAPI *LPFN_WSACLOSEEVENT)(WSAEVENT hEvent);
-  typedef int (WSAAPI *LPFN_WSACONNECT)(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
-  typedef WSAEVENT (WSAAPI *LPFN_WSACREATEEVENT)(void);
-  typedef int (WSAAPI *LPFN_WSADUPLICATESOCKETA)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
-  typedef int (WSAAPI *LPFN_WSADUPLICATESOCKETW)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
-  typedef int (WSAAPI *LPFN_WSAENUMNETWORKEVENTS)(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
-  typedef int (WSAAPI *LPFN_WSAENUMPROTOCOLSA)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  typedef int (WSAAPI *LPFN_WSAENUMPROTOCOLSW)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  typedef int (WSAAPI *LPFN_WSAEVENTSELECT)(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
-  typedef WINBOOL (WSAAPI *LPFN_WSAGETOVERLAPPEDRESULT)(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
-  typedef WINBOOL (WSAAPI *LPFN_WSAGETQOSBYNAME)(SOCKET s,LPWSABUF lpQOSName,LPQOS lpQOS);
-  typedef int (WSAAPI *LPFN_WSAHTONL)(SOCKET s,u_long hostlong,u_long *lpnetlong);
-  typedef int (WSAAPI *LPFN_WSAHTONS)(SOCKET s,u_short hostshort,u_short *lpnetshort);
-  typedef int (WSAAPI *LPFN_WSAIOCTL)(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef SOCKET (WSAAPI *LPFN_WSAJOINLEAF)(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
-  typedef int (WSAAPI *LPFN_WSANTOHL)(SOCKET s,u_long netlong,u_long *lphostlong);
-  typedef int (WSAAPI *LPFN_WSANTOHS)(SOCKET s,u_short netshort,u_short *lphostshort);
-  typedef int (WSAAPI *LPFN_WSARECV)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef int (WSAAPI *LPFN_WSARECVDISCONNECT)(SOCKET s,LPWSABUF lpInboundDisconnectData);
-  typedef int (WSAAPI *LPFN_WSARECVFROM)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,struct sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef WINBOOL (WSAAPI *LPFN_WSARESETEVENT)(WSAEVENT hEvent);
-  typedef int (WSAAPI *LPFN_WSASEND)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef int (WSAAPI *LPFN_WSASENDDISCONNECT)(SOCKET s,LPWSABUF lpOutboundDisconnectData);
-  typedef int (WSAAPI *LPFN_WSASENDTO)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,const struct sockaddr *lpTo,int iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef WINBOOL (WSAAPI *LPFN_WSASETEVENT)(WSAEVENT hEvent);
-  typedef SOCKET (WSAAPI *LPFN_WSASOCKETA)(int af,int type,int protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
-  typedef SOCKET (WSAAPI *LPFN_WSASOCKETW)(int af,int type,int protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
-  typedef DWORD (WSAAPI *LPFN_WSAWAITFORMULTIPLEEVENTS)(DWORD cEvents,const WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
-  typedef INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGA)(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
-  typedef INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGW)(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
-  typedef INT (WSAAPI *LPFN_WSASTRINGTOADDRESSA)(LPSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
-  typedef INT (WSAAPI *LPFN_WSASTRINGTOADDRESSW)(LPWSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINA)(LPWSAQUERYSETA lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINW)(LPWSAQUERYSETW lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTA)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETA lpqsResults);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTW)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETW lpqsResults);
-  typedef INT (WSAAPI *LPFN_WSANSPIOCTL)(HANDLE hLookup,DWORD dwControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSACOMPLETION lpCompletion);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICEEND)(HANDLE hLookup);
-  typedef INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSA)(LPWSASERVICECLASSINFOA lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSW)(LPWSASERVICECLASSINFOW lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAREMOVESERVICECLASS)(LPGUID lpServiceClassId);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOA)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOA lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOW)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOW lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSA)(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOA lpnspBuffer);
-  typedef INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSW)(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOW lpnspBuffer);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDA)(LPGUID lpServiceClassId,LPSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW)(LPGUID lpServiceClassId,LPWSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
-  typedef INT (WSAAPI *LPFN_WSASETSERVICEA)(LPWSAQUERYSETA lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
-  typedef INT (WSAAPI *LPFN_WSASETSERVICEW)(LPWSAQUERYSETW lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
-  typedef INT (WSAAPI *LPFN_WSAPROVIDERCONFIGCHANGE)(LPHANDLE lpNotificationHandle,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  തരനിർവചനം SOCKET (WSAAPI *LPFN_ACCEPT)(SOCKET s,ഘടന sockaddr *addr,പൂർണ്ണസംഖ്യ *addrlen);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_BIND)(SOCKET s,സ്ഥിരം ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ namelen);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_CLOSESOCKET)(SOCKET s);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_CONNECT)(SOCKET s,സ്ഥിരം ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ namelen);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_IOCTLSOCKET)(SOCKET s,long cmd,u_long *argp);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_GETPEERNAME)(SOCKET s,ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ *namelen);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_GETSOCKNAME)(SOCKET s,ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ *namelen);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_GETSOCKOPT)(SOCKET s,പൂർണ്ണസംഖ്യ level,പൂർണ്ണസംഖ്യ optname,അക്ഷരം *optval,പൂർണ്ണസംഖ്യ *optlen);
+  തരനിർവചനം u_long (WSAAPI *LPFN_HTONL)(u_long hostlong);
+  തരനിർവചനം u_short (WSAAPI *LPFN_HTONS)(u_short hostshort);
+  തരനിർവചനം unsigned long (WSAAPI *LPFN_INET_ADDR)(സ്ഥിരം അക്ഷരം *cp);
+  തരനിർവചനം അക്ഷരം *(WSAAPI *LPFN_INET_NTOA)(ഘടന in_addr in);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_LISTEN)(SOCKET s,പൂർണ്ണസംഖ്യ backlog);
+  തരനിർവചനം u_long (WSAAPI *LPFN_NTOHL)(u_long netlong);
+  തരനിർവചനം u_short (WSAAPI *LPFN_NTOHS)(u_short netshort);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_RECV)(SOCKET s,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ flags);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_RECVFROM)(SOCKET s,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ flags,ഘടന sockaddr *from,പൂർണ്ണസംഖ്യ *fromlen);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_SELECT)(പൂർണ്ണസംഖ്യ nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,സ്ഥിരം ഘടന timeval *timeout);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_SEND)(SOCKET s,സ്ഥിരം അക്ഷരം *buf,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ flags);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_SENDTO)(SOCKET s,സ്ഥിരം അക്ഷരം *buf,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ flags,സ്ഥിരം ഘടന sockaddr *to,പൂർണ്ണസംഖ്യ tolen);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_SETSOCKOPT)(SOCKET s,പൂർണ്ണസംഖ്യ level,പൂർണ്ണസംഖ്യ optname,സ്ഥിരം അക്ഷരം *optval,പൂർണ്ണസംഖ്യ optlen);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_SHUTDOWN)(SOCKET s,പൂർണ്ണസംഖ്യ how);
+  തരനിർവചനം SOCKET (WSAAPI *LPFN_SOCKET)(പൂർണ്ണസംഖ്യ af,പൂർണ്ണസംഖ്യ type,പൂർണ്ണസംഖ്യ protocol);
+  തരനിർവചനം ഘടന hostent *(WSAAPI *LPFN_GETHOSTBYADDR)(സ്ഥിരം അക്ഷരം *addr,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ type);
+  തരനിർവചനം ഘടന hostent *(WSAAPI *LPFN_GETHOSTBYNAME)(സ്ഥിരം അക്ഷരം *name);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_GETHOSTNAME)(അക്ഷരം *name,പൂർണ്ണസംഖ്യ namelen);
+  തരനിർവചനം ഘടന servent *(WSAAPI *LPFN_GETSERVBYPORT)(പൂർണ്ണസംഖ്യ port,സ്ഥിരം അക്ഷരം *proto);
+  തരനിർവചനം ഘടന servent *(WSAAPI *LPFN_GETSERVBYNAME)(സ്ഥിരം അക്ഷരം *name,സ്ഥിരം അക്ഷരം *proto);
+  തരനിർവചനം ഘടന protoent *(WSAAPI *LPFN_GETPROTOBYNUMBER)(പൂർണ്ണസംഖ്യ സംഖ്യ_3);
+  തരനിർവചനം ഘടന protoent *(WSAAPI *LPFN_GETPROTOBYNAME)(സ്ഥിരം അക്ഷരം *name);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSASTARTUP)(WORD wVersionRequested,LPWSADATA lpWSAData);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSACLEANUP)(ശൂന്യം);
+  തരനിർവചനം ശൂന്യം (WSAAPI *LPFN_WSASETLASTERROR)(പൂർണ്ണസംഖ്യ iError);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSAGETLASTERROR)(ശൂന്യം);
+  തരനിർവചനം WINBOOL (WSAAPI *LPFN_WSAISBLOCKING)(ശൂന്യം);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSAUNHOOKBLOCKINGHOOK)(ശൂന്യം);
+  തരനിർവചനം FARPROC (WSAAPI *LPFN_WSASETBLOCKINGHOOK)(FARPROC lpBlockFunc);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSACANCELBLOCKINGCALL)(ശൂന്യം);
+  തരനിർവചനം HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYNAME)(HWND hWnd,u_int w_സന്ദേശം,സ്ഥിരം അക്ഷരം *name,സ്ഥിരം അക്ഷരം *proto,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  തരനിർവചനം HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYPORT)(HWND hWnd,u_int w_സന്ദേശം,പൂർണ്ണസംഖ്യ port,സ്ഥിരം അക്ഷരം *proto,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  തരനിർവചനം HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNAME)(HWND hWnd,u_int w_സന്ദേശം,സ്ഥിരം അക്ഷരം *name,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  തരനിർവചനം HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNUMBER)(HWND hWnd,u_int w_സന്ദേശം,പൂർണ്ണസംഖ്യ സംഖ്യ_3,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  തരനിർവചനം HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYNAME)(HWND hWnd,u_int w_സന്ദേശം,സ്ഥിരം അക്ഷരം *name,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  തരനിർവചനം HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYADDR)(HWND hWnd,u_int w_സന്ദേശം,സ്ഥിരം അക്ഷരം *addr,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ type,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSACANCELASYNCREQUEST)(HANDLE hAsyncTaskHandle);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSAASYNCSELECT)(SOCKET s,HWND hWnd,u_int w_സന്ദേശം,long lEvent);
+  തരനിർവചനം SOCKET (WSAAPI *LPFN_WSAACCEPT)(SOCKET s,ഘടന sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dwCallbackData);
+  തരനിർവചനം WINBOOL (WSAAPI *LPFN_WSACLOSEEVENT)(WSAEVENT hEvent);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSACONNECT)(SOCKET s,സ്ഥിരം ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
+  തരനിർവചനം WSAEVENT (WSAAPI *LPFN_WSACREATEEVENT)(ശൂന്യം);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSADUPLICATESOCKETA)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSADUPLICATESOCKETW)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSAENUMNETWORKEVENTS)(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSAENUMPROTOCOLSA)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSAENUMPROTOCOLSW)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSAEVENTSELECT)(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
+  തരനിർവചനം WINBOOL (WSAAPI *LPFN_WSAGETOVERLAPPEDRESULT)(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
+  തരനിർവചനം WINBOOL (WSAAPI *LPFN_WSAGETQOSBYNAME)(SOCKET s,LPWSABUF lpQOSName,LPQOS lpQOS);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSAHTONL)(SOCKET s,u_long hostlong,u_long *lpnetlong);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSAHTONS)(SOCKET s,u_short hostshort,u_short *lpnetshort);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSAIOCTL)(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  തരനിർവചനം SOCKET (WSAAPI *LPFN_WSAJOINLEAF)(SOCKET s,സ്ഥിരം ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSANTOHL)(SOCKET s,u_long netlong,u_long *lphostlong);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSANTOHS)(SOCKET s,u_short netshort,u_short *lphostshort);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSARECV)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_Buffer_എണ്ണം,LPDWORD lp_സംഖ്യ_Of_Bytes_Recvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSARECVDISCONNECT)(SOCKET s,LPWSABUF lpInboundDisconnectData);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSARECVFROM)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_Buffer_എണ്ണം,LPDWORD lp_സംഖ്യ_Of_Bytes_Recvd,LPDWORD lpFlags,ഘടന sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  തരനിർവചനം WINBOOL (WSAAPI *LPFN_WSARESETEVENT)(WSAEVENT hEvent);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSASEND)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_Buffer_എണ്ണം,LPDWORD lp_സംഖ്യ_Of_Bytes_Sent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSASENDDISCONNECT)(SOCKET s,LPWSABUF lpOutboundDisconnectData);
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WSAAPI *LPFN_WSASENDTO)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_Buffer_എണ്ണം,LPDWORD lp_സംഖ്യ_Of_Bytes_Sent,DWORD dwFlags,സ്ഥിരം ഘടന sockaddr *lpTo,പൂർണ്ണസംഖ്യ iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  തരനിർവചനം WINBOOL (WSAAPI *LPFN_WSASETEVENT)(WSAEVENT hEvent);
+  തരനിർവചനം SOCKET (WSAAPI *LPFN_WSASOCKETA)(പൂർണ്ണസംഖ്യ af,പൂർണ്ണസംഖ്യ type,പൂർണ്ണസംഖ്യ protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
+  തരനിർവചനം SOCKET (WSAAPI *LPFN_WSASOCKETW)(പൂർണ്ണസംഖ്യ af,പൂർണ്ണസംഖ്യ type,പൂർണ്ണസംഖ്യ protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
+  തരനിർവചനം DWORD (WSAAPI *LPFN_WSAWAITFORMULTIPLEEVENTS)(DWORD cEvents,സ്ഥിരം WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGA)(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGW)(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSASTRINGTOADDRESSA)(LPSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSASTRINGTOADDRESSW)(LPWSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINA)(LPWSAQUERYSETA lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINW)(LPWSAQUERYSETW lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTA)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETA lpqsResults);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTW)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETW lpqsResults);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSANSPIOCTL)(HANDLE hLookup,DWORD dwControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSACOMPLETION lpCompletion);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSALOOKUPSERVICEEND)(HANDLE hLookup);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSA)(LPWSASERVICECLASSINFOA lpServiceClassInfo);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSW)(LPWSASERVICECLASSINFOW lpServiceClassInfo);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAREMOVESERVICECLASS)(LPGUID lpServiceClassId);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOA)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOA lpServiceClassInfo);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOW)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOW lpServiceClassInfo);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSA)(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOA lpnspBuffer);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSW)(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOW lpnspBuffer);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDA)(LPGUID lpServiceClassId,LPSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW)(LPGUID lpServiceClassId,LPWSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSASETSERVICEA)(LPWSAQUERYSETA lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSASETSERVICEW)(LPWSAQUERYSETW lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
+  തരനിർവചനം INT (WSAAPI *LPFN_WSAPROVIDERCONFIGCHANGE)(LPHANDLE lpNotificationHandle,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
 #endif
 
 #ifdef UNICODE
@@ -1276,7 +1276,7 @@ extern "C" {
 #define WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersW
 #define WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdW
 #define WSASetService WSASetServiceW
-#else
+#അല്ലെങ്കിൽ
 #define WSADuplicateSocket WSADuplicateSocketA
 #define WSAEnumProtocols WSAEnumProtocolsA
 #define WSASocket WSASocketA
@@ -1291,81 +1291,81 @@ extern "C" {
 #define WSASetService WSASetServiceA
 #endif
 
-  WINSOCK_API_LINKAGE SOCKET WSAAPI accept(SOCKET s,struct sockaddr *addr,int *addrlen);
-  WINSOCK_API_LINKAGE int WSAAPI bind(SOCKET s,const struct sockaddr *name,int namelen);
-  WINSOCK_API_LINKAGE int WSAAPI closesocket(SOCKET s);
-  WINSOCK_API_LINKAGE int WSAAPI connect(SOCKET s,const struct sockaddr *name,int namelen);
-  WINSOCK_API_LINKAGE int WSAAPI ioctlsocket(SOCKET s,long cmd,u_long *argp);
-  WINSOCK_API_LINKAGE int WSAAPI getpeername(SOCKET s,struct sockaddr *name,int *namelen);
-  WINSOCK_API_LINKAGE int WSAAPI getsockname(SOCKET s,struct sockaddr *name,int *namelen);
-  WINSOCK_API_LINKAGE int WSAAPI getsockopt(SOCKET s,int level,int optname,char *optval,int *optlen);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI accept(SOCKET s,ഘടന sockaddr *addr,പൂർണ്ണസംഖ്യ *addrlen);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI bind(SOCKET s,സ്ഥിരം ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ namelen);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI closesocket(SOCKET s);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI connect(SOCKET s,സ്ഥിരം ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ namelen);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI ioctlsocket(SOCKET s,long cmd,u_long *argp);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI getpeername(SOCKET s,ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ *namelen);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI getsockname(SOCKET s,ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ *namelen);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI getsockopt(SOCKET s,പൂർണ്ണസംഖ്യ level,പൂർണ്ണസംഖ്യ optname,അക്ഷരം *optval,പൂർണ്ണസംഖ്യ *optlen);
   WINSOCK_API_LINKAGE u_long WSAAPI htonl(u_long hostlong);
   WINSOCK_API_LINKAGE u_short WSAAPI htons(u_short hostshort);
-  WINSOCK_API_LINKAGE unsigned long WSAAPI inet_addr(const char *cp);
-  WINSOCK_API_LINKAGE char *WSAAPI inet_ntoa(struct in_addr in);
-  WINSOCK_API_LINKAGE int WSAAPI listen(SOCKET s,int backlog);
+  WINSOCK_API_LINKAGE unsigned long WSAAPI inet_addr(സ്ഥിരം അക്ഷരം *cp);
+  WINSOCK_API_LINKAGE അക്ഷരം *WSAAPI inet_ntoa(ഘടന in_addr in);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI listen(SOCKET s,പൂർണ്ണസംഖ്യ backlog);
   WINSOCK_API_LINKAGE u_long WSAAPI ntohl(u_long netlong);
   WINSOCK_API_LINKAGE u_short WSAAPI ntohs(u_short netshort);
-  WINSOCK_API_LINKAGE int WSAAPI recv(SOCKET s,char *buf,int len,int flags);
-  WINSOCK_API_LINKAGE int WSAAPI recvfrom(SOCKET s,char *buf,int len,int flags,struct sockaddr *from,int *fromlen);
-  WINSOCK_API_LINKAGE int WSAAPI select(int nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,const struct timeval *timeout);
-  WINSOCK_API_LINKAGE int WSAAPI send(SOCKET s,const char *buf,int len,int flags);
-  WINSOCK_API_LINKAGE int WSAAPI sendto(SOCKET s,const char *buf,int len,int flags,const struct sockaddr *to,int tolen);
-  WINSOCK_API_LINKAGE int WSAAPI setsockopt(SOCKET s,int level,int optname,const char *optval,int optlen);
-  WINSOCK_API_LINKAGE int WSAAPI shutdown(SOCKET s,int how);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI socket(int af,int type,int protocol);
-  WINSOCK_API_LINKAGE struct hostent *WSAAPI gethostbyaddr(const char *addr,int len,int type);
-  WINSOCK_API_LINKAGE struct hostent *WSAAPI gethostbyname(const char *name);
-  WINSOCK_API_LINKAGE int WSAAPI gethostname(char *name,int namelen);
-  WINSOCK_API_LINKAGE struct servent *WSAAPI getservbyport(int port,const char *proto);
-  WINSOCK_API_LINKAGE struct servent *WSAAPI getservbyname(const char *name,const char *proto);
-  WINSOCK_API_LINKAGE struct protoent *WSAAPI getprotobynumber(int number);
-  WINSOCK_API_LINKAGE struct protoent *WSAAPI getprotobyname(const char *name);
-  WINSOCK_API_LINKAGE int WSAAPI WSAStartup(WORD wVersionRequested,LPWSADATA lpWSAData);
-  WINSOCK_API_LINKAGE int WSAAPI WSACleanup(void);
-  WINSOCK_API_LINKAGE void WSAAPI WSASetLastError(int iError);
-  WINSOCK_API_LINKAGE int WSAAPI WSAGetLastError(void);
-  WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAIsBlocking(void);
-  WINSOCK_API_LINKAGE int WSAAPI WSAUnhookBlockingHook(void);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI recv(SOCKET s,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ flags);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI recvfrom(SOCKET s,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ flags,ഘടന sockaddr *from,പൂർണ്ണസംഖ്യ *fromlen);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI select(പൂർണ്ണസംഖ്യ nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,സ്ഥിരം ഘടന timeval *timeout);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI send(SOCKET s,സ്ഥിരം അക്ഷരം *buf,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ flags);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI sendto(SOCKET s,സ്ഥിരം അക്ഷരം *buf,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ flags,സ്ഥിരം ഘടന sockaddr *to,പൂർണ്ണസംഖ്യ tolen);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI setsockopt(SOCKET s,പൂർണ്ണസംഖ്യ level,പൂർണ്ണസംഖ്യ optname,സ്ഥിരം അക്ഷരം *optval,പൂർണ്ണസംഖ്യ optlen);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI shutdown(SOCKET s,പൂർണ്ണസംഖ്യ how);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI socket(പൂർണ്ണസംഖ്യ af,പൂർണ്ണസംഖ്യ type,പൂർണ്ണസംഖ്യ protocol);
+  WINSOCK_API_LINKAGE ഘടന hostent *WSAAPI gethostbyaddr(സ്ഥിരം അക്ഷരം *addr,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ type);
+  WINSOCK_API_LINKAGE ഘടന hostent *WSAAPI gethostbyname(സ്ഥിരം അക്ഷരം *name);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI gethostname(അക്ഷരം *name,പൂർണ്ണസംഖ്യ namelen);
+  WINSOCK_API_LINKAGE ഘടന servent *WSAAPI getservbyport(പൂർണ്ണസംഖ്യ port,സ്ഥിരം അക്ഷരം *proto);
+  WINSOCK_API_LINKAGE ഘടന servent *WSAAPI getservbyname(സ്ഥിരം അക്ഷരം *name,സ്ഥിരം അക്ഷരം *proto);
+  WINSOCK_API_LINKAGE ഘടന protoent *WSAAPI getprotobynumber(പൂർണ്ണസംഖ്യ സംഖ്യ_3);
+  WINSOCK_API_LINKAGE ഘടന protoent *WSAAPI getprotobyname(സ്ഥിരം അക്ഷരം *name);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAStartup(WORD wVersionRequested,LPWSADATA lpWSAData);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSACleanup(ശൂന്യം);
+  WINSOCK_API_LINKAGE ശൂന്യം WSAAPI WSASetLastError(പൂർണ്ണസംഖ്യ iError);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAGetLastError(ശൂന്യം);
+  WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAIsBlocking(ശൂന്യം);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAUnhookBlockingHook(ശൂന്യം);
   WINSOCK_API_LINKAGE FARPROC WSAAPI WSASetBlockingHook(FARPROC lpBlockFunc);
-  WINSOCK_API_LINKAGE int WSAAPI WSACancelBlockingCall(void);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByName(HWND hWnd,u_int wMsg,const char *name,const char *proto,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByPort(HWND hWnd,u_int wMsg,int port,const char *proto,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByName(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByNumber(HWND hWnd,u_int wMsg,int number,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByName(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByAddr(HWND hWnd,u_int wMsg,const char *addr,int len,int type,char *buf,int buflen);
-  WINSOCK_API_LINKAGE int WSAAPI WSACancelAsyncRequest(HANDLE hAsyncTaskHandle);
-  WINSOCK_API_LINKAGE int WSAAPI WSAAsyncSelect(SOCKET s,HWND hWnd,u_int wMsg,long lEvent);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAAccept(SOCKET s,struct sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dwCallbackData);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSACancelBlockingCall(ശൂന്യം);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByName(HWND hWnd,u_int w_സന്ദേശം,സ്ഥിരം അക്ഷരം *name,സ്ഥിരം അക്ഷരം *proto,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByPort(HWND hWnd,u_int w_സന്ദേശം,പൂർണ്ണസംഖ്യ port,സ്ഥിരം അക്ഷരം *proto,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByName(HWND hWnd,u_int w_സന്ദേശം,സ്ഥിരം അക്ഷരം *name,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsync_Get_Proto_By_സംഖ്യ(HWND hWnd,u_int w_സന്ദേശം,പൂർണ്ണസംഖ്യ സംഖ്യ_3,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByName(HWND hWnd,u_int w_സന്ദേശം,സ്ഥിരം അക്ഷരം *name,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByAddr(HWND hWnd,u_int w_സന്ദേശം,സ്ഥിരം അക്ഷരം *addr,പൂർണ്ണസംഖ്യ len,പൂർണ്ണസംഖ്യ type,അക്ഷരം *buf,പൂർണ്ണസംഖ്യ buflen);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSACancelAsyncRequest(HANDLE hAsyncTaskHandle);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAAsyncSelect(SOCKET s,HWND hWnd,u_int w_സന്ദേശം,long lEvent);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAAccept(SOCKET s,ഘടന sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dwCallbackData);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSACloseEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE int WSAAPI WSAConnect(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
-  WINSOCK_API_LINKAGE WSAEVENT WSAAPI WSACreateEvent(void);
-  WINSOCK_API_LINKAGE int WSAAPI WSADuplicateSocketA(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
-  WINSOCK_API_LINKAGE int WSAAPI WSADuplicateSocketW(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumNetworkEvents(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumProtocolsA(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumProtocolsW(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEventSelect(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAConnect(SOCKET s,സ്ഥിരം ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
+  WINSOCK_API_LINKAGE WSAEVENT WSAAPI WSACreateEvent(ശൂന്യം);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSADuplicateSocketA(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSADuplicateSocketW(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAEnumNetworkEvents(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAEnumProtocolsA(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAEnumProtocolsW(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAEventSelect(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAGetOverlappedResult(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAGetQOSByName(SOCKET s,LPWSABUF lpQOSName,LPQOS lpQOS);
-  WINSOCK_API_LINKAGE int WSAAPI WSAHtonl(SOCKET s,u_long hostlong,u_long *lpnetlong);
-  WINSOCK_API_LINKAGE int WSAAPI WSAHtons(SOCKET s,u_short hostshort,u_short *lpnetshort);
-  WINSOCK_API_LINKAGE int WSAAPI WSAIoctl(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAJoinLeaf(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
-  WINSOCK_API_LINKAGE int WSAAPI WSANtohl(SOCKET s,u_long netlong,u_long *lphostlong);
-  WINSOCK_API_LINKAGE int WSAAPI WSANtohs(SOCKET s,u_short netshort,u_short *lphostshort);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecv(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecvDisconnect(SOCKET s,LPWSABUF lpInboundDisconnectData);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecvFrom(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,struct sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAHtonl(SOCKET s,u_long hostlong,u_long *lpnetlong);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAHtons(SOCKET s,u_short hostshort,u_short *lpnetshort);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAIoctl(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAJoinLeaf(SOCKET s,സ്ഥിരം ഘടന sockaddr *name,പൂർണ്ണസംഖ്യ namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSANtohl(SOCKET s,u_long netlong,u_long *lphostlong);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSANtohs(SOCKET s,u_short netshort,u_short *lphostshort);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSARecv(SOCKET s,LPWSABUF lpBuffers,DWORD dw_Buffer_എണ്ണം,LPDWORD lp_സംഖ്യ_Of_Bytes_Recvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSARecvDisconnect(SOCKET s,LPWSABUF lpInboundDisconnectData);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSARecvFrom(SOCKET s,LPWSABUF lpBuffers,DWORD dw_Buffer_എണ്ണം,LPDWORD lp_സംഖ്യ_Of_Bytes_Recvd,LPDWORD lpFlags,ഘടന sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAResetEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE int WSAAPI WSASend(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE int WSAAPI WSASendDisconnect(SOCKET s,LPWSABUF lpOutboundDisconnectData);
-  WINSOCK_API_LINKAGE int WSAAPI WSASendTo(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,const struct sockaddr *lpTo,int iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSASend(SOCKET s,LPWSABUF lpBuffers,DWORD dw_Buffer_എണ്ണം,LPDWORD lp_സംഖ്യ_Of_Bytes_Sent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSASendDisconnect(SOCKET s,LPWSABUF lpOutboundDisconnectData);
+  WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSASendTo(SOCKET s,LPWSABUF lpBuffers,DWORD dw_Buffer_എണ്ണം,LPDWORD lp_സംഖ്യ_Of_Bytes_Sent,DWORD dwFlags,സ്ഥിരം ഘടന sockaddr *lpTo,പൂർണ്ണസംഖ്യ iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSASetEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketA(int af,int type,int protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketW(int af,int type,int protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
-  WINSOCK_API_LINKAGE DWORD WSAAPI WSAWaitForMultipleEvents(DWORD cEvents,const WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketA(പൂർണ്ണസംഖ്യ af,പൂർണ്ണസംഖ്യ type,പൂർണ്ണസംഖ്യ protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketW(പൂർണ്ണസംഖ്യ af,പൂർണ്ണസംഖ്യ type,പൂർണ്ണസംഖ്യ protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
+  WINSOCK_API_LINKAGE DWORD WSAAPI WSAWaitForMultipleEvents(DWORD cEvents,സ്ഥിരം WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
   WINSOCK_API_LINKAGE INT WSAAPI WSAAddressToStringA(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
   WINSOCK_API_LINKAGE INT WSAAPI WSAAddressToStringW(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
   WINSOCK_API_LINKAGE INT WSAAPI WSAStringToAddressA(LPSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
@@ -1389,37 +1389,37 @@ extern "C" {
   WINSOCK_API_LINKAGE INT WSAAPI WSASetServiceW(LPWSAQUERYSETW lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
   WINSOCK_API_LINKAGE INT WSAAPI WSAProviderConfigChange(LPHANDLE lpNotificationHandle,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
 
-  typedef struct sockaddr_in SOCKADDR_IN;
-  typedef struct sockaddr_in *PSOCKADDR_IN;
-  typedef struct sockaddr_in *LPSOCKADDR_IN;
+  തരനിർവചനം ഘടന sockaddr_in SOCKADDR_IN;
+  തരനിർവചനം ഘടന sockaddr_in *PSOCKADDR_IN;
+  തരനിർവചനം ഘടന sockaddr_in *LPSOCKADDR_IN;
 
-  typedef struct linger LINGER;
-  typedef struct linger *PLINGER;
-  typedef struct linger *LPLINGER;
+  തരനിർവചനം ഘടന linger LINGER;
+  തരനിർവചനം ഘടന linger *PLINGER;
+  തരനിർവചനം ഘടന linger *LPLINGER;
 
-  typedef struct in_addr IN_ADDR;
-  typedef struct in_addr *PIN_ADDR;
-  typedef struct in_addr *LPIN_ADDR;
+  തരനിർവചനം ഘടന in_addr IN_ADDR;
+  തരനിർവചനം ഘടന in_addr *PIN_ADDR;
+  തരനിർവചനം ഘടന in_addr *LPIN_ADDR;
 
-  typedef struct fd_set FD_SET;
-  typedef struct fd_set *PFD_SET;
-  typedef struct fd_set *LPFD_SET;
+  തരനിർവചനം ഘടന fd_set FD_SET;
+  തരനിർവചനം ഘടന fd_set *PFD_SET;
+  തരനിർവചനം ഘടന fd_set *LPFD_SET;
 
-  typedef struct hostent HOSTENT;
-  typedef struct hostent *PHOSTENT;
-  typedef struct hostent *LPHOSTENT;
+  തരനിർവചനം ഘടന hostent HOSTENT;
+  തരനിർവചനം ഘടന hostent *PHOSTENT;
+  തരനിർവചനം ഘടന hostent *LPHOSTENT;
 
-  typedef struct servent SERVENT;
-  typedef struct servent *PSERVENT;
-  typedef struct servent *LPSERVENT;
+  തരനിർവചനം ഘടന servent SERVENT;
+  തരനിർവചനം ഘടന servent *PSERVENT;
+  തരനിർവചനം ഘടന servent *LPSERVENT;
 
-  typedef struct protoent PROTOENT;
-  typedef struct protoent *PPROTOENT;
-  typedef struct protoent *LPPROTOENT;
+  തരനിർവചനം ഘടന protoent PROTOENT;
+  തരനിർവചനം ഘടന protoent *PPROTOENT;
+  തരനിർവചനം ഘടന protoent *LPPROTOENT;
 
-  typedef struct timeval TIMEVAL;
-  typedef struct timeval *PTIMEVAL;
-  typedef struct timeval *LPTIMEVAL;
+  തരനിർവചനം ഘടന timeval TIMEVAL;
+  തരനിർവചനം ഘടന timeval *PTIMEVAL;
+  തരനിർവചനം ഘടന timeval *LPTIMEVAL;
 
 #define WSAMAKEASYNCREPLY(buflen,error) MAKELONG(buflen,error)
 #define WSAMAKESELECTREPLY(event,error) MAKELONG(event,error)
@@ -1442,13 +1442,13 @@ extern "C" {
 #define POLLHUP     0x0002
 #define POLLNVAL    0x0004
 
-typedef struct pollfd {
+തരനിർവചനം ഘടന pollfd {
         SOCKET fd;
         SHORT  events;
         SHORT  revents;
 } WSAPOLLFD, *PWSAPOLLFD, FAR *LPWSAPOLLFD;
 
-WINSOCK_API_LINKAGE int WSAAPI WSAPoll(LPWSAPOLLFD fdArray, ULONG fds, INT timeout);
+WINSOCK_API_LINKAGE പൂർണ്ണസംഖ്യ WSAAPI WSAPoll(LPWSAPOLLFD fdArray, ULONG fds, INT timeout);
 /* #endif // (_WIN32_WINNT >= 0x0600) */
 
 #ifdef __cplusplus
@@ -1456,11 +1456,11 @@ WINSOCK_API_LINKAGE int WSAAPI WSAPoll(LPWSAPOLLFD fdArray, ULONG fds, INT timeo
 #endif
 
 #ifdef _NEED_POPPACK
-#include <poppack.h>
+#അന്തര്ഭാവ <poppack.h>
 #endif
 
 #ifdef IPV6STRICT
-#include <wsipv6ok.h>
+#അന്തര്ഭാവ <wsipv6ok.h>
 #endif
 
 #ifndef _WINSOCKAPI_
@@ -1468,7 +1468,7 @@ WINSOCK_API_LINKAGE int WSAAPI WSAPoll(LPWSAPOLLFD fdArray, ULONG fds, INT timeo
 #endif
 
 #ifdef _INC_WINSOCK_H
-#include <mswsock.h>
+#അന്തര്ഭാവ <mswsock.h>
 #endif
 
 #endif

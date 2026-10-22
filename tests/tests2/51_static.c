@@ -1,17 +1,17 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-static int fred = 1234;
-static int joe;
+സ്ഥിതം പൂർണ്ണസംഖ്യ fred = 1234;
+സ്ഥിതം പൂർണ്ണസംഖ്യ joe;
 
-void henry()
+ശൂന്യം henry()
 {
-   static int fred = 4567;
+   സ്ഥിതം പൂർണ്ണസംഖ്യ fred = 4567;
 
    printf("%d\n", fred);
    fred++;
 }
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
    printf("%d\n", fred);
    henry();
@@ -24,7 +24,7 @@ int main()
    printf("%d\n", fred);
    printf("%d\n", joe);
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

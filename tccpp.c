@@ -19,7 +19,7 @@
  */
 
 #define USING_GLOBALS
-#include "tcc.h"
+#അന്തര്ഭാവ "tcc.h"
 
 /* #define to 1 to enable (see parse_pp_string()) */
 #define ACCEPT_LF_IN_STRINGS 0
@@ -27,48 +27,48 @@
 /********************************************************/
 /* global variables */
 
-ST_DATA int tok_flags;
-ST_DATA int parse_flags;
+ST_DATA പൂർണ്ണസംഖ്യ tok_flags;
+ST_DATA പൂർണ്ണസംഖ്യ parse_flags;
 
-ST_DATA struct BufferedFile *file;
-ST_DATA int tok;
+ST_DATA ഘടന BufferedFile *file;
+ST_DATA പൂർണ്ണസംഖ്യ tok;
 ST_DATA CValue tokc;
-ST_DATA const int *macro_ptr;
+ST_DATA സ്ഥിരം പൂർണ്ണസംഖ്യ *macro_ptr;
 ST_DATA CString tokcstr; /* current parsed string, if any */
 
 /* display benchmark infos */
-ST_DATA int tok_ident;
+ST_DATA പൂർണ്ണസംഖ്യ tok_ident;
 ST_DATA TokenSym **table_ident;
-ST_DATA int pp_expr;
+ST_DATA പൂർണ്ണസംഖ്യ pp_വ്യഞ്ജകം;
 
 /* ------------------------------------------------------------------------- */
 
-static TokenSym *hash_ident[TOK_HASH_SIZE];
-static char token_buf[STRING_MAX_SIZE + 1];
-static CString cstr_buf;
-static TokenString tokstr_buf;
-static TokenString unget_buf;
-static unsigned char isidnum_table[256 - CH_EOF];
-static int pp_debug_tok, pp_debug_symv;
-static int pp_counter;
-static void tok_print(const int *str, const char *msg, ...);
-static void next_nomacro(void);
-static void parse_number(const char *p);
-static void parse_string(const char *p, int len);
+സ്ഥിതം TokenSym *hash_ident[TOK_HASH_SIZE];
+സ്ഥിതം അക്ഷരം token_buf[STRING_MAX_SIZE + 1];
+സ്ഥിതം CString cstr_buf;
+സ്ഥിതം TokenString tokstr_buf;
+സ്ഥിതം TokenString unget_buf;
+സ്ഥിതം unsigned അക്ഷരം isidnum_table[256 - CH_EOF];
+സ്ഥിതം പൂർണ്ണസംഖ്യ pp_debug_tok, pp_debug_symv;
+സ്ഥിതം പൂർണ്ണസംഖ്യ pp_counter;
+സ്ഥിതം ശൂന്യം tok_print(സ്ഥിരം പൂർണ്ണസംഖ്യ *str, സ്ഥിരം അക്ഷരം *സന്ദേശം, ...);
+സ്ഥിതം ശൂന്യം next_nomacro(ശൂന്യം);
+സ്ഥിതം ശൂന്യം parse_സംഖ്യ(സ്ഥിരം അക്ഷരം *p);
+സ്ഥിതം ശൂന്യം parse_string(സ്ഥിരം അക്ഷരം *p, പൂർണ്ണസംഖ്യ len);
 
-static struct TinyAlloc *toksym_alloc;
-static struct TinyAlloc *tokstr_alloc;
+സ്ഥിതം ഘടന TinyAlloc *toksym_alloc;
+സ്ഥിതം ഘടന TinyAlloc *tokstr_alloc;
 
-static TokenString *macro_stack;
+സ്ഥിതം TokenString *macro_അട്ടി;
 
-static const char tcc_keywords[] = 
+സ്ഥിതം സ്ഥിരം അക്ഷരം tcc_keywords[] = 
 #define DEF(id, str) str "\0"
-#include "tcctok.h"
+#അന്തര്ഭാവ "tcctok.h"
 #undef DEF
 ;
 
 /* WARNING: the content of this string encodes token numbers */
-static const unsigned char tok_two_chars[] =
+സ്ഥിതം സ്ഥിരം unsigned അക്ഷരം tok_two_chars[] =
 /* outdated -- gr
     "<=\236>=\235!=\225&&\240||\241++\244--\242==\224<<\1>>\2+=\253"
     "-=\255*=\252/=\257%=\245&=\246^=\336|=\374->\313..\250##\266";
@@ -97,19 +97,19 @@ static const unsigned char tok_two_chars[] =
     0
 };
 
-ST_FUNC void skip(int c)
+ST_FUNC ശൂന്യം skip(പൂർണ്ണസംഖ്യ c)
 {
-    if (tok != c) {
-        char tmp[40];
-        pstrcpy(tmp, sizeof tmp, get_tok_str(c, &tokc));
+    എങ്കിൽ (tok != c) {
+        അക്ഷരം tmp[40];
+        pstrcpy(tmp, വലുപ്പം tmp, get_tok_str(c, &tokc));
         tcc_error("'%s' expected (got '%s')", tmp, get_tok_str(tok, &tokc));
 	}
     next();
 }
 
-ST_FUNC void expect(const char *msg)
+ST_FUNC ശൂന്യം expect(സ്ഥിരം അക്ഷരം *സന്ദേശം)
 {
-    tcc_error("%s expected", msg);
+    tcc_error("%s expected", സന്ദേശം);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -122,95 +122,95 @@ ST_FUNC void expect(const char *msg)
 #define tal_realloc(al, p, size) tcc_realloc(p, size)
 #define tal_new(a,b)
 #define tal_delete(a)
-#else
-#if !defined(MEM_DEBUG)
+#അല്ലെങ്കിൽ
+#എങ്കിൽ !defined(MEM_DEBUG)
 #define tal_free(al, p) tal_free_impl(al, p)
 #define tal_realloc(al, p, size) tal_realloc_impl(al, p, size)
 #define TAL_DEBUG_PARAMS
-#else
+#അല്ലെങ്കിൽ
 #define TAL_DEBUG MEM_DEBUG
 //#define TAL_INFO 1 /* collect and dump allocators stats */
 #define tal_free(al, p) tal_free_impl(al, p, __FILE__, __LINE__)
 #define tal_realloc(al, p, size) tal_realloc_impl(al, p, size, __FILE__, __LINE__)
-#define TAL_DEBUG_PARAMS , const char *sfile, int sline
+#define TAL_DEBUG_PARAMS , സ്ഥിരം അക്ഷരം *sfile, പൂർണ്ണസംഖ്യ sline
 #endif
 
 #define TOKSYM_TAL_SIZE (256 * 1024) /* allocator for TokenSym in table_ident */
 #define TOKSTR_TAL_SIZE (256 * 1024) /* allocator for TokenString instances */
 
-typedef struct TinyAlloc {
+തരനിർവചനം ഘടന TinyAlloc {
     uint8_t *p;
     uint8_t *bufend;
-    struct TinyAlloc *next;
+    ഘടന TinyAlloc *next;
     unsigned nb_allocs;
     unsigned size;
-#if TAL_INFO
+#എങ്കിൽ TAL_INFO
     unsigned nb_peak;
     unsigned nb_total;
     uint8_t *peak_p;
 #endif
-    union {
+    സംഘം {
         uint8_t buffer[1];
         size_t _aligner_;
     };
 } TinyAlloc;
 
-typedef struct tal_header_t {
+തരനിർവചനം ഘടന tal_header_t {
     size_t  size; /* word align */
-#if TAL_DEBUG
-    int     line_num; /* negative line_num used for double free check */
-    char    file_name[40];
+#എങ്കിൽ TAL_DEBUG
+    പൂർണ്ണസംഖ്യ     വരി_അക്കം; /* negative line_num used for double free check */
+    അക്ഷരം    file_name[40];
 #endif
 } tal_header_t;
 
 #define TAL_ALIGN(size) \
-    (((size) + (sizeof (size_t) - 1)) & ~(sizeof (size_t) - 1))
+    (((size) + (വലുപ്പം (size_t) - 1)) & ~(വലുപ്പം (size_t) - 1))
 
 /* ------------------------------------------------------------------------- */
 
-static TinyAlloc *tal_new(TinyAlloc **pal, unsigned size)
+സ്ഥിതം TinyAlloc *tal_new(TinyAlloc **pal, unsigned size)
 {
-    TinyAlloc *al = tcc_malloc(sizeof(TinyAlloc) - sizeof (size_t) + size);
+    TinyAlloc *al = tcc_malloc(വലുപ്പം(TinyAlloc) - വലുപ്പം (size_t) + size);
     al->p = al->buffer;
     al->bufend = al->buffer + size;
     al->nb_allocs = 0;
     al->next = *pal, *pal = al;
     al->size = al->next ? al->next->size : size;
-#if TAL_INFO
+#എങ്കിൽ TAL_INFO
     al->nb_peak = 0;
     al->nb_total = 0;
     al->peak_p = al->p;
 #endif
-    return al;
+    തിരികെ al;
 }
 
-static void tal_delete(TinyAlloc **pal)
+സ്ഥിതം ശൂന്യം tal_delete(TinyAlloc **pal)
 {
     TinyAlloc *al = *pal, *next;
 
-#if TAL_INFO
+#എങ്കിൽ TAL_INFO
     fprintf(stderr, "tal_delete (&tok%s_alloc):\n", pal == &toksym_alloc ? "sym" : "str");
 #endif
 tail_call:
-#if TAL_DEBUG && TAL_DEBUG != 3 /* do not check TAL leaks with -DMEM_DEBUG=3 */
-#if TAL_INFO
+#എങ്കിൽ TAL_DEBUG && TAL_DEBUG != 3 /* do not check TAL leaks with -DMEM_DEBUG=3 */
+#എങ്കിൽ TAL_INFO
     fprintf(stderr, "  size %7d  nb_peak %5d  nb_total %6d  usage %5.1f%%\n",
             al->bufend - al->buffer, al->nb_peak, al->nb_total,
             (al->peak_p - al->buffer) * 100.0 / (al->bufend - al->buffer));
 #endif
-    if (al->nb_allocs > 0) {
+    എങ്കിൽ (al->nb_allocs > 0) {
         uint8_t *p;
         fprintf(stderr, "TAL_DEBUG: memory leak %d chunk(s)\n", al->nb_allocs);
         p = al->buffer;
-        while (p < al->p) {
+        ആകുമ്പോൾ (p < al->p) {
             tal_header_t *header = (tal_header_t *)p;
-            if (header->line_num > 0) {
+            എങ്കിൽ (header->വരി_അക്കം > 0) {
                 fprintf(stderr, "%s:%d: chunk of %d bytes leaked\n",
-                        header->file_name, header->line_num, (int)header->size);
+                        header->file_name, header->വരി_അക്കം, (പൂർണ്ണസംഖ്യ)header->size);
             }
-            p += header->size + sizeof(tal_header_t);
+            p += header->size + വലുപ്പം(tal_header_t);
         }
-#if TAL_DEBUG == 2
+#എങ്കിൽ TAL_DEBUG == 2
         exit(2);
 #endif
     }
@@ -218,239 +218,239 @@ tail_call:
     next = al->next;
     tcc_free(al);
     al = next;
-    if (al)
-        goto tail_call;
+    എങ്കിൽ (al)
+        പോകുക tail_call;
     *pal = al;
 }
 
-static void tal_free_impl(TinyAlloc **pal, void *p TAL_DEBUG_PARAMS)
+സ്ഥിതം ശൂന്യം tal_free_impl(TinyAlloc **pal, ശൂന്യം *p TAL_DEBUG_PARAMS)
 {
-    TinyAlloc *al, **top = pal;
+    TinyAlloc *al, **മുകൾ = pal;
     tal_header_t *header;
 
-    if (!p)
-        return;
+    എങ്കിൽ (!p)
+        തിരികെ;
     header = (tal_header_t *)p - 1;
-#if TAL_DEBUG
-    if (header->line_num < 0) {
+#എങ്കിൽ TAL_DEBUG
+    എങ്കിൽ (header->വരി_അക്കം < 0) {
         fprintf(stderr, "%s:%d: TAL_DEBUG: double frees chunk from\n",
                 sfile, sline);
         fprintf(stderr, "%s:%d: %d bytes\n",
-                header->file_name, (int)-header->line_num, (int)header->size);
-    } else
-        header->line_num = -header->line_num;
+                header->file_name, (പൂർണ്ണസംഖ്യ)-header->വരി_അക്കം, (പൂർണ്ണസംഖ്യ)header->size);
+    } അല്ലെങ്കിൽ
+        header->വരി_അക്കം = -header->വരി_അക്കം;
 #endif
     al = *pal;
-    while ((uint8_t*)p < al->buffer || (uint8_t*)p > al->bufend)
+    ആകുമ്പോൾ ((uint8_t*)p < al->buffer || (uint8_t*)p > al->bufend)
         al = *(pal = &al->next);
-    if (0 == --al->nb_allocs) {
+    എങ്കിൽ (0 == --al->nb_allocs) {
         *pal = al->next;
-        if ((al->bufend - al->buffer) > al->size) {
+        എങ്കിൽ ((al->bufend - al->buffer) > al->size) {
             //fprintf(stderr, "free big tal: %u\n", header->size);
             tcc_free(al);
-        } else {
+        } അല്ലെങ്കിൽ {
             /* reset and move to front */
             al->p = al->buffer;
-            al->next = *top, *top = al;
+            al->next = *മുകൾ, *മുകൾ = al;
         }
-    } else if ((uint8_t*)p + header->size == al->p) {
+    } അല്ലെങ്കിൽ എങ്കിൽ ((uint8_t*)p + header->size == al->p) {
         al->p = (uint8_t*)header;
     }
 }
 
-static void *tal_realloc_impl(TinyAlloc **pal, void *p, unsigned size TAL_DEBUG_PARAMS)
+സ്ഥിതം ശൂന്യം *tal_realloc_impl(TinyAlloc **pal, ശൂന്യം *p, unsigned size TAL_DEBUG_PARAMS)
 {
     tal_header_t *header;
-    void *ret;
-    unsigned adj_size = TAL_ALIGN(size) + sizeof(tal_header_t);
+    ശൂന്യം *ret;
+    unsigned adj_size = TAL_ALIGN(size) + വലുപ്പം(tal_header_t);
     TinyAlloc *al = *pal;
 
-    if (p) {
+    എങ്കിൽ (p) {
         /* reallpc case */
-        while ((uint8_t*)p < al->buffer || (uint8_t*)p > al->bufend)
+        ആകുമ്പോൾ ((uint8_t*)p < al->buffer || (uint8_t*)p > al->bufend)
             al = al->next;
         header = (tal_header_t *)p - 1;
-        if ((uint8_t*)p + header->size == al->p)
+        എങ്കിൽ ((uint8_t*)p + header->size == al->p)
             al->p = (uint8_t*)header; /* maybe reuse */
-        if (al->p + adj_size > al->bufend) {
+        എങ്കിൽ (al->p + adj_size > al->bufend) {
             ret = tal_realloc(pal, 0, size);
             memcpy(ret, p, header->size);
             tal_free(pal, p);
-            return ret;
-        } else if (al->p != (uint8_t*)header) {
+            തിരികെ ret;
+        } അല്ലെങ്കിൽ എങ്കിൽ (al->p != (uint8_t*)header) {
             memcpy((tal_header_t*)al->p + 1, p, header->size);
-#if TAL_DEBUG
-            header->line_num = -header->line_num;
+#എങ്കിൽ TAL_DEBUG
+            header->വരി_അക്കം = -header->വരി_അക്കം;
 #endif
         }
-    } else {
+    } അല്ലെങ്കിൽ {
         /* new alloc case */
-        while (al->p + adj_size > al->bufend) {
+        ആകുമ്പോൾ (al->p + adj_size > al->bufend) {
             al = al->next;
-            if (!al) {
+            എങ്കിൽ (!al) {
                 unsigned new_size = (*pal)->size;
-                if (adj_size > new_size) {
+                എങ്കിൽ (adj_size > new_size) {
                     new_size = adj_size;
                     //fprintf(stderr, "%s:%d: alloc big tal: %u\n", file->filename, file->line_num, adj_size - sizeof(tal_header_t));
                 }
                 al = tal_new(pal, new_size);
-                break;
+                നിർത്തുക;
             }
         }
         al->nb_allocs++;
     }
     header = (tal_header_t *)al->p;
-    header->size = adj_size - sizeof(tal_header_t);
+    header->size = adj_size - വലുപ്പം(tal_header_t);
     al->p += adj_size;
     ret = header + 1;
-#if  TAL_DEBUG
+#എങ്കിൽ  TAL_DEBUG
     {
-        int ofs = strlen(sfile) + 1 - sizeof header->file_name;
+        പൂർണ്ണസംഖ്യ ofs = strlen(sfile) + 1 - വലുപ്പം header->file_name;
         strcpy(header->file_name, sfile + (ofs > 0 ? ofs : 0));
-        header->line_num = sline;
-#if TAL_INFO
-        if (al->nb_peak < al->nb_allocs)
+        header->വരി_അക്കം = sline;
+#എങ്കിൽ TAL_INFO
+        എങ്കിൽ (al->nb_peak < al->nb_allocs)
             al->nb_peak = al->nb_allocs;
-        if (al->peak_p < al->p)
+        എങ്കിൽ (al->peak_p < al->p)
             al->peak_p = al->p;
         al->nb_total++;
 #endif
     }
 #endif
-    return ret;
+    തിരികെ ret;
 }
 
 #endif /* USE_TAL */
 
 /* ------------------------------------------------------------------------- */
 /* CString handling */
-static void cstr_realloc(CString *cstr, int new_size)
+സ്ഥിതം ശൂന്യം cstr_realloc(CString *cstr, പൂർണ്ണസംഖ്യ new_size)
 {
-    int size;
+    പൂർണ്ണസംഖ്യ size;
 
     size = cstr->size_allocated;
-    if (size < 8)
+    എങ്കിൽ (size < 8)
         size = 8; /* no need to allocate a too small first string */
-    while (size < new_size)
+    ആകുമ്പോൾ (size < new_size)
         size = size * 2;
     cstr->data = tcc_realloc(cstr->data, size);
     cstr->size_allocated = size;
 }
 
 /* add a byte */
-ST_INLN void cstr_ccat(CString *cstr, int ch)
+ST_INLN ശൂന്യം cstr_ccat(CString *cstr, പൂർണ്ണസംഖ്യ ch)
 {
-    int size;
+    പൂർണ്ണസംഖ്യ size;
     size = cstr->size + 1;
-    if (size > cstr->size_allocated)
+    എങ്കിൽ (size > cstr->size_allocated)
         cstr_realloc(cstr, size);
     cstr->data[size - 1] = ch;
     cstr->size = size;
 }
 
-ST_INLN char *unicode_to_utf8 (char *b, uint32_t Uc)
+ST_INLN അക്ഷരം *unicode_to_utf8 (അക്ഷരം *b, uint32_t Uc)
 {
-    if (Uc<0x80) *b++=Uc;
-    else if (Uc<0x800) *b++=192+Uc/64, *b++=128+Uc%64;
-    else if (Uc-0xd800u<0x800) goto error;
-    else if (Uc<0x10000) *b++=224+Uc/4096, *b++=128+Uc/64%64, *b++=128+Uc%64;
-    else if (Uc<0x110000) *b++=240+Uc/262144, *b++=128+Uc/4096%64, *b++=128+Uc/64%64, *b++=128+Uc%64;
-    else error: tcc_error("0x%x is not a valid universal character", Uc);
-    return b;
+    എങ്കിൽ (Uc<0x80) *b++=Uc;
+    അല്ലെങ്കിൽ എങ്കിൽ (Uc<0x800) *b++=192+Uc/64, *b++=128+Uc%64;
+    അല്ലെങ്കിൽ എങ്കിൽ (Uc-0xd800u<0x800) പോകുക error;
+    അല്ലെങ്കിൽ എങ്കിൽ (Uc<0x10000) *b++=224+Uc/4096, *b++=128+Uc/64%64, *b++=128+Uc%64;
+    അല്ലെങ്കിൽ എങ്കിൽ (Uc<0x110000) *b++=240+Uc/262144, *b++=128+Uc/4096%64, *b++=128+Uc/64%64, *b++=128+Uc%64;
+    അല്ലെങ്കിൽ error: tcc_error("0x%x is not a valid universal character", Uc);
+    തിരികെ b;
 }
 
 /* add a unicode character expanded into utf8 */
-ST_INLN void cstr_u8cat(CString *cstr, int ch)
+ST_INLN ശൂന്യം cstr_u8cat(CString *cstr, പൂർണ്ണസംഖ്യ ch)
 {
-    char buf[4], *e;
+    അക്ഷരം buf[4], *e;
     e = unicode_to_utf8(buf, (uint32_t)ch);
     cstr_cat(cstr, buf, e - buf);
 }
 
 /* add string of 'len', or of its len/len+1 when 'len' == -1/0 */
-ST_FUNC void cstr_cat(CString *cstr, const char *str, int len)
+ST_FUNC ശൂന്യം cstr_cat(CString *cstr, സ്ഥിരം അക്ഷരം *str, പൂർണ്ണസംഖ്യ len)
 {
-    int size;
-    if (len <= 0)
+    പൂർണ്ണസംഖ്യ size;
+    എങ്കിൽ (len <= 0)
         len = strlen(str) + 1 + len;
     size = cstr->size + len;
-    if (size > cstr->size_allocated)
+    എങ്കിൽ (size > cstr->size_allocated)
         cstr_realloc(cstr, size);
     memmove(cstr->data + cstr->size, str, len);
     cstr->size = size;
 }
 
 /* add a wide char */
-ST_FUNC void cstr_wccat(CString *cstr, int ch)
+ST_FUNC ശൂന്യം cstr_wccat(CString *cstr, പൂർണ്ണസംഖ്യ ch)
 {
-    int size;
-    size = cstr->size + sizeof(nwchar_t);
-    if (size > cstr->size_allocated)
+    പൂർണ്ണസംഖ്യ size;
+    size = cstr->size + വലുപ്പം(nwchar_t);
+    എങ്കിൽ (size > cstr->size_allocated)
         cstr_realloc(cstr, size);
-    *(nwchar_t *)(cstr->data + size - sizeof(nwchar_t)) = ch;
+    *(nwchar_t *)(cstr->data + size - വലുപ്പം(nwchar_t)) = ch;
     cstr->size = size;
 }
 
-ST_FUNC void cstr_new(CString *cstr)
+ST_FUNC ശൂന്യം cstr_new(CString *cstr)
 {
-    memset(cstr, 0, sizeof(CString));
+    memset(cstr, 0, വലുപ്പം(CString));
 }
 
 /* free string and reset it to NULL */
-ST_FUNC void cstr_free(CString *cstr)
+ST_FUNC ശൂന്യം cstr_free(CString *cstr)
 {
     tcc_free(cstr->data);
 }
 
 /* reset string to empty */
-ST_FUNC void cstr_reset(CString *cstr)
+ST_FUNC ശൂന്യം cstr_reset(CString *cstr)
 {
     cstr->size = 0;
 }
 
-ST_FUNC int cstr_vprintf(CString *cstr, const char *fmt, va_list ap)
+ST_FUNC പൂർണ്ണസംഖ്യ cstr_vprintf(CString *cstr, സ്ഥിരം അക്ഷരം *fmt, va_list ap)
 {
     va_list v;
-    int len, size = 80;
-    for (;;) {
+    പൂർണ്ണസംഖ്യ len, size = 80;
+    വേണ്ടി (;;) {
         size += cstr->size;
-        if (size > cstr->size_allocated)
+        എങ്കിൽ (size > cstr->size_allocated)
             cstr_realloc(cstr, size);
         size = cstr->size_allocated - cstr->size;
         va_copy(v, ap);
         len = vsnprintf(cstr->data + cstr->size, size, fmt, v);
         va_end(v);
-        if (len >= 0 && len < size)
-            break;
+        എങ്കിൽ (len >= 0 && len < size)
+            നിർത്തുക;
         size *= 2;
     }
     cstr->size += len;
-    return len;
+    തിരികെ len;
 }
 
-ST_FUNC int cstr_printf(CString *cstr, const char *fmt, ...)
+ST_FUNC പൂർണ്ണസംഖ്യ cstr_printf(CString *cstr, സ്ഥിരം അക്ഷരം *fmt, ...)
 {
-    va_list ap; int len;
+    va_list ap; പൂർണ്ണസംഖ്യ len;
     va_start(ap, fmt);
     len = cstr_vprintf(cstr, fmt, ap);
     va_end(ap);
-    return len;
+    തിരികെ len;
 }
 
 /* XXX: unicode ? */
-static void add_char(CString *cstr, int c)
+സ്ഥിതം ശൂന്യം add_char(CString *cstr, പൂർണ്ണസംഖ്യ c)
 {
-    if (c == '\'' || c == '\"' || c == '\\') {
+    എങ്കിൽ (c == '\'' || c == '\"' || c == '\\') {
         /* XXX: could be more precise if char or string */
         cstr_ccat(cstr, '\\');
     }
-    if (c >= 32 && c <= 126) {
+    എങ്കിൽ (c >= 32 && c <= 126) {
         cstr_ccat(cstr, c);
-    } else {
+    } അല്ലെങ്കിൽ {
         cstr_ccat(cstr, '\\');
-        if (c == '\n') {
+        എങ്കിൽ (c == '\n') {
             cstr_ccat(cstr, 'n');
-        } else {
+        } അല്ലെങ്കിൽ {
             cstr_ccat(cstr, '0' + ((c >> 6) & 7));
             cstr_ccat(cstr, '0' + ((c >> 3) & 7));
             cstr_ccat(cstr, '0' + (c & 7));
@@ -460,34 +460,34 @@ static void add_char(CString *cstr, int c)
 
 /* ------------------------------------------------------------------------- */
 /* allocate a new token */
-static TokenSym *tok_alloc_new(TokenSym **pts, const char *str, int len)
+സ്ഥിതം TokenSym *tok_alloc_new(TokenSym **pts, സ്ഥിരം അക്ഷരം *str, പൂർണ്ണസംഖ്യ len)
 {
     TokenSym *ts, **ptable;
-    int i;
+    പൂർണ്ണസംഖ്യ i;
 
-    if (tok_ident >= SYM_FIRST_ANOM) 
+    എങ്കിൽ (tok_ident >= SYM_FIRST_ANOM) 
         tcc_error("memory full (symbols)");
 
     /* expand token table if needed */
     i = tok_ident - TOK_IDENT;
-    if ((i % TOK_ALLOC_INCR) == 0) {
-        ptable = tcc_realloc(table_ident, (i + TOK_ALLOC_INCR) * sizeof(TokenSym *));
+    എങ്കിൽ ((i % TOK_ALLOC_INCR) == 0) {
+        ptable = tcc_realloc(table_ident, (i + TOK_ALLOC_INCR) * വലുപ്പം(TokenSym *));
         table_ident = ptable;
     }
 
-    ts = tal_realloc(&toksym_alloc, 0, sizeof(TokenSym) + len);
+    ts = tal_realloc(&toksym_alloc, 0, വലുപ്പം(TokenSym) + len);
     table_ident[i] = ts;
     ts->tok = tok_ident++;
-    ts->sym_define = NULL;
-    ts->sym_label = NULL;
-    ts->sym_struct = NULL;
-    ts->sym_identifier = NULL;
+    ts->sym_define = ശൂന്യ;
+    ts->sym_label = ശൂന്യ;
+    ts->sym_struct = ശൂന്യ;
+    ts->sym_identifier = ശൂന്യ;
     ts->len = len;
-    ts->hash_next = NULL;
+    ts->hash_next = ശൂന്യ;
     memcpy(ts->str, str, len);
     ts->str[len] = '\0';
     *pts = ts;
-    return ts;
+    തിരികെ ts;
 }
 
 #define TOK_HASH_INIT 1
@@ -495,163 +495,163 @@ static TokenSym *tok_alloc_new(TokenSym **pts, const char *str, int len)
 
 
 /* find a token and add it if not found */
-ST_FUNC TokenSym *tok_alloc(const char *str, int len)
+ST_FUNC TokenSym *tok_alloc(സ്ഥിരം അക്ഷരം *str, പൂർണ്ണസംഖ്യ len)
 {
     TokenSym *ts, **pts;
-    int i;
-    unsigned int h;
+    പൂർണ്ണസംഖ്യ i;
+    unsigned പൂർണ്ണസംഖ്യ h;
     
     h = TOK_HASH_INIT;
-    for(i=0;i<len;i++)
-        h = TOK_HASH_FUNC(h, ((unsigned char *)str)[i]);
+    വേണ്ടി(i=0;i<len;i++)
+        h = TOK_HASH_FUNC(h, ((unsigned അക്ഷരം *)str)[i]);
     h &= (TOK_HASH_SIZE - 1);
 
     pts = &hash_ident[h];
-    for(;;) {
+    വേണ്ടി(;;) {
         ts = *pts;
-        if (!ts)
-            break;
-        if (ts->len == len && !memcmp(ts->str, str, len))
-            return ts;
+        എങ്കിൽ (!ts)
+            നിർത്തുക;
+        എങ്കിൽ (ts->len == len && !memcmp(ts->str, str, len))
+            തിരികെ ts;
         pts = &(ts->hash_next);
     }
-    return tok_alloc_new(pts, str, len);
+    തിരികെ tok_alloc_new(pts, str, len);
 }
 
-ST_FUNC int tok_alloc_const(const char *str)
+ST_FUNC പൂർണ്ണസംഖ്യ tok_alloc_const(സ്ഥിരം അക്ഷരം *str)
 {
-    return tok_alloc(str, strlen(str))->tok;
+    തിരികെ tok_alloc(str, strlen(str))->tok;
 }
 
 
 /* XXX: buffer overflow */
 /* XXX: float tokens */
-ST_FUNC const char *get_tok_str(int v, CValue *cv)
+ST_FUNC സ്ഥിരം അക്ഷരം *get_tok_str(പൂർണ്ണസംഖ്യ v, CValue *cv)
 {
-    char *p;
-    int i, len;
+    അക്ഷരം *p;
+    പൂർണ്ണസംഖ്യ i, len;
 
     cstr_reset(&cstr_buf);
     p = cstr_buf.data;
 
-    switch(v) {
-    case TOK_CINT:
-    case TOK_CUINT:
-    case TOK_CLONG:
-    case TOK_CULONG:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
+    തിരഞ്ഞെടുപ്പ്(v) {
+    അവസ്ഥ TOK_CINT:
+    അവസ്ഥ TOK_CUINT:
+    അവസ്ഥ TOK_CLONG:
+    അവസ്ഥ TOK_CULONG:
+    അവസ്ഥ TOK_CLLONG:
+    അവസ്ഥ TOK_CULLONG:
         /* XXX: not quite exact, but only useful for testing  */
         sprintf(p, "%llu", (unsigned long long)cv->i);
-        break;
-    case TOK_LCHAR:
+        നിർത്തുക;
+    അവസ്ഥ TOK_LCHAR:
         cstr_ccat(&cstr_buf, 'L');
-    case TOK_CCHAR:
+    അവസ്ഥ TOK_CCHAR:
         cstr_ccat(&cstr_buf, '\'');
         add_char(&cstr_buf, cv->i);
         cstr_ccat(&cstr_buf, '\'');
         cstr_ccat(&cstr_buf, '\0');
-        break;
-    case TOK_PPNUM:
-    case TOK_PPSTR:
-        return (char*)cv->str.data;
-    case TOK_LSTR:
+        നിർത്തുക;
+    അവസ്ഥ TOK_PPNUM:
+    അവസ്ഥ TOK_PPSTR:
+        തിരികെ (അക്ഷരം*)cv->str.data;
+    അവസ്ഥ TOK_LSTR:
         cstr_ccat(&cstr_buf, 'L');
-    case TOK_STR:
+    അവസ്ഥ TOK_STR:
         cstr_ccat(&cstr_buf, '\"');
-        if (v == TOK_STR) {
+        എങ്കിൽ (v == TOK_STR) {
             len = cv->str.size - 1;
-            for(i=0;i<len;i++)
-                add_char(&cstr_buf, ((unsigned char *)cv->str.data)[i]);
-        } else {
-            len = (cv->str.size / sizeof(nwchar_t)) - 1;
-            for(i=0;i<len;i++)
+            വേണ്ടി(i=0;i<len;i++)
+                add_char(&cstr_buf, ((unsigned അക്ഷരം *)cv->str.data)[i]);
+        } അല്ലെങ്കിൽ {
+            len = (cv->str.size / വലുപ്പം(nwchar_t)) - 1;
+            വേണ്ടി(i=0;i<len;i++)
                 add_char(&cstr_buf, ((nwchar_t *)cv->str.data)[i]);
         }
         cstr_ccat(&cstr_buf, '\"');
         cstr_ccat(&cstr_buf, '\0');
-        break;
+        നിർത്തുക;
 
-    case TOK_CFLOAT:
-        return strcpy(p, "<float>");
-    case TOK_CDOUBLE:
-        return strcpy(p, "<double>");
-    case TOK_CLDOUBLE:
-        return strcpy(p, "<long double>");
-    case TOK_LINENUM:
-        return strcpy(p, "<linenumber>");
+    അവസ്ഥ TOK_CFLOAT:
+        തിരികെ strcpy(p, "<float>");
+    അവസ്ഥ TOK_CDOUBLE:
+        തിരികെ strcpy(p, "<double>");
+    അവസ്ഥ TOK_CLDOUBLE:
+        തിരികെ strcpy(p, "<long double>");
+    അവസ്ഥ TOK_LINENUM:
+        തിരികെ strcpy(p, "<linenumber>");
 
     /* above tokens have value, the ones below don't */
-    case TOK_LT:
+    അവസ്ഥ TOK_LT:
         v = '<';
-        goto addv;
-    case TOK_GT:
+        പോകുക addv;
+    അവസ്ഥ TOK_GT:
         v = '>';
-        goto addv;
-    case TOK_DOTS:
-        return strcpy(p, "...");
-    case TOK_A_SHL:
-        return strcpy(p, "<<=");
-    case TOK_A_SAR:
-        return strcpy(p, ">>=");
-    case TOK_EOF:
-        return strcpy(p, "<eof>");
-    case 0: /* anonymous nameless symbols */
-        return strcpy(p, "<no name>");
-    default:
+        പോകുക addv;
+    അവസ്ഥ TOK_DOTS:
+        തിരികെ strcpy(p, "...");
+    അവസ്ഥ TOK_A_SHL:
+        തിരികെ strcpy(p, "<<=");
+    അവസ്ഥ TOK_A_SAR:
+        തിരികെ strcpy(p, ">>=");
+    അവസ്ഥ TOK_EOF:
+        തിരികെ strcpy(p, "<eof>");
+    അവസ്ഥ 0: /* anonymous nameless symbols */
+        തിരികെ strcpy(p, "<no name>");
+    സ്ഥിരസ്ഥിതി:
         v &= ~(SYM_FIELD | SYM_STRUCT);
-        if (v < TOK_IDENT) {
+        എങ്കിൽ (v < TOK_IDENT) {
             /* search in two bytes table */
-            const unsigned char *q = tok_two_chars;
-            while (*q) {
-                if (q[2] == v) {
+            സ്ഥിരം unsigned അക്ഷരം *q = tok_two_chars;
+            ആകുമ്പോൾ (*q) {
+                എങ്കിൽ (q[2] == v) {
                     *p++ = q[0];
                     *p++ = q[1];
                     *p = '\0';
-                    return cstr_buf.data;
+                    തിരികെ cstr_buf.data;
                 }
                 q += 3;
             }
-            if (v >= 127 || (v < 32 && !is_space(v) && v != '\n')) {
+            എങ്കിൽ (v >= 127 || (v < 32 && !is_space(v) && v != '\n')) {
                 sprintf(p, "<\\x%02x>", v);
-                break;
+                നിർത്തുക;
             }
     addv:
             *p++ = v;
             *p = '\0';
-        } else if (v < tok_ident) {
-            return table_ident[v - TOK_IDENT]->str;
-        } else if (v >= SYM_FIRST_ANOM) {
+        } അല്ലെങ്കിൽ എങ്കിൽ (v < tok_ident) {
+            തിരികെ table_ident[v - TOK_IDENT]->str;
+        } അല്ലെങ്കിൽ എങ്കിൽ (v >= SYM_FIRST_ANOM) {
             /* special name for anonymous symbol */
             sprintf(p, "L.%u", v - SYM_FIRST_ANOM);
-        } else {
+        } അല്ലെങ്കിൽ {
             /* should never happen */
-            return NULL;
+            തിരികെ ശൂന്യ;
         }
-        break;
+        നിർത്തുക;
     }
-    return cstr_buf.data;
+    തിരികെ cstr_buf.data;
 }
 
 /* return the current character, handling end of block if necessary
    (but not stray) */
-static int handle_eob(void)
+സ്ഥിതം പൂർണ്ണസംഖ്യ handle_eob(ശൂന്യം)
 {
     BufferedFile *bf = file;
-    int len;
+    പൂർണ്ണസംഖ്യ len;
 
     /* only tries to read if really end of buffer */
-    if (bf->buf_ptr >= bf->buf_end) {
-        if (bf->fd >= 0) {
-#if defined(PARSE_DEBUG)
+    എങ്കിൽ (bf->buf_ptr >= bf->buf_end) {
+        എങ്കിൽ (bf->fd >= 0) {
+#എങ്കിൽ defined(PARSE_DEBUG)
             len = 1;
-#else
+#അല്ലെങ്കിൽ
             len = IO_BUF_SIZE;
 #endif
-            len = read(bf->fd, bf->buffer, len);
-            if (len < 0)
+            len = പഠ(bf->fd, bf->buffer, len);
+            എങ്കിൽ (len < 0)
                 len = 0;
-        } else {
+        } അല്ലെങ്കിൽ {
             len = 0;
         }
         total_bytes += len;
@@ -659,874 +659,874 @@ static int handle_eob(void)
         bf->buf_end = bf->buffer + len;
         *bf->buf_end = CH_EOB;
     }
-    if (bf->buf_ptr < bf->buf_end) {
-        return bf->buf_ptr[0];
-    } else {
+    എങ്കിൽ (bf->buf_ptr < bf->buf_end) {
+        തിരികെ bf->buf_ptr[0];
+    } അല്ലെങ്കിൽ {
         bf->buf_ptr = bf->buf_end;
-        return CH_EOF;
+        തിരികെ CH_EOF;
     }
 }
 
 /* read next char from current input file and handle end of input buffer */
-static int next_c(void)
+സ്ഥിതം പൂർണ്ണസംഖ്യ next_c(ശൂന്യം)
 {
-    int ch = *++file->buf_ptr;
+    പൂർണ്ണസംഖ്യ ch = *++file->buf_ptr;
     /* end of buffer/file handling */
-    if (ch == CH_EOB && file->buf_ptr >= file->buf_end)
+    എങ്കിൽ (ch == CH_EOB && file->buf_ptr >= file->buf_end)
         ch = handle_eob();
-    return ch;
+    തിരികെ ch;
 }
 
 /* input with '\[\r]\n' handling. */
-static int handle_stray_noerror(int err)
+സ്ഥിതം പൂർണ്ണസംഖ്യ handle_stray_noerror(പൂർണ്ണസംഖ്യ err)
 {
-    int ch;
-    while ((ch = next_c()) == '\\') {
+    പൂർണ്ണസംഖ്യ ch;
+    ആകുമ്പോൾ ((ch = next_c()) == '\\') {
         ch = next_c();
-        if (ch == '\n') {
+        എങ്കിൽ (ch == '\n') {
     newl:
-            file->line_num++;
-        } else {
-            if (ch == '\r') {
+            file->വരി_അക്കം++;
+        } അല്ലെങ്കിൽ {
+            എങ്കിൽ (ch == '\r') {
                 ch = next_c();
-                if (ch == '\n')
-                    goto newl;
+                എങ്കിൽ (ch == '\n')
+                    പോകുക newl;
                 *--file->buf_ptr = '\r';
             }
-            if (err)
+            എങ്കിൽ (err)
                 tcc_error("stray '\\' in program");
             /* may take advantage of 'BufferedFile.unget[4}' */
-            return *--file->buf_ptr = '\\';
+            തിരികെ *--file->buf_ptr = '\\';
         }
     }
-    return ch;
+    തിരികെ ch;
 }
 
 #define ninp() handle_stray_noerror(0)
 
 /* handle '\\' in strings, comments and skipped regions */
-static int handle_bs(uint8_t **p)
+സ്ഥിതം പൂർണ്ണസംഖ്യ handle_bs(uint8_t **p)
 {
-    int c;
+    പൂർണ്ണസംഖ്യ c;
     file->buf_ptr = *p - 1;
     c = ninp();
     *p = file->buf_ptr;
-    return c;
+    തിരികെ c;
 }
 
 /* skip the stray and handle the \\n case. Output an error if
    incorrect char after the stray */
-static int handle_stray(uint8_t **p)
+സ്ഥിതം പൂർണ്ണസംഖ്യ handle_stray(uint8_t **p)
 {
-    int c;
+    പൂർണ്ണസംഖ്യ c;
     file->buf_ptr = *p - 1;
     c = handle_stray_noerror(!(parse_flags & PARSE_FLAG_ACCEPT_STRAYS));
     *p = file->buf_ptr;
-    return c;
+    തിരികെ c;
 }
 
 /* handle the complicated stray case */
 #define PEEKC(c, p)\
 {\
     c = *++p;\
-    if (c == '\\')\
+    എങ്കിൽ (c == '\\')\
         c = handle_stray(&p); \
 }
 
-static int skip_spaces(void)
+സ്ഥിതം പൂർണ്ണസംഖ്യ skip_spaces(ശൂന്യം)
 {
-    int ch;
+    പൂർണ്ണസംഖ്യ ch;
     --file->buf_ptr;
-    do {
+    ചെയ്യുക {
         ch = ninp();
-    } while (isidnum_table[ch - CH_EOF] & IS_SPC);
-    return ch;
+    } ആകുമ്പോൾ (isidnum_table[ch - CH_EOF] & IS_SPC);
+    തിരികെ ch;
 }
 
 /* single line C++ comments */
-static uint8_t *parse_line_comment(uint8_t *p)
+സ്ഥിതം uint8_t *parse_വരി_comment(uint8_t *p)
 {
-    int c;
-    for(;;) {
-        for (;;) {
+    പൂർണ്ണസംഖ്യ c;
+    വേണ്ടി(;;) {
+        വേണ്ടി (;;) {
             c = *++p;
     redo:
-            if (c == '\n' || c == '\\')
-                break;
+            എങ്കിൽ (c == '\n' || c == '\\')
+                നിർത്തുക;
             c = *++p;
-            if (c == '\n' || c == '\\')
-                break;
+            എങ്കിൽ (c == '\n' || c == '\\')
+                നിർത്തുക;
         }
-        if (c == '\n')
-            break;
+        എങ്കിൽ (c == '\n')
+            നിർത്തുക;
         c = handle_bs(&p);
-        if (c == CH_EOF)
-            break;
-        if (c != '\\')
-            goto redo;
+        എങ്കിൽ (c == CH_EOF)
+            നിർത്തുക;
+        എങ്കിൽ (c != '\\')
+            പോകുക redo;
     }
-    return p;
+    തിരികെ p;
 }
 
 /* C comments */
-static uint8_t *parse_comment(uint8_t *p)
+സ്ഥിതം uint8_t *parse_comment(uint8_t *p)
 {
-    int c;
-    for(;;) {
+    പൂർണ്ണസംഖ്യ c;
+    വേണ്ടി(;;) {
         /* fast skip loop */
-        for(;;) {
+        വേണ്ടി(;;) {
             c = *++p;
         redo:
-            if (c == '\n' || c == '*' || c == '\\')
-                break;
+            എങ്കിൽ (c == '\n' || c == '*' || c == '\\')
+                നിർത്തുക;
             c = *++p;
-            if (c == '\n' || c == '*' || c == '\\')
-                break;
+            എങ്കിൽ (c == '\n' || c == '*' || c == '\\')
+                നിർത്തുക;
         }
         /* now we can handle all the cases */
-        if (c == '\n') {
-            file->line_num++;
-        } else if (c == '*') {
-            do {
+        എങ്കിൽ (c == '\n') {
+            file->വരി_അക്കം++;
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '*') {
+            ചെയ്യുക {
                 c = *++p;
-            } while (c == '*');
-            if (c == '\\')
+            } ആകുമ്പോൾ (c == '*');
+            എങ്കിൽ (c == '\\')
                 c = handle_bs(&p);
-            if (c == '/')
-                break;
-            goto check_eof;
-        } else {
+            എങ്കിൽ (c == '/')
+                നിർത്തുക;
+            പോകുക check_eof;
+        } അല്ലെങ്കിൽ {
             c = handle_bs(&p);
         check_eof:
-            if (c == CH_EOF)
+            എങ്കിൽ (c == CH_EOF)
                 tcc_error("unexpected end of file in comment");
-            if (c != '\\')
-                goto redo;
+            എങ്കിൽ (c != '\\')
+                പോകുക redo;
         }
     }
-    return p + 1;
+    തിരികെ p + 1;
 }
 
 /* parse a string without interpreting escapes */
-static uint8_t *parse_pp_string(uint8_t *p, int sep, CString *str)
+സ്ഥിതം uint8_t *parse_pp_string(uint8_t *p, പൂർണ്ണസംഖ്യ sep, CString *str)
 {
-    int c;
-    for(;;) {
+    പൂർണ്ണസംഖ്യ c;
+    വേണ്ടി(;;) {
         c = *++p;
     redo:
-        if (c == sep) {
-            break;
-        } else if (c == '\\') {
+        എങ്കിൽ (c == sep) {
+            നിർത്തുക;
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '\\') {
             c = handle_bs(&p);
-            if (c == CH_EOF) {
+            എങ്കിൽ (c == CH_EOF) {
         unterminated_string:
                 /* XXX: indicate line number of start of string */
                 tok_flags &= ~TOK_FLAG_BOL;
                 tcc_error("missing terminating %c character", sep);
-            } else if (c == '\\') {
-                if (str)
+            } അല്ലെങ്കിൽ എങ്കിൽ (c == '\\') {
+                എങ്കിൽ (str)
                     cstr_ccat(str, c);
                 c = *++p;
                 /* add char after '\\' unconditionally */
-                if (c == '\\') {
+                എങ്കിൽ (c == '\\') {
                     c = handle_bs(&p);
-                    if (c == CH_EOF)
-                        goto unterminated_string;
+                    എങ്കിൽ (c == CH_EOF)
+                        പോകുക unterminated_string;
                 }
-                goto add_char;
-            } else {
-                goto redo;
+                പോകുക add_char;
+            } അല്ലെങ്കിൽ {
+                പോകുക redo;
             }
-        } else if (c == '\n') {
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '\n') {
         add_lf:
-            if (ACCEPT_LF_IN_STRINGS) {
-                file->line_num++;
-                goto add_char;
-            } else if (str) { /* not skipping */
-                goto unterminated_string;
-            } else {
+            എങ്കിൽ (ACCEPT_LF_IN_STRINGS) {
+                file->വരി_അക്കം++;
+                പോകുക add_char;
+            } അല്ലെങ്കിൽ എങ്കിൽ (str) { /* not skipping */
+                പോകുക unterminated_string;
+            } അല്ലെങ്കിൽ {
                 //tcc_warning("missing terminating %c character", sep);
-                return p;
+                തിരികെ p;
             }
-        } else if (c == '\r') {
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '\r') {
             c = *++p;
-            if (c == '\\')
+            എങ്കിൽ (c == '\\')
                 c = handle_bs(&p);
-            if (c == '\n')
-                goto add_lf;
-            if (c == CH_EOF)
-                goto unterminated_string;
-            if (str)
+            എങ്കിൽ (c == '\n')
+                പോകുക add_lf;
+            എങ്കിൽ (c == CH_EOF)
+                പോകുക unterminated_string;
+            എങ്കിൽ (str)
                 cstr_ccat(str, '\r');
-            goto redo;
-        } else {
+            പോകുക redo;
+        } അല്ലെങ്കിൽ {
         add_char:
-            if (str)
+            എങ്കിൽ (str)
                 cstr_ccat(str, c);
         }
     }
     p++;
-    return p;
+    തിരികെ p;
 }
 
 /* skip block of text until #else, #elif or #endif. skip also pairs of
    #if/#endif */
-static void preprocess_skip(void)
+സ്ഥിതം ശൂന്യം preprocess_skip(ശൂന്യം)
 {
-    int a, start_of_line, c, in_warn_or_error;
+    പൂർണ്ണസംഖ്യ a, start_of_വരി, c, in_warn_or_error;
     uint8_t *p;
 
     p = file->buf_ptr;
     a = 0;
 redo_start:
-    start_of_line = 1;
+    start_of_വരി = 1;
     in_warn_or_error = 0;
-    for(;;) {
+    വേണ്ടി(;;) {
         c = *p;
-        switch(c) {
-        case ' ':
-        case '\t':
-        case '\f':
-        case '\v':
-        case '\r':
+        തിരഞ്ഞെടുപ്പ്(c) {
+        അവസ്ഥ ' ':
+        അവസ്ഥ '\t':
+        അവസ്ഥ '\f':
+        അവസ്ഥ '\v':
+        അവസ്ഥ '\r':
             p++;
-            continue;
-        case '\n':
-            file->line_num++;
+            തുടരുക;
+        അവസ്ഥ '\n':
+            file->വരി_അക്കം++;
             p++;
-            goto redo_start;
-        case '\\':
+            പോകുക redo_start;
+        അവസ്ഥ '\\':
             c = handle_bs(&p);
-            if (c == CH_EOF)
+            എങ്കിൽ (c == CH_EOF)
                 expect("#endif");
-            if (c == '\\')
+            എങ്കിൽ (c == '\\')
                 ++p;
-            continue;
+            തുടരുക;
         /* skip strings */
-        case '\"':
-        case '\'':
-            if (in_warn_or_error)
-                goto _default;
+        അവസ്ഥ '\"':
+        അവസ്ഥ '\'':
+            എങ്കിൽ (in_warn_or_error)
+                പോകുക _default;
             tok_flags &= ~TOK_FLAG_BOL;
-            p = parse_pp_string(p, c, NULL);
-            break;
+            p = parse_pp_string(p, c, ശൂന്യ);
+            നിർത്തുക;
         /* skip comments */
-        case '/':
-            if (in_warn_or_error)
-                goto _default;
+        അവസ്ഥ '/':
+            എങ്കിൽ (in_warn_or_error)
+                പോകുക _default;
             ++p;
             c = handle_bs(&p);
-            if (c == '*') {
+            എങ്കിൽ (c == '*') {
                 p = parse_comment(p);
-            } else if (c == '/') {
-                p = parse_line_comment(p);
+            } അല്ലെങ്കിൽ എങ്കിൽ (c == '/') {
+                p = parse_വരി_comment(p);
             }
-            continue;
-        case '#':
+            തുടരുക;
+        അവസ്ഥ '#':
             p++;
-            if (start_of_line) {
+            എങ്കിൽ (start_of_വരി) {
                 file->buf_ptr = p;
                 next_nomacro();
                 p = file->buf_ptr;
-                if (a == 0 && 
+                എങ്കിൽ (a == 0 && 
                     (tok == TOK_ELSE || tok == TOK_ELIF || tok == TOK_ENDIF))
-                    goto the_end;
-                if (tok == TOK_IF || tok == TOK_IFDEF || tok == TOK_IFNDEF)
+                    പോകുക the_end;
+                എങ്കിൽ (tok == TOK_IF || tok == TOK_IFDEF || tok == TOK_IFNDEF)
                     a++;
-                else if (tok == TOK_ENDIF)
+                അല്ലെങ്കിൽ എങ്കിൽ (tok == TOK_ENDIF)
                     a--;
-                else if( tok == TOK_ERROR || tok == TOK_WARNING)
+                അല്ലെങ്കിൽ എങ്കിൽ( tok == TOK_ERROR || tok == TOK_WARNING)
                     in_warn_or_error = 1;
-                else if (tok == TOK_LINEFEED)
-                    goto redo_start;
-                else if (parse_flags & PARSE_FLAG_ASM_FILE)
-                    p = parse_line_comment(p - 1);
+                അല്ലെങ്കിൽ എങ്കിൽ (tok == TOK_LINEFEED)
+                    പോകുക redo_start;
+                അല്ലെങ്കിൽ എങ്കിൽ (parse_flags & PARSE_FLAG_ASM_FILE)
+                    p = parse_വരി_comment(p - 1);
             }
-#if !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64)
-            else if (parse_flags & PARSE_FLAG_ASM_FILE)
-                p = parse_line_comment(p - 1);
-#else
+#എങ്കിൽ !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64)
+            അല്ലെങ്കിൽ എങ്കിൽ (parse_flags & PARSE_FLAG_ASM_FILE)
+                p = parse_വരി_comment(p - 1);
+#അല്ലെങ്കിൽ
             /* ARM/ARM64 assembly uses '#' for constants */
 #endif
-            break;
+            നിർത്തുക;
 _default:
-        default:
+        സ്ഥിരസ്ഥിതി:
             p++;
-            break;
+            നിർത്തുക;
         }
-        start_of_line = 0;
+        start_of_വരി = 0;
     }
  the_end: ;
     file->buf_ptr = p;
 }
 
-#if 0
+#എങ്കിൽ 0
 /* return the number of additional 'ints' necessary to store the
    token */
-static inline int tok_size(const int *p)
+സ്ഥിതം വരിയിൽ പൂർണ്ണസംഖ്യ tok_size(സ്ഥിരം പൂർണ്ണസംഖ്യ *p)
 {
-    switch(*p) {
+    തിരഞ്ഞെടുപ്പ്(*p) {
         /* 4 bytes */
-    case TOK_CINT:
-    case TOK_CUINT:
-    case TOK_CCHAR:
-    case TOK_LCHAR:
-    case TOK_CFLOAT:
-    case TOK_LINENUM:
-        return 1 + 1;
-    case TOK_STR:
-    case TOK_LSTR:
-    case TOK_PPNUM:
-    case TOK_PPSTR:
-        return 1 + 1 + (p[1] + 3) / 4;
-    case TOK_CLONG:
-    case TOK_CULONG:
-	return 1 + LONG_SIZE / 4;
-    case TOK_CDOUBLE:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
-        return 1 + 2;
-    case TOK_CLDOUBLE:
-        return 1 + LDOUBLE_WORDS;
-    default:
-        return 1 + 0;
+    അവസ്ഥ TOK_CINT:
+    അവസ്ഥ TOK_CUINT:
+    അവസ്ഥ TOK_CCHAR:
+    അവസ്ഥ TOK_LCHAR:
+    അവസ്ഥ TOK_CFLOAT:
+    അവസ്ഥ TOK_LINENUM:
+        തിരികെ 1 + 1;
+    അവസ്ഥ TOK_STR:
+    അവസ്ഥ TOK_LSTR:
+    അവസ്ഥ TOK_PPNUM:
+    അവസ്ഥ TOK_PPSTR:
+        തിരികെ 1 + 1 + (p[1] + 3) / 4;
+    അവസ്ഥ TOK_CLONG:
+    അവസ്ഥ TOK_CULONG:
+	തിരികെ 1 + LONG_SIZE / 4;
+    അവസ്ഥ TOK_CDOUBLE:
+    അവസ്ഥ TOK_CLLONG:
+    അവസ്ഥ TOK_CULLONG:
+        തിരികെ 1 + 2;
+    അവസ്ഥ TOK_CLDOUBLE:
+        തിരികെ 1 + LDOUBLE_വാക്കുകൾ;
+    സ്ഥിരസ്ഥിതി:
+        തിരികെ 1 + 0;
     }
 }
 #endif
 
 /* token string handling */
-ST_INLN void tok_str_new(TokenString *s)
+ST_INLN ശൂന്യം tok_str_new(TokenString *s)
 {
-    s->str = NULL;
+    s->str = ശൂന്യ;
     s->len = s->need_spc = 0;
     s->allocated_len = 0;
-    s->last_line_num = -1;
+    s->last_വരി_അക്കം = -1;
 }
 
-ST_FUNC TokenString *tok_str_alloc(void)
+ST_FUNC TokenString *tok_str_alloc(ശൂന്യം)
 {
-    TokenString *str = tal_realloc(&tokstr_alloc, 0, sizeof *str);
+    TokenString *str = tal_realloc(&tokstr_alloc, 0, വലുപ്പം *str);
     tok_str_new(str);
-    return str;
+    തിരികെ str;
 }
 
-ST_FUNC void tok_str_free_str(int *str)
+ST_FUNC ശൂന്യം tok_str_free_str(പൂർണ്ണസംഖ്യ *str)
 {
     tal_free(&tokstr_alloc, str);
 }
 
-ST_FUNC void tok_str_free(TokenString *str)
+ST_FUNC ശൂന്യം tok_str_free(TokenString *str)
 {
     tok_str_free_str(str->str);
     tal_free(&tokstr_alloc, str);
 }
 
-ST_FUNC int *tok_str_realloc(TokenString *s, int new_size)
+ST_FUNC പൂർണ്ണസംഖ്യ *tok_str_realloc(TokenString *s, പൂർണ്ണസംഖ്യ new_size)
 {
-    int *str, size;
+    പൂർണ്ണസംഖ്യ *str, size;
 
     size = s->allocated_len;
-    if (size < 16)
+    എങ്കിൽ (size < 16)
         size = 16;
-    while (size < new_size)
+    ആകുമ്പോൾ (size < new_size)
         size = size * 2;
-    if (size > s->allocated_len) {
-        str = tal_realloc(&tokstr_alloc, s->str, size * sizeof(int));
+    എങ്കിൽ (size > s->allocated_len) {
+        str = tal_realloc(&tokstr_alloc, s->str, size * വലുപ്പം(പൂർണ്ണസംഖ്യ));
         s->allocated_len = size;
         s->str = str;
     }
-    return s->str;
+    തിരികെ s->str;
 }
 
-ST_FUNC void tok_str_add(TokenString *s, int t)
+ST_FUNC ശൂന്യം tok_str_add(TokenString *s, പൂർണ്ണസംഖ്യ t)
 {
-    int len, *str;
+    പൂർണ്ണസംഖ്യ len, *str;
 
     len = s->len;
     str = s->str;
-    if (len >= s->allocated_len)
+    എങ്കിൽ (len >= s->allocated_len)
         str = tok_str_realloc(s, len + 1);
     str[len++] = t;
     s->len = len;
 }
 
-ST_FUNC void begin_macro(TokenString *str, int alloc)
+ST_FUNC ശൂന്യം begin_macro(TokenString *str, പൂർണ്ണസംഖ്യ alloc)
 {
     str->alloc = alloc;
-    str->prev = macro_stack;
+    str->prev = macro_അട്ടി;
     str->prev_ptr = macro_ptr;
-    str->save_line_num = file->line_num;
+    str->save_വരി_അക്കം = file->വരി_അക്കം;
     macro_ptr = str->str;
-    macro_stack = str;
+    macro_അട്ടി = str;
 }
 
-ST_FUNC void end_macro(void)
+ST_FUNC ശൂന്യം end_macro(ശൂന്യം)
 {
-    TokenString *str = macro_stack;
-    macro_stack = str->prev;
+    TokenString *str = macro_അട്ടി;
+    macro_അട്ടി = str->prev;
     macro_ptr = str->prev_ptr;
-    file->line_num = str->save_line_num;
-    if (str->alloc == 0) {
+    file->വരി_അക്കം = str->save_വരി_അക്കം;
+    എങ്കിൽ (str->alloc == 0) {
         /* matters if str not alloced, may be tokstr_buf */
         str->len = str->need_spc = 0;
-    } else {
-        if (str->alloc == 2)
-            str->str = NULL; /* don't free */
+    } അല്ലെങ്കിൽ {
+        എങ്കിൽ (str->alloc == 2)
+            str->str = ശൂന്യ; /* don't free */
         tok_str_free(str);
     }
 }
 
-static void tok_str_add2(TokenString *s, int t, CValue *cv)
+സ്ഥിതം ശൂന്യം tok_str_add2(TokenString *s, പൂർണ്ണസംഖ്യ t, CValue *cv)
 {
-    int len, *str;
+    പൂർണ്ണസംഖ്യ len, *str;
 
     len = s->len;
     str = s->str;
 
     /* allocate space for worst case */
-    if (len + TOK_MAX_SIZE >= s->allocated_len)
+    എങ്കിൽ (len + TOK_MAX_SIZE >= s->allocated_len)
         str = tok_str_realloc(s, len + TOK_MAX_SIZE + 1);
     str[len++] = t;
-    switch(t) {
-    case TOK_CINT:
-    case TOK_CUINT:
-    case TOK_CCHAR:
-    case TOK_LCHAR:
-    case TOK_CFLOAT:
-    case TOK_LINENUM:
-#if LONG_SIZE == 4
-    case TOK_CLONG:
-    case TOK_CULONG:
+    തിരഞ്ഞെടുപ്പ്(t) {
+    അവസ്ഥ TOK_CINT:
+    അവസ്ഥ TOK_CUINT:
+    അവസ്ഥ TOK_CCHAR:
+    അവസ്ഥ TOK_LCHAR:
+    അവസ്ഥ TOK_CFLOAT:
+    അവസ്ഥ TOK_LINENUM:
+#എങ്കിൽ LONG_SIZE == 4
+    അവസ്ഥ TOK_CLONG:
+    അവസ്ഥ TOK_CULONG:
 #endif
         str[len++] = cv->tab[0];
-        break;
-    case TOK_PPNUM:
-    case TOK_PPSTR:
-    case TOK_STR:
-    case TOK_LSTR:
+        നിർത്തുക;
+    അവസ്ഥ TOK_PPNUM:
+    അവസ്ഥ TOK_PPSTR:
+    അവസ്ഥ TOK_STR:
+    അവസ്ഥ TOK_LSTR:
         {
             /* Insert the string into the int array. */
-            size_t nb_words =
-                1 + (cv->str.size + sizeof(int) - 1) / sizeof(int);
-            if (len + nb_words >= s->allocated_len)
-                str = tok_str_realloc(s, len + nb_words + 1);
+            size_t nb_വാക്കുകൾ =
+                1 + (cv->str.size + വലുപ്പം(പൂർണ്ണസംഖ്യ) - 1) / വലുപ്പം(പൂർണ്ണസംഖ്യ);
+            എങ്കിൽ (len + nb_വാക്കുകൾ >= s->allocated_len)
+                str = tok_str_realloc(s, len + nb_വാക്കുകൾ + 1);
             str[len] = cv->str.size;
             memcpy(&str[len + 1], cv->str.data, cv->str.size);
-            len += nb_words;
+            len += nb_വാക്കുകൾ;
         }
-        break;
-    case TOK_CDOUBLE:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
-#if LONG_SIZE == 8
-    case TOK_CLONG:
-    case TOK_CULONG:
+        നിർത്തുക;
+    അവസ്ഥ TOK_CDOUBLE:
+    അവസ്ഥ TOK_CLLONG:
+    അവസ്ഥ TOK_CULLONG:
+#എങ്കിൽ LONG_SIZE == 8
+    അവസ്ഥ TOK_CLONG:
+    അവസ്ഥ TOK_CULONG:
 #endif
         str[len++] = cv->tab[0];
         str[len++] = cv->tab[1];
-        break;
-    case TOK_CLDOUBLE:
+        നിർത്തുക;
+    അവസ്ഥ TOK_CLDOUBLE:
         str[len++] = cv->tab[0];
         str[len++] = cv->tab[1];
-        if (LDOUBLE_WORDS >= 3)
+        എങ്കിൽ (LDOUBLE_വാക്കുകൾ >= 3)
         str[len++] = cv->tab[2];
-        if (LDOUBLE_WORDS >= 4)
+        എങ്കിൽ (LDOUBLE_വാക്കുകൾ >= 4)
         str[len++] = cv->tab[3];
-    default:
-        break;
+    സ്ഥിരസ്ഥിതി:
+        നിർത്തുക;
     }
     s->len = len;
 }
 
 /* add the current parse token in token string 's' */
-ST_FUNC void tok_str_add_tok(TokenString *s)
+ST_FUNC ശൂന്യം tok_str_add_tok(TokenString *s)
 {
     CValue cval;
 
     /* save line number info */
-    if (file->line_num != s->last_line_num) {
-        s->last_line_num = file->line_num;
-        cval.i = s->last_line_num;
+    എങ്കിൽ (file->വരി_അക്കം != s->last_വരി_അക്കം) {
+        s->last_വരി_അക്കം = file->വരി_അക്കം;
+        cval.i = s->last_വരി_അക്കം;
         tok_str_add2(s, TOK_LINENUM, &cval);
     }
     tok_str_add2(s, tok, &tokc);
 }
 
 /* like tok_str_add2(), add a space if needed */
-static void tok_str_add2_spc(TokenString *s, int t, CValue *cv)
+സ്ഥിതം ശൂന്യം tok_str_add2_spc(TokenString *s, പൂർണ്ണസംഖ്യ t, CValue *cv)
 {
-    if (s->need_spc == 3)
+    എങ്കിൽ (s->need_spc == 3)
         tok_str_add(s, ' ');
     s->need_spc = 2;
     tok_str_add2(s, t, cv);
 }
 
 /* get a token from an integer array and increment pointer. */
-static inline void tok_get(int *t, const int **pp, CValue *cv)
+സ്ഥിതം വരിയിൽ ശൂന്യം tok_get(പൂർണ്ണസംഖ്യ *t, സ്ഥിരം പൂർണ്ണസംഖ്യ **pp, CValue *cv)
 {
-    const int *p = *pp;
-    int n, *tab;
+    സ്ഥിരം പൂർണ്ണസംഖ്യ *p = *pp;
+    പൂർണ്ണസംഖ്യ n, *tab;
 
     tab = cv->tab;
-    switch(*t = *p++) {
-#if LONG_SIZE == 4
-    case TOK_CLONG:
+    തിരഞ്ഞെടുപ്പ്(*t = *p++) {
+#എങ്കിൽ LONG_SIZE == 4
+    അവസ്ഥ TOK_CLONG:
 #endif
-    case TOK_CINT:
-    case TOK_CCHAR:
-    case TOK_LCHAR:
-    case TOK_LINENUM:
+    അവസ്ഥ TOK_CINT:
+    അവസ്ഥ TOK_CCHAR:
+    അവസ്ഥ TOK_LCHAR:
+    അവസ്ഥ TOK_LINENUM:
         cv->i = *p++;
-        break;
-#if LONG_SIZE == 4
-    case TOK_CULONG:
+        നിർത്തുക;
+#എങ്കിൽ LONG_SIZE == 4
+    അവസ്ഥ TOK_CULONG:
 #endif
-    case TOK_CUINT:
+    അവസ്ഥ TOK_CUINT:
         cv->i = (unsigned)*p++;
-        break;
-    case TOK_CFLOAT:
+        നിർത്തുക;
+    അവസ്ഥ TOK_CFLOAT:
 	tab[0] = *p++;
-	break;
-    case TOK_STR:
-    case TOK_LSTR:
-    case TOK_PPNUM:
-    case TOK_PPSTR:
+	നിർത്തുക;
+    അവസ്ഥ TOK_STR:
+    അവസ്ഥ TOK_LSTR:
+    അവസ്ഥ TOK_PPNUM:
+    അവസ്ഥ TOK_PPSTR:
         cv->str.size = *p++;
-        cv->str.data = (char*)p;
-        p += (cv->str.size + sizeof(int) - 1) / sizeof(int);
-        break;
-    case TOK_CDOUBLE:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
-#if LONG_SIZE == 8
-    case TOK_CLONG:
-    case TOK_CULONG:
+        cv->str.data = (അക്ഷരം*)p;
+        p += (cv->str.size + വലുപ്പം(പൂർണ്ണസംഖ്യ) - 1) / വലുപ്പം(പൂർണ്ണസംഖ്യ);
+        നിർത്തുക;
+    അവസ്ഥ TOK_CDOUBLE:
+    അവസ്ഥ TOK_CLLONG:
+    അവസ്ഥ TOK_CULLONG:
+#എങ്കിൽ LONG_SIZE == 8
+    അവസ്ഥ TOK_CLONG:
+    അവസ്ഥ TOK_CULONG:
 #endif
         n = 2;
-        goto copy;
-    case TOK_CLDOUBLE:
-        n = LDOUBLE_WORDS;
+        പോകുക copy;
+    അവസ്ഥ TOK_CLDOUBLE:
+        n = LDOUBLE_വാക്കുകൾ;
     copy:
-        do
+        ചെയ്യുക
             *tab++ = *p++;
-        while (--n);
-        break;
-    default:
-        break;
+        ആകുമ്പോൾ (--n);
+        നിർത്തുക;
+    സ്ഥിരസ്ഥിതി:
+        നിർത്തുക;
     }
     *pp = p;
 }
 
-#if 0
+#എങ്കിൽ 0
 # define TOK_GET(t,p,c) tok_get(t,p,c)
-#else
-# define TOK_GET(t,p,c) do { \
-    int _t = **(p); \
-    if (TOK_HAS_VALUE(_t)) \
+#അല്ലെങ്കിൽ
+# define TOK_GET(t,p,c) ചെയ്യുക { \
+    പൂർണ്ണസംഖ്യ _t = **(p); \
+    എങ്കിൽ (TOK_HAS_മൂല്യം(_t)) \
         tok_get(t, p, c); \
-    else \
+    അല്ലെങ്കിൽ \
         *(t) = _t, ++*(p); \
-    } while (0)
+    } ആകുമ്പോൾ (0)
 #endif
 
-static int macro_is_equal(const int *a, const int *b)
+സ്ഥിതം പൂർണ്ണസംഖ്യ macro_is_equal(സ്ഥിരം പൂർണ്ണസംഖ്യ *a, സ്ഥിരം പൂർണ്ണസംഖ്യ *b)
 {
     CValue cv;
-    int t;
+    പൂർണ്ണസംഖ്യ t;
 
-    if (!a || !b)
-        return 1;
+    എങ്കിൽ (!a || !b)
+        തിരികെ 1;
 
-    while (*a && *b) {
+    ആകുമ്പോൾ (*a && *b) {
         cstr_reset(&tokcstr);
         TOK_GET(&t, &a, &cv);
         cstr_cat(&tokcstr, get_tok_str(t, &cv), 0);
         TOK_GET(&t, &b, &cv);
-        if (strcmp(tokcstr.data, get_tok_str(t, &cv)))
-            return 0;
+        എങ്കിൽ (strcmp(tokcstr.data, get_tok_str(t, &cv)))
+            തിരികെ 0;
     }
-    return !(*a || *b);
+    തിരികെ !(*a || *b);
 }
 
 /* defines handling */
-ST_INLN void define_push(int v, int macro_type, int *str, Sym *first_arg)
+ST_INLN ശൂന്യം define_തള്ളുക(പൂർണ്ണസംഖ്യ v, പൂർണ്ണസംഖ്യ macro_type, പൂർണ്ണസംഖ്യ *str, Sym *first_arg)
 {
     Sym *s, *o;
 
     o = define_find(v);
-    s = sym_push2(&define_stack, v, macro_type, 0);
+    s = sym_push2(&define_അട്ടി, v, macro_type, 0);
     s->d = str;
     s->next = first_arg;
     table_ident[v - TOK_IDENT]->sym_define = s;
 
-    if (o && !macro_is_equal(o->d, s->d))
-	tcc_warning("%s redefined", get_tok_str(v, NULL));
+    എങ്കിൽ (o && !macro_is_equal(o->d, s->d))
+	tcc_warning("%s redefined", get_tok_str(v, ശൂന്യ));
 }
 
 /* undefined a define symbol. Its name is just set to zero */
-ST_FUNC void define_undef(Sym *s)
+ST_FUNC ശൂന്യം define_undef(Sym *s)
 {
-    int v = s->v;
-    if (v >= TOK_IDENT && v < tok_ident)
-        table_ident[v - TOK_IDENT]->sym_define = NULL;
+    പൂർണ്ണസംഖ്യ v = s->v;
+    എങ്കിൽ (v >= TOK_IDENT && v < tok_ident)
+        table_ident[v - TOK_IDENT]->sym_define = ശൂന്യ;
 }
 
-ST_INLN Sym *define_find(int v)
+ST_INLN Sym *define_find(പൂർണ്ണസംഖ്യ v)
 {
     v -= TOK_IDENT;
-    if ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
-        return NULL;
-    return table_ident[v]->sym_define;
+    എങ്കിൽ ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
+        തിരികെ ശൂന്യ;
+    തിരികെ table_ident[v]->sym_define;
 }
 
 /* free define stack until top reaches 'b' */
-ST_FUNC void free_defines(Sym *b)
+ST_FUNC ശൂന്യം free_defines(Sym *b)
 {
-    while (define_stack != b) {
-        Sym *top = define_stack;
-        define_stack = top->prev;
-        tok_str_free_str(top->d);
-        define_undef(top);
-        sym_free(top);
+    ആകുമ്പോൾ (define_അട്ടി != b) {
+        Sym *മുകൾ = define_അട്ടി;
+        define_അട്ടി = മുകൾ->prev;
+        tok_str_free_str(മുകൾ->d);
+        define_undef(മുകൾ);
+        sym_free(മുകൾ);
     }
 }
 
 /* fake the nth "#if defined test_..." for tcc -dt -run */
-static void maybe_run_test(TCCState *s)
+സ്ഥിതം ശൂന്യം maybe_run_test(TCCState *s)
 {
-    const char *p;
-    if (s->include_stack_ptr != s->include_stack)
-        return;
-    p = get_tok_str(tok, NULL);
-    if (0 != memcmp(p, "test_", 5))
-        return;
-    if (0 != --s->run_test)
-        return;
+    സ്ഥിരം അക്ഷരം *p;
+    എങ്കിൽ (s->include_അട്ടി_ptr != s->include_അട്ടി)
+        തിരികെ;
+    p = get_tok_str(tok, ശൂന്യ);
+    എങ്കിൽ (0 != memcmp(p, "test_", 5))
+        തിരികെ;
+    എങ്കിൽ (0 != --s->run_test)
+        തിരികെ;
     fprintf(s->ppfp, &"\n[%s]\n"[!(s->dflag & 32)], p), fflush(s->ppfp);
-    define_push(tok, MACRO_OBJ, NULL, NULL);
+    define_തള്ളുക(tok, MACRO_OBJ, ശൂന്യ, ശൂന്യ);
 }
 
-ST_FUNC void skip_to_eol(int warn)
+ST_FUNC ശൂന്യം skip_to_eol(പൂർണ്ണസംഖ്യ warn)
 {
-    if (tok == TOK_LINEFEED)
-        return;
-    if (warn)
+    എങ്കിൽ (tok == TOK_LINEFEED)
+        തിരികെ;
+    എങ്കിൽ (warn)
         tcc_warning("extra tokens after directive");
-    while (macro_stack)
+    ആകുമ്പോൾ (macro_അട്ടി)
         end_macro();
-    file->buf_ptr = parse_line_comment(file->buf_ptr - 1);
+    file->buf_ptr = parse_വരി_comment(file->buf_ptr - 1);
     next_nomacro();
 }
 
-static CachedInclude *
-search_cached_include(TCCState *s1, const char *filename, int add);
+സ്ഥിതം CachedInclude *
+തിരയൽ_cached_include(TCCState *s1, സ്ഥിരം അക്ഷരം *filename, പൂർണ്ണസംഖ്യ add);
 
-static int parse_include(TCCState *s1, int do_next, int test)
+സ്ഥിതം പൂർണ്ണസംഖ്യ parse_include(TCCState *s1, പൂർണ്ണസംഖ്യ do_next, പൂർണ്ണസംഖ്യ test)
 {
-    int c, i;
-    char name[1024], buf[1024], *p;
+    പൂർണ്ണസംഖ്യ c, i;
+    അക്ഷരം name[1024], buf[1024], *p;
     CachedInclude *e;
 
     c = skip_spaces();
-    if (c == '<' || c == '\"') {
+    എങ്കിൽ (c == '<' || c == '\"') {
         cstr_reset(&tokcstr);
         file->buf_ptr = parse_pp_string(file->buf_ptr, c == '<' ? '>' : c, &tokcstr);
         i = tokcstr.size;
-        pstrncpy(name, sizeof name, tokcstr.data, i);
+        pstrncpy(name, വലുപ്പം name, tokcstr.data, i);
         next_nomacro();
-    } else {
+    } അല്ലെങ്കിൽ {
         /* computed #include : concatenate tokens until result is one of
            the two accepted forms.  Don't convert pp-tokens to tokens here. */
 	parse_flags = PARSE_FLAG_PREPROCESS
                     | PARSE_FLAG_LINEFEED
                     | (parse_flags & PARSE_FLAG_ASM_FILE);
         name[0] = 0;
-        for (;;) {
+        വേണ്ടി (;;) {
             next();
             p = name, i = strlen(p) - 1;
-            if (i > 0
+            എങ്കിൽ (i > 0
                 && ((p[0] == '"' && p[i] == '"')
                  || (p[0] == '<' && p[i] == '>')))
-                break;
-            if (tok == TOK_LINEFEED)
+                നിർത്തുക;
+            എങ്കിൽ (tok == TOK_LINEFEED)
                 tcc_error("'#include' expects \"FILENAME\" or <FILENAME>");
-            pstrcat(name, sizeof name, get_tok_str(tok, &tokc));
+            pstrcat(name, വലുപ്പം name, get_tok_str(tok, &tokc));
 	}
         c = p[0];
         /* remove '<>|""' */
         memmove(p, p + 1, i - 1), p[i - 1] = 0;
     }
 
-    if (!test)
+    എങ്കിൽ (!test)
         skip_to_eol(1);
 
     i = do_next ? file->include_next_index : -1;
-    for (;;) {
+    വേണ്ടി (;;) {
         ++i;
-        if (i == 0) {
+        എങ്കിൽ (i == 0) {
             /* check absolute include path */
-            if (!IS_ABSPATH(name))
-                continue;
+            എങ്കിൽ (!IS_ABSPATH(name))
+                തുടരുക;
             buf[0] = '\0';
-        } else if (i == 1) {
+        } അല്ലെങ്കിൽ എങ്കിൽ (i == 1) {
             /* search in file's dir if "header.h" */
-            if (c != '\"')
-                continue;
+            എങ്കിൽ (c != '\"')
+                തുടരുക;
             p = file->true_filename;
-            pstrncpy(buf, sizeof buf, p, tcc_basename(p) - p);
-        } else {
-            int j = i - 2, k = j - s1->nb_include_paths;
-            if (k < 0)
+            pstrncpy(buf, വലുപ്പം buf, p, tcc_basename(p) - p);
+        } അല്ലെങ്കിൽ {
+            പൂർണ്ണസംഖ്യ j = i - 2, k = j - s1->nb_include_paths;
+            എങ്കിൽ (k < 0)
                 p = s1->include_paths[j];
-            else if (k < s1->nb_sysinclude_paths)
+            അല്ലെങ്കിൽ എങ്കിൽ (k < s1->nb_sysinclude_paths)
                 p = s1->sysinclude_paths[k];
-            else if (test)
-                return 0;
-            else
+            അല്ലെങ്കിൽ എങ്കിൽ (test)
+                തിരികെ 0;
+            അല്ലെങ്കിൽ
                 tcc_error("include file '%s' not found", name);
-            pstrcpy(buf, sizeof buf, p);
-            pstrcat(buf, sizeof buf, "/");
+            pstrcpy(buf, വലുപ്പം buf, p);
+            pstrcat(buf, വലുപ്പം buf, "/");
         }
-        pstrcat(buf, sizeof buf, name);
-        e = search_cached_include(s1, buf, 0);
-        if (e && (define_find(e->ifndef_macro) || e->once)) {
+        pstrcat(buf, വലുപ്പം buf, name);
+        e = തിരയൽ_cached_include(s1, buf, 0);
+        എങ്കിൽ (e && (define_find(e->ifndef_macro) || e->once)) {
             /* no need to parse the include because the 'ifndef macro'
                is defined (or had #pragma once) */
 #ifdef INC_DEBUG
             printf("%s: skipping cached %s\n", file->filename, buf);
 #endif
-            if ((s1->verbose | 1) == 3) /* -vv[v] */
+            എങ്കിൽ ((s1->verbose | 1) == 3) /* -vv[v] */
                 printf("=> %*s%s\n",
-                   (int)(s1->include_stack_ptr - s1->include_stack), "", buf);
-            return 1;
+                   (പൂർണ്ണസംഖ്യ)(s1->include_അട്ടി_ptr - s1->include_അട്ടി), "", buf);
+            തിരികെ 1;
         }
-        if (tcc_open(s1, buf) >= 0)
-            break;
+        എങ്കിൽ (tcc_open(s1, buf) >= 0)
+            നിർത്തുക;
     }
 
-    if (test) {
+    എങ്കിൽ (test) {
         tcc_close();
-    } else {
-        if (s1->include_stack_ptr >= s1->include_stack + INCLUDE_STACK_SIZE)
+    } അല്ലെങ്കിൽ {
+        എങ്കിൽ (s1->include_അട്ടി_ptr >= s1->include_അട്ടി + INCLUDE_അട്ടി_SIZE)
             tcc_error("#include recursion too deep");
         /* push previous file on stack */
-        *s1->include_stack_ptr++ = file->prev;
+        *s1->include_അട്ടി_ptr++ = file->prev;
         file->include_next_index = i;
 #ifdef INC_DEBUG
         printf("%s: including %s\n", file->prev->filename, file->filename);
 #endif
         /* update target deps */
-        if (s1->gen_deps) {
+        എങ്കിൽ (s1->gen_deps) {
             BufferedFile *bf = file;
-            while (i == 1 && (bf = bf->prev))
+            ആകുമ്പോൾ (i == 1 && (bf = bf->prev))
                 i = bf->include_next_index;
             /* skip system include files */
-            if (s1->include_sys_deps || i - 2 < s1->nb_include_paths)
+            എങ്കിൽ (s1->include_sys_deps || i - 2 < s1->nb_include_paths)
                 dynarray_add(&s1->target_deps, &s1->nb_target_deps,
                     tcc_strdup(buf));
         }
         /* add include file debug info */
         tcc_debug_bincl(s1);
     }
-    return 1;
+    തിരികെ 1;
 }
 
 /* eval an expression for #if/#elif */
-static int expr_preprocess(TCCState *s1)
+സ്ഥിതം പൂർണ്ണസംഖ്യ വ്യഞ്ജകം_preprocess(TCCState *s1)
 {
-    int c, t;
-    int t0 = tok;
+    പൂർണ്ണസംഖ്യ c, t;
+    പൂർണ്ണസംഖ്യ t0 = tok;
     TokenString *str;
     
     str = tok_str_alloc();
-    pp_expr = 1;
-    while (1) {
+    pp_വ്യഞ്ജകം = 1;
+    ആകുമ്പോൾ (1) {
         next(); /* do macro subst */
         t = tok;
-        if (tok < TOK_IDENT) {
-            if (tok == TOK_LINEFEED || tok == TOK_EOF)
-                break;
-            if (tok >= TOK_STR && tok <= TOK_CLDOUBLE)
+        എങ്കിൽ (tok < TOK_IDENT) {
+            എങ്കിൽ (tok == TOK_LINEFEED || tok == TOK_EOF)
+                നിർത്തുക;
+            എങ്കിൽ (tok >= TOK_STR && tok <= TOK_CLDOUBLE)
                 tcc_error("invalid constant in preprocessor expression");
 
-        } else if (tok == TOK_DEFINED) {
+        } അല്ലെങ്കിൽ എങ്കിൽ (tok == TOK_DEFINED) {
             parse_flags &= ~PARSE_FLAG_PREPROCESS; /* no macro subst */
             next();
             t = tok;
-            if (t == '(') 
+            എങ്കിൽ (t == '(') 
                 next();
             parse_flags |= PARSE_FLAG_PREPROCESS;
-            if (tok < TOK_IDENT)
+            എങ്കിൽ (tok < TOK_IDENT)
                 expect("identifier after 'defined'");
-            if (s1->run_test)
+            എങ്കിൽ (s1->run_test)
                 maybe_run_test(s1);
             c = 0;
-            if (define_find(tok)
+            എങ്കിൽ (define_find(tok)
                 || tok == TOK___HAS_INCLUDE
                 || tok == TOK___HAS_INCLUDE_NEXT)
                 c = 1;
-            if (t == '(') {
+            എങ്കിൽ (t == '(') {
                 next();
-                if (tok != ')')
+                എങ്കിൽ (tok != ')')
                     expect("')'");
             }
-            goto c_number;
-        } else if (tok == TOK___HAS_INCLUDE ||
+            പോകുക c_സംഖ്യ;
+        } അല്ലെങ്കിൽ എങ്കിൽ (tok == TOK___HAS_INCLUDE ||
                    tok == TOK___HAS_INCLUDE_NEXT) {
             t = tok;
             next();
-	    if (tok != '(')
+	    എങ്കിൽ (tok != '(')
 		expect("'('");
             c = parse_include(s1, t - TOK___HAS_INCLUDE, 1);
-            if (tok != ')')
+            എങ്കിൽ (tok != ')')
                 expect("')'");
-            goto c_number;
-        } else {
+            പോകുക c_സംഖ്യ;
+        } അല്ലെങ്കിൽ {
             /* if undefined macro, replace with zero */
             c = 0;
-        c_number:
+        c_സംഖ്യ:
             tok = TOK_CLLONG; /* type intmax_t */
             tokc.i = c;
         }
         tok_str_add_tok(str);
     }
-    if (0 == str->len)
+    എങ്കിൽ (0 == str->len)
         tcc_error("#%s with no expression", get_tok_str(t0, 0));
     tok_str_add(str, TOK_EOF); /* simulate end of file */
-    pp_expr = t0; /* redirect pre-processor expression error messages */
+    pp_വ്യഞ്ജകം = t0; /* redirect pre-processor expression error messages */
     t = tok;
     /* now evaluate C constant expression */
     begin_macro(str, 1);
     next();
-    c = expr_const();
-    if (tok != TOK_EOF)
+    c = വ്യഞ്ജകം_const();
+    എങ്കിൽ (tok != TOK_EOF)
         tcc_error("...");
-    pp_expr = 0;
+    pp_വ്യഞ്ജകം = 0;
     end_macro();
     tok = t; /* restore LF or EOF */
-    return c != 0;
+    തിരികെ c != 0;
 }
 
-ST_FUNC void pp_error(CString *cs)
+ST_FUNC ശൂന്യം pp_error(CString *cs)
 {
-    cstr_printf(cs, "bad preprocessor expression: #%s", get_tok_str(pp_expr, 0));
-    macro_ptr = macro_stack->str;
-    while (next(), tok != TOK_EOF)
+    cstr_printf(cs, "bad preprocessor expression: #%s", get_tok_str(pp_വ്യഞ്ജകം, 0));
+    macro_ptr = macro_അട്ടി->str;
+    ആകുമ്പോൾ (next(), tok != TOK_EOF)
         cstr_printf(cs, " %s", get_tok_str(tok, &tokc));
 }
 
 /* parse after #define */
-ST_FUNC void parse_define(void)
+ST_FUNC ശൂന്യം parse_define(ശൂന്യം)
 {
     Sym *s, *first, **ps;
-    int v, t, varg, is_vaargs, t0;
-    int saved_parse_flags = parse_flags;
+    പൂർണ്ണസംഖ്യ v, t, varg, is_vaargs, t0;
+    പൂർണ്ണസംഖ്യ saved_parse_flags = parse_flags;
     TokenString str;
 
     v = tok;
-    if (v < TOK_IDENT || v == TOK_DEFINED)
+    എങ്കിൽ (v < TOK_IDENT || v == TOK_DEFINED)
         tcc_error("invalid macro name '%s'", get_tok_str(tok, &tokc));
-    first = NULL;
+    first = ശൂന്യ;
     t = MACRO_OBJ;
     /* We have to parse the whole define as if not in asm mode, in particular
        no line comment with '#' must be ignored.  Also for function
@@ -1537,31 +1537,31 @@ ST_FUNC void parse_define(void)
     next_nomacro();
     parse_flags &= ~PARSE_FLAG_SPACES;
     is_vaargs = 0;
-    if (tok == '(') {
-        int dotid = set_idnum('.', 0);
+    എങ്കിൽ (tok == '(') {
+        പൂർണ്ണസംഖ്യ dotid = set_idnum('.', 0);
         next_nomacro();
         ps = &first;
-        if (tok != ')') for (;;) {
+        എങ്കിൽ (tok != ')') വേണ്ടി (;;) {
             varg = tok;
             next_nomacro();
             is_vaargs = 0;
-            if (varg == TOK_DOTS) {
+            എങ്കിൽ (varg == TOK_DOTS) {
                 varg = TOK___VA_ARGS__;
                 is_vaargs = 1;
-            } else if (tok == TOK_DOTS && gnu_ext) {
+            } അല്ലെങ്കിൽ എങ്കിൽ (tok == TOK_DOTS && gnu_ext) {
                 is_vaargs = 1;
                 next_nomacro();
             }
-            if (varg < TOK_IDENT)
+            എങ്കിൽ (varg < TOK_IDENT)
         bad_list:
                 tcc_error("bad macro parameter list");
-            s = sym_push2(&define_stack, varg | SYM_FIELD, is_vaargs, 0);
+            s = sym_push2(&define_അട്ടി, varg | SYM_FIELD, is_vaargs, 0);
             *ps = s;
             ps = &s->next;
-            if (tok == ')')
-                break;
-            if (tok != ',' || is_vaargs)
-                goto bad_list;
+            എങ്കിൽ (tok == ')')
+                നിർത്തുക;
+            എങ്കിൽ (tok != ',' || is_vaargs)
+                പോകുക bad_list;
             next_nomacro();
         }
         parse_flags |= PARSE_FLAG_SPACES;
@@ -1578,13 +1578,13 @@ ST_FUNC void parse_define(void)
     parse_flags |= PARSE_FLAG_ACCEPT_STRAYS | PARSE_FLAG_SPACES | PARSE_FLAG_LINEFEED;
     tok_str_new(&str);
     t0 = 0;
-    while (tok != TOK_LINEFEED && tok != TOK_EOF) {
-        if (is_space(tok)) {
+    ആകുമ്പോൾ (tok != TOK_LINEFEED && tok != TOK_EOF) {
+        എങ്കിൽ (is_space(tok)) {
             str.need_spc |= 1;
-        } else {
-            if (TOK_TWOSHARPS == tok) {
-                if (0 == t0)
-                    goto bad_twosharp;
+        } അല്ലെങ്കിൽ {
+            എങ്കിൽ (TOK_TWOSHARPS == tok) {
+                എങ്കിൽ (0 == t0)
+                    പോകുക bad_twosharp;
                 tok = TOK_PPJOIN;
                 t |= MACRO_JOIN;
             }
@@ -1595,26 +1595,26 @@ ST_FUNC void parse_define(void)
     }
     parse_flags = saved_parse_flags;
     tok_str_add(&str, 0);
-    if (t0 == TOK_PPJOIN)
+    എങ്കിൽ (t0 == TOK_PPJOIN)
 bad_twosharp:
         tcc_error("'##' cannot appear at either end of macro");
-    define_push(v, t, str.str, first);
+    define_തള്ളുക(v, t, str.str, first);
     //tok_print(str.str, "#define (%d) %s %d:", t | is_vaargs * 4, get_tok_str(v, 0));
 }
 
-static CachedInclude *search_cached_include(TCCState *s1, const char *filename, int add)
+സ്ഥിതം CachedInclude *തിരയൽ_cached_include(TCCState *s1, സ്ഥിരം അക്ഷരം *filename, പൂർണ്ണസംഖ്യ add)
 {
-    const char *s, *basename;
-    unsigned int h;
+    സ്ഥിരം അക്ഷരം *s, *basename;
+    unsigned പൂർണ്ണസംഖ്യ h;
     CachedInclude *e;
-    int c, i, len;
+    പൂർണ്ണസംഖ്യ c, i, len;
 
     s = basename = tcc_basename(filename);
     h = TOK_HASH_INIT;
-    while ((c = (unsigned char)*s) != 0) {
+    ആകുമ്പോൾ ((c = (unsigned അക്ഷരം)*s) != 0) {
 #ifdef _WIN32
         h = TOK_HASH_FUNC(h, toup(c));
-#else
+#അല്ലെങ്കിൽ
         h = TOK_HASH_FUNC(h, c);
 #endif
         s++;
@@ -1622,23 +1622,23 @@ static CachedInclude *search_cached_include(TCCState *s1, const char *filename, 
     h &= (CACHED_INCLUDES_HASH_SIZE - 1);
 
     i = s1->cached_includes_hash[h];
-    for(;;) {
-        if (i == 0)
-            break;
+    വേണ്ടി(;;) {
+        എങ്കിൽ (i == 0)
+            നിർത്തുക;
         e = s1->cached_includes[i - 1];
-        if (0 == PATHCMP(filename, e->filename))
-            return e;
-        if (e->once
+        എങ്കിൽ (0 == PATHCMP(filename, e->filename))
+            തിരികെ e;
+        എങ്കിൽ (e->once
             && 0 == PATHCMP(basename, tcc_basename(e->filename))
             && 0 == normalized_PATHCMP(filename, e->filename)
             )
-            return e;
+            തിരികെ e;
         i = e->hash_next;
     }
-    if (!add)
-        return NULL;
+    എങ്കിൽ (!add)
+        തിരികെ ശൂന്യ;
 
-    e = tcc_malloc(sizeof(CachedInclude) + (len = strlen(filename)));
+    e = tcc_malloc(വലുപ്പം(CachedInclude) + (len = strlen(filename)));
     memcpy(e->filename, filename, len + 1);
     e->ifndef_macro = e->once = 0;
     dynarray_add(&s1->cached_includes, &s1->nb_cached_includes, e);
@@ -1648,52 +1648,52 @@ static CachedInclude *search_cached_include(TCCState *s1, const char *filename, 
 #ifdef INC_DEBUG
     printf("adding cached '%s'\n", filename);
 #endif
-    return e;
+    തിരികെ e;
 }
 
-static int pragma_parse(TCCState *s1)
+സ്ഥിതം പൂർണ്ണസംഖ്യ pragma_parse(TCCState *s1)
 {
     next_nomacro();
-    if (tok == TOK_push_macro || tok == TOK_pop_macro) {
-        int t = tok, v;
+    എങ്കിൽ (tok == TOK_തള്ളുക_macro || tok == TOK_എടുക്കുക_macro) {
+        പൂർണ്ണസംഖ്യ t = tok, v;
         Sym *s;
 
-        if (next(), tok != '(')
-            goto pragma_err;
-        if (next(), tok != TOK_STR)
-            goto pragma_err;
+        എങ്കിൽ (next(), tok != '(')
+            പോകുക pragma_err;
+        എങ്കിൽ (next(), tok != TOK_STR)
+            പോകുക pragma_err;
         v = tok_alloc(tokc.str.data, tokc.str.size - 1)->tok;
-        if (next(), tok != ')')
-            goto pragma_err;
-        if (t == TOK_push_macro) {
-            while (NULL == (s = define_find(v)))
-                define_push(v, 0, NULL, NULL);
+        എങ്കിൽ (next(), tok != ')')
+            പോകുക pragma_err;
+        എങ്കിൽ (t == TOK_തള്ളുക_macro) {
+            ആകുമ്പോൾ (ശൂന്യ == (s = define_find(v)))
+                define_തള്ളുക(v, 0, ശൂന്യ, ശൂന്യ);
             s->type.ref = s; /* set push boundary */
-        } else {
-            for (s = define_stack; s; s = s->prev)
-                if (s->v == v && s->type.ref == s) {
-                    s->type.ref = NULL;
-                    break;
+        } അല്ലെങ്കിൽ {
+            വേണ്ടി (s = define_അട്ടി; s; s = s->prev)
+                എങ്കിൽ (s->v == v && s->type.ref == s) {
+                    s->type.ref = ശൂന്യ;
+                    നിർത്തുക;
                 }
         }
-        if (s)
-            table_ident[v - TOK_IDENT]->sym_define = s->d ? s : NULL;
-        else
+        എങ്കിൽ (s)
+            table_ident[v - TOK_IDENT]->sym_define = s->d ? s : ശൂന്യ;
+        അല്ലെങ്കിൽ
             tcc_warning("unbalanced #pragma pop_macro");
         pp_debug_tok = t, pp_debug_symv = v;
 
-    } else if (tok == TOK_once) {
-        search_cached_include(s1, file->true_filename, 1)->once = 1;
+    } അല്ലെങ്കിൽ എങ്കിൽ (tok == TOK_once) {
+        തിരയൽ_cached_include(s1, file->true_filename, 1)->once = 1;
 
-    } else if (s1->output_type == TCC_OUTPUT_PREPROCESS) {
+    } അല്ലെങ്കിൽ എങ്കിൽ (s1->output_type == TCC_OUTPUT_PREPROCESS) {
         /* tcc -E: keep pragmas below unchanged */
         unget_tok(' ');
         unget_tok(TOK_PRAGMA);
         unget_tok('#');
         unget_tok(TOK_LINEFEED);
-        return 1;
+        തിരികെ 1;
 
-    } else if (tok == TOK_pack) {
+    } അല്ലെങ്കിൽ എങ്കിൽ (tok == TOK_pack) {
         /* This may be:
            #pragma pack(1) // set
            #pragma pack() // reset to default
@@ -1702,103 +1702,103 @@ static int pragma_parse(TCCState *s1)
            #pragma pack(pop) // restore previous */
         next();
         skip('(');
-        if (tok == TOK_ASM_pop) {
+        എങ്കിൽ (tok == TOK_ASM_എടുക്കുക) {
             next();
-            if (s1->pack_stack_ptr <= s1->pack_stack) {
+            എങ്കിൽ (s1->pack_അട്ടി_ptr <= s1->pack_അട്ടി) {
             stk_error:
                 tcc_error("out of pack stack");
             }
-            s1->pack_stack_ptr--;
-        } else {
-            int val = 0;
-            if (tok != ')') {
-                if (tok == TOK_ASM_push) {
+            s1->pack_അട്ടി_ptr--;
+        } അല്ലെങ്കിൽ {
+            പൂർണ്ണസംഖ്യ val = 0;
+            എങ്കിൽ (tok != ')') {
+                എങ്കിൽ (tok == TOK_ASM_തള്ളുക) {
                     next();
-                    if (s1->pack_stack_ptr >= s1->pack_stack + PACK_STACK_SIZE - 1)
-                        goto stk_error;
-                    val = *s1->pack_stack_ptr++;
-                    if (tok != ',')
-                        goto pack_set;
+                    എങ്കിൽ (s1->pack_അട്ടി_ptr >= s1->pack_അട്ടി + PACK_അട്ടി_SIZE - 1)
+                        പോകുക stk_error;
+                    val = *s1->pack_അട്ടി_ptr++;
+                    എങ്കിൽ (tok != ',')
+                        പോകുക pack_set;
                     next();
                 }
-                if (tok != TOK_CINT)
-                    goto pragma_err;
+                എങ്കിൽ (tok != TOK_CINT)
+                    പോകുക pragma_err;
                 val = tokc.i;
-                if (val < 1 || val > 16 || (val & (val - 1)) != 0)
-                    goto pragma_err;
+                എങ്കിൽ (val < 1 || val > 16 || (val & (val - 1)) != 0)
+                    പോകുക pragma_err;
                 next();
             }
         pack_set:
-            *s1->pack_stack_ptr = val;
+            *s1->pack_അട്ടി_ptr = val;
         }
-        if (tok != ')')
-            goto pragma_err;
+        എങ്കിൽ (tok != ')')
+            പോകുക pragma_err;
 
-    } else if (tok == TOK_comment) {
-        char *p; int t;
+    } അല്ലെങ്കിൽ എങ്കിൽ (tok == TOK_comment) {
+        അക്ഷരം *p; പൂർണ്ണസംഖ്യ t;
         next();
         skip('(');
         t = tok;
         next();
         skip(',');
-        if (tok != TOK_STR)
-            goto pragma_err;
+        എങ്കിൽ (tok != TOK_STR)
+            പോകുക pragma_err;
         p = tcc_strdup(tokc.str.data);
         next();
-        if (tok != ')')
-            goto pragma_err;
-        if (t == TOK_lib) {
+        എങ്കിൽ (tok != ')')
+            പോകുക pragma_err;
+        എങ്കിൽ (t == TOK_lib) {
             dynarray_add(&s1->pragma_libs, &s1->nb_pragma_libs, p);
-        } else {
-            if (t == TOK_option)
+        } അല്ലെങ്കിൽ {
+            എങ്കിൽ (t == TOK_option)
                 tcc_set_options(s1, p);
             tcc_free(p);
         }
 
-    } else {
+    } അല്ലെങ്കിൽ {
         tcc_warning_c(warn_all)("#pragma %s ignored", get_tok_str(tok, &tokc));
-        return 0;
+        തിരികെ 0;
     }
     next();
-    return 1;
+    തിരികെ 1;
 pragma_err:
     tcc_error("malformed #pragma directive");
 }
 
 /* put alternative filename */
-ST_FUNC void tccpp_putfile(const char *filename)
+ST_FUNC ശൂന്യം tccpp_putfile(സ്ഥിരം അക്ഷരം *filename)
 {
-    char buf[1024];
+    അക്ഷരം buf[1024];
     buf[0] = 0;
-    if (!IS_ABSPATH(filename)) {
+    എങ്കിൽ (!IS_ABSPATH(filename)) {
         /* prepend directory from real file */
-        pstrcpy(buf, sizeof buf, file->true_filename);
+        pstrcpy(buf, വലുപ്പം buf, file->true_filename);
         *tcc_basename(buf) = 0;
     }
-    pstrcat(buf, sizeof buf, filename);
+    pstrcat(buf, വലുപ്പം buf, filename);
 #ifdef _WIN32
     normalize_slashes(buf);
 #endif
-    if (0 == strcmp(file->filename, buf))
-        return;
+    എങ്കിൽ (0 == strcmp(file->filename, buf))
+        തിരികെ;
     //printf("new file '%s'\n", buf);
-    if (file->true_filename == file->filename)
+    എങ്കിൽ (file->true_filename == file->filename)
         file->true_filename = tcc_strdup(file->filename);
-    pstrcpy(file->filename, sizeof file->filename, buf);
+    pstrcpy(file->filename, വലുപ്പം file->filename, buf);
     tcc_debug_newfile(tcc_state);
 }
 
 /* is_bof is true if first non space token at beginning of file */
-ST_FUNC void preprocess(int is_bof)
+ST_FUNC ശൂന്യം preprocess(പൂർണ്ണസംഖ്യ is_bof)
 {
     TCCState *s1 = tcc_state;
-    int c, n, saved_parse_flags;
-    char buf[1024], *q;
+    പൂർണ്ണസംഖ്യ c, n, saved_parse_flags;
+    അക്ഷരം buf[1024], *q;
     Sym *s;
 
     saved_parse_flags = parse_flags;
     parse_flags = PARSE_FLAG_PREPROCESS
-        | PARSE_FLAG_TOK_NUM
+        | PARSE_FLAG_TOK_അക്കം
         | PARSE_FLAG_TOK_STR
         | PARSE_FLAG_LINEFEED
         | (parse_flags & PARSE_FLAG_ASM_FILE)
@@ -1806,177 +1806,177 @@ ST_FUNC void preprocess(int is_bof)
 
     next_nomacro();
  redo:
-    switch(tok) {
-    case TOK_DEFINE:
+    തിരഞ്ഞെടുപ്പ്(tok) {
+    അവസ്ഥ TOK_DEFINE:
         pp_debug_tok = tok;
         next_nomacro();
         pp_debug_symv = tok;
         parse_define();
-        break;
-    case TOK_UNDEF:
+        നിർത്തുക;
+    അവസ്ഥ TOK_UNDEF:
         pp_debug_tok = tok;
         next_nomacro();
         pp_debug_symv = tok;
         s = define_find(tok);
         /* undefine symbol by putting an invalid name */
-        if (s)
+        എങ്കിൽ (s)
             define_undef(s);
         next_nomacro();
-        break;
-    case TOK_INCLUDE:
-    case TOK_INCLUDE_NEXT:
+        നിർത്തുക;
+    അവസ്ഥ TOK_INCLUDE:
+    അവസ്ഥ TOK_INCLUDE_NEXT:
         parse_include(s1, tok - TOK_INCLUDE, 0);
-        goto the_end;
-    case TOK_IFNDEF:
+        പോകുക the_end;
+    അവസ്ഥ TOK_IFNDEF:
         c = 1;
-        goto do_ifdef;
-    case TOK_IF:
-        c = expr_preprocess(s1);
-        goto do_if;
-    case TOK_IFDEF:
+        പോകുക do_ifdef;
+    അവസ്ഥ TOK_IF:
+        c = വ്യഞ്ജകം_preprocess(s1);
+        പോകുക do_if;
+    അവസ്ഥ TOK_IFDEF:
         c = 0;
     do_ifdef:
         next_nomacro();
-        if (tok < TOK_IDENT)
+        എങ്കിൽ (tok < TOK_IDENT)
             tcc_error("invalid argument for '#if%sdef'", c ? "n" : "");
-        if (is_bof) {
-            if (c) {
+        എങ്കിൽ (is_bof) {
+            എങ്കിൽ (c) {
 #ifdef INC_DEBUG
-                printf("#ifndef %s\n", get_tok_str(tok, NULL));
+                printf("#ifndef %s\n", get_tok_str(tok, ശൂന്യ));
 #endif
                 file->ifndef_macro = tok;
             }
         }
-        if (define_find(tok)
+        എങ്കിൽ (define_find(tok)
             || tok == TOK___HAS_INCLUDE
             || tok == TOK___HAS_INCLUDE_NEXT)
             c ^= 1;
         next_nomacro();
     do_if:
-        if (s1->ifdef_stack_ptr >= s1->ifdef_stack + IFDEF_STACK_SIZE)
+        എങ്കിൽ (s1->ifdef_അട്ടി_ptr >= s1->ifdef_അട്ടി + IFDEF_അട്ടി_SIZE)
             tcc_error("memory full (ifdef)");
-        *s1->ifdef_stack_ptr++ = c;
-        goto test_skip;
-    case TOK_ELSE:
+        *s1->ifdef_അട്ടി_ptr++ = c;
+        പോകുക test_skip;
+    അവസ്ഥ TOK_ELSE:
         next_nomacro();
-        if (s1->ifdef_stack_ptr == s1->ifdef_stack)
+        എങ്കിൽ (s1->ifdef_അട്ടി_ptr == s1->ifdef_അട്ടി)
             tcc_error("#else without matching #if");
-        if (s1->ifdef_stack_ptr[-1] & 2)
+        എങ്കിൽ (s1->ifdef_അട്ടി_ptr[-1] & 2)
             tcc_error("#else after #else");
-        c = (s1->ifdef_stack_ptr[-1] ^= 3);
-        goto test_else;
-    case TOK_ELIF:
-        if (s1->ifdef_stack_ptr == s1->ifdef_stack)
+        c = (s1->ifdef_അട്ടി_ptr[-1] ^= 3);
+        പോകുക test_else;
+    അവസ്ഥ TOK_ELIF:
+        എങ്കിൽ (s1->ifdef_അട്ടി_ptr == s1->ifdef_അട്ടി)
             tcc_error("#elif without matching #if");
-        c = s1->ifdef_stack_ptr[-1];
-        if (c > 1)
+        c = s1->ifdef_അട്ടി_ptr[-1];
+        എങ്കിൽ (c > 1)
             tcc_error("#elif after #else");
         /* last #if/#elif expression was true: we skip */
-        if (c == 1) {
+        എങ്കിൽ (c == 1) {
             skip_to_eol(0);
             c = 0;
-        } else {
-            c = expr_preprocess(s1);
-            s1->ifdef_stack_ptr[-1] = c;
+        } അല്ലെങ്കിൽ {
+            c = വ്യഞ്ജകം_preprocess(s1);
+            s1->ifdef_അട്ടി_ptr[-1] = c;
         }
     test_else:
-        if (s1->ifdef_stack_ptr == file->ifdef_stack_ptr + 1)
+        എങ്കിൽ (s1->ifdef_അട്ടി_ptr == file->ifdef_അട്ടി_ptr + 1)
             file->ifndef_macro = 0;
     test_skip:
-        if (!(c & 1)) {
+        എങ്കിൽ (!(c & 1)) {
             skip_to_eol(1);
             preprocess_skip();
             is_bof = 0;
-            goto redo;
+            പോകുക redo;
         }
-        break;
-    case TOK_ENDIF:
+        നിർത്തുക;
+    അവസ്ഥ TOK_ENDIF:
         next_nomacro();
-        if (s1->ifdef_stack_ptr <= file->ifdef_stack_ptr)
+        എങ്കിൽ (s1->ifdef_അട്ടി_ptr <= file->ifdef_അട്ടി_ptr)
             tcc_error("#endif without matching #if");
-        s1->ifdef_stack_ptr--;
+        s1->ifdef_അട്ടി_ptr--;
         /* '#ifndef macro' was at the start of file. Now we check if
            an '#endif' is exactly at the end of file */
-        if (file->ifndef_macro &&
-            s1->ifdef_stack_ptr == file->ifdef_stack_ptr) {
+        എങ്കിൽ (file->ifndef_macro &&
+            s1->ifdef_അട്ടി_ptr == file->ifdef_അട്ടി_ptr) {
             file->ifndef_macro_saved = file->ifndef_macro;
             /* need to set to zero to avoid false matches if another
                #ifndef at middle of file */
             file->ifndef_macro = 0;
             tok_flags |= TOK_FLAG_ENDIF;
         }
-        break;
+        നിർത്തുക;
 
-    case TOK_LINE:
-        parse_flags &= ~PARSE_FLAG_TOK_NUM;
+    അവസ്ഥ TOK_വരി:
+        parse_flags &= ~PARSE_FLAG_TOK_അക്കം;
         next();
-        if (tok != TOK_PPNUM) {
-    _line_err:
+        എങ്കിൽ (tok != TOK_PPNUM) {
+    വരി_err:
             tcc_error("wrong #line format");
         }
         c = 1;
-        goto _line_num;
-    case TOK_PPNUM:
-        if (parse_flags & PARSE_FLAG_ASM_FILE)
-            goto ignore;
+        പോകുക വരി_അക്കം_2;
+    അവസ്ഥ TOK_PPNUM:
+        എങ്കിൽ (parse_flags & PARSE_FLAG_ASM_FILE)
+            പോകുക ignore;
         c = 0; /* no error with extra tokens */
-    _line_num:
-        for (n = 0, q = tokc.str.data; *q; ++q) {
-            if (!isnum(*q))
-                goto _line_err;
+    വരി_അക്കം_2:
+        വേണ്ടി (n = 0, q = tokc.str.data; *q; ++q) {
+            എങ്കിൽ (!isnum(*q))
+                പോകുക വരി_err;
             n = n * 10 + *q - '0';
         }
         parse_flags &= ~PARSE_FLAG_TOK_STR; /* don't parse escape sequences */
         next();
-        if (tok != TOK_LINEFEED) {
-            if (tok != TOK_PPSTR || tokc.str.data[0] != '"')
-                goto _line_err;
+        എങ്കിൽ (tok != TOK_LINEFEED) {
+            എങ്കിൽ (tok != TOK_PPSTR || tokc.str.data[0] != '"')
+                പോകുക വരി_err;
             tokc.str.data[tokc.str.size - 2] = 0;
             tccpp_putfile(tokc.str.data + 1);
             next();
             /* skip optional level number & advance to next line */
             skip_to_eol(c);
         }
-        if (file->fd > 0)
-            total_lines += file->line_num - n;
-        file->line_num = n;
-        break;
+        എങ്കിൽ (file->fd > 0)
+            total_വരികൾ += file->വരി_അക്കം - n;
+        file->വരി_അക്കം = n;
+        നിർത്തുക;
 
-    case TOK_ERROR:
-    case TOK_WARNING:
+    അവസ്ഥ TOK_ERROR:
+    അവസ്ഥ TOK_WARNING:
     {
         q = buf;
         c = skip_spaces();
-        while (c != '\n' && c != CH_EOF) {
-            if ((q - buf) < sizeof(buf) - 1)
+        ആകുമ്പോൾ (c != '\n' && c != CH_EOF) {
+            എങ്കിൽ ((q - buf) < വലുപ്പം(buf) - 1)
                 *q++ = c;
             c = ninp();
         }
         *q = '\0';
-        if (tok == TOK_ERROR)
+        എങ്കിൽ (tok == TOK_ERROR)
             tcc_error("#error %s", buf);
-        else
+        അല്ലെങ്കിൽ
             tcc_warning("#warning %s", buf);
         next_nomacro();
-        break;
+        നിർത്തുക;
     }
-    case TOK_PRAGMA:
-        if (!pragma_parse(s1))
-            goto ignore;
-        break;
-    case TOK_LINEFEED:
-        goto the_end;
-    default:
+    അവസ്ഥ TOK_PRAGMA:
+        എങ്കിൽ (!pragma_parse(s1))
+            പോകുക ignore;
+        നിർത്തുക;
+    അവസ്ഥ TOK_LINEFEED:
+        പോകുക the_end;
+    സ്ഥിരസ്ഥിതി:
         /* ignore gas line comment in an 'S' file. */
-        if (saved_parse_flags & PARSE_FLAG_ASM_FILE)
-            goto ignore;
-        if (tok == '!' && is_bof)
+        എങ്കിൽ (saved_parse_flags & PARSE_FLAG_ASM_FILE)
+            പോകുക ignore;
+        എങ്കിൽ (tok == '!' && is_bof)
             /* '#!' is ignored at beginning to allow C scripts. */
-            goto ignore;
+            പോകുക ignore;
         tcc_warning("ignoring unknown preprocessing directive #%s", get_tok_str(tok, &tokc));
     ignore:
         skip_to_eol(0);
-        goto the_end;
+        പോകുക the_end;
     }
     skip_to_eol(1);
  the_end:
@@ -1984,142 +1984,142 @@ ST_FUNC void preprocess(int is_bof)
 }
 
 /* evaluate escape codes in a string. */
-static void parse_escape_string(CString *outstr, const uint8_t *buf, int is_long)
+സ്ഥിതം ശൂന്യം parse_escape_string(CString *outstr, സ്ഥിരം uint8_t *buf, പൂർണ്ണസംഖ്യ is_long)
 {
-    int c, n, i;
-    const uint8_t *p;
+    പൂർണ്ണസംഖ്യ c, n, i;
+    സ്ഥിരം uint8_t *p;
 
     p = buf;
-    for(;;) {
+    വേണ്ടി(;;) {
         c = *p;
-        if (c == '\0')
-            break;
-        if (c == '\\') {
+        എങ്കിൽ (c == '\0')
+            നിർത്തുക;
+        എങ്കിൽ (c == '\\') {
             p++;
             /* escape */
             c = *p;
-            switch(c) {
-            case '0': case '1': case '2': case '3':
-            case '4': case '5': case '6': case '7':
+            തിരഞ്ഞെടുപ്പ്(c) {
+            അവസ്ഥ '0': അവസ്ഥ '1': അവസ്ഥ '2': അവസ്ഥ '3':
+            അവസ്ഥ '4': അവസ്ഥ '5': അവസ്ഥ '6': അവസ്ഥ '7':
                 /* at most three octal digits */
                 n = c - '0';
                 p++;
                 c = *p;
-                if (isoct(c)) {
+                എങ്കിൽ (isoct(c)) {
                     n = n * 8 + c - '0';
                     p++;
                     c = *p;
-                    if (isoct(c)) {
+                    എങ്കിൽ (isoct(c)) {
                         n = n * 8 + c - '0';
                         p++;
                     }
                 }
                 c = n;
-                goto add_char_nonext;
-            case 'x': i = 0; goto parse_hex_or_ucn;
-            case 'u': i = 4; goto parse_hex_or_ucn;
-            case 'U': i = 8; goto parse_hex_or_ucn;
+                പോകുക add_char_nonext;
+            അവസ്ഥ 'x': i = 0; പോകുക parse_hex_or_ucn;
+            അവസ്ഥ 'u': i = 4; പോകുക parse_hex_or_ucn;
+            അവസ്ഥ 'U': i = 8; പോകുക parse_hex_or_ucn;
     parse_hex_or_ucn:
                 p++;
                 n = 0;
-                do {
+                ചെയ്യുക {
                     c = *p;
-                    if (c >= 'a' && c <= 'f')
+                    എങ്കിൽ (c >= 'a' && c <= 'f')
                         c = c - 'a' + 10;
-                    else if (c >= 'A' && c <= 'F')
+                    അല്ലെങ്കിൽ എങ്കിൽ (c >= 'A' && c <= 'F')
                         c = c - 'A' + 10;
-                    else if (isnum(c))
+                    അല്ലെങ്കിൽ എങ്കിൽ (isnum(c))
                         c = c - '0';
-                    else if (i >= 0)
+                    അല്ലെങ്കിൽ എങ്കിൽ (i >= 0)
                         expect("more hex digits in universal-character-name");
-                    else
-                        goto add_hex_or_ucn;
+                    അല്ലെങ്കിൽ
+                        പോകുക add_hex_or_ucn;
                     n = (unsigned) n * 16 + c;
                     p++;
-                } while (--i);
-		if (is_long) {
+                } ആകുമ്പോൾ (--i);
+		എങ്കിൽ (is_long) {
     add_hex_or_ucn:
                     c = n;
-		    goto add_char_nonext;
+		    പോകുക add_char_nonext;
 		}
                 cstr_u8cat(outstr, n);
-                continue;
-            case 'a':
+                തുടരുക;
+            അവസ്ഥ 'a':
                 c = '\a';
-                break;
-            case 'b':
+                നിർത്തുക;
+            അവസ്ഥ 'b':
                 c = '\b';
-                break;
-            case 'f':
+                നിർത്തുക;
+            അവസ്ഥ 'f':
                 c = '\f';
-                break;
-            case 'n':
+                നിർത്തുക;
+            അവസ്ഥ 'n':
                 c = '\n';
-                break;
-            case 'r':
+                നിർത്തുക;
+            അവസ്ഥ 'r':
                 c = '\r';
-                break;
-            case 't':
+                നിർത്തുക;
+            അവസ്ഥ 't':
                 c = '\t';
-                break;
-            case 'v':
+                നിർത്തുക;
+            അവസ്ഥ 'v':
                 c = '\v';
-                break;
-            case 'e':
-                if (!gnu_ext)
-                    goto invalid_escape;
+                നിർത്തുക;
+            അവസ്ഥ 'e':
+                എങ്കിൽ (!gnu_ext)
+                    പോകുക invalid_escape;
                 c = 27;
-                break;
-            case '\'':
-            case '\"':
-            case '\\': 
-            case '?':
-                break;
-            default:
+                നിർത്തുക;
+            അവസ്ഥ '\'':
+            അവസ്ഥ '\"':
+            അവസ്ഥ '\\': 
+            അവസ്ഥ '?':
+                നിർത്തുക;
+            സ്ഥിരസ്ഥിതി:
             invalid_escape:
-                if (c >= '!' && c <= '~')
+                എങ്കിൽ (c >= '!' && c <= '~')
                     tcc_warning("unknown escape sequence: \'\\%c\'", c);
-                else
+                അല്ലെങ്കിൽ
                     tcc_warning("unknown escape sequence: \'\\x%x\'", c);
-                break;
+                നിർത്തുക;
             }
-        } else if (is_long && c >= 0x80) {
+        } അല്ലെങ്കിൽ എങ്കിൽ (is_long && c >= 0x80) {
             /* assume we are processing UTF-8 sequence */
             /* reference: The Unicode Standard, Version 10.0, ch3.9 */
 
-            int cont; /* count of continuation bytes */
-            int skip; /* how many bytes should skip when error occurred */
-            int i;
+            പൂർണ്ണസംഖ്യ cont; /* count of continuation bytes */
+            പൂർണ്ണസംഖ്യ skip; /* how many bytes should skip when error occurred */
+            പൂർണ്ണസംഖ്യ i;
 
             /* decode leading byte */
-            if (c < 0xC2) {
-	            skip = 1; goto invalid_utf8_sequence;
-            } else if (c <= 0xDF) {
+            എങ്കിൽ (c < 0xC2) {
+	            skip = 1; പോകുക invalid_utf8_sequence;
+            } അല്ലെങ്കിൽ എങ്കിൽ (c <= 0xDF) {
 	            cont = 1; n = c & 0x1f;
-            } else if (c <= 0xEF) {
+            } അല്ലെങ്കിൽ എങ്കിൽ (c <= 0xEF) {
 	            cont = 2; n = c & 0xf;
-            } else if (c <= 0xF4) {
+            } അല്ലെങ്കിൽ എങ്കിൽ (c <= 0xF4) {
 	            cont = 3; n = c & 0x7;
-            } else {
-	            skip = 1; goto invalid_utf8_sequence;
+            } അല്ലെങ്കിൽ {
+	            skip = 1; പോകുക invalid_utf8_sequence;
             }
 
             /* decode continuation bytes */
-            for (i = 1; i <= cont; i++) {
-                int l = 0x80, h = 0xBF;
+            വേണ്ടി (i = 1; i <= cont; i++) {
+                പൂർണ്ണസംഖ്യ l = 0x80, h = 0xBF;
 
                 /* adjust limit for second byte */
-                if (i == 1) {
-                    switch (c) {
-                    case 0xE0: l = 0xA0; break;
-                    case 0xED: h = 0x9F; break;
-                    case 0xF0: l = 0x90; break;
-                    case 0xF4: h = 0x8F; break;
+                എങ്കിൽ (i == 1) {
+                    തിരഞ്ഞെടുപ്പ് (c) {
+                    അവസ്ഥ 0xE0: l = 0xA0; നിർത്തുക;
+                    അവസ്ഥ 0xED: h = 0x9F; നിർത്തുക;
+                    അവസ്ഥ 0xF0: l = 0x90; നിർത്തുക;
+                    അവസ്ഥ 0xF4: h = 0x8F; നിർത്തുക;
                     }
                 }
 
-                if (p[i] < l || p[i] > h) {
-                    skip = i; goto invalid_utf8_sequence;
+                എങ്കിൽ (p[i] < l || p[i] > h) {
+                    skip = i; പോകുക invalid_utf8_sequence;
                 }
 
                 n = (n << 6) | (p[i] & 0x3f);
@@ -2128,86 +2128,86 @@ static void parse_escape_string(CString *outstr, const uint8_t *buf, int is_long
             /* advance pointer */
             p += 1 + cont;
             c = n;
-            goto add_char_nonext;
+            പോകുക add_char_nonext;
 
             /* error handling */
         invalid_utf8_sequence:
             tcc_warning("ill-formed UTF-8 subsequence starting with: \'\\x%x\'", c);
             c = 0xFFFD;
             p += skip;
-            goto add_char_nonext;
+            പോകുക add_char_nonext;
 
         }
         p++;
     add_char_nonext:
-        if (!is_long)
+        എങ്കിൽ (!is_long)
             cstr_ccat(outstr, c);
-        else {
+        അല്ലെങ്കിൽ {
 #ifdef TCC_TARGET_PE
             /* store as UTF-16 */
-            if (c < 0x10000) {
+            എങ്കിൽ (c < 0x10000) {
                 cstr_wccat(outstr, c);
-            } else {
+            } അല്ലെങ്കിൽ {
                 c -= 0x10000;
                 cstr_wccat(outstr, (c >> 10) + 0xD800);
                 cstr_wccat(outstr, (c & 0x3FF) + 0xDC00);
             }
-#else
+#അല്ലെങ്കിൽ
             cstr_wccat(outstr, c);
 #endif
         }
     }
     /* add a trailing '\0' */
-    if (!is_long)
+    എങ്കിൽ (!is_long)
         cstr_ccat(outstr, '\0');
-    else
+    അല്ലെങ്കിൽ
         cstr_wccat(outstr, '\0');
 }
 
-static void parse_string(const char *s, int len)
+സ്ഥിതം ശൂന്യം parse_string(സ്ഥിരം അക്ഷരം *s, പൂർണ്ണസംഖ്യ len)
 {
     uint8_t buf[1000], *p = buf;
-    int is_long, sep;
+    പൂർണ്ണസംഖ്യ is_long, sep;
 
-    if ((is_long = *s == 'L'))
+    എങ്കിൽ ((is_long = *s == 'L'))
         ++s, --len;
     sep = *s++;
     len -= 2;
-    if (len >= sizeof buf)
+    എങ്കിൽ (len >= വലുപ്പം buf)
         p = tcc_malloc(len + 1);
     memcpy(p, s, len);
     p[len] = 0;
 
     cstr_reset(&tokcstr);
     parse_escape_string(&tokcstr, p, is_long);
-    if (p != buf)
+    എങ്കിൽ (p != buf)
         tcc_free(p);
 
-    if (sep == '\'') {
-        int char_size, i, n, c;
+    എങ്കിൽ (sep == '\'') {
+        പൂർണ്ണസംഖ്യ char_size, i, n, c;
         /* XXX: make it portable */
-        if (!is_long)
+        എങ്കിൽ (!is_long)
             tok = TOK_CCHAR, char_size = 1;
-        else
-            tok = TOK_LCHAR, char_size = sizeof(nwchar_t);
+        അല്ലെങ്കിൽ
+            tok = TOK_LCHAR, char_size = വലുപ്പം(nwchar_t);
         n = tokcstr.size / char_size - 1;
-        if (n < 1)
+        എങ്കിൽ (n < 1)
             tcc_error("empty character constant");
-        if (n > 1)
+        എങ്കിൽ (n > 1)
             tcc_warning_c(warn_all)("multi-character character constant");
-        for (c = i = 0; i < n; ++i) {
-            if (is_long)
+        വേണ്ടി (c = i = 0; i < n; ++i) {
+            എങ്കിൽ (is_long)
                 c = ((nwchar_t *)tokcstr.data)[i];
-            else
-                c = (c << 8) | ((char *)tokcstr.data)[i];
+            അല്ലെങ്കിൽ
+                c = (c << 8) | ((അക്ഷരം *)tokcstr.data)[i];
         }
         tokc.i = c;
-    } else {
+    } അല്ലെങ്കിൽ {
         tokc.str.size = tokcstr.size;
         tokc.str.data = tokcstr.data;
-        if (!is_long)
+        എങ്കിൽ (!is_long)
             tok = TOK_STR;
-        else
+        അല്ലെങ്കിൽ
             tok = TOK_LSTR;
     }
 }
@@ -2216,52 +2216,52 @@ static void parse_string(const char *s, int len)
 #define BN_SIZE 4
 
 /* bn = (bn << shift) | or_val */
-static int bn_lshift(unsigned int *bn, int shift, int or_val)
+സ്ഥിതം പൂർണ്ണസംഖ്യ bn_lshift(unsigned പൂർണ്ണസംഖ്യ *bn, പൂർണ്ണസംഖ്യ shift, പൂർണ്ണസംഖ്യ or_val)
 {
-    int i;
-    unsigned int v;
-    if (bn[BN_SIZE - 1] >> (32 - shift))
-	return shift;
-    for(i=0;i<BN_SIZE;i++) {
+    പൂർണ്ണസംഖ്യ i;
+    unsigned പൂർണ്ണസംഖ്യ v;
+    എങ്കിൽ (bn[BN_SIZE - 1] >> (32 - shift))
+	തിരികെ shift;
+    വേണ്ടി(i=0;i<BN_SIZE;i++) {
         v = bn[i];
         bn[i] = (v << shift) | or_val;
         or_val = v >> (32 - shift);
     }
-    return 0;
+    തിരികെ 0;
 }
 
-static void bn_zero(unsigned int *bn)
+സ്ഥിതം ശൂന്യം bn_zero(unsigned പൂർണ്ണസംഖ്യ *bn)
 {
-    int i;
-    for(i=0;i<BN_SIZE;i++) {
+    പൂർണ്ണസംഖ്യ i;
+    വേണ്ടി(i=0;i<BN_SIZE;i++) {
         bn[i] = 0;
     }
 }
 
 /* parse number in null terminated string 'p' and return it in the
    current token */
-static void parse_number(const char *p)
+സ്ഥിതം ശൂന്യം parse_സംഖ്യ(സ്ഥിരം അക്ഷരം *p)
 {
-    int b, t, shift, frac_bits, s, exp_val, ch;
-    char *q;
-    unsigned int bn[BN_SIZE];
-    long double d;
+    പൂർണ്ണസംഖ്യ b, t, shift, frac_bits, s, exp_val, ch;
+    അക്ഷരം *q;
+    unsigned പൂർണ്ണസംഖ്യ bn[BN_SIZE];
+    long ഇരട്ട d;
 
-    /* number */
+    /*സംഖ്യ*/
     q = token_buf;
     ch = *p++;
     t = ch;
     ch = *p++;
     *q++ = t;
     b = 10;
-    if (t == '.') {
-        goto float_frac_parse;
-    } else if (t == '0') {
-        if (ch == 'x' || ch == 'X') {
+    എങ്കിൽ (t == '.') {
+        പോകുക float_frac_parse;
+    } അല്ലെങ്കിൽ എങ്കിൽ (t == '0') {
+        എങ്കിൽ (ch == 'x' || ch == 'X') {
             q--;
             ch = *p++;
             b = 16;
-        } else if (tcc_state->tcc_ext && (ch == 'b' || ch == 'B')) {
+        } അല്ലെങ്കിൽ എങ്കിൽ (tcc_state->tcc_ext && (ch == 'b' || ch == 'B')) {
             q--;
             ch = *p++;
             b = 2;
@@ -2269,28 +2269,28 @@ static void parse_number(const char *p)
     }
     /* parse all digits. cannot check octal numbers at this stage
        because of floating point constants */
-    while (1) {
-        if (ch >= 'a' && ch <= 'f')
+    ആകുമ്പോൾ (1) {
+        എങ്കിൽ (ch >= 'a' && ch <= 'f')
             t = ch - 'a' + 10;
-        else if (ch >= 'A' && ch <= 'F')
+        അല്ലെങ്കിൽ എങ്കിൽ (ch >= 'A' && ch <= 'F')
             t = ch - 'A' + 10;
-        else if (isnum(ch))
+        അല്ലെങ്കിൽ എങ്കിൽ (isnum(ch))
             t = ch - '0';
-        else
-            break;
-        if (t >= b)
-            break;
-        if (q >= token_buf + STRING_MAX_SIZE) {
-        num_too_long:
+        അല്ലെങ്കിൽ
+            നിർത്തുക;
+        എങ്കിൽ (t >= b)
+            നിർത്തുക;
+        എങ്കിൽ (q >= token_buf + STRING_MAX_SIZE) {
+        അക്കം_too_long:
             tcc_error("number too long");
         }
         *q++ = ch;
         ch = *p++;
     }
-    if (ch == '.' ||
+    എങ്കിൽ (ch == '.' ||
         ((ch == 'e' || ch == 'E') && b == 10) ||
         ((ch == 'p' || ch == 'P') && (b == 16 || b == 2))) {
-        if (b != 10) {
+        എങ്കിൽ (b != 10) {
             /* NOTE: strtox should support that for hexa numbers, but
                non ISOC99 libcs do not support it, so we prefer to do
                it by hand */
@@ -2298,61 +2298,61 @@ static void parse_number(const char *p)
             /* XXX: handle overflows */
             frac_bits = 0;
             *q = '\0';
-            if (b == 16)
+            എങ്കിൽ (b == 16)
                 shift = 4;
-            else 
+            അല്ലെങ്കിൽ 
                 shift = 1;
             bn_zero(bn);
             q = token_buf;
-            while (1) {
+            ആകുമ്പോൾ (1) {
                 t = *q++;
-                if (t == '\0') {
-                    break;
-                } else if (t >= 'a') {
+                എങ്കിൽ (t == '\0') {
+                    നിർത്തുക;
+                } അല്ലെങ്കിൽ എങ്കിൽ (t >= 'a') {
                     t = t - 'a' + 10;
-                } else if (t >= 'A') {
+                } അല്ലെങ്കിൽ എങ്കിൽ (t >= 'A') {
                     t = t - 'A' + 10;
-                } else {
+                } അല്ലെങ്കിൽ {
                     t = t - '0';
                 }
                 frac_bits -= bn_lshift(bn, shift, t);
             }
-            if (ch == '.') {
+            എങ്കിൽ (ch == '.') {
                 ch = *p++;
-                while (1) {
+                ആകുമ്പോൾ (1) {
                     t = ch;
-                    if (t >= 'a' && t <= 'f') {
+                    എങ്കിൽ (t >= 'a' && t <= 'f') {
                         t = t - 'a' + 10;
-                    } else if (t >= 'A' && t <= 'F') {
+                    } അല്ലെങ്കിൽ എങ്കിൽ (t >= 'A' && t <= 'F') {
                         t = t - 'A' + 10;
-                    } else if (t >= '0' && t <= '9') {
+                    } അല്ലെങ്കിൽ എങ്കിൽ (t >= '0' && t <= '9') {
                         t = t - '0';
-                    } else {
-                        break;
+                    } അല്ലെങ്കിൽ {
+                        നിർത്തുക;
                     }
-                    if (t >= b)
+                    എങ്കിൽ (t >= b)
                         tcc_error("invalid digit");
                     frac_bits -= bn_lshift(bn, shift, t);
                     frac_bits += shift;
                     ch = *p++;
                 }
             }
-            if (ch != 'p' && ch != 'P')
+            എങ്കിൽ (ch != 'p' && ch != 'P')
                 expect("exponent");
             ch = *p++;
             s = 1;
             exp_val = 0;
-            if (ch == '+') {
+            എങ്കിൽ (ch == '+') {
                 ch = *p++;
-            } else if (ch == '-') {
+            } അല്ലെങ്കിൽ എങ്കിൽ (ch == '-') {
                 s = -1;
                 ch = *p++;
             }
-            if (ch < '0' || ch > '9')
+            എങ്കിൽ (ch < '0' || ch > '9')
                 expect("exponent digits");
-            while (ch >= '0' && ch <= '9') {
+            ആകുമ്പോൾ (ch >= '0' && ch <= '9') {
 		/* If exp_val is this large ldexp will return HUGE_VAL */
-		if (exp_val < 100000000)
+		എങ്കിൽ (exp_val < 100000000)
                     exp_val = exp_val * 10 + ch - '0';
                 ch = *p++;
             }
@@ -2360,56 +2360,56 @@ static void parse_number(const char *p)
 
             /* now we can generate the number */
             /* XXX: should patch directly float number */
-            d = (long double)bn[3] * 79228162514264337593543950336.0L +
-	        (long double)bn[2] * 18446744073709551616.0L +
-	        (long double)bn[1] * 4294967296.0L +
-	        (long double)bn[0];
+            d = (long ഇരട്ട)bn[3] * 79228162514264337593543950336.0L +
+	        (long ഇരട്ട)bn[2] * 18446744073709551616.0L +
+	        (long ഇരട്ട)bn[1] * 4294967296.0L +
+	        (long ഇരട്ട)bn[0];
             d = ldexpl(d, exp_val - frac_bits);
             t = toup(ch);
-            if (t == 'F') {
+            എങ്കിൽ (t == 'F') {
                 ch = *p++;
                 tok = TOK_CFLOAT;
                 /* float : should handle overflow */
-                tokc.f = (float)d;
-            } else if (t == 'L') {
+                tokc.f = (ദശാംശം)d;
+            } അല്ലെങ്കിൽ എങ്കിൽ (t == 'L') {
                 ch = *p++;
                 tok = TOK_CLDOUBLE;
                 tokc.ld = d;
-            } else {
+            } അല്ലെങ്കിൽ {
                 tok = TOK_CDOUBLE;
-                tokc.d = (double)d;
+                tokc.d = (ഇരട്ട)d;
             }
-        } else {
+        } അല്ലെങ്കിൽ {
             /* decimal floats */
-            if (ch == '.') {
-                if (q >= token_buf + STRING_MAX_SIZE)
-                    goto num_too_long;
+            എങ്കിൽ (ch == '.') {
+                എങ്കിൽ (q >= token_buf + STRING_MAX_SIZE)
+                    പോകുക അക്കം_too_long;
                 *q++ = ch;
                 ch = *p++;
             float_frac_parse:
-                while (ch >= '0' && ch <= '9') {
-                    if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                ആകുമ്പോൾ (ch >= '0' && ch <= '9') {
+                    എങ്കിൽ (q >= token_buf + STRING_MAX_SIZE)
+                        പോകുക അക്കം_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
             }
-            if (ch == 'e' || ch == 'E') {
-                if (q >= token_buf + STRING_MAX_SIZE)
-                    goto num_too_long;
+            എങ്കിൽ (ch == 'e' || ch == 'E') {
+                എങ്കിൽ (q >= token_buf + STRING_MAX_SIZE)
+                    പോകുക അക്കം_too_long;
                 *q++ = ch;
                 ch = *p++;
-                if (ch == '-' || ch == '+') {
-                    if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                എങ്കിൽ (ch == '-' || ch == '+') {
+                    എങ്കിൽ (q >= token_buf + STRING_MAX_SIZE)
+                        പോകുക അക്കം_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
-                if (ch < '0' || ch > '9')
+                എങ്കിൽ (ch < '0' || ch > '9')
                     expect("exponent digits");
-                while (ch >= '0' && ch <= '9') {
-                    if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                ആകുമ്പോൾ (ch >= '0' && ch <= '9') {
+                    എങ്കിൽ (q >= token_buf + STRING_MAX_SIZE)
+                        പോകുക അക്കം_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
@@ -2417,49 +2417,49 @@ static void parse_number(const char *p)
             *q = '\0';
             t = toup(ch);
             errno = 0;
-            if (t == 'F') {
+            എങ്കിൽ (t == 'F') {
                 ch = *p++;
                 tok = TOK_CFLOAT;
-                tokc.f = strtof(token_buf, NULL);
-            } else if (t == 'L') {
+                tokc.f = strtof(token_buf, ശൂന്യ);
+            } അല്ലെങ്കിൽ എങ്കിൽ (t == 'L') {
                 ch = *p++;
                 tok = TOK_CLDOUBLE;
-                tokc.ld = strtold(token_buf, NULL);
-            } else {
+                tokc.ld = strtold(token_buf, ശൂന്യ);
+            } അല്ലെങ്കിൽ {
                 tok = TOK_CDOUBLE;
-                tokc.d = strtod(token_buf, NULL);
+                tokc.d = strtod(token_buf, ശൂന്യ);
             }
         }
-    } else {
+    } അല്ലെങ്കിൽ {
         unsigned long long n, n1;
-        int lcount, ucount, ov = 0;
-        const char *p1;
+        പൂർണ്ണസംഖ്യ lcount, ucount, ov = 0;
+        സ്ഥിരം അക്ഷരം *p1;
 
         /* integer number */
         *q = '\0';
         q = token_buf;
-        if (b == 10 && *q == '0') {
+        എങ്കിൽ (b == 10 && *q == '0') {
             b = 8;
             q++;
         }
         n = 0;
-        while(1) {
+        ആകുമ്പോൾ(1) {
             t = *q++;
             /* no need for checks except for base 10 / 8 errors */
-            if (t == '\0')
-                break;
-            else if (t >= 'a')
+            എങ്കിൽ (t == '\0')
+                നിർത്തുക;
+            അല്ലെങ്കിൽ എങ്കിൽ (t >= 'a')
                 t = t - 'a' + 10;
-            else if (t >= 'A')
+            അല്ലെങ്കിൽ എങ്കിൽ (t >= 'A')
                 t = t - 'A' + 10;
-            else
+            അല്ലെങ്കിൽ
                 t = t - '0';
-            if (t >= b)
+            എങ്കിൽ (t >= b)
                 tcc_error("invalid digit");
             n1 = n;
             n = n * b + t;
             /* detect overflow */
-            if (n1 >= 0x1000000000000000ULL && n / b != n1)
+            എങ്കിൽ (n1 >= 0x1000000000000000ULL && n / b != n1)
                 ov = 1;
         }
 
@@ -2467,131 +2467,131 @@ static void parse_number(const char *p)
            the constant must have according to the constant suffix(es) */
         lcount = ucount = 0;
         p1 = p;
-        for(;;) {
+        വേണ്ടി(;;) {
             t = toup(ch);
-            if (t == 'L') {
-                if (lcount >= 2)
+            എങ്കിൽ (t == 'L') {
+                എങ്കിൽ (lcount >= 2)
                     tcc_error("three 'l's in integer constant");
-                if (lcount && *(p - 1) != ch)
+                എങ്കിൽ (lcount && *(p - 1) != ch)
                     tcc_error("incorrect integer suffix: %s", p1);
                 lcount++;
                 ch = *p++;
-            } else if (t == 'U') {
-                if (ucount >= 1)
+            } അല്ലെങ്കിൽ എങ്കിൽ (t == 'U') {
+                എങ്കിൽ (ucount >= 1)
                     tcc_error("two 'u's in integer constant");
                 ucount++;
                 ch = *p++;
-            } else {
-                break;
+            } അല്ലെങ്കിൽ {
+                നിർത്തുക;
             }
         }
 
         /* in #if/#elif expressions, all numbers have type (u)intmax_t anyway */
-        if (pp_expr)
+        എങ്കിൽ (pp_വ്യഞ്ജകം)
             lcount = 2;
 
         /* Determine if it needs 64 bits and/or unsigned in order to fit */
-        if (ucount == 0 && b == 10) {
-            if (lcount <= (LONG_SIZE == 4)) {
-                if (n >= 0x80000000U)
+        എങ്കിൽ (ucount == 0 && b == 10) {
+            എങ്കിൽ (lcount <= (LONG_SIZE == 4)) {
+                എങ്കിൽ (n >= 0x80000000U)
                     lcount = (LONG_SIZE == 4) + 1;
             }
-            if (n >= 0x8000000000000000ULL)
+            എങ്കിൽ (n >= 0x8000000000000000ULL)
                 ov = 1, ucount = 1;
-        } else {
-            if (lcount <= (LONG_SIZE == 4)) {
-                if (n >= 0x100000000ULL)
+        } അല്ലെങ്കിൽ {
+            എങ്കിൽ (lcount <= (LONG_SIZE == 4)) {
+                എങ്കിൽ (n >= 0x100000000ULL)
                     lcount = (LONG_SIZE == 4) + 1;
-                else if (n >= 0x80000000U)
+                അല്ലെങ്കിൽ എങ്കിൽ (n >= 0x80000000U)
                     ucount = 1;
             }
-            if (n >= 0x8000000000000000ULL)
+            എങ്കിൽ (n >= 0x8000000000000000ULL)
                 ucount = 1;
         }
 
-        if (ov)
+        എങ്കിൽ (ov)
             tcc_warning("integer constant overflow");
 
         tok = TOK_CINT;
-	if (lcount) {
+	എങ്കിൽ (lcount) {
             tok = TOK_CLONG;
-            if (lcount == 2)
+            എങ്കിൽ (lcount == 2)
                 tok = TOK_CLLONG;
 	}
-	if (ucount)
+	എങ്കിൽ (ucount)
 	    ++tok; /* TOK_CU... */
         tokc.i = n;
     }
-    if (ch)
+    എങ്കിൽ (ch)
         tcc_error("invalid number");
 }
 
 
 #define PARSE2(c1, tok1, c2, tok2)              \
-    case c1:                                    \
+    അവസ്ഥ c1:                                    \
         PEEKC(c, p);                            \
-        if (c == c2) {                          \
+        എങ്കിൽ (c == c2) {                          \
             p++;                                \
             tok = tok2;                         \
-        } else {                                \
+        } അല്ലെങ്കിൽ {                                \
             tok = tok1;                         \
         }                                       \
-        break;
+        നിർത്തുക;
 
 /* return next token without macro substitution */
-static void next_nomacro(void)
+സ്ഥിതം ശൂന്യം next_nomacro(ശൂന്യം)
 {
-    int t, c, is_long, len;
+    പൂർണ്ണസംഖ്യ t, c, is_long, len;
     TokenSym *ts;
     uint8_t *p, *p1;
-    unsigned int h;
+    unsigned പൂർണ്ണസംഖ്യ h;
 
     p = file->buf_ptr;
  redo_no_start:
     c = *p;
-    switch(c) {
-    case ' ':
-    case '\t':
+    തിരഞ്ഞെടുപ്പ്(c) {
+    അവസ്ഥ ' ':
+    അവസ്ഥ '\t':
         tok = c;
         p++;
  maybe_space:
-        if (parse_flags & PARSE_FLAG_SPACES)
-            goto keep_tok_flags;
-        while (isidnum_table[*p - CH_EOF] & IS_SPC)
+        എങ്കിൽ (parse_flags & PARSE_FLAG_SPACES)
+            പോകുക keep_tok_flags;
+        ആകുമ്പോൾ (isidnum_table[*p - CH_EOF] & IS_SPC)
             ++p;
-        goto redo_no_start;
-    case '\f':
-    case '\v':
-    case '\r':
+        പോകുക redo_no_start;
+    അവസ്ഥ '\f':
+    അവസ്ഥ '\v':
+    അവസ്ഥ '\r':
         p++;
-        goto redo_no_start;
-    case '\\':
+        പോകുക redo_no_start;
+    അവസ്ഥ '\\':
         /* first look if it is in fact an end of buffer */
         c = handle_stray(&p);
-        if (c == '\\')
-            goto parse_simple;
-        if (c == CH_EOF) {
+        എങ്കിൽ (c == '\\')
+            പോകുക parse_simple;
+        എങ്കിൽ (c == CH_EOF) {
             TCCState *s1 = tcc_state;
-            if (!(tok_flags & TOK_FLAG_BOL)) {
+            എങ്കിൽ (!(tok_flags & TOK_FLAG_BOL)) {
                 /* add implicit newline */
-                goto maybe_newline;
-            } else if (!(parse_flags & PARSE_FLAG_PREPROCESS)) {
+                പോകുക maybe_newline;
+            } അല്ലെങ്കിൽ എങ്കിൽ (!(parse_flags & PARSE_FLAG_PREPROCESS)) {
                 tok = TOK_EOF;
-            } else if (s1->ifdef_stack_ptr != file->ifdef_stack_ptr) {
+            } അല്ലെങ്കിൽ എങ്കിൽ (s1->ifdef_അട്ടി_ptr != file->ifdef_അട്ടി_ptr) {
                 tcc_error("missing #endif");
-            } else if (s1->include_stack_ptr == s1->include_stack) {
+            } അല്ലെങ്കിൽ എങ്കിൽ (s1->include_അട്ടി_ptr == s1->include_അട്ടി) {
                 /* no include left : end of file. */
                 tok = TOK_EOF;
-            } else {
+            } അല്ലെങ്കിൽ {
                 /* pop include file */
 
                 /* test if previous '#endif' was after a #ifdef at
                    start of file */
-                if (tok_flags & TOK_FLAG_ENDIF) {
+                എങ്കിൽ (tok_flags & TOK_FLAG_ENDIF) {
 #ifdef INC_DEBUG
-                    printf("#endif %s\n", get_tok_str(file->ifndef_macro_saved, NULL));
+                    printf("#endif %s\n", get_tok_str(file->ifndef_macro_saved, ശൂന്യ));
 #endif
-                    search_cached_include(s1, file->true_filename, 1)
+                    തിരയൽ_cached_include(s1, file->true_filename, 1)
                         ->ifndef_macro = file->ifndef_macro_saved;
                     tok_flags &= ~TOK_FLAG_ENDIF;
                 }
@@ -2600,105 +2600,105 @@ static void next_nomacro(void)
                 tcc_debug_eincl(tcc_state);
                 /* pop include stack */
                 tcc_close();
-                s1->include_stack_ptr--;
+                s1->include_അട്ടി_ptr--;
                 p = file->buf_ptr;
-                goto maybe_newline;
+                പോകുക maybe_newline;
             }
-        } else {
-            goto redo_no_start;
+        } അല്ലെങ്കിൽ {
+            പോകുക redo_no_start;
         }
-        break;
+        നിർത്തുക;
 
-    case '\n':
-        file->line_num++;
+    അവസ്ഥ '\n':
+        file->വരി_അക്കം++;
         p++;
 maybe_newline:
         tok_flags |= TOK_FLAG_BOL;
-        if (0 == (parse_flags & PARSE_FLAG_LINEFEED))
-            goto redo_no_start;
+        എങ്കിൽ (0 == (parse_flags & PARSE_FLAG_LINEFEED))
+            പോകുക redo_no_start;
         tok = TOK_LINEFEED;
-        goto keep_tok_flags;
+        പോകുക keep_tok_flags;
 
-    case '#':
+    അവസ്ഥ '#':
         /* XXX: simplify */
         PEEKC(c, p);
-        if ((tok_flags & TOK_FLAG_BOL) && 
+        എങ്കിൽ ((tok_flags & TOK_FLAG_BOL) && 
             (parse_flags & PARSE_FLAG_PREPROCESS)) {
             tok_flags &= ~TOK_FLAG_BOL;
             file->buf_ptr = p;
             preprocess(tok_flags & TOK_FLAG_BOF);
             p = file->buf_ptr;
-            goto maybe_newline;
-        } else {
-            if (c == '#') {
+            പോകുക maybe_newline;
+        } അല്ലെങ്കിൽ {
+            എങ്കിൽ (c == '#') {
                 p++;
                 tok = TOK_TWOSHARPS;
-            } else {
-#if !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64)
-                if (parse_flags & PARSE_FLAG_ASM_FILE) {
-                    p = parse_line_comment(p - 1);
-                    goto redo_no_start;
-                } else
+            } അല്ലെങ്കിൽ {
+#എങ്കിൽ !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64)
+                എങ്കിൽ (parse_flags & PARSE_FLAG_ASM_FILE) {
+                    p = parse_വരി_comment(p - 1);
+                    പോകുക redo_no_start;
+                } അല്ലെങ്കിൽ
 #endif
                 {
                     tok = '#';
                 }
             }
         }
-        break;
+        നിർത്തുക;
     
     /* dollar is allowed to start identifiers when not parsing asm */
-    case '$':
-        if (!(isidnum_table['$' - CH_EOF] & IS_ID)
+    അവസ്ഥ '$':
+        എങ്കിൽ (!(isidnum_table['$' - CH_EOF] & IS_ID)
          || (parse_flags & PARSE_FLAG_ASM_FILE))
-            goto parse_simple;
+            പോകുക parse_simple;
 
-    case 'a': case 'b': case 'c': case 'd':
-    case 'e': case 'f': case 'g': case 'h':
-    case 'i': case 'j': case 'k': case 'l':
-    case 'm': case 'n': case 'o': case 'p':
-    case 'q': case 'r': case 's': case 't':
-    case 'u': case 'v': case 'w': case 'x':
-    case 'y': case 'z': 
-    case 'A': case 'B': case 'C': case 'D':
-    case 'E': case 'F': case 'G': case 'H':
-    case 'I': case 'J': case 'K': 
-    case 'M': case 'N': case 'O': case 'P':
-    case 'Q': case 'R': case 'S': case 'T':
-    case 'U': case 'V': case 'W': case 'X':
-    case 'Y': case 'Z': 
-    case '_':
+    അവസ്ഥ 'a': അവസ്ഥ 'b': അവസ്ഥ 'c': അവസ്ഥ 'd':
+    അവസ്ഥ 'e': അവസ്ഥ 'f': അവസ്ഥ 'g': അവസ്ഥ 'h':
+    അവസ്ഥ 'i': അവസ്ഥ 'j': അവസ്ഥ 'k': അവസ്ഥ 'l':
+    അവസ്ഥ 'm': അവസ്ഥ 'n': അവസ്ഥ 'o': അവസ്ഥ 'p':
+    അവസ്ഥ 'q': അവസ്ഥ 'r': അവസ്ഥ 's': അവസ്ഥ 't':
+    അവസ്ഥ 'u': അവസ്ഥ 'v': അവസ്ഥ 'w': അവസ്ഥ 'x':
+    അവസ്ഥ 'y': അവസ്ഥ 'z': 
+    അവസ്ഥ 'A': അവസ്ഥ 'B': അവസ്ഥ 'C': അവസ്ഥ 'D':
+    അവസ്ഥ 'E': അവസ്ഥ 'F': അവസ്ഥ 'G': അവസ്ഥ 'H':
+    അവസ്ഥ 'I': അവസ്ഥ 'J': അവസ്ഥ 'K': 
+    അവസ്ഥ 'M': അവസ്ഥ 'N': അവസ്ഥ 'O': അവസ്ഥ 'P':
+    അവസ്ഥ 'Q': അവസ്ഥ 'R': അവസ്ഥ 'S': അവസ്ഥ 'T':
+    അവസ്ഥ 'U': അവസ്ഥ 'V': അവസ്ഥ 'W': അവസ്ഥ 'X':
+    അവസ്ഥ 'Y': അവസ്ഥ 'Z': 
+    അവസ്ഥ '_':
     parse_ident_fast:
         p1 = p;
         h = TOK_HASH_INIT;
         h = TOK_HASH_FUNC(h, c);
-        while (c = *++p, isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+        ആകുമ്പോൾ (c = *++p, isidnum_table[c - CH_EOF] & (IS_ID|IS_അക്കം))
             h = TOK_HASH_FUNC(h, c);
         len = p - p1;
-        if (c != '\\') {
+        എങ്കിൽ (c != '\\') {
             TokenSym **pts;
 
             /* fast case : no stray found, so we have the full token
                and we have already hashed it */
             h &= (TOK_HASH_SIZE - 1);
             pts = &hash_ident[h];
-            for(;;) {
+            വേണ്ടി(;;) {
                 ts = *pts;
-                if (!ts)
-                    break;
-                if (ts->len == len && !memcmp(ts->str, p1, len))
-                    goto token_found;
+                എങ്കിൽ (!ts)
+                    നിർത്തുക;
+                എങ്കിൽ (ts->len == len && !memcmp(ts->str, p1, len))
+                    പോകുക token_found;
                 pts = &(ts->hash_next);
             }
-            ts = tok_alloc_new(pts, (char *) p1, len);
+            ts = tok_alloc_new(pts, (അക്ഷരം *) p1, len);
         token_found: ;
-        } else {
+        } അല്ലെങ്കിൽ {
             /* slower case */
             cstr_reset(&tokcstr);
-            cstr_cat(&tokcstr, (char *) p1, len);
+            cstr_cat(&tokcstr, (അക്ഷരം *) p1, len);
             p--;
             PEEKC(c, p);
-            while (isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+            ആകുമ്പോൾ (isidnum_table[c - CH_EOF] & (IS_ID|IS_അക്കം))
             {
                 cstr_ccat(&tokcstr, c);
                 PEEKC(c, p);
@@ -2706,40 +2706,40 @@ maybe_newline:
             ts = tok_alloc(tokcstr.data, tokcstr.size);
         }
         tok = ts->tok;
-        break;
-    case 'L':
+        നിർത്തുക;
+    അവസ്ഥ 'L':
         t = p[1];
-        if (t == '\'' || t == '\"' || t == '\\') {
+        എങ്കിൽ (t == '\'' || t == '\"' || t == '\\') {
             PEEKC(c, p);
-            if (c == '\'' || c == '\"') {
+            എങ്കിൽ (c == '\'' || c == '\"') {
                 is_long = 1;
-                goto str_const;
+                പോകുക str_const;
             }
             *--p = c = 'L';
         }
-        goto parse_ident_fast;
+        പോകുക parse_ident_fast;
 
-    case '0': case '1': case '2': case '3':
-    case '4': case '5': case '6': case '7':
-    case '8': case '9':
+    അവസ്ഥ '0': അവസ്ഥ '1': അവസ്ഥ '2': അവസ്ഥ '3':
+    അവസ്ഥ '4': അവസ്ഥ '5': അവസ്ഥ '6': അവസ്ഥ '7':
+    അവസ്ഥ '8': അവസ്ഥ '9':
         t = c;
         PEEKC(c, p);
         /* after the first digit, accept digits, alpha, '.' or sign if
            prefixed by 'eEpP' */
-    parse_num:
+    parse_അക്കം:
         cstr_reset(&tokcstr);
-        for(;;) {
+        വേണ്ടി(;;) {
             cstr_ccat(&tokcstr, t);
-            if (!((isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+            എങ്കിൽ (!((isidnum_table[c - CH_EOF] & (IS_ID|IS_അക്കം))
                   || c == '.'
                   || ((c == '+' || c == '-')
                       && (((t == 'e' || t == 'E')
                             && !(parse_flags & PARSE_FLAG_ASM_FILE
                                 /* 0xe+1 is 3 tokens in asm */
-                                && ((char*)tokcstr.data)[0] == '0'
-                                && toup(((char*)tokcstr.data)[1]) == 'X'))
+                                && ((അക്ഷരം*)tokcstr.data)[0] == '0'
+                                && toup(((അക്ഷരം*)tokcstr.data)[1]) == 'X'))
                           || t == 'p' || t == 'P'))))
-                break;
+                നിർത്തുക;
             t = c;
             PEEKC(c, p);
         }
@@ -2748,37 +2748,37 @@ maybe_newline:
         tokc.str.size = tokcstr.size;
         tokc.str.data = tokcstr.data;
         tok = TOK_PPNUM;
-        break;
+        നിർത്തുക;
 
-    case '.':
+    അവസ്ഥ '.':
         /* special dot handling because it can also start a number */
         PEEKC(c, p);
-        if (isnum(c)) {
+        എങ്കിൽ (isnum(c)) {
             t = '.';
-            goto parse_num;
-        } else if ((isidnum_table['.' - CH_EOF] & IS_ID)
-                   && (isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))) {
+            പോകുക parse_അക്കം;
+        } അല്ലെങ്കിൽ എങ്കിൽ ((isidnum_table['.' - CH_EOF] & IS_ID)
+                   && (isidnum_table[c - CH_EOF] & (IS_ID|IS_അക്കം))) {
             *--p = c = '.';
-            goto parse_ident_fast;
-        } else if (c == '.') {
+            പോകുക parse_ident_fast;
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '.') {
             PEEKC(c, p);
-            if (c == '.') {
+            എങ്കിൽ (c == '.') {
                 p++;
                 tok = TOK_DOTS;
-            } else {
+            } അല്ലെങ്കിൽ {
                 *--p = '.'; /* may underflow into file->unget[] */
                 tok = '.';
             }
-        } else {
+        } അല്ലെങ്കിൽ {
             tok = '.';
         }
-        break;
-    case '\'':
-    case '\"':
+        നിർത്തുക;
+    അവസ്ഥ '\'':
+    അവസ്ഥ '\"':
         is_long = 0;
     str_const:
         cstr_reset(&tokcstr);
-        if (is_long)
+        എങ്കിൽ (is_long)
             cstr_ccat(&tokcstr, 'L');
         cstr_ccat(&tokcstr, c);
         p = parse_pp_string(p, c, &tokcstr);
@@ -2787,97 +2787,97 @@ maybe_newline:
         tokc.str.size = tokcstr.size;
         tokc.str.data = tokcstr.data;
         tok = TOK_PPSTR;
-        break;
+        നിർത്തുക;
 
-    case '<':
+    അവസ്ഥ '<':
         PEEKC(c, p);
-        if (c == '=') {
+        എങ്കിൽ (c == '=') {
             p++;
             tok = TOK_LE;
-        } else if (c == '<') {
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '<') {
             PEEKC(c, p);
-            if (c == '=') {
+            എങ്കിൽ (c == '=') {
                 p++;
                 tok = TOK_A_SHL;
-            } else {
+            } അല്ലെങ്കിൽ {
                 tok = TOK_SHL;
             }
-        } else {
+        } അല്ലെങ്കിൽ {
             tok = TOK_LT;
         }
-        break;
-    case '>':
+        നിർത്തുക;
+    അവസ്ഥ '>':
         PEEKC(c, p);
-        if (c == '=') {
+        എങ്കിൽ (c == '=') {
             p++;
             tok = TOK_GE;
-        } else if (c == '>') {
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '>') {
             PEEKC(c, p);
-            if (c == '=') {
+            എങ്കിൽ (c == '=') {
                 p++;
                 tok = TOK_A_SAR;
-            } else {
+            } അല്ലെങ്കിൽ {
                 tok = TOK_SAR;
             }
-        } else {
+        } അല്ലെങ്കിൽ {
             tok = TOK_GT;
         }
-        break;
+        നിർത്തുക;
         
-    case '&':
+    അവസ്ഥ '&':
         PEEKC(c, p);
-        if (c == '&') {
+        എങ്കിൽ (c == '&') {
             p++;
             tok = TOK_LAND;
-        } else if (c == '=') {
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '=') {
             p++;
             tok = TOK_A_AND;
-        } else {
+        } അല്ലെങ്കിൽ {
             tok = '&';
         }
-        break;
+        നിർത്തുക;
         
-    case '|':
+    അവസ്ഥ '|':
         PEEKC(c, p);
-        if (c == '|') {
+        എങ്കിൽ (c == '|') {
             p++;
             tok = TOK_LOR;
-        } else if (c == '=') {
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '=') {
             p++;
             tok = TOK_A_OR;
-        } else {
+        } അല്ലെങ്കിൽ {
             tok = '|';
         }
-        break;
+        നിർത്തുക;
 
-    case '+':
+    അവസ്ഥ '+':
         PEEKC(c, p);
-        if (c == '+') {
+        എങ്കിൽ (c == '+') {
             p++;
             tok = TOK_INC;
-        } else if (c == '=') {
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '=') {
             p++;
             tok = TOK_A_ADD;
-        } else {
+        } അല്ലെങ്കിൽ {
             tok = '+';
         }
-        break;
+        നിർത്തുക;
         
-    case '-':
+    അവസ്ഥ '-':
         PEEKC(c, p);
-        if (c == '-') {
+        എങ്കിൽ (c == '-') {
             p++;
             tok = TOK_DEC;
-        } else if (c == '=') {
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '=') {
             p++;
             tok = TOK_A_SUB;
-        } else if (c == '>') {
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '>') {
             p++;
             tok = TOK_ARROW;
-        } else {
+        } അല്ലെങ്കിൽ {
             tok = '-';
         }
-        break;
+        നിർത്തുക;
 
     PARSE2('!', '!', '=', TOK_NE)
     PARSE2('=', '=', '=', TOK_EQ)
@@ -2886,142 +2886,142 @@ maybe_newline:
     PARSE2('^', '^', '=', TOK_A_XOR)
         
         /* comments or operator */
-    case '/':
+    അവസ്ഥ '/':
         PEEKC(c, p);
-        if (c == '*') {
+        എങ്കിൽ (c == '*') {
             p = parse_comment(p);
             /* comments replaced by a blank */
             tok = ' ';
-            goto maybe_space;
-        } else if (c == '/') {
-            p = parse_line_comment(p);
+            പോകുക maybe_space;
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '/') {
+            p = parse_വരി_comment(p);
             tok = ' ';
-            goto maybe_space;
-        } else if (c == '=') {
+            പോകുക maybe_space;
+        } അല്ലെങ്കിൽ എങ്കിൽ (c == '=') {
             p++;
             tok = TOK_A_DIV;
-        } else {
+        } അല്ലെങ്കിൽ {
             tok = '/';
         }
-        break;
+        നിർത്തുക;
         
         /* simple tokens */
-    case '@': /* only used in assembler */
+    അവസ്ഥ '@': /* only used in assembler */
 #ifdef TCC_TARGET_ARM /* comment on arm asm */
-        if (parse_flags & PARSE_FLAG_ASM_FILE) {
-            p = parse_line_comment(p);
-            goto redo_no_start;
+        എങ്കിൽ (parse_flags & PARSE_FLAG_ASM_FILE) {
+            p = parse_വരി_comment(p);
+            പോകുക redo_no_start;
         }
 #endif
-    case '(':
-    case ')':
-    case '[':
-    case ']':
-    case '{':
-    case '}':
-    case ',':
-    case ';':
-    case ':':
-    case '?':
-    case '~':
+    അവസ്ഥ '(':
+    അവസ്ഥ ')':
+    അവസ്ഥ '[':
+    അവസ്ഥ ']':
+    അവസ്ഥ '{':
+    അവസ്ഥ '}':
+    അവസ്ഥ ',':
+    അവസ്ഥ ';':
+    അവസ്ഥ ':':
+    അവസ്ഥ '?':
+    അവസ്ഥ '~':
     parse_simple:
         tok = c;
         p++;
-        break;
-    case 0xEF: /* UTF8 BOM ? */
-        if (p[1] == 0xBB && p[2] == 0xBF && p == file->buffer) {
+        നിർത്തുക;
+    അവസ്ഥ 0xEF: /* UTF8 BOM ? */
+        എങ്കിൽ (p[1] == 0xBB && p[2] == 0xBF && p == file->buffer) {
             p += 3;
-            goto redo_no_start;
+            പോകുക redo_no_start;
         }
-    default:
-        if (c >= 0x80 && c <= 0xFF) /* utf8 identifiers */
-	    goto parse_ident_fast;
-        if (parse_flags & PARSE_FLAG_ASM_FILE)
-            goto parse_simple;
+    സ്ഥിരസ്ഥിതി:
+        എങ്കിൽ (c >= 0x80 && c <= 0xFF) /* utf8 identifiers */
+	    പോകുക parse_ident_fast;
+        എങ്കിൽ (parse_flags & PARSE_FLAG_ASM_FILE)
+            പോകുക parse_simple;
         tcc_error("unrecognized character \\x%02x", c);
-        break;
+        നിർത്തുക;
     }
     tok_flags = 0;
 keep_tok_flags:
     file->buf_ptr = p;
-#if defined(PARSE_DEBUG)
+#എങ്കിൽ defined(PARSE_DEBUG)
     printf("token = %d %s\n", tok, get_tok_str(tok, &tokc));
 #endif
 }
 
 #ifdef PP_DEBUG
-static int indent;
-static void define_print(TCCState *s1, int v);
-static void pp_print(const char *msg, int v, const int *str)
+സ്ഥിതം പൂർണ്ണസംഖ്യ indent;
+സ്ഥിതം ശൂന്യം define_print(TCCState *s1, പൂർണ്ണസംഖ്യ v);
+സ്ഥിതം ശൂന്യം pp_print(സ്ഥിരം അക്ഷരം *സന്ദേശം, പൂർണ്ണസംഖ്യ v, സ്ഥിരം പൂർണ്ണസംഖ്യ *str)
 {
     FILE *fp = tcc_state->ppfp;
 
-    if (msg[0] == '#' && indent == 0)
+    എങ്കിൽ (സന്ദേശം[0] == '#' && indent == 0)
         fprintf(fp, "\n");
-    else if (msg[0] == '+')
-         ++indent, ++msg;
-    else if (msg[0] == '-')
-        --indent, ++msg;
+    അല്ലെങ്കിൽ എങ്കിൽ (സന്ദേശം[0] == '+')
+         ++indent, ++സന്ദേശം;
+    അല്ലെങ്കിൽ എങ്കിൽ (സന്ദേശം[0] == '-')
+        --indent, ++സന്ദേശം;
 
     fprintf(fp, "%*s", indent, "");
-    if (msg[0] == '#') {
+    എങ്കിൽ (സന്ദേശം[0] == '#') {
         define_print(tcc_state, v);
-    } else {
-        tok_print(str, v ? "%s %s" : "%s", msg, get_tok_str(v, 0));
+    } അല്ലെങ്കിൽ {
+        tok_print(str, v ? "%s %s" : "%s", സന്ദേശം, get_tok_str(v, 0));
     }
 }
 #define PP_PRINT(x) pp_print x
-#else
+#അല്ലെങ്കിൽ
 #define PP_PRINT(x)
 #endif
 
-static int macro_subst(
+സ്ഥിതം പൂർണ്ണസംഖ്യ macro_subst(
     TokenString *tok_str,
     Sym **nested_list,
-    const int *macro_str
+    സ്ഥിരം പൂർണ്ണസംഖ്യ *macro_str
     );
 
 /* substitute arguments in replacement lists in macro_str by the values in
    args (field d) and return allocated string */
-static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
+സ്ഥിതം പൂർണ്ണസംഖ്യ *macro_arg_subst(Sym **nested_list, സ്ഥിരം പൂർണ്ണസംഖ്യ *macro_str, Sym *args)
 {
-    int t, t0, t1, t2, n;
-    const int *st;
+    പൂർണ്ണസംഖ്യ t, t0, t1, t2, n;
+    സ്ഥിരം പൂർണ്ണസംഖ്യ *st;
     Sym *s;
     CValue cval;
     TokenString str;
 
 #ifdef PP_DEBUG
     PP_PRINT(("asubst:", 0, macro_str));
-    for (s = args, n = 0; s; s = s->prev, ++n);
-    while (n--) {
-        for (s = args, t = 0; t < n; s = s->prev, ++t);
+    വേണ്ടി (s = args, n = 0; s; s = s->prev, ++n);
+    ആകുമ്പോൾ (n--) {
+        വേണ്ടി (s = args, t = 0; t < n; s = s->prev, ++t);
         tok_print(s->d, "%*s - arg: %s:", indent, "", get_tok_str(s->v, 0));
     }
 #endif
 
     tok_str_new(&str);
     t0 = t1 = 0;
-    while(1) {
+    ആകുമ്പോൾ(1) {
         TOK_GET(&t, &macro_str, &cval);
-        if (!t)
-            break;
-        if (t == '#') {
+        എങ്കിൽ (!t)
+            നിർത്തുക;
+        എങ്കിൽ (t == '#') {
             /* stringize */
-            do t = *macro_str++; while (t == ' ');
+            ചെയ്യുക t = *macro_str++; ആകുമ്പോൾ (t == ' ');
             s = sym_find2(args, t);
-            if (s) {
+            എങ്കിൽ (s) {
                 cstr_reset(&tokcstr);
                 cstr_ccat(&tokcstr, '\"');
                 st = s->d;
-                while (*st != TOK_EOF) {
-                    const char *s;
+                ആകുമ്പോൾ (*st != TOK_EOF) {
+                    സ്ഥിരം അക്ഷരം *s;
                     TOK_GET(&t, &st, &cval);
                     s = get_tok_str(t, &cval);
-                    while (*s) {
-                        if (t == TOK_PPSTR && *s != '\'')
+                    ആകുമ്പോൾ (*s) {
+                        എങ്കിൽ (t == TOK_PPSTR && *s != '\'')
                             add_char(&tokcstr, *s);
-                        else
+                        അല്ലെങ്കിൽ
                             cstr_ccat(&tokcstr, *s);
                         ++s;
                     }
@@ -3034,44 +3034,44 @@ static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
                 cval.str.data = tokcstr.data;
                 tok_str_add2(&str, TOK_PPSTR, &cval);
 #ifdef TCC_TARGET_ARM
-            } else if ((parse_flags & PARSE_FLAG_ASM_FILE) && t == TOK_PPNUM) {
+            } അല്ലെങ്കിൽ എങ്കിൽ ((parse_flags & PARSE_FLAG_ASM_FILE) && t == TOK_PPNUM) {
                 /* for example: mov r1,#0 */
                 --macro_str, tok_str_add(&str, '#');
 #endif
-            } else {
+            } അല്ലെങ്കിൽ {
                 expect("macro parameter after '#'");
             }
-        } else if (t >= TOK_IDENT) {
+        } അല്ലെങ്കിൽ എങ്കിൽ (t >= TOK_IDENT) {
             s = sym_find2(args, t);
-            if (s) {
+            എങ്കിൽ (s) {
                 st = s->d;
                 n = 0;
-                while ((t2 = macro_str[n]) == ' ')
+                ആകുമ്പോൾ ((t2 = macro_str[n]) == ' ')
                     ++n;
                 /* if '##' is present before or after, no arg substitution */
-                if (t2 == TOK_PPJOIN || t1 == TOK_PPJOIN) {
+                എങ്കിൽ (t2 == TOK_PPJOIN || t1 == TOK_PPJOIN) {
                     /* special case for var arg macros : ## eats the ','
                        if empty VA_ARGS variable. */
-                    if (t1 == TOK_PPJOIN && t0 == ',' && gnu_ext && s->type.t) {
-                        int c = str.str[str.len - 1];
-                        while (str.str[--str.len] != ',')
+                    എങ്കിൽ (t1 == TOK_PPJOIN && t0 == ',' && gnu_ext && s->type.t) {
+                        പൂർണ്ണസംഖ്യ c = str.str[str.len - 1];
+                        ആകുമ്പോൾ (str.str[--str.len] != ',')
                             ;
-                        if (*st == TOK_EOF) {
+                        എങ്കിൽ (*st == TOK_EOF) {
                             /* suppress ',' '##' */
-                        } else {
+                        } അല്ലെങ്കിൽ {
                             /* suppress '##' and add variable */
                             str.len++;
-                            if (c == ' ')
+                            എങ്കിൽ (c == ' ')
                                 str.str[str.len++] = c;
-                            goto add_var;
+                            പോകുക add_var;
                         }
-                    } else {
-                        if (*st == TOK_EOF)
+                    } അല്ലെങ്കിൽ {
+                        എങ്കിൽ (*st == TOK_EOF)
                             tok_str_add(&str, TOK_PLCHLDR);
                     }
-                } else {
+                } അല്ലെങ്കിൽ {
             add_var:
-		    if (!s->e) {
+		    എങ്കിൽ (!s->e) {
 			/* Expand arguments tokens and store them.  In most
 			   cases we could also re-expand each argument if
 			   used multiple times, but not if the argument
@@ -3084,66 +3084,66 @@ static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
 		    }
 		    st = s->e;
                 }
-                while (*st != TOK_EOF) {
+                ആകുമ്പോൾ (*st != TOK_EOF) {
                     TOK_GET(&t2, &st, &cval);
                     tok_str_add2(&str, t2, &cval);
                 }
-            } else {
+            } അല്ലെങ്കിൽ {
                 tok_str_add(&str, t);
             }
-        } else {
+        } അല്ലെങ്കിൽ {
             tok_str_add2(&str, t, &cval);
         }
-        if (t != ' ')
+        എങ്കിൽ (t != ' ')
             t0 = t1, t1 = t;
     }
     tok_str_add(&str, 0);
     PP_PRINT(("areslt:", 0, str.str));
-    return str.str;
+    തിരികെ str.str;
 }
 
 /* handle the '##' operator. return the resulting string (which must be freed). */
-static inline int *macro_twosharps(const int *ptr0)
+സ്ഥിതം വരിയിൽ പൂർണ്ണസംഖ്യ *macro_twosharps(സ്ഥിരം പൂർണ്ണസംഖ്യ *ptr0)
 {
-    int t1, t2, n, l;
+    പൂർണ്ണസംഖ്യ t1, t2, n, l;
     CValue cv1, cv2;
     TokenString macro_str1;
-    const int *ptr;
+    സ്ഥിരം പൂർണ്ണസംഖ്യ *ptr;
 
     tok_str_new(&macro_str1);
     cstr_reset(&tokcstr);
-    for (ptr = ptr0;;) {
+    വേണ്ടി (ptr = ptr0;;) {
         TOK_GET(&t1, &ptr, &cv1);
-        if (t1 == 0)
-            break;
-        for (;;) {
+        എങ്കിൽ (t1 == 0)
+            നിർത്തുക;
+        വേണ്ടി (;;) {
             n = 0;
-            while ((t2 = ptr[n]) == ' ')
+            ആകുമ്പോൾ ((t2 = ptr[n]) == ' ')
                 ++n;
-            if (t2 != TOK_PPJOIN)
-                break;
+            എങ്കിൽ (t2 != TOK_PPJOIN)
+                നിർത്തുക;
             ptr += n;
-            while ((t2 = *++ptr) == ' ' || t2 == TOK_PPJOIN)
+            ആകുമ്പോൾ ((t2 = *++ptr) == ' ' || t2 == TOK_PPJOIN)
                 ;
             TOK_GET(&t2, &ptr, &cv2);
-            if (t2 == TOK_PLCHLDR)
-                continue;
-            if (t1 != TOK_PLCHLDR) {
+            എങ്കിൽ (t2 == TOK_PLCHLDR)
+                തുടരുക;
+            എങ്കിൽ (t1 != TOK_PLCHLDR) {
                 cstr_cat(&tokcstr, get_tok_str(t1, &cv1), -1);
                 t1 = TOK_PLCHLDR;
             }
             cstr_cat(&tokcstr, get_tok_str(t2, &cv2), -1);
         }
-        if (tokcstr.size) {
+        എങ്കിൽ (tokcstr.size) {
             cstr_ccat(&tokcstr, 0);
             tcc_open_bf(tcc_state, ":paste:", tokcstr.size);
             memcpy(file->buffer, tokcstr.data, tokcstr.size);
             tok_flags = 0; /* don't interpret '#' */
-            for (n = 0;;n = l) {
+            വേണ്ടി (n = 0;;n = l) {
                 next_nomacro();
                 tok_str_add2(&macro_str1, tok, &tokc);
-                if (*file->buf_ptr == 0)
-                    break;
+                എങ്കിൽ (*file->buf_ptr == 0)
+                    നിർത്തുക;
                 tok_str_add(&macro_str1, ' ');
                 l = file->buf_ptr - file->buffer;
                 tcc_warning("pasting \"%.*s\" and \"%s\" does not give a valid"
@@ -3152,81 +3152,81 @@ static inline int *macro_twosharps(const int *ptr0)
             tcc_close();
             cstr_reset(&tokcstr);
         }
-        if (t1 != TOK_PLCHLDR)
+        എങ്കിൽ (t1 != TOK_PLCHLDR)
             tok_str_add2(&macro_str1, t1, &cv1);
     }
     tok_str_add(&macro_str1, 0);
     PP_PRINT(("pasted:", 0, macro_str1.str));
-    return macro_str1.str;
+    തിരികെ macro_str1.str;
 }
 
-static int peek_file (TokenString *ws_str)
+സ്ഥിതം പൂർണ്ണസംഖ്യ peek_file (TokenString *ws_str)
 {
     uint8_t *p = file->buf_ptr - 1;
-    int c;
-    for (;;) {
+    പൂർണ്ണസംഖ്യ c;
+    വേണ്ടി (;;) {
         PEEKC(c, p);
-        switch (c) {
-        case '/':
+        തിരഞ്ഞെടുപ്പ് (c) {
+        അവസ്ഥ '/':
             PEEKC(c, p);
-            if (c == '*')
+            എങ്കിൽ (c == '*')
                 p = parse_comment(p);
-            else if (c == '/')
-                p = parse_line_comment(p);
-            else {
+            അല്ലെങ്കിൽ എങ്കിൽ (c == '/')
+                p = parse_വരി_comment(p);
+            അല്ലെങ്കിൽ {
                 c = *--p = '/';
-                goto leave;
+                പോകുക leave;
             }
             --p, c = ' ';
-            break;
-        case ' ': case '\t':
-            break;
-        case '\f': case '\v': case '\r':
-            continue;
-        case '\n':
-            file->line_num++, tok_flags |= TOK_FLAG_BOL;
-            break;
-        default: leave:
+            നിർത്തുക;
+        അവസ്ഥ ' ': അവസ്ഥ '\t':
+            നിർത്തുക;
+        അവസ്ഥ '\f': അവസ്ഥ '\v': അവസ്ഥ '\r':
+            തുടരുക;
+        അവസ്ഥ '\n':
+            file->വരി_അക്കം++, tok_flags |= TOK_FLAG_BOL;
+            നിർത്തുക;
+        സ്ഥിരസ്ഥിതി: leave:
             file->buf_ptr = p;
-            return c;
+            തിരികെ c;
         }
-        if (ws_str)
+        എങ്കിൽ (ws_str)
             tok_str_add(ws_str, c);
     }
 }
 
 /* peek or read [ws_str == NULL] next token from function macro call,
    walking up macro levels up to the file if necessary */
-static int next_argstream(Sym **nested_list, TokenString *ws_str)
+സ്ഥിതം പൂർണ്ണസംഖ്യ next_argstream(Sym **nested_list, TokenString *ws_str)
 {
-    int t;
+    പൂർണ്ണസംഖ്യ t;
     Sym *sa;
 
-    while (macro_ptr) {
-        const int *m = macro_ptr;
-        while ((t = *m) != 0) {
-            if (ws_str) {
-                if (t != ' ')
-                    return t;
+    ആകുമ്പോൾ (macro_ptr) {
+        സ്ഥിരം പൂർണ്ണസംഖ്യ *m = macro_ptr;
+        ആകുമ്പോൾ ((t = *m) != 0) {
+            എങ്കിൽ (ws_str) {
+                എങ്കിൽ (t != ' ')
+                    തിരികെ t;
                 ++m;
-            } else {
+            } അല്ലെങ്കിൽ {
                 TOK_GET(&tok, &macro_ptr, &tokc);
-                return tok;
+                തിരികെ tok;
             }
         }
         end_macro();
         /* also, end of scope for nested defined symbol */
         sa = *nested_list;
-        if (sa)
+        എങ്കിൽ (sa)
             *nested_list = sa->prev, sym_free(sa);
     }
-    if (ws_str) {
-        return peek_file(ws_str);
-    } else {
+    എങ്കിൽ (ws_str) {
+        തിരികെ peek_file(ws_str);
+    } അല്ലെങ്കിൽ {
         next_nomacro();
-        if (tok == '\t' || tok == TOK_LINEFEED)
+        എങ്കിൽ (tok == '\t' || tok == TOK_LINEFEED)
             tok = ' ';
-        return tok;
+        തിരികെ tok;
     }
 }
 
@@ -3234,25 +3234,25 @@ static int next_argstream(Sym **nested_list, TokenString *ws_str)
    result to (tok_str,tok_len). 'nested_list' is the list of all
    macros we got inside to avoid recursing. Return non zero if no
    substitution needs to be done */
-static int macro_subst_tok(
+സ്ഥിതം പൂർണ്ണസംഖ്യ macro_subst_tok(
     TokenString *tok_str,
     Sym **nested_list,
     Sym *s)
 {
-    int t;
-    int v = s->v;
+    പൂർണ്ണസംഖ്യ t;
+    പൂർണ്ണസംഖ്യ v = s->v;
 
     PP_PRINT(("#", v, s->d));
-    if (s->d) {
-        int *mstr = s->d;
-        int *jstr;
+    എങ്കിൽ (s->d) {
+        പൂർണ്ണസംഖ്യ *mstr = s->d;
+        പൂർണ്ണസംഖ്യ *jstr;
         Sym *sa;
-        int ret;
+        പൂർണ്ണസംഖ്യ ret;
 
-        if (s->type.t & MACRO_FUNC) {
-            int saved_parse_flags = parse_flags;
+        എങ്കിൽ (s->type.t & MACRO_FUNC) {
+            പൂർണ്ണസംഖ്യ saved_parse_flags = parse_flags;
             TokenString str;
-            int parlevel, i;
+            പൂർണ്ണസംഖ്യ parlevel, i;
             Sym *sa1, *args;
 
             parse_flags |= PARSE_FLAG_SPACES | PARSE_FLAG_LINEFEED
@@ -3261,35 +3261,35 @@ static int macro_subst_tok(
             tok_str_new(&str);
             /* peek next token from argument stream */
             t = next_argstream(nested_list, &str);
-            if (t != '(') {
+            എങ്കിൽ (t != '(') {
                 /* not a macro substitution after all, restore the
                  * macro token plus all whitespace we've read.
                  * whitespace is intentionally not merged to preserve
                  * newlines. */
                 parse_flags = saved_parse_flags;
                 tok_str_add2_spc(tok_str, v, 0);
-                if (parse_flags & PARSE_FLAG_SPACES)
-                    for (i = 0; i < str.len; i++)
+                എങ്കിൽ (parse_flags & PARSE_FLAG_SPACES)
+                    വേണ്ടി (i = 0; i < str.len; i++)
                         tok_str_add(tok_str, str.str[i]);
                 tok_str_free_str(str.str);
-                return 0;
-            } else {
+                തിരികെ 0;
+            } അല്ലെങ്കിൽ {
                 tok_str_free_str(str.str);
             }
 
             /* argument macro */
-            args = NULL;
+            args = ശൂന്യ;
             sa = s->next;
             /* NOTE: empty args are allowed, except if no args */
             i = 2; /* eat '(' */
-            for(;;) {
-                do {
-                    t = next_argstream(nested_list, NULL);
-                } while (t == ' ' || --i);
+            വേണ്ടി(;;) {
+                ചെയ്യുക {
+                    t = next_argstream(nested_list, ശൂന്യ);
+                } ആകുമ്പോൾ (t == ' ' || --i);
 
-                if (!sa) {
-                    if (t == ')') /* handle '()' case */
-                        break;
+                എങ്കിൽ (!sa) {
+                    എങ്കിൽ (t == ')') /* handle '()' case */
+                        നിർത്തുക;
                     tcc_error("macro '%s' used with too many args",
                         get_tok_str(v, 0));
                 }
@@ -3297,32 +3297,32 @@ static int macro_subst_tok(
                 tok_str_new(&str);
                 parlevel = 0;
                 /* NOTE: non zero sa->type.t indicates VA_ARGS */
-                while (parlevel > 0
+                ആകുമ്പോൾ (parlevel > 0
                         || (t != ')' && (t != ',' || sa->type.t))) {
-                    if (t == TOK_EOF)
+                    എങ്കിൽ (t == TOK_EOF)
                         tcc_error("EOF in invocation of macro '%s'",
                             get_tok_str(v, 0));
-                    if (t == '(')
+                    എങ്കിൽ (t == '(')
                         parlevel++;
-                    if (t == ')')
+                    എങ്കിൽ (t == ')')
                         parlevel--;
-                    if (t == ' ')
+                    എങ്കിൽ (t == ' ')
                         str.need_spc |= 1;
-                    else
+                    അല്ലെങ്കിൽ
                         tok_str_add2_spc(&str, t, &tokc);
-                    t = next_argstream(nested_list, NULL);
+                    t = next_argstream(nested_list, ശൂന്യ);
                 }
                 tok_str_add(&str, TOK_EOF);
                 sa1 = sym_push2(&args, sa->v & ~SYM_FIELD, sa->type.t, 0);
                 sa1->d = str.str;
                 sa = sa->next;
-                if (t == ')') {
-                    if (!sa)
-                        break;
+                എങ്കിൽ (t == ')') {
+                    എങ്കിൽ (!sa)
+                        നിർത്തുക;
                     /* special case for gcc var args: add an empty
                        var arg argument if it is omitted */
-                    if (sa->type.t && gnu_ext)
-                        goto empty_arg;
+                    എങ്കിൽ (sa->type.t && gnu_ext)
+                        പോകുക empty_arg;
                     tcc_error("macro '%s' used with too few args",
                         get_tok_str(v, 0));
                 }
@@ -3333,7 +3333,7 @@ static int macro_subst_tok(
             mstr = macro_arg_subst(nested_list, mstr, args);
             /* free memory */
             sa = args;
-            while (sa) {
+            ആകുമ്പോൾ (sa) {
                 sa1 = sa->prev;
                 tok_str_free_str(sa->d);
                 tok_str_free_str(sa->e);
@@ -3345,50 +3345,50 @@ static int macro_subst_tok(
 
         /* process '##'s (if present) */
         jstr = mstr;
-        if (s->type.t & MACRO_JOIN)
+        എങ്കിൽ (s->type.t & MACRO_JOIN)
             jstr = macro_twosharps(mstr);
 
         sa = sym_push2(nested_list, v, 0, 0);
         ret = macro_subst(tok_str, nested_list, jstr);
         /* pop nested defined symbol */
-        if (sa == *nested_list)
+        എങ്കിൽ (sa == *nested_list)
             *nested_list = sa->prev, sym_free(sa);
 
-        if (jstr != mstr)
+        എങ്കിൽ (jstr != mstr)
             tok_str_free_str(jstr);
-        if (mstr != s->d)
+        എങ്കിൽ (mstr != s->d)
             tok_str_free_str(mstr);
-        return ret;
+        തിരികെ ret;
 
-    } else {
+    } അല്ലെങ്കിൽ {
         CValue cval;
-        char buf[32], *cstrval = buf;
+        അക്ഷരം buf[32], *cstrval = buf;
 
         /* special macros */
-        if (v == TOK___LINE__ || v == TOK___COUNTER__) {
-            t = v == TOK___LINE__ ? file->line_num : pp_counter++;
-            snprintf(buf, sizeof(buf), "%d", t);
+        എങ്കിൽ (v == TOK_വരി_2 || v == TOK___COUNTER__) {
+            t = v == TOK_വരി_2 ? file->വരി_അക്കം : pp_counter++;
+            snprintf(buf, വലുപ്പം(buf), "%d", t);
             t = TOK_PPNUM;
-            goto add_cstr1;
+            പോകുക add_cstr1;
 
-        } else if (v == TOK___FILE__) {
+        } അല്ലെങ്കിൽ എങ്കിൽ (v == TOK___FILE__) {
             cstrval = file->filename;
-            goto add_cstr;
+            പോകുക add_cstr;
 
-        } else if (v == TOK___DATE__ || v == TOK___TIME__) {
+        } അല്ലെങ്കിൽ എങ്കിൽ (v == TOK___DATE__ || v == TOK___TIME__) {
             time_t ti;
-            struct tm *tm;
+            ഘടന tm *tm;
             time(&ti);
             tm = localtime(&ti);
-            if (v == TOK___DATE__) {
-                static char const ab_month_name[12][4] = {
+            എങ്കിൽ (v == TOK___DATE__) {
+                സ്ഥിതം അക്ഷരം സ്ഥിരം ab_month_name[12][4] = {
                     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
                 };
-                snprintf(buf, sizeof(buf), "%s %2d %d",
+                snprintf(buf, വലുപ്പം(buf), "%s %2d %d",
                     ab_month_name[tm->tm_mon], tm->tm_mday, tm->tm_year + 1900);
-            } else {
-                snprintf(buf, sizeof(buf), "%02d:%02d:%02d",
+            } അല്ലെങ്കിൽ {
+                snprintf(buf, വലുപ്പം(buf), "%02d:%02d:%02d",
                     tm->tm_hour, tm->tm_min, tm->tm_sec);
             }
         add_cstr:
@@ -3398,63 +3398,63 @@ static int macro_subst_tok(
             cval.str.data = cstrval;
             tok_str_add2_spc(tok_str, t, &cval);
         }
-        return 0;
+        തിരികെ 0;
     }
 }
 
 /* do macro substitution of macro_str and add result to
    (tok_str,tok_len). 'nested_list' is the list of all macros we got
    inside to avoid recursing. */
-static int macro_subst(
+സ്ഥിതം പൂർണ്ണസംഖ്യ macro_subst(
     TokenString *tok_str,
     Sym **nested_list,
-    const int *macro_str
+    സ്ഥിരം പൂർണ്ണസംഖ്യ *macro_str
     )
 {
     Sym *s;
-    int t, nosubst = 0;
+    പൂർണ്ണസംഖ്യ t, nosubst = 0;
     CValue cval;
     TokenString *str;
 
 #ifdef PP_DEBUG
-    int tlen = tok_str->len;
+    പൂർണ്ണസംഖ്യ tlen = tok_str->len;
     PP_PRINT(("+expand:", 0, macro_str));
 #endif
 
-    while (1) {
+    ആകുമ്പോൾ (1) {
         TOK_GET(&t, &macro_str, &cval);
-        if (t == 0 || t == TOK_EOF)
-            break;
-        if (t >= TOK_IDENT) {
+        എങ്കിൽ (t == 0 || t == TOK_EOF)
+            നിർത്തുക;
+        എങ്കിൽ (t >= TOK_IDENT) {
             s = define_find(t);
-            if (s == NULL || nosubst)
-                goto no_subst;
+            എങ്കിൽ (s == ശൂന്യ || nosubst)
+                പോകുക no_subst;
             /* if nested substitution, do nothing */
-            if (sym_find2(*nested_list, t)) {
+            എങ്കിൽ (sym_find2(*nested_list, t)) {
                 /* and mark so it doesn't get subst'd again */
                 t |= SYM_FIELD;
-                goto no_subst;
+                പോകുക no_subst;
             }
             str = tok_str_alloc();
-            str->str = (int*)macro_str; /* setup stream for possible arguments */
+            str->str = (പൂർണ്ണസംഖ്യ*)macro_str; /* setup stream for possible arguments */
             begin_macro(str, 2);
             nosubst = macro_subst_tok(tok_str, nested_list, s);
-            if (macro_stack != str) {
+            എങ്കിൽ (macro_അട്ടി != str) {
                 /* already finished by reading function macro arguments */
-                break;
+                നിർത്തുക;
             }
             macro_str = macro_ptr;
             end_macro ();
-        } else if (t == ' ') {
-            if (parse_flags & PARSE_FLAG_SPACES)
+        } അല്ലെങ്കിൽ എങ്കിൽ (t == ' ') {
+            എങ്കിൽ (parse_flags & PARSE_FLAG_SPACES)
                 tok_str->need_spc |= 1;
-        } else {
+        } അല്ലെങ്കിൽ {
     no_subst:
             tok_str_add2_spc(tok_str, t, &cval);
-            if (nosubst && t != '(')
+            എങ്കിൽ (nosubst && t != '(')
                 nosubst = 0;
             /* GCC supports 'defined' as result of a macro substitution */
-            if (t == TOK_DEFINED && pp_expr)
+            എങ്കിൽ (t == TOK_DEFINED && pp_വ്യഞ്ജകം)
                 nosubst = 1;
         }
     }
@@ -3463,76 +3463,76 @@ static int macro_subst(
     tok_str_add(tok_str, 0), --tok_str->len;
     PP_PRINT(("-result:", 0, tok_str->str + tlen));
 #endif
-    return nosubst;
+    തിരികെ nosubst;
 }
 
 /* return next token with macro substitution */
-ST_FUNC void next(void)
+ST_FUNC ശൂന്യം next(ശൂന്യം)
 {
-    int t;
-    while (macro_ptr) {
+    പൂർണ്ണസംഖ്യ t;
+    ആകുമ്പോൾ (macro_ptr) {
 redo:
         t = *macro_ptr;
-        if (TOK_HAS_VALUE(t)) {
+        എങ്കിൽ (TOK_HAS_മൂല്യം(t)) {
             tok_get(&tok, &macro_ptr, &tokc);
-            if (t == TOK_LINENUM) {
-                file->line_num = tokc.i;
-                goto redo;
+            എങ്കിൽ (t == TOK_LINENUM) {
+                file->വരി_അക്കം = tokc.i;
+                പോകുക redo;
             }
-            goto convert;
-        } else if (t == 0) {
+            പോകുക convert;
+        } അല്ലെങ്കിൽ എങ്കിൽ (t == 0) {
             /* end of macro or unget token string */
             end_macro();
-            continue;
-        } else if (t == TOK_EOF) {
+            തുടരുക;
+        } അല്ലെങ്കിൽ എങ്കിൽ (t == TOK_EOF) {
             /* do nothing */
-        } else {
+        } അല്ലെങ്കിൽ {
             ++macro_ptr;
             t &= ~SYM_FIELD; /* remove 'nosubst' marker */
-            if (t == '\\') {
-                if (!(parse_flags & PARSE_FLAG_ACCEPT_STRAYS))
+            എങ്കിൽ (t == '\\') {
+                എങ്കിൽ (!(parse_flags & PARSE_FLAG_ACCEPT_STRAYS))
                     tcc_error("stray '\\' in program");
             }
         }
         tok = t;
-        return;
+        തിരികെ;
     }
 
     next_nomacro();
     t = tok;
-    if (t >= TOK_IDENT && (parse_flags & PARSE_FLAG_PREPROCESS)) {
+    എങ്കിൽ (t >= TOK_IDENT && (parse_flags & PARSE_FLAG_PREPROCESS)) {
         /* if reading from file, try to substitute macros */
         Sym *s = define_find(t);
-        if (s) {
-            Sym *nested_list = NULL;
+        എങ്കിൽ (s) {
+            Sym *nested_list = ശൂന്യ;
             macro_subst_tok(&tokstr_buf, &nested_list, s);
             tok_str_add(&tokstr_buf, 0);
             begin_macro(&tokstr_buf, 0);
-            goto redo;
+            പോകുക redo;
         }
-        return;
+        തിരികെ;
     }
 
 convert:
     /* convert preprocessor tokens into C tokens */
-    if (t == TOK_PPNUM) {
-        if  (parse_flags & PARSE_FLAG_TOK_NUM)
-            parse_number(tokc.str.data);
-    } else if (t == TOK_PPSTR) {
-        if (parse_flags & PARSE_FLAG_TOK_STR)
+    എങ്കിൽ (t == TOK_PPNUM) {
+        എങ്കിൽ  (parse_flags & PARSE_FLAG_TOK_അക്കം)
+            parse_സംഖ്യ(tokc.str.data);
+    } അല്ലെങ്കിൽ എങ്കിൽ (t == TOK_PPSTR) {
+        എങ്കിൽ (parse_flags & PARSE_FLAG_TOK_STR)
             parse_string(tokc.str.data, tokc.str.size - 1);
     }
 }
 
 /* push back current token and set current token to 'last_tok'. Only
    identifier case handled for labels. */
-ST_INLN void unget_tok(int last_tok)
+ST_INLN ശൂന്യം unget_tok(പൂർണ്ണസംഖ്യ last_tok)
 {
     TokenString *str = &unget_buf;
-    int alloc = 0;
-    if (str->len) /* use static buffer except if already in use */
+    പൂർണ്ണസംഖ്യ alloc = 0;
+    എങ്കിൽ (str->len) /* use static buffer except if already in use */
         str = tok_str_alloc(), alloc = 1;
-    if (tok != TOK_EOF)
+    എങ്കിൽ (tok != TOK_EOF)
         tok_str_add2(str, tok, &tokc);
     tok_str_add(str, 0);
     begin_macro(str, alloc);
@@ -3542,14 +3542,14 @@ ST_INLN void unget_tok(int last_tok)
 /* ------------------------------------------------------------------------- */
 /* init preprocessor */
 
-static const char * const target_os_defs =
+സ്ഥിതം സ്ഥിരം അക്ഷരം * സ്ഥിരം target_os_defs =
 #ifdef TCC_TARGET_PE
     "_WIN32\0"
-# if PTR_SIZE == 8
+# എങ്കിൽ PTR_SIZE == 8
     "_WIN64\0"
 # endif
-#else
-# if defined TCC_TARGET_MACHO
+#അല്ലെങ്കിൽ
+# എങ്കിൽ defined TCC_TARGET_MACHO
     "__APPLE__\0"
 # elif TARGETOS_FreeBSD
     "__FreeBSD__ 12\0"
@@ -3559,10 +3559,10 @@ static const char * const target_os_defs =
     "__NetBSD__\0"
 # elif TARGETOS_OpenBSD
     "__OpenBSD__\0"
-# else
+# അല്ലെങ്കിൽ
     "__linux__\0"
     "__linux\0"
-#  if TARGETOS_ANDROID
+#  എങ്കിൽ TARGETOS_ANDROID
     "__ANDROID__\0"
 #  endif
 # endif
@@ -3571,60 +3571,60 @@ static const char * const target_os_defs =
 #endif
     ;
 
-static void putdef(CString *cs, const char *p)
+സ്ഥിതം ശൂന്യം putdef(CString *cs, സ്ഥിരം അക്ഷരം *p)
 {
     cstr_printf(cs, "#define %s%s\n", p, &" 1"[!!strchr(p, ' ')*2]);
 }
 
-static void putdefs(CString *cs, const char *p)
+സ്ഥിതം ശൂന്യം putdefs(CString *cs, സ്ഥിരം അക്ഷരം *p)
 {
-    while (*p)
+    ആകുമ്പോൾ (*p)
         putdef(cs, p), p = strchr(p, 0) + 1;
 }
 
-static void tcc_predefs(TCCState *s1, CString *cs, int is_asm)
+സ്ഥിതം ശൂന്യം tcc_predefs(TCCState *s1, CString *cs, പൂർണ്ണസംഖ്യ is_asm)
 {
     cstr_printf(cs, "#define __TINYC__ 9%.2s\n", &TCC_VERSION[4]);
     putdefs(cs, target_machine_defs);
     putdefs(cs, target_os_defs);
 
 #ifdef TCC_TARGET_ARM
-    if (s1->float_abi == ARM_HARD_FLOAT)
+    എങ്കിൽ (s1->float_abi == ARM_HARD_FLOAT)
       putdef(cs, "__ARM_PCS_VFP");
 #endif
-    if (is_asm)
+    എങ്കിൽ (is_asm)
       putdef(cs, "__ASSEMBLER__");
-    if (s1->output_type == TCC_OUTPUT_PREPROCESS)
+    എങ്കിൽ (s1->output_type == TCC_OUTPUT_PREPROCESS)
       putdef(cs, "__TCC_PP__");
-    if (s1->output_type == TCC_OUTPUT_MEMORY)
+    എങ്കിൽ (s1->output_type == TCC_OUTPUT_MEMORY)
       putdef(cs, "__TCC_RUN__");
 #ifdef CONFIG_TCC_BACKTRACE
-    if (s1->do_backtrace)
+    എങ്കിൽ (s1->do_backtrace)
       putdef(cs, "__TCC_BACKTRACE__");
 #endif
 #ifdef CONFIG_TCC_BCHECK
-    if (s1->do_bounds_check)
+    എങ്കിൽ (s1->do_bounds_check)
       putdef(cs, "__TCC_BCHECK__");
 #endif
-    if (s1->char_is_unsigned)
+    എങ്കിൽ (s1->char_is_unsigned)
       putdef(cs, "__CHAR_UNSIGNED__");
-    if (s1->optimize > 0)
+    എങ്കിൽ (s1->optimize > 0)
       putdef(cs, "__OPTIMIZE__");
-    if (s1->option_pthread)
+    എങ്കിൽ (s1->option_pthread)
       putdef(cs, "_REENTRANT");
-    if (s1->leading_underscore)
+    എങ്കിൽ (s1->leading_underscore)
       putdef(cs, "__leading_underscore");
     cstr_printf(cs, "#define __SIZEOF_POINTER__ %d\n", PTR_SIZE);
     cstr_printf(cs, "#define __SIZEOF_LONG__ %d\n", LONG_SIZE);
-    if (!is_asm) {
+    എങ്കിൽ (!is_asm) {
       putdef(cs, "__STDC__");
       cstr_printf(cs, "#define __STDC_HOSTED__ %d\n", s1->nostdlib ? 0 : 1);
       cstr_printf(cs, "#define __STDC_VERSION__ %dL\n", s1->cversion);
       cstr_cat(cs,
         /* load more predefs and __builtins */
-#if CONFIG_TCC_PREDEFS
-        #include "tccdefs_.h" /* include as strings */
-#else
+#എങ്കിൽ CONFIG_TCC_PREDEFS
+        #അന്തര്ഭാവ "tccdefs_.h" /* include as strings */
+#അല്ലെങ്കിൽ
         "#include <tccdefs.h>\n" /* load at runtime */
 #endif
         , -1);
@@ -3632,34 +3632,34 @@ static void tcc_predefs(TCCState *s1, CString *cs, int is_asm)
     cstr_printf(cs, "#define __BASE_FILE__ \"%s\"\n", file->filename);
 }
 
-ST_FUNC void preprocess_start(TCCState *s1, int filetype)
+ST_FUNC ശൂന്യം preprocess_start(TCCState *s1, പൂർണ്ണസംഖ്യ filetype)
 {
-    int is_asm = !!(filetype & (AFF_TYPE_ASM|AFF_TYPE_ASMPP));
+    പൂർണ്ണസംഖ്യ is_asm = !!(filetype & (AFF_TYPE_ASM|AFF_TYPE_ASMPP));
 
     tccpp_new(s1);
 
-    s1->include_stack_ptr = s1->include_stack;
-    s1->ifdef_stack_ptr = s1->ifdef_stack;
-    file->ifdef_stack_ptr = s1->ifdef_stack_ptr;
-    pp_expr = 0;
+    s1->include_അട്ടി_ptr = s1->include_അട്ടി;
+    s1->ifdef_അട്ടി_ptr = s1->ifdef_അട്ടി;
+    file->ifdef_അട്ടി_ptr = s1->ifdef_അട്ടി_ptr;
+    pp_വ്യഞ്ജകം = 0;
     pp_counter = 0;
     pp_debug_tok = pp_debug_symv = 0;
-    s1->pack_stack[0] = 0;
-    s1->pack_stack_ptr = s1->pack_stack;
+    s1->pack_അട്ടി[0] = 0;
+    s1->pack_അട്ടി_ptr = s1->pack_അട്ടി;
 
     set_idnum('$', s1->dollars_in_identifiers ? IS_ID : 0);
     set_idnum('.', is_asm ? IS_ID : 0);
 
-    if (!(filetype & AFF_TYPE_ASM)) {
+    എങ്കിൽ (!(filetype & AFF_TYPE_ASM)) {
         CString cstr;
         cstr_new(&cstr);
         tcc_predefs(s1, &cstr, is_asm);
-        if (s1->cmdline_defs.size)
+        എങ്കിൽ (s1->cmdline_defs.size)
           cstr_cat(&cstr, s1->cmdline_defs.data, s1->cmdline_defs.size);
-        if (s1->cmdline_incl.size)
+        എങ്കിൽ (s1->cmdline_incl.size)
           cstr_cat(&cstr, s1->cmdline_incl.data, s1->cmdline_incl.size);
         //printf("%.*s\n", cstr.size, (char*)cstr.data);
-        *s1->include_stack_ptr++ = file;
+        *s1->include_അട്ടി_ptr++ = file;
         tcc_open_bf(s1, "<command line>", cstr.size);
         memcpy(file->buffer, cstr.data, cstr.size);
         cstr_free(&cstr);
@@ -3668,45 +3668,45 @@ ST_FUNC void preprocess_start(TCCState *s1, int filetype)
 }
 
 /* cleanup from error/setjmp */
-ST_FUNC void preprocess_end(TCCState *s1)
+ST_FUNC ശൂന്യം preprocess_end(TCCState *s1)
 {
-    while (macro_stack)
+    ആകുമ്പോൾ (macro_അട്ടി)
         end_macro();
-    macro_ptr = NULL;
-    while (file)
+    macro_ptr = ശൂന്യ;
+    ആകുമ്പോൾ (file)
         tcc_close();
     tccpp_delete(s1);
 }
 
-ST_FUNC int set_idnum(int c, int val)
+ST_FUNC പൂർണ്ണസംഖ്യ set_idnum(പൂർണ്ണസംഖ്യ c, പൂർണ്ണസംഖ്യ val)
 {
-    int prev = isidnum_table[c - CH_EOF];
+    പൂർണ്ണസംഖ്യ prev = isidnum_table[c - CH_EOF];
     isidnum_table[c - CH_EOF] = val;
-    return prev;
+    തിരികെ prev;
 }
 
-ST_FUNC void tccpp_new(TCCState *s)
+ST_FUNC ശൂന്യം tccpp_new(TCCState *s)
 {
-    int i, c;
-    const char *p, *r;
+    പൂർണ്ണസംഖ്യ i, c;
+    സ്ഥിരം അക്ഷരം *p, *r;
 
     /* init isid table */
-    for(i = CH_EOF; i<128; i++)
+    വേണ്ടി(i = CH_EOF; i<128; i++)
         set_idnum(i,
             is_space(i) ? IS_SPC
             : isid(i) ? IS_ID
-            : isnum(i) ? IS_NUM
+            : isnum(i) ? IS_അക്കം
             : 0);
 
-    for(i = 128; i<256; i++)
+    വേണ്ടി(i = 128; i<256; i++)
         set_idnum(i, IS_ID);
 
     /* init allocators */
     tal_new(&toksym_alloc, TOKSYM_TAL_SIZE);
     tal_new(&tokstr_alloc, TOKSTR_TAL_SIZE);
 
-    memset(hash_ident, 0, TOK_HASH_SIZE * sizeof(TokenSym *));
-    memset(s->cached_includes_hash, 0, sizeof s->cached_includes_hash);
+    memset(hash_ident, 0, TOK_HASH_SIZE * വലുപ്പം(TokenSym *));
+    memset(s->cached_includes_hash, 0, വലുപ്പം s->cached_includes_hash);
 
     cstr_new(&tokcstr);
     cstr_new(&cstr_buf);
@@ -3718,12 +3718,12 @@ ST_FUNC void tccpp_new(TCCState *s)
 
     tok_ident = TOK_IDENT;
     p = tcc_keywords;
-    while (*p) {
+    ആകുമ്പോൾ (*p) {
         r = p;
-        for(;;) {
+        വേണ്ടി(;;) {
             c = *r++;
-            if (c == '\0')
-                break;
+            എങ്കിൽ (c == '\0')
+                നിർത്തുക;
         }
         tok_alloc(p, r - p - 1);
         p = r;
@@ -3731,27 +3731,27 @@ ST_FUNC void tccpp_new(TCCState *s)
 
     /* we add dummy defines for some special macros to speed up tests
        and to have working defined() */
-    define_push(TOK___LINE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___FILE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___DATE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___TIME__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___COUNTER__, MACRO_OBJ, NULL, NULL);
+    define_തള്ളുക(TOK_വരി_2, MACRO_OBJ, ശൂന്യ, ശൂന്യ);
+    define_തള്ളുക(TOK___FILE__, MACRO_OBJ, ശൂന്യ, ശൂന്യ);
+    define_തള്ളുക(TOK___DATE__, MACRO_OBJ, ശൂന്യ, ശൂന്യ);
+    define_തള്ളുക(TOK___TIME__, MACRO_OBJ, ശൂന്യ, ശൂന്യ);
+    define_തള്ളുക(TOK___COUNTER__, MACRO_OBJ, ശൂന്യ, ശൂന്യ);
 }
 
-ST_FUNC void tccpp_delete(TCCState *s)
+ST_FUNC ശൂന്യം tccpp_delete(TCCState *s)
 {
-    int i, n;
+    പൂർണ്ണസംഖ്യ i, n;
 
     dynarray_reset(&s->cached_includes, &s->nb_cached_includes);
 
     /* free tokens */
     n = tok_ident - TOK_IDENT;
-    if (n > total_idents)
+    എങ്കിൽ (n > total_idents)
         total_idents = n;
-    for (i = n; --i >= 0;)
+    വേണ്ടി (i = n; --i >= 0;)
         tal_free(&toksym_alloc, table_ident[i]);
     tcc_free(table_ident);
-    table_ident = NULL;
+    table_ident = ശൂന്യ;
 
     /* free static buffers */
     cstr_free(&tokcstr);
@@ -3767,25 +3767,25 @@ ST_FUNC void tccpp_delete(TCCState *s)
 /* ------------------------------------------------------------------------- */
 /* tcc -E [-P[1]] [-dD} support */
 
-static int pp_need_space(int a, int b);
+സ്ഥിതം പൂർണ്ണസംഖ്യ pp_need_space(പൂർണ്ണസംഖ്യ a, പൂർണ്ണസംഖ്യ b);
 
-static void tok_print(const int *str, const char *msg, ...)
+സ്ഥിതം ശൂന്യം tok_print(സ്ഥിരം പൂർണ്ണസംഖ്യ *str, സ്ഥിരം അക്ഷരം *സന്ദേശം, ...)
 {
     FILE *fp = tcc_state->ppfp;
     va_list ap;
-    int t, t0, s;
+    പൂർണ്ണസംഖ്യ t, t0, s;
     CValue cval;
 
-    va_start(ap, msg);
-    vfprintf(fp, msg, ap);
+    va_start(ap, സന്ദേശം);
+    vfprintf(fp, സന്ദേശം, ap);
     va_end(ap);
 
     s = t0 = 0;
-    while (str) {
+    ആകുമ്പോൾ (str) {
 	TOK_GET(&t, &str, &cval);
-	if (t == 0 || t == TOK_EOF)
-	    break;
-        if (pp_need_space(t0, t))
+	എങ്കിൽ (t == 0 || t == TOK_EOF)
+	    നിർത്തുക;
+        എങ്കിൽ (pp_need_space(t0, t))
             s = 0;
 	fprintf(fp, &" %s"[s], t == TOK_PLCHLDR ? "<>" : get_tok_str(t, &cval));
         s = 1, t0 = t;
@@ -3793,46 +3793,46 @@ static void tok_print(const int *str, const char *msg, ...)
     fprintf(fp, "\n");
 }
 
-static void pp_line(TCCState *s1, BufferedFile *f, int level)
+സ്ഥിതം ശൂന്യം pp_വരി(TCCState *s1, BufferedFile *f, പൂർണ്ണസംഖ്യ level)
 {
-    int d = f->line_num - f->line_ref;
+    പൂർണ്ണസംഖ്യ d = f->വരി_അക്കം - f->വരി_ref;
 
-    if (s1->dflag & 4)
-	return;
+    എങ്കിൽ (s1->dflag & 4)
+	തിരികെ;
 
-    if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_NONE) {
+    എങ്കിൽ (s1->Pflag == വരി_MACRO_OUTPUT_FORMAT_NONE) {
         ;
-    } else if (level == 0 && f->line_ref && d < 8) {
-	while (d > 0)
+    } അല്ലെങ്കിൽ എങ്കിൽ (level == 0 && f->വരി_ref && d < 8) {
+	ആകുമ്പോൾ (d > 0)
 	    fputs("\n", s1->ppfp), --d;
-    } else if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_STD) {
-	fprintf(s1->ppfp, "#line %d \"%s\"\n", f->line_num, f->filename);
-    } else {
-	fprintf(s1->ppfp, "# %d \"%s\"%s\n", f->line_num, f->filename,
+    } അല്ലെങ്കിൽ എങ്കിൽ (s1->Pflag == വരി_MACRO_OUTPUT_FORMAT_STD) {
+	fprintf(s1->ppfp, "#line %d \"%s\"\n", f->വരി_അക്കം, f->filename);
+    } അല്ലെങ്കിൽ {
+	fprintf(s1->ppfp, "# %d \"%s\"%s\n", f->വരി_അക്കം, f->filename,
 	    level > 0 ? " 1" : level < 0 ? " 2" : "");
     }
-    f->line_ref = f->line_num;
+    f->വരി_ref = f->വരി_അക്കം;
 }
 
-static void define_print(TCCState *s1, int v)
+സ്ഥിതം ശൂന്യം define_print(TCCState *s1, പൂർണ്ണസംഖ്യ v)
 {
     FILE *fp;
     Sym *s;
 
     s = define_find(v);
-    if (NULL == s || NULL == s->d)
-        return;
+    എങ്കിൽ (ശൂന്യ == s || ശൂന്യ == s->d)
+        തിരികെ;
 
     fp = s1->ppfp;
-    fprintf(fp, "#define %s", get_tok_str(v, NULL));
-    if (s->type.t & MACRO_FUNC) {
+    fprintf(fp, "#define %s", get_tok_str(v, ശൂന്യ));
+    എങ്കിൽ (s->type.t & MACRO_FUNC) {
         Sym *a = s->next;
         fprintf(fp,"(");
-        if (a)
-            for (;;) {
-                fprintf(fp,"%s", get_tok_str(a->v, NULL));
-                if (!(a = a->next))
-                    break;
+        എങ്കിൽ (a)
+            വേണ്ടി (;;) {
+                fprintf(fp,"%s", get_tok_str(a->v, ശൂന്യ));
+                എങ്കിൽ (!(a = a->next))
+                    നിർത്തുക;
                 fprintf(fp,",");
             }
         fprintf(fp,")");
@@ -3840,39 +3840,39 @@ static void define_print(TCCState *s1, int v)
     tok_print(s->d, "");
 }
 
-static void pp_debug_defines(TCCState *s1)
+സ്ഥിതം ശൂന്യം pp_debug_defines(TCCState *s1)
 {
-    int v, t;
-    const char *vs;
+    പൂർണ്ണസംഖ്യ v, t;
+    സ്ഥിരം അക്ഷരം *vs;
     FILE *fp;
 
     t = pp_debug_tok;
-    if (t == 0)
-        return;
+    എങ്കിൽ (t == 0)
+        തിരികെ;
 
-    file->line_num--;
-    pp_line(s1, file, 0);
-    file->line_ref = ++file->line_num;
+    file->വരി_അക്കം--;
+    pp_വരി(s1, file, 0);
+    file->വരി_ref = ++file->വരി_അക്കം;
 
     fp = s1->ppfp;
     v = pp_debug_symv;
-    vs = get_tok_str(v, NULL);
-    if (t == TOK_DEFINE) {
+    vs = get_tok_str(v, ശൂന്യ);
+    എങ്കിൽ (t == TOK_DEFINE) {
         define_print(s1, v);
-    } else if (t == TOK_UNDEF) {
+    } അല്ലെങ്കിൽ എങ്കിൽ (t == TOK_UNDEF) {
         fprintf(fp, "#undef %s\n", vs);
-    } else if (t == TOK_push_macro) {
+    } അല്ലെങ്കിൽ എങ്കിൽ (t == TOK_തള്ളുക_macro) {
         fprintf(fp, "#pragma push_macro(\"%s\")\n", vs);
-    } else if (t == TOK_pop_macro) {
+    } അല്ലെങ്കിൽ എങ്കിൽ (t == TOK_എടുക്കുക_macro) {
         fprintf(fp, "#pragma pop_macro(\"%s\")\n", vs);
     }
     pp_debug_tok = 0;
 }
 
 /* Add a space between tokens a and b to avoid unwanted textual pasting */
-static int pp_need_space(int a, int b)
+സ്ഥിതം പൂർണ്ണസംഖ്യ pp_need_space(പൂർണ്ണസംഖ്യ a, പൂർണ്ണസംഖ്യ b)
 {
-    return 'E' == a ? '+' == b || '-' == b
+    തിരികെ 'E' == a ? '+' == b || '-' == b
         : '+' == a ? TOK_INC == b || '+' == b
         : '-' == a ? TOK_DEC == b || '-' == b
         : a >= TOK_IDENT || a == TOK_PPNUM ? b >= TOK_IDENT || b == TOK_PPNUM
@@ -3880,20 +3880,20 @@ static int pp_need_space(int a, int b)
 }
 
 /* maybe hex like 0x1e */
-static int pp_check_he0xE(int t, const char *p)
+സ്ഥിതം പൂർണ്ണസംഖ്യ pp_check_he0xE(പൂർണ്ണസംഖ്യ t, സ്ഥിരം അക്ഷരം *p)
 {
-    if (t == TOK_PPNUM && toup(strchr(p, 0)[-1]) == 'E')
-        return 'E';
-    return t;
+    എങ്കിൽ (t == TOK_PPNUM && toup(strchr(p, 0)[-1]) == 'E')
+        തിരികെ 'E';
+    തിരികെ t;
 }
 
 /* Preprocess the current file */
-ST_FUNC int tcc_preprocess(TCCState *s1)
+ST_FUNC പൂർണ്ണസംഖ്യ tcc_preprocess(TCCState *s1)
 {
     BufferedFile **iptr;
-    int token_seen, spcs, level;
-    const char *p;
-    char white[400];
+    പൂർണ്ണസംഖ്യ token_seen, spcs, level;
+    സ്ഥിരം അക്ഷരം *p;
+    അക്ഷരം white[400];
 
     parse_flags = PARSE_FLAG_PREPROCESS
                 | (parse_flags & PARSE_FLAG_ASM_FILE)
@@ -3904,50 +3904,50 @@ ST_FUNC int tcc_preprocess(TCCState *s1)
     /* Credits to Fabrice Bellard's initial revision to demonstrate its
        capability to compile and run itself, provided all numbers are
        given as decimals. tcc -E -P10 will do. */
-    if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_P10)
-        parse_flags |= PARSE_FLAG_TOK_NUM, s1->Pflag = 1;
+    എങ്കിൽ (s1->Pflag == വരി_MACRO_OUTPUT_FORMAT_P10)
+        parse_flags |= PARSE_FLAG_TOK_അക്കം, s1->Pflag = 1;
 
-    if (s1->do_bench) {
+    എങ്കിൽ (s1->do_bench) {
 	/* for PP benchmarks */
-	do next(); while (tok != TOK_EOF);
-	return 0;
+	ചെയ്യുക next(); ആകുമ്പോൾ (tok != TOK_EOF);
+	തിരികെ 0;
     }
 
     token_seen = TOK_LINEFEED, spcs = 0, level = 0;
-    if (file->prev)
-        pp_line(s1, file->prev, level++);
-    pp_line(s1, file, level);
+    എങ്കിൽ (file->prev)
+        pp_വരി(s1, file->prev, level++);
+    pp_വരി(s1, file, level);
 
-    for (;;) {
-        iptr = s1->include_stack_ptr;
+    വേണ്ടി (;;) {
+        iptr = s1->include_അട്ടി_ptr;
         next();
-        if (tok == TOK_EOF)
-            break;
+        എങ്കിൽ (tok == TOK_EOF)
+            നിർത്തുക;
 
-        level = s1->include_stack_ptr - iptr;
-        if (level) {
-            if (level > 0)
-                pp_line(s1, *iptr, 0);
-            pp_line(s1, file, level);
+        level = s1->include_അട്ടി_ptr - iptr;
+        എങ്കിൽ (level) {
+            എങ്കിൽ (level > 0)
+                pp_വരി(s1, *iptr, 0);
+            pp_വരി(s1, file, level);
         }
-        if (s1->dflag & 7) {
+        എങ്കിൽ (s1->dflag & 7) {
             pp_debug_defines(s1);
-            if (s1->dflag & 4)
-                continue;
+            എങ്കിൽ (s1->dflag & 4)
+                തുടരുക;
         }
 
-        if (is_space(tok)) {
-            if (spcs < sizeof white - 1)
+        എങ്കിൽ (is_space(tok)) {
+            എങ്കിൽ (spcs < വലുപ്പം white - 1)
                 white[spcs++] = tok;
-            continue;
-        } else if (tok == TOK_LINEFEED) {
+            തുടരുക;
+        } അല്ലെങ്കിൽ എങ്കിൽ (tok == TOK_LINEFEED) {
             spcs = 0;
-            if (token_seen == TOK_LINEFEED)
-                continue;
-            ++file->line_ref;
-        } else if (token_seen == TOK_LINEFEED) {
-            pp_line(s1, file, 0);
-        } else if (spcs == 0 && pp_need_space(token_seen, tok)) {
+            എങ്കിൽ (token_seen == TOK_LINEFEED)
+                തുടരുക;
+            ++file->വരി_ref;
+        } അല്ലെങ്കിൽ എങ്കിൽ (token_seen == TOK_LINEFEED) {
+            pp_വരി(s1, file, 0);
+        } അല്ലെങ്കിൽ എങ്കിൽ (spcs == 0 && pp_need_space(token_seen, tok)) {
             white[spcs++] = ' ';
         }
 
@@ -3955,7 +3955,7 @@ ST_FUNC int tcc_preprocess(TCCState *s1)
         fputs(p = get_tok_str(tok, &tokc), s1->ppfp);
         token_seen = pp_check_he0xE(tok, p);
     }
-    return 0;
+    തിരികെ 0;
 }
 
 /* ------------------------------------------------------------------------- */

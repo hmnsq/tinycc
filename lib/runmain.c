@@ -3,65 +3,65 @@
 
 #ifdef __leading_underscore
 # define _(s) s
-#else
+#അല്ലെങ്കിൽ
 # define _(s) _##s
 #endif
 
 #ifndef _WIN32
-extern void (*_(_init_array_start)[]) (int argc, char **argv, char **envp);
-extern void (*_(_init_array_end)[]) (int argc, char **argv, char **envp);
-static void run_ctors(int argc, char **argv, char **env)
+ബാഹ്യ ശൂന്യം (*_(_init_array_start)[]) (പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv, അക്ഷരം **envp);
+ബാഹ്യ ശൂന്യം (*_(_init_array_end)[]) (പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv, അക്ഷരം **envp);
+സ്ഥിതം ശൂന്യം run_ctors(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv, അക്ഷരം **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
+    പൂർണ്ണസംഖ്യ i = 0;
+    ആകുമ്പോൾ (&_(_init_array_start)[i] != _(_init_array_end))
         (*_(_init_array_start)[i++])(argc, argv, env);
 }
 #endif
 
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
-static void run_dtors(void)
+ബാഹ്യ ശൂന്യം (*_(_fini_array_start)[]) (ശൂന്യം);
+ബാഹ്യ ശൂന്യം (*_(_fini_array_end)[]) (ശൂന്യം);
+സ്ഥിതം ശൂന്യം run_dtors(ശൂന്യം)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
+    പൂർണ്ണസംഖ്യ i = 0;
+    ആകുമ്പോൾ (&_(_fini_array_end)[i] != _(_fini_array_start))
         (*_(_fini_array_end)[--i])();
 }
 
-static void *rt_exitfunc[32];
-static void *rt_exitarg[32];
-static int __rt_nr_exit;
+സ്ഥിതം ശൂന്യം *rt_exitfunc[32];
+സ്ഥിതം ശൂന്യം *rt_exitarg[32];
+സ്ഥിതം പൂർണ്ണസംഖ്യ __rt_nr_exit;
 
-void __run_on_exit(int ret)
+ശൂന്യം __run_on_exit(പൂർണ്ണസംഖ്യ ret)
 {
-    int n = __rt_nr_exit;
-    while (n)
-	--n, ((void(*)(int,void*))rt_exitfunc[n])(ret, rt_exitarg[n]);
+    പൂർണ്ണസംഖ്യ n = __rt_nr_exit;
+    ആകുമ്പോൾ (n)
+	--n, ((ശൂന്യം(*)(പൂർണ്ണസംഖ്യ,ശൂന്യം*))rt_exitfunc[n])(ret, rt_exitarg[n]);
 }
 
-int on_exit(void *function, void *arg)
+പൂർണ്ണസംഖ്യ on_exit(ശൂന്യം *function, ശൂന്യം *arg)
 {
-    int n = __rt_nr_exit;
-    if (n < 32) {
+    പൂർണ്ണസംഖ്യ n = __rt_nr_exit;
+    എങ്കിൽ (n < 32) {
 	rt_exitfunc[n] = function;
 	rt_exitarg[n] = arg;
         __rt_nr_exit = n + 1;
-        return 0;
+        തിരികെ 0;
     }
-    return 1;
+    തിരികെ 1;
 }
 
-int atexit(void (*function)(void))
+പൂർണ്ണസംഖ്യ atexit(ശൂന്യം (*function)(ശൂന്യം))
 {
-    return on_exit(function, 0);
+    തിരികെ on_exit(function, 0);
 }
 
-typedef struct rt_frame {
-    void *ip, *fp, *sp;
+തരനിർവചനം ഘടന rt_frame {
+    ശൂന്യം *ip, *fp, *sp;
 } rt_frame;
 
-__attribute__((noreturn)) void __rt_exit(rt_frame *, int);
+__attribute__((noreturn)) ശൂന്യം __rt_exit(rt_frame *, പൂർണ്ണസംഖ്യ);
 
-void exit(int code)
+ശൂന്യം exit(പൂർണ്ണസംഖ്യ code)
 {
     rt_frame f;
     run_dtors();
@@ -72,15 +72,15 @@ void exit(int code)
 }
 
 #ifndef _WIN32
-int main(int, char**, char**);
+പൂർണ്ണസംഖ്യ പ്രധാന(പൂർണ്ണസംഖ്യ, അക്ഷരം**, അക്ഷരം**);
 
-int _runmain(int argc, char **argv, char **envp)
+പൂർണ്ണസംഖ്യ _runmain(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv, അക്ഷരം **envp)
 {
-    int ret;
+    പൂർണ്ണസംഖ്യ ret;
     run_ctors(argc, argv, envp);
-    ret = main(argc, argv, envp);
+    ret = പ്രധാന(argc, argv, envp);
     run_dtors();
     __run_on_exit(ret);
-    return ret;
+    തിരികെ ret;
 }
 #endif

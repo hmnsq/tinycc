@@ -1,6 +1,6 @@
-#include <stdio.h>
+#അന്തര്ഭാവ <stdio.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
    printf("%d\n", '\1');
    printf("%d\n", '\10');
@@ -11,7 +11,7 @@ int main()
    printf("%d\n", '\x40');
    printf("test \x40\n");
 
-   return 0;
+   തിരികെ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

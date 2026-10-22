@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#അന്തര്ഭാവ <tcclib.h>
 
-int main()
+പൂർണ്ണസംഖ്യ പ്രധാന()
 {
     printf("Hello World\n");
-    return 0;
+    തിരികെ 0;
 }

@@ -19,42 +19,42 @@
  */
 
 #define USING_GLOBALS
-#include "tcc.h"
+#അന്തര്ഭാവ "tcc.h"
 #ifdef CONFIG_TCC_ASM
 
-static Section *last_text_section; /* to handle .previous asm directive */
-static int asmgoto_n;
+സ്ഥിതം Section *last_text_section; /* to handle .previous asm directive */
+സ്ഥിതം പൂർണ്ണസംഖ്യ asmgoto_n;
 
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global);
-static Sym* asm_new_label(TCCState *s1, int label, int is_local);
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local, int sh_num, int value);
+സ്ഥിതം പൂർണ്ണസംഖ്യ tcc_assemble_internal(TCCState *s1, പൂർണ്ണസംഖ്യ do_preprocess, പൂർണ്ണസംഖ്യ global);
+സ്ഥിതം Sym* asm_new_label(TCCState *s1, പൂർണ്ണസംഖ്യ label, പൂർണ്ണസംഖ്യ is_local);
+സ്ഥിതം Sym* asm_new_label1(TCCState *s1, പൂർണ്ണസംഖ്യ label, പൂർണ്ണസംഖ്യ is_local, പൂർണ്ണസംഖ്യ sh_അക്കം, പൂർണ്ണസംഖ്യ മൂല്യം);
 
-#if PTR_SIZE == 8
+#എങ്കിൽ PTR_SIZE == 8
 /* output constant with relocation if 'r & VT_SYM' is true */
-ST_FUNC void gen_addr64(int r, Sym *sym, int64_t c)
+ST_FUNC ശൂന്യം gen_addr64(പൂർണ്ണസംഖ്യ r, Sym *sym, int64_t c)
 {
-    if (r & VT_SYM)
+    എങ്കിൽ (r & VT_SYM)
         greloca(cur_text_section, sym, ind, R_DATA_PTR, c), c=0;
     gen_le32(c);
     gen_le32(c>>32);
 }
 
-ST_FUNC void gen_expr64(ExprValue *pe)
+ST_FUNC ശൂന്യം gen_expr64(വ്യഞ്ജകം_മൂല്യം *pe)
 {
     gen_addr64(pe->sym ? VT_SYM : 0, pe->sym, pe->v);
 }
 #endif
 
-static int asm_get_prefix_name(TCCState *s1, const char *prefix, unsigned int n)
+സ്ഥിതം പൂർണ്ണസംഖ്യ asm_get_prefix_name(TCCState *s1, സ്ഥിരം അക്ഷരം *prefix, unsigned പൂർണ്ണസംഖ്യ n)
 {
-    char buf[64];
-    snprintf(buf, sizeof(buf), "%s%u", prefix, n);
-    return tok_alloc_const(buf);
+    അക്ഷരം buf[64];
+    snprintf(buf, വലുപ്പം(buf), "%s%u", prefix, n);
+    തിരികെ tok_alloc_const(buf);
 }
 
-ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
+ST_FUNC പൂർണ്ണസംഖ്യ asm_get_local_label_name(TCCState *s1, unsigned പൂർണ്ണസംഖ്യ n)
 {
-    return asm_get_prefix_name(s1, "L..", n);
+    തിരികെ asm_get_prefix_name(s1, "L..", n);
 }
 
 /* If a C name has an _ prepended then only asm labels that start
@@ -63,47 +63,47 @@ ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
    the global C symbol table to track ASM names as well, so we need to
    transform those into ones that don't conflict with a C name,
    so prepend a '.' for them, but force the ELF asm name to be set.  */
-static int asm2cname(int v, int *addeddot)
+സ്ഥിതം പൂർണ്ണസംഖ്യ asm2cname(പൂർണ്ണസംഖ്യ v, പൂർണ്ണസംഖ്യ *addeddot)
 {
-    const char *name;
+    സ്ഥിരം അക്ഷരം *name;
     *addeddot = 0;
-    if (!tcc_state->leading_underscore)
-      return v;
-    name = get_tok_str(v, NULL);
-    if (!name)
-      return v;
-    if (name[0] == '_') {
+    എങ്കിൽ (!tcc_state->leading_underscore)
+      തിരികെ v;
+    name = get_tok_str(v, ശൂന്യ);
+    എങ്കിൽ (!name)
+      തിരികെ v;
+    എങ്കിൽ (name[0] == '_') {
         v = tok_alloc_const(name + 1);
-    } else if (!strchr(name, '.')) {
-        char newname[256];
-        snprintf(newname, sizeof newname, ".%s", name);
+    } അല്ലെങ്കിൽ എങ്കിൽ (!strchr(name, '.')) {
+        അക്ഷരം newname[256];
+        snprintf(newname, വലുപ്പം newname, ".%s", name);
         v = tok_alloc_const(newname);
         *addeddot = 1;
     }
-    return v;
+    തിരികെ v;
 }
 
-static Sym *asm_label_find(int v)
+സ്ഥിതം Sym *asm_label_find(പൂർണ്ണസംഖ്യ v)
 {
     Sym *sym;
-    int addeddot;
+    പൂർണ്ണസംഖ്യ addeddot;
     v = asm2cname(v, &addeddot);
     sym = sym_find(v);
-    while (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
+    ആകുമ്പോൾ (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
         sym = sym->prev_tok;
-    return sym;
+    തിരികെ sym;
 }
 
-static Sym *asm_label_push(int v)
+സ്ഥിതം Sym *asm_label_തള്ളുക(പൂർണ്ണസംഖ്യ v)
 {
-    int addeddot, v2 = asm2cname(v, &addeddot);
+    പൂർണ്ണസംഖ്യ addeddot, v2 = asm2cname(v, &addeddot);
     /* We always add VT_EXTERN, for sym definition that's tentative
        (for .set, removed for real defs), for mere references it's correct
        as is.  */
-    Sym *sym = global_identifier_push(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
-    if (addeddot)
+    Sym *sym = global_identifier_തള്ളുക(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
+    എങ്കിൽ (addeddot)
         sym->asm_label = v;
-    return sym;
+    തിരികെ sym;
 }
 
 /* Return a symbol we can use inside the assembler, having name NAME.
@@ -116,243 +116,243 @@ static Sym *asm_label_push(int v)
    are anonymous in C, in this case CSYM can be used to transfer
    all information from that symbol to the (possibly newly created)
    asm symbol.  */
-ST_FUNC Sym* get_asm_sym(int name, Sym *csym)
+ST_FUNC Sym* get_asm_sym(പൂർണ്ണസംഖ്യ name, Sym *csym)
 {
     Sym *sym = asm_label_find(name);
-    if (!sym) {
-	sym = asm_label_push(name);
-	if (csym)
+    എങ്കിൽ (!sym) {
+	sym = asm_label_തള്ളുക(name);
+	എങ്കിൽ (csym)
 	  sym->c = csym->c;
     }
-    return sym;
+    തിരികെ sym;
 }
 
-static Sym* asm_section_sym(TCCState *s1, Section *sec)
+സ്ഥിതം Sym* asm_section_sym(TCCState *s1, Section *sec)
 {
-    char buf[100]; int label; Sym *sym;
-    snprintf(buf, sizeof buf, "L.%s", sec->name);
+    അക്ഷരം buf[100]; പൂർണ്ണസംഖ്യ label; Sym *sym;
+    snprintf(buf, വലുപ്പം buf, "L.%s", sec->name);
     label = tok_alloc_const(buf);
     sym = asm_label_find(label);
-    return sym ? sym : asm_new_label1(s1, label, 1, sec->sh_num, 0);
+    തിരികെ sym ? sym : asm_new_label1(s1, label, 1, sec->sh_അക്കം, 0);
 }
 
 /* We do not use the C expression parser to handle symbols. Maybe the
    C expression parser could be tweaked to do so. */
 
-static void asm_expr_unary(TCCState *s1, ExprValue *pe)
+സ്ഥിതം ശൂന്യം asm_വ്യഞ്ജകം_unary(TCCState *s1, വ്യഞ്ജകം_മൂല്യം *pe)
 {
     Sym *sym;
-    int op, label;
+    പൂർണ്ണസംഖ്യ op, label;
     uint64_t n;
-    const char *p;
+    സ്ഥിരം അക്ഷരം *p;
 
-    switch(tok) {
-    case TOK_PPNUM:
+    തിരഞ്ഞെടുപ്പ്(tok) {
+    അവസ്ഥ TOK_PPNUM:
         p = tokc.str.data;
-        n = strtoull(p, (char **)&p, 0);
-        if (*p == 'b' || *p == 'f') {
+        n = strtoull(p, (അക്ഷരം **)&p, 0);
+        എങ്കിൽ (*p == 'b' || *p == 'f') {
             /* backward or forward label */
             label = asm_get_local_label_name(s1, n);
             sym = asm_label_find(label);
-            if (*p == 'b') {
+            എങ്കിൽ (*p == 'b') {
                 /* backward : find the last corresponding defined label */
-                if (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
+                എങ്കിൽ (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
                     sym = sym->prev_tok;
-                if (!sym)
-                    tcc_error("local label '%d' not found backward", (int)n);
-            } else {
+                എങ്കിൽ (!sym)
+                    tcc_error("local label '%d' not found backward", (പൂർണ്ണസംഖ്യ)n);
+            } അല്ലെങ്കിൽ {
                 /* forward */
-                if (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
+                എങ്കിൽ (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
                     /* if the last label is defined, then define a new one */
-		    sym = asm_label_push(label);
+		    sym = asm_label_തള്ളുക(label);
                 }
             }
 	    pe->v = 0;
 	    pe->sym = sym;
 	    pe->pcrel = 0;
-        } else if (*p == '\0') {
+        } അല്ലെങ്കിൽ എങ്കിൽ (*p == '\0') {
             pe->v = n;
-            pe->sym = NULL;
+            pe->sym = ശൂന്യ;
 	    pe->pcrel = 0;
-        } else {
+        } അല്ലെങ്കിൽ {
             tcc_error("invalid number syntax");
         }
         next();
-        break;
-    case '+':
+        നിർത്തുക;
+    അവസ്ഥ '+':
         next();
-        asm_expr_unary(s1, pe);
-        break;
-    case '-':
-    case '~':
+        asm_വ്യഞ്ജകം_unary(s1, pe);
+        നിർത്തുക;
+    അവസ്ഥ '-':
+    അവസ്ഥ '~':
         op = tok;
         next();
-        asm_expr_unary(s1, pe);
-        if (pe->sym)
+        asm_വ്യഞ്ജകം_unary(s1, pe);
+        എങ്കിൽ (pe->sym)
             tcc_error("invalid operation with label");
-        if (op == '-')
+        എങ്കിൽ (op == '-')
             pe->v = -pe->v;
-        else
+        അല്ലെങ്കിൽ
             pe->v = ~pe->v;
-        break;
-    case TOK_CCHAR:
-    case TOK_LCHAR:
+        നിർത്തുക;
+    അവസ്ഥ TOK_CCHAR:
+    അവസ്ഥ TOK_LCHAR:
 	pe->v = tokc.i;
-	pe->sym = NULL;
+	pe->sym = ശൂന്യ;
 	pe->pcrel = 0;
 	next();
-	break;
-    case '(':
+	നിർത്തുക;
+    അവസ്ഥ '(':
         next();
-        asm_expr(s1, pe);
+        asm_വ്യഞ്ജകം(s1, pe);
         skip(')');
-        break;
-    case '.':
+        നിർത്തുക;
+    അവസ്ഥ '.':
         pe->v = ind;
         pe->sym = asm_section_sym(s1, cur_text_section);
         pe->pcrel = 0;
         next();
-        break;
-    default:
-        if (tok >= TOK_IDENT) {
+        നിർത്തുക;
+    സ്ഥിരസ്ഥിതി:
+        എങ്കിൽ (tok >= TOK_IDENT) {
 	    ElfSym *esym;
             /* label case : if the label was not found, add one */
-	    sym = get_asm_sym(tok, NULL);
+	    sym = get_asm_sym(tok, ശൂന്യ);
 	    esym = elfsym(sym);
-            if (esym && esym->st_shndx == SHN_ABS) {
+            എങ്കിൽ (esym && esym->st_shndx == SHN_ABS) {
                 /* if absolute symbol, no need to put a symbol value */
-                pe->v = esym->st_value;
-                pe->sym = NULL;
+                pe->v = esym->st_മൂല്യം;
+                pe->sym = ശൂന്യ;
 		pe->pcrel = 0;
-            } else {
+            } അല്ലെങ്കിൽ {
                 pe->v = 0;
                 pe->sym = sym;
 		pe->pcrel = 0;
             }
             next();
-        } else {
+        } അല്ലെങ്കിൽ {
             tcc_error("bad expression syntax [%s]", get_tok_str(tok, &tokc));
         }
-        break;
+        നിർത്തുക;
     }
 }
     
-static void asm_expr_prod(TCCState *s1, ExprValue *pe)
+സ്ഥിതം ശൂന്യം asm_വ്യഞ്ജകം_prod(TCCState *s1, വ്യഞ്ജകം_മൂല്യം *pe)
 {
-    int op;
-    ExprValue e2;
+    പൂർണ്ണസംഖ്യ op;
+    വ്യഞ്ജകം_മൂല്യം e2;
 
-    asm_expr_unary(s1, pe);
-    for(;;) {
+    asm_വ്യഞ്ജകം_unary(s1, pe);
+    വേണ്ടി(;;) {
         op = tok;
-        if (op != '*' && op != '/' && op != '%' && 
+        എങ്കിൽ (op != '*' && op != '/' && op != '%' && 
             op != TOK_SHL && op != TOK_SAR)
-            break;
+            നിർത്തുക;
         next();
-        asm_expr_unary(s1, &e2);
-        if (pe->sym || e2.sym)
+        asm_വ്യഞ്ജകം_unary(s1, &e2);
+        എങ്കിൽ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-        case '*':
+        തിരഞ്ഞെടുപ്പ്(op) {
+        അവസ്ഥ '*':
             pe->v *= e2.v;
-            break;
-        case '/':  
-            if (e2.v == 0) {
+            നിർത്തുക;
+        അവസ്ഥ '/':  
+            എങ്കിൽ (e2.v == 0) {
             div_error:
                 tcc_error("division by zero");
             }
             pe->v /= e2.v;
-            break;
-        case '%':  
-            if (e2.v == 0)
-                goto div_error;
+            നിർത്തുക;
+        അവസ്ഥ '%':  
+            എങ്കിൽ (e2.v == 0)
+                പോകുക div_error;
             pe->v %= e2.v;
-            break;
-        case TOK_SHL:
+            നിർത്തുക;
+        അവസ്ഥ TOK_SHL:
             pe->v <<= e2.v;
-            break;
-        default:
-        case TOK_SAR:
+            നിർത്തുക;
+        സ്ഥിരസ്ഥിതി:
+        അവസ്ഥ TOK_SAR:
             pe->v >>= e2.v;
-            break;
+            നിർത്തുക;
         }
     }
 }
 
-static void asm_expr_logic(TCCState *s1, ExprValue *pe)
+സ്ഥിതം ശൂന്യം asm_വ്യഞ്ജകം_logic(TCCState *s1, വ്യഞ്ജകം_മൂല്യം *pe)
 {
-    int op;
-    ExprValue e2;
+    പൂർണ്ണസംഖ്യ op;
+    വ്യഞ്ജകം_മൂല്യം e2;
 
-    asm_expr_prod(s1, pe);
-    for(;;) {
+    asm_വ്യഞ്ജകം_prod(s1, pe);
+    വേണ്ടി(;;) {
         op = tok;
-        if (op != '&' && op != '|' && op != '^')
-            break;
+        എങ്കിൽ (op != '&' && op != '|' && op != '^')
+            നിർത്തുക;
         next();
-        asm_expr_prod(s1, &e2);
-        if (pe->sym || e2.sym)
+        asm_വ്യഞ്ജകം_prod(s1, &e2);
+        എങ്കിൽ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-        case '&':
+        തിരഞ്ഞെടുപ്പ്(op) {
+        അവസ്ഥ '&':
             pe->v &= e2.v;
-            break;
-        case '|':  
+            നിർത്തുക;
+        അവസ്ഥ '|':  
             pe->v |= e2.v;
-            break;
-        default:
-        case '^':
+            നിർത്തുക;
+        സ്ഥിരസ്ഥിതി:
+        അവസ്ഥ '^':
             pe->v ^= e2.v;
-            break;
+            നിർത്തുക;
         }
     }
 }
 
-static inline void asm_expr_sum(TCCState *s1, ExprValue *pe)
+സ്ഥിതം വരിയിൽ ശൂന്യം asm_വ്യഞ്ജകം_sum(TCCState *s1, വ്യഞ്ജകം_മൂല്യം *pe)
 {
-    int op;
-    ExprValue e2;
+    പൂർണ്ണസംഖ്യ op;
+    വ്യഞ്ജകം_മൂല്യം e2;
 
-    asm_expr_logic(s1, pe);
-    for(;;) {
+    asm_വ്യഞ്ജകം_logic(s1, pe);
+    വേണ്ടി(;;) {
         op = tok;
-        if (op != '+' && op != '-')
-            break;
+        എങ്കിൽ (op != '+' && op != '-')
+            നിർത്തുക;
         next();
-        asm_expr_logic(s1, &e2);
-        if (op == '+') {
-            if (pe->sym != NULL && e2.sym != NULL)
-                goto cannot_relocate;
+        asm_വ്യഞ്ജകം_logic(s1, &e2);
+        എങ്കിൽ (op == '+') {
+            എങ്കിൽ (pe->sym != ശൂന്യ && e2.sym != ശൂന്യ)
+                പോകുക cannot_relocate;
             pe->v += e2.v;
-            if (pe->sym == NULL && e2.sym != NULL)
+            എങ്കിൽ (pe->sym == ശൂന്യ && e2.sym != ശൂന്യ)
                 pe->sym = e2.sym;
-        } else {
+        } അല്ലെങ്കിൽ {
             pe->v -= e2.v;
             /* NOTE: we are less powerful than gas in that case
                because we store only one symbol in the expression */
-	    if (!e2.sym) {
+	    എങ്കിൽ (!e2.sym) {
 		/* OK */
-	    } else if (pe->sym == e2.sym) { 
+	    } അല്ലെങ്കിൽ എങ്കിൽ (pe->sym == e2.sym) { 
 		/* OK */
-		pe->sym = NULL; /* same symbols can be subtracted to NULL */
-	    } else {
+		pe->sym = ശൂന്യ; /* same symbols can be subtracted to NULL */
+	    } അല്ലെങ്കിൽ {
 		ElfSym *esym1, *esym2;
 		esym1 = elfsym(pe->sym);
 		esym2 = elfsym(e2.sym);
-		if (!esym2)
-		    goto cannot_relocate;
-		if (esym1 && esym1->st_shndx == esym2->st_shndx
+		എങ്കിൽ (!esym2)
+		    പോകുക cannot_relocate;
+		എങ്കിൽ (esym1 && esym1->st_shndx == esym2->st_shndx
 		    && esym1->st_shndx != SHN_UNDEF) {
 		    /* we also accept defined symbols in the same section */
-		    pe->v += (int)(esym1->st_value - esym2->st_value);
-		    pe->sym = NULL;
-		} else if (esym2->st_shndx == cur_text_section->sh_num) {
+		    pe->v += (പൂർണ്ണസംഖ്യ)(esym1->st_മൂല്യം - esym2->st_മൂല്യം);
+		    pe->sym = ശൂന്യ;
+		} അല്ലെങ്കിൽ എങ്കിൽ (esym2->st_shndx == cur_text_section->sh_അക്കം) {
 		    /* When subtracting a defined symbol in current section
 		       this actually makes the value PC-relative.  */
-		    pe->v += (int)(0 - esym2->st_value);
+		    pe->v += (പൂർണ്ണസംഖ്യ)(0 - esym2->st_മൂല്യം);
 		    pe->pcrel = 1;
-		    e2.sym = NULL;
-		} else {
+		    e2.sym = ശൂന്യ;
+		} അല്ലെങ്കിൽ {
 cannot_relocate:
 		    tcc_error("invalid operation with label");
 		}
@@ -361,304 +361,304 @@ cannot_relocate:
     }
 }
 
-static inline void asm_expr_cmp(TCCState *s1, ExprValue *pe)
+സ്ഥിതം വരിയിൽ ശൂന്യം asm_വ്യഞ്ജകം_cmp(TCCState *s1, വ്യഞ്ജകം_മൂല്യം *pe)
 {
-    int op;
-    ExprValue e2;
+    പൂർണ്ണസംഖ്യ op;
+    വ്യഞ്ജകം_മൂല്യം e2;
 
-    asm_expr_sum(s1, pe);
-    for(;;) {
+    asm_വ്യഞ്ജകം_sum(s1, pe);
+    വേണ്ടി(;;) {
         op = tok;
-	if (op != TOK_EQ && op != TOK_NE
+	എങ്കിൽ (op != TOK_EQ && op != TOK_NE
 	    && (op > TOK_GT || op < TOK_ULE))
-            break;
+            നിർത്തുക;
         next();
-        asm_expr_sum(s1, &e2);
-        if (pe->sym || e2.sym)
+        asm_വ്യഞ്ജകം_sum(s1, &e2);
+        എങ്കിൽ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-	case TOK_EQ:
+        തിരഞ്ഞെടുപ്പ്(op) {
+	അവസ്ഥ TOK_EQ:
 	    pe->v = pe->v == e2.v;
-	    break;
-	case TOK_NE:
+	    നിർത്തുക;
+	അവസ്ഥ TOK_NE:
 	    pe->v = pe->v != e2.v;
-	    break;
-	case TOK_LT:
+	    നിർത്തുക;
+	അവസ്ഥ TOK_LT:
 	    pe->v = (int64_t)pe->v < (int64_t)e2.v;
-	    break;
-	case TOK_GE:
+	    നിർത്തുക;
+	അവസ്ഥ TOK_GE:
 	    pe->v = (int64_t)pe->v >= (int64_t)e2.v;
-	    break;
-	case TOK_LE:
+	    നിർത്തുക;
+	അവസ്ഥ TOK_LE:
 	    pe->v = (int64_t)pe->v <= (int64_t)e2.v;
-	    break;
-	case TOK_GT:
+	    നിർത്തുക;
+	അവസ്ഥ TOK_GT:
 	    pe->v = (int64_t)pe->v > (int64_t)e2.v;
-	    break;
-        default:
-            break;
+	    നിർത്തുക;
+        സ്ഥിരസ്ഥിതി:
+            നിർത്തുക;
         }
 	/* GAS compare results are -1/0 not 1/0.  */
 	pe->v = -(int64_t)pe->v;
     }
 }
 
-ST_FUNC void asm_expr(TCCState *s1, ExprValue *pe)
+ST_FUNC ശൂന്യം asm_വ്യഞ്ജകം(TCCState *s1, വ്യഞ്ജകം_മൂല്യം *pe)
 {
-    asm_expr_cmp(s1, pe);
+    asm_വ്യഞ്ജകം_cmp(s1, pe);
 }
 
-ST_FUNC int asm_int_expr(TCCState *s1)
+ST_FUNC പൂർണ്ണസംഖ്യ asm_int_വ്യഞ്ജകം(TCCState *s1)
 {
-    ExprValue e;
-    asm_expr(s1, &e);
-    if (e.sym)
+    വ്യഞ്ജകം_മൂല്യം e;
+    asm_വ്യഞ്ജകം(s1, &e);
+    എങ്കിൽ (e.sym)
         expect("constant");
-    if ((int)e.v != e.v)
+    എങ്കിൽ ((പൂർണ്ണസംഖ്യ)e.v != e.v)
 	tcc_error("integer out of range %lld", (long long)e.v);
-    return e.v;
+    തിരികെ e.v;
 }
 
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local,
-                           int sh_num, int value)
+സ്ഥിതം Sym* asm_new_label1(TCCState *s1, പൂർണ്ണസംഖ്യ label, പൂർണ്ണസംഖ്യ is_local,
+                           പൂർണ്ണസംഖ്യ sh_അക്കം, പൂർണ്ണസംഖ്യ മൂല്യം)
 {
     Sym *sym;
     ElfSym *esym;
 
     sym = asm_label_find(label);
-    if (sym) {
+    എങ്കിൽ (sym) {
 	esym = elfsym(sym);
 	/* A VT_EXTERN symbol, even if it has a section is considered
 	   overridable.  This is how we "define" .set targets.  Real
 	   definitions won't have VT_EXTERN set.  */
-        if (esym && esym->st_shndx != SHN_UNDEF) {
+        എങ്കിൽ (esym && esym->st_shndx != SHN_UNDEF) {
             /* the label is already defined */
-            if (IS_ASM_SYM(sym)
+            എങ്കിൽ (IS_ASM_SYM(sym)
                 && (is_local == 1 || (sym->type.t & VT_EXTERN)))
-                goto new_label;
-            if (!(sym->type.t & VT_EXTERN))
+                പോകുക new_label;
+            എങ്കിൽ (!(sym->type.t & VT_EXTERN))
                 tcc_error("assembler label '%s' already defined",
-                          get_tok_str(label, NULL));
+                          get_tok_str(label, ശൂന്യ));
         }
-    } else {
+    } അല്ലെങ്കിൽ {
     new_label:
-        sym = asm_label_push(label);
+        sym = asm_label_തള്ളുക(label);
     }
-    if (!sym->c)
+    എങ്കിൽ (!sym->c)
       put_extern_sym2(sym, SHN_UNDEF, 0, 0, 1);
     esym = elfsym(sym);
-    esym->st_shndx = sh_num;
-    esym->st_value = value;
-    if (is_local != 2)
+    esym->st_shndx = sh_അക്കം;
+    esym->st_മൂല്യം = മൂല്യം;
+    എങ്കിൽ (is_local != 2)
         sym->type.t &= ~VT_EXTERN;
-    return sym;
+    തിരികെ sym;
 }
 
-static Sym* asm_new_label(TCCState *s1, int label, int is_local)
+സ്ഥിതം Sym* asm_new_label(TCCState *s1, പൂർണ്ണസംഖ്യ label, പൂർണ്ണസംഖ്യ is_local)
 {
-    return asm_new_label1(s1, label, is_local, cur_text_section->sh_num, ind);
+    തിരികെ asm_new_label1(s1, label, is_local, cur_text_section->sh_അക്കം, ind);
 }
 
 /* Set the value of LABEL to that of some expression (possibly
    involving other symbols).  LABEL can be overwritten later still.  */
-static Sym* set_symbol(TCCState *s1, int label)
+സ്ഥിതം Sym* set_ചിഹ്നം(TCCState *s1, പൂർണ്ണസംഖ്യ label)
 {
     long n;
-    ExprValue e;
+    വ്യഞ്ജകം_മൂല്യം e;
     Sym *sym;
     ElfSym *esym;
     next();
-    asm_expr(s1, &e);
+    asm_വ്യഞ്ജകം(s1, &e);
     n = e.v;
     esym = elfsym(e.sym);
-    if (esym)
-	n += esym->st_value;
+    എങ്കിൽ (esym)
+	n += esym->st_മൂല്യം;
     sym = asm_new_label1(s1, label, 2, esym ? esym->st_shndx : SHN_ABS, n);
     elfsym(sym)->st_other |= ST_ASM_SET;
-    return sym;
+    തിരികെ sym;
 }
 
-static void use_section1(TCCState *s1, Section *sec)
+സ്ഥിതം ശൂന്യം use_section1(TCCState *s1, Section *sec)
 {
     cur_text_section->data_offset = ind;
     cur_text_section = sec;
     ind = cur_text_section->data_offset;
 }
 
-static void use_section(TCCState *s1, const char *name)
+സ്ഥിതം ശൂന്യം use_section(TCCState *s1, സ്ഥിരം അക്ഷരം *name)
 {
     Section *sec;
     sec = find_section(s1, name);
     use_section1(s1, sec);
 }
 
-static void push_section(TCCState *s1, const char *name)
+സ്ഥിതം ശൂന്യം തള്ളുക_section(TCCState *s1, സ്ഥിരം അക്ഷരം *name)
 {
     Section *sec = find_section(s1, name);
     sec->prev = cur_text_section;
     use_section1(s1, sec);
 }
 
-static void pop_section(TCCState *s1)
+സ്ഥിതം ശൂന്യം എടുക്കുക_section(TCCState *s1)
 {
     Section *prev = cur_text_section->prev;
-    if (!prev)
+    എങ്കിൽ (!prev)
         tcc_error(".popsection without .pushsection");
-    cur_text_section->prev = NULL;
+    cur_text_section->prev = ശൂന്യ;
     use_section1(s1, prev);
 }
 
-static void asm_parse_directive(TCCState *s1, int global)
+സ്ഥിതം ശൂന്യം asm_parse_directive(TCCState *s1, പൂർണ്ണസംഖ്യ global)
 {
-    int n, offset, v, size, tok1, c;
+    പൂർണ്ണസംഖ്യ n, offset, v, size, tok1, c;
     Section *sec;
     uint8_t *ptr;
 
     /* assembler directive */
     sec = cur_text_section;
-    switch(tok) {
-    case TOK_ASMDIR_align:
-    case TOK_ASMDIR_balign:
-    case TOK_ASMDIR_p2align:
-    case TOK_ASMDIR_skip:
-    case TOK_ASMDIR_space:
+    തിരഞ്ഞെടുപ്പ്(tok) {
+    അവസ്ഥ TOK_ASMDIR_align:
+    അവസ്ഥ TOK_ASMDIR_balign:
+    അവസ്ഥ TOK_ASMDIR_p2align:
+    അവസ്ഥ TOK_ASMDIR_skip:
+    അവസ്ഥ TOK_ASMDIR_space:
         tok1 = tok;
         next();
-        n = asm_int_expr(s1);
-        if (tok1 == TOK_ASMDIR_p2align)
+        n = asm_int_വ്യഞ്ജകം(s1);
+        എങ്കിൽ (tok1 == TOK_ASMDIR_p2align)
         {
-            if (n < 0 || n > 30)
+            എങ്കിൽ (n < 0 || n > 30)
                 tcc_error("invalid p2align, must be between 0 and 30");
             n = 1 << n;
             tok1 = TOK_ASMDIR_align;
         }
-        if (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
-            if (n <= 0 || (n & (n-1)) != 0)
+        എങ്കിൽ (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
+            എങ്കിൽ (n <= 0 || (n & (n-1)) != 0)
                 tcc_error("alignment must be a positive power of two");
             offset = (ind + n - 1) & -n;
             size = offset - ind;
             /* the section must have a compatible alignment */
-            if (sec->sh_addralign < n)
+            എങ്കിൽ (sec->sh_addralign < n)
                 sec->sh_addralign = n;
             c = sec->sh_flags & SHF_EXECINSTR;
-        } else {
-	    if (n < 0)
+        } അല്ലെങ്കിൽ {
+	    എങ്കിൽ (n < 0)
 	        n = 0;
             size = n, c = 0;
         }
         v = 0;
-        if (tok == ',') {
+        എങ്കിൽ (tok == ',') {
             next();
-            v = asm_int_expr(s1), c = 0;
+            v = asm_int_വ്യഞ്ജകം(s1), c = 0;
         }
     zero_pad:
-	if ((uint64_t)ind + size >= 1<<30)
+	എങ്കിൽ ((uint64_t)ind + size >= 1<<30)
 	    tcc_error("too much data");
-        if (sec->sh_type != SHT_NOBITS) {
-            if (c) {
+        എങ്കിൽ (sec->sh_type != SHT_NOBITS) {
+            എങ്കിൽ (c) {
                 gen_fill_nops(size);
-                break;
+                നിർത്തുക;
             }
             sec->data_offset = ind;
             ptr = section_ptr_add(sec, size);
             memset(ptr, v, size);
         }
         ind += size;
-        break;
-    case TOK_ASMDIR_quad:
-#if PTR_SIZE == 8
+        നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_quad:
+#എങ്കിൽ PTR_SIZE == 8
 	size = 8;
-	goto asm_data;
-#else
+	പോകുക asm_data;
+#അല്ലെങ്കിൽ
         next();
-        for(;;) {
+        വേണ്ടി(;;) {
             uint64_t vl;
-            const char *p;
+            സ്ഥിരം അക്ഷരം *p;
 
             p = tokc.str.data;
-            if (tok != TOK_PPNUM) {
+            എങ്കിൽ (tok != TOK_PPNUM) {
             error_constant:
                 tcc_error("64 bit constant");
             }
-            vl = strtoll(p, (char **)&p, 0);
-            if (*p != '\0')
-                goto error_constant;
+            vl = strtoll(p, (അക്ഷരം **)&p, 0);
+            എങ്കിൽ (*p != '\0')
+                പോകുക error_constant;
             next();
-            if (sec->sh_type != SHT_NOBITS) {
+            എങ്കിൽ (sec->sh_type != SHT_NOBITS) {
                 /* XXX: endianness */
                 gen_le32(vl);
                 gen_le32(vl >> 32);
-            } else {
+            } അല്ലെങ്കിൽ {
                 ind += 8;
             }
-            if (tok != ',')
-                break;
+            എങ്കിൽ (tok != ',')
+                നിർത്തുക;
             next();
         }
-        break;
+        നിർത്തുക;
 #endif
-    case TOK_ASMDIR_byte:
+    അവസ്ഥ TOK_ASMDIR_byte:
         size = 1;
-        goto asm_data;
-    case TOK_ASMDIR_word:
-    case TOK_ASMDIR_short:
+        പോകുക asm_data;
+    അവസ്ഥ TOK_ASMDIR_word:
+    അവസ്ഥ TOK_ASMDIR_short:
         size = 2;
-        goto asm_data;
-    case TOK_ASMDIR_long:
-    case TOK_ASMDIR_int:
+        പോകുക asm_data;
+    അവസ്ഥ TOK_ASMDIR_long:
+    അവസ്ഥ TOK_ASMDIR_int:
         size = 4;
     asm_data:
         next();
-        for(;;) {
-            ExprValue e;
-            asm_expr(s1, &e);
-            if (sec->sh_type != SHT_NOBITS) {
-                if (size == 4) {
+        വേണ്ടി(;;) {
+            വ്യഞ്ജകം_മൂല്യം e;
+            asm_വ്യഞ്ജകം(s1, &e);
+            എങ്കിൽ (sec->sh_type != SHT_NOBITS) {
+                എങ്കിൽ (size == 4) {
                     gen_expr32(&e);
-#if PTR_SIZE == 8
-		} else if (size == 8) {
+#എങ്കിൽ PTR_SIZE == 8
+		} അല്ലെങ്കിൽ എങ്കിൽ (size == 8) {
 		    gen_expr64(&e);
 #endif
-                } else {
-                    if (e.sym)
+                } അല്ലെങ്കിൽ {
+                    എങ്കിൽ (e.sym)
                         expect("constant");
-                    if (size == 1)
+                    എങ്കിൽ (size == 1)
                         g(e.v);
-                    else
+                    അല്ലെങ്കിൽ
                         gen_le16(e.v);
                 }
-            } else {
+            } അല്ലെങ്കിൽ {
                 ind += size;
             }
-            if (tok != ',')
-                break;
+            എങ്കിൽ (tok != ',')
+                നിർത്തുക;
             next();
         }
-        break;
-    case TOK_ASMDIR_fill:
+        നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_fill:
         {
-            int repeat, size, val, i, j;
+            പൂർണ്ണസംഖ്യ repeat, size, val, i, j;
             uint8_t repeat_buf[8];
             next();
-            repeat = asm_int_expr(s1);
-            if (repeat < 0) {
+            repeat = asm_int_വ്യഞ്ജകം(s1);
+            എങ്കിൽ (repeat < 0) {
                 tcc_error("repeat < 0; .fill ignored");
-                break;
+                നിർത്തുക;
             }
             size = 1;
             val = 0;
-            if (tok == ',') {
+            എങ്കിൽ (tok == ',') {
                 next();
-                size = asm_int_expr(s1);
-                if (size < 0) {
+                size = asm_int_വ്യഞ്ജകം(s1);
+                എങ്കിൽ (size < 0) {
                     tcc_error("size < 0; .fill ignored");
-                    break;
+                    നിർത്തുക;
                 }
-                if (size > 8)
+                എങ്കിൽ (size > 8)
                     size = 8;
-                if (tok == ',') {
+                എങ്കിൽ (tok == ',') {
                     next();
-                    val = asm_int_expr(s1);
+                    val = asm_int_വ്യഞ്ജകം(s1);
                 }
             }
             /* XXX: endianness */
@@ -670,467 +670,467 @@ static void asm_parse_directive(TCCState *s1, int global)
             repeat_buf[5] = 0;
             repeat_buf[6] = 0;
             repeat_buf[7] = 0;
-            for(i = 0; i < repeat; i++) {
-                for(j = 0; j < size; j++) {
+            വേണ്ടി(i = 0; i < repeat; i++) {
+                വേണ്ടി(j = 0; j < size; j++) {
                     g(repeat_buf[j]);
                 }
             }
         }
-        break;
-    case TOK_ASMDIR_rept:
+        നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_rept:
         {
-            int repeat;
+            പൂർണ്ണസംഖ്യ repeat;
             TokenString *init_str;
             next();
-            repeat = asm_int_expr(s1);
+            repeat = asm_int_വ്യഞ്ജകം(s1);
             init_str = tok_str_alloc();
-            while (next(), tok != TOK_ASMDIR_endr) {
-                if (tok == CH_EOF)
+            ആകുമ്പോൾ (next(), tok != TOK_ASMDIR_endr) {
+                എങ്കിൽ (tok == CH_EOF)
                     tcc_error("we at end of file, .endr not found");
                 tok_str_add_tok(init_str);
             }
             tok_str_add(init_str, TOK_EOF);
             begin_macro(init_str, 1);
-            while (repeat-- > 0) {
+            ആകുമ്പോൾ (repeat-- > 0) {
                 tcc_assemble_internal(s1, (parse_flags & PARSE_FLAG_PREPROCESS),
 				      global);
                 macro_ptr = init_str->str;
             }
             end_macro();
             next();
-            break;
+            നിർത്തുക;
         }
-    case TOK_ASMDIR_org:
+    അവസ്ഥ TOK_ASMDIR_org:
         {
-	    ExprValue e;
+	    വ്യഞ്ജകം_മൂല്യം e;
 	    ElfSym *esym;
             next();
-	    asm_expr(s1, &e);
+	    asm_വ്യഞ്ജകം(s1, &e);
 	    n = e.v;
 	    esym = elfsym(e.sym);
-	    if (esym) {
-		if (esym->st_shndx != cur_text_section->sh_num)
+	    എങ്കിൽ (esym) {
+		എങ്കിൽ (esym->st_shndx != cur_text_section->sh_അക്കം)
 		  expect("constant or same-section symbol");
-		n += esym->st_value;
+		n += esym->st_മൂല്യം;
 	    }
-            if (n < ind)
+            എങ്കിൽ (n < ind)
                 tcc_error("attempt to .org backwards");
             v = c = 0;
             size = n - ind;
-            goto zero_pad;
+            പോകുക zero_pad;
         }
-        break;
-    case TOK_ASMDIR_set:
+        നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_set:
 	next();
 	tok1 = tok;
 	next();
 	/* Also accept '.set stuff', but don't do anything with this.
 	   It's used in GAS to set various features like '.set mips16'.  */
-	if (tok == ',')
-	    set_symbol(s1, tok1);
-	break;
-    case TOK_ASMDIR_globl:
-    case TOK_ASMDIR_global:
-    case TOK_ASMDIR_weak:
-    case TOK_ASMDIR_hidden:
+	എങ്കിൽ (tok == ',')
+	    set_ചിഹ്നം(s1, tok1);
+	നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_globl:
+    അവസ്ഥ TOK_ASMDIR_global:
+    അവസ്ഥ TOK_ASMDIR_weak:
+    അവസ്ഥ TOK_ASMDIR_hidden:
 	tok1 = tok;
-	do { 
+	ചെയ്യുക { 
             Sym *sym;
             next();
-	    if (tok < TOK_IDENT)
+	    എങ്കിൽ (tok < TOK_IDENT)
 		expect("identifier");
-            sym = get_asm_sym(tok, NULL);
-	    if (tok1 != TOK_ASMDIR_hidden)
+            sym = get_asm_sym(tok, ശൂന്യ);
+	    എങ്കിൽ (tok1 != TOK_ASMDIR_hidden)
                 sym->type.t &= ~VT_STATIC;
-            if (tok1 == TOK_ASMDIR_weak)
+            എങ്കിൽ (tok1 == TOK_ASMDIR_weak)
                 sym->a.weak = 1;
-	    else if (tok1 == TOK_ASMDIR_hidden)
+	    അല്ലെങ്കിൽ എങ്കിൽ (tok1 == TOK_ASMDIR_hidden)
 	        sym->a.visibility = STV_HIDDEN;
             update_storage(sym);
             next();
-	} while (tok == ',');
-	break;
-    case TOK_ASMDIR_string:
-    case TOK_ASMDIR_ascii:
-    case TOK_ASMDIR_asciz:
+	} ആകുമ്പോൾ (tok == ',');
+	നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_string:
+    അവസ്ഥ TOK_ASMDIR_ascii:
+    അവസ്ഥ TOK_ASMDIR_asciz:
         {
-            const char *p;
-            int i, size, t;
+            സ്ഥിരം അക്ഷരം *p;
+            പൂർണ്ണസംഖ്യ i, size, t;
 
             t = tok;
             next();
-            for(;;) {
-                if (tok != TOK_STR)
+            വേണ്ടി(;;) {
+                എങ്കിൽ (tok != TOK_STR)
                     expect("string constant");
                 p = tokc.str.data;
                 size = tokc.str.size;
-                if (t == TOK_ASMDIR_ascii && size > 0)
+                എങ്കിൽ (t == TOK_ASMDIR_ascii && size > 0)
                     size--;
-                for(i = 0; i < size; i++)
+                വേണ്ടി(i = 0; i < size; i++)
                     g(p[i]);
                 next();
-                if (tok == ',') {
+                എങ്കിൽ (tok == ',') {
                     next();
-                } else if (tok != TOK_STR) {
-                    break;
+                } അല്ലെങ്കിൽ എങ്കിൽ (tok != TOK_STR) {
+                    നിർത്തുക;
                 }
             }
 	}
-	break;
-    case TOK_ASMDIR_text:
-    case TOK_ASMDIR_data:
-    case TOK_ASMDIR_bss:
+	നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_text:
+    അവസ്ഥ TOK_ASMDIR_data:
+    അവസ്ഥ TOK_ASMDIR_bss:
 	{ 
-            char sname[64];
+            അക്ഷരം sname[64];
             tok1 = tok;
             n = 0;
             next();
-            if (tok != ';' && tok != TOK_LINEFEED) {
-		n = asm_int_expr(s1);
+            എങ്കിൽ (tok != ';' && tok != TOK_LINEFEED) {
+		n = asm_int_വ്യഞ്ജകം(s1);
 		next();
             }
-            if (n)
-                sprintf(sname, "%s%d", get_tok_str(tok1, NULL), n);
-            else
-                sprintf(sname, "%s", get_tok_str(tok1, NULL));
+            എങ്കിൽ (n)
+                sprintf(sname, "%s%d", get_tok_str(tok1, ശൂന്യ), n);
+            അല്ലെങ്കിൽ
+                sprintf(sname, "%s", get_tok_str(tok1, ശൂന്യ));
             use_section(s1, sname);
 	}
-	break;
-    case TOK_ASMDIR_file:
+	നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_file:
         {
-            const char *p;
+            സ്ഥിരം അക്ഷരം *p;
             parse_flags &= ~PARSE_FLAG_TOK_STR;
             next();
-            if (tok == TOK_PPNUM)
+            എങ്കിൽ (tok == TOK_PPNUM)
                 next();
-            if (tok == TOK_PPSTR && tokc.str.data[0] == '"') {
+            എങ്കിൽ (tok == TOK_PPSTR && tokc.str.data[0] == '"') {
                 tokc.str.data[tokc.str.size - 2] = 0;
                 p = tokc.str.data + 1;
-            } else if (tok >= TOK_IDENT) {
+            } അല്ലെങ്കിൽ എങ്കിൽ (tok >= TOK_IDENT) {
                 p = get_tok_str(tok, &tokc);
-            } else {
+            } അല്ലെങ്കിൽ {
                 skip_to_eol(0);
-                break;
+                നിർത്തുക;
             }
             tccpp_putfile(p);
             next();
         }
-        break;
-    case TOK_ASMDIR_ident:
+        നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_ident:
         {
-            char ident[256];
+            അക്ഷരം ident[256];
 
             ident[0] = '\0';
             next();
-            if (tok == TOK_STR)
-                pstrcat(ident, sizeof(ident), tokc.str.data);
-            else
-                pstrcat(ident, sizeof(ident), get_tok_str(tok, &tokc));
+            എങ്കിൽ (tok == TOK_STR)
+                pstrcat(ident, വലുപ്പം(ident), tokc.str.data);
+            അല്ലെങ്കിൽ
+                pstrcat(ident, വലുപ്പം(ident), get_tok_str(tok, &tokc));
             tcc_warning_c(warn_unsupported)("ignoring .ident %s", ident);
             next();
         }
-        break;
-    case TOK_ASMDIR_size:
+        നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_size:
         { 
             Sym *sym;
             ElfSym *esym;
 
             next();
-	    if (tok < TOK_IDENT)
+	    എങ്കിൽ (tok < TOK_IDENT)
 		expect("identifier");
             sym = asm_label_find(tok);
-            if (!sym)
-                tcc_error("label not found: %s", get_tok_str(tok, NULL));
+            എങ്കിൽ (!sym)
+                tcc_error("label not found: %s", get_tok_str(tok, ശൂന്യ));
             /* XXX .size name,label2-label1 */
-            tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, NULL));
+            tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, ശൂന്യ));
             next();
             skip(',');
-            n = asm_int_expr(s1);
+            n = asm_int_വ്യഞ്ജകം(s1);
             esym = elfsym(sym);
-            if (esym) {
+            എങ്കിൽ (esym) {
                 esym->st_size = n;
             }
         }
-        break;
-    case TOK_ASMDIR_type:
+        നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_type:
         { 
             Sym *sym;
-            const char *newtype;
-            int st_type;
+            സ്ഥിരം അക്ഷരം *newtype;
+            പൂർണ്ണസംഖ്യ st_type;
 
             next();
-	    if (tok < TOK_IDENT)
+	    എങ്കിൽ (tok < TOK_IDENT)
 		expect("identifier");
-            sym = get_asm_sym(tok, NULL);
+            sym = get_asm_sym(tok, ശൂന്യ);
             next();
             skip(',');
-            if (tok == TOK_STR) {
+            എങ്കിൽ (tok == TOK_STR) {
                 newtype = tokc.str.data;
-            } else {
-                if (tok == '@' || tok == '%')
+            } അല്ലെങ്കിൽ {
+                എങ്കിൽ (tok == '@' || tok == '%')
                     next();
-                newtype = get_tok_str(tok, NULL);
+                newtype = get_tok_str(tok, ശൂന്യ);
             }
 
-            if (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
-                if (IS_ASM_SYM(sym))
+            എങ്കിൽ (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
+                എങ്കിൽ (IS_ASM_SYM(sym))
                     sym->type.t |= VT_ASM_FUNC;
                 st_type = STT_FUNC;
             set_st_type:
-                if (sym->c) {
+                എങ്കിൽ (sym->c) {
                     ElfSym *esym = elfsym(sym);
                     esym->st_info = ELFW(ST_INFO)(ELFW(ST_BIND)(esym->st_info), st_type);
                 }
-            } else if (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
+            } അല്ലെങ്കിൽ എങ്കിൽ (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
                 st_type = STT_OBJECT;
-                goto set_st_type;
-            } else
+                പോകുക set_st_type;
+            } അല്ലെങ്കിൽ
                 tcc_warning_c(warn_unsupported)("change type of '%s' from 0x%x to '%s' ignored",
-                    get_tok_str(sym->v, NULL), sym->type.t, newtype);
+                    get_tok_str(sym->v, ശൂന്യ), sym->type.t, newtype);
 
             next();
         }
-        break;
-    case TOK_ASMDIR_pushsection:
-    case TOK_ASMDIR_section:
+        നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_pushsection:
+    അവസ്ഥ TOK_ASMDIR_section:
         {
-            char sname[256];
-	    int old_nb_section = s1->nb_sections;
-            int flags = SHF_ALLOC;
+            അക്ഷരം sname[256];
+	    പൂർണ്ണസംഖ്യ old_nb_section = s1->nb_sections;
+            പൂർണ്ണസംഖ്യ flags = SHF_ALLOC;
 
 	    tok1 = tok;
             /* XXX: support more options */
             next();
             sname[0] = '\0';
-            while (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
-                if (tok == TOK_STR)
-                    pstrcat(sname, sizeof(sname), tokc.str.data);
-                else
-                    pstrcat(sname, sizeof(sname), get_tok_str(tok, NULL));
+            ആകുമ്പോൾ (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
+                എങ്കിൽ (tok == TOK_STR)
+                    pstrcat(sname, വലുപ്പം(sname), tokc.str.data);
+                അല്ലെങ്കിൽ
+                    pstrcat(sname, വലുപ്പം(sname), get_tok_str(tok, ശൂന്യ));
                 next();
             }
-            if (tok == ',') {
-                const char *p;
+            എങ്കിൽ (tok == ',') {
+                സ്ഥിരം അക്ഷരം *p;
                 /* skip section options */
                 next();
-                if (tok != TOK_STR)
+                എങ്കിൽ (tok != TOK_STR)
                     expect("string constant");
-                for (p = tokc.str.data; *p; ++p) {
-                    if (*p == 'w')
+                വേണ്ടി (p = tokc.str.data; *p; ++p) {
+                    എങ്കിൽ (*p == 'w')
                         flags |= SHF_WRITE;
-                    if (*p == 'x')
+                    എങ്കിൽ (*p == 'x')
                         flags |= SHF_EXECINSTR;
                 }
                 next();
-                if (tok == ',') {
+                എങ്കിൽ (tok == ',') {
                     next();
-                    if (tok == '@' || tok == '%')
+                    എങ്കിൽ (tok == '@' || tok == '%')
                         next();
                     next();
                 }
             }
             last_text_section = cur_text_section;
-	    if (tok1 == TOK_ASMDIR_section)
+	    എങ്കിൽ (tok1 == TOK_ASMDIR_section)
 	        use_section(s1, sname);
-	    else
-	        push_section(s1, sname);
+	    അല്ലെങ്കിൽ
+	        തള്ളുക_section(s1, sname);
 	    /* If we just allocated a new section reset its alignment to
 	       1.  new_section normally acts for GCC compatibility and
 	       sets alignment to PTR_SIZE.  The assembler behaves different. */
-	    if (old_nb_section != s1->nb_sections) {
+	    എങ്കിൽ (old_nb_section != s1->nb_sections) {
 	        cur_text_section->sh_addralign = 1;
                 /* Make .init and .fini sections executable by default.
                    GAS does so, too, and musl relies on it. */
-                if (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
+                എങ്കിൽ (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
                     flags |= SHF_EXECINSTR;
 	        cur_text_section->sh_flags = flags;
             }
         }
-        break;
-    case TOK_ASMDIR_previous:
+        നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_previous:
         { 
             Section *sec;
             next();
-            if (!last_text_section)
+            എങ്കിൽ (!last_text_section)
                 tcc_error("no previous section referenced");
             sec = cur_text_section;
             use_section1(s1, last_text_section);
             last_text_section = sec;
         }
-        break;
-    case TOK_ASMDIR_popsection:
+        നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_popsection:
 	next();
-	pop_section(s1);
-	break;
+	എടുക്കുക_section(s1);
+	നിർത്തുക;
 #ifdef TCC_TARGET_I386
-    case TOK_ASMDIR_code16:
+    അവസ്ഥ TOK_ASMDIR_code16:
         {
             next();
             s1->seg_size = 16;
         }
-        break;
-    case TOK_ASMDIR_code32:
+        നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_code32:
         {
             next();
             s1->seg_size = 32;
         }
-        break;
+        നിർത്തുക;
 #endif
-#if PTR_SIZE == 8
+#എങ്കിൽ PTR_SIZE == 8
     /* added for compatibility with GAS */
-    case TOK_ASMDIR_code64:
+    അവസ്ഥ TOK_ASMDIR_code64:
         next();
-        break;
+        നിർത്തുക;
 #endif
 #ifdef TCC_TARGET_RISCV64
-    case TOK_ASMDIR_option:
+    അവസ്ഥ TOK_ASMDIR_option:
         next();
-        switch(tok){
-            case TOK_ASM_rvc:    /* Will be deprecated soon in favor of arch */
-            case TOK_ASM_norvc:  /* Will be deprecated soon in favor of arch */
-            case TOK_ASM_pic:
-            case TOK_ASM_nopic:
-            case TOK_ASM_relax:
-            case TOK_ASM_norelax:
-            case TOK_ASM_push:
-            case TOK_ASM_pop:
+        തിരഞ്ഞെടുപ്പ്(tok){
+            അവസ്ഥ TOK_ASM_rvc:    /* Will be deprecated soon in favor of arch */
+            അവസ്ഥ TOK_ASM_norvc:  /* Will be deprecated soon in favor of arch */
+            അവസ്ഥ TOK_ASM_pic:
+            അവസ്ഥ TOK_ASM_nopic:
+            അവസ്ഥ TOK_ASM_relax:
+            അവസ്ഥ TOK_ASM_norelax:
+            അവസ്ഥ TOK_ASM_തള്ളുക:
+            അവസ്ഥ TOK_ASM_എടുക്കുക:
                 /* TODO: unimplemented */
                 next();
-                break;
-            case TOK_ASM_arch:
+                നിർത്തുക;
+            അവസ്ഥ TOK_ASM_arch:
                 /* TODO: unimplemented, requires extra parsing */
-                tcc_error("unimp .option '.%s'", get_tok_str(tok, NULL));
-                break;
-            default:
-                tcc_error("unknown .option '.%s'", get_tok_str(tok, NULL));
-                break;
+                tcc_error("unimp .option '.%s'", get_tok_str(tok, ശൂന്യ));
+                നിർത്തുക;
+            സ്ഥിരസ്ഥിതി:
+                tcc_error("unknown .option '.%s'", get_tok_str(tok, ശൂന്യ));
+                നിർത്തുക;
         }
-        break;
+        നിർത്തുക;
 #endif
     /* TODO: Implement symvar support. FreeBSD >= 14 needs this */
-    case TOK_ASMDIR_symver:
+    അവസ്ഥ TOK_ASMDIR_symver:
 	next();
 	next();
         skip(',');
 	next();
         skip('@');
 	next();
-	break;
-    case TOK_ASMDIR_reloc:
+	നിർത്തുക;
+    അവസ്ഥ TOK_ASMDIR_reloc:
 	{
-	    ExprValue e;
-	    const char *reloc_name;
-	    int reloc_type = -1;
+	    വ്യഞ്ജകം_മൂല്യം e;
+	    സ്ഥിരം അക്ഷരം *reloc_name;
+	    പൂർണ്ണസംഖ്യ reloc_type = -1;
 
 	    next();
-	    asm_expr(s1, &e);
+	    asm_വ്യഞ്ജകം(s1, &e);
 	    skip(',');
-	    reloc_name = get_tok_str(tok, NULL);
-#if defined(TCC_TARGET_ARM64)
-	    if (!strcmp(reloc_name, "R_AARCH64_CALL26"))
+	    reloc_name = get_tok_str(tok, ശൂന്യ);
+#എങ്കിൽ defined(TCC_TARGET_ARM64)
+	    എങ്കിൽ (!strcmp(reloc_name, "R_AARCH64_CALL26"))
 	        reloc_type = R_AARCH64_CALL26;
-#elif defined(TCC_TARGET_RISCV64)
-	    if (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
+#അല്ലെങ്കിലെങ്കിൽ defined(TCC_TARGET_RISCV64)
+	    എങ്കിൽ (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
 	        reloc_type = R_RISCV_CALL;
-	    else if (!strcmp(reloc_name, "R_RISCV_BRANCH"))
+	    അല്ലെങ്കിൽ എങ്കിൽ (!strcmp(reloc_name, "R_RISCV_BRANCH"))
 	        reloc_type = R_RISCV_BRANCH;
-	    else if (!strcmp(reloc_name, "R_RISCV_JAL"))
+	    അല്ലെങ്കിൽ എങ്കിൽ (!strcmp(reloc_name, "R_RISCV_JAL"))
 	        reloc_type = R_RISCV_JAL;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
+	    അല്ലെങ്കിൽ എങ്കിൽ (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
 	        reloc_type = R_RISCV_PCREL_HI20;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
+	    അല്ലെങ്കിൽ എങ്കിൽ (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
 	        reloc_type = R_RISCV_PCREL_LO12_I;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
+	    അല്ലെങ്കിൽ എങ്കിൽ (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
 	        reloc_type = R_RISCV_PCREL_LO12_S;
-	    else if (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
+	    അല്ലെങ്കിൽ എങ്കിൽ (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
 	        reloc_type = R_RISCV_32_PCREL;
-	    else if (!strcmp(reloc_name, "R_RISCV_32"))
+	    അല്ലെങ്കിൽ എങ്കിൽ (!strcmp(reloc_name, "R_RISCV_32"))
 	        reloc_type = R_RISCV_32;
-	    else if (!strcmp(reloc_name, "R_RISCV_64"))
+	    അല്ലെങ്കിൽ എങ്കിൽ (!strcmp(reloc_name, "R_RISCV_64"))
 	        reloc_type = R_RISCV_64;
 #endif
-	    if (reloc_type < 0)
+	    എങ്കിൽ (reloc_type < 0)
 	        tcc_error("unimp: reloc '%s' unknown", reloc_name);
 	    next();
 	    skip(',');
-	    greloca(cur_text_section, get_asm_sym(tok, NULL), e.v, reloc_type, 0);
+	    greloca(cur_text_section, get_asm_sym(tok, ശൂന്യ), e.v, reloc_type, 0);
 	    next();
 	}
-	break;
-    default:
-        tcc_error("unknown assembler directive '.%s'", get_tok_str(tok, NULL));
-        break;
+	നിർത്തുക;
+    സ്ഥിരസ്ഥിതി:
+        tcc_error("unknown assembler directive '.%s'", get_tok_str(tok, ശൂന്യ));
+        നിർത്തുക;
     }
 }
 
 
 /* assemble a file */
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global)
+സ്ഥിതം പൂർണ്ണസംഖ്യ tcc_assemble_internal(TCCState *s1, പൂർണ്ണസംഖ്യ do_preprocess, പൂർണ്ണസംഖ്യ global)
 {
-    int opcode;
-    int saved_parse_flags = parse_flags;
+    പൂർണ്ണസംഖ്യ opcode;
+    പൂർണ്ണസംഖ്യ saved_parse_flags = parse_flags;
 
     parse_flags = PARSE_FLAG_ASM_FILE | PARSE_FLAG_TOK_STR;
-    if (do_preprocess)
+    എങ്കിൽ (do_preprocess)
         parse_flags |= PARSE_FLAG_PREPROCESS;
-    for(;;) {
+    വേണ്ടി(;;) {
         next();
-        if (tok == TOK_EOF)
-            break;
-        tcc_debug_line(s1);
+        എങ്കിൽ (tok == TOK_EOF)
+            നിർത്തുക;
+        tcc_debug_വരി(s1);
         parse_flags |= PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     redo:
-#if !defined(TCC_TARGET_ARM64)
-        if (tok == '#') {
+#എങ്കിൽ !defined(TCC_TARGET_ARM64)
+        എങ്കിൽ (tok == '#') {
             /* horrible gas comment */
-            while (tok != TOK_LINEFEED)
+            ആകുമ്പോൾ (tok != TOK_LINEFEED)
                 next();
-        } else
+        } അല്ലെങ്കിൽ
 #endif
-        if (tok >= TOK_ASMDIR_FIRST && tok <= TOK_ASMDIR_LAST) {
+        എങ്കിൽ (tok >= TOK_ASMDIR_FIRST && tok <= TOK_ASMDIR_LAST) {
             asm_parse_directive(s1, global);
-        } else if (tok == TOK_PPNUM) {
-            const char *p;
-            int n;
+        } അല്ലെങ്കിൽ എങ്കിൽ (tok == TOK_PPNUM) {
+            സ്ഥിരം അക്ഷരം *p;
+            പൂർണ്ണസംഖ്യ n;
             p = tokc.str.data;
-            n = strtoul(p, (char **)&p, 10);
-            if (*p != '\0')
+            n = strtoul(p, (അക്ഷരം **)&p, 10);
+            എങ്കിൽ (*p != '\0')
                 expect("':'");
             /* new local label */
             asm_new_label(s1, asm_get_local_label_name(s1, n), 1);
             next();
             skip(':');
-            goto redo;
-        } else if (tok >= TOK_IDENT) {
+            പോകുക redo;
+        } അല്ലെങ്കിൽ എങ്കിൽ (tok >= TOK_IDENT) {
             /* instruction or label */
             opcode = tok;
             next();
-            if (tok == ':') {
+            എങ്കിൽ (tok == ':') {
                 /* new label */
                 asm_new_label(s1, opcode, 0);
                 next();
-                goto redo;
-            } else if (tok == '=') {
-		set_symbol(s1, opcode);
-                goto redo;
-            } else {
+                പോകുക redo;
+            } അല്ലെങ്കിൽ എങ്കിൽ (tok == '=') {
+		set_ചിഹ്നം(s1, opcode);
+                പോകുക redo;
+            } അല്ലെങ്കിൽ {
                 asm_opcode(s1, opcode);
             }
         }
         /* end of line */
-        if (tok != ';' && tok != TOK_LINEFEED)
+        എങ്കിൽ (tok != ';' && tok != TOK_LINEFEED)
             expect("end of line");
         parse_flags &= ~PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     }
 
     parse_flags = saved_parse_flags;
-    return 0;
+    തിരികെ 0;
 }
 
 /* Assemble the current file */
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+ST_FUNC പൂർണ്ണസംഖ്യ tcc_assemble(TCCState *s1, പൂർണ്ണസംഖ്യ do_preprocess)
 {
-    int ret;
+    പൂർണ്ണസംഖ്യ ret;
     tcc_debug_start(s1);
     /* default section is text */
     cur_text_section = text_section;
@@ -1139,7 +1139,7 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
     ret = tcc_assemble_internal(s1, do_preprocess, 1);
     cur_text_section->data_offset = ind;
     tcc_debug_end(s1);
-    return ret;
+    തിരികെ ret;
 }
 
 /********************************************************************/
@@ -1147,21 +1147,21 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
 
 /* assemble the string 'str' in the current C compilation unit without
    C preprocessing. */
-static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int global)
+സ്ഥിതം ശൂന്യം tcc_assemble_inline(TCCState *s1, സ്ഥിരം അക്ഷരം *str, പൂർണ്ണസംഖ്യ len, പൂർണ്ണസംഖ്യ global)
 {
-    const int *saved_macro_ptr = macro_ptr;
-    int dotid = set_idnum('.', IS_ID);
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
-    int dolid = set_idnum('$', 0);
+    സ്ഥിരം പൂർണ്ണസംഖ്യ *saved_macro_ptr = macro_ptr;
+    പൂർണ്ണസംഖ്യ dotid = set_idnum('.', IS_ID);
+#എങ്കിൽ !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
+    പൂർണ്ണസംഖ്യ dolid = set_idnum('$', 0);
 #endif
 
     tcc_open_bf(s1, ":asm:", len);
     memcpy(file->buffer, str, len);
-    macro_ptr = NULL;
+    macro_ptr = ശൂന്യ;
     tcc_assemble_internal(s1, 0, global);
     tcc_close();
 
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
+#എങ്കിൽ !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
     set_idnum('$', dolid);
 #endif
     set_idnum('.', dotid);
@@ -1171,60 +1171,60 @@ static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int glob
 /* find a constraint by its number or id (gcc 3 extended
    syntax). return -1 if not found. Return in *pp in char after the
    constraint */
-ST_FUNC int find_constraint(ASMOperand *operands, int nb_operands, 
-                           const char *name, const char **pp)
+ST_FUNC പൂർണ്ണസംഖ്യ find_constraint(ASMOperand *operands, പൂർണ്ണസംഖ്യ nb_operands, 
+                           സ്ഥിരം അക്ഷരം *name, സ്ഥിരം അക്ഷരം **pp)
 {
-    int index;
+    പൂർണ്ണസംഖ്യ index;
     TokenSym *ts;
-    const char *p;
+    സ്ഥിരം അക്ഷരം *p;
 
-    if (isnum(*name)) {
+    എങ്കിൽ (isnum(*name)) {
         index = 0;
-        while (isnum(*name)) {
+        ആകുമ്പോൾ (isnum(*name)) {
             index = (index * 10) + (*name) - '0';
             name++;
         }
-        if ((unsigned)index >= nb_operands)
+        എങ്കിൽ ((unsigned)index >= nb_operands)
             index = -1;
-    } else if (*name == '[') {
+    } അല്ലെങ്കിൽ എങ്കിൽ (*name == '[') {
         name++;
         p = strchr(name, ']');
-        if (p) {
+        എങ്കിൽ (p) {
             ts = tok_alloc(name, p - name);
-            for(index = 0; index < nb_operands; index++) {
-                if (operands[index].id == ts->tok)
-                    goto found;
+            വേണ്ടി(index = 0; index < nb_operands; index++) {
+                എങ്കിൽ (operands[index].id == ts->tok)
+                    പോകുക found;
             }
             index = -1;
         found:
             name = p + 1;
-        } else {
+        } അല്ലെങ്കിൽ {
             index = -1;
         }
-    } else {
+    } അല്ലെങ്കിൽ {
         index = -1;
     }
-    if (pp)
+    എങ്കിൽ (pp)
         *pp = name;
-    return index;
+    തിരികെ index;
 }
 
-static void subst_asm_operands(ASMOperand *operands, int nb_operands, 
-                               CString *out_str, const char *str)
+സ്ഥിതം ശൂന്യം subst_asm_operands(ASMOperand *operands, പൂർണ്ണസംഖ്യ nb_operands, 
+                               CString *out_str, സ്ഥിരം അക്ഷരം *str)
 {
-    int c, index, modifier;
+    പൂർണ്ണസംഖ്യ c, index, modifier;
     ASMOperand *op;
     SValue sv;
 
-    for(;;) {
+    വേണ്ടി(;;) {
         c = *str++;
-        if (c == '%') {
-            if (*str == '%') {
+        എങ്കിൽ (c == '%') {
+            എങ്കിൽ (*str == '%') {
                 str++;
-                goto add_char;
+                പോകുക add_char;
             }
             modifier = 0;
-            if (*str == 'c' || *str == 'n' ||
+            എങ്കിൽ (*str == 'c' || *str == 'n' ||
                 *str == 'b' || *str == 'w' || *str == 'h' || *str == 'k' ||
 		*str == 'q' || *str == 'l' ||
 #ifdef TCC_TARGET_ARM64
@@ -1238,68 +1238,68 @@ static void subst_asm_operands(ASMOperand *operands, int nb_operands,
 		*str == 'P')
                 modifier = *str++;
             index = find_constraint(operands, nb_operands, str, &str);
-            if (index < 0)
+            എങ്കിൽ (index < 0)
         error:
                 tcc_error("invalid operand reference after %%");
             op = &operands[index];
-            if (modifier == 'l') {
-                cstr_cat(out_str, get_tok_str(op->is_label, NULL), -1);
-            } else {
-		if (op->vt == NULL)
-		    goto error;
+            എങ്കിൽ (modifier == 'l') {
+                cstr_cat(out_str, get_tok_str(op->is_label, ശൂന്യ), -1);
+            } അല്ലെങ്കിൽ {
+		എങ്കിൽ (op->vt == ശൂന്യ)
+		    പോകുക error;
                 sv = *op->vt;
-                if (op->reg >= 0) {
+                എങ്കിൽ (op->reg >= 0) {
                     sv.r = op->reg;
-                    if (op->is_memory)
+                    എങ്കിൽ (op->is_memory)
                       sv.r |= VT_LVAL;
                 }
                 subst_asm_operand(out_str, &sv, modifier);
             }
-        } else {
+        } അല്ലെങ്കിൽ {
         add_char:
             cstr_ccat(out_str, c);
-            if (c == '\0')
-                break;
+            എങ്കിൽ (c == '\0')
+                നിർത്തുക;
         }
     }
 }
 
 
-static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
-                               int is_output)
+സ്ഥിതം ശൂന്യം parse_asm_operands(ASMOperand *operands, പൂർണ്ണസംഖ്യ *nb_operands_ptr,
+                               പൂർണ്ണസംഖ്യ is_output)
 {
     ASMOperand *op;
-    int nb_operands;
-    char* astr;
+    പൂർണ്ണസംഖ്യ nb_operands;
+    അക്ഷരം* astr;
 
-    if (tok != ':') {
+    എങ്കിൽ (tok != ':') {
         nb_operands = *nb_operands_ptr;
-        for(;;) {
-            if (nb_operands >= MAX_ASM_OPERANDS)
+        വേണ്ടി(;;) {
+            എങ്കിൽ (nb_operands >= MAX_ASM_OPERANDS)
                 tcc_error("too many asm operands");
             op = &operands[nb_operands++];
             op->id = 0;
-            if (tok == '[') {
+            എങ്കിൽ (tok == '[') {
                 next();
-                if (tok < TOK_IDENT)
+                എങ്കിൽ (tok < TOK_IDENT)
                     expect("identifier");
                 op->id = tok;
                 next();
                 skip(']');
             }
 	    astr = parse_mult_str("string constant")->data;
-            pstrcpy(op->constraint, sizeof op->constraint, astr);
+            pstrcpy(op->constraint, വലുപ്പം op->constraint, astr);
             skip('(');
             gexpr();
-            if (is_output) {
-                if (!(vtop->type.t & VT_ARRAY))
+            എങ്കിൽ (is_output) {
+                എങ്കിൽ (!(vtop->type.t & VT_ARRAY))
                     test_lvalue();
-            } else {
+            } അല്ലെങ്കിൽ {
                 /* we want to avoid LLOCAL case, except when the 'm'
                    constraint is used. Note that it may come from
                    register storage, so we need to convert (reg)
                    case */
-                if ((vtop->r & VT_LVAL) &&
+                എങ്കിൽ ((vtop->r & VT_LVAL) &&
                     ((vtop->r & VT_VALMASK) == VT_LLOCAL ||
                      (vtop->r & VT_VALMASK) < VT_CONST) &&
                     !strchr(op->constraint, 'm')
@@ -1313,10 +1313,10 @@ static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
             }
             op->vt = vtop;
             skip(')');
-            if (tok == ',') {
+            എങ്കിൽ (tok == ',') {
                 next();
-            } else {
-                break;
+            } അല്ലെങ്കിൽ {
+                നിർത്തുക;
             }
         }
         *nb_operands_ptr = nb_operands;
@@ -1324,18 +1324,18 @@ static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
 }
 
 /* parse the GCC asm() instruction */
-ST_FUNC void asm_instr(void)
+ST_FUNC ശൂന്യം asm_instr(ശൂന്യം)
 {
     CString astr, *astr1;
 
     ASMOperand operands[MAX_ASM_OPERANDS];
-    int nb_outputs, nb_operands, i, must_subst, out_reg, nb_labels;
+    പൂർണ്ണസംഖ്യ nb_outputs, nb_operands, i, must_subst, out_reg, nb_labels;
     uint8_t clobber_regs[NB_ASM_REGS];
     Section *sec;
 
     /* since we always generate the asm() instruction, we can ignore
        volatile */
-    while (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
+    ആകുമ്പോൾ (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
            || tok == TOK_GOTO) {
         next();
     }
@@ -1348,68 +1348,68 @@ ST_FUNC void asm_instr(void)
     nb_outputs = 0;
     nb_labels = 0;
     must_subst = 0;
-    memset(clobber_regs, 0, sizeof(clobber_regs));
-    if (tok == ':') {
+    memset(clobber_regs, 0, വലുപ്പം(clobber_regs));
+    എങ്കിൽ (tok == ':') {
         next();
         must_subst = 1;
         /* output args */
         parse_asm_operands(operands, &nb_operands, 1);
         nb_outputs = nb_operands;
-        if (tok == ':') {
+        എങ്കിൽ (tok == ':') {
             next();
-            if (tok != ')') {
+            എങ്കിൽ (tok != ')') {
                 /* input args */
                 parse_asm_operands(operands, &nb_operands, 0);
-                if (tok == ':') {
+                എങ്കിൽ (tok == ':') {
                     /* clobber list */
                     /* XXX: handle registers */
                     next();
-                    for(;;) {
-                        if (tok == ':')
-                          break;
-                        if (tok != TOK_STR)
+                    വേണ്ടി(;;) {
+                        എങ്കിൽ (tok == ':')
+                          നിർത്തുക;
+                        എങ്കിൽ (tok != TOK_STR)
                             expect("string constant");
                         asm_clobber(clobber_regs, tokc.str.data);
                         next();
-                        if (tok == ',') {
+                        എങ്കിൽ (tok == ',') {
                             next();
-                        } else {
-                            break;
+                        } അല്ലെങ്കിൽ {
+                            നിർത്തുക;
                         }
                     }
                 }
-                if (tok == ':') {
+                എങ്കിൽ (tok == ':') {
                     /* goto labels */
                     next();
-                    for (;;) {
+                    വേണ്ടി (;;) {
                         Sym *csym;
-                        int asmname;
-                        if (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
+                        പൂർണ്ണസംഖ്യ asmname;
+                        എങ്കിൽ (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
                           tcc_error("too many asm operands");
-                        if (tok < TOK_UIDENT)
+                        എങ്കിൽ (tok < TOK_UIDENT)
                           expect("label identifier");
 			memset(operands + nb_operands + nb_labels, 0,
-			       sizeof(operands[0]));
+			       വലുപ്പം(operands[0]));
                         operands[nb_operands + nb_labels++].id = tok;
 
                         csym = label_find(tok);
-                        if (!csym) {
-                            csym = label_push(&global_label_stack, tok,
+                        എങ്കിൽ (!csym) {
+                            csym = label_തള്ളുക(&global_label_അട്ടി, tok,
                                               LABEL_FORWARD);
-                        } else {
-                            if (csym->r == LABEL_DECLARED)
+                        } അല്ലെങ്കിൽ {
+                            എങ്കിൽ (csym->r == LABEL_DECLARED)
                               csym->r = LABEL_FORWARD;
                         }
                         next();
                         asmname = asm_get_prefix_name(tcc_state, "LG.",
                                                       ++asmgoto_n);
-                        if (!csym->c)
+                        എങ്കിൽ (!csym->c)
                           put_extern_sym2(csym, SHN_UNDEF, 0, 0, 1);
                         get_asm_sym(asmname, csym);
                         operands[nb_operands + nb_labels - 1].is_label = asmname;
 
-                        if (tok != ',')
-                          break;
+                        എങ്കിൽ (tok != ',')
+                          നിർത്തുക;
                         next();
                     }
                 }
@@ -1419,7 +1419,7 @@ ST_FUNC void asm_instr(void)
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    എങ്കിൽ (tok != ';')
         expect("';'");
     
     /* save all values in the memory */
@@ -1432,9 +1432,9 @@ ST_FUNC void asm_instr(void)
     /* substitute the operands in the asm string. No substitution is
        done if no operands (GCC behaviour) */
 #ifdef ASM_DEBUG
-    printf("asm: \"%s\"\n", (char *)astr.data);
+    printf("asm: \"%s\"\n", (അക്ഷരം *)astr.data);
 #endif
-    if (must_subst) {
+    എങ്കിൽ (must_subst) {
         cstr_reset(astr1);
         cstr_cat(astr1, astr.data, astr.size);
         cstr_reset(&astr);
@@ -1442,7 +1442,7 @@ ST_FUNC void asm_instr(void)
     }
 
 #ifdef ASM_DEBUG
-    printf("subst_asm: \"%s\"\n", (char *)astr.data);
+    printf("subst_asm: \"%s\"\n", (അക്ഷരം *)astr.data);
 #endif
 
     /* generate loads */
@@ -1455,7 +1455,7 @@ ST_FUNC void asm_instr(void)
     /* assemble the string with tcc internal assembler */
     tcc_assemble_inline(tcc_state, astr.data, astr.size - 1, 0);
     cstr_free_s(&astr);
-    if (sec != cur_text_section) {
+    എങ്കിൽ (sec != cur_text_section) {
         tcc_warning("inline asm tries to change current section");
         use_section1(tcc_state, sec);
     }
@@ -1468,16 +1468,16 @@ ST_FUNC void asm_instr(void)
                  clobber_regs, out_reg);
     
     /* free everything */
-    for(i=0;i<nb_operands;i++) {
+    വേണ്ടി(i=0;i<nb_operands;i++) {
         vpop();
     }
 
 }
 
-ST_FUNC void asm_global_instr(void)
+ST_FUNC ശൂന്യം asm_global_instr(ശൂന്യം)
 {
     CString *astr;
-    int saved_nocode_wanted = nocode_wanted;
+    പൂർണ്ണസംഖ്യ saved_nocode_wanted = nocode_wanted;
 
     /* Global asm blocks are always emitted.  */
     nocode_wanted = 0;
@@ -1486,11 +1486,11 @@ ST_FUNC void asm_global_instr(void)
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    എങ്കിൽ (tok != ';')
         expect("';'");
     
 #ifdef ASM_DEBUG
-    printf("asm_global: \"%s\"\n", (char *)astr->data);
+    printf("asm_global: \"%s\"\n", (അക്ഷരം *)astr->data);
 #endif
     cur_text_section = text_section;
     ind = cur_text_section->data_offset;
@@ -1507,18 +1507,18 @@ ST_FUNC void asm_global_instr(void)
 }
 
 /********************************************************/
-#else
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+#അല്ലെങ്കിൽ
+ST_FUNC പൂർണ്ണസംഖ്യ tcc_assemble(TCCState *s1, പൂർണ്ണസംഖ്യ do_preprocess)
 {
     tcc_error("asm not supported");
 }
 
-ST_FUNC void asm_instr(void)
+ST_FUNC ശൂന്യം asm_instr(ശൂന്യം)
 {
     tcc_error("inline asm() not supported");
 }
 
-ST_FUNC void asm_global_instr(void)
+ST_FUNC ശൂന്യം asm_global_instr(ശൂന്യം)
 {
     tcc_error("inline asm() not supported");
 }

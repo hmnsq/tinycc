@@ -11,7 +11,7 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+ബാഹ്യ "C" {
 #endif
 
 #ifndef WINVER
@@ -20,22 +20,22 @@ extern "C" {
 
 #ifndef BASETYPES
 #define BASETYPES
-  typedef unsigned long ULONG;
-  typedef ULONG *PULONG;
-  typedef unsigned short USHORT;
-  typedef USHORT *PUSHORT;
-  typedef unsigned char UCHAR;
-  typedef UCHAR *PUCHAR;
-  typedef char *PSZ;
+  തരനിർവചനം unsigned long ULONG;
+  തരനിർവചനം ULONG *PULONG;
+  തരനിർവചനം unsigned short USHORT;
+  തരനിർവചനം USHORT *PUSHORT;
+  തരനിർവചനം unsigned അക്ഷരം UCHAR;
+  തരനിർവചനം UCHAR *PUCHAR;
+  തരനിർവചനം അക്ഷരം *PSZ;
 #endif
 
 #define MAX_PATH 260
 
-#ifndef NULL
+#ifndef ശൂന്യ
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define ശൂന്യ 0
+#അല്ലെങ്കിൽ
+#define ശൂന്യ ((ശൂന്യം *)0)
 #endif
 #endif
 
@@ -88,45 +88,45 @@ extern "C" {
 #define FAR
 #define NEAR
 #ifndef CONST
-#define CONST const
+#define CONST സ്ഥിരം
 #endif
 
-  typedef unsigned long DWORD;
-  typedef int WINBOOL;
+  തരനിർവചനം unsigned long DWORD;
+  തരനിർവചനം പൂർണ്ണസംഖ്യ WINBOOL;
 #define BOOL WINBOOL
-  typedef unsigned char BYTE;
-  typedef unsigned short WORD;
-  typedef float FLOAT;
-  typedef FLOAT *PFLOAT;
-  typedef WINBOOL *PBOOL;
-  typedef WINBOOL *LPBOOL;
-  typedef BYTE *PBYTE;
-  typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
-  typedef WORD *PWORD;
-  typedef WORD *LPWORD;
-  typedef long *LPLONG;
-  typedef DWORD *PDWORD;
-  typedef DWORD *LPDWORD;
-  typedef void *LPVOID;
+  തരനിർവചനം unsigned അക്ഷരം BYTE;
+  തരനിർവചനം unsigned short WORD;
+  തരനിർവചനം ദശാംശം FLOAT;
+  തരനിർവചനം FLOAT *PFLOAT;
+  തരനിർവചനം WINBOOL *PBOOL;
+  തരനിർവചനം WINBOOL *LPBOOL;
+  തരനിർവചനം BYTE *PBYTE;
+  തരനിർവചനം BYTE *LPBYTE;
+  തരനിർവചനം പൂർണ്ണസംഖ്യ *PINT;
+  തരനിർവചനം പൂർണ്ണസംഖ്യ *LPINT;
+  തരനിർവചനം WORD *PWORD;
+  തരനിർവചനം WORD *LPWORD;
+  തരനിർവചനം long *LPLONG;
+  തരനിർവചനം DWORD *PDWORD;
+  തരനിർവചനം DWORD *LPDWORD;
+  തരനിർവചനം ശൂന്യം *LPVOID;
 # ifndef _LPCVOID_DEFINED
 #define _LPCVOID_DEFINED
-typedef CONST void *LPCVOID;
+തരനിർവചനം CONST ശൂന്യം *LPCVOID;
 #endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+  തരനിർവചനം പൂർണ്ണസംഖ്യ INT;
+  തരനിർവചനം unsigned പൂർണ്ണസംഖ്യ UINT;
+  തരനിർവചനം unsigned പൂർണ്ണസംഖ്യ *PUINT;
 
 #ifndef NT_INCLUDED
-#include <winnt.h>
+#അന്തര്ഭാവ <winnt.h>
 #endif
 
 //gr #include <specstrings.h>
 
-  typedef UINT_PTR WPARAM;
-  typedef LONG_PTR LPARAM;
-  typedef LONG_PTR LRESULT;
+  തരനിർവചനം UINT_PTR WPARAM;
+  തരനിർവചനം LONG_PTR LPARAM;
+  തരനിർവചനം LONG_PTR LRESULT;
 
 #ifndef __cplusplus
 #ifndef NOMINMAX
@@ -155,28 +155,28 @@ typedef CONST void *LPCVOID;
 #endif
 #endif
 
-  typedef WORD ATOM;
+  തരനിർവചനം WORD ATOM;
 
-  typedef HANDLE *SPHANDLE;
-  typedef HANDLE *LPHANDLE;
-  typedef HANDLE HGLOBAL;
-  typedef HANDLE HLOCAL;
-  typedef HANDLE GLOBALHANDLE;
-  typedef HANDLE LOCALHANDLE;
+  തരനിർവചനം HANDLE *SPHANDLE;
+  തരനിർവചനം HANDLE *LPHANDLE;
+  തരനിർവചനം HANDLE HGLOBAL;
+  തരനിർവചനം HANDLE HLOCAL;
+  തരനിർവചനം HANDLE GLOBALHANDLE;
+  തരനിർവചനം HANDLE LOCALHANDLE;
 #ifdef _WIN64
-  typedef INT_PTR (WINAPI *FARPROC)();
-  typedef INT_PTR (WINAPI *NEARPROC)();
-  typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
+  തരനിർവചനം INT_PTR (WINAPI *FARPROC)();
+  തരനിർവചനം INT_PTR (WINAPI *NEARPROC)();
+  തരനിർവചനം INT_PTR (WINAPI *PROC)();
+#അല്ലെങ്കിൽ
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WINAPI *FARPROC)();
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WINAPI *NEARPROC)();
+  തരനിർവചനം പൂർണ്ണസംഖ്യ (WINAPI *PROC)();
 #endif
 
-  typedef void *HGDIOBJ;
+  തരനിർവചനം ശൂന്യം *HGDIOBJ;
 
   DECLARE_HANDLE(HKEY);
-  typedef HKEY *PHKEY;
+  തരനിർവചനം HKEY *PHKEY;
 
   DECLARE_HANDLE(HACCEL);
   DECLARE_HANDLE(HBITMAP);
@@ -191,7 +191,7 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HMENU);
   DECLARE_HANDLE(HMETAFILE);
   DECLARE_HANDLE(HINSTANCE);
-  typedef HINSTANCE HMODULE;
+  തരനിർവചനം HINSTANCE HMODULE;
   DECLARE_HANDLE(HPALETTE);
   DECLARE_HANDLE(HPEN);
   DECLARE_HANDLE(HRGN);
@@ -204,57 +204,57 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
-  typedef HICON HCURSOR;
-  typedef DWORD COLORREF;
-  typedef DWORD *LPCOLORREF;
+  തരനിർവചനം പൂർണ്ണസംഖ്യ HFILE;
+  തരനിർവചനം HICON HCURSOR;
+  തരനിർവചനം DWORD COLORREF;
+  തരനിർവചനം DWORD *LPCOLORREF;
 
 #define HFILE_ERROR ((HFILE)-1)
 
-  typedef struct tagRECT {
-    LONG left;
-    LONG top;
-    LONG right;
+  തരനിർവചനം ഘടന tagRECT {
+    LONG ഇടത്;
+    LONG മുകൾ;
+    LONG വലത്;
     LONG bottom;
   } RECT,*PRECT,*NPRECT,*LPRECT;
 
-  typedef const RECT *LPCRECT;
+  തരനിർവചനം സ്ഥിരം RECT *LPCRECT;
 
-  typedef struct _RECTL {
-    LONG left;
-    LONG top;
-    LONG right;
+  തരനിർവചനം ഘടന _RECTL {
+    LONG ഇടത്;
+    LONG മുകൾ;
+    LONG വലത്;
     LONG bottom;
   } RECTL,*PRECTL,*LPRECTL;
 
-  typedef const RECTL *LPCRECTL;
+  തരനിർവചനം സ്ഥിരം RECTL *LPCRECTL;
 
-  typedef struct tagPOINT {
+  തരനിർവചനം ഘടന tagPOINT {
     LONG x;
     LONG y;
   } POINT,*PPOINT,*NPPOINT,*LPPOINT;
 
-  typedef struct _POINTL {
+  തരനിർവചനം ഘടന _POINTL {
     LONG x;
     LONG y;
   } POINTL,*PPOINTL;
 
-  typedef struct tagSIZE {
+  തരനിർവചനം ഘടന tagSIZE {
     LONG cx;
     LONG cy;
   } SIZE,*PSIZE,*LPSIZE;
 
-  typedef SIZE SIZEL;
-  typedef SIZE *PSIZEL,*LPSIZEL;
+  തരനിർവചനം SIZE SIZEL;
+  തരനിർവചനം SIZE *PSIZEL,*LPSIZEL;
 
-  typedef struct tagPOINTS {
+  തരനിർവചനം ഘടന tagPOINTS {
     SHORT x;
     SHORT y;
   } POINTS,*PPOINTS,*LPPOINTS;
 
-  typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+  തരനിർവചനം ഘടന _FILETIME {
+    DWORD dw_താഴെയുള്ള_Date_Time;
+    DWORD dw_മുകളിലെ_Date_Time;
   } FILETIME,*PFILETIME,*LPFILETIME;
 #define _FILETIME_
 

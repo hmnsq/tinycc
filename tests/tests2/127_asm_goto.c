@@ -1,15 +1,15 @@
-static int simple_jump(void)
+സ്ഥിതം പൂർണ്ണസംഖ്യ simple_jump(ശൂന്യം)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 0;
+  asm പോകുക ("jmp %l[label]" : : : : label);
+  തിരികെ 0;
 label:
-  return 1;
+  തിരികെ 1;
 }
 
-static int three_way_jump(int val, int *addr)
+സ്ഥിതം പൂർണ്ണസംഖ്യ three_way_jump(പൂർണ്ണസംഖ്യ val, പൂർണ്ണസംഖ്യ *addr)
 {
   *addr = 42;
-  asm goto ("cmp $0, %1\n\t"
+  asm പോകുക ("cmp $0, %1\n\t"
             "jg %l[larger]\n\t"
             "jl %l[smaller]\n\t"
             "incl %0\n\t"
@@ -17,46 +17,46 @@ static int three_way_jump(int val, int *addr)
             : "r" (val)
             :
             : smaller, larger);
-  return 1;
+  തിരികെ 1;
 smaller:
-  return 2;
+  തിരികെ 2;
 larger:
-  return 3;
+  തിരികെ 3;
 }
 
-static int another_jump(void)
+സ്ഥിതം പൂർണ്ണസംഖ്യ another_jump(ശൂന്യം)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 70;
+  asm പോകുക ("jmp %l[label]" : : : : label);
+  തിരികെ 70;
   /* Use the same label name as in simple_jump to check that
      that doesn't confuse our C/ASM symbol tables */
 label:
-  return 71;
+  തിരികെ 71;
 }
 
-extern int printf (const char *, ...);
-int main(void)
+ബാഹ്യ പൂർണ്ണസംഖ്യ printf (സ്ഥിരം അക്ഷരം *, ...);
+പൂർണ്ണസംഖ്യ പ്രധാന(ശൂന്യം)
 {
-  int i;
-  if (simple_jump () == 1)
+  പൂർണ്ണസംഖ്യ i;
+  എങ്കിൽ (simple_jump () == 1)
     printf ("simple_jump: okay\n");
-  else
+  അല്ലെങ്കിൽ
     printf ("simple_jump: wrong\n");
-  if (another_jump () == 71)
+  എങ്കിൽ (another_jump () == 71)
     printf ("another_jump: okay\n");
-  else
+  അല്ലെങ്കിൽ
     printf ("another_jump: wrong\n");
-  if (three_way_jump(0, &i) == 1 && i == 43)
+  എങ്കിൽ (three_way_jump(0, &i) == 1 && i == 43)
     printf ("three_way_jump(0): okay\n");
-  else
+  അല്ലെങ്കിൽ
     printf ("three_way_jump(0): wrong (i=%d)\n", i);
-  if (three_way_jump(1, &i) == 3 && i == 42)
+  എങ്കിൽ (three_way_jump(1, &i) == 3 && i == 42)
     printf ("three_way_jump(1): okay\n");
-  else
+  അല്ലെങ്കിൽ
     printf ("three_way_jump(1): wrong (i=%d)\n", i);
-  if (three_way_jump(-1, &i) == 2 && i == 42)
+  എങ്കിൽ (three_way_jump(-1, &i) == 2 && i == 42)
     printf ("three_way_jump(-1): okay\n");
-  else
+  അല്ലെങ്കിൽ
     printf ("three_way_jump(-1): wrong (i=%d)\n", i);
-  return 0;
+  തിരികെ 0;
 }

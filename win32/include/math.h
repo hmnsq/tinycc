@@ -6,15 +6,15 @@
 #ifndef _MATH_H_
 #define _MATH_H_
 
-#if __GNUC__ >= 3
+#എങ്കിൽ __GNUC__ >= 3
 #pragma GCC system_header
 #endif
 
-#include <_mingw.h>
+#അന്തര്ഭാവ <_mingw.h>
 
-struct exception;
+ഘടന exception;
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(തള്ളുക,_CRT_PACKING)
 
 #define _DOMAIN 1
 #define _SING 2
@@ -68,24 +68,24 @@ struct exception;
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+ബാഹ്യ "C" {
 #endif
 
 #ifndef _EXCEPTION_DEFINED
 #define _EXCEPTION_DEFINED
-  struct _exception {
-    int type;
-    char *name;
-    double arg1;
-    double arg2;
-    double retval;
+  ഘടന _exception {
+    പൂർണ്ണസംഖ്യ type;
+    അക്ഷരം *name;
+    ഇരട്ട arg1;
+    ഇരട്ട arg2;
+    ഇരട്ട retval;
   };
 #endif
 
 #ifndef _COMPLEX_DEFINED
 #define _COMPLEX_DEFINED
-  struct _complex {
-    double x,y;
+  ഘടന _complex {
+    ഇരട്ട x,y;
   };
 #endif
 
@@ -94,9 +94,9 @@ extern "C" {
 
 #ifndef _HUGE
 #ifdef _MSVCRT_
-  extern double *_HUGE;
-#else
-  extern double *_imp___HUGE;
+  ബാഹ്യ ഇരട്ട *_HUGE;
+#അല്ലെങ്കിൽ
+  ബാഹ്യ ഇരട്ട *_imp___HUGE;
 #define _HUGE	(*_imp___HUGE)
 #endif
 #endif
@@ -105,96 +105,96 @@ extern "C" {
 
 #ifndef _CRT_ABS_DEFINED
 #define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
+  പൂർണ്ണസംഖ്യ __cdecl abs(പൂർണ്ണസംഖ്യ _X);
   long __cdecl labs(long _X);
 #endif
-  double __cdecl acos(double _X);
-  double __cdecl asin(double _X);
-  double __cdecl atan(double _X);
-  double __cdecl atan2(double _Y,double _X);
+  ഇരട്ട __cdecl acos(ഇരട്ട _X);
+  ഇരട്ട __cdecl asin(ഇരട്ട _X);
+  ഇരട്ട __cdecl atan(ഇരട്ട _X);
+  ഇരട്ട __cdecl atan2(ഇരട്ട _Y,ഇരട്ട _X);
 #ifndef _SIGN_DEFINED
 #define _SIGN_DEFINED
-  _CRTIMP double __cdecl _copysign (double _Number,double _Sign);
-  _CRTIMP double __cdecl _chgsign (double _X);
+  _CRTIMP ഇരട്ട __cdecl _copysign (ഇരട്ട സംഖ്യ,ഇരട്ട _Sign);
+  _CRTIMP ഇരട്ട __cdecl _chgsign (ഇരട്ട _X);
 #endif
-  double __cdecl cos(double _X);
-  double __cdecl cosh(double _X);
-  double __cdecl exp(double _X);
-  double __cdecl expm1(double _X);
-  double __cdecl fabs(double _X);
-  double __cdecl fmod(double _X,double _Y);
-  double __cdecl log(double _X);
-  double __cdecl log10(double _X);
-  double __cdecl pow(double _X,double _Y);
-  double __cdecl sin(double _X);
-  double __cdecl sinh(double _X);
-  double __cdecl tan(double _X);
-  double __cdecl tanh(double _X);
-  double __cdecl sqrt(double _X);
+  ഇരട്ട __cdecl cos(ഇരട്ട _X);
+  ഇരട്ട __cdecl cosh(ഇരട്ട _X);
+  ഇരട്ട __cdecl exp(ഇരട്ട _X);
+  ഇരട്ട __cdecl expm1(ഇരട്ട _X);
+  ഇരട്ട __cdecl fabs(ഇരട്ട _X);
+  ഇരട്ട __cdecl fmod(ഇരട്ട _X,ഇരട്ട _Y);
+  ഇരട്ട __cdecl log(ഇരട്ട _X);
+  ഇരട്ട __cdecl log10(ഇരട്ട _X);
+  ഇരട്ട __cdecl pow(ഇരട്ട _X,ഇരട്ട _Y);
+  ഇരട്ട __cdecl sin(ഇരട്ട _X);
+  ഇരട്ട __cdecl sinh(ഇരട്ട _X);
+  ഇരട്ട __cdecl tan(ഇരട്ട _X);
+  ഇരട്ട __cdecl tanh(ഇരട്ട _X);
+  ഇരട്ട __cdecl sqrt(ഇരട്ട _X);
 #ifndef _CRT_ATOF_DEFINED
 #define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
+  ഇരട്ട __cdecl atof(സ്ഥിരം അക്ഷരം *_String);
+  ഇരട്ട __cdecl _atof_l(സ്ഥിരം അക്ഷരം *_String,_locale_t _Locale);
 #endif
 
-  _CRTIMP double __cdecl _cabs(struct _complex _ComplexA);
-  double __cdecl ceil(double _X);
-  double __cdecl floor(double _X);
-  double __cdecl frexp(double _X,int *_Y);
-  double __cdecl _hypot(double _X,double _Y);
-  _CRTIMP double __cdecl _j0(double _X);
-  _CRTIMP double __cdecl _j1(double _X);
-  _CRTIMP double __cdecl _jn(int _X,double _Y);
-  double __cdecl ldexp(double _X,int _Y);
+  _CRTIMP ഇരട്ട __cdecl _cabs(ഘടന _complex _ComplexA);
+  ഇരട്ട __cdecl ceil(ഇരട്ട _X);
+  ഇരട്ട __cdecl floor(ഇരട്ട _X);
+  ഇരട്ട __cdecl frexp(ഇരട്ട _X,പൂർണ്ണസംഖ്യ *_Y);
+  ഇരട്ട __cdecl _hypot(ഇരട്ട _X,ഇരട്ട _Y);
+  _CRTIMP ഇരട്ട __cdecl _j0(ഇരട്ട _X);
+  _CRTIMP ഇരട്ട __cdecl _j1(ഇരട്ട _X);
+  _CRTIMP ഇരട്ട __cdecl _jn(പൂർണ്ണസംഖ്യ _X,ഇരട്ട _Y);
+  ഇരട്ട __cdecl ldexp(ഇരട്ട _X,പൂർണ്ണസംഖ്യ _Y);
 #ifndef _CRT_MATHERR_DEFINED
 #define _CRT_MATHERR_DEFINED
-  int __cdecl _matherr(struct _exception *_Except);
+  പൂർണ്ണസംഖ്യ __cdecl _matherr(ഘടന _exception *_Except);
 #endif
-  double __cdecl modf(double _X,double *_Y);
-  _CRTIMP double __cdecl _y0(double _X);
-  _CRTIMP double __cdecl _y1(double _X);
-  _CRTIMP double __cdecl _yn(int _X,double _Y);
+  ഇരട്ട __cdecl modf(ഇരട്ട _X,ഇരട്ട *_Y);
+  _CRTIMP ഇരട്ട __cdecl _y0(ഇരട്ട _X);
+  _CRTIMP ഇരട്ട __cdecl _y1(ഇരട്ട _X);
+  _CRTIMP ഇരട്ട __cdecl _yn(പൂർണ്ണസംഖ്യ _X,ഇരട്ട _Y);
 
-#if(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _set_SSE2_enable(int _Flag);
+#എങ്കിൽ(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP പൂർണ്ണസംഖ്യ __cdecl _set_SSE2_enable(പൂർണ്ണസംഖ്യ _Flag);
   /* from libmingwex */
-  float __cdecl _hypotf(float _X,float _Y);
+  ദശാംശം __cdecl _hypotf(ദശാംശം _X,ദശാംശം _Y);
 #endif
 
-  float frexpf(float _X,int *_Y);
-  float __cdecl ldexpf(float _X,int _Y);
-  long double __cdecl ldexpl(long double _X,int _Y);
-  float __cdecl acosf(float _X);
-  float __cdecl asinf(float _X);
-   float __cdecl atanf(float _X);
-   float __cdecl atan2f(float _X,float _Y);
-   float __cdecl cosf(float _X);
-   float __cdecl sinf(float _X);
-   float __cdecl tanf(float _X);
-   float __cdecl coshf(float _X);
-   float __cdecl sinhf(float _X);
-   float __cdecl tanhf(float _X);
-   float __cdecl expf(float _X);
-   float __cdecl expm1f(float _X);
-   float __cdecl logf(float _X);
-   float __cdecl log10f(float _X);
-   float __cdecl modff(float _X,float *_Y);
-   float __cdecl powf(float _X,float _Y);
-   float __cdecl sqrtf(float _X);
-   float __cdecl ceilf(float _X);
-   float __cdecl floorf(float _X);
-  float __cdecl fmodf(float _X,float _Y);
-   float __cdecl _hypotf(float _X,float _Y);
-  float __cdecl fabsf(float _X);
-#if !defined(__ia64__)
+  ദശാംശം frexpf(ദശാംശം _X,പൂർണ്ണസംഖ്യ *_Y);
+  ദശാംശം __cdecl ldexpf(ദശാംശം _X,പൂർണ്ണസംഖ്യ _Y);
+  long ഇരട്ട __cdecl ldexpl(long ഇരട്ട _X,പൂർണ്ണസംഖ്യ _Y);
+  ദശാംശം __cdecl acosf(ദശാംശം _X);
+  ദശാംശം __cdecl asinf(ദശാംശം _X);
+   ദശാംശം __cdecl atanf(ദശാംശം _X);
+   ദശാംശം __cdecl atan2f(ദശാംശം _X,ദശാംശം _Y);
+   ദശാംശം __cdecl cosf(ദശാംശം _X);
+   ദശാംശം __cdecl sinf(ദശാംശം _X);
+   ദശാംശം __cdecl tanf(ദശാംശം _X);
+   ദശാംശം __cdecl coshf(ദശാംശം _X);
+   ദശാംശം __cdecl sinhf(ദശാംശം _X);
+   ദശാംശം __cdecl tanhf(ദശാംശം _X);
+   ദശാംശം __cdecl expf(ദശാംശം _X);
+   ദശാംശം __cdecl expm1f(ദശാംശം _X);
+   ദശാംശം __cdecl logf(ദശാംശം _X);
+   ദശാംശം __cdecl log10f(ദശാംശം _X);
+   ദശാംശം __cdecl modff(ദശാംശം _X,ദശാംശം *_Y);
+   ദശാംശം __cdecl powf(ദശാംശം _X,ദശാംശം _Y);
+   ദശാംശം __cdecl sqrtf(ദശാംശം _X);
+   ദശാംശം __cdecl ceilf(ദശാംശം _X);
+   ദശാംശം __cdecl floorf(ദശാംശം _X);
+  ദശാംശം __cdecl fmodf(ദശാംശം _X,ദശാംശം _Y);
+   ദശാംശം __cdecl _hypotf(ദശാംശം _X,ദശാംശം _Y);
+  ദശാംശം __cdecl fabsf(ദശാംശം _X);
+#എങ്കിൽ !defined(__ia64__)
    /* from libmingwex */
-   float __cdecl _copysignf (float _Number,float _Sign);
-   float __cdecl _chgsignf (float _X);
-   float __cdecl _logbf(float _X);
-   float __cdecl _nextafterf(float _X,float _Y);
-   int __cdecl _finitef(float _X);
-   int __cdecl _isnanf(float _X);
-   int __cdecl _fpclassf(float _X);
+   ദശാംശം __cdecl _copysignf (ദശാംശം സംഖ്യ,ദശാംശം _Sign);
+   ദശാംശം __cdecl _chgsignf (ദശാംശം _X);
+   ദശാംശം __cdecl _logbf(ദശാംശം _X);
+   ദശാംശം __cdecl _nextafterf(ദശാംശം _X,ദശാംശം _Y);
+   പൂർണ്ണസംഖ്യ __cdecl _finitef(ദശാംശം _X);
+   പൂർണ്ണസംഖ്യ __cdecl _isnanf(ദശാംശം _X);
+   പൂർണ്ണസംഖ്യ __cdecl _fpclassf(ദശാംശം _X);
 #endif
 
 #ifndef	NO_OLDNAMES
@@ -202,17 +202,17 @@ extern "C" {
 
 #define HUGE	_HUGE
   /*	double __cdecl cabs(struct _complex _X); */
-  double __cdecl hypot(double _X,double _Y);
-  _CRTIMP double __cdecl j0(double _X);
-  _CRTIMP double __cdecl j1(double _X);
-  _CRTIMP double __cdecl jn(int _X,double _Y);
-  _CRTIMP double __cdecl y0(double _X);
-  _CRTIMP double __cdecl y1(double _X);
-  _CRTIMP double __cdecl yn(int _X,double _Y);
+  ഇരട്ട __cdecl hypot(ഇരട്ട _X,ഇരട്ട _Y);
+  _CRTIMP ഇരട്ട __cdecl j0(ഇരട്ട _X);
+  _CRTIMP ഇരട്ട __cdecl j1(ഇരട്ട _X);
+  _CRTIMP ഇരട്ട __cdecl jn(പൂർണ്ണസംഖ്യ _X,ഇരട്ട _Y);
+  _CRTIMP ഇരട്ട __cdecl y0(ഇരട്ട _X);
+  _CRTIMP ഇരട്ട __cdecl y1(ഇരട്ട _X);
+  _CRTIMP ഇരട്ട __cdecl yn(പൂർണ്ണസംഖ്യ _X,ഇരട്ട _Y);
 #endif
 
 #ifndef __NO_ISOCEXT
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
+#എങ്കിൽ (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
   || !defined __STRICT_ANSI__ || defined __GLIBCPP__
 
 #define NAN (0.0F/0.0F)
@@ -236,9 +236,9 @@ extern "C" {
   converted to double, and zero when converted to float.)
   */
 
-  extern int __cdecl __fpclassifyf (float);
-  extern int __cdecl __fpclassify (double);
-  extern int __cdecl __fpclassifyl (long double);
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __cdecl __fpclassifyf (ദശാംശം);
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __cdecl __fpclassify (ഇരട്ട);
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __cdecl __fpclassifyl (long ഇരട്ട);
 
 /* Implemented at tcc/tcc_libm.h
 #define fpclassify(x) (sizeof (x) == sizeof (float) ? __fpclassifyf (x)	  \
@@ -246,7 +246,7 @@ extern "C" {
   : __fpclassifyl (x))
 */
 #define fpclassify(x) \
-  _Generic(x, float: __fpclassifyf, double: __fpclassify, long double: __fpclassifyl)(x)
+  _Generic(x, ദശാംശം: __fpclassifyf, ഇരട്ട: __fpclassify, long ഇരട്ട: __fpclassifyl)(x)
 
   /* 7.12.3.2 */
 #define isfinite(x) ((fpclassify(x) & FP_NAN) == 0)
@@ -264,9 +264,9 @@ extern "C" {
 
   /* 7.12.3.6 The signbit macro */
 
-  extern int __cdecl __signbitf (float);
-  extern int __cdecl __signbit (double);
-  extern int __cdecl __signbitl (long double);
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __cdecl __signbitf (ദശാംശം);
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __cdecl __signbit (ഇരട്ട);
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __cdecl __signbitl (long ഇരട്ട);
 
 /* Implemented at tcc/tcc_libm.h
 #define signbit(x) (sizeof (x) == sizeof (float) ? __signbitf (x)	\
@@ -274,115 +274,115 @@ extern "C" {
   : __signbitl (x))
 */
 #define signbit(x) \
-  _Generic(x, float: __signbitf, double: __signbit, long double: __signbitl)(x)
+  _Generic(x, ദശാംശം: __signbitf, ഇരട്ട: __signbit, long ഇരട്ട: __signbitl)(x)
 
-  extern double __cdecl exp2(double);
-  extern float __cdecl exp2f(float);
-  extern long double __cdecl exp2l(long double);
+  ബാഹ്യ ഇരട്ട __cdecl exp2(ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl exp2f(ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl exp2l(long ഇരട്ട);
 
-#define FP_ILOGB0 ((int)0x80000000)
-#define FP_ILOGBNAN ((int)0x80000000)
-  extern int __cdecl ilogb (double);
-  extern int __cdecl ilogbf (float);
-  extern int __cdecl ilogbl (long double);
+#define FP_ILOGB0 ((പൂർണ്ണസംഖ്യ)0x80000000)
+#define FP_ILOGBNAN ((പൂർണ്ണസംഖ്യ)0x80000000)
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __cdecl ilogb (ഇരട്ട);
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __cdecl ilogbf (ദശാംശം);
+  ബാഹ്യ പൂർണ്ണസംഖ്യ __cdecl ilogbl (long ഇരട്ട);
 
-  extern double __cdecl log1p(double);
-  extern float __cdecl log1pf(float);
-  extern long double __cdecl log1pl(long double);
+  ബാഹ്യ ഇരട്ട __cdecl log1p(ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl log1pf(ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl log1pl(long ഇരട്ട);
 
-  extern double __cdecl log2 (double);
-  extern float __cdecl log2f (float);
-  extern long double __cdecl log2l (long double);
+  ബാഹ്യ ഇരട്ട __cdecl log2 (ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl log2f (ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl log2l (long ഇരട്ട);
 
-  extern double __cdecl logb (double);
-  extern float __cdecl logbf (float);
-  extern long double __cdecl logbl (long double);
+  ബാഹ്യ ഇരട്ട __cdecl logb (ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl logbf (ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl logbl (long ഇരട്ട);
 
-  extern long double __cdecl modfl (long double, long double*);
+  ബാഹ്യ long ഇരട്ട __cdecl modfl (long ഇരട്ട, long ഇരട്ട*);
 
   /* 7.12.6.13 */
-  extern double __cdecl scalbn (double, int);
-  extern float __cdecl scalbnf (float, int);
-  extern long double __cdecl scalbnl (long double, int);
+  ബാഹ്യ ഇരട്ട __cdecl scalbn (ഇരട്ട, പൂർണ്ണസംഖ്യ);
+  ബാഹ്യ ദശാംശം __cdecl scalbnf (ദശാംശം, പൂർണ്ണസംഖ്യ);
+  ബാഹ്യ long ഇരട്ട __cdecl scalbnl (long ഇരട്ട, പൂർണ്ണസംഖ്യ);
 
-  extern double __cdecl scalbln (double, long);
-  extern float __cdecl scalblnf (float, long);
-  extern long double __cdecl scalblnl (long double, long);
+  ബാഹ്യ ഇരട്ട __cdecl scalbln (ഇരട്ട, long);
+  ബാഹ്യ ദശാംശം __cdecl scalblnf (ദശാംശം, long);
+  ബാഹ്യ long ഇരട്ട __cdecl scalblnl (long ഇരട്ട, long);
 
   /* 7.12.7.1 */
   /* Implementations adapted from Cephes versions */ 
-  extern double __cdecl cbrt (double);
-  extern float __cdecl cbrtf (float);
-  extern long double __cdecl cbrtl (long double);
+  ബാഹ്യ ഇരട്ട __cdecl cbrt (ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl cbrtf (ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl cbrtl (long ഇരട്ട);
 
-  extern double __cdecl hypot (double, double);
-  extern float __cdecl hypotf (float, float);
-  extern long double __cdecl hypotl (long double, long double);
+  ബാഹ്യ ഇരട്ട __cdecl hypot (ഇരട്ട, ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl hypotf (ദശാംശം, ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl hypotl (long ഇരട്ട, long ഇരട്ട);
 
-  extern long double __cdecl powl (long double, long double);
-  extern long double __cdecl expl(long double);
-  extern long double __cdecl expm1l(long double);
-  extern long double __cdecl coshl(long double);
-  extern long double __cdecl fabsl (long double);
-  extern long double __cdecl acosl(long double);
-  extern long double __cdecl asinl(long double);
-  extern long double __cdecl atanl(long double);
-  extern long double __cdecl atan2l(long double,long double);
-  extern long double __cdecl sinhl(long double);
-  extern long double __cdecl tanhl(long double);
+  ബാഹ്യ long ഇരട്ട __cdecl powl (long ഇരട്ട, long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl expl(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl expm1l(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl coshl(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl fabsl (long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl acosl(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl asinl(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl atanl(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl atan2l(long ഇരട്ട,long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl sinhl(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl tanhl(long ഇരട്ട);
 
   /* 7.12.8.1 The erf functions  */
-  extern double __cdecl erf (double);
-  extern float __cdecl erff (float);
+  ബാഹ്യ ഇരട്ട __cdecl erf (ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl erff (ദശാംശം);
   /* TODO
   extern long double __cdecl erfl (long double);
   */ 
 
   /* 7.12.8.2 The erfc functions  */
-  extern double __cdecl erfc (double);
-  extern float __cdecl erfcf (float);
+  ബാഹ്യ ഇരട്ട __cdecl erfc (ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl erfcf (ദശാംശം);
   /* TODO
   extern long double __cdecl erfcl (long double);
   */ 
 
   /* 7.12.8.3 The lgamma functions */
-  extern double __cdecl lgamma (double);
-  extern float __cdecl lgammaf (float);
-  extern long double __cdecl lgammal (long double);
+  ബാഹ്യ ഇരട്ട __cdecl lgamma (ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl lgammaf (ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl lgammal (long ഇരട്ട);
 
   /* 7.12.8.4 The tgamma functions */
-  extern double __cdecl tgamma (double);
-  extern float __cdecl tgammaf (float);
-  extern long double __cdecl tgammal (long double);
+  ബാഹ്യ ഇരട്ട __cdecl tgamma (ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl tgammaf (ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl tgammal (long ഇരട്ട);
 
-  extern long double __cdecl ceill (long double);
-  extern long double __cdecl floorl (long double);
-  extern long double __cdecl frexpl(long double,int *);
-  extern long double __cdecl log10l(long double);
-  extern long double __cdecl logl(long double);
-  extern long double __cdecl cosl(long double);
-  extern long double __cdecl sinl(long double);
-  extern long double __cdecl tanl(long double);
-  extern long double sqrtl(long double);
+  ബാഹ്യ long ഇരട്ട __cdecl ceill (long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl floorl (long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl frexpl(long ഇരട്ട,പൂർണ്ണസംഖ്യ *);
+  ബാഹ്യ long ഇരട്ട __cdecl log10l(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl logl(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl cosl(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl sinl(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട __cdecl tanl(long ഇരട്ട);
+  ബാഹ്യ long ഇരട്ട sqrtl(long ഇരട്ട);
 
   /* 7.12.9.3 */
-  extern double __cdecl nearbyint ( double);
-  extern float __cdecl nearbyintf (float);
-  extern long double __cdecl nearbyintl (long double);
+  ബാഹ്യ ഇരട്ട __cdecl nearbyint ( ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl nearbyintf (ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl nearbyintl (long ഇരട്ട);
 
   /* 7.12.9.4 */
   /* round, using fpu control word settings */
-  extern double __cdecl rint (double);
-  extern float __cdecl rintf (float);
-  extern long double __cdecl rintl (long double);
+  ബാഹ്യ ഇരട്ട __cdecl rint (ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl rintf (ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl rintl (long ഇരട്ട);
 
-  extern long __cdecl lrint (double);
-  extern long __cdecl lrintf (float);
-  extern long __cdecl lrintl (long double);
+  ബാഹ്യ long __cdecl lrint (ഇരട്ട);
+  ബാഹ്യ long __cdecl lrintf (ദശാംശം);
+  ബാഹ്യ long __cdecl lrintl (long ഇരട്ട);
 
-  extern long long __cdecl llrint (double);
-  extern long long __cdecl llrintf (float);
-  extern long long __cdecl llrintl (long double);
+  ബാഹ്യ long long __cdecl llrint (ഇരട്ട);
+  ബാഹ്യ long long __cdecl llrintf (ദശാംശം);
+  ബാഹ്യ long long __cdecl llrintl (long ഇരട്ട);
 
   #define FE_TONEAREST	0x0000
   #define FE_DOWNWARD	0x0400
@@ -391,46 +391,46 @@ extern "C" {
 
   /* 7.12.9.6 */
   /* round away from zero, regardless of fpu control word settings */
-  extern double __cdecl round (double);
-  extern float __cdecl roundf (float);
-  extern long double __cdecl roundl (long double);
+  ബാഹ്യ ഇരട്ട __cdecl round (ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl roundf (ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl roundl (long ഇരട്ട);
 
   /* 7.12.9.7  */
-  extern long __cdecl lround (double);
-  extern long __cdecl lroundf (float);
-  extern long __cdecl lroundl (long double);
+  ബാഹ്യ long __cdecl lround (ഇരട്ട);
+  ബാഹ്യ long __cdecl lroundf (ദശാംശം);
+  ബാഹ്യ long __cdecl lroundl (long ഇരട്ട);
 
-  extern long long __cdecl llround (double);
-  extern long long __cdecl llroundf (float);
-  extern long long __cdecl llroundl (long double);
+  ബാഹ്യ long long __cdecl llround (ഇരട്ട);
+  ബാഹ്യ long long __cdecl llroundf (ദശാംശം);
+  ബാഹ്യ long long __cdecl llroundl (long ഇരട്ട);
 
   /* 7.12.9.8 */
   /* round towards zero, regardless of fpu control word settings */
-  extern double __cdecl trunc (double);
-  extern float __cdecl truncf (float);
-  extern long double __cdecl truncl (long double);
+  ബാഹ്യ ഇരട്ട __cdecl trunc (ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl truncf (ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl truncl (long ഇരട്ട);
 
-  extern long double __cdecl fmodl (long double, long double);
+  ബാഹ്യ long ഇരട്ട __cdecl fmodl (long ഇരട്ട, long ഇരട്ട);
 
   /* 7.12.10.2 */ 
-  extern double __cdecl remainder (double, double);
-  extern float __cdecl remainderf (float, float);
-  extern long double __cdecl remainderl (long double, long double);
+  ബാഹ്യ ഇരട്ട __cdecl remainder (ഇരട്ട, ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl remainderf (ദശാംശം, ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl remainderl (long ഇരട്ട, long ഇരട്ട);
 
   /* 7.12.10.3 */
-  extern double __cdecl remquo(double, double, int *);
-  extern float __cdecl remquof(float, float, int *);
-  extern long double __cdecl remquol(long double, long double, int *);
+  ബാഹ്യ ഇരട്ട __cdecl remquo(ഇരട്ട, ഇരട്ട, പൂർണ്ണസംഖ്യ *);
+  ബാഹ്യ ദശാംശം __cdecl remquof(ദശാംശം, ദശാംശം, പൂർണ്ണസംഖ്യ *);
+  ബാഹ്യ long ഇരട്ട __cdecl remquol(long ഇരട്ട, long ഇരട്ട, പൂർണ്ണസംഖ്യ *);
 
   /* 7.12.11.1 */
-  extern double __cdecl copysign (double, double); /* in libmoldname.a */
-  extern float __cdecl copysignf (float, float);
-  extern long double __cdecl copysignl (long double, long double);
+  ബാഹ്യ ഇരട്ട __cdecl copysign (ഇരട്ട, ഇരട്ട); /* in libmoldname.a */
+  ബാഹ്യ ദശാംശം __cdecl copysignf (ദശാംശം, ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl copysignl (long ഇരട്ട, long ഇരട്ട);
 
   /* 7.12.11.2 Return a NaN */
-  extern double __cdecl nan(const char *tagp);
-  extern float __cdecl nanf(const char *tagp);
-  extern long double __cdecl nanl(const char *tagp);
+  ബാഹ്യ ഇരട്ട __cdecl nan(സ്ഥിരം അക്ഷരം *tagp);
+  ബാഹ്യ ദശാംശം __cdecl nanf(സ്ഥിരം അക്ഷരം *tagp);
+  ബാഹ്യ long ഇരട്ട __cdecl nanl(സ്ഥിരം അക്ഷരം *tagp);
 
 #ifndef __STRICT_ANSI__
 #define _nan() nan("")
@@ -439,17 +439,17 @@ extern "C" {
 #endif
 
   /* 7.12.11.3 */
-  extern double __cdecl nextafter (double, double); /* in libmoldname.a */
-  extern float __cdecl nextafterf (float, float);
-  extern long double __cdecl nextafterl (long double, long double);
+  ബാഹ്യ ഇരട്ട __cdecl nextafter (ഇരട്ട, ഇരട്ട); /* in libmoldname.a */
+  ബാഹ്യ ദശാംശം __cdecl nextafterf (ദശാംശം, ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl nextafterl (long ഇരട്ട, long ഇരട്ട);
 
   /* 7.12.11.4 The nexttoward functions: TODO */
 
   /* 7.12.12.1 */
   /*  x > y ? (x - y) : 0.0  */
-  extern double __cdecl fdim (double x, double y);
-  extern float __cdecl fdimf (float x, float y);
-  extern long double __cdecl fdiml (long double x, long double y);
+  ബാഹ്യ ഇരട്ട __cdecl fdim (ഇരട്ട x, ഇരട്ട y);
+  ബാഹ്യ ദശാംശം __cdecl fdimf (ദശാംശം x, ദശാംശം y);
+  ബാഹ്യ long ഇരട്ട __cdecl fdiml (long ഇരട്ട x, long ഇരട്ട y);
 
   /* fmax and fmin.
   NaN arguments are treated as missing data: if one argument is a NaN
@@ -457,20 +457,20 @@ extern "C" {
   value. */
 
   /* 7.12.12.2 */
-  extern double __cdecl fmax  (double, double);
-  extern float __cdecl fmaxf (float, float);
-  extern long double __cdecl fmaxl (long double, long double);
+  ബാഹ്യ ഇരട്ട __cdecl fmax  (ഇരട്ട, ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl fmaxf (ദശാംശം, ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl fmaxl (long ഇരട്ട, long ഇരട്ട);
 
   /* 7.12.12.3 */
-  extern double __cdecl fmin (double, double);
-  extern float __cdecl fminf (float, float);
-  extern long double __cdecl fminl (long double, long double);
+  ബാഹ്യ ഇരട്ട __cdecl fmin (ഇരട്ട, ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl fminf (ദശാംശം, ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl fminl (long ഇരട്ട, long ഇരട്ട);
 
   /* 7.12.13.1 */
   /* return x * y + z as a ternary op */ 
-  extern double __cdecl fma (double, double, double);
-  extern float __cdecl fmaf (float, float, float);
-  extern long double __cdecl fmal (long double, long double, long double);
+  ബാഹ്യ ഇരട്ട __cdecl fma (ഇരട്ട, ഇരട്ട, ഇരട്ട);
+  ബാഹ്യ ദശാംശം __cdecl fmaf (ദശാംശം, ദശാംശം, ദശാംശം);
+  ബാഹ്യ long ഇരട്ട __cdecl fmal (long ഇരട്ട, long ഇരട്ട, long ഇരട്ട);
 
 
 #endif /* __STDC_VERSION__ >= 199901L */
@@ -479,7 +479,7 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#pragma pack(pop)
+#pragma pack(എടുക്കുക)
 
 /* 7.12.14 */
 /* 
@@ -491,7 +491,7 @@ extern "C" {
  */
 
 /* Mini libm (inline __fpclassify*, __signbit* and variants) */
-#include "tcc/tcc_libm.h"
+#അന്തര്ഭാവ "tcc/tcc_libm.h"
 
 #endif /* End _MATH_H_ */
 

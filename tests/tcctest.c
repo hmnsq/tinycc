@@ -1,7 +1,7 @@
 /*
  * TCC auto test program
  */
-#include "config.h"
+#അന്തര്ഭാവ "config.h"
 
 /* identify the configured reference compiler in use */
 #define CC_gcc 1
@@ -17,7 +17,7 @@
 /* __VA_ARGS__ and __func__ support */
 #define C99_MACROS
 
-#if defined(_WIN32) \
+#എങ്കിൽ defined(_WIN32) \
     || (defined(__arm__) \
         && (defined(__FreeBSD__) \
          || defined(__OpenBSD__) \
@@ -26,7 +26,7 @@
 #define LONG_LONG_FORMAT "%lld"
 #define ULONG_LONG_FORMAT "%llu"
 #define XLONG_LONG_FORMAT "%llx"
-#else
+#അല്ലെങ്കിൽ
 #define LONG_LONG_FORMAT "%Ld"
 #define ULONG_LONG_FORMAT "%Lu"
 #define XLONG_LONG_FORMAT "%Lx"
@@ -34,15 +34,15 @@
 
 /* MinGW has 80-bit rather than 64-bit long double which isn't
    compatible with printf in msvcrt */
-#if defined(_WIN32)
-#define LONG_DOUBLE double
+#എങ്കിൽ defined(_WIN32)
+#define LONG_DOUBLE ഇരട്ട
 #define LONG_DOUBLE_LITERAL(x) x
-#else
-#define LONG_DOUBLE long double
+#അല്ലെങ്കിൽ
+#define LONG_DOUBLE long ഇരട്ട
 #define LONG_DOUBLE_LITERAL(x) x ## L
 #endif
 
-typedef __SIZE_TYPE__ uintptr_t;
+തരനിർവചനം __SIZE_TYPE__ uintptr_t;
 
 /* test various include syntaxes */
 
@@ -51,19 +51,19 @@ typedef __SIZE_TYPE__ uintptr_t;
 #define TCCLIB_INC2 h>
 #define TCCLIB_INC3 "tcclib.h"
 
-#include TCCLIB_INC
+#അന്തര്ഭാവ TCCLIB_INC
 
-#include TCCLIB_INC1.TCCLIB_INC2
+#അന്തര്ഭാവ TCCLIB_INC1.TCCLIB_INC2
 
-#include TCCLIB_INC1.h>
+#അന്തര്ഭാവ TCCLIB_INC1.h>
 
-#include TCCLIB_INC3
+#അന്തര്ഭാവ TCCLIB_INC3
 
-#include <tcclib.h>
+#അന്തര്ഭാവ <tcclib.h>
 
-#include "tcclib.h"
+#അന്തര്ഭാവ "tcclib.h"
 
-#include "tcctest.h"
+#അന്തര്ഭാവ "tcctest.h"
 
 /* Test two more ways to include a file named like a pp-number */
 #define INC(name) <tests/name.h>
@@ -73,23 +73,23 @@ typedef __SIZE_TYPE__ uintptr_t;
 /* clang's preprocessor is broken in this regard and adds spaces
    to the tokens 'incdir' and 'funnyname' when expanding */
 #define incname <tests/42test.h>
-#else
+#അല്ലെങ്കിൽ
 #define incname < incdir funnyname >
 #endif
 #define __stringify(x) #x
 #define stringify(x) __stringify(x)
-#include INC(42test)
-#include incname
-#include stringify(funnyname)
+#അന്തര്ഭാവ INC(42test)
+#അന്തര്ഭാവ incname
+#അന്തര്ഭാവ stringify(funnyname)
 
-int fib(int n);
-void num(int n);
-void forward_ref(void);
-int isid(int c);
+പൂർണ്ണസംഖ്യ fib(പൂർണ്ണസംഖ്യ n);
+ശൂന്യം അക്കം(പൂർണ്ണസംഖ്യ n);
+ശൂന്യം forward_ref(ശൂന്യം);
+പൂർണ്ണസംഖ്യ isid(പൂർണ്ണസംഖ്യ c);
 
 /* Line joining happens before tokenization, so the following
    must be parsed as ellipsis.  */
-void funny_line_continuation (int, ..\
+ശൂന്യം funny_വരി_continuation (പൂർണ്ണസംഖ്യ, ..\
 . );
 
 #define A 2
@@ -102,9 +102,9 @@ void funny_line_continuation (int, ..\
 #define glue(a, b) a ## b
 #define xglue(a, b) glue(a, b)
 #define HIGHLOW "hello"
-#define LOW LOW ", world"
+#define താഴെയുള്ള_2 താഴെയുള്ള_2 ", world"
 
-static int onetwothree = 123;
+സ്ഥിതം പൂർണ്ണസംഖ്യ onetwothree = 123;
 #define onetwothree4 onetwothree
 #define onetwothree xglue(onetwothree,4)
 
@@ -126,38 +126,38 @@ static int onetwothree = 123;
 #undef AAA
 #define AAA 4
 
-#if 1
+#എങ്കിൽ 1
 #define B3 1
-#elif 1
+#അല്ലെങ്കിലെങ്കിൽ 1
 #define B3 2
-#elif 0
+#അല്ലെങ്കിലെങ്കിൽ 0
 #define B3 3
-#else
+#അല്ലെങ്കിൽ
 #define B3 4
 #endif
 
 #define __INT64_C(c)	c ## LL
 #define INT64_MIN	(-__INT64_C(9223372036854775807)-1)
 
-int qq(int x)
+പൂർണ്ണസംഖ്യ qq(പൂർണ്ണസംഖ്യ x)
 {
-    return x + 40;
+    തിരികെ x + 40;
 }
 #define qq(x) x
 
-#define spin_lock(lock) do { } while (0)
+#define spin_lock(lock) ചെയ്യുക { } ആകുമ്പോൾ (0)
 #define wq_spin_lock spin_lock
 #define TEST2() wq_spin_lock(a)
 
-void macro_test(void)
+ശൂന്യം macro_test(ശൂന്യം)
 {
     pf("N=%d\n", N);
     printf("aaa=%d\n", AAA);
 
     printf("min=%d\n", min(1, min(2, -1)));
 
-    printf("s1=%s\n", glue(HIGH, LOW));
-    printf("s2=%s\n", xglue(HIGH, LOW));
+    printf("s1=%s\n", glue(മുകളിലെ_2, താഴെയുള്ള_2));
+    printf("s2=%s\n", xglue(മുകളിലെ_2, താഴെയുള്ള_2));
     printf("s3=%s\n", str("c"));
     printf("s4=%s\n", str(a1));
     printf("B3=%d\n", B3);
@@ -172,12 +172,12 @@ void macro_test(void)
 #endif
 #ifdef A
     printf("A defined\n");
-#else
+#അല്ലെങ്കിൽ
     printf("A not defined\n");
 #endif
 #ifdef B
     printf("B defined\n");
-#else
+#അല്ലെങ്കിൽ
     printf("B not defined\n");
 #endif
 
@@ -185,41 +185,41 @@ void macro_test(void)
     printf("A defined\n");
 #ifdef B
     printf("B1 defined\n");
-#else
+#അല്ലെങ്കിൽ
     printf("B1 not defined\n");
 #endif
-#else
+#അല്ലെങ്കിൽ
     printf("A not defined\n");
 #ifdef B
     printf("B2 defined\n");
-#else
+#അല്ലെങ്കിൽ
     printf("B2 not defined\n");
 #endif
 #endif
 
-#if 1+1
+#എങ്കിൽ 1+1
     printf("test true1\n");
 #endif
-#if 0
+#എങ്കിൽ 0
     printf("test true2\n");
 #endif
-#if 1-1
+#എങ്കിൽ 1-1
     printf("test true3\n");
 #endif
-#if defined(A)
+#എങ്കിൽ defined(A)
     printf("test trueA\n");
 #endif
-#if defined(B)
+#എങ്കിൽ defined(B)
     printf("test trueB\n");
 #endif
 
-#if 0
+#എങ്കിൽ 0
     printf("test 0\n");
-#elif 0
+#അല്ലെങ്കിലെങ്കിൽ 0
     printf("test 1\n");
-#elif 2
+#അല്ലെങ്കിലെങ്കിൽ 2
     printf("test 2\n");
-#else
+#അല്ലെങ്കിൽ
     printf("test 3\n");
 #endif
 
@@ -242,7 +242,7 @@ void macro_test(void)
     /* complicated macros in glibc */
     printf("INT64_MIN=" LONG_LONG_FORMAT "\n", INT64_MIN);
     {
-        int a;
+        പൂർണ്ണസംഖ്യ a;
         a = 1;
         glue(a+, +);
         printf("a=%d\n", a);
@@ -252,7 +252,7 @@ void macro_test(void)
     
     /* macro function with argument outside the macro string */
 #define MF_s MF_hello
-#define MF_hello(msg) printf("%s\n",msg)
+#define MF_hello(സന്ദേശം) printf("%s\n",സന്ദേശം)
 
 #define MF_t printf("tralala\n"); MF_hello
 
@@ -285,12 +285,12 @@ comment
 
     printf("basefromheader %s\n", get_basefile_from_header());
     printf("base %s\n", __BASE_FILE__);
-#if !(defined _WIN32 && CC_NAME == CC_clang)
+#എങ്കിൽ !(defined _WIN32 && CC_NAME == CC_clang)
     {
       /* Some compilers (clang) prepend './' to __FILE__ from included
          files.  */
-      const char *fn = get_file_from_header();
-      if (fn[0] == '.' && fn[1] == '/')
+      സ്ഥിരം അക്ഷരം *fn = get_file_from_header();
+      എങ്കിൽ (fn[0] == '.' && fn[1] == '/')
         fn += 2;
       printf("filefromheader %s\n", fn);
     }
@@ -308,11 +308,11 @@ comment
 }
 
 
-static void print_num(char *fn, int line, int num) {
-    printf("fn %s, line %d, num %d\n", fn, line, num);
+സ്ഥിതം ശൂന്യം print_അക്കം(അക്ഷരം *fn, പൂർണ്ണസംഖ്യ വരി, പൂർണ്ണസംഖ്യ അക്കം) {
+    printf("fn %s, line %d, num %d\n", fn, വരി, അക്കം);
 }
 
-void recursive_macro_test(void)
+ശൂന്യം recursive_macro_test(ശൂന്യം)
 {
 
 #define ELF32_ST_TYPE(val)              ((val) & 0xf)
@@ -323,62 +323,62 @@ void recursive_macro_test(void)
 
 #define WRAP(x) x
     
-#define print_num(x) print_num(__FILE__,__LINE__,x)
-    print_num(123);
-    WRAP(print_num(123));
-    WRAP(WRAP(print_num(123)));
+#define print_അക്കം(x) print_അക്കം(__FILE__,__LINE__,x)
+    print_അക്കം(123);
+    WRAP(print_അക്കം(123));
+    WRAP(WRAP(print_അക്കം(123)));
 
-static struct recursive_macro { int rm_field; } G;
+സ്ഥിതം ഘടന recursive_macro { പൂർണ്ണസംഖ്യ rm_field; } G;
 #define rm_field (G.rm_field)
     printf("rm_field = %d\n", rm_field);
     printf("rm_field = %d\n", WRAP(rm_field));
     WRAP((printf("rm_field = %d %d\n", rm_field, WRAP(rm_field))));
 }
 
-#if __TINYC__
-int op(a, b)
+#എങ്കിൽ __TINYC__
+പൂർണ്ണസംഖ്യ op(a, b)
 {
-    return a / b;
+    തിരികെ a / b;
 }
 
-int ret(a)
+പൂർണ്ണസംഖ്യ ret(a)
 {
-    if (a == 2)
-        return 1;
-    if (a == 3)
-        return 2;
-    return 0;
+    എങ്കിൽ (a == 2)
+        തിരികെ 1;
+    എങ്കിൽ (a == 3)
+        തിരികെ 2;
+    തിരികെ 0;
 }
 #endif
 
-#if !defined(__TINYC__) && (__GNUC__ >= 8)
+#എങ്കിൽ !defined(__TINYC__) && (__GNUC__ >= 8)
 /* Old GCCs don't regard "foo"[1] as constant, even in GNU dialect. */
 #define CONSTANTINDEXEDSTRLIT
 #endif
-char str_ag1[] = "b";
-char str_ag2[] = { "b" };
+അക്ഷരം str_ag1[] = "b";
+അക്ഷരം str_ag2[] = { "b" };
 /*char str_bg1[] = ("cccc"); GCC accepts this with pedantic warning, TCC not */
 #ifdef CONSTANTINDEXEDSTRLIT
-char str_ag3[] = { "ab"[1], 0 };
-char str_x[2] = { "xy" "z"[2], 0 };
+അക്ഷരം str_ag3[] = { "ab"[1], 0 };
+അക്ഷരം str_x[2] = { "xy" "z"[2], 0 };
 #endif
-char *str_ar[] = { "one", "two" };
-struct str_SS {unsigned char a[3], b; };
-struct str_SS str_sinit15 = { "r" };
-struct str_SS str_sinit16[] = { { "q" }, 2 };
+അക്ഷരം *str_ar[] = { "one", "two" };
+ഘടന str_SS {unsigned അക്ഷരം a[3], b; };
+ഘടന str_SS str_sinit15 = { "r" };
+ഘടന str_SS str_sinit16[] = { { "q" }, 2 };
 
-static void string_test2()
+സ്ഥിതം ശൂന്യം string_test2()
 {
-    char *p = "hello";
-    char a3[2] = { "p" };
-    char a4[2] = { "ab" "c"[2], 0 };
-    char *pa1 = "def" + 1;
-    char *pa2 = { "xyz" + 1 };
-    int i = 0;
-    struct str_SS ss = { { [0 ... 1] = 'a' }, 0 };
+    അക്ഷരം *p = "hello";
+    അക്ഷരം a3[2] = { "p" };
+    അക്ഷരം a4[2] = { "ab" "c"[2], 0 };
+    അക്ഷരം *pa1 = "def" + 1;
+    അക്ഷരം *pa2 = { "xyz" + 1 };
+    പൂർണ്ണസംഖ്യ i = 0;
+    ഘടന str_SS ss = { { [0 ... 1] = 'a' }, 0 };
 #ifndef CONSTANTINDEXEDSTRLIT
-    char str_ag3[] = { "ab"[1], 0 };
-    char str_x[2] = { "xy" "z"[2], 0 };
+    അക്ഷരം str_ag3[] = { "ab"[1], 0 };
+    അക്ഷരം str_x[2] = { "xy" "z"[2], 0 };
 #endif
     puts("string_test2");
     puts(str_ag1);
@@ -401,33 +401,33 @@ static void string_test2()
     puts(pa2);
 }
 
-void ps(const char *s)
+ശൂന്യം ps(സ്ഥിരം അക്ഷരം *s)
 {
-    int c;
-    while (1) {
+    പൂർണ്ണസംഖ്യ c;
+    ആകുമ്പോൾ (1) {
         c = *s;
-        if (c == 0)
-            break;
+        എങ്കിൽ (c == 0)
+            നിർത്തുക;
         printf("%c", c);
         s++;
     }
 }
 
-const char foo1_string[] = "\
+സ്ഥിരം അക്ഷരം foo1_string[] = "\
 bar\n\
 test\14\
 1";
 
-void string_test()
+ശൂന്യം string_test()
 {
-    unsigned int b;
+    unsigned പൂർണ്ണസംഖ്യ b;
     printf("string:\n");
     printf("\141\1423\143\n");/* dezdez test */
     printf("\x41\x42\x43\x3a\n");
     printf("c=%c\n", 'r');
     printf("wc=%C 0x%lx %C\n", L'a', L'\x1234', L'c');
     printf("foo1_string='%s'\n", foo1_string);
-#if 0
+#എങ്കിൽ 0
     printf("wstring=%S\n", L"abc");
     printf("wstring=%S\n", L"abc" L"def" "ghi");
     printf("'\\377'=%d '\\xff'=%d\n", '\377', '\xff');
@@ -435,55 +435,55 @@ void string_test()
 #endif
     ps("test\n");
     b = 32;
-    while ((b = b + 1) < 96) {
+    ആകുമ്പോൾ ((b = b + 1) < 96) {
         printf("%c", b);
     }
     printf("\n");
     printf("fib=%d\n", fib(33));
     b = 262144;
-    while (b != 0x80000000) {
-        num(b);
+    ആകുമ്പോൾ (b != 0x80000000) {
+        അക്കം(b);
         b = b * 2;
     }
     string_test2();
 }
 
 
-void if1t(int n, int a, int b, int c)
+ശൂന്യം if1t(പൂർണ്ണസംഖ്യ n, പൂർണ്ണസംഖ്യ a, പൂർണ്ണസംഖ്യ b, പൂർണ്ണസംഖ്യ c)
 {
-    if (a && b) printf("if1t: %d 1 %d %d\n", n, a, b);
-    if (a && !b) printf("if1t: %d 2 %d %d\n", n, a, b);
-    if (!a && b) printf("if1t: %d 3 %d %d\n", n, a, b);
-    if (!a && !b) printf("if1t: %d 4 %d %d\n", n, a, b);
-    if (a || b) printf("if1t: %d 5 %d %d\n", n, a, b);
-    if (a || !b) printf("if1t: %d 6 %d %d\n", n, a, b);
-    if (!a || b) printf("if1t: %d 7 %d %d\n", n, a, b);
-    if (!a || !b) printf("if1t: %d 8 %d %d\n", n, a, b);
-    if (a && b || c) printf("if1t: %d 9 %d %d %d\n", n, a, b, c);
-    if (a || b && c) printf("if1t: %d 10 %d %d %d\n", n, a, b, c);
-    if (a > b - 1 && c) printf("if1t: %d 11 %d %d %d\n", n, a, b, c);
-    if (a > b - 1 || c) printf("if1t: %d 12 %d %d %d\n", n, a, b, c);
-    if (a > 0 && 1) printf("if1t: %d 13 %d %d %d\n", n, a, b, c);
-    if (a > 0 || 0) printf("if1t: %d 14 %d %d %d\n", n, a, b, c);
+    എങ്കിൽ (a && b) printf("if1t: %d 1 %d %d\n", n, a, b);
+    എങ്കിൽ (a && !b) printf("if1t: %d 2 %d %d\n", n, a, b);
+    എങ്കിൽ (!a && b) printf("if1t: %d 3 %d %d\n", n, a, b);
+    എങ്കിൽ (!a && !b) printf("if1t: %d 4 %d %d\n", n, a, b);
+    എങ്കിൽ (a || b) printf("if1t: %d 5 %d %d\n", n, a, b);
+    എങ്കിൽ (a || !b) printf("if1t: %d 6 %d %d\n", n, a, b);
+    എങ്കിൽ (!a || b) printf("if1t: %d 7 %d %d\n", n, a, b);
+    എങ്കിൽ (!a || !b) printf("if1t: %d 8 %d %d\n", n, a, b);
+    എങ്കിൽ (a && b || c) printf("if1t: %d 9 %d %d %d\n", n, a, b, c);
+    എങ്കിൽ (a || b && c) printf("if1t: %d 10 %d %d %d\n", n, a, b, c);
+    എങ്കിൽ (a > b - 1 && c) printf("if1t: %d 11 %d %d %d\n", n, a, b, c);
+    എങ്കിൽ (a > b - 1 || c) printf("if1t: %d 12 %d %d %d\n", n, a, b, c);
+    എങ്കിൽ (a > 0 && 1) printf("if1t: %d 13 %d %d %d\n", n, a, b, c);
+    എങ്കിൽ (a > 0 || 0) printf("if1t: %d 14 %d %d %d\n", n, a, b, c);
 }
 
-void if2t(void)
+ശൂന്യം if2t(ശൂന്യം)
 {
-    if (0 && 1 || printf("if2t:ok\n") || 1)
+    എങ്കിൽ (0 && 1 || printf("if2t:ok\n") || 1)
       printf("if2t:ok2\n");
     printf("if2t:ok3\n");
 }
 
-void if3t(void)
+ശൂന്യം if3t(ശൂന്യം)
 {
-    volatile long long i = 1;
-    if (i <= 18446744073709551615ULL)
+    അസ്ഥിര long long i = 1;
+    എങ്കിൽ (i <= 18446744073709551615ULL)
       ;
-    else
+    അല്ലെങ്കിൽ
       printf ("if3t:wrong 1\n");
 }
 
-void if_test(void)
+ശൂന്യം if_test(ശൂന്യം)
 {
     if1t(1, 0, 0, 0);
     if1t(2, 0, 3, 0);
@@ -493,68 +493,68 @@ void if_test(void)
     if3t();
 }
 
-void loop_test()
+ശൂന്യം loop_test()
 {
-    int i;
+    പൂർണ്ണസംഖ്യ i;
     i = 0;
-    while (i < 10)
+    ആകുമ്പോൾ (i < 10)
         printf("%d", i++);
     printf("\n");
-    for(i = 0; i < 10;i++)
+    വേണ്ടി(i = 0; i < 10;i++)
         printf("%d", i);
     printf("\n");
     i = 0;
-    do {
+    ചെയ്യുക {
         printf("%d", i++);
-    } while (i < 10);
+    } ആകുമ്പോൾ (i < 10);
     printf("\n");
 
-    char count = 123;
+    അക്ഷരം എണ്ണം_2 = 123;
     /* c99 for loop init test */
-    for (size_t count = 1; count < 3; count++)
-        printf("count=%d\n", count);
-    printf("count = %d\n", count);
+    വേണ്ടി (size_t എണ്ണം_2 = 1; എണ്ണം_2 < 3; എണ്ണം_2++)
+        printf("count=%d\n", എണ്ണം_2);
+    printf("count = %d\n", എണ്ണം_2);
 
     /* break/continue tests */
     i = 0;
-    while (1) {
-        if (i == 6)
-            break;
+    ആകുമ്പോൾ (1) {
+        എങ്കിൽ (i == 6)
+            നിർത്തുക;
         i++;
-        if (i == 3)
-            continue;
+        എങ്കിൽ (i == 3)
+            തുടരുക;
         printf("%d", i);
     }
     printf("\n");
 
     /* break/continue tests */
     i = 0;
-    do {
-        if (i == 6)
-            break;
+    ചെയ്യുക {
+        എങ്കിൽ (i == 6)
+            നിർത്തുക;
         i++;
-        if (i == 3)
-            continue;
+        എങ്കിൽ (i == 3)
+            തുടരുക;
         printf("%d", i);
-    } while(1);
+    } ആകുമ്പോൾ(1);
     printf("\n");
 
-    for(i = 0;i < 10;i++) {
-        if (i == 3)
-            continue;
+    വേണ്ടി(i = 0;i < 10;i++) {
+        എങ്കിൽ (i == 3)
+            തുടരുക;
         printf("%d", i);
     }
     printf("\n");
 }
 
-typedef int typedef_and_label;
+തരനിർവചനം പൂർണ്ണസംഖ്യ typedef_and_label;
 
-void goto_test()
+ശൂന്യം goto_test()
 {
-    int i;
-    static void *label_table[3] = { &&label1, &&label2, &&label3 };
-    struct {
-        int bla;
+    പൂർണ്ണസംഖ്യ i;
+    സ്ഥിതം ശൂന്യം *label_table[3] = { &&label1, &&label2, &&label3 };
+    ഘടന {
+        പൂർണ്ണസംഖ്യ bla;
         /* This needs to parse as typedef, not as label.  */
         typedef_and_label : 32;
     } y = {1};
@@ -566,30 +566,30 @@ void goto_test()
     /* This needs to parse as label, not as start of decl.  */
  typedef_and_label:
  s_loop:
-    if (i >= 10) 
-        goto s_end;
+    എങ്കിൽ (i >= 10) 
+        പോകുക s_end;
     printf("%d", i);
     i++;
-    goto s_loop;
+    പോകുക s_loop;
  s_end:
     printf("\n");
 
     /* we also test computed gotos (GCC extension) */
-    for(i=0;i<3;i++) {
-        goto *label_table[i];
+    വേണ്ടി(i=0;i<3;i++) {
+        പോകുക *label_table[i];
     label1:
         printf("label1\n");
-        goto next;
+        പോകുക next;
     label2:
         printf("label2\n");
-        goto next;
+        പോകുക next;
     label3:
         printf("label3\n");
     next: ;
     }
 }
 
-enum {
+എണ്ണൽ {
     E0,
     E1 = 2,
     E2 = 4,
@@ -597,63 +597,63 @@ enum {
     E4,
 };
 
-enum test {
+എണ്ണൽ test {
     E5 = 1000,
 };
 
-struct S_enum {
-    enum {E6 = 42, E7, E8} e:8;
+ഘടന S_enum {
+    എണ്ണൽ {E6 = 42, E7, E8} e:8;
 };
 
-enum ELong {
+എണ്ണൽ ELong {
     /* This is either 0 on L32 machines, or a large number
        on L64 machines.  We should be able to store this.  */
     EL_large = ((unsigned long)0xf000 << 31) << 1,
 };
 
-enum { BIASU = -1U<<31 };
-enum { BIASS = -1 << 31 };
+എണ്ണൽ { BIASU = -1U<<31 };
+എണ്ണൽ { BIASS = -1 << 31 };
 
-static int getint(int i)
+സ്ഥിതം പൂർണ്ണസംഖ്യ getint(പൂർണ്ണസംഖ്യ i)
 {
-  if (i)
-    return 0;
-  else
-    return (int)(-1U << 31);
+  എങ്കിൽ (i)
+    തിരികെ 0;
+  അല്ലെങ്കിൽ
+    തിരികെ (പൂർണ്ണസംഖ്യ)(-1U << 31);
 }
 
-void enum_test()
+ശൂന്യം enum_test()
 {
-    enum test b1;
+    എണ്ണൽ test b1;
     /* The following should give no warning */
     unsigned *p = &b1;
-    struct S_enum s = {E7};
+    ഘടന S_enum s = {E7};
     printf("%d %d %d %d %d %d %d\n", s.e,
            E0, E1, E2, E3, E4, E5);
     b1 = 1;
     printf("b1=%d\n", b1);
     printf("enum large: %ld\n", EL_large);
 
-    if (getint(0) == BIASU)
+    എങ്കിൽ (getint(0) == BIASU)
       printf("enum unsigned: ok\n");
-    else
+    അല്ലെങ്കിൽ
       printf("enum unsigned: wrong\n");
-    if (getint(0) == BIASS)
+    എങ്കിൽ (getint(0) == BIASS)
       printf("enum unsigned: ok\n");
-    else
+    അല്ലെങ്കിൽ
       printf("enum unsigned: wrong\n");
 }
 
-typedef int *my_ptr;
+തരനിർവചനം പൂർണ്ണസംഖ്യ *my_ptr;
 
-typedef int mytype1;
-typedef int mytype2;
+തരനിർവചനം പൂർണ്ണസംഖ്യ mytype1;
+തരനിർവചനം പൂർണ്ണസംഖ്യ mytype2;
 
-void typedef_test()
+ശൂന്യം typedef_test()
 {
     my_ptr a;
     mytype1 mytype2;
-    int b;
+    പൂർണ്ണസംഖ്യ b;
 
     a = &b;
     *a = 1234;
@@ -662,66 +662,66 @@ void typedef_test()
     printf("mytype2=%d\n", mytype2);
 }
 
-void forward_test()
+ശൂന്യം forward_test()
 {
     forward_ref();
     forward_ref();
 }
 
 
-void forward_ref(void)
+ശൂന്യം forward_ref(ശൂന്യം)
 {
     printf("forward ok\n");
 }
 
-typedef struct struct1 {
-    int f1;
-    int f2, f3;
-    union union1 {
-        int v1;
-        int v2;
+തരനിർവചനം ഘടന struct1 {
+    പൂർണ്ണസംഖ്യ f1;
+    പൂർണ്ണസംഖ്യ f2, f3;
+    സംഘം union1 {
+        പൂർണ്ണസംഖ്യ v1;
+        പൂർണ്ണസംഖ്യ v2;
     } u;
-    char str[3];
+    അക്ഷരം str[3];
 } struct1;
 
-struct struct2 {
-    int a;
-    char b;
+ഘടന struct2 {
+    പൂർണ്ണസംഖ്യ a;
+    അക്ഷരം b;
 };
 
-union union2 {
-    int w1;
-    int w2;
+സംഘം union2 {
+    പൂർണ്ണസംഖ്യ w1;
+    പൂർണ്ണസംഖ്യ w2;
 };
 
-struct struct1 st1, st2;
+ഘടന struct1 st1, st2;
 
-struct empty_mem {
+ഘടന empty_mem {
     /* nothing */ ;
-    int x;
+    പൂർണ്ണസംഖ്യ x;
 };
 
-int tab[3];
-int tab2[3][2];
+പൂർണ്ണസംഖ്യ tab[3];
+പൂർണ്ണസംഖ്യ tab2[3][2];
 
-int g;
+പൂർണ്ണസംഖ്യ g;
 
-void f1(int g)
+ശൂന്യം f1(പൂർണ്ണസംഖ്യ g)
 {
     printf("g1=%d\n", g);
 }
 
-void scope_test()
+ശൂന്യം scope_test()
 {
     g = 2;
     f1(1);
     printf("g2=%d\n", g);
     {
-        int g;
+        പൂർണ്ണസംഖ്യ g;
         g = 3;
         printf("g3=%d\n", g);
         {
-            int g;
+            പൂർണ്ണസംഖ്യ g;
             g = 4;
             printf("g4=%d\n", g);
         }
@@ -729,14 +729,14 @@ void scope_test()
     printf("g5=%d\n", g);
 }
 
-int st2_i;
-int *st2_p = &st2_i;
-void scope2_test()
+പൂർണ്ണസംഖ്യ st2_i;
+പൂർണ്ണസംഖ്യ *st2_p = &st2_i;
+ശൂന്യം scope2_test()
 {
-    char a[50];
+    അക്ഷരം a[50];
     st2_i = 42;
-    for (int st2_i = 1; st2_i < 10; st2_i++) {
-        extern int st2_i;
+    വേണ്ടി (പൂർണ്ണസംഖ്യ st2_i = 1; st2_i < 10; st2_i++) {
+        ബാഹ്യ പൂർണ്ണസംഖ്യ st2_i;
         st2_i++;
         printf("exloc: %d\n", st2_i);
     }
@@ -744,44 +744,44 @@ void scope2_test()
 }
 
 /* C has tentative definition, and they may be repeated.  */
-extern int st_global1;
-int st_global1=42;
-extern int st_global1;
-int st_global1;
-extern int st_global2;
-int st_global2;
-extern int st_global2;
-int st_global2;
+ബാഹ്യ പൂർണ്ണസംഖ്യ st_global1;
+പൂർണ്ണസംഖ്യ st_global1=42;
+ബാഹ്യ പൂർണ്ണസംഖ്യ st_global1;
+പൂർണ്ണസംഖ്യ st_global1;
+ബാഹ്യ പൂർണ്ണസംഖ്യ st_global2;
+പൂർണ്ണസംഖ്യ st_global2;
+ബാഹ്യ പൂർണ്ണസംഖ്യ st_global2;
+പൂർണ്ണസംഖ്യ st_global2;
 
-void array_test()
+ശൂന്യം array_test()
 {
-    int i, j, a[4];
+    പൂർണ്ണസംഖ്യ i, j, a[4];
 
-    printf("sizeof(a) = %d\n", sizeof(a));
-    printf("sizeof(\"a\") = %d\n", sizeof("a"));
+    printf("sizeof(a) = %d\n", വലുപ്പം(a));
+    printf("sizeof(\"a\") = %d\n", വലുപ്പം("a"));
 #ifdef C99_MACROS
-    printf("sizeof(__func__) = %d\n", sizeof(__func__));
+    printf("sizeof(__func__) = %d\n", വലുപ്പം(__func__));
 #endif
-    printf("sizeof tab %d\n", sizeof(tab));
-    printf("sizeof tab2 %d\n", sizeof tab2);
+    printf("sizeof tab %d\n", വലുപ്പം(tab));
+    printf("sizeof tab2 %d\n", വലുപ്പം tab2);
     tab[0] = 1;
     tab[1] = 2;
     tab[2] = 3;
     printf("%d %d %d\n", tab[0], tab[1], tab[2]);
-    for(i=0;i<3;i++)
-        for(j=0;j<2;j++)
+    വേണ്ടി(i=0;i<3;i++)
+        വേണ്ടി(j=0;j<2;j++)
             tab2[i][j] = 10 * i + j;
-    for(i=0;i<3*2;i++) {
-        printf(" %3d", ((int *)tab2)[i]);
+    വേണ്ടി(i=0;i<3*2;i++) {
+        printf(" %3d", ((പൂർണ്ണസംഖ്യ *)tab2)[i]);
     }
     printf("\n");
-    printf("sizeof(size_t)=%d\n", sizeof(size_t));
-    printf("sizeof(ptrdiff_t)=%d\n", sizeof(ptrdiff_t));
+    printf("sizeof(size_t)=%d\n", വലുപ്പം(size_t));
+    printf("sizeof(ptrdiff_t)=%d\n", വലുപ്പം(ptrdiff_t));
 }
 
-void expr_test()
+ശൂന്യം വ്യഞ്ജകം_test()
 {
-    int a, b;
+    പൂർണ്ണസംഖ്യ a, b;
     a = 0;
     printf("%d\n", a += 1);
     printf("%d\n", a -= 2);
@@ -836,30 +836,30 @@ void expr_test()
            isid('('));
 }
 
-int isid(int c)
+പൂർണ്ണസംഖ്യ isid(പൂർണ്ണസംഖ്യ c)
 {
-    return (c >= 'a' & c <= 'z') | (c >= 'A' & c <= 'Z') | c == '_';
+    തിരികെ (c >= 'a' & c <= 'z') | (c >= 'A' & c <= 'Z') | c == '_';
 }
 
 /**********************/
 
-int vstack[10], *vstack_ptr;
+പൂർണ്ണസംഖ്യ vstack[10], *vstack_ptr;
 
-void vpush(int vt, int vc)
+ശൂന്യം vpush(പൂർണ്ണസംഖ്യ vt, പൂർണ്ണസംഖ്യ vc)
 {
     *vstack_ptr++ = vt;
     *vstack_ptr++ = vc;
 }
 
-void vpop(int *ft, int *fc)
+ശൂന്യം vpop(പൂർണ്ണസംഖ്യ *ft, പൂർണ്ണസംഖ്യ *fc)
 {
     *fc = *--vstack_ptr;
     *ft = *--vstack_ptr;
 }
 
-void expr2_test()
+ശൂന്യം expr2_test()
 {
-    int a, b;
+    പൂർണ്ണസംഖ്യ a, b;
 
     vstack_ptr = vstack;
     vpush(1432432, 2);
@@ -868,24 +868,24 @@ void expr2_test()
     printf("res= %d %d\n", a, b);
 }
 
-int const_len_ar[sizeof(1/0)]; /* div-by-zero, but in unevaluated context */
+പൂർണ്ണസംഖ്യ const_len_ar[വലുപ്പം(1/0)]; /* div-by-zero, but in unevaluated context */
 
-void constant_expr_test()
+ശൂന്യം constant_വ്യഞ്ജകം_test()
 {
-    int a;
+    പൂർണ്ണസംഖ്യ a;
     a = 3;
     printf("%d\n", a * 16);
     printf("%d\n", a * 1);
     printf("%d\n", a + 0);
-    printf("%d\n", sizeof(const_len_ar));
+    printf("%d\n", വലുപ്പം(const_len_ar));
 }
 
-int tab4[10];
+പൂർണ്ണസംഖ്യ tab4[10];
 
-void expr_ptr_test()
+ശൂന്യം വ്യഞ്ജകം_ptr_test()
 {
-    int arr[10], *p, *q;
-    int i = -1;
+    പൂർണ്ണസംഖ്യ arr[10], *p, *q;
+    പൂർണ്ണസംഖ്യ i = -1;
 
     p = tab4;
     q = tab4 + 10;
@@ -912,7 +912,7 @@ void expr_ptr_test()
     printf("%p %p %ld\n", q, p, p-q);
     printf("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
-    p = (int *)((char *)p + 0xf0000000);
+    p = (പൂർണ്ണസംഖ്യ *)((അക്ഷരം *)p + 0xf0000000);
     printf("%p %p %ld\n", q, p, p-q);
     printf("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
@@ -921,11 +921,11 @@ void expr_ptr_test()
     printf("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
     {
-        struct size12 {
-            int i, j, k;
+        ഘടന size12 {
+            പൂർണ്ണസംഖ്യ i, j, k;
         };
-        struct size12 s[2], *sp = s;
-        int i, j;
+        ഘടന size12 s[2], *sp = s;
+        പൂർണ്ണസംഖ്യ i, j;
         sp->i = 42;
         sp++;
         j = -1;
@@ -933,18 +933,18 @@ void expr_ptr_test()
     }
 #ifdef __LP64__
     i = 1;
-    p = (int*)0x100000000UL + i;
+    p = (പൂർണ്ണസംഖ്യ*)0x100000000UL + i;
     i = ((long)p) >> 32;
     printf("largeptr: %p %d\n", p, i);
 #endif
     p = &arr[0];
     q = p + 3;
-    printf ("%d\n", (int)((p - q) / 3));
+    printf ("%d\n", (പൂർണ്ണസംഖ്യ)((p - q) / 3));
 }
 
-void expr_cmp_test()
+ശൂന്യം വ്യഞ്ജകം_cmp_test()
 {
-    int a, b;
+    പൂർണ്ണസംഖ്യ a, b;
     a = -1;
     b = 1;
     printf("%d\n", a == a);
@@ -965,111 +965,111 @@ void expr_cmp_test()
     printf("%d\n", (unsigned)b > a);
 }
 
-struct empty {
+ഘടന empty {
 };
 
-struct aligntest1 {
-    char a[10];
+ഘടന aligntest1 {
+    അക്ഷരം a[10];
 };
 
-struct aligntest2 {
-    int a;
-    char b[10];
+ഘടന aligntest2 {
+    പൂർണ്ണസംഖ്യ a;
+    അക്ഷരം b[10];
 };
 
-struct aligntest3 {
-    double a, b;
+ഘടന aligntest3 {
+    ഇരട്ട a, b;
 };
 
-struct aligntest4 {
-    double a[0];
+ഘടന aligntest4 {
+    ഇരട്ട a[0];
 };
 
-struct __attribute__((aligned(16))) aligntest5
+ഘടന __attribute__((aligned(16))) aligntest5
 {
-    int i;
+    പൂർണ്ണസംഖ്യ i;
 };
-struct aligntest6
+ഘടന aligntest6
 {
-    int i;
+    പൂർണ്ണസംഖ്യ i;
 } __attribute__((aligned(16)));
-struct aligntest7
+ഘടന aligntest7
 {
-    int i;
+    പൂർണ്ണസംഖ്യ i;
 };
-struct aligntest5 altest5[2];
-struct aligntest6 altest6[2];
-int pad1;
+ഘടന aligntest5 altest5[2];
+ഘടന aligntest6 altest6[2];
+പൂർണ്ണസംഖ്യ pad1;
 /* altest7 is correctly aligned to 16 bytes also with TCC,
    but __alignof__ returns the wrong result (4) because we
    can't store the alignment yet when specified on symbols
    directly (it's stored in the type so we'd need to make
    a copy of it). -- FIXED */
-struct aligntest7 altest7[2] __attribute__((aligned(16)));
+ഘടന aligntest7 altest7[2] __attribute__((aligned(16)));
 
-struct aligntest8
+ഘടന aligntest8
 {
-  int i;
+  പൂർണ്ണസംഖ്യ i;
 } __attribute__((aligned(4096)));
 
-struct Large {
+ഘടന Large {
     unsigned long flags;
-    union {
-	void *u1;
-	int *u2;
+    സംഘം {
+	ശൂന്യം *u1;
+	പൂർണ്ണസംഖ്യ *u2;
     };
 
-    struct {
-	union {
+    ഘടന {
+	സംഘം {
 	    unsigned long index;
-	    void *freelist;
+	    ശൂന്യം *freelist;
 	};
-	union {
+	സംഘം {
 	    unsigned long counters;
-	    struct {
-		int bla;
+	    ഘടന {
+		പൂർണ്ണസംഖ്യ bla;
 	    };
 	};
     };
 
-    union {
-	struct {
+    സംഘം {
+	ഘടന {
 	    long u3;
 	    long u4;
 	};
-	void *u5;
-	struct {
+	ശൂന്യം *u5;
+	ഘടന {
 	    unsigned long compound_head;
-	    unsigned int compound_dtor;
-	    unsigned int compound_order;
+	    unsigned പൂർണ്ണസംഖ്യ compound_dtor;
+	    unsigned പൂർണ്ണസംഖ്യ compound_order;
 	};
     };
-} __attribute__((aligned(2 * sizeof(long))));
+} __attribute__((aligned(2 * വലുപ്പം(long))));
 
-typedef unsigned long long __attribute__((aligned(4))) unaligned_u64;
+തരനിർവചനം unsigned long long __attribute__((aligned(4))) unaligned_u64;
 
-struct aligntest9 {
-    unsigned int buf_nr;
+ഘടന aligntest9 {
+    unsigned പൂർണ്ണസംഖ്യ buf_nr;
     unaligned_u64 start_lba;
 };
 
-struct aligntest10 {
-    unsigned int buf_nr;
+ഘടന aligntest10 {
+    unsigned പൂർണ്ണസംഖ്യ buf_nr;
     unsigned long long start_lba;
 };
 
-void struct_test()
+ശൂന്യം struct_test()
 {
     struct1 *s;
-    union union2 u;
-    struct Large ls;
+    സംഘം union2 u;
+    ഘടന Large ls;
 
     printf("sizes: %d %d %d %d\n",
-           sizeof(struct struct1),
-           sizeof(struct struct2),
-           sizeof(union union1),
-           sizeof(union union2));
-    printf("offsets: %d\n", (int)((char*)&st1.u.v1 - (char*)&st1));
+           വലുപ്പം(ഘടന struct1),
+           വലുപ്പം(ഘടന struct2),
+           വലുപ്പം(സംഘം union1),
+           വലുപ്പം(സംഘം union2));
+    printf("offsets: %d\n", (പൂർണ്ണസംഖ്യ)((അക്ഷരം*)&st1.u.v1 - (അക്ഷരം*)&st1));
     st1.f1 = 1;
     st1.f2 = 2;
     st1.f3 = 3;
@@ -1087,83 +1087,83 @@ void struct_test()
     s->f3 = 1;
     printf("st2: %d %d %d\n",
            s->f1, s->f2, s->f3);
-    printf("str_addr=%x\n", (int)(uintptr_t)st1.str - (int)(uintptr_t)&st1.f1);
+    printf("str_addr=%x\n", (പൂർണ്ണസംഖ്യ)(uintptr_t)st1.str - (പൂർണ്ണസംഖ്യ)(uintptr_t)&st1.f1);
 
     /* align / size tests */
     printf("aligntest1 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest1), __alignof__(struct aligntest1));
+           വലുപ്പം(ഘടന aligntest1), __alignof__(ഘടന aligntest1));
     printf("aligntest2 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest2), __alignof__(struct aligntest2));
+           വലുപ്പം(ഘടന aligntest2), __alignof__(ഘടന aligntest2));
     printf("aligntest3 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest3), __alignof__(struct aligntest3));
-#if !(defined _WIN32 && CC_NAME == CC_clang)
+           വലുപ്പം(ഘടന aligntest3), __alignof__(ഘടന aligntest3));
+#എങ്കിൽ !(defined _WIN32 && CC_NAME == CC_clang)
     printf("aligntest4 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest4), __alignof__(struct aligntest4));
+           വലുപ്പം(ഘടന aligntest4), __alignof__(ഘടന aligntest4));
 #endif
     printf("aligntest5 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest5), __alignof__(struct aligntest5));
+           വലുപ്പം(ഘടന aligntest5), __alignof__(ഘടന aligntest5));
     printf("aligntest6 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest6), __alignof__(struct aligntest6));
+           വലുപ്പം(ഘടന aligntest6), __alignof__(ഘടന aligntest6));
     printf("aligntest7 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest7), __alignof__(struct aligntest7));
+           വലുപ്പം(ഘടന aligntest7), __alignof__(ഘടന aligntest7));
     printf("aligntest8 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest8), __alignof__(struct aligntest8));
-#if !(defined _WIN32 && CC_NAME == CC_clang)
+           വലുപ്പം(ഘടന aligntest8), __alignof__(ഘടന aligntest8));
+#എങ്കിൽ !(defined _WIN32 && CC_NAME == CC_clang)
     printf("aligntest9 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest9), __alignof__(struct aligntest9));
+           വലുപ്പം(ഘടന aligntest9), __alignof__(ഘടന aligntest9));
 #endif
     printf("aligntest10 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest10), __alignof__(struct aligntest10));
+           വലുപ്പം(ഘടന aligntest10), __alignof__(ഘടന aligntest10));
     printf("altest5 sizeof=%d alignof=%d\n",
-           sizeof(altest5), __alignof__(altest5));
+           വലുപ്പം(altest5), __alignof__(altest5));
     printf("altest6 sizeof=%d alignof=%d\n",
-           sizeof(altest6), __alignof__(altest6));
+           വലുപ്പം(altest6), __alignof__(altest6));
     printf("altest7 sizeof=%d alignof=%d\n",
-           sizeof(altest7), __alignof__(altest7));
+           വലുപ്പം(altest7), __alignof__(altest7));
            
     /* empty structures (GCC extension) */
-#if !(defined _WIN32 && CC_NAME == CC_clang)
-    printf("sizeof(struct empty) = %d\n", sizeof(struct empty));
+#എങ്കിൽ !(defined _WIN32 && CC_NAME == CC_clang)
+    printf("sizeof(struct empty) = %d\n", വലുപ്പം(ഘടന empty));
 #endif
-    printf("alignof(struct empty) = %d\n", __alignof__(struct empty));
+    printf("alignof(struct empty) = %d\n", __alignof__(ഘടന empty));
 
-    printf("Large: sizeof=%d\n", sizeof(ls));
-    memset(&ls, 0, sizeof(ls));
+    printf("Large: sizeof=%d\n", വലുപ്പം(ls));
+    memset(&ls, 0, വലുപ്പം(ls));
     ls.compound_head = 42;
-    printf("Large: offsetof(compound_head)=%d\n", (int)((char*)&ls.compound_head - (char*)&ls));
+    printf("Large: offsetof(compound_head)=%d\n", (പൂർണ്ണസംഖ്യ)((അക്ഷരം*)&ls.compound_head - (അക്ഷരം*)&ls));
 }
 
 /* simulate char/short return value with undefined upper bits */
-static int __csf(int x) { return x; }
-static void *_csf = __csf;
-#define csf(t,n) ((t(*)(int))_csf)(n)
+സ്ഥിതം പൂർണ്ണസംഖ്യ __csf(പൂർണ്ണസംഖ്യ x) { തിരികെ x; }
+സ്ഥിതം ശൂന്യം *_csf = __csf;
+#define csf(t,n) ((t(*)(പൂർണ്ണസംഖ്യ))_csf)(n)
 
 /* XXX: depend on endianness */
-void char_short_test()
+ശൂന്യം char_short_test()
 {
-    int var1, var2;
-    signed char var3;
+    പൂർണ്ണസംഖ്യ var1, var2;
+    signed അക്ഷരം var3;
     long long var4;
 
     var1 = 0x01020304;
     var2 = 0xfffefdfc;
     printf("s8=%d %d\n", 
-           *(signed char *)&var1, *(signed char *)&var2);
+           *(signed അക്ഷരം *)&var1, *(signed അക്ഷരം *)&var2);
     printf("u8=%d %d\n", 
-           *(unsigned char *)&var1, *(unsigned char *)&var2);
+           *(unsigned അക്ഷരം *)&var1, *(unsigned അക്ഷരം *)&var2);
     printf("s16=%d %d\n", 
            *(short *)&var1, *(short *)&var2);
     printf("u16=%d %d\n", 
            *(unsigned short *)&var1, *(unsigned short *)&var2);
     printf("s32=%d %d\n", 
-           *(int *)&var1, *(int *)&var2);
+           *(പൂർണ്ണസംഖ്യ *)&var1, *(പൂർണ്ണസംഖ്യ *)&var2);
     printf("u32=%d %d\n", 
-           *(unsigned int *)&var1, *(unsigned int *)&var2);
-    *(signed char *)&var1 = 0x08;
+           *(unsigned പൂർണ്ണസംഖ്യ *)&var1, *(unsigned പൂർണ്ണസംഖ്യ *)&var2);
+    *(signed അക്ഷരം *)&var1 = 0x08;
     printf("var1=%x\n", var1);
     *(short *)&var1 = 0x0809;
     printf("var1=%x\n", var1);
-    *(int *)&var1 = 0x08090a0b;
+    *(പൂർണ്ണസംഖ്യ *)&var1 = 0x08090a0b;
     printf("var1=%x\n", var1);
 
     var1 = 0x778899aa;
@@ -1174,12 +1174,12 @@ void char_short_test()
     var1 = 0x778899aa;
     var4 = 0x11223344aa998877ULL;
     printf("promote char/short assign VA %d %d\n", var3 = var1 + 1, var3 = var4 + 1);
-    printf("promote char/short cast VA %d %d\n", (signed char)(var1 + 1), (signed char)(var4 + 1));
-#if !defined __arm__ && !defined __riscv
+    printf("promote char/short cast VA %d %d\n", (signed അക്ഷരം)(var1 + 1), (signed അക്ഷരം)(var4 + 1));
+#എങ്കിൽ !defined __arm__ && !defined __riscv
     /* We can't really express GCC behaviour of return type promotion in
        the presence of undefined behaviour (like __csf is).  */
-    var1 = csf(unsigned char,0x89898989);
-    var4 = csf(signed char,0xabababab);
+    var1 = csf(unsigned അക്ഷരം,0x89898989);
+    var4 = csf(signed അക്ഷരം,0xabababab);
 #ifdef __clang__
     /* on macos 15 arm64 this prints -1987475063 instead of 137 */
     var1 &= 0xff;
@@ -1192,75 +1192,75 @@ void char_short_test()
         csf(_Bool,0x33221101));
 #endif
     var3 = -10;
-    var1 = (signed char)(unsigned char)(var3 + 1);
-    var4 = (signed char)(unsigned char)(var3 + 1);
+    var1 = (signed അക്ഷരം)(unsigned അക്ഷരം)(var3 + 1);
+    var4 = (signed അക്ഷരം)(unsigned അക്ഷരം)(var3 + 1);
     printf("promote multicast (char)(unsigned char) %d "LONG_LONG_FORMAT"\n", var1, var4);
     var4 = 0x11223344aa998877ULL;
-    var4 = (unsigned)(int)(var4 + 1);
+    var4 = (unsigned)(പൂർണ്ണസംഖ്യ)(var4 + 1);
     printf("promote multicast (unsigned)(int) "LONG_LONG_FORMAT"\n", var4);
     var4 = 0x11223344bbaa9988ULL;
-    var4 = (unsigned)(signed char)(var4 + 1);
+    var4 = (unsigned)(signed അക്ഷരം)(var4 + 1);
     printf("promote multicast (unsigned)(char) "LONG_LONG_FORMAT"\n", var4);
 }
 
 /******************/
 
-typedef struct Sym {
-    int v;
-    int t;
-    int c;
-    struct Sym *next;
-    struct Sym *prev;
+തരനിർവചനം ഘടന Sym {
+    പൂർണ്ണസംഖ്യ v;
+    പൂർണ്ണസംഖ്യ t;
+    പൂർണ്ണസംഖ്യ c;
+    ഘടന Sym *next;
+    ഘടന Sym *prev;
 } Sym;
 
 #define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
 #define TOUPPER(c) (ISLOWER(c) ? 'A' + ((c) - 'a') : (c))
 
-static int toupper1(int a)
+സ്ഥിതം പൂർണ്ണസംഖ്യ toupper1(പൂർണ്ണസംഖ്യ a)
 {
-    return TOUPPER(a);
+    തിരികെ TOUPPER(a);
 }
 
-static unsigned int calc_vm_flags(unsigned int prot)
+സ്ഥിതം unsigned പൂർണ്ണസംഖ്യ calc_vm_flags(unsigned പൂർണ്ണസംഖ്യ prot)
 {
-  unsigned int prot_bits;
+  unsigned പൂർണ്ണസംഖ്യ prot_bits;
   /* This used to segfault in some revisions: */
   prot_bits = ((0x1==0x00000001)?(prot&0x1):(prot&0x1)?0x00000001:0);
-  return prot_bits;
+  തിരികെ prot_bits;
 }
 
-enum cast_enum { FIRST, LAST };
+എണ്ണൽ cast_enum { FIRST, LAST };
 
-static void tst_cast(enum cast_enum ce)
+സ്ഥിതം ശൂന്യം tst_cast(എണ്ണൽ cast_enum ce)
 {
     printf("%d\n", ce);
 }
 
-void bool_test()
+ശൂന്യം bool_test()
 {
-    int *s, a, b, t, f, i;
+    പൂർണ്ണസംഖ്യ *s, a, b, t, f, i;
 
     a = 0;
-    s = (void*)0;
+    s = (ശൂന്യം*)0;
     printf("!s=%d\n", !s);
 
-    if (!s || !s[0])
+    എങ്കിൽ (!s || !s[0])
         a = 1;
     printf("a=%d\n", a);
 
     printf("a=%d %d %d\n", 0 || 0, 0 || 1, 1 || 1);
     printf("a=%d %d %d\n", 0 && 0, 0 && 1, 1 && 1);
     printf("a=%d %d\n", 1 ? 1 : 0, 0 ? 1 : 0);
-#if 1 && 1
+#എങ്കിൽ 1 && 1
     printf("a1\n");
 #endif
-#if 1 || 0
+#എങ്കിൽ 1 || 0
     printf("a2\n");
 #endif
-#if 1 ? 0 : 1
+#എങ്കിൽ 1 ? 0 : 1
     printf("a3\n");
 #endif
-#if 0 ? 0 : 1
+#എങ്കിൽ 0 ? 0 : 1
     printf("a4\n");
 #endif
 
@@ -1283,17 +1283,17 @@ void bool_test()
 
     /* check that types of casted &&/|| are preserved (here the unsignedness) */
     t = 1;
-    printf("type of bool: %d\n", (int) ( (~ ((unsigned int) (t && 1))) / 2) );
+    printf("type of bool: %d\n", (പൂർണ്ണസംഖ്യ) ( (~ ((unsigned പൂർണ്ണസംഖ്യ) (t && 1))) / 2) );
     tst_cast(t >= 0 ? FIRST : LAST);
 
-    printf("type of cond: %d\n", (~(t ? 0U : (unsigned int)0)) / 2 );
+    printf("type of cond: %d\n", (~(t ? 0U : (unsigned പൂർണ്ണസംഖ്യ)0)) / 2 );
     /* test ? : cast */
     {
-        int aspect_on;
-        int aspect_native = 65536;
-        double bfu_aspect = 1.0;
-        int aspect;
-        for(aspect_on = 0; aspect_on < 2; aspect_on++) {
+        പൂർണ്ണസംഖ്യ aspect_on;
+        പൂർണ്ണസംഖ്യ aspect_native = 65536;
+        ഇരട്ട bfu_aspect = 1.0;
+        പൂർണ്ണസംഖ്യ aspect;
+        വേണ്ടി(aspect_on = 0; aspect_on < 2; aspect_on++) {
             aspect=aspect_on?(aspect_native*bfu_aspect+0.5):65535UL;
             printf("aspect=%d\n", aspect);
         }
@@ -1301,231 +1301,231 @@ void bool_test()
 
     /* test ? : GCC extension */
     {
-        static int v1 = 34 ? : -1; /* constant case */
-        static int v2 = 0 ? : -1; /* constant case */
-        int a = 30;
+        സ്ഥിതം പൂർണ്ണസംഖ്യ v1 = 34 ? : -1; /* constant case */
+        സ്ഥിതം പൂർണ്ണസംഖ്യ v2 = 0 ? : -1; /* constant case */
+        പൂർണ്ണസംഖ്യ a = 30;
         
         printf("%d %d\n", v1, v2);
         printf("%d %d\n", a - 30 ? : a * 2, a + 1 ? : a * 2);
     }
 
     /* again complex expression */
-    for(i=0;i<256;i++) {
-        if (toupper1 (i) != TOUPPER (i))
+    വേണ്ടി(i=0;i<256;i++) {
+        എങ്കിൽ (toupper1 (i) != TOUPPER (i))
             printf("error %d\n", i);
     }
     printf ("bits = 0x%x\n", calc_vm_flags (0x1));
 }
 
-extern int undefined_function(void);
-extern int defined_function(void);
+ബാഹ്യ പൂർണ്ണസംഖ്യ undefined_function(ശൂന്യം);
+ബാഹ്യ പൂർണ്ണസംഖ്യ defined_function(ശൂന്യം);
 
 #ifdef __clang__
-int undefined_function(void) {}
+പൂർണ്ണസംഖ്യ undefined_function(ശൂന്യം) {}
 #endif
 
-static inline void refer_to_undefined(void)
+സ്ഥിതം വരിയിൽ ശൂന്യം refer_to_undefined(ശൂന്യം)
 {
   undefined_function();
 }
 
-void optimize_out_test(void)
+ശൂന്യം optimize_out_test(ശൂന്യം)
 {
-  int i = 0 ? undefined_function() : defined_function();
+  പൂർണ്ണസംഖ്യ i = 0 ? undefined_function() : defined_function();
   printf ("oo:%d\n", i);
-  int j = 1 ? defined_function() : undefined_function();
+  പൂർണ്ണസംഖ്യ j = 1 ? defined_function() : undefined_function();
   printf ("oo:%d\n", j);
-  if (0)
+  എങ്കിൽ (0)
     printf("oo:%d\n", undefined_function());
-  else
+  അല്ലെങ്കിൽ
     printf("oo:%d\n", defined_function());
-  if (1)
+  എങ്കിൽ (1)
     printf("oo:%d\n", defined_function());
-  else
+  അല്ലെങ്കിൽ
     printf("oo:%d\n", undefined_function());
-  while (1) {
+  ആകുമ്പോൾ (1) {
       printf("oow:%d\n", defined_function());
-      break;
+      നിർത്തുക;
       printf("oow:%d\n", undefined_function());
   }
   j = 1;
   /* Following is a switch without {} block intentionally.  */
-  switch (j)
-    case 1: break;
+  തിരഞ്ഞെടുപ്പ് (j)
+    അവസ്ഥ 1: നിർത്തുക;
   printf ("oos:%d\n", defined_function());
   /* The following break shouldn't lead to disabled code after
      the while.  */
-  while (1)
-    break;
+  ആകുമ്പോൾ (1)
+    നിർത്തുക;
   printf ("ool1:%d\n", defined_function());
   /* Same for the other types of loops.  */
-  do
-    break;
-  while (1);
+  ചെയ്യുക
+    നിർത്തുക;
+  ആകുമ്പോൾ (1);
   printf ("ool2:%d\n", defined_function());
-  for (;;)
-    break;
+  വേണ്ടി (;;)
+    നിർത്തുക;
   printf ("ool3:%d\n", defined_function());
   /* Normal {} blocks without controlling statements
      shouldn't reactivate code emission */
-  while (1) {
+  ആകുമ്പോൾ (1) {
 	{
-	  break;
+	  നിർത്തുക;
 	}
       printf ("ool4:%d\n", undefined_function());
   }
   j = 1;
-  while (j) {
-      if (j == 0)
-	break; /* this break shouldn't disable code outside the if. */
+  ആകുമ്പോൾ (j) {
+      എങ്കിൽ (j == 0)
+	നിർത്തുക; /* this break shouldn't disable code outside the if. */
       printf("ool5:%d\n", defined_function());
       j--;
   }
 
   j = 1;
-  while (j) {
-      if (1)
+  ആകുമ്പോൾ (j) {
+      എങ്കിൽ (1)
 	j--;
-      else
-	breakhere: break;
+      അല്ലെങ്കിൽ
+	breakhere: നിർത്തുക;
       printf("ool6:%d\n", defined_function());
-      goto breakhere;
+      പോകുക breakhere;
   }
   j = 1;
-  while (j) {
+  ആകുമ്പോൾ (j) {
       j--;
-      continue;
+      തുടരുക;
       printf("ool7:%d\n", undefined_function());
   }
 
   /* Test that constants in logical && are optimized: */
   i = 0 && undefined_function();
   i = defined_function() && 0 && undefined_function();
-  if (0 && undefined_function())
+  എങ്കിൽ (0 && undefined_function())
     undefined_function();
-  if (defined_function() && 0)
+  എങ്കിൽ (defined_function() && 0)
     undefined_function();
-  if (0 && 0)
+  എങ്കിൽ (0 && 0)
     undefined_function();
-  if (defined_function() && 0 && undefined_function())
+  എങ്കിൽ (defined_function() && 0 && undefined_function())
     undefined_function();
   /* The same for || : */
   i = 1 || undefined_function();
   i = defined_function() || 1 || undefined_function();
-  if (1 || undefined_function())
+  എങ്കിൽ (1 || undefined_function())
     ;
-  else
+  അല്ലെങ്കിൽ
     undefined_function();
-  if (defined_function() || 1)
+  എങ്കിൽ (defined_function() || 1)
     ;
-  else
+  അല്ലെങ്കിൽ
     undefined_function();
-  if (1 || 1)
+  എങ്കിൽ (1 || 1)
     ;
-  else
+  അല്ലെങ്കിൽ
     undefined_function();
-  if (defined_function() || 1 || undefined_function())
+  എങ്കിൽ (defined_function() || 1 || undefined_function())
     ;
-  else
+  അല്ലെങ്കിൽ
     undefined_function();
 
-  if (defined_function() && 0)
+  എങ്കിൽ (defined_function() && 0)
     refer_to_undefined();
 
-  if (0) {
-      (void)sizeof( ({
-		     do { } while (0);
+  എങ്കിൽ (0) {
+      (ശൂന്യം)വലുപ്പം( ({
+		     ചെയ്യുക { } ആകുമ്പോൾ (0);
 		     0;
 		     }) );
       undefined_function();
   }
 
-  if (0) {
-      switch (defined_function()) {
-          case 0: undefined_function(); break;
-          default: undefined_function(); break;
+  എങ്കിൽ (0) {
+      തിരഞ്ഞെടുപ്പ് (defined_function()) {
+          അവസ്ഥ 0: undefined_function(); നിർത്തുക;
+          സ്ഥിരസ്ഥിതി: undefined_function(); നിർത്തുക;
       }
   }
 
   /* Leave the "if(1)return; printf()" in this order and last in the function */
-  if (1)
-    return;
+  എങ്കിൽ (1)
+    തിരികെ;
   printf ("oor:%d\n", undefined_function());
 }
 
-int defined_function(void)
+പൂർണ്ണസംഖ്യ defined_function(ശൂന്യം)
 {
-  static int i = 40;
-  return i++;
+  സ്ഥിതം പൂർണ്ണസംഖ്യ i = 40;
+  തിരികെ i++;
 }
 
 /* GCC accepts that */
-static int tab_reinit[];
-static int tab_reinit[10];
+സ്ഥിതം പൂർണ്ണസംഖ്യ tab_reinit[];
+സ്ഥിതം പൂർണ്ണസംഖ്യ tab_reinit[10];
 
-static int tentative_ar[];
-static int tentative_ar[] = {1,2,3};
+സ്ഥിതം പൂർണ്ണസംഖ്യ tentative_ar[];
+സ്ഥിതം പൂർണ്ണസംഖ്യ tentative_ar[] = {1,2,3};
 
-int cinit1; /* a global variable can be defined several times without error ! */
-int cinit1; 
-int cinit1 = 0;
-int *cinit2 = (int []){3, 2, 1};
+പൂർണ്ണസംഖ്യ cinit1; /* a global variable can be defined several times without error ! */
+പൂർണ്ണസംഖ്യ cinit1; 
+പൂർണ്ണസംഖ്യ cinit1 = 0;
+പൂർണ്ണസംഖ്യ *cinit2 = (പൂർണ്ണസംഖ്യ []){3, 2, 1};
 uintptr_t cinit3 = (uintptr_t)"AA";
-char const * const cinit8[] = { [0 ... 1] = "BB", [2 ... 4] = "CC" };
-void *cinit52 = &(void*){ (void*) 52 };
+അക്ഷരം സ്ഥിരം * സ്ഥിരം cinit8[] = { [0 ... 1] = "BB", [2 ... 4] = "CC" };
+ശൂന്യം *cinit52 = &(ശൂന്യം*){ (ശൂന്യം*) 52 };
 
-#if __TINYC__ || __GNUC__ >= 6
-int cinit4 = (int){44};
-void *cinit51 = (void*){ (void*) 51 };
-struct _c6 { int a,b; } cinit6 = (struct _c6){61,62}, *cinit7 = &(struct _c6){71,72};
-#else
-int cinit4 = 44;
-void *cinit51 = (void*)51;
-struct _c6 { int a,b; } cinit6 = { 61,62 }, cinit70 = {71,72}, *cinit7 = &cinit70;
+#എങ്കിൽ __TINYC__ || __GNUC__ >= 6
+പൂർണ്ണസംഖ്യ cinit4 = (പൂർണ്ണസംഖ്യ){44};
+ശൂന്യം *cinit51 = (ശൂന്യം*){ (ശൂന്യം*) 51 };
+ഘടന _c6 { പൂർണ്ണസംഖ്യ a,b; } cinit6 = (ഘടന _c6){61,62}, *cinit7 = &(ഘടന _c6){71,72};
+#അല്ലെങ്കിൽ
+പൂർണ്ണസംഖ്യ cinit4 = 44;
+ശൂന്യം *cinit51 = (ശൂന്യം*)51;
+ഘടന _c6 { പൂർണ്ണസംഖ്യ a,b; } cinit6 = { 61,62 }, cinit70 = {71,72}, *cinit7 = &cinit70;
 #endif
 
-void compound_literal_test(void)
+ശൂന്യം compound_literal_test(ശൂന്യം)
 {
-    int *p, i;
-    char *q, *q3;
+    പൂർണ്ണസംഖ്യ *p, i;
+    അക്ഷരം *q, *q3;
 
     printf("cinit3 : %s\n", cinit3);
     printf("cinit4 : %d\n", cinit4);
-    printf("cinit51 : %d\n", (int)cinit51);
-    printf("cinit52 : %d\n", *(int*)cinit52);
+    printf("cinit51 : %d\n", (പൂർണ്ണസംഖ്യ)cinit51);
+    printf("cinit52 : %d\n", *(പൂർണ്ണസംഖ്യ*)cinit52);
     printf("cinit6 : %d %d\n", cinit6.a, cinit6.b);
     printf("cinit7 : %d %d\n", cinit7->a, cinit7->b);
     printf("cinit8 : %s %s %s %s %s\n", cinit8[0], cinit8[1], cinit8[2], cinit8[3], cinit8[4]);
 
-    p = (int []){1, 2, 3};
-    for(i=0;i<3;i++)
+    p = (പൂർണ്ണസംഖ്യ []){1, 2, 3};
+    വേണ്ടി(i=0;i<3;i++)
         printf(" %d", p[i]);
     printf("\n");
 
-    for(i=0;i<3;i++)
+    വേണ്ടി(i=0;i<3;i++)
         printf("%d", cinit2[i]);
     printf("\n");
 
     q = "tralala1";
     printf("q1=%s\n", q);
 
-    q = (char *){ "tralala2" };
+    q = (അക്ഷരം *){ "tralala2" };
     printf("q2=%s\n", q);
 
-    q3 = (char *){ q };
+    q3 = (അക്ഷരം *){ q };
     printf("q3=%s\n", q3);
 
-    q = (char []){ "tralala3" };
+    q = (അക്ഷരം []){ "tralala3" };
     printf("q4=%s\n", q);
 
 #ifdef ALL_ISOC99
-    p = (int []){1, 2, cinit1 + 3};
-    for(i=0;i<3;i++)
+    p = (പൂർണ്ണസംഖ്യ []){1, 2, cinit1 + 3};
+    വേണ്ടി(i=0;i<3;i++)
         printf(" %d", p[i]);
     printf("\n");
 
-    for(i=0;i<3;i++) {
-        p = (int []){1, 2, 4 + i};
+    വേണ്ടി(i=0;i<3;i++) {
+        p = (പൂർണ്ണസംഖ്യ []){1, 2, 4 + i};
         printf("%d %d %d\n", 
                p[0],
                p[1],
@@ -1535,77 +1535,77 @@ void compound_literal_test(void)
 }
 
 
-#if __TINYC__
+#എങ്കിൽ __TINYC__
 
 /* K & R protos */
 
 kr_func1(a, b)
 {
-    return a + b;
+    തിരികെ a + b;
 }
 
-int kr_func2(a, b)
+പൂർണ്ണസംഖ്യ kr_func2(a, b)
 {
-    return a + b;
+    തിരികെ a + b;
 }
 
 kr_test()
 {
     printf("func1=%d\n", kr_func1(3, 4));
     printf("func2=%d\n", kr_func2(3, 4));
-    return 0;
+    തിരികെ 0;
 }
 
 /* We try to handle this syntax.  Make at least sure it doesn't segfault.  */
-char invalid_function_def()[] {return 0;}
+അക്ഷരം invalid_function_def()[] {തിരികെ 0;}
 
-#else
+#അല്ലെങ്കിൽ
 # define kr_test() printf("func1=7\nfunc2=7\n")
 #endif
 
-void num(int n)
+ശൂന്യം അക്കം(പൂർണ്ണസംഖ്യ n)
 {
-    char *tab, *p;
-    tab = (char*)malloc(20); 
+    അക്ഷരം *tab, *p;
+    tab = (അക്ഷരം*)malloc(20); 
     p = tab;
-    while (1) {
+    ആകുമ്പോൾ (1) {
         *p = 48 + (n % 10);
         p++;
         n = n / 10;
-        if (n == 0)
-            break;
+        എങ്കിൽ (n == 0)
+            നിർത്തുക;
     }
-    while (p != tab) {
+    ആകുമ്പോൾ (p != tab) {
         p--;
         printf("%c", *p);
     }
     printf("\n");
-    free(tab);
+    സ്വതന്ത്രം(tab);
 }
 
 /* structure assignment tests */
-struct structa1 {
-    int f1;
-    char f2;
+ഘടന structa1 {
+    പൂർണ്ണസംഖ്യ f1;
+    അക്ഷരം f2;
 };
 
-void struct_assign_test1(struct structa1 s1, int t, float f)
+ശൂന്യം struct_assign_test1(ഘടന structa1 s1, പൂർണ്ണസംഖ്യ t, ദശാംശം f)
 {
     printf("%d %d %d %f\n", s1.f1, s1.f2, t, f);
 }
 
-struct structa1 struct_assign_test2(struct structa1 s1, int t)
+ഘടന structa1 struct_assign_test2(ഘടന structa1 s1, പൂർണ്ണസംഖ്യ t)
 {
     s1.f1 += t;
     s1.f2 -= t;
-    return s1;
+    തിരികെ s1;
 }
 
-void struct_assign_test(void)
+ശൂന്യം struct_assign_test(ശൂന്യം)
 {
-    struct S {
-      struct structa1 lsta1, lsta2;
-      int i;
+    ഘടന S {
+      ഘടന structa1 lsta1, lsta2;
+      പൂർണ്ണസംഖ്യ i;
     } s = {{1,2}, {3,4}}, *ps;
     
     ps = &s;
@@ -1616,8 +1616,8 @@ void struct_assign_test(void)
     ps->lsta2 = struct_assign_test2(ps->lsta2, ps->i);
     printf("after call: %d %d\n", ps->lsta2.f1, ps->lsta2.f2);
 
-    static struct {
-        void (*elem)();
+    സ്ഥിതം ഘടന {
+        ശൂന്യം (*elem)();
     } t[] = {
         /* XXX: we should allow this even without braces */
         { struct_assign_test }
@@ -1630,22 +1630,22 @@ void struct_assign_test(void)
 
 /* casts to short/char */
 
-void cast1(char a, short b, unsigned char c, unsigned short d)
+ശൂന്യം cast1(അക്ഷരം a, short b, unsigned അക്ഷരം c, unsigned short d)
 {
     printf("%d %d %d %d\n", a, b, c, d);
 }
 
-char bcast;
+അക്ഷരം bcast;
 short scast;
 
-void cast_test()
+ശൂന്യം cast_test()
 {
-    int a;
-    char c;
-    char tab[10];
+    പൂർണ്ണസംഖ്യ a;
+    അക്ഷരം c;
+    അക്ഷരം tab[10];
     unsigned b,d;
     short s;
-    char *p = NULL;
+    അക്ഷരം *p = ശൂന്യ;
     unsigned long ul = 0x80000000UL;
     p -= 0x700000000042;
 
@@ -1653,14 +1653,14 @@ void cast_test()
     cast1(a, a, a, a);
     a = 0xffffe;
     printf("%d %d %d %d\n",
-           (char)(a + 1),
+           (അക്ഷരം)(a + 1),
            (short)(a + 1),
-           (unsigned char)(a + 1),
+           (unsigned അക്ഷരം)(a + 1),
            (unsigned short)(a + 1));
     printf("%d %d %d %d\n",
-           (char)0xfffff,
+           (അക്ഷരം)0xfffff,
            (short)0xfffff,
-           (unsigned char)0xfffff,
+           (unsigned അക്ഷരം)0xfffff,
            (unsigned short)0xfffff);
 
     a = (bcast = 128) + 1;
@@ -1668,14 +1668,14 @@ void cast_test()
     a = (scast = 65536) + 1;
     printf("%d\n", a);
     
-    printf("sizeof(c) = %d, sizeof((int)c) = %d\n", sizeof(c), sizeof((int)c));
+    printf("sizeof(c) = %d, sizeof((int)c) = %d\n", വലുപ്പം(c), വലുപ്പം((പൂർണ്ണസംഖ്യ)c));
     
     /* test cast from unsigned to signed short to int */
     b = 0xf000;
     d = (short)b;
     printf("((unsigned)(short)0x%08x) = 0x%08x\n", b, d);
     b = 0xf0f0;
-    d = (char)b;
+    d = (അക്ഷരം)b;
     printf("((unsigned)(char)0x%08x) = 0x%08x\n", b, d);
     
     /* test implicit int casting for array accesses */
@@ -1685,46 +1685,46 @@ void cast_test()
     printf("%d %d\n", tab[0], tab[1]);
 
     /* test implicit casting on some operators */
-    printf("sizeof(+(char)'a') = %d\n", sizeof(+(char)'a'));
-    printf("sizeof(-(char)'a') = %d\n", sizeof(-(char)'a'));
-    printf("sizeof(~(char)'a') = %d\n", sizeof(-(char)'a'));
+    printf("sizeof(+(char)'a') = %d\n", വലുപ്പം(+(അക്ഷരം)'a'));
+    printf("sizeof(-(char)'a') = %d\n", വലുപ്പം(-(അക്ഷരം)'a'));
+    printf("sizeof(~(char)'a') = %d\n", വലുപ്പം(-(അക്ഷരം)'a'));
 
-#if CC_NAME != CC_clang /* clang doesn't support non-portable conversions */
+#എങ്കിൽ CC_NAME != CC_clang /* clang doesn't support non-portable conversions */
     /* from pointer to integer types */
     printf("%d %d %ld %ld %lld %lld\n",
-           (int)p, (unsigned int)p,
+           (പൂർണ്ണസംഖ്യ)p, (unsigned പൂർണ്ണസംഖ്യ)p,
            (long)p, (unsigned long)p,
            (long long)p, (unsigned long long)p);
 #endif
 
     /* from integers to pointers */
     printf("%p %p %p %p\n",
-           (void *)a, (void *)b, (void *)c, (void *)d);
+           (ശൂന്യം *)a, (ശൂന്യം *)b, (ശൂന്യം *)c, (ശൂന്യം *)d);
 
     /* int to int with sign set */
-    printf("0x%lx\n", (unsigned long)(int)ul);
+    printf("0x%lx\n", (unsigned long)(പൂർണ്ണസംഖ്യ)ul);
 }
 
 /* initializers tests */
-struct structinit1 {
-    int f1;
-    char f2;
+ഘടന structinit1 {
+    പൂർണ്ണസംഖ്യ f1;
+    അക്ഷരം f2;
     short f3;
-    int farray[3];
+    പൂർണ്ണസംഖ്യ farray[3];
 };
 
-int sinit1 = 2;
-int sinit2 = { 3 };
-int sinit3[3] = { 1, 2, {3}, };
-int sinit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
-int sinit5[3][2] = { 1, 2, 3, 4, 5, 6 };
-int sinit6[] = { 1, 2, 3 };
-int sinit7[] = { [2] = 3, [0] = 1, 2 };
-char sinit8[] = "hello" "trala";
+പൂർണ്ണസംഖ്യ sinit1 = 2;
+പൂർണ്ണസംഖ്യ sinit2 = { 3 };
+പൂർണ്ണസംഖ്യ sinit3[3] = { 1, 2, {3}, };
+പൂർണ്ണസംഖ്യ sinit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
+പൂർണ്ണസംഖ്യ sinit5[3][2] = { 1, 2, 3, 4, 5, 6 };
+പൂർണ്ണസംഖ്യ sinit6[] = { 1, 2, 3 };
+പൂർണ്ണസംഖ്യ sinit7[] = { [2] = 3, [0] = 1, 2 };
+അക്ഷരം sinit8[] = "hello" "trala";
 
-struct structinit1 sinit9 = { 1, 2, 3 };
-struct structinit1 sinit10 = { .f2 = 2, 3, .f1 = 1 };
-struct structinit1 sinit11 = { .f2 = 2, 3, .f1 = 1, 
+ഘടന structinit1 sinit9 = { 1, 2, 3 };
+ഘടന structinit1 sinit10 = { .f2 = 2, 3, .f1 = 1 };
+ഘടന structinit1 sinit11 = { .f2 = 2, 3, .f1 = 1, 
 #ifdef ALL_ISOC99
                                .farray[0] = 10,
                                .farray[1] = 11,
@@ -1732,45 +1732,45 @@ struct structinit1 sinit11 = { .f2 = 2, 3, .f1 = 1,
 #endif
 };
 
-char *sinit12 = "hello world";
-char *sinit13[] = {
+അക്ഷരം *sinit12 = "hello world";
+അക്ഷരം *sinit13[] = {
     "test1",
     "test2",
     "test3",
 };
-char sinit14[10] = { "abc" };
-int sinit15[3] = { sizeof(sinit15), 1, 2 };
+അക്ഷരം sinit14[10] = { "abc" };
+പൂർണ്ണസംഖ്യ sinit15[3] = { വലുപ്പം(sinit15), 1, 2 };
 
-struct { int a[3], b; } sinit16[] = { { 1 }, 2 };
+ഘടന { പൂർണ്ണസംഖ്യ a[3], b; } sinit16[] = { { 1 }, 2 };
 
-struct bar {
-        char *s;
-        int len;
+ഘടന bar {
+        അക്ഷരം *s;
+        പൂർണ്ണസംഖ്യ len;
 } sinit17[] = {
         "a1", 4,
         "a2", 1
 };
 
-int sinit18[10] = {
+പൂർണ്ണസംഖ്യ sinit18[10] = {
     [2 ... 5] = 20,
     2,
     [8] = 10,
 };
 
-struct complexinit0 {
-    int a;
-    int b;
+ഘടന complexinit0 {
+    പൂർണ്ണസംഖ്യ a;
+    പൂർണ്ണസംഖ്യ b;
 };
 
-struct complexinit {
-    int a;
-    const struct complexinit0 *b;
+ഘടന complexinit {
+    പൂർണ്ണസംഖ്യ a;
+    സ്ഥിരം ഘടന complexinit0 *b;
 };
 
-const static struct complexinit cix[] = {
+സ്ഥിരം സ്ഥിതം ഘടന complexinit cix[] = {
     [0] = {
 	.a = 2000,
-	.b = (const struct complexinit0[]) {
+	.b = (സ്ഥിരം ഘടന complexinit0[]) {
 		{ 2001, 2002 },
 		{ 2003, 2003 },
 		{}
@@ -1778,89 +1778,89 @@ const static struct complexinit cix[] = {
     }
 };
 
-struct complexinit2 {
-	int a;
-	int b[];
+ഘടന complexinit2 {
+	പൂർണ്ണസംഖ്യ a;
+	പൂർണ്ണസംഖ്യ b[];
 };
 
-struct complexinit2 cix20;
+ഘടന complexinit2 cix20;
 
-struct complexinit2 cix21 = {
+ഘടന complexinit2 cix21 = {
 	.a = 3000,
 	.b = { 3001, 3002, 3003 }
 };
 
-struct complexinit2 cix22 = {
+ഘടന complexinit2 cix22 = {
 	.a = 4000,
 	.b = { 4001, 4002, 4003, 4004, 4005, 4006 }
 };
 
-typedef int arrtype1[];
+തരനിർവചനം പൂർണ്ണസംഖ്യ arrtype1[];
 arrtype1 sinit19;
 arrtype1 sinit20;
 arrtype1 sinit19 = {1};
 arrtype1 sinit20 = {2,3};
-typedef int arrtype2[3];
+തരനിർവചനം പൂർണ്ണസംഖ്യ arrtype2[3];
 arrtype2 sinit21;
 arrtype2 sinit22;
 arrtype2 sinit21 = {4};
 arrtype2 sinit22 = {5,6,7};
 
 /* Address comparisons of non-weak symbols with zero can be const-folded */
-int sinit23[2] = { "astring" ? sizeof("astring") : -1,
+പൂർണ്ണസംഖ്യ sinit23[2] = { "astring" ? വലുപ്പം("astring") : -1,
 		   &sinit23 ? 42 : -1 };
 
-int sinit24 = 2 || 1 / 0; /* exception in constant but unevaluated context */
+പൂർണ്ണസംഖ്യ sinit24 = 2 || 1 / 0; /* exception in constant but unevaluated context */
 
 /* bitfield init */
-struct bf_SS {unsigned int bit:1,bits31:31; };
-struct bf_SS bf_init = { .bit = 1 };
-struct bfn_SS {int a,b; struct bf_SS c; int d,e; };
-struct bfn_SS bfn_init = { .c.bit = 1 };
-struct bfa_SS {int a,b; struct bf_SS c[3]; int d,e; };
-struct bfa_SS bfa_init = { .c[1].bit = 1 };
-struct bf_SS bfaa_init[3] = { [1].bit = 1 };
-struct bf_SS bfaa_vinit[] = { [2].bit = 1 };
-struct b2_SS {long long int field : 52; long long int pad : 12; };
-struct b2_SS bf_init2 = {0xFFF000FFF000FLL, 0x123};
+ഘടന bf_SS {unsigned പൂർണ്ണസംഖ്യ bit:1,bits31:31; };
+ഘടന bf_SS bf_init = { .bit = 1 };
+ഘടന bfn_SS {പൂർണ്ണസംഖ്യ a,b; ഘടന bf_SS c; പൂർണ്ണസംഖ്യ d,e; };
+ഘടന bfn_SS bfn_init = { .c.bit = 1 };
+ഘടന bfa_SS {പൂർണ്ണസംഖ്യ a,b; ഘടന bf_SS c[3]; പൂർണ്ണസംഖ്യ d,e; };
+ഘടന bfa_SS bfa_init = { .c[1].bit = 1 };
+ഘടന bf_SS bfaa_init[3] = { [1].bit = 1 };
+ഘടന bf_SS bfaa_vinit[] = { [2].bit = 1 };
+ഘടന b2_SS {long long പൂർണ്ണസംഖ്യ field : 52; long long പൂർണ്ണസംഖ്യ pad : 12; };
+ഘടന b2_SS bf_init2 = {0xFFF000FFF000FLL, 0x123};
 
-extern int external_inited = 42;
+ബാഹ്യ പൂർണ്ണസംഖ്യ external_inited = 42;
 
-void init_test(void)
+ശൂന്യം init_test(ശൂന്യം)
 {
-    int linit1 = 2;
-    int linit2 = { 3 };
-    int linit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
-    int linit6[] = { 1, 2, 3 };
-    int i, j;
-    char linit8[] = "hello" "trala";
-    int linit12[10] = { 1, 2 };
-    int linit13[10] = { 1, 2, [7] = 3, [3] = 4, };
-    char linit14[10] = "abc";
-    int linit15[10] = { linit1, linit1 + 1, [6] = linit1 + 2, };
-    struct linit16 { int a1, a2, a3, a4; } linit16 = { 1, .a3 = 2 };
-    int linit17 = sizeof(linit17);
-    int zero = 0;
+    പൂർണ്ണസംഖ്യ linit1 = 2;
+    പൂർണ്ണസംഖ്യ linit2 = { 3 };
+    പൂർണ്ണസംഖ്യ linit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
+    പൂർണ്ണസംഖ്യ linit6[] = { 1, 2, 3 };
+    പൂർണ്ണസംഖ്യ i, j;
+    അക്ഷരം linit8[] = "hello" "trala";
+    പൂർണ്ണസംഖ്യ linit12[10] = { 1, 2 };
+    പൂർണ്ണസംഖ്യ linit13[10] = { 1, 2, [7] = 3, [3] = 4, };
+    അക്ഷരം linit14[10] = "abc";
+    പൂർണ്ണസംഖ്യ linit15[10] = { linit1, linit1 + 1, [6] = linit1 + 2, };
+    ഘടന linit16 { പൂർണ്ണസംഖ്യ a1, a2, a3, a4; } linit16 = { 1, .a3 = 2 };
+    പൂർണ്ണസംഖ്യ linit17 = വലുപ്പം(linit17);
+    പൂർണ്ണസംഖ്യ zero = 0;
     /* Addresses on non-weak symbols are non-zero, but not the access itself */
-    int linit18[2] = {&zero ? 1 : -1, zero ? -1 : 1 };
-    struct bf_SS bf_finit = { .bit = 1 };
-    struct bfn_SS bfn_finit = { .c.bit = 1 };
-    struct bfa_SS bfa_finit = { .c[1].bit = 1 };
-    struct bf_SS bfaa_finit[3] = { [1].bit = 1 };
-    struct bf_SS bfaa_fvinit[] = { [2].bit = 1 };
-    struct b2_SS bf_finit2 = {0xFFF000FFF000FLL, 0x123};
+    പൂർണ്ണസംഖ്യ linit18[2] = {&zero ? 1 : -1, zero ? -1 : 1 };
+    ഘടന bf_SS bf_finit = { .bit = 1 };
+    ഘടന bfn_SS bfn_finit = { .c.bit = 1 };
+    ഘടന bfa_SS bfa_finit = { .c[1].bit = 1 };
+    ഘടന bf_SS bfaa_finit[3] = { [1].bit = 1 };
+    ഘടന bf_SS bfaa_fvinit[] = { [2].bit = 1 };
+    ഘടന b2_SS bf_finit2 = {0xFFF000FFF000FLL, 0x123};
     
     printf("sinit1=%d\n", sinit1);
     printf("sinit2=%d\n", sinit2);
     printf("sinit3=%d %d %d %d\n", 
-           sizeof(sinit3),
+           വലുപ്പം(sinit3),
            sinit3[0],
            sinit3[1],
            sinit3[2]
            );
-    printf("sinit6=%d\n", sizeof(sinit6));
+    printf("sinit6=%d\n", വലുപ്പം(sinit6));
     printf("sinit7=%d %d %d %d\n", 
-           sizeof(sinit7),
+           വലുപ്പം(sinit7),
            sinit7[0],
            sinit7[1],
            sinit7[2]
@@ -1885,30 +1885,30 @@ void init_test(void)
            sinit11.farray[2]
            );
 
-    for(i=0;i<3;i++)
-        for(j=0;j<2;j++)
+    വേണ്ടി(i=0;i<3;i++)
+        വേണ്ടി(j=0;j<2;j++)
             printf("[%d][%d] = %d %d %d\n", 
                    i, j, sinit4[i][j], sinit5[i][j], linit4[i][j]);
     printf("linit1=%d\n", linit1);
     printf("linit2=%d\n", linit2);
-    printf("linit6=%d\n", sizeof(linit6));
-    printf("linit8=%d %s\n", sizeof(linit8), linit8);
+    printf("linit6=%d\n", വലുപ്പം(linit6));
+    printf("linit8=%d %s\n", വലുപ്പം(linit8), linit8);
 
     printf("sinit12=%s\n", sinit12);
     printf("sinit13=%d %s %s %s\n",
-           sizeof(sinit13), 
+           വലുപ്പം(sinit13), 
            sinit13[0],
            sinit13[1],
            sinit13[2]);
     printf("sinit14=%s\n", sinit14);
 
-    for(i=0;i<10;i++) printf(" %d", linit12[i]);
+    വേണ്ടി(i=0;i<10;i++) printf(" %d", linit12[i]);
     printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit13[i]);
+    വേണ്ടി(i=0;i<10;i++) printf(" %d", linit13[i]);
     printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit14[i]);
+    വേണ്ടി(i=0;i<10;i++) printf(" %d", linit14[i]);
     printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit15[i]);
+    വേണ്ടി(i=0;i<10;i++) printf(" %d", linit15[i]);
     printf("\n");
     printf("%d %d %d %d\n", 
            linit16.a1,
@@ -1922,7 +1922,7 @@ void init_test(void)
     printf("sinit17=%s %d %s %d\n",
            sinit17[0].s, sinit17[0].len,
            sinit17[1].s, sinit17[1].len);
-    for(i=0;i<10;i++)
+    വേണ്ടി(i=0;i<10;i++)
         printf("%x ", sinit18[i]);
     printf("\n");
     /* complex init check */
@@ -1932,14 +1932,14 @@ void init_test(void)
 	cix[0].b[1].a, cix[0].b[1].b,
 	cix[0].b[2].a, cix[0].b[2].b);
     printf("cix2: %d %d\n", cix21.b[2], cix22.b[5]);
-    printf("sizeof cix20 %d, cix21 %d, sizeof cix22 %d\n", sizeof cix20, sizeof cix21, sizeof cix22);
+    printf("sizeof cix20 %d, cix21 %d, sizeof cix22 %d\n", വലുപ്പം cix20, വലുപ്പം cix21, വലുപ്പം cix22);
 
     printf("arrtype1: %d %d %d\n", sinit19[0], sinit20[0], sinit20[1]);
-    printf("arrtype2: %d %d\n", sizeof(sinit19), sizeof(sinit20));
+    printf("arrtype2: %d %d\n", വലുപ്പം(sinit19), വലുപ്പം(sinit20));
     printf("arrtype3: %d %d %d\n", sinit21[0], sinit21[1], sinit21[2]);
     printf("arrtype4: %d %d %d\n", sinit22[0], sinit22[1], sinit22[2]);
-    printf("arrtype5: %d %d\n", sizeof(sinit21), sizeof(sinit22));
-    printf("arrtype6: %d\n", sizeof(arrtype2));
+    printf("arrtype5: %d %d\n", വലുപ്പം(sinit21), വലുപ്പം(sinit22));
+    printf("arrtype6: %d\n", വലുപ്പം(arrtype2));
 
     printf("sinit23= %d %d\n", sinit23[0], sinit23[1]);
     printf("sinit24=%d\n", sinit24);
@@ -1948,145 +1948,145 @@ void init_test(void)
     printf ("bf2: %u %u\n", bf_finit.bit, bf_finit.bits31);
     printf ("bf3: %u %u\n", bfn_init.c.bit, bfn_init.c.bits31);
     printf ("bf4: %u %u\n", bfn_finit.c.bit, bfn_finit.c.bits31);
-    for (i = 0; i < 3; i++)
+    വേണ്ടി (i = 0; i < 3; i++)
         printf ("bf5[%d]: %u %u\n", i, bfa_init.c[i].bit, bfa_init.c[i].bits31);
-    for (i = 0; i < 3; i++)
+    വേണ്ടി (i = 0; i < 3; i++)
         printf ("bf6[%d]: %u %u\n", i, bfa_finit.c[i].bit, bfa_finit.c[i].bits31);
-    for (i = 0; i < 3; i++)
+    വേണ്ടി (i = 0; i < 3; i++)
         printf ("bf7[%d]: %u %u\n", i, bfaa_init[i].bit, bfaa_init[i].bits31);
-    for (i = 0; i < 3; i++)
+    വേണ്ടി (i = 0; i < 3; i++)
         printf ("bf8[%d]: %u %u\n", i, bfaa_finit[i].bit, bfaa_finit[i].bits31);
-    for (i = 0; i < 3; i++)
+    വേണ്ടി (i = 0; i < 3; i++)
         printf ("bf9[%d]: %u %u\n", i, bfaa_vinit[i].bit, bfaa_vinit[i].bits31);
-    for (i = 0; i < 3; i++)
+    വേണ്ടി (i = 0; i < 3; i++)
         printf ("bf10[%d]: %u %u\n", i, bfaa_fvinit[i].bit, bfaa_fvinit[i].bits31);
 }
 
-void switch_uc(unsigned char uc)
+ശൂന്യം switch_uc(unsigned അക്ഷരം uc)
 {
-	switch (uc) {
-	    case 0xfb ... 0xfe:
+	തിരഞ്ഞെടുപ്പ് (uc) {
+	    അവസ്ഥ 0xfb ... 0xfe:
 		printf("ucsw:1\n");
-		break;
-	    case 0xff:
+		നിർത്തുക;
+	    അവസ്ഥ 0xff:
 		printf("ucsw:2\n");
-		break;
-	    case 0 ... 5:
+		നിർത്തുക;
+	    അവസ്ഥ 0 ... 5:
 		printf("ucsw:3\n");
-		break;
-	    default:
+		നിർത്തുക;
+	    സ്ഥിരസ്ഥിതി:
 		printf("ucsw: broken!\n");
 	}
 }
 
-void switch_sc(signed char sc)
+ശൂന്യം switch_sc(signed അക്ഷരം sc)
 {
-	switch (sc) {
-	    case -5 ... -2:
+	തിരഞ്ഞെടുപ്പ് (sc) {
+	    അവസ്ഥ -5 ... -2:
 		printf("scsw:1\n");
-		break;
-	    case -1:
+		നിർത്തുക;
+	    അവസ്ഥ -1:
 		printf("scsw:2\n");
-		break;
-	    case 0 ... 5:
+		നിർത്തുക;
+	    അവസ്ഥ 0 ... 5:
 		printf("scsw:3\n");
-		break;
-	    default:
+		നിർത്തുക;
+	    സ്ഥിരസ്ഥിതി:
 		printf("scsw: broken!\n");
 	}
 }
 
-void switch_test()
+ശൂന്യം switch_test()
 {
-    int i;
+    പൂർണ്ണസംഖ്യ i;
     unsigned long long ull;
     long long ll;
 
-    for(i=0;i<15;i++) {
-        switch(i) {
-        case 0:
-        case 1:
+    വേണ്ടി(i=0;i<15;i++) {
+        തിരഞ്ഞെടുപ്പ്(i) {
+        അവസ്ഥ 0:
+        അവസ്ഥ 1:
             printf("a");
-            break;
-        default:
+            നിർത്തുക;
+        സ്ഥിരസ്ഥിതി:
             printf("%d", i);
-            break;
-        case 8 ... 12:
+            നിർത്തുക;
+        അവസ്ഥ 8 ... 12:
             printf("c");
-            break;
-        case 3:
+            നിർത്തുക;
+        അവസ്ഥ 3:
             printf("b");
-            break;
-        case 0xc33c6b9fU:
-        case 0x7c9eeeb9U:
-            break;
+            നിർത്തുക;
+        അവസ്ഥ 0xc33c6b9fU:
+        അവസ്ഥ 0x7c9eeeb9U:
+            നിർത്തുക;
         }
     }
     printf("\n");
 
-    for (i = 1; i <= 5; i++) {
+    വേണ്ടി (i = 1; i <= 5; i++) {
 	ull = (unsigned long long)i << 61;
-	switch (ull) {
-	    case 1ULL << 61:
+	തിരഞ്ഞെടുപ്പ് (ull) {
+	    അവസ്ഥ 1ULL << 61:
 		printf("ullsw:1\n");
-		break;
-	    case 2ULL << 61:
+		നിർത്തുക;
+	    അവസ്ഥ 2ULL << 61:
 		printf("ullsw:2\n");
-		break;
-	    case 3ULL << 61:
+		നിർത്തുക;
+	    അവസ്ഥ 3ULL << 61:
 		printf("ullsw:3\n");
-		break;
-	    case 4ULL << 61:
+		നിർത്തുക;
+	    അവസ്ഥ 4ULL << 61:
 		printf("ullsw:4\n");
-		break;
-	    case 5ULL << 61:
+		നിർത്തുക;
+	    അവസ്ഥ 5ULL << 61:
 		printf("ullsw:5\n");
-		break;
-	    default:
+		നിർത്തുക;
+	    സ്ഥിരസ്ഥിതി:
 		printf("ullsw: broken!\n");
 	}
     }
 
-    for (i = 1; i <= 5; i++) {
+    വേണ്ടി (i = 1; i <= 5; i++) {
 	ll = (long long)i << 61;
-	switch (ll) {
-	    case 1LL << 61:
+	തിരഞ്ഞെടുപ്പ് (ll) {
+	    അവസ്ഥ 1LL << 61:
 		printf("llsw:1\n");
-		break;
-	    case 2LL << 61:
+		നിർത്തുക;
+	    അവസ്ഥ 2LL << 61:
 		printf("llsw:2\n");
-		break;
-	    case 3LL << 61:
+		നിർത്തുക;
+	    അവസ്ഥ 3LL << 61:
 		printf("llsw:3\n");
-		break;
-	    case 4LL << 61:
+		നിർത്തുക;
+	    അവസ്ഥ 4LL << 61:
 		printf("llsw:4\n");
-		break;
-	    case 5LL << 61:
+		നിർത്തുക;
+	    അവസ്ഥ 5LL << 61:
 		printf("llsw:5\n");
-		break;
-	    default:
+		നിർത്തുക;
+	    സ്ഥിരസ്ഥിതി:
 		printf("llsw: broken!\n");
 	}
     }
 
-    for (i = -5; i <= 5; i++) {
-	switch_uc((unsigned char)i);
+    വേണ്ടി (i = -5; i <= 5; i++) {
+	switch_uc((unsigned അക്ഷരം)i);
     }
 
-    for (i = -5; i <= 5; i++) {
-	switch_sc ((signed char)i);
+    വേണ്ടി (i = -5; i <= 5; i++) {
+	switch_sc ((signed അക്ഷരം)i);
     }
 }
 
 /* ISOC99 _Bool type */
-void c99_bool_test(void)
+ശൂന്യം c99_bool_test(ശൂന്യം)
 {
 #ifdef BOOL_ISOC99
-    int a;
+    പൂർണ്ണസംഖ്യ a;
     _Bool b, b2;
 
-    printf("sizeof(_Bool) = %d\n", sizeof(_Bool));
+    printf("sizeof(_Bool) = %d\n", വലുപ്പം(_Bool));
     a = 3;
     printf("cast: %d %d %d\n", (_Bool)10, (_Bool)0, (_Bool)a);
     b = 3;
@@ -2095,25 +2095,25 @@ void c99_bool_test(void)
     printf("b = %d\n", b);
     b2 = 0;
     printf("sizeof(x ? _Bool : _Bool) = %d (should be sizeof int)\n",
-           sizeof ((volatile int)a ? b : b2));
+           വലുപ്പം ((അസ്ഥിര പൂർണ്ണസംഖ്യ)a ? b : b2));
 #endif
 }
 
-void bitfield_test(void)
+ശൂന്യം bitfield_test(ശൂന്യം)
 {
-    int a;
+    പൂർണ്ണസംഖ്യ a;
     short sa;
-    unsigned char ca;
-    struct sbf1 {
-        int f1 : 3;
-        int : 2;
-        int f2 : 1;
-        int : 0;
-        int f3 : 5;
-        int f4 : 7;
-        unsigned int f5 : 7;
+    unsigned അക്ഷരം ca;
+    ഘടന sbf1 {
+        പൂർണ്ണസംഖ്യ f1 : 3;
+        പൂർണ്ണസംഖ്യ : 2;
+        പൂർണ്ണസംഖ്യ f2 : 1;
+        പൂർണ്ണസംഖ്യ : 0;
+        പൂർണ്ണസംഖ്യ f3 : 5;
+        പൂർണ്ണസംഖ്യ f4 : 7;
+        unsigned പൂർണ്ണസംഖ്യ f5 : 7;
     } st1;
-    printf("sizeof(st1) = %d\n", sizeof(st1));
+    printf("sizeof(st1) = %d\n", വലുപ്പം(st1));
 
     st1.f1 = 3;
     st1.f2 = 1;
@@ -2129,16 +2129,16 @@ void bitfield_test(void)
     printf("%d %d\n", sa, ca);
 
     st1.f1 = 7;
-    if (st1.f1 == -1) 
+    എങ്കിൽ (st1.f1 == -1) 
         printf("st1.f1 == -1\n");
-    else 
+    അല്ലെങ്കിൽ 
         printf("st1.f1 != -1\n");
-    if (st1.f2 == -1) 
+    എങ്കിൽ (st1.f2 == -1) 
         printf("st1.f2 == -1\n");
-    else 
+    അല്ലെങ്കിൽ 
         printf("st1.f2 != -1\n");
 
-    struct sbf2 {
+    ഘടന sbf2 {
         long long f1 : 45;
         long long : 2;
         long long f2 : 35;
@@ -2151,35 +2151,35 @@ void bitfield_test(void)
     st2.f2++;
     printf("%lld %lld %lld\n", st2.f1, st2.f2, st2.f3);
 
-#if 0
-    Disabled for now until further clarification re GCC compatibility
-    struct sbf3 {
-        int f1 : 7;
-        int f2 : 1;
-        char f3;
-        int f4 : 8;
-        int f5 : 1;
-        int f6 : 16;
+#എങ്കിൽ 0
+    Disabled വേണ്ടി now until further clarification re GCC compatibility
+    ഘടന sbf3 {
+        പൂർണ്ണസംഖ്യ f1 : 7;
+        പൂർണ്ണസംഖ്യ f2 : 1;
+        അക്ഷരം f3;
+        പൂർണ്ണസംഖ്യ f4 : 8;
+        പൂർണ്ണസംഖ്യ f5 : 1;
+        പൂർണ്ണസംഖ്യ f6 : 16;
     } st3;
-    printf("sizeof(st3) = %d\n", sizeof(st3));
+    printf("sizeof(st3) = %d\n", വലുപ്പം(st3));
 #endif
 
-    struct sbf4 {
-	int x : 31;
-	char y : 2;
+    ഘടന sbf4 {
+	പൂർണ്ണസംഖ്യ x : 31;
+	അക്ഷരം y : 2;
     } st4;
     st4.y = 1;
     printf("st4.y == %d\n", st4.y);
-    struct sbf5 {
-	int a;
-	char b;
-	int x : 12, y : 4, : 0, : 4, z : 3;
-	char c;
+    ഘടന sbf5 {
+	പൂർണ്ണസംഖ്യ a;
+	അക്ഷരം b;
+	പൂർണ്ണസംഖ്യ x : 12, y : 4, : 0, : 4, z : 3;
+	അക്ഷരം c;
     } st5 = { 1, 2, 3, 4, -3, 6 };
     printf("st5 = %d %d %d %d %d %d\n", st5.a, st5.b, st5.x, st5.y, st5.z, st5.c);
-    struct sbf6 {
+    ഘടന sbf6 {
 	short x : 12;
-	unsigned char y : 2;
+	unsigned അക്ഷരം y : 2;
     } st6;
     st6.y = 1;
     printf("st6.y == %d\n", st6.y);
@@ -2187,24 +2187,24 @@ void bitfield_test(void)
 
 #ifdef __x86_64__
 #define FLOAT_FMT "%f\n"
-#else
+#അല്ലെങ്കിൽ
 /* x86's float isn't compatible with GCC */
 #define FLOAT_FMT "%.5f\n"
 #endif
 
 /* declare strto* functions as they are C99 */
-double strtod(const char *nptr, char **endptr);
+ഇരട്ട strtod(സ്ഥിരം അക്ഷരം *nptr, അക്ഷരം **endptr);
 
-#if defined(_WIN32)
-float strtof(const char *nptr, char **endptr) {return (float)strtod(nptr, endptr);}
-LONG_DOUBLE strtold(const char *nptr, char **endptr) {return (LONG_DOUBLE)strtod(nptr, endptr);}
-#else
-float strtof(const char *nptr, char **endptr);
-LONG_DOUBLE strtold(const char *nptr, char **endptr);
+#എങ്കിൽ defined(_WIN32)
+ദശാംശം strtof(സ്ഥിരം അക്ഷരം *nptr, അക്ഷരം **endptr) {തിരികെ (ദശാംശം)strtod(nptr, endptr);}
+LONG_DOUBLE strtold(സ്ഥിരം അക്ഷരം *nptr, അക്ഷരം **endptr) {തിരികെ (LONG_DOUBLE)strtod(nptr, endptr);}
+#അല്ലെങ്കിൽ
+ദശാംശം strtof(സ്ഥിരം അക്ഷരം *nptr, അക്ഷരം **endptr);
+LONG_DOUBLE strtold(സ്ഥിരം അക്ഷരം *nptr, അക്ഷരം **endptr);
 #endif
 
 #define FTEST(prefix, typename, type, fmt)\
-void prefix ## cmp(type a, type b)\
+ശൂന്യം prefix ## cmp(type a, type b)\
 {\
     printf("%d %d %d %d %d %d\n",\
            a == b,\
@@ -2227,24 +2227,24 @@ void prefix ## cmp(type a, type b)\
     b = 0;\
     printf("%d %d\n", !a, !b);\
 }\
-void prefix ## fcast(type a)\
+ശൂന്യം prefix ## fcast(type a)\
 {\
-    float fa;\
-    double da;\
+    ദശാംശം fa;\
+    ഇരട്ട da;\
     LONG_DOUBLE la;\
-    int ia;\
+    പൂർണ്ണസംഖ്യ ia;\
     long long llia;\
-    unsigned int ua;\
+    unsigned പൂർണ്ണസംഖ്യ ua;\
     unsigned long long llua;\
     type b;\
     fa = a;\
     da = a;\
     la = a;\
     printf("ftof: %f %f %Lf\n", fa, da, la);\
-    ia = (int)a;\
+    ia = (പൂർണ്ണസംഖ്യ)a;\
     llia = (long long)a;\
     a = (a >= 0) ? a : -a;\
-    ua = (unsigned int)a;\
+    ua = (unsigned പൂർണ്ണസംഖ്യ)a;\
     llua = (unsigned long long)a;\
     printf("ftoi: %d %u %lld %llu\n", ia, ua, llia, llua);\
     ia = -1234;\
@@ -2258,57 +2258,57 @@ void prefix ## fcast(type a)\
     b = llia;\
     printf("lltof: " fmt "\n", b);\
     b = llua;\
-    if (CC_NAME != CC_clang) printf("ulltof: " fmt "\n", b);\
+    എങ്കിൽ (CC_NAME != CC_clang) printf("ulltof: " fmt "\n", b);\
 }\
 \
-float prefix ## retf(type a) { return a; }\
-double prefix ## retd(type a) { return a; }\
-LONG_DOUBLE prefix ## retld(type a) { return a; }\
+ദശാംശം prefix ## retf(type a) { തിരികെ a; }\
+ഇരട്ട prefix ## retd(type a) { തിരികെ a; }\
+LONG_DOUBLE prefix ## retld(type a) { തിരികെ a; }\
 \
-void prefix ## call(void)\
+ശൂന്യം prefix ## call(ശൂന്യം)\
 {\
     printf("float: " FLOAT_FMT, prefix ## retf(42.123456789));\
     printf("double: %f\n", prefix ## retd(42.123456789));\
     printf("long double: %Lf\n", prefix ## retld(42.123456789));\
-    printf("strto%s: %f\n", #prefix, (double)strto ## prefix("1.2", NULL));\
+    printf("strto%s: %f\n", #prefix, (ഇരട്ട)strto ## prefix("1.2", ശൂന്യ));\
 }\
 \
-void prefix ## signed_zeros(void) \
+ശൂന്യം prefix ## signed_zeros(ശൂന്യം) \
 {\
   type x = 0.0, y = -0.0, n, p;\
-  if (x == y)\
+  എങ്കിൽ (x == y)\
     printf ("Test 1.0 / x != 1.0 / y  returns %d (should be 1).\n",\
             1.0 / x != 1.0 / y);\
-  else\
+  അല്ലെങ്കിൽ\
     printf ("x != y; this is wrong!\n");\
 \
   n = -x;\
-  if (x == n)\
+  എങ്കിൽ (x == n)\
     printf ("Test 1.0 / x != 1.0 / -x returns %d (should be 1).\n",\
             1.0 / x != 1.0 / n);\
-  else\
+  അല്ലെങ്കിൽ\
     printf ("x != -x; this is wrong!\n");\
 \
   p = +y;\
-  if (x == p)\
+  എങ്കിൽ (x == p)\
     printf ("Test 1.0 / x != 1.0 / +y returns %d (should be 1).\n",\
             1.0 / x != 1.0 / p);\
-  else\
+  അല്ലെങ്കിൽ\
     printf ("x != +y; this is wrong!\n");\
   p = -y;\
-  if (x == p)\
+  എങ്കിൽ (x == p)\
     printf ("Test 1.0 / x != 1.0 / -y returns %d (should be 0).\n",\
             1.0 / x != 1.0 / p);\
-  else\
+  അല്ലെങ്കിൽ\
     printf ("x != -y; this is wrong!\n");\
 }\
-void prefix ## nan(void)\
+ശൂന്യം prefix ## nan(ശൂന്യം)\
 {\
     type nan = 0.0/0.0;\
     type nnan = -nan; \
     printf("nantest: " fmt " " fmt "\n", nan, nnan);\
 }\
-void prefix ## test(void)\
+ശൂന്യം prefix ## test(ശൂന്യം)\
 {\
     printf("testing '%s'\n", #typename);\
     prefix ## cmp(1, 2.5);\
@@ -2318,31 +2318,31 @@ void prefix ## test(void)\
     prefix ## fcast(-2334.6);\
     prefix ## call();\
     prefix ## signed_zeros();\
-    if (CC_NAME != CC_clang) prefix ## nan();\
+    എങ്കിൽ (CC_NAME != CC_clang) prefix ## nan();\
 }
 
-FTEST(f, float, float, "%f")
-FTEST(d, double, double, "%f")
-FTEST(ld, long double, LONG_DOUBLE, "%Lf")
+FTEST(f, ദശാംശം, ദശാംശം, "%f")
+FTEST(d, ഇരട്ട, ഇരട്ട, "%f")
+FTEST(ld, long ഇരട്ട, LONG_DOUBLE, "%Lf")
 
-double ftab1[3] = { 1.2, 3.4, -5.6 };
+ഇരട്ട ftab1[3] = { 1.2, 3.4, -5.6 };
 
 
-void float_test(void)
+ശൂന്യം float_test(ശൂന്യം)
 {
-#if !defined(__arm__) || defined(__ARM_PCS_VFP) || defined __ANDROID__
-    volatile float fa, fb;
-    volatile double da, db;
-    int a;
-    unsigned int b;
-    static double nan2 = 0.0/0.0;
-    static double inf1 = 1.0/0.0;
-    static double inf2 = 1e5000;
-    volatile LONG_DOUBLE la;
+#എങ്കിൽ !defined(__arm__) || defined(__ARM_PCS_VFP) || defined __ANDROID__
+    അസ്ഥിര ദശാംശം fa, fb;
+    അസ്ഥിര ഇരട്ട da, db;
+    പൂർണ്ണസംഖ്യ a;
+    unsigned പൂർണ്ണസംഖ്യ b;
+    സ്ഥിതം ഇരട്ട nan2 = 0.0/0.0;
+    സ്ഥിതം ഇരട്ട inf1 = 1.0/0.0;
+    സ്ഥിതം ഇരട്ട inf2 = 1e5000;
+    അസ്ഥിര LONG_DOUBLE la;
 
-    printf("sizeof(float) = %d\n", sizeof(float));
-    printf("sizeof(double) = %d\n", sizeof(double));
-    printf("sizeof(long double) = %d\n", sizeof(LONG_DOUBLE));
+    printf("sizeof(float) = %d\n", വലുപ്പം(ദശാംശം));
+    printf("sizeof(double) = %d\n", വലുപ്പം(ഇരട്ട));
+    printf("sizeof(long double) = %d\n", വലുപ്പം(LONG_DOUBLE));
     ftest();
     dtest();
     ldtest();
@@ -2387,56 +2387,56 @@ void float_test(void)
 #endif
 }
 
-int fib(int n)
+പൂർണ്ണസംഖ്യ fib(പൂർണ്ണസംഖ്യ n)
 {
-    if (n <= 2)
-        return 1;
-    else
-        return fib(n-1) + fib(n-2);
+    എങ്കിൽ (n <= 2)
+        തിരികെ 1;
+    അല്ലെങ്കിൽ
+        തിരികെ fib(n-1) + fib(n-2);
 }
 
-#if __GNUC__ == 3 || __GNUC__ == 4
+#എങ്കിൽ __GNUC__ == 3 || __GNUC__ == 4
 # define aligned_function 0
-#else
-void __attribute__((aligned(16))) aligned_function(int i) {}
+#അല്ലെങ്കിൽ
+ശൂന്യം __attribute__((aligned(16))) aligned_function(പൂർണ്ണസംഖ്യ i) {}
 #endif
 
-void funcptr_test()
+ശൂന്യം funcptr_test()
 {
-    void (*func)(int);
-    int a;
-    struct {
-        int dummy;
-        void (*func)(int);
+    ശൂന്യം (*func)(പൂർണ്ണസംഖ്യ);
+    പൂർണ്ണസംഖ്യ a;
+    ഘടന {
+        പൂർണ്ണസംഖ്യ dummy;
+        ശൂന്യം (*func)(പൂർണ്ണസംഖ്യ);
     } st1;
     long diff;
 
-    func = &num;
+    func = &അക്കം;
     (*func)(12345);
-    func = num;
+    func = അക്കം;
     a = 1;
     a = 1;
     func(12345);
     /* more complicated pointer computation */
-    st1.func = num;
+    st1.func = അക്കം;
     st1.func(12346);
-    printf("sizeof1 = %d\n", sizeof(funcptr_test));
-    printf("sizeof2 = %d\n", sizeof funcptr_test);
-    printf("sizeof3 = %d\n", sizeof(&funcptr_test));
-    printf("sizeof4 = %d\n", sizeof &funcptr_test);
+    printf("sizeof1 = %d\n", വലുപ്പം(funcptr_test));
+    printf("sizeof2 = %d\n", വലുപ്പം funcptr_test);
+    printf("sizeof3 = %d\n", വലുപ്പം(&funcptr_test));
+    printf("sizeof4 = %d\n", വലുപ്പം &funcptr_test);
     a = 0;
-    func = num + a;
-    diff = func - num;
+    func = അക്കം + a;
+    diff = func - അക്കം;
     func(42);
     (func + diff)(42);
-    (num + a)(43);
+    (അക്കം + a)(43);
 
     /* Check that we can align functions */
     func = aligned_function;
-    printf("aligned_function (should be zero): %d\n", ((int)(uintptr_t)func) & 15);
+    printf("aligned_function (should be zero): %d\n", ((പൂർണ്ണസംഖ്യ)(uintptr_t)func) & 15);
 }
 
-void lloptest(long long a, long long b)
+ശൂന്യം lloptest(long long a, long long b)
 {
     unsigned long long ua, ub;
 
@@ -2448,13 +2448,13 @@ void lloptest(long long a, long long b)
            a - b,
            a * b);
     
-    if (b != 0) {
+    എങ്കിൽ (b != 0) {
         printf("arith1: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            a / b,
            a % b);
     }
 
-    /* binary */
+    /*ദ്വിമാന*/
     printf("bin: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            a & b,
            a | b,
@@ -2488,7 +2488,7 @@ void lloptest(long long a, long long b)
     printf("not: %d %d %d %d\n", !a, !ua, !b, !ub);
 }
 
-void llshift(long long a, int b)
+ശൂന്യം llshift(long long a, പൂർണ്ണസംഖ്യ b)
 {
     printf("shift: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            (unsigned long long)a >> b,
@@ -2504,10 +2504,10 @@ void llshift(long long a, int b)
            a << 35);
 }
 
-void llfloat(void)
+ശൂന്യം llfloat(ശൂന്യം)
 {
-    float fa;
-    double da;
+    ദശാംശം fa;
+    ഇരട്ട da;
     LONG_DOUBLE lda;
     long long la, lb, lc;
     unsigned long long ula, ulb, ulc;
@@ -2538,37 +2538,37 @@ void llfloat(void)
     printf("ftoull: " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT "\n", ula, ulb, ulc);
 }
 
-long long llfunc1(int a)
+long long llfunc1(പൂർണ്ണസംഖ്യ a)
 {
-    return a * 2;
+    തിരികെ a * 2;
 }
 
-struct S {
-    int id; 
-    char item;
+ഘടന S {
+    പൂർണ്ണസംഖ്യ id; 
+    അക്ഷരം item;
 };
 
-long long int value(struct S *v)
+long long പൂർണ്ണസംഖ്യ മൂല്യം(ഘടന S *v)
 {
-    return ((long long int)v->item);
+    തിരികെ ((long long പൂർണ്ണസംഖ്യ)v->item);
 }
 
-long long llfunc2(long long x, long long y, int z)
+long long llfunc2(long long x, long long y, പൂർണ്ണസംഖ്യ z)
 {
-    return x * y * z;
+    തിരികെ x * y * z;
 }
 
-void check_opl_save_regs(char *a, long long b, int c)
+ശൂന്യം check_opl_save_regs(അക്ഷരം *a, long long b, പൂർണ്ണസംഖ്യ c)
 {
     *a = b < 0 && !c;
 }
 
-void longlong_test(void)
+ശൂന്യം longlong_test(ശൂന്യം)
 {
     long long a, b, c;
-    int ia;
-    unsigned int ua;
-    printf("sizeof(long long) = %d\n", sizeof(long long));
+    പൂർണ്ണസംഖ്യ ia;
+    unsigned പൂർണ്ണസംഖ്യ ua;
+    printf("sizeof(long long) = %d\n", വലുപ്പം(long long));
     ia = -1;
     ua = -2;
     a = ia;
@@ -2592,7 +2592,7 @@ void longlong_test(void)
     llshift(b, 47);
 
     llfloat();
-#if 1
+#എങ്കിൽ 1
     b = 0x12345678;
     a = -1;
     c = a + b;
@@ -2601,10 +2601,10 @@ void longlong_test(void)
 
     /* long long reg spill test */
     {
-          struct S a;
+          ഘടന S a;
 
           a.item = 3;
-          printf("%lld\n", value(&a));
+          printf("%lld\n", മൂല്യം(&a));
     }
     lloptest(0x80000000, 0);
 
@@ -2635,16 +2635,16 @@ void longlong_test(void)
     u = (unsigned)(u + 1);
     printf("long long u=" ULONG_LONG_FORMAT "\n", u);
     u = 0x11223344aa998877ULL;
-    u = (unsigned)(int)(u + 1);
+    u = (unsigned)(പൂർണ്ണസംഖ്യ)(u + 1);
     printf("long long u=" ULONG_LONG_FORMAT "\n", u);
 
     /* was a problem with missing save_regs in gen_opl on 32-bit platforms */
-    char cc = 78;
+    അക്ഷരം cc = 78;
     check_opl_save_regs(&cc, -1, 0);
     printf("check_opl_save_regs: %d\n", cc);
 }
 
-void manyarg_test(void)
+ശൂന്യം manyarg_test(ശൂന്യം)
 {
     LONG_DOUBLE ld = 1234567891234LL;
     printf("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f\n",
@@ -2678,24 +2678,24 @@ void manyarg_test(void)
            42.0, 43.0, ld);
 }
 
-void*
+ശൂന്യം*
 va_arg_with_struct_ptr(va_list ap) {
         /*
          * This was a BUG identified with FFTW-3.3.8 on arm64.
          * The test case only checks it compiles on all supported
          * architectures. This function is not currently called.
          */
-        struct X { int _x; };
-        struct X *x = va_arg(ap, struct X *);
-        return x;
+        ഘടന X { പൂർണ്ണസംഖ്യ _x; };
+        ഘടന X *x = va_arg(ap, ഘടന X *);
+        തിരികെ x;
 }
 
-void vprintf1(const char *fmt, ...)
+ശൂന്യം vprintf1(സ്ഥിരം അക്ഷരം *fmt, ...)
 {
     va_list ap, aq;
-    const char *p;
-    int c, i;
-    double d;
+    സ്ഥിരം അക്ഷരം *p;
+    പൂർണ്ണസംഖ്യ c, i;
+    ഇരട്ട d;
     long long ll;
     LONG_DOUBLE ld;
 
@@ -2703,35 +2703,35 @@ void vprintf1(const char *fmt, ...)
     va_copy(ap, aq);
     
     p = fmt;
-    for(;;) {
+    വേണ്ടി(;;) {
         c = *p;
-        if (c == '\0')
-            break;
+        എങ്കിൽ (c == '\0')
+            നിർത്തുക;
         p++;
-        if (c == '%') {
+        എങ്കിൽ (c == '%') {
             c = *p;
-            switch(c) {
-            case '\0':
-                goto the_end;
-            case 'd':
-                i = va_arg(ap, int);
+            തിരഞ്ഞെടുപ്പ്(c) {
+            അവസ്ഥ '\0':
+                പോകുക the_end;
+            അവസ്ഥ 'd':
+                i = va_arg(ap, പൂർണ്ണസംഖ്യ);
                 printf("%d", i);
-                break;
-            case 'f':
-                d = va_arg(ap, double);
+                നിർത്തുക;
+            അവസ്ഥ 'f':
+                d = va_arg(ap, ഇരട്ട);
                 printf("%f", d);
-                break;
-            case 'l':
+                നിർത്തുക;
+            അവസ്ഥ 'l':
                 ll = va_arg(ap, long long);
                 printf(LONG_LONG_FORMAT, ll);
-                break;
-            case 'F':
+                നിർത്തുക;
+            അവസ്ഥ 'F':
                 ld = va_arg(ap, LONG_DOUBLE);
                 printf("%Lf", ld);
-                break;
+                നിർത്തുക;
             }
             p++;
-        } else {
+        } അല്ലെങ്കിൽ {
             putchar(c);
         }
     }
@@ -2740,50 +2740,50 @@ void vprintf1(const char *fmt, ...)
     va_end(ap);
 }
 
-struct myspace {
-    short int profile;
+ഘടന myspace {
+    short പൂർണ്ണസംഖ്യ profile;
 };
-struct myspace2 {
-#if CC_NAME == CC_clang /* clang7 doesn't support zero sized structs */
-    char a[1];
-#else
-    char a[0];
+ഘടന myspace2 {
+#എങ്കിൽ CC_NAME == CC_clang /* clang7 doesn't support zero sized structs */
+    അക്ഷരം a[1];
+#അല്ലെങ്കിൽ
+    അക്ഷരം a[0];
 #endif
 };
-struct myspace3 {
-    char a[1];
+ഘടന myspace3 {
+    അക്ഷരം a[1];
 };
-struct myspace4 {
-    char a[2];
+ഘടന myspace4 {
+    അക്ഷരം a[2];
 };
-struct mytest {
-    void *foo, *bar, *baz;
+ഘടന mytest {
+    ശൂന്യം *foo, *bar, *baz;
 };
 
-struct mytest stdarg_for_struct(struct myspace bob, ...)
+ഘടന mytest stdarg_for_struct(ഘടന myspace bob, ...)
 {
-    struct myspace george, bill;
-    struct myspace2 alex1;
-    struct myspace3 alex2;
-    struct myspace4 alex3;
+    ഘടന myspace george, bill;
+    ഘടന myspace2 alex1;
+    ഘടന myspace3 alex2;
+    ഘടന myspace4 alex3;
     va_list ap;
-    short int validate;
+    short പൂർണ്ണസംഖ്യ validate;
 
     va_start(ap, bob);
-    alex1    = va_arg(ap, struct myspace2);
-    alex2    = va_arg(ap, struct myspace3);
-    alex3    = va_arg(ap, struct myspace4);
-    bill     = va_arg(ap, struct myspace);
-    george   = va_arg(ap, struct myspace);
-    validate = va_arg(ap, int);
+    alex1    = va_arg(ap, ഘടന myspace2);
+    alex2    = va_arg(ap, ഘടന myspace3);
+    alex3    = va_arg(ap, ഘടന myspace4);
+    bill     = va_arg(ap, ഘടന myspace);
+    george   = va_arg(ap, ഘടന myspace);
+    validate = va_arg(ap, പൂർണ്ണസംഖ്യ);
     printf("stdarg_for_struct: %d %d %d %d %d %d %d\n",
            alex2.a[0], alex3.a[0], alex3.a[1],
            bob.profile, bill.profile, george.profile, validate);
     va_end(ap);
-    return (struct mytest) {};
+    തിരികെ (ഘടന mytest) {};
 }
 
-void stdarg_for_libc(const char *fmt, ...)
+ശൂന്യം stdarg_for_libc(സ്ഥിരം അക്ഷരം *fmt, ...)
 {
     va_list args;
     va_start(args, fmt);
@@ -2791,39 +2791,39 @@ void stdarg_for_libc(const char *fmt, ...)
     va_end(args);
 }
 
-void stdarg_syntax(int n, ...)
+ശൂന്യം stdarg_syntax(പൂർണ്ണസംഖ്യ n, ...)
 {
-    int i;
+    പൂർണ്ണസംഖ്യ i;
     va_list ap;
-    if (1)
+    എങ്കിൽ (1)
       va_start(ap, n);
-    else
+    അല്ലെങ്കിൽ
       ;
-    i = va_arg(ap, int);
+    i = va_arg(ap, പൂർണ്ണസംഖ്യ);
     printf("stdarg_void_expr: %d\n", i);
     (va_end(ap));
 }
 
-typedef struct{
-    double x,y;
+തരനിർവചനം ഘടന{
+    ഇരട്ട x,y;
 } point;
 point pts[]={{1.0,2.0},{3.0,4.0},{5.0,6.0},{7.0,8.0},{9.0,10.0},{11.0,12.0}};
 
-static void stdarg_double_struct(int nargs, int posd,...)
+സ്ഥിതം ശൂന്യം stdarg_double_struct(പൂർണ്ണസംഖ്യ nargs, പൂർണ്ണസംഖ്യ posd,...)
 {
-    int i;
-    double d;
+    പൂർണ്ണസംഖ്യ i;
+    ഇരട്ട d;
     point pi;
     va_list args;
 
     printf ("stdarg_double_struct: %d\n", posd);
     va_start(args,posd);
-    for(i = 0; i < nargs; i++) {
-        if (i == posd) {
-            d = va_arg (args, double);
+    വേണ്ടി(i = 0; i < nargs; i++) {
+        എങ്കിൽ (i == posd) {
+            d = va_arg (args, ഇരട്ട);
             printf ("d %d = %g\n", i, d);
         }
-        else {
+        അല്ലെങ്കിൽ {
             pi = va_arg (args, point);
             printf ("pts[%d] = %g %g\n", i, pi.x, pi.y);
         }
@@ -2831,13 +2831,13 @@ static void stdarg_double_struct(int nargs, int posd,...)
     va_end(args);
 }
 
-void stdarg_test(void)
+ശൂന്യം stdarg_test(ശൂന്യം)
 {
     LONG_DOUBLE ld = 1234567891234LL;
-    struct myspace bob;
-    struct myspace2 bob2;
-    struct myspace3 bob3;
-    struct myspace4 bob4;
+    ഘടന myspace bob;
+    ഘടന myspace2 bob2;
+    ഘടന myspace3 bob3;
+    ഘടന myspace4 bob4;
 
     vprintf1("%d %d %d\n", 1, 2, 3);
     vprintf1("%f %d %f\n", 1.0, 2, 3.0);
@@ -2885,7 +2885,7 @@ void stdarg_test(void)
     stdarg_for_struct(bob, bob2, bob3, bob4, bob, bob, bob.profile);
     stdarg_for_libc("stdarg_for_libc: %s %.2f %d\n", "string", 1.23, 456);
     stdarg_syntax(1, 17);
-#if !(defined _WIN32 && CC_NAME == CC_clang) /* broken clang */
+#എങ്കിൽ !(defined _WIN32 && CC_NAME == CC_clang) /* broken clang */
     stdarg_double_struct(6,-1,pts[0],pts[1],pts[2],pts[3],pts[4],pts[5]);
     stdarg_double_struct(7,1,pts[0],-1.0,pts[1],pts[2],pts[3],pts[4],pts[5]);
     stdarg_double_struct(7,2,pts[0],pts[1],-1.0,pts[2],pts[3],pts[4],pts[5]);
@@ -2895,32 +2895,32 @@ void stdarg_test(void)
 #endif
 }
 
-int reltab[3] = { 1, 2, 3 };
+പൂർണ്ണസംഖ്യ reltab[3] = { 1, 2, 3 };
 
-int *rel1 = &reltab[1];
-int *rel2 = &reltab[2];
+പൂർണ്ണസംഖ്യ *rel1 = &reltab[1];
+പൂർണ്ണസംഖ്യ *rel2 = &reltab[2];
 
-void getmyaddress(void)
+ശൂന്യം getmyaddress(ശൂന്യം)
 {
     printf("in getmyaddress\n");
 }
 
 #ifdef __LP64__
-long __pa_symbol(void)
+long __pa_symbol(ശൂന്യം)
 {
     /* This 64bit constant was handled incorrectly, it was used as addend
        (which can hold 64bit just fine) in connection with a symbol,
        and TCC generates wrong code for that (displacements are 32bit only).
        This effectively is "+ 0x80000000", and if addresses of globals
        are below 2GB the result should be a number without high 32 bits set.  */
-       return ((long)(((unsigned long)(&rel1))) - (0xffffffff80000000UL));
+       തിരികെ ((long)(((unsigned long)(&rel1))) - (0xffffffff80000000UL));
 }
 #endif
 
 uintptr_t theaddress = (uintptr_t)getmyaddress;
-void relocation_test(void)
+ശൂന്യം relocation_test(ശൂന്യം)
 {
-    void (*fptr)(void) = (void (*)(void))theaddress;
+    ശൂന്യം (*fptr)(ശൂന്യം) = (ശൂന്യം (*)(ശൂന്യം))theaddress;
     printf("*rel1=%d\n", *rel1);
     printf("*rel2=%d\n", *rel2);
     fptr();
@@ -2930,125 +2930,125 @@ void relocation_test(void)
 #endif
 }
 
-void old_style_f(a,b,c)
-     int a, b;
-     double c;
+ശൂന്യം old_style_f(a,b,c)
+     പൂർണ്ണസംഖ്യ a, b;
+     ഇരട്ട c;
 {
     printf("a=%d b=%d b=%f\n", a, b, c);
 }
 
-void decl_func1(int cmpfn())
+ശൂന്യം decl_func1(പൂർണ്ണസംഖ്യ cmpfn())
 {
     printf("cmpfn=%lx\n", (long)cmpfn);
 }
 
-void decl_func2(cmpfn)
-int cmpfn();
+ശൂന്യം decl_func2(cmpfn)
+പൂർണ്ണസംഖ്യ cmpfn();
 {
     printf("cmpfn=%lx\n", (long)cmpfn);
 }
 
-void old_style_function_test(void)
+ശൂന്യം old_style_function_test(ശൂന്യം)
 {
-#if CC_NAME == CC_clang
+#എങ്കിൽ CC_NAME == CC_clang
     /* recent clang versions (at least 15.0) raise an error:
        incompatible pointer to integer conversion passing 'void *'
        For the purpose of this test, pass 1 instead.
      */
     old_style_f(1, 2, 3.0);
-#else
-    old_style_f((void *)1, 2, 3.0);
+#അല്ലെങ്കിൽ
+    old_style_f((ശൂന്യം *)1, 2, 3.0);
 #endif
-    decl_func1(NULL);
-    decl_func2(NULL);
+    decl_func1(ശൂന്യ);
+    decl_func2(ശൂന്യ);
 }
 
-void alloca_test()
+ശൂന്യം alloca_test()
 {
-    char *p = alloca(16);
+    അക്ഷരം *p = alloca(16);
     strcpy(p,"123456789012345");
     printf("alloca: p is %s\n", p);
-    char *demo = "This is only a test.\n";
+    അക്ഷരം *demo = "This is only a test.\n";
     /* Test alloca embedded in a larger expression */
     printf("alloca: %s\n", strcpy(alloca(strlen(demo)+1),demo) );
 }
 
-void *bounds_checking_is_enabled()
+ശൂന്യം *bounds_checking_is_enabled()
 {
-    char ca[10], *cp = ca-1;
-    return (ca != cp + 1) ? cp : NULL;
+    അക്ഷരം ca[10], *cp = ca-1;
+    തിരികെ (ca != cp + 1) ? cp : ശൂന്യ;
 }
 
-typedef int constant_negative_array_size_as_compile_time_assertion_idiom[(1 ? 2 : 0) - 1];
+തരനിർവചനം പൂർണ്ണസംഖ്യ constant_negative_array_size_as_compile_time_assertion_idiom[(1 ? 2 : 0) - 1];
 
-void c99_vla_test_1(int size1, int size2)
+ശൂന്യം c99_vla_test_1(പൂർണ്ണസംഖ്യ size1, പൂർണ്ണസംഖ്യ size2)
 {
-    int size = size1 * size2;
-    int tab1[size][2], tab2[10][2];
-    void *tab1_ptr, *tab2_ptr, *bad_ptr;
+    പൂർണ്ണസംഖ്യ size = size1 * size2;
+    പൂർണ്ണസംഖ്യ tab1[size][2], tab2[10][2];
+    ശൂന്യം *tab1_ptr, *tab2_ptr, *bad_ptr;
 
     /* "size" should have been 'captured' at tab1 declaration, 
         so modifying it should have no effect on VLA behaviour. */
     size = size-1;
     
     printf("Test C99 VLA 1 (sizeof): ");
-    printf("%s\n", (sizeof tab1 == size1 * size2 * 2 * sizeof(int)) ? "PASSED" : "FAILED");
+    printf("%s\n", (വലുപ്പം tab1 == size1 * size2 * 2 * വലുപ്പം(പൂർണ്ണസംഖ്യ)) ? "PASSED" : "FAILED");
     tab1_ptr = tab1;
     tab2_ptr = tab2;
     printf("Test C99 VLA 2 (ptrs subtract): ");
-    printf("%s\n", (tab2 - tab1 == (tab2_ptr - tab1_ptr) / (sizeof(int) * 2)) ? "PASSED" : "FAILED");
+    printf("%s\n", (tab2 - tab1 == (tab2_ptr - tab1_ptr) / (വലുപ്പം(പൂർണ്ണസംഖ്യ) * 2)) ? "PASSED" : "FAILED");
     printf("Test C99 VLA 3 (ptr add): ");
-    printf("%s\n", &tab1[5][1] == (tab1_ptr + (5 * 2 + 1) * sizeof(int)) ? "PASSED" : "FAILED");
+    printf("%s\n", &tab1[5][1] == (tab1_ptr + (5 * 2 + 1) * വലുപ്പം(പൂർണ്ണസംഖ്യ)) ? "PASSED" : "FAILED");
     printf("Test C99 VLA 4 (ptr access): ");
     tab1[size1][1] = 42;
-    printf("%s\n", (*((int *) (tab1_ptr + (size1 * 2 + 1) * sizeof(int))) == 42) ? "PASSED" : "FAILED");
+    printf("%s\n", (*((പൂർണ്ണസംഖ്യ *) (tab1_ptr + (size1 * 2 + 1) * വലുപ്പം(പൂർണ്ണസംഖ്യ))) == 42) ? "PASSED" : "FAILED");
 
     printf("Test C99 VLA 5 (bounds checking (might be disabled)): ");
-    if (bad_ptr = bounds_checking_is_enabled()) {
-        int *t1 = &tab1[size1 * size2 - 1][3];
-        int *t2 = &tab2[9][3];
+    എങ്കിൽ (bad_ptr = bounds_checking_is_enabled()) {
+        പൂർണ്ണസംഖ്യ *t1 = &tab1[size1 * size2 - 1][3];
+        പൂർണ്ണസംഖ്യ *t2 = &tab2[9][3];
         printf("%s ", bad_ptr == t1 ? "PASSED" : "FAILED");
         printf("%s ", bad_ptr == t2 ? "PASSED" : "FAILED");
 
-        char*c1 = 1 + sizeof(tab1) + (char*)tab1;
-        char*c2 = 1 + sizeof(tab2) + (char*)tab2;
+        അക്ഷരം*c1 = 1 + വലുപ്പം(tab1) + (അക്ഷരം*)tab1;
+        അക്ഷരം*c2 = 1 + വലുപ്പം(tab2) + (അക്ഷരം*)tab2;
         printf("%s ", bad_ptr == c1 ? "PASSED" : "FAILED");
         printf("%s ", bad_ptr == c2 ? "PASSED" : "FAILED");
 
-        int *i1 = tab1[-1];
-        int *i2 = tab2[-1];
+        പൂർണ്ണസംഖ്യ *i1 = tab1[-1];
+        പൂർണ്ണസംഖ്യ *i2 = tab2[-1];
         printf("%s ", bad_ptr == i1 ? "PASSED" : "FAILED");
         printf("%s ", bad_ptr == i2 ? "PASSED" : "FAILED");
 
-        int *x1 = tab1[size1 * size2 + 1];
-        int *x2 = tab2[10 + 1];
+        പൂർണ്ണസംഖ്യ *x1 = tab1[size1 * size2 + 1];
+        പൂർണ്ണസംഖ്യ *x2 = tab2[10 + 1];
         printf("%s ", bad_ptr == x1 ? "PASSED" : "FAILED");
         printf("%s ", bad_ptr == x2 ? "PASSED" : "FAILED");
-    } else {
+    } അല്ലെങ്കിൽ {
         printf("PASSED PASSED PASSED PASSED PASSED PASSED PASSED PASSED ");
     }
     printf("\n");
 }
 
-void c99_vla_test_2(int d, int h, int w)
+ശൂന്യം c99_vla_test_2(പൂർണ്ണസംഖ്യ d, പൂർണ്ണസംഖ്യ h, പൂർണ്ണസംഖ്യ w)
 {
-    int x, y, z;
-    int (*arr)[h][w] = malloc(sizeof(int) * d*h*w);
-    int c = 1;
-    static int (*starr)[h][w];
+    പൂർണ്ണസംഖ്യ x, y, z;
+    പൂർണ്ണസംഖ്യ (*arr)[h][w] = malloc(വലുപ്പം(പൂർണ്ണസംഖ്യ) * d*h*w);
+    പൂർണ്ണസംഖ്യ c = 1;
+    സ്ഥിതം പൂർണ്ണസംഖ്യ (*starr)[h][w];
 
     printf("Test C99 VLA 6 (pointer)\n");
 
-    for (z=0; z<d; z++) {
-        for (y=0; y<h; y++) {
-            for (x=0; x<w; x++) {
+    വേണ്ടി (z=0; z<d; z++) {
+        വേണ്ടി (y=0; y<h; y++) {
+            വേണ്ടി (x=0; x<w; x++) {
                 arr[z][y][x] = c++;
             }
         }
     }
-    for (z=0; z<d; z++) {
-        for (y=0; y<h; y++) {
-            for (x=0; x<w; x++) {
+    വേണ്ടി (z=0; z<d; z++) {
+        വേണ്ടി (y=0; y<h; y++) {
+            വേണ്ടി (x=0; x<w; x++) {
                 printf(" %2d", arr[z][y][x]);
             }
             puts("");
@@ -3059,45 +3059,45 @@ void c99_vla_test_2(int d, int h, int w)
     printf(" sizes : %d %d %d\n"
            " pdiff : %d %d\n"
            " tests : %d %d %d\n",
-        sizeof (*arr), sizeof (*arr)[0], sizeof (*arr)[0][0],
+        വലുപ്പം (*arr), വലുപ്പം (*arr)[0], വലുപ്പം (*arr)[0][0],
         arr + 2 - arr, *arr + 3 - *arr,
-        0 == sizeof (*arr + 1) - sizeof arr,
-        0 == sizeof sizeof *arr - sizeof arr,
+        0 == വലുപ്പം (*arr + 1) - വലുപ്പം arr,
+        0 == വലുപ്പം വലുപ്പം *arr - വലുപ്പം arr,
         starr[0][2][3] == arr[1][2][3]
         );
-    free (arr);
+    സ്വതന്ത്രം (arr);
 }
 
-void c99_vla_test_3a (int arr[2][3][4])
+ശൂന്യം c99_vla_test_3a (പൂർണ്ണസംഖ്യ arr[2][3][4])
 {
     printf ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3b(int s, int arr[s][3][4])
+ശൂന്യം c99_vla_test_3b(പൂർണ്ണസംഖ്യ s, പൂർണ്ണസംഖ്യ arr[s][3][4])
 {
     printf ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3c(int s, int arr[2][s][4])
+ശൂന്യം c99_vla_test_3c(പൂർണ്ണസംഖ്യ s, പൂർണ്ണസംഖ്യ arr[2][s][4])
 {
     printf ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3d(int s, int arr[2][3][s])
+ശൂന്യം c99_vla_test_3d(പൂർണ്ണസംഖ്യ s, പൂർണ്ണസംഖ്യ arr[2][3][s])
 {
     printf ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3e(int s, int arr[][3][--s])
+ശൂന്യം c99_vla_test_3e(പൂർണ്ണസംഖ്യ s, പൂർണ്ണസംഖ്യ arr[][3][--s])
 {
-    printf ("%d %d %d\n", sizeof arr, s, arr[1][2][3]);
+    printf ("%d %d %d\n", വലുപ്പം arr, s, arr[1][2][3]);
 }
 
-void c99_vla_test_3(void)
+ശൂന്യം c99_vla_test_3(ശൂന്യം)
 {
-    int a[2][3][4];
+    പൂർണ്ണസംഖ്യ a[2][3][4];
 
-    memset (a, 0, sizeof(a));
+    memset (a, 0, വലുപ്പം(a));
     a[1][2][3] = 123;
     c99_vla_test_3a(a);
     c99_vla_test_3b(2, a);
@@ -3106,7 +3106,7 @@ void c99_vla_test_3(void)
     c99_vla_test_3e(5, a);
 }
 
-void c99_vla_test(void)
+ശൂന്യം c99_vla_test(ശൂന്യം)
 {
     c99_vla_test_1(5, 2);
     c99_vla_test_2(3, 4, 5);
@@ -3114,29 +3114,29 @@ void c99_vla_test(void)
 }
 
 
-void sizeof_test(void)
+ശൂന്യം sizeof_test(ശൂന്യം)
 {
-    int a;
-    int **ptr;
+    പൂർണ്ണസംഖ്യ a;
+    പൂർണ്ണസംഖ്യ **ptr;
 
-    printf("sizeof(int) = %d\n", sizeof(int));
-    printf("sizeof(unsigned int) = %d\n", sizeof(unsigned int));
-    printf("sizeof(long) = %d\n", sizeof(long));
-    printf("sizeof(unsigned long) = %d\n", sizeof(unsigned long));
-    printf("sizeof(short) = %d\n", sizeof(short));
-    printf("sizeof(unsigned short) = %d\n", sizeof(unsigned short));
-    printf("sizeof(char) = %d\n", sizeof(char));
-    printf("sizeof(unsigned char) = %d\n", sizeof(unsigned char));
-    printf("sizeof(func) = %d\n", sizeof sizeof_test());
+    printf("sizeof(int) = %d\n", വലുപ്പം(പൂർണ്ണസംഖ്യ));
+    printf("sizeof(unsigned int) = %d\n", വലുപ്പം(unsigned പൂർണ്ണസംഖ്യ));
+    printf("sizeof(long) = %d\n", വലുപ്പം(long));
+    printf("sizeof(unsigned long) = %d\n", വലുപ്പം(unsigned long));
+    printf("sizeof(short) = %d\n", വലുപ്പം(short));
+    printf("sizeof(unsigned short) = %d\n", വലുപ്പം(unsigned short));
+    printf("sizeof(char) = %d\n", വലുപ്പം(അക്ഷരം));
+    printf("sizeof(unsigned char) = %d\n", വലുപ്പം(unsigned അക്ഷരം));
+    printf("sizeof(func) = %d\n", വലുപ്പം sizeof_test());
     a = 1;
-    printf("sizeof(a++) = %d\n", sizeof a++);
+    printf("sizeof(a++) = %d\n", വലുപ്പം a++);
     printf("a=%d\n", a);
-    ptr = NULL;
-    printf("sizeof(**ptr) = %d\n", sizeof (**ptr));
+    ptr = ശൂന്യ;
+    printf("sizeof(**ptr) = %d\n", വലുപ്പം (**ptr));
 
     /* The type of sizeof should be as large as a pointer, actually
        it should be size_t.  */
-    printf("sizeof(sizeof(int) = %d\n", sizeof(sizeof(int)));
+    printf("sizeof(sizeof(int) = %d\n", വലുപ്പം(വലുപ്പം(പൂർണ്ണസംഖ്യ)));
     uintptr_t t = 1;
     uintptr_t t2;
     /* Effectively <<32, but defined also on 32bit machines.  */
@@ -3145,45 +3145,45 @@ void sizeof_test(void)
     t++;
     /* This checks that sizeof really can be used to manipulate 
        uintptr_t objects, without truncation.  */
-    t2 = t & -sizeof(uintptr_t);
+    t2 = t & -വലുപ്പം(uintptr_t);
     printf ("%lu %lu\n", t, t2);
 
     /* some alignof tests */
-    printf("__alignof__(int) = %d\n", __alignof__(int));
-    printf("__alignof__(unsigned int) = %d\n", __alignof__(unsigned int));
+    printf("__alignof__(int) = %d\n", __alignof__(പൂർണ്ണസംഖ്യ));
+    printf("__alignof__(unsigned int) = %d\n", __alignof__(unsigned പൂർണ്ണസംഖ്യ));
     printf("__alignof__(short) = %d\n", __alignof__(short));
     printf("__alignof__(unsigned short) = %d\n", __alignof__(unsigned short));
-    printf("__alignof__(char) = %d\n", __alignof__(char));
-    printf("__alignof__(unsigned char) = %d\n", __alignof__(unsigned char));
+    printf("__alignof__(char) = %d\n", __alignof__(അക്ഷരം));
+    printf("__alignof__(unsigned char) = %d\n", __alignof__(unsigned അക്ഷരം));
     printf("__alignof__(func) = %d\n", __alignof__ sizeof_test());
 
     /* sizes of VLAs need to be evaluated even inside sizeof: */
     a = 2;
-    printf("sizeof(char[1+2*a]) = %d\n", sizeof(char[1+2*a]));
+    printf("sizeof(char[1+2*a]) = %d\n", വലുപ്പം(അക്ഷരം[1+2*a]));
     /* And checking if sizeof compound literal works.  Parenthesized: */
     printf("sizeof( (struct {int i; int j;}){4,5} ) = %d\n",
-	   sizeof( (struct {int i; int j;}){4,5} ));
+	   വലുപ്പം( (ഘടന {പൂർണ്ണസംഖ്യ i; പൂർണ്ണസംഖ്യ j;}){4,5} ));
     /* And as direct sizeof argument (as unary expression): */
     printf("sizeof (struct {short i; short j;}){4,5} = %d\n",
-	   sizeof (struct {short i; short j;}){4,5} );
+	   വലുപ്പം (ഘടന {short i; short j;}){4,5} );
 
     /* sizeof(x && y) should be sizeof(int), even if constant
        evaluating is possible. */
-    printf("sizeof(t && 0) = %d\n", sizeof(t && 0));
-    printf("sizeof(1 && 1) = %d\n", sizeof(1 && 1));
-    printf("sizeof(t || 1) = %d\n", sizeof(t || 1));
-    printf("sizeof(0 || 0) = %d\n", sizeof(0 || 0));
+    printf("sizeof(t && 0) = %d\n", വലുപ്പം(t && 0));
+    printf("sizeof(1 && 1) = %d\n", വലുപ്പം(1 && 1));
+    printf("sizeof(t || 1) = %d\n", വലുപ്പം(t || 1));
+    printf("sizeof(0 || 0) = %d\n", വലുപ്പം(0 || 0));
 
-    int arr[4], fn();
-    printf("sizeof(0, arr) = %d\n", sizeof(0, arr));
-    printf("sizeof(0, fn) = %d\n", sizeof(0, fn));
+    പൂർണ്ണസംഖ്യ arr[4], fn();
+    printf("sizeof(0, arr) = %d\n", വലുപ്പം(0, arr));
+    printf("sizeof(0, fn) = %d\n", വലുപ്പം(0, fn));
 }
 
-void typeof_test(void)
+ശൂന്യം typeof_test(ശൂന്യം)
 {
-    double a;
+    ഇരട്ട a;
     typeof(a) b;
-    typeof(float) c;
+    typeof(ദശാംശം) c;
 
     a = 1.5;
     b = 2.5;
@@ -3192,27 +3192,27 @@ void typeof_test(void)
 }
 
 
-struct hlist_node;
-struct hlist_head {
-    struct hlist_node *first, *last;
+ഘടന hlist_കണ്ണി;
+ഘടന hlist_head {
+    ഘടന hlist_കണ്ണി *first, *last;
 };
 
-void consume_ulong (unsigned long i)
+ശൂന്യം consume_ulong (unsigned long i)
 {
     i = 0;
 }
 
-void statement_expr_test(void)
+ശൂന്യം statement_വ്യഞ്ജകം_test(ശൂന്യം)
 {
-    int a, i;
+    പൂർണ്ണസംഖ്യ a, i;
 
     /* Basic stmt expr test */
     a = 0;
-    for(i=0;i<10;i++) {
+    വേണ്ടി(i=0;i<10;i++) {
         a += 1 + 
-            ( { int b, j; 
+            ( { പൂർണ്ണസംഖ്യ b, j; 
                 b = 0; 
-                for(j=0;j<5;j++) 
+                വേണ്ടി(j=0;j<5;j++) 
                     b += j; b; 
             } );
     }
@@ -3222,19 +3222,19 @@ void statement_expr_test(void)
        With SYM_DEBUG valgrind will show a read from a freed
        symbol, and tcc will show an (invalid) warning on the initialization
        of 'ptr' below, if symbols are popped after the stmt expr.  */
-    void *v = (void*)39;
+    ശൂന്യം *v = (ശൂന്യം*)39;
     typeof(({
-	    (struct hlist_node *)v;
+	    (ഘടന hlist_കണ്ണി *)v;
 	    })) x;
     typeof (x)
-	ptr = (struct hlist_node *)v;
+	ptr = (ഘടന hlist_കണ്ണി *)v;
 
     /* This part used to segfault when symbols were popped prematurely.
        The symbols for the static local would be overwritten with
        helper symbols from the pre-processor expansions in between.  */
 #define some_attr     __attribute__((aligned(1)))
 #define tps(str) ({                  \
-            static const char *t some_attr = str; \
+            സ്ഥിതം സ്ഥിരം അക്ഷരം *t some_attr = str; \
             t;                                    \
           })
     printf ("stmtexpr: %s %s\n",
@@ -3242,16 +3242,16 @@ void statement_expr_test(void)
 	    tps("anotherlongstring"));
 
     /* Test that the three decls of 't' don't interact.  */
-    int t = 40;
-    int b = ({ int t = 41; t; });
-    int c = ({ int t = 42; t; });
+    പൂർണ്ണസംഖ്യ t = 40;
+    പൂർണ്ണസംഖ്യ b = ({ പൂർണ്ണസംഖ്യ t = 41; t; });
+    പൂർണ്ണസംഖ്യ c = ({ പൂർണ്ണസംഖ്യ t = 42; t; });
 
     /* Test that aggregate return values work.  */
-    struct hlist_head h
+    ഘടന hlist_head h
 	= ({
-	   typedef struct hlist_head T;
+	   തരനിർവചനം ഘടന hlist_head T;
 	   long pre = 48;
-	   T t = { (void*)43, (void*)44 };
+	   T t = { (ശൂന്യം*)43, (ശൂന്യം*)44 };
 	   long post = 49;
 	   t;
 	   });
@@ -3268,53 +3268,53 @@ void statement_expr_test(void)
     ({
       {
         __label__ LBL;
-       LBL: if (i++ == 0) goto LBL;
+       LBL: എങ്കിൽ (i++ == 0) പോകുക LBL;
       }
       /* jump to a classical label out of an expr-stmt that had previously
          overshadowed that classical label */
-      goto LBL;
+      പോകുക LBL;
     });
   LBL:
     printf("stmtexpr: %d should be 2\n", i);
 }
 
-void local_label_test(void)
+ശൂന്യം local_label_test(ശൂന്യം)
 {
-    int a;
-    goto l1;
+    പൂർണ്ണസംഖ്യ a;
+    പോകുക l1;
  l2:
     a = 1 + ({
         __label__ l1, l2, l3, l4;
-        goto l1;
+        പോകുക l1;
     l4:
         printf("aa1\n");
-        goto l3;
+        പോകുക l3;
     l2:
         printf("aa3\n");
-        goto l4;
+        പോകുക l4;
     l1:
         printf("aa2\n");
-        goto l2;
+        പോകുക l2;
     l3:;
         1;
     });
     printf("a=%d\n", a);
-    return;
+    തിരികെ;
  l4:
     printf("bb1\n");
-    goto l2;
+    പോകുക l2;
  l1:
     printf("bb2\n");
-    goto l4;
+    പോകുക l4;
 }
 
 /* inline assembler test */
-#if (defined(__i386__) || defined(__x86_64__)) && !(defined _WIN32 && CC_NAME == CC_clang)
+#എങ്കിൽ (defined(__i386__) || defined(__x86_64__)) && !(defined _WIN32 && CC_NAME == CC_clang)
 
-typedef __SIZE_TYPE__ word;
+തരനിർവചനം __SIZE_TYPE__ word;
 
 /* from linux kernel */
-static char * strncat1(char * dest,const char * src,size_t count)
+സ്ഥിതം അക്ഷരം * strncat1(അക്ഷരം * dest,സ്ഥിരം അക്ഷരം * src,size_t എണ്ണം_2)
 {
 word d0, d1, d2, d3;
 __asm__ __volatile__(
@@ -3331,12 +3331,12 @@ __asm__ __volatile__(
 	"2:\txor %2,%2\n\t"
 	"stosb"
 	: "=&S" (d0), "=&D" (d1), "=&a" (d2), "=&c" (d3)
-	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (count)
+	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (എണ്ണം_2)
 	: "memory");
-return dest;
+തിരികെ dest;
 }
 
-static char * strncat2(char * dest,const char * src,size_t count)
+സ്ഥിതം അക്ഷരം * strncat2(അക്ഷരം * dest,സ്ഥിരം അക്ഷരം * src,size_t എണ്ണം_2)
 {
 word d0, d1, d2, d3;
 __asm__ __volatile__(
@@ -3352,12 +3352,12 @@ __asm__ __volatile__(
 	"2:\txor %2,%2\n\t"
 	"stosb"
 	: "=&S" (d0), "=&D" (d1), "=&a" (d2), "=&c" (d3)
-	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (count)
+	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (എണ്ണം_2)
 	: "memory");
-return dest;
+തിരികെ dest;
 }
 
-static inline void * memcpy1(void * to, const void * from, size_t n)
+സ്ഥിതം വരിയിൽ ശൂന്യം * memcpy1(ശൂന്യം * to, സ്ഥിരം ശൂന്യം * from, size_t n)
 {
 word d0, d1, d2;
 __asm__ __volatile__(
@@ -3372,10 +3372,10 @@ __asm__ __volatile__(
 	: "=&c" (d0), "=&D" (d1), "=&S" (d2)
 	:"0" (n/4), "q" (n),"1" ((word) to),"2" ((word) from)
 	: "memory");
-return (to);
+തിരികെ (to);
 }
 
-static inline void * memcpy2(void * to, const void * from, size_t n)
+സ്ഥിതം വരിയിൽ ശൂന്യം * memcpy2(ശൂന്യം * to, സ്ഥിരം ശൂന്യം * from, size_t n)
 {
 word d0, d1, d2;
 __asm__ __volatile__(
@@ -3390,132 +3390,132 @@ __asm__ __volatile__(
 	: "=&c" (d0), "=&D" (d1), "=&S" (d2)
 	:"0" (n/4), "q" (n),"1" ((word) to),"2" ((word) from)
 	: "memory");
-return (to);
+തിരികെ (to);
 }
 
-static __inline__ void sigaddset1(unsigned int *set, int _sig)
+സ്ഥിതം __inline__ ശൂന്യം sigaddset1(unsigned പൂർണ്ണസംഖ്യ *set, പൂർണ്ണസംഖ്യ _sig)
 {
 	__asm__("btsl %1,%0" : "=m"(*set) : "Ir"(_sig - 1) : "cc");
 }
 
-static __inline__ void sigdelset1(unsigned int *set, int _sig)
+സ്ഥിതം __inline__ ശൂന്യം sigdelset1(unsigned പൂർണ്ണസംഖ്യ *set, പൂർണ്ണസംഖ്യ _sig)
 {
 	asm("btrl %1,%0" : "=m"(*set) : "Ir"(_sig - 1) : "cc", "flags");
 }
 
 #ifdef __clang__
 /* clang's inline asm is uncapable of 'xchgb %b0,%h0' */
-static __inline__ __const__ unsigned int swab32(unsigned int x)
+സ്ഥിതം __inline__ __const__ unsigned പൂർണ്ണസംഖ്യ swab32(unsigned പൂർണ്ണസംഖ്യ x)
 {
-        return ((x >> 24) & 0xff) |
+        തിരികെ ((x >> 24) & 0xff) |
                ((x >> 8) & 0xff00) |
                ((x << 8) & 0xff0000) |
                ((x << 24) & 0xff000000);
 }
-#else
-static __inline__ __const__ unsigned int swab32(unsigned int x)
+#അല്ലെങ്കിൽ
+സ്ഥിതം __inline__ __const__ unsigned പൂർണ്ണസംഖ്യ swab32(unsigned പൂർണ്ണസംഖ്യ x)
 {
 	__asm__("xchgb %b0,%h0\n\t"	/* swap lower bytes	*/
 		"rorl $16,%0\n\t"	/* swap words		*/
 		"xchgb %b0,%h0"		/* swap higher bytes	*/
 		:"=" "q" (x)
 		: "0" (x));
-	return x;
+	തിരികെ x;
 }
 #endif
 
-static __inline__ unsigned long long mul64(unsigned int a, unsigned int b)
+സ്ഥിതം __inline__ unsigned long long mul64(unsigned പൂർണ്ണസംഖ്യ a, unsigned പൂർണ്ണസംഖ്യ b)
 {
     unsigned long long res;
 #ifdef __x86_64__
     /* Using the A constraint is wrong (it means rdx:rax, which is too large)
        but still test the 32bit->64bit mull.  */
-    unsigned int resh, resl;
+    unsigned പൂർണ്ണസംഖ്യ resh, resl;
     __asm__("mull %2" : "=a" (resl), "=d" (resh) : "a" (a), "r" (b));
     res = ((unsigned long long)resh << 32) | resl;
-#else
+#അല്ലെങ്കിൽ
     __asm__("mull %2" : "=A" (res) : "a" (a), "r" (b));
 #endif
-    return res;
+    തിരികെ res;
 }
 
-static __inline__ unsigned long long inc64(unsigned long long a)
+സ്ഥിതം __inline__ unsigned long long inc64(unsigned long long a)
 {
     unsigned long long res;
 #ifdef __x86_64__
     /* Using the A constraint is wrong, and increments are tested
        elsewhere.  */
     res = a + 1;
-#else
+#അല്ലെങ്കിൽ
     __asm__("addl $1, %%eax ; adcl $0, %%edx" : "=A" (res) : "A" (a));
 #endif
-    return res;
+    തിരികെ res;
 }
 
-struct struct123 {
-    int a;
-    int b;
+ഘടന struct123 {
+    പൂർണ്ണസംഖ്യ a;
+    പൂർണ്ണസംഖ്യ b;
 };
-struct struct1231 {
+ഘടന struct1231 {
     word addr;
 };
 
-word mconstraint_test(struct struct1231 *r)
+word mconstraint_test(ഘടന struct1231 *r)
 {
     word ret;
-    unsigned int a[2];
+    unsigned പൂർണ്ണസംഖ്യ a[2];
     a[0] = 0;
-    __asm__ volatile ("lea %2,%0; movl 4(%0),%k0; addl %2,%k0; movl $51,%2; movl $52,4%2; movl $63,%1"
+    __asm__ അസ്ഥിര ("lea %2,%0; movl 4(%0),%k0; addl %2,%k0; movl $51,%2; movl $52,4%2; movl $63,%1"
 	             : "=&r" (ret), "=m" (a)
-	             : "m" (*(struct struct123 *)r->addr));
-    return ret + a[0];
+	             : "m" (*(ഘടന struct123 *)r->addr));
+    തിരികെ ret + a[0];
 }
 
 #ifdef __x86_64__
-int fls64(unsigned long long x)
+പൂർണ്ണസംഖ്യ fls64(unsigned long long x)
 {
-  int bitpos = -1;
+  പൂർണ്ണസംഖ്യ bitpos = -1;
   asm("bsrq %1,%q0"
       : "+r" (bitpos)
       : "rm" (x));
-  return bitpos + 1;
+  തിരികെ bitpos + 1;
 }
 #endif
 
-void other_constraints_test(void)
+ശൂന്യം other_constraints_test(ശൂന്യം)
 {
     word ret;
-    int var;
-#if CC_NAME != CC_clang
-    __asm__ volatile ("mov %P1,%0" : "=r" (ret) : "p" (&var));
+    പൂർണ്ണസംഖ്യ var;
+#എങ്കിൽ CC_NAME != CC_clang
+    __asm__ അസ്ഥിര ("mov %P1,%0" : "=r" (ret) : "p" (&var));
     printf ("oc1: %d\n", ret == (word)&var);
 #endif
 }
 
 #ifndef _WIN32
 /* Test global asm blocks playing with aliases.  */
-void base_func(void)
+ശൂന്യം base_func(ശൂന്യം)
 {
   printf ("asmc: base\n");
 }
 
 #ifndef __APPLE__
-extern void override_func1 (void);
-extern void override_func2 (void);
+ബാഹ്യ ശൂന്യം override_func1 (ശൂന്യം);
+ബാഹ്യ ശൂന്യം override_func2 (ശൂന്യം);
 
 asm(".weak override_func1\n.set override_func1, base_func");
 asm(".set override_func1, base_func");
 asm(".set override_func2, base_func");
 
-void override_func2 (void)
+ശൂന്യം override_func2 (ശൂന്യം)
 {
   printf ("asmc: override2\n");
 }
 
 /* This checks a construct used by the linux kernel to encode
    references to strings by PC relative references.  */
-extern int bug_table[] __attribute__((section("__bug_table")));
-char * get_asm_string (void)
+ബാഹ്യ പൂർണ്ണസംഖ്യ bug_table[] __attribute__((section("__bug_table")));
+അക്ഷരം * get_asm_string (ശൂന്യം)
 {
   /* On i386 when -fPIC is enabled this would cause a compile error with GCC,
      the problem being the "i" constraint used with a symbolic operand
@@ -3532,8 +3532,8 @@ char * get_asm_string (void)
      bare operand ".LC0").  But the code below is what the linux kernel
      happens to use and as such is the one we want to test.  */
 #ifndef __clang__
-  extern int some_symbol;
-  asm volatile (".globl some_symbol\n"
+  ബാഹ്യ പൂർണ്ണസംഖ്യ some_ചിഹ്നം;
+  asm അസ്ഥിര (".globl some_symbol\n"
 		"jmp .+6\n"
 		"1:\n"
 		"some_symbol: .long 0\n"
@@ -3545,15 +3545,15 @@ char * get_asm_string (void)
 		   PC-relative references work.  */
 		"2:\t.long 1b - 2b, %c0 - 2b\n"
 		".popsection\n" : : "i" ("A string"));
-  char * str = ((char*)bug_table) + bug_table[1];
-  return str;
-#else
-  return (char *) "A string";
+  അക്ഷരം * str = ((അക്ഷരം*)bug_table) + bug_table[1];
+  തിരികെ str;
+#അല്ലെങ്കിൽ
+  തിരികെ (അക്ഷരം *) "A string";
 #endif
 }
 
 /* This checks another constructs with local labels.  */
-extern unsigned char alld_stuff[];
+ബാഹ്യ unsigned അക്ഷരം alld_stuff[];
 asm(".data\n"
     ".byte 41\n"
     "alld_stuff:\n"
@@ -3567,7 +3567,7 @@ asm(".data\n"
     ".popsection\n"
     ".byte 662b - 661b\n"  /* So that this value is undeniably 1.  */);
 
-void asm_local_label_diff (void)
+ശൂന്യം asm_local_label_diff (ശൂന്യം)
 {
   printf ("asm_local_label_diff: %d %d\n", alld_stuff[0], alld_stuff[1]);
 }
@@ -3575,65 +3575,65 @@ void asm_local_label_diff (void)
 #endif //!_WIN32
 
 /* This checks that static local variables are available from assembler.  */
-void asm_local_statics (void)
+ശൂന്യം asm_local_statics (ശൂന്യം)
 {
-  static int localint = 41;
+  സ്ഥിതം പൂർണ്ണസംഖ്യ localint = 41;
   asm("incl %0" : "+m" (localint));
   printf ("asm_local_statics: %d\n", localint);
 }
 
-static
-unsigned int set;
+സ്ഥിതം
+unsigned പൂർണ്ണസംഖ്യ set;
 
-void fancy_copy (unsigned *in, unsigned *out)
+ശൂന്യം fancy_copy (unsigned *in, unsigned *out)
 {
-  asm volatile ("" : "=r" (*out) : "0" (*in));
+  asm അസ്ഥിര ("" : "=r" (*out) : "0" (*in));
 }
 
-void fancy_copy2 (unsigned *in, unsigned *out)
+ശൂന്യം fancy_copy2 (unsigned *in, unsigned *out)
 {
-  asm volatile ("mov %0,(%1)" : : "r" (*in), "r" (out) : "memory");
+  asm അസ്ഥിര ("mov %0,(%1)" : : "r" (*in), "r" (out) : "memory");
 }
 
-#if defined __x86_64__
-void clobber_r12(void)
+#എങ്കിൽ defined __x86_64__
+ശൂന്യം clobber_r12(ശൂന്യം)
 {
-    asm volatile("mov $1, %%r12" ::: "r12");
+    asm അസ്ഥിര("mov $1, %%r12" ::: "r12");
 }
 #endif
 
-void test_high_clobbers_really(void)
+ശൂന്യം test_മുകളിലെ_clobbers_really(ശൂന്യം)
 {
-#if defined __x86_64__
-    register word val asm("r12");
+#എങ്കിൽ defined __x86_64__
+    രജിസ്റ്റർ word val asm("r12");
     word val2;
     /* This tests if asm clobbers correctly save/restore callee saved
        registers if they are clobbered and if it's the high 8 x86-64
        registers.  This is fragile for GCC as the constraints do not
        correctly capture the data flow, but good enough for us.  */
-    asm volatile("mov $0x4542, %%r12" : "=r" (val):: "memory");
+    asm അസ്ഥിര("mov $0x4542, %%r12" : "=r" (val):: "memory");
     clobber_r12();
-    asm volatile("mov %%r12, %0" : "=r" (val2) : "r" (val): "memory");
+    asm അസ്ഥിര("mov %%r12, %0" : "=r" (val2) : "r" (val): "memory");
     printf("asmhc: 0x%x\n", val2);
 #endif
 }
 
-void test_high_clobbers(void)
+ശൂന്യം test_മുകളിലെ_clobbers(ശൂന്യം)
 {
-#if defined __x86_64__
+#എങ്കിൽ defined __x86_64__
     word x1, x2;
-    asm volatile("mov %%r12,%0" :: "m" (x1)); /* save r12 */
-    test_high_clobbers_really();
-    asm volatile("mov %%r12,%0" :: "m" (x2)); /* new r12 */
-    asm volatile("mov %0,%%r12" :: "m" (x1)); /* restore r12 */
+    asm അസ്ഥിര("mov %%r12,%0" :: "m" (x1)); /* save r12 */
+    test_മുകളിലെ_clobbers_really();
+    asm അസ്ഥിര("mov %%r12,%0" :: "m" (x2)); /* new r12 */
+    asm അസ്ഥിര("mov %0,%%r12" :: "m" (x1)); /* restore r12 */
     /* should be 0 but tcc doesn't save r12 automatically, which has
        bad effects when gcc helds TCCState *s in r12 in tcc.c:main */
     //printf("r12-clobber-diff: %lx\n", x2 - x1);
 #endif
 }
 
-static long cpu_number;
-void trace_console(long len, long len2)
+സ്ഥിതം long cpu_സംഖ്യ;
+ശൂന്യം trace_console(long len, long len2)
 {
 #ifdef __x86_64__
     /* This generated invalid code when the emission of the switch
@@ -3649,33 +3649,33 @@ void trace_console(long len, long len2)
        It also is necessary that the switches are in a statement expression
        (which has the property of not being enterable from outside. no
        matter what).  */
-    if (0
+    എങ്കിൽ (0
         &&
             ({
               long pscr_ret__;
-              switch(len) {
-                case 4:
+              തിരഞ്ഞെടുപ്പ്(len) {
+                അവസ്ഥ 4:
                     {
                        long pfo_ret__;
-                       switch (len2) {
-                         case 8:	printf("bla"); pfo_ret__ = 42; break;
+                       തിരഞ്ഞെടുപ്പ് (len2) {
+                         അവസ്ഥ 8:	printf("bla"); pfo_ret__ = 42; നിർത്തുക;
                        }
                        pscr_ret__ = pfo_ret__;
                     }
-                  break;
-                case 8:
+                  നിർത്തുക;
+                അവസ്ഥ 8:
                     {
                        long pfo_ret__;
-                       switch (len2) {
-                         case 1:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 2:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 4:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 8:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         default: printf("impossible\n");
+                       തിരഞ്ഞെടുപ്പ് (len2) {
+                         അവസ്ഥ 1:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_സംഖ്യ));	നിർത്തുക;
+                         അവസ്ഥ 2:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_സംഖ്യ));	നിർത്തുക;
+                         അവസ്ഥ 4:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_സംഖ്യ));	നിർത്തുക;
+                         അവസ്ഥ 8:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_സംഖ്യ));	നിർത്തുക;
+                         സ്ഥിരസ്ഥിതി: printf("impossible\n");
                        }
                        pscr_ret__ = pfo_ret__;
                     };
-                  break;
+                  നിർത്തുക;
               }
               pscr_ret__;
             }))
@@ -3685,15 +3685,15 @@ void trace_console(long len, long len2)
 #endif
 }
 
-void test_asm_dead_code(void)
+ശൂന്യം test_asm_dead_code(ശൂന്യം)
 {
   word rdi;
   /* Try to make sure that xdi contains a zero, and hence will
      lead to a segfault if the next asm is evaluated without
      arguments being set up.  */
-  asm volatile ("" : "=D" (rdi) : "0" (0));
-  (void)sizeof (({
-      int var;
+  asm അസ്ഥിര ("" : "=D" (rdi) : "0" (0));
+  (ശൂന്യം)വലുപ്പം (({
+      പൂർണ്ണസംഖ്യ var;
       /* This shouldn't trigger a segfault, either the argument
          registers need to be set up and the asm emitted despite
 	 this being in an unevaluated context, or both the argument
@@ -3701,16 +3701,16 @@ void test_asm_dead_code(void)
 	 is better.  Disabling asm code gen when suppression is on
 	 also fixes the above trace_console bug, but that came earlier
 	 than asm suppression.  */
-      asm volatile ("movl $0,(%0)" : : "D" (&var) : "memory");
+      asm അസ്ഥിര ("movl $0,(%0)" : : "D" (&var) : "memory");
       var;
   }));
 }
 
-void test_asm_call(void)
+ശൂന്യം test_asm_call(ശൂന്യം)
 {
-#if defined __x86_64__ && !defined _WIN64  && !defined(__APPLE__)
-  static char str[] = "PATH";
-  char *s;
+#എങ്കിൽ defined __x86_64__ && !defined _WIN64  && !defined(__APPLE__)
+  സ്ഥിതം അക്ഷരം str[] = "PATH";
+  അക്ഷരം *s;
   /* This tests if a reference to an undefined symbol from an asm
      block, which isn't otherwise referenced in this file, is correctly
      regarded as global symbol, so that it's resolved by other object files
@@ -3719,10 +3719,10 @@ void test_asm_call(void)
      would have a global symbol entry, not triggering the bug which is
      tested here).  */
   /* two pushes so stack remains aligned */
-  asm volatile ("push %%rdi; push %%rdi; mov %0, %%rdi;"
-#if 1 && !defined(__TINYC__) && (defined(__PIC__) || defined(__PIE__))
+  asm അസ്ഥിര ("push %%rdi; push %%rdi; mov %0, %%rdi;"
+#എങ്കിൽ 1 && !defined(__TINYC__) && (defined(__PIC__) || defined(__PIE__))
 		"call getenv@plt;"
-#else
+#അല്ലെങ്കിൽ
 		"call getenv;"
 #endif
 		"pop %%rdi; pop %%rdi"
@@ -3731,58 +3731,58 @@ void test_asm_call(void)
 #endif
 }
 
-#if defined __x86_64__
+#എങ്കിൽ defined __x86_64__
 # define RX "(%rip)"
-#else
+#അല്ലെങ്കിൽ
 # define RX
 #endif
 
-void asm_dot_test(void)
+ശൂന്യം asm_dot_test(ശൂന്യം)
 {
 #ifndef __APPLE__
-    int x;
-    for (x = 1;; ++x) {
-        int r = x;
-        switch (x) {
-        case 1:
+    പൂർണ്ണസംഖ്യ x;
+    വേണ്ടി (x = 1;; ++x) {
+        പൂർണ്ണസംഖ്യ r = x;
+        തിരഞ്ഞെടുപ്പ് (x) {
+        അവസ്ഥ 1:
             asm(".text; lea S"RX",%eax; lea ."RX",%ecx; sub %ecx,%eax; S=.; jmp p0");
-        case 2:
+        അവസ്ഥ 2:
 #ifndef __clang__
             /* clangs internal assembler is broken */
             asm(".text; jmp .+6; .int 123; mov .-4"RX",%eax; jmp p0");
-#else
+#അല്ലെങ്കിൽ
             asm(".text; mov $123, %eax; jmp p0");
 #endif
-	case 3:
-#if !defined(_WIN32) && !defined(__clang__)
+	അവസ്ഥ 3:
+#എങ്കിൽ !defined(_WIN32) && !defined(__clang__)
             asm(".pushsection \".data\"; Y=.; .int 999; X=Y; .int 456; X=.-4; .popsection");
-#else
+#അല്ലെങ്കിൽ
             asm(".data; Y=.; .int 999; X=Y; .int 456; X=.-4; .text");
 #endif
             asm(".text; mov X"RX",%eax; jmp p0");
-        case 4:
+        അവസ്ഥ 4:
 #ifdef __clang__
             /* Bah!  Clang!  Doesn't want to redefine 'X'  */
             asm(".text; mov $789,%eax; jmp p0");
-#else
+#അല്ലെങ്കിൽ
 #ifndef _WIN32
             asm(".data; X=.; .int 789; Y=.; .int 999; .previous");
-#else
+#അല്ലെങ്കിൽ
             asm(".data; X=.; .int 789; Y=.; .int 999; .text");
 #endif
             asm(".text; mov X"RX",%eax; X=Y; jmp p0");
 #endif
-        case 0:
-	    asm(".text; p0=.; mov %%eax,%0;" : "=m"(r)); break;
+        അവസ്ഥ 0:
+	    asm(".text; p0=.; mov %%eax,%0;" : "=m"(r)); നിർത്തുക;
 	}
-        if (r == x)
-            break;
+        എങ്കിൽ (r == x)
+            നിർത്തുക;
         printf("asm_dot_test %d: %d\n", x, r);
     }
 #endif
 }
 
-void asm_pcrel_test(void)
+ശൂന്യം asm_pcrel_test(ശൂന്യം)
 {
     unsigned o1, o2;
     /* subtract text-section label from forward or other-section label */
@@ -3793,27 +3793,27 @@ void asm_pcrel_test(void)
     printf("%s : %x\n", __FUNCTION__, o1 - o2); /* should be zero */
 }
 
-void asm_test(void)
+ശൂന്യം asm_test(ശൂന്യം)
 {
-    char buf[128];
-    unsigned int val, val2;
-    struct struct123 s1;
-    struct struct1231 s2 = { (word)&s1 };
+    അക്ഷരം buf[128];
+    unsigned പൂർണ്ണസംഖ്യ val, val2;
+    ഘടന struct123 s1;
+    ഘടന struct1231 s2 = { (word)&s1 };
     /* Hide the outer base_func, but check later that the inline
        asm block gets the outer one.  */
-    int base_func = 42;
-    void override_func3 (void);
+    പൂർണ്ണസംഖ്യ base_func = 42;
+    ശൂന്യം override_func3 (ശൂന്യം);
     word asmret;
 #ifdef BOOL_ISOC99
     _Bool somebool;
 #endif
-    register int regvar asm("%esi");
+    രജിസ്റ്റർ പൂർണ്ണസംഖ്യ regvar asm("%esi");
 
     // parse 0x1E-1 as 3 tokens in asm mode
-    asm volatile ("mov $0x1E-1,%eax");
+    asm അസ്ഥിര ("mov $0x1E-1,%eax");
 
     /* test the no operand case */
-    asm volatile ("xorl %eax, %eax");
+    asm അസ്ഥിര ("xorl %eax, %eax");
 
     memcpy1(buf, "hello", 6);
     strncat1(buf, " worldXXXXX", 3);
@@ -3837,7 +3837,7 @@ void asm_test(void)
     sigaddset1(&set, 16);
     /* NOTE: we test here if C labels are correctly restored after the
        asm statement */
-    goto label1;
+    പോകുക label1;
  label2:
     __asm__("btsl %1,%0" : "=m"(set) : "Ir"(20) : "cc");
     printf("set=0x%x\n", set);
@@ -3849,7 +3849,7 @@ void asm_test(void)
     override_func2();
     /* The base_func ref from the following inline asm should find
        the global one, not the local decl from this function.  */
-    asm volatile(".weak override_func3\n.set override_func3, base_func");
+    asm അസ്ഥിര(".weak override_func3\n.set override_func3, base_func");
     override_func3();
     printf("asmstr: %s\n", get_asm_string());
     asm_local_label_diff();
@@ -3860,15 +3860,15 @@ void asm_test(void)
     /* clang can't deal with the type change */
     /* Check that we can also load structs of appropriate layout
        into registers.  */
-    asm volatile("" : "=r" (asmret) : "0"(s2));
-    if (asmret != s2.addr)
+    asm അസ്ഥിര("" : "=r" (asmret) : "0"(s2));
+    എങ്കിൽ (asmret != s2.addr)
       printf("asmstr: failed\n");
 #endif
 #ifdef BOOL_ISOC99
     /* Check that the typesize correctly sets the register size to
        8 bit.  */
-    asm volatile("cmp %1,%2; sete %0" : "=a"(somebool) : "r"(1), "r"(2));
-    if (!somebool)
+    asm അസ്ഥിര("cmp %1,%2; sete %0" : "=a"(somebool) : "r"(1), "r"(2));
+    എങ്കിൽ (!somebool)
       printf("asmbool: failed\n");
 #endif
     val = 43;
@@ -3877,22 +3877,22 @@ void asm_test(void)
     val = 44;
     fancy_copy2 (&val, &val2);
     printf ("fancycpy2(%d)=%d\n", val, val2);
-    asm volatile ("mov $0x4243, %%esi" : "=r" (regvar));
+    asm അസ്ഥിര ("mov $0x4243, %%esi" : "=r" (regvar));
     printf ("regvar=%x\n", regvar);
-    test_high_clobbers();
+    test_മുകളിലെ_clobbers();
     trace_console(8, 8);
     test_asm_dead_code();
     test_asm_call();
     asm_dot_test();
     asm_pcrel_test();
-    return;
+    തിരികെ;
  label1:
-    goto label2;
+    പോകുക label2;
 }
 
-#else
+#അല്ലെങ്കിൽ
 
-void asm_test(void)
+ശൂന്യം asm_test(ശൂന്യം)
 {
 }
 
@@ -3904,28 +3904,28 @@ void asm_test(void)
            __builtin_types_compatible_p (type1, type2));\
 }
 
-int constant_p_var;
+പൂർണ്ണസംഖ്യ constant_p_var;
 
-int func(void);
+പൂർണ്ണസംഖ്യ func(ശൂന്യം);
 
 
 /* __builtin_clz and __builtin_ctz return random values for 0 */
-static void builtin_test_bits(unsigned long long x, int cnt[])
+സ്ഥിതം ശൂന്യം builtin_test_bits(unsigned long long x, പൂർണ്ണസംഖ്യ cnt[])
 {
-#if GCC_MAJOR >= 4
+#എങ്കിൽ GCC_MAJOR >= 4
     cnt[0] += __builtin_ffs(x);
     cnt[1] += __builtin_ffsl(x);
     cnt[2] += __builtin_ffsll(x);
 
-    if ((unsigned int) x) cnt[3] += __builtin_clz(x);
-    if ((unsigned long) x) cnt[4] += __builtin_clzl(x);
-    if ((unsigned long long) x) cnt[5] += __builtin_clzll(x);
+    എങ്കിൽ ((unsigned പൂർണ്ണസംഖ്യ) x) cnt[3] += __builtin_clz(x);
+    എങ്കിൽ ((unsigned long) x) cnt[4] += __builtin_clzl(x);
+    എങ്കിൽ ((unsigned long long) x) cnt[5] += __builtin_clzll(x);
 
-    if ((unsigned int) x) cnt[6] += __builtin_ctz(x);
-    if ((unsigned long) x) cnt[7] += __builtin_ctzl(x);
-    if ((unsigned long long) x) cnt[8] += __builtin_ctzll(x);
+    എങ്കിൽ ((unsigned പൂർണ്ണസംഖ്യ) x) cnt[6] += __builtin_ctz(x);
+    എങ്കിൽ ((unsigned long) x) cnt[7] += __builtin_ctzl(x);
+    എങ്കിൽ ((unsigned long long) x) cnt[8] += __builtin_ctzll(x);
 
-#if GCC_MAJOR >= 6 && (CC_NAME != CC_clang || GCC_MAJOR >= 11)
+#എങ്കിൽ GCC_MAJOR >= 6 && (CC_NAME != CC_clang || GCC_MAJOR >= 11)
 /* Apple clang 10 does not have __builtin_clrsb[l[l]] */
     cnt[9] += __builtin_clrsb(x);
     cnt[10] += __builtin_clrsbl(x);
@@ -3942,42 +3942,42 @@ static void builtin_test_bits(unsigned long long x, int cnt[])
 #endif
 }
 
-void builtin_test(void)
+ശൂന്യം builtin_test(ശൂന്യം)
 {
     short s;
-    int i;
+    പൂർണ്ണസംഖ്യ i;
     long long ll;
-#if GCC_MAJOR >= 3
-    COMPAT_TYPE(int, int);
-    COMPAT_TYPE(int, unsigned int);
-    COMPAT_TYPE(int, char);
-    COMPAT_TYPE(int, const int);
-    COMPAT_TYPE(int, volatile int);
-    COMPAT_TYPE(int[2], const int[2]);
-    COMPAT_TYPE(int[2][3], volatile int[][3]);
-    COMPAT_TYPE(int (*)[], const int (*)[]);
+#എങ്കിൽ GCC_MAJOR >= 3
+    COMPAT_TYPE(പൂർണ്ണസംഖ്യ, പൂർണ്ണസംഖ്യ);
+    COMPAT_TYPE(പൂർണ്ണസംഖ്യ, unsigned പൂർണ്ണസംഖ്യ);
+    COMPAT_TYPE(പൂർണ്ണസംഖ്യ, അക്ഷരം);
+    COMPAT_TYPE(പൂർണ്ണസംഖ്യ, സ്ഥിരം പൂർണ്ണസംഖ്യ);
+    COMPAT_TYPE(പൂർണ്ണസംഖ്യ, അസ്ഥിര പൂർണ്ണസംഖ്യ);
+    COMPAT_TYPE(പൂർണ്ണസംഖ്യ[2], സ്ഥിരം പൂർണ്ണസംഖ്യ[2]);
+    COMPAT_TYPE(പൂർണ്ണസംഖ്യ[2][3], അസ്ഥിര പൂർണ്ണസംഖ്യ[][3]);
+    COMPAT_TYPE(പൂർണ്ണസംഖ്യ (*)[], സ്ഥിരം പൂർണ്ണസംഖ്യ (*)[]);
 #ifndef __clang__
-    COMPAT_TYPE(__typeof__(1 ? (const int (*)[2])0 : (int (*)[2])0),
-                const int (*)[2]);
-    COMPAT_TYPE(__typeof__(1 ? (const int (*)[2][3])0 :
-                              (volatile int (*)[2][3])0),
-                const volatile int (*)[2][3]);
-    COMPAT_TYPE(__typeof__(1 ? (volatile int (*)[2][3])0 :
-                              (const int (*)[2][3])0),
-                const volatile int (*)[2][3]);
-#else
+    COMPAT_TYPE(__typeof__(1 ? (സ്ഥിരം പൂർണ്ണസംഖ്യ (*)[2])0 : (പൂർണ്ണസംഖ്യ (*)[2])0),
+                സ്ഥിരം പൂർണ്ണസംഖ്യ (*)[2]);
+    COMPAT_TYPE(__typeof__(1 ? (സ്ഥിരം പൂർണ്ണസംഖ്യ (*)[2][3])0 :
+                              (അസ്ഥിര പൂർണ്ണസംഖ്യ (*)[2][3])0),
+                സ്ഥിരം അസ്ഥിര പൂർണ്ണസംഖ്യ (*)[2][3]);
+    COMPAT_TYPE(__typeof__(1 ? (അസ്ഥിര പൂർണ്ണസംഖ്യ (*)[2][3])0 :
+                              (സ്ഥിരം പൂർണ്ണസംഖ്യ (*)[2][3])0),
+                സ്ഥിരം അസ്ഥിര പൂർണ്ണസംഖ്യ (*)[2][3]);
+#അല്ലെങ്കിൽ
     /* clang doesn't combine qualifiers through array types */
     printf("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2])0 : (int (*)[2])0), const int (*)[2]) = 1\n");
     printf("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2][3])0 : (volatile int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
     printf("__builtin_types_compatible_p(__typeof__(1 ? (volatile int (*)[2][3])0 : (const int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
 #endif
-    COMPAT_TYPE(int *, int *);
-    COMPAT_TYPE(int *, void *);
-    COMPAT_TYPE(int *, const int *);
-    COMPAT_TYPE(char *, unsigned char *);
-    COMPAT_TYPE(char *, signed char *);
-    COMPAT_TYPE(char *, char *);
-    COMPAT_TYPE(char **, void *);
+    COMPAT_TYPE(പൂർണ്ണസംഖ്യ *, പൂർണ്ണസംഖ്യ *);
+    COMPAT_TYPE(പൂർണ്ണസംഖ്യ *, ശൂന്യം *);
+    COMPAT_TYPE(പൂർണ്ണസംഖ്യ *, സ്ഥിരം പൂർണ്ണസംഖ്യ *);
+    COMPAT_TYPE(അക്ഷരം *, unsigned അക്ഷരം *);
+    COMPAT_TYPE(അക്ഷരം *, signed അക്ഷരം *);
+    COMPAT_TYPE(അക്ഷരം *, അക്ഷരം *);
+    COMPAT_TYPE(അക്ഷരം **, ശൂന്യം *);
 #endif
     printf("res1 = %d\n", __builtin_constant_p(1));
     printf("res2 = %d\n", __builtin_constant_p(1 + 2));
@@ -3992,7 +3992,7 @@ void builtin_test(void)
     printf("res11 = %d\n", __builtin_constant_p(i * 0));
     printf("res12 = %d\n", __builtin_constant_p(i && 0 ? i : 34));
     printf("res13 = %d\n", __builtin_constant_p((1,7)));
-#else
+#അല്ലെങ്കിൽ
     /* clang doesn't regard these as constant expression */
     printf("res10 = 1\n");
     printf("res11 = 1\n");
@@ -4006,69 +4006,69 @@ void builtin_test(void)
     printf("bce: %d\n", i);
     i = __builtin_choose_expr (1 != 1, ll, s);
     printf("bce: %d\n", i);
-    i = sizeof (__builtin_choose_expr (1, ll, s));
+    i = വലുപ്പം (__builtin_choose_expr (1, ll, s));
     printf("bce: %d\n", i);
-    i = sizeof (__builtin_choose_expr (0, ll, s));
+    i = വലുപ്പം (__builtin_choose_expr (0, ll, s));
     printf("bce: %d\n", i);
 
     //printf("bera: %p\n", __builtin_extract_return_addr((void*)43));
 
     {
-	int cnt[18];
+	പൂർണ്ണസംഖ്യ cnt[18];
 	unsigned long long r = 0;
 
-	memset(cnt, 0, sizeof(cnt));
+	memset(cnt, 0, വലുപ്പം(cnt));
 	builtin_test_bits(0, cnt);
 	builtin_test_bits(0xffffffffffffffffull, cnt);
-        for (i = 0; i < 64; i++)
+        വേണ്ടി (i = 0; i < 64; i++)
 	    builtin_test_bits(1ull << i, cnt);
-        for (i = 0; i < 1000; i++) {
+        വേണ്ടി (i = 0; i < 1000; i++) {
 	    r = 0x5851f42d4c957f2dull * r + 0x14057b7ef767814full;
 	    builtin_test_bits(r, cnt);
 	}
-	for (i = 0; i < 18; i++)
+	വേണ്ടി (i = 0; i < 18; i++)
 	    printf ("%d %d\n", i, cnt[i]);
     }
 }
 
-#if defined _WIN32 || (defined __APPLE__ && GCC_MAJOR >= 15)
-void weak_test(void) {}
-#else
-extern int __attribute__((weak)) weak_f1(void);
-extern int __attribute__((weak)) weak_f2(void);
-extern int                       weak_f3(void);
-extern int __attribute__((weak)) weak_v1;
-extern int __attribute__((weak)) weak_v2;
-extern int                       weak_v3;
+#എങ്കിൽ defined _WIN32 || (defined __APPLE__ && GCC_MAJOR >= 15)
+ശൂന്യം weak_test(ശൂന്യം) {}
+#അല്ലെങ്കിൽ
+ബാഹ്യ പൂർണ്ണസംഖ്യ __attribute__((weak)) weak_f1(ശൂന്യം);
+ബാഹ്യ പൂർണ്ണസംഖ്യ __attribute__((weak)) weak_f2(ശൂന്യം);
+ബാഹ്യ പൂർണ്ണസംഖ്യ                       weak_f3(ശൂന്യം);
+ബാഹ്യ പൂർണ്ണസംഖ്യ __attribute__((weak)) weak_v1;
+ബാഹ്യ പൂർണ്ണസംഖ്യ __attribute__((weak)) weak_v2;
+ബാഹ്യ പൂർണ്ണസംഖ്യ                       weak_v3;
 
-extern int                           (*weak_fpa)() __attribute__((weak));
-extern int __attribute__((weak))     (*weak_fpb)();
-extern     __attribute__((weak)) int (*weak_fpc)();
+ബാഹ്യ പൂർണ്ണസംഖ്യ                           (*weak_fpa)() __attribute__((weak));
+ബാഹ്യ പൂർണ്ണസംഖ്യ __attribute__((weak))     (*weak_fpb)();
+ബാഹ്യ     __attribute__((weak)) പൂർണ്ണസംഖ്യ (*weak_fpc)();
 
-extern int                     weak_asm_f1(void) asm("weak_asm_f1x") __attribute((weak));
-extern int __attribute((weak)) weak_asm_f2(void) asm("weak_asm_f2x")                    ;
-extern int __attribute((weak)) weak_asm_f3(void) asm("weak_asm_f3x") __attribute((weak));
-extern int                     weak_asm_v1       asm("weak_asm_v1x") __attribute((weak));
-extern int __attribute((weak)) weak_asm_v2       asm("weak_asm_v2x")                    ;
-extern int __attribute((weak)) weak_asm_v3(void) asm("weak_asm_v3x") __attribute((weak));
+ബാഹ്യ പൂർണ്ണസംഖ്യ                     weak_asm_f1(ശൂന്യം) asm("weak_asm_f1x") __attribute((weak));
+ബാഹ്യ പൂർണ്ണസംഖ്യ __attribute((weak)) weak_asm_f2(ശൂന്യം) asm("weak_asm_f2x")                    ;
+ബാഹ്യ പൂർണ്ണസംഖ്യ __attribute((weak)) weak_asm_f3(ശൂന്യം) asm("weak_asm_f3x") __attribute((weak));
+ബാഹ്യ പൂർണ്ണസംഖ്യ                     weak_asm_v1       asm("weak_asm_v1x") __attribute((weak));
+ബാഹ്യ പൂർണ്ണസംഖ്യ __attribute((weak)) weak_asm_v2       asm("weak_asm_v2x")                    ;
+ബാഹ്യ പൂർണ്ണസംഖ്യ __attribute((weak)) weak_asm_v3(ശൂന്യം) asm("weak_asm_v3x") __attribute((weak));
 
 #ifndef __clang__
-static const size_t dummy = 0;
-extern __typeof(dummy) weak_dummy1 __attribute__((weak, alias("dummy")));
-extern __typeof(dummy) __attribute__((weak, alias("dummy"))) weak_dummy2;
-extern __attribute__((weak, alias("dummy"))) __typeof(dummy) weak_dummy3;
+സ്ഥിതം സ്ഥിരം size_t dummy = 0;
+ബാഹ്യ __typeof(dummy) weak_dummy1 __attribute__((weak, alias("dummy")));
+ബാഹ്യ __typeof(dummy) __attribute__((weak, alias("dummy"))) weak_dummy2;
+ബാഹ്യ __attribute__((weak, alias("dummy"))) __typeof(dummy) weak_dummy3;
 #endif
 
-int some_lib_func(void);
-int dummy_impl_of_slf(void) { return 444; }
+പൂർണ്ണസംഖ്യ some_lib_func(ശൂന്യം);
+പൂർണ്ണസംഖ്യ dummy_impl_of_slf(ശൂന്യം) { തിരികെ 444; }
 #ifndef __clang__
-int some_lib_func(void) __attribute__((weak, alias("dummy_impl_of_slf")));
+പൂർണ്ണസംഖ്യ some_lib_func(ശൂന്യം) __attribute__((weak, alias("dummy_impl_of_slf")));
 #endif
 
-int weak_toolate() __attribute__((weak));
-int weak_toolate() { return 0; }
+പൂർണ്ണസംഖ്യ weak_toolate() __attribute__((weak));
+പൂർണ്ണസംഖ്യ weak_toolate() { തിരികെ 0; }
 
-void __attribute__((weak)) weak_test(void)
+ശൂന്യം __attribute__((weak)) weak_test(ശൂന്യം)
 {
 	printf("weak_f1=%d\n", weak_f1 ? weak_f1() : 123);
 	printf("weak_f2=%d\n", weak_f2 ? weak_f2() : 123);
@@ -4081,68 +4081,68 @@ void __attribute__((weak)) weak_test(void)
 	printf("weak_fpb=%d\n",&weak_fpb ? weak_fpb() : 123);
 	printf("weak_fpc=%d\n",&weak_fpc ? weak_fpc() : 123);
 	
-	printf("weak_asm_f1=%d\n", weak_asm_f1 != NULL);
-	printf("weak_asm_f2=%d\n", weak_asm_f2 != NULL);
-	printf("weak_asm_f3=%d\n", weak_asm_f3 != NULL);
-	printf("weak_asm_v1=%d\n",&weak_asm_v1 != NULL);
-	printf("weak_asm_v2=%d\n",&weak_asm_v2 != NULL);
-	printf("weak_asm_v3=%d\n",&weak_asm_v3 != NULL);
+	printf("weak_asm_f1=%d\n", weak_asm_f1 != ശൂന്യ);
+	printf("weak_asm_f2=%d\n", weak_asm_f2 != ശൂന്യ);
+	printf("weak_asm_f3=%d\n", weak_asm_f3 != ശൂന്യ);
+	printf("weak_asm_v1=%d\n",&weak_asm_v1 != ശൂന്യ);
+	printf("weak_asm_v2=%d\n",&weak_asm_v2 != ശൂന്യ);
+	printf("weak_asm_v3=%d\n",&weak_asm_v3 != ശൂന്യ);
 #ifdef __clang__
 	printf("some_lib_func=444\n");
-#else
+#അല്ലെങ്കിൽ
 	printf("some_lib_func=%d\n", &some_lib_func ? some_lib_func() : 0);
 #endif
 }
 
-int __attribute__((weak)) weak_f2() { return 222; }
-int __attribute__((weak)) weak_f3() { return 333; }
-int __attribute__((weak)) weak_v2 = 222;
-int __attribute__((weak)) weak_v3 = 333;
+പൂർണ്ണസംഖ്യ __attribute__((weak)) weak_f2() { തിരികെ 222; }
+പൂർണ്ണസംഖ്യ __attribute__((weak)) weak_f3() { തിരികെ 333; }
+പൂർണ്ണസംഖ്യ __attribute__((weak)) weak_v2 = 222;
+പൂർണ്ണസംഖ്യ __attribute__((weak)) weak_v3 = 333;
 #endif
 
-void const_func(const int a)
+ശൂന്യം const_func(സ്ഥിരം പൂർണ്ണസംഖ്യ a)
 {
 }
 
-void const_warn_test(void)
+ശൂന്യം const_warn_test(ശൂന്യം)
 {
     const_func(1);
 }
 
-struct condstruct {
-  int i;
+ഘടന condstruct {
+  പൂർണ്ണസംഖ്യ i;
 };
 
-int getme (struct condstruct *s, int i)
+പൂർണ്ണസംഖ്യ getme (ഘടന condstruct *s, പൂർണ്ണസംഖ്യ i)
 {
-  int i1 = (i == 0 ? 0 : s)->i;
-  int i2 = (i == 0 ? s : 0)->i;
-  int i3 = (i == 0 ? (void*)0 : s)->i;
-  int i4 = (i == 0 ? s : (void*)0)->i;
-  return i1 + i2 + i3 + i4;
+  പൂർണ്ണസംഖ്യ i1 = (i == 0 ? 0 : s)->i;
+  പൂർണ്ണസംഖ്യ i2 = (i == 0 ? s : 0)->i;
+  പൂർണ്ണസംഖ്യ i3 = (i == 0 ? (ശൂന്യം*)0 : s)->i;
+  പൂർണ്ണസംഖ്യ i4 = (i == 0 ? s : (ശൂന്യം*)0)->i;
+  തിരികെ i1 + i2 + i3 + i4;
 }
 
-struct global_data
+ഘടന global_data
 {
-  int a[40];
-  int *b[40];
+  പൂർണ്ണസംഖ്യ a[40];
+  പൂർണ്ണസംഖ്യ *b[40];
 };
 
-struct global_data global_data;
+ഘടന global_data global_data;
 
-int global_data_getstuff (int *, int);
+പൂർണ്ണസംഖ്യ global_data_getstuff (പൂർണ്ണസംഖ്യ *, പൂർണ്ണസംഖ്യ);
 
-void global_data_callit (int i)
+ശൂന്യം global_data_callit (പൂർണ്ണസംഖ്യ i)
 {
   *global_data.b[i] = global_data_getstuff (global_data.b[i], 1);
 }
 
-int global_data_getstuff (int *p, int i)
+പൂർണ്ണസംഖ്യ global_data_getstuff (പൂർണ്ണസംഖ്യ *p, പൂർണ്ണസംഖ്യ i)
 {
-  return *p + i;
+  തിരികെ *p + i;
 }
 
-void global_data_test (void)
+ശൂന്യം global_data_test (ശൂന്യം)
 {
   global_data.a[0] = 42;
   global_data.b[0] = &global_data.a[0];
@@ -4150,26 +4150,26 @@ void global_data_test (void)
   printf ("%d\n", global_data.a[0]);
 }
 
-struct cmpcmpS
+ഘടന cmpcmpS
 {
-  unsigned char fill : 3;
-  unsigned char b1 : 1;
-  unsigned char b2 : 1;
-  unsigned char fill2 : 3;
+  unsigned അക്ഷരം fill : 3;
+  unsigned അക്ഷരം b1 : 1;
+  unsigned അക്ഷരം b2 : 1;
+  unsigned അക്ഷരം fill2 : 3;
 };
 
-int glob1, glob2, glob3;
+പൂർണ്ണസംഖ്യ glob1, glob2, glob3;
 
-void compare_comparisons (struct cmpcmpS *s)
+ശൂന്യം compare_comparisons (ഘടന cmpcmpS *s)
 {
-  if (s->b1 != (glob1 == glob2)
+  എങ്കിൽ (s->b1 != (glob1 == glob2)
       || (s->b2 != (glob1 == glob3)))
     printf ("comparing comparisons broken\n");
 }
 
-void cmp_comparison_test(void)
+ശൂന്യം cmp_comparison_test(ശൂന്യം)
 {
-  struct cmpcmpS s;
+  ഘടന cmpcmpS s;
   s.b1 = 1;
   glob1 = 42; glob2 = 42;
   s.b2 = 0;
@@ -4177,26 +4177,26 @@ void cmp_comparison_test(void)
   compare_comparisons (&s);
 }
 
-int fcompare (double a, double b, int code)
+പൂർണ്ണസംഖ്യ fcompare (ഇരട്ട a, ഇരട്ട b, പൂർണ്ണസംഖ്യ code)
 {
-  switch (code) {
-    case 0: return a == b;
-    case 1: return a != b;
-    case 2: return a < b;
-    case 3: return a >= b;
-    case 4: return a > b;
-    case 5: return a <= b;
+  തിരഞ്ഞെടുപ്പ് (code) {
+    അവസ്ഥ 0: തിരികെ a == b;
+    അവസ്ഥ 1: തിരികെ a != b;
+    അവസ്ഥ 2: തിരികെ a < b;
+    അവസ്ഥ 3: തിരികെ a >= b;
+    അവസ്ഥ 4: തിരികെ a > b;
+    അവസ്ഥ 5: തിരികെ a <= b;
   }
-  return 0;
+  തിരികെ 0;
 }
 
-void math_cmp_test(void)
+ശൂന്യം math_cmp_test(ശൂന്യം)
 {
-  double nan = 0.0/0.0;
-  double one = 1.0;
-  double two = 2.0;
-  int comp = 0;
-  int v;
+  ഇരട്ട nan = 0.0/0.0;
+  ഇരട്ട one = 1.0;
+  ഇരട്ട two = 2.0;
+  പൂർണ്ണസംഖ്യ comp = 0;
+  പൂർണ്ണസംഖ്യ v;
 #define bug(a,b,op,iop,part) printf("Test broken: %s %s %s %s %d\n", #a, #b, #op, #iop, part)
 
   /* This asserts that "a op b" is _not_ true, but "a iop b" is true.
@@ -4205,28 +4205,28 @@ void math_cmp_test(void)
      producing a 0/1 value without jumps (that's done in the fcompare
      function).  */
 #define FCMP(a,b,op,iop,code) \
-  if (fcompare (a,b,code))    \
+  എങ്കിൽ (fcompare (a,b,code))    \
     bug (a,b,op,iop,1); \
-  if (a op b) \
+  എങ്കിൽ (a op b) \
     bug (a,b,op,iop,2); \
-  if (a iop b) \
+  എങ്കിൽ (a iop b) \
     ; \
-  else \
+  അല്ലെങ്കിൽ \
     bug (a,b,op,iop,3); \
-  if ((a op b) || comp) \
+  എങ്കിൽ ((a op b) || comp) \
     bug (a,b,op,iop,4); \
-  if ((a iop b) || comp) \
+  എങ്കിൽ ((a iop b) || comp) \
     ; \
-  else \
+  അല്ലെങ്കിൽ \
     bug (a,b,op,iop,5); \
-  if (v = !(a op b), !v) bug(a,b,op,iop,7);
+  എങ്കിൽ (v = !(a op b), !v) bug(a,b,op,iop,7);
 
   /* Equality tests.  */
   FCMP(nan, nan, ==, !=, 0);
   FCMP(one, two, ==, !=, 0);
   FCMP(one, one, !=, ==, 1);
   /* Non-equality is a bit special.  */
-  if (!fcompare (nan, nan, 1))
+  എങ്കിൽ (!fcompare (nan, nan, 1))
     bug (nan, nan, !=, ==, 6);
 
   /* Relational tests on numbers.  */
@@ -4244,14 +4244,14 @@ void math_cmp_test(void)
   FCMP(nan, nan, <=, !=, 5);
 }
 
-double get100 () { return 100.0; }
+ഇരട്ട get100 () { തിരികെ 100.0; }
 
-void callsave_test(void)
+ശൂന്യം callsave_test(ശൂന്യം)
 {
-  int i, s; double *d; double t;
-  s = sizeof (double);
+  പൂർണ്ണസംഖ്യ i, s; ഇരട്ട *d; ഇരട്ട t;
+  s = വലുപ്പം (ഇരട്ട);
   printf ("callsavetest: %d\n", s);
-  d = alloca (sizeof(double));
+  d = alloca (വലുപ്പം(ഇരട്ട));
   d[0] = 10.0;
   /* x86-64 had a bug were the next call to get100 would evict
      the lvalue &d[0] as VT_LLOCAL, and the reload would be done
@@ -4263,27 +4263,27 @@ void callsave_test(void)
 }
 
 
-void bfa3(ptrdiff_t str_offset)
+ശൂന്യം bfa3(ptrdiff_t str_offset)
 {
-    printf("bfa3: %s\n", (char *)__builtin_frame_address(3) + str_offset);
+    printf("bfa3: %s\n", (അക്ഷരം *)__builtin_frame_address(3) + str_offset);
 }
-void bfa2(ptrdiff_t str_offset)
+ശൂന്യം bfa2(ptrdiff_t str_offset)
 {
-    printf("bfa2: %s\n", (char *)__builtin_frame_address(2) + str_offset);
+    printf("bfa2: %s\n", (അക്ഷരം *)__builtin_frame_address(2) + str_offset);
     bfa3(str_offset);
 }
-void bfa1(ptrdiff_t str_offset)
+ശൂന്യം bfa1(ptrdiff_t str_offset)
 {
-    printf("bfa1: %s\n", (char *)__builtin_frame_address(1) + str_offset);
+    printf("bfa1: %s\n", (അക്ഷരം *)__builtin_frame_address(1) + str_offset);
     bfa2(str_offset);
 }
 
-void builtin_frame_address_test(void)
+ശൂന്യം builtin_frame_address_test(ശൂന്യം)
 {
 /* builtin_frame_address fails on ARM with gcc which make test3 fail */
 #ifndef __arm__
-    char str[] = "__builtin_frame_address";
-    char *fp0 = __builtin_frame_address(0);
+    അക്ഷരം str[] = "__builtin_frame_address";
+    അക്ഷരം *fp0 = __builtin_frame_address(0);
 
     printf("str: %s\n", str);
 #ifndef __riscv // gcc dumps core. tcc, clang work
@@ -4292,94 +4292,94 @@ void builtin_frame_address_test(void)
 #endif
 }
 
-char via_volatile (char i)
+അക്ഷരം via_volatile (അക്ഷരം i)
 {
-  char volatile vi;
+  അക്ഷരം അസ്ഥിര vi;
   vi = i;
-  return vi;
+  തിരികെ vi;
 }
 
-void volatile_test(void)
+ശൂന്യം volatile_test(ശൂന്യം)
 {
-    if (via_volatile (42) != 42)
+    എങ്കിൽ (via_volatile (42) != 42)
       printf (" broken\n");
-    else
+    അല്ലെങ്കിൽ
       printf (" ok\n");
 }
 
-struct __attribute__((__packed__)) Spacked {
-    char a;
+ഘടന __attribute__((__packed__)) Spacked {
+    അക്ഷരം a;
     short b;
-    int c;
+    പൂർണ്ണസംഖ്യ c;
 };
-struct Spacked spacked;
-typedef struct __attribute__((__packed__)) {
-    char a;
+ഘടന Spacked spacked;
+തരനിർവചനം ഘടന __attribute__((__packed__)) {
+    അക്ഷരം a;
     short b;
-    int c;
+    പൂർണ്ണസംഖ്യ c;
 } Spacked2;
 Spacked2 spacked2;
-typedef struct Spacked3_s {
-    char a;
+തരനിർവചനം ഘടന Spacked3_s {
+    അക്ഷരം a;
     short b;
-    int c;
+    പൂർണ്ണസംഖ്യ c;
 } __attribute__((__packed__)) Spacked3;
 Spacked3 spacked3;
-struct gate_struct64 {
-    unsigned short offset_low;
+ഘടന gate_struct64 {
+    unsigned short offset_താഴെയുള്ള;
     unsigned short segment;
     unsigned ist : 3, zero0 : 5, type : 5, dpl : 2, p : 1;
-    unsigned short offset_middle;
-    unsigned offset_high;
+    unsigned short offset_നടുവ്;
+    unsigned offset_മുകളിലെ;
     unsigned zero1;
 } __attribute__((packed));
-typedef struct gate_struct64 gate_desc;
+തരനിർവചനം ഘടന gate_struct64 gate_desc;
 gate_desc a_gate_desc;
-void attrib_test(void)
+ശൂന്യം attrib_test(ശൂന്യം)
 {
 #ifndef _WIN32
-  printf("attr: %d %d %d %d\n", sizeof(struct Spacked),
-	 sizeof(spacked), sizeof(Spacked2), sizeof(spacked2));
-  printf("attr: %d %d\n", sizeof(Spacked3), sizeof(spacked3));
-  printf("attr: %d %d\n", sizeof(gate_desc), sizeof(a_gate_desc));
+  printf("attr: %d %d %d %d\n", വലുപ്പം(ഘടന Spacked),
+	 വലുപ്പം(spacked), വലുപ്പം(Spacked2), വലുപ്പം(spacked2));
+  printf("attr: %d %d\n", വലുപ്പം(Spacked3), വലുപ്പം(spacked3));
+  printf("attr: %d %d\n", വലുപ്പം(gate_desc), വലുപ്പം(a_gate_desc));
 #endif
 }
-extern __attribute__((__unused__)) char * __attribute__((__unused__)) *
-strange_attrib_placement (void);
+ബാഹ്യ __attribute__((__unused__)) അക്ഷരം * __attribute__((__unused__)) *
+strange_attrib_placement (ശൂന്യം);
 
-void * __attribute__((__unused__)) get_void_ptr (void *a)
+ശൂന്യം * __attribute__((__unused__)) get_void_ptr (ശൂന്യം *a)
 {
-  return a;
+  തിരികെ a;
 }
 
 /* This part checks for a bug in TOK_GET (used for inline expansion),
    where the large long long constant left the the high bits set for
    the integer constant token.  */
-static inline
-int __get_order(unsigned long long size)
+സ്ഥിതം വരിയിൽ
+പൂർണ്ണസംഖ്യ __get_order(unsigned long long size)
 {
-  int order;
+  പൂർണ്ണസംഖ്യ order;
   size -= 0xffff880000000000ULL; // this const left high bits set in the token
     {
-      struct S { int i : 1; } s; // constructed for this '1'
+      ഘടന S { പൂർണ്ണസംഖ്യ i : 1; } s; // constructed for this '1'
     }
   order = size;
-  return order;
+  തിരികെ order;
 }
 
 /* This just forces the above inline function to be actually emitted.  */
-int force_get_order(unsigned long s)
+പൂർണ്ണസംഖ്യ force_get_order(unsigned long s)
 {
-    return __get_order(s);
+    തിരികെ __get_order(s);
 }
 
-#define pv(m) printf(sizeof (s->m + 0) == 8 ? "%016llx\n" : "%02x\n", s->m)
+#define pv(m) printf(വലുപ്പം (s->m + 0) == 8 ? "%016llx\n" : "%02x\n", s->m)
 
 /* Test failed when using bounds checking */
-void bounds_check1_test (void)
+ശൂന്യം bounds_check1_test (ശൂന്യം)
 {
-    struct s {
-        int x;
+    ഘടന s {
+        പൂർണ്ണസംഖ്യ x;
         long long y;
     } _s, *s = &_s;
     s->x = 10;
@@ -4389,15 +4389,15 @@ void bounds_check1_test (void)
 }
 
 /* This failed on arm64/riscv64 */
-void map_add(int a, int b, int c, int d, int e, int f, int g, int h, int i)
+ശൂന്യം map_add(പൂർണ്ണസംഖ്യ a, പൂർണ്ണസംഖ്യ b, പൂർണ്ണസംഖ്യ c, പൂർണ്ണസംഖ്യ d, പൂർണ്ണസംഖ്യ e, പൂർണ്ണസംഖ്യ f, പൂർണ്ണസംഖ്യ g, പൂർണ്ണസംഖ്യ h, പൂർണ്ണസംഖ്യ i)
 {
   printf ("%d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i);
 }
 
-void func_arg_test(void)
+ശൂന്യം func_arg_test(ശൂന്യം)
 {
-    int a = 0;
-    int b = 1;
+    പൂർണ്ണസംഖ്യ a = 0;
+    പൂർണ്ണസംഖ്യ b = 1;
     map_add(0, 1, 2, 3, 4, 5, 6, 7, a && b);
 }
 
@@ -4414,12 +4414,12 @@ void func_arg_test(void)
 
 /* keep this as the last test because GCC messes up line-numbers
    with the ^L^K^M characters below */
-void whitespace_test(void)
+ശൂന്യം whitespace_test(ശൂന്യം)
 {
-    char *str;
-    int tcc_test = 1;
+    അക്ഷരം *str;
+    പൂർണ്ണസംഖ്യ tcc_test = 1;
 
-#if 1
+#എങ്കിൽ 1
     pri\
 ntf("whitspace:\n");
 #endif
@@ -4444,7 +4444,7 @@ ntf("min=%d\n", 4);
 #endif
     printf("len1=%d\n", strlen("a
 "));
-#else
+#അല്ലെങ്കിൽ
     printf("len1=1\nlen1=1 str[0]=10\nlen1=3\n");
 #endif /* ACCEPT_LF_IN_STRINGS */
 
@@ -4452,7 +4452,7 @@ ntf("min=%d\n", 4);
     printf("__LINE__ defined\n");
 #endif
 
-#if 0
+#എങ്കിൽ 0
     /* wrong with GCC */
     printf("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
 #line 1111
@@ -4467,7 +4467,7 @@ ntf("min=%d\n", 4);
 n 456\"\n");
 
     printf ("%d\n",
-#if 1
+#എങ്കിൽ 1
 	    tcc_test
 #endif
             );
@@ -4476,13 +4476,13 @@ n 456\"\n");
 
 #define RUN(test) puts("---- " #test " ----"), test(), puts("")
 
-int main(int argc, char **argv)
+പൂർണ്ണസംഖ്യ പ്രധാന(പൂർണ്ണസംഖ്യ argc, അക്ഷരം **argv)
 {
     RUN(whitespace_test);
     RUN(macro_test);
     RUN(recursive_macro_test);
     RUN(string_test);
-    RUN(expr_test);
+    RUN(വ്യഞ്ജകം_test);
     RUN(scope_test);
     RUN(scope2_test);
     RUN(forward_test);
@@ -4495,12 +4495,12 @@ int main(int argc, char **argv)
     RUN(typedef_test);
     RUN(struct_test);
     RUN(array_test);
-    RUN(expr_ptr_test);
+    RUN(വ്യഞ്ജകം_ptr_test);
     RUN(bool_test);
     RUN(optimize_out_test);
     RUN(expr2_test);
-    RUN(constant_expr_test);
-    RUN(expr_cmp_test);
+    RUN(constant_വ്യഞ്ജകം_test);
+    RUN(വ്യഞ്ജകം_cmp_test);
     RUN(char_short_test);
     RUN(init_test);
     RUN(compound_literal_test);
@@ -4519,7 +4519,7 @@ int main(int argc, char **argv)
     RUN(c99_vla_test);
     RUN(sizeof_test);
     RUN(typeof_test);
-    RUN(statement_expr_test);
+    RUN(statement_വ്യഞ്ജകം_test);
     RUN(local_label_test);
     RUN(asm_test);
     RUN(builtin_test);
@@ -4534,5 +4534,5 @@ int main(int argc, char **argv)
     RUN(bounds_check1_test);
     RUN(func_arg_test);
 
-    return 0;
+    തിരികെ 0;
 }
