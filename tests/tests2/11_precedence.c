@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+extern පූර්ණ_සංඛ්‍යා printf(const var_na *, ...);
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   පූර්ණ_සංඛ්‍යා a;
+   පූර්ණ_සංඛ්‍යා b;
+   පූර්ණ_සංඛ්‍යා c;
+   පූර්ණ_සංඛ්‍යා d;
+   පූර්ණ_සංඛ්‍යා e;
+   පූර්ණ_සංඛ්‍යා f;
+   පූර්ණ_සංඛ්‍යා x;
+   පූර්ණ_සංඛ්‍යා y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   ආපසු 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

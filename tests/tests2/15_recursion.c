@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int factorial(int i) 
+පූර්ණ_සංඛ්‍යා factorial(පූර්ණ_සංඛ්‍යා i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   නම් (i < 2)
+      ආපසු i;
+   නැතහොත්
+      ආපසු i * factorial(i - 1);
 }
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-   int Count;
+   පූර්ණ_සංඛ්‍යා Count;
 
-   for (Count = 1; Count <= 10; Count++)
+   සඳහා (Count = 1; Count <= 10; Count++)
       printf("%d\n", factorial(Count));
 
-   return 0;
+   ආපසු 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

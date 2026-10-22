@@ -1,12 +1,12 @@
 #include <stdatomic.h>
-int printf(const char*,...);
+පූර්ණ_සංඛ්‍යා printf(const var_na*,...);
 
-#if defined test_atomic_compare_exchange
-int main()
+#නම් defined test_atomic_compare_exchange
+පූර්ණ_සංඛ්‍යා main()
 {
-    _Atomic int a = 12;
-    int b = 77;
-    int r;
+    _Atomic පූර්ණ_සංඛ්‍යා a = 12;
+    පූර්ණ_සංඛ්‍යා b = 77;
+    පූර්ණ_සංඛ්‍යා r;
 
     atomic_store(&a, b + 0);
     r = atomic_compare_exchange_strong(&a, &b, 99);
@@ -24,33 +24,33 @@ int main()
     r = atomic_exchange(&a, 66);
     printf("%d %d %d\n", r, a, b);
 
-    return 0;
+    ආපසු 0;
 }
 
 #elif defined test_atomic_store
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-    int _Atomic i;
-    int r;
+    පූර්ණ_සංඛ්‍යා _Atomic i;
+    පූර්ණ_සංඛ්‍යා r;
     atomic_store(&i, 12);
     r = atomic_fetch_add(&i, i);
     printf("r = %d, i = %d\n", r, i);
 }
 
 #elif defined test_atomic_store_pointer
-typedef struct { char c[4]; } c4;
-int main()
+typedef sa_nracanaa { var_na c[4]; } c4;
+පූර්ණ_සංඛ්‍යා main()
 {
-    int i = 1;
-    int _Atomic *p = &i;
-    int k = 2;
+    පූර්ණ_සංඛ්‍යා i = 1;
+    පූර්ණ_සංඛ්‍යා _Atomic *p = &i;
+    පූර්ණ_සංඛ්‍යා k = 2;
     atomic_store(&p, &k);
     printf("*p = %d\n", *p);
 }
 
 #elif defined test_atomic_store_struct
-typedef struct { char c[4]; } c4;
-int main()
+typedef sa_nracanaa { var_na c[4]; } c4;
+පූර්ණ_සංඛ්‍යා main()
 {
     c4 _Atomic p;
     c4 v = { 1,2,3,4 };
@@ -70,7 +70,7 @@ int main()
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
  
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
     atomic_char c;
     atomic_short s;
@@ -107,11 +107,11 @@ typedef __SIZE_TYPE__ size64_t;
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-    signed char c;
+    signed var_na c;
     short s;
-    int i;
+    පූර්ණ_සංඛ්‍යා i;
     size64_t l;
 
     atomic_init(&c, 0);
@@ -140,9 +140,9 @@ int main()
 }
 
 #elif defined test_atomic_thread_signal
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-    int c;
+    පූර්ණ_සංඛ්‍යා c;
 
     atomic_thread_fence(__ATOMIC_SEQ_CST);
     atomic_signal_fence(__ATOMIC_SEQ_CST);
@@ -150,36 +150,36 @@ int main()
 }
 
 #elif defined test_atomic_error_1
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-    int _Atomic i;
+    පූර්ණ_සංඛ්‍යා _Atomic i;
     atomic_load(i);
 }
 
 #elif defined test_atomic_error_2
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-    struct { char c[3]; } _Atomic c3;
+    sa_nracanaa { var_na c[3]; } _Atomic c3;
     atomic_load(&c3);
 }
 
 #elif defined test_atomic_error_3
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-    _Atomic int *p = 0;
+    _Atomic පූර්ණ_සංඛ්‍යා *p = 0;
     atomic_fetch_add(&p, 1);
 }
 
 #elif defined test_atomic_error_4
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-    int _Atomic i = 1;
-    char c = 2;
+    පූර්ණ_සංඛ්‍යා _Atomic i = 1;
+    var_na c = 2;
     atomic_compare_exchange_strong(&i, &c, 0);
 }
 
 #elif defined test_atomic_warn_1
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
     size_t _Atomic i = 1;
     /* assignment to integer from pointer */
@@ -187,19 +187,19 @@ int main()
 }
 
 #elif defined test_atomic_warn_2
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-    int i = 1;
-    char c = 2;
-    int _Atomic *p = &i;
+    පූර්ණ_සංඛ්‍යා i = 1;
+    var_na c = 2;
+    පූර්ණ_සංඛ්‍යා _Atomic *p = &i;
     /* assignment from incompatible pointer */
     atomic_store(&p, &c);
 }
 
 #elif defined test_atomic_warn_3
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-    int const i = 1;
+    පූර්ණ_සංඛ්‍යා const i = 1;
     /* assignment to read-only -location */
     atomic_fetch_add(&i, 2);
 }

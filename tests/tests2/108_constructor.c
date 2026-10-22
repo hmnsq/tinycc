@@ -1,4 +1,4 @@
-extern int write (int fd, void *buf, int len);
+extern පූර්ණ_සංඛ්‍යා write (පූර්ණ_සංඛ්‍යා fd, void *buf, පූර්ණ_සංඛ්‍යා len);
 
 static void __attribute__ ((constructor))
 testc (void)
@@ -12,9 +12,9 @@ testd (void)
   write (1, "destructor\n", 11);
 }
 
-int
+පූර්ණ_සංඛ්‍යා
 main (void)
 {
   write (1, "main\n", 5);
-  return 0;
+  ආපසු 0;
 }

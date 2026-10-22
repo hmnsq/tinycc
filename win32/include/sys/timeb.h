@@ -27,8 +27,8 @@ extern "C" {
 #ifdef _WIN64
 #undef _USE_32BIT_TIME_T
 #endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
+#නැතහොත්
+#නම් _INTEGRAL_MAX_BITS < 64
 #define _USE_32BIT_TIME_T
 #endif
 #endif
@@ -40,7 +40,7 @@ extern "C" {
 #endif
 
 #ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
+#නම් _INTEGRAL_MAX_BITS >= 64
   typedef __int64 __time64_t;
 #endif
 #define _TIME64_T_DEFINED
@@ -49,7 +49,7 @@ extern "C" {
 #ifndef _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
   typedef __time32_t time_t;
-#else
+#නැතහොත්
   typedef __time64_t time_t;
 #endif
 #define _TIME_T_DEFINED
@@ -58,7 +58,7 @@ extern "C" {
 #ifndef _TIMEB_DEFINED
 #define _TIMEB_DEFINED
 
-  struct __timeb32 {
+  sa_nracanaa __timeb32 {
     __time32_t time;
     unsigned short millitm;
     short timezone;
@@ -66,7 +66,7 @@ extern "C" {
   };
 
 #ifndef	NO_OLDNAMES
-  struct timeb {
+  sa_nracanaa timeb {
     time_t time;
     unsigned short millitm;
     short timezone;
@@ -74,8 +74,8 @@ extern "C" {
   };
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __timeb64 {
+#නම් _INTEGRAL_MAX_BITS >= 64
+  sa_nracanaa __timeb64 {
     __time64_t time;
     unsigned short millitm;
     short timezone;
@@ -87,38 +87,38 @@ extern "C" {
 #define _timeb __timeb32
 //gr #define _ftime _ftime32
 #define _ftime32 _ftime
-#else
+#නැතහොත්
 #define _timeb __timeb64
 #define _ftime _ftime64
 #endif
 #endif
 
-  _CRTIMP void __cdecl _ftime32(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP void __cdecl _ftime64(struct __timeb64 *_Time);
+  _CRTIMP void __cdecl _ftime32(sa_nracanaa __timeb32 *_Time);
+#නම් _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP void __cdecl _ftime64(sa_nracanaa __timeb64 *_Time);
 #endif
 
 #ifndef _TIMESPEC_DEFINED
 #define _TIMESPEC_DEFINED
-struct timespec {
+sa_nracanaa timespec {
   time_t  tv_sec;   /* Seconds */
   long    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+sa_nracanaa itimerspec {
+  sa_nracanaa timespec  it_interval;  /* Timer period */
+  sa_nracanaa timespec  it_value;     /* Timer expiration */
 };
 #endif
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+#නම් !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime32((struct __timeb32 *)_Tmb);
+__CRT_INLINE void __cdecl ftime(sa_nracanaa timeb *_Tmb) {
+  _ftime32((sa_nracanaa __timeb32 *)_Tmb);
 }
-#else
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime64((struct __timeb64 *)_Tmb);
+#නැතහොත්
+__CRT_INLINE void __cdecl ftime(sa_nracanaa timeb *_Tmb) {
+  _ftime64((sa_nracanaa __timeb64 *)_Tmb);
 }
 #endif
 #endif

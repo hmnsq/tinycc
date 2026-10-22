@@ -24,7 +24,7 @@ extern "C" {
 #define __PCTYPE_FUNC __pctype_func()
 #ifdef _MSVCRT_
 #define __pctype_func()	(_pctype)
-#else
+#නැතහොත්
 #define __pctype_func()	(*_imp___pctype)
 #endif
 #endif
@@ -32,7 +32,7 @@ extern "C" {
 #ifndef _pctype
 #ifdef _MSVCRT_
   extern unsigned short *_pctype;
-#else
+#නැතහොත්
   extern unsigned short **_imp___pctype;
 #define _pctype (*_imp___pctype)
 #endif
@@ -47,7 +47,7 @@ extern "C" {
 #ifndef _wctype
 #ifdef _MSVCRT_
   extern unsigned short *_wctype;
-#else
+#නැතහොත්
   extern unsigned short **_imp___wctype;
 #define _wctype (*_imp___wctype)
 #endif
@@ -57,7 +57,7 @@ extern "C" {
 #ifndef _pwctype
   extern unsigned short *_pwctype;
 #endif
-#else
+#නැතහොත්
 #define __pwctype_func() (*_imp___pwctype)
 #ifndef _pwctype
   extern unsigned short **_imp___pwctype;
@@ -68,14 +68,14 @@ extern "C" {
 #endif
 
   /* CRT stuff */
-#if 1
-  extern const unsigned char __newclmap[];
-  extern const unsigned char __newcumap[];
+#නම් 1
+  extern const unsigned var_na __newclmap[];
+  extern const unsigned var_na __newcumap[];
   extern pthreadlocinfo __ptlocinfo;
   extern pthreadmbcinfo __ptmbcinfo;
-  extern int __globallocalestatus;
-  extern int __locale_changed;
-  extern struct threadlocaleinfostruct __initiallocinfo;
+  extern පූර්ණ_සංඛ්‍යා __globallocalestatus;
+  extern පූර්ණ_සංඛ්‍යා __locale_changed;
+  extern sa_nracanaa threadlocaleinfostruct __initiallocinfo;
   extern _locale_tstruct __initiallocalestructinfo;
   pthreadlocinfo __cdecl __updatetlocinfo(void);
   pthreadmbcinfo __cdecl __updatetmbcinfo(void);
@@ -97,88 +97,88 @@ extern "C" {
 #ifndef _CTYPE_DEFINED
 #define _CTYPE_DEFINED
 
-  _CRTIMP int __cdecl _isctype(int _C,int _Type);
-  _CRTIMP int __cdecl _isctype_l(int _C,int _Type,_locale_t _Locale);
-  _CRTIMP int __cdecl isalpha(int _C);
-  _CRTIMP int __cdecl _isalpha_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isupper(int _C);
-  _CRTIMP int __cdecl _isupper_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl islower(int _C);
-  _CRTIMP int __cdecl _islower_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isdigit(int _C);
-  _CRTIMP int __cdecl _isdigit_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isxdigit(int _C);
-  _CRTIMP int __cdecl _isxdigit_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isspace(int _C);
-  _CRTIMP int __cdecl _isspace_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl ispunct(int _C);
-  _CRTIMP int __cdecl _ispunct_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isalnum(int _C);
-  _CRTIMP int __cdecl _isalnum_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isprint(int _C);
-  _CRTIMP int __cdecl _isprint_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isgraph(int _C);
-  _CRTIMP int __cdecl _isgraph_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl iscntrl(int _C);
-  _CRTIMP int __cdecl _iscntrl_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl toupper(int _C);
-  _CRTIMP int __cdecl tolower(int _C);
-  _CRTIMP int __cdecl _tolower(int _C);
-  _CRTIMP int __cdecl _tolower_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl _toupper(int _C);
-  _CRTIMP int __cdecl _toupper_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl __isascii(int _C);
-  _CRTIMP int __cdecl __toascii(int _C);
-  _CRTIMP int __cdecl __iscsymf(int _C);
-  _CRTIMP int __cdecl __iscsym(int _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _isctype(පූර්ණ_සංඛ්‍යා _C,පූර්ණ_සංඛ්‍යා _Type);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _isctype_l(පූර්ණ_සංඛ්‍යා _C,පූර්ණ_සංඛ්‍යා _Type,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl isalpha(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _isalpha_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl isupper(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _isupper_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl islower(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _islower_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl isdigit(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _isdigit_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl isxdigit(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _isxdigit_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl isspace(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _isspace_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl ispunct(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _ispunct_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl isalnum(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _isalnum_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl isprint(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _isprint_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl isgraph(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _isgraph_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl iscntrl(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iscntrl_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl toupper(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl tolower(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _tolower(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _tolower_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _toupper(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _toupper_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl __isascii(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl __toascii(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl __iscsymf(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl __iscsym(පූර්ණ_සංඛ්‍යා _C);
 
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl isblank(int _C);
+#නම් (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+පූර්ණ_සංඛ්‍යා __cdecl isblank(පූර්ණ_සංඛ්‍යා _C);
 #endif
 #endif
 
 #ifndef _WCTYPE_DEFINED
 #define _WCTYPE_DEFINED
 
-  int __cdecl iswalpha(wint_t _C);
-  _CRTIMP int __cdecl _iswalpha_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswupper(wint_t _C);
-  _CRTIMP int __cdecl _iswupper_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswlower(wint_t _C);
-  _CRTIMP int __cdecl _iswlower_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswdigit(wint_t _C);
-  _CRTIMP int __cdecl _iswdigit_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswxdigit(wint_t _C);
-  _CRTIMP int __cdecl _iswxdigit_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswspace(wint_t _C);
-  _CRTIMP int __cdecl _iswspace_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswpunct(wint_t _C);
-  _CRTIMP int __cdecl _iswpunct_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswalnum(wint_t _C);
-  _CRTIMP int __cdecl _iswalnum_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswprint(wint_t _C);
-  _CRTIMP int __cdecl _iswprint_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswgraph(wint_t _C);
-  _CRTIMP int __cdecl _iswgraph_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswcntrl(wint_t _C);
-  _CRTIMP int __cdecl _iswcntrl_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswascii(wint_t _C);
-  int __cdecl isleadbyte(int _C);
-  _CRTIMP int __cdecl _isleadbyte_l(int _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswalpha(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswalpha_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswupper(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswupper_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswlower(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswlower_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswdigit(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswdigit_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswxdigit(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswxdigit_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswspace(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswspace_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswpunct(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswpunct_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswalnum(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswalnum_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswprint(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswprint_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswgraph(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswgraph_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswcntrl(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswcntrl_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl iswascii(wint_t _C);
+  පූර්ණ_සංඛ්‍යා __cdecl isleadbyte(පූර්ණ_සංඛ්‍යා _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _isleadbyte_l(පූර්ණ_සංඛ්‍යා _C,_locale_t _Locale);
   wint_t __cdecl towupper(wint_t _C);
   _CRTIMP wint_t __cdecl _towupper_l(wint_t _C,_locale_t _Locale);
   wint_t __cdecl towlower(wint_t _C);
   _CRTIMP wint_t __cdecl _towlower_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswctype(wint_t _C,wctype_t _Type);
-  _CRTIMP int __cdecl _iswctype_l(wint_t _C,wctype_t _Type,_locale_t _Locale);
-  _CRTIMP int __cdecl __iswcsymf(wint_t _C);
-  _CRTIMP int __cdecl _iswcsymf_l(wint_t _C,_locale_t _Locale);
-  _CRTIMP int __cdecl __iswcsym(wint_t _C);
-  _CRTIMP int __cdecl _iswcsym_l(wint_t _C,_locale_t _Locale);
-  int __cdecl is_wctype(wint_t _C,wctype_t _Type);
+  පූර්ණ_සංඛ්‍යා __cdecl iswctype(wint_t _C,wctype_t _Type);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswctype_l(wint_t _C,wctype_t _Type,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl __iswcsymf(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswcsymf_l(wint_t _C,_locale_t _Locale);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl __iswcsym(wint_t _C);
+  _CRTIMP පූර්ණ_සංඛ්‍යා __cdecl _iswcsym_l(wint_t _C,_locale_t _Locale);
+  පූර්ණ_සංඛ්‍යා __cdecl is_wctype(wint_t _C,wctype_t _Type);
 
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl iswblank(wint_t _C);
+#නම් (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+පූර්ණ_සංඛ්‍යා __cdecl iswblank(wint_t _C);
 #endif
 #endif
 
@@ -188,15 +188,15 @@ int __cdecl iswblank(wint_t _C);
 #define MB_CUR_MAX ___mb_cur_max_func()
 #ifndef __mb_cur_max
 #ifdef _MSVCRT_
-  extern int __mb_cur_max;
-#else
+  extern පූර්ණ_සංඛ්‍යා __mb_cur_max;
+#නැතහොත්
 #define __mb_cur_max	(*_imp____mb_cur_max)
-  extern int *_imp____mb_cur_max;
+  extern පූර්ණ_සංඛ්‍යා *_imp____mb_cur_max;
 #endif
 #endif
 #ifdef _MSVCRT_
 #define ___mb_cur_max_func() (__mb_cur_max)
-#else
+#නැතහොත්
 #define ___mb_cur_max_func() (*_imp____mb_cur_max)
 #endif
 #endif
@@ -263,11 +263,11 @@ int __cdecl iswblank(wint_t _C);
 
 #ifndef	NO_OLDNAMES
 #ifndef _CTYPE_DEFINED
-  int __cdecl isascii(int _C);
-  int __cdecl toascii(int _C);
-  int __cdecl iscsymf(int _C);
-  int __cdecl iscsym(int _C);
-#else
+  පූර්ණ_සංඛ්‍යා __cdecl isascii(පූර්ණ_සංඛ්‍යා _C);
+  පූර්ණ_සංඛ්‍යා __cdecl toascii(පූර්ණ_සංඛ්‍යා _C);
+  පූර්ණ_සංඛ්‍යා __cdecl iscsymf(පූර්ණ_සංඛ්‍යා _C);
+  පූර්ණ_සංඛ්‍යා __cdecl iscsym(පූර්ණ_සංඛ්‍යා _C);
+#නැතහොත්
 #define isascii __isascii
 #define toascii __toascii
 #define iscsymf __iscsymf

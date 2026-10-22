@@ -1,28 +1,28 @@
 #include <stdio.h>
 
-int array[16];
+පූර්ණ_සංඛ්‍යා array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+void swap(පූර්ණ_සංඛ්‍යා a, පූර්ණ_සංඛ්‍යා b)
 {
-   int tmp  = array[a];
+   පූර්ණ_සංඛ්‍යා tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+පූර්ණ_සංඛ්‍යා partition(පූර්ණ_සංඛ්‍යා left, පූර්ණ_සංඛ්‍යා right)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   පූර්ණ_සංඛ්‍යා pivotIndex = left;
+   පූර්ණ_සංඛ්‍යා pivotValue = array[pivotIndex];
+   පූර්ණ_සංඛ්‍යා index = left;
+   පූර්ණ_සංඛ්‍යා i;
 
    swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   සඳහා(i = left; i < right; i++)
    {
-      if(array[i] < pivotValue)
+      නම්(array[i] < pivotValue)
       {
          swap(i, index);
          index += 1;
@@ -30,23 +30,23 @@ int partition(int left, int right)
    }
    swap(right, index);
 
-   return index;
+   ආපසු index;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+void quicksort(පූර්ණ_සංඛ්‍යා left, පූර්ණ_සංඛ්‍යා right)
 {
-   if(left >= right)
-      return;
+   නම්(left >= right)
+      ආපසු;
 
-   int index = partition(left, right);
+   පූර්ණ_සංඛ්‍යා index = partition(left, right);
    quicksort(left, index - 1);
    quicksort(index + 1, right);
 }
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-   int i;
+   පූර්ණ_සංඛ්‍යා i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
+   සඳහා (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
+   සඳහා (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
-   return 0;
+   ආපසු 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

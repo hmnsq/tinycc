@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-   int a;
-   int *b;
-   int *c;
+   පූර්ණ_සංඛ්‍යා a;
+   පූර්ණ_සංඛ්‍යා *b;
+   පූර්ණ_සංඛ්‍යා *c;
 
    a = 42;
    b = &a;
@@ -12,17 +12,17 @@ int main()
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   නම් (b == NULL)
       printf("b is NULL\n");
-   else
+   නැතහොත්
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   නම් (c == NULL)
       printf("c is NULL\n");
-   else
+   නැතහොත්
       printf("c is not NULL\n");
 
-   return 0;
+   ආපසු 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

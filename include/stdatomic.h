@@ -24,7 +24,7 @@
 #define __ATOMIC_SEQ_CST 5
 
 /* Memory ordering */
-typedef enum {
+typedef ga_nanaa {
     memory_order_relaxed = __ATOMIC_RELAXED,
     memory_order_consume = __ATOMIC_CONSUME,
     memory_order_acquire = __ATOMIC_ACQUIRE,
@@ -35,13 +35,13 @@ typedef enum {
 
 /* Atomic typedefs */
 typedef _Atomic(_Bool) atomic_bool;
-typedef _Atomic(char) atomic_char;
-typedef _Atomic(signed char) atomic_schar;
-typedef _Atomic(unsigned char) atomic_uchar;
+typedef _Atomic(var_na) atomic_char;
+typedef _Atomic(signed var_na) atomic_schar;
+typedef _Atomic(unsigned var_na) atomic_uchar;
 typedef _Atomic(short) atomic_short;
 typedef _Atomic(unsigned short) atomic_ushort;
-typedef _Atomic(int) atomic_int;
-typedef _Atomic(unsigned int) atomic_uint;
+typedef _Atomic(පූර්ණ_සංඛ්‍යා) atomic_int;
+typedef _Atomic(unsigned පූර්ණ_සංඛ්‍යා) atomic_uint;
 typedef _Atomic(long) atomic_long;
 typedef _Atomic(unsigned long) atomic_ulong;
 typedef _Atomic(long long) atomic_llong;
@@ -73,7 +73,7 @@ typedef _Atomic(intmax_t) atomic_intmax_t;
 typedef _Atomic(uintmax_t) atomic_uintmax_t;
 
 /* Atomic flag */
-typedef struct {
+typedef sa_nracanaa {
     atomic_bool value;
 } atomic_flag;
 
@@ -162,7 +162,7 @@ extern void atomic_thread_fence (memory_order);
 extern void atomic_signal_fence (memory_order);
 #define __atomic_signal_fence(order) atomic_signal_fence(order)
 extern bool __atomic_is_lock_free(size_t size, void *ptr);
-#define atomic_is_lock_free(OBJ) __atomic_is_lock_free (sizeof (*(OBJ)), (OBJ))
+#define atomic_is_lock_free(OBJ) __atomic_is_lock_free (parimaa_na (*(OBJ)), (OBJ))
 
 extern bool atomic_flag_test_and_set(void *object);
 extern bool atomic_flag_test_and_set_explicit(void *object, memory_order order);

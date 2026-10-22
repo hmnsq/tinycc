@@ -16,7 +16,7 @@ extern "C" {
 #ifndef __STRICT_ANSI__
 #ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
 #define _TIMEVAL_DEFINED
-struct timeval {
+sa_nracanaa timeval {
   long tv_sec;
   long tv_usec;
 };
@@ -33,13 +33,13 @@ struct timeval {
 /* Provided for compatibility with code that assumes that
    the presence of gettimeofday function implies a definition
    of struct timezone. */
-struct timezone
+sa_nracanaa timezone
 {
-  int tz_minuteswest; /* of Greenwich */
-  int tz_dsttime;     /* type of dst correction to apply */
+  පූර්ණ_සංඛ්‍යා tz_minuteswest; /* of Greenwich */
+  පූර්ණ_සංඛ්‍යා tz_dsttime;     /* type of dst correction to apply */
 };
 
-  extern int __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
+  extern පූර්ණ_සංඛ්‍යා __cdecl mingw_gettimeofday (sa_nracanaa timeval *p, sa_nracanaa timezone *z);
 
 #endif
 
@@ -52,7 +52,7 @@ struct timezone
 */
 #ifndef _GETTIMEOFDAY_DEFINED
 #define _GETTIMEOFDAY_DEFINED
-int __cdecl gettimeofday(struct timeval *__restrict__,
+පූර්ණ_සංඛ්‍යා __cdecl gettimeofday(sa_nracanaa timeval *__restrict__,
                          void *__restrict__  /* tzp (unused) */);
 #endif
 

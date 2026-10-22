@@ -22,23 +22,23 @@
 
 /* stab debug support */
 
-static const struct {
-  int type;
-  int size;
-  int encoding;
-  const char *name;
+static const sa_nracanaa {
+  පූර්ණ_සංඛ්‍යා type;
+  පූර්ණ_සංඛ්‍යා size;
+  පූර්ණ_සංඛ්‍යා encoding;
+  const var_na *name;
 } default_debug[] = {
     {   VT_INT, 4, DW_ATE_signed, "int:t1=r1;-2147483648;2147483647;" },
     {   VT_BYTE, 1, DW_ATE_signed_char, "char:t2=r2;0;127;" },
-#if LONG_SIZE == 4
+#නම් LONG_SIZE == 4
     {   VT_LONG | VT_INT, 4, DW_ATE_signed, "long int:t3=r3;-2147483648;2147483647;" },
-#else
+#නැතහොත්
     {   VT_LLONG | VT_LONG, 8, DW_ATE_signed, "long int:t3=r3;-9223372036854775808;9223372036854775807;" },
 #endif
     {   VT_INT | VT_UNSIGNED, 4, DW_ATE_unsigned, "unsigned int:t4=r4;0;037777777777;" },
-#if LONG_SIZE == 4
+#නම් LONG_SIZE == 4
     {   VT_LONG | VT_INT | VT_UNSIGNED, 4, DW_ATE_unsigned, "long unsigned int:t5=r5;0;037777777777;" },
-#else
+#නැතහොත්
     /* use octal instead of -1 so size_t works (-gstabs+ in gcc) */
     {   VT_LLONG | VT_LONG | VT_UNSIGNED, 8, DW_ATE_unsigned, "long unsigned int:t5=r5;0;01777777777777777777777;" },
 #endif
@@ -54,7 +54,7 @@ static const struct {
     {   VT_DOUBLE, 8, DW_ATE_float, "double:t15=r1;8;0;" },
 #ifdef TCC_USING_DOUBLE_FOR_LDOUBLE
     {   VT_DOUBLE | VT_LONG, 8, DW_ATE_float, "long double:t16=r1;8;0;" },
-#else
+#නැතහොත්
     {   VT_LDOUBLE, 16, DW_ATE_float, "long double:t16=r1;16;0;" },
 #endif
     {   -1, -1, -1, "_Float32:t17=r1;4;0;" },
@@ -69,9 +69,9 @@ static const struct {
     {   VT_BYTE | VT_UNSIGNED, 1, DW_ATE_unsigned_char, "unsigned char:t25=r25;0;255;" },
     /* boolean type */
     {   VT_BOOL, 1, DW_ATE_boolean, "bool:t26=r26;0;255;" },
-#if LONG_SIZE == 4
+#නම් LONG_SIZE == 4
     {   VT_VOID, 1, DW_ATE_unsigned_char, "void:t27=27" },
-#else
+#නැතහොත්
     /* bitfields use these */
     {   VT_LONG | VT_INT, 8, DW_ATE_signed, "long int:t27=r27;-9223372036854775808;9223372036854775807;" },
     {   VT_LONG | VT_INT | VT_UNSIGNED, 8, DW_ATE_unsigned, "long unsigned int:t28=r28;0;01777777777777777777777;" },
@@ -79,7 +79,7 @@ static const struct {
 #endif
 };
 
-#define	N_DEFAULT_DEBUG	(sizeof (default_debug) / sizeof (default_debug[0]))
+#define	N_DEFAULT_DEBUG	(parimaa_na (default_debug) / parimaa_na (default_debug[0]))
 
 /* dwarf debug */
 
@@ -87,11 +87,11 @@ static const struct {
 #define	DWARF_LINE_RANGE			14
 #define	DWARF_OPCODE_BASE			13
 
-#if defined TCC_TARGET_ARM64
+#නම් defined TCC_TARGET_ARM64
 #define	DWARF_MIN_INSTR_LEN			4
 #elif defined TCC_TARGET_ARM
 #define	DWARF_MIN_INSTR_LEN			2
-#else
+#නැතහොත්
 #define	DWARF_MIN_INSTR_LEN			1
 #endif
 
@@ -125,16 +125,16 @@ static const struct {
 /* all entries should have been generated with dwarf_uleb128 except
    has_children. All values are currently below 128 so this currently
    works.  */
-static const unsigned char dwarf_abbrev_init[] = {
+static const unsigned var_na dwarf_abbrev_init[] = {
     DWARF_ABBREV_COMPILE_UNIT, DW_TAG_compile_unit, 1,
           DW_AT_producer, DW_FORM_strp,
           DW_AT_language, DW_FORM_data1,
           DW_AT_name, DW_FORM_line_strp,
           DW_AT_comp_dir, DW_FORM_line_strp,
           DW_AT_low_pc, DW_FORM_addr,
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
           DW_AT_high_pc, DW_FORM_data4,
-#else
+#නැතහොත්
           DW_AT_high_pc, DW_FORM_data8,
 #endif
           DW_AT_stmt_list, DW_FORM_sec_offset,
@@ -252,9 +252,9 @@ static const unsigned char dwarf_abbrev_init[] = {
           DW_AT_decl_line, DW_FORM_udata,
           DW_AT_type, DW_FORM_ref4,
           DW_AT_low_pc, DW_FORM_addr,
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
           DW_AT_high_pc, DW_FORM_data4,
-#else
+#නැතහොත්
           DW_AT_high_pc, DW_FORM_data8,
 #endif
           DW_AT_sibling, DW_FORM_ref4,
@@ -266,9 +266,9 @@ static const unsigned char dwarf_abbrev_init[] = {
           DW_AT_decl_line, DW_FORM_udata,
           DW_AT_type, DW_FORM_ref4,
           DW_AT_low_pc, DW_FORM_addr,
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
           DW_AT_high_pc, DW_FORM_data4,
-#else
+#නැතහොත්
           DW_AT_high_pc, DW_FORM_data8,
 #endif
           DW_AT_sibling, DW_FORM_ref4,
@@ -276,17 +276,17 @@ static const unsigned char dwarf_abbrev_init[] = {
           0, 0,
     DWARF_ABBREV_LEXICAL_BLOCK, DW_TAG_lexical_block, 1,
           DW_AT_low_pc, DW_FORM_addr,
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
           DW_AT_high_pc, DW_FORM_data4,
-#else
+#නැතහොත්
           DW_AT_high_pc, DW_FORM_data8,
 #endif
           0, 0,
     DWARF_ABBREV_LEXICAL_EMPTY_BLOCK, DW_TAG_lexical_block, 0,
           DW_AT_low_pc, DW_FORM_addr,
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
           DW_AT_high_pc, DW_FORM_data4,
-#else
+#නැතහොත්
           DW_AT_high_pc, DW_FORM_data8,
 #endif
           0, 0,
@@ -303,7 +303,7 @@ static const unsigned char dwarf_abbrev_init[] = {
   0
 };
 
-static const unsigned char dwarf_line_opcodes[] = {
+static const unsigned var_na dwarf_line_opcodes[] = {
     0 ,1 ,1 ,1 ,1 ,0 ,0 ,0 ,1 ,0 ,0 ,1
 };
 
@@ -312,98 +312,98 @@ static const unsigned char dwarf_line_opcodes[] = {
 
 #define N_STR_HASH (251)
 
-struct dwarf_str_hash {
-    int len;
+sa_nracanaa dwarf_str_hash {
+    පූර්ණ_සංඛ්‍යා len;
     unsigned long data_offset;
-    struct dwarf_str_hash *next;
+    sa_nracanaa dwarf_str_hash *next;
 };
 
-struct _tccdbg {
+sa_nracanaa _tccdbg {
 
-    int last_line_num, new_file;
-    int section_sym;
+    පූර්ණ_සංඛ්‍යා last_line_num, new_file;
+    පූර්ණ_සංඛ්‍යා section_sym;
 
-    int debug_next_type;
+    පූර්ණ_සංඛ්‍යා debug_next_type;
 
-    struct _debug_hash {
-        int debug_type;
+    sa_nracanaa _debug_hash {
+        පූර්ණ_සංඛ්‍යා debug_type;
         Sym *type;
     } *debug_hash_global, *debug_hash_local;
 
     /* store forward structure/unions types */
-    struct _debug_forw_hash {
+    sa_nracanaa _debug_forw_hash {
         Sym *type;
-        int n_debug_type;
-        int *debug_type;
+        පූර්ණ_සංඛ්‍යා n_debug_type;
+        පූර්ණ_සංඛ්‍යා *debug_type;
     } *debug_forw_hash_global, *debug_forw_hash_local;
 
-    int n_debug_hash_global;
-    int n_debug_hash_local;
-    int n_debug_forw_hash_global;
-    int n_debug_forw_hash_local;
+    පූර්ණ_සංඛ්‍යා n_debug_hash_global;
+    පූර්ණ_සංඛ්‍යා n_debug_hash_local;
+    පූර්ණ_සංඛ්‍යා n_debug_forw_hash_global;
+    පූර්ණ_සංඛ්‍යා n_debug_forw_hash_local;
 
-    struct _debug_info {
-        int start;
-        int end;
-        int last_debug_hash;
-        int last_debug_forw_hash;
-        int n_sym;
-        struct debug_sym {
-            int type;
+    sa_nracanaa _debug_info {
+        පූර්ණ_සංඛ්‍යා start;
+        පූර්ණ_සංඛ්‍යා end;
+        පූර්ණ_සංඛ්‍යා last_debug_hash;
+        පූර්ණ_සංඛ්‍යා last_debug_forw_hash;
+        පූර්ණ_සංඛ්‍යා n_sym;
+        sa_nracanaa debug_sym {
+            පූර්ණ_සංඛ්‍යා type;
             unsigned long value;
-            char *str;
+            var_na *str;
             Section *sec;
-            int sym_index;
-            int info;
-            int file;
-            int line;
+            පූර්ණ_සංඛ්‍යා sym_index;
+            පූර්ණ_සංඛ්‍යා info;
+            පූර්ණ_සංඛ්‍යා file;
+            පූර්ණ_සංඛ්‍යා line;
         } *sym;
-        struct _debug_info *child, *next, *last, *parent;
+        sa_nracanaa _debug_info *child, *next, *last, *parent;
     } *debug_info, *debug_info_root;
 
-    struct {
-        int info;
-        int abbrev;
-        int line;
-        int str;
-        int line_str;
+    sa_nracanaa {
+        පූර්ණ_සංඛ්‍යා info;
+        පූර්ණ_සංඛ්‍යා abbrev;
+        පූර්ණ_සංඛ්‍යා line;
+        පූර්ණ_සංඛ්‍යා str;
+        පූර්ණ_සංඛ්‍යා line_str;
     } dwarf_sym;
 
-    struct {
-        int start;
-        int dir_size;
-        char **dir_table;
-        int filename_size;
-        struct dwarf_filename_struct {
-            int dir_entry;
-            char *name;
+    sa_nracanaa {
+        පූර්ණ_සංඛ්‍යා start;
+        පූර්ණ_සංඛ්‍යා dir_size;
+        var_na **dir_table;
+        පූර්ණ_සංඛ්‍යා filename_size;
+        sa_nracanaa dwarf_filename_struct {
+            පූර්ණ_සංඛ්‍යා dir_entry;
+            var_na *name;
         } *filename_table;
-        int line_size;
-        int line_max_size;
-        unsigned char *line_data;
-        int cur_file;
-        int last_file;
-        int last_pc;
-        int last_line;
+        පූර්ණ_සංඛ්‍යා line_size;
+        පූර්ණ_සංඛ්‍යා line_max_size;
+        unsigned var_na *line_data;
+        පූර්ණ_සංඛ්‍යා cur_file;
+        පූර්ණ_සංඛ්‍යා last_file;
+        පූර්ණ_සංඛ්‍යා last_pc;
+        පූර්ණ_සංඛ්‍යා last_line;
     } dwarf_line;
 
-    struct {
-        int start;
+    sa_nracanaa {
+        පූර්ණ_සංඛ්‍යා start;
         Sym *func;
-        int line;
-        int base_type_used[N_DEFAULT_DEBUG];
+        පූර්ණ_සංඛ්‍යා line;
+        පූර්ණ_සංඛ්‍යා base_type_used[N_DEFAULT_DEBUG];
     } dwarf_info;
 
-    struct dwarf_str_hash *dwarf_str[N_STR_HASH];
-    struct dwarf_str_hash *dwarf_line_str[N_STR_HASH];
+    sa_nracanaa dwarf_str_hash *dwarf_str[N_STR_HASH];
+    sa_nracanaa dwarf_str_hash *dwarf_line_str[N_STR_HASH];
 
     /* test coverage */
-    struct {
+    sa_nracanaa {
         unsigned long offset;
         unsigned long last_file_name;
         unsigned long last_func_name;
-        int ind;
-        int line;
+        පූර්ණ_සංඛ්‍යා ind;
+        පූර්ණ_සංඛ්‍යා line;
     } tcov_data;
 };
 
@@ -431,28 +431,28 @@ struct _tccdbg {
 #define	FDE_ENCODING        (DW_EH_PE_udata4 | DW_EH_PE_signed | DW_EH_PE_pcrel)
 
 /* ------------------------------------------------------------------------- */
-static int put_stabs(TCCState *s1, const char *str, int type, int other,
-    int desc, unsigned long value);
+static පූර්ණ_සංඛ්‍යා put_stabs(TCCState *s1, const var_na *str, පූර්ණ_සංඛ්‍යා type, පූර්ණ_සංඛ්‍යා other,
+    පූර්ණ_සංඛ්‍යා desc, unsigned long value);
 
 ST_FUNC void tcc_debug_new(TCCState *s1)
 {
-    int shf = 0;
-    if (!s1->dState)
-        s1->dState = tcc_mallocz(sizeof *s1->dState);
+    පූර්ණ_සංඛ්‍යා shf = 0;
+    නම් (!s1->dState)
+        s1->dState = tcc_mallocz(parimaa_na *s1->dState);
 
 #ifdef CONFIG_TCC_BACKTRACE
     /* include stab info with standalone backtrace support */
-    if (s1->do_debug && s1->output_type == TCC_OUTPUT_MEMORY)
+    නම් (s1->do_debug && s1->output_type == TCC_OUTPUT_MEMORY)
         s1->do_backtrace = 1;
-    if (s1->do_backtrace)
+    නම් (s1->do_backtrace)
         shf = SHF_ALLOC; /* have debug data available at runtime */
 #endif
 
-    if (s1->dwarf) {
-	int i;
+    නම් (s1->dwarf) {
+	පූර්ණ_සංඛ්‍යා i;
 	/* The sections below are just to make reloctions with
 	   R_DATA_32DW work correctly. See tccelf.c */
-	static const char *const debug[] = {
+	static const var_na *const debug[] = {
 	    ".debug_macro",
 	    ".debug_loc",
 	    ".debug_ranges",
@@ -471,7 +471,7 @@ ST_FUNC void tcc_debug_new(TCCState *s1)
 	    new_section(s1, ".debug_line", SHT_PROGBITS, shf);
         dwarf_aranges_section =
 	    new_section(s1, ".debug_aranges", SHT_PROGBITS, shf);
-	for (i = 0; i < sizeof(debug)/sizeof(debug[0]); i++)
+	සඳහා (i = 0; i < parimaa_na(debug)/parimaa_na(debug[0]); i++)
 	    new_section(s1, debug[i], SHT_PROGBITS, 0)->sh_addralign = 1;
 	shf |= SHF_MERGE | SHF_STRINGS;
         dwarf_str_section =
@@ -482,7 +482,7 @@ ST_FUNC void tcc_debug_new(TCCState *s1)
 	dwarf_line_section->sh_addralign =
 	dwarf_aranges_section->sh_addralign =
 	dwarf_str_section->sh_addralign = 1;
-	if (s1->dwarf >= 5) {
+	නම් (s1->dwarf >= 5) {
             dwarf_line_str_section =
 	        new_section(s1, ".debug_line_str", SHT_PROGBITS, shf);
 	    dwarf_line_str_section->sh_entsize = 1;
@@ -490,11 +490,11 @@ ST_FUNC void tcc_debug_new(TCCState *s1)
 	}
         s1->dwhi = s1->nb_sections;
     }
-    else
+    නැතහොත්
     {
         stab_section = new_section(s1, ".stab", SHT_PROGBITS, shf);
-        stab_section->sh_entsize = sizeof(Stab_Sym);
-        stab_section->sh_addralign = sizeof ((Stab_Sym*)0)->n_value;
+        stab_section->sh_entsize = parimaa_na(Stab_Sym);
+        stab_section->sh_addralign = parimaa_na ((Stab_Sym*)0)->n_value;
         stab_section->link = new_section(s1, ".stabstr", SHT_STRTAB, shf);
         /* put first entry */
         put_stabs(s1, "", 0, 0, 0, 0);
@@ -502,46 +502,46 @@ ST_FUNC void tcc_debug_new(TCCState *s1)
 }
 
 /* put stab debug information */
-static int put_stabs(TCCState *s1, const char *str, int type, int other, int desc,
+static පූර්ණ_සංඛ්‍යා put_stabs(TCCState *s1, const var_na *str, පූර්ණ_සංඛ්‍යා type, පූර්ණ_සංඛ්‍යා other, පූර්ණ_සංඛ්‍යා desc,
                       unsigned long value)
 {
     Stab_Sym *sym;
 
     unsigned offset;
-    if (type == N_SLINE
+    නම් (type == N_SLINE
         && (offset = stab_section->data_offset)
         && (sym = (Stab_Sym*)(stab_section->data + offset) - 1)
         && sym->n_type == type
         && sym->n_value == value) {
         /* just update line_number in previous entry */
         sym->n_desc = desc;
-        return 0;
+        ආපසු 0;
     }
 
-    sym = section_ptr_add(stab_section, sizeof(Stab_Sym));
-    if (str) {
+    sym = section_ptr_add(stab_section, parimaa_na(Stab_Sym));
+    නම් (str) {
         sym->n_strx = put_elf_str(stab_section->link, str);
-    } else {
+    } නැතහොත් {
         sym->n_strx = 0;
     }
     sym->n_type = type;
     sym->n_other = other;
     sym->n_desc = desc;
     sym->n_value = value;
-    return 1;
+    ආපසු 1;
 }
 
-static void put_stabs_r(TCCState *s1, const char *str, int type, int other, int desc,
-                        unsigned long value, Section *sec, int sym_index)
+static void put_stabs_r(TCCState *s1, const var_na *str, පූර්ණ_සංඛ්‍යා type, පූර්ණ_සංඛ්‍යා other, පූර්ණ_සංඛ්‍යා desc,
+                        unsigned long value, Section *sec, පූර්ණ_සංඛ්‍යා sym_index)
 {
-    if (put_stabs(s1, str, type, other, desc, value))
+    නම් (put_stabs(s1, str, type, other, desc, value))
         put_elf_reloc(symtab_section, stab_section,
                       stab_section->data_offset - 4,
-                      sizeof ((Stab_Sym*)0)->n_value == PTR_SIZE ? R_DATA_PTR : R_DATA_32,
+                      parimaa_na ((Stab_Sym*)0)->n_value == PTR_SIZE ? R_DATA_PTR : R_DATA_32,
                       sym_index);
 }
 
-static void put_stabn(TCCState *s1, int type, int other, int desc, int value)
+static void put_stabn(TCCState *s1, පූර්ණ_සංඛ්‍යා type, පූර්ණ_සංඛ්‍යා other, පූර්ණ_සංඛ්‍යා desc, පූර්ණ_සංඛ්‍යා value)
 {
     put_stabs(s1, NULL, type, other, desc, value);
 }
@@ -556,27 +556,27 @@ static void put_stabn(TCCState *s1, int type, int other, int desc, int value)
 #define	dwarf_data8(s,data) \
 	write64le(section_ptr_add((s), 8), (data))
 
-static int dwarf_get_section_sym(Section *s)
+static පූර්ණ_සංඛ්‍යා dwarf_get_section_sym(Section *s)
 {
     TCCState *s1 = s->s1;
-    return put_elf_sym(symtab_section, 0, 0,
+    ආපසු put_elf_sym(symtab_section, 0, 0,
                        ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
                        s->sh_num, NULL);
 }
 
-static void dwarf_reloc(Section *s, int sym, int rel)
+static void dwarf_reloc(Section *s, පූර්ණ_සංඛ්‍යා sym, පූර්ණ_සංඛ්‍යා rel)
 {
     TCCState *s1 = s->s1;
     put_elf_reloca(symtab_section, s, s->data_offset, rel, sym, 0);
 }
 
-static void free_str(struct dwarf_str_hash **str)
+static void free_str(sa_nracanaa dwarf_str_hash **str)
 {
-    int i;
+    පූර්ණ_සංඛ්‍යා i;
 
-    for (i = 0; i < N_STR_HASH; i++) {
-       while (str[i]) {
-           struct dwarf_str_hash *next = str[i]->next;
+    සඳහා (i = 0; i < N_STR_HASH; i++) {
+       අතරතුර (str[i]) {
+           sa_nracanaa dwarf_str_hash *next = str[i]->next;
 
            tcc_free(str[i]);
            str[i] = next;
@@ -584,52 +584,52 @@ static void free_str(struct dwarf_str_hash **str)
     }
 }
 
-static unsigned str_hash(const char *s)
+static unsigned str_hash(const var_na *s)
 {
     unsigned h = 5381;
 
-    while (*s)
+    අතරතුර (*s)
        h += (*s++ & 0xffu) + h * 31;
-    return h;
+    ආපසු h;
 }
 
-static void dwarf_string(Section *s, Section *dw, int sym, const char *str)
+static void dwarf_string(Section *s, Section *dw, පූර්ණ_සංඛ්‍යා sym, const var_na *str)
 {
     TCCState *s1 = s->s1;
-    int len, hash = str_hash(str) % N_STR_HASH;
-    char *ptr;
-    struct dwarf_str_hash *new_hash;
-    struct dwarf_str_hash **dw_hash =
+    පූර්ණ_සංඛ්‍යා len, hash = str_hash(str) % N_STR_HASH;
+    var_na *ptr;
+    sa_nracanaa dwarf_str_hash *new_hash;
+    sa_nracanaa dwarf_str_hash **dw_hash =
 	dw == dwarf_str_section ? dwarf_str : dwarf_line_str;
 
     len = strlen(str) + 1;
     new_hash = dw_hash[hash];
-    while (new_hash) {
-	if (new_hash->len == len &&
+    අතරතුර (new_hash) {
+	නම් (new_hash->len == len &&
 	    !memcmp(str, dw->data + new_hash->data_offset, len))
-	    break;
+	    bha_nga;
 	new_hash = new_hash->next;
     }
-    if (new_hash == NULL) {
+    නම් (new_hash == NULL) {
 	unsigned long offset = dw->data_offset;
 
         new_hash = dw_hash[hash];
-        while (new_hash) {
+        අතරතුර (new_hash) {
 	    unsigned long n = new_hash->data_offset + new_hash->len - len;
 
-	    if (new_hash->len > len &&
+	    නම් (new_hash->len > len &&
 	        !memcmp(str, dw->data + n, len)) {
 		offset = n;
-		break;
+		bha_nga;
 	    }
 	    new_hash = new_hash->next;
         }
-	if (new_hash == NULL) {
+	නම් (new_hash == NULL) {
 	    ptr = section_ptr_add(dw, len);
 	    memmove(ptr, str, len);
 	}
-	new_hash = (struct dwarf_str_hash *)
-	    tcc_malloc(sizeof(struct dwarf_str_hash));
+	new_hash = (sa_nracanaa dwarf_str_hash *)
+	    tcc_malloc(parimaa_na(sa_nracanaa dwarf_str_hash));
 	new_hash->len = len;
 	new_hash->data_offset = offset;
 	new_hash->next = dw_hash[hash];
@@ -640,24 +640,24 @@ static void dwarf_string(Section *s, Section *dw, int sym, const char *str)
     dwarf_data4(s, PTR_SIZE == 4 ? new_hash->data_offset : 0);
 }
 
-static void dwarf_strp(Section *s, const char *str)
+static void dwarf_strp(Section *s, const var_na *str)
 {
     TCCState *s1 = s->s1;
     dwarf_string(s, dwarf_str_section, dwarf_sym.str, str);
 }
 
-static void dwarf_line_strp(Section *s, const char *str)
+static void dwarf_line_strp(Section *s, const var_na *str)
 {
     TCCState *s1 = s->s1;
     dwarf_string(s, dwarf_line_str_section, dwarf_sym.line_str, str);
 }
 
-static void dwarf_line_op(TCCState *s1, unsigned char op)
+static void dwarf_line_op(TCCState *s1, unsigned var_na op)
 {
-    if (dwarf_line.line_size >= dwarf_line.line_max_size) {
+    නම් (dwarf_line.line_size >= dwarf_line.line_max_size) {
 	dwarf_line.line_max_size += 1024;
 	dwarf_line.line_data =
-	    (unsigned char *)tcc_realloc(dwarf_line.line_data,
+	    (unsigned var_na *)tcc_realloc(dwarf_line.line_data,
 					 dwarf_line.line_max_size);
     }
     dwarf_line.line_data[dwarf_line.line_size++] = op;
@@ -665,150 +665,150 @@ static void dwarf_line_op(TCCState *s1, unsigned char op)
 
 static void dwarf_file(TCCState *s1)
 {
-    int i, j;
-    char *filename;
-    int index_offset = s1->dwarf < 5;
+    පූර්ණ_සංඛ්‍යා i, j;
+    var_na *filename;
+    පූර්ණ_සංඛ්‍යා index_offset = s1->dwarf < 5;
 
-    if (!strcmp(file->filename, "<command line>")) {
+    නම් (!strcmp(file->filename, "<command line>")) {
         dwarf_line.cur_file = 1;
-	return;
+	ආපසු;
     }
     filename = strrchr(file->filename, '/');
-    if (filename == NULL) {
-        for (i = 1; i < dwarf_line.filename_size; i++)
-            if (dwarf_line.filename_table[i].dir_entry == 0 &&
+    නම් (filename == NULL) {
+        සඳහා (i = 1; i < dwarf_line.filename_size; i++)
+            නම් (dwarf_line.filename_table[i].dir_entry == 0 &&
 		strcmp(dwarf_line.filename_table[i].name,
 		       file->filename) == 0) {
 		    dwarf_line.cur_file = i + index_offset;
-	            return;
+	            ආපසු;
 		}
 	i = -index_offset;
 	filename = file->filename;
     }
-    else {
-	char *undo = filename;
-	char *dir = file->filename;
+    නැතහොත් {
+	var_na *undo = filename;
+	var_na *dir = file->filename;
 
 	*filename++ = '\0';
-        for (i = 0; i < dwarf_line.dir_size; i++)
-	    if (strcmp(dwarf_line.dir_table[i], dir) == 0) {
-		for (j = 1; j < dwarf_line.filename_size; j++)
-		    if (dwarf_line.filename_table[j].dir_entry - index_offset
+        සඳහා (i = 0; i < dwarf_line.dir_size; i++)
+	    නම් (strcmp(dwarf_line.dir_table[i], dir) == 0) {
+		සඳහා (j = 1; j < dwarf_line.filename_size; j++)
+		    නම් (dwarf_line.filename_table[j].dir_entry - index_offset
 			== i &&
 			strcmp(dwarf_line.filename_table[j].name,
 			       filename) == 0) {
 			*undo = '/';
 		        dwarf_line.cur_file = j + index_offset;
-			return;
+			ආපසු;
 		    }
-		break;
+		bha_nga;
 	    }
-	if (i == dwarf_line.dir_size) {
+	නම් (i == dwarf_line.dir_size) {
 	    dwarf_line.dir_size++;
 	    dwarf_line.dir_table =
-                (char **) tcc_realloc(dwarf_line.dir_table,
+                (var_na **) tcc_realloc(dwarf_line.dir_table,
                                       dwarf_line.dir_size *
-                                      sizeof (char *));
+                                      parimaa_na (var_na *));
             dwarf_line.dir_table[i] = tcc_strdup(dir);
 	}
 	*undo = '/';
     }
     dwarf_line.filename_table =
-        (struct dwarf_filename_struct *)
+        (sa_nracanaa dwarf_filename_struct *)
         tcc_realloc(dwarf_line.filename_table,
                     (dwarf_line.filename_size + 1) *
-                    sizeof (struct dwarf_filename_struct));
+                    parimaa_na (sa_nracanaa dwarf_filename_struct));
     dwarf_line.filename_table[dwarf_line.filename_size].dir_entry =
 	i + index_offset;
     dwarf_line.filename_table[dwarf_line.filename_size].name =
         tcc_strdup(filename);
     dwarf_line.cur_file = dwarf_line.filename_size++ + index_offset;
-    return;
+    ආපසු;
 }
 
-#if 0
-static int dwarf_uleb128_size (unsigned long long value)
+#නම් 0
+static පූර්ණ_සංඛ්‍යා dwarf_uleb128_size (unsigned long long value)
 {
-    int size =  0;
+    පූර්ණ_සංඛ්‍යා size =  0;
 
     do {
         value >>= 7;
         size++;
-    } while (value != 0);
-    return size;
+    } අතරතුර (value != 0);
+    ආපසු size;
 }
 #endif
 
-static int dwarf_sleb128_size (long long value)
+static පූර්ණ_සංඛ්‍යා dwarf_sleb128_size (long long value)
 {
-    int size =  0;
+    පූර්ණ_සංඛ්‍යා size =  0;
     long long end = value >> 63;
-    unsigned char last = end & 0x40;
-    unsigned char byte;
+    unsigned var_na last = end & 0x40;
+    unsigned var_na byte;
 
     do {
         byte = value & 0x7f;
         value >>= 7;
         size++;
-    } while (value != end || (byte & 0x40) != last);
-    return size;
+    } අතරතුර (value != end || (byte & 0x40) != last);
+    ආපසු size;
 }
 
 static void dwarf_uleb128 (Section *s, unsigned long long value)
 {
     do {
-        unsigned char byte = value & 0x7f;
+        unsigned var_na byte = value & 0x7f;
 
         value >>= 7;
         dwarf_data1(s, byte | (value ? 0x80 : 0));
-    } while (value != 0);
+    } අතරතුර (value != 0);
 }
 
 static void dwarf_sleb128 (Section *s, long long value)
 {
-    int more;
+    පූර්ණ_සංඛ්‍යා more;
     long long end = value >> 63;
-    unsigned char last = end & 0x40;
+    unsigned var_na last = end & 0x40;
 
     do {
-        unsigned char byte = value & 0x7f;
+        unsigned var_na byte = value & 0x7f;
 
         value >>= 7;
 	more = value != end || (byte & 0x40) != last;
         dwarf_data1(s, byte | (0x80 * more));
-    } while (more);
+    } අතරතුර (more);
 }
 
 static void dwarf_uleb128_op (TCCState *s1, unsigned long long value)
 {
     do {
-        unsigned char byte = value & 0x7f;
+        unsigned var_na byte = value & 0x7f;
 
         value >>= 7;
         dwarf_line_op(s1, byte | (value ? 0x80 : 0));
-    } while (value != 0);
+    } අතරතුර (value != 0);
 }
 
 static void dwarf_sleb128_op (TCCState *s1, long long value)
 {
-    int more;
+    පූර්ණ_සංඛ්‍යා more;
     long long end = value >> 63;
-    unsigned char last = end & 0x40;
+    unsigned var_na last = end & 0x40;
 
     do {
-        unsigned char byte = value & 0x7f;
+        unsigned var_na byte = value & 0x7f;
 
         value >>= 7;
         more = value != end || (byte & 0x40) != last;
         dwarf_line_op(s1, byte | (0x80 * more));
-    } while (more);
+    } අතරතුර (more);
 }
 
-#if TCC_EH_FRAME
+#නම් TCC_EH_FRAME
 ST_FUNC void tcc_eh_frame_start(TCCState *s1)
 {
-    if (!s1->unwind_tables)
-        return;
+    නම් (!s1->unwind_tables)
+        ආපසු;
     eh_frame_section = new_section(s1, ".eh_frame", SHT_PROGBITS, SHF_ALLOC);
 
     s1->eh_start = eh_frame_section->data_offset;
@@ -818,7 +818,7 @@ ST_FUNC void tcc_eh_frame_start(TCCState *s1)
     dwarf_data1(eh_frame_section, 'z'); // Augmentation String
     dwarf_data1(eh_frame_section, 'R');
     dwarf_data1(eh_frame_section, 0);
-#if defined TCC_TARGET_I386
+#නම් defined TCC_TARGET_I386
     dwarf_uleb128(eh_frame_section, 1); // code_alignment_factor
     dwarf_sleb128(eh_frame_section, -4); // data_alignment_factor
     dwarf_uleb128(eh_frame_section, 8); // return address column
@@ -871,25 +871,25 @@ ST_FUNC void tcc_eh_frame_start(TCCState *s1)
     dwarf_uleb128(eh_frame_section, 2); // r2 (sp)
     dwarf_uleb128(eh_frame_section, 0); // ofs 0
 #endif
-    while ((eh_frame_section->data_offset - s1->eh_start) & 3)
+    අතරතුර ((eh_frame_section->data_offset - s1->eh_start) & 3)
 	dwarf_data1(eh_frame_section, DW_CFA_nop);
     write32le(eh_frame_section->data + s1->eh_start, // length
 	      eh_frame_section->data_offset - s1->eh_start - 4);
 }
 
-static void tcc_debug_frame_end(TCCState *s1, int size)
+static void tcc_debug_frame_end(TCCState *s1, පූර්ණ_සංඛ්‍යා size)
 {
-    int eh_section_sym;
+    පූර්ණ_සංඛ්‍යා eh_section_sym;
     unsigned long fde_start;
 
-    if (!eh_frame_section)
-	return;
+    නම් (!eh_frame_section)
+	ආපසු;
     eh_section_sym = dwarf_get_section_sym(text_section);
     fde_start = eh_frame_section->data_offset;
     dwarf_data4(eh_frame_section, 0); // length
     dwarf_data4(eh_frame_section,
 		fde_start - s1->eh_start + 4); // CIE Pointer
-#if defined TCC_TARGET_I386
+#නම් defined TCC_TARGET_I386
     dwarf_reloc(eh_frame_section, eh_section_sym, R_386_PC32);
 #elif defined TCC_TARGET_X86_64
     dwarf_reloc(eh_frame_section, eh_section_sym, R_X86_64_PC32);
@@ -903,7 +903,7 @@ static void tcc_debug_frame_end(TCCState *s1, int size)
     dwarf_data4(eh_frame_section, func_ind); // PC Begin
     dwarf_data4(eh_frame_section, size); // PC Range
     dwarf_data1(eh_frame_section, 0); // Augmentation Length
-#if defined TCC_TARGET_I386
+#නම් defined TCC_TARGET_I386
     dwarf_data1(eh_frame_section, DW_CFA_advance_loc + 1);
     dwarf_data1(eh_frame_section, DW_CFA_def_cfa_offset);
     dwarf_uleb128(eh_frame_section, 8);
@@ -976,7 +976,7 @@ static void tcc_debug_frame_end(TCCState *s1, int size)
     dwarf_uleb128(eh_frame_section, 8); // r8 (s0, fp)
     dwarf_uleb128(eh_frame_section, 0); // ofs 0
     dwarf_data1(eh_frame_section, DW_CFA_advance_loc4);
-    while (size >= 4 &&
+    අතරතුර (size >= 4 &&
 	   read32le(cur_text_section->data + func_ind + size - 4) != 0x00008067)
 	size -= 4;
     dwarf_data4(eh_frame_section, size - 36);
@@ -991,7 +991,7 @@ static void tcc_debug_frame_end(TCCState *s1, int size)
     dwarf_data1(eh_frame_section, DW_CFA_def_cfa_offset);
     dwarf_uleb128(eh_frame_section, 0); // ofs 0
 #endif
-    while ((eh_frame_section->data_offset - fde_start) & 3)
+    අතරතුර ((eh_frame_section->data_offset - fde_start) & 3)
 	dwarf_data1(eh_frame_section, DW_CFA_nop);
     write32le(eh_frame_section->data + fde_start, // length
 	      eh_frame_section->data_offset - fde_start - 4);
@@ -999,36 +999,36 @@ static void tcc_debug_frame_end(TCCState *s1, int size)
 
 ST_FUNC void tcc_eh_frame_end(TCCState *s1)
 {
-    if (!eh_frame_section)
-	return;
+    නම් (!eh_frame_section)
+	ආපසු;
     dwarf_data4(eh_frame_section, 0);
 }
 
-struct eh_search_table {
+sa_nracanaa eh_search_table {
     uint32_t pc_offset;
     uint32_t fde_offset;
 };
 
-static int sort_eh_table(const void *a, const void *b)
+static පූර්ණ_සංඛ්‍යා sort_eh_table(const void *a, const void *b)
 {
-    uint32_t pc1 = ((const struct eh_search_table *)a)->pc_offset;
-    uint32_t pc2 = ((const struct eh_search_table *)b)->pc_offset;
+    uint32_t pc1 = ((const sa_nracanaa eh_search_table *)a)->pc_offset;
+    uint32_t pc2 = ((const sa_nracanaa eh_search_table *)b)->pc_offset;
 
-    return pc1 < pc2 ? -1 : pc1 > pc2 ? 1 : 0;
+    ආපසු pc1 < pc2 ? -1 : pc1 > pc2 ? 1 : 0;
 }
 
-ST_FUNC void tcc_eh_frame_hdr(TCCState *s1, int final)
+ST_FUNC void tcc_eh_frame_hdr(TCCState *s1, පූර්ණ_සංඛ්‍යා final)
 {
-    int count = 0, offset;
+    පූර්ණ_සංඛ්‍යා count = 0, offset;
     unsigned long count_offset, tab_offset;
-    unsigned char *ln, *end;
-    unsigned int last_cie_offset = 0xffffffff;
+    unsigned var_na *ln, *end;
+    unsigned පූර්ණ_සංඛ්‍යා last_cie_offset = 0xffffffff;
 
-    if (!eh_frame_section || !eh_frame_section->data_offset)
-	return;
-    if (final && !eh_frame_hdr_section)
-	return;
-    if (final == 0)
+    නම් (!eh_frame_section || !eh_frame_section->data_offset)
+	ආපසු;
+    නම් (final && !eh_frame_hdr_section)
+	ආපසු;
+    නම් (final == 0)
         eh_frame_hdr_section =
 	    new_section(s1, ".eh_frame_hdr", SHT_PROGBITS, SHF_ALLOC);
     eh_frame_hdr_section->data_offset = 0;
@@ -1049,37 +1049,37 @@ ST_FUNC void tcc_eh_frame_hdr(TCCState *s1, int final)
     tab_offset = eh_frame_hdr_section->data_offset;
     ln = eh_frame_section->data;
     end = eh_frame_section->data + eh_frame_section->data_offset;
-    while (ln < end) {
-	unsigned char *fde = ln, *rd = ln;
-	unsigned int cie_offset, version, length = dwarf_read_4(rd, end);
-	unsigned int pc_offset, fde_offset;
+    අතරතුර (ln < end) {
+	unsigned var_na *fde = ln, *rd = ln;
+	unsigned පූර්ණ_සංඛ්‍යා cie_offset, version, length = dwarf_read_4(rd, end);
+	unsigned පූර්ණ_සංඛ්‍යා pc_offset, fde_offset;
 
-	if (length == 0)
+	නම් (length == 0)
 	    goto next;
         cie_offset = dwarf_read_4(rd, end);
-	if (cie_offset == 0)
+	නම් (cie_offset == 0)
 	    goto next;
-	if (cie_offset != last_cie_offset) {
-	    unsigned char *cie = rd - cie_offset + 4;
+	නම් (cie_offset != last_cie_offset) {
+	    unsigned var_na *cie = rd - cie_offset + 4;
 
-	    if (cie < eh_frame_section->data)
+	    නම් (cie < eh_frame_section->data)
 		goto next;
 	    version = dwarf_read_1(cie, end);
-	    if ((version == 1 || version == 3) &&
+	    නම් ((version == 1 || version == 3) &&
 	        dwarf_read_1(cie, end) == 'z' && // Augmentation String
 		dwarf_read_1(cie, end) == 'R' &&
 		dwarf_read_1(cie, end) == 0) {
 	        dwarf_read_uleb128(&cie, end); // code_alignment_factor
 	        dwarf_read_sleb128(&cie, end); // data_alignment_factor
 		dwarf_read_1(cie, end); // return address column
-		if (dwarf_read_uleb128(&cie, end) == 1 &&
+		නම් (dwarf_read_uleb128(&cie, end) == 1 &&
 		    dwarf_read_1(cie, end) == FDE_ENCODING) {
 		    last_cie_offset = cie_offset;
 		}
-		else
+		නැතහොත්
 		    goto next;
 	    }
-	    else
+	    නැතහොත්
 		goto next;
 	}
 	count++;
@@ -1094,16 +1094,16 @@ next:
     }
     add32le(eh_frame_hdr_section->data + count_offset, count);
     qsort(eh_frame_hdr_section->data + tab_offset, count,
-	  sizeof(struct eh_search_table), sort_eh_table);
+	  parimaa_na(sa_nracanaa eh_search_table), sort_eh_table);
 }
 #endif
 
 /* start of translation unit info */
 ST_FUNC void tcc_debug_start(TCCState *s1)
 {
-    int i;
-    char buf[512];
-    char *filename;
+    පූර්ණ_සංඛ්‍යා i;
+    var_na buf[512];
+    var_na *filename;
 
     /* we might currently #include the <command-line> */
     filename = file->prev ? file->prev->filename : file->filename;
@@ -1114,7 +1114,7 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
                 ELFW(ST_INFO)(STB_LOCAL, STT_FILE), 0,
                 SHN_ABS, filename);
 
-    if (s1->do_debug) {
+    නම් (s1->do_debug) {
         /* put a "mapping symbol" '$a' for llvm-objdump etc. tools needed
            to make them disassemble again when crt1.o had a '$d' before */
         put_elf_sym(symtab_section, text_section->data_offset, 0,
@@ -1132,35 +1132,35 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
         n_debug_forw_hash_global = 0;
         n_debug_forw_hash_local = 0;
 
-        getcwd(buf, sizeof(buf));
+        getcwd(buf, parimaa_na(buf));
 #ifdef _WIN32
         normalize_slashes(buf);
 #endif
 
-        if (s1->dwarf) {
-            int start_abbrev;
-            unsigned char *ptr;
-	    char *undo;
+        නම් (s1->dwarf) {
+            පූර්ණ_සංඛ්‍යා start_abbrev;
+            unsigned var_na *ptr;
+	    var_na *undo;
 
             /* dwarf_abbrev */
             start_abbrev = dwarf_abbrev_section->data_offset;
-            ptr = section_ptr_add(dwarf_abbrev_section, sizeof(dwarf_abbrev_init));
-            memcpy(ptr, dwarf_abbrev_init, sizeof(dwarf_abbrev_init));
+            ptr = section_ptr_add(dwarf_abbrev_section, parimaa_na(dwarf_abbrev_init));
+            memcpy(ptr, dwarf_abbrev_init, parimaa_na(dwarf_abbrev_init));
 
-            if (s1->dwarf < 5) {
-    	        while (*ptr) {
+            නම් (s1->dwarf < 5) {
+    	        අතරතුර (*ptr) {
     	            ptr += 3;
-    	            while (*ptr) {
-    	                if (ptr[1] == DW_FORM_line_strp)
+    	            අතරතුර (*ptr) {
+    	                නම් (ptr[1] == DW_FORM_line_strp)
     		            ptr[1] = DW_FORM_strp;
-		        if (s1->dwarf < 4) {
+		        නම් (s1->dwarf < 4) {
 			    /* These are compatable for DW_TAG_compile_unit
 			       DW_AT_stmt_list. */
-			    if  (ptr[1] == DW_FORM_sec_offset)
+			    නම්  (ptr[1] == DW_FORM_sec_offset)
 			         ptr[1] = DW_FORM_data4;
 			    /* This code uses only size < 0x80 so these are
 			       compatible. */
-			    if  (ptr[1] == DW_FORM_exprloc)
+			    නම්  (ptr[1] == DW_FORM_exprloc)
 			         ptr[1] = DW_FORM_block1;
 			}
     	                ptr += 2;
@@ -1173,9 +1173,9 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
             dwarf_sym.abbrev = dwarf_get_section_sym(dwarf_abbrev_section);
             dwarf_sym.line = dwarf_get_section_sym(dwarf_line_section);
             dwarf_sym.str = dwarf_get_section_sym(dwarf_str_section);
-            if (tcc_state->dwarf >= 5)
+            නම් (tcc_state->dwarf >= 5)
     	        dwarf_sym.line_str = dwarf_get_section_sym(dwarf_line_str_section);
-            else {
+            නැතහොත් {
     	        dwarf_line_str_section = dwarf_str_section;
                 dwarf_sym.line_str = dwarf_sym.str;
             }
@@ -1185,13 +1185,13 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
             dwarf_info.start = dwarf_info_section->data_offset;
             dwarf_data4(dwarf_info_section, 0); // size
             dwarf_data2(dwarf_info_section, s1->dwarf); // version
-            if (s1->dwarf >= 5) {
+            නම් (s1->dwarf >= 5) {
                 dwarf_data1(dwarf_info_section, DW_UT_compile); // unit type
                 dwarf_data1(dwarf_info_section, PTR_SIZE);
                 dwarf_reloc(dwarf_info_section, dwarf_sym.abbrev, R_DATA_32DW);
                 dwarf_data4(dwarf_info_section, start_abbrev);
             }
-            else {
+            නැතහොත් {
                 dwarf_reloc(dwarf_info_section, dwarf_sym.abbrev, R_DATA_32DW);
                 dwarf_data4(dwarf_info_section, start_abbrev);
                 dwarf_data1(dwarf_info_section, PTR_SIZE);
@@ -1203,10 +1203,10 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
             dwarf_line_strp(dwarf_info_section, filename);
             dwarf_line_strp(dwarf_info_section, buf);
             dwarf_reloc(dwarf_info_section, section_sym, R_DATA_PTR);
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
             dwarf_data4(dwarf_info_section, ind); // low pc
             dwarf_data4(dwarf_info_section, 0); // high pc
-#else
+#නැතහොත්
             dwarf_data8(dwarf_info_section, ind); // low pc
             dwarf_data8(dwarf_info_section, 0); // high pc
 #endif
@@ -1217,41 +1217,41 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
             dwarf_line.start = dwarf_line_section->data_offset;
             dwarf_data4(dwarf_line_section, 0); // length
             dwarf_data2(dwarf_line_section, s1->dwarf); // version
-            if (s1->dwarf >= 5) {
+            නම් (s1->dwarf >= 5) {
                 dwarf_data1(dwarf_line_section, PTR_SIZE); // address size
                 dwarf_data1(dwarf_line_section, 0); // segment selector
             }
             dwarf_data4(dwarf_line_section, 0); // prologue Length
             dwarf_data1(dwarf_line_section, DWARF_MIN_INSTR_LEN);
-            if (s1->dwarf >= 4)
+            නම් (s1->dwarf >= 4)
                 dwarf_data1(dwarf_line_section, 1); // maximum ops per instruction
             dwarf_data1(dwarf_line_section, 1); // Initial value of 'is_stmt'
             dwarf_data1(dwarf_line_section, DWARF_LINE_BASE);
             dwarf_data1(dwarf_line_section, DWARF_LINE_RANGE);
             dwarf_data1(dwarf_line_section, DWARF_OPCODE_BASE);
-            ptr = section_ptr_add(dwarf_line_section, sizeof(dwarf_line_opcodes));
-            memcpy(ptr, dwarf_line_opcodes, sizeof(dwarf_line_opcodes));
+            ptr = section_ptr_add(dwarf_line_section, parimaa_na(dwarf_line_opcodes));
+            memcpy(ptr, dwarf_line_opcodes, parimaa_na(dwarf_line_opcodes));
 	    undo = strrchr(filename, '/');
-	    if (undo)
+	    නම් (undo)
 		*undo = 0;
             dwarf_line.dir_size = 1 + (undo != NULL);
-            dwarf_line.dir_table = (char **) tcc_malloc(sizeof (char *) *
+            dwarf_line.dir_table = (var_na **) tcc_malloc(parimaa_na (var_na *) *
 							dwarf_line.dir_size);
             dwarf_line.dir_table[0] = tcc_strdup(buf);
-	    if (undo)
+	    නම් (undo)
                 dwarf_line.dir_table[1] = tcc_strdup(filename);
             dwarf_line.filename_size = 2;
             dwarf_line.filename_table =
-    	        (struct dwarf_filename_struct *)
-    	        tcc_malloc(2*sizeof (struct dwarf_filename_struct));
+    	        (sa_nracanaa dwarf_filename_struct *)
+    	        tcc_malloc(2*parimaa_na (sa_nracanaa dwarf_filename_struct));
             dwarf_line.filename_table[0].dir_entry = 0;
-	    if (undo) {
+	    නම් (undo) {
                 dwarf_line.filename_table[0].name = tcc_strdup(undo + 1);
                 dwarf_line.filename_table[1].dir_entry = 1;
                 dwarf_line.filename_table[1].name = tcc_strdup(undo + 1);
 		*undo = '/';
 	    }
-	    else {
+	    නැතහොත් {
                 dwarf_line.filename_table[0].name = tcc_strdup(filename);
                 dwarf_line.filename_table[1].dir_entry = 0;
                 dwarf_line.filename_table[1].name = tcc_strdup(filename);
@@ -1265,14 +1265,14 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
             dwarf_line_op(s1, 0); // extended
             dwarf_uleb128_op(s1, 1 + PTR_SIZE); // extended size
             dwarf_line_op(s1, DW_LNE_set_address);
-            for (i = 0; i < PTR_SIZE; i++)
+            සඳහා (i = 0; i < PTR_SIZE; i++)
     	        dwarf_line_op(s1, 0);
-            memset(&dwarf_info.base_type_used, 0, sizeof(dwarf_info.base_type_used));
+            memset(&dwarf_info.base_type_used, 0, parimaa_na(dwarf_info.base_type_used));
         }
-        else
+        නැතහොත්
         {
             /* file info: full path + filename */
-            pstrcat(buf, sizeof(buf), "/");
+            pstrcat(buf, parimaa_na(buf), "/");
             section_sym = put_elf_sym(symtab_section, 0, 0,
                                       ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
                                       text_section->sh_num, NULL);
@@ -1280,7 +1280,7 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
                         text_section->data_offset, text_section, section_sym);
             put_stabs_r(s1, filename, N_SO, 0, 0,
                         text_section->data_offset, text_section, section_sym);
-            for (i = 0; i < N_DEFAULT_DEBUG; i++)
+            සඳහා (i = 0; i < N_DEFAULT_DEBUG; i++)
                 put_stabs(s1, default_debug[i].name, N_LSYM, 0, 0, 0);
         }
         /* we're currently 'including' the <command line> */
@@ -1288,23 +1288,23 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
     }
 }
 
-static void fix_debug_forw_hash(TCCState *s1, int global, int start);
+static void fix_debug_forw_hash(TCCState *s1, පූර්ණ_සංඛ්‍යා global, පූර්ණ_සංඛ්‍යා start);
 
 /* put end of translation unit info */
 ST_FUNC void tcc_debug_end(TCCState *s1)
 {
 
-    if (!s1->do_debug || debug_next_type == 0)
-        return;
+    නම් (!s1->do_debug || debug_next_type == 0)
+        ආපසු;
 
-    if (debug_info_root)
+    නම් (debug_info_root)
         tcc_debug_funcend(s1, 0); /* free stuff in case of errors */
 
-    if (s1->dwarf) {
-	int i;
-	int start_aranges;
-	unsigned char *ptr;
-	int text_size = text_section->data_offset;
+    නම් (s1->dwarf) {
+	පූර්ණ_සංඛ්‍යා i;
+	පූර්ණ_සංඛ්‍යා start_aranges;
+	unsigned var_na *ptr;
+	පූර්ණ_සංඛ්‍යා text_size = text_section->data_offset;
 
 	/* dwarf_info */
 	fix_debug_forw_hash(s1, 0, 0);
@@ -1320,20 +1320,20 @@ ST_FUNC void tcc_debug_end(TCCState *s1)
 	dwarf_data2(dwarf_aranges_section, 2); // version
 	dwarf_reloc(dwarf_aranges_section, dwarf_sym.info, R_DATA_32DW);
 	dwarf_data4(dwarf_aranges_section, 0); // dwarf_info
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
 	dwarf_data1(dwarf_aranges_section, 4); // address size
-#else
+#නැතහොත්
 	dwarf_data1(dwarf_aranges_section, 8); // address size
 #endif
 	dwarf_data1(dwarf_aranges_section, 0); // segment selector size
 	dwarf_data4(dwarf_aranges_section, 0); // padding
 	dwarf_reloc(dwarf_aranges_section, section_sym, R_DATA_PTR);
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
 	dwarf_data4(dwarf_aranges_section, 0); // Begin
 	dwarf_data4(dwarf_aranges_section, text_size); // End
 	dwarf_data4(dwarf_aranges_section, 0); // End list
 	dwarf_data4(dwarf_aranges_section, 0); // End list
-#else
+#නැතහොත්
 	dwarf_data8(dwarf_aranges_section, 0); // Begin
 	dwarf_data8(dwarf_aranges_section, text_size); // End
 	dwarf_data8(dwarf_aranges_section, 0); // End list
@@ -1343,12 +1343,12 @@ ST_FUNC void tcc_debug_end(TCCState *s1)
 	write32le(ptr, dwarf_aranges_section->data_offset - start_aranges - 4);
 
 	/* dwarf_line */
-	if (s1->dwarf >= 5) {
+	නම් (s1->dwarf >= 5) {
 	    dwarf_data1(dwarf_line_section, 1); /* col */
 	    dwarf_uleb128(dwarf_line_section, DW_LNCT_path);
 	    dwarf_uleb128(dwarf_line_section, DW_FORM_line_strp);
 	    dwarf_uleb128(dwarf_line_section, dwarf_line.dir_size);
-	    for (i = 0; i < dwarf_line.dir_size; i++)
+	    සඳහා (i = 0; i < dwarf_line.dir_size; i++)
 	        dwarf_line_strp(dwarf_line_section, dwarf_line.dir_table[i]);
 	    dwarf_data1(dwarf_line_section, 2); /* col */
 	    dwarf_uleb128(dwarf_line_section, DW_LNCT_path);
@@ -1356,23 +1356,23 @@ ST_FUNC void tcc_debug_end(TCCState *s1)
 	    dwarf_uleb128(dwarf_line_section, DW_LNCT_directory_index);
 	    dwarf_uleb128(dwarf_line_section, DW_FORM_udata);
 	    dwarf_uleb128(dwarf_line_section, dwarf_line.filename_size);
-	    for (i = 0; i < dwarf_line.filename_size; i++) {
+	    සඳහා (i = 0; i < dwarf_line.filename_size; i++) {
 	        dwarf_line_strp(dwarf_line_section,
 				dwarf_line.filename_table[i].name);
 	        dwarf_uleb128(dwarf_line_section,
 			      dwarf_line.filename_table[i].dir_entry);
 	    }
 	}
-	else {
-	    int len;
+	නැතහොත් {
+	    පූර්ණ_සංඛ්‍යා len;
 
-	    for (i = 0; i < dwarf_line.dir_size; i++) {
+	    සඳහා (i = 0; i < dwarf_line.dir_size; i++) {
 	        len = strlen(dwarf_line.dir_table[i]) + 1;
 	        ptr = section_ptr_add(dwarf_line_section, len);
 	        memmove(ptr, dwarf_line.dir_table[i], len);
 	    }
 	    dwarf_data1(dwarf_line_section, 0); /* end dir */
-	    for (i = 0; i < dwarf_line.filename_size; i++) {
+	    සඳහා (i = 0; i < dwarf_line.filename_size; i++) {
 	        len = strlen(dwarf_line.filename_table[i].name) + 1;
 	        ptr = section_ptr_add(dwarf_line_section, len);
 	        memmove(ptr, dwarf_line.filename_table[i].name, len);
@@ -1383,10 +1383,10 @@ ST_FUNC void tcc_debug_end(TCCState *s1)
 	    }
 	    dwarf_data1(dwarf_line_section, 0); /* end file */
 	}
-	for (i = 0; i < dwarf_line.dir_size; i++)
+	සඳහා (i = 0; i < dwarf_line.dir_size; i++)
 	    tcc_free(dwarf_line.dir_table[i]);
 	tcc_free(dwarf_line.dir_table);
-	for (i = 0; i < dwarf_line.filename_size; i++)
+	සඳහා (i = 0; i < dwarf_line.filename_size; i++)
 	    tcc_free(dwarf_line.filename_table[i].name);
 	tcc_free(dwarf_line.filename_table);
 
@@ -1404,7 +1404,7 @@ ST_FUNC void tcc_debug_end(TCCState *s1)
 	write32le(dwarf_line_section->data + dwarf_line.start,
 		  dwarf_line_section->data_offset - dwarf_line.start - 4);
     }
-    else
+    නැතහොත්
     {
         put_stabs_r(s1, NULL, N_SO, 0, 0,
                     text_section->data_offset, text_section, section_sym);
@@ -1422,24 +1422,24 @@ static BufferedFile* put_new_file(TCCState *s1)
 {
     BufferedFile *f = file;
     /* use upper file if from inline ":asm:" */
-    if (f->filename[0] == ':')
+    නම් (f->filename[0] == ':')
         f = f->prev;
-    if (f && new_file) {
+    නම් (f && new_file) {
         new_file = last_line_num = 0;
-        if (s1->dwarf)
+        නම් (s1->dwarf)
             dwarf_file(s1);
-        else
+        නැතහොත්
             put_stabs_r(s1, f->filename, N_SOL, 0, 0, ind, text_section, section_sym);
     }
-    return f;
+    ආපසු f;
 }
 
 /* put alternative filename */
 ST_FUNC void tcc_debug_newfile(TCCState *s1)
 {
-    if (!s1->do_debug)
-        return;
-    if (s1->dwarf)
+    නම් (!s1->do_debug)
+        ආපසු;
+    නම් (s1->dwarf)
         dwarf_file(s1);
     new_file = 1;
 }
@@ -1447,11 +1447,11 @@ ST_FUNC void tcc_debug_newfile(TCCState *s1)
 /* begin of #include */
 ST_FUNC void tcc_debug_bincl(TCCState *s1)
 {
-    if (!s1->do_debug)
-        return;
-    if (s1->dwarf)
+    නම් (!s1->do_debug)
+        ආපසු;
+    නම් (s1->dwarf)
         dwarf_file(s1);
-    else
+    නැතහොත්
         put_stabs(s1, file->filename, N_BINCL, 0, 0, 0);
     new_file = 1;
 }
@@ -1459,11 +1459,11 @@ ST_FUNC void tcc_debug_bincl(TCCState *s1)
 /* end of #include */
 ST_FUNC void tcc_debug_eincl(TCCState *s1)
 {
-    if (!s1->do_debug)
-        return;
-    if (s1->dwarf)
+    නම් (!s1->do_debug)
+        ආපසු;
+    නම් (s1->dwarf)
         dwarf_file(s1);
-    else
+    නැතහොත්
         put_stabn(s1, N_EINCL, 0, 0, 0);
     new_file = 1;
 }
@@ -1473,47 +1473,47 @@ ST_FUNC void tcc_debug_line(TCCState *s1)
 {
     BufferedFile *f;
 
-    if (!s1->do_debug)
-        return;
-    if (cur_text_section != text_section || nocode_wanted)
-        return;
+    නම් (!s1->do_debug)
+        ආපසු;
+    නම් (cur_text_section != text_section || nocode_wanted)
+        ආපසු;
     f = put_new_file(s1);
-    if (!f)
-        return;
-    if (last_line_num == f->line_num)
-        return;
+    නම් (!f)
+        ආපසු;
+    නම් (last_line_num == f->line_num)
+        ආපසු;
     last_line_num = f->line_num;
 
-    if (s1->dwarf) {
-	int len_pc = (ind - dwarf_line.last_pc) / DWARF_MIN_INSTR_LEN;
-	int len_line = f->line_num - dwarf_line.last_line;
-	int n = len_pc * DWARF_LINE_RANGE + len_line + DWARF_OPCODE_BASE - DWARF_LINE_BASE;
+    නම් (s1->dwarf) {
+	පූර්ණ_සංඛ්‍යා len_pc = (ind - dwarf_line.last_pc) / DWARF_MIN_INSTR_LEN;
+	පූර්ණ_සංඛ්‍යා len_line = f->line_num - dwarf_line.last_line;
+	පූර්ණ_සංඛ්‍යා n = len_pc * DWARF_LINE_RANGE + len_line + DWARF_OPCODE_BASE - DWARF_LINE_BASE;
 
-	if (dwarf_line.cur_file != dwarf_line.last_file) {
+	නම් (dwarf_line.cur_file != dwarf_line.last_file) {
 	    dwarf_line.last_file = dwarf_line.cur_file;
 	    dwarf_line_op(s1, DW_LNS_set_file);
 	    dwarf_uleb128_op(s1, dwarf_line.cur_file);
 	}
-	if (len_pc &&
+	නම් (len_pc &&
 	    len_line >= DWARF_LINE_BASE && len_line <= (DWARF_OPCODE_BASE + DWARF_LINE_BASE) &&
 	    n >= DWARF_OPCODE_BASE && n <= 255)
             dwarf_line_op(s1, n);
-	else {
-	    if (len_pc) {
+	නැතහොත් {
+	    නම් (len_pc) {
 	        n = len_pc * DWARF_LINE_RANGE + 0 + DWARF_OPCODE_BASE - DWARF_LINE_BASE;
-	        if (n >= DWARF_OPCODE_BASE && n <= 255)
+	        නම් (n >= DWARF_OPCODE_BASE && n <= 255)
                     dwarf_line_op(s1, n);
-		else {
+		නැතහොත් {
 	            dwarf_line_op(s1, DW_LNS_advance_pc);
 		    dwarf_uleb128_op(s1, len_pc);
 		}
 	    }
-	    if (len_line) {
+	    නම් (len_line) {
 	        n = 0 * DWARF_LINE_RANGE + len_line + DWARF_OPCODE_BASE - DWARF_LINE_BASE;
-	        if (len_line >= DWARF_LINE_BASE && len_line <= (DWARF_OPCODE_BASE + DWARF_LINE_BASE) &&
+	        නම් (len_line >= DWARF_LINE_BASE && len_line <= (DWARF_OPCODE_BASE + DWARF_LINE_BASE) &&
 		    n >= DWARF_OPCODE_BASE && n <= 255)
 	            dwarf_line_op(s1, n);
-		else {
+		නැතහොත් {
 	            dwarf_line_op(s1, DW_LNS_advance_line);
 		    dwarf_sleb128_op(s1, len_line);
                     /* advance by nothing */
@@ -1524,26 +1524,26 @@ ST_FUNC void tcc_debug_line(TCCState *s1)
 	dwarf_line.last_pc = ind;
 	dwarf_line.last_line = f->line_num;
     }
-    else
+    නැතහොත්
     {
-	if (func_ind != -1) {
+	නම් (func_ind != -1) {
             put_stabn(s1, N_SLINE, 0, f->line_num, ind - func_ind);
-        } else {
+        } නැතහොත් {
             /* from tcc_assemble */
             put_stabs_r(s1, NULL, N_SLINE, 0, f->line_num, ind, text_section, section_sym);
         }
     }
 }
 
-static void tcc_debug_stabs (TCCState *s1, const char *str, int type, unsigned long value,
-                             Section *sec, int sym_index, int info)
+static void tcc_debug_stabs (TCCState *s1, const var_na *str, පූර්ණ_සංඛ්‍යා type, unsigned long value,
+                             Section *sec, පූර්ණ_සංඛ්‍යා sym_index, පූර්ණ_සංඛ්‍යා info)
 {
-    struct debug_sym *s;
+    sa_nracanaa debug_sym *s;
 
-    if (debug_info) {
+    නම් (debug_info) {
         debug_info->sym =
-            (struct debug_sym *)tcc_realloc (debug_info->sym,
-                                             sizeof(struct debug_sym) *
+            (sa_nracanaa debug_sym *)tcc_realloc (debug_info->sym,
+                                             parimaa_na(sa_nracanaa debug_sym) *
                                              (debug_info->n_sym + 1));
         s = debug_info->sym + debug_info->n_sym++;
         s->type = type;
@@ -1555,23 +1555,23 @@ static void tcc_debug_stabs (TCCState *s1, const char *str, int type, unsigned l
         s->file = dwarf_line.cur_file;
         s->line = file->line_num;
     }
-    else if (sec)
+    නැතහොත් නම් (sec)
         put_stabs_r (s1, str, type, 0, 0, value, sec, sym_index);
-    else
+    නැතහොත්
         put_stabs (s1, str, type, 0, 0, value);
 }
 
-static void fix_debug_forw_hash(TCCState *s1, int global, int start)
+static void fix_debug_forw_hash(TCCState *s1, පූර්ණ_සංඛ්‍යා global, පූර්ණ_සංඛ්‍යා start)
 {
-    if (s1->dwarf) {
-        int i, j, n_hash = global
+    නම් (s1->dwarf) {
+        පූර්ණ_සංඛ්‍යා i, j, n_hash = global
 		    ? n_debug_forw_hash_global : n_debug_forw_hash_local;
-	struct _debug_forw_hash *hash = global
+	sa_nracanaa _debug_forw_hash *hash = global
 	  ? debug_forw_hash_global : debug_forw_hash_local;
 
-	for (i = start; i < n_hash; i++) {
+	සඳහා (i = start; i < n_hash; i++) {
 	    Sym *t = hash[i].type;
-	    int pos = dwarf_info_section->data_offset;
+	    පූර්ණ_සංඛ්‍යා pos = dwarf_info_section->data_offset;
 
 	    dwarf_data1(dwarf_info_section,
                         IS_UNION (t->type.t) ? DWARF_ABBREV_UNION_EMPTY_TYPE
@@ -1582,7 +1582,7 @@ static void fix_debug_forw_hash(TCCState *s1, int global, int start)
             dwarf_uleb128(dwarf_info_section, 0);
             dwarf_uleb128(dwarf_info_section, dwarf_line.cur_file);
             dwarf_uleb128(dwarf_info_section, file->line_num);
-	    for (j = 0; j < hash[i].n_debug_type; j++)
+	    සඳහා (j = 0; j < hash[i].n_debug_type; j++)
 		write32le(dwarf_info_section->data +
 			  hash[i].debug_type[j],
 			  pos - dwarf_info.start);
@@ -1591,34 +1591,34 @@ static void fix_debug_forw_hash(TCCState *s1, int global, int start)
     }
 }
 
-ST_FUNC void tcc_debug_stabn(TCCState *s1, int type, int value)
+ST_FUNC void tcc_debug_stabn(TCCState *s1, පූර්ණ_සංඛ්‍යා type, පූර්ණ_සංඛ්‍යා value)
 {
-    if (!s1->do_debug)
-        return;
-    if (type == N_LBRAC) {
-        struct _debug_info *info =
-            (struct _debug_info *) tcc_mallocz(sizeof (*info));
+    නම් (!s1->do_debug)
+        ආපසු;
+    නම් (type == N_LBRAC) {
+        sa_nracanaa _debug_info *info =
+            (sa_nracanaa _debug_info *) tcc_mallocz(parimaa_na (*info));
 
         info->start = value;
         info->last_debug_hash = n_debug_hash_local;
         info->last_debug_forw_hash = n_debug_forw_hash_local;
         info->parent = debug_info;
-        if (debug_info) {
-            if (debug_info->child) {
-                if (debug_info->child->last)
+        නම් (debug_info) {
+            නම් (debug_info->child) {
+                නම් (debug_info->child->last)
                     debug_info->child->last->next = info;
-                else
+                නැතහොත්
                     debug_info->child->next = info;
                 debug_info->child->last = info;
             }
-            else
+            නැතහොත්
                 debug_info->child = info;
         }
-        else
+        නැතහොත්
             debug_info_root = info;
         debug_info = info;
     }
-    else {
+    නැතහොත් {
 	fix_debug_forw_hash(s1, 0, debug_info->last_debug_forw_hash);
         n_debug_hash_local = debug_info->last_debug_hash;
         n_debug_forw_hash_local = debug_info->last_debug_forw_hash;
@@ -1627,67 +1627,67 @@ ST_FUNC void tcc_debug_stabn(TCCState *s1, int type, int value)
     }
 }
 
-static int check_global(Sym *t)
+static පූර්ණ_සංඛ්‍යා check_global(Sym *t)
 {
     Sym *g = local_stack;
 
-    while (g) {
-	if (t == g)
-	    return 0;
+    අතරතුර (g) {
+	නම් (t == g)
+	    ආපසු 0;
 	g = g->prev;
     }
-    return 1;
+    ආපසු 1;
 }
 
-static int tcc_debug_find(TCCState *s1, Sym *t, int dwarf)
+static පූර්ණ_සංඛ්‍යා tcc_debug_find(TCCState *s1, Sym *t, පූර්ණ_සංඛ්‍යා dwarf)
 {
-    int i , g = check_global(t);
-    int n_hash, *n_forw_hash;
-    struct _debug_hash *hash;
-    struct _debug_forw_hash **forw_hash;
+    පූර්ණ_සංඛ්‍යා i , g = check_global(t);
+    පූර්ණ_සංඛ්‍යා n_hash, *n_forw_hash;
+    sa_nracanaa _debug_hash *hash;
+    sa_nracanaa _debug_forw_hash **forw_hash;
 
-    if ((t->type.t & VT_BTYPE) == VT_STRUCT && t->c == -1) {
+    නම් ((t->type.t & VT_BTYPE) == VT_STRUCT && t->c == -1) {
         forw_hash = g ? &debug_forw_hash_global : &debug_forw_hash_local;
         n_forw_hash = g ? &n_debug_forw_hash_global : &n_debug_forw_hash_local;
-	for (i = 0; i < *n_forw_hash; i++)
-            if (t == (*forw_hash)[i].type)
-		return 0;
-	*forw_hash = (struct _debug_forw_hash *)
+	සඳහා (i = 0; i < *n_forw_hash; i++)
+            නම් (t == (*forw_hash)[i].type)
+		ආපසු 0;
+	*forw_hash = (sa_nracanaa _debug_forw_hash *)
             tcc_realloc (*forw_hash,
-                         (*n_forw_hash + 1) * sizeof(**forw_hash));
+                         (*n_forw_hash + 1) * parimaa_na(**forw_hash));
         (*forw_hash)[*n_forw_hash].n_debug_type = 0;
         (*forw_hash)[*n_forw_hash].debug_type = NULL;
         (*forw_hash)[(*n_forw_hash)++].type = t;
-	return 0;
+	ආපසු 0;
     }
     hash = g ? debug_hash_global : debug_hash_local;
     n_hash = g ? n_debug_hash_global : n_debug_hash_local;
-    for (i = 0; i < n_hash; i++)
-        if (t == hash[i].type)
-	    return hash[i].debug_type;
-    return -1;
+    සඳහා (i = 0; i < n_hash; i++)
+        නම් (t == hash[i].type)
+	    ආපසු hash[i].debug_type;
+    ආපසු -1;
 }
 
-static int tcc_get_dwarf_info(TCCState *s1, Sym *s);
+static පූර්ණ_සංඛ්‍යා tcc_get_dwarf_info(TCCState *s1, Sym *s);
 
-static void tcc_debug_check_forw(TCCState *s1, Sym *t, int debug_type)
+static void tcc_debug_check_forw(TCCState *s1, Sym *t, පූර්ණ_සංඛ්‍යා debug_type)
 {
-    if ((t->type.t & VT_BTYPE) == VT_STRUCT && t->type.ref->c == -1) {
-        int i, j, g = check_global(t);
-        int n_forw_hash;
-        struct _debug_forw_hash **forw_hash;
+    නම් ((t->type.t & VT_BTYPE) == VT_STRUCT && t->type.ref->c == -1) {
+        පූර්ණ_සංඛ්‍යා i, j, g = check_global(t);
+        පූර්ණ_සංඛ්‍යා n_forw_hash;
+        sa_nracanaa _debug_forw_hash **forw_hash;
 
-	for (i = g; i <= 1; i++) {
+	සඳහා (i = g; i <= 1; i++) {
             forw_hash = i ? &debug_forw_hash_global : &debug_forw_hash_local;
             n_forw_hash = i ? n_debug_forw_hash_global : n_debug_forw_hash_local;
-	    for (j = 0; j < n_forw_hash; j++)
-                if (t->type.ref == (*forw_hash)[j].type) {
+	    සඳහා (j = 0; j < n_forw_hash; j++)
+                නම් (t->type.ref == (*forw_hash)[j].type) {
 		    (*forw_hash)[j].debug_type =
 		        tcc_realloc((*forw_hash)[j].debug_type,
-				    ((*forw_hash)[j].n_debug_type + 1) * sizeof(int));
+				    ((*forw_hash)[j].n_debug_type + 1) * parimaa_na(පූර්ණ_සංඛ්‍යා));
 		    (*forw_hash)[j].debug_type[(*forw_hash)[j].n_debug_type++] =
 		        debug_type;
-		    return;
+		    ආපසු;
                 }
 	}
     }
@@ -1697,56 +1697,56 @@ static void stabs_struct_complete(TCCState *s1, CType *t);
 
 ST_FUNC void tcc_debug_fix_forw(TCCState *s1, CType *t)
 {
-    if (!(s1->do_debug & 2))
-	return;
-    if (0 == s1->dwarf) {
+    නම් (!(s1->do_debug & 2))
+	ආපසු;
+    නම් (0 == s1->dwarf) {
         stabs_struct_complete(s1, t);
-        return;
+        ආපසු;
     }
-    if ((t->t & VT_BTYPE) == VT_STRUCT && t->ref->c != -1) {
-        int i, j, debug_type, g = check_global(t->ref);
-        int *n_forw_hash;
-        struct _debug_forw_hash **forw_hash;
+    නම් ((t->t & VT_BTYPE) == VT_STRUCT && t->ref->c != -1) {
+        පූර්ණ_සංඛ්‍යා i, j, debug_type, g = check_global(t->ref);
+        පූර්ණ_සංඛ්‍යා *n_forw_hash;
+        sa_nracanaa _debug_forw_hash **forw_hash;
         forw_hash = g ? &debug_forw_hash_global : &debug_forw_hash_local;
         n_forw_hash = g ? &n_debug_forw_hash_global : &n_debug_forw_hash_local;
-	for (i = 0; i < *n_forw_hash; i++)
-	    if (t->ref == (*forw_hash)[i].type) {
-		if (s1->dwarf) {
+	සඳහා (i = 0; i < *n_forw_hash; i++)
+	    නම් (t->ref == (*forw_hash)[i].type) {
+		නම් (s1->dwarf) {
 		    Sym sym = {0}; sym .type = *t ;
 
 		    debug_type = tcc_get_dwarf_info(s1, &sym);
-		    for (j = 0; j < (*forw_hash)[i].n_debug_type; j++)
+		    සඳහා (j = 0; j < (*forw_hash)[i].n_debug_type; j++)
 		        write32le(dwarf_info_section->data +
 			          (*forw_hash)[i].debug_type[j],
 			          debug_type - dwarf_info.start);
 		    tcc_free((*forw_hash)[i].debug_type);
 		}
 		(*n_forw_hash)--;
-		for (; i < *n_forw_hash; i++)
+		සඳහා (; i < *n_forw_hash; i++)
 		    (*forw_hash)[i] = (*forw_hash)[i + 1];
 	    }
     }
 }
 
-static int tcc_debug_add(TCCState *s1, Sym *t, int dwarf)
+static පූර්ණ_සංඛ්‍යා tcc_debug_add(TCCState *s1, Sym *t, පූර්ණ_සංඛ්‍යා dwarf)
 {
-    int offset = dwarf ? dwarf_info_section->data_offset : ++debug_next_type;
-    int *n_hash, g = check_global(t);
-    struct _debug_hash **hash;
+    පූර්ණ_සංඛ්‍යා offset = dwarf ? dwarf_info_section->data_offset : ++debug_next_type;
+    පූර්ණ_සංඛ්‍යා *n_hash, g = check_global(t);
+    sa_nracanaa _debug_hash **hash;
 
     hash = g ? &debug_hash_global : &debug_hash_local;
     n_hash = g ? &n_debug_hash_global : &n_debug_hash_local;
-    *hash = (struct _debug_hash *)
+    *hash = (sa_nracanaa _debug_hash *)
 	tcc_realloc (*hash,
-		     (*n_hash + 1) * sizeof(**hash));
+		     (*n_hash + 1) * parimaa_na(**hash));
     (*hash)[*n_hash].debug_type = offset;
     (*hash)[(*n_hash)++].type = t;
-    return offset;
+    ආපසු offset;
 }
 
-static int STRUCT_NODEBUG(Sym *s)
+static පූර්ණ_සංඛ්‍යා STRUCT_NODEBUG(Sym *s)
 {
-    return
+    ආපසු
     (s->a.nodebug ||
      ((s->v & ~SYM_FIELD) >= SYM_FIRST_ANOM &&
       ((s->type.t & VT_BTYPE) == VT_BYTE ||
@@ -1756,7 +1756,7 @@ static int STRUCT_NODEBUG(Sym *s)
        (s->type.t & VT_BTYPE) == VT_LLONG)));
 }
 
-static int stabs_struct_find(TCCState *s1, Sym *t, int *p_id)
+static පූර්ණ_සංඛ්‍යා stabs_struct_find(TCCState *s1, Sym *t, පූර්ණ_සංඛ්‍යා *p_id)
 {
     /* A struct/enum has a ref to its type but that type has no ref.
        So we can (ab)use it for some info.  Here:
@@ -1771,48 +1771,48 @@ static int stabs_struct_find(TCCState *s1, Sym *t, int *p_id)
         return 0;
     }
 */
-    if (NULL == p_id)
-        return s && !s->r && t->c >= 0;
-    if (NULL == s) {
+    නම් (NULL == p_id)
+        ආපසු s && !s->r && t->c >= 0;
+    නම් (NULL == s) {
         /* just use global_stack always */
         s = sym_push2(&global_stack, SYM_FIELD|0x00DEBBED, 0, ++debug_next_type);
         t->type.ref = s;
     }
     *p_id = s->c;
-    if (s->r || t->c < 0) /* already defined or still incomplete */
-        return 0;
+    නම් (s->r || t->c < 0) /* already defined or still incomplete */
+        ආපසු 0;
     s->r = 1;
-    return 1;
+    ආපසු 1;
 }
 
-static int remove_type_info(int type)
+static පූර්ණ_සංඛ්‍යා remove_type_info(පූර්ණ_සංඛ්‍යා type)
 {
         type &= ~(VT_STORAGE | VT_QUAL | VT_VLA);
-        if ((type & VT_BTYPE) != VT_BYTE)
+        නම් ((type & VT_BTYPE) != VT_BYTE)
             type &= ~VT_DEFSIGN;
-        if (!(type & VT_BITFIELD) && (type & VT_STRUCT_MASK) > VT_ENUM)
+        නම් (!(type & VT_BITFIELD) && (type & VT_STRUCT_MASK) > VT_ENUM)
 	    type &= ~VT_STRUCT_MASK;
-	return type;
+	ආපසු type;
 }
 
 static void tcc_get_debug_info(TCCState *s1, Sym *s, CString *result)
 {
-    int type;
-    int n = 0;
-    int debug_type = -1;
+    පූර්ණ_සංඛ්‍යා type;
+    පූර්ණ_සංඛ්‍යා n = 0;
+    පූර්ණ_සංඛ්‍යා debug_type = -1;
     Sym *t = s;
     CString str;
 
-    for (;;) {
+    සඳහා (;;) {
         type = remove_type_info (t->type.t);
-        if (type == VT_PTR || type == (VT_PTR | VT_ARRAY))
+        නම් (type == VT_PTR || type == (VT_PTR | VT_ARRAY))
             n++, t = t->type.ref;
-        else
-            break;
+        නැතහොත්
+            bha_nga;
     }
-    if ((type & VT_BTYPE) == VT_STRUCT) {
+    නම් ((type & VT_BTYPE) == VT_STRUCT) {
         t = t->type.ref;
-        if (stabs_struct_find(s1, t, &debug_type)) {
+        නම් (stabs_struct_find(s1, t, &debug_type)) {
             cstr_new (&str);
             cstr_printf (&str, "%s:T%d=%c%d",
                          (t->v & ~SYM_STRUCT) >= SYM_FIRST_ANOM
@@ -1821,21 +1821,21 @@ static void tcc_get_debug_info(TCCState *s1, Sym *s, CString *result)
                          IS_UNION (t->type.t) ? 'u' : 's',
                          t->c);
 
-            while (t->next) {
-                int pos, size, align;
+            අතරතුර (t->next) {
+                පූර්ණ_සංඛ්‍යා pos, size, align;
                 t = t->next;
-		if (STRUCT_NODEBUG(t))
+		නම් (STRUCT_NODEBUG(t))
 		    continue;
                 cstr_printf (&str, "%s:",
                              (t->v & ~SYM_FIELD) >= SYM_FIRST_ANOM
                              ? "" : get_tok_str(t->v, NULL)
                              );
                 tcc_get_debug_info (s1, t, &str);
-                if (t->type.t & VT_BITFIELD) {
+                නම් (t->type.t & VT_BITFIELD) {
                     pos = t->c * 8 + BIT_POS(t->type.t);
                     size = BIT_SIZE(t->type.t);
                 }
-                else {
+                නැතහොත් {
                     pos = t->c * 8;
                     size = type_size(&t->type, &align) * 8;
                 }
@@ -1846,56 +1846,56 @@ static void tcc_get_debug_info(TCCState *s1, Sym *s, CString *result)
             cstr_free (&str);
         }
     }
-    else if (IS_ENUM(type)) {
+    නැතහොත් නම් (IS_ENUM(type)) {
         Sym *e = t = t->type.ref;
-        if (stabs_struct_find(s1, t, &debug_type)) {
+        නම් (stabs_struct_find(s1, t, &debug_type)) {
             cstr_new (&str);
             cstr_printf (&str, "%s:T%d=e",
                          (t->v & ~SYM_STRUCT) >= SYM_FIRST_ANOM
                          ? "" : get_tok_str(t->v, NULL),
                          debug_type);
-            while (t->next) {
+            අතරතුර (t->next) {
                 t = t->next;
                 cstr_printf (&str, "%s:",
                              (t->v & ~SYM_FIELD) >= SYM_FIRST_ANOM
                              ? "" : get_tok_str(t->v, NULL));
                 cstr_printf (&str, e->type.t & VT_UNSIGNED ? "%u," : "%d,",
-                             (int)t->enum_val);
+                             (පූර්ණ_සංඛ්‍යා)t->enum_val);
             }
             cstr_printf (&str, ";");
             tcc_debug_stabs(s1, str.data, N_LSYM, 0, NULL, 0, 0);
             cstr_free (&str);
 	}
     }
-    else if ((type & VT_BTYPE) != VT_FUNC) {
+    නැතහොත් නම් ((type & VT_BTYPE) != VT_FUNC) {
         type &= ~VT_STRUCT_MASK;
-        for (debug_type = 1; debug_type <= N_DEFAULT_DEBUG; debug_type++)
-            if (default_debug[debug_type - 1].type == type)
-                break;
-        if (debug_type > N_DEFAULT_DEBUG)
-            return;
+        සඳහා (debug_type = 1; debug_type <= N_DEFAULT_DEBUG; debug_type++)
+            නම් (default_debug[debug_type - 1].type == type)
+                bha_nga;
+        නම් (debug_type > N_DEFAULT_DEBUG)
+            ආපසු;
     }
 
-    if (NULL == result) /* from stabs_struct_complete() */
-        return;
+    නම් (NULL == result) /* from stabs_struct_complete() */
+        ආපසු;
 
-    if (n > 0)
+    නම් (n > 0)
         cstr_printf (result, "%d=", ++debug_next_type);
     t = s;
-    for (;;) {
+    සඳහා (;;) {
         type = remove_type_info (t->type.t);
-        if (type == VT_PTR)
+        නම් (type == VT_PTR)
             cstr_printf (result, "%d=*", ++debug_next_type);
-        else if (type == (VT_PTR | VT_ARRAY))
+        නැතහොත් නම් (type == (VT_PTR | VT_ARRAY))
             cstr_printf (result, "%d=ar1;0;%d;",
                          ++debug_next_type, t->type.ref->c - 1);
-        else if (type == VT_FUNC) {
+        නැතහොත් නම් (type == VT_FUNC) {
             cstr_printf (result, "%d=f", ++debug_next_type);
             tcc_get_debug_info (s1, t->type.ref, result);
-            return;
+            ආපසු;
         }
-        else
-            break;
+        නැතහොත්
+            bha_nga;
         t = t->type.ref;
     }
     cstr_printf (result, "%d", debug_type);
@@ -1903,46 +1903,46 @@ static void tcc_get_debug_info(TCCState *s1, Sym *s, CString *result)
 
 static void stabs_struct_complete(TCCState *s1, CType *t)
 {
-    if (stabs_struct_find(s1, t->ref, NULL)) {
+    නම් (stabs_struct_find(s1, t->ref, NULL)) {
         Sym s = {0}; s.type = *t;
         tcc_get_debug_info(s1, &s, NULL);
     }
 }
 
-static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
+static පූර්ණ_සංඛ්‍යා tcc_get_dwarf_info(TCCState *s1, Sym *s)
 {
-    int type;
-    int debug_type = -1;
+    පූර්ණ_සංඛ්‍යා type;
+    පූර්ණ_සංඛ්‍යා debug_type = -1;
     Sym *e, *t = s;
-    int i;
-    int last_pos = -1;
-    int retval;
+    පූර්ණ_සංඛ්‍යා i;
+    පූර්ණ_සංඛ්‍යා last_pos = -1;
+    පූර්ණ_සංඛ්‍යා retval;
 
-    if (new_file)
+    නම් (new_file)
         put_new_file(s1);
-    for (;;) {
+    සඳහා (;;) {
         type = remove_type_info (t->type.t);
-        if (type == VT_PTR || type == (VT_PTR | VT_ARRAY))
+        නම් (type == VT_PTR || type == (VT_PTR | VT_ARRAY))
             t = t->type.ref;
-        else
-            break;
+        නැතහොත්
+            bha_nga;
     }
-    if ((type & VT_BTYPE) == VT_STRUCT) {
+    නම් ((type & VT_BTYPE) == VT_STRUCT) {
         t = t->type.ref;
 	debug_type = tcc_debug_find(s1, t, 1);
-	if (debug_type == -1) {
-	    int pos_sib = 0, i, *pos_type;
+	නම් (debug_type == -1) {
+	    පූර්ණ_සංඛ්‍යා pos_sib = 0, i, *pos_type;
 
 	    debug_type = tcc_debug_add(s1, t, 1);
 	    e = t;
 	    i = 0;
-	    while (e->next) {
+	    අතරතුර (e->next) {
 		e = e->next;
-		if (STRUCT_NODEBUG(e))
+		නම් (STRUCT_NODEBUG(e))
 		    continue;
 		i++;
 	    }
-	    pos_type = (int *) tcc_malloc(i * sizeof(int));
+	    pos_type = (පූර්ණ_සංඛ්‍යා *) tcc_malloc(i * parimaa_na(පූර්ණ_සංඛ්‍යා));
 	    dwarf_data1(dwarf_info_section,
 			IS_UNION (t->type.t)
 		        ? t->next ? DWARF_ABBREV_UNION_TYPE
@@ -1955,15 +1955,15 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 	    dwarf_uleb128(dwarf_info_section, t->c);
 	    dwarf_uleb128(dwarf_info_section, dwarf_line.cur_file);
 	    dwarf_uleb128(dwarf_info_section, file->line_num);
-	    if (t->next) {
+	    නම් (t->next) {
 	        pos_sib = dwarf_info_section->data_offset;
 	        dwarf_data4(dwarf_info_section, 0);
 	    }
 	    e = t;
 	    i = 0;
-            while (e->next) {
+            අතරතුර (e->next) {
                 e = e->next;
-		if (STRUCT_NODEBUG(e))
+		නම් (STRUCT_NODEBUG(e))
 		    continue;
 	        dwarf_data1(dwarf_info_section,
 			    e->type.t & VT_BITFIELD ? DWARF_ABBREV_MEMBER_BF
@@ -1974,26 +1974,26 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 		dwarf_uleb128(dwarf_info_section, file->line_num);
 		pos_type[i++] = dwarf_info_section->data_offset;
 		dwarf_data4(dwarf_info_section, 0);
-                if (e->type.t & VT_BITFIELD) {
-                    int pos = e->c * 8 + BIT_POS(e->type.t);
-                    int size = BIT_SIZE(e->type.t);
+                නම් (e->type.t & VT_BITFIELD) {
+                    පූර්ණ_සංඛ්‍යා pos = e->c * 8 + BIT_POS(e->type.t);
+                    පූර්ණ_සංඛ්‍යා size = BIT_SIZE(e->type.t);
 
 		    dwarf_uleb128(dwarf_info_section, size);
 		    dwarf_uleb128(dwarf_info_section, pos);
 		}
-		else
+		නැතහොත්
 		    dwarf_uleb128(dwarf_info_section, e->c);
 	    }
-	    if (t->next) {
+	    නම් (t->next) {
 	        dwarf_data1(dwarf_info_section, 0);
 	        write32le(dwarf_info_section->data + pos_sib,
 		          dwarf_info_section->data_offset - dwarf_info.start);
 	    }
 	    e = t;
 	    i = 0;
-	    while (e->next) {
+	    අතරතුර (e->next) {
 		e = e->next;
-		if (STRUCT_NODEBUG(e))
+		නම් (STRUCT_NODEBUG(e))
 		    continue;
 		type = tcc_get_dwarf_info(s1, e);
 		tcc_debug_check_forw(s1, e, pos_type[i]);
@@ -2003,11 +2003,11 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 	    tcc_free(pos_type);
         }
     }
-    else if (IS_ENUM(type)) {
+    නැතහොත් නම් (IS_ENUM(type)) {
         t = t->type.ref;
 	debug_type = tcc_debug_find(s1, t, 1);
-	if (debug_type == -1) {
-	    int pos_sib, pos_type;
+	නම් (debug_type == -1) {
+	    පූර්ණ_සංඛ්‍යා pos_sib, pos_type;
 	    Sym sym = {0}; sym.type.t = VT_INT | (type & VT_UNSIGNED);
 
 	    pos_type = tcc_get_dwarf_info(s1, &sym);
@@ -2025,7 +2025,7 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 	    pos_sib = dwarf_info_section->data_offset;
 	    dwarf_data4(dwarf_info_section, 0);
 	    e = t;
-            while (e->next) {
+            අතරතුර (e->next) {
                 e = e->next;
 	        dwarf_data1(dwarf_info_section,
 			type & VT_UNSIGNED ? DWARF_ABBREV_ENUMERATOR_UNSIGNED
@@ -2033,9 +2033,9 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 	        dwarf_strp(dwarf_info_section,
                            (e->v & ~SYM_FIELD) >= SYM_FIRST_ANOM
                            ? "" : get_tok_str(e->v, NULL));
-		if (type & VT_UNSIGNED)
+		නම් (type & VT_UNSIGNED)
 	            dwarf_uleb128(dwarf_info_section, e->enum_val);
-		else
+		නැතහොත්
 	            dwarf_sleb128(dwarf_info_section, e->enum_val);
             }
 	    dwarf_data1(dwarf_info_section, 0);
@@ -2043,22 +2043,22 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 		      dwarf_info_section->data_offset - dwarf_info.start);
 	}
     }
-    else if ((type & VT_BTYPE) != VT_FUNC) {
+    නැතහොත් නම් ((type & VT_BTYPE) != VT_FUNC) {
         type &= ~VT_STRUCT_MASK;
-        for (i = 1; i <= N_DEFAULT_DEBUG; i++)
-            if (default_debug[i - 1].type == type)
-                break;
-        if (i > N_DEFAULT_DEBUG)
-            return 0;
+        සඳහා (i = 1; i <= N_DEFAULT_DEBUG; i++)
+            නම් (default_debug[i - 1].type == type)
+                bha_nga;
+        නම් (i > N_DEFAULT_DEBUG)
+            ආපසු 0;
 	debug_type = dwarf_info.base_type_used[i - 1];
-	if (debug_type == 0) {
-	    char name[100];
+	නම් (debug_type == 0) {
+	    var_na name[100];
 
 	    debug_type = dwarf_info_section->data_offset;
 	    dwarf_data1(dwarf_info_section, DWARF_ABBREV_BASE_TYPE);
 	    dwarf_uleb128(dwarf_info_section, default_debug[i - 1].size);
 	    dwarf_data1(dwarf_info_section, default_debug[i - 1].encoding);
-	    pstrcpy(name, sizeof name, default_debug[i - 1].name);
+	    pstrcpy(name, parimaa_na name, default_debug[i - 1].name);
 	    *strchr(name, ':') = 0;
 	    dwarf_strp(dwarf_info_section, name);
 	    dwarf_info.base_type_used[i - 1] = debug_type;
@@ -2067,15 +2067,15 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
     retval = debug_type;
     e = NULL;
     t = s;
-    for (;;) {
+    සඳහා (;;) {
         type = remove_type_info (t->type.t);
-        if (type == VT_PTR) {
+        නම් (type == VT_PTR) {
 	    i = dwarf_info_section->data_offset;
-	    if (retval == debug_type)
+	    නම් (retval == debug_type)
 		retval = i;
 	    dwarf_data1(dwarf_info_section, DWARF_ABBREV_POINTER);
 	    dwarf_data1(dwarf_info_section, PTR_SIZE);
-	    if (last_pos != -1) {
+	    නම් (last_pos != -1) {
 		tcc_debug_check_forw(s1, e, last_pos);
 		write32le(dwarf_info_section->data + last_pos,
 			  i - dwarf_info.start);
@@ -2084,20 +2084,20 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 	    e = t->type.ref;
 	    dwarf_data4(dwarf_info_section, 0);
 	}
-        else if (type == (VT_PTR | VT_ARRAY)) {
-	    int sib_pos, sub_type;
-#if LONG_SIZE == 4
+        නැතහොත් නම් (type == (VT_PTR | VT_ARRAY)) {
+	    පූර්ණ_සංඛ්‍යා sib_pos, sub_type;
+#නම් LONG_SIZE == 4
 	    Sym sym = {0}; sym.type.t = VT_LONG | VT_INT | VT_UNSIGNED;
-#else
+#නැතහොත්
 	    Sym sym = {0}; sym.type.t = VT_LLONG | VT_LONG | VT_UNSIGNED;
 #endif
 
 	    sub_type = tcc_get_dwarf_info(s1, &sym);
 	    i = dwarf_info_section->data_offset;
-	    if (retval == debug_type)
+	    නම් (retval == debug_type)
 		retval = i;
 	    dwarf_data1(dwarf_info_section, DWARF_ABBREV_ARRAY_TYPE);
-	    if (last_pos != -1) {
+	    නම් (last_pos != -1) {
 		tcc_debug_check_forw(s1, e, last_pos);
 		write32le(dwarf_info_section->data + last_pos,
 			  i - dwarf_info.start);
@@ -2107,32 +2107,32 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 	    dwarf_data4(dwarf_info_section, 0);
 	    sib_pos = dwarf_info_section->data_offset;
 	    dwarf_data4(dwarf_info_section, 0);
-	    for (;;) {
+	    සඳහා (;;) {
 	        dwarf_data1(dwarf_info_section, DWARF_ABBREV_SUBRANGE_TYPE);
 	        dwarf_data4(dwarf_info_section, sub_type - dwarf_info.start);
 	        dwarf_uleb128(dwarf_info_section, t->type.ref->c - 1);
 		s = t->type.ref;
 		type = s->type.t & ~(VT_STORAGE | VT_QUAL);
-		if (type != (VT_PTR | VT_ARRAY))
-		    break;
+		නම් (type != (VT_PTR | VT_ARRAY))
+		    bha_nga;
 		t = s;
 	    }
 	    dwarf_data1(dwarf_info_section, 0);
 	    write32le(dwarf_info_section->data + sib_pos,
 		      dwarf_info_section->data_offset - dwarf_info.start);
 	}
-        else if (type == VT_FUNC) {
-	    int sib_pos = 0, *pos_type;
+        නැතහොත් නම් (type == VT_FUNC) {
+	    පූර්ණ_සංඛ්‍යා sib_pos = 0, *pos_type;
 	    Sym *f;
 
 	    i = dwarf_info_section->data_offset;
 	    debug_type = tcc_get_dwarf_info(s1, t->type.ref);
-	    if (retval == debug_type)
+	    නම් (retval == debug_type)
 		retval = i;
 	    dwarf_data1(dwarf_info_section,
 			t->type.ref->next ? DWARF_ABBREV_SUBROUTINE_TYPE
 					  : DWARF_ABBREV_SUBROUTINE_EMPTY_TYPE);
-	    if (last_pos != -1) {
+	    නම් (last_pos != -1) {
 		tcc_debug_check_forw(s1, e, last_pos);
 		write32le(dwarf_info_section->data + last_pos,
 			  i - dwarf_info.start);
@@ -2140,33 +2140,33 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 	    last_pos = dwarf_info_section->data_offset;
 	    e = t->type.ref;
 	    dwarf_data4(dwarf_info_section, 0);
-	    if (t->type.ref->next) {
+	    නම් (t->type.ref->next) {
 	        sib_pos = dwarf_info_section->data_offset;
 	        dwarf_data4(dwarf_info_section, 0);
 	    }
 	    f = t->type.ref;
 	    i = 0;
-	    while (f->next) {
+	    අතරතුර (f->next) {
 		f = f->next;
 		i++;
 	    }
-	    pos_type = (int *) tcc_malloc(i * sizeof(int));
+	    pos_type = (පූර්ණ_සංඛ්‍යා *) tcc_malloc(i * parimaa_na(පූර්ණ_සංඛ්‍යා));
 	    f = t->type.ref;
 	    i = 0;
-	    while (f->next) {
+	    අතරතුර (f->next) {
 		f = f->next;
 	        dwarf_data1(dwarf_info_section, DWARF_ABBREV_FORMAL_PARAMETER2);
 		pos_type[i++] = dwarf_info_section->data_offset;
 	        dwarf_data4(dwarf_info_section, 0);
 	    }
-	    if (t->type.ref->next) {
+	    නම් (t->type.ref->next) {
 	        dwarf_data1(dwarf_info_section, 0);
 	        write32le(dwarf_info_section->data + sib_pos,
 		          dwarf_info_section->data_offset - dwarf_info.start);
 	    }
 	    f = t->type.ref;
 	    i = 0;
-	    while (f->next) {
+	    අතරතුර (f->next) {
 		f = f->next;
 		type = tcc_get_dwarf_info(s1, f);
 		tcc_debug_check_forw(s1, f, pos_type[i]);
@@ -2175,29 +2175,29 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 	    }
 	    tcc_free(pos_type);
         }
-        else {
-	    if (last_pos != -1) {
+        නැතහොත් {
+	    නම් (last_pos != -1) {
 		tcc_debug_check_forw(s1, e, last_pos);
 		write32le(dwarf_info_section->data + last_pos,
 			  debug_type - dwarf_info.start);
 	    }
-            break;
+            bha_nga;
 	}
         t = t->type.ref;
     }
-    return retval;
+    ආපසු retval;
 }
 
-static void tcc_debug_finish (TCCState *s1, struct _debug_info *cur)
+static void tcc_debug_finish (TCCState *s1, sa_nracanaa _debug_info *cur)
 {
-    while (cur) {
-        struct _debug_info *next = cur->next;
-        int i;
+    අතරතුර (cur) {
+        sa_nracanaa _debug_info *next = cur->next;
+        පූර්ණ_සංඛ්‍යා i;
 
-        if (s1->dwarf) {
+        නම් (s1->dwarf) {
 
-            for (i = cur->n_sym - 1; i >= 0; i--) {
-                struct debug_sym *s = &cur->sym[i];
+            සඳහා (i = cur->n_sym - 1; i >= 0; i--) {
+                sa_nracanaa debug_sym *s = &cur->sym[i];
 
 		dwarf_data1(dwarf_info_section,
                             s->type == N_PSYM
@@ -2208,26 +2208,26 @@ static void tcc_debug_finish (TCCState *s1, struct _debug_info *cur)
 			    ? DWARF_ABBREV_VARIABLE_STATIC
 			    : DWARF_ABBREV_VARIABLE_LOCAL);
                 dwarf_strp(dwarf_info_section, s->str);
-		if (s->type == N_GSYM || s->type == N_STSYM) {
+		නම් (s->type == N_GSYM || s->type == N_STSYM) {
                     dwarf_uleb128(dwarf_info_section, s->file);
                     dwarf_uleb128(dwarf_info_section, s->line);
 		}
                 dwarf_data4(dwarf_info_section, s->info - dwarf_info.start);
-		if (s->type == N_GSYM || s->type == N_STSYM) {
+		නම් (s->type == N_GSYM || s->type == N_STSYM) {
 		    /* global/static */
-		    if (s->type == N_GSYM)
+		    නම් (s->type == N_GSYM)
                         dwarf_data1(dwarf_info_section, 1);
                     dwarf_data1(dwarf_info_section, PTR_SIZE + 1);
                     dwarf_data1(dwarf_info_section, DW_OP_addr);
-		    if (s->type == N_STSYM)
+		    නම් (s->type == N_STSYM)
 		        dwarf_reloc(dwarf_info_section, section_sym, R_DATA_PTR);
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
                     dwarf_data4(dwarf_info_section, s->value);
-#else
+#නැතහොත්
                     dwarf_data8(dwarf_info_section, s->value);
 #endif
 		}
-		else {
+		නැතහොත් {
 		    /* param/local */
                     dwarf_data1(dwarf_info_section, dwarf_sleb128_size((long)s->value) + 1);
                     dwarf_data1(dwarf_info_section, DW_OP_fbreg);
@@ -2240,26 +2240,26 @@ static void tcc_debug_finish (TCCState *s1, struct _debug_info *cur)
 			cur->child ? DWARF_ABBREV_LEXICAL_BLOCK
 			           : DWARF_ABBREV_LEXICAL_EMPTY_BLOCK);
             dwarf_reloc(dwarf_info_section, section_sym, R_DATA_PTR);
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
             dwarf_data4(dwarf_info_section, func_ind + cur->start);
             dwarf_data4(dwarf_info_section, cur->end - cur->start);
-#else
+#නැතහොත්
             dwarf_data8(dwarf_info_section, func_ind + cur->start);
             dwarf_data8(dwarf_info_section, cur->end - cur->start);
 #endif
             tcc_debug_finish (s1, cur->child);
-	    if (cur->child)
+	    නම් (cur->child)
                 dwarf_data1(dwarf_info_section, 0);
         }
-        else
+        නැතහොත්
         {
-            for (i = 0; i < cur->n_sym; i++) {
-                struct debug_sym *s = &cur->sym[i];
+            සඳහා (i = 0; i < cur->n_sym; i++) {
+                sa_nracanaa debug_sym *s = &cur->sym[i];
 
-                if (s->sec)
+                නම් (s->sec)
                     put_stabs_r(s1, s->str, s->type, 0, 0, s->value,
                                 s->sec, s->sym_index);
-                else
+                නැතහොත්
                     put_stabs(s1, s->str, s->type, 0, 0, s->value);
                 tcc_free (s->str);
             }
@@ -2276,22 +2276,22 @@ static void tcc_debug_finish (TCCState *s1, struct _debug_info *cur)
 ST_FUNC void tcc_add_debug_info(TCCState *s1, Sym *s, Sym *e)
 {
     CString debug_str;
-    int param;
+    පූර්ණ_සංඛ්‍යා param;
 
-    if (!(s1->do_debug & 2))
-        return;
+    නම් (!(s1->do_debug & 2))
+        ආපසු;
 
     cstr_new (&debug_str);
     param = !e;
-    for (; s != e; s = s->prev) {
-        if (!s->v || (s->r & VT_VALMASK) != VT_LOCAL)
+    සඳහා (; s != e; s = s->prev) {
+        නම් (!s->v || (s->r & VT_VALMASK) != VT_LOCAL)
             continue;
-	if (s1->dwarf) {
+	නම් (s1->dwarf) {
 	    tcc_debug_stabs(s1, get_tok_str(s->v, NULL),
 			    param ? N_PSYM : N_LSYM, s->c, NULL, 0,
 			    tcc_get_dwarf_info(s1, s));
 	}
-	else
+	නැතහොත්
         {
             cstr_reset (&debug_str);
             cstr_printf (&debug_str, "%s:%s", get_tok_str(s->v, NULL),
@@ -2310,31 +2310,31 @@ ST_FUNC void tcc_debug_funcstart(TCCState *s1, Sym *sym)
     CString debug_str;
     BufferedFile *f;
 
-    if (!s1->do_debug)
-        return;
+    නම් (!s1->do_debug)
+        ආපසු;
     debug_info_root = NULL;
     debug_info = NULL;
     tcc_debug_stabn(s1, N_LBRAC, ind - func_ind);
     f = put_new_file(s1);
-    if (!f)
-	return;
+    නම් (!f)
+	ආපසු;
 
-    if (s1->dwarf) {
+    නම් (s1->dwarf) {
         tcc_debug_line(s1);
         dwarf_info.func = sym;
         dwarf_info.line = file->line_num;
-	if (s1->do_backtrace) {
-	    int i, len;
+	නම් (s1->do_backtrace) {
+	    පූර්ණ_සංඛ්‍යා i, len;
 
 	    dwarf_line_op(s1, 0); // extended
 	    dwarf_uleb128_op(s1, strlen(funcname) + 2);
 	    dwarf_line_op(s1, DW_LNE_hi_user - 1);
 	    len = strlen(funcname) + 1;
-	    for (i = 0; i < len; i++)
+	    සඳහා (i = 0; i < len; i++)
 		dwarf_line_op(s1, funcname[i]);
 	}
     }
-    else
+    නැතහොත්
     {
         cstr_new (&debug_str);
         cstr_printf(&debug_str, "%s:%c", funcname, sym->type.t & VT_STATIC ? 'f' : 'F');
@@ -2345,41 +2345,41 @@ ST_FUNC void tcc_debug_funcstart(TCCState *s1, Sym *sym)
     }
 }
 
-ST_FUNC void tcc_debug_prolog_epilog(TCCState *s1, int value)
+ST_FUNC void tcc_debug_prolog_epilog(TCCState *s1, පූර්ණ_සංඛ්‍යා value)
 {
-    if (!s1->do_debug)
-        return;
-    if (s1->dwarf) {
+    නම් (!s1->do_debug)
+        ආපසු;
+    නම් (s1->dwarf) {
 	dwarf_line_op(s1, value == 0 ? DW_LNS_set_prologue_end
 				     : DW_LNS_set_epilogue_begin);
     }
 }
 
 /* put function size */
-ST_FUNC void tcc_debug_funcend(TCCState *s1, int size)
+ST_FUNC void tcc_debug_funcend(TCCState *s1, පූර්ණ_සංඛ්‍යා size)
 {
     /* lldb does not like function end and next function start at same pc */
-    int min_instr_len;
+    පූර්ණ_සංඛ්‍යා min_instr_len;
 
-#if TCC_EH_FRAME
+#නම් TCC_EH_FRAME
     tcc_debug_frame_end(s1, size);
 #endif
-    if (!s1->do_debug)
-        return;
+    නම් (!s1->do_debug)
+        ආපසු;
     min_instr_len = dwarf_line.last_pc == ind ? 0 : DWARF_MIN_INSTR_LEN;
     ind -= min_instr_len;
     tcc_debug_line(s1);
     ind += min_instr_len;
     tcc_debug_stabn(s1, N_RBRAC, size);
-    if (s1->dwarf) {
-        int func_sib = 0;
+    නම් (s1->dwarf) {
+        පූර්ණ_සංඛ්‍යා func_sib = 0;
 	Sym *sym = dwarf_info.func;
-	int n_debug_info = tcc_get_dwarf_info(s1, sym->type.ref);
+	පූර්ණ_සංඛ්‍යා n_debug_info = tcc_get_dwarf_info(s1, sym->type.ref);
 
         dwarf_data1(dwarf_info_section,
 	    sym->type.t & VT_STATIC ? DWARF_ABBREV_SUBPROGRAM_STATIC
 				    : DWARF_ABBREV_SUBPROGRAM_EXTERNAL);
-        if ((sym->type.t & VT_STATIC) == 0)
+        නම් ((sym->type.t & VT_STATIC) == 0)
             dwarf_data1(dwarf_info_section, 1);
         dwarf_strp(dwarf_info_section, funcname);
         dwarf_uleb128(dwarf_info_section, dwarf_line.cur_file);
@@ -2387,17 +2387,17 @@ ST_FUNC void tcc_debug_funcend(TCCState *s1, int size)
 	tcc_debug_check_forw(s1, sym->type.ref, dwarf_info_section->data_offset);
         dwarf_data4(dwarf_info_section, n_debug_info - dwarf_info.start);
         dwarf_reloc(dwarf_info_section, section_sym, R_DATA_PTR);
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
         dwarf_data4(dwarf_info_section, func_ind); // low_pc
         dwarf_data4(dwarf_info_section, size); // high_pc
-#else
+#නැතහොත්
         dwarf_data8(dwarf_info_section, func_ind); // low_pc
         dwarf_data8(dwarf_info_section, size); // high_pc
 #endif
         func_sib = dwarf_info_section->data_offset;
         dwarf_data4(dwarf_info_section, 0); // sibling
         dwarf_data1(dwarf_info_section, 1);
-#if defined(TCC_TARGET_I386)
+#නම් defined(TCC_TARGET_I386)
         dwarf_data1(dwarf_info_section, DW_OP_reg5); // ebp
 #elif defined(TCC_TARGET_X86_64)
         dwarf_data1(dwarf_info_section, DW_OP_reg6); // rbp
@@ -2407,7 +2407,7 @@ ST_FUNC void tcc_debug_funcend(TCCState *s1, int size)
         dwarf_data1(dwarf_info_section, DW_OP_reg29); // reg 29
 #elif defined TCC_TARGET_RISCV64
         dwarf_data1(dwarf_info_section, DW_OP_reg8); // r8(s0)
-#else
+#නැතහොත්
         dwarf_data1(dwarf_info_section, DW_OP_call_frame_cfa);
 #endif
         tcc_debug_finish (s1, debug_info_root);
@@ -2415,7 +2415,7 @@ ST_FUNC void tcc_debug_funcend(TCCState *s1, int size)
         write32le(dwarf_info_section->data + func_sib,
                   dwarf_info_section->data_offset - dwarf_info.start);
     }
-    else
+    නැතහොත්
     {
         tcc_debug_finish (s1, debug_info_root);
     }
@@ -2423,15 +2423,15 @@ ST_FUNC void tcc_debug_funcend(TCCState *s1, int size)
 }
 
 
-ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_num, int sym_bind, int sym_type)
+ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, පූර්ණ_සංඛ්‍යා sh_num, පූර්ණ_සංඛ්‍යා sym_bind, පූර්ණ_සංඛ්‍යා sym_type)
 {
-    if (!(s1->do_debug & 2))
-        return;
+    නම් (!(s1->do_debug & 2))
+        ආපසු;
 
-    if (sym_type == STT_FUNC || sym->v >= SYM_FIRST_ANOM)
-        return;
-    if (s1->dwarf) {
-        int debug_type;
+    නම් (sym_type == STT_FUNC || sym->v >= SYM_FIRST_ANOM)
+        ආපසු;
+    නම් (s1->dwarf) {
+        පූර්ණ_සංඛ්‍යා debug_type;
 
         debug_type = tcc_get_dwarf_info(s1, sym);
 	dwarf_data1(dwarf_info_section,
@@ -2443,19 +2443,19 @@ ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_num, int sym_bi
 	dwarf_uleb128(dwarf_info_section, file->line_num);
 	tcc_debug_check_forw(s1, sym, dwarf_info_section->data_offset);
 	dwarf_data4(dwarf_info_section, debug_type - dwarf_info.start);
-	if (sym_bind == STB_GLOBAL)
+	නම් (sym_bind == STB_GLOBAL)
 	    dwarf_data1(dwarf_info_section, 1);
 	dwarf_data1(dwarf_info_section, PTR_SIZE + 1);
 	dwarf_data1(dwarf_info_section, DW_OP_addr);
 	greloca(dwarf_info_section, sym, dwarf_info_section->data_offset,
 		R_DATA_PTR, 0);
-#if PTR_SIZE == 4
+#නම් PTR_SIZE == 4
 	dwarf_data4(dwarf_info_section, 0);
-#else
+#නැතහොත්
 	dwarf_data8(dwarf_info_section, 0);
 #endif
     }
-    else
+    නැතහොත්
     {
         Section *s = sh_num == SHN_COMMON ? common_section
 					  : s1->sections[sh_num];
@@ -2467,9 +2467,9 @@ ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_num, int sym_bi
                 sym_bind == STB_GLOBAL ? 'G' : func_ind != -1 ? 'V' : 'S'
                 );
         tcc_get_debug_info(s1, sym, &str);
-        if (sym_bind == STB_GLOBAL)
+        නම් (sym_bind == STB_GLOBAL)
             tcc_debug_stabs(s1, str.data, N_GSYM, 0, NULL, 0, 0);
-        else
+        නැතහොත්
             tcc_debug_stabs(s1, str.data,
                 (sym->type.t & VT_STATIC) && data_section == s
                 ? N_STSYM : N_LCSYM, 0, s, sym->c, 0);
@@ -2479,14 +2479,14 @@ ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_num, int sym_bi
 
 ST_FUNC void tcc_debug_typedef(TCCState *s1, Sym *sym)
 {
-    if (!(s1->do_debug & 2))
-        return;
+    නම් (!(s1->do_debug & 2))
+        ආපසු;
 
-    if (s1->dwarf) {
-	int debug_type;
+    නම් (s1->dwarf) {
+	පූර්ණ_සංඛ්‍යා debug_type;
 
         debug_type = tcc_get_dwarf_info(s1, sym);
-	if (debug_type != -1) {
+	නම් (debug_type != -1) {
 	    dwarf_data1(dwarf_info_section, DWARF_ABBREV_TYPEDEF);
 	    dwarf_strp(dwarf_info_section, get_tok_str(sym->v, NULL));
 	    dwarf_uleb128(dwarf_info_section, dwarf_line.cur_file);
@@ -2495,7 +2495,7 @@ ST_FUNC void tcc_debug_typedef(TCCState *s1, Sym *sym)
 	    dwarf_data4(dwarf_info_section, debug_type - dwarf_info.start);
 	}
     }
-    else
+    නැතහොත්
     {
         CString str;
         cstr_new (&str);
@@ -2509,7 +2509,7 @@ ST_FUNC void tcc_debug_typedef(TCCState *s1, Sym *sym)
 /* ------------------------------------------------------------------------- */
 /* for section layout see lib/tcov.c */
 
-ST_FUNC void tcc_tcov_block_end(TCCState *s1, int line);
+ST_FUNC void tcc_tcov_block_end(TCCState *s1, පූර්ණ_සංඛ්‍යා line);
 
 ST_FUNC void tcc_tcov_block_begin(TCCState *s1)
 {
@@ -2518,55 +2518,55 @@ ST_FUNC void tcc_tcov_block_begin(TCCState *s1)
     unsigned long last_offset = tcov_data.offset;
 
     tcc_tcov_block_end (tcc_state, 0);
-    if (s1->test_coverage == 0 || nocode_wanted)
-	return;
+    නම් (s1->test_coverage == 0 || nocode_wanted)
+	ආපසු;
 
-    if (tcov_data.last_file_name == 0 ||
-	strcmp ((const char *)(tcov_section->data + tcov_data.last_file_name),
+    නම් (tcov_data.last_file_name == 0 ||
+	strcmp ((const var_na *)(tcov_section->data + tcov_data.last_file_name),
 		file->true_filename) != 0) {
-	char wd[1024];
+	var_na wd[1024];
 	CString cstr;
 
-	if (tcov_data.last_func_name)
+	නම් (tcov_data.last_func_name)
 	    section_ptr_add(tcov_section, 1);
-	if (tcov_data.last_file_name)
+	නම් (tcov_data.last_file_name)
 	    section_ptr_add(tcov_section, 1);
 	tcov_data.last_func_name = 0;
 	cstr_new (&cstr);
-	if (file->true_filename[0] == '/') {
+	නම් (file->true_filename[0] == '/') {
 	    tcov_data.last_file_name = tcov_section->data_offset;
 	    cstr_printf (&cstr, "%s", file->true_filename);
 	}
-	else {
-	    getcwd (wd, sizeof(wd));
+	නැතහොත් {
+	    getcwd (wd, parimaa_na(wd));
 	    tcov_data.last_file_name = tcov_section->data_offset + strlen(wd) + 1;
 	    cstr_printf (&cstr, "%s/%s", wd, file->true_filename);
 	}
 	ptr = section_ptr_add(tcov_section, cstr.size + 1);
-	strcpy((char *)ptr, cstr.data);
+	strcpy((var_na *)ptr, cstr.data);
 #ifdef _WIN32
-        normalize_slashes((char *)ptr);
+        normalize_slashes((var_na *)ptr);
 #endif
 	cstr_free (&cstr);
     }
-    if (tcov_data.last_func_name == 0 ||
-	strcmp ((const char *)(tcov_section->data + tcov_data.last_func_name),
+    නම් (tcov_data.last_func_name == 0 ||
+	strcmp ((const var_na *)(tcov_section->data + tcov_data.last_func_name),
 		funcname) != 0) {
 	size_t len;
 
-	if (tcov_data.last_func_name)
+	නම් (tcov_data.last_func_name)
 	    section_ptr_add(tcov_section, 1);
 	tcov_data.last_func_name = tcov_section->data_offset;
 	len = strlen (funcname);
 	ptr = section_ptr_add(tcov_section, len + 1);
-	strcpy((char *)ptr, funcname);
+	strcpy((var_na *)ptr, funcname);
 	section_ptr_add(tcov_section, -tcov_section->data_offset & 7);
 	ptr = section_ptr_add(tcov_section, 8);
 	write64le (ptr, file->line_num);
     }
-    if (ind == tcov_data.ind && tcov_data.line == file->line_num)
+    නම් (ind == tcov_data.ind && tcov_data.line == file->line_num)
         tcov_data.offset = last_offset;
-    else {
+    නැතහොත් {
         Sym label = {0};
         label.type.t = VT_LLONG | VT_STATIC;
 
@@ -2574,33 +2574,33 @@ ST_FUNC void tcc_tcov_block_begin(TCCState *s1)
         tcov_data.line = file->line_num;
         write64le (ptr, (tcov_data.line << 8) | 0xff);
         put_extern_sym(&label, tcov_section,
-		       ((unsigned char *)ptr - tcov_section->data) + 8, 0);
+		       ((unsigned var_na *)ptr - tcov_section->data) + 8, 0);
         sv.type = label.type;
         sv.r = VT_SYM | VT_LVAL | VT_CONST;
         sv.r2 = VT_CONST;
         sv.c.i = 0;
         sv.sym = &label;
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64 || \
+#නම් defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64 || \
     defined TCC_TARGET_ARM || defined TCC_TARGET_ARM64 || \
     defined TCC_TARGET_RISCV64
         gen_increment_tcov (&sv);
-#else
+#නැතහොත්
         vpushv(&sv);
         inc(0, TOK_INC);
         vpop();
 #endif
-        tcov_data.offset = (unsigned char *)ptr - tcov_section->data;
+        tcov_data.offset = (unsigned var_na *)ptr - tcov_section->data;
         tcov_data.ind = ind;
     }
 }
 
-ST_FUNC void tcc_tcov_block_end(TCCState *s1, int line)
+ST_FUNC void tcc_tcov_block_end(TCCState *s1, පූර්ණ_සංඛ්‍යා line)
 {
-    if (s1->test_coverage == 0)
-	return;
-    if (line == -1)
+    නම් (s1->test_coverage == 0)
+	ආපසු;
+    නම් (line == -1)
         line = tcov_data.line;
-    if (tcov_data.offset) {
+    නම් (tcov_data.offset) {
 	void *ptr = tcov_section->data + tcov_data.offset;
 	unsigned long long nline = line ? line : file->line_num;
 
@@ -2609,29 +2609,29 @@ ST_FUNC void tcc_tcov_block_end(TCCState *s1, int line)
     }
 }
 
-ST_FUNC void tcc_tcov_check_line(TCCState *s1, int start)
+ST_FUNC void tcc_tcov_check_line(TCCState *s1, පූර්ණ_සංඛ්‍යා start)
 {
-    if (s1->test_coverage == 0)
-	return;
-    if (tcov_data.line != file->line_num) {
-        if ((tcov_data.line + 1) != file->line_num) {
+    නම් (s1->test_coverage == 0)
+	ආපසු;
+    නම් (tcov_data.line != file->line_num) {
+        නම් ((tcov_data.line + 1) != file->line_num) {
 	    tcc_tcov_block_end (s1, -1);
-	    if (start)
+	    නම් (start)
                 tcc_tcov_block_begin (s1);
 	}
-	else
+	නැතහොත්
 	    tcov_data.line = file->line_num;
     }
 }
 
 ST_FUNC void tcc_tcov_start(TCCState *s1)
 {
-    if (s1->test_coverage == 0)
-	return;
-    if (!s1->dState)
-        s1->dState = tcc_mallocz(sizeof *s1->dState);
-    memset (&tcov_data, 0, sizeof (tcov_data));
-    if (tcov_section == NULL) {
+    නම් (s1->test_coverage == 0)
+	ආපසු;
+    නම් (!s1->dState)
+        s1->dState = tcc_mallocz(parimaa_na *s1->dState);
+    memset (&tcov_data, 0, parimaa_na (tcov_data));
+    නම් (tcov_section == NULL) {
         tcov_section = new_section(tcc_state, ".tcov", SHT_PROGBITS,
 				   SHF_ALLOC | SHF_WRITE);
 	section_ptr_add(tcov_section, 4); // pointer to executable name
@@ -2640,11 +2640,11 @@ ST_FUNC void tcc_tcov_start(TCCState *s1)
 
 ST_FUNC void tcc_tcov_end(TCCState *s1)
 {
-    if (s1->test_coverage == 0)
-	return;
-    if (tcov_data.last_func_name)
+    නම් (s1->test_coverage == 0)
+	ආපසු;
+    නම් (tcov_data.last_func_name)
         section_ptr_add(tcov_section, 1);
-    if (tcov_data.last_file_name)
+    නම් (tcov_data.last_file_name)
         section_ptr_add(tcov_section, 1);
 }
 

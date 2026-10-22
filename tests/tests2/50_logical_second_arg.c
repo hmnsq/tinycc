@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int fred()
+පූර්ණ_සංඛ්‍යා fred()
 {
    printf("fred\n");
-   return 0;
+   ආපසු 0;
 }
 
-int joe()
+පූර්ණ_සංඛ්‍යා joe()
 {
    printf("joe\n");
-   return 1;
+   ආපසු 1;
 }
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
    printf("%d\n", fred() && joe());
    printf("%d\n", fred() || joe());
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", joe() && (0 + fred()));
    printf("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   ආපසු 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

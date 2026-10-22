@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main() 
+පූර්ණ_සංඛ්‍යා main() 
 {
-   int Count;
-   int Array[10];
+   පූර්ණ_සංඛ්‍යා Count;
+   පූර්ණ_සංඛ්‍යා Array[10];
 
-   for (Count = 1; Count <= 10; Count++)
+   සඳහා (Count = 1; Count <= 10; Count++)
    {
       Array[Count-1] = Count * Count;
    }
 
-   for (Count = 0; Count < 10; Count++)
+   සඳහා (Count = 0; Count < 10; Count++)
    {
       printf("%d\n", Array[Count]);
    }
 
-   return 0;
+   ආපසු 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

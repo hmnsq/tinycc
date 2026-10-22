@@ -1,32 +1,32 @@
 #include <stdio.h>
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   පූර්ණ_සංඛ්‍යා a[4][4];
+   පූර්ණ_සංඛ්‍යා b = 0;
+   පූර්ණ_සංඛ්‍යා x;
+   පූර්ණ_සංඛ්‍යා y;
 
-   for (x = 0; x < 4; x++)
+   සඳහා (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      සඳහා (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   සඳහා (x = 0; x < 4; x++)
    {
       printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      සඳහා (y = 0; y < 4; y++)
       {
          printf("%d ", a[x][y]);
       }
       printf("\n");
    }
 
-   return 0;
+   ආපසු 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

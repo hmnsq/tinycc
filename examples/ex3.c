@@ -1,23 +1,23 @@
 #include <tcclib.h>
 
-int fib(int n)
+පූර්ණ_සංඛ්‍යා fib(පූර්ණ_සංඛ්‍යා n)
 {
-    if (n <= 2)
-        return 1;
-    else
-        return fib(n-1) + fib(n-2);
+    නම් (n <= 2)
+        ආපසු 1;
+    නැතහොත්
+        ආපසු fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+පූර්ණ_සංඛ්‍යා main(පූර්ණ_සංඛ්‍යා argc, var_na **argv)
 {
-    int n;
-    if (argc < 2) {
+    පූර්ණ_සංඛ්‍යා n;
+    නම් (argc < 2) {
         printf("usage: fib n\n"
                "Compute nth Fibonacci number\n");
-        return 1;
+        ආපසු 1;
     }
 
     n = atoi(argv[1]);
     printf("fib(%d) = %d\n", n, fib(n));
-    return 0;
+    ආපසු 0;
 }

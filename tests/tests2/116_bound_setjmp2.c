@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <setjmp.h>
-#if !defined(_WIN32)
+#නම් !defined(_WIN32)
 #include <pthread.h>
-#else
+#නැතහොත්
 #include <windows.h>
 #endif
 
 #define	SIZE	10
 #define	COUNT	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   පූර්ණ_සංඛ්‍යා i, a[2], b[2];                \
+              සඳහා (i = 0; i < 2; i++) a[i] = 0; \
+              සඳහා (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+static පූර්ණ_සංඛ්‍යා count[SIZE];
 
 static void tst1 (jmp_buf loc)
 {
@@ -34,51 +34,51 @@ static void tst2(jmp_buf loc)
 static void *tst (void * index)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    පූර්ණ_සංඛ්‍යා i = *(පූර්ණ_සංඛ්‍යා *) index;
+    static පූර්ණ_සංඛ්‍යා v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    සඳහා (v[i] = 0; v[i] < COUNT; v[i]++) {
+        නම් (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
+        නැතහොත් {
             count[i]++;
         }
-        i = *(int *) index;
+        i = *(පූර්ණ_සංඛ්‍යා *) index;
     }
-    return NULL;
+    ආපසු NULL;
 }
 
-int
+පූර්ණ_සංඛ්‍යා
 main (void)
 {
-    int i;
-#if !defined(_WIN32)
+    පූර්ණ_සංඛ්‍යා i;
+#නම් !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#නැතහොත්
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    පූර්ණ_සංඛ්‍යා index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    සඳහා (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
+#නම් !defined(_WIN32)
         pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
+#නැතහොත්
         id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
+    සඳහා (i = 0; i < SIZE; i++) {
+#නම් !defined(_WIN32)
         pthread_join (id[i], NULL);
-#else
+#නැතහොත්
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
+    සඳහා (i = 0; i < SIZE; i++) {
+        නම් (count[i] != COUNT)
             printf ("error: %d %d\n", i, count[i]);
     }
-    return 0;
+    ආපසු 0;
 }

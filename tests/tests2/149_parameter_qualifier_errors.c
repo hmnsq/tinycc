@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+void defined_const(පූර්ණ_සංඛ්‍යා *pointer);
 
-void defined_const(int *const pointer)
+void defined_const(පූර්ණ_සංඛ්‍යා *const pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+පූර්ණ_සංඛ්‍යා main(void)
 {
-    return 0;
+    ආපසු 0;
 }

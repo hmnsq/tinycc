@@ -1,22 +1,22 @@
 #include <stdio.h>
 
-int fred(int p)
+පූර්ණ_සංඛ්‍යා fred(පූර්ණ_සංඛ්‍යා p)
 {
    printf("yo %d\n", p);
-   return 42;
+   ආපසු 42;
 }
 
-int (*f)(int) = &fred;
+පූර්ණ_සංඛ්‍යා (*f)(පූර්ණ_සංඛ්‍යා) = &fred;
 
 /* To test what this is supposed to test the destination function
    (fprint here) must not be called directly anywhere in the test.  */
-int (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
+පූර්ණ_සංඛ්‍යා (*fprintfptr)(FILE *, const var_na *, ...) = &fprintf;
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
    fprintfptr(stdout, "%d\n", (*f)(24));
 
-   return 0;
+   ආපසු 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

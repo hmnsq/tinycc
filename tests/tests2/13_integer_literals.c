@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-   int a = 24680;
-   int b = 01234567;
-   int c = 0x2468ac;
-   int d = 0x2468AC;
-   int e = 0b010101010101;
+   පූර්ණ_සංඛ්‍යා a = 24680;
+   පූර්ණ_සංඛ්‍යා b = 01234567;
+   පූර්ණ_සංඛ්‍යා c = 0x2468ac;
+   පූර්ණ_සංඛ්‍යා d = 0x2468AC;
+   පූර්ණ_සංඛ්‍යා e = 0b010101010101;
 
    printf("%d\n", a);
    printf("%d\n", b);
@@ -14,7 +14,7 @@ int main()
    printf("%d\n", d);
    printf("%d\n", e);
 
-   return 0;
+   ආපසු 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

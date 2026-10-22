@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-   int a;
-   char b;
+   පූර්ණ_සංඛ්‍යා a;
+   var_na b;
 
    a = 0;
-   while (a < 2)
+   අතරතුර (a < 2)
    {
       printf("%d", a++);
-      break;
+      bha_nga;
 
       b = 'A';
-      while (b < 'C')
+      අතරතුර (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   ආපසු 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

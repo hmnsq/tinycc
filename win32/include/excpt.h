@@ -14,89 +14,89 @@
 extern "C" {
 #endif
 
-  struct _EXCEPTION_POINTERS;
+  sa_nracanaa _EXCEPTION_POINTERS;
 
 #ifndef EXCEPTION_DISPOSITION
-#define EXCEPTION_DISPOSITION   int
+#define EXCEPTION_DISPOSITION   පූර්ණ_සංඛ්‍යා
 #endif
 #define ExceptionContinueExecution 0
 #define ExceptionContinueSearch 1
 #define ExceptionNestedException 2
 #define ExceptionCollidedUnwind 3
 
-#if (defined(_X86_) && !defined(__x86_64))
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
+#නම් (defined(_X86_) && !defined(__x86_64))
+  sa_nracanaa _EXCEPTION_RECORD;
+  sa_nracanaa _CONTEXT;
 
-  EXCEPTION_DISPOSITION __cdecl _except_handler(struct _EXCEPTION_RECORD *_ExceptionRecord,void *_EstablisherFrame,struct _CONTEXT *_ContextRecord,void *_DispatcherContext);
+  EXCEPTION_DISPOSITION __cdecl _except_handler(sa_nracanaa _EXCEPTION_RECORD *_ExceptionRecord,void *_EstablisherFrame,sa_nracanaa _CONTEXT *_ContextRecord,void *_DispatcherContext);
 #elif defined(__ia64__)
 
-  typedef struct _EXCEPTION_POINTERS *Exception_info_ptr;
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
-  struct _DISPATCHER_CONTEXT;
+  typedef sa_nracanaa _EXCEPTION_POINTERS *Exception_info_ptr;
+  sa_nracanaa _EXCEPTION_RECORD;
+  sa_nracanaa _CONTEXT;
+  sa_nracanaa _DISPATCHER_CONTEXT;
 
-  _CRTIMP EXCEPTION_DISPOSITION __cdecl __C_specific_handler (struct _EXCEPTION_RECORD *_ExceptionRecord,unsigned __int64 _MemoryStackFp,unsigned __int64 _BackingStoreFp,struct _CONTEXT *_ContextRecord,struct _DISPATCHER_CONTEXT *_DispatcherContext,unsigned __int64 _GlobalPointer);
+  _CRTIMP EXCEPTION_DISPOSITION __cdecl __C_specific_handler (sa_nracanaa _EXCEPTION_RECORD *_ExceptionRecord,unsigned __int64 _MemoryStackFp,unsigned __int64 _BackingStoreFp,sa_nracanaa _CONTEXT *_ContextRecord,sa_nracanaa _DISPATCHER_CONTEXT *_DispatcherContext,unsigned __int64 _GlobalPointer);
 #elif defined(__x86_64)
 
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
+  sa_nracanaa _EXCEPTION_RECORD;
+  sa_nracanaa _CONTEXT;
 #endif
 
 #define GetExceptionCode _exception_code
 #define exception_code _exception_code
-#define GetExceptionInformation (struct _EXCEPTION_POINTERS *)_exception_info
-#define exception_info (struct _EXCEPTION_POINTERS *)_exception_info
+#define GetExceptionInformation (sa_nracanaa _EXCEPTION_POINTERS *)_exception_info
+#define exception_info (sa_nracanaa _EXCEPTION_POINTERS *)_exception_info
 #define AbnormalTermination _abnormal_termination
 #define abnormal_termination _abnormal_termination
 
   unsigned long __cdecl _exception_code(void);
   void *__cdecl _exception_info(void);
-  int __cdecl _abnormal_termination(void);
+  පූර්ණ_සංඛ්‍යා __cdecl _abnormal_termination(void);
 
 #define EXCEPTION_EXECUTE_HANDLER 1
 #define EXCEPTION_CONTINUE_SEARCH 0
 #define EXCEPTION_CONTINUE_EXECUTION -1
 
   /* CRT stuff */
-  typedef void (__cdecl * _PHNDLR)(int);
+  typedef void (__cdecl * _PHNDLR)(පූර්ණ_සංඛ්‍යා);
 
-  struct _XCPT_ACTION {
+  sa_nracanaa _XCPT_ACTION {
     unsigned long XcptNum;
-    int SigNum;
+    පූර්ණ_සංඛ්‍යා SigNum;
     _PHNDLR XcptAction;
   };
 
-  extern struct _XCPT_ACTION _XcptActTab[];
-  extern int _XcptActTabCount;
-  extern int _XcptActTabSize;
-  extern int _First_FPE_Indx;
-  extern int _Num_FPE;
+  extern sa_nracanaa _XCPT_ACTION _XcptActTab[];
+  extern පූර්ණ_සංඛ්‍යා _XcptActTabCount;
+  extern පූර්ණ_සංඛ්‍යා _XcptActTabSize;
+  extern පූර්ණ_සංඛ්‍යා _First_FPE_Indx;
+  extern පූර්ණ_සංඛ්‍යා _Num_FPE;
 
-  int __cdecl __CppXcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
-  int __cdecl _XcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
+  පූර්ණ_සංඛ්‍යා __cdecl __CppXcptFilter(unsigned long _ExceptionNum,sa_nracanaa _EXCEPTION_POINTERS * _ExceptionPtr);
+  පූර්ණ_සංඛ්‍යා __cdecl _XcptFilter(unsigned long _ExceptionNum,sa_nracanaa _EXCEPTION_POINTERS * _ExceptionPtr);
 
   /*
   * The type of function that is expected as an exception handler to be
   * installed with _try1.
   */
-  typedef EXCEPTION_DISPOSITION (*PEXCEPTION_HANDLER)(struct _EXCEPTION_RECORD*, void*, struct _CONTEXT*, void*);
+  typedef EXCEPTION_DISPOSITION (*PEXCEPTION_HANDLER)(sa_nracanaa _EXCEPTION_RECORD*, void*, sa_nracanaa _CONTEXT*, void*);
 
 #ifndef HAVE_NO_SEH
   /*
   * This is not entirely necessary, but it is the structure installed by
   * the _try1 primitive below.
   */
-  typedef struct _EXCEPTION_REGISTRATION {
-    struct _EXCEPTION_REGISTRATION *prev;
-    EXCEPTION_DISPOSITION (*handler)(struct _EXCEPTION_RECORD*, void*, struct _CONTEXT*, void*);
+  typedef sa_nracanaa _EXCEPTION_REGISTRATION {
+    sa_nracanaa _EXCEPTION_REGISTRATION *prev;
+    EXCEPTION_DISPOSITION (*handler)(sa_nracanaa _EXCEPTION_RECORD*, void*, sa_nracanaa _CONTEXT*, void*);
   } EXCEPTION_REGISTRATION, *PEXCEPTION_REGISTRATION;
 
   typedef EXCEPTION_REGISTRATION EXCEPTION_REGISTRATION_RECORD;
   typedef PEXCEPTION_REGISTRATION PEXCEPTION_REGISTRATION_RECORD;
 #endif
 
-#if (defined(_X86_) && !defined(__x86_64))
+#නම් (defined(_X86_) && !defined(__x86_64))
 #define __try1(pHandler) \
   __asm__ ("pushl %0;pushl %%fs:0;movl %%esp,%%fs:0;" : : "g" (pHandler));
 
@@ -110,7 +110,7 @@ extern "C" {
 #define	__except1	\
   __asm__ ("movq (%%rsp),%%rax;movq %%rax,%%gs:0;addq $16,%%rsp;" \
   : : : "%rax");
-#else
+#නැතහොත්
 #define __try1(pHandler)
 #define __except1
 #endif

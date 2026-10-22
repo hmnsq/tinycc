@@ -1,8 +1,8 @@
-extern int printf (const char *, ...);
+extern පූර්ණ_සංඛ්‍යා printf (const var_na *, ...);
 extern void target(void);
 extern void alias_for_target(void);
 extern void asm_for_target(void);
-extern int g_int, alias_int;
+extern පූර්ණ_සංඛ්‍යා g_int, alias_int;
 
 void inunit2(void);
 

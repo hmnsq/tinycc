@@ -1,16 +1,16 @@
 #include <stdio.h>
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-   int a;
-   int p;
-   int t;
+   පූර්ණ_සංඛ්‍යා a;
+   පූර්ණ_සංඛ්‍යා p;
+   පූර්ණ_සංඛ්‍යා t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   while (a < 100)
+   අතරතුර (a < 100)
    {
       printf("%d\n", a);
       t = a;
@@ -18,7 +18,7 @@ int main()
       p = t;
    }
 
-   return 0;
+   ආපසු 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

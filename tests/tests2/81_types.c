@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+ga_nanaa E *e;
+const ga_nanaa E *e1;
+ga_nanaa E const *e2;
+sa_nracanaa S *s;
+const sa_nracanaa S *s1;
+sa_nracanaa S const *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+typedef පූර්ණ_සංඛ්‍යා (*fptr1)();
+පූර්ණ_සංඛ්‍යා f1 (පූර්ණ_සංඛ්‍යා (), පූර්ණ_සංඛ්‍යා);
+typedef පූර්ණ_සංඛ්‍යා (*fptr2)(පූර්ණ_සංඛ්‍යා x);
+පූර්ණ_සංඛ්‍යා f2 (පූර්ණ_සංඛ්‍යා (පූර්ණ_සංඛ්‍යා x), පූර්ණ_සංඛ්‍යා);
+typedef පූර්ණ_සංඛ්‍යා (*fptr3)(පූර්ණ_සංඛ්‍යා);
+පූර්ණ_සංඛ්‍යා f3 (පූර්ණ_සංඛ්‍යා (පූර්ණ_සංඛ්‍යා), පූර්ණ_සංඛ්‍යා);
+typedef පූර්ණ_සංඛ්‍යා (*fptr4[4])(පූර්ණ_සංඛ්‍යා);
+පූර්ණ_සංඛ්‍යා f4 (පූර්ණ_සංඛ්‍යා (*[4])(පූර්ණ_සංඛ්‍යා), පූර්ණ_සංඛ්‍යා);
+typedef පූර්ණ_සංඛ්‍යා (*fptr5)(fptr1);
+පූර්ණ_සංඛ්‍යා f5 (පූර්ණ_සංඛ්‍යා (පූර්ණ_සංඛ්‍යා()), fptr1);
+පූර්ණ_සංඛ්‍යා f1 (fptr1 fp, පූර්ණ_සංඛ්‍යා i)
 {
-  return (*fp)(i);
+  ආපසු (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+පූර්ණ_සංඛ්‍යා f2 (fptr2 fp, පූර්ණ_සංඛ්‍යා i)
 {
-  return (*fp)(i);
+  ආපසු (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+පූර්ණ_සංඛ්‍යා f3 (fptr3 fp, පූර්ණ_සංඛ්‍යා i)
 {
-  return (*fp)(i);
+  ආපසු (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+පූර්ණ_සංඛ්‍යා f4 (fptr4 fp, පූර්ණ_සංඛ්‍යා i)
 {
-  return (*fp[i])(i);
+  ආපසු (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+පූර්ණ_සංඛ්‍යා f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  ආපසු fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+typedef පූර්ණ_සංඛ්‍යා intx4[4];
+පූර්ණ_සංඛ්‍යා f8 (intx4, පූර්ණ_සංඛ්‍යා);
+පූර්ණ_සංඛ්‍යා f8 (පූර්ණ_සංඛ්‍යා ([4]), පූර්ණ_සංඛ්‍යා);
+පූර්ණ_සංඛ්‍යා f8 (පූර්ණ_සංඛ්‍යා y[4], පූර්ණ_සංඛ්‍යා i)
 {
-  return y[i];
+  ආපසු y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+පූර්ණ_සංඛ්‍යා f9 (පූර්ණ_සංඛ්‍යා (*)(පූර්ණ_සංඛ්‍යා), පූර්ණ_සංඛ්‍යා);
+පූර්ණ_සංඛ්‍යා f9 (පූර්ණ_සංඛ්‍යා ((පූර්ණ_සංඛ්‍යා)), පූර්ණ_සංඛ්‍යා);
+පූර්ණ_සංඛ්‍යා f9 (පූර්ණ_සංඛ්‍යා f(පූර්ණ_සංඛ්‍යා), පූර්ණ_සංඛ්‍යා i)
 {
-  return f(i);
+  ආපසු f(i);
 }
-int main () { return 0; }
+පූර්ණ_සංඛ්‍යා main () { ආපසු 0; }

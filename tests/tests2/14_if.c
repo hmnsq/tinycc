@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-   int a = 1;
+   පූර්ණ_සංඛ්‍යා a = 1;
 
-   if (a)
+   නම් (a)
       printf("a is true\n");
-   else
+   නැතහොත්
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   පූර්ණ_සංඛ්‍යා b = 0;
+   නම් (b)
       printf("b is true\n");
-   else
+   නැතහොත්
       printf("b is false\n");
 
-   return 0;
+   ආපසු 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

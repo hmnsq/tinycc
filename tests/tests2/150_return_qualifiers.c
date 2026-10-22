@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+const පූර්ණ_සංඛ්‍යා const_return(void);
+ca_ncala පූර්ණ_සංඛ්‍යා volatile_return(void);
+පූර්ණ_සංඛ්‍යා *restrict restrict_return(void);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, පූර්ණ_සංඛ්‍යා *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, පූර්ණ_සංඛ්‍යා *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, පූර්ණ_සංඛ්‍යා **),
                "restrict is removed from a return type");
 
-int const_return(void)
+පූර්ණ_සංඛ්‍යා const_return(void)
 {
-   return 0;
+   ආපසු 0;
 }
 
-int volatile_return(void)
+පූර්ණ_සංඛ්‍යා volatile_return(void)
 {
-   return 0;
+   ආපසු 0;
 }
 
-int *restrict_return(void)
+පූර්ණ_සංඛ්‍යා *restrict_return(void)
 {
-   return 0;
+   ආපසු 0;
 }
 
-int main(void)
+පූර්ණ_සංඛ්‍යා main(void)
 {
-   return 0;
+   ආපසු 0;
 }

@@ -1,23 +1,23 @@
 #include <stdio.h>
 
-typedef int MyInt;
+typedef පූර්ණ_සංඛ්‍යා MyInt;
 
-struct FunStruct
+sa_nracanaa FunStruct
 {
-   int i;
-   int j;
+   පූර්ණ_සංඛ්‍යා i;
+   පූර්ණ_සංඛ්‍යා j;
 };
 
-typedef struct FunStruct MyFunStruct;
+typedef sa_nracanaa FunStruct MyFunStruct;
 
 typedef MyFunStruct *MoreFunThanEver;
 
-typedef int t[];
-int tints[];
+typedef පූර්ණ_සංඛ්‍යා t[];
+පූර්ණ_සංඛ්‍යා tints[];
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-   int i, *p;
+   පූර්ණ_සංඛ්‍යා i, *p;
    MyInt a = 1;
    printf("%d\n", a);
 
@@ -30,55 +30,55 @@ int main()
    printf("%d,%d\n", c->i, c->j);
 
    p = (t){1,2,3};
-   for (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
+   සඳහා (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
    p = (t){1,2,3,4};
-   for (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   සඳහා (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
 
-   printf("%d\n", (int)sizeof((t){1,2,3}));
-   printf("%d\n", (int)sizeof((t){1,2,3,4}));
+   printf("%d\n", (පූර්ණ_සංඛ්‍යා)parimaa_na((t){1,2,3}));
+   printf("%d\n", (පූර්ණ_සංඛ්‍යා)parimaa_na((t){1,2,3,4}));
 
    /* two arrays derived from same base type */
    t t3 = { 1,2,3 }, t4 = { 4,5,6,7 };
-   for (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   සඳහා (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
+   සඳහා (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
    typeof(tints) t5 = { 1,2,3 }, t6 = { 4,5,6,7 };
-   for (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   සඳහා (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
+   සඳහා (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
 
-   return 0;
+   ආපසු 0;
 }
 
 /* "If the specification of an array type includes any type qualifiers,
    the element type is so-qualified, not the array type." */
 
-typedef int A[3];
+typedef පූර්ණ_සංඛ්‍යා A[3];
 extern A const ca;
 extern const A ca;
-extern const int ca[3];
+extern const පූර්ණ_සංඛ්‍යා ca[3];
 
 typedef A B[1][2];
 extern B const cb;
 extern const B cb;
-extern const int cb[1][2][3];
+extern const පූර්ණ_සංඛ්‍යා cb[1][2][3];
 
 extern B b;
-extern int b[1][2][3];
+extern පූර්ණ_සංඛ්‍යා b[1][2][3];
 
 /* Funny but valid function declaration.  */
-typedef int functype (int);
+typedef පූර්ණ_සංඛ්‍යා functype (පූර්ණ_සංඛ්‍යා);
 extern functype func;
-int func(int i)
+පූර්ණ_සංඛ්‍යා func(පූර්ණ_සංඛ්‍යා i)
 {
-   return i + 1;
+   ආපසු i + 1;
 }
 
 /* Even funnier function decl and definition using typeof.  */
-int set_anon_super(void);
-int set_anon_super(void)
+පූර්ණ_සංඛ්‍යා set_anon_super(void);
+පූර්ණ_සංඛ්‍යා set_anon_super(void)
 {
-   return 42;
+   ආපසු 42;
 }
-typedef int sas_type (void);
+typedef පූර්ණ_සංඛ්‍යා sas_type (void);
 extern typeof(set_anon_super) set_anon_super;
 extern sas_type set_anon_super;
 

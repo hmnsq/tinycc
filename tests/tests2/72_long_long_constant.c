@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-int main()
+පූර්ණ_සංඛ්‍යා main()
 {
-    long long int res = 0;
+    long long පූර්ණ_සංඛ්‍යා res = 0;
 
-    if (res < -2147483648LL) {
+    නම් (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        ආපසු 1;
     }
-    else
-    if (2147483647LL < res) {
+    නැතහොත්
+    නම් (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        ආපසු 2;
     }
-    else
+    නැතහොත්
         printf("long long constant test ok.\n");
-    return 0;
+    ආපසු 0;
 }

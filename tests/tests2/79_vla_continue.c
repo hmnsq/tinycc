@@ -1,56 +1,56 @@
 #include <stdio.h>
 
-int f(void)
+පූර්ණ_සංඛ්‍යා f(void)
 {
-  return 5;
+  ආපසු 5;
 }
 
 void test1()
 {
-  int count = 10;
+  පූර්ණ_සංඛ්‍යා count = 10;
   void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  සඳහා(;count--;) {
+    පූර්ණ_සංඛ්‍යා a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  නම්(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } නැතහොත් {
     printf("NOT OK\n");
   }
 }
 
 void test2()
 {
-  int count = 10;
+  පූර්ණ_සංඛ්‍යා count = 10;
   void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  සඳහා(;count--;) {
+    පූර්ණ_සංඛ්‍යා a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  නම්(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } නැතහොත් {
     printf("NOT OK\n");
   }
 }
 
 void test3()
 {
-  int count = 10;
+  පූර්ණ_සංඛ්‍යා count = 10;
   void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  අතරතුර(count--) {
+      පූර්ණ_සංඛ්‍යා b[f()];
+      නම් (count >= 0) {
+          පූර්ණ_සංඛ්‍යා a[f()];
 
           addr[count] = a;
 
@@ -58,56 +58,56 @@ void test3()
       }
   }
 
-  if(addr[9] == addr[0]) {
+  නම්(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } නැතහොත් {
     printf("NOT OK\n");
   }
 }
 
 void test4()
 {
-  int count = 10;
+  පූර්ණ_සංඛ්‍යා count = 10;
   void *addr[count];
   do {
-    int a[f()];
+    පූර්ණ_සංඛ්‍යා a[f()];
 
     addr[--count] = a;
 
     continue;
-  } while (count);
+  } අතරතුර (count);
 
-  if(addr[9] == addr[0]) {
+  නම්(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } නැතහොත් {
     printf("NOT OK\n");
   }
 }
 
 void test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  පූර්ණ_සංඛ්‍යා count = 10;
+  පූර්ණ_සංඛ්‍යා a[f()];
+  පූර්ණ_සංඛ්‍යා c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
+  සඳහා(;count--;) {
+    පූර්ණ_සංඛ්‍යා b[f()];
+    පූර්ණ_සංඛ්‍යා i;
+    සඳහා (i=0; i<f(); i++) {
       b[i] = count;
     }
   }
 
-  if (c[0] == 42) {
+  නම් (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } නැතහොත් {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+පූර්ණ_සංඛ්‍යා main(void)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  ආපසු 0;
 }
