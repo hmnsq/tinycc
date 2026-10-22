@@ -1,21 +1,21 @@
-extern int printf(const char*, ...);
-static int glob_i = 0;
+extern цяло printf(const char*, ...);
+static цяло glob_i = 0;
 
-typedef struct { int a; int b; int c; int d; int e; int f; int g; int h; } tstl;
-typedef struct { int a; int b; int c; int d; } tsti;
+typedef struct { цяло a; цяло b; цяло c; цяло d; цяло e; цяло f; цяло g; цяло h; } tstl;
+typedef struct { цяло a; цяло b; цяло c; цяло d; } tsti;
 typedef struct { double a; double b; } tstd;
 typedef struct { long double a; } tstld;
-typedef struct { int a; double b; } tstm;
+typedef struct { цяло a; double b; } tstm;
 typedef struct { float a; float b; float c; float d; } tstf;
 
-void incr_glob_i(int *i)
+void incr_glob_i(цяло *i)
 {
   glob_i += *i;
   *i = -1;
 }
 
 #define INCR_GI {						\
-    int i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
+    цяло i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
   }
 
 #define INCR_GI0 INCR_GI INCR_GI INCR_GI INCR_GI
@@ -30,10 +30,10 @@ void incr_glob_i(int *i)
 
 void check2(char **hum);
 
-void check(int *j)
+void check(цяло *j)
 {
     char * __attribute__ ((cleanup(check2))) stop_that = "wololo";
-    int chk = 0;
+    цяло chk = 0;
 
     {
 	char * __attribute__ ((cleanup(check2))) stop_that = "plop";
@@ -42,7 +42,7 @@ void check(int *j)
 	  non_plopage:
 	    printf("---- %d\n", chk);
 	}
-	if (!chk) {
+	ако (!chk) {
 	    chk = 1;
 	    goto non_plopage;
 	}
@@ -69,18 +69,18 @@ void check(int *j)
 	}
     }
   out:
-    if (chk != 2)
+    ако (chk != 2)
 	goto again;
     {
 	{
 	    char * __attribute__ ((cleanup(check2))) out = "last goto out";
 	    ++chk;
-	    if (chk != 3)
+	    ако (chk != 3)
 		goto out;
 	}
     }
     *j = -1;
-    return;
+    върни;
 }
 
 void check_oh_i(char *oh_i)
@@ -99,7 +99,7 @@ char *test()
 {
     char *__attribute__ ((cleanup(check2))) str = "I don't think this should be print(but gcc got it wrong too)";
 
-    return str;
+    върни str;
 }
 
 void test_ret_subcall(char *that)
@@ -110,7 +110,7 @@ void test_ret_subcall(char *that)
 void test_ret()
 {
     char *__attribute__ ((cleanup(check2))) that = "that";
-    return test_ret_subcall(that);
+    върни test_ret_subcall(that);
 }
 
 void test_ret2()
@@ -121,25 +121,25 @@ void test_ret2()
   }
   {
     char *__attribute__ ((cleanup(check2))) that = "-that2";
-    return;
+    върни;
   }
 }
 
 void test2(void) {
-    int chk = 0;
+    цяло chk = 0;
 again:
-    if (!chk) {
+    ако (!chk) {
         char * __attribute__ ((cleanup(check2))) stop_that = "test2";
         chk++;
         goto again;
     }
 }
 
-int test3(void) {
+цяло test3(void) {
     char * __attribute__ ((cleanup(check2))) stop_that = "three";
-    int chk = 0;
+    цяло chk = 0;
 
-    if (chk) {
+    ако (chk) {
         {
           outside:
 	    {
@@ -148,19 +148,19 @@ int test3(void) {
 	    }
         }
     }
-    if (!chk)
+    ако (!chk)
     {
         char * __attribute__ ((cleanup(check2))) stop_that = "one";
 
-        if (!chk) {
+        ако (!chk) {
             chk = 1;
             goto outside;
         }
     }
-    return 0;
+    върни 0;
 }
 
-void cl(int *ip)
+void cl(цяло *ip)
 {
     printf("%d\n", *ip);
     *ip = -1;
@@ -168,34 +168,34 @@ void cl(int *ip)
 
 void loop_cleanups(void)
 {
-    __attribute__((cleanup(cl))) int l = 1000;
+    __attribute__((cleanup(cl))) цяло l = 1000;
 
     printf("-- loop 0 --\n");
-    for ( __attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 100;
+    за ( __attribute__((cleanup(cl))) цяло i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) цяло j = 100;
     }
 
     printf("-- loop 1 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl)))  int j = 200;
+    за (__attribute__((cleanup(cl))) цяло i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl)))  цяло j = 200;
         continue;
     }
 
     printf("-- loop 2 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 300;
+    за (__attribute__((cleanup(cl))) цяло i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) цяло j = 300;
         break;
     }
 
     printf("-- loop 3 --\n");
-    for (int i = 0; i < 2; ++i) {
-	__attribute__((cleanup(cl))) int j = 400;
+    за (цяло i = 0; i < 2; ++i) {
+	__attribute__((cleanup(cl))) цяло j = 400;
 	switch (i) {
 	case 0:
 	    continue;
 	default:
 	{
-	    __attribute__((cleanup(cl))) int jj = 500;
+	    __attribute__((cleanup(cl))) цяло jj = 500;
 	    break;
 	}
 	}
@@ -203,14 +203,14 @@ void loop_cleanups(void)
     printf("after break\n");
 }
 
-void my_cleanup1(int *p) {
+void my_cleanup1(цяло *p) {
     printf("%d\n", *p);
     *p = 0x90;
 }
 
-int test_cleanup1(void) {
-    int __attribute__((cleanup(my_cleanup1))) n = 42;
-    return n;
+цяло test_cleanup1(void) {
+    цяло __attribute__((cleanup(my_cleanup1))) n = 42;
+    върни n;
 }
 
 void my_cleanup2(tstl *p) {
@@ -224,7 +224,7 @@ tstl test_cleanup2(void) {
     tstl __attribute__((cleanup(my_cleanup2))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
     n.e = 46; n.f = 47; n.g = 48; n.h = 49;
-    return n;
+    върни n;
 }
 
 void my_cleanup3(tsti *p) {
@@ -235,7 +235,7 @@ void my_cleanup3(tsti *p) {
 tsti test_cleanup3(void) {
     tsti __attribute__((cleanup(my_cleanup3))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    върни n;
 }
 
 void my_cleanup4(tstd *p) {
@@ -246,7 +246,7 @@ void my_cleanup4(tstd *p) {
 tstd test_cleanup4(void) {
     tstd __attribute__((cleanup(my_cleanup4))) n;
     n.a = 42.0; n.b = 43.0;
-    return n;
+    върни n;
 }
 
 void my_cleanup5(tstld *p) {
@@ -257,7 +257,7 @@ void my_cleanup5(tstld *p) {
 tstld test_cleanup5(void) {
     tstld __attribute__((cleanup(my_cleanup5))) n;
     n.a = 42.0;
-    return n;
+    върни n;
 }
 
 void my_cleanup6(tstm *p) {
@@ -270,7 +270,7 @@ tstm test_cleanup6(void) {
     tstm __attribute__((cleanup(my_cleanup6))) n;
     n.a = 42;
     n.b = 43.0;
-    return n;
+    върни n;
 }
 
 void my_cleanup7(tstf *p) {
@@ -281,27 +281,27 @@ void my_cleanup7(tstf *p) {
 tstf test_cleanup7(void) {
     tstf __attribute__((cleanup(my_cleanup7))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    върни n;
 }
 
-void my_cleanup8(int **p) {
+void my_cleanup8(цяло **p) {
     **p = 0x90;
 }
 
-int test_cleanup8(void) {
-    int n = 42;
-    int __attribute__((cleanup(my_cleanup8))) *p = &n;
-    return n;
+цяло test_cleanup8(void) {
+    цяло n = 42;
+    цяло __attribute__((cleanup(my_cleanup8))) *p = &n;
+    върни n;
 }
 
-static void my_cleanupe(int *p) {
+static void my_cleanupe(цяло *p) {
     *p = 0x90;
 }
 
-int main()
+цяло main()
 {
-    int i __attribute__ ((__cleanup__(check))) = 0, not_i;
-    int chk = 0;
+    цяло i __attribute__ ((__cleanup__(check))) = 0, not_i;
+    цяло chk = 0;
     (void)not_i;
     tstl tl;
     tsti ti;
@@ -317,7 +317,7 @@ int main()
     INCR_GI7;
     printf("glob_i: %d\n", glob_i);
  naaaaaaaa:
-    if (!chk) {
+    ако (!chk) {
 	__attribute__ ((__cleanup__(check_oh_i))) char oh_i = 'f';
 	double __attribute__ ((__cleanup__(goto_hell))) f = 2.6;
 
@@ -347,9 +347,9 @@ int main()
     printf("%f %f %f %f\n", tf.a, tf.b, tf.c, tf.d);
     printf("%d\n", test_cleanup8());
     printf("%d\n", ({
-            int __attribute__ ((cleanup(my_cleanupe))) n = 42;
+            цяло __attribute__ ((cleanup(my_cleanupe))) n = 42;
             n; }));
-    return i;
+    върни i;
 }
 
 void check2(char **hum)

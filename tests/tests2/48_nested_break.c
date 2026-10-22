@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+цяло main()
 {
-   int a;
+   цяло a;
    char b;
 
    a = 0;
-   while (a < 2)
+   докато (a < 2)
    {
       printf("%d", a++);
       break;
 
       b = 'A';
-      while (b < 'C')
+      докато (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   върни 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

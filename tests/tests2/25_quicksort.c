@@ -1,28 +1,28 @@
 #include <stdio.h>
 
-int array[16];
+цяло array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+void swap(цяло a, цяло b)
 {
-   int tmp  = array[a];
+   цяло tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+цяло partition(цяло left, цяло right)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   цяло pivotIndex = left;
+   цяло pivotValue = array[pivotIndex];
+   цяло index = left;
+   цяло i;
 
    swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   за(i = left; i < right; i++)
    {
-      if(array[i] < pivotValue)
+      ако(array[i] < pivotValue)
       {
          swap(i, index);
          index += 1;
@@ -30,23 +30,23 @@ int partition(int left, int right)
    }
    swap(right, index);
 
-   return index;
+   върни index;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+void quicksort(цяло left, цяло right)
 {
-   if(left >= right)
-      return;
+   ако(left >= right)
+      върни;
 
-   int index = partition(left, right);
+   цяло index = partition(left, right);
    quicksort(left, index - 1);
    quicksort(index + 1, right);
 }
 
-int main()
+цяло main()
 {
-   int i;
+   цяло i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
+   за (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
+   за (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
-   return 0;
+   върни 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

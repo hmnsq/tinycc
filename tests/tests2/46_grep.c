@@ -91,16 +91,16 @@ char    *patdoc[] = {
 #define RANGE   14
 #define ENDPAT  15
 
-int cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
+цяло cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
 
 char *pp, lbuf[LMAX], pbuf[PMAX];
 
 char *cclass();
 char *pmatch();
-void store(int);
+void store(цяло);
 void error(char *);
 void badpat(char *, char *, char *);
-int match(void);
+цяло match(void);
 
 
 /*** Display a file name *******************************/
@@ -120,7 +120,7 @@ void help(char **hp)
 {
    char   **dp;
 
-   for (dp = hp; *dp; ++dp)
+   за (dp = hp; *dp; ++dp)
       printf("%s\n", *dp);
 }
 
@@ -138,20 +138,20 @@ void compile(char *source)
 {
    char  *s;         /* Source string pointer     */
    char  *lp;        /* Last pattern pointer      */
-   int   c;          /* Current character         */
-   int            o;          /* Temp                      */
+   цяло   c;          /* Current character         */
+   цяло            o;          /* Temp                      */
    char           *spp;       /* Save beginning of pattern */
 
    s = source;
-   if (debug)
+   ако (debug)
       printf("Pattern = \"%s\"\n", s);
    pp = pbuf;
-   while (c = *s++) {
+   докато (c = *s++) {
       /*
        * STAR, PLUS and MINUS are special.
        */
-      if (c == '*' || c == '+' || c == '-') {
-         if (pp == pbuf ||
+      ако (c == '*' || c == '+' || c == '-') {
+         ако (pp == pbuf ||
                (o=pp[-1]) == BOL ||
                o == EOL ||
                o == STAR ||
@@ -161,7 +161,7 @@ void compile(char *source)
          store(ENDPAT);
          store(ENDPAT);
          spp = pp;               /* Save pattern end     */
-         while (--pp > lp)       /* Move pattern down    */
+         докато (--pp > lp)       /* Move pattern down    */
             *pp = pp[-1];        /* one byte             */
          *pp =   (c == '*') ? STAR :
             (c == '-') ? MINUS : PLUS;
@@ -191,7 +191,7 @@ void compile(char *source)
             break;
 
          case ':':
-            if (*s) {
+            ако (*s) {
                switch(tolower(c = *s++)) {
 
                   case 'a':
@@ -219,10 +219,10 @@ void compile(char *source)
                }
                break;
             }
-            else    badpat("No : type", source, s);
+            иначе    badpat("No : type", source, s);
 
          case '\\':
-            if (*s)
+            ако (*s)
                c = *s++;
 
          default:
@@ -232,11 +232,11 @@ void compile(char *source)
    }
    store(ENDPAT);
    store(0);                /* Terminate string     */
-   if (debug) {
-      for (lp = pbuf; lp < pp;) {
-         if ((c = (*lp++ & 0377)) < ' ')
+   ако (debug) {
+      за (lp = pbuf; lp < pp;) {
+         ако ((c = (*lp++ & 0377)) < ' ')
             printf("\\%o ", c);
-         else    printf("%c ", c);
+         иначе    printf("%c ", c);
       }
       printf("\n");
    }
@@ -249,25 +249,25 @@ char *cclass(char *source, char *src)
 {
    char   *s;        /* Source pointer    */
    char   *cp;       /* Pattern start     */
-   int    c;         /* Current character */
-   int             o;         /* Temp              */
+   цяло    c;         /* Current character */
+   цяло             o;         /* Temp              */
 
    s = src;
    o = CLASS;
-   if (*s == '^') {
+   ако (*s == '^') {
       ++s;
       o = NCLASS;
    }
    store(o);
    cp = pp;
    store(0);                          /* Byte count      */
-   while ((c = *s++) && c!=']') {
-      if (c == '\\') {                /* Store quoted char    */
-         if ((c = *s++) == '\0')      /* Gotta get something  */
+   докато ((c = *s++) && c!=']') {
+      ако (c == '\\') {                /* Store quoted char    */
+         ако ((c = *s++) == '\0')      /* Gotta get something  */
             badpat("Class terminates badly", source, s);
-         else    store(tolower(c));
+         иначе    store(tolower(c));
       }
-      else if (c == '-' &&
+      иначе ако (c == '-' &&
             (pp - cp) > 1 && *s != ']' && *s != '\0') {
          c = pp[-1];             /* Range start     */
          pp[-1] = RANGE;         /* Range signal    */
@@ -275,24 +275,24 @@ char *cclass(char *source, char *src)
          c = *s++;               /* Get end char and*/
          store(tolower(c));      /* Store it        */
       }
-      else {
+      иначе {
          store(tolower(c));      /* Store normal char */
       }
    }
-   if (c != ']')
+   ако (c != ']')
       badpat("Unterminated class", source, s);
-   if ((c = (pp - cp)) >= 256)
+   ако ((c = (pp - cp)) >= 256)
       badpat("Class too large", source, s);
-   if (c == 0)
+   ако (c == 0)
       badpat("Empty class", source, s);
    *cp = c;
-   return(s);
+   върни(s);
 }
 
 /*** Store an entry in the pattern buffer **************/
-void store(int op)
+void store(цяло op)
 {
-   if (pp >= &pbuf[PMAX])
+   ако (pp >= &pbuf[PMAX])
       error("Pattern too complex\n");
    *pp++ = op;
 }
@@ -314,43 +314,43 @@ void grep(FILE *fp, char *fn)
    /* FILE       *fp;       // File to process            */
    /* char       *fn;       // File name (for -f option)  */
 {
-   int lno, count, m;
+   цяло lno, count, m;
 
    lno = 0;
    count = 0;
-   while (fgets(lbuf, LMAX, fp)) {
+   докато (fgets(lbuf, LMAX, fp)) {
       ++lno;
       m = match();
-      if ((m && !vflag) || (!m && vflag)) {
+      ако ((m && !vflag) || (!m && vflag)) {
          ++count;
-         if (!cflag) {
-            if (fflag && fn) {
+         ако (!cflag) {
+            ако (fflag && fn) {
                file(fn);
                fn = 0;
             }
-            if (nflag)
+            ако (nflag)
                printf("%d\t", lno);
             printf("%s\n", lbuf);
          }
       }
    }
-   if (cflag) {
-      if (fflag && fn)
+   ако (cflag) {
+      ако (fflag && fn)
          file(fn);
       printf("%d\n", count);
    }
 }
 
 /*** Match line (lbuf) with pattern (pbuf) return 1 if match ***/
-int match()
+цяло match()
 {
    char   *l;        /* Line pointer       */
 
-   for (l = lbuf; *l; ++l) {
-      if (pmatch(l, pbuf))
-         return(1);
+   за (l = lbuf; *l; ++l) {
+      ако (pmatch(l, pbuf))
+         върни(1);
    }
-   return(0);
+   върни(0);
 }
 
 /*** Match partial line with pattern *******************/
@@ -362,63 +362,63 @@ char *pmatch(char *line, char *pattern)
    char   *p;        /* Current pattern pointer      */
    char   c;         /* Current character            */
    char            *e;        /* End for STAR and PLUS match  */
-   int             op;        /* Pattern operation            */
-   int             n;         /* Class counter                */
+   цяло             op;        /* Pattern operation            */
+   цяло             n;         /* Class counter                */
    char            *are;      /* Start of STAR match          */
 
    l = line;
-   if (debug > 1)
+   ако (debug > 1)
       printf("pmatch(\"%s\")\n", line);
    p = pattern;
-   while ((op = *p++) != ENDPAT) {
-      if (debug > 1)
+   докато ((op = *p++) != ENDPAT) {
+      ако (debug > 1)
          printf("byte[%ld] = 0%o, '%c', op = 0%o\n",
                l-line, *l, *l, op);
       switch(op) {
 
          case CHAR:
-            if (tolower(*l++) != *p++)
-               return(0);
+            ако (tolower(*l++) != *p++)
+               върни(0);
             break;
 
          case BOL:
-            if (l != lbuf)
-               return(0);
+            ако (l != lbuf)
+               върни(0);
             break;
 
          case EOL:
-            if (*l != '\0')
-               return(0);
+            ако (*l != '\0')
+               върни(0);
             break;
 
          case ANY:
-            if (*l++ == '\0')
-               return(0);
+            ако (*l++ == '\0')
+               върни(0);
             break;
 
          case DIGIT:
-            if ((c = *l++) < '0' || (c > '9'))
-               return(0);
+            ако ((c = *l++) < '0' || (c > '9'))
+               върни(0);
             break;
 
          case ALPHA:
             c = tolower(*l++);
-            if (c < 'a' || c > 'z')
-               return(0);
+            ако (c < 'a' || c > 'z')
+               върни(0);
             break;
 
          case NALPHA:
             c = tolower(*l++);
-            if (c >= 'a' && c <= 'z')
+            ако (c >= 'a' && c <= 'z')
                break;
-            else if (c < '0' || c > '9')
-               return(0);
+            иначе ако (c < '0' || c > '9')
+               върни(0);
             break;
 
          case PUNCT:
             c = *l++;
-            if (c == 0 || c > ' ')
-               return(0);
+            ако (c == 0 || c > ' ')
+               върни(0);
             break;
 
          case CLASS:
@@ -426,51 +426,51 @@ char *pmatch(char *line, char *pattern)
             c = tolower(*l++);
             n = *p++ & 0377;
             do {
-               if (*p == RANGE) {
+               ако (*p == RANGE) {
                   p += 3;
                   n -= 2;
-                  if (c >= p[-2] && c <= p[-1])
+                  ако (c >= p[-2] && c <= p[-1])
                      break;
                }
-               else if (c == *p++)
+               иначе ако (c == *p++)
                   break;
-            } while (--n > 1);
-            if ((op == CLASS) == (n <= 1))
-               return(0);
-            if (op == CLASS)
+            } докато (--n > 1);
+            ако ((op == CLASS) == (n <= 1))
+               върни(0);
+            ако (op == CLASS)
                p += n - 2;
             break;
 
          case MINUS:
             e = pmatch(l, p);       /* Look for a match    */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            if (e)                  /* Got a match?        */
+            докато (*p++ != ENDPAT); /* Skip over pattern   */
+            ако (e)                  /* Got a match?        */
                l = e;               /* Yes, update string  */
             break;                  /* Always succeeds     */
 
          case PLUS:                 /* One or more ...     */
-            if ((l = pmatch(l, p)) == 0)
-               return(0);           /* Gotta have a match  */
+            ако ((l = pmatch(l, p)) == 0)
+               върни(0);           /* Gotta have a match  */
          case STAR:                 /* Zero or more ...    */
             are = l;                /* Remember line start */
-            while (*l && (e = pmatch(l, p)))
+            докато (*l && (e = pmatch(l, p)))
                l = e;               /* Get longest match   */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            while (l > are) {       /* Try to match rest   */
-               if (e = pmatch(l, p))
-                  return(e);
+            докато (*p++ != ENDPAT); /* Skip over pattern   */
+            докато (l > are) {       /* Try to match rest   */
+               ако (e = pmatch(l, p))
+                  върни(e);
                --l;                 /* Nope, try earlier   */
             }
-            if (e = pmatch(l, p))
-               return(e);
-            return(0);              /* Nothing else worked */
+            ако (e = pmatch(l, p))
+               върни(e);
+            върни(0);              /* Nothing else worked */
 
          default:
             printf("Bad op code %d\n", op);
             error("Cannot happen -- match\n");
       }
    }
-   return(l);
+   върни(l);
 }
 
 /*** Report an error ***********************************/
@@ -481,28 +481,28 @@ void error(char *s)
 }
 
 /*** Main program - parse arguments & grep *************/
-int main(int argc, char **argv)
+цяло main(цяло argc, char **argv)
 {
    char   *p;
-   int    c, i;
-   int             gotpattern;
+   цяло    c, i;
+   цяло             gotpattern;
 
    FILE            *f;
 
-   if (argc <= 1)
+   ако (argc <= 1)
       usage("No arguments");
-   if (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
+   ако (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
       help(documentation);
       help(patdoc);
-      return 0;
+      върни 0;
    }
    nfile = argc-1;
    gotpattern = 0;
-   for (i=1; i < argc; ++i) {
+   за (i=1; i < argc; ++i) {
       p = argv[i];
-      if (*p == '-') {
+      ако (*p == '-') {
          ++p;
-         while (c = *p++) {
+         докато (c = *p++) {
             switch(tolower(c)) {
 
                case '?':
@@ -540,31 +540,31 @@ int main(int argc, char **argv)
          }
          argv[i] = 0;
          --nfile;
-      } else if (!gotpattern) {
+      } иначе ако (!gotpattern) {
          compile(p);
          argv[i] = 0;
          ++gotpattern;
          --nfile;
       }
    }
-   if (!gotpattern)
+   ако (!gotpattern)
       usage("No pattern");
-   if (nfile == 0)
+   ако (nfile == 0)
       grep(stdin, 0);
-   else {
+   иначе {
       fflag = fflag ^ (nfile > 0);
-      for (i=1; i < argc; ++i) {
-         if (p = argv[i]) {
-            if ((f=fopen(p, "r")) == NULL)
+      за (i=1; i < argc; ++i) {
+         ако (p = argv[i]) {
+            ако ((f=fopen(p, "r")) == NULL)
                cant(p);
-            else {
+            иначе {
                grep(f, p);
                fclose(f);
             }
          }
       }
    }
-   return 0;
+   върни 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

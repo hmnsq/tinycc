@@ -30,8 +30,8 @@ extern "C" {
 #ifdef _WIN64
 #undef _USE_32BIT_TIME_T
 #endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
+#иначе
+#ако _INTEGRAL_MAX_BITS < 64
 #define _USE_32BIT_TIME_T
 #endif
 #endif
@@ -43,7 +43,7 @@ extern "C" {
 #endif
 
 #ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
+#ако _INTEGRAL_MAX_BITS >= 64
   typedef __int64 __time64_t;
 #endif
 #define _TIME64_T_DEFINED
@@ -52,7 +52,7 @@ extern "C" {
 #ifndef _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
   typedef __time32_t time_t;
-#else
+#иначе
   typedef __time64_t time_t;
 #endif
 #define _TIME_T_DEFINED
@@ -70,7 +70,7 @@ extern "C" {
 #define _fstat32 _fstat
 #define _stat32 _stat
 #define _wstat32 _wstat
-#else
+#иначе
 #define _fstat _fstat32
 #define _stat _stat32
 #define _wstat _wstat32
@@ -78,7 +78,7 @@ extern "C" {
 #define _fstati64 _fstat32i64
 #define _stati64 _stat32i64
 #define _wstati64 _wstat32i64
-#else
+#иначе
 #define _fstat _fstat64i32
 #define _fstati64 _fstat64
 #define _stat _stat64
@@ -117,7 +117,7 @@ extern "C" {
   };
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
+#ако _INTEGRAL_MAX_BITS >= 64
   struct _stat32i64 {
     _dev_t st_dev;
     _ino_t st_ino;
@@ -175,16 +175,16 @@ extern "C" {
 #define _S_IWRITE 0x0080
 #define _S_IEXEC 0x0040
 
-  _CRTIMP int __cdecl _fstat32(int _FileDes,struct _stat32 *_Stat);
-  _CRTIMP int __cdecl _stat32(const char *_Name,struct _stat32 *_Stat);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _fstat64(int _FileDes,struct _stat64 *_Stat);
-  _CRTIMP int __cdecl _fstat32i64(int _FileDes,struct _stat32i64 *_Stat);
-  int __cdecl _fstat64i32(int _FileDes,struct _stat64i32 *_Stat);
-  __CRT_INLINE int __cdecl _fstat64i32(int _FileDes,struct _stat64i32 *_Stat)
+  _CRTIMP цяло __cdecl _fstat32(цяло _FileDes,struct _stat32 *_Stat);
+  _CRTIMP цяло __cdecl _stat32(const char *_Name,struct _stat32 *_Stat);
+#ако _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP цяло __cdecl _fstat64(цяло _FileDes,struct _stat64 *_Stat);
+  _CRTIMP цяло __cdecl _fstat32i64(цяло _FileDes,struct _stat32i64 *_Stat);
+  цяло __cdecl _fstat64i32(цяло _FileDes,struct _stat64i32 *_Stat);
+  __CRT_INLINE цяло __cdecl _fstat64i32(цяло _FileDes,struct _stat64i32 *_Stat)
   {
     struct _stat64 st;
-    int ret=_fstat64(_FileDes,&st);
+    цяло ret=_fstat64(_FileDes,&st);
     _Stat->st_dev=st.st_dev;
     _Stat->st_ino=st.st_ino;
     _Stat->st_mode=st.st_mode;
@@ -196,15 +196,15 @@ extern "C" {
     _Stat->st_atime=st.st_atime;
     _Stat->st_mtime=st.st_mtime;
     _Stat->st_ctime=st.st_ctime;
-    return ret;
+    върни ret;
   }
-  _CRTIMP int __cdecl _stat64(const char *_Name,struct _stat64 *_Stat);
-  _CRTIMP int __cdecl _stat32i64(const char *_Name,struct _stat32i64 *_Stat);
-  int __cdecl _stat64i32(const char *_Name,struct _stat64i32 *_Stat);
-  __CRT_INLINE int __cdecl _stat64i32(const char *_Name,struct _stat64i32 *_Stat)
+  _CRTIMP цяло __cdecl _stat64(const char *_Name,struct _stat64 *_Stat);
+  _CRTIMP цяло __cdecl _stat32i64(const char *_Name,struct _stat32i64 *_Stat);
+  цяло __cdecl _stat64i32(const char *_Name,struct _stat64i32 *_Stat);
+  __CRT_INLINE цяло __cdecl _stat64i32(const char *_Name,struct _stat64i32 *_Stat)
   {
     struct _stat64 st;
-    int ret=_stat64(_Name,&st);
+    цяло ret=_stat64(_Name,&st);
     _Stat->st_dev=st.st_dev;
     _Stat->st_ino=st.st_ino;
     _Stat->st_mode=st.st_mode;
@@ -216,17 +216,17 @@ extern "C" {
     _Stat->st_atime=st.st_atime;
     _Stat->st_mtime=st.st_mtime;
     _Stat->st_ctime=st.st_ctime;
-    return ret;
+    върни ret;
   }
 #endif
 
 #ifndef _WSTAT_DEFINED
 #define _WSTAT_DEFINED
-  _CRTIMP int __cdecl _wstat32(const wchar_t *_Name,struct _stat32 *_Stat);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _wstat32i64(const wchar_t *_Name,struct _stat32i64 *_Stat);
-  int __cdecl _wstat64i32(const wchar_t *_Name,struct _stat64i32 *_Stat);
-  _CRTIMP int __cdecl _wstat64(const wchar_t *_Name,struct _stat64 *_Stat);
+  _CRTIMP цяло __cdecl _wstat32(const wchar_t *_Name,struct _stat32 *_Stat);
+#ако _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP цяло __cdecl _wstat32i64(const wchar_t *_Name,struct _stat32i64 *_Stat);
+  цяло __cdecl _wstat64i32(const wchar_t *_Name,struct _stat64i32 *_Stat);
+  _CRTIMP цяло __cdecl _wstat64(const wchar_t *_Name,struct _stat64 *_Stat);
 #endif
 #endif
 
@@ -261,23 +261,23 @@ extern "C" {
 
 #endif
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
-int __cdecl stat(const char *_Filename,struct stat *_Stat);
-int __cdecl fstat(int _Desc,struct stat *_Stat);
-int __cdecl wstat(const wchar_t *_Filename,struct stat *_Stat);
+#ако !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+цяло __cdecl stat(const char *_Filename,struct stat *_Stat);
+цяло __cdecl fstat(цяло _Desc,struct stat *_Stat);
+цяло __cdecl wstat(const wchar_t *_Filename,struct stat *_Stat);
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl fstat(int _Desc,struct stat *_Stat) {
-  return _fstat32(_Desc,(struct _stat32 *)_Stat);
+__CRT_INLINE цяло __cdecl fstat(цяло _Desc,struct stat *_Stat) {
+  върни _fstat32(_Desc,(struct _stat32 *)_Stat);
 }
-__CRT_INLINE int __cdecl stat(const char *_Filename,struct stat *_Stat) {
-  return _stat32(_Filename,(struct _stat32 *)_Stat);
+__CRT_INLINE цяло __cdecl stat(const char *_Filename,struct stat *_Stat) {
+  върни _stat32(_Filename,(struct _stat32 *)_Stat);
 }
-#else
-__CRT_INLINE int __cdecl fstat(int _Desc,struct stat *_Stat) {
-  return _fstat64i32(_Desc,(struct _stat64i32 *)_Stat);
+#иначе
+__CRT_INLINE цяло __cdecl fstat(цяло _Desc,struct stat *_Stat) {
+  върни _fstat64i32(_Desc,(struct _stat64i32 *)_Stat);
 }
-__CRT_INLINE int __cdecl stat(const char *_Filename,struct stat *_Stat) {
-  return _stat64i32(_Filename,(struct _stat64i32 *)_Stat);
+__CRT_INLINE цяло __cdecl stat(const char *_Filename,struct stat *_Stat) {
+  върни _stat64i32(_Filename,(struct _stat64i32 *)_Stat);
 }
 #endif
 #endif

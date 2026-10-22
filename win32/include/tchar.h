@@ -72,7 +72,7 @@ extern "C" {
 #ifdef __cplusplus
 #define _CONST_RETURN const
 #define _CRT_CONST_CORRECT_OVERLOADS
-#else
+#иначе
 #define _CONST_RETURN
 #endif
 #endif
@@ -448,7 +448,7 @@ extern "C" {
 
 #define _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
 #define _wcsinc(_pc) ((_pc)+1)
-#define _wcsnextc(_cpc) ((unsigned int) *(_cpc))
+#define _wcsnextc(_cpc) ((unsigned цяло) *(_cpc))
 #define _wcsninc(_pc,_sz) (((_pc)+(_sz)))
   _CRTIMP size_t __cdecl __wcsncnt(const wchar_t *_Str,size_t _MaxCount);
 #define _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
@@ -469,7 +469,7 @@ extern "C" {
 #define _ttelldir	_wtelldir
 #define _tseekdir	_wseekdir
 
-#else
+#иначе
 
 #ifdef __cplusplus
 }
@@ -489,7 +489,7 @@ extern "C" {
 #define _tWinMain WinMain
 #ifdef _POSIX_
 #define _tenviron environ
-#else
+#иначе
 #define _tenviron _environ
 #endif
 #define __targv __argv
@@ -614,7 +614,7 @@ extern "C" {
 #define _tcscpy strcpy
 #define _tcsdup _strdup
 #define _tcslen strlen
-#if 0
+#ако 0
 #define _tcsnlen strnlen
 #endif
 #define _tcsxfrm strxfrm
@@ -672,7 +672,7 @@ extern "C" {
 
 #ifdef _POSIX_
 #define _tfdopen fdopen
-#else
+#иначе
 #define _tfdopen _fdopen
 #endif
 #define _tfsopen _fsopen
@@ -702,7 +702,7 @@ extern "C" {
 #ifdef _POSIX_
 #define _topen open
 #define _taccess access
-#else
+#иначе
 #define _topen _open
 #define _taccess _access
 #endif
@@ -751,7 +751,7 @@ extern "C" {
   typedef signed char _TSCHAR;
   typedef unsigned char _TUCHAR;
   typedef unsigned char _TXCHAR;
-  typedef unsigned int _TINT;
+  typedef unsigned цяло _TINT;
 #define __TCHAR_DEFINED
 #endif
 
@@ -833,45 +833,45 @@ extern "C" {
 #define _tclen _mbclen
 #define _tccpy _mbccpy
 #define _tccpy_l _mbccpy_l
-#else
+#иначе
 
-  _CRTIMP _CONST_RETURN char *__cdecl _tcschr(const char *_Str,unsigned int _Val);
+  _CRTIMP _CONST_RETURN char *__cdecl _tcschr(const char *_Str,unsigned цяло _Val);
   _CRTIMP size_t __cdecl _tcscspn(const char *_Str,const char *_Control);
   _CRTIMP char *__cdecl _tcsncat(char *_Dst,const char *_Src,size_t _MaxCount);
   _CRTIMP char *__cdecl _tcsncat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
   _CRTIMP char *__cdecl _tcsncpy(char *_Dst,const char *_Src,size_t _MaxCount);
   _CRTIMP char *__cdecl _tcsncpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
   _CRTIMP _CONST_RETURN char *__cdecl _tcspbrk(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsrchr(const char *_Str,unsigned int _Ch);
+  _CRTIMP _CONST_RETURN char *__cdecl _tcsrchr(const char *_Str,unsigned цяло _Ch);
   _CRTIMP size_t __cdecl _tcsspn(const char *_Str,const char *_Control);
   _CRTIMP _CONST_RETURN char *__cdecl _tcsstr(const char *_Str,const char *_Substr);
   _CRTIMP char *__cdecl _tcstok(char *_Str,const char *_Delim);
   _CRTIMP char *__cdecl _tcstok_l(char *_Str,const char *_Delim,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnset(char *_Str,unsigned int _Val,size_t _MaxCount);
+  _CRTIMP char *__cdecl _tcsnset(char *_Str,unsigned цяло _Val,size_t _MaxCount);
   _CRTIMP char *__cdecl _tcsrev(char *_Str);
-  _CRTIMP char *__cdecl _tcsset(char *_Str,unsigned int _Val);
-  _CRTIMP char *__cdecl _tcsset_l(char *_Str,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscmp(const char *_Str1,const char *_Str);
-  _CRTIMP int __cdecl _tcsicmp(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicmp_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcscoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsicoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnccoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP char *__cdecl _tcsset(char *_Str,unsigned цяло _Val);
+  _CRTIMP char *__cdecl _tcsset_l(char *_Str,unsigned цяло _Val,_locale_t _Locale);
+  _CRTIMP цяло __cdecl _tcscmp(const char *_Str1,const char *_Str);
+  _CRTIMP цяло __cdecl _tcsicmp(const char *_Str1,const char *_Str2);
+  _CRTIMP цяло __cdecl _tcsicmp_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
+  _CRTIMP цяло __cdecl _tcsnccmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
+  _CRTIMP цяло __cdecl _tcsncmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
+  _CRTIMP цяло __cdecl _tcsncicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
+  _CRTIMP цяло __cdecl _tcsncicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP цяло __cdecl _tcsnicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
+  _CRTIMP цяло __cdecl _tcsnicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP цяло __cdecl _tcscoll(const char *_Str1,const char *_Str2);
+  _CRTIMP цяло __cdecl _tcscoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
+  _CRTIMP цяло __cdecl _tcsicoll(const char *_Str1,const char *_Str2);
+  _CRTIMP цяло __cdecl _tcsicoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
+  _CRTIMP цяло __cdecl _tcsnccoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
+  _CRTIMP цяло __cdecl _tcsnccoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP цяло __cdecl _tcsncoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
+  _CRTIMP цяло __cdecl _tcsncoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP цяло __cdecl _tcsncicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
+  _CRTIMP цяло __cdecl _tcsncicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP цяло __cdecl _tcsnicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
+  _CRTIMP цяло __cdecl _tcsnicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
   _CRTIMP size_t __cdecl _tcsclen(const char *_Str);
   _CRTIMP size_t __cdecl _tcscnlen(const char *_Str,size_t _MaxCount);
   _CRTIMP size_t __cdecl _tcsclen_l(const char *_Str,_locale_t _Locale);
@@ -880,12 +880,12 @@ extern "C" {
   _CRTIMP char *__cdecl _tcsnccat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
   _CRTIMP char *__cdecl _tcsnccpy(char *_Dst,const char *_Src,size_t _MaxCount);
   _CRTIMP char *__cdecl _tcsnccpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncset(char *_Str,unsigned int _Val,size_t _MaxCount);
+  _CRTIMP char *__cdecl _tcsncset(char *_Str,unsigned цяло _Val,size_t _MaxCount);
   _CRTIMP char *__cdecl _tcsdec(const char *_Start,const char *_Pos);
   _CRTIMP char *__cdecl _tcsinc(const char *_Ptr);
   _CRTIMP size_t __cdecl _tcsnbcnt(const char *_Str,size_t _MaxCount);
   _CRTIMP size_t __cdecl _tcsnccnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP unsigned int __cdecl _tcsnextc (const char *_Str);
+  _CRTIMP unsigned цяло __cdecl _tcsnextc (const char *_Str);
   _CRTIMP char *__cdecl _tcsninc(const char *_Ptr,size_t _Count);
   _CRTIMP char *__cdecl _tcsspnp(const char *_Str1,const char *_Str2);
   _CRTIMP char *__cdecl _tcslwr(char *_Str);
@@ -899,10 +899,10 @@ extern "C" {
 #ifndef _CPP_TCHAR_INLINES_DEFINED
 #define _CPP_TCHAR_INLINES_DEFINED
   extern "C++" {
-    extern inline char *__cdecl _tcschr(char *_S,unsigned int _C) { return ((char *)_tcschr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcspbrk(char *_S,const char *_P) { return ((char *)_tcspbrk((const char *)_S,_P)); }
-    extern inline char *__cdecl _tcsrchr(char *_S,unsigned int _C) { return ((char *)_tcsrchr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcsstr(char *_S,const char *_P) { return ((char *)_tcsstr((const char *)_S,_P)); }
+    extern inline char *__cdecl _tcschr(char *_S,unsigned цяло _C) { върни ((char *)_tcschr((const char *)_S,_C)); }
+    extern inline char *__cdecl _tcspbrk(char *_S,const char *_P) { върни ((char *)_tcspbrk((const char *)_S,_P)); }
+    extern inline char *__cdecl _tcsrchr(char *_S,unsigned цяло _C) { върни ((char *)_tcsrchr((const char *)_S,_C)); }
+    extern inline char *__cdecl _tcsstr(char *_S,const char *_P) { върни ((char *)_tcsstr((const char *)_S,_P)); }
   }
 #endif
 #endif
@@ -939,7 +939,7 @@ extern "C" {
 #define _istlead _ismbblead
 #define _istleadbyte isleadbyte
 #define _istleadbyte_l _isleadbyte_l
-#else
+#иначе
 
 #ifndef __TCHAR_DEFINED
 #define __TCHAR_DEFINED
@@ -947,7 +947,7 @@ extern "C" {
   typedef signed char _TSCHAR;
   typedef unsigned char _TUCHAR;
   typedef char _TXCHAR;
-  typedef int _TINT;
+  typedef цяло _TINT;
 #endif
 
 #ifndef _TCHAR_DEFINED
@@ -1070,14 +1070,14 @@ extern "C" {
 #ifndef NULL
 #ifdef __cplusplus
 #define NULL 0
-#else
+#иначе
 #define NULL ((void *)0)
 #endif
 #endif
 
 #define _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
 #define _strinc(_pc) ((_pc)+1)
-#define _strnextc(_cpc) ((unsigned int) *(const unsigned char *)(_cpc))
+#define _strnextc(_cpc) ((unsigned цяло) *(const unsigned char *)(_cpc))
 #define _strninc(_pc,_sz) (((_pc)+(_sz)))
   _CRTIMP size_t __cdecl __strncnt(const char *_Str,size_t _Cnt);
 #define _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))

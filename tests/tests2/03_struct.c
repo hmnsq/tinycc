@@ -1,4 +1,4 @@
-extern int printf(const char*, ...);
+extern цяло printf(const char*, ...);
 
 struct fred;
 
@@ -9,11 +9,11 @@ void fred$(struct fred* this)
 
 struct __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   цяло boris;
+   цяло natasha;
 };
 
-int main()
+цяло main()
 {
     struct fred  __attribute__((__cleanup__(fred$))) bloggs;
 
@@ -34,5 +34,5 @@ int main()
    printf("%d\n", jones[1].boris);
    printf("%d\n", jones[1].natasha);
 
-   return 0;
+   върни 0;
 }

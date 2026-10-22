@@ -11,32 +11,32 @@
 #define ARRAY_SIZE 100
 
 /* Overwrite a VLA. This will overwrite the return address if SP is incorrect */
-void smash(char *p, int n) {
+void smash(char *p, цяло n) {
   memset(p, 0, n);
 }
 
-int test1(int n) {
-  int i;
+цяло test1(цяло n) {
+  цяло i;
   char *array_ptrs[LOOP_COUNT];
   
-  for (i = 0; i < LOOP_COUNT; ++i) {
+  за (i = 0; i < LOOP_COUNT; ++i) {
     char test[n];
     smash(test, n);
     array_ptrs[i] = test;
   }
   
-  return (array_ptrs[0]-array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  върни (array_ptrs[0]-array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
 }
 
 /* ensure goto does not circumvent array free */
-int test2(int n) {
+цяло test2(цяло n) {
   char *array_ptrs[LOOP_COUNT];
 
-  int i = 0;
+  цяло i = 0;
 loop:;
   char test[n];
   smash(test, n);
-  if (i >= LOOP_COUNT)
+  ако (i >= LOOP_COUNT)
     goto end;
   array_ptrs[i] = test;
   ++i;
@@ -46,10 +46,10 @@ end:
   smash(test, n);
   char test2[n];
   smash(test2, n);
-  return (array_ptrs[0] - array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  върни (array_ptrs[0] - array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
 }
 
-int test3(int n) {
+цяло test3(цяло n) {
   char test[n];
   smash(test, n);
   goto label;
@@ -57,28 +57,28 @@ label:
   smash(test, n);
   char test2[n];
   smash(test2, n);
-  return (test-test2 >= n) ? 0 : 1;
+  върни (test-test2 >= n) ? 0 : 1;
 }
 
 #define RUN_TEST(t) \
-  if (!testname || (strcmp(#t, testname) == 0)) { \
+  ако (!testname || (strcmp(#t, testname) == 0)) { \
     fputs(#t "... ", stdout); \
     fflush(stdout); \
-    if (t(ARRAY_SIZE) == 0) { \
+    ако (t(ARRAY_SIZE) == 0) { \
       fputs("success\n", stdout); \
-    } else { \
+    } иначе { \
       fputs("failure\n", stdout); \
       retval = EXIT_FAILURE; \
     } \
   }
 
-int main(int argc, char **argv) {
+цяло main(цяло argc, char **argv) {
   const char *testname = NULL;
-  int retval = EXIT_SUCCESS;
-  if (argc > 1)
+  цяло retval = EXIT_SUCCESS;
+  ако (argc > 1)
     testname = argv[1];
   RUN_TEST(test1)
   RUN_TEST(test2)
   RUN_TEST(test3)
-  return retval;
+  върни retval;
 }

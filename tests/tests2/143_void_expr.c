@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-static void f(int x)
+static void f(цяло x)
 {
      printf("f(%d)\n", x);
 }
 
-int main(void)
+цяло main(void)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
+     цяло count = 0, i = 0;
+     за (; i < 3; ++i) {
          printf("%d\n", i);
          (void)(i || (f(i), ++count));
      }
      printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     върни count == 1 ? 0 : 1;
 }

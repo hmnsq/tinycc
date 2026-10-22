@@ -42,7 +42,7 @@
 
 #ifdef __leading_underscore
 #define _(s) "_"#s
-#else
+#иначе
 #define _(s) #s
 #endif
 
@@ -54,7 +54,7 @@ static struct { REDIR_ALL } all_ptrs;
 static const char all_names[] = REDIR_ALL;
 #undef REDIR
 
-#if __aarch64__
+#ако __aarch64__
 # define REDIR(s) \
     __asm__(".global "_(s)";"_(s)":"); \
     __asm__(".int 0x58000090"); /* ldr x16, [pc, #16] */ \
@@ -66,30 +66,30 @@ static const char all_names[] = REDIR_ALL;
 
     __asm__(".text\n.align 8\nall_jmps:");
     REDIR_ALL
-#else
+#иначе
 # define REDIR(s) \
     __asm__(".global "_(s)";"_(s)":"); goto *all_ptrs.s;
     static void all_jmps() { REDIR_ALL }
 #endif
 #undef REDIR
 
-void __bt_init_dll(int bcheck)
+void __bt_init_dll(цяло bcheck)
 {
     const char *s = all_names;
     void **p = (void**)&all_ptrs;
     do {
         *p = (void*)GetProcAddress(GetModuleHandle(NULL), (char*)s);
-        if (NULL == *p) {
+        ако (NULL == *p) {
             char buf[100];
             sprintf(buf,
                 "Error: function '%s()' not found in executable. "
                 "(Need -bt or -b for linking the exe.)", s);
-            if (GetStdHandle(STD_ERROR_HANDLE))
+            ако (GetStdHandle(STD_ERROR_HANDLE))
                 fprintf(stderr, "TCC/BCHECK: %s\n", buf), fflush(stderr);
-            else
+            иначе
                 MessageBox(NULL, buf, "TCC/BCHECK", MB_ICONERROR);
             ExitProcess(1);
         }
         s = strchr(s,'\0') + 1, ++p;
-    } while (*s && (bcheck || p < &all_ptrs.__bound_ptr_add));
+    } докато (*s && (bcheck || p < &all_ptrs.__bound_ptr_add));
 }

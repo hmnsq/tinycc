@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+цяло main()
 {
-   int Count;
+   цяло Count;
 
-   for (Count = 0; Count < 4; Count++)
+   за (Count = 0; Count < 4; Count++)
    {
       printf("%d\n", Count);
       switch (Count)
@@ -23,7 +23,7 @@ int main()
       }
    }
 
-   return 0;
+   върни 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

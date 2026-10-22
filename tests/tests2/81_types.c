@@ -9,47 +9,47 @@ struct S const *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+typedef цяло (*fptr1)();
+цяло f1 (цяло (), цяло);
+typedef цяло (*fptr2)(цяло x);
+цяло f2 (цяло (цяло x), цяло);
+typedef цяло (*fptr3)(цяло);
+цяло f3 (цяло (цяло), цяло);
+typedef цяло (*fptr4[4])(цяло);
+цяло f4 (цяло (*[4])(цяло), цяло);
+typedef цяло (*fptr5)(fptr1);
+цяло f5 (цяло (цяло()), fptr1);
+цяло f1 (fptr1 fp, цяло i)
 {
-  return (*fp)(i);
+  върни (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+цяло f2 (fptr2 fp, цяло i)
 {
-  return (*fp)(i);
+  върни (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+цяло f3 (fptr3 fp, цяло i)
 {
-  return (*fp)(i);
+  върни (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+цяло f4 (fptr4 fp, цяло i)
 {
-  return (*fp[i])(i);
+  върни (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+цяло f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  върни fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+typedef цяло intx4[4];
+цяло f8 (intx4, цяло);
+цяло f8 (цяло ([4]), цяло);
+цяло f8 (цяло y[4], цяло i)
 {
-  return y[i];
+  върни y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+цяло f9 (цяло (*)(цяло), цяло);
+цяло f9 (цяло ((цяло)), цяло);
+цяло f9 (цяло f(цяло), цяло i)
 {
-  return f(i);
+  върни f(i);
 }
-int main () { return 0; }
+цяло main () { върни 0; }

@@ -24,12 +24,12 @@
 #define CONFIG_TCC_ASM
 #define NB_ASM_REGS 16
 
-ST_FUNC void g(int c);
-ST_FUNC void gen_le16(int c);
-ST_FUNC void gen_le32(int c);
+ST_FUNC void g(цяло c);
+ST_FUNC void gen_le16(цяло c);
+ST_FUNC void gen_le32(цяло c);
 
 /*************************************************************/
-#else
+#иначе
 /*************************************************************/
 
 #define USING_GLOBALS
@@ -65,16 +65,16 @@ typedef struct Operand {
 /* Read the VFP register referred to by token T.
    If OK, returns its number.
    If not OK, returns -1. */
-static int asm_parse_vfp_regvar(int t, int double_precision)
+static цяло asm_parse_vfp_regvar(цяло t, цяло double_precision)
 {
-    if (double_precision) {
-        if (t >= TOK_ASM_d0 && t <= TOK_ASM_d15)
-            return t - TOK_ASM_d0;
-    } else {
-        if (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
-            return t - TOK_ASM_s0;
+    ако (double_precision) {
+        ако (t >= TOK_ASM_d0 && t <= TOK_ASM_d15)
+            върни t - TOK_ASM_d0;
+    } иначе {
+        ако (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
+            върни t - TOK_ASM_s0;
     }
-    return -1;
+    върни -1;
 }
 
 /* Parse a text containing operand and store the result in OP */
@@ -86,88 +86,88 @@ static void parse_operand(TCCState *s1, Operand *op)
 
     op->type = 0;
 
-    if (tok == '{') { // regset literal
+    ако (tok == '{') { // regset literal
         next(); // skip '{'
-        while (tok != '}' && tok != TOK_EOF) {
+        докато (tok != '}' && tok != TOK_EOF) {
             reg = asm_parse_regvar(tok);
-            if (reg == -1) {
+            ако (reg == -1) {
                 expect("register");
-            } else
+            } иначе
                 next(); // skip register name
 
-            if ((1 << reg) < regset)
+            ако ((1 << reg) < regset)
                 tcc_warning("registers will be processed in ascending order by hardware--but are not specified in ascending order here");
             regset |= 1 << reg;
-            if (tok != ',')
+            ако (tok != ',')
                 break;
             next(); // skip ','
         }
         skip('}');
-        if (regset == 0) {
+        ако (regset == 0) {
             // ARM instructions don't support empty regset.
             tcc_error("empty register list is not supported");
-        } else {
+        } иначе {
             op->type = OP_REGSET32;
             op->regset = regset;
         }
-        return;
-    } else if ((reg = asm_parse_regvar(tok)) != -1) {
+        върни;
+    } иначе ако ((reg = asm_parse_regvar(tok)) != -1) {
         next(); // skip register name
         op->type = OP_REG32;
         op->reg = (uint8_t) reg;
-        return;
-    } else if ((reg = asm_parse_vfp_regvar(tok, 0)) != -1) {
+        върни;
+    } иначе ако ((reg = asm_parse_vfp_regvar(tok, 0)) != -1) {
         next(); // skip register name
         op->type = OP_VREG32;
         op->reg = (uint8_t) reg;
-        return;
-    } else if ((reg = asm_parse_vfp_regvar(tok, 1)) != -1) {
+        върни;
+    } иначе ако ((reg = asm_parse_vfp_regvar(tok, 1)) != -1) {
         next(); // skip register name
         op->type = OP_VREG64;
         op->reg = (uint8_t) reg;
-        return;
-    } else if (tok == '#' || tok == '$') {
+        върни;
+    } иначе ако (tok == '#' || tok == '$') {
         /* constant value */
         next(); // skip '#' or '$'
     }
     asm_expr(s1, &e);
     op->type = OP_IM32;
     op->e = e;
-    if (!op->e.sym) {
-        if ((int) op->e.v < 0 && (int) op->e.v >= -255)
+    ако (!op->e.sym) {
+        ако ((цяло) op->e.v < 0 && (цяло) op->e.v >= -255)
             op->type = OP_IM8N;
-        else if (op->e.v == (uint8_t)op->e.v)
+        иначе ако (op->e.v == (uint8_t)op->e.v)
             op->type = OP_IM8;
-    } else
+    } иначе
         expect("operand");
 }
 
 /* XXX: make it faster ? */
-ST_FUNC void g(int c)
+ST_FUNC void g(цяло c)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    цяло ind1;
+    ако (nocode_wanted)
+        върни;
     ind1 = ind + 1;
-    if (ind1 > cur_text_section->data_allocated)
+    ако (ind1 > cur_text_section->data_allocated)
         section_realloc(cur_text_section, ind1);
     cur_text_section->data[ind] = c;
     ind = ind1;
 }
 
-ST_FUNC void gen_le16 (int i)
+ST_FUNC void gen_le16 (цяло i)
 {
     g(i);
     g(i>>8);
 }
 
-ST_FUNC void gen_le32 (int i)
+ST_FUNC void gen_le32 (цяло i)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    цяло ind1;
+    ако (nocode_wanted)
+        върни;
     ind1 = ind + 4;
-    if (ind1 > cur_text_section->data_allocated)
+    ако (ind1 > cur_text_section->data_allocated)
         section_realloc(cur_text_section, ind1);
     cur_text_section->data[ind++] = i & 0xFF;
     cur_text_section->data[ind++] = (i >> 8) & 0xFF;
@@ -180,14 +180,14 @@ ST_FUNC void gen_expr32(ExprValue *pe)
     gen_le32(pe->v);
 }
 
-static uint32_t condition_code_of_token(int token) {
-    if (token < TOK_ASM_nopeq) {
+static uint32_t condition_code_of_token(цяло token) {
+    ако (token < TOK_ASM_nopeq) {
         expect("condition-enabled instruction");
-    } else
-        return (token - TOK_ASM_nopeq) & 15;
+    } иначе
+        върни (token - TOK_ASM_nopeq) & 15;
 }
 
-static void asm_emit_opcode(int token, uint32_t opcode) {
+static void asm_emit_opcode(цяло token, uint32_t opcode) {
     gen_le32((condition_code_of_token(token) << 28) | opcode);
 }
 
@@ -195,10 +195,10 @@ static void asm_emit_unconditional_opcode(uint32_t opcode) {
     gen_le32(opcode);
 }
 
-static void asm_emit_coprocessor_opcode(uint32_t high_nibble, uint8_t cp_number, uint8_t cp_opcode, uint8_t cp_destination_register, uint8_t cp_n_operand_register, uint8_t cp_m_operand_register, uint8_t cp_opcode2, int inter_processor_transfer)
+static void asm_emit_coprocessor_opcode(uint32_t high_nibble, uint8_t cp_number, uint8_t cp_opcode, uint8_t cp_destination_register, uint8_t cp_n_operand_register, uint8_t cp_m_operand_register, uint8_t cp_opcode2, цяло inter_processor_transfer)
 {
     uint32_t opcode = 0xe000000;
-    if (inter_processor_transfer)
+    ако (inter_processor_transfer)
         opcode |= 1 << 4;
     //assert(cp_opcode < 16);
     opcode |= cp_opcode << 20;
@@ -215,7 +215,7 @@ static void asm_emit_coprocessor_opcode(uint32_t high_nibble, uint8_t cp_number,
     asm_emit_unconditional_opcode((high_nibble << 28) | opcode);
 }
 
-static void asm_nullary_opcode(int token)
+static void asm_nullary_opcode(цяло token)
 {
     switch (ARM_INSTRUCTION_GROUP(token)) {
     case TOK_ASM_nopeq:
@@ -231,7 +231,7 @@ static void asm_nullary_opcode(int token)
     }
 }
 
-static void asm_unary_opcode(TCCState *s1, int token)
+static void asm_unary_opcode(TCCState *s1, цяло token)
 {
     Operand op;
     parse_operand(s1, &op);
@@ -239,9 +239,9 @@ static void asm_unary_opcode(TCCState *s1, int token)
     switch (ARM_INSTRUCTION_GROUP(token)) {
     case TOK_ASM_swieq:
     case TOK_ASM_svceq:
-        if (op.type != OP_IM8)
+        ако (op.type != OP_IM8)
             expect("immediate 8-bit unsigned integer");
-        else {
+        иначе {
             /* Note: Dummy operand (ignored by processor): ARM ref documented 0...255, ARM instruction set documented 24 bit */
             asm_emit_opcode(token, (0xf << 24) | op.e.v);
         }
@@ -251,7 +251,7 @@ static void asm_unary_opcode(TCCState *s1, int token)
     }
 }
 
-static void asm_binary_opcode(TCCState *s1, int token)
+static void asm_binary_opcode(TCCState *s1, цяло token)
 {
     Operand ops[2];
     Operand rotation;
@@ -260,23 +260,23 @@ static void asm_binary_opcode(TCCState *s1, int token)
     parse_operand(s1, &ops[0]);
     skip(',');
     parse_operand(s1, &ops[1]);
-    if (ops[0].type != OP_REG32) {
+    ако (ops[0].type != OP_REG32) {
         expect("(destination operand) register");
     }
 
-    if (ops[0].reg == 15) {
+    ако (ops[0].reg == 15) {
         tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, NULL));
     }
 
-    if (ops[0].reg == 13)
+    ако (ops[0].reg == 13)
         tcc_warning("Using 'sp' as operand with '%s' is deprecated by ARM", get_tok_str(token, NULL));
 
-    if (ops[1].type != OP_REG32) {
+    ако (ops[1].type != OP_REG32) {
         switch (ARM_INSTRUCTION_GROUP(token)) {
         case TOK_ASM_movteq:
         case TOK_ASM_movweq:
-            if (ops[1].type == OP_IM8 || ops[1].type == OP_IM8N || ops[1].type == OP_IM32) {
-                if (ops[1].e.v >= 0 && ops[1].e.v <= 0xFFFF) {
+            ако (ops[1].type == OP_IM8 || ops[1].type == OP_IM8N || ops[1].type == OP_IM32) {
+                ако (ops[1].e.v >= 0 && ops[1].e.v <= 0xFFFF) {
                     uint16_t immediate_value = ops[1].e.v;
                     switch (ARM_INSTRUCTION_GROUP(token)) {
                     case TOK_ASM_movteq:
@@ -286,32 +286,32 @@ static void asm_binary_opcode(TCCState *s1, int token)
                         asm_emit_opcode(token, 0x3000000 | (ops[0].reg << 12) | (immediate_value & 0xF000) << 4 | (immediate_value & 0xFFF));
                         break;
                     }
-                } else
+                } иначе
                     expect("(source operand) immediate 16 bit value");
-            } else
+            } иначе
                 expect("(source operand) immediate");
             break;
         default:
             expect("(source operand) register");
         }
-        return;
+        върни;
     }
 
-    if (ops[1].reg == 15) {
+    ако (ops[1].reg == 15) {
         tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, NULL));
     }
 
-    if (ops[1].reg == 13)
+    ако (ops[1].reg == 13)
         tcc_warning("Using 'sp' as operand with '%s' is deprecated by ARM", get_tok_str(token, NULL));
 
-    if (tok == ',') {
+    ако (tok == ',') {
         next(); // skip ','
-        if (tok == TOK_ASM_ror) {
+        ако (tok == TOK_ASM_ror) {
             next(); // skip 'ror'
             parse_operand(s1, &rotation);
-            if (rotation.type != OP_IM8) {
+            ако (rotation.type != OP_IM8) {
                 expect("immediate value for rotation");
-            } else {
+            } иначе {
                 amount = rotation.e.v;
                 switch (amount) {
                 case 8:
@@ -331,7 +331,7 @@ static void asm_binary_opcode(TCCState *s1, int token)
     }
     switch (ARM_INSTRUCTION_GROUP(token)) {
     case TOK_ASM_clzeq:
-        if (encoded_rotation)
+        ако (encoded_rotation)
             tcc_error("clz does not support rotation");
         asm_emit_opcode(token, 0x16f0f10 | (ops[0].reg << 12) | ops[1].reg);
         break;
@@ -352,61 +352,61 @@ static void asm_binary_opcode(TCCState *s1, int token)
     }
 }
 
-static void asm_coprocessor_opcode(TCCState *s1, int token) {
+static void asm_coprocessor_opcode(TCCState *s1, цяло token) {
     uint8_t coprocessor;
     Operand opcode1;
     Operand opcode2;
     uint8_t registers[3];
-    unsigned int i;
+    unsigned цяло i;
     uint8_t high_nibble;
     uint8_t mrc = 0;
 
-    if (tok >= TOK_ASM_p0 && tok <= TOK_ASM_p15) {
+    ако (tok >= TOK_ASM_p0 && tok <= TOK_ASM_p15) {
         coprocessor = tok - TOK_ASM_p0;
         next();
-    } else {
+    } иначе {
         expect("'p<number>'");
     }
     skip(',');
     parse_operand(s1, &opcode1);
-    if (opcode1.type != OP_IM8 || opcode1.e.v > 15) {
+    ако (opcode1.type != OP_IM8 || opcode1.e.v > 15) {
         tcc_error("opcode1 of instruction '%s' must be an immediate value between 0 and 15", get_tok_str(token, NULL));
     }
 
-    for (i = 0; i < 3; ++i) {
+    за (i = 0; i < 3; ++i) {
         skip(',');
-        if (i == 0 && token != TOK_ASM_cdp2 && (ARM_INSTRUCTION_GROUP(token) == TOK_ASM_mrceq || ARM_INSTRUCTION_GROUP(token) == TOK_ASM_mcreq)) {
-            if (tok >= TOK_ASM_r0 && tok <= TOK_ASM_pc) {
+        ако (i == 0 && token != TOK_ASM_cdp2 && (ARM_INSTRUCTION_GROUP(token) == TOK_ASM_mrceq || ARM_INSTRUCTION_GROUP(token) == TOK_ASM_mcreq)) {
+            ако (tok >= TOK_ASM_r0 && tok <= TOK_ASM_pc) {
                 registers[i] = asm_parse_regvar(tok);
                 next();
-            } else {
+            } иначе {
                 expect("'r<number>'");
             }
-        } else {
-            if (tok >= TOK_ASM_c0 && tok <= TOK_ASM_c15) {
+        } иначе {
+            ако (tok >= TOK_ASM_c0 && tok <= TOK_ASM_c15) {
                 registers[i] = tok - TOK_ASM_c0;
                 next();
-            } else {
+            } иначе {
                 expect("'c<number>'");
             }
         }
     }
-    if (tok == ',') {
+    ако (tok == ',') {
         next();
         parse_operand(s1, &opcode2);
-    } else {
+    } иначе {
         opcode2.type = OP_IM8;
         opcode2.e.v = 0;
     }
-    if (opcode2.type != OP_IM8 || opcode2.e.v > 15) {
+    ако (opcode2.type != OP_IM8 || opcode2.e.v > 15) {
         tcc_error("opcode2 of instruction '%s' must be an immediate value between 0 and 15", get_tok_str(token, NULL));
     }
 
-    if (token == TOK_ASM_cdp2) {
+    ако (token == TOK_ASM_cdp2) {
         high_nibble = 0xF;
         asm_emit_coprocessor_opcode(high_nibble, coprocessor, opcode1.e.v, registers[0], registers[1], registers[2], opcode2.e.v, 0);
-        return;
-    } else
+        върни;
+    } иначе
         high_nibble = condition_code_of_token(token);
 
     switch (ARM_INSTRUCTION_GROUP(token)) {
@@ -419,7 +419,7 @@ static void asm_coprocessor_opcode(TCCState *s1, int token) {
         /* fallthrough */
     case TOK_ASM_mcreq:
         // opcode1 encoding changes! highest and lowest bit gone.
-        if (opcode1.e.v > 7) {
+        ако (opcode1.e.v > 7) {
             tcc_error("opcode1 of instruction '%s' must be an immediate value between 0 and 7", get_tok_str(token, NULL));
         }
         asm_emit_coprocessor_opcode(high_nibble, coprocessor, (opcode1.e.v << 1) | mrc, registers[0], registers[1], registers[2], opcode2.e.v, 1);
@@ -446,25 +446,25 @@ static void asm_coprocessor_opcode(TCCState *s1, int token) {
 #define ENCODE_BARREL_SHIFTER_REGISTER(register_index) ((register_index) << 8)
 #define ENCODE_BARREL_SHIFTER_IMMEDIATE(value) ((value) << 7)
 
-static void asm_block_data_transfer_opcode(TCCState *s1, int token)
+static void asm_block_data_transfer_opcode(TCCState *s1, цяло token)
 {
     uint32_t opcode;
-    int op0_exclam = 0;
+    цяло op0_exclam = 0;
     Operand ops[2];
-    int nb_ops = 1;
+    цяло nb_ops = 1;
     parse_operand(s1, &ops[0]);
-    if (tok == '!') {
+    ако (tok == '!') {
         op0_exclam = 1;
         next(); // skip '!'
     }
-    if (tok == ',') {
+    ако (tok == ',') {
         next(); // skip comma
         parse_operand(s1, &ops[1]);
         ++nb_ops;
     }
-    if (nb_ops < 1) {
+    ако (nb_ops < 1) {
         expect("at least one operand");
-    } else if (ops[nb_ops - 1].type != OP_REGSET32) {
+    } иначе ако (ops[nb_ops - 1].type != OP_REGSET32) {
         expect("(last operand) register list");
     }
 
@@ -479,9 +479,9 @@ static void asm_block_data_transfer_opcode(TCCState *s1, int token)
         //   operands:
         //      Rn: base register
         //      Register List: bits 15...0
-        if (nb_ops != 1)
+        ако (nb_ops != 1)
             expect("exactly one operand");
-        else
+        иначе
             asm_emit_opcode(token, (0x92d << 16) | ops[0].regset); // TODO: base register ?
         break;
     case TOK_ASM_popeq: // TODO: Optimize 1-register case to: ldr ?, [sp], #4
@@ -489,9 +489,9 @@ static void asm_block_data_transfer_opcode(TCCState *s1, int token)
         //   operands:
         //      Rn: base register
         //      Register List: bits 15...0
-        if (nb_ops != 1)
+        ако (nb_ops != 1)
             expect("exactly one operand");
-        else
+        иначе
             asm_emit_opcode(token, (0x8bd << 16) | ops[0].regset); // TODO: base register ?
         break;
     case TOK_ASM_stmdaeq:
@@ -537,12 +537,12 @@ static void asm_block_data_transfer_opcode(TCCState *s1, int token)
         // operands:
         //    Rn: first operand
         //    Register List: lower bits
-        if (nb_ops != 2)
+        ако (nb_ops != 2)
             expect("exactly two operands");
-        else if (ops[0].type != OP_REG32)
+        иначе ако (ops[0].type != OP_REG32)
             expect("(first operand) register");
-        else {
-            if (op0_exclam)
+        иначе {
+            ако (op0_exclam)
                 opcode |= 1 << 21; // writeback
             asm_emit_opcode(token, opcode | ENCODE_RN(ops[0].reg) | ops[1].regset);
         }
@@ -558,7 +558,7 @@ static void asm_block_data_transfer_opcode(TCCState *s1, int token)
 
    NB_SHIFT: will be set to 1 iff SHIFT is filled.  Note that for rrx, there's no need to fill SHIFT.
    SHIFT: will be filled in with the shift operand to use, if any. */
-static uint32_t asm_parse_optional_shift(TCCState* s1, int* nb_shift, Operand* shift)
+static uint32_t asm_parse_optional_shift(TCCState* s1, цяло* nb_shift, Operand* shift)
 {
     uint32_t opcode = 0;
     *nb_shift = 0;
@@ -593,7 +593,7 @@ static uint32_t asm_parse_optional_shift(TCCState* s1, int* nb_shift, Operand* s
         opcode = ENCODE_BARREL_SHIFTER_MODE_ROR;
         break;
     }
-    return opcode;
+    върни opcode;
 }
 
 static uint32_t asm_encode_shift(Operand* shift)
@@ -602,69 +602,69 @@ static uint32_t asm_encode_shift(Operand* shift)
     uint32_t operands = 0;
     switch (shift->type) {
     case OP_REG32:
-        if (shift->reg == 15)
+        ако (shift->reg == 15)
             tcc_error("r15 cannot be used as a shift count");
-        else {
+        иначе {
             operands = ENCODE_BARREL_SHIFTER_SHIFT_BY_REGISTER;
             operands |= ENCODE_BARREL_SHIFTER_REGISTER(shift->reg);
         }
         break;
     case OP_IM8:
         amount = shift->e.v;
-        if (amount > 0 && amount < 32)
+        ако (amount > 0 && amount < 32)
             operands = ENCODE_BARREL_SHIFTER_IMMEDIATE(amount);
-        else
+        иначе
             tcc_error("shift count out of range");
         break;
     default:
         tcc_error("unknown shift amount");
     }
-    return operands;
+    върни operands;
 }
 
-static void asm_data_processing_opcode(TCCState *s1, int token)
+static void asm_data_processing_opcode(TCCState *s1, цяло token)
 {
     Operand ops[3];
-    int nb_ops;
+    цяло nb_ops;
     Operand shift = {0};
-    int nb_shift = 0;
+    цяло nb_shift = 0;
     uint32_t operands = 0;
 
     /* modulo 16 entries per instruction for the different condition codes */
     uint32_t opcode_idx = (ARM_INSTRUCTION_GROUP(token) - TOK_ASM_andeq) >> 4;
     uint32_t opcode_nos = opcode_idx >> 1; // without "s"; "OpCode" in ARM docs
 
-    for (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ) {
-        if (tok == TOK_ASM_asl || tok == TOK_ASM_lsl || tok == TOK_ASM_lsr || tok == TOK_ASM_asr || tok == TOK_ASM_ror || tok == TOK_ASM_rrx)
+    за (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ) {
+        ако (tok == TOK_ASM_asl || tok == TOK_ASM_lsl || tok == TOK_ASM_lsr || tok == TOK_ASM_asr || tok == TOK_ASM_ror || tok == TOK_ASM_rrx)
             break;
         parse_operand(s1, &ops[nb_ops]);
         ++nb_ops;
-        if (tok != ',')
+        ако (tok != ',')
             break;
         next(); // skip ','
     }
-    if (tok == ',')
+    ако (tok == ',')
         next();
     operands |= asm_parse_optional_shift(s1, &nb_shift, &shift);
-    if (nb_ops < 2)
+    ако (nb_ops < 2)
         expect("at least two operands");
-    else if (nb_ops == 2) {
+    иначе ако (nb_ops == 2) {
         memcpy(&ops[2], &ops[1], sizeof(ops[1])); // move ops[2]
         memcpy(&ops[1], &ops[0], sizeof(ops[0])); // ops[1] was implicit
         nb_ops = 3;
-    } else if (nb_ops == 3) {
-        if (opcode_nos == 0xd || opcode_nos == 0xf || opcode_nos == 0xa || opcode_nos == 0xb || opcode_nos == 0x8 || opcode_nos == 0x9) { // mov, mvn, cmp, cmn, tst, teq
+    } иначе ако (nb_ops == 3) {
+        ако (opcode_nos == 0xd || opcode_nos == 0xf || opcode_nos == 0xa || opcode_nos == 0xb || opcode_nos == 0x8 || opcode_nos == 0x9) { // mov, mvn, cmp, cmn, tst, teq
             tcc_error("'%s' cannot be used with three operands", get_tok_str(token, NULL));
         }
     }
-    if (nb_ops != 3) {
+    ако (nb_ops != 3) {
         expect("two or three operands");
-    } else {
+    } иначе {
         uint32_t opcode = 0;
         uint32_t immediate_value;
         uint8_t half_immediate_rotation;
-        if (nb_shift && shift.type == OP_REG32) {
-            if ((ops[0].type == OP_REG32 && ops[0].reg == 15) ||
+        ако (nb_shift && shift.type == OP_REG32) {
+            ако ((ops[0].type == OP_REG32 && ops[0].reg == 15) ||
                 (ops[1].type == OP_REG32 && ops[1].reg == 15)) {
                 tcc_error("Using the 'pc' register in data processing instructions that have a register-controlled shift is not implemented by ARM");
             }
@@ -680,15 +680,15 @@ static void asm_data_processing_opcode(TCCState *s1, int token)
 
         /* operations in the token list are ordered by opcode */
         opcode = opcode_nos << 21; // drop "s"
-        if (ops[0].type != OP_REG32)
+        ако (ops[0].type != OP_REG32)
             expect("(destination operand) register");
-        else if (opcode_nos == 0xa || opcode_nos == 0xb || opcode_nos == 0x8 || opcode_nos == 0x9) // cmp, cmn, tst, teq
+        иначе ако (opcode_nos == 0xa || opcode_nos == 0xb || opcode_nos == 0x8 || opcode_nos == 0x9) // cmp, cmn, tst, teq
             operands |= ENCODE_SET_CONDITION_CODES; // force S set, otherwise it's a completely different instruction.
-        else
+        иначе
             operands |= ENCODE_RD(ops[0].reg);
-        if (ops[1].type != OP_REG32)
+        ако (ops[1].type != OP_REG32)
             expect("(first source operand) register");
-        else if (!(opcode_nos == 0xd || opcode_nos == 0xf)) // not: mov, mvn (those have only one source operand)
+        иначе ако (!(opcode_nos == 0xd || opcode_nos == 0xf)) // not: mov, mvn (those have only one source operand)
             operands |= ENCODE_RN(ops[1].reg);
         switch (ops[2].type) {
         case OP_REG32:
@@ -698,15 +698,15 @@ static void asm_data_processing_opcode(TCCState *s1, int token)
         case OP_IM32:
             operands |= ENCODE_IMMEDIATE_FLAG;
             immediate_value = ops[2].e.v;
-            for (half_immediate_rotation = 0; half_immediate_rotation < 16; ++half_immediate_rotation) {
-                if (immediate_value >= 0x00 && immediate_value < 0x100)
+            за (half_immediate_rotation = 0; half_immediate_rotation < 16; ++half_immediate_rotation) {
+                ако (immediate_value >= 0x00 && immediate_value < 0x100)
                     break;
                 // rotate left by two
                 immediate_value = ((immediate_value & 0x3FFFFFFF) << 2) | ((immediate_value & 0xC0000000) >> 30);
             }
-            if (half_immediate_rotation >= 16) {
+            ако (half_immediate_rotation >= 16) {
                 /* fallthrough */
-            } else {
+            } иначе {
                 operands |= immediate_value;
                 operands |= half_immediate_rotation << 8;
                 break;
@@ -766,13 +766,13 @@ static void asm_data_processing_opcode(TCCState *s1, int token)
             default:
                 tcc_error("cannot use '%s' with a negative immediate value", get_tok_str(token, NULL));
             }
-            for (half_immediate_rotation = 0; half_immediate_rotation < 16; ++half_immediate_rotation) {
-                if (immediate_value >= 0x00 && immediate_value < 0x100)
+            за (half_immediate_rotation = 0; half_immediate_rotation < 16; ++half_immediate_rotation) {
+                ако (immediate_value >= 0x00 && immediate_value < 0x100)
                     break;
                 // rotate left by two
                 immediate_value = ((immediate_value & 0x3FFFFFFF) << 2) | ((immediate_value & 0xC0000000) >> 30);
             }
-            if (half_immediate_rotation >= 16) {
+            ако (half_immediate_rotation >= 16) {
                 immediate_value = ops[2].e.v;
                 tcc_error("immediate value 0x%X cannot be encoded into ARM immediate", (unsigned) immediate_value);
             }
@@ -783,10 +783,10 @@ static void asm_data_processing_opcode(TCCState *s1, int token)
             expect("(second source operand) register or immediate value");
         }
 
-        if (nb_shift) {
-            if (operands & ENCODE_IMMEDIATE_FLAG)
+        ако (nb_shift) {
+            ако (operands & ENCODE_IMMEDIATE_FLAG)
                 tcc_error("immediate rotation not implemented");
-            else
+            иначе
                 operands |= asm_encode_shift(&shift);
         }
 
@@ -796,51 +796,51 @@ static void asm_data_processing_opcode(TCCState *s1, int token)
     }
 }
 
-static void asm_shift_opcode(TCCState *s1, int token)
+static void asm_shift_opcode(TCCState *s1, цяло token)
 {
     Operand ops[3];
-    int nb_ops;
-    int definitely_neutral = 0;
+    цяло nb_ops;
+    цяло definitely_neutral = 0;
     uint32_t opcode = 0xd << 21; // MOV
     uint32_t operands = 0;
 
-    for (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ++nb_ops) {
+    за (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ++nb_ops) {
         parse_operand(s1, &ops[nb_ops]);
-        if (tok != ',') {
+        ако (tok != ',') {
             ++nb_ops;
             break;
         }
         next(); // skip ','
     }
-    if (nb_ops < 2) {
+    ако (nb_ops < 2) {
         expect("at least two operands");
     }
 
-    if (ops[0].type != OP_REG32) {
+    ако (ops[0].type != OP_REG32) {
         expect("(destination operand) register");
-    } else
+    } иначе
         operands |= ENCODE_RD(ops[0].reg);
 
-    if (nb_ops == 2) {
+    ако (nb_ops == 2) {
         switch (ARM_INSTRUCTION_GROUP(token)) {
         case TOK_ASM_rrxseq:
             opcode |= ENCODE_SET_CONDITION_CODES;
             /* fallthrough */
         case TOK_ASM_rrxeq:
-            if (ops[1].type == OP_REG32) {
+            ако (ops[1].type == OP_REG32) {
                 operands |= ops[1].reg;
                 operands |= ENCODE_BARREL_SHIFTER_MODE_ROR;
                 asm_emit_opcode(token, opcode | operands);
-            } else
+            } иначе
                 tcc_error("(first source operand) register");
-            return;
+            върни;
         default:
             memcpy(&ops[2], &ops[1], sizeof(ops[1])); // move ops[2]
             memcpy(&ops[1], &ops[0], sizeof(ops[0])); // ops[1] was implicit
             nb_ops = 3;
         }
     }
-    if (nb_ops != 3) {
+    ако (nb_ops != 3) {
         expect("two or three operands");
     }
 
@@ -865,21 +865,21 @@ static void asm_shift_opcode(TCCState *s1, int token)
 
     switch (ops[2].type) {
     case OP_REG32:
-        if ((ops[0].type == OP_REG32 && ops[0].reg == 15) ||
+        ако ((ops[0].type == OP_REG32 && ops[0].reg == 15) ||
             (ops[1].type == OP_REG32 && ops[1].reg == 15)) {
             tcc_error("Using the 'pc' register in data processing instructions that have a register-controlled shift is not implemented by ARM");
         }
         operands |= asm_encode_shift(&ops[2]);
         break;
     case OP_IM8:
-        if (ops[2].e.v)
+        ако (ops[2].e.v)
             operands |= asm_encode_shift(&ops[2]);
-        else
+        иначе
             definitely_neutral = 1;
         break;
     }
 
-    if (!definitely_neutral) switch (ARM_INSTRUCTION_GROUP(token)) {
+    ако (!definitely_neutral) switch (ARM_INSTRUCTION_GROUP(token)) {
     case TOK_ASM_lslseq:
     case TOK_ASM_lsleq:
         operands |= ENCODE_BARREL_SHIFTER_MODE_LSL;
@@ -902,23 +902,23 @@ static void asm_shift_opcode(TCCState *s1, int token)
     asm_emit_opcode(token, opcode | operands);
 }
 
-static void asm_multiplication_opcode(TCCState *s1, int token)
+static void asm_multiplication_opcode(TCCState *s1, цяло token)
 {
     Operand ops[4];
-    int nb_ops = 0;
+    цяло nb_ops = 0;
     uint32_t opcode = 0x90;
 
-    for (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ++nb_ops) {
+    за (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ++nb_ops) {
         parse_operand(s1, &ops[nb_ops]);
-        if (tok != ',') {
+        ако (tok != ',') {
             ++nb_ops;
             break;
         }
         next(); // skip ','
     }
-    if (nb_ops < 2)
+    ако (nb_ops < 2)
         expect("at least two operands");
-    else if (nb_ops == 2) {
+    иначе ако (nb_ops == 2) {
         switch (ARM_INSTRUCTION_GROUP(token)) {
         case TOK_ASM_mulseq:
         case TOK_ASM_muleq:
@@ -937,22 +937,22 @@ static void asm_multiplication_opcode(TCCState *s1, int token)
     //   Rs: bits 11...8
     //   Rn: bits 15...12
 
-    if (ops[0].type == OP_REG32)
+    ако (ops[0].type == OP_REG32)
         opcode |= ops[0].reg << 16;
-    else
+    иначе
         expect("(destination operand) register");
-    if (ops[1].type == OP_REG32)
+    ако (ops[1].type == OP_REG32)
         opcode |= ops[1].reg;
-    else
+    иначе
         expect("(first source operand) register");
-    if (ops[2].type == OP_REG32)
+    ако (ops[2].type == OP_REG32)
         opcode |= ops[2].reg << 8;
-    else
+    иначе
         expect("(second source operand) register");
-    if (nb_ops > 3) {
-        if (ops[3].type == OP_REG32)
+    ако (nb_ops > 3) {
+        ако (ops[3].type == OP_REG32)
             opcode |= ops[3].reg << 12;
-        else
+        иначе
             expect("(third source operand) register");
     }
 
@@ -961,9 +961,9 @@ static void asm_multiplication_opcode(TCCState *s1, int token)
         opcode |= 1 << 20; // Status
         /* fallthrough */
     case TOK_ASM_muleq:
-        if (nb_ops != 3)
+        ако (nb_ops != 3)
             expect("three operands");
-        else {
+        иначе {
             asm_emit_opcode(token, opcode);
         }
         break;
@@ -972,9 +972,9 @@ static void asm_multiplication_opcode(TCCState *s1, int token)
         /* fallthrough */
     case TOK_ASM_mlaeq:
     case_TOK_ASM_mlaeq:
-        if (nb_ops != 4)
+        ако (nb_ops != 4)
             expect("four operands");
-        else {
+        иначе {
             opcode |= 1 << 21; // Accumulate
             asm_emit_opcode(token, opcode);
         }
@@ -992,21 +992,21 @@ static void asm_multiplication_opcode(TCCState *s1, int token)
     }
 }
 
-static void asm_long_multiplication_opcode(TCCState *s1, int token)
+static void asm_long_multiplication_opcode(TCCState *s1, цяло token)
 {
     Operand ops[4];
-    int nb_ops = 0;
+    цяло nb_ops = 0;
     uint32_t opcode = 0x90 | (1 << 23);
 
-    for (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ++nb_ops) {
+    за (nb_ops = 0; nb_ops < sizeof(ops)/sizeof(ops[0]); ++nb_ops) {
         parse_operand(s1, &ops[nb_ops]);
-        if (tok != ',') {
+        ако (tok != ',') {
             ++nb_ops;
             break;
         }
         next(); // skip ','
     }
-    if (nb_ops != 4) {
+    ако (nb_ops != 4) {
         expect("four operands");
     }
 
@@ -1017,21 +1017,21 @@ static void asm_long_multiplication_opcode(TCCState *s1, int token)
     //   Rs: bits 11...8
     //   Rm: bits 3...0
 
-    if (ops[0].type == OP_REG32)
+    ако (ops[0].type == OP_REG32)
         opcode |= ops[0].reg << 12;
-    else
+    иначе
         expect("(destination lo accumulator) register");
-    if (ops[1].type == OP_REG32)
+    ако (ops[1].type == OP_REG32)
         opcode |= ops[1].reg << 16;
-    else
+    иначе
         expect("(destination hi accumulator) register");
-    if (ops[2].type == OP_REG32)
+    ако (ops[2].type == OP_REG32)
         opcode |= ops[2].reg;
-    else
+    иначе
         expect("(first source operand) register");
-    if (ops[3].type == OP_REG32)
+    ако (ops[3].type == OP_REG32)
         opcode |= ops[3].reg << 8;
-    else
+    иначе
         expect("(second source operand) register");
 
     switch (ARM_INSTRUCTION_GROUP(token)) {
@@ -1068,27 +1068,27 @@ static void asm_long_multiplication_opcode(TCCState *s1, int token)
     }
 }
 
-static void asm_single_data_transfer_opcode(TCCState *s1, int token)
+static void asm_single_data_transfer_opcode(TCCState *s1, цяло token)
 {
     Operand ops[3];
     Operand strex_operand;
     Operand shift;
-    int nb_shift = 0;
-    int exclam = 0;
-    int closed_bracket = 0;
-    int op2_minus = 0;
+    цяло nb_shift = 0;
+    цяло exclam = 0;
+    цяло closed_bracket = 0;
+    цяло op2_minus = 0;
     uint32_t opcode = 0;
     // Note: ldr r0, [r4, #4]  ; simple offset: r0 = *(int*)(r4+4); r4 unchanged
     // Note: ldr r0, [r4, #4]! ; pre-indexed:   r0 = *(int*)(r4+4); r4 = r4+4
     // Note: ldr r0, [r4], #4  ; post-indexed:  r0 = *(int*)(r4+0); r4 = r4+4
 
     parse_operand(s1, &ops[0]);
-    if (ops[0].type == OP_REG32)
+    ако (ops[0].type == OP_REG32)
         opcode |= ENCODE_RD(ops[0].reg);
-    else {
+    иначе {
         expect("(destination operand) register");
     }
-    if (tok != ',')
+    ако (tok != ',')
         expect("at least two arguments");
     next(); // skip ','
 
@@ -1097,56 +1097,56 @@ static void asm_single_data_transfer_opcode(TCCState *s1, int token)
     case TOK_ASM_strexbeq:
     case TOK_ASM_strexeq:
         parse_operand(s1, &strex_operand);
-        if (strex_operand.type != OP_REG32) {
+        ако (strex_operand.type != OP_REG32) {
             expect("register");
         }
-        if (tok != ',')
+        ако (tok != ',')
             expect("at least three arguments");
-        else
+        иначе
             next(); // skip ','
         break;
     }
 
     skip('[');
     parse_operand(s1, &ops[1]);
-    if (ops[1].type == OP_REG32)
+    ако (ops[1].type == OP_REG32)
         opcode |= ENCODE_RN(ops[1].reg);
-    else {
+    иначе {
         expect("(first source operand) register");
     }
-    if (tok == ']') {
+    ако (tok == ']') {
         next();
         closed_bracket = 1;
         // exclam = 1; // implicit in hardware; don't do it in software
     }
-    if (tok == ',') {
+    ако (tok == ',') {
         next(); // skip ','
-        if (tok == '-') {
+        ако (tok == '-') {
             op2_minus = 1;
             next();
         }
         parse_operand(s1, &ops[2]);
-        if (ops[2].type == OP_REG32) {
-            if (ops[2].reg == 15) {
+        ако (ops[2].type == OP_REG32) {
+            ако (ops[2].reg == 15) {
                 tcc_error("Using 'pc' for register offset in '%s' is not implemented by ARM", get_tok_str(token, NULL));
             }
-            if (tok == ',') {
+            ако (tok == ',') {
                 next();
                 opcode |= asm_parse_optional_shift(s1, &nb_shift, &shift);
-                if (opcode == 0)
+                ако (opcode == 0)
                     expect("shift directive, or no comma");
             }
         }
-    } else {
+    } иначе {
         // end of input expression in brackets--assume 0 offset
         ops[2].type = OP_IM8;
         ops[2].e.v = 0;
         opcode |= 1 << 24; // add offset before transfer
     }
-    if (!closed_bracket) {
+    ако (!closed_bracket) {
         skip(']');
         opcode |= 1 << 24; // add offset before transfer
-        if (tok == '!') {
+        ако (tok == '!') {
             exclam = 1;
             next(); // skip '!'
         }
@@ -1163,31 +1163,31 @@ static void asm_single_data_transfer_opcode(TCCState *s1, int token)
     // B: Byte/word is byte?  [ok]
     // W: Write address back into base? [ok]
     // L: Load/store is load? [ok]
-    if (exclam)
+    ако (exclam)
         opcode |= 1 << 21; // write offset back into register
 
-    if (ops[2].type == OP_IM32 || ops[2].type == OP_IM8 || ops[2].type == OP_IM8N) {
-        int v = ops[2].e.v;
-        if (op2_minus)
+    ако (ops[2].type == OP_IM32 || ops[2].type == OP_IM8 || ops[2].type == OP_IM8N) {
+        цяло v = ops[2].e.v;
+        ако (op2_minus)
             tcc_error("minus before '#' not supported for immediate values");
-        if (v >= 0) {
+        ако (v >= 0) {
             opcode |= 1 << 23; // up
-            if (v >= 0x1000)
+            ако (v >= 0x1000)
                 tcc_error("offset out of range for '%s'", get_tok_str(token, NULL));
-            else
+            иначе
                 opcode |= v;
-        } else { // down
-            if (v <= -0x1000)
+        } иначе { // down
+            ако (v <= -0x1000)
                 tcc_error("offset out of range for '%s'", get_tok_str(token, NULL));
-            else
+            иначе
                 opcode |= -v;
         }
-    } else if (ops[2].type == OP_REG32) {
-        if (!op2_minus)
+    } иначе ако (ops[2].type == OP_REG32) {
+        ако (!op2_minus)
             opcode |= 1 << 23; // up
         opcode |= ENCODE_IMMEDIATE_FLAG; /* if set, it means it's NOT immediate */
         opcode |= ops[2].reg;
-    } else
+    } иначе
         expect("register");
 
     switch (ARM_INSTRUCTION_GROUP(token)) {
@@ -1196,7 +1196,7 @@ static void asm_single_data_transfer_opcode(TCCState *s1, int token)
         /* fallthrough */
     case TOK_ASM_streq:
         opcode |= 1 << 26; // Load/Store
-        if (nb_shift)
+        ако (nb_shift)
             opcode |= asm_encode_shift(&shift);
         asm_emit_opcode(token, opcode);
         break;
@@ -1206,7 +1206,7 @@ static void asm_single_data_transfer_opcode(TCCState *s1, int token)
     case TOK_ASM_ldreq:
         opcode |= 1 << 20; // L
         opcode |= 1 << 26; // Load/Store
-        if (nb_shift)
+        ако (nb_shift)
             opcode |= asm_encode_shift(&shift);
         asm_emit_opcode(token, opcode);
         break;
@@ -1216,12 +1216,12 @@ static void asm_single_data_transfer_opcode(TCCState *s1, int token)
         opcode |= 1 << 22; // B
         /* fallthrough */
     case TOK_ASM_strexeq:
-        if ((opcode & 0xFFF) || nb_shift) {
+        ако ((opcode & 0xFFF) || nb_shift) {
             tcc_error("neither offset nor shift allowed with 'strex'");
-        } else if (opcode & ENCODE_IMMEDIATE_FLAG) { // if set, it means it's NOT immediate
+        } иначе ако (opcode & ENCODE_IMMEDIATE_FLAG) { // if set, it means it's NOT immediate
             tcc_error("offset not allowed with 'strex'");
         }
-        if ((opcode & (1 << 24)) == 0) { // add offset after transfer
+        ако ((opcode & (1 << 24)) == 0) { // add offset after transfer
             tcc_error("adding offset after transfer not allowed with 'strex'");
         }
 
@@ -1235,12 +1235,12 @@ static void asm_single_data_transfer_opcode(TCCState *s1, int token)
         opcode |= 1 << 22; // B
         /* fallthrough */
     case TOK_ASM_ldrexeq:
-        if ((opcode & 0xFFF) || nb_shift) {
+        ако ((opcode & 0xFFF) || nb_shift) {
             tcc_error("neither offset nor shift allowed with 'ldrex'");
-        } else if (opcode & ENCODE_IMMEDIATE_FLAG) { // if set, it means it's NOT immediate
+        } иначе ако (opcode & ENCODE_IMMEDIATE_FLAG) { // if set, it means it's NOT immediate
             tcc_error("offset not allowed with 'ldrex'");
         }
-        if ((opcode & (1 << 24)) == 0) { // add offset after transfer
+        ако ((opcode & (1 << 24)) == 0) { // add offset after transfer
             tcc_error("adding offset after transfer not allowed with 'ldrex'");
         }
         opcode |= 1 << 20; // L
@@ -1254,15 +1254,15 @@ static void asm_single_data_transfer_opcode(TCCState *s1, int token)
 }
 
 // Note: Only call this using a VFP register if you know exactly what you are doing (i.e. cp_number is 10 or 11 and you are doing a vmov)
-static void asm_emit_coprocessor_data_transfer(uint32_t high_nibble, uint8_t cp_number, uint8_t CRd, const Operand* Rn, const Operand* offset, int offset_minus, int preincrement, int writeback, int long_transfer, int load) {
+static void asm_emit_coprocessor_data_transfer(uint32_t high_nibble, uint8_t cp_number, uint8_t CRd, const Operand* Rn, const Operand* offset, цяло offset_minus, цяло preincrement, цяло writeback, цяло long_transfer, цяло load) {
     uint32_t opcode = 0x0;
     opcode |= 1 << 26; // Load/Store
     opcode |= 1 << 27; // coprocessor
 
-    if (long_transfer)
+    ако (long_transfer)
         opcode |= 1 << 22; // long transfer
 
-    if (load)
+    ако (load)
         opcode |= 1 << 20; // L
 
     opcode |= cp_number << 8;
@@ -1270,43 +1270,43 @@ static void asm_emit_coprocessor_data_transfer(uint32_t high_nibble, uint8_t cp_
     //assert(CRd < 16);
     opcode |= ENCODE_RD(CRd);
 
-    if (Rn->type != OP_REG32)
+    ако (Rn->type != OP_REG32)
         expect("register");
 
     //assert(Rn->reg < 16);
     opcode |= ENCODE_RN(Rn->reg);
-    if (preincrement)
+    ако (preincrement)
         opcode |= 1 << 24; // add offset before transfer
 
-    if (writeback)
+    ако (writeback)
         opcode |= 1 << 21; // write offset back into register
 
-    if (offset->type == OP_IM8 || offset->type == OP_IM8N || offset->type == OP_IM32) {
-        int v = offset->e.v;
-        if (offset_minus)
+    ако (offset->type == OP_IM8 || offset->type == OP_IM8N || offset->type == OP_IM32) {
+        цяло v = offset->e.v;
+        ако (offset_minus)
             tcc_error("minus before '#' not supported for immediate values");
-        if (offset->type == OP_IM8N || v < 0)
+        ако (offset->type == OP_IM8N || v < 0)
             v = -v;
-        else
+        иначе
             opcode |= 1 << 23; // up
-        if (v & 3) {
+        ако (v & 3) {
             tcc_error("immediate offset must be a multiple of 4");
         }
         v >>= 2;
-        if (v > 255) {
+        ако (v > 255) {
             tcc_error("immediate offset must be between -1020 and 1020");
         }
         opcode |= v;
-    } else if (offset->type == OP_REG32) {
-        if (!offset_minus)
+    } иначе ако (offset->type == OP_REG32) {
+        ако (!offset_minus)
             opcode |= 1 << 23; // up
         opcode |= ENCODE_IMMEDIATE_FLAG; /* if set, it means it's NOT immediate */
         opcode |= offset->reg;
         tcc_error("Using register offset to register address is not possible here");
-    } else if (offset->type == OP_VREG64) {
+    } иначе ако (offset->type == OP_VREG64) {
         opcode |= 16;
         opcode |= offset->reg;
-    } else
+    } иначе
         expect("immediate or register");
 
     asm_emit_unconditional_opcode((high_nibble << 28) | opcode);
@@ -1314,71 +1314,71 @@ static void asm_emit_coprocessor_data_transfer(uint32_t high_nibble, uint8_t cp_
 
 // Almost exactly the same as asm_single_data_transfer_opcode.
 // Difference: Offsets are smaller and multiples of 4; no shifts, no STREX, ENCODE_IMMEDIATE_FLAG is inverted again.
-static void asm_coprocessor_data_transfer_opcode(TCCState *s1, int token)
+static void asm_coprocessor_data_transfer_opcode(TCCState *s1, цяло token)
 {
     Operand ops[3];
     uint8_t coprocessor;
     uint8_t coprocessor_destination_register;
-    int preincrement = 0;
-    int exclam = 0;
-    int closed_bracket = 0;
-    int op2_minus = 0;
-    int long_transfer = 0;
+    цяло preincrement = 0;
+    цяло exclam = 0;
+    цяло closed_bracket = 0;
+    цяло op2_minus = 0;
+    цяло long_transfer = 0;
     // Note: ldc p1, c0, [r4, #4]  ; simple offset: r0 = *(int*)(r4+4); r4 unchanged
     // Note: ldc p2, c0, [r4, #4]! ; pre-indexed:   r0 = *(int*)(r4+4); r4 = r4+4
     // Note: ldc p3, c0, [r4], #4  ; post-indexed:  r0 = *(int*)(r4+0); r4 = r4+4
 
-    if (tok >= TOK_ASM_p0 && tok <= TOK_ASM_p15) {
+    ако (tok >= TOK_ASM_p0 && tok <= TOK_ASM_p15) {
         coprocessor = tok - TOK_ASM_p0;
         next();
-    } else {
+    } иначе {
         expect("'c<number>'");
     }
 
     skip(',');
 
-    if (tok >= TOK_ASM_c0 && tok <= TOK_ASM_c15) {
+    ако (tok >= TOK_ASM_c0 && tok <= TOK_ASM_c15) {
         coprocessor_destination_register = tok - TOK_ASM_c0;
         next();
-    } else {
+    } иначе {
         expect("'c<number>'");
     }
 
     skip(',');
     skip('[');
     parse_operand(s1, &ops[1]);
-    if (ops[1].type != OP_REG32) {
+    ако (ops[1].type != OP_REG32) {
         expect("(first source operand) register");
     }
-    if (tok == ']') {
+    ако (tok == ']') {
         next();
         closed_bracket = 1;
         // exclam = 1; // implicit in hardware; don't do it in software
     }
-    if (tok == ',') {
+    ако (tok == ',') {
         next(); // skip ','
-        if (tok == '-') {
+        ако (tok == '-') {
             op2_minus = 1;
             next();
         }
         parse_operand(s1, &ops[2]);
-        if (ops[2].type == OP_REG32) {
-            if (ops[2].reg == 15) {
+        ако (ops[2].type == OP_REG32) {
+            ако (ops[2].reg == 15) {
                 tcc_error("Using 'pc' for register offset in '%s' is not implemented by ARM", get_tok_str(token, NULL));
             }
-        } else if (ops[2].type == OP_VREG64) {
+        } иначе ако (ops[2].type == OP_VREG64) {
             tcc_error("'%s' does not support VFP register operand", get_tok_str(token, NULL));
         }
-    } else {
+    } иначе {
         // end of input expression in brackets--assume 0 offset
         ops[2].type = OP_IM8;
         ops[2].e.v = 0;
         preincrement = 1; // add offset before transfer
     }
-    if (!closed_bracket) {
+    ако (!closed_bracket) {
         skip(']');
         preincrement = 1; // add offset before transfer
-        if (tok == '!') {
+        ако (tok == '!') {
             exclam = 1;
             next(); // skip '!'
         }
@@ -1386,7 +1386,7 @@ static void asm_coprocessor_data_transfer_opcode(TCCState *s1, int token)
 
     // TODO: Support options.
 
-    if (token == TOK_ASM_ldc2 || token == TOK_ASM_stc2 || token == TOK_ASM_ldc2l || token == TOK_ASM_stc2l) {
+    ако (token == TOK_ASM_ldc2 || token == TOK_ASM_stc2 || token == TOK_ASM_ldc2l || token == TOK_ASM_stc2l) {
         switch (token) {
         case TOK_ASM_ldc2l:
             long_transfer = 1; // long transfer
@@ -1401,7 +1401,7 @@ static void asm_coprocessor_data_transfer_opcode(TCCState *s1, int token)
             asm_emit_coprocessor_data_transfer(0xF, coprocessor, coprocessor_destination_register, &ops[1], &ops[2], op2_minus, preincrement, exclam, long_transfer, 0);
             break;
         }
-    } else switch (ARM_INSTRUCTION_GROUP(token)) {
+    } иначе switch (ARM_INSTRUCTION_GROUP(token)) {
     case TOK_ASM_stcleq:
         long_transfer = 1;
         /* fallthrough */
@@ -1419,47 +1419,47 @@ static void asm_coprocessor_data_transfer_opcode(TCCState *s1, int token)
     }
 }
 
-#if defined(TCC_ARM_VFP)
+#ако defined(TCC_ARM_VFP)
 #define CP_SINGLE_PRECISION_FLOAT 10
 #define CP_DOUBLE_PRECISION_FLOAT 11
 
-static void asm_floating_point_single_data_transfer_opcode(TCCState *s1, int token)
+static void asm_floating_point_single_data_transfer_opcode(TCCState *s1, цяло token)
 {
     Operand ops[3];
     uint8_t coprocessor = 0;
     uint8_t coprocessor_destination_register = 0;
-    int long_transfer = 0;
+    цяло long_transfer = 0;
     // Note: vldr p1, c0, [r4, #4]  ; simple offset: r0 = *(int*)(r4+4); r4 unchanged
     // Note: Not allowed: vldr p2, c0, [r4, #4]! ; pre-indexed:   r0 = *(int*)(r4+4); r4 = r4+4
     // Note: Not allowed: vldr p3, c0, [r4], #4  ; post-indexed:  r0 = *(int*)(r4+0); r4 = r4+4
 
     parse_operand(s1, &ops[0]);
-    if (ops[0].type == OP_VREG32) {
+    ако (ops[0].type == OP_VREG32) {
         coprocessor = CP_SINGLE_PRECISION_FLOAT;
         coprocessor_destination_register = ops[0].reg;
         long_transfer = coprocessor_destination_register & 1;
         coprocessor_destination_register >>= 1;
-    } else if (ops[0].type == OP_VREG64) {
+    } иначе ако (ops[0].type == OP_VREG64) {
         coprocessor = CP_DOUBLE_PRECISION_FLOAT;
         coprocessor_destination_register = ops[0].reg;
         next();
-    } else {
+    } иначе {
         expect("floating point register");
     }
 
     skip(',');
     skip('[');
     parse_operand(s1, &ops[1]);
-    if (ops[1].type != OP_REG32) {
+    ако (ops[1].type != OP_REG32) {
         expect("(first source operand) register");
     }
-    if (tok == ',') {
+    ако (tok == ',') {
         next(); // skip ','
         parse_operand(s1, &ops[2]);
-        if (ops[2].type != OP_IM8 && ops[2].type != OP_IM8N) {
+        ако (ops[2].type != OP_IM8 && ops[2].type != OP_IM8N) {
             expect("immediate offset");
         }
-    } else {
+    } иначе {
         // end of input expression in brackets--assume 0 offset
         ops[2].type = OP_IM8;
         ops[2].e.v = 0;
@@ -1478,16 +1478,16 @@ static void asm_floating_point_single_data_transfer_opcode(TCCState *s1, int tok
     }
 }
 
-static void asm_floating_point_block_data_transfer_opcode(TCCState *s1, int token)
+static void asm_floating_point_block_data_transfer_opcode(TCCState *s1, цяло token)
 {
     uint8_t coprocessor = 0;
-    int first_regset_register;
-    int last_regset_register;
+    цяло first_regset_register;
+    цяло last_regset_register;
     uint8_t regset_item_count;
     uint8_t extra_register_bit = 0;
-    int op0_exclam = 0;
-    int load = 0;
-    int preincrement = 0;
+    цяло op0_exclam = 0;
+    цяло load = 0;
+    цяло preincrement = 0;
     Operand ops[1];
     Operand offset;
     switch (ARM_INSTRUCTION_GROUP(token)) {
@@ -1499,7 +1499,7 @@ static void asm_floating_point_block_data_transfer_opcode(TCCState *s1, int toke
         break;
     default:
         parse_operand(s1, &ops[0]);
-        if (tok == '!') {
+        ако (tok == '!') {
             op0_exclam = 1;
             next(); // skip '!'
         }
@@ -1508,35 +1508,35 @@ static void asm_floating_point_block_data_transfer_opcode(TCCState *s1, int toke
 
     skip('{');
     first_regset_register = asm_parse_vfp_regvar(tok, 1);
-    if ((first_regset_register = asm_parse_vfp_regvar(tok, 1)) != -1) {
+    ако ((first_regset_register = asm_parse_vfp_regvar(tok, 1)) != -1) {
         coprocessor = CP_DOUBLE_PRECISION_FLOAT;
         next();
-    } else if ((first_regset_register = asm_parse_vfp_regvar(tok, 0)) != -1) {
+    } иначе ако ((first_regset_register = asm_parse_vfp_regvar(tok, 0)) != -1) {
         coprocessor = CP_SINGLE_PRECISION_FLOAT;
         next();
-    } else {
+    } иначе {
         expect("floating-point register");
     }
 
-    if (tok == '-') {
+    ако (tok == '-') {
         next();
-        if ((last_regset_register = asm_parse_vfp_regvar(tok, coprocessor == CP_DOUBLE_PRECISION_FLOAT)) != -1)
+        ако ((last_regset_register = asm_parse_vfp_regvar(tok, coprocessor == CP_DOUBLE_PRECISION_FLOAT)) != -1)
             next();
-        else {
+        иначе {
             expect("floating-point register");
         }
-    } else
+    } иначе
         last_regset_register = first_regset_register;
 
-    if (last_regset_register < first_regset_register) {
+    ако (last_regset_register < first_regset_register) {
         tcc_error("registers will be processed in ascending order by hardware--but are not specified in ascending order here");
     }
     skip('}');
     // Note: 0 (one down) is not implemented by us regardless.
     regset_item_count = last_regset_register - first_regset_register + 1;
-    if (coprocessor == CP_DOUBLE_PRECISION_FLOAT)
+    ако (coprocessor == CP_DOUBLE_PRECISION_FLOAT)
         regset_item_count <<= 1;
-    else {
+    иначе {
         extra_register_bit = first_regset_register & 1;
         first_regset_register >>= 1;
     }
@@ -1563,13 +1563,13 @@ static void asm_floating_point_block_data_transfer_opcode(TCCState *s1, int toke
     default:
         expect("floating point block data transfer instruction");
     }
-    if (ops[0].type != OP_REG32)
+    ако (ops[0].type != OP_REG32)
         expect("(first operand) register");
-    else if (ops[0].reg == 15)
+    иначе ако (ops[0].reg == 15)
         tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, NULL));
-    else if (!op0_exclam && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vldmeq && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vldmiaeq && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vstmeq && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vstmiaeq)
+    иначе ако (!op0_exclam && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vldmeq && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vldmiaeq && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vstmeq && ARM_INSTRUCTION_GROUP(token) != TOK_ASM_vstmiaeq)
         tcc_error("first operand of '%s' should have an exclamation mark", get_tok_str(token, NULL));
-    else
+    иначе
         asm_emit_coprocessor_data_transfer(condition_code_of_token(token), coprocessor, first_regset_register, &ops[0], &offset, 0, preincrement, op0_exclam, extra_register_bit, load);
 }
 
@@ -1579,33 +1579,33 @@ static void asm_floating_point_block_data_transfer_opcode(TCCState *s1, int toke
 static uint32_t vmov_parse_fractional_part(const char* s)
 {
     uint32_t result = 0;
-    int i;
-    for (i = 0; i < VMOV_FRACTIONAL_DIGITS; ++i) {
+    цяло i;
+    за (i = 0; i < VMOV_FRACTIONAL_DIGITS; ++i) {
         char c = *s;
         result *= 10;
-        if (c >= '0' && c <= '9') {
+        ако (c >= '0' && c <= '9') {
             result += (c - '0');
             ++s;
         }
     }
-    if (*s)
+    ако (*s)
         expect("decimal numeral");
-    return result;
+    върни result;
 }
 
-static int vmov_linear_approx_index(uint32_t beginning, uint32_t end, uint32_t value)
+static цяло vmov_linear_approx_index(uint32_t beginning, uint32_t end, uint32_t value)
 {
-    int i;
+    цяло i;
     uint32_t k;
     uint32_t xvalue;
 
     k = (end - beginning)/16;
-    for (xvalue = beginning, i = 0; i < 16; ++i, xvalue += k) {
-        if (value == xvalue)
-            return i;
+    за (xvalue = beginning, i = 0; i < 16; ++i, xvalue += k) {
+        ако (value == xvalue)
+            върни i;
     }
     //assert(0);
-    return -1;
+    върни -1;
 }
 
 static uint32_t vmov_parse_immediate_value() {
@@ -1613,24 +1613,24 @@ static uint32_t vmov_parse_immediate_value() {
     unsigned long integral_value;
     const char *p;
 
-    if (tok != TOK_PPNUM) {
+    ако (tok != TOK_PPNUM) {
         expect("immediate value");
     }
     p = tokc.str.data;
     errno = 0;
     integral_value = strtoul(p, (char **)&p, 0);
 
-    if (errno || integral_value >= 32) {
+    ако (errno || integral_value >= 32) {
         tcc_error("invalid floating-point immediate value");
     }
 
     value = (uint32_t) integral_value * VMOV_ONE;
-    if (*p == '.') {
+    ако (*p == '.') {
         ++p;
         value += vmov_parse_fractional_part(p);
     }
     next();
-    return value;
+    върни value;
 }
 
 static uint8_t vmov_encode_immediate_value(uint32_t value)
@@ -1638,42 +1638,42 @@ static uint8_t vmov_encode_immediate_value(uint32_t value)
     uint32_t limit;
     uint32_t end = 0;
     uint32_t beginning = 0;
-    int r = -1;
-    int n;
-    int i;
+    цяло r = -1;
+    цяло n;
+    цяло i;
 
     limit = 32 * VMOV_ONE;
-    for (i = 0; i < 8; ++i) {
-        if (value < limit) {
+    за (i = 0; i < 8; ++i) {
+        ако (value < limit) {
             end = limit;
             limit >>= 1;
             beginning = limit;
             r = i;
-        } else
+        } иначе
             limit >>= 1;
     }
-    if (r == -1 || value < beginning || value > end) {
+    ако (r == -1 || value < beginning || value > end) {
         tcc_error("invalid decimal number for vmov: %d", value);
     }
     n = vmov_linear_approx_index(beginning, end, value);
-    return n | (((3 - r) & 0x7) << 4);
+    върни n | (((3 - r) & 0x7) << 4);
 }
 
 // Not standalone.
-static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s1, int token, uint8_t coprocessor, uint8_t CRd) {
+static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s1, цяло token, uint8_t coprocessor, uint8_t CRd) {
     uint8_t opcode1 = 0;
     uint8_t opcode2 = 0;
     uint8_t operands[3] = {0, 0, 0};
     uint32_t immediate_value = 0;
-    int op_minus = 0;
+    цяло op_minus = 0;
     uint8_t code;
 
     operands[0] = CRd;
 
-    if (tok == '#' || tok == '$') {
+    ако (tok == '#' || tok == '$') {
         next();
     }
-    if (tok == '-') {
+    ако (tok == '-') {
         op_minus = 1;
         next();
     }
@@ -1685,7 +1685,7 @@ static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s
     case TOK_ASM_vcmpeq_f64:
         opcode2 = 2;
         operands[1] = 5;
-        if (immediate_value) {
+        ако (immediate_value) {
             expect("Immediate value 0");
         }
         break;
@@ -1693,16 +1693,16 @@ static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s
     case TOK_ASM_vcmpeeq_f64:
         opcode2 = 6;
         operands[1] = 5;
-        if (immediate_value) {
+        ако (immediate_value) {
             expect("Immediate value 0");
         }
         break;
     case TOK_ASM_vmoveq_f32:
     case TOK_ASM_vmoveq_f64:
         opcode2 = 0;
-        if (op_minus)
+        ако (op_minus)
             operands[1] = 0x8;
-        else
+        иначе
             operands[1] = 0x0;
         code = vmov_encode_immediate_value(immediate_value);
         operands[1] |= code >> 4;
@@ -1712,8 +1712,8 @@ static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s
         expect("known floating point with immediate instruction");
     }
 
-    if (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
-        if (operands[0] & 1)
+    ако (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
+        ако (operands[0] & 1)
             opcode1 |= 4;
         operands[0] >>= 1;
     }
@@ -1721,31 +1721,31 @@ static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s
     asm_emit_coprocessor_opcode(condition_code_of_token(token), coprocessor, opcode1, operands[0], operands[1], operands[2], opcode2, 0);
 }
 
-static void asm_floating_point_reg_arm_reg_transfer_opcode_tail(TCCState *s1, int token, int coprocessor, int nb_arm_regs, int nb_ops, Operand ops[3]) {
+static void asm_floating_point_reg_arm_reg_transfer_opcode_tail(TCCState *s1, цяло token, цяло coprocessor, цяло nb_arm_regs, цяло nb_ops, Operand ops[3]) {
     uint8_t opcode1 = 0;
     uint8_t opcode2 = 0;
     switch (coprocessor) {
     case CP_SINGLE_PRECISION_FLOAT:
         // "vmov.f32 r2, s3" or "vmov.f32 s3, r2"
-        if (nb_ops != 2 || nb_arm_regs != 1) {
+        ако (nb_ops != 2 || nb_arm_regs != 1) {
             tcc_error("vmov.f32 only implemented for one VFP register operand and one ARM register operands");
         }
-        if (ops[0].type != OP_REG32) { // determine mode: load or store
+        ако (ops[0].type != OP_REG32) { // determine mode: load or store
             // need to swap operands 0 and 1
             memcpy(&ops[2], &ops[1], sizeof(ops[2]));
             memcpy(&ops[1], &ops[0], sizeof(ops[1]));
             memcpy(&ops[0], &ops[2], sizeof(ops[0]));
-        } else
+        } иначе
             opcode1 |= 1;
 
-        if (ops[1].type == OP_VREG32) {
-            if (ops[1].reg & 1)
+        ако (ops[1].type == OP_VREG32) {
+            ако (ops[1].reg & 1)
                 opcode2 |= 4;
             ops[1].reg >>= 1;
         }
 
-        if (ops[0].type == OP_VREG32) {
-            if (ops[0].reg & 1)
+        ако (ops[0].type == OP_VREG32) {
+            ако (ops[0].reg & 1)
                 opcode1 |= 4;
             ops[0].reg >>= 1;
         }
@@ -1753,24 +1753,24 @@ static void asm_floating_point_reg_arm_reg_transfer_opcode_tail(TCCState *s1, in
         asm_emit_coprocessor_opcode(condition_code_of_token(token), coprocessor, opcode1, ops[0].reg, (ops[1].type == OP_IM8) ? ops[1].e.v : ops[1].reg, 0x10, opcode2, 0);
         break;
     case CP_DOUBLE_PRECISION_FLOAT:
-        if (nb_ops != 3 || nb_arm_regs != 2) {
+        ако (nb_ops != 3 || nb_arm_regs != 2) {
             tcc_error("vmov.f32 only implemented for one VFP register operand and two ARM register operands");
         }
         // Determine whether it's a store into a VFP register (vmov "d1, r2, r3") rather than "vmov r2, r3, d1"
-        if (ops[0].type == OP_VREG64) {
-            if (ops[2].type == OP_REG32) {
+        ако (ops[0].type == OP_VREG64) {
+            ако (ops[2].type == OP_REG32) {
                 Operand temp;
                 // need to rotate operand list to the left
                 memcpy(&temp, &ops[0], sizeof(temp));
                 memcpy(&ops[0], &ops[1], sizeof(ops[0]));
                 memcpy(&ops[1], &ops[2], sizeof(ops[1]));
                 memcpy(&ops[2], &temp, sizeof(ops[2]));
-            } else {
+            } иначе {
                 tcc_error("vmov.f64 only implemented for one VFP register operand and two ARM register operands");
             }
-        } else if (ops[0].type != OP_REG32 || ops[1].type != OP_REG32 || ops[2].type != OP_VREG64) {
+        } иначе ако (ops[0].type != OP_REG32 || ops[1].type != OP_REG32 || ops[2].type != OP_VREG64) {
             tcc_error("vmov.f64 only implemented for one VFP register operand and two ARM register operands");
-        } else {
+        } иначе {
             opcode1 |= 1;
         }
         asm_emit_coprocessor_data_transfer(condition_code_of_token(token), coprocessor, ops[0].reg, &ops[1], &ops[2], 0, 0, 0, 1, opcode1);
@@ -1780,7 +1780,7 @@ static void asm_floating_point_reg_arm_reg_transfer_opcode_tail(TCCState *s1, in
     }
 }
 
-static void asm_floating_point_vcvt_data_processing_opcode(TCCState *s1, int token) {
+static void asm_floating_point_vcvt_data_processing_opcode(TCCState *s1, цяло token) {
     uint8_t coprocessor = 0;
     Operand ops[3];
     uint8_t opcode1 = 11;
@@ -1862,46 +1862,46 @@ static void asm_floating_point_vcvt_data_processing_opcode(TCCState *s1, int tok
     case TOK_ASM_vcvteq_f64_u32:
     case TOK_ASM_vcvteq_f64_s32:
     case TOK_ASM_vcvteq_f64_f32:
-        if (ops[0].type == OP_VREG64 && ops[2].type == OP_VREG32) {
-        } else {
+        ако (ops[0].type == OP_VREG64 && ops[2].type == OP_VREG32) {
+        } иначе {
             expect("d<number>, s<number>");
         }
         break;
     default:
-        if (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
-            if (ops[0].type == OP_VREG32 && ops[2].type == OP_VREG32) {
-            } else {
+        ако (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
+            ако (ops[0].type == OP_VREG32 && ops[2].type == OP_VREG32) {
+            } иначе {
                 expect("s<number>, s<number>");
             }
-        } else if (coprocessor == CP_DOUBLE_PRECISION_FLOAT) {
-            if (ops[0].type == OP_VREG32 && ops[2].type == OP_VREG64) {
-            } else {
+        } иначе ако (coprocessor == CP_DOUBLE_PRECISION_FLOAT) {
+            ако (ops[0].type == OP_VREG32 && ops[2].type == OP_VREG64) {
+            } иначе {
                 expect("s<number>, d<number>");
             }
         }
     }
 
-    if (ops[2].type == OP_VREG32) {
-        if (ops[2].reg & 1)
+    ако (ops[2].type == OP_VREG32) {
+        ако (ops[2].reg & 1)
             opcode2 |= 1;
         ops[2].reg >>= 1;
     }
-    if (ops[0].type == OP_VREG32) {
-        if (ops[0].reg & 1)
+    ако (ops[0].type == OP_VREG32) {
+        ако (ops[0].reg & 1)
             opcode1 |= 4;
         ops[0].reg >>= 1;
     }
     asm_emit_coprocessor_opcode(condition_code_of_token(token), coprocessor, opcode1, ops[0].reg, (ops[1].type == OP_IM8) ? ops[1].e.v : ops[1].reg, (ops[2].type == OP_IM8) ? ops[2].e.v : ops[2].reg, opcode2, 0);
 }
 
-static void asm_floating_point_data_processing_opcode(TCCState *s1, int token) {
+static void asm_floating_point_data_processing_opcode(TCCState *s1, цяло token) {
     uint8_t coprocessor = CP_SINGLE_PRECISION_FLOAT;
     uint8_t opcode1 = 0;
     uint8_t opcode2 = 0; // (0 || 2) | register selection
     Operand ops[3];
     uint8_t nb_ops = 0;
-    int vmov = 0;
-    int nb_arm_regs = 0;
+    цяло vmov = 0;
+    цяло nb_arm_regs = 0;
 
 /* TODO:
    Instruction    opcode opcode2  Reason
@@ -1947,40 +1947,40 @@ static void asm_floating_point_data_processing_opcode(TCCState *s1, int token) {
         break;
     }
 
-    for (nb_ops = 0; nb_ops < 3; ) {
+    за (nb_ops = 0; nb_ops < 3; ) {
         // Note: Necessary because parse_operand can't parse decimal numerals.
-        if (nb_ops == 1 && (tok == '#' || tok == '$' || tok == TOK_PPNUM || tok == '-')) {
+        ако (nb_ops == 1 && (tok == '#' || tok == '$' || tok == TOK_PPNUM || tok == '-')) {
             asm_floating_point_immediate_data_processing_opcode_tail(s1, token, coprocessor, ops[0].reg);
-            return;
+            върни;
         }
         parse_operand(s1, &ops[nb_ops]);
-        if (vmov && ops[nb_ops].type == OP_REG32) {
+        ако (vmov && ops[nb_ops].type == OP_REG32) {
             ++nb_arm_regs;
-        } else if (ops[nb_ops].type == OP_VREG32) {
-            if (coprocessor != CP_SINGLE_PRECISION_FLOAT) {
+        } иначе ако (ops[nb_ops].type == OP_VREG32) {
+            ако (coprocessor != CP_SINGLE_PRECISION_FLOAT) {
                 expect("'s<number>'");
             }
-        } else if (ops[nb_ops].type == OP_VREG64) {
-            if (coprocessor != CP_DOUBLE_PRECISION_FLOAT) {
+        } иначе ако (ops[nb_ops].type == OP_VREG64) {
+            ако (coprocessor != CP_DOUBLE_PRECISION_FLOAT) {
                 expect("'d<number>'");
             }
-        } else {
+        } иначе {
             expect("floating point register");
         }
         ++nb_ops;
-        if (tok == ',')
+        ако (tok == ',')
             next();
-        else
+        иначе
             break;
     }
 
-    if (nb_arm_regs == 0) {
-        if (nb_ops == 2) { // implicit
+    ако (nb_arm_regs == 0) {
+        ако (nb_ops == 2) { // implicit
             memcpy(&ops[2], &ops[1], sizeof(ops[1])); // move ops[2]
             memcpy(&ops[1], &ops[0], sizeof(ops[0])); // ops[1] was implicit
             nb_ops = 3;
         }
-        if (nb_ops < 3) {
+        ако (nb_ops < 3) {
             tcc_error("Not enough operands for '%s' (%u)", get_tok_str(token, NULL), nb_ops);
         }
     }
@@ -2068,10 +2068,10 @@ static void asm_floating_point_data_processing_opcode(TCCState *s1, int token) {
         break;
     case TOK_ASM_vmoveq_f32:
     case TOK_ASM_vmoveq_f64:
-        if (nb_arm_regs > 0) { // vmov.f32 r2, s3 or similar
+        ако (nb_arm_regs > 0) { // vmov.f32 r2, s3 or similar
             asm_floating_point_reg_arm_reg_transfer_opcode_tail(s1, token, coprocessor, nb_arm_regs, nb_ops, ops);
-            return;
-        } else {
+            върни;
+        } иначе {
             opcode1 = 11; // "Other" instruction
             opcode2 = 2;
             ops[1].type = OP_IM8;
@@ -2082,21 +2082,21 @@ static void asm_floating_point_data_processing_opcode(TCCState *s1, int token) {
         expect("known floating point instruction");
     }
 
-    if (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
-        if (ops[2].type == OP_VREG32) {
-            if (ops[2].reg & 1)
+    ако (coprocessor == CP_SINGLE_PRECISION_FLOAT) {
+        ако (ops[2].type == OP_VREG32) {
+            ако (ops[2].reg & 1)
                 opcode2 |= 1;
             ops[2].reg >>= 1;
         }
 
-        if (ops[1].type == OP_VREG32) {
-            if (ops[1].reg & 1)
+        ако (ops[1].type == OP_VREG32) {
+            ако (ops[1].reg & 1)
                 opcode2 |= 4;
             ops[1].reg >>= 1;
         }
 
-        if (ops[0].type == OP_VREG32) {
-            if (ops[0].reg & 1)
+        ако (ops[0].type == OP_VREG32) {
+            ако (ops[0].reg & 1)
                 opcode1 |= 4;
             ops[0].reg >>= 1;
         }
@@ -2105,36 +2105,36 @@ static void asm_floating_point_data_processing_opcode(TCCState *s1, int token) {
     asm_emit_coprocessor_opcode(condition_code_of_token(token), coprocessor, opcode1, ops[0].reg, (ops[1].type == OP_IM8) ? ops[1].e.v : ops[1].reg, (ops[2].type == OP_IM8) ? ops[2].e.v : ops[2].reg, opcode2, 0);
 }
 
-static int asm_parse_vfp_status_regvar(int t)
+static цяло asm_parse_vfp_status_regvar(цяло t)
 {
     switch (t) {
     case TOK_ASM_fpsid:
-        return 0;
+        върни 0;
     case TOK_ASM_fpscr:
-        return 1;
+        върни 1;
     case TOK_ASM_fpexc:
-        return 8;
+        върни 8;
     default:
-        return -1;
+        върни -1;
     }
 }
 
-static void asm_floating_point_status_register_opcode(TCCState* s1, int token)
+static void asm_floating_point_status_register_opcode(TCCState* s1, цяло token)
 {
     uint8_t coprocessor = CP_SINGLE_PRECISION_FLOAT;
     uint8_t opcode;
-    int vfp_sys_reg = -1;
+    цяло vfp_sys_reg = -1;
     Operand arm_operand;
     switch (ARM_INSTRUCTION_GROUP(token)) {
     case TOK_ASM_vmrseq:
         opcode = 0xf;
-        if (tok == TOK_ASM_apsr_nzcv) {
+        ако (tok == TOK_ASM_apsr_nzcv) {
             arm_operand.type = OP_REG32;
             arm_operand.reg = 15; // not PC
             next(); // skip apsr_nzcv
-        } else {
+        } иначе {
             parse_operand(s1, &arm_operand);
-            if (arm_operand.type == OP_REG32 && arm_operand.reg == 15) {
+            ако (arm_operand.type == OP_REG32 && arm_operand.reg == 15) {
                 tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, NULL));
             }
         }
@@ -2142,7 +2142,7 @@ static void asm_floating_point_status_register_opcode(TCCState* s1, int token)
         skip(',');
         vfp_sys_reg = asm_parse_vfp_status_regvar(tok);
         next(); // skip vfp sys reg
-        if (arm_operand.type == OP_REG32 && arm_operand.reg == 15 && vfp_sys_reg != 1) {
+        ако (arm_operand.type == OP_REG32 && arm_operand.reg == 15 && vfp_sys_reg != 1) {
             tcc_error("'%s' only supports the variant 'vmrs apsr_nzcv, fpscr' here", get_tok_str(token, NULL));
         }
         break;
@@ -2152,17 +2152,17 @@ static void asm_floating_point_status_register_opcode(TCCState* s1, int token)
         next(); // skip vfp sys reg
         skip(',');
         parse_operand(s1, &arm_operand);
-        if (arm_operand.type == OP_REG32 && arm_operand.reg == 15) {
+        ако (arm_operand.type == OP_REG32 && arm_operand.reg == 15) {
             tcc_error("'%s' does not support 'pc' as operand", get_tok_str(token, NULL));
         }
         break;
     default:
         expect("floating point status register instruction");
     }
-    if (vfp_sys_reg == -1) {
+    ако (vfp_sys_reg == -1) {
         expect("VFP system register");
     }
-    if (arm_operand.type != OP_REG32) {
+    ако (arm_operand.type != OP_REG32) {
         expect("ARM register");
     }
     asm_emit_coprocessor_opcode(condition_code_of_token(token), coprocessor, opcode, arm_operand.reg, vfp_sys_reg, 0x10, 0, 0);
@@ -2170,12 +2170,12 @@ static void asm_floating_point_status_register_opcode(TCCState* s1, int token)
 
 #endif
 
-static void asm_misc_single_data_transfer_opcode(TCCState *s1, int token)
+static void asm_misc_single_data_transfer_opcode(TCCState *s1, цяло token)
 {
     Operand ops[3];
-    int exclam = 0;
-    int closed_bracket = 0;
-    int op2_minus = 0;
+    цяло exclam = 0;
+    цяло closed_bracket = 0;
+    цяло op2_minus = 0;
     uint32_t opcode = (1 << 7) | (1 << 4);
 
     /* Note:
@@ -2191,74 +2191,74 @@ static void asm_misc_single_data_transfer_opcode(TCCState *s1, int token)
     // [compare single data transfer: 0 1 I P U B W L << 20]
 
     parse_operand(s1, &ops[0]);
-    if (ops[0].type == OP_REG32)
+    ако (ops[0].type == OP_REG32)
         opcode |= ENCODE_RD(ops[0].reg);
-    else {
+    иначе {
         expect("(destination operand) register");
     }
-    if (tok != ',')
+    ако (tok != ',')
         expect("at least two arguments");
-    else
+    иначе
         next(); // skip ','
     skip('[');
     parse_operand(s1, &ops[1]);
-    if (ops[1].type == OP_REG32)
+    ако (ops[1].type == OP_REG32)
         opcode |= ENCODE_RN(ops[1].reg);
-    else {
+    иначе {
         expect("(first source operand) register");
     }
-    if (tok == ']') {
+    ако (tok == ']') {
         next();
         closed_bracket = 1;
         // exclam = 1; // implicit in hardware; don't do it in software
     }
-    if (tok == ',') {
+    ако (tok == ',') {
         next(); // skip ','
-        if (tok == '-') {
+        ако (tok == '-') {
             op2_minus = 1;
             next();
         }
         parse_operand(s1, &ops[2]);
-    } else {
+    } иначе {
         // end of input expression in brackets--assume 0 offset
         ops[2].type = OP_IM8;
         ops[2].e.v = 0;
         opcode |= 1 << 24; // add offset before transfer
     }
-    if (!closed_bracket) {
+    ако (!closed_bracket) {
         skip(']');
         opcode |= 1 << 24; // add offset before transfer
-        if (tok == '!') {
+        ако (tok == '!') {
             exclam = 1;
             next(); // skip '!'
         }
     }
 
-    if (exclam) {
-        if ((opcode & (1 << 24)) == 0) {
+    ако (exclam) {
+        ако ((opcode & (1 << 24)) == 0) {
             tcc_error("result of '%s' would be unpredictable here", get_tok_str(token, NULL));
         }
         opcode |= 1 << 21; // write offset back into register
     }
 
-    if (ops[2].type == OP_IM32 || ops[2].type == OP_IM8 || ops[2].type == OP_IM8N) {
-        int v = ops[2].e.v;
-        if (op2_minus)
+    ако (ops[2].type == OP_IM32 || ops[2].type == OP_IM8 || ops[2].type == OP_IM8N) {
+        цяло v = ops[2].e.v;
+        ако (op2_minus)
             tcc_error("minus before '#' not supported for immediate values");
-        if (v >= 0) {
+        ако (v >= 0) {
             opcode |= 1 << 23; // up
-            if (v >= 0x100)
+            ако (v >= 0x100)
                 tcc_error("offset out of range for '%s'", get_tok_str(token, NULL));
-            else {
+            иначе {
                 // bits 11...8: immediate hi nibble
                 // bits 3...0: immediate lo nibble
                 opcode |= (v & 0xF0) << 4;
                 opcode |= v & 0xF;
             }
-        } else { // down
-            if (v <= -0x100)
+        } иначе { // down
+            ако (v <= -0x100)
                 tcc_error("offset out of range for '%s'", get_tok_str(token, NULL));
-            else {
+            иначе {
                 v = -v;
                 // bits 11...8: immediate hi nibble
                 // bits 3...0: immediate lo nibble
@@ -2267,11 +2267,11 @@ static void asm_misc_single_data_transfer_opcode(TCCState *s1, int token)
             }
         }
         opcode |= 1 << 22; // not ENCODE_IMMEDIATE_FLAG;
-    } else if (ops[2].type == OP_REG32) {
-        if (!op2_minus)
+    } иначе ако (ops[2].type == OP_REG32) {
+        ако (!op2_minus)
             opcode |= 1 << 23; // up
         opcode |= ops[2].reg;
-    } else
+    } иначе
         expect("register");
 
     switch (ARM_INSTRUCTION_GROUP(token)) {
@@ -2296,21 +2296,21 @@ static void asm_misc_single_data_transfer_opcode(TCCState *s1, int token)
 }
 
 /* Note: almost dupe of encbranch in arm-gen.c */
-static uint32_t encbranchoffset(int pos, int addr, int fail)
+static uint32_t encbranchoffset(цяло pos, цяло addr, цяло fail)
 {
   addr-=pos+8;
   addr/=4;
-  if(addr>=0x7fffff || addr<-0x800000) {
-    if(fail)
+  ако(addr>=0x7fffff || addr<-0x800000) {
+    ако(fail)
       tcc_error("branch offset is too far");
-    return 0;
+    върни 0;
   }
-  return /*not 0x0A000000|*/(addr&0xffffff);
+  върни /*not 0x0A000000|*/(addr&0xffffff);
 }
 
-static void asm_branch_opcode(TCCState *s1, int token)
+static void asm_branch_opcode(TCCState *s1, цяло token)
 {
-    int jmp_disp = 0;
+    цяло jmp_disp = 0;
     Operand op;
     ExprValue e;
     ElfSym *esym;
@@ -2319,11 +2319,11 @@ static void asm_branch_opcode(TCCState *s1, int token)
     case TOK_ASM_beq:
     case TOK_ASM_bleq:
         asm_expr(s1, &e);
-        if (e.sym) {
+        ако (e.sym) {
             esym = elfsym(e.sym);
-            if (esym && esym->st_shndx == cur_text_section->sh_num) {
+            ако (esym && esym->st_shndx == cur_text_section->sh_num) {
                 jmp_disp = esym->st_value;
-            } else {
+            } иначе {
                 greloca(cur_text_section, e.sym, ind, R_ARM_PC24, 0);
                 jmp_disp = ind;
             }
@@ -2342,15 +2342,15 @@ static void asm_branch_opcode(TCCState *s1, int token)
         asm_emit_opcode(token, (0xb << 24) | (jmp_disp & 0xffffff));
         break;
     case TOK_ASM_bxeq:
-        if (op.type != OP_REG32)
+        ако (op.type != OP_REG32)
             expect("register");
-        else
+        иначе
             asm_emit_opcode(token, (0x12fff1 << 4) | op.reg);
         break;
     case TOK_ASM_blxeq:
-        if (op.type != OP_REG32)
+        ако (op.type != OP_REG32)
             expect("register");
-        else
+        иначе
             asm_emit_opcode(token, (0x12fff3 << 4) | op.reg);
         break;
     default:
@@ -2358,25 +2358,25 @@ static void asm_branch_opcode(TCCState *s1, int token)
     }
 }
 
-ST_FUNC void asm_opcode(TCCState *s1, int token)
+ST_FUNC void asm_opcode(TCCState *s1, цяло token)
 {
-    while (token == TOK_LINEFEED) {
+    докато (token == TOK_LINEFEED) {
         next();
         token = tok;
     }
-    if (token == TOK_EOF)
-        return;
-    if (token < TOK_ASM_nopeq) { // no condition code
+    ако (token == TOK_EOF)
+        върни;
+    ако (token < TOK_ASM_nopeq) { // no condition code
         switch (token) {
         case TOK_ASM_cdp2:
             asm_coprocessor_opcode(s1, token);
-            return;
+            върни;
         case TOK_ASM_ldc2:
         case TOK_ASM_ldc2l:
         case TOK_ASM_stc2:
         case TOK_ASM_stc2l:
             asm_coprocessor_data_transfer_opcode(s1, token);
-            return;
+            върни;
         default:
             expect("instruction");
         }
@@ -2396,22 +2396,22 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_stmibeq:
     case TOK_ASM_ldmibeq:
         asm_block_data_transfer_opcode(s1, token);
-        return;
+        върни;
     case TOK_ASM_nopeq:
     case TOK_ASM_wfeeq:
     case TOK_ASM_wfieq:
         asm_nullary_opcode(token);
-        return;
+        върни;
     case TOK_ASM_swieq:
     case TOK_ASM_svceq:
         asm_unary_opcode(s1, token);
-        return;
+        върни;
     case TOK_ASM_beq:
     case TOK_ASM_bleq:
     case TOK_ASM_bxeq:
     case TOK_ASM_blxeq:
         asm_branch_opcode(s1, token);
-        return;
+        върни;
     case TOK_ASM_clzeq:
     case TOK_ASM_sxtbeq:
     case TOK_ASM_sxtheq:
@@ -2420,7 +2420,7 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_movteq:
     case TOK_ASM_movweq:
         asm_binary_opcode(s1, token);
-        return;
+        върни;
 
     case TOK_ASM_ldreq:
     case TOK_ASM_ldrbeq:
@@ -2433,14 +2433,14 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_strexbeq:
     case TOK_ASM_strexheq:
         asm_single_data_transfer_opcode(s1, token);
-        return;
+        върни;
 
     case TOK_ASM_ldrheq:
     case TOK_ASM_ldrsheq:
     case TOK_ASM_ldrsbeq:
     case TOK_ASM_strheq:
        asm_misc_single_data_transfer_opcode(s1, token);
-       return;
+       върни;
 
     case TOK_ASM_andeq:
     case TOK_ASM_eoreq:
@@ -2475,7 +2475,7 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_bicseq:
     case TOK_ASM_mvnseq:
         asm_data_processing_opcode(s1, token);
-        return;
+        върни;
 
     case TOK_ASM_lsleq:
     case TOK_ASM_lslseq:
@@ -2488,7 +2488,7 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_rrxseq:
     case TOK_ASM_rrxeq:
         asm_shift_opcode(s1, token);
-        return;
+        върни;
 
     case TOK_ASM_muleq:
     case TOK_ASM_mulseq:
@@ -2498,7 +2498,7 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_udiveq:
     case TOK_ASM_sdiveq:
         asm_multiplication_opcode(s1, token);
-        return;
+        върни;
 
     case TOK_ASM_smulleq:
     case TOK_ASM_smullseq:
@@ -2509,26 +2509,26 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_umlaleq:
     case TOK_ASM_umlalseq:
         asm_long_multiplication_opcode(s1, token);
-        return;
+        върни;
 
     case TOK_ASM_cdpeq:
     case TOK_ASM_mcreq:
     case TOK_ASM_mrceq:
         asm_coprocessor_opcode(s1, token);
-        return;
+        върни;
 
     case TOK_ASM_ldceq:
     case TOK_ASM_ldcleq:
     case TOK_ASM_stceq:
     case TOK_ASM_stcleq:
         asm_coprocessor_data_transfer_opcode(s1, token);
-        return;
+        върни;
 
-#if defined(TCC_ARM_VFP)
+#ако defined(TCC_ARM_VFP)
     case TOK_ASM_vldreq:
     case TOK_ASM_vstreq:
         asm_floating_point_single_data_transfer_opcode(s1, token);
-        return;
+        върни;
 
     case TOK_ASM_vmlaeq_f32:
     case TOK_ASM_vmlseq_f32:
@@ -2561,7 +2561,7 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_vcmpeeq_f64:
     case TOK_ASM_vmoveq_f64:
         asm_floating_point_data_processing_opcode(s1, token);
-        return;
+        върни;
 
     case TOK_ASM_vcvtreq_s32_f32:
     case TOK_ASM_vcvtreq_s32_f64:
@@ -2578,7 +2578,7 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_vcvteq_f64_f32:
     case TOK_ASM_vcvteq_f32_f64:
         asm_floating_point_vcvt_data_processing_opcode(s1, token);
-        return;
+        върни;
 
     case TOK_ASM_vpusheq:
     case TOK_ASM_vpopeq:
@@ -2589,12 +2589,12 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_vstmiaeq:
     case TOK_ASM_vstmdbeq:
         asm_floating_point_block_data_transfer_opcode(s1, token);
-        return;
+        върни;
 
     case TOK_ASM_vmsreq:
     case TOK_ASM_vmrseq:
         asm_floating_point_status_register_opcode(s1, token);
-        return;
+        върни;
 #endif
 
     default:
@@ -2602,18 +2602,18 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     }
 }
 
-ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
+ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, цяло modifier)
 {
-    int r, reg, size, val;
+    цяло r, reg, size, val;
 
     r = sv->r;
-    if ((r & VT_VALMASK) == VT_CONST) {
-        if (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
+    ако ((r & VT_VALMASK) == VT_CONST) {
+        ако (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
             modifier != 'P')
             cstr_ccat(add_str, '#');
-        if (r & VT_SYM) {
+        ако (r & VT_SYM) {
             const char *name = get_tok_str(sv->sym->v, NULL);
-            if (sv->sym->v >= SYM_FIRST_ANOM) {
+            ако (sv->sym->v >= SYM_FIRST_ANOM) {
                 /* In case of anonymous symbols ("L.42", used
                    for static data labels) we can't find them
                    in the C symbol table when later looking up
@@ -2621,46 +2621,46 @@ ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
                    list when we still know the symbol.  */
                 get_asm_sym(tok_alloc(name, strlen(name))->tok, sv->sym);
             }
-            if (tcc_state->leading_underscore)
+            ако (tcc_state->leading_underscore)
                 cstr_ccat(add_str, '_');
             cstr_cat(add_str, name, -1);
-            if ((uint32_t) sv->c.i == 0)
+            ако ((uint32_t) sv->c.i == 0)
                 goto no_offset;
             cstr_ccat(add_str, '+');
         }
         val = sv->c.i;
-        if (modifier == 'n')
+        ако (modifier == 'n')
             val = -val;
         cstr_printf(add_str, "%d", val);
       no_offset:;
-    } else if ((r & VT_VALMASK) == VT_LOCAL) {
-        cstr_printf(add_str, "[fp,#%d]", (int) sv->c.i);
-    } else if (r & VT_LVAL) {
+    } иначе ако ((r & VT_VALMASK) == VT_LOCAL) {
+        cstr_printf(add_str, "[fp,#%d]", (цяло) sv->c.i);
+    } иначе ако (r & VT_LVAL) {
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
+        ако (reg >= VT_CONST)
             tcc_internal_error("");
         cstr_printf(add_str, "[%s]",
                  get_tok_str(TOK_ASM_r0 + reg, NULL));
-    } else {
+    } иначе {
         /* register case */
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
+        ако (reg >= VT_CONST)
             tcc_internal_error("");
 
         /* choose register operand size */
-        if ((sv->type.t & VT_BTYPE) == VT_BYTE ||
+        ако ((sv->type.t & VT_BTYPE) == VT_BYTE ||
             (sv->type.t & VT_BTYPE) == VT_BOOL)
             size = 1;
-        else if ((sv->type.t & VT_BTYPE) == VT_SHORT)
+        иначе ако ((sv->type.t & VT_BTYPE) == VT_SHORT)
             size = 2;
-        else
+        иначе
             size = 4;
 
-        if (modifier == 'b') {
+        ако (modifier == 'b') {
             size = 1;
-        } else if (modifier == 'w') {
+        } иначе ако (modifier == 'w') {
             size = 2;
-        } else if (modifier == 'k') {
+        } иначе ако (modifier == 'k') {
             size = 4;
         }
 
@@ -2674,14 +2674,14 @@ ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
 }
 
 /* generate prolog and epilog code for asm statement */
-ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
-                          int nb_outputs, int is_output,
+ST_FUNC void asm_gen_code(ASMOperand *operands, цяло nb_operands,
+                          цяло nb_outputs, цяло is_output,
                           uint8_t *clobber_regs,
-                          int out_reg)
+                          цяло out_reg)
 {
     uint8_t regs_allocated[NB_ASM_REGS];
     ASMOperand *op;
-    int i, reg;
+    цяло i, reg;
     uint32_t saved_regset = 0;
 
     // TODO: Check non-E ABI.
@@ -2690,27 +2690,27 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
 
     /* mark all used registers */
     memcpy(regs_allocated, clobber_regs, sizeof(regs_allocated));
-    for(i = 0; i < nb_operands;i++) {
+    за(i = 0; i < nb_operands;i++) {
         op = &operands[i];
-        if (op->reg >= 0)
+        ако (op->reg >= 0)
             regs_allocated[op->reg] = 1;
     }
-    for(i = 0; i < sizeof(reg_saved)/sizeof(reg_saved[0]); i++) {
+    за(i = 0; i < sizeof(reg_saved)/sizeof(reg_saved[0]); i++) {
         reg = reg_saved[i];
-        if (regs_allocated[reg])
+        ако (regs_allocated[reg])
             saved_regset |= 1 << reg;
     }
 
-    if (!is_output) { // prolog
+    ако (!is_output) { // prolog
         /* generate reg save code */
-        if (saved_regset)
+        ако (saved_regset)
             gen_le32(0xe92d0000 | saved_regset); // push {...}
 
         /* generate load code */
-        for(i = 0; i < nb_operands; i++) {
+        за(i = 0; i < nb_operands; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL &&
+            ако (op->reg >= 0) {
+                ако ((op->vt->r & VT_VALMASK) == VT_LLOCAL &&
                     op->is_memory) {
                     /* memory reference case (for both input and
                        output cases) */
@@ -2719,21 +2719,21 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                     sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL | VT_LVAL;
                     sv.type.t = VT_PTR;
                     load(op->reg, &sv);
-                } else if (i >= nb_outputs || op->is_rw) { // not write-only
+                } иначе ако (i >= nb_outputs || op->is_rw) { // not write-only
                     /* load value in register */
                     load(op->reg, op->vt);
-                    if (op->is_llong)
+                    ако (op->is_llong)
                         tcc_error("long long not implemented");
                 }
             }
         }
-    } else { // epilog
+    } иначе { // epilog
         /* generate save code */
-        for(i = 0 ; i < nb_outputs; i++) {
+        за(i = 0 ; i < nb_outputs; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
-                    if (!op->is_memory) {
+            ако (op->reg >= 0) {
+                ако ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+                    ако (!op->is_memory) {
                         SValue sv;
                         sv = *op->vt;
                         sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL;
@@ -2744,31 +2744,31 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                         sv.r = (sv.r & ~VT_VALMASK) | out_reg;
                         store(op->reg, &sv);
                     }
-                } else {
+                } иначе {
                     store(op->reg, op->vt);
-                    if (op->is_llong)
+                    ако (op->is_llong)
                         tcc_error("long long not implemented");
                 }
             }
         }
 
         /* generate reg restore code */
-        if (saved_regset)
+        ако (saved_regset)
             gen_le32(0xe8bd0000 | saved_regset); // pop {...}
     }
 }
 
 /* return the constraint priority (we allocate first the lowest
    numbered constraints) */
-static inline int constraint_priority(const char *str)
+static inline цяло constraint_priority(const char *str)
 {
-    int priority, c, pr;
+    цяло priority, c, pr;
 
     /* we take the lowest priority */
     priority = 0;
-    for(;;) {
+    за(;;) {
         c = *str;
-        if (c == '\0')
+        ако (c == '\0')
             break;
         str++;
         switch(c) {
@@ -2789,10 +2789,10 @@ static inline int constraint_priority(const char *str)
         default:
             tcc_error("unknown constraint '%c'", c);
         }
-        if (pr > priority)
+        ако (pr > priority)
             priority = pr;
     }
-    return priority;
+    върни priority;
 }
 
 static const char *skip_constraint_modifiers(const char *p)
@@ -2805,9 +2805,9 @@ static const char *skip_constraint_modifiers(const char *p)
        Per-alternative constraint modifier:
         &   Operand is clobbered before the instruction is done using the input operands
     */
-    while (*p == '=' || *p == '&' || *p == '+' || *p == '%')
+    докато (*p == '=' || *p == '&' || *p == '+' || *p == '%')
         p++;
-    return p;
+    върни p;
 }
 
 #define REG_OUT_MASK 0x01
@@ -2816,9 +2816,9 @@ static const char *skip_constraint_modifiers(const char *p)
 #define is_reg_allocated(reg) (regs_allocated[reg] & reg_mask)
 
 ST_FUNC void asm_compute_constraints(ASMOperand *operands,
-                                    int nb_operands, int nb_outputs,
+                                    цяло nb_operands, цяло nb_outputs,
                                     const uint8_t *clobber_regs,
-                                    int *pout_reg)
+                                    цяло *pout_reg)
 {
     /* overall format: modifier, then ,-seperated list of alternatives; all operands for a single instruction must have the same number of alternatives */
     /* TODO: Simple constraints
@@ -2846,13 +2846,13 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         Uq memory reference suitable for the ARMv4 ldrsb instruction
     */
     ASMOperand *op;
-    int sorted_op[MAX_ASM_OPERANDS];
-    int i, j, k, p1, p2, tmp, reg, c, reg_mask;
+    цяло sorted_op[MAX_ASM_OPERANDS];
+    цяло i, j, k, p1, p2, tmp, reg, c, reg_mask;
     const char *str;
     uint8_t regs_allocated[NB_ASM_REGS];
 
     /* init fields */
-    for (i = 0; i < nb_operands; i++) {
+    за (i = 0; i < nb_operands; i++) {
         op = &operands[i];
         op->input_index = -1;
         op->ref_index = -1;
@@ -2862,39 +2862,39 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
     }
     /* compute constraint priority and evaluate references to output
        constraints if input constraints */
-    for (i = 0; i < nb_operands; i++) {
+    за (i = 0; i < nb_operands; i++) {
         op = &operands[i];
         str = op->constraint;
         str = skip_constraint_modifiers(str);
-        if (isnum(*str) || *str == '[') {
+        ако (isnum(*str) || *str == '[') {
             /* this is a reference to another constraint */
             k = find_constraint(operands, nb_operands, str, NULL);
-            if ((unsigned) k >= i || i < nb_outputs)
+            ако ((unsigned) k >= i || i < nb_outputs)
                 tcc_error("invalid reference in constraint %d ('%s')",
                           i, str);
             op->ref_index = k;
-            if (operands[k].input_index >= 0)
+            ако (operands[k].input_index >= 0)
                 tcc_error("cannot reference twice the same operand");
             operands[k].input_index = i;
             op->priority = 5;
-        } else if ((op->vt->r & VT_VALMASK) == VT_LOCAL
+        } иначе ако ((op->vt->r & VT_VALMASK) == VT_LOCAL
                    && op->vt->sym
                    && (reg = op->vt->sym->r & VT_VALMASK) < VT_CONST) {
             op->priority = 1;
             op->reg = reg;
-        } else {
+        } иначе {
             op->priority = constraint_priority(str);
         }
     }
 
     /* sort operands according to their priority */
-    for (i = 0; i < nb_operands; i++)
+    за (i = 0; i < nb_operands; i++)
         sorted_op[i] = i;
-    for (i = 0; i < nb_operands - 1; i++) {
-        for (j = i + 1; j < nb_operands; j++) {
+    за (i = 0; i < nb_operands - 1; i++) {
+        за (j = i + 1; j < nb_operands; j++) {
             p1 = operands[sorted_op[i]].priority;
             p2 = operands[sorted_op[j]].priority;
-            if (p2 < p1) {
+            ако (p2 < p1) {
                 tmp = sorted_op[i];
                 sorted_op[i] = sorted_op[j];
                 sorted_op[j] = tmp;
@@ -2902,10 +2902,10 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         }
     }
 
-    for (i = 0; i < NB_ASM_REGS; i++) {
-        if (clobber_regs[i])
+    за (i = 0; i < NB_ASM_REGS; i++) {
+        ако (clobber_regs[i])
             regs_allocated[i] = REG_IN_MASK | REG_OUT_MASK;
-        else
+        иначе
             regs_allocated[i] = 0;
     }
     /* sp cannot be used */
@@ -2914,23 +2914,23 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
     regs_allocated[11] = REG_IN_MASK | REG_OUT_MASK;
 
     /* allocate registers and generate corresponding asm moves */
-    for (i = 0; i < nb_operands; i++) {
+    за (i = 0; i < nb_operands; i++) {
         j = sorted_op[i];
         op = &operands[j];
         str = op->constraint;
         /* no need to allocate references */
-        if (op->ref_index >= 0)
+        ако (op->ref_index >= 0)
             continue;
         /* select if register is used for output, input or both */
-        if (op->input_index >= 0) {
+        ако (op->input_index >= 0) {
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
-        } else if (j < nb_outputs) {
+        } иначе ако (j < nb_outputs) {
             reg_mask = REG_OUT_MASK;
-        } else {
+        } иначе {
             reg_mask = REG_IN_MASK;
         }
-        if (op->reg >= 0) {
-            if (is_reg_allocated(op->reg))
+        ако (op->reg >= 0) {
+            ако (is_reg_allocated(op->reg))
                 tcc_error
                     ("asm regvar requests register that's taken already");
             reg = op->reg;
@@ -2944,7 +2944,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
             op->is_rw = 1;
             /* FALL THRU */
         case '&': // Operand is clobbered before the instruction is done using the input operands
-            if (j >= nb_outputs)
+            ако (j >= nb_outputs)
                 tcc_error("'%c' modifier can only be applied to outputs",
                           c);
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
@@ -2953,10 +2953,10 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         case 'r': // general-purpose register
         case 'p': // loadable/storable address
             /* any general register */
-            if ((reg = op->reg) >= 0)
+            ако ((reg = op->reg) >= 0)
                 goto reg_found;
-            else for (reg = 0; reg <= 8; reg++) {
-                if (!is_reg_allocated(reg))
+            иначе за (reg = 0; reg <= 8; reg++) {
+                ако (!is_reg_allocated(reg))
                     goto reg_found;
             }
             goto try_next;
@@ -2971,11 +2971,11 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         case 'K': // integer that satisfies constraint I when inverted (one's complement)
         case 'L': // integer that satisfies constraint I when inverted (two's complement)
         case 'i': // immediate integer operand, including symbolic constants
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
+            ако (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
                 goto try_next;
             break;
         case 'M': // integer in the range 0 to 32
-            if (!
+            ако (!
                 ((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) ==
                  VT_CONST))
                 goto try_next;
@@ -2990,11 +2990,11 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                in a register, so we reserve the register in the
                input registers and a load will be generated
                later */
-            if (j < nb_outputs || c == 'm') {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+            ако (j < nb_outputs || c == 'm') {
+                ако ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
                     /* any general register */
-                    for (reg = 0; reg <= 8; reg++) {
-                        if (!(regs_allocated[reg] & REG_IN_MASK))
+                    за (reg = 0; reg <= 8; reg++) {
+                        ако (!(regs_allocated[reg] & REG_IN_MASK))
                             goto reg_found1;
                     }
                     goto try_next;
@@ -3012,7 +3012,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
             break;
         }
         /* if a reference is present for that operand, we assign it too */
-        if (op->input_index >= 0) {
+        ако (op->input_index >= 0) {
             operands[op->input_index].reg = op->reg;
             operands[op->input_index].is_llong = op->is_llong;
         }
@@ -3021,12 +3021,12 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
     /* compute out_reg. It is used to store outputs registers to memory
        locations references by pointers (VT_LLOCAL case) */
     *pout_reg = -1;
-    for (i = 0; i < nb_operands; i++) {
+    за (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        if (op->reg >= 0 &&
+        ако (op->reg >= 0 &&
             (op->vt->r & VT_VALMASK) == VT_LLOCAL && !op->is_memory) {
-            for (reg = 0; reg <= 8; reg++) {
-                if (!(regs_allocated[reg] & REG_OUT_MASK))
+            за (reg = 0; reg <= 8; reg++) {
+                ако (!(regs_allocated[reg] & REG_OUT_MASK))
                     goto reg_found2;
             }
             tcc_error("could not find free output register for reloading");
@@ -3038,7 +3038,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
 
     /* print sorted constraints */
 #ifdef ASM_DEBUG
-    for (i = 0; i < nb_operands; i++) {
+    за (i = 0; i < nb_operands; i++) {
         j = sorted_op[i];
         op = &operands[j];
         printf("%%%d [%s]: \"%s\" r=0x%04x reg=%d\n",
@@ -3046,23 +3046,23 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                op->id ? get_tok_str(op->id, NULL) : "",
                op->constraint, op->vt->r, op->reg);
     }
-    if (*pout_reg >= 0)
+    ако (*pout_reg >= 0)
         printf("out_reg=%d\n", *pout_reg);
 #endif
 }
 
 ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str)
 {
-    int reg;
+    цяло reg;
     TokenSym *ts;
 
-    if (!strcmp(str, "memory") ||
+    ако (!strcmp(str, "memory") ||
         !strcmp(str, "cc") ||
         !strcmp(str, "flags"))
-        return;
+        върни;
     ts = tok_alloc(str, strlen(str));
     reg = asm_parse_regvar(ts->tok);
-    if (reg == -1) {
+    ако (reg == -1) {
         tcc_error("invalid clobber register '%s'", str);
     }
     clobber_regs[reg] = 1;
@@ -3070,22 +3070,22 @@ ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str)
 
 /* If T refers to a register then return the register number and type.
    Otherwise return -1.  */
-ST_FUNC int asm_parse_regvar (int t)
+ST_FUNC цяло asm_parse_regvar (цяло t)
 {
     /* coprocessors (p0-p15) and coprocessor registers (c0-c15) are handled elsewere */
     /* single fp (s0-s31) and double fp registers (d0-d15) are handled elsewere */
 
-    if (t < TOK_ASM_r0 || t > TOK_ASM_pc) /* filter unrelated registers */
-        return -1;
+    ако (t < TOK_ASM_r0 || t > TOK_ASM_pc) /* filter unrelated registers */
+        върни -1;
 
-    if (t <= TOK_ASM_r15)       /* default register names r0-r15 */
-        return t - TOK_ASM_r0;
+    ако (t <= TOK_ASM_r15)       /* default register names r0-r15 */
+        върни t - TOK_ASM_r0;
 
-    if (t <= TOK_ASM_v8)        /* synonym register names a1-a4,v1-v8 (alias: r0-r11) */
-        return t - TOK_ASM_a1;
+    ако (t <= TOK_ASM_v8)        /* synonym register names a1-a4,v1-v8 (alias: r0-r11) */
+        върни t - TOK_ASM_a1;
 
     /* special register names sb/sl/fp/ip/sp/lr/pc (alias: r9-r15) */
-    return t - TOK_ASM_sb + (TOK_ASM_r9 - TOK_ASM_r0);
+    върни t - TOK_ASM_sb + (TOK_ASM_r9 - TOK_ASM_r0);
 }
 
 /*************************************************************/

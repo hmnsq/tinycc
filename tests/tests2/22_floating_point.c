@@ -3,14 +3,14 @@
 
 float fd;
 
-int
+цяло
 test()
 {
    // was an internal tcc compiler error with arm64 backend until 2019-11-08
-   if (fd < 5.5) {
-     return 1;
-   } else {
-     return 0;
+   ако (fd < 5.5) {
+     върни 1;
+   } иначе {
+     върни 0;
    }
 }
 
@@ -22,14 +22,14 @@ float tf = 12.34f + 56.78f - 12.34f * 56.78f + 12.34f / 56.78f;
 double td = 12.34 + 56.78 - 12.34 * 56.78 + 12.34 / 56.78;
 long double tld = 12.34l + 56.78l - 12.34l * 56.78l + 12.34l / 56.78l;
 
-int main()
+цяло main()
 {
-   static int e1 = -1.0 == 0.0;
-   static int e2 = -1.0 != 0.0;
-   static int e3 = -1.0 < 0.0;
-   static int e4 = -1.0 >= 0.0;
-   static int e5 = -1.0 <= 0.0;
-   static int e6 = -1.0 > 0.0;
+   static цяло e1 = -1.0 == 0.0;
+   static цяло e2 = -1.0 != 0.0;
+   static цяло e3 = -1.0 < 0.0;
+   static цяло e4 = -1.0 >= 0.0;
+   static цяло e5 = -1.0 <= 0.0;
+   static цяло e6 = -1.0 > 0.0;
    // variables
    float af = 12.34f + 56.78f;
    double ad = 12.34 + 56.78;
@@ -45,7 +45,7 @@ int main()
 #ifdef __i386__
    // gcc/clang -m32 -mno-sse and tcc all fail for + and * but all have the same value
    printf("%f %f %f %f\n", 12.34f + 56.78f, f1 - f2, 12.34f * 56.78f, f1 / f2);
-#else
+#иначе
    printf("%f %f %f %f\n", f1 + f2, f1 - f2, f1 * f2, f1 / f2);
 #endif
    printf("%g %g %g %g\n", d1 + d2, d1 - d2, d1 * d2, d1 / d2);
@@ -78,7 +78,7 @@ int main()
    printf("%f %g %Lf\n", af, ad, ald);
 #ifdef __i386__
    printf("%f %g %Lf\n", af, ad, ald);
-#else
+#иначе
    af = f1; ad = d1; ald = ld1;
    af += f2; ad += d2; ald += ld2;
    printf("%f %g %Lf\n", af, ad, ald);
@@ -96,7 +96,7 @@ int main()
    printf("%f %g %Lf\n", af, ad, ald);
 #ifdef __i386__
    printf("%f %g %Lf\n", af, ad, ald);
-#else
+#иначе
    af = f1; ad = d1; ald = ld1;
    af *= f2; ad *= d2; ald *= ld2;
    printf("%f %g %Lf\n", af, ad, ald);
@@ -118,7 +118,7 @@ int main()
    printf("%f\n", af);
    printf("%f\n", sin(2));
 
-   return 0;
+   върни 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

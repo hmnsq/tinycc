@@ -21,28 +21,28 @@ extern "C" {
 #define __CRT_UNALIGNED
 #endif
 
-#if defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
+#ако defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
 #define UNALIGNED __CRT_UNALIGNED
 #ifdef _WIN64
 #define UNALIGNED64 __CRT_UNALIGNED
-#else
+#иначе
 #define UNALIGNED64
 #endif
-#else
+#иначе
 #define UNALIGNED
 #define UNALIGNED64
 #endif
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
+#ако !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
 #define I_X86_
 #endif
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
+#ако !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
 #define _AMD64_
 #endif
 
-#if !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
-#if !defined(_IA64_)
+#ако !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
+#ако !defined(_IA64_)
 #define _IA64_
 #endif
 #endif
@@ -51,14 +51,14 @@ extern "C" {
 #ifdef _WIN64
 #define MAX_NATURAL_ALIGNMENT sizeof(ULONGLONG)
 #define MEMORY_ALLOCATION_ALIGNMENT 16
-#else
+#иначе
 #define MAX_NATURAL_ALIGNMENT sizeof(DWORD)
 #define MEMORY_ALLOCATION_ALIGNMENT 8
 #endif
 
 #ifdef __cplusplus
 #define TYPE_ALIGNMENT(t) __alignof__ (t)
-#else
+#иначе
 #define TYPE_ALIGNMENT(t) FIELD_OFFSET(struct { char x; t test; },test)
 #endif
 
@@ -67,11 +67,11 @@ extern "C" {
 #define PROBE_ALIGNMENT(_s) TYPE_ALIGNMENT(DWORD)
 #elif defined(_IA64_) || defined(_ARM64_)
 #define PROBE_ALIGNMENT(_s) (TYPE_ALIGNMENT(_s) > TYPE_ALIGNMENT(DWORD) ? TYPE_ALIGNMENT(_s) : TYPE_ALIGNMENT(DWORD))
-#else
+#иначе
 #error No Target Architecture
 #endif
 #define PROBE_ALIGNMENT32(_s) TYPE_ALIGNMENT(DWORD)
-#else
+#иначе
 #define PROBE_ALIGNMENT(_s) TYPE_ALIGNMENT(DWORD)
 #endif
 
@@ -79,9 +79,9 @@ extern "C" {
 
 #include <basetsd.h>
 
-#if defined(_X86_) || defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
+#ако defined(_X86_) || defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
 #define DECLSPEC_IMPORT __declspec(dllimport)
-#else
+#иначе
 #define DECLSPEC_IMPORT
 #endif
 
@@ -94,9 +94,9 @@ extern "C" {
 #endif
 
 #ifndef SYSTEM_CACHE_ALIGNMENT_SIZE
-#if defined(_AMD64_) || defined(I_X86_)
+#ако defined(_AMD64_) || defined(I_X86_)
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 64
-#else
+#иначе
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 128
 #endif
 #endif
@@ -183,7 +183,7 @@ extern "C" {
   typedef LPCUWSTR PCUTSTR,LPCUTSTR;
   typedef LPWSTR LP;
 #define __TEXT(quote) L##quote
-#else
+#иначе
 #ifndef _TCHAR_DEFINED
 #define _TCHAR_DEFINED
   typedef char TCHAR,*PTCHAR;
@@ -202,7 +202,7 @@ extern "C" {
   typedef LONG *PLONG;
 
   typedef void *HANDLE;
-#define DECLARE_HANDLE(name) struct name##__ { int unused; }; typedef struct name##__ *name
+#define DECLARE_HANDLE(name) struct name##__ { цяло unused; }; typedef struct name##__ *name
   typedef HANDLE *PHANDLE;
 
   typedef BYTE FCHAR;
@@ -216,7 +216,7 @@ extern "C" {
 
 #ifdef __cplusplus
 #define EXTERN_C extern "C"
-#else
+#иначе
 #define EXTERN_C extern
 #endif
 
@@ -260,12 +260,12 @@ typedef DWORD LCID;
   typedef FLOAT128 *PFLOAT128;
 
 #define _ULONGLONG_
-#if((!(defined(_X86_) && !defined(__x86_64)) || (defined(_INTEGRAL_MAX_BITS) && _INTEGRAL_MAX_BITS >= 64)))
+#ако((!(defined(_X86_) && !defined(__x86_64)) || (defined(_INTEGRAL_MAX_BITS) && _INTEGRAL_MAX_BITS >= 64)))
   typedef __int64 LONGLONG;
   typedef unsigned __int64 ULONGLONG;
 
 #define MAXLONGLONG (0x7fffffffffffffff)
-#else
+#иначе
 
   typedef double LONGLONG;
   typedef double ULONGLONG;
@@ -325,7 +325,7 @@ typedef DWORD LCID;
 #define Int32x32To64(a,b) ((LONGLONG)((LONG)(a)) *(LONGLONG)((LONG)(b)))
 #define UInt32x32To64(a,b) ((ULONGLONG)((DWORD)(a)) *(ULONGLONG)((DWORD)(b)))
 #define Int64ShrlMod32(a,b) ((ULONGLONG)(a) >> (b))
-#else
+#иначе
 #error Must define a target architecture.
 #endif
 
@@ -354,10 +354,10 @@ typedef DWORD LCID;
 #define RotateRight32 _rotr
 #define RotateRight64 _rotr64
 
-    unsigned int __cdecl _rotl(unsigned int Value,int Shift);
-    unsigned __int64 __cdecl _rotl64(unsigned __int64 Value,int Shift);
-    unsigned int __cdecl _rotr(unsigned int Value,int Shift);
-    unsigned __int64 __cdecl _rotr64(unsigned __int64 Value,int Shift);
+    unsigned цяло __cdecl _rotl(unsigned цяло Value,цяло Shift);
+    unsigned __int64 __cdecl _rotl64(unsigned __int64 Value,цяло Shift);
+    unsigned цяло __cdecl _rotr(unsigned цяло Value,цяло Shift);
+    unsigned __int64 __cdecl _rotr64(unsigned __int64 Value,цяло Shift);
 #ifdef __cplusplus
   }
 #endif
@@ -423,7 +423,7 @@ typedef DWORD LCID;
 
 #ifdef ENABLE_RTL_NUMBER_OF_V2
 #define RTL_NUMBER_OF(A) RTL_NUMBER_OF_V2(A)
-#else
+#иначе
 #define RTL_NUMBER_OF(A) RTL_NUMBER_OF_V1(A)
 #endif
 
@@ -436,7 +436,7 @@ typedef DWORD LCID;
 
 #ifdef __cplusplus
 #define RTL_CONST_CAST(type) const_cast<type>
-#else
+#иначе
 #define RTL_CONST_CAST(type) (type)
 #endif
 
@@ -829,7 +829,7 @@ typedef DWORD LCID;
   typedef ULONG_PTR KSPIN_LOCK;
   typedef KSPIN_LOCK *PKSPIN_LOCK;
 
-#if defined(__x86_64) && !defined(RC_INVOKED)
+#ако defined(__x86_64) && !defined(RC_INVOKED)
 
 #ifdef __cplusplus
   extern "C" {
@@ -849,95 +849,95 @@ typedef DWORD LCID;
 #define InterlockedBitTestAndReset64 _interlockedbittestandreset64
 
     __CRT_INLINE BOOLEAN _bittest(LONG const *Base,LONG Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("btl %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandcomplement(LONG *Base,LONG Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("btcl %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN InterlockedBitTestAndComplement(LONG *Base,LONG Bit) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("lock ; btcl %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandset(LONG *Base,LONG Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("btsl %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandreset(LONG *Base,LONG Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("btrl %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandset(LONG *Base,LONG Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("lock ; btsl %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandreset(LONG *Base,LONG Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("lock ; btrl %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittest64(LONG64 const *Base,LONG64 Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("btq %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandcomplement64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("btcq %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("btsq %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandreset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("btrq %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("lock ; btsq %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandreset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("lock ; btrq %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
 #define BitScanForward _BitScanForward
 #define BitScanReverse _BitScanReverse
@@ -946,19 +946,19 @@ typedef DWORD LCID;
 
     __CRT_INLINE BOOLEAN _BitScanForward(DWORD *Index,DWORD Mask) {
       __asm__ __volatile__("bsfl %1,%0" : "=r" (Mask),"=m" ((*(volatile long *)Index)));
-      return Mask!=0;
+      върни Mask!=0;
     }
     __CRT_INLINE BOOLEAN _BitScanReverse(DWORD *Index,DWORD Mask) {
       __asm__ __volatile__("bsrl %1,%0" : "=r" (Mask),"=m" ((*(volatile long *)Index)));
-      return Mask!=0;
+      върни Mask!=0;
     }
     __CRT_INLINE BOOLEAN _BitScanForward64(DWORD *Index,DWORD64 Mask) {
       __asm__ __volatile__("bsfq %1,%0" : "=r" (Mask),"=m" ((*(volatile long long *)Index)));
-      return Mask!=0;
+      върни Mask!=0;
     }
     __CRT_INLINE BOOLEAN _BitScanReverse64(DWORD *Index,DWORD64 Mask) {
       __asm__ __volatile__("bsrq %1,%0" : "=r" (Mask),"=m" ((*(volatile long long *)Index)));
-      return Mask!=0;
+      върни Mask!=0;
     }
 
 #define InterlockedIncrement16 _InterlockedIncrement16
@@ -1012,7 +1012,7 @@ typedef DWORD LCID;
 	"lock ; addw $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      върни (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
     __CRT_INLINE SHORT InterlockedDecrement16(SHORT volatile *Addend) {
       unsigned char c;
@@ -1021,7 +1021,7 @@ typedef DWORD LCID;
 	"lock ; subw $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      върни (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
     __CRT_INLINE SHORT InterlockedCompareExchange16(SHORT volatile *Destination,SHORT ExChange,SHORT Comperand) {
       SHORT prev;
@@ -1029,39 +1029,39 @@ typedef DWORD LCID;
 	:"=a"(prev)
 	:"q"(ExChange), "m"(*Destination), "0"(Comperand)
 	: "memory");
-      return prev;
+      върни prev;
     }
     __CRT_INLINE LONG InterlockedAnd(LONG volatile *Destination,LONG Value) {
       __asm__ __volatile__("lock ; andl %0,%1"
 	: :"r"(Value),"m"(*Destination)
 	: "memory");
-      return *Destination;
+      върни *Destination;
     }
     __CRT_INLINE LONG InterlockedOr(LONG volatile *Destination,LONG Value) {
       __asm__ __volatile__("lock ; orl %0,%1"
 	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+      върни *Destination;
     }
     __CRT_INLINE LONG InterlockedXor(LONG volatile *Destination,LONG Value) {
       __asm__ __volatile__("lock ; xorl %0,%1"
 	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+      върни *Destination;
     }
     //		$$$$
     __CRT_INLINE LONG64 InterlockedAnd64(LONG64 volatile *Destination,LONG64 Value) {
       __asm__ __volatile__("lock ; andq %0,%1"
 	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+      върни *Destination;
     }
     __CRT_INLINE LONG64 InterlockedOr64(LONG64 volatile *Destination,LONG64 Value) {
       __asm__ __volatile__("lock ; orq %0,%1"
 	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+      върни *Destination;
     }
     __CRT_INLINE LONG64 InterlockedXor64(LONG64 volatile *Destination,LONG64 Value) {
       __asm__ __volatile__("lock ; xorq %0,%1"
 	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+      върни *Destination;
     }
     __CRT_INLINE LONG InterlockedIncrement(LONG volatile *Addend) {
       unsigned char c;
@@ -1070,7 +1070,7 @@ typedef DWORD LCID;
 	"lock ; addl $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      върни (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
     __CRT_INLINE LONG InterlockedDecrement(LONG volatile *Addend) {
       unsigned char c;
@@ -1079,24 +1079,24 @@ typedef DWORD LCID;
 	"lock ; subl $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      върни (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
     __CRT_INLINE LONG InterlockedExchange(LONG volatile *Target,LONG Value) {
       __asm__ __volatile("lock ; xchgl %0,%1"
 	: "=r"(Value)
 	: "m"(*Target),"0"(Value)
 	: "memory");
-      return Value;
+      върни Value;
     }
     LONG InterlockedExchangeAdd(LONG volatile *Addend,LONG Value);
 
 #ifndef _X86AMD64_
-    __CRT_INLINE LONG InterlockedAdd(LONG volatile *Addend,LONG Value) { return InterlockedExchangeAdd(Addend,Value) + Value; }
+    __CRT_INLINE LONG InterlockedAdd(LONG volatile *Addend,LONG Value) { върни InterlockedExchangeAdd(Addend,Value) + Value; }
 #endif
     __CRT_INLINE LONG InterlockedCompareExchange(LONG volatile *Destination,LONG ExChange,LONG Comperand) {
       LONG prev;
       __asm__ __volatile__("lock ; cmpxchgl %1,%2" : "=a" (prev) : "q" (ExChange),"m" (*Destination), "0" (Comperand) : "memory");
-      return prev;
+      върни prev;
     }
     __CRT_INLINE LONG64 InterlockedIncrement64(LONG64 volatile *Addend) {
       unsigned char c;
@@ -1105,7 +1105,7 @@ typedef DWORD LCID;
 	"lock ; addq $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      върни (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
     __CRT_INLINE LONG64 InterlockedDecrement64(LONG64 volatile *Addend) {
       unsigned char c;
@@ -1114,37 +1114,37 @@ typedef DWORD LCID;
 	"lock ; subq $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      върни (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
     __CRT_INLINE LONG64 InterlockedExchange64(LONG64 volatile *Target,LONG64 Value) {
       __asm__ __volatile("lock ; xchgq %0,%1"
 	: "=r"(Value)
 	: "m"(*Target),"0"(Value)
 	: "memory");
-      return Value;
+      върни Value;
     }
     LONG64 InterlockedExchangeAdd64(LONG64 volatile *Addend,LONG64 Value);
 
 #ifndef _X86AMD64_
-    __CRT_INLINE LONG64 InterlockedAdd64(LONG64 volatile *Addend,LONG64 Value) { return InterlockedExchangeAdd64(Addend,Value) + Value; }
+    __CRT_INLINE LONG64 InterlockedAdd64(LONG64 volatile *Addend,LONG64 Value) { върни InterlockedExchangeAdd64(Addend,Value) + Value; }
 #endif
 
     __CRT_INLINE LONG64 InterlockedCompareExchange64(LONG64 volatile *Destination,LONG64 ExChange,LONG64 Comperand) {
       LONG64 prev;
       __asm__ __volatile__("lock ; cmpxchgq %1,%2" : "=a" (prev) : "q" (ExChange),"m" (*Destination), "0" (Comperand) : "memory");
-      return prev;
+      върни prev;
     }
     __CRT_INLINE PVOID InterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID ExChange,PVOID Comperand) {
       PVOID prev;
       __asm__ __volatile__("lock ; cmpxchgq %1,%2" : "=a" (prev) : "q" (ExChange),"m" (*Destination), "0" (Comperand) : "memory");
-      return prev;
+      върни prev;
     }
     __CRT_INLINE PVOID InterlockedExchangePointer(PVOID volatile *Target,PVOID Value) {
       __asm__ __volatile("lock ; xchgq %0,%1"
 	: "=r"(Value)
 	: "m"(*Target),"0"(Value)
 	: "memory");
-      return Value;
+      върни Value;
     }
 
 #define CacheLineFlush(Address) _mm_clflush(Address)
@@ -1224,7 +1224,7 @@ typedef DWORD LCID;
       LONG64 lowProduct;
       lowProduct = Multiply128(Multiplier,Multiplicand,&highProduct);
       extractedProduct = (LONG64)ShiftRight128((LONG64)lowProduct,(LONG64)highProduct,Shift);
-      return extractedProduct;
+      върни extractedProduct;
     }
 
     __CRT_INLINE DWORD64 UnsignedMultiplyExtract128(DWORD64 Multiplier,DWORD64 Multiplicand,BYTE Shift) {
@@ -1233,32 +1233,32 @@ typedef DWORD LCID;
       DWORD64 lowProduct;
       lowProduct = UnsignedMultiply128(Multiplier,Multiplicand,&highProduct);
       extractedProduct = ShiftRight128(lowProduct,highProduct,Shift);
-      return extractedProduct;
+      върни extractedProduct;
     }
 
     __CRT_INLINE BYTE __readgsbyte(DWORD Offset) {
       BYTE ret;
       __asm__ volatile ("movb	%%gs:%1,%0"
 	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return ret;
+      върни ret;
     }
     __CRT_INLINE WORD __readgsword(DWORD Offset) {
       WORD ret;
       __asm__ volatile ("movw	%%gs:%1,%0"
 	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return ret;
+      върни ret;
     }
     __CRT_INLINE DWORD __readgsdword(DWORD Offset) {
       DWORD ret;
       __asm__ volatile ("movl	%%gs:%1,%0"
 	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return ret;
+      върни ret;
     }
     __CRT_INLINE DWORD64 __readgsqword(DWORD Offset) {
       void *ret;
       __asm__ volatile ("movq	%%gs:%1,%0"
 	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return (DWORD64) ret;
+      върни (DWORD64) ret;
     }
     __CRT_INLINE VOID __writegsbyte(DWORD Offset,BYTE Data) {
       __asm__ volatile ("movb	%0,%%gs:%1"
@@ -1285,7 +1285,7 @@ typedef DWORD LCID;
 #define EXCEPTION_WRITE_FAULT 1
 #define EXCEPTION_EXECUTE_FAULT 8
 
-#if !defined(RC_INVOKED)
+#ако !defined(RC_INVOKED)
 
 #define CONTEXT_AMD64 0x100000
 
@@ -1419,7 +1419,7 @@ typedef DWORD LCID;
 #define OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK_EXPORT_NAME "OutOfProcessFunctionTableCallback"
 #endif /* defined(__x86_64) && !defined(RC_INVOKED) */
 
-#if defined(__TINYC__) && (defined(__aarch64__) || defined(__arm64__)) && !defined(RC_INVOKED)
+#ако defined(__TINYC__) && (defined(__aarch64__) || defined(__arm64__)) && !defined(RC_INVOKED)
 
 #define __TCC_WINNT_ATOMIC_SEQ_CST 5
 /* TCC lowers __atomic_compare_exchange's fourth argument as weak, but the
@@ -1436,11 +1436,11 @@ typedef DWORD LCID;
       LONG Old;
       __atomic_load(Target,&Old,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      while (!__atomic_compare_exchange(Target,&Old,&Value,0,
+      докато (!__atomic_compare_exchange(Target,&Old,&Value,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST))
 	;
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      върни Old;
     }
     __CRT_INLINE LONG InterlockedCompareExchange(LONG volatile *Destination,LONG ExChange,LONG Comperand) {
       LONG Old = Comperand;
@@ -1448,17 +1448,17 @@ typedef DWORD LCID;
       __atomic_compare_exchange(Destination,&Old,&ExChange,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      върни Old;
     }
     __CRT_INLINE PVOID __TCC_WINNT_InterlockedExchangePointer(PVOID volatile *Target,PVOID Value) {
       PVOID Old;
       __atomic_load(Target,&Old,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      while (!__atomic_compare_exchange(Target,&Old,&Value,0,
+      докато (!__atomic_compare_exchange(Target,&Old,&Value,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST))
 	;
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      върни Old;
     }
     __CRT_INLINE PVOID __TCC_WINNT_InterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID ExChange,PVOID Comperand) {
       PVOID Old = Comperand;
@@ -1466,7 +1466,7 @@ typedef DWORD LCID;
       __atomic_compare_exchange(Destination,&Old,&ExChange,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      върни Old;
     }
 
 #define InterlockedExchangePointer __TCC_WINNT_InterlockedExchangePointer
@@ -1482,7 +1482,7 @@ typedef DWORD LCID;
 
 #endif /* defined(__TINYC__) && (defined(__aarch64__) || defined(__arm64__)) && !defined(RC_INVOKED) */
 
-#if defined(_ARM64_)
+#ако defined(_ARM64_)
 
 /* ARM64 Context Definition */
 #define CONTEXT_ARM64 0x00400000
@@ -1570,7 +1570,7 @@ typedef DWORD LCID;
 
 #endif /* _ARM64_ */
 
-#if (defined _ARM64_ || defined _AMD64_) && !defined RC_INVOKED
+#ако (defined _ARM64_ || defined _AMD64_) && !defined RC_INVOKED
   NTSYSAPI VOID __cdecl RtlRestoreContext (PCONTEXT ContextRecord,struct _EXCEPTION_RECORD *ExceptionRecord);
   NTSYSAPI BOOLEAN __cdecl RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable,DWORD EntryCount,DWORD64 BaseAddress);
   NTSYSAPI BOOLEAN __cdecl RtlInstallFunctionTableCallback(DWORD64 TableIdentifier,DWORD64 BaseAddress,DWORD Length,PGET_RUNTIME_FUNCTION_CALLBACK Callback,PVOID Context,PCWSTR OutOfProcessCallbackDll);
@@ -1578,33 +1578,33 @@ typedef DWORD LCID;
 #endif
 
 #ifdef I_X86_
-#if(defined(_X86_) && !defined(__x86_64)) && !defined(RC_INVOKED)
+#ако(defined(_X86_) && !defined(__x86_64)) && !defined(RC_INVOKED)
 #ifdef __cplusplus
   extern "C" {
 #endif
 
     __CRT_INLINE BOOLEAN InterlockedBitTestAndSet(LONG *Base,LONG Bit) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("lock ; btsl %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
 
     __CRT_INLINE BOOLEAN InterlockedBitTestAndReset(LONG *Base,LONG Bit) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("lock ; btrl %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
 
     __CRT_INLINE BOOLEAN InterlockedBitTestAndComplement(LONG *Base,LONG Bit) {
-      int old = 0;
+      цяло old = 0;
       __asm__ __volatile__("lock ; btcl %2,%1\n\tsbbl %0,%0 "
 	:"=r" (old),"=m" ((*(volatile long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      върни (BOOLEAN) (old!=0);
     }
 
 #ifdef _PREFIX_
@@ -1621,7 +1621,7 @@ typedef DWORD LCID;
 #endif
 #endif
 
-#if(defined(_X86_) && !defined(__x86_64))
+#ако(defined(_X86_) && !defined(__x86_64))
   __CRT_INLINE VOID MemoryBarrier(VOID) {
     LONG Barrier;
     __asm__ __volatile__("xchgl %%eax,%0 "
@@ -1644,7 +1644,7 @@ typedef DWORD LCID;
     void *ret;
     __asm__ volatile ("movl	%%fs:0x10,%0"
 	: "=r" (ret));
-    return ret;
+    върни ret;
   }
   PVOID GetFiberData(void);
   __CRT_INLINE PVOID GetFiberData(void)
@@ -1653,7 +1653,7 @@ typedef DWORD LCID;
     __asm__ volatile ("movl	%%fs:0x10,%0\n"
 	"movl	(%0),%0"
 	: "=r" (ret));
-    return ret;
+    върни ret;
   }
 #endif
 
@@ -1663,7 +1663,7 @@ typedef DWORD LCID;
 
 #define SIZE_OF_80387_REGISTERS 80
 
-#if !defined(RC_INVOKED)
+#ако !defined(RC_INVOKED)
 
 #define CONTEXT_i386 0x00010000
 #define CONTEXT_i486 0x00010000
@@ -1757,7 +1757,7 @@ typedef DWORD LCID;
     } LDT_ENTRY,*PLDT_ENTRY;
 #endif
 
-#if defined(__ia64__) && !defined(RC_INVOKED)
+#ако defined(__ia64__) && !defined(RC_INVOKED)
 
 #ifdef __cplusplus
     extern "C" {
@@ -1771,7 +1771,7 @@ typedef DWORD LCID;
 #endif
 #endif
 
-#if !defined(GENUTIL) && !defined(_GENIA64_) && defined(_IA64_)
+#ако !defined(GENUTIL) && !defined(_GENIA64_) && defined(_IA64_)
 
     void *_cdecl _rdteb(void);
 #ifdef __ia64__
@@ -1784,13 +1784,13 @@ typedef DWORD LCID;
     extern "C" {
 #endif
 
-      void __break(int);
+      void __break(цяло);
       void __yield(void);
       void __mf(void);
-      void __lfetch(int Level,VOID CONST *Address);
-      void __lfetchfault(int Level,VOID CONST *Address);
-      void __lfetch_excl(int Level,VOID CONST *Address);
-      void __lfetchfault_excl(int Level,VOID CONST *Address);
+      void __lfetch(цяло Level,VOID CONST *Address);
+      void __lfetchfault(цяло Level,VOID CONST *Address);
+      void __lfetch_excl(цяло Level,VOID CONST *Address);
+      void __lfetchfault_excl(цяло Level,VOID CONST *Address);
 
 #define MD_LFHINT_NONE 0x00
 #define MD_LFHINT_NT1 0x01
@@ -1813,7 +1813,7 @@ typedef DWORD LCID;
 #define UnsignedMultiplyHigh __UMULH
 
     ULONGLONG UnsignedMultiplyHigh(ULONGLONG Multiplier,ULONGLONG Multiplicand);
-#else
+#иначе
     struct _TEB *NtCurrentTeb(void);
 #endif
 #endif
@@ -1824,7 +1824,7 @@ typedef DWORD LCID;
 #define EXCEPTION_WRITE_FAULT 1
 #define EXCEPTION_EXECUTE_FAULT 2
 
-#if !defined(RC_INVOKED)
+#ако !defined(RC_INVOKED)
 
 #define CONTEXT_IA64 0x00080000
 
@@ -2917,7 +2917,7 @@ typedef DWORD LCID;
 
 #ifdef _WIN64
 #define MAXIMUM_PROCESSORS 64
-#else
+#иначе
 #define MAXIMUM_PROCESSORS 32
 #endif
 
@@ -2992,7 +2992,7 @@ typedef DWORD LCID;
       DWORD64 Self;
     } NT_TIB64,*PNT_TIB64;
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_)
+#ако !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_)
 #define WX86
 #endif
 
@@ -3960,7 +3960,7 @@ typedef DWORD LCID;
     typedef PIMAGE_OPTIONAL_HEADER64 PIMAGE_OPTIONAL_HEADER;
 #define IMAGE_SIZEOF_NT_OPTIONAL_HEADER IMAGE_SIZEOF_NT_OPTIONAL64_HEADER
 #define IMAGE_NT_OPTIONAL_HDR_MAGIC IMAGE_NT_OPTIONAL_HDR64_MAGIC
-#else
+#иначе
     typedef IMAGE_OPTIONAL_HEADER32 IMAGE_OPTIONAL_HEADER;
     typedef PIMAGE_OPTIONAL_HEADER32 PIMAGE_OPTIONAL_HEADER;
 #define IMAGE_SIZEOF_NT_OPTIONAL_HEADER IMAGE_SIZEOF_NT_OPTIONAL32_HEADER
@@ -3987,7 +3987,7 @@ typedef DWORD LCID;
 #ifdef _WIN64
     typedef IMAGE_NT_HEADERS64 IMAGE_NT_HEADERS;
     typedef PIMAGE_NT_HEADERS64 PIMAGE_NT_HEADERS;
-#else
+#иначе
     typedef IMAGE_NT_HEADERS32 IMAGE_NT_HEADERS;
     typedef PIMAGE_NT_HEADERS32 PIMAGE_NT_HEADERS;
 #endif
@@ -4742,7 +4742,7 @@ typedef DWORD LCID;
 #define IMAGE_SNAP_BY_ORDINAL(Ordinal) IMAGE_SNAP_BY_ORDINAL64(Ordinal)
     typedef IMAGE_TLS_DIRECTORY64 IMAGE_TLS_DIRECTORY;
     typedef PIMAGE_TLS_DIRECTORY64 PIMAGE_TLS_DIRECTORY;
-#else
+#иначе
 #define IMAGE_ORDINAL_FLAG IMAGE_ORDINAL_FLAG32
 #define IMAGE_ORDINAL(Ordinal) IMAGE_ORDINAL32(Ordinal)
     typedef IMAGE_THUNK_DATA32 IMAGE_THUNK_DATA;
@@ -4873,7 +4873,7 @@ typedef DWORD LCID;
 #ifdef _WIN64
     typedef IMAGE_LOAD_CONFIG_DIRECTORY64 IMAGE_LOAD_CONFIG_DIRECTORY;
     typedef PIMAGE_LOAD_CONFIG_DIRECTORY64 PIMAGE_LOAD_CONFIG_DIRECTORY;
-#else
+#иначе
     typedef IMAGE_LOAD_CONFIG_DIRECTORY32 IMAGE_LOAD_CONFIG_DIRECTORY;
     typedef PIMAGE_LOAD_CONFIG_DIRECTORY32 PIMAGE_LOAD_CONFIG_DIRECTORY;
 #endif
@@ -5029,10 +5029,10 @@ typedef DWORD LCID;
 #define IMAGE_SEPARATE_DEBUG_MISMATCH 0x8000
 
     typedef struct _ImageArchitectureHeader {
-      unsigned int AmaskValue: 1;
-      int Adummy1 :7;
-      unsigned int AmaskShift: 8;
-      int Adummy2 :16;
+      unsigned цяло AmaskValue: 1;
+      цяло Adummy1 :7;
+      unsigned цяло AmaskShift: 8;
+      цяло Adummy2 :16;
       DWORD FirstEntryRVA;
     } IMAGE_ARCHITECTURE_HEADER,*PIMAGE_ARCHITECTURE_HEADER;
 
@@ -5096,7 +5096,7 @@ typedef DWORD LCID;
     } IMAGE_COR20_HEADER,*PIMAGE_COR20_HEADER;
 #endif
 
-#if defined (__x86_64)
+#ако defined (__x86_64)
     NTSYSAPI PRUNTIME_FUNCTION NTAPI RtlLookupFunctionEntry (DWORD64 ControlPc, PDWORD64 ImageBase, PUNWIND_HISTORY_TABLE HistoryTable);
     NTSYSAPI VOID NTAPI RtlUnwindEx (PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue, PCONTEXT ContextRecord, PUNWIND_HISTORY_TABLE HistoryTable);
 #endif
@@ -5111,14 +5111,14 @@ typedef DWORD LCID;
     typedef struct DECLSPEC_ALIGN(16) _SLIST_ENTRY {
       PSLIST_ENTRY Next;
     } SLIST_ENTRY;
-#else
+#иначе
 
 #define SLIST_ENTRY SINGLE_LIST_ENTRY
 #define _SLIST_ENTRY _SINGLE_LIST_ENTRY
 #define PSLIST_ENTRY PSINGLE_LIST_ENTRY
 #endif
 
-#if defined(_WIN64)
+#ако defined(_WIN64)
 
     typedef struct DECLSPEC_ALIGN(16) _SLIST_HEADER {
       ULONGLONG Alignment;
@@ -5126,7 +5126,7 @@ typedef DWORD LCID;
     } SLIST_HEADER;
 
     typedef struct _SLIST_HEADER *PSLIST_HEADER;
-#else
+#иначе
 
     typedef union _SLIST_HEADER {
       ULONGLONG Alignment;
@@ -5193,13 +5193,13 @@ typedef DWORD LCID;
 #define COMPRESSION_ENGINE_MAXIMUM (0x0100)
 #define COMPRESSION_ENGINE_HIBER (0x0200)
 
-#if _DBG_MEMCPY_INLINE_ && !defined(_MEMCPY_INLINE_) && !defined(_CRTBLD)
+#ако _DBG_MEMCPY_INLINE_ && !defined(_MEMCPY_INLINE_) && !defined(_CRTBLD)
 #define _MEMCPY_INLINE_
     __CRT_INLINE PVOID __cdecl memcpy_inline(void *dst,const void *src,size_t size) {
-      if(((char *)dst > (char *)src) && ((char *)dst < ((char *)src + size))) {
+      ако(((char *)dst > (char *)src) && ((char *)dst < ((char *)src + size))) {
 	__debugbreak();
       }
-      return memcpy(dst,src,size);
+      върни memcpy(dst,src,size);
     }
 #define memcpy memcpy_inline
 #endif
@@ -5216,14 +5216,14 @@ typedef DWORD LCID;
       volatile char *vptr =(volatile char *)ptr;
 #ifdef __x86_64
       __stosb((PBYTE)((DWORD64)vptr),0,cnt);
-#else
-      while(cnt) {
+#иначе
+      докато(cnt) {
 	*vptr = 0;
 	vptr++;
 	cnt--;
       }
 #endif
-      return ptr;
+      върни ptr;
     }
 
     typedef struct _MESSAGE_RESOURCE_ENTRY {
@@ -5267,7 +5267,7 @@ typedef DWORD LCID;
     typedef OSVERSIONINFOW OSVERSIONINFO;
     typedef POSVERSIONINFOW POSVERSIONINFO;
     typedef LPOSVERSIONINFOW LPOSVERSIONINFO;
-#else
+#иначе
     typedef OSVERSIONINFOA OSVERSIONINFO;
     typedef POSVERSIONINFOA POSVERSIONINFO;
     typedef LPOSVERSIONINFOA LPOSVERSIONINFO;
@@ -5304,7 +5304,7 @@ typedef DWORD LCID;
     typedef OSVERSIONINFOEXW OSVERSIONINFOEX;
     typedef POSVERSIONINFOEXW POSVERSIONINFOEX;
     typedef LPOSVERSIONINFOEXW LPOSVERSIONINFOEX;
-#else
+#иначе
     typedef OSVERSIONINFOEXA OSVERSIONINFOEX;
     typedef POSVERSIONINFOEXA POSVERSIONINFOEX;
     typedef LPOSVERSIONINFOEXA LPOSVERSIONINFOEX;
@@ -5959,21 +5959,21 @@ typedef DWORD LCID;
       TapeDriveProblemNone,TapeDriveReadWriteWarning,TapeDriveReadWriteError,TapeDriveReadWarning,TapeDriveWriteWarning,TapeDriveReadError,TapeDriveWriteError,TapeDriveHardwareError,TapeDriveUnsupportedMedia,TapeDriveScsiConnectionError,TapeDriveTimetoClean,TapeDriveCleanDriveNow,TapeDriveMediaLifeExpired,TapeDriveSnappedTape
     } TAPE_DRIVE_PROBLEM_TYPE;
 
-#if defined(__x86_64)
-    __CRT_INLINE struct _TEB *NtCurrentTeb(VOID) { return (struct _TEB *)__readgsqword(FIELD_OFFSET(NT_TIB,Self)); }
-    __CRT_INLINE PVOID GetCurrentFiber(VOID) { return(PVOID)__readgsqword(FIELD_OFFSET(NT_TIB,FiberData)); }
+#ако defined(__x86_64)
+    __CRT_INLINE struct _TEB *NtCurrentTeb(VOID) { върни (struct _TEB *)__readgsqword(FIELD_OFFSET(NT_TIB,Self)); }
+    __CRT_INLINE PVOID GetCurrentFiber(VOID) { върни(PVOID)__readgsqword(FIELD_OFFSET(NT_TIB,FiberData)); }
     __CRT_INLINE PVOID GetFiberData(VOID) {
-      return *(PVOID *)GetCurrentFiber();
+      върни *(PVOID *)GetCurrentFiber();
     }
 #endif
 
-#if(defined(_X86_) && !defined(__x86_64))
+#ако(defined(_X86_) && !defined(__x86_64))
 #define PcTeb 0x18
     __CRT_INLINE struct _TEB *NtCurrentTeb(void) {
       struct _TEB *ret;
       __asm__ volatile ("movl	%%fs:0x18,%0"
 	: "=r" (ret));
-      return ret;
+      върни ret;
     }
 #endif
 

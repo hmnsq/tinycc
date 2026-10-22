@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
 #include <tcclib.h>
 
-int main()
+цяло main()
 {
     printf("Hello World\n");
-    return 0;
+    върни 0;
 }

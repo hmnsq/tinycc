@@ -1,4 +1,4 @@
-extern int write (int fd, void *buf, int len);
+extern цяло write (цяло fd, void *buf, цяло len);
 
 static void __attribute__ ((constructor))
 testc (void)
@@ -12,9 +12,9 @@ testd (void)
   write (1, "destructor\n", 11);
 }
 
-int
+цяло
 main (void)
 {
   write (1, "main\n", 5);
-  return 0;
+  върни 0;
 }

@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+цяло main()
 {
-   int a = 1;
+   цяло a = 1;
 
-   if (a)
+   ако (a)
       printf("a is true\n");
-   else
+   иначе
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   цяло b = 0;
+   ако (b)
       printf("b is true\n");
-   else
+   иначе
       printf("b is false\n");
 
-   return 0;
+   върни 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main()
+цяло main()
 {
     printf("Hello World\n");
-    return 0;
+    върни 0;
 }

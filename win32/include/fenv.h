@@ -52,13 +52,13 @@ typedef struct
   unsigned short __unused1;
   unsigned short __tag_word;
   unsigned short __unused2;  
-  unsigned int	 __ip_offset;    /* instruction pointer offset */
+  unsigned цяло	 __ip_offset;    /* instruction pointer offset */
   unsigned short __ip_selector;  
   unsigned short __opcode;
-  unsigned int	 __data_offset;
+  unsigned цяло	 __data_offset;
   unsigned short __data_selector;  
   unsigned short __unused3;
-  unsigned int   __mxcsr; /* contents of the MXCSR register  */
+  unsigned цяло   __mxcsr; /* contents of the MXCSR register  */
 } fenv_t;
 
 
@@ -82,23 +82,23 @@ extern "C" {
 /*TODO: Some of these could be inlined */
 /* 7.6.2 Exception */
 
-extern int __cdecl feclearexcept (int);
-extern int __cdecl fegetexceptflag (fexcept_t * flagp, int excepts);
-extern int __cdecl feraiseexcept (int excepts );
-extern int __cdecl fesetexceptflag (const fexcept_t *, int);
-extern int __cdecl fetestexcept (int excepts);
+extern цяло __cdecl feclearexcept (цяло);
+extern цяло __cdecl fegetexceptflag (fexcept_t * flagp, цяло excepts);
+extern цяло __cdecl feraiseexcept (цяло excepts );
+extern цяло __cdecl fesetexceptflag (const fexcept_t *, цяло);
+extern цяло __cdecl fetestexcept (цяло excepts);
 
 /* 7.6.3 Rounding */
 
-extern int __cdecl fegetround (void);
-extern int __cdecl fesetround (int mode);
+extern цяло __cdecl fegetround (void);
+extern цяло __cdecl fesetround (цяло mode);
 
 /* 7.6.4 Environment */
 
-extern int __cdecl fegetenv(fenv_t * envp);
-extern int __cdecl fesetenv(const fenv_t * );
-extern int __cdecl feupdateenv(const fenv_t *);
-extern int __cdecl feholdexcept(fenv_t *);
+extern цяло __cdecl fegetenv(fenv_t * envp);
+extern цяло __cdecl fesetenv(const fenv_t * );
+extern цяло __cdecl feupdateenv(const fenv_t *);
+extern цяло __cdecl feholdexcept(fenv_t *);
 
 #ifdef __cplusplus
 }

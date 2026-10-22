@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-int main()
+цяло main()
 {
-    long long int res = 0;
+    long long цяло res = 0;
 
-    if (res < -2147483648LL) {
+    ако (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        върни 1;
     }
-    else
-    if (2147483647LL < res) {
+    иначе
+    ако (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        върни 2;
     }
-    else
+    иначе
         printf("long long constant test ok.\n");
-    return 0;
+    върни 0;
 }

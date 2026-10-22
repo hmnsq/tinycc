@@ -1,22 +1,22 @@
 #include <stdio.h>
 
-int fred(int p)
+цяло fred(цяло p)
 {
    printf("yo %d\n", p);
-   return 42;
+   върни 42;
 }
 
-int (*f)(int) = &fred;
+цяло (*f)(цяло) = &fred;
 
 /* To test what this is supposed to test the destination function
    (fprint here) must not be called directly anywhere in the test.  */
-int (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
+цяло (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
 
-int main()
+цяло main()
 {
    fprintfptr(stdout, "%d\n", (*f)(24));
 
-   return 0;
+   върни 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -24,7 +24,7 @@ extern "C" {
 #define __PCTYPE_FUNC __pctype_func()
 #ifdef _MSVCRT_
 #define __pctype_func()	(_pctype)
-#else
+#иначе
 #define __pctype_func()	(*_imp___pctype)
 #endif
 #endif
@@ -32,7 +32,7 @@ extern "C" {
 #ifndef _pctype
 #ifdef _MSVCRT_
   extern unsigned short *_pctype;
-#else
+#иначе
   extern unsigned short **_imp___pctype;
 #define _pctype (*_imp___pctype)
 #endif
@@ -47,7 +47,7 @@ extern "C" {
 #ifndef _wctype
 #ifdef _MSVCRT_
   extern unsigned short *_wctype;
-#else
+#иначе
   extern unsigned short **_imp___wctype;
 #define _wctype (*_imp___wctype)
 #endif
@@ -57,7 +57,7 @@ extern "C" {
 #ifndef _pwctype
   extern unsigned short *_pwctype;
 #endif
-#else
+#иначе
 #define __pwctype_func() (*_imp___pwctype)
 #ifndef _pwctype
   extern unsigned short **_imp___pwctype;
@@ -68,13 +68,13 @@ extern "C" {
 #endif
 
   /* CRT stuff */
-#if 1
+#ако 1
   extern const unsigned char __newclmap[];
   extern const unsigned char __newcumap[];
   extern pthreadlocinfo __ptlocinfo;
   extern pthreadmbcinfo __ptmbcinfo;
-  extern int __globallocalestatus;
-  extern int __locale_changed;
+  extern цяло __globallocalestatus;
+  extern цяло __locale_changed;
   extern struct threadlocaleinfostruct __initiallocinfo;
   extern _locale_tstruct __initiallocalestructinfo;
   pthreadlocinfo __cdecl __updatetlocinfo(void);
@@ -97,88 +97,88 @@ extern "C" {
 #ifndef _CTYPE_DEFINED
 #define _CTYPE_DEFINED
 
-  _CRTIMP int __cdecl _isctype(int _C,int _Type);
-  _CRTIMP int __cdecl _isctype_l(int _C,int _Type,_locale_t _Locale);
-  _CRTIMP int __cdecl isalpha(int _C);
-  _CRTIMP int __cdecl _isalpha_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isupper(int _C);
-  _CRTIMP int __cdecl _isupper_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl islower(int _C);
-  _CRTIMP int __cdecl _islower_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isdigit(int _C);
-  _CRTIMP int __cdecl _isdigit_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isxdigit(int _C);
-  _CRTIMP int __cdecl _isxdigit_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isspace(int _C);
-  _CRTIMP int __cdecl _isspace_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl ispunct(int _C);
-  _CRTIMP int __cdecl _ispunct_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isalnum(int _C);
-  _CRTIMP int __cdecl _isalnum_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isprint(int _C);
-  _CRTIMP int __cdecl _isprint_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isgraph(int _C);
-  _CRTIMP int __cdecl _isgraph_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl iscntrl(int _C);
-  _CRTIMP int __cdecl _iscntrl_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl toupper(int _C);
-  _CRTIMP int __cdecl tolower(int _C);
-  _CRTIMP int __cdecl _tolower(int _C);
-  _CRTIMP int __cdecl _tolower_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl _toupper(int _C);
-  _CRTIMP int __cdecl _toupper_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl __isascii(int _C);
-  _CRTIMP int __cdecl __toascii(int _C);
-  _CRTIMP int __cdecl __iscsymf(int _C);
-  _CRTIMP int __cdecl __iscsym(int _C);
+  _CRTIMP цяло __cdecl _isctype(цяло _C,цяло _Type);
+  _CRTIMP цяло __cdecl _isctype_l(цяло _C,цяло _Type,_locale_t _Locale);
+  _CRTIMP цяло __cdecl isalpha(цяло _C);
+  _CRTIMP цяло __cdecl _isalpha_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl isupper(цяло _C);
+  _CRTIMP цяло __cdecl _isupper_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl islower(цяло _C);
+  _CRTIMP цяло __cdecl _islower_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl isdigit(цяло _C);
+  _CRTIMP цяло __cdecl _isdigit_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl isxdigit(цяло _C);
+  _CRTIMP цяло __cdecl _isxdigit_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl isspace(цяло _C);
+  _CRTIMP цяло __cdecl _isspace_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl ispunct(цяло _C);
+  _CRTIMP цяло __cdecl _ispunct_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl isalnum(цяло _C);
+  _CRTIMP цяло __cdecl _isalnum_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl isprint(цяло _C);
+  _CRTIMP цяло __cdecl _isprint_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl isgraph(цяло _C);
+  _CRTIMP цяло __cdecl _isgraph_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl iscntrl(цяло _C);
+  _CRTIMP цяло __cdecl _iscntrl_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl toupper(цяло _C);
+  _CRTIMP цяло __cdecl tolower(цяло _C);
+  _CRTIMP цяло __cdecl _tolower(цяло _C);
+  _CRTIMP цяло __cdecl _tolower_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl _toupper(цяло _C);
+  _CRTIMP цяло __cdecl _toupper_l(цяло _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl __isascii(цяло _C);
+  _CRTIMP цяло __cdecl __toascii(цяло _C);
+  _CRTIMP цяло __cdecl __iscsymf(цяло _C);
+  _CRTIMP цяло __cdecl __iscsym(цяло _C);
 
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl isblank(int _C);
+#ако (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+цяло __cdecl isblank(цяло _C);
 #endif
 #endif
 
 #ifndef _WCTYPE_DEFINED
 #define _WCTYPE_DEFINED
 
-  int __cdecl iswalpha(wint_t _C);
-  _CRTIMP int __cdecl _iswalpha_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswupper(wint_t _C);
-  _CRTIMP int __cdecl _iswupper_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswlower(wint_t _C);
-  _CRTIMP int __cdecl _iswlower_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswdigit(wint_t _C);
-  _CRTIMP int __cdecl _iswdigit_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswxdigit(wint_t _C);
-  _CRTIMP int __cdecl _iswxdigit_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswspace(wint_t _C);
-  _CRTIMP int __cdecl _iswspace_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswpunct(wint_t _C);
-  _CRTIMP int __cdecl _iswpunct_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswalnum(wint_t _C);
-  _CRTIMP int __cdecl _iswalnum_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswprint(wint_t _C);
-  _CRTIMP int __cdecl _iswprint_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswgraph(wint_t _C);
-  _CRTIMP int __cdecl _iswgraph_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswcntrl(wint_t _C);
-  _CRTIMP int __cdecl _iswcntrl_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswascii(wint_t _C);
-  int __cdecl isleadbyte(int _C);
-  _CRTIMP int __cdecl _isleadbyte_l(int _C,_locale_t _Locale);
+  цяло __cdecl iswalpha(wint_t _C);
+  _CRTIMP цяло __cdecl _iswalpha_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl iswupper(wint_t _C);
+  _CRTIMP цяло __cdecl _iswupper_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl iswlower(wint_t _C);
+  _CRTIMP цяло __cdecl _iswlower_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl iswdigit(wint_t _C);
+  _CRTIMP цяло __cdecl _iswdigit_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl iswxdigit(wint_t _C);
+  _CRTIMP цяло __cdecl _iswxdigit_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl iswspace(wint_t _C);
+  _CRTIMP цяло __cdecl _iswspace_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl iswpunct(wint_t _C);
+  _CRTIMP цяло __cdecl _iswpunct_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl iswalnum(wint_t _C);
+  _CRTIMP цяло __cdecl _iswalnum_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl iswprint(wint_t _C);
+  _CRTIMP цяло __cdecl _iswprint_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl iswgraph(wint_t _C);
+  _CRTIMP цяло __cdecl _iswgraph_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl iswcntrl(wint_t _C);
+  _CRTIMP цяло __cdecl _iswcntrl_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl iswascii(wint_t _C);
+  цяло __cdecl isleadbyte(цяло _C);
+  _CRTIMP цяло __cdecl _isleadbyte_l(цяло _C,_locale_t _Locale);
   wint_t __cdecl towupper(wint_t _C);
   _CRTIMP wint_t __cdecl _towupper_l(wint_t _C,_locale_t _Locale);
   wint_t __cdecl towlower(wint_t _C);
   _CRTIMP wint_t __cdecl _towlower_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswctype(wint_t _C,wctype_t _Type);
-  _CRTIMP int __cdecl _iswctype_l(wint_t _C,wctype_t _Type,_locale_t _Locale);
-  _CRTIMP int __cdecl __iswcsymf(wint_t _C);
-  _CRTIMP int __cdecl _iswcsymf_l(wint_t _C,_locale_t _Locale);
-  _CRTIMP int __cdecl __iswcsym(wint_t _C);
-  _CRTIMP int __cdecl _iswcsym_l(wint_t _C,_locale_t _Locale);
-  int __cdecl is_wctype(wint_t _C,wctype_t _Type);
+  цяло __cdecl iswctype(wint_t _C,wctype_t _Type);
+  _CRTIMP цяло __cdecl _iswctype_l(wint_t _C,wctype_t _Type,_locale_t _Locale);
+  _CRTIMP цяло __cdecl __iswcsymf(wint_t _C);
+  _CRTIMP цяло __cdecl _iswcsymf_l(wint_t _C,_locale_t _Locale);
+  _CRTIMP цяло __cdecl __iswcsym(wint_t _C);
+  _CRTIMP цяло __cdecl _iswcsym_l(wint_t _C,_locale_t _Locale);
+  цяло __cdecl is_wctype(wint_t _C,wctype_t _Type);
 
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl iswblank(wint_t _C);
+#ако (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+цяло __cdecl iswblank(wint_t _C);
 #endif
 #endif
 
@@ -188,15 +188,15 @@ int __cdecl iswblank(wint_t _C);
 #define MB_CUR_MAX ___mb_cur_max_func()
 #ifndef __mb_cur_max
 #ifdef _MSVCRT_
-  extern int __mb_cur_max;
-#else
+  extern цяло __mb_cur_max;
+#иначе
 #define __mb_cur_max	(*_imp____mb_cur_max)
-  extern int *_imp____mb_cur_max;
+  extern цяло *_imp____mb_cur_max;
 #endif
 #endif
 #ifdef _MSVCRT_
 #define ___mb_cur_max_func() (__mb_cur_max)
-#else
+#иначе
 #define ___mb_cur_max_func() (*_imp____mb_cur_max)
 #endif
 #endif
@@ -263,11 +263,11 @@ int __cdecl iswblank(wint_t _C);
 
 #ifndef	NO_OLDNAMES
 #ifndef _CTYPE_DEFINED
-  int __cdecl isascii(int _C);
-  int __cdecl toascii(int _C);
-  int __cdecl iscsymf(int _C);
-  int __cdecl iscsym(int _C);
-#else
+  цяло __cdecl isascii(цяло _C);
+  цяло __cdecl toascii(цяло _C);
+  цяло __cdecl iscsymf(цяло _C);
+  цяло __cdecl iscsym(цяло _C);
+#иначе
 #define isascii __isascii
 #define toascii __toascii
 #define iscsymf __iscsymf

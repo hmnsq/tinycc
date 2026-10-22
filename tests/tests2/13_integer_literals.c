@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-int main()
+цяло main()
 {
-   int a = 24680;
-   int b = 01234567;
-   int c = 0x2468ac;
-   int d = 0x2468AC;
-   int e = 0b010101010101;
+   цяло a = 24680;
+   цяло b = 01234567;
+   цяло c = 0x2468ac;
+   цяло d = 0x2468AC;
+   цяло e = 0b010101010101;
 
    printf("%d\n", a);
    printf("%d\n", b);
@@ -14,7 +14,7 @@ int main()
    printf("%d\n", d);
    printf("%d\n", e);
 
-   return 0;
+   върни 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

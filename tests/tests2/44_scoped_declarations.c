@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-int main()
+цяло main()
 {
-   int a;
+   цяло a;
 
-   for (a = 0; a < 2; a++)
+   за (a = 0; a < 2; a++)
    {
-      int b = a;
+      цяло b = a;
    }
 
    printf("it's all good\n");
 
-   return 0;
+   върни 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

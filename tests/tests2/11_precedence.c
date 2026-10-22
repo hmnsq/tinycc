@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+extern цяло printf(const char *, ...);
 
-int main()
+цяло main()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   цяло a;
+   цяло b;
+   цяло c;
+   цяло d;
+   цяло e;
+   цяло f;
+   цяло x;
+   цяло y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   върни 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :
