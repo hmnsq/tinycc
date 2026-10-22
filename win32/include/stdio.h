@@ -23,12 +23,12 @@ extern "C" {
 #ifndef _FILE_DEFINED
   struct _iobuf {
     char *_ptr;
-    int _cnt;
+    整数 _cnt;
     char *_base;
-    int _flag;
-    int _file;
-    int _charbuf;
-    int _bufsiz;
+    整数 _flag;
+    整数 _file;
+    整数 _charbuf;
+    整数 _bufsiz;
     char *_tmpfname;
   };
   typedef struct _iobuf FILE;
@@ -38,7 +38,7 @@ extern "C" {
 #ifdef _POSIX_
 #define _P_tmpdir "/"
 #define _wP_tmpdir L"/"
-#else
+#否则
 #define _P_tmpdir "\\"
 #define _wP_tmpdir L"\\"
 #endif
@@ -66,7 +66,7 @@ extern "C" {
 #ifndef NULL
 #ifdef __cplusplus
 #define NULL 0
-#else
+#否则
 #define NULL ((void *)0)
 #endif
 #endif
@@ -76,7 +76,7 @@ extern "C" {
 #ifndef _OFF_T_
 #define _OFF_T_
   typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
+#もし !defined(NO_OLDNAMES) || defined(_POSIX)
   typedef long off_t;
 #endif
 #endif
@@ -85,7 +85,7 @@ extern "C" {
 #ifndef _OFF64_T_DEFINED
 #define _OFF64_T_DEFINED
   typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
+#もし !defined(NO_OLDNAMES) || defined(_POSIX)
   typedef long long off64_t;
 #endif
 #endif
@@ -93,11 +93,11 @@ extern "C" {
 #ifndef _STDIO_DEFINED
 #ifdef _WIN64
   _CRTIMP FILE *__cdecl __iob_func(void);
-#else
+#否则
 #ifdef _MSVCRT_
 extern FILE _iob[];     /* A pointer to an array of FILE */
 #define __iob_func()    (_iob)
-#else
+#否则
 extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 #define __iob_func()    (*_imp___iob)
 #define _iob __iob_func()
@@ -109,10 +109,10 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 #define _FPOS_T_DEFINED
 #undef _FPOSOFF
 
-#if (!defined(NO_OLDNAMES) || defined(__GNUC__)) && _INTEGRAL_MAX_BITS >= 64
+#もし (!defined(NO_OLDNAMES) || defined(__GNUC__)) && _INTEGRAL_MAX_BITS >= 64
   typedef __int64 fpos_t;
 #define _FPOSOFF(fp) ((long)(fp))
-#else
+#否则
   typedef long long fpos_t;
 #define _FPOSOFF(fp) ((long)(fp))
 #endif
@@ -147,97 +147,97 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 
 #ifndef _STDIO_DEFINED
 
-  _CRTIMP int __cdecl _filbuf(FILE *_File);
-  _CRTIMP int __cdecl _flsbuf(int _Ch,FILE *_File);
+  _CRTIMP 整数 __cdecl _filbuf(FILE *_File);
+  _CRTIMP 整数 __cdecl _flsbuf(整数 _Ch,FILE *_File);
 #ifdef _POSIX_
   _CRTIMP FILE *__cdecl _fsopen(const char *_Filename,const char *_Mode);
-#else
-  _CRTIMP FILE *__cdecl _fsopen(const char *_Filename,const char *_Mode,int _ShFlag);
+#否则
+  _CRTIMP FILE *__cdecl _fsopen(const char *_Filename,const char *_Mode,整数 _ShFlag);
 #endif
   void __cdecl clearerr(FILE *_File);
-  int __cdecl fclose(FILE *_File);
-  _CRTIMP int __cdecl _fcloseall(void);
+  整数 __cdecl fclose(FILE *_File);
+  _CRTIMP 整数 __cdecl _fcloseall(void);
 #ifdef _POSIX_
-  FILE *__cdecl fdopen(int _FileHandle,const char *_Mode);
-#else
-  _CRTIMP FILE *__cdecl _fdopen(int _FileHandle,const char *_Mode);
+  FILE *__cdecl fdopen(整数 _FileHandle,const char *_Mode);
+#否则
+  _CRTIMP FILE *__cdecl _fdopen(整数 _FileHandle,const char *_Mode);
 #endif
-  int __cdecl feof(FILE *_File);
-  int __cdecl ferror(FILE *_File);
-  int __cdecl fflush(FILE *_File);
-  int __cdecl fgetc(FILE *_File);
-  _CRTIMP int __cdecl _fgetchar(void);
-  int __cdecl fgetpos(FILE *_File ,fpos_t *_Pos);
-  char *__cdecl fgets(char *_Buf,int _MaxCount,FILE *_File);
+  整数 __cdecl feof(FILE *_File);
+  整数 __cdecl ferror(FILE *_File);
+  整数 __cdecl fflush(FILE *_File);
+  整数 __cdecl fgetc(FILE *_File);
+  _CRTIMP 整数 __cdecl _fgetchar(void);
+  整数 __cdecl fgetpos(FILE *_File ,fpos_t *_Pos);
+  char *__cdecl fgets(char *_Buf,整数 _MaxCount,FILE *_File);
 #ifdef _POSIX_
-  int __cdecl fileno(FILE *_File);
-#else
-  _CRTIMP int __cdecl _fileno(FILE *_File);
+  整数 __cdecl fileno(FILE *_File);
+#否则
+  _CRTIMP 整数 __cdecl _fileno(FILE *_File);
 #endif
   _CRTIMP char *__cdecl _tempnam(const char *_DirName,const char *_FilePrefix);
-  _CRTIMP int __cdecl _flushall(void);
+  _CRTIMP 整数 __cdecl _flushall(void);
   FILE *__cdecl fopen(const char *_Filename,const char *_Mode);
   FILE *fopen64(const char *filename,const char *mode);
-  int __cdecl fprintf(FILE *_File,const char *_Format,...);
-  int __cdecl fputc(int _Ch,FILE *_File);
-  _CRTIMP int __cdecl _fputchar(int _Ch);
-  int __cdecl fputs(const char *_Str,FILE *_File);
+  整数 __cdecl fprintf(FILE *_File,const char *_Format,...);
+  整数 __cdecl fputc(整数 _Ch,FILE *_File);
+  _CRTIMP 整数 __cdecl _fputchar(整数 _Ch);
+  整数 __cdecl fputs(const char *_Str,FILE *_File);
   size_t __cdecl fread(void *_DstBuf,size_t _ElementSize,size_t _Count,FILE *_File);
   FILE *__cdecl freopen(const char *_Filename,const char *_Mode,FILE *_File);
-  int __cdecl fscanf(FILE *_File,const char *_Format,...);
-  int __cdecl fsetpos(FILE *_File,const fpos_t *_Pos);
-  int __cdecl fseek(FILE *_File,long _Offset,int _Origin);
-   int fseeko64(FILE* stream, _off64_t offset, int whence);
+  整数 __cdecl fscanf(FILE *_File,const char *_Format,...);
+  整数 __cdecl fsetpos(FILE *_File,const fpos_t *_Pos);
+  整数 __cdecl fseek(FILE *_File,long _Offset,整数 _Origin);
+   整数 fseeko64(FILE* stream, _off64_t offset, 整数 whence);
   long __cdecl ftell(FILE *_File);
   _off64_t ftello64(FILE * stream);
-  int __cdecl _fseeki64(FILE *_File,__int64 _Offset,int _Origin);
+  整数 __cdecl _fseeki64(FILE *_File,__int64 _Offset,整数 _Origin);
   __int64 __cdecl _ftelli64(FILE *_File);
   size_t __cdecl fwrite(const void *_Str,size_t _Size,size_t _Count,FILE *_File);
-  int __cdecl getc(FILE *_File);
-  int __cdecl getchar(void);
-  _CRTIMP int __cdecl _getmaxstdio(void);
+  整数 __cdecl getc(FILE *_File);
+  整数 __cdecl getchar(void);
+  _CRTIMP 整数 __cdecl _getmaxstdio(void);
   char *__cdecl gets(char *_Buffer);
-  int __cdecl _getw(FILE *_File);
+  整数 __cdecl _getw(FILE *_File);
 #ifndef _CRT_PERROR_DEFINED
 #define _CRT_PERROR_DEFINED
   void __cdecl perror(const char *_ErrMsg);
 #endif
-  _CRTIMP int __cdecl _pclose(FILE *_File);
+  _CRTIMP 整数 __cdecl _pclose(FILE *_File);
   _CRTIMP FILE *__cdecl _popen(const char *_Command,const char *_Mode);
-#if !defined(NO_OLDNAMES) && !defined(popen)
+#もし !defined(NO_OLDNAMES) && !defined(popen)
 #define popen   _popen
 #define pclose  _pclose
 #endif
-  int __cdecl printf(const char *_Format,...);
-  int __cdecl putc(int _Ch,FILE *_File);
-  int __cdecl putchar(int _Ch);
-  int __cdecl puts(const char *_Str);
-  _CRTIMP int __cdecl _putw(int _Word,FILE *_File);
+  整数 __cdecl printf(const char *_Format,...);
+  整数 __cdecl putc(整数 _Ch,FILE *_File);
+  整数 __cdecl putchar(整数 _Ch);
+  整数 __cdecl puts(const char *_Str);
+  _CRTIMP 整数 __cdecl _putw(整数 _Word,FILE *_File);
 #ifndef _CRT_DIRECTORY_DEFINED
 #define _CRT_DIRECTORY_DEFINED
-  int __cdecl remove(const char *_Filename);
-  int __cdecl rename(const char *_OldFilename,const char *_NewFilename);
-  _CRTIMP int __cdecl _unlink(const char *_Filename);
+  整数 __cdecl remove(const char *_Filename);
+  整数 __cdecl rename(const char *_OldFilename,const char *_NewFilename);
+  _CRTIMP 整数 __cdecl _unlink(const char *_Filename);
 #ifndef NO_OLDNAMES
-  int __cdecl unlink(const char *_Filename);
+  整数 __cdecl unlink(const char *_Filename);
 #endif
 #endif
   void __cdecl rewind(FILE *_File);
-  _CRTIMP int __cdecl _rmtmp(void);
-  int __cdecl scanf(const char *_Format,...);
+  _CRTIMP 整数 __cdecl _rmtmp(void);
+  整数 __cdecl scanf(const char *_Format,...);
   void __cdecl setbuf(FILE *_File,char *_Buffer);
-  _CRTIMP int __cdecl _setmaxstdio(int _Max);
-  _CRTIMP unsigned int __cdecl _set_output_format(unsigned int _Format);
-  _CRTIMP unsigned int __cdecl _get_output_format(void);
-  int __cdecl setvbuf(FILE *_File,char *_Buf,int _Mode,size_t _Size);
-  _CRTIMP int __cdecl _scprintf(const char *_Format,...);
-  int __cdecl sscanf(const char *_Src,const char *_Format,...);
-  _CRTIMP int __cdecl _snscanf(const char *_Src,size_t _MaxCount,const char *_Format,...);
+  _CRTIMP 整数 __cdecl _setmaxstdio(整数 _Max);
+  _CRTIMP unsigned 整数 __cdecl _set_output_format(unsigned 整数 _Format);
+  _CRTIMP unsigned 整数 __cdecl _get_output_format(void);
+  整数 __cdecl setvbuf(FILE *_File,char *_Buf,整数 _Mode,size_t _Size);
+  _CRTIMP 整数 __cdecl _scprintf(const char *_Format,...);
+  整数 __cdecl sscanf(const char *_Src,const char *_Format,...);
+  _CRTIMP 整数 __cdecl _snscanf(const char *_Src,size_t _MaxCount,const char *_Format,...);
   FILE *__cdecl tmpfile(void);
   char *__cdecl tmpnam(char *_Buffer);
-  int __cdecl ungetc(int _Ch,FILE *_File);
-  int __cdecl vfprintf(FILE *_File,const char *_Format,va_list _ArgList);
-  int __cdecl vprintf(const char *_Format,va_list _ArgList);
+  整数 __cdecl ungetc(整数 _Ch,FILE *_File);
+  整数 __cdecl vfprintf(FILE *_File,const char *_Format,va_list _ArgList);
+  整数 __cdecl vprintf(const char *_Format,va_list _ArgList);
   /* Make sure macros are not defined.  */
 #pragma push_macro("vsnprintf")
 #pragma push_macro("snprintf")
@@ -245,29 +245,29 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 # undef snprintf
   extern
   __attribute__((format(gnu_printf, 3, 0))) __attribute__((nonnull (3)))
-  int __mingw_vsnprintf(char *_DstBuf,size_t _MaxCount,const char *_Format,va_list _ArgList);
+  整数 __mingw_vsnprintf(char *_DstBuf,size_t _MaxCount,const char *_Format,va_list _ArgList);
   extern
   __attribute__((format(gnu_printf, 3, 4))) __attribute__((nonnull (3)))
-  int __mingw_snprintf(char* s, size_t n, const char*  format, ...);
-  int __cdecl vsnprintf(char *_DstBuf,size_t _MaxCount,const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _snprintf(char *_Dest,size_t _Count,const char *_Format,...);
-  _CRTIMP int __cdecl _vsnprintf(char *_Dest,size_t _Count,const char *_Format,va_list _Args);
-  int __cdecl sprintf(char *_Dest,const char *_Format,...);
-  int __cdecl vsprintf(char *_Dest,const char *_Format,va_list _Args);
+  整数 __mingw_snprintf(char* s, size_t n, const char*  format, ...);
+  整数 __cdecl vsnprintf(char *_DstBuf,size_t _MaxCount,const char *_Format,va_list _ArgList);
+  _CRTIMP 整数 __cdecl _snprintf(char *_Dest,size_t _Count,const char *_Format,...);
+  _CRTIMP 整数 __cdecl _vsnprintf(char *_Dest,size_t _Count,const char *_Format,va_list _Args);
+  整数 __cdecl sprintf(char *_Dest,const char *_Format,...);
+  整数 __cdecl vsprintf(char *_Dest,const char *_Format,va_list _Args);
 #ifndef __NO_ISOCEXT  /* externs in libmingwex.a */
-  int __cdecl snprintf(char* s, size_t n, const char*  format, ...);
-  __CRT_INLINE int __cdecl vsnprintf (char* s, size_t n, const char* format,va_list arg) {
-    return _vsnprintf ( s, n, format, arg);
+  整数 __cdecl snprintf(char* s, size_t n, const char*  format, ...);
+  __CRT_INLINE 整数 __cdecl vsnprintf (char* s, size_t n, const char* format,va_list arg) {
+    戻る _vsnprintf ( s, n, format, arg);
   }
-  int __cdecl vscanf(const char * Format, va_list argp);
-  int __cdecl vfscanf (FILE * fp, const char * Format,va_list argp);
-  int __cdecl vsscanf (const char * _Str,const char * Format,va_list argp);
+  整数 __cdecl vscanf(const char * Format, va_list argp);
+  整数 __cdecl vfscanf (FILE * fp, const char * Format,va_list argp);
+  整数 __cdecl vsscanf (const char * _Str,const char * Format,va_list argp);
 #endif
 /* Restore may prior defined macros snprintf/vsnprintf.  */
 #pragma pop_macro("snprintf")
 #pragma pop_macro("vsnprintf")
 /* Check if vsnprintf and snprintf are defaulting to gnu-style.  */
-# if defined(USE_MINGW_GNU_SNPRINTF) && USE_MINGW_GNU_SNPRINTF
+# もし defined(USE_MINGW_GNU_SNPRINTF) && USE_MINGW_GNU_SNPRINTF
 # ifndef vsnprint
 # define vsnprintf __mingw_vsnprintf
 # endif
@@ -275,9 +275,9 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 # define snprintf __mingw_snprintf
 # endif
 # endif
-  _CRTIMP int __cdecl _vscprintf(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _set_printf_count_output(int _Value);
-  _CRTIMP int __cdecl _get_printf_count_output(void);
+  _CRTIMP 整数 __cdecl _vscprintf(const char *_Format,va_list _ArgList);
+  _CRTIMP 整数 __cdecl _set_printf_count_output(整数 _Value);
+  _CRTIMP 整数 __cdecl _get_printf_count_output(void);
 
 #ifndef _WSTDIO_DEFINED
 
@@ -287,8 +287,8 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 
 #ifdef _POSIX_
   _CRTIMP FILE *__cdecl _wfsopen(const wchar_t *_Filename,const wchar_t *_Mode);
-#else
-  _CRTIMP FILE *__cdecl _wfsopen(const wchar_t *_Filename,const wchar_t *_Mode,int _ShFlag);
+#否则
+  _CRTIMP FILE *__cdecl _wfsopen(const wchar_t *_Filename,const wchar_t *_Mode,整数 _ShFlag);
 #endif
   wint_t __cdecl fgetwc(FILE *_File);
   _CRTIMP wint_t __cdecl _fgetwchar(void);
@@ -299,30 +299,30 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   wint_t __cdecl putwc(wchar_t _Ch,FILE *_File);
   wint_t __cdecl putwchar(wchar_t _Ch);
   wint_t __cdecl ungetwc(wint_t _Ch,FILE *_File);
-  wchar_t *__cdecl fgetws(wchar_t *_Dst,int _SizeInWords,FILE *_File);
-  int __cdecl fputws(const wchar_t *_Str,FILE *_File);
+  wchar_t *__cdecl fgetws(wchar_t *_Dst,整数 _SizeInWords,FILE *_File);
+  整数 __cdecl fputws(const wchar_t *_Str,FILE *_File);
   _CRTIMP wchar_t *__cdecl _getws(wchar_t *_String);
-  _CRTIMP int __cdecl _putws(const wchar_t *_Str);
-  int __cdecl fwprintf(FILE *_File,const wchar_t *_Format,...);
-  int __cdecl wprintf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _scwprintf(const wchar_t *_Format,...);
-  int __cdecl vfwprintf(FILE *_File,const wchar_t *_Format,va_list _ArgList);
-  int __cdecl vwprintf(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl swprintf(wchar_t*, const wchar_t*, ...);
-  _CRTIMP int __cdecl vswprintf(wchar_t*, const wchar_t*,va_list);
-  _CRTIMP int __cdecl _swprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _snwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vsnwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,va_list _Args);
+  _CRTIMP 整数 __cdecl _putws(const wchar_t *_Str);
+  整数 __cdecl fwprintf(FILE *_File,const wchar_t *_Format,...);
+  整数 __cdecl wprintf(const wchar_t *_Format,...);
+  _CRTIMP 整数 __cdecl _scwprintf(const wchar_t *_Format,...);
+  整数 __cdecl vfwprintf(FILE *_File,const wchar_t *_Format,va_list _ArgList);
+  整数 __cdecl vwprintf(const wchar_t *_Format,va_list _ArgList);
+  _CRTIMP 整数 __cdecl swprintf(wchar_t*, const wchar_t*, ...);
+  _CRTIMP 整数 __cdecl vswprintf(wchar_t*, const wchar_t*,va_list);
+  _CRTIMP 整数 __cdecl _swprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,...);
+  _CRTIMP 整数 __cdecl _vswprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,va_list _ArgList);
+  _CRTIMP 整数 __cdecl _snwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,...);
+  _CRTIMP 整数 __cdecl _vsnwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,va_list _Args);
 #ifndef __NO_ISOCEXT  /* externs in libmingwex.a */
-  int __cdecl snwprintf (wchar_t* s, size_t n, const wchar_t*  format, ...);
-  __CRT_INLINE int __cdecl vsnwprintf (wchar_t* s, size_t n, const wchar_t* format, va_list arg) { return _vsnwprintf(s,n,format,arg); }
-  int __cdecl vwscanf (const wchar_t *, va_list);
-  int __cdecl vfwscanf (FILE *,const wchar_t *,va_list);
-  int __cdecl vswscanf (const wchar_t *,const wchar_t *,va_list);
+  整数 __cdecl snwprintf (wchar_t* s, size_t n, const wchar_t*  format, ...);
+  __CRT_INLINE 整数 __cdecl vsnwprintf (wchar_t* s, size_t n, const wchar_t* format, va_list arg) { 戻る _vsnwprintf(s,n,format,arg); }
+  整数 __cdecl vwscanf (const wchar_t *, va_list);
+  整数 __cdecl vfwscanf (FILE *,const wchar_t *,va_list);
+  整数 __cdecl vswscanf (const wchar_t *,const wchar_t *,va_list);
 #endif
-  _CRTIMP int __cdecl _swprintf(wchar_t *_Dest,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf(wchar_t *_Dest,const wchar_t *_Format,va_list _Args);
+  _CRTIMP 整数 __cdecl _swprintf(wchar_t *_Dest,const wchar_t *_Format,...);
+  _CRTIMP 整数 __cdecl _vswprintf(wchar_t *_Dest,const wchar_t *_Format,va_list _Args);
 
 #ifndef RC_INVOKED
 #include <vadefs.h>
@@ -338,12 +338,12 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 #endif
 
   _CRTIMP wchar_t *__cdecl _wtempnam(const wchar_t *_Directory,const wchar_t *_FilePrefix);
-  _CRTIMP int __cdecl _vscwprintf(const wchar_t *_Format,va_list _ArgList);
-  int __cdecl fwscanf(FILE *_File,const wchar_t *_Format,...);
-  int __cdecl swscanf(const wchar_t *_Src,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _snwscanf(const wchar_t *_Src,size_t _MaxCount,const wchar_t *_Format,...);
-  int __cdecl wscanf(const wchar_t *_Format,...);
-  _CRTIMP FILE *__cdecl _wfdopen(int _FileHandle ,const wchar_t *_Mode);
+  _CRTIMP 整数 __cdecl _vscwprintf(const wchar_t *_Format,va_list _ArgList);
+  整数 __cdecl fwscanf(FILE *_File,const wchar_t *_Format,...);
+  整数 __cdecl swscanf(const wchar_t *_Src,const wchar_t *_Format,...);
+  _CRTIMP 整数 __cdecl _snwscanf(const wchar_t *_Src,size_t _MaxCount,const wchar_t *_Format,...);
+  整数 __cdecl wscanf(const wchar_t *_Format,...);
+  _CRTIMP FILE *__cdecl _wfdopen(整数 _FileHandle ,const wchar_t *_Mode);
   _CRTIMP FILE *__cdecl _wfopen(const wchar_t *_Filename,const wchar_t *_Mode);
   _CRTIMP FILE *__cdecl _wfreopen(const wchar_t *_Filename,const wchar_t *_Mode,FILE *_OldFile);
 #ifndef _CRT_WPERROR_DEFINED
@@ -351,10 +351,10 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
 #endif
   _CRTIMP FILE *__cdecl _wpopen(const wchar_t *_Command,const wchar_t *_Mode);
-#if !defined(NO_OLDNAMES) && !defined(wpopen)
+#もし !defined(NO_OLDNAMES) && !defined(wpopen)
 #define wpopen  _wpopen
 #endif
-  _CRTIMP int __cdecl _wremove(const wchar_t *_Filename);
+  _CRTIMP 整数 __cdecl _wremove(const wchar_t *_Filename);
   _CRTIMP wchar_t *__cdecl _wtmpnam(wchar_t *_Buffer);
   _CRTIMP wint_t __cdecl _fgetwc_nolock(FILE *_File);
   _CRTIMP wint_t __cdecl _fputwc_nolock(wchar_t _Ch,FILE *_File);
@@ -362,12 +362,12 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 
 #undef _CRT_GETPUTWCHAR_NOINLINE
 
-#if !defined(__cplusplus) || defined(_CRT_GETPUTWCHAR_NOINLINE)
+#もし !defined(__cplusplus) || defined(_CRT_GETPUTWCHAR_NOINLINE)
 #define getwchar() fgetwc(stdin)
 #define putwchar(_c) fputwc((_c),stdout)
-#else
-  __CRT_INLINE wint_t __cdecl getwchar() { return (fgetwc(stdin)); }
-  __CRT_INLINE wint_t __cdecl putwchar(wchar_t _C) { return (fputwc(_C,stdout)); }
+#否则
+  __CRT_INLINE wint_t __cdecl getwchar() { 戻る (fgetwc(stdin)); }
+  __CRT_INLINE wint_t __cdecl putwchar(wchar_t _C) { 戻る (fputwc(_C,stdout)); }
 #endif
 
 #define getwc(_stm) fgetwc(_stm)
@@ -392,30 +392,30 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 
   _CRTIMP void __cdecl _lock_file(FILE *_File);
   _CRTIMP void __cdecl _unlock_file(FILE *_File);
-  _CRTIMP int __cdecl _fclose_nolock(FILE *_File);
-  _CRTIMP int __cdecl _fflush_nolock(FILE *_File);
+  _CRTIMP 整数 __cdecl _fclose_nolock(FILE *_File);
+  _CRTIMP 整数 __cdecl _fflush_nolock(FILE *_File);
   _CRTIMP size_t __cdecl _fread_nolock(void *_DstBuf,size_t _ElementSize,size_t _Count,FILE *_File);
-  _CRTIMP int __cdecl _fseek_nolock(FILE *_File,long _Offset,int _Origin);
+  _CRTIMP 整数 __cdecl _fseek_nolock(FILE *_File,long _Offset,整数 _Origin);
   _CRTIMP long __cdecl _ftell_nolock(FILE *_File);
-  _CRTIMP int __cdecl _fseeki64_nolock(FILE *_File,__int64 _Offset,int _Origin);
+  _CRTIMP 整数 __cdecl _fseeki64_nolock(FILE *_File,__int64 _Offset,整数 _Origin);
   _CRTIMP __int64 __cdecl _ftelli64_nolock(FILE *_File);
   _CRTIMP size_t __cdecl _fwrite_nolock(const void *_DstBuf,size_t _Size,size_t _Count,FILE *_File);
-  _CRTIMP int __cdecl _ungetc_nolock(int _Ch,FILE *_File);
+  _CRTIMP 整数 __cdecl _ungetc_nolock(整数 _Ch,FILE *_File);
 
-#if !defined(NO_OLDNAMES) || !defined(_POSIX)
+#もし !defined(NO_OLDNAMES) || !defined(_POSIX)
 #define P_tmpdir _P_tmpdir
 #define SYS_OPEN _SYS_OPEN
 
   char *__cdecl tempnam(const char *_Directory,const char *_FilePrefix);
-  int __cdecl fcloseall(void);
-  FILE *__cdecl fdopen(int _FileHandle,const char *_Format);
-  int __cdecl fgetchar(void);
-  int __cdecl fileno(FILE *_File);
-  int __cdecl flushall(void);
-  int __cdecl fputchar(int _Ch);
-  int __cdecl getw(FILE *_File);
-  int __cdecl putw(int _Ch,FILE *_File);
-  int __cdecl rmtmp(void);
+  整数 __cdecl fcloseall(void);
+  FILE *__cdecl fdopen(整数 _FileHandle,const char *_Format);
+  整数 __cdecl fgetchar(void);
+  整数 __cdecl fileno(FILE *_File);
+  整数 __cdecl flushall(void);
+  整数 __cdecl fputchar(整数 _Ch);
+  整数 __cdecl getw(FILE *_File);
+  整数 __cdecl putw(整数 _Ch,FILE *_File);
+  整数 __cdecl rmtmp(void);
 #endif
 
 #ifdef __cplusplus

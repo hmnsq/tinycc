@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+整数 メインページ()
 {
-   int a = 1;
+   整数 a = 1;
 
-   if (a)
+   もし (a)
       printf("a is true\n");
-   else
+   否则
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   整数 b = 0;
+   もし (b)
       printf("b is true\n");
-   else
+   否则
       printf("b is false\n");
 
-   return 0;
+   戻る 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

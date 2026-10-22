@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main() 
+整数 メインページ() 
 {
-   int a;
+   整数 a;
    a = 42;
    printf("%d\n", a);
 
-   int b = 64;
+   整数 b = 64;
    printf("%d\n", b);
 
-   int c = 12, d = 34;
+   整数 c = 12, d = 34;
    printf("%d, %d\n", c, d);
 
-   return 0;
+   戻る 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

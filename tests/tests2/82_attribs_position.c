@@ -17,55 +17,55 @@ void __attribute__((stdcall)) foo (void)
 }
 
 #define __stdcall __attribute__((stdcall))
-extern int some_stdcall_func (int, int, int) __stdcall;
-__stdcall int __stdcall some_stdcall_func(int foo, int bar, int baz) {
+extern 整数 some_stdcall_func (整数, 整数, 整数) __stdcall;
+__stdcall 整数 __stdcall some_stdcall_func(整数 foo, 整数 bar, 整数 baz) {
 	//printf("Hello from stdcall: %i %i %i\n", foo, bar, baz);
-	return 43;
+	戻る 43;
 }
 
 /* The actual attribute isn't important, must just be
    parsable.  */
 #define ATTR __attribute__((__noinline__))
-int ATTR actual_function() {
-  return 42;
+整数 ATTR actual_function() {
+  戻る 42;
 }
 
-int label_attribute (void)
+整数 label_attribute (void)
 {
 lab1: __attribute__((__unused__));
-  return 0;
+  戻る 0;
 }
 
-extern int printf (const char *, ...);
-static int globalvar;
-int main()
+extern 整数 printf (const char *, ...);
+static 整数 globalvar;
+整数 メインページ()
 {
     void *function_pointer = &actual_function;
-    int localvar = 42, i;
+    整数 localvar = 42, i;
 
-    int a = ((ATTR int(*) (void)) function_pointer)();
+    整数 a = ((ATTR 整数(*) (void)) function_pointer)();
     printf("%i\n", a);
 
     /* In the following we once misparsed 'ATTR *' is a btype
        and hence the whole type was garbled.  */
-    int b = ( (int(ATTR *)(void))  function_pointer)();
+    整数 b = ( (整数(ATTR *)(void))  function_pointer)();
     printf("%i\n", b);
 
     /* All these should work and leave the stack pointer in its original
        position.  */
     some_stdcall_func(1, 10, 100);
-    ((int __stdcall (*)(int, int, int))some_stdcall_func) (2, 20, 200);
-    ((int(*__stdcall)(int, int, int))some_stdcall_func) (3, 30, 300);
-    for (i = 0; i < 1024; i++) {
+    ((整数 __stdcall (*)(整数, 整数, 整数))some_stdcall_func) (2, 20, 200);
+    ((整数(*__stdcall)(整数, 整数, 整数))some_stdcall_func) (3, 30, 300);
+    ために (i = 0; i < 1024; i++) {
 	globalvar = i;
 	/* This was once misparsed at <= gitrev 325241c0, forgetting
 	   the stdcall attribute on the function pointer leading to
 	   stack increment being done twice (in callee and caller).
 	   This will clobber 'i' and 'localvar' which is how we detect
 	   this.  */
-	((int(__stdcall*)(int, int, int))some_stdcall_func) (4, 40, 400);
-	if (localvar != 42 || globalvar != i)
+	((整数(__stdcall*)(整数, 整数, 整数))some_stdcall_func) (4, 40, 400);
+	もし (localvar != 42 || globalvar != i)
 	  printf("error, localvar=%d i=%d globalvar=%d\n", localvar, i, globalvar);
     }
-    return 0;
+    戻る 0;
 }

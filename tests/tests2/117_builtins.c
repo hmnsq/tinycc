@@ -4,20 +4,20 @@ struct big_struct { char a[262144]; };
 
 static const char str[] = "abcdefghijklmnopqrstuvwxyz";
 
-int
-main (void)
+整数
+メインページ (void)
 {
   char *p;
   char tmp[100];
-  int r = 0;
+  整数 r = 0;
 
-#if defined __TCC_BCHECK__
+#もし defined __TCC_BCHECK__
   printf("BOUNDS ON:\n");
-#else
+#否则
   printf("BOUNDS OFF:\n");
 #endif
 
-  if (r != 0)
+  もし (r != 0)
     __builtin_abort();
 
   r = (__builtin_offsetof(struct big_struct, a) != 0);
@@ -86,7 +86,7 @@ main (void)
   __builtin_memset(p, 0, 100);
   __builtin_free(p);
 
-#if defined(__i386__) || defined(__x86_64__)
+#もし defined(__i386__) || defined(__x86_64__)
   p = __builtin_alloca(100);
   __builtin_memset(p, 0, 100);
 #endif

@@ -5,11 +5,11 @@ void fred(void)
    printf("yo\n");
 }
 
-int main()
+整数 メインページ()
 {
    fred();
 
-   return 0;
+   戻る 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,4 +1,4 @@
-extern int printf(const char *format, ...);
+extern 整数 printf(const char *format, ...);
 static void kb_wait_1(void)
 {
     unsigned long timeout = 2;
@@ -6,12 +6,12 @@ static void kb_wait_1(void)
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                while (1)
+                ながら (1)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ながら (timeout);
 }
 static void kb_wait_2(void)
 {
@@ -20,12 +20,12 @@ static void kb_wait_2(void)
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                for (;;)
+                ために (;;)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ながら (timeout);
 }
 static void kb_wait_2_1(void)
 {
@@ -36,11 +36,11 @@ static void kb_wait_2_1(void)
             ({
                 do {
                     printf("error\n");
-		} while (1);
+		} ながら (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } ながら (timeout);
 }
 static void kb_wait_2_2(void)
 {
@@ -55,7 +55,7 @@ static void kb_wait_2_2(void)
             })
         );
         timeout--;
-    } while (timeout);
+    } ながら (timeout);
 }
 static void kb_wait_3(void)
 {
@@ -64,7 +64,7 @@ static void kb_wait_3(void)
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
+                整数 i = 1;
                 goto label;
                 i = i + 2;
             label:
@@ -72,7 +72,7 @@ static void kb_wait_3(void)
             })
         );
         timeout--;
-    } while (timeout);
+    } ながら (timeout);
 }
 static void kb_wait_4(void)
 {
@@ -96,9 +96,9 @@ static void kb_wait_4(void)
             })
         );
         timeout--;
-    } while (timeout);
+    } ながら (timeout);
 }
-int main()
+整数 メインページ()
 {
     printf("begin\n");
     kb_wait_1();
@@ -108,5 +108,5 @@ int main()
     kb_wait_3();
     kb_wait_4();
     printf("end\n");
-    return 0;
+    戻る 0;
 }

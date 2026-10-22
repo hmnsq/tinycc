@@ -1,6 +1,6 @@
-int printf(const char*, ...);
+整数 printf(const char*, ...);
 
-int main()
+整数 メインページ()
 {
     char a;
     short b;
@@ -8,10 +8,10 @@ int main()
     printf("sizeof a : %d %d\n", sizeof(char), sizeof(a));
     printf("sizeof b : %d %d\n", sizeof(short), sizeof(b));
 
-    int ii[] = {}; /* gnu extension, size = 0 */
+    整数 ii[] = {}; /* gnu extension, size = 0 */
     printf("sizeof ii : %d\n", sizeof ii);
 
-    int kk[] = { 1 };
+    整数 kk[] = { 1 };
     printf("sizeof kk : %d\n", sizeof kk);
 
     char cc[] = "12";
@@ -21,10 +21,10 @@ int main()
     printf("len-of ll : %d\n", sizeof ll / sizeof ll[0]);
 
     static struct {
-        int a,b,c;
-        int d[];
+        整数 a,b,c;
+        整数 d[];
     } ss[] = {{ 1, 2, 3, {} }};
     printf("sizeof ss : %d\n", sizeof ss);
 
-    return 0;
+    戻る 0;
 }

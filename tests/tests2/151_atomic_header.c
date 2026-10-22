@@ -1,28 +1,28 @@
 #include <stdatomic.h>
 #include <stdio.h>
 
-static int value_calls;
-static int order_calls;
+static 整数 value_calls;
+static 整数 order_calls;
 
-static int next_value(void)
+static 整数 next_value(void)
 {
     ++value_calls;
-    return 42;
+    戻る 42;
 }
 
-static int next_order(void)
+static 整数 next_order(void)
 {
     ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    戻る __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+整数 メインページ(void)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
+    整数 values[2] = {7, 8};
+    整数 index = 0;
+    整数 value = 1;
+    volatile 整数 vol = 0;
+    整数 *pointer = &value;
     void (*signal_fence)(memory_order) = &atomic_signal_fence;
 
     __atomic_store_n(&values[index++], next_value(), next_order());
@@ -41,5 +41,5 @@ int main(void)
     atomic_thread_fence(memory_order_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
     puts("ok");
-    return 0;
+    戻る 0;
 }

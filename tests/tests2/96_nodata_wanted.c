@@ -1,23 +1,23 @@
 /*****************************************************************************/
 /* test 'nodata_wanted' data output suppression */
 
-#if defined test_static_data_error
+#もし defined test_static_data_error
 void foo() {
-    if (1) {
-	static short w = (int)&foo; /* initializer not computable */
+    もし (1) {
+	static short w = (整数)&foo; /* initializer not computable */
     }
 }
 
 #elif defined test_static_nodata_error
 void foo() {
-    if (0) {
-	static short w = (int)&foo; /* initializer not computable */
+    もし (0) {
+	static short w = (整数)&foo; /* initializer not computable */
     }
 }
 
 #elif defined test_global_data_error
 void foo();
-static short w = (int)&foo; /* initializer not computable */
+static short w = (整数)&foo; /* initializer not computable */
 
 
 #elif defined test_local_data_noerror
@@ -27,9 +27,9 @@ void foo() {
 
 #elif defined test_data_suppression_off || defined test_data_suppression_on
 
-#if defined test_data_suppression_on
+#もし defined test_data_suppression_on
 # define SKIP 1
-#else
+#否则
 # define SKIP 0
 #endif
 
@@ -37,16 +37,16 @@ void foo() {
 /* some gcc headers #define __attribute__ to empty if it's not gcc */
 #undef __attribute__
 
-int main()
+整数 メインページ()
 {
     __label__ ts0, te0, ts1, te1;
-    int tl, dl;
+    整数 tl, dl;
 
     static const char ds0 = 0;
     static const char de0 = 0;
     /* get reference size of empty jmp */
 ts0:;
-    if (!SKIP) {}
+    もし (!SKIP) {}
 te0:;
     dl = -(&de0 - &ds0);
     tl = -(&&te0 - &&ts0);
@@ -54,8 +54,8 @@ te0:;
     /* test data and code suppression */
     static const char ds1 = 0;
 ts1:;
-    if (!SKIP) {
-        void *p = (void*)&main;
+    もし (!SKIP) {
+        void *p = (void*)&メインページ;
         char cc[] = "static string";
         double d = 8.0;
         struct
@@ -87,16 +87,16 @@ te1:;
 #elif defined test_static_data
 
 #include <stdio.h>
-int main(int argc, char **argv)
+整数 メインページ(整数 argc, char **argv)
 {
     goto there;
-    if (0) {
-        static int a = 1;
+    もし (0) {
+        static 整数 a = 1;
         printf("hello\n"); /* the "hello\n" string is still suppressed */
 there:
         printf("a = %d\n", a);
     }
-    return 0;
+    戻る 0;
 }
 
 #endif

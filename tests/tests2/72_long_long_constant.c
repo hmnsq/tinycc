@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-int main()
+整数 メインページ()
 {
-    long long int res = 0;
+    long long 整数 res = 0;
 
-    if (res < -2147483648LL) {
+    もし (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        戻る 1;
     }
-    else
-    if (2147483647LL < res) {
+    否则
+    もし (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        戻る 2;
     }
-    else
+    否则
         printf("long long constant test ok.\n");
-    return 0;
+    戻る 0;
 }

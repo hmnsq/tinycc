@@ -1,56 +1,56 @@
 #include <stdio.h>
 
-int f(void)
+整数 f(void)
 {
-  return 5;
+  戻る 5;
 }
 
 void test1()
 {
-  int count = 10;
+  整数 count = 10;
   void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  ために(;count--;) {
+    整数 a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  もし(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 否则 {
     printf("NOT OK\n");
   }
 }
 
 void test2()
 {
-  int count = 10;
+  整数 count = 10;
   void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  ために(;count--;) {
+    整数 a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  もし(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 否则 {
     printf("NOT OK\n");
   }
 }
 
 void test3()
 {
-  int count = 10;
+  整数 count = 10;
   void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  ながら(count--) {
+      整数 b[f()];
+      もし (count >= 0) {
+          整数 a[f()];
 
           addr[count] = a;
 
@@ -58,56 +58,56 @@ void test3()
       }
   }
 
-  if(addr[9] == addr[0]) {
+  もし(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 否则 {
     printf("NOT OK\n");
   }
 }
 
 void test4()
 {
-  int count = 10;
+  整数 count = 10;
   void *addr[count];
   do {
-    int a[f()];
+    整数 a[f()];
 
     addr[--count] = a;
 
     continue;
-  } while (count);
+  } ながら (count);
 
-  if(addr[9] == addr[0]) {
+  もし(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 否则 {
     printf("NOT OK\n");
   }
 }
 
 void test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  整数 count = 10;
+  整数 a[f()];
+  整数 c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
+  ために(;count--;) {
+    整数 b[f()];
+    整数 i;
+    ために (i=0; i<f(); i++) {
       b[i] = count;
     }
   }
 
-  if (c[0] == 42) {
+  もし (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } 否则 {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+整数 メインページ(void)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  戻る 0;
 }

@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+extern 整数 printf(const char *, ...);
 
-int main()
+整数 メインページ()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   整数 a;
+   整数 b;
+   整数 c;
+   整数 d;
+   整数 e;
+   整数 f;
+   整数 x;
+   整数 y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   戻る 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

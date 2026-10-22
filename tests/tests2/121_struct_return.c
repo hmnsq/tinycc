@@ -1,13 +1,13 @@
 #include <stdio.h>
 
 typedef struct {
-    int data[4];
+    整数 data[4];
     double d1;
     double d2;
 } Node;
 
 typedef struct {
-    int a, b, c;
+    整数 a, b, c;
 } A;
 
 Node init(Node self) {
@@ -17,7 +17,7 @@ Node init(Node self) {
     self.data[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    戻る self;
 }
 
 void dummy(Node self) {
@@ -31,15 +31,15 @@ void print_data(Node data) {
 
 A test(void)
 {
-    int i;
+    整数 i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    ために (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    戻る arr[29];
 }
 
-int main(void) {
+整数 メインページ(void) {
     /* This code resulted in a bounds checking error */
     Node data;
     A a;
@@ -49,5 +49,5 @@ int main(void) {
     print_data(data);
     a = test();
     printf("%d\n", a.b);
-    return 0;
+    戻る 0;
 }

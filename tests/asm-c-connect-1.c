@@ -1,27 +1,27 @@
 #include <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#もし (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#否则
 # define _
 #endif
 
 #ifdef __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
 #define __USED __attribute__((__used__))
-#else
+#否则
 #define __USED
 #endif
 
-static int __USED x1_c (void)
+static 整数 __USED x1_c (void)
 {
     printf(" x1");
-    return 1;
+    戻る 1;
 }
 
-#if __i386__
+#もし __i386__
 asm(".text;"_"x1: call "_"x1_c; ret");
-#else
+#否则
 /* Keep stack aligned */
 asm(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
 #endif
@@ -34,7 +34,7 @@ void x6()
     printf(" x6-1");
 }
 
-int main(int argc, char *argv[])
+整数 メインページ(整数 argc, char *argv[])
 {
     printf("*");
     asm("call "_"x1");
@@ -45,17 +45,17 @@ int main(int argc, char *argv[])
     callx5_again();
     x6();
     printf(" *\n");
-    return 0;
+    戻る 0;
 }
 
 static
-int __USED x2(void)
+整数 __USED x2(void)
 {
     printf(" x2");
-    return 2;
+    戻る 2;
 }
 
-extern int x3(void);
+extern 整数 x3(void);
 
 void x4(void)
 {

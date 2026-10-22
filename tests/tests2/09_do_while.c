@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+整数 メインページ()
 {
-   int a;
-   int p;
-   int t;
+   整数 a;
+   整数 p;
+   整数 t;
 
    a = 1;
    p = 0;
@@ -16,9 +16,9 @@ int main()
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } ながら (a < 100);
 
-   return 0;
+   戻る 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+整数 メインページ()
 {
-   int a;
+   整数 a;
    char b;
 
    a = 0;
-   while (a < 2)
+   ながら (a < 2)
    {
       printf("%d", a++);
       break;
 
       b = 'A';
-      while (b < 'C')
+      ながら (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   戻る 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

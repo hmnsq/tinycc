@@ -11,10 +11,10 @@ void bug(float x, float y) {
 }
 
 float dot(struct vec v) {
-    return 999.5;
+    戻る 999.5;
 }
 
-void main(void) {
+void メインページ(void) {
         struct vec a;
         a.x = 33.0f;
         a.y = 77.0f;

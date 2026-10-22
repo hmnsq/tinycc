@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+整数 メインページ()
 {
-   int x, y, z;
+   整数 x, y, z;
 
-   for (x = 0; x < 2; x++)
+   ために (x = 0; x < 2; x++)
    {
-      for (y = 0; y < 3; y++)
+      ために (y = 0; y < 3; y++)
       {
-         for (z = 0; z < 3; z++)
+         ために (z = 0; z < 3; z++)
          {
             printf("%d %d %d\n", x, y, z);
          }
       }
    }
 
-   return 0;
+   戻る 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

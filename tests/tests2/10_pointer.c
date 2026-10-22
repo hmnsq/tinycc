@@ -2,16 +2,16 @@
 
 struct ziggy
 {
-   int a;
-   int b;
-   int c;
+   整数 a;
+   整数 b;
+   整数 c;
 } bolshevic;
 
-int main()
+整数 メインページ()
 {
-   int a;
-   int *b;
-   int c;
+   整数 a;
+   整数 *b;
+   整数 c;
 
    a = 42;
    b = &a;
@@ -34,7 +34,7 @@ int main()
    b = &(bolshevic.b);
    printf("bolshevic.b = %d\n", *b);
 
-   return 0;
+   戻る 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

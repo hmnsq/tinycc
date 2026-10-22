@@ -31,9 +31,9 @@ Boston, MA 02111-1307, USA.
 #define W_TYPE_SIZE   32
 #define BITS_PER_UNIT 8
 
-typedef int Wtype;
-typedef unsigned int UWtype;
-typedef unsigned int USItype;
+typedef 整数 Wtype;
+typedef unsigned 整数 UWtype;
+typedef unsigned 整数 USItype;
 typedef long long DWtype;
 typedef unsigned long long UDWtype;
 
@@ -87,15 +87,15 @@ union ldouble_long {
 
 union double_long {
     double d;
-#if 1
+#もし 1
     struct {
-        unsigned int lower;
-        int upper;
+        unsigned 整数 lower;
+        整数 upper;
     } l;
-#else
+#否则
     struct {
-        int upper;
-        unsigned int lower;
+        整数 upper;
+        unsigned 整数 lower;
     } l;
 #endif
     long long ll;
@@ -103,11 +103,11 @@ union double_long {
 
 union float_long {
     float f;
-    unsigned int l;
+    unsigned 整数 l;
 };
 
 /* XXX: we don't support several builtin supports for now */
-#if defined __i386__
+#もし defined __i386__
 
 /* XXX: use gcc/tcc intrinsic ? */
 #define sub_ddmmss(sh, sl, ah, al, bh, bl) \
@@ -137,7 +137,7 @@ union float_long {
     __asm__ ("bsrl %1,%0"						\
 	     : "=r" (__cbtmp) : "rm" ((USItype) (x)));			\
     (count) = __cbtmp ^ 31;						\
-  } while (0)
+  } ながら (0)
 
 /* most of this code is taken from libgcc2.c from gcc */
 
@@ -158,10 +158,10 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
   n0 = nn.s.low;
   n1 = nn.s.high;
 
-#if !defined(UDIV_NEEDS_NORMALIZATION)
-  if (d1 == 0)
+#もし !defined(UDIV_NEEDS_NORMALIZATION)
+  もし (d1 == 0)
     {
-      if (d0 > n1)
+      もし (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
@@ -170,11 +170,11 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0.  */
 	}
-      else
+      否则
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  もし (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
 	  udiv_qrnnd (q1, n1, 0, n1, d0);
@@ -183,7 +183,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0.  */
 	}
 
-      if (rp != 0)
+      もし (rp != 0)
 	{
 	  rr.s.low = n0;
 	  rr.s.high = 0;
@@ -191,17 +191,17 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	}
     }
 
-#else /* UDIV_NEEDS_NORMALIZATION */
+#否则 /* UDIV_NEEDS_NORMALIZATION */
 
-  if (d1 == 0)
+  もし (d1 == 0)
     {
-      if (d0 > n1)
+      もし (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
 	  count_leading_zeros (bm, d0);
 
-	  if (bm != 0)
+	  もし (bm != 0)
 	    {
 	      /* Normalize, i.e. make the most significant bit of the
 		 denominator set.  */
@@ -216,16 +216,16 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0 >> bm.  */
 	}
-      else
+      否则
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  もし (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
 	  count_leading_zeros (bm, d0);
 
-	  if (bm == 0)
+	  もし (bm == 0)
 	    {
 	      /* From (n1 >= d0) /\ (the most significant bit of d0 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -237,7 +237,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      n1 -= d0;
 	      q1 = 1;
 	    }
-	  else
+	  否则
 	    {
 	      /* Normalize.  */
 
@@ -258,7 +258,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0 >> bm.  */
 	}
 
-      if (rp != 0)
+      もし (rp != 0)
 	{
 	  rr.s.low = n0 >> bm;
 	  rr.s.high = 0;
@@ -267,9 +267,9 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
     }
 #endif /* UDIV_NEEDS_NORMALIZATION */
 
-  else
+  否则
     {
-      if (d1 > n1)
+      もし (d1 > n1)
 	{
 	  /* 00 = nn / DD */
 
@@ -277,19 +277,19 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  q1 = 0;
 
 	  /* Remainder in n1n0.  */
-	  if (rp != 0)
+	  もし (rp != 0)
 	    {
 	      rr.s.low = n0;
 	      rr.s.high = n1;
 	      *rp = rr.ll;
 	    }
 	}
-      else
+      否则
 	{
 	  /* 0q = NN / dd */
 
 	  count_leading_zeros (bm, d1);
-	  if (bm == 0)
+	  もし (bm == 0)
 	    {
 	      /* From (n1 >= d1) /\ (the most significant bit of d1 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -299,24 +299,24 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	      /* The condition on the next line takes advantage of that
 		 n1 >= d1 (true due to program flow).  */
-	      if (n1 > d1 || n0 >= d0)
+	      もし (n1 > d1 || n0 >= d0)
 		{
 		  q0 = 1;
 		  sub_ddmmss (n1, n0, n1, n0, d1, d0);
 		}
-	      else
+	      否则
 		q0 = 0;
 
 	      q1 = 0;
 
-	      if (rp != 0)
+	      もし (rp != 0)
 		{
 		  rr.s.low = n0;
 		  rr.s.high = n1;
 		  *rp = rr.ll;
 		}
 	    }
-	  else
+	  否则
 	    {
 	      UWtype m1, m0;
 	      /* Normalize.  */
@@ -332,7 +332,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      udiv_qrnnd (q0, n1, n2, n1, d1);
 	      umul_ppmm (m1, m0, q0, d0);
 
-	      if (m1 > n1 || (m1 == n1 && m0 > n0))
+	      もし (m1 > n1 || (m1 == n1 && m0 > n0))
 		{
 		  q0--;
 		  sub_ddmmss (m1, m0, m1, m0, d1, d0);
@@ -341,7 +341,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      q1 = 0;
 
 	      /* Remainder in (n1n0 - m1m0) >> bm.  */
-	      if (rp != 0)
+	      もし (rp != 0)
 		{
 		  sub_ddmmss (n1, n0, n1, n0, m1, m0);
 		  rr.s.low = (n1 << b) | (n0 >> bm);
@@ -354,59 +354,59 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
   ww.s.low = q0;
   ww.s.high = q1;
-  return ww.ll;
+  戻る ww.ll;
 }
 
 #define __negdi2(a) (-(a))
 
 long long __divdi3(long long u, long long v)
 {
-    int c = 0;
+    整数 c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    もし (uu.s.high < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0) {
+    もし (vv.s.high < 0) {
         c = ~c;
         vv.ll = __negdi2 (vv.ll);
     }
     w = __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) 0);
-    if (c)
+    もし (c)
         w = __negdi2 (w);
-    return w;
+    戻る w;
 }
 
 long long __moddi3(long long u, long long v)
 {
-    int c = 0;
+    整数 c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    もし (uu.s.high < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0)
+    もし (vv.s.high < 0)
         vv.ll = __negdi2 (vv.ll);
     
     __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) &w);
-    if (c)
+    もし (c)
         w = __negdi2 (w);
-    return w;
+    戻る w;
 }
 
 unsigned long long __udivdi3(unsigned long long u, unsigned long long v)
 {
-    return __udivmoddi4 (u, v, (UDWtype *) 0);
+    戻る __udivmoddi4 (u, v, (UDWtype *) 0);
 }
 
 unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
@@ -414,63 +414,63 @@ unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
     UDWtype w;
     
     __udivmoddi4 (u, v, &w);
-    return w;
+    戻る w;
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashrdi3(long long a, int b)
+long long __ashrdi3(long long a, 整数 b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
+    もし (b >= 32) {
         u.s.low = u.s.high >> (b - 32);
         u.s.high = u.s.high >> 31;
-    } else if (b != 0) {
+    } 否则 もし (b != 0) {
         u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
         u.s.high = u.s.high >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
+    戻る u.ll;
+#否则
+    戻る a >> b;
 #endif
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-unsigned long long __lshrdi3(unsigned long long a, int b)
+unsigned long long __lshrdi3(unsigned long long a, 整数 b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
+    もし (b >= 32) {
         u.s.low = (unsigned)u.s.high >> (b - 32);
         u.s.high = 0;
-    } else if (b != 0) {
+    } 否则 もし (b != 0) {
         u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
         u.s.high = (unsigned)u.s.high >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
+    戻る u.ll;
+#否则
+    戻る a >> b;
 #endif
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashldi3(long long a, int b)
+long long __ashldi3(long long a, 整数 b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
+    もし (b >= 32) {
         u.s.high = (unsigned)u.s.low << (b - 32);
         u.s.low = 0;
-    } else if (b != 0) {
+    } 否则 もし (b != 0) {
         u.s.high = ((unsigned)u.s.high << b) | ((unsigned)u.s.low >> (32 - b));
         u.s.low = (unsigned)u.s.low << b;
     }
-    return u.ll;
-#else
-    return a << b;
+    戻る u.ll;
+#否则
+    戻る a << b;
 #endif
 }
 
@@ -483,12 +483,12 @@ float __floatundisf(unsigned long long a)
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (float)uu.ll;
-    } else {
+    もし (uu.s.high >= 0) {
+        戻る (float)uu.ll;
+    } 否则 {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (float)r;
+        戻る (float)r;
     }
 }
 
@@ -498,12 +498,12 @@ double __floatundidf(unsigned long long a)
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (double)uu.ll;
-    } else {
+    もし (uu.s.high >= 0) {
+        戻る (double)uu.ll;
+    } 否则 {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (double)r;
+        戻る (double)r;
     }
 }
 
@@ -513,111 +513,111 @@ long double __floatundixf(unsigned long long a)
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (long double)uu.ll;
-    } else {
+    もし (uu.s.high >= 0) {
+        戻る (long double)uu.ll;
+    } 否则 {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (long double)r;
+        戻る (long double)r;
     }
 }
 
 unsigned long long __fixunssfdi (float a1)
 {
     register union float_long fl1;
-    register int exp;
+    register 整数 exp;
     register unsigned long long l;
 
     fl1.f = a1;
 
-    if (fl1.l == 0)
-	return (0);
+    もし (fl1.l == 0)
+	戻る (0);
 
     exp = EXP (fl1.l) - EXCESS - 24;
     l = MANT(fl1.l);
 
-    if (exp >= 41)
-        return 1ULL << 63;
-    else if (exp >= 0)
+    もし (exp >= 41)
+        戻る 1ULL << 63;
+    否则 もし (exp >= 0)
         l <<= exp;
-    else if (exp >= -23)
+    否则 もし (exp >= -23)
         l >>= -exp;
-    else
-	return 0;
-    if (SIGN(fl1.l))
+    否则
+	戻る 0;
+    もし (SIGN(fl1.l))
         l = (unsigned long long)-l;
-    return l;
+    戻る l;
 }
 
 long long __fixsfdi (float a1)
 {
-    long long ret; int s;
+    long long ret; 整数 s;
     ret = __fixunssfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    戻る s ? ret : -ret;
 }
 
 unsigned long long __fixunsdfdi (double a1)
 {
     register union double_long dl1;
-    register int exp;
+    register 整数 exp;
     register unsigned long long l;
 
     dl1.d = a1;
 
-    if (dl1.ll == 0)
-	return (0);
+    もし (dl1.ll == 0)
+	戻る (0);
 
     exp = EXPD (dl1) - EXCESSD - 53;
     l = MANTD_LL(dl1);
 
-    if (exp >= 12)
-        return 1ULL << 63; /* overflow result (like gcc, somewhat) */
-    else if (exp >= 0)
+    もし (exp >= 12)
+        戻る 1ULL << 63; /* overflow result (like gcc, somewhat) */
+    否则 もし (exp >= 0)
         l <<= exp;
-    else if (exp >= -52)
+    否则 もし (exp >= -52)
         l >>= -exp;
-    else
-        return 0;
-    if (SIGND(dl1))
+    否则
+        戻る 0;
+    もし (SIGND(dl1))
         l = (unsigned long long)-l;
-    return l;
+    戻る l;
 }
 
 long long __fixdfdi (double a1)
 {
-    long long ret; int s;
+    long long ret; 整数 s;
     ret = __fixunsdfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    戻る s ? ret : -ret;
 }
 
 #ifndef __arm__
 unsigned long long __fixunsxfdi (long double a1)
 {
     register union ldouble_long dl1;
-    register int exp;
+    register 整数 exp;
     register unsigned long long l;
 
     dl1.ld = a1;
 
-    if (dl1.l.lower == 0 && dl1.l.upper == 0)
-	return (0);
+    もし (dl1.l.lower == 0 && dl1.l.upper == 0)
+	戻る (0);
 
     exp = EXPLD (dl1) - EXCESSLD - 64;
     l = dl1.l.lower;
-    if (exp > 0)
-	return 1ULL << 63;
-    if (exp < -63)
-        return 0;
+    もし (exp > 0)
+	戻る 1ULL << 63;
+    もし (exp < -63)
+        戻る 0;
     l >>= -exp;
-    if (SIGNLD(dl1))
+    もし (SIGNLD(dl1))
         l = (unsigned long long)-l;
-    return l;
+    戻る l;
 }
 
 long long __fixxfdi (long double a1)
 {
-    long long ret; int s;
+    long long ret; 整数 s;
     ret = __fixunsxfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    戻る s ? ret : -ret;
 }
 #endif /* !ARM */

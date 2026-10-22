@@ -1,31 +1,31 @@
 #include <stdio.h>
 
-int
-main (void)
+整数
+メインページ (void)
 {
-    int n = 0;
-    int  first=1;
-    int *p[101];
-    if (0) {
+    整数 n = 0;
+    整数  first=1;
+    整数 *p[101];
+    もし (0) {
         lab:;
     }
-    int x[n % 100 + 1];
-    if (first == 0) {
-        if (&x[0] != p[n % 100 + 1]) {
+    整数 x[n % 100 + 1];
+    もし (first == 0) {
+        もし (&x[0] != p[n % 100 + 1]) {
             printf ("ERROR: %p %p\n", &x[0], p[n % 100 + 1]);
-            return(1);
+            戻る(1);
         }
     }
-    else {
+    否则 {
         p[n % 100 + 1] = &x[0];
         first = n < 100;
     }
     x[0] = 1;
     x[n % 100] = 2;
     n++;
-    if (n < 100000)
+    もし (n < 100000)
         goto lab;
     printf ("OK\n");
-    return 0;
+    戻る 0;
 }
 

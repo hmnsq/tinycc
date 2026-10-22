@@ -5,19 +5,19 @@
 
 struct string {
 	char *str;
-	int len;
+	整数 len;
 };
 
-void dummy(struct string fpath, int dump_arg) {
+void dummy(struct string fpath, 整数 dump_arg) {
 }
 
-int main() {
-	int a = 1;
+整数 メインページ() {
+	整数 a = 1;
 	struct string x;
 	x.str = "gg.v";
 	x.len = 4;
 	dummy(x, a == 0);
 	printf("done\n");
-	return 0;
+	戻る 0;
 }
 

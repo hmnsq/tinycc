@@ -1,9 +1,9 @@
 #include <stdio.h>
 double привет=0.1;
-int Lefèvre=2;
-int main(){
+整数 Lefèvre=2;
+整数 メインページ(){
     printf("привет=%g\n",привет);
     printf("Lefèvre=%d\n",Lefèvre);
-    return 0;
+    戻る 0;
 }
 // pcc & tcc only

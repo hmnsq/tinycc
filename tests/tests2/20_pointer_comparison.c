@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int main()
+整数 メインページ()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   整数 a;
+   整数 b;
+   整数 *d;
+   整数 *e;
    d = &a;
    e = &b;
    a = 12;
@@ -18,7 +18,7 @@ int main()
    printf("%d\n", d == e);
    printf("%d\n", d != e);
 
-   return 0;
+   戻る 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

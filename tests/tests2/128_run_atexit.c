@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+整数 atexit(void (*function)(void));
+整数 on_exit(void (*function)(整数, void *), void *arg);
+void exit(整数 status);
 
 void __attribute((constructor)) startup5(void)
 {
@@ -20,12 +20,12 @@ void cleanup2(void)
     printf ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+void cleanup3(整数 ret, void *arg)
 {
     printf ("%d %s\n", ret, (char *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+void cleanup4(整数 ret, void *arg)
 {
     printf ("%d %s\n", ret, (char *) arg);
 }
@@ -43,15 +43,15 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#もし defined test_128_return
+整数 メインページ(整数 argc, char **argv)
 {
     test();
-    return 1;
+    戻る 1;
 } 
 
 #elif defined test_128_exit
-int main(int argc, char **argv)
+整数 メインページ(整数 argc, char **argv)
 {
     test();
     exit(2);

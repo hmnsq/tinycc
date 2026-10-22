@@ -13,36 +13,36 @@ extern "C" {
 #endif
 
   _CRTIMP char *_cgets(char *_Buffer);
-  _CRTIMP int __cdecl _cprintf(const char *_Format,...);
-  _CRTIMP int __cdecl _cputs(const char *_Str);
-  _CRTIMP int __cdecl _cscanf(const char *_Format,...);
-  _CRTIMP int __cdecl _cscanf_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _getch(void);
-  _CRTIMP int __cdecl _getche(void);
-  _CRTIMP int __cdecl _vcprintf(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_p(const char *_Format,...);
-  _CRTIMP int __cdecl _vcprintf_p(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_p_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_p_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _kbhit(void);
+  _CRTIMP 整数 __cdecl _cprintf(const char *_Format,...);
+  _CRTIMP 整数 __cdecl _cputs(const char *_Str);
+  _CRTIMP 整数 __cdecl _cscanf(const char *_Format,...);
+  _CRTIMP 整数 __cdecl _cscanf_l(const char *_Format,_locale_t _Locale,...);
+  _CRTIMP 整数 __cdecl _getch(void);
+  _CRTIMP 整数 __cdecl _getche(void);
+  _CRTIMP 整数 __cdecl _vcprintf(const char *_Format,va_list _ArgList);
+  _CRTIMP 整数 __cdecl _cprintf_p(const char *_Format,...);
+  _CRTIMP 整数 __cdecl _vcprintf_p(const char *_Format,va_list _ArgList);
+  _CRTIMP 整数 __cdecl _cprintf_l(const char *_Format,_locale_t _Locale,...);
+  _CRTIMP 整数 __cdecl _vcprintf_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP 整数 __cdecl _cprintf_p_l(const char *_Format,_locale_t _Locale,...);
+  _CRTIMP 整数 __cdecl _vcprintf_p_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP 整数 __cdecl _kbhit(void);
 
-#if defined(_X86_) && !defined(__x86_64)
-  int __cdecl _inp(unsigned short);
+#もし defined(_X86_) && !defined(__x86_64)
+  整数 __cdecl _inp(unsigned short);
   unsigned short __cdecl _inpw(unsigned short);
   unsigned long __cdecl _inpd(unsigned short);
-  int __cdecl _outp(unsigned short,int);
+  整数 __cdecl _outp(unsigned short,整数);
   unsigned short __cdecl _outpw(unsigned short,unsigned short);
   unsigned long __cdecl _outpd(unsigned short,unsigned long);
 #endif
 
-  _CRTIMP int __cdecl _putch(int _Ch);
-  _CRTIMP int __cdecl _ungetch(int _Ch);
-  _CRTIMP int __cdecl _getch_nolock(void);
-  _CRTIMP int __cdecl _getche_nolock(void);
-  _CRTIMP int __cdecl _putch_nolock(int _Ch);
-  _CRTIMP int __cdecl _ungetch_nolock(int _Ch);
+  _CRTIMP 整数 __cdecl _putch(整数 _Ch);
+  _CRTIMP 整数 __cdecl _ungetch(整数 _Ch);
+  _CRTIMP 整数 __cdecl _getch_nolock(void);
+  _CRTIMP 整数 __cdecl _getche_nolock(void);
+  _CRTIMP 整数 __cdecl _putch_nolock(整数 _Ch);
+  _CRTIMP 整数 __cdecl _ungetch_nolock(整数 _Ch);
 
 #ifndef _WCONIO_DEFINED
 #define _WCONIO_DEFINED
@@ -56,17 +56,17 @@ extern "C" {
   _CRTIMP wint_t __cdecl _getwche(void);
   _CRTIMP wint_t __cdecl _putwch(wchar_t _WCh);
   _CRTIMP wint_t __cdecl _ungetwch(wint_t _WCh);
-  _CRTIMP int __cdecl _cputws(const wchar_t *_String);
-  _CRTIMP int __cdecl _cwprintf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vcwprintf_p(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP 整数 __cdecl _cputws(const wchar_t *_String);
+  _CRTIMP 整数 __cdecl _cwprintf(const wchar_t *_Format,...);
+  _CRTIMP 整数 __cdecl _cwscanf(const wchar_t *_Format,...);
+  _CRTIMP 整数 __cdecl _cwscanf_l(const wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP 整数 __cdecl _vcwprintf(const wchar_t *_Format,va_list _ArgList);
+  _CRTIMP 整数 __cdecl _cwprintf_p(const wchar_t *_Format,...);
+  _CRTIMP 整数 __cdecl _vcwprintf_p(const wchar_t *_Format,va_list _ArgList);
+  _CRTIMP 整数 __cdecl _cwprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP 整数 __cdecl _vcwprintf_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP 整数 __cdecl _cwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP 整数 __cdecl _vcwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
   _CRTIMP wint_t __cdecl _putwch_nolock(wchar_t _WCh);
   _CRTIMP wint_t __cdecl _getwch_nolock(void);
   _CRTIMP wint_t __cdecl _getwche_nolock(void);
@@ -75,19 +75,19 @@ extern "C" {
 
 #ifndef	NO_OLDNAMES
   char *__cdecl cgets(char *_Buffer);
-  int __cdecl cprintf(const char *_Format,...);
-  int __cdecl cputs(const char *_Str);
-  int __cdecl cscanf(const char *_Format,...);
-  int __cdecl getch(void);
-  int __cdecl getche(void);
-  int __cdecl kbhit(void);
-  int __cdecl putch(int _Ch);
-  int __cdecl ungetch(int _Ch);
+  整数 __cdecl cprintf(const char *_Format,...);
+  整数 __cdecl cputs(const char *_Str);
+  整数 __cdecl cscanf(const char *_Format,...);
+  整数 __cdecl getch(void);
+  整数 __cdecl getche(void);
+  整数 __cdecl kbhit(void);
+  整数 __cdecl putch(整数 _Ch);
+  整数 __cdecl ungetch(整数 _Ch);
 
-#if (defined(_X86_) && !defined(__x86_64))
-  int __cdecl inp(unsigned short);
+#もし (defined(_X86_) && !defined(__x86_64))
+  整数 __cdecl inp(unsigned short);
   unsigned short __cdecl inpw(unsigned short);
-  int __cdecl outp(unsigned short,int);
+  整数 __cdecl outp(unsigned short,整数);
   unsigned short __cdecl outpw(unsigned short,unsigned short);
 #endif
 
@@ -98,7 +98,7 @@ extern "C" {
       __asm__ __volatile__ ("inb %w1,%b0"
           : "=a" (value)
           : "Nd" (Port));
-      return value;
+      戻る value;
   }
   __CRT_INLINE unsigned short __inword(unsigned short Port)
   {
@@ -106,7 +106,7 @@ extern "C" {
       __asm__ __volatile__ ("inw %w1,%w0"
           : "=a" (value)
           : "Nd" (Port));
-      return value;
+      戻る value;
   }
   __CRT_INLINE unsigned long __indword(unsigned short Port)
   {
@@ -114,7 +114,7 @@ extern "C" {
       __asm__ __volatile__ ("inl %w1,%0"
           : "=a" (value)
           : "Nd" (Port));
-      return value;
+      戻る value;
   }
   __CRT_INLINE void __outbyte(unsigned short Port,unsigned char Data)
   {
@@ -190,7 +190,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr0, %[value]" 
           : [value] "=q" (value));
-      return value;
+      戻る value;
   }
  
   /* Register sizes are different between 32/64 bit mode. So we have to do this for _WIN64 and _WIN32
@@ -212,7 +212,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
           : [value] "=q" (value));
-      return value;
+      戻る value;
   }
 
  __CRT_INLINE void __writecr2(unsigned __int64 Data)
@@ -230,7 +230,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
           : [value] "=q" (value));
-      return value;
+      戻る value;
   }
 
  __CRT_INLINE void __writecr3(unsigned __int64 Data)
@@ -248,7 +248,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
           : [value] "=q" (value));
-      return value;
+      戻る value;
   }
 
  __CRT_INLINE void __writecr4(unsigned __int64 Data)
@@ -266,7 +266,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
           : [value] "=q" (value));
-      return value;
+      戻る value;
   }
 
  __CRT_INLINE void __writecr8(unsigned __int64 Data)
@@ -295,7 +295,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
           : [value] "=q" (value));
-      return value;
+      戻る value;
   }
 
  __CRT_INLINE void __writecr2(unsigned Data)
@@ -313,7 +313,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
           : [value] "=q" (value));
-      return value;
+      戻る value;
   }
 
  __CRT_INLINE void __writecr3(unsigned Data)
@@ -331,7 +331,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
           : [value] "=q" (value));
-      return value;
+      戻る value;
   }
 
  __CRT_INLINE void __writecr4(unsigned Data)
@@ -348,7 +348,7 @@ extern "C" {
    unsigned long value;      __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
           : [value] "=q" (value));
-     return value;
+     戻る value;
  }
 
  __CRT_INLINE void __writecr8(unsigned Data)
@@ -369,7 +369,7 @@ extern "C" {
            "rdmsr"
            : "=a" (val1), "=d" (val2)
            : "c" (msr));
-      return val1 | (val2 << 32);
+      戻る val1 | (val2 << 32);
   }
 
  __CRT_INLINE void __writemsr (unsigned long msr, unsigned __int64 Value)
@@ -387,10 +387,10 @@ extern "C" {
       __asm__ __volatile__ (
           "rdtsc" 
           : "=a" (val1), "=d" (val2));
-      return val1 | (val2 << 32);
+      戻る val1 | (val2 << 32);
   }
 
-  __CRT_INLINE void __cpuid(int CPUInfo[4], int InfoType)
+  __CRT_INLINE void __cpuid(整数 CPUInfo[4], 整数 InfoType)
   {
       __asm__ __volatile__ (
           "cpuid"

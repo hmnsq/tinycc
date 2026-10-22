@@ -1,4 +1,4 @@
-extern int write (int fd, void *buf, int len);
+extern 整数 write (整数 fd, void *buf, 整数 len);
 
 static void __attribute__ ((constructor))
 testc (void)
@@ -12,9 +12,9 @@ testd (void)
   write (1, "destructor\n", 11);
 }
 
-int
-main (void)
+整数
+メインページ (void)
 {
   write (1, "main\n", 5);
-  return 0;
+  戻る 0;
 }

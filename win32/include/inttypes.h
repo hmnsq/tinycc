@@ -22,7 +22,7 @@ typedef struct {
 	intmax_t rem;
 	} imaxdiv_t;
 
-#if !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS)
+#もし !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS)
 
 /* 7.8.1 Macros for format specifiers
  * 
@@ -228,7 +228,7 @@ typedef struct {
 #define SCNoPTR "I64o"
 #define SCNxPTR "I64x"
 #define SCNuPTR "I64u"
-#else
+#否则
 #define PRIdPTR "d"
 #define PRIiPTR "i"
 #define PRIoPTR "o"
@@ -242,7 +242,7 @@ typedef struct {
 #define SCNuPTR "u"
 #endif
 
-#if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#もし defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 /*
  * no length modifier for char types prior to C9x
  * MS runtime  scanf appears to treat "hh" as "h" 
@@ -275,20 +275,20 @@ typedef struct {
 
 intmax_t __cdecl imaxabs (intmax_t j);
 __CRT_INLINE intmax_t __cdecl imaxabs (intmax_t j)
-	{return	(j >= 0 ? j : -j);}
+	{戻る	(j >= 0 ? j : -j);}
 imaxdiv_t __cdecl imaxdiv (intmax_t numer, intmax_t denom);
 
 /* 7.8.2 Conversion functions for greatest-width integer types */
 
 intmax_t __cdecl strtoimax (const char* __restrict__ nptr,
-                            char** __restrict__ endptr, int base);
+                            char** __restrict__ endptr, 整数 base);
 uintmax_t __cdecl strtoumax (const char* __restrict__ nptr,
-			     char** __restrict__ endptr, int base);
+			     char** __restrict__ endptr, 整数 base);
 
 intmax_t __cdecl wcstoimax (const wchar_t* __restrict__ nptr,
-                            wchar_t** __restrict__ endptr, int base);
+                            wchar_t** __restrict__ endptr, 整数 base);
 uintmax_t __cdecl wcstoumax (const wchar_t* __restrict__ nptr,
-			     wchar_t** __restrict__ endptr, int base);
+			     wchar_t** __restrict__ endptr, 整数 base);
 
 #ifdef	__cplusplus
 }

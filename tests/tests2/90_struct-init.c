@@ -88,8 +88,8 @@ union UV guv2 = {{.b = 7, .a = 8}};
 union UV guv3 = {.b = 8, .a = 7};
 
 struct SSU {
-    int y;
-    struct { int x; };
+    整数 y;
+    struct { 整数 x; };
 };
 struct SSU gssu1 = { .y = 5, .x = 3 };
 struct SSU gssu2 = { 5, 3 };
@@ -120,7 +120,7 @@ struct pkthdr phdr = { { { 6,5,4,3 } }, { { 9,8,7,6 } } };
 struct Wrap {
     void *func;
 };
-int global;
+整数 global;
 void inc_global (void)
 {
   global++;
@@ -135,13 +135,13 @@ struct Wrap global_wrap[] = {
 void print_ (const char *name, const u8 *p, long size)
 {
   printf ("%s:", name);
-  while (size--) {
+  ながら (size--) {
       printf (" %x", *p++);
   }
   printf ("\n");
 }
 #define print(x) print_(#x, (u8*)&x, sizeof (x))
-#if 1
+#もし 1
 void foo (struct W *w, struct pkthdr *phdr_)
 {
   struct S ls = {1, 2, 3, 4};
@@ -170,15 +170,15 @@ void foo (struct W *w, struct pkthdr *phdr_)
   struct V lv3 = {((struct S){7,8,{9,10}}), ((const struct W *)w)->t.t, 50};
   const struct pkthdr *phdr = phdr_;
   struct flowi6 flow = { .daddr = phdr->daddr, .saddr = phdr->saddr };
-  int elt = 0x42;
+  整数 elt = 0x42;
   /* Range init, overlapping */
   struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
   struct SSU lssu1 = { 5, 3 };
   struct SSU lssu2 = { .y = 5, .x = 3 };
   /* designated initializers in GNU form */
-#if defined(__GNUC__) || defined(__TINYC__)
+#もし defined(__GNUC__) || defined(__TINYC__)
   struct S ls4 = {a: 1, b: 2, c: {3, 4}};
-#else
+#否则
   struct S ls4 = {.a = 1, .b = 2, .c = {3, 4}};
 #endif
   print(ls);
@@ -228,7 +228,7 @@ typedef void (*fptr)(void);
 
 void test_multi_relocs(void)
 {
-  int i;
+  整数 i;
 
   static const fptr tabl1[4] = {
       [0 ... 3] = &sys_ni,
@@ -239,10 +239,10 @@ void test_multi_relocs(void)
       [1 ... 2] = &sys_ni,
       [1] = 0,
   };
-  for (i = 0; i < array_size(tabl1); i++)
-    if (tabl1[i])
+  ために (i = 0; i < array_size(tabl1); i++)
+    もし (tabl1[i])
       tabl1[i]();
-    else
+    否则
       printf("(0)\n");
 
   const fptr tabl2[4] = {
@@ -254,37 +254,37 @@ void test_multi_relocs(void)
       [1 ... 2] = &sys_ni,
       [1] = 0,
   };
-  for (i = 0; i < array_size(tabl2); i++)
-    if (tabl2[i])
+  ために (i = 0; i < array_size(tabl2); i++)
+    もし (tabl2[i])
       tabl2[i]();
-    else
+    否则
       printf("(0)\n");
 
-  int c = 0;
-  int dd[] = {
+  整数 c = 0;
+  整数 dd[] = {
     [0 ... 1] = ++c,
     [2 ... 3] = ++c
   };
-  for (i = 0; i < array_size(dd); i++)
+  ために (i = 0; i < array_size(dd); i++)
     printf(" %d", dd[i]);
   printf("\n");
 
   /* multi-dimensional flex array with range initializers */
   static char m1[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
   char        m2[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
-  int g, j, k;
-  for (g = 2; g-- > 0;) {
+  整数 g, j, k;
+  ために (g = 2; g-- > 0;) {
     printf("mdfa %s: %d -", "locl\0glob" + g * 5, sizeof m1);
-    for (i = 0; i < array_size(m1); i++)
-    for (j = 0; j < array_size(m1[0]); j++)
-    for (k = 0; k < array_size(m1[0][0]); k++)
+    ために (i = 0; i < array_size(m1); i++)
+    ために (j = 0; j < array_size(m1[0]); j++)
+    ために (k = 0; k < array_size(m1[0][0]); k++)
       printf(" %d", (g ? m1:m2)[i][j][k]);
     printf("\n");
   }
 }
 
 void test_init_ranges(void) {
-    int i,c=0;
+    整数 i,c=0;
     static void *gostring[] = {
         [0 ... 31] = &&l_bad, [127] = &&l_bad,
         [32 ... 126] = &&l_loop,
@@ -296,7 +296,7 @@ void test_init_ranges(void) {
         [248 ... 255] = &&l_bad
     };
 
-    for (i = 0; i < 256; i++) {
+    ために (i = 0; i < 256; i++) {
         goto *gostring[i];
         l_bad: c++;
         l_loop: c++;
@@ -312,23 +312,23 @@ void test_init_ranges(void) {
 
 /* Following is from GCC gcc.c-torture/execute/20050613-1.c.  */
 
-struct SEA { int i; int j; int k; int l; };
-struct SEB { struct SEA a; int r[1]; };
-struct SEC { struct SEA a; int r[0]; };
-struct SED { struct SEA a; int r[]; };
+struct SEA { 整数 i; 整数 j; 整数 k; 整数 l; };
+struct SEB { struct SEA a; 整数 r[1]; };
+struct SEC { struct SEA a; 整数 r[0]; };
+struct SED { struct SEA a; 整数 r[]; };
 
 static void
 test_correct_filling (struct SEA *x)
 {
-  static int i;
-  if (x->i != 0 || x->j != 5 || x->k != 0 || x->l != 0)
+  static 整数 i;
+  もし (x->i != 0 || x->j != 5 || x->k != 0 || x->l != 0)
     printf("sea_fill%d: wrong\n", i);
-  else
+  否则
     printf("sea_fill%d: okay\n", i);
   i++;
 }
 
-int
+整数
 test_zero_init (void)
 {
   /* The peculiarity here is that only a.j is initialized.  That
@@ -340,13 +340,13 @@ test_zero_init (void)
   test_correct_filling (&b.a);
   test_correct_filling (&c.a);
   test_correct_filling (&d.a);
-  return 0;
+  戻る 0;
 }
 
 void test_init_struct_from_struct(void)
 {
-    int i = 0;
-    struct S {int x,y;}
+    整数 i = 0;
+    struct S {整数 x,y;}
         a = {1,2},
         b = {3,4},
         c[] = {a,b},
@@ -372,11 +372,11 @@ void test_init_struct_from_struct(void)
 }
 
 typedef struct {
-    unsigned int a;
-    unsigned int : 32;
-    unsigned int b;
+    unsigned 整数 a;
+    unsigned 整数 : 32;
+    unsigned 整数 b;
     unsigned long long : 64;
-    unsigned int c;
+    unsigned 整数 c;
 } tst_bf;
 
 tst_bf arr[] = { { 1, 2, 3 } };
@@ -388,7 +388,7 @@ test_init_bf(void)
 }
 
 
-int main()
+整数 メインページ()
 {
   print(ce);
   print(gs);
@@ -420,5 +420,5 @@ int main()
   test_init_ranges();
   test_init_struct_from_struct();
   test_init_bf();
-  return 0;
+  戻る 0;
 }

@@ -17,35 +17,35 @@
 #define TF_TYPE(func, param) DWORD WINAPI func(void *param)
 typedef TF_TYPE(ThreadFunc, x);
 HANDLE hh[M];
-void create_thread(ThreadFunc f, int n)
+void create_thread(ThreadFunc f, 整数 n)
 {
     DWORD tid;
     hh[n] = CreateThread(NULL, 0, f, (void*)(size_t)n, 0, &tid);
 }
-void wait_threads(int n)
+void wait_threads(整数 n)
 {
     WaitForMultipleObjects(n, hh, TRUE, INFINITE);
-    while (n)
+    ながら (n)
         CloseHandle(hh[--n]);
 }
 void sleep_ms(unsigned n)
 {
     Sleep(n);
 }
-#else
+#否则
 #include <sys/time.h>
 #include <unistd.h>
 #include <pthread.h>
 #define TF_TYPE(func, param) void* func(void *param)
 typedef TF_TYPE(ThreadFunc, x);
 pthread_t hh[M];
-void create_thread(ThreadFunc f, int n)
+void create_thread(ThreadFunc f, 整数 n)
 {
     pthread_create(&hh[n], NULL, f, (void*)(size_t)n);
 }
-void wait_threads(int n)
+void wait_threads(整数 n)
 {
-    while (n)
+    ながら (n)
         pthread_join(hh[--n], NULL);
 
 }
@@ -61,9 +61,9 @@ void handle_error(void *opaque, const char *msg)
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+整数 add(整数 a, 整数 b)
 {
-    return a + b;
+    戻る a + b;
 }
 
 #define _str(s) #s
@@ -94,68 +94,68 @@ PROG(my_program)
 "#  warning is this the correct file:line...\n"
 "}\n";
 
-int g_argc; char **g_argv;
+整数 g_argc; char **g_argv;
 
 void parse_args(TCCState *s)
 {
-    int i;
+    整数 i;
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-    for (i = 1; i < g_argc; ++i) {
+    ために (i = 1; i < g_argc; ++i) {
         char *a = g_argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
+        もし (a[0] == '-') {
+            もし (a[1] == 'B')
                 tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
+            否则 もし (a[1] == 'I')
                 tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
+            否则 もし (a[1] == 'L')
                 tcc_add_library_path(s, a+2);
-            else if (a[1] == 'D')
+            否则 もし (a[1] == 'D')
                 tcc_define_symbol(s, a+2, NULL);
         }
     }
 }
 
-int backtrace_func(
+整数 backtrace_func(
     void *ud,
     void *pc,
     const char *file,
-    int line,
+    整数 line,
     const char *func,
     const char *msg)
 {
-#if 0
+#もし 0
     printf("\n  *** %p %s %s:%d in '%s'",
         pc,
         msg ? "at" : "by",
         file ? file : "?",
         line,
         func ? func : "?");
-    return 1; // want more backtrace levels
-#else
+    戻る 1; // want more backtrace levels
+#否则
     //printf(" [%d]", *(int*)ud);
     printf("!");
-    return 0; // cancel backtrace
+    戻る 0; // cancel backtrace
 #endif
 }
 
-TCCState *new_state(int w)
+TCCState *new_state(整数 w)
 {
     TCCState *s = tcc_new();
-    if (!s) {
+    もし (!s) {
         fprintf(stderr, __FILE__ ": could not create tcc state\n");
         exit(1);
     }
     tcc_set_error_func(s, stdout, handle_error);
     parse_args(s);
-    if (0 == (w & 1))
+    もし (0 == (w & 1))
         tcc_set_options(s, "-w");
-    if (w & 2) {
+    もし (w & 2) {
         tcc_set_options(s, "-bt");
         tcc_define_symbol(s, "N_CRASH", str(M/2));
-    } else
+    } 否则
         tcc_define_symbol(s, "N_CRASH", "-1000");
     tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
-    return s;
+    戻る s;
 }
 
 void *reloc_state(TCCState *s, const char *entry)
@@ -163,84 +163,84 @@ void *reloc_state(TCCState *s, const char *entry)
     void *func;
     tcc_add_symbol(s, "add", add);
     tcc_add_symbol(s, "printf", printf);
-    if (tcc_relocate(s) < 0) {
+    もし (tcc_relocate(s) < 0) {
         fprintf(stderr, __FILE__ ": could not relocate tcc state.\n");
-        return NULL;
+        戻る NULL;
     }
     func = tcc_get_symbol(s, entry);
-    if (!func)
+    もし (!func)
         fprintf(stderr, __FILE__ ": could not get entry symbol.\n");
-    return func;
+    戻る func;
 }
 
 /* work with several states at the same time */
-int state_test(int w)
+整数 state_test(整数 w)
 {
     TCCState *s[M];
-    int (*funcs[M])(int);
-    int n;
+    整数 (*funcs[M])(整数);
+    整数 n;
     jmp_buf jb;
 
-    for (n = 0; n < M + 4; ++n) {
+    ために (n = 0; n < M + 4; ++n) {
         unsigned a = n, b = n - 1, c = n - 2, d = n - 3, e = n - 4;
-        if (a < M)
+        もし (a < M)
             s[a] = new_state(w);
-        if (b < M)
-            if (tcc_compile_string(s[b], my_program) == -1)
+        もし (b < M)
+            もし (tcc_compile_string(s[b], my_program) == -1)
                 break;
-        if (c < M)
+        もし (c < M)
             funcs[c] = reloc_state(s[c], "foo");
-        if (d < M && funcs[d]) {
+        もし (d < M && funcs[d]) {
             tcc_set_backtrace_func(s[d], &d, backtrace_func);
-            if (0 == tcc_setjmp(s[d], jb, funcs[d]))
+            もし (0 == tcc_setjmp(s[d], jb, funcs[d]))
                 funcs[d](F(d));
         }
-        if (e < M)
+        もし (e < M)
             tcc_delete(s[e]);
     }
-    return 0;
+    戻る 0;
 }
 
 /* simple compilation in threads */
 TF_TYPE(thread_test_simple, vn)
 {
     TCCState *s;
-    int (*func)(int);
-    int ret;
-    int n = (size_t)vn;
+    整数 (*func)(整数);
+    整数 ret;
+    整数 n = (size_t)vn;
     jmp_buf jb;
 
     s = new_state(0); /* '2' for exceptions */
     sleep_ms(1);
     ret = tcc_compile_string(s, my_program);
     sleep_ms(1);
-    if (ret >= 0) {
+    もし (ret >= 0) {
         func = reloc_state(s, "foo");
         tcc_set_backtrace_func(s, &n, backtrace_func);
-        if (func) {
-            if (0 == tcc_setjmp(s, jb, func))
+        もし (func) {
+            もし (0 == tcc_setjmp(s, jb, func))
                 func(F(n));
         }
     }
     tcc_delete(s);
-    return 0;
+    戻る 0;
 }
 
 /* more complex compilation in threads */
 TF_TYPE(thread_test_complex, vn)
 {
     TCCState *s;
-    int ret;
-    int n = (size_t)vn;
+    整数 ret;
+    整数 n = (size_t)vn;
     char *argv[30], b[10];
-    int argc = 0, i;
+    整数 argc = 0, i;
 
     sprintf(b, "%d", F(n));
 
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
-#if 0
+    ために (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+#もし 0
     argv[argc++] = "-run";
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+    ために (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
 #endif
     argv[argc++] = "-DFIB";
     argv[argc++] = "-run";
@@ -252,23 +252,23 @@ TF_TYPE(thread_test_complex, vn)
     sleep_ms(2);
     ret = tcc_add_file(s, argv[0]);
     sleep_ms(3);
-    if (ret == 0)
+    もし (ret == 0)
         tcc_run(s, argc, argv);
     tcc_delete(s);
     fflush(stdout);
-    return 0;
+    戻る 0;
 }
 
-void time_tcc(int n, const char *src)
+void time_tcc(整数 n, const char *src)
 {
     TCCState *s;
-    int ret, i = 0;
-    while (i++ < n) {
+    整数 ret, i = 0;
+    ながら (i++ < n) {
         s = new_state(1);
         printf(" %d", i), fflush(stdout);
         ret = tcc_add_file(s, src);
         tcc_delete(s);
-        if (ret < 0)
+        もし (ret < 0)
             exit(1);
     }
 }
@@ -276,67 +276,67 @@ void time_tcc(int n, const char *src)
 static unsigned getclock_ms(void)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
+    戻る GetTickCount();
+#否则
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    戻る tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int main(int argc, char **argv)
+整数 メインページ(整数 argc, char **argv)
 {
-    int n;
+    整数 n;
     unsigned t;
 
     g_argc = argc;
     g_argv = argv;
 
-    if (argc < 2) {
+    もし (argc < 2) {
         fprintf(stderr, "usage: libtcc_test_mt tcc.c <options>\n");
-        return 1;
+        戻る 1;
     }
 
-#if 1
+#もし 1
     printf("running fib with mixed calls\n "), fflush(stdout);
     t = getclock_ms();
     state_test(0);
     printf("\n (%u ms)\n", getclock_ms() - t);
 #endif
-#if 1
+#もし 1
     printf("producing some exceptions (!)\n "), fflush(stdout);
     t = getclock_ms();
     state_test(2);
     printf("\n (%u ms)\n", getclock_ms() - t);
 #endif
-#if 1
+#もし 1
     //{ int i; for (i = 0; i < 100; ++i) { printf("(%d) ", i);
     printf("running fib in threads\n "), fflush(stdout);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    ために (n = 0; n < M; ++n)
         create_thread(thread_test_simple, n);
     wait_threads(n);
     printf("\n (%u ms)\n", getclock_ms() - t);
         //}}
 #endif
-#if 1
+#もし 1
     printf("running tcc.c in threads to run fib\n "), fflush(stdout);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    ために (n = 0; n < M; ++n)
         create_thread(thread_test_complex, n);
     wait_threads(n);
     printf("\n (%u ms)\n", getclock_ms() - t);
 #endif
-#if 1
+#もし 1
     printf("compiling tcc.c 10 times\n "), fflush(stdout);
     t = getclock_ms();
     time_tcc(10, argv[1]);
     printf("\n (%u ms)\n", getclock_ms() - t), fflush(stdout);
 #endif
-    return 0;
+    戻る 0;
 }
 
-#else
+#否则
 #include <tcclib.h>
 #ifdef _WIN32
 # ifndef _WIN64
@@ -344,20 +344,20 @@ int main(int argc, char **argv)
 # endif
     void Sleep(unsigned);
 # define sleep_ms Sleep
-#else
-    int usleep(unsigned long);
+#否则
+    整数 usleep(unsigned long);
 # define sleep_ms(x) usleep((x)*1000);
 #endif
 
-int fib(n)
+整数 fib(n)
 {
-    return (n <= 2) ? 1 : fib(n-1) + fib(n-2);
+    戻る (n <= 2) ? 1 : fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+整数 メインページ(整数 argc, char **argv)
 {
     sleep_ms(333);
     printf(" %d", fib(atoi(argv[1])));
-    return 0;
+    戻る 0;
 }
 #endif

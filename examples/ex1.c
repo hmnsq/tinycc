@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
 #include <tcclib.h>
 
-int main()
+整数 メインページ()
 {
     printf("Hello World\n");
-    return 0;
+    戻る 0;
 }

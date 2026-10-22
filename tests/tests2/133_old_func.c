@@ -1,25 +1,25 @@
-int printf(const char *s, ...);
+整数 printf(const char *s, ...);
 
 float fx(x)
 float x;
 {
-    return 2.0 * x;
+    戻る 2.0 * x;
 }
 
 void func(float a);
 
-void func3(struct p { int a; int b; } *q) {
+void func3(struct p { 整数 a; 整数 b; } *q) {
 }
 
 void func4(q)
- struct p { int a; int b; int c; } *q;
+ struct p { 整数 a; 整数 b; 整数 c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+struct p { 整数 a; 整数 b; 整数 c; 整数 d; };
 
-int
-main(void)
+整数
+メインページ(void)
 {
     float fy();
 
@@ -31,7 +31,7 @@ main(void)
 float fy(x)
 float x;
 {
-    return 3.0 * x;
+    戻る 3.0 * x;
 }
 
 void func(a)

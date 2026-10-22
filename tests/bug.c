@@ -1,35 +1,35 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-int compile_errors(void)
+整数 compile_errors(void)
 {
-#if TEST == 1
+#もし TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    static 整数 i = (&"Foobar"[1] - &"Foobar"[0]);
   }
 #endif
-#if TEST == 2
+#もし TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
+    struct{整数 c;}v;
     static long i=((char*)&(v.c)-(char*)&v);
   }
 #endif
-#if TEST == 3
+#もし TEST == 3
   {
     /* Not constant */
     static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
     void *p = &&l1 + ar[0];
     goto *p;
-   l1: return 1;
-   l2: return 2;
+   l1: 戻る 1;
+   l2: 戻る 2;
   }
 #endif
-  return 0;
+  戻る 0;
 }
 
-int
-main(void)
+整数
+メインページ(void)
 {
 }

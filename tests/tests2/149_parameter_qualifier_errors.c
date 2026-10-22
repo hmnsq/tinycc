@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+void defined_const(整数 *pointer);
 
-void defined_const(int *const pointer)
+void defined_const(整数 *const pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+整数 メインページ(void)
 {
-    return 0;
+    戻る 0;
 }

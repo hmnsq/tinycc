@@ -91,16 +91,16 @@ char    *patdoc[] = {
 #define RANGE   14
 #define ENDPAT  15
 
-int cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
+整数 cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
 
 char *pp, lbuf[LMAX], pbuf[PMAX];
 
 char *cclass();
 char *pmatch();
-void store(int);
+void store(整数);
 void error(char *);
 void badpat(char *, char *, char *);
-int match(void);
+整数 match(void);
 
 
 /*** Display a file name *******************************/
@@ -120,7 +120,7 @@ void help(char **hp)
 {
    char   **dp;
 
-   for (dp = hp; *dp; ++dp)
+   ために (dp = hp; *dp; ++dp)
       printf("%s\n", *dp);
 }
 
@@ -138,20 +138,20 @@ void compile(char *source)
 {
    char  *s;         /* Source string pointer     */
    char  *lp;        /* Last pattern pointer      */
-   int   c;          /* Current character         */
-   int            o;          /* Temp                      */
+   整数   c;          /* Current character         */
+   整数            o;          /* Temp                      */
    char           *spp;       /* Save beginning of pattern */
 
    s = source;
-   if (debug)
+   もし (debug)
       printf("Pattern = \"%s\"\n", s);
    pp = pbuf;
-   while (c = *s++) {
+   ながら (c = *s++) {
       /*
        * STAR, PLUS and MINUS are special.
        */
-      if (c == '*' || c == '+' || c == '-') {
-         if (pp == pbuf ||
+      もし (c == '*' || c == '+' || c == '-') {
+         もし (pp == pbuf ||
                (o=pp[-1]) == BOL ||
                o == EOL ||
                o == STAR ||
@@ -161,7 +161,7 @@ void compile(char *source)
          store(ENDPAT);
          store(ENDPAT);
          spp = pp;               /* Save pattern end     */
-         while (--pp > lp)       /* Move pattern down    */
+         ながら (--pp > lp)       /* Move pattern down    */
             *pp = pp[-1];        /* one byte             */
          *pp =   (c == '*') ? STAR :
             (c == '-') ? MINUS : PLUS;
@@ -191,7 +191,7 @@ void compile(char *source)
             break;
 
          case ':':
-            if (*s) {
+            もし (*s) {
                switch(tolower(c = *s++)) {
 
                   case 'a':
@@ -219,10 +219,10 @@ void compile(char *source)
                }
                break;
             }
-            else    badpat("No : type", source, s);
+            否则    badpat("No : type", source, s);
 
          case '\\':
-            if (*s)
+            もし (*s)
                c = *s++;
 
          default:
@@ -232,11 +232,11 @@ void compile(char *source)
    }
    store(ENDPAT);
    store(0);                /* Terminate string     */
-   if (debug) {
-      for (lp = pbuf; lp < pp;) {
-         if ((c = (*lp++ & 0377)) < ' ')
+   もし (debug) {
+      ために (lp = pbuf; lp < pp;) {
+         もし ((c = (*lp++ & 0377)) < ' ')
             printf("\\%o ", c);
-         else    printf("%c ", c);
+         否则    printf("%c ", c);
       }
       printf("\n");
    }
@@ -249,25 +249,25 @@ char *cclass(char *source, char *src)
 {
    char   *s;        /* Source pointer    */
    char   *cp;       /* Pattern start     */
-   int    c;         /* Current character */
-   int             o;         /* Temp              */
+   整数    c;         /* Current character */
+   整数             o;         /* Temp              */
 
    s = src;
    o = CLASS;
-   if (*s == '^') {
+   もし (*s == '^') {
       ++s;
       o = NCLASS;
    }
    store(o);
    cp = pp;
    store(0);                          /* Byte count      */
-   while ((c = *s++) && c!=']') {
-      if (c == '\\') {                /* Store quoted char    */
-         if ((c = *s++) == '\0')      /* Gotta get something  */
+   ながら ((c = *s++) && c!=']') {
+      もし (c == '\\') {                /* Store quoted char    */
+         もし ((c = *s++) == '\0')      /* Gotta get something  */
             badpat("Class terminates badly", source, s);
-         else    store(tolower(c));
+         否则    store(tolower(c));
       }
-      else if (c == '-' &&
+      否则 もし (c == '-' &&
             (pp - cp) > 1 && *s != ']' && *s != '\0') {
          c = pp[-1];             /* Range start     */
          pp[-1] = RANGE;         /* Range signal    */
@@ -275,24 +275,24 @@ char *cclass(char *source, char *src)
          c = *s++;               /* Get end char and*/
          store(tolower(c));      /* Store it        */
       }
-      else {
+      否则 {
          store(tolower(c));      /* Store normal char */
       }
    }
-   if (c != ']')
+   もし (c != ']')
       badpat("Unterminated class", source, s);
-   if ((c = (pp - cp)) >= 256)
+   もし ((c = (pp - cp)) >= 256)
       badpat("Class too large", source, s);
-   if (c == 0)
+   もし (c == 0)
       badpat("Empty class", source, s);
    *cp = c;
-   return(s);
+   戻る(s);
 }
 
 /*** Store an entry in the pattern buffer **************/
-void store(int op)
+void store(整数 op)
 {
-   if (pp >= &pbuf[PMAX])
+   もし (pp >= &pbuf[PMAX])
       error("Pattern too complex\n");
    *pp++ = op;
 }
@@ -314,43 +314,43 @@ void grep(FILE *fp, char *fn)
    /* FILE       *fp;       // File to process            */
    /* char       *fn;       // File name (for -f option)  */
 {
-   int lno, count, m;
+   整数 lno, count, m;
 
    lno = 0;
    count = 0;
-   while (fgets(lbuf, LMAX, fp)) {
+   ながら (fgets(lbuf, LMAX, fp)) {
       ++lno;
       m = match();
-      if ((m && !vflag) || (!m && vflag)) {
+      もし ((m && !vflag) || (!m && vflag)) {
          ++count;
-         if (!cflag) {
-            if (fflag && fn) {
+         もし (!cflag) {
+            もし (fflag && fn) {
                file(fn);
                fn = 0;
             }
-            if (nflag)
+            もし (nflag)
                printf("%d\t", lno);
             printf("%s\n", lbuf);
          }
       }
    }
-   if (cflag) {
-      if (fflag && fn)
+   もし (cflag) {
+      もし (fflag && fn)
          file(fn);
       printf("%d\n", count);
    }
 }
 
 /*** Match line (lbuf) with pattern (pbuf) return 1 if match ***/
-int match()
+整数 match()
 {
    char   *l;        /* Line pointer       */
 
-   for (l = lbuf; *l; ++l) {
-      if (pmatch(l, pbuf))
-         return(1);
+   ために (l = lbuf; *l; ++l) {
+      もし (pmatch(l, pbuf))
+         戻る(1);
    }
-   return(0);
+   戻る(0);
 }
 
 /*** Match partial line with pattern *******************/
@@ -362,63 +362,63 @@ char *pmatch(char *line, char *pattern)
    char   *p;        /* Current pattern pointer      */
    char   c;         /* Current character            */
    char            *e;        /* End for STAR and PLUS match  */
-   int             op;        /* Pattern operation            */
-   int             n;         /* Class counter                */
+   整数             op;        /* Pattern operation            */
+   整数             n;         /* Class counter                */
    char            *are;      /* Start of STAR match          */
 
    l = line;
-   if (debug > 1)
+   もし (debug > 1)
       printf("pmatch(\"%s\")\n", line);
    p = pattern;
-   while ((op = *p++) != ENDPAT) {
-      if (debug > 1)
+   ながら ((op = *p++) != ENDPAT) {
+      もし (debug > 1)
          printf("byte[%ld] = 0%o, '%c', op = 0%o\n",
                l-line, *l, *l, op);
       switch(op) {
 
          case CHAR:
-            if (tolower(*l++) != *p++)
-               return(0);
+            もし (tolower(*l++) != *p++)
+               戻る(0);
             break;
 
          case BOL:
-            if (l != lbuf)
-               return(0);
+            もし (l != lbuf)
+               戻る(0);
             break;
 
          case EOL:
-            if (*l != '\0')
-               return(0);
+            もし (*l != '\0')
+               戻る(0);
             break;
 
          case ANY:
-            if (*l++ == '\0')
-               return(0);
+            もし (*l++ == '\0')
+               戻る(0);
             break;
 
          case DIGIT:
-            if ((c = *l++) < '0' || (c > '9'))
-               return(0);
+            もし ((c = *l++) < '0' || (c > '9'))
+               戻る(0);
             break;
 
          case ALPHA:
             c = tolower(*l++);
-            if (c < 'a' || c > 'z')
-               return(0);
+            もし (c < 'a' || c > 'z')
+               戻る(0);
             break;
 
          case NALPHA:
             c = tolower(*l++);
-            if (c >= 'a' && c <= 'z')
+            もし (c >= 'a' && c <= 'z')
                break;
-            else if (c < '0' || c > '9')
-               return(0);
+            否则 もし (c < '0' || c > '9')
+               戻る(0);
             break;
 
          case PUNCT:
             c = *l++;
-            if (c == 0 || c > ' ')
-               return(0);
+            もし (c == 0 || c > ' ')
+               戻る(0);
             break;
 
          case CLASS:
@@ -426,51 +426,51 @@ char *pmatch(char *line, char *pattern)
             c = tolower(*l++);
             n = *p++ & 0377;
             do {
-               if (*p == RANGE) {
+               もし (*p == RANGE) {
                   p += 3;
                   n -= 2;
-                  if (c >= p[-2] && c <= p[-1])
+                  もし (c >= p[-2] && c <= p[-1])
                      break;
                }
-               else if (c == *p++)
+               否则 もし (c == *p++)
                   break;
-            } while (--n > 1);
-            if ((op == CLASS) == (n <= 1))
-               return(0);
-            if (op == CLASS)
+            } ながら (--n > 1);
+            もし ((op == CLASS) == (n <= 1))
+               戻る(0);
+            もし (op == CLASS)
                p += n - 2;
             break;
 
          case MINUS:
             e = pmatch(l, p);       /* Look for a match    */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            if (e)                  /* Got a match?        */
+            ながら (*p++ != ENDPAT); /* Skip over pattern   */
+            もし (e)                  /* Got a match?        */
                l = e;               /* Yes, update string  */
             break;                  /* Always succeeds     */
 
          case PLUS:                 /* One or more ...     */
-            if ((l = pmatch(l, p)) == 0)
-               return(0);           /* Gotta have a match  */
+            もし ((l = pmatch(l, p)) == 0)
+               戻る(0);           /* Gotta have a match  */
          case STAR:                 /* Zero or more ...    */
             are = l;                /* Remember line start */
-            while (*l && (e = pmatch(l, p)))
+            ながら (*l && (e = pmatch(l, p)))
                l = e;               /* Get longest match   */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            while (l > are) {       /* Try to match rest   */
-               if (e = pmatch(l, p))
-                  return(e);
+            ながら (*p++ != ENDPAT); /* Skip over pattern   */
+            ながら (l > are) {       /* Try to match rest   */
+               もし (e = pmatch(l, p))
+                  戻る(e);
                --l;                 /* Nope, try earlier   */
             }
-            if (e = pmatch(l, p))
-               return(e);
-            return(0);              /* Nothing else worked */
+            もし (e = pmatch(l, p))
+               戻る(e);
+            戻る(0);              /* Nothing else worked */
 
          default:
             printf("Bad op code %d\n", op);
             error("Cannot happen -- match\n");
       }
    }
-   return(l);
+   戻る(l);
 }
 
 /*** Report an error ***********************************/
@@ -481,28 +481,28 @@ void error(char *s)
 }
 
 /*** Main program - parse arguments & grep *************/
-int main(int argc, char **argv)
+整数 メインページ(整数 argc, char **argv)
 {
    char   *p;
-   int    c, i;
-   int             gotpattern;
+   整数    c, i;
+   整数             gotpattern;
 
    FILE            *f;
 
-   if (argc <= 1)
+   もし (argc <= 1)
       usage("No arguments");
-   if (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
+   もし (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
       help(documentation);
       help(patdoc);
-      return 0;
+      戻る 0;
    }
    nfile = argc-1;
    gotpattern = 0;
-   for (i=1; i < argc; ++i) {
+   ために (i=1; i < argc; ++i) {
       p = argv[i];
-      if (*p == '-') {
+      もし (*p == '-') {
          ++p;
-         while (c = *p++) {
+         ながら (c = *p++) {
             switch(tolower(c)) {
 
                case '?':
@@ -540,31 +540,31 @@ int main(int argc, char **argv)
          }
          argv[i] = 0;
          --nfile;
-      } else if (!gotpattern) {
+      } 否则 もし (!gotpattern) {
          compile(p);
          argv[i] = 0;
          ++gotpattern;
          --nfile;
       }
    }
-   if (!gotpattern)
+   もし (!gotpattern)
       usage("No pattern");
-   if (nfile == 0)
+   もし (nfile == 0)
       grep(stdin, 0);
-   else {
+   否则 {
       fflag = fflag ^ (nfile > 0);
-      for (i=1; i < argc; ++i) {
-         if (p = argv[i]) {
-            if ((f=fopen(p, "r")) == NULL)
+      ために (i=1; i < argc; ++i) {
+         もし (p = argv[i]) {
+            もし ((f=fopen(p, "r")) == NULL)
                cant(p);
-            else {
+            否则 {
                grep(f, p);
                fclose(f);
             }
          }
       }
    }
-   return 0;
+   戻る 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
