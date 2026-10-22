@@ -1,2 +1,2 @@
 #define MS_BITFIELDS 1
-#include "95_bitfields.c"
+#अन्तर्भाव "95_bitfields.c"

@@ -1,21 +1,21 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
 // arm64-gen.c: gfunc_call() Second pass when struct args may overwrite previous func call result
-struct vec {
-        float x;
-        float y;
+संरचना vec {
+        भिन्न x;
+        भिन्न y;
 };
 
-void bug(float x, float y) {
+शून्य bug(भिन्न x, भिन्न y) {
     printf("x=%f\ny=%f\n", x, y);
 }
 
-float dot(struct vec v) {
-    return 999.5;
+भिन्न dot(संरचना vec v) {
+    प्रत्यागम 999.5;
 }
 
-void main(void) {
-        struct vec a;
+शून्य main(शून्य) {
+        संरचना vec a;
         a.x = 33.0f;
         a.y = 77.0f;
         bug(dot(a), dot(a));

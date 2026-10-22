@@ -1,38 +1,38 @@
-#include <stdatomic.h>
-#include <stdio.h>
+#अन्तर्भाव <stdatomic.h>
+#अन्तर्भाव <stdio.h>
 
-static int value_calls;
-static int order_calls;
+स्थिर पूर्णाङ्क मूल्य_calls;
+स्थिर पूर्णाङ्क order_calls;
 
-static int next_value(void)
+स्थिर पूर्णाङ्क next_मूल्य(शून्य)
 {
-    ++value_calls;
-    return 42;
+    ++मूल्य_calls;
+    प्रत्यागम 42;
 }
 
-static int next_order(void)
+स्थिर पूर्णाङ्क next_order(शून्य)
 {
     ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    प्रत्यागम __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+पूर्णाङ्क main(शून्य)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
-    void (*signal_fence)(memory_order) = &atomic_signal_fence;
+    पूर्णाङ्क मूल्ये[2] = {7, 8};
+    पूर्णाङ्क index = 0;
+    पूर्णाङ्क मूल्य = 1;
+    चञ्चल पूर्णाङ्क vol = 0;
+    पूर्णाङ्क *pointer = &मूल्य;
+    शून्य (*signal_fence)(memory_order) = &atomic_signal_fence;
 
-    __atomic_store_n(&values[index++], next_value(), next_order());
-    printf("%d %d %d %d %d\n", index, value_calls, order_calls,
-           values[0], values[1]);
-    __atomic_store_n(&value, value + 1, __ATOMIC_RELAXED);
-    printf("%d\n", value);
+    __atomic_store_n(&मूल्ये[index++], next_मूल्य(), next_order());
+    printf("%d %d %d %d %d\n", index, मूल्य_calls, order_calls,
+           मूल्ये[0], मूल्ये[1]);
+    __atomic_store_n(&मूल्य, मूल्य + 1, __ATOMIC_RELAXED);
+    printf("%d\n", मूल्य);
     __atomic_store_n(&vol, 13, __ATOMIC_RELEASE);
     printf("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
-    __atomic_store_n(&pointer, &values[0], __ATOMIC_RELEASE);
+    __atomic_store_n(&pointer, &मूल्ये[0], __ATOMIC_RELEASE);
     printf("%d\n", *__atomic_load_n(&pointer, __ATOMIC_ACQUIRE));
 
     atomic_signal_fence(memory_order_acquire);
@@ -41,5 +41,5 @@ int main(void)
     atomic_thread_fence(memory_order_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
     puts("ok");
-    return 0;
+    प्रत्यागम 0;
 }

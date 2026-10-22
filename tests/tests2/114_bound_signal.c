@@ -1,137 +1,137 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <semaphore.h>
-#include <signal.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <setjmp.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <pthread.h>
+#अन्तर्भाव <semaphore.h>
+#अन्तर्भाव <signal.h>
+#अन्तर्भाव <string.h>
+#अन्तर्भाव <sys/types.h>
+#अन्तर्भाव <sys/wait.h>
+#अन्तर्भाव <sys/time.h>
+#अन्तर्भाव <unistd.h>
+#अन्तर्भाव <stdlib.h>
+#अन्तर्भाव <errno.h>
+#अन्तर्भाव <setjmp.h>
 
-static volatile int run = 1;
-static sem_t sem;
-static sem_t sem_child;
+स्थिर चञ्चल पूर्णाङ्क run = 1;
+स्थिर sem_t sem;
+स्थिर sem_t sem_child;
 
-static void
-add (int n)
+स्थिर शून्य
+add (पूर्णाङ्क n)
 {
-    int i;
-    int arr[n];
+    पूर्णाङ्क i;
+    पूर्णाङ्क arr[n];
 
-    for (i = 0; i < n; i++) {
+    प्रति (i = 0; i < n; i++) {
         arr[i]++;
     }
-    memset (&arr[0], 0, n * sizeof(int));
+    memset (&arr[0], 0, n * परिमाण(पूर्णाङ्क));
 }
 
-static void *
-high_load (void *unused)
+स्थिर शून्य *
+वरचा_load (शून्य *unused)
 {
-    while (run) {
+    यावत् (run) {
         add(10);
         add(20);
     }
-    return NULL;
+    प्रत्यागम रिक्त;
 }
 
-static void *
-do_signal (void *unused)
+स्थिर शून्य *
+do_signal (शून्य *unused)
 {
-    while (run) {
+    यावत् (run) {
         kill (getpid(), SIGUSR1);
-        while (sem_wait(&sem) < 0 && errno == EINTR);
+        यावत् (sem_wait(&sem) < 0 && errno == EINTR);
     }
-    return NULL;
+    प्रत्यागम रिक्त;
 }
 
-static void *
-do_fork (void *unused)
+स्थिर शून्य *
+do_fork (शून्य *unused)
 {
     pid_t pid;
 
-    while (run) {
-        switch ((pid = fork())) {
-        case 0:
+    यावत् (run) {
+        विकल्प ((pid = fork())) {
+        पक्ष 0:
             add(1000);
             add(2000);
             exit(0);
-            break;
-        case -1:
-            return NULL;
-        default:
-            while (sem_wait(&sem_child) < 0 && errno == EINTR);
-            wait(NULL);
-            break;
+            भङ्ग;
+        पक्ष -1:
+            प्रत्यागम रिक्त;
+        स्वभाव:
+            यावत् (sem_wait(&sem_child) < 0 && errno == EINTR);
+            wait(रिक्त);
+            भङ्ग;
         }
     }
-    return NULL;
+    प्रत्यागम रिक्त;
 }
 
-static void signal_handler(int sig)
+स्थिर शून्य signal_handler(पूर्णाङ्क sig)
 {
     add(10);
     add(20);
     sem_post (&sem);
 }
 
-static void child_handler(int sig)
+स्थिर शून्य child_handler(पूर्णाङ्क sig)
 {
     add(10);
     add(20);
     sem_post (&sem_child);
 }
 
-static unsigned getclock_ms(void)
+स्थिर unsigned getclock_ms(शून्य)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    प्रत्यागम Get_Tick_मोजणी();
+#अन्यथा
+    संरचना timeval tv;
+    gettimeofday(&tv, रिक्त);
+    प्रत्यागम tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int
-main (void)
+पूर्णाङ्क
+main (शून्य)
 {
-    int i;
+    पूर्णाङ्क i;
     pthread_t id1, id2, id3;
-    struct sigaction act;
+    संरचना sigaction act;
     sigjmp_buf sj;
     sigset_t m;
     time_t end;
 
-    memset (&act, 0, sizeof (act));
+    memset (&act, 0, परिमाण (act));
     act.sa_handler = signal_handler;
     act.sa_flags = 0;
     sigemptyset (&act.sa_mask);
-    sigaction (SIGUSR1, &act, NULL);
+    sigaction (SIGUSR1, &act, रिक्त);
     act.sa_handler = child_handler;
-    sigaction (SIGCHLD, &act, NULL);
+    sigaction (SIGCHLD, &act, रिक्त);
 
     printf ("start\n"); fflush(stdout);
 
     sem_init (&sem, 0, 0);
     sem_init (&sem_child, 0, 0);
-    pthread_create(&id1, NULL, high_load, NULL);
-    pthread_create(&id2, NULL, do_signal, NULL);
-#if !defined(__APPLE__)
-    pthread_create(&id3, NULL, do_fork, NULL);
+    pthread_create(&id1, रिक्त, वरचा_load, रिक्त);
+    pthread_create(&id2, रिक्त, do_signal, रिक्त);
+#यदि !defined(__APPLE__)
+    pthread_create(&id3, रिक्त, do_fork, रिक्त);
 #endif
 
     /* sleep does not work !!! */
     end = getclock_ms() + 200;
-    while (getclock_ms() < end) ;
+    यावत् (getclock_ms() < end) ;
     run = 0;
 
-    pthread_join(id1, NULL);
-    pthread_join(id2, NULL);
-#if !defined(__APPLE__)
-    pthread_join(id3, NULL);
+    pthread_join(id1, रिक्त);
+    pthread_join(id2, रिक्त);
+#यदि !defined(__APPLE__)
+    pthread_join(id3, रिक्त);
 #endif
     sem_destroy (&sem);
     sem_destroy (&sem_child);
@@ -139,17 +139,17 @@ main (void)
     printf ("end\n"); fflush(stdout);
 
     sigemptyset (&m);
-    sigprocmask (SIG_SETMASK, &m, NULL);
-    if (sigsetjmp (sj, 0) == 0)
+    sigprocmask (SIG_SETMASK, &m, रिक्त);
+    यदि (sigsetjmp (sj, 0) == 0)
     {
         sigaddset (&m, SIGUSR1);
-        sigprocmask (SIG_SETMASK, &m, NULL);
+        sigprocmask (SIG_SETMASK, &m, रिक्त);
         siglongjmp (sj, 1);
         printf ("failed");
-        return 1;
+        प्रत्यागम 1;
     }
-    sigprocmask (SIG_SETMASK, NULL, &m);
-    if (!sigismember (&m, SIGUSR1))
+    sigprocmask (SIG_SETMASK, रिक्त, &m);
+    यदि (!sigismember (&m, SIGUSR1))
         printf ("failed");
-    return 0;
+    प्रत्यागम 0;
 }

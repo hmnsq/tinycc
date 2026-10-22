@@ -1,52 +1,52 @@
 /* Check some way in where code suppression caused various
    miscompilations.  */
-extern int printf (const char *, ...);
-typedef __SIZE_TYPE__ size_t;
+बाह्य पूर्णाङ्क printf (ध्रुव वर्ण *, ...);
+प्रकारनिर्देश __SIZE_TYPE__ size_t;
 
 size_t _brk_start, _brk_end;
-void * extend_brk(size_t size, size_t align)
+शून्य * extend_brk(size_t size, size_t align)
 {
     size_t mask = align - 1;
-    void *ret = 0;
+    शून्य *ret = 0;
 
-     do {
-	 if (__builtin_expect(!!(_brk_start == 0), 0))
-	   do {
+     कुरु {
+	 यदि (__builtin_expect(!!(_brk_start == 0), 0))
+	   कुरु {
 	       printf("wrong1\n");
-	   } while (0);
-     } while (0);
+	   } यावत् (0);
+     } यावत् (0);
      _brk_end = (_brk_end + mask) & ~mask;
-     ret = (void *)_brk_end;
+     ret = (शून्य *)_brk_end;
      _brk_end += size;
 
-     return ret;
+     प्रत्यागम ret;
 }
 
-static void get_args (int a, int b)
+स्थिर शून्य get_args (पूर्णाङ्क a, पूर्णाङ्क b)
 {
-  if (a != 1)
+  यदि (a != 1)
     printf("wrong2\n");
-  else
+  अन्यथा
     printf("okay\n");
 }
 
-void bla(void)
+शून्य bla(शून्य)
 {
-  int __ret = 42;
+  पूर्णाङ्क __ret = 42;
   ({
-    if (__builtin_expect(!!(0), 0)) {
-      if (__builtin_expect(!!__ret, 0))
+    यदि (__builtin_expect(!!(0), 0)) {
+      यदि (__builtin_expect(!!__ret, 0))
         printf("wrong3\n");
-      int x = !!(__ret);
+      पूर्णाङ्क x = !!(__ret);
     }
     __ret;
   });
-  get_args(!!__ret, sizeof(__ret));
+  get_args(!!__ret, परिमाण(__ret));
 }
 
-int ext;
+पूर्णाङ्क ext;
 
-void broken_jumpopt (int xxx)
+शून्य broken_jumpopt (पूर्णाङ्क xxx)
 {
   /* This was broken in 8227db3a2 by code suppression during suppressed
      code :) */
@@ -59,22 +59,22 @@ _Bool chk(unsigned long addr, unsigned long limit, unsigned long size)
   _Bool ret;
   /* This just needs to compile, no runtime test.  (And it doesn't compile
      only with certain internal checking added that's not committed).  */
-  if (0)
+  यदि (0)
     ret = 0 != (!!(addr > limit - size));
-  return 0;
+  प्रत्यागम 0;
 }
 
-int main()
+पूर्णाङ्क main()
 {
-  void *r;
+  शून्य *r;
   _brk_start = 1024;
   _brk_end = 1024;
   r = extend_brk (4096, 16);
-  if (!r)
+  यदि (!r)
     printf("wrong4\n");
-  else
+  अन्यथा
     printf("okay\n");
   bla();
   broken_jumpopt(42);
-  return 0;
+  प्रत्यागम 0;
 }
