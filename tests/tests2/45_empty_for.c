@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح main()
 {
-   int Count = 0;
+   صحيح سانى_3 = 0;
 
-   for (;;)
+   لكل (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      سانى_3++;
+      printf("%d\n", سانى_3);
+      إذا (سانى_3 >= 10)
+         اكسر;
    }
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
+تعداد دەرەخ_code {
   SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+  LAST_AND_UNUSED_دەرەخ_CODE
 };
-typedef union tree_node *tree;
-struct tree_common
+تعريفنوع اتحاد دەرەخ_تۈگۈنى *دەرەخ_2;
+بنية دەرەخ_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
+  اتحاد دەرەخ_تۈگۈنى *chain;
+  اتحاد دەرەخ_تۈگۈنى *type;
+  تعداد دەرەخ_code code : 8;
   unsigned side_effects_flag : 1;
 };
-union tree_node
+اتحاد دەرەخ_تۈگۈنى
 {
-  struct tree_common common;
+  بنية دەرەخ_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+تعداد c_دەرەخ_code {
+  C_DUMMY_دەرەخ_CODE = LAST_AND_UNUSED_دەرەخ_CODE,
+  STMT_ئىپادە,
+  LAST_C_دەرەخ_CODE
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+تعداد cplus_دەرەخ_code {
+  CP_DUMMY_دەرەخ_CODE = LAST_C_دەرەخ_CODE,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  LAST_CPLUS_دەرەخ_CODE
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+خارجي صحيح printf(ثابت حرف *, ...);
+صحيح blah(){أرجع 0;}
 
-int convert_like_real (tree convs)
+صحيح convert_like_real (دەرەخ_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  بدل (((تعداد دەرەخ_code) (convs)->common.code))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    حالة AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      أرجع blah();
+    افتراضي:
+      اكسر;
     };
    printf("unsigned enum bit-fields broken\n");
-   return 0;
+   أرجع 0;
 }
 
-int main()
+صحيح main()
 {
-  union tree_node convs;
+  اتحاد دەرەخ_تۈگۈنى convs;
 
   convs.common.code = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  أرجع 0;
 }

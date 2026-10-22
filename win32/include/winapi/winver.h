@@ -7,7 +7,7 @@
 #define VER_H
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
 #define VS_FILE_INFO RT_VERSION
@@ -107,7 +107,7 @@ extern "C" {
 
 #ifndef RC_INVOKED
 
-  typedef struct tagVS_FIXEDFILEINFO
+  تعريفنوع بنية tagVS_FIXEDFILEINFO
   {
     DWORD dwSignature;
     DWORD dwStrucVersion;
@@ -130,14 +130,14 @@ extern "C" {
 #define GetFileVersionInfoSize GetFileVersionInfoSizeW
 #define GetFileVersionInfo GetFileVersionInfoW
 #define VerLanguageName VerLanguageNameW
-#define VerQueryValue VerQueryValueW
-#else
+#define Ver_Query_قىممەت Ver_Query_قىممەت_W
+#وإلا
 #define VerFindFile VerFindFileA
 #define VerInstallFile VerInstallFileA
 #define GetFileVersionInfoSize GetFileVersionInfoSizeA
 #define GetFileVersionInfo GetFileVersionInfoA
 #define VerLanguageName VerLanguageNameA
-#define VerQueryValue VerQueryValueA
+#define Ver_Query_قىممەت Ver_Query_قىممەت_A
 #endif
 
   DWORD WINAPI VerFindFileA(DWORD uFlags,LPSTR szFileName,LPSTR szWinDir,LPSTR szAppDir,LPSTR szCurDir,PUINT lpuCurDirLen,LPSTR szDestDir,PUINT lpuDestDirLen);
@@ -150,8 +150,8 @@ extern "C" {
   WINBOOL WINAPI GetFileVersionInfoW(LPCWSTR lptstrFilename,DWORD dwHandle,DWORD dwLen,LPVOID lpData);
   DWORD WINAPI VerLanguageNameA(DWORD wLang,LPSTR szLang,DWORD nSize);
   DWORD WINAPI VerLanguageNameW(DWORD wLang,LPWSTR szLang,DWORD nSize);
-  WINBOOL WINAPI VerQueryValueA(const LPVOID pBlock,LPSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
-  WINBOOL WINAPI VerQueryValueW(const LPVOID pBlock,LPWSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
+  WINBOOL WINAPI Ver_Query_قىممەت_A(ثابت LPVOID pBlock,LPSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
+  WINBOOL WINAPI Ver_Query_قىممەت_W(ثابت LPVOID pBlock,LPWSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
 #endif
 
 #ifdef __cplusplus
