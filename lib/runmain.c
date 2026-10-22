@@ -3,65 +3,65 @@
 
 #ifdef __leading_underscore
 # define _(s) s
-#else
+#अन्यथा
 # define _(s) _##s
 #endif
 
 #ifndef _WIN32
-extern void (*_(_init_array_start)[]) (int argc, char **argv, char **envp);
-extern void (*_(_init_array_end)[]) (int argc, char **argv, char **envp);
-static void run_ctors(int argc, char **argv, char **env)
+बाह्य शून्य (*_(_init_array_start)[]) (पूर्णाङ्क argc, वर्ण **argv, वर्ण **envp);
+बाह्य शून्य (*_(_init_array_end)[]) (पूर्णाङ्क argc, वर्ण **argv, वर्ण **envp);
+स्थिर शून्य run_ctors(पूर्णाङ्क argc, वर्ण **argv, वर्ण **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
+    पूर्णाङ्क i = 0;
+    यावत् (&_(_init_array_start)[i] != _(_init_array_end))
         (*_(_init_array_start)[i++])(argc, argv, env);
 }
 #endif
 
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
-static void run_dtors(void)
+बाह्य शून्य (*_(_fini_array_start)[]) (शून्य);
+बाह्य शून्य (*_(_fini_array_end)[]) (शून्य);
+स्थिर शून्य run_dtors(शून्य)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
+    पूर्णाङ्क i = 0;
+    यावत् (&_(_fini_array_end)[i] != _(_fini_array_start))
         (*_(_fini_array_end)[--i])();
 }
 
-static void *rt_exitfunc[32];
-static void *rt_exitarg[32];
-static int __rt_nr_exit;
+स्थिर शून्य *rt_exitfunc[32];
+स्थिर शून्य *rt_exitarg[32];
+स्थिर पूर्णाङ्क __rt_nr_exit;
 
-void __run_on_exit(int ret)
+शून्य __run_on_exit(पूर्णाङ्क ret)
 {
-    int n = __rt_nr_exit;
-    while (n)
-	--n, ((void(*)(int,void*))rt_exitfunc[n])(ret, rt_exitarg[n]);
+    पूर्णाङ्क n = __rt_nr_exit;
+    यावत् (n)
+	--n, ((शून्य(*)(पूर्णाङ्क,शून्य*))rt_exitfunc[n])(ret, rt_exitarg[n]);
 }
 
-int on_exit(void *function, void *arg)
+पूर्णाङ्क on_exit(शून्य *function, शून्य *arg)
 {
-    int n = __rt_nr_exit;
-    if (n < 32) {
+    पूर्णाङ्क n = __rt_nr_exit;
+    यदि (n < 32) {
 	rt_exitfunc[n] = function;
 	rt_exitarg[n] = arg;
         __rt_nr_exit = n + 1;
-        return 0;
+        प्रत्यागम 0;
     }
-    return 1;
+    प्रत्यागम 1;
 }
 
-int atexit(void (*function)(void))
+पूर्णाङ्क atexit(शून्य (*function)(शून्य))
 {
-    return on_exit(function, 0);
+    प्रत्यागम on_exit(function, 0);
 }
 
-typedef struct rt_frame {
-    void *ip, *fp, *sp;
+प्रकारनिर्देश संरचना rt_frame {
+    शून्य *ip, *fp, *sp;
 } rt_frame;
 
-__attribute__((noreturn)) void __rt_exit(rt_frame *, int);
+__attribute__((noreturn)) शून्य __rt_exit(rt_frame *, पूर्णाङ्क);
 
-void exit(int code)
+शून्य exit(पूर्णाङ्क code)
 {
     rt_frame f;
     run_dtors();
@@ -72,15 +72,15 @@ void exit(int code)
 }
 
 #ifndef _WIN32
-int main(int, char**, char**);
+पूर्णाङ्क main(पूर्णाङ्क, वर्ण**, वर्ण**);
 
-int _runmain(int argc, char **argv, char **envp)
+पूर्णाङ्क _runmain(पूर्णाङ्क argc, वर्ण **argv, वर्ण **envp)
 {
-    int ret;
+    पूर्णाङ्क ret;
     run_ctors(argc, argv, envp);
     ret = main(argc, argv, envp);
     run_dtors();
     __run_on_exit(ret);
-    return ret;
+    प्रत्यागम ret;
 }
 #endif
