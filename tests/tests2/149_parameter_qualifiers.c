@@ -1,71 +1,71 @@
-void pointer_parameters(int *const cp, int *volatile vp, int *restrict rp)
+శూన్య సూచిక_parameters(పూర్ణాంకం *స్థిరరాశి cp, పూర్ణాంకం *అస్థిర vp, పూర్ణాంకం *పరిమిత rp)
 {
-    _Static_assert(_Generic(&cp, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&cp, పూర్ణాంకం *స్థిరరాశి *: 1, అప్రమేయ: 0),
                    "const pointer parameter remains qualified");
-    _Static_assert(_Generic(&vp, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&vp, పూర్ణాంకం *అస్థిర *: 1, అప్రమేయ: 0),
                    "volatile pointer parameter remains qualified");
-   _Static_assert(_Generic(&rp, int *restrict *: 1, default: 0),
+   _Static_assert(_Generic(&rp, పూర్ణాంకం *పరిమిత *: 1, అప్రమేయ: 0),
                   "restrict pointer parameter remains qualified");
 }
 
-void array_parameters(int ca[const 2], int va[volatile 2], int ra[restrict 2])
+శూన్య array_parameters(పూర్ణాంకం ca[స్థిరరాశి 2], పూర్ణాంకం va[అస్థిర 2], పూర్ణాంకం ra[పరిమిత 2])
 {
-    _Static_assert(_Generic(&ca, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&ca, పూర్ణాంకం *స్థిరరాశి *: 1, అప్రమేయ: 0),
                    "const array parameter adjusts to qualified pointer");
-    _Static_assert(_Generic(&va, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&va, పూర్ణాంకం *అస్థిర *: 1, అప్రమేయ: 0),
                    "volatile array parameter adjusts to qualified pointer");
-    _Static_assert(_Generic(&ra, int *restrict *: 1, default: 0),
+    _Static_assert(_Generic(&ra, పూర్ణాంకం *పరిమిత *: 1, అప్రమేయ: 0),
                    "restrict array parameter adjusts to qualified pointer");
 }
 
-void declared_const(int *const pointer);
-void declared_const(int *pointer)
+శూన్య declared_const(పూర్ణాంకం *స్థిరరాశి సూచిక_2);
+శూన్య declared_const(పూర్ణాంకం *సూచిక_2)
 {
-    _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+    _Static_assert(_Generic(&సూచిక_2, పూర్ణాంకం **: 1, అప్రమేయ: 0),
                    "declaration qualifier does not affect definition");
-    pointer = 0;
+    సూచిక_2 = 0;
 }
 
-void defined_const(int *pointer);
-void defined_const(int *const pointer)
+శూన్య defined_const(పూర్ణాంకం *సూచిక_2);
+శూన్య defined_const(పూర్ణాంకం *స్థిరరాశి సూచిక_2)
 {
-    _Static_assert(_Generic(&pointer, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&సూచిక_2, పూర్ణాంకం *స్థిరరాశి *: 1, అప్రమేయ: 0),
                    "definition retains const");
 }
 
-void declared_volatile(int *volatile pointer);
-void declared_volatile(int *pointer)
+శూన్య declared_volatile(పూర్ణాంకం *అస్థిర సూచిక_2);
+శూన్య declared_volatile(పూర్ణాంకం *సూచిక_2)
 {
-    _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+    _Static_assert(_Generic(&సూచిక_2, పూర్ణాంకం **: 1, అప్రమేయ: 0),
                    "declaration qualifier does not affect definition");
-    pointer = 0;
+    సూచిక_2 = 0;
 }
 
-void defined_volatile(int *pointer);
-void defined_volatile(int *volatile pointer)
+శూన్య defined_volatile(పూర్ణాంకం *సూచిక_2);
+శూన్య defined_volatile(పూర్ణాంకం *అస్థిర సూచిక_2)
 {
-    _Static_assert(_Generic(&pointer, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&సూచిక_2, పూర్ణాంకం *అస్థిర *: 1, అప్రమేయ: 0),
                    "definition retains volatile");
-    pointer = 0;
+    సూచిక_2 = 0;
 }
 
-void declared_restrict(int *restrict pointer);
-void declared_restrict(int *pointer)
+శూన్య declared_restrict(పూర్ణాంకం *పరిమిత సూచిక_2);
+శూన్య declared_restrict(పూర్ణాంకం *సూచిక_2)
 {
-  _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+  _Static_assert(_Generic(&సూచిక_2, పూర్ణాంకం **: 1, అప్రమేయ: 0),
                  "declaration qualifier does not affect definition");
-  pointer = 0;
+  సూచిక_2 = 0;
 }
 
-void defined_restrict(int *pointer);
-void defined_restrict(int *restrict pointer)
+శూన్య defined_restrict(పూర్ణాంకం *సూచిక_2);
+శూన్య defined_restrict(పూర్ణాంకం *పరిమిత సూచిక_2)
 {
-  _Static_assert(_Generic(&pointer, int *restrict *: 1, default: 0),
+  _Static_assert(_Generic(&సూచిక_2, పూర్ణాంకం *పరిమిత *: 1, అప్రమేయ: 0),
                  "definition retains restrict");
-  pointer = 0;
+  సూచిక_2 = 0;
 }
 
-int main(void)
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
-    return 0;
+    తిరిగి 0;
 }

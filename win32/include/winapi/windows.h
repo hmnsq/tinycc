@@ -3,125 +3,125 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINDOWS_
-#define _WINDOWS_
+#నిర్వచితం_కాకపోతే _WINDOWS_
+#నిర్వచించు _WINDOWS_
 
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN 1
-#endif
+#నిర్వచితం_కాకపోతే WIN32_LEAN_AND_సగటు
+#నిర్వచించు WIN32_LEAN_AND_సగటు 1
+#అయితే_ముగింపు
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#నిర్వచితం_కాకపోతే WINVER
+#నిర్వచించు WINVER 0x0502
+#అయితే_ముగింపు
 
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
-#ifndef _INC_WINDOWS
-#define _INC_WINDOWS
+#నిర్వచితం_కాకపోతే _INC_WINDOWS
+#నిర్వచించు _INC_WINDOWS
 
-#if defined(RC_INVOKED) && !defined(NOWINRES)
+#ఒకవేళ defined(RC_INVOKED) && !defined(NOWINRES)
 
-#include <winresrc.h>
-#else
+#అన్తర్భావ <winresrc.h>
+#లేకపోతే
 
-#ifdef RC_INVOKED
-#define NOATOM
-#define NOGDI
-#define NOGDICAPMASKS
-#define NOMETAFILE
-#define NOMINMAX
-#define NOMSG
-#define NOOPENFILE
-#define NORASTEROPS
-#define NOSCROLL
-#define NOSOUND
-#define NOSYSMETRICS
-#define NOTEXTMETRIC
-#define NOWH
-#define NOCOMM
-#define NOKANJI
-#define NOCRYPT
-#define NOMCX
-#endif
+#నిర్వచితమైతే RC_INVOKED
+#నిర్వచించు NOATOM
+#నిర్వచించు NOGDI
+#నిర్వచించు NOGDICAPMASKS
+#నిర్వచించు NOMETAFILE
+#నిర్వచించు NOMINMAX
+#నిర్వచించు NOMSG
+#నిర్వచించు NOOPENFILE
+#నిర్వచించు NORASTEROPS
+#నిర్వచించు NOSCROLL
+#నిర్వచించు NOSOUND
+#నిర్వచించు NOSYSMETRICS
+#నిర్వచించు NOTEXTMETRIC
+#నిర్వచించు NOWH
+#నిర్వచించు NOCOMM
+#నిర్వచించు NOKANJI
+#నిర్వచించు NOCRYPT
+#నిర్వచించు NOMCX
+#అయితే_ముగింపు
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
-#define I_X86_
-#endif
+#ఒకవేళ !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
+#నిర్వచించు I_X86_
+#అయితే_ముగింపు
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
-#define _AMD64_
-#endif
+#ఒకవేళ !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
+#నిర్వచించు _AMD64_
+#అయితే_ముగింపు
 
-#if !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
-#if !defined(_IA64_)
-#define _IA64_
-#endif
-#endif
+#ఒకవేళ !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
+#ఒకవేళ !defined(_IA64_)
+#నిర్వచించు _IA64_
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef RC_INVOKED
-#include <excpt.h>
-#include <stdarg.h>
-#endif
+#నిర్వచితం_కాకపోతే RC_INVOKED
+#అన్తర్భావ <excpt.h>
+#అన్తర్భావ <stdarg.h>
+#అయితే_ముగింపు
 
-#include <windef.h>
-#include <winbase.h>
-#include <wingdi.h>
-#include <winuser.h>
-#include <winnls.h>
-#include <wincon.h>
-#include <winver.h>
-#include <winreg.h>
+#అన్తర్భావ <windef.h>
+#అన్తర్భావ <winbase.h>
+#అన్తర్భావ <wingdi.h>
+#అన్తర్భావ <winuser.h>
+#అన్తర్భావ <winnls.h>
+#అన్తర్భావ <wincon.h>
+#అన్తర్భావ <winver.h>
+#అన్తర్భావ <winreg.h>
 //gr #include <winnetwk.h>
 
-#ifndef WIN32_LEAN_AND_MEAN
-#include <cderr.h>
-#include <dde.h>
-#include <ddeml.h>
-#include <dlgs.h>
-#include <lzexpand.h>
-#include <mmsystem.h>
-#include <nb30.h>
-#include <rpc.h>
-#include <shellapi.h>
-#include <winperf.h>
-#include <winsock.h>
-#ifndef NOCRYPT
-#include <wincrypt.h>
-#include <winefs.h>
-#include <winscard.h>
-#endif
+#నిర్వచితం_కాకపోతే WIN32_LEAN_AND_సగటు
+#అన్తర్భావ <cderr.h>
+#అన్తర్భావ <dde.h>
+#అన్తర్భావ <ddeml.h>
+#అన్తర్భావ <dlgs.h>
+#అన్తర్భావ <lzexpand.h>
+#అన్తర్భావ <mmsystem.h>
+#అన్తర్భావ <nb30.h>
+#అన్తర్భావ <rpc.h>
+#అన్తర్భావ <shellapi.h>
+#అన్తర్భావ <winperf.h>
+#అన్తర్భావ <winsock.h>
+#నిర్వచితం_కాకపోతే NOCRYPT
+#అన్తర్భావ <wincrypt.h>
+#అన్తర్భావ <winefs.h>
+#అన్తర్భావ <winscard.h>
+#అయితే_ముగింపు
 
-#ifndef NOUSER
-#ifndef NOGDI
-#include <winspool.h>
-#ifdef INC_OLE1
-#include <ole.h>
-#else
-#include <ole2.h>
-#endif
-#include <commdlg.h>
-#endif
-#endif
-#endif
+#నిర్వచితం_కాకపోతే NOUSER
+#నిర్వచితం_కాకపోతే NOGDI
+#అన్తర్భావ <winspool.h>
+#నిర్వచితమైతే INC_OLE1
+#అన్తర్భావ <ole.h>
+#లేకపోతే
+#అన్తర్భావ <ole2.h>
+#అయితే_ముగింపు
+#అన్తర్భావ <commdlg.h>
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
 //gr #include <stralign.h>
 
-#ifdef INC_OLE2
-#include <ole2.h>
-#endif
+#నిర్వచితమైతే INC_OLE2
+#అన్తర్భావ <ole2.h>
+#అయితే_ముగింపు
 
-#ifndef NOSERVICE
-#include <winsvc.h>
-#endif
+#నిర్వచితం_కాకపోతే NOSERVICE
+#అన్తర్భావ <winsvc.h>
+#అయితే_ముగింపు
 
-#ifndef NOMCX
-#include <mcx.h>
-#endif
+#నిర్వచితం_కాకపోతే NOMCX
+#అన్తర్భావ <mcx.h>
+#అయితే_ముగింపు
 
-#ifndef NOIME
-#include <imm.h>
-#endif
+#నిర్వచితం_కాకపోతే NOIME
+#అన్తర్భావ <imm.h>
+#అయితే_ముగింపు
 
-#endif
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు

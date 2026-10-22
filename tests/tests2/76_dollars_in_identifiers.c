@@ -1,41 +1,41 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-#define $(x) x
-#define $fred 10
-#define joe$ 20
-#define hen$y 30
+#నిర్వచించు $(x) x
+#నిర్వచించు $fred 10
+#నిర్వచించు joe$ 20
+#నిర్వచించు hen$y 30
 
-#define $10(x) x*10
-#define _$10(x) x/10
+#నిర్వచించు $10(x) x*10
+#నిర్వచించు _$10(x) x/10
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   printf("fred=%d\n", $fred);
-   printf("joe=%d\n", joe$);
-   printf("henry=%d\n", hen$y);
+   రాయి("fred=%d\n", $fred);
+   రాయి("joe=%d\n", joe$);
+   రాయి("henry=%d\n", hen$y);
 
-   printf("fred2=%d\n", $($fred));
-   printf("joe2=%d\n", $(joe$));
-   printf("henry2=%d\n", $(hen$y));
+   రాయి("fred2=%d\n", $($fred));
+   రాయి("joe2=%d\n", $(joe$));
+   రాయి("henry2=%d\n", $(hen$y));
 
-   printf("fred10=%d\n", $10($fred));
-   printf("joe_10=%d\n", _$10(joe$));
+   రాయి("fred10=%d\n", $10($fred));
+   రాయి("joe_10=%d\n", _$10(joe$));
 
-   int $ = 10;
-   int a100$ = 100;
-   int a$$ = 1000;
-   int a$c$b = 2121;
-   int $100 = 10000;
-   const char *$$$ = "money";
+   పూర్ణాంకం $ = 10;
+   పూర్ణాంకం a100$ = 100;
+   పూర్ణాంకం a$$ = 1000;
+   పూర్ణాంకం a$c$b = 2121;
+   పూర్ణాంకం $100 = 10000;
+   స్థిరరాశి అక్షరం *$$$ = "money";
 
-   printf("local=%d\n", $);
-   printf("a100$=%d\n", a100$);
-   printf("a$$=%d\n", a$$);
-   printf("a$c$b=%d\n", a$c$b);
-   printf("$100=%d\n", $100);
-   printf("$$$=%s", $$$);
+   రాయి("local=%d\n", $);
+   రాయి("a100$=%d\n", a100$);
+   రాయి("a$$=%d\n", a$$);
+   రాయి("a$c$b=%d\n", a$c$b);
+   రాయి("$100=%d\n", $100);
+   రాయి("$$$=%s", $$$);
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

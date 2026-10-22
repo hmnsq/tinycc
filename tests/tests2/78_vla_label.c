@@ -1,45 +1,45 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+శూన్య f1(పూర్ణాంకం argc)
 {
-  char test[argc];
-  if(0)
+  అక్షరం test[argc];
+  ఒకవేళ(0)
   label:
-    printf("boom!\n");
-  if(argc-- == 0)
-    return;
-  goto label;
+    రాయి("boom!\n");
+  ఒకవేళ(argc-- == 0)
+    తిరిగి;
+  వెళ్ళు label;
 }
 
 /* This segfaulted on 2015-11-19. */
-void f2(void)
+శూన్య f2(శూన్య)
 {
-    goto start;
+    వెళ్ళు ప్రారంభం;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
-    start:
+        పూర్ణాంకం a[1 && 1]; /* not a variable-length array */
+        పూర్ణాంకం b[1 || 1]; /* not a variable-length array */
+        పూర్ణాంకం c[1 ? 1 : 1]; /* not a variable-length array */
+    ప్రారంభం:
         a[0] = 0;
         b[0] = 0;
         c[0] = 0;
     }
 }
 
-void f3(void)
+శూన్య f3(శూన్య)
 {
-    printf("%d\n", 0 ? printf("x1\n") : 11);
-    printf("%d\n", 1 ? 12 : printf("x2\n"));
-    printf("%d\n", 0 && printf("x3\n"));
-    printf("%d\n", 1 || printf("x4\n"));
+    రాయి("%d\n", 0 ? రాయి("x1\n") : 11);
+    రాయి("%d\n", 1 ? 12 : రాయి("x2\n"));
+    రాయి("%d\n", 0 && రాయి("x3\n"));
+    రాయి("%d\n", 1 || రాయి("x4\n"));
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  తిరిగి 0;
 }

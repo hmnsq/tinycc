@@ -1,15 +1,15 @@
-static int simple_jump(void)
+స్థిర పూర్ణాంకం simple_jump(శూన్య)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 0;
+  asm వెళ్ళు ("jmp %l[label]" : : : : label);
+  తిరిగి 0;
 label:
-  return 1;
+  తిరిగి 1;
 }
 
-static int three_way_jump(int val, int *addr)
+స్థిర పూర్ణాంకం three_way_jump(పూర్ణాంకం val, పూర్ణాంకం *addr)
 {
   *addr = 42;
-  asm goto ("cmp $0, %1\n\t"
+  asm వెళ్ళు ("cmp $0, %1\n\t"
             "jg %l[larger]\n\t"
             "jl %l[smaller]\n\t"
             "incl %0\n\t"
@@ -17,46 +17,46 @@ static int three_way_jump(int val, int *addr)
             : "r" (val)
             :
             : smaller, larger);
-  return 1;
+  తిరిగి 1;
 smaller:
-  return 2;
+  తిరిగి 2;
 larger:
-  return 3;
+  తిరిగి 3;
 }
 
-static int another_jump(void)
+స్థిర పూర్ణాంకం another_jump(శూన్య)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 70;
+  asm వెళ్ళు ("jmp %l[label]" : : : : label);
+  తిరిగి 70;
   /* Use the same label name as in simple_jump to check that
      that doesn't confuse our C/ASM symbol tables */
 label:
-  return 71;
+  తిరిగి 71;
 }
 
-extern int printf (const char *, ...);
-int main(void)
+బాహ్య పూర్ణాంకం రాయి (స్థిరరాశి అక్షరం *, ...);
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
-  int i;
-  if (simple_jump () == 1)
-    printf ("simple_jump: okay\n");
-  else
-    printf ("simple_jump: wrong\n");
-  if (another_jump () == 71)
-    printf ("another_jump: okay\n");
-  else
-    printf ("another_jump: wrong\n");
-  if (three_way_jump(0, &i) == 1 && i == 43)
-    printf ("three_way_jump(0): okay\n");
-  else
-    printf ("three_way_jump(0): wrong (i=%d)\n", i);
-  if (three_way_jump(1, &i) == 3 && i == 42)
-    printf ("three_way_jump(1): okay\n");
-  else
-    printf ("three_way_jump(1): wrong (i=%d)\n", i);
-  if (three_way_jump(-1, &i) == 2 && i == 42)
-    printf ("three_way_jump(-1): okay\n");
-  else
-    printf ("three_way_jump(-1): wrong (i=%d)\n", i);
-  return 0;
+  పూర్ణాంకం i;
+  ఒకవేళ (simple_jump () == 1)
+    రాయి ("simple_jump: okay\n");
+  లేకపోతే
+    రాయి ("simple_jump: wrong\n");
+  ఒకవేళ (another_jump () == 71)
+    రాయి ("another_jump: okay\n");
+  లేకపోతే
+    రాయి ("another_jump: wrong\n");
+  ఒకవేళ (three_way_jump(0, &i) == 1 && i == 43)
+    రాయి ("three_way_jump(0): okay\n");
+  లేకపోతే
+    రాయి ("three_way_jump(0): wrong (i=%d)\n", i);
+  ఒకవేళ (three_way_jump(1, &i) == 3 && i == 42)
+    రాయి ("three_way_jump(1): okay\n");
+  లేకపోతే
+    రాయి ("three_way_jump(1): wrong (i=%d)\n", i);
+  ఒకవేళ (three_way_jump(-1, &i) == 2 && i == 42)
+    రాయి ("three_way_jump(-1): okay\n");
+  లేకపోతే
+    రాయి ("three_way_jump(-1): wrong (i=%d)\n", i);
+  తిరిగి 0;
 }

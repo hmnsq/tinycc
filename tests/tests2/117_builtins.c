@@ -1,79 +1,79 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-struct big_struct { char a[262144]; };
+నిర్మాణం big_struct { అక్షరం a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+స్థిర స్థిరరాశి అక్షరం str[] = "abcdefghijklmnopqrstuvwxyz";
 
-int
-main (void)
+పూర్ణాంకం
+ప్రధాన (శూన్య)
 {
-  char *p;
-  char tmp[100];
-  int r = 0;
+  అక్షరం *p;
+  అక్షరం tmp[100];
+  పూర్ణాంకం r = 0;
 
-#if defined __TCC_BCHECK__
-  printf("BOUNDS ON:\n");
-#else
-  printf("BOUNDS OFF:\n");
-#endif
+#ఒకవేళ defined __TCC_BCHECK__
+  రాయి("BOUNDS ON:\n");
+#లేకపోతే
+  రాయి("BOUNDS OFF:\n");
+#అయితే_ముగింపు
 
-  if (r != 0)
+  ఒకవేళ (r != 0)
     __builtin_abort();
 
-  r = (__builtin_offsetof(struct big_struct, a) != 0);
-  printf(" 1:%d", !r);
+  r = (__builtin_offsetof(నిర్మాణం big_struct, a) != 0);
+  రాయి(" 1:%d", !r);
 
-  p = __builtin_memcpy (tmp, str, sizeof(str));
+  p = __builtin_memcpy (tmp, str, పరిమాణం(str));
   r = (p != tmp);
-  printf(" 2:%d", !r);
+  రాయి(" 2:%d", !r);
 
-  r = __builtin_memcmp (p, str, sizeof(str));
-  printf(" 3:%d", !r);
+  r = __builtin_memcmp (p, str, పరిమాణం(str));
+  రాయి(" 3:%d", !r);
 
-  p = __builtin_memmove(tmp, str, sizeof(str));
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 4:%d", !r);
+  p = __builtin_memmove(tmp, str, పరిమాణం(str));
+  r = (__builtin_memcmp (p, str, పరిమాణం(str)));
+  రాయి(" 4:%d", !r);
 
-  p = __builtin_memset(tmp, 0, sizeof (tmp));
+  p = __builtin_memset(tmp, 0, పరిమాణం (tmp));
   r = (p != tmp || tmp[0] != 0 || tmp[99] != 0);
-  printf(" 5:%d", !r);
+  రాయి(" 5:%d", !r);
 
-  r = (__builtin_strlen(str) != sizeof(str) - 1);
-  printf(" 6:%d", !r);
+  r = (__builtin_strlen(str) != పరిమాణం(str) - 1);
+  రాయి(" 6:%d", !r);
 
   p = __builtin_strcpy(tmp, str);
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 7:%d", !r);
+  r = (__builtin_memcmp (p, str, పరిమాణం(str)));
+  రాయి(" 7:%d", !r);
 
-  p = __builtin_strncpy(tmp, str, sizeof(str));
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 8:%d", !r);
+  p = __builtin_strncpy(tmp, str, పరిమాణం(str));
+  r = (__builtin_memcmp (p, str, పరిమాణం(str)));
+  రాయి(" 8:%d", !r);
 
   r = (__builtin_strcmp (p, str));
-  printf(" 9:%d", !r);
+  రాయి(" 9:%d", !r);
 
-  r = (__builtin_strncmp (p, str, sizeof(str)));
-  printf(" 10:%d", !r);
+  r = (__builtin_strncmp (p, str, పరిమాణం(str)));
+  రాయి(" 10:%d", !r);
 
   tmp[0] = '\0';
   p = __builtin_strcat(tmp, str);
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 11:%d", !r);
+  r = (__builtin_memcmp (p, str, పరిమాణం(str)));
+  రాయి(" 11:%d", !r);
 
   tmp[0] = '\0';
   p = __builtin_strncat(tmp, str, __builtin_strlen(str));
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 12:%d", !r);
+  r = (__builtin_memcmp (p, str, పరిమాణం(str)));
+  రాయి(" 12:%d", !r);
 
   r = (__builtin_strchr(p, 'z') != &p[25]);
-  printf(" 13:%d", !r);
+  రాయి(" 13:%d", !r);
 
   r = (__builtin_strrchr(p, 'z') != &p[25]);
-  printf(" 14:%d", !r);
+  రాయి(" 14:%d", !r);
 
   p = __builtin_strdup (str);
-  r = (__builtin_memcmp (p, str, sizeof(str)));
-  printf(" 15:%d", !r);
+  r = (__builtin_memcmp (p, str, పరిమాణం(str)));
+  రాయి(" 15:%d", !r);
   __builtin_free(p);
 
   p = __builtin_malloc (100);
@@ -86,9 +86,9 @@ main (void)
   __builtin_memset(p, 0, 100);
   __builtin_free(p);
 
-#if defined(__i386__) || defined(__x86_64__)
+#ఒకవేళ defined(__i386__) || defined(__x86_64__)
   p = __builtin_alloca(100);
   __builtin_memset(p, 0, 100);
-#endif
-  printf("\n");
+#అయితే_ముగింపు
+  రాయి("\n");
 }

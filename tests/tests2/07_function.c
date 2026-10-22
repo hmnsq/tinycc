@@ -1,35 +1,35 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int myfunc(int x)
+పూర్ణాంకం myfunc(పూర్ణాంకం x)
 {
-   return x * x;
+   తిరిగి x * x;
 }
 
-void vfunc(int a)
+శూన్య vfunc(పూర్ణాంకం a)
 {
-   printf("a=%d\n", a);
+   రాయి("a=%d\n", a);
 }
 
-void qfunc()
+శూన్య qfunc()
 {
-   printf("qfunc()\n");
+   రాయి("qfunc()\n");
 }
 
-void zfunc()
+శూన్య zfunc()
 {
-	((void (*)(void))0) ();
+	((శూన్య (*)(శూన్య))0) ();
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   printf("%d\n", myfunc(3));
-   printf("%d\n", myfunc(4));
+   రాయి("%d\n", myfunc(3));
+   రాయి("%d\n", myfunc(4));
 
    vfunc(1234);
 
    qfunc();
 
-   return 0;
+   తిరిగి 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

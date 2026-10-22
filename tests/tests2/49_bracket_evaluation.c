@@ -1,23 +1,23 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-struct point
+నిర్మాణం బిందువు
 {
-   double x;
-   double y;
+   ద్విగుణ x;
+   ద్విగుణ y;
 };
 
-struct point point_array[100];
+నిర్మాణం బిందువు బిందువు_array[100];
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int my_point = 10;
+   పూర్ణాంకం my_బిందువు = 10;
 
-   point_array[my_point].x = 12.34;
-   point_array[my_point].y = 56.78;
+   బిందువు_array[my_బిందువు].x = 12.34;
+   బిందువు_array[my_బిందువు].y = 56.78;
 
-   printf("%f, %f\n", point_array[my_point].x, point_array[my_point].y);
+   రాయి("%f, %f\n", బిందువు_array[my_బిందువు].x, బిందువు_array[my_బిందువు].y);
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

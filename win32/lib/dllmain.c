@@ -1,9 +1,9 @@
 //+---------------------------------------------------------------------------
 
-#include <windows.h>
+#అన్తర్భావ <windows.h>
 
 BOOL WINAPI DllMain (HINSTANCE hDll, DWORD dwReason, LPVOID lpReserved)
 {
-	return TRUE;
+	తిరిగి TRUE;
 }
 

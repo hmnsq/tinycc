@@ -1,112 +1,112 @@
-extern int printf(const char *format, ...);
-static void kb_wait_1(void)
+బాహ్య పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం *format, ...);
+స్థిర శూన్య kb_wait_1(శూన్య)
 {
-    unsigned long timeout = 2;
-    do {
+    గుర్తులేని దీర్ఘ timeout = 2;
+    చేయి {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            రాయి("timeout=%ld\n", timeout) :
             ({
-                while (1)
-                    printf("error\n");
+                అయితే (1)
+                    రాయి("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } అయితే (timeout);
 }
-static void kb_wait_2(void)
+స్థిర శూన్య kb_wait_2(శూన్య)
 {
-    unsigned long timeout = 2;
-    do {
+    గుర్తులేని దీర్ఘ timeout = 2;
+    చేయి {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            రాయి("timeout=%ld\n", timeout) :
             ({
-                for (;;)
-                    printf("error\n");
+                కొరకు (;;)
+                    రాయి("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } అయితే (timeout);
 }
-static void kb_wait_2_1(void)
+స్థిర శూన్య kb_wait_2_1(శూన్య)
 {
-    unsigned long timeout = 2;
-    do {
+    గుర్తులేని దీర్ఘ timeout = 2;
+    చేయి {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            రాయి("timeout=%ld\n", timeout) :
             ({
-                do {
-                    printf("error\n");
-		} while (1);
+                చేయి {
+                    రాయి("error\n");
+		} అయితే (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } అయితే (timeout);
 }
-static void kb_wait_2_2(void)
+స్థిర శూన్య kb_wait_2_2(శూన్య)
 {
-    unsigned long timeout = 2;
-    do {
+    గుర్తులేని దీర్ఘ timeout = 2;
+    చేయి {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            రాయి("timeout=%ld\n", timeout) :
             ({
                 label:
-                    printf("error\n");
-		goto label;
+                    రాయి("error\n");
+		వెళ్ళు label;
             })
         );
         timeout--;
-    } while (timeout);
+    } అయితే (timeout);
 }
-static void kb_wait_3(void)
+స్థిర శూన్య kb_wait_3(శూన్య)
 {
-    unsigned long timeout = 2;
-    do {
+    గుర్తులేని దీర్ఘ timeout = 2;
+    చేయి {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            రాయి("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
-                goto label;
+                పూర్ణాంకం i = 1;
+                వెళ్ళు label;
                 i = i + 2;
             label:
                 i = i + 3;
             })
         );
         timeout--;
-    } while (timeout);
+    } అయితే (timeout);
 }
-static void kb_wait_4(void)
+స్థిర శూన్య kb_wait_4(శూన్య)
 {
-    unsigned long timeout = 2;
-    do {
+    గుర్తులేని దీర్ఘ timeout = 2;
+    చేయి {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            రాయి("timeout=%ld\n", timeout) :
             ({
-                switch(timeout) {
-                    case 2:
-                        printf("timeout is 2");
-                        break;
-                    case 1:
-                        printf("timeout is 1");
-                        break;
-                    default:
-                        printf("timeout is 0?");
-                        break;
+                ఎంపిక(timeout) {
+                    స్థితి 2:
+                        రాయి("timeout is 2");
+                        ఆపు;
+                    స్థితి 1:
+                        రాయి("timeout is 1");
+                        ఆపు;
+                    అప్రమేయ:
+                        రాయి("timeout is 0?");
+                        ఆపు;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } అయితే (timeout);
 }
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    printf("begin\n");
+    రాయి("begin\n");
     kb_wait_1();
     kb_wait_2();
     kb_wait_2_1();
     kb_wait_2_2();
     kb_wait_3();
     kb_wait_4();
-    printf("end\n");
-    return 0;
+    రాయి("end\n");
+    తిరిగి 0;
 }

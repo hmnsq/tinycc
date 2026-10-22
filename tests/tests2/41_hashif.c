@@ -1,85 +1,85 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   printf("#include test\n");
+   రాయి("#include test\n");
 
-#if 1
-#if 0
-   printf("a\n");
-#else
-   printf("b\n");
-#endif
-#else
-#if 0
-   printf("c\n");
-#else
-   printf("d\n");
-#endif
-#endif
+#ఒకవేళ 1
+#ఒకవేళ 0
+   రాయి("a\n");
+#లేకపోతే
+   రాయి("b\n");
+#అయితే_ముగింపు
+#లేకపోతే
+#ఒకవేళ 0
+   రాయి("c\n");
+#లేకపోతే
+   రాయి("d\n");
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#if 0
-#if 1
-   printf("e\n");
-#else
-   printf("f\n");
-#endif
-#else
-#if 1
-   printf("g\n");
-#else
-   printf("h\n");
-#endif
-#endif
+#ఒకవేళ 0
+#ఒకవేళ 1
+   రాయి("e\n");
+#లేకపోతే
+   రాయి("f\n");
+#అయితే_ముగింపు
+#లేకపోతే
+#ఒకవేళ 1
+   రాయి("g\n");
+#లేకపోతే
+   రాయి("h\n");
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#define DEF
+#నిర్వచించు DEF
 
-#ifdef DEF
-#ifdef DEF
-   printf("i\n");
-#else
-   printf("j\n");
-#endif
-#else
-#ifdef DEF
-   printf("k\n");
-#else
-   printf("l\n");
-#endif
-#endif
+#నిర్వచితమైతే DEF
+#నిర్వచితమైతే DEF
+   రాయి("i\n");
+#లేకపోతే
+   రాయి("j\n");
+#అయితే_ముగింపు
+#లేకపోతే
+#నిర్వచితమైతే DEF
+   రాయి("k\n");
+#లేకపోతే
+   రాయి("l\n");
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef DEF
-#ifndef DEF
-   printf("m\n");
-#else
-   printf("n\n");
-#endif
-#else
-#ifndef DEF
-   printf("o\n");
-#else
-   printf("p\n");
-#endif
-#endif
+#నిర్వచితం_కాకపోతే DEF
+#నిర్వచితం_కాకపోతే DEF
+   రాయి("m\n");
+#లేకపోతే
+   రాయి("n\n");
+#అయితే_ముగింపు
+#లేకపోతే
+#నిర్వచితం_కాకపోతే DEF
+   రాయి("o\n");
+#లేకపోతే
+   రాయి("p\n");
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#define ONE 1
-#define ZERO 0
+#నిర్వచించు ONE 1
+#నిర్వచించు ZERO 0
 
-#if ONE
-#if ZERO
-   printf("q\n");
-#else
-   printf("r\n");
-#endif
-#else
-#if ZERO
-   printf("s\n");
-#else
-   printf("t\n");
-#endif
-#endif
+#ఒకవేళ ONE
+#ఒకవేళ ZERO
+   రాయి("q\n");
+#లేకపోతే
+   రాయి("r\n");
+#అయితే_ముగింపు
+#లేకపోతే
+#ఒకవేళ ZERO
+   రాయి("s\n");
+#లేకపోతే
+   రాయి("t\n");
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

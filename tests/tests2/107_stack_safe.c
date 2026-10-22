@@ -1,13 +1,13 @@
-extern int printf(const char *, ...);
+బాహ్య పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం *, ...);
 
-static void func_ull_ull(unsigned long long l1,unsigned long long l2){
+స్థిర శూన్య func_ull_ull(గుర్తులేని దీర్ఘ దీర్ఘ l1,గుర్తులేని దీర్ఘ దీర్ఘ l2){
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-  int a,b,c,d;
+  పూర్ణాంకం a,b,c,d;
   a=1;b=2;c=3;d=4;
-  func_ull_ull((unsigned long long)a/1.0,(unsigned long long)b/1.0);
-  printf("%d %d %d %d",a,b,c,d);
-  return 0;
+  func_ull_ull((గుర్తులేని దీర్ఘ దీర్ఘ)a/1.0,(గుర్తులేని దీర్ఘ దీర్ఘ)b/1.0);
+  రాయి("%d %d %d %d",a,b,c,d);
+  తిరిగి 0;
 }

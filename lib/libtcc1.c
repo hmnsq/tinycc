@@ -28,89 +28,89 @@ the Free Software Foundation, 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.  
 */
 
-#define W_TYPE_SIZE   32
-#define BITS_PER_UNIT 8
+#నిర్వచించు W_TYPE_కొలత   32
+#నిర్వచించు బిట్లు_చొప్పున_UNIT 8
 
-typedef int Wtype;
-typedef unsigned int UWtype;
-typedef unsigned int USItype;
-typedef long long DWtype;
-typedef unsigned long long UDWtype;
+రకనిర్వచనం పూర్ణాంకం Wtype;
+రకనిర్వచనం గుర్తులేని పూర్ణాంకం UWtype;
+రకనిర్వచనం గుర్తులేని పూర్ణాంకం USItype;
+రకనిర్వచనం దీర్ఘ దీర్ఘ DWtype;
+రకనిర్వచనం గుర్తులేని దీర్ఘ దీర్ఘ UDWtype;
 
-struct DWstruct {
-    Wtype low, high;
+నిర్మాణం DWstruct {
+    Wtype దిగువ, ఎగువ;
 };
 
-typedef union
+రకనిర్వచనం సంఘం
 {
-  struct DWstruct s;
+  నిర్మాణం DWstruct s;
   DWtype ll;
 } DWunion;
 
-typedef long double XFtype;
-#define WORD_SIZE (sizeof (Wtype) * BITS_PER_UNIT)
-#define HIGH_WORD_COEFF (((UDWtype) 1) << WORD_SIZE)
+రకనిర్వచనం దీర్ఘ ద్విగుణ XFtype;
+#నిర్వచించు మాట_కొలత (పరిమాణం (Wtype) * బిట్లు_చొప్పున_UNIT)
+#నిర్వచించు ఎగువ_మాట_COEFF (((UDWtype) 1) << మాట_కొలత)
 
 /* the following deal with IEEE single-precision numbers */
-#define EXCESS		126
-#define SIGNBIT		0x80000000
-#define HIDDEN		(1 << 23)
-#define SIGN(fp)	((fp) & SIGNBIT)
-#define EXP(fp)		(((fp) >> 23) & 0xFF)
-#define MANT(fp)	(((fp) & 0x7FFFFF) | HIDDEN)
-#define PACK(s,e,m)	((s) | ((e) << 23) | (m))
+#నిర్వచించు EXCESS		126
+#నిర్వచించు SIGNBIT		0x80000000
+#నిర్వచించు HIDDEN		(1 << 23)
+#నిర్వచించు SIGN(fp)	((fp) & SIGNBIT)
+#నిర్వచించు EXP(fp)		(((fp) >> 23) & 0xFF)
+#నిర్వచించు MANT(fp)	(((fp) & 0x7FFFFF) | HIDDEN)
+#నిర్వచించు PACK(s,e,m)	((s) | ((e) << 23) | (m))
 
 /* the following deal with IEEE double-precision numbers */
-#define EXCESSD		1022
-#define HIDDEND		(1 << 20)
-#define EXPD(fp)	(((fp.l.upper) >> 20) & 0x7FF)
-#define SIGND(fp)	((fp.l.upper) & SIGNBIT)
-#define MANTD(fp)	(((((fp.l.upper) & 0xFFFFF) | HIDDEND) << 10) | \
-				(fp.l.lower >> 22))
-#define HIDDEND_LL	((long long)1 << 52)
-#define MANTD_LL(fp)	((fp.ll & (HIDDEND_LL-1)) | HIDDEND_LL)
-#define PACKD_LL(s,e,m)	(((long long)((s)+((e)<<20))<<32)|(m))
+#నిర్వచించు EXCESSD		1022
+#నిర్వచించు HIDDEND		(1 << 20)
+#నిర్వచించు EXPD(fp)	(((fp.l.పై) >> 20) & 0x7FF)
+#నిర్వచించు SIGND(fp)	((fp.l.పై) & SIGNBIT)
+#నిర్వచించు MANTD(fp)	(((((fp.l.పై) & 0xFFFFF) | HIDDEND) << 10) | \
+				(fp.l.క్రింది >> 22))
+#నిర్వచించు HIDDEND_LL	((దీర్ఘ దీర్ఘ)1 << 52)
+#నిర్వచించు MANTD_LL(fp)	((fp.ll & (HIDDEND_LL-1)) | HIDDEND_LL)
+#నిర్వచించు PACKD_LL(s,e,m)	(((దీర్ఘ దీర్ఘ)((s)+((e)<<20))<<32)|(m))
 
 /* the following deal with x86 long double-precision numbers */
-#define EXCESSLD	16382
-#define EXPLD(fp)	(fp.l.upper & 0x7fff)
-#define SIGNLD(fp)	((fp.l.upper) & 0x8000)
+#నిర్వచించు EXCESSLD	16382
+#నిర్వచించు EXPLD(fp)	(fp.l.పై & 0x7fff)
+#నిర్వచించు SIGNLD(fp)	((fp.l.పై) & 0x8000)
 
 /* only for x86 */
-union ldouble_long {
-    long double ld;
-    struct {
-        unsigned long long lower;
-        unsigned short upper;
+సంఘం ldouble_long {
+    దీర్ఘ ద్విగుణ ld;
+    నిర్మాణం {
+        గుర్తులేని దీర్ఘ దీర్ఘ క్రింది;
+        గుర్తులేని పొట్టి పై;
     } l;
 };
 
-union double_long {
-    double d;
-#if 1
-    struct {
-        unsigned int lower;
-        int upper;
+సంఘం double_long {
+    ద్విగుణ d;
+#ఒకవేళ 1
+    నిర్మాణం {
+        గుర్తులేని పూర్ణాంకం క్రింది;
+        పూర్ణాంకం పై;
     } l;
-#else
-    struct {
-        int upper;
-        unsigned int lower;
+#లేకపోతే
+    నిర్మాణం {
+        పూర్ణాంకం పై;
+        గుర్తులేని పూర్ణాంకం క్రింది;
     } l;
-#endif
-    long long ll;
+#అయితే_ముగింపు
+    దీర్ఘ దీర్ఘ ll;
 };
 
-union float_long {
-    float f;
-    unsigned int l;
+సంఘం float_long {
+    దశాంశం f;
+    గుర్తులేని పూర్ణాంకం l;
 };
 
 /* XXX: we don't support several builtin supports for now */
-#if defined __i386__
+#ఒకవేళ defined __i386__
 
 /* XXX: use gcc/tcc intrinsic ? */
-#define sub_ddmmss(sh, sl, ah, al, bh, bl) \
+#నిర్వచించు sub_ddmmss(sh, sl, ah, al, bh, bl) \
   __asm__ ("subl %5,%1\n\tsbbl %3,%0"					\
 	   : "=r" ((USItype) (sh)),					\
 	     "=&r" ((USItype) (sl))					\
@@ -118,30 +118,30 @@ union float_long {
 	     "g" ((USItype) (bh)),					\
 	     "1" ((USItype) (al)),					\
 	     "g" ((USItype) (bl)))
-#define umul_ppmm(w1, w0, u, v) \
+#నిర్వచించు umul_ppmm(w1, w0, u, v) \
   __asm__ ("mull %3"							\
 	   : "=a" ((USItype) (w0)),					\
 	     "=d" ((USItype) (w1))					\
 	   : "%0" ((USItype) (u)),					\
 	     "rm" ((USItype) (v)))
-#define udiv_qrnnd(q, r, n1, n0, dv) \
+#నిర్వచించు udiv_qrnnd(q, r, n1, n0, dv) \
   __asm__ ("divl %4"							\
 	   : "=a" ((USItype) (q)),					\
 	     "=d" ((USItype) (r))					\
 	   : "0" ((USItype) (n0)),					\
 	     "1" ((USItype) (n1)),					\
 	     "rm" ((USItype) (dv)))
-#define count_leading_zeros(count, x) \
-  do {									\
+#నిర్వచించు లెక్క_leading_zeros(లెక్క_2, x) \
+  చేయి {									\
     USItype __cbtmp;							\
     __asm__ ("bsrl %1,%0"						\
 	     : "=r" (__cbtmp) : "rm" ((USItype) (x)));			\
-    (count) = __cbtmp ^ 31;						\
-  } while (0)
+    (లెక్క_2) = __cbtmp ^ 31;						\
+  } అయితే (0)
 
 /* most of this code is taken from libgcc2.c from gcc */
 
-static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
+స్థిర UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 {
   DWunion ww;
   DWunion nn, dd;
@@ -153,15 +153,15 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
   nn.ll = n;
   dd.ll = d;
 
-  d0 = dd.s.low;
-  d1 = dd.s.high;
-  n0 = nn.s.low;
-  n1 = nn.s.high;
+  d0 = dd.s.దిగువ;
+  d1 = dd.s.ఎగువ;
+  n0 = nn.s.దిగువ;
+  n1 = nn.s.ఎగువ;
 
-#if !defined(UDIV_NEEDS_NORMALIZATION)
-  if (d1 == 0)
+#ఒకవేళ !defined(UDIV_NEEDS_NORMALIZATION)
+  ఒకవేళ (d1 == 0)
     {
-      if (d0 > n1)
+      ఒకవేళ (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
@@ -170,11 +170,11 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0.  */
 	}
-      else
+      లేకపోతే
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  ఒకవేళ (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
 	  udiv_qrnnd (q1, n1, 0, n1, d0);
@@ -183,31 +183,31 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0.  */
 	}
 
-      if (rp != 0)
+      ఒకవేళ (rp != 0)
 	{
-	  rr.s.low = n0;
-	  rr.s.high = 0;
+	  rr.s.దిగువ = n0;
+	  rr.s.ఎగువ = 0;
 	  *rp = rr.ll;
 	}
     }
 
-#else /* UDIV_NEEDS_NORMALIZATION */
+#లేకపోతే /* UDIV_NEEDS_NORMALIZATION */
 
-  if (d1 == 0)
+  ఒకవేళ (d1 == 0)
     {
-      if (d0 > n1)
+      ఒకవేళ (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
-	  count_leading_zeros (bm, d0);
+	  లెక్క_leading_zeros (bm, d0);
 
-	  if (bm != 0)
+	  ఒకవేళ (bm != 0)
 	    {
 	      /* Normalize, i.e. make the most significant bit of the
 		 denominator set.  */
 
 	      d0 = d0 << bm;
-	      n1 = (n1 << bm) | (n0 >> (W_TYPE_SIZE - bm));
+	      n1 = (n1 << bm) | (n0 >> (W_TYPE_కొలత - bm));
 	      n0 = n0 << bm;
 	    }
 
@@ -216,16 +216,16 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0 >> bm.  */
 	}
-      else
+      లేకపోతే
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  ఒకవేళ (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
-	  count_leading_zeros (bm, d0);
+	  లెక్క_leading_zeros (bm, d0);
 
-	  if (bm == 0)
+	  ఒకవేళ (bm == 0)
 	    {
 	      /* From (n1 >= d0) /\ (the most significant bit of d0 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -237,11 +237,11 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      n1 -= d0;
 	      q1 = 1;
 	    }
-	  else
+	  లేకపోతే
 	    {
 	      /* Normalize.  */
 
-	      b = W_TYPE_SIZE - bm;
+	      b = W_TYPE_కొలత - bm;
 
 	      d0 = d0 << bm;
 	      n2 = n1 >> b;
@@ -258,18 +258,18 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0 >> bm.  */
 	}
 
-      if (rp != 0)
+      ఒకవేళ (rp != 0)
 	{
-	  rr.s.low = n0 >> bm;
-	  rr.s.high = 0;
+	  rr.s.దిగువ = n0 >> bm;
+	  rr.s.ఎగువ = 0;
 	  *rp = rr.ll;
 	}
     }
-#endif /* UDIV_NEEDS_NORMALIZATION */
+#అయితే_ముగింపు /* UDIV_NEEDS_NORMALIZATION */
 
-  else
+  లేకపోతే
     {
-      if (d1 > n1)
+      ఒకవేళ (d1 > n1)
 	{
 	  /* 00 = nn / DD */
 
@@ -277,19 +277,19 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  q1 = 0;
 
 	  /* Remainder in n1n0.  */
-	  if (rp != 0)
+	  ఒకవేళ (rp != 0)
 	    {
-	      rr.s.low = n0;
-	      rr.s.high = n1;
+	      rr.s.దిగువ = n0;
+	      rr.s.ఎగువ = n1;
 	      *rp = rr.ll;
 	    }
 	}
-      else
+      లేకపోతే
 	{
 	  /* 0q = NN / dd */
 
-	  count_leading_zeros (bm, d1);
-	  if (bm == 0)
+	  లెక్క_leading_zeros (bm, d1);
+	  ఒకవేళ (bm == 0)
 	    {
 	      /* From (n1 >= d1) /\ (the most significant bit of d1 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -299,29 +299,29 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	      /* The condition on the next line takes advantage of that
 		 n1 >= d1 (true due to program flow).  */
-	      if (n1 > d1 || n0 >= d0)
+	      ఒకవేళ (n1 > d1 || n0 >= d0)
 		{
 		  q0 = 1;
 		  sub_ddmmss (n1, n0, n1, n0, d1, d0);
 		}
-	      else
+	      లేకపోతే
 		q0 = 0;
 
 	      q1 = 0;
 
-	      if (rp != 0)
+	      ఒకవేళ (rp != 0)
 		{
-		  rr.s.low = n0;
-		  rr.s.high = n1;
+		  rr.s.దిగువ = n0;
+		  rr.s.ఎగువ = n1;
 		  *rp = rr.ll;
 		}
 	    }
-	  else
+	  లేకపోతే
 	    {
 	      UWtype m1, m0;
 	      /* Normalize.  */
 
-	      b = W_TYPE_SIZE - bm;
+	      b = W_TYPE_కొలత - bm;
 
 	      d1 = (d1 << bm) | (d0 >> b);
 	      d0 = d0 << bm;
@@ -332,7 +332,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      udiv_qrnnd (q0, n1, n2, n1, d1);
 	      umul_ppmm (m1, m0, q0, d0);
 
-	      if (m1 > n1 || (m1 == n1 && m0 > n0))
+	      ఒకవేళ (m1 > n1 || (m1 == n1 && m0 > n0))
 		{
 		  q0--;
 		  sub_ddmmss (m1, m0, m1, m0, d1, d0);
@@ -341,283 +341,283 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      q1 = 0;
 
 	      /* Remainder in (n1n0 - m1m0) >> bm.  */
-	      if (rp != 0)
+	      ఒకవేళ (rp != 0)
 		{
 		  sub_ddmmss (n1, n0, n1, n0, m1, m0);
-		  rr.s.low = (n1 << b) | (n0 >> bm);
-		  rr.s.high = n1 >> bm;
+		  rr.s.దిగువ = (n1 << b) | (n0 >> bm);
+		  rr.s.ఎగువ = n1 >> bm;
 		  *rp = rr.ll;
 		}
 	    }
 	}
     }
 
-  ww.s.low = q0;
-  ww.s.high = q1;
-  return ww.ll;
+  ww.s.దిగువ = q0;
+  ww.s.ఎగువ = q1;
+  తిరిగి ww.ll;
 }
 
-#define __negdi2(a) (-(a))
+#నిర్వచించు __negdi2(a) (-(a))
 
-long long __divdi3(long long u, long long v)
+దీర్ఘ దీర్ఘ __divdi3(దీర్ఘ దీర్ఘ u, దీర్ఘ దీర్ఘ v)
 {
-    int c = 0;
+    పూర్ణాంకం c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    ఒకవేళ (uu.s.ఎగువ < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0) {
+    ఒకవేళ (vv.s.ఎగువ < 0) {
         c = ~c;
         vv.ll = __negdi2 (vv.ll);
     }
     w = __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) 0);
-    if (c)
+    ఒకవేళ (c)
         w = __negdi2 (w);
-    return w;
+    తిరిగి w;
 }
 
-long long __moddi3(long long u, long long v)
+దీర్ఘ దీర్ఘ __moddi3(దీర్ఘ దీర్ఘ u, దీర్ఘ దీర్ఘ v)
 {
-    int c = 0;
+    పూర్ణాంకం c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    ఒకవేళ (uu.s.ఎగువ < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0)
+    ఒకవేళ (vv.s.ఎగువ < 0)
         vv.ll = __negdi2 (vv.ll);
     
     __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) &w);
-    if (c)
+    ఒకవేళ (c)
         w = __negdi2 (w);
-    return w;
+    తిరిగి w;
 }
 
-unsigned long long __udivdi3(unsigned long long u, unsigned long long v)
+గుర్తులేని దీర్ఘ దీర్ఘ __udivdi3(గుర్తులేని దీర్ఘ దీర్ఘ u, గుర్తులేని దీర్ఘ దీర్ఘ v)
 {
-    return __udivmoddi4 (u, v, (UDWtype *) 0);
+    తిరిగి __udivmoddi4 (u, v, (UDWtype *) 0);
 }
 
-unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
+గుర్తులేని దీర్ఘ దీర్ఘ __umoddi3(గుర్తులేని దీర్ఘ దీర్ఘ u, గుర్తులేని దీర్ఘ దీర్ఘ v)
 {
     UDWtype w;
     
     __udivmoddi4 (u, v, &w);
-    return w;
+    తిరిగి w;
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashrdi3(long long a, int b)
+దీర్ఘ దీర్ఘ __ashrdi3(దీర్ఘ దీర్ఘ a, పూర్ణాంకం b)
 {
-#ifdef __TINYC__
+#నిర్వచితమైతే __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.low = u.s.high >> (b - 32);
-        u.s.high = u.s.high >> 31;
-    } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = u.s.high >> b;
+    ఒకవేళ (b >= 32) {
+        u.s.దిగువ = u.s.ఎగువ >> (b - 32);
+        u.s.ఎగువ = u.s.ఎగువ >> 31;
+    } లేకపోతే ఒకవేళ (b != 0) {
+        u.s.దిగువ = ((గుర్తులేని)u.s.దిగువ >> b) | (u.s.ఎగువ << (32 - b));
+        u.s.ఎగువ = u.s.ఎగువ >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
-#endif
+    తిరిగి u.ll;
+#లేకపోతే
+    తిరిగి a >> b;
+#అయితే_ముగింపు
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-unsigned long long __lshrdi3(unsigned long long a, int b)
+గుర్తులేని దీర్ఘ దీర్ఘ __lshrdi3(గుర్తులేని దీర్ఘ దీర్ఘ a, పూర్ణాంకం b)
 {
-#ifdef __TINYC__
+#నిర్వచితమైతే __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.low = (unsigned)u.s.high >> (b - 32);
-        u.s.high = 0;
-    } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = (unsigned)u.s.high >> b;
+    ఒకవేళ (b >= 32) {
+        u.s.దిగువ = (గుర్తులేని)u.s.ఎగువ >> (b - 32);
+        u.s.ఎగువ = 0;
+    } లేకపోతే ఒకవేళ (b != 0) {
+        u.s.దిగువ = ((గుర్తులేని)u.s.దిగువ >> b) | (u.s.ఎగువ << (32 - b));
+        u.s.ఎగువ = (గుర్తులేని)u.s.ఎగువ >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
-#endif
+    తిరిగి u.ll;
+#లేకపోతే
+    తిరిగి a >> b;
+#అయితే_ముగింపు
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashldi3(long long a, int b)
+దీర్ఘ దీర్ఘ __ashldi3(దీర్ఘ దీర్ఘ a, పూర్ణాంకం b)
 {
-#ifdef __TINYC__
+#నిర్వచితమైతే __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.high = (unsigned)u.s.low << (b - 32);
-        u.s.low = 0;
-    } else if (b != 0) {
-        u.s.high = ((unsigned)u.s.high << b) | ((unsigned)u.s.low >> (32 - b));
-        u.s.low = (unsigned)u.s.low << b;
+    ఒకవేళ (b >= 32) {
+        u.s.ఎగువ = (గుర్తులేని)u.s.దిగువ << (b - 32);
+        u.s.దిగువ = 0;
+    } లేకపోతే ఒకవేళ (b != 0) {
+        u.s.ఎగువ = ((గుర్తులేని)u.s.ఎగువ << b) | ((గుర్తులేని)u.s.దిగువ >> (32 - b));
+        u.s.దిగువ = (గుర్తులేని)u.s.దిగువ << b;
     }
-    return u.ll;
-#else
-    return a << b;
-#endif
+    తిరిగి u.ll;
+#లేకపోతే
+    తిరిగి a << b;
+#అయితే_ముగింపు
 }
 
-#endif /* __i386__ */
+#అయితే_ముగింపు /* __i386__ */
 
 /* XXX: fix tcc's code generator to do this instead */
-float __floatundisf(unsigned long long a)
+దశాంశం __floatundisf(గుర్తులేని దీర్ఘ దీర్ఘ a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (float)uu.ll;
-    } else {
+    ఒకవేళ (uu.s.ఎగువ >= 0) {
+        తిరిగి (దశాంశం)uu.ll;
+    } లేకపోతే {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (float)r;
+        తిరిగి (దశాంశం)r;
     }
 }
 
-double __floatundidf(unsigned long long a)
+ద్విగుణ __floatundidf(గుర్తులేని దీర్ఘ దీర్ఘ a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (double)uu.ll;
-    } else {
+    ఒకవేళ (uu.s.ఎగువ >= 0) {
+        తిరిగి (ద్విగుణ)uu.ll;
+    } లేకపోతే {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (double)r;
+        తిరిగి (ద్విగుణ)r;
     }
 }
 
-long double __floatundixf(unsigned long long a)
+దీర్ఘ ద్విగుణ __floatundixf(గుర్తులేని దీర్ఘ దీర్ఘ a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (long double)uu.ll;
-    } else {
+    ఒకవేళ (uu.s.ఎగువ >= 0) {
+        తిరిగి (దీర్ఘ ద్విగుణ)uu.ll;
+    } లేకపోతే {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (long double)r;
+        తిరిగి (దీర్ఘ ద్విగుణ)r;
     }
 }
 
-unsigned long long __fixunssfdi (float a1)
+గుర్తులేని దీర్ఘ దీర్ఘ __fixunssfdi (దశాంశం a1)
 {
-    register union float_long fl1;
-    register int exp;
-    register unsigned long long l;
+    నమోదు సంఘం float_long fl1;
+    నమోదు పూర్ణాంకం ఘాతాంకం;
+    నమోదు గుర్తులేని దీర్ఘ దీర్ఘ l;
 
     fl1.f = a1;
 
-    if (fl1.l == 0)
-	return (0);
+    ఒకవేళ (fl1.l == 0)
+	తిరిగి (0);
 
-    exp = EXP (fl1.l) - EXCESS - 24;
+    ఘాతాంకం = EXP (fl1.l) - EXCESS - 24;
     l = MANT(fl1.l);
 
-    if (exp >= 41)
-        return 1ULL << 63;
-    else if (exp >= 0)
-        l <<= exp;
-    else if (exp >= -23)
-        l >>= -exp;
-    else
-	return 0;
-    if (SIGN(fl1.l))
-        l = (unsigned long long)-l;
-    return l;
+    ఒకవేళ (ఘాతాంకం >= 41)
+        తిరిగి 1ULL << 63;
+    లేకపోతే ఒకవేళ (ఘాతాంకం >= 0)
+        l <<= ఘాతాంకం;
+    లేకపోతే ఒకవేళ (ఘాతాంకం >= -23)
+        l >>= -ఘాతాంకం;
+    లేకపోతే
+	తిరిగి 0;
+    ఒకవేళ (SIGN(fl1.l))
+        l = (గుర్తులేని దీర్ఘ దీర్ఘ)-l;
+    తిరిగి l;
 }
 
-long long __fixsfdi (float a1)
+దీర్ఘ దీర్ఘ __fixsfdi (దశాంశం a1)
 {
-    long long ret; int s;
+    దీర్ఘ దీర్ఘ ret; పూర్ణాంకం s;
     ret = __fixunssfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    తిరిగి s ? ret : -ret;
 }
 
-unsigned long long __fixunsdfdi (double a1)
+గుర్తులేని దీర్ఘ దీర్ఘ __fixunsdfdi (ద్విగుణ a1)
 {
-    register union double_long dl1;
-    register int exp;
-    register unsigned long long l;
+    నమోదు సంఘం double_long dl1;
+    నమోదు పూర్ణాంకం ఘాతాంకం;
+    నమోదు గుర్తులేని దీర్ఘ దీర్ఘ l;
 
     dl1.d = a1;
 
-    if (dl1.ll == 0)
-	return (0);
+    ఒకవేళ (dl1.ll == 0)
+	తిరిగి (0);
 
-    exp = EXPD (dl1) - EXCESSD - 53;
+    ఘాతాంకం = EXPD (dl1) - EXCESSD - 53;
     l = MANTD_LL(dl1);
 
-    if (exp >= 12)
-        return 1ULL << 63; /* overflow result (like gcc, somewhat) */
-    else if (exp >= 0)
-        l <<= exp;
-    else if (exp >= -52)
-        l >>= -exp;
-    else
-        return 0;
-    if (SIGND(dl1))
-        l = (unsigned long long)-l;
-    return l;
+    ఒకవేళ (ఘాతాంకం >= 12)
+        తిరిగి 1ULL << 63; /* overflow result (like gcc, somewhat) */
+    లేకపోతే ఒకవేళ (ఘాతాంకం >= 0)
+        l <<= ఘాతాంకం;
+    లేకపోతే ఒకవేళ (ఘాతాంకం >= -52)
+        l >>= -ఘాతాంకం;
+    లేకపోతే
+        తిరిగి 0;
+    ఒకవేళ (SIGND(dl1))
+        l = (గుర్తులేని దీర్ఘ దీర్ఘ)-l;
+    తిరిగి l;
 }
 
-long long __fixdfdi (double a1)
+దీర్ఘ దీర్ఘ __fixdfdi (ద్విగుణ a1)
 {
-    long long ret; int s;
+    దీర్ఘ దీర్ఘ ret; పూర్ణాంకం s;
     ret = __fixunsdfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    తిరిగి s ? ret : -ret;
 }
 
-#ifndef __arm__
-unsigned long long __fixunsxfdi (long double a1)
+#నిర్వచితం_కాకపోతే __arm__
+గుర్తులేని దీర్ఘ దీర్ఘ __fixunsxfdi (దీర్ఘ ద్విగుణ a1)
 {
-    register union ldouble_long dl1;
-    register int exp;
-    register unsigned long long l;
+    నమోదు సంఘం ldouble_long dl1;
+    నమోదు పూర్ణాంకం ఘాతాంకం;
+    నమోదు గుర్తులేని దీర్ఘ దీర్ఘ l;
 
     dl1.ld = a1;
 
-    if (dl1.l.lower == 0 && dl1.l.upper == 0)
-	return (0);
+    ఒకవేళ (dl1.l.క్రింది == 0 && dl1.l.పై == 0)
+	తిరిగి (0);
 
-    exp = EXPLD (dl1) - EXCESSLD - 64;
-    l = dl1.l.lower;
-    if (exp > 0)
-	return 1ULL << 63;
-    if (exp < -63)
-        return 0;
-    l >>= -exp;
-    if (SIGNLD(dl1))
-        l = (unsigned long long)-l;
-    return l;
+    ఘాతాంకం = EXPLD (dl1) - EXCESSLD - 64;
+    l = dl1.l.క్రింది;
+    ఒకవేళ (ఘాతాంకం > 0)
+	తిరిగి 1ULL << 63;
+    ఒకవేళ (ఘాతాంకం < -63)
+        తిరిగి 0;
+    l >>= -ఘాతాంకం;
+    ఒకవేళ (SIGNLD(dl1))
+        l = (గుర్తులేని దీర్ఘ దీర్ఘ)-l;
+    తిరిగి l;
 }
 
-long long __fixxfdi (long double a1)
+దీర్ఘ దీర్ఘ __fixxfdi (దీర్ఘ ద్విగుణ a1)
 {
-    long long ret; int s;
+    దీర్ఘ దీర్ఘ ret; పూర్ణాంకం s;
     ret = __fixunsxfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    తిరిగి s ? ret : -ret;
 }
-#endif /* !ARM */
+#అయితే_ముగింపు /* !ARM */

@@ -1,17 +1,17 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   printf("%d\n", '\1');
-   printf("%d\n", '\10');
-   printf("%d\n", '\100');
-   printf("%d\n", '\x01');
-   printf("%d\n", '\x0e');
-   printf("%d\n", '\x10');
-   printf("%d\n", '\x40');
-   printf("test \x40\n");
+   రాయి("%d\n", '\1');
+   రాయి("%d\n", '\10');
+   రాయి("%d\n", '\100');
+   రాయి("%d\n", '\x01');
+   రాయి("%d\n", '\x0e');
+   రాయి("%d\n", '\x10');
+   రాయి("%d\n", '\x40');
+   రాయి("test \x40\n");
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

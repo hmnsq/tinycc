@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+స్థిరరాశి పూర్ణాంకం const_return(శూన్య);
+అస్థిర పూర్ణాంకం volatile_return(శూన్య);
+పూర్ణాంకం *పరిమిత restrict_return(శూన్య);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, పూర్ణాంకం *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, పూర్ణాంకం *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, పూర్ణాంకం **),
                "restrict is removed from a return type");
 
-int const_return(void)
+పూర్ణాంకం const_return(శూన్య)
 {
-   return 0;
+   తిరిగి 0;
 }
 
-int volatile_return(void)
+పూర్ణాంకం volatile_return(శూన్య)
 {
-   return 0;
+   తిరిగి 0;
 }
 
-int *restrict_return(void)
+పూర్ణాంకం *restrict_return(శూన్య)
 {
-   return 0;
+   తిరిగి 0;
 }
 
-int main(void)
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
-   return 0;
+   తిరిగి 0;
 }

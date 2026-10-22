@@ -1,30 +1,30 @@
-int printf(const char*, ...);
+పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం*, ...);
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    char a;
-    short b;
+    అక్షరం a;
+    పొట్టి b;
 
-    printf("sizeof a : %d %d\n", sizeof(char), sizeof(a));
-    printf("sizeof b : %d %d\n", sizeof(short), sizeof(b));
+    రాయి("sizeof a : %d %d\n", పరిమాణం(అక్షరం), పరిమాణం(a));
+    రాయి("sizeof b : %d %d\n", పరిమాణం(పొట్టి), పరిమాణం(b));
 
-    int ii[] = {}; /* gnu extension, size = 0 */
-    printf("sizeof ii : %d\n", sizeof ii);
+    పూర్ణాంకం ii[] = {}; /* gnu extension, size = 0 */
+    రాయి("sizeof ii : %d\n", పరిమాణం ii);
 
-    int kk[] = { 1 };
-    printf("sizeof kk : %d\n", sizeof kk);
+    పూర్ణాంకం kk[] = { 1 };
+    రాయి("sizeof kk : %d\n", పరిమాణం kk);
 
-    char cc[] = "12";
-    printf("sizeof cc : %d\n", sizeof cc);
+    అక్షరం cc[] = "12";
+    రాయి("sizeof cc : %d\n", పరిమాణం cc);
 
     __WCHAR_TYPE__ ll[] = L"12345";
-    printf("len-of ll : %d\n", sizeof ll / sizeof ll[0]);
+    రాయి("len-of ll : %d\n", పరిమాణం ll / పరిమాణం ll[0]);
 
-    static struct {
-        int a,b,c;
-        int d[];
+    స్థిర నిర్మాణం {
+        పూర్ణాంకం a,b,c;
+        పూర్ణాంకం d[];
     } ss[] = {{ 1, 2, 3, {} }};
-    printf("sizeof ss : %d\n", sizeof ss);
+    రాయి("sizeof ss : %d\n", పరిమాణం ss);
 
-    return 0;
+    తిరిగి 0;
 }

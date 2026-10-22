@@ -1,17 +1,17 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-static void f(int x)
+స్థిర శూన్య f(పూర్ణాంకం x)
 {
-     printf("f(%d)\n", x);
+     రాయి("f(%d)\n", x);
 }
 
-int main(void)
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
-         printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+     పూర్ణాంకం లెక్క_2 = 0, i = 0;
+     కొరకు (; i < 3; ++i) {
+         రాయి("%d\n", i);
+         (శూన్య)(i || (f(i), ++లెక్క_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     రాయి("count %d\n", లెక్క_2);
+     తిరిగి లెక్క_2 == 1 ? 0 : 1;
 }

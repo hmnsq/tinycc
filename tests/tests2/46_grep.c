@@ -14,9 +14,9 @@
  * included and reference made to  the  fact  that  reproduction
  * privileges were granted by DECUS.
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>	// tolower()
+#అన్తర్భావ <stdio.h>
+#అన్తర్భావ <stdlib.h>
+#అన్తర్భావ <ctype.h>	// tolower()
 
 /*
  * grep
@@ -27,7 +27,7 @@
  * See below for more information.
  */
 
-char    *documentation[] = {
+అక్షరం    *documentation[] = {
    "grep searches a file for a given pattern.  Execute by",
    "   grep [flags] regular_expression file_list\n",
    "Flags are single characters preceded by '-':",
@@ -40,7 +40,7 @@ char    *documentation[] = {
    "The -f flag reverses this action (print name no file, not if more).\n",
    0 };
 
-char    *patdoc[] = {
+అక్షరం    *patdoc[] = {
    "The regular_expression defines the pattern to search for.  Upper- and",
    "lower-case are always ignored.  Blank lines never match.  The expression",
    "should be quoted to prevent file-name translation.",
@@ -72,202 +72,202 @@ char    *patdoc[] = {
    "The concatenation of regular expressions is a regular expression.",
    0};
 
-#define LMAX    512
-#define PMAX    256
+#నిర్వచించు LMAX    512
+#నిర్వచించు PMAX    256
 
-#define CHAR    1
-#define BOL     2
-#define EOL     3
-#define ANY     4
-#define CLASS   5
-#define NCLASS  6
-#define STAR    7
-#define PLUS    8
-#define MINUS   9
-#define ALPHA   10
-#define DIGIT   11
-#define NALPHA  12
-#define PUNCT   13
-#define RANGE   14
-#define ENDPAT  15
+#నిర్వచించు CHAR    1
+#నిర్వచించు BOL     2
+#నిర్వచించు EOL     3
+#నిర్వచించు ANY     4
+#నిర్వచించు CLASS   5
+#నిర్వచించు NCLASS  6
+#నిర్వచించు నక్షత్రం_2    7
+#నిర్వచించు PLUS    8
+#నిర్వచించు MINUS   9
+#నిర్వచించు ALPHA   10
+#నిర్వచించు DIGIT   11
+#నిర్వచించు NALPHA  12
+#నిర్వచించు PUNCT   13
+#నిర్వచించు RANGE   14
+#నిర్వచించు ENDPAT  15
 
-int cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
+పూర్ణాంకం cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
 
-char *pp, lbuf[LMAX], pbuf[PMAX];
+అక్షరం *pp, lbuf[LMAX], pbuf[PMAX];
 
-char *cclass();
-char *pmatch();
-void store(int);
-void error(char *);
-void badpat(char *, char *, char *);
-int match(void);
+అక్షరం *cclass();
+అక్షరం *pmatch();
+శూన్య store(పూర్ణాంకం);
+శూన్య error(అక్షరం *);
+శూన్య badpat(అక్షరం *, అక్షరం *, అక్షరం *);
+పూర్ణాంకం సరిపోలిక(శూన్య);
 
 
 /*** Display a file name *******************************/
-void file(char *s)
+శూన్య file(అక్షరం *s)
 {
-   printf("File %s:\n", s);
+   రాయి("File %s:\n", s);
 }
 
 /*** Report unopenable file ****************************/
-void cant(char *s)
+శూన్య cant(అక్షరం *s)
 {
    fprintf(stderr, "%s: cannot open\n", s);
 }
 
 /*** Give good help ************************************/
-void help(char **hp)
+శూన్య help(అక్షరం **hp)
 {
-   char   **dp;
+   అక్షరం   **dp;
 
-   for (dp = hp; *dp; ++dp)
-      printf("%s\n", *dp);
+   కొరకు (dp = hp; *dp; ++dp)
+      రాయి("%s\n", *dp);
 }
 
 /*** Display usage summary *****************************/
-void usage(char *s)
+శూన్య usage(అక్షరం *s)
 {
    fprintf(stderr, "?GREP-E-%s\n", s);
    fprintf(stderr,
          "Usage: grep [-cfnv] pattern [file ...].  grep ? for help\n");
-   exit(1);
+   నిష్క్రమించు(1);
 }
 
 /*** Compile the pattern into global pbuf[] ************/
-void compile(char *source)
+శూన్య compile(అక్షరం *ఆధారం)
 {
-   char  *s;         /* Source string pointer     */
-   char  *lp;        /* Last pattern pointer      */
-   int   c;          /* Current character         */
-   int            o;          /* Temp                      */
-   char           *spp;       /* Save beginning of pattern */
+   అక్షరం  *s;         /* Source string pointer     */
+   అక్షరం  *lp;        /* Last pattern pointer      */
+   పూర్ణాంకం   c;          /* Current character         */
+   పూర్ణాంకం            o;          /*తాత్కాలిక*/
+   అక్షరం           *spp;       /* Save beginning of pattern */
 
-   s = source;
-   if (debug)
-      printf("Pattern = \"%s\"\n", s);
+   s = ఆధారం;
+   ఒకవేళ (debug)
+      రాయి("Pattern = \"%s\"\n", s);
    pp = pbuf;
-   while (c = *s++) {
+   అయితే (c = *s++) {
       /*
        * STAR, PLUS and MINUS are special.
        */
-      if (c == '*' || c == '+' || c == '-') {
-         if (pp == pbuf ||
+      ఒకవేళ (c == '*' || c == '+' || c == '-') {
+         ఒకవేళ (pp == pbuf ||
                (o=pp[-1]) == BOL ||
                o == EOL ||
-               o == STAR ||
+               o == నక్షత్రం_2 ||
                o == PLUS ||
                o == MINUS)
-            badpat("Illegal occurrence op.", source, s);
+            badpat("Illegal occurrence op.", ఆధారం, s);
          store(ENDPAT);
          store(ENDPAT);
          spp = pp;               /* Save pattern end     */
-         while (--pp > lp)       /* Move pattern down    */
+         అయితే (--pp > lp)       /* Move pattern down    */
             *pp = pp[-1];        /* one byte             */
-         *pp =   (c == '*') ? STAR :
+         *pp =   (c == '*') ? నక్షత్రం_2 :
             (c == '-') ? MINUS : PLUS;
          pp = spp;               /* Restore pattern end  */
-         continue;
+         కొనసాగు;
       }
       /*
        * All the rest.
        */
       lp = pp;         /* Remember start       */
-      switch(c) {
+      ఎంపిక(c) {
 
-         case '^':
+         స్థితి '^':
             store(BOL);
-            break;
+            ఆపు;
 
-         case '$':
+         స్థితి '$':
             store(EOL);
-            break;
+            ఆపు;
 
-         case '.':
+         స్థితి '.':
             store(ANY);
-            break;
+            ఆపు;
 
-         case '[':
-            s = cclass(source, s);
-            break;
+         స్థితి '[':
+            s = cclass(ఆధారం, s);
+            ఆపు;
 
-         case ':':
-            if (*s) {
-               switch(tolower(c = *s++)) {
+         స్థితి ':':
+            ఒకవేళ (*s) {
+               ఎంపిక(tolower(c = *s++)) {
 
-                  case 'a':
-                  case 'A':
+                  స్థితి 'a':
+                  స్థితి 'A':
                      store(ALPHA);
-                     break;
+                     ఆపు;
 
-                  case 'd':
-                  case 'D':
+                  స్థితి 'd':
+                  స్థితి 'D':
                      store(DIGIT);
-                     break;
+                     ఆపు;
 
-                  case 'n':
-                  case 'N':
+                  స్థితి 'n':
+                  స్థితి 'N':
                      store(NALPHA);
-                     break;
+                     ఆపు;
 
-                  case ' ':
+                  స్థితి ' ':
                      store(PUNCT);
-                     break;
+                     ఆపు;
 
-                  default:
-                     badpat("Unknown : type", source, s);
+                  అప్రమేయ:
+                     badpat("Unknown : type", ఆధారం, s);
 
                }
-               break;
+               ఆపు;
             }
-            else    badpat("No : type", source, s);
+            లేకపోతే    badpat("No : type", ఆధారం, s);
 
-         case '\\':
-            if (*s)
+         స్థితి '\\':
+            ఒకవేళ (*s)
                c = *s++;
 
-         default:
+         అప్రమేయ:
             store(CHAR);
             store(tolower(c));
       }
    }
    store(ENDPAT);
    store(0);                /* Terminate string     */
-   if (debug) {
-      for (lp = pbuf; lp < pp;) {
-         if ((c = (*lp++ & 0377)) < ' ')
-            printf("\\%o ", c);
-         else    printf("%c ", c);
+   ఒకవేళ (debug) {
+      కొరకు (lp = pbuf; lp < pp;) {
+         ఒకవేళ ((c = (*lp++ & 0377)) < ' ')
+            రాయి("\\%o ", c);
+         లేకపోతే    రాయి("%c ", c);
       }
-      printf("\n");
+      రాయి("\n");
    }
 }
 
 /*** Compile a class (within []) ***********************/
-char *cclass(char *source, char *src)
+అక్షరం *cclass(అక్షరం *ఆధారం, అక్షరం *src)
    /* char       *source;   // Pattern start -- for error msg. */
    /* char       *src;      // Class start */
 {
-   char   *s;        /* Source pointer    */
-   char   *cp;       /* Pattern start     */
-   int    c;         /* Current character */
-   int             o;         /* Temp              */
+   అక్షరం   *s;        /* Source pointer    */
+   అక్షరం   *cp;       /* Pattern start     */
+   పూర్ణాంకం    c;         /* Current character */
+   పూర్ణాంకం             o;         /* Temp              */
 
    s = src;
    o = CLASS;
-   if (*s == '^') {
+   ఒకవేళ (*s == '^') {
       ++s;
       o = NCLASS;
    }
    store(o);
    cp = pp;
    store(0);                          /* Byte count      */
-   while ((c = *s++) && c!=']') {
-      if (c == '\\') {                /* Store quoted char    */
-         if ((c = *s++) == '\0')      /* Gotta get something  */
-            badpat("Class terminates badly", source, s);
-         else    store(tolower(c));
+   అయితే ((c = *s++) && c!=']') {
+      ఒకవేళ (c == '\\') {                /* Store quoted char    */
+         ఒకవేళ ((c = *s++) == '\0')      /* Gotta get something  */
+            badpat("Class terminates badly", ఆధారం, s);
+         లేకపోతే    store(tolower(c));
       }
-      else if (c == '-' &&
+      లేకపోతే ఒకవేళ (c == '-' &&
             (pp - cp) > 1 && *s != ']' && *s != '\0') {
          c = pp[-1];             /* Range start     */
          pp[-1] = RANGE;         /* Range signal    */
@@ -275,296 +275,296 @@ char *cclass(char *source, char *src)
          c = *s++;               /* Get end char and*/
          store(tolower(c));      /* Store it        */
       }
-      else {
+      లేకపోతే {
          store(tolower(c));      /* Store normal char */
       }
    }
-   if (c != ']')
-      badpat("Unterminated class", source, s);
-   if ((c = (pp - cp)) >= 256)
-      badpat("Class too large", source, s);
-   if (c == 0)
-      badpat("Empty class", source, s);
+   ఒకవేళ (c != ']')
+      badpat("Unterminated class", ఆధారం, s);
+   ఒకవేళ ((c = (pp - cp)) >= 256)
+      badpat("Class too large", ఆధారం, s);
+   ఒకవేళ (c == 0)
+      badpat("Empty class", ఆధారం, s);
    *cp = c;
-   return(s);
+   తిరిగి(s);
 }
 
 /*** Store an entry in the pattern buffer **************/
-void store(int op)
+శూన్య store(పూర్ణాంకం op)
 {
-   if (pp >= &pbuf[PMAX])
+   ఒకవేళ (pp >= &pbuf[PMAX])
       error("Pattern too complex\n");
    *pp++ = op;
 }
 
 /*** Report a bad pattern specification ****************/
-void badpat(char *message, char *source, char *stop)
+శూన్య badpat(అక్షరం *సందేశం_2, అక్షరం *ఆధారం, అక్షరం *stop)
    /* char  *message;       // Error message */
    /* char  *source;        // Pattern start */
    /* char  *stop;          // Pattern end   */
 {
-   fprintf(stderr, "-GREP-E-%s, pattern is\"%s\"\n", message, source);
+   fprintf(stderr, "-GREP-E-%s, pattern is\"%s\"\n", సందేశం_2, ఆధారం);
    fprintf(stderr, "-GREP-E-Stopped at byte %ld, '%c'\n",
-         stop-source, stop[-1]);
+         stop-ఆధారం, stop[-1]);
    error("?GREP-E-Bad pattern\n");
 }
 
 /*** Scan the file for the pattern in pbuf[] ***********/
-void grep(FILE *fp, char *fn)
+శూన్య grep(FILE *fp, అక్షరం *fn)
    /* FILE       *fp;       // File to process            */
    /* char       *fn;       // File name (for -f option)  */
 {
-   int lno, count, m;
+   పూర్ణాంకం lno, లెక్క_2, m;
 
    lno = 0;
-   count = 0;
-   while (fgets(lbuf, LMAX, fp)) {
+   లెక్క_2 = 0;
+   అయితే (fgets(lbuf, LMAX, fp)) {
       ++lno;
-      m = match();
-      if ((m && !vflag) || (!m && vflag)) {
-         ++count;
-         if (!cflag) {
-            if (fflag && fn) {
+      m = సరిపోలిక();
+      ఒకవేళ ((m && !vflag) || (!m && vflag)) {
+         ++లెక్క_2;
+         ఒకవేళ (!cflag) {
+            ఒకవేళ (fflag && fn) {
                file(fn);
                fn = 0;
             }
-            if (nflag)
-               printf("%d\t", lno);
-            printf("%s\n", lbuf);
+            ఒకవేళ (nflag)
+               రాయి("%d\t", lno);
+            రాయి("%s\n", lbuf);
          }
       }
    }
-   if (cflag) {
-      if (fflag && fn)
+   ఒకవేళ (cflag) {
+      ఒకవేళ (fflag && fn)
          file(fn);
-      printf("%d\n", count);
+      రాయి("%d\n", లెక్క_2);
    }
 }
 
 /*** Match line (lbuf) with pattern (pbuf) return 1 if match ***/
-int match()
+పూర్ణాంకం సరిపోలిక()
 {
-   char   *l;        /* Line pointer       */
+   అక్షరం   *l;        /* Line pointer       */
 
-   for (l = lbuf; *l; ++l) {
-      if (pmatch(l, pbuf))
-         return(1);
+   కొరకు (l = lbuf; *l; ++l) {
+      ఒకవేళ (pmatch(l, pbuf))
+         తిరిగి(1);
    }
-   return(0);
+   తిరిగి(0);
 }
 
 /*** Match partial line with pattern *******************/
-char *pmatch(char *line, char *pattern)
+అక్షరం *pmatch(అక్షరం *పంక్తి, అక్షరం *నమూనా)
    /* char               *line;     // (partial) line to match      */
    /* char               *pattern;  // (partial) pattern to match   */
 {
-   char   *l;        /* Current line pointer         */
-   char   *p;        /* Current pattern pointer      */
-   char   c;         /* Current character            */
-   char            *e;        /* End for STAR and PLUS match  */
-   int             op;        /* Pattern operation            */
-   int             n;         /* Class counter                */
-   char            *are;      /* Start of STAR match          */
+   అక్షరం   *l;        /* Current line pointer         */
+   అక్షరం   *p;        /* Current pattern pointer      */
+   అక్షరం   c;         /* Current character            */
+   అక్షరం            *e;        /* End for STAR and PLUS match  */
+   పూర్ణాంకం             op;        /* Pattern operation            */
+   పూర్ణాంకం             n;         /* Class counter                */
+   అక్షరం            *are;      /* Start of STAR match          */
 
-   l = line;
-   if (debug > 1)
-      printf("pmatch(\"%s\")\n", line);
-   p = pattern;
-   while ((op = *p++) != ENDPAT) {
-      if (debug > 1)
-         printf("byte[%ld] = 0%o, '%c', op = 0%o\n",
-               l-line, *l, *l, op);
-      switch(op) {
+   l = పంక్తి;
+   ఒకవేళ (debug > 1)
+      రాయి("pmatch(\"%s\")\n", పంక్తి);
+   p = నమూనా;
+   అయితే ((op = *p++) != ENDPAT) {
+      ఒకవేళ (debug > 1)
+         రాయి("byte[%ld] = 0%o, '%c', op = 0%o\n",
+               l-పంక్తి, *l, *l, op);
+      ఎంపిక(op) {
 
-         case CHAR:
-            if (tolower(*l++) != *p++)
-               return(0);
-            break;
+         స్థితి CHAR:
+            ఒకవేళ (tolower(*l++) != *p++)
+               తిరిగి(0);
+            ఆపు;
 
-         case BOL:
-            if (l != lbuf)
-               return(0);
-            break;
+         స్థితి BOL:
+            ఒకవేళ (l != lbuf)
+               తిరిగి(0);
+            ఆపు;
 
-         case EOL:
-            if (*l != '\0')
-               return(0);
-            break;
+         స్థితి EOL:
+            ఒకవేళ (*l != '\0')
+               తిరిగి(0);
+            ఆపు;
 
-         case ANY:
-            if (*l++ == '\0')
-               return(0);
-            break;
+         స్థితి ANY:
+            ఒకవేళ (*l++ == '\0')
+               తిరిగి(0);
+            ఆపు;
 
-         case DIGIT:
-            if ((c = *l++) < '0' || (c > '9'))
-               return(0);
-            break;
+         స్థితి DIGIT:
+            ఒకవేళ ((c = *l++) < '0' || (c > '9'))
+               తిరిగి(0);
+            ఆపు;
 
-         case ALPHA:
+         స్థితి ALPHA:
             c = tolower(*l++);
-            if (c < 'a' || c > 'z')
-               return(0);
-            break;
+            ఒకవేళ (c < 'a' || c > 'z')
+               తిరిగి(0);
+            ఆపు;
 
-         case NALPHA:
+         స్థితి NALPHA:
             c = tolower(*l++);
-            if (c >= 'a' && c <= 'z')
-               break;
-            else if (c < '0' || c > '9')
-               return(0);
-            break;
+            ఒకవేళ (c >= 'a' && c <= 'z')
+               ఆపు;
+            లేకపోతే ఒకవేళ (c < '0' || c > '9')
+               తిరిగి(0);
+            ఆపు;
 
-         case PUNCT:
+         స్థితి PUNCT:
             c = *l++;
-            if (c == 0 || c > ' ')
-               return(0);
-            break;
+            ఒకవేళ (c == 0 || c > ' ')
+               తిరిగి(0);
+            ఆపు;
 
-         case CLASS:
-         case NCLASS:
+         స్థితి CLASS:
+         స్థితి NCLASS:
             c = tolower(*l++);
             n = *p++ & 0377;
-            do {
-               if (*p == RANGE) {
+            చేయి {
+               ఒకవేళ (*p == RANGE) {
                   p += 3;
                   n -= 2;
-                  if (c >= p[-2] && c <= p[-1])
-                     break;
+                  ఒకవేళ (c >= p[-2] && c <= p[-1])
+                     ఆపు;
                }
-               else if (c == *p++)
-                  break;
-            } while (--n > 1);
-            if ((op == CLASS) == (n <= 1))
-               return(0);
-            if (op == CLASS)
+               లేకపోతే ఒకవేళ (c == *p++)
+                  ఆపు;
+            } అయితే (--n > 1);
+            ఒకవేళ ((op == CLASS) == (n <= 1))
+               తిరిగి(0);
+            ఒకవేళ (op == CLASS)
                p += n - 2;
-            break;
+            ఆపు;
 
-         case MINUS:
+         స్థితి MINUS:
             e = pmatch(l, p);       /* Look for a match    */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            if (e)                  /* Got a match?        */
+            అయితే (*p++ != ENDPAT); /* Skip over pattern   */
+            ఒకవేళ (e)                  /* Got a match?        */
                l = e;               /* Yes, update string  */
-            break;                  /* Always succeeds     */
+            ఆపు;                  /* Always succeeds     */
 
-         case PLUS:                 /* One or more ...     */
-            if ((l = pmatch(l, p)) == 0)
-               return(0);           /* Gotta have a match  */
-         case STAR:                 /* Zero or more ...    */
+         స్థితి PLUS:                 /* One or more ...     */
+            ఒకవేళ ((l = pmatch(l, p)) == 0)
+               తిరిగి(0);           /* Gotta have a match  */
+         స్థితి నక్షత్రం_2:                 /* Zero or more ...    */
             are = l;                /* Remember line start */
-            while (*l && (e = pmatch(l, p)))
+            అయితే (*l && (e = pmatch(l, p)))
                l = e;               /* Get longest match   */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            while (l > are) {       /* Try to match rest   */
-               if (e = pmatch(l, p))
-                  return(e);
+            అయితే (*p++ != ENDPAT); /* Skip over pattern   */
+            అయితే (l > are) {       /* Try to match rest   */
+               ఒకవేళ (e = pmatch(l, p))
+                  తిరిగి(e);
                --l;                 /* Nope, try earlier   */
             }
-            if (e = pmatch(l, p))
-               return(e);
-            return(0);              /* Nothing else worked */
+            ఒకవేళ (e = pmatch(l, p))
+               తిరిగి(e);
+            తిరిగి(0);              /* Nothing else worked */
 
-         default:
-            printf("Bad op code %d\n", op);
+         అప్రమేయ:
+            రాయి("Bad op code %d\n", op);
             error("Cannot happen -- match\n");
       }
    }
-   return(l);
+   తిరిగి(l);
 }
 
 /*** Report an error ***********************************/
-void error(char *s)
+శూన్య error(అక్షరం *s)
 {
    fprintf(stderr, "%s", s);
-   exit(1);
+   నిష్క్రమించు(1);
 }
 
 /*** Main program - parse arguments & grep *************/
-int main(int argc, char **argv)
+పూర్ణాంకం ప్రధాన(పూర్ణాంకం argc, అక్షరం **argv)
 {
-   char   *p;
-   int    c, i;
-   int             gotpattern;
+   అక్షరం   *p;
+   పూర్ణాంకం    c, i;
+   పూర్ణాంకం             gotpattern;
 
    FILE            *f;
 
-   if (argc <= 1)
+   ఒకవేళ (argc <= 1)
       usage("No arguments");
-   if (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
+   ఒకవేళ (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
       help(documentation);
       help(patdoc);
-      return 0;
+      తిరిగి 0;
    }
    nfile = argc-1;
    gotpattern = 0;
-   for (i=1; i < argc; ++i) {
+   కొరకు (i=1; i < argc; ++i) {
       p = argv[i];
-      if (*p == '-') {
+      ఒకవేళ (*p == '-') {
          ++p;
-         while (c = *p++) {
-            switch(tolower(c)) {
+         అయితే (c = *p++) {
+            ఎంపిక(tolower(c)) {
 
-               case '?':
+               స్థితి '?':
                   help(documentation);
-                  break;
+                  ఆపు;
 
-               case 'C':
-               case 'c':
+               స్థితి 'C':
+               స్థితి 'c':
                   ++cflag;
-                  break;
+                  ఆపు;
 
-               case 'D':
-               case 'd':
+               స్థితి 'D':
+               స్థితి 'd':
                   ++debug;
-                  break;
+                  ఆపు;
 
-               case 'F':
-               case 'f':
+               స్థితి 'F':
+               స్థితి 'f':
                   ++fflag;
-                  break;
+                  ఆపు;
 
-               case 'n':
-               case 'N':
+               స్థితి 'n':
+               స్థితి 'N':
                   ++nflag;
-                  break;
+                  ఆపు;
 
-               case 'v':
-               case 'V':
+               స్థితి 'v':
+               స్థితి 'V':
                   ++vflag;
-                  break;
+                  ఆపు;
 
-               default:
+               అప్రమేయ:
                   usage("Unknown flag");
             }
          }
          argv[i] = 0;
          --nfile;
-      } else if (!gotpattern) {
+      } లేకపోతే ఒకవేళ (!gotpattern) {
          compile(p);
          argv[i] = 0;
          ++gotpattern;
          --nfile;
       }
    }
-   if (!gotpattern)
+   ఒకవేళ (!gotpattern)
       usage("No pattern");
-   if (nfile == 0)
+   ఒకవేళ (nfile == 0)
       grep(stdin, 0);
-   else {
+   లేకపోతే {
       fflag = fflag ^ (nfile > 0);
-      for (i=1; i < argc; ++i) {
-         if (p = argv[i]) {
-            if ((f=fopen(p, "r")) == NULL)
+      కొరకు (i=1; i < argc; ++i) {
+         ఒకవేళ (p = argv[i]) {
+            ఒకవేళ ((f=fopen(p, "r")) == ఖాళీ)
                cant(p);
-            else {
+            లేకపోతే {
                grep(f, p);
                fclose(f);
             }
          }
       }
    }
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

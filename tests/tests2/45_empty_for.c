@@ -1,18 +1,18 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int Count = 0;
+   పూర్ణాంకం లెక్క_3 = 0;
 
-   for (;;)
+   కొరకు (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      లెక్క_3++;
+      రాయి("%d\n", లెక్క_3);
+      ఒకవేళ (లెక్క_3 >= 10)
+         ఆపు;
    }
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

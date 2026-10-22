@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#అన్తర్భావ <stdlib.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    printf("Hello World\n");
-    return 0;
+    రాయి("Hello World\n");
+    తిరిగి 0;
 }

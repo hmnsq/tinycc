@@ -1,26 +1,26 @@
-#ifdef DEFS
-__thread signed short extern_tls_short = 1234;
-__thread float extern_tls_float = 1.5f;
-#else
-extern __thread signed short extern_tls_short;
-extern __thread float extern_tls_float;
-int printf(const char *, ...);
+#నిర్వచితమైతే DEFS
+__thread గుర్తుగల పొట్టి extern_tls_short = 1234;
+__thread దశాంశం extern_tls_float = 1.5f;
+#లేకపోతే
+బాహ్య __thread గుర్తుగల పొట్టి extern_tls_short;
+బాహ్య __thread దశాంశం extern_tls_float;
+పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం *, ...);
 
-int main(void)
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
-    int errors = 0;
+    పూర్ణాంకం errors = 0;
 
-    if (extern_tls_short != 1234 || extern_tls_float != 1.5f)
+    ఒకవేళ (extern_tls_short != 1234 || extern_tls_float != 1.5f)
         errors = 1;
 
     extern_tls_short = -2222;
     extern_tls_float = 2.5f;
     extern_tls_float += 1.0f;
 
-    if (extern_tls_short != -2222 || extern_tls_float != 3.5f)
+    ఒకవేళ (extern_tls_short != -2222 || extern_tls_float != 3.5f)
         errors = 1;
 
-    printf("extern tls errors: %d\n", errors);
-    return errors;
+    రాయి("extern tls errors: %d\n", errors);
+    తిరిగి errors;
 }
-#endif
+#అయితే_ముగింపు

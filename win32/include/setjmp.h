@@ -3,54 +3,54 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SETJMP
-#define _INC_SETJMP
+#నిర్వచితం_కాకపోతే _INC_SETJMP
+#నిర్వచించు _INC_SETJMP
 
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#సూచన pack(నెట్టు,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#if (defined(_X86_) && !defined(__x86_64))
+#ఒకవేళ (defined(_X86_) && !defined(__x86_64))
 
-#define _JBLEN 16
-#define _JBTYPE int
+#నిర్వచించు _JBLEN 16
+#నిర్వచించు _JBTYPE పూర్ణాంకం
 
-  typedef struct __JUMP_BUFFER {
-    unsigned long Ebp;
-    unsigned long Ebx;
-    unsigned long Edi;
-    unsigned long Esi;
-    unsigned long Esp;
-    unsigned long Eip;
-    unsigned long Registration;
-    unsigned long TryLevel;
-    unsigned long Cookie;
-    unsigned long UnwindFunc;
-    unsigned long UnwindData[6];
-  } _JUMP_BUFFER;
-#elif defined(__ia64__)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    __int64 LowPart;
-    __int64 HighPart;
+  రకనిర్వచనం నిర్మాణం __JUMP_BUFFER {
+    గుర్తులేని దీర్ఘ Ebp;
+    గుర్తులేని దీర్ఘ Ebx;
+    గుర్తులేని దీర్ఘ Edi;
+    గుర్తులేని దీర్ఘ Esi;
+    గుర్తులేని దీర్ఘ Esp;
+    గుర్తులేని దీర్ఘ Eip;
+    గుర్తులేని దీర్ఘ Registration;
+    గుర్తులేని దీర్ఘ TryLevel;
+    గుర్తులేని దీర్ఘ Cookie;
+    గుర్తులేని దీర్ఘ UnwindFunc;
+    గుర్తులేని దీర్ఘ Unwind_దత్తాంశం[6];
+  } JUMP_బఫరు;
+#లేదావేళ defined(__ia64__)
+  రకనిర్వచనం _CRT_ALIGN(16) నిర్మాణం _SETJMP_FLOAT128 {
+    __int64 దిగువ_Part;
+    __int64 ఎగువ_Part;
   } SETJMP_FLOAT128;
 
-#define _JBLEN 33
-  typedef SETJMP_FLOAT128 _JBTYPE;
+#నిర్వచించు _JBLEN 33
+  రకనిర్వచనం SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct __JUMP_BUFFER {
+  రకనిర్వచనం నిర్మాణం __JUMP_BUFFER {
 
-    unsigned long iAReserved[6];
+    గుర్తులేని దీర్ఘ iAReserved[6];
 
-    unsigned long Registration;
-    unsigned long TryLevel;
-    unsigned long Cookie;
-    unsigned long UnwindFunc;
+    గుర్తులేని దీర్ఘ Registration;
+    గుర్తులేని దీర్ఘ TryLevel;
+    గుర్తులేని దీర్ఘ Cookie;
+    గుర్తులేని దీర్ఘ UnwindFunc;
 
-    unsigned long UnwindData[6];
+    గుర్తులేని దీర్ఘ Unwind_దత్తాంశం[6];
 
     SETJMP_FLOAT128 FltS0;
     SETJMP_FLOAT128 FltS1;
@@ -91,28 +91,28 @@ extern "C" {
     __int64 IntNats;
     __int64 Preds;
 
-  } _JUMP_BUFFER;
-#elif defined(__x86_64)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    unsigned __int64 Part[2];
+  } JUMP_బఫరు;
+#లేదావేళ defined(__x86_64)
+  రకనిర్వచనం _CRT_ALIGN(16) నిర్మాణం _SETJMP_FLOAT128 {
+    గుర్తులేని __int64 Part[2];
   } SETJMP_FLOAT128;
 
-#define _JBLEN 16
-  typedef SETJMP_FLOAT128 _JBTYPE;
+#నిర్వచించు _JBLEN 16
+  రకనిర్వచనం SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct _JUMP_BUFFER {
-    unsigned __int64 Frame;
-    unsigned __int64 Rbx;
-    unsigned __int64 Rsp;
-    unsigned __int64 Rbp;
-    unsigned __int64 Rsi;
-    unsigned __int64 Rdi;
-    unsigned __int64 R12;
-    unsigned __int64 R13;
-    unsigned __int64 R14;
-    unsigned __int64 R15;
-    unsigned __int64 Rip;
-    unsigned __int64 Spare;
+  రకనిర్వచనం నిర్మాణం JUMP_బఫరు {
+    గుర్తులేని __int64 చట్రం;
+    గుర్తులేని __int64 Rbx;
+    గుర్తులేని __int64 Rsp;
+    గుర్తులేని __int64 Rbp;
+    గుర్తులేని __int64 Rsi;
+    గుర్తులేని __int64 Rdi;
+    గుర్తులేని __int64 R12;
+    గుర్తులేని __int64 R13;
+    గుర్తులేని __int64 R14;
+    గుర్తులేని __int64 R15;
+    గుర్తులేని __int64 Rip;
+    గుర్తులేని __int64 అదనపు_2;
     SETJMP_FLOAT128 Xmm6;
     SETJMP_FLOAT128 Xmm7;
     SETJMP_FLOAT128 Xmm8;
@@ -123,77 +123,77 @@ extern "C" {
     SETJMP_FLOAT128 Xmm13;
     SETJMP_FLOAT128 Xmm14;
     SETJMP_FLOAT128 Xmm15;
-  } _JUMP_BUFFER;
-#elif defined(_ARM_)
+  } JUMP_బఫరు;
+#లేదావేళ defined(_ARM_)
 
-#define _JBLEN 28
-#define _JBTYPE int
+#నిర్వచించు _JBLEN 28
+#నిర్వచించు _JBTYPE పూర్ణాంకం
 
-  typedef struct __JUMP_BUFFER {
-    unsigned long Frame;
-    unsigned long R4;
-    unsigned long R5;
-    unsigned long R6;
-    unsigned long R7;
-    unsigned long R8;
-    unsigned long R9;
-    unsigned long R10;
-    unsigned long R11;
-    unsigned long Sp;
-    unsigned long Pc;
-    unsigned long Fpscr;
-    unsigned long long D[8];
-  } _JUMP_BUFFER;
-#elif defined(_ARM64_)
+  రకనిర్వచనం నిర్మాణం __JUMP_BUFFER {
+    గుర్తులేని దీర్ఘ చట్రం;
+    గుర్తులేని దీర్ఘ R4;
+    గుర్తులేని దీర్ఘ R5;
+    గుర్తులేని దీర్ఘ R6;
+    గుర్తులేని దీర్ఘ R7;
+    గుర్తులేని దీర్ఘ R8;
+    గుర్తులేని దీర్ఘ R9;
+    గుర్తులేని దీర్ఘ R10;
+    గుర్తులేని దీర్ఘ R11;
+    గుర్తులేని దీర్ఘ Sp;
+    గుర్తులేని దీర్ఘ Pc;
+    గుర్తులేని దీర్ఘ Fpscr;
+    గుర్తులేని దీర్ఘ దీర్ఘ D[8];
+  } JUMP_బఫరు;
+#లేదావేళ defined(_ARM64_)
 
-#define _JBLEN 24
-#define _JBTYPE unsigned __int64
+#నిర్వచించు _JBLEN 24
+#నిర్వచించు _JBTYPE గుర్తులేని __int64
 
-  typedef struct __JUMP_BUFFER {
-    unsigned __int64 Frame;
-    unsigned __int64 Reserved;
-    unsigned __int64 X19;
-    unsigned __int64 X20;
-    unsigned __int64 X21;
-    unsigned __int64 X22;
-    unsigned __int64 X23;
-    unsigned __int64 X24;
-    unsigned __int64 X25;
-    unsigned __int64 X26;
-    unsigned __int64 X27;
-    unsigned __int64 X28;
-    unsigned __int64 Fp;
-    unsigned __int64 Lr;
-    unsigned __int64 Sp;
-    unsigned long Fpcr;
-    unsigned long Fpsr;
-    double D[8];
-  } _JUMP_BUFFER;
-#else
-#define _JBLEN 1
-#define _JBTYPE int
-#endif
-#ifndef _JMP_BUF_DEFINED
-  typedef _JBTYPE jmp_buf[_JBLEN];
-#define _JMP_BUF_DEFINED
-#endif
+  రకనిర్వచనం నిర్మాణం __JUMP_BUFFER {
+    గుర్తులేని __int64 చట్రం;
+    గుర్తులేని __int64 Reserved;
+    గుర్తులేని __int64 X19;
+    గుర్తులేని __int64 X20;
+    గుర్తులేని __int64 X21;
+    గుర్తులేని __int64 X22;
+    గుర్తులేని __int64 X23;
+    గుర్తులేని __int64 X24;
+    గుర్తులేని __int64 X25;
+    గుర్తులేని __int64 X26;
+    గుర్తులేని __int64 X27;
+    గుర్తులేని __int64 X28;
+    గుర్తులేని __int64 Fp;
+    గుర్తులేని __int64 Lr;
+    గుర్తులేని __int64 Sp;
+    గుర్తులేని దీర్ఘ Fpcr;
+    గుర్తులేని దీర్ఘ Fpsr;
+    ద్విగుణ D[8];
+  } JUMP_బఫరు;
+#లేకపోతే
+#నిర్వచించు _JBLEN 1
+#నిర్వచించు _JBTYPE పూర్ణాంకం
+#అయితే_ముగింపు
+#నిర్వచితం_కాకపోతే _JMP_BUF_DEFINED
+  రకనిర్వచనం _JBTYPE jmp_buf[_JBLEN];
+#నిర్వచించు _JMP_BUF_DEFINED
+#అయితే_ముగింపు
 
-#pragma pack(pop)
+#సూచన pack(తీయి)
 
-#if defined __aarch64__
-  int _setjmpex(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmpex((BUF), (char*)__builtin_frame_address(0) + 224)
-#elif defined __x86_64__
-  int _setjmp(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
-#else /* __i386__ */
-  int _setjmp(jmp_buf _Buf);
-  #define setjmp _setjmp
-#endif
+#ఒకవేళ defined __aarch64__
+  పూర్ణాంకం _setjmpex(jmp_buf _Buf, శూన్య *చట్రం_2);
+  #నిర్వచించు setjmp(BUF) _setjmpex((BUF), (అక్షరం*)__builtin_frame_address(0) + 224)
+#లేదావేళ defined __x86_64__
+  పూర్ణాంకం _setjmp(jmp_buf _Buf, శూన్య *చట్రం_2);
+  #నిర్వచించు setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
+#లేకపోతే /* __i386__ */
+  పూర్ణాంకం _setjmp(jmp_buf _Buf);
+  #నిర్వచించు setjmp _setjmp
+#అయితే_ముగింపు
 
-__declspec(noreturn) void longjmp(jmp_buf _Buf,int _Value);
+__declspec(noreturn) శూన్య longjmp(jmp_buf _Buf,పూర్ణాంకం విలువ_2);
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు

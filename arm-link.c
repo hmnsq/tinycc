@@ -1,161 +1,161 @@
-#ifdef TARGET_DEFS_ONLY
+#నిర్వచితమైతే లక్ష్యం_DEFS_ONLY
 
-#define EM_TCC_TARGET EM_ARM
+#నిర్వచించు EM_TCC_లక్ష్యం EM_ARM
 
 /* relocation type for 32 bit data relocation */
-#define R_DATA_32   R_ARM_ABS32
-#define R_DATA_PTR  R_ARM_ABS32
-#define R_JMP_SLOT  R_ARM_JUMP_SLOT
-#define R_GLOB_DAT  R_ARM_GLOB_DAT
-#define R_COPY      R_ARM_COPY
-#define R_RELATIVE  R_ARM_RELATIVE
+#నిర్వచించు R_దత్తాంశం_32   R_ARM_ABS32
+#నిర్వచించు R_దత్తాంశం_PTR  R_ARM_ABS32
+#నిర్వచించు R_JMP_స్థానం  R_ARM_JUMP_స్థానం
+#నిర్వచించు R_GLOB_DAT  R_ARM_GLOB_DAT
+#నిర్వచించు R_COPY      R_ARM_COPY
+#నిర్వచించు R_RELATIVE  R_ARM_RELATIVE
 
-#define R_NUM       R_ARM_NUM
+#నిర్వచించు R_అంకె       R_ARM_అంకె
 
-#define ELF_START_ADDR 0x00010000
-#define ELF_PAGE_SIZE  0x10000
+#నిర్వచించు ELF_ప్రారంభం_ADDR 0x00010000
+#నిర్వచించు ELF_పుట_కొలత  0x10000
 
-#define PCRELATIVE_DLLPLT 1
-#define RELOCATE_DLLPLT 1
+#నిర్వచించు PCRELATIVE_DLLPLT 1
+#నిర్వచించు RELOCATE_DLLPLT 1
 
-#else /* !TARGET_DEFS_ONLY */
+#లేకపోతే /* !TARGET_DEFS_ONLY */
 
-#include "tcc.h"
+#అన్తర్భావ "tcc.h"
 
-#ifdef NEED_RELOC_TYPE
+#నిర్వచితమైతే NEED_RELOC_TYPE
 /* Returns 1 for a code relocation, 0 for a data relocation. For unknown
    relocations, returns -1. */
-ST_FUNC int code_reloc (int reloc_type)
+ST_FUNC పూర్ణాంకం సంకేతం_reloc (పూర్ణాంకం reloc_type)
 {
-    switch (reloc_type) {
-	case R_ARM_MOVT_ABS:
-	case R_ARM_MOVW_ABS_NC:
-	case R_ARM_THM_MOVT_ABS:
-	case R_ARM_THM_MOVW_ABS_NC:
-	case R_ARM_ABS32:
-	case R_ARM_REL32:
-	case R_ARM_GOTPC:
-	case R_ARM_GOTOFF:
-	case R_ARM_GOT32:
-	case R_ARM_GOT_PREL:
-	case R_ARM_COPY:
-	case R_ARM_GLOB_DAT:
-	case R_ARM_NONE:
-	case R_ARM_TARGET1:
-	case R_ARM_MOVT_PREL:
-	case R_ARM_MOVW_PREL_NC:
-	case R_ARM_TLS_LE32:
-            return 0;
+    ఎంపిక (reloc_type) {
+	స్థితి R_ARM_MOVT_ABS:
+	స్థితి R_ARM_MOVW_ABS_NC:
+	స్థితి R_ARM_THM_MOVT_ABS:
+	స్థితి R_ARM_THM_MOVW_ABS_NC:
+	స్థితి R_ARM_ABS32:
+	స్థితి R_ARM_REL32:
+	స్థితి R_ARM_GOTPC:
+	స్థితి R_ARM_GOTOFF:
+	స్థితి R_ARM_GOT32:
+	స్థితి R_ARM_GOT_PREL:
+	స్థితి R_ARM_COPY:
+	స్థితి R_ARM_GLOB_DAT:
+	స్థితి R_ARM_NONE:
+	స్థితి R_ARM_TARGET1:
+	స్థితి R_ARM_MOVT_PREL:
+	స్థితి R_ARM_MOVW_PREL_NC:
+	స్థితి R_ARM_TLS_LE32:
+            తిరిగి 0;
 
-        case R_ARM_PC24:
-        case R_ARM_CALL:
-	case R_ARM_JUMP24:
-	case R_ARM_PLT32:
-	case R_ARM_THM_PC22:
-	case R_ARM_THM_JUMP24:
-	case R_ARM_PREL31:
-	case R_ARM_V4BX:
-	case R_ARM_JUMP_SLOT:
-            return 1;
+        స్థితి R_ARM_PC24:
+        స్థితి R_ARM_CALL:
+	స్థితి R_ARM_JUMP24:
+	స్థితి R_ARM_PLT32:
+	స్థితి R_ARM_THM_PC22:
+	స్థితి R_ARM_THM_JUMP24:
+	స్థితి R_ARM_PREL31:
+	స్థితి R_ARM_V4BX:
+	స్థితి R_ARM_JUMP_స్థానం:
+            తిరిగి 1;
     }
-    return -1;
+    తిరిగి -1;
 }
 
 /* Returns an enumerator to describe whether and when the relocation needs a
    GOT and/or PLT entry to be created. See tcc.h for a description of the
    different values. */
-ST_FUNC int gotplt_entry_type (int reloc_type)
+ST_FUNC పూర్ణాంకం gotplt_నమోదు_type (పూర్ణాంకం reloc_type)
 {
-    switch (reloc_type) {
-	case R_ARM_NONE:
-	case R_ARM_COPY:
-	case R_ARM_GLOB_DAT:
-	case R_ARM_JUMP_SLOT:
-	case R_ARM_TLS_LE32:
-            return NO_GOTPLT_ENTRY;
+    ఎంపిక (reloc_type) {
+	స్థితి R_ARM_NONE:
+	స్థితి R_ARM_COPY:
+	స్థితి R_ARM_GLOB_DAT:
+	స్థితి R_ARM_JUMP_స్థానం:
+	స్థితి R_ARM_TLS_LE32:
+            తిరిగి NO_GOTPLT_నమోదు;
 
-        case R_ARM_PC24:
-        case R_ARM_CALL:
-	case R_ARM_JUMP24:
-	case R_ARM_PLT32:
-	case R_ARM_THM_PC22:
-	case R_ARM_THM_JUMP24:
-	case R_ARM_MOVT_ABS:
-	case R_ARM_MOVW_ABS_NC:
-	case R_ARM_THM_MOVT_ABS:
-	case R_ARM_THM_MOVW_ABS_NC:
-	case R_ARM_PREL31:
-	case R_ARM_ABS32:
-	case R_ARM_REL32:
-	case R_ARM_V4BX:
-	case R_ARM_TARGET1:
-	case R_ARM_MOVT_PREL:
-	case R_ARM_MOVW_PREL_NC:
-            return AUTO_GOTPLT_ENTRY;
+        స్థితి R_ARM_PC24:
+        స్థితి R_ARM_CALL:
+	స్థితి R_ARM_JUMP24:
+	స్థితి R_ARM_PLT32:
+	స్థితి R_ARM_THM_PC22:
+	స్థితి R_ARM_THM_JUMP24:
+	స్థితి R_ARM_MOVT_ABS:
+	స్థితి R_ARM_MOVW_ABS_NC:
+	స్థితి R_ARM_THM_MOVT_ABS:
+	స్థితి R_ARM_THM_MOVW_ABS_NC:
+	స్థితి R_ARM_PREL31:
+	స్థితి R_ARM_ABS32:
+	స్థితి R_ARM_REL32:
+	స్థితి R_ARM_V4BX:
+	స్థితి R_ARM_TARGET1:
+	స్థితి R_ARM_MOVT_PREL:
+	స్థితి R_ARM_MOVW_PREL_NC:
+            తిరిగి AUTO_GOTPLT_నమోదు;
 
-	case R_ARM_GOTPC:
-	case R_ARM_GOTOFF:
-            return BUILD_GOT_ONLY;
+	స్థితి R_ARM_GOTPC:
+	స్థితి R_ARM_GOTOFF:
+            తిరిగి BUILD_GOT_ONLY;
 
-	case R_ARM_GOT32:
-	case R_ARM_GOT_PREL:
-            return ALWAYS_GOTPLT_ENTRY;
+	స్థితి R_ARM_GOT32:
+	స్థితి R_ARM_GOT_PREL:
+            తిరిగి ALWAYS_GOTPLT_నమోదు;
     }
-    return -1;
+    తిరిగి -1;
 }
 
-#ifdef NEED_BUILD_GOT
-ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr)
+#నిర్వచితమైతే NEED_BUILD_GOT
+ST_FUNC గుర్తులేని create_plt_నమోదు(TCCState *s1, గుర్తులేని got_స్థానభ్రంశం, నిర్మాణం sym_attr *attr)
 {
     Section *plt = s1->plt;
     uint8_t *p;
-    unsigned plt_offset;
+    గుర్తులేని plt_స్థానభ్రంశం;
 
     /* when building a DLL, GOT entry accesses must be done relative to
        start of GOT (see x86_64 example above)  */
 
     /* empty PLT: create PLT0 entry that push address of call site and
        jump to ld.so resolution routine (GOT + 8) */
-    if (plt->data_offset == 0) {
-        p = section_ptr_add(plt, 20);
+    ఒకవేళ (plt->దత్తాంశం_స్థానభ్రంశం == 0) {
+        p = section_ptr_కూడు(plt, 20);
         write32le(p,    0xe52de004); /* push {lr}         */
         write32le(p+4,  0xe59fe004); /* ldr lr, [pc, #4] */
         write32le(p+8,  0xe08fe00e); /* add lr, pc, lr    */
         write32le(p+12, 0xe5bef008); /* ldr pc, [lr, #8]! */
         /* p+16 is set in relocate_plt */
     }
-    plt_offset = plt->data_offset;
+    plt_స్థానభ్రంశం = plt->దత్తాంశం_స్థానభ్రంశం;
 
-    if (attr->plt_thumb_stub) {
-        p = section_ptr_add(plt, 4);
+    ఒకవేళ (attr->plt_thumb_stub) {
+        p = section_ptr_కూడు(plt, 4);
         write32le(p,   0x4778); /* bx pc */
         write32le(p+2, 0x46c0); /* nop   */
     }
-    p = section_ptr_add(plt, 16);
+    p = section_ptr_కూడు(plt, 16);
     /* save GOT offset for relocate_plt */
-    write32le(p + 4, got_offset);
-    return plt_offset;
+    write32le(p + 4, got_స్థానభ్రంశం);
+    తిరిగి plt_స్థానభ్రంశం;
 }
 
 /* relocate the PLT: compute addresses and offsets in the PLT now that final
    address for PLT and GOT are known (see fill_program_header) */
-ST_FUNC void relocate_plt(TCCState *s1)
+ST_FUNC శూన్య relocate_plt(TCCState *s1)
 {
-    uint8_t *p, *p_end;
+    uint8_t *p, *p_చివర;
 
-    if (!s1->plt)
-      return;
+    ఒకవేళ (!s1->plt)
+      తిరిగి;
 
-    p = s1->plt->data;
-    p_end = p + s1->plt->data_offset;
+    p = s1->plt->దత్తాంశం;
+    p_చివర = p + s1->plt->దత్తాంశం_స్థానభ్రంశం;
 
-    if (p < p_end) {
-        int x = s1->got->sh_addr - s1->plt->sh_addr - 12;
-        write32le(s1->plt->data + 16, x - 4);
+    ఒకవేళ (p < p_చివర) {
+        పూర్ణాంకం x = s1->got->sh_addr - s1->plt->sh_addr - 12;
+        write32le(s1->plt->దత్తాంశం + 16, x - 4);
         p += 20;
-        while (p < p_end) {
-	    unsigned off = x  + read32le(p + 4) + (s1->plt->data - p) + 4;
-            if (read32le(p) == 0x46c04778) /* PLT Thumb stub present */
+        అయితే (p < p_చివర) {
+	    గుర్తులేని off = x  + read32le(p + 4) + (s1->plt->దత్తాంశం - p) + 4;
+            ఒకవేళ (read32le(p) == 0x46c04778) /* PLT Thumb stub present */
                 p += 4;
             write32le(p, 0xe28fc200 | ((off >> 28) & 0xf));      // add ip, pc, #0xN0000000
             write32le(p + 4, 0xe28cc600 | ((off >> 20) & 0xff)); // add ip, pc, #0xNN00000
@@ -165,78 +165,78 @@ ST_FUNC void relocate_plt(TCCState *s1)
         }
     }
 
-    if (s1->plt->reloc) {
+    ఒకవేళ (s1->plt->reloc) {
         ElfW_Rel *rel;
-        p = s1->got->data;
+        p = s1->got->దత్తాంశం;
         for_each_elem(s1->plt->reloc, 0, rel, ElfW_Rel) {
-            write32le(p + rel->r_offset, s1->plt->sh_addr);
+            write32le(p + rel->r_స్థానభ్రంశం, s1->plt->sh_addr);
 	}
     }
 }
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr, addr_t addr, addr_t val)
+ST_FUNC శూన్య relocate(TCCState *s1, ElfW_Rel *rel, పూర్ణాంకం type, గుర్తులేని అక్షరం *ptr, addr_t addr, addr_t val)
 {
     ElfW(Sym) *sym;
-    int sym_index, esym_index;
+    పూర్ణాంకం sym_సూచీ, esym_సూచీ;
 
-    sym_index = ELFW(R_SYM)(rel->r_info);
-    sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+    sym_సూచీ = ELFW(R_SYM)(rel->r_info);
+    sym = &((ElfW(Sym) *)symtab_section->దత్తాంశం)[sym_సూచీ];
 
-    switch(type) {
-        case R_ARM_PC24:
-        case R_ARM_CALL:
-        case R_ARM_JUMP24:
-        case R_ARM_PLT32:
+    ఎంపిక(type) {
+        స్థితి R_ARM_PC24:
+        స్థితి R_ARM_CALL:
+        స్థితి R_ARM_JUMP24:
+        స్థితి R_ARM_PLT32:
             {
-                int x, is_thumb, is_call, h, blx_avail, is_bl, th_ko;
-                unsigned code = read32le(ptr);
-                x = code & 0x00ffffff;
-#ifdef DEBUG_RELOC
-		printf ("reloc %d: x=0x%x val=0x%x ", type, x, val);
-#endif
-                code &= 0xff000000;
+                పూర్ణాంకం x, is_thumb, is_call, h, blx_avail, is_bl, th_ko;
+                గుర్తులేని సంకేతం_2 = read32le(ptr);
+                x = సంకేతం_2 & 0x00ffffff;
+#నిర్వచితమైతే DEBUG_RELOC
+		రాయి ("reloc %d: x=0x%x val=0x%x ", type, x, val);
+#అయితే_ముగింపు
+                సంకేతం_2 &= 0xff000000;
                 x <<= 2;
-                if (x & 0x2000000)
+                ఒకవేళ (x & 0x2000000)
                     x -= 0x4000000;
                 blx_avail = (CONFIG_TCC_CPUVER >= 5);
                 is_thumb = val & 1;
-                is_bl = code == 0xeb000000;
+                is_bl = సంకేతం_2 == 0xeb000000;
                 is_call = (type == R_ARM_CALL || (type == R_ARM_PC24 && is_bl));
                 x += val - addr;
-#ifdef DEBUG_RELOC
-		printf (" newx=0x%x name=%s\n", x,
-			(char *) symtab_section->link->data + sym->st_name);
-#endif
+#నిర్వచితమైతే DEBUG_RELOC
+		రాయి (" newx=0x%x name=%s\n", x,
+			(అక్షరం *) symtab_section->link->దత్తాంశం + sym->st_name);
+#అయితే_ముగింపు
                 h = x & 2;
                 th_ko = (x & 3) && (!blx_avail || !is_call);
-                if (th_ko || x >= 0x2000000 || x < -0x2000000)
+                ఒకవేళ (th_ko || x >= 0x2000000 || x < -0x2000000)
                     tcc_error_noabort("can't relocate value at %x,%d",addr, type);
                 x >>= 2;
                 x &= 0xffffff;
                 /* Only reached if blx is avail and it is a call */
-                if (is_thumb) {
+                ఒకవేళ (is_thumb) {
                     x |= h << 24;
-                    code = 0xfa000000; /* bl -> blx */
+                    సంకేతం_2 = 0xfa000000; /* bl -> blx */
                 }
-                write32le(ptr, code | x);
+                write32le(ptr, సంకేతం_2 | x);
             }
-            return;
+            తిరిగి;
         /* Since these relocations only concern Thumb-2 and blx instruction was
            introduced before Thumb-2, we can assume blx is available and not
            guard its use */
-        case R_ARM_THM_PC22:
-        case R_ARM_THM_JUMP24:
+        స్థితి R_ARM_THM_PC22:
+        స్థితి R_ARM_THM_JUMP24:
             {
-                int x, hi, lo, s, j1, j2, i1, i2, imm10, imm11;
-                int to_thumb, is_call, to_plt, blx_bit = 1 << 12;
+                పూర్ణాంకం x, hi, lo, s, j1, j2, i1, i2, imm10, imm11;
+                పూర్ణాంకం గమ్యం_thumb, is_call, గమ్యం_plt, blx_బిట్టు = 1 << 12;
                 Section *plt;
 
                 /* weak reference */
-                if (sym->st_shndx == SHN_UNDEF &&
+                ఒకవేళ (sym->st_shndx == SHN_UNDEF &&
                     ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
-                    return;
+                    తిరిగి;
 
                 /* Get initial offset */
                 hi = read16le(ptr);
@@ -250,38 +250,38 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                 imm11 = lo & 0x7ff;
                 x = (s << 24) | (i1 << 23) | (i2 << 22) |
                     (imm10 << 12) | (imm11 << 1);
-                if (x & 0x01000000)
+                ఒకవేళ (x & 0x01000000)
                     x -= 0x02000000;
 
                 /* Relocation infos */
-                to_thumb = val & 1;
+                గమ్యం_thumb = val & 1;
                 plt = s1->plt;
-                to_plt = (val >= plt->sh_addr) &&
-                         (val < plt->sh_addr + plt->data_offset);
+                గమ్యం_plt = (val >= plt->sh_addr) &&
+                         (val < plt->sh_addr + plt->దత్తాంశం_స్థానభ్రంశం);
                 is_call = (type == R_ARM_THM_PC22);
 
-                if (!to_thumb && !to_plt && !is_call) {
-                    int index;
+                ఒకవేళ (!గమ్యం_thumb && !గమ్యం_plt && !is_call) {
+                    పూర్ణాంకం సూచీ;
                     uint8_t *p;
-                    char *name, buf[1024];
-                    Section *text;
+                    అక్షరం *name, buf[1024];
+                    Section *పాఠ్యం;
 
-                    name = (char *) symtab_section->link->data + sym->st_name;
-                    text = s1->sections[sym->st_shndx];
+                    name = (అక్షరం *) symtab_section->link->దత్తాంశం + sym->st_name;
+                    పాఠ్యం = s1->sections[sym->st_shndx];
                     /* Modify reloc to target a thumb stub to switch to ARM */
-                    snprintf(buf, sizeof(buf), "%s_from_thumb", name);
-                    index = put_elf_sym(symtab_section,
-                                        text->data_offset + 1,
-                                        sym->st_size, sym->st_info, 0,
+                    snprintf(buf, పరిమాణం(buf), "%s_from_thumb", name);
+                    సూచీ = put_elf_sym(symtab_section,
+                                        పాఠ్యం->దత్తాంశం_స్థానభ్రంశం + 1,
+                                        sym->st_కొలత, sym->st_info, 0,
                                         sym->st_shndx, buf);
-                    to_thumb = 1;
-                    val = text->data_offset + 1;
-                    rel->r_info = ELFW(R_INFO)(index, type);
+                    గమ్యం_thumb = 1;
+                    val = పాఠ్యం->దత్తాంశం_స్థానభ్రంశం + 1;
+                    rel->r_info = ELFW(R_INFO)(సూచీ, type);
                     /* Create a thumb stub function to switch to ARM mode */
-                    put_elf_reloc(symtab_section, text,
-                                  text->data_offset + 4, R_ARM_JUMP24,
-                                  sym_index);
-                    p = section_ptr_add(text, 8);
+                    put_elf_reloc(symtab_section, పాఠ్యం,
+                                  పాఠ్యం->దత్తాంశం_స్థానభ్రంశం + 4, R_ARM_JUMP24,
+                                  sym_సూచీ);
+                    p = section_ptr_కూడు(పాఠ్యం, 8);
                     write32le(p,   0x4778); /* bx pc */
                     write32le(p+2, 0x46c0); /* nop   */
                     write32le(p+4, 0xeafffffe); /* b $sym */
@@ -289,8 +289,8 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
 
                 /* Compute final offset */
                 x += val - addr;
-                if (!to_thumb && is_call) {
-                    blx_bit = 0; /* bl -> blx */
+                ఒకవేళ (!గమ్యం_thumb && is_call) {
+                    blx_బిట్టు = 0; /* bl -> blx */
                     x = (x + 3) & -4; /* Compute offset from aligned PC */
                 }
 
@@ -299,8 +299,8 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                    * if target is to be entered in arm mode:
                      - bit 1 must not set
                      - instruction must be a call (bl) or a jump to PLT */
-                if (!to_thumb || x >= 0x1000000 || x < -0x1000000)
-                    if (to_thumb || (val & 2) || (!is_call && !to_plt))
+                ఒకవేళ (!గమ్యం_thumb || x >= 0x1000000 || x < -0x1000000)
+                    ఒకవేళ (గమ్యం_thumb || (val & 2) || (!is_call && !గమ్యం_plt))
                         tcc_error_noabort("can't relocate value at %x,%d",addr, type);
 
                 /* Compute and store final offset */
@@ -314,142 +314,142 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                 write16le(ptr, (hi & 0xf800) |
                                (s << 10) | imm10);
                 write16le(ptr+2, (lo & 0xc000) |
-                                 (j1 << 13) | blx_bit | (j2 << 11) |
+                                 (j1 << 13) | blx_బిట్టు | (j2 << 11) |
                                  imm11);
             }
-            return;
-        case R_ARM_MOVT_ABS:
-        case R_ARM_MOVW_ABS_NC:
+            తిరిగి;
+        స్థితి R_ARM_MOVT_ABS:
+        స్థితి R_ARM_MOVW_ABS_NC:
             {
-                int x, imm4, imm12;
-                if (type == R_ARM_MOVT_ABS)
+                పూర్ణాంకం x, imm4, imm12;
+                ఒకవేళ (type == R_ARM_MOVT_ABS)
                     val >>= 16;
                 imm12 = val & 0xfff;
                 imm4 = (val >> 12) & 0xf;
                 x = (imm4 << 16) | imm12;
-                if (type == R_ARM_THM_MOVT_ABS)
+                ఒకవేళ (type == R_ARM_THM_MOVT_ABS)
                     write32le(ptr, read32le(ptr) | x);
-                else
+                లేకపోతే
                     add32le(ptr, x);
             }
-            return;
-        case R_ARM_MOVT_PREL:
-        case R_ARM_MOVW_PREL_NC:
+            తిరిగి;
+        స్థితి R_ARM_MOVT_PREL:
+        స్థితి R_ARM_MOVW_PREL_NC:
             {
-		int insn = read32le(ptr);
-                int addend = ((insn >> 4) & 0xf000) | (insn & 0xfff);
+		పూర్ణాంకం insn = read32le(ptr);
+                పూర్ణాంకం addend = ((insn >> 4) & 0xf000) | (insn & 0xfff);
 
 		addend = (addend ^ 0x8000) - 0x8000;
 		val += addend - addr;
-		if (type == R_ARM_MOVT_PREL)
+		ఒకవేళ (type == R_ARM_MOVT_PREL)
 		    val >>= 16;
 		write32le(ptr, (insn & 0xfff0f000) |
 			       ((val & 0xf000) << 4) | (val & 0xfff));
             }
-            return;
-        case R_ARM_THM_MOVT_ABS:
-        case R_ARM_THM_MOVW_ABS_NC:
+            తిరిగి;
+        స్థితి R_ARM_THM_MOVT_ABS:
+        స్థితి R_ARM_THM_MOVW_ABS_NC:
             {
-                int x, i, imm4, imm3, imm8;
-                if (type == R_ARM_THM_MOVT_ABS)
+                పూర్ణాంకం x, i, imm4, imm3, imm8;
+                ఒకవేళ (type == R_ARM_THM_MOVT_ABS)
                     val >>= 16;
                 imm8 = val & 0xff;
                 imm3 = (val >> 8) & 0x7;
                 i = (val >> 11) & 1;
                 imm4 = (val >> 12) & 0xf;
                 x = (imm3 << 28) | (imm8 << 16) | (i << 10) | imm4;
-                if (type == R_ARM_THM_MOVT_ABS)
+                ఒకవేళ (type == R_ARM_THM_MOVT_ABS)
                     write32le(ptr, read32le(ptr) | x);
-                else
+                లేకపోతే
                     add32le(ptr, x);
             }
-            return;
-        case R_ARM_PREL31:
+            తిరిగి;
+        స్థితి R_ARM_PREL31:
             {
-                int x;
+                పూర్ణాంకం x;
                 x = read32le(ptr) & 0x7fffffff;
                 write32le(ptr, read32le(ptr) & 0x80000000);
                 x = (x * 2) / 2;
                 x += val - addr;
-                if((x^(x>>1))&0x40000000)
+                ఒకవేళ((x^(x>>1))&0x40000000)
                     tcc_error_noabort("can't relocate value at %x,%d",addr, type);
                 write32le(ptr, read32le(ptr) | (x & 0x7fffffff));
             }
-            return;
-        case R_ARM_ABS32:
-        case R_ARM_TARGET1:
-            if (s1->output_type & TCC_OUTPUT_DYN) {
-                esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
-                qrel->r_offset = rel->r_offset;
-                if (esym_index) {
-                    qrel->r_info = ELFW(R_INFO)(esym_index, R_ARM_ABS32);
+            తిరిగి;
+        స్థితి R_ARM_ABS32:
+        స్థితి R_ARM_TARGET1:
+            ఒకవేళ (s1->output_type & TCC_OUTPUT_DYN) {
+                esym_సూచీ = get_sym_attr(s1, sym_సూచీ, 0)->dyn_సూచీ;
+                qrel->r_స్థానభ్రంశం = rel->r_స్థానభ్రంశం;
+                ఒకవేళ (esym_సూచీ) {
+                    qrel->r_info = ELFW(R_INFO)(esym_సూచీ, R_ARM_ABS32);
                     qrel++;
-                    return;
-                } else {
+                    తిరిగి;
+                } లేకపోతే {
                     qrel->r_info = ELFW(R_INFO)(0, R_ARM_RELATIVE);
                     qrel++;
                 }
             }
             add32le(ptr, val);
-            return;
-        case R_ARM_REL32:
+            తిరిగి;
+        స్థితి R_ARM_REL32:
             add32le(ptr, val - addr);
-            return;
-        case R_ARM_GOTPC:
+            తిరిగి;
+        స్థితి R_ARM_GOTPC:
             add32le(ptr, s1->got->sh_addr - addr);
-            return;
-        case R_ARM_GOTOFF:
+            తిరిగి;
+        స్థితి R_ARM_GOTOFF:
             add32le(ptr, val - s1->got->sh_addr);
-            return;
-        case R_ARM_GOT32:
+            తిరిగి;
+        స్థితి R_ARM_GOT32:
             /* we load the got offset */
-            add32le(ptr, get_sym_attr(s1, sym_index, 0)->got_offset);
-            return;
-	case R_ARM_GOT_PREL:
+            add32le(ptr, get_sym_attr(s1, sym_సూచీ, 0)->got_స్థానభ్రంశం);
+            తిరిగి;
+	స్థితి R_ARM_GOT_PREL:
             /* we load the pc relative got offset */
             add32le(ptr, s1->got->sh_addr +
-			 get_sym_attr(s1, sym_index, 0)->got_offset -
+			 get_sym_attr(s1, sym_సూచీ, 0)->got_స్థానభ్రంశం -
 			 addr);
-            return;
-        case R_ARM_COPY:
-            return;
-        case R_ARM_V4BX:
+            తిరిగి;
+        స్థితి R_ARM_COPY:
+            తిరిగి;
+        స్థితి R_ARM_V4BX:
             /* trade Thumb support for ARMv4 support */
-            if ((0x0ffffff0 & read32le(ptr)) == 0x012FFF10)
+            ఒకవేళ ((0x0ffffff0 & read32le(ptr)) == 0x012FFF10)
                 write32le(ptr, read32le(ptr) ^ 0xE12FFF10 ^ 0xE1A0F000); /* BX Rm -> MOV PC, Rm */
-            return;
-        case R_ARM_GLOB_DAT:
-        case R_ARM_JUMP_SLOT:
+            తిరిగి;
+        స్థితి R_ARM_GLOB_DAT:
+        స్థితి R_ARM_JUMP_స్థానం:
             write32le(ptr, val);
-            return;
-        case R_ARM_NONE:
+            తిరిగి;
+        స్థితి R_ARM_NONE:
             /* Nothing to do.  Normally used to indicate a dependency
                on a certain symbol (like for exception handling under EABI).  */
-            return;
-        case R_ARM_RELATIVE:
-#ifdef TCC_TARGET_PE
+            తిరిగి;
+        స్థితి R_ARM_RELATIVE:
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
             add32le(ptr, val - s1->pe_imagebase);
-#endif
+#అయితే_ముగింపు
             /* do nothing */
-            return;
-        case R_ARM_TLS_LE32:
+            తిరిగి;
+        స్థితి R_ARM_TLS_LE32:
             {
                 int32_t x;
-                if (s1->tls_end) {
-                    x = val - s1->tls_start + 8;
-                } else {
-                    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+                ఒకవేళ (s1->tls_చివర) {
+                    x = val - s1->tls_ప్రారంభం + 8;
+                } లేకపోతే {
+                    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->దత్తాంశం)[sym_సూచీ];
                     Section *sec = s1->sections[sym->st_shndx];
-                    x = val - sec->sh_addr - sec->data_offset + 8;
+                    x = val - sec->sh_addr - sec->దత్తాంశం_స్థానభ్రంశం + 8;
                 }
                 add32le(ptr, x);
             }
-            return;
-        default:
+            తిరిగి;
+        అప్రమేయ:
             fprintf(stderr,"FIXME: handle reloc type %d at %x [%p] to %x\n",
-                type, (unsigned)addr, ptr, (unsigned)val);
-            return;
+                type, (గుర్తులేని)addr, ptr, (గుర్తులేని)val);
+            తిరిగి;
     }
 }
 
-#endif /* !TARGET_DEFS_ONLY */
+#అయితే_ముగింపు /* !TARGET_DEFS_ONLY */

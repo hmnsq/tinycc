@@ -19,162 +19,162 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "tcc.h"
+#అన్తర్భావ "tcc.h"
 
 /* XXX: this file uses tcc_error() to the effect of exit(1) */
-#undef _tcc_error
+#నిర్వచనం_రద్దు _tcc_error
 
-#define MAXNSCNS 255		/* MAXIMUM NUMBER OF SECTIONS         */
-#define MAX_STR_TABLE 1000000
+#నిర్వచించు MAXNSCNS 255		/* MAXIMUM NUMBER OF SECTIONS         */
+#నిర్వచించు MAX_STR_పట్టిక 1000000
 AOUTHDR o_filehdr;		/* OPTIONAL (A.OUT) FILE HEADER       */
 
-SCNHDR section_header[MAXNSCNS];
+SCNHDR section_శీర్షిక[MAXNSCNS];
 
-#define MAX_FUNCS 1000
-#define MAX_FUNC_NAME_LENGTH 128
+#నిర్వచించు MAX_FUNCS 1000
+#నిర్వచించు MAX_FUNC_NAME_నిడివి 128
 
-int nFuncs;
-char Func[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
-char AssociatedFile[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
-int LineNoFilePtr[MAX_FUNCS];
-int EndAddress[MAX_FUNCS];
-int LastLineNo[MAX_FUNCS];
-int FuncEntries[MAX_FUNCS];
+పూర్ణాంకం nFuncs;
+అక్షరం Func[MAX_FUNCS][MAX_FUNC_NAME_నిడివి];
+అక్షరం AssociatedFile[MAX_FUNCS][MAX_FUNC_NAME_నిడివి];
+పూర్ణాంకం పంక్తి_No_File_Ptr[MAX_FUNCS];
+పూర్ణాంకం చివర_చిరునామా[MAX_FUNCS];
+పూర్ణాంకం చివరి_పంక్తి_No[MAX_FUNCS];
+పూర్ణాంకం FuncEntries[MAX_FUNCS];
 
-int OutputTheSection(Section * sect);
-short int GetCoffFlags(const char *s);
-void SortSymbolTable(TCCState *s1);
-Section *FindSection(TCCState * s1, const char *sname);
+పూర్ణాంకం OutputTheSection(Section * sect);
+పొట్టి పూర్ణాంకం GetCoffFlags(స్థిరరాశి అక్షరం *s);
+శూన్య క్రమీకరించు_చిహ్నం_పట్టిక(TCCState *s1);
+Section *కనుగొను_Section(TCCState * s1, స్థిరరాశి అక్షరం *sname);
 
-int C67_main_entry_point;
+పూర్ణాంకం C67_main_నమోదు_బిందువు;
 
-int FindCoffSymbolIndex(TCCState * s1, const char *func_name);
-int nb_syms;
+పూర్ణాంకం కనుగొను_Coff_చిహ్నం_సూచీ(TCCState * s1, స్థిరరాశి అక్షరం *func_name);
+పూర్ణాంకం nb_syms;
 
-typedef struct {
-    long tag;
-    long size;
-    long fileptr;
-    long nextsym;
-    short int dummy;
+రకనిర్వచనం నిర్మాణం {
+    దీర్ఘ ట్యాగ్;
+    దీర్ఘ కొలత;
+    దీర్ఘ fileptr;
+    దీర్ఘ nextsym;
+    పొట్టి పూర్ణాంకం dummy;
 } AUXFUNC;
 
-typedef struct {
-    long regmask;
-    unsigned short lineno;
-    unsigned short nentries;
-    int localframe;
-    int nextentry;
-    short int dummy;
+రకనిర్వచనం నిర్మాణం {
+    దీర్ఘ regmask;
+    గుర్తులేని పొట్టి lineno;
+    గుర్తులేని పొట్టి nentries;
+    పూర్ణాంకం localframe;
+    పూర్ణాంకం nextentry;
+    పొట్టి పూర్ణాంకం dummy;
 } AUXBF;
 
-typedef struct {
-    long dummy;
-    unsigned short lineno;
-    unsigned short dummy1;
-    int dummy2;
-    int dummy3;
-    unsigned short dummy4;
+రకనిర్వచనం నిర్మాణం {
+    దీర్ఘ dummy;
+    గుర్తులేని పొట్టి lineno;
+    గుర్తులేని పొట్టి dummy1;
+    పూర్ణాంకం dummy2;
+    పూర్ణాంకం dummy3;
+    గుర్తులేని పొట్టి dummy4;
 } AUXEF;
 
-ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
+ST_FUNC పూర్ణాంకం tcc_output_coff(TCCState *s1, FILE *f)
 {
     Section *tcc_sect;
     SCNHDR *coff_sec;
-    int file_pointer;
-    char *Coff_str_table, *pCoff_str_table;
-    int CoffTextSectionNo, coff_nb_syms;
+    పూర్ణాంకం file_సూచిక;
+    అక్షరం *Coff_str_పట్టిక, *p_Coff_str_పట్టిక;
+    పూర్ణాంకం Coff_పాఠ్యం_Section_No, coff_nb_syms;
     FILHDR file_hdr;		/* FILE HEADER STRUCTURE              */
     Section *stext, *sdata, *sbss;
-    int i, NSectionsToOutput = 0;
+    పూర్ణాంకం i, NSections_గమ్యం_Output = 0;
 
-    Coff_str_table = pCoff_str_table = NULL;
+    Coff_str_పట్టిక = p_Coff_str_పట్టిక = ఖాళీ;
 
-    stext = FindSection(s1, ".text");
-    sdata = FindSection(s1, ".data");
-    sbss = FindSection(s1, ".bss");
+    stext = కనుగొను_Section(s1, ".text");
+    sdata = కనుగొను_Section(s1, ".data");
+    sbss = కనుగొను_Section(s1, ".bss");
 
-    nb_syms = symtab_section->data_offset / sizeof(Elf32_Sym);
-    coff_nb_syms = FindCoffSymbolIndex(s1, "XXXXXXXXXX1");
+    nb_syms = symtab_section->దత్తాంశం_స్థానభ్రంశం / పరిమాణం(Elf32_Sym);
+    coff_nb_syms = కనుగొను_Coff_చిహ్నం_సూచీ(s1, "XXXXXXXXXX1");
 
     file_hdr.f_magic = COFF_C67_MAGIC;	/* magic number */
     file_hdr.f_timdat = 0;	/* time & date stamp */
-    file_hdr.f_opthdr = sizeof(AOUTHDR);	/* sizeof(optional hdr) */
+    file_hdr.f_opthdr = పరిమాణం(AOUTHDR);	/* sizeof(optional hdr) */
     file_hdr.f_flags = 0x1143;	/* flags (copied from what code composer does) */
-    file_hdr.f_TargetID = 0x99;	/* for C6x = 0x0099 */
+    file_hdr.f_లక్ష్యం_ID = 0x99;	/* for C6x = 0x0099 */
 
     o_filehdr.magic = 0x0108;	/* see magic.h                          */
     o_filehdr.vstamp = 0x0190;	/* version stamp                        */
-    o_filehdr.tsize = stext->data_offset;	/* text size in bytes, padded to FW bdry */
-    o_filehdr.dsize = sdata->data_offset;	/* initialized data "  "                */
-    o_filehdr.bsize = sbss->data_offset;	/* uninitialized data "   "             */
-    o_filehdr.entrypt = C67_main_entry_point;	/* entry pt.                          */
-    o_filehdr.text_start = stext->sh_addr;	/* base of text used for this file      */
-    o_filehdr.data_start = sdata->sh_addr;	/* base of data used for this file      */
+    o_filehdr.tsize = stext->దత్తాంశం_స్థానభ్రంశం;	/* text size in bytes, padded to FW bdry */
+    o_filehdr.dsize = sdata->దత్తాంశం_స్థానభ్రంశం;	/* initialized data "  "                */
+    o_filehdr.bsize = sbss->దత్తాంశం_స్థానభ్రంశం;	/* uninitialized data "   "             */
+    o_filehdr.entrypt = C67_main_నమోదు_బిందువు;	/* entry pt.                          */
+    o_filehdr.పాఠ్యం_ప్రారంభం = stext->sh_addr;	/* base of text used for this file      */
+    o_filehdr.దత్తాంశం_ప్రారంభం = sdata->sh_addr;	/* base of data used for this file      */
 
 
     // create all the section headers
 
-    file_pointer = FILHSZ + sizeof(AOUTHDR);
+    file_సూచిక = FILHSZ + పరిమాణం(AOUTHDR);
 
-    CoffTextSectionNo = -1;
+    Coff_పాఠ్యం_Section_No = -1;
 
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    కొరకు (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_శీర్షిక[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
-	    NSectionsToOutput++;
+	ఒకవేళ (OutputTheSection(tcc_sect)) {
+	    NSections_గమ్యం_Output++;
 
-	    if (CoffTextSectionNo == -1 && tcc_sect == stext)
-		CoffTextSectionNo = NSectionsToOutput;	// rem which coff sect number the .text sect is
+	    ఒకవేళ (Coff_పాఠ్యం_Section_No == -1 && tcc_sect == stext)
+		Coff_పాఠ్యం_Section_No = NSections_గమ్యం_Output;	// rem which coff sect number the .text sect is
 
 	    strcpy(coff_sec->s_name, tcc_sect->name);	/* section name */
 
 	    coff_sec->s_paddr = tcc_sect->sh_addr;	/* physical address */
 	    coff_sec->s_vaddr = tcc_sect->sh_addr;	/* virtual address */
-	    coff_sec->s_size = tcc_sect->data_offset;	/* section size */
+	    coff_sec->s_కొలత = tcc_sect->దత్తాంశం_స్థానభ్రంశం;	/* section size */
 	    coff_sec->s_scnptr = 0;	/* file ptr to raw data for section */
 	    coff_sec->s_relptr = 0;	/* file ptr to relocation */
 	    coff_sec->s_lnnoptr = 0;	/* file ptr to line numbers */
 	    coff_sec->s_nreloc = 0;	/* number of relocation entries */
 	    coff_sec->s_flags = GetCoffFlags(coff_sec->s_name);	/* flags */
 	    coff_sec->s_reserved = 0;	/* reserved byte */
-	    coff_sec->s_page = 0;	/* memory page id */
+	    coff_sec->s_పుట = 0;	/* memory page id */
 
-	    file_pointer += sizeof(SCNHDR);
+	    file_సూచిక += పరిమాణం(SCNHDR);
 	}
     }
 
-    file_hdr.f_nscns = NSectionsToOutput;	/* number of sections */
+    file_hdr.f_nscns = NSections_గమ్యం_Output;	/* number of sections */
 
     // now loop through and determine file pointer locations
     // for the raw data
 
 
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    కొరకు (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_శీర్షిక[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	ఒకవేళ (OutputTheSection(tcc_sect)) {
 	    // put raw data
-	    coff_sec->s_scnptr = file_pointer;	/* file ptr to raw data for section */
-	    file_pointer += coff_sec->s_size;
+	    coff_sec->s_scnptr = file_సూచిక;	/* file ptr to raw data for section */
+	    file_సూచిక += coff_sec->s_కొలత;
 	}
     }
 
     // now loop through and determine file pointer locations
     // for the relocation data
 
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    కొరకు (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_శీర్షిక[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	ఒకవేళ (OutputTheSection(tcc_sect)) {
 	    // put relocations data
-	    if (coff_sec->s_nreloc > 0) {
-		coff_sec->s_relptr = file_pointer;	/* file ptr to relocation */
-		file_pointer += coff_sec->s_nreloc * sizeof(struct reloc);
+	    ఒకవేళ (coff_sec->s_nreloc > 0) {
+		coff_sec->s_relptr = file_సూచిక;	/* file ptr to relocation */
+		file_సూచిక += coff_sec->s_nreloc * పరిమాణం(నిర్మాణం reloc);
 	    }
 	}
     }
@@ -182,132 +182,132 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // now loop through and determine file pointer locations
     // for the line number data
 
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    కొరకు (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_శీర్షిక[i];
 	tcc_sect = s1->sections[i];
 
 	coff_sec->s_nlnno = 0;
 	coff_sec->s_lnnoptr = 0;
 
-	if (s1->do_debug && tcc_sect == stext) {
+	ఒకవేళ (s1->do_debug && tcc_sect == stext) {
 	    // count how many line nos data
 
 	    // also find association between source file name and function
 	    // so we can sort the symbol table
 
 
-	    Stab_Sym *sym, *sym_end;
-	    char func_name[MAX_FUNC_NAME_LENGTH],
-		last_func_name[MAX_FUNC_NAME_LENGTH];
-	    unsigned long func_addr, last_pc, pc;
-	    const char *incl_files[INCLUDE_STACK_SIZE];
-	    int incl_index, len, last_line_num;
-	    const char *str, *p;
+	    Stab_Sym *sym, *sym_చివర;
+	    అక్షరం func_name[MAX_FUNC_NAME_నిడివి],
+		చివరి_func_name[MAX_FUNC_NAME_నిడివి];
+	    గుర్తులేని దీర్ఘ func_addr, చివరి_pc, pc;
+	    స్థిరరాశి అక్షరం *incl_files[INCLUDE_దొంతర_కొలత];
+	    పూర్ణాంకం incl_సూచీ, len, చివరి_పంక్తి_అంకె;
+	    స్థిరరాశి అక్షరం *str, *p;
 
-	    coff_sec->s_lnnoptr = file_pointer;	/* file ptr to linno */
+	    coff_sec->s_lnnoptr = file_సూచిక;	/* file ptr to linno */
 
 
 	    func_name[0] = '\0';
 	    func_addr = 0;
-	    incl_index = 0;
-	    last_func_name[0] = '\0';
-	    last_pc = 0xffffffff;
-	    last_line_num = 1;
-	    sym = (Stab_Sym *) stab_section->data + 1;
-	    sym_end =
-		(Stab_Sym *) (stab_section->data +
-			      stab_section->data_offset);
+	    incl_సూచీ = 0;
+	    చివరి_func_name[0] = '\0';
+	    చివరి_pc = 0xffffffff;
+	    చివరి_పంక్తి_అంకె = 1;
+	    sym = (Stab_Sym *) stab_section->దత్తాంశం + 1;
+	    sym_చివర =
+		(Stab_Sym *) (stab_section->దత్తాంశం +
+			      stab_section->దత్తాంశం_స్థానభ్రంశం);
 
 	    nFuncs = 0;
-	    while (sym < sym_end) {
-		switch (sym->n_type) {
+	    అయితే (sym < sym_చివర) {
+		ఎంపిక (sym->n_type) {
 		    /* function start or end */
-		case N_FUN:
-		    if (sym->n_strx == 0) {
+		స్థితి N_FUN:
+		    ఒకవేళ (sym->n_strx == 0) {
 			// end of function
 
 			coff_sec->s_nlnno++;
-			file_pointer += LINESZ;
+			file_సూచిక += LINESZ;
 
-			pc = sym->n_value + func_addr;
+			pc = sym->n_విలువ + func_addr;
 			func_name[0] = '\0';
 			func_addr = 0;
-			EndAddress[nFuncs] = pc;
+			చివర_చిరునామా[nFuncs] = pc;
 			FuncEntries[nFuncs] =
-			    (file_pointer -
-			     LineNoFilePtr[nFuncs]) / LINESZ - 1;
-			LastLineNo[nFuncs++] = last_line_num + 1;
-		    } else {
+			    (file_సూచిక -
+			     పంక్తి_No_File_Ptr[nFuncs]) / LINESZ - 1;
+			చివరి_పంక్తి_No[nFuncs++] = చివరి_పంక్తి_అంకె + 1;
+		    } లేకపోతే {
 			// beginning of function
 
-			LineNoFilePtr[nFuncs] = file_pointer;
+			పంక్తి_No_File_Ptr[nFuncs] = file_సూచిక;
 			coff_sec->s_nlnno++;
-			file_pointer += LINESZ;
+			file_సూచిక += LINESZ;
 
 			str =
-			    (const char *) stabstr_section->data +
+			    (స్థిరరాశి అక్షరం *) stabstr_section->దత్తాంశం +
 			    sym->n_strx;
 
 			p = strchr(str, ':');
-			if (!p) {
-			    pstrcpy(func_name, sizeof(func_name), str);
-			    pstrcpy(Func[nFuncs], sizeof(func_name), str);
-			} else {
+			ఒకవేళ (!p) {
+			    pstrcpy(func_name, పరిమాణం(func_name), str);
+			    pstrcpy(Func[nFuncs], పరిమాణం(func_name), str);
+			} లేకపోతే {
 			    len = p - str;
-			    if (len > sizeof(func_name) - 1)
-				len = sizeof(func_name) - 1;
-			    memcpy(func_name, str, len);
-			    memcpy(Func[nFuncs], str, len);
+			    ఒకవేళ (len > పరిమాణం(func_name) - 1)
+				len = పరిమాణం(func_name) - 1;
+			    జ్ఞాపకం_నకలు(func_name, str, len);
+			    జ్ఞాపకం_నకలు(Func[nFuncs], str, len);
 			    func_name[len] = '\0';
 			}
 
 			// save the file that it came in so we can sort later
-			pstrcpy(AssociatedFile[nFuncs], sizeof(func_name),
-				incl_files[incl_index - 1]);
+			pstrcpy(AssociatedFile[nFuncs], పరిమాణం(func_name),
+				incl_files[incl_సూచీ - 1]);
 
-			func_addr = sym->n_value;
+			func_addr = sym->n_విలువ;
 		    }
-		    break;
+		    ఆపు;
 
 		    /* line number info */
-		case N_SLINE:
-		    pc = sym->n_value + func_addr;
+		స్థితి N_SLINE:
+		    pc = sym->n_విలువ + func_addr;
 
-		    last_pc = pc;
-		    last_line_num = sym->n_desc;
+		    చివరి_pc = pc;
+		    చివరి_పంక్తి_అంకె = sym->n_desc;
 
 		    /* XXX: slow! */
-		    strcpy(last_func_name, func_name);
+		    strcpy(చివరి_func_name, func_name);
 
 		    coff_sec->s_nlnno++;
-		    file_pointer += LINESZ;
-		    break;
+		    file_సూచిక += LINESZ;
+		    ఆపు;
 		    /* include files */
-		case N_BINCL:
+		స్థితి N_BINCL:
 		    str =
-			(const char *) stabstr_section->data + sym->n_strx;
-		  add_incl:
-		    if (incl_index < INCLUDE_STACK_SIZE) {
-			incl_files[incl_index++] = str;
+			(స్థిరరాశి అక్షరం *) stabstr_section->దత్తాంశం + sym->n_strx;
+		  కూడు_incl:
+		    ఒకవేళ (incl_సూచీ < INCLUDE_దొంతర_కొలత) {
+			incl_files[incl_సూచీ++] = str;
 		    }
-		    break;
-		case N_EINCL:
-		    if (incl_index > 1)
-			incl_index--;
-		    break;
-		case N_SO:
-		    if (sym->n_strx == 0) {
-			incl_index = 0;	/* end of translation unit */
-		    } else {
+		    ఆపు;
+		స్థితి N_EINCL:
+		    ఒకవేళ (incl_సూచీ > 1)
+			incl_సూచీ--;
+		    ఆపు;
+		స్థితి N_SO:
+		    ఒకవేళ (sym->n_strx == 0) {
+			incl_సూచీ = 0;	/* end of translation unit */
+		    } లేకపోతే {
 			str =
-			    (const char *) stabstr_section->data +
+			    (స్థిరరాశి అక్షరం *) stabstr_section->దత్తాంశం +
 			    sym->n_strx;
 			/* do not add path */
-			len = strlen(str);
-			if (len > 0 && str[len - 1] != '/')
-			    goto add_incl;
+			len = అక్షరశ్రేణి_పొడవు(str);
+			ఒకవేళ (len > 0 && str[len - 1] != '/')
+			    వెళ్ళు కూడు_incl;
 		    }
-		    break;
+		    ఆపు;
 		}
 		sym++;
 	    }
@@ -315,51 +315,51 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
     }
 
-    file_hdr.f_symptr = file_pointer;	/* file pointer to symtab */
+    file_hdr.f_symptr = file_సూచిక;	/* file pointer to symtab */
 
-    if (s1->do_debug)
+    ఒకవేళ (s1->do_debug)
 	file_hdr.f_nsyms = coff_nb_syms;	/* number of symtab entries */
-    else
+    లేకపోతే
 	file_hdr.f_nsyms = 0;
 
-    file_pointer += file_hdr.f_nsyms * SYMNMLEN;
+    file_సూచిక += file_hdr.f_nsyms * SYMNMLEN;
 
     // OK now we are all set to write the file
 
 
     fwrite(&file_hdr, FILHSZ, 1, f);
-    fwrite(&o_filehdr, sizeof(o_filehdr), 1, f);
+    fwrite(&o_filehdr, పరిమాణం(o_filehdr), 1, f);
 
     // write section headers
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    కొరకు (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_శీర్షిక[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
-	    fwrite(coff_sec, sizeof(SCNHDR), 1, f);
+	ఒకవేళ (OutputTheSection(tcc_sect)) {
+	    fwrite(coff_sec, పరిమాణం(SCNHDR), 1, f);
 	}
     }
 
     // write raw data
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    కొరకు (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_శీర్షిక[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
-	    fwrite(tcc_sect->data, tcc_sect->data_offset, 1, f);
+	ఒకవేళ (OutputTheSection(tcc_sect)) {
+	    fwrite(tcc_sect->దత్తాంశం, tcc_sect->దత్తాంశం_స్థానభ్రంశం, 1, f);
 	}
     }
 
     // write relocation data
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    కొరకు (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_శీర్షిక[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	ఒకవేళ (OutputTheSection(tcc_sect)) {
 	    // put relocations data
-	    if (coff_sec->s_nreloc > 0) {
+	    ఒకవేళ (coff_sec->s_nreloc > 0) {
 		fwrite(tcc_sect->reloc,
-		       coff_sec->s_nreloc * sizeof(struct reloc), 1, f);
+		       coff_sec->s_nreloc * పరిమాణం(నిర్మాణం reloc), 1, f);
 	    }
 	}
     }
@@ -368,136 +368,136 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // group the symbols in order of filename, func1, func2, etc
     // finally global symbols
 
-    if (s1->do_debug)
-	SortSymbolTable(s1);
+    ఒకవేళ (s1->do_debug)
+	క్రమీకరించు_చిహ్నం_పట్టిక(s1);
 
     // write line no data
 
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    కొరకు (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_శీర్షిక[i];
 	tcc_sect = s1->sections[i];
 
-	if (s1->do_debug && tcc_sect == stext) {
+	ఒకవేళ (s1->do_debug && tcc_sect == stext) {
 	    // count how many line nos data
 
 
-	    Stab_Sym *sym, *sym_end;
-	    char func_name[128], last_func_name[128];
-	    unsigned long func_addr, last_pc, pc;
-	    const char *incl_files[INCLUDE_STACK_SIZE];
-	    int incl_index, len, last_line_num;
-	    const char *str, *p;
+	    Stab_Sym *sym, *sym_చివర;
+	    అక్షరం func_name[128], చివరి_func_name[128];
+	    గుర్తులేని దీర్ఘ func_addr, చివరి_pc, pc;
+	    స్థిరరాశి అక్షరం *incl_files[INCLUDE_దొంతర_కొలత];
+	    పూర్ణాంకం incl_సూచీ, len, చివరి_పంక్తి_అంకె;
+	    స్థిరరాశి అక్షరం *str, *p;
 
-	    LINENO CoffLineNo;
+	    LINENO Coff_పంక్తి_No;
 
 	    func_name[0] = '\0';
 	    func_addr = 0;
-	    incl_index = 0;
-	    last_func_name[0] = '\0';
-	    last_pc = 0;
-	    last_line_num = 1;
-	    sym = (Stab_Sym *) stab_section->data + 1;
-	    sym_end =
-		(Stab_Sym *) (stab_section->data +
-			      stab_section->data_offset);
+	    incl_సూచీ = 0;
+	    చివరి_func_name[0] = '\0';
+	    చివరి_pc = 0;
+	    చివరి_పంక్తి_అంకె = 1;
+	    sym = (Stab_Sym *) stab_section->దత్తాంశం + 1;
+	    sym_చివర =
+		(Stab_Sym *) (stab_section->దత్తాంశం +
+			      stab_section->దత్తాంశం_స్థానభ్రంశం);
 
-	    while (sym < sym_end) {
-		switch (sym->n_type) {
+	    అయితే (sym < sym_చివర) {
+		ఎంపిక (sym->n_type) {
 		    /* function start or end */
-		case N_FUN:
-		    if (sym->n_strx == 0) {
+		స్థితి N_FUN:
+		    ఒకవేళ (sym->n_strx == 0) {
 			// end of function
 
-			CoffLineNo.l_addr.l_paddr = last_pc;
-			CoffLineNo.l_lnno = last_line_num + 1;
-			fwrite(&CoffLineNo, 6, 1, f);
+			Coff_పంక్తి_No.l_addr.l_paddr = చివరి_pc;
+			Coff_పంక్తి_No.l_lnno = చివరి_పంక్తి_అంకె + 1;
+			fwrite(&Coff_పంక్తి_No, 6, 1, f);
 
-			pc = sym->n_value + func_addr;
+			pc = sym->n_విలువ + func_addr;
 			func_name[0] = '\0';
 			func_addr = 0;
-		    } else {
+		    } లేకపోతే {
 			// beginning of function
 
 			str =
-			    (const char *) stabstr_section->data +
+			    (స్థిరరాశి అక్షరం *) stabstr_section->దత్తాంశం +
 			    sym->n_strx;
 
 
 			p = strchr(str, ':');
-			if (!p) {
-			    pstrcpy(func_name, sizeof(func_name), str);
-			} else {
+			ఒకవేళ (!p) {
+			    pstrcpy(func_name, పరిమాణం(func_name), str);
+			} లేకపోతే {
 			    len = p - str;
-			    if (len > sizeof(func_name) - 1)
-				len = sizeof(func_name) - 1;
-			    memcpy(func_name, str, len);
+			    ఒకవేళ (len > పరిమాణం(func_name) - 1)
+				len = పరిమాణం(func_name) - 1;
+			    జ్ఞాపకం_నకలు(func_name, str, len);
 			    func_name[len] = '\0';
 			}
-			func_addr = sym->n_value;
-			last_pc = func_addr;
-			last_line_num = -1;
+			func_addr = sym->n_విలువ;
+			చివరి_pc = func_addr;
+			చివరి_పంక్తి_అంకె = -1;
 
 			// output a function begin
 
-			CoffLineNo.l_addr.l_symndx =
-			    FindCoffSymbolIndex(s1, func_name);
-			CoffLineNo.l_lnno = 0;
+			Coff_పంక్తి_No.l_addr.l_symndx =
+			    కనుగొను_Coff_చిహ్నం_సూచీ(s1, func_name);
+			Coff_పంక్తి_No.l_lnno = 0;
 
-			fwrite(&CoffLineNo, 6, 1, f);
+			fwrite(&Coff_పంక్తి_No, 6, 1, f);
 		    }
-		    break;
+		    ఆపు;
 
 		    /* line number info */
-		case N_SLINE:
-		    pc = sym->n_value + func_addr;
+		స్థితి N_SLINE:
+		    pc = sym->n_విలువ + func_addr;
 
 
 		    /* XXX: slow! */
-		    strcpy(last_func_name, func_name);
+		    strcpy(చివరి_func_name, func_name);
 
 		    // output a line reference
 
-		    CoffLineNo.l_addr.l_paddr = last_pc;
+		    Coff_పంక్తి_No.l_addr.l_paddr = చివరి_pc;
 
-		    if (last_line_num == -1) {
-			CoffLineNo.l_lnno = sym->n_desc;
-		    } else {
-			CoffLineNo.l_lnno = last_line_num + 1;
+		    ఒకవేళ (చివరి_పంక్తి_అంకె == -1) {
+			Coff_పంక్తి_No.l_lnno = sym->n_desc;
+		    } లేకపోతే {
+			Coff_పంక్తి_No.l_lnno = చివరి_పంక్తి_అంకె + 1;
 		    }
 
-		    fwrite(&CoffLineNo, 6, 1, f);
+		    fwrite(&Coff_పంక్తి_No, 6, 1, f);
 
-		    last_pc = pc;
-		    last_line_num = sym->n_desc;
+		    చివరి_pc = pc;
+		    చివరి_పంక్తి_అంకె = sym->n_desc;
 
-		    break;
+		    ఆపు;
 
 		    /* include files */
-		case N_BINCL:
+		స్థితి N_BINCL:
 		    str =
-			(const char *) stabstr_section->data + sym->n_strx;
-		  add_incl2:
-		    if (incl_index < INCLUDE_STACK_SIZE) {
-			incl_files[incl_index++] = str;
+			(స్థిరరాశి అక్షరం *) stabstr_section->దత్తాంశం + sym->n_strx;
+		  కూడు_incl2:
+		    ఒకవేళ (incl_సూచీ < INCLUDE_దొంతర_కొలత) {
+			incl_files[incl_సూచీ++] = str;
 		    }
-		    break;
-		case N_EINCL:
-		    if (incl_index > 1)
-			incl_index--;
-		    break;
-		case N_SO:
-		    if (sym->n_strx == 0) {
-			incl_index = 0;	/* end of translation unit */
-		    } else {
+		    ఆపు;
+		స్థితి N_EINCL:
+		    ఒకవేళ (incl_సూచీ > 1)
+			incl_సూచీ--;
+		    ఆపు;
+		స్థితి N_SO:
+		    ఒకవేళ (sym->n_strx == 0) {
+			incl_సూచీ = 0;	/* end of translation unit */
+		    } లేకపోతే {
 			str =
-			    (const char *) stabstr_section->data +
+			    (స్థిరరాశి అక్షరం *) stabstr_section->దత్తాంశం +
 			    sym->n_strx;
 			/* do not add path */
-			len = strlen(str);
-			if (len > 0 && str[len - 1] != '/')
-			    goto add_incl2;
+			len = అక్షరశ్రేణి_పొడవు(str);
+			ఒకవేళ (len > 0 && str[len - 1] != '/')
+			    వెళ్ళు కూడు_incl2;
 		    }
-		    break;
+		    ఆపు;
 		}
 		sym++;
 	    }
@@ -505,51 +505,51 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     }
 
     // write symbol table
-    if (s1->do_debug) {
-	int k;
-	struct syment csym;
+    ఒకవేళ (s1->do_debug) {
+	పూర్ణాంకం k;
+	నిర్మాణం syment csym;
 	AUXFUNC auxfunc;
 	AUXBF auxbf;
 	AUXEF auxef;
-	int i;
+	పూర్ణాంకం i;
 	Elf32_Sym *p;
-	const char *name;
-	int nstr;
-	int n = 0;
+	స్థిరరాశి అక్షరం *name;
+	పూర్ణాంకం nstr;
+	పూర్ణాంకం n = 0;
 
-	Coff_str_table = (char *) tcc_malloc(MAX_STR_TABLE);
-	pCoff_str_table = Coff_str_table;
+	Coff_str_పట్టిక = (అక్షరం *) tcc_malloc(MAX_STR_పట్టిక);
+	p_Coff_str_పట్టిక = Coff_str_పట్టిక;
 	nstr = 0;
 
-	p = (Elf32_Sym *) symtab_section->data;
+	p = (Elf32_Sym *) symtab_section->దత్తాంశం;
 
 
-	for (i = 0; i < nb_syms; i++) {
+	కొరకు (i = 0; i < nb_syms; i++) {
 
-	    name = symtab_section->link->data + p->st_name;
+	    name = symtab_section->link->దత్తాంశం + p->st_name;
 
-	    for (k = 0; k < 8; k++)
+	    కొరకు (k = 0; k < 8; k++)
 		csym._n._n_name[k] = 0;
 
-	    if (strlen(name) <= 8) {
+	    ఒకవేళ (అక్షరశ్రేణి_పొడవు(name) <= 8) {
 		strcpy(csym._n._n_name, name);
-	    } else {
-		if (pCoff_str_table - Coff_str_table + strlen(name) >
-		    MAX_STR_TABLE - 1)
+	    } లేకపోతే {
+		ఒకవేళ (p_Coff_str_పట్టిక - Coff_str_పట్టిక + అక్షరశ్రేణి_పొడవు(name) >
+		    MAX_STR_పట్టిక - 1)
 		    tcc_error("String table too large");
 
 		csym._n._n_n._n_zeroes = 0;
-		csym._n._n_n._n_offset =
-		    pCoff_str_table - Coff_str_table + 4;
+		csym._n._n_n.n_స్థానభ్రంశం =
+		    p_Coff_str_పట్టిక - Coff_str_పట్టిక + 4;
 
-		strcpy(pCoff_str_table, name);
-		pCoff_str_table += strlen(name) + 1;	// skip over null
+		strcpy(p_Coff_str_పట్టిక, name);
+		p_Coff_str_పట్టిక += అక్షరశ్రేణి_పొడవు(name) + 1;	// skip over null
 		nstr++;
 	    }
 
-	    if (p->st_info == 4) {
+	    ఒకవేళ (p->st_info == 4) {
 		// put a filename symbol
-		csym.n_value = 33;	// ?????
+		csym.n_విలువ = 33;	// ?????
 		csym.n_scnum = N_DEBUG;
 		csym.n_type = 0;
 		csym.n_sclass = C_FILE;
@@ -557,21 +557,21 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		fwrite(&csym, 18, 1, f);
 		n++;
 
-	    } else if (p->st_info == 0x12) {
+	    } లేకపోతే ఒకవేళ (p->st_info == 0x12) {
 		// find the function data
 
-		for (k = 0; k < nFuncs; k++) {
-		    if (strcmp(name, Func[k]) == 0)
-			break;
+		కొరకు (k = 0; k < nFuncs; k++) {
+		    ఒకవేళ (strcmp(name, Func[k]) == 0)
+			ఆపు;
 		}
 
-		if (k >= nFuncs) {
+		ఒకవేళ (k >= nFuncs) {
 		    tcc_error("debug info can't find function: %s", name);
 		}
 		// put a Function Name
 
-		csym.n_value = p->st_value;	// physical address
-		csym.n_scnum = CoffTextSectionNo;
+		csym.n_విలువ = p->st_విలువ;	// physical address
+		csym.n_scnum = Coff_పాఠ్యం_Section_No;
 		csym.n_type = MKTYPE(T_INT, DT_FCN, 0, 0, 0, 0, 0);
 		csym.n_sclass = C_EXT;
 		csym.n_numaux = 1;
@@ -579,9 +579,9 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 		// now put aux info
 
-		auxfunc.tag = 0;
-		auxfunc.size = EndAddress[k] - p->st_value;
-		auxfunc.fileptr = LineNoFilePtr[k];
+		auxfunc.ట్యాగ్ = 0;
+		auxfunc.కొలత = చివర_చిరునామా[k] - p->st_విలువ;
+		auxfunc.fileptr = పంక్తి_No_File_Ptr[k];
 		auxfunc.nextsym = n + 6;	// tktk
 		auxfunc.dummy = 0;
 		fwrite(&auxfunc, 18, 1, f);
@@ -589,8 +589,8 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		// put a .bf
 
 		strcpy(csym._n._n_name, ".bf");
-		csym.n_value = p->st_value;	// physical address
-		csym.n_scnum = CoffTextSectionNo;
+		csym.n_విలువ = p->st_విలువ;	// physical address
+		csym.n_scnum = Coff_పాఠ్యం_Section_No;
 		csym.n_type = 0;
 		csym.n_sclass = C_FCN;
 		csym.n_numaux = 1;
@@ -609,8 +609,8 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		// put a .ef
 
 		strcpy(csym._n._n_name, ".ef");
-		csym.n_value = EndAddress[k];	// physical address  
-		csym.n_scnum = CoffTextSectionNo;
+		csym.n_విలువ = చివర_చిరునామా[k];	// physical address  
+		csym.n_scnum = Coff_పాఠ్యం_Section_No;
 		csym.n_type = 0;
 		csym.n_sclass = C_FCN;
 		csym.n_numaux = 1;
@@ -619,7 +619,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		// now put aux info
 
 		auxef.dummy = 0;
-		auxef.lineno = LastLineNo[k];
+		auxef.lineno = చివరి_పంక్తి_No[k];
 		auxef.dummy1 = 0;
 		auxef.dummy2 = 0;
 		auxef.dummy3 = 0;
@@ -628,37 +628,37 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 		n += 6;
 
-	    } else {
+	    } లేకపోతే {
 		// try an put some type info
 
-		if ((p->st_other & VT_BTYPE) == VT_DOUBLE) {
+		ఒకవేళ ((p->st_other & VT_BTYPE) == VT_DOUBLE) {
 		    csym.n_type = T_DOUBLE;	// int
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_FLOAT) {
+		} లేకపోతే ఒకవేళ ((p->st_other & VT_BTYPE) == VT_FLOAT) {
 		    csym.n_type = T_FLOAT;
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_INT) {
+		} లేకపోతే ఒకవేళ ((p->st_other & VT_BTYPE) == VT_INT) {
 		    csym.n_type = T_INT;	// int
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_SHORT) {
+		} లేకపోతే ఒకవేళ ((p->st_other & VT_BTYPE) == VT_SHORT) {
 		    csym.n_type = T_SHORT;
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_BYTE) {
+		} లేకపోతే ఒకవేళ ((p->st_other & VT_BTYPE) == VT_BYTE) {
 		    csym.n_type = T_CHAR;
 		    csym.n_sclass = C_EXT;
-		} else {
+		} లేకపోతే {
 		    csym.n_type = T_INT;	// just mark as a label
 		    csym.n_sclass = C_LABEL;
 		}
 
 
-		csym.n_value = p->st_value;
+		csym.n_విలువ = p->st_విలువ;
 		csym.n_scnum = 2;
 		csym.n_numaux = 1;
 		fwrite(&csym, 18, 1, f);
 
-		auxfunc.tag = 0;
-		auxfunc.size = 0x20;
+		auxfunc.ట్యాగ్ = 0;
+		auxfunc.కొలత = 0x20;
 		auxfunc.fileptr = 0;
 		auxfunc.nextsym = 0;
 		auxfunc.dummy = 0;
@@ -672,20 +672,20 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	}
     }
 
-    if (s1->do_debug) {
+    ఒకవేళ (s1->do_debug) {
 	// write string table
 
 	// first write the size
-	i = pCoff_str_table - Coff_str_table;
+	i = p_Coff_str_పట్టిక - Coff_str_పట్టిక;
 	fwrite(&i, 4, 1, f);
 
 	// then write the strings
-	fwrite(Coff_str_table, i, 1, f);
+	fwrite(Coff_str_పట్టిక, i, 1, f);
 
-	tcc_free(Coff_str_table);
+	tcc_free(Coff_str_పట్టిక);
     }
 
-    return 0;
+    తిరిగి 0;
 }
 
 
@@ -693,53 +693,53 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 // group the symbols in order of filename, func1, func2, etc
 // finally global symbols
 
-void SortSymbolTable(TCCState *s1)
+శూన్య క్రమీకరించు_చిహ్నం_పట్టిక(TCCState *s1)
 {
-    int i, j, k, n = 0;
-    Elf32_Sym *p, *p2, *NewTable;
-    char *name, *name2;
+    పూర్ణాంకం i, j, k, n = 0;
+    Elf32_Sym *p, *p2, *New_పట్టిక;
+    అక్షరం *name, *name2;
 
-    NewTable = (Elf32_Sym *) tcc_malloc(nb_syms * sizeof(Elf32_Sym));
+    New_పట్టిక = (Elf32_Sym *) tcc_malloc(nb_syms * పరిమాణం(Elf32_Sym));
 
-    p = (Elf32_Sym *) symtab_section->data;
+    p = (Elf32_Sym *) symtab_section->దత్తాంశం;
 
 
     // find a file symbol, copy it over
     // then scan the whole symbol list and copy any function
     // symbols that match the file association
 
-    for (i = 0; i < nb_syms; i++) {
-	if (p->st_info == 4) {
-	    name = (char *) symtab_section->link->data + p->st_name;
+    కొరకు (i = 0; i < nb_syms; i++) {
+	ఒకవేళ (p->st_info == 4) {
+	    name = (అక్షరం *) symtab_section->link->దత్తాంశం + p->st_name;
 
 	    // this is a file symbol, copy it over
 
-	    NewTable[n++] = *p;
+	    New_పట్టిక[n++] = *p;
 
-	    p2 = (Elf32_Sym *) symtab_section->data;
+	    p2 = (Elf32_Sym *) symtab_section->దత్తాంశం;
 
-	    for (j = 0; j < nb_syms; j++) {
-		if (p2->st_info == 0x12) {
+	    కొరకు (j = 0; j < nb_syms; j++) {
+		ఒకవేళ (p2->st_info == 0x12) {
 		    // this is a func symbol
 
 		    name2 =
-			(char *) symtab_section->link->data + p2->st_name;
+			(అక్షరం *) symtab_section->link->దత్తాంశం + p2->st_name;
 
 		    // find the function data index
 
-		    for (k = 0; k < nFuncs; k++) {
-			if (strcmp(name2, Func[k]) == 0)
-			    break;
+		    కొరకు (k = 0; k < nFuncs; k++) {
+			ఒకవేళ (strcmp(name2, Func[k]) == 0)
+			    ఆపు;
 		    }
 
-		    if (k >= nFuncs) {
+		    ఒకవేళ (k >= nFuncs) {
                         tcc_error("debug (sort) info can't find function: %s", name2);
 		    }
 
-		    if (strcmp(AssociatedFile[k], name) == 0) {
+		    ఒకవేళ (strcmp(AssociatedFile[k], name) == 0) {
 			// yes they match copy it over
 
-			NewTable[n++] = *p2;
+			New_పట్టిక[n++] = *p2;
 		    }
 		}
 		p2++;
@@ -751,47 +751,47 @@ void SortSymbolTable(TCCState *s1)
     // now all the filename and func symbols should have been copied over
     // copy all the rest over (all except file and funcs)
 
-    p = (Elf32_Sym *) symtab_section->data;
-    for (i = 0; i < nb_syms; i++) {
-	if (p->st_info != 4 && p->st_info != 0x12) {
-	    NewTable[n++] = *p;
+    p = (Elf32_Sym *) symtab_section->దత్తాంశం;
+    కొరకు (i = 0; i < nb_syms; i++) {
+	ఒకవేళ (p->st_info != 4 && p->st_info != 0x12) {
+	    New_పట్టిక[n++] = *p;
 	}
 	p++;
     }
 
-    if (n != nb_syms)
+    ఒకవేళ (n != nb_syms)
 	tcc_error("Internal Compiler error, debug info");
 
     // copy it all back
 
-    p = (Elf32_Sym *) symtab_section->data;
-    for (i = 0; i < nb_syms; i++) {
-	*p++ = NewTable[i];
+    p = (Elf32_Sym *) symtab_section->దత్తాంశం;
+    కొరకు (i = 0; i < nb_syms; i++) {
+	*p++ = New_పట్టిక[i];
     }
 
-    tcc_free(NewTable);
+    tcc_free(New_పట్టిక);
 }
 
 
-int FindCoffSymbolIndex(TCCState *s1, const char *func_name)
+పూర్ణాంకం కనుగొను_Coff_చిహ్నం_సూచీ(TCCState *s1, స్థిరరాశి అక్షరం *func_name)
 {
-    int i, n = 0;
+    పూర్ణాంకం i, n = 0;
     Elf32_Sym *p;
-    char *name;
+    అక్షరం *name;
 
-    p = (Elf32_Sym *) symtab_section->data;
+    p = (Elf32_Sym *) symtab_section->దత్తాంశం;
 
-    for (i = 0; i < nb_syms; i++) {
+    కొరకు (i = 0; i < nb_syms; i++) {
 
-	name = (char *) symtab_section->link->data + p->st_name;
+	name = (అక్షరం *) symtab_section->link->దత్తాంశం + p->st_name;
 
-	if (p->st_info == 4) {
+	ఒకవేళ (p->st_info == 4) {
 	    // put a filename symbol
 	    n++;
-	} else if (p->st_info == 0x12) {
+	} లేకపోతే ఒకవేళ (p->st_info == 0x12) {
 
-	    if (strcmp(func_name, name) == 0)
-		return n;
+	    ఒకవేళ (strcmp(func_name, name) == 0)
+		తిరిగి n;
 
 	    n += 6;
 
@@ -807,115 +807,115 @@ int FindCoffSymbolIndex(TCCState *s1, const char *func_name)
 
 	    // now put aux info
 
-	} else {
+	} లేకపోతే {
 	    n += 2;
 	}
 
 	p++;
     }
 
-    return n;			// total number of symbols
+    తిరిగి n;			// total number of symbols
 }
 
-int OutputTheSection(Section * sect)
+పూర్ణాంకం OutputTheSection(Section * sect)
 {
-    const char *s = sect->name;
+    స్థిరరాశి అక్షరం *s = sect->name;
 
-    if (!strcmp(s, ".text"))
-	return 1;
-    else if (!strcmp(s, ".data"))
-	return 1;
-    else
-	return 0;
+    ఒకవేళ (!strcmp(s, ".text"))
+	తిరిగి 1;
+    లేకపోతే ఒకవేళ (!strcmp(s, ".data"))
+	తిరిగి 1;
+    లేకపోతే
+	తిరిగి 0;
 }
 
-short int GetCoffFlags(const char *s)
+పొట్టి పూర్ణాంకం GetCoffFlags(స్థిరరాశి అక్షరం *s)
 {
-    if (!strcmp(s, ".text"))
-	return STYP_TEXT | STYP_DATA | STYP_ALIGN | 0x400;
-    else if (!strcmp(s, ".data"))
-	return STYP_DATA;
-    else if (!strcmp(s, ".bss"))
-	return STYP_BSS;
-    else if (!strcmp(s, ".stack"))
-	return STYP_BSS | STYP_ALIGN | 0x200;
-    else if (!strcmp(s, ".cinit"))
-	return STYP_COPY | STYP_DATA | STYP_ALIGN | 0x200;
-    else
-	return 0;
+    ఒకవేళ (!strcmp(s, ".text"))
+	తిరిగి STYP_పాఠ్యం | STYP_దత్తాంశం | STYP_ALIGN | 0x400;
+    లేకపోతే ఒకవేళ (!strcmp(s, ".data"))
+	తిరిగి STYP_దత్తాంశం;
+    లేకపోతే ఒకవేళ (!strcmp(s, ".bss"))
+	తిరిగి STYP_BSS;
+    లేకపోతే ఒకవేళ (!strcmp(s, ".stack"))
+	తిరిగి STYP_BSS | STYP_ALIGN | 0x200;
+    లేకపోతే ఒకవేళ (!strcmp(s, ".cinit"))
+	తిరిగి STYP_COPY | STYP_దత్తాంశం | STYP_ALIGN | 0x200;
+    లేకపోతే
+	తిరిగి 0;
 }
 
-Section *FindSection(TCCState * s1, const char *sname)
+Section *కనుగొను_Section(TCCState * s1, స్థిరరాశి అక్షరం *sname)
 {
     Section *s;
-    int i;
+    పూర్ణాంకం i;
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    కొరకు (i = 1; i < s1->nb_sections; i++) {
 	s = s1->sections[i];
 
-	if (!strcmp(sname, s->name))
-	    return s;
+	ఒకవేళ (!strcmp(sname, s->name))
+	    తిరిగి s;
     }
 
     tcc_error("could not find section %s", sname);
-    return 0;
+    తిరిగి 0;
 }
 
-ST_FUNC int tcc_load_coff(TCCState * s1, int fd)
+ST_FUNC పూర్ణాంకం tcc_ఎక్కించు_coff(TCCState * s1, పూర్ణాంకం fd)
 {
 // tktk TokenSym *ts;
 
     FILE *f;
-    unsigned int str_size;
-    char *Coff_str_table, *name;
-    int i, k;
-    struct syment csym;
-    char name2[9];
+    గుర్తులేని పూర్ణాంకం str_కొలత;
+    అక్షరం *Coff_str_పట్టిక, *name;
+    పూర్ణాంకం i, k;
+    నిర్మాణం syment csym;
+    అక్షరం name2[9];
     FILHDR file_hdr;		/* FILE HEADER STRUCTURE              */
 
     f = fdopen(fd, "rb");
-    if (!f) {
+    ఒకవేళ (!f) {
 	tcc_error("Unable to open .out file for input");
     }
 
-    if (fread(&file_hdr, FILHSZ, 1, f) != 1)
+    ఒకవేళ (fread(&file_hdr, FILHSZ, 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
-    if (fread(&o_filehdr, sizeof(o_filehdr), 1, f) != 1)
+    ఒకవేళ (fread(&o_filehdr, పరిమాణం(o_filehdr), 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
     // first read the string table
 
-    if (fseek(f, file_hdr.f_symptr + file_hdr.f_nsyms * SYMESZ, SEEK_SET))
+    ఒకవేళ (fseek(f, file_hdr.f_symptr + file_hdr.f_nsyms * SYMESZ, SEEK_SET))
 	tcc_error("error reading .out file for input");
 
-    if (fread(&str_size, sizeof(int), 1, f) != 1)
+    ఒకవేళ (fread(&str_కొలత, పరిమాణం(పూర్ణాంకం), 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
 
-    Coff_str_table = (char *) tcc_malloc(str_size);
+    Coff_str_పట్టిక = (అక్షరం *) tcc_malloc(str_కొలత);
 
-    if (fread(Coff_str_table, str_size - 4, 1, f) != 1)
+    ఒకవేళ (fread(Coff_str_పట్టిక, str_కొలత - 4, 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
     // read/process all the symbols
 
     // seek back to symbols
 
-    if (fseek(f, file_hdr.f_symptr, SEEK_SET))
+    ఒకవేళ (fseek(f, file_hdr.f_symptr, SEEK_SET))
 	tcc_error("error reading .out file for input");
 
-    for (i = 0; i < file_hdr.f_nsyms; i++) {
-	if (fread(&csym, SYMESZ, 1, f) != 1)
+    కొరకు (i = 0; i < file_hdr.f_nsyms; i++) {
+	ఒకవేళ (fread(&csym, SYMESZ, 1, f) != 1)
 	    tcc_error("error reading .out file for input");
 
-	if (csym._n._n_n._n_zeroes == 0) {
-	    name = Coff_str_table + csym._n._n_n._n_offset - 4;
-	} else {
+	ఒకవేళ (csym._n._n_n._n_zeroes == 0) {
+	    name = Coff_str_పట్టిక + csym._n._n_n.n_స్థానభ్రంశం - 4;
+	} లేకపోతే {
 	    name = csym._n._n_name;
 
-	    if (name[7] != 0) {
-		for (k = 0; k < 8; k++)
+	    ఒకవేళ (name[7] != 0) {
+		కొరకు (k = 0; k < 8; k++)
 		    name2[k] = name[k];
 
 		name2[8] = 0;
@@ -926,26 +926,26 @@ ST_FUNC int tcc_load_coff(TCCState * s1, int fd)
 //              if (strcmp("_DAC_Buffer",name)==0)  // tktk
 //                      name[0]=0;
 
-	if (((csym.n_type & 0x30) == 0x20 && csym.n_sclass == 0x2) || ((csym.n_type & 0x30) == 0x30 && csym.n_sclass == 0x2) || (csym.n_type == 0x4 && csym.n_sclass == 0x2) || (csym.n_type == 0x8 && csym.n_sclass == 0x2) ||	// structures
+	ఒకవేళ (((csym.n_type & 0x30) == 0x20 && csym.n_sclass == 0x2) || ((csym.n_type & 0x30) == 0x30 && csym.n_sclass == 0x2) || (csym.n_type == 0x4 && csym.n_sclass == 0x2) || (csym.n_type == 0x8 && csym.n_sclass == 0x2) ||	// structures
 	    (csym.n_type == 0x18 && csym.n_sclass == 0x2) ||	// pointer to structure
 	    (csym.n_type == 0x7 && csym.n_sclass == 0x2) ||	// doubles
 	    (csym.n_type == 0x6 && csym.n_sclass == 0x2))	// floats
 	{
 	    // strip off any leading underscore (except for other main routine)
 
-	    if (name[0] == '_' && strcmp(name, "_main") != 0)
+	    ఒకవేళ (name[0] == '_' && strcmp(name, "_main") != 0)
 		name++;
 
-	    tcc_add_symbol(s1, name, (void*)(uintptr_t)csym.n_value);
+	    tcc_కూడు_చిహ్నం(s1, name, (శూన్య*)(uintptr_t)csym.n_విలువ);
 	}
 	// skip any aux records
 
-	if (csym.n_numaux == 1) {
-	    if (fread(&csym, SYMESZ, 1, f) != 1)
+	ఒకవేళ (csym.n_numaux == 1) {
+	    ఒకవేళ (fread(&csym, SYMESZ, 1, f) != 1)
 		tcc_error("error reading .out file for input");
 	    i++;
 	}
     }
 
-    return 0;
+    తిరిగి 0;
 }

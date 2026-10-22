@@ -1,20 +1,20 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int a = 24680;
-   int b = 01234567;
-   int c = 0x2468ac;
-   int d = 0x2468AC;
-   int e = 0b010101010101;
+   పూర్ణాంకం a = 24680;
+   పూర్ణాంకం b = 01234567;
+   పూర్ణాంకం c = 0x2468ac;
+   పూర్ణాంకం d = 0x2468AC;
+   పూర్ణాంకం e = 0b010101010101;
 
-   printf("%d\n", a);
-   printf("%d\n", b);
-   printf("%d\n", c);
-   printf("%d\n", d);
-   printf("%d\n", e);
+   రాయి("%d\n", a);
+   రాయి("%d\n", b);
+   రాయి("%d\n", c);
+   రాయి("%d\n", d);
+   రాయి("%d\n", e);
 
-   return 0;
+   తిరిగి 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

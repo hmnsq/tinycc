@@ -1,26 +1,26 @@
-#include <stdio.h>
-struct wchar {
-    char *data; char mem[];
+#అన్తర్భావ <stdio.h>
+నిర్మాణం wchar {
+    అక్షరం *దత్తాంశం; అక్షరం mem[];
 };
-struct wint {
-    char *data; int mem[];
+నిర్మాణం wint {
+    అక్షరం *దత్తాంశం; పూర్ణాంకం mem[];
 };
-int f1char (void) {
-    char s[9]="nonono";
-    struct wchar q = {"bugs"};
-    return !s[0];
+పూర్ణాంకం f1char (శూన్య) {
+    అక్షరం s[9]="nonono";
+    నిర్మాణం wchar q = {"bugs"};
+    తిరిగి !s[0];
 }
-int f1int (void) {
-    char s[9]="nonono";
-    struct wint q = {"bugs"};
-    return !s[0];
+పూర్ణాంకం f1int (శూన్య) {
+    అక్షరం s[9]="nonono";
+    నిర్మాణం wint q = {"bugs"};
+    తిరిగి !s[0];
 }
-int empty[] = {}; // GNU extension
-int main (void) {
-   char s[9]="nonono";
-   static struct wchar q = {"bugs", {'c'}};
+పూర్ణాంకం ఖాళీలు[] = {}; // GNU extension
+పూర్ణాంకం ప్రధాన (శూన్య) {
+   అక్షరం s[9]="nonono";
+   స్థిర నిర్మాణం wchar q = {"bugs", {'c'}};
    //printf ("tcc has %s %s\n", s, q.data);
-   if (f1char() || f1int())
-     printf ("bla\n");
-   return !s[0];
+   ఒకవేళ (f1char() || f1int())
+     రాయి ("bla\n");
+   తిరిగి !s[0];
 }

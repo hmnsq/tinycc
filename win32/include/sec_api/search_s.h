@@ -3,23 +3,23 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SEARCH_S
-#define _INC_SEARCH_S
+#నిర్వచితం_కాకపోతే INC_శోధన_S
+#నిర్వచించు INC_శోధన_S
 
-#include <search.h>
+#అన్తర్భావ <search.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ఒకవేళ defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-  _CRTIMP void *__cdecl _lfind_s(const void *_Key,const void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
-  _CRTIMP void *__cdecl _lsearch_s(const void *_Key,void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
+  _CRTIMP శూన్య *__cdecl _lfind_s(స్థిరరాశి శూన్య *కీలకం_2,స్థిరరాశి శూన్య *పునాది_3,గుర్తులేని పూర్ణాంకం *అంకె_యొక్క_Elements,కొలత_t కొలత_యొక్క_Elements,పూర్ణాంకం (__cdecl *_PtFuncCompare)(శూన్య *,స్థిరరాశి శూన్య *,స్థిరరాశి శూన్య *),శూన్య *_Context);
+  _CRTIMP శూన్య *__cdecl _lsearch_s(స్థిరరాశి శూన్య *కీలకం_2,శూన్య *పునాది_3,గుర్తులేని పూర్ణాంకం *అంకె_యొక్క_Elements,కొలత_t కొలత_యొక్క_Elements,పూర్ణాంకం (__cdecl *_PtFuncCompare)(శూన్య *,స్థిరరాశి శూన్య *,స్థిరరాశి శూన్య *),శూన్య *_Context);
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు

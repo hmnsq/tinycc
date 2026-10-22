@@ -1,15 +1,15 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం *, ...);
+అక్షరం t[] = "012345678";
 
-int main(void)
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
-    char *data = t;
-    unsigned long long r = 4;
-    unsigned a = 5;
-    unsigned long long b = 12;
+    అక్షరం *దత్తాంశం = t;
+    గుర్తులేని దీర్ఘ దీర్ఘ r = 4;
+    గుర్తులేని a = 5;
+    గుర్తులేని దీర్ఘ దీర్ఘ b = 12;
 
-    *(unsigned*)(data + r) += a - b;
+    *(గుర్తులేని*)(దత్తాంశం + r) += a - b;
 
-    printf("data = \"%s\"\n", data);
-    return 0;
+    రాయి("data = \"%s\"\n", దత్తాంశం);
+    తిరిగి 0;
 }

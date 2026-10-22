@@ -1,22 +1,22 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int fred(int p)
+పూర్ణాంకం fred(పూర్ణాంకం p)
 {
-   printf("yo %d\n", p);
-   return 42;
+   రాయి("yo %d\n", p);
+   తిరిగి 42;
 }
 
-int (*f)(int) = &fred;
+పూర్ణాంకం (*f)(పూర్ణాంకం) = &fred;
 
 /* To test what this is supposed to test the destination function
    (fprint here) must not be called directly anywhere in the test.  */
-int (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
+పూర్ణాంకం (*fprintfptr)(FILE *, స్థిరరాశి అక్షరం *, ...) = &fprintf;
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
    fprintfptr(stdout, "%d\n", (*f)(24));
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

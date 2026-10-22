@@ -3,170 +3,170 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_WCTYPE
-#define _INC_WCTYPE
+#నిర్వచితం_కాకపోతే _INC_WCTYPE
+#నిర్వచించు _INC_WCTYPE
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#నిర్వచితం_కాకపోతే _WIN32
+#దోషం Only Win32 లక్ష్యం is supported!
+#అయితే_ముగింపు
 
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#సూచన pack(నెట్టు,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#నిర్వచితం_కాకపోతే _CRTIMP
+#నిర్వచించు _CRTIMP __declspec(dllimport)
+#అయితే_ముగింపు
 
-#ifndef _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
+#నిర్వచితం_కాకపోతే _WCHAR_T_DEFINED
+  రకనిర్వచనం గుర్తులేని పొట్టి wchar_t;
+#నిర్వచించు _WCHAR_T_DEFINED
+#అయితే_ముగింపు
 
-#ifndef _WCTYPE_T_DEFINED
-  typedef unsigned short wint_t;
-  typedef unsigned short wctype_t;
-#define _WCTYPE_T_DEFINED
-#endif
+#నిర్వచితం_కాకపోతే _WCTYPE_T_DEFINED
+  రకనిర్వచనం గుర్తులేని పొట్టి wint_t;
+  రకనిర్వచనం గుర్తులేని పొట్టి wctype_t;
+#నిర్వచించు _WCTYPE_T_DEFINED
+#అయితే_ముగింపు
 
-#ifndef WEOF
-#define WEOF (wint_t)(0xFFFF)
-#endif
+#నిర్వచితం_కాకపోతే WEOF
+#నిర్వచించు WEOF (wint_t)(0xFFFF)
+#అయితే_ముగింపు
 
-#ifndef _CRT_CTYPEDATA_DEFINED
-#define _CRT_CTYPEDATA_DEFINED
-#ifndef _CTYPE_DISABLE_MACROS
+#నిర్వచితం_కాకపోతే _CRT_CTYPEDATA_DEFINED
+#నిర్వచించు _CRT_CTYPEDATA_DEFINED
+#నిర్వచితం_కాకపోతే _CTYPE_DISABLE_MACROS
 
-#ifndef __PCTYPE_FUNC
-#define __PCTYPE_FUNC __pctype_func()
-#ifdef _MSVCRT_
-#define __pctype_func() (_pctype)
-#else
-#define __pctype_func() (*_imp___pctype)
-#endif
-#endif
+#నిర్వచితం_కాకపోతే __PCTYPE_FUNC
+#నిర్వచించు __PCTYPE_FUNC __pctype_func()
+#నిర్వచితమైతే _MSVCRT_
+#నిర్వచించు __pctype_func() (_pctype)
+#లేకపోతే
+#నిర్వచించు __pctype_func() (*_imp___pctype)
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _pctype
-#ifdef _MSVCRT_
-  extern unsigned short *_pctype;
-#else
-  extern unsigned short **_imp___pctype;
-#define _pctype (*_imp___pctype)
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _pctype
+#నిర్వచితమైతే _MSVCRT_
+  బాహ్య గుర్తులేని పొట్టి *_pctype;
+#లేకపోతే
+  బాహ్య గుర్తులేని పొట్టి **_imp___pctype;
+#నిర్వచించు _pctype (*_imp___pctype)
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _CRT_WCTYPEDATA_DEFINED
-#define _CRT_WCTYPEDATA_DEFINED
-#ifndef _CTYPE_DISABLE_MACROS
-#ifndef _wctype
-#ifdef _MSVCRT_
-  extern unsigned short *_wctype;
-#else
-  extern unsigned short **_imp___wctype;
-#define _wctype (*_imp___wctype)
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _CRT_WCTYPEDATA_DEFINED
+#నిర్వచించు _CRT_WCTYPEDATA_DEFINED
+#నిర్వచితం_కాకపోతే _CTYPE_DISABLE_MACROS
+#నిర్వచితం_కాకపోతే _wctype
+#నిర్వచితమైతే _MSVCRT_
+  బాహ్య గుర్తులేని పొట్టి *_wctype;
+#లేకపోతే
+  బాహ్య గుర్తులేని పొట్టి **_imp___wctype;
+#నిర్వచించు _wctype (*_imp___wctype)
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _pwctype
-#ifdef _MSVCRT_
-  extern unsigned short *_pwctype;
-#else
-  extern unsigned short **_imp___pwctype;
-#define _pwctype (*_imp___pwctype)
-#define __pwctype_func() (*_imp___pwctype)
-#endif
-#endif
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _pwctype
+#నిర్వచితమైతే _MSVCRT_
+  బాహ్య గుర్తులేని పొట్టి *_pwctype;
+#లేకపోతే
+  బాహ్య గుర్తులేని పొట్టి **_imp___pwctype;
+#నిర్వచించు _pwctype (*_imp___pwctype)
+#నిర్వచించు __pwctype_func() (*_imp___pwctype)
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#define _UPPER 0x1
-#define _LOWER 0x2
-#define _DIGIT 0x4
-#define _SPACE 0x8
+#నిర్వచించు పై_3 0x1
+#నిర్వచించు క్రింది_2 0x2
+#నిర్వచించు _DIGIT 0x4
+#నిర్వచించు _SPACE 0x8
 
-#define _PUNCT 0x10
-#define _CONTROL 0x20
-#define _BLANK 0x40
-#define _HEX 0x80
+#నిర్వచించు _PUNCT 0x10
+#నిర్వచించు _CONTROL 0x20
+#నిర్వచించు _BLANK 0x40
+#నిర్వచించు _HEX 0x80
 
-#define _LEADBYTE 0x8000
-#define _ALPHA (0x0100|_UPPER|_LOWER)
+#నిర్వచించు _LEADBYTE 0x8000
+#నిర్వచించు _ALPHA (0x0100|పై_3|క్రింది_2)
 
-#ifndef _WCTYPE_DEFINED
-#define _WCTYPE_DEFINED
+#నిర్వచితం_కాకపోతే _WCTYPE_DEFINED
+#నిర్వచించు _WCTYPE_DEFINED
 
-  int __cdecl iswalpha(wint_t);
-  int __cdecl iswupper(wint_t);
-  int __cdecl iswlower(wint_t);
-  int __cdecl iswdigit(wint_t);
-  int __cdecl iswxdigit(wint_t);
-  int __cdecl iswspace(wint_t);
-  int __cdecl iswpunct(wint_t);
-  int __cdecl iswalnum(wint_t);
-  int __cdecl iswprint(wint_t);
-  int __cdecl iswgraph(wint_t);
-  int __cdecl iswcntrl(wint_t);
-  int __cdecl iswascii(wint_t);
-  int __cdecl isleadbyte(int);
+  పూర్ణాంకం __cdecl iswalpha(wint_t);
+  పూర్ణాంకం __cdecl iswupper(wint_t);
+  పూర్ణాంకం __cdecl iswlower(wint_t);
+  పూర్ణాంకం __cdecl iswdigit(wint_t);
+  పూర్ణాంకం __cdecl iswxdigit(wint_t);
+  పూర్ణాంకం __cdecl iswspace(wint_t);
+  పూర్ణాంకం __cdecl iswpunct(wint_t);
+  పూర్ణాంకం __cdecl iswalnum(wint_t);
+  పూర్ణాంకం __cdecl iswprint(wint_t);
+  పూర్ణాంకం __cdecl iswgraph(wint_t);
+  పూర్ణాంకం __cdecl iswcntrl(wint_t);
+  పూర్ణాంకం __cdecl iswascii(wint_t);
+  పూర్ణాంకం __cdecl isleadbyte(పూర్ణాంకం);
   wint_t __cdecl towupper(wint_t);
   wint_t __cdecl towlower(wint_t);
-  int __cdecl iswctype(wint_t,wctype_t);
-  _CRTIMP int __cdecl __iswcsymf(wint_t);
-  _CRTIMP int __cdecl __iswcsym(wint_t);
-  int __cdecl is_wctype(wint_t,wctype_t);
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl isblank(int _C);
-#endif
-#endif
+  పూర్ణాంకం __cdecl iswctype(wint_t,wctype_t);
+  _CRTIMP పూర్ణాంకం __cdecl __iswcsymf(wint_t);
+  _CRTIMP పూర్ణాంకం __cdecl __iswcsym(wint_t);
+  పూర్ణాంకం __cdecl is_wctype(wint_t,wctype_t);
+#ఒకవేళ (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+పూర్ణాంకం __cdecl isblank(పూర్ణాంకం _C);
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _WCTYPE_INLINE_DEFINED
-#define _WCTYPE_INLINE_DEFINED
-#ifndef __cplusplus
-#define iswalpha(_c) (iswctype(_c,_ALPHA))
-#define iswupper(_c) (iswctype(_c,_UPPER))
-#define iswlower(_c) (iswctype(_c,_LOWER))
-#define iswdigit(_c) (iswctype(_c,_DIGIT))
-#define iswxdigit(_c) (iswctype(_c,_HEX))
-#define iswspace(_c) (iswctype(_c,_SPACE))
-#define iswpunct(_c) (iswctype(_c,_PUNCT))
-#define iswalnum(_c) (iswctype(_c,_ALPHA|_DIGIT))
-#define iswprint(_c) (iswctype(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT))
-#define iswgraph(_c) (iswctype(_c,_PUNCT|_ALPHA|_DIGIT))
-#define iswcntrl(_c) (iswctype(_c,_CONTROL))
-#define iswascii(_c) ((unsigned)(_c) < 0x80)
-#define isleadbyte(c) (__pctype_func()[(unsigned char)(c)] & _LEADBYTE)
-#else
-  __CRT_INLINE int __cdecl iswalpha(wint_t _C) {return (iswctype(_C,_ALPHA)); }
-  __CRT_INLINE int __cdecl iswupper(wint_t _C) {return (iswctype(_C,_UPPER)); }
-  __CRT_INLINE int __cdecl iswlower(wint_t _C) {return (iswctype(_C,_LOWER)); }
-  __CRT_INLINE int __cdecl iswdigit(wint_t _C) {return (iswctype(_C,_DIGIT)); }
-  __CRT_INLINE int __cdecl iswxdigit(wint_t _C) {return (iswctype(_C,_HEX)); }
-  __CRT_INLINE int __cdecl iswspace(wint_t _C) {return (iswctype(_C,_SPACE)); }
-  __CRT_INLINE int __cdecl iswpunct(wint_t _C) {return (iswctype(_C,_PUNCT)); }
-  __CRT_INLINE int __cdecl iswalnum(wint_t _C) {return (iswctype(_C,_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswprint(wint_t _C) {return (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswgraph(wint_t _C) {return (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswcntrl(wint_t _C) {return (iswctype(_C,_CONTROL)); }
-  __CRT_INLINE int __cdecl iswascii(wint_t _C) {return ((unsigned)(_C) < 0x80); }
-  __CRT_INLINE int __cdecl isleadbyte(int _C) {return (__pctype_func()[(unsigned char)(_C)] & _LEADBYTE); }
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _WCTYPE_INLINE_DEFINED
+#నిర్వచించు _WCTYPE_INLINE_DEFINED
+#నిర్వచితం_కాకపోతే __cplusplus
+#నిర్వచించు iswalpha(_c) (iswctype(_c,_ALPHA))
+#నిర్వచించు iswupper(_c) (iswctype(_c,పై_3))
+#నిర్వచించు iswlower(_c) (iswctype(_c,క్రింది_2))
+#నిర్వచించు iswdigit(_c) (iswctype(_c,_DIGIT))
+#నిర్వచించు iswxdigit(_c) (iswctype(_c,_HEX))
+#నిర్వచించు iswspace(_c) (iswctype(_c,_SPACE))
+#నిర్వచించు iswpunct(_c) (iswctype(_c,_PUNCT))
+#నిర్వచించు iswalnum(_c) (iswctype(_c,_ALPHA|_DIGIT))
+#నిర్వచించు iswprint(_c) (iswctype(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT))
+#నిర్వచించు iswgraph(_c) (iswctype(_c,_PUNCT|_ALPHA|_DIGIT))
+#నిర్వచించు iswcntrl(_c) (iswctype(_c,_CONTROL))
+#నిర్వచించు iswascii(_c) ((గుర్తులేని)(_c) < 0x80)
+#నిర్వచించు isleadbyte(c) (__pctype_func()[(గుర్తులేని అక్షరం)(c)] & _LEADBYTE)
+#లేకపోతే
+  __CRT_INLINE పూర్ణాంకం __cdecl iswalpha(wint_t _C) {తిరిగి (iswctype(_C,_ALPHA)); }
+  __CRT_INLINE పూర్ణాంకం __cdecl iswupper(wint_t _C) {తిరిగి (iswctype(_C,పై_3)); }
+  __CRT_INLINE పూర్ణాంకం __cdecl iswlower(wint_t _C) {తిరిగి (iswctype(_C,క్రింది_2)); }
+  __CRT_INLINE పూర్ణాంకం __cdecl iswdigit(wint_t _C) {తిరిగి (iswctype(_C,_DIGIT)); }
+  __CRT_INLINE పూర్ణాంకం __cdecl iswxdigit(wint_t _C) {తిరిగి (iswctype(_C,_HEX)); }
+  __CRT_INLINE పూర్ణాంకం __cdecl iswspace(wint_t _C) {తిరిగి (iswctype(_C,_SPACE)); }
+  __CRT_INLINE పూర్ణాంకం __cdecl iswpunct(wint_t _C) {తిరిగి (iswctype(_C,_PUNCT)); }
+  __CRT_INLINE పూర్ణాంకం __cdecl iswalnum(wint_t _C) {తిరిగి (iswctype(_C,_ALPHA|_DIGIT)); }
+  __CRT_INLINE పూర్ణాంకం __cdecl iswprint(wint_t _C) {తిరిగి (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE పూర్ణాంకం __cdecl iswgraph(wint_t _C) {తిరిగి (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE పూర్ణాంకం __cdecl iswcntrl(wint_t _C) {తిరిగి (iswctype(_C,_CONTROL)); }
+  __CRT_INLINE పూర్ణాంకం __cdecl iswascii(wint_t _C) {తిరిగి ((గుర్తులేని)(_C) < 0x80); }
+  __CRT_INLINE పూర్ణాంకం __cdecl isleadbyte(పూర్ణాంకం _C) {తిరిగి (__pctype_func()[(గుర్తులేని అక్షరం)(_C)] & _LEADBYTE); }
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-  typedef wchar_t wctrans_t;
+  రకనిర్వచనం wchar_t wctrans_t;
   wint_t __cdecl towctrans(wint_t,wctrans_t);
-  wctrans_t __cdecl wctrans(const char *);
-  wctype_t __cdecl wctype(const char *);
+  wctrans_t __cdecl wctrans(స్థిరరాశి అక్షరం *);
+  wctype_t __cdecl wctype(స్థిరరాశి అక్షరం *);
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#pragma pack(pop)
-#endif
+#సూచన pack(తీయి)
+#అయితే_ముగింపు

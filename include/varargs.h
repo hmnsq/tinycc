@@ -3,10 +3,10 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _VARARGS_H
-#define _VARARGS_H
+#నిర్వచితం_కాకపోతే _VARARGS_H
+#నిర్వచించు _VARARGS_H
 
-#error "TinyCC no longer implements <varargs.h>."
-#error "Revise your code to use <stdarg.h>."
+#దోషం "TinyCC no longer implements <varargs.h>."
+#దోషం "Revise your code to use <stdarg.h>."
 
-#endif
+#అయితే_ముగింపు

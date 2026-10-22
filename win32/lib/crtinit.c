@@ -1,26 +1,26 @@
 //+---------------------------------------------------------------------------
 
-#ifdef __leading_underscore
+#నిర్వచితమైతే __leading_underscore
 # define _(s) s
-#else
+#లేకపోతే
 # define _(s) _##s
-#endif
+#అయితే_ముగింపు
 
-extern void (*_(_init_array_start)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_init_array_end)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
+బాహ్య శూన్య (*_(init_array_ప్రారంభం)[]) (పూర్ణాంకం argc, _TCHAR **argv, _TCHAR **envp);
+బాహ్య శూన్య (*_(init_array_చివర)[]) (పూర్ణాంకం argc, _TCHAR **argv, _TCHAR **envp);
+బాహ్య శూన్య (*_(fini_array_ప్రారంభం)[]) (శూన్య);
+బాహ్య శూన్య (*_(fini_array_చివర)[]) (శూన్య);
 
-static void run_ctors(int argc, _TCHAR **argv, _TCHAR **env)
+స్థిర శూన్య నిరంతరం_ctors(పూర్ణాంకం argc, _TCHAR **argv, _TCHAR **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
-        (*_(_init_array_start)[i++])(argc, argv, env);
+    పూర్ణాంకం i = 0;
+    అయితే (&_(init_array_ప్రారంభం)[i] != _(init_array_చివర))
+        (*_(init_array_ప్రారంభం)[i++])(argc, argv, env);
 }
 
-static void run_dtors(void)
+స్థిర శూన్య నిరంతరం_dtors(శూన్య)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
-        (*_(_fini_array_end)[--i])();
+    పూర్ణాంకం i = 0;
+    అయితే (&_(fini_array_చివర)[i] != _(fini_array_ప్రారంభం))
+        (*_(fini_array_చివర)[--i])();
 }

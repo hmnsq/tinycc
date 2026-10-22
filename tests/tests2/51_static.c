@@ -1,30 +1,30 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-static int fred = 1234;
-static int joe;
+స్థిర పూర్ణాంకం fred = 1234;
+స్థిర పూర్ణాంకం joe;
 
-void henry()
+శూన్య henry()
 {
-   static int fred = 4567;
+   స్థిర పూర్ణాంకం fred = 4567;
 
-   printf("%d\n", fred);
+   రాయి("%d\n", fred);
    fred++;
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   printf("%d\n", fred);
+   రాయి("%d\n", fred);
    henry();
    henry();
    henry();
    henry();
-   printf("%d\n", fred);
+   రాయి("%d\n", fred);
    fred = 8901;
    joe = 2345;
-   printf("%d\n", fred);
-   printf("%d\n", joe);
+   రాయి("%d\n", fred);
+   రాయి("%d\n", joe);
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

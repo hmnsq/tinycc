@@ -1,54 +1,54 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
 /* PROMOTE_RET test: verify char/short return values are properly
    zero/sign-extended to 64-bit per the RISC-V integer calling convention.
    Without PROMOTE_RET, upper bits of the return register may contain
    garbage, causing incorrect results when assigned to a wider type.  */
 
-unsigned char get_uc(void) { return 0x80; }
-signed char get_sc(void) { return 0x80; }
-unsigned short get_us(void) { return 0x8000; }
-signed short get_ss(void) { return 0x8000; }
+గుర్తులేని అక్షరం get_uc(శూన్య) { తిరిగి 0x80; }
+గుర్తుగల అక్షరం get_sc(శూన్య) { తిరిగి 0x80; }
+గుర్తులేని పొట్టి get_us(శూన్య) { తిరిగి 0x8000; }
+గుర్తుగల పొట్టి get_ss(శూన్య) { తిరిగి 0x8000; }
 
 /* Prevent inlining to force ABI-compliant calling.  */
-unsigned char (* volatile fp_uc)(void) = get_uc;
-signed char (* volatile fp_sc)(void) = get_sc;
-unsigned short (* volatile fp_us)(void) = get_us;
-signed short (* volatile fp_ss)(void) = get_ss;
+గుర్తులేని అక్షరం (* అస్థిర fp_uc)(శూన్య) = get_uc;
+గుర్తుగల అక్షరం (* అస్థిర fp_sc)(శూన్య) = get_sc;
+గుర్తులేని పొట్టి (* అస్థిర fp_us)(శూన్య) = get_us;
+గుర్తుగల పొట్టి (* అస్థిర fp_ss)(శూన్య) = get_ss;
 
-int promote_main(void)
+పూర్ణాంకం promote_main(శూన్య)
 {
-    int ok = 1;
-    unsigned long long uc = fp_uc();
-    signed long long sc = fp_sc();
-    unsigned long long us = fp_us();
-    signed long long ss = fp_ss();
+    పూర్ణాంకం ok = 1;
+    గుర్తులేని దీర్ఘ దీర్ఘ uc = fp_uc();
+    గుర్తుగల దీర్ఘ దీర్ఘ sc = fp_sc();
+    గుర్తులేని దీర్ఘ దీర్ఘ us = fp_us();
+    గుర్తుగల దీర్ఘ దీర్ఘ ss = fp_ss();
 
-    printf("uc=%llx sc=%llx us=%llx ss=%llx\n",
-           (unsigned long long)uc,
-           (unsigned long long)sc,
-           (unsigned long long)us,
-           (unsigned long long)ss);
+    రాయి("uc=%llx sc=%llx us=%llx ss=%llx\n",
+           (గుర్తులేని దీర్ఘ దీర్ఘ)uc,
+           (గుర్తులేని దీర్ఘ దీర్ఘ)sc,
+           (గుర్తులేని దీర్ఘ దీర్ఘ)us,
+           (గుర్తులేని దీర్ఘ దీర్ఘ)ss);
 
-    if (uc != 0x80) {
-        printf("FAIL: uc not zero-extended\n");
+    ఒకవేళ (uc != 0x80) {
+        రాయి("FAIL: uc not zero-extended\n");
         ok = 0;
     }
-    if (sc != 0xffffffffffffff80LL) {
-        printf("FAIL: sc not sign-extended\n");
+    ఒకవేళ (sc != 0xffffffffffffff80LL) {
+        రాయి("FAIL: sc not sign-extended\n");
         ok = 0;
     }
-    if (us != 0x8000) {
-        printf("FAIL: us not zero-extended\n");
+    ఒకవేళ (us != 0x8000) {
+        రాయి("FAIL: us not zero-extended\n");
         ok = 0;
     }
-    if (ss != 0xffffffffffff8000LL) {
-        printf("FAIL: ss not sign-extended\n");
+    ఒకవేళ (ss != 0xffffffffffff8000LL) {
+        రాయి("FAIL: ss not sign-extended\n");
         ok = 0;
     }
 
-    printf("%s\n", ok ? "PASS" : "FAIL");
-    return ok ? 0 : 1;
+    రాయి("%s\n", ok ? "PASS" : "FAIL");
+    తిరిగి ok ? 0 : 1;
 }
 
 /* gen_cvt_csti test: verify narrow-type conversions in expressions.
@@ -56,40 +56,40 @@ int promote_main(void)
    step when promoting a narrow result back to int, producing wrong
    values (e.g., treating a char as still 32-bit).  */
 
-int cast_main(void)
+పూర్ణాంకం cast_main(శూన్య)
 {
-    int ok = 1;
-    int x = 0x12345678;
+    పూర్ణాంకం ok = 1;
+    పూర్ణాంకం x = 0x12345678;
 
     /* Cast to char then add 1 — result must be 8-bit.  */
-    char c = (char)x + 1;
-    unsigned char uc = (unsigned char)x + 1;
-    short s = (short)x + 1;
-    unsigned short us = (unsigned short)x + 1;
+    అక్షరం c = (అక్షరం)x + 1;
+    గుర్తులేని అక్షరం uc = (గుర్తులేని అక్షరం)x + 1;
+    పొట్టి s = (పొట్టి)x + 1;
+    గుర్తులేని పొట్టి us = (గుర్తులేని పొట్టి)x + 1;
 
-    printf("c=%x uc=%x s=%x us=%x\n",
-           (unsigned char)c, (unsigned)uc,
-           (unsigned short)s, (unsigned)us);
+    రాయి("c=%x uc=%x s=%x us=%x\n",
+           (గుర్తులేని అక్షరం)c, (గుర్తులేని)uc,
+           (గుర్తులేని పొట్టి)s, (గుర్తులేని)us);
 
-    if (c != (char)0x78 + 1) {
-        printf("FAIL: char conversion\n");
+    ఒకవేళ (c != (అక్షరం)0x78 + 1) {
+        రాయి("FAIL: char conversion\n");
         ok = 0;
     }
-    if (uc != (unsigned char)0x78 + 1) {
-        printf("FAIL: unsigned char conversion\n");
+    ఒకవేళ (uc != (గుర్తులేని అక్షరం)0x78 + 1) {
+        రాయి("FAIL: unsigned char conversion\n");
         ok = 0;
     }
-    if (s != (short)0x5678 + 1) {
-        printf("FAIL: short conversion\n");
+    ఒకవేళ (s != (పొట్టి)0x5678 + 1) {
+        రాయి("FAIL: short conversion\n");
         ok = 0;
     }
-    if (us != (unsigned short)0x5678 + 1) {
-        printf("FAIL: unsigned short conversion\n");
+    ఒకవేళ (us != (గుర్తులేని పొట్టి)0x5678 + 1) {
+        రాయి("FAIL: unsigned short conversion\n");
         ok = 0;
     }
 
-    printf("%s\n", ok ? "PASS" : "FAIL");
-    return ok ? 0 : 1;
+    రాయి("%s\n", ok ? "PASS" : "FAIL");
+    తిరిగి ok ? 0 : 1;
 }
 
 /* gen_cvt_sxtw test: verify sign-extension from 32-bit int to 64-bit long long.
@@ -97,46 +97,46 @@ int cast_main(void)
    leaving upper 32 bits unmodified (containing whatever was in the register
    before), so (long long)(int)x produced wrong results for negative values.  */
 
-int sign_main(void)
+పూర్ణాంకం sign_main(శూన్య)
 {
-    int ok = 1;
-    int x = 0x80000000;
-    long long y = (long long)x;
+    పూర్ణాంకం ok = 1;
+    పూర్ణాంకం x = 0x80000000;
+    దీర్ఘ దీర్ఘ y = (దీర్ఘ దీర్ఘ)x;
 
-    printf("y=%llx\n", (unsigned long long)y);
+    రాయి("y=%llx\n", (గుర్తులేని దీర్ఘ దీర్ఘ)y);
 
-    if (y != 0xffffffff80000000LL) {
-        printf("FAIL: int→long long sign-extension\n");
+    ఒకవేళ (y != 0xffffffff80000000LL) {
+        రాయి("FAIL: int→long long sign-extension\n");
         ok = 0;
     }
 
     /* Also test positive value.  */
     x = 0x40000000;
-    y = (long long)x;
-    printf("y=%llx\n", (unsigned long long)y);
+    y = (దీర్ఘ దీర్ఘ)x;
+    రాయి("y=%llx\n", (గుర్తులేని దీర్ఘ దీర్ఘ)y);
 
-    if (y != 0x40000000LL) {
-        printf("FAIL: int→long long positive value\n");
+    ఒకవేళ (y != 0x40000000LL) {
+        రాయి("FAIL: int→long long positive value\n");
         ok = 0;
     }
 
     /* Test via unsigned int to catch zero-extension vs sign-extension.  */
-    unsigned int ux = 0x80000000;
-    long long uy = (long long)(int)ux;
-    printf("uy=%llx\n", (unsigned long long)uy);
+    గుర్తులేని పూర్ణాంకం ux = 0x80000000;
+    దీర్ఘ దీర్ఘ uy = (దీర్ఘ దీర్ఘ)(పూర్ణాంకం)ux;
+    రాయి("uy=%llx\n", (గుర్తులేని దీర్ఘ దీర్ఘ)uy);
 
-    if (uy != 0xffffffff80000000LL) {
-        printf("FAIL: unsigned→int→long long sign-extension\n");
+    ఒకవేళ (uy != 0xffffffff80000000LL) {
+        రాయి("FAIL: unsigned→int→long long sign-extension\n");
         ok = 0;
     }
 
-    printf("%s\n", ok ? "PASS" : "FAIL");
-    return ok ? 0 : 1;
+    రాయి("%s\n", ok ? "PASS" : "FAIL");
+    తిరిగి ok ? 0 : 1;
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    return
+    తిరిగి
         promote_main()
         | cast_main()
         | sign_main();

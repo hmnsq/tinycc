@@ -1,18 +1,18 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main() 
+పూర్ణాంకం ప్రధాన() 
 {
-   int a;
+   పూర్ణాంకం a;
    a = 42;
-   printf("%d\n", a);
+   రాయి("%d\n", a);
 
-   int b = 64;
-   printf("%d\n", b);
+   పూర్ణాంకం b = 64;
+   రాయి("%d\n", b);
 
-   int c = 12, d = 34;
-   printf("%d, %d\n", c, d);
+   పూర్ణాంకం c = 12, d = 34;
+   రాయి("%d, %d\n", c, d);
 
-   return 0;
+   తిరిగి 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

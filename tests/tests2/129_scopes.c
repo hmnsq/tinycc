@@ -1,179 +1,179 @@
-int printf(const char*, ...);
+పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం*, ...);
 
-#define myassert(x) \
-    printf("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
+#నిర్వచించు myassert(x) \
+    రాయి("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
 
-enum{ in = 0};
+గణన{ లోపల = 0};
 
-int main_1(){
+పూర్ణాంకం main_1(){
     {
-        myassert(!in);
-        if(sizeof(enum{in=1})) myassert(in);
-        myassert(!in); //OOPS
+        myassert(!లోపల);
+        ఒకవేళ(పరిమాణం(గణన{లోపల=1})) myassert(లోపల);
+        myassert(!లోపల); //OOPS
     }
     {
-        myassert(!in);
-        switch(sizeof(enum{in=1})) { default: myassert(in); }
-        myassert(!in); //OOPS
+        myassert(!లోపల);
+        ఎంపిక(పరిమాణం(గణన{లోపల=1})) { అప్రమేయ: myassert(లోపల); }
+        myassert(!లోపల); //OOPS
     }
     {
-        myassert(!in);
-        while(sizeof(enum{in=1})) { myassert(in); break; }
-        myassert(!in); //OOPS
+        myassert(!లోపల);
+        అయితే(పరిమాణం(గణన{లోపల=1})) { myassert(లోపల); ఆపు; }
+        myassert(!లోపల); //OOPS
     }
     {
-        myassert(!in);
-        do{ myassert(!in);}while(0*sizeof(enum{in=1}));
-        myassert(!in); //OOPS
+        myassert(!లోపల);
+        చేయి{ myassert(!లోపల);}అయితే(0*పరిమాణం(గణన{లోపల=1}));
+        myassert(!లోపల); //OOPS
     }
 
     {
-        myassert(!in);
-        for(sizeof(enum{in=1});;){ myassert(in); break; }
-        myassert(!in); //OK
+        myassert(!లోపల);
+        కొరకు(పరిమాణం(గణన{లోపల=1});;){ myassert(లోపల); ఆపు; }
+        myassert(!లోపల); //OK
     }
     {
-        myassert(!in);
-        for(;;sizeof(enum{in=1})){ myassert(in); break; }
-        myassert(!in); //OK
+        myassert(!లోపల);
+        కొరకు(;;పరిమాణం(గణన{లోపల=1})){ myassert(లోపల); ఆపు; }
+        myassert(!లోపల); //OK
     }
     {
-        myassert(!in);
-        for(;sizeof(enum{in=1});){ myassert(in); break; }
-        myassert(!in); //OK
+        myassert(!లోపల);
+        కొరకు(;పరిమాణం(గణన{లోపల=1});){ myassert(లోపల); ఆపు; }
+        myassert(!లోపల); //OK
     }
-    return 0;
+    తిరిగి 0;
 }
 
 /* --------------------------------------------- */
-int main_2()
+పూర్ణాంకం main_2()
 {
-  char c = 'a';
-  void func1(char c); /* param 'c' must not shadow local 'c' */
+  అక్షరం c = 'a';
+  శూన్య func1(అక్షరం c); /* param 'c' must not shadow local 'c' */
   func1(c);
-  return 0;
+  తిరిగి 0;
 }
 
-void func1(char c)
+శూన్య func1(అక్షరం c)
 {
     myassert(c == 'a');
 }
 
-struct st { int a; };
+నిర్మాణం st { పూర్ణాంకం a; };
 
 /* --------------------------------------------- */
-int main_3()
+పూర్ణాంకం main_3()
 {
-  struct st func(void);
-  struct st st = func(); /* not an 'incompatible redefinition' */
+  నిర్మాణం st func(శూన్య);
+  నిర్మాణం st st = func(); /* not an 'incompatible redefinition' */
   myassert(st.a == 10);
-  return 0;
+  తిరిగి 0;
 }
 
-struct st func(void)
+నిర్మాణం st func(శూన్య)
 {
-  struct st st = { 10 };
-  return st;
+  నిర్మాణం st st = { 10 };
+  తిరిగి st;
 }
 
 /* --------------------------------------------- */
 /* func* 'md' must not be shadowed by param 'md' */
-static void f4(char *(*md)(char *md))
+స్థిర శూన్య f4(అక్షరం *(*md)(అక్షరం *md))
 {
    (*md)("test");
 }
-static char *a4(char *a)
+స్థిర అక్షరం *a4(అక్షరం *a)
 {
-    int strcmp();
+    పూర్ణాంకం strcmp();
     myassert(!strcmp(a, "test"));
-    return a;
+    తిరిగి a;
 }
 
-int main_4()
+పూర్ణాంకం main_4()
 {
     f4(a4);
-    return 0;
+    తిరిగి 0;
 }
 
 /* --------------------------------------------- */
-int a5[3], b5[];
-int f5(void);
-int main_5()
+పూర్ణాంకం a5[3], b5[];
+పూర్ణాంకం f5(శూన్య);
+పూర్ణాంకం main_5()
 {
-    extern int a5[3], b5[3];
+    బాహ్య పూర్ణాంకం a5[3], b5[3];
     a5[2]=10, b5[2]=4;
     myassert(f5() == 10 + 4);
-    return 0;
+    తిరిగి 0;
 }
-int f5(void)
+పూర్ణాంకం f5(శూన్య)
 {
-    return a5[2]+b5[2];
+    తిరిగి a5[2]+b5[2];
 }
-int b5[3];
+పూర్ణాంకం b5[3];
 
 /* --------------------------------------------- */
-static int f6(int);
-int i6 = 11;
+స్థిర పూర్ణాంకం f6(పూర్ణాంకం);
+పూర్ణాంకం i6 = 11;
 
-int main_6()
+పూర్ణాంకం main_6()
 {
     {
-        int i6 = 33, f6 = 44;
+        పూర్ణాంకం i6 = 33, f6 = 44;
         myassert(i6 == 33 && f6 == 44);
         {
-            int f6(int);
-            extern int i6;
+            పూర్ణాంకం f6(పూర్ణాంకం);
+            బాహ్య పూర్ణాంకం i6;
             myassert(i6 == 11 && f6(22) == 22);
         }
         myassert(i6 == 33 && f6 == 44);
     }
     myassert(i6 == 11 && f6(22) == 22);
-    return 0;
+    తిరిగి 0;
 }
 
-int f6(int x)
+పూర్ణాంకం f6(పూర్ణాంకం x)
 {
-    return x;
+    తిరిగి x;
 }
 
 /* --------------------------------------------- */
 
-#if defined __TINYC__ \
+#ఒకవేళ defined __TINYC__ \
     ? !defined __leading_underscore \
     : !(defined __APPLE__ || defined _WIN32)
 # define _
-#else
+#లేకపోతే
 # define _ "_"
-#endif
+#అయితే_ముగింపు
 
-struct xx7 { int a, b; };
+నిర్మాణం xx7 { పూర్ణాంకం a, b; };
 
-void f7()
+శూన్య f7()
 {
-    struct xx7 { int c; } x;
+    నిర్మాణం xx7 { పూర్ణాంకం c; } x;
     {
-        extern struct xx7 { int a, b; } x __asm__(_"z7");
+        బాహ్య నిర్మాణం xx7 { పూర్ణాంకం a, b; } x __asm__(_"z7");
         x.a = 12;
-        struct xx7 y = { 0,0 };
+        నిర్మాణం xx7 y = { 0,0 };
     }
-    struct xx7 y = { 90 };
+    నిర్మాణం xx7 y = { 90 };
     x.c = 78;
-    printf("xx7 (1) : %d %d\n", x.c, y.c);
+    రాయి("xx7 (1) : %d %d\n", x.c, y.c);
 }
 
-int main_7()
+పూర్ణాంకం main_7()
 {
     f7();
-    extern struct xx7 y __asm__(_"z7");
-    printf("xx7 (2) : %d %d\n", y.a, y.b);
-    return 0;
+    బాహ్య నిర్మాణం xx7 y __asm__(_"z7");
+    రాయి("xx7 (2) : %d %d\n", y.a, y.b);
+    తిరిగి 0;
 }
 
 
-struct xx7 z7 = { 0, 34 };
+నిర్మాణం xx7 z7 = { 0, 34 };
 
 /* --------------------------------------------- */
-int main()
+పూర్ణాంకం ప్రధాన()
 {
     main_1();
     main_2();
@@ -182,5 +182,5 @@ int main()
     main_5();
     main_6();
     main_7();
-    return 0;
+    తిరిగి 0;
 }

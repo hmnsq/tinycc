@@ -1,71 +1,71 @@
-typedef unsigned short uint16_t;
-typedef unsigned char uint8_t;
+రకనిర్వచనం గుర్తులేని పొట్టి uint16_t;
+రకనిర్వచనం గుర్తులేని అక్షరం uint8_t;
 
-typedef union Unaligned16a {
+రకనిర్వచనం సంఘం Unaligned16a {
   uint16_t u;
   uint8_t b[2];
 } __attribute__((packed)) Unaligned16a;
 
-typedef union __attribute__((packed)) Unaligned16b {
+రకనిర్వచనం సంఘం __attribute__((packed)) Unaligned16b {
   uint16_t u;
   uint8_t b[2];
 } Unaligned16b;
 
-extern void foo (void) __attribute__((stdcall));
-void __attribute__((stdcall)) foo (void)
+బాహ్య శూన్య foo (శూన్య) __attribute__((stdcall));
+శూన్య __attribute__((stdcall)) foo (శూన్య)
 {
 }
 
-#define __stdcall __attribute__((stdcall))
-extern int some_stdcall_func (int, int, int) __stdcall;
-__stdcall int __stdcall some_stdcall_func(int foo, int bar, int baz) {
+#నిర్వచించు __stdcall __attribute__((stdcall))
+బాహ్య పూర్ణాంకం some_stdcall_func (పూర్ణాంకం, పూర్ణాంకం, పూర్ణాంకం) __stdcall;
+__stdcall పూర్ణాంకం __stdcall some_stdcall_func(పూర్ణాంకం foo, పూర్ణాంకం bar, పూర్ణాంకం baz) {
 	//printf("Hello from stdcall: %i %i %i\n", foo, bar, baz);
-	return 43;
+	తిరిగి 43;
 }
 
 /* The actual attribute isn't important, must just be
    parsable.  */
-#define ATTR __attribute__((__noinline__))
-int ATTR actual_function() {
-  return 42;
+#నిర్వచించు ATTR __attribute__((__noinline__))
+పూర్ణాంకం ATTR actual_function() {
+  తిరిగి 42;
 }
 
-int label_attribute (void)
+పూర్ణాంకం label_attribute (శూన్య)
 {
 lab1: __attribute__((__unused__));
-  return 0;
+  తిరిగి 0;
 }
 
-extern int printf (const char *, ...);
-static int globalvar;
-int main()
+బాహ్య పూర్ణాంకం రాయి (స్థిరరాశి అక్షరం *, ...);
+స్థిర పూర్ణాంకం globalvar;
+పూర్ణాంకం ప్రధాన()
 {
-    void *function_pointer = &actual_function;
-    int localvar = 42, i;
+    శూన్య *function_సూచిక = &actual_function;
+    పూర్ణాంకం localvar = 42, i;
 
-    int a = ((ATTR int(*) (void)) function_pointer)();
-    printf("%i\n", a);
+    పూర్ణాంకం a = ((ATTR పూర్ణాంకం(*) (శూన్య)) function_సూచిక)();
+    రాయి("%i\n", a);
 
     /* In the following we once misparsed 'ATTR *' is a btype
        and hence the whole type was garbled.  */
-    int b = ( (int(ATTR *)(void))  function_pointer)();
-    printf("%i\n", b);
+    పూర్ణాంకం b = ( (పూర్ణాంకం(ATTR *)(శూన్య))  function_సూచిక)();
+    రాయి("%i\n", b);
 
     /* All these should work and leave the stack pointer in its original
        position.  */
     some_stdcall_func(1, 10, 100);
-    ((int __stdcall (*)(int, int, int))some_stdcall_func) (2, 20, 200);
-    ((int(*__stdcall)(int, int, int))some_stdcall_func) (3, 30, 300);
-    for (i = 0; i < 1024; i++) {
+    ((పూర్ణాంకం __stdcall (*)(పూర్ణాంకం, పూర్ణాంకం, పూర్ణాంకం))some_stdcall_func) (2, 20, 200);
+    ((పూర్ణాంకం(*__stdcall)(పూర్ణాంకం, పూర్ణాంకం, పూర్ణాంకం))some_stdcall_func) (3, 30, 300);
+    కొరకు (i = 0; i < 1024; i++) {
 	globalvar = i;
 	/* This was once misparsed at <= gitrev 325241c0, forgetting
 	   the stdcall attribute on the function pointer leading to
 	   stack increment being done twice (in callee and caller).
 	   This will clobber 'i' and 'localvar' which is how we detect
 	   this.  */
-	((int(__stdcall*)(int, int, int))some_stdcall_func) (4, 40, 400);
-	if (localvar != 42 || globalvar != i)
-	  printf("error, localvar=%d i=%d globalvar=%d\n", localvar, i, globalvar);
+	((పూర్ణాంకం(__stdcall*)(పూర్ణాంకం, పూర్ణాంకం, పూర్ణాంకం))some_stdcall_func) (4, 40, 400);
+	ఒకవేళ (localvar != 42 || globalvar != i)
+	  రాయి("error, localvar=%d i=%d globalvar=%d\n", localvar, i, globalvar);
     }
-    return 0;
+    తిరిగి 0;
 }

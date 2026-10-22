@@ -3,62 +3,62 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _FENV_H_
-#define _FENV_H_
+#నిర్వచితం_కాకపోతే _FENV_H_
+#నిర్వచించు _FENV_H_
 
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
 /* FPU status word exception flags */
-#define FE_INVALID	0x01
-#define FE_DENORMAL	0x02
-#define FE_DIVBYZERO	0x04
-#define FE_OVERFLOW	0x08
-#define FE_UNDERFLOW	0x10
-#define FE_INEXACT	0x20
-#define FE_ALL_EXCEPT (FE_INVALID | FE_DENORMAL | FE_DIVBYZERO \
-		       | FE_OVERFLOW | FE_UNDERFLOW | FE_INEXACT)
+#నిర్వచించు FE_INVALID	0x01
+#నిర్వచించు FE_DENORMAL	0x02
+#నిర్వచించు FE_DIVBYZERO	0x04
+#నిర్వచించు FE_అధికప్రవాహం	0x08
+#నిర్వచించు FE_UNDERFLOW	0x10
+#నిర్వచించు FE_INEXACT	0x20
+#నిర్వచించు FE_ALL_EXCEPT (FE_INVALID | FE_DENORMAL | FE_DIVBYZERO \
+		       | FE_అధికప్రవాహం | FE_UNDERFLOW | FE_INEXACT)
 
 /* FPU control word rounding flags */
-#define FE_TONEAREST	0x0000
-#define FE_DOWNWARD	0x0400
-#define FE_UPWARD	0x0800
-#define FE_TOWARDZERO	0x0c00
+#నిర్వచించు FE_TONEAREST	0x0000
+#నిర్వచించు FE_DOWNWARD	0x0400
+#నిర్వచించు FE_UPWARD	0x0800
+#నిర్వచించు FE_TOWARDZERO	0x0c00
 
 /* The MXCSR exception flags are the same as the
    FE flags. */
-#define __MXCSR_EXCEPT_FLAG_SHIFT 0
+#నిర్వచించు __MXCSR_EXCEPT_FLAG_SHIFT 0
 
 /* How much to shift FE status word exception flags
    to get MXCSR rounding flags,  */
-#define __MXCSR_ROUND_FLAG_SHIFT 3
+#నిర్వచించు __MXCSR_ROUND_FLAG_SHIFT 3
 
-#ifndef RC_INVOKED
+#నిర్వచితం_కాకపోతే RC_INVOKED
 /*
   For now, support only for the basic abstraction of flags that are
   either set or clear. fexcept_t could be  structure that holds more
   info about the fp environment.
 */
-typedef unsigned short fexcept_t;
+రకనిర్వచనం గుర్తులేని పొట్టి fexcept_t;
 
 /* This 32-byte struct represents the entire floating point
    environment as stored by fnstenv or fstenv, augmented by
    the  contents of the MXCSR register, as stored by stmxcsr
    (if CPU supports it). */
-typedef struct
+రకనిర్వచనం నిర్మాణం
 {
-  unsigned short __control_word;
-  unsigned short __unused0;
-  unsigned short __status_word;
-  unsigned short __unused1;
-  unsigned short __tag_word;
-  unsigned short __unused2;  
-  unsigned int	 __ip_offset;    /* instruction pointer offset */
-  unsigned short __ip_selector;  
-  unsigned short __opcode;
-  unsigned int	 __data_offset;
-  unsigned short __data_selector;  
-  unsigned short __unused3;
-  unsigned int   __mxcsr; /* contents of the MXCSR register  */
+  గుర్తులేని పొట్టి __control_word;
+  గుర్తులేని పొట్టి __unused0;
+  గుర్తులేని పొట్టి __status_word;
+  గుర్తులేని పొట్టి __unused1;
+  గుర్తులేని పొట్టి __tag_word;
+  గుర్తులేని పొట్టి __unused2;  
+  గుర్తులేని పూర్ణాంకం	 __ip_offset;    /* instruction pointer offset */
+  గుర్తులేని పొట్టి __ip_selector;  
+  గుర్తులేని పొట్టి __opcode;
+  గుర్తులేని పూర్ణాంకం	 __data_offset;
+  గుర్తులేని పొట్టి __data_selector;  
+  గుర్తులేని పొట్టి __unused3;
+  గుర్తులేని పూర్ణాంకం   __mxcsr; /* contents of the MXCSR register  */
 } fenv_t;
 
 
@@ -66,43 +66,43 @@ typedef struct
   different fp environments */
   
 /* The default Intel x87 floating point environment (64-bit mantissa) */
-#define FE_PC64_ENV ((const fenv_t *)-1)
+#నిర్వచించు FE_PC64_ENV ((స్థిరరాశి fenv_t *)-1)
 
 /* The floating point environment set by MSVCRT _fpreset (53-bit mantissa) */
-#define FE_PC53_ENV ((const fenv_t *)-2)
+#నిర్వచించు FE_PC53_ENV ((స్థిరరాశి fenv_t *)-2)
 
 /* The FE_DFL_ENV macro is required by standard.
   fesetenv will use the environment set at app startup.*/
-#define FE_DFL_ENV ((const fenv_t *) 0)
+#నిర్వచించు FE_DFL_ENV ((స్థిరరాశి fenv_t *) 0)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
 /*TODO: Some of these could be inlined */
 /* 7.6.2 Exception */
 
-extern int __cdecl feclearexcept (int);
-extern int __cdecl fegetexceptflag (fexcept_t * flagp, int excepts);
-extern int __cdecl feraiseexcept (int excepts );
-extern int __cdecl fesetexceptflag (const fexcept_t *, int);
-extern int __cdecl fetestexcept (int excepts);
+బాహ్య పూర్ణాంకం __cdecl feclearexcept (పూర్ణాంకం);
+బాహ్య పూర్ణాంకం __cdecl fegetexceptflag (fexcept_t * flagp, పూర్ణాంకం excepts);
+బాహ్య పూర్ణాంకం __cdecl feraiseexcept (పూర్ణాంకం excepts );
+బాహ్య పూర్ణాంకం __cdecl fesetexceptflag (స్థిరరాశి fexcept_t *, పూర్ణాంకం);
+బాహ్య పూర్ణాంకం __cdecl fetestexcept (పూర్ణాంకం excepts);
 
 /* 7.6.3 Rounding */
 
-extern int __cdecl fegetround (void);
-extern int __cdecl fesetround (int mode);
+బాహ్య పూర్ణాంకం __cdecl fegetround (శూన్య);
+బాహ్య పూర్ణాంకం __cdecl fesetround (పూర్ణాంకం బహుళకం);
 
 /* 7.6.4 Environment */
 
-extern int __cdecl fegetenv(fenv_t * envp);
-extern int __cdecl fesetenv(const fenv_t * );
-extern int __cdecl feupdateenv(const fenv_t *);
-extern int __cdecl feholdexcept(fenv_t *);
+బాహ్య పూర్ణాంకం __cdecl fegetenv(fenv_t * envp);
+బాహ్య పూర్ణాంకం __cdecl fesetenv(స్థిరరాశి fenv_t * );
+బాహ్య పూర్ణాంకం __cdecl feupdateenv(స్థిరరాశి fenv_t *);
+బాహ్య పూర్ణాంకం __cdecl feholdexcept(fenv_t *);
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
-#endif	/* Not RC_INVOKED */
+#అయితే_ముగింపు
+#అయితే_ముగింపు	/* Not RC_INVOKED */
 
-#endif /* ndef _FENV_H */
+#అయితే_ముగింపు /* ndef _FENV_H */

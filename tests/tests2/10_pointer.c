@@ -1,40 +1,40 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-struct ziggy
+నిర్మాణం ziggy
 {
-   int a;
-   int b;
-   int c;
+   పూర్ణాంకం a;
+   పూర్ణాంకం b;
+   పూర్ణాంకం c;
 } bolshevic;
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int a;
-   int *b;
-   int c;
+   పూర్ణాంకం a;
+   పూర్ణాంకం *b;
+   పూర్ణాంకం c;
 
    a = 42;
    b = &a;
-   printf("a = %d\n", *b);
+   రాయి("a = %d\n", *b);
 
    bolshevic.a = 12;
    bolshevic.b = 34;
    bolshevic.c = 56;
 
-   printf("bolshevic.a = %d\n", bolshevic.a);
-   printf("bolshevic.b = %d\n", bolshevic.b);
-   printf("bolshevic.c = %d\n", bolshevic.c);
+   రాయి("bolshevic.a = %d\n", bolshevic.a);
+   రాయి("bolshevic.b = %d\n", bolshevic.b);
+   రాయి("bolshevic.c = %d\n", bolshevic.c);
 
-   struct ziggy *tsar = &bolshevic;
+   నిర్మాణం ziggy *tsar = &bolshevic;
 
-   printf("tsar->a = %d\n", tsar->a);
-   printf("tsar->b = %d\n", tsar->b);
-   printf("tsar->c = %d\n", tsar->c);
+   రాయి("tsar->a = %d\n", tsar->a);
+   రాయి("tsar->b = %d\n", tsar->b);
+   రాయి("tsar->c = %d\n", tsar->c);
 
    b = &(bolshevic.b);
-   printf("bolshevic.b = %d\n", *b);
+   రాయి("bolshevic.b = %d\n", *b);
 
-   return 0;
+   తిరిగి 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

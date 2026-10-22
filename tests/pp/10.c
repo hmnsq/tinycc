@@ -1,8 +1,8 @@
-#define f(x) x
-#define g(x) f(x) f(x
-#define i(x) g(x)) g(x
-#define h(x) i(x))) i(x
-#define k(x) i(x))) i(x))))
+#నిర్వచించు f(x) x
+#నిర్వచించు g(x) f(x) f(x
+#నిర్వచించు i(x) g(x)) g(x
+#నిర్వచించు h(x) i(x))) i(x
+#నిర్వచించు k(x) i(x))) i(x))))
 f(x)
 g(x))
 i(x)))

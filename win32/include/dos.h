@@ -3,53 +3,53 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_DOS
-#define _INC_DOS
+#నిర్వచితం_కాకపోతే _INC_DOS
+#నిర్వచించు _INC_DOS
 
-#include <_mingw.h>
-#include <io.h>
+#అన్తర్భావ <_mingw.h>
+#అన్తర్భావ <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#సూచన pack(నెట్టు,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifndef _DISKFREE_T_DEFINED
-#define _DISKFREE_T_DEFINED
+#నిర్వచితం_కాకపోతే _DISKFREE_T_DEFINED
+#నిర్వచించు _DISKFREE_T_DEFINED
 
-  struct _diskfree_t {
-    unsigned total_clusters;
-    unsigned avail_clusters;
-    unsigned sectors_per_cluster;
-    unsigned bytes_per_sector;
+  నిర్మాణం _diskfree_t {
+    గుర్తులేని మొత్తం_clusters;
+    గుర్తులేని avail_clusters;
+    గుర్తులేని sectors_చొప్పున_cluster;
+    గుర్తులేని బైట్లు_చొప్పున_sector;
   };
-#endif
+#అయితే_ముగింపు
 
-#define _A_NORMAL 0x00
-#define _A_RDONLY 0x01
-#define _A_HIDDEN 0x02
-#define _A_SYSTEM 0x04
-#define _A_SUBDIR 0x10
-#define _A_ARCH 0x20
+#నిర్వచించు A_సాధారణ 0x00
+#నిర్వచించు _A_RDONLY 0x01
+#నిర్వచించు _A_HIDDEN 0x02
+#నిర్వచించు _A_SYSTEM 0x04
+#నిర్వచించు _A_SUBDIR 0x10
+#నిర్వచించు _A_ARCH 0x20
 
-#ifndef _GETDISKFREE_DEFINED
-#define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
-#endif
+#నిర్వచితం_కాకపోతే _GETDISKFREE_DEFINED
+#నిర్వచించు _GETDISKFREE_DEFINED
+  _CRTIMP గుర్తులేని __cdecl _getdiskfree(గుర్తులేని _Drive,నిర్మాణం _diskfree_t *_DiskFree);
+#అయితే_ముగింపు
 
-#if (defined(_X86_) && !defined(__x86_64))
-  void __cdecl _disable(void);
-  void __cdecl _enable(void);
-#endif
+#ఒకవేళ (defined(_X86_) && !defined(__x86_64))
+  శూన్య __cdecl _disable(శూన్య);
+  శూన్య __cdecl _enable(శూన్య);
+#అయితే_ముగింపు
 
-#ifndef	NO_OLDNAMES
-#define diskfree_t _diskfree_t
-#endif
+#నిర్వచితం_కాకపోతే	NO_OLDNAMES
+#నిర్వచించు diskfree_t _diskfree_t
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#pragma pack(pop)
-#endif
+#సూచన pack(తీయి)
+#అయితే_ముగింపు

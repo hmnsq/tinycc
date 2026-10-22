@@ -18,57 +18,57 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#define USING_GLOBALS
-#include "tcc.h"
+#నిర్వచించు USING_GLOBALS
+#అన్తర్భావ "tcc.h"
 
 /* #define to 1 to enable (see parse_pp_string()) */
-#define ACCEPT_LF_IN_STRINGS 0
+#నిర్వచించు ACCEPT_LF_లోపల_అక్షరశ్రేణులు 0
 
 /********************************************************/
 /* global variables */
 
-ST_DATA int tok_flags;
-ST_DATA int parse_flags;
+ST_దత్తాంశం పూర్ణాంకం tok_flags;
+ST_దత్తాంశం పూర్ణాంకం parse_flags;
 
-ST_DATA struct BufferedFile *file;
-ST_DATA int tok;
-ST_DATA CValue tokc;
-ST_DATA const int *macro_ptr;
-ST_DATA CString tokcstr; /* current parsed string, if any */
+ST_దత్తాంశం నిర్మాణం BufferedFile *file;
+ST_దత్తాంశం పూర్ణాంకం tok;
+ST_దత్తాంశం CValue tokc;
+ST_దత్తాంశం స్థిరరాశి పూర్ణాంకం *macro_ptr;
+ST_దత్తాంశం CString tokcstr; /* current parsed string, if any */
 
 /* display benchmark infos */
-ST_DATA int tok_ident;
-ST_DATA TokenSym **table_ident;
-ST_DATA int pp_expr;
+ST_దత్తాంశం పూర్ణాంకం tok_ident;
+ST_దత్తాంశం TokenSym **పట్టిక_ident;
+ST_దత్తాంశం పూర్ణాంకం pp_సమాసం;
 
 /* ------------------------------------------------------------------------- */
 
-static TokenSym *hash_ident[TOK_HASH_SIZE];
-static char token_buf[STRING_MAX_SIZE + 1];
-static CString cstr_buf;
-static TokenString tokstr_buf;
-static TokenString unget_buf;
-static unsigned char isidnum_table[256 - CH_EOF];
-static int pp_debug_tok, pp_debug_symv;
-static int pp_counter;
-static void tok_print(const int *str, const char *msg, ...);
-static void next_nomacro(void);
-static void parse_number(const char *p);
-static void parse_string(const char *p, int len);
+స్థిర TokenSym *hash_ident[TOK_HASH_కొలత];
+స్థిర అక్షరం token_buf[STRING_MAX_కొలత + 1];
+స్థిర CString cstr_buf;
+స్థిర TokenString tokstr_buf;
+స్థిర TokenString unget_buf;
+స్థిర గుర్తులేని అక్షరం isidnum_పట్టిక[256 - CH_EOF];
+స్థిర పూర్ణాంకం pp_debug_tok, pp_debug_symv;
+స్థిర పూర్ణాంకం pp_counter;
+స్థిర శూన్య tok_print(స్థిరరాశి పూర్ణాంకం *str, స్థిరరాశి అక్షరం *సందేశం, ...);
+స్థిర శూన్య తదుపరి_nomacro(శూన్య);
+స్థిర శూన్య parse_సంఖ్య(స్థిరరాశి అక్షరం *p);
+స్థిర శూన్య parse_string(స్థిరరాశి అక్షరం *p, పూర్ణాంకం len);
 
-static struct TinyAlloc *toksym_alloc;
-static struct TinyAlloc *tokstr_alloc;
+స్థిర నిర్మాణం TinyAlloc *toksym_alloc;
+స్థిర నిర్మాణం TinyAlloc *tokstr_alloc;
 
-static TokenString *macro_stack;
+స్థిర TokenString *macro_దొంతర;
 
-static const char tcc_keywords[] = 
-#define DEF(id, str) str "\0"
-#include "tcctok.h"
-#undef DEF
+స్థిర స్థిరరాశి అక్షరం tcc_keywords[] = 
+#నిర్వచించు DEF(id, str) str "\0"
+#అన్తర్భావ "tcctok.h"
+#నిర్వచనం_రద్దు DEF
 ;
 
 /* WARNING: the content of this string encodes token numbers */
-static const unsigned char tok_two_chars[] =
+స్థిర స్థిరరాశి గుర్తులేని అక్షరం tok_two_chars[] =
 /* outdated -- gr
     "<=\236>=\235!=\225&&\240||\241++\244--\242==\224<<\1>>\2+=\253"
     "-=\255*=\252/=\257%=\245&=\246^=\336|=\374->\313..\250##\266";
@@ -83,7 +83,7 @@ static const unsigned char tok_two_chars[] =
     '=','=', TOK_EQ,
     '<','<', TOK_SHL,
     '>','>', TOK_SAR,
-    '+','=', TOK_A_ADD,
+    '+','=', TOK_A_కూడు,
     '-','=', TOK_A_SUB,
     '*','=', TOK_A_MUL,
     '/','=', TOK_A_DIV,
@@ -97,360 +97,360 @@ static const unsigned char tok_two_chars[] =
     0
 };
 
-ST_FUNC void skip(int c)
+ST_FUNC శూన్య skip(పూర్ణాంకం c)
 {
-    if (tok != c) {
-        char tmp[40];
-        pstrcpy(tmp, sizeof tmp, get_tok_str(c, &tokc));
+    ఒకవేళ (tok != c) {
+        అక్షరం tmp[40];
+        pstrcpy(tmp, పరిమాణం tmp, get_tok_str(c, &tokc));
         tcc_error("'%s' expected (got '%s')", tmp, get_tok_str(tok, &tokc));
 	}
-    next();
+    తదుపరి();
 }
 
-ST_FUNC void expect(const char *msg)
+ST_FUNC శూన్య expect(స్థిరరాశి అక్షరం *సందేశం)
 {
-    tcc_error("%s expected", msg);
+    tcc_error("%s expected", సందేశం);
 }
 
 /* ------------------------------------------------------------------------- */
 /* Custom allocator for tiny objects */
 
-#define USE_TAL
+#నిర్వచించు USE_TAL
 
-#ifndef USE_TAL /* may cause memory leaks after errors */
-#define tal_free(al, p) tcc_free(p)
-#define tal_realloc(al, p, size) tcc_realloc(p, size)
-#define tal_new(a,b)
-#define tal_delete(a)
-#else
-#if !defined(MEM_DEBUG)
-#define tal_free(al, p) tal_free_impl(al, p)
-#define tal_realloc(al, p, size) tal_realloc_impl(al, p, size)
-#define TAL_DEBUG_PARAMS
-#else
-#define TAL_DEBUG MEM_DEBUG
+#నిర్వచితం_కాకపోతే USE_TAL /* may cause memory leaks after errors */
+#నిర్వచించు tal_free(al, p) tcc_free(p)
+#నిర్వచించు tal_realloc(al, p, కొలత) tcc_realloc(p, కొలత)
+#నిర్వచించు tal_new(a,b)
+#నిర్వచించు tal_delete(a)
+#లేకపోతే
+#ఒకవేళ !defined(MEM_DEBUG)
+#నిర్వచించు tal_free(al, p) tal_free_impl(al, p)
+#నిర్వచించు tal_realloc(al, p, కొలత) tal_realloc_impl(al, p, కొలత)
+#నిర్వచించు TAL_DEBUG_PARAMS
+#లేకపోతే
+#నిర్వచించు TAL_DEBUG MEM_DEBUG
 //#define TAL_INFO 1 /* collect and dump allocators stats */
-#define tal_free(al, p) tal_free_impl(al, p, __FILE__, __LINE__)
-#define tal_realloc(al, p, size) tal_realloc_impl(al, p, size, __FILE__, __LINE__)
-#define TAL_DEBUG_PARAMS , const char *sfile, int sline
-#endif
+#నిర్వచించు tal_free(al, p) tal_free_impl(al, p, __FILE__, __LINE__)
+#నిర్వచించు tal_realloc(al, p, కొలత) tal_realloc_impl(al, p, కొలత, __FILE__, __LINE__)
+#నిర్వచించు TAL_DEBUG_PARAMS , స్థిరరాశి అక్షరం *sfile, పూర్ణాంకం sline
+#అయితే_ముగింపు
 
-#define TOKSYM_TAL_SIZE (256 * 1024) /* allocator for TokenSym in table_ident */
-#define TOKSTR_TAL_SIZE (256 * 1024) /* allocator for TokenString instances */
+#నిర్వచించు TOKSYM_TAL_కొలత (256 * 1024) /* allocator for TokenSym in table_ident */
+#నిర్వచించు TOKSTR_TAL_కొలత (256 * 1024) /* allocator for TokenString instances */
 
-typedef struct TinyAlloc {
+రకనిర్వచనం నిర్మాణం TinyAlloc {
     uint8_t *p;
     uint8_t *bufend;
-    struct TinyAlloc *next;
-    unsigned nb_allocs;
-    unsigned size;
-#if TAL_INFO
-    unsigned nb_peak;
-    unsigned nb_total;
+    నిర్మాణం TinyAlloc *తదుపరి;
+    గుర్తులేని nb_allocs;
+    గుర్తులేని కొలత;
+#ఒకవేళ TAL_INFO
+    గుర్తులేని nb_peak;
+    గుర్తులేని nb_మొత్తం;
     uint8_t *peak_p;
-#endif
-    union {
-        uint8_t buffer[1];
-        size_t _aligner_;
+#అయితే_ముగింపు
+    సంఘం {
+        uint8_t బఫరు[1];
+        కొలత_t _aligner_;
     };
 } TinyAlloc;
 
-typedef struct tal_header_t {
-    size_t  size; /* word align */
-#if TAL_DEBUG
-    int     line_num; /* negative line_num used for double free check */
-    char    file_name[40];
-#endif
-} tal_header_t;
+రకనిర్వచనం నిర్మాణం tal_శీర్షిక_t {
+    కొలత_t  కొలత; /* word align */
+#ఒకవేళ TAL_DEBUG
+    పూర్ణాంకం     పంక్తి_అంకె; /* negative line_num used for double free check */
+    అక్షరం    file_name[40];
+#అయితే_ముగింపు
+} tal_శీర్షిక_t;
 
-#define TAL_ALIGN(size) \
-    (((size) + (sizeof (size_t) - 1)) & ~(sizeof (size_t) - 1))
+#నిర్వచించు TAL_ALIGN(కొలత) \
+    (((కొలత) + (పరిమాణం (కొలత_t) - 1)) & ~(పరిమాణం (కొలత_t) - 1))
 
 /* ------------------------------------------------------------------------- */
 
-static TinyAlloc *tal_new(TinyAlloc **pal, unsigned size)
+స్థిర TinyAlloc *tal_new(TinyAlloc **pal, గుర్తులేని కొలత)
 {
-    TinyAlloc *al = tcc_malloc(sizeof(TinyAlloc) - sizeof (size_t) + size);
-    al->p = al->buffer;
-    al->bufend = al->buffer + size;
+    TinyAlloc *al = tcc_malloc(పరిమాణం(TinyAlloc) - పరిమాణం (కొలత_t) + కొలత);
+    al->p = al->బఫరు;
+    al->bufend = al->బఫరు + కొలత;
     al->nb_allocs = 0;
-    al->next = *pal, *pal = al;
-    al->size = al->next ? al->next->size : size;
-#if TAL_INFO
+    al->తదుపరి = *pal, *pal = al;
+    al->కొలత = al->తదుపరి ? al->తదుపరి->కొలత : కొలత;
+#ఒకవేళ TAL_INFO
     al->nb_peak = 0;
-    al->nb_total = 0;
+    al->nb_మొత్తం = 0;
     al->peak_p = al->p;
-#endif
-    return al;
+#అయితే_ముగింపు
+    తిరిగి al;
 }
 
-static void tal_delete(TinyAlloc **pal)
+స్థిర శూన్య tal_delete(TinyAlloc **pal)
 {
-    TinyAlloc *al = *pal, *next;
+    TinyAlloc *al = *pal, *తదుపరి;
 
-#if TAL_INFO
+#ఒకవేళ TAL_INFO
     fprintf(stderr, "tal_delete (&tok%s_alloc):\n", pal == &toksym_alloc ? "sym" : "str");
-#endif
-tail_call:
-#if TAL_DEBUG && TAL_DEBUG != 3 /* do not check TAL leaks with -DMEM_DEBUG=3 */
-#if TAL_INFO
+#అయితే_ముగింపు
+తోక_call:
+#ఒకవేళ TAL_DEBUG && TAL_DEBUG != 3 /* do not check TAL leaks with -DMEM_DEBUG=3 */
+#ఒకవేళ TAL_INFO
     fprintf(stderr, "  size %7d  nb_peak %5d  nb_total %6d  usage %5.1f%%\n",
-            al->bufend - al->buffer, al->nb_peak, al->nb_total,
-            (al->peak_p - al->buffer) * 100.0 / (al->bufend - al->buffer));
-#endif
-    if (al->nb_allocs > 0) {
+            al->bufend - al->బఫరు, al->nb_peak, al->nb_మొత్తం,
+            (al->peak_p - al->బఫరు) * 100.0 / (al->bufend - al->బఫరు));
+#అయితే_ముగింపు
+    ఒకవేళ (al->nb_allocs > 0) {
         uint8_t *p;
         fprintf(stderr, "TAL_DEBUG: memory leak %d chunk(s)\n", al->nb_allocs);
-        p = al->buffer;
-        while (p < al->p) {
-            tal_header_t *header = (tal_header_t *)p;
-            if (header->line_num > 0) {
+        p = al->బఫరు;
+        అయితే (p < al->p) {
+            tal_శీర్షిక_t *శీర్షిక = (tal_శీర్షిక_t *)p;
+            ఒకవేళ (శీర్షిక->పంక్తి_అంకె > 0) {
                 fprintf(stderr, "%s:%d: chunk of %d bytes leaked\n",
-                        header->file_name, header->line_num, (int)header->size);
+                        శీర్షిక->file_name, శీర్షిక->పంక్తి_అంకె, (పూర్ణాంకం)శీర్షిక->కొలత);
             }
-            p += header->size + sizeof(tal_header_t);
+            p += శీర్షిక->కొలత + పరిమాణం(tal_శీర్షిక_t);
         }
-#if TAL_DEBUG == 2
-        exit(2);
-#endif
+#ఒకవేళ TAL_DEBUG == 2
+        నిష్క్రమించు(2);
+#అయితే_ముగింపు
     }
-#endif
-    next = al->next;
+#అయితే_ముగింపు
+    తదుపరి = al->తదుపరి;
     tcc_free(al);
-    al = next;
-    if (al)
-        goto tail_call;
+    al = తదుపరి;
+    ఒకవేళ (al)
+        వెళ్ళు తోక_call;
     *pal = al;
 }
 
-static void tal_free_impl(TinyAlloc **pal, void *p TAL_DEBUG_PARAMS)
+స్థిర శూన్య tal_free_impl(TinyAlloc **pal, శూన్య *p TAL_DEBUG_PARAMS)
 {
-    TinyAlloc *al, **top = pal;
-    tal_header_t *header;
+    TinyAlloc *al, **శిఖరం = pal;
+    tal_శీర్షిక_t *శీర్షిక;
 
-    if (!p)
-        return;
-    header = (tal_header_t *)p - 1;
-#if TAL_DEBUG
-    if (header->line_num < 0) {
+    ఒకవేళ (!p)
+        తిరిగి;
+    శీర్షిక = (tal_శీర్షిక_t *)p - 1;
+#ఒకవేళ TAL_DEBUG
+    ఒకవేళ (శీర్షిక->పంక్తి_అంకె < 0) {
         fprintf(stderr, "%s:%d: TAL_DEBUG: double frees chunk from\n",
                 sfile, sline);
         fprintf(stderr, "%s:%d: %d bytes\n",
-                header->file_name, (int)-header->line_num, (int)header->size);
-    } else
-        header->line_num = -header->line_num;
-#endif
+                శీర్షిక->file_name, (పూర్ణాంకం)-శీర్షిక->పంక్తి_అంకె, (పూర్ణాంకం)శీర్షిక->కొలత);
+    } లేకపోతే
+        శీర్షిక->పంక్తి_అంకె = -శీర్షిక->పంక్తి_అంకె;
+#అయితే_ముగింపు
     al = *pal;
-    while ((uint8_t*)p < al->buffer || (uint8_t*)p > al->bufend)
-        al = *(pal = &al->next);
-    if (0 == --al->nb_allocs) {
-        *pal = al->next;
-        if ((al->bufend - al->buffer) > al->size) {
+    అయితే ((uint8_t*)p < al->బఫరు || (uint8_t*)p > al->bufend)
+        al = *(pal = &al->తదుపరి);
+    ఒకవేళ (0 == --al->nb_allocs) {
+        *pal = al->తదుపరి;
+        ఒకవేళ ((al->bufend - al->బఫరు) > al->కొలత) {
             //fprintf(stderr, "free big tal: %u\n", header->size);
             tcc_free(al);
-        } else {
+        } లేకపోతే {
             /* reset and move to front */
-            al->p = al->buffer;
-            al->next = *top, *top = al;
+            al->p = al->బఫరు;
+            al->తదుపరి = *శిఖరం, *శిఖరం = al;
         }
-    } else if ((uint8_t*)p + header->size == al->p) {
-        al->p = (uint8_t*)header;
+    } లేకపోతే ఒకవేళ ((uint8_t*)p + శీర్షిక->కొలత == al->p) {
+        al->p = (uint8_t*)శీర్షిక;
     }
 }
 
-static void *tal_realloc_impl(TinyAlloc **pal, void *p, unsigned size TAL_DEBUG_PARAMS)
+స్థిర శూన్య *tal_realloc_impl(TinyAlloc **pal, శూన్య *p, గుర్తులేని కొలత TAL_DEBUG_PARAMS)
 {
-    tal_header_t *header;
-    void *ret;
-    unsigned adj_size = TAL_ALIGN(size) + sizeof(tal_header_t);
+    tal_శీర్షిక_t *శీర్షిక;
+    శూన్య *ret;
+    గుర్తులేని adj_కొలత = TAL_ALIGN(కొలత) + పరిమాణం(tal_శీర్షిక_t);
     TinyAlloc *al = *pal;
 
-    if (p) {
+    ఒకవేళ (p) {
         /* reallpc case */
-        while ((uint8_t*)p < al->buffer || (uint8_t*)p > al->bufend)
-            al = al->next;
-        header = (tal_header_t *)p - 1;
-        if ((uint8_t*)p + header->size == al->p)
-            al->p = (uint8_t*)header; /* maybe reuse */
-        if (al->p + adj_size > al->bufend) {
-            ret = tal_realloc(pal, 0, size);
-            memcpy(ret, p, header->size);
+        అయితే ((uint8_t*)p < al->బఫరు || (uint8_t*)p > al->bufend)
+            al = al->తదుపరి;
+        శీర్షిక = (tal_శీర్షిక_t *)p - 1;
+        ఒకవేళ ((uint8_t*)p + శీర్షిక->కొలత == al->p)
+            al->p = (uint8_t*)శీర్షిక; /* maybe reuse */
+        ఒకవేళ (al->p + adj_కొలత > al->bufend) {
+            ret = tal_realloc(pal, 0, కొలత);
+            జ్ఞాపకం_నకలు(ret, p, శీర్షిక->కొలత);
             tal_free(pal, p);
-            return ret;
-        } else if (al->p != (uint8_t*)header) {
-            memcpy((tal_header_t*)al->p + 1, p, header->size);
-#if TAL_DEBUG
-            header->line_num = -header->line_num;
-#endif
+            తిరిగి ret;
+        } లేకపోతే ఒకవేళ (al->p != (uint8_t*)శీర్షిక) {
+            జ్ఞాపకం_నకలు((tal_శీర్షిక_t*)al->p + 1, p, శీర్షిక->కొలత);
+#ఒకవేళ TAL_DEBUG
+            శీర్షిక->పంక్తి_అంకె = -శీర్షిక->పంక్తి_అంకె;
+#అయితే_ముగింపు
         }
-    } else {
+    } లేకపోతే {
         /* new alloc case */
-        while (al->p + adj_size > al->bufend) {
-            al = al->next;
-            if (!al) {
-                unsigned new_size = (*pal)->size;
-                if (adj_size > new_size) {
-                    new_size = adj_size;
+        అయితే (al->p + adj_కొలత > al->bufend) {
+            al = al->తదుపరి;
+            ఒకవేళ (!al) {
+                గుర్తులేని new_కొలత = (*pal)->కొలత;
+                ఒకవేళ (adj_కొలత > new_కొలత) {
+                    new_కొలత = adj_కొలత;
                     //fprintf(stderr, "%s:%d: alloc big tal: %u\n", file->filename, file->line_num, adj_size - sizeof(tal_header_t));
                 }
-                al = tal_new(pal, new_size);
-                break;
+                al = tal_new(pal, new_కొలత);
+                ఆపు;
             }
         }
         al->nb_allocs++;
     }
-    header = (tal_header_t *)al->p;
-    header->size = adj_size - sizeof(tal_header_t);
-    al->p += adj_size;
-    ret = header + 1;
-#if  TAL_DEBUG
+    శీర్షిక = (tal_శీర్షిక_t *)al->p;
+    శీర్షిక->కొలత = adj_కొలత - పరిమాణం(tal_శీర్షిక_t);
+    al->p += adj_కొలత;
+    ret = శీర్షిక + 1;
+#ఒకవేళ  TAL_DEBUG
     {
-        int ofs = strlen(sfile) + 1 - sizeof header->file_name;
-        strcpy(header->file_name, sfile + (ofs > 0 ? ofs : 0));
-        header->line_num = sline;
-#if TAL_INFO
-        if (al->nb_peak < al->nb_allocs)
+        పూర్ణాంకం ofs = అక్షరశ్రేణి_పొడవు(sfile) + 1 - పరిమాణం శీర్షిక->file_name;
+        strcpy(శీర్షిక->file_name, sfile + (ofs > 0 ? ofs : 0));
+        శీర్షిక->పంక్తి_అంకె = sline;
+#ఒకవేళ TAL_INFO
+        ఒకవేళ (al->nb_peak < al->nb_allocs)
             al->nb_peak = al->nb_allocs;
-        if (al->peak_p < al->p)
+        ఒకవేళ (al->peak_p < al->p)
             al->peak_p = al->p;
-        al->nb_total++;
-#endif
+        al->nb_మొత్తం++;
+#అయితే_ముగింపు
     }
-#endif
-    return ret;
+#అయితే_ముగింపు
+    తిరిగి ret;
 }
 
-#endif /* USE_TAL */
+#అయితే_ముగింపు /* USE_TAL */
 
 /* ------------------------------------------------------------------------- */
 /* CString handling */
-static void cstr_realloc(CString *cstr, int new_size)
+స్థిర శూన్య cstr_realloc(CString *cstr, పూర్ణాంకం new_కొలత)
 {
-    int size;
+    పూర్ణాంకం కొలత;
 
-    size = cstr->size_allocated;
-    if (size < 8)
-        size = 8; /* no need to allocate a too small first string */
-    while (size < new_size)
-        size = size * 2;
-    cstr->data = tcc_realloc(cstr->data, size);
-    cstr->size_allocated = size;
+    కొలత = cstr->కొలత_allocated;
+    ఒకవేళ (కొలత < 8)
+        కొలత = 8; /* no need to allocate a too small first string */
+    అయితే (కొలత < new_కొలత)
+        కొలత = కొలత * 2;
+    cstr->దత్తాంశం = tcc_realloc(cstr->దత్తాంశం, కొలత);
+    cstr->కొలత_allocated = కొలత;
 }
 
 /* add a byte */
-ST_INLN void cstr_ccat(CString *cstr, int ch)
+ST_INLN శూన్య cstr_ccat(CString *cstr, పూర్ణాంకం ch)
 {
-    int size;
-    size = cstr->size + 1;
-    if (size > cstr->size_allocated)
-        cstr_realloc(cstr, size);
-    cstr->data[size - 1] = ch;
-    cstr->size = size;
+    పూర్ణాంకం కొలత;
+    కొలత = cstr->కొలత + 1;
+    ఒకవేళ (కొలత > cstr->కొలత_allocated)
+        cstr_realloc(cstr, కొలత);
+    cstr->దత్తాంశం[కొలత - 1] = ch;
+    cstr->కొలత = కొలత;
 }
 
-ST_INLN char *unicode_to_utf8 (char *b, uint32_t Uc)
+ST_INLN అక్షరం *unicode_గమ్యం_utf8 (అక్షరం *b, uint32_t Uc)
 {
-    if (Uc<0x80) *b++=Uc;
-    else if (Uc<0x800) *b++=192+Uc/64, *b++=128+Uc%64;
-    else if (Uc-0xd800u<0x800) goto error;
-    else if (Uc<0x10000) *b++=224+Uc/4096, *b++=128+Uc/64%64, *b++=128+Uc%64;
-    else if (Uc<0x110000) *b++=240+Uc/262144, *b++=128+Uc/4096%64, *b++=128+Uc/64%64, *b++=128+Uc%64;
-    else error: tcc_error("0x%x is not a valid universal character", Uc);
-    return b;
+    ఒకవేళ (Uc<0x80) *b++=Uc;
+    లేకపోతే ఒకవేళ (Uc<0x800) *b++=192+Uc/64, *b++=128+Uc%64;
+    లేకపోతే ఒకవేళ (Uc-0xd800u<0x800) వెళ్ళు error;
+    లేకపోతే ఒకవేళ (Uc<0x10000) *b++=224+Uc/4096, *b++=128+Uc/64%64, *b++=128+Uc%64;
+    లేకపోతే ఒకవేళ (Uc<0x110000) *b++=240+Uc/262144, *b++=128+Uc/4096%64, *b++=128+Uc/64%64, *b++=128+Uc%64;
+    లేకపోతే error: tcc_error("0x%x is not a valid universal character", Uc);
+    తిరిగి b;
 }
 
 /* add a unicode character expanded into utf8 */
-ST_INLN void cstr_u8cat(CString *cstr, int ch)
+ST_INLN శూన్య cstr_u8cat(CString *cstr, పూర్ణాంకం ch)
 {
-    char buf[4], *e;
-    e = unicode_to_utf8(buf, (uint32_t)ch);
+    అక్షరం buf[4], *e;
+    e = unicode_గమ్యం_utf8(buf, (uint32_t)ch);
     cstr_cat(cstr, buf, e - buf);
 }
 
 /* add string of 'len', or of its len/len+1 when 'len' == -1/0 */
-ST_FUNC void cstr_cat(CString *cstr, const char *str, int len)
+ST_FUNC శూన్య cstr_cat(CString *cstr, స్థిరరాశి అక్షరం *str, పూర్ణాంకం len)
 {
-    int size;
-    if (len <= 0)
-        len = strlen(str) + 1 + len;
-    size = cstr->size + len;
-    if (size > cstr->size_allocated)
-        cstr_realloc(cstr, size);
-    memmove(cstr->data + cstr->size, str, len);
-    cstr->size = size;
+    పూర్ణాంకం కొలత;
+    ఒకవేళ (len <= 0)
+        len = అక్షరశ్రేణి_పొడవు(str) + 1 + len;
+    కొలత = cstr->కొలత + len;
+    ఒకవేళ (కొలత > cstr->కొలత_allocated)
+        cstr_realloc(cstr, కొలత);
+    memmove(cstr->దత్తాంశం + cstr->కొలత, str, len);
+    cstr->కొలత = కొలత;
 }
 
 /* add a wide char */
-ST_FUNC void cstr_wccat(CString *cstr, int ch)
+ST_FUNC శూన్య cstr_wccat(CString *cstr, పూర్ణాంకం ch)
 {
-    int size;
-    size = cstr->size + sizeof(nwchar_t);
-    if (size > cstr->size_allocated)
-        cstr_realloc(cstr, size);
-    *(nwchar_t *)(cstr->data + size - sizeof(nwchar_t)) = ch;
-    cstr->size = size;
+    పూర్ణాంకం కొలత;
+    కొలత = cstr->కొలత + పరిమాణం(nwchar_t);
+    ఒకవేళ (కొలత > cstr->కొలత_allocated)
+        cstr_realloc(cstr, కొలత);
+    *(nwchar_t *)(cstr->దత్తాంశం + కొలత - పరిమాణం(nwchar_t)) = ch;
+    cstr->కొలత = కొలత;
 }
 
-ST_FUNC void cstr_new(CString *cstr)
+ST_FUNC శూన్య cstr_new(CString *cstr)
 {
-    memset(cstr, 0, sizeof(CString));
+    memset(cstr, 0, పరిమాణం(CString));
 }
 
 /* free string and reset it to NULL */
-ST_FUNC void cstr_free(CString *cstr)
+ST_FUNC శూన్య cstr_free(CString *cstr)
 {
-    tcc_free(cstr->data);
+    tcc_free(cstr->దత్తాంశం);
 }
 
 /* reset string to empty */
-ST_FUNC void cstr_reset(CString *cstr)
+ST_FUNC శూన్య cstr_reset(CString *cstr)
 {
-    cstr->size = 0;
+    cstr->కొలత = 0;
 }
 
-ST_FUNC int cstr_vprintf(CString *cstr, const char *fmt, va_list ap)
+ST_FUNC పూర్ణాంకం cstr_vprintf(CString *cstr, స్థిరరాశి అక్షరం *fmt, va_list ap)
 {
     va_list v;
-    int len, size = 80;
-    for (;;) {
-        size += cstr->size;
-        if (size > cstr->size_allocated)
-            cstr_realloc(cstr, size);
-        size = cstr->size_allocated - cstr->size;
+    పూర్ణాంకం len, కొలత = 80;
+    కొరకు (;;) {
+        కొలత += cstr->కొలత;
+        ఒకవేళ (కొలత > cstr->కొలత_allocated)
+            cstr_realloc(cstr, కొలత);
+        కొలత = cstr->కొలత_allocated - cstr->కొలత;
         va_copy(v, ap);
-        len = vsnprintf(cstr->data + cstr->size, size, fmt, v);
+        len = vsnprintf(cstr->దత్తాంశం + cstr->కొలత, కొలత, fmt, v);
         va_end(v);
-        if (len >= 0 && len < size)
-            break;
-        size *= 2;
+        ఒకవేళ (len >= 0 && len < కొలత)
+            ఆపు;
+        కొలత *= 2;
     }
-    cstr->size += len;
-    return len;
+    cstr->కొలత += len;
+    తిరిగి len;
 }
 
-ST_FUNC int cstr_printf(CString *cstr, const char *fmt, ...)
+ST_FUNC పూర్ణాంకం cstr_printf(CString *cstr, స్థిరరాశి అక్షరం *fmt, ...)
 {
-    va_list ap; int len;
+    va_list ap; పూర్ణాంకం len;
     va_start(ap, fmt);
     len = cstr_vprintf(cstr, fmt, ap);
     va_end(ap);
-    return len;
+    తిరిగి len;
 }
 
 /* XXX: unicode ? */
-static void add_char(CString *cstr, int c)
+స్థిర శూన్య కూడు_char(CString *cstr, పూర్ణాంకం c)
 {
-    if (c == '\'' || c == '\"' || c == '\\') {
+    ఒకవేళ (c == '\'' || c == '\"' || c == '\\') {
         /* XXX: could be more precise if char or string */
         cstr_ccat(cstr, '\\');
     }
-    if (c >= 32 && c <= 126) {
+    ఒకవేళ (c >= 32 && c <= 126) {
         cstr_ccat(cstr, c);
-    } else {
+    } లేకపోతే {
         cstr_ccat(cstr, '\\');
-        if (c == '\n') {
+        ఒకవేళ (c == '\n') {
             cstr_ccat(cstr, 'n');
-        } else {
+        } లేకపోతే {
             cstr_ccat(cstr, '0' + ((c >> 6) & 7));
             cstr_ccat(cstr, '0' + ((c >> 3) & 7));
             cstr_ccat(cstr, '0' + (c & 7));
@@ -460,1073 +460,1073 @@ static void add_char(CString *cstr, int c)
 
 /* ------------------------------------------------------------------------- */
 /* allocate a new token */
-static TokenSym *tok_alloc_new(TokenSym **pts, const char *str, int len)
+స్థిర TokenSym *tok_alloc_new(TokenSym **pts, స్థిరరాశి అక్షరం *str, పూర్ణాంకం len)
 {
     TokenSym *ts, **ptable;
-    int i;
+    పూర్ణాంకం i;
 
-    if (tok_ident >= SYM_FIRST_ANOM) 
+    ఒకవేళ (tok_ident >= SYM_మొదటి_ANOM) 
         tcc_error("memory full (symbols)");
 
     /* expand token table if needed */
     i = tok_ident - TOK_IDENT;
-    if ((i % TOK_ALLOC_INCR) == 0) {
-        ptable = tcc_realloc(table_ident, (i + TOK_ALLOC_INCR) * sizeof(TokenSym *));
-        table_ident = ptable;
+    ఒకవేళ ((i % TOK_ALLOC_INCR) == 0) {
+        ptable = tcc_realloc(పట్టిక_ident, (i + TOK_ALLOC_INCR) * పరిమాణం(TokenSym *));
+        పట్టిక_ident = ptable;
     }
 
-    ts = tal_realloc(&toksym_alloc, 0, sizeof(TokenSym) + len);
-    table_ident[i] = ts;
+    ts = tal_realloc(&toksym_alloc, 0, పరిమాణం(TokenSym) + len);
+    పట్టిక_ident[i] = ts;
     ts->tok = tok_ident++;
-    ts->sym_define = NULL;
-    ts->sym_label = NULL;
-    ts->sym_struct = NULL;
-    ts->sym_identifier = NULL;
+    ts->sym_define = ఖాళీ;
+    ts->sym_label = ఖాళీ;
+    ts->sym_struct = ఖాళీ;
+    ts->sym_identifier = ఖాళీ;
     ts->len = len;
-    ts->hash_next = NULL;
-    memcpy(ts->str, str, len);
+    ts->hash_తదుపరి = ఖాళీ;
+    జ్ఞాపకం_నకలు(ts->str, str, len);
     ts->str[len] = '\0';
     *pts = ts;
-    return ts;
+    తిరిగి ts;
 }
 
-#define TOK_HASH_INIT 1
-#define TOK_HASH_FUNC(h, c) ((h) + ((h) << 5) + ((h) >> 27) + (c))
+#నిర్వచించు TOK_HASH_INIT 1
+#నిర్వచించు TOK_HASH_FUNC(h, c) ((h) + ((h) << 5) + ((h) >> 27) + (c))
 
 
 /* find a token and add it if not found */
-ST_FUNC TokenSym *tok_alloc(const char *str, int len)
+ST_FUNC TokenSym *tok_alloc(స్థిరరాశి అక్షరం *str, పూర్ణాంకం len)
 {
     TokenSym *ts, **pts;
-    int i;
-    unsigned int h;
+    పూర్ణాంకం i;
+    గుర్తులేని పూర్ణాంకం h;
     
     h = TOK_HASH_INIT;
-    for(i=0;i<len;i++)
-        h = TOK_HASH_FUNC(h, ((unsigned char *)str)[i]);
-    h &= (TOK_HASH_SIZE - 1);
+    కొరకు(i=0;i<len;i++)
+        h = TOK_HASH_FUNC(h, ((గుర్తులేని అక్షరం *)str)[i]);
+    h &= (TOK_HASH_కొలత - 1);
 
     pts = &hash_ident[h];
-    for(;;) {
+    కొరకు(;;) {
         ts = *pts;
-        if (!ts)
-            break;
-        if (ts->len == len && !memcmp(ts->str, str, len))
-            return ts;
-        pts = &(ts->hash_next);
+        ఒకవేళ (!ts)
+            ఆపు;
+        ఒకవేళ (ts->len == len && !memcmp(ts->str, str, len))
+            తిరిగి ts;
+        pts = &(ts->hash_తదుపరి);
     }
-    return tok_alloc_new(pts, str, len);
+    తిరిగి tok_alloc_new(pts, str, len);
 }
 
-ST_FUNC int tok_alloc_const(const char *str)
+ST_FUNC పూర్ణాంకం tok_alloc_const(స్థిరరాశి అక్షరం *str)
 {
-    return tok_alloc(str, strlen(str))->tok;
+    తిరిగి tok_alloc(str, అక్షరశ్రేణి_పొడవు(str))->tok;
 }
 
 
 /* XXX: buffer overflow */
 /* XXX: float tokens */
-ST_FUNC const char *get_tok_str(int v, CValue *cv)
+ST_FUNC స్థిరరాశి అక్షరం *get_tok_str(పూర్ణాంకం v, CValue *cv)
 {
-    char *p;
-    int i, len;
+    అక్షరం *p;
+    పూర్ణాంకం i, len;
 
     cstr_reset(&cstr_buf);
-    p = cstr_buf.data;
+    p = cstr_buf.దత్తాంశం;
 
-    switch(v) {
-    case TOK_CINT:
-    case TOK_CUINT:
-    case TOK_CLONG:
-    case TOK_CULONG:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
+    ఎంపిక(v) {
+    స్థితి TOK_CINT:
+    స్థితి TOK_CUINT:
+    స్థితి TOK_CLONG:
+    స్థితి TOK_CULONG:
+    స్థితి TOK_CLLONG:
+    స్థితి TOK_CULLONG:
         /* XXX: not quite exact, but only useful for testing  */
-        sprintf(p, "%llu", (unsigned long long)cv->i);
-        break;
-    case TOK_LCHAR:
+        sprintf(p, "%llu", (గుర్తులేని దీర్ఘ దీర్ఘ)cv->i);
+        ఆపు;
+    స్థితి TOK_LCHAR:
         cstr_ccat(&cstr_buf, 'L');
-    case TOK_CCHAR:
+    స్థితి TOK_CCHAR:
         cstr_ccat(&cstr_buf, '\'');
-        add_char(&cstr_buf, cv->i);
+        కూడు_char(&cstr_buf, cv->i);
         cstr_ccat(&cstr_buf, '\'');
         cstr_ccat(&cstr_buf, '\0');
-        break;
-    case TOK_PPNUM:
-    case TOK_PPSTR:
-        return (char*)cv->str.data;
-    case TOK_LSTR:
+        ఆపు;
+    స్థితి TOK_PPNUM:
+    స్థితి TOK_PPSTR:
+        తిరిగి (అక్షరం*)cv->str.దత్తాంశం;
+    స్థితి TOK_LSTR:
         cstr_ccat(&cstr_buf, 'L');
-    case TOK_STR:
+    స్థితి TOK_STR:
         cstr_ccat(&cstr_buf, '\"');
-        if (v == TOK_STR) {
-            len = cv->str.size - 1;
-            for(i=0;i<len;i++)
-                add_char(&cstr_buf, ((unsigned char *)cv->str.data)[i]);
-        } else {
-            len = (cv->str.size / sizeof(nwchar_t)) - 1;
-            for(i=0;i<len;i++)
-                add_char(&cstr_buf, ((nwchar_t *)cv->str.data)[i]);
+        ఒకవేళ (v == TOK_STR) {
+            len = cv->str.కొలత - 1;
+            కొరకు(i=0;i<len;i++)
+                కూడు_char(&cstr_buf, ((గుర్తులేని అక్షరం *)cv->str.దత్తాంశం)[i]);
+        } లేకపోతే {
+            len = (cv->str.కొలత / పరిమాణం(nwchar_t)) - 1;
+            కొరకు(i=0;i<len;i++)
+                కూడు_char(&cstr_buf, ((nwchar_t *)cv->str.దత్తాంశం)[i]);
         }
         cstr_ccat(&cstr_buf, '\"');
         cstr_ccat(&cstr_buf, '\0');
-        break;
+        ఆపు;
 
-    case TOK_CFLOAT:
-        return strcpy(p, "<float>");
-    case TOK_CDOUBLE:
-        return strcpy(p, "<double>");
-    case TOK_CLDOUBLE:
-        return strcpy(p, "<long double>");
-    case TOK_LINENUM:
-        return strcpy(p, "<linenumber>");
+    స్థితి TOK_CFLOAT:
+        తిరిగి strcpy(p, "<float>");
+    స్థితి TOK_CDOUBLE:
+        తిరిగి strcpy(p, "<double>");
+    స్థితి TOK_CLDOUBLE:
+        తిరిగి strcpy(p, "<long double>");
+    స్థితి TOK_LINENUM:
+        తిరిగి strcpy(p, "<linenumber>");
 
     /* above tokens have value, the ones below don't */
-    case TOK_LT:
+    స్థితి TOK_LT:
         v = '<';
-        goto addv;
-    case TOK_GT:
+        వెళ్ళు addv;
+    స్థితి TOK_GT:
         v = '>';
-        goto addv;
-    case TOK_DOTS:
-        return strcpy(p, "...");
-    case TOK_A_SHL:
-        return strcpy(p, "<<=");
-    case TOK_A_SAR:
-        return strcpy(p, ">>=");
-    case TOK_EOF:
-        return strcpy(p, "<eof>");
-    case 0: /* anonymous nameless symbols */
-        return strcpy(p, "<no name>");
-    default:
-        v &= ~(SYM_FIELD | SYM_STRUCT);
-        if (v < TOK_IDENT) {
+        వెళ్ళు addv;
+    స్థితి TOK_DOTS:
+        తిరిగి strcpy(p, "...");
+    స్థితి TOK_A_SHL:
+        తిరిగి strcpy(p, "<<=");
+    స్థితి TOK_A_SAR:
+        తిరిగి strcpy(p, ">>=");
+    స్థితి TOK_EOF:
+        తిరిగి strcpy(p, "<eof>");
+    స్థితి 0: /* anonymous nameless symbols */
+        తిరిగి strcpy(p, "<no name>");
+    అప్రమేయ:
+        v &= ~(SYM_క్షేత్రం | SYM_STRUCT);
+        ఒకవేళ (v < TOK_IDENT) {
             /* search in two bytes table */
-            const unsigned char *q = tok_two_chars;
-            while (*q) {
-                if (q[2] == v) {
+            స్థిరరాశి గుర్తులేని అక్షరం *q = tok_two_chars;
+            అయితే (*q) {
+                ఒకవేళ (q[2] == v) {
                     *p++ = q[0];
                     *p++ = q[1];
                     *p = '\0';
-                    return cstr_buf.data;
+                    తిరిగి cstr_buf.దత్తాంశం;
                 }
                 q += 3;
             }
-            if (v >= 127 || (v < 32 && !is_space(v) && v != '\n')) {
+            ఒకవేళ (v >= 127 || (v < 32 && !is_space(v) && v != '\n')) {
                 sprintf(p, "<\\x%02x>", v);
-                break;
+                ఆపు;
             }
     addv:
             *p++ = v;
             *p = '\0';
-        } else if (v < tok_ident) {
-            return table_ident[v - TOK_IDENT]->str;
-        } else if (v >= SYM_FIRST_ANOM) {
+        } లేకపోతే ఒకవేళ (v < tok_ident) {
+            తిరిగి పట్టిక_ident[v - TOK_IDENT]->str;
+        } లేకపోతే ఒకవేళ (v >= SYM_మొదటి_ANOM) {
             /* special name for anonymous symbol */
-            sprintf(p, "L.%u", v - SYM_FIRST_ANOM);
-        } else {
+            sprintf(p, "L.%u", v - SYM_మొదటి_ANOM);
+        } లేకపోతే {
             /* should never happen */
-            return NULL;
+            తిరిగి ఖాళీ;
         }
-        break;
+        ఆపు;
     }
-    return cstr_buf.data;
+    తిరిగి cstr_buf.దత్తాంశం;
 }
 
 /* return the current character, handling end of block if necessary
    (but not stray) */
-static int handle_eob(void)
+స్థిర పూర్ణాంకం handle_eob(శూన్య)
 {
     BufferedFile *bf = file;
-    int len;
+    పూర్ణాంకం len;
 
     /* only tries to read if really end of buffer */
-    if (bf->buf_ptr >= bf->buf_end) {
-        if (bf->fd >= 0) {
-#if defined(PARSE_DEBUG)
+    ఒకవేళ (bf->buf_ptr >= bf->buf_చివర) {
+        ఒకవేళ (bf->fd >= 0) {
+#ఒకవేళ defined(PARSE_DEBUG)
             len = 1;
-#else
-            len = IO_BUF_SIZE;
-#endif
-            len = read(bf->fd, bf->buffer, len);
-            if (len < 0)
+#లేకపోతే
+            len = IO_BUF_కొలత;
+#అయితే_ముగింపు
+            len = పఠ(bf->fd, bf->బఫరు, len);
+            ఒకవేళ (len < 0)
                 len = 0;
-        } else {
+        } లేకపోతే {
             len = 0;
         }
-        total_bytes += len;
-        bf->buf_ptr = bf->buffer;
-        bf->buf_end = bf->buffer + len;
-        *bf->buf_end = CH_EOB;
+        మొత్తం_బైట్లు += len;
+        bf->buf_ptr = bf->బఫరు;
+        bf->buf_చివర = bf->బఫరు + len;
+        *bf->buf_చివర = CH_EOB;
     }
-    if (bf->buf_ptr < bf->buf_end) {
-        return bf->buf_ptr[0];
-    } else {
-        bf->buf_ptr = bf->buf_end;
-        return CH_EOF;
+    ఒకవేళ (bf->buf_ptr < bf->buf_చివర) {
+        తిరిగి bf->buf_ptr[0];
+    } లేకపోతే {
+        bf->buf_ptr = bf->buf_చివర;
+        తిరిగి CH_EOF;
     }
 }
 
 /* read next char from current input file and handle end of input buffer */
-static int next_c(void)
+స్థిర పూర్ణాంకం తదుపరి_c(శూన్య)
 {
-    int ch = *++file->buf_ptr;
+    పూర్ణాంకం ch = *++file->buf_ptr;
     /* end of buffer/file handling */
-    if (ch == CH_EOB && file->buf_ptr >= file->buf_end)
+    ఒకవేళ (ch == CH_EOB && file->buf_ptr >= file->buf_చివర)
         ch = handle_eob();
-    return ch;
+    తిరిగి ch;
 }
 
 /* input with '\[\r]\n' handling. */
-static int handle_stray_noerror(int err)
+స్థిర పూర్ణాంకం handle_stray_noerror(పూర్ణాంకం err)
 {
-    int ch;
-    while ((ch = next_c()) == '\\') {
-        ch = next_c();
-        if (ch == '\n') {
+    పూర్ణాంకం ch;
+    అయితే ((ch = తదుపరి_c()) == '\\') {
+        ch = తదుపరి_c();
+        ఒకవేళ (ch == '\n') {
     newl:
-            file->line_num++;
-        } else {
-            if (ch == '\r') {
-                ch = next_c();
-                if (ch == '\n')
-                    goto newl;
+            file->పంక్తి_అంకె++;
+        } లేకపోతే {
+            ఒకవేళ (ch == '\r') {
+                ch = తదుపరి_c();
+                ఒకవేళ (ch == '\n')
+                    వెళ్ళు newl;
                 *--file->buf_ptr = '\r';
             }
-            if (err)
+            ఒకవేళ (err)
                 tcc_error("stray '\\' in program");
             /* may take advantage of 'BufferedFile.unget[4}' */
-            return *--file->buf_ptr = '\\';
+            తిరిగి *--file->buf_ptr = '\\';
         }
     }
-    return ch;
+    తిరిగి ch;
 }
 
-#define ninp() handle_stray_noerror(0)
+#నిర్వచించు ninp() handle_stray_noerror(0)
 
 /* handle '\\' in strings, comments and skipped regions */
-static int handle_bs(uint8_t **p)
+స్థిర పూర్ణాంకం handle_bs(uint8_t **p)
 {
-    int c;
+    పూర్ణాంకం c;
     file->buf_ptr = *p - 1;
     c = ninp();
     *p = file->buf_ptr;
-    return c;
+    తిరిగి c;
 }
 
 /* skip the stray and handle the \\n case. Output an error if
    incorrect char after the stray */
-static int handle_stray(uint8_t **p)
+స్థిర పూర్ణాంకం handle_stray(uint8_t **p)
 {
-    int c;
+    పూర్ణాంకం c;
     file->buf_ptr = *p - 1;
     c = handle_stray_noerror(!(parse_flags & PARSE_FLAG_ACCEPT_STRAYS));
     *p = file->buf_ptr;
-    return c;
+    తిరిగి c;
 }
 
 /* handle the complicated stray case */
-#define PEEKC(c, p)\
+#నిర్వచించు PEEKC(c, p)\
 {\
     c = *++p;\
-    if (c == '\\')\
+    ఒకవేళ (c == '\\')\
         c = handle_stray(&p); \
 }
 
-static int skip_spaces(void)
+స్థిర పూర్ణాంకం skip_spaces(శూన్య)
 {
-    int ch;
+    పూర్ణాంకం ch;
     --file->buf_ptr;
-    do {
+    చేయి {
         ch = ninp();
-    } while (isidnum_table[ch - CH_EOF] & IS_SPC);
-    return ch;
+    } అయితే (isidnum_పట్టిక[ch - CH_EOF] & IS_SPC);
+    తిరిగి ch;
 }
 
 /* single line C++ comments */
-static uint8_t *parse_line_comment(uint8_t *p)
+స్థిర uint8_t *parse_పంక్తి_comment(uint8_t *p)
 {
-    int c;
-    for(;;) {
-        for (;;) {
+    పూర్ణాంకం c;
+    కొరకు(;;) {
+        కొరకు (;;) {
             c = *++p;
     redo:
-            if (c == '\n' || c == '\\')
-                break;
+            ఒకవేళ (c == '\n' || c == '\\')
+                ఆపు;
             c = *++p;
-            if (c == '\n' || c == '\\')
-                break;
+            ఒకవేళ (c == '\n' || c == '\\')
+                ఆపు;
         }
-        if (c == '\n')
-            break;
+        ఒకవేళ (c == '\n')
+            ఆపు;
         c = handle_bs(&p);
-        if (c == CH_EOF)
-            break;
-        if (c != '\\')
-            goto redo;
+        ఒకవేళ (c == CH_EOF)
+            ఆపు;
+        ఒకవేళ (c != '\\')
+            వెళ్ళు redo;
     }
-    return p;
+    తిరిగి p;
 }
 
 /* C comments */
-static uint8_t *parse_comment(uint8_t *p)
+స్థిర uint8_t *parse_comment(uint8_t *p)
 {
-    int c;
-    for(;;) {
+    పూర్ణాంకం c;
+    కొరకు(;;) {
         /* fast skip loop */
-        for(;;) {
+        కొరకు(;;) {
             c = *++p;
         redo:
-            if (c == '\n' || c == '*' || c == '\\')
-                break;
+            ఒకవేళ (c == '\n' || c == '*' || c == '\\')
+                ఆపు;
             c = *++p;
-            if (c == '\n' || c == '*' || c == '\\')
-                break;
+            ఒకవేళ (c == '\n' || c == '*' || c == '\\')
+                ఆపు;
         }
         /* now we can handle all the cases */
-        if (c == '\n') {
-            file->line_num++;
-        } else if (c == '*') {
-            do {
+        ఒకవేళ (c == '\n') {
+            file->పంక్తి_అంకె++;
+        } లేకపోతే ఒకవేళ (c == '*') {
+            చేయి {
                 c = *++p;
-            } while (c == '*');
-            if (c == '\\')
+            } అయితే (c == '*');
+            ఒకవేళ (c == '\\')
                 c = handle_bs(&p);
-            if (c == '/')
-                break;
-            goto check_eof;
-        } else {
+            ఒకవేళ (c == '/')
+                ఆపు;
+            వెళ్ళు check_eof;
+        } లేకపోతే {
             c = handle_bs(&p);
         check_eof:
-            if (c == CH_EOF)
+            ఒకవేళ (c == CH_EOF)
                 tcc_error("unexpected end of file in comment");
-            if (c != '\\')
-                goto redo;
+            ఒకవేళ (c != '\\')
+                వెళ్ళు redo;
         }
     }
-    return p + 1;
+    తిరిగి p + 1;
 }
 
 /* parse a string without interpreting escapes */
-static uint8_t *parse_pp_string(uint8_t *p, int sep, CString *str)
+స్థిర uint8_t *parse_pp_string(uint8_t *p, పూర్ణాంకం sep, CString *str)
 {
-    int c;
-    for(;;) {
+    పూర్ణాంకం c;
+    కొరకు(;;) {
         c = *++p;
     redo:
-        if (c == sep) {
-            break;
-        } else if (c == '\\') {
+        ఒకవేళ (c == sep) {
+            ఆపు;
+        } లేకపోతే ఒకవేళ (c == '\\') {
             c = handle_bs(&p);
-            if (c == CH_EOF) {
+            ఒకవేళ (c == CH_EOF) {
         unterminated_string:
                 /* XXX: indicate line number of start of string */
                 tok_flags &= ~TOK_FLAG_BOL;
                 tcc_error("missing terminating %c character", sep);
-            } else if (c == '\\') {
-                if (str)
+            } లేకపోతే ఒకవేళ (c == '\\') {
+                ఒకవేళ (str)
                     cstr_ccat(str, c);
                 c = *++p;
                 /* add char after '\\' unconditionally */
-                if (c == '\\') {
+                ఒకవేళ (c == '\\') {
                     c = handle_bs(&p);
-                    if (c == CH_EOF)
-                        goto unterminated_string;
+                    ఒకవేళ (c == CH_EOF)
+                        వెళ్ళు unterminated_string;
                 }
-                goto add_char;
-            } else {
-                goto redo;
+                వెళ్ళు కూడు_char;
+            } లేకపోతే {
+                వెళ్ళు redo;
             }
-        } else if (c == '\n') {
-        add_lf:
-            if (ACCEPT_LF_IN_STRINGS) {
-                file->line_num++;
-                goto add_char;
-            } else if (str) { /* not skipping */
-                goto unterminated_string;
-            } else {
+        } లేకపోతే ఒకవేళ (c == '\n') {
+        కూడు_lf:
+            ఒకవేళ (ACCEPT_LF_లోపల_అక్షరశ్రేణులు) {
+                file->పంక్తి_అంకె++;
+                వెళ్ళు కూడు_char;
+            } లేకపోతే ఒకవేళ (str) { /* not skipping */
+                వెళ్ళు unterminated_string;
+            } లేకపోతే {
                 //tcc_warning("missing terminating %c character", sep);
-                return p;
+                తిరిగి p;
             }
-        } else if (c == '\r') {
+        } లేకపోతే ఒకవేళ (c == '\r') {
             c = *++p;
-            if (c == '\\')
+            ఒకవేళ (c == '\\')
                 c = handle_bs(&p);
-            if (c == '\n')
-                goto add_lf;
-            if (c == CH_EOF)
-                goto unterminated_string;
-            if (str)
+            ఒకవేళ (c == '\n')
+                వెళ్ళు కూడు_lf;
+            ఒకవేళ (c == CH_EOF)
+                వెళ్ళు unterminated_string;
+            ఒకవేళ (str)
                 cstr_ccat(str, '\r');
-            goto redo;
-        } else {
-        add_char:
-            if (str)
+            వెళ్ళు redo;
+        } లేకపోతే {
+        కూడు_char:
+            ఒకవేళ (str)
                 cstr_ccat(str, c);
         }
     }
     p++;
-    return p;
+    తిరిగి p;
 }
 
 /* skip block of text until #else, #elif or #endif. skip also pairs of
    #if/#endif */
-static void preprocess_skip(void)
+స్థిర శూన్య preprocess_skip(శూన్య)
 {
-    int a, start_of_line, c, in_warn_or_error;
+    పూర్ణాంకం a, ప్రారంభం_యొక్క_పంక్తి, c, లోపల_warn_or_error;
     uint8_t *p;
 
     p = file->buf_ptr;
     a = 0;
-redo_start:
-    start_of_line = 1;
-    in_warn_or_error = 0;
-    for(;;) {
+redo_ప్రారంభం:
+    ప్రారంభం_యొక్క_పంక్తి = 1;
+    లోపల_warn_or_error = 0;
+    కొరకు(;;) {
         c = *p;
-        switch(c) {
-        case ' ':
-        case '\t':
-        case '\f':
-        case '\v':
-        case '\r':
+        ఎంపిక(c) {
+        స్థితి ' ':
+        స్థితి '\t':
+        స్థితి '\f':
+        స్థితి '\v':
+        స్థితి '\r':
             p++;
-            continue;
-        case '\n':
-            file->line_num++;
+            కొనసాగు;
+        స్థితి '\n':
+            file->పంక్తి_అంకె++;
             p++;
-            goto redo_start;
-        case '\\':
+            వెళ్ళు redo_ప్రారంభం;
+        స్థితి '\\':
             c = handle_bs(&p);
-            if (c == CH_EOF)
+            ఒకవేళ (c == CH_EOF)
                 expect("#endif");
-            if (c == '\\')
+            ఒకవేళ (c == '\\')
                 ++p;
-            continue;
+            కొనసాగు;
         /* skip strings */
-        case '\"':
-        case '\'':
-            if (in_warn_or_error)
-                goto _default;
+        స్థితి '\"':
+        స్థితి '\'':
+            ఒకవేళ (లోపల_warn_or_error)
+                వెళ్ళు _default;
             tok_flags &= ~TOK_FLAG_BOL;
-            p = parse_pp_string(p, c, NULL);
-            break;
+            p = parse_pp_string(p, c, ఖాళీ);
+            ఆపు;
         /* skip comments */
-        case '/':
-            if (in_warn_or_error)
-                goto _default;
+        స్థితి '/':
+            ఒకవేళ (లోపల_warn_or_error)
+                వెళ్ళు _default;
             ++p;
             c = handle_bs(&p);
-            if (c == '*') {
+            ఒకవేళ (c == '*') {
                 p = parse_comment(p);
-            } else if (c == '/') {
-                p = parse_line_comment(p);
+            } లేకపోతే ఒకవేళ (c == '/') {
+                p = parse_పంక్తి_comment(p);
             }
-            continue;
-        case '#':
+            కొనసాగు;
+        స్థితి '#':
             p++;
-            if (start_of_line) {
+            ఒకవేళ (ప్రారంభం_యొక్క_పంక్తి) {
                 file->buf_ptr = p;
-                next_nomacro();
+                తదుపరి_nomacro();
                 p = file->buf_ptr;
-                if (a == 0 && 
+                ఒకవేళ (a == 0 && 
                     (tok == TOK_ELSE || tok == TOK_ELIF || tok == TOK_ENDIF))
-                    goto the_end;
-                if (tok == TOK_IF || tok == TOK_IFDEF || tok == TOK_IFNDEF)
+                    వెళ్ళు the_చివర;
+                ఒకవేళ (tok == TOK_IF || tok == TOK_IFDEF || tok == TOK_IFNDEF)
                     a++;
-                else if (tok == TOK_ENDIF)
+                లేకపోతే ఒకవేళ (tok == TOK_ENDIF)
                     a--;
-                else if( tok == TOK_ERROR || tok == TOK_WARNING)
-                    in_warn_or_error = 1;
-                else if (tok == TOK_LINEFEED)
-                    goto redo_start;
-                else if (parse_flags & PARSE_FLAG_ASM_FILE)
-                    p = parse_line_comment(p - 1);
+                లేకపోతే ఒకవేళ( tok == TOK_ERROR || tok == TOK_WARNING)
+                    లోపల_warn_or_error = 1;
+                లేకపోతే ఒకవేళ (tok == TOK_LINEFEED)
+                    వెళ్ళు redo_ప్రారంభం;
+                లేకపోతే ఒకవేళ (parse_flags & PARSE_FLAG_ASM_FILE)
+                    p = parse_పంక్తి_comment(p - 1);
             }
-#if !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64)
-            else if (parse_flags & PARSE_FLAG_ASM_FILE)
-                p = parse_line_comment(p - 1);
-#else
+#ఒకవేళ !defined(TCC_లక్ష్యం_ARM) && !defined(TCC_లక్ష్యం_ARM64)
+            లేకపోతే ఒకవేళ (parse_flags & PARSE_FLAG_ASM_FILE)
+                p = parse_పంక్తి_comment(p - 1);
+#లేకపోతే
             /* ARM/ARM64 assembly uses '#' for constants */
-#endif
-            break;
+#అయితే_ముగింపు
+            ఆపు;
 _default:
-        default:
+        అప్రమేయ:
             p++;
-            break;
+            ఆపు;
         }
-        start_of_line = 0;
+        ప్రారంభం_యొక్క_పంక్తి = 0;
     }
- the_end: ;
+ the_చివర: ;
     file->buf_ptr = p;
 }
 
-#if 0
+#ఒకవేళ 0
 /* return the number of additional 'ints' necessary to store the
    token */
-static inline int tok_size(const int *p)
+స్థిర అంతఃవరుస పూర్ణాంకం tok_కొలత(స్థిరరాశి పూర్ణాంకం *p)
 {
-    switch(*p) {
+    ఎంపిక(*p) {
         /* 4 bytes */
-    case TOK_CINT:
-    case TOK_CUINT:
-    case TOK_CCHAR:
-    case TOK_LCHAR:
-    case TOK_CFLOAT:
-    case TOK_LINENUM:
-        return 1 + 1;
-    case TOK_STR:
-    case TOK_LSTR:
-    case TOK_PPNUM:
-    case TOK_PPSTR:
-        return 1 + 1 + (p[1] + 3) / 4;
-    case TOK_CLONG:
-    case TOK_CULONG:
-	return 1 + LONG_SIZE / 4;
-    case TOK_CDOUBLE:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
-        return 1 + 2;
-    case TOK_CLDOUBLE:
-        return 1 + LDOUBLE_WORDS;
-    default:
-        return 1 + 0;
+    స్థితి TOK_CINT:
+    స్థితి TOK_CUINT:
+    స్థితి TOK_CCHAR:
+    స్థితి TOK_LCHAR:
+    స్థితి TOK_CFLOAT:
+    స్థితి TOK_LINENUM:
+        తిరిగి 1 + 1;
+    స్థితి TOK_STR:
+    స్థితి TOK_LSTR:
+    స్థితి TOK_PPNUM:
+    స్థితి TOK_PPSTR:
+        తిరిగి 1 + 1 + (p[1] + 3) / 4;
+    స్థితి TOK_CLONG:
+    స్థితి TOK_CULONG:
+	తిరిగి 1 + LONG_కొలత / 4;
+    స్థితి TOK_CDOUBLE:
+    స్థితి TOK_CLLONG:
+    స్థితి TOK_CULLONG:
+        తిరిగి 1 + 2;
+    స్థితి TOK_CLDOUBLE:
+        తిరిగి 1 + LDOUBLE_పదాలు;
+    అప్రమేయ:
+        తిరిగి 1 + 0;
     }
 }
-#endif
+#అయితే_ముగింపు
 
 /* token string handling */
-ST_INLN void tok_str_new(TokenString *s)
+ST_INLN శూన్య tok_str_new(TokenString *s)
 {
-    s->str = NULL;
+    s->str = ఖాళీ;
     s->len = s->need_spc = 0;
     s->allocated_len = 0;
-    s->last_line_num = -1;
+    s->చివరి_పంక్తి_అంకె = -1;
 }
 
-ST_FUNC TokenString *tok_str_alloc(void)
+ST_FUNC TokenString *tok_str_alloc(శూన్య)
 {
-    TokenString *str = tal_realloc(&tokstr_alloc, 0, sizeof *str);
+    TokenString *str = tal_realloc(&tokstr_alloc, 0, పరిమాణం *str);
     tok_str_new(str);
-    return str;
+    తిరిగి str;
 }
 
-ST_FUNC void tok_str_free_str(int *str)
+ST_FUNC శూన్య tok_str_free_str(పూర్ణాంకం *str)
 {
     tal_free(&tokstr_alloc, str);
 }
 
-ST_FUNC void tok_str_free(TokenString *str)
+ST_FUNC శూన్య tok_str_free(TokenString *str)
 {
     tok_str_free_str(str->str);
     tal_free(&tokstr_alloc, str);
 }
 
-ST_FUNC int *tok_str_realloc(TokenString *s, int new_size)
+ST_FUNC పూర్ణాంకం *tok_str_realloc(TokenString *s, పూర్ణాంకం new_కొలత)
 {
-    int *str, size;
+    పూర్ణాంకం *str, కొలత;
 
-    size = s->allocated_len;
-    if (size < 16)
-        size = 16;
-    while (size < new_size)
-        size = size * 2;
-    if (size > s->allocated_len) {
-        str = tal_realloc(&tokstr_alloc, s->str, size * sizeof(int));
-        s->allocated_len = size;
+    కొలత = s->allocated_len;
+    ఒకవేళ (కొలత < 16)
+        కొలత = 16;
+    అయితే (కొలత < new_కొలత)
+        కొలత = కొలత * 2;
+    ఒకవేళ (కొలత > s->allocated_len) {
+        str = tal_realloc(&tokstr_alloc, s->str, కొలత * పరిమాణం(పూర్ణాంకం));
+        s->allocated_len = కొలత;
         s->str = str;
     }
-    return s->str;
+    తిరిగి s->str;
 }
 
-ST_FUNC void tok_str_add(TokenString *s, int t)
+ST_FUNC శూన్య tok_str_కూడు(TokenString *s, పూర్ణాంకం t)
 {
-    int len, *str;
+    పూర్ణాంకం len, *str;
 
     len = s->len;
     str = s->str;
-    if (len >= s->allocated_len)
+    ఒకవేళ (len >= s->allocated_len)
         str = tok_str_realloc(s, len + 1);
     str[len++] = t;
     s->len = len;
 }
 
-ST_FUNC void begin_macro(TokenString *str, int alloc)
+ST_FUNC శూన్య begin_macro(TokenString *str, పూర్ణాంకం alloc)
 {
     str->alloc = alloc;
-    str->prev = macro_stack;
+    str->prev = macro_దొంతర;
     str->prev_ptr = macro_ptr;
-    str->save_line_num = file->line_num;
+    str->save_పంక్తి_అంకె = file->పంక్తి_అంకె;
     macro_ptr = str->str;
-    macro_stack = str;
+    macro_దొంతర = str;
 }
 
-ST_FUNC void end_macro(void)
+ST_FUNC శూన్య చివర_macro(శూన్య)
 {
-    TokenString *str = macro_stack;
-    macro_stack = str->prev;
+    TokenString *str = macro_దొంతర;
+    macro_దొంతర = str->prev;
     macro_ptr = str->prev_ptr;
-    file->line_num = str->save_line_num;
-    if (str->alloc == 0) {
+    file->పంక్తి_అంకె = str->save_పంక్తి_అంకె;
+    ఒకవేళ (str->alloc == 0) {
         /* matters if str not alloced, may be tokstr_buf */
         str->len = str->need_spc = 0;
-    } else {
-        if (str->alloc == 2)
-            str->str = NULL; /* don't free */
+    } లేకపోతే {
+        ఒకవేళ (str->alloc == 2)
+            str->str = ఖాళీ; /* don't free */
         tok_str_free(str);
     }
 }
 
-static void tok_str_add2(TokenString *s, int t, CValue *cv)
+స్థిర శూన్య tok_str_add2(TokenString *s, పూర్ణాంకం t, CValue *cv)
 {
-    int len, *str;
+    పూర్ణాంకం len, *str;
 
     len = s->len;
     str = s->str;
 
     /* allocate space for worst case */
-    if (len + TOK_MAX_SIZE >= s->allocated_len)
-        str = tok_str_realloc(s, len + TOK_MAX_SIZE + 1);
+    ఒకవేళ (len + TOK_MAX_కొలత >= s->allocated_len)
+        str = tok_str_realloc(s, len + TOK_MAX_కొలత + 1);
     str[len++] = t;
-    switch(t) {
-    case TOK_CINT:
-    case TOK_CUINT:
-    case TOK_CCHAR:
-    case TOK_LCHAR:
-    case TOK_CFLOAT:
-    case TOK_LINENUM:
-#if LONG_SIZE == 4
-    case TOK_CLONG:
-    case TOK_CULONG:
-#endif
+    ఎంపిక(t) {
+    స్థితి TOK_CINT:
+    స్థితి TOK_CUINT:
+    స్థితి TOK_CCHAR:
+    స్థితి TOK_LCHAR:
+    స్థితి TOK_CFLOAT:
+    స్థితి TOK_LINENUM:
+#ఒకవేళ LONG_కొలత == 4
+    స్థితి TOK_CLONG:
+    స్థితి TOK_CULONG:
+#అయితే_ముగింపు
         str[len++] = cv->tab[0];
-        break;
-    case TOK_PPNUM:
-    case TOK_PPSTR:
-    case TOK_STR:
-    case TOK_LSTR:
+        ఆపు;
+    స్థితి TOK_PPNUM:
+    స్థితి TOK_PPSTR:
+    స్థితి TOK_STR:
+    స్థితి TOK_LSTR:
         {
             /* Insert the string into the int array. */
-            size_t nb_words =
-                1 + (cv->str.size + sizeof(int) - 1) / sizeof(int);
-            if (len + nb_words >= s->allocated_len)
-                str = tok_str_realloc(s, len + nb_words + 1);
-            str[len] = cv->str.size;
-            memcpy(&str[len + 1], cv->str.data, cv->str.size);
-            len += nb_words;
+            కొలత_t nb_పదాలు =
+                1 + (cv->str.కొలత + పరిమాణం(పూర్ణాంకం) - 1) / పరిమాణం(పూర్ణాంకం);
+            ఒకవేళ (len + nb_పదాలు >= s->allocated_len)
+                str = tok_str_realloc(s, len + nb_పదాలు + 1);
+            str[len] = cv->str.కొలత;
+            జ్ఞాపకం_నకలు(&str[len + 1], cv->str.దత్తాంశం, cv->str.కొలత);
+            len += nb_పదాలు;
         }
-        break;
-    case TOK_CDOUBLE:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
-#if LONG_SIZE == 8
-    case TOK_CLONG:
-    case TOK_CULONG:
-#endif
+        ఆపు;
+    స్థితి TOK_CDOUBLE:
+    స్థితి TOK_CLLONG:
+    స్థితి TOK_CULLONG:
+#ఒకవేళ LONG_కొలత == 8
+    స్థితి TOK_CLONG:
+    స్థితి TOK_CULONG:
+#అయితే_ముగింపు
         str[len++] = cv->tab[0];
         str[len++] = cv->tab[1];
-        break;
-    case TOK_CLDOUBLE:
+        ఆపు;
+    స్థితి TOK_CLDOUBLE:
         str[len++] = cv->tab[0];
         str[len++] = cv->tab[1];
-        if (LDOUBLE_WORDS >= 3)
+        ఒకవేళ (LDOUBLE_పదాలు >= 3)
         str[len++] = cv->tab[2];
-        if (LDOUBLE_WORDS >= 4)
+        ఒకవేళ (LDOUBLE_పదాలు >= 4)
         str[len++] = cv->tab[3];
-    default:
-        break;
+    అప్రమేయ:
+        ఆపు;
     }
     s->len = len;
 }
 
 /* add the current parse token in token string 's' */
-ST_FUNC void tok_str_add_tok(TokenString *s)
+ST_FUNC శూన్య tok_str_కూడు_tok(TokenString *s)
 {
     CValue cval;
 
     /* save line number info */
-    if (file->line_num != s->last_line_num) {
-        s->last_line_num = file->line_num;
-        cval.i = s->last_line_num;
+    ఒకవేళ (file->పంక్తి_అంకె != s->చివరి_పంక్తి_అంకె) {
+        s->చివరి_పంక్తి_అంకె = file->పంక్తి_అంకె;
+        cval.i = s->చివరి_పంక్తి_అంకె;
         tok_str_add2(s, TOK_LINENUM, &cval);
     }
     tok_str_add2(s, tok, &tokc);
 }
 
 /* like tok_str_add2(), add a space if needed */
-static void tok_str_add2_spc(TokenString *s, int t, CValue *cv)
+స్థిర శూన్య tok_str_add2_spc(TokenString *s, పూర్ణాంకం t, CValue *cv)
 {
-    if (s->need_spc == 3)
-        tok_str_add(s, ' ');
+    ఒకవేళ (s->need_spc == 3)
+        tok_str_కూడు(s, ' ');
     s->need_spc = 2;
     tok_str_add2(s, t, cv);
 }
 
 /* get a token from an integer array and increment pointer. */
-static inline void tok_get(int *t, const int **pp, CValue *cv)
+స్థిర అంతఃవరుస శూన్య tok_get(పూర్ణాంకం *t, స్థిరరాశి పూర్ణాంకం **pp, CValue *cv)
 {
-    const int *p = *pp;
-    int n, *tab;
+    స్థిరరాశి పూర్ణాంకం *p = *pp;
+    పూర్ణాంకం n, *tab;
 
     tab = cv->tab;
-    switch(*t = *p++) {
-#if LONG_SIZE == 4
-    case TOK_CLONG:
-#endif
-    case TOK_CINT:
-    case TOK_CCHAR:
-    case TOK_LCHAR:
-    case TOK_LINENUM:
+    ఎంపిక(*t = *p++) {
+#ఒకవేళ LONG_కొలత == 4
+    స్థితి TOK_CLONG:
+#అయితే_ముగింపు
+    స్థితి TOK_CINT:
+    స్థితి TOK_CCHAR:
+    స్థితి TOK_LCHAR:
+    స్థితి TOK_LINENUM:
         cv->i = *p++;
-        break;
-#if LONG_SIZE == 4
-    case TOK_CULONG:
-#endif
-    case TOK_CUINT:
-        cv->i = (unsigned)*p++;
-        break;
-    case TOK_CFLOAT:
+        ఆపు;
+#ఒకవేళ LONG_కొలత == 4
+    స్థితి TOK_CULONG:
+#అయితే_ముగింపు
+    స్థితి TOK_CUINT:
+        cv->i = (గుర్తులేని)*p++;
+        ఆపు;
+    స్థితి TOK_CFLOAT:
 	tab[0] = *p++;
-	break;
-    case TOK_STR:
-    case TOK_LSTR:
-    case TOK_PPNUM:
-    case TOK_PPSTR:
-        cv->str.size = *p++;
-        cv->str.data = (char*)p;
-        p += (cv->str.size + sizeof(int) - 1) / sizeof(int);
-        break;
-    case TOK_CDOUBLE:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
-#if LONG_SIZE == 8
-    case TOK_CLONG:
-    case TOK_CULONG:
-#endif
+	ఆపు;
+    స్థితి TOK_STR:
+    స్థితి TOK_LSTR:
+    స్థితి TOK_PPNUM:
+    స్థితి TOK_PPSTR:
+        cv->str.కొలత = *p++;
+        cv->str.దత్తాంశం = (అక్షరం*)p;
+        p += (cv->str.కొలత + పరిమాణం(పూర్ణాంకం) - 1) / పరిమాణం(పూర్ణాంకం);
+        ఆపు;
+    స్థితి TOK_CDOUBLE:
+    స్థితి TOK_CLLONG:
+    స్థితి TOK_CULLONG:
+#ఒకవేళ LONG_కొలత == 8
+    స్థితి TOK_CLONG:
+    స్థితి TOK_CULONG:
+#అయితే_ముగింపు
         n = 2;
-        goto copy;
-    case TOK_CLDOUBLE:
-        n = LDOUBLE_WORDS;
+        వెళ్ళు copy;
+    స్థితి TOK_CLDOUBLE:
+        n = LDOUBLE_పదాలు;
     copy:
-        do
+        చేయి
             *tab++ = *p++;
-        while (--n);
-        break;
-    default:
-        break;
+        అయితే (--n);
+        ఆపు;
+    అప్రమేయ:
+        ఆపు;
     }
     *pp = p;
 }
 
-#if 0
+#ఒకవేళ 0
 # define TOK_GET(t,p,c) tok_get(t,p,c)
-#else
-# define TOK_GET(t,p,c) do { \
-    int _t = **(p); \
-    if (TOK_HAS_VALUE(_t)) \
+#లేకపోతే
+# define TOK_GET(t,p,c) చేయి { \
+    పూర్ణాంకం _t = **(p); \
+    ఒకవేళ (TOK_HAS_విలువ(_t)) \
         tok_get(t, p, c); \
-    else \
+    లేకపోతే \
         *(t) = _t, ++*(p); \
-    } while (0)
-#endif
+    } అయితే (0)
+#అయితే_ముగింపు
 
-static int macro_is_equal(const int *a, const int *b)
+స్థిర పూర్ణాంకం macro_is_equal(స్థిరరాశి పూర్ణాంకం *a, స్థిరరాశి పూర్ణాంకం *b)
 {
     CValue cv;
-    int t;
+    పూర్ణాంకం t;
 
-    if (!a || !b)
-        return 1;
+    ఒకవేళ (!a || !b)
+        తిరిగి 1;
 
-    while (*a && *b) {
+    అయితే (*a && *b) {
         cstr_reset(&tokcstr);
         TOK_GET(&t, &a, &cv);
         cstr_cat(&tokcstr, get_tok_str(t, &cv), 0);
         TOK_GET(&t, &b, &cv);
-        if (strcmp(tokcstr.data, get_tok_str(t, &cv)))
-            return 0;
+        ఒకవేళ (strcmp(tokcstr.దత్తాంశం, get_tok_str(t, &cv)))
+            తిరిగి 0;
     }
-    return !(*a || *b);
+    తిరిగి !(*a || *b);
 }
 
 /* defines handling */
-ST_INLN void define_push(int v, int macro_type, int *str, Sym *first_arg)
+ST_INLN శూన్య define_నెట్టు(పూర్ణాంకం v, పూర్ణాంకం macro_type, పూర్ణాంకం *str, Sym *మొదటి_arg)
 {
     Sym *s, *o;
 
-    o = define_find(v);
-    s = sym_push2(&define_stack, v, macro_type, 0);
+    o = define_కనుగొను(v);
+    s = sym_push2(&define_దొంతర, v, macro_type, 0);
     s->d = str;
-    s->next = first_arg;
-    table_ident[v - TOK_IDENT]->sym_define = s;
+    s->తదుపరి = మొదటి_arg;
+    పట్టిక_ident[v - TOK_IDENT]->sym_define = s;
 
-    if (o && !macro_is_equal(o->d, s->d))
-	tcc_warning("%s redefined", get_tok_str(v, NULL));
+    ఒకవేళ (o && !macro_is_equal(o->d, s->d))
+	tcc_warning("%s redefined", get_tok_str(v, ఖాళీ));
 }
 
 /* undefined a define symbol. Its name is just set to zero */
-ST_FUNC void define_undef(Sym *s)
+ST_FUNC శూన్య define_undef(Sym *s)
 {
-    int v = s->v;
-    if (v >= TOK_IDENT && v < tok_ident)
-        table_ident[v - TOK_IDENT]->sym_define = NULL;
+    పూర్ణాంకం v = s->v;
+    ఒకవేళ (v >= TOK_IDENT && v < tok_ident)
+        పట్టిక_ident[v - TOK_IDENT]->sym_define = ఖాళీ;
 }
 
-ST_INLN Sym *define_find(int v)
+ST_INLN Sym *define_కనుగొను(పూర్ణాంకం v)
 {
     v -= TOK_IDENT;
-    if ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
-        return NULL;
-    return table_ident[v]->sym_define;
+    ఒకవేళ ((గుర్తులేని)v >= (గుర్తులేని)(tok_ident - TOK_IDENT))
+        తిరిగి ఖాళీ;
+    తిరిగి పట్టిక_ident[v]->sym_define;
 }
 
 /* free define stack until top reaches 'b' */
-ST_FUNC void free_defines(Sym *b)
+ST_FUNC శూన్య free_నిర్వచిస్తుంది(Sym *b)
 {
-    while (define_stack != b) {
-        Sym *top = define_stack;
-        define_stack = top->prev;
-        tok_str_free_str(top->d);
-        define_undef(top);
-        sym_free(top);
+    అయితే (define_దొంతర != b) {
+        Sym *శిఖరం = define_దొంతర;
+        define_దొంతర = శిఖరం->prev;
+        tok_str_free_str(శిఖరం->d);
+        define_undef(శిఖరం);
+        sym_free(శిఖరం);
     }
 }
 
 /* fake the nth "#if defined test_..." for tcc -dt -run */
-static void maybe_run_test(TCCState *s)
+స్థిర శూన్య maybe_నిరంతరం_test(TCCState *s)
 {
-    const char *p;
-    if (s->include_stack_ptr != s->include_stack)
-        return;
-    p = get_tok_str(tok, NULL);
-    if (0 != memcmp(p, "test_", 5))
-        return;
-    if (0 != --s->run_test)
-        return;
+    స్థిరరాశి అక్షరం *p;
+    ఒకవేళ (s->include_దొంతర_ptr != s->include_దొంతర)
+        తిరిగి;
+    p = get_tok_str(tok, ఖాళీ);
+    ఒకవేళ (0 != memcmp(p, "test_", 5))
+        తిరిగి;
+    ఒకవేళ (0 != --s->నిరంతరం_test)
+        తిరిగి;
     fprintf(s->ppfp, &"\n[%s]\n"[!(s->dflag & 32)], p), fflush(s->ppfp);
-    define_push(tok, MACRO_OBJ, NULL, NULL);
+    define_నెట్టు(tok, MACRO_OBJ, ఖాళీ, ఖాళీ);
 }
 
-ST_FUNC void skip_to_eol(int warn)
+ST_FUNC శూన్య skip_గమ్యం_eol(పూర్ణాంకం warn)
 {
-    if (tok == TOK_LINEFEED)
-        return;
-    if (warn)
+    ఒకవేళ (tok == TOK_LINEFEED)
+        తిరిగి;
+    ఒకవేళ (warn)
         tcc_warning("extra tokens after directive");
-    while (macro_stack)
-        end_macro();
-    file->buf_ptr = parse_line_comment(file->buf_ptr - 1);
-    next_nomacro();
+    అయితే (macro_దొంతర)
+        చివర_macro();
+    file->buf_ptr = parse_పంక్తి_comment(file->buf_ptr - 1);
+    తదుపరి_nomacro();
 }
 
-static CachedInclude *
-search_cached_include(TCCState *s1, const char *filename, int add);
+స్థిర CachedInclude *
+శోధన_cached_include(TCCState *s1, స్థిరరాశి అక్షరం *filename, పూర్ణాంకం కూడు);
 
-static int parse_include(TCCState *s1, int do_next, int test)
+స్థిర పూర్ణాంకం parse_include(TCCState *s1, పూర్ణాంకం do_తదుపరి, పూర్ణాంకం test)
 {
-    int c, i;
-    char name[1024], buf[1024], *p;
+    పూర్ణాంకం c, i;
+    అక్షరం name[1024], buf[1024], *p;
     CachedInclude *e;
 
     c = skip_spaces();
-    if (c == '<' || c == '\"') {
+    ఒకవేళ (c == '<' || c == '\"') {
         cstr_reset(&tokcstr);
         file->buf_ptr = parse_pp_string(file->buf_ptr, c == '<' ? '>' : c, &tokcstr);
-        i = tokcstr.size;
-        pstrncpy(name, sizeof name, tokcstr.data, i);
-        next_nomacro();
-    } else {
+        i = tokcstr.కొలత;
+        pstrncpy(name, పరిమాణం name, tokcstr.దత్తాంశం, i);
+        తదుపరి_nomacro();
+    } లేకపోతే {
         /* computed #include : concatenate tokens until result is one of
            the two accepted forms.  Don't convert pp-tokens to tokens here. */
 	parse_flags = PARSE_FLAG_PREPROCESS
                     | PARSE_FLAG_LINEFEED
                     | (parse_flags & PARSE_FLAG_ASM_FILE);
         name[0] = 0;
-        for (;;) {
-            next();
-            p = name, i = strlen(p) - 1;
-            if (i > 0
+        కొరకు (;;) {
+            తదుపరి();
+            p = name, i = అక్షరశ్రేణి_పొడవు(p) - 1;
+            ఒకవేళ (i > 0
                 && ((p[0] == '"' && p[i] == '"')
                  || (p[0] == '<' && p[i] == '>')))
-                break;
-            if (tok == TOK_LINEFEED)
+                ఆపు;
+            ఒకవేళ (tok == TOK_LINEFEED)
                 tcc_error("'#include' expects \"FILENAME\" or <FILENAME>");
-            pstrcat(name, sizeof name, get_tok_str(tok, &tokc));
+            pstrcat(name, పరిమాణం name, get_tok_str(tok, &tokc));
 	}
         c = p[0];
         /* remove '<>|""' */
         memmove(p, p + 1, i - 1), p[i - 1] = 0;
     }
 
-    if (!test)
-        skip_to_eol(1);
+    ఒకవేళ (!test)
+        skip_గమ్యం_eol(1);
 
-    i = do_next ? file->include_next_index : -1;
-    for (;;) {
+    i = do_తదుపరి ? file->include_తదుపరి_సూచీ : -1;
+    కొరకు (;;) {
         ++i;
-        if (i == 0) {
+        ఒకవేళ (i == 0) {
             /* check absolute include path */
-            if (!IS_ABSPATH(name))
-                continue;
+            ఒకవేళ (!IS_ABSPATH(name))
+                కొనసాగు;
             buf[0] = '\0';
-        } else if (i == 1) {
+        } లేకపోతే ఒకవేళ (i == 1) {
             /* search in file's dir if "header.h" */
-            if (c != '\"')
-                continue;
+            ఒకవేళ (c != '\"')
+                కొనసాగు;
             p = file->true_filename;
-            pstrncpy(buf, sizeof buf, p, tcc_basename(p) - p);
-        } else {
-            int j = i - 2, k = j - s1->nb_include_paths;
-            if (k < 0)
+            pstrncpy(buf, పరిమాణం buf, p, tcc_basename(p) - p);
+        } లేకపోతే {
+            పూర్ణాంకం j = i - 2, k = j - s1->nb_include_paths;
+            ఒకవేళ (k < 0)
                 p = s1->include_paths[j];
-            else if (k < s1->nb_sysinclude_paths)
+            లేకపోతే ఒకవేళ (k < s1->nb_sysinclude_paths)
                 p = s1->sysinclude_paths[k];
-            else if (test)
-                return 0;
-            else
+            లేకపోతే ఒకవేళ (test)
+                తిరిగి 0;
+            లేకపోతే
                 tcc_error("include file '%s' not found", name);
-            pstrcpy(buf, sizeof buf, p);
-            pstrcat(buf, sizeof buf, "/");
+            pstrcpy(buf, పరిమాణం buf, p);
+            pstrcat(buf, పరిమాణం buf, "/");
         }
-        pstrcat(buf, sizeof buf, name);
-        e = search_cached_include(s1, buf, 0);
-        if (e && (define_find(e->ifndef_macro) || e->once)) {
+        pstrcat(buf, పరిమాణం buf, name);
+        e = శోధన_cached_include(s1, buf, 0);
+        ఒకవేళ (e && (define_కనుగొను(e->ifndef_macro) || e->once)) {
             /* no need to parse the include because the 'ifndef macro'
                is defined (or had #pragma once) */
-#ifdef INC_DEBUG
-            printf("%s: skipping cached %s\n", file->filename, buf);
-#endif
-            if ((s1->verbose | 1) == 3) /* -vv[v] */
-                printf("=> %*s%s\n",
-                   (int)(s1->include_stack_ptr - s1->include_stack), "", buf);
-            return 1;
+#నిర్వచితమైతే INC_DEBUG
+            రాయి("%s: skipping cached %s\n", file->filename, buf);
+#అయితే_ముగింపు
+            ఒకవేళ ((s1->verbose | 1) == 3) /* -vv[v] */
+                రాయి("=> %*s%s\n",
+                   (పూర్ణాంకం)(s1->include_దొంతర_ptr - s1->include_దొంతర), "", buf);
+            తిరిగి 1;
         }
-        if (tcc_open(s1, buf) >= 0)
-            break;
+        ఒకవేళ (tcc_open(s1, buf) >= 0)
+            ఆపు;
     }
 
-    if (test) {
+    ఒకవేళ (test) {
         tcc_close();
-    } else {
-        if (s1->include_stack_ptr >= s1->include_stack + INCLUDE_STACK_SIZE)
+    } లేకపోతే {
+        ఒకవేళ (s1->include_దొంతర_ptr >= s1->include_దొంతర + INCLUDE_దొంతర_కొలత)
             tcc_error("#include recursion too deep");
         /* push previous file on stack */
-        *s1->include_stack_ptr++ = file->prev;
-        file->include_next_index = i;
-#ifdef INC_DEBUG
-        printf("%s: including %s\n", file->prev->filename, file->filename);
-#endif
+        *s1->include_దొంతర_ptr++ = file->prev;
+        file->include_తదుపరి_సూచీ = i;
+#నిర్వచితమైతే INC_DEBUG
+        రాయి("%s: including %s\n", file->prev->filename, file->filename);
+#అయితే_ముగింపు
         /* update target deps */
-        if (s1->gen_deps) {
+        ఒకవేళ (s1->gen_deps) {
             BufferedFile *bf = file;
-            while (i == 1 && (bf = bf->prev))
-                i = bf->include_next_index;
+            అయితే (i == 1 && (bf = bf->prev))
+                i = bf->include_తదుపరి_సూచీ;
             /* skip system include files */
-            if (s1->include_sys_deps || i - 2 < s1->nb_include_paths)
-                dynarray_add(&s1->target_deps, &s1->nb_target_deps,
+            ఒకవేళ (s1->include_sys_deps || i - 2 < s1->nb_include_paths)
+                dynarray_కూడు(&s1->లక్ష్యం_deps, &s1->nb_లక్ష్యం_deps,
                     tcc_strdup(buf));
         }
         /* add include file debug info */
         tcc_debug_bincl(s1);
     }
-    return 1;
+    తిరిగి 1;
 }
 
 /* eval an expression for #if/#elif */
-static int expr_preprocess(TCCState *s1)
+స్థిర పూర్ణాంకం సమాసం_preprocess(TCCState *s1)
 {
-    int c, t;
-    int t0 = tok;
+    పూర్ణాంకం c, t;
+    పూర్ణాంకం t0 = tok;
     TokenString *str;
     
     str = tok_str_alloc();
-    pp_expr = 1;
-    while (1) {
-        next(); /* do macro subst */
+    pp_సమాసం = 1;
+    అయితే (1) {
+        తదుపరి(); /* do macro subst */
         t = tok;
-        if (tok < TOK_IDENT) {
-            if (tok == TOK_LINEFEED || tok == TOK_EOF)
-                break;
-            if (tok >= TOK_STR && tok <= TOK_CLDOUBLE)
+        ఒకవేళ (tok < TOK_IDENT) {
+            ఒకవేళ (tok == TOK_LINEFEED || tok == TOK_EOF)
+                ఆపు;
+            ఒకవేళ (tok >= TOK_STR && tok <= TOK_CLDOUBLE)
                 tcc_error("invalid constant in preprocessor expression");
 
-        } else if (tok == TOK_DEFINED) {
+        } లేకపోతే ఒకవేళ (tok == TOK_DEFINED) {
             parse_flags &= ~PARSE_FLAG_PREPROCESS; /* no macro subst */
-            next();
+            తదుపరి();
             t = tok;
-            if (t == '(') 
-                next();
+            ఒకవేళ (t == '(') 
+                తదుపరి();
             parse_flags |= PARSE_FLAG_PREPROCESS;
-            if (tok < TOK_IDENT)
+            ఒకవేళ (tok < TOK_IDENT)
                 expect("identifier after 'defined'");
-            if (s1->run_test)
-                maybe_run_test(s1);
+            ఒకవేళ (s1->నిరంతరం_test)
+                maybe_నిరంతరం_test(s1);
             c = 0;
-            if (define_find(tok)
+            ఒకవేళ (define_కనుగొను(tok)
                 || tok == TOK___HAS_INCLUDE
-                || tok == TOK___HAS_INCLUDE_NEXT)
+                || tok == TOK_HAS_INCLUDE_తదుపరి)
                 c = 1;
-            if (t == '(') {
-                next();
-                if (tok != ')')
+            ఒకవేళ (t == '(') {
+                తదుపరి();
+                ఒకవేళ (tok != ')')
                     expect("')'");
             }
-            goto c_number;
-        } else if (tok == TOK___HAS_INCLUDE ||
-                   tok == TOK___HAS_INCLUDE_NEXT) {
+            వెళ్ళు c_సంఖ్య;
+        } లేకపోతే ఒకవేళ (tok == TOK___HAS_INCLUDE ||
+                   tok == TOK_HAS_INCLUDE_తదుపరి) {
             t = tok;
-            next();
-	    if (tok != '(')
+            తదుపరి();
+	    ఒకవేళ (tok != '(')
 		expect("'('");
             c = parse_include(s1, t - TOK___HAS_INCLUDE, 1);
-            if (tok != ')')
+            ఒకవేళ (tok != ')')
                 expect("')'");
-            goto c_number;
-        } else {
+            వెళ్ళు c_సంఖ్య;
+        } లేకపోతే {
             /* if undefined macro, replace with zero */
             c = 0;
-        c_number:
+        c_సంఖ్య:
             tok = TOK_CLLONG; /* type intmax_t */
             tokc.i = c;
         }
-        tok_str_add_tok(str);
+        tok_str_కూడు_tok(str);
     }
-    if (0 == str->len)
+    ఒకవేళ (0 == str->len)
         tcc_error("#%s with no expression", get_tok_str(t0, 0));
-    tok_str_add(str, TOK_EOF); /* simulate end of file */
-    pp_expr = t0; /* redirect pre-processor expression error messages */
+    tok_str_కూడు(str, TOK_EOF); /* simulate end of file */
+    pp_సమాసం = t0; /* redirect pre-processor expression error messages */
     t = tok;
     /* now evaluate C constant expression */
     begin_macro(str, 1);
-    next();
-    c = expr_const();
-    if (tok != TOK_EOF)
+    తదుపరి();
+    c = సమాసం_const();
+    ఒకవేళ (tok != TOK_EOF)
         tcc_error("...");
-    pp_expr = 0;
-    end_macro();
+    pp_సమాసం = 0;
+    చివర_macro();
     tok = t; /* restore LF or EOF */
-    return c != 0;
+    తిరిగి c != 0;
 }
 
-ST_FUNC void pp_error(CString *cs)
+ST_FUNC శూన్య pp_error(CString *cs)
 {
-    cstr_printf(cs, "bad preprocessor expression: #%s", get_tok_str(pp_expr, 0));
-    macro_ptr = macro_stack->str;
-    while (next(), tok != TOK_EOF)
+    cstr_printf(cs, "bad preprocessor expression: #%s", get_tok_str(pp_సమాసం, 0));
+    macro_ptr = macro_దొంతర->str;
+    అయితే (తదుపరి(), tok != TOK_EOF)
         cstr_printf(cs, " %s", get_tok_str(tok, &tokc));
 }
 
 /* parse after #define */
-ST_FUNC void parse_define(void)
+ST_FUNC శూన్య parse_define(శూన్య)
 {
-    Sym *s, *first, **ps;
-    int v, t, varg, is_vaargs, t0;
-    int saved_parse_flags = parse_flags;
+    Sym *s, *మొదటి, **ps;
+    పూర్ణాంకం v, t, varg, is_vaargs, t0;
+    పూర్ణాంకం saved_parse_flags = parse_flags;
     TokenString str;
 
     v = tok;
-    if (v < TOK_IDENT || v == TOK_DEFINED)
+    ఒకవేళ (v < TOK_IDENT || v == TOK_DEFINED)
         tcc_error("invalid macro name '%s'", get_tok_str(tok, &tokc));
-    first = NULL;
+    మొదటి = ఖాళీ;
     t = MACRO_OBJ;
     /* We have to parse the whole define as if not in asm mode, in particular
        no line comment with '#' must be ignored.  Also for function
@@ -1534,40 +1534,40 @@ ST_FUNC void parse_define(void)
        character.  */
     parse_flags = ((parse_flags & ~PARSE_FLAG_ASM_FILE) | PARSE_FLAG_SPACES);
     /* '(' must be just after macro definition for MACRO_FUNC */
-    next_nomacro();
+    తదుపరి_nomacro();
     parse_flags &= ~PARSE_FLAG_SPACES;
     is_vaargs = 0;
-    if (tok == '(') {
-        int dotid = set_idnum('.', 0);
-        next_nomacro();
-        ps = &first;
-        if (tok != ')') for (;;) {
+    ఒకవేళ (tok == '(') {
+        పూర్ణాంకం dotid = సమితి_idnum('.', 0);
+        తదుపరి_nomacro();
+        ps = &మొదటి;
+        ఒకవేళ (tok != ')') కొరకు (;;) {
             varg = tok;
-            next_nomacro();
+            తదుపరి_nomacro();
             is_vaargs = 0;
-            if (varg == TOK_DOTS) {
-                varg = TOK___VA_ARGS__;
+            ఒకవేళ (varg == TOK_DOTS) {
+                varg = TOK_VA_వాదనలు;
                 is_vaargs = 1;
-            } else if (tok == TOK_DOTS && gnu_ext) {
+            } లేకపోతే ఒకవేళ (tok == TOK_DOTS && gnu_ext) {
                 is_vaargs = 1;
-                next_nomacro();
+                తదుపరి_nomacro();
             }
-            if (varg < TOK_IDENT)
+            ఒకవేళ (varg < TOK_IDENT)
         bad_list:
                 tcc_error("bad macro parameter list");
-            s = sym_push2(&define_stack, varg | SYM_FIELD, is_vaargs, 0);
+            s = sym_push2(&define_దొంతర, varg | SYM_క్షేత్రం, is_vaargs, 0);
             *ps = s;
-            ps = &s->next;
-            if (tok == ')')
-                break;
-            if (tok != ',' || is_vaargs)
-                goto bad_list;
-            next_nomacro();
+            ps = &s->తదుపరి;
+            ఒకవేళ (tok == ')')
+                ఆపు;
+            ఒకవేళ (tok != ',' || is_vaargs)
+                వెళ్ళు bad_list;
+            తదుపరి_nomacro();
         }
         parse_flags |= PARSE_FLAG_SPACES;
-        next_nomacro();
+        తదుపరి_nomacro();
         t = MACRO_FUNC;
-        set_idnum('.', dotid);
+        సమితి_idnum('.', dotid);
     }
 
     /* The body of a macro definition should be parsed such that identifiers
@@ -1578,548 +1578,548 @@ ST_FUNC void parse_define(void)
     parse_flags |= PARSE_FLAG_ACCEPT_STRAYS | PARSE_FLAG_SPACES | PARSE_FLAG_LINEFEED;
     tok_str_new(&str);
     t0 = 0;
-    while (tok != TOK_LINEFEED && tok != TOK_EOF) {
-        if (is_space(tok)) {
+    అయితే (tok != TOK_LINEFEED && tok != TOK_EOF) {
+        ఒకవేళ (is_space(tok)) {
             str.need_spc |= 1;
-        } else {
-            if (TOK_TWOSHARPS == tok) {
-                if (0 == t0)
-                    goto bad_twosharp;
+        } లేకపోతే {
+            ఒకవేళ (TOK_TWOSHARPS == tok) {
+                ఒకవేళ (0 == t0)
+                    వెళ్ళు bad_twosharp;
                 tok = TOK_PPJOIN;
                 t |= MACRO_JOIN;
             }
             tok_str_add2_spc(&str, tok, &tokc);
             t0 = tok;
         }
-        next_nomacro();
+        తదుపరి_nomacro();
     }
     parse_flags = saved_parse_flags;
-    tok_str_add(&str, 0);
-    if (t0 == TOK_PPJOIN)
+    tok_str_కూడు(&str, 0);
+    ఒకవేళ (t0 == TOK_PPJOIN)
 bad_twosharp:
         tcc_error("'##' cannot appear at either end of macro");
-    define_push(v, t, str.str, first);
+    define_నెట్టు(v, t, str.str, మొదటి);
     //tok_print(str.str, "#define (%d) %s %d:", t | is_vaargs * 4, get_tok_str(v, 0));
 }
 
-static CachedInclude *search_cached_include(TCCState *s1, const char *filename, int add)
+స్థిర CachedInclude *శోధన_cached_include(TCCState *s1, స్థిరరాశి అక్షరం *filename, పూర్ణాంకం కూడు)
 {
-    const char *s, *basename;
-    unsigned int h;
+    స్థిరరాశి అక్షరం *s, *basename;
+    గుర్తులేని పూర్ణాంకం h;
     CachedInclude *e;
-    int c, i, len;
+    పూర్ణాంకం c, i, len;
 
     s = basename = tcc_basename(filename);
     h = TOK_HASH_INIT;
-    while ((c = (unsigned char)*s) != 0) {
-#ifdef _WIN32
+    అయితే ((c = (గుర్తులేని అక్షరం)*s) != 0) {
+#నిర్వచితమైతే _WIN32
         h = TOK_HASH_FUNC(h, toup(c));
-#else
+#లేకపోతే
         h = TOK_HASH_FUNC(h, c);
-#endif
+#అయితే_ముగింపు
         s++;
     }
-    h &= (CACHED_INCLUDES_HASH_SIZE - 1);
+    h &= (CACHED_INCLUDES_HASH_కొలత - 1);
 
     i = s1->cached_includes_hash[h];
-    for(;;) {
-        if (i == 0)
-            break;
+    కొరకు(;;) {
+        ఒకవేళ (i == 0)
+            ఆపు;
         e = s1->cached_includes[i - 1];
-        if (0 == PATHCMP(filename, e->filename))
-            return e;
-        if (e->once
+        ఒకవేళ (0 == PATHCMP(filename, e->filename))
+            తిరిగి e;
+        ఒకవేళ (e->once
             && 0 == PATHCMP(basename, tcc_basename(e->filename))
             && 0 == normalized_PATHCMP(filename, e->filename)
             )
-            return e;
-        i = e->hash_next;
+            తిరిగి e;
+        i = e->hash_తదుపరి;
     }
-    if (!add)
-        return NULL;
+    ఒకవేళ (!కూడు)
+        తిరిగి ఖాళీ;
 
-    e = tcc_malloc(sizeof(CachedInclude) + (len = strlen(filename)));
-    memcpy(e->filename, filename, len + 1);
+    e = tcc_malloc(పరిమాణం(CachedInclude) + (len = అక్షరశ్రేణి_పొడవు(filename)));
+    జ్ఞాపకం_నకలు(e->filename, filename, len + 1);
     e->ifndef_macro = e->once = 0;
-    dynarray_add(&s1->cached_includes, &s1->nb_cached_includes, e);
+    dynarray_కూడు(&s1->cached_includes, &s1->nb_cached_includes, e);
     /* add in hash table */
-    e->hash_next = s1->cached_includes_hash[h];
+    e->hash_తదుపరి = s1->cached_includes_hash[h];
     s1->cached_includes_hash[h] = s1->nb_cached_includes;
-#ifdef INC_DEBUG
-    printf("adding cached '%s'\n", filename);
-#endif
-    return e;
+#నిర్వచితమైతే INC_DEBUG
+    రాయి("adding cached '%s'\n", filename);
+#అయితే_ముగింపు
+    తిరిగి e;
 }
 
-static int pragma_parse(TCCState *s1)
+స్థిర పూర్ణాంకం pragma_parse(TCCState *s1)
 {
-    next_nomacro();
-    if (tok == TOK_push_macro || tok == TOK_pop_macro) {
-        int t = tok, v;
+    తదుపరి_nomacro();
+    ఒకవేళ (tok == TOK_నెట్టు_macro || tok == TOK_తీయి_macro) {
+        పూర్ణాంకం t = tok, v;
         Sym *s;
 
-        if (next(), tok != '(')
-            goto pragma_err;
-        if (next(), tok != TOK_STR)
-            goto pragma_err;
-        v = tok_alloc(tokc.str.data, tokc.str.size - 1)->tok;
-        if (next(), tok != ')')
-            goto pragma_err;
-        if (t == TOK_push_macro) {
-            while (NULL == (s = define_find(v)))
-                define_push(v, 0, NULL, NULL);
+        ఒకవేళ (తదుపరి(), tok != '(')
+            వెళ్ళు pragma_err;
+        ఒకవేళ (తదుపరి(), tok != TOK_STR)
+            వెళ్ళు pragma_err;
+        v = tok_alloc(tokc.str.దత్తాంశం, tokc.str.కొలత - 1)->tok;
+        ఒకవేళ (తదుపరి(), tok != ')')
+            వెళ్ళు pragma_err;
+        ఒకవేళ (t == TOK_నెట్టు_macro) {
+            అయితే (ఖాళీ == (s = define_కనుగొను(v)))
+                define_నెట్టు(v, 0, ఖాళీ, ఖాళీ);
             s->type.ref = s; /* set push boundary */
-        } else {
-            for (s = define_stack; s; s = s->prev)
-                if (s->v == v && s->type.ref == s) {
-                    s->type.ref = NULL;
-                    break;
+        } లేకపోతే {
+            కొరకు (s = define_దొంతర; s; s = s->prev)
+                ఒకవేళ (s->v == v && s->type.ref == s) {
+                    s->type.ref = ఖాళీ;
+                    ఆపు;
                 }
         }
-        if (s)
-            table_ident[v - TOK_IDENT]->sym_define = s->d ? s : NULL;
-        else
+        ఒకవేళ (s)
+            పట్టిక_ident[v - TOK_IDENT]->sym_define = s->d ? s : ఖాళీ;
+        లేకపోతే
             tcc_warning("unbalanced #pragma pop_macro");
         pp_debug_tok = t, pp_debug_symv = v;
 
-    } else if (tok == TOK_once) {
-        search_cached_include(s1, file->true_filename, 1)->once = 1;
+    } లేకపోతే ఒకవేళ (tok == TOK_once) {
+        శోధన_cached_include(s1, file->true_filename, 1)->once = 1;
 
-    } else if (s1->output_type == TCC_OUTPUT_PREPROCESS) {
+    } లేకపోతే ఒకవేళ (s1->output_type == TCC_OUTPUT_PREPROCESS) {
         /* tcc -E: keep pragmas below unchanged */
         unget_tok(' ');
         unget_tok(TOK_PRAGMA);
         unget_tok('#');
         unget_tok(TOK_LINEFEED);
-        return 1;
+        తిరిగి 1;
 
-    } else if (tok == TOK_pack) {
+    } లేకపోతే ఒకవేళ (tok == TOK_pack) {
         /* This may be:
            #pragma pack(1) // set
            #pragma pack() // reset to default
            #pragma pack(push) // push current
            #pragma pack(push,1) // push & set
            #pragma pack(pop) // restore previous */
-        next();
+        తదుపరి();
         skip('(');
-        if (tok == TOK_ASM_pop) {
-            next();
-            if (s1->pack_stack_ptr <= s1->pack_stack) {
+        ఒకవేళ (tok == TOK_ASM_తీయి) {
+            తదుపరి();
+            ఒకవేళ (s1->pack_దొంతర_ptr <= s1->pack_దొంతర) {
             stk_error:
                 tcc_error("out of pack stack");
             }
-            s1->pack_stack_ptr--;
-        } else {
-            int val = 0;
-            if (tok != ')') {
-                if (tok == TOK_ASM_push) {
-                    next();
-                    if (s1->pack_stack_ptr >= s1->pack_stack + PACK_STACK_SIZE - 1)
-                        goto stk_error;
-                    val = *s1->pack_stack_ptr++;
-                    if (tok != ',')
-                        goto pack_set;
-                    next();
+            s1->pack_దొంతర_ptr--;
+        } లేకపోతే {
+            పూర్ణాంకం val = 0;
+            ఒకవేళ (tok != ')') {
+                ఒకవేళ (tok == TOK_ASM_నెట్టు) {
+                    తదుపరి();
+                    ఒకవేళ (s1->pack_దొంతర_ptr >= s1->pack_దొంతర + PACK_దొంతర_కొలత - 1)
+                        వెళ్ళు stk_error;
+                    val = *s1->pack_దొంతర_ptr++;
+                    ఒకవేళ (tok != ',')
+                        వెళ్ళు pack_సమితి;
+                    తదుపరి();
                 }
-                if (tok != TOK_CINT)
-                    goto pragma_err;
+                ఒకవేళ (tok != TOK_CINT)
+                    వెళ్ళు pragma_err;
                 val = tokc.i;
-                if (val < 1 || val > 16 || (val & (val - 1)) != 0)
-                    goto pragma_err;
-                next();
+                ఒకవేళ (val < 1 || val > 16 || (val & (val - 1)) != 0)
+                    వెళ్ళు pragma_err;
+                తదుపరి();
             }
-        pack_set:
-            *s1->pack_stack_ptr = val;
+        pack_సమితి:
+            *s1->pack_దొంతర_ptr = val;
         }
-        if (tok != ')')
-            goto pragma_err;
+        ఒకవేళ (tok != ')')
+            వెళ్ళు pragma_err;
 
-    } else if (tok == TOK_comment) {
-        char *p; int t;
-        next();
+    } లేకపోతే ఒకవేళ (tok == TOK_comment) {
+        అక్షరం *p; పూర్ణాంకం t;
+        తదుపరి();
         skip('(');
         t = tok;
-        next();
+        తదుపరి();
         skip(',');
-        if (tok != TOK_STR)
-            goto pragma_err;
-        p = tcc_strdup(tokc.str.data);
-        next();
-        if (tok != ')')
-            goto pragma_err;
-        if (t == TOK_lib) {
-            dynarray_add(&s1->pragma_libs, &s1->nb_pragma_libs, p);
-        } else {
-            if (t == TOK_option)
-                tcc_set_options(s1, p);
+        ఒకవేళ (tok != TOK_STR)
+            వెళ్ళు pragma_err;
+        p = tcc_strdup(tokc.str.దత్తాంశం);
+        తదుపరి();
+        ఒకవేళ (tok != ')')
+            వెళ్ళు pragma_err;
+        ఒకవేళ (t == TOK_lib) {
+            dynarray_కూడు(&s1->pragma_libs, &s1->nb_pragma_libs, p);
+        } లేకపోతే {
+            ఒకవేళ (t == TOK_option)
+                tcc_సమితి_options(s1, p);
             tcc_free(p);
         }
 
-    } else {
+    } లేకపోతే {
         tcc_warning_c(warn_all)("#pragma %s ignored", get_tok_str(tok, &tokc));
-        return 0;
+        తిరిగి 0;
     }
-    next();
-    return 1;
+    తదుపరి();
+    తిరిగి 1;
 pragma_err:
     tcc_error("malformed #pragma directive");
 }
 
 /* put alternative filename */
-ST_FUNC void tccpp_putfile(const char *filename)
+ST_FUNC శూన్య tccpp_putfile(స్థిరరాశి అక్షరం *filename)
 {
-    char buf[1024];
+    అక్షరం buf[1024];
     buf[0] = 0;
-    if (!IS_ABSPATH(filename)) {
+    ఒకవేళ (!IS_ABSPATH(filename)) {
         /* prepend directory from real file */
-        pstrcpy(buf, sizeof buf, file->true_filename);
+        pstrcpy(buf, పరిమాణం buf, file->true_filename);
         *tcc_basename(buf) = 0;
     }
-    pstrcat(buf, sizeof buf, filename);
-#ifdef _WIN32
+    pstrcat(buf, పరిమాణం buf, filename);
+#నిర్వచితమైతే _WIN32
     normalize_slashes(buf);
-#endif
-    if (0 == strcmp(file->filename, buf))
-        return;
+#అయితే_ముగింపు
+    ఒకవేళ (0 == strcmp(file->filename, buf))
+        తిరిగి;
     //printf("new file '%s'\n", buf);
-    if (file->true_filename == file->filename)
+    ఒకవేళ (file->true_filename == file->filename)
         file->true_filename = tcc_strdup(file->filename);
-    pstrcpy(file->filename, sizeof file->filename, buf);
+    pstrcpy(file->filename, పరిమాణం file->filename, buf);
     tcc_debug_newfile(tcc_state);
 }
 
 /* is_bof is true if first non space token at beginning of file */
-ST_FUNC void preprocess(int is_bof)
+ST_FUNC శూన్య preprocess(పూర్ణాంకం is_bof)
 {
     TCCState *s1 = tcc_state;
-    int c, n, saved_parse_flags;
-    char buf[1024], *q;
+    పూర్ణాంకం c, n, saved_parse_flags;
+    అక్షరం buf[1024], *q;
     Sym *s;
 
     saved_parse_flags = parse_flags;
     parse_flags = PARSE_FLAG_PREPROCESS
-        | PARSE_FLAG_TOK_NUM
+        | PARSE_FLAG_TOK_అంకె
         | PARSE_FLAG_TOK_STR
         | PARSE_FLAG_LINEFEED
         | (parse_flags & PARSE_FLAG_ASM_FILE)
         ;
 
-    next_nomacro();
+    తదుపరి_nomacro();
  redo:
-    switch(tok) {
-    case TOK_DEFINE:
+    ఎంపిక(tok) {
+    స్థితి TOK_DEFINE:
         pp_debug_tok = tok;
-        next_nomacro();
+        తదుపరి_nomacro();
         pp_debug_symv = tok;
         parse_define();
-        break;
-    case TOK_UNDEF:
+        ఆపు;
+    స్థితి TOK_UNDEF:
         pp_debug_tok = tok;
-        next_nomacro();
+        తదుపరి_nomacro();
         pp_debug_symv = tok;
-        s = define_find(tok);
+        s = define_కనుగొను(tok);
         /* undefine symbol by putting an invalid name */
-        if (s)
+        ఒకవేళ (s)
             define_undef(s);
-        next_nomacro();
-        break;
-    case TOK_INCLUDE:
-    case TOK_INCLUDE_NEXT:
+        తదుపరి_nomacro();
+        ఆపు;
+    స్థితి TOK_INCLUDE:
+    స్థితి TOK_INCLUDE_తదుపరి:
         parse_include(s1, tok - TOK_INCLUDE, 0);
-        goto the_end;
-    case TOK_IFNDEF:
+        వెళ్ళు the_చివర;
+    స్థితి TOK_IFNDEF:
         c = 1;
-        goto do_ifdef;
-    case TOK_IF:
-        c = expr_preprocess(s1);
-        goto do_if;
-    case TOK_IFDEF:
+        వెళ్ళు do_ifdef;
+    స్థితి TOK_IF:
+        c = సమాసం_preprocess(s1);
+        వెళ్ళు do_if;
+    స్థితి TOK_IFDEF:
         c = 0;
     do_ifdef:
-        next_nomacro();
-        if (tok < TOK_IDENT)
+        తదుపరి_nomacro();
+        ఒకవేళ (tok < TOK_IDENT)
             tcc_error("invalid argument for '#if%sdef'", c ? "n" : "");
-        if (is_bof) {
-            if (c) {
-#ifdef INC_DEBUG
-                printf("#ifndef %s\n", get_tok_str(tok, NULL));
-#endif
+        ఒకవేళ (is_bof) {
+            ఒకవేళ (c) {
+#నిర్వచితమైతే INC_DEBUG
+                రాయి("#ifndef %s\n", get_tok_str(tok, ఖాళీ));
+#అయితే_ముగింపు
                 file->ifndef_macro = tok;
             }
         }
-        if (define_find(tok)
+        ఒకవేళ (define_కనుగొను(tok)
             || tok == TOK___HAS_INCLUDE
-            || tok == TOK___HAS_INCLUDE_NEXT)
+            || tok == TOK_HAS_INCLUDE_తదుపరి)
             c ^= 1;
-        next_nomacro();
+        తదుపరి_nomacro();
     do_if:
-        if (s1->ifdef_stack_ptr >= s1->ifdef_stack + IFDEF_STACK_SIZE)
+        ఒకవేళ (s1->ifdef_దొంతర_ptr >= s1->ifdef_దొంతర + IFDEF_దొంతర_కొలత)
             tcc_error("memory full (ifdef)");
-        *s1->ifdef_stack_ptr++ = c;
-        goto test_skip;
-    case TOK_ELSE:
-        next_nomacro();
-        if (s1->ifdef_stack_ptr == s1->ifdef_stack)
+        *s1->ifdef_దొంతర_ptr++ = c;
+        వెళ్ళు test_skip;
+    స్థితి TOK_ELSE:
+        తదుపరి_nomacro();
+        ఒకవేళ (s1->ifdef_దొంతర_ptr == s1->ifdef_దొంతర)
             tcc_error("#else without matching #if");
-        if (s1->ifdef_stack_ptr[-1] & 2)
+        ఒకవేళ (s1->ifdef_దొంతర_ptr[-1] & 2)
             tcc_error("#else after #else");
-        c = (s1->ifdef_stack_ptr[-1] ^= 3);
-        goto test_else;
-    case TOK_ELIF:
-        if (s1->ifdef_stack_ptr == s1->ifdef_stack)
+        c = (s1->ifdef_దొంతర_ptr[-1] ^= 3);
+        వెళ్ళు test_else;
+    స్థితి TOK_ELIF:
+        ఒకవేళ (s1->ifdef_దొంతర_ptr == s1->ifdef_దొంతర)
             tcc_error("#elif without matching #if");
-        c = s1->ifdef_stack_ptr[-1];
-        if (c > 1)
+        c = s1->ifdef_దొంతర_ptr[-1];
+        ఒకవేళ (c > 1)
             tcc_error("#elif after #else");
         /* last #if/#elif expression was true: we skip */
-        if (c == 1) {
-            skip_to_eol(0);
+        ఒకవేళ (c == 1) {
+            skip_గమ్యం_eol(0);
             c = 0;
-        } else {
-            c = expr_preprocess(s1);
-            s1->ifdef_stack_ptr[-1] = c;
+        } లేకపోతే {
+            c = సమాసం_preprocess(s1);
+            s1->ifdef_దొంతర_ptr[-1] = c;
         }
     test_else:
-        if (s1->ifdef_stack_ptr == file->ifdef_stack_ptr + 1)
+        ఒకవేళ (s1->ifdef_దొంతర_ptr == file->ifdef_దొంతర_ptr + 1)
             file->ifndef_macro = 0;
     test_skip:
-        if (!(c & 1)) {
-            skip_to_eol(1);
+        ఒకవేళ (!(c & 1)) {
+            skip_గమ్యం_eol(1);
             preprocess_skip();
             is_bof = 0;
-            goto redo;
+            వెళ్ళు redo;
         }
-        break;
-    case TOK_ENDIF:
-        next_nomacro();
-        if (s1->ifdef_stack_ptr <= file->ifdef_stack_ptr)
+        ఆపు;
+    స్థితి TOK_ENDIF:
+        తదుపరి_nomacro();
+        ఒకవేళ (s1->ifdef_దొంతర_ptr <= file->ifdef_దొంతర_ptr)
             tcc_error("#endif without matching #if");
-        s1->ifdef_stack_ptr--;
+        s1->ifdef_దొంతర_ptr--;
         /* '#ifndef macro' was at the start of file. Now we check if
            an '#endif' is exactly at the end of file */
-        if (file->ifndef_macro &&
-            s1->ifdef_stack_ptr == file->ifdef_stack_ptr) {
+        ఒకవేళ (file->ifndef_macro &&
+            s1->ifdef_దొంతర_ptr == file->ifdef_దొంతర_ptr) {
             file->ifndef_macro_saved = file->ifndef_macro;
             /* need to set to zero to avoid false matches if another
                #ifndef at middle of file */
             file->ifndef_macro = 0;
             tok_flags |= TOK_FLAG_ENDIF;
         }
-        break;
+        ఆపు;
 
-    case TOK_LINE:
-        parse_flags &= ~PARSE_FLAG_TOK_NUM;
-        next();
-        if (tok != TOK_PPNUM) {
-    _line_err:
+    స్థితి TOK_పంక్తి:
+        parse_flags &= ~PARSE_FLAG_TOK_అంకె;
+        తదుపరి();
+        ఒకవేళ (tok != TOK_PPNUM) {
+    పంక్తి_err:
             tcc_error("wrong #line format");
         }
         c = 1;
-        goto _line_num;
-    case TOK_PPNUM:
-        if (parse_flags & PARSE_FLAG_ASM_FILE)
-            goto ignore;
+        వెళ్ళు పంక్తి_అంకె_2;
+    స్థితి TOK_PPNUM:
+        ఒకవేళ (parse_flags & PARSE_FLAG_ASM_FILE)
+            వెళ్ళు ignore;
         c = 0; /* no error with extra tokens */
-    _line_num:
-        for (n = 0, q = tokc.str.data; *q; ++q) {
-            if (!isnum(*q))
-                goto _line_err;
+    పంక్తి_అంకె_2:
+        కొరకు (n = 0, q = tokc.str.దత్తాంశం; *q; ++q) {
+            ఒకవేళ (!isnum(*q))
+                వెళ్ళు పంక్తి_err;
             n = n * 10 + *q - '0';
         }
         parse_flags &= ~PARSE_FLAG_TOK_STR; /* don't parse escape sequences */
-        next();
-        if (tok != TOK_LINEFEED) {
-            if (tok != TOK_PPSTR || tokc.str.data[0] != '"')
-                goto _line_err;
-            tokc.str.data[tokc.str.size - 2] = 0;
-            tccpp_putfile(tokc.str.data + 1);
-            next();
+        తదుపరి();
+        ఒకవేళ (tok != TOK_LINEFEED) {
+            ఒకవేళ (tok != TOK_PPSTR || tokc.str.దత్తాంశం[0] != '"')
+                వెళ్ళు పంక్తి_err;
+            tokc.str.దత్తాంశం[tokc.str.కొలత - 2] = 0;
+            tccpp_putfile(tokc.str.దత్తాంశం + 1);
+            తదుపరి();
             /* skip optional level number & advance to next line */
-            skip_to_eol(c);
+            skip_గమ్యం_eol(c);
         }
-        if (file->fd > 0)
-            total_lines += file->line_num - n;
-        file->line_num = n;
-        break;
+        ఒకవేళ (file->fd > 0)
+            మొత్తం_పంక్తులు += file->పంక్తి_అంకె - n;
+        file->పంక్తి_అంకె = n;
+        ఆపు;
 
-    case TOK_ERROR:
-    case TOK_WARNING:
+    స్థితి TOK_ERROR:
+    స్థితి TOK_WARNING:
     {
         q = buf;
         c = skip_spaces();
-        while (c != '\n' && c != CH_EOF) {
-            if ((q - buf) < sizeof(buf) - 1)
+        అయితే (c != '\n' && c != CH_EOF) {
+            ఒకవేళ ((q - buf) < పరిమాణం(buf) - 1)
                 *q++ = c;
             c = ninp();
         }
         *q = '\0';
-        if (tok == TOK_ERROR)
+        ఒకవేళ (tok == TOK_ERROR)
             tcc_error("#error %s", buf);
-        else
+        లేకపోతే
             tcc_warning("#warning %s", buf);
-        next_nomacro();
-        break;
+        తదుపరి_nomacro();
+        ఆపు;
     }
-    case TOK_PRAGMA:
-        if (!pragma_parse(s1))
-            goto ignore;
-        break;
-    case TOK_LINEFEED:
-        goto the_end;
-    default:
+    స్థితి TOK_PRAGMA:
+        ఒకవేళ (!pragma_parse(s1))
+            వెళ్ళు ignore;
+        ఆపు;
+    స్థితి TOK_LINEFEED:
+        వెళ్ళు the_చివర;
+    అప్రమేయ:
         /* ignore gas line comment in an 'S' file. */
-        if (saved_parse_flags & PARSE_FLAG_ASM_FILE)
-            goto ignore;
-        if (tok == '!' && is_bof)
+        ఒకవేళ (saved_parse_flags & PARSE_FLAG_ASM_FILE)
+            వెళ్ళు ignore;
+        ఒకవేళ (tok == '!' && is_bof)
             /* '#!' is ignored at beginning to allow C scripts. */
-            goto ignore;
+            వెళ్ళు ignore;
         tcc_warning("ignoring unknown preprocessing directive #%s", get_tok_str(tok, &tokc));
     ignore:
-        skip_to_eol(0);
-        goto the_end;
+        skip_గమ్యం_eol(0);
+        వెళ్ళు the_చివర;
     }
-    skip_to_eol(1);
- the_end:
+    skip_గమ్యం_eol(1);
+ the_చివర:
     parse_flags = saved_parse_flags;
 }
 
 /* evaluate escape codes in a string. */
-static void parse_escape_string(CString *outstr, const uint8_t *buf, int is_long)
+స్థిర శూన్య parse_escape_string(CString *outstr, స్థిరరాశి uint8_t *buf, పూర్ణాంకం is_long)
 {
-    int c, n, i;
-    const uint8_t *p;
+    పూర్ణాంకం c, n, i;
+    స్థిరరాశి uint8_t *p;
 
     p = buf;
-    for(;;) {
+    కొరకు(;;) {
         c = *p;
-        if (c == '\0')
-            break;
-        if (c == '\\') {
+        ఒకవేళ (c == '\0')
+            ఆపు;
+        ఒకవేళ (c == '\\') {
             p++;
             /* escape */
             c = *p;
-            switch(c) {
-            case '0': case '1': case '2': case '3':
-            case '4': case '5': case '6': case '7':
+            ఎంపిక(c) {
+            స్థితి '0': స్థితి '1': స్థితి '2': స్థితి '3':
+            స్థితి '4': స్థితి '5': స్థితి '6': స్థితి '7':
                 /* at most three octal digits */
                 n = c - '0';
                 p++;
                 c = *p;
-                if (isoct(c)) {
+                ఒకవేళ (isoct(c)) {
                     n = n * 8 + c - '0';
                     p++;
                     c = *p;
-                    if (isoct(c)) {
+                    ఒకవేళ (isoct(c)) {
                         n = n * 8 + c - '0';
                         p++;
                     }
                 }
                 c = n;
-                goto add_char_nonext;
-            case 'x': i = 0; goto parse_hex_or_ucn;
-            case 'u': i = 4; goto parse_hex_or_ucn;
-            case 'U': i = 8; goto parse_hex_or_ucn;
+                వెళ్ళు కూడు_char_nonext;
+            స్థితి 'x': i = 0; వెళ్ళు parse_hex_or_ucn;
+            స్థితి 'u': i = 4; వెళ్ళు parse_hex_or_ucn;
+            స్థితి 'U': i = 8; వెళ్ళు parse_hex_or_ucn;
     parse_hex_or_ucn:
                 p++;
                 n = 0;
-                do {
+                చేయి {
                     c = *p;
-                    if (c >= 'a' && c <= 'f')
+                    ఒకవేళ (c >= 'a' && c <= 'f')
                         c = c - 'a' + 10;
-                    else if (c >= 'A' && c <= 'F')
+                    లేకపోతే ఒకవేళ (c >= 'A' && c <= 'F')
                         c = c - 'A' + 10;
-                    else if (isnum(c))
+                    లేకపోతే ఒకవేళ (isnum(c))
                         c = c - '0';
-                    else if (i >= 0)
+                    లేకపోతే ఒకవేళ (i >= 0)
                         expect("more hex digits in universal-character-name");
-                    else
-                        goto add_hex_or_ucn;
-                    n = (unsigned) n * 16 + c;
+                    లేకపోతే
+                        వెళ్ళు కూడు_hex_or_ucn;
+                    n = (గుర్తులేని) n * 16 + c;
                     p++;
-                } while (--i);
-		if (is_long) {
-    add_hex_or_ucn:
+                } అయితే (--i);
+		ఒకవేళ (is_long) {
+    కూడు_hex_or_ucn:
                     c = n;
-		    goto add_char_nonext;
+		    వెళ్ళు కూడు_char_nonext;
 		}
                 cstr_u8cat(outstr, n);
-                continue;
-            case 'a':
+                కొనసాగు;
+            స్థితి 'a':
                 c = '\a';
-                break;
-            case 'b':
+                ఆపు;
+            స్థితి 'b':
                 c = '\b';
-                break;
-            case 'f':
+                ఆపు;
+            స్థితి 'f':
                 c = '\f';
-                break;
-            case 'n':
+                ఆపు;
+            స్థితి 'n':
                 c = '\n';
-                break;
-            case 'r':
+                ఆపు;
+            స్థితి 'r':
                 c = '\r';
-                break;
-            case 't':
+                ఆపు;
+            స్థితి 't':
                 c = '\t';
-                break;
-            case 'v':
+                ఆపు;
+            స్థితి 'v':
                 c = '\v';
-                break;
-            case 'e':
-                if (!gnu_ext)
-                    goto invalid_escape;
+                ఆపు;
+            స్థితి 'e':
+                ఒకవేళ (!gnu_ext)
+                    వెళ్ళు invalid_escape;
                 c = 27;
-                break;
-            case '\'':
-            case '\"':
-            case '\\': 
-            case '?':
-                break;
-            default:
+                ఆపు;
+            స్థితి '\'':
+            స్థితి '\"':
+            స్థితి '\\': 
+            స్థితి '?':
+                ఆపు;
+            అప్రమేయ:
             invalid_escape:
-                if (c >= '!' && c <= '~')
+                ఒకవేళ (c >= '!' && c <= '~')
                     tcc_warning("unknown escape sequence: \'\\%c\'", c);
-                else
+                లేకపోతే
                     tcc_warning("unknown escape sequence: \'\\x%x\'", c);
-                break;
+                ఆపు;
             }
-        } else if (is_long && c >= 0x80) {
+        } లేకపోతే ఒకవేళ (is_long && c >= 0x80) {
             /* assume we are processing UTF-8 sequence */
             /* reference: The Unicode Standard, Version 10.0, ch3.9 */
 
-            int cont; /* count of continuation bytes */
-            int skip; /* how many bytes should skip when error occurred */
-            int i;
+            పూర్ణాంకం cont; /* count of continuation bytes */
+            పూర్ణాంకం skip; /* how many bytes should skip when error occurred */
+            పూర్ణాంకం i;
 
             /* decode leading byte */
-            if (c < 0xC2) {
-	            skip = 1; goto invalid_utf8_sequence;
-            } else if (c <= 0xDF) {
+            ఒకవేళ (c < 0xC2) {
+	            skip = 1; వెళ్ళు invalid_utf8_sequence;
+            } లేకపోతే ఒకవేళ (c <= 0xDF) {
 	            cont = 1; n = c & 0x1f;
-            } else if (c <= 0xEF) {
+            } లేకపోతే ఒకవేళ (c <= 0xEF) {
 	            cont = 2; n = c & 0xf;
-            } else if (c <= 0xF4) {
+            } లేకపోతే ఒకవేళ (c <= 0xF4) {
 	            cont = 3; n = c & 0x7;
-            } else {
-	            skip = 1; goto invalid_utf8_sequence;
+            } లేకపోతే {
+	            skip = 1; వెళ్ళు invalid_utf8_sequence;
             }
 
             /* decode continuation bytes */
-            for (i = 1; i <= cont; i++) {
-                int l = 0x80, h = 0xBF;
+            కొరకు (i = 1; i <= cont; i++) {
+                పూర్ణాంకం l = 0x80, h = 0xBF;
 
                 /* adjust limit for second byte */
-                if (i == 1) {
-                    switch (c) {
-                    case 0xE0: l = 0xA0; break;
-                    case 0xED: h = 0x9F; break;
-                    case 0xF0: l = 0x90; break;
-                    case 0xF4: h = 0x8F; break;
+                ఒకవేళ (i == 1) {
+                    ఎంపిక (c) {
+                    స్థితి 0xE0: l = 0xA0; ఆపు;
+                    స్థితి 0xED: h = 0x9F; ఆపు;
+                    స్థితి 0xF0: l = 0x90; ఆపు;
+                    స్థితి 0xF4: h = 0x8F; ఆపు;
                     }
                 }
 
-                if (p[i] < l || p[i] > h) {
-                    skip = i; goto invalid_utf8_sequence;
+                ఒకవేళ (p[i] < l || p[i] > h) {
+                    skip = i; వెళ్ళు invalid_utf8_sequence;
                 }
 
                 n = (n << 6) | (p[i] & 0x3f);
@@ -2128,140 +2128,140 @@ static void parse_escape_string(CString *outstr, const uint8_t *buf, int is_long
             /* advance pointer */
             p += 1 + cont;
             c = n;
-            goto add_char_nonext;
+            వెళ్ళు కూడు_char_nonext;
 
             /* error handling */
         invalid_utf8_sequence:
             tcc_warning("ill-formed UTF-8 subsequence starting with: \'\\x%x\'", c);
             c = 0xFFFD;
             p += skip;
-            goto add_char_nonext;
+            వెళ్ళు కూడు_char_nonext;
 
         }
         p++;
-    add_char_nonext:
-        if (!is_long)
+    కూడు_char_nonext:
+        ఒకవేళ (!is_long)
             cstr_ccat(outstr, c);
-        else {
-#ifdef TCC_TARGET_PE
+        లేకపోతే {
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
             /* store as UTF-16 */
-            if (c < 0x10000) {
+            ఒకవేళ (c < 0x10000) {
                 cstr_wccat(outstr, c);
-            } else {
+            } లేకపోతే {
                 c -= 0x10000;
                 cstr_wccat(outstr, (c >> 10) + 0xD800);
                 cstr_wccat(outstr, (c & 0x3FF) + 0xDC00);
             }
-#else
+#లేకపోతే
             cstr_wccat(outstr, c);
-#endif
+#అయితే_ముగింపు
         }
     }
     /* add a trailing '\0' */
-    if (!is_long)
+    ఒకవేళ (!is_long)
         cstr_ccat(outstr, '\0');
-    else
+    లేకపోతే
         cstr_wccat(outstr, '\0');
 }
 
-static void parse_string(const char *s, int len)
+స్థిర శూన్య parse_string(స్థిరరాశి అక్షరం *s, పూర్ణాంకం len)
 {
     uint8_t buf[1000], *p = buf;
-    int is_long, sep;
+    పూర్ణాంకం is_long, sep;
 
-    if ((is_long = *s == 'L'))
+    ఒకవేళ ((is_long = *s == 'L'))
         ++s, --len;
     sep = *s++;
     len -= 2;
-    if (len >= sizeof buf)
+    ఒకవేళ (len >= పరిమాణం buf)
         p = tcc_malloc(len + 1);
-    memcpy(p, s, len);
+    జ్ఞాపకం_నకలు(p, s, len);
     p[len] = 0;
 
     cstr_reset(&tokcstr);
     parse_escape_string(&tokcstr, p, is_long);
-    if (p != buf)
+    ఒకవేళ (p != buf)
         tcc_free(p);
 
-    if (sep == '\'') {
-        int char_size, i, n, c;
+    ఒకవేళ (sep == '\'') {
+        పూర్ణాంకం char_కొలత, i, n, c;
         /* XXX: make it portable */
-        if (!is_long)
-            tok = TOK_CCHAR, char_size = 1;
-        else
-            tok = TOK_LCHAR, char_size = sizeof(nwchar_t);
-        n = tokcstr.size / char_size - 1;
-        if (n < 1)
+        ఒకవేళ (!is_long)
+            tok = TOK_CCHAR, char_కొలత = 1;
+        లేకపోతే
+            tok = TOK_LCHAR, char_కొలత = పరిమాణం(nwchar_t);
+        n = tokcstr.కొలత / char_కొలత - 1;
+        ఒకవేళ (n < 1)
             tcc_error("empty character constant");
-        if (n > 1)
+        ఒకవేళ (n > 1)
             tcc_warning_c(warn_all)("multi-character character constant");
-        for (c = i = 0; i < n; ++i) {
-            if (is_long)
-                c = ((nwchar_t *)tokcstr.data)[i];
-            else
-                c = (c << 8) | ((char *)tokcstr.data)[i];
+        కొరకు (c = i = 0; i < n; ++i) {
+            ఒకవేళ (is_long)
+                c = ((nwchar_t *)tokcstr.దత్తాంశం)[i];
+            లేకపోతే
+                c = (c << 8) | ((అక్షరం *)tokcstr.దత్తాంశం)[i];
         }
         tokc.i = c;
-    } else {
-        tokc.str.size = tokcstr.size;
-        tokc.str.data = tokcstr.data;
-        if (!is_long)
+    } లేకపోతే {
+        tokc.str.కొలత = tokcstr.కొలత;
+        tokc.str.దత్తాంశం = tokcstr.దత్తాంశం;
+        ఒకవేళ (!is_long)
             tok = TOK_STR;
-        else
+        లేకపోతే
             tok = TOK_LSTR;
     }
 }
 
 /* we use 128 bit (64/112 needed) numbers */
-#define BN_SIZE 4
+#నిర్వచించు BN_కొలత 4
 
 /* bn = (bn << shift) | or_val */
-static int bn_lshift(unsigned int *bn, int shift, int or_val)
+స్థిర పూర్ణాంకం bn_lshift(గుర్తులేని పూర్ణాంకం *bn, పూర్ణాంకం జరుపు, పూర్ణాంకం or_val)
 {
-    int i;
-    unsigned int v;
-    if (bn[BN_SIZE - 1] >> (32 - shift))
-	return shift;
-    for(i=0;i<BN_SIZE;i++) {
+    పూర్ణాంకం i;
+    గుర్తులేని పూర్ణాంకం v;
+    ఒకవేళ (bn[BN_కొలత - 1] >> (32 - జరుపు))
+	తిరిగి జరుపు;
+    కొరకు(i=0;i<BN_కొలత;i++) {
         v = bn[i];
-        bn[i] = (v << shift) | or_val;
-        or_val = v >> (32 - shift);
+        bn[i] = (v << జరుపు) | or_val;
+        or_val = v >> (32 - జరుపు);
     }
-    return 0;
+    తిరిగి 0;
 }
 
-static void bn_zero(unsigned int *bn)
+స్థిర శూన్య bn_zero(గుర్తులేని పూర్ణాంకం *bn)
 {
-    int i;
-    for(i=0;i<BN_SIZE;i++) {
+    పూర్ణాంకం i;
+    కొరకు(i=0;i<BN_కొలత;i++) {
         bn[i] = 0;
     }
 }
 
 /* parse number in null terminated string 'p' and return it in the
    current token */
-static void parse_number(const char *p)
+స్థిర శూన్య parse_సంఖ్య(స్థిరరాశి అక్షరం *p)
 {
-    int b, t, shift, frac_bits, s, exp_val, ch;
-    char *q;
-    unsigned int bn[BN_SIZE];
-    long double d;
+    పూర్ణాంకం b, t, జరుపు, frac_బిట్లు, s, exp_val, ch;
+    అక్షరం *q;
+    గుర్తులేని పూర్ణాంకం bn[BN_కొలత];
+    దీర్ఘ ద్విగుణ d;
 
-    /* number */
+    /*సంఖ్య*/
     q = token_buf;
     ch = *p++;
     t = ch;
     ch = *p++;
     *q++ = t;
     b = 10;
-    if (t == '.') {
-        goto float_frac_parse;
-    } else if (t == '0') {
-        if (ch == 'x' || ch == 'X') {
+    ఒకవేళ (t == '.') {
+        వెళ్ళు float_frac_parse;
+    } లేకపోతే ఒకవేళ (t == '0') {
+        ఒకవేళ (ch == 'x' || ch == 'X') {
             q--;
             ch = *p++;
             b = 16;
-        } else if (tcc_state->tcc_ext && (ch == 'b' || ch == 'B')) {
+        } లేకపోతే ఒకవేళ (tcc_state->tcc_ext && (ch == 'b' || ch == 'B')) {
             q--;
             ch = *p++;
             b = 2;
@@ -2269,90 +2269,90 @@ static void parse_number(const char *p)
     }
     /* parse all digits. cannot check octal numbers at this stage
        because of floating point constants */
-    while (1) {
-        if (ch >= 'a' && ch <= 'f')
+    అయితే (1) {
+        ఒకవేళ (ch >= 'a' && ch <= 'f')
             t = ch - 'a' + 10;
-        else if (ch >= 'A' && ch <= 'F')
+        లేకపోతే ఒకవేళ (ch >= 'A' && ch <= 'F')
             t = ch - 'A' + 10;
-        else if (isnum(ch))
+        లేకపోతే ఒకవేళ (isnum(ch))
             t = ch - '0';
-        else
-            break;
-        if (t >= b)
-            break;
-        if (q >= token_buf + STRING_MAX_SIZE) {
-        num_too_long:
+        లేకపోతే
+            ఆపు;
+        ఒకవేళ (t >= b)
+            ఆపు;
+        ఒకవేళ (q >= token_buf + STRING_MAX_కొలత) {
+        అంకె_too_long:
             tcc_error("number too long");
         }
         *q++ = ch;
         ch = *p++;
     }
-    if (ch == '.' ||
+    ఒకవేళ (ch == '.' ||
         ((ch == 'e' || ch == 'E') && b == 10) ||
         ((ch == 'p' || ch == 'P') && (b == 16 || b == 2))) {
-        if (b != 10) {
+        ఒకవేళ (b != 10) {
             /* NOTE: strtox should support that for hexa numbers, but
                non ISOC99 libcs do not support it, so we prefer to do
                it by hand */
             /* hexadecimal or binary floats */
             /* XXX: handle overflows */
-            frac_bits = 0;
+            frac_బిట్లు = 0;
             *q = '\0';
-            if (b == 16)
-                shift = 4;
-            else 
-                shift = 1;
+            ఒకవేళ (b == 16)
+                జరుపు = 4;
+            లేకపోతే 
+                జరుపు = 1;
             bn_zero(bn);
             q = token_buf;
-            while (1) {
+            అయితే (1) {
                 t = *q++;
-                if (t == '\0') {
-                    break;
-                } else if (t >= 'a') {
+                ఒకవేళ (t == '\0') {
+                    ఆపు;
+                } లేకపోతే ఒకవేళ (t >= 'a') {
                     t = t - 'a' + 10;
-                } else if (t >= 'A') {
+                } లేకపోతే ఒకవేళ (t >= 'A') {
                     t = t - 'A' + 10;
-                } else {
+                } లేకపోతే {
                     t = t - '0';
                 }
-                frac_bits -= bn_lshift(bn, shift, t);
+                frac_బిట్లు -= bn_lshift(bn, జరుపు, t);
             }
-            if (ch == '.') {
+            ఒకవేళ (ch == '.') {
                 ch = *p++;
-                while (1) {
+                అయితే (1) {
                     t = ch;
-                    if (t >= 'a' && t <= 'f') {
+                    ఒకవేళ (t >= 'a' && t <= 'f') {
                         t = t - 'a' + 10;
-                    } else if (t >= 'A' && t <= 'F') {
+                    } లేకపోతే ఒకవేళ (t >= 'A' && t <= 'F') {
                         t = t - 'A' + 10;
-                    } else if (t >= '0' && t <= '9') {
+                    } లేకపోతే ఒకవేళ (t >= '0' && t <= '9') {
                         t = t - '0';
-                    } else {
-                        break;
+                    } లేకపోతే {
+                        ఆపు;
                     }
-                    if (t >= b)
+                    ఒకవేళ (t >= b)
                         tcc_error("invalid digit");
-                    frac_bits -= bn_lshift(bn, shift, t);
-                    frac_bits += shift;
+                    frac_బిట్లు -= bn_lshift(bn, జరుపు, t);
+                    frac_బిట్లు += జరుపు;
                     ch = *p++;
                 }
             }
-            if (ch != 'p' && ch != 'P')
+            ఒకవేళ (ch != 'p' && ch != 'P')
                 expect("exponent");
             ch = *p++;
             s = 1;
             exp_val = 0;
-            if (ch == '+') {
+            ఒకవేళ (ch == '+') {
                 ch = *p++;
-            } else if (ch == '-') {
+            } లేకపోతే ఒకవేళ (ch == '-') {
                 s = -1;
                 ch = *p++;
             }
-            if (ch < '0' || ch > '9')
+            ఒకవేళ (ch < '0' || ch > '9')
                 expect("exponent digits");
-            while (ch >= '0' && ch <= '9') {
+            అయితే (ch >= '0' && ch <= '9') {
 		/* If exp_val is this large ldexp will return HUGE_VAL */
-		if (exp_val < 100000000)
+		ఒకవేళ (exp_val < 100000000)
                     exp_val = exp_val * 10 + ch - '0';
                 ch = *p++;
             }
@@ -2360,56 +2360,56 @@ static void parse_number(const char *p)
 
             /* now we can generate the number */
             /* XXX: should patch directly float number */
-            d = (long double)bn[3] * 79228162514264337593543950336.0L +
-	        (long double)bn[2] * 18446744073709551616.0L +
-	        (long double)bn[1] * 4294967296.0L +
-	        (long double)bn[0];
-            d = ldexpl(d, exp_val - frac_bits);
+            d = (దీర్ఘ ద్విగుణ)bn[3] * 79228162514264337593543950336.0L +
+	        (దీర్ఘ ద్విగుణ)bn[2] * 18446744073709551616.0L +
+	        (దీర్ఘ ద్విగుణ)bn[1] * 4294967296.0L +
+	        (దీర్ఘ ద్విగుణ)bn[0];
+            d = ldexpl(d, exp_val - frac_బిట్లు);
             t = toup(ch);
-            if (t == 'F') {
+            ఒకవేళ (t == 'F') {
                 ch = *p++;
                 tok = TOK_CFLOAT;
                 /* float : should handle overflow */
-                tokc.f = (float)d;
-            } else if (t == 'L') {
+                tokc.f = (దశాంశం)d;
+            } లేకపోతే ఒకవేళ (t == 'L') {
                 ch = *p++;
                 tok = TOK_CLDOUBLE;
                 tokc.ld = d;
-            } else {
+            } లేకపోతే {
                 tok = TOK_CDOUBLE;
-                tokc.d = (double)d;
+                tokc.d = (ద్విగుణ)d;
             }
-        } else {
+        } లేకపోతే {
             /* decimal floats */
-            if (ch == '.') {
-                if (q >= token_buf + STRING_MAX_SIZE)
-                    goto num_too_long;
+            ఒకవేళ (ch == '.') {
+                ఒకవేళ (q >= token_buf + STRING_MAX_కొలత)
+                    వెళ్ళు అంకె_too_long;
                 *q++ = ch;
                 ch = *p++;
             float_frac_parse:
-                while (ch >= '0' && ch <= '9') {
-                    if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                అయితే (ch >= '0' && ch <= '9') {
+                    ఒకవేళ (q >= token_buf + STRING_MAX_కొలత)
+                        వెళ్ళు అంకె_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
             }
-            if (ch == 'e' || ch == 'E') {
-                if (q >= token_buf + STRING_MAX_SIZE)
-                    goto num_too_long;
+            ఒకవేళ (ch == 'e' || ch == 'E') {
+                ఒకవేళ (q >= token_buf + STRING_MAX_కొలత)
+                    వెళ్ళు అంకె_too_long;
                 *q++ = ch;
                 ch = *p++;
-                if (ch == '-' || ch == '+') {
-                    if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                ఒకవేళ (ch == '-' || ch == '+') {
+                    ఒకవేళ (q >= token_buf + STRING_MAX_కొలత)
+                        వెళ్ళు అంకె_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
-                if (ch < '0' || ch > '9')
+                ఒకవేళ (ch < '0' || ch > '9')
                     expect("exponent digits");
-                while (ch >= '0' && ch <= '9') {
-                    if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                అయితే (ch >= '0' && ch <= '9') {
+                    ఒకవేళ (q >= token_buf + STRING_MAX_కొలత)
+                        వెళ్ళు అంకె_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
@@ -2417,49 +2417,49 @@ static void parse_number(const char *p)
             *q = '\0';
             t = toup(ch);
             errno = 0;
-            if (t == 'F') {
+            ఒకవేళ (t == 'F') {
                 ch = *p++;
                 tok = TOK_CFLOAT;
-                tokc.f = strtof(token_buf, NULL);
-            } else if (t == 'L') {
+                tokc.f = strtof(token_buf, ఖాళీ);
+            } లేకపోతే ఒకవేళ (t == 'L') {
                 ch = *p++;
                 tok = TOK_CLDOUBLE;
-                tokc.ld = strtold(token_buf, NULL);
-            } else {
+                tokc.ld = strtold(token_buf, ఖాళీ);
+            } లేకపోతే {
                 tok = TOK_CDOUBLE;
-                tokc.d = strtod(token_buf, NULL);
+                tokc.d = strtod(token_buf, ఖాళీ);
             }
         }
-    } else {
-        unsigned long long n, n1;
-        int lcount, ucount, ov = 0;
-        const char *p1;
+    } లేకపోతే {
+        గుర్తులేని దీర్ఘ దీర్ఘ n, n1;
+        పూర్ణాంకం lcount, ucount, ov = 0;
+        స్థిరరాశి అక్షరం *p1;
 
         /* integer number */
         *q = '\0';
         q = token_buf;
-        if (b == 10 && *q == '0') {
+        ఒకవేళ (b == 10 && *q == '0') {
             b = 8;
             q++;
         }
         n = 0;
-        while(1) {
+        అయితే(1) {
             t = *q++;
             /* no need for checks except for base 10 / 8 errors */
-            if (t == '\0')
-                break;
-            else if (t >= 'a')
+            ఒకవేళ (t == '\0')
+                ఆపు;
+            లేకపోతే ఒకవేళ (t >= 'a')
                 t = t - 'a' + 10;
-            else if (t >= 'A')
+            లేకపోతే ఒకవేళ (t >= 'A')
                 t = t - 'A' + 10;
-            else
+            లేకపోతే
                 t = t - '0';
-            if (t >= b)
+            ఒకవేళ (t >= b)
                 tcc_error("invalid digit");
             n1 = n;
             n = n * b + t;
             /* detect overflow */
-            if (n1 >= 0x1000000000000000ULL && n / b != n1)
+            ఒకవేళ (n1 >= 0x1000000000000000ULL && n / b != n1)
                 ov = 1;
         }
 
@@ -2467,131 +2467,131 @@ static void parse_number(const char *p)
            the constant must have according to the constant suffix(es) */
         lcount = ucount = 0;
         p1 = p;
-        for(;;) {
+        కొరకు(;;) {
             t = toup(ch);
-            if (t == 'L') {
-                if (lcount >= 2)
+            ఒకవేళ (t == 'L') {
+                ఒకవేళ (lcount >= 2)
                     tcc_error("three 'l's in integer constant");
-                if (lcount && *(p - 1) != ch)
+                ఒకవేళ (lcount && *(p - 1) != ch)
                     tcc_error("incorrect integer suffix: %s", p1);
                 lcount++;
                 ch = *p++;
-            } else if (t == 'U') {
-                if (ucount >= 1)
+            } లేకపోతే ఒకవేళ (t == 'U') {
+                ఒకవేళ (ucount >= 1)
                     tcc_error("two 'u's in integer constant");
                 ucount++;
                 ch = *p++;
-            } else {
-                break;
+            } లేకపోతే {
+                ఆపు;
             }
         }
 
         /* in #if/#elif expressions, all numbers have type (u)intmax_t anyway */
-        if (pp_expr)
+        ఒకవేళ (pp_సమాసం)
             lcount = 2;
 
         /* Determine if it needs 64 bits and/or unsigned in order to fit */
-        if (ucount == 0 && b == 10) {
-            if (lcount <= (LONG_SIZE == 4)) {
-                if (n >= 0x80000000U)
-                    lcount = (LONG_SIZE == 4) + 1;
+        ఒకవేళ (ucount == 0 && b == 10) {
+            ఒకవేళ (lcount <= (LONG_కొలత == 4)) {
+                ఒకవేళ (n >= 0x80000000U)
+                    lcount = (LONG_కొలత == 4) + 1;
             }
-            if (n >= 0x8000000000000000ULL)
+            ఒకవేళ (n >= 0x8000000000000000ULL)
                 ov = 1, ucount = 1;
-        } else {
-            if (lcount <= (LONG_SIZE == 4)) {
-                if (n >= 0x100000000ULL)
-                    lcount = (LONG_SIZE == 4) + 1;
-                else if (n >= 0x80000000U)
+        } లేకపోతే {
+            ఒకవేళ (lcount <= (LONG_కొలత == 4)) {
+                ఒకవేళ (n >= 0x100000000ULL)
+                    lcount = (LONG_కొలత == 4) + 1;
+                లేకపోతే ఒకవేళ (n >= 0x80000000U)
                     ucount = 1;
             }
-            if (n >= 0x8000000000000000ULL)
+            ఒకవేళ (n >= 0x8000000000000000ULL)
                 ucount = 1;
         }
 
-        if (ov)
+        ఒకవేళ (ov)
             tcc_warning("integer constant overflow");
 
         tok = TOK_CINT;
-	if (lcount) {
+	ఒకవేళ (lcount) {
             tok = TOK_CLONG;
-            if (lcount == 2)
+            ఒకవేళ (lcount == 2)
                 tok = TOK_CLLONG;
 	}
-	if (ucount)
+	ఒకవేళ (ucount)
 	    ++tok; /* TOK_CU... */
         tokc.i = n;
     }
-    if (ch)
+    ఒకవేళ (ch)
         tcc_error("invalid number");
 }
 
 
-#define PARSE2(c1, tok1, c2, tok2)              \
-    case c1:                                    \
+#నిర్వచించు PARSE2(c1, tok1, c2, tok2)              \
+    స్థితి c1:                                    \
         PEEKC(c, p);                            \
-        if (c == c2) {                          \
+        ఒకవేళ (c == c2) {                          \
             p++;                                \
             tok = tok2;                         \
-        } else {                                \
+        } లేకపోతే {                                \
             tok = tok1;                         \
         }                                       \
-        break;
+        ఆపు;
 
 /* return next token without macro substitution */
-static void next_nomacro(void)
+స్థిర శూన్య తదుపరి_nomacro(శూన్య)
 {
-    int t, c, is_long, len;
+    పూర్ణాంకం t, c, is_long, len;
     TokenSym *ts;
     uint8_t *p, *p1;
-    unsigned int h;
+    గుర్తులేని పూర్ణాంకం h;
 
     p = file->buf_ptr;
- redo_no_start:
+ redo_no_ప్రారంభం:
     c = *p;
-    switch(c) {
-    case ' ':
-    case '\t':
+    ఎంపిక(c) {
+    స్థితి ' ':
+    స్థితి '\t':
         tok = c;
         p++;
  maybe_space:
-        if (parse_flags & PARSE_FLAG_SPACES)
-            goto keep_tok_flags;
-        while (isidnum_table[*p - CH_EOF] & IS_SPC)
+        ఒకవేళ (parse_flags & PARSE_FLAG_SPACES)
+            వెళ్ళు keep_tok_flags;
+        అయితే (isidnum_పట్టిక[*p - CH_EOF] & IS_SPC)
             ++p;
-        goto redo_no_start;
-    case '\f':
-    case '\v':
-    case '\r':
+        వెళ్ళు redo_no_ప్రారంభం;
+    స్థితి '\f':
+    స్థితి '\v':
+    స్థితి '\r':
         p++;
-        goto redo_no_start;
-    case '\\':
+        వెళ్ళు redo_no_ప్రారంభం;
+    స్థితి '\\':
         /* first look if it is in fact an end of buffer */
         c = handle_stray(&p);
-        if (c == '\\')
-            goto parse_simple;
-        if (c == CH_EOF) {
+        ఒకవేళ (c == '\\')
+            వెళ్ళు parse_simple;
+        ఒకవేళ (c == CH_EOF) {
             TCCState *s1 = tcc_state;
-            if (!(tok_flags & TOK_FLAG_BOL)) {
+            ఒకవేళ (!(tok_flags & TOK_FLAG_BOL)) {
                 /* add implicit newline */
-                goto maybe_newline;
-            } else if (!(parse_flags & PARSE_FLAG_PREPROCESS)) {
+                వెళ్ళు maybe_newline;
+            } లేకపోతే ఒకవేళ (!(parse_flags & PARSE_FLAG_PREPROCESS)) {
                 tok = TOK_EOF;
-            } else if (s1->ifdef_stack_ptr != file->ifdef_stack_ptr) {
+            } లేకపోతే ఒకవేళ (s1->ifdef_దొంతర_ptr != file->ifdef_దొంతర_ptr) {
                 tcc_error("missing #endif");
-            } else if (s1->include_stack_ptr == s1->include_stack) {
+            } లేకపోతే ఒకవేళ (s1->include_దొంతర_ptr == s1->include_దొంతర) {
                 /* no include left : end of file. */
                 tok = TOK_EOF;
-            } else {
+            } లేకపోతే {
                 /* pop include file */
 
                 /* test if previous '#endif' was after a #ifdef at
                    start of file */
-                if (tok_flags & TOK_FLAG_ENDIF) {
-#ifdef INC_DEBUG
-                    printf("#endif %s\n", get_tok_str(file->ifndef_macro_saved, NULL));
-#endif
-                    search_cached_include(s1, file->true_filename, 1)
+                ఒకవేళ (tok_flags & TOK_FLAG_ENDIF) {
+#నిర్వచితమైతే INC_DEBUG
+                    రాయి("#endif %s\n", get_tok_str(file->ifndef_macro_saved, ఖాళీ));
+#అయితే_ముగింపు
+                    శోధన_cached_include(s1, file->true_filename, 1)
                         ->ifndef_macro = file->ifndef_macro_saved;
                     tok_flags &= ~TOK_FLAG_ENDIF;
                 }
@@ -2600,284 +2600,284 @@ static void next_nomacro(void)
                 tcc_debug_eincl(tcc_state);
                 /* pop include stack */
                 tcc_close();
-                s1->include_stack_ptr--;
+                s1->include_దొంతర_ptr--;
                 p = file->buf_ptr;
-                goto maybe_newline;
+                వెళ్ళు maybe_newline;
             }
-        } else {
-            goto redo_no_start;
+        } లేకపోతే {
+            వెళ్ళు redo_no_ప్రారంభం;
         }
-        break;
+        ఆపు;
 
-    case '\n':
-        file->line_num++;
+    స్థితి '\n':
+        file->పంక్తి_అంకె++;
         p++;
 maybe_newline:
         tok_flags |= TOK_FLAG_BOL;
-        if (0 == (parse_flags & PARSE_FLAG_LINEFEED))
-            goto redo_no_start;
+        ఒకవేళ (0 == (parse_flags & PARSE_FLAG_LINEFEED))
+            వెళ్ళు redo_no_ప్రారంభం;
         tok = TOK_LINEFEED;
-        goto keep_tok_flags;
+        వెళ్ళు keep_tok_flags;
 
-    case '#':
+    స్థితి '#':
         /* XXX: simplify */
         PEEKC(c, p);
-        if ((tok_flags & TOK_FLAG_BOL) && 
+        ఒకవేళ ((tok_flags & TOK_FLAG_BOL) && 
             (parse_flags & PARSE_FLAG_PREPROCESS)) {
             tok_flags &= ~TOK_FLAG_BOL;
             file->buf_ptr = p;
             preprocess(tok_flags & TOK_FLAG_BOF);
             p = file->buf_ptr;
-            goto maybe_newline;
-        } else {
-            if (c == '#') {
+            వెళ్ళు maybe_newline;
+        } లేకపోతే {
+            ఒకవేళ (c == '#') {
                 p++;
                 tok = TOK_TWOSHARPS;
-            } else {
-#if !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64)
-                if (parse_flags & PARSE_FLAG_ASM_FILE) {
-                    p = parse_line_comment(p - 1);
-                    goto redo_no_start;
-                } else
-#endif
+            } లేకపోతే {
+#ఒకవేళ !defined(TCC_లక్ష్యం_ARM) && !defined(TCC_లక్ష్యం_ARM64)
+                ఒకవేళ (parse_flags & PARSE_FLAG_ASM_FILE) {
+                    p = parse_పంక్తి_comment(p - 1);
+                    వెళ్ళు redo_no_ప్రారంభం;
+                } లేకపోతే
+#అయితే_ముగింపు
                 {
                     tok = '#';
                 }
             }
         }
-        break;
+        ఆపు;
     
     /* dollar is allowed to start identifiers when not parsing asm */
-    case '$':
-        if (!(isidnum_table['$' - CH_EOF] & IS_ID)
+    స్థితి '$':
+        ఒకవేళ (!(isidnum_పట్టిక['$' - CH_EOF] & IS_ID)
          || (parse_flags & PARSE_FLAG_ASM_FILE))
-            goto parse_simple;
+            వెళ్ళు parse_simple;
 
-    case 'a': case 'b': case 'c': case 'd':
-    case 'e': case 'f': case 'g': case 'h':
-    case 'i': case 'j': case 'k': case 'l':
-    case 'm': case 'n': case 'o': case 'p':
-    case 'q': case 'r': case 's': case 't':
-    case 'u': case 'v': case 'w': case 'x':
-    case 'y': case 'z': 
-    case 'A': case 'B': case 'C': case 'D':
-    case 'E': case 'F': case 'G': case 'H':
-    case 'I': case 'J': case 'K': 
-    case 'M': case 'N': case 'O': case 'P':
-    case 'Q': case 'R': case 'S': case 'T':
-    case 'U': case 'V': case 'W': case 'X':
-    case 'Y': case 'Z': 
-    case '_':
+    స్థితి 'a': స్థితి 'b': స్థితి 'c': స్థితి 'd':
+    స్థితి 'e': స్థితి 'f': స్థితి 'g': స్థితి 'h':
+    స్థితి 'i': స్థితి 'j': స్థితి 'k': స్థితి 'l':
+    స్థితి 'm': స్థితి 'n': స్థితి 'o': స్థితి 'p':
+    స్థితి 'q': స్థితి 'r': స్థితి 's': స్థితి 't':
+    స్థితి 'u': స్థితి 'v': స్థితి 'w': స్థితి 'x':
+    స్థితి 'y': స్థితి 'z': 
+    స్థితి 'A': స్థితి 'B': స్థితి 'C': స్థితి 'D':
+    స్థితి 'E': స్థితి 'F': స్థితి 'G': స్థితి 'H':
+    స్థితి 'I': స్థితి 'J': స్థితి 'K': 
+    స్థితి 'M': స్థితి 'N': స్థితి 'O': స్థితి 'P':
+    స్థితి 'Q': స్థితి 'R': స్థితి 'S': స్థితి 'T':
+    స్థితి 'U': స్థితి 'V': స్థితి 'W': స్థితి 'X':
+    స్థితి 'Y': స్థితి 'Z': 
+    స్థితి '_':
     parse_ident_fast:
         p1 = p;
         h = TOK_HASH_INIT;
         h = TOK_HASH_FUNC(h, c);
-        while (c = *++p, isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+        అయితే (c = *++p, isidnum_పట్టిక[c - CH_EOF] & (IS_ID|IS_అంకె))
             h = TOK_HASH_FUNC(h, c);
         len = p - p1;
-        if (c != '\\') {
+        ఒకవేళ (c != '\\') {
             TokenSym **pts;
 
             /* fast case : no stray found, so we have the full token
                and we have already hashed it */
-            h &= (TOK_HASH_SIZE - 1);
+            h &= (TOK_HASH_కొలత - 1);
             pts = &hash_ident[h];
-            for(;;) {
+            కొరకు(;;) {
                 ts = *pts;
-                if (!ts)
-                    break;
-                if (ts->len == len && !memcmp(ts->str, p1, len))
-                    goto token_found;
-                pts = &(ts->hash_next);
+                ఒకవేళ (!ts)
+                    ఆపు;
+                ఒకవేళ (ts->len == len && !memcmp(ts->str, p1, len))
+                    వెళ్ళు token_దొరికింది;
+                pts = &(ts->hash_తదుపరి);
             }
-            ts = tok_alloc_new(pts, (char *) p1, len);
-        token_found: ;
-        } else {
+            ts = tok_alloc_new(pts, (అక్షరం *) p1, len);
+        token_దొరికింది: ;
+        } లేకపోతే {
             /* slower case */
             cstr_reset(&tokcstr);
-            cstr_cat(&tokcstr, (char *) p1, len);
+            cstr_cat(&tokcstr, (అక్షరం *) p1, len);
             p--;
             PEEKC(c, p);
-            while (isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+            అయితే (isidnum_పట్టిక[c - CH_EOF] & (IS_ID|IS_అంకె))
             {
                 cstr_ccat(&tokcstr, c);
                 PEEKC(c, p);
             }
-            ts = tok_alloc(tokcstr.data, tokcstr.size);
+            ts = tok_alloc(tokcstr.దత్తాంశం, tokcstr.కొలత);
         }
         tok = ts->tok;
-        break;
-    case 'L':
+        ఆపు;
+    స్థితి 'L':
         t = p[1];
-        if (t == '\'' || t == '\"' || t == '\\') {
+        ఒకవేళ (t == '\'' || t == '\"' || t == '\\') {
             PEEKC(c, p);
-            if (c == '\'' || c == '\"') {
+            ఒకవేళ (c == '\'' || c == '\"') {
                 is_long = 1;
-                goto str_const;
+                వెళ్ళు str_const;
             }
             *--p = c = 'L';
         }
-        goto parse_ident_fast;
+        వెళ్ళు parse_ident_fast;
 
-    case '0': case '1': case '2': case '3':
-    case '4': case '5': case '6': case '7':
-    case '8': case '9':
+    స్థితి '0': స్థితి '1': స్థితి '2': స్థితి '3':
+    స్థితి '4': స్థితి '5': స్థితి '6': స్థితి '7':
+    స్థితి '8': స్థితి '9':
         t = c;
         PEEKC(c, p);
         /* after the first digit, accept digits, alpha, '.' or sign if
            prefixed by 'eEpP' */
-    parse_num:
+    parse_అంకె:
         cstr_reset(&tokcstr);
-        for(;;) {
+        కొరకు(;;) {
             cstr_ccat(&tokcstr, t);
-            if (!((isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+            ఒకవేళ (!((isidnum_పట్టిక[c - CH_EOF] & (IS_ID|IS_అంకె))
                   || c == '.'
                   || ((c == '+' || c == '-')
                       && (((t == 'e' || t == 'E')
                             && !(parse_flags & PARSE_FLAG_ASM_FILE
                                 /* 0xe+1 is 3 tokens in asm */
-                                && ((char*)tokcstr.data)[0] == '0'
-                                && toup(((char*)tokcstr.data)[1]) == 'X'))
+                                && ((అక్షరం*)tokcstr.దత్తాంశం)[0] == '0'
+                                && toup(((అక్షరం*)tokcstr.దత్తాంశం)[1]) == 'X'))
                           || t == 'p' || t == 'P'))))
-                break;
+                ఆపు;
             t = c;
             PEEKC(c, p);
         }
         /* We add a trailing '\0' to ease parsing */
         cstr_ccat(&tokcstr, '\0');
-        tokc.str.size = tokcstr.size;
-        tokc.str.data = tokcstr.data;
+        tokc.str.కొలత = tokcstr.కొలత;
+        tokc.str.దత్తాంశం = tokcstr.దత్తాంశం;
         tok = TOK_PPNUM;
-        break;
+        ఆపు;
 
-    case '.':
+    స్థితి '.':
         /* special dot handling because it can also start a number */
         PEEKC(c, p);
-        if (isnum(c)) {
+        ఒకవేళ (isnum(c)) {
             t = '.';
-            goto parse_num;
-        } else if ((isidnum_table['.' - CH_EOF] & IS_ID)
-                   && (isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))) {
+            వెళ్ళు parse_అంకె;
+        } లేకపోతే ఒకవేళ ((isidnum_పట్టిక['.' - CH_EOF] & IS_ID)
+                   && (isidnum_పట్టిక[c - CH_EOF] & (IS_ID|IS_అంకె))) {
             *--p = c = '.';
-            goto parse_ident_fast;
-        } else if (c == '.') {
+            వెళ్ళు parse_ident_fast;
+        } లేకపోతే ఒకవేళ (c == '.') {
             PEEKC(c, p);
-            if (c == '.') {
+            ఒకవేళ (c == '.') {
                 p++;
                 tok = TOK_DOTS;
-            } else {
+            } లేకపోతే {
                 *--p = '.'; /* may underflow into file->unget[] */
                 tok = '.';
             }
-        } else {
+        } లేకపోతే {
             tok = '.';
         }
-        break;
-    case '\'':
-    case '\"':
+        ఆపు;
+    స్థితి '\'':
+    స్థితి '\"':
         is_long = 0;
     str_const:
         cstr_reset(&tokcstr);
-        if (is_long)
+        ఒకవేళ (is_long)
             cstr_ccat(&tokcstr, 'L');
         cstr_ccat(&tokcstr, c);
         p = parse_pp_string(p, c, &tokcstr);
         cstr_ccat(&tokcstr, c);
         cstr_ccat(&tokcstr, '\0');
-        tokc.str.size = tokcstr.size;
-        tokc.str.data = tokcstr.data;
+        tokc.str.కొలత = tokcstr.కొలత;
+        tokc.str.దత్తాంశం = tokcstr.దత్తాంశం;
         tok = TOK_PPSTR;
-        break;
+        ఆపు;
 
-    case '<':
+    స్థితి '<':
         PEEKC(c, p);
-        if (c == '=') {
+        ఒకవేళ (c == '=') {
             p++;
             tok = TOK_LE;
-        } else if (c == '<') {
+        } లేకపోతే ఒకవేళ (c == '<') {
             PEEKC(c, p);
-            if (c == '=') {
+            ఒకవేళ (c == '=') {
                 p++;
                 tok = TOK_A_SHL;
-            } else {
+            } లేకపోతే {
                 tok = TOK_SHL;
             }
-        } else {
+        } లేకపోతే {
             tok = TOK_LT;
         }
-        break;
-    case '>':
+        ఆపు;
+    స్థితి '>':
         PEEKC(c, p);
-        if (c == '=') {
+        ఒకవేళ (c == '=') {
             p++;
             tok = TOK_GE;
-        } else if (c == '>') {
+        } లేకపోతే ఒకవేళ (c == '>') {
             PEEKC(c, p);
-            if (c == '=') {
+            ఒకవేళ (c == '=') {
                 p++;
                 tok = TOK_A_SAR;
-            } else {
+            } లేకపోతే {
                 tok = TOK_SAR;
             }
-        } else {
+        } లేకపోతే {
             tok = TOK_GT;
         }
-        break;
+        ఆపు;
         
-    case '&':
+    స్థితి '&':
         PEEKC(c, p);
-        if (c == '&') {
+        ఒకవేళ (c == '&') {
             p++;
             tok = TOK_LAND;
-        } else if (c == '=') {
+        } లేకపోతే ఒకవేళ (c == '=') {
             p++;
             tok = TOK_A_AND;
-        } else {
+        } లేకపోతే {
             tok = '&';
         }
-        break;
+        ఆపు;
         
-    case '|':
+    స్థితి '|':
         PEEKC(c, p);
-        if (c == '|') {
+        ఒకవేళ (c == '|') {
             p++;
             tok = TOK_LOR;
-        } else if (c == '=') {
+        } లేకపోతే ఒకవేళ (c == '=') {
             p++;
             tok = TOK_A_OR;
-        } else {
+        } లేకపోతే {
             tok = '|';
         }
-        break;
+        ఆపు;
 
-    case '+':
+    స్థితి '+':
         PEEKC(c, p);
-        if (c == '+') {
+        ఒకవేళ (c == '+') {
             p++;
             tok = TOK_INC;
-        } else if (c == '=') {
+        } లేకపోతే ఒకవేళ (c == '=') {
             p++;
-            tok = TOK_A_ADD;
-        } else {
+            tok = TOK_A_కూడు;
+        } లేకపోతే {
             tok = '+';
         }
-        break;
+        ఆపు;
         
-    case '-':
+    స్థితి '-':
         PEEKC(c, p);
-        if (c == '-') {
+        ఒకవేళ (c == '-') {
             p++;
             tok = TOK_DEC;
-        } else if (c == '=') {
+        } లేకపోతే ఒకవేళ (c == '=') {
             p++;
             tok = TOK_A_SUB;
-        } else if (c == '>') {
+        } లేకపోతే ఒకవేళ (c == '>') {
             p++;
             tok = TOK_ARROW;
-        } else {
+        } లేకపోతే {
             tok = '-';
         }
-        break;
+        ఆపు;
 
     PARSE2('!', '!', '=', TOK_NE)
     PARSE2('=', '=', '=', TOK_EQ)
@@ -2886,142 +2886,142 @@ maybe_newline:
     PARSE2('^', '^', '=', TOK_A_XOR)
         
         /* comments or operator */
-    case '/':
+    స్థితి '/':
         PEEKC(c, p);
-        if (c == '*') {
+        ఒకవేళ (c == '*') {
             p = parse_comment(p);
             /* comments replaced by a blank */
             tok = ' ';
-            goto maybe_space;
-        } else if (c == '/') {
-            p = parse_line_comment(p);
+            వెళ్ళు maybe_space;
+        } లేకపోతే ఒకవేళ (c == '/') {
+            p = parse_పంక్తి_comment(p);
             tok = ' ';
-            goto maybe_space;
-        } else if (c == '=') {
+            వెళ్ళు maybe_space;
+        } లేకపోతే ఒకవేళ (c == '=') {
             p++;
             tok = TOK_A_DIV;
-        } else {
+        } లేకపోతే {
             tok = '/';
         }
-        break;
+        ఆపు;
         
         /* simple tokens */
-    case '@': /* only used in assembler */
-#ifdef TCC_TARGET_ARM /* comment on arm asm */
-        if (parse_flags & PARSE_FLAG_ASM_FILE) {
-            p = parse_line_comment(p);
-            goto redo_no_start;
+    స్థితి '@': /* only used in assembler */
+#నిర్వచితమైతే TCC_లక్ష్యం_ARM /* comment on arm asm */
+        ఒకవేళ (parse_flags & PARSE_FLAG_ASM_FILE) {
+            p = parse_పంక్తి_comment(p);
+            వెళ్ళు redo_no_ప్రారంభం;
         }
-#endif
-    case '(':
-    case ')':
-    case '[':
-    case ']':
-    case '{':
-    case '}':
-    case ',':
-    case ';':
-    case ':':
-    case '?':
-    case '~':
+#అయితే_ముగింపు
+    స్థితి '(':
+    స్థితి ')':
+    స్థితి '[':
+    స్థితి ']':
+    స్థితి '{':
+    స్థితి '}':
+    స్థితి ',':
+    స్థితి ';':
+    స్థితి ':':
+    స్థితి '?':
+    స్థితి '~':
     parse_simple:
         tok = c;
         p++;
-        break;
-    case 0xEF: /* UTF8 BOM ? */
-        if (p[1] == 0xBB && p[2] == 0xBF && p == file->buffer) {
+        ఆపు;
+    స్థితి 0xEF: /* UTF8 BOM ? */
+        ఒకవేళ (p[1] == 0xBB && p[2] == 0xBF && p == file->బఫరు) {
             p += 3;
-            goto redo_no_start;
+            వెళ్ళు redo_no_ప్రారంభం;
         }
-    default:
-        if (c >= 0x80 && c <= 0xFF) /* utf8 identifiers */
-	    goto parse_ident_fast;
-        if (parse_flags & PARSE_FLAG_ASM_FILE)
-            goto parse_simple;
+    అప్రమేయ:
+        ఒకవేళ (c >= 0x80 && c <= 0xFF) /* utf8 identifiers */
+	    వెళ్ళు parse_ident_fast;
+        ఒకవేళ (parse_flags & PARSE_FLAG_ASM_FILE)
+            వెళ్ళు parse_simple;
         tcc_error("unrecognized character \\x%02x", c);
-        break;
+        ఆపు;
     }
     tok_flags = 0;
 keep_tok_flags:
     file->buf_ptr = p;
-#if defined(PARSE_DEBUG)
-    printf("token = %d %s\n", tok, get_tok_str(tok, &tokc));
-#endif
+#ఒకవేళ defined(PARSE_DEBUG)
+    రాయి("token = %d %s\n", tok, get_tok_str(tok, &tokc));
+#అయితే_ముగింపు
 }
 
-#ifdef PP_DEBUG
-static int indent;
-static void define_print(TCCState *s1, int v);
-static void pp_print(const char *msg, int v, const int *str)
+#నిర్వచితమైతే PP_DEBUG
+స్థిర పూర్ణాంకం indent;
+స్థిర శూన్య define_print(TCCState *s1, పూర్ణాంకం v);
+స్థిర శూన్య pp_print(స్థిరరాశి అక్షరం *సందేశం, పూర్ణాంకం v, స్థిరరాశి పూర్ణాంకం *str)
 {
     FILE *fp = tcc_state->ppfp;
 
-    if (msg[0] == '#' && indent == 0)
+    ఒకవేళ (సందేశం[0] == '#' && indent == 0)
         fprintf(fp, "\n");
-    else if (msg[0] == '+')
-         ++indent, ++msg;
-    else if (msg[0] == '-')
-        --indent, ++msg;
+    లేకపోతే ఒకవేళ (సందేశం[0] == '+')
+         ++indent, ++సందేశం;
+    లేకపోతే ఒకవేళ (సందేశం[0] == '-')
+        --indent, ++సందేశం;
 
     fprintf(fp, "%*s", indent, "");
-    if (msg[0] == '#') {
+    ఒకవేళ (సందేశం[0] == '#') {
         define_print(tcc_state, v);
-    } else {
-        tok_print(str, v ? "%s %s" : "%s", msg, get_tok_str(v, 0));
+    } లేకపోతే {
+        tok_print(str, v ? "%s %s" : "%s", సందేశం, get_tok_str(v, 0));
     }
 }
-#define PP_PRINT(x) pp_print x
-#else
-#define PP_PRINT(x)
-#endif
+#నిర్వచించు PP_PRINT(x) pp_print x
+#లేకపోతే
+#నిర్వచించు PP_PRINT(x)
+#అయితే_ముగింపు
 
-static int macro_subst(
+స్థిర పూర్ణాంకం macro_subst(
     TokenString *tok_str,
     Sym **nested_list,
-    const int *macro_str
+    స్థిరరాశి పూర్ణాంకం *macro_str
     );
 
 /* substitute arguments in replacement lists in macro_str by the values in
    args (field d) and return allocated string */
-static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
+స్థిర పూర్ణాంకం *macro_arg_subst(Sym **nested_list, స్థిరరాశి పూర్ణాంకం *macro_str, Sym *వాదనలు)
 {
-    int t, t0, t1, t2, n;
-    const int *st;
+    పూర్ణాంకం t, t0, t1, t2, n;
+    స్థిరరాశి పూర్ణాంకం *st;
     Sym *s;
     CValue cval;
     TokenString str;
 
-#ifdef PP_DEBUG
+#నిర్వచితమైతే PP_DEBUG
     PP_PRINT(("asubst:", 0, macro_str));
-    for (s = args, n = 0; s; s = s->prev, ++n);
-    while (n--) {
-        for (s = args, t = 0; t < n; s = s->prev, ++t);
+    కొరకు (s = వాదనలు, n = 0; s; s = s->prev, ++n);
+    అయితే (n--) {
+        కొరకు (s = వాదనలు, t = 0; t < n; s = s->prev, ++t);
         tok_print(s->d, "%*s - arg: %s:", indent, "", get_tok_str(s->v, 0));
     }
-#endif
+#అయితే_ముగింపు
 
     tok_str_new(&str);
     t0 = t1 = 0;
-    while(1) {
+    అయితే(1) {
         TOK_GET(&t, &macro_str, &cval);
-        if (!t)
-            break;
-        if (t == '#') {
+        ఒకవేళ (!t)
+            ఆపు;
+        ఒకవేళ (t == '#') {
             /* stringize */
-            do t = *macro_str++; while (t == ' ');
-            s = sym_find2(args, t);
-            if (s) {
+            చేయి t = *macro_str++; అయితే (t == ' ');
+            s = sym_find2(వాదనలు, t);
+            ఒకవేళ (s) {
                 cstr_reset(&tokcstr);
                 cstr_ccat(&tokcstr, '\"');
                 st = s->d;
-                while (*st != TOK_EOF) {
-                    const char *s;
+                అయితే (*st != TOK_EOF) {
+                    స్థిరరాశి అక్షరం *s;
                     TOK_GET(&t, &st, &cval);
                     s = get_tok_str(t, &cval);
-                    while (*s) {
-                        if (t == TOK_PPSTR && *s != '\'')
-                            add_char(&tokcstr, *s);
-                        else
+                    అయితే (*s) {
+                        ఒకవేళ (t == TOK_PPSTR && *s != '\'')
+                            కూడు_char(&tokcstr, *s);
+                        లేకపోతే
                             cstr_ccat(&tokcstr, *s);
                         ++s;
                     }
@@ -3030,48 +3030,48 @@ static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
                 cstr_ccat(&tokcstr, '\0');
                 //printf("\nstringize: <%s>\n", (char *)tokcstr.data);
                 /* add string */
-                cval.str.size = tokcstr.size;
-                cval.str.data = tokcstr.data;
+                cval.str.కొలత = tokcstr.కొలత;
+                cval.str.దత్తాంశం = tokcstr.దత్తాంశం;
                 tok_str_add2(&str, TOK_PPSTR, &cval);
-#ifdef TCC_TARGET_ARM
-            } else if ((parse_flags & PARSE_FLAG_ASM_FILE) && t == TOK_PPNUM) {
+#నిర్వచితమైతే TCC_లక్ష్యం_ARM
+            } లేకపోతే ఒకవేళ ((parse_flags & PARSE_FLAG_ASM_FILE) && t == TOK_PPNUM) {
                 /* for example: mov r1,#0 */
-                --macro_str, tok_str_add(&str, '#');
-#endif
-            } else {
+                --macro_str, tok_str_కూడు(&str, '#');
+#అయితే_ముగింపు
+            } లేకపోతే {
                 expect("macro parameter after '#'");
             }
-        } else if (t >= TOK_IDENT) {
-            s = sym_find2(args, t);
-            if (s) {
+        } లేకపోతే ఒకవేళ (t >= TOK_IDENT) {
+            s = sym_find2(వాదనలు, t);
+            ఒకవేళ (s) {
                 st = s->d;
                 n = 0;
-                while ((t2 = macro_str[n]) == ' ')
+                అయితే ((t2 = macro_str[n]) == ' ')
                     ++n;
                 /* if '##' is present before or after, no arg substitution */
-                if (t2 == TOK_PPJOIN || t1 == TOK_PPJOIN) {
+                ఒకవేళ (t2 == TOK_PPJOIN || t1 == TOK_PPJOIN) {
                     /* special case for var arg macros : ## eats the ','
                        if empty VA_ARGS variable. */
-                    if (t1 == TOK_PPJOIN && t0 == ',' && gnu_ext && s->type.t) {
-                        int c = str.str[str.len - 1];
-                        while (str.str[--str.len] != ',')
+                    ఒకవేళ (t1 == TOK_PPJOIN && t0 == ',' && gnu_ext && s->type.t) {
+                        పూర్ణాంకం c = str.str[str.len - 1];
+                        అయితే (str.str[--str.len] != ',')
                             ;
-                        if (*st == TOK_EOF) {
+                        ఒకవేళ (*st == TOK_EOF) {
                             /* suppress ',' '##' */
-                        } else {
+                        } లేకపోతే {
                             /* suppress '##' and add variable */
                             str.len++;
-                            if (c == ' ')
+                            ఒకవేళ (c == ' ')
                                 str.str[str.len++] = c;
-                            goto add_var;
+                            వెళ్ళు కూడు_var;
                         }
-                    } else {
-                        if (*st == TOK_EOF)
-                            tok_str_add(&str, TOK_PLCHLDR);
+                    } లేకపోతే {
+                        ఒకవేళ (*st == TOK_EOF)
+                            tok_str_కూడు(&str, TOK_PLCHLDR);
                     }
-                } else {
-            add_var:
-		    if (!s->e) {
+                } లేకపోతే {
+            కూడు_var:
+		    ఒకవేళ (!s->e) {
 			/* Expand arguments tokens and store them.  In most
 			   cases we could also re-expand each argument if
 			   used multiple times, but not if the argument
@@ -3079,154 +3079,154 @@ static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
 			TokenString str2;
 			tok_str_new(&str2);
 			macro_subst(&str2, nested_list, st);
-			tok_str_add(&str2, TOK_EOF);
+			tok_str_కూడు(&str2, TOK_EOF);
 			s->e = str2.str;
 		    }
 		    st = s->e;
                 }
-                while (*st != TOK_EOF) {
+                అయితే (*st != TOK_EOF) {
                     TOK_GET(&t2, &st, &cval);
                     tok_str_add2(&str, t2, &cval);
                 }
-            } else {
-                tok_str_add(&str, t);
+            } లేకపోతే {
+                tok_str_కూడు(&str, t);
             }
-        } else {
+        } లేకపోతే {
             tok_str_add2(&str, t, &cval);
         }
-        if (t != ' ')
+        ఒకవేళ (t != ' ')
             t0 = t1, t1 = t;
     }
-    tok_str_add(&str, 0);
+    tok_str_కూడు(&str, 0);
     PP_PRINT(("areslt:", 0, str.str));
-    return str.str;
+    తిరిగి str.str;
 }
 
 /* handle the '##' operator. return the resulting string (which must be freed). */
-static inline int *macro_twosharps(const int *ptr0)
+స్థిర అంతఃవరుస పూర్ణాంకం *macro_twosharps(స్థిరరాశి పూర్ణాంకం *ptr0)
 {
-    int t1, t2, n, l;
+    పూర్ణాంకం t1, t2, n, l;
     CValue cv1, cv2;
     TokenString macro_str1;
-    const int *ptr;
+    స్థిరరాశి పూర్ణాంకం *ptr;
 
     tok_str_new(&macro_str1);
     cstr_reset(&tokcstr);
-    for (ptr = ptr0;;) {
+    కొరకు (ptr = ptr0;;) {
         TOK_GET(&t1, &ptr, &cv1);
-        if (t1 == 0)
-            break;
-        for (;;) {
+        ఒకవేళ (t1 == 0)
+            ఆపు;
+        కొరకు (;;) {
             n = 0;
-            while ((t2 = ptr[n]) == ' ')
+            అయితే ((t2 = ptr[n]) == ' ')
                 ++n;
-            if (t2 != TOK_PPJOIN)
-                break;
+            ఒకవేళ (t2 != TOK_PPJOIN)
+                ఆపు;
             ptr += n;
-            while ((t2 = *++ptr) == ' ' || t2 == TOK_PPJOIN)
+            అయితే ((t2 = *++ptr) == ' ' || t2 == TOK_PPJOIN)
                 ;
             TOK_GET(&t2, &ptr, &cv2);
-            if (t2 == TOK_PLCHLDR)
-                continue;
-            if (t1 != TOK_PLCHLDR) {
+            ఒకవేళ (t2 == TOK_PLCHLDR)
+                కొనసాగు;
+            ఒకవేళ (t1 != TOK_PLCHLDR) {
                 cstr_cat(&tokcstr, get_tok_str(t1, &cv1), -1);
                 t1 = TOK_PLCHLDR;
             }
             cstr_cat(&tokcstr, get_tok_str(t2, &cv2), -1);
         }
-        if (tokcstr.size) {
+        ఒకవేళ (tokcstr.కొలత) {
             cstr_ccat(&tokcstr, 0);
-            tcc_open_bf(tcc_state, ":paste:", tokcstr.size);
-            memcpy(file->buffer, tokcstr.data, tokcstr.size);
+            tcc_open_bf(tcc_state, ":paste:", tokcstr.కొలత);
+            జ్ఞాపకం_నకలు(file->బఫరు, tokcstr.దత్తాంశం, tokcstr.కొలత);
             tok_flags = 0; /* don't interpret '#' */
-            for (n = 0;;n = l) {
-                next_nomacro();
+            కొరకు (n = 0;;n = l) {
+                తదుపరి_nomacro();
                 tok_str_add2(&macro_str1, tok, &tokc);
-                if (*file->buf_ptr == 0)
-                    break;
-                tok_str_add(&macro_str1, ' ');
-                l = file->buf_ptr - file->buffer;
+                ఒకవేళ (*file->buf_ptr == 0)
+                    ఆపు;
+                tok_str_కూడు(&macro_str1, ' ');
+                l = file->buf_ptr - file->బఫరు;
                 tcc_warning("pasting \"%.*s\" and \"%s\" does not give a valid"
-                    " preprocessing token", l - n, file->buffer + n, file->buf_ptr);
+                    " preprocessing token", l - n, file->బఫరు + n, file->buf_ptr);
             }
             tcc_close();
             cstr_reset(&tokcstr);
         }
-        if (t1 != TOK_PLCHLDR)
+        ఒకవేళ (t1 != TOK_PLCHLDR)
             tok_str_add2(&macro_str1, t1, &cv1);
     }
-    tok_str_add(&macro_str1, 0);
+    tok_str_కూడు(&macro_str1, 0);
     PP_PRINT(("pasted:", 0, macro_str1.str));
-    return macro_str1.str;
+    తిరిగి macro_str1.str;
 }
 
-static int peek_file (TokenString *ws_str)
+స్థిర పూర్ణాంకం peek_file (TokenString *ws_str)
 {
     uint8_t *p = file->buf_ptr - 1;
-    int c;
-    for (;;) {
+    పూర్ణాంకం c;
+    కొరకు (;;) {
         PEEKC(c, p);
-        switch (c) {
-        case '/':
+        ఎంపిక (c) {
+        స్థితి '/':
             PEEKC(c, p);
-            if (c == '*')
+            ఒకవేళ (c == '*')
                 p = parse_comment(p);
-            else if (c == '/')
-                p = parse_line_comment(p);
-            else {
+            లేకపోతే ఒకవేళ (c == '/')
+                p = parse_పంక్తి_comment(p);
+            లేకపోతే {
                 c = *--p = '/';
-                goto leave;
+                వెళ్ళు leave;
             }
             --p, c = ' ';
-            break;
-        case ' ': case '\t':
-            break;
-        case '\f': case '\v': case '\r':
-            continue;
-        case '\n':
-            file->line_num++, tok_flags |= TOK_FLAG_BOL;
-            break;
-        default: leave:
+            ఆపు;
+        స్థితి ' ': స్థితి '\t':
+            ఆపు;
+        స్థితి '\f': స్థితి '\v': స్థితి '\r':
+            కొనసాగు;
+        స్థితి '\n':
+            file->పంక్తి_అంకె++, tok_flags |= TOK_FLAG_BOL;
+            ఆపు;
+        అప్రమేయ: leave:
             file->buf_ptr = p;
-            return c;
+            తిరిగి c;
         }
-        if (ws_str)
-            tok_str_add(ws_str, c);
+        ఒకవేళ (ws_str)
+            tok_str_కూడు(ws_str, c);
     }
 }
 
 /* peek or read [ws_str == NULL] next token from function macro call,
    walking up macro levels up to the file if necessary */
-static int next_argstream(Sym **nested_list, TokenString *ws_str)
+స్థిర పూర్ణాంకం తదుపరి_argstream(Sym **nested_list, TokenString *ws_str)
 {
-    int t;
+    పూర్ణాంకం t;
     Sym *sa;
 
-    while (macro_ptr) {
-        const int *m = macro_ptr;
-        while ((t = *m) != 0) {
-            if (ws_str) {
-                if (t != ' ')
-                    return t;
+    అయితే (macro_ptr) {
+        స్థిరరాశి పూర్ణాంకం *m = macro_ptr;
+        అయితే ((t = *m) != 0) {
+            ఒకవేళ (ws_str) {
+                ఒకవేళ (t != ' ')
+                    తిరిగి t;
                 ++m;
-            } else {
+            } లేకపోతే {
                 TOK_GET(&tok, &macro_ptr, &tokc);
-                return tok;
+                తిరిగి tok;
             }
         }
-        end_macro();
+        చివర_macro();
         /* also, end of scope for nested defined symbol */
         sa = *nested_list;
-        if (sa)
+        ఒకవేళ (sa)
             *nested_list = sa->prev, sym_free(sa);
     }
-    if (ws_str) {
-        return peek_file(ws_str);
-    } else {
-        next_nomacro();
-        if (tok == '\t' || tok == TOK_LINEFEED)
+    ఒకవేళ (ws_str) {
+        తిరిగి peek_file(ws_str);
+    } లేకపోతే {
+        తదుపరి_nomacro();
+        ఒకవేళ (tok == '\t' || tok == TOK_LINEFEED)
             tok = ' ';
-        return tok;
+        తిరిగి tok;
     }
 }
 
@@ -3234,95 +3234,95 @@ static int next_argstream(Sym **nested_list, TokenString *ws_str)
    result to (tok_str,tok_len). 'nested_list' is the list of all
    macros we got inside to avoid recursing. Return non zero if no
    substitution needs to be done */
-static int macro_subst_tok(
+స్థిర పూర్ణాంకం macro_subst_tok(
     TokenString *tok_str,
     Sym **nested_list,
     Sym *s)
 {
-    int t;
-    int v = s->v;
+    పూర్ణాంకం t;
+    పూర్ణాంకం v = s->v;
 
     PP_PRINT(("#", v, s->d));
-    if (s->d) {
-        int *mstr = s->d;
-        int *jstr;
+    ఒకవేళ (s->d) {
+        పూర్ణాంకం *mstr = s->d;
+        పూర్ణాంకం *jstr;
         Sym *sa;
-        int ret;
+        పూర్ణాంకం ret;
 
-        if (s->type.t & MACRO_FUNC) {
-            int saved_parse_flags = parse_flags;
+        ఒకవేళ (s->type.t & MACRO_FUNC) {
+            పూర్ణాంకం saved_parse_flags = parse_flags;
             TokenString str;
-            int parlevel, i;
-            Sym *sa1, *args;
+            పూర్ణాంకం parlevel, i;
+            Sym *sa1, *వాదనలు;
 
             parse_flags |= PARSE_FLAG_SPACES | PARSE_FLAG_LINEFEED
                 | PARSE_FLAG_ACCEPT_STRAYS;
 
             tok_str_new(&str);
             /* peek next token from argument stream */
-            t = next_argstream(nested_list, &str);
-            if (t != '(') {
+            t = తదుపరి_argstream(nested_list, &str);
+            ఒకవేళ (t != '(') {
                 /* not a macro substitution after all, restore the
                  * macro token plus all whitespace we've read.
                  * whitespace is intentionally not merged to preserve
                  * newlines. */
                 parse_flags = saved_parse_flags;
                 tok_str_add2_spc(tok_str, v, 0);
-                if (parse_flags & PARSE_FLAG_SPACES)
-                    for (i = 0; i < str.len; i++)
-                        tok_str_add(tok_str, str.str[i]);
+                ఒకవేళ (parse_flags & PARSE_FLAG_SPACES)
+                    కొరకు (i = 0; i < str.len; i++)
+                        tok_str_కూడు(tok_str, str.str[i]);
                 tok_str_free_str(str.str);
-                return 0;
-            } else {
+                తిరిగి 0;
+            } లేకపోతే {
                 tok_str_free_str(str.str);
             }
 
             /* argument macro */
-            args = NULL;
-            sa = s->next;
+            వాదనలు = ఖాళీ;
+            sa = s->తదుపరి;
             /* NOTE: empty args are allowed, except if no args */
             i = 2; /* eat '(' */
-            for(;;) {
-                do {
-                    t = next_argstream(nested_list, NULL);
-                } while (t == ' ' || --i);
+            కొరకు(;;) {
+                చేయి {
+                    t = తదుపరి_argstream(nested_list, ఖాళీ);
+                } అయితే (t == ' ' || --i);
 
-                if (!sa) {
-                    if (t == ')') /* handle '()' case */
-                        break;
+                ఒకవేళ (!sa) {
+                    ఒకవేళ (t == ')') /* handle '()' case */
+                        ఆపు;
                     tcc_error("macro '%s' used with too many args",
                         get_tok_str(v, 0));
                 }
-            empty_arg:
+            ఖాళీలు_arg:
                 tok_str_new(&str);
                 parlevel = 0;
                 /* NOTE: non zero sa->type.t indicates VA_ARGS */
-                while (parlevel > 0
+                అయితే (parlevel > 0
                         || (t != ')' && (t != ',' || sa->type.t))) {
-                    if (t == TOK_EOF)
+                    ఒకవేళ (t == TOK_EOF)
                         tcc_error("EOF in invocation of macro '%s'",
                             get_tok_str(v, 0));
-                    if (t == '(')
+                    ఒకవేళ (t == '(')
                         parlevel++;
-                    if (t == ')')
+                    ఒకవేళ (t == ')')
                         parlevel--;
-                    if (t == ' ')
+                    ఒకవేళ (t == ' ')
                         str.need_spc |= 1;
-                    else
+                    లేకపోతే
                         tok_str_add2_spc(&str, t, &tokc);
-                    t = next_argstream(nested_list, NULL);
+                    t = తదుపరి_argstream(nested_list, ఖాళీ);
                 }
-                tok_str_add(&str, TOK_EOF);
-                sa1 = sym_push2(&args, sa->v & ~SYM_FIELD, sa->type.t, 0);
+                tok_str_కూడు(&str, TOK_EOF);
+                sa1 = sym_push2(&వాదనలు, sa->v & ~SYM_క్షేత్రం, sa->type.t, 0);
                 sa1->d = str.str;
-                sa = sa->next;
-                if (t == ')') {
-                    if (!sa)
-                        break;
+                sa = sa->తదుపరి;
+                ఒకవేళ (t == ')') {
+                    ఒకవేళ (!sa)
+                        ఆపు;
                     /* special case for gcc var args: add an empty
                        var arg argument if it is omitted */
-                    if (sa->type.t && gnu_ext)
-                        goto empty_arg;
+                    ఒకవేళ (sa->type.t && gnu_ext)
+                        వెళ్ళు ఖాళీలు_arg;
                     tcc_error("macro '%s' used with too few args",
                         get_tok_str(v, 0));
                 }
@@ -3330,10 +3330,10 @@ static int macro_subst_tok(
             }
 
             /* now subst each arg */
-            mstr = macro_arg_subst(nested_list, mstr, args);
+            mstr = macro_arg_subst(nested_list, mstr, వాదనలు);
             /* free memory */
-            sa = args;
-            while (sa) {
+            sa = వాదనలు;
+            అయితే (sa) {
                 sa1 = sa->prev;
                 tok_str_free_str(sa->d);
                 tok_str_free_str(sa->e);
@@ -3345,211 +3345,211 @@ static int macro_subst_tok(
 
         /* process '##'s (if present) */
         jstr = mstr;
-        if (s->type.t & MACRO_JOIN)
+        ఒకవేళ (s->type.t & MACRO_JOIN)
             jstr = macro_twosharps(mstr);
 
         sa = sym_push2(nested_list, v, 0, 0);
         ret = macro_subst(tok_str, nested_list, jstr);
         /* pop nested defined symbol */
-        if (sa == *nested_list)
+        ఒకవేళ (sa == *nested_list)
             *nested_list = sa->prev, sym_free(sa);
 
-        if (jstr != mstr)
+        ఒకవేళ (jstr != mstr)
             tok_str_free_str(jstr);
-        if (mstr != s->d)
+        ఒకవేళ (mstr != s->d)
             tok_str_free_str(mstr);
-        return ret;
+        తిరిగి ret;
 
-    } else {
+    } లేకపోతే {
         CValue cval;
-        char buf[32], *cstrval = buf;
+        అక్షరం buf[32], *cstrval = buf;
 
         /* special macros */
-        if (v == TOK___LINE__ || v == TOK___COUNTER__) {
-            t = v == TOK___LINE__ ? file->line_num : pp_counter++;
-            snprintf(buf, sizeof(buf), "%d", t);
+        ఒకవేళ (v == TOK_పంక్తి_2 || v == TOK___COUNTER__) {
+            t = v == TOK_పంక్తి_2 ? file->పంక్తి_అంకె : pp_counter++;
+            snprintf(buf, పరిమాణం(buf), "%d", t);
             t = TOK_PPNUM;
-            goto add_cstr1;
+            వెళ్ళు కూడు_cstr1;
 
-        } else if (v == TOK___FILE__) {
+        } లేకపోతే ఒకవేళ (v == TOK___FILE__) {
             cstrval = file->filename;
-            goto add_cstr;
+            వెళ్ళు కూడు_cstr;
 
-        } else if (v == TOK___DATE__ || v == TOK___TIME__) {
+        } లేకపోతే ఒకవేళ (v == TOK___DATE__ || v == TOK_సమయం) {
             time_t ti;
-            struct tm *tm;
-            time(&ti);
+            నిర్మాణం tm *tm;
+            సమయం(&ti);
             tm = localtime(&ti);
-            if (v == TOK___DATE__) {
-                static char const ab_month_name[12][4] = {
+            ఒకవేళ (v == TOK___DATE__) {
+                స్థిర అక్షరం స్థిరరాశి ab_month_name[12][4] = {
                     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
                 };
-                snprintf(buf, sizeof(buf), "%s %2d %d",
+                snprintf(buf, పరిమాణం(buf), "%s %2d %d",
                     ab_month_name[tm->tm_mon], tm->tm_mday, tm->tm_year + 1900);
-            } else {
-                snprintf(buf, sizeof(buf), "%02d:%02d:%02d",
+            } లేకపోతే {
+                snprintf(buf, పరిమాణం(buf), "%02d:%02d:%02d",
                     tm->tm_hour, tm->tm_min, tm->tm_sec);
             }
-        add_cstr:
+        కూడు_cstr:
             t = TOK_STR;
-        add_cstr1:
-            cval.str.size = strlen(cstrval) + 1;
-            cval.str.data = cstrval;
+        కూడు_cstr1:
+            cval.str.కొలత = అక్షరశ్రేణి_పొడవు(cstrval) + 1;
+            cval.str.దత్తాంశం = cstrval;
             tok_str_add2_spc(tok_str, t, &cval);
         }
-        return 0;
+        తిరిగి 0;
     }
 }
 
 /* do macro substitution of macro_str and add result to
    (tok_str,tok_len). 'nested_list' is the list of all macros we got
    inside to avoid recursing. */
-static int macro_subst(
+స్థిర పూర్ణాంకం macro_subst(
     TokenString *tok_str,
     Sym **nested_list,
-    const int *macro_str
+    స్థిరరాశి పూర్ణాంకం *macro_str
     )
 {
     Sym *s;
-    int t, nosubst = 0;
+    పూర్ణాంకం t, nosubst = 0;
     CValue cval;
     TokenString *str;
 
-#ifdef PP_DEBUG
-    int tlen = tok_str->len;
+#నిర్వచితమైతే PP_DEBUG
+    పూర్ణాంకం tlen = tok_str->len;
     PP_PRINT(("+expand:", 0, macro_str));
-#endif
+#అయితే_ముగింపు
 
-    while (1) {
+    అయితే (1) {
         TOK_GET(&t, &macro_str, &cval);
-        if (t == 0 || t == TOK_EOF)
-            break;
-        if (t >= TOK_IDENT) {
-            s = define_find(t);
-            if (s == NULL || nosubst)
-                goto no_subst;
+        ఒకవేళ (t == 0 || t == TOK_EOF)
+            ఆపు;
+        ఒకవేళ (t >= TOK_IDENT) {
+            s = define_కనుగొను(t);
+            ఒకవేళ (s == ఖాళీ || nosubst)
+                వెళ్ళు no_subst;
             /* if nested substitution, do nothing */
-            if (sym_find2(*nested_list, t)) {
+            ఒకవేళ (sym_find2(*nested_list, t)) {
                 /* and mark so it doesn't get subst'd again */
-                t |= SYM_FIELD;
-                goto no_subst;
+                t |= SYM_క్షేత్రం;
+                వెళ్ళు no_subst;
             }
             str = tok_str_alloc();
-            str->str = (int*)macro_str; /* setup stream for possible arguments */
+            str->str = (పూర్ణాంకం*)macro_str; /* setup stream for possible arguments */
             begin_macro(str, 2);
             nosubst = macro_subst_tok(tok_str, nested_list, s);
-            if (macro_stack != str) {
+            ఒకవేళ (macro_దొంతర != str) {
                 /* already finished by reading function macro arguments */
-                break;
+                ఆపు;
             }
             macro_str = macro_ptr;
-            end_macro ();
-        } else if (t == ' ') {
-            if (parse_flags & PARSE_FLAG_SPACES)
+            చివర_macro ();
+        } లేకపోతే ఒకవేళ (t == ' ') {
+            ఒకవేళ (parse_flags & PARSE_FLAG_SPACES)
                 tok_str->need_spc |= 1;
-        } else {
+        } లేకపోతే {
     no_subst:
             tok_str_add2_spc(tok_str, t, &cval);
-            if (nosubst && t != '(')
+            ఒకవేళ (nosubst && t != '(')
                 nosubst = 0;
             /* GCC supports 'defined' as result of a macro substitution */
-            if (t == TOK_DEFINED && pp_expr)
+            ఒకవేళ (t == TOK_DEFINED && pp_సమాసం)
                 nosubst = 1;
         }
     }
 
-#ifdef PP_DEBUG
-    tok_str_add(tok_str, 0), --tok_str->len;
+#నిర్వచితమైతే PP_DEBUG
+    tok_str_కూడు(tok_str, 0), --tok_str->len;
     PP_PRINT(("-result:", 0, tok_str->str + tlen));
-#endif
-    return nosubst;
+#అయితే_ముగింపు
+    తిరిగి nosubst;
 }
 
 /* return next token with macro substitution */
-ST_FUNC void next(void)
+ST_FUNC శూన్య తదుపరి(శూన్య)
 {
-    int t;
-    while (macro_ptr) {
+    పూర్ణాంకం t;
+    అయితే (macro_ptr) {
 redo:
         t = *macro_ptr;
-        if (TOK_HAS_VALUE(t)) {
+        ఒకవేళ (TOK_HAS_విలువ(t)) {
             tok_get(&tok, &macro_ptr, &tokc);
-            if (t == TOK_LINENUM) {
-                file->line_num = tokc.i;
-                goto redo;
+            ఒకవేళ (t == TOK_LINENUM) {
+                file->పంక్తి_అంకె = tokc.i;
+                వెళ్ళు redo;
             }
-            goto convert;
-        } else if (t == 0) {
+            వెళ్ళు convert;
+        } లేకపోతే ఒకవేళ (t == 0) {
             /* end of macro or unget token string */
-            end_macro();
-            continue;
-        } else if (t == TOK_EOF) {
+            చివర_macro();
+            కొనసాగు;
+        } లేకపోతే ఒకవేళ (t == TOK_EOF) {
             /* do nothing */
-        } else {
+        } లేకపోతే {
             ++macro_ptr;
-            t &= ~SYM_FIELD; /* remove 'nosubst' marker */
-            if (t == '\\') {
-                if (!(parse_flags & PARSE_FLAG_ACCEPT_STRAYS))
+            t &= ~SYM_క్షేత్రం; /* remove 'nosubst' marker */
+            ఒకవేళ (t == '\\') {
+                ఒకవేళ (!(parse_flags & PARSE_FLAG_ACCEPT_STRAYS))
                     tcc_error("stray '\\' in program");
             }
         }
         tok = t;
-        return;
+        తిరిగి;
     }
 
-    next_nomacro();
+    తదుపరి_nomacro();
     t = tok;
-    if (t >= TOK_IDENT && (parse_flags & PARSE_FLAG_PREPROCESS)) {
+    ఒకవేళ (t >= TOK_IDENT && (parse_flags & PARSE_FLAG_PREPROCESS)) {
         /* if reading from file, try to substitute macros */
-        Sym *s = define_find(t);
-        if (s) {
-            Sym *nested_list = NULL;
+        Sym *s = define_కనుగొను(t);
+        ఒకవేళ (s) {
+            Sym *nested_list = ఖాళీ;
             macro_subst_tok(&tokstr_buf, &nested_list, s);
-            tok_str_add(&tokstr_buf, 0);
+            tok_str_కూడు(&tokstr_buf, 0);
             begin_macro(&tokstr_buf, 0);
-            goto redo;
+            వెళ్ళు redo;
         }
-        return;
+        తిరిగి;
     }
 
 convert:
     /* convert preprocessor tokens into C tokens */
-    if (t == TOK_PPNUM) {
-        if  (parse_flags & PARSE_FLAG_TOK_NUM)
-            parse_number(tokc.str.data);
-    } else if (t == TOK_PPSTR) {
-        if (parse_flags & PARSE_FLAG_TOK_STR)
-            parse_string(tokc.str.data, tokc.str.size - 1);
+    ఒకవేళ (t == TOK_PPNUM) {
+        ఒకవేళ  (parse_flags & PARSE_FLAG_TOK_అంకె)
+            parse_సంఖ్య(tokc.str.దత్తాంశం);
+    } లేకపోతే ఒకవేళ (t == TOK_PPSTR) {
+        ఒకవేళ (parse_flags & PARSE_FLAG_TOK_STR)
+            parse_string(tokc.str.దత్తాంశం, tokc.str.కొలత - 1);
     }
 }
 
 /* push back current token and set current token to 'last_tok'. Only
    identifier case handled for labels. */
-ST_INLN void unget_tok(int last_tok)
+ST_INLN శూన్య unget_tok(పూర్ణాంకం చివరి_tok)
 {
     TokenString *str = &unget_buf;
-    int alloc = 0;
-    if (str->len) /* use static buffer except if already in use */
+    పూర్ణాంకం alloc = 0;
+    ఒకవేళ (str->len) /* use static buffer except if already in use */
         str = tok_str_alloc(), alloc = 1;
-    if (tok != TOK_EOF)
+    ఒకవేళ (tok != TOK_EOF)
         tok_str_add2(str, tok, &tokc);
-    tok_str_add(str, 0);
+    tok_str_కూడు(str, 0);
     begin_macro(str, alloc);
-    tok = last_tok;
+    tok = చివరి_tok;
 }
 
 /* ------------------------------------------------------------------------- */
 /* init preprocessor */
 
-static const char * const target_os_defs =
-#ifdef TCC_TARGET_PE
+స్థిర స్థిరరాశి అక్షరం * స్థిరరాశి లక్ష్యం_os_defs =
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
     "_WIN32\0"
-# if PTR_SIZE == 8
+# ఒకవేళ PTR_కొలత == 8
     "_WIN64\0"
 # endif
-#else
-# if defined TCC_TARGET_MACHO
+#లేకపోతే
+# ఒకవేళ defined TCC_లక్ష్యం_MACHO
     "__APPLE__\0"
 # elif TARGETOS_FreeBSD
     "__FreeBSD__ 12\0"
@@ -3559,171 +3559,171 @@ static const char * const target_os_defs =
     "__NetBSD__\0"
 # elif TARGETOS_OpenBSD
     "__OpenBSD__\0"
-# else
+# లేకపోతే
     "__linux__\0"
     "__linux\0"
-#  if TARGETOS_ANDROID
+#  ఒకవేళ TARGETOS_ANDROID
     "__ANDROID__\0"
 #  endif
 # endif
     "__unix__\0"
     "__unix\0"
-#endif
+#అయితే_ముగింపు
     ;
 
-static void putdef(CString *cs, const char *p)
+స్థిర శూన్య putdef(CString *cs, స్థిరరాశి అక్షరం *p)
 {
     cstr_printf(cs, "#define %s%s\n", p, &" 1"[!!strchr(p, ' ')*2]);
 }
 
-static void putdefs(CString *cs, const char *p)
+స్థిర శూన్య putdefs(CString *cs, స్థిరరాశి అక్షరం *p)
 {
-    while (*p)
+    అయితే (*p)
         putdef(cs, p), p = strchr(p, 0) + 1;
 }
 
-static void tcc_predefs(TCCState *s1, CString *cs, int is_asm)
+స్థిర శూన్య tcc_predefs(TCCState *s1, CString *cs, పూర్ణాంకం is_asm)
 {
-    cstr_printf(cs, "#define __TINYC__ 9%.2s\n", &TCC_VERSION[4]);
-    putdefs(cs, target_machine_defs);
-    putdefs(cs, target_os_defs);
+    cstr_printf(cs, "#define __TINYC__ 9%.2s\n", &TCC_సంస్కరణ[4]);
+    putdefs(cs, లక్ష్యం_machine_defs);
+    putdefs(cs, లక్ష్యం_os_defs);
 
-#ifdef TCC_TARGET_ARM
-    if (s1->float_abi == ARM_HARD_FLOAT)
+#నిర్వచితమైతే TCC_లక్ష్యం_ARM
+    ఒకవేళ (s1->float_abi == ARM_HARD_FLOAT)
       putdef(cs, "__ARM_PCS_VFP");
-#endif
-    if (is_asm)
+#అయితే_ముగింపు
+    ఒకవేళ (is_asm)
       putdef(cs, "__ASSEMBLER__");
-    if (s1->output_type == TCC_OUTPUT_PREPROCESS)
+    ఒకవేళ (s1->output_type == TCC_OUTPUT_PREPROCESS)
       putdef(cs, "__TCC_PP__");
-    if (s1->output_type == TCC_OUTPUT_MEMORY)
+    ఒకవేళ (s1->output_type == TCC_OUTPUT_జ్ఞాపకం)
       putdef(cs, "__TCC_RUN__");
-#ifdef CONFIG_TCC_BACKTRACE
-    if (s1->do_backtrace)
+#నిర్వచితమైతే CONFIG_TCC_BACKTRACE
+    ఒకవేళ (s1->do_backtrace)
       putdef(cs, "__TCC_BACKTRACE__");
-#endif
-#ifdef CONFIG_TCC_BCHECK
-    if (s1->do_bounds_check)
+#అయితే_ముగింపు
+#నిర్వచితమైతే CONFIG_TCC_BCHECK
+    ఒకవేళ (s1->do_bounds_check)
       putdef(cs, "__TCC_BCHECK__");
-#endif
-    if (s1->char_is_unsigned)
+#అయితే_ముగింపు
+    ఒకవేళ (s1->char_is_unsigned)
       putdef(cs, "__CHAR_UNSIGNED__");
-    if (s1->optimize > 0)
+    ఒకవేళ (s1->optimize > 0)
       putdef(cs, "__OPTIMIZE__");
-    if (s1->option_pthread)
+    ఒకవేళ (s1->option_pthread)
       putdef(cs, "_REENTRANT");
-    if (s1->leading_underscore)
+    ఒకవేళ (s1->leading_underscore)
       putdef(cs, "__leading_underscore");
-    cstr_printf(cs, "#define __SIZEOF_POINTER__ %d\n", PTR_SIZE);
-    cstr_printf(cs, "#define __SIZEOF_LONG__ %d\n", LONG_SIZE);
-    if (!is_asm) {
+    cstr_printf(cs, "#define __SIZEOF_POINTER__ %d\n", PTR_కొలత);
+    cstr_printf(cs, "#define __SIZEOF_LONG__ %d\n", LONG_కొలత);
+    ఒకవేళ (!is_asm) {
       putdef(cs, "__STDC__");
       cstr_printf(cs, "#define __STDC_HOSTED__ %d\n", s1->nostdlib ? 0 : 1);
       cstr_printf(cs, "#define __STDC_VERSION__ %dL\n", s1->cversion);
       cstr_cat(cs,
         /* load more predefs and __builtins */
-#if CONFIG_TCC_PREDEFS
-        #include "tccdefs_.h" /* include as strings */
-#else
+#ఒకవేళ CONFIG_TCC_PREDEFS
+        #అన్తర్భావ "tccdefs_.h" /* include as strings */
+#లేకపోతే
         "#include <tccdefs.h>\n" /* load at runtime */
-#endif
+#అయితే_ముగింపు
         , -1);
     }
     cstr_printf(cs, "#define __BASE_FILE__ \"%s\"\n", file->filename);
 }
 
-ST_FUNC void preprocess_start(TCCState *s1, int filetype)
+ST_FUNC శూన్య preprocess_ప్రారంభం(TCCState *s1, పూర్ణాంకం filetype)
 {
-    int is_asm = !!(filetype & (AFF_TYPE_ASM|AFF_TYPE_ASMPP));
+    పూర్ణాంకం is_asm = !!(filetype & (AFF_TYPE_ASM|AFF_TYPE_ASMPP));
 
     tccpp_new(s1);
 
-    s1->include_stack_ptr = s1->include_stack;
-    s1->ifdef_stack_ptr = s1->ifdef_stack;
-    file->ifdef_stack_ptr = s1->ifdef_stack_ptr;
-    pp_expr = 0;
+    s1->include_దొంతర_ptr = s1->include_దొంతర;
+    s1->ifdef_దొంతర_ptr = s1->ifdef_దొంతర;
+    file->ifdef_దొంతర_ptr = s1->ifdef_దొంతర_ptr;
+    pp_సమాసం = 0;
     pp_counter = 0;
     pp_debug_tok = pp_debug_symv = 0;
-    s1->pack_stack[0] = 0;
-    s1->pack_stack_ptr = s1->pack_stack;
+    s1->pack_దొంతర[0] = 0;
+    s1->pack_దొంతర_ptr = s1->pack_దొంతర;
 
-    set_idnum('$', s1->dollars_in_identifiers ? IS_ID : 0);
-    set_idnum('.', is_asm ? IS_ID : 0);
+    సమితి_idnum('$', s1->dollars_లోపల_identifiers ? IS_ID : 0);
+    సమితి_idnum('.', is_asm ? IS_ID : 0);
 
-    if (!(filetype & AFF_TYPE_ASM)) {
+    ఒకవేళ (!(filetype & AFF_TYPE_ASM)) {
         CString cstr;
         cstr_new(&cstr);
         tcc_predefs(s1, &cstr, is_asm);
-        if (s1->cmdline_defs.size)
-          cstr_cat(&cstr, s1->cmdline_defs.data, s1->cmdline_defs.size);
-        if (s1->cmdline_incl.size)
-          cstr_cat(&cstr, s1->cmdline_incl.data, s1->cmdline_incl.size);
+        ఒకవేళ (s1->cmdline_defs.కొలత)
+          cstr_cat(&cstr, s1->cmdline_defs.దత్తాంశం, s1->cmdline_defs.కొలత);
+        ఒకవేళ (s1->cmdline_incl.కొలత)
+          cstr_cat(&cstr, s1->cmdline_incl.దత్తాంశం, s1->cmdline_incl.కొలత);
         //printf("%.*s\n", cstr.size, (char*)cstr.data);
-        *s1->include_stack_ptr++ = file;
-        tcc_open_bf(s1, "<command line>", cstr.size);
-        memcpy(file->buffer, cstr.data, cstr.size);
+        *s1->include_దొంతర_ptr++ = file;
+        tcc_open_bf(s1, "<command line>", cstr.కొలత);
+        జ్ఞాపకం_నకలు(file->బఫరు, cstr.దత్తాంశం, cstr.కొలత);
         cstr_free(&cstr);
     }
     parse_flags = is_asm ? PARSE_FLAG_ASM_FILE : 0;
 }
 
 /* cleanup from error/setjmp */
-ST_FUNC void preprocess_end(TCCState *s1)
+ST_FUNC శూన్య preprocess_చివర(TCCState *s1)
 {
-    while (macro_stack)
-        end_macro();
-    macro_ptr = NULL;
-    while (file)
+    అయితే (macro_దొంతర)
+        చివర_macro();
+    macro_ptr = ఖాళీ;
+    అయితే (file)
         tcc_close();
     tccpp_delete(s1);
 }
 
-ST_FUNC int set_idnum(int c, int val)
+ST_FUNC పూర్ణాంకం సమితి_idnum(పూర్ణాంకం c, పూర్ణాంకం val)
 {
-    int prev = isidnum_table[c - CH_EOF];
-    isidnum_table[c - CH_EOF] = val;
-    return prev;
+    పూర్ణాంకం prev = isidnum_పట్టిక[c - CH_EOF];
+    isidnum_పట్టిక[c - CH_EOF] = val;
+    తిరిగి prev;
 }
 
-ST_FUNC void tccpp_new(TCCState *s)
+ST_FUNC శూన్య tccpp_new(TCCState *s)
 {
-    int i, c;
-    const char *p, *r;
+    పూర్ణాంకం i, c;
+    స్థిరరాశి అక్షరం *p, *r;
 
     /* init isid table */
-    for(i = CH_EOF; i<128; i++)
-        set_idnum(i,
+    కొరకు(i = CH_EOF; i<128; i++)
+        సమితి_idnum(i,
             is_space(i) ? IS_SPC
             : isid(i) ? IS_ID
-            : isnum(i) ? IS_NUM
+            : isnum(i) ? IS_అంకె
             : 0);
 
-    for(i = 128; i<256; i++)
-        set_idnum(i, IS_ID);
+    కొరకు(i = 128; i<256; i++)
+        సమితి_idnum(i, IS_ID);
 
     /* init allocators */
-    tal_new(&toksym_alloc, TOKSYM_TAL_SIZE);
-    tal_new(&tokstr_alloc, TOKSTR_TAL_SIZE);
+    tal_new(&toksym_alloc, TOKSYM_TAL_కొలత);
+    tal_new(&tokstr_alloc, TOKSTR_TAL_కొలత);
 
-    memset(hash_ident, 0, TOK_HASH_SIZE * sizeof(TokenSym *));
-    memset(s->cached_includes_hash, 0, sizeof s->cached_includes_hash);
+    memset(hash_ident, 0, TOK_HASH_కొలత * పరిమాణం(TokenSym *));
+    memset(s->cached_includes_hash, 0, పరిమాణం s->cached_includes_hash);
 
     cstr_new(&tokcstr);
     cstr_new(&cstr_buf);
-    cstr_realloc(&cstr_buf, STRING_MAX_SIZE);
+    cstr_realloc(&cstr_buf, STRING_MAX_కొలత);
     tok_str_new(&unget_buf);
-    tok_str_realloc(&unget_buf, TOKSTR_MAX_SIZE);
+    tok_str_realloc(&unget_buf, TOKSTR_MAX_కొలత);
     tok_str_new(&tokstr_buf);
-    tok_str_realloc(&tokstr_buf, TOKSTR_MAX_SIZE);
+    tok_str_realloc(&tokstr_buf, TOKSTR_MAX_కొలత);
 
     tok_ident = TOK_IDENT;
     p = tcc_keywords;
-    while (*p) {
+    అయితే (*p) {
         r = p;
-        for(;;) {
+        కొరకు(;;) {
             c = *r++;
-            if (c == '\0')
-                break;
+            ఒకవేళ (c == '\0')
+                ఆపు;
         }
         tok_alloc(p, r - p - 1);
         p = r;
@@ -3731,27 +3731,27 @@ ST_FUNC void tccpp_new(TCCState *s)
 
     /* we add dummy defines for some special macros to speed up tests
        and to have working defined() */
-    define_push(TOK___LINE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___FILE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___DATE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___TIME__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___COUNTER__, MACRO_OBJ, NULL, NULL);
+    define_నెట్టు(TOK_పంక్తి_2, MACRO_OBJ, ఖాళీ, ఖాళీ);
+    define_నెట్టు(TOK___FILE__, MACRO_OBJ, ఖాళీ, ఖాళీ);
+    define_నెట్టు(TOK___DATE__, MACRO_OBJ, ఖాళీ, ఖాళీ);
+    define_నెట్టు(TOK_సమయం, MACRO_OBJ, ఖాళీ, ఖాళీ);
+    define_నెట్టు(TOK___COUNTER__, MACRO_OBJ, ఖాళీ, ఖాళీ);
 }
 
-ST_FUNC void tccpp_delete(TCCState *s)
+ST_FUNC శూన్య tccpp_delete(TCCState *s)
 {
-    int i, n;
+    పూర్ణాంకం i, n;
 
     dynarray_reset(&s->cached_includes, &s->nb_cached_includes);
 
     /* free tokens */
     n = tok_ident - TOK_IDENT;
-    if (n > total_idents)
-        total_idents = n;
-    for (i = n; --i >= 0;)
-        tal_free(&toksym_alloc, table_ident[i]);
-    tcc_free(table_ident);
-    table_ident = NULL;
+    ఒకవేళ (n > మొత్తం_idents)
+        మొత్తం_idents = n;
+    కొరకు (i = n; --i >= 0;)
+        tal_free(&toksym_alloc, పట్టిక_ident[i]);
+    tcc_free(పట్టిక_ident);
+    పట్టిక_ident = ఖాళీ;
 
     /* free static buffers */
     cstr_free(&tokcstr);
@@ -3767,25 +3767,25 @@ ST_FUNC void tccpp_delete(TCCState *s)
 /* ------------------------------------------------------------------------- */
 /* tcc -E [-P[1]] [-dD} support */
 
-static int pp_need_space(int a, int b);
+స్థిర పూర్ణాంకం pp_need_space(పూర్ణాంకం a, పూర్ణాంకం b);
 
-static void tok_print(const int *str, const char *msg, ...)
+స్థిర శూన్య tok_print(స్థిరరాశి పూర్ణాంకం *str, స్థిరరాశి అక్షరం *సందేశం, ...)
 {
     FILE *fp = tcc_state->ppfp;
     va_list ap;
-    int t, t0, s;
+    పూర్ణాంకం t, t0, s;
     CValue cval;
 
-    va_start(ap, msg);
-    vfprintf(fp, msg, ap);
+    va_start(ap, సందేశం);
+    vfprintf(fp, సందేశం, ap);
     va_end(ap);
 
     s = t0 = 0;
-    while (str) {
+    అయితే (str) {
 	TOK_GET(&t, &str, &cval);
-	if (t == 0 || t == TOK_EOF)
-	    break;
-        if (pp_need_space(t0, t))
+	ఒకవేళ (t == 0 || t == TOK_EOF)
+	    ఆపు;
+        ఒకవేళ (pp_need_space(t0, t))
             s = 0;
 	fprintf(fp, &" %s"[s], t == TOK_PLCHLDR ? "<>" : get_tok_str(t, &cval));
         s = 1, t0 = t;
@@ -3793,46 +3793,46 @@ static void tok_print(const int *str, const char *msg, ...)
     fprintf(fp, "\n");
 }
 
-static void pp_line(TCCState *s1, BufferedFile *f, int level)
+స్థిర శూన్య pp_పంక్తి(TCCState *s1, BufferedFile *f, పూర్ణాంకం level)
 {
-    int d = f->line_num - f->line_ref;
+    పూర్ణాంకం d = f->పంక్తి_అంకె - f->పంక్తి_ref;
 
-    if (s1->dflag & 4)
-	return;
+    ఒకవేళ (s1->dflag & 4)
+	తిరిగి;
 
-    if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_NONE) {
+    ఒకవేళ (s1->Pflag == పంక్తి_MACRO_OUTPUT_FORMAT_NONE) {
         ;
-    } else if (level == 0 && f->line_ref && d < 8) {
-	while (d > 0)
+    } లేకపోతే ఒకవేళ (level == 0 && f->పంక్తి_ref && d < 8) {
+	అయితే (d > 0)
 	    fputs("\n", s1->ppfp), --d;
-    } else if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_STD) {
-	fprintf(s1->ppfp, "#line %d \"%s\"\n", f->line_num, f->filename);
-    } else {
-	fprintf(s1->ppfp, "# %d \"%s\"%s\n", f->line_num, f->filename,
+    } లేకపోతే ఒకవేళ (s1->Pflag == పంక్తి_MACRO_OUTPUT_FORMAT_STD) {
+	fprintf(s1->ppfp, "#line %d \"%s\"\n", f->పంక్తి_అంకె, f->filename);
+    } లేకపోతే {
+	fprintf(s1->ppfp, "# %d \"%s\"%s\n", f->పంక్తి_అంకె, f->filename,
 	    level > 0 ? " 1" : level < 0 ? " 2" : "");
     }
-    f->line_ref = f->line_num;
+    f->పంక్తి_ref = f->పంక్తి_అంకె;
 }
 
-static void define_print(TCCState *s1, int v)
+స్థిర శూన్య define_print(TCCState *s1, పూర్ణాంకం v)
 {
     FILE *fp;
     Sym *s;
 
-    s = define_find(v);
-    if (NULL == s || NULL == s->d)
-        return;
+    s = define_కనుగొను(v);
+    ఒకవేళ (ఖాళీ == s || ఖాళీ == s->d)
+        తిరిగి;
 
     fp = s1->ppfp;
-    fprintf(fp, "#define %s", get_tok_str(v, NULL));
-    if (s->type.t & MACRO_FUNC) {
-        Sym *a = s->next;
+    fprintf(fp, "#define %s", get_tok_str(v, ఖాళీ));
+    ఒకవేళ (s->type.t & MACRO_FUNC) {
+        Sym *a = s->తదుపరి;
         fprintf(fp,"(");
-        if (a)
-            for (;;) {
-                fprintf(fp,"%s", get_tok_str(a->v, NULL));
-                if (!(a = a->next))
-                    break;
+        ఒకవేళ (a)
+            కొరకు (;;) {
+                fprintf(fp,"%s", get_tok_str(a->v, ఖాళీ));
+                ఒకవేళ (!(a = a->తదుపరి))
+                    ఆపు;
                 fprintf(fp,",");
             }
         fprintf(fp,")");
@@ -3840,39 +3840,39 @@ static void define_print(TCCState *s1, int v)
     tok_print(s->d, "");
 }
 
-static void pp_debug_defines(TCCState *s1)
+స్థిర శూన్య pp_debug_నిర్వచిస్తుంది(TCCState *s1)
 {
-    int v, t;
-    const char *vs;
+    పూర్ణాంకం v, t;
+    స్థిరరాశి అక్షరం *vs;
     FILE *fp;
 
     t = pp_debug_tok;
-    if (t == 0)
-        return;
+    ఒకవేళ (t == 0)
+        తిరిగి;
 
-    file->line_num--;
-    pp_line(s1, file, 0);
-    file->line_ref = ++file->line_num;
+    file->పంక్తి_అంకె--;
+    pp_పంక్తి(s1, file, 0);
+    file->పంక్తి_ref = ++file->పంక్తి_అంకె;
 
     fp = s1->ppfp;
     v = pp_debug_symv;
-    vs = get_tok_str(v, NULL);
-    if (t == TOK_DEFINE) {
+    vs = get_tok_str(v, ఖాళీ);
+    ఒకవేళ (t == TOK_DEFINE) {
         define_print(s1, v);
-    } else if (t == TOK_UNDEF) {
+    } లేకపోతే ఒకవేళ (t == TOK_UNDEF) {
         fprintf(fp, "#undef %s\n", vs);
-    } else if (t == TOK_push_macro) {
+    } లేకపోతే ఒకవేళ (t == TOK_నెట్టు_macro) {
         fprintf(fp, "#pragma push_macro(\"%s\")\n", vs);
-    } else if (t == TOK_pop_macro) {
+    } లేకపోతే ఒకవేళ (t == TOK_తీయి_macro) {
         fprintf(fp, "#pragma pop_macro(\"%s\")\n", vs);
     }
     pp_debug_tok = 0;
 }
 
 /* Add a space between tokens a and b to avoid unwanted textual pasting */
-static int pp_need_space(int a, int b)
+స్థిర పూర్ణాంకం pp_need_space(పూర్ణాంకం a, పూర్ణాంకం b)
 {
-    return 'E' == a ? '+' == b || '-' == b
+    తిరిగి 'E' == a ? '+' == b || '-' == b
         : '+' == a ? TOK_INC == b || '+' == b
         : '-' == a ? TOK_DEC == b || '-' == b
         : a >= TOK_IDENT || a == TOK_PPNUM ? b >= TOK_IDENT || b == TOK_PPNUM
@@ -3880,20 +3880,20 @@ static int pp_need_space(int a, int b)
 }
 
 /* maybe hex like 0x1e */
-static int pp_check_he0xE(int t, const char *p)
+స్థిర పూర్ణాంకం pp_check_he0xE(పూర్ణాంకం t, స్థిరరాశి అక్షరం *p)
 {
-    if (t == TOK_PPNUM && toup(strchr(p, 0)[-1]) == 'E')
-        return 'E';
-    return t;
+    ఒకవేళ (t == TOK_PPNUM && toup(strchr(p, 0)[-1]) == 'E')
+        తిరిగి 'E';
+    తిరిగి t;
 }
 
 /* Preprocess the current file */
-ST_FUNC int tcc_preprocess(TCCState *s1)
+ST_FUNC పూర్ణాంకం tcc_preprocess(TCCState *s1)
 {
     BufferedFile **iptr;
-    int token_seen, spcs, level;
-    const char *p;
-    char white[400];
+    పూర్ణాంకం token_చూసిన, spcs, level;
+    స్థిరరాశి అక్షరం *p;
+    అక్షరం white[400];
 
     parse_flags = PARSE_FLAG_PREPROCESS
                 | (parse_flags & PARSE_FLAG_ASM_FILE)
@@ -3904,58 +3904,58 @@ ST_FUNC int tcc_preprocess(TCCState *s1)
     /* Credits to Fabrice Bellard's initial revision to demonstrate its
        capability to compile and run itself, provided all numbers are
        given as decimals. tcc -E -P10 will do. */
-    if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_P10)
-        parse_flags |= PARSE_FLAG_TOK_NUM, s1->Pflag = 1;
+    ఒకవేళ (s1->Pflag == పంక్తి_MACRO_OUTPUT_FORMAT_P10)
+        parse_flags |= PARSE_FLAG_TOK_అంకె, s1->Pflag = 1;
 
-    if (s1->do_bench) {
+    ఒకవేళ (s1->do_bench) {
 	/* for PP benchmarks */
-	do next(); while (tok != TOK_EOF);
-	return 0;
+	చేయి తదుపరి(); అయితే (tok != TOK_EOF);
+	తిరిగి 0;
     }
 
-    token_seen = TOK_LINEFEED, spcs = 0, level = 0;
-    if (file->prev)
-        pp_line(s1, file->prev, level++);
-    pp_line(s1, file, level);
+    token_చూసిన = TOK_LINEFEED, spcs = 0, level = 0;
+    ఒకవేళ (file->prev)
+        pp_పంక్తి(s1, file->prev, level++);
+    pp_పంక్తి(s1, file, level);
 
-    for (;;) {
-        iptr = s1->include_stack_ptr;
-        next();
-        if (tok == TOK_EOF)
-            break;
+    కొరకు (;;) {
+        iptr = s1->include_దొంతర_ptr;
+        తదుపరి();
+        ఒకవేళ (tok == TOK_EOF)
+            ఆపు;
 
-        level = s1->include_stack_ptr - iptr;
-        if (level) {
-            if (level > 0)
-                pp_line(s1, *iptr, 0);
-            pp_line(s1, file, level);
+        level = s1->include_దొంతర_ptr - iptr;
+        ఒకవేళ (level) {
+            ఒకవేళ (level > 0)
+                pp_పంక్తి(s1, *iptr, 0);
+            pp_పంక్తి(s1, file, level);
         }
-        if (s1->dflag & 7) {
-            pp_debug_defines(s1);
-            if (s1->dflag & 4)
-                continue;
+        ఒకవేళ (s1->dflag & 7) {
+            pp_debug_నిర్వచిస్తుంది(s1);
+            ఒకవేళ (s1->dflag & 4)
+                కొనసాగు;
         }
 
-        if (is_space(tok)) {
-            if (spcs < sizeof white - 1)
+        ఒకవేళ (is_space(tok)) {
+            ఒకవేళ (spcs < పరిమాణం white - 1)
                 white[spcs++] = tok;
-            continue;
-        } else if (tok == TOK_LINEFEED) {
+            కొనసాగు;
+        } లేకపోతే ఒకవేళ (tok == TOK_LINEFEED) {
             spcs = 0;
-            if (token_seen == TOK_LINEFEED)
-                continue;
-            ++file->line_ref;
-        } else if (token_seen == TOK_LINEFEED) {
-            pp_line(s1, file, 0);
-        } else if (spcs == 0 && pp_need_space(token_seen, tok)) {
+            ఒకవేళ (token_చూసిన == TOK_LINEFEED)
+                కొనసాగు;
+            ++file->పంక్తి_ref;
+        } లేకపోతే ఒకవేళ (token_చూసిన == TOK_LINEFEED) {
+            pp_పంక్తి(s1, file, 0);
+        } లేకపోతే ఒకవేళ (spcs == 0 && pp_need_space(token_చూసిన, tok)) {
             white[spcs++] = ' ';
         }
 
         white[spcs] = 0, fputs(white, s1->ppfp), spcs = 0;
         fputs(p = get_tok_str(tok, &tokc), s1->ppfp);
-        token_seen = pp_check_he0xE(tok, p);
+        token_చూసిన = pp_check_he0xE(tok, p);
     }
-    return 0;
+    తిరిగి 0;
 }
 
 /* ------------------------------------------------------------------------- */

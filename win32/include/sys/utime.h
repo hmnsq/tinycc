@@ -3,144 +3,144 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_UTIME
-#define _INC_UTIME
+#నిర్వచితం_కాకపోతే _INC_UTIME
+#నిర్వచించు _INC_UTIME
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#నిర్వచితం_కాకపోతే _WIN32
+#దోషం Only Win32 లక్ష్యం is supported!
+#అయితే_ముగింపు
 
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#సూచన pack(నెట్టు,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#నిర్వచితం_కాకపోతే _CRTIMP
+#నిర్వచించు _CRTIMP __declspec(dllimport)
+#అయితే_ముగింపు
 
-#ifndef _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
+#నిర్వచితం_కాకపోతే _WCHAR_T_DEFINED
+  రకనిర్వచనం గుర్తులేని పొట్టి wchar_t;
+#నిర్వచించు _WCHAR_T_DEFINED
+#అయితే_ముగింపు
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#నిర్వచితం_కాకపోతే __TINYC__ /* gr */
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+#నిర్వచితమైతే _WIN64
+#నిర్వచనం_రద్దు USE_32_బిట్టు_సమయం_T
+#అయితే_ముగింపు
+#లేకపోతే
+#ఒకవేళ INTEGRAL_MAX_బిట్లు < 64
+#నిర్వచించు USE_32_బిట్టు_సమయం_T
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-  typedef long __time32_t;
-#endif
+#నిర్వచితం_కాకపోతే _TIME32_T_DEFINED
+#నిర్వచించు _TIME32_T_DEFINED
+  రకనిర్వచనం దీర్ఘ __time32_t;
+#అయితే_ముగింపు
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _TIME64_T_DEFINED
+#నిర్వచించు _TIME64_T_DEFINED
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+  రకనిర్వచనం __int64 __time64_t;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
-#endif
-#endif
+#నిర్వచితం_కాకపోతే సమయం_T_DEFINED
+#నిర్వచించు సమయం_T_DEFINED
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+  రకనిర్వచనం __time32_t time_t;
+#లేకపోతే
+  రకనిర్వచనం __time64_t time_t;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _UTIMBUF_DEFINED
-#define _UTIMBUF_DEFINED
+#నిర్వచితం_కాకపోతే _UTIMBUF_DEFINED
+#నిర్వచించు _UTIMBUF_DEFINED
 
-  struct _utimbuf {
+  నిర్మాణం _utimbuf {
     time_t actime;
     time_t modtime;
   };
 
-  struct __utimbuf32 {
+  నిర్మాణం __utimbuf32 {
     __time32_t actime;
     __time32_t modtime;
   };
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __utimbuf64 {
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+  నిర్మాణం __utimbuf64 {
     __time64_t actime;
     __time64_t modtime;
   };
-#endif
+#అయితే_ముగింపు
 
-#ifndef	NO_OLDNAMES
-  struct utimbuf {
+#నిర్వచితం_కాకపోతే	NO_OLDNAMES
+  నిర్మాణం utimbuf {
     time_t actime;
     time_t modtime;
   };
 
-  struct utimbuf32 {
+  నిర్మాణం utimbuf32 {
     __time32_t actime;
     __time32_t modtime;
   };
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-  _CRTIMP int __cdecl _utime32(const char *_Filename,struct __utimbuf32 *_Time);
-  _CRTIMP int __cdecl _futime32(int _FileDes,struct __utimbuf32 *_Time);
-  _CRTIMP int __cdecl _wutime32(const wchar_t *_Filename,struct __utimbuf32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _utime64(const char *_Filename,struct __utimbuf64 *_Time);
-  _CRTIMP int __cdecl _futime64(int _FileDes,struct __utimbuf64 *_Time);
-  _CRTIMP int __cdecl _wutime64(const wchar_t *_Filename,struct __utimbuf64 *_Time);
-#endif
+  _CRTIMP పూర్ణాంకం __cdecl _utime32(స్థిరరాశి అక్షరం *_Filename,నిర్మాణం __utimbuf32 *సమయం_2);
+  _CRTIMP పూర్ణాంకం __cdecl _futime32(పూర్ణాంకం _FileDes,నిర్మాణం __utimbuf32 *సమయం_2);
+  _CRTIMP పూర్ణాంకం __cdecl _wutime32(స్థిరరాశి wchar_t *_Filename,నిర్మాణం __utimbuf32 *సమయం_2);
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+  _CRTIMP పూర్ణాంకం __cdecl _utime64(స్థిరరాశి అక్షరం *_Filename,నిర్మాణం __utimbuf64 *సమయం_2);
+  _CRTIMP పూర్ణాంకం __cdecl _futime64(పూర్ణాంకం _FileDes,నిర్మాణం __utimbuf64 *సమయం_2);
+  _CRTIMP పూర్ణాంకం __cdecl _wutime64(స్థిరరాశి wchar_t *_Filename,నిర్మాణం __utimbuf64 *సమయం_2);
+#అయితే_ముగింపు
 
-#ifndef RC_INVOKED
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl _utime(const char *_Filename,struct _utimbuf *_Utimbuf) {
-  return _utime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+#నిర్వచితం_కాకపోతే RC_INVOKED
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+__CRT_INLINE పూర్ణాంకం __cdecl _utime(స్థిరరాశి అక్షరం *_Filename,నిర్మాణం _utimbuf *_Utimbuf) {
+  తిరిగి _utime32(_Filename,(నిర్మాణం __utimbuf32 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _futime(int _Desc,struct _utimbuf *_Utimbuf) {
-  return _futime32(_Desc,(struct __utimbuf32 *)_Utimbuf);
+__CRT_INLINE పూర్ణాంకం __cdecl _futime(పూర్ణాంకం _Desc,నిర్మాణం _utimbuf *_Utimbuf) {
+  తిరిగి _futime32(_Desc,(నిర్మాణం __utimbuf32 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _wutime(const wchar_t *_Filename,struct _utimbuf *_Utimbuf) {
-  return _wutime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+__CRT_INLINE పూర్ణాంకం __cdecl _wutime(స్థిరరాశి wchar_t *_Filename,నిర్మాణం _utimbuf *_Utimbuf) {
+  తిరిగి _wutime32(_Filename,(నిర్మాణం __utimbuf32 *)_Utimbuf);
 }
-#else
-__CRT_INLINE int __cdecl _utime(const char *_Filename,struct _utimbuf *_Utimbuf) {
-  return _utime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+#లేకపోతే
+__CRT_INLINE పూర్ణాంకం __cdecl _utime(స్థిరరాశి అక్షరం *_Filename,నిర్మాణం _utimbuf *_Utimbuf) {
+  తిరిగి _utime64(_Filename,(నిర్మాణం __utimbuf64 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _futime(int _Desc,struct _utimbuf *_Utimbuf) {
-  return _futime64(_Desc,(struct __utimbuf64 *)_Utimbuf);
+__CRT_INLINE పూర్ణాంకం __cdecl _futime(పూర్ణాంకం _Desc,నిర్మాణం _utimbuf *_Utimbuf) {
+  తిరిగి _futime64(_Desc,(నిర్మాణం __utimbuf64 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _wutime(const wchar_t *_Filename,struct _utimbuf *_Utimbuf) {
-  return _wutime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+__CRT_INLINE పూర్ణాంకం __cdecl _wutime(స్థిరరాశి wchar_t *_Filename,నిర్మాణం _utimbuf *_Utimbuf) {
+  తిరిగి _wutime64(_Filename,(నిర్మాణం __utimbuf64 *)_Utimbuf);
 }
-#endif
+#అయితే_ముగింపు
 
-#ifndef	NO_OLDNAMES
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl utime(const char *_Filename,struct utimbuf *_Utimbuf) {
-  return _utime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+#నిర్వచితం_కాకపోతే	NO_OLDNAMES
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+__CRT_INLINE పూర్ణాంకం __cdecl utime(స్థిరరాశి అక్షరం *_Filename,నిర్మాణం utimbuf *_Utimbuf) {
+  తిరిగి _utime32(_Filename,(నిర్మాణం __utimbuf32 *)_Utimbuf);
 }
-#else
-__CRT_INLINE int __cdecl utime(const char *_Filename,struct utimbuf *_Utimbuf) {
-  return _utime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+#లేకపోతే
+__CRT_INLINE పూర్ణాంకం __cdecl utime(స్థిరరాశి అక్షరం *_Filename,నిర్మాణం utimbuf *_Utimbuf) {
+  తిరిగి _utime64(_Filename,(నిర్మాణం __utimbuf64 *)_Utimbuf);
 }
-#endif
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#pragma pack(pop)
-#endif
+#సూచన pack(తీయి)
+#అయితే_ముగింపు

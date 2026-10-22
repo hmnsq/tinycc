@@ -1,56 +1,56 @@
 /* ------------------------------------------------------------- */
 /* function to get a stack backtrace on demand with a message */
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
-#undef __attribute__
+#అన్తర్భావ <stdarg.h>
+#అన్తర్భావ <stdio.h>
+#అన్తర్భావ <string.h>
+#నిర్వచనం_రద్దు __attribute__
 
-#ifdef _WIN32
+#నిర్వచితమైతే _WIN32
 # define DLL_EXPORT __declspec(dllexport)
-#else
+#లేకపోతే
 # define DLL_EXPORT
-#endif
+#అయితే_ముగింపు
 
 /* Needed when using ...libtcc1-usegcc=yes in lib/Makefile */
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wframe-address"
-#endif
+#ఒకవేళ (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#సూచన GCC diagnostic నెట్టు
+#సూచన GCC diagnostic ignored "-Wframe-address"
+#అయితే_ముగింపు
 
-typedef struct rt_frame {
-    void *ip, *fp, *sp;
-} rt_frame;
+రకనిర్వచనం నిర్మాణం rt_చట్రం {
+    శూన్య *ip, *fp, *sp;
+} rt_చట్రం;
 
 __attribute__((weak))
-int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap);
+పూర్ణాంకం _tcc_backtrace(rt_చట్రం *f, స్థిరరాశి అక్షరం *fmt, va_list ap);
 
-DLL_EXPORT int tcc_backtrace(const char *fmt, ...)
+DLL_EXPORT పూర్ణాంకం tcc_backtrace(స్థిరరాశి అక్షరం *fmt, ...)
 {
     va_list ap;
-    int ret;
+    పూర్ణాంకం ret;
 
-    if (_tcc_backtrace) {
-        rt_frame f;
+    ఒకవేళ (_tcc_backtrace) {
+        rt_చట్రం f;
         f.fp = __builtin_frame_address(1);
         f.ip = __builtin_return_address(0);
         va_start(ap, fmt);
         ret = _tcc_backtrace(&f, fmt, ap);
         va_end(ap);
-    } else {
-        const char *p, *nl = "\n";
-        if (fmt[0] == '^' && (p = strchr(fmt + 1, fmt[0])))
+    } లేకపోతే {
+        స్థిరరాశి అక్షరం *p, *nl = "\n";
+        ఒకవేళ (fmt[0] == '^' && (p = strchr(fmt + 1, fmt[0])))
             fmt = p + 1;
-        if (fmt[0] == '\001')
+        ఒకవేళ (fmt[0] == '\001')
             ++fmt, nl = "";
         va_start(ap, fmt);
         ret = vfprintf(stderr, fmt, ap);
         va_end(ap);
         fprintf(stderr, "%s", nl), fflush(stderr);
     }
-    return ret;
+    తిరిగి ret;
 }
 
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic pop
-#endif
+#ఒకవేళ (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#సూచన GCC diagnostic తీయి
+#అయితే_ముగింపు

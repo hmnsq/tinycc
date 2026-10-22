@@ -2,103 +2,103 @@
 // crt1.c
 
 // _UNICODE for tchar.h, UNICODE for API
-#include <tchar.h>
+#అన్తర్భావ <tchar.h>
 
-#include <windows.h>
-#include <stdio.h>
-#include <stdlib.h>
+#అన్తర్భావ <windows.h>
+#అన్తర్భావ <stdio.h>
+#అన్తర్భావ <stdlib.h>
 
-#define _UNKNOWN_APP    0
-#define _CONSOLE_APP    1
-#define _GUI_APP        2
+#నిర్వచించు _UNKNOWN_APP    0
+#నిర్వచించు _CONSOLE_APP    1
+#నిర్వచించు _GUI_APP        2
 
-#define _MCW_PC         0x00030000 // Precision Control
-#define _PC_24          0x00020000 // 24 bits
-#define _PC_53          0x00010000 // 53 bits
-#define _PC_64          0x00000000 // 64 bits
+#నిర్వచించు _MCW_PC         0x00030000 // Precision Control
+#నిర్వచించు _PC_24          0x00020000 // 24 bits
+#నిర్వచించు _PC_53          0x00010000 // 53 bits
+#నిర్వచించు _PC_64          0x00000000 // 64 bits
 
-#ifdef _UNICODE
-#define __tgetmainargs __wgetmainargs
-#define _tstart _wstart
-#define _tmain wmain
-#define _runtmain _runwmain
-#else
-#define __tgetmainargs __getmainargs
-#define _tstart _start
-#define _tmain main
-#define _runtmain _runmain
-#endif
+#నిర్వచితమైతే _UNICODE
+#నిర్వచించు __tgetmainargs __wgetmainargs
+#నిర్వచించు _tstart _wstart
+#నిర్వచించు _tmain wmain
+#నిర్వచించు _runtmain _runwmain
+#లేకపోతే
+#నిర్వచించు __tgetmainargs __getmainargs
+#నిర్వచించు _tstart ప్రారంభం_5
+#నిర్వచించు _tmain ప్రధాన
+#నిర్వచించు _runtmain _runmain
+#అయితే_ముగింపు
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
-void __cdecl __set_app_type(int apptype);
-unsigned int __cdecl _controlfp(unsigned int new_value, unsigned int mask);
-extern int _tmain(int argc, _TCHAR * argv[], _TCHAR * env[]);
+రకనిర్వచనం నిర్మాణం { పూర్ణాంకం newmode; } _startupinfo;
+పూర్ణాంకం __cdecl __tgetmainargs(పూర్ణాంకం *pargc, _TCHAR ***pargv, _TCHAR ***penv, పూర్ణాంకం globb, _startupinfo*);
+శూన్య __cdecl __set_app_type(పూర్ణాంకం apptype);
+గుర్తులేని పూర్ణాంకం __cdecl _controlfp(గుర్తులేని పూర్ణాంకం new_విలువ, గుర్తులేని పూర్ణాంకం ముసుగు);
+బాహ్య పూర్ణాంకం _tmain(పూర్ణాంకం argc, _TCHAR * argv[], _TCHAR * env[]);
 
-#include "crtinit.c"
+#అన్తర్భావ "crtinit.c"
 
 /* Allow command-line globbing with "int _dowildcard = 1;" in the user source */
-int _dowildcard;
+పూర్ణాంకం _dowildcard;
 
-static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
+స్థిర LONG WINAPI catch_sig(EXCEPTION_సూచికలు *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  తిరిగి _XcptFilter(ex->Exception_రికార్డు->Exception_సంకేతం, ex);
 }
 
-void _tstart(void)
+శూన్య _tstart(శూన్య)
 {
-    int ret;
+    పూర్ణాంకం ret;
 
-    _startupinfo start_info = {0};
-    SetUnhandledExceptionFilter(catch_sig);
+    _startupinfo ప్రారంభం_info = {0};
+    సమితి_Unhandled_Exception_Filter(catch_sig);
     // Sets the current application type
     __set_app_type(_CONSOLE_APP);
 
     // Set default FP precision to 53 bits (8-byte double)
     // _MCW_PC (Precision control) is not supported on ARM
-#if defined __i386__ || defined __x86_64__
+#ఒకవేళ defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
-#endif
+#అయితే_ముగింపు
 
-    __tgetmainargs( &__argc, &__targv, &_tenviron, _dowildcard, &start_info);
-    run_ctors(__argc, __targv, _tenviron);
+    __tgetmainargs( &__argc, &__targv, &_tenviron, _dowildcard, &ప్రారంభం_info);
+    నిరంతరం_ctors(__argc, __targv, _tenviron);
     ret = _tmain(__argc, __targv, _tenviron);
-    run_dtors();
-    exit(ret);
+    నిరంతరం_dtors();
+    నిష్క్రమించు(ret);
 }
 
 // =============================================
 // for 'tcc -run ,,,'
 
-__attribute__((weak)) extern int __run_on_exit();
+__attribute__((weak)) బాహ్య పూర్ణాంకం __run_on_exit();
 
-int _runtmain(int argc, /* as tcc passed in */ char **argv)
+పూర్ణాంకం _runtmain(పూర్ణాంకం argc, /* as tcc passed in */ అక్షరం **argv)
 {
-    int ret;
-#if defined UNICODE || defined __aarch64__
-    _startupinfo start_info = {0};
-    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
-#endif
-#ifdef UNICODE
+    పూర్ణాంకం ret;
+#ఒకవేళ defined UNICODE || defined __aarch64__
+    _startupinfo ప్రారంభం_info = {0};
+    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &ప్రారంభం_info);
+#అయితే_ముగింపు
+#నిర్వచితమైతే UNICODE
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc) {
+    ఒకవేళ (argc < __argc) {
         __targv += __argc - argc;
         __argc = argc;
     }
-#else
+#లేకపోతే
     __argc = argc;
     __targv = argv;
-#endif
-#if defined __i386__ || defined __x86_64__
+#అయితే_ముగింపు
+#ఒకవేళ defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
-#endif
-    run_ctors(__argc, __targv, _tenviron);
+#అయితే_ముగింపు
+    నిరంతరం_ctors(__argc, __targv, _tenviron);
     ret = _tmain(__argc, __targv, _tenviron);
     fflush(stdout);
     fflush(stderr);
-    run_dtors();
+    నిరంతరం_dtors();
     __run_on_exit(ret);
-    return ret;
+    తిరిగి ret;
 }
 
 // =============================================

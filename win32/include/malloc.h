@@ -3,179 +3,179 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _MALLOC_H_
-#define _MALLOC_H_
+#నిర్వచితం_కాకపోతే _MALLOC_H_
+#నిర్వచించు _MALLOC_H_
 
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#సూచన pack(నెట్టు,_CRT_PACKING)
 
-#ifndef _MM_MALLOC_H_INCLUDED
-#define _MM_MALLOC_H_INCLUDED
-#endif
+#నిర్వచితం_కాకపోతే _MM_MALLOC_H_INCLUDED
+#నిర్వచించు _MM_MALLOC_H_INCLUDED
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifdef _WIN64
-#define _HEAP_MAXREQ 0xFFFFFFFFFFFFFFE0
-#else
-#define _HEAP_MAXREQ 0xFFFFFFE0
-#endif
+#నిర్వచితమైతే _WIN64
+#నిర్వచించు కుప్ప_MAXREQ 0xFFFFFFFFFFFFFFE0
+#లేకపోతే
+#నిర్వచించు కుప్ప_MAXREQ 0xFFFFFFE0
+#అయితే_ముగింపు
 
-#ifndef _STATIC_ASSERT
-#define _STATIC_ASSERT(expr) extern void __static_assert_t(int [(expr)?1:-1])
-#endif
+#నిర్వచితం_కాకపోతే _STATIC_ASSERT
+#నిర్వచించు _STATIC_ASSERT(సమాసం) బాహ్య శూన్య __static_assert_t(పూర్ణాంకం [(సమాసం)?1:-1])
+#అయితే_ముగింపు
 
 /* Return codes for _heapwalk()  */
-#define _HEAPEMPTY (-1)
-#define _HEAPOK (-2)
-#define _HEAPBADBEGIN (-3)
-#define _HEAPBADNODE (-4)
-#define _HEAPEND (-5)
-#define _HEAPBADPTR (-6)
+#నిర్వచించు _HEAPEMPTY (-1)
+#నిర్వచించు _HEAPOK (-2)
+#నిర్వచించు _HEAPBADBEGIN (-3)
+#నిర్వచించు _HEAPBADNODE (-4)
+#నిర్వచించు _HEAPEND (-5)
+#నిర్వచించు _HEAPBADPTR (-6)
 
 /* Values for _heapinfo.useflag */
-#define _FREEENTRY 0
-#define _USEDENTRY 1
+#నిర్వచించు _FREEENTRY 0
+#నిర్వచించు _USEDENTRY 1
 
-#ifndef _HEAPINFO_DEFINED
-#define _HEAPINFO_DEFINED
+#నిర్వచితం_కాకపోతే _HEAPINFO_DEFINED
+#నిర్వచించు _HEAPINFO_DEFINED
  /* The structure used to walk through the heap with _heapwalk.  */
-  typedef struct _heapinfo {
-    int *_pentry;
-    size_t _size;
-    int _useflag;
+  రకనిర్వచనం నిర్మాణం _heapinfo {
+    పూర్ణాంకం *_pentry;
+    కొలత_t కొలత_5;
+    పూర్ణాంకం _useflag;
   } _HEAPINFO;
-#endif
+#అయితే_ముగింపు
 
-  extern unsigned int _amblksiz;
+  బాహ్య గుర్తులేని పూర్ణాంకం _amblksiz;
 
-#define _mm_free(a) _aligned_free(a)
-#define _mm_malloc(a,b) _aligned_malloc(a,b)
+#నిర్వచించు _mm_free(a) _aligned_free(a)
+#నిర్వచించు _mm_malloc(a,b) _aligned_malloc(a,b)
 
-#ifndef _CRT_ALLOCATION_DEFINED
-#define _CRT_ALLOCATION_DEFINED
-  void *__cdecl calloc(size_t _NumOfElements,size_t _SizeOfElements);
-  void __cdecl free(void *_Memory);
-  void *__cdecl malloc(size_t _Size);
-  void *__cdecl realloc(void *_Memory,size_t _NewSize);
-  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t _Count,size_t _Size);
-  _CRTIMP void __cdecl _aligned_free(void *_Memory);
-  _CRTIMP void *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_realloc(void *_Memory,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_realloc(void *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment,size_t _Offset);
-#endif
+#నిర్వచితం_కాకపోతే CRT_కేటాయింపు_DEFINED
+#నిర్వచించు CRT_కేటాయింపు_DEFINED
+  శూన్య *__cdecl సున్నా_జ్ఞాపకం_ఇవ్వు(కొలత_t అంకె_యొక్క_Elements,కొలత_t కొలత_యొక్క_Elements);
+  శూన్య __cdecl విడుదల(శూన్య *జ్ఞాపకం);
+  శూన్య *__cdecl జ్ఞాపకం_ఇవ్వు(కొలత_t కొలత_4);
+  శూన్య *__cdecl realloc(శూన్య *జ్ఞాపకం,కొలత_t New_కొలత);
+  _CRTIMP శూన్య *__cdecl _recalloc(శూన్య *జ్ఞాపకం,కొలత_t లెక్క_5,కొలత_t కొలత_4);
+  _CRTIMP శూన్య __cdecl _aligned_free(శూన్య *జ్ఞాపకం);
+  _CRTIMP శూన్య *__cdecl _aligned_malloc(కొలత_t కొలత_4,కొలత_t _Alignment);
+  _CRTIMP శూన్య *__cdecl aligned_స్థానభ్రంశం_malloc(కొలత_t కొలత_4,కొలత_t _Alignment,కొలత_t స్థానభ్రంశం_2);
+  _CRTIMP శూన్య *__cdecl _aligned_realloc(శూన్య *జ్ఞాపకం,కొలత_t కొలత_4,కొలత_t _Alignment);
+  _CRTIMP శూన్య *__cdecl _aligned_recalloc(శూన్య *జ్ఞాపకం,కొలత_t లెక్క_5,కొలత_t కొలత_4,కొలత_t _Alignment);
+  _CRTIMP శూన్య *__cdecl aligned_స్థానభ్రంశం_realloc(శూన్య *జ్ఞాపకం,కొలత_t కొలత_4,కొలత_t _Alignment,కొలత_t స్థానభ్రంశం_2);
+  _CRTIMP శూన్య *__cdecl aligned_స్థానభ్రంశం_recalloc(శూన్య *జ్ఞాపకం,కొలత_t లెక్క_5,కొలత_t కొలత_4,కొలత_t _Alignment,కొలత_t స్థానభ్రంశం_2);
+#అయితే_ముగింపు
 
-#define _MAX_WAIT_MALLOC_CRT 60000
+#నిర్వచించు _MAX_WAIT_MALLOC_CRT 60000
 
-  _CRTIMP int __cdecl _resetstkoflw (void);
-  _CRTIMP unsigned long __cdecl _set_malloc_crt_max_wait(unsigned long _NewValue);
+  _CRTIMP పూర్ణాంకం __cdecl _resetstkoflw (శూన్య);
+  _CRTIMP గుర్తులేని దీర్ఘ __cdecl సమితి_malloc_crt_max_wait(గుర్తులేని దీర్ఘ New_విలువ);
 
-  _CRTIMP void *__cdecl _expand(void *_Memory,size_t _NewSize);
-  _CRTIMP size_t __cdecl _msize(void *_Memory);
-#ifdef __GNUC__
-#undef _alloca
-#define _alloca(x) __builtin_alloca((x))
-#else
+  _CRTIMP శూన్య *__cdecl _expand(శూన్య *జ్ఞాపకం,కొలత_t New_కొలత);
+  _CRTIMP కొలత_t __cdecl _msize(శూన్య *జ్ఞాపకం);
+#నిర్వచితమైతే __GNUC__
+#నిర్వచనం_రద్దు _alloca
+#నిర్వచించు _alloca(x) __builtin_alloca((x))
+#లేకపోతే
   /* tcc implements alloca internally and exposes it (since commit d778bde7).
   /* alloca is declared at include/stddef.h (which is distributed with tcc).
    */
-#ifdef _alloca
-#undef _alloca
-#endif
-#define _alloca(x) alloca((x))
-#endif
-  _CRTIMP size_t __cdecl _get_sbh_threshold(void);
-  _CRTIMP int __cdecl _set_sbh_threshold(size_t _NewValue);
-  _CRTIMP errno_t __cdecl _set_amblksiz(size_t _Value);
-  _CRTIMP errno_t __cdecl _get_amblksiz(size_t *_Value);
-  _CRTIMP int __cdecl _heapadd(void *_Memory,size_t _Size);
-  _CRTIMP int __cdecl _heapchk(void);
-  _CRTIMP int __cdecl _heapmin(void);
-  _CRTIMP int __cdecl _heapset(unsigned int _Fill);
-  _CRTIMP int __cdecl _heapwalk(_HEAPINFO *_EntryInfo);
-  _CRTIMP size_t __cdecl _heapused(size_t *_Used,size_t *_Commit);
-  _CRTIMP intptr_t __cdecl _get_heap_handle(void);
+#నిర్వచితమైతే _alloca
+#నిర్వచనం_రద్దు _alloca
+#అయితే_ముగింపు
+#నిర్వచించు _alloca(x) alloca((x))
+#అయితే_ముగింపు
+  _CRTIMP కొలత_t __cdecl get_sbh_పరిమితి(శూన్య);
+  _CRTIMP పూర్ణాంకం __cdecl సమితి_sbh_పరిమితి(కొలత_t New_విలువ);
+  _CRTIMP errno_t __cdecl సమితి_amblksiz(కొలత_t విలువ_2);
+  _CRTIMP errno_t __cdecl _get_amblksiz(కొలత_t *విలువ_2);
+  _CRTIMP పూర్ణాంకం __cdecl _heapadd(శూన్య *జ్ఞాపకం,కొలత_t కొలత_4);
+  _CRTIMP పూర్ణాంకం __cdecl _heapchk(శూన్య);
+  _CRTIMP పూర్ణాంకం __cdecl _heapmin(శూన్య);
+  _CRTIMP పూర్ణాంకం __cdecl _heapset(గుర్తులేని పూర్ణాంకం _Fill);
+  _CRTIMP పూర్ణాంకం __cdecl _heapwalk(_HEAPINFO *నమోదు_Info);
+  _CRTIMP కొలత_t __cdecl _heapused(కొలత_t *వాడిన_2,కొలత_t *_Commit);
+  _CRTIMP intptr_t __cdecl get_కుప్ప_handle(శూన్య);
 
-#define _ALLOCA_S_THRESHOLD 1024
-#define _ALLOCA_S_STACK_MARKER 0xCCCC
-#define _ALLOCA_S_HEAP_MARKER 0xDDDD
+#నిర్వచించు ALLOCA_S_పరిమితి 1024
+#నిర్వచించు ALLOCA_S_దొంతర_MARKER 0xCCCC
+#నిర్వచించు ALLOCA_S_కుప్ప_MARKER 0xDDDD
 
-#if(defined(_X86_) && !defined(__x86_64))
-#define _ALLOCA_S_MARKER_SIZE 8
-#elif defined(__ia64__) || defined(__x86_64)
-#define _ALLOCA_S_MARKER_SIZE 16
-#endif
+#ఒకవేళ(defined(_X86_) && !defined(__x86_64))
+#నిర్వచించు ALLOCA_S_MARKER_కొలత 8
+#లేదావేళ defined(__ia64__) || defined(__x86_64)
+#నిర్వచించు ALLOCA_S_MARKER_కొలత 16
+#అయితే_ముగింపు
 
-#if !defined(RC_INVOKED)
-  static __inline void *_MarkAllocaS(void *_Ptr,unsigned int _Marker) {
-    if(_Ptr) {
-      *((unsigned int*)_Ptr) = _Marker;
-      _Ptr = (char*)_Ptr + _ALLOCA_S_MARKER_SIZE;
+#ఒకవేళ !defined(RC_INVOKED)
+  స్థిర __inline శూన్య *_MarkAllocaS(శూన్య *_Ptr,గుర్తులేని పూర్ణాంకం _Marker) {
+    ఒకవేళ(_Ptr) {
+      *((గుర్తులేని పూర్ణాంకం*)_Ptr) = _Marker;
+      _Ptr = (అక్షరం*)_Ptr + ALLOCA_S_MARKER_కొలత;
     }
-    return _Ptr;
+    తిరిగి _Ptr;
   }
-#endif
+#అయితే_ముగింపు
 
-#undef _malloca
-#define _malloca(size) \
-  ((((size) + _ALLOCA_S_MARKER_SIZE) <= _ALLOCA_S_THRESHOLD) ? \
-    _MarkAllocaS(_alloca((size) + _ALLOCA_S_MARKER_SIZE),_ALLOCA_S_STACK_MARKER) : \
-    _MarkAllocaS(malloc((size) + _ALLOCA_S_MARKER_SIZE),_ALLOCA_S_HEAP_MARKER))
-#undef _FREEA_INLINE
-#define _FREEA_INLINE
+#నిర్వచనం_రద్దు _malloca
+#నిర్వచించు _malloca(కొలత) \
+  ((((కొలత) + ALLOCA_S_MARKER_కొలత) <= ALLOCA_S_పరిమితి) ? \
+    _MarkAllocaS(_alloca((కొలత) + ALLOCA_S_MARKER_కొలత),ALLOCA_S_దొంతర_MARKER) : \
+    _MarkAllocaS(జ్ఞాపకం_ఇవ్వు((కొలత) + ALLOCA_S_MARKER_కొలత),ALLOCA_S_కుప్ప_MARKER))
+#నిర్వచనం_రద్దు _FREEA_INLINE
+#నిర్వచించు _FREEA_INLINE
 
-#ifndef RC_INVOKED
-#undef _freea
-  static __inline void __cdecl _freea(void *_Memory) {
-    unsigned int _Marker;
-    if(_Memory) {
-      _Memory = (char*)_Memory - _ALLOCA_S_MARKER_SIZE;
-      _Marker = *(unsigned int *)_Memory;
-      if(_Marker==_ALLOCA_S_HEAP_MARKER) {
-	free(_Memory);
+#నిర్వచితం_కాకపోతే RC_INVOKED
+#నిర్వచనం_రద్దు _freea
+  స్థిర __inline శూన్య __cdecl _freea(శూన్య *జ్ఞాపకం) {
+    గుర్తులేని పూర్ణాంకం _Marker;
+    ఒకవేళ(జ్ఞాపకం) {
+      జ్ఞాపకం = (అక్షరం*)జ్ఞాపకం - ALLOCA_S_MARKER_కొలత;
+      _Marker = *(గుర్తులేని పూర్ణాంకం *)జ్ఞాపకం;
+      ఒకవేళ(_Marker==ALLOCA_S_కుప్ప_MARKER) {
+	విడుదల(జ్ఞాపకం);
       }
-#ifdef _ASSERTE
-      else if(_Marker!=_ALLOCA_S_STACK_MARKER) {
+#నిర్వచితమైతే _ASSERTE
+      లేకపోతే ఒకవేళ(_Marker!=ALLOCA_S_దొంతర_MARKER) {
 	_ASSERTE(("Corrupted pointer passed to _freea",0));
       }
-#endif
+#అయితే_ముగింపు
     }
   }
-#endif /* RC_INVOKED */
+#అయితే_ముగింపు /* RC_INVOKED */
 
-#ifndef	NO_OLDNAMES
-#ifdef __GNUC__
-#undef alloca
-#define alloca(x) __builtin_alloca((x))
-#endif
-#endif
+#నిర్వచితం_కాకపోతే	NO_OLDNAMES
+#నిర్వచితమైతే __GNUC__
+#నిర్వచనం_రద్దు alloca
+#నిర్వచించు alloca(x) __builtin_alloca((x))
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifdef HEAPHOOK
-#ifndef _HEAPHOOK_DEFINED
-#define _HEAPHOOK_DEFINED
-  typedef int (__cdecl *_HEAPHOOK)(int,size_t,void *,void **);
-#endif
+#నిర్వచితమైతే HEAPHOOK
+#నిర్వచితం_కాకపోతే _HEAPHOOK_DEFINED
+#నిర్వచించు _HEAPHOOK_DEFINED
+  రకనిర్వచనం పూర్ణాంకం (__cdecl *_HEAPHOOK)(పూర్ణాంకం,కొలత_t,శూన్య *,శూన్య **);
+#అయితే_ముగింపు
 
   _CRTIMP _HEAPHOOK __cdecl _setheaphook(_HEAPHOOK _NewHook);
 
-#define _HEAP_MALLOC 1
-#define _HEAP_CALLOC 2
-#define _HEAP_FREE 3
-#define _HEAP_REALLOC 4
-#define _HEAP_MSIZE 5
-#define _HEAP_EXPAND 6
-#endif
+#నిర్వచించు కుప్ప_MALLOC 1
+#నిర్వచించు కుప్ప_CALLOC 2
+#నిర్వచించు కుప్ప_FREE 3
+#నిర్వచించు కుప్ప_REALLOC 4
+#నిర్వచించు కుప్ప_MSIZE 5
+#నిర్వచించు కుప్ప_EXPAND 6
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#pragma pack(pop)
+#సూచన pack(తీయి)
 
-#endif /* _MALLOC_H_ */
+#అయితే_ముగింపు /* _MALLOC_H_ */

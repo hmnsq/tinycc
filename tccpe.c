@@ -18,19 +18,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "tcc.h"
+#అన్తర్భావ "tcc.h"
 
-#define PE_MERGE_DATA 1
-#define PE_PRINT_SECTIONS 0
+#నిర్వచించు PE_విలీనం_దత్తాంశం 1
+#నిర్వచించు PE_PRINT_SECTIONS 0
 
-#ifndef _WIN32
-#define stricmp strcasecmp
-#define strnicmp strncasecmp
-#include <sys/stat.h> /* chmod() */
-#endif
+#నిర్వచితం_కాకపోతే _WIN32
+#నిర్వచించు stricmp strcasecmp
+#నిర్వచించు strnicmp strncasecmp
+#అన్తర్భావ <sys/stat.h> /* chmod() */
+#అయితే_ముగింపు
 
-#if defined TCC_TARGET_X86_64
-# define REL_TYPE_DIRECT R_X86_64_64
+#ఒకవేళ defined TCC_లక్ష్యం_X86_64
+# define REL_TYPE_ప్రత్యక్ష R_X86_64_64
 # define R_XXX_THUNKFIX R_X86_64_PC32
 # define R_XXX_RELATIVE R_X86_64_RELATIVE
 # define R_XXX_FUNCCALL R_X86_64_PLT32
@@ -38,13 +38,13 @@
 # define IMAGE_FILE_MACHINE 0x8664
 # define CHARACTERISTICS_EXE 0x022F
 # define CHARACTERISTICS_DLL 0x222E
-# define IMAGE_BASE_EXE 0x00400000
-# define IMAGE_BASE_DLL 0x10000000
+# define IMAGE_పునాది_EXE 0x00400000
+# define IMAGE_పునాది_DLL 0x10000000
 # define DLLCHARACTERISTICS 0
 # define OS_VER 0x0400
 
-#elif defined TCC_TARGET_ARM
-# define REL_TYPE_DIRECT R_ARM_ABS32
+#లేదావేళ defined TCC_లక్ష్యం_ARM
+# define REL_TYPE_ప్రత్యక్ష R_ARM_ABS32
 # define R_XXX_THUNKFIX R_ARM_ABS32
 # define R_XXX_RELATIVE R_ARM_RELATIVE
 # define R_XXX_FUNCCALL R_ARM_PC24
@@ -53,13 +53,13 @@
 # define IMAGE_FILE_MACHINE 0x01C0
 # define CHARACTERISTICS_EXE 0x010F
 # define CHARACTERISTICS_DLL 0x230F
-# define IMAGE_BASE_EXE 0x00100000
-# define IMAGE_BASE_DLL 0x10000000
+# define IMAGE_పునాది_EXE 0x00100000
+# define IMAGE_పునాది_DLL 0x10000000
 # define DLLCHARACTERISTICS 0
 # define OS_VER 0x0400
 
-#elif defined TCC_TARGET_ARM64
-# define REL_TYPE_DIRECT R_AARCH64_ABS64
+#లేదావేళ defined TCC_లక్ష్యం_ARM64
+# define REL_TYPE_ప్రత్యక్ష R_AARCH64_ABS64
 # define R_XXX_THUNKFIX R_AARCH64_ABS64
 # define R_XXX_RELATIVE R_AARCH64_RELATIVE
 # define R_XXX_FUNCCALL R_AARCH64_CALL26
@@ -67,13 +67,13 @@
 # define IMAGE_FILE_MACHINE 0xAA64
 # define CHARACTERISTICS_EXE 0x0022
 # define CHARACTERISTICS_DLL 0x2022
-# define IMAGE_BASE_EXE 0x140000000ULL
-# define IMAGE_BASE_DLL 0x180000000ULL
+# define IMAGE_పునాది_EXE 0x140000000ULL
+# define IMAGE_పునాది_DLL 0x180000000ULL
 # define OS_VER 0x0602
 # define DLLCHARACTERISTICS 0x8160
 
-#elif defined TCC_TARGET_I386
-# define REL_TYPE_DIRECT R_386_32
+#లేదావేళ defined TCC_లక్ష్యం_I386
+# define REL_TYPE_ప్రత్యక్ష R_386_32
 # define R_XXX_THUNKFIX R_386_32
 # define R_XXX_RELATIVE R_386_RELATIVE
 # define R_XXX_FUNCCALL R_386_PC32
@@ -81,273 +81,273 @@
 # define IMAGE_FILE_MACHINE 0x014C
 # define CHARACTERISTICS_EXE 0x030F
 # define CHARACTERISTICS_DLL 0x230E
-# define IMAGE_BASE_EXE 0x00400000
-# define IMAGE_BASE_DLL 0x10000000
+# define IMAGE_పునాది_EXE 0x00400000
+# define IMAGE_పునాది_DLL 0x10000000
 # define OS_VER 0x0400
 # define DLLCHARACTERISTICS 0
-#endif
+#అయితే_ముగింపు
 
-#if PTR_SIZE == 8
+#ఒకవేళ PTR_కొలత == 8
 # define ADDR3264 ULONGLONG
 # define PE_MAGIC 0x020B
 # define PE_IMAGE_REL IMAGE_REL_BASED_DIR64
-#else
+#లేకపోతే
 # define ADDR3264 DWORD
 # define PE_MAGIC 0x010B
 # define PE_IMAGE_REL IMAGE_REL_BASED_HIGHLOW
-#endif
+#అయితే_ముగింపు
 
-#ifndef IMAGE_NT_SIGNATURE
+#నిర్వచితం_కాకపోతే IMAGE_NT_SIGNATURE
 /* cross compiler: windows.h was not included */
 /* ----------------------------------------------------------- */
 /* definitions below are from winnt.h */
 
-typedef unsigned char BYTE;
-typedef unsigned short WORD;
-typedef unsigned int DWORD;
-typedef unsigned long long ULONGLONG;
-#pragma pack(push, 1)
+రకనిర్వచనం గుర్తులేని అక్షరం BYTE;
+రకనిర్వచనం గుర్తులేని పొట్టి మాట_3;
+రకనిర్వచనం గుర్తులేని పూర్ణాంకం DWORD;
+రకనిర్వచనం గుర్తులేని దీర్ఘ దీర్ఘ ULONGLONG;
+#సూచన pack(నెట్టు, 1)
 
-typedef struct _IMAGE_DOS_HEADER {  /* DOS .EXE header */
-    WORD e_magic;         /* Magic number */
-    WORD e_cblp;          /* Bytes on last page of file */
-    WORD e_cp;            /* Pages in file */
-    WORD e_crlc;          /* Relocations */
-    WORD e_cparhdr;       /* Size of header in paragraphs */
-    WORD e_minalloc;      /* Minimum extra paragraphs needed */
-    WORD e_maxalloc;      /* Maximum extra paragraphs needed */
-    WORD e_ss;            /* Initial (relative) SS value */
-    WORD e_sp;            /* Initial SP value */
-    WORD e_csum;          /* Checksum */
-    WORD e_ip;            /* Initial IP value */
-    WORD e_cs;            /* Initial (relative) CS value */
-    WORD e_lfarlc;        /* File address of relocation table */
-    WORD e_ovno;          /* Overlay number */
-    WORD e_res[4];        /* Reserved words */
-    WORD e_oemid;         /* OEM identifier (for e_oeminfo) */
-    WORD e_oeminfo;       /* OEM information; e_oemid specific */
-    WORD e_res2[10];      /* Reserved words */
+రకనిర్వచనం నిర్మాణం IMAGE_DOS_శీర్షిక {  /* DOS .EXE header */
+    మాట_3 e_magic;         /* Magic number */
+    మాట_3 e_cblp;          /* Bytes on last page of file */
+    మాట_3 e_cp;            /* Pages in file */
+    మాట_3 e_crlc;          /* Relocations */
+    మాట_3 e_cparhdr;       /* Size of header in paragraphs */
+    మాట_3 e_minalloc;      /* Minimum extra paragraphs needed */
+    మాట_3 e_maxalloc;      /* Maximum extra paragraphs needed */
+    మాట_3 e_ss;            /* Initial (relative) SS value */
+    మాట_3 e_sp;            /* Initial SP value */
+    మాట_3 e_csum;          /* Checksum */
+    మాట_3 e_ip;            /* Initial IP value */
+    మాట_3 e_cs;            /* Initial (relative) CS value */
+    మాట_3 e_lfarlc;        /* File address of relocation table */
+    మాట_3 e_ovno;          /* Overlay number */
+    మాట_3 e_res[4];        /* Reserved words */
+    మాట_3 e_oemid;         /* OEM identifier (for e_oeminfo) */
+    మాట_3 e_oeminfo;       /* OEM information; e_oemid specific */
+    మాట_3 e_res2[10];      /* Reserved words */
     DWORD e_lfanew;        /* File address of new exe header */
-} IMAGE_DOS_HEADER, *PIMAGE_DOS_HEADER;
+} IMAGE_DOS_శీర్షిక_2, *PIMAGE_DOS_శీర్షిక;
 
-#define IMAGE_NT_SIGNATURE  0x00004550  /* PE00 */
+#నిర్వచించు IMAGE_NT_SIGNATURE  0x00004550  /* PE00 */
 
-typedef struct _IMAGE_FILE_HEADER {
-    WORD    Machine;
-    WORD    NumberOfSections;
-    DWORD   TimeDateStamp;
-    DWORD   PointerToSymbolTable;
-    DWORD   NumberOfSymbols;
-    WORD    SizeOfOptionalHeader;
-    WORD    Characteristics;
-} IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
-
-
-#define IMAGE_SIZEOF_FILE_HEADER 20
-
-typedef struct _IMAGE_DATA_DIRECTORY {
-    DWORD   VirtualAddress;
-    DWORD   Size;
-} IMAGE_DATA_DIRECTORY, *PIMAGE_DATA_DIRECTORY;
+రకనిర్వచనం నిర్మాణం IMAGE_FILE_శీర్షిక {
+    మాట_3    Machine;
+    మాట_3    సంఖ్య_యొక్క_Sections;
+    DWORD   సమయం_Date_Stamp;
+    DWORD   సూచిక_గమ్యం_చిహ్నం_పట్టిక;
+    DWORD   సంఖ్య_యొక్క_Symbols;
+    మాట_3    కొలత_యొక్క_Optional_శీర్షిక;
+    మాట_3    Characteristics;
+} IMAGE_FILE_శీర్షిక_2, *PIMAGE_FILE_శీర్షిక;
 
 
-typedef struct _IMAGE_OPTIONAL_HEADER {
+#నిర్వచించు IMAGE_SIZEOF_FILE_శీర్షిక 20
+
+రకనిర్వచనం నిర్మాణం IMAGE_దత్తాంశం_DIRECTORY {
+    DWORD   Virtual_చిరునామా;
+    DWORD   కొలత_3;
+} IMAGE_దత్తాంశం_DIRECTORY_2, *PIMAGE_దత్తాంశం_DIRECTORY;
+
+
+రకనిర్వచనం నిర్మాణం IMAGE_OPTIONAL_శీర్షిక {
     /* Standard fields. */
-    WORD    Magic;
-    BYTE    MajorLinkerVersion;
-    BYTE    MinorLinkerVersion;
-    DWORD   SizeOfCode;
-    DWORD   SizeOfInitializedData;
-    DWORD   SizeOfUninitializedData;
-    DWORD   AddressOfEntryPoint;
-    DWORD   BaseOfCode;
-#if PTR_SIZE == 4
-    DWORD   BaseOfData;
-#endif
+    మాట_3    Magic;
+    BYTE    Major_Linker_సంస్కరణ;
+    BYTE    Minor_Linker_సంస్కరణ;
+    DWORD   కొలత_యొక్క_సంకేతం;
+    DWORD   కొలత_యొక్క_Initialized_దత్తాంశం;
+    DWORD   కొలత_యొక్క_Uninitialized_దత్తాంశం;
+    DWORD   చిరునామా_యొక్క_నమోదు_బిందువు;
+    DWORD   పునాది_యొక్క_సంకేతం;
+#ఒకవేళ PTR_కొలత == 4
+    DWORD   పునాది_యొక్క_దత్తాంశం;
+#అయితే_ముగింపు
     /* NT additional fields. */
-    ADDR3264 ImageBase;
+    ADDR3264 Image_పునాది;
     DWORD   SectionAlignment;
     DWORD   FileAlignment;
-    WORD    MajorOperatingSystemVersion;
-    WORD    MinorOperatingSystemVersion;
-    WORD    MajorImageVersion;
-    WORD    MinorImageVersion;
-    WORD    MajorSubsystemVersion;
-    WORD    MinorSubsystemVersion;
-    DWORD   Win32VersionValue;
-    DWORD   SizeOfImage;
-    DWORD   SizeOfHeaders;
-    DWORD   CheckSum;
-    WORD    Subsystem;
-    WORD    DllCharacteristics;
-    ADDR3264 SizeOfStackReserve;
-    ADDR3264 SizeOfStackCommit;
-    ADDR3264 SizeOfHeapReserve;
-    ADDR3264 SizeOfHeapCommit;
+    మాట_3    Major_Operating_System_సంస్కరణ;
+    మాట_3    Minor_Operating_System_సంస్కరణ;
+    మాట_3    Major_Image_సంస్కరణ;
+    మాట_3    Minor_Image_సంస్కరణ;
+    మాట_3    Major_Subsystem_సంస్కరణ;
+    మాట_3    Minor_Subsystem_సంస్కరణ;
+    DWORD   Win32_సంస్కరణ_విలువ;
+    DWORD   కొలత_యొక్క_Image;
+    DWORD   కొలత_యొక్క_శీర్షికలు;
+    DWORD   Check_కూడిక;
+    మాట_3    Subsystem;
+    మాట_3    DllCharacteristics;
+    ADDR3264 కొలత_యొక్క_దొంతర_Reserve;
+    ADDR3264 కొలత_యొక్క_దొంతర_Commit;
+    ADDR3264 కొలత_యొక్క_కుప్ప_Reserve;
+    ADDR3264 కొలత_యొక్క_కుప్ప_Commit;
     DWORD   LoaderFlags;
-    DWORD   NumberOfRvaAndSizes;
-    IMAGE_DATA_DIRECTORY DataDirectory[16];
-} IMAGE_OPTIONAL_HEADER32, IMAGE_OPTIONAL_HEADER64, IMAGE_OPTIONAL_HEADER;
+    DWORD   సంఖ్య_యొక్క_Rva_And_Sizes;
+    IMAGE_దత్తాంశం_DIRECTORY_2 దత్తాంశం_Directory[16];
+} IMAGE_OPTIONAL_HEADER32, IMAGE_OPTIONAL_HEADER64, IMAGE_OPTIONAL_శీర్షిక_2;
 
-#define IMAGE_DIRECTORY_ENTRY_EXPORT          0   /* Export Directory */
-#define IMAGE_DIRECTORY_ENTRY_IMPORT          1   /* Import Directory */
-#define IMAGE_DIRECTORY_ENTRY_RESOURCE        2   /* Resource Directory */
-#define IMAGE_DIRECTORY_ENTRY_EXCEPTION       3   /* Exception Directory */
-#define IMAGE_DIRECTORY_ENTRY_SECURITY        4   /* Security Directory */
-#define IMAGE_DIRECTORY_ENTRY_BASERELOC       5   /* Base Relocation Table */
-#define IMAGE_DIRECTORY_ENTRY_DEBUG           6   /* Debug Directory */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_EXPORT          0   /* Export Directory */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_IMPORT          1   /* Import Directory */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_RESOURCE        2   /* Resource Directory */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_EXCEPTION       3   /* Exception Directory */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_SECURITY        4   /* Security Directory */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_BASERELOC       5   /* Base Relocation Table */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_DEBUG           6   /* Debug Directory */
 /*      IMAGE_DIRECTORY_ENTRY_COPYRIGHT       7      (X86 usage) */
-#define IMAGE_DIRECTORY_ENTRY_ARCHITECTURE    7   /* Architecture Specific Data */
-#define IMAGE_DIRECTORY_ENTRY_GLOBALPTR       8   /* RVA of GP */
-#define IMAGE_DIRECTORY_ENTRY_TLS             9   /* TLS Directory */
-#define IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG    10   /* Load Configuration Directory */
-#define IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT   11   /* Bound Import Directory in headers */
-#define IMAGE_DIRECTORY_ENTRY_IAT            12   /* Import Address Table */
-#define IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT   13   /* Delay Load Import Descriptors */
-#define IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR 14   /* COM Runtime descriptor */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_ARCHITECTURE    7   /* Architecture Specific Data */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_GLOBALPTR       8   /* RVA of GP */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_TLS             9   /* TLS Directory */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_ఎక్కించు_CONFIG    10   /* Load Configuration Directory */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_BOUND_IMPORT   11   /* Bound Import Directory in headers */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_IAT            12   /* Import Address Table */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_DELAY_IMPORT   13   /* Delay Load Import Descriptors */
+#నిర్వచించు IMAGE_DIRECTORY_నమోదు_COM_DESCRIPTOR 14   /* COM Runtime descriptor */
 
 /* Section header format. */
-#define IMAGE_SIZEOF_SHORT_NAME         8
+#నిర్వచించు IMAGE_SIZEOF_SHORT_NAME         8
 
-typedef struct _IMAGE_SECTION_HEADER {
+రకనిర్వచనం నిర్మాణం IMAGE_SECTION_శీర్షిక {
     BYTE    Name[IMAGE_SIZEOF_SHORT_NAME];
-    union {
-            DWORD   PhysicalAddress;
-            DWORD   VirtualSize;
+    సంఘం {
+            DWORD   Physical_చిరునామా;
+            DWORD   Virtual_కొలత;
     } Misc;
-    DWORD   VirtualAddress;
-    DWORD   SizeOfRawData;
-    DWORD   PointerToRawData;
-    DWORD   PointerToRelocations;
-    DWORD   PointerToLinenumbers;
-    WORD    NumberOfRelocations;
-    WORD    NumberOfLinenumbers;
+    DWORD   Virtual_చిరునామా;
+    DWORD   కొలత_యొక్క_Raw_దత్తాంశం;
+    DWORD   సూచిక_గమ్యం_Raw_దత్తాంశం;
+    DWORD   సూచిక_గమ్యం_Relocations;
+    DWORD   సూచిక_గమ్యం_Linenumbers;
+    మాట_3    సంఖ్య_యొక్క_Relocations;
+    మాట_3    సంఖ్య_యొక్క_Linenumbers;
     DWORD   Characteristics;
-} IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
+} IMAGE_SECTION_శీర్షిక_2, *PIMAGE_SECTION_శీర్షిక;
 
-#define IMAGE_SIZEOF_SECTION_HEADER     40
+#నిర్వచించు IMAGE_SIZEOF_SECTION_శీర్షిక     40
 
-typedef struct _IMAGE_EXPORT_DIRECTORY {
+రకనిర్వచనం నిర్మాణం _IMAGE_EXPORT_DIRECTORY {
     DWORD Characteristics;
-    DWORD TimeDateStamp;
-    WORD MajorVersion;
-    WORD MinorVersion;
+    DWORD సమయం_Date_Stamp;
+    మాట_3 Major_సంస్కరణ;
+    మాట_3 Minor_సంస్కరణ;
     DWORD Name;
-    DWORD Base;
-    DWORD NumberOfFunctions;
-    DWORD NumberOfNames;
-    DWORD AddressOfFunctions;
-    DWORD AddressOfNames;
-    DWORD AddressOfNameOrdinals;
+    DWORD పునాది_2;
+    DWORD సంఖ్య_యొక్క_Functions;
+    DWORD సంఖ్య_యొక్క_పేర్లు;
+    DWORD చిరునామా_యొక్క_Functions;
+    DWORD చిరునామా_యొక్క_పేర్లు;
+    DWORD చిరునామా_యొక్క_Name_Ordinals;
 } IMAGE_EXPORT_DIRECTORY,*PIMAGE_EXPORT_DIRECTORY;
 
-typedef struct _IMAGE_TLS_DIRECTORY {
-    ADDR3264 StartAddressOfRawData;
-    ADDR3264 EndAddressOfRawData;
-    ADDR3264 AddressOfIndex;
-    ADDR3264 AddressOfCallBacks;
-    DWORD SizeOfZeroFill;
+రకనిర్వచనం నిర్మాణం _IMAGE_TLS_DIRECTORY {
+    ADDR3264 ప్రారంభం_చిరునామా_యొక్క_Raw_దత్తాంశం;
+    ADDR3264 చివర_చిరునామా_యొక్క_Raw_దత్తాంశం;
+    ADDR3264 చిరునామా_యొక్క_సూచీ;
+    ADDR3264 చిరునామా_యొక్క_Call_Backs;
+    DWORD కొలత_యొక్క_Zero_Fill;
     DWORD Characteristics;
 } IMAGE_TLS_DIRECTORY;
 
-typedef struct _IMAGE_IMPORT_DESCRIPTOR {
-    union {
+రకనిర్వచనం నిర్మాణం _IMAGE_IMPORT_DESCRIPTOR {
+    సంఘం {
         DWORD Characteristics;
-        DWORD OriginalFirstThunk;
+        DWORD Original_మొదటి_Thunk;
     };
-    DWORD TimeDateStamp;
+    DWORD సమయం_Date_Stamp;
     DWORD ForwarderChain;
     DWORD Name;
-    DWORD FirstThunk;
+    DWORD మొదటి_Thunk;
 } IMAGE_IMPORT_DESCRIPTOR;
 
-typedef struct _IMAGE_BASE_RELOCATION {
-    DWORD   VirtualAddress;
-    DWORD   SizeOfBlock;
+రకనిర్వచనం నిర్మాణం IMAGE_పునాది_RELOCATION {
+    DWORD   Virtual_చిరునామా;
+    DWORD   కొలత_యొక్క_ఖండం;
 //  WORD    TypeOffset[1];
-} IMAGE_BASE_RELOCATION;
+} IMAGE_పునాది_RELOCATION_2;
 
-#define IMAGE_SIZEOF_BASE_RELOCATION     8
+#నిర్వచించు IMAGE_SIZEOF_పునాది_RELOCATION     8
 
-#define IMAGE_REL_BASED_ABSOLUTE         0
-#define IMAGE_REL_BASED_HIGH             1
-#define IMAGE_REL_BASED_LOW              2
-#define IMAGE_REL_BASED_HIGHLOW          3
-#define IMAGE_REL_BASED_HIGHADJ          4
-#define IMAGE_REL_BASED_MIPS_JMPADDR     5
-#define IMAGE_REL_BASED_SECTION          6
-#define IMAGE_REL_BASED_REL32            7
-#define IMAGE_REL_BASED_DIR64           10
+#నిర్వచించు IMAGE_REL_BASED_ABSOLUTE         0
+#నిర్వచించు IMAGE_REL_BASED_ఎగువ             1
+#నిర్వచించు IMAGE_REL_BASED_దిగువ              2
+#నిర్వచించు IMAGE_REL_BASED_HIGHLOW          3
+#నిర్వచించు IMAGE_REL_BASED_HIGHADJ          4
+#నిర్వచించు IMAGE_REL_BASED_MIPS_JMPADDR     5
+#నిర్వచించు IMAGE_REL_BASED_SECTION          6
+#నిర్వచించు IMAGE_REL_BASED_REL32            7
+#నిర్వచించు IMAGE_REL_BASED_DIR64           10
 
-#define IMAGE_SCN_CNT_CODE                  0x00000020
-#define IMAGE_SCN_CNT_INITIALIZED_DATA      0x00000040
-#define IMAGE_SCN_CNT_UNINITIALIZED_DATA    0x00000080
-#define IMAGE_SCN_MEM_DISCARDABLE           0x02000000
-#define IMAGE_SCN_MEM_SHARED                0x10000000
-#define IMAGE_SCN_MEM_EXECUTE               0x20000000
-#define IMAGE_SCN_MEM_READ                  0x40000000
-#define IMAGE_SCN_MEM_WRITE                 0x80000000
+#నిర్వచించు IMAGE_SCN_CNT_సంకేతం                  0x00000020
+#నిర్వచించు IMAGE_SCN_CNT_INITIALIZED_దత్తాంశం      0x00000040
+#నిర్వచించు IMAGE_SCN_CNT_UNINITIALIZED_దత్తాంశం    0x00000080
+#నిర్వచించు IMAGE_SCN_MEM_DISCARDABLE           0x02000000
+#నిర్వచించు IMAGE_SCN_MEM_SHARED                0x10000000
+#నిర్వచించు IMAGE_SCN_MEM_EXECUTE               0x20000000
+#నిర్వచించు IMAGE_SCN_MEM_READ                  0x40000000
+#నిర్వచించు IMAGE_SCN_MEM_WRITE                 0x80000000
 
-#define IMAGE_DLLCHARACTERISTICS_HIGH_ENTROPY_VA 0x0020
-#define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 0x0040
-#define IMAGE_DLLCHARACTERISTICS_NX_COMPAT 0x0100
-#define IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE 0x8000
+#నిర్వచించు IMAGE_DLLCHARACTERISTICS_ఎగువ_ENTROPY_VA 0x0020
+#నిర్వచించు IMAGE_DLLCHARACTERISTICS_DYNAMIC_పునాది 0x0040
+#నిర్వచించు IMAGE_DLLCHARACTERISTICS_NX_COMPAT 0x0100
+#నిర్వచించు IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE 0x8000
 
-#define IMAGE_FILE_RELOCS_STRIPPED 0x0001
+#నిర్వచించు IMAGE_FILE_RELOCS_STRIPPED 0x0001
 
-#pragma pack(pop)
+#సూచన pack(తీయి)
 
 /* ----------------------------------------------------------- */
-#endif /* ndef IMAGE_NT_SIGNATURE */
+#అయితే_ముగింపు /* ndef IMAGE_NT_SIGNATURE */
 /* ----------------------------------------------------------- */
 
-#ifndef IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE
+#నిర్వచితం_కాకపోతే IMAGE_DLLCHARACTERISTICS_DYNAMIC_పునాది
   /* allow self-host build with tcc 0.9.27 - doesn't have this in winnt.h */
-  #define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 0x0040
-#endif
+  #నిర్వచించు IMAGE_DLLCHARACTERISTICS_DYNAMIC_పునాది 0x0040
+#అయితే_ముగింపు
 
-#pragma pack(push, 1)
-struct pe_header
+#సూచన pack(నెట్టు, 1)
+నిర్మాణం pe_శీర్షిక
 {
-    IMAGE_DOS_HEADER doshdr;
+    IMAGE_DOS_శీర్షిక_2 doshdr;
     BYTE dosstub[0x40];
     DWORD nt_sig;
-    IMAGE_FILE_HEADER filehdr;
-#if PTR_SIZE == 8
+    IMAGE_FILE_శీర్షిక_2 filehdr;
+#ఒకవేళ PTR_కొలత == 8
     IMAGE_OPTIONAL_HEADER64 opthdr;
-#else
-#ifdef _WIN64
+#లేకపోతే
+#నిర్వచితమైతే _WIN64
     IMAGE_OPTIONAL_HEADER32 opthdr;
-#else
-    IMAGE_OPTIONAL_HEADER opthdr;
-#endif
-#endif
+#లేకపోతే
+    IMAGE_OPTIONAL_శీర్షిక_2 opthdr;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 };
 
-struct pe_reloc_header {
-    DWORD offset;
-    DWORD size;
+నిర్మాణం pe_reloc_శీర్షిక {
+    DWORD స్థానభ్రంశం;
+    DWORD కొలత;
 };
 
-struct pe_rsrc_header {
-    struct _IMAGE_FILE_HEADER filehdr;
-    struct _IMAGE_SECTION_HEADER sectionhdr;
+నిర్మాణం pe_rsrc_శీర్షిక {
+    నిర్మాణం IMAGE_FILE_శీర్షిక filehdr;
+    నిర్మాణం IMAGE_SECTION_శీర్షిక sectionhdr;
 };
 
-struct pe_rsrc_reloc {
-    DWORD offset;
-    DWORD size;
-    WORD type;
+నిర్మాణం pe_rsrc_reloc {
+    DWORD స్థానభ్రంశం;
+    DWORD కొలత;
+    మాట_3 type;
 };
-#pragma pack(pop)
+#సూచన pack(తీయి)
 
 /* ------------------------------------------------------------- */
 /* internal temporary structures */
 
-enum {
-    sec_text = 0,
+గణన {
+    sec_పాఠ్యం = 0,
     sec_rdata ,
-    sec_data ,
+    sec_దత్తాంశం ,
     sec_bss ,
     sec_idata ,
     sec_pdata ,
@@ -357,11 +357,11 @@ enum {
     sec_rsrc ,
     sec_debug ,
     sec_reloc ,
-    sec_last
+    sec_చివరి
 };
 
-#if 0
-static const DWORD pe_sec_flags[] = {
+#ఒకవేళ 0
+స్థిర స్థిరరాశి DWORD pe_sec_flags[] = {
     0x60000020, /* ".text"     , */
     0xC0000040, /* ".data"     , */
     0xC0000080, /* ".bss"      , */
@@ -372,146 +372,146 @@ static const DWORD pe_sec_flags[] = {
     0x42000802, /* ".stab"     , */
     0x42000040, /* ".reloc"    , */
 };
-#endif
+#అయితే_ముగింపు
 
-struct section_info {
-    int cls;
-    char name[32];
+నిర్మాణం section_info {
+    పూర్ణాంకం cls;
+    అక్షరం name[32];
     ADDR3264 sh_addr;
-    DWORD sh_size;
+    DWORD sh_కొలత;
     DWORD pe_flags;
     Section *sec;
-    DWORD data_size;
-    IMAGE_SECTION_HEADER ish;
+    DWORD దత్తాంశం_కొలత;
+    IMAGE_SECTION_శీర్షిక_2 ish;
 };
 
-struct import_symbol {
-    int sym_index;
-    int iat_index;
-    int thk_offset;
+నిర్మాణం import_చిహ్నం {
+    పూర్ణాంకం sym_సూచీ;
+    పూర్ణాంకం iat_సూచీ;
+    పూర్ణాంకం thk_స్థానభ్రంశం;
 };
 
-struct pe_import_info {
-    int dll_index;
-    int sym_count;
-    struct import_symbol **symbols;
+నిర్మాణం pe_import_info {
+    పూర్ణాంకం dll_సూచీ;
+    పూర్ణాంకం sym_లెక్క;
+    నిర్మాణం import_చిహ్నం **symbols;
 };
 
-struct pe_info {
+నిర్మాణం pe_info {
     TCCState *s1;
     Section *reloc;
     Section *thunk;
     Section *coffsym;
     Section *coffstr;
-    const char *filename;
-    int type;
+    స్థిరరాశి అక్షరం *filename;
+    పూర్ణాంకం type;
     DWORD sizeofheaders;
     ADDR3264 imagebase;
-    const char *start_symbol;
-    DWORD start_addr;
+    స్థిరరాశి అక్షరం *ప్రారంభం_చిహ్నం;
+    DWORD ప్రారంభం_addr;
     DWORD imp_offs;
-    DWORD imp_size;
+    DWORD imp_కొలత;
     DWORD iat_offs;
-    DWORD iat_size;
+    DWORD iat_కొలత;
     DWORD exp_offs;
-    DWORD exp_size;
+    DWORD exp_కొలత;
     DWORD tls_dir;
-    DWORD tls_data;
-    DWORD tls_size;
-    int subsystem;
+    DWORD tls_దత్తాంశం;
+    DWORD tls_కొలత;
+    పూర్ణాంకం subsystem;
     DWORD section_align;
     DWORD file_align;
-    struct section_info **sec_info;
-    int sec_count;
-    struct pe_import_info **imp_info;
-    int imp_count;
+    నిర్మాణం section_info **sec_info;
+    పూర్ణాంకం sec_లెక్క;
+    నిర్మాణం pe_import_info **imp_info;
+    పూర్ణాంకం imp_లెక్క;
     /* output */
     FILE *op;
-    DWORD sum;
-    unsigned pos;
+    DWORD కూడిక;
+    గుర్తులేని pos;
 };
 
-#define PE_NUL 0
-#define PE_DLL 1
-#define PE_GUI 2
-#define PE_EXE 3
-#define PE_RUN 4
+#నిర్వచించు PE_NUL 0
+#నిర్వచించు PE_DLL 1
+#నిర్వచించు PE_GUI 2
+#నిర్వచించు PE_EXE 3
+#నిర్వచించు PE_నిరంతరం 4
 
 /* --------------------------------------------*/
 
-static const char *pe_export_name(TCCState *s1, ElfW(Sym) *sym)
+స్థిర స్థిరరాశి అక్షరం *pe_export_name(TCCState *s1, ElfW(Sym) *sym)
 {
-    const char *name = (char*)symtab_section->link->data + sym->st_name;
-    if (s1->leading_underscore && name[0] == '_' && !(sym->st_other & ST_PE_STDCALL))
-        return name + 1;
-    return name;
+    స్థిరరాశి అక్షరం *name = (అక్షరం*)symtab_section->link->దత్తాంశం + sym->st_name;
+    ఒకవేళ (s1->leading_underscore && name[0] == '_' && !(sym->st_other & ST_PE_STDCALL))
+        తిరిగి name + 1;
+    తిరిగి name;
 }
 
 
-static int dynarray_assoc(void **pp, int n, int key)
+స్థిర పూర్ణాంకం dynarray_assoc(శూన్య **pp, పూర్ణాంకం n, పూర్ణాంకం కీలకం)
 {
-    int i;
-    for (i = 0; i < n; ++i, ++pp)
-    if (key == **(int **) pp)
-        return i;
-    return -1;
+    పూర్ణాంకం i;
+    కొరకు (i = 0; i < n; ++i, ++pp)
+    ఒకవేళ (కీలకం == **(పూర్ణాంకం **) pp)
+        తిరిగి i;
+    తిరిగి -1;
 }
 
-static DWORD umin(DWORD a, DWORD b)
+స్థిర DWORD umin(DWORD a, DWORD b)
 {
-    return a < b ? a : b;
+    తిరిగి a < b ? a : b;
 }
 
-static DWORD umax(DWORD a, DWORD b)
+స్థిర DWORD umax(DWORD a, DWORD b)
 {
-    return a < b ? b : a;
+    తిరిగి a < b ? b : a;
 }
 
-static DWORD pe_file_align(struct pe_info *pe, DWORD n)
+స్థిర DWORD pe_file_align(నిర్మాణం pe_info *pe, DWORD n)
 {
-    return (n + (pe->file_align - 1)) & ~(pe->file_align - 1);
+    తిరిగి (n + (pe->file_align - 1)) & ~(pe->file_align - 1);
 }
 
-static ADDR3264 pe_virtual_align(struct pe_info *pe, ADDR3264 n)
+స్థిర ADDR3264 pe_virtual_align(నిర్మాణం pe_info *pe, ADDR3264 n)
 {
-    return (n + (pe->section_align - 1)) & ~(ADDR3264)(pe->section_align - 1);
+    తిరిగి (n + (pe->section_align - 1)) & ~(ADDR3264)(pe->section_align - 1);
 }
 
-static void pe_align_section(Section *s, int a)
+స్థిర శూన్య pe_align_section(Section *s, పూర్ణాంకం a)
 {
-    int i = s->data_offset & (a-1);
-    if (i)
-        section_ptr_add(s, a - i);
+    పూర్ణాంకం i = s->దత్తాంశం_స్థానభ్రంశం & (a-1);
+    ఒకవేళ (i)
+        section_ptr_కూడు(s, a - i);
 }
 
-static void pe_set_datadir(struct pe_header *hdr, int dir, DWORD addr, DWORD size)
+స్థిర శూన్య pe_సమితి_datadir(నిర్మాణం pe_శీర్షిక *hdr, పూర్ణాంకం dir, DWORD addr, DWORD కొలత)
 {
-    hdr->opthdr.DataDirectory[dir].VirtualAddress = addr;
-    hdr->opthdr.DataDirectory[dir].Size = size;
+    hdr->opthdr.దత్తాంశం_Directory[dir].Virtual_చిరునామా = addr;
+    hdr->opthdr.దత్తాంశం_Directory[dir].కొలత_3 = కొలత;
 }
 
-static int pe_fwrite(struct pe_info *pe, const void *data, int len)
+స్థిర పూర్ణాంకం pe_fwrite(నిర్మాణం pe_info *pe, స్థిరరాశి శూన్య *దత్తాంశం, పూర్ణాంకం len)
 {
-    const WORD *p = data;
-    DWORD sum;
-    int ret, i;
-    pe->pos += (ret = fwrite(data, 1, len, pe->op));
-    sum = pe->sum;
-    for (i = len; i > 0; i -= 2) {
-        sum += (i >= 2) ? *p++ : *(BYTE*)p;
-        sum = (sum + (sum >> 16)) & 0xFFFF;
+    స్థిరరాశి మాట_3 *p = దత్తాంశం;
+    DWORD కూడిక;
+    పూర్ణాంకం ret, i;
+    pe->pos += (ret = fwrite(దత్తాంశం, 1, len, pe->op));
+    కూడిక = pe->కూడిక;
+    కొరకు (i = len; i > 0; i -= 2) {
+        కూడిక += (i >= 2) ? *p++ : *(BYTE*)p;
+        కూడిక = (కూడిక + (కూడిక >> 16)) & 0xFFFF;
     }
-    pe->sum = sum;
-    return len == ret ? 0 : -1;
+    pe->కూడిక = కూడిక;
+    తిరిగి len == ret ? 0 : -1;
 }
 
-static void pe_fpad(struct pe_info *pe, DWORD new_pos)
+స్థిర శూన్య pe_fpad(నిర్మాణం pe_info *pe, DWORD new_pos)
 {
-    char buf[256];
-    int n, diff = new_pos - pe->pos;
-    memset(buf, 0, sizeof buf);
-    while (diff > 0) {
-        diff -= n = umin(diff, sizeof buf);
+    అక్షరం buf[256];
+    పూర్ణాంకం n, diff = new_pos - pe->pos;
+    memset(buf, 0, పరిమాణం buf);
+    అయితే (diff > 0) {
+        diff -= n = umin(diff, పరిమాణం buf);
         fwrite(buf, n, 1, pe->op);
     }
     pe->pos = new_pos;
@@ -520,97 +520,97 @@ static void pe_fpad(struct pe_info *pe, DWORD new_pos)
 /*----------------------------------------------------------------------------*/
 /* some DWARF support with COFF symbol/string table for gdb */
 
-#pragma pack(push, 1)
-struct syment
+#సూచన pack(నెట్టు, 1)
+నిర్మాణం syment
 {
-    union {
-        char        n_name[8];     /* old COFF version */
-        struct {
+    సంఘం {
+        అక్షరం        n_name[8];     /* old COFF version */
+        నిర్మాణం {
             int32_t n_zeroes;      /* new == 0 */
-            int32_t n_offset;      /* offset into string table */
+            int32_t n_స్థానభ్రంశం_2;      /* offset into string table */
         };
     };
-    int32_t         n_value;        /* value of symbol */
-    short           n_scnum;        /* section number */
-    unsigned short  n_type;         /* type and derived type */
-    char            n_sclass;       /* storage class */
-    char            n_numaux;       /* number of aux. entries */
+    int32_t         n_విలువ;        /* value of symbol */
+    పొట్టి           n_scnum;        /* section number */
+    గుర్తులేని పొట్టి  n_type;         /* type and derived type */
+    అక్షరం            n_sclass;       /* storage class */
+    అక్షరం            n_numaux;       /* number of aux. entries */
 };
-#pragma pack(pop)
+#సూచన pack(తీయి)
 
-#define SHF_PRIVATE 0x80000000
+#నిర్వచించు SHF_వ్యక్తిగత 0x80000000
 
-static void pe_add_coffsym(struct pe_info *pe)
+స్థిర శూన్య pe_కూడు_coffsym(నిర్మాణం pe_info *pe)
 {
     TCCState *s1 = pe->s1;
     ElfSym *esym;
-    struct syment *se;
-    int n;
+    నిర్మాణం syment *se;
+    పూర్ణాంకం n;
 
-    if (NULL == pe->coffsym) {
-        pe->coffsym = new_section(s1, ".coffsym", SHT_PROGBITS, SHF_PRIVATE);
-        pe->coffstr = new_section(s1, ".coffstr", SHT_PROGBITS, SHF_PRIVATE);
-        section_ptr_add(pe->coffstr, 4); /* coff string table size */
-        return;
+    ఒకవేళ (ఖాళీ == pe->coffsym) {
+        pe->coffsym = new_section(s1, ".coffsym", SHT_PROGBITS, SHF_వ్యక్తిగత);
+        pe->coffstr = new_section(s1, ".coffstr", SHT_PROGBITS, SHF_వ్యక్తిగత);
+        section_ptr_కూడు(pe->coffstr, 4); /* coff string table size */
+        తిరిగి;
     }
 
-#if 0
-    se = section_ptr_add(pe->coffsym, sizeof *se);
+#ఒకవేళ 0
+    se = section_ptr_కూడు(pe->coffsym, పరిమాణం *se);
     strcpy(se->n_name, ".file");
     se->n_scnum = -2;
     se->n_sclass = 0x67;
     se->n_numaux = 1;
-    se = section_ptr_add(pe->coffsym, sizeof *se);
-    strcpy((char*)se, "no-file");
-#endif
+    se = section_ptr_కూడు(pe->coffsym, పరిమాణం *se);
+    strcpy((అక్షరం*)se, "no-file");
+#అయితే_ముగింపు
 
-#if 1
-    esym = (ElfSym*)s1->symtab->data;
-    for (n = s1->symtab->data_offset / sizeof *esym; ++esym, --n;) {
-        int sym_bind = ELFW(ST_BIND)(esym->st_info);
-        if (sym_bind == STB_GLOBAL) {
-            char *name = esym->st_name + (char*)s1->symtab->link->data;
-            int nl = strlen(name);
-            addr_t value = esym->st_value;
-            int shnum = esym->st_shndx;
-            if (shnum != SHN_UNDEF && shnum < s1->nb_sections) {
+#ఒకవేళ 1
+    esym = (ElfSym*)s1->symtab->దత్తాంశం;
+    కొరకు (n = s1->symtab->దత్తాంశం_స్థానభ్రంశం / పరిమాణం *esym; ++esym, --n;) {
+        పూర్ణాంకం sym_bind = ELFW(ST_BIND)(esym->st_info);
+        ఒకవేళ (sym_bind == STB_GLOBAL) {
+            అక్షరం *name = esym->st_name + (అక్షరం*)s1->symtab->link->దత్తాంశం;
+            పూర్ణాంకం nl = అక్షరశ్రేణి_పొడవు(name);
+            addr_t విలువ = esym->st_విలువ;
+            పూర్ణాంకం shnum = esym->st_shndx;
+            ఒకవేళ (shnum != SHN_UNDEF && shnum < s1->nb_sections) {
                 Section *s = s1->sections[shnum];
                 shnum = s->sh_info;
-                value = value - s->sh_addr;
+                విలువ = విలువ - s->sh_addr;
             }
-            se = section_ptr_add(pe->coffsym, sizeof *se);
-            se->n_value = value;
+            se = section_ptr_కూడు(pe->coffsym, పరిమాణం *se);
+            se->n_విలువ = విలువ;
             se->n_scnum = shnum;
             se->n_sclass = 2; // C_EXT
-            if (nl <= 8)
-                memcpy(se->n_name, name, nl);
-            else
-                se->n_offset = put_elf_str(pe->coffstr, name);
+            ఒకవేళ (nl <= 8)
+                జ్ఞాపకం_నకలు(se->n_name, name, nl);
+            లేకపోతే
+                se->n_స్థానభ్రంశం_2 = put_elf_str(pe->coffstr, name);
         }
     }
-#endif
-    write32le(pe->coffstr->data, pe->coffstr->data_offset); /* coff string table size */
+#అయితే_ముగింపు
+    write32le(pe->coffstr->దత్తాంశం, pe->coffstr->దత్తాంశం_స్థానభ్రంశం); /* coff string table size */
 }
 
 /* Run cv2pdb, available at https://github.com/rainers/cv2pdb.  It reads
    and strips the dwarf info and creates a <exename>.pdb file instead */
-static void pe_create_pdb(TCCState *s1, const char *exename)
+స్థిర శూన్య pe_create_pdb(TCCState *s1, స్థిరరాశి అక్షరం *exename)
 {
-    char buf[300]; int r;
-    snprintf(buf, sizeof buf, "cv2pdb.exe \"%s\"", exename);
+    అక్షరం buf[300]; పూర్ణాంకం r;
+    snprintf(buf, పరిమాణం buf, "cv2pdb.exe \"%s\"", exename);
     r = system(buf);
     strcpy(tcc_fileextension(strcpy(buf, exename)), ".pdb");
-    if (r) {
+    ఒకవేళ (r) {
         tcc_error_noabort("could not create '%s'\n(need working cv2pdb from https://github.com/rainers/cv2pdb)", buf);
-    } else if (s1->verbose) {
-        printf("<- %s\n", buf);
+    } లేకపోతే ఒకవేళ (s1->verbose) {
+        రాయి("<- %s\n", buf);
     }
 }
 
 /*----------------------------------------------------------------------------*/
-static int pe_write(struct pe_info *pe)
+స్థిర పూర్ణాంకం pe_write(నిర్మాణం pe_info *pe)
 {
-    static const struct pe_header pe_template = {
+    స్థిర స్థిరరాశి నిర్మాణం pe_శీర్షిక pe_template = {
     {
     /* IMAGE_DOS_HEADER doshdr */
     0x5A4D, /*WORD e_magic;         Magic number */
@@ -650,7 +650,7 @@ static int pe_write(struct pe_info *pe)
     0x00000000, /*DWORD   TimeDateStamp; */
     0x00000000, /*DWORD   PointerToSymbolTable; */
     0x00000000, /*DWORD   NumberOfSymbols; */
-    0x00E0 + (PTR_SIZE-4)*4, /*WORD    SizeOfOptionalHeader; */
+    0x00E0 + (PTR_కొలత-4)*4, /*WORD    SizeOfOptionalHeader; */
     CHARACTERISTICS_EXE, /*WORD    Characteristics; */
     },{
     /* IMAGE_OPTIONAL_HEADER opthdr */
@@ -663,9 +663,9 @@ static int pe_write(struct pe_info *pe)
     0x00000000, /*DWORD   SizeOfUninitializedData; */
     0x00000000, /*DWORD   AddressOfEntryPoint; */
     0x00000000, /*DWORD   BaseOfCode; */
-#if PTR_SIZE == 4
+#ఒకవేళ PTR_కొలత == 4
     0x00000000, /*DWORD   BaseOfData; */
-#endif
+#అయితే_ముగింపు
     /* NT additional fields. */
     0x00000000,	/*ADDR3264   ImageBase; */
     0x00001000, /*DWORD   SectionAlignment; */
@@ -694,679 +694,679 @@ static int pe_write(struct pe_info *pe)
      {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}}
     }};
 
-    struct pe_header pe_header = pe_template;
+    నిర్మాణం pe_శీర్షిక pe_శీర్షిక = pe_template;
 
-    int i;
-    DWORD file_offset;
-    struct section_info *si;
-    IMAGE_SECTION_HEADER *psh;
+    పూర్ణాంకం i;
+    DWORD file_స్థానభ్రంశం;
+    నిర్మాణం section_info *si;
+    IMAGE_SECTION_శీర్షిక_2 *psh;
     TCCState *s1 = pe->s1;
 
-    if (s1->do_debug)
-        pe_add_coffsym(pe);
+    ఒకవేళ (s1->do_debug)
+        pe_కూడు_coffsym(pe);
 
     pe->op = fopen(pe->filename, "wb");
-    if (NULL == pe->op)
-        return tcc_error_noabort("could not write '%s': %s", pe->filename, strerror(errno));
+    ఒకవేళ (ఖాళీ == pe->op)
+        తిరిగి tcc_error_noabort("could not write '%s': %s", pe->filename, strerror(errno));
 
     pe->sizeofheaders = pe_file_align(pe,
-        sizeof (struct pe_header)
-        + pe->sec_count * sizeof (IMAGE_SECTION_HEADER)
+        పరిమాణం (నిర్మాణం pe_శీర్షిక)
+        + pe->sec_లెక్క * పరిమాణం (IMAGE_SECTION_శీర్షిక_2)
         );
 
-    file_offset = pe->sizeofheaders;
+    file_స్థానభ్రంశం = pe->sizeofheaders;
 
-    if (2 == s1->verbose)
-        printf("-------------------------------"
+    ఒకవేళ (2 == s1->verbose)
+        రాయి("-------------------------------"
                "\n  virt   file   size  section" "\n");
-    for (i = 0; i < pe->sec_count; ++i) {
-        DWORD addr, size;
-        const char *sh_name;
+    కొరకు (i = 0; i < pe->sec_లెక్క; ++i) {
+        DWORD addr, కొలత;
+        స్థిరరాశి అక్షరం *sh_name;
 
         si = pe->sec_info[i];
         sh_name = si->name;
         addr = si->sh_addr - pe->imagebase;
-        size = si->sh_size;
+        కొలత = si->sh_కొలత;
         psh = &si->ish;
 
-        if (2 == s1->verbose)
-            printf("%6x %6x %6x  %s\n",
-                (unsigned)addr, (unsigned)file_offset, (unsigned)size, sh_name);
+        ఒకవేళ (2 == s1->verbose)
+            రాయి("%6x %6x %6x  %s\n",
+                (గుర్తులేని)addr, (గుర్తులేని)file_స్థానభ్రంశం, (గుర్తులేని)కొలత, sh_name);
 
-        switch (si->cls) {
-            case sec_text:
-                if (!pe_header.opthdr.BaseOfCode)
-                    pe_header.opthdr.BaseOfCode = addr;
-                break;
+        ఎంపిక (si->cls) {
+            స్థితి sec_పాఠ్యం:
+                ఒకవేళ (!pe_శీర్షిక.opthdr.పునాది_యొక్క_సంకేతం)
+                    pe_శీర్షిక.opthdr.పునాది_యొక్క_సంకేతం = addr;
+                ఆపు;
 
-            case sec_data:
-#if PTR_SIZE == 4
-                if (!pe_header.opthdr.BaseOfData)
-                    pe_header.opthdr.BaseOfData = addr;
-#endif
-                break;
+            స్థితి sec_దత్తాంశం:
+#ఒకవేళ PTR_కొలత == 4
+                ఒకవేళ (!pe_శీర్షిక.opthdr.పునాది_యొక్క_దత్తాంశం)
+                    pe_శీర్షిక.opthdr.పునాది_యొక్క_దత్తాంశం = addr;
+#అయితే_ముగింపు
+                ఆపు;
 
-            case sec_bss:
-                break;
+            స్థితి sec_bss:
+                ఆపు;
 
-            case sec_reloc:
-                pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_BASERELOC, addr, size);
-                break;
+            స్థితి sec_reloc:
+                pe_సమితి_datadir(&pe_శీర్షిక, IMAGE_DIRECTORY_నమోదు_BASERELOC, addr, కొలత);
+                ఆపు;
 
-            case sec_rsrc:
-                pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_RESOURCE, addr, size);
-                break;
+            స్థితి sec_rsrc:
+                pe_సమితి_datadir(&pe_శీర్షిక, IMAGE_DIRECTORY_నమోదు_RESOURCE, addr, కొలత);
+                ఆపు;
 
-            case sec_pdata:
-                pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_EXCEPTION, addr, size);
-                break;
+            స్థితి sec_pdata:
+                pe_సమితి_datadir(&pe_శీర్షిక, IMAGE_DIRECTORY_నమోదు_EXCEPTION, addr, కొలత);
+                ఆపు;
         }
 
-        if (pe->imp_size) {
-            pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_IMPORT,
-                pe->imp_offs, pe->imp_size);
-            pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_IAT,
-                pe->iat_offs, pe->iat_size);
+        ఒకవేళ (pe->imp_కొలత) {
+            pe_సమితి_datadir(&pe_శీర్షిక, IMAGE_DIRECTORY_నమోదు_IMPORT,
+                pe->imp_offs, pe->imp_కొలత);
+            pe_సమితి_datadir(&pe_శీర్షిక, IMAGE_DIRECTORY_నమోదు_IAT,
+                pe->iat_offs, pe->iat_కొలత);
         }
-        if (pe->exp_size) {
-            pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_EXPORT,
-                pe->exp_offs, pe->exp_size);
+        ఒకవేళ (pe->exp_కొలత) {
+            pe_సమితి_datadir(&pe_శీర్షిక, IMAGE_DIRECTORY_నమోదు_EXPORT,
+                pe->exp_offs, pe->exp_కొలత);
         }
-        if (pe->tls_size) {
-            pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_TLS,
-                pe->tls_dir + (pe->thunk->sh_addr - pe->imagebase), pe->tls_size);
+        ఒకవేళ (pe->tls_కొలత) {
+            pe_సమితి_datadir(&pe_శీర్షిక, IMAGE_DIRECTORY_నమోదు_TLS,
+                pe->tls_dir + (pe->thunk->sh_addr - pe->imagebase), pe->tls_కొలత);
         }
 
-        memcpy(psh->Name, sh_name, umin(strlen(sh_name), sizeof psh->Name));
-        if (pe->coffstr && strlen(sh_name) > 8) {
+        జ్ఞాపకం_నకలు(psh->Name, sh_name, umin(అక్షరశ్రేణి_పొడవు(sh_name), పరిమాణం psh->Name));
+        ఒకవేళ (pe->coffstr && అక్షరశ్రేణి_పొడవు(sh_name) > 8) {
             /* long section name, for example ".debug_info" */
-            snprintf((char*)psh->Name, 8, "/%d", put_elf_str(pe->coffstr, sh_name));
+            snprintf((అక్షరం*)psh->Name, 8, "/%d", put_elf_str(pe->coffstr, sh_name));
         }
 
         psh->Characteristics = si->pe_flags;
-        psh->VirtualAddress = addr;
-        psh->Misc.VirtualSize = size;
-        pe_header.opthdr.SizeOfImage =
-            umax(pe_virtual_align(pe, size + addr), pe_header.opthdr.SizeOfImage);
+        psh->Virtual_చిరునామా = addr;
+        psh->Misc.Virtual_కొలత = కొలత;
+        pe_శీర్షిక.opthdr.కొలత_యొక్క_Image =
+            umax(pe_virtual_align(pe, కొలత + addr), pe_శీర్షిక.opthdr.కొలత_యొక్క_Image);
 
-        if (si->data_size) {
-            psh->PointerToRawData = file_offset;
-            file_offset = pe_file_align(pe, file_offset + si->data_size);
-            psh->SizeOfRawData = file_offset - psh->PointerToRawData;
-            if (si->cls == sec_text)
-                pe_header.opthdr.SizeOfCode += psh->SizeOfRawData;
-            else
-                pe_header.opthdr.SizeOfInitializedData += psh->SizeOfRawData;
+        ఒకవేళ (si->దత్తాంశం_కొలత) {
+            psh->సూచిక_గమ్యం_Raw_దత్తాంశం = file_స్థానభ్రంశం;
+            file_స్థానభ్రంశం = pe_file_align(pe, file_స్థానభ్రంశం + si->దత్తాంశం_కొలత);
+            psh->కొలత_యొక్క_Raw_దత్తాంశం = file_స్థానభ్రంశం - psh->సూచిక_గమ్యం_Raw_దత్తాంశం;
+            ఒకవేళ (si->cls == sec_పాఠ్యం)
+                pe_శీర్షిక.opthdr.కొలత_యొక్క_సంకేతం += psh->కొలత_యొక్క_Raw_దత్తాంశం;
+            లేకపోతే
+                pe_శీర్షిక.opthdr.కొలత_యొక్క_Initialized_దత్తాంశం += psh->కొలత_యొక్క_Raw_దత్తాంశం;
         }
     }
 
     //pe_header.filehdr.TimeDateStamp = time(NULL);
-    pe_header.filehdr.NumberOfSections = pe->sec_count;
-    pe_header.opthdr.AddressOfEntryPoint = pe->start_addr;
-    pe_header.opthdr.SizeOfHeaders = pe->sizeofheaders;
-    pe_header.opthdr.ImageBase = pe->imagebase;
-    pe_header.opthdr.Subsystem = pe->subsystem;
-    pe_header.opthdr.DllCharacteristics = s1->pe_dll_characteristics;
-    if (s1->pe_stack_size)
-        pe_header.opthdr.SizeOfStackReserve = s1->pe_stack_size;
-    if (PE_DLL == pe->type)
-        pe_header.filehdr.Characteristics = CHARACTERISTICS_DLL;
-    pe_header.filehdr.Characteristics |= s1->pe_characteristics;
-    if (pe->reloc)
-        pe_header.filehdr.Characteristics &= ~IMAGE_FILE_RELOCS_STRIPPED;
+    pe_శీర్షిక.filehdr.సంఖ్య_యొక్క_Sections = pe->sec_లెక్క;
+    pe_శీర్షిక.opthdr.చిరునామా_యొక్క_నమోదు_బిందువు = pe->ప్రారంభం_addr;
+    pe_శీర్షిక.opthdr.కొలత_యొక్క_శీర్షికలు = pe->sizeofheaders;
+    pe_శీర్షిక.opthdr.Image_పునాది = pe->imagebase;
+    pe_శీర్షిక.opthdr.Subsystem = pe->subsystem;
+    pe_శీర్షిక.opthdr.DllCharacteristics = s1->pe_dll_characteristics;
+    ఒకవేళ (s1->pe_దొంతర_కొలత)
+        pe_శీర్షిక.opthdr.కొలత_యొక్క_దొంతర_Reserve = s1->pe_దొంతర_కొలత;
+    ఒకవేళ (PE_DLL == pe->type)
+        pe_శీర్షిక.filehdr.Characteristics = CHARACTERISTICS_DLL;
+    pe_శీర్షిక.filehdr.Characteristics |= s1->pe_characteristics;
+    ఒకవేళ (pe->reloc)
+        pe_శీర్షిక.filehdr.Characteristics &= ~IMAGE_FILE_RELOCS_STRIPPED;
 
-    if (pe->coffsym) {
-        pe_add_coffsym(pe);
-        pe_header.filehdr.PointerToSymbolTable = file_offset;
-        pe_header.filehdr.NumberOfSymbols
-            = pe->coffsym->data_offset / sizeof (struct syment);
+    ఒకవేళ (pe->coffsym) {
+        pe_కూడు_coffsym(pe);
+        pe_శీర్షిక.filehdr.సూచిక_గమ్యం_చిహ్నం_పట్టిక = file_స్థానభ్రంశం;
+        pe_శీర్షిక.filehdr.సంఖ్య_యొక్క_Symbols
+            = pe->coffsym->దత్తాంశం_స్థానభ్రంశం / పరిమాణం (నిర్మాణం syment);
     }
 
-    pe_fwrite(pe, &pe_header, sizeof pe_header);
-    for (i = 0; i < pe->sec_count; ++i)
-        pe_fwrite(pe, &pe->sec_info[i]->ish, sizeof(IMAGE_SECTION_HEADER));
+    pe_fwrite(pe, &pe_శీర్షిక, పరిమాణం pe_శీర్షిక);
+    కొరకు (i = 0; i < pe->sec_లెక్క; ++i)
+        pe_fwrite(pe, &pe->sec_info[i]->ish, పరిమాణం(IMAGE_SECTION_శీర్షిక_2));
 
-    file_offset = pe->sizeofheaders;
-    for (i = 0; i < pe->sec_count; ++i) {
+    file_స్థానభ్రంశం = pe->sizeofheaders;
+    కొరకు (i = 0; i < pe->sec_లెక్క; ++i) {
         Section *s;
         si = pe->sec_info[i];
-        if (!si->data_size)
-            continue;
-        for (s = si->sec; s; s = s->prev) {
-            pe_fpad(pe, file_offset);
-            pe_fwrite(pe, s->data, s->data_offset);
-            if (s->prev)
-                file_offset += s->prev->sh_addr - s->sh_addr;
+        ఒకవేళ (!si->దత్తాంశం_కొలత)
+            కొనసాగు;
+        కొరకు (s = si->sec; s; s = s->prev) {
+            pe_fpad(pe, file_స్థానభ్రంశం);
+            pe_fwrite(pe, s->దత్తాంశం, s->దత్తాంశం_స్థానభ్రంశం);
+            ఒకవేళ (s->prev)
+                file_స్థానభ్రంశం += s->prev->sh_addr - s->sh_addr;
         }
-        file_offset = si->ish.PointerToRawData + si->ish.SizeOfRawData;
-        pe_fpad(pe, file_offset);
+        file_స్థానభ్రంశం = si->ish.సూచిక_గమ్యం_Raw_దత్తాంశం + si->ish.కొలత_యొక్క_Raw_దత్తాంశం;
+        pe_fpad(pe, file_స్థానభ్రంశం);
     }
 
-    if (pe->coffsym) {
-        pe_fwrite(pe, pe->coffsym->data, pe->coffsym->data_offset);
-        pe_fwrite(pe, pe->coffstr->data, pe->coffstr->data_offset);
-        file_offset = pe->pos;
+    ఒకవేళ (pe->coffsym) {
+        pe_fwrite(pe, pe->coffsym->దత్తాంశం, pe->coffsym->దత్తాంశం_స్థానభ్రంశం);
+        pe_fwrite(pe, pe->coffstr->దత్తాంశం, pe->coffstr->దత్తాంశం_స్థానభ్రంశం);
+        file_స్థానభ్రంశం = pe->pos;
     }
 
-    pe->sum += file_offset;
-    fseek(pe->op, offsetof(struct pe_header, opthdr.CheckSum), SEEK_SET);
-    pe_fwrite(pe, &pe->sum, sizeof (DWORD));
+    pe->కూడిక += file_స్థానభ్రంశం;
+    fseek(pe->op, offsetof(నిర్మాణం pe_శీర్షిక, opthdr.Check_కూడిక), SEEK_SET);
+    pe_fwrite(pe, &pe->కూడిక, పరిమాణం (DWORD));
 
     fclose (pe->op);
-#ifndef _WIN32
+#నిర్వచితం_కాకపోతే _WIN32
     chmod(pe->filename, 0777);
-#endif
+#అయితే_ముగింపు
 
-    if (2 == s1->verbose)
-        printf("-------------------------------\n");
-    if (s1->verbose)
-        printf("<- %s (%u bytes)\n", pe->filename, (unsigned)file_offset);
+    ఒకవేళ (2 == s1->verbose)
+        రాయి("-------------------------------\n");
+    ఒకవేళ (s1->verbose)
+        రాయి("<- %s (%u bytes)\n", pe->filename, (గుర్తులేని)file_స్థానభ్రంశం);
 
-    if (s1->do_debug & 16)
+    ఒకవేళ (s1->do_debug & 16)
         pe_create_pdb(s1, pe->filename);
-    return 0;
+    తిరిగి 0;
 }
 
 /*----------------------------------------------------------------------------*/
 
-static struct import_symbol *pe_add_import(struct pe_info *pe, int sym_index)
+స్థిర నిర్మాణం import_చిహ్నం *pe_కూడు_import(నిర్మాణం pe_info *pe, పూర్ణాంకం sym_సూచీ)
 {
-    int i;
-    int dll_index;
-    struct pe_import_info *p;
-    struct import_symbol *s;
+    పూర్ణాంకం i;
+    పూర్ణాంకం dll_సూచీ;
+    నిర్మాణం pe_import_info *p;
+    నిర్మాణం import_చిహ్నం *s;
     ElfW(Sym) *isym;
 
-    isym = (ElfW(Sym) *)pe->s1->dynsymtab_section->data + sym_index;
-    dll_index = isym->st_size;
+    isym = (ElfW(Sym) *)pe->s1->dynsymtab_section->దత్తాంశం + sym_సూచీ;
+    dll_సూచీ = isym->st_కొలత;
 
-    i = dynarray_assoc ((void**)pe->imp_info, pe->imp_count, dll_index);
-    if (-1 != i) {
+    i = dynarray_assoc ((శూన్య**)pe->imp_info, pe->imp_లెక్క, dll_సూచీ);
+    ఒకవేళ (-1 != i) {
         p = pe->imp_info[i];
-        goto found_dll;
+        వెళ్ళు దొరికింది_dll;
     }
-    p = tcc_mallocz(sizeof *p);
-    p->dll_index = dll_index;
-    dynarray_add(&pe->imp_info, &pe->imp_count, p);
+    p = tcc_mallocz(పరిమాణం *p);
+    p->dll_సూచీ = dll_సూచీ;
+    dynarray_కూడు(&pe->imp_info, &pe->imp_లెక్క, p);
 
-found_dll:
-    i = dynarray_assoc ((void**)p->symbols, p->sym_count, sym_index);
-    if (-1 != i)
-        return p->symbols[i];
+దొరికింది_dll:
+    i = dynarray_assoc ((శూన్య**)p->symbols, p->sym_లెక్క, sym_సూచీ);
+    ఒకవేళ (-1 != i)
+        తిరిగి p->symbols[i];
 
-    s = tcc_mallocz(sizeof *s);
-    dynarray_add(&p->symbols, &p->sym_count, s);
-    s->sym_index = sym_index;
-    return s;
+    s = tcc_mallocz(పరిమాణం *s);
+    dynarray_కూడు(&p->symbols, &p->sym_లెక్క, s);
+    s->sym_సూచీ = sym_సూచీ;
+    తిరిగి s;
 }
 
-static void pe_free_imports(struct pe_info *pe)
+స్థిర శూన్య pe_free_imports(నిర్మాణం pe_info *pe)
 {
-    int i;
-    for (i = 0; i < pe->imp_count; ++i) {
-        struct pe_import_info *p = pe->imp_info[i];
-        dynarray_reset(&p->symbols, &p->sym_count);
+    పూర్ణాంకం i;
+    కొరకు (i = 0; i < pe->imp_లెక్క; ++i) {
+        నిర్మాణం pe_import_info *p = pe->imp_info[i];
+        dynarray_reset(&p->symbols, &p->sym_లెక్క);
     }
-    dynarray_reset(&pe->imp_info, &pe->imp_count);
+    dynarray_reset(&pe->imp_info, &pe->imp_లెక్క);
 }
 
 /*----------------------------------------------------------------------------*/
-static void pe_build_imports(struct pe_info *pe)
+స్థిర శూన్య pe_build_imports(నిర్మాణం pe_info *pe)
 {
-    int thk_ptr, ent_ptr, dll_ptr, sym_cnt, i;
-    DWORD rva_base = pe->thunk->sh_addr - pe->imagebase;
-    int ndlls = pe->imp_count;
+    పూర్ణాంకం thk_ptr, ent_ptr, dll_ptr, sym_cnt, i;
+    DWORD rva_పునాది = pe->thunk->sh_addr - pe->imagebase;
+    పూర్ణాంకం ndlls = pe->imp_లెక్క;
     TCCState *s1 = pe->s1;
 
-    for (sym_cnt = i = 0; i < ndlls; ++i)
-        sym_cnt += pe->imp_info[i]->sym_count;
+    కొరకు (sym_cnt = i = 0; i < ndlls; ++i)
+        sym_cnt += pe->imp_info[i]->sym_లెక్క;
 
-    if (0 == sym_cnt)
-        return;
+    ఒకవేళ (0 == sym_cnt)
+        తిరిగి;
 
     pe_align_section(pe->thunk, 16);
-    pe->imp_size = (ndlls + 1) * sizeof(IMAGE_IMPORT_DESCRIPTOR);
-    pe->iat_size = (sym_cnt + ndlls) * sizeof(ADDR3264);
-    dll_ptr = pe->thunk->data_offset;
-    thk_ptr = dll_ptr + pe->imp_size;
-    ent_ptr = thk_ptr + pe->iat_size;
-    pe->imp_offs = dll_ptr + rva_base;
-    pe->iat_offs = thk_ptr + rva_base;
-    section_ptr_add(pe->thunk, pe->imp_size + 2*pe->iat_size);
+    pe->imp_కొలత = (ndlls + 1) * పరిమాణం(IMAGE_IMPORT_DESCRIPTOR);
+    pe->iat_కొలత = (sym_cnt + ndlls) * పరిమాణం(ADDR3264);
+    dll_ptr = pe->thunk->దత్తాంశం_స్థానభ్రంశం;
+    thk_ptr = dll_ptr + pe->imp_కొలత;
+    ent_ptr = thk_ptr + pe->iat_కొలత;
+    pe->imp_offs = dll_ptr + rva_పునాది;
+    pe->iat_offs = thk_ptr + rva_పునాది;
+    section_ptr_కూడు(pe->thunk, pe->imp_కొలత + 2*pe->iat_కొలత);
 
-    for (i = 0; i < pe->imp_count; ++i) {
+    కొరకు (i = 0; i < pe->imp_లెక్క; ++i) {
         IMAGE_IMPORT_DESCRIPTOR *hdr;
-        int k, n, dllindex;
+        పూర్ణాంకం k, n, dllindex;
         ADDR3264 v;
-        struct pe_import_info *p = pe->imp_info[i];
-        const char *name;
+        నిర్మాణం pe_import_info *p = pe->imp_info[i];
+        స్థిరరాశి అక్షరం *name;
         DLLReference *dllref;
 
-        dllindex = p->dll_index;
-        if (dllindex)
+        dllindex = p->dll_సూచీ;
+        ఒకవేళ (dllindex)
             name = tcc_basename((dllref = s1->loaded_dlls[dllindex-1])->name);
-        else
-            name = "", dllref = NULL;
+        లేకపోతే
+            name = "", dllref = ఖాళీ;
 
         /* put the dll name into the import header */
         v = put_elf_str(pe->thunk, name);
-        hdr = (IMAGE_IMPORT_DESCRIPTOR*)(pe->thunk->data + dll_ptr);
-        hdr->FirstThunk = thk_ptr + rva_base;
-        hdr->OriginalFirstThunk = ent_ptr + rva_base;
-        hdr->Name = v + rva_base;
+        hdr = (IMAGE_IMPORT_DESCRIPTOR*)(pe->thunk->దత్తాంశం + dll_ptr);
+        hdr->మొదటి_Thunk = thk_ptr + rva_పునాది;
+        hdr->Original_మొదటి_Thunk = ent_ptr + rva_పునాది;
+        hdr->Name = v + rva_పునాది;
 
-        for (k = 0, n = p->sym_count; k <= n; ++k) {
-            if (k < n) {
-                int iat_index = p->symbols[k]->iat_index;
-                int sym_index = p->symbols[k]->sym_index;
-                ElfW(Sym) *imp_sym = (ElfW(Sym) *)s1->dynsymtab_section->data + sym_index;
-                const char *name = (char*)s1->dynsymtab_section->link->data + imp_sym->st_name;
-                int ordinal;
+        కొరకు (k = 0, n = p->sym_లెక్క; k <= n; ++k) {
+            ఒకవేళ (k < n) {
+                పూర్ణాంకం iat_సూచీ = p->symbols[k]->iat_సూచీ;
+                పూర్ణాంకం sym_సూచీ = p->symbols[k]->sym_సూచీ;
+                ElfW(Sym) *imp_sym = (ElfW(Sym) *)s1->dynsymtab_section->దత్తాంశం + sym_సూచీ;
+                స్థిరరాశి అక్షరం *name = (అక్షరం*)s1->dynsymtab_section->link->దత్తాంశం + imp_sym->st_name;
+                పూర్ణాంకం ordinal;
 
                 /* patch symbol (and possibly its underscored alias) */
-                do {
-                    ElfW(Sym) *esym = (ElfW(Sym) *)symtab_section->data + iat_index;
-                    iat_index = esym->st_value;
-                    esym->st_value = thk_ptr;
-                    esym->st_shndx = pe->thunk->sh_num;
-                } while (iat_index);
+                చేయి {
+                    ElfW(Sym) *esym = (ElfW(Sym) *)symtab_section->దత్తాంశం + iat_సూచీ;
+                    iat_సూచీ = esym->st_విలువ;
+                    esym->st_విలువ = thk_ptr;
+                    esym->st_shndx = pe->thunk->sh_అంకె;
+                } అయితే (iat_సూచీ);
 
-                if (dllref)
-                    v = 0, ordinal = imp_sym->st_value; /* ordinal from pe_load_def */
-                else
-                    ordinal = 0, v = imp_sym->st_value; /* address from tcc_add_symbol() */
+                ఒకవేళ (dllref)
+                    v = 0, ordinal = imp_sym->st_విలువ; /* ordinal from pe_load_def */
+                లేకపోతే
+                    ordinal = 0, v = imp_sym->st_విలువ; /* address from tcc_add_symbol() */
 
-#ifdef TCC_IS_NATIVE
-                if (pe->type == PE_RUN) {
-                    if (dllref) {
-                        if ( !dllref->handle )
-                            dllref->handle = LoadLibraryA(dllref->name);
-                        v = (ADDR3264)GetProcAddress(dllref->handle, ordinal?(char*)0+ordinal:name);
+#నిర్వచితమైతే TCC_IS_NATIVE
+                ఒకవేళ (pe->type == PE_నిరంతరం) {
+                    ఒకవేళ (dllref) {
+                        ఒకవేళ ( !dllref->handle )
+                            dllref->handle = ఎక్కించు_Library_A(dllref->name);
+                        v = (ADDR3264)Get_Proc_చిరునామా(dllref->handle, ordinal?(అక్షరం*)0+ordinal:name);
                     }
-                    if (!v)
+                    ఒకవేళ (!v)
                         tcc_error_noabort("could not resolve symbol '%s'", name);
-                } else
-#endif
-                if (ordinal) {
-                    v = ordinal | (ADDR3264)1 << (sizeof(ADDR3264)*8 - 1);
-                } else {
-                    v = pe->thunk->data_offset + rva_base;
-                    section_ptr_add(pe->thunk, sizeof(WORD)); /* hint, not used */
+                } లేకపోతే
+#అయితే_ముగింపు
+                ఒకవేళ (ordinal) {
+                    v = ordinal | (ADDR3264)1 << (పరిమాణం(ADDR3264)*8 - 1);
+                } లేకపోతే {
+                    v = pe->thunk->దత్తాంశం_స్థానభ్రంశం + rva_పునాది;
+                    section_ptr_కూడు(pe->thunk, పరిమాణం(మాట_3)); /* hint, not used */
                     put_elf_str(pe->thunk, name);
                 }
 
-            } else {
+            } లేకపోతే {
                 v = 0; /* last entry is zero */
             }
 
-            *(ADDR3264*)(pe->thunk->data+thk_ptr) =
-            *(ADDR3264*)(pe->thunk->data+ent_ptr) = v;
-            thk_ptr += sizeof (ADDR3264);
-            ent_ptr += sizeof (ADDR3264);
+            *(ADDR3264*)(pe->thunk->దత్తాంశం+thk_ptr) =
+            *(ADDR3264*)(pe->thunk->దత్తాంశం+ent_ptr) = v;
+            thk_ptr += పరిమాణం (ADDR3264);
+            ent_ptr += పరిమాణం (ADDR3264);
         }
-        dll_ptr += sizeof(IMAGE_IMPORT_DESCRIPTOR);
+        dll_ptr += పరిమాణం(IMAGE_IMPORT_DESCRIPTOR);
     }
 }
 
 /* ------------------------------------------------------------- */
 
-struct pe_sort_sym
+నిర్మాణం pe_క్రమీకరించు_sym
 {
-    int index;
-    const char *name;
+    పూర్ణాంకం సూచీ;
+    స్థిరరాశి అక్షరం *name;
 };
 
-static int sym_cmp(const void *va, const void *vb)
+స్థిర పూర్ణాంకం sym_cmp(స్థిరరాశి శూన్య *va, స్థిరరాశి శూన్య *vb)
 {
-    const char *ca = (*(struct pe_sort_sym**)va)->name;
-    const char *cb = (*(struct pe_sort_sym**)vb)->name;
-    return strcmp(ca, cb);
+    స్థిరరాశి అక్షరం *ca = (*(నిర్మాణం pe_క్రమీకరించు_sym**)va)->name;
+    స్థిరరాశి అక్షరం *cb = (*(నిర్మాణం pe_క్రమీకరించు_sym**)vb)->name;
+    తిరిగి strcmp(ca, cb);
 }
 
-static void pe_build_exports(struct pe_info *pe)
+స్థిర శూన్య pe_build_exports(నిర్మాణం pe_info *pe)
 {
     ElfW(Sym) *sym;
-    int sym_index, sym_end;
-    DWORD rva_base, base_o, func_o, name_o, ord_o, str_o;
+    పూర్ణాంకం sym_సూచీ, sym_చివర;
+    DWORD rva_పునాది, పునాది_o, func_o, name_o, ord_o, str_o;
     IMAGE_EXPORT_DIRECTORY *hdr;
-    int sym_count, ord;
-    struct pe_sort_sym **sorted, *p;
+    పూర్ణాంకం sym_లెక్క, ord;
+    నిర్మాణం pe_క్రమీకరించు_sym **sorted, *p;
     TCCState *s1 = pe->s1;
 
     FILE *op;
-    char buf[260];
-    const char *dllname;
-    const char *name;
+    అక్షరం buf[260];
+    స్థిరరాశి అక్షరం *dllname;
+    స్థిరరాశి అక్షరం *name;
 
-    rva_base = pe->thunk->sh_addr - pe->imagebase;
-    sym_count = 0, sorted = NULL, op = NULL;
+    rva_పునాది = pe->thunk->sh_addr - pe->imagebase;
+    sym_లెక్క = 0, sorted = ఖాళీ, op = ఖాళీ;
 
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        sym = (ElfW(Sym)*)symtab_section->data + sym_index;
+    sym_చివర = symtab_section->దత్తాంశం_స్థానభ్రంశం / పరిమాణం(ElfW(Sym));
+    కొరకు (sym_సూచీ = 1; sym_సూచీ < sym_చివర; ++sym_సూచీ) {
+        sym = (ElfW(Sym)*)symtab_section->దత్తాంశం + sym_సూచీ;
         name = pe_export_name(s1, sym);
-        if (sym->st_other & ST_PE_EXPORT) {
-            p = tcc_malloc(sizeof *p);
-            p->index = sym_index;
+        ఒకవేళ (sym->st_other & ST_PE_EXPORT) {
+            p = tcc_malloc(పరిమాణం *p);
+            p->సూచీ = sym_సూచీ;
             p->name = name;
-            dynarray_add(&sorted, &sym_count, p);
+            dynarray_కూడు(&sorted, &sym_లెక్క, p);
         }
-#if 0
-        if (sym->st_other & ST_PE_EXPORT)
-            printf("export: %s\n", name);
-        if (sym->st_other & ST_PE_STDCALL)
-            printf("stdcall: %s\n", name);
-#endif
+#ఒకవేళ 0
+        ఒకవేళ (sym->st_other & ST_PE_EXPORT)
+            రాయి("export: %s\n", name);
+        ఒకవేళ (sym->st_other & ST_PE_STDCALL)
+            రాయి("stdcall: %s\n", name);
+#అయితే_ముగింపు
     }
 
-    if (0 == sym_count)
-        return;
+    ఒకవేళ (0 == sym_లెక్క)
+        తిరిగి;
 
-    qsort (sorted, sym_count, sizeof *sorted, sym_cmp);
+    qsort (sorted, sym_లెక్క, పరిమాణం *sorted, sym_cmp);
 
     pe_align_section(pe->thunk, 16);
     dllname = tcc_basename(pe->filename);
 
-    base_o = pe->thunk->data_offset;
-    func_o = base_o + sizeof(IMAGE_EXPORT_DIRECTORY);
-    name_o = func_o + sym_count * sizeof (DWORD);
-    ord_o = name_o + sym_count * sizeof (DWORD);
-    str_o = ord_o + sym_count * sizeof(WORD);
+    పునాది_o = pe->thunk->దత్తాంశం_స్థానభ్రంశం;
+    func_o = పునాది_o + పరిమాణం(IMAGE_EXPORT_DIRECTORY);
+    name_o = func_o + sym_లెక్క * పరిమాణం (DWORD);
+    ord_o = name_o + sym_లెక్క * పరిమాణం (DWORD);
+    str_o = ord_o + sym_లెక్క * పరిమాణం(మాట_3);
 
-    hdr = section_ptr_add(pe->thunk, str_o - base_o);
+    hdr = section_ptr_కూడు(pe->thunk, str_o - పునాది_o);
     hdr->Characteristics        = 0;
-    hdr->Base                   = 1;
-    hdr->NumberOfFunctions      = sym_count;
-    hdr->NumberOfNames          = sym_count;
-    hdr->AddressOfFunctions     = func_o + rva_base;
-    hdr->AddressOfNames         = name_o + rva_base;
-    hdr->AddressOfNameOrdinals  = ord_o + rva_base;
-    hdr->Name                   = str_o + rva_base;
+    hdr->పునాది_2                   = 1;
+    hdr->సంఖ్య_యొక్క_Functions      = sym_లెక్క;
+    hdr->సంఖ్య_యొక్క_పేర్లు          = sym_లెక్క;
+    hdr->చిరునామా_యొక్క_Functions     = func_o + rva_పునాది;
+    hdr->చిరునామా_యొక్క_పేర్లు         = name_o + rva_పునాది;
+    hdr->చిరునామా_యొక్క_Name_Ordinals  = ord_o + rva_పునాది;
+    hdr->Name                   = str_o + rva_పునాది;
     put_elf_str(pe->thunk, dllname);
 
-#if 1
+#ఒకవేళ 1
     /* automatically write exports to <output-filename>.def */
-    pstrcpy(buf, sizeof buf, pe->filename);
+    pstrcpy(buf, పరిమాణం buf, pe->filename);
     strcpy(tcc_fileextension(buf), ".def");
     op = fopen(buf, "wb");
-    if (NULL == op) {
+    ఒకవేళ (ఖాళీ == op) {
         tcc_error_noabort("could not create '%s': %s", buf, strerror(errno));
-    } else {
+    } లేకపోతే {
         fprintf(op, "LIBRARY %s\n\nEXPORTS\n", dllname);
-        if (s1->verbose)
-            printf("<- %s (%d symbol%s)\n", buf, sym_count, &"s"[sym_count < 2]);
+        ఒకవేళ (s1->verbose)
+            రాయి("<- %s (%d symbol%s)\n", buf, sym_లెక్క, &"s"[sym_లెక్క < 2]);
     }
-#endif
+#అయితే_ముగింపు
 
-    for (ord = 0; ord < sym_count; ++ord)
+    కొరకు (ord = 0; ord < sym_లెక్క; ++ord)
     {
-        p = sorted[ord], sym_index = p->index, name = p->name;
+        p = sorted[ord], sym_సూచీ = p->సూచీ, name = p->name;
         /* insert actual address later in relocate_sections() */
         put_elf_reloc(symtab_section, pe->thunk,
-            func_o, R_XXX_RELATIVE, sym_index);
-        *(DWORD*)(pe->thunk->data + name_o)
-            = pe->thunk->data_offset + rva_base;
-        *(WORD*)(pe->thunk->data + ord_o)
+            func_o, R_XXX_RELATIVE, sym_సూచీ);
+        *(DWORD*)(pe->thunk->దత్తాంశం + name_o)
+            = pe->thunk->దత్తాంశం_స్థానభ్రంశం + rva_పునాది;
+        *(మాట_3*)(pe->thunk->దత్తాంశం + ord_o)
             = ord;
         put_elf_str(pe->thunk, name);
-        func_o += sizeof (DWORD);
-        name_o += sizeof (DWORD);
-        ord_o += sizeof (WORD);
-        if (op)
+        func_o += పరిమాణం (DWORD);
+        name_o += పరిమాణం (DWORD);
+        ord_o += పరిమాణం (మాట_3);
+        ఒకవేళ (op)
             fprintf(op, "%s\n", name);
     }
 
-    pe->exp_offs = base_o + rva_base;
-    pe->exp_size = pe->thunk->data_offset - base_o;
-    dynarray_reset(&sorted, &sym_count);
-    if (op)
+    pe->exp_offs = పునాది_o + rva_పునాది;
+    pe->exp_కొలత = pe->thunk->దత్తాంశం_స్థానభ్రంశం - పునాది_o;
+    dynarray_reset(&sorted, &sym_లెక్క);
+    ఒకవేళ (op)
         fclose(op);
 }
 
 /* ------------------------------------------------------------- */
-static void pe_build_reloc (struct pe_info *pe)
+స్థిర శూన్య pe_build_reloc (నిర్మాణం pe_info *pe)
 {
-    DWORD offset, block_ptr, sh_addr, addr;
-    int count, i;
-    ElfW_Rel *rel, *rel_end;
-    Section *s = NULL, *sr;
-    struct pe_reloc_header *hdr;
+    DWORD స్థానభ్రంశం, ఖండం_ptr, sh_addr, addr;
+    పూర్ణాంకం లెక్క_2, i;
+    ElfW_Rel *rel, *rel_చివర;
+    Section *s = ఖాళీ, *sr;
+    నిర్మాణం pe_reloc_శీర్షిక *hdr;
     TCCState *s1 = pe->s1;
-    int dwarf = 0, n;
+    పూర్ణాంకం dwarf = 0, n;
 
-    sh_addr = offset = block_ptr = count = i = 0;
-    rel = rel_end = NULL;
+    sh_addr = స్థానభ్రంశం = ఖండం_ptr = లెక్క_2 = i = 0;
+    rel = rel_చివర = ఖాళీ;
 
-    for(;;) {
-        if (rel < rel_end) {
-            int type = ELFW(R_TYPE)(rel->r_info);
-            addr = rel->r_offset + sh_addr;
+    కొరకు(;;) {
+        ఒకవేళ (rel < rel_చివర) {
+            పూర్ణాంకం type = ELFW(R_TYPE)(rel->r_info);
+            addr = rel->r_స్థానభ్రంశం + sh_addr;
             ++ rel;
-            if (type != REL_TYPE_DIRECT)
-                continue;
-            if (dwarf) { /* don't runtime-relocate dwarf-to-dwarf */
-                n = ((ElfSym *)s1->symtab->data + ELFW(R_SYM)(rel[-1].r_info))->st_shndx;
-                if (n >= s1->dwlo && n < s1->dwhi)
-                    continue;
+            ఒకవేళ (type != REL_TYPE_ప్రత్యక్ష)
+                కొనసాగు;
+            ఒకవేళ (dwarf) { /* don't runtime-relocate dwarf-to-dwarf */
+                n = ((ElfSym *)s1->symtab->దత్తాంశం + ELFW(R_SYM)(rel[-1].r_info))->st_shndx;
+                ఒకవేళ (n >= s1->dwlo && n < s1->dwhi)
+                    కొనసాగు;
             }
-            if (count == 0) { /* new block */
-                block_ptr = pe->reloc->data_offset;
-                section_ptr_add(pe->reloc, sizeof(struct pe_reloc_header));
-                offset = addr & 0xFFFFFFFF<<12;
+            ఒకవేళ (లెక్క_2 == 0) { /* new block */
+                ఖండం_ptr = pe->reloc->దత్తాంశం_స్థానభ్రంశం;
+                section_ptr_కూడు(pe->reloc, పరిమాణం(నిర్మాణం pe_reloc_శీర్షిక));
+                స్థానభ్రంశం = addr & 0xFFFFFFFF<<12;
             }
-            if ((addr -= offset)  < (1<<12)) { /* one block spans 4k addresses */
-                WORD *wp = section_ptr_add(pe->reloc, sizeof (WORD));
+            ఒకవేళ ((addr -= స్థానభ్రంశం)  < (1<<12)) { /* one block spans 4k addresses */
+                మాట_3 *wp = section_ptr_కూడు(pe->reloc, పరిమాణం (మాట_3));
                 *wp = addr | PE_IMAGE_REL<<12;
-                ++count;
-                continue;
+                ++లెక్క_2;
+                కొనసాగు;
             }
             -- rel;
 
-        } else if (s) {
+        } లేకపోతే ఒకవేళ (s) {
             sr = s->reloc;
-            if (sr) {
-                rel = (ElfW_Rel *)sr->data;
-                rel_end = (ElfW_Rel *)(sr->data + sr->data_offset);
+            ఒకవేళ (sr) {
+                rel = (ElfW_Rel *)sr->దత్తాంశం;
+                rel_చివర = (ElfW_Rel *)(sr->దత్తాంశం + sr->దత్తాంశం_స్థానభ్రంశం);
                 sh_addr = s->sh_addr;
-                dwarf = s->sh_num >= s1->dwlo && s->sh_num < s1->dwhi;
+                dwarf = s->sh_అంకె >= s1->dwlo && s->sh_అంకె < s1->dwhi;
             }
             s = s->prev;
-            continue;
+            కొనసాగు;
 
-        } else if (i < pe->sec_count) {
+        } లేకపోతే ఒకవేళ (i < pe->sec_లెక్క) {
             s = pe->sec_info[i]->sec, ++i;
-            continue;
+            కొనసాగు;
 
-        } else if (!count)
-            break;
+        } లేకపోతే ఒకవేళ (!లెక్క_2)
+            ఆపు;
 
         /* fill the last block and ready for a new one */
-        if (count & 1) /* align for DWORDS */
-            section_ptr_add(pe->reloc, sizeof(WORD)), ++count;
-        hdr = (struct pe_reloc_header *)(pe->reloc->data + block_ptr);
-        hdr -> offset = offset - pe->imagebase;
-        hdr -> size = count * sizeof(WORD) + sizeof(struct pe_reloc_header);
-        count = 0;
+        ఒకవేళ (లెక్క_2 & 1) /* align for DWORDS */
+            section_ptr_కూడు(pe->reloc, పరిమాణం(మాట_3)), ++లెక్క_2;
+        hdr = (నిర్మాణం pe_reloc_శీర్షిక *)(pe->reloc->దత్తాంశం + ఖండం_ptr);
+        hdr -> స్థానభ్రంశం = స్థానభ్రంశం - pe->imagebase;
+        hdr -> కొలత = లెక్క_2 * పరిమాణం(మాట_3) + పరిమాణం(నిర్మాణం pe_reloc_శీర్షిక);
+        లెక్క_2 = 0;
     }
 }
 
 /* ------------------------------------------------------------- */
-static void pe_build_tls(struct pe_info *pe, Section *s)
+స్థిర శూన్య pe_build_tls(నిర్మాణం pe_info *pe, Section *s)
 {
     TCCState *s1 = pe->s1;
     IMAGE_TLS_DIRECTORY *d;
-    int c, n;
+    పూర్ణాంకం c, n;
 
-    if (0 == s) {
-        pe->tls_size = sizeof (IMAGE_TLS_DIRECTORY);
-        pe->tls_dir = section_add(pe->thunk, pe->tls_size, 16);
-        pe->tls_data = section_add(data_section, PTR_SIZE * (1+3), 16);
+    ఒకవేళ (0 == s) {
+        pe->tls_కొలత = పరిమాణం (IMAGE_TLS_DIRECTORY);
+        pe->tls_dir = section_కూడు(pe->thunk, pe->tls_కొలత, 16);
+        pe->tls_దత్తాంశం = section_కూడు(దత్తాంశం_section, PTR_కొలత * (1+3), 16);
         /* put relocations on entries */
-        c = put_elf_sym(symtab_section, 0, 0, 0, 0, data_section->sh_num, 0);
-        for (n = 0; n < 4; ++n)
-            put_elf_reloc(symtab_section, pe->thunk, pe->tls_dir + PTR_SIZE*n, REL_TYPE_DIRECT, c);
+        c = put_elf_sym(symtab_section, 0, 0, 0, 0, దత్తాంశం_section->sh_అంకె, 0);
+        కొరకు (n = 0; n < 4; ++n)
+            put_elf_reloc(symtab_section, pe->thunk, pe->tls_dir + PTR_కొలత*n, REL_TYPE_ప్రత్యక్ష, c);
         /* for generators */
-        set_elf_sym(symtab_section, pe->tls_data, PTR_SIZE * 4,
+        సమితి_elf_sym(symtab_section, pe->tls_దత్తాంశం, PTR_కొలత * 4,
                 ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT),
-                0, data_section->sh_num, "__tls_index");
-        return;
+                0, దత్తాంశం_section->sh_అంకె, "__tls_index");
+        తిరిగి;
     }
 
-    if (0 == s1->tls_start)
-        s1->tls_start = s->sh_addr;
-    d = (void*)(pe->thunk->data + pe->tls_dir);
-    d->StartAddressOfRawData = s1->tls_start - data_section->sh_addr;
-    d->EndAddressOfRawData = s->sh_addr + s->data_offset - data_section->sh_addr;
-    d->AddressOfIndex = pe->tls_data;
-    d->AddressOfCallBacks = pe->tls_data + PTR_SIZE;
-    d->SizeOfZeroFill = 0;
+    ఒకవేళ (0 == s1->tls_ప్రారంభం)
+        s1->tls_ప్రారంభం = s->sh_addr;
+    d = (శూన్య*)(pe->thunk->దత్తాంశం + pe->tls_dir);
+    d->ప్రారంభం_చిరునామా_యొక్క_Raw_దత్తాంశం = s1->tls_ప్రారంభం - దత్తాంశం_section->sh_addr;
+    d->చివర_చిరునామా_యొక్క_Raw_దత్తాంశం = s->sh_addr + s->దత్తాంశం_స్థానభ్రంశం - దత్తాంశం_section->sh_addr;
+    d->చిరునామా_యొక్క_సూచీ = pe->tls_దత్తాంశం;
+    d->చిరునామా_యొక్క_Call_Backs = pe->tls_దత్తాంశం + PTR_కొలత;
+    d->కొలత_యొక్క_Zero_Fill = 0;
     d->Characteristics = 0;
     /* to reuse logic from linux in xxx-link.c */
-    s1->tls_end = s1->tls_start;
+    s1->tls_చివర = s1->tls_ప్రారంభం;
 }
 
 /* ------------------------------------------------------------- */
-static int pe_section_class(Section *s)
+స్థిర పూర్ణాంకం pe_section_class(Section *s)
 {
-    int type, flags;
-    const char *name;
+    పూర్ణాంకం type, flags;
+    స్థిరరాశి అక్షరం *name;
     type = s->sh_type;
     flags = s->sh_flags;
     name = s->name;
 
-    if (0 == memcmp(name, ".stab", 5) || 0 == memcmp(name, ".debug_", 7)) {
-        return sec_debug;
-    } else if (flags & SHF_ALLOC) {
-        if (flags & SHF_TLS)
-            return sec_tdata + (type == SHT_NOBITS);
-        if (type == SHT_PROGBITS
+    ఒకవేళ (0 == memcmp(name, ".stab", 5) || 0 == memcmp(name, ".debug_", 7)) {
+        తిరిగి sec_debug;
+    } లేకపోతే ఒకవేళ (flags & SHF_ALLOC) {
+        ఒకవేళ (flags & SHF_TLS)
+            తిరిగి sec_tdata + (type == SHT_NOBITS);
+        ఒకవేళ (type == SHT_PROGBITS
          || type == SHT_INIT_ARRAY
          || type == SHT_FINI_ARRAY) {
-            if (flags & SHF_EXECINSTR)
-                return sec_text;
-            if (flags & SHF_WRITE)
-                return sec_data;
-            if (0 == strcmp(name, ".rsrc"))
-                return sec_rsrc;
-            if (0 == strcmp(name, ".iedat"))
-                return sec_idata;
-            if (0 == strcmp(name, ".pdata"))
-                return sec_pdata;
-            return sec_rdata;
-        } else if (type == SHT_NOBITS) {
-            return sec_bss;
+            ఒకవేళ (flags & SHF_EXECINSTR)
+                తిరిగి sec_పాఠ్యం;
+            ఒకవేళ (flags & SHF_WRITE)
+                తిరిగి sec_దత్తాంశం;
+            ఒకవేళ (0 == strcmp(name, ".rsrc"))
+                తిరిగి sec_rsrc;
+            ఒకవేళ (0 == strcmp(name, ".iedat"))
+                తిరిగి sec_idata;
+            ఒకవేళ (0 == strcmp(name, ".pdata"))
+                తిరిగి sec_pdata;
+            తిరిగి sec_rdata;
+        } లేకపోతే ఒకవేళ (type == SHT_NOBITS) {
+            తిరిగి sec_bss;
         }
-        return sec_other;
-    } else {
-        if (0 == strcmp(name, ".reloc"))
-            return sec_reloc;
+        తిరిగి sec_other;
+    } లేకపోతే {
+        ఒకవేళ (0 == strcmp(name, ".reloc"))
+            తిరిగి sec_reloc;
     }
-    return sec_last;
+    తిరిగి sec_చివరి;
 }
 
-static int pe_assign_addresses (struct pe_info *pe)
+స్థిర పూర్ణాంకం pe_కేటాయించు_చిరునామాలు (నిర్మాణం pe_info *pe)
 {
-    int i, k, n, c, nbs;
+    పూర్ణాంకం i, k, n, c, nbs;
     ADDR3264 addr;
-    int *sec_order, *sec_cls;
-    struct section_info *si;
+    పూర్ణాంకం *sec_క్రమం, *sec_cls;
+    నిర్మాణం section_info *si;
     Section *s;
     TCCState *s1 = pe->s1;
 
-    if (PE_DLL == pe->type
-        || (s1->pe_dll_characteristics & IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE))
+    ఒకవేళ (PE_DLL == pe->type
+        || (s1->pe_dll_characteristics & IMAGE_DLLCHARACTERISTICS_DYNAMIC_పునాది))
         pe->reloc = new_section(s1, ".reloc", SHT_PROGBITS, 0);
     pe->thunk = rodata_section;
     //pe->thunk = new_section(s1, ".iedat", SHT_PROGBITS, SHF_ALLOC);
 
     nbs = s1->nb_sections;
-    sec_order = tcc_mallocz(2 * sizeof (int) * nbs);
-    sec_cls = sec_order + nbs;
-    for (i = 1; i < nbs; ++i) {
+    sec_క్రమం = tcc_mallocz(2 * పరిమాణం (పూర్ణాంకం) * nbs);
+    sec_cls = sec_క్రమం + nbs;
+    కొరకు (i = 1; i < nbs; ++i) {
         s = s1->sections[i];
         k = pe_section_class(s);
-        for (n = i; n > 1 && k < (c = sec_cls[n - 1]); --n)
-            sec_cls[n] = c, sec_order[n] = sec_order[n - 1];
-        sec_cls[n] = k, sec_order[n] = i;
-        if ((s->sh_flags & SHF_TLS) && 0 == pe->tls_size)
-            pe_build_tls(pe, NULL);
+        కొరకు (n = i; n > 1 && k < (c = sec_cls[n - 1]); --n)
+            sec_cls[n] = c, sec_క్రమం[n] = sec_క్రమం[n - 1];
+        sec_cls[n] = k, sec_క్రమం[n] = i;
+        ఒకవేళ ((s->sh_flags & SHF_TLS) && 0 == pe->tls_కొలత)
+            pe_build_tls(pe, ఖాళీ);
     }
-    si = NULL;
+    si = ఖాళీ;
     addr = pe->imagebase + 1;
-    for (i = 1; (c = sec_cls[i]) < sec_last; ++i) {
-        s = s1->sections[sec_order[i]];
+    కొరకు (i = 1; (c = sec_cls[i]) < sec_చివరి; ++i) {
+        s = s1->sections[sec_క్రమం[i]];
 
-        if (PE_MERGE_DATA && c == sec_bss)
-            c = sec_data;
-        if (c == sec_tbss)
+        ఒకవేళ (PE_విలీనం_దత్తాంశం && c == sec_bss)
+            c = sec_దత్తాంశం;
+        ఒకవేళ (c == sec_tbss)
             c = sec_tdata;
 
-        if (si && c == si->cls && c != sec_debug) {
+        ఒకవేళ (si && c == si->cls && c != sec_debug) {
             /* merge with previous section */
             s->sh_addr = addr = ((addr - 1) | (s->sh_addralign - 1)) + 1;
-        } else {
-            si = NULL;
+        } లేకపోతే {
+            si = ఖాళీ;
             s->sh_addr = addr = pe_virtual_align(pe, addr);
         }
 
-        if (s == pe->thunk) {
+        ఒకవేళ (s == pe->thunk) {
             pe_build_imports(pe);
             pe_build_exports(pe);
         }
 
-        if (s == pe->reloc)
+        ఒకవేళ (s == pe->reloc)
             pe_build_reloc (pe);
 
-        if (0 == s->data_offset)
-            continue;
+        ఒకవేళ (0 == s->దత్తాంశం_స్థానభ్రంశం)
+            కొనసాగు;
 
-        if (si)
-            goto add_section;
+        ఒకవేళ (si)
+            వెళ్ళు కూడు_section;
 
-        si = tcc_mallocz(sizeof *si);
-        dynarray_add(&pe->sec_info, &pe->sec_count, si);
+        si = tcc_mallocz(పరిమాణం *si);
+        dynarray_కూడు(&pe->sec_info, &pe->sec_లెక్క, si);
 
         strcpy(si->name, s->name);
         si->cls = c;
         si->sh_addr = addr;
 
         si->pe_flags = IMAGE_SCN_MEM_READ;
-        if (s->sh_flags & SHF_EXECINSTR)
-            si->pe_flags |= IMAGE_SCN_MEM_EXECUTE | IMAGE_SCN_CNT_CODE;
-        else if (s->sh_type == SHT_NOBITS && !(s->sh_flags & SHF_TLS))
-            si->pe_flags |= IMAGE_SCN_CNT_UNINITIALIZED_DATA;
-        else
-            si->pe_flags |= IMAGE_SCN_CNT_INITIALIZED_DATA;
-        if (s->sh_flags & SHF_WRITE)
+        ఒకవేళ (s->sh_flags & SHF_EXECINSTR)
+            si->pe_flags |= IMAGE_SCN_MEM_EXECUTE | IMAGE_SCN_CNT_సంకేతం;
+        లేకపోతే ఒకవేళ (s->sh_type == SHT_NOBITS && !(s->sh_flags & SHF_TLS))
+            si->pe_flags |= IMAGE_SCN_CNT_UNINITIALIZED_దత్తాంశం;
+        లేకపోతే
+            si->pe_flags |= IMAGE_SCN_CNT_INITIALIZED_దత్తాంశం;
+        ఒకవేళ (s->sh_flags & SHF_WRITE)
             si->pe_flags |= IMAGE_SCN_MEM_WRITE;
-        if (0 == (s->sh_flags & SHF_ALLOC))
+        ఒకవేళ (0 == (s->sh_flags & SHF_ALLOC))
             si->pe_flags |= IMAGE_SCN_MEM_DISCARDABLE;
 
-add_section:
-        s->sh_info = pe->sec_count; /* section number for coff syms */
-        addr += s->data_offset;
-        si->sh_size = addr - si->sh_addr;
-        if (s->sh_type != SHT_NOBITS) {
+కూడు_section:
+        s->sh_info = pe->sec_లెక్క; /* section number for coff syms */
+        addr += s->దత్తాంశం_స్థానభ్రంశం;
+        si->sh_కొలత = addr - si->sh_addr;
+        ఒకవేళ (s->sh_type != SHT_NOBITS) {
             Section **ps = &si->sec;
-            while (*ps)
+            అయితే (*ps)
                 ps = &(*ps)->prev;
-            *ps = s, s->prev = NULL;
-            si->data_size = si->sh_size;
+            *ps = s, s->prev = ఖాళీ;
+            si->దత్తాంశం_కొలత = si->sh_కొలత;
         }
 
-        if (s->sh_flags & SHF_TLS) {
+        ఒకవేళ (s->sh_flags & SHF_TLS) {
             strcpy(si->name, ".tls");
             pe_build_tls(pe, s);
         }
 
         //printf("%08x %05x %08x %s\n", si->sh_addr, si->sh_size, si->pe_flags, s->name);
     }
-#if 0
-    for (i = 1; i < nbs; ++i) {
-        Section *s = s1->sections[sec_order[i]];
-        int type = s->sh_type;
-        int flags = s->sh_flags;
-        printf("section %-16s %-10s %p %04x %2d %s,%s,%s\n",
+#ఒకవేళ 0
+    కొరకు (i = 1; i < nbs; ++i) {
+        Section *s = s1->sections[sec_క్రమం[i]];
+        పూర్ణాంకం type = s->sh_type;
+        పూర్ణాంకం flags = s->sh_flags;
+        రాయి("section %-16s %-10s %p %04x %2d %s,%s,%s\n",
             s->name,
             type == SHT_PROGBITS ? "progbits" :
             type == SHT_INIT_ARRAY ? "initarr" :
@@ -1376,7 +1376,7 @@ add_section:
             type == SHT_STRTAB ? "strtab" :
             type == SHT_RELX ? "rel" : "???",
             s->sh_addr,
-            (unsigned)s->data_offset,
+            (గుర్తులేని)s->దత్తాంశం_స్థానభ్రంశం,
             s->sh_addralign,
             flags & SHF_ALLOC ? "alloc" : "",
             flags & SHF_WRITE ? "write" : "",
@@ -1385,174 +1385,174 @@ add_section:
         fflush(stdout);
     }
     s1->verbose = 2;
-#endif
-    tcc_free(sec_order);
-    return 0;
+#అయితే_ముగింపు
+    tcc_free(sec_క్రమం);
+    తిరిగి 0;
 }
 
 /*----------------------------------------------------------------------------*/
-static int pe_check_symbols(struct pe_info *pe)
+స్థిర పూర్ణాంకం pe_check_symbols(నిర్మాణం pe_info *pe)
 {
-    int sym_index, sym_end;
-    int ret = 0;
+    పూర్ణాంకం sym_సూచీ, sym_చివర;
+    పూర్ణాంకం ret = 0;
     TCCState *s1 = pe->s1;
 
-    pe_align_section(text_section, 8);
+    pe_align_section(పాఠ్యం_section, 8);
 
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + sym_index;
-        if (sym->st_shndx == SHN_UNDEF) {
-            const char *name = (char*)symtab_section->link->data + sym->st_name;
-            unsigned type = ELFW(ST_TYPE)(sym->st_info);
-            int imp_sym = 0;
-            struct import_symbol *is;
+    sym_చివర = symtab_section->దత్తాంశం_స్థానభ్రంశం / పరిమాణం(ElfW(Sym));
+    కొరకు (sym_సూచీ = 1; sym_సూచీ < sym_చివర; ++sym_సూచీ) {
+        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->దత్తాంశం + sym_సూచీ;
+        ఒకవేళ (sym->st_shndx == SHN_UNDEF) {
+            స్థిరరాశి అక్షరం *name = (అక్షరం*)symtab_section->link->దత్తాంశం + sym->st_name;
+            గుర్తులేని type = ELFW(ST_TYPE)(sym->st_info);
+            పూర్ణాంకం imp_sym = 0;
+            నిర్మాణం import_చిహ్నం *is;
 
-            int _imp_, n;
-            char buffer[200];
-            const char *s, *p;
+            పూర్ణాంకం _imp_, n;
+            అక్షరం బఫరు[200];
+            స్థిరరాశి అక్షరం *s, *p;
 
             n = _imp_ = 0;
-            if (sym->st_other & ST_PE_IMPORT)
+            ఒకవేళ (sym->st_other & ST_PE_IMPORT)
                 _imp_ = 1;
-            do {
+            చేయి {
                 s = pe_export_name(s1, sym);
-                if (n) {
+                ఒకవేళ (n) {
                     /* second try: */
-                    if (sym->st_other & ST_PE_STDCALL) {
+                    ఒకవేళ (sym->st_other & ST_PE_STDCALL) {
                         /* try w/0 stdcall deco (windows API convention) */
                         p = strrchr(s, '@');
-                        if (!p || s[0] != '_')
-                            break;
-                        strcpy(buffer, s+1)[p-s-1] = 0, s = buffer;
-                    } else if (s[0] != '_') { /* try non-ansi function */
-                        buffer[0] = '_', strcpy(buffer + 1, s), s = buffer;
-                    } else if (0 == memcmp(s, "_imp__", 6)) { /* mingw 3.7 */
+                        ఒకవేళ (!p || s[0] != '_')
+                            ఆపు;
+                        strcpy(బఫరు, s+1)[p-s-1] = 0, s = బఫరు;
+                    } లేకపోతే ఒకవేళ (s[0] != '_') { /* try non-ansi function */
+                        బఫరు[0] = '_', strcpy(బఫరు + 1, s), s = బఫరు;
+                    } లేకపోతే ఒకవేళ (0 == memcmp(s, "_imp__", 6)) { /* mingw 3.7 */
                         s += 6, _imp_ = 1;
-                    } else if (0 == memcmp(s, "__imp_", 6)) { /* mingw 2.0 */
+                    } లేకపోతే ఒకవేళ (0 == memcmp(s, "__imp_", 6)) { /* mingw 2.0 */
                         s += 6, _imp_ = 1;
-                    } else {
-                        break;
+                    } లేకపోతే {
+                        ఆపు;
                     }
                 }
-                imp_sym = find_elf_sym(s1->dynsymtab_section, s);
-            } while (0 == imp_sym && ++n < 2);
+                imp_sym = కనుగొను_elf_sym(s1->dynsymtab_section, s);
+            } అయితే (0 == imp_sym && ++n < 2);
 
             //printf("pe_find_export (%d) %4x %s\n", n, imp_sym, name);
-            if (0 == imp_sym)
-                continue; /* will throw the 'undefined' error in relocate_syms() */
+            ఒకవేళ (0 == imp_sym)
+                కొనసాగు; /* will throw the 'undefined' error in relocate_syms() */
 
-            is = pe_add_import(pe, imp_sym);
+            is = pe_కూడు_import(pe, imp_sym);
 
-            if (type == STT_FUNC
+            ఒకవేళ (type == STT_FUNC
                 /* symbols from assembler often have no type */
                 || (type == STT_NOTYPE && 0 == _imp_)) {
-                unsigned offset = is->thk_offset;
-                if (offset) {
+                గుర్తులేని స్థానభ్రంశం = is->thk_స్థానభ్రంశం;
+                ఒకవేళ (స్థానభ్రంశం) {
                     /* got aliased symbol, like stricmp and _stricmp */
-                } else {
-                    unsigned char *p;
+                } లేకపోతే {
+                    గుర్తులేని అక్షరం *p;
 
                     /* add a helper symbol, will be patched later in
                        pe_build_imports */
-                    sprintf(buffer, "IAT.%s", name);
-                    is->iat_index = put_elf_sym(
-                        symtab_section, 0, sizeof(DWORD),
+                    sprintf(బఫరు, "IAT.%s", name);
+                    is->iat_సూచీ = put_elf_sym(
+                        symtab_section, 0, పరిమాణం(DWORD),
                         ELFW(ST_INFO)(STB_LOCAL, STT_OBJECT),
-                        0, SHN_UNDEF, buffer);
+                        0, SHN_UNDEF, బఫరు);
 
-                    offset = text_section->data_offset;
-                    is->thk_offset = offset;
+                    స్థానభ్రంశం = పాఠ్యం_section->దత్తాంశం_స్థానభ్రంశం;
+                    is->thk_స్థానభ్రంశం = స్థానభ్రంశం;
 
                     /* add the 'jmp IAT[x]' instruction */
-#ifdef TCC_TARGET_ARM
-                    p = section_ptr_add(text_section, 8+4); // room for code and address
+#నిర్వచితమైతే TCC_లక్ష్యం_ARM
+                    p = section_ptr_కూడు(పాఠ్యం_section, 8+4); // room for code and address
                     write32le(p + 0, 0xE59FC000); // arm code ldr ip, [pc] ; PC+8+0 = 0001xxxx
                     write32le(p + 4, 0xE59CF000); // arm code ldr pc, [ip]
-                    put_elf_reloc(symtab_section, text_section,
-                        offset + 8, R_XXX_THUNKFIX, is->iat_index); // offset to IAT position
-#elif defined(TCC_TARGET_ARM64)
-                    p = section_ptr_add(text_section, 24);
+                    put_elf_reloc(symtab_section, పాఠ్యం_section,
+                        స్థానభ్రంశం + 8, R_XXX_THUNKFIX, is->iat_సూచీ); // offset to IAT position
+#లేదావేళ defined(TCC_లక్ష్యం_ARM64)
+                    p = section_ptr_కూడు(పాఠ్యం_section, 24);
                     write32le(p + 0, 0x58000090); /* ldr x16, [pc, #16] */
                     write32le(p + 4, 0xf9400210); /* ldr x16, [x16] */
                     write32le(p + 8, 0xd61f0200); /* br x16 */
                     write32le(p + 12, 0xd503201f); /* nop for alignment */
-                    put_elf_reloc(symtab_section, text_section,
-                        offset + 16, R_XXX_THUNKFIX, is->iat_index);
-#else
-                    p = section_ptr_add(text_section, 8);
+                    put_elf_reloc(symtab_section, పాఠ్యం_section,
+                        స్థానభ్రంశం + 16, R_XXX_THUNKFIX, is->iat_సూచీ);
+#లేకపోతే
+                    p = section_ptr_కూడు(పాఠ్యం_section, 8);
                     write16le(p, 0x25FF);
-#ifdef TCC_TARGET_X86_64
+#నిర్వచితమైతే TCC_లక్ష్యం_X86_64
                     write32le(p + 2, (DWORD)-4);
-#endif
-                    put_elf_reloc(symtab_section, text_section, 
-                        offset + 2, R_XXX_THUNKFIX, is->iat_index);
-#endif
+#అయితే_ముగింపు
+                    put_elf_reloc(symtab_section, పాఠ్యం_section, 
+                        స్థానభ్రంశం + 2, R_XXX_THUNKFIX, is->iat_సూచీ);
+#అయితే_ముగింపు
                 }
                 /* tcc_realloc might have altered sym's address */
-                sym = (ElfW(Sym) *)symtab_section->data + sym_index;
+                sym = (ElfW(Sym) *)symtab_section->దత్తాంశం + sym_సూచీ;
                 /* patch the original symbol */
-                sym->st_value = offset;
-                sym->st_shndx = text_section->sh_num;
+                sym->st_విలువ = స్థానభ్రంశం;
+                sym->st_shndx = పాఠ్యం_section->sh_అంకె;
                 sym->st_other &= ~ST_PE_EXPORT; /* do not export */
 
-            } else { /* STT_OBJECT */
-                if (0 == _imp_)
+            } లేకపోతే { /* STT_OBJECT */
+                ఒకవేళ (0 == _imp_)
                     ret = tcc_error_noabort("symbol '%s' is missing __declspec(dllimport)", name);
                 /* original symbol will be patched later in pe_build_imports */
-                sym->st_value = is->iat_index; /* chain potential alias */
-                is->iat_index = sym_index;
+                sym->st_విలువ = is->iat_సూచీ; /* chain potential alias */
+                is->iat_సూచీ = sym_సూచీ;
             }
 
-        } else if (s1->rdynamic
+        } లేకపోతే ఒకవేళ (s1->rdynamic
                    && ELFW(ST_BIND)(sym->st_info) != STB_LOCAL) {
             /* if -rdynamic option, then export all non local symbols */
             sym->st_other |= ST_PE_EXPORT;
         }
     }
-    return ret;
+    తిరిగి ret;
 }
 
 /*----------------------------------------------------------------------------*/
-#if PE_PRINT_SECTIONS
-static void pe_print_section(FILE * f, Section * s)
+#ఒకవేళ PE_PRINT_SECTIONS
+స్థిర శూన్య pe_print_section(FILE * f, Section * s)
 {
     /* just if you're curious */
     BYTE *p, *e, b;
-    int i, n, l, m;
-    p = s->data;
-    e = s->data + s->data_offset;
+    పూర్ణాంకం i, n, l, m;
+    p = s->దత్తాంశం;
+    e = s->దత్తాంశం + s->దత్తాంశం_స్థానభ్రంశం;
     l = e - p;
 
     fprintf(f, "section  \"%s\"", s->name);
-    if (s->link)
+    ఒకవేళ (s->link)
         fprintf(f, "\nlink     \"%s\"", s->link->name);
-    if (s->reloc)
+    ఒకవేళ (s->reloc)
         fprintf(f, "\nreloc    \"%s\"", s->reloc->name);
-    fprintf(f, "\nv_addr   %08X", (unsigned)s->sh_addr);
-    fprintf(f, "\ncontents %08X", (unsigned)l);
+    fprintf(f, "\nv_addr   %08X", (గుర్తులేని)s->sh_addr);
+    fprintf(f, "\ncontents %08X", (గుర్తులేని)l);
     fprintf(f, "\n\n");
 
-    if (s->sh_type == SHT_NOBITS)
-        return;
+    ఒకవేళ (s->sh_type == SHT_NOBITS)
+        తిరిగి;
 
-    if (0 == l)
-        return;
+    ఒకవేళ (0 == l)
+        తిరిగి;
 
-    if (s->sh_type == SHT_SYMTAB)
-        m = sizeof(ElfW(Sym));
-    else if (s->sh_type == SHT_RELX)
-        m = sizeof(ElfW_Rel);
-    else
+    ఒకవేళ (s->sh_type == SHT_SYMTAB)
+        m = పరిమాణం(ElfW(Sym));
+    లేకపోతే ఒకవేళ (s->sh_type == SHT_RELX)
+        m = పరిమాణం(ElfW_Rel);
+    లేకపోతే
         m = 16;
 
     fprintf(f, "%-8s", "offset");
-    for (i = 0; i < m; ++i)
+    కొరకు (i = 0; i < m; ++i)
         fprintf(f, " %02x", i);
     n = 56;
 
-    if (s->sh_type == SHT_SYMTAB || s->sh_type == SHT_RELX) {
-        const char *fields1[] = {
+    ఒకవేళ (s->sh_type == SHT_SYMTAB || s->sh_type == SHT_RELX) {
+        స్థిరరాశి అక్షరం *fields1[] = {
             "name",
             "value",
             "size",
@@ -1560,72 +1560,72 @@ static void pe_print_section(FILE * f, Section * s)
             "type",
             "other",
             "shndx",
-            NULL
+            ఖాళీ
         };
 
-        const char *fields2[] = {
+        స్థిరరాశి అక్షరం *fields2[] = {
             "offs",
             "type",
             "symb",
-            NULL
+            ఖాళీ
         };
 
-        const char **p;
+        స్థిరరాశి అక్షరం **p;
 
-        if (s->sh_type == SHT_SYMTAB)
+        ఒకవేళ (s->sh_type == SHT_SYMTAB)
             p = fields1, n = 106;
-        else
+        లేకపోతే
             p = fields2, n = 58;
 
-        for (i = 0; p[i]; ++i)
+        కొరకు (i = 0; p[i]; ++i)
             fprintf(f, "%6s", p[i]);
         fprintf(f, "  symbol");
     }
 
     fprintf(f, "\n");
-    for (i = 0; i < n; ++i)
+    కొరకు (i = 0; i < n; ++i)
         fprintf(f, "-");
     fprintf(f, "\n");
 
-    for (i = 0; i < l;)
+    కొరకు (i = 0; i < l;)
     {
         fprintf(f, "%08X", i);
-        for (n = 0; n < m; ++n) {
-            if (n + i < l)
+        కొరకు (n = 0; n < m; ++n) {
+            ఒకవేళ (n + i < l)
                 fprintf(f, " %02X", p[i + n]);
-            else
+            లేకపోతే
                 fprintf(f, "   ");
         }
 
-        if (s->sh_type == SHT_SYMTAB) {
+        ఒకవేళ (s->sh_type == SHT_SYMTAB) {
             ElfW(Sym) *sym = (ElfW(Sym) *) (p + i);
-            const char *name = s->link->data + sym->st_name;
+            స్థిరరాశి అక్షరం *name = s->link->దత్తాంశం + sym->st_name;
             fprintf(f, "  %04X  %04X  %04X   %02X    %02X    %02X   %04X  \"%s\"",
-                    (unsigned)sym->st_name,
-                    (unsigned)sym->st_value,
-                    (unsigned)sym->st_size,
-                    (unsigned)ELFW(ST_BIND)(sym->st_info),
-                    (unsigned)ELFW(ST_TYPE)(sym->st_info),
-                    (unsigned)sym->st_other,
-                    (unsigned)sym->st_shndx,
+                    (గుర్తులేని)sym->st_name,
+                    (గుర్తులేని)sym->st_విలువ,
+                    (గుర్తులేని)sym->st_కొలత,
+                    (గుర్తులేని)ELFW(ST_BIND)(sym->st_info),
+                    (గుర్తులేని)ELFW(ST_TYPE)(sym->st_info),
+                    (గుర్తులేని)sym->st_other,
+                    (గుర్తులేని)sym->st_shndx,
                     name);
 
-        } else if (s->sh_type == SHT_RELX) {
+        } లేకపోతే ఒకవేళ (s->sh_type == SHT_RELX) {
             ElfW_Rel *rel = (ElfW_Rel *) (p + i);
             ElfW(Sym) *sym =
-                (ElfW(Sym) *) s->link->data + ELFW(R_SYM)(rel->r_info);
-            const char *name = s->link->link->data + sym->st_name;
+                (ElfW(Sym) *) s->link->దత్తాంశం + ELFW(R_SYM)(rel->r_info);
+            స్థిరరాశి అక్షరం *name = s->link->link->దత్తాంశం + sym->st_name;
             fprintf(f, "  %04X   %02X   %04X  \"%s\"",
-                    (unsigned)rel->r_offset,
-                    (unsigned)ELFW(R_TYPE)(rel->r_info),
-                    (unsigned)ELFW(R_SYM)(rel->r_info),
+                    (గుర్తులేని)rel->r_స్థానభ్రంశం,
+                    (గుర్తులేని)ELFW(R_TYPE)(rel->r_info),
+                    (గుర్తులేని)ELFW(R_SYM)(rel->r_info),
                     name);
-        } else {
+        } లేకపోతే {
             fprintf(f, "   ");
-            for (n = 0; n < m; ++n) {
-                if (n + i < l) {
+            కొరకు (n = 0; n < m; ++n) {
+                ఒకవేళ (n + i < l) {
                     b = p[i + n];
-                    if (b < 32 || b >= 127)
+                    ఒకవేళ (b < 32 || b >= 127)
                         b = '.';
                     fprintf(f, "%c", b);
                 }
@@ -1637,132 +1637,132 @@ static void pe_print_section(FILE * f, Section * s)
     fprintf(f, "\n\n");
 }
 
-static void pe_print_sections(TCCState *s1, const char *fname)
+స్థిర శూన్య pe_print_sections(TCCState *s1, స్థిరరాశి అక్షరం *fname)
 {
     Section *s;
     FILE *f;
-    int i;
+    పూర్ణాంకం i;
     f = fopen(fname, "w");
-    for (i = 1; i < s1->nb_sections; ++i) {
+    కొరకు (i = 1; i < s1->nb_sections; ++i) {
         s = s1->sections[i];
         pe_print_section(f, s);
     }
     pe_print_section(f, s1->dynsymtab_section);
     fclose(f);
 }
-#endif
+#అయితే_ముగింపు
 
 /* ------------------------------------------------------------- */
 
-ST_FUNC int pe_putimport(TCCState *s1, int dllindex, const char *name, addr_t value)
+ST_FUNC పూర్ణాంకం pe_putimport(TCCState *s1, పూర్ణాంకం dllindex, స్థిరరాశి అక్షరం *name, addr_t విలువ)
 {
-    return set_elf_sym(
+    తిరిగి సమితి_elf_sym(
         s1->dynsymtab_section,
-        value,
+        విలువ,
         dllindex, /* st_size */
         ELFW(ST_INFO)(STB_GLOBAL, STT_NOTYPE),
         0,
-        value ? SHN_ABS : SHN_UNDEF,
+        విలువ ? SHN_ABS : SHN_UNDEF,
         name
         );
 }
 
-static int read_mem(int fd, unsigned offset, void *buffer, unsigned len)
+స్థిర పూర్ణాంకం read_mem(పూర్ణాంకం fd, గుర్తులేని స్థానభ్రంశం, శూన్య *బఫరు, గుర్తులేని len)
 {
-    lseek(fd, offset, SEEK_SET);
-    return len == read(fd, buffer, len);
+    lseek(fd, స్థానభ్రంశం, SEEK_SET);
+    తిరిగి len == పఠ(fd, బఫరు, len);
 }
 
 /* ------------------------------------------------------------- */
 
-static int get_dllexports(int fd, char **pp)
+స్థిర పూర్ణాంకం get_dllexports(పూర్ణాంకం fd, అక్షరం **pp)
 {
-    int i, k, l, n, n0, ret;
-    char *p;
+    పూర్ణాంకం i, k, l, n, n0, ret;
+    అక్షరం *p;
 
-    IMAGE_SECTION_HEADER ish;
+    IMAGE_SECTION_శీర్షిక_2 ish;
     IMAGE_EXPORT_DIRECTORY ied;
-    IMAGE_DOS_HEADER dh;
-    IMAGE_FILE_HEADER ih;
+    IMAGE_DOS_శీర్షిక_2 dh;
+    IMAGE_FILE_శీర్షిక_2 ih;
     DWORD sig, ref, addr;
-    DWORD *namep = NULL, p0 = 0, p1;
+    DWORD *namep = ఖాళీ, p0 = 0, p1;
 
-    int pef_hdroffset, opt_hdroffset, sec_hdroffset;
+    పూర్ణాంకం pef_hdroffset, opt_hdroffset, sec_hdroffset;
 
     n = n0 = 0;
-    p = NULL;
+    p = ఖాళీ;
     ret = 1;
-    if (!read_mem(fd, 0, &dh, sizeof dh))
-        goto the_end;
-    if (!read_mem(fd, dh.e_lfanew, &sig, sizeof sig))
-        goto the_end;
-    if (sig != 0x00004550)
-        goto the_end;
-    pef_hdroffset = dh.e_lfanew + sizeof sig;
-    if (!read_mem(fd, pef_hdroffset, &ih, sizeof ih))
-        goto the_end;
-    opt_hdroffset = pef_hdroffset + sizeof ih;
-    if (ih.Machine == 0x014C || ih.Machine == 0x01C0) {
+    ఒకవేళ (!read_mem(fd, 0, &dh, పరిమాణం dh))
+        వెళ్ళు the_చివర;
+    ఒకవేళ (!read_mem(fd, dh.e_lfanew, &sig, పరిమాణం sig))
+        వెళ్ళు the_చివర;
+    ఒకవేళ (sig != 0x00004550)
+        వెళ్ళు the_చివర;
+    pef_hdroffset = dh.e_lfanew + పరిమాణం sig;
+    ఒకవేళ (!read_mem(fd, pef_hdroffset, &ih, పరిమాణం ih))
+        వెళ్ళు the_చివర;
+    opt_hdroffset = pef_hdroffset + పరిమాణం ih;
+    ఒకవేళ (ih.Machine == 0x014C || ih.Machine == 0x01C0) {
         IMAGE_OPTIONAL_HEADER32 oh;
-        sec_hdroffset = opt_hdroffset + sizeof oh;
-        if (!read_mem(fd, opt_hdroffset, &oh, sizeof oh))
-            goto the_end;
-        if (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.NumberOfRvaAndSizes)
-            goto the_end_0;
-        addr = oh.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress;
-    } else if (ih.Machine == 0x8664 || ih.Machine == 0xAA64) {
+        sec_hdroffset = opt_hdroffset + పరిమాణం oh;
+        ఒకవేళ (!read_mem(fd, opt_hdroffset, &oh, పరిమాణం oh))
+            వెళ్ళు the_చివర;
+        ఒకవేళ (IMAGE_DIRECTORY_నమోదు_EXPORT >= oh.సంఖ్య_యొక్క_Rva_And_Sizes)
+            వెళ్ళు the_చివర_0;
+        addr = oh.దత్తాంశం_Directory[IMAGE_DIRECTORY_నమోదు_EXPORT].Virtual_చిరునామా;
+    } లేకపోతే ఒకవేళ (ih.Machine == 0x8664 || ih.Machine == 0xAA64) {
         IMAGE_OPTIONAL_HEADER64 oh;
-        sec_hdroffset = opt_hdroffset + sizeof oh;
-        if (!read_mem(fd, opt_hdroffset, &oh, sizeof oh))
-            goto the_end;
-        if (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.NumberOfRvaAndSizes)
-            goto the_end_0;
-        addr = oh.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress;
-    } else
-        goto the_end;
+        sec_hdroffset = opt_hdroffset + పరిమాణం oh;
+        ఒకవేళ (!read_mem(fd, opt_hdroffset, &oh, పరిమాణం oh))
+            వెళ్ళు the_చివర;
+        ఒకవేళ (IMAGE_DIRECTORY_నమోదు_EXPORT >= oh.సంఖ్య_యొక్క_Rva_And_Sizes)
+            వెళ్ళు the_చివర_0;
+        addr = oh.దత్తాంశం_Directory[IMAGE_DIRECTORY_నమోదు_EXPORT].Virtual_చిరునామా;
+    } లేకపోతే
+        వెళ్ళు the_చివర;
 
     //printf("addr: %08x\n", addr);
-    for (i = 0; i < ih.NumberOfSections; ++i) {
-        if (!read_mem(fd, sec_hdroffset + i * sizeof ish, &ish, sizeof ish))
-            goto the_end;
+    కొరకు (i = 0; i < ih.సంఖ్య_యొక్క_Sections; ++i) {
+        ఒకవేళ (!read_mem(fd, sec_hdroffset + i * పరిమాణం ish, &ish, పరిమాణం ish))
+            వెళ్ళు the_చివర;
         //printf("vaddr: %08x\n", ish.VirtualAddress);
-        if (addr >= ish.VirtualAddress && addr < ish.VirtualAddress + ish.SizeOfRawData)
-            goto found;
+        ఒకవేళ (addr >= ish.Virtual_చిరునామా && addr < ish.Virtual_చిరునామా + ish.కొలత_యొక్క_Raw_దత్తాంశం)
+            వెళ్ళు దొరికింది;
     }
-    goto the_end_0;
-found:
-    ref = ish.VirtualAddress - ish.PointerToRawData;
-    if (!read_mem(fd, addr - ref, &ied, sizeof ied))
-        goto the_end;
-    k = ied.NumberOfNames;
-    if (k) {
-        namep = tcc_malloc(l = k * sizeof *namep);
-        if (!read_mem(fd, ied.AddressOfNames - ref, namep, l))
-            goto the_end;
-        for (i = l = 0; i < k; ++i) {
+    వెళ్ళు the_చివర_0;
+దొరికింది:
+    ref = ish.Virtual_చిరునామా - ish.సూచిక_గమ్యం_Raw_దత్తాంశం;
+    ఒకవేళ (!read_mem(fd, addr - ref, &ied, పరిమాణం ied))
+        వెళ్ళు the_చివర;
+    k = ied.సంఖ్య_యొక్క_పేర్లు;
+    ఒకవేళ (k) {
+        namep = tcc_malloc(l = k * పరిమాణం *namep);
+        ఒకవేళ (!read_mem(fd, ied.చిరునామా_యొక్క_పేర్లు - ref, namep, l))
+            వెళ్ళు the_చివర;
+        కొరకు (i = l = 0; i < k; ++i) {
             p1 = namep[i] - ref;
-            if (p1 != p0)
+            ఒకవేళ (p1 != p0)
                 lseek(fd, p0 = p1, SEEK_SET), l = 0;
-            do {
-                if (0 == l) {
-                    if (n + 1000 >= n0)
+            చేయి {
+                ఒకవేళ (0 == l) {
+                    ఒకవేళ (n + 1000 >= n0)
                         p = tcc_realloc(p, n0 += 1000);
-                    if ((l = read(fd, p + n, 1000 - 1)) <= 0)
-                        goto the_end;
+                    ఒకవేళ ((l = పఠ(fd, p + n, 1000 - 1)) <= 0)
+                        వెళ్ళు the_చివర;
                 }
                 --l, ++p0;
-            } while (p[n++]);
+            } అయితే (p[n++]);
         }
         p[n] = 0;
     }
-the_end_0:
+the_చివర_0:
     ret = 0;
-the_end:
+the_చివర:
     tcc_free(namep);
-    if (ret && p)
-        tcc_free(p), p = NULL;
+    ఒకవేళ (ret && p)
+        tcc_free(p), p = ఖాళీ;
     *pp = p;
-    return ret;
+    తిరిగి ret;
 }
 
 /* -------------------------------------------------------------
@@ -1770,52 +1770,52 @@ the_end:
  *  as generated by 'windres.exe -O coff ...'.
  */
 
-static int pe_load_res(TCCState *s1, int fd)
+స్థిర పూర్ణాంకం pe_ఎక్కించు_res(TCCState *s1, పూర్ణాంకం fd)
 {
-    struct pe_rsrc_header hdr;
+    నిర్మాణం pe_rsrc_శీర్షిక hdr;
     Section *rsrc_section;
-    int i, ret = -1, sym_index;
+    పూర్ణాంకం i, ret = -1, sym_సూచీ;
     BYTE *ptr;
-    unsigned offs;
+    గుర్తులేని offs;
 
-    if (!read_mem(fd, 0, &hdr, sizeof hdr))
-        goto quit;
+    ఒకవేళ (!read_mem(fd, 0, &hdr, పరిమాణం hdr))
+        వెళ్ళు quit;
 
-    if (hdr.filehdr.Machine != IMAGE_FILE_MACHINE
-        || hdr.filehdr.NumberOfSections != 1
-        || strcmp((char*)hdr.sectionhdr.Name, ".rsrc") != 0)
-        goto quit;
+    ఒకవేళ (hdr.filehdr.Machine != IMAGE_FILE_MACHINE
+        || hdr.filehdr.సంఖ్య_యొక్క_Sections != 1
+        || strcmp((అక్షరం*)hdr.sectionhdr.Name, ".rsrc") != 0)
+        వెళ్ళు quit;
 
     rsrc_section = new_section(s1, ".rsrc", SHT_PROGBITS, SHF_ALLOC);
-    ptr = section_ptr_add(rsrc_section, hdr.sectionhdr.SizeOfRawData);
-    offs = hdr.sectionhdr.PointerToRawData;
-    if (!read_mem(fd, offs, ptr, hdr.sectionhdr.SizeOfRawData))
-        goto quit;
-    offs = hdr.sectionhdr.PointerToRelocations;
-    sym_index = put_elf_sym(symtab_section, 0, 0, 0, 0, rsrc_section->sh_num, ".rsrc");
-    for (i = 0; i < hdr.sectionhdr.NumberOfRelocations; ++i) {
-        struct pe_rsrc_reloc rel;
-        if (!read_mem(fd, offs, &rel, sizeof rel))
-            goto quit;
+    ptr = section_ptr_కూడు(rsrc_section, hdr.sectionhdr.కొలత_యొక్క_Raw_దత్తాంశం);
+    offs = hdr.sectionhdr.సూచిక_గమ్యం_Raw_దత్తాంశం;
+    ఒకవేళ (!read_mem(fd, offs, ptr, hdr.sectionhdr.కొలత_యొక్క_Raw_దత్తాంశం))
+        వెళ్ళు quit;
+    offs = hdr.sectionhdr.సూచిక_గమ్యం_Relocations;
+    sym_సూచీ = put_elf_sym(symtab_section, 0, 0, 0, 0, rsrc_section->sh_అంకె, ".rsrc");
+    కొరకు (i = 0; i < hdr.sectionhdr.సంఖ్య_యొక్క_Relocations; ++i) {
+        నిర్మాణం pe_rsrc_reloc rel;
+        ఒకవేళ (!read_mem(fd, offs, &rel, పరిమాణం rel))
+            వెళ్ళు quit;
         // printf("rsrc_reloc: %x %x %x\n", rel.offset, rel.size, rel.type);
-        if (rel.type != RSRC_RELTYPE)
-            goto quit;
+        ఒకవేళ (rel.type != RSRC_RELTYPE)
+            వెళ్ళు quit;
         put_elf_reloc(symtab_section, rsrc_section,
-            rel.offset, R_XXX_RELATIVE, sym_index);
-        offs += sizeof rel;
+            rel.స్థానభ్రంశం, R_XXX_RELATIVE, sym_సూచీ);
+        offs += పరిమాణం rel;
     }
     ret = 0;
 quit:
-    return ret;
+    తిరిగి ret;
 }
 
 /* ------------------------------------------------------------- */
 
-static char *trimfront(char *p)
+స్థిర అక్షరం *trimfront(అక్షరం *p)
 {
-    while ((unsigned char)*p <= ' ' && *p && *p != '\n')
+    అయితే ((గుర్తులేని అక్షరం)*p <= ' ' && *p && *p != '\n')
 	++p;
-    return p;
+    తిరిగి p;
 }
 
 /*
@@ -1827,134 +1827,134 @@ static char *trimback(char *a, char *e)
     return a;
 }*/
 
-static char *get_token(char **s, char *f)
+స్థిర అక్షరం *get_token(అక్షరం **s, అక్షరం *f)
 {
-    char *p, *e;
-    int q;
+    అక్షరం *p, *e;
+    పూర్ణాంకం q;
 
     p = trimfront(*s);
     q = *p;
-    if (q == '"') /* support quoted LIBRARY "xyz.dll" */
+    ఒకవేళ (q == '"') /* support quoted LIBRARY "xyz.dll" */
         ++p;
-    else
+    లేకపోతే
         q = ' ';
-    for (e = p; (unsigned char)*e >= ' ' && *e != q; ++e)
+    కొరకు (e = p; (గుర్తులేని అక్షరం)*e >= ' ' && *e != q; ++e)
         ;
-    if (*e == '"')
+    ఒకవేళ (*e == '"')
         *e++ = 0;
     *s = trimfront(e);
     *f = **s, *e = 0;
-    return p;
+    తిరిగి p;
 }
 
-static int pe_load_def(TCCState *s1, int fd)
+స్థిర పూర్ణాంకం pe_ఎక్కించు_def(TCCState *s1, పూర్ణాంకం fd)
 {
-    int state = 0, ret = -1, dllindex = 0, ord;
-    char dllname[80], *buf, *line, *p, *x, next;
+    పూర్ణాంకం state = 0, ret = -1, dllindex = 0, ord;
+    అక్షరం dllname[80], *buf, *పంక్తి, *p, *x, తదుపరి;
 
-    buf = tcc_load_text(fd);
-    if (!buf)
-        return ret;
+    buf = tcc_ఎక్కించు_పాఠ్యం(fd);
+    ఒకవేళ (!buf)
+        తిరిగి ret;
 
-    for (line = buf;; ++line)  {
-        p = get_token(&line, &next);
-        if (!(*p && *p != ';'))
-            goto skip;
-        switch (state) {
-        case 0:
-            if (0 != stricmp(p, "LIBRARY") || next == '\n')
-                goto quit;
-            pstrcpy(dllname, sizeof dllname, get_token(&line, &next));
-            if (!*tcc_fileextension(dllname))
-                pstrcat(dllname, sizeof dllname, ".dll");
+    కొరకు (పంక్తి = buf;; ++పంక్తి)  {
+        p = get_token(&పంక్తి, &తదుపరి);
+        ఒకవేళ (!(*p && *p != ';'))
+            వెళ్ళు skip;
+        ఎంపిక (state) {
+        స్థితి 0:
+            ఒకవేళ (0 != stricmp(p, "LIBRARY") || తదుపరి == '\n')
+                వెళ్ళు quit;
+            pstrcpy(dllname, పరిమాణం dllname, get_token(&పంక్తి, &తదుపరి));
+            ఒకవేళ (!*tcc_fileextension(dllname))
+                pstrcat(dllname, పరిమాణం dllname, ".dll");
             ++state;
-            break;
-        case 1:
-            if (0 != stricmp(p, "EXPORTS"))
-                goto quit;
+            ఆపు;
+        స్థితి 1:
+            ఒకవేళ (0 != stricmp(p, "EXPORTS"))
+                వెళ్ళు quit;
             ++state;
-            break;
-        case 2:
-            dllindex = tcc_add_dllref(s1, dllname, 0)->index;
+            ఆపు;
+        స్థితి 2:
+            dllindex = tcc_కూడు_dllref(s1, dllname, 0)->సూచీ;
             ++state;
             /* fall through */
-        default:
+        అప్రమేయ:
             /* get ordinal and will store in sym->st_value */
             ord = 0;
-            if (next == '@') {
-                x = get_token(&line, &next);
-                ord = (int)strtol(x + 1, &x, 10);
+            ఒకవేళ (తదుపరి == '@') {
+                x = get_token(&పంక్తి, &తదుపరి);
+                ord = (పూర్ణాంకం)strtol(x + 1, &x, 10);
             }
             //printf("token %s ; %s : %d\n", dllname, p, ord);
             pe_putimport(s1, dllindex, p, ord);
-            break;
+            ఆపు;
         }
 skip:
-        while ((unsigned char)next > ' ')
-            get_token(&line, &next);
-        if (next != '\n')
-            break;
+        అయితే ((గుర్తులేని అక్షరం)తదుపరి > ' ')
+            get_token(&పంక్తి, &తదుపరి);
+        ఒకవేళ (తదుపరి != '\n')
+            ఆపు;
     }
     ret = 0;
 quit:
     tcc_free(buf);
-    return ret;
+    తిరిగి ret;
 }
 
 /* ------------------------------------------------------------- */
 
-static int pe_load_dll(TCCState *s1, int fd, const char *filename)
+స్థిర పూర్ణాంకం pe_ఎక్కించు_dll(TCCState *s1, పూర్ణాంకం fd, స్థిరరాశి అక్షరం *filename)
 {
-    char *p, *q;
-    DLLReference *ref = tcc_add_dllref(s1, filename, 0);
-    if (ref->found)
-        return 0;
-    if (get_dllexports(fd, &p))
-        return -1;
-    if (p) {
-        for (q = p; *q; q += 1 + strlen(q))
-            pe_putimport(s1, ref->index, q, 0);
+    అక్షరం *p, *q;
+    DLLReference *ref = tcc_కూడు_dllref(s1, filename, 0);
+    ఒకవేళ (ref->దొరికింది)
+        తిరిగి 0;
+    ఒకవేళ (get_dllexports(fd, &p))
+        తిరిగి -1;
+    ఒకవేళ (p) {
+        కొరకు (q = p; *q; q += 1 + అక్షరశ్రేణి_పొడవు(q))
+            pe_putimport(s1, ref->సూచీ, q, 0);
         tcc_free(p);
     }
-    return 0;
+    తిరిగి 0;
 }
 
-ST_FUNC int pe_load_file(struct TCCState *s1, int fd, const char *filename)
+ST_FUNC పూర్ణాంకం pe_ఎక్కించు_file(నిర్మాణం TCCState *s1, పూర్ణాంకం fd, స్థిరరాశి అక్షరం *filename)
 {
-    int ret = -1;
-    char buf[10];
-    if (0 == strcmp(tcc_fileextension(filename), ".def"))
-        ret = pe_load_def(s1, fd);
-    else if (pe_load_res(s1, fd) == 0)
+    పూర్ణాంకం ret = -1;
+    అక్షరం buf[10];
+    ఒకవేళ (0 == strcmp(tcc_fileextension(filename), ".def"))
+        ret = pe_ఎక్కించు_def(s1, fd);
+    లేకపోతే ఒకవేళ (pe_ఎక్కించు_res(s1, fd) == 0)
         ret = 0;
-    else if (read_mem(fd, 0, buf, 4) && 0 == memcmp(buf, "MZ", 2))
-        ret = pe_load_dll(s1, fd, filename);
-    return ret;
+    లేకపోతే ఒకవేళ (read_mem(fd, 0, buf, 4) && 0 == memcmp(buf, "MZ", 2))
+        ret = pe_ఎక్కించు_dll(s1, fd, filename);
+    తిరిగి ret;
 }
 
-PUB_FUNC int tcc_get_dllexports(const char *filename, char **pp)
+PUB_FUNC పూర్ణాంకం tcc_get_dllexports(స్థిరరాశి అక్షరం *filename, అక్షరం **pp)
 {
-    int ret, fd = open(filename, O_RDONLY | O_BINARY);
-    if (fd < 0)
-        return -1;
+    పూర్ణాంకం ret, fd = open(filename, O_RDONLY | O_ద్విమాన_2);
+    ఒకవేళ (fd < 0)
+        తిరిగి -1;
     ret = get_dllexports(fd, pp);
     close(fd);
-    return ret;
+    తిరిగి ret;
 }
 
 /* ------------------------------------------------------------- */
-#ifdef TCC_TARGET_X86_64
-static unsigned pe_add_unwind_info(TCCState *s1)
+#నిర్వచితమైతే TCC_లక్ష్యం_X86_64
+స్థిర గుర్తులేని pe_కూడు_unwind_info(TCCState *s1)
 {
-    if (NULL == s1->uw_pdata) {
-        s1->uw_pdata = find_section(s1, ".pdata");
+    ఒకవేళ (ఖాళీ == s1->uw_pdata) {
+        s1->uw_pdata = కనుగొను_section(s1, ".pdata");
         s1->uw_pdata->sh_addralign = 4;
     }
-    if (0 == s1->uw_sym)
-        s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0, text_section->sh_num, ".uw_base");
-    if (0 == s1->uw_offs) {
+    ఒకవేళ (0 == s1->uw_sym)
+        s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0, పాఠ్యం_section->sh_అంకె, ".uw_base");
+    ఒకవేళ (0 == s1->uw_offs) {
         /* As our functions all have the same stackframe, we use one entry for all */
-        static const unsigned char uw_info[] = {
+        స్థిర స్థిరరాశి గుర్తులేని అక్షరం uw_info[] = {
             0x01, // UBYTE: 3 Version , UBYTE: 5 Flags
             0x04, // UBYTE Size of prolog
             0x02, // UBYTE Count of unwind codes
@@ -1966,45 +1966,45 @@ static unsigned pe_add_unwind_info(TCCState *s1)
             0x01, 0x50, // 0:5 UWOP_PUSH_NONVOL (push rbp)
         };
 
-        Section *s = text_section;
-        unsigned char *p;
+        Section *s = పాఠ్యం_section;
+        గుర్తులేని అక్షరం *p;
 
-        section_ptr_add(s, -s->data_offset & 3); /* align */
-        s1->uw_offs = s->data_offset;
-        p = section_ptr_add(s, sizeof uw_info);
-        memcpy(p, uw_info, sizeof uw_info);
+        section_ptr_కూడు(s, -s->దత్తాంశం_స్థానభ్రంశం & 3); /* align */
+        s1->uw_offs = s->దత్తాంశం_స్థానభ్రంశం;
+        p = section_ptr_కూడు(s, పరిమాణం uw_info);
+        జ్ఞాపకం_నకలు(p, uw_info, పరిమాణం uw_info);
     }
 
-    return s1->uw_offs;
+    తిరిగి s1->uw_offs;
 }
 
-ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
+ST_FUNC శూన్య pe_కూడు_unwind_దత్తాంశం(గుర్తులేని ప్రారంభం, గుర్తులేని చివర, గుర్తులేని దొంతర)
 {
     TCCState *s1 = tcc_state;
     Section *pd;
-    unsigned o, n, d;
-    struct /* _RUNTIME_FUNCTION */ {
-      DWORD BeginAddress;
-      DWORD EndAddress;
-      DWORD UnwindData;
+    గుర్తులేని o, n, d;
+    నిర్మాణం /* _RUNTIME_FUNCTION */ {
+      DWORD Begin_చిరునామా;
+      DWORD చివర_చిరునామా;
+      DWORD Unwind_దత్తాంశం;
     } *p;
 
-    d = pe_add_unwind_info(s1);
+    d = pe_కూడు_unwind_info(s1);
     pd = s1->uw_pdata;
-    o = pd->data_offset;
-    p = section_ptr_add(pd, sizeof *p);
+    o = pd->దత్తాంశం_స్థానభ్రంశం;
+    p = section_ptr_కూడు(pd, పరిమాణం *p);
 
     /* record this function */
-    p->BeginAddress = start;
-    p->EndAddress = end;
-    p->UnwindData = d;
+    p->Begin_చిరునామా = ప్రారంభం;
+    p->చివర_చిరునామా = చివర;
+    p->Unwind_దత్తాంశం = d;
 
     /* put relocations on it */
-    for (n = o + sizeof *p; o < n; o += sizeof p->BeginAddress)
+    కొరకు (n = o + పరిమాణం *p; o < n; o += పరిమాణం p->Begin_చిరునామా)
         put_elf_reloc(symtab_section, pd, o, R_XXX_RELATIVE, s1->uw_sym);
 }
 
-#elif defined(TCC_TARGET_ARM64)
+#లేదావేళ defined(TCC_లక్ష్యం_ARM64)
 /* ARM64 unwind codes:
    save_fplr_x: 10iiiiii  - stp x29,lr,[sp,#-(i+1)*8]!
    set_fp:      11100001  - mov x29,sp
@@ -2012,176 +2012,176 @@ ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
    alloc_m:     11000iii xxxxxxxx - sub sp,sp,#X*16 (up to 32KB)
    end:         11100100  - end of unwind codes
 */
-static Section *pe_add_unwind_info(TCCState *s1)
+స్థిర Section *pe_కూడు_unwind_info(TCCState *s1)
 {
     Section *s;
 
-    if (NULL == s1->uw_pdata) {
-        s1->uw_pdata = find_section(s1, ".pdata");
+    ఒకవేళ (ఖాళీ == s1->uw_pdata) {
+        s1->uw_pdata = కనుగొను_section(s1, ".pdata");
         s1->uw_pdata->sh_addralign = 4;
     }
-    s = find_section(s1, ".xdata");
+    s = కనుగొను_section(s1, ".xdata");
     s->sh_addralign = 4;
-    if (0 == s1->uw_sym)
+    ఒకవేళ (0 == s1->uw_sym)
         s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0,
-                                  text_section->sh_num, ".uw_text_base");
-    if (0 == s1->uw_xsym)
+                                  పాఠ్యం_section->sh_అంకె, ".uw_text_base");
+    ఒకవేళ (0 == s1->uw_xsym)
         s1->uw_xsym = put_elf_sym(symtab_section, 0, 0, 0, 0,
-                                  s->sh_num, ".uw_base");
-    return s;
+                                  s->sh_అంకె, ".uw_base");
+    తిరిగి s;
 }
 
-ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
+ST_FUNC శూన్య pe_కూడు_unwind_దత్తాంశం(గుర్తులేని ప్రారంభం, గుర్తులేని చివర, గుర్తులేని దొంతర)
 {
     TCCState *s1 = tcc_state;
     Section *pd, *xd;
-    unsigned o, d, code_bytes, func_len;
-    unsigned char *q;
-    uint32_t header;
-    struct /* _RUNTIME_FUNCTION */ {
-        DWORD BeginAddress;
-        DWORD UnwindData;
+    గుర్తులేని o, d, సంకేతం_బైట్లు, func_len;
+    గుర్తులేని అక్షరం *q;
+    uint32_t శీర్షిక;
+    నిర్మాణం /* _RUNTIME_FUNCTION */ {
+        DWORD Begin_చిరునామా;
+        DWORD Unwind_దత్తాంశం;
     } *p;
 
-    int epilog;
+    పూర్ణాంకం epilog;
 
-    xd = pe_add_unwind_info(s1);
+    xd = pe_కూడు_unwind_info(s1);
     pd = s1->uw_pdata;
 
-    func_len = (end - start) >> 2;
-    code_bytes = 0;
-    epilog = code_bytes;
-    code_bytes += 3; /* set_fp, save_fplr_x, end */
-    code_bytes = (code_bytes + 3) & ~3;
+    func_len = (చివర - ప్రారంభం) >> 2;
+    సంకేతం_బైట్లు = 0;
+    epilog = సంకేతం_బైట్లు;
+    సంకేతం_బైట్లు += 3; /* set_fp, save_fplr_x, end */
+    సంకేతం_బైట్లు = (సంకేతం_బైట్లు + 3) & ~3;
 
-    section_ptr_add(xd, -xd->data_offset & 3);
-    d = xd->data_offset;
-    q = section_ptr_add(xd, 4 + code_bytes);
+    section_ptr_కూడు(xd, -xd->దత్తాంశం_స్థానభ్రంశం & 3);
+    d = xd->దత్తాంశం_స్థానభ్రంశం;
+    q = section_ptr_కూడు(xd, 4 + సంకేతం_బైట్లు);
 
     /* Full ARM64 xdata header: E=1 with one epilog and no exception handler. */
-    header = (func_len & 0x3ffff)
+    శీర్షిక = (func_len & 0x3ffff)
         | 1 << 21
         | (epilog & 0x1F) << 22
-        | (code_bytes >> 2) << 27
+        | (సంకేతం_బైట్లు >> 2) << 27
         ;
-    write32le(q, header);
+    write32le(q, శీర్షిక);
     q += 4;
     *q++ = 0xE1; /* set_fp */
     *q++ = 0x9B; /* save_fplr_x: stp x29,lr,[sp,#-224]! */
-    *q++ = 0xE4; /* end */
-    while ((unsigned)(q - (xd->data + d + 4)) < code_bytes)
+    *q++ = 0xE4; /*చివర*/
+    అయితే ((గుర్తులేని)(q - (xd->దత్తాంశం + d + 4)) < సంకేతం_బైట్లు)
         *q++ = 0xE3; /* nop padding */
 
-    o = pd->data_offset;
-    p = section_ptr_add(pd, sizeof *p);
-    p->BeginAddress = start;
-    p->UnwindData = d;
+    o = pd->దత్తాంశం_స్థానభ్రంశం;
+    p = section_ptr_కూడు(pd, పరిమాణం *p);
+    p->Begin_చిరునామా = ప్రారంభం;
+    p->Unwind_దత్తాంశం = d;
     put_elf_reloc(symtab_section, pd, o, R_XXX_RELATIVE, s1->uw_sym);
     put_elf_reloc(symtab_section, pd, o + 4, R_XXX_RELATIVE, s1->uw_xsym);
 }
-#endif
+#అయితే_ముగింపు
 /* ------------------------------------------------------------- */
-#if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
-#define PE_STDSYM(n,s) n
-#else
-#define PE_STDSYM(n,s) "_" n s
-#endif
+#ఒకవేళ defined(TCC_లక్ష్యం_X86_64) || defined(TCC_లక్ష్యం_ARM64)
+#నిర్వచించు PE_STDSYM(n,s) n
+#లేకపోతే
+#నిర్వచించు PE_STDSYM(n,s) "_" n s
+#అయితే_ముగింపు
 
-static void pe_add_runtime(TCCState *s1, struct pe_info *pe)
+స్థిర శూన్య pe_కూడు_runtime(TCCState *s1, నిర్మాణం pe_info *pe)
 {
-    const char *start_symbol;
-    int pe_type;
+    స్థిరరాశి అక్షరం *ప్రారంభం_చిహ్నం;
+    పూర్ణాంకం pe_type;
 
-    if (TCC_OUTPUT_DLL == s1->output_type) {
+    ఒకవేళ (TCC_OUTPUT_DLL == s1->output_type) {
         pe_type = PE_DLL;
-        start_symbol = PE_STDSYM("__dllstart","@12");
-    } else {
-        const char *run_symbol;
-        if (find_elf_sym(symtab_section, PE_STDSYM("WinMain","@16"))) {
-            start_symbol = "__winstart";
-            run_symbol = "__runwinmain";
+        ప్రారంభం_చిహ్నం = PE_STDSYM("__dllstart","@12");
+    } లేకపోతే {
+        స్థిరరాశి అక్షరం *నిరంతరం_చిహ్నం;
+        ఒకవేళ (కనుగొను_elf_sym(symtab_section, PE_STDSYM("WinMain","@16"))) {
+            ప్రారంభం_చిహ్నం = "__winstart";
+            నిరంతరం_చిహ్నం = "__runwinmain";
             pe_type = PE_GUI;
-        } else if (find_elf_sym(symtab_section, PE_STDSYM("wWinMain","@16"))) {
-            start_symbol = "__wwinstart";
-            run_symbol = "__runwwinmain";
+        } లేకపోతే ఒకవేళ (కనుగొను_elf_sym(symtab_section, PE_STDSYM("wWinMain","@16"))) {
+            ప్రారంభం_చిహ్నం = "__wwinstart";
+            నిరంతరం_చిహ్నం = "__runwwinmain";
             pe_type = PE_GUI;
-        } else if (find_elf_sym(symtab_section, "wmain")) {
-            start_symbol = "__wstart";
-            run_symbol = "__runwmain";
+        } లేకపోతే ఒకవేళ (కనుగొను_elf_sym(symtab_section, "wmain")) {
+            ప్రారంభం_చిహ్నం = "__wstart";
+            నిరంతరం_చిహ్నం = "__runwmain";
             pe_type = PE_EXE;
-        } else {
-            start_symbol =  "__start";
-            run_symbol = "__runmain";
+        } లేకపోతే {
+            ప్రారంభం_చిహ్నం =  "__start";
+            నిరంతరం_చిహ్నం = "__runmain";
             pe_type = PE_EXE;
-            if (s1->pe_subsystem == 2)
+            ఒకవేళ (s1->pe_subsystem == 2)
                 pe_type = PE_GUI;
         }
 
-        if (TCC_OUTPUT_MEMORY == s1->output_type && !s1->nostdlib)
-            start_symbol = run_symbol;
+        ఒకవేళ (TCC_OUTPUT_జ్ఞాపకం == s1->output_type && !s1->nostdlib)
+            ప్రారంభం_చిహ్నం = నిరంతరం_చిహ్నం;
     }
-    if (s1->elf_entryname) {
-        pe->start_symbol = start_symbol = s1->elf_entryname;
-    } else {
-        pe->start_symbol = start_symbol + 1;
-        if (!s1->leading_underscore || strchr(start_symbol, '@'))
-            ++start_symbol;
+    ఒకవేళ (s1->elf_entryname) {
+        pe->ప్రారంభం_చిహ్నం = ప్రారంభం_చిహ్నం = s1->elf_entryname;
+    } లేకపోతే {
+        pe->ప్రారంభం_చిహ్నం = ప్రారంభం_చిహ్నం + 1;
+        ఒకవేళ (!s1->leading_underscore || strchr(ప్రారంభం_చిహ్నం, '@'))
+            ++ప్రారంభం_చిహ్నం;
     }
 
-#ifdef CONFIG_TCC_BACKTRACE
-    if (s1->do_backtrace) {
-#ifdef CONFIG_TCC_BCHECK
-        if (s1->do_bounds_check && s1->output_type != TCC_OUTPUT_DLL) {
-	    if (s1->output_type == TCC_OUTPUT_MEMORY)
-                tcc_add_support(s1, "bcheck_run.o");
-	    else
-                tcc_add_support(s1, "bcheck.o");
+#నిర్వచితమైతే CONFIG_TCC_BACKTRACE
+    ఒకవేళ (s1->do_backtrace) {
+#నిర్వచితమైతే CONFIG_TCC_BCHECK
+        ఒకవేళ (s1->do_bounds_check && s1->output_type != TCC_OUTPUT_DLL) {
+	    ఒకవేళ (s1->output_type == TCC_OUTPUT_జ్ఞాపకం)
+                tcc_కూడు_support(s1, "bcheck_run.o");
+	    లేకపోతే
+                tcc_కూడు_support(s1, "bcheck.o");
 	}
-#endif
-        if (s1->output_type == TCC_OUTPUT_EXE)
-            tcc_add_support(s1, "bt-exe.o");
-        if (s1->output_type == TCC_OUTPUT_DLL)
-            tcc_add_support(s1, "bt-dll.o");
-        if (s1->output_type != TCC_OUTPUT_DLL)
-            tcc_add_support(s1, "bt-log.o");
-        tcc_add_btstub(s1);
+#అయితే_ముగింపు
+        ఒకవేళ (s1->output_type == TCC_OUTPUT_EXE)
+            tcc_కూడు_support(s1, "bt-exe.o");
+        ఒకవేళ (s1->output_type == TCC_OUTPUT_DLL)
+            tcc_కూడు_support(s1, "bt-dll.o");
+        ఒకవేళ (s1->output_type != TCC_OUTPUT_DLL)
+            tcc_కూడు_support(s1, "bt-log.o");
+        tcc_కూడు_btstub(s1);
     }
-#endif
+#అయితే_ముగింపు
 
     /* grab the startup code from libtcc1.a */
-#ifdef TCC_IS_NATIVE
-    if (TCC_OUTPUT_MEMORY != s1->output_type || s1->run_main)
-#endif
-    set_global_sym(s1, start_symbol, NULL, 0);
+#నిర్వచితమైతే TCC_IS_NATIVE
+    ఒకవేళ (TCC_OUTPUT_జ్ఞాపకం != s1->output_type || s1->నిరంతరం_main)
+#అయితే_ముగింపు
+    సమితి_global_sym(s1, ప్రారంభం_చిహ్నం, ఖాళీ, 0);
 
-    if (0 == s1->nostdlib) {
-        static const char * const libs[] = {
-            "msvcrt", "kernel32", "", "user32", "gdi32", NULL
+    ఒకవేళ (0 == s1->nostdlib) {
+        స్థిర స్థిరరాశి అక్షరం * స్థిరరాశి libs[] = {
+            "msvcrt", "kernel32", "", "user32", "gdi32", ఖాళీ
         };
-        const char * const *pp, *p;
-        if (TCC_LIBTCC1[0])
-            tcc_add_support(s1, TCC_LIBTCC1);
+        స్థిరరాశి అక్షరం * స్థిరరాశి *pp, *p;
+        ఒకవేళ (TCC_LIBTCC1[0])
+            tcc_కూడు_support(s1, TCC_LIBTCC1);
         s1->static_link = 0; /* no static crt for tcc */
-        for (pp = libs; 0 != (p = *pp); ++pp) {
-            if (*p)
-                tcc_add_library(s1, p);
-            else if (PE_DLL != pe_type && PE_GUI != pe_type)
-                break;
+        కొరకు (pp = libs; 0 != (p = *pp); ++pp) {
+            ఒకవేళ (*p)
+                tcc_కూడు_library(s1, p);
+            లేకపోతే ఒకవేళ (PE_DLL != pe_type && PE_GUI != pe_type)
+                ఆపు;
         }
     }
 
     /* need this for 'tccelf.c:relocate_sections()' */
-    if (TCC_OUTPUT_DLL == s1->output_type)
+    ఒకవేళ (TCC_OUTPUT_DLL == s1->output_type)
         s1->output_type = TCC_OUTPUT_EXE;
-    if (TCC_OUTPUT_MEMORY == s1->output_type)
-        pe_type = PE_RUN;
+    ఒకవేళ (TCC_OUTPUT_జ్ఞాపకం == s1->output_type)
+        pe_type = PE_నిరంతరం;
     pe->type = pe_type;
 }
 
-ST_FUNC int pe_setsubsy(TCCState *s1, const char *arg)
+ST_FUNC పూర్ణాంకం pe_setsubsy(TCCState *s1, స్థిరరాశి అక్షరం *arg)
 {
-    static const struct subsy { const char* p; int v; } x[] = {
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
+    స్థిర స్థిరరాశి నిర్మాణం subsy { స్థిరరాశి అక్షరం* p; పూర్ణాంకం v; } x[] = {
+#ఒకవేళ defined(TCC_లక్ష్యం_I386) || defined(TCC_లక్ష్యం_X86_64) || defined(TCC_లక్ష్యం_ARM64)
         { "native", 1 },
         { "gui", 2 },
         { "windows", 2 },
@@ -2191,114 +2191,114 @@ ST_FUNC int pe_setsubsy(TCCState *s1, const char *arg)
         { "efiboot", 11 },
         { "efiruntime", 12 },
         { "efirom", 13 },
-#elif defined(TCC_TARGET_ARM)
+#లేదావేళ defined(TCC_లక్ష్యం_ARM)
         { "wince", 9 },
-#endif
+#అయితే_ముగింపు
         { 0, -1 }};
-    const struct subsy *y;
-    for (y = x;; ++y) {
-        if (!y->p)
-            return -1;
-        if (0 == strcmp(y->p, arg)) {
+    స్థిరరాశి నిర్మాణం subsy *y;
+    కొరకు (y = x;; ++y) {
+        ఒకవేళ (!y->p)
+            తిరిగి -1;
+        ఒకవేళ (0 == strcmp(y->p, arg)) {
             s1->pe_subsystem = y->v;
-            return 0;
+            తిరిగి 0;
         }
     }
 }
 
-static void pe_set_options(TCCState * s1, struct pe_info *pe)
+స్థిర శూన్య pe_సమితి_options(TCCState * s1, నిర్మాణం pe_info *pe)
 {
-    if (PE_DLL == pe->type) {
+    ఒకవేళ (PE_DLL == pe->type) {
         /* XXX: check if is correct for arm-pe target */
-        pe->imagebase = IMAGE_BASE_DLL;
-    } else {
-        pe->imagebase = IMAGE_BASE_EXE;
+        pe->imagebase = IMAGE_పునాది_DLL;
+    } లేకపోతే {
+        pe->imagebase = IMAGE_పునాది_EXE;
     }
 
-#if defined(TCC_TARGET_ARM)
+#ఒకవేళ defined(TCC_లక్ష్యం_ARM)
     /* we use "console" subsystem by default */
     pe->subsystem = 9;
-#else
-    if (PE_DLL == pe->type || PE_GUI == pe->type)
+#లేకపోతే
+    ఒకవేళ (PE_DLL == pe->type || PE_GUI == pe->type)
         pe->subsystem = 2;
-    else
+    లేకపోతే
         pe->subsystem = 3;
-#endif
+#అయితే_ముగింపు
     /* Allow override via -Wl,-subsystem=... option */
-    if (s1->pe_subsystem != 0)
+    ఒకవేళ (s1->pe_subsystem != 0)
         pe->subsystem = s1->pe_subsystem;
 
     /* set default file/section alignment */
-    if (pe->subsystem == 1) {
+    ఒకవేళ (pe->subsystem == 1) {
         pe->section_align = 0x20;
         pe->file_align = 0x20;
-    } else {
+    } లేకపోతే {
         pe->section_align = 0x1000;
         pe->file_align = 0x200;
     }
 
-    if (s1->section_align != 0)
+    ఒకవేళ (s1->section_align != 0)
         pe->section_align = s1->section_align;
-    if (s1->pe_file_align != 0)
+    ఒకవేళ (s1->pe_file_align != 0)
         pe->file_align = s1->pe_file_align;
 
-    if ((pe->subsystem >= 10) && (pe->subsystem <= 12))
+    ఒకవేళ ((pe->subsystem >= 10) && (pe->subsystem <= 12))
         pe->imagebase = 0;
 
-    if (s1->has_text_addr)
-        pe->imagebase = s1->text_addr;
+    ఒకవేళ (s1->has_పాఠ్యం_addr)
+        pe->imagebase = s1->పాఠ్యం_addr;
 }
 
-ST_FUNC int pe_output_file(TCCState *s1, const char *filename)
+ST_FUNC పూర్ణాంకం pe_output_file(TCCState *s1, స్థిరరాశి అక్షరం *filename)
 {
-    struct pe_info pe;
+    నిర్మాణం pe_info pe;
 
-    memset(&pe, 0, sizeof pe);
+    memset(&pe, 0, పరిమాణం pe);
     pe.filename = filename;
     pe.s1 = s1;
     s1->filetype = 0;
 
-#ifdef CONFIG_TCC_BCHECK
-    tcc_add_bcheck(s1);
-#endif
-    tcc_add_pragma_libs(s1);
-    pe_add_runtime(s1, &pe);
+#నిర్వచితమైతే CONFIG_TCC_BCHECK
+    tcc_కూడు_bcheck(s1);
+#అయితే_ముగింపు
+    tcc_కూడు_pragma_libs(s1);
+    pe_కూడు_runtime(s1, &pe);
     resolve_common_syms(s1);
-    pe_set_options(s1, &pe);
+    pe_సమితి_options(s1, &pe);
     pe_check_symbols(&pe);
-    if (s1->nb_errors)
-        goto done;
-    if (filename) {
-        pe_assign_addresses(&pe);
+    ఒకవేళ (s1->nb_errors)
+        వెళ్ళు పూర్తి;
+    ఒకవేళ (filename) {
+        pe_కేటాయించు_చిరునామాలు(&pe);
         relocate_syms(s1, s1->symtab, 0);
-        if (s1->nb_errors)
-            goto done;
+        ఒకవేళ (s1->nb_errors)
+            వెళ్ళు పూర్తి;
         s1->pe_imagebase = pe.imagebase;
         relocate_sections(s1);
-        pe.start_addr = (DWORD)
-            (get_sym_addr(s1, pe.start_symbol, 1, 1) - pe.imagebase);
-        if (s1->nb_errors)
-            goto done;
+        pe.ప్రారంభం_addr = (DWORD)
+            (get_sym_addr(s1, pe.ప్రారంభం_చిహ్నం, 1, 1) - pe.imagebase);
+        ఒకవేళ (s1->nb_errors)
+            వెళ్ళు పూర్తి;
         pe_write(&pe);
-    } else {
+    } లేకపోతే {
         /* -run */
-#ifdef TCC_IS_NATIVE
-        pe.thunk = data_section;
+#నిర్వచితమైతే TCC_IS_NATIVE
+        pe.thunk = దత్తాంశం_section;
         pe_build_imports(&pe);
-        s1->run_main = pe.start_symbol;
-#if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
-        s1->uw_pdata = find_section(s1, ".pdata");
-#endif
-#endif
+        s1->నిరంతరం_main = pe.ప్రారంభం_చిహ్నం;
+#ఒకవేళ defined(TCC_లక్ష్యం_X86_64) || defined(TCC_లక్ష్యం_ARM64)
+        s1->uw_pdata = కనుగొను_section(s1, ".pdata");
+#అయితే_ముగింపు
+#అయితే_ముగింపు
     }
-done:
-    dynarray_reset(&pe.sec_info, &pe.sec_count);
+పూర్తి:
+    dynarray_reset(&pe.sec_info, &pe.sec_లెక్క);
     pe_free_imports(&pe);
-#if PE_PRINT_SECTIONS
-    if (g_debug & 8)
+#ఒకవేళ PE_PRINT_SECTIONS
+    ఒకవేళ (g_debug & 8)
         pe_print_sections(s1, "tcc.log");
-#endif
-    return s1->nb_errors ? -1 : 0;
+#అయితే_ముగింపు
+    తిరిగి s1->nb_errors ? -1 : 0;
 }
 
 /* ------------------------------------------------------------- */

@@ -4,8 +4,8 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _INC_UCHAR
-#define _INC_UCHAR
+#నిర్వచితం_కాకపోతే _INC_UCHAR
+#నిర్వచించు _INC_UCHAR
 
 /*
  * The following defines are only valid when C11 (-std=c11) is used.
@@ -15,19 +15,19 @@
  * header.
  */
 
-#if __STDC_VERSION__ >= 201112L
+#ఒకవేళ __STDC_VERSION__ >= 201112L
 /**
  * __STDC_UTF_16__ The integer constant 1, intended to indicate that
  * values of type char16_t are UTF-16 encoded.
  */
-#define __STDC_UTF_16__ 1
+#నిర్వచించు __STDC_UTF_16__ 1
 /**
  * __STDC_UTF_32__ The integer constant 1, intended to indicate that
  * values of type char32_t are UTF-32 encoded.
  */
-#define __STDC_UTF_32__ 1
+#నిర్వచించు __STDC_UTF_32__ 1
 
-typedef unsigned short char16_t;
-typedef unsigned int char32_t;
-#endif /* __STDC_VERSION__ >= 201112L */
-#endif /* _INC_UCHAR */
+రకనిర్వచనం గుర్తులేని పొట్టి char16_t;
+రకనిర్వచనం గుర్తులేని పూర్ణాంకం char32_t;
+#అయితే_ముగింపు /* __STDC_VERSION__ >= 201112L */
+#అయితే_ముగింపు /* _INC_UCHAR */

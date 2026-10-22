@@ -1,33 +1,33 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int x = 'a';
-   char y = x;
+   పూర్ణాంకం x = 'a';
+   అక్షరం y = x;
 
-   char *a = "hello";
+   అక్షరం *a = "hello";
 
-   printf("%s\n", a);
+   రాయి("%s\n", a);
 
-   int c;
+   పూర్ణాంకం c;
    c = *a;
 
-   char *b;
-   for (b = a; *b != 0; b++)
-      printf("%c: %d\n", *b, *b);
+   అక్షరం *b;
+   కొరకు (b = a; *b != 0; b++)
+      రాయి("%c: %d\n", *b, *b);
 
-   char destarray[10];
-   char *dest = &destarray[0];
-   char *src = a;
+   అక్షరం destarray[10];
+   అక్షరం *dest = &destarray[0];
+   అక్షరం *src = a;
 
-   while (*src != 0)
+   అయితే (*src != 0)
       *dest++ = *src++;
 
    *dest = 0;
 
-   printf("copied string is %s\n", destarray);
+   రాయి("copied string is %s\n", destarray);
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

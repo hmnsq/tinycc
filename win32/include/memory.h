@@ -3,38 +3,38 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_MEMORY
-#define _INC_MEMORY
+#నిర్వచితం_కాకపోతే INC_జ్ఞాపకం
+#నిర్వచించు INC_జ్ఞాపకం
 
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifndef _CONST_RETURN
-#define _CONST_RETURN
-#endif
+#నిర్వచితం_కాకపోతే _CONST_RETURN
+#నిర్వచించు _CONST_RETURN
+#అయితే_ముగింపు
 
-#define _WConst_return _CONST_RETURN
+#నిర్వచించు _WConst_return _CONST_RETURN
 
-#ifndef _CRT_MEMORY_DEFINED
-#define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+#నిర్వచితం_కాకపోతే CRT_జ్ఞాపకం_DEFINED
+#నిర్వచించు CRT_జ్ఞాపకం_DEFINED
+  _CRTIMP శూన్య *__cdecl _memccpy(శూన్య *_Dst,స్థిరరాశి శూన్య *_Src,పూర్ణాంకం _Val,కొలత_t Max_లెక్క);
+  _CONST_RETURN శూన్య *__cdecl memchr(స్థిరరాశి శూన్య *_Buf ,పూర్ణాంకం _Val,కొలత_t Max_లెక్క);
+  _CRTIMP పూర్ణాంకం __cdecl _memicmp(స్థిరరాశి శూన్య *_Buf1,స్థిరరాశి శూన్య *_Buf2,కొలత_t కొలత_4);
+  _CRTIMP పూర్ణాంకం __cdecl _memicmp_l(స్థిరరాశి శూన్య *_Buf1,స్థిరరాశి శూన్య *_Buf2,కొలత_t కొలత_4,_locale_t _Locale);
+  పూర్ణాంకం __cdecl memcmp(స్థిరరాశి శూన్య *_Buf1,స్థిరరాశి శూన్య *_Buf2,కొలత_t కొలత_4);
+  శూన్య *__cdecl జ్ఞాపకం_నకలు(శూన్య *_Dst,స్థిరరాశి శూన్య *_Src,కొలత_t కొలత_4);
+  శూన్య *__cdecl memset(శూన్య *_Dst,పూర్ణాంకం _Val,కొలత_t కొలత_4);
 
-#ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-#endif
-#endif
+#నిర్వచితం_కాకపోతే	NO_OLDNAMES
+  శూన్య *__cdecl memccpy(శూన్య *_Dst,స్థిరరాశి శూన్య *_Src,పూర్ణాంకం _Val,కొలత_t కొలత_4);
+  పూర్ణాంకం __cdecl memicmp(స్థిరరాశి శూన్య *_Buf1,స్థిరరాశి శూన్య *_Buf2,కొలత_t కొలత_4);
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు

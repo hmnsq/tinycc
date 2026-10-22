@@ -1,17 +1,17 @@
-#include <stdio.h>
-int main() {
-  printf("%d\n", (int)-1.0);
-  double d = -1.0;
-  printf("%d\n", (int)d);
+#అన్తర్భావ <stdio.h>
+పూర్ణాంకం ప్రధాన() {
+  రాయి("%d\n", (పూర్ణాంకం)-1.0);
+  ద్విగుణ d = -1.0;
+  రాయి("%d\n", (పూర్ణాంకం)d);
 
-  printf("%d\n", (int)-2147483648.0);
+  రాయి("%d\n", (పూర్ణాంకం)-2147483648.0);
   d = -2147483648.0;
-  printf("%d\n", (int)d);
+  రాయి("%d\n", (పూర్ణాంకం)d);
 
-#ifndef _WIN32
-  printf("%llu\n", (unsigned long long)1e19);
-#else
+#నిర్వచితం_కాకపోతే _WIN32
+  రాయి("%llu\n", (గుర్తులేని దీర్ఘ దీర్ఘ)1e19);
+#లేకపోతే
   /* some msvc compiler won't compile tcc correctly in this ragard */
-  printf("10000000000000000000\n");
-#endif
+  రాయి("10000000000000000000\n");
+#అయితే_ముగింపు
 }

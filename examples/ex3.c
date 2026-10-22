@@ -1,23 +1,23 @@
-#include <tcclib.h>
+#అన్తర్భావ <tcclib.h>
 
-int fib(int n)
+పూర్ణాంకం fib(పూర్ణాంకం n)
 {
-    if (n <= 2)
-        return 1;
-    else
-        return fib(n-1) + fib(n-2);
+    ఒకవేళ (n <= 2)
+        తిరిగి 1;
+    లేకపోతే
+        తిరిగి fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+పూర్ణాంకం ప్రధాన(పూర్ణాంకం argc, అక్షరం **argv)
 {
-    int n;
-    if (argc < 2) {
-        printf("usage: fib n\n"
+    పూర్ణాంకం n;
+    ఒకవేళ (argc < 2) {
+        రాయి("usage: fib n\n"
                "Compute nth Fibonacci number\n");
-        return 1;
+        తిరిగి 1;
     }
 
     n = atoi(argv[1]);
-    printf("fib(%d) = %d\n", n, fib(n));
-    return 0;
+    రాయి("fib(%d) = %d\n", n, fib(n));
+    తిరిగి 0;
 }

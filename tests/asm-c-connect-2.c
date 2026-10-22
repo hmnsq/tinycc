@@ -1,48 +1,48 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#ఒకవేళ (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#లేకపోతే
 # define _
-#endif
+#అయితే_ముగింపు
 
-#ifdef __clang__
+#నిర్వచితమైతే __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
-#define __USED __attribute__((__used__))
-#else
-#define __USED
-#endif
+#నిర్వచించు __USED __attribute__((__used__))
+#లేకపోతే
+#నిర్వచించు __USED
+#అయితే_ముగింపు
 
-int x3(void)
+పూర్ణాంకం x3(శూన్య)
 {
-    printf(" x3");
-    return 3;
+    రాయి(" x3");
+    తిరిగి 3;
 }
 
 /* That callx4 is defined globally (as if ".globl callx4")
    is a TCC extension.  GCC doesn't behave like this.  */
-void callx4(void);
-#if __i386__
+శూన్య callx4(శూన్య);
+#ఒకవేళ __i386__
 __asm__(_"callx4: call "_"x4; ret;"
-#else
+#లేకపోతే
 /* Keep stack aligned */
 __asm__(_"callx4: sub $8,%rsp; call "_"x4; add $8,%rsp; ret;"
-#endif
-#ifndef __TINYC__
+#అయితే_ముగింపు
+#నిర్వచితం_కాకపోతే __TINYC__
     " .global "_"callx4"
-#endif
+#అయితే_ముగింపు
 );
 
-extern void x5(void);
+బాహ్య శూన్య x5(శూన్య);
 
-void callx5_again(void);
-void callx5_again(void)
+శూన్య callx5_again(శూన్య);
+శూన్య callx5_again(శూన్య)
 {
     x5();
     asm("call "_"x6");
 }
 
-static void __USED x6()
+స్థిర శూన్య __USED x6()
 {
-    printf(" x6-2");
+    రాయి(" x6-2");
 }

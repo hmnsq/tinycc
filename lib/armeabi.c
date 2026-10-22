@@ -19,46 +19,46 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-#ifdef __TINYC__
-#define INT_MIN (-2147483647 - 1)
-#define INT_MAX 2147483647
-#define UINT_MAX 0xffffffff
-#define LONG_MIN (-2147483647L - 1)
-#define LONG_MAX 2147483647L
-#define ULONG_MAX 0xffffffffUL
-#define LLONG_MAX 9223372036854775807LL
-#define LLONG_MIN (-9223372036854775807LL - 1)
-#define ULLONG_MAX 0xffffffffffffffffULL
-#else
-#include <limits.h>
-#endif
+#నిర్వచితమైతే __TINYC__
+#నిర్వచించు INT_MIN (-2147483647 - 1)
+#నిర్వచించు గరిష్ఠ_పూర్ణాంకం 2147483647
+#నిర్వచించు UINT_MAX 0xffffffff
+#నిర్వచించు LONG_MIN (-2147483647L - 1)
+#నిర్వచించు LONG_MAX 2147483647L
+#నిర్వచించు ULONG_MAX 0xffffffffUL
+#నిర్వచించు LLONG_MAX 9223372036854775807LL
+#నిర్వచించు LLONG_MIN (-9223372036854775807LL - 1)
+#నిర్వచించు ULLONG_MAX 0xffffffffffffffffULL
+#లేకపోతే
+#అన్తర్భావ <limits.h>
+#అయితే_ముగింపు
 
 /* We rely on the little endianness and EABI calling convention for this to
    work */
 
-typedef struct double_unsigned_struct {
-    unsigned low;
-    unsigned high;
+రకనిర్వచనం నిర్మాణం double_unsigned_struct {
+    గుర్తులేని దిగువ;
+    గుర్తులేని ఎగువ;
 } double_unsigned_struct;
 
-typedef struct unsigned_int_struct {
-    unsigned low;
-    int high;
+రకనిర్వచనం నిర్మాణం unsigned_int_struct {
+    గుర్తులేని దిగువ;
+    పూర్ణాంకం ఎగువ;
 } unsigned_int_struct;
 
-#define REGS_RETURN(name, type) \
-    static void name ## _return(type ret) {}
+#నిర్వచించు REGS_RETURN(name, type) \
+    స్థిర శూన్య name ## _return(type ret) {}
 
 
 /* Float helper functions */
 
-#define FLOAT_EXP_BITS 8
-#define FLOAT_FRAC_BITS 23
+#నిర్వచించు FLOAT_EXP_బిట్లు 8
+#నిర్వచించు FLOAT_FRAC_బిట్లు 23
 
-#define DOUBLE_EXP_BITS 11
-#define DOUBLE_FRAC_BITS 52
+#నిర్వచించు DOUBLE_EXP_బిట్లు 11
+#నిర్వచించు DOUBLE_FRAC_బిట్లు 52
 
-#define ONE_EXP(type) ((1 << (type ## _EXP_BITS - 1)) - 1)
+#నిర్వచించు ONE_EXP(type) ((1 << (type ## EXP_బిట్లు - 1)) - 1)
 
 REGS_RETURN(unsigned_int_struct, unsigned_int_struct)
 REGS_RETURN(double_unsigned_struct, double_unsigned_struct)
@@ -67,58 +67,58 @@ REGS_RETURN(double_unsigned_struct, double_unsigned_struct)
 
 
 /* float to [unsigned] long long conversion */
-#define DEFINE__AEABI_F2XLZ(name, with_sign)                                 \
-void __aeabi_ ## name(unsigned val)                                          \
+#నిర్వచించు DEFINE__AEABI_F2XLZ(name, with_sign)                                 \
+శూన్య __aeabi_ ## name(గుర్తులేని val)                                          \
 {                                                                            \
-    int exp, high_shift, sign;                                               \
+    పూర్ణాంకం ఘాతాంకం, ఎగువ_జరుపు, sign;                                               \
     double_unsigned_struct ret;                                              \
                                                                              \
     /* compute sign */                                                       \
     sign = val >> 31;                                                        \
                                                                              \
     /* compute real exponent */                                              \
-    exp = val >> FLOAT_FRAC_BITS;                                            \
-    exp &= (1 << FLOAT_EXP_BITS) - 1;                                        \
-    exp -= ONE_EXP(FLOAT);                                                   \
+    ఘాతాంకం = val >> FLOAT_FRAC_బిట్లు;                                            \
+    ఘాతాంకం &= (1 << FLOAT_EXP_బిట్లు) - 1;                                        \
+    ఘాతాంకం -= ONE_EXP(FLOAT);                                                   \
                                                                              \
     /* undefined behavior if truncated value cannot be represented */        \
-    if (with_sign) {                                                         \
-        if (exp > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
-            return;                                                          \
-    } else {                                                                 \
-        if ((sign && exp >= 0) || exp > 63) /* if val < 0 || val too big */  \
-            return;                                                          \
+    ఒకవేళ (with_sign) {                                                         \
+        ఒకవేళ (ఘాతాంకం > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
+            తిరిగి;                                                          \
+    } లేకపోతే {                                                                 \
+        ఒకవేళ ((sign && ఘాతాంకం >= 0) || ఘాతాంకం > 63) /* if val < 0 || val too big */  \
+            తిరిగి;                                                          \
     }                                                                        \
                                                                              \
-    val &= (1 << FLOAT_FRAC_BITS) - 1;                                       \
-    if (exp >= 32) {                                                         \
-        ret.high = 1 << (exp - 32);                                          \
-        if (exp - 32 >= FLOAT_FRAC_BITS) {                                   \
-            ret.high |= val << (exp - 32 - FLOAT_FRAC_BITS);                 \
-            ret.low = 0;                                                     \
-        } else {                                                             \
-            high_shift = FLOAT_FRAC_BITS - (exp - 32);                       \
-            ret.high |= val >> high_shift;                                   \
-            ret.low = val << (32 - high_shift);                              \
+    val &= (1 << FLOAT_FRAC_బిట్లు) - 1;                                       \
+    ఒకవేళ (ఘాతాంకం >= 32) {                                                         \
+        ret.ఎగువ = 1 << (ఘాతాంకం - 32);                                          \
+        ఒకవేళ (ఘాతాంకం - 32 >= FLOAT_FRAC_బిట్లు) {                                   \
+            ret.ఎగువ |= val << (ఘాతాంకం - 32 - FLOAT_FRAC_బిట్లు);                 \
+            ret.దిగువ = 0;                                                     \
+        } లేకపోతే {                                                             \
+            ఎగువ_జరుపు = FLOAT_FRAC_బిట్లు - (ఘాతాంకం - 32);                       \
+            ret.ఎగువ |= val >> ఎగువ_జరుపు;                                   \
+            ret.దిగువ = val << (32 - ఎగువ_జరుపు);                              \
         }                                                                    \
-    } else {                                                                 \
-        ret.high = 0;                                                        \
-        ret.low = 1 << exp;                                                  \
-        if (exp > FLOAT_FRAC_BITS)                                           \
-            ret.low |= val << (exp - FLOAT_FRAC_BITS);                       \
-        else                                                                 \
-            ret.low |= val >> (FLOAT_FRAC_BITS - exp);                       \
+    } లేకపోతే {                                                                 \
+        ret.ఎగువ = 0;                                                        \
+        ret.దిగువ = 1 << ఘాతాంకం;                                                  \
+        ఒకవేళ (ఘాతాంకం > FLOAT_FRAC_బిట్లు)                                           \
+            ret.దిగువ |= val << (ఘాతాంకం - FLOAT_FRAC_బిట్లు);                       \
+        లేకపోతే                                                                 \
+            ret.దిగువ |= val >> (FLOAT_FRAC_బిట్లు - ఘాతాంకం);                       \
     }                                                                        \
                                                                              \
     /* encode negative integer using 2's complement */                       \
-    if (with_sign && sign) {                                                 \
-        ret.low = ~ret.low;                                                  \
-        ret.high = ~ret.high;                                                \
-        if (ret.low == UINT_MAX) {                                           \
-            ret.low = 0;                                                     \
-            ret.high++;                                                      \
-        } else                                                               \
-            ret.low++;                                                       \
+    ఒకవేళ (with_sign && sign) {                                                 \
+        ret.దిగువ = ~ret.దిగువ;                                                  \
+        ret.ఎగువ = ~ret.ఎగువ;                                                \
+        ఒకవేళ (ret.దిగువ == UINT_MAX) {                                           \
+            ret.దిగువ = 0;                                                     \
+            ret.ఎగువ++;                                                      \
+        } లేకపోతే                                                               \
+            ret.దిగువ++;                                                       \
     }                                                                        \
                                                                              \
     double_unsigned_struct_return(ret);                                      \
@@ -131,68 +131,68 @@ DEFINE__AEABI_F2XLZ(f2ulz, 0)
 DEFINE__AEABI_F2XLZ(f2lz, 1)
 
 /* double to [unsigned] long long conversion */
-#define DEFINE__AEABI_D2XLZ(name, with_sign)                                 \
-void __aeabi_ ## name(double_unsigned_struct val)                            \
+#నిర్వచించు DEFINE__AEABI_D2XLZ(name, with_sign)                                 \
+శూన్య __aeabi_ ## name(double_unsigned_struct val)                            \
 {                                                                            \
-    int exp, high_shift, sign;                                               \
+    పూర్ణాంకం ఘాతాంకం, ఎగువ_జరుపు, sign;                                               \
     double_unsigned_struct ret;                                              \
                                                                              \
-    if ((val.high & ~0x80000000) == 0 && val.low == 0) {                     \
-        ret.low = ret.high = 0;                                              \
-        goto _ret_;                                                          \
+    ఒకవేళ ((val.ఎగువ & ~0x80000000) == 0 && val.దిగువ == 0) {                     \
+        ret.దిగువ = ret.ఎగువ = 0;                                              \
+        వెళ్ళు _ret_;                                                          \
     }                                                                        \
                                                                              \
     /* compute sign */                                                       \
-    sign = val.high >> 31;                                                   \
+    sign = val.ఎగువ >> 31;                                                   \
                                                                              \
     /* compute real exponent */                                              \
-    exp = (val.high >> (DOUBLE_FRAC_BITS - 32));                             \
-    exp &= (1 << DOUBLE_EXP_BITS) - 1;                                       \
-    exp -= ONE_EXP(DOUBLE);                                                  \
+    ఘాతాంకం = (val.ఎగువ >> (DOUBLE_FRAC_బిట్లు - 32));                             \
+    ఘాతాంకం &= (1 << DOUBLE_EXP_బిట్లు) - 1;                                       \
+    ఘాతాంకం -= ONE_EXP(DOUBLE);                                                  \
                                                                              \
     /* undefined behavior if truncated value cannot be represented */        \
-    if (with_sign) {                                                         \
-        if (exp > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
-            return;                                                          \
-    } else {                                                                 \
-        if ((sign && exp >= 0) || exp > 63) /* if val < 0 || val too big */  \
-            return;                                                          \
+    ఒకవేళ (with_sign) {                                                         \
+        ఒకవేళ (ఘాతాంకం > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
+            తిరిగి;                                                          \
+    } లేకపోతే {                                                                 \
+        ఒకవేళ ((sign && ఘాతాంకం >= 0) || ఘాతాంకం > 63) /* if val < 0 || val too big */  \
+            తిరిగి;                                                          \
     }                                                                        \
                                                                              \
-    val.high &= (1 << (DOUBLE_FRAC_BITS - 32)) - 1;                          \
-    if (exp >= 32) {                                                         \
-        ret.high = 1 << (exp - 32);                                          \
-        if (exp >= DOUBLE_FRAC_BITS) {                                       \
-            high_shift = exp - DOUBLE_FRAC_BITS;                             \
-            ret.high |= val.high << high_shift;                              \
-            ret.high |= val.low >> (32 - high_shift);                        \
-            ret.low = val.low << high_shift;                                 \
-        } else {                                                             \
-            high_shift = DOUBLE_FRAC_BITS - exp;                             \
-            ret.high |= val.high >> high_shift;                              \
-            ret.low = val.high << (32 - high_shift);                         \
-            ret.low |= val.low >> high_shift;                                \
+    val.ఎగువ &= (1 << (DOUBLE_FRAC_బిట్లు - 32)) - 1;                          \
+    ఒకవేళ (ఘాతాంకం >= 32) {                                                         \
+        ret.ఎగువ = 1 << (ఘాతాంకం - 32);                                          \
+        ఒకవేళ (ఘాతాంకం >= DOUBLE_FRAC_బిట్లు) {                                       \
+            ఎగువ_జరుపు = ఘాతాంకం - DOUBLE_FRAC_బిట్లు;                             \
+            ret.ఎగువ |= val.ఎగువ << ఎగువ_జరుపు;                              \
+            ret.ఎగువ |= val.దిగువ >> (32 - ఎగువ_జరుపు);                        \
+            ret.దిగువ = val.దిగువ << ఎగువ_జరుపు;                                 \
+        } లేకపోతే {                                                             \
+            ఎగువ_జరుపు = DOUBLE_FRAC_బిట్లు - ఘాతాంకం;                             \
+            ret.ఎగువ |= val.ఎగువ >> ఎగువ_జరుపు;                              \
+            ret.దిగువ = val.ఎగువ << (32 - ఎగువ_జరుపు);                         \
+            ret.దిగువ |= val.దిగువ >> ఎగువ_జరుపు;                                \
         }                                                                    \
-    } else {                                                                 \
-        ret.high = 0;                                                        \
-        ret.low = 1 << exp;                                                  \
-        if (exp > DOUBLE_FRAC_BITS - 32) {                                   \
-            high_shift = exp - (DOUBLE_FRAC_BITS - 32);                      \
-            ret.low |= val.high << high_shift;                               \
-            ret.low |= val.low >> (32 - high_shift);                         \
-        } else                                                               \
-            ret.low |= val.high >> (DOUBLE_FRAC_BITS - 32 - exp);            \
+    } లేకపోతే {                                                                 \
+        ret.ఎగువ = 0;                                                        \
+        ret.దిగువ = 1 << ఘాతాంకం;                                                  \
+        ఒకవేళ (ఘాతాంకం > DOUBLE_FRAC_బిట్లు - 32) {                                   \
+            ఎగువ_జరుపు = ఘాతాంకం - (DOUBLE_FRAC_బిట్లు - 32);                      \
+            ret.దిగువ |= val.ఎగువ << ఎగువ_జరుపు;                               \
+            ret.దిగువ |= val.దిగువ >> (32 - ఎగువ_జరుపు);                         \
+        } లేకపోతే                                                               \
+            ret.దిగువ |= val.ఎగువ >> (DOUBLE_FRAC_బిట్లు - 32 - ఘాతాంకం);            \
     }                                                                        \
                                                                              \
     /* encode negative integer using 2's complement */                       \
-    if (with_sign && sign) {                                                 \
-        ret.low = ~ret.low;                                                  \
-        ret.high = ~ret.high;                                                \
-        if (ret.low == UINT_MAX) {                                           \
-            ret.low = 0;                                                     \
-            ret.high++;                                                      \
-        } else                                                               \
-            ret.low++;                                                       \
+    ఒకవేళ (with_sign && sign) {                                                 \
+        ret.దిగువ = ~ret.దిగువ;                                                  \
+        ret.ఎగువ = ~ret.ఎగువ;                                                \
+        ఒకవేళ (ret.దిగువ == UINT_MAX) {                                           \
+            ret.దిగువ = 0;                                                     \
+            ret.ఎగువ++;                                                      \
+        } లేకపోతే                                                               \
+            ret.దిగువ++;                                                       \
     }                                                                        \
                                                                              \
 _ret_:                                                                       \
@@ -206,57 +206,57 @@ DEFINE__AEABI_D2XLZ(d2ulz, 0)
 DEFINE__AEABI_D2XLZ(d2lz, 1)
 
 /* long long to float conversion */
-#define DEFINE__AEABI_XL2F(name, with_sign)                             \
-unsigned __aeabi_ ## name(unsigned long long v)                         \
+#నిర్వచించు DEFINE__AEABI_XL2F(name, with_sign)                             \
+గుర్తులేని __aeabi_ ## name(గుర్తులేని దీర్ఘ దీర్ఘ v)                         \
 {                                                                       \
-    int s /* shift */, flb /* first lost bit */, sign = 0;              \
-    unsigned p = 0 /* power */, ret;                                    \
+    పూర్ణాంకం s /*జరుపు*/, flb /* first lost bit */, sign = 0;              \
+    గుర్తులేని p = 0 /* power */, ret;                                    \
     double_unsigned_struct val;                                         \
                                                                         \
     /* fraction in negative float is encoded in 1's complement */       \
-    if (with_sign && (v & (1ULL << 63))) {                              \
+    ఒకవేళ (with_sign && (v & (1ULL << 63))) {                              \
         sign = 1;                                                       \
         v = ~v + 1;                                                     \
     }                                                                   \
-    val.low = v;                                                        \
-    val.high = v >> 32;                                                 \
+    val.దిగువ = v;                                                        \
+    val.ఎగువ = v >> 32;                                                 \
     /* fill fraction bits */                                            \
-    for (s = 31, p = 1 << 31; p && !(val.high & p); s--, p >>= 1);      \
-    if (p) {                                                            \
-        ret = val.high & (p - 1);                                       \
-        if (s < FLOAT_FRAC_BITS) {                                      \
-            ret <<= FLOAT_FRAC_BITS - s;                                \
-            ret |= val.low >> (32 - (FLOAT_FRAC_BITS - s));             \
-            flb = (val.low >> (32 - (FLOAT_FRAC_BITS - s - 1))) & 1;    \
-        } else {                                                        \
-            flb = (ret >> (s - FLOAT_FRAC_BITS - 1)) & 1;               \
-            ret >>= s - FLOAT_FRAC_BITS;                                \
+    కొరకు (s = 31, p = 1 << 31; p && !(val.ఎగువ & p); s--, p >>= 1);      \
+    ఒకవేళ (p) {                                                            \
+        ret = val.ఎగువ & (p - 1);                                       \
+        ఒకవేళ (s < FLOAT_FRAC_బిట్లు) {                                      \
+            ret <<= FLOAT_FRAC_బిట్లు - s;                                \
+            ret |= val.దిగువ >> (32 - (FLOAT_FRAC_బిట్లు - s));             \
+            flb = (val.దిగువ >> (32 - (FLOAT_FRAC_బిట్లు - s - 1))) & 1;    \
+        } లేకపోతే {                                                        \
+            flb = (ret >> (s - FLOAT_FRAC_బిట్లు - 1)) & 1;               \
+            ret >>= s - FLOAT_FRAC_బిట్లు;                                \
         }                                                               \
         s += 32;                                                        \
-    } else {                                                            \
-        for (s = 31, p = 1 << 31; p && !(val.low & p); s--, p >>= 1);   \
-        if (p) {                                                        \
-            ret = val.low & (p - 1);                                    \
-            if (s <= FLOAT_FRAC_BITS) {                                 \
-                ret <<= FLOAT_FRAC_BITS - s;                            \
+    } లేకపోతే {                                                            \
+        కొరకు (s = 31, p = 1 << 31; p && !(val.దిగువ & p); s--, p >>= 1);   \
+        ఒకవేళ (p) {                                                        \
+            ret = val.దిగువ & (p - 1);                                    \
+            ఒకవేళ (s <= FLOAT_FRAC_బిట్లు) {                                 \
+                ret <<= FLOAT_FRAC_బిట్లు - s;                            \
                 flb = 0;                                                \
-	    } else {                                                    \
-                flb = (ret >> (s - FLOAT_FRAC_BITS - 1)) & 1;           \
-                ret >>= s - FLOAT_FRAC_BITS;                            \
+	    } లేకపోతే {                                                    \
+                flb = (ret >> (s - FLOAT_FRAC_బిట్లు - 1)) & 1;           \
+                ret >>= s - FLOAT_FRAC_బిట్లు;                            \
 	    }                                                           \
-        } else                                                          \
-            return 0;                                                   \
+        } లేకపోతే                                                          \
+            తిరిగి 0;                                                   \
     }                                                                   \
-    if (flb)                                                            \
+    ఒకవేళ (flb)                                                            \
         ret++;                                                          \
                                                                         \
     /* fill exponent bits */                                            \
-    ret |= (s + ONE_EXP(FLOAT)) << FLOAT_FRAC_BITS;                     \
+    ret |= (s + ONE_EXP(FLOAT)) << FLOAT_FRAC_బిట్లు;                     \
                                                                         \
     /* fill sign bit */                                                 \
     ret |= sign << 31;                                                  \
                                                                         \
-    return ret;                                                         \
+    తిరిగి ret;                                                         \
 }
 
 /* unsigned long long to float conversion */
@@ -266,68 +266,68 @@ DEFINE__AEABI_XL2F(ul2f, 0)
 DEFINE__AEABI_XL2F(l2f, 1)
 
 /* long long to double conversion */
-#define __AEABI_XL2D(name, with_sign)                                   \
-void __aeabi_ ## name(unsigned long long v)                             \
+#నిర్వచించు __AEABI_XL2D(name, with_sign)                                   \
+శూన్య __aeabi_ ## name(గుర్తులేని దీర్ఘ దీర్ఘ v)                             \
 {                                                                       \
-    int s /* shift */, high_shift, sign = 0;                            \
-    unsigned tmp, p = 0;                                                \
+    పూర్ణాంకం s /*జరుపు*/, ఎగువ_జరుపు, sign = 0;                            \
+    గుర్తులేని tmp, p = 0;                                                \
     double_unsigned_struct val, ret;                                    \
                                                                         \
     /* fraction in negative float is encoded in 1's complement */       \
-    if (with_sign && (v & (1ULL << 63))) {                              \
+    ఒకవేళ (with_sign && (v & (1ULL << 63))) {                              \
         sign = 1;                                                       \
         v = ~v + 1;                                                     \
     }                                                                   \
-    val.low = v;                                                        \
-    val.high = v >> 32;                                                 \
+    val.దిగువ = v;                                                        \
+    val.ఎగువ = v >> 32;                                                 \
                                                                         \
     /* fill fraction bits */                                            \
-    for (s = 31, p = 1 << 31; p && !(val.high & p); s--, p >>= 1);      \
-    if (p) {                                                            \
-        tmp = val.high & (p - 1);                                       \
-        if (s < DOUBLE_FRAC_BITS - 32) {                                \
-            high_shift = DOUBLE_FRAC_BITS - 32 - s;                     \
-            ret.high = tmp << high_shift;                               \
-            ret.high |= val.low >> (32 - high_shift);                   \
-            ret.low = val.low << high_shift;                            \
-        } else {                                                        \
-            high_shift = s - (DOUBLE_FRAC_BITS - 32);                   \
-            ret.high = tmp >> high_shift;                               \
-            ret.low = tmp << (32 - high_shift);                         \
-            ret.low |= val.low >> high_shift;                           \
-            if ((val.low >> (high_shift - 1)) & 1) {                    \
-                if (ret.low == UINT_MAX) {                              \
-                    ret.high++;                                         \
-                    ret.low = 0;                                        \
-		} else                                                  \
-                    ret.low++;                                          \
+    కొరకు (s = 31, p = 1 << 31; p && !(val.ఎగువ & p); s--, p >>= 1);      \
+    ఒకవేళ (p) {                                                            \
+        tmp = val.ఎగువ & (p - 1);                                       \
+        ఒకవేళ (s < DOUBLE_FRAC_బిట్లు - 32) {                                \
+            ఎగువ_జరుపు = DOUBLE_FRAC_బిట్లు - 32 - s;                     \
+            ret.ఎగువ = tmp << ఎగువ_జరుపు;                               \
+            ret.ఎగువ |= val.దిగువ >> (32 - ఎగువ_జరుపు);                   \
+            ret.దిగువ = val.దిగువ << ఎగువ_జరుపు;                            \
+        } లేకపోతే {                                                        \
+            ఎగువ_జరుపు = s - (DOUBLE_FRAC_బిట్లు - 32);                   \
+            ret.ఎగువ = tmp >> ఎగువ_జరుపు;                               \
+            ret.దిగువ = tmp << (32 - ఎగువ_జరుపు);                         \
+            ret.దిగువ |= val.దిగువ >> ఎగువ_జరుపు;                           \
+            ఒకవేళ ((val.దిగువ >> (ఎగువ_జరుపు - 1)) & 1) {                    \
+                ఒకవేళ (ret.దిగువ == UINT_MAX) {                              \
+                    ret.ఎగువ++;                                         \
+                    ret.దిగువ = 0;                                        \
+		} లేకపోతే                                                  \
+                    ret.దిగువ++;                                          \
             }                                                           \
         }                                                               \
         s += 32;                                                        \
-    } else {                                                            \
-        for (s = 31, p = 1 << 31; p && !(val.low & p); s--, p >>= 1);   \
-        if (p) {                                                        \
-            tmp = val.low & (p - 1);                                    \
-            if (s <= DOUBLE_FRAC_BITS - 32) {                           \
-                high_shift = DOUBLE_FRAC_BITS - 32 - s;                 \
-                ret.high = tmp << high_shift;                           \
-                ret.low = 0;                                            \
-	    } else {                                                    \
-                high_shift = s - (DOUBLE_FRAC_BITS - 32);               \
-                ret.high = tmp >> high_shift;                           \
-                ret.low = tmp << (32 - high_shift);                     \
+    } లేకపోతే {                                                            \
+        కొరకు (s = 31, p = 1 << 31; p && !(val.దిగువ & p); s--, p >>= 1);   \
+        ఒకవేళ (p) {                                                        \
+            tmp = val.దిగువ & (p - 1);                                    \
+            ఒకవేళ (s <= DOUBLE_FRAC_బిట్లు - 32) {                           \
+                ఎగువ_జరుపు = DOUBLE_FRAC_బిట్లు - 32 - s;                 \
+                ret.ఎగువ = tmp << ఎగువ_జరుపు;                           \
+                ret.దిగువ = 0;                                            \
+	    } లేకపోతే {                                                    \
+                ఎగువ_జరుపు = s - (DOUBLE_FRAC_బిట్లు - 32);               \
+                ret.ఎగువ = tmp >> ఎగువ_జరుపు;                           \
+                ret.దిగువ = tmp << (32 - ఎగువ_జరుపు);                     \
             }                                                           \
-        } else {                                                        \
-            ret.high = ret.low = 0;                                     \
-            goto _ret_;                                                 \
+        } లేకపోతే {                                                        \
+            ret.ఎగువ = ret.దిగువ = 0;                                     \
+            వెళ్ళు _ret_;                                                 \
         }                                                               \
     }                                                                   \
                                                                         \
     /* fill exponent bits */                                            \
-    ret.high |= (s + ONE_EXP(DOUBLE)) << (DOUBLE_FRAC_BITS - 32);       \
+    ret.ఎగువ |= (s + ONE_EXP(DOUBLE)) << (DOUBLE_FRAC_బిట్లు - 32);       \
                                                                         \
     /* fill sign bit */                                                 \
-    ret.high |= sign << 31;                                             \
+    ret.ఎగువ |= sign << 31;                                             \
                                                                         \
 _ret_:                                                                  \
     double_unsigned_struct_return(ret);                                 \
@@ -339,221 +339,221 @@ __AEABI_XL2D(ul2d, 0)
 /* long long to double conversion */
 __AEABI_XL2D(l2d, 1)
 
-#if 1
+#ఒకవేళ 1
 /* Long long helper functions */
 
 /* TODO: add error in case of den == 0 (see §4.3.1 and §4.3.2) */
 
-#define define_aeabi_xdivmod_signed_type(basetype, type) \
-typedef struct type {                                    \
+#నిర్వచించు define_aeabi_xdivmod_signed_type(basetype, type) \
+రకనిర్వచనం నిర్మాణం type {                                    \
     basetype quot;                                       \
-    unsigned basetype rem;                               \
+    గుర్తులేని basetype rem;                               \
 } type
 
-#define define_aeabi_xdivmod_unsigned_type(basetype, type) \
-typedef struct type {                                      \
+#నిర్వచించు define_aeabi_xdivmod_unsigned_type(basetype, type) \
+రకనిర్వచనం నిర్మాణం type {                                      \
     basetype quot;                                         \
     basetype rem;                                          \
 } type
 
-#define AEABI_UXDIVMOD(name,type, rettype, typemacro)                     \
-static inline rettype aeabi_ ## name (type num, type den)                 \
+#నిర్వచించు AEABI_UXDIVMOD(name,type, rettype, typemacro)                     \
+స్థిర అంతఃవరుస rettype aeabi_ ## name (type అంకె, type den)                 \
 {                                                                         \
     rettype ret;                                                          \
     type quot = 0;                                                        \
                                                                           \
     /* Increase quotient while it is less than numerator */               \
-    while (num >= den) {                                                  \
+    అయితే (అంకె >= den) {                                                  \
         type q = 1;                                                       \
                                                                           \
         /* Find closest power of two */                                   \
-        while ((q << 1) * den <= num && q * den <= typemacro ## _MAX / 2) \
+        అయితే ((q << 1) * den <= అంకె && q * den <= typemacro ## _MAX / 2) \
             q <<= 1;                                                      \
                                                                           \
         /* Compute difference between current quotient and numerator */   \
-        num -= q * den;                                                   \
+        అంకె -= q * den;                                                   \
         quot += q;                                                        \
     }                                                                     \
     ret.quot = quot;                                                      \
-    ret.rem = num;                                                        \
-    return ret;                                                           \
+    ret.rem = అంకె;                                                        \
+    తిరిగి ret;                                                           \
 }
 
-#define __AEABI_XDIVMOD(name, type, uiname, rettype, urettype, typemacro)     \
-void __aeabi_ ## name(type numerator, type denominator)                       \
+#నిర్వచించు __AEABI_XDIVMOD(name, type, uiname, rettype, urettype, typemacro)     \
+శూన్య __aeabi_ ## name(type numerator, type denominator)                       \
 {                                                                             \
-    unsigned type num, den;                                                   \
+    గుర్తులేని type అంకె, den;                                                   \
     urettype uxdiv_ret;                                                       \
     rettype ret;                                                              \
                                                                               \
-    if (numerator >= 0)                                                       \
-      num = numerator;                                                        \
-    else                                                                      \
-      num = 0 - numerator;                                                    \
-    if (denominator >= 0)                                                     \
+    ఒకవేళ (numerator >= 0)                                                       \
+      అంకె = numerator;                                                        \
+    లేకపోతే                                                                      \
+      అంకె = 0 - numerator;                                                    \
+    ఒకవేళ (denominator >= 0)                                                     \
       den = denominator;                                                      \
-    else                                                                      \
+    లేకపోతే                                                                      \
       den = 0 - denominator;                                                  \
-    uxdiv_ret = aeabi_ ## uiname(num, den);                                   \
+    uxdiv_ret = aeabi_ ## uiname(అంకె, den);                                   \
     /* signs differ */                                                        \
-    if ((numerator & typemacro ## _MIN) != (denominator & typemacro ## _MIN)) \
+    ఒకవేళ ((numerator & typemacro ## _MIN) != (denominator & typemacro ## _MIN)) \
         ret.quot = 0 - uxdiv_ret.quot;                                        \
-    else                                                                      \
+    లేకపోతే                                                                      \
         ret.quot = uxdiv_ret.quot;                                            \
-    if (numerator < 0)                                                        \
+    ఒకవేళ (numerator < 0)                                                        \
         ret.rem = 0 - uxdiv_ret.rem;                                          \
-    else                                                                      \
+    లేకపోతే                                                                      \
         ret.rem = uxdiv_ret.rem;                                              \
                                                                               \
     rettype ## _return(ret);                                                  \
 }
 
-define_aeabi_xdivmod_signed_type(long long, lldiv_t);
-define_aeabi_xdivmod_unsigned_type(unsigned long long, ulldiv_t);
-define_aeabi_xdivmod_signed_type(int, idiv_t);
-define_aeabi_xdivmod_unsigned_type(unsigned, uidiv_t);
+define_aeabi_xdivmod_signed_type(దీర్ఘ దీర్ఘ, lldiv_t);
+define_aeabi_xdivmod_unsigned_type(గుర్తులేని దీర్ఘ దీర్ఘ, ulldiv_t);
+define_aeabi_xdivmod_signed_type(పూర్ణాంకం, idiv_t);
+define_aeabi_xdivmod_unsigned_type(గుర్తులేని, uidiv_t);
 
 REGS_RETURN(lldiv_t, lldiv_t)
 REGS_RETURN(ulldiv_t, ulldiv_t)
 REGS_RETURN(idiv_t, idiv_t)
 REGS_RETURN(uidiv_t, uidiv_t)
 
-AEABI_UXDIVMOD(uldivmod, unsigned long long, ulldiv_t, ULLONG)
+AEABI_UXDIVMOD(uldivmod, గుర్తులేని దీర్ఘ దీర్ఘ, ulldiv_t, ULLONG)
 
-__AEABI_XDIVMOD(ldivmod, long long, uldivmod, lldiv_t, ulldiv_t, LLONG)
+__AEABI_XDIVMOD(ldivmod, దీర్ఘ దీర్ఘ, uldivmod, lldiv_t, ulldiv_t, LLONG)
 
-void __aeabi_uldivmod(unsigned long long num, unsigned long long den)
+శూన్య __aeabi_uldivmod(గుర్తులేని దీర్ఘ దీర్ఘ అంకె, గుర్తులేని దీర్ఘ దీర్ఘ den)
 {
-    ulldiv_t_return(aeabi_uldivmod(num, den));
+    ulldiv_t_return(aeabi_uldivmod(అంకె, den));
 }
 
-void __aeabi_llsl(double_unsigned_struct val, int shift)
+శూన్య __aeabi_llsl(double_unsigned_struct val, పూర్ణాంకం జరుపు)
 {
     double_unsigned_struct ret;
 
-    if (shift >= 32) {
-        val.high = val.low;
-        val.low = 0;
-        shift -= 32;
+    ఒకవేళ (జరుపు >= 32) {
+        val.ఎగువ = val.దిగువ;
+        val.దిగువ = 0;
+        జరుపు -= 32;
     }
-    if (shift > 0) {
-        ret.low = val.low << shift;
-        ret.high = (val.high << shift) | (val.low >> (32 - shift));
+    ఒకవేళ (జరుపు > 0) {
+        ret.దిగువ = val.దిగువ << జరుపు;
+        ret.ఎగువ = (val.ఎగువ << జరుపు) | (val.దిగువ >> (32 - జరుపు));
         double_unsigned_struct_return(ret);
-	return;
+	తిరిగి;
     }
     double_unsigned_struct_return(val);
 }
 
-#define aeabi_lsr(val, shift, fill, type)                          \
+#నిర్వచించు aeabi_lsr(val, జరుపు, fill, type)                          \
     type ## _struct ret;                                           \
                                                                    \
-    if (shift >= 32) {                                             \
-        val.low = val.high;                                        \
-        val.high = fill;                                           \
-        shift -= 32;                                               \
+    ఒకవేళ (జరుపు >= 32) {                                             \
+        val.దిగువ = val.ఎగువ;                                        \
+        val.ఎగువ = fill;                                           \
+        జరుపు -= 32;                                               \
     }                                                              \
-    if (shift > 0) {                                               \
-        ret.high = val.high >> shift;                              \
-        ret.low = (val.high << (32 - shift)) | (val.low >> shift); \
+    ఒకవేళ (జరుపు > 0) {                                               \
+        ret.ఎగువ = val.ఎగువ >> జరుపు;                              \
+        ret.దిగువ = (val.ఎగువ << (32 - జరుపు)) | (val.దిగువ >> జరుపు); \
         type ## _struct_return(ret);                               \
-	return;                                                    \
+	తిరిగి;                                                    \
     }                                                              \
     type ## _struct_return(val);
 
-void __aeabi_llsr(double_unsigned_struct val, int shift)
+శూన్య __aeabi_llsr(double_unsigned_struct val, పూర్ణాంకం జరుపు)
 {
-    aeabi_lsr(val, shift, 0, double_unsigned);
+    aeabi_lsr(val, జరుపు, 0, double_unsigned);
 }
 
-void __aeabi_lasr(unsigned_int_struct val, int shift)
+శూన్య __aeabi_lasr(unsigned_int_struct val, పూర్ణాంకం జరుపు)
 {
-    aeabi_lsr(val, shift, val.high >> 31, unsigned_int);
+    aeabi_lsr(val, జరుపు, val.ఎగువ >> 31, unsigned_int);
 }
 
 
 /* Integer division functions */
 
-#if 0 /* very slow */
-AEABI_UXDIVMOD(uidivmod, unsigned, uidiv_t, UINT)
+#ఒకవేళ 0 /* very slow */
+AEABI_UXDIVMOD(uidivmod, గుర్తులేని, uidiv_t, UINT)
 
-int __aeabi_idiv(int numerator, int denominator)
+పూర్ణాంకం __aeabi_idiv(పూర్ణాంకం numerator, పూర్ణాంకం denominator)
 {
-    unsigned num, den;
+    గుర్తులేని అంకె, den;
     uidiv_t ret;
 
-    if (numerator >= 0)
-        num = numerator;
-    else
-        num = 0 - numerator;
-    if (denominator >= 0)
+    ఒకవేళ (numerator >= 0)
+        అంకె = numerator;
+    లేకపోతే
+        అంకె = 0 - numerator;
+    ఒకవేళ (denominator >= 0)
         den = denominator;
-    else
+    లేకపోతే
         den = 0 - denominator;
-    ret = aeabi_uidivmod(num, den);
-    if ((numerator & INT_MIN) != (denominator & INT_MIN)) /* signs differ */
+    ret = aeabi_uidivmod(అంకె, den);
+    ఒకవేళ ((numerator & INT_MIN) != (denominator & INT_MIN)) /* signs differ */
         ret.quot *= -1;
-    return ret.quot;
+    తిరిగి ret.quot;
 }
 
-unsigned __aeabi_uidiv(unsigned num, unsigned den)
+గుర్తులేని __aeabi_uidiv(గుర్తులేని అంకె, గుర్తులేని den)
 {
-    return aeabi_uidivmod(num, den).quot;
+    తిరిగి aeabi_uidivmod(అంకె, den).quot;
 }
 
-__AEABI_XDIVMOD(idivmod, int, uidivmod, idiv_t, uidiv_t, INT)
+__AEABI_XDIVMOD(idivmod, పూర్ణాంకం, uidivmod, idiv_t, uidiv_t, INT)
 
-void __aeabi_uidivmod(unsigned num, unsigned den)
+శూన్య __aeabi_uidivmod(గుర్తులేని అంకె, గుర్తులేని den)
 {
-    uidiv_t_return(aeabi_uidivmod(num, den));
+    uidiv_t_return(aeabi_uidivmod(అంకె, den));
 }
-#else
+#లేకపోతే
 # define UIDIVMOD_ASM 1
-#endif
+#అయితే_ముగింపు
 
 /* Some targets do not have all eabi calls (OpenBSD) */
-typedef __SIZE_TYPE__ size_t;
-extern void *memcpy(void *dest, const void *src, size_t n);
-extern void *memmove(void *dest, const void *src, size_t n);
-extern void *memset(void *s, int c, size_t n);
+రకనిర్వచనం __SIZE_TYPE__ కొలత_t;
+బాహ్య శూన్య *జ్ఞాపకం_నకలు(శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n);
+బాహ్య శూన్య *memmove(శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n);
+బాహ్య శూన్య *memset(శూన్య *s, పూర్ణాంకం c, కొలత_t n);
 
-void *
-__aeabi_memcpy (void *dest, const void *src, size_t n)
+శూన్య *
+__aeabi_memcpy (శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n)
 {
-    return memcpy (dest, src, n);
+    తిరిగి జ్ఞాపకం_నకలు (dest, src, n);
 }
 
-void *
-__aeabi_memmove (void *dest, const void *src, size_t n)
+శూన్య *
+__aeabi_memmove (శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n)
 {
-    return memmove (dest, src, n);
+    తిరిగి memmove (dest, src, n);
 }
 
-void *
-__aeabi_memmove4 (void *dest, const void *src, size_t n)
+శూన్య *
+__aeabi_memmove4 (శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n)
 {
-    return memmove (dest, src, n);
+    తిరిగి memmove (dest, src, n);
 }
 
-void *
-__aeabi_memmove8 (void *dest, const void *src, size_t n)
+శూన్య *
+__aeabi_memmove8 (శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n)
 {
-    return memmove (dest, src, n);
+    తిరిగి memmove (dest, src, n);
 }
 
-void *
-__aeabi_memset (void *s, size_t n, int c)
+శూన్య *
+__aeabi_memset (శూన్య *s, కొలత_t n, పూర్ణాంకం c)
 {
-    return memset (s, c, n);
+    తిరిగి memset (s, c, n);
 }
 
 /* ***************************************************************** */
-#if UIDIVMOD_ASM
-#include <config.h>
+#ఒకవేళ UIDIVMOD_ASM
+#అన్తర్భావ <config.h>
 __asm__(
    "\n  .global __aeabi_idiv, __aeabi_idivmod"
    "\n  .global __aeabi_uidiv, __aeabi_uidivmod"
-#if __ARM_FEATURE_IDIV
+#ఒకవేళ __ARM_FEATURE_IDIV
    "\n__aeabi_idiv:"
    "\n__aeabi_idivmod:"
    "\n  mov     r2, r0"
@@ -567,7 +567,7 @@ __asm__(
    "\n  udiv    r0, r0, r1"
    "\n  mls     r1, r1, r0, r2"
    "\n  bx      lr"
-#else
+#లేకపోతే
 /* Runtime ABI for the ARM Cortex-M0
  * idivmod.S: signed 32 bit division (quotient and remainder)
  *
@@ -610,7 +610,7 @@ __asm__(
    "\n__aeabi_uidivmod:"
    // Shift left the denominator until it is greater than the numerator
    "\n  mov     r2, #1"	    // counter
-   "\n  mov     r3, #0"	    // result
+   "\n  mov     r3, #0"	    //ఫలితం
    "\n  cmp     r0, r1"
    "\n  bls     .Lsub_loop"
    "\n  adds    r1, #0"	    // dont shift if denominator would overflow
@@ -635,8 +635,8 @@ __asm__(
    "\n.Luidiv0:"            // XXX: division by zero
    "\n  mov     r0, #0"
    "\n  bx      lr"
-#endif
+#అయితే_ముగింపు
 );
-#endif /* UIDIVMOD_ASM */
+#అయితే_ముగింపు /* UIDIVMOD_ASM */
 /* ***************************************************************** */
-#endif
+#అయితే_ముగింపు

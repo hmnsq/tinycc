@@ -1,14 +1,14 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main(int argc, char **argv)
+పూర్ణాంకం ప్రధాన(పూర్ణాంకం argc, అక్షరం **argv)
 {
-   int Count;
+   పూర్ణాంకం లెక్క_3;
 
-   printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   రాయి("hello world %d\n", argc);
+   కొరకు (లెక్క_3 = 1; లెక్క_3 < argc; లెక్క_3++)
+      రాయి("arg %d: %s\n", లెక్క_3, argv[లెక్క_3]);
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

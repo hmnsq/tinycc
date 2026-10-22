@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+బాహ్య పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం *, ...);
+శూన్య f(శూన్య);
+శూన్య bar(శూన్య) { శూన్య f(శూన్య); f(); }
+శూన్య foo(శూన్య) { బాహ్య శూన్య f(శూన్య); f(); }
+శూన్య f(శూన్య) { రాయి("f\n"); }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
   bar();
   foo();
-  return 0;
+  తిరిగి 0;
 }

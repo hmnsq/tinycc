@@ -1,14 +1,14 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-#define P(A,B) A ## B ; bob
-#define Q(A,B) A ## B+
+#నిర్వచించు P(A,B) A ## B ; bob
+#నిర్వచించు Q(A,B) A ## B+
 
-int main(void)
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
-    int bob, jim = 21;
+    పూర్ణాంకం bob, jim = 21;
     bob = P(jim,) *= 2;
-    printf("jim: %d, bob: %d\n", jim, bob);
+    రాయి("jim: %d, bob: %d\n", jim, bob);
     jim = 60 Q(+,)3;
-    printf("jim: %d\n", jim);
-    return 0;
+    రాయి("jim: %d\n", jim);
+    తిరిగి 0;
 }

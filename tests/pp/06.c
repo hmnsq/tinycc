@@ -1,4 +1,4 @@
-#define X(a,b, \
+#నిర్వచించు X(a,b, \
 	c,d) \
 	foo
 

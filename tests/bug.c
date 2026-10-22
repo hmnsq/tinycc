@@ -1,35 +1,35 @@
-#include <stdio.h>
-#include <stdarg.h>
+#అన్తర్భావ <stdio.h>
+#అన్తర్భావ <stdarg.h>
 
-int compile_errors(void)
+పూర్ణాంకం compile_errors(శూన్య)
 {
-#if TEST == 1
+#ఒకవేళ TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    స్థిర పూర్ణాంకం i = (&"Foobar"[1] - &"Foobar"[0]);
   }
-#endif
-#if TEST == 2
+#అయితే_ముగింపు
+#ఒకవేళ TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
-    static long i=((char*)&(v.c)-(char*)&v);
+    నిర్మాణం{పూర్ణాంకం c;}v;
+    స్థిర దీర్ఘ i=((అక్షరం*)&(v.c)-(అక్షరం*)&v);
   }
-#endif
-#if TEST == 3
+#అయితే_ముగింపు
+#ఒకవేళ TEST == 3
   {
     /* Not constant */
-    static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
-    void *p = &&l1 + ar[0];
-    goto *p;
-   l1: return 1;
-   l2: return 2;
+    స్థిర స్థిరరాశి పొట్టి ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
+    శూన్య *p = &&l1 + ar[0];
+    వెళ్ళు *p;
+   l1: తిరిగి 1;
+   l2: తిరిగి 2;
   }
-#endif
-  return 0;
+#అయితే_ముగింపు
+  తిరిగి 0;
 }
 
-int
-main(void)
+పూర్ణాంకం
+ప్రధాన(శూన్య)
 {
 }

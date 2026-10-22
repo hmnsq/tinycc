@@ -1,27 +1,27 @@
-#ifndef _STDDEF_H
-#define _STDDEF_H
+#నిర్వచితం_కాకపోతే _STDDEF_H
+#నిర్వచించు _STDDEF_H
 
-typedef __SIZE_TYPE__ size_t;
-typedef __PTRDIFF_TYPE__ ssize_t;
-typedef __WCHAR_TYPE__ wchar_t;
-typedef __PTRDIFF_TYPE__ ptrdiff_t;
-typedef __PTRDIFF_TYPE__ intptr_t;
-typedef __SIZE_TYPE__ uintptr_t;
+రకనిర్వచనం __SIZE_TYPE__ కొలత_t;
+రకనిర్వచనం __PTRDIFF_TYPE__ ssize_t;
+రకనిర్వచనం __WCHAR_TYPE__ wchar_t;
+రకనిర్వచనం __PTRDIFF_TYPE__ ptrdiff_t;
+రకనిర్వచనం __PTRDIFF_TYPE__ intptr_t;
+రకనిర్వచనం __SIZE_TYPE__ uintptr_t;
 
-#if __STDC_VERSION__ >= 201112L
-typedef union { long long __ll; long double __ld; } max_align_t;
-#endif
+#ఒకవేళ __STDC_VERSION__ >= 201112L
+రకనిర్వచనం సంఘం { దీర్ఘ దీర్ఘ __ll; దీర్ఘ ద్విగుణ __ld; } max_align_t;
+#అయితే_ముగింపు
 
-#ifndef NULL
-#define NULL ((void*)0)
-#endif
+#నిర్వచితం_కాకపోతే ఖాళీ
+#నిర్వచించు ఖాళీ ((శూన్య*)0)
+#అయితే_ముగింపు
 
-#undef offsetof
-#define offsetof(type, field) __builtin_offsetof(type, field)
+#నిర్వచనం_రద్దు offsetof
+#నిర్వచించు offsetof(type, క్షేత్రం) __builtin_offsetof(type, క్షేత్రం)
 
-void *alloca(size_t size);
+శూన్య *alloca(కొలత_t కొలత);
 
-#endif
+#అయితే_ముగింపు
 
 /* Older glibc require a wint_t from <stddef.h> (when requested
    by __need_wint_t, as otherwise stddef.h isn't allowed to
@@ -30,10 +30,10 @@ void *alloca(size_t size);
    already (without requiring wint_t).  Some other libs define _WINT_T
    if they've already provided that type, so we can use that as guard.
    TCC defines __WINT_TYPE__ for us.  */
-#if defined (__need_wint_t)
-#ifndef _WINT_T
-#define _WINT_T
-typedef __WINT_TYPE__ wint_t;
-#endif
-#undef __need_wint_t
-#endif
+#ఒకవేళ defined (__need_wint_t)
+#నిర్వచితం_కాకపోతే _WINT_T
+#నిర్వచించు _WINT_T
+రకనిర్వచనం __WINT_TYPE__ wint_t;
+#అయితే_ముగింపు
+#నిర్వచనం_రద్దు __need_wint_t
+#అయితే_ముగింపు

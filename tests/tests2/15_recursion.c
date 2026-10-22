@@ -1,21 +1,21 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int factorial(int i) 
+పూర్ణాంకం క్రమగుణితం(పూర్ణాంకం i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   ఒకవేళ (i < 2)
+      తిరిగి i;
+   లేకపోతే
+      తిరిగి i * క్రమగుణితం(i - 1);
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int Count;
+   పూర్ణాంకం లెక్క_3;
 
-   for (Count = 1; Count <= 10; Count++)
-      printf("%d\n", factorial(Count));
+   కొరకు (లెక్క_3 = 1; లెక్క_3 <= 10; లెక్క_3++)
+      రాయి("%d\n", క్రమగుణితం(లెక్క_3));
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,15 +1,15 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main() 
+పూర్ణాంకం ప్రధాన() 
 {
-   int Count;
+   పూర్ణాంకం లెక్క_3;
 
-   for (Count = 1; Count <= 10; Count++)
+   కొరకు (లెక్క_3 = 1; లెక్క_3 <= 10; లెక్క_3++)
    {
-      printf("%d\n", Count);
+      రాయి("%d\n", లెక్క_3);
    }
 
-   return 0;
+   తిరిగి 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

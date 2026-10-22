@@ -1,38 +1,38 @@
-extern int printf(const char*, ...);
+బాహ్య పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం*, ...);
 
-struct fred;
+నిర్మాణం fred;
 
-void fred$(struct fred* this)
+శూన్య fred$(నిర్మాణం fred* this)
 {
-    printf("~fred()\n");
+    రాయి("~fred()\n");
 }
 
-struct __attribute__((__cleanup__(fred$))) fred
+నిర్మాణం __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   పూర్ణాంకం boris;
+   పూర్ణాంకం natasha;
 };
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    struct fred  __attribute__((__cleanup__(fred$))) bloggs;
+    నిర్మాణం fred  __attribute__((__cleanup__(fred$))) bloggs;
 
    bloggs.boris = 12;
    bloggs.natasha = 34;
 
-   printf("%d\n", bloggs.boris);
-   printf("%d\n", bloggs.natasha);
+   రాయి("%d\n", bloggs.boris);
+   రాయి("%d\n", bloggs.natasha);
 
-   struct fred jones[2];
+   నిర్మాణం fred jones[2];
    jones[0].boris = 12;
    jones[0].natasha = 34;
    jones[1].boris = 56;
    jones[1].natasha = 78;
 
-   printf("%d\n", jones[0].boris);
-   printf("%d\n", jones[0].natasha);
-   printf("%d\n", jones[1].boris);
-   printf("%d\n", jones[1].natasha);
+   రాయి("%d\n", jones[0].boris);
+   రాయి("%d\n", jones[0].natasha);
+   రాయి("%d\n", jones[1].boris);
+   రాయి("%d\n", jones[1].natasha);
 
-   return 0;
+   తిరిగి 0;
 }

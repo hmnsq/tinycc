@@ -3,65 +3,65 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_STDLIB_S
-#define _INC_STDLIB_S
+#నిర్వచితం_కాకపోతే _INC_STDLIB_S
+#నిర్వచించు _INC_STDLIB_S
 
-#include <stdlib.h>
+#అన్తర్భావ <stdlib.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ఒకవేళ defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-  _CRTIMP errno_t __cdecl _dupenv_s(char **_PBuffer,size_t *_PBufferSizeInBytes,const char *_VarName);
-  _CRTIMP errno_t __cdecl _itoa_s(int _Value,char *_DstBuf,size_t _Size,int _Radix);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _i64toa_s(__int64 _Val,char *_DstBuf,size_t _Size,int _Radix);
-  _CRTIMP errno_t __cdecl _ui64toa_s(unsigned __int64 _Val,char *_DstBuf,size_t _Size,int _Radix);
-#endif
-  _CRTIMP errno_t __cdecl _ltoa_s(long _Val,char *_DstBuf,size_t _Size,int _Radix);
-  _CRTIMP errno_t __cdecl mbstowcs_s(size_t *_PtNumOfCharConverted,wchar_t *_DstBuf,size_t _SizeInWords,const char *_SrcBuf,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbstowcs_s_l(size_t *_PtNumOfCharConverted,wchar_t *_DstBuf,size_t _SizeInWords,const char *_SrcBuf,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _ultoa_s(unsigned long _Val,char *_DstBuf,size_t _Size,int _Radix);
-  _CRTIMP errno_t __cdecl _wctomb_s_l(int *_SizeConverted,char *_MbCh,size_t _SizeInBytes,wchar_t _WCh,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl wcstombs_s(size_t *_PtNumOfCharConverted,char *_Dst,size_t _DstSizeInBytes,const wchar_t *_Src,size_t _MaxCountInBytes);
-  _CRTIMP errno_t __cdecl _wcstombs_s_l(size_t *_PtNumOfCharConverted,char *_Dst,size_t _DstSizeInBytes,const wchar_t *_Src,size_t _MaxCountInBytes,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _dupenv_s(అక్షరం **_PBuffer,కొలత_t *PBuffer_కొలత_లోపల_బైట్లు,స్థిరరాశి అక్షరం *_VarName);
+  _CRTIMP errno_t __cdecl _itoa_s(పూర్ణాంకం విలువ_2,అక్షరం *_DstBuf,కొలత_t కొలత_4,పూర్ణాంకం _Radix);
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+  _CRTIMP errno_t __cdecl _i64toa_s(__int64 _Val,అక్షరం *_DstBuf,కొలత_t కొలత_4,పూర్ణాంకం _Radix);
+  _CRTIMP errno_t __cdecl _ui64toa_s(గుర్తులేని __int64 _Val,అక్షరం *_DstBuf,కొలత_t కొలత_4,పూర్ణాంకం _Radix);
+#అయితే_ముగింపు
+  _CRTIMP errno_t __cdecl _ltoa_s(దీర్ఘ _Val,అక్షరం *_DstBuf,కొలత_t కొలత_4,పూర్ణాంకం _Radix);
+  _CRTIMP errno_t __cdecl mbstowcs_s(కొలత_t *Pt_అంకె_యొక్క_Char_Converted,wchar_t *_DstBuf,కొలత_t కొలత_లోపల_పదాలు,స్థిరరాశి అక్షరం *_SrcBuf,కొలత_t Max_లెక్క);
+  _CRTIMP errno_t __cdecl _mbstowcs_s_l(కొలత_t *Pt_అంకె_యొక్క_Char_Converted,wchar_t *_DstBuf,కొలత_t కొలత_లోపల_పదాలు,స్థిరరాశి అక్షరం *_SrcBuf,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _ultoa_s(గుర్తులేని దీర్ఘ _Val,అక్షరం *_DstBuf,కొలత_t కొలత_4,పూర్ణాంకం _Radix);
+  _CRTIMP errno_t __cdecl _wctomb_s_l(పూర్ణాంకం *కొలత_Converted,అక్షరం *_MbCh,కొలత_t కొలత_లోపల_బైట్లు,wchar_t _WCh,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl wcstombs_s(కొలత_t *Pt_అంకె_యొక్క_Char_Converted,అక్షరం *_Dst,కొలత_t Dst_కొలత_లోపల_బైట్లు,స్థిరరాశి wchar_t *_Src,కొలత_t Max_లెక్క_లోపల_బైట్లు);
+  _CRTIMP errno_t __cdecl _wcstombs_s_l(కొలత_t *Pt_అంకె_యొక్క_Char_Converted,అక్షరం *_Dst,కొలత_t Dst_కొలత_లోపల_బైట్లు,స్థిరరాశి wchar_t *_Src,కొలత_t Max_లెక్క_లోపల_బైట్లు,_locale_t _Locale);
 
-#ifndef _WSTDLIB_S_DEFINED
-#define _WSTDLIB_S_DEFINED
-  _CRTIMP errno_t __cdecl _itow_s (int _Val,wchar_t *_DstBuf,size_t _SizeInWords,int _Radix);
-  _CRTIMP errno_t __cdecl _ltow_s (long _Val,wchar_t *_DstBuf,size_t _SizeInWords,int _Radix);
-  _CRTIMP errno_t __cdecl _ultow_s (unsigned long _Val,wchar_t *_DstBuf,size_t _SizeInWords,int _Radix);
-  _CRTIMP errno_t __cdecl _wgetenv_s(size_t *_ReturnSize,wchar_t *_DstBuf,size_t _DstSizeInWords,const wchar_t *_VarName);
-  _CRTIMP errno_t __cdecl _wdupenv_s(wchar_t **_Buffer,size_t *_BufferSizeInWords,const wchar_t *_VarName);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _i64tow_s(__int64 _Val,wchar_t *_DstBuf,size_t _SizeInWords,int _Radix);
-  _CRTIMP errno_t __cdecl _ui64tow_s(unsigned __int64 _Val,wchar_t *_DstBuf,size_t _SizeInWords,int _Radix);
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _WSTDLIB_S_DEFINED
+#నిర్వచించు _WSTDLIB_S_DEFINED
+  _CRTIMP errno_t __cdecl _itow_s (పూర్ణాంకం _Val,wchar_t *_DstBuf,కొలత_t కొలత_లోపల_పదాలు,పూర్ణాంకం _Radix);
+  _CRTIMP errno_t __cdecl _ltow_s (దీర్ఘ _Val,wchar_t *_DstBuf,కొలత_t కొలత_లోపల_పదాలు,పూర్ణాంకం _Radix);
+  _CRTIMP errno_t __cdecl _ultow_s (గుర్తులేని దీర్ఘ _Val,wchar_t *_DstBuf,కొలత_t కొలత_లోపల_పదాలు,పూర్ణాంకం _Radix);
+  _CRTIMP errno_t __cdecl _wgetenv_s(కొలత_t *Return_కొలత,wchar_t *_DstBuf,కొలత_t Dst_కొలత_లోపల_పదాలు,స్థిరరాశి wchar_t *_VarName);
+  _CRTIMP errno_t __cdecl _wdupenv_s(wchar_t **బఫరు_2,కొలత_t *బఫరు_కొలత_లోపల_పదాలు,స్థిరరాశి wchar_t *_VarName);
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+  _CRTIMP errno_t __cdecl _i64tow_s(__int64 _Val,wchar_t *_DstBuf,కొలత_t కొలత_లోపల_పదాలు,పూర్ణాంకం _Radix);
+  _CRTIMP errno_t __cdecl _ui64tow_s(గుర్తులేని __int64 _Val,wchar_t *_DstBuf,కొలత_t కొలత_లోపల_పదాలు,పూర్ణాంకం _Radix);
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _POSIX_
-  _CRTIMP errno_t __cdecl _ecvt_s(char *_DstBuf,size_t _Size,double _Val,int _NumOfDights,int *_PtDec,int *_PtSign);
-  _CRTIMP errno_t __cdecl _fcvt_s(char *_DstBuf,size_t _Size,double _Val,int _NumOfDec,int *_PtDec,int *_PtSign);
-  _CRTIMP errno_t __cdecl _gcvt_s(char *_DstBuf,size_t _Size,double _Val,int _NumOfDigits);
-  _CRTIMP errno_t __cdecl _makepath_s(char *_PathResult,size_t _Size,const char *_Drive,const char *_Dir,const char *_Filename,const char *_Ext);
-  _CRTIMP errno_t __cdecl _putenv_s(const char *_Name,const char *_Value);
-  _CRTIMP errno_t __cdecl _searchenv_s(const char *_Filename,const char *_EnvVar,char *_ResultPath,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _splitpath_s(const char *_FullPath,char *_Drive,size_t _DriveSize,char *_Dir,size_t _DirSize,char *_Filename,size_t _FilenameSize,char *_Ext,size_t _ExtSize);
+#నిర్వచితం_కాకపోతే _POSIX_
+  _CRTIMP errno_t __cdecl _ecvt_s(అక్షరం *_DstBuf,కొలత_t కొలత_4,ద్విగుణ _Val,పూర్ణాంకం అంకె_యొక్క_Dights,పూర్ణాంకం *_PtDec,పూర్ణాంకం *_PtSign);
+  _CRTIMP errno_t __cdecl _fcvt_s(అక్షరం *_DstBuf,కొలత_t కొలత_4,ద్విగుణ _Val,పూర్ణాంకం అంకె_యొక్క_Dec,పూర్ణాంకం *_PtDec,పూర్ణాంకం *_PtSign);
+  _CRTIMP errno_t __cdecl _gcvt_s(అక్షరం *_DstBuf,కొలత_t కొలత_4,ద్విగుణ _Val,పూర్ణాంకం అంకె_యొక్క_Digits);
+  _CRTIMP errno_t __cdecl _makepath_s(అక్షరం *మార్గం_ఫలితం,కొలత_t కొలత_4,స్థిరరాశి అక్షరం *_Drive,స్థిరరాశి అక్షరం *_Dir,స్థిరరాశి అక్షరం *_Filename,స్థిరరాశి అక్షరం *_Ext);
+  _CRTIMP errno_t __cdecl _putenv_s(స్థిరరాశి అక్షరం *_Name,స్థిరరాశి అక్షరం *విలువ_2);
+  _CRTIMP errno_t __cdecl _searchenv_s(స్థిరరాశి అక్షరం *_Filename,స్థిరరాశి అక్షరం *_EnvVar,అక్షరం *ఫలితం_మార్గం,కొలత_t కొలత_లోపల_బైట్లు);
+  _CRTIMP errno_t __cdecl _splitpath_s(స్థిరరాశి అక్షరం *నిండిన_మార్గం,అక్షరం *_Drive,కొలత_t Drive_కొలత,అక్షరం *_Dir,కొలత_t Dir_కొలత,అక్షరం *_Filename,కొలత_t Filename_కొలత,అక్షరం *_Ext,కొలత_t Ext_కొలత);
 
-#ifndef _WSTDLIBP_S_DEFINED
-#define _WSTDLIBP_S_DEFINED
-  _CRTIMP errno_t __cdecl _wmakepath_s(wchar_t *_PathResult,size_t _SizeInWords,const wchar_t *_Drive,const wchar_t *_Dir,const wchar_t *_Filename,const wchar_t *_Ext);
-  _CRTIMP errno_t __cdecl _wputenv_s(const wchar_t *_Name,const wchar_t *_Value);
-  _CRTIMP errno_t __cdecl _wsearchenv_s(const wchar_t *_Filename,const wchar_t *_EnvVar,wchar_t *_ResultPath,size_t _SizeInWords);
-  _CRTIMP errno_t __cdecl _wsplitpath_s(const wchar_t *_FullPath,wchar_t *_Drive,size_t _DriveSizeInWords,wchar_t *_Dir,size_t _DirSizeInWords,wchar_t *_Filename,size_t _FilenameSizeInWords,wchar_t *_Ext,size_t _ExtSizeInWords);
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _WSTDLIBP_S_DEFINED
+#నిర్వచించు _WSTDLIBP_S_DEFINED
+  _CRTIMP errno_t __cdecl _wmakepath_s(wchar_t *మార్గం_ఫలితం,కొలత_t కొలత_లోపల_పదాలు,స్థిరరాశి wchar_t *_Drive,స్థిరరాశి wchar_t *_Dir,స్థిరరాశి wchar_t *_Filename,స్థిరరాశి wchar_t *_Ext);
+  _CRTIMP errno_t __cdecl _wputenv_s(స్థిరరాశి wchar_t *_Name,స్థిరరాశి wchar_t *విలువ_2);
+  _CRTIMP errno_t __cdecl _wsearchenv_s(స్థిరరాశి wchar_t *_Filename,స్థిరరాశి wchar_t *_EnvVar,wchar_t *ఫలితం_మార్గం,కొలత_t కొలత_లోపల_పదాలు);
+  _CRTIMP errno_t __cdecl _wsplitpath_s(స్థిరరాశి wchar_t *నిండిన_మార్గం,wchar_t *_Drive,కొలత_t Drive_కొలత_లోపల_పదాలు,wchar_t *_Dir,కొలత_t Dir_కొలత_లోపల_పదాలు,wchar_t *_Filename,కొలత_t Filename_కొలత_లోపల_పదాలు,wchar_t *_Ext,కొలత_t Ext_కొలత_లోపల_పదాలు);
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు

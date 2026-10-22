@@ -1,53 +1,53 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
-} Node;
+రకనిర్వచనం నిర్మాణం {
+    పూర్ణాంకం దత్తాంశం[4];
+    ద్విగుణ d1;
+    ద్విగుణ d2;
+} కణుపు_2;
 
-typedef struct {
-    int a, b, c;
+రకనిర్వచనం నిర్మాణం {
+    పూర్ణాంకం a, b, c;
 } A;
 
-Node init(Node self) {
-    self.data[0] = 0;
-    self.data[1] = 1;
-    self.data[2] = 2;
-    self.data[3] = 3;
+కణుపు_2 init(కణుపు_2 self) {
+    self.దత్తాంశం[0] = 0;
+    self.దత్తాంశం[1] = 1;
+    self.దత్తాంశం[2] = 2;
+    self.దత్తాంశం[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    తిరిగి self;
 }
 
-void dummy(Node self) {
+శూన్య dummy(కణుపు_2 self) {
 }
 
-void print_data(Node data) {
-    printf ("%d %d %d %d %g %g\n",
-            data.data[0], data.data[1], data.data[2], data.data[3],
-            data.d1, data.d2);
+శూన్య print_దత్తాంశం(కణుపు_2 దత్తాంశం) {
+    రాయి ("%d %d %d %d %g %g\n",
+            దత్తాంశం.దత్తాంశం[0], దత్తాంశం.దత్తాంశం[1], దత్తాంశం.దత్తాంశం[2], దత్తాంశం.దత్తాంశం[3],
+            దత్తాంశం.d1, దత్తాంశం.d2);
 }
 
-A test(void)
+A test(శూన్య)
 {
-    int i;
+    పూర్ణాంకం i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    కొరకు (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    తిరిగి arr[29];
 }
 
-int main(void) {
+పూర్ణాంకం ప్రధాన(శూన్య) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    కణుపు_2 దత్తాంశం;
     A a;
-    dummy (data);
-    char val;
-    data = init (data);
-    print_data(data);
+    dummy (దత్తాంశం);
+    అక్షరం val;
+    దత్తాంశం = init (దత్తాంశం);
+    print_దత్తాంశం(దత్తాంశం);
     a = test();
-    printf("%d\n", a.b);
-    return 0;
+    రాయి("%d\n", a.b);
+    తిరిగి 0;
 }

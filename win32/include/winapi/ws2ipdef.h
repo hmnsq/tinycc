@@ -1,21 +1,21 @@
-#ifndef _WS2IPDEF_H
-#define _WS2IPDEF_H
+#నిర్వచితం_కాకపోతే _WS2IPDEF_H
+#నిర్వచించు _WS2IPDEF_H
 
-#if __GNUC__ >=3
-#pragma GCC system_header
-#endif
+#ఒకవేళ __GNUC__ >=3
+#సూచన GCC system_శీర్షిక
+#అయితే_ముగింపు
 
-#include <winsock2.h>
+#అన్తర్భావ <winsock2.h>
 
-struct ip_mreq {
-  struct in_addr imr_multiaddr;
-  struct in_addr imr_interface;
+నిర్మాణం ip_mreq {
+  నిర్మాణం లోపల_addr imr_multiaddr;
+  నిర్మాణం లోపల_addr imr_interface;
 };
 
-struct ip_mreq_source {
-  struct in_addr imr_multiaddr;
-  struct in_addr imr_sourceaddr;
-  struct in_addr imr_interface;
+నిర్మాణం ip_mreq_ఆధారం {
+  నిర్మాణం లోపల_addr imr_multiaddr;
+  నిర్మాణం లోపల_addr imr_sourceaddr;
+  నిర్మాణం లోపల_addr imr_interface;
 };
 
-#endif
+#అయితే_ముగింపు

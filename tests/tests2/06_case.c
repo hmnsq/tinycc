@@ -1,29 +1,29 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int Count;
+   పూర్ణాంకం లెక్క_3;
 
-   for (Count = 0; Count < 4; Count++)
+   కొరకు (లెక్క_3 = 0; లెక్క_3 < 4; లెక్క_3++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      రాయి("%d\n", లెక్క_3);
+      ఎంపిక (లెక్క_3)
       {
-         case 1:
-            printf("%d\n", 1);
-            break;
+         స్థితి 1:
+            రాయి("%d\n", 1);
+            ఆపు;
 
-         case 2:
-            printf("%d\n", 2);
-            break;
+         స్థితి 2:
+            రాయి("%d\n", 2);
+            ఆపు;
 
-         default:
-            printf("%d\n", 0);
-            break;
+         అప్రమేయ:
+            రాయి("%d\n", 0);
+            ఆపు;
       }
    }
 
-   return 0;
+   తిరిగి 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -1,26 +1,26 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int a;
-   char b;
+   పూర్ణాంకం a;
+   అక్షరం b;
 
    a = 0;
-   while (a < 2)
+   అయితే (a < 2)
    {
-      printf("%d", a++);
-      break;
+      రాయి("%d", a++);
+      ఆపు;
 
       b = 'A';
-      while (b < 'C')
+      అయితే (b < 'C')
       {
-         printf("%c", b++);
+         రాయి("%c", b++);
       }
-      printf("e");
+      రాయి("e");
    }
-   printf("\n");
+   రాయి("\n");
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

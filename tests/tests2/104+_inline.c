@@ -1,11 +1,11 @@
 
-#define GOT(f) \
-    __attribute__((weak)) void f(void); \
-    printf("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
+#నిర్వచించు GOT(f) \
+    __attribute__((weak)) శూన్య f(శూన్య); \
+    రాయి("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
 
-int printf(const char*, ...);
+పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం*, ...);
 
-void check_exports()
+శూన్య check_exports()
 {
     // 0
     GOT(inline_inline_2decl_only)
@@ -39,7 +39,7 @@ void check_exports()
     GOT(inst3_extern_inline_predeclared)
     GOT(inst_extern_inline_postdeclared)
     GOT(inst_extern_inline_predeclared)
-    GOT(main)
+    GOT(ప్రధాన)
     GOT(noinst_extern_inline_func)
     GOT(noinst_extern_inline_postdeclared)
     GOT(noinst_extern_inline_postdeclared2)

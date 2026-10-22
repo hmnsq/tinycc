@@ -1,8 +1,8 @@
-#!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#!/usr/local/bin/tcc -నిరంతరం
+#అన్తర్భావ <tcclib.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    printf("Hello World\n");
-    return 0;
+    రాయి("Hello World\n");
+    తిరిగి 0;
 }

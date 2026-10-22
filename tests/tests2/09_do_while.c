@@ -1,24 +1,24 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int a;
-   int p;
-   int t;
+   పూర్ణాంకం a;
+   పూర్ణాంకం p;
+   పూర్ణాంకం t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   do
+   చేయి
    {
-      printf("%d\n", a);
+      రాయి("%d\n", a);
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } అయితే (a < 100);
 
-   return 0;
+   తిరిగి 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

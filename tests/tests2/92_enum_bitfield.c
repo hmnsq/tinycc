@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
-  SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+గణన వృక్షం_సంకేతం {
+  SOME_సంకేతం = 148, /* has bit 7 set, and hence all further enum values as well */
+  చివరి_AND_వాడని_వృక్షం_సంకేతం
 };
-typedef union tree_node *tree;
-struct tree_common
+రకనిర్వచనం సంఘం వృక్ష_కణుపు *వృక్షం_2;
+నిర్మాణం వృక్షం_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
-  unsigned side_effects_flag : 1;
+  సంఘం వృక్ష_కణుపు *chain;
+  సంఘం వృక్ష_కణుపు *type;
+  గణన వృక్షం_సంకేతం సంకేతం_2 : 8;
+  గుర్తులేని side_effects_flag : 1;
 };
-union tree_node
+సంఘం వృక్ష_కణుపు
 {
-  struct tree_common common;
+  నిర్మాణం వృక్షం_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+గణన c_వృక్షం_సంకేతం {
+  C_DUMMY_వృక్షం_సంకేతం = చివరి_AND_వాడని_వృక్షం_సంకేతం,
+  STMT_సమాసం,
+  చివరి_C_వృక్షం_సంకేతం
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+గణన cplus_వృక్షం_సంకేతం {
+  CP_DUMMY_వృక్షం_సంకేతం = చివరి_C_వృక్షం_సంకేతం,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  చివరి_CPLUS_వృక్షం_సంకేతం
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+బాహ్య పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం *, ...);
+పూర్ణాంకం blah(){తిరిగి 0;}
 
-int convert_like_real (tree convs)
+పూర్ణాంకం convert_like_real (వృక్షం_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  ఎంపిక (((గణన వృక్షం_సంకేతం) (convs)->common.సంకేతం_2))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    స్థితి AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      తిరిగి blah();
+    అప్రమేయ:
+      ఆపు;
     };
-   printf("unsigned enum bit-fields broken\n");
-   return 0;
+   రాయి("unsigned enum bit-fields broken\n");
+   తిరిగి 0;
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-  union tree_node convs;
+  సంఘం వృక్ష_కణుపు convs;
 
-  convs.common.code = AMBIG_CONV;
+  convs.common.సంకేతం_2 = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  తిరిగి 0;
 }

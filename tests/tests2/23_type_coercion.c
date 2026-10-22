@@ -1,21 +1,21 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-void charfunc(char a)
+శూన్య charfunc(అక్షరం a)
 {
-   printf("char: %c\n", a);
+   రాయి("char: %c\n", a);
 }
 
-void intfunc(int a)
+శూన్య intfunc(పూర్ణాంకం a)
 {
-   printf("int: %d\n", a);
+   రాయి("int: %d\n", a);
 }
 
-void floatfunc(float a)
+శూన్య floatfunc(దశాంశం a)
 {
-   printf("float: %f\n", a);
+   రాయి("float: %f\n", a);
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
    charfunc('a');
    charfunc(98);
@@ -33,22 +33,22 @@ int main()
    /* printf("%c %d %f\n", 97, 98, 99); */
    /* printf("%c %d %f\n", 97.0, 98.0, 99.0); */
 
-   char b = 97;
-   char c = 97.0;
+   అక్షరం b = 97;
+   అక్షరం c = 97.0;
 
-   printf("%d %d\n", b, c);
+   రాయి("%d %d\n", b, c);
 
-   int d = 'a';
-   int e = 97.0;
+   పూర్ణాంకం d = 'a';
+   పూర్ణాంకం e = 97.0;
 
-   printf("%d %d\n", d, e);
+   రాయి("%d %d\n", d, e);
 
-   float f = 'a';
-   float g = 97;
+   దశాంశం f = 'a';
+   దశాంశం g = 97;
 
-   printf("%f %f\n", f, g);
+   రాయి("%f %f\n", f, g);
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

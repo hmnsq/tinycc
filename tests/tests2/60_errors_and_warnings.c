@@ -1,77 +1,77 @@
-int printf(const char*, ...);
+పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం*, ...);
 
-#if defined test_56_btype_excess_1
-struct A {} int i;
-#elif defined test_57_btype_excess_2
-char int i;
-#elif defined test_58_function_redefinition
-int f(void) { return 0; }
-int f(void) { return 1; }
+#ఒకవేళ defined test_56_btype_excess_1
+నిర్మాణం A {} పూర్ణాంకం i;
+#లేదావేళ defined test_57_btype_excess_2
+అక్షరం పూర్ణాంకం i;
+#లేదావేళ defined test_58_function_redefinition
+పూర్ణాంకం f(శూన్య) { తిరిగి 0; }
+పూర్ణాంకం f(శూన్య) { తిరిగి 1; }
 
-#elif defined test_global_redefinition
-int xxx = 1;
-int xxx;
-int xxx = 2;
+#లేదావేళ defined test_global_redefinition
+పూర్ణాంకం xxx = 1;
+పూర్ణాంకం xxx;
+పూర్ణాంకం xxx = 2;
 
-#elif defined test_59_function_array
-int (*fct)[42](int x);
+#లేదావేళ defined test_59_function_array
+పూర్ణాంకం (*fct)[42](పూర్ణాంకం x);
 
-#elif defined test_60_enum_redefinition
-enum color { RED, GREEN, BLUE };
-enum color { R, G, B };
-enum color c;
+#లేదావేళ defined test_60_enum_redefinition
+గణన color { RED, GREEN, BLUE };
+గణన color { R, G, B };
+గణన color c;
 
-#elif defined test_62_enumerator_redefinition
-enum color { RED, GREEN, BLUE };
-enum rgb { RED, G, B};
-enum color c = RED;
+#లేదావేళ defined test_62_enumerator_redefinition
+గణన color { RED, GREEN, BLUE };
+గణన rgb { RED, G, B};
+గణన color c = RED;
 
-#elif defined test_63_local_enumerator_redefinition
-enum {
+#లేదావేళ defined test_63_local_enumerator_redefinition
+గణన {
     FOO,
     BAR
 };
 
-int main(void)
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
-    enum {
+    గణన {
         FOO = 2,
         BAR
     };
 
-    return BAR - FOO;
+    తిరిగి BAR - FOO;
 }
 
-#elif defined test_61_undefined_enum
-enum rgb3 c = 42;
+#లేదావేళ defined test_61_undefined_enum
+గణన rgb3 c = 42;
 
-#elif defined test_74_non_const_init
-int i = i++;
+#లేదావేళ defined test_74_non_const_init
+పూర్ణాంకం i = i++;
 
-#elif defined test_pointer_assignment
+#లేదావేళ defined test_సూచిక_assignment
 
-void (*f1)(void);
-void f2(void) {}
+శూన్య (*f1)(శూన్య);
+శూన్య f2(శూన్య) {}
 
-struct s1 *ps1;
-struct s2 *ps2;
+నిర్మాణం s1 *ps1;
+నిర్మాణం s2 *ps2;
 
-void *v1, **v2, ***v3;
+శూన్య *v1, **v2, ***v3;
 
-enum e1 { a = 4 } e10, *e11, *e12;
-enum e2 { b = -4 } e20, *e21;
-enum e3 { c = 5000000000LL } e30;
+గణన e1 { a = 4 } e10, *e11, *e12;
+గణన e2 { b = -4 } e20, *e21;
+గణన e3 { c = 5000000000LL } e30;
 
-int *ip;
-unsigned int *up;
-long *lp;
-long long *llp;
+పూర్ణాంకం *ip;
+గుర్తులేని పూర్ణాంకం *పైకి;
+దీర్ఘ *lp;
+దీర్ఘ దీర్ఘ *llp;
 
-char **c1;
-char const **c2;
-unsigned char **u1;
+అక్షరం **c1;
+అక్షరం స్థిరరాశి **c2;
+గుర్తులేని అక్షరం **u1;
 
-int no_main ()
+పూర్ణాంకం no_main ()
 {
     // function
     f1 = f2;
@@ -87,9 +87,9 @@ int no_main ()
     e11 = &e10;
     ip = &e10;
     ip = &e20;
-    up = &e10;
-    up = &e20;
-    up = &e30;
+    పైకి = &e10;
+    పైకి = &e20;
+    పైకి = &e30;
 
     lp = ip;
     lp = llp;
@@ -108,570 +108,570 @@ int no_main ()
     *c2 = *c1;
     **c2 = **c1;
 
-    return 0;
+    తిరిగి 0;
 }
 
 
-#elif defined test_enum_compat
-enum e4;
-enum e5;
-void f3(enum e4 e);
-void f3(enum e5 e);
+#లేదావేళ defined test_enum_compat
+గణన e4;
+గణన e5;
+శూన్య f3(గణన e4 e);
+శూన్య f3(గణన e5 e);
 
-#elif defined test_enum_compat_2
-enum e6 { E1 = -1, E0 };
-void f3(enum e6);
-void f3(int);        // should work as int and e6 are compatible
-void f4(enum e6 e);
-void f4(unsigned e); // should error as unsigned and e6 are incompatible
+#లేదావేళ defined test_enum_compat_2
+గణన e6 { E1 = -1, E0 };
+శూన్య f3(గణన e6);
+శూన్య f3(పూర్ణాంకం);        // should work as int and e6 are compatible
+శూన్య f4(గణన e6 e);
+శూన్య f4(గుర్తులేని e); // should error as unsigned and e6 are incompatible
 
-#elif defined test_ptr_to_str
-void f() { _Generic((int const *[]){0}, int:0); }
-#elif defined test_fnptr_to_str
-void f() { _Generic((int (*(*)(float,char))(double,int)){0}, int:0); }
-#elif defined test_array_to_str
-void f() { _Generic((int(*)[3]){0}, int:0); }
-#elif defined test_duplicate_def_1
-static enum myenum { L = -1 } L;                                                
-#elif defined test_duplicate_def_2
-void foo(void) {
-static enum myenum { L = -1 } L;                                                
+#లేదావేళ defined test_ptr_గమ్యం_str
+శూన్య f() { _Generic((పూర్ణాంకం స్థిరరాశి *[]){0}, పూర్ణాంకం:0); }
+#లేదావేళ defined test_fnptr_గమ్యం_str
+శూన్య f() { _Generic((పూర్ణాంకం (*(*)(దశాంశం,అక్షరం))(ద్విగుణ,పూర్ణాంకం)){0}, పూర్ణాంకం:0); }
+#లేదావేళ defined test_array_గమ్యం_str
+శూన్య f() { _Generic((పూర్ణాంకం(*)[3]){0}, పూర్ణాంకం:0); }
+#లేదావేళ defined test_duplicate_def_1
+స్థిర గణన myenum { L = -1 } L;                                                
+#లేదావేళ defined test_duplicate_def_2
+శూన్య foo(శూన్య) {
+స్థిర గణన myenum { L = -1 } L;                                                
 }
-#elif defined test_abstract_decls
-int bar(const char *());     // abstract declarator here is okay
-int bar (const char *(*g)()) // should match this 'g' argument
+#లేదావేళ defined test_abstract_decls
+పూర్ణాంకం bar(స్థిరరాశి అక్షరం *());     // abstract declarator here is okay
+పూర్ణాంకం bar (స్థిరరాశి అక్షరం *(*g)()) // should match this 'g' argument
 {
   g();
-  return 42;
+  తిరిగి 42;
 }
-int foo(int ())              // abstract decl is wrong in definitions
+పూర్ణాంకం foo(పూర్ణాంకం ())              // abstract decl is wrong in definitions
 {
-  return 0;
-#elif defined test_invalid_1
-void f(char*);
-void g(void) {
-  f((char[]){1, ,});
+  తిరిగి 0;
+#లేదావేళ defined test_invalid_1
+శూన్య f(అక్షరం*);
+శూన్య g(శూన్య) {
+  f((అక్షరం[]){1, ,});
 }
-#elif defined test_invalid_2
-int ga = 0.42 { 2 };
-#elif defined test_invalid_3
-struct S { int a, b; };
-struct T { struct S x; };
-struct T gt = { 42 a: 1, 43 };
-#elif defined test_invalid_4
-enum E {
+#లేదావేళ defined test_invalid_2
+పూర్ణాంకం ga = 0.42 { 2 };
+#లేదావేళ defined test_invalid_3
+నిర్మాణం S { పూర్ణాంకం a, b; };
+నిర్మాణం T { నిర్మాణం S x; };
+నిర్మాణం T gt = { 42 a: 1, 43 };
+#లేదావేళ defined test_invalid_4
+గణన E {
     x = 1 / 0
 };
-#elif defined test_conflicting_types
-int i;
-void foo(void) {
-    int i;
+#లేదావేళ defined test_conflicting_types
+పూర్ణాంకం i;
+శూన్య foo(శూన్య) {
+    పూర్ణాంకం i;
       {
-        extern double i;
+        బాహ్య ద్విగుణ i;
         i = 42.2;
       }
 }
-#elif defined test_nested_types
-union u {
-    union u {
-        int i;
+#లేదావేళ defined test_nested_types
+సంఘం u {
+    సంఘం u {
+        పూర్ణాంకం i;
     } m;
 };
-#elif defined test_vla_1
-int X=1;
+#లేదావేళ defined test_vla_1
+పూర్ణాంకం X=1;
 
-int main(void) {
-  int t[][][X];
+పూర్ణాంకం ప్రధాన(శూన్య) {
+  పూర్ణాంకం t[][][X];
 }
-#elif defined test_invalid_alignas
+#లేదావేళ defined test_invalid_alignas
 /* _Alignas is no type qualifier */
-void * _Alignas(16) p1;
+శూన్య * _Alignas(16) p1;
 
-#elif defined test_static_assert
+#లేదావేళ defined test_static_assert
 
-#define ONE 0
+#నిర్వచించు ONE 0
  _Static_assert(ONE == 0, "don't show me this");
- struct x{ _Static_assert(ONE == 1, "ONE is not 1"); };
+ నిర్మాణం x{ _Static_assert(ONE == 1, "ONE is not 1"); };
 
-#elif defined test_static_assert_2
+#లేదావేళ defined test_static_assert_2
  _Static_assert(1, "1"" is 1");
-struct y {  _Static_assert(0, "0"" is 0"); };
+నిర్మాణం y {  _Static_assert(0, "0"" is 0"); };
 
-#elif defined test_static_assert_c2x
+#లేదావేళ defined test_static_assert_c2x
  _Static_assert(1);
-struct z {  _Static_assert(0); }
+నిర్మాణం z {  _Static_assert(0); }
 
-#elif defined test_static_assert_empty_string
+#లేదావేళ defined test_static_assert_ఖాళీలు_string
  _Static_assert(0,"");
 
-#elif defined test_void_array
- void t[3];
+#లేదావేళ defined test_void_array
+ శూన్య t[3];
 
-#elif defined test_incomplete_enum_array
-  enum e t[3];
+#లేదావేళ defined test_incomplete_enum_array
+  గణన e t[3];
 
-#elif defined test_incomplete_struct_array
-  struct s t[3];
+#లేదావేళ defined test_incomplete_struct_array
+  నిర్మాణం s t[3];
 
-#elif defined test_const_fun_array
-  typedef void f(void);
-  const f t[3];
+#లేదావేళ defined test_const_fun_array
+  రకనిర్వచనం శూన్య f(శూన్య);
+  స్థిరరాశి f t[3];
 
-#elif defined test_incomplete_array_array
-  int t[][3]; // gr: not an error, see below
-
-/******************************************************************/
-#elif defined test_extern_array
-int iii[] = { 1,2,3 };
-extern int iii[];
-int x[];
-int x[2];
-int x[];
-int x[2];
-int x[];
-extern int x[2];
-extern int x[];
-int x[3];
+#లేదావేళ defined test_incomplete_array_array
+  పూర్ణాంకం t[][3]; // gr: not an error, see below
 
 /******************************************************************/
-#elif defined test_func_1 \
+#లేదావేళ defined test_extern_array
+పూర్ణాంకం iii[] = { 1,2,3 };
+బాహ్య పూర్ణాంకం iii[];
+పూర్ణాంకం x[];
+పూర్ణాంకం x[2];
+పూర్ణాంకం x[];
+పూర్ణాంకం x[2];
+పూర్ణాంకం x[];
+బాహ్య పూర్ణాంకం x[2];
+బాహ్య పూర్ణాంకం x[];
+పూర్ణాంకం x[3];
+
+/******************************************************************/
+#లేదావేళ defined test_func_1 \
  || defined test_func_2 \
  || defined test_func_3 \
  || defined test_func_4 \
  || defined test_func_5 \
  || defined test_func_6
-#if defined test_func_1
-int hello(int);
-#elif defined test_func_4
-static int hello(int);
-#endif
-int main () {
-#if defined test_func_6
-    static
-#endif
-    int hello(int);
+#ఒకవేళ defined test_func_1
+పూర్ణాంకం hello(పూర్ణాంకం);
+#లేదావేళ defined test_func_4
+స్థిర పూర్ణాంకం hello(పూర్ణాంకం);
+#అయితే_ముగింపు
+పూర్ణాంకం ప్రధాన () {
+#ఒకవేళ defined test_func_6
+    స్థిర
+#అయితే_ముగింపు
+    పూర్ణాంకం hello(పూర్ణాంకం);
     hello(123);
-    return 0;
+    తిరిగి 0;
 }
 
-#if defined test_func_3
-static int hello(int a)
-#elif defined test_func_5
-int hello(int a, int b)
-#else
-int hello(int a)
-#endif
-{ printf("%s: a = %d\n", __FUNCTION__, a); return 0; }
+#ఒకవేళ defined test_func_3
+స్థిర పూర్ణాంకం hello(పూర్ణాంకం a)
+#లేదావేళ defined test_func_5
+పూర్ణాంకం hello(పూర్ణాంకం a, పూర్ణాంకం b)
+#లేకపోతే
+పూర్ణాంకం hello(పూర్ణాంకం a)
+#అయితే_ముగింపు
+{ రాయి("%s: a = %d\n", __FUNCTION__, a); తిరిగి 0; }
 
 /******************************************************************/
-#elif defined test_var_1 \
+#లేదావేళ defined test_var_1 \
    || defined test_var_2 \
    || defined test_var_3
-#define P(n,v) printf("%-5s: %d ; %d\n", __FUNCTION__, n, v)
-#if defined test_var_1
-int xxx[];
-#endif
-int bar();
+#నిర్వచించు P(n,v) రాయి("%-5s: %d ; %d\n", __FUNCTION__, n, v)
+#ఒకవేళ defined test_var_1
+పూర్ణాంకం xxx[];
+#అయితే_ముగింపు
+పూర్ణాంకం bar();
 
-int main ()
+పూర్ణాంకం ప్రధాన ()
 {
-#if !defined test_var_3
-    int xxx = 2;
-#endif
+#ఒకవేళ !defined test_var_3
+    పూర్ణాంకం xxx = 2;
+#అయితే_ముగింపు
     {
-        extern int xxx[
-#if defined test_var_3
+        బాహ్య పూర్ణాంకం xxx[
+#ఒకవేళ defined test_var_3
         2
-#endif
+#అయితే_ముగింపు
         ];
         P(1, xxx[0]);
         xxx[0] += 2;
     }
-#if !defined test_var_3
+#ఒకవేళ !defined test_var_3
     P(2, xxx);
-#endif
+#అయితే_ముగింపు
     bar(123);
-    return 0;
+    తిరిగి 0;
 }
-int xxx[1] = {1};
-int bar() { P(3, xxx[0]); return 0; }
+పూర్ణాంకం xxx[1] = {1};
+పూర్ణాంకం bar() { P(3, xxx[0]); తిరిగి 0; }
 
-#elif defined test_var_4
-struct yyy { int y; };
-struct zzz;
-void f1() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+#లేదావేళ defined test_var_4
+నిర్మాణం yyy { పూర్ణాంకం y; };
+నిర్మాణం zzz;
+శూన్య f1() {
+    బాహ్య అక్షరం *x;
+    బాహ్య అక్షరం **xx;
+    బాహ్య నిర్మాణం yyy y;
+    బాహ్య నిర్మాణం yyy *yy;
+    బాహ్య నిర్మాణం zzz z;
+    బాహ్య నిర్మాణం zzz *zz;
 }
-void f2() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+శూన్య f2() {
+    బాహ్య అక్షరం *x;
+    బాహ్య అక్షరం **xx;
+    బాహ్య నిర్మాణం yyy y;
+    బాహ్య నిర్మాణం yyy *yy;
+    బాహ్య నిర్మాణం zzz z;
+    బాహ్య నిర్మాణం zzz *zz;
 }
-struct yyy y, *yy;
-struct zzz { int z; } z, *zz;
+నిర్మాణం yyy y, *yy;
+నిర్మాణం zzz { పూర్ణాంకం z; } z, *zz;
 
 /******************************************************************/
-#elif defined test_long_double_type_for_win32
+#లేదావేళ defined test_long_double_type_for_win32
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    double *a = 0;
-    long double *b = a;
-    int n = _Generic(*a, double:0, long double:1);
+    ద్విగుణ *a = 0;
+    దీర్ఘ ద్విగుణ *b = a;
+    పూర్ణాంకం n = _Generic(*a, ద్విగుణ:0, దీర్ఘ ద్విగుణ:1);
 }
 
-#elif defined test_stray_backslash
-#define x \a
+#లేదావేళ defined test_stray_backslash
+#నిర్వచించు x \a
 x
 
-#elif defined test_stray_backslash2
+#లేదావేళ defined test_stray_backslash2
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-#define _S(x) #x
-#define S(x) _S(x)
-    printf("%sn\n", S(\\));
+#నిర్వచించు _S(x) #x
+#నిర్వచించు S(x) _S(x)
+    రాయి("%sn\n", S(\\));
 }
 
 /******************************************************************/
-#elif defined test_var_array
+#లేదావేళ defined test_var_array
 
-static struct var_len { int i; const char str[]; } var_array[] =
+స్థిర నిర్మాణం var_len { పూర్ణాంకం i; స్థిరరాశి అక్షరం str[]; } var_array[] =
 { { 1, "abcdefghijklmnopqrstuvwxyz" },
   { 2, "longlonglonglonglong" },
   { 3, "tst3" } };
 
-#elif defined test_var_array2
+#లేదావేళ defined test_var_array2
 
-struct c1 { int a; int b[]; };
-struct c1 c1 = { 1, { 2, 3, 4 } };
+నిర్మాణం c1 { పూర్ణాంకం a; పూర్ణాంకం b[]; };
+నిర్మాణం c1 c1 = { 1, { 2, 3, 4 } };
 
-struct c2 { int c; struct c1 c1; };
-struct c2 c2 = { 1, { 2, { 3, 4, 5 }}};
+నిర్మాణం c2 { పూర్ణాంకం c; నిర్మాణం c1 c1; };
+నిర్మాణం c2 c2 = { 1, { 2, { 3, 4, 5 }}};
 
-#elif defined test_var_array3
+#లేదావేళ defined test_var_array3
 /* similar to test_var_array2 but with string initializers */
-struct A { int a; char b[]; };
-struct A a = { 1, "1" };
-struct B { struct A a; };
-struct B b = { { 1, "1" } };
+నిర్మాణం A { పూర్ణాంకం a; అక్షరం b[]; };
+నిర్మాణం A a = { 1, "1" };
+నిర్మాణం B { నిర్మాణం A a; };
+నిర్మాణం B b = { { 1, "1" } };
 /******************************************************************/
-#elif defined test_default_int_type
+#లేదావేళ defined test_default_int_type
 n; // warn
 f(); // don't warn
 
-#elif defined test_invalid_global_stmtexpr
-n[sizeof({3;})]; // crashed in block() due to missing local scope
+#లేదావేళ defined test_invalid_global_stmtexpr
+n[పరిమాణం({3;})]; // crashed in block() due to missing local scope
 
-#elif defined test_invalid_tokckill
+#లేదావేళ defined test_invalid_tokckill
 f(){"12"3;} // second const token killed the value of the first
 
 /******************************************************************/
-#elif defined test_duplicate_member
-struct S {
-  int a, a;
+#లేదావేళ defined test_duplicate_member
+నిర్మాణం S {
+  పూర్ణాంకం a, a;
 };
-#elif defined test_duplicate_member_anon
-struct S1 {
-  int b;
-  struct {
-    int b;
+#లేదావేళ defined test_duplicate_member_anon
+నిర్మాణం S1 {
+  పూర్ణాంకం b;
+  నిర్మాణం {
+    పూర్ణాంకం b;
   } c;
 };
-struct S2 {
-  int d;
-  struct {
-    int d;
+నిర్మాణం S2 {
+  పూర్ణాంకం d;
+  నిర్మాణం {
+    పూర్ణాంకం d;
   };
 };
 
 /******************************************************************/
-#elif defined test_conflicting_array_definition
-extern int array[2];
-int array[] = { 1, 2, 3 };
+#లేదావేళ defined test_conflicting_array_definition
+బాహ్య పూర్ణాంకం array[2];
+పూర్ణాంకం array[] = { 1, 2, 3 };
 
-#elif defined test_incompatible_local_redef
-void foo (void)
+#లేదావేళ defined test_incompatible_local_redef
+శూన్య foo (శూన్య)
 {
-  typedef int localfunctype (int);
-  extern localfunctype func2;
-  typedef void localfunctype (int, int);
+  రకనిర్వచనం పూర్ణాంకం localfunctype (పూర్ణాంకం);
+  బాహ్య localfunctype func2;
+  రకనిర్వచనం శూన్య localfunctype (పూర్ణాంకం, పూర్ణాంకం);
 }
 
-#elif defined test_cast_from_void
-void v() {}
-int f() { return v(); }
+#లేదావేళ defined test_cast_from_void
+శూన్య v() {}
+పూర్ణాంకం f() { తిరిగి v(); }
 
-#elif defined test_switch_W1 || defined test_switch_W2 \
+#లేదావేళ defined test_switch_W1 || defined test_switch_W2 \
    || defined test_switch_W3 || defined test_switch_W4
-#if defined test_switch_W1
-#pragma comment(option, "-Wall")
-#elif defined test_switch_W2
-#pragma comment(option, "-Wunsupported -Wno-implicit-function-declaration -Wstuff")
-#elif defined test_switch_W3
-#pragma comment(option, "-Wwrite-strings -Werror=discarded-qualifiers")
-#elif defined test_switch_W4
-#pragma comment(option, "-Wunsupported -Wno-error=implicit-function-declaration -Werror")
-#endif
-void func(void)
+#ఒకవేళ defined test_switch_W1
+#సూచన comment(option, "-Wall")
+#లేదావేళ defined test_switch_W2
+#సూచన comment(option, "-Wunsupported -Wno-implicit-function-declaration -Wstuff")
+#లేదావేళ defined test_switch_W3
+#సూచన comment(option, "-Wwrite-strings -Werror=discarded-qualifiers")
+#లేదావేళ defined test_switch_W4
+#సూచన comment(option, "-Wunsupported -Wno-error=implicit-function-declaration -Werror")
+#అయితే_ముగింపు
+శూన్య func(శూన్య)
 {
-    char *ccp = "123";
+    అక్షరం *ccp = "123";
     fink();
 }
-__attribute__((stuff)) int fink() {return 0;}
+__attribute__((stuff)) పూర్ణాంకం fink() {తిరిగి 0;}
 
-#elif defined test_invalid_funcparam_1
-void func(int a, int b, int a);
+#లేదావేళ defined test_invalid_funcparam_1
+శూన్య func(పూర్ణాంకం a, పూర్ణాంకం b, పూర్ణాంకం a);
 
-#elif defined test_invalid_funcparam_2
-void func(int a, int if);
+#లేదావేళ defined test_invalid_funcparam_2
+శూన్య func(పూర్ణాంకం a, పూర్ణాంకం ఒకవేళ);
 
-#elif defined test_array_funcparam
-int amain(int argc, char *argv[static argc + 1])
+#లేదావేళ defined test_array_funcparam
+పూర్ణాంకం amain(పూర్ణాంకం argc, అక్షరం *argv[స్థిర argc + 1])
 {
-    int i;
+    పూర్ణాంకం i;
 
-    for (i = 0; i < argc; ++i)
-        printf("arg[%d] = \"%s\"\n", i, argv[i]);
-    return 0;
+    కొరకు (i = 0; i < argc; ++i)
+        రాయి("arg[%d] = \"%s\"\n", i, argv[i]);
+    తిరిగి 0;
 }
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    return amain(2, (char *[]){ "X", "Y", 0 });
+    తిరిగి amain(2, (అక్షరం *[]){ "X", "Y", 0 });
 }
 
-#elif defined test_return_from_statement_expr
-int f() { ({ return 78; }); }
-int main() { return f(); }
+#లేదావేళ defined test_return_from_statement_సమాసం
+పూర్ణాంకం f() { ({ తిరిగి 78; }); }
+పూర్ణాంకం ప్రధాన() { తిరిగి f(); }
 
 /******************************************************************/
 
-#elif defined test_illegal_unicode
-int main() {
-    char *str = "\Uffffffff";
+#లేదావేళ defined test_illegal_unicode
+పూర్ణాంకం ప్రధాన() {
+    అక్షరం *str = "\Uffffffff";
 }
 
-#elif defined test_error_string
-#error \123\\
+#లేదావేళ defined test_error_string
+#దోషం \123\\
 456
 
-#elif defined test_error_incomplete_type
-struct A;
-void f(struct A *);
+#లేదావేళ defined test_error_incomplete_type
+నిర్మాణం A;
+శూన్య f(నిర్మాణం A *);
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    f(&(struct A){});
+    f(&(నిర్మాణం A){});
 }
 
-struct A {
-    int x;
+నిర్మాణం A {
+    పూర్ణాంకం x;
 };
 
-#elif defined test_pp_error_1
-# if //no expression
+#లేదావేళ defined test_pp_error_1
+# ఒకవేళ //no expression
 # endif
-#elif defined test_pp_error_2
-# if X(1,2) //undefined function macro
+#లేదావేళ defined test_pp_error_2
+# ఒకవేళ X(1,2) //undefined function macro
 # endif
 
-#elif defined test_pointer_plus_double
+#లేదావేళ defined test_సూచిక_plus_double
 
-int *invalid_operation(int *p, double d)
+పూర్ణాంకం *invalid_operation(పూర్ణాంకం *p, ద్విగుణ d)
 {
-    return p + d;
+    తిరిగి p + d;
 }
 
-#elif defined test_duplicate_case
+#లేదావేళ defined test_duplicate_case
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    unsigned int x;
-    switch (x) {
-        case -1 ... 0: /* empty case range with unsigned */
-        case 3:
-        case 1:
-        case 2:
-        case 3: /* show this line number in error */
-        case 4:
-        case 5:
+    గుర్తులేని పూర్ణాంకం x;
+    ఎంపిక (x) {
+        స్థితి -1 ... 0: /* empty case range with unsigned */
+        స్థితి 3:
+        స్థితి 1:
+        స్థితి 2:
+        స్థితి 3: /* show this line number in error */
+        స్థితి 4:
+        స్థితి 5:
     }
 }
-#elif defined test_normal_funcargs || defined test_reverse_funcargs
+#లేదావేళ defined test_సాధారణ_funcargs || defined test_తిరగేయి_funcargs
 
-#ifdef test_reverse_funcargs
+#నిర్వచితమైతే test_తిరగేయి_funcargs
 # pragma comment(option, "-freverse-funcargs")
-#endif
+#అయితే_ముగింపు
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    printf(" %d %d %d\n", printf("1"), printf("22"), printf("333"));
+    రాయి(" %d %d %d\n", రాయి("1"), రాయి("22"), రాయి("333"));
 }
 
-#elif defined test_scope_1 \
+#లేదావేళ defined test_scope_1 \
    || defined test_scope_2 \
    || defined test_scope_3
 
-struct xxx {int x[4];};
+నిర్మాణం xxx {పూర్ణాంకం x[4];};
 
 /* 'ee' not defined outside of function, 'i' not redefined */
-int bar(enum ee { a = 12, b = 34 } i, int(*f)(int i))
+పూర్ణాంకం bar(గణన ee { a = 12, b = 34 } i, పూర్ణాంకం(*f)(పూర్ణాంకం i))
 {
-    printf("bar %d %d %d\n", i, a, b);
-    return 0;
+    రాయి("bar %d %d %d\n", i, a, b);
+    తిరిగి 0;
 }
 /* 'xxx' not defined outside of function */
-int foo(struct xxx {int x[3];}*p)
+పూర్ణాంకం foo(నిర్మాణం xxx {పూర్ణాంకం x[3];}*p)
 {
-    printf("foo %d", sizeof *p);
-    return p->x[3];
+    రాయి("foo %d", పరిమాణం *p);
+    తిరిగి p->x[3];
 }
-#ifdef test_scope_2
+#నిర్వచితమైతే test_scope_2
 /* incompatible redefinition */
-int foo(struct xxx {int x[2];}*p);
-#endif
-#ifndef test_scope_3
-enum ee { a = 1, b };
-#endif
+పూర్ణాంకం foo(నిర్మాణం xxx {పూర్ణాంకం x[2];}*p);
+#అయితే_ముగింపు
+#నిర్వచితం_కాకపోతే test_scope_3
+గణన ee { a = 1, b };
+#అయితే_ముగింపు
 
-struct xxx x = { 11,22,33,44 };
-int main(int argc, char **argv)
+నిర్మాణం xxx x = { 11,22,33,44 };
+పూర్ణాంకం ప్రధాన(పూర్ణాంకం argc, అక్షరం **argv)
 {
-    printf(" %d %d\n", foo(&x), sizeof (struct xxx));
-    enum ee e = b;
+    రాయి(" %d %d\n", foo(&x), పరిమాణం (నిర్మాణం xxx));
+    గణన ee e = b;
     bar(13 + e, 0);
 
 }
 
-#elif defined test_const_array_member_addr_ok
+#లేదావేళ defined test_const_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+రకనిర్వచనం పూర్ణాంకం int_array[1];
+రకనిర్వచనం నిర్మాణం { int_array arr; } my_struct;
 
-int_array const *get_array(const my_struct *s)
+int_array స్థిరరాశి *get_array(స్థిరరాశి my_struct *s)
 {
-    return &(s->arr);
+    తిరిగి &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_ok
+#లేదావేళ defined test_const_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+రకనిర్వచనం పూర్ణాంకం int_array[1];
+రకనిర్వచనం నిర్మాణం { int_array arr; } my_struct;
 
-const int *good_decay(const my_struct *s)
+స్థిరరాశి పూర్ణాంకం *good_decay(స్థిరరాశి my_struct *s)
 {
-    return s->arr;
+    తిరిగి s->arr;
 }
 
-#elif defined test_const_array_member_addr_bad
+#లేదావేళ defined test_const_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+రకనిర్వచనం పూర్ణాంకం int_array[1];
+రకనిర్వచనం నిర్మాణం { int_array arr; } my_struct;
 
-int_array *bad_array_addr(const my_struct *s)
+int_array *bad_array_addr(స్థిరరాశి my_struct *s)
 {
-    return &(s->arr);
+    తిరిగి &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_bad
+#లేదావేళ defined test_const_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+రకనిర్వచనం పూర్ణాంకం int_array[1];
+రకనిర్వచనం నిర్మాణం { int_array arr; } my_struct;
 
-int *bad_decay(const my_struct *s)
+పూర్ణాంకం *bad_decay(స్థిరరాశి my_struct *s)
 {
-    return s->arr;
+    తిరిగి s->arr;
 }
 
-#elif defined test_const_array_member_write_bad
+#లేదావేళ defined test_const_array_member_write_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+రకనిర్వచనం పూర్ణాంకం int_array[1];
+రకనిర్వచనం నిర్మాణం { int_array arr; } my_struct;
 
-void bad_write(const my_struct *s)
+శూన్య bad_write(స్థిరరాశి my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_const_struct_array_member_write_bad
+#లేదావేళ defined test_const_struct_array_member_write_bad
 
-typedef struct { int x; } inner;
-typedef struct { inner arr[1]; } outer;
+రకనిర్వచనం నిర్మాణం { పూర్ణాంకం x; } inner;
+రకనిర్వచనం నిర్మాణం { inner arr[1]; } outer;
 
-void bad_inner_write(const outer *s)
+శూన్య bad_inner_write(స్థిరరాశి outer *s)
 {
     s->arr[0].x = 1;
 }
 
-#elif defined test_volatile_array_member_addr_ok
+#లేదావేళ defined test_volatile_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+రకనిర్వచనం పూర్ణాంకం int_array[1];
+రకనిర్వచనం నిర్మాణం { int_array arr; } my_struct;
 
-int_array volatile *get_volatile_array(volatile my_struct *s)
+int_array అస్థిర *get_volatile_array(అస్థిర my_struct *s)
 {
-    return &(s->arr);
+    తిరిగి &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_ok
+#లేదావేళ defined test_volatile_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+రకనిర్వచనం పూర్ణాంకం int_array[1];
+రకనిర్వచనం నిర్మాణం { int_array arr; } my_struct;
 
-volatile int *good_volatile_decay(volatile my_struct *s)
+అస్థిర పూర్ణాంకం *good_volatile_decay(అస్థిర my_struct *s)
 {
-    return s->arr;
+    తిరిగి s->arr;
 }
 
-#elif defined test_volatile_array_member_addr_bad
+#లేదావేళ defined test_volatile_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+రకనిర్వచనం పూర్ణాంకం int_array[1];
+రకనిర్వచనం నిర్మాణం { int_array arr; } my_struct;
 
-int_array *bad_volatile_array_addr(volatile my_struct *s)
+int_array *bad_volatile_array_addr(అస్థిర my_struct *s)
 {
-    return &(s->arr);
+    తిరిగి &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_bad
+#లేదావేళ defined test_volatile_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+రకనిర్వచనం పూర్ణాంకం int_array[1];
+రకనిర్వచనం నిర్మాణం { int_array arr; } my_struct;
 
-int *bad_volatile_decay(volatile my_struct *s)
+పూర్ణాంకం *bad_volatile_decay(అస్థిర my_struct *s)
 {
-    return s->arr;
+    తిరిగి s->arr;
 }
 
-#elif defined test_volatile_array_member_write_ok
+#లేదావేళ defined test_volatile_array_member_write_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+రకనిర్వచనం పూర్ణాంకం int_array[1];
+రకనిర్వచనం నిర్మాణం { int_array arr; } my_struct;
 
-void good_volatile_write(volatile my_struct *s)
+శూన్య good_volatile_write(అస్థిర my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_conditional_array_qualifiers
+#లేదావేళ defined test_conditional_array_qualifiers
 
-typedef int Array2[2];
-typedef int Array2x3[2][3];
+రకనిర్వచనం పూర్ణాంకం Array2[2];
+రకనిర్వచనం పూర్ణాంకం Array2x3[2][3];
 
 Array2 *p;
-const Array2 *cp;
-const Array2x3 *cap;
-volatile Array2x3 *vap;
+స్థిరరాశి Array2 *cp;
+స్థిరరాశి Array2x3 *cap;
+అస్థిర Array2x3 *vap;
 
-void test(void)
+శూన్య test(శూన్య)
 {
     (1 ? p : cp)[0][0] = 1;
     (1 ? cp : p)[0][0] = 2;
@@ -679,24 +679,24 @@ void test(void)
     (1 ? vap : cap)[0][0][0] = 4;
 }
 
-#elif defined test_restrict_scalar
+#లేదావేళ defined test_restrict_scalar
 
-restrict int object;
+పరిమిత పూర్ణాంకం object;
 
-#elif defined test_restrict_function_pointer
+#లేదావేళ defined test_restrict_function_సూచిక
 
-int (*restrict function_pointer)(void);
+పూర్ణాంకం (*పరిమిత function_సూచిక)(శూన్య);
 
-#elif defined test_discarded_restrict
+#లేదావేళ defined test_discarded_restrict
 
-typedef int *restrict restricted_pointer;
+రకనిర్వచనం పూర్ణాంకం *పరిమిత restricted_సూచిక;
 
-restricted_pointer *source;
-int **destination;
+restricted_సూచిక *ఆధారం;
+పూర్ణాంకం **destination;
 
-void test(void)
+శూన్య test(శూన్య)
 {
-    destination = source;
+    destination = ఆధారం;
 }
 
-#endif
+#అయితే_ముగింపు

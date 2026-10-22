@@ -3,57 +3,57 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SHELLAPI
-#define _INC_SHELLAPI
+#నిర్వచితం_కాకపోతే _INC_SHELLAPI
+#నిర్వచించు _INC_SHELLAPI
 
-#ifndef WINSHELLAPI
-#if !defined(_SHELL32_)
-#define WINSHELLAPI DECLSPEC_IMPORT
-#else
-#define WINSHELLAPI
-#endif
-#endif
+#నిర్వచితం_కాకపోతే WINSHELLAPI
+#ఒకవేళ !defined(_SHELL32_)
+#నిర్వచించు WINSHELLAPI DECLSPEC_IMPORT
+#లేకపోతే
+#నిర్వచించు WINSHELLAPI
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef SHSTDAPI
-#if !defined(_SHELL32_)
-#define SHSTDAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
-#define SHSTDAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
-#else
-#define SHSTDAPI STDAPI
-#define SHSTDAPI_(type) STDAPI_(type)
-#endif
-#endif
+#నిర్వచితం_కాకపోతే SHSTDAPI
+#ఒకవేళ !defined(_SHELL32_)
+#నిర్వచించు SHSTDAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
+#నిర్వచించు SHSTDAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
+#లేకపోతే
+#నిర్వచించు SHSTDAPI STDAPI
+#నిర్వచించు SHSTDAPI_(type) STDAPI_(type)
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
 /* SHDOCAPI[_] definitions not required in this TinyCC minimal header */
 
-#if !defined(_WIN64)
-#include <pshpack1.h>
-#endif
+#ఒకవేళ !defined(_WIN64)
+#అన్తర్భావ <pshpack1.h>
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifdef UNICODE
-#define ShellExecute ShellExecuteW
-#define FindExecutable FindExecutableW
-#else
-#define ShellExecute ShellExecuteA
-#define FindExecutable FindExecutableA
-#endif
+#నిర్వచితమైతే UNICODE
+#నిర్వచించు ShellExecute ShellExecuteW
+#నిర్వచించు కనుగొను_Executable కనుగొను_Executable_W
+#లేకపోతే
+#నిర్వచించు ShellExecute ShellExecuteA
+#నిర్వచించు కనుగొను_Executable కనుగొను_Executable_A
+#అయితే_ముగింపు
 
   /* minimal subset distributed with TinyCC. nShowCmd is at winuser.h */
   SHSTDAPI_(HINSTANCE) ShellExecuteA(HWND hwnd,LPCSTR lpOperation,LPCSTR lpFile,LPCSTR lpParameters,LPCSTR lpDirectory,INT nShowCmd);
   SHSTDAPI_(HINSTANCE) ShellExecuteW(HWND hwnd,LPCWSTR lpOperation,LPCWSTR lpFile,LPCWSTR lpParameters,LPCWSTR lpDirectory,INT nShowCmd);
-  SHSTDAPI_(HINSTANCE) FindExecutableA(LPCSTR lpFile,LPCSTR lpDirectory,LPSTR lpResult);
-  SHSTDAPI_(HINSTANCE) FindExecutableW(LPCWSTR lpFile,LPCWSTR lpDirectory,LPWSTR lpResult);
-  SHSTDAPI_(LPWSTR *) CommandLineToArgvW(LPCWSTR lpCmdLine,int*pNumArgs);
+  SHSTDAPI_(HINSTANCE) కనుగొను_Executable_A(LPCSTR lpFile,LPCSTR lpDirectory,LPSTR lp_ఫలితం);
+  SHSTDAPI_(HINSTANCE) కనుగొను_Executable_W(LPCWSTR lpFile,LPCWSTR lpDirectory,LPWSTR lp_ఫలితం);
+  SHSTDAPI_(LPWSTR *) Command_పంక్తి_గమ్యం_Argv_W(LPCWSTR lp_Cmd_పంక్తి,పూర్ణాంకం*p_అంకె_వాదనలు);
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#if !defined(_WIN64)
-#include <poppack.h>
-#endif
-#endif
+#ఒకవేళ !defined(_WIN64)
+#అన్తర్భావ <poppack.h>
+#అయితే_ముగింపు
+#అయితే_ముగింపు

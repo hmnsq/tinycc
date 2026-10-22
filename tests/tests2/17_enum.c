@@ -1,6 +1,6 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-enum fred
+గణన fred
 {
    a,
    b,
@@ -19,54 +19,54 @@ enum fred
 /* Strict ISO C doesn't allow this kind of forward declaration of
    enums, but GCC accepts it (and gives only pedantic warning), and
    it occurs in the wild.  */
-enum efoo;
-struct Sforward_use {
-    int (*fmember) (enum efoo x);
+గణన efoo;
+నిర్మాణం Sforward_use {
+    పూర్ణాంకం (*fmember) (గణన efoo x);
 };
 
-extern enum efoo it_real_fn(void);
-enum efoo {
+బాహ్య గణన efoo it_real_fn(శూన్య);
+గణన efoo {
   ONE,
   TWO,
 };
-struct S2 {
-  enum efoo (*f2) (void);
+నిర్మాణం S2 {
+  గణన efoo (*f2) (శూన్య);
 };
-void should_compile(struct S2 *s)
+శూన్య should_compile(నిర్మాణం S2 *s)
 {
   s->f2 = it_real_fn;
 }
 
-enum efoo it_real_fn(void)
+గణన efoo it_real_fn(శూన్య)
 {
-  return TWO;
+  తిరిగి TWO;
 }
 
-static unsigned int deref_uintptr(unsigned int *p)
+స్థిర గుర్తులేని పూర్ణాంకం deref_uintptr(గుర్తులేని పూర్ణాంకం *p)
 {
-  return *p;
+  తిరిగి *p;
 }
 
-enum Epositive {
+గణన Epositive {
     epos_one, epos_two
 };
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   enum fred frod;
-   enum Epositive epos = epos_two;
+   గణన fred frod;
+   గణన Epositive epos = epos_two;
 
-   printf("%d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h);
+   రాయి("%d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h);
    /* printf("%d\n", frod); */
    frod = 12;
-   printf("%d\n", frod);
+   రాయి("%d\n", frod);
    frod = e;
-   printf("%d\n", frod);
+   రాయి("%d\n", frod);
 
    /* Following should compile without warning.  */
-   printf ("enum to int: %u\n", deref_uintptr(&epos));
+   రాయి ("enum to int: %u\n", deref_uintptr(&epos));
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

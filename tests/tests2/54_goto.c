@@ -1,56 +1,56 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-void fred()
+శూన్య fred()
 {
-   printf("In fred()\n");
-   goto done;
-   printf("In middle\n");
-done:
-   printf("At end\n");
+   రాయి("In fred()\n");
+   వెళ్ళు పూర్తి;
+   రాయి("In middle\n");
+పూర్తి:
+   రాయి("At end\n");
 }
 
-void joe()
+శూన్య joe()
 {
-   int b = 5678;
+   పూర్ణాంకం b = 5678;
 
-   printf("In joe()\n");
+   రాయి("In joe()\n");
 
    {
-      int c = 1234;
-      printf("c = %d\n", c);
-      goto outer;
-      printf("uh-oh\n");
+      పూర్ణాంకం c = 1234;
+      రాయి("c = %d\n", c);
+      వెళ్ళు outer;
+      రాయి("uh-oh\n");
    }
 
 outer:    
 
-   printf("done\n");
+   రాయి("done\n");
 }
 
-void henry()
+శూన్య henry()
 {
-   int a;
+   పూర్ణాంకం a;
 
-   printf("In henry()\n");
-   goto inner;
+   రాయి("In henry()\n");
+   వెళ్ళు inner;
 
    {
-      int b;
+      పూర్ణాంకం b;
 inner:    
       b = 1234;
-      printf("b = %d\n", b);
+      రాయి("b = %d\n", b);
    }
 
-   printf("done\n");
+   రాయి("done\n");
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

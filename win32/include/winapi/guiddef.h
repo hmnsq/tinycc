@@ -3,154 +3,154 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef GUID_DEFINED
-#define GUID_DEFINED
-typedef struct _GUID {
-  unsigned long Data1;
-  unsigned short Data2;
-  unsigned short Data3;
-  unsigned char Data4[8 ];
+#నిర్వచితం_కాకపోతే GUID_DEFINED
+#నిర్వచించు GUID_DEFINED
+రకనిర్వచనం నిర్మాణం _GUID {
+  గుర్తులేని దీర్ఘ Data1;
+  గుర్తులేని పొట్టి Data2;
+  గుర్తులేని పొట్టి Data3;
+  గుర్తులేని అక్షరం Data4[8 ];
 } GUID;
-#endif
+#అయితే_ముగింపు
 
-#ifndef UUID_DEFINED
-#define UUID_DEFINED
-typedef GUID UUID;
-#endif
+#నిర్వచితం_కాకపోతే UUID_DEFINED
+#నిర్వచించు UUID_DEFINED
+రకనిర్వచనం GUID UUID;
+#అయితే_ముగింపు
 
-#ifndef FAR
-#define FAR
-#endif
+#నిర్వచితం_కాకపోతే FAR
+#నిర్వచించు FAR
+#అయితే_ముగింపు
 
-#ifndef DECLSPEC_SELECTANY
-#define DECLSPEC_SELECTANY __declspec(selectany)
-#endif
+#నిర్వచితం_కాకపోతే DECLSPEC_SELECTANY
+#నిర్వచించు DECLSPEC_SELECTANY __declspec(selectany)
+#అయితే_ముగింపు
 
-#ifndef EXTERN_C
-#ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
-#endif
-#endif
+#నిర్వచితం_కాకపోతే EXTERN_C
+#నిర్వచితమైతే __cplusplus
+#నిర్వచించు EXTERN_C బాహ్య "C"
+#లేకపోతే
+#నిర్వచించు EXTERN_C బాహ్య
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifdef DEFINE_GUID
-#undef DEFINE_GUID
-#endif
+#నిర్వచితమైతే DEFINE_GUID
+#నిర్వచనం_రద్దు DEFINE_GUID
+#అయితే_ముగింపు
 
-#ifdef INITGUID
-#ifdef __cplusplus
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#else
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#endif
-#else
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID name
-#endif
+#నిర్వచితమైతే INITGUID
+#నిర్వచితమైతే __cplusplus
+#నిర్వచించు DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C స్థిరరాశి GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
+#లేకపోతే
+#నిర్వచించు DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) స్థిరరాశి GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
+#అయితే_ముగింపు
+#లేకపోతే
+#నిర్వచించు DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C స్థిరరాశి GUID name
+#అయితే_ముగింపు
 
-#define DEFINE_OLEGUID(name,l,w1,w2) DEFINE_GUID(name,l,w1,w2,0xC0,0,0,0,0,0,0,0x46)
+#నిర్వచించు DEFINE_OLEGUID(name,l,w1,w2) DEFINE_GUID(name,l,w1,w2,0xC0,0,0,0,0,0,0,0x46)
 
-#ifndef _GUIDDEF_H_
-#define _GUIDDEF_H_
+#నిర్వచితం_కాకపోతే _GUIDDEF_H_
+#నిర్వచించు _GUIDDEF_H_
 
-#ifndef __LPGUID_DEFINED__
-#define __LPGUID_DEFINED__
-typedef GUID *LPGUID;
-#endif
+#నిర్వచితం_కాకపోతే __LPGUID_DEFINED__
+#నిర్వచించు __LPGUID_DEFINED__
+రకనిర్వచనం GUID *LPGUID;
+#అయితే_ముగింపు
 
-#ifndef __LPCGUID_DEFINED__
-#define __LPCGUID_DEFINED__
-typedef const GUID *LPCGUID;
-#endif
+#నిర్వచితం_కాకపోతే __LPCGUID_DEFINED__
+#నిర్వచించు __LPCGUID_DEFINED__
+రకనిర్వచనం స్థిరరాశి GUID *LPCGUID;
+#అయితే_ముగింపు
 
-#ifndef __IID_DEFINED__
-#define __IID_DEFINED__
+#నిర్వచితం_కాకపోతే __IID_DEFINED__
+#నిర్వచించు __IID_DEFINED__
 
-typedef GUID IID;
-typedef IID *LPIID;
-#define IID_NULL GUID_NULL
-#define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
-typedef GUID CLSID;
-typedef CLSID *LPCLSID;
-#define CLSID_NULL GUID_NULL
-#define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
-typedef GUID FMTID;
-typedef FMTID *LPFMTID;
-#define FMTID_NULL GUID_NULL
-#define IsEqualFMTID(rfmtid1,rfmtid2) IsEqualGUID(rfmtid1,rfmtid2)
+రకనిర్వచనం GUID IID;
+రకనిర్వచనం IID *LPIID;
+#నిర్వచించు IID_NULL GUID_NULL
+#నిర్వచించు IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
+రకనిర్వచనం GUID CLSID;
+రకనిర్వచనం CLSID *LPCLSID;
+#నిర్వచించు CLSID_NULL GUID_NULL
+#నిర్వచించు IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
+రకనిర్వచనం GUID FMTID;
+రకనిర్వచనం FMTID *LPFMTID;
+#నిర్వచించు FMTID_NULL GUID_NULL
+#నిర్వచించు IsEqualFMTID(rfmtid1,rfmtid2) IsEqualGUID(rfmtid1,rfmtid2)
 
-#ifdef __midl_proxy
-#define __MIDL_CONST
-#else
-#define __MIDL_CONST const
-#endif
+#నిర్వచితమైతే __midl_proxy
+#నిర్వచించు __MIDL_CONST
+#లేకపోతే
+#నిర్వచించు __MIDL_CONST స్థిరరాశి
+#అయితే_ముగింపు
 
-#ifndef _REFGUID_DEFINED
-#define _REFGUID_DEFINED
-#ifdef __cplusplus
-#define REFGUID const GUID &
-#else
-#define REFGUID const GUID *__MIDL_CONST
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _REFGUID_DEFINED
+#నిర్వచించు _REFGUID_DEFINED
+#నిర్వచితమైతే __cplusplus
+#నిర్వచించు REFGUID స్థిరరాశి GUID &
+#లేకపోతే
+#నిర్వచించు REFGUID స్థిరరాశి GUID *__MIDL_CONST
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _REFIID_DEFINED
-#define _REFIID_DEFINED
-#ifdef __cplusplus
-#define REFIID const IID &
-#else
-#define REFIID const IID *__MIDL_CONST
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _REFIID_DEFINED
+#నిర్వచించు _REFIID_DEFINED
+#నిర్వచితమైతే __cplusplus
+#నిర్వచించు REFIID స్థిరరాశి IID &
+#లేకపోతే
+#నిర్వచించు REFIID స్థిరరాశి IID *__MIDL_CONST
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _REFCLSID_DEFINED
-#define _REFCLSID_DEFINED
-#ifdef __cplusplus
-#define REFCLSID const IID &
-#else
-#define REFCLSID const IID *__MIDL_CONST
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _REFCLSID_DEFINED
+#నిర్వచించు _REFCLSID_DEFINED
+#నిర్వచితమైతే __cplusplus
+#నిర్వచించు REFCLSID స్థిరరాశి IID &
+#లేకపోతే
+#నిర్వచించు REFCLSID స్థిరరాశి IID *__MIDL_CONST
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _REFFMTID_DEFINED
-#define _REFFMTID_DEFINED
-#ifdef __cplusplus
-#define REFFMTID const IID &
-#else
-#define REFFMTID const IID *__MIDL_CONST
-#endif
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _REFFMTID_DEFINED
+#నిర్వచించు _REFFMTID_DEFINED
+#నిర్వచితమైతే __cplusplus
+#నిర్వచించు REFFMTID స్థిరరాశి IID &
+#లేకపోతే
+#నిర్వచించు REFFMTID స్థిరరాశి IID *__MIDL_CONST
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _SYS_GUID_OPERATORS_
-#define _SYS_GUID_OPERATORS_
-#include <string.h>
+#నిర్వచితం_కాకపోతే _SYS_GUID_OPERATORS_
+#నిర్వచించు _SYS_GUID_OPERATORS_
+#అన్తర్భావ <string.h>
 
-#ifdef __cplusplus
-__inline int InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
-  return (((unsigned long *) &rguid1)[0]==((unsigned long *) &rguid2)[0] && ((unsigned long *) &rguid1)[1]==((unsigned long *) &rguid2)[1] &&
-    ((unsigned long *) &rguid1)[2]==((unsigned long *) &rguid2)[2] && ((unsigned long *) &rguid1)[3]==((unsigned long *) &rguid2)[3]);
+#నిర్వచితమైతే __cplusplus
+__inline పూర్ణాంకం InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
+  తిరిగి (((గుర్తులేని దీర్ఘ *) &rguid1)[0]==((గుర్తులేని దీర్ఘ *) &rguid2)[0] && ((గుర్తులేని దీర్ఘ *) &rguid1)[1]==((గుర్తులేని దీర్ఘ *) &rguid2)[1] &&
+    ((గుర్తులేని దీర్ఘ *) &rguid1)[2]==((గుర్తులేని దీర్ఘ *) &rguid2)[2] && ((గుర్తులేని దీర్ఘ *) &rguid1)[3]==((గుర్తులేని దీర్ఘ *) &rguid2)[3]);
 }
-__inline int IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { return !memcmp(&rguid1,&rguid2,sizeof(GUID)); }
-#else
-#define InlineIsEqualGUID(rguid1,rguid2) (((unsigned long *) rguid1)[0]==((unsigned long *) rguid2)[0] && ((unsigned long *) rguid1)[1]==((unsigned long *) rguid2)[1] && ((unsigned long *) rguid1)[2]==((unsigned long *) rguid2)[2] && ((unsigned long *) rguid1)[3]==((unsigned long *) rguid2)[3])
-#define IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,sizeof(GUID)))
-#endif
+__inline పూర్ణాంకం IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { తిరిగి !memcmp(&rguid1,&rguid2,పరిమాణం(GUID)); }
+#లేకపోతే
+#నిర్వచించు InlineIsEqualGUID(rguid1,rguid2) (((గుర్తులేని దీర్ఘ *) rguid1)[0]==((గుర్తులేని దీర్ఘ *) rguid2)[0] && ((గుర్తులేని దీర్ఘ *) rguid1)[1]==((గుర్తులేని దీర్ఘ *) rguid2)[1] && ((గుర్తులేని దీర్ఘ *) rguid1)[2]==((గుర్తులేని దీర్ఘ *) rguid2)[2] && ((గుర్తులేని దీర్ఘ *) rguid1)[3]==((గుర్తులేని దీర్ఘ *) rguid2)[3])
+#నిర్వచించు IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,పరిమాణం(GUID)))
+#అయితే_ముగింపు
 
-#ifdef __INLINE_ISEQUAL_GUID
-#undef IsEqualGUID
-#define IsEqualGUID(rguid1,rguid2) InlineIsEqualGUID(rguid1,rguid2)
-#endif
+#నిర్వచితమైతే __INLINE_ISEQUAL_GUID
+#నిర్వచనం_రద్దు IsEqualGUID
+#నిర్వచించు IsEqualGUID(rguid1,rguid2) InlineIsEqualGUID(rguid1,rguid2)
+#అయితే_ముగింపు
 
-#define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
-#define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
+#నిర్వచించు IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
+#నిర్వచించు IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
 
-#if !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
-#define _SYS_GUID_OPERATOR_EQ_
-#ifdef __cplusplus
-__inline int operator==(REFGUID guidOne,REFGUID guidOther) { return IsEqualGUID(guidOne,guidOther); }
-__inline int operator!=(REFGUID guidOne,REFGUID guidOther) { return !(guidOne==guidOther); }
-#endif
-#endif
-#endif
-#endif
+#ఒకవేళ !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
+#నిర్వచించు _SYS_GUID_OPERATOR_EQ_
+#నిర్వచితమైతే __cplusplus
+__inline పూర్ణాంకం క్రియాకారకం==(REFGUID guidOne,REFGUID guidOther) { తిరిగి IsEqualGUID(guidOne,guidOther); }
+__inline పూర్ణాంకం క్రియాకారకం!=(REFGUID guidOne,REFGUID guidOther) { తిరిగి !(guidOne==guidOther); }
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు

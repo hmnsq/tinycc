@@ -1,41 +1,41 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+పూర్ణాంకం atexit(శూన్య (*function)(శూన్య));
+పూర్ణాంకం on_exit(శూన్య (*function)(పూర్ణాంకం, శూన్య *), శూన్య *arg);
+శూన్య నిష్క్రమించు(పూర్ణాంకం స్థితి_2);
 
-void __attribute((constructor)) startup5(void)
+శూన్య __attribute((constructor)) startup5(శూన్య)
 {
-    printf ("startup5\n");
+    రాయి ("startup5\n");
 }
 
-void cleanup1(void)
+శూన్య cleanup1(శూన్య)
 {
-    printf ("cleanup1\n");
+    రాయి ("cleanup1\n");
     fflush(stdout);
 }
 
-void cleanup2(void)
+శూన్య cleanup2(శూన్య)
 {
-    printf ("cleanup2\n");
+    రాయి ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+శూన్య cleanup3(పూర్ణాంకం ret, శూన్య *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    రాయి ("%d %s\n", ret, (అక్షరం *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+శూన్య cleanup4(పూర్ణాంకం ret, శూన్య *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    రాయి ("%d %s\n", ret, (అక్షరం *) arg);
 }
 
-void __attribute((destructor)) cleanup5(void)
+శూన్య __attribute((destructor)) cleanup5(శూన్య)
 {
-    printf ("cleanup5\n");
+    రాయి ("cleanup5\n");
 }
 
-void test(void)
+శూన్య test(శూన్య)
 {
     atexit(cleanup1);
     atexit(cleanup2);
@@ -43,17 +43,17 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#ఒకవేళ defined test_128_return
+పూర్ణాంకం ప్రధాన(పూర్ణాంకం argc, అక్షరం **argv)
 {
     test();
-    return 1;
+    తిరిగి 1;
 } 
 
-#elif defined test_128_exit
-int main(int argc, char **argv)
+#లేదావేళ defined test_128_exit
+పూర్ణాంకం ప్రధాన(పూర్ణాంకం argc, అక్షరం **argv)
 {
     test();
-    exit(2);
+    నిష్క్రమించు(2);
 } 
-#endif
+#అయితే_ముగింపు

@@ -1,98 +1,98 @@
-#include <stdlib.h>
-#include <stdio.h>
+#అన్తర్భావ <stdlib.h>
+#అన్తర్భావ <stdio.h>
 
-#define N 20
+#నిర్వచించు N 20
 
-int nb_num;
-int tab[N];
-int stack_ptr;
-int stack_op[N];
-int stack_res[60];
-int result;
+పూర్ణాంకం nb_అంకె;
+పూర్ణాంకం tab[N];
+పూర్ణాంకం దొంతర_ptr;
+పూర్ణాంకం దొంతర_op[N];
+పూర్ణాంకం దొంతర_res[60];
+పూర్ణాంకం ఫలితం;
 
-int find(int n, int i1, int a, int b, int op)
+పూర్ణాంకం కనుగొను(పూర్ణాంకం n, పూర్ణాంకం i1, పూర్ణాంకం a, పూర్ణాంకం b, పూర్ణాంకం op)
 {
-    int i, j;
-    int c;
+    పూర్ణాంకం i, j;
+    పూర్ణాంకం c;
 
-    if (stack_ptr >= 0) {
-        stack_res[3*stack_ptr] = a;
-        stack_op[stack_ptr] = op;
-        stack_res[3*stack_ptr+1] = b;
-        stack_res[3*stack_ptr+2] = n;
-        if (n == result)
-            return 1;
+    ఒకవేళ (దొంతర_ptr >= 0) {
+        దొంతర_res[3*దొంతర_ptr] = a;
+        దొంతర_op[దొంతర_ptr] = op;
+        దొంతర_res[3*దొంతర_ptr+1] = b;
+        దొంతర_res[3*దొంతర_ptr+2] = n;
+        ఒకవేళ (n == ఫలితం)
+            తిరిగి 1;
         tab[i1] = n;
     }
 
-    for(i=0;i<nb_num;i++) {
-        for(j=i+1;j<nb_num;j++) {
+    కొరకు(i=0;i<nb_అంకె;i++) {
+        కొరకు(j=i+1;j<nb_అంకె;j++) {
             a = tab[i];
             b = tab[j];
-            if (a != 0 && b != 0) {
+            ఒకవేళ (a != 0 && b != 0) {
 
                 tab[j] = 0;
-                stack_ptr++;
+                దొంతర_ptr++;
 
-                if (find(a + b, i, a, b, '+'))
-                    return 1;
-                if (find(a - b, i, a, b, '-'))
-                    return 1;
-                if (find(b - a, i, b, a, '-'))
-                    return 1;
-                if (find(a * b, i, a, b, '*'))
-                    return 1;
-                if (b != 0) {
+                ఒకవేళ (కనుగొను(a + b, i, a, b, '+'))
+                    తిరిగి 1;
+                ఒకవేళ (కనుగొను(a - b, i, a, b, '-'))
+                    తిరిగి 1;
+                ఒకవేళ (కనుగొను(b - a, i, b, a, '-'))
+                    తిరిగి 1;
+                ఒకవేళ (కనుగొను(a * b, i, a, b, '*'))
+                    తిరిగి 1;
+                ఒకవేళ (b != 0) {
                     c = a / b;
-                    if (find(c, i, a, b, '/'))
-                        return 1;
+                    ఒకవేళ (కనుగొను(c, i, a, b, '/'))
+                        తిరిగి 1;
                 }
 
-                if (a != 0) {
+                ఒకవేళ (a != 0) {
                     c = b / a;
-                    if (find(c, i, b, a, '/'))
-                        return 1;
+                    ఒకవేళ (కనుగొను(c, i, b, a, '/'))
+                        తిరిగి 1;
                 }
 
-                stack_ptr--;
+                దొంతర_ptr--;
                 tab[i] = a;
                 tab[j] = b;
             }
         }
     }
 
-    return 0;
+    తిరిగి 0;
 }
 
-int main(int argc, char **argv)
+పూర్ణాంకం ప్రధాన(పూర్ణాంకం argc, అక్షరం **argv)
 {
-    int i, res, p;
+    పూర్ణాంకం i, res, p;
 
-    if (argc < 3) {
-        printf("usage: %s: result numbers...\n"
+    ఒకవేళ (argc < 3) {
+        రాయి("usage: %s: result numbers...\n"
                "Try to find result from numbers with the 4 basic operations.\n", argv[0]);
-        exit(1);
+        నిష్క్రమించు(1);
     }
 
     p = 1;
-    result = atoi(argv[p]);
-    printf("result=%d\n", result);
-    nb_num = 0;
-    for(i=p+1;i<argc;i++) {
-        tab[nb_num++] = atoi(argv[i]);
+    ఫలితం = atoi(argv[p]);
+    రాయి("result=%d\n", ఫలితం);
+    nb_అంకె = 0;
+    కొరకు(i=p+1;i<argc;i++) {
+        tab[nb_అంకె++] = atoi(argv[i]);
     }
 
-    stack_ptr = -1;
-    res = find(0, 0, 0, 0, ' ');
-    if (res) {
-        for(i=0;i<=stack_ptr;i++) {
-            printf("%d %c %d = %d\n",
-                   stack_res[3*i], stack_op[i],
-                   stack_res[3*i+1], stack_res[3*i+2]);
+    దొంతర_ptr = -1;
+    res = కనుగొను(0, 0, 0, 0, ' ');
+    ఒకవేళ (res) {
+        కొరకు(i=0;i<=దొంతర_ptr;i++) {
+            రాయి("%d %c %d = %d\n",
+                   దొంతర_res[3*i], దొంతర_op[i],
+                   దొంతర_res[3*i+1], దొంతర_res[3*i+2]);
         }
-        return 0;
-    } else {
-        printf("Impossible\n");
-        return 1;
+        తిరిగి 0;
+    } లేకపోతే {
+        రాయి("Impossible\n");
+        తిరిగి 1;
     }
 }

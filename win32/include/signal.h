@@ -3,61 +3,61 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SIGNAL
-#define _INC_SIGNAL
+#నిర్వచితం_కాకపోతే _INC_SIGNAL
+#నిర్వచించు _INC_SIGNAL
 
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifndef _SIG_ATOMIC_T_DEFINED
-#define _SIG_ATOMIC_T_DEFINED
-  typedef int sig_atomic_t;
-#endif
+#నిర్వచితం_కాకపోతే _SIG_ATOMIC_T_DEFINED
+#నిర్వచించు _SIG_ATOMIC_T_DEFINED
+  రకనిర్వచనం పూర్ణాంకం sig_atomic_t;
+#అయితే_ముగింపు
 
-#define NSIG 23
+#నిర్వచించు NSIG 23
 
-#define	SIGHUP	1	/* hangup */
-#define SIGINT 2
-#define	SIGQUIT	3	/* quit */
-#define SIGILL 4
-#define	SIGTRAP	5	/* trace trap (not reset when caught) */
-#define	SIGIOT	6	/* IOT instruction */
-#define	SIGABRT 6	/* used by abort, replace SIGIOT in the future */
-#define	SIGEMT	7	/* EMT instruction */
-#define SIGFPE 8
-#define	SIGKILL	9	/* kill (cannot be caught or ignored) */
-#define	SIGBUS	10	/* bus error */
-#define SIGSEGV 11
-#define	SIGSYS	12	/* bad argument to system call */
-#define	SIGPIPE	13	/* write on a pipe with no one to read it */
-#ifdef __USE_MINGW_ALARM
-#define	SIGALRM	14	/* alarm clock */
-#endif
-#define SIGTERM 15
-#define SIGBREAK 21
-#define SIGABRT2 22
+#నిర్వచించు	SIGHUP	1	/* hangup */
+#నిర్వచించు SIGINT 2
+#నిర్వచించు	SIGQUIT	3	/* quit */
+#నిర్వచించు SIGILL 4
+#నిర్వచించు	SIGTRAP	5	/* trace trap (not reset when caught) */
+#నిర్వచించు	SIGIOT	6	/* IOT instruction */
+#నిర్వచించు	SIGABRT 6	/* used by abort, replace SIGIOT in the future */
+#నిర్వచించు	SIGEMT	7	/* EMT instruction */
+#నిర్వచించు SIGFPE 8
+#నిర్వచించు	SIGKILL	9	/* kill (cannot be caught or ignored) */
+#నిర్వచించు	SIGBUS	10	/* bus error */
+#నిర్వచించు SIGSEGV 11
+#నిర్వచించు	SIGSYS	12	/* bad argument to system call */
+#నిర్వచించు	SIGPIPE	13	/* write on a pipe with no one to read it */
+#నిర్వచితమైతే __USE_MINGW_ALARM
+#నిర్వచించు	SIGALRM	14	/* alarm clock */
+#అయితే_ముగింపు
+#నిర్వచించు SIGTERM 15
+#నిర్వచించు SIGBREAK 21
+#నిర్వచించు SIGABRT2 22
 
-#define SIGABRT_COMPAT 6
+#నిర్వచించు SIGABRT_COMPAT 6
 
-  typedef	void (*__p_sig_fn_t)(int);
+  రకనిర్వచనం	శూన్య (*__p_sig_fn_t)(పూర్ణాంకం);
 
-#define SIG_DFL (__p_sig_fn_t)0
-#define SIG_IGN (__p_sig_fn_t)1
-#define SIG_GET (__p_sig_fn_t)2
-#define SIG_SGE (__p_sig_fn_t)3
-#define SIG_ACK (__p_sig_fn_t)4
-#define SIG_ERR (__p_sig_fn_t)-1
+#నిర్వచించు SIG_DFL (__p_sig_fn_t)0
+#నిర్వచించు SIG_IGN (__p_sig_fn_t)1
+#నిర్వచించు SIG_GET (__p_sig_fn_t)2
+#నిర్వచించు SIG_SGE (__p_sig_fn_t)3
+#నిర్వచించు SIG_ACK (__p_sig_fn_t)4
+#నిర్వచించు SIG_ERR (__p_sig_fn_t)-1
 
-  extern void **__cdecl __pxcptinfoptrs(void);
-#define _pxcptinfoptrs (*__pxcptinfoptrs())
+  బాహ్య శూన్య **__cdecl __pxcptinfoptrs(శూన్య);
+#నిర్వచించు _pxcptinfoptrs (*__pxcptinfoptrs())
 
-  __p_sig_fn_t __cdecl signal(int _SigNum,__p_sig_fn_t _Func);
-  int __cdecl raise(int _SigNum);
+  __p_sig_fn_t __cdecl సంకేతం(పూర్ణాంకం Sig_అంకె_2,__p_sig_fn_t _Func);
+  పూర్ణాంకం __cdecl లేపు(పూర్ణాంకం Sig_అంకె_2);
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు

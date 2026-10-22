@@ -4,31 +4,31 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _TIMEB_H_S
-#define _TIMEB_H_S
+#నిర్వచితం_కాకపోతే _TIMEB_H_S
+#నిర్వచించు _TIMEB_H_S
 
-#include <sys/timeb.h>
+#అన్తర్భావ <sys/timeb.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#if defined(MINGW_HAS_SECURE_API)
+#ఒకవేళ defined(MINGW_HAS_SECURE_API)
 
-#ifdef _USE_32BIT_TIME_T
-#define _ftime_s _ftime32_s
-#else
-#define _ftime_s _ftime64_s
-#endif
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+#నిర్వచించు _ftime_s _ftime32_s
+#లేకపోతే
+#నిర్వచించు _ftime_s _ftime64_s
+#అయితే_ముగింపు
 
-  _CRTIMP errno_t __cdecl _ftime32_s(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _ftime64_s(struct __timeb64 *_Time);
-#endif
-#endif
+  _CRTIMP errno_t __cdecl _ftime32_s(నిర్మాణం __timeb32 *సమయం_2);
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+  _CRTIMP errno_t __cdecl _ftime64_s(నిర్మాణం __timeb64 *సమయం_2);
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#endif
+#అయితే_ముగింపు

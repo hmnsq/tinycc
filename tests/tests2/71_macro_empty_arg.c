@@ -1,9 +1,9 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-#define T(a,b,c) a b c
+#నిర్వచించు T(a,b,c) a b c
 
-int main(void)
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
-    printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    రాయి("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
+    తిరిగి 0;
 }

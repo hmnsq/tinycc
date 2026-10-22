@@ -1,18 +1,18 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main() 
+పూర్ణాంకం ప్రధాన() 
 {
-   printf("Hello world\n");
+   రాయి("Hello world\n");
 
-   int Count;
-   for (Count = -5; Count <= 5; Count++)
-      printf("Count = %d\n", Count);
+   పూర్ణాంకం లెక్క_3;
+   కొరకు (లెక్క_3 = -5; లెక్క_3 <= 5; లెక్క_3++)
+      రాయి("Count = %d\n", లెక్క_3);
 
-   printf("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
-   printf("Character 'A' is '%c'\n", 65);
-   printf("Character 'a' is '%c'\n", 'a');
+   రాయి("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
+   రాయి("Character 'A' is '%c'\n", 65);
+   రాయి("Character 'a' is '%c'\n", 'a');
 
-   return 0;
+   తిరిగి 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

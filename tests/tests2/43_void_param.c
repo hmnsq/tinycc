@@ -1,15 +1,15 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-void fred(void)
+శూన్య fred(శూన్య)
 {
-   printf("yo\n");
+   రాయి("yo\n");
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
    fred();
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

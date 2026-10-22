@@ -1,3 +1,3 @@
-#define _UNICODE 1
-#define UNICODE 1
-#include "crt1.c"
+#నిర్వచించు _UNICODE 1
+#నిర్వచించు UNICODE 1
+#అన్తర్భావ "crt1.c"

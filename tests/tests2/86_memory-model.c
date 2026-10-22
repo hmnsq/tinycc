@@ -1,38 +1,38 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int
-main()
+పూర్ణాంకం
+ప్రధాన()
 {
-#if defined(__LLP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LLP64__\n");
+#ఒకవేళ defined(__LLP64__)
+	ఒకవేళ (పరిమాణం(పొట్టి) == 2
+	    && పరిమాణం(పూర్ణాంకం) == 4
+	    && పరిమాణం(దీర్ఘ పూర్ణాంకం) == 4
+	    && పరిమాణం(దీర్ఘ దీర్ఘ పూర్ణాంకం) == 8
+	    && పరిమాణం(శూన్య*) == 8) {
+		(శూన్య)రాయి("Ok\n");
+	} లేకపోతే {
+		(శూన్య)రాయి("KO __LLP64__\n");
 	}
-#elif defined(__LP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 8
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LP64__\n");
+#లేదావేళ defined(__LP64__)
+	ఒకవేళ (పరిమాణం(పొట్టి) == 2
+	    && పరిమాణం(పూర్ణాంకం) == 4
+	    && పరిమాణం(దీర్ఘ పూర్ణాంకం) == 8
+	    && పరిమాణం(దీర్ఘ దీర్ఘ పూర్ణాంకం) == 8
+	    && పరిమాణం(శూన్య*) == 8) {
+		(శూన్య)రాయి("Ok\n");
+	} లేకపోతే {
+		(శూన్య)రాయి("KO __LP64__\n");
 	}
-#elif defined(__ILP32__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(void*) == 4) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __ILP32__\n");
+#లేదావేళ defined(__ILP32__)
+	ఒకవేళ (పరిమాణం(పొట్టి) == 2
+	    && పరిమాణం(పూర్ణాంకం) == 4
+	    && పరిమాణం(దీర్ఘ పూర్ణాంకం) == 4
+	    && పరిమాణం(శూన్య*) == 4) {
+		(శూన్య)రాయి("Ok\n");
+	} లేకపోతే {
+		(శూన్య)రాయి("KO __ILP32__\n");
 	}
-#else
-	(void)printf("KO no __*LP*__ defined.\n");
-#endif
+#లేకపోతే
+	(శూన్య)రాయి("KO no __*LP*__ defined.\n");
+#అయితే_ముగింపు
 }

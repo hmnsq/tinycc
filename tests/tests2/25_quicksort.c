@@ -1,52 +1,52 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int array[16];
+పూర్ణాంకం array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+శూన్య మార్పిడి_2(పూర్ణాంకం a, పూర్ణాంకం b)
 {
-   int tmp  = array[a];
+   పూర్ణాంకం tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+పూర్ణాంకం విభజన(పూర్ణాంకం ఎడమ, పూర్ణాంకం కుడి)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   పూర్ణాంకం ఇరుసు_సూచీ = ఎడమ;
+   పూర్ణాంకం ఇరుసు_విలువ = array[ఇరుసు_సూచీ];
+   పూర్ణాంకం సూచీ = ఎడమ;
+   పూర్ణాంకం i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   మార్పిడి_2(ఇరుసు_సూచీ, కుడి);
+   కొరకు(i = ఎడమ; i < కుడి; i++)
    {
-      if(array[i] < pivotValue)
+      ఒకవేళ(array[i] < ఇరుసు_విలువ)
       {
-         swap(i, index);
-         index += 1;
+         మార్పిడి_2(i, సూచీ);
+         సూచీ += 1;
       }
    }
-   swap(right, index);
+   మార్పిడి_2(కుడి, సూచీ);
 
-   return index;
+   తిరిగి సూచీ;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+శూన్య quicksort(పూర్ణాంకం ఎడమ, పూర్ణాంకం కుడి)
 {
-   if(left >= right)
-      return;
+   ఒకవేళ(ఎడమ >= కుడి)
+      తిరిగి;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   పూర్ణాంకం సూచీ = విభజన(ఎడమ, కుడి);
+   quicksort(ఎడమ, సూచీ - 1);
+   quicksort(సూచీ + 1, కుడి);
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int i;
+   పూర్ణాంకం i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   కొరకు (i = 0; i < 16; i++)
+      రాయి("%d ", array[i]);
 
-   printf("\n");
+   రాయి("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   కొరకు (i = 0; i < 16; i++)
+      రాయి("%d ", array[i]);
 
-   printf("\n");
+   రాయి("\n");
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

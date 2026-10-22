@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం *s, ...);
 
-float fx(x)
-float x;
+దశాంశం fx(x)
+దశాంశం x;
 {
-    return 2.0 * x;
+    తిరిగి 2.0 * x;
 }
 
-void func(float a);
+శూన్య func(దశాంశం a);
 
-void func3(struct p { int a; int b; } *q) {
+శూన్య func3(నిర్మాణం p { పూర్ణాంకం a; పూర్ణాంకం b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+శూన్య func4(q)
+ నిర్మాణం p { పూర్ణాంకం a; పూర్ణాంకం b; పూర్ణాంకం c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+నిర్మాణం p { పూర్ణాంకం a; పూర్ణాంకం b; పూర్ణాంకం c; పూర్ణాంకం d; };
 
-int
-main(void)
+పూర్ణాంకం
+ప్రధాన(శూన్య)
 {
-    float fy();
+    దశాంశం fy();
 
-    printf("%g %g\n", fx(2.0), fy(10.0));
-    printf("%g %g\n", fx(2.0f), fy(10.0f));
+    రాయి("%g %g\n", fx(2.0), fy(10.0));
+    రాయి("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+దశాంశం fy(x)
+దశాంశం x;
 {
-    return 3.0 * x;
+    తిరిగి 3.0 * x;
 }
 
-void func(a)
-float a;
+శూన్య func(a)
+దశాంశం a;
 {
-    printf("%g\n", a);
+    రాయి("%g\n", a);
 }

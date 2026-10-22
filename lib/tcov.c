@@ -1,14 +1,14 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#ifndef _WIN32
-#include <unistd.h>
-#include <errno.h>
-#else
-#include <windows.h>
-#include <io.h>
-#endif
+#అన్తర్భావ <stdio.h>
+#అన్తర్భావ <string.h>
+#అన్తర్భావ <stdlib.h>
+#అన్తర్భావ <fcntl.h>
+#నిర్వచితం_కాకపోతే _WIN32
+#అన్తర్భావ <unistd.h>
+#అన్తర్భావ <errno.h>
+#లేకపోతే
+#అన్తర్భావ <windows.h>
+#అన్తర్భావ <io.h>
+#అయితే_ముగింపు
 
 /* section layout (all little endian):
    32bit offset to executable/so file name
@@ -24,178 +24,178 @@
    executable/so file name \0
  */
 
-typedef struct tcov_line {
-    unsigned int fline;
-    unsigned int lline;
-    unsigned long long count;
-} tcov_line;
+రకనిర్వచనం నిర్మాణం tcov_పంక్తి {
+    గుర్తులేని పూర్ణాంకం fline;
+    గుర్తులేని పూర్ణాంకం lline;
+    గుర్తులేని దీర్ఘ దీర్ఘ లెక్క_2;
+} tcov_పంక్తి;
 
-typedef struct tcov_function {
-    char *function;
-    unsigned int first_line;
-    unsigned int n_line;
-    unsigned int m_line;
-    tcov_line *line;
+రకనిర్వచనం నిర్మాణం tcov_function {
+    అక్షరం *function;
+    గుర్తులేని పూర్ణాంకం మొదటి_పంక్తి;
+    గుర్తులేని పూర్ణాంకం n_పంక్తి;
+    గుర్తులేని పూర్ణాంకం m_పంక్తి;
+    tcov_పంక్తి *పంక్తి;
 } tcov_function;
 
-typedef struct tcov_file {
-    char *filename;
-    unsigned int n_func;
-    unsigned int m_func;
+రకనిర్వచనం నిర్మాణం tcov_file {
+    అక్షరం *filename;
+    గుర్తులేని పూర్ణాంకం n_func;
+    గుర్తులేని పూర్ణాంకం m_func;
     tcov_function *func;
-    struct tcov_file *next;
+    నిర్మాణం tcov_file *తదుపరి;
 } tcov_file;
 
-static FILE *open_tcov_file (char *cov_filename)
+స్థిర FILE *open_tcov_file (అక్షరం *cov_filename)
 {
-    int fd;
-#ifndef _WIN32
-    struct flock lock;
+    పూర్ణాంకం fd;
+#నిర్వచితం_కాకపోతే _WIN32
+    నిర్మాణం flock తాళం;
 
-    lock.l_type = F_WRLCK;
-    lock.l_whence = SEEK_SET;
-    lock.l_start = 0;
-    lock.l_len = 0; /* Until EOF.  */
-    lock.l_pid = getpid ();
-#endif
+    తాళం.l_type = F_WRLCK;
+    తాళం.l_whence = SEEK_SET;
+    తాళం.l_start = 0;
+    తాళం.l_len = 0; /* Until EOF.  */
+    తాళం.l_pid = getpid ();
+#అయితే_ముగింపు
     fd = open (cov_filename, O_RDWR | O_CREAT, 0666);
-    if (fd < 0)
-	return NULL;
+    ఒకవేళ (fd < 0)
+	తిరిగి ఖాళీ;
   
-#ifndef _WIN32
-    while (fcntl (fd, F_SETLKW, &lock) && errno == EINTR)
-        continue;
-#else
+#నిర్వచితం_కాకపోతే _WIN32
+    అయితే (fcntl (fd, F_SETLKW, &తాళం) && errno == EINTR)
+        కొనసాగు;
+#లేకపోతే
     {
         OVERLAPPED overlapped = { 0 };
-        LockFileEx((HANDLE)_get_osfhandle(fd), LOCKFILE_EXCLUSIVE_LOCK,
+        తాళం_File_Ex((HANDLE)_get_osfhandle(fd), LOCKFILE_EXCLUSIVE_తాళం,
 		   0, 1, 0, &overlapped);
     }
-#endif
+#అయితే_ముగింపు
 
-    return fdopen (fd, "r+");
+    తిరిగి fdopen (fd, "r+");
 }
 
-static unsigned long long get_value(unsigned char *p, int size)
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ get_విలువ(గుర్తులేని అక్షరం *p, పూర్ణాంకం కొలత)
 {
-    unsigned long long value = 0;
+    గుర్తులేని దీర్ఘ దీర్ఘ విలువ = 0;
 
-    p += size;
-    while (size--)
- 	value = (value << 8) | *--p;
-    return value;
+    p += కొలత;
+    అయితే (కొలత--)
+ 	విలువ = (విలువ << 8) | *--p;
+    తిరిగి విలువ;
 }
 
-static int sort_func (const void *p, const void *q)
+స్థిర పూర్ణాంకం క్రమీకరించు_func (స్థిరరాశి శూన్య *p, స్థిరరాశి శూన్య *q)
 {
-    const tcov_function *pp = (const tcov_function *) p;
-    const tcov_function *pq = (const tcov_function *) q;
+    స్థిరరాశి tcov_function *pp = (స్థిరరాశి tcov_function *) p;
+    స్థిరరాశి tcov_function *pq = (స్థిరరాశి tcov_function *) q;
 
-    return pp->first_line > pq->first_line ? 1 :
-	   pp->first_line < pq->first_line ? -1 : 0;
+    తిరిగి pp->మొదటి_పంక్తి > pq->మొదటి_పంక్తి ? 1 :
+	   pp->మొదటి_పంక్తి < pq->మొదటి_పంక్తి ? -1 : 0;
 }
 
-static int sort_line (const void *p, const void *q)
+స్థిర పూర్ణాంకం క్రమీకరించు_పంక్తి (స్థిరరాశి శూన్య *p, స్థిరరాశి శూన్య *q)
 {
-    const tcov_line *pp = (const tcov_line *) p;
-    const tcov_line *pq = (const tcov_line *) q;
+    స్థిరరాశి tcov_పంక్తి *pp = (స్థిరరాశి tcov_పంక్తి *) p;
+    స్థిరరాశి tcov_పంక్తి *pq = (స్థిరరాశి tcov_పంక్తి *) q;
 
-    return pp->fline > pq->fline ? 1 :
+    తిరిగి pp->fline > pq->fline ? 1 :
 	   pp->fline < pq->fline ? -1 :
-           pp->count < pq->count ? 1 :
-	   pp->count > pq->count ? -1 : 0;
+           pp->లెక్క_2 < pq->లెక్క_2 ? 1 :
+	   pp->లెక్క_2 > pq->లెక్క_2 ? -1 : 0;
 }
 
 /* sort to let inline functions work */
-static tcov_file *sort_test_coverage (unsigned char *p)
+స్థిర tcov_file *క్రమీకరించు_test_coverage (గుర్తులేని అక్షరం *p)
 {
-    int i, j, k;
-    unsigned char *start = p;
-    tcov_file *file = NULL;
+    పూర్ణాంకం i, j, k;
+    గుర్తులేని అక్షరం *ప్రారంభం = p;
+    tcov_file *file = ఖాళీ;
     tcov_file *nfile;
 
     p += 4;
-    while (*p) {
-        char *filename = (char *)p;
-	size_t len = strlen (filename);
+    అయితే (*p) {
+        అక్షరం *filename = (అక్షరం *)p;
+	కొలత_t len = అక్షరశ్రేణి_పొడవు (filename);
 
 	nfile = file;
-	while (nfile) {
-	    if (strcmp (nfile->filename, filename) == 0)
-		break;
-	    nfile = nfile->next;
+	అయితే (nfile) {
+	    ఒకవేళ (strcmp (nfile->filename, filename) == 0)
+		ఆపు;
+	    nfile = nfile->తదుపరి;
 	}
-	if (nfile == NULL) {
-	    nfile = malloc (sizeof(tcov_file));
-	    if (nfile == NULL) {
+	ఒకవేళ (nfile == ఖాళీ) {
+	    nfile = జ్ఞాపకం_ఇవ్వు (పరిమాణం(tcov_file));
+	    ఒకవేళ (nfile == ఖాళీ) {
 	        fprintf (stderr, "Malloc error test_coverage\n");
-	        return file;
+	        తిరిగి file;
     	    }
 	    nfile->filename = filename;
 	    nfile->n_func = 0;
 	    nfile->m_func = 0;
-	    nfile->func = NULL;
-	    nfile->next = NULL;
-	    if (file == NULL)
+	    nfile->func = ఖాళీ;
+	    nfile->తదుపరి = ఖాళీ;
+	    ఒకవేళ (file == ఖాళీ)
 	        file = nfile;
-	    else {
+	    లేకపోతే {
 		tcov_file *lfile = file;
 
-	        while (lfile->next)
-		    lfile = lfile->next;
-		lfile->next = nfile;
+	        అయితే (lfile->తదుపరి)
+		    lfile = lfile->తదుపరి;
+		lfile->తదుపరి = nfile;
 	    }
 	}
 	p += len + 1;
-	while (*p) {
-	    int i;
-	    char *function = (char *)p;
+	అయితే (*p) {
+	    పూర్ణాంకం i;
+	    అక్షరం *function = (అక్షరం *)p;
 	    tcov_function *func;
 
-	    p += strlen (function) + 1;
-	    p += -(p - start) & 7;
-	    for (i = 0; i < nfile->n_func; i++) {
+	    p += అక్షరశ్రేణి_పొడవు (function) + 1;
+	    p += -(p - ప్రారంభం) & 7;
+	    కొరకు (i = 0; i < nfile->n_func; i++) {
 		func = &nfile->func[i];
-		if (strcmp (func->function, function) == 0)
-		    break;
+		ఒకవేళ (strcmp (func->function, function) == 0)
+		    ఆపు;
 	    }
-	    if (i == nfile->n_func) {
-	        if (nfile->n_func >= nfile->m_func) {
+	    ఒకవేళ (i == nfile->n_func) {
+	        ఒకవేళ (nfile->n_func >= nfile->m_func) {
 		    nfile->m_func = nfile->m_func == 0 ? 4 : nfile->m_func * 2;
 		    nfile->func = realloc (nfile->func,
 					   nfile->m_func *
-					   sizeof (tcov_function));
-		    if (nfile->func == NULL) {
+					   పరిమాణం (tcov_function));
+		    ఒకవేళ (nfile->func == ఖాళీ) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        తిరిగి file;
 		    }
 	        }
 	        func = &nfile->func[nfile->n_func++];
 	        func->function = function;
-	        func->first_line = get_value (p, 8);
-	        func->n_line = 0;
-	        func->m_line = 0;
-	        func->line = NULL;
+	        func->మొదటి_పంక్తి = get_విలువ (p, 8);
+	        func->n_పంక్తి = 0;
+	        func->m_పంక్తి = 0;
+	        func->పంక్తి = ఖాళీ;
 	    }
 	    p += 8;
-	    while (*p) {
-		tcov_line *line;
-		unsigned long long val;
+	    అయితే (*p) {
+		tcov_పంక్తి *పంక్తి;
+		గుర్తులేని దీర్ఘ దీర్ఘ val;
 
-		if (func->n_line >= func->m_line) {
-		    func->m_line = func->m_line == 0 ? 4 : func->m_line * 2;
-		    func->line = realloc (func->line,
-					  func->m_line * sizeof (tcov_line));
-		    if (func->line == NULL) {
+		ఒకవేళ (func->n_పంక్తి >= func->m_పంక్తి) {
+		    func->m_పంక్తి = func->m_పంక్తి == 0 ? 4 : func->m_పంక్తి * 2;
+		    func->పంక్తి = realloc (func->పంక్తి,
+					  func->m_పంక్తి * పరిమాణం (tcov_పంక్తి));
+		    ఒకవేళ (func->పంక్తి == ఖాళీ) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        తిరిగి file;
 		    }
 		}
-		line = &func->line[func->n_line++];
-		val = get_value (p, 8);
-	        line->fline = (val >> 8) & 0xfffffffULL;
-	        line->lline = val >> 36;
-	        line->count = get_value (p + 8, 8);
+		పంక్తి = &func->పంక్తి[func->n_పంక్తి++];
+		val = get_విలువ (p, 8);
+	        పంక్తి->fline = (val >> 8) & 0xfffffffULL;
+	        పంక్తి->lline = val >> 36;
+	        పంక్తి->లెక్క_2 = get_విలువ (p + 8, 8);
 	 	p += 16;
 	    }
 	    p++;
@@ -203,226 +203,226 @@ static tcov_file *sort_test_coverage (unsigned char *p)
 	p++;
     }
     nfile = file;
-    while (nfile) {
-	qsort (nfile->func, nfile->n_func, sizeof (tcov_function), sort_func);
-	for (i = 0; i < nfile->n_func; i++) {
+    అయితే (nfile) {
+	qsort (nfile->func, nfile->n_func, పరిమాణం (tcov_function), క్రమీకరించు_func);
+	కొరకు (i = 0; i < nfile->n_func; i++) {
 	    tcov_function *func = &nfile->func[i];
-	    qsort (func->line, func->n_line, sizeof (tcov_line), sort_line);
+	    qsort (func->పంక్తి, func->n_పంక్తి, పరిమాణం (tcov_పంక్తి), క్రమీకరించు_పంక్తి);
         }
-	nfile = nfile->next;
+	nfile = nfile->తదుపరి;
     }
-    return file;
+    తిరిగి file;
 }
 
 /* merge with previous tcov file */
-static void merge_test_coverage (tcov_file *file, FILE *fp,
-				 unsigned int *pruns)
+స్థిర శూన్య విలీనం_test_coverage (tcov_file *file, FILE *fp,
+				 గుర్తులేని పూర్ణాంకం *pruns)
 {
-    unsigned int runs;
-    char *p;
-    char str[10000];
+    గుర్తులేని పూర్ణాంకం runs;
+    అక్షరం *p;
+    అక్షరం str[10000];
     
     *pruns = 1;
-    if (fp == NULL)
-        return;
-    if (fgets(str, sizeof(str), fp) &&
+    ఒకవేళ (fp == ఖాళీ)
+        తిరిగి;
+    ఒకవేళ (fgets(str, పరిమాణం(str), fp) &&
         (p = strrchr (str, ':')) &&
-        (sscanf (p + 1, "%u", &runs) == 1)) 
+        (అక్షరశ్రేణి_చదువు (p + 1, "%u", &runs) == 1)) 
         *pruns = runs + 1;
-    while (file) {
-	int i;
-	size_t len = strlen (file->filename);
+    అయితే (file) {
+	పూర్ణాంకం i;
+	కొలత_t len = అక్షరశ్రేణి_పొడవు (file->filename);
 
-	while (fgets(str, sizeof(str), fp) &&
-	       (p = strstr(str, "0:File:")) == NULL) {}
-        if ((p = strstr(str, "0:File:")) == NULL ||
-	    strncmp (p + strlen("0:File:"), file->filename, len) != 0 ||
-	    p[strlen("0:File:") + len] != ' ')
-	    break;
-	for (i = 0; i < file->n_func; i++) {
-	    int j;
+	అయితే (fgets(str, పరిమాణం(str), fp) &&
+	       (p = అక్షరశ్రేణి_శోధన(str, "0:File:")) == ఖాళీ) {}
+        ఒకవేళ ((p = అక్షరశ్రేణి_శోధన(str, "0:File:")) == ఖాళీ ||
+	    అక్షరశ్రేణి_పోలిక (p + అక్షరశ్రేణి_పొడవు("0:File:"), file->filename, len) != 0 ||
+	    p[అక్షరశ్రేణి_పొడవు("0:File:") + len] != ' ')
+	    ఆపు;
+	కొరకు (i = 0; i < file->n_func; i++) {
+	    పూర్ణాంకం j;
 	    tcov_function *func = &file->func[i];
-	    unsigned int next_zero = 0;
-	    unsigned int curline = 0;
+	    గుర్తులేని పూర్ణాంకం తదుపరి_zero = 0;
+	    గుర్తులేని పూర్ణాంకం curline = 0;
 
-	    for (j = 0; j < func->n_line; j++) {
-		tcov_line *line = &func->line[j];
-	        unsigned int fline = line->fline;
-	        unsigned long long count;
-		unsigned int tmp;
-		char c;
+	    కొరకు (j = 0; j < func->n_పంక్తి; j++) {
+		tcov_పంక్తి *పంక్తి = &func->పంక్తి[j];
+	        గుర్తులేని పూర్ణాంకం fline = పంక్తి->fline;
+	        గుర్తులేని దీర్ఘ దీర్ఘ లెక్క_2;
+		గుర్తులేని పూర్ణాంకం tmp;
+		అక్షరం c;
 
-		while (curline < fline &&
-		       fgets(str, sizeof(str), fp))
-		    if ((p = strchr(str, ':')) &&
-			sscanf (p + 1, "%u", &tmp) == 1)
+		అయితే (curline < fline &&
+		       fgets(str, పరిమాణం(str), fp))
+		    ఒకవేళ ((p = strchr(str, ':')) &&
+			అక్షరశ్రేణి_చదువు (p + 1, "%u", &tmp) == 1)
 			curline = tmp;
-		if (sscanf (str, "%llu%c\n", &count, &c) == 2) {
-		    if (next_zero == 0)
-		        line->count += count;
-		    next_zero = c == '*';
+		ఒకవేళ (అక్షరశ్రేణి_చదువు (str, "%llu%c\n", &లెక్క_2, &c) == 2) {
+		    ఒకవేళ (తదుపరి_zero == 0)
+		        పంక్తి->లెక్క_2 += లెక్క_2;
+		    తదుపరి_zero = c == '*';
 		}
 	    }
 	}
-	file = file->next;
+	file = file->తదుపరి;
     }
 }
 
 /* store tcov data in file */
-void __store_test_coverage (unsigned char * p)
+శూన్య __store_test_coverage (గుర్తులేని అక్షరం * p)
 {
-    int i, j;
-    unsigned int files;
-    unsigned int funcs;
-    unsigned int blocks;
-    unsigned int blocks_run;
-    unsigned int runs;
-    char *cov_filename = (char *)p + get_value (p, 4);
+    పూర్ణాంకం i, j;
+    గుర్తులేని పూర్ణాంకం files;
+    గుర్తులేని పూర్ణాంకం funcs;
+    గుర్తులేని పూర్ణాంకం ఖండాలు;
+    గుర్తులేని పూర్ణాంకం ఖండాలు_నిరంతరం;
+    గుర్తులేని పూర్ణాంకం runs;
+    అక్షరం *cov_filename = (అక్షరం *)p + get_విలువ (p, 4);
     FILE *fp;
-    char *q;
+    అక్షరం *q;
     tcov_file *file;
     tcov_file *nfile;
     tcov_function *func;
 
     fp = open_tcov_file (cov_filename);
-    if (fp == NULL) {
+    ఒకవేళ (fp == ఖాళీ) {
 	fprintf (stderr, "Cannot create coverage file: %s\n", cov_filename);
-	return;
+	తిరిగి;
     }
-    file = sort_test_coverage (p);
-    merge_test_coverage (file, fp, &runs);
+    file = క్రమీకరించు_test_coverage (p);
+    విలీనం_test_coverage (file, fp, &runs);
     fseek (fp, 0, SEEK_SET);
     fprintf (fp, "        -:    0:Runs:%u\n", runs);
     files = 0;
     funcs = 0;
-    blocks = 0;
-    blocks_run = 0;
+    ఖండాలు = 0;
+    ఖండాలు_నిరంతరం = 0;
     nfile = file;
-    while (nfile) {
+    అయితే (nfile) {
 	files++;
-	for (i = 0; i < nfile->n_func; i++) {
+	కొరకు (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
-		blocks++;
-		blocks_run += func->line[j].count != 0;
+	    కొరకు (j = 0; j < func->n_పంక్తి; j++) {
+		ఖండాలు++;
+		ఖండాలు_నిరంతరం += func->పంక్తి[j].లెక్క_2 != 0;
 	    }
 	}
-	nfile = nfile->next;
+	nfile = nfile->తదుపరి;
     }
-    if (blocks == 0)
-	blocks = 1;
+    ఒకవేళ (ఖండాలు == 0)
+	ఖండాలు = 1;
     fprintf (fp, "        -:    0:All:%s Files:%u Functions:%u %.02f%%\n",
-	     cov_filename, files, funcs, 100.0 * (double) blocks_run / blocks);
+	     cov_filename, files, funcs, 100.0 * (ద్విగుణ) ఖండాలు_నిరంతరం / ఖండాలు);
     nfile = file;
-    while (nfile) {
+    అయితే (nfile) {
 	FILE *src = fopen (nfile->filename, "r");
-	unsigned int curline = 1;
-	char str[10000];
+	గుర్తులేని పూర్ణాంకం curline = 1;
+	అక్షరం str[10000];
 
-        if (src == NULL)
-	     goto next;
+        ఒకవేళ (src == ఖాళీ)
+	     వెళ్ళు తదుపరి;
 	funcs = 0;
-	blocks = 0;
-	blocks_run = 0;
-	for (i = 0; i < nfile->n_func; i++) {
+	ఖండాలు = 0;
+	ఖండాలు_నిరంతరం = 0;
+	కొరకు (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
-		blocks++;
-		blocks_run += func->line[j].count != 0;
+	    కొరకు (j = 0; j < func->n_పంక్తి; j++) {
+		ఖండాలు++;
+		ఖండాలు_నిరంతరం += func->పంక్తి[j].లెక్క_2 != 0;
 	    }
 	}
-	if (blocks == 0)
-	    blocks = 1;
+	ఒకవేళ (ఖండాలు == 0)
+	    ఖండాలు = 1;
         fprintf (fp, "        -:    0:File:%s Functions:%u %.02f%%\n",
-		 nfile->filename, funcs, 100.0 * (double) blocks_run / blocks);
-        for (i = 0; i < nfile->n_func; i++) {
+		 nfile->filename, funcs, 100.0 * (ద్విగుణ) ఖండాలు_నిరంతరం / ఖండాలు);
+        కొరకు (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	
-	    while (curline < func->first_line &&
-		   fgets(str, sizeof(str), src))
+	    అయితే (curline < func->మొదటి_పంక్తి &&
+		   fgets(str, పరిమాణం(str), src))
 		fprintf (fp, "        -:%5u:%s", curline++, str);
-	    blocks = 0;
-	    blocks_run = 0;
-	    for (j = 0; j < func->n_line; j++) {
-		blocks++;
-		blocks_run += func->line[j].count != 0;
+	    ఖండాలు = 0;
+	    ఖండాలు_నిరంతరం = 0;
+	    కొరకు (j = 0; j < func->n_పంక్తి; j++) {
+		ఖండాలు++;
+		ఖండాలు_నిరంతరం += func->పంక్తి[j].లెక్క_2 != 0;
 	    }
-	    if (blocks == 0)
-		blocks = 1;
+	    ఒకవేళ (ఖండాలు == 0)
+		ఖండాలు = 1;
             fprintf (fp, "        -:    0:Function:%s %.02f%%\n",
-		     func->function, 100.0 * (double) blocks_run / blocks);
-#if 0
-	    for (j = 0; j < func->n_line; j++) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-		unsigned long long count = func->line[j].count;
+		     func->function, 100.0 * (ద్విగుణ) ఖండాలు_నిరంతరం / ఖండాలు);
+#ఒకవేళ 0
+	    కొరకు (j = 0; j < func->n_పంక్తి; j++) {
+	        గుర్తులేని పూర్ణాంకం fline = func->పంక్తి[j].fline;
+	        గుర్తులేని పూర్ణాంకం lline = func->పంక్తి[j].lline;
+		గుర్తులేని దీర్ఘ దీర్ఘ లెక్క_2 = func->పంక్తి[j].లెక్క_2;
 
-		fprintf (fp, "%u %u %llu\n", fline, lline, count);
+		fprintf (fp, "%u %u %llu\n", fline, lline, లెక్క_2);
 	    }
-#endif
-	    for (j = 0; j < func->n_line;) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-	        unsigned long long count = func->line[j].count;
-		unsigned int has_zero = 0;
-		unsigned int same_line = fline == lline;
+#అయితే_ముగింపు
+	    కొరకు (j = 0; j < func->n_పంక్తి;) {
+	        గుర్తులేని పూర్ణాంకం fline = func->పంక్తి[j].fline;
+	        గుర్తులేని పూర్ణాంకం lline = func->పంక్తి[j].lline;
+	        గుర్తులేని దీర్ఘ దీర్ఘ లెక్క_2 = func->పంక్తి[j].లెక్క_2;
+		గుర్తులేని పూర్ణాంకం has_zero = 0;
+		గుర్తులేని పూర్ణాంకం same_పంక్తి = fline == lline;
 
 		j++;
-		while (j < func->n_line) {
-	            unsigned int nfline = func->line[j].fline;
-	            unsigned int nlline = func->line[j].lline;
-	            unsigned long long ncount = func->line[j].count;
+		అయితే (j < func->n_పంక్తి) {
+	            గుర్తులేని పూర్ణాంకం nfline = func->పంక్తి[j].fline;
+	            గుర్తులేని పూర్ణాంకం nlline = func->పంక్తి[j].lline;
+	            గుర్తులేని దీర్ఘ దీర్ఘ ncount = func->పంక్తి[j].లెక్క_2;
 
-		    if (fline == nfline) {
-			if (ncount == 0)
+		    ఒకవేళ (fline == nfline) {
+			ఒకవేళ (ncount == 0)
 			    has_zero = 1;
-			else if (ncount > count)
-			    count =  ncount;
-			same_line = nfline == nlline;
+			లేకపోతే ఒకవేళ (ncount > లెక్క_2)
+			    లెక్క_2 =  ncount;
+			same_పంక్తి = nfline == nlline;
 			lline = nlline;
 			j++;
 		    }
-		    else
-			break;
+		    లేకపోతే
+			ఆపు;
 		}
-		if (same_line)
+		ఒకవేళ (same_పంక్తి)
 		     lline++;
 
-	        while (curline < fline &&
-		       fgets(str, sizeof(str), src))
+	        అయితే (curline < fline &&
+		       fgets(str, పరిమాణం(str), src))
 		     fprintf (fp, "        -:%5u:%s", curline++, str);
-		while (curline < lline &&
-		       fgets(str, sizeof(str), src)) {
-		    if (count == 0)
+		అయితే (curline < lline &&
+		       fgets(str, పరిమాణం(str), src)) {
+		    ఒకవేళ (లెక్క_2 == 0)
 		        fprintf (fp, "    #####:%5u:%s",
 				 curline, str);
-		    else if (has_zero)
+		    లేకపోతే ఒకవేళ (has_zero)
 		        fprintf (fp, "%8llu*:%5u:%s", 
-				 count, curline, str);
-		    else
+				 లెక్క_2, curline, str);
+		    లేకపోతే
 		        fprintf (fp, "%9llu:%5u:%s",
-				 count, curline, str);
+				 లెక్క_2, curline, str);
 		    curline++;
 		}
 	    }
 	}
-	while (fgets(str, sizeof(str), src))
+	అయితే (fgets(str, పరిమాణం(str), src))
 	    fprintf (fp, "        -:%5u:%s", curline++, str);
 	fclose (src);
-next:
-	nfile = nfile->next;
+తదుపరి:
+	nfile = nfile->తదుపరి;
     }
-    while (file) {
-        for (i = 0; i < file->n_func; i++) {
+    అయితే (file) {
+        కొరకు (i = 0; i < file->n_func; i++) {
 	    func = &file->func[i];
-	    free (func->line);
+	    విడుదల (func->పంక్తి);
         }
-	free (file->func);
+	విడుదల (file->func);
 	nfile = file;
-	file = file->next;
-	free (nfile);
+	file = file->తదుపరి;
+	విడుదల (nfile);
     }
     fclose (fp);
 }

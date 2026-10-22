@@ -3,131 +3,131 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _TIMEB_H_
-#define _TIMEB_H_
+#నిర్వచితం_కాకపోతే _TIMEB_H_
+#నిర్వచించు _TIMEB_H_
 
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#నిర్వచితం_కాకపోతే _WIN32
+#దోషం Only Win32 లక్ష్యం is supported!
+#అయితే_ముగింపు
 
-#pragma pack(push,_CRT_PACKING)
+#సూచన pack(నెట్టు,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#నిర్వచితం_కాకపోతే _CRTIMP
+#నిర్వచించు _CRTIMP __declspec(dllimport)
+#అయితే_ముగింపు
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#నిర్వచితం_కాకపోతే __TINYC__ /* gr */
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+#నిర్వచితమైతే _WIN64
+#నిర్వచనం_రద్దు USE_32_బిట్టు_సమయం_T
+#అయితే_ముగింపు
+#లేకపోతే
+#ఒకవేళ INTEGRAL_MAX_బిట్లు < 64
+#నిర్వచించు USE_32_బిట్టు_సమయం_T
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _TIME32_T_DEFINED
-  typedef long __time32_t;
-#define _TIME32_T_DEFINED
-#endif
+#నిర్వచితం_కాకపోతే _TIME32_T_DEFINED
+  రకనిర్వచనం దీర్ఘ __time32_t;
+#నిర్వచించు _TIME32_T_DEFINED
+#అయితే_ముగింపు
 
-#ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
-#endif
-#define _TIME64_T_DEFINED
-#endif
+#నిర్వచితం_కాకపోతే _TIME64_T_DEFINED
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+  రకనిర్వచనం __int64 __time64_t;
+#అయితే_ముగింపు
+#నిర్వచించు _TIME64_T_DEFINED
+#అయితే_ముగింపు
 
-#ifndef _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
-#endif
-#define _TIME_T_DEFINED
-#endif
+#నిర్వచితం_కాకపోతే సమయం_T_DEFINED
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+  రకనిర్వచనం __time32_t time_t;
+#లేకపోతే
+  రకనిర్వచనం __time64_t time_t;
+#అయితే_ముగింపు
+#నిర్వచించు సమయం_T_DEFINED
+#అయితే_ముగింపు
 
-#ifndef _TIMEB_DEFINED
-#define _TIMEB_DEFINED
+#నిర్వచితం_కాకపోతే _TIMEB_DEFINED
+#నిర్వచించు _TIMEB_DEFINED
 
-  struct __timeb32 {
-    __time32_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+  నిర్మాణం __timeb32 {
+    __time32_t సమయం;
+    గుర్తులేని పొట్టి millitm;
+    పొట్టి timezone;
+    పొట్టి dstflag;
   };
 
-#ifndef	NO_OLDNAMES
-  struct timeb {
-    time_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+#నిర్వచితం_కాకపోతే	NO_OLDNAMES
+  నిర్మాణం timeb {
+    time_t సమయం;
+    గుర్తులేని పొట్టి millitm;
+    పొట్టి timezone;
+    పొట్టి dstflag;
   };
-#endif
+#అయితే_ముగింపు
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __timeb64 {
-    __time64_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+  నిర్మాణం __timeb64 {
+    __time64_t సమయం;
+    గుర్తులేని పొట్టి millitm;
+    పొట్టి timezone;
+    పొట్టి dstflag;
   };
-#endif
+#అయితే_ముగింపు
 
-#ifdef _USE_32BIT_TIME_T
-#define _timeb __timeb32
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+#నిర్వచించు _timeb __timeb32
 //gr #define _ftime _ftime32
-#define _ftime32 _ftime
-#else
-#define _timeb __timeb64
-#define _ftime _ftime64
-#endif
-#endif
+#నిర్వచించు _ftime32 _ftime
+#లేకపోతే
+#నిర్వచించు _timeb __timeb64
+#నిర్వచించు _ftime _ftime64
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-  _CRTIMP void __cdecl _ftime32(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP void __cdecl _ftime64(struct __timeb64 *_Time);
-#endif
+  _CRTIMP శూన్య __cdecl _ftime32(నిర్మాణం __timeb32 *సమయం_2);
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+  _CRTIMP శూన్య __cdecl _ftime64(నిర్మాణం __timeb64 *సమయం_2);
+#అయితే_ముగింపు
 
-#ifndef _TIMESPEC_DEFINED
-#define _TIMESPEC_DEFINED
-struct timespec {
+#నిర్వచితం_కాకపోతే _TIMESPEC_DEFINED
+#నిర్వచించు _TIMESPEC_DEFINED
+నిర్మాణం timespec {
   time_t  tv_sec;   /* Seconds */
-  long    tv_nsec;  /* Nanoseconds */
+  దీర్ఘ    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+నిర్మాణం itimerspec {
+  నిర్మాణం timespec  it_interval;  /* Timer period */
+  నిర్మాణం timespec  it_value;     /* Timer expiration */
 };
-#endif
+#అయితే_ముగింపు
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime32((struct __timeb32 *)_Tmb);
+#ఒకవేళ !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+__CRT_INLINE శూన్య __cdecl ftime(నిర్మాణం timeb *_Tmb) {
+  _ftime32((నిర్మాణం __timeb32 *)_Tmb);
 }
-#else
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime64((struct __timeb64 *)_Tmb);
+#లేకపోతే
+__CRT_INLINE శూన్య __cdecl ftime(నిర్మాణం timeb *_Tmb) {
+  _ftime64((నిర్మాణం __timeb64 *)_Tmb);
 }
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#pragma pack(pop)
+#సూచన pack(తీయి)
 
-#include <sec_api/sys/timeb_s.h>
-#endif
+#అన్తర్భావ <sec_api/sys/timeb_s.h>
+#అయితే_ముగింపు

@@ -1,27 +1,27 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-enum fred { a, b, c };
+గణన fred { a, b, c };
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   printf("a=%d\n", a);
-   printf("b=%d\n", b);
-   printf("c=%d\n", c);
+   రాయి("a=%d\n", a);
+   రాయి("b=%d\n", b);
+   రాయి("c=%d\n", c);
 
-   enum fred d;
+   గణన fred d;
 
-   typedef enum { e, f, g } h;
-   typedef enum { i, j, k } m;
+   రకనిర్వచనం గణన { e, f, g } h;
+   రకనిర్వచనం గణన { i, j, k } m;
 
-   printf("e=%d\n", e);
-   printf("f=%d\n", f);
-   printf("g=%d\n", g);
+   రాయి("e=%d\n", e);
+   రాయి("f=%d\n", f);
+   రాయి("g=%d\n", g);
 
-   printf("i=%d\n", i);
-   printf("j=%d\n", j);
-   printf("k=%d\n", k);
+   రాయి("i=%d\n", i);
+   రాయి("j=%d\n", j);
+   రాయి("k=%d\n", k);
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

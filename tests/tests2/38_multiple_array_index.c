@@ -1,32 +1,32 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   పూర్ణాంకం a[4][4];
+   పూర్ణాంకం b = 0;
+   పూర్ణాంకం x;
+   పూర్ణాంకం y;
 
-   for (x = 0; x < 4; x++)
+   కొరకు (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      కొరకు (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   కొరకు (x = 0; x < 4; x++)
    {
-      printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      రాయి("x=%d: ", x);
+      కొరకు (y = 0; y < 4; y++)
       {
-         printf("%d ", a[x][y]);
+         రాయి("%d ", a[x][y]);
       }
-      printf("\n");
+      రాయి("\n");
    }
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

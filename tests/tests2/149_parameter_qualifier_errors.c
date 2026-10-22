@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+శూన్య defined_const(పూర్ణాంకం *సూచిక_2);
 
-void defined_const(int *const pointer)
+శూన్య defined_const(పూర్ణాంకం *స్థిరరాశి సూచిక_2)
 {
-    pointer = 0;
+    సూచిక_2 = 0;
 }
 
-int main(void)
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
-    return 0;
+    తిరిగి 0;
 }

@@ -18,18 +18,18 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef ONE_SOURCE
-# define ONE_SOURCE 1
-#endif
+#నిర్వచితం_కాకపోతే ONE_ఆధారం
+# define ONE_ఆధారం 1
+#అయితే_ముగింపు
 
-#include "tcc.h"
-#if ONE_SOURCE
+#అన్తర్భావ "tcc.h"
+#ఒకవేళ ONE_ఆధారం
 # include "libtcc.c"
-#endif
-#include "tcctools.c"
+#అయితే_ముగింపు
+#అన్తర్భావ "tcctools.c"
 
-static const char help[] =
-    "Tiny C Compiler "TCC_VERSION" - Copyright (C) 2001-2006 Fabrice Bellard\n"
+స్థిర స్థిరరాశి అక్షరం help[] =
+    "Tiny C Compiler "TCC_సంస్కరణ" - Copyright (C) 2001-2006 Fabrice Bellard\n"
     "Usage: tcc [options...] [-o outfile] [-c] infile(s)...\n"
     "       tcc [options...] -run infile (or --) [arguments...]\n"
     "General options:\n"
@@ -63,15 +63,15 @@ static const char help[] =
     "Debugger options:\n"
     "  -g           generate stab runtime debug info\n"
     "  -gdwarf[-x]  generate dwarf runtime debug info\n"
-#ifdef TCC_TARGET_PE
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
     "  -g.pdb       create .pdb debug database\n"
-#endif
-#ifdef CONFIG_TCC_BCHECK
+#అయితే_ముగింపు
+#నిర్వచితమైతే CONFIG_TCC_BCHECK
     "  -b           compile with built-in memory and bounds checker (implies -g)\n"
-#endif
-#ifdef CONFIG_TCC_BACKTRACE
+#అయితే_ముగింపు
+#నిర్వచితమైతే CONFIG_TCC_BACKTRACE
     "  -bt[N]       link with backtrace (stack dump) support [show max N callers]\n"
-#endif
+#అయితే_ముగింపు
     "Misc. options:\n"
     "  -std=version define __STDC_VERSION__ according to version (c11/gnu11)\n"
     "  -x[c|a|b|n]  specify type of the next infile (C,ASM,BIN,NONE)\n"
@@ -79,20 +79,20 @@ static const char help[] =
     "  -M[M]D       generate make dependency file [ignore system files]\n"
     "  -M[M]        as above but no other output\n"
     "  -MF file     specify dependency file name\n"
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
+#ఒకవేళ defined(TCC_లక్ష్యం_I386) || defined(TCC_లక్ష్యం_X86_64)
     "  -m32/64      defer to i386/x86_64 cross compiler\n"
-#endif
+#అయితే_ముగింపు
     "Tools:\n"
     "  create library  : tcc -ar [crstvx] lib [files]\n"
-#ifdef TCC_TARGET_PE
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
     "  create def file : tcc -impdef lib.dll [-v] [-o lib.def]\n"
-#endif
+#అయితే_ముగింపు
     "Discussion & bug reports:\n"
     "  https://lists.nongnu.org/mailman/listinfo/tinycc-devel\n"
     ;
 
-static const char help2[] =
-    "Tiny C Compiler "TCC_VERSION" - More Options\n"
+స్థిర స్థిరరాశి అక్షరం help2[] =
+    "Tiny C Compiler "TCC_సంస్కరణ" - More Options\n"
     "Special options:\n"
     "  -P -P1                        with -E: no/alternative #line output\n"
     "  -dD -dM                       with -E: output #define directives\n"
@@ -129,12 +129,12 @@ static const char help2[] =
     "  test-coverage                 create code coverage code\n"
     "-m... target specific options:\n"
     "  ms-bitfields                  use MSVC bitfield layout\n"
-#ifdef TCC_TARGET_ARM
+#నిర్వచితమైతే TCC_లక్ష్యం_ARM
     "  float-abi                     hard/softfp on arm\n"
-#endif
-#ifdef TCC_TARGET_X86_64
+#అయితే_ముగింపు
+#నిర్వచితమైతే TCC_లక్ష్యం_X86_64
     "  no-sse                        disable floats on x86_64\n"
-#endif
+#అయితే_ముగింపు
     "-Wl,... linker options:\n"
     "  -nostdlib                     do not search standard library paths\n"
     "  -[no-]whole-archive           load lib(s) fully/only as needed\n"
@@ -142,7 +142,7 @@ static const char help2[] =
     "  -export-dynamic               same as -rdynamic\n"
     "  -image-base= -Ttext=          set base address of executable\n"
     "  -section-alignment=           set section alignment in executable\n"
-#ifdef TCC_TARGET_PE
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
     "  -file-alignment=              set PE file alignment\n"
     "  -stack=                       set PE stack reserve\n"
     "  -large-address-aware          set related PE option\n"
@@ -150,37 +150,37 @@ static const char help2[] =
     "  -oformat=[pe-* binary]        set executable output format\n"
     "Predefined macros:\n"
     "  tcc -E -dM - < nul\n"
-#else
+#లేకపోతే
     "  -rpath=                       set dynamic library search path\n"
     "  -enable-new-dtags             set DT_RUNPATH instead of DT_RPATH\n"
     "  -soname=                      set DT_SONAME elf tag\n"
-#if defined(TCC_TARGET_MACHO)
+#ఒకవేళ defined(TCC_లక్ష్యం_MACHO)
     "  -install_name=                set DT_SONAME elf tag (soname macOS alias)\n"
-#else
+#లేకపోతే
     "  -Ipath, -dynamic-linker=path  set ELF interpreter to path\n"
-#endif
+#అయితే_ముగింపు
     "  -Bsymbolic                    set DT_SYMBOLIC elf tag\n"
     "  -oformat=[elf32/64-* binary]  set executable output format\n"
     "  -init= -fini= -Map= -as-needed -O -z= (ignored)\n"
     "Predefined macros:\n"
     "  tcc -E -dM - < /dev/null\n"
-#endif
+#అయితే_ముగింపు
     "See also the manual for more details.\n"
     ;
 
-static const char version[] =
-    "tcc version "TCC_VERSION
-#ifdef TCC_GITHASH
+స్థిర స్థిరరాశి అక్షరం సంస్కరణ[] =
+    "tcc version "TCC_సంస్కరణ
+#నిర్వచితమైతే TCC_GITHASH
     " "TCC_GITHASH
-#endif
+#అయితే_ముగింపు
     " ("
-#ifdef TCC_TARGET_I386
+#నిర్వచితమైతే TCC_లక్ష్యం_I386
         "i386"
-#elif defined TCC_TARGET_X86_64
+#లేదావేళ defined TCC_లక్ష్యం_X86_64
         "x86_64"
-#elif defined TCC_TARGET_C67
+#లేదావేళ defined TCC_లక్ష్యం_C67
         "C67"
-#elif defined TCC_TARGET_ARM
+#లేదావేళ defined TCC_లక్ష్యం_ARM
         "ARM"
 # ifdef TCC_ARM_EABI
         " eabi"
@@ -188,245 +188,245 @@ static const char version[] =
         "hf"
 #  endif
 # endif
-#elif defined TCC_TARGET_ARM64
+#లేదావేళ defined TCC_లక్ష్యం_ARM64
         "AArch64"
-#elif defined TCC_TARGET_RISCV64
+#లేదావేళ defined TCC_లక్ష్యం_RISCV64
         "riscv64"
-#endif
-#ifdef TCC_TARGET_PE
+#అయితే_ముగింపు
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
         " Windows"
-#elif defined(TCC_TARGET_MACHO)
+#లేదావేళ defined(TCC_లక్ష్యం_MACHO)
         " Darwin"
-#elif TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
+#లేదావేళ TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
         " FreeBSD"
-#elif TARGETOS_OpenBSD
+#లేదావేళ TARGETOS_OpenBSD
         " OpenBSD"
-#elif TARGETOS_NetBSD
+#లేదావేళ TARGETOS_NetBSD
         " NetBSD"
-#else
+#లేకపోతే
         " Linux"
-#endif
+#అయితే_ముగింపు
     ")\n"
     ;
 
-static void print_dirs(const char *msg, char **paths, int nb_paths)
+స్థిర శూన్య print_dirs(స్థిరరాశి అక్షరం *సందేశం, అక్షరం **paths, పూర్ణాంకం nb_paths)
 {
-    int i;
-    printf("%s:\n%s", msg, nb_paths ? "" : "  -\n");
-    for(i = 0; i < nb_paths; i++)
-        printf("  %s\n", paths[i]);
+    పూర్ణాంకం i;
+    రాయి("%s:\n%s", సందేశం, nb_paths ? "" : "  -\n");
+    కొరకు(i = 0; i < nb_paths; i++)
+        రాయి("  %s\n", paths[i]);
 }
 
-static void print_search_dirs(TCCState *s)
+స్థిర శూన్య print_శోధన_dirs(TCCState *s)
 {
-    printf("install: %s\n", s->tcc_lib_path);
+    రాయి("install: %s\n", s->tcc_lib_మార్గం);
     /* print_dirs("programs", NULL, 0); */
     print_dirs("include", s->sysinclude_paths, s->nb_sysinclude_paths);
     print_dirs("libraries", s->library_paths, s->nb_library_paths);
-    printf("libtcc1:\n  %s/%s\n", s->library_paths[0], CONFIG_TCC_CROSSPREFIX TCC_LIBTCC1);
-#ifdef TCC_TARGET_UNIX
+    రాయి("libtcc1:\n  %s/%s\n", s->library_paths[0], CONFIG_TCC_CROSSPREFIX TCC_LIBTCC1);
+#నిర్వచితమైతే TCC_లక్ష్యం_UNIX
     print_dirs("crt", s->crt_paths, s->nb_crt_paths);
-    printf("elfinterp:\n  %s\n",  s->elfint);
-#endif
+    రాయి("elfinterp:\n  %s\n",  s->elfint);
+#అయితే_ముగింపు
 }
 
-static void set_environment(TCCState *s)
+స్థిర శూన్య సమితి_environment(TCCState *s)
 {
-    char * path;
+    అక్షరం * మార్గం;
 
-    path = getenv("C_INCLUDE_PATH");
-    if(path != NULL) {
-        tcc_add_sysinclude_path(s, path);
+    మార్గం = getenv("C_INCLUDE_PATH");
+    ఒకవేళ(మార్గం != ఖాళీ) {
+        tcc_కూడు_sysinclude_మార్గం(s, మార్గం);
     }
-    path = getenv("CPATH");
-    if(path != NULL) {
-        tcc_add_include_path(s, path);
+    మార్గం = getenv("CPATH");
+    ఒకవేళ(మార్గం != ఖాళీ) {
+        tcc_కూడు_include_మార్గం(s, మార్గం);
     }
-    path = getenv("LIBRARY_PATH");
-    if(path != NULL) {
-        tcc_add_library_path(s, path);
+    మార్గం = getenv("LIBRARY_PATH");
+    ఒకవేళ(మార్గం != ఖాళీ) {
+        tcc_కూడు_library_మార్గం(s, మార్గం);
     }
 }
 
-static char *default_outputfile(TCCState *s, const char *first_file)
+స్థిర అక్షరం *default_outputfile(TCCState *s, స్థిరరాశి అక్షరం *మొదటి_file)
 {
-    char buf[1024];
-    char *ext;
-    const char *name = "a";
+    అక్షరం buf[1024];
+    అక్షరం *ext;
+    స్థిరరాశి అక్షరం *name = "a";
 
-    if (first_file && strcmp(first_file, "-"))
-        name = tcc_basename(first_file);
-    if (strlen(name) + 4 >= sizeof buf)
+    ఒకవేళ (మొదటి_file && strcmp(మొదటి_file, "-"))
+        name = tcc_basename(మొదటి_file);
+    ఒకవేళ (అక్షరశ్రేణి_పొడవు(name) + 4 >= పరిమాణం buf)
         name = "a";
     strcpy(buf, name);
     ext = tcc_fileextension(buf);
-#ifdef TCC_TARGET_PE
-    if (s->output_type == TCC_OUTPUT_DLL)
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
+    ఒకవేళ (s->output_type == TCC_OUTPUT_DLL)
         strcpy(ext, ".dll");
-    else
-    if (s->output_type == TCC_OUTPUT_EXE)
+    లేకపోతే
+    ఒకవేళ (s->output_type == TCC_OUTPUT_EXE)
         strcpy(ext, ".exe");
-    else
-#endif
-    if ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
+    లేకపోతే
+#అయితే_ముగింపు
+    ఒకవేళ ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
         strcpy(ext, ".o");
-    else
+    లేకపోతే
         strcpy(buf, "a.out");
-    return tcc_strdup(buf);
+    తిరిగి tcc_strdup(buf);
 }
 
-static unsigned getclock_ms(void)
+స్థిర గుర్తులేని getclock_ms(శూన్య)
 {
-#ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
-#endif
+#నిర్వచితమైతే _WIN32
+    తిరిగి Get_Tick_లెక్క();
+#లేకపోతే
+    నిర్మాణం timeval tv;
+    gettimeofday(&tv, ఖాళీ);
+    తిరిగి tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+#అయితే_ముగింపు
 }
 
-int main(int argc, char **argv)
+పూర్ణాంకం ప్రధాన(పూర్ణాంకం argc, అక్షరం **argv)
 {
     TCCState *s, *s1;
-    int ret, opt, n = 0, t = 0, done;
-    unsigned start_time = 0, end_time = 0;
-    const char *first_file;
-    int argc0 = argc;
-    char **argv0 = argv;
-    FILE *ppfp = NULL;
+    పూర్ణాంకం ret, opt, n = 0, t = 0, పూర్తి;
+    గుర్తులేని ప్రారంభం_సమయం = 0, చివర_సమయం = 0;
+    స్థిరరాశి అక్షరం *మొదటి_file;
+    పూర్ణాంకం argc0 = argc;
+    అక్షరం **argv0 = argv;
+    FILE *ppfp = ఖాళీ;
 
 redo:
     argc = argc0, argv = argv0;
     s = s1 = tcc_new();
-    opt = tcc_parse_args(s, &argc, &argv);
+    opt = tcc_parse_వాదనలు(s, &argc, &argv);
 
-    if (n == 0) {
+    ఒకవేళ (n == 0) {
         ret = 0;
-        if (opt == OPT_HELP) {
+        ఒకవేళ (opt == OPT_HELP) {
             fputs(help, stdout);
-            if (s->verbose)
-                goto help2;
-        } else if (opt == OPT_HELP2) {
+            ఒకవేళ (s->verbose)
+                వెళ్ళు help2;
+        } లేకపోతే ఒకవేళ (opt == OPT_HELP2) {
             help2: fputs(help2, stdout);
-        } else if (opt == OPT_M32 || opt == OPT_M64) {
+        } లేకపోతే ఒకవేళ (opt == OPT_M32 || opt == OPT_M64) {
             ret = tcc_tool_cross(argv, opt);
-        } else if (s->verbose)
-            printf("%s", version);
+        } లేకపోతే ఒకవేళ (s->verbose)
+            రాయి("%s", సంస్కరణ);
 
-        if (opt == OPT_AR)
+        ఒకవేళ (opt == OPT_AR)
             ret = tcc_tool_ar(argc, argv);
-#ifdef TCC_TARGET_PE
-        if (opt == OPT_IMPDEF)
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
+        ఒకవేళ (opt == OPT_IMPDEF)
             ret = tcc_tool_impdef(argc, argv);
-#endif
-        if (opt == OPT_PRINT_DIRS) {
+#అయితే_ముగింపు
+        ఒకవేళ (opt == OPT_PRINT_DIRS) {
             /* initialize search dirs */
-            set_environment(s);
-            tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
-            print_search_dirs(s);
+            సమితి_environment(s);
+            tcc_సమితి_output_type(s, TCC_OUTPUT_జ్ఞాపకం);
+            print_శోధన_dirs(s);
         }
-        if (opt) {
-            if (opt < 0) err:
+        ఒకవేళ (opt) {
+            ఒకవేళ (opt < 0) err:
                 ret = 1;
             tcc_delete(s);
-            return ret;
+            తిరిగి ret;
         }
-        if (s->nb_files == 0) {
+        ఒకవేళ (s->nb_files == 0) {
             tcc_error_noabort("no input files");
-        } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
-            if (s->outfile && 0!=strcmp("-",s->outfile)) {
+        } లేకపోతే ఒకవేళ (s->output_type == TCC_OUTPUT_PREPROCESS) {
+            ఒకవేళ (s->outfile && 0!=strcmp("-",s->outfile)) {
                 ppfp = tcc_fopen(s->outfile, "wb");
-                if (!ppfp)
+                ఒకవేళ (!ppfp)
                     tcc_error_noabort("could not write '%s'", s->outfile);
             }
-        } else if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
-            if (s->nb_libraries)
+        } లేకపోతే ఒకవేళ (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
+            ఒకవేళ (s->nb_libraries)
                 tcc_error_noabort("cannot specify libraries with -c");
-            else if (s->nb_files > 1 && s->outfile)
+            లేకపోతే ఒకవేళ (s->nb_files > 1 && s->outfile)
                 tcc_error_noabort("cannot specify output file with -c many files");
         }
-        if (s->nb_errors)
-            goto err;
-        if (s->do_bench)
-            start_time = getclock_ms();
+        ఒకవేళ (s->nb_errors)
+            వెళ్ళు err;
+        ఒకవేళ (s->do_bench)
+            ప్రారంభం_సమయం = getclock_ms();
     }
 
-    set_environment(s);
-    if (s->output_type == 0)
+    సమితి_environment(s);
+    ఒకవేళ (s->output_type == 0)
         s->output_type = TCC_OUTPUT_EXE;
-    ret = tcc_set_output_type(s, s->output_type);
-    if (ppfp)
+    ret = tcc_సమితి_output_type(s, s->output_type);
+    ఒకవేళ (ppfp)
         s->ppfp = ppfp;
 
-    if ((s->output_type == TCC_OUTPUT_MEMORY
+    ఒకవేళ ((s->output_type == TCC_OUTPUT_జ్ఞాపకం
       || s->output_type == TCC_OUTPUT_PREPROCESS)
         && (s->dflag & 16)) { /* -dt option */
-        if (t)
+        ఒకవేళ (t)
             s->dflag |= 32;
-        s->run_test = ++t;
-        if (n)
+        s->నిరంతరం_test = ++t;
+        ఒకవేళ (n)
             --n;
     }
 
     /* compile or add each files or library */
-    first_file = NULL;
-    while (0 == ret) {
-        struct filespec *f = s->files[n];
+    మొదటి_file = ఖాళీ;
+    అయితే (0 == ret) {
+        నిర్మాణం filespec *f = s->files[n];
         s->filetype = f->type;
-        if (f->type & AFF_TYPE_LIB) {
-            ret = tcc_add_library(s, f->name);
-        } else {
-            if (1 == s->verbose)
-                printf("-> %s\n", f->name);
-            if (!first_file)
-                first_file = f->name;
-            ret = tcc_add_file(s, f->name);
+        ఒకవేళ (f->type & AFF_TYPE_LIB) {
+            ret = tcc_కూడు_library(s, f->name);
+        } లేకపోతే {
+            ఒకవేళ (1 == s->verbose)
+                రాయి("-> %s\n", f->name);
+            ఒకవేళ (!మొదటి_file)
+                మొదటి_file = f->name;
+            ret = tcc_కూడు_file(s, f->name);
         }
-        if (++n == s->nb_files)
-            break;
-        if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
-            break;
+        ఒకవేళ (++n == s->nb_files)
+            ఆపు;
+        ఒకవేళ (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
+            ఆపు;
     }
 
-    if (s->do_bench)
-        end_time = getclock_ms();
+    ఒకవేళ (s->do_bench)
+        చివర_సమయం = getclock_ms();
 
-    if (s->run_test) {
+    ఒకవేళ (s->నిరంతరం_test) {
         t = 0;
-    } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
+    } లేకపోతే ఒకవేళ (s->output_type == TCC_OUTPUT_PREPROCESS) {
         ;
-    } else if (0 == ret) {
-        if (s->output_type == TCC_OUTPUT_MEMORY) {
-#ifdef TCC_IS_NATIVE
-            ret = tcc_run(s, argc, argv);
-#endif
-        } else {
-            if (!s->outfile)
-                s->outfile = default_outputfile(s, first_file);
-            if (!s->just_deps)
+    } లేకపోతే ఒకవేళ (0 == ret) {
+        ఒకవేళ (s->output_type == TCC_OUTPUT_జ్ఞాపకం) {
+#నిర్వచితమైతే TCC_IS_NATIVE
+            ret = tcc_నిరంతరం(s, argc, argv);
+#అయితే_ముగింపు
+        } లేకపోతే {
+            ఒకవేళ (!s->outfile)
+                s->outfile = default_outputfile(s, మొదటి_file);
+            ఒకవేళ (!s->just_deps)
                 ret = tcc_output_file(s, s->outfile);
-            if (!ret && s->gen_deps)
+            ఒకవేళ (!ret && s->gen_deps)
                 gen_makedeps(s, s->outfile, s->deps_outfile);
         }
     }
 
-    done = 1;
-    if (t)
-        done = 0; /* run more tests with -dt -run */
-    else if (ret) {
-        if (s->nb_errors)
+    పూర్తి = 1;
+    ఒకవేళ (t)
+        పూర్తి = 0; /* run more tests with -dt -run */
+    లేకపోతే ఒకవేళ (ret) {
+        ఒకవేళ (s->nb_errors)
             ret = 1;
         /* else keep the original exit code from tcc_run() */
-    } else if (n < s->nb_files)
-        done = 0; /* compile more files with -c */
-    else if (s->do_bench)
-        tcc_print_stats(s, end_time - start_time);
+    } లేకపోతే ఒకవేళ (n < s->nb_files)
+        పూర్తి = 0; /* compile more files with -c */
+    లేకపోతే ఒకవేళ (s->do_bench)
+        tcc_print_stats(s, చివర_సమయం - ప్రారంభం_సమయం);
 
     tcc_delete(s);
-    if (!done)
-        goto redo;
-    if (ppfp)
+    ఒకవేళ (!పూర్తి)
+        వెళ్ళు redo;
+    ఒకవేళ (ppfp)
         tcc_fclose(ppfp);
-    return ret;
+    తిరిగి ret;
 }

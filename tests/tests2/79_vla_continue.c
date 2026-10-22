@@ -1,113 +1,113 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int f(void)
+పూర్ణాంకం f(శూన్య)
 {
-  return 5;
+  తిరిగి 5;
 }
 
-void test1()
+శూన్య test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  పూర్ణాంకం లెక్క_2 = 10;
+  శూన్య *addr[10];
+  కొరకు(;లెక్క_2--;) {
+    పూర్ణాంకం a[f()];
 
-    addr[count] = a;
+    addr[లెక్క_2] = a;
 
-    continue;
+    కొనసాగు;
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
-  }
-}
-
-void test2()
-{
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
-
-    addr[count] = a;
-
-    continue;
-  }
-
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ఒకవేళ(addr[9] == addr[0]) {
+    రాయి("OK\n");
+  } లేకపోతే {
+    రాయి("NOT OK\n");
   }
 }
 
-void test3()
+శూన్య test2()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  పూర్ణాంకం లెక్క_2 = 10;
+  శూన్య *addr[లెక్క_2];
+  కొరకు(;లెక్క_2--;) {
+    పూర్ణాంకం a[f()];
 
-          addr[count] = a;
+    addr[లెక్క_2] = a;
 
-          continue;
+    కొనసాగు;
+  }
+
+  ఒకవేళ(addr[9] == addr[0]) {
+    రాయి("OK\n");
+  } లేకపోతే {
+    రాయి("NOT OK\n");
+  }
+}
+
+శూన్య test3()
+{
+  పూర్ణాంకం లెక్క_2 = 10;
+  శూన్య *addr[లెక్క_2];
+  అయితే(లెక్క_2--) {
+      పూర్ణాంకం b[f()];
+      ఒకవేళ (లెక్క_2 >= 0) {
+          పూర్ణాంకం a[f()];
+
+          addr[లెక్క_2] = a;
+
+          కొనసాగు;
       }
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ఒకవేళ(addr[9] == addr[0]) {
+    రాయి("OK\n");
+  } లేకపోతే {
+    రాయి("NOT OK\n");
   }
 }
 
-void test4()
+శూన్య test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  పూర్ణాంకం లెక్క_2 = 10;
+  శూన్య *addr[లెక్క_2];
+  చేయి {
+    పూర్ణాంకం a[f()];
 
-    addr[--count] = a;
+    addr[--లెక్క_2] = a;
 
-    continue;
-  } while (count);
+    కొనసాగు;
+  } అయితే (లెక్క_2);
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ఒకవేళ(addr[9] == addr[0]) {
+    రాయి("OK\n");
+  } లేకపోతే {
+    రాయి("NOT OK\n");
   }
 }
 
-void test5()
+శూన్య test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  పూర్ణాంకం లెక్క_2 = 10;
+  పూర్ణాంకం a[f()];
+  పూర్ణాంకం c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  కొరకు(;లెక్క_2--;) {
+    పూర్ణాంకం b[f()];
+    పూర్ణాంకం i;
+    కొరకు (i=0; i<f(); i++) {
+      b[i] = లెక్క_2;
     }
   }
 
-  if (c[0] == 42) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ఒకవేళ (c[0] == 42) {
+    రాయి("OK\n");
+  } లేకపోతే {
+    రాయి("NOT OK\n");
   }
 }
 
-int main(void)
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  తిరిగి 0;
 }

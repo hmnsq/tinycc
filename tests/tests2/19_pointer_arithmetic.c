@@ -1,28 +1,28 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int a;
-   int *b;
-   int *c;
+   పూర్ణాంకం a;
+   పూర్ణాంకం *b;
+   పూర్ణాంకం *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = ఖాళీ;
 
-   printf("%d\n", *b);
+   రాయి("%d\n", *b);
 
-   if (b == NULL)
-      printf("b is NULL\n");
-   else
-      printf("b is not NULL\n");
+   ఒకవేళ (b == ఖాళీ)
+      రాయి("b is NULL\n");
+   లేకపోతే
+      రాయి("b is not NULL\n");
 
-   if (c == NULL)
-      printf("c is NULL\n");
-   else
-      printf("c is not NULL\n");
+   ఒకవేళ (c == ఖాళీ)
+      రాయి("c is NULL\n");
+   లేకపోతే
+      రాయి("c is not NULL\n");
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

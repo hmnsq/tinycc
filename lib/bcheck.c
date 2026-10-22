@@ -17,599 +17,599 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include <setjmp.h>
-#include <stdatomic.h>
+#అన్తర్భావ <stdlib.h>
+#అన్తర్భావ <stdio.h>
+#అన్తర్భావ <stdarg.h>
+#అన్తర్భావ <string.h>
+#అన్తర్భావ <setjmp.h>
+#అన్తర్భావ <stdatomic.h>
 
-#if !defined(__FreeBSD__) \
+#ఒకవేళ !defined(__FreeBSD__) \
  && !defined(__FreeBSD_kernel__) \
  && !defined(__DragonFly__) \
  && !defined(__OpenBSD__) \
  && !defined(__APPLE__) \
  && !defined(__NetBSD__)
-#include <malloc.h>
-#endif
+#అన్తర్భావ <malloc.h>
+#అయితే_ముగింపు
 
-#if !defined(_WIN32)
-#include <unistd.h>
-#include <sys/syscall.h>
-#endif
+#ఒకవేళ !defined(_WIN32)
+#అన్తర్భావ <unistd.h>
+#అన్తర్భావ <sys/syscall.h>
+#అయితే_ముగింపు
 
-#include "config.h"
+#అన్తర్భావ "config.h"
 
-#define BOUND_DEBUG             (1)
-#define BOUND_STATISTIC         (1)
+#నిర్వచించు BOUND_DEBUG             (1)
+#నిర్వచించు BOUND_STATISTIC         (1)
 
-#if BOUND_DEBUG
- #define dprintf(a...)         if (print_calls) { bounds_loc(a); }
-#else
- #define dprintf(a...)
-#endif
+#ఒకవేళ BOUND_DEBUG
+ #నిర్వచించు dprintf(a...)         ఒకవేళ (print_calls) { bounds_loc(a); }
+#లేకపోతే
+ #నిర్వచించు dprintf(a...)
+#అయితే_ముగింపు
 
-#ifdef __attribute__
+#నిర్వచితమైతే __attribute__
   /* an __attribute__ macro is defined in the system headers */
-  #undef __attribute__ 
-#endif
-#ifdef __i386__
-#define FASTCALL __attribute__((regparm(3)))
-#else
-#define FASTCALL
-#endif
+  #నిర్వచనం_రద్దు __attribute__ 
+#అయితే_ముగింపు
+#నిర్వచితమైతే __i386__
+#నిర్వచించు FASTCALL __attribute__((regparm(3)))
+#లేకపోతే
+#నిర్వచించు FASTCALL
+#అయితే_ముగింపు
 
-#ifdef _WIN32
+#నిర్వచితమైతే _WIN32
 # define DLL_EXPORT __declspec(dllexport)
-#else
+#లేకపోతే
 # define DLL_EXPORT
-#endif
+#అయితే_ముగింపు
 
-#if defined(__FreeBSD__) \
+#ఒకవేళ defined(__FreeBSD__) \
  || defined(__FreeBSD_kernel__) \
  || defined(__DragonFly__) \
  || defined(__OpenBSD__) \
  || defined(__NetBSD__) \
  || defined(__dietlibc__)
 
-#include <sys/mman.h>
-#define INIT_SEM()
-#define EXIT_SEM()
-#define WAIT_SEM()
-#define POST_SEM()
-#define TRY_SEM()
-#define HAVE_MEMALIGN          (0)
-#define MALLOC_REDIR           (0)
-#define HAVE_PTHREAD_CREATE    (0)
-#define HAVE_CTYPE             (0)
-#define HAVE_ERRNO             (0)
-#define HAVE_SIGNAL            (0)
-#define HAVE_SIGACTION         (0)
-#define HAVE_FORK              (0)
-#define HAVE_TLS_FUNC          (0)
-#define HAVE_TLS_VAR           (0)
+#అన్తర్భావ <sys/mman.h>
+#నిర్వచించు INIT_SEM()
+#నిర్వచించు EXIT_SEM()
+#నిర్వచించు WAIT_SEM()
+#నిర్వచించు POST_SEM()
+#నిర్వచించు TRY_SEM()
+#నిర్వచించు HAVE_MEMALIGN          (0)
+#నిర్వచించు MALLOC_REDIR           (0)
+#నిర్వచించు HAVE_PTHREAD_CREATE    (0)
+#నిర్వచించు HAVE_CTYPE             (0)
+#నిర్వచించు HAVE_ERRNO             (0)
+#నిర్వచించు HAVE_SIGNAL            (0)
+#నిర్వచించు HAVE_SIGACTION         (0)
+#నిర్వచించు HAVE_FORK              (0)
+#నిర్వచించు HAVE_TLS_FUNC          (0)
+#నిర్వచించు HAVE_TLS_VAR           (0)
 
-#elif defined(_WIN32)
+#లేదావేళ defined(_WIN32)
 
-#include <windows.h>
-#include <signal.h>
-static CRITICAL_SECTION bounds_sem;
-#define INIT_SEM()             InitializeCriticalSection(&bounds_sem)
-#define EXIT_SEM()             DeleteCriticalSection(&bounds_sem)
-#define WAIT_SEM()             EnterCriticalSection(&bounds_sem)
-#define POST_SEM()             LeaveCriticalSection(&bounds_sem)
-#define TRY_SEM()              TryEnterCriticalSection(&bounds_sem)
-#define HAVE_MEMALIGN          (0)
-#define MALLOC_REDIR           (0)
-#define HAVE_PTHREAD_CREATE    (0)
-#define HAVE_CTYPE             (0)
-#define HAVE_ERRNO             (0)
-#define HAVE_SIGNAL            (1)
-#define HAVE_SIGACTION         (0)
-#define HAVE_FORK              (0)
-#define HAVE_TLS_FUNC          (1)
-#define HAVE_TLS_VAR           (0)
+#అన్తర్భావ <windows.h>
+#అన్తర్భావ <signal.h>
+స్థిర CRITICAL_SECTION bounds_sem;
+#నిర్వచించు INIT_SEM()             InitializeCriticalSection(&bounds_sem)
+#నిర్వచించు EXIT_SEM()             DeleteCriticalSection(&bounds_sem)
+#నిర్వచించు WAIT_SEM()             EnterCriticalSection(&bounds_sem)
+#నిర్వచించు POST_SEM()             LeaveCriticalSection(&bounds_sem)
+#నిర్వచించు TRY_SEM()              TryEnterCriticalSection(&bounds_sem)
+#నిర్వచించు HAVE_MEMALIGN          (0)
+#నిర్వచించు MALLOC_REDIR           (0)
+#నిర్వచించు HAVE_PTHREAD_CREATE    (0)
+#నిర్వచించు HAVE_CTYPE             (0)
+#నిర్వచించు HAVE_ERRNO             (0)
+#నిర్వచించు HAVE_SIGNAL            (1)
+#నిర్వచించు HAVE_SIGACTION         (0)
+#నిర్వచించు HAVE_FORK              (0)
+#నిర్వచించు HAVE_TLS_FUNC          (1)
+#నిర్వచించు HAVE_TLS_VAR           (0)
 
-#else
+#లేకపోతే
 
-#define __USE_GNU              /* get RTLD_NEXT */
-#include <sys/mman.h>
-#include <ctype.h>
-#include <pthread.h>
-#include <dlfcn.h>
-#include <errno.h>
-#include <signal.h>
-#ifdef __APPLE__
-#include <dispatch/dispatch.h>
-static dispatch_semaphore_t bounds_sem;
-#define INIT_SEM()             bounds_sem = dispatch_semaphore_create(1)
-#define EXIT_SEM()             dispatch_release(*(dispatch_object_t*)&bounds_sem)
-#define WAIT_SEM()             if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_FOREVER)
-#define POST_SEM()             if (use_sem) dispatch_semaphore_signal(bounds_sem)
-#define TRY_SEM()              if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_NOW)
-#elif 0
-#include <semaphore.h>
-static sem_t bounds_sem;
-#define INIT_SEM()             sem_init (&bounds_sem, 0, 1)
-#define EXIT_SEM()             sem_destroy (&bounds_sem)
-#define WAIT_SEM()             if (use_sem) while (sem_wait (&bounds_sem) < 0 \
+#నిర్వచించు __USE_GNU              /* get RTLD_NEXT */
+#అన్తర్భావ <sys/mman.h>
+#అన్తర్భావ <ctype.h>
+#అన్తర్భావ <pthread.h>
+#అన్తర్భావ <dlfcn.h>
+#అన్తర్భావ <errno.h>
+#అన్తర్భావ <signal.h>
+#నిర్వచితమైతే __APPLE__
+#అన్తర్భావ <dispatch/dispatch.h>
+స్థిర dispatch_semaphore_t bounds_sem;
+#నిర్వచించు INIT_SEM()             bounds_sem = dispatch_semaphore_create(1)
+#నిర్వచించు EXIT_SEM()             dispatch_release(*(dispatch_object_t*)&bounds_sem)
+#నిర్వచించు WAIT_SEM()             ఒకవేళ (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_సమయం_FOREVER)
+#నిర్వచించు POST_SEM()             ఒకవేళ (use_sem) dispatch_semaphore_signal(bounds_sem)
+#నిర్వచించు TRY_SEM()              ఒకవేళ (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_సమయం_NOW)
+#లేదావేళ 0
+#అన్తర్భావ <semaphore.h>
+స్థిర sem_t bounds_sem;
+#నిర్వచించు INIT_SEM()             sem_init (&bounds_sem, 0, 1)
+#నిర్వచించు EXIT_SEM()             sem_destroy (&bounds_sem)
+#నిర్వచించు WAIT_SEM()             ఒకవేళ (use_sem) అయితే (sem_wait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
-#define POST_SEM()             if (use_sem) sem_post (&bounds_sem)
-#define TRY_SEM()              if (use_sem) while (sem_trywait (&bounds_sem) < 0 \
+#నిర్వచించు POST_SEM()             ఒకవేళ (use_sem) sem_post (&bounds_sem)
+#నిర్వచించు TRY_SEM()              ఒకవేళ (use_sem) అయితే (sem_trywait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
-#elif 0
-static pthread_mutex_t bounds_mtx;
-#define INIT_SEM()             pthread_mutex_init (&bounds_mtx, NULL)
-#define EXIT_SEM()             pthread_mutex_destroy (&bounds_mtx)
-#define WAIT_SEM()             if (use_sem) pthread_mutex_lock (&bounds_mtx)
-#define POST_SEM()             if (use_sem) pthread_mutex_unlock (&bounds_mtx)
-#define TRY_SEM()              if (use_sem) pthread_mutex_trylock (&bounds_mtx)
-#else
-static pthread_spinlock_t bounds_spin;
+#లేదావేళ 0
+స్థిర pthread_mutex_t bounds_mtx;
+#నిర్వచించు INIT_SEM()             pthread_mutex_init (&bounds_mtx, ఖాళీ)
+#నిర్వచించు EXIT_SEM()             pthread_mutex_destroy (&bounds_mtx)
+#నిర్వచించు WAIT_SEM()             ఒకవేళ (use_sem) pthread_mutex_lock (&bounds_mtx)
+#నిర్వచించు POST_SEM()             ఒకవేళ (use_sem) pthread_mutex_unlock (&bounds_mtx)
+#నిర్వచించు TRY_SEM()              ఒకవేళ (use_sem) pthread_mutex_trylock (&bounds_mtx)
+#లేకపోతే
+స్థిర pthread_spinlock_t bounds_spin;
 /* about 25% faster then semaphore. */
-#define INIT_SEM()             pthread_spin_init (&bounds_spin, 0)
-#define EXIT_SEM()             pthread_spin_destroy (&bounds_spin)
-#define WAIT_SEM()             if (use_sem) pthread_spin_lock (&bounds_spin)
-#define POST_SEM()             if (use_sem) pthread_spin_unlock (&bounds_spin)
-#define TRY_SEM()              if (use_sem) pthread_spin_trylock (&bounds_spin)
-#endif
-#define HAVE_MEMALIGN          (1)
-#define MALLOC_REDIR           (1)
-#define HAVE_PTHREAD_CREATE    (1)
-#define HAVE_CTYPE             (1)
-#define HAVE_ERRNO             (1)
-#define HAVE_SIGNAL            (1)
-#define HAVE_SIGACTION         (1)
-#define HAVE_FORK              (1)
-#if defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_RUN)
-#define HAVE_TLS_FUNC          (1)
-#define HAVE_TLS_VAR           (0)
-#else
-#define HAVE_TLS_FUNC          (0)
-#define HAVE_TLS_VAR           (1)
-#endif
-#if defined CONFIG_TCC_MUSL || defined __ANDROID__
+#నిర్వచించు INIT_SEM()             pthread_spin_init (&bounds_spin, 0)
+#నిర్వచించు EXIT_SEM()             pthread_spin_destroy (&bounds_spin)
+#నిర్వచించు WAIT_SEM()             ఒకవేళ (use_sem) pthread_spin_lock (&bounds_spin)
+#నిర్వచించు POST_SEM()             ఒకవేళ (use_sem) pthread_spin_unlock (&bounds_spin)
+#నిర్వచించు TRY_SEM()              ఒకవేళ (use_sem) pthread_spin_trylock (&bounds_spin)
+#అయితే_ముగింపు
+#నిర్వచించు HAVE_MEMALIGN          (1)
+#నిర్వచించు MALLOC_REDIR           (1)
+#నిర్వచించు HAVE_PTHREAD_CREATE    (1)
+#నిర్వచించు HAVE_CTYPE             (1)
+#నిర్వచించు HAVE_ERRNO             (1)
+#నిర్వచించు HAVE_SIGNAL            (1)
+#నిర్వచించు HAVE_SIGACTION         (1)
+#నిర్వచించు HAVE_FORK              (1)
+#ఒకవేళ defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_నిరంతరం)
+#నిర్వచించు HAVE_TLS_FUNC          (1)
+#నిర్వచించు HAVE_TLS_VAR           (0)
+#లేకపోతే
+#నిర్వచించు HAVE_TLS_FUNC          (0)
+#నిర్వచించు HAVE_TLS_VAR           (1)
+#అయితే_ముగింపు
+#ఒకవేళ defined CONFIG_TCC_MUSL || defined __ANDROID__
 # undef HAVE_CTYPE
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#if MALLOC_REDIR
-static void *(*malloc_redir) (size_t);
-static void *(*calloc_redir) (size_t, size_t);
-static void (*free_redir) (void *);
-static void *(*realloc_redir) (void *, size_t);
-static unsigned int pool_index;
-static unsigned char __attribute__((aligned(16))) initial_pool[256];
-#endif
-#if HAVE_MEMALIGN
-static void *(*memalign_redir) (size_t, size_t);
-#endif
-#if HAVE_PTHREAD_CREATE
-static int (*pthread_create_redir) (pthread_t *thread,
-                                    const pthread_attr_t *attr,
-                                    void *(*start_routine)(void *), void *arg);
-#endif
-#if HAVE_SIGNAL
-typedef void (*bound_sig)(int);
-static bound_sig (*signal_redir) (int signum, bound_sig handler);
-#endif
-#if HAVE_SIGACTION
-static int (*sigaction_redir) (int signum, const struct sigaction *act,
-                               struct sigaction *oldact);
-#endif
-#if HAVE_FORK
-static int (*fork_redir) (void);
-#endif
+#ఒకవేళ MALLOC_REDIR
+స్థిర శూన్య *(*malloc_redir) (కొలత_t);
+స్థిర శూన్య *(*calloc_redir) (కొలత_t, కొలత_t);
+స్థిర శూన్య (*free_redir) (శూన్య *);
+స్థిర శూన్య *(*realloc_redir) (శూన్య *, కొలత_t);
+స్థిర గుర్తులేని పూర్ణాంకం pool_సూచీ;
+స్థిర గుర్తులేని అక్షరం __attribute__((aligned(16))) initial_pool[256];
+#అయితే_ముగింపు
+#ఒకవేళ HAVE_MEMALIGN
+స్థిర శూన్య *(*memalign_redir) (కొలత_t, కొలత_t);
+#అయితే_ముగింపు
+#ఒకవేళ HAVE_PTHREAD_CREATE
+స్థిర పూర్ణాంకం (*pthread_create_redir) (pthread_t *thread,
+                                    స్థిరరాశి pthread_attr_t *attr,
+                                    శూన్య *(*ప్రారంభం_routine)(శూన్య *), శూన్య *arg);
+#అయితే_ముగింపు
+#ఒకవేళ HAVE_SIGNAL
+రకనిర్వచనం శూన్య (*bound_sig)(పూర్ణాంకం);
+స్థిర bound_sig (*signal_redir) (పూర్ణాంకం signum, bound_sig handler);
+#అయితే_ముగింపు
+#ఒకవేళ HAVE_SIGACTION
+స్థిర పూర్ణాంకం (*sigaction_redir) (పూర్ణాంకం signum, స్థిరరాశి నిర్మాణం sigaction *act,
+                               నిర్మాణం sigaction *oldact);
+#అయితే_ముగింపు
+#ఒకవేళ HAVE_FORK
+స్థిర పూర్ణాంకం (*fork_redir) (శూన్య);
+#అయితే_ముగింపు
 
-#define TCC_TYPE_NONE           (0)
-#define TCC_TYPE_MALLOC         (1)
-#define TCC_TYPE_CALLOC         (2)
-#define TCC_TYPE_REALLOC        (3)
-#define TCC_TYPE_MEMALIGN       (4)
-#define TCC_TYPE_STRDUP         (5)
+#నిర్వచించు TCC_TYPE_NONE           (0)
+#నిర్వచించు TCC_TYPE_MALLOC         (1)
+#నిర్వచించు TCC_TYPE_CALLOC         (2)
+#నిర్వచించు TCC_TYPE_REALLOC        (3)
+#నిర్వచించు TCC_TYPE_MEMALIGN       (4)
+#నిర్వచించు TCC_TYPE_STRDUP         (5)
 
 /* this pointer is generated when bound check is incorrect */
-#define INVALID_POINTER ((void *)(-2))
+#నిర్వచించు INVALID_సూచిక ((శూన్య *)(-2))
 
-typedef struct tree_node Tree;
-struct tree_node {
-    Tree * left, * right;
-    size_t start;
-    size_t size;
-    unsigned char type;
-    unsigned char is_invalid; /* true if pointers outside region are invalid */
+రకనిర్వచనం నిర్మాణం వృక్ష_కణుపు వృక్షం;
+నిర్మాణం వృక్ష_కణుపు {
+    వృక్షం * ఎడమ, * కుడి;
+    కొలత_t ప్రారంభం;
+    కొలత_t కొలత;
+    గుర్తులేని అక్షరం type;
+    గుర్తులేని అక్షరం is_invalid; /* true if pointers outside region are invalid */
 };
 
-typedef struct alloca_list_struct {
-    size_t fp;
-    void *p;
-    size_t size;
-    struct alloca_list_struct *next;
+రకనిర్వచనం నిర్మాణం alloca_list_struct {
+    కొలత_t fp;
+    శూన్య *p;
+    కొలత_t కొలత;
+    నిర్మాణం alloca_list_struct *తదుపరి;
 } alloca_list_type;
 
-#if defined(_WIN32)
-#define BOUND_TID_TYPE		DWORD
-#define BOUND_GET_TID(id)	id = GetCurrentThreadId()
-#elif defined(__OpenBSD__)
-#define BOUND_TID_TYPE		pid_t
-#define BOUND_GET_TID(id)	id = getthrid()
-#elif defined(__FreeBSD__)
-#define BOUND_TID_TYPE		pid_t
-#define BOUND_GET_TID(id)	syscall (SYS_thr_self, &id)
-#elif  defined(__NetBSD__)
-#define BOUND_TID_TYPE		pid_t
-#define BOUND_GET_TID(id)	id = syscall (SYS__lwp_self)
-#elif defined(__linux__)
-#define BOUND_TID_TYPE		pid_t
-#define BOUND_GET_TID(id)	id = syscall (SYS_gettid)
-#else
-#define BOUND_TID_TYPE		int
-#define BOUND_GET_TID(id)	id = 0
-#endif
+#ఒకవేళ defined(_WIN32)
+#నిర్వచించు BOUND_TID_TYPE		DWORD
+#నిర్వచించు BOUND_GET_TID(id)	id = GetCurrentThreadId()
+#లేదావేళ defined(__OpenBSD__)
+#నిర్వచించు BOUND_TID_TYPE		pid_t
+#నిర్వచించు BOUND_GET_TID(id)	id = getthrid()
+#లేదావేళ defined(__FreeBSD__)
+#నిర్వచించు BOUND_TID_TYPE		pid_t
+#నిర్వచించు BOUND_GET_TID(id)	syscall (SYS_thr_self, &id)
+#లేదావేళ  defined(__NetBSD__)
+#నిర్వచించు BOUND_TID_TYPE		pid_t
+#నిర్వచించు BOUND_GET_TID(id)	id = syscall (SYS__lwp_self)
+#లేదావేళ defined(__linux__)
+#నిర్వచించు BOUND_TID_TYPE		pid_t
+#నిర్వచించు BOUND_GET_TID(id)	id = syscall (SYS_gettid)
+#లేకపోతే
+#నిర్వచించు BOUND_TID_TYPE		పూర్ణాంకం
+#నిర్వచించు BOUND_GET_TID(id)	id = 0
+#అయితే_ముగింపు
 
-typedef struct jmp_list_struct {
-    void *penv;
-    size_t fp;
-    size_t end_fp;
+రకనిర్వచనం నిర్మాణం jmp_list_struct {
+    శూన్య *penv;
+    కొలత_t fp;
+    కొలత_t చివర_fp;
     BOUND_TID_TYPE tid;
-    struct jmp_list_struct *next;
+    నిర్మాణం jmp_list_struct *తదుపరి;
 } jmp_list_type;
 
-#define BOUND_STATISTIC_SPLAY   (0)
-static Tree * splay (size_t addr, Tree *t);
-static Tree * splay_end (size_t addr, Tree *t);
-static Tree * splay_insert(size_t addr, size_t size, Tree * t);
-static Tree * splay_delete(size_t addr, Tree *t);
-void splay_printtree(Tree * t, int d);
+#నిర్వచించు BOUND_STATISTIC_SPLAY   (0)
+స్థిర వృక్షం * splay (కొలత_t addr, వృక్షం *t);
+స్థిర వృక్షం * splay_చివర (కొలత_t addr, వృక్షం *t);
+స్థిర వృక్షం * splay_చొప్పించు(కొలత_t addr, కొలత_t కొలత, వృక్షం * t);
+స్థిర వృక్షం * splay_delete(కొలత_t addr, వృక్షం *t);
+శూన్య splay_printtree(వృక్షం * t, పూర్ణాంకం d);
 
 /* external interface */
-void __bounds_checking (int no_check);
-void __bound_checking_lock (void);
-void __bound_checking_unlock (void);
-void __bound_never_fatal (int no_check);
-DLL_EXPORT void * __bound_ptr_add(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir1(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir2(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir4(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir8(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir12(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir16(void *p, size_t offset);
-DLL_EXPORT void FASTCALL __bound_local_new(void *p1);
-DLL_EXPORT void FASTCALL __bound_local_delete(void *p1);
-void __bound_init(size_t *, int);
-void __bound_main_arg(int argc, char **argv, char **envp);
-void __bound_exit(void);
-void __bound_exit_dll(size_t *);
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot, int flags, int fd,
-                    off_t offset);
-int __bound_munmap (void *start, size_t size);
-DLL_EXPORT void __bound_siglongjmp(jmp_buf env, int val);
-#endif
-DLL_EXPORT void __bound_new_region(void *p, size_t size);
-DLL_EXPORT void __bound_setjmp(jmp_buf env);
-DLL_EXPORT void __bound_longjmp(jmp_buf env, int val);
-DLL_EXPORT void *__bound_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT int __bound_memcmp(const void *s1, const void *s2, size_t size);
-DLL_EXPORT void *__bound_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound_memset(void *dst, int c, size_t size);
-DLL_EXPORT int __bound_strlen(const char *s);
-DLL_EXPORT char *__bound_strcpy(char *dst, const char *src);
-DLL_EXPORT char *__bound_strncpy(char *dst, const char *src, size_t n);
-DLL_EXPORT int __bound_strcmp(const char *s1, const char *s2);
-DLL_EXPORT int __bound_strncmp(const char *s1, const char *s2, size_t n);
-DLL_EXPORT char *__bound_strcat(char *dest, const char *src);
-DLL_EXPORT char *__bound_strncat(char *dest, const char *src, size_t n);
-DLL_EXPORT char *__bound_strchr(const char *string, int ch);
-DLL_EXPORT char *__bound_strrchr(const char *string, int ch);
-DLL_EXPORT char *__bound_strdup(const char *s);
+శూన్య __bounds_checking (పూర్ణాంకం no_check);
+శూన్య __bound_checking_lock (శూన్య);
+శూన్య __bound_checking_unlock (శూన్య);
+శూన్య __bound_never_fatal (పూర్ణాంకం no_check);
+DLL_EXPORT శూన్య * __bound_ptr_add(శూన్య *p, కొలత_t స్థానభ్రంశం);
+DLL_EXPORT శూన్య * __bound_ptr_indir1(శూన్య *p, కొలత_t స్థానభ్రంశం);
+DLL_EXPORT శూన్య * __bound_ptr_indir2(శూన్య *p, కొలత_t స్థానభ్రంశం);
+DLL_EXPORT శూన్య * __bound_ptr_indir4(శూన్య *p, కొలత_t స్థానభ్రంశం);
+DLL_EXPORT శూన్య * __bound_ptr_indir8(శూన్య *p, కొలత_t స్థానభ్రంశం);
+DLL_EXPORT శూన్య * __bound_ptr_indir12(శూన్య *p, కొలత_t స్థానభ్రంశం);
+DLL_EXPORT శూన్య * __bound_ptr_indir16(శూన్య *p, కొలత_t స్థానభ్రంశం);
+DLL_EXPORT శూన్య FASTCALL __bound_local_new(శూన్య *p1);
+DLL_EXPORT శూన్య FASTCALL __bound_local_delete(శూన్య *p1);
+శూన్య __bound_init(కొలత_t *, పూర్ణాంకం);
+శూన్య __bound_main_arg(పూర్ణాంకం argc, అక్షరం **argv, అక్షరం **envp);
+శూన్య __bound_exit(శూన్య);
+శూన్య __bound_exit_dll(కొలత_t *);
+#ఒకవేళ !defined(_WIN32)
+శూన్య *__bound_mmap (శూన్య *ప్రారంభం, కొలత_t కొలత, పూర్ణాంకం prot, పూర్ణాంకం flags, పూర్ణాంకం fd,
+                    off_t స్థానభ్రంశం);
+పూర్ణాంకం __bound_munmap (శూన్య *ప్రారంభం, కొలత_t కొలత);
+DLL_EXPORT శూన్య __bound_siglongjmp(jmp_buf env, పూర్ణాంకం val);
+#అయితే_ముగింపు
+DLL_EXPORT శూన్య __bound_new_region(శూన్య *p, కొలత_t కొలత);
+DLL_EXPORT శూన్య __bound_setjmp(jmp_buf env);
+DLL_EXPORT శూన్య __bound_longjmp(jmp_buf env, పూర్ణాంకం val);
+DLL_EXPORT శూన్య *__bound_memcpy(శూన్య *dst, స్థిరరాశి శూన్య *src, కొలత_t కొలత);
+DLL_EXPORT పూర్ణాంకం __bound_memcmp(స్థిరరాశి శూన్య *s1, స్థిరరాశి శూన్య *s2, కొలత_t కొలత);
+DLL_EXPORT శూన్య *__bound_memmove(శూన్య *dst, స్థిరరాశి శూన్య *src, కొలత_t కొలత);
+DLL_EXPORT శూన్య *__bound_memset(శూన్య *dst, పూర్ణాంకం c, కొలత_t కొలత);
+DLL_EXPORT పూర్ణాంకం __bound_strlen(స్థిరరాశి అక్షరం *s);
+DLL_EXPORT అక్షరం *__bound_strcpy(అక్షరం *dst, స్థిరరాశి అక్షరం *src);
+DLL_EXPORT అక్షరం *__bound_strncpy(అక్షరం *dst, స్థిరరాశి అక్షరం *src, కొలత_t n);
+DLL_EXPORT పూర్ణాంకం __bound_strcmp(స్థిరరాశి అక్షరం *s1, స్థిరరాశి అక్షరం *s2);
+DLL_EXPORT పూర్ణాంకం __bound_strncmp(స్థిరరాశి అక్షరం *s1, స్థిరరాశి అక్షరం *s2, కొలత_t n);
+DLL_EXPORT అక్షరం *__bound_strcat(అక్షరం *dest, స్థిరరాశి అక్షరం *src);
+DLL_EXPORT అక్షరం *__bound_strncat(అక్షరం *dest, స్థిరరాశి అక్షరం *src, కొలత_t n);
+DLL_EXPORT అక్షరం *__bound_strchr(స్థిరరాశి అక్షరం *string, పూర్ణాంకం ch);
+DLL_EXPORT అక్షరం *__bound_strrchr(స్థిరరాశి అక్షరం *string, పూర్ణాంకం ch);
+DLL_EXPORT అక్షరం *__bound_strdup(స్థిరరాశి అక్షరం *s);
 
-#if defined(__arm__) && defined(__ARM_EABI__)
-DLL_EXPORT void *__bound___aeabi_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove4(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memset(void *dst, int c, size_t size);
-DLL_EXPORT void *__aeabi_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove4(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memset(void *dst, int c, size_t size);
-#endif
+#ఒకవేళ defined(__arm__) && defined(__ARM_EABI__)
+DLL_EXPORT శూన్య *__bound___aeabi_memcpy(శూన్య *dst, స్థిరరాశి శూన్య *src, కొలత_t కొలత);
+DLL_EXPORT శూన్య *__bound___aeabi_memmove(శూన్య *dst, స్థిరరాశి శూన్య *src, కొలత_t కొలత);
+DLL_EXPORT శూన్య *__bound___aeabi_memmove4(శూన్య *dst, స్థిరరాశి శూన్య *src, కొలత_t కొలత);
+DLL_EXPORT శూన్య *__bound___aeabi_memmove8(శూన్య *dst, స్థిరరాశి శూన్య *src, కొలత_t కొలత);
+DLL_EXPORT శూన్య *__bound___aeabi_memset(శూన్య *dst, పూర్ణాంకం c, కొలత_t కొలత);
+DLL_EXPORT శూన్య *__aeabi_memcpy(శూన్య *dst, స్థిరరాశి శూన్య *src, కొలత_t కొలత);
+DLL_EXPORT శూన్య *__aeabi_memmove(శూన్య *dst, స్థిరరాశి శూన్య *src, కొలత_t కొలత);
+DLL_EXPORT శూన్య *__aeabi_memmove4(శూన్య *dst, స్థిరరాశి శూన్య *src, కొలత_t కొలత);
+DLL_EXPORT శూన్య *__aeabi_memmove8(శూన్య *dst, స్థిరరాశి శూన్య *src, కొలత_t కొలత);
+DLL_EXPORT శూన్య *__aeabi_memset(శూన్య *dst, పూర్ణాంకం c, కొలత_t కొలత);
+#అయితే_ముగింపు
 
-#if MALLOC_REDIR
-#define BOUND_MALLOC(a)          malloc_redir(a)
-#define BOUND_MEMALIGN(a,b)      memalign_redir(a,b)
-#define BOUND_FREE(a)            free_redir(a)
-#define BOUND_REALLOC(a,b)       realloc_redir(a,b)
-#define BOUND_CALLOC(a,b)        calloc_redir(a,b)
-#else
-#define BOUND_MALLOC(a)          malloc(a)
-#define BOUND_MEMALIGN(a,b)      memalign(a,b)
-#define BOUND_FREE(a)            free(a)
-#define BOUND_REALLOC(a,b)       realloc(a,b)
-#define BOUND_CALLOC(a,b)        calloc(a,b)
-DLL_EXPORT void *__bound_malloc(size_t size, const void *caller);
-DLL_EXPORT void *__bound_memalign(size_t align, size_t size, const void *caller);
-DLL_EXPORT void __bound_free(void *ptr, const void *caller);
-DLL_EXPORT void *__bound_realloc(void *ptr, size_t size, const void *caller);
-DLL_EXPORT void *__bound_calloc(size_t nmemb, size_t size);
-#endif
+#ఒకవేళ MALLOC_REDIR
+#నిర్వచించు BOUND_MALLOC(a)          malloc_redir(a)
+#నిర్వచించు BOUND_MEMALIGN(a,b)      memalign_redir(a,b)
+#నిర్వచించు BOUND_FREE(a)            free_redir(a)
+#నిర్వచించు BOUND_REALLOC(a,b)       realloc_redir(a,b)
+#నిర్వచించు BOUND_CALLOC(a,b)        calloc_redir(a,b)
+#లేకపోతే
+#నిర్వచించు BOUND_MALLOC(a)          జ్ఞాపకం_ఇవ్వు(a)
+#నిర్వచించు BOUND_MEMALIGN(a,b)      memalign(a,b)
+#నిర్వచించు BOUND_FREE(a)            విడుదల(a)
+#నిర్వచించు BOUND_REALLOC(a,b)       realloc(a,b)
+#నిర్వచించు BOUND_CALLOC(a,b)        సున్నా_జ్ఞాపకం_ఇవ్వు(a,b)
+DLL_EXPORT శూన్య *__bound_malloc(కొలత_t కొలత, స్థిరరాశి శూన్య *caller);
+DLL_EXPORT శూన్య *__bound_memalign(కొలత_t align, కొలత_t కొలత, స్థిరరాశి శూన్య *caller);
+DLL_EXPORT శూన్య __bound_free(శూన్య *ptr, స్థిరరాశి శూన్య *caller);
+DLL_EXPORT శూన్య *__bound_realloc(శూన్య *ptr, కొలత_t కొలత, స్థిరరాశి శూన్య *caller);
+DLL_EXPORT శూన్య *__bound_calloc(కొలత_t nmemb, కొలత_t కొలత);
+#అయితే_ముగింపు
 
-#define FREE_REUSE_SIZE (100)
-static unsigned int free_reuse_index;
-static void *free_reuse_list[FREE_REUSE_SIZE];
+#నిర్వచించు FREE_REUSE_కొలత (100)
+స్థిర గుర్తులేని పూర్ణాంకం free_reuse_సూచీ;
+స్థిర శూన్య *free_reuse_list[FREE_REUSE_కొలత];
 
-static Tree *tree = NULL;
-#define TREE_REUSE      (1)
-#if TREE_REUSE
-static Tree *tree_free_list;
-#endif
-static alloca_list_type *alloca_list;
-static jmp_list_type *jmp_list;
+స్థిర వృక్షం *వృక్షం_2 = ఖాళీ;
+#నిర్వచించు వృక్షం_REUSE      (1)
+#ఒకవేళ వృక్షం_REUSE
+స్థిర వృక్షం *వృక్షం_free_list;
+#అయితే_ముగింపు
+స్థిర alloca_list_type *alloca_list;
+స్థిర jmp_list_type *jmp_list;
 
-static unsigned char inited;
-static unsigned char print_warn_ptr_add;
-static unsigned char print_calls;
-static unsigned char print_heap;
-static unsigned char print_statistic;
-static unsigned char no_strdup;
-static unsigned char use_sem;
-static _Atomic int never_fatal;
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-static int no_checking = 0;
-static DWORD no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) LocalAlloc(LPTR, sizeof(int));  \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+స్థిర గుర్తులేని అక్షరం inited;
+స్థిర గుర్తులేని అక్షరం print_warn_ptr_కూడు;
+స్థిర గుర్తులేని అక్షరం print_calls;
+స్థిర గుర్తులేని అక్షరం print_కుప్ప;
+స్థిర గుర్తులేని అక్షరం print_statistic;
+స్థిర గుర్తులేని అక్షరం no_strdup;
+స్థిర గుర్తులేని అక్షరం use_sem;
+స్థిర _Atomic పూర్ణాంకం never_fatal;
+#ఒకవేళ HAVE_TLS_FUNC
+#ఒకవేళ defined(_WIN32)
+స్థిర పూర్ణాంకం no_checking = 0;
+స్థిర DWORD no_checking_కీలకం;
+#నిర్వచించు NO_CHECKING_CHECK() ఒకవేళ (!p) {                                         \
+                                  p = (పూర్ణాంకం *) LocalAlloc(LPTR, పరిమాణం(పూర్ణాంకం));  \
+                                  ఒకవేళ (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  TlsSetValue(no_checking_key, p);            \
+                                  Tls_సమితి_విలువ(no_checking_కీలకం, p);            \
                             }
-#define NO_CHECKING_GET()   ({ int *p = TlsGetValue(no_checking_key);         \
+#నిర్వచించు NO_CHECKING_GET()   ({ పూర్ణాంకం *p = Tls_Get_విలువ(no_checking_కీలకం);         \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = TlsGetValue(no_checking_key);          \
+#నిర్వచించు NO_CHECKING_సమితి(v)  { పూర్ణాంకం *p = Tls_Get_విలువ(no_checking_కీలకం);          \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
-#else
-static int no_checking = 0;
-static pthread_key_t no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) BOUND_MALLOC(sizeof(int));      \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+#లేకపోతే
+స్థిర పూర్ణాంకం no_checking = 0;
+స్థిర pthread_key_t no_checking_కీలకం;
+#నిర్వచించు NO_CHECKING_CHECK() ఒకవేళ (!p) {                                         \
+                                  p = (పూర్ణాంకం *) BOUND_MALLOC(పరిమాణం(పూర్ణాంకం));      \
+                                  ఒకవేళ (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  pthread_setspecific(no_checking_key, p);    \
+                                  pthread_setspecific(no_checking_కీలకం, p);    \
                             }
-#define NO_CHECKING_GET()   ({ int *p = pthread_getspecific(no_checking_key); \
+#నిర్వచించు NO_CHECKING_GET()   ({ పూర్ణాంకం *p = pthread_getspecific(no_checking_కీలకం); \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = pthread_getspecific(no_checking_key);  \
+#నిర్వచించు NO_CHECKING_సమితి(v)  { పూర్ణాంకం *p = pthread_getspecific(no_checking_కీలకం);  \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
-#endif
-#elif HAVE_TLS_VAR
-static __thread int no_checking = 0;
-#define NO_CHECKING_GET()  no_checking
-#define NO_CHECKING_SET(v) no_checking = v 
-#else
-static _Atomic int no_checking = 0;
-#define NO_CHECKING_GET()  no_checking
-#define NO_CHECKING_SET(v) no_checking = v 
-#endif
-static char exec[100];
+#అయితే_ముగింపు
+#లేదావేళ HAVE_TLS_VAR
+స్థిర __thread పూర్ణాంకం no_checking = 0;
+#నిర్వచించు NO_CHECKING_GET()  no_checking
+#నిర్వచించు NO_CHECKING_సమితి(v) no_checking = v 
+#లేకపోతే
+స్థిర _Atomic పూర్ణాంకం no_checking = 0;
+#నిర్వచించు NO_CHECKING_GET()  no_checking
+#నిర్వచించు NO_CHECKING_సమితి(v) no_checking = v 
+#అయితే_ముగింపు
+స్థిర అక్షరం exec[100];
 
-#if BOUND_STATISTIC
-static unsigned long long bound_ptr_add_count;
-static unsigned long long bound_ptr_indir1_count;
-static unsigned long long bound_ptr_indir2_count;
-static unsigned long long bound_ptr_indir4_count;
-static unsigned long long bound_ptr_indir8_count;
-static unsigned long long bound_ptr_indir12_count;
-static unsigned long long bound_ptr_indir16_count;
-static unsigned long long bound_local_new_count;
-static unsigned long long bound_local_delete_count;
-static unsigned long long bound_malloc_count;
-static unsigned long long bound_calloc_count;
-static unsigned long long bound_realloc_count;
-static unsigned long long bound_free_count;
-static unsigned long long bound_memalign_count;
-static unsigned long long bound_mmap_count;
-static unsigned long long bound_munmap_count;
-static unsigned long long bound_alloca_count;
-static unsigned long long bound_setjmp_count;
-static unsigned long long bound_longjmp_count;
-static unsigned long long bound_mempcy_count;
-static unsigned long long bound_memcmp_count;
-static unsigned long long bound_memmove_count;
-static unsigned long long bound_memset_count;
-static unsigned long long bound_strlen_count;
-static unsigned long long bound_strcpy_count;
-static unsigned long long bound_strncpy_count;
-static unsigned long long bound_strcmp_count;
-static unsigned long long bound_strncmp_count;
-static unsigned long long bound_strcat_count;
-static unsigned long long bound_strncat_count;
-static unsigned long long bound_strchr_count;
-static unsigned long long bound_strrchr_count;
-static unsigned long long bound_strdup_count;
-static unsigned long long bound_not_found;
-#define INCR_COUNT(x)          ++x
-#else
-#define INCR_COUNT(x)
-#endif
-#if BOUND_STATISTIC_SPLAY
-static unsigned long long bound_splay;
-static unsigned long long bound_splay_end;
-static unsigned long long bound_splay_insert;
-static unsigned long long bound_splay_delete;
-#define INCR_COUNT_SPLAY(x)    ++x
-#else
-#define INCR_COUNT_SPLAY(x)
-#endif
+#ఒకవేళ BOUND_STATISTIC
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_ptr_కూడు_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_ptr_indir1_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_ptr_indir2_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_ptr_indir4_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_ptr_indir8_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_ptr_indir12_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_ptr_indir16_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_local_new_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_local_delete_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_malloc_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_calloc_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_realloc_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_free_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_memalign_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_mmap_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_munmap_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_alloca_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_setjmp_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_longjmp_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_mempcy_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_memcmp_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_memmove_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_memset_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_strlen_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_strcpy_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_strncpy_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_strcmp_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_strncmp_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_strcat_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_strncat_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_strchr_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_strrchr_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_strdup_లెక్క;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_not_దొరికింది;
+#నిర్వచించు INCR_లెక్క(x)          ++x
+#లేకపోతే
+#నిర్వచించు INCR_లెక్క(x)
+#అయితే_ముగింపు
+#ఒకవేళ BOUND_STATISTIC_SPLAY
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_splay;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_splay_చివర;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_splay_చొప్పించు;
+స్థిర గుర్తులేని దీర్ఘ దీర్ఘ bound_splay_delete;
+#నిర్వచించు INCR_లెక్క_SPLAY(x)    ++x
+#లేకపోతే
+#నిర్వచించు INCR_లెక్క_SPLAY(x)
+#అయితే_ముగింపు
 
-int tcc_backtrace(const char *fmt, ...);
+పూర్ణాంకం tcc_backtrace(స్థిరరాశి అక్షరం *fmt, ...);
 
 /* print a bound error message */
-#define bound_warning(...) \
-    do {                                                 \
+#నిర్వచించు bound_warning(...) \
+    చేయి {                                                 \
         WAIT_SEM ();                                     \
         tcc_backtrace("^bcheck.c^BCHECK: " __VA_ARGS__); \
         POST_SEM ();                                     \
-    } while (0)
+    } అయితే (0)
 
-#define bound_error(...)            \
-    do {                            \
+#నిర్వచించు bound_error(...)            \
+    చేయి {                            \
         bound_warning(__VA_ARGS__); \
-        if (never_fatal == 0)       \
-            exit(255);              \
-    } while (0)
+        ఒకవేళ (never_fatal == 0)       \
+            నిష్క్రమించు(255);              \
+    } అయితే (0)
 
-#define bounds_loc(fp, ...) \
-    do {                            \
+#నిర్వచించు bounds_loc(fp, ...) \
+    చేయి {                            \
         WAIT_SEM (); \
         tcc_backtrace("^bcheck.c^\001" __VA_ARGS__); \
         POST_SEM (); \
-    } while (0)
+    } అయితే (0)
 
-static void bound_alloc_error(const char *s)
+స్థిర శూన్య bound_alloc_error(స్థిరరాశి అక్షరం *s)
 {
     fprintf(stderr,"FATAL: %s\n",s);
-    exit (1);
+    నిష్క్రమించు (1);
 }
 
-static void bound_not_found_warning(const char *file, const char *function,
-                                    void *ptr)
+స్థిర శూన్య bound_not_దొరికింది_warning(స్థిరరాశి అక్షరం *file, స్థిరరాశి అక్షరం *function,
+                                    శూన్య *ptr)
 {
     dprintf(stderr, "%s%s, %s(): Not found %p\n", exec, file, function, ptr);
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bounds_checking (int no_check)
+శూన్య __bounds_checking (పూర్ణాంకం no_check)
 {
-#if HAVE_TLS_FUNC || HAVE_TLS_VAR
-    NO_CHECKING_SET(NO_CHECKING_GET() + no_check);
-#else
+#ఒకవేళ HAVE_TLS_FUNC || HAVE_TLS_VAR
+    NO_CHECKING_సమితి(NO_CHECKING_GET() + no_check);
+#లేకపోతే
     atomic_fetch_add (&no_checking, no_check);
-#endif
+#అయితే_ముగింపు
 }
 
-void __bound_checking_lock(void)
+శూన్య __bound_checking_lock(శూన్య)
 {
     WAIT_SEM ();
 }
 
-void __bound_checking_unlock(void)
+శూన్య __bound_checking_unlock(శూన్య)
 {
     POST_SEM ();
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bound_never_fatal (int neverfatal)
+శూన్య __bound_never_fatal (పూర్ణాంకం neverfatal)
 {
     atomic_fetch_add (&never_fatal, neverfatal);
 }
 
 /* return '(p + offset)' for pointer arithmetic (a pointer can reach
    the end of a region in this case */
-void * __bound_ptr_add(void *p, size_t offset)
+శూన్య * __bound_ptr_add(శూన్య *p, కొలత_t స్థానభ్రంశం)
 {
-    size_t addr = (size_t)p;
+    కొలత_t addr = (కొలత_t)p;
 
-    if (NO_CHECKING_GET())
-        return p + offset;
+    ఒకవేళ (NO_CHECKING_GET())
+        తిరిగి p + స్థానభ్రంశం;
 
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",
-            __FILE__, __FUNCTION__, p, (unsigned long)offset);
+            __FILE__, __FUNCTION__, p, (గుర్తులేని దీర్ఘ)స్థానభ్రంశం);
 
     WAIT_SEM ();
-    INCR_COUNT(bound_ptr_add_count);
-    if (tree) {
-        addr -= tree->start;
-        if (addr >= tree->size) {
-            addr = (size_t)p;
-            tree = splay (addr, tree);
-            addr -= tree->start;
+    INCR_లెక్క(bound_ptr_కూడు_లెక్క);
+    ఒకవేళ (వృక్షం_2) {
+        addr -= వృక్షం_2->ప్రారంభం;
+        ఒకవేళ (addr >= వృక్షం_2->కొలత) {
+            addr = (కొలత_t)p;
+            వృక్షం_2 = splay (addr, వృక్షం_2);
+            addr -= వృక్షం_2->ప్రారంభం;
         }
-        if (addr >= tree->size) {
-            addr = (size_t)p;
-            tree = splay_end (addr, tree);
-            addr -= tree->start;
+        ఒకవేళ (addr >= వృక్షం_2->కొలత) {
+            addr = (కొలత_t)p;
+            వృక్షం_2 = splay_చివర (addr, వృక్షం_2);
+            addr -= వృక్షం_2->ప్రారంభం;
         }
-        if (addr <= tree->size) {
-            if (tree->is_invalid || addr + offset > tree->size) {
+        ఒకవేళ (addr <= వృక్షం_2->కొలత) {
+            ఒకవేళ (వృక్షం_2->is_invalid || addr + స్థానభ్రంశం > వృక్షం_2->కొలత) {
                 POST_SEM ();
-                if (print_warn_ptr_add)
+                ఒకవేళ (print_warn_ptr_కూడు)
                     bound_warning("%p is outside of the region (0x%lx..0x%lx)",
-                                  p + offset, (long)tree->start,
-                                  (long)(tree->start + tree->size - 1));
-                if (never_fatal <= 0)
-                    return INVALID_POINTER; /* return an invalid pointer */
-                return p + offset;
+                                  p + స్థానభ్రంశం, (దీర్ఘ)వృక్షం_2->ప్రారంభం,
+                                  (దీర్ఘ)(వృక్షం_2->ప్రారంభం + వృక్షం_2->కొలత - 1));
+                ఒకవేళ (never_fatal <= 0)
+                    తిరిగి INVALID_సూచిక; /* return an invalid pointer */
+                తిరిగి p + స్థానభ్రంశం;
             }
         }
-        else if (p) { /* Allow NULL + offset. offsetoff is using it. */
-            INCR_COUNT(bound_not_found);
+        లేకపోతే ఒకవేళ (p) { /* Allow NULL + offset. offsetoff is using it. */
+            INCR_లెక్క(bound_not_దొరికింది);
             POST_SEM ();
-            bound_not_found_warning (__FILE__, __FUNCTION__, p);
-            return p + offset;
+            bound_not_దొరికింది_warning (__FILE__, __FUNCTION__, p);
+            తిరిగి p + స్థానభ్రంశం;
         }
     }
     POST_SEM ();
-    return p + offset;
+    తిరిగి p + స్థానభ్రంశం;
 }
 
 /* return '(p + offset)' for pointer indirection (the resulting must
    be strictly inside the region */
-#define BOUND_PTR_INDIR(dsize)                                                 \
-void * __bound_ptr_indir ## dsize (void *p, size_t offset)                     \
+#నిర్వచించు BOUND_PTR_INDIR(dsize)                                                 \
+శూన్య * __bound_ptr_indir ## dsize (శూన్య *p, కొలత_t స్థానభ్రంశం)                     \
 {                                                                              \
-    size_t addr = (size_t)p;                                                   \
+    కొలత_t addr = (కొలత_t)p;                                                   \
                                                                                \
-    if (NO_CHECKING_GET())                                                     \
-        return p + offset;                                                     \
+    ఒకవేళ (NO_CHECKING_GET())                                                     \
+        తిరిగి p + స్థానభ్రంశం;                                                     \
                                                                                \
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",                                    \
-            __FILE__, __FUNCTION__, p, (unsigned long)offset);                 \
+            __FILE__, __FUNCTION__, p, (గుర్తులేని దీర్ఘ)స్థానభ్రంశం);                 \
     WAIT_SEM ();                                                               \
-    INCR_COUNT(bound_ptr_indir ## dsize ## _count);                            \
-    if (tree) {                                                                \
-        addr -= tree->start;                                                   \
-        if (addr >= tree->size) {                                              \
-            addr = (size_t)p;                                                  \
-            tree = splay (addr, tree);                                         \
-            addr -= tree->start;                                               \
+    INCR_లెక్క(bound_ptr_indir ## dsize ## లెక్క);                            \
+    ఒకవేళ (వృక్షం_2) {                                                                \
+        addr -= వృక్షం_2->ప్రారంభం;                                                   \
+        ఒకవేళ (addr >= వృక్షం_2->కొలత) {                                              \
+            addr = (కొలత_t)p;                                                  \
+            వృక్షం_2 = splay (addr, వృక్షం_2);                                         \
+            addr -= వృక్షం_2->ప్రారంభం;                                               \
         }                                                                      \
-        if (addr >= tree->size) {                                              \
-            addr = (size_t)p;                                                  \
-            tree = splay_end (addr, tree);                                     \
-            addr -= tree->start;                                               \
+        ఒకవేళ (addr >= వృక్షం_2->కొలత) {                                              \
+            addr = (కొలత_t)p;                                                  \
+            వృక్షం_2 = splay_చివర (addr, వృక్షం_2);                                     \
+            addr -= వృక్షం_2->ప్రారంభం;                                               \
         }                                                                      \
-        if (addr <= tree->size) {                                              \
-            if (tree->is_invalid || addr + offset + dsize > tree->size) {      \
+        ఒకవేళ (addr <= వృక్షం_2->కొలత) {                                              \
+            ఒకవేళ (వృక్షం_2->is_invalid || addr + స్థానభ్రంశం + dsize > వృక్షం_2->కొలత) {      \
                 POST_SEM ();                                                   \
                 bound_warning("%p (size %d) is outside of the region "         \
                               "(0x%lx..0x%lx)",                                \
-                              p + offset, dsize, (long)tree->start,            \
-                              (long)(tree->start + tree->size - 1));           \
-                if (never_fatal <= 0)                                          \
-                    return INVALID_POINTER; /* return an invalid pointer */    \
-                return p + offset;                                             \
+                              p + స్థానభ్రంశం, dsize, (దీర్ఘ)వృక్షం_2->ప్రారంభం,            \
+                              (దీర్ఘ)(వృక్షం_2->ప్రారంభం + వృక్షం_2->కొలత - 1));           \
+                ఒకవేళ (never_fatal <= 0)                                          \
+                    తిరిగి INVALID_సూచిక; /* return an invalid pointer */    \
+                తిరిగి p + స్థానభ్రంశం;                                             \
             }                                                                  \
         }                                                                      \
-        else {                                                                 \
-            INCR_COUNT(bound_not_found);                                       \
+        లేకపోతే {                                                                 \
+            INCR_లెక్క(bound_not_దొరికింది);                                       \
             POST_SEM ();                                                       \
-            bound_not_found_warning (__FILE__, __FUNCTION__, p);               \
-            return p + offset;                                                 \
+            bound_not_దొరికింది_warning (__FILE__, __FUNCTION__, p);               \
+            తిరిగి p + స్థానభ్రంశం;                                                 \
         }                                                                      \
     }                                                                          \
     POST_SEM ();                                                               \
-    return p + offset;                                                         \
+    తిరిగి p + స్థానభ్రంశం;                                                         \
 }
 
 BOUND_PTR_INDIR(1)
@@ -620,364 +620,364 @@ BOUND_PTR_INDIR(12)
 BOUND_PTR_INDIR(16)
 
 /* Needed when using ...libtcc1-usegcc=yes in lib/Makefile */
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#ఒకవేళ (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
 /*
  * At least gcc 6.2 complains when __builtin_frame_address is used with
  * nonzero argument.
  */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wframe-address"
-#endif
+#సూచన GCC diagnostic నెట్టు
+#సూచన GCC diagnostic ignored "-Wframe-address"
+#అయితే_ముగింపు
 
 /* return the frame pointer of the caller */
-#define GET_CALLER_FP(fp)\
+#నిర్వచించు GET_CALLER_FP(fp)\
 {\
-    fp = (size_t)__builtin_frame_address(1);\
+    fp = (కొలత_t)__builtin_frame_address(1);\
 }
 
 /* called when entering a function to add all the local regions */
-void FASTCALL __bound_local_new(void *p1) 
+శూన్య FASTCALL __bound_local_new(శూన్య *p1) 
 {
-    size_t addr, fp, *p = p1;
+    కొలత_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    ఒకవేళ (NO_CHECKING_GET())
+         తిరిగి;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
-            __FILE__, __FUNCTION__, p, (void *)fp);
+            __FILE__, __FUNCTION__, p, (శూన్య *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
-        INCR_COUNT(bound_local_new_count);
-        tree = splay_insert(addr + fp, p[1], tree);
+    అయితే ((addr = p[0])) {
+        INCR_లెక్క(bound_local_new_లెక్క);
+        వృక్షం_2 = splay_చొప్పించు(addr + fp, p[1], వృక్షం_2);
         p += 2;
     }
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#ఒకవేళ BOUND_DEBUG
+    ఒకవేళ (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
+        అయితే ((addr = p[0])) {
             dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                     __FILE__, __FUNCTION__,
-                    (void *) (addr + fp), (unsigned long) p[1]);
+                    (శూన్య *) (addr + fp), (గుర్తులేని దీర్ఘ) p[1]);
             p += 2;
         }
     }
-#endif
+#అయితే_ముగింపు
 }
 
 /* called when leaving a function to delete all the local regions */
-void FASTCALL __bound_local_delete(void *p1) 
+శూన్య FASTCALL __bound_local_delete(శూన్య *p1) 
 {
-    size_t addr, fp, *p = p1;
+    కొలత_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    ఒకవేళ (NO_CHECKING_GET())
+         తిరిగి;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
-            __FILE__, __FUNCTION__, p, (void *)fp);
+            __FILE__, __FUNCTION__, p, (శూన్య *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
-        INCR_COUNT(bound_local_delete_count);
-        tree = splay_delete(addr + fp, tree);
+    అయితే ((addr = p[0])) {
+        INCR_లెక్క(bound_local_delete_లెక్క);
+        వృక్షం_2 = splay_delete(addr + fp, వృక్షం_2);
         p += 2;
     }
-    if (alloca_list) {
-        alloca_list_type *last = NULL;
+    ఒకవేళ (alloca_list) {
+        alloca_list_type *చివరి = ఖాళీ;
         alloca_list_type *cur = alloca_list;
 
-        do {
-            if (cur->fp == fp) {
-                if (last)
-                    last->next = cur->next;
-                else
-                    alloca_list = cur->next;
-                tree = splay_delete ((size_t) cur->p, tree);
+        చేయి {
+            ఒకవేళ (cur->fp == fp) {
+                ఒకవేళ (చివరి)
+                    చివరి->తదుపరి = cur->తదుపరి;
+                లేకపోతే
+                    alloca_list = cur->తదుపరి;
+                వృక్షం_2 = splay_delete ((కొలత_t) cur->p, వృక్షం_2);
                 dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                         __FILE__, __FUNCTION__, cur->p);
                 BOUND_FREE (cur);
-                cur = last ? last->next : alloca_list;
+                cur = చివరి ? చివరి->తదుపరి : alloca_list;
              }
-             else {
-                 last = cur;
-                 cur = cur->next;
+             లేకపోతే {
+                 చివరి = cur;
+                 cur = cur->తదుపరి;
              }
-        } while (cur);
+        } అయితే (cur);
     }
-    if (jmp_list) {
-        jmp_list_type *last = NULL;
+    ఒకవేళ (jmp_list) {
+        jmp_list_type *చివరి = ఖాళీ;
         jmp_list_type *cur = jmp_list;
 
-        do {
-            if (cur->fp == fp) {
-                if (last)
-                    last->next = cur->next;
-                else
-                    jmp_list = cur->next;
+        చేయి {
+            ఒకవేళ (cur->fp == fp) {
+                ఒకవేళ (చివరి)
+                    చివరి->తదుపరి = cur->తదుపరి;
+                లేకపోతే
+                    jmp_list = cur->తదుపరి;
                 dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                        __FILE__, __FUNCTION__, cur->penv);
                 BOUND_FREE (cur);
-                cur = last ? last->next : jmp_list;
+                cur = చివరి ? చివరి->తదుపరి : jmp_list;
             }
-            else {
-                last = cur;
-                cur = cur->next;
+            లేకపోతే {
+                చివరి = cur;
+                cur = cur->తదుపరి;
             }
-        } while (cur);
+        } అయితే (cur);
     }
 
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#ఒకవేళ BOUND_DEBUG
+    ఒకవేళ (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
-            if (addr != 1) {
+        అయితే ((addr = p[0])) {
+            ఒకవేళ (addr != 1) {
                 dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        (void *) (addr + fp), (unsigned long) p[1]);
+                        (శూన్య *) (addr + fp), (గుర్తులేని దీర్ఘ) p[1]);
             }
             p+= 2;
         }
     }
-#endif
+#అయితే_ముగింపు
 }
 
 /* used by alloca */
-void __bound_new_region(void *p, size_t size)
+శూన్య __bound_new_region(శూన్య *p, కొలత_t కొలత)
 {
-    size_t fp;
-    alloca_list_type *last;
+    కొలత_t fp;
+    alloca_list_type *చివరి;
     alloca_list_type *cur;
     alloca_list_type *new;
 
-    if (NO_CHECKING_GET())
-        return;
+    ఒకవేళ (NO_CHECKING_GET())
+        తిరిగి;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, p, (unsigned long)size);
+            __FILE__, __FUNCTION__, p, (గుర్తులేని దీర్ఘ)కొలత);
     GET_CALLER_FP (fp);
-    new = BOUND_MALLOC (sizeof (alloca_list_type));
+    new = BOUND_MALLOC (పరిమాణం (alloca_list_type));
     WAIT_SEM ();
-    INCR_COUNT(bound_alloca_count);
-    last = NULL;
+    INCR_లెక్క(bound_alloca_లెక్క);
+    చివరి = ఖాళీ;
     cur = alloca_list;
-    while (cur) {
-#if defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
-        int align = 4;
-#elif defined(__arm__)
-        int align = 8;
-#else
-        int align = 16;
-#endif
-        void *cure = (void *)((char *)cur->p + ((cur->size + align) & -align));
-        void *pe = (void *)((char *)p + ((size + align) & -align));
-        if (cur->fp == fp && ((cur->p <= p && cure > p) ||
+    అయితే (cur) {
+#ఒకవేళ defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
+        పూర్ణాంకం align = 4;
+#లేదావేళ defined(__arm__)
+        పూర్ణాంకం align = 8;
+#లేకపోతే
+        పూర్ణాంకం align = 16;
+#అయితే_ముగింపు
+        శూన్య *cure = (శూన్య *)((అక్షరం *)cur->p + ((cur->కొలత + align) & -align));
+        శూన్య *pe = (శూన్య *)((అక్షరం *)p + ((కొలత + align) & -align));
+        ఒకవేళ (cur->fp == fp && ((cur->p <= p && cure > p) ||
                               (p <= cur->p && pe > cur->p))) {
-            if (last)
-                last->next = cur->next;
-            else
-                alloca_list = cur->next;
-            tree = splay_delete((size_t)cur->p, tree);
-            break;
+            ఒకవేళ (చివరి)
+                చివరి->తదుపరి = cur->తదుపరి;
+            లేకపోతే
+                alloca_list = cur->తదుపరి;
+            వృక్షం_2 = splay_delete((కొలత_t)cur->p, వృక్షం_2);
+            ఆపు;
         }
-        last = cur;
-        cur = cur->next;
+        చివరి = cur;
+        cur = cur->తదుపరి;
     }
-    tree = splay_insert((size_t)p, size, tree);
-    if (new) {
+    వృక్షం_2 = splay_చొప్పించు((కొలత_t)p, కొలత, వృక్షం_2);
+    ఒకవేళ (new) {
         new->fp = fp;
         new->p = p;
-        new->size = size;
-        new->next = alloca_list;
+        new->కొలత = కొలత;
+        new->తదుపరి = alloca_list;
         alloca_list = new;
     }
     POST_SEM ();
-    if (cur) {
+    ఒకవేళ (cur) {
         dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                 __FILE__, __FUNCTION__, cur->p);
         BOUND_FREE (cur);
     }
 }
 
-void __bound_setjmp(jmp_buf env)
+శూన్య __bound_setjmp(jmp_buf env)
 {
     jmp_list_type *jl;
-    void *e = (void *) env;
+    శూన్య *e = (శూన్య *) env;
 
-    if (NO_CHECKING_GET() == 0) {
+    ఒకవేళ (NO_CHECKING_GET() == 0) {
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, e);
         WAIT_SEM ();
-        INCR_COUNT(bound_setjmp_count);
+        INCR_లెక్క(bound_setjmp_లెక్క);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e)
-                break;
-            jl = jl->next;
+        అయితే (jl) {
+            ఒకవేళ (jl->penv == e)
+                ఆపు;
+            jl = jl->తదుపరి;
         }
-        if (jl == NULL) {
-            jl = BOUND_MALLOC (sizeof (jmp_list_type));
-            if (jl) {
+        ఒకవేళ (jl == ఖాళీ) {
+            jl = BOUND_MALLOC (పరిమాణం (jmp_list_type));
+            ఒకవేళ (jl) {
                 jl->penv = e;
-                jl->next = jmp_list;
+                jl->తదుపరి = jmp_list;
                 jmp_list = jl;
             }
         }
-        if (jl) {
-            size_t fp;
+        ఒకవేళ (jl) {
+            కొలత_t fp;
 
             GET_CALLER_FP (fp);
             jl->fp = fp;
-            jl->end_fp = (size_t)__builtin_frame_address(0);
+            jl->చివర_fp = (కొలత_t)__builtin_frame_address(0);
             BOUND_GET_TID(jl->tid);
         }
         POST_SEM ();
     }
 }
 
-static void __bound_long_jump(jmp_buf env, int val, int sig, const char *func)
+స్థిర శూన్య __bound_long_jump(jmp_buf env, పూర్ణాంకం val, పూర్ణాంకం sig, స్థిరరాశి అక్షరం *func)
 {
     jmp_list_type *jl;
-    void *e;
+    శూన్య *e;
     BOUND_TID_TYPE tid;
 
-    if (NO_CHECKING_GET() == 0) {
-        e = (void *)env;
+    ఒకవేళ (NO_CHECKING_GET() == 0) {
+        e = (శూన్య *)env;
         BOUND_GET_TID(tid);
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, func, e);
         WAIT_SEM();
-        INCR_COUNT(bound_longjmp_count);
+        INCR_లెక్క(bound_longjmp_లెక్క);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e && jl->tid == tid) {
-                size_t start_fp = (size_t)__builtin_frame_address(0);
-                size_t end_fp = jl->end_fp;
+        అయితే (jl) {
+            ఒకవేళ (jl->penv == e && jl->tid == tid) {
+                కొలత_t ప్రారంభం_fp = (కొలత_t)__builtin_frame_address(0);
+                కొలత_t చివర_fp = jl->చివర_fp;
                 jmp_list_type *cur = jmp_list;
-                jmp_list_type *last = NULL;
+                jmp_list_type *చివరి = ఖాళీ;
 
-                while (cur->penv != e || cur->tid != tid) {
-                    if (cur->tid == tid) {
+                అయితే (cur->penv != e || cur->tid != tid) {
+                    ఒకవేళ (cur->tid == tid) {
                         dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                                 __FILE__, func, cur->penv);
-                        if (last)
-                            last->next = cur->next;
-                        else
-                            jmp_list = cur->next;
+                        ఒకవేళ (చివరి)
+                            చివరి->తదుపరి = cur->తదుపరి;
+                        లేకపోతే
+                            jmp_list = cur->తదుపరి;
                         BOUND_FREE (cur);
-                        cur = last ? last->next : jmp_list;
+                        cur = చివరి ? చివరి->తదుపరి : jmp_list;
                     }
-                    else {
-                        last = cur;
-                        cur = cur->next;
+                    లేకపోతే {
+                        చివరి = cur;
+                        cur = cur->తదుపరి;
                     }
                 }
-                for (;;) {
-                    Tree *t = tree;
-                    alloca_list_type *last;
+                కొరకు (;;) {
+                    వృక్షం *t = వృక్షం_2;
+                    alloca_list_type *చివరి;
                     alloca_list_type *cur;
 
-                    while (t && (t->start < start_fp || t->start > end_fp))
-                        if (t->start < start_fp)
-                            t = t->right;
-                        else
-                            t = t->left;
-                    if (t == NULL)
-                        break;
-                    last = NULL;
+                    అయితే (t && (t->ప్రారంభం < ప్రారంభం_fp || t->ప్రారంభం > చివర_fp))
+                        ఒకవేళ (t->ప్రారంభం < ప్రారంభం_fp)
+                            t = t->కుడి;
+                        లేకపోతే
+                            t = t->ఎడమ;
+                    ఒకవేళ (t == ఖాళీ)
+                        ఆపు;
+                    చివరి = ఖాళీ;
                     cur = alloca_list;
-                    while (cur) {
-                         if ((size_t) cur->p == t->start) {
+                    అయితే (cur) {
+                         ఒకవేళ ((కొలత_t) cur->p == t->ప్రారంభం) {
                              dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                                      __FILE__, func, cur->p);
-                             if (last)
-                                 last->next = cur->next;
-                             else
-                                 alloca_list = cur->next;
+                             ఒకవేళ (చివరి)
+                                 చివరి->తదుపరి = cur->తదుపరి;
+                             లేకపోతే
+                                 alloca_list = cur->తదుపరి;
                              BOUND_FREE (cur);
-                             break;
+                             ఆపు;
                          }
-                         last = cur;
-                         cur = cur->next;
+                         చివరి = cur;
+                         cur = cur->తదుపరి;
                     }
                     dprintf(stderr, "%s, %s(): delete %p\n",
-                            __FILE__, func, (void *) t->start);
-                    tree = splay_delete(t->start, tree);
+                            __FILE__, func, (శూన్య *) t->ప్రారంభం);
+                    వృక్షం_2 = splay_delete(t->ప్రారంభం, వృక్షం_2);
                 }
-                break;
+                ఆపు;
             }
-            jl = jl->next;
+            jl = jl->తదుపరి;
         }
         POST_SEM();
     }
-#if !defined(_WIN32)
+#ఒకవేళ !defined(_WIN32)
     sig ? siglongjmp(env, val) :
-#endif
+#అయితే_ముగింపు
     longjmp (env, val);
 }
 
-void __bound_longjmp(jmp_buf env, int val)
+శూన్య __bound_longjmp(jmp_buf env, పూర్ణాంకం val)
 {
     __bound_long_jump(env,val, 0, __FUNCTION__);
 }
 
-#if !defined(_WIN32)
-void __bound_siglongjmp(jmp_buf env, int val)
+#ఒకవేళ !defined(_WIN32)
+శూన్య __bound_siglongjmp(jmp_buf env, పూర్ణాంకం val)
 {
     __bound_long_jump(env,val, 1, __FUNCTION__);
 }
-#endif
+#అయితే_ముగింపు
 
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic pop
-#endif
+#ఒకవేళ (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#సూచన GCC diagnostic తీయి
+#అయితే_ముగింపు
 
-void __bound_init(size_t *p, int mode)
+శూన్య __bound_init(కొలత_t *p, పూర్ణాంకం బహుళకం)
 {
     dprintf(stderr, "%s, %s(): start %s\n", __FILE__, __FUNCTION__,
-            mode < 0 ? "lazy" : mode == 0 ? "normal use" : "for -run");
+            బహుళకం < 0 ? "lazy" : బహుళకం == 0 ? "normal use" : "for -run");
 
-    if (inited) {
+    ఒకవేళ (inited) {
         WAIT_SEM();
-        goto add_bounds;
+        వెళ్ళు కూడు_bounds;
     }
     inited = 1;
 
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-    no_checking_key = TlsAlloc();
-    TlsSetValue(no_checking_key, &no_checking);
-#else
-    pthread_key_create(&no_checking_key, NULL);
-    pthread_setspecific(no_checking_key, &no_checking);
-#endif
-#endif
-    NO_CHECKING_SET(1);
+#ఒకవేళ HAVE_TLS_FUNC
+#ఒకవేళ defined(_WIN32)
+    no_checking_కీలకం = TlsAlloc();
+    Tls_సమితి_విలువ(no_checking_కీలకం, &no_checking);
+#లేకపోతే
+    pthread_key_create(&no_checking_కీలకం, ఖాళీ);
+    pthread_setspecific(no_checking_కీలకం, &no_checking);
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+    NO_CHECKING_సమితి(1);
 
-    print_warn_ptr_add = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != NULL;
-    print_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != NULL;
-    print_heap = getenv ("TCC_BOUNDS_PRINT_HEAP") != NULL;
-    print_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != NULL;
-    never_fatal = getenv ("TCC_BOUNDS_NEVER_FATAL") != NULL;
+    print_warn_ptr_కూడు = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != ఖాళీ;
+    print_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != ఖాళీ;
+    print_కుప్ప = getenv ("TCC_BOUNDS_PRINT_HEAP") != ఖాళీ;
+    print_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != ఖాళీ;
+    never_fatal = getenv ("TCC_BOUNDS_NEVER_FATAL") != ఖాళీ;
 
     INIT_SEM ();
 
-#if MALLOC_REDIR
+#ఒకవేళ MALLOC_REDIR
     {
-        void *addr = mode > 0 ? RTLD_DEFAULT : RTLD_NEXT;
+        శూన్య *addr = బహుళకం > 0 ? RTLD_DEFAULT : RTLD_తదుపరి;
 
         /* tcc -run required RTLD_DEFAULT. Normal usage requires RTLD_NEXT,
            but using RTLD_NEXT with -run segfaults on MacOS in dyld as the
            generated code segment isn't registered with dyld and hence the
            caller image of dlsym isn't known to it */
-        *(void **) (&malloc_redir) = dlsym (addr, "malloc");
-        if (malloc_redir == NULL) {
+        *(శూన్య **) (&malloc_redir) = dlsym (addr, "malloc");
+        ఒకవేళ (malloc_redir == ఖాళీ) {
             dprintf(stderr, "%s, %s(): use RTLD_DEFAULT\n",
                     __FILE__, __FUNCTION__);
             addr = RTLD_DEFAULT;
-            *(void **) (&malloc_redir) = dlsym (addr, "malloc");
+            *(శూన్య **) (&malloc_redir) = dlsym (addr, "malloc");
         }
-        *(void **) (&calloc_redir) = dlsym (addr, "calloc");
-        *(void **) (&free_redir) = dlsym (addr, "free");
-        *(void **) (&realloc_redir) = dlsym (addr, "realloc");
-        *(void **) (&memalign_redir) = dlsym (addr, "memalign");
+        *(శూన్య **) (&calloc_redir) = dlsym (addr, "calloc");
+        *(శూన్య **) (&free_redir) = dlsym (addr, "free");
+        *(శూన్య **) (&realloc_redir) = dlsym (addr, "realloc");
+        *(శూన్య **) (&memalign_redir) = dlsym (addr, "memalign");
         dprintf(stderr, "%s, %s(): malloc_redir %p\n",
                 __FILE__, __FUNCTION__, malloc_redir);
         dprintf(stderr, "%s, %s(): free_redir %p\n",
@@ -986,601 +986,601 @@ void __bound_init(size_t *p, int mode)
                 __FILE__, __FUNCTION__, realloc_redir);
         dprintf(stderr, "%s, %s(): memalign_redir %p\n",
                 __FILE__, __FUNCTION__, memalign_redir);
-        if (malloc_redir == NULL || free_redir == NULL)
+        ఒకవేళ (malloc_redir == ఖాళీ || free_redir == ఖాళీ)
             bound_alloc_error ("Cannot redirect malloc/free");
-#if HAVE_PTHREAD_CREATE
-        *(void **) (&pthread_create_redir) = dlsym (addr, "pthread_create");
+#ఒకవేళ HAVE_PTHREAD_CREATE
+        *(శూన్య **) (&pthread_create_redir) = dlsym (addr, "pthread_create");
         dprintf(stderr, "%s, %s(): pthread_create_redir %p\n",
                 __FILE__, __FUNCTION__, pthread_create_redir);
-        if (pthread_create_redir == NULL)
+        ఒకవేళ (pthread_create_redir == ఖాళీ)
             bound_alloc_error ("Cannot redirect pthread_create");
-#endif
-#if HAVE_SIGNAL
-        *(void **) (&signal_redir) = dlsym (addr, "signal");
+#అయితే_ముగింపు
+#ఒకవేళ HAVE_SIGNAL
+        *(శూన్య **) (&signal_redir) = dlsym (addr, "signal");
         dprintf(stderr, "%s, %s(): signal_redir %p\n",
                 __FILE__, __FUNCTION__, signal_redir);
-        if (signal_redir == NULL)
+        ఒకవేళ (signal_redir == ఖాళీ)
             bound_alloc_error ("Cannot redirect signal");
-#endif
-#if HAVE_SIGACTION
-        *(void **) (&sigaction_redir) = dlsym (addr, "sigaction");
+#అయితే_ముగింపు
+#ఒకవేళ HAVE_SIGACTION
+        *(శూన్య **) (&sigaction_redir) = dlsym (addr, "sigaction");
         dprintf(stderr, "%s, %s(): sigaction_redir %p\n",
                 __FILE__, __FUNCTION__, sigaction_redir);
-        if (sigaction_redir == NULL)
+        ఒకవేళ (sigaction_redir == ఖాళీ)
             bound_alloc_error ("Cannot redirect sigaction");
-#endif
-#if HAVE_FORK
-        *(void **) (&fork_redir) = dlsym (addr, "fork");
+#అయితే_ముగింపు
+#ఒకవేళ HAVE_FORK
+        *(శూన్య **) (&fork_redir) = dlsym (addr, "fork");
         dprintf(stderr, "%s, %s(): fork_redir %p\n",
                 __FILE__, __FUNCTION__, fork_redir);
-        if (fork_redir == NULL)
+        ఒకవేళ (fork_redir == ఖాళీ)
             bound_alloc_error ("Cannot redirect fork");
-#endif
+#అయితే_ముగింపు
     }
-#endif
+#అయితే_ముగింపు
 
-#ifdef __linux__
+#నిర్వచితమైతే __linux__
     {
         FILE *fp;
-        unsigned char found;
-        unsigned long start;
-        unsigned long end;
-        unsigned long ad =
-            (unsigned long) __builtin_return_address(0);
-        char line[1000];
+        గుర్తులేని అక్షరం దొరికింది;
+        గుర్తులేని దీర్ఘ ప్రారంభం;
+        గుర్తులేని దీర్ఘ చివర;
+        గుర్తులేని దీర్ఘ ad =
+            (గుర్తులేని దీర్ఘ) __builtin_return_address(0);
+        అక్షరం పంక్తి[1000];
 
         /* Display exec name. Usefull when a lot of code is compiled with tcc */
         fp = fopen ("/proc/self/comm", "r");
-        if (fp) {
-            memset (exec, 0, sizeof(exec));
-            fread (exec, 1, sizeof(exec) - 2, fp);
-            if (strchr(exec,'\n'))
+        ఒకవేళ (fp) {
+            memset (exec, 0, పరిమాణం(exec));
+            fread (exec, 1, పరిమాణం(exec) - 2, fp);
+            ఒకవేళ (strchr(exec,'\n'))
                 *strchr(exec,'\n') = '\0';
             strcat (exec, ":");
             fclose (fp);
         }
         /* check if dlopen is used (is threre a better way?) */ 
-        found = 0;
+        దొరికింది = 0;
         fp = fopen ("/proc/self/maps", "r");
-        if (fp) {
-            while (fgets (line, sizeof(line), fp)) {
-                if (sscanf (line, "%lx-%lx", &start, &end) == 2 &&
-                            ad >= start && ad < end) {
-                    found = 1;
-                    break;
+        ఒకవేళ (fp) {
+            అయితే (fgets (పంక్తి, పరిమాణం(పంక్తి), fp)) {
+                ఒకవేళ (అక్షరశ్రేణి_చదువు (పంక్తి, "%lx-%lx", &ప్రారంభం, &చివర) == 2 &&
+                            ad >= ప్రారంభం && ad < చివర) {
+                    దొరికింది = 1;
+                    ఆపు;
                 }
-                if (strstr (line,"[heap]"))
-                    break;
+                ఒకవేళ (అక్షరశ్రేణి_శోధన (పంక్తి,"[heap]"))
+                    ఆపు;
             }
             fclose (fp);
         }
-        if (found == 0) {
+        ఒకవేళ (దొరికింది == 0) {
             use_sem = 1;
             no_strdup = 1;
         }
     }
-#endif
+#అయితే_ముగింపు
 
     WAIT_SEM ();
 
-#if HAVE_CTYPE
-#ifdef __APPLE__
-    tree = splay_insert((size_t) &_DefaultRuneLocale,
-                        sizeof (_DefaultRuneLocale), tree);
-#else
+#ఒకవేళ HAVE_CTYPE
+#నిర్వచితమైతే __APPLE__
+    వృక్షం_2 = splay_చొప్పించు((కొలత_t) &_DefaultRuneLocale,
+                        పరిమాణం (_DefaultRuneLocale), వృక్షం_2);
+#లేకపోతే
     /* XXX: Does not work if locale is changed */
-    tree = splay_insert((size_t) __ctype_b_loc(),
-                        sizeof (unsigned short *), tree);
-    tree = splay_insert((size_t) (*__ctype_b_loc() - 128),
-                        384 * sizeof (unsigned short), tree);
-    tree = splay_insert((size_t) __ctype_tolower_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_tolower_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
-    tree = splay_insert((size_t) __ctype_toupper_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_toupper_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
-#endif
-#endif
-#if HAVE_ERRNO
-    tree = splay_insert((size_t) (&errno), sizeof (int), tree);
-#endif
+    వృక్షం_2 = splay_చొప్పించు((కొలత_t) __ctype_b_loc(),
+                        పరిమాణం (గుర్తులేని పొట్టి *), వృక్షం_2);
+    వృక్షం_2 = splay_చొప్పించు((కొలత_t) (*__ctype_b_loc() - 128),
+                        384 * పరిమాణం (గుర్తులేని పొట్టి), వృక్షం_2);
+    వృక్షం_2 = splay_చొప్పించు((కొలత_t) __ctype_tolower_loc(),
+                        పరిమాణం (__int32_t *), వృక్షం_2);
+    వృక్షం_2 = splay_చొప్పించు((కొలత_t) (*__ctype_tolower_loc() - 128),
+                        384 * పరిమాణం (__int32_t), వృక్షం_2);
+    వృక్షం_2 = splay_చొప్పించు((కొలత_t) __ctype_toupper_loc(),
+                        పరిమాణం (__int32_t *), వృక్షం_2);
+    వృక్షం_2 = splay_చొప్పించు((కొలత_t) (*__ctype_toupper_loc() - 128),
+                        384 * పరిమాణం (__int32_t), వృక్షం_2);
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#ఒకవేళ HAVE_ERRNO
+    వృక్షం_2 = splay_చొప్పించు((కొలత_t) (&errno), పరిమాణం (పూర్ణాంకం), వృక్షం_2);
+#అయితే_ముగింపు
 
-add_bounds:
-    if (!p)
-        goto no_bounds;
+కూడు_bounds:
+    ఒకవేళ (!p)
+        వెళ్ళు no_bounds;
 
     /* add all static bound check values */
-    while (p[0] != 0) {
-        tree = splay_insert(p[0], p[1], tree);
-#if BOUND_DEBUG
+    అయితే (p[0] != 0) {
+        వృక్షం_2 = splay_చొప్పించు(p[0], p[1], వృక్షం_2);
+#ఒకవేళ BOUND_DEBUG
         dprintf(stderr, "%s, %s(): static var %p 0x%lx\n",
                 __FILE__, __FUNCTION__,
-                (void *) p[0], (unsigned long) p[1]);
-#endif
+                (శూన్య *) p[0], (గుర్తులేని దీర్ఘ) p[1]);
+#అయితే_ముగింపు
         p += 2;
     }
 no_bounds:
 
     POST_SEM ();
-    NO_CHECKING_SET(0);
+    NO_CHECKING_సమితి(0);
     dprintf(stderr, "%s, %s(): end\n\n", __FILE__, __FUNCTION__);
 }
 
-void
-#if (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
+శూన్య
+#ఒకవేళ (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
 __attribute__((constructor))
-#endif
-__bound_main_arg(int argc, char **argv, char **envp)
+#అయితే_ముగింపు
+__bound_main_arg(పూర్ణాంకం argc, అక్షరం **argv, అక్షరం **envp)
 {
     __bound_init (0, -1);
-    if (argc && argv) {
-        int i;
+    ఒకవేళ (argc && argv) {
+        పూర్ణాంకం i;
 
         WAIT_SEM ();
-        for (i = 0; i < argc; i++)
-            tree = splay_insert((size_t) argv[i], strlen (argv[i]) + 1, tree);
-        tree = splay_insert((size_t) argv, (argc + 1) * sizeof(char *), tree);
+        కొరకు (i = 0; i < argc; i++)
+            వృక్షం_2 = splay_చొప్పించు((కొలత_t) argv[i], అక్షరశ్రేణి_పొడవు (argv[i]) + 1, వృక్షం_2);
+        వృక్షం_2 = splay_చొప్పించు((కొలత_t) argv, (argc + 1) * పరిమాణం(అక్షరం *), వృక్షం_2);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
-            for (i = 0; i < argc; i++)
+#ఒకవేళ BOUND_DEBUG
+        ఒకవేళ (print_calls) {
+            కొరకు (i = 0; i < argc; i++)
                 dprintf(stderr, "%s, %s(): arg %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        argv[i], (unsigned long)(strlen (argv[i]) + 1));
+                        argv[i], (గుర్తులేని దీర్ఘ)(అక్షరశ్రేణి_పొడవు (argv[i]) + 1));
             dprintf(stderr, "%s, %s(): argv %p %d\n",
                     __FILE__, __FUNCTION__, argv,
-                    (int)((argc + 1) * sizeof(char *)));
+                    (పూర్ణాంకం)((argc + 1) * పరిమాణం(అక్షరం *)));
         }
-#endif
+#అయితే_ముగింపు
     }
 
-    if (envp && *envp) {
-        char **p = envp;
+    ఒకవేళ (envp && *envp) {
+        అక్షరం **p = envp;
 
         WAIT_SEM ();
-        while (*p) {
-            tree = splay_insert((size_t) *p, strlen (*p) + 1, tree);
+        అయితే (*p) {
+            వృక్షం_2 = splay_చొప్పించు((కొలత_t) *p, అక్షరశ్రేణి_పొడవు (*p) + 1, వృక్షం_2);
             ++p;
         }
-        tree = splay_insert((size_t) envp, (++p - envp) * sizeof(char *), tree);
+        వృక్షం_2 = splay_చొప్పించు((కొలత_t) envp, (++p - envp) * పరిమాణం(అక్షరం *), వృక్షం_2);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
+#ఒకవేళ BOUND_DEBUG
+        ఒకవేళ (print_calls) {
             p = envp;
-            while (*p) {
+            అయితే (*p) {
                 dprintf(stderr, "%s, %s(): env %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        *p, (unsigned long)(strlen (*p) + 1));
+                        *p, (గుర్తులేని దీర్ఘ)(అక్షరశ్రేణి_పొడవు (*p) + 1));
                 ++p;
             }
             dprintf(stderr, "%s, %s(): environ %p %d\n",
                     __FILE__, __FUNCTION__, envp,
-                    (int)((++p - envp) * sizeof(char *)));
+                    (పూర్ణాంకం)((++p - envp) * పరిమాణం(అక్షరం *)));
         }
-#endif
+#అయితే_ముగింపు
     }
 }
 
-void __attribute__((destructor)) __bound_exit(void)
+శూన్య __attribute__((destructor)) __bound_exit(శూన్య)
 {
-    int i;
-    static const char * const alloc_type[] = {
+    పూర్ణాంకం i;
+    స్థిర స్థిరరాశి అక్షరం * స్థిరరాశి alloc_type[] = {
         "", "malloc", "calloc", "realloc", "memalign", "strdup"
     };
 
     dprintf(stderr, "%s, %s():\n", __FILE__, __FUNCTION__);
 
-    if (inited) {
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
+    ఒకవేళ (inited) {
+#ఒకవేళ !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
     !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__NetBSD__) && \
     !defined(__ANDROID__)
-        if (print_heap) {
-            extern void __libc_freeres (void);
+        ఒకవేళ (print_కుప్ప) {
+            బాహ్య శూన్య __libc_freeres (శూన్య);
             __libc_freeres ();
         }
-#endif
+#అయితే_ముగింపు
 
-        NO_CHECKING_SET(1);
+        NO_CHECKING_సమితి(1);
 
         TRY_SEM ();
-        while (alloca_list) {
-            alloca_list_type *next = alloca_list->next;
+        అయితే (alloca_list) {
+            alloca_list_type *తదుపరి = alloca_list->తదుపరి;
 
-            tree = splay_delete ((size_t) alloca_list->p, tree);
+            వృక్షం_2 = splay_delete ((కొలత_t) alloca_list->p, వృక్షం_2);
             BOUND_FREE (alloca_list);
-            alloca_list = next;
+            alloca_list = తదుపరి;
         }
-        while (jmp_list) {
-           jmp_list_type *next  = jmp_list->next;
+        అయితే (jmp_list) {
+           jmp_list_type *తదుపరి  = jmp_list->తదుపరి;
 
            BOUND_FREE (jmp_list);
-           jmp_list = next;
+           jmp_list = తదుపరి;
         }
-        for (i = 0; i < FREE_REUSE_SIZE; i++) {
-            if (free_reuse_list[i]) {
-                tree = splay_delete ((size_t) free_reuse_list[i], tree);
+        కొరకు (i = 0; i < FREE_REUSE_కొలత; i++) {
+            ఒకవేళ (free_reuse_list[i]) {
+                వృక్షం_2 = splay_delete ((కొలత_t) free_reuse_list[i], వృక్షం_2);
                 BOUND_FREE (free_reuse_list[i]);
              }
         }
-        while (tree) {
-            if (print_heap && tree->type != 0)
+        అయితే (వృక్షం_2) {
+            ఒకవేళ (print_కుప్ప && వృక్షం_2->type != 0)
                 fprintf (stderr, "%s, %s(): %s found size %lu\n",
-                         __FILE__, __FUNCTION__, alloc_type[tree->type],
-                         (unsigned long) tree->size);
-            tree = splay_delete (tree->start, tree);
+                         __FILE__, __FUNCTION__, alloc_type[వృక్షం_2->type],
+                         (గుర్తులేని దీర్ఘ) వృక్షం_2->కొలత);
+            వృక్షం_2 = splay_delete (వృక్షం_2->ప్రారంభం, వృక్షం_2);
         }
-#if TREE_REUSE
-        while (tree_free_list) {
-            Tree *next = tree_free_list->left;
-            BOUND_FREE (tree_free_list);
-            tree_free_list = next;
+#ఒకవేళ వృక్షం_REUSE
+        అయితే (వృక్షం_free_list) {
+            వృక్షం *తదుపరి = వృక్షం_free_list->ఎడమ;
+            BOUND_FREE (వృక్షం_free_list);
+            వృక్షం_free_list = తదుపరి;
         }
-#endif
+#అయితే_ముగింపు
         POST_SEM ();
         EXIT_SEM ();
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-        TlsFree(no_checking_key);
-#else
-        pthread_key_delete(no_checking_key);
-#endif
-#endif
+#ఒకవేళ HAVE_TLS_FUNC
+#ఒకవేళ defined(_WIN32)
+        TlsFree(no_checking_కీలకం);
+#లేకపోతే
+        pthread_key_delete(no_checking_కీలకం);
+#అయితే_ముగింపు
+#అయితే_ముగింపు
         inited = 0;
-        if (print_statistic) {
-#if BOUND_STATISTIC
-            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_add_count);
-            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_count);
-            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_count);
-            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_count);
-            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_count);
-            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_count);
-            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_count);
-            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_count);
-            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_count);
-            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_count);
-            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_count);
-            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_count);
-            fprintf (stderr, "bound_free_count         %llu\n", bound_free_count);
-            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_count);
-            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_count);
-            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_count);
-            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_count);
-            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_count);
-            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_count);
-            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_count);
-            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_count);
-            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_count);
-            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_count);
-            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_count);
-            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_count);
-            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_count);
-            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_count);
-            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_count);
-            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_count);
-            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_count);
-            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_count);
-            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_count);
-            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_count);
-            fprintf (stderr, "bound_not_found          %llu\n", bound_not_found);
-#endif
-#if BOUND_STATISTIC_SPLAY
+        ఒకవేళ (print_statistic) {
+#ఒకవేళ BOUND_STATISTIC
+            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_కూడు_లెక్క);
+            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_లెక్క);
+            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_లెక్క);
+            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_లెక్క);
+            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_లెక్క);
+            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_లెక్క);
+            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_లెక్క);
+            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_లెక్క);
+            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_లెక్క);
+            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_లెక్క);
+            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_లెక్క);
+            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_లెక్క);
+            fprintf (stderr, "bound_free_count         %llu\n", bound_free_లెక్క);
+            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_లెక్క);
+            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_లెక్క);
+            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_లెక్క);
+            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_లెక్క);
+            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_లెక్క);
+            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_లెక్క);
+            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_లెక్క);
+            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_లెక్క);
+            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_లెక్క);
+            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_లెక్క);
+            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_లెక్క);
+            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_లెక్క);
+            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_లెక్క);
+            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_లెక్క);
+            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_లెక్క);
+            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_లెక్క);
+            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_లెక్క);
+            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_లెక్క);
+            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_లెక్క);
+            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_లెక్క);
+            fprintf (stderr, "bound_not_found          %llu\n", bound_not_దొరికింది);
+#అయితే_ముగింపు
+#ఒకవేళ BOUND_STATISTIC_SPLAY
             fprintf (stderr, "bound_splay              %llu\n", bound_splay);
-            fprintf (stderr, "bound_splay_end          %llu\n", bound_splay_end);
-            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_insert);
+            fprintf (stderr, "bound_splay_end          %llu\n", bound_splay_చివర);
+            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_చొప్పించు);
             fprintf (stderr, "bound_splay_delete       %llu\n", bound_splay_delete);
-#endif
+#అయితే_ముగింపు
         }
     }
 }
 
-void __bound_exit_dll(size_t *p)
+శూన్య __bound_exit_dll(కొలత_t *p)
 {
     dprintf(stderr, "%s, %s()\n", __FILE__, __FUNCTION__);
 
-    if (p) {
+    ఒకవేళ (p) {
         WAIT_SEM ();
-	while (p[0] != 0) {
-	    tree = splay_delete(p[0], tree);
-#if BOUND_DEBUG
-            if (print_calls) {
+	అయితే (p[0] != 0) {
+	    వృక్షం_2 = splay_delete(p[0], వృక్షం_2);
+#ఒకవేళ BOUND_DEBUG
+            ఒకవేళ (print_calls) {
                 dprintf(stderr, "%s, %s(): remove static var %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        (void *) p[0], (unsigned long) p[1]);
+                        (శూన్య *) p[0], (గుర్తులేని దీర్ఘ) p[1]);
             }
-#endif
+#అయితే_ముగింపు
 	    p += 2;
 	}
         POST_SEM ();
     }
 }
 
-#if HAVE_PTHREAD_CREATE
-typedef struct {
-    void *(*start_routine) (void *);
-    void *arg;
-    sigset_t old_mask;
+#ఒకవేళ HAVE_PTHREAD_CREATE
+రకనిర్వచనం నిర్మాణం {
+    శూన్య *(*ప్రారంభం_routine) (శూన్య *);
+    శూన్య *arg;
+    sigset_t old_ముసుగు;
 } bound_thread_create_type;
 
-static void *bound_thread_create(void *bdata)
+స్థిర శూన్య *bound_thread_create(శూన్య *bdata)
 {
-    bound_thread_create_type *data = (bound_thread_create_type *) bdata;
-    void *retval;
-#if HAVE_TLS_FUNC
-    int *p = (int *) BOUND_MALLOC(sizeof(int));
+    bound_thread_create_type *దత్తాంశం = (bound_thread_create_type *) bdata;
+    శూన్య *retval;
+#ఒకవేళ HAVE_TLS_FUNC
+    పూర్ణాంకం *p = (పూర్ణాంకం *) BOUND_MALLOC(పరిమాణం(పూర్ణాంకం));
   
-    if (!p) bound_alloc_error("bound_thread_create malloc");
+    ఒకవేళ (!p) bound_alloc_error("bound_thread_create malloc");
     *p = 0;
-    pthread_setspecific(no_checking_key, p);
-#endif
-    pthread_sigmask(SIG_SETMASK, &data->old_mask, NULL);
-    retval = data->start_routine(data->arg);
-#if HAVE_TLS_FUNC
-    pthread_setspecific(no_checking_key, NULL);
+    pthread_setspecific(no_checking_కీలకం, p);
+#అయితే_ముగింపు
+    pthread_sigmask(SIG_SETMASK, &దత్తాంశం->old_ముసుగు, ఖాళీ);
+    retval = దత్తాంశం->ప్రారంభం_routine(దత్తాంశం->arg);
+#ఒకవేళ HAVE_TLS_FUNC
+    pthread_setspecific(no_checking_కీలకం, ఖాళీ);
     BOUND_FREE (p);
-#endif
-    BOUND_FREE (data);
-    return retval;
+#అయితే_ముగింపు
+    BOUND_FREE (దత్తాంశం);
+    తిరిగి retval;
 }
 
-int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
-                   void *(*start_routine) (void *), void *arg)
+పూర్ణాంకం pthread_create(pthread_t *thread, స్థిరరాశి pthread_attr_t *attr,
+                   శూన్య *(*ప్రారంభం_routine) (శూన్య *), శూన్య *arg)
 {
-    int retval;
-    bound_thread_create_type *data;
-    sigset_t mask;
-    sigset_t old_mask;
+    పూర్ణాంకం retval;
+    bound_thread_create_type *దత్తాంశం;
+    sigset_t ముసుగు;
+    sigset_t old_ముసుగు;
   
     use_sem = 1;
     dprintf (stderr, "%s, %s()\n", __FILE__, __FUNCTION__);
-    sigfillset(&mask);
-    pthread_sigmask(SIG_SETMASK, &mask, &old_mask);
-    data = (bound_thread_create_type *) BOUND_MALLOC(sizeof(bound_thread_create_type));
-    if (!data) bound_alloc_error("bound_thread_create malloc");
-    data->start_routine = start_routine;
-    data->arg = arg;
-    data->old_mask = old_mask;
-    retval = pthread_create_redir(thread, attr, bound_thread_create, data);
-    pthread_sigmask(SIG_SETMASK, &old_mask, NULL);
-    return retval;
+    sigfillset(&ముసుగు);
+    pthread_sigmask(SIG_SETMASK, &ముసుగు, &old_ముసుగు);
+    దత్తాంశం = (bound_thread_create_type *) BOUND_MALLOC(పరిమాణం(bound_thread_create_type));
+    ఒకవేళ (!దత్తాంశం) bound_alloc_error("bound_thread_create malloc");
+    దత్తాంశం->ప్రారంభం_routine = ప్రారంభం_routine;
+    దత్తాంశం->arg = arg;
+    దత్తాంశం->old_ముసుగు = old_ముసుగు;
+    retval = pthread_create_redir(thread, attr, bound_thread_create, దత్తాంశం);
+    pthread_sigmask(SIG_SETMASK, &old_ముసుగు, ఖాళీ);
+    తిరిగి retval;
 }
-#endif
+#అయితే_ముగింపు
 
-#if HAVE_SIGNAL || HAVE_SIGACTION
-typedef union {
-#if HAVE_SIGNAL
+#ఒకవేళ HAVE_SIGNAL || HAVE_SIGACTION
+రకనిర్వచనం సంఘం {
+#ఒకవేళ HAVE_SIGNAL
     bound_sig signal_handler;
-#endif
-#if HAVE_SIGACTION
-    void (*sig_handler)(int);
-    void (*sig_sigaction)(int, siginfo_t *, void *);
-#endif
+#అయితే_ముగింపు
+#ఒకవేళ HAVE_SIGACTION
+    శూన్య (*sig_handler)(పూర్ణాంకం);
+    శూన్య (*sig_sigaction)(పూర్ణాంకం, siginfo_t *, శూన్య *);
+#అయితే_ముగింపు
 } bound_sig_type;
 
-static unsigned char bound_sig_used[NSIG];
-static bound_sig_type bound_sig_data[NSIG];
-#endif
+స్థిర గుర్తులేని అక్షరం bound_sig_వాడిన[NSIG];
+స్థిర bound_sig_type bound_sig_దత్తాంశం[NSIG];
+#అయితే_ముగింపు
 
-#if HAVE_SIGNAL
-static void signal_handler(int sig)
+#ఒకవేళ HAVE_SIGNAL
+స్థిర శూన్య signal_handler(పూర్ణాంకం sig)
 {
    __bounds_checking(1);
-   bound_sig_data[sig].signal_handler(sig);
+   bound_sig_దత్తాంశం[sig].signal_handler(sig);
    __bounds_checking(-1);
 }
 
-bound_sig signal(int signum, bound_sig handler)
+bound_sig సంకేతం(పూర్ణాంకం signum, bound_sig handler)
 {
     bound_sig retval;
 
     dprintf (stderr, "%s, %s() %d %p\n", __FILE__, __FUNCTION__,
              signum, handler);
     retval = signal_redir(signum, handler ? signal_handler : handler);
-    if (retval != SIG_ERR) {
-        if (bound_sig_used[signum])
-            retval = bound_sig_data[signum].signal_handler;
-        if (handler) {
-            bound_sig_used[signum] = 1;
-            bound_sig_data[signum].signal_handler = handler;
+    ఒకవేళ (retval != SIG_ERR) {
+        ఒకవేళ (bound_sig_వాడిన[signum])
+            retval = bound_sig_దత్తాంశం[signum].signal_handler;
+        ఒకవేళ (handler) {
+            bound_sig_వాడిన[signum] = 1;
+            bound_sig_దత్తాంశం[signum].signal_handler = handler;
         }
     }
-    return retval;
+    తిరిగి retval;
 }
-#endif
+#అయితే_ముగింపు
 
-#if HAVE_SIGACTION
-static void sig_handler(int sig)
+#ఒకవేళ HAVE_SIGACTION
+స్థిర శూన్య sig_handler(పూర్ణాంకం sig)
 {
    __bounds_checking(1);
-   bound_sig_data[sig].sig_handler(sig);
+   bound_sig_దత్తాంశం[sig].sig_handler(sig);
    __bounds_checking(-1);
 }
 
-static void sig_sigaction(int sig, siginfo_t *info, void *ucontext)
+స్థిర శూన్య sig_sigaction(పూర్ణాంకం sig, siginfo_t *info, శూన్య *ucontext)
 {
    __bounds_checking(1);
-   bound_sig_data[sig].sig_sigaction(sig, info, ucontext);
+   bound_sig_దత్తాంశం[sig].sig_sigaction(sig, info, ucontext);
    __bounds_checking(-1);
 }
 
-int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)
+పూర్ణాంకం sigaction(పూర్ణాంకం signum, స్థిరరాశి నిర్మాణం sigaction *act, నిర్మాణం sigaction *oldact)
 {
-    int retval;
-    struct sigaction nact, oact;
+    పూర్ణాంకం retval;
+    నిర్మాణం sigaction nact, oact;
 
     dprintf (stderr, "%s, %s() %d %p %p\n", __FILE__, __FUNCTION__,
              signum, act, oldact);
 
-    if (sigaction_redir == NULL)
+    ఒకవేళ (sigaction_redir == ఖాళీ)
         __bound_init(0,-1);
 
-    if (act) {
+    ఒకవేళ (act) {
         nact = *act;
-        if (nact.sa_flags & SA_SIGINFO)
+        ఒకవేళ (nact.sa_flags & SA_SIGINFO)
             nact.sa_sigaction = sig_sigaction;
-        else
+        లేకపోతే
             nact.sa_handler = sig_handler;
         retval = sigaction_redir(signum, &nact, &oact);
     }
-    else
+    లేకపోతే
         retval = sigaction_redir(signum, act, &oact);
-    if (retval >= 0) {
-        if (bound_sig_used[signum]) {
-            if (oact.sa_flags & SA_SIGINFO)
-                oact.sa_sigaction = bound_sig_data[signum].sig_sigaction;
-            else
-                oact.sa_handler = bound_sig_data[signum].sig_handler;
+    ఒకవేళ (retval >= 0) {
+        ఒకవేళ (bound_sig_వాడిన[signum]) {
+            ఒకవేళ (oact.sa_flags & SA_SIGINFO)
+                oact.sa_sigaction = bound_sig_దత్తాంశం[signum].sig_sigaction;
+            లేకపోతే
+                oact.sa_handler = bound_sig_దత్తాంశం[signum].sig_handler;
         }
-        if (oldact) {
+        ఒకవేళ (oldact) {
             *oldact = oact;
         }
-        if (act) {
-            bound_sig_used[signum] = 1;
-            if (act->sa_flags & SA_SIGINFO)
-                bound_sig_data[signum].sig_sigaction = act->sa_sigaction;
-            else
-                bound_sig_data[signum].sig_handler = act->sa_handler;
+        ఒకవేళ (act) {
+            bound_sig_వాడిన[signum] = 1;
+            ఒకవేళ (act->sa_flags & SA_SIGINFO)
+                bound_sig_దత్తాంశం[signum].sig_sigaction = act->sa_sigaction;
+            లేకపోతే
+                bound_sig_దత్తాంశం[signum].sig_handler = act->sa_handler;
         }
     }
-    return retval;
+    తిరిగి retval;
 }
-#endif
+#అయితే_ముగింపు
 
-#if HAVE_FORK
-pid_t fork(void)
+#ఒకవేళ HAVE_FORK
+pid_t fork(శూన్య)
 {
     pid_t retval;
 
     WAIT_SEM();
     retval = (*fork_redir)();
-    if (retval == 0)
+    ఒకవేళ (retval == 0)
         INIT_SEM();
-    else
+    లేకపోతే
         POST_SEM();
-    return retval;
+    తిరిగి retval;
 }
-#endif
+#అయితే_ముగింపు
 
-#if MALLOC_REDIR
-void *malloc(size_t size)
-#else
-void *__bound_malloc(size_t size, const void *caller)
-#endif
+#ఒకవేళ MALLOC_REDIR
+శూన్య *జ్ఞాపకం_ఇవ్వు(కొలత_t కొలత)
+#లేకపోతే
+శూన్య *__bound_malloc(కొలత_t కొలత, స్థిరరాశి శూన్య *caller)
+#అయితే_ముగింపు
 {
-    void *ptr;
+    శూన్య *ptr;
     
-#if MALLOC_REDIR
+#ఒకవేళ MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    ఒకవేళ (malloc_redir == ఖాళీ) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
-            ptr = &initial_pool[pool_index];
-            pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+        ఒకవేళ (malloc_redir == ఖాళీ) {
+            ptr = &initial_pool[pool_సూచీ];
+            pool_సూచీ = (pool_సూచీ + కొలత + 15) & ~15;
+            ఒకవేళ (pool_సూచీ >= పరిమాణం (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
-                     __FILE__, __FUNCTION__, ptr, (unsigned long)size);
-            return ptr;
+                     __FILE__, __FUNCTION__, ptr, (గుర్తులేని దీర్ఘ)కొలత);
+            తిరిగి ptr;
         }
     }
-#endif
+#అయితే_ముగింపు
     /* we allocate one more byte to ensure the regions will be
        separated by at least one byte. With the glibc malloc, it may
        be in fact not necessary */
-    ptr = BOUND_MALLOC (size + 1);
+    ptr = BOUND_MALLOC (కొలత + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, ptr, (unsigned long)size);
+            __FILE__, __FUNCTION__, ptr, (గుర్తులేని దీర్ఘ)కొలత);
     
-    if (inited && NO_CHECKING_GET() == 0) {
+    ఒకవేళ (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_malloc_count);
+        INCR_లెక్క(bound_malloc_లెక్క);
 
-        if (ptr) {
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MALLOC;
+        ఒకవేళ (ptr) {
+            వృక్షం_2 = splay_చొప్పించు ((కొలత_t) ptr, కొలత ? కొలత : కొలత + 1, వృక్షం_2);
+            ఒకవేళ (వృక్షం_2 && వృక్షం_2->ప్రారంభం == (కొలత_t) ptr)
+                వృక్షం_2->type = TCC_TYPE_MALLOC;
         }
         POST_SEM ();
     }
-    return ptr;
+    తిరిగి ptr;
 }
 
-#if MALLOC_REDIR
-void *memalign(size_t align, size_t size)
-#else
-void *__bound_memalign(size_t align, size_t size, const void *caller)
-#endif
+#ఒకవేళ MALLOC_REDIR
+శూన్య *memalign(కొలత_t align, కొలత_t కొలత)
+#లేకపోతే
+శూన్య *__bound_memalign(కొలత_t align, కొలత_t కొలత, స్థిరరాశి శూన్య *caller)
+#అయితే_ముగింపు
 {
-    void *ptr;
+    శూన్య *ptr;
 
-#if HAVE_MEMALIGN
+#ఒకవేళ HAVE_MEMALIGN
     /* we allocate one more byte to ensure the regions will be
        separated by at least one byte. With the glibc malloc, it may
        be in fact not necessary */
-    ptr = BOUND_MEMALIGN(align, size + 1);
-#else
-    if (align > 4) {
+    ptr = BOUND_MEMALIGN(align, కొలత + 1);
+#లేకపోతే
+    ఒకవేళ (align > 4) {
         /* XXX: handle it ? */
-        ptr = NULL;
-    } else {
+        ptr = ఖాళీ;
+    } లేకపోతే {
         /* we suppose that malloc aligns to at least four bytes */
-        ptr = BOUND_MALLOC(size + 1);
+        ptr = BOUND_MALLOC(కొలత + 1);
     }
-#endif
+#అయితే_ముగింపు
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, ptr, (unsigned long)size);
+            __FILE__, __FUNCTION__, ptr, (గుర్తులేని దీర్ఘ)కొలత);
 
-    if (NO_CHECKING_GET() == 0) {
+    ఒకవేళ (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_memalign_count);
+        INCR_లెక్క(bound_memalign_లెక్క);
 
-        if (ptr) {
-            tree = splay_insert((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MEMALIGN;
+        ఒకవేళ (ptr) {
+            వృక్షం_2 = splay_చొప్పించు((కొలత_t) ptr, కొలత ? కొలత : కొలత + 1, వృక్షం_2);
+            ఒకవేళ (వృక్షం_2 && వృక్షం_2->ప్రారంభం == (కొలత_t) ptr)
+                వృక్షం_2->type = TCC_TYPE_MEMALIGN;
         }
         POST_SEM ();
     }
-    return ptr;
+    తిరిగి ptr;
 }
 
-#if MALLOC_REDIR
-void free(void *ptr)
-#else
-void __bound_free(void *ptr, const void *caller)
-#endif
+#ఒకవేళ MALLOC_REDIR
+శూన్య విడుదల(శూన్య *ptr)
+#లేకపోతే
+శూన్య __bound_free(శూన్య *ptr, స్థిరరాశి శూన్య *caller)
+#అయితే_ముగింపు
 {
-    size_t addr = (size_t) ptr;
-    void *p;
+    కొలత_t addr = (కొలత_t) ptr;
+    శూన్య *p;
 
-    if (ptr == NULL || tree == NULL
-#if MALLOC_REDIR
-        || ((unsigned char *) ptr >= &initial_pool[0] &&
-            (unsigned char *) ptr < &initial_pool[sizeof(initial_pool)])
-#endif
+    ఒకవేళ (ptr == ఖాళీ || వృక్షం_2 == ఖాళీ
+#ఒకవేళ MALLOC_REDIR
+        || ((గుర్తులేని అక్షరం *) ptr >= &initial_pool[0] &&
+            (గుర్తులేని అక్షరం *) ptr < &initial_pool[పరిమాణం(initial_pool)])
+#అయితే_ముగింపు
         )
-        return;
+        తిరిగి;
 
     dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, ptr);
 
-    if (inited && NO_CHECKING_GET() == 0) {
+    ఒకవేళ (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_free_count);
-        tree = splay (addr, tree);
-        if (tree->start == addr) {
-            if (tree->is_invalid) {
+        INCR_లెక్క(bound_free_లెక్క);
+        వృక్షం_2 = splay (addr, వృక్షం_2);
+        ఒకవేళ (వృక్షం_2->ప్రారంభం == addr) {
+            ఒకవేళ (వృక్షం_2->is_invalid) {
                 POST_SEM ();
                 bound_error("freeing invalid region");
-                return;
+                తిరిగి;
             }
-            tree->is_invalid = 1;
-            memset (ptr, 0x5a, tree->size);
-            p = free_reuse_list[free_reuse_index];
-            free_reuse_list[free_reuse_index] = ptr;
-            free_reuse_index = (free_reuse_index + 1) % FREE_REUSE_SIZE;
-            if (p)
-                tree = splay_delete((size_t)p, tree);
+            వృక్షం_2->is_invalid = 1;
+            memset (ptr, 0x5a, వృక్షం_2->కొలత);
+            p = free_reuse_list[free_reuse_సూచీ];
+            free_reuse_list[free_reuse_సూచీ] = ptr;
+            free_reuse_సూచీ = (free_reuse_సూచీ + 1) % FREE_REUSE_కొలత;
+            ఒకవేళ (p)
+                వృక్షం_2 = splay_delete((కొలత_t)p, వృక్షం_2);
             ptr = p;
         }
         POST_SEM ();
@@ -1588,435 +1588,435 @@ void __bound_free(void *ptr, const void *caller)
     BOUND_FREE (ptr);
 }
 
-#if MALLOC_REDIR
-void *realloc(void *ptr, size_t size)
-#else
-void *__bound_realloc(void *ptr, size_t size, const void *caller)
-#endif
+#ఒకవేళ MALLOC_REDIR
+శూన్య *realloc(శూన్య *ptr, కొలత_t కొలత)
+#లేకపోతే
+శూన్య *__bound_realloc(శూన్య *ptr, కొలత_t కొలత, స్థిరరాశి శూన్య *caller)
+#అయితే_ముగింపు
 {
-    void *new_ptr;
+    శూన్య *new_ptr;
 
-    if (size == 0) {
-#if MALLOC_REDIR
-        free(ptr);
-#else
+    ఒకవేళ (కొలత == 0) {
+#ఒకవేళ MALLOC_REDIR
+        విడుదల(ptr);
+#లేకపోతే
         __bound_free(ptr, caller);
-#endif
-        return NULL;
+#అయితే_ముగింపు
+        తిరిగి ఖాళీ;
     }
 
-    new_ptr = BOUND_REALLOC (ptr, size + 1);
+    new_ptr = BOUND_REALLOC (ptr, కొలత + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, new_ptr, (unsigned long)size);
+            __FILE__, __FUNCTION__, new_ptr, (గుర్తులేని దీర్ఘ)కొలత);
 
-    if (NO_CHECKING_GET() == 0) {
+    ఒకవేళ (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_realloc_count);
+        INCR_లెక్క(bound_realloc_లెక్క);
 
-        if (ptr)
-            tree = splay_delete ((size_t) ptr, tree);
-        if (new_ptr) {
-            tree = splay_insert ((size_t) new_ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) new_ptr)
-                tree->type = TCC_TYPE_REALLOC;
+        ఒకవేళ (ptr)
+            వృక్షం_2 = splay_delete ((కొలత_t) ptr, వృక్షం_2);
+        ఒకవేళ (new_ptr) {
+            వృక్షం_2 = splay_చొప్పించు ((కొలత_t) new_ptr, కొలత ? కొలత : కొలత + 1, వృక్షం_2);
+            ఒకవేళ (వృక్షం_2 && వృక్షం_2->ప్రారంభం == (కొలత_t) new_ptr)
+                వృక్షం_2->type = TCC_TYPE_REALLOC;
         }
         POST_SEM ();
     }
-    return new_ptr;
+    తిరిగి new_ptr;
 }
 
-#if MALLOC_REDIR
-void *calloc(size_t nmemb, size_t size)
-#else
-void *__bound_calloc(size_t nmemb, size_t size)
-#endif
+#ఒకవేళ MALLOC_REDIR
+శూన్య *సున్నా_జ్ఞాపకం_ఇవ్వు(కొలత_t nmemb, కొలత_t కొలత)
+#లేకపోతే
+శూన్య *__bound_calloc(కొలత_t nmemb, కొలత_t కొలత)
+#అయితే_ముగింపు
 {
-    void *ptr;
+    శూన్య *ptr;
 
-    size *= nmemb;
-#if MALLOC_REDIR
+    కొలత *= nmemb;
+#ఒకవేళ MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    ఒకవేళ (malloc_redir == ఖాళీ) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
-            ptr = &initial_pool[pool_index];
-            pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+        ఒకవేళ (malloc_redir == ఖాళీ) {
+            ptr = &initial_pool[pool_సూచీ];
+            pool_సూచీ = (pool_సూచీ + కొలత + 15) & ~15;
+            ఒకవేళ (pool_సూచీ >= పరిమాణం (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
-                     __FILE__, __FUNCTION__, ptr, (unsigned long)size);
-            memset (ptr, 0, size);
-            return ptr;
+                     __FILE__, __FUNCTION__, ptr, (గుర్తులేని దీర్ఘ)కొలత);
+            memset (ptr, 0, కొలత);
+            తిరిగి ptr;
         }
     }
-#endif
-    ptr = BOUND_MALLOC(size + 1);
+#అయితే_ముగింపు
+    ptr = BOUND_MALLOC(కొలత + 1);
     dprintf (stderr, "%s, %s(): %p, 0x%lx\n",
-             __FILE__, __FUNCTION__, ptr, (unsigned long)size);
+             __FILE__, __FUNCTION__, ptr, (గుర్తులేని దీర్ఘ)కొలత);
 
-    if (ptr) {
-        memset (ptr, 0, size);
-        if (NO_CHECKING_GET() == 0) {
+    ఒకవేళ (ptr) {
+        memset (ptr, 0, కొలత);
+        ఒకవేళ (NO_CHECKING_GET() == 0) {
             WAIT_SEM ();
-            INCR_COUNT(bound_calloc_count);
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_CALLOC;
+            INCR_లెక్క(bound_calloc_లెక్క);
+            వృక్షం_2 = splay_చొప్పించు ((కొలత_t) ptr, కొలత ? కొలత : కొలత + 1, వృక్షం_2);
+            ఒకవేళ (వృక్షం_2 && వృక్షం_2->ప్రారంభం == (కొలత_t) ptr)
+                వృక్షం_2->type = TCC_TYPE_CALLOC;
             POST_SEM ();
         }
     }
-    return ptr;
+    తిరిగి ptr;
 }
 
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot,
-                    int flags, int fd, off_t offset)
+#ఒకవేళ !defined(_WIN32)
+శూన్య *__bound_mmap (శూన్య *ప్రారంభం, కొలత_t కొలత, పూర్ణాంకం prot,
+                    పూర్ణాంకం flags, పూర్ణాంకం fd, off_t స్థానభ్రంశం)
 {
-    void *result;
+    శూన్య *ఫలితం;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, start, (unsigned long)size);
-    result = mmap (start, size, prot, flags, fd, offset);
-    if (result && NO_CHECKING_GET() == 0) {
+            __FILE__, __FUNCTION__, ప్రారంభం, (గుర్తులేని దీర్ఘ)కొలత);
+    ఫలితం = mmap (ప్రారంభం, కొలత, prot, flags, fd, స్థానభ్రంశం);
+    ఒకవేళ (ఫలితం && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_mmap_count);
-        tree = splay_insert((size_t)result, size, tree);
+        INCR_లెక్క(bound_mmap_లెక్క);
+        వృక్షం_2 = splay_చొప్పించు((కొలత_t)ఫలితం, కొలత, వృక్షం_2);
         POST_SEM ();
     }
-    return result;
+    తిరిగి ఫలితం;
 }
 
-int __bound_munmap (void *start, size_t size)
+పూర్ణాంకం __bound_munmap (శూన్య *ప్రారంభం, కొలత_t కొలత)
 {
-    int result;
+    పూర్ణాంకం ఫలితం;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, start, (unsigned long)size);
-    if (start && NO_CHECKING_GET() == 0) {
+            __FILE__, __FUNCTION__, ప్రారంభం, (గుర్తులేని దీర్ఘ)కొలత);
+    ఒకవేళ (ప్రారంభం && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_munmap_count);
-        tree = splay_delete ((size_t) start, tree);
+        INCR_లెక్క(bound_munmap_లెక్క);
+        వృక్షం_2 = splay_delete ((కొలత_t) ప్రారంభం, వృక్షం_2);
         POST_SEM ();
     }
-    result = munmap (start, size);
-    return result;
+    ఫలితం = munmap (ప్రారంభం, కొలత);
+    తిరిగి ఫలితం;
 }
-#endif
+#అయితే_ముగింపు
 
 /* some useful checked functions */
 
 /* check that (p ... p + size - 1) lies inside 'p' region, if any */
-static void __bound_check(const void *p, size_t size, const char *function)
+స్థిర శూన్య __bound_check(స్థిరరాశి శూన్య *p, కొలత_t కొలత, స్థిరరాశి అక్షరం *function)
 {
-    if (size != 0 && __bound_ptr_add((void *)p, size) == INVALID_POINTER) {
+    ఒకవేళ (కొలత != 0 && __bound_ptr_add((శూన్య *)p, కొలత) == INVALID_సూచిక) {
         bound_error("invalid pointer %p, size 0x%lx in %s",
-                p, (unsigned long)size, function);
+                p, (గుర్తులేని దీర్ఘ)కొలత, function);
     }
 }
 
-static int check_overlap (const void *p1, size_t n1,
-                          const void *p2, size_t n2,
-                          const char *function)
+స్థిర పూర్ణాంకం check_overlap (స్థిరరాశి శూన్య *p1, కొలత_t n1,
+                          స్థిరరాశి శూన్య *p2, కొలత_t n2,
+                          స్థిరరాశి అక్షరం *function)
 {
-    const void *p1e = (const void *) ((const char *) p1 + n1);
-    const void *p2e = (const void *) ((const char *) p2 + n2);
+    స్థిరరాశి శూన్య *p1e = (స్థిరరాశి శూన్య *) ((స్థిరరాశి అక్షరం *) p1 + n1);
+    స్థిరరాశి శూన్య *p2e = (స్థిరరాశి శూన్య *) ((స్థిరరాశి అక్షరం *) p2 + n2);
 
-    if (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
+    ఒకవేళ (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
         ((p1 <= p2 && p1e > p2) ||     /* p1----p2====p1e----p2e */
          (p2 <= p1 && p2e > p1))) {    /* p2----p1====p2e----p1e */
         bound_error("overlapping regions %p(0x%lx), %p(0x%lx) in %s",
-                p1, (unsigned long)n1, p2, (unsigned long)n2, function);
-        return never_fatal < 0;
+                p1, (గుర్తులేని దీర్ఘ)n1, p2, (గుర్తులేని దీర్ఘ)n2, function);
+        తిరిగి never_fatal < 0;
     }
-    return 0;
+    తిరిగి 0;
 }
 
-void *__bound_memcpy(void *dest, const void *src, size_t n)
+శూన్య *__bound_memcpy(శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+            __FILE__, __FUNCTION__, dest, src, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_mempcy_లెక్క);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return memcpy(dest, src, n);
+    ఒకవేళ (check_overlap(dest, n, src, n, "memcpy"))
+        తిరిగి dest;
+    తిరిగి జ్ఞాపకం_నకలు(dest, src, n);
 }
 
-int __bound_memcmp(const void *s1, const void *s2, size_t n)
+పూర్ణాంకం __bound_memcmp(స్థిరరాశి శూన్య *s1, స్థిరరాశి శూన్య *s2, కొలత_t n)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    స్థిరరాశి గుర్తులేని అక్షరం *u1 = (స్థిరరాశి గుర్తులేని అక్షరం *) s1;
+    స్థిరరాశి గుర్తులేని అక్షరం *u2 = (స్థిరరాశి గుర్తులేని అక్షరం *) s2;
+    పూర్ణాంకం retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_memcmp_count);
-    for (;;) {
-        if ((ssize_t) --n == -1)
-            break;
-        else if (*u1 != *u2) {
+            __FILE__, __FUNCTION__, s1, s2, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_memcmp_లెక్క);
+    కొరకు (;;) {
+        ఒకవేళ ((ssize_t) --n == -1)
+            ఆపు;
+        లేకపోతే ఒకవేళ (*u1 != *u2) {
             retval = *u1++ - *u2++;
-            break;
+            ఆపు;
         }
         ++u1;
         ++u2;
     }
-    __bound_check(s1, (const void *)u1 - s1, "memcmp s1");
-    __bound_check(s2, (const void *)u2 - s2, "memcmp s2");
-    return retval;
+    __bound_check(s1, (స్థిరరాశి శూన్య *)u1 - s1, "memcmp s1");
+    __bound_check(s2, (స్థిరరాశి శూన్య *)u2 - s2, "memcmp s2");
+    తిరిగి retval;
 }
 
-void *__bound_memmove(void *dest, const void *src, size_t n)
+శూన్య *__bound_memmove(శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+            __FILE__, __FUNCTION__, dest, src, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_memmove_లెక్క);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return memmove(dest, src, n);
+    తిరిగి memmove(dest, src, n);
 }
 
-void *__bound_memset(void *s, int c, size_t n)
+శూన్య *__bound_memset(శూన్య *s, పూర్ణాంకం c, కొలత_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
-            __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+            __FILE__, __FUNCTION__, s, c, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_memset_లెక్క);
     __bound_check(s, n, "memset");
-    return memset(s, c, n);
+    తిరిగి memset(s, c, n);
 }
 
-#if defined(__arm__) && defined(__ARM_EABI__)
-void *__bound___aeabi_memcpy(void *dest, const void *src, size_t n)
+#ఒకవేళ defined(__arm__) && defined(__ARM_EABI__)
+శూన్య *__bound___aeabi_memcpy(శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+            __FILE__, __FUNCTION__, dest, src, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_mempcy_లెక్క);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return __aeabi_memcpy(dest, src, n);
+    ఒకవేళ (check_overlap(dest, n, src, n, "memcpy"))
+        తిరిగి dest;
+    తిరిగి __aeabi_memcpy(dest, src, n);
 }
 
-void *__bound___aeabi_memmove(void *dest, const void *src, size_t n)
+శూన్య *__bound___aeabi_memmove(శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+            __FILE__, __FUNCTION__, dest, src, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_memmove_లెక్క);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove(dest, src, n);
+    తిరిగి __aeabi_memmove(dest, src, n);
 }
 
-void *__bound___aeabi_memmove4(void *dest, const void *src, size_t n)
+శూన్య *__bound___aeabi_memmove4(శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+            __FILE__, __FUNCTION__, dest, src, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_memmove_లెక్క);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove4(dest, src, n);
+    తిరిగి __aeabi_memmove4(dest, src, n);
 }
 
-void *__bound___aeabi_memmove8(void *dest, const void *src, size_t n)
+శూన్య *__bound___aeabi_memmove8(శూన్య *dest, స్థిరరాశి శూన్య *src, కొలత_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+            __FILE__, __FUNCTION__, dest, src, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_memmove_లెక్క);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove8(dest, src, n);
+    తిరిగి __aeabi_memmove8(dest, src, n);
 }
 
-void *__bound___aeabi_memset(void *s, int c, size_t n)
+శూన్య *__bound___aeabi_memset(శూన్య *s, పూర్ణాంకం c, కొలత_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
-            __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+            __FILE__, __FUNCTION__, s, c, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_memset_లెక్క);
     __bound_check(s, n, "memset");
-    return __aeabi_memset(s, c, n);
+    తిరిగి __aeabi_memset(s, c, n);
 }
-#endif
+#అయితే_ముగింపు
 
-int __bound_strlen(const char *s)
+పూర్ణాంకం __bound_strlen(స్థిరరాశి అక్షరం *s)
 {
-    const char *p = s;
+    స్థిరరాశి అక్షరం *p = s;
 
     dprintf(stderr, "%s, %s(): %p\n",
             __FILE__, __FUNCTION__, s);
-    INCR_COUNT(bound_strlen_count);
-    while (*p++);
+    INCR_లెక్క(bound_strlen_లెక్క);
+    అయితే (*p++);
     __bound_check(s, p - s, "strlen");
-    return (p - s) - 1;
+    తిరిగి (p - s) - 1;
 }
 
-char *__bound_strcpy(char *dest, const char *src)
+అక్షరం *__bound_strcpy(అక్షరం *dest, స్థిరరాశి అక్షరం *src)
 {
-    size_t len;
-    const char *p = src;
+    కొలత_t len;
+    స్థిరరాశి అక్షరం *p = src;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcpy_count);
-    while (*p++);
+    INCR_లెక్క(bound_strcpy_లెక్క);
+    అయితే (*p++);
     len = p - src;
     __bound_check(dest, len, "strcpy dest");
     __bound_check(src, len, "strcpy src");
-    if (check_overlap(dest, len, src, len, "strcpy"))
-        return dest;
-    return strcpy (dest, src);
+    ఒకవేళ (check_overlap(dest, len, src, len, "strcpy"))
+        తిరిగి dest;
+    తిరిగి strcpy (dest, src);
 }
 
-char *__bound_strncpy(char *dest, const char *src, size_t n)
+అక్షరం *__bound_strncpy(అక్షరం *dest, స్థిరరాశి అక్షరం *src, కొలత_t n)
 {
-    size_t len = n;
-    const char *p = src;
+    కొలత_t len = n;
+    స్థిరరాశి అక్షరం *p = src;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncpy_count);
-    while (len-- && *p++);
+            __FILE__, __FUNCTION__, dest, src, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_strncpy_లెక్క);
+    అయితే (len-- && *p++);
     len = p - src;
     __bound_check(dest, len, "strncpy dest");
     __bound_check(src, len, "strncpy src");
-    if (check_overlap(dest, len, src, len, "strncpy"))
-        return dest;
-    return strncpy(dest, src, n);
+    ఒకవేళ (check_overlap(dest, len, src, len, "strncpy"))
+        తిరిగి dest;
+    తిరిగి strncpy(dest, src, n);
 }
 
-int __bound_strcmp(const char *s1, const char *s2)
+పూర్ణాంకం __bound_strcmp(స్థిరరాశి అక్షరం *s1, స్థిరరాశి అక్షరం *s2)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
+    స్థిరరాశి గుర్తులేని అక్షరం *u1 = (స్థిరరాశి గుర్తులేని అక్షరం *) s1;
+    స్థిరరాశి గుర్తులేని అక్షరం *u2 = (స్థిరరాశి గుర్తులేని అక్షరం *) s2;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, s1, s2);
-    INCR_COUNT(bound_strcmp_count);
-    while (*u1 && *u1 == *u2) {
+    INCR_లెక్క(bound_strcmp_లెక్క);
+    అయితే (*u1 && *u1 == *u2) {
         ++u1;
         ++u2;
     }
-    __bound_check(s1, ((const char *)u1 - s1) + 1, "strcmp s1");
-    __bound_check(s2, ((const char *)u2 - s2) + 1, "strcmp s2");
-    return *u1 - *u2;
+    __bound_check(s1, ((స్థిరరాశి అక్షరం *)u1 - s1) + 1, "strcmp s1");
+    __bound_check(s2, ((స్థిరరాశి అక్షరం *)u2 - s2) + 1, "strcmp s2");
+    తిరిగి *u1 - *u2;
 }
 
-int __bound_strncmp(const char *s1, const char *s2, size_t n)
+పూర్ణాంకం __bound_strncmp(స్థిరరాశి అక్షరం *s1, స్థిరరాశి అక్షరం *s2, కొలత_t n)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    స్థిరరాశి గుర్తులేని అక్షరం *u1 = (స్థిరరాశి గుర్తులేని అక్షరం *) s1;
+    స్థిరరాశి గుర్తులేని అక్షరం *u2 = (స్థిరరాశి గుర్తులేని అక్షరం *) s2;
+    పూర్ణాంకం retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_strncmp_count);
-    do {
-        if ((ssize_t) --n == -1)
-            break;
-        else if (*u1 != *u2) {
+            __FILE__, __FUNCTION__, s1, s2, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_strncmp_లెక్క);
+    చేయి {
+        ఒకవేళ ((ssize_t) --n == -1)
+            ఆపు;
+        లేకపోతే ఒకవేళ (*u1 != *u2) {
             retval = *u1++ - *u2++;
-            break;
+            ఆపు;
         }
         ++u2;
-    } while (*u1++);
-    __bound_check(s1, (const char *)u1 - s1, "strncmp s1");
-    __bound_check(s2, (const char *)u2 - s2, "strncmp s2");
-    return retval;
+    } అయితే (*u1++);
+    __bound_check(s1, (స్థిరరాశి అక్షరం *)u1 - s1, "strncmp s1");
+    __bound_check(s2, (స్థిరరాశి అక్షరం *)u2 - s2, "strncmp s2");
+    తిరిగి retval;
 }
 
-char *__bound_strcat(char *dest, const char *src)
+అక్షరం *__bound_strcat(అక్షరం *dest, స్థిరరాశి అక్షరం *src)
 {
-    char *r = dest;
-    const char *s = src;
+    అక్షరం *r = dest;
+    స్థిరరాశి అక్షరం *s = src;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcat_count);
-    while (*dest++);
-    while (*src++);
+    INCR_లెక్క(bound_strcat_లెక్క);
+    అయితే (*dest++);
+    అయితే (*src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strcat dest");
     __bound_check(s, src - s, "strcat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
-        return dest;
-    return strcat(r, s);
+    ఒకవేళ (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
+        తిరిగి dest;
+    తిరిగి strcat(r, s);
 }
 
-char *__bound_strncat(char *dest, const char *src, size_t n)
+అక్షరం *__bound_strncat(అక్షరం *dest, స్థిరరాశి అక్షరం *src, కొలత_t n)
 {
-    char *r = dest;
-    const char *s = src;
-    size_t len = n;
+    అక్షరం *r = dest;
+    స్థిరరాశి అక్షరం *s = src;
+    కొలత_t len = n;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncat_count);
-    while (*dest++);
-    while (len-- && *src++);
+            __FILE__, __FUNCTION__, dest, src, (గుర్తులేని దీర్ఘ)n);
+    INCR_లెక్క(bound_strncat_లెక్క);
+    అయితే (*dest++);
+    అయితే (len-- && *src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strncat dest");
     __bound_check(s, src - s, "strncat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
-        return dest;
-    return strncat(r, s, n);
+    ఒకవేళ (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
+        తిరిగి dest;
+    తిరిగి strncat(r, s, n);
 }
 
-char *__bound_strchr(const char *s, int c)
+అక్షరం *__bound_strchr(స్థిరరాశి అక్షరం *s, పూర్ణాంకం c)
 {
-    const unsigned char *str = (const unsigned char *) s;
-    unsigned char ch = c;
+    స్థిరరాశి గుర్తులేని అక్షరం *str = (స్థిరరాశి గుర్తులేని అక్షరం *) s;
+    గుర్తులేని అక్షరం ch = c;
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strchr_count);
-    while (*str) {
-        if (*str == ch)
-            break;
+    INCR_లెక్క(bound_strchr_లెక్క);
+    అయితే (*str) {
+        ఒకవేళ (*str == ch)
+            ఆపు;
         ++str;
     }
-    __bound_check(s, ((const char *)str - s) + 1, "strchr");
-    return *str == ch ? (char *) str : NULL;
+    __bound_check(s, ((స్థిరరాశి అక్షరం *)str - s) + 1, "strchr");
+    తిరిగి *str == ch ? (అక్షరం *) str : ఖాళీ;
 }
 
-char *__bound_strrchr(const char *s, int c)
+అక్షరం *__bound_strrchr(స్థిరరాశి అక్షరం *s, పూర్ణాంకం c)
 {
-    const unsigned char *str = (const unsigned char *) s;
-    unsigned char ch = c;
+    స్థిరరాశి గుర్తులేని అక్షరం *str = (స్థిరరాశి గుర్తులేని అక్షరం *) s;
+    గుర్తులేని అక్షరం ch = c;
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strrchr_count);
-    while (*str++);
-    __bound_check(s, (const char *)str - s, "strrchr");
-    while (str != (const unsigned char *)s) {
-        if (*--str == ch)
-            break;
+    INCR_లెక్క(bound_strrchr_లెక్క);
+    అయితే (*str++);
+    __bound_check(s, (స్థిరరాశి అక్షరం *)str - s, "strrchr");
+    అయితే (str != (స్థిరరాశి గుర్తులేని అక్షరం *)s) {
+        ఒకవేళ (*--str == ch)
+            ఆపు;
     }
-    __bound_check(s, (const char *)str - s, "strrchr");
-    return *str == ch ? (char *) str : NULL;
+    __bound_check(s, (స్థిరరాశి అక్షరం *)str - s, "strrchr");
+    తిరిగి *str == ch ? (అక్షరం *) str : ఖాళీ;
 }
 
-char *__bound_strdup(const char *s)
+అక్షరం *__bound_strdup(స్థిరరాశి అక్షరం *s)
 {
-    const char *p = s;
-    char *new;
+    స్థిరరాశి అక్షరం *p = s;
+    అక్షరం *new;
 
-    INCR_COUNT(bound_strdup_count);
-    while (*p++);
+    INCR_లెక్క(bound_strdup_లెక్క);
+    అయితే (*p++);
     __bound_check(s, p - s, "strdup");
     new = BOUND_MALLOC ((p - s) + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, new, (unsigned long)(p -s));
-    if (new) {
-        if (NO_CHECKING_GET() == 0 && no_strdup == 0) {
+            __FILE__, __FUNCTION__, new, (గుర్తులేని దీర్ఘ)(p -s));
+    ఒకవేళ (new) {
+        ఒకవేళ (NO_CHECKING_GET() == 0 && no_strdup == 0) {
             WAIT_SEM ();
-            tree = splay_insert((size_t)new, p - s, tree);
-            if (tree && tree->start == (size_t) new)
-                tree->type = TCC_TYPE_STRDUP;
+            వృక్షం_2 = splay_చొప్పించు((కొలత_t)new, p - s, వృక్షం_2);
+            ఒకవేళ (వృక్షం_2 && వృక్షం_2->ప్రారంభం == (కొలత_t) new)
+                వృక్షం_2->type = TCC_TYPE_STRDUP;
             POST_SEM ();
         }
-        memcpy (new, s, p - s);
+        జ్ఞాపకం_నకలు (new, s, p - s);
     }
-    return new;
+    తిరిగి new;
 }
 
 /*
@@ -2069,197 +2069,197 @@ char *__bound_strdup(const char *s)
 
 /* Code adapted for tcc */
 
-#define compare(start,tstart,tsize) (start < tstart ? -1 : \
-                                     start >= tstart+tsize  ? 1 : 0)
+#నిర్వచించు compare(ప్రారంభం,tstart,tsize) (ప్రారంభం < tstart ? -1 : \
+                                     ప్రారంభం >= tstart+tsize  ? 1 : 0)
 
-static Tree * splay (size_t addr, Tree *t)
+స్థిర వృక్షం * splay (కొలత_t addr, వృక్షం *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat      */
 {
-    Tree N, *l, *r, *y;
-    int comp;
+    వృక్షం N, *l, *r, *y;
+    పూర్ణాంకం comp;
     
-    INCR_COUNT_SPLAY(bound_splay);
-    if (t == NULL) return t;
-    N.left = N.right = NULL;
+    INCR_లెక్క_SPLAY(bound_splay);
+    ఒకవేళ (t == ఖాళీ) తిరిగి t;
+    N.ఎడమ = N.కుడి = ఖాళీ;
     l = r = &N;
  
-    for (;;) {
-        comp = compare(addr, t->start, t->size);
-        if (comp < 0) {
-            y = t->left;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+    కొరకు (;;) {
+        comp = compare(addr, t->ప్రారంభం, t->కొలత);
+        ఒకవేళ (comp < 0) {
+            y = t->ఎడమ;
+            ఒకవేళ (y == ఖాళీ) ఆపు;
+            ఒకవేళ (compare(addr, y->ప్రారంభం, y->కొలత) < 0) {
+                t->ఎడమ = y->కుడి;                    /* rotate right */
+                y->కుడి = t;
                 t = y;
-                if (t->left == NULL) break;
+                ఒకవేళ (t->ఎడమ == ఖాళీ) ఆపు;
             }
-            r->left = t;                               /* link right */
+            r->ఎడమ = t;                               /* link right */
             r = t;
-            t = t->left;
-        } else if (comp > 0) {
-            y = t->right;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+            t = t->ఎడమ;
+        } లేకపోతే ఒకవేళ (comp > 0) {
+            y = t->కుడి;
+            ఒకవేళ (y == ఖాళీ) ఆపు;
+            ఒకవేళ (compare(addr, y->ప్రారంభం, y->కొలత) > 0) {
+                t->కుడి = y->ఎడమ;                    /* rotate left */
+                y->ఎడమ = t;
                 t = y;
-                if (t->right == NULL) break;
+                ఒకవేళ (t->కుడి == ఖాళీ) ఆపు;
             }
-            l->right = t;                              /* link left */
+            l->కుడి = t;                              /* link left */
             l = t;
-            t = t->right;
-        } else {
-            break;
+            t = t->కుడి;
+        } లేకపోతే {
+            ఆపు;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->కుడి = t->ఎడమ;                                /* assemble */
+    r->ఎడమ = t->కుడి;
+    t->ఎడమ = N.కుడి;
+    t->కుడి = N.ఎడమ;
 
-    return t;
+    తిరిగి t;
 }
 
-#define compare_end(start,tend) (start < tend ? -1 : \
-                                 start > tend  ? 1 : 0)
+#నిర్వచించు compare_చివర(ప్రారంభం,tend) (ప్రారంభం < tend ? -1 : \
+                                 ప్రారంభం > tend  ? 1 : 0)
 
-static Tree * splay_end (size_t addr, Tree *t)
+స్థిర వృక్షం * splay_చివర (కొలత_t addr, వృక్షం *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat  */
 {
-    Tree N, *l, *r, *y;
-    int comp;
+    వృక్షం N, *l, *r, *y;
+    పూర్ణాంకం comp;
     
-    INCR_COUNT_SPLAY(bound_splay_end);
-    if (t == NULL) return t;
-    N.left = N.right = NULL;
+    INCR_లెక్క_SPLAY(bound_splay_చివర);
+    ఒకవేళ (t == ఖాళీ) తిరిగి t;
+    N.ఎడమ = N.కుడి = ఖాళీ;
     l = r = &N;
  
-    for (;;) {
-        comp = compare_end(addr, t->start + t->size);
-        if (comp < 0) {
-            y = t->left;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+    కొరకు (;;) {
+        comp = compare_చివర(addr, t->ప్రారంభం + t->కొలత);
+        ఒకవేళ (comp < 0) {
+            y = t->ఎడమ;
+            ఒకవేళ (y == ఖాళీ) ఆపు;
+            ఒకవేళ (compare_చివర(addr, y->ప్రారంభం + y->కొలత) < 0) {
+                t->ఎడమ = y->కుడి;                    /* rotate right */
+                y->కుడి = t;
                 t = y;
-                if (t->left == NULL) break;
+                ఒకవేళ (t->ఎడమ == ఖాళీ) ఆపు;
             }
-            r->left = t;                               /* link right */
+            r->ఎడమ = t;                               /* link right */
             r = t;
-            t = t->left;
-        } else if (comp > 0) {
-            y = t->right;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+            t = t->ఎడమ;
+        } లేకపోతే ఒకవేళ (comp > 0) {
+            y = t->కుడి;
+            ఒకవేళ (y == ఖాళీ) ఆపు;
+            ఒకవేళ (compare_చివర(addr, y->ప్రారంభం + y->కొలత) > 0) {
+                t->కుడి = y->ఎడమ;                    /* rotate left */
+                y->ఎడమ = t;
                 t = y;
-                if (t->right == NULL) break;
+                ఒకవేళ (t->కుడి == ఖాళీ) ఆపు;
             }
-            l->right = t;                              /* link left */
+            l->కుడి = t;                              /* link left */
             l = t;
-            t = t->right;
-        } else {
-            break;
+            t = t->కుడి;
+        } లేకపోతే {
+            ఆపు;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->కుడి = t->ఎడమ;                                /* assemble */
+    r->ఎడమ = t->కుడి;
+    t->ఎడమ = N.కుడి;
+    t->కుడి = N.ఎడమ;
 
-    return t;
+    తిరిగి t;
 }
 
-static Tree * splay_insert(size_t addr, size_t size, Tree * t)
+స్థిర వృక్షం * splay_చొప్పించు(కొలత_t addr, కొలత_t కొలత, వృక్షం * t)
 /* Insert key start into the tree t, if it is not already there. */
 /* Return a pointer to the resulting tree.                       */
 {
-    Tree * new;
+    వృక్షం * new;
 
-    INCR_COUNT_SPLAY(bound_splay_insert);
-    if (t != NULL) {
+    INCR_లెక్క_SPLAY(bound_splay_చొప్పించు);
+    ఒకవేళ (t != ఖాళీ) {
         t = splay(addr,t);
-        if (compare(addr, t->start, t->size)==0) {
-            return t;  /* it's already there */
+        ఒకవేళ (compare(addr, t->ప్రారంభం, t->కొలత)==0) {
+            తిరిగి t;  /* it's already there */
         }
     }
-#if TREE_REUSE
-    if (tree_free_list) {
-          new = tree_free_list;
-          tree_free_list = new->left;
+#ఒకవేళ వృక్షం_REUSE
+    ఒకవేళ (వృక్షం_free_list) {
+          new = వృక్షం_free_list;
+          వృక్షం_free_list = new->ఎడమ;
     }
-    else
-#endif
+    లేకపోతే
+#అయితే_ముగింపు
     {
-        new = (Tree *) BOUND_MALLOC (sizeof (Tree));
+        new = (వృక్షం *) BOUND_MALLOC (పరిమాణం (వృక్షం));
     }
-    if (new == NULL) {
+    ఒకవేళ (new == ఖాళీ) {
         bound_alloc_error("not enough memory for bound checking code");
     }
-    else {
-        if (t == NULL) {
-            new->left = new->right = NULL;
-        } else if (compare(addr, t->start, t->size) < 0) {
-            new->left = t->left;
-            new->right = t;
-            t->left = NULL;
-        } else {
-            new->right = t->right;
-            new->left = t;
-            t->right = NULL;
+    లేకపోతే {
+        ఒకవేళ (t == ఖాళీ) {
+            new->ఎడమ = new->కుడి = ఖాళీ;
+        } లేకపోతే ఒకవేళ (compare(addr, t->ప్రారంభం, t->కొలత) < 0) {
+            new->ఎడమ = t->ఎడమ;
+            new->కుడి = t;
+            t->ఎడమ = ఖాళీ;
+        } లేకపోతే {
+            new->కుడి = t->కుడి;
+            new->ఎడమ = t;
+            t->కుడి = ఖాళీ;
         }
-        new->start = addr;
-        new->size = size;
+        new->ప్రారంభం = addr;
+        new->కొలత = కొలత;
         new->type = TCC_TYPE_NONE;
         new->is_invalid = 0;
     }
-    return new;
+    తిరిగి new;
 }
 
-#define compare_destroy(start,tstart) (start < tstart ? -1 : \
-                                       start > tstart  ? 1 : 0)
+#నిర్వచించు compare_destroy(ప్రారంభం,tstart) (ప్రారంభం < tstart ? -1 : \
+                                       ప్రారంభం > tstart  ? 1 : 0)
 
-static Tree * splay_delete(size_t addr, Tree *t)
+స్థిర వృక్షం * splay_delete(కొలత_t addr, వృక్షం *t)
 /* Deletes addr from the tree if it's there.               */
 /* Return a pointer to the resulting tree.                 */
 {
-    Tree * x;
+    వృక్షం * x;
 
-    INCR_COUNT_SPLAY(bound_splay_delete);
-    if (t==NULL) return NULL;
+    INCR_లెక్క_SPLAY(bound_splay_delete);
+    ఒకవేళ (t==ఖాళీ) తిరిగి ఖాళీ;
     t = splay(addr,t);
-    if (compare_destroy(addr, t->start) == 0) {        /* found it */
-        if (t->left == NULL) {
-            x = t->right;
-        } else {
-            x = splay(addr, t->left);
-            x->right = t->right;
+    ఒకవేళ (compare_destroy(addr, t->ప్రారంభం) == 0) {        /* found it */
+        ఒకవేళ (t->ఎడమ == ఖాళీ) {
+            x = t->కుడి;
+        } లేకపోతే {
+            x = splay(addr, t->ఎడమ);
+            x->కుడి = t->కుడి;
         }
-#if TREE_REUSE
-        t->left = tree_free_list;
-        tree_free_list = t;
-#else
+#ఒకవేళ వృక్షం_REUSE
+        t->ఎడమ = వృక్షం_free_list;
+        వృక్షం_free_list = t;
+#లేకపోతే
         BOUND_FREE(t);
-#endif
-        return x;
-    } else {
-        return t;                                      /* It wasn't there */
+#అయితే_ముగింపు
+        తిరిగి x;
+    } లేకపోతే {
+        తిరిగి t;                                      /* It wasn't there */
     }
 }
 
-void splay_printtree(Tree * t, int d)
+శూన్య splay_printtree(వృక్షం * t, పూర్ణాంకం d)
 {
-    int i;
-    if (t == NULL) return;
-    splay_printtree(t->right, d+1);
-    for (i=0; i<d; i++) fprintf(stderr," ");
+    పూర్ణాంకం i;
+    ఒకవేళ (t == ఖాళీ) తిరిగి;
+    splay_printtree(t->కుడి, d+1);
+    కొరకు (i=0; i<d; i++) fprintf(stderr," ");
     fprintf(stderr,"%p(0x%lx:%u:%u)\n",
-            (void *) t->start, (unsigned long) t->size,
-            (unsigned)t->type, (unsigned)t->is_invalid);
-    splay_printtree(t->left, d+1);
+            (శూన్య *) t->ప్రారంభం, (గుర్తులేని దీర్ఘ) t->కొలత,
+            (గుర్తులేని)t->type, (గుర్తులేని)t->is_invalid);
+    splay_printtree(t->ఎడమ, d+1);
 }

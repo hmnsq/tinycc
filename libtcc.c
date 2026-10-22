@@ -18,220 +18,220 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef ONE_SOURCE
-# define ONE_SOURCE 1
-#endif
+#నిర్వచితం_కాకపోతే ONE_ఆధారం
+# define ONE_ఆధారం 1
+#అయితే_ముగింపు
 
-#if ONE_SOURCE
-#include "tccpp.c"
-#include "tccgen.c"
-#include "tccdbg.c"
-#include "tccasm.c"
-#include "tccelf.c"
-#include "tccrun.c"
-#ifdef TCC_TARGET_I386
-#include "i386-gen.c"
-#include "i386-link.c"
-#include "i386-asm.c"
-#elif defined(TCC_TARGET_ARM)
-#include "arm-gen.c"
-#include "arm-link.c"
-#include "arm-asm.c"
-#elif defined(TCC_TARGET_ARM64)
-#include "arm64-gen.c"
-#include "arm64-link.c"
-#include "arm64-asm.c"
-#elif defined(TCC_TARGET_C67)
-#include "c67-gen.c"
-#include "c67-link.c"
-#include "tcccoff.c"
-#elif defined(TCC_TARGET_X86_64)
-#include "x86_64-gen.c"
-#include "x86_64-link.c"
-#include "i386-asm.c"
-#elif defined(TCC_TARGET_RISCV64)
-#include "riscv64-gen.c"
-#include "riscv64-link.c"
-#include "riscv64-asm.c"
-#else
-#error unknown target
-#endif
-#ifdef TCC_TARGET_PE
-#include "tccpe.c"
-#endif
-#ifdef TCC_TARGET_MACHO
-#include "tccmacho.c"
-#endif
-#endif /* ONE_SOURCE */
+#ఒకవేళ ONE_ఆధారం
+#అన్తర్భావ "tccpp.c"
+#అన్తర్భావ "tccgen.c"
+#అన్తర్భావ "tccdbg.c"
+#అన్తర్భావ "tccasm.c"
+#అన్తర్భావ "tccelf.c"
+#అన్తర్భావ "tccrun.c"
+#నిర్వచితమైతే TCC_లక్ష్యం_I386
+#అన్తర్భావ "i386-gen.c"
+#అన్తర్భావ "i386-link.c"
+#అన్తర్భావ "i386-asm.c"
+#లేదావేళ defined(TCC_లక్ష్యం_ARM)
+#అన్తర్భావ "arm-gen.c"
+#అన్తర్భావ "arm-link.c"
+#అన్తర్భావ "arm-asm.c"
+#లేదావేళ defined(TCC_లక్ష్యం_ARM64)
+#అన్తర్భావ "arm64-gen.c"
+#అన్తర్భావ "arm64-link.c"
+#అన్తర్భావ "arm64-asm.c"
+#లేదావేళ defined(TCC_లక్ష్యం_C67)
+#అన్తర్భావ "c67-gen.c"
+#అన్తర్భావ "c67-link.c"
+#అన్తర్భావ "tcccoff.c"
+#లేదావేళ defined(TCC_లక్ష్యం_X86_64)
+#అన్తర్భావ "x86_64-gen.c"
+#అన్తర్భావ "x86_64-link.c"
+#అన్తర్భావ "i386-asm.c"
+#లేదావేళ defined(TCC_లక్ష్యం_RISCV64)
+#అన్తర్భావ "riscv64-gen.c"
+#అన్తర్భావ "riscv64-link.c"
+#అన్తర్భావ "riscv64-asm.c"
+#లేకపోతే
+#దోషం unknown లక్ష్యం
+#అయితే_ముగింపు
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
+#అన్తర్భావ "tccpe.c"
+#అయితే_ముగింపు
+#నిర్వచితమైతే TCC_లక్ష్యం_MACHO
+#అన్తర్భావ "tccmacho.c"
+#అయితే_ముగింపు
+#అయితే_ముగింపు /* ONE_SOURCE */
 
-#include "tcc.h"
+#అన్తర్భావ "tcc.h"
 
 /********************************************************/
 /* global variables */
 
 /* XXX: get rid of this ASAP (or maybe not) */
-ST_DATA struct TCCState *tcc_state;
-TCC_SEM(static tcc_compile_sem);
+ST_దత్తాంశం నిర్మాణం TCCState *tcc_state;
+TCC_SEM(స్థిర tcc_compile_sem);
 /* an array of pointers to memory to be free'd after errors */
-ST_DATA void** stk_data;
-ST_DATA int nb_stk_data;
+ST_దత్తాంశం శూన్య** stk_దత్తాంశం;
+ST_దత్తాంశం పూర్ణాంకం nb_stk_దత్తాంశం;
 /* option -d<num> (for general development purposes) */
-ST_DATA int g_debug;
+ST_దత్తాంశం పూర్ణాంకం g_debug;
 
 /********************************************************/
-#ifdef _WIN32
-ST_FUNC char *normalize_slashes(char *path)
+#నిర్వచితమైతే _WIN32
+ST_FUNC అక్షరం *normalize_slashes(అక్షరం *మార్గం)
 {
-    char *p;
-    for (p = path; *p; ++p)
-        if (*p == '\\')
+    అక్షరం *p;
+    కొరకు (p = మార్గం; *p; ++p)
+        ఒకవేళ (*p == '\\')
             *p = '/';
-    return path;
+    తిరిగి మార్గం;
 }
 
-#if defined LIBTCC_AS_DLL && !defined CONFIG_TCCDIR
-static HMODULE tcc_module;
+#ఒకవేళ defined LIBTCC_AS_DLL && !defined CONFIG_TCCDIR
+స్థిర HMODULE tcc_module;
 BOOL WINAPI DllMain (HINSTANCE hDll, DWORD dwReason, LPVOID lpReserved)
 {
-    if (DLL_PROCESS_ATTACH == dwReason)
+    ఒకవేళ (DLL_PROCESS_ATTACH == dwReason)
         tcc_module = hDll;
-    return TRUE;
+    తిరిగి TRUE;
 }
-#else
-#define tcc_module NULL /* NULL means executable itself */
-#endif
+#లేకపోతే
+#నిర్వచించు tcc_module ఖాళీ /* NULL means executable itself */
+#అయితే_ముగింపు
 
-#ifndef CONFIG_TCCDIR
+#నిర్వచితం_కాకపోతే CONFIG_TCCDIR
 /* on win32, we suppose the lib and includes are at the location of 'tcc.exe' */
-static inline char *config_tccdir_w32(char *path)
+స్థిర అంతఃవరుస అక్షరం *config_tccdir_w32(అక్షరం *మార్గం)
 {
-    char *p;
-    GetModuleFileNameA(tcc_module, path, MAX_PATH);
-    p = tcc_basename(normalize_slashes(strlwr(path)));
-    if (p > path)
+    అక్షరం *p;
+    GetModuleFileNameA(tcc_module, మార్గం, MAX_మార్గం);
+    p = tcc_basename(normalize_slashes(strlwr(మార్గం)));
+    ఒకవేళ (p > మార్గం)
         --p;
     *p = 0;
-    return path;
+    తిరిగి మార్గం;
 }
-#define CONFIG_TCCDIR config_tccdir_w32(alloca(MAX_PATH))
-#endif
+#నిర్వచించు CONFIG_TCCDIR config_tccdir_w32(alloca(MAX_మార్గం))
+#అయితే_ముగింపు
 
-#ifdef TCC_IS_NATIVE
-static void tcc_add_systemdir(TCCState *s)
+#నిర్వచితమైతే TCC_IS_NATIVE
+స్థిర శూన్య tcc_కూడు_systemdir(TCCState *s)
 {
-    char buf[1000];
-    GetSystemDirectoryA(buf, sizeof buf);
-    tcc_add_library_path(s, normalize_slashes(buf));
+    అక్షరం buf[1000];
+    GetSystemDirectoryA(buf, పరిమాణం buf);
+    tcc_కూడు_library_మార్గం(s, normalize_slashes(buf));
 }
-#endif
+#అయితే_ముగింపు
 /* for tcc -E : On windows (depending on compiler) a FILE*
    must be created by the same module where it is used. */
-PUB_FUNC FILE *tcc_fopen(const char *f, const char *m) {
-    return fopen(f, m);
+PUB_FUNC FILE *tcc_fopen(స్థిరరాశి అక్షరం *f, స్థిరరాశి అక్షరం *m) {
+    తిరిగి fopen(f, m);
 }
-PUB_FUNC int tcc_fclose(FILE *f) {
-    return fclose(f);
+PUB_FUNC పూర్ణాంకం tcc_fclose(FILE *f) {
+    తిరిగి fclose(f);
 }
-#endif
+#అయితే_ముగింపు
 /********************************************************/
 
-PUB_FUNC void tcc_enter_state(TCCState *s1)
+PUB_FUNC శూన్య tcc_enter_state(TCCState *s1)
 {
-    if (s1->error_set_jmp_enabled)
-        return;
+    ఒకవేళ (s1->error_సమితి_jmp_enabled)
+        తిరిగి;
     WAIT_SEM(&tcc_compile_sem);
     tcc_state = s1;
 }
 
-PUB_FUNC void tcc_exit_state(TCCState *s1)
+PUB_FUNC శూన్య tcc_exit_state(TCCState *s1)
 {
-    if (s1->error_set_jmp_enabled)
-        return;
-    tcc_state = NULL;
+    ఒకవేళ (s1->error_సమితి_jmp_enabled)
+        తిరిగి;
+    tcc_state = ఖాళీ;
     POST_SEM(&tcc_compile_sem);
 }
 
 /********************************************************/
 /* copy a string and truncate it. */
-ST_FUNC char *pstrcpy(char *buf, size_t buf_size, const char *s)
+ST_FUNC అక్షరం *pstrcpy(అక్షరం *buf, కొలత_t buf_కొలత, స్థిరరాశి అక్షరం *s)
 {
-    char *q, *q_end;
-    int c;
+    అక్షరం *q, *q_చివర;
+    పూర్ణాంకం c;
 
-    if (buf_size > 0) {
+    ఒకవేళ (buf_కొలత > 0) {
         q = buf;
-        q_end = buf + buf_size - 1;
-        while (q < q_end) {
+        q_చివర = buf + buf_కొలత - 1;
+        అయితే (q < q_చివర) {
             c = *s++;
-            if (c == '\0')
-                break;
+            ఒకవేళ (c == '\0')
+                ఆపు;
             *q++ = c;
         }
         *q = '\0';
     }
-    return buf;
+    తిరిగి buf;
 }
 
 /* strcat and truncate. */
-ST_FUNC char *pstrcat(char *buf, size_t buf_size, const char *s)
+ST_FUNC అక్షరం *pstrcat(అక్షరం *buf, కొలత_t buf_కొలత, స్థిరరాశి అక్షరం *s)
 {
-    size_t len;
-    len = strlen(buf);
-    if (len < buf_size)
-        pstrcpy(buf + len, buf_size - len, s);
-    return buf;
+    కొలత_t len;
+    len = అక్షరశ్రేణి_పొడవు(buf);
+    ఒకవేళ (len < buf_కొలత)
+        pstrcpy(buf + len, buf_కొలత - len, s);
+    తిరిగి buf;
 }
 
-ST_FUNC char *pstrncpy(char *out, size_t buf_size, const char *s, size_t num)
+ST_FUNC అక్షరం *pstrncpy(అక్షరం *బహిర్గతం, కొలత_t buf_కొలత, స్థిరరాశి అక్షరం *s, కొలత_t అంకె)
 {
-    if (num >= buf_size)
-        num = buf_size - 1;
-    memcpy(out, s, num);
-    out[num] = '\0';
-    return out;
+    ఒకవేళ (అంకె >= buf_కొలత)
+        అంకె = buf_కొలత - 1;
+    జ్ఞాపకం_నకలు(బహిర్గతం, s, అంకె);
+    బహిర్గతం[అంకె] = '\0';
+    తిరిగి బహిర్గతం;
 }
 
 /* extract the basename of a file */
-PUB_FUNC char *tcc_basename(const char *name)
+PUB_FUNC అక్షరం *tcc_basename(స్థిరరాశి అక్షరం *name)
 {
-    char *p = (char *)strchr(name, 0);
-    while (p > name && !IS_DIRSEP(p[-1]))
+    అక్షరం *p = (అక్షరం *)strchr(name, 0);
+    అయితే (p > name && !IS_DIRSEP(p[-1]))
         --p;
-    return p;
+    తిరిగి p;
 }
 
 /* extract extension part of a file
  *
  * (if no extension, return pointer to end-of-string)
  */
-PUB_FUNC char *tcc_fileextension (const char *name)
+PUB_FUNC అక్షరం *tcc_fileextension (స్థిరరాశి అక్షరం *name)
 {
-    char *b = tcc_basename(name);
-    char *e = strrchr(b, '.');
-    return e ? e : strchr(b, 0);
+    అక్షరం *b = tcc_basename(name);
+    అక్షరం *e = strrchr(b, '.');
+    తిరిగి e ? e : strchr(b, 0);
 }
 
-ST_FUNC char *tcc_load_text(int fd)
+ST_FUNC అక్షరం *tcc_ఎక్కించు_పాఠ్యం(పూర్ణాంకం fd)
 {
-    int len = lseek(fd, 0, SEEK_END);
-    char *buf = load_data(fd, 0, len + 1);
+    పూర్ణాంకం len = lseek(fd, 0, SEEK_END);
+    అక్షరం *buf = ఎక్కించు_దత్తాంశం(fd, 0, len + 1);
     buf[len] = 0;
-    return buf;
+    తిరిగి buf;
 }
 
 /* replace *pp by copy of 'str' or NULL */
-static void tcc_set_str(char **pp, const char *str)
+స్థిర శూన్య tcc_సమితి_str(అక్షరం **pp, స్థిరరాశి అక్షరం *str)
 {
     tcc_free(*pp);
-    *pp = str ? tcc_strdup(str) : NULL;
+    *pp = str ? tcc_strdup(str) : ఖాళీ;
 }
 
 /* set/append 'str' to *pp (separated by 'sep' unless 0) */
-static void tcc_concat_str(char **pp, const char *str, int sep)
+స్థిర శూన్య tcc_concat_str(అక్షరం **pp, స్థిరరాశి అక్షరం *str, పూర్ణాంకం sep)
 {
-    int l = *pp ? strlen(*pp) + !!sep : 0;
-    *pp = tcc_realloc(*pp, l + strlen(str) + 1);
-    if (l && sep) ((*pp)[l - 1] = sep);
+    పూర్ణాంకం l = *pp ? అక్షరశ్రేణి_పొడవు(*pp) + !!sep : 0;
+    *pp = tcc_realloc(*pp, l + అక్షరశ్రేణి_పొడవు(str) + 1);
+    ఒకవేళ (l && sep) ((*pp)[l - 1] = sep);
     strcpy(*pp + l, str);
 }
 
@@ -239,492 +239,492 @@ static void tcc_concat_str(char **pp, const char *str, int sep)
 /* memory management */
 
 /* we'll need the actual versions for a minute */
-#undef free
-#undef realloc
+#నిర్వచనం_రద్దు విడుదల
+#నిర్వచనం_రద్దు realloc
 
-static void *default_reallocator(void *ptr, unsigned long size)
+స్థిర శూన్య *default_reallocator(శూన్య *ptr, గుర్తులేని దీర్ఘ కొలత)
 {
-    void *ptr1;
-    if (size == 0) {
-        free(ptr);
-        ptr1 = NULL;
+    శూన్య *ptr1;
+    ఒకవేళ (కొలత == 0) {
+        విడుదల(ptr);
+        ptr1 = ఖాళీ;
     }
-    else {
-        ptr1 = realloc(ptr, size);
-        if (!ptr1) {
+    లేకపోతే {
+        ptr1 = realloc(ptr, కొలత);
+        ఒకవేళ (!ptr1) {
             fprintf(stderr, "tcc: memory full\n");
-            exit (1);
+            నిష్క్రమించు (1);
         }
     }
-    return ptr1;
+    తిరిగి ptr1;
 }
 
-ST_FUNC void libc_free(void *ptr)
+ST_FUNC శూన్య libc_free(శూన్య *ptr)
 {
-    free(ptr);
+    విడుదల(ptr);
 }
 
 /* defined to be not used */
-#define free(p) use_tcc_free(p)
-#define realloc(p, s) use_tcc_realloc(p, s)
+#నిర్వచించు విడుదల(p) use_tcc_free(p)
+#నిర్వచించు realloc(p, s) use_tcc_realloc(p, s)
 
 /* global so that every tcc_alloc()/tcc_free() call doesn't need to be changed */
-static void *(*reallocator)(void*, unsigned long) = default_reallocator;
+స్థిర శూన్య *(*reallocator)(శూన్య*, గుర్తులేని దీర్ఘ) = default_reallocator;
 
-LIBTCCAPI void tcc_set_realloc(TCCReallocFunc *my_realloc)
+LIBTCCAPI శూన్య tcc_సమితి_realloc(TCCReallocFunc *my_realloc)
 {
     reallocator = my_realloc ? my_realloc : default_reallocator;
 }
 
 /* in case MEM_DEBUG is #defined */
-#undef tcc_free
-#undef tcc_malloc
-#undef tcc_realloc
-#undef tcc_mallocz
-#undef tcc_strdup
+#నిర్వచనం_రద్దు tcc_free
+#నిర్వచనం_రద్దు tcc_malloc
+#నిర్వచనం_రద్దు tcc_realloc
+#నిర్వచనం_రద్దు tcc_mallocz
+#నిర్వచనం_రద్దు tcc_strdup
 
-PUB_FUNC void tcc_free(void *ptr)
+PUB_FUNC శూన్య tcc_free(శూన్య *ptr)
 {
     reallocator(ptr, 0);
 }
 
-PUB_FUNC void *tcc_malloc(unsigned long size)
+PUB_FUNC శూన్య *tcc_malloc(గుర్తులేని దీర్ఘ కొలత)
 {
-    return reallocator(0, size);
+    తిరిగి reallocator(0, కొలత);
 }
 
-PUB_FUNC void *tcc_realloc(void *ptr, unsigned long size)
+PUB_FUNC శూన్య *tcc_realloc(శూన్య *ptr, గుర్తులేని దీర్ఘ కొలత)
 {
-    return reallocator(ptr, size);
+    తిరిగి reallocator(ptr, కొలత);
 }
 
-PUB_FUNC void *tcc_mallocz(unsigned long size)
+PUB_FUNC శూన్య *tcc_mallocz(గుర్తులేని దీర్ఘ కొలత)
 {
-    void *ptr;
-    ptr = tcc_malloc(size);
-    if (size)
-        memset(ptr, 0, size);
-    return ptr;
+    శూన్య *ptr;
+    ptr = tcc_malloc(కొలత);
+    ఒకవేళ (కొలత)
+        memset(ptr, 0, కొలత);
+    తిరిగి ptr;
 }
 
-PUB_FUNC char *tcc_strdup(const char *str)
+PUB_FUNC అక్షరం *tcc_strdup(స్థిరరాశి అక్షరం *str)
 {
-    char *ptr;
-    ptr = tcc_malloc(strlen(str) + 1);
+    అక్షరం *ptr;
+    ptr = tcc_malloc(అక్షరశ్రేణి_పొడవు(str) + 1);
     strcpy(ptr, str);
-    return ptr;
+    తిరిగి ptr;
 }
 
-#ifdef MEM_DEBUG
+#నిర్వచితమైతే MEM_DEBUG
 
-#define MEM_DEBUG_MAGIC1 0xFEEDDEB1
-#define MEM_DEBUG_MAGIC2 0xFEEDDEB2
-#define MEM_DEBUG_MAGIC3 0xFEEDDEB3
-#define MEM_DEBUG_FILE_LEN 40
-#define MEM_DEBUG_CHECK3(header) \
-    (((unsigned char *) header->magic3) + header->size)
-#define MEM_USER_PTR(header) \
-    ((char *)header + offsetof(mem_debug_header_t, magic3))
-#define MEM_HEADER_PTR(ptr) \
-    (mem_debug_header_t *)((char*)ptr - offsetof(mem_debug_header_t, magic3))
+#నిర్వచించు MEM_DEBUG_MAGIC1 0xFEEDDEB1
+#నిర్వచించు MEM_DEBUG_MAGIC2 0xFEEDDEB2
+#నిర్వచించు MEM_DEBUG_MAGIC3 0xFEEDDEB3
+#నిర్వచించు MEM_DEBUG_FILE_LEN 40
+#నిర్వచించు MEM_DEBUG_CHECK3(శీర్షిక) \
+    (((గుర్తులేని అక్షరం *) శీర్షిక->magic3) + శీర్షిక->కొలత)
+#నిర్వచించు MEM_USER_PTR(శీర్షిక) \
+    ((అక్షరం *)శీర్షిక + offsetof(mem_debug_శీర్షిక_t, magic3))
+#నిర్వచించు MEM_శీర్షిక_PTR(ptr) \
+    (mem_debug_శీర్షిక_t *)((అక్షరం*)ptr - offsetof(mem_debug_శీర్షిక_t, magic3))
 
-struct mem_debug_header {
-    unsigned magic1;
-    unsigned size;
-    struct mem_debug_header *prev;
-    struct mem_debug_header *next;
-    int line_num;
-    char file_name[MEM_DEBUG_FILE_LEN];
-    unsigned magic2;
-    ALIGNED(16) unsigned char magic3[4];
+నిర్మాణం mem_debug_శీర్షిక {
+    గుర్తులేని magic1;
+    గుర్తులేని కొలత;
+    నిర్మాణం mem_debug_శీర్షిక *prev;
+    నిర్మాణం mem_debug_శీర్షిక *తదుపరి;
+    పూర్ణాంకం పంక్తి_అంకె;
+    అక్షరం file_name[MEM_DEBUG_FILE_LEN];
+    గుర్తులేని magic2;
+    ALIGNED(16) గుర్తులేని అక్షరం magic3[4];
 };
 
-typedef struct mem_debug_header mem_debug_header_t;
+రకనిర్వచనం నిర్మాణం mem_debug_శీర్షిక mem_debug_శీర్షిక_t;
 
-TCC_SEM(static mem_sem);
-static mem_debug_header_t *mem_debug_chain;
-static unsigned mem_cur_size;
-static unsigned mem_max_size;
-static int nb_states;
+TCC_SEM(స్థిర mem_sem);
+స్థిర mem_debug_శీర్షిక_t *mem_debug_chain;
+స్థిర గుర్తులేని mem_cur_కొలత;
+స్థిర గుర్తులేని mem_max_కొలత;
+స్థిర పూర్ణాంకం nb_స్థితులు;
 
-static mem_debug_header_t *malloc_check(void *ptr, const char *msg)
+స్థిర mem_debug_శీర్షిక_t *malloc_check(శూన్య *ptr, స్థిరరాశి అక్షరం *సందేశం)
 {
-    mem_debug_header_t * header = MEM_HEADER_PTR(ptr);
-    if (header->magic1 != MEM_DEBUG_MAGIC1 ||
-        header->magic2 != MEM_DEBUG_MAGIC2 ||
-        read32le(MEM_DEBUG_CHECK3(header)) != MEM_DEBUG_MAGIC3 ||
-        header->size == (unsigned)-1) {
-        fprintf(stderr, "%s check failed\n", msg);
-        if (header->magic1 == MEM_DEBUG_MAGIC1)
+    mem_debug_శీర్షిక_t * శీర్షిక = MEM_శీర్షిక_PTR(ptr);
+    ఒకవేళ (శీర్షిక->magic1 != MEM_DEBUG_MAGIC1 ||
+        శీర్షిక->magic2 != MEM_DEBUG_MAGIC2 ||
+        read32le(MEM_DEBUG_CHECK3(శీర్షిక)) != MEM_DEBUG_MAGIC3 ||
+        శీర్షిక->కొలత == (గుర్తులేని)-1) {
+        fprintf(stderr, "%s check failed\n", సందేశం);
+        ఒకవేళ (శీర్షిక->magic1 == MEM_DEBUG_MAGIC1)
             fprintf(stderr, "%s:%u: block allocated here.\n",
-                header->file_name, header->line_num);
-        exit(1);
+                శీర్షిక->file_name, శీర్షిక->పంక్తి_అంకె);
+        నిష్క్రమించు(1);
     }
-    return header;
+    తిరిగి శీర్షిక;
 }
 
-PUB_FUNC void *tcc_malloc_debug(unsigned long size, const char *file, int line)
+PUB_FUNC శూన్య *tcc_malloc_debug(గుర్తులేని దీర్ఘ కొలత, స్థిరరాశి అక్షరం *file, పూర్ణాంకం పంక్తి)
 {
-    int ofs;
-    mem_debug_header_t *header;
-    if (!size)
-        return NULL;
-    header = tcc_malloc(sizeof(mem_debug_header_t) + size);
-    header->magic1 = MEM_DEBUG_MAGIC1;
-    header->magic2 = MEM_DEBUG_MAGIC2;
-    header->size = size;
-    write32le(MEM_DEBUG_CHECK3(header), MEM_DEBUG_MAGIC3);
-    header->line_num = line;
-    ofs = strlen(file) + 1 - MEM_DEBUG_FILE_LEN;
-    strcpy(header->file_name, file + (ofs > 0 ? ofs : 0));
+    పూర్ణాంకం ofs;
+    mem_debug_శీర్షిక_t *శీర్షిక;
+    ఒకవేళ (!కొలత)
+        తిరిగి ఖాళీ;
+    శీర్షిక = tcc_malloc(పరిమాణం(mem_debug_శీర్షిక_t) + కొలత);
+    శీర్షిక->magic1 = MEM_DEBUG_MAGIC1;
+    శీర్షిక->magic2 = MEM_DEBUG_MAGIC2;
+    శీర్షిక->కొలత = కొలత;
+    write32le(MEM_DEBUG_CHECK3(శీర్షిక), MEM_DEBUG_MAGIC3);
+    శీర్షిక->పంక్తి_అంకె = పంక్తి;
+    ofs = అక్షరశ్రేణి_పొడవు(file) + 1 - MEM_DEBUG_FILE_LEN;
+    strcpy(శీర్షిక->file_name, file + (ofs > 0 ? ofs : 0));
     WAIT_SEM(&mem_sem);
-    header->next = mem_debug_chain;
-    header->prev = NULL;
-    if (header->next)
-        header->next->prev = header;
-    mem_debug_chain = header;
-    mem_cur_size += size;
-    if (mem_cur_size > mem_max_size)
-        mem_max_size = mem_cur_size;
+    శీర్షిక->తదుపరి = mem_debug_chain;
+    శీర్షిక->prev = ఖాళీ;
+    ఒకవేళ (శీర్షిక->తదుపరి)
+        శీర్షిక->తదుపరి->prev = శీర్షిక;
+    mem_debug_chain = శీర్షిక;
+    mem_cur_కొలత += కొలత;
+    ఒకవేళ (mem_cur_కొలత > mem_max_కొలత)
+        mem_max_కొలత = mem_cur_కొలత;
     POST_SEM(&mem_sem);
-    return MEM_USER_PTR(header);
+    తిరిగి MEM_USER_PTR(శీర్షిక);
 }
 
-PUB_FUNC void tcc_free_debug(void *ptr)
+PUB_FUNC శూన్య tcc_free_debug(శూన్య *ptr)
 {
-    mem_debug_header_t *header;
-    if (!ptr)
-        return;
-    header = malloc_check(ptr, "tcc_free");
+    mem_debug_శీర్షిక_t *శీర్షిక;
+    ఒకవేళ (!ptr)
+        తిరిగి;
+    శీర్షిక = malloc_check(ptr, "tcc_free");
     WAIT_SEM(&mem_sem);
-    mem_cur_size -= header->size;
-    header->size = (unsigned)-1;
-    if (header->next)
-        header->next->prev = header->prev;
-    if (header->prev)
-        header->prev->next = header->next;
-    if (header == mem_debug_chain)
-        mem_debug_chain = header->next;
+    mem_cur_కొలత -= శీర్షిక->కొలత;
+    శీర్షిక->కొలత = (గుర్తులేని)-1;
+    ఒకవేళ (శీర్షిక->తదుపరి)
+        శీర్షిక->తదుపరి->prev = శీర్షిక->prev;
+    ఒకవేళ (శీర్షిక->prev)
+        శీర్షిక->prev->తదుపరి = శీర్షిక->తదుపరి;
+    ఒకవేళ (శీర్షిక == mem_debug_chain)
+        mem_debug_chain = శీర్షిక->తదుపరి;
     POST_SEM(&mem_sem);
-    tcc_free(header);
+    tcc_free(శీర్షిక);
 }
 
-PUB_FUNC void *tcc_mallocz_debug(unsigned long size, const char *file, int line)
+PUB_FUNC శూన్య *tcc_mallocz_debug(గుర్తులేని దీర్ఘ కొలత, స్థిరరాశి అక్షరం *file, పూర్ణాంకం పంక్తి)
 {
-    void *ptr;
-    ptr = tcc_malloc_debug(size,file,line);
-    if (size)
-        memset(ptr, 0, size);
-    return ptr;
+    శూన్య *ptr;
+    ptr = tcc_malloc_debug(కొలత,file,పంక్తి);
+    ఒకవేళ (కొలత)
+        memset(ptr, 0, కొలత);
+    తిరిగి ptr;
 }
 
-PUB_FUNC void *tcc_realloc_debug(void *ptr, unsigned long size, const char *file, int line)
+PUB_FUNC శూన్య *tcc_realloc_debug(శూన్య *ptr, గుర్తులేని దీర్ఘ కొలత, స్థిరరాశి అక్షరం *file, పూర్ణాంకం పంక్తి)
 {
-    mem_debug_header_t *header;
-    int mem_debug_chain_update = 0;
+    mem_debug_శీర్షిక_t *శీర్షిక;
+    పూర్ణాంకం mem_debug_chain_update = 0;
 
-    if (!ptr)
-        return tcc_malloc_debug(size, file, line);
-    if (!size) {
+    ఒకవేళ (!ptr)
+        తిరిగి tcc_malloc_debug(కొలత, file, పంక్తి);
+    ఒకవేళ (!కొలత) {
         tcc_free_debug(ptr);
-        return NULL;
+        తిరిగి ఖాళీ;
     }
-    header = malloc_check(ptr, "tcc_realloc");
+    శీర్షిక = malloc_check(ptr, "tcc_realloc");
     WAIT_SEM(&mem_sem);
-    mem_cur_size -= header->size;
-    mem_debug_chain_update = (header == mem_debug_chain);
-    header = tcc_realloc(header, sizeof(mem_debug_header_t) + size);
-    header->size = size;
-    write32le(MEM_DEBUG_CHECK3(header), MEM_DEBUG_MAGIC3);
-    if (header->next)
-        header->next->prev = header;
-    if (header->prev)
-        header->prev->next = header;
-    if (mem_debug_chain_update)
-        mem_debug_chain = header;
-    mem_cur_size += size;
-    if (mem_cur_size > mem_max_size)
-        mem_max_size = mem_cur_size;
+    mem_cur_కొలత -= శీర్షిక->కొలత;
+    mem_debug_chain_update = (శీర్షిక == mem_debug_chain);
+    శీర్షిక = tcc_realloc(శీర్షిక, పరిమాణం(mem_debug_శీర్షిక_t) + కొలత);
+    శీర్షిక->కొలత = కొలత;
+    write32le(MEM_DEBUG_CHECK3(శీర్షిక), MEM_DEBUG_MAGIC3);
+    ఒకవేళ (శీర్షిక->తదుపరి)
+        శీర్షిక->తదుపరి->prev = శీర్షిక;
+    ఒకవేళ (శీర్షిక->prev)
+        శీర్షిక->prev->తదుపరి = శీర్షిక;
+    ఒకవేళ (mem_debug_chain_update)
+        mem_debug_chain = శీర్షిక;
+    mem_cur_కొలత += కొలత;
+    ఒకవేళ (mem_cur_కొలత > mem_max_కొలత)
+        mem_max_కొలత = mem_cur_కొలత;
     POST_SEM(&mem_sem);
-    return MEM_USER_PTR(header);
+    తిరిగి MEM_USER_PTR(శీర్షిక);
 }
 
-PUB_FUNC char *tcc_strdup_debug(const char *str, const char *file, int line)
+PUB_FUNC అక్షరం *tcc_strdup_debug(స్థిరరాశి అక్షరం *str, స్థిరరాశి అక్షరం *file, పూర్ణాంకం పంక్తి)
 {
-    char *ptr;
-    ptr = tcc_malloc_debug(strlen(str) + 1, file, line);
+    అక్షరం *ptr;
+    ptr = tcc_malloc_debug(అక్షరశ్రేణి_పొడవు(str) + 1, file, పంక్తి);
     strcpy(ptr, str);
-    return ptr;
+    తిరిగి ptr;
 }
 
-PUB_FUNC void tcc_memcheck(int d)
+PUB_FUNC శూన్య tcc_memcheck(పూర్ణాంకం d)
 {
     WAIT_SEM(&mem_sem);
-    nb_states += d;
-    if (0 == nb_states && mem_cur_size) {
-        mem_debug_header_t *header = mem_debug_chain;
+    nb_స్థితులు += d;
+    ఒకవేళ (0 == nb_స్థితులు && mem_cur_కొలత) {
+        mem_debug_శీర్షిక_t *శీర్షిక = mem_debug_chain;
         fflush(stdout);
         fprintf(stderr, "MEM_DEBUG: mem_leak= %d bytes, mem_max_size= %d bytes\n",
-            mem_cur_size, mem_max_size);
-        while (header) {
+            mem_cur_కొలత, mem_max_కొలత);
+        అయితే (శీర్షిక) {
             fprintf(stderr, "%s:%u: error: %u bytes leaked\n",
-                header->file_name, header->line_num, header->size);
-            header = header->next;
+                శీర్షిక->file_name, శీర్షిక->పంక్తి_అంకె, శీర్షిక->కొలత);
+            శీర్షిక = శీర్షిక->తదుపరి;
         }
         fflush(stderr);
-        mem_cur_size = 0;
-        mem_max_size = 0;
-        mem_debug_chain = NULL;
-#if MEM_DEBUG-0 == 2
-        exit(2);
-#endif
+        mem_cur_కొలత = 0;
+        mem_max_కొలత = 0;
+        mem_debug_chain = ఖాళీ;
+#ఒకవేళ MEM_DEBUG-0 == 2
+        నిష్క్రమించు(2);
+#అయితే_ముగింపు
     }
     POST_SEM(&mem_sem);
 }
 
 /* restore the debug versions */
-#define tcc_free(ptr)           tcc_free_debug(ptr)
-#define tcc_malloc(size)        tcc_malloc_debug(size, __FILE__, __LINE__)
-#define tcc_mallocz(size)       tcc_mallocz_debug(size, __FILE__, __LINE__)
-#define tcc_realloc(ptr,size)   tcc_realloc_debug(ptr, size, __FILE__, __LINE__)
-#define tcc_strdup(str)         tcc_strdup_debug(str, __FILE__, __LINE__)
+#నిర్వచించు tcc_free(ptr)           tcc_free_debug(ptr)
+#నిర్వచించు tcc_malloc(కొలత)        tcc_malloc_debug(కొలత, __FILE__, __LINE__)
+#నిర్వచించు tcc_mallocz(కొలత)       tcc_mallocz_debug(కొలత, __FILE__, __LINE__)
+#నిర్వచించు tcc_realloc(ptr,కొలత)   tcc_realloc_debug(ptr, కొలత, __FILE__, __LINE__)
+#నిర్వచించు tcc_strdup(str)         tcc_strdup_debug(str, __FILE__, __LINE__)
 
-#endif /* MEM_DEBUG */
+#అయితే_ముగింపు /* MEM_DEBUG */
 
-#ifdef _WIN32
+#నిర్వచితమైతే _WIN32
 # define realpath(file, buf) _fullpath(buf, file, 260)
-#endif
+#అయితే_ముగింపు
 
 /* for #pragma once */
-ST_FUNC int normalized_PATHCMP(const char *f1, const char *f2)
+ST_FUNC పూర్ణాంకం normalized_PATHCMP(స్థిరరాశి అక్షరం *f1, స్థిరరాశి అక్షరం *f2)
 {
-    char *p1, *p2;
-    int ret = 1;
-    if (!!(p1 = realpath(f1, NULL))) {
-        if (!!(p2 = realpath(f2, NULL))) {
+    అక్షరం *p1, *p2;
+    పూర్ణాంకం ret = 1;
+    ఒకవేళ (!!(p1 = realpath(f1, ఖాళీ))) {
+        ఒకవేళ (!!(p2 = realpath(f2, ఖాళీ))) {
             ret = PATHCMP(p1, p2);
             libc_free(p2); /* realpath() requirement */
         }
         libc_free(p1);
     }
-    return ret;
+    తిరిగి ret;
 }
 
 /********************************************************/
 /* dynarrays */
 
-ST_FUNC void dynarray_add(void *ptab, int *nb_ptr, void *data)
+ST_FUNC శూన్య dynarray_కూడు(శూన్య *ptab, పూర్ణాంకం *nb_ptr, శూన్య *దత్తాంశం)
 {
-    int nb, nb_alloc;
-    void **pp;
+    పూర్ణాంకం nb, nb_alloc;
+    శూన్య **pp;
 
     nb = *nb_ptr;
-    pp = *(void ***)ptab;
+    pp = *(శూన్య ***)ptab;
     /* every power of two we double array size */
-    if ((nb & (nb - 1)) == 0) {
-        if (!nb)
+    ఒకవేళ ((nb & (nb - 1)) == 0) {
+        ఒకవేళ (!nb)
             nb_alloc = 1;
-        else
+        లేకపోతే
             nb_alloc = nb * 2;
-        pp = tcc_realloc(pp, nb_alloc * sizeof(void *));
-        *(void***)ptab = pp;
+        pp = tcc_realloc(pp, nb_alloc * పరిమాణం(శూన్య *));
+        *(శూన్య***)ptab = pp;
     }
-    pp[nb++] = data;
+    pp[nb++] = దత్తాంశం;
     *nb_ptr = nb;
 }
 
-ST_FUNC void dynarray_reset(void *pp, int *n)
+ST_FUNC శూన్య dynarray_reset(శూన్య *pp, పూర్ణాంకం *n)
 {
-    void **p;
-    for (p = *(void***)pp; *n; ++p, --*n)
-        if (*p)
+    శూన్య **p;
+    కొరకు (p = *(శూన్య***)pp; *n; ++p, --*n)
+        ఒకవేళ (*p)
             tcc_free(*p);
-    tcc_free(*(void**)pp);
-    *(void**)pp = NULL;
+    tcc_free(*(శూన్య**)pp);
+    *(శూన్య**)pp = ఖాళీ;
 }
 
-static void dynarray_split(char ***argv, int *argc, const char *p, int sep)
+స్థిర శూన్య dynarray_విభజించు(అక్షరం ***argv, పూర్ణాంకం *argc, స్థిరరాశి అక్షరం *p, పూర్ణాంకం sep)
 {
-    int qot, c;
+    పూర్ణాంకం qot, c;
     CString str;
-    for(;;) {
-        while (c = (unsigned char)*p, c <= ' ' && c != '\0')
+    కొరకు(;;) {
+        అయితే (c = (గుర్తులేని అక్షరం)*p, c <= ' ' && c != '\0')
             ++p;
-        if (c == '\0')
-            break;
+        ఒకవేళ (c == '\0')
+            ఆపు;
         cstr_new(&str);
         qot = 0;
-        do {
+        చేయి {
             ++p;
-            if (sep) { /* e.g. to split -Wl,-opt,arg */
-                if (c == sep)
-                    break;
-            } else {
+            ఒకవేళ (sep) { /* e.g. to split -Wl,-opt,arg */
+                ఒకవేళ (c == sep)
+                    ఆపు;
+            } లేకపోతే {
                 /* e.g. for tcc_set_options() or "tcc @listfile" */
-                if (c == '\\' && (*p == '"' || *p == '\\')) {
+                ఒకవేళ (c == '\\' && (*p == '"' || *p == '\\')) {
                     c = *p++;
-                } else if (c == '"') {
+                } లేకపోతే ఒకవేళ (c == '"') {
                     qot ^= 1;
-                    continue;
-                } else if (c <= ' ' && !qot) {
-                    break;
+                    కొనసాగు;
+                } లేకపోతే ఒకవేళ (c <= ' ' && !qot) {
+                    ఆపు;
                 }
             }
             cstr_ccat(&str, c);
-        } while (c = (unsigned char)*p, c != '\0');
+        } అయితే (c = (గుర్తులేని అక్షరం)*p, c != '\0');
         cstr_ccat(&str, '\0');
         //printf("<%s>\n", str.data);
-        dynarray_add(argv, argc, str.data);
+        dynarray_కూడు(argv, argc, str.దత్తాంశం);
     }
 }
 
-static void tcc_split_path(TCCState *s, void *p_ary, int *p_nb_ary, const char *in)
+స్థిర శూన్య tcc_విభజించు_మార్గం(TCCState *s, శూన్య *p_ary, పూర్ణాంకం *p_nb_ary, స్థిరరాశి అక్షరం *లోపల)
 {
-    const char *p;
-    do {
-        int c;
+    స్థిరరాశి అక్షరం *p;
+    చేయి {
+        పూర్ణాంకం c;
         CString str;
 
         cstr_new(&str);
-        for (p = in; c = *p, c != '\0' && c != PATHSEP[0]; ++p) {
-            if (c == '{' && p[1] && p[2] == '}') {
+        కొరకు (p = లోపల; c = *p, c != '\0' && c != PATHSEP[0]; ++p) {
+            ఒకవేళ (c == '{' && p[1] && p[2] == '}') {
                 c = p[1], p += 2;
-                if (c == 'B')
-                    cstr_cat(&str, s->tcc_lib_path, -1);
-                if (c == 'R')
+                ఒకవేళ (c == 'B')
+                    cstr_cat(&str, s->tcc_lib_మార్గం, -1);
+                ఒకవేళ (c == 'R')
                     cstr_cat(&str, CONFIG_SYSROOT, -1);
-                if (c == 'f' && file) {
+                ఒకవేళ (c == 'f' && file) {
                     /* substitute current file's dir */
-                    const char *f = file->true_filename;
-                    const char *b = tcc_basename(f);
-                    if (b > f)
+                    స్థిరరాశి అక్షరం *f = file->true_filename;
+                    స్థిరరాశి అక్షరం *b = tcc_basename(f);
+                    ఒకవేళ (b > f)
                         cstr_cat(&str, f, b - f - 1);
-                    else
+                    లేకపోతే
                         cstr_cat(&str, ".", 1);
                 }
-            } else {
+            } లేకపోతే {
                 cstr_ccat(&str, c);
             }
         }
-        if (str.size) {
+        ఒకవేళ (str.కొలత) {
             cstr_ccat(&str, '\0');
-            dynarray_add(p_ary, p_nb_ary, str.data);
+            dynarray_కూడు(p_ary, p_nb_ary, str.దత్తాంశం);
         }
-        in = p+1;
-    } while (*p);
+        లోపల = p+1;
+    } అయితే (*p);
 }
 
 /********************************************************/
 /* warning / error */
 
 /* warn_... option bits */
-#define WARN_ON  1 /* warning is on (-Woption) */
-#define WARN_ERR 2 /* warning is an error (-Werror=option) */
-#define WARN_NOE 4 /* warning is not an error (-Wno-error=option) */
+#నిర్వచించు WARN_ON  1 /* warning is on (-Woption) */
+#నిర్వచించు WARN_ERR 2 /* warning is an error (-Werror=option) */
+#నిర్వచించు WARN_NOE 4 /* warning is not an error (-Wno-error=option) */
 
 /* error1() modes */
-enum { ERROR_WARN, ERROR_NOABORT, ERROR_ERROR };
+గణన { ERROR_WARN, ERROR_NOABORT, ERROR_ERROR };
 
-static void error1(int mode, const char *fmt, va_list ap)
+స్థిర శూన్య error1(పూర్ణాంకం బహుళకం, స్థిరరాశి అక్షరం *fmt, va_list ap)
 {
     BufferedFile **pf, *f;
     TCCState *s1 = tcc_state;
     CString cs;
-    int line = 0;
+    పూర్ణాంకం పంక్తి = 0;
 
     tcc_exit_state(s1);
 
-    if (mode == ERROR_WARN) {
-        if (s1->warn_error)
-            mode = ERROR_ERROR;
-        if (s1->warn_num) {
+    ఒకవేళ (బహుళకం == ERROR_WARN) {
+        ఒకవేళ (s1->warn_error)
+            బహుళకం = ERROR_ERROR;
+        ఒకవేళ (s1->warn_అంకె) {
             /* handle tcc_warning_c(warn_option)(fmt, ...) */
-            int wopt = *(&s1->warn_none + s1->warn_num);
-            s1->warn_num = 0;
-            if (0 == (wopt & WARN_ON))
-                return;
-            if (wopt & WARN_ERR)
-                mode = ERROR_ERROR;
-            if (wopt & WARN_NOE)
-                mode = ERROR_WARN;
+            పూర్ణాంకం wopt = *(&s1->warn_none + s1->warn_అంకె);
+            s1->warn_అంకె = 0;
+            ఒకవేళ (0 == (wopt & WARN_ON))
+                తిరిగి;
+            ఒకవేళ (wopt & WARN_ERR)
+                బహుళకం = ERROR_ERROR;
+            ఒకవేళ (wopt & WARN_NOE)
+                బహుళకం = ERROR_WARN;
         }
-        if (s1->warn_none)
-            return;
+        ఒకవేళ (s1->warn_none)
+            తిరిగి;
     }
 
     cstr_new(&cs);
-    if (fmt[0] == '%' && fmt[1] == 'i' && fmt[2] == ':')
-        line = va_arg(ap, int), fmt += 3;
-    f = NULL;
-    if (s1->error_set_jmp_enabled) { /* we're called while parsing a file */
+    ఒకవేళ (fmt[0] == '%' && fmt[1] == 'i' && fmt[2] == ':')
+        పంక్తి = va_arg(ap, పూర్ణాంకం), fmt += 3;
+    f = ఖాళీ;
+    ఒకవేళ (s1->error_సమితి_jmp_enabled) { /* we're called while parsing a file */
         /* use upper file if inline ":asm:" or token ":paste:" */
-        for (f = file; f && f->filename[0] == ':'; f = f->prev)
+        కొరకు (f = file; f && f->filename[0] == ':'; f = f->prev)
             ;
     }
-    if (f) {
-        for(pf = s1->include_stack; pf < s1->include_stack_ptr; pf++)
+    ఒకవేళ (f) {
+        కొరకు(pf = s1->include_దొంతర; pf < s1->include_దొంతర_ptr; pf++)
             cstr_printf(&cs, "In file included from %s:%d:\n",
-                (*pf)->filename, (*pf)->line_num - 1);
-        if (0 == line)
-            line = f->line_num - ((tok_flags & TOK_FLAG_BOL) && !macro_ptr);
-        cstr_printf(&cs, "%s:%d: ", f->filename, line);
-    } else if (s1->current_filename) {
+                (*pf)->filename, (*pf)->పంక్తి_అంకె - 1);
+        ఒకవేళ (0 == పంక్తి)
+            పంక్తి = f->పంక్తి_అంకె - ((tok_flags & TOK_FLAG_BOL) && !macro_ptr);
+        cstr_printf(&cs, "%s:%d: ", f->filename, పంక్తి);
+    } లేకపోతే ఒకవేళ (s1->current_filename) {
         cstr_printf(&cs, "%s: ", s1->current_filename);
-    } else {
+    } లేకపోతే {
         cstr_printf(&cs, "tcc: ");
     }
-    cstr_printf(&cs, mode == ERROR_WARN ? "warning: " : "error: ");
-    if (pp_expr > 1)
+    cstr_printf(&cs, బహుళకం == ERROR_WARN ? "warning: " : "error: ");
+    ఒకవేళ (pp_సమాసం > 1)
         pp_error(&cs); /* special handler for preprocessor expression errors */
-    else
+    లేకపోతే
         cstr_vprintf(&cs, fmt, ap);
-    if (!s1->error_func) {
+    ఒకవేళ (!s1->error_func) {
         /* default case: stderr */
-        if (s1 && s1->output_type == TCC_OUTPUT_PREPROCESS && s1->ppfp == stdout)
-            printf("\n"); /* print a newline during tcc -E */
+        ఒకవేళ (s1 && s1->output_type == TCC_OUTPUT_PREPROCESS && s1->ppfp == stdout)
+            రాయి("\n"); /* print a newline during tcc -E */
         fflush(stdout); /* flush -v output */
-        fprintf(stderr, "%s\n", (char*)cs.data);
+        fprintf(stderr, "%s\n", (అక్షరం*)cs.దత్తాంశం);
         fflush(stderr); /* print error/warning now (win32) */
-    } else {
-        s1->error_func(s1->error_opaque, (char*)cs.data);
+    } లేకపోతే {
+        s1->error_func(s1->error_opaque, (అక్షరం*)cs.దత్తాంశం);
     }
     cstr_free(&cs);
-    if (mode != ERROR_WARN)
+    ఒకవేళ (బహుళకం != ERROR_WARN)
         s1->nb_errors++;
-    if (mode == ERROR_ERROR && s1->error_set_jmp_enabled) {
-        while (nb_stk_data)
-            tcc_free(*(void**)stk_data[--nb_stk_data]);
+    ఒకవేళ (బహుళకం == ERROR_ERROR && s1->error_సమితి_jmp_enabled) {
+        అయితే (nb_stk_దత్తాంశం)
+            tcc_free(*(శూన్య**)stk_దత్తాంశం[--nb_stk_దత్తాంశం]);
         longjmp(s1->error_jmp_buf, 1);
     }
 }
 
-LIBTCCAPI void tcc_set_error_func(TCCState *s, void *error_opaque, TCCErrorFunc *error_func)
+LIBTCCAPI శూన్య tcc_సమితి_error_func(TCCState *s, శూన్య *error_opaque, TCCErrorFunc *error_func)
 {
     s->error_opaque = error_opaque;
     s->error_func = error_func;
 }
 
 /* error without aborting current compilation */
-PUB_FUNC int _tcc_error_noabort(const char *fmt, ...)
+PUB_FUNC పూర్ణాంకం _tcc_error_noabort(స్థిరరాశి అక్షరం *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
     error1(ERROR_NOABORT, fmt, ap);
     va_end(ap);
-    return -1;
+    తిరిగి -1;
 }
 
-#undef _tcc_error
-PUB_FUNC void _tcc_error(const char *fmt, ...)
+#నిర్వచనం_రద్దు _tcc_error
+PUB_FUNC శూన్య _tcc_error(స్థిరరాశి అక్షరం *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
     error1(ERROR_ERROR, fmt, ap);
-    exit(1);
+    నిష్క్రమించు(1);
 }
-#define _tcc_error use_tcc_error_noabort
+#నిర్వచించు _tcc_error use_tcc_error_noabort
 
-PUB_FUNC void _tcc_warning(const char *fmt, ...)
+PUB_FUNC శూన్య _tcc_warning(స్థిరరాశి అక్షరం *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
@@ -736,22 +736,22 @@ PUB_FUNC void _tcc_warning(const char *fmt, ...)
 /********************************************************/
 /* I/O layer */
 
-ST_FUNC void tcc_open_bf(TCCState *s1, const char *filename, int initlen)
+ST_FUNC శూన్య tcc_open_bf(TCCState *s1, స్థిరరాశి అక్షరం *filename, పూర్ణాంకం initlen)
 {
     BufferedFile *bf;
-    int buflen = initlen ? initlen : IO_BUF_SIZE;
+    పూర్ణాంకం buflen = initlen ? initlen : IO_BUF_కొలత;
 
-    bf = tcc_mallocz(sizeof(BufferedFile) + buflen);
-    bf->buf_ptr = bf->buffer;
-    bf->buf_end = bf->buffer + initlen;
-    bf->buf_end[0] = CH_EOB; /* put eob symbol */
-    pstrcpy(bf->filename, sizeof(bf->filename), filename);
-#ifdef _WIN32
+    bf = tcc_mallocz(పరిమాణం(BufferedFile) + buflen);
+    bf->buf_ptr = bf->బఫరు;
+    bf->buf_చివర = bf->బఫరు + initlen;
+    bf->buf_చివర[0] = CH_EOB; /* put eob symbol */
+    pstrcpy(bf->filename, పరిమాణం(bf->filename), filename);
+#నిర్వచితమైతే _WIN32
     normalize_slashes(bf->filename);
-#endif
+#అయితే_ముగింపు
     bf->true_filename = bf->filename;
-    bf->line_num = 1;
-    bf->ifdef_stack_ptr = s1->ifdef_stack_ptr;
+    bf->పంక్తి_అంకె = 1;
+    bf->ifdef_దొంతర_ptr = s1->ifdef_దొంతర_ptr;
     bf->fd = -1;
     bf->prev = file;
     bf->prev_tok_flags = tok_flags;
@@ -759,46 +759,46 @@ ST_FUNC void tcc_open_bf(TCCState *s1, const char *filename, int initlen)
     tok_flags = TOK_FLAG_BOL | TOK_FLAG_BOF;
 }
 
-ST_FUNC void tcc_close(void)
+ST_FUNC శూన్య tcc_close(శూన్య)
 {
     TCCState *s1 = tcc_state;
     BufferedFile *bf = file;
-    if (bf->fd > 0) {
+    ఒకవేళ (bf->fd > 0) {
         close(bf->fd);
-        total_lines += bf->line_num - 1;
+        మొత్తం_పంక్తులు += bf->పంక్తి_అంకె - 1;
     }
-    if (bf->true_filename != bf->filename)
+    ఒకవేళ (bf->true_filename != bf->filename)
         tcc_free(bf->true_filename);
     file = bf->prev;
     tok_flags = bf->prev_tok_flags;
     tcc_free(bf);
 }
 
-static int _tcc_open(TCCState *s1, const char *filename)
+స్థిర పూర్ణాంకం _tcc_open(TCCState *s1, స్థిరరాశి అక్షరం *filename)
 {
-    int fd;
-    if (strcmp(filename, "-") == 0)
+    పూర్ణాంకం fd;
+    ఒకవేళ (strcmp(filename, "-") == 0)
         fd = 0, filename = "<stdin>";
-    else
-        fd = open(filename, O_RDONLY | O_BINARY);
-    if ((s1->verbose == 2 && fd >= 0) || s1->verbose == 3)
-        printf("%s %*s%s\n", fd < 0 ? "nf":"->",
-               (int)(s1->include_stack_ptr - s1->include_stack), "", filename);
-    return fd;
+    లేకపోతే
+        fd = open(filename, O_RDONLY | O_ద్విమాన_2);
+    ఒకవేళ ((s1->verbose == 2 && fd >= 0) || s1->verbose == 3)
+        రాయి("%s %*s%s\n", fd < 0 ? "nf":"->",
+               (పూర్ణాంకం)(s1->include_దొంతర_ptr - s1->include_దొంతర), "", filename);
+    తిరిగి fd;
 }
 
-ST_FUNC int tcc_open(TCCState *s1, const char *filename)
+ST_FUNC పూర్ణాంకం tcc_open(TCCState *s1, స్థిరరాశి అక్షరం *filename)
 {
-    int fd = _tcc_open(s1, filename);
-    if (fd < 0)
-        return -1;
+    పూర్ణాంకం fd = _tcc_open(s1, filename);
+    ఒకవేళ (fd < 0)
+        తిరిగి -1;
     tcc_open_bf(s1, filename, 0);
     file->fd = fd;
-    return 0;
+    తిరిగి 0;
 }
 
 /* compile the file opened in 'file'. Return non zero if errors. */
-static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
+స్థిర పూర్ణాంకం tcc_compile(TCCState *s1, పూర్ణాంకం filetype, స్థిరరాశి అక్షరం *str, పూర్ణాంకం fd)
 {
     /* Here we enter the code section where we use the global variables for
        parsing and code generation (tccpp.c, tccgen.c, <target>-gen.c).
@@ -808,115 +808,115 @@ static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
        variables, which may or may not have advantages */
 
     tcc_enter_state(s1);
-    s1->error_set_jmp_enabled = 1;
+    s1->error_సమితి_jmp_enabled = 1;
 
-    if (setjmp(s1->error_jmp_buf) == 0) {
+    ఒకవేళ (setjmp(s1->error_jmp_buf) == 0) {
 
-        if (fd == -1) {
-            int len = strlen(str);
+        ఒకవేళ (fd == -1) {
+            పూర్ణాంకం len = అక్షరశ్రేణి_పొడవు(str);
             tcc_open_bf(s1, "<string>", len);
-            memcpy(file->buffer, str, len);
-        } else {
+            జ్ఞాపకం_నకలు(file->బఫరు, str, len);
+        } లేకపోతే {
             tcc_open_bf(s1, str, 0);
             file->fd = fd;
         }
 
-        preprocess_start(s1, filetype);
+        preprocess_ప్రారంభం(s1, filetype);
         tccgen_init(s1);
 
-        if (s1->output_type == TCC_OUTPUT_PREPROCESS) {
+        ఒకవేళ (s1->output_type == TCC_OUTPUT_PREPROCESS) {
             tcc_preprocess(s1);
-        } else {
+        } లేకపోతే {
             tccelf_begin_file(s1);
-            if (filetype & (AFF_TYPE_ASM | AFF_TYPE_ASMPP)) {
+            ఒకవేళ (filetype & (AFF_TYPE_ASM | AFF_TYPE_ASMPP)) {
                 tcc_assemble(s1, !!(filetype & AFF_TYPE_ASMPP));
-            } else {
+            } లేకపోతే {
                 tccgen_compile(s1);
             }
-            tccelf_end_file(s1);
+            tccelf_చివర_file(s1);
         }
     }
-    tccgen_finish(s1);
-    preprocess_end(s1);
-    s1->error_set_jmp_enabled = 0;
+    tccgen_ముగింపు(s1);
+    preprocess_చివర(s1);
+    s1->error_సమితి_jmp_enabled = 0;
     tcc_exit_state(s1);
-    return s1->nb_errors != 0 ? -1 : 0;
+    తిరిగి s1->nb_errors != 0 ? -1 : 0;
 }
 
-LIBTCCAPI int tcc_compile_string(TCCState *s, const char *str)
+LIBTCCAPI పూర్ణాంకం tcc_compile_string(TCCState *s, స్థిరరాశి అక్షరం *str)
 {
-    return tcc_compile(s, s->filetype, str, -1);
+    తిరిగి tcc_compile(s, s->filetype, str, -1);
 }
 
 /* define a preprocessor symbol. value can be NULL, sym can be "sym=val" */
-LIBTCCAPI void tcc_define_symbol(TCCState *s1, const char *sym, const char *value)
+LIBTCCAPI శూన్య tcc_define_చిహ్నం(TCCState *s1, స్థిరరాశి అక్షరం *sym, స్థిరరాశి అక్షరం *విలువ)
 {
-    const char *eq;
-    if (NULL == (eq = strchr(sym, '=')))
+    స్థిరరాశి అక్షరం *eq;
+    ఒకవేళ (ఖాళీ == (eq = strchr(sym, '=')))
         eq = strchr(sym, 0);
-    if (NULL == value)
-        value = *eq ? eq + 1 : "1";
-    cstr_printf(&s1->cmdline_defs, "#define %.*s %s\n", (int)(eq-sym), sym, value);
+    ఒకవేళ (ఖాళీ == విలువ)
+        విలువ = *eq ? eq + 1 : "1";
+    cstr_printf(&s1->cmdline_defs, "#define %.*s %s\n", (పూర్ణాంకం)(eq-sym), sym, విలువ);
 }
 
 /* undefine a preprocessor symbol */
-LIBTCCAPI void tcc_undefine_symbol(TCCState *s1, const char *sym)
+LIBTCCAPI శూన్య tcc_undefine_చిహ్నం(TCCState *s1, స్థిరరాశి అక్షరం *sym)
 {
     cstr_printf(&s1->cmdline_defs, "#undef %s\n", sym);
 }
 
 
-LIBTCCAPI TCCState *tcc_new(void)
+LIBTCCAPI TCCState *tcc_new(శూన్య)
 {
     TCCState *s;
 
-    s = tcc_mallocz(sizeof(TCCState));
-#ifdef MEM_DEBUG
+    s = tcc_mallocz(పరిమాణం(TCCState));
+#నిర్వచితమైతే MEM_DEBUG
     tcc_memcheck(1);
-#endif
+#అయితే_ముగింపు
 
-#undef gnu_ext
+#నిర్వచనం_రద్దు gnu_ext
     s->gnu_ext = 1;
     s->tcc_ext = 1;
     s->nocommon = 1;
-    s->dollars_in_identifiers = 1; /*on by default like in gcc/clang*/
+    s->dollars_లోపల_identifiers = 1; /*on by default like in gcc/clang*/
     s->cversion = 199901; /* default unless -std=c11 is supplied */
     s->warn_implicit_function_declaration = 1;
     s->warn_discarded_qualifiers = 1;
     s->ms_extensions = 1;
     s->unwind_tables = 1;
 
-#ifdef CHAR_IS_UNSIGNED
+#నిర్వచితమైతే CHAR_IS_UNSIGNED
     s->char_is_unsigned = 1;
-#endif
-#ifdef TCC_TARGET_I386
-    s->seg_size = 32;
-#endif
+#అయితే_ముగింపు
+#నిర్వచితమైతే TCC_లక్ష్యం_I386
+    s->seg_కొలత = 32;
+#అయితే_ముగింపు
     /* enable this if you want symbols with leading underscore on windows: */
-#if defined TCC_TARGET_MACHO /* || defined TCC_TARGET_PE */
+#ఒకవేళ defined TCC_లక్ష్యం_MACHO /* || defined TCC_TARGET_PE */
     s->leading_underscore = 1;
-#endif
-#ifdef TCC_ARM_HARDFLOAT
+#అయితే_ముగింపు
+#నిర్వచితమైతే TCC_ARM_HARDFLOAT
     s->float_abi = ARM_HARD_FLOAT;
-#endif
-#if defined TCC_TARGET_ARM64 && defined TCC_TARGET_PE
+#అయితే_ముగింపు
+#ఒకవేళ defined TCC_లక్ష్యం_ARM64 && defined TCC_లక్ష్యం_PE
     s->pe_dll_characteristics = 0x8160;
-#endif
-#ifdef CONFIG_NEW_DTAGS
+#అయితే_ముగింపు
+#నిర్వచితమైతే CONFIG_NEW_DTAGS
     s->enable_new_dtags = 1;
-#endif
+#అయితే_ముగింపు
     s->ppfp = stdout;
     /* might be used in error() before preprocess_start() */
-    s->include_stack_ptr = s->include_stack;
+    s->include_దొంతర_ptr = s->include_దొంతర;
 
-    tcc_set_lib_path(s, CONFIG_TCCDIR);
-#ifdef CONFIG_TCC_SWITCHES /* predefined options */
-    tcc_set_options(s, CONFIG_TCC_SWITCHES);
-#endif
-    return s;
+    tcc_సమితి_lib_మార్గం(s, CONFIG_TCCDIR);
+#నిర్వచితమైతే CONFIG_TCC_SWITCHES /* predefined options */
+    tcc_సమితి_options(s, CONFIG_TCC_SWITCHES);
+#అయితే_ముగింపు
+    తిరిగి s;
 }
 
-LIBTCCAPI void tcc_delete(TCCState *s1)
+LIBTCCAPI శూన్య tcc_delete(TCCState *s1)
 {
     /* free sections */
     tccelf_delete(s1);
@@ -929,621 +929,621 @@ LIBTCCAPI void tcc_delete(TCCState *s1)
     dynarray_reset(&s1->include_paths, &s1->nb_include_paths);
     dynarray_reset(&s1->sysinclude_paths, &s1->nb_sysinclude_paths);
 
-    tcc_free(s1->tcc_lib_path);
+    tcc_free(s1->tcc_lib_మార్గం);
     tcc_free(s1->soname);
     tcc_free(s1->rpath);
     tcc_free(s1->elfint);
     tcc_free(s1->elf_entryname);
-    tcc_free(s1->init_symbol);
-    tcc_free(s1->fini_symbol);
+    tcc_free(s1->init_చిహ్నం);
+    tcc_free(s1->fini_చిహ్నం);
     tcc_free(s1->mapfile);
     tcc_free(s1->outfile);
     tcc_free(s1->deps_outfile);
-#if defined TCC_TARGET_MACHO
+#ఒకవేళ defined TCC_లక్ష్యం_MACHO
     tcc_free(s1->install_name);
-#endif
+#అయితే_ముగింపు
     dynarray_reset(&s1->files, &s1->nb_files);
-    dynarray_reset(&s1->target_deps, &s1->nb_target_deps);
+    dynarray_reset(&s1->లక్ష్యం_deps, &s1->nb_లక్ష్యం_deps);
     dynarray_reset(&s1->pragma_libs, &s1->nb_pragma_libs);
     dynarray_reset(&s1->argv, &s1->argc);
     dynarray_reset(&s1->link_argv, &s1->link_argc);
     cstr_free(&s1->cmdline_defs);
     cstr_free(&s1->cmdline_incl);
     tcc_free(s1->dState);
-#ifdef TCC_IS_NATIVE
+#నిర్వచితమైతే TCC_IS_NATIVE
     /* free runtime memory */
-    tcc_run_free(s1);
-#endif
+    tcc_నిరంతరం_free(s1);
+#అయితే_ముగింపు
     /* free loaded dlls array */
     dynarray_reset(&s1->loaded_dlls, &s1->nb_loaded_dlls);
     tcc_free(s1);
-#ifdef MEM_DEBUG
+#నిర్వచితమైతే MEM_DEBUG
     tcc_memcheck(-1);
-#endif
+#అయితే_ముగింపు
 }
 
-LIBTCCAPI int tcc_set_output_type(TCCState *s, int output_type)
+LIBTCCAPI పూర్ణాంకం tcc_సమితి_output_type(TCCState *s, పూర్ణాంకం output_type)
 {
-#ifdef CONFIG_TCC_PIE
-    if (output_type == TCC_OUTPUT_EXE)
+#నిర్వచితమైతే CONFIG_TCC_PIE
+    ఒకవేళ (output_type == TCC_OUTPUT_EXE)
         output_type |= TCC_OUTPUT_DYN;
-#endif
+#అయితే_ముగింపు
     s->output_type = output_type;
 
-    if (!s->nostdinc) {
+    ఒకవేళ (!s->nostdinc) {
         /* default include paths */
         /* -isystem paths have already been handled */
-        tcc_add_sysinclude_path(s, CONFIG_TCC_SYSINCLUDEPATHS);
+        tcc_కూడు_sysinclude_మార్గం(s, CONFIG_TCC_SYSINCLUDEPATHS);
     }
 
-    if (output_type == TCC_OUTPUT_PREPROCESS) {
+    ఒకవేళ (output_type == TCC_OUTPUT_PREPROCESS) {
         s->do_debug = 0;
-        return 0;
+        తిరిగి 0;
     }
 
     /* add sections */
     tccelf_new(s);
 
-    if (output_type == TCC_OUTPUT_OBJ) {
+    ఒకవేళ (output_type == TCC_OUTPUT_OBJ) {
         /* always elf for objects */
         s->output_format = TCC_OUTPUT_FORMAT_ELF;
-        return 0;
+        తిరిగి 0;
     }
 
-    if (!s->nostdlib_paths)
-        tcc_add_library_path(s, CONFIG_TCC_LIBPATHS);
+    ఒకవేళ (!s->nostdlib_paths)
+        tcc_కూడు_library_మార్గం(s, CONFIG_TCC_LIBPATHS);
 
-#ifdef TCC_TARGET_PE
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
 # ifdef TCC_IS_NATIVE
     /* allow linking with system dll's directly */
-    tcc_add_systemdir(s);
+    tcc_కూడు_systemdir(s);
 # endif
 
-#elif defined TCC_TARGET_MACHO
+#లేదావేళ defined TCC_లక్ష్యం_MACHO
 # ifdef TCC_IS_NATIVE
-    tcc_add_macos_sdkpath(s);
+    tcc_కూడు_macos_sdkpath(s);
 # endif
 
-#else
+#లేకపోతే
     /* paths for crt objects */
-    tcc_split_path(s, &s->crt_paths, &s->nb_crt_paths, CONFIG_TCC_CRTPREFIX);
-    if (output_type != TCC_OUTPUT_MEMORY && !s->nostdlib)
-        tccelf_add_crtbegin(s); /* may produce errors */
-#endif
-    return s->nb_errors ? -1 : 0;
+    tcc_విభజించు_మార్గం(s, &s->crt_paths, &s->nb_crt_paths, CONFIG_TCC_CRTPREFIX);
+    ఒకవేళ (output_type != TCC_OUTPUT_జ్ఞాపకం && !s->nostdlib)
+        tccelf_కూడు_crtbegin(s); /* may produce errors */
+#అయితే_ముగింపు
+    తిరిగి s->nb_errors ? -1 : 0;
 }
 
-LIBTCCAPI int tcc_add_include_path(TCCState *s, const char *pathname)
+LIBTCCAPI పూర్ణాంకం tcc_కూడు_include_మార్గం(TCCState *s, స్థిరరాశి అక్షరం *pathname)
 {
-    tcc_split_path(s, &s->include_paths, &s->nb_include_paths, pathname);
-    return 0;
+    tcc_విభజించు_మార్గం(s, &s->include_paths, &s->nb_include_paths, pathname);
+    తిరిగి 0;
 }
 
-LIBTCCAPI int tcc_add_sysinclude_path(TCCState *s, const char *pathname)
+LIBTCCAPI పూర్ణాంకం tcc_కూడు_sysinclude_మార్గం(TCCState *s, స్థిరరాశి అక్షరం *pathname)
 {
-    tcc_split_path(s, &s->sysinclude_paths, &s->nb_sysinclude_paths, pathname);
-    return 0;
+    tcc_విభజించు_మార్గం(s, &s->sysinclude_paths, &s->nb_sysinclude_paths, pathname);
+    తిరిగి 0;
 }
 
-LIBTCCAPI int tcc_add_library_path(TCCState *s, const char *pathname)
+LIBTCCAPI పూర్ణాంకం tcc_కూడు_library_మార్గం(TCCState *s, స్థిరరాశి అక్షరం *pathname)
 {
-    tcc_split_path(s, &s->library_paths, &s->nb_library_paths, pathname);
-    return 0;
+    tcc_విభజించు_మార్గం(s, &s->library_paths, &s->nb_library_paths, pathname);
+    తిరిగి 0;
 }
 
-LIBTCCAPI void tcc_set_lib_path(TCCState *s, const char *path)
+LIBTCCAPI శూన్య tcc_సమితి_lib_మార్గం(TCCState *s, స్థిరరాశి అక్షరం *మార్గం)
 {
-    tcc_set_str(&s->tcc_lib_path, path);
+    tcc_సమితి_str(&s->tcc_lib_మార్గం, మార్గం);
 }
 
 /* add/update a 'DLLReference', Just find if level == -1  */
-ST_FUNC DLLReference *tcc_add_dllref(TCCState *s1, const char *dllname, int level)
+ST_FUNC DLLReference *tcc_కూడు_dllref(TCCState *s1, స్థిరరాశి అక్షరం *dllname, పూర్ణాంకం level)
 {
-    DLLReference *ref = NULL;
-    int i;
-    for (i = 0; i < s1->nb_loaded_dlls; i++)
-        if (0 == strcmp(s1->loaded_dlls[i]->name, dllname)) {
+    DLLReference *ref = ఖాళీ;
+    పూర్ణాంకం i;
+    కొరకు (i = 0; i < s1->nb_loaded_dlls; i++)
+        ఒకవేళ (0 == strcmp(s1->loaded_dlls[i]->name, dllname)) {
             ref = s1->loaded_dlls[i];
-            break;
+            ఆపు;
         }
-    if (level == -1)
-        return ref;
-    if (ref) {
-        if (level < ref->level)
+    ఒకవేళ (level == -1)
+        తిరిగి ref;
+    ఒకవేళ (ref) {
+        ఒకవేళ (level < ref->level)
             ref->level = level;
-        ref->found = 1;
-        return ref;
+        ref->దొరికింది = 1;
+        తిరిగి ref;
     }
-    ref = tcc_mallocz(sizeof(DLLReference) + strlen(dllname));
+    ref = tcc_mallocz(పరిమాణం(DLLReference) + అక్షరశ్రేణి_పొడవు(dllname));
     strcpy(ref->name, dllname);
-    dynarray_add(&s1->loaded_dlls, &s1->nb_loaded_dlls, ref);
+    dynarray_కూడు(&s1->loaded_dlls, &s1->nb_loaded_dlls, ref);
     ref->level = level;
-    ref->index = s1->nb_loaded_dlls;
-    return ref;
+    ref->సూచీ = s1->nb_loaded_dlls;
+    తిరిగి ref;
 }
 
-static int tcc_add_binary(TCCState *s1, int flags, const char *filename, int fd)
+స్థిర పూర్ణాంకం tcc_కూడు_ద్విమాన(TCCState *s1, పూర్ణాంకం flags, స్థిరరాశి అక్షరం *filename, పూర్ణాంకం fd)
 {
     ElfW(Ehdr) ehdr;
-    int obj_type;
-    const char *saved_filename = s1->current_filename;
-    int ret = 0;
+    పూర్ణాంకం obj_type;
+    స్థిరరాశి అక్షరం *saved_filename = s1->current_filename;
+    పూర్ణాంకం ret = 0;
 
     s1->current_filename = filename;
     obj_type = tcc_object_type(fd, &ehdr);
     lseek(fd, 0, SEEK_SET);
 
-    switch (obj_type) {
+    ఎంపిక (obj_type) {
 
-    case AFF_BINTYPE_REL:
-        ret = tcc_load_object_file(s1, fd, 0);
-        break;
+    స్థితి AFF_BINTYPE_REL:
+        ret = tcc_ఎక్కించు_object_file(s1, fd, 0);
+        ఆపు;
 
-    case AFF_BINTYPE_AR:
-        ret = tcc_load_archive(s1, fd, !(flags & AFF_WHOLE_ARCHIVE));
-        break;
+    స్థితి AFF_BINTYPE_AR:
+        ret = tcc_ఎక్కించు_archive(s1, fd, !(flags & AFF_సంపూర్ణ_ARCHIVE));
+        ఆపు;
 
-#if defined TCC_TARGET_UNIX
-    case AFF_BINTYPE_DYN:
-        if (s1->output_type == TCC_OUTPUT_MEMORY) {
-#ifdef TCC_IS_NATIVE
-            void* dl = dlopen(filename, RTLD_GLOBAL | RTLD_LAZY);
-            if (dl)
-                tcc_add_dllref(s1, filename, 0)->handle = dl;
-            else
+#ఒకవేళ defined TCC_లక్ష్యం_UNIX
+    స్థితి AFF_BINTYPE_DYN:
+        ఒకవేళ (s1->output_type == TCC_OUTPUT_జ్ఞాపకం) {
+#నిర్వచితమైతే TCC_IS_NATIVE
+            శూన్య* dl = dlopen(filename, RTLD_GLOBAL | RTLD_LAZY);
+            ఒకవేళ (dl)
+                tcc_కూడు_dllref(s1, filename, 0)->handle = dl;
+            లేకపోతే
                 ret = FILE_NOT_RECOGNIZED;
-#endif
-        } else
-            ret = tcc_load_dll(s1, fd, filename, (flags & AFF_REFERENCED_DLL) != 0);
-        break;
+#అయితే_ముగింపు
+        } లేకపోతే
+            ret = tcc_ఎక్కించు_dll(s1, fd, filename, (flags & AFF_REFERENCED_DLL) != 0);
+        ఆపు;
 
-    default:
+    అప్రమేయ:
         /* as GNU ld, consider it is an ld script if not recognized */
-        ret = tcc_load_ldscript(s1, fd);
-        break;
+        ret = tcc_ఎక్కించు_ldscript(s1, fd);
+        ఆపు;
 
-#elif defined TCC_TARGET_MACHO
-    case AFF_BINTYPE_DYN:
+#లేదావేళ defined TCC_లక్ష్యం_MACHO
+    స్థితి AFF_BINTYPE_DYN:
     case_dyn_or_tbd:
-        if (s1->output_type == TCC_OUTPUT_MEMORY) {
-#ifdef TCC_IS_NATIVE
-            void* dl;
-            const char* soname = filename;
-            char *tmp = 0;
-            if (obj_type != AFF_BINTYPE_DYN) {
+        ఒకవేళ (s1->output_type == TCC_OUTPUT_జ్ఞాపకం) {
+#నిర్వచితమైతే TCC_IS_NATIVE
+            శూన్య* dl;
+            స్థిరరాశి అక్షరం* soname = filename;
+            అక్షరం *tmp = 0;
+            ఒకవేళ (obj_type != AFF_BINTYPE_DYN) {
                 tmp = macho_tbd_soname(fd);
-                if (tmp)
+                ఒకవేళ (tmp)
                     soname = tmp;
             }
             dl = dlopen(soname, RTLD_GLOBAL | RTLD_LAZY);
-            if (dl)
-                tcc_add_dllref(s1, soname, 0)->handle = dl;
-            else
+            ఒకవేళ (dl)
+                tcc_కూడు_dllref(s1, soname, 0)->handle = dl;
+            లేకపోతే
                 ret = FILE_NOT_RECOGNIZED;
 	    tcc_free(tmp);
-#endif
-        } else if (obj_type == AFF_BINTYPE_DYN) {
-            ret = macho_load_dll(s1, fd, filename, (flags & AFF_REFERENCED_DLL) != 0);
-        } else {
-            ret = macho_load_tbd(s1, fd, filename, (flags & AFF_REFERENCED_DLL) != 0);
+#అయితే_ముగింపు
+        } లేకపోతే ఒకవేళ (obj_type == AFF_BINTYPE_DYN) {
+            ret = macho_ఎక్కించు_dll(s1, fd, filename, (flags & AFF_REFERENCED_DLL) != 0);
+        } లేకపోతే {
+            ret = macho_ఎక్కించు_tbd(s1, fd, filename, (flags & AFF_REFERENCED_DLL) != 0);
         }
-        if (ret)
+        ఒకవేళ (ret)
             ret = FILE_NOT_RECOGNIZED;
-        break;
+        ఆపు;
 
-    default:
+    అప్రమేయ:
     {
-        const char *ext = tcc_fileextension(filename);
-        if (!strcmp(ext, ".tbd"))
-            goto case_dyn_or_tbd;
-        if (!strcmp(ext, ".dylib")) {
+        స్థిరరాశి అక్షరం *ext = tcc_fileextension(filename);
+        ఒకవేళ (!strcmp(ext, ".tbd"))
+            వెళ్ళు case_dyn_or_tbd;
+        ఒకవేళ (!strcmp(ext, ".dylib")) {
             obj_type = AFF_BINTYPE_DYN;
-            goto case_dyn_or_tbd;
+            వెళ్ళు case_dyn_or_tbd;
         }
         ret = FILE_NOT_RECOGNIZED;
-        break;
+        ఆపు;
     }
 
-#elif defined TCC_TARGET_PE
-    default:
-        if (pe_load_file(s1, fd, filename))
+#లేదావేళ defined TCC_లక్ష్యం_PE
+    అప్రమేయ:
+        ఒకవేళ (pe_ఎక్కించు_file(s1, fd, filename))
             ret = FILE_NOT_RECOGNIZED;
-        break;
-#endif
+        ఆపు;
+#అయితే_ముగింపు
 
-#ifdef TCC_TARGET_COFF
-    case AFF_BINTYPE_C67:
-        ret = tcc_load_coff(s1, fd);
-        break;
-#endif
+#నిర్వచితమైతే TCC_లక్ష్యం_COFF
+    స్థితి AFF_BINTYPE_C67:
+        ret = tcc_ఎక్కించు_coff(s1, fd);
+        ఆపు;
+#అయితే_ముగింపు
     }
 
     close(fd);
     s1->current_filename = saved_filename;
-    if (ret == FILE_NOT_RECOGNIZED)
-        return tcc_error_noabort("%s: unrecognized file type", filename);
-    return ret;
+    ఒకవేళ (ret == FILE_NOT_RECOGNIZED)
+        తిరిగి tcc_error_noabort("%s: unrecognized file type", filename);
+    తిరిగి ret;
 }
 
 /* OpenBSD: choose latest from libxxx.so.x.y versions */
-#if defined TARGETOS_OpenBSD && !defined _WIN32
-#include <glob.h>
-static int tcc_glob_so(TCCState *s1, const char *pattern, char *buf, int size)
+#ఒకవేళ defined TARGETOS_OpenBSD && !defined _WIN32
+#అన్తర్భావ <glob.h>
+స్థిర పూర్ణాంకం tcc_glob_so(TCCState *s1, స్థిరరాశి అక్షరం *నమూనా, అక్షరం *buf, పూర్ణాంకం కొలత)
 {
-    const char *star;
+    స్థిరరాశి అక్షరం *నక్షత్రం;
     glob_t g;
-    char *p;
-    int i, v, v1, v2, v3;
+    అక్షరం *p;
+    పూర్ణాంకం i, v, v1, v2, v3;
 
-    star = strchr(pattern, '*');
-    if (!star || glob(pattern, 0, NULL, &g))
-        return -1;
-    for (v = -1, i = 0; i < g.gl_pathc; ++i) {
+    నక్షత్రం = strchr(నమూనా, '*');
+    ఒకవేళ (!నక్షత్రం || glob(నమూనా, 0, ఖాళీ, &g))
+        తిరిగి -1;
+    కొరకు (v = -1, i = 0; i < g.gl_pathc; ++i) {
         p = g.gl_pathv[i];
-        if (2 != sscanf(p + (star - pattern), "%d.%d.%d", &v1, &v2, &v3))
-            continue;
-        if ((v1 = v1 * 1000 + v2) > v)
-            v = v1, pstrcpy(buf, size, p);
+        ఒకవేళ (2 != అక్షరశ్రేణి_చదువు(p + (నక్షత్రం - నమూనా), "%d.%d.%d", &v1, &v2, &v3))
+            కొనసాగు;
+        ఒకవేళ ((v1 = v1 * 1000 + v2) > v)
+            v = v1, pstrcpy(buf, కొలత, p);
     }
     globfree(&g);
-    return v;
+    తిరిగి v;
 }
-#endif
+#అయితే_ముగింపు
 
-static int guess_filetype(const char *filename)
+స్థిర పూర్ణాంకం guess_filetype(స్థిరరాశి అక్షరం *filename)
 {
-    int filetype = 0;
-    if (1) {
+    పూర్ణాంకం filetype = 0;
+    ఒకవేళ (1) {
         /* use a file extension to detect a filetype */
-        const char *ext = tcc_fileextension(filename);
-        if (ext[0]) {
+        స్థిరరాశి అక్షరం *ext = tcc_fileextension(filename);
+        ఒకవేళ (ext[0]) {
             ext++;
-            if (!strcmp(ext, "S"))
+            ఒకవేళ (!strcmp(ext, "S"))
                 filetype = AFF_TYPE_ASMPP;
-            else if (!strcmp(ext, "s"))
+            లేకపోతే ఒకవేళ (!strcmp(ext, "s"))
                 filetype = AFF_TYPE_ASM;
-            else if (!PATHCMP(ext, "c")
+            లేకపోతే ఒకవేళ (!PATHCMP(ext, "c")
                      || !PATHCMP(ext, "h")
                      || !PATHCMP(ext, "i"))
                 filetype = AFF_TYPE_C;
-            else
+            లేకపోతే
                 filetype |= AFF_TYPE_BIN;
-        } else {
+        } లేకపోతే {
             filetype = AFF_TYPE_C;
         }
     }
-    return filetype;
+    తిరిగి filetype;
 }
 
-ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags)
+ST_FUNC పూర్ణాంకం tcc_కూడు_file_అంతర్గత(TCCState *s1, స్థిరరాశి అక్షరం *filename, పూర్ణాంకం flags)
 {
-    int fd;
+    పూర్ణాంకం fd;
 
-#if defined TARGETOS_OpenBSD && !defined _WIN32
-    char buf[1024];
-    if (tcc_glob_so(s1, filename, buf, sizeof buf) >= 0)
+#ఒకవేళ defined TARGETOS_OpenBSD && !defined _WIN32
+    అక్షరం buf[1024];
+    ఒకవేళ (tcc_glob_so(s1, filename, buf, పరిమాణం buf) >= 0)
         filename = buf;
-#endif
+#అయితే_ముగింపు
 
-    if (0 == (flags & AFF_TYPE_MASK))
+    ఒకవేళ (0 == (flags & AFF_TYPE_ముసుగు))
         flags |= guess_filetype(filename);
 
     /* ignore binary files with -E */
-    if (s1->output_type == TCC_OUTPUT_PREPROCESS
+    ఒకవేళ (s1->output_type == TCC_OUTPUT_PREPROCESS
         && (flags & AFF_TYPE_BIN))
-        return 0;
+        తిరిగి 0;
 
     /* open the file */
     fd = _tcc_open(s1, filename);
-    if (fd < 0) {
-        if (flags & AFF_PRINT_ERROR)
+    ఒకవేళ (fd < 0) {
+        ఒకవేళ (flags & AFF_PRINT_ERROR)
             tcc_error_noabort("file '%s' not found", filename);
-        return FILE_NOT_FOUND;
+        తిరిగి FILE_NOT_దొరికింది;
     }
 
-    if (flags & AFF_TYPE_BIN)
-        return tcc_add_binary(s1, flags, filename, fd);
+    ఒకవేళ (flags & AFF_TYPE_BIN)
+        తిరిగి tcc_కూడు_ద్విమాన(s1, flags, filename, fd);
 
-    dynarray_add(&s1->target_deps, &s1->nb_target_deps, tcc_strdup(filename));
-    return tcc_compile(s1, flags, filename, fd);
+    dynarray_కూడు(&s1->లక్ష్యం_deps, &s1->nb_లక్ష్యం_deps, tcc_strdup(filename));
+    తిరిగి tcc_compile(s1, flags, filename, fd);
 }
 
-LIBTCCAPI int tcc_add_file(TCCState *s, const char *filename)
+LIBTCCAPI పూర్ణాంకం tcc_కూడు_file(TCCState *s, స్థిరరాశి అక్షరం *filename)
 {
-    return tcc_add_file_internal(s, filename, s->filetype | AFF_PRINT_ERROR);
+    తిరిగి tcc_కూడు_file_అంతర్గత(s, filename, s->filetype | AFF_PRINT_ERROR);
 }
 
-static int tcc_add_library_internal(TCCState *s1, const char *fmt,
-    const char *filename, int flags, char **paths, int nb_paths)
+స్థిర పూర్ణాంకం tcc_కూడు_library_అంతర్గత(TCCState *s1, స్థిరరాశి అక్షరం *fmt,
+    స్థిరరాశి అక్షరం *filename, పూర్ణాంకం flags, అక్షరం **paths, పూర్ణాంకం nb_paths)
 {
-    char buf[1024];
-    int i, ret;
+    అక్షరం buf[1024];
+    పూర్ణాంకం i, ret;
 
-    for(i = 0; i < nb_paths; i++) {
-        snprintf(buf, sizeof(buf), fmt, paths[i], filename);
-        ret = tcc_add_file_internal(s1, buf, flags & ~AFF_PRINT_ERROR);
-        if (ret != FILE_NOT_FOUND)
-            return ret;
+    కొరకు(i = 0; i < nb_paths; i++) {
+        snprintf(buf, పరిమాణం(buf), fmt, paths[i], filename);
+        ret = tcc_కూడు_file_అంతర్గత(s1, buf, flags & ~AFF_PRINT_ERROR);
+        ఒకవేళ (ret != FILE_NOT_దొరికింది)
+            తిరిగి ret;
     }
-    if (flags & AFF_PRINT_ERROR)
+    ఒకవేళ (flags & AFF_PRINT_ERROR)
         tcc_error_noabort("%s '%s' not found",
             flags & AFF_TYPE_LIB ? "library" : "file", filename);
-    return FILE_NOT_FOUND;
+    తిరిగి FILE_NOT_దొరికింది;
 }
 
 /* find and load a dll. Return non zero if not found */
-ST_FUNC int tcc_add_dll(TCCState *s, const char *filename, int flags)
+ST_FUNC పూర్ణాంకం tcc_కూడు_dll(TCCState *s, స్థిరరాశి అక్షరం *filename, పూర్ణాంకం flags)
 {
-    return tcc_add_library_internal(s, "%s/%s", filename, flags,
+    తిరిగి tcc_కూడు_library_అంతర్గత(s, "%s/%s", filename, flags,
         s->library_paths, s->nb_library_paths);
 }
 
 /* find [cross-]libtcc1.a and tcc helper objects in library path */
-ST_FUNC int tcc_add_support(TCCState *s1, const char *filename)
+ST_FUNC పూర్ణాంకం tcc_కూడు_support(TCCState *s1, స్థిరరాశి అక్షరం *filename)
 {
-    char buf[100];
-    if (CONFIG_TCC_CROSSPREFIX[0])
+    అక్షరం buf[100];
+    ఒకవేళ (CONFIG_TCC_CROSSPREFIX[0])
         filename = strcat(strcpy(buf, CONFIG_TCC_CROSSPREFIX), filename);
-    return tcc_add_dll(s1, filename, AFF_PRINT_ERROR);
+    తిరిగి tcc_కూడు_dll(s1, filename, AFF_PRINT_ERROR);
 }
 
-#ifdef TCC_TARGET_UNIX
-ST_FUNC int tcc_add_crt(TCCState *s1, const char *filename)
+#నిర్వచితమైతే TCC_లక్ష్యం_UNIX
+ST_FUNC పూర్ణాంకం tcc_కూడు_crt(TCCState *s1, స్థిరరాశి అక్షరం *filename)
 {
-    return tcc_add_library_internal(s1, "%s/%s",
+    తిరిగి tcc_కూడు_library_అంతర్గత(s1, "%s/%s",
         filename, AFF_PRINT_ERROR, s1->crt_paths, s1->nb_crt_paths);
 }
-#endif
+#అయితే_ముగింపు
 
 /* the library name is the same as the argument of the '-l' option */
-LIBTCCAPI int tcc_add_library(TCCState *s, const char *libraryname)
+LIBTCCAPI పూర్ణాంకం tcc_కూడు_library(TCCState *s, స్థిరరాశి అక్షరం *libraryname)
 {
-    static const char * const libs[] = {
-#if defined TCC_TARGET_PE
+    స్థిర స్థిరరాశి అక్షరం * స్థిరరాశి libs[] = {
+#ఒకవేళ defined TCC_లక్ష్యం_PE
         "%s/%s.def", "%s/lib%s.def", "%s/%s.dll", "%s/lib%s.dll",
-#elif defined TCC_TARGET_MACHO
+#లేదావేళ defined TCC_లక్ష్యం_MACHO
         "%s/lib%s.dylib", "%s/lib%s.tbd",
-#elif defined TARGETOS_OpenBSD
+#లేదావేళ defined TARGETOS_OpenBSD
         "%s/lib%s.so.*",
-#else
+#లేకపోతే
         "%s/lib%s.so",
-#endif
+#అయితే_ముగింపు
         "%s/lib%s.a",
-        NULL
+        ఖాళీ
     };
-    int flags = AFF_TYPE_LIB | (s->filetype & AFF_WHOLE_ARCHIVE);
+    పూర్ణాంకం flags = AFF_TYPE_LIB | (s->filetype & AFF_సంపూర్ణ_ARCHIVE);
     /* if libraryname begins with a colon, it means search lib paths for
        exactly the following file, without lib prefix or anything */
-    if (*libraryname == ':') {
+    ఒకవేళ (*libraryname == ':') {
         libraryname++;
-    } else {
-        const char * const *pp = libs;
-        if (s->static_link)
-            pp += sizeof(libs) / sizeof(*libs) - 2; /* only "%s/lib%s.a" */
-        while (*pp) {
-            int ret = tcc_add_library_internal(s, *pp,
+    } లేకపోతే {
+        స్థిరరాశి అక్షరం * స్థిరరాశి *pp = libs;
+        ఒకవేళ (s->static_link)
+            pp += పరిమాణం(libs) / పరిమాణం(*libs) - 2; /* only "%s/lib%s.a" */
+        అయితే (*pp) {
+            పూర్ణాంకం ret = tcc_కూడు_library_అంతర్గత(s, *pp,
                 libraryname, flags, s->library_paths, s->nb_library_paths);
-            if (ret != FILE_NOT_FOUND)
-                return ret;
+            ఒకవేళ (ret != FILE_NOT_దొరికింది)
+                తిరిగి ret;
             ++pp;
         }
     }
     /* fallback to try file without pre- or sufffix */
-    return tcc_add_dll(s, libraryname, flags | AFF_PRINT_ERROR);
+    తిరిగి tcc_కూడు_dll(s, libraryname, flags | AFF_PRINT_ERROR);
 }
 
 /* handle #pragma comment(lib,) */
-ST_FUNC void tcc_add_pragma_libs(TCCState *s1)
+ST_FUNC శూన్య tcc_కూడు_pragma_libs(TCCState *s1)
 {
-    int i;
-    for (i = 0; i < s1->nb_pragma_libs; i++)
-        tcc_add_library(s1, s1->pragma_libs[i]);
+    పూర్ణాంకం i;
+    కొరకు (i = 0; i < s1->nb_pragma_libs; i++)
+        tcc_కూడు_library(s1, s1->pragma_libs[i]);
 }
 
 /********************************************************/
 /* options parser */
 
-static int strstart(const char *val, const char **str)
+స్థిర పూర్ణాంకం strstart(స్థిరరాశి అక్షరం *val, స్థిరరాశి అక్షరం **str)
 {
-    const char *p, *q;
+    స్థిరరాశి అక్షరం *p, *q;
     p = *str;
     q = val;
-    while (*q) {
-        if (*p != *q)
-            return 0;
+    అయితే (*q) {
+        ఒకవేళ (*p != *q)
+            తిరిగి 0;
         p++;
         q++;
     }
     *str = p;
-    return 1;
+    తిరిగి 1;
 }
 
-struct lopt {
+నిర్మాణం lopt {
     TCCState *s;
-    const char *opt, *arg;
-    int match;
+    స్థిరరాశి అక్షరం *opt, *arg;
+    పూర్ణాంకం సరిపోలిక;
 };
 
 /* match linker option */
-static int link_option(struct lopt *o, const char *q)
+స్థిర పూర్ణాంకం link_option(నిర్మాణం lopt *o, స్థిరరాశి అక్షరం *q)
 {
-    const char *p;
-    int c, r;
+    స్థిరరాశి అక్షరం *p;
+    పూర్ణాంకం c, r;
 redo:
     /* there should be 1 or 2 dashes */
     p = o->opt;
-    if (*p++ != '-')
-        return 0;
-    if (*p == '-')
+    ఒకవేళ (*p++ != '-')
+        తిరిగి 0;
+    ఒకవేళ (*p == '-')
         p++;
     r = 1;
-    if (q[0] == '?') { /* check for no-/disable- prefix */
+    ఒకవేళ (q[0] == '?') { /* check for no-/disable- prefix */
         ++q;
-        if (p[0] == 'n' && p[1] == 'o' && p[2] == '-')
+        ఒకవేళ (p[0] == 'n' && p[1] == 'o' && p[2] == '-')
             p += 3, r = -1;
-#ifdef TCC_TARGET_PE
-        else if (0 == memcmp(p, "disable-", 8))
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
+        లేకపోతే ఒకవేళ (0 == memcmp(p, "disable-", 8))
             p += 8, r = -1;
-#endif
+#అయితే_ముగింపు
     }
-    while ((c = *q) == *p) {
-        if (c == '\0')
-            goto succ; /* -Wl,-opt */
+    అయితే ((c = *q) == *p) {
+        ఒకవేళ (c == '\0')
+            వెళ్ళు succ; /* -Wl,-opt */
         ++p;
-        if (c == '=')
-            goto succ; /* -Wl,-opt=arg */
+        ఒకవేళ (c == '=')
+            వెళ్ళు succ; /* -Wl,-opt=arg */
         ++q;
     }
-    if (*p == '\0') {
-        if (c == '|')
-            goto succ;
-        if (c == '=' || c == ':') {
-            if (o->s->link_optind + 1 < o->s->link_argc) {
+    ఒకవేళ (*p == '\0') {
+        ఒకవేళ (c == '|')
+            వెళ్ళు succ;
+        ఒకవేళ (c == '=' || c == ':') {
+            ఒకవేళ (o->s->link_optind + 1 < o->s->link_argc) {
                 p = o->s->link_argv[++o->s->link_optind];
-                goto succ; /* -Wl,-opt,arg */
+                వెళ్ళు succ; /* -Wl,-opt,arg */
             }
-            o->match = 1; /* -Wl,-opt -Wl,arg */
-            return 0;
+            o->సరిపోలిక = 1; /* -Wl,-opt -Wl,arg */
+            తిరిగి 0;
         }
-    } else if (c == ':')
-        goto succ; /* -Wl,-Iarg */
-    while (*q)
-        if (*q++ == '|')
-            goto redo;
-    return 0;
+    } లేకపోతే ఒకవేళ (c == ':')
+        వెళ్ళు succ; /* -Wl,-Iarg */
+    అయితే (*q)
+        ఒకవేళ (*q++ == '|')
+            వెళ్ళు redo;
+    తిరిగి 0;
 succ:
     o->arg = p;
     //printf("set %s '%s'\n", o->opt, o->arg);
-    return r;
+    తిరిగి r;
 }
 
-static void args_parser_add_file(TCCState *s, const char* filename, int filetype);
+స్థిర శూన్య వాదనలు_parser_కూడు_file(TCCState *s, స్థిరరాశి అక్షరం* filename, పూర్ణాంకం filetype);
 
-#define SET_OR_CLEAR(v,f) (v = r > 0 ? v | f : v & ~f)
-#define SET_OR_CLEAR_2(v,f1,f2) (v = r > 0 ? v | f1 : v & ~f2)
+#నిర్వచించు సమితి_OR_CLEAR(v,f) (v = r > 0 ? v | f : v & ~f)
+#నిర్వచించు సమితి_OR_CLEAR_2(v,f1,f2) (v = r > 0 ? v | f1 : v & ~f2)
 
 /* set linker options */
-static int tcc_set_linker(TCCState *s, const char *optarg)
+స్థిర పూర్ణాంకం tcc_సమితి_linker(TCCState *s, స్థిరరాశి అక్షరం *optarg)
 {
     TCCState *s1 = s;
 
-    dynarray_split(&s1->link_argv, &s1->link_argc, optarg, ',');
+    dynarray_విభజించు(&s1->link_argv, &s1->link_argc, optarg, ',');
 
-    while (s->link_optind < s->link_argc) {
-        char *end = NULL;
-        int ignoring = 0;
-        struct lopt o = {0};
-        int r;
+    అయితే (s->link_optind < s->link_argc) {
+        అక్షరం *చివర = ఖాళీ;
+        పూర్ణాంకం ignoring = 0;
+        నిర్మాణం lopt o = {0};
+        పూర్ణాంకం r;
         o.s = s;
         o.opt = s->link_argv[s->link_optind];
 
-        if (link_option(&o, "Bsymbolic")) {
+        ఒకవేళ (link_option(&o, "Bsymbolic")) {
             s->symbolic = 1;
-        } else if (link_option(&o, "nostdlib")) {
+        } లేకపోతే ఒకవేళ (link_option(&o, "nostdlib")) {
             s->nostdlib_paths = 1;
-        } else if (link_option(&o, "e=|entry=")) {
-            tcc_set_str(&s->elf_entryname, o.arg);
-        } else if (link_option(&o, "image-base=|Ttext=")) {
-            s->text_addr = strtoull(o.arg, &end, 16);
-            s->has_text_addr = 1;
-        } else if (link_option(&o, "init=")) {
-            tcc_set_str(&s->init_symbol, o.arg);
+        } లేకపోతే ఒకవేళ (link_option(&o, "e=|entry=")) {
+            tcc_సమితి_str(&s->elf_entryname, o.arg);
+        } లేకపోతే ఒకవేళ (link_option(&o, "image-base=|Ttext=")) {
+            s->పాఠ్యం_addr = strtoull(o.arg, &చివర, 16);
+            s->has_పాఠ్యం_addr = 1;
+        } లేకపోతే ఒకవేళ (link_option(&o, "init=")) {
+            tcc_సమితి_str(&s->init_చిహ్నం, o.arg);
             ignoring = 1;
-        } else if (link_option(&o, "fini=")) {
-            tcc_set_str(&s->fini_symbol, o.arg);
+        } లేకపోతే ఒకవేళ (link_option(&o, "fini=")) {
+            tcc_సమితి_str(&s->fini_చిహ్నం, o.arg);
             ignoring = 1;
-        } else if (link_option(&o, "Map=")) {
-            tcc_set_str(&s->mapfile, o.arg);
+        } లేకపోతే ఒకవేళ (link_option(&o, "Map=")) {
+            tcc_సమితి_str(&s->mapfile, o.arg);
             ignoring = 1;
-        } else if (link_option(&o, "oformat=")) {
-#if defined TCC_TARGET_PE
-            if (0 == strncmp("pe-", o.arg, 3))
-#elif PTR_SIZE == 8
-            if (0 == strncmp("elf64-", o.arg, 6))
-#else
-            if (0 == strncmp("elf32-", o.arg, 6))
-#endif
+        } లేకపోతే ఒకవేళ (link_option(&o, "oformat=")) {
+#ఒకవేళ defined TCC_లక్ష్యం_PE
+            ఒకవేళ (0 == అక్షరశ్రేణి_పోలిక("pe-", o.arg, 3))
+#లేదావేళ PTR_కొలత == 8
+            ఒకవేళ (0 == అక్షరశ్రేణి_పోలిక("elf64-", o.arg, 6))
+#లేకపోతే
+            ఒకవేళ (0 == అక్షరశ్రేణి_పోలిక("elf32-", o.arg, 6))
+#అయితే_ముగింపు
                 s->output_format = TCC_OUTPUT_FORMAT_ELF;
-            else if (0==strcmp("binary", o.arg))
-                s->output_format = TCC_OUTPUT_FORMAT_BINARY;
-#if defined TCC_TARGET_COFF
-            else if (0==strcmp("coff", o.arg))
+            లేకపోతే ఒకవేళ (0==strcmp("binary", o.arg))
+                s->output_format = TCC_OUTPUT_FORMAT_ద్విమాన;
+#ఒకవేళ defined TCC_లక్ష్యం_COFF
+            లేకపోతే ఒకవేళ (0==strcmp("coff", o.arg))
                 s->output_format = TCC_OUTPUT_FORMAT_COFF;
-#endif
-            else
-                goto err;
-        } else if (link_option(&o, "export-all-symbols|export-dynamic|E")) {
+#అయితే_ముగింపు
+            లేకపోతే
+                వెళ్ళు err;
+        } లేకపోతే ఒకవేళ (link_option(&o, "export-all-symbols|export-dynamic|E")) {
             s->rdynamic = 1;
-        } else if (link_option(&o, "rpath=")) {
+        } లేకపోతే ఒకవేళ (link_option(&o, "rpath=")) {
             tcc_concat_str(&s->rpath, o.arg, ':');
-        } else if (link_option(&o, "dynamic-linker=|I:")) {
-            tcc_set_str(&s->elfint, o.arg);
-        } else if (link_option(&o, "enable-new-dtags")) {
+        } లేకపోతే ఒకవేళ (link_option(&o, "dynamic-linker=|I:")) {
+            tcc_సమితి_str(&s->elfint, o.arg);
+        } లేకపోతే ఒకవేళ (link_option(&o, "enable-new-dtags")) {
             s->enable_new_dtags = 1;
-        } else if (link_option(&o, "section-alignment=")) {
-            s->section_align = strtoul(o.arg, &end, 16);
-        } else if (link_option(&o, "soname=|install_name=")) {
-            tcc_set_str(&s->soname, o.arg);
-        } else if (!!(r = link_option(&o, "?whole-archive"))) {
-            SET_OR_CLEAR(s->filetype, AFF_WHOLE_ARCHIVE);
-        } else if (link_option(&o, "znodelete")) {
+        } లేకపోతే ఒకవేళ (link_option(&o, "section-alignment=")) {
+            s->section_align = strtoul(o.arg, &చివర, 16);
+        } లేకపోతే ఒకవేళ (link_option(&o, "soname=|install_name=")) {
+            tcc_సమితి_str(&s->soname, o.arg);
+        } లేకపోతే ఒకవేళ (!!(r = link_option(&o, "?whole-archive"))) {
+            సమితి_OR_CLEAR(s->filetype, AFF_సంపూర్ణ_ARCHIVE);
+        } లేకపోతే ఒకవేళ (link_option(&o, "znodelete")) {
             s->znodelete = 1;
-#ifdef TCC_TARGET_PE
-        } else if (link_option(&o, "large-address-aware")) {
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
+        } లేకపోతే ఒకవేళ (link_option(&o, "large-address-aware")) {
             s->pe_characteristics |= 0x20;
-        } else if (!!(r = link_option(&o, "?dynamicbase"))) {
-            SET_OR_CLEAR_2(s1->pe_dll_characteristics, 0x40, 0x60);
-        } else if (!!(r = link_option(&o, "?high-entropy-va"))) {
-            SET_OR_CLEAR_2(s1->pe_dll_characteristics, 0x60, 0x20);
-        } else if (!!(r = link_option(&o, "?nxcompat"))) {
-            SET_OR_CLEAR(s1->pe_dll_characteristics, 0x100);
-        } else if (!!(r = link_option(&o, "?tsaware"))) {
-            SET_OR_CLEAR(s1->pe_dll_characteristics, 0x8000);
-        } else if (link_option(&o, "file-alignment=")) {
-            s->pe_file_align = strtoul(o.arg, &end, 16);
-        } else if (link_option(&o, "stack=")) {
-            s->pe_stack_size = strtoul(o.arg, &end, 10);
-        } else if (link_option(&o, "subsystem=")) {
-            if (pe_setsubsy(s, o.arg) < 0)
-                goto err;
-#elif defined TCC_TARGET_MACHO
-        } else if (link_option(&o, "all_load")) {
-	    s->filetype |= AFF_WHOLE_ARCHIVE;
-        } else if (link_option(&o, "force_load=")) {
-            args_parser_add_file(s, o.arg, AFF_TYPE_LIB | AFF_WHOLE_ARCHIVE);
-        } else if (link_option(&o, "single_module")) {
+        } లేకపోతే ఒకవేళ (!!(r = link_option(&o, "?dynamicbase"))) {
+            సమితి_OR_CLEAR_2(s1->pe_dll_characteristics, 0x40, 0x60);
+        } లేకపోతే ఒకవేళ (!!(r = link_option(&o, "?high-entropy-va"))) {
+            సమితి_OR_CLEAR_2(s1->pe_dll_characteristics, 0x60, 0x20);
+        } లేకపోతే ఒకవేళ (!!(r = link_option(&o, "?nxcompat"))) {
+            సమితి_OR_CLEAR(s1->pe_dll_characteristics, 0x100);
+        } లేకపోతే ఒకవేళ (!!(r = link_option(&o, "?tsaware"))) {
+            సమితి_OR_CLEAR(s1->pe_dll_characteristics, 0x8000);
+        } లేకపోతే ఒకవేళ (link_option(&o, "file-alignment=")) {
+            s->pe_file_align = strtoul(o.arg, &చివర, 16);
+        } లేకపోతే ఒకవేళ (link_option(&o, "stack=")) {
+            s->pe_దొంతర_కొలత = strtoul(o.arg, &చివర, 10);
+        } లేకపోతే ఒకవేళ (link_option(&o, "subsystem=")) {
+            ఒకవేళ (pe_setsubsy(s, o.arg) < 0)
+                వెళ్ళు err;
+#లేదావేళ defined TCC_లక్ష్యం_MACHO
+        } లేకపోతే ఒకవేళ (link_option(&o, "all_load")) {
+	    s->filetype |= AFF_సంపూర్ణ_ARCHIVE;
+        } లేకపోతే ఒకవేళ (link_option(&o, "force_load=")) {
+            వాదనలు_parser_కూడు_file(s, o.arg, AFF_TYPE_LIB | AFF_సంపూర్ణ_ARCHIVE);
+        } లేకపోతే ఒకవేళ (link_option(&o, "single_module")) {
             ignoring = 1;
-#endif
-        } else if (link_option(&o, "as-needed")) {
+#అయితే_ముగింపు
+        } లేకపోతే ఒకవేళ (link_option(&o, "as-needed")) {
             ignoring = 1;
-        } else if (link_option(&o, "O")) {
+        } లేకపోతే ఒకవేళ (link_option(&o, "O")) {
             ignoring = 1;
-        } else if (link_option(&o, "z=")) {
+        } లేకపోతే ఒకవేళ (link_option(&o, "z=")) {
             ignoring = 1;
-        } else if (link_option(&o, "L:")) {
-            tcc_add_library_path(s, o.arg);
-        } else if (link_option(&o, "l:")) {
-            args_parser_add_file(s, o.arg, AFF_TYPE_LIB | (s->filetype & ~AFF_TYPE_MASK));
-        } else if (o.match) {
-            return 0; /* expecting argument with next '-Wl,' */
-        } else {
+        } లేకపోతే ఒకవేళ (link_option(&o, "L:")) {
+            tcc_కూడు_library_మార్గం(s, o.arg);
+        } లేకపోతే ఒకవేళ (link_option(&o, "l:")) {
+            వాదనలు_parser_కూడు_file(s, o.arg, AFF_TYPE_LIB | (s->filetype & ~AFF_TYPE_ముసుగు));
+        } లేకపోతే ఒకవేళ (o.సరిపోలిక) {
+            తిరిగి 0; /* expecting argument with next '-Wl,' */
+        } లేకపోతే {
     err:
-            return tcc_error_noabort("unsupported linker option '%s'", o.opt);
+            తిరిగి tcc_error_noabort("unsupported linker option '%s'", o.opt);
         }
-        if (ignoring)
+        ఒకవేళ (ignoring)
             tcc_warning_c(warn_unsupported)("unsupported linker option '%s'", o.opt);
         ++s->link_optind;
     }
-    return 0;
+    తిరిగి 0;
 }
 
-typedef struct TCCOption {
-    const char *name;
-    uint16_t index;
+రకనిర్వచనం నిర్మాణం TCCOption {
+    స్థిరరాశి అక్షరం *name;
+    uint16_t సూచీ;
     uint16_t flags;
 } TCCOption;
 
-enum {
+గణన {
     TCC_OPTION_ignored = 0,
     TCC_OPTION_HELP,
     TCC_OPTION_HELP2,
@@ -1581,10 +1581,10 @@ enum {
     TCC_OPTION_include,
     TCC_OPTION_nostdinc,
     TCC_OPTION_nostdlib,
-    TCC_OPTION_print_search_dirs,
+    TCC_OPTION_print_శోధన_dirs,
     TCC_OPTION_rdynamic,
     TCC_OPTION_pthread,
-    TCC_OPTION_run,
+    TCC_OPTION_నిరంతరం,
     TCC_OPTION_rstdin,
     TCC_OPTION_w,
     TCC_OPTION_E,
@@ -1603,14 +1603,14 @@ enum {
     TCC_OPTION_two_levelnamespace,
     TCC_OPTION_undefined,
     TCC_OPTION_install_name,
-    TCC_OPTION_compatibility_version ,
-    TCC_OPTION_current_version,
+    TCC_OPTION_compatibility_సంస్కరణ ,
+    TCC_OPTION_current_సంస్కరణ,
 };
 
-#define TCC_OPTION_HAS_ARG 0x0001
-#define TCC_OPTION_NOSEP   0x0002 /* cannot have space before option and arg */
+#నిర్వచించు TCC_OPTION_HAS_ARG 0x0001
+#నిర్వచించు TCC_OPTION_NOSEP   0x0002 /* cannot have space before option and arg */
 
-static const TCCOption tcc_options[] = {
+స్థిర స్థిరరాశి TCCOption tcc_options[] = {
     { "h", TCC_OPTION_HELP, 0 },
     { "-help", TCC_OPTION_HELP, 0 },
     { "?", TCC_OPTION_HELP, 0 },
@@ -1625,22 +1625,22 @@ static const TCCOption tcc_options[] = {
     { "B", TCC_OPTION_B, TCC_OPTION_HAS_ARG },
     { "l", TCC_OPTION_l, TCC_OPTION_HAS_ARG },
     { "bench", TCC_OPTION_bench, 0 },
-#ifdef CONFIG_TCC_BACKTRACE
+#నిర్వచితమైతే CONFIG_TCC_BACKTRACE
     { "bt", TCC_OPTION_bt, TCC_OPTION_HAS_ARG | TCC_OPTION_NOSEP },
-#endif
-#ifdef CONFIG_TCC_BCHECK
+#అయితే_ముగింపు
+#నిర్వచితమైతే CONFIG_TCC_BCHECK
     { "b", TCC_OPTION_b, 0 },
-#endif
+#అయితే_ముగింపు
     { "g", TCC_OPTION_g, TCC_OPTION_HAS_ARG | TCC_OPTION_NOSEP },
-#ifdef TCC_TARGET_MACHO
-    { "compatibility_version", TCC_OPTION_compatibility_version, TCC_OPTION_HAS_ARG },
-    { "current_version", TCC_OPTION_current_version, TCC_OPTION_HAS_ARG },
+#నిర్వచితమైతే TCC_లక్ష్యం_MACHO
+    { "compatibility_version", TCC_OPTION_compatibility_సంస్కరణ, TCC_OPTION_HAS_ARG },
+    { "current_version", TCC_OPTION_current_సంస్కరణ, TCC_OPTION_HAS_ARG },
     { "dynamiclib", TCC_OPTION_dynamiclib, 0 },
     { "flat_namespace", TCC_OPTION_flat_namespace, 0 },
     { "install_name", TCC_OPTION_install_name, TCC_OPTION_HAS_ARG },
     { "two_levelnamespace", TCC_OPTION_two_levelnamespace, 0 },
     { "undefined", TCC_OPTION_undefined, TCC_OPTION_HAS_ARG },
-#endif
+#అయితే_ముగింపు
     { "c", TCC_OPTION_c, 0 },
     { "dumpmachine", TCC_OPTION_dumpmachine, 0},
     { "dumpversion", TCC_OPTION_dumpversion, 0},
@@ -1651,7 +1651,7 @@ static const TCCOption tcc_options[] = {
     { "soname", TCC_OPTION_soname, TCC_OPTION_HAS_ARG },
     { "o", TCC_OPTION_o, TCC_OPTION_HAS_ARG },
     { "pthread", TCC_OPTION_pthread, 0},
-    { "run", TCC_OPTION_run, TCC_OPTION_HAS_ARG | TCC_OPTION_NOSEP },
+    { "run", TCC_OPTION_నిరంతరం, TCC_OPTION_HAS_ARG | TCC_OPTION_NOSEP },
     { "rstdin", TCC_OPTION_rstdin, TCC_OPTION_HAS_ARG },
     { "rdynamic", TCC_OPTION_rdynamic, 0 },
     { "r", TCC_OPTION_r, 0 },
@@ -1659,16 +1659,16 @@ static const TCCOption tcc_options[] = {
     { "Wp,", TCC_OPTION_Wp, TCC_OPTION_HAS_ARG | TCC_OPTION_NOSEP },
     { "W", TCC_OPTION_W, TCC_OPTION_HAS_ARG | TCC_OPTION_NOSEP },
     { "O", TCC_OPTION_O, TCC_OPTION_HAS_ARG | TCC_OPTION_NOSEP },
-#ifdef TCC_TARGET_ARM
+#నిర్వచితమైతే TCC_లక్ష్యం_ARM
     { "mfloat-abi", TCC_OPTION_mfloat_abi, TCC_OPTION_HAS_ARG },
-#endif
+#అయితే_ముగింపు
     { "m", TCC_OPTION_m, TCC_OPTION_HAS_ARG | TCC_OPTION_NOSEP },
     { "f", TCC_OPTION_f, TCC_OPTION_HAS_ARG | TCC_OPTION_NOSEP },
     { "isystem", TCC_OPTION_isystem, TCC_OPTION_HAS_ARG },
     { "include", TCC_OPTION_include, TCC_OPTION_HAS_ARG },
     { "nostdinc", TCC_OPTION_nostdinc, 0 },
     { "nostdlib", TCC_OPTION_nostdlib, 0 },
-    { "print-search-dirs", TCC_OPTION_print_search_dirs, 0 },
+    { "print-search-dirs", TCC_OPTION_print_శోధన_dirs, 0 },
     { "w", TCC_OPTION_w, 0 },
     { "E", TCC_OPTION_E, 0},
     { "M", TCC_OPTION_M, 0},
@@ -1680,9 +1680,9 @@ static const TCCOption tcc_options[] = {
     { "x", TCC_OPTION_x, TCC_OPTION_HAS_ARG },
     /* tcctools */
     { "ar", TCC_OPTION_ar, 0},
-#ifdef TCC_TARGET_PE
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
     { "impdef", TCC_OPTION_impdef, 0},
-#endif
+#అయితే_ముగింపు
     /* ignored (silently, except after -Wunsupported) */
     { "arch", 0, TCC_OPTION_HAS_ARG},
     { "C", 0, 0 },
@@ -1693,561 +1693,561 @@ static const TCCOption tcc_options[] = {
     { "pipe", 0, 0 },
     { "s", 0, 0 },
     { "traditional", 0, 0 },
-    { NULL, 0, 0 },
+    { ఖాళీ, 0, 0 },
 };
 
-typedef struct FlagDef {
-    uint16_t offset;
+రకనిర్వచనం నిర్మాణం FlagDef {
+    uint16_t స్థానభ్రంశం;
     uint16_t flags;
-    const char *name;
+    స్థిరరాశి అక్షరం *name;
 } FlagDef;
 
-#define WD_ALL    0x0001 /* warning is activated when using -Wall */
-#define FD_INVERT 0x0002 /* invert value before storing */
+#నిర్వచించు WD_ALL    0x0001 /* warning is activated when using -Wall */
+#నిర్వచించు FD_INVERT 0x0002 /* invert value before storing */
 
-static const FlagDef options_W[] = {
+స్థిర స్థిరరాశి FlagDef options_W[] = {
     { offsetof(TCCState, warn_all), WD_ALL, "all" },
     { offsetof(TCCState, warn_error), 0, "error" },
-    { offsetof(TCCState, warn_write_strings), 0, "write-strings" },
+    { offsetof(TCCState, warn_write_అక్షరశ్రేణులు), 0, "write-strings" },
     { offsetof(TCCState, warn_unsupported), 0, "unsupported" },
     { offsetof(TCCState, warn_implicit_function_declaration), WD_ALL, "implicit-function-declaration" },
     { offsetof(TCCState, warn_discarded_qualifiers), WD_ALL, "discarded-qualifiers" },
-    { 0, 0, NULL }
+    { 0, 0, ఖాళీ }
 };
 
-static const FlagDef options_f[] = {
+స్థిర స్థిరరాశి FlagDef options_f[] = {
     { offsetof(TCCState, char_is_unsigned), 0, "unsigned-char" },
     { offsetof(TCCState, char_is_unsigned), FD_INVERT, "signed-char" },
     { offsetof(TCCState, nocommon), FD_INVERT, "common" },
     { offsetof(TCCState, leading_underscore), 0, "leading-underscore" },
     { offsetof(TCCState, ms_extensions), 0, "ms-extensions" },
-    { offsetof(TCCState, dollars_in_identifiers), 0, "dollars-in-identifiers" },
+    { offsetof(TCCState, dollars_లోపల_identifiers), 0, "dollars-in-identifiers" },
     { offsetof(TCCState, test_coverage), 0, "test-coverage" },
-    { offsetof(TCCState, reverse_funcargs), 0, "reverse-funcargs" },
+    { offsetof(TCCState, తిరగేయి_funcargs), 0, "reverse-funcargs" },
     { offsetof(TCCState, gnu89_inline), 0, "gnu89-inline" },
     { offsetof(TCCState, unwind_tables), 0, "asynchronous-unwind-tables" },
-    { 0, 0, NULL }
+    { 0, 0, ఖాళీ }
 };
 
-static const FlagDef options_m[] = {
+స్థిర స్థిరరాశి FlagDef options_m[] = {
     { offsetof(TCCState, ms_bitfields), 0, "ms-bitfields" },
-#ifdef TCC_TARGET_X86_64
+#నిర్వచితమైతే TCC_లక్ష్యం_X86_64
     { offsetof(TCCState, nosse), FD_INVERT, "sse" },
-#endif
-    { 0, 0, NULL }
+#అయితే_ముగింపు
+    { 0, 0, ఖాళీ }
 };
 
-static int set_flag(TCCState *s, const FlagDef *flags, const char *name)
+స్థిర పూర్ణాంకం సమితి_flag(TCCState *s, స్థిరరాశి FlagDef *flags, స్థిరరాశి అక్షరం *name)
 {
-    int value, mask, ret;
-    const FlagDef *p;
-    const char *r;
-    unsigned char *f;
+    పూర్ణాంకం విలువ, ముసుగు, ret;
+    స్థిరరాశి FlagDef *p;
+    స్థిరరాశి అక్షరం *r;
+    గుర్తులేని అక్షరం *f;
 
-    r = name, value = !strstart("no-", &r), mask = 0;
+    r = name, విలువ = !strstart("no-", &r), ముసుగు = 0;
 
     /* when called with options_W, look for -W[no-]error=<option> */
-    if ((flags->flags & WD_ALL) && strstart("error=", &r))
-        value = value ? WARN_ON|WARN_ERR : WARN_NOE, mask = WARN_ON;
+    ఒకవేళ ((flags->flags & WD_ALL) && strstart("error=", &r))
+        విలువ = విలువ ? WARN_ON|WARN_ERR : WARN_NOE, ముసుగు = WARN_ON;
 
-    for (ret = -1, p = flags; p->name; ++p) {
-        if (ret) {
-            if (strcmp(r, p->name))
-                continue;
-        } else {
-            if (0 == (p->flags & WD_ALL))
-                continue;
+    కొరకు (ret = -1, p = flags; p->name; ++p) {
+        ఒకవేళ (ret) {
+            ఒకవేళ (strcmp(r, p->name))
+                కొనసాగు;
+        } లేకపోతే {
+            ఒకవేళ (0 == (p->flags & WD_ALL))
+                కొనసాగు;
         }
 
-        f = (unsigned char *)s + p->offset;
-        *f = (*f & mask) | (value ^ !!(p->flags & FD_INVERT));
+        f = (గుర్తులేని అక్షరం *)s + p->స్థానభ్రంశం;
+        *f = (*f & ముసుగు) | (విలువ ^ !!(p->flags & FD_INVERT));
 
-        if (ret) {
+        ఒకవేళ (ret) {
             ret = 0;
-            if (strcmp(r, "all"))
-                break;
+            ఒకవేళ (strcmp(r, "all"))
+                ఆపు;
         }
     }
-    return ret;
+    తిరిగి ret;
 }
 
-static const char dumpmachine_str[] =
+స్థిర స్థిరరాశి అక్షరం dumpmachine_str[] =
 /* this is a best guess, please refine as necessary */
-#ifdef TCC_TARGET_I386
+#నిర్వచితమైతే TCC_లక్ష్యం_I386
     "i386-pc"
-#elif defined TCC_TARGET_X86_64
+#లేదావేళ defined TCC_లక్ష్యం_X86_64
     "x86_64-pc"
-#elif defined TCC_TARGET_C67
+#లేదావేళ defined TCC_లక్ష్యం_C67
     "c67"
-#elif defined TCC_TARGET_ARM
+#లేదావేళ defined TCC_లక్ష్యం_ARM
     "arm"
-#elif defined TCC_TARGET_ARM64
+#లేదావేళ defined TCC_లక్ష్యం_ARM64
     "aarch64"
-#elif defined TCC_TARGET_RISCV64
+#లేదావేళ defined TCC_లక్ష్యం_RISCV64
     "riscv64"
-#endif
+#అయితే_ముగింపు
     "-"
-#ifdef TCC_TARGET_PE
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
     "mingw32"
-#elif defined(TCC_TARGET_MACHO)
+#లేదావేళ defined(TCC_లక్ష్యం_MACHO)
     "apple-darwin"
-#elif TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
+#లేదావేళ TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
     "freebsd"
-#elif TARGETOS_OpenBSD
+#లేదావేళ TARGETOS_OpenBSD
     "openbsd"
-#elif TARGETOS_NetBSD
+#లేదావేళ TARGETOS_NetBSD
     "netbsd"
-#elif CONFIG_TCC_MUSL
+#లేదావేళ CONFIG_TCC_MUSL
     "linux-musl"
-#else
+#లేకపోతే
     "linux-gnu"
-#endif
+#అయితే_ముగింపు
 ;
 
-#if defined TCC_TARGET_MACHO
-static uint32_t parse_version(TCCState *s1, const char *version)
+#ఒకవేళ defined TCC_లక్ష్యం_MACHO
+స్థిర uint32_t parse_సంస్కరణ(TCCState *s1, స్థిరరాశి అక్షరం *సంస్కరణ)
 {
     uint32_t a = 0;
     uint32_t b = 0;
     uint32_t c = 0;
-    char* last;
+    అక్షరం* చివరి;
 
-    a = strtoul(version, &last, 10);
-    if (*last == '.') {
-        b = strtoul(&last[1], &last, 10);
-        if (*last == '.')
-             c = strtoul(&last[1], &last, 10);
+    a = strtoul(సంస్కరణ, &చివరి, 10);
+    ఒకవేళ (*చివరి == '.') {
+        b = strtoul(&చివరి[1], &చివరి, 10);
+        ఒకవేళ (*చివరి == '.')
+             c = strtoul(&చివరి[1], &చివరి, 10);
     }
-    if (*last || a > 0xffff || b > 0xff || c > 0xff)
-        tcc_error_noabort("version a.b.c not correct: %s", version);
-    return (a << 16) | (b << 8) | c;
+    ఒకవేళ (*చివరి || a > 0xffff || b > 0xff || c > 0xff)
+        tcc_error_noabort("version a.b.c not correct: %s", సంస్కరణ);
+    తిరిగి (a << 16) | (b << 8) | c;
 }
-#endif
+#అయితే_ముగింపు
 
 /* insert args from 'p' (separated by sep or ' ') into argv at position 'optind' */
-static void insert_args(TCCState *s1, char ***pargv, int *pargc, int optind, const char *p, int sep)
+స్థిర శూన్య చొప్పించు_వాదనలు(TCCState *s1, అక్షరం ***pargv, పూర్ణాంకం *pargc, పూర్ణాంకం optind, స్థిరరాశి అక్షరం *p, పూర్ణాంకం sep)
 {
-    int argc = 0;
-    char **argv = NULL;
-    int i;
-    for (i = 0; i < *pargc; ++i)
-        if (i == optind)
-            dynarray_split(&argv, &argc, p, sep);
-        else
-            dynarray_add(&argv, &argc, tcc_strdup((*pargv)[i]));
+    పూర్ణాంకం argc = 0;
+    అక్షరం **argv = ఖాళీ;
+    పూర్ణాంకం i;
+    కొరకు (i = 0; i < *pargc; ++i)
+        ఒకవేళ (i == optind)
+            dynarray_విభజించు(&argv, &argc, p, sep);
+        లేకపోతే
+            dynarray_కూడు(&argv, &argc, tcc_strdup((*pargv)[i]));
     dynarray_reset(&s1->argv, &s1->argc);
     *pargc = s1->argc = argc;
     *pargv = s1->argv = argv;
 }
 
-static void args_parser_add_file(TCCState *s, const char* filename, int filetype)
+స్థిర శూన్య వాదనలు_parser_కూడు_file(TCCState *s, స్థిరరాశి అక్షరం* filename, పూర్ణాంకం filetype)
 {
-    struct filespec *f = tcc_malloc(sizeof *f + strlen(filename));
+    నిర్మాణం filespec *f = tcc_malloc(పరిమాణం *f + అక్షరశ్రేణి_పొడవు(filename));
     f->type = filetype;
     strcpy(f->name, filename);
-    dynarray_add(&s->files, &s->nb_files, f);
-    if (filetype & AFF_TYPE_LIB)
+    dynarray_కూడు(&s->files, &s->nb_files, f);
+    ఒకవేళ (filetype & AFF_TYPE_LIB)
         ++s->nb_libraries;
 }
 
 /* using * to argc/argv to let "tcc -ar" benefit from @listfile expansion */
-PUB_FUNC int tcc_parse_args(TCCState *s, int *pargc, char ***pargv)
+PUB_FUNC పూర్ణాంకం tcc_parse_వాదనలు(TCCState *s, పూర్ణాంకం *pargc, అక్షరం ***pargv)
 {
     TCCState *s1 = s;
-    const TCCOption *popt;
-    const char *optarg, *r;
-    const char *run = NULL;
-    int optind = 1, empty = 1, x;
-    char **argv = *pargv;
-    int argc = *pargc;
+    స్థిరరాశి TCCOption *popt;
+    స్థిరరాశి అక్షరం *optarg, *r;
+    స్థిరరాశి అక్షరం *నిరంతరం = ఖాళీ;
+    పూర్ణాంకం optind = 1, ఖాళీలు = 1, x;
+    అక్షరం **argv = *pargv;
+    పూర్ణాంకం argc = *pargc;
 
     s->link_optind = s->link_argc;
 
-    while (optind < argc) {
+    అయితే (optind < argc) {
         r = argv[optind];
-        if (r[0] == '@' && r[1] != '\0') { /* read @listfile */
-            int fd; char *p;
-            fd = open(++r, O_RDONLY | O_BINARY);
-            if (fd < 0)
-                return tcc_error_noabort("listfile '%s' not found", r);
-            p = tcc_load_text(fd);
-            insert_args(s1, &argv, &argc, optind, p, 0);
+        ఒకవేళ (r[0] == '@' && r[1] != '\0') { /* read @listfile */
+            పూర్ణాంకం fd; అక్షరం *p;
+            fd = open(++r, O_RDONLY | O_ద్విమాన_2);
+            ఒకవేళ (fd < 0)
+                తిరిగి tcc_error_noabort("listfile '%s' not found", r);
+            p = tcc_ఎక్కించు_పాఠ్యం(fd);
+            చొప్పించు_వాదనలు(s1, &argv, &argc, optind, p, 0);
             close(fd), tcc_free(p);
-            continue;
+            కొనసాగు;
         }
         optind++;
-        if (r[0] != '-' || r[1] == '\0') { /* file or '-' (stdin) */
-            args_parser_add_file(s, r, s->filetype);
-            empty = 0;
+        ఒకవేళ (r[0] != '-' || r[1] == '\0') { /* file or '-' (stdin) */
+            వాదనలు_parser_కూడు_file(s, r, s->filetype);
+            ఖాళీలు = 0;
         dorun:
-            if (run)
-                break;
-            continue;
+            ఒకవేళ (నిరంతరం)
+                ఆపు;
+            కొనసాగు;
         }
         /* Also allow "tcc <files...> -run -- <args...>" */
-        if (r[1] == '-' && r[2] == '\0')
-            goto dorun;
+        ఒకవేళ (r[1] == '-' && r[2] == '\0')
+            వెళ్ళు dorun;
 
         /* find option in table */
-        for(popt = tcc_options; ; ++popt) {
-            const char *p1 = popt->name;
-            const char *r1 = r + 1;
-            if (p1 == NULL)
-                return tcc_error_noabort("invalid option -- '%s'", r);
-            if (!strstart(p1, &r1))
-                continue;
+        కొరకు(popt = tcc_options; ; ++popt) {
+            స్థిరరాశి అక్షరం *p1 = popt->name;
+            స్థిరరాశి అక్షరం *r1 = r + 1;
+            ఒకవేళ (p1 == ఖాళీ)
+                తిరిగి tcc_error_noabort("invalid option -- '%s'", r);
+            ఒకవేళ (!strstart(p1, &r1))
+                కొనసాగు;
             optarg = r1;
-            if (popt->flags & TCC_OPTION_HAS_ARG) {
-                if (*r1 == '\0' && !(popt->flags & TCC_OPTION_NOSEP)) {
-                    if (optind >= argc)
-                        return tcc_error_noabort("argument to '%s' is missing", r);
+            ఒకవేళ (popt->flags & TCC_OPTION_HAS_ARG) {
+                ఒకవేళ (*r1 == '\0' && !(popt->flags & TCC_OPTION_NOSEP)) {
+                    ఒకవేళ (optind >= argc)
+                        తిరిగి tcc_error_noabort("argument to '%s' is missing", r);
                     optarg = argv[optind++];
                 }
-            } else if (*r1 != '\0')
-                continue;
-            break;
+            } లేకపోతే ఒకవేళ (*r1 != '\0')
+                కొనసాగు;
+            ఆపు;
         }
 
-        switch(popt->index) {
-        case TCC_OPTION_I:
-            tcc_add_include_path(s, optarg);
-            break;
-        case TCC_OPTION_D:
-            tcc_define_symbol(s, optarg, NULL);
-            break;
-        case TCC_OPTION_U:
-            tcc_undefine_symbol(s, optarg);
-            break;
-        case TCC_OPTION_L:
-            tcc_add_library_path(s, optarg);
-            break;
-        case TCC_OPTION_B:
+        ఎంపిక(popt->సూచీ) {
+        స్థితి TCC_OPTION_I:
+            tcc_కూడు_include_మార్గం(s, optarg);
+            ఆపు;
+        స్థితి TCC_OPTION_D:
+            tcc_define_చిహ్నం(s, optarg, ఖాళీ);
+            ఆపు;
+        స్థితి TCC_OPTION_U:
+            tcc_undefine_చిహ్నం(s, optarg);
+            ఆపు;
+        స్థితి TCC_OPTION_L:
+            tcc_కూడు_library_మార్గం(s, optarg);
+            ఆపు;
+        స్థితి TCC_OPTION_B:
             /* set tcc utilities path (mainly for tcc development) */
-            tcc_set_lib_path(s, optarg);
-            continue;
-        case TCC_OPTION_l:
-            args_parser_add_file(s, optarg, AFF_TYPE_LIB | (s->filetype & ~AFF_TYPE_MASK));
-            break;
-        case TCC_OPTION_pthread:
+            tcc_సమితి_lib_మార్గం(s, optarg);
+            కొనసాగు;
+        స్థితి TCC_OPTION_l:
+            వాదనలు_parser_కూడు_file(s, optarg, AFF_TYPE_LIB | (s->filetype & ~AFF_TYPE_ముసుగు));
+            ఆపు;
+        స్థితి TCC_OPTION_pthread:
             s->option_pthread = 1;
-            break;
-        case TCC_OPTION_bench:
+            ఆపు;
+        స్థితి TCC_OPTION_bench:
             s->do_bench = 1;
-            break;
-#ifdef CONFIG_TCC_BACKTRACE
-        case TCC_OPTION_bt:
-            s->rt_num_callers = atoi(optarg); /* zero = default (6) */
-            goto enable_backtrace;
+            ఆపు;
+#నిర్వచితమైతే CONFIG_TCC_BACKTRACE
+        స్థితి TCC_OPTION_bt:
+            s->rt_అంకె_callers = atoi(optarg); /* zero = default (6) */
+            వెళ్ళు enable_backtrace;
         enable_backtrace:
             s->do_backtrace = 1;
-            if (0 == s->do_debug)
+            ఒకవేళ (0 == s->do_debug)
                 s->do_debug = 1;
-	    s->dwarf = CONFIG_DWARF_VERSION;
-            break;
-#ifdef CONFIG_TCC_BCHECK
-        case TCC_OPTION_b:
+	    s->dwarf = CONFIG_DWARF_సంస్కరణ;
+            ఆపు;
+#నిర్వచితమైతే CONFIG_TCC_BCHECK
+        స్థితి TCC_OPTION_b:
             s->do_bounds_check = 1;
-            goto enable_backtrace;
-#endif
-#endif
-        case TCC_OPTION_g:
+            వెళ్ళు enable_backtrace;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+        స్థితి TCC_OPTION_g:
             s->do_debug = 2;
-            s->dwarf = CONFIG_DWARF_VERSION;
+            s->dwarf = CONFIG_DWARF_సంస్కరణ;
         g_redo:
-            if (strstart("dwarf", &optarg)) {
-                s->dwarf = (*optarg) ? (0 - atoi(optarg)) : DEFAULT_DWARF_VERSION;
-            } else if (0 == strcmp("stabs", optarg)) {
+            ఒకవేళ (strstart("dwarf", &optarg)) {
+                s->dwarf = (*optarg) ? (0 - atoi(optarg)) : DEFAULT_DWARF_సంస్కరణ;
+            } లేకపోతే ఒకవేళ (0 == strcmp("stabs", optarg)) {
                 s->dwarf = 0;
-            } else if (isnum(*optarg)) {
+            } లేకపోతే ఒకవేళ (isnum(*optarg)) {
                 x = *optarg++ - '0';
                 /* -g0 = no info, -g1 = lines/functions only, -g2 = full info */
                 s->do_debug = x > 2 ? 2 : x == 0 && s->do_backtrace ? 1 : x;
-                goto g_redo;
-#ifdef TCC_TARGET_PE
-            } else if (0 == strcmp(".pdb", optarg)) {
+                వెళ్ళు g_redo;
+#నిర్వచితమైతే TCC_లక్ష్యం_PE
+            } లేకపోతే ఒకవేళ (0 == strcmp(".pdb", optarg)) {
                 s->dwarf = 5, s->do_debug |= 16;
-#endif
+#అయితే_ముగింపు
             }
-            break;
-        case TCC_OPTION_c:
+            ఆపు;
+        స్థితి TCC_OPTION_c:
             x = TCC_OUTPUT_OBJ;
-        set_output_type:
-            if (s->output_type)
+        సమితి_output_type:
+            ఒకవేళ (s->output_type)
                 tcc_warning("-%s: overriding compiler action already specified", popt->name);
             s->output_type = x;
-            break;
-        case TCC_OPTION_d:
-            if (*optarg == 'D')
+            ఆపు;
+        స్థితి TCC_OPTION_d:
+            ఒకవేళ (*optarg == 'D')
                 s->dflag = 3;
-            else if (*optarg == 'M')
+            లేకపోతే ఒకవేళ (*optarg == 'M')
                 s->dflag = 7;
-            else if (*optarg == 't')
+            లేకపోతే ఒకవేళ (*optarg == 't')
                 s->dflag = 16;
-            else if (isnum(*optarg))
+            లేకపోతే ఒకవేళ (isnum(*optarg))
                 g_debug |= atoi(optarg);
-            else
-                goto unsupported_option;
-            break;
-        case TCC_OPTION_static:
+            లేకపోతే
+                వెళ్ళు unsupported_option;
+            ఆపు;
+        స్థితి TCC_OPTION_static:
             s->static_link = 1;
-            break;
-        case TCC_OPTION_std:
-            if (strcmp(optarg, "=c11") == 0 || strcmp(optarg, "=gnu11") == 0)
+            ఆపు;
+        స్థితి TCC_OPTION_std:
+            ఒకవేళ (strcmp(optarg, "=c11") == 0 || strcmp(optarg, "=gnu11") == 0)
                 s->cversion = 201112;
-            break;
-        case TCC_OPTION_shared:
+            ఆపు;
+        స్థితి TCC_OPTION_shared:
             x = TCC_OUTPUT_DLL;
-            goto set_output_type;
-        case TCC_OPTION_soname:
-            tcc_set_str(&s->soname, optarg);
-            break;
-        case TCC_OPTION_o:
-            if (s->outfile) {
+            వెళ్ళు సమితి_output_type;
+        స్థితి TCC_OPTION_soname:
+            tcc_సమితి_str(&s->soname, optarg);
+            ఆపు;
+        స్థితి TCC_OPTION_o:
+            ఒకవేళ (s->outfile) {
                 tcc_warning("multiple -o option");
             }
-            tcc_set_str(&s->outfile, optarg);
-            break;
-        case TCC_OPTION_r:
+            tcc_సమితి_str(&s->outfile, optarg);
+            ఆపు;
+        స్థితి TCC_OPTION_r:
             /* generate a .o merging several output files */
             s->option_r = 1;
             x = TCC_OUTPUT_OBJ;
-            goto set_output_type;
-        case TCC_OPTION_isystem:
-            tcc_add_sysinclude_path(s, optarg);
-            break;
-        case TCC_OPTION_include:
+            వెళ్ళు సమితి_output_type;
+        స్థితి TCC_OPTION_isystem:
+            tcc_కూడు_sysinclude_మార్గం(s, optarg);
+            ఆపు;
+        స్థితి TCC_OPTION_include:
             cstr_printf(&s->cmdline_incl, "#include \"%s\"\n", optarg);
-            break;
-        case TCC_OPTION_nostdinc:
+            ఆపు;
+        స్థితి TCC_OPTION_nostdinc:
             s->nostdinc = 1;
-            break;
-        case TCC_OPTION_nostdlib:
+            ఆపు;
+        స్థితి TCC_OPTION_nostdlib:
             s->nostdlib = 1;
-            break;
-        case TCC_OPTION_run:
-#ifdef TCC_IS_NATIVE
+            ఆపు;
+        స్థితి TCC_OPTION_నిరంతరం:
+#నిర్వచితమైతే TCC_IS_NATIVE
             /* When from script "#!/usr/bin/tcc -run <options>",
                argv[1] is "-run <options>" and argv[2] is <script-name> */
-            run = optarg;
-            x = TCC_OUTPUT_MEMORY;
-            goto set_output_type;
-#else
-            return tcc_error_noabort("-run is not available in a cross compiler");
-#endif
-#ifdef TCC_IS_NATIVE
-        case TCC_OPTION_rstdin:
+            నిరంతరం = optarg;
+            x = TCC_OUTPUT_జ్ఞాపకం;
+            వెళ్ళు సమితి_output_type;
+#లేకపోతే
+            తిరిగి tcc_error_noabort("-run is not available in a cross compiler");
+#అయితే_ముగింపు
+#నిర్వచితమైతే TCC_IS_NATIVE
+        స్థితి TCC_OPTION_rstdin:
             /* custom stdin for run_main */
-            s->run_stdin = optarg;
-            break;
-#endif
-        case TCC_OPTION_v:
-            do ++s->verbose; while (*optarg++ == 'v');
-            continue;
-        case TCC_OPTION_f:
-            if (set_flag(s, options_f, optarg) < 0)
-                goto unsupported_option;
-            break;
-#ifdef TCC_TARGET_ARM
-        case TCC_OPTION_mfloat_abi:
+            s->నిరంతరం_stdin = optarg;
+            ఆపు;
+#అయితే_ముగింపు
+        స్థితి TCC_OPTION_v:
+            చేయి ++s->verbose; అయితే (*optarg++ == 'v');
+            కొనసాగు;
+        స్థితి TCC_OPTION_f:
+            ఒకవేళ (సమితి_flag(s, options_f, optarg) < 0)
+                వెళ్ళు unsupported_option;
+            ఆపు;
+#నిర్వచితమైతే TCC_లక్ష్యం_ARM
+        స్థితి TCC_OPTION_mfloat_abi:
             /* tcc doesn't support soft float yet */
-            if (!strcmp(optarg, "softfp")) {
+            ఒకవేళ (!strcmp(optarg, "softfp")) {
                 s->float_abi = ARM_SOFTFP_FLOAT;
-            } else if (!strcmp(optarg, "hard"))
+            } లేకపోతే ఒకవేళ (!strcmp(optarg, "hard"))
                 s->float_abi = ARM_HARD_FLOAT;
-            else
-                return tcc_error_noabort("unsupported float abi '%s'", optarg);
-            continue;
-#endif
-        case TCC_OPTION_m:
-            if (set_flag(s, options_m, optarg) < 0) {
-                if (x = atoi(optarg), x != 32 && x != 64)
-                    goto unsupported_option;
-                if (PTR_SIZE != x/8)
-                    return x;
-                continue;
+            లేకపోతే
+                తిరిగి tcc_error_noabort("unsupported float abi '%s'", optarg);
+            కొనసాగు;
+#అయితే_ముగింపు
+        స్థితి TCC_OPTION_m:
+            ఒకవేళ (సమితి_flag(s, options_m, optarg) < 0) {
+                ఒకవేళ (x = atoi(optarg), x != 32 && x != 64)
+                    వెళ్ళు unsupported_option;
+                ఒకవేళ (PTR_కొలత != x/8)
+                    తిరిగి x;
+                కొనసాగు;
             }
-            break;
-        case TCC_OPTION_W:
-            if (optarg[0] && set_flag(s, options_W, optarg) < 0)
-                goto unsupported_option;
-            break;
-        case TCC_OPTION_w:
+            ఆపు;
+        స్థితి TCC_OPTION_W:
+            ఒకవేళ (optarg[0] && సమితి_flag(s, options_W, optarg) < 0)
+                వెళ్ళు unsupported_option;
+            ఆపు;
+        స్థితి TCC_OPTION_w:
             s->warn_none = 1;
-            break;
-        case TCC_OPTION_rdynamic:
+            ఆపు;
+        స్థితి TCC_OPTION_rdynamic:
             s->rdynamic = 1;
-            break;
-        case TCC_OPTION_Wl:
-            if (tcc_set_linker(s, optarg) < 0)
-                return -1;
-            break;
-        case TCC_OPTION_Wp:
-            if (argv[0]) /* not with tcc_set_options() */
-                insert_args(s, &argv, &argc, --optind, optarg, ',');
-            break;
-        case TCC_OPTION_E:
+            ఆపు;
+        స్థితి TCC_OPTION_Wl:
+            ఒకవేళ (tcc_సమితి_linker(s, optarg) < 0)
+                తిరిగి -1;
+            ఆపు;
+        స్థితి TCC_OPTION_Wp:
+            ఒకవేళ (argv[0]) /* not with tcc_set_options() */
+                చొప్పించు_వాదనలు(s, &argv, &argc, --optind, optarg, ',');
+            ఆపు;
+        స్థితి TCC_OPTION_E:
             x = TCC_OUTPUT_PREPROCESS;
-            goto set_output_type;
-        case TCC_OPTION_P:
+            వెళ్ళు సమితి_output_type;
+        స్థితి TCC_OPTION_P:
             s->Pflag = atoi(optarg) + 1;
-            break;
+            ఆపు;
 
-        case TCC_OPTION_M:
+        స్థితి TCC_OPTION_M:
             s->include_sys_deps = 1;
             // fall through
-        case TCC_OPTION_MM:
+        స్థితి TCC_OPTION_MM:
             s->just_deps = 1;
             s->gen_deps = 1;
-            if (!s->deps_outfile)
-                tcc_set_str(&s->deps_outfile, "-");
-            break;
-        case TCC_OPTION_MD:
+            ఒకవేళ (!s->deps_outfile)
+                tcc_సమితి_str(&s->deps_outfile, "-");
+            ఆపు;
+        స్థితి TCC_OPTION_MD:
             s->include_sys_deps = 1;
             // fall through
-        case TCC_OPTION_MMD:
+        స్థితి TCC_OPTION_MMD:
             s->gen_deps = 1;
             /* usually, only "-MMD" is used */
             /* but the Linux Kernel uses "-MMD,depfile" */
-            if (*optarg != ',')
-                break;
+            ఒకవేళ (*optarg != ',')
+                ఆపు;
             ++optarg;
             // fall through
-        case TCC_OPTION_MF:
-            tcc_set_str(&s->deps_outfile, optarg);
-            break;
-        case TCC_OPTION_MP:
+        స్థితి TCC_OPTION_MF:
+            tcc_సమితి_str(&s->deps_outfile, optarg);
+            ఆపు;
+        స్థితి TCC_OPTION_MP:
             s->gen_phony_deps = 1;
-            break;
+            ఆపు;
 
-        case TCC_OPTION_dumpmachine:
-            printf("%s\n", dumpmachine_str);
-            exit(0);
-        case TCC_OPTION_dumpversion:
-            printf ("%s\n", TCC_VERSION);
-            exit(0);
+        స్థితి TCC_OPTION_dumpmachine:
+            రాయి("%s\n", dumpmachine_str);
+            నిష్క్రమించు(0);
+        స్థితి TCC_OPTION_dumpversion:
+            రాయి ("%s\n", TCC_సంస్కరణ);
+            నిష్క్రమించు(0);
 
-        case TCC_OPTION_x:
+        స్థితి TCC_OPTION_x:
             x = 0;
-            if (*optarg == 'c')
+            ఒకవేళ (*optarg == 'c')
                 x = AFF_TYPE_C;
-            else if (*optarg == 'a')
+            లేకపోతే ఒకవేళ (*optarg == 'a')
                 x = AFF_TYPE_ASMPP;
-            else if (*optarg == 'b')
+            లేకపోతే ఒకవేళ (*optarg == 'b')
                 x = AFF_TYPE_BIN;
-            else if (*optarg == 'n')
+            లేకపోతే ఒకవేళ (*optarg == 'n')
                 x = AFF_TYPE_NONE;
-            else
+            లేకపోతే
                 tcc_warning("unsupported language '%s'", optarg);
-            s->filetype = x | (s->filetype & ~AFF_TYPE_MASK);
-            break;
-        case TCC_OPTION_O:
+            s->filetype = x | (s->filetype & ~AFF_TYPE_ముసుగు);
+            ఆపు;
+        స్థితి TCC_OPTION_O:
             s->optimize = isnum(optarg[0]) ? optarg[0]-'0' : 1 /* -O -Os */;
-            break;
-#if defined TCC_TARGET_MACHO
-        case TCC_OPTION_dynamiclib:
+            ఆపు;
+#ఒకవేళ defined TCC_లక్ష్యం_MACHO
+        స్థితి TCC_OPTION_dynamiclib:
             x = TCC_OUTPUT_DLL;
-            goto set_output_type;
-        case TCC_OPTION_flat_namespace:
-	     break;
-        case TCC_OPTION_two_levelnamespace:
-	     break;
-        case TCC_OPTION_undefined:
-	     break;
-        case TCC_OPTION_install_name:
-	    tcc_set_str(&s->install_name, optarg);
-            break;
-        case TCC_OPTION_compatibility_version:
-	    s->compatibility_version = parse_version(s, optarg);
-            break;
-        case TCC_OPTION_current_version:
-	    s->current_version = parse_version(s, optarg);;
-            break;
-#endif
-        case TCC_OPTION_HELP:
+            వెళ్ళు సమితి_output_type;
+        స్థితి TCC_OPTION_flat_namespace:
+	     ఆపు;
+        స్థితి TCC_OPTION_two_levelnamespace:
+	     ఆపు;
+        స్థితి TCC_OPTION_undefined:
+	     ఆపు;
+        స్థితి TCC_OPTION_install_name:
+	    tcc_సమితి_str(&s->install_name, optarg);
+            ఆపు;
+        స్థితి TCC_OPTION_compatibility_సంస్కరణ:
+	    s->compatibility_సంస్కరణ = parse_సంస్కరణ(s, optarg);
+            ఆపు;
+        స్థితి TCC_OPTION_current_సంస్కరణ:
+	    s->current_సంస్కరణ = parse_సంస్కరణ(s, optarg);;
+            ఆపు;
+#అయితే_ముగింపు
+        స్థితి TCC_OPTION_HELP:
             x = OPT_HELP;
-            goto extra_action;
-        case TCC_OPTION_HELP2:
+            వెళ్ళు extra_action;
+        స్థితి TCC_OPTION_HELP2:
             x = OPT_HELP2;
-            goto extra_action;
-        case TCC_OPTION_print_search_dirs:
+            వెళ్ళు extra_action;
+        స్థితి TCC_OPTION_print_శోధన_dirs:
             x = OPT_PRINT_DIRS;
-            goto extra_action;
-        case TCC_OPTION_impdef:
+            వెళ్ళు extra_action;
+        స్థితి TCC_OPTION_impdef:
             x = OPT_IMPDEF;
-            goto extra_action;
-        case TCC_OPTION_ar:
+            వెళ్ళు extra_action;
+        స్థితి TCC_OPTION_ar:
             x = OPT_AR;
         extra_action:
-            if (NULL == argv[0]) /* from tcc_set_options() */
-                return -1;
-            if (!empty && x)
-                return tcc_error_noabort("cannot parse %s here", r);
+            ఒకవేళ (ఖాళీ == argv[0]) /* from tcc_set_options() */
+                తిరిగి -1;
+            ఒకవేళ (!ఖాళీలు && x)
+                తిరిగి tcc_error_noabort("cannot parse %s here", r);
             --optind;
             *pargc = argc - optind;
             *pargv = argv + optind;
-            return x;
-        default:
+            తిరిగి x;
+        అప్రమేయ:
 unsupported_option:
             tcc_warning_c(warn_unsupported)("unsupported option '%s'", r);
-            break;
+            ఆపు;
         }
-        empty = 0;
+        ఖాళీలు = 0;
     }
-    if (s->link_optind < s->link_argc)
-        return tcc_error_noabort("argument to '-Wl,%s' is missing", s->link_argv[s->link_optind]);
-    if (run) {
-        if (*run && tcc_set_options(s, run) < 0)
-            return -1;
+    ఒకవేళ (s->link_optind < s->link_argc)
+        తిరిగి tcc_error_noabort("argument to '-Wl,%s' is missing", s->link_argv[s->link_optind]);
+    ఒకవేళ (నిరంతరం) {
+        ఒకవేళ (*నిరంతరం && tcc_సమితి_options(s, నిరంతరం) < 0)
+            తిరిగి -1;
         x = 0, r = 0;
-        goto extra_action;
+        వెళ్ళు extra_action;
     }
-    if (!empty)
-        return 0;
-    if (s->verbose == 2)
-        return OPT_PRINT_DIRS;
-    if (s->verbose)
-        return OPT_V;
-    return OPT_HELP;
+    ఒకవేళ (!ఖాళీలు)
+        తిరిగి 0;
+    ఒకవేళ (s->verbose == 2)
+        తిరిగి OPT_PRINT_DIRS;
+    ఒకవేళ (s->verbose)
+        తిరిగి OPT_V;
+    తిరిగి OPT_HELP;
 }
 
-LIBTCCAPI int tcc_set_options(TCCState *s, const char *r)
+LIBTCCAPI పూర్ణాంకం tcc_సమితి_options(TCCState *s, స్థిరరాశి అక్షరం *r)
 {
-    char **argv = NULL;
-    int argc = 0, ret;
-    dynarray_add(&argv, &argc, 0);
-    dynarray_split(&argv, &argc, r, 0);
-    ret = tcc_parse_args(s, &argc, &argv);
+    అక్షరం **argv = ఖాళీ;
+    పూర్ణాంకం argc = 0, ret;
+    dynarray_కూడు(&argv, &argc, 0);
+    dynarray_విభజించు(&argv, &argc, r, 0);
+    ret = tcc_parse_వాదనలు(s, &argc, &argv);
     dynarray_reset(&argv, &argc);
-    return ret;
+    తిరిగి ret;
 }
 
-PUB_FUNC void tcc_print_stats(TCCState *s1, unsigned total_time)
+PUB_FUNC శూన్య tcc_print_stats(TCCState *s1, గుర్తులేని మొత్తం_సమయం)
 {
-    if (!total_time)
-        total_time = 1;
+    ఒకవేళ (!మొత్తం_సమయం)
+        మొత్తం_సమయం = 1;
     fprintf(stderr, "# %d idents, %d lines, %u bytes\n"
                     "# %0.3f s, %u lines/s, %0.1f MB/s\n",
-           total_idents, total_lines, total_bytes,
-           (double)total_time/1000,
-           (unsigned)total_lines*1000/total_time,
-           (double)total_bytes/1000/total_time);
+           మొత్తం_idents, మొత్తం_పంక్తులు, మొత్తం_బైట్లు,
+           (ద్విగుణ)మొత్తం_సమయం/1000,
+           (గుర్తులేని)మొత్తం_పంక్తులు*1000/మొత్తం_సమయం,
+           (ద్విగుణ)మొత్తం_బైట్లు/1000/మొత్తం_సమయం);
     fprintf(stderr, "# text %u, data.rw %u, data.ro %u, bss %u bytes\n",
-           s1->total_output[0],
-           s1->total_output[1],
-           s1->total_output[2],
-           s1->total_output[3]
+           s1->మొత్తం_output[0],
+           s1->మొత్తం_output[1],
+           s1->మొత్తం_output[2],
+           s1->మొత్తం_output[3]
            );
-#ifdef MEM_DEBUG
+#నిర్వచితమైతే MEM_DEBUG
     fprintf(stderr, "# memory usage");
-#ifdef TCC_IS_NATIVE
-    if (s1->run_size) {
+#నిర్వచితమైతే TCC_IS_NATIVE
+    ఒకవేళ (s1->నిరంతరం_కొలత) {
         Section *s = s1->symtab;
-        unsigned ms = s->data_offset + s->link->data_offset + s->hash->data_offset;
-        unsigned rs = s1->run_size;
+        గుర్తులేని ms = s->దత్తాంశం_స్థానభ్రంశం + s->link->దత్తాంశం_స్థానభ్రంశం + s->hash->దత్తాంశం_స్థానభ్రంశం;
+        గుర్తులేని rs = s1->నిరంతరం_కొలత;
         fprintf(stderr, ": %d to run, %d symbols, %d other,",
-            rs, ms, mem_cur_size - rs - ms);
+            rs, ms, mem_cur_కొలత - rs - ms);
     }
-#endif
-    fprintf(stderr, " %d max (bytes)\n", mem_max_size);
-#endif
+#అయితే_ముగింపు
+    fprintf(stderr, " %d max (bytes)\n", mem_max_కొలత);
+#అయితే_ముగింపు
 }

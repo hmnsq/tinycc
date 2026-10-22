@@ -4,44 +4,44 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _SYS_TIME_H_
-#define _SYS_TIME_H_
+#నిర్వచితం_కాకపోతే SYS_సమయం_H
+#నిర్వచించు SYS_సమయం_H
 
-#include <time.h>
+#అన్తర్భావ <time.h>
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే  __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifndef __STRICT_ANSI__
-#ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
-#define _TIMEVAL_DEFINED
-struct timeval {
-  long tv_sec;
-  long tv_usec;
+#నిర్వచితం_కాకపోతే __STRICT_ANSI__
+#నిర్వచితం_కాకపోతే _TIMEVAL_DEFINED /* also in winsock[2].h */
+#నిర్వచించు _TIMEVAL_DEFINED
+నిర్మాణం timeval {
+  దీర్ఘ tv_sec;
+  దీర్ఘ tv_usec;
 };
-#define timerisset(tvp)	 ((tvp)->tv_sec || (tvp)->tv_usec)
-#define timercmp(tvp, uvp, cmp) \
+#నిర్వచించు timerisset(tvp)	 ((tvp)->tv_sec || (tvp)->tv_usec)
+#నిర్వచించు timercmp(tvp, uvp, cmp) \
   (((tvp)->tv_sec != (uvp)->tv_sec) ? \
   ((tvp)->tv_sec cmp (uvp)->tv_sec) : \
   ((tvp)->tv_usec cmp (uvp)->tv_usec))
-#define timerclear(tvp)	 (tvp)->tv_sec = (tvp)->tv_usec = 0
-#endif /* _TIMEVAL_DEFINED */
+#నిర్వచించు timerclear(tvp)	 (tvp)->tv_sec = (tvp)->tv_usec = 0
+#అయితే_ముగింపు /* _TIMEVAL_DEFINED */
 
-#ifndef _TIMEZONE_DEFINED /* also in sys/time.h */
-#define _TIMEZONE_DEFINED
+#నిర్వచితం_కాకపోతే _TIMEZONE_DEFINED /* also in sys/time.h */
+#నిర్వచించు _TIMEZONE_DEFINED
 /* Provided for compatibility with code that assumes that
    the presence of gettimeofday function implies a definition
    of struct timezone. */
-struct timezone
+నిర్మాణం timezone
 {
-  int tz_minuteswest; /* of Greenwich */
-  int tz_dsttime;     /* type of dst correction to apply */
+  పూర్ణాంకం tz_minuteswest; /* of Greenwich */
+  పూర్ణాంకం tz_dsttime;     /* type of dst correction to apply */
 };
 
-  extern int __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
+  బాహ్య పూర్ణాంకం __cdecl mingw_gettimeofday (నిర్మాణం timeval *p, నిర్మాణం timezone *z);
 
-#endif
+#అయితే_ముగింపు
 
 /*
    Implementation as per:
@@ -50,20 +50,20 @@ struct timezone
 
    The timezone pointer arg is ignored.  Errors are ignored.
 */
-#ifndef _GETTIMEOFDAY_DEFINED
-#define _GETTIMEOFDAY_DEFINED
-int __cdecl gettimeofday(struct timeval *__restrict__,
-                         void *__restrict__  /* tzp (unused) */);
-#endif
+#నిర్వచితం_కాకపోతే _GETTIMEOFDAY_DEFINED
+#నిర్వచించు _GETTIMEOFDAY_DEFINED
+పూర్ణాంకం __cdecl gettimeofday(నిర్మాణం timeval *__restrict__,
+                         శూన్య *__restrict__  /* tzp (unused) */);
+#అయితే_ముగింపు
 
-#endif /* __STRICT_ANSI__ */
+#అయితే_ముగింపు /* __STRICT_ANSI__ */
 
-#ifdef  __cplusplus
+#నిర్వచితమైతే  __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
 /* Adding timespec definition.  */
-#include <sys/timeb.h>
+#అన్తర్భావ <sys/timeb.h>
 
 
-#endif /* _SYS_TIME_H_ */
+#అయితే_ముగింపు /* _SYS_TIME_H_ */

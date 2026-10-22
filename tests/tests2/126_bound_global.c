@@ -1,13 +1,13 @@
 /* test bound checking code without -run */
 
-int arr[10];
+పూర్ణాంకం arr[10];
 
-int
-main(int argc, char **argv)
+పూర్ణాంకం
+ప్రధాన(పూర్ణాంకం argc, అక్షరం **argv)
 {
-  int i;
+  పూర్ణాంకం i;
 
-  for (i = 0; i <= sizeof(arr)/sizeof(arr[0]); i++)
+  కొరకు (i = 0; i <= పరిమాణం(arr)/పరిమాణం(arr[0]); i++)
         arr[i] = 0;
-  return 0;
+  తిరిగి 0;
 }

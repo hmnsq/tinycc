@@ -1,85 +1,85 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-typedef int MyInt;
+రకనిర్వచనం పూర్ణాంకం MyInt;
 
-struct FunStruct
+నిర్మాణం FunStruct
 {
-   int i;
-   int j;
+   పూర్ణాంకం i;
+   పూర్ణాంకం j;
 };
 
-typedef struct FunStruct MyFunStruct;
+రకనిర్వచనం నిర్మాణం FunStruct MyFunStruct;
 
-typedef MyFunStruct *MoreFunThanEver;
+రకనిర్వచనం MyFunStruct *మరిన్ని_Fun_Than_Ever;
 
-typedef int t[];
-int tints[];
+రకనిర్వచనం పూర్ణాంకం t[];
+పూర్ణాంకం tints[];
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int i, *p;
+   పూర్ణాంకం i, *p;
    MyInt a = 1;
-   printf("%d\n", a);
+   రాయి("%d\n", a);
 
    MyFunStruct b;
    b.i = 12;
    b.j = 34;
-   printf("%d,%d\n", b.i, b.j);
+   రాయి("%d,%d\n", b.i, b.j);
 
-   MoreFunThanEver c = &b;
-   printf("%d,%d\n", c->i, c->j);
+   మరిన్ని_Fun_Than_Ever c = &b;
+   రాయి("%d,%d\n", c->i, c->j);
 
    p = (t){1,2,3};
-   for (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
+   కొరకు (i = 0; i < 3 ; i++) రాయి("%d ", *p++); రాయి("\n");
    p = (t){1,2,3,4};
-   for (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   కొరకు (i = 0; i < 4 ; i++) రాయి("%d ", *p++); రాయి("\n");
 
-   printf("%d\n", (int)sizeof((t){1,2,3}));
-   printf("%d\n", (int)sizeof((t){1,2,3,4}));
+   రాయి("%d\n", (పూర్ణాంకం)పరిమాణం((t){1,2,3}));
+   రాయి("%d\n", (పూర్ణాంకం)పరిమాణం((t){1,2,3,4}));
 
    /* two arrays derived from same base type */
    t t3 = { 1,2,3 }, t4 = { 4,5,6,7 };
-   for (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   కొరకు (p = t3, i = 0; i < 3 ; i++) రాయి("%d ", *p++);
+   కొరకు (p = t4, i = 0; i < 4 ; i++) రాయి("%d ", *p++); రాయి("\n");
    typeof(tints) t5 = { 1,2,3 }, t6 = { 4,5,6,7 };
-   for (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   కొరకు (p = t5, i = 0; i < 3 ; i++) రాయి("%d ", *p++);
+   కొరకు (p = t6, i = 0; i < 4 ; i++) రాయి("%d ", *p++); రాయి("\n");
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* "If the specification of an array type includes any type qualifiers,
    the element type is so-qualified, not the array type." */
 
-typedef int A[3];
-extern A const ca;
-extern const A ca;
-extern const int ca[3];
+రకనిర్వచనం పూర్ణాంకం A[3];
+బాహ్య A స్థిరరాశి ca;
+బాహ్య స్థిరరాశి A ca;
+బాహ్య స్థిరరాశి పూర్ణాంకం ca[3];
 
-typedef A B[1][2];
-extern B const cb;
-extern const B cb;
-extern const int cb[1][2][3];
+రకనిర్వచనం A B[1][2];
+బాహ్య B స్థిరరాశి cb;
+బాహ్య స్థిరరాశి B cb;
+బాహ్య స్థిరరాశి పూర్ణాంకం cb[1][2][3];
 
-extern B b;
-extern int b[1][2][3];
+బాహ్య B b;
+బాహ్య పూర్ణాంకం b[1][2][3];
 
 /* Funny but valid function declaration.  */
-typedef int functype (int);
-extern functype func;
-int func(int i)
+రకనిర్వచనం పూర్ణాంకం functype (పూర్ణాంకం);
+బాహ్య functype func;
+పూర్ణాంకం func(పూర్ణాంకం i)
 {
-   return i + 1;
+   తిరిగి i + 1;
 }
 
 /* Even funnier function decl and definition using typeof.  */
-int set_anon_super(void);
-int set_anon_super(void)
+పూర్ణాంకం సమితి_anon_super(శూన్య);
+పూర్ణాంకం సమితి_anon_super(శూన్య)
 {
-   return 42;
+   తిరిగి 42;
 }
-typedef int sas_type (void);
-extern typeof(set_anon_super) set_anon_super;
-extern sas_type set_anon_super;
+రకనిర్వచనం పూర్ణాంకం sas_type (శూన్య);
+బాహ్య typeof(సమితి_anon_super) సమితి_anon_super;
+బాహ్య sas_type సమితి_anon_super;
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

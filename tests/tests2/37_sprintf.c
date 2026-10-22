@@ -1,17 +1,17 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   char Buf[100];
-   int Count;
+   అక్షరం Buf[100];
+   పూర్ణాంకం లెక్క_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   కొరకు (లెక్క_3 = 1; లెక్క_3 <= 20; లెక్క_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
-      printf("%s", Buf);
+      sprintf(Buf, "->%02d<-\n", లెక్క_3);
+      రాయి("%s", Buf);
    }
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

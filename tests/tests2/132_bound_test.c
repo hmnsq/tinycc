@@ -1,37 +1,37 @@
-#include <stdio.h>
-#include <float.h>
+#అన్తర్భావ <stdio.h>
+#అన్తర్భావ <float.h>
 
-union ieee_double_extract
+సంఘం ieee_double_వెలికితీయి
 {
-    struct {
-        unsigned int manl:32;
-        unsigned int manh:20;
-        unsigned int exp:11;
-        unsigned int sig:1;
+    నిర్మాణం {
+        గుర్తులేని పూర్ణాంకం manl:32;
+        గుర్తులేని పూర్ణాంకం manh:20;
+        గుర్తులేని పూర్ణాంకం ఘాతాంకం:11;
+        గుర్తులేని పూర్ణాంకం sig:1;
     } s;
-    double d;
+    ద్విగుణ d;
 };
 
-double scale(double d)
+ద్విగుణ scale(ద్విగుణ d)
 {
-    union ieee_double_extract x;
+    సంఘం ieee_double_వెలికితీయి x;
 
     x.d = d;
     x.d *= 1000;
-    return x.d;
+    తిరిగి x.d;
 }
 
-void mul(double *p)
+శూన్య mul(ద్విగుణ *p)
 {
     *p *= 2.0;
 }
 
-int
-main(void)
+పూర్ణాంకం
+ప్రధాన(శూన్య)
 {
-    double d = 4.0;
-    printf("%g\n", scale(42));
+    ద్విగుణ d = 4.0;
+    రాయి("%g\n", scale(42));
     mul(&d);
-    printf("%g\n", d);
-    return 0;
+    రాయి("%g\n", d);
+    తిరిగి 0;
 }

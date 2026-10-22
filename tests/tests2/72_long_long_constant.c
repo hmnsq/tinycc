@@ -1,19 +1,19 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    long long int res = 0;
+    దీర్ఘ దీర్ఘ పూర్ణాంకం res = 0;
 
-    if (res < -2147483648LL) {
-        printf("Error: 0 < -2147483648\n");
-        return 1;
+    ఒకవేళ (res < -2147483648LL) {
+        రాయి("Error: 0 < -2147483648\n");
+        తిరిగి 1;
     }
-    else
-    if (2147483647LL < res) {
-        printf("Error: 2147483647 < 0\n");
-        return 2;
+    లేకపోతే
+    ఒకవేళ (2147483647LL < res) {
+        రాయి("Error: 2147483647 < 0\n");
+        తిరిగి 2;
     }
-    else
-        printf("long long constant test ok.\n");
-    return 0;
+    లేకపోతే
+        రాయి("long long constant test ok.\n");
+    తిరిగి 0;
 }

@@ -3,394 +3,394 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_CONIO
-#define _INC_CONIO
+#నిర్వచితం_కాకపోతే _INC_CONIO
+#నిర్వచించు _INC_CONIO
 
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-  _CRTIMP char *_cgets(char *_Buffer);
-  _CRTIMP int __cdecl _cprintf(const char *_Format,...);
-  _CRTIMP int __cdecl _cputs(const char *_Str);
-  _CRTIMP int __cdecl _cscanf(const char *_Format,...);
-  _CRTIMP int __cdecl _cscanf_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _getch(void);
-  _CRTIMP int __cdecl _getche(void);
-  _CRTIMP int __cdecl _vcprintf(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_p(const char *_Format,...);
-  _CRTIMP int __cdecl _vcprintf_p(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_p_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_p_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _kbhit(void);
+  _CRTIMP అక్షరం *_cgets(అక్షరం *బఫరు_2);
+  _CRTIMP పూర్ణాంకం __cdecl _cprintf(స్థిరరాశి అక్షరం *_Format,...);
+  _CRTIMP పూర్ణాంకం __cdecl _cputs(స్థిరరాశి అక్షరం *_Str);
+  _CRTIMP పూర్ణాంకం __cdecl _cscanf(స్థిరరాశి అక్షరం *_Format,...);
+  _CRTIMP పూర్ణాంకం __cdecl _cscanf_l(స్థిరరాశి అక్షరం *_Format,_locale_t _Locale,...);
+  _CRTIMP పూర్ణాంకం __cdecl _getch(శూన్య);
+  _CRTIMP పూర్ణాంకం __cdecl _getche(శూన్య);
+  _CRTIMP పూర్ణాంకం __cdecl _vcprintf(స్థిరరాశి అక్షరం *_Format,va_list _ArgList);
+  _CRTIMP పూర్ణాంకం __cdecl _cprintf_p(స్థిరరాశి అక్షరం *_Format,...);
+  _CRTIMP పూర్ణాంకం __cdecl _vcprintf_p(స్థిరరాశి అక్షరం *_Format,va_list _ArgList);
+  _CRTIMP పూర్ణాంకం __cdecl _cprintf_l(స్థిరరాశి అక్షరం *_Format,_locale_t _Locale,...);
+  _CRTIMP పూర్ణాంకం __cdecl _vcprintf_l(స్థిరరాశి అక్షరం *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP పూర్ణాంకం __cdecl _cprintf_p_l(స్థిరరాశి అక్షరం *_Format,_locale_t _Locale,...);
+  _CRTIMP పూర్ణాంకం __cdecl _vcprintf_p_l(స్థిరరాశి అక్షరం *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP పూర్ణాంకం __cdecl _kbhit(శూన్య);
 
-#if defined(_X86_) && !defined(__x86_64)
-  int __cdecl _inp(unsigned short);
-  unsigned short __cdecl _inpw(unsigned short);
-  unsigned long __cdecl _inpd(unsigned short);
-  int __cdecl _outp(unsigned short,int);
-  unsigned short __cdecl _outpw(unsigned short,unsigned short);
-  unsigned long __cdecl _outpd(unsigned short,unsigned long);
-#endif
+#ఒకవేళ defined(_X86_) && !defined(__x86_64)
+  పూర్ణాంకం __cdecl _inp(గుర్తులేని పొట్టి);
+  గుర్తులేని పొట్టి __cdecl _inpw(గుర్తులేని పొట్టి);
+  గుర్తులేని దీర్ఘ __cdecl _inpd(గుర్తులేని పొట్టి);
+  పూర్ణాంకం __cdecl _outp(గుర్తులేని పొట్టి,పూర్ణాంకం);
+  గుర్తులేని పొట్టి __cdecl _outpw(గుర్తులేని పొట్టి,గుర్తులేని పొట్టి);
+  గుర్తులేని దీర్ఘ __cdecl _outpd(గుర్తులేని పొట్టి,గుర్తులేని దీర్ఘ);
+#అయితే_ముగింపు
 
-  _CRTIMP int __cdecl _putch(int _Ch);
-  _CRTIMP int __cdecl _ungetch(int _Ch);
-  _CRTIMP int __cdecl _getch_nolock(void);
-  _CRTIMP int __cdecl _getche_nolock(void);
-  _CRTIMP int __cdecl _putch_nolock(int _Ch);
-  _CRTIMP int __cdecl _ungetch_nolock(int _Ch);
+  _CRTIMP పూర్ణాంకం __cdecl _putch(పూర్ణాంకం _Ch);
+  _CRTIMP పూర్ణాంకం __cdecl _ungetch(పూర్ణాంకం _Ch);
+  _CRTIMP పూర్ణాంకం __cdecl _getch_nolock(శూన్య);
+  _CRTIMP పూర్ణాంకం __cdecl _getche_nolock(శూన్య);
+  _CRTIMP పూర్ణాంకం __cdecl _putch_nolock(పూర్ణాంకం _Ch);
+  _CRTIMP పూర్ణాంకం __cdecl _ungetch_nolock(పూర్ణాంకం _Ch);
 
-#ifndef _WCONIO_DEFINED
-#define _WCONIO_DEFINED
+#నిర్వచితం_కాకపోతే _WCONIO_DEFINED
+#నిర్వచించు _WCONIO_DEFINED
 
-#ifndef WEOF
-#define WEOF (wint_t)(0xFFFF)
-#endif
+#నిర్వచితం_కాకపోతే WEOF
+#నిర్వచించు WEOF (wint_t)(0xFFFF)
+#అయితే_ముగింపు
 
-  _CRTIMP wchar_t *_cgetws(wchar_t *_Buffer);
-  _CRTIMP wint_t __cdecl _getwch(void);
-  _CRTIMP wint_t __cdecl _getwche(void);
+  _CRTIMP wchar_t *_cgetws(wchar_t *బఫరు_2);
+  _CRTIMP wint_t __cdecl _getwch(శూన్య);
+  _CRTIMP wint_t __cdecl _getwche(శూన్య);
   _CRTIMP wint_t __cdecl _putwch(wchar_t _WCh);
   _CRTIMP wint_t __cdecl _ungetwch(wint_t _WCh);
-  _CRTIMP int __cdecl _cputws(const wchar_t *_String);
-  _CRTIMP int __cdecl _cwprintf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vcwprintf_p(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP పూర్ణాంకం __cdecl _cputws(స్థిరరాశి wchar_t *_String);
+  _CRTIMP పూర్ణాంకం __cdecl _cwprintf(స్థిరరాశి wchar_t *_Format,...);
+  _CRTIMP పూర్ణాంకం __cdecl _cwscanf(స్థిరరాశి wchar_t *_Format,...);
+  _CRTIMP పూర్ణాంకం __cdecl _cwscanf_l(స్థిరరాశి wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP పూర్ణాంకం __cdecl _vcwprintf(స్థిరరాశి wchar_t *_Format,va_list _ArgList);
+  _CRTIMP పూర్ణాంకం __cdecl _cwprintf_p(స్థిరరాశి wchar_t *_Format,...);
+  _CRTIMP పూర్ణాంకం __cdecl _vcwprintf_p(స్థిరరాశి wchar_t *_Format,va_list _ArgList);
+  _CRTIMP పూర్ణాంకం __cdecl _cwprintf_l(స్థిరరాశి wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP పూర్ణాంకం __cdecl _vcwprintf_l(స్థిరరాశి wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP పూర్ణాంకం __cdecl _cwprintf_p_l(స్థిరరాశి wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP పూర్ణాంకం __cdecl _vcwprintf_p_l(స్థిరరాశి wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
   _CRTIMP wint_t __cdecl _putwch_nolock(wchar_t _WCh);
-  _CRTIMP wint_t __cdecl _getwch_nolock(void);
-  _CRTIMP wint_t __cdecl _getwche_nolock(void);
+  _CRTIMP wint_t __cdecl _getwch_nolock(శూన్య);
+  _CRTIMP wint_t __cdecl _getwche_nolock(శూన్య);
   _CRTIMP wint_t __cdecl _ungetwch_nolock(wint_t _WCh);
-#endif
+#అయితే_ముగింపు
 
-#ifndef	NO_OLDNAMES
-  char *__cdecl cgets(char *_Buffer);
-  int __cdecl cprintf(const char *_Format,...);
-  int __cdecl cputs(const char *_Str);
-  int __cdecl cscanf(const char *_Format,...);
-  int __cdecl getch(void);
-  int __cdecl getche(void);
-  int __cdecl kbhit(void);
-  int __cdecl putch(int _Ch);
-  int __cdecl ungetch(int _Ch);
+#నిర్వచితం_కాకపోతే	NO_OLDNAMES
+  అక్షరం *__cdecl cgets(అక్షరం *బఫరు_2);
+  పూర్ణాంకం __cdecl cprintf(స్థిరరాశి అక్షరం *_Format,...);
+  పూర్ణాంకం __cdecl cputs(స్థిరరాశి అక్షరం *_Str);
+  పూర్ణాంకం __cdecl cscanf(స్థిరరాశి అక్షరం *_Format,...);
+  పూర్ణాంకం __cdecl getch(శూన్య);
+  పూర్ణాంకం __cdecl getche(శూన్య);
+  పూర్ణాంకం __cdecl kbhit(శూన్య);
+  పూర్ణాంకం __cdecl putch(పూర్ణాంకం _Ch);
+  పూర్ణాంకం __cdecl ungetch(పూర్ణాంకం _Ch);
 
-#if (defined(_X86_) && !defined(__x86_64))
-  int __cdecl inp(unsigned short);
-  unsigned short __cdecl inpw(unsigned short);
-  int __cdecl outp(unsigned short,int);
-  unsigned short __cdecl outpw(unsigned short,unsigned short);
-#endif
+#ఒకవేళ (defined(_X86_) && !defined(__x86_64))
+  పూర్ణాంకం __cdecl inp(గుర్తులేని పొట్టి);
+  గుర్తులేని పొట్టి __cdecl inpw(గుర్తులేని పొట్టి);
+  పూర్ణాంకం __cdecl outp(గుర్తులేని పొట్టి,పూర్ణాంకం);
+  గుర్తులేని పొట్టి __cdecl outpw(గుర్తులేని పొట్టి,గుర్తులేని పొట్టి);
+#అయితే_ముగింపు
 
   /* I/O intrin functions.  */
-  __CRT_INLINE unsigned char __inbyte(unsigned short Port)
+  __CRT_INLINE గుర్తులేని అక్షరం __inbyte(గుర్తులేని పొట్టి పోర్టు)
   {
-      unsigned char value;
+      గుర్తులేని అక్షరం విలువ;
       __asm__ __volatile__ ("inb %w1,%b0"
-          : "=a" (value)
-          : "Nd" (Port));
-      return value;
+          : "=a" (విలువ)
+          : "Nd" (పోర్టు));
+      తిరిగి విలువ;
   }
-  __CRT_INLINE unsigned short __inword(unsigned short Port)
+  __CRT_INLINE గుర్తులేని పొట్టి __inword(గుర్తులేని పొట్టి పోర్టు)
   {
-      unsigned short value;
+      గుర్తులేని పొట్టి విలువ;
       __asm__ __volatile__ ("inw %w1,%w0"
-          : "=a" (value)
-          : "Nd" (Port));
-      return value;
+          : "=a" (విలువ)
+          : "Nd" (పోర్టు));
+      తిరిగి విలువ;
   }
-  __CRT_INLINE unsigned long __indword(unsigned short Port)
+  __CRT_INLINE గుర్తులేని దీర్ఘ __indword(గుర్తులేని పొట్టి పోర్టు)
   {
-      unsigned long value;
+      గుర్తులేని దీర్ఘ విలువ;
       __asm__ __volatile__ ("inl %w1,%0"
-          : "=a" (value)
-          : "Nd" (Port));
-      return value;
+          : "=a" (విలువ)
+          : "Nd" (పోర్టు));
+      తిరిగి విలువ;
   }
-  __CRT_INLINE void __outbyte(unsigned short Port,unsigned char Data)
+  __CRT_INLINE శూన్య __outbyte(గుర్తులేని పొట్టి పోర్టు,గుర్తులేని అక్షరం దత్తాంశం_3)
   {
       __asm__ __volatile__ ("outb %b0,%w1"
           :
-          : "a" (Data), "Nd" (Port));
+          : "a" (దత్తాంశం_3), "Nd" (పోర్టు));
   }
-  __CRT_INLINE void __outword(unsigned short Port,unsigned short Data)
+  __CRT_INLINE శూన్య __outword(గుర్తులేని పొట్టి పోర్టు,గుర్తులేని పొట్టి దత్తాంశం_3)
   {
       __asm__ __volatile__ ("outw %w0,%w1"
           :
-          : "a" (Data), "Nd" (Port));
+          : "a" (దత్తాంశం_3), "Nd" (పోర్టు));
   }
-  __CRT_INLINE void __outdword(unsigned short Port,unsigned long Data)
+  __CRT_INLINE శూన్య __outdword(గుర్తులేని పొట్టి పోర్టు,గుర్తులేని దీర్ఘ దత్తాంశం_3)
   {
       __asm__ __volatile__ ("outl %0,%w1"
           :
-          : "a" (Data), "Nd" (Port));
+          : "a" (దత్తాంశం_3), "Nd" (పోర్టు));
   }
-  __CRT_INLINE void __inbytestring(unsigned short Port,unsigned char *Buffer,unsigned long Count)
+  __CRT_INLINE శూన్య __inbytestring(గుర్తులేని పొట్టి పోర్టు,గుర్తులేని అక్షరం *బఫరు_3,గుర్తులేని దీర్ఘ లెక్క_3)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insb " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (బఫరు_3), "=c" (లెక్క_3)
+		: "d"(పోర్టు), "0"(బఫరు_3), "1" (లెక్క_3)
 		);
   }
-  __CRT_INLINE void __inwordstring(unsigned short Port,unsigned short *Buffer,unsigned long Count)
+  __CRT_INLINE శూన్య __inwordstring(గుర్తులేని పొట్టి పోర్టు,గుర్తులేని పొట్టి *బఫరు_3,గుర్తులేని దీర్ఘ లెక్క_3)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insw " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (బఫరు_3), "=c" (లెక్క_3)
+		: "d"(పోర్టు), "0"(బఫరు_3), "1" (లెక్క_3)
 		);
   }
-  __CRT_INLINE void __indwordstring(unsigned short Port,unsigned long *Buffer,unsigned long Count)
+  __CRT_INLINE శూన్య __indwordstring(గుర్తులేని పొట్టి పోర్టు,గుర్తులేని దీర్ఘ *బఫరు_3,గుర్తులేని దీర్ఘ లెక్క_3)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insl " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (బఫరు_3), "=c" (లెక్క_3)
+		: "d"(పోర్టు), "0"(బఫరు_3), "1" (లెక్క_3)
 		);
   }
 
-  __CRT_INLINE void __outbytestring(unsigned short Port,unsigned char *Buffer,unsigned long Count)
+  __CRT_INLINE శూన్య __outbytestring(గుర్తులేని పొట్టి పోర్టు,గుర్తులేని అక్షరం *బఫరు_3,గుర్తులేని దీర్ఘ లెక్క_3)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsb " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (బఫరు_3), "=c" (లెక్క_3)
+          : "d"(పోర్టు), "0"(బఫరు_3), "1" (లెక్క_3)
           );
   }
-  __CRT_INLINE void __outwordstring(unsigned short Port,unsigned short *Buffer,unsigned long Count)
+  __CRT_INLINE శూన్య __outwordstring(గుర్తులేని పొట్టి పోర్టు,గుర్తులేని పొట్టి *బఫరు_3,గుర్తులేని దీర్ఘ లెక్క_3)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsw " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (బఫరు_3), "=c" (లెక్క_3)
+          : "d"(పోర్టు), "0"(బఫరు_3), "1" (లెక్క_3)
           );
   }
-  __CRT_INLINE void __outdwordstring(unsigned short Port,unsigned long *Buffer,unsigned long Count)
+  __CRT_INLINE శూన్య __outdwordstring(గుర్తులేని పొట్టి పోర్టు,గుర్తులేని దీర్ఘ *బఫరు_3,గుర్తులేని దీర్ఘ లెక్క_3)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsl " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (బఫరు_3), "=c" (లెక్క_3)
+          : "d"(పోర్టు), "0"(బఫరు_3), "1" (లెక్క_3)
           );
   }
 
-  __CRT_INLINE unsigned __int64 __readcr0(void)
+  __CRT_INLINE గుర్తులేని __int64 __readcr0(శూన్య)
   {
-      unsigned __int64 value;
+      గుర్తులేని __int64 విలువ;
       __asm__ __volatile__ (
           "mov %%cr0, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [విలువ] "=q" (విలువ));
+      తిరిగి విలువ;
   }
  
   /* Register sizes are different between 32/64 bit mode. So we have to do this for _WIN64 and _WIN32
      separately.  */
  
-#ifdef _WIN64
-  __CRT_INLINE void __writecr0(unsigned __int64 Data)
+#నిర్వచితమైతే _WIN64
+  __CRT_INLINE శూన్య __writecr0(గుర్తులేని __int64 దత్తాంశం_3)
   {
    __asm__ __volatile__ (
        "mov %[Data], %%cr0"
        :
-       : [Data] "q" (Data)
+       : [దత్తాంశం_3] "q" (దత్తాంశం_3)
        : "memory");
   }
  
-  __CRT_INLINE unsigned __int64 __readcr2(void)
+  __CRT_INLINE గుర్తులేని __int64 __readcr2(శూన్య)
   {
-      unsigned __int64 value;
+      గుర్తులేని __int64 విలువ;
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [విలువ] "=q" (విలువ));
+      తిరిగి విలువ;
   }
 
- __CRT_INLINE void __writecr2(unsigned __int64 Data)
+ __CRT_INLINE శూన్య __writecr2(గుర్తులేని __int64 దత్తాంశం_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr2"
        :
-       : [Data] "q" (Data)
+       : [దత్తాంశం_3] "q" (దత్తాంశం_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned __int64 __readcr3(void)
+  __CRT_INLINE గుర్తులేని __int64 __readcr3(శూన్య)
   {
-      unsigned __int64 value;
+      గుర్తులేని __int64 విలువ;
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [విలువ] "=q" (విలువ));
+      తిరిగి విలువ;
   }
 
- __CRT_INLINE void __writecr3(unsigned __int64 Data)
+ __CRT_INLINE శూన్య __writecr3(గుర్తులేని __int64 దత్తాంశం_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr3"
        :
-       : [Data] "q" (Data)
+       : [దత్తాంశం_3] "q" (దత్తాంశం_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned __int64 __readcr4(void)
+  __CRT_INLINE గుర్తులేని __int64 __readcr4(శూన్య)
   {
-      unsigned __int64 value;
+      గుర్తులేని __int64 విలువ;
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [విలువ] "=q" (విలువ));
+      తిరిగి విలువ;
   }
 
- __CRT_INLINE void __writecr4(unsigned __int64 Data)
+ __CRT_INLINE శూన్య __writecr4(గుర్తులేని __int64 దత్తాంశం_3)
  {
      __asm__ __volatile__ (
          "mov %[Data], %%cr4"
          :
-         : [Data] "q" (Data)
+         : [దత్తాంశం_3] "q" (దత్తాంశం_3)
          : "memory");
  }
  
-  __CRT_INLINE unsigned __int64 __readcr8(void)
+  __CRT_INLINE గుర్తులేని __int64 __readcr8(శూన్య)
   {
-      unsigned __int64 value;
+      గుర్తులేని __int64 విలువ;
       __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [విలువ] "=q" (విలువ));
+      తిరిగి విలువ;
   }
 
- __CRT_INLINE void __writecr8(unsigned __int64 Data)
+ __CRT_INLINE శూన్య __writecr8(గుర్తులేని __int64 దత్తాంశం_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr8"
        :
-       : [Data] "q" (Data)
+       : [దత్తాంశం_3] "q" (దత్తాంశం_3)
        : "memory");
  }
  
-#elif defined(_WIN32)
+#లేదావేళ defined(_WIN32)
 
-  __CRT_INLINE void __writecr0(unsigned Data)
+  __CRT_INLINE శూన్య __writecr0(గుర్తులేని దత్తాంశం_3)
   {
     __asm__ __volatile__ (
        "mov %[Data], %%cr0"
        :
-       : [Data] "q" (Data)
+       : [దత్తాంశం_3] "q" (దత్తాంశం_3)
        : "memory");
   }
  
-  __CRT_INLINE unsigned long __readcr2(void)
+  __CRT_INLINE గుర్తులేని దీర్ఘ __readcr2(శూన్య)
   {
-      unsigned long value;
+      గుర్తులేని దీర్ఘ విలువ;
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [విలువ] "=q" (విలువ));
+      తిరిగి విలువ;
   }
 
- __CRT_INLINE void __writecr2(unsigned Data)
+ __CRT_INLINE శూన్య __writecr2(గుర్తులేని దత్తాంశం_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr2"
        :
-       : [Data] "q" (Data)
+       : [దత్తాంశం_3] "q" (దత్తాంశం_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned long __readcr3(void)
+  __CRT_INLINE గుర్తులేని దీర్ఘ __readcr3(శూన్య)
   {
-      unsigned long value;
+      గుర్తులేని దీర్ఘ విలువ;
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [విలువ] "=q" (విలువ));
+      తిరిగి విలువ;
   }
 
- __CRT_INLINE void __writecr3(unsigned Data)
+ __CRT_INLINE శూన్య __writecr3(గుర్తులేని దత్తాంశం_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr3"
        :
-       : [Data] "q" (Data)
+       : [దత్తాంశం_3] "q" (దత్తాంశం_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned long __readcr4(void)
+  __CRT_INLINE గుర్తులేని దీర్ఘ __readcr4(శూన్య)
   {
-      unsigned long value;
+      గుర్తులేని దీర్ఘ విలువ;
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [విలువ] "=q" (విలువ));
+      తిరిగి విలువ;
   }
 
- __CRT_INLINE void __writecr4(unsigned Data)
+ __CRT_INLINE శూన్య __writecr4(గుర్తులేని దత్తాంశం_3)
  {
      __asm__ __volatile__ (
          "mov %[Data], %%cr4"
          :
-         : [Data] "q" (Data)
+         : [దత్తాంశం_3] "q" (దత్తాంశం_3)
          : "memory");
  }
  
- __CRT_INLINE unsigned long __readcr8(void)
+ __CRT_INLINE గుర్తులేని దీర్ఘ __readcr8(శూన్య)
  {
-   unsigned long value;      __asm__ __volatile__ (
+   గుర్తులేని దీర్ఘ విలువ;      __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
-          : [value] "=q" (value));
-     return value;
+          : [విలువ] "=q" (విలువ));
+     తిరిగి విలువ;
  }
 
- __CRT_INLINE void __writecr8(unsigned Data)
+ __CRT_INLINE శూన్య __writecr8(గుర్తులేని దత్తాంశం_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr8"
        :
-       : [Data] "q" (Data)
+       : [దత్తాంశం_3] "q" (దత్తాంశం_3)
        : "memory");
  }
  
-#endif
+#అయితే_ముగింపు
 
-  __CRT_INLINE unsigned __int64 __readmsr(unsigned long msr)
+  __CRT_INLINE గుర్తులేని __int64 __readmsr(గుర్తులేని దీర్ఘ msr)
   {
-      unsigned __int64 val1, val2;
+      గుర్తులేని __int64 val1, val2;
        __asm__ __volatile__(
            "rdmsr"
            : "=a" (val1), "=d" (val2)
            : "c" (msr));
-      return val1 | (val2 << 32);
+      తిరిగి val1 | (val2 << 32);
   }
 
- __CRT_INLINE void __writemsr (unsigned long msr, unsigned __int64 Value)
+ __CRT_INLINE శూన్య __writemsr (గుర్తులేని దీర్ఘ msr, గుర్తులేని __int64 విలువ_3)
  {
-    unsigned long val1 = Value, val2 = Value >> 32;
+    గుర్తులేని దీర్ఘ val1 = విలువ_3, val2 = విలువ_3 >> 32;
    __asm__ __volatile__ (
        "wrmsr"
        :
        : "c" (msr), "a" (val1), "d" (val2));
  }
  
-  __CRT_INLINE unsigned __int64 __rdtsc(void)
+  __CRT_INLINE గుర్తులేని __int64 __rdtsc(శూన్య)
   {
-      unsigned __int64 val1, val2;
+      గుర్తులేని __int64 val1, val2;
       __asm__ __volatile__ (
           "rdtsc" 
           : "=a" (val1), "=d" (val2));
-      return val1 | (val2 << 32);
+      తిరిగి val1 | (val2 << 32);
   }
 
-  __CRT_INLINE void __cpuid(int CPUInfo[4], int InfoType)
+  __CRT_INLINE శూన్య __cpuid(పూర్ణాంకం CPUInfo[4], పూర్ణాంకం InfoType)
   {
       __asm__ __volatile__ (
           "cpuid"
@@ -398,12 +398,12 @@ extern "C" {
           : "a" (InfoType));
   }
 
-#endif
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#include <sec_api/conio_s.h>
+#అన్తర్భావ <sec_api/conio_s.h>
 
-#endif
+#అయితే_ముగింపు

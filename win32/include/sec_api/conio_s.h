@@ -4,39 +4,39 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _INC_CONIO_S
-#define _INC_CONIO_S
+#నిర్వచితం_కాకపోతే _INC_CONIO_S
+#నిర్వచించు _INC_CONIO_S
 
-#include <conio.h>
+#అన్తర్భావ <conio.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ఒకవేళ defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-  _CRTIMP errno_t __cdecl _cgets_s(char *_Buffer,size_t _Size,size_t *_SizeRead);
-  _CRTIMP int __cdecl _cprintf_s(const char *_Format,...);
-  _CRTIMP int __cdecl _cscanf_s(const char *_Format,...);
-  _CRTIMP int __cdecl _cscanf_s_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_s(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_s_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_s_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP errno_t __cdecl _cgets_s(అక్షరం *బఫరు_2,కొలత_t కొలత_4,కొలత_t *కొలత_Read);
+  _CRTIMP పూర్ణాంకం __cdecl _cprintf_s(స్థిరరాశి అక్షరం *_Format,...);
+  _CRTIMP పూర్ణాంకం __cdecl _cscanf_s(స్థిరరాశి అక్షరం *_Format,...);
+  _CRTIMP పూర్ణాంకం __cdecl _cscanf_s_l(స్థిరరాశి అక్షరం *_Format,_locale_t _Locale,...);
+  _CRTIMP పూర్ణాంకం __cdecl _vcprintf_s(స్థిరరాశి అక్షరం *_Format,va_list _ArgList);
+  _CRTIMP పూర్ణాంకం __cdecl _cprintf_s_l(స్థిరరాశి అక్షరం *_Format,_locale_t _Locale,...);
+  _CRTIMP పూర్ణాంకం __cdecl _vcprintf_s_l(స్థిరరాశి అక్షరం *_Format,_locale_t _Locale,va_list _ArgList);
 
-#ifndef _WCONIO_DEFINED_S
-#define _WCONIO_DEFINED_S
-  _CRTIMP errno_t __cdecl _cgetws_s(wchar_t *_Buffer,size_t _SizeInWords,size_t *_SizeRead);
-  _CRTIMP int __cdecl _cwprintf_s(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_s(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_s_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_s(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_s_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_s_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-#endif
+#నిర్వచితం_కాకపోతే _WCONIO_DEFINED_S
+#నిర్వచించు _WCONIO_DEFINED_S
+  _CRTIMP errno_t __cdecl _cgetws_s(wchar_t *బఫరు_2,కొలత_t కొలత_లోపల_పదాలు,కొలత_t *కొలత_Read);
+  _CRTIMP పూర్ణాంకం __cdecl _cwprintf_s(స్థిరరాశి wchar_t *_Format,...);
+  _CRTIMP పూర్ణాంకం __cdecl _cwscanf_s(స్థిరరాశి wchar_t *_Format,...);
+  _CRTIMP పూర్ణాంకం __cdecl _cwscanf_s_l(స్థిరరాశి wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP పూర్ణాంకం __cdecl _vcwprintf_s(స్థిరరాశి wchar_t *_Format,va_list _ArgList);
+  _CRTIMP పూర్ణాంకం __cdecl _cwprintf_s_l(స్థిరరాశి wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP పూర్ణాంకం __cdecl _vcwprintf_s_l(స్థిరరాశి wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు

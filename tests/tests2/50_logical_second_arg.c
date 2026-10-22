@@ -1,29 +1,29 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int fred()
+పూర్ణాంకం fred()
 {
-   printf("fred\n");
-   return 0;
+   రాయి("fred\n");
+   తిరిగి 0;
 }
 
-int joe()
+పూర్ణాంకం joe()
 {
-   printf("joe\n");
-   return 1;
+   రాయి("joe\n");
+   తిరిగి 1;
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   printf("%d\n", fred() && joe());
-   printf("%d\n", fred() || joe());
-   printf("%d\n", joe() && fred());
-   printf("%d\n", joe() || fred());
-   printf("%d\n", fred() && (1 + joe()));
-   printf("%d\n", fred() || (0 + joe()));
-   printf("%d\n", joe() && (0 + fred()));
-   printf("%d\n", joe() || (1 + fred()));
+   రాయి("%d\n", fred() && joe());
+   రాయి("%d\n", fred() || joe());
+   రాయి("%d\n", joe() && fred());
+   రాయి("%d\n", joe() || fred());
+   రాయి("%d\n", fred() && (1 + joe()));
+   రాయి("%d\n", fred() || (0 + joe()));
+   రాయి("%d\n", joe() && (0 + fred()));
+   రాయి("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

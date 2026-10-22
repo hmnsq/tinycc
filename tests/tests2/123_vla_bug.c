@@ -1,40 +1,40 @@
-typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
-extern size_t strlen(const char*);
-char str[] = "blabla";
-int g;
-int main()
+రకనిర్వచనం __SIZE_TYPE__ కొలత_t;
+బాహ్య పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం*, ...);
+బాహ్య కొలత_t అక్షరశ్రేణి_పొడవు(స్థిరరాశి అక్షరం*);
+అక్షరం str[] = "blabla";
+పూర్ణాంకం g;
+పూర్ణాంకం ప్రధాన()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
-      char buf[strlen(str) + 10];
+  పూర్ణాంకం i = 0;
+#ఒకవేళ 0
+  ఒకవేళ (g) {
+      అక్షరం buf[అక్షరశ్రేణి_పొడవు(str) + 10];
       buf[0] = 0;
   }
 alabel:
-  printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
-      switch (i) {
-      case 10:
-          if (g) {
-              char buf[strlen(str) + 10];
+  రాయి("default: i = %d\n", i);
+#లేకపోతే
+  కొరకు (i = 0; i < 5; i++) {
+      ఎంపిక (i) {
+      స్థితి 10:
+          ఒకవేళ (g) {
+              అక్షరం buf[అక్షరశ్రేణి_పొడవు(str) + 10];
               buf[0] = 0;
-              goto do_cmd;
+              వెళ్ళు do_cmd;
           }
-          break;
-      case 1:
-          printf("reached 3\n");
+          ఆపు;
+      స్థితి 1:
+          రాయి("reached 3\n");
     do_cmd:
-          printf("after do_cmd");
-          break;
-      default:
+          రాయి("after do_cmd");
+          ఆపు;
+      అప్రమేయ:
           g++;
-          printf("default: i = %d\n", i);
-          break;
+          రాయి("default: i = %d\n", i);
+          ఆపు;
       }
   }
-#endif
-  return 0;
+#అయితే_ముగింపు
+  తిరిగి 0;
 }

@@ -1,49 +1,49 @@
 /* ------------------------------------------------------------- */
 /* minimal startup with runtime linker to msvcrt */
 
-#if 0
+#ఒకవేళ 0
 
-#define REDIR_ALL \
+#నిర్వచించు REDIR_ALL \
  REDIR(__set_app_type)\
  REDIR(__getmainargs)\
  REDIR(_controlfp)\
  REDIR(_vsnprintf)\
- REDIR(exit)\
+ REDIR(నిష్క్రమించు)\
  \
  REDIR(puts)\
- REDIR(printf)\
- REDIR(putchar)\
+ REDIR(రాయి)\
+ REDIR(అక్షరం_రాయి)\
  REDIR(strtod)\
  REDIR(memset)\
  REDIR(strcpy)\
- REDIR(strlen)\
- REDIR(malloc)\
- REDIR(free)\
+ REDIR(అక్షరశ్రేణి_పొడవు)\
+ REDIR(జ్ఞాపకం_ఇవ్వు)\
+ REDIR(విడుదల)\
 
-#if defined __i386__ && !defined __TINYC__
+#ఒకవేళ defined __i386__ && !defined __TINYC__
 # define __leading_underscore 1
-#endif
+#అయితే_ముగింపు
 
-#ifdef __leading_underscore
+#నిర్వచితమైతే __leading_underscore
 # define _(s) "_"#s
-#else
+#లేకపోతే
 # define _(s) #s
-#endif
+#అయితే_ముగింపు
 
-#define REDIR(s) void *s;
-static struct { REDIR_ALL } all_ptrs;
-#undef REDIR
+#నిర్వచించు REDIR(s) శూన్య *s;
+స్థిర నిర్మాణం { REDIR_ALL } all_ptrs;
+#నిర్వచనం_రద్దు REDIR
 
-#define REDIR(s) #s"\0"
-static const char all_names[] = REDIR_ALL;
-#undef REDIR
+#నిర్వచించు REDIR(s) #s"\0"
+స్థిర స్థిరరాశి అక్షరం all_పేర్లు[] = REDIR_ALL;
+#నిర్వచనం_రద్దు REDIR
 
-#if __aarch64__
-  #if defined __TINYC__
+#ఒకవేళ __aarch64__
+  #ఒకవేళ defined __TINYC__
   # define ALIGN ".align 8"
-  #else
+  #లేకపోతే
   # define ALIGN ".align 3" /* .align is power of 2 on non-ELF platforms */
-  #endif
+  #అయితే_ముగింపు
 # define REDIR(s) \
     __asm__("\n"_(s)":"); \
     __asm__(".int 0x58000090"); /* ldr x16, [pc, #16] */ \
@@ -55,110 +55,110 @@ static const char all_names[] = REDIR_ALL;
 
     __asm__("\t.text\n\t"ALIGN"\nall_jmps:");
     REDIR_ALL
-#else
+#లేకపోతే
 # define REDIR(s) \
     __asm__("\n"_(s)":");\
     __asm__("jmp *%0"::"m"(all_ptrs.s));\
     __asm__(".global "_(s));
 
-    static void all_jmps() { REDIR_ALL }
-#endif
-#undef REDIR
+    స్థిర శూన్య all_jmps() { REDIR_ALL }
+#అయితే_ముగింపు
+#నిర్వచనం_రద్దు REDIR
 
-#if 0
+#ఒకవేళ 0
 # include <windows.h>
-#else
-# if __i386__
+#లేకపోతే
+# ఒకవేళ __i386__
 #  define STDCALL __declspec(stdcall)
-# else
+# లేకపోతే
 #  define STDCALL
 # endif
-# define DWORD long unsigned
-# define HMODULE void*
-# define HANDLE void*
-S TDCALL HMODULE LoadLibraryA(const char *);
-S TDCALL HMODULE GetProcAddress(HMODULE , char*);
-S TDCALL void ExitProcess(int);
-S TDCALL int WriteFile(HANDLE, const void*, DWORD, DWORD*, void*);
+# define DWORD దీర్ఘ గుర్తులేని
+# define HMODULE శూన్య*
+# define HANDLE శూన్య*
+S TDCALL HMODULE ఎక్కించు_Library_A(స్థిరరాశి అక్షరం *);
+S TDCALL HMODULE Get_Proc_చిరునామా(HMODULE , అక్షరం*);
+S TDCALL శూన్య ExitProcess(పూర్ణాంకం);
+S TDCALL పూర్ణాంకం WriteFile(HANDLE, స్థిరరాశి శూన్య*, DWORD, DWORD*, శూన్య*);
 S TDCALL HANDLE GetStdHandle(DWORD);
-S TDCALL int FlushFileBuffers(HANDLE);
+S TDCALL పూర్ణాంకం FlushFileBuffers(HANDLE);
 # define STD_ERROR_HANDLE -12
-#endif
+#అయితే_ముగింపు
 
-static void eput(const char *s)
+స్థిర శూన్య eput(స్థిరరాశి అక్షరం *s)
 {
-    DWORD n_out;
-    int n = 0;
-    while (s[n])
+    DWORD n_బహిర్గతం;
+    పూర్ణాంకం n = 0;
+    అయితే (s[n])
         ++n;
-    WriteFile(GetStdHandle(STD_ERROR_HANDLE), s, n, &n_out, 0);
+    WriteFile(GetStdHandle(STD_ERROR_HANDLE), s, n, &n_బహిర్గతం, 0);
 }
 
-static void rt_reloc()
+స్థిర శూన్య rt_reloc()
 {
-    const char *s = all_names;
-    void **p = (void**)&all_ptrs;
-    void *dll = LoadLibraryA("msvcrt.dll");
-    do {
-        char buf[100], *d = buf;
-        *p = (void*)GetProcAddress(dll, (char*)s);
-        *d++ = '_'; do *d++ = *s; while (*s++);
-        if (0 == *p)
-            *p = (void*)GetProcAddress(dll, buf);
-        if (0 == *p) {
+    స్థిరరాశి అక్షరం *s = all_పేర్లు;
+    శూన్య **p = (శూన్య**)&all_ptrs;
+    శూన్య *dll = ఎక్కించు_Library_A("msvcrt.dll");
+    చేయి {
+        అక్షరం buf[100], *d = buf;
+        *p = (శూన్య*)Get_Proc_చిరునామా(dll, (అక్షరం*)s);
+        *d++ = '_'; చేయి *d++ = *s; అయితే (*s++);
+        ఒకవేళ (0 == *p)
+            *p = (శూన్య*)Get_Proc_చిరునామా(dll, buf);
+        ఒకవేళ (0 == *p) {
             eput("MSVCRT_START.C: RUNTIME RELOCATION ERROR: '");
             eput(buf+1);
             eput("'\n");
             ExitProcess(-1);
         }
         ++p;
-    } while (*s);
+    } అయితే (*s);
 }
 
-#else
+#లేకపోతే
 # define rt_reloc()
-#endif
+#అయితే_ముగింపు
 
-int main(int argc, char **argv, char **env);
-void exit(int);
-void __set_app_type(int apptype);
+పూర్ణాంకం ప్రధాన(పూర్ణాంకం argc, అక్షరం **argv, అక్షరం **env);
+శూన్య నిష్క్రమించు(పూర్ణాంకం);
+శూన్య __set_app_type(పూర్ణాంకం apptype);
 
-typedef struct { int newmode; } _startupinfo;
-int __getmainargs(int *pargc, char ***pargv, char ***penv, int globb, _startupinfo*);
+రకనిర్వచనం నిర్మాణం { పూర్ణాంకం newmode; } _startupinfo;
+పూర్ణాంకం __getmainargs(పూర్ణాంకం *pargc, అక్షరం ***pargv, అక్షరం ***penv, పూర్ణాంకం globb, _startupinfo*);
 
-void _controlfp(unsigned a, unsigned b);
-#define _MCW_PC 0x00030000 // Precision Control
-#define _PC_53 0x00010000 // 53 bits
+శూన్య _controlfp(గుర్తులేని a, గుర్తులేని b);
+#నిర్వచించు _MCW_PC 0x00030000 // Precision Control
+#నిర్వచించు _PC_53 0x00010000 // 53 bits
 
-int __argc;
-char **__argv;
-char **environ;
-_startupinfo start_info = {0};
+పూర్ణాంకం __argc;
+అక్షరం **__argv;
+అక్షరం **environ;
+_startupinfo ప్రారంభం_info = {0};
 
-void mainCRTStartup(void)
+శూన్య mainCRTStartup(శూన్య)
 {
     rt_reloc();
-#if defined __i386__ || defined __x86_64__
+#ఒకవేళ defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
-#endif
+#అయితే_ముగింపు
     __set_app_type(1);
-    __getmainargs(&__argc, &__argv, &environ, 0, &start_info);
-    exit(main(__argc, __argv, environ));
+    __getmainargs(&__argc, &__argv, &environ, 0, &ప్రారంభం_info);
+    నిష్క్రమించు(ప్రధాన(__argc, __argv, environ));
 }
 
-#include <stdarg.h>
-#define size_t __SIZE_TYPE__
-int printf(const char *, ...);
-int _vsnprintf(char *, size_t, const char *, va_list);
+#అన్తర్భావ <stdarg.h>
+#నిర్వచించు కొలత_t __SIZE_TYPE__
+పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం *, ...);
+పూర్ణాంకం _vsnprintf(అక్షరం *, కొలత_t, స్థిరరాశి అక్షరం *, va_list);
 
 /* undefined on windows-11-arm64 */
-int vprintf(const char *format, va_list ap)
+పూర్ణాంకం vprintf(స్థిరరాశి అక్షరం *format, va_list ap)
 {
-    char buf[1000];
-    _vsnprintf(buf, sizeof buf, format, ap);
-    return printf("%s", buf);
+    అక్షరం buf[1000];
+    _vsnprintf(buf, పరిమాణం buf, format, ap);
+    తిరిగి రాయి("%s", buf);
 }
 
-void __main() {} /* for gcc */
-void _pei386_runtime_relocator(void) {} /* for gcc */
-void __chkstk(unsigned n) {} /* for clang */
+శూన్య __main() {} /* for gcc */
+శూన్య _pei386_runtime_relocator(శూన్య) {} /* for gcc */
+శూన్య __chkstk(గుర్తులేని n) {} /* for clang */

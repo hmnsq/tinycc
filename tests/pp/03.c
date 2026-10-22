@@ -1,15 +1,15 @@
-#define str(s) # s
-#define xstr(s) str(s)
-#define debug(s, t) printf("x" # s "= %d, x" # t "= %s", \
+#నిర్వచించు str(s) # s
+#నిర్వచించు xstr(s) str(s)
+#నిర్వచించు debug(s, t) రాయి("x" # s "= %d, x" # t "= %s", \
 	x ## s, x ## t)
-#define INCFILE(n) vers ## n
-#define glue(a, b) a ## b
-#define xglue(a, b) glue(a, b)
-#define HIGHLOW "hello"
-#define LOW LOW ", world"
+#నిర్వచించు INCFILE(n) vers ## n
+#నిర్వచించు glue(a, b) a ## b
+#నిర్వచించు xglue(a, b) glue(a, b)
+#నిర్వచించు HIGHLOW "hello"
+#నిర్వచించు దిగువ_2 దిగువ_2 ", world"
 debug(1, 2);
-fputs(str(strncmp("abc\0d", "abc", '\4') // this goes away
+fputs(str(అక్షరశ్రేణి_పోలిక("abc\0d", "abc", '\4') // this goes away
 	== 0) str(: @\n), s);
-\#include xstr(INCFILE(2).h)
-glue(HIGH, LOW);
-xglue(HIGH, LOW)
+\#అన్తర్భావ xstr(INCFILE(2).h)
+glue(ఎగువ_2, దిగువ_2);
+xglue(ఎగువ_2, దిగువ_2)

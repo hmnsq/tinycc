@@ -1,47 +1,47 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   printf("including\n");
-#include "18_include.h"
-#define  test_missing_nl
-   printf("done\n");
+   రాయి("including\n");
+#అన్తర్భావ "18_include.h"
+#నిర్వచించు  test_missing_nl
+   రాయి("done\n");
 
-#define  INC   "18_include.h"
+#నిర్వచించు  INC   "18_include.h"
 
-#ifdef __has_include
-#if defined __has_include
-#if __has_include("18_include.h")
-   printf("has_include\n");
-#endif
-#if __has_include(INC)
-   printf("has_include\n");
-#endif
-#if __has_include("not_found_18_include.h")
-   printf("has_include not found\n");
-#endif
-#endif
-#endif
+#నిర్వచితమైతే __has_include
+#ఒకవేళ defined __has_include
+#ఒకవేళ __has_include("18_include.h")
+   రాయి("has_include\n");
+#అయితే_ముగింపు
+#ఒకవేళ __has_include(INC)
+   రాయి("has_include\n");
+#అయితే_ముగింపు
+#ఒకవేళ __has_include("not_found_18_include.h")
+   రాయి("has_include not found\n");
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifdef __has_include_next
-#if defined __has_include_next
-#if __has_include_next("18_include.h")
-   printf("has_include_next\n");
-#endif
-#if __has_include_next(INC)
-   printf("has_include_next\n");
-#endif
-#if __has_include_next("not_found_18_include.h")
-   printf("has_include_next not found\n");
-#endif
-#endif
-#endif
+#నిర్వచితమైతే __has_include_next
+#ఒకవేళ defined __has_include_next
+#ఒకవేళ __has_include_next("18_include.h")
+   రాయి("has_include_next\n");
+#అయితే_ముగింపు
+#ఒకవేళ __has_include_next(INC)
+   రాయి("has_include_next\n");
+#అయితే_ముగింపు
+#ఒకవేళ __has_include_next("not_found_18_include.h")
+   రాయి("has_include_next not found\n");
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#include "18_include2.h"
-#include "./18_include2.h"
-#include "../tests2/18_include2.h"
+#అన్తర్భావ "18_include2.h"
+#అన్తర్భావ "./18_include2.h"
+#అన్తర్భావ "../tests2/18_include2.h"
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

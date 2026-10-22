@@ -4,15 +4,15 @@
 //
 //+---------------------------------------------------------------------------
 
-#include <windows.h>
+#అన్తర్భావ <windows.h>
 
-#define APPNAME "HELLO_WIN"
+#నిర్వచించు APPNAME "HELLO_WIN"
 
-char szAppName[] = APPNAME; // The name of this application
-char szTitle[]   = APPNAME; // The title bar text
-const char *pWindowText;
+అక్షరం szAppName[] = APPNAME; // The name of this application
+అక్షరం szTitle[]   = APPNAME; // The title bar text
+స్థిరరాశి అక్షరం *p_కిటికీ_పాఠ్యం;
 
-void CenterWindow(HWND hWnd);
+శూన్య Center_కిటికీ(HWND hWnd);
 
 //+---------------------------------------------------------------------------
 //
@@ -24,31 +24,31 @@ void CenterWindow(HWND hWnd);
 //  Arguments:  same as always.
 //----------------------------------------------------------------------------
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT సందేశం_2, WPARAM wParam, LPARAM lParam)
 {
-    switch (message) {
+    ఎంపిక (సందేశం_2) {
 
         // ----------------------- first and last
-        case WM_CREATE:
-            CenterWindow(hwnd);
-            break;
+        స్థితి WM_CREATE:
+            Center_కిటికీ(hwnd);
+            ఆపు;
 
-        case WM_DESTROY:
-            PostQuitMessage(0);
-            break;
+        స్థితి WM_DESTROY:
+            Post_Quit_సందేశం(0);
+            ఆపు;
 
         // ----------------------- get out of it...
-        case WM_RBUTTONUP:
-            DestroyWindow(hwnd);
-            break;
+        స్థితి WM_RBUTTONUP:
+            Destroy_కిటికీ(hwnd);
+            ఆపు;
 
-        case WM_KEYDOWN:
-            if (VK_ESCAPE == wParam)
-                DestroyWindow(hwnd);
-            break;
+        స్థితి WM_KEYDOWN:
+            ఒకవేళ (VK_ESCAPE == wParam)
+                Destroy_కిటికీ(hwnd);
+            ఆపు;
 
         // ----------------------- display our minimal info
-        case WM_PAINT:
+        స్థితి WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC         hdc;
@@ -56,19 +56,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
             hdc = BeginPaint(hwnd, &ps);
 
             GetClientRect(hwnd, &rc);
-            SetTextColor(hdc, RGB(240,240,96));
-            SetBkMode(hdc, TRANSPARENT);
-            DrawText(hdc, pWindowText, -1, &rc, DT_CENTER|DT_SINGLELINE|DT_VCENTER);
+            సమితి_పాఠ్యం_Color(hdc, RGB(240,240,96));
+            సమితి_Bk_బహుళకం(hdc, TRANSPARENT);
+            Draw_పాఠ్యం(hdc, p_కిటికీ_పాఠ్యం, -1, &rc, DT_CENTER|DT_SINGLELINE|DT_VCENTER);
 
-            EndPaint(hwnd, &ps);
-            break;
+            చివర_Paint(hwnd, &ps);
+            ఆపు;
         }
 
         // ----------------------- let windows do all other stuff
-        default:
-            return DefWindowProc(hwnd, message, wParam, lParam);
+        అప్రమేయ:
+            తిరిగి Def_కిటికీ_Proc(hwnd, సందేశం_2, wParam, lParam);
     }
-    return 0;
+    తిరిగి 0;
 }
 
 //+---------------------------------------------------------------------------
@@ -78,36 +78,36 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 //  Synopsis:   standard entrypoint for GUI Win32 apps
 //
 //----------------------------------------------------------------------------
-int APIENTRY WinMain(
+పూర్ణాంకం APIENTRY WinMain(
         HINSTANCE hInstance,
         HINSTANCE hPrevInstance,
-        LPSTR lpCmdLine,
-        int nCmdShow
+        LPSTR lp_Cmd_పంక్తి,
+        పూర్ణాంకం nCmdShow
         )
 {
-    MSG msg;
+    సందేశం_3 సందేశం;
     WNDCLASS wc;
     HWND hwnd;
 
-    pWindowText = lpCmdLine[0] ? lpCmdLine : "Hello Windows!";
+    p_కిటికీ_పాఠ్యం = lp_Cmd_పంక్తి[0] ? lp_Cmd_పంక్తి : "Hello Windows!";
 
     // Fill in window class structure with parameters that describe
     // the main window.
 
-    ZeroMemory(&wc, sizeof wc);
+    Zero_జ్ఞాపకం(&wc, పరిమాణం wc);
     wc.hInstance     = hInstance;
     wc.lpszClassName = szAppName;
     wc.lpfnWndProc   = (WNDPROC)WndProc;
     wc.style         = CS_DBLCLKS|CS_VREDRAW|CS_HREDRAW;
     wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-    wc.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
-    wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
+    wc.hIcon         = ఎక్కించు_Icon(ఖాళీ, IDI_APPLICATION);
+    wc.hCursor       = ఎక్కించు_Cursor(ఖాళీ, IDC_ARROW);
 
-    if (FALSE == RegisterClass(&wc))
-        return 0;
+    ఒకవేళ (FALSE == రిజిస్టరు_Class(&wc))
+        తిరిగి 0;
 
     // create the browser
-    hwnd = CreateWindow(
+    hwnd = Create_కిటికీ(
         szAppName,
         szTitle,
         WS_OVERLAPPEDWINDOW|WS_VISIBLE,
@@ -120,41 +120,41 @@ int APIENTRY WinMain(
         hInstance,
         0);
 
-    if (NULL == hwnd)
-        return 0;
+    ఒకవేళ (ఖాళీ == hwnd)
+        తిరిగి 0;
 
     // Main message loop:
-    while (GetMessage(&msg, NULL, 0, 0) > 0) {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+    అయితే (Get_సందేశం(&సందేశం, ఖాళీ, 0, 0) > 0) {
+        Translate_సందేశం(&సందేశం);
+        Dispatch_సందేశం(&సందేశం);
     }
 
-    return msg.wParam;
+    తిరిగి సందేశం.wParam;
 }
 
 //+---------------------------------------------------------------------------
 
 //+---------------------------------------------------------------------------
 
-void CenterWindow(HWND hwnd_self)
+శూన్య Center_కిటికీ(HWND hwnd_self)
 {
-    HWND hwnd_parent;
-    RECT rw_self, rc_parent, rw_parent;
-    int xpos, ypos;
+    HWND hwnd_మాతృ;
+    RECT rw_self, rc_మాతృ, rw_మాతృ;
+    పూర్ణాంకం xpos, ypos;
 
-    hwnd_parent = GetParent(hwnd_self);
-    if (NULL == hwnd_parent)
-        hwnd_parent = GetDesktopWindow();
+    hwnd_మాతృ = Get_మాతృ(hwnd_self);
+    ఒకవేళ (ఖాళీ == hwnd_మాతృ)
+        hwnd_మాతృ = Get_Desktop_కిటికీ();
 
-    GetWindowRect(hwnd_parent, &rw_parent);
-    GetClientRect(hwnd_parent, &rc_parent);
-    GetWindowRect(hwnd_self, &rw_self);
+    Get_కిటికీ_Rect(hwnd_మాతృ, &rw_మాతృ);
+    GetClientRect(hwnd_మాతృ, &rc_మాతృ);
+    Get_కిటికీ_Rect(hwnd_self, &rw_self);
 
-    xpos = rw_parent.left + (rc_parent.right + rw_self.left - rw_self.right) / 2;
-    ypos = rw_parent.top + (rc_parent.bottom + rw_self.top - rw_self.bottom) / 2;
+    xpos = rw_మాతృ.ఎడమ + (rc_మాతృ.కుడి + rw_self.ఎడమ - rw_self.కుడి) / 2;
+    ypos = rw_మాతృ.శిఖరం + (rc_మాతృ.bottom + rw_self.శిఖరం - rw_self.bottom) / 2;
 
-    SetWindowPos(
-        hwnd_self, NULL,
+    సమితి_కిటికీ_Pos(
+        hwnd_self, ఖాళీ,
         xpos, ypos, 0, 0,
         SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE
         );

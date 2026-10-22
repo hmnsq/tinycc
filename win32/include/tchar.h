@@ -3,1100 +3,1100 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
-#ifndef _INC_TCHAR
-#define _INC_TCHAR
+#నిర్వచితం_కాకపోతే _INC_TCHAR
+#నిర్వచించు _INC_TCHAR
 
-#ifdef _STRSAFE_H_INCLUDED_
-#error Need to include strsafe.h after tchar.h
-#endif
+#నిర్వచితమైతే _STRSAFE_H_INCLUDED_
+#దోషం Need గమ్యం include strsafe.h after tchar.h
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#define _ftcscat _tcscat
-#define _ftcschr _tcschr
-#define _ftcscpy _tcscpy
-#define _ftcscspn _tcscspn
-#define _ftcslen _tcslen
-#define _ftcsncat _tcsncat
-#define _ftcsncpy _tcsncpy
-#define _ftcspbrk _tcspbrk
-#define _ftcsrchr _tcsrchr
-#define _ftcsspn _tcsspn
-#define _ftcsstr _tcsstr
-#define _ftcstok _tcstok
+#నిర్వచించు _ftcscat _tcscat
+#నిర్వచించు _ftcschr _tcschr
+#నిర్వచించు _ftcscpy _tcscpy
+#నిర్వచించు _ftcscspn _tcscspn
+#నిర్వచించు _ftcslen _tcslen
+#నిర్వచించు _ftcsncat _tcsncat
+#నిర్వచించు _ftcsncpy _tcsncpy
+#నిర్వచించు _ftcspbrk _tcspbrk
+#నిర్వచించు _ftcsrchr _tcsrchr
+#నిర్వచించు _ftcsspn _tcsspn
+#నిర్వచించు _ftcsstr _tcsstr
+#నిర్వచించు _ftcstok _tcstok
 
-#define _ftcsdup _tcsdup
-#define _ftcsnset _tcsnset
-#define _ftcsrev _tcsrev
-#define _ftcsset _tcsset
+#నిర్వచించు _ftcsdup _tcsdup
+#నిర్వచించు _ftcsnset _tcsnset
+#నిర్వచించు _ftcsrev _tcsrev
+#నిర్వచించు _ftcsset _tcsset
 
-#define _ftcscmp _tcscmp
-#define _ftcsicmp _tcsicmp
-#define _ftcsnccmp _tcsnccmp
-#define _ftcsncmp _tcsncmp
-#define _ftcsncicmp _tcsncicmp
-#define _ftcsnicmp _tcsnicmp
+#నిర్వచించు _ftcscmp _tcscmp
+#నిర్వచించు _ftcsicmp _tcsicmp
+#నిర్వచించు _ftcsnccmp _tcsnccmp
+#నిర్వచించు _ftcsncmp _tcsncmp
+#నిర్వచించు _ftcsncicmp _tcsncicmp
+#నిర్వచించు _ftcsnicmp _tcsnicmp
 
-#define _ftcscoll _tcscoll
-#define _ftcsicoll _tcsicoll
-#define _ftcsnccoll _tcsnccoll
-#define _ftcsncoll _tcsncoll
-#define _ftcsncicoll _tcsncicoll
-#define _ftcsnicoll _tcsnicoll
+#నిర్వచించు _ftcscoll _tcscoll
+#నిర్వచించు _ftcsicoll _tcsicoll
+#నిర్వచించు _ftcsnccoll _tcsnccoll
+#నిర్వచించు _ftcsncoll _tcsncoll
+#నిర్వచించు _ftcsncicoll _tcsncicoll
+#నిర్వచించు _ftcsnicoll _tcsnicoll
 
-#define _ftcsclen _tcsclen
-#define _ftcsnccat _tcsnccat
-#define _ftcsnccpy _tcsnccpy
-#define _ftcsncset _tcsncset
+#నిర్వచించు _ftcsclen _tcsclen
+#నిర్వచించు _ftcsnccat _tcsnccat
+#నిర్వచించు _ftcsnccpy _tcsnccpy
+#నిర్వచించు _ftcsncset _tcsncset
 
-#define _ftcsdec _tcsdec
-#define _ftcsinc _tcsinc
-#define _ftcsnbcnt _tcsnbcnt
-#define _ftcsnccnt _tcsnccnt
-#define _ftcsnextc _tcsnextc
-#define _ftcsninc _tcsninc
-#define _ftcsspnp _tcsspnp
+#నిర్వచించు _ftcsdec _tcsdec
+#నిర్వచించు _ftcsinc _tcsinc
+#నిర్వచించు _ftcsnbcnt _tcsnbcnt
+#నిర్వచించు _ftcsnccnt _tcsnccnt
+#నిర్వచించు _ftcsnextc _tcsnextc
+#నిర్వచించు _ftcsninc _tcsninc
+#నిర్వచించు _ftcsspnp _tcsspnp
 
-#define _ftcslwr _tcslwr
-#define _ftcsupr _tcsupr
+#నిర్వచించు _ftcslwr _tcslwr
+#నిర్వచించు _ftcsupr _tcsupr
 
-#define _ftclen _tclen
-#define _ftccpy _tccpy
-#define _ftccmp _tccmp
+#నిర్వచించు _ftclen _tclen
+#నిర్వచించు _ftccpy _tccpy
+#నిర్వచించు _ftccmp _tccmp
 
-#ifndef _CONST_RETURN
-#ifdef __cplusplus
-#define _CONST_RETURN const
-#define _CRT_CONST_CORRECT_OVERLOADS
-#else
-#define _CONST_RETURN
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _CONST_RETURN
+#నిర్వచితమైతే __cplusplus
+#నిర్వచించు _CONST_RETURN స్థిరరాశి
+#నిర్వచించు _CRT_CONST_CORRECT_OVERLOADS
+#లేకపోతే
+#నిర్వచించు _CONST_RETURN
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#define _WConst_return _CONST_RETURN
+#నిర్వచించు _WConst_return _CONST_RETURN
 
-#ifdef _UNICODE
+#నిర్వచితమైతే _UNICODE
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#include <wchar.h>
+#అన్తర్భావ <wchar.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifndef _WCTYPE_T_DEFINED
-#define _WCTYPE_T_DEFINED
-  typedef unsigned short wint_t;
-  typedef unsigned short wctype_t;
-#endif
+#నిర్వచితం_కాకపోతే _WCTYPE_T_DEFINED
+#నిర్వచించు _WCTYPE_T_DEFINED
+  రకనిర్వచనం గుర్తులేని పొట్టి wint_t;
+  రకనిర్వచనం గుర్తులేని పొట్టి wctype_t;
+#అయితే_ముగింపు
 
-#ifndef __TCHAR_DEFINED
-#define __TCHAR_DEFINED
-  typedef wchar_t _TCHAR;
-  typedef wchar_t _TSCHAR;
-  typedef wchar_t _TUCHAR;
-  typedef wchar_t _TXCHAR;
-  typedef wint_t _TINT;
-#endif
+#నిర్వచితం_కాకపోతే __TCHAR_DEFINED
+#నిర్వచించు __TCHAR_DEFINED
+  రకనిర్వచనం wchar_t _TCHAR;
+  రకనిర్వచనం wchar_t _TSCHAR;
+  రకనిర్వచనం wchar_t _TUCHAR;
+  రకనిర్వచనం wchar_t _TXCHAR;
+  రకనిర్వచనం wint_t _TINT;
+#అయితే_ముగింపు
 
-#ifndef _TCHAR_DEFINED
-#define _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef wchar_t TCHAR;
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _TCHAR_DEFINED
+#నిర్వచించు _TCHAR_DEFINED
+#నిర్వచితం_కాకపోతే	NO_OLDNAMES
+  రకనిర్వచనం wchar_t TCHAR;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#define _TEOF WEOF
+#నిర్వచించు _TEOF WEOF
 
-#define __T(x) L##x
+#నిర్వచించు __T(x) L##x
 
-#define _tmain wmain
-#define _tWinMain wWinMain
-#define _tenviron _wenviron
-#define __targv __wargv
+#నిర్వచించు _tmain wmain
+#నిర్వచించు _tWinMain wWinMain
+#నిర్వచించు _tenviron _wenviron
+#నిర్వచించు __targv __wargv
 
-#define _tprintf wprintf
-#define _tprintf_l _wprintf_l
-#define _tprintf_p _wprintf_p
-#define _tprintf_p_l _wprintf_p_l
-#define _tcprintf _cwprintf
-#define _tcprintf_l _cwprintf_l
-#define _tcprintf_p _cwprintf_p
-#define _tcprintf_p_l _cwprintf_p_l
-#define _vtcprintf _vcwprintf
-#define _vtcprintf_l _vcwprintf_l
-#define _vtcprintf_p _vcwprintf_p
-#define _vtcprintf_p_l _vcwprintf_p_l
-#define _ftprintf fwprintf
-#define _ftprintf_l _fwprintf_l
-#define _ftprintf_p _fwprintf_p
-#define _ftprintf_p_l _fwprintf_p_l
-#define _stprintf swprintf
-#define _stprintf_l __swprintf_l
-#define _stprintf_p _swprintf_p
-#define _stprintf_p_l _swprintf_p_l
-#define _sctprintf _scwprintf
-#define _sctprintf_l _scwprintf_l
-#define _sctprintf_p _scwprintf_p
-#define _sctprintf_p_l _scwprintf_p_l
-#define _sntprintf _snwprintf
-#define _sntprintf_l _snwprintf_l
-#define _vtprintf vwprintf
-#define _vtprintf_l _vwprintf_l
-#define _vtprintf_p _vwprintf_p
-#define _vtprintf_p_l _vwprintf_p_l
-#define _vftprintf vfwprintf
-#define _vftprintf_l _vfwprintf_l
-#define _vftprintf_p _vfwprintf_p
-#define _vftprintf_p_l _vfwprintf_p_l
-#define _vstprintf vswprintf
-#define _vstprintf_l _vswprintf_l
-#define _vstprintf_p _vswprintf_p
-#define _vstprintf_p_l _vswprintf_p_l
-#define _vsctprintf _vscwprintf
-#define _vsctprintf_l _vscwprintf_l
-#define _vsctprintf_p _vscwprintf_p
-#define _vsctprintf_p_l _vscwprintf_p_l
-#define _vsntprintf _vsnwprintf
-#define _vsntprintf_l _vsnwprintf_l
+#నిర్వచించు _tprintf wprintf
+#నిర్వచించు _tprintf_l _wprintf_l
+#నిర్వచించు _tprintf_p _wprintf_p
+#నిర్వచించు _tprintf_p_l _wprintf_p_l
+#నిర్వచించు _tcprintf _cwprintf
+#నిర్వచించు _tcprintf_l _cwprintf_l
+#నిర్వచించు _tcprintf_p _cwprintf_p
+#నిర్వచించు _tcprintf_p_l _cwprintf_p_l
+#నిర్వచించు _vtcprintf _vcwprintf
+#నిర్వచించు _vtcprintf_l _vcwprintf_l
+#నిర్వచించు _vtcprintf_p _vcwprintf_p
+#నిర్వచించు _vtcprintf_p_l _vcwprintf_p_l
+#నిర్వచించు _ftprintf fwprintf
+#నిర్వచించు _ftprintf_l _fwprintf_l
+#నిర్వచించు _ftprintf_p _fwprintf_p
+#నిర్వచించు _ftprintf_p_l _fwprintf_p_l
+#నిర్వచించు _stprintf swprintf
+#నిర్వచించు _stprintf_l __swprintf_l
+#నిర్వచించు _stprintf_p _swprintf_p
+#నిర్వచించు _stprintf_p_l _swprintf_p_l
+#నిర్వచించు _sctprintf _scwprintf
+#నిర్వచించు _sctprintf_l _scwprintf_l
+#నిర్వచించు _sctprintf_p _scwprintf_p
+#నిర్వచించు _sctprintf_p_l _scwprintf_p_l
+#నిర్వచించు _sntprintf _snwprintf
+#నిర్వచించు _sntprintf_l _snwprintf_l
+#నిర్వచించు _vtprintf vwprintf
+#నిర్వచించు _vtprintf_l _vwprintf_l
+#నిర్వచించు _vtprintf_p _vwprintf_p
+#నిర్వచించు _vtprintf_p_l _vwprintf_p_l
+#నిర్వచించు _vftprintf vfwprintf
+#నిర్వచించు _vftprintf_l _vfwprintf_l
+#నిర్వచించు _vftprintf_p _vfwprintf_p
+#నిర్వచించు _vftprintf_p_l _vfwprintf_p_l
+#నిర్వచించు _vstprintf vswprintf
+#నిర్వచించు _vstprintf_l _vswprintf_l
+#నిర్వచించు _vstprintf_p _vswprintf_p
+#నిర్వచించు _vstprintf_p_l _vswprintf_p_l
+#నిర్వచించు _vsctprintf _vscwprintf
+#నిర్వచించు _vsctprintf_l _vscwprintf_l
+#నిర్వచించు _vsctprintf_p _vscwprintf_p
+#నిర్వచించు _vsctprintf_p_l _vscwprintf_p_l
+#నిర్వచించు _vsntprintf _vsnwprintf
+#నిర్వచించు _vsntprintf_l _vsnwprintf_l
 
-#define _tscanf wscanf
-#define _tscanf_l _wscanf_l
-#define _tcscanf _cwscanf
-#define _tcscanf_l _cwscanf_l
-#define _ftscanf fwscanf
-#define _ftscanf_l _fwscanf_l
-#define _stscanf swscanf
-#define _stscanf_l _swscanf_l
-#define _sntscanf _snwscanf
-#define _sntscanf_l _snwscanf_l
+#నిర్వచించు _tscanf wscanf
+#నిర్వచించు _tscanf_l _wscanf_l
+#నిర్వచించు _tcscanf _cwscanf
+#నిర్వచించు _tcscanf_l _cwscanf_l
+#నిర్వచించు _ftscanf fwscanf
+#నిర్వచించు _ftscanf_l _fwscanf_l
+#నిర్వచించు _stscanf swscanf
+#నిర్వచించు _stscanf_l _swscanf_l
+#నిర్వచించు _sntscanf _snwscanf
+#నిర్వచించు _sntscanf_l _snwscanf_l
 
-#define _fgettc fgetwc
-#define _fgettc_nolock _fgetwc_nolock
-#define _fgettchar _fgetwchar
-#define _fgetts fgetws
-#define _fputtc fputwc
-#define _fputtc_nolock _fputwc_nolock
-#define _fputtchar _fputwchar
-#define _fputts fputws
-#define _cputts _cputws
-#define _cgetts _cgetws
-#define _gettc getwc
-#define _gettc_nolock _getwc_nolock
-#define _gettch _getwch
-#define _gettch_nolock _getwch_nolock
-#define _gettche _getwche
-#define _gettche_nolock _getwche_nolock
-#define _gettchar getwchar
-#define _gettchar_nolock _getwchar_nolock
-#define _getts _getws
-#define _puttc putwc
-#define _puttc_nolock _putwc_nolock
-#define _puttchar putwchar
-#define _puttchar_nolock _putwchar_nolock
-#define _puttch _putwch
-#define _puttch_nolock _putwch_nolock
-#define _putts _putws
-#define _ungettc ungetwc
-#define _ungettc_nolock _ungetwc_nolock
-#define _ungettch _ungetwch
-#define _ungettch_nolock _ungetwch_nolock
+#నిర్వచించు _fgettc fgetwc
+#నిర్వచించు _fgettc_nolock _fgetwc_nolock
+#నిర్వచించు _fgettchar _fgetwchar
+#నిర్వచించు _fgetts fgetws
+#నిర్వచించు _fputtc fputwc
+#నిర్వచించు _fputtc_nolock _fputwc_nolock
+#నిర్వచించు _fputtchar _fputwchar
+#నిర్వచించు _fputts fputws
+#నిర్వచించు _cputts _cputws
+#నిర్వచించు _cgetts _cgetws
+#నిర్వచించు _gettc getwc
+#నిర్వచించు _gettc_nolock _getwc_nolock
+#నిర్వచించు _gettch _getwch
+#నిర్వచించు _gettch_nolock _getwch_nolock
+#నిర్వచించు _gettche _getwche
+#నిర్వచించు _gettche_nolock _getwche_nolock
+#నిర్వచించు _gettchar getwchar
+#నిర్వచించు _gettchar_nolock _getwchar_nolock
+#నిర్వచించు _getts _getws
+#నిర్వచించు _puttc putwc
+#నిర్వచించు _puttc_nolock _putwc_nolock
+#నిర్వచించు _puttchar putwchar
+#నిర్వచించు _puttchar_nolock _putwchar_nolock
+#నిర్వచించు _puttch _putwch
+#నిర్వచించు _puttch_nolock _putwch_nolock
+#నిర్వచించు _putts _putws
+#నిర్వచించు _ungettc ungetwc
+#నిర్వచించు _ungettc_nolock _ungetwc_nolock
+#నిర్వచించు _ungettch _ungetwch
+#నిర్వచించు _ungettch_nolock _ungetwch_nolock
 
-#define _tcstod wcstod
-#define _tcstol wcstol
-#define _tcstoul wcstoul
-#define _tcstoi64 _wcstoi64
-#define _tcstoui64 _wcstoui64
-#define _tstof _wtof
-#define _tstol _wtol
-#define _tstoi _wtoi
-#define _tstoi64 _wtoi64
-#define _tcstod_l _wcstod_l
-#define _tcstol_l _wcstol_l
-#define _tcstoul_l _wcstoul_l
-#define _tcstoi64_l _wcstoi64_l
-#define _tcstoui64_l _wcstoui64_l
-#define _tstof_l _wtof_l
-#define _tstol_l _wtol_l
-#define _tstoi_l _wtoi_l
-#define _tstoi64_l _wtoi64_l
+#నిర్వచించు _tcstod wcstod
+#నిర్వచించు _tcstol wcstol
+#నిర్వచించు _tcstoul wcstoul
+#నిర్వచించు _tcstoi64 _wcstoi64
+#నిర్వచించు _tcstoui64 _wcstoui64
+#నిర్వచించు _tstof _wtof
+#నిర్వచించు _tstol _wtol
+#నిర్వచించు _tstoi _wtoi
+#నిర్వచించు _tstoi64 _wtoi64
+#నిర్వచించు _tcstod_l _wcstod_l
+#నిర్వచించు _tcstol_l _wcstol_l
+#నిర్వచించు _tcstoul_l _wcstoul_l
+#నిర్వచించు _tcstoi64_l _wcstoi64_l
+#నిర్వచించు _tcstoui64_l _wcstoui64_l
+#నిర్వచించు _tstof_l _wtof_l
+#నిర్వచించు _tstol_l _wtol_l
+#నిర్వచించు _tstoi_l _wtoi_l
+#నిర్వచించు _tstoi64_l _wtoi64_l
 
-#define _itot _itow
-#define _ltot _ltow
-#define _ultot _ultow
-#define _ttoi _wtoi
-#define _ttol _wtol
+#నిర్వచించు _itot _itow
+#నిర్వచించు _ltot _ltow
+#నిర్వచించు _ultot _ultow
+#నిర్వచించు _ttoi _wtoi
+#నిర్వచించు _ttol _wtol
 
-#define _ttoi64 _wtoi64
-#define _i64tot _i64tow
-#define _ui64tot _ui64tow
+#నిర్వచించు _ttoi64 _wtoi64
+#నిర్వచించు _i64tot _i64tow
+#నిర్వచించు _ui64tot _ui64tow
 
-#define _tcscat wcscat
-#define _tcschr wcschr
-#define _tcscpy wcscpy
-#define _tcscspn wcscspn
-#define _tcslen wcslen
-#define _tcsnlen wcsnlen
-#define _tcsncat wcsncat
-#define _tcsncat_l _wcsncat_l
-#define _tcsncpy wcsncpy
-#define _tcsncpy_l _wcsncpy_l
-#define _tcspbrk wcspbrk
-#define _tcsrchr wcsrchr
-#define _tcsspn wcsspn
-#define _tcsstr wcsstr
-#define _tcstok wcstok
-#define _tcstok_l _wcstok_l
-#define _tcserror _wcserror
-#define __tcserror __wcserror
+#నిర్వచించు _tcscat wcscat
+#నిర్వచించు _tcschr wcschr
+#నిర్వచించు _tcscpy wcscpy
+#నిర్వచించు _tcscspn wcscspn
+#నిర్వచించు _tcslen wcslen
+#నిర్వచించు _tcsnlen wcsnlen
+#నిర్వచించు _tcsncat wcsncat
+#నిర్వచించు _tcsncat_l _wcsncat_l
+#నిర్వచించు _tcsncpy wcsncpy
+#నిర్వచించు _tcsncpy_l _wcsncpy_l
+#నిర్వచించు _tcspbrk wcspbrk
+#నిర్వచించు _tcsrchr wcsrchr
+#నిర్వచించు _tcsspn wcsspn
+#నిర్వచించు _tcsstr wcsstr
+#నిర్వచించు _tcstok wcstok
+#నిర్వచించు _tcstok_l _wcstok_l
+#నిర్వచించు _tcserror _wcserror
+#నిర్వచించు __tcserror __wcserror
 
-#define _tcsdup _wcsdup
-#define _tcsnset _wcsnset
-#define _tcsnset_l _wcsnset_l
-#define _tcsrev _wcsrev
-#define _tcsset _wcsset
-#define _tcsset_l _wcsset_l
+#నిర్వచించు _tcsdup _wcsdup
+#నిర్వచించు _tcsnset _wcsnset
+#నిర్వచించు _tcsnset_l _wcsnset_l
+#నిర్వచించు _tcsrev _wcsrev
+#నిర్వచించు _tcsset _wcsset
+#నిర్వచించు _tcsset_l _wcsset_l
 
-#define _tcscmp wcscmp
-#define _tcsicmp _wcsicmp
-#define _tcsicmp_l _wcsicmp_l
-#define _tcsnccmp wcsncmp
-#define _tcsncmp wcsncmp
-#define _tcsncicmp _wcsnicmp
-#define _tcsncicmp_l _wcsnicmp_l
-#define _tcsnicmp _wcsnicmp
-#define _tcsnicmp_l _wcsnicmp_l
+#నిర్వచించు _tcscmp wcscmp
+#నిర్వచించు _tcsicmp _wcsicmp
+#నిర్వచించు _tcsicmp_l _wcsicmp_l
+#నిర్వచించు _tcsnccmp wcsncmp
+#నిర్వచించు _tcsncmp wcsncmp
+#నిర్వచించు _tcsncicmp _wcsnicmp
+#నిర్వచించు _tcsncicmp_l _wcsnicmp_l
+#నిర్వచించు _tcsnicmp _wcsnicmp
+#నిర్వచించు _tcsnicmp_l _wcsnicmp_l
 
-#define _tcscoll wcscoll
-#define _tcscoll_l _wcscoll_l
-#define _tcsicoll _wcsicoll
-#define _tcsicoll_l _wcsicoll_l
-#define _tcsnccoll _wcsncoll
-#define _tcsnccoll_l _wcsncoll_l
-#define _tcsncoll _wcsncoll
-#define _tcsncoll_l _wcsncoll_l
-#define _tcsncicoll _wcsnicoll
-#define _tcsncicoll_l _wcsnicoll_l
-#define _tcsnicoll _wcsnicoll
-#define _tcsnicoll_l _wcsnicoll_l
+#నిర్వచించు _tcscoll wcscoll
+#నిర్వచించు _tcscoll_l _wcscoll_l
+#నిర్వచించు _tcsicoll _wcsicoll
+#నిర్వచించు _tcsicoll_l _wcsicoll_l
+#నిర్వచించు _tcsnccoll _wcsncoll
+#నిర్వచించు _tcsnccoll_l _wcsncoll_l
+#నిర్వచించు _tcsncoll _wcsncoll
+#నిర్వచించు _tcsncoll_l _wcsncoll_l
+#నిర్వచించు _tcsncicoll _wcsnicoll
+#నిర్వచించు _tcsncicoll_l _wcsnicoll_l
+#నిర్వచించు _tcsnicoll _wcsnicoll
+#నిర్వచించు _tcsnicoll_l _wcsnicoll_l
 
-#define _texecl _wexecl
-#define _texecle _wexecle
-#define _texeclp _wexeclp
-#define _texeclpe _wexeclpe
-#define _texecv _wexecv
-#define _texecve _wexecve
-#define _texecvp _wexecvp
-#define _texecvpe _wexecvpe
+#నిర్వచించు _texecl _wexecl
+#నిర్వచించు _texecle _wexecle
+#నిర్వచించు _texeclp _wexeclp
+#నిర్వచించు _texeclpe _wexeclpe
+#నిర్వచించు _texecv _wexecv
+#నిర్వచించు _texecve _wexecve
+#నిర్వచించు _texecvp _wexecvp
+#నిర్వచించు _texecvpe _wexecvpe
 
-#define _tspawnl _wspawnl
-#define _tspawnle _wspawnle
-#define _tspawnlp _wspawnlp
-#define _tspawnlpe _wspawnlpe
-#define _tspawnv _wspawnv
-#define _tspawnve _wspawnve
-#define _tspawnvp _wspawnvp
-#define _tspawnvp _wspawnvp
-#define _tspawnvpe _wspawnvpe
+#నిర్వచించు _tspawnl _wspawnl
+#నిర్వచించు _tspawnle _wspawnle
+#నిర్వచించు _tspawnlp _wspawnlp
+#నిర్వచించు _tspawnlpe _wspawnlpe
+#నిర్వచించు _tspawnv _wspawnv
+#నిర్వచించు _tspawnve _wspawnve
+#నిర్వచించు _tspawnvp _wspawnvp
+#నిర్వచించు _tspawnvp _wspawnvp
+#నిర్వచించు _tspawnvpe _wspawnvpe
 
-#define _tsystem _wsystem
+#నిర్వచించు _tsystem _wsystem
 
-#define _tasctime _wasctime
-#define _tctime _wctime
-#define _tctime32 _wctime32
-#define _tctime64 _wctime64
-#define _tstrdate _wstrdate
-#define _tstrtime _wstrtime
-#define _tutime _wutime
-#define _tutime32 _wutime32
-#define _tutime64 _wutime64
-#define _tcsftime wcsftime
-#define _tcsftime_l _wcsftime_l
+#నిర్వచించు _tasctime _wasctime
+#నిర్వచించు _tctime _wctime
+#నిర్వచించు _tctime32 _wctime32
+#నిర్వచించు _tctime64 _wctime64
+#నిర్వచించు _tstrdate _wstrdate
+#నిర్వచించు _tstrtime _wstrtime
+#నిర్వచించు _tutime _wutime
+#నిర్వచించు _tutime32 _wutime32
+#నిర్వచించు _tutime64 _wutime64
+#నిర్వచించు _tcsftime wcsftime
+#నిర్వచించు _tcsftime_l _wcsftime_l
 
-#define _tchdir _wchdir
-#define _tgetcwd _wgetcwd
-#define _tgetdcwd _wgetdcwd
-#define _tgetdcwd_nolock _wgetdcwd_nolock
-#define _tmkdir _wmkdir
-#define _trmdir _wrmdir
+#నిర్వచించు _tchdir _wchdir
+#నిర్వచించు _tgetcwd _wgetcwd
+#నిర్వచించు _tgetdcwd _wgetdcwd
+#నిర్వచించు _tgetdcwd_nolock _wgetdcwd_nolock
+#నిర్వచించు _tmkdir _wmkdir
+#నిర్వచించు _trmdir _wrmdir
 
-#define _tfullpath _wfullpath
-#define _tgetenv _wgetenv
-#define _tmakepath _wmakepath
-#define _tpgmptr _wpgmptr
-#define _get_tpgmptr _get_wpgmptr
-#define _tputenv _wputenv
-#define _tsearchenv _wsearchenv
-#define _tsplitpath _wsplitpath
+#నిర్వచించు _tfullpath _wfullpath
+#నిర్వచించు _tgetenv _wgetenv
+#నిర్వచించు _tmakepath _wmakepath
+#నిర్వచించు _tpgmptr _wpgmptr
+#నిర్వచించు _get_tpgmptr _get_wpgmptr
+#నిర్వచించు _tputenv _wputenv
+#నిర్వచించు _tsearchenv _wsearchenv
+#నిర్వచించు _tsplitpath _wsplitpath
 
-#define _tfdopen _wfdopen
-#define _tfsopen _wfsopen
-#define _tfopen _wfopen
-#define _tfreopen _wfreopen
-#define _tperror _wperror
-#define _tpopen _wpopen
-#define _ttempnam _wtempnam
-#define _ttmpnam _wtmpnam
+#నిర్వచించు _tfdopen _wfdopen
+#నిర్వచించు _tfsopen _wfsopen
+#నిర్వచించు _tfopen _wfopen
+#నిర్వచించు _tfreopen _wfreopen
+#నిర్వచించు _tperror _wperror
+#నిర్వచించు _tpopen _wpopen
+#నిర్వచించు _ttempnam _wtempnam
+#నిర్వచించు _ttmpnam _wtmpnam
 
-#define _taccess _waccess
-#define _tchmod _wchmod
-#define _tcreat _wcreat
-#define _tfindfirst _wfindfirst
-#define _tfindfirst32 _wfindfirst32
-#define _tfindfirst64 _wfindfirst64
-#define _tfindfirsti64 _wfindfirsti64
-#define _tfindfirst32i64 _wfindfirst32i64
-#define _tfindfirst64i32 _wfindfirst64i32
-#define _tfindnext _wfindnext
-#define _tfindnext32 _wfindnext32
-#define _tfindnext64 _wfindnext64
-#define _tfindnexti64 _wfindnexti64
-#define _tfindnext32i64 _wfindnext32i64
-#define _tfindnext64i32 _wfindnext64i32
-#define _tmktemp _wmktemp
-#define _topen _wopen
-#define _tremove _wremove
-#define _trename _wrename
-#define _tsopen _wsopen
-#define _tunlink _wunlink
+#నిర్వచించు _taccess _waccess
+#నిర్వచించు _tchmod _wchmod
+#నిర్వచించు _tcreat _wcreat
+#నిర్వచించు _tfindfirst _wfindfirst
+#నిర్వచించు _tfindfirst32 _wfindfirst32
+#నిర్వచించు _tfindfirst64 _wfindfirst64
+#నిర్వచించు _tfindfirsti64 _wfindfirsti64
+#నిర్వచించు _tfindfirst32i64 _wfindfirst32i64
+#నిర్వచించు _tfindfirst64i32 _wfindfirst64i32
+#నిర్వచించు _tfindnext _wfindnext
+#నిర్వచించు _tfindnext32 _wfindnext32
+#నిర్వచించు _tfindnext64 _wfindnext64
+#నిర్వచించు _tfindnexti64 _wfindnexti64
+#నిర్వచించు _tfindnext32i64 _wfindnext32i64
+#నిర్వచించు _tfindnext64i32 _wfindnext64i32
+#నిర్వచించు _tmktemp _wmktemp
+#నిర్వచించు _topen _wopen
+#నిర్వచించు _tremove _wremove
+#నిర్వచించు _trename _wrename
+#నిర్వచించు _tsopen _wsopen
+#నిర్వచించు _tunlink _wunlink
 
-#define _tfinddata_t _wfinddata_t
-#define _tfinddata32_t _wfinddata32_t
-#define _tfinddata64_t _wfinddata64_t
-#define _tfinddatai64_t _wfinddatai64_t
-#define _tfinddata32i64_t _wfinddata32i64_t
-#define _tfinddata64i32_t _wfinddata64i32_t
+#నిర్వచించు _tfinddata_t _wfinddata_t
+#నిర్వచించు _tfinddata32_t _wfinddata32_t
+#నిర్వచించు _tfinddata64_t _wfinddata64_t
+#నిర్వచించు _tfinddatai64_t _wfinddatai64_t
+#నిర్వచించు _tfinddata32i64_t _wfinddata32i64_t
+#నిర్వచించు _tfinddata64i32_t _wfinddata64i32_t
 
-#define _tstat _wstat
-#define _tstat32 _wstat32
-#define _tstat32i64 _wstat32i64
-#define _tstat64 _wstat64
-#define _tstat64i32 _wstat64i32
-#define _tstati64 _wstati64
+#నిర్వచించు _tstat _wstat
+#నిర్వచించు _tstat32 _wstat32
+#నిర్వచించు _tstat32i64 _wstat32i64
+#నిర్వచించు _tstat64 _wstat64
+#నిర్వచించు _tstat64i32 _wstat64i32
+#నిర్వచించు _tstati64 _wstati64
 
-#define _tsetlocale _wsetlocale
+#నిర్వచించు _tsetlocale _wsetlocale
 
-#define _tcsclen wcslen
-#define _tcscnlen wcsnlen
-#define _tcsclen_l(_String,_Locale) wcslen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) wcsnlen_l((_String),(_Max_count))
-#define _tcsnccat wcsncat
-#define _tcsnccat_l _wcsncat_l
-#define _tcsnccpy wcsncpy
-#define _tcsnccpy_l _wcsncpy_l
-#define _tcsncset _wcsnset
+#నిర్వచించు _tcsclen wcslen
+#నిర్వచించు _tcscnlen wcsnlen
+#నిర్వచించు _tcsclen_l(_String,_Locale) wcslen(_String)
+#నిర్వచించు _tcscnlen_l(_String,Max_లెక్క_2,_Locale) wcsnlen_l((_String),(Max_లెక్క_2))
+#నిర్వచించు _tcsnccat wcsncat
+#నిర్వచించు _tcsnccat_l _wcsncat_l
+#నిర్వచించు _tcsnccpy wcsncpy
+#నిర్వచించు _tcsnccpy_l _wcsncpy_l
+#నిర్వచించు _tcsncset _wcsnset
 
-#define _tcsdec _wcsdec
-#define _tcsinc _wcsinc
-#define _tcsnbcnt _wcsncnt
-#define _tcsnccnt _wcsncnt
-#define _tcsnextc _wcsnextc
-#define _tcsninc _wcsninc
-#define _tcsspnp _wcsspnp
+#నిర్వచించు _tcsdec _wcsdec
+#నిర్వచించు _tcsinc _wcsinc
+#నిర్వచించు _tcsnbcnt _wcsncnt
+#నిర్వచించు _tcsnccnt _wcsncnt
+#నిర్వచించు _tcsnextc _wcsnextc
+#నిర్వచించు _tcsninc _wcsninc
+#నిర్వచించు _tcsspnp _wcsspnp
 
-#define _tcslwr _wcslwr
-#define _tcslwr_l _wcslwr_l
-#define _tcsupr _wcsupr
-#define _tcsupr_l _wcsupr_l
-#define _tcsxfrm wcsxfrm
-#define _tcsxfrm_l _wcsxfrm_l
+#నిర్వచించు _tcslwr _wcslwr
+#నిర్వచించు _tcslwr_l _wcslwr_l
+#నిర్వచించు _tcsupr _wcsupr
+#నిర్వచించు _tcsupr_l _wcsupr_l
+#నిర్వచించు _tcsxfrm wcsxfrm
+#నిర్వచించు _tcsxfrm_l _wcsxfrm_l
 
-#define _tclen(_pc) (1)
-#define _tccpy(_pc1,_cpc2) ((*(_pc1) = *(_cpc2)))
-#define _tccmp(_cpc1,_cpc2) ((*(_cpc1))-(*(_cpc2)))
+#నిర్వచించు _tclen(_pc) (1)
+#నిర్వచించు _tccpy(_pc1,_cpc2) ((*(_pc1) = *(_cpc2)))
+#నిర్వచించు _tccmp(_cpc1,_cpc2) ((*(_cpc1))-(*(_cpc2)))
 
-#define _istalnum iswalnum
-#define _istalnum_l _iswalnum_l
-#define _istalpha iswalpha
-#define _istalpha_l _iswalpha_l
-#define _istascii iswascii
-#define _istcntrl iswcntrl
-#define _istcntrl_l _iswcntrl_l
-#define _istdigit iswdigit
-#define _istdigit_l _iswdigit_l
-#define _istgraph iswgraph
-#define _istgraph_l _iswgraph_l
-#define _istlower iswlower
-#define _istlower_l _iswlower_l
-#define _istprint iswprint
-#define _istprint_l _iswprint_l
-#define _istpunct iswpunct
-#define _istpunct_l _iswpunct_l
-#define _istspace iswspace
-#define _istspace_l _iswspace_l
-#define _istupper iswupper
-#define _istupper_l _iswupper_l
-#define _istxdigit iswxdigit
-#define _istxdigit_l _iswxdigit_l
+#నిర్వచించు _istalnum iswalnum
+#నిర్వచించు _istalnum_l _iswalnum_l
+#నిర్వచించు _istalpha iswalpha
+#నిర్వచించు _istalpha_l _iswalpha_l
+#నిర్వచించు _istascii iswascii
+#నిర్వచించు _istcntrl iswcntrl
+#నిర్వచించు _istcntrl_l _iswcntrl_l
+#నిర్వచించు _istdigit iswdigit
+#నిర్వచించు _istdigit_l _iswdigit_l
+#నిర్వచించు _istgraph iswgraph
+#నిర్వచించు _istgraph_l _iswgraph_l
+#నిర్వచించు _istlower iswlower
+#నిర్వచించు _istlower_l _iswlower_l
+#నిర్వచించు _istprint iswprint
+#నిర్వచించు _istprint_l _iswprint_l
+#నిర్వచించు _istpunct iswpunct
+#నిర్వచించు _istpunct_l _iswpunct_l
+#నిర్వచించు _istspace iswspace
+#నిర్వచించు _istspace_l _iswspace_l
+#నిర్వచించు _istupper iswupper
+#నిర్వచించు _istupper_l _iswupper_l
+#నిర్వచించు _istxdigit iswxdigit
+#నిర్వచించు _istxdigit_l _iswxdigit_l
 
-#define _totupper towupper
-#define _totupper_l _towupper_l
-#define _totlower towlower
-#define _totlower_l _towlower_l
+#నిర్వచించు _totupper towupper
+#నిర్వచించు _totupper_l _towupper_l
+#నిర్వచించు _totlower towlower
+#నిర్వచించు _totlower_l _towlower_l
 
-#define _istlegal(_Char) (1)
-#define _istlead(_Char) (0)
-#define _istleadbyte(_Char) (0)
-#define _istleadbyte_l(_Char,_Locale) (0)
+#నిర్వచించు _istlegal(_Char) (1)
+#నిర్వచించు _istlead(_Char) (0)
+#నిర్వచించు _istleadbyte(_Char) (0)
+#నిర్వచించు _istleadbyte_l(_Char,_Locale) (0)
 
-#define _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
-#define _wcsinc(_pc) ((_pc)+1)
-#define _wcsnextc(_cpc) ((unsigned int) *(_cpc))
-#define _wcsninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __wcsncnt(const wchar_t *_Str,size_t _MaxCount);
-#define _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
-#define _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : NULL))
-#define _wcsncpy_l(_Destination,_Source,_Count,_Locale) (wcsncpy(_Destination,_Source,_Count))
-#define _wcsncat_l(_Destination,_Source,_Count,_Locale) (wcsncat(_Destination,_Source,_Count))
-#define _wcstok_l(_String,_Delimiters,_Locale) (wcstok(_String,_Delimiters))
-#define _wcsnset_l(_Destination,_Value,_Count,_Locale) (_wcsnset(_Destination,_Value,_Count))
-#define _wcsset_l(_Destination,_Value,_Locale) (_wcsset(_Destination,_Value))
+#నిర్వచించు _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? ఖాళీ : (_cpc2)-1)
+#నిర్వచించు _wcsinc(_pc) ((_pc)+1)
+#నిర్వచించు _wcsnextc(_cpc) ((గుర్తులేని పూర్ణాంకం) *(_cpc))
+#నిర్వచించు _wcsninc(_pc,_sz) (((_pc)+(_sz)))
+  _CRTIMP కొలత_t __cdecl __wcsncnt(స్థిరరాశి wchar_t *_Str,కొలత_t Max_లెక్క);
+#నిర్వచించు _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
+#నిర్వచించు _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? ఖాళీ : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : ఖాళీ))
+#నిర్వచించు _wcsncpy_l(_Destination,ఆధారం_3,లెక్క_5,_Locale) (wcsncpy(_Destination,ఆధారం_3,లెక్క_5))
+#నిర్వచించు _wcsncat_l(_Destination,ఆధారం_3,లెక్క_5,_Locale) (wcsncat(_Destination,ఆధారం_3,లెక్క_5))
+#నిర్వచించు _wcstok_l(_String,_Delimiters,_Locale) (wcstok(_String,_Delimiters))
+#నిర్వచించు _wcsnset_l(_Destination,విలువ_2,లెక్క_5,_Locale) (_wcsnset(_Destination,విలువ_2,లెక్క_5))
+#నిర్వచించు _wcsset_l(_Destination,విలువ_2,_Locale) (_wcsset(_Destination,విలువ_2))
 
   /* dirent structures and functions */
-#define _tdirent	_wdirent
-#define _TDIR 		_WDIR
-#define _topendir	_wopendir
-#define _tclosedir	_wclosedir
-#define _treaddir	_wreaddir
-#define _trewinddir	_wrewinddir
-#define _ttelldir	_wtelldir
-#define _tseekdir	_wseekdir
+#నిర్వచించు _tdirent	_wdirent
+#నిర్వచించు _TDIR 		_WDIR
+#నిర్వచించు _topendir	_wopendir
+#నిర్వచించు _tclosedir	_wclosedir
+#నిర్వచించు _treaddir	_wreaddir
+#నిర్వచించు _trewinddir	_wrewinddir
+#నిర్వచించు _ttelldir	_wtelldir
+#నిర్వచించు _tseekdir	_wseekdir
 
-#else
+#లేకపోతే
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#include <string.h>
+#అన్తర్భావ <string.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#define _TEOF EOF
+#నిర్వచించు _TEOF EOF
 
-#define __T(x) x
+#నిర్వచించు __T(x) x
 
-#define _tmain main
-#define _tWinMain WinMain
-#ifdef _POSIX_
-#define _tenviron environ
-#else
-#define _tenviron _environ
-#endif
-#define __targv __argv
+#నిర్వచించు _tmain ప్రధాన
+#నిర్వచించు _tWinMain WinMain
+#నిర్వచితమైతే _POSIX_
+#నిర్వచించు _tenviron environ
+#లేకపోతే
+#నిర్వచించు _tenviron _environ
+#అయితే_ముగింపు
+#నిర్వచించు __targv __argv
 
-#define _tprintf printf
-#define _tprintf_l _printf_l
-#define _tprintf_p _printf_p
-#define _tprintf_p_l _printf_p_l
-#define _tcprintf _cprintf
-#define _tcprintf_l _cprintf_l
-#define _tcprintf_p _cprintf_p
-#define _tcprintf_p_l _cprintf_p_l
-#define _vtcprintf _vcprintf
-#define _vtcprintf_l _vcprintf_l
-#define _vtcprintf_p _vcprintf_p
-#define _vtcprintf_p_l _vcprintf_p_l
-#define _ftprintf fprintf
-#define _ftprintf_l _fprintf_l
-#define _ftprintf_p _fprintf_p
-#define _ftprintf_p_l _fprintf_p_l
-#define _stprintf sprintf
-#define _stprintf_l _sprintf_l
-#define _stprintf_p _sprintf_p
-#define _stprintf_p_l _sprintf_p_l
-#define _sctprintf _scprintf
-#define _sctprintf_l _scprintf_l
-#define _sctprintf_p _scprintf_p
-#define _sctprintf_p_l _scprintf_p_l
-#define _sntprintf _snprintf
-#define _sntprintf_l _snprintf_l
-#define _vtprintf vprintf
-#define _vtprintf_l _vprintf_l
-#define _vtprintf_p _vprintf_p
-#define _vtprintf_p_l _vprintf_p_l
-#define _vftprintf vfprintf
-#define _vftprintf_l _vfprintf_l
-#define _vftprintf_p _vfprintf_p
-#define _vftprintf_p_l _vfprintf_p_l
-#define _vstprintf vsprintf
-#define _vstprintf_l _vsprintf_l
-#define _vstprintf_p _vsprintf_p
-#define _vstprintf_p_l _vsprintf_p_l
-#define _vsctprintf _vscprintf
-#define _vsctprintf_l _vscprintf_l
-#define _vsctprintf_p _vscprintf_p
-#define _vsctprintf_p_l _vscprintf_p_l
-#define _vsntprintf _vsnprintf
-#define _vsntprintf_l _vsnprintf_l
+#నిర్వచించు _tprintf రాయి
+#నిర్వచించు _tprintf_l _printf_l
+#నిర్వచించు _tprintf_p _printf_p
+#నిర్వచించు _tprintf_p_l _printf_p_l
+#నిర్వచించు _tcprintf _cprintf
+#నిర్వచించు _tcprintf_l _cprintf_l
+#నిర్వచించు _tcprintf_p _cprintf_p
+#నిర్వచించు _tcprintf_p_l _cprintf_p_l
+#నిర్వచించు _vtcprintf _vcprintf
+#నిర్వచించు _vtcprintf_l _vcprintf_l
+#నిర్వచించు _vtcprintf_p _vcprintf_p
+#నిర్వచించు _vtcprintf_p_l _vcprintf_p_l
+#నిర్వచించు _ftprintf fprintf
+#నిర్వచించు _ftprintf_l _fprintf_l
+#నిర్వచించు _ftprintf_p _fprintf_p
+#నిర్వచించు _ftprintf_p_l _fprintf_p_l
+#నిర్వచించు _stprintf sprintf
+#నిర్వచించు _stprintf_l _sprintf_l
+#నిర్వచించు _stprintf_p _sprintf_p
+#నిర్వచించు _stprintf_p_l _sprintf_p_l
+#నిర్వచించు _sctprintf _scprintf
+#నిర్వచించు _sctprintf_l _scprintf_l
+#నిర్వచించు _sctprintf_p _scprintf_p
+#నిర్వచించు _sctprintf_p_l _scprintf_p_l
+#నిర్వచించు _sntprintf _snprintf
+#నిర్వచించు _sntprintf_l _snprintf_l
+#నిర్వచించు _vtprintf vprintf
+#నిర్వచించు _vtprintf_l _vprintf_l
+#నిర్వచించు _vtprintf_p _vprintf_p
+#నిర్వచించు _vtprintf_p_l _vprintf_p_l
+#నిర్వచించు _vftprintf vfprintf
+#నిర్వచించు _vftprintf_l _vfprintf_l
+#నిర్వచించు _vftprintf_p _vfprintf_p
+#నిర్వచించు _vftprintf_p_l _vfprintf_p_l
+#నిర్వచించు _vstprintf vsprintf
+#నిర్వచించు _vstprintf_l _vsprintf_l
+#నిర్వచించు _vstprintf_p _vsprintf_p
+#నిర్వచించు _vstprintf_p_l _vsprintf_p_l
+#నిర్వచించు _vsctprintf _vscprintf
+#నిర్వచించు _vsctprintf_l _vscprintf_l
+#నిర్వచించు _vsctprintf_p _vscprintf_p
+#నిర్వచించు _vsctprintf_p_l _vscprintf_p_l
+#నిర్వచించు _vsntprintf _vsnprintf
+#నిర్వచించు _vsntprintf_l _vsnprintf_l
 
-#define _tscanf scanf
-#define _tscanf_l _scanf_l
-#define _tcscanf _cscanf
-#define _tcscanf_l _cscanf_l
-#define _ftscanf fscanf
-#define _ftscanf_l _fscanf_l
-#define _stscanf sscanf
-#define _stscanf_l _sscanf_l
-#define _sntscanf _snscanf
-#define _sntscanf_l _snscanf_l
+#నిర్వచించు _tscanf scanf
+#నిర్వచించు _tscanf_l _scanf_l
+#నిర్వచించు _tcscanf _cscanf
+#నిర్వచించు _tcscanf_l _cscanf_l
+#నిర్వచించు _ftscanf fscanf
+#నిర్వచించు _ftscanf_l _fscanf_l
+#నిర్వచించు _stscanf అక్షరశ్రేణి_చదువు
+#నిర్వచించు _stscanf_l _sscanf_l
+#నిర్వచించు _sntscanf _snscanf
+#నిర్వచించు _sntscanf_l _snscanf_l
 
-#define _fgettc fgetc
-#define _fgettc_nolock _fgetc_nolock
-#define _fgettchar _fgetchar
-#define _fgetts fgets
-#define _fputtc fputc
-#define _fputtc_nolock _fputc_nolock
-#define _fputtchar _fputchar
-#define _fputts fputs
-#define _cputts _cputs
-#define _gettc getc
-#define _gettc_nolock _getc_nolock
-#define _gettch _getch
-#define _gettch_nolock _getch_nolock
-#define _gettche _getche
-#define _gettche_nolock _getche_nolock
-#define _gettchar getchar
-#define _gettchar_nolock _getchar_nolock
-#define _getts gets
-#define _cgetts _cgets
-#define _puttc putc
-#define _puttc_nolock _putc_nolock
-#define _puttchar putchar
-#define _puttchar_nolock _putchar_nolock
-#define _puttch _putch
-#define _puttch_nolock _putch_nolock
-#define _putts puts
-#define _ungettc ungetc
-#define _ungettc_nolock _ungetc_nolock
-#define _ungettch _ungetch
-#define _ungettch_nolock _ungetch_nolock
+#నిర్వచించు _fgettc fgetc
+#నిర్వచించు _fgettc_nolock _fgetc_nolock
+#నిర్వచించు _fgettchar _fgetchar
+#నిర్వచించు _fgetts fgets
+#నిర్వచించు _fputtc fputc
+#నిర్వచించు _fputtc_nolock _fputc_nolock
+#నిర్వచించు _fputtchar _fputchar
+#నిర్వచించు _fputts fputs
+#నిర్వచించు _cputts _cputs
+#నిర్వచించు _gettc getc
+#నిర్వచించు _gettc_nolock _getc_nolock
+#నిర్వచించు _gettch _getch
+#నిర్వచించు _gettch_nolock _getch_nolock
+#నిర్వచించు _gettche _getche
+#నిర్వచించు _gettche_nolock _getche_nolock
+#నిర్వచించు _gettchar getchar
+#నిర్వచించు _gettchar_nolock _getchar_nolock
+#నిర్వచించు _getts gets
+#నిర్వచించు _cgetts _cgets
+#నిర్వచించు _puttc putc
+#నిర్వచించు _puttc_nolock _putc_nolock
+#నిర్వచించు _puttchar అక్షరం_రాయి
+#నిర్వచించు _puttchar_nolock _putchar_nolock
+#నిర్వచించు _puttch _putch
+#నిర్వచించు _puttch_nolock _putch_nolock
+#నిర్వచించు _putts puts
+#నిర్వచించు _ungettc ungetc
+#నిర్వచించు _ungettc_nolock _ungetc_nolock
+#నిర్వచించు _ungettch _ungetch
+#నిర్వచించు _ungettch_nolock _ungetch_nolock
 
-#define _tcstod strtod
-#define _tcstol strtol
-#define _tcstoul strtoul
-#define _tstof atof
-#define _tstol atol
-#define _tstoi atoi
-#define _tstoi64 _atoi64
-#define _tcstod_l _strtod_l
-#define _tcstol_l _strtol_l
-#define _tcstoul_l _strtoul_l
-#define _tstof_l _atof_l
-#define _tstol_l _atol_l
-#define _tstoi_l _atoi_l
-#define _tstoi64_l _atoi64_l
+#నిర్వచించు _tcstod strtod
+#నిర్వచించు _tcstol strtol
+#నిర్వచించు _tcstoul strtoul
+#నిర్వచించు _tstof atof
+#నిర్వచించు _tstol atol
+#నిర్వచించు _tstoi atoi
+#నిర్వచించు _tstoi64 _atoi64
+#నిర్వచించు _tcstod_l _strtod_l
+#నిర్వచించు _tcstol_l _strtol_l
+#నిర్వచించు _tcstoul_l _strtoul_l
+#నిర్వచించు _tstof_l _atof_l
+#నిర్వచించు _tstol_l _atol_l
+#నిర్వచించు _tstoi_l _atoi_l
+#నిర్వచించు _tstoi64_l _atoi64_l
 
-#define _itot _itoa
-#define _ltot _ltoa
-#define _ultot _ultoa
-#define _ttoi atoi
-#define _ttol atol
+#నిర్వచించు _itot _itoa
+#నిర్వచించు _ltot _ltoa
+#నిర్వచించు _ultot _ultoa
+#నిర్వచించు _ttoi atoi
+#నిర్వచించు _ttol atol
 
-#define _ttoi64 _atoi64
-#define _tcstoi64 _strtoi64
-#define _tcstoi64_l _strtoi64_l
-#define _tcstoui64 _strtoui64
-#define _tcstoui64_l _strtoui64_l
-#define _i64tot _i64toa
-#define _ui64tot _ui64toa
+#నిర్వచించు _ttoi64 _atoi64
+#నిర్వచించు _tcstoi64 _strtoi64
+#నిర్వచించు _tcstoi64_l _strtoi64_l
+#నిర్వచించు _tcstoui64 _strtoui64
+#నిర్వచించు _tcstoui64_l _strtoui64_l
+#నిర్వచించు _i64tot _i64toa
+#నిర్వచించు _ui64tot _ui64toa
 
-#define _tcscat strcat
-#define _tcscpy strcpy
-#define _tcsdup _strdup
-#define _tcslen strlen
-#if 0
-#define _tcsnlen strnlen
-#endif
-#define _tcsxfrm strxfrm
-#define _tcsxfrm_l _strxfrm_l
-#define _tcserror strerror
-#define __tcserror _strerror
+#నిర్వచించు _tcscat strcat
+#నిర్వచించు _tcscpy strcpy
+#నిర్వచించు _tcsdup _strdup
+#నిర్వచించు _tcslen అక్షరశ్రేణి_పొడవు
+#ఒకవేళ 0
+#నిర్వచించు _tcsnlen strnlen
+#అయితే_ముగింపు
+#నిర్వచించు _tcsxfrm strxfrm
+#నిర్వచించు _tcsxfrm_l _strxfrm_l
+#నిర్వచించు _tcserror strerror
+#నిర్వచించు __tcserror _strerror
 
-#define _texecl _execl
-#define _texecle _execle
-#define _texeclp _execlp
-#define _texeclpe _execlpe
-#define _texecv _execv
-#define _texecve _execve
-#define _texecvp _execvp
-#define _texecvpe _execvpe
+#నిర్వచించు _texecl _execl
+#నిర్వచించు _texecle _execle
+#నిర్వచించు _texeclp _execlp
+#నిర్వచించు _texeclpe _execlpe
+#నిర్వచించు _texecv _execv
+#నిర్వచించు _texecve _execve
+#నిర్వచించు _texecvp _execvp
+#నిర్వచించు _texecvpe _execvpe
 
-#define _tspawnl _spawnl
-#define _tspawnle _spawnle
-#define _tspawnlp _spawnlp
-#define _tspawnlpe _spawnlpe
-#define _tspawnv _spawnv
-#define _tspawnve _spawnve
-#define _tspawnvp _spawnvp
-#define _tspawnvpe _spawnvpe
+#నిర్వచించు _tspawnl _spawnl
+#నిర్వచించు _tspawnle _spawnle
+#నిర్వచించు _tspawnlp _spawnlp
+#నిర్వచించు _tspawnlpe _spawnlpe
+#నిర్వచించు _tspawnv _spawnv
+#నిర్వచించు _tspawnve _spawnve
+#నిర్వచించు _tspawnvp _spawnvp
+#నిర్వచించు _tspawnvpe _spawnvpe
 
-#define _tsystem system
+#నిర్వచించు _tsystem system
 
-#define _tasctime asctime
-#define _tctime ctime
-#define _tctime32 _ctime32
-#define _tctime64 _ctime64
-#define _tstrdate _strdate
-#define _tstrtime _strtime
-#define _tutime _utime
-#define _tutime32 _utime32
-#define _tutime64 _utime64
-#define _tcsftime strftime
-#define _tcsftime_l _strftime_l
+#నిర్వచించు _tasctime asctime
+#నిర్వచించు _tctime ctime
+#నిర్వచించు _tctime32 _ctime32
+#నిర్వచించు _tctime64 _ctime64
+#నిర్వచించు _tstrdate _strdate
+#నిర్వచించు _tstrtime _strtime
+#నిర్వచించు _tutime _utime
+#నిర్వచించు _tutime32 _utime32
+#నిర్వచించు _tutime64 _utime64
+#నిర్వచించు _tcsftime strftime
+#నిర్వచించు _tcsftime_l _strftime_l
 
-#define _tchdir _chdir
-#define _tgetcwd _getcwd
-#define _tgetdcwd _getdcwd
-#define _tgetdcwd_nolock _getdcwd_nolock
-#define _tmkdir _mkdir
-#define _trmdir _rmdir
+#నిర్వచించు _tchdir _chdir
+#నిర్వచించు _tgetcwd _getcwd
+#నిర్వచించు _tgetdcwd _getdcwd
+#నిర్వచించు _tgetdcwd_nolock _getdcwd_nolock
+#నిర్వచించు _tmkdir _mkdir
+#నిర్వచించు _trmdir _rmdir
 
-#define _tfullpath _fullpath
-#define _tgetenv getenv
-#define _tmakepath _makepath
-#define _tpgmptr _pgmptr
-#define _get_tpgmptr _get_pgmptr
-#define _tputenv _putenv
-#define _tsearchenv _searchenv
-#define _tsplitpath _splitpath
+#నిర్వచించు _tfullpath _fullpath
+#నిర్వచించు _tgetenv getenv
+#నిర్వచించు _tmakepath _makepath
+#నిర్వచించు _tpgmptr _pgmptr
+#నిర్వచించు _get_tpgmptr _get_pgmptr
+#నిర్వచించు _tputenv _putenv
+#నిర్వచించు _tsearchenv _searchenv
+#నిర్వచించు _tsplitpath _splitpath
 
-#ifdef _POSIX_
-#define _tfdopen fdopen
-#else
-#define _tfdopen _fdopen
-#endif
-#define _tfsopen _fsopen
-#define _tfopen fopen
-#define _tfreopen freopen
-#define _tperror perror
-#define _tpopen _popen
-#define _ttempnam _tempnam
-#define _ttmpnam tmpnam
+#నిర్వచితమైతే _POSIX_
+#నిర్వచించు _tfdopen fdopen
+#లేకపోతే
+#నిర్వచించు _tfdopen _fdopen
+#అయితే_ముగింపు
+#నిర్వచించు _tfsopen _fsopen
+#నిర్వచించు _tfopen fopen
+#నిర్వచించు _tfreopen freopen
+#నిర్వచించు _tperror perror
+#నిర్వచించు _tpopen _popen
+#నిర్వచించు _ttempnam _tempnam
+#నిర్వచించు _ttmpnam tmpnam
 
-#define _tchmod _chmod
-#define _tcreat _creat
-#define _tfindfirst _findfirst
-#define _tfindfirst32 _findfirst32
-#define _tfindfirst64 _findfirst64
-#define _tfindfirsti64 _findfirsti64
-#define _tfindfirst32i64 _findfirst32i64
-#define _tfindfirst64i32 _findfirst64i32
-#define _tfindnext _findnext
-#define _tfindnext32 _findnext32
-#define _tfindnext64 _findnext64
-#define _tfindnexti64 _findnexti64
-#define _tfindnext32i64 _findnext32i64
-#define _tfindnext64i32 _findnext64i32
-#define _tmktemp _mktemp
+#నిర్వచించు _tchmod _chmod
+#నిర్వచించు _tcreat _creat
+#నిర్వచించు _tfindfirst _findfirst
+#నిర్వచించు _tfindfirst32 _findfirst32
+#నిర్వచించు _tfindfirst64 _findfirst64
+#నిర్వచించు _tfindfirsti64 _findfirsti64
+#నిర్వచించు _tfindfirst32i64 _findfirst32i64
+#నిర్వచించు _tfindfirst64i32 _findfirst64i32
+#నిర్వచించు _tfindnext _findnext
+#నిర్వచించు _tfindnext32 _findnext32
+#నిర్వచించు _tfindnext64 _findnext64
+#నిర్వచించు _tfindnexti64 _findnexti64
+#నిర్వచించు _tfindnext32i64 _findnext32i64
+#నిర్వచించు _tfindnext64i32 _findnext64i32
+#నిర్వచించు _tmktemp _mktemp
 
-#ifdef _POSIX_
-#define _topen open
-#define _taccess access
-#else
-#define _topen _open
-#define _taccess _access
-#endif
+#నిర్వచితమైతే _POSIX_
+#నిర్వచించు _topen open
+#నిర్వచించు _taccess access
+#లేకపోతే
+#నిర్వచించు _topen _open
+#నిర్వచించు _taccess _access
+#అయితే_ముగింపు
 
-#define _tremove remove
-#define _trename rename
-#define _tsopen _sopen
-#define _tunlink _unlink
+#నిర్వచించు _tremove remove
+#నిర్వచించు _trename rename
+#నిర్వచించు _tsopen _sopen
+#నిర్వచించు _tunlink _unlink
 
-#define _tfinddata_t _finddata_t
-#define _tfinddata32_t _finddata32_t
-#define _tfinddata64_t __finddata64_t
-#define _tfinddatai64_t _finddatai64_t
-#define _tfinddata32i64_t _finddata32i64_t
-#define _tfinddata64i32_t _finddata64i32_t
+#నిర్వచించు _tfinddata_t _finddata_t
+#నిర్వచించు _tfinddata32_t _finddata32_t
+#నిర్వచించు _tfinddata64_t __finddata64_t
+#నిర్వచించు _tfinddatai64_t _finddatai64_t
+#నిర్వచించు _tfinddata32i64_t _finddata32i64_t
+#నిర్వచించు _tfinddata64i32_t _finddata64i32_t
 
-#define _istascii __isascii
-#define _istcntrl iscntrl
-#define _istcntrl_l _iscntrl_l
-#define _istxdigit isxdigit
-#define _istxdigit_l _isxdigit_l
+#నిర్వచించు _istascii __isascii
+#నిర్వచించు _istcntrl iscntrl
+#నిర్వచించు _istcntrl_l _iscntrl_l
+#నిర్వచించు _istxdigit isxdigit
+#నిర్వచించు _istxdigit_l _isxdigit_l
 
-#define _tstat _stat
-#define _tstat32 _stat32
-#define _tstat32i64 _stat32i64
-#define _tstat64 _stat64
-#define _tstat64i32 _stat64i32
-#define _tstati64 _stati64
+#నిర్వచించు _tstat _stat
+#నిర్వచించు _tstat32 _stat32
+#నిర్వచించు _tstat32i64 _stat32i64
+#నిర్వచించు _tstat64 _stat64
+#నిర్వచించు _tstat64i32 _stat64i32
+#నిర్వచించు _tstati64 _stati64
 
-#define _tsetlocale setlocale
+#నిర్వచించు _tsetlocale setlocale
 
-#ifdef _MBCS
+#నిర్వచితమైతే _MBCS
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#include <mbstring.h>
+#అన్తర్భావ <mbstring.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifndef __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef unsigned char _TXCHAR;
-  typedef unsigned int _TINT;
-#define __TCHAR_DEFINED
-#endif
+#నిర్వచితం_కాకపోతే __TCHAR_DEFINED
+  రకనిర్వచనం అక్షరం _TCHAR;
+  రకనిర్వచనం గుర్తుగల అక్షరం _TSCHAR;
+  రకనిర్వచనం గుర్తులేని అక్షరం _TUCHAR;
+  రకనిర్వచనం గుర్తులేని అక్షరం _TXCHAR;
+  రకనిర్వచనం గుర్తులేని పూర్ణాంకం _TINT;
+#నిర్వచించు __TCHAR_DEFINED
+#అయితే_ముగింపు
 
-#ifndef _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef char TCHAR;
-#endif
-#define _TCHAR_DEFINED
-#endif
+#నిర్వచితం_కాకపోతే _TCHAR_DEFINED
+#నిర్వచితం_కాకపోతే	NO_OLDNAMES
+  రకనిర్వచనం అక్షరం TCHAR;
+#అయితే_ముగింపు
+#నిర్వచించు _TCHAR_DEFINED
+#అయితే_ముగింపు
 
-#ifdef _MB_MAP_DIRECT
+#నిర్వచితమైతే MB_MAP_ప్రత్యక్ష
 
-#define _tcschr _mbschr
-#define _tcscspn _mbscspn
-#define _tcsncat _mbsnbcat
-#define _tcsncat_l _mbsnbcat_l
-#define _tcsncpy _mbsnbcpy
-#define _tcsncpy_l _mbsnbcpy_l
-#define _tcspbrk _mbspbrk
-#define _tcsrchr _mbsrchr
-#define _tcsspn _mbsspn
-#define _tcsstr _mbsstr
-#define _tcstok _mbstok
-#define _tcstok_l _mbstok_l
+#నిర్వచించు _tcschr _mbschr
+#నిర్వచించు _tcscspn _mbscspn
+#నిర్వచించు _tcsncat _mbsnbcat
+#నిర్వచించు _tcsncat_l _mbsnbcat_l
+#నిర్వచించు _tcsncpy _mbsnbcpy
+#నిర్వచించు _tcsncpy_l _mbsnbcpy_l
+#నిర్వచించు _tcspbrk _mbspbrk
+#నిర్వచించు _tcsrchr _mbsrchr
+#నిర్వచించు _tcsspn _mbsspn
+#నిర్వచించు _tcsstr _mbsstr
+#నిర్వచించు _tcstok _mbstok
+#నిర్వచించు _tcstok_l _mbstok_l
 
-#define _tcsnset _mbsnbset
-#define _tcsnset_l _mbsnbset_l
-#define _tcsrev _mbsrev
-#define _tcsset _mbsset
-#define _tcsset_l _mbsset_l
+#నిర్వచించు _tcsnset _mbsnbset
+#నిర్వచించు _tcsnset_l _mbsnbset_l
+#నిర్వచించు _tcsrev _mbsrev
+#నిర్వచించు _tcsset _mbsset
+#నిర్వచించు _tcsset_l _mbsset_l
 
-#define _tcscmp _mbscmp
-#define _tcsicmp _mbsicmp
-#define _tcsicmp_l _mbsicmp_l
-#define _tcsnccmp _mbsncmp
-#define _tcsncmp _mbsnbcmp
-#define _tcsncicmp _mbsnicmp
-#define _tcsncicmp_l _mbsnicmp_l
-#define _tcsnicmp _mbsnbicmp
-#define _tcsnicmp_l _mbsnbicmp_l
+#నిర్వచించు _tcscmp _mbscmp
+#నిర్వచించు _tcsicmp _mbsicmp
+#నిర్వచించు _tcsicmp_l _mbsicmp_l
+#నిర్వచించు _tcsnccmp _mbsncmp
+#నిర్వచించు _tcsncmp _mbsnbcmp
+#నిర్వచించు _tcsncicmp _mbsnicmp
+#నిర్వచించు _tcsncicmp_l _mbsnicmp_l
+#నిర్వచించు _tcsnicmp _mbsnbicmp
+#నిర్వచించు _tcsnicmp_l _mbsnbicmp_l
 
-#define _tcscoll _mbscoll
-#define _tcscoll_l _mbscoll_l
-#define _tcsicoll _mbsicoll
-#define _tcsicoll_l _mbsicoll_l
-#define _tcsnccoll _mbsncoll
-#define _tcsnccoll_l _mbsncoll_l
-#define _tcsncoll _mbsnbcoll
-#define _tcsncoll_l _mbsnbcoll_l
-#define _tcsncicoll _mbsnicoll
-#define _tcsncicoll_l _mbsnicoll_l
-#define _tcsnicoll _mbsnbicoll
-#define _tcsnicoll_l _mbsnbicoll_l
+#నిర్వచించు _tcscoll _mbscoll
+#నిర్వచించు _tcscoll_l _mbscoll_l
+#నిర్వచించు _tcsicoll _mbsicoll
+#నిర్వచించు _tcsicoll_l _mbsicoll_l
+#నిర్వచించు _tcsnccoll _mbsncoll
+#నిర్వచించు _tcsnccoll_l _mbsncoll_l
+#నిర్వచించు _tcsncoll _mbsnbcoll
+#నిర్వచించు _tcsncoll_l _mbsnbcoll_l
+#నిర్వచించు _tcsncicoll _mbsnicoll
+#నిర్వచించు _tcsncicoll_l _mbsnicoll_l
+#నిర్వచించు _tcsnicoll _mbsnbicoll
+#నిర్వచించు _tcsnicoll_l _mbsnbicoll_l
 
-#define _tcsclen _mbslen
-#define _tcscnlen _mbsnlen
-#define _tcsclen_l _mbslen_l
-#define _tcscnlen_l _mbsnlen_l
-#define _tcsnccat _mbsncat
-#define _tcsnccat_l _mbsncat_l
-#define _tcsnccpy _mbsncpy
-#define _tcsnccpy_l _mbsncpy_l
-#define _tcsncset _mbsnset
-#define _tcsncset_l _mbsnset_l
+#నిర్వచించు _tcsclen _mbslen
+#నిర్వచించు _tcscnlen _mbsnlen
+#నిర్వచించు _tcsclen_l _mbslen_l
+#నిర్వచించు _tcscnlen_l _mbsnlen_l
+#నిర్వచించు _tcsnccat _mbsncat
+#నిర్వచించు _tcsnccat_l _mbsncat_l
+#నిర్వచించు _tcsnccpy _mbsncpy
+#నిర్వచించు _tcsnccpy_l _mbsncpy_l
+#నిర్వచించు _tcsncset _mbsnset
+#నిర్వచించు _tcsncset_l _mbsnset_l
 
-#define _tcsdec _mbsdec
-#define _tcsinc _mbsinc
-#define _tcsnbcnt _mbsnbcnt
-#define _tcsnccnt _mbsnccnt
-#define _tcsnextc _mbsnextc
-#define _tcsninc _mbsninc
-#define _tcsspnp _mbsspnp
+#నిర్వచించు _tcsdec _mbsdec
+#నిర్వచించు _tcsinc _mbsinc
+#నిర్వచించు _tcsnbcnt _mbsnbcnt
+#నిర్వచించు _tcsnccnt _mbsnccnt
+#నిర్వచించు _tcsnextc _mbsnextc
+#నిర్వచించు _tcsninc _mbsninc
+#నిర్వచించు _tcsspnp _mbsspnp
 
-#define _tcslwr _mbslwr
-#define _tcslwr_l _mbslwr_l
-#define _tcsupr _mbsupr
-#define _tcsupr_l _mbsupr_l
+#నిర్వచించు _tcslwr _mbslwr
+#నిర్వచించు _tcslwr_l _mbslwr_l
+#నిర్వచించు _tcsupr _mbsupr
+#నిర్వచించు _tcsupr_l _mbsupr_l
 
-#define _tclen _mbclen
-#define _tccpy _mbccpy
-#define _tccpy_l _mbccpy_l
-#else
+#నిర్వచించు _tclen _mbclen
+#నిర్వచించు _tccpy _mbccpy
+#నిర్వచించు _tccpy_l _mbccpy_l
+#లేకపోతే
 
-  _CRTIMP _CONST_RETURN char *__cdecl _tcschr(const char *_Str,unsigned int _Val);
-  _CRTIMP size_t __cdecl _tcscspn(const char *_Str,const char *_Control);
-  _CRTIMP char *__cdecl _tcsncat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcspbrk(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsrchr(const char *_Str,unsigned int _Ch);
-  _CRTIMP size_t __cdecl _tcsspn(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsstr(const char *_Str,const char *_Substr);
-  _CRTIMP char *__cdecl _tcstok(char *_Str,const char *_Delim);
-  _CRTIMP char *__cdecl _tcstok_l(char *_Str,const char *_Delim,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsrev(char *_Str);
-  _CRTIMP char *__cdecl _tcsset(char *_Str,unsigned int _Val);
-  _CRTIMP char *__cdecl _tcsset_l(char *_Str,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscmp(const char *_Str1,const char *_Str);
-  _CRTIMP int __cdecl _tcsicmp(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicmp_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcscoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsicoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnccoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcsclen(const char *_Str);
-  _CRTIMP size_t __cdecl _tcscnlen(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsclen_l(const char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcscnlen_l(const char *_Str,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsdec(const char *_Start,const char *_Pos);
-  _CRTIMP char *__cdecl _tcsinc(const char *_Ptr);
-  _CRTIMP size_t __cdecl _tcsnbcnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsnccnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP unsigned int __cdecl _tcsnextc (const char *_Str);
-  _CRTIMP char *__cdecl _tcsninc(const char *_Ptr,size_t _Count);
-  _CRTIMP char *__cdecl _tcsspnp(const char *_Str1,const char *_Str2);
-  _CRTIMP char *__cdecl _tcslwr(char *_Str);
-  _CRTIMP char *__cdecl _tcslwr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsupr(char *_Str);
-  _CRTIMP char *__cdecl _tcsupr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tclen(const char *_Str);
-  _CRTIMP void __cdecl _tccpy(char *_DstCh,const char *_SrcCh);
+  _CRTIMP _CONST_RETURN అక్షరం *__cdecl _tcschr(స్థిరరాశి అక్షరం *_Str,గుర్తులేని పూర్ణాంకం _Val);
+  _CRTIMP కొలత_t __cdecl _tcscspn(స్థిరరాశి అక్షరం *_Str,స్థిరరాశి అక్షరం *_Control);
+  _CRTIMP అక్షరం *__cdecl _tcsncat(అక్షరం *_Dst,స్థిరరాశి అక్షరం *_Src,కొలత_t Max_లెక్క);
+  _CRTIMP అక్షరం *__cdecl _tcsncat_l(అక్షరం *_Dst,స్థిరరాశి అక్షరం *_Src,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP అక్షరం *__cdecl _tcsncpy(అక్షరం *_Dst,స్థిరరాశి అక్షరం *_Src,కొలత_t Max_లెక్క);
+  _CRTIMP అక్షరం *__cdecl _tcsncpy_l(అక్షరం *_Dst,స్థిరరాశి అక్షరం *_Src,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP _CONST_RETURN అక్షరం *__cdecl _tcspbrk(స్థిరరాశి అక్షరం *_Str,స్థిరరాశి అక్షరం *_Control);
+  _CRTIMP _CONST_RETURN అక్షరం *__cdecl _tcsrchr(స్థిరరాశి అక్షరం *_Str,గుర్తులేని పూర్ణాంకం _Ch);
+  _CRTIMP కొలత_t __cdecl _tcsspn(స్థిరరాశి అక్షరం *_Str,స్థిరరాశి అక్షరం *_Control);
+  _CRTIMP _CONST_RETURN అక్షరం *__cdecl _tcsstr(స్థిరరాశి అక్షరం *_Str,స్థిరరాశి అక్షరం *_Substr);
+  _CRTIMP అక్షరం *__cdecl _tcstok(అక్షరం *_Str,స్థిరరాశి అక్షరం *_Delim);
+  _CRTIMP అక్షరం *__cdecl _tcstok_l(అక్షరం *_Str,స్థిరరాశి అక్షరం *_Delim,_locale_t _Locale);
+  _CRTIMP అక్షరం *__cdecl _tcsnset(అక్షరం *_Str,గుర్తులేని పూర్ణాంకం _Val,కొలత_t Max_లెక్క);
+  _CRTIMP అక్షరం *__cdecl _tcsrev(అక్షరం *_Str);
+  _CRTIMP అక్షరం *__cdecl _tcsset(అక్షరం *_Str,గుర్తులేని పూర్ణాంకం _Val);
+  _CRTIMP అక్షరం *__cdecl _tcsset_l(అక్షరం *_Str,గుర్తులేని పూర్ణాంకం _Val,_locale_t _Locale);
+  _CRTIMP పూర్ణాంకం __cdecl _tcscmp(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsicmp(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsicmp_l(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,_locale_t _Locale);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsnccmp(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsncmp(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsncicmp(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsncicmp_l(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsnicmp(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsnicmp_l(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP పూర్ణాంకం __cdecl _tcscoll(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2);
+  _CRTIMP పూర్ణాంకం __cdecl _tcscoll_l(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,_locale_t _Locale);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsicoll(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsicoll_l(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,_locale_t _Locale);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsnccoll(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsnccoll_l(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsncoll(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsncoll_l(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsncicoll(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsncicoll_l(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsnicoll(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క);
+  _CRTIMP పూర్ణాంకం __cdecl _tcsnicoll_l(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP కొలత_t __cdecl _tcsclen(స్థిరరాశి అక్షరం *_Str);
+  _CRTIMP కొలత_t __cdecl _tcscnlen(స్థిరరాశి అక్షరం *_Str,కొలత_t Max_లెక్క);
+  _CRTIMP కొలత_t __cdecl _tcsclen_l(స్థిరరాశి అక్షరం *_Str,_locale_t _Locale);
+  _CRTIMP కొలత_t __cdecl _tcscnlen_l(స్థిరరాశి అక్షరం *_Str,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP అక్షరం *__cdecl _tcsnccat(అక్షరం *_Dst,స్థిరరాశి అక్షరం *_Src,కొలత_t Max_లెక్క);
+  _CRTIMP అక్షరం *__cdecl _tcsnccat_l(అక్షరం *_Dst,స్థిరరాశి అక్షరం *_Src,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP అక్షరం *__cdecl _tcsnccpy(అక్షరం *_Dst,స్థిరరాశి అక్షరం *_Src,కొలత_t Max_లెక్క);
+  _CRTIMP అక్షరం *__cdecl _tcsnccpy_l(అక్షరం *_Dst,స్థిరరాశి అక్షరం *_Src,కొలత_t Max_లెక్క,_locale_t _Locale);
+  _CRTIMP అక్షరం *__cdecl _tcsncset(అక్షరం *_Str,గుర్తులేని పూర్ణాంకం _Val,కొలత_t Max_లెక్క);
+  _CRTIMP అక్షరం *__cdecl _tcsdec(స్థిరరాశి అక్షరం *ప్రారంభం_4,స్థిరరాశి అక్షరం *_Pos);
+  _CRTIMP అక్షరం *__cdecl _tcsinc(స్థిరరాశి అక్షరం *_Ptr);
+  _CRTIMP కొలత_t __cdecl _tcsnbcnt(స్థిరరాశి అక్షరం *_Str,కొలత_t Max_లెక్క);
+  _CRTIMP కొలత_t __cdecl _tcsnccnt(స్థిరరాశి అక్షరం *_Str,కొలత_t Max_లెక్క);
+  _CRTIMP గుర్తులేని పూర్ణాంకం __cdecl _tcsnextc (స్థిరరాశి అక్షరం *_Str);
+  _CRTIMP అక్షరం *__cdecl _tcsninc(స్థిరరాశి అక్షరం *_Ptr,కొలత_t లెక్క_5);
+  _CRTIMP అక్షరం *__cdecl _tcsspnp(స్థిరరాశి అక్షరం *_Str1,స్థిరరాశి అక్షరం *_Str2);
+  _CRTIMP అక్షరం *__cdecl _tcslwr(అక్షరం *_Str);
+  _CRTIMP అక్షరం *__cdecl _tcslwr_l(అక్షరం *_Str,_locale_t _Locale);
+  _CRTIMP అక్షరం *__cdecl _tcsupr(అక్షరం *_Str);
+  _CRTIMP అక్షరం *__cdecl _tcsupr_l(అక్షరం *_Str,_locale_t _Locale);
+  _CRTIMP కొలత_t __cdecl _tclen(స్థిరరాశి అక్షరం *_Str);
+  _CRTIMP శూన్య __cdecl _tccpy(అక్షరం *_DstCh,స్థిరరాశి అక్షరం *_SrcCh);
 
-#ifdef __cplusplus
-#ifndef _CPP_TCHAR_INLINES_DEFINED
-#define _CPP_TCHAR_INLINES_DEFINED
-  extern "C++" {
-    extern inline char *__cdecl _tcschr(char *_S,unsigned int _C) { return ((char *)_tcschr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcspbrk(char *_S,const char *_P) { return ((char *)_tcspbrk((const char *)_S,_P)); }
-    extern inline char *__cdecl _tcsrchr(char *_S,unsigned int _C) { return ((char *)_tcsrchr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcsstr(char *_S,const char *_P) { return ((char *)_tcsstr((const char *)_S,_P)); }
+#నిర్వచితమైతే __cplusplus
+#నిర్వచితం_కాకపోతే _CPP_TCHAR_INLINES_DEFINED
+#నిర్వచించు _CPP_TCHAR_INLINES_DEFINED
+  బాహ్య "C++" {
+    బాహ్య అంతఃవరుస అక్షరం *__cdecl _tcschr(అక్షరం *_S,గుర్తులేని పూర్ణాంకం _C) { తిరిగి ((అక్షరం *)_tcschr((స్థిరరాశి అక్షరం *)_S,_C)); }
+    బాహ్య అంతఃవరుస అక్షరం *__cdecl _tcspbrk(అక్షరం *_S,స్థిరరాశి అక్షరం *_P) { తిరిగి ((అక్షరం *)_tcspbrk((స్థిరరాశి అక్షరం *)_S,_P)); }
+    బాహ్య అంతఃవరుస అక్షరం *__cdecl _tcsrchr(అక్షరం *_S,గుర్తులేని పూర్ణాంకం _C) { తిరిగి ((అక్షరం *)_tcsrchr((స్థిరరాశి అక్షరం *)_S,_C)); }
+    బాహ్య అంతఃవరుస అక్షరం *__cdecl _tcsstr(అక్షరం *_S,స్థిరరాశి అక్షరం *_P) { తిరిగి ((అక్షరం *)_tcsstr((స్థిరరాశి అక్షరం *)_S,_P)); }
   }
-#endif
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#define _tccmp(_cp1,_cp2) _tcsnccmp(_cp1,_cp2,1)
+#నిర్వచించు _tccmp(_cp1,_cp2) _tcsnccmp(_cp1,_cp2,1)
 
-#define _istalnum _ismbcalnum
-#define _istalnum_l _ismbcalnum_l
-#define _istalpha _ismbcalpha
-#define _istalpha_l _ismbcalpha_l
-#define _istdigit _ismbcdigit
-#define _istdigit_l _ismbcdigit_l
-#define _istgraph _ismbcgraph
-#define _istgraph_l _ismbcgraph_l
-#define _istlegal _ismbclegal
-#define _istlegal_l _ismbclegal_l
-#define _istlower _ismbclower
-#define _istlower_l _ismbclower_l
-#define _istprint _ismbcprint
-#define _istprint_l _ismbcprint_l
-#define _istpunct _ismbcpunct
-#define _istpunct_l _ismbcpunct_l
-#define _istspace _ismbcspace
-#define _istspace_l _ismbcspace_l
-#define _istupper _ismbcupper
-#define _istupper_l _ismbcupper_l
+#నిర్వచించు _istalnum _ismbcalnum
+#నిర్వచించు _istalnum_l _ismbcalnum_l
+#నిర్వచించు _istalpha _ismbcalpha
+#నిర్వచించు _istalpha_l _ismbcalpha_l
+#నిర్వచించు _istdigit _ismbcdigit
+#నిర్వచించు _istdigit_l _ismbcdigit_l
+#నిర్వచించు _istgraph _ismbcgraph
+#నిర్వచించు _istgraph_l _ismbcgraph_l
+#నిర్వచించు _istlegal _ismbclegal
+#నిర్వచించు _istlegal_l _ismbclegal_l
+#నిర్వచించు _istlower _ismbclower
+#నిర్వచించు _istlower_l _ismbclower_l
+#నిర్వచించు _istprint _ismbcprint
+#నిర్వచించు _istprint_l _ismbcprint_l
+#నిర్వచించు _istpunct _ismbcpunct
+#నిర్వచించు _istpunct_l _ismbcpunct_l
+#నిర్వచించు _istspace _ismbcspace
+#నిర్వచించు _istspace_l _ismbcspace_l
+#నిర్వచించు _istupper _ismbcupper
+#నిర్వచించు _istupper_l _ismbcupper_l
 
-#define _totupper _mbctoupper
-#define _totupper_l _mbctoupper_l
-#define _totlower _mbctolower
-#define _totlower_l _mbctolower_l
+#నిర్వచించు _totupper _mbctoupper
+#నిర్వచించు _totupper_l _mbctoupper_l
+#నిర్వచించు _totlower _mbctolower
+#నిర్వచించు _totlower_l _mbctolower_l
 
-#define _istlead _ismbblead
-#define _istleadbyte isleadbyte
-#define _istleadbyte_l _isleadbyte_l
-#else
+#నిర్వచించు _istlead _ismbblead
+#నిర్వచించు _istleadbyte isleadbyte
+#నిర్వచించు _istleadbyte_l _isleadbyte_l
+#లేకపోతే
 
-#ifndef __TCHAR_DEFINED
-#define __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef char _TXCHAR;
-  typedef int _TINT;
-#endif
+#నిర్వచితం_కాకపోతే __TCHAR_DEFINED
+#నిర్వచించు __TCHAR_DEFINED
+  రకనిర్వచనం అక్షరం _TCHAR;
+  రకనిర్వచనం గుర్తుగల అక్షరం _TSCHAR;
+  రకనిర్వచనం గుర్తులేని అక్షరం _TUCHAR;
+  రకనిర్వచనం అక్షరం _TXCHAR;
+  రకనిర్వచనం పూర్ణాంకం _TINT;
+#అయితే_ముగింపు
 
-#ifndef _TCHAR_DEFINED
-#define _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef char TCHAR;
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _TCHAR_DEFINED
+#నిర్వచించు _TCHAR_DEFINED
+#నిర్వచితం_కాకపోతే	NO_OLDNAMES
+  రకనిర్వచనం అక్షరం TCHAR;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#define _tcschr strchr
-#define _tcscspn strcspn
-#define _tcsncat strncat
-#define _tcsncat_l _strncat_l
-#define _tcsncpy strncpy
-#define _tcsncpy_l _strncpy_l
-#define _tcspbrk strpbrk
-#define _tcsrchr strrchr
-#define _tcsspn strspn
-#define _tcsstr strstr
-#define _tcstok strtok
-#define _tcstok_l _strtok_l
+#నిర్వచించు _tcschr strchr
+#నిర్వచించు _tcscspn strcspn
+#నిర్వచించు _tcsncat strncat
+#నిర్వచించు _tcsncat_l _strncat_l
+#నిర్వచించు _tcsncpy strncpy
+#నిర్వచించు _tcsncpy_l _strncpy_l
+#నిర్వచించు _tcspbrk strpbrk
+#నిర్వచించు _tcsrchr strrchr
+#నిర్వచించు _tcsspn strspn
+#నిర్వచించు _tcsstr అక్షరశ్రేణి_శోధన
+#నిర్వచించు _tcstok strtok
+#నిర్వచించు _tcstok_l _strtok_l
 
-#define _tcsnset _strnset
-#define _tcsnset_l _strnset_l
-#define _tcsrev _strrev
-#define _tcsset _strset
+#నిర్వచించు _tcsnset _strnset
+#నిర్వచించు _tcsnset_l _strnset_l
+#నిర్వచించు _tcsrev _strrev
+#నిర్వచించు _tcsset _strset
 
-#define _tcscmp strcmp
-#define _tcsicmp _stricmp
-#define _tcsicmp_l _stricmp_l
-#define _tcsnccmp strncmp
-#define _tcsncmp strncmp
-#define _tcsncicmp _strnicmp
-#define _tcsncicmp_l _strnicmp_l
-#define _tcsnicmp _strnicmp
-#define _tcsnicmp_l _strnicmp_l
+#నిర్వచించు _tcscmp strcmp
+#నిర్వచించు _tcsicmp _stricmp
+#నిర్వచించు _tcsicmp_l _stricmp_l
+#నిర్వచించు _tcsnccmp అక్షరశ్రేణి_పోలిక
+#నిర్వచించు _tcsncmp అక్షరశ్రేణి_పోలిక
+#నిర్వచించు _tcsncicmp _strnicmp
+#నిర్వచించు _tcsncicmp_l _strnicmp_l
+#నిర్వచించు _tcsnicmp _strnicmp
+#నిర్వచించు _tcsnicmp_l _strnicmp_l
 
-#define _tcscoll strcoll
-#define _tcscoll_l _strcoll_l
-#define _tcsicoll _stricoll
-#define _tcsicoll_l _stricoll_l
-#define _tcsnccoll _strncoll
-#define _tcsnccoll_l _strncoll_l
-#define _tcsncoll _strncoll
-#define _tcsncoll_l _strncoll_l
-#define _tcsncicoll _strnicoll
-#define _tcsncicoll_l _strnicoll_l
-#define _tcsnicoll _strnicoll
-#define _tcsnicoll_l _strnicoll_l
+#నిర్వచించు _tcscoll strcoll
+#నిర్వచించు _tcscoll_l _strcoll_l
+#నిర్వచించు _tcsicoll _stricoll
+#నిర్వచించు _tcsicoll_l _stricoll_l
+#నిర్వచించు _tcsnccoll _strncoll
+#నిర్వచించు _tcsnccoll_l _strncoll_l
+#నిర్వచించు _tcsncoll _strncoll
+#నిర్వచించు _tcsncoll_l _strncoll_l
+#నిర్వచించు _tcsncicoll _strnicoll
+#నిర్వచించు _tcsncicoll_l _strnicoll_l
+#నిర్వచించు _tcsnicoll _strnicoll
+#నిర్వచించు _tcsnicoll_l _strnicoll_l
 
-#define _tcsclen strlen
-#define _tcscnlen strnlen
-#define _tcsclen_l(_String,_Locale) strlen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) strnlen_l((_String),(_Max_count))
-#define _tcsnccat strncat
-#define _tcsnccat_l _strncat_l
-#define _tcsnccpy strncpy
-#define _tcsnccpy_l _strncpy_l
-#define _tcsncset _strnset
+#నిర్వచించు _tcsclen అక్షరశ్రేణి_పొడవు
+#నిర్వచించు _tcscnlen strnlen
+#నిర్వచించు _tcsclen_l(_String,_Locale) అక్షరశ్రేణి_పొడవు(_String)
+#నిర్వచించు _tcscnlen_l(_String,Max_లెక్క_2,_Locale) strnlen_l((_String),(Max_లెక్క_2))
+#నిర్వచించు _tcsnccat strncat
+#నిర్వచించు _tcsnccat_l _strncat_l
+#నిర్వచించు _tcsnccpy strncpy
+#నిర్వచించు _tcsnccpy_l _strncpy_l
+#నిర్వచించు _tcsncset _strnset
 
-#define _tcsdec _strdec
-#define _tcsinc _strinc
-#define _tcsnbcnt _strncnt
-#define _tcsnccnt _strncnt
-#define _tcsnextc _strnextc
-#define _tcsninc _strninc
-#define _tcsspnp _strspnp
+#నిర్వచించు _tcsdec _strdec
+#నిర్వచించు _tcsinc _strinc
+#నిర్వచించు _tcsnbcnt _strncnt
+#నిర్వచించు _tcsnccnt _strncnt
+#నిర్వచించు _tcsnextc _strnextc
+#నిర్వచించు _tcsninc _strninc
+#నిర్వచించు _tcsspnp _strspnp
 
-#define _tcslwr _strlwr
-#define _tcslwr_l _strlwr_l
-#define _tcsupr _strupr
-#define _tcsupr_l _strupr_l
-#define _tcsxfrm strxfrm
-#define _tcsxfrm_l _strxfrm_l
+#నిర్వచించు _tcslwr _strlwr
+#నిర్వచించు _tcslwr_l _strlwr_l
+#నిర్వచించు _tcsupr _strupr
+#నిర్వచించు _tcsupr_l _strupr_l
+#నిర్వచించు _tcsxfrm strxfrm
+#నిర్వచించు _tcsxfrm_l _strxfrm_l
 
-#define _istlead(_Char) (0)
-#define _istleadbyte(_Char) (0)
-#define _istleadbyte_l(_Char,_Locale) (0)
+#నిర్వచించు _istlead(_Char) (0)
+#నిర్వచించు _istleadbyte(_Char) (0)
+#నిర్వచించు _istleadbyte_l(_Char,_Locale) (0)
 
-#define _tclen(_pc) (1)
-#define _tccpy(_pc1,_cpc2) (*(_pc1) = *(_cpc2))
-#define _tccmp(_cpc1,_cpc2) (((unsigned char)*(_cpc1))-((unsigned char)*(_cpc2)))
+#నిర్వచించు _tclen(_pc) (1)
+#నిర్వచించు _tccpy(_pc1,_cpc2) (*(_pc1) = *(_cpc2))
+#నిర్వచించు _tccmp(_cpc1,_cpc2) (((గుర్తులేని అక్షరం)*(_cpc1))-((గుర్తులేని అక్షరం)*(_cpc2)))
 
   /* dirent structures and functions */
-#define _tdirent	dirent
-#define _TDIR 		DIR
-#define _topendir	opendir
-#define _tclosedir	closedir
-#define _treaddir	readdir
-#define _trewinddir	rewinddir
-#define _ttelldir	telldir
-#define _tseekdir	seekdir
+#నిర్వచించు _tdirent	dirent
+#నిర్వచించు _TDIR 		DIR
+#నిర్వచించు _topendir	opendir
+#నిర్వచించు _tclosedir	closedir
+#నిర్వచించు _treaddir	readdir
+#నిర్వచించు _trewinddir	rewinddir
+#నిర్వచించు _ttelldir	telldir
+#నిర్వచించు _tseekdir	seekdir
 
-#define _istalnum isalnum
-#define _istalnum_l _isalnum_l
-#define _istalpha isalpha
-#define _istalpha_l _isalpha_l
-#define _istdigit isdigit
-#define _istdigit_l _isdigit_l
-#define _istgraph isgraph
-#define _istgraph_l _isgraph_l
-#define _istlower islower
-#define _istlower_l _islower_l
-#define _istprint isprint
-#define _istprint_l _isprint_l
-#define _istpunct ispunct
-#define _istpunct_l _ispunct_l
-#define _istspace isspace
-#define _istspace_l _isspace_l
-#define _istupper isupper
-#define _istupper_l _isupper_l
+#నిర్వచించు _istalnum అక్షరమా_అంకెనా
+#నిర్వచించు _istalnum_l _isalnum_l
+#నిర్వచించు _istalpha అక్షరమా
+#నిర్వచించు _istalpha_l _isalpha_l
+#నిర్వచించు _istdigit అంకెనా
+#నిర్వచించు _istdigit_l _isdigit_l
+#నిర్వచించు _istgraph isgraph
+#నిర్వచించు _istgraph_l _isgraph_l
+#నిర్వచించు _istlower islower
+#నిర్వచించు _istlower_l _islower_l
+#నిర్వచించు _istprint isprint
+#నిర్వచించు _istprint_l _isprint_l
+#నిర్వచించు _istpunct ispunct
+#నిర్వచించు _istpunct_l _ispunct_l
+#నిర్వచించు _istspace ఖాళీనా
+#నిర్వచించు _istspace_l _isspace_l
+#నిర్వచించు _istupper isupper
+#నిర్వచించు _istupper_l _isupper_l
 
-#define _totupper toupper
-#define _totupper_l _toupper_l
-#define _totlower tolower
-#define _totlower_l _tolower_l
+#నిర్వచించు _totupper పెద్ద_అక్షరం
+#నిర్వచించు _totupper_l _toupper_l
+#నిర్వచించు _totlower tolower
+#నిర్వచించు _totlower_l _tolower_l
 
-#define _istlegal(_c) (1)
+#నిర్వచించు _istlegal(_c) (1)
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#నిర్వచితం_కాకపోతే ఖాళీ
+#నిర్వచితమైతే __cplusplus
+#నిర్వచించు ఖాళీ 0
+#లేకపోతే
+#నిర్వచించు ఖాళీ ((శూన్య *)0)
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#define _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
-#define _strinc(_pc) ((_pc)+1)
-#define _strnextc(_cpc) ((unsigned int) *(const unsigned char *)(_cpc))
-#define _strninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __strncnt(const char *_Str,size_t _Cnt);
-#define _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))
-#define _strspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+strspn(_cpc1,_cpc2))) ? ((_cpc1)+strspn(_cpc1,_cpc2)) : NULL))
+#నిర్వచించు _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? ఖాళీ : (_cpc2)-1)
+#నిర్వచించు _strinc(_pc) ((_pc)+1)
+#నిర్వచించు _strnextc(_cpc) ((గుర్తులేని పూర్ణాంకం) *(స్థిరరాశి గుర్తులేని అక్షరం *)(_cpc))
+#నిర్వచించు _strninc(_pc,_sz) (((_pc)+(_sz)))
+  _CRTIMP కొలత_t __cdecl __strncnt(స్థిరరాశి అక్షరం *_Str,కొలత_t _Cnt);
+#నిర్వచించు _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))
+#నిర్వచించు _strspnp(_cpc1,_cpc2) (!_cpc1 ? ఖాళీ : ((*((_cpc1)+strspn(_cpc1,_cpc2))) ? ((_cpc1)+strspn(_cpc1,_cpc2)) : ఖాళీ))
 
-#define _strncpy_l(_Destination,_Source,_Count,_Locale) (strncpy(_Destination,_Source,_Count))
-#define _strncat_l(_Destination,_Source,_Count,_Locale) (strncat(_Destination,_Source,_Count))
-#define _strtok_l(_String,_Delimiters,_Locale) (strtok(_String,_Delimiters))
-#define _strnset_l(_Destination,_Value,_Count,_Locale) (_strnset(_Destination,_Value,_Count))
-#define _strset_l(_Destination,_Value,_Locale) (_strset(_Destination,_Value))
-#endif
-#endif
+#నిర్వచించు _strncpy_l(_Destination,ఆధారం_3,లెక్క_5,_Locale) (strncpy(_Destination,ఆధారం_3,లెక్క_5))
+#నిర్వచించు _strncat_l(_Destination,ఆధారం_3,లెక్క_5,_Locale) (strncat(_Destination,ఆధారం_3,లెక్క_5))
+#నిర్వచించు _strtok_l(_String,_Delimiters,_Locale) (strtok(_String,_Delimiters))
+#నిర్వచించు _strnset_l(_Destination,విలువ_2,లెక్క_5,_Locale) (_strnset(_Destination,విలువ_2,లెక్క_5))
+#నిర్వచించు _strset_l(_Destination,విలువ_2,_Locale) (_strset(_Destination,విలువ_2))
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#define _T(x) __T(x)
-#define _TEXT(x) __T(x)
+#నిర్వచించు _T(x) __T(x)
+#నిర్వచించు పాఠ్యం_2(x) __T(x)
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#include <sec_api/tchar_s.h>
-#endif
+#అన్తర్భావ <sec_api/tchar_s.h>
+#అయితే_ముగింపు

@@ -3,285 +3,285 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _TIME_H_
-#define _TIME_H_
+#నిర్వచితం_కాకపోతే సమయం_H
+#నిర్వచించు సమయం_H
 
-#include <_mingw.h>
+#అన్తర్భావ <_mingw.h>
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#నిర్వచితం_కాకపోతే _WIN32
+#దోషం Only Win32 లక్ష్యం is supported!
+#అయితే_ముగింపు
 
-#pragma pack(push,_CRT_PACKING)
+#సూచన pack(నెట్టు,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#నిర్వచితం_కాకపోతే _CRTIMP
+#నిర్వచించు _CRTIMP __declspec(dllimport)
+#అయితే_ముగింపు
 
-#ifndef _WCHAR_T_DEFINED
-#define _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
-#endif
+#నిర్వచితం_కాకపోతే _WCHAR_T_DEFINED
+#నిర్వచించు _WCHAR_T_DEFINED
+  రకనిర్వచనం గుర్తులేని పొట్టి wchar_t;
+#అయితే_ముగింపు
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-  typedef long __time32_t;
-#endif
+#నిర్వచితం_కాకపోతే _TIME32_T_DEFINED
+#నిర్వచించు _TIME32_T_DEFINED
+  రకనిర్వచనం దీర్ఘ __time32_t;
+#అయితే_ముగింపు
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int _time64_t __attribute__ ((mode (DI)));
-#else
-  typedef __int64 __time64_t;
-#endif
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _TIME64_T_DEFINED
+#నిర్వచించు _TIME64_T_DEFINED
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+#ఒకవేళ defined(__GNUC__) && defined(__STRICT_ANSI__)
+  రకనిర్వచనం పూర్ణాంకం _time64_t __attribute__ ((బహుళకం (DI)));
+#లేకపోతే
+  రకనిర్వచనం __int64 __time64_t;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
-#endif
-#endif
+#నిర్వచితం_కాకపోతే సమయం_T_DEFINED
+#నిర్వచించు సమయం_T_DEFINED
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+  రకనిర్వచనం __time32_t time_t;
+#లేకపోతే
+  రకనిర్వచనం __time64_t time_t;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _CLOCK_T_DEFINED
-#define _CLOCK_T_DEFINED
-  typedef long clock_t;
-#endif
+#నిర్వచితం_కాకపోతే _CLOCK_T_DEFINED
+#నిర్వచించు _CLOCK_T_DEFINED
+  రకనిర్వచనం దీర్ఘ clock_t;
+#అయితే_ముగింపు
 
-#ifndef _SIZE_T_DEFINED
-#define _SIZE_T_DEFINED
-#undef size_t
-#ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
-  typedef unsigned __int64 size_t;
-#endif
-#else
-  typedef unsigned int size_t;
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _SIZE_T_DEFINED
+#నిర్వచించు _SIZE_T_DEFINED
+#నిర్వచనం_రద్దు కొలత_t
+#నిర్వచితమైతే _WIN64
+#ఒకవేళ defined(__GNUC__) && defined(__STRICT_ANSI__)
+  రకనిర్వచనం గుర్తులేని పూర్ణాంకం కొలత_t __attribute__ ((బహుళకం (DI)));
+#లేకపోతే
+  రకనిర్వచనం గుర్తులేని __int64 కొలత_t;
+#అయితే_ముగింపు
+#లేకపోతే
+  రకనిర్వచనం గుర్తులేని పూర్ణాంకం కొలత_t;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _SSIZE_T_DEFINED
-#define _SSIZE_T_DEFINED
-#undef ssize_t
-#ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
-  typedef __int64 ssize_t;
-#endif
-#else
-  typedef int ssize_t;
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _SSIZE_T_DEFINED
+#నిర్వచించు _SSIZE_T_DEFINED
+#నిర్వచనం_రద్దు ssize_t
+#నిర్వచితమైతే _WIN64
+#ఒకవేళ defined(__GNUC__) && defined(__STRICT_ANSI__)
+  రకనిర్వచనం పూర్ణాంకం ssize_t __attribute__ ((బహుళకం (DI)));
+#లేకపోతే
+  రకనిర్వచనం __int64 ssize_t;
+#అయితే_ముగింపు
+#లేకపోతే
+  రకనిర్వచనం పూర్ణాంకం ssize_t;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#నిర్వచితం_కాకపోతే ఖాళీ
+#నిర్వచితమైతే __cplusplus
+#నిర్వచించు ఖాళీ 0
+#లేకపోతే
+#నిర్వచించు ఖాళీ ((శూన్య *)0)
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifdef _USE_32BIT_TIME_T
-#define _localtime32 localtime
-#define _difftime32     difftime
-#define _ctime32        ctime
-#define _gmtime32       gmtime
-#define _mktime32       mktime
-#define _time32 time
-#endif
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+#నిర్వచించు _localtime32 localtime
+#నిర్వచించు _difftime32     difftime
+#నిర్వచించు _ctime32        ctime
+#నిర్వచించు _gmtime32       gmtime
+#నిర్వచించు _mktime32       mktime
+#నిర్వచించు _time32 సమయం
+#అయితే_ముగింపు
 
-#ifndef _TM_DEFINED
-#define _TM_DEFINED
-  struct tm {
-    int tm_sec;
-    int tm_min;
-    int tm_hour;
-    int tm_mday;
-    int tm_mon;
-    int tm_year;
-    int tm_wday;
-    int tm_yday;
-    int tm_isdst;
+#నిర్వచితం_కాకపోతే _TM_DEFINED
+#నిర్వచించు _TM_DEFINED
+  నిర్మాణం tm {
+    పూర్ణాంకం tm_sec;
+    పూర్ణాంకం tm_min;
+    పూర్ణాంకం tm_hour;
+    పూర్ణాంకం tm_mday;
+    పూర్ణాంకం tm_mon;
+    పూర్ణాంకం tm_year;
+    పూర్ణాంకం tm_wday;
+    పూర్ణాంకం tm_yday;
+    పూర్ణాంకం tm_isdst;
   };
-#endif
+#అయితే_ముగింపు
 
-#define CLOCKS_PER_SEC 1000
+#నిర్వచించు CLOCKS_PER_SEC 1000
 
-  __MINGW_IMPORT int _daylight;
-  __MINGW_IMPORT long _dstbias;
-  __MINGW_IMPORT long _timezone;
-  __MINGW_IMPORT char * _tzname[2];
-  _CRTIMP errno_t __cdecl _get_daylight(int *_Daylight);
-  _CRTIMP errno_t __cdecl _get_dstbias(long *_Daylight_savings_bias);
-  _CRTIMP errno_t __cdecl _get_timezone(long *_Timezone);
-  _CRTIMP errno_t __cdecl _get_tzname(size_t *_ReturnValue,char *_Buffer,size_t _SizeInBytes,int _Index);
-  char *__cdecl asctime(const struct tm *_Tm);
-  _CRTIMP char *__cdecl _ctime32(const __time32_t *_Time);
-  clock_t __cdecl clock(void);
-  _CRTIMP double __cdecl _difftime32(__time32_t _Time1,__time32_t _Time2);
-  _CRTIMP struct tm *__cdecl _gmtime32(const __time32_t *_Time);
-  _CRTIMP struct tm *__cdecl _localtime32(const __time32_t *_Time);
-  size_t __cdecl strftime(char *_Buf,size_t _SizeInBytes,const char *_Format,const struct tm *_Tm);
-  _CRTIMP size_t __cdecl _strftime_l(char *_Buf,size_t _Max_size,const char *_Format,const struct tm *_Tm,_locale_t _Locale);
-  _CRTIMP char *__cdecl _strdate(char *_Buffer);
-  _CRTIMP char *__cdecl _strtime(char *_Buffer);
-  _CRTIMP __time32_t __cdecl _time32(__time32_t *_Time);
-  _CRTIMP __time32_t __cdecl _mktime32(struct tm *_Tm);
-  _CRTIMP __time32_t __cdecl _mkgmtime32(struct tm *_Tm);
-#if defined (_POSIX_) || defined(__GNUC__)
-  void __cdecl tzset(void);
-#else
-  _CRTIMP void __cdecl _tzset(void);
-#endif
+  __MINGW_IMPORT పూర్ణాంకం _daylight;
+  __MINGW_IMPORT దీర్ఘ _dstbias;
+  __MINGW_IMPORT దీర్ఘ _timezone;
+  __MINGW_IMPORT అక్షరం * _tzname[2];
+  _CRTIMP errno_t __cdecl _get_daylight(పూర్ణాంకం *_Daylight);
+  _CRTIMP errno_t __cdecl _get_dstbias(దీర్ఘ *_Daylight_savings_bias);
+  _CRTIMP errno_t __cdecl _get_timezone(దీర్ఘ *_Timezone);
+  _CRTIMP errno_t __cdecl _get_tzname(కొలత_t *Return_విలువ,అక్షరం *బఫరు_2,కొలత_t కొలత_లోపల_బైట్లు,పూర్ణాంకం సూచీ_2);
+  అక్షరం *__cdecl asctime(స్థిరరాశి నిర్మాణం tm *_Tm);
+  _CRTIMP అక్షరం *__cdecl _ctime32(స్థిరరాశి __time32_t *సమయం_2);
+  clock_t __cdecl clock(శూన్య);
+  _CRTIMP ద్విగుణ __cdecl _difftime32(__time32_t _Time1,__time32_t _Time2);
+  _CRTIMP నిర్మాణం tm *__cdecl _gmtime32(స్థిరరాశి __time32_t *సమయం_2);
+  _CRTIMP నిర్మాణం tm *__cdecl _localtime32(స్థిరరాశి __time32_t *సమయం_2);
+  కొలత_t __cdecl strftime(అక్షరం *_Buf,కొలత_t కొలత_లోపల_బైట్లు,స్థిరరాశి అక్షరం *_Format,స్థిరరాశి నిర్మాణం tm *_Tm);
+  _CRTIMP కొలత_t __cdecl _strftime_l(అక్షరం *_Buf,కొలత_t Max_కొలత,స్థిరరాశి అక్షరం *_Format,స్థిరరాశి నిర్మాణం tm *_Tm,_locale_t _Locale);
+  _CRTIMP అక్షరం *__cdecl _strdate(అక్షరం *బఫరు_2);
+  _CRTIMP అక్షరం *__cdecl _strtime(అక్షరం *బఫరు_2);
+  _CRTIMP __time32_t __cdecl _time32(__time32_t *సమయం_2);
+  _CRTIMP __time32_t __cdecl _mktime32(నిర్మాణం tm *_Tm);
+  _CRTIMP __time32_t __cdecl _mkgmtime32(నిర్మాణం tm *_Tm);
+#ఒకవేళ defined (_POSIX_) || defined(__GNUC__)
+  శూన్య __cdecl tzset(శూన్య);
+#లేకపోతే
+  _CRTIMP శూన్య __cdecl _tzset(శూన్య);
+#అయితే_ముగింపు
 
-#if _INTEGRAL_MAX_BITS >= 64
-  double __cdecl _difftime64(__time64_t _Time1,__time64_t _Time2);
-  _CRTIMP char *__cdecl _ctime64(const __time64_t *_Time);
-  _CRTIMP struct tm *__cdecl _gmtime64(const __time64_t *_Time);
-  _CRTIMP struct tm *__cdecl _localtime64(const __time64_t *_Time);
-  _CRTIMP __time64_t __cdecl _mktime64(struct tm *_Tm);
-  _CRTIMP __time64_t __cdecl _mkgmtime64(struct tm *_Tm);
-  _CRTIMP __time64_t __cdecl _time64(__time64_t *_Time);
-#endif
-  unsigned __cdecl _getsystime(struct tm *_Tm);
-  unsigned __cdecl _setsystime(struct tm *_Tm,unsigned _MilliSec);
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+  ద్విగుణ __cdecl _difftime64(__time64_t _Time1,__time64_t _Time2);
+  _CRTIMP అక్షరం *__cdecl _ctime64(స్థిరరాశి __time64_t *సమయం_2);
+  _CRTIMP నిర్మాణం tm *__cdecl _gmtime64(స్థిరరాశి __time64_t *సమయం_2);
+  _CRTIMP నిర్మాణం tm *__cdecl _localtime64(స్థిరరాశి __time64_t *సమయం_2);
+  _CRTIMP __time64_t __cdecl _mktime64(నిర్మాణం tm *_Tm);
+  _CRTIMP __time64_t __cdecl _mkgmtime64(నిర్మాణం tm *_Tm);
+  _CRTIMP __time64_t __cdecl _time64(__time64_t *సమయం_2);
+#అయితే_ముగింపు
+  గుర్తులేని __cdecl _getsystime(నిర్మాణం tm *_Tm);
+  గుర్తులేని __cdecl _setsystime(నిర్మాణం tm *_Tm,గుర్తులేని _MilliSec);
 
-#ifndef _SIZE_T_DEFINED
-#define _SIZE_T_DEFINED
-#ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
-  typedef unsigned __int64 size_t;
-#endif
-#else
-  typedef unsigned long size_t;
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _SIZE_T_DEFINED
+#నిర్వచించు _SIZE_T_DEFINED
+#నిర్వచితమైతే _WIN64
+#ఒకవేళ defined(__GNUC__) && defined(__STRICT_ANSI__)
+  రకనిర్వచనం గుర్తులేని పూర్ణాంకం కొలత_t __attribute__ ((బహుళకం (DI)));
+#లేకపోతే
+  రకనిర్వచనం గుర్తులేని __int64 కొలత_t;
+#అయితే_ముగింపు
+#లేకపోతే
+  రకనిర్వచనం గుర్తులేని దీర్ఘ కొలత_t;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _SSIZE_T_DEFINED
-#define _SSIZE_T_DEFINED
-#ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
-  typedef __int64 ssize_t;
-#endif
-#else
-  typedef long ssize_t;
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _SSIZE_T_DEFINED
+#నిర్వచించు _SSIZE_T_DEFINED
+#నిర్వచితమైతే _WIN64
+#ఒకవేళ defined(__GNUC__) && defined(__STRICT_ANSI__)
+  రకనిర్వచనం పూర్ణాంకం ssize_t __attribute__ ((బహుళకం (DI)));
+#లేకపోతే
+  రకనిర్వచనం __int64 ssize_t;
+#అయితే_ముగింపు
+#లేకపోతే
+  రకనిర్వచనం దీర్ఘ ssize_t;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef _WTIME_DEFINED
-  _CRTIMP wchar_t *__cdecl _wasctime(const struct tm *_Tm);
-  _CRTIMP wchar_t *__cdecl _wctime32(const __time32_t *_Time);
-  size_t __cdecl wcsftime(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm);
-  _CRTIMP size_t __cdecl _wcsftime_l(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wstrdate(wchar_t *_Buffer);
-  _CRTIMP wchar_t *__cdecl _wstrtime(wchar_t *_Buffer);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP wchar_t *__cdecl _wctime64(const __time64_t *_Time);
-#endif
+#నిర్వచితం_కాకపోతే _WTIME_DEFINED
+  _CRTIMP wchar_t *__cdecl _wasctime(స్థిరరాశి నిర్మాణం tm *_Tm);
+  _CRTIMP wchar_t *__cdecl _wctime32(స్థిరరాశి __time32_t *సమయం_2);
+  కొలత_t __cdecl wcsftime(wchar_t *_Buf,కొలత_t కొలత_లోపల_పదాలు,స్థిరరాశి wchar_t *_Format,స్థిరరాశి నిర్మాణం tm *_Tm);
+  _CRTIMP కొలత_t __cdecl _wcsftime_l(wchar_t *_Buf,కొలత_t కొలత_లోపల_పదాలు,స్థిరరాశి wchar_t *_Format,స్థిరరాశి నిర్మాణం tm *_Tm,_locale_t _Locale);
+  _CRTIMP wchar_t *__cdecl _wstrdate(wchar_t *బఫరు_2);
+  _CRTIMP wchar_t *__cdecl _wstrtime(wchar_t *బఫరు_2);
+#ఒకవేళ INTEGRAL_MAX_బిట్లు >= 64
+  _CRTIMP wchar_t *__cdecl _wctime64(స్థిరరాశి __time64_t *సమయం_2);
+#అయితే_ముగింపు
 
-#if !defined (RC_INVOKED) && !defined (_INC_WTIME_INL)
-#define _INC_WTIME_INL
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime32(_Time); }
-#else
-__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime64(_Time); }
-#endif
-#endif
+#ఒకవేళ !defined (RC_INVOKED) && !defined (_INC_WTIME_INL)
+#నిర్వచించు _INC_WTIME_INL
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+__CRT_INLINE wchar_t *__cdecl _wctime(స్థిరరాశి time_t *సమయం_2) { తిరిగి _wctime32(సమయం_2); }
+#లేకపోతే
+__CRT_INLINE wchar_t *__cdecl _wctime(స్థిరరాశి time_t *సమయం_2) { తిరిగి _wctime64(సమయం_2); }
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#define _WTIME_DEFINED
-#endif
+#నిర్వచించు _WTIME_DEFINED
+#అయితే_ముగింపు
 
-#ifndef RC_INVOKED
-double __cdecl difftime(time_t _Time1,time_t _Time2);
-char *__cdecl ctime(const time_t *_Time);
-struct tm *__cdecl gmtime(const time_t *_Time);
-struct tm *__cdecl localtime(const time_t *_Time);
-struct tm *__cdecl localtime_r(const time_t *_Time,struct tm *);
+#నిర్వచితం_కాకపోతే RC_INVOKED
+ద్విగుణ __cdecl difftime(time_t _Time1,time_t _Time2);
+అక్షరం *__cdecl ctime(స్థిరరాశి time_t *సమయం_2);
+నిర్మాణం tm *__cdecl gmtime(స్థిరరాశి time_t *సమయం_2);
+నిర్మాణం tm *__cdecl localtime(స్థిరరాశి time_t *సమయం_2);
+నిర్మాణం tm *__cdecl localtime_r(స్థిరరాశి time_t *సమయం_2,నిర్మాణం tm *);
 
-time_t __cdecl mktime(struct tm *_Tm);
-time_t __cdecl _mkgmtime(struct tm *_Tm);
-time_t __cdecl time(time_t *_Time);
+time_t __cdecl mktime(నిర్మాణం tm *_Tm);
+time_t __cdecl _mkgmtime(నిర్మాణం tm *_Tm);
+time_t __cdecl సమయం(time_t *సమయం_2);
 
-#ifdef _USE_32BIT_TIME_T
-#if 0
-__CRT_INLINE double __cdecl difftime(time_t _Time1,time_t _Time2) { return _difftime32(_Time1,_Time2); }
-__CRT_INLINE char *__cdecl ctime(const time_t *_Time) { return _ctime32(_Time); }
-__CRT_INLINE struct tm *__cdecl gmtime(const time_t *_Time) { return _gmtime32(_Time); }
-__CRT_INLINE struct tm *__cdecl localtime(const time_t *_Time) { return _localtime32(_Time); }
-__CRT_INLINE time_t __cdecl mktime(struct tm *_Tm) { return _mktime32(_Tm); }
-__CRT_INLINE time_t __cdecl _mkgmtime(struct tm *_Tm) { return _mkgmtime32(_Tm); }
-__CRT_INLINE time_t __cdecl time(time_t *_Time) { return _time32(_Time); }
-#endif
-#else
-__CRT_INLINE double __cdecl difftime(time_t _Time1,time_t _Time2) { return _difftime64(_Time1,_Time2); }
-__CRT_INLINE char *__cdecl ctime(const time_t *_Time) { return _ctime64(_Time); }
-__CRT_INLINE struct tm *__cdecl gmtime(const time_t *_Time) { return _gmtime64(_Time); }
-__CRT_INLINE struct tm *__cdecl localtime(const time_t *_Time) { return _localtime64(_Time); }
-__CRT_INLINE time_t __cdecl mktime(struct tm *_Tm) { return _mktime64(_Tm); }
-__CRT_INLINE time_t __cdecl _mkgmtime(struct tm *_Tm) { return _mkgmtime64(_Tm); }
-__CRT_INLINE time_t __cdecl time(time_t *_Time) { return _time64(_Time); }
-#endif
-#endif
+#నిర్వచితమైతే USE_32_బిట్టు_సమయం_T
+#ఒకవేళ 0
+__CRT_INLINE ద్విగుణ __cdecl difftime(time_t _Time1,time_t _Time2) { తిరిగి _difftime32(_Time1,_Time2); }
+__CRT_INLINE అక్షరం *__cdecl ctime(స్థిరరాశి time_t *సమయం_2) { తిరిగి _ctime32(సమయం_2); }
+__CRT_INLINE నిర్మాణం tm *__cdecl gmtime(స్థిరరాశి time_t *సమయం_2) { తిరిగి _gmtime32(సమయం_2); }
+__CRT_INLINE నిర్మాణం tm *__cdecl localtime(స్థిరరాశి time_t *సమయం_2) { తిరిగి _localtime32(సమయం_2); }
+__CRT_INLINE time_t __cdecl mktime(నిర్మాణం tm *_Tm) { తిరిగి _mktime32(_Tm); }
+__CRT_INLINE time_t __cdecl _mkgmtime(నిర్మాణం tm *_Tm) { తిరిగి _mkgmtime32(_Tm); }
+__CRT_INLINE time_t __cdecl సమయం(time_t *సమయం_2) { తిరిగి _time32(సమయం_2); }
+#అయితే_ముగింపు
+#లేకపోతే
+__CRT_INLINE ద్విగుణ __cdecl difftime(time_t _Time1,time_t _Time2) { తిరిగి _difftime64(_Time1,_Time2); }
+__CRT_INLINE అక్షరం *__cdecl ctime(స్థిరరాశి time_t *సమయం_2) { తిరిగి _ctime64(సమయం_2); }
+__CRT_INLINE నిర్మాణం tm *__cdecl gmtime(స్థిరరాశి time_t *సమయం_2) { తిరిగి _gmtime64(సమయం_2); }
+__CRT_INLINE నిర్మాణం tm *__cdecl localtime(స్థిరరాశి time_t *సమయం_2) { తిరిగి _localtime64(సమయం_2); }
+__CRT_INLINE time_t __cdecl mktime(నిర్మాణం tm *_Tm) { తిరిగి _mktime64(_Tm); }
+__CRT_INLINE time_t __cdecl _mkgmtime(నిర్మాణం tm *_Tm) { తిరిగి _mkgmtime64(_Tm); }
+__CRT_INLINE time_t __cdecl సమయం(time_t *సమయం_2) { తిరిగి _time64(సమయం_2); }
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-#define CLK_TCK CLOCKS_PER_SEC
+#ఒకవేళ !defined(NO_OLDNAMES) || defined(_POSIX)
+#నిర్వచించు CLK_TCK CLOCKS_PER_SEC
 
-  __MINGW_IMPORT int daylight;
-  __MINGW_IMPORT long dstbias;
-  __MINGW_IMPORT long timezone;
-  __MINGW_IMPORT char *tzname[2];
-  void __cdecl tzset(void);
-#endif
+  __MINGW_IMPORT పూర్ణాంకం daylight;
+  __MINGW_IMPORT దీర్ఘ dstbias;
+  __MINGW_IMPORT దీర్ఘ timezone;
+  __MINGW_IMPORT అక్షరం *tzname[2];
+  శూన్య __cdecl tzset(శూన్య);
+#అయితే_ముగింపు
 
-#ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
-#define _TIMEVAL_DEFINED
-struct timeval {
-  long tv_sec;
-  long tv_usec;
+#నిర్వచితం_కాకపోతే _TIMEVAL_DEFINED /* also in winsock[2].h */
+#నిర్వచించు _TIMEVAL_DEFINED
+నిర్మాణం timeval {
+  దీర్ఘ tv_sec;
+  దీర్ఘ tv_usec;
 };
-#define timerisset(tvp) ((tvp)->tv_sec || (tvp)->tv_usec)
-#define timercmp(tvp,uvp,cmp) ((tvp)->tv_sec cmp (uvp)->tv_sec || (tvp)->tv_sec==(uvp)->tv_sec && (tvp)->tv_usec cmp (uvp)->tv_usec)
-#define timerclear(tvp) (tvp)->tv_sec = (tvp)->tv_usec = 0
-#endif /* _TIMEVAL_DEFINED */
+#నిర్వచించు timerisset(tvp) ((tvp)->tv_sec || (tvp)->tv_usec)
+#నిర్వచించు timercmp(tvp,uvp,cmp) ((tvp)->tv_sec cmp (uvp)->tv_sec || (tvp)->tv_sec==(uvp)->tv_sec && (tvp)->tv_usec cmp (uvp)->tv_usec)
+#నిర్వచించు timerclear(tvp) (tvp)->tv_sec = (tvp)->tv_usec = 0
+#అయితే_ముగింపు /* _TIMEVAL_DEFINED */
 
-#ifndef __STRICT_ANSI__
-#ifndef _TIMEZONE_DEFINED /* also in sys/time.h */
-#define _TIMEZONE_DEFINED
-struct timezone {
-  int tz_minuteswest;
-  int tz_dsttime;
+#నిర్వచితం_కాకపోతే __STRICT_ANSI__
+#నిర్వచితం_కాకపోతే _TIMEZONE_DEFINED /* also in sys/time.h */
+#నిర్వచించు _TIMEZONE_DEFINED
+నిర్మాణం timezone {
+  పూర్ణాంకం tz_minuteswest;
+  పూర్ణాంకం tz_dsttime;
 };
 
-  extern int __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
-#endif
-#endif /* __STRICT_ANSI__ */
+  బాహ్య పూర్ణాంకం __cdecl mingw_gettimeofday (నిర్మాణం timeval *p, నిర్మాణం timezone *z);
+#అయితే_ముగింపు
+#అయితే_ముగింపు /* __STRICT_ANSI__ */
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#pragma pack(pop)
+#సూచన pack(తీయి)
 
-#include <sec_api/time_s.h>
+#అన్తర్భావ <sec_api/time_s.h>
 
 /* Adding timespec definition.  */
-#include <sys/timeb.h>
+#అన్తర్భావ <sys/timeb.h>
 
-#endif /* End _TIME_H_ */
+#అయితే_ముగింపు /* End _TIME_H_ */
 

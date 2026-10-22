@@ -1,21 +1,21 @@
 /* integer promotion */
 
-int printf(const char*, ...);
-#define promote(s) printf(" %ssigned : %s\n", (s) - 100 < 0 ? "  " : "un", #s);
+పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం*, ...);
+#నిర్వచించు promote(s) రాయి(" %ssigned : %s\n", (s) - 100 < 0 ? "  " : "un", #s);
 
-int main (void)
+పూర్ణాంకం ప్రధాన (శూన్య)
 {
-    struct {
-        unsigned u3:3;
-        unsigned u31:31;
-        unsigned u32:32;
-        unsigned long ul31:31;
-        unsigned long ul32:32;
-        unsigned long long ull31:31;
-        unsigned long long ull32:32;
-        unsigned long long ull33:33;
-        unsigned long long ull64:64;
-        unsigned char c;
+    నిర్మాణం {
+        గుర్తులేని u3:3;
+        గుర్తులేని u31:31;
+        గుర్తులేని u32:32;
+        గుర్తులేని దీర్ఘ ul31:31;
+        గుర్తులేని దీర్ఘ ul32:32;
+        గుర్తులేని దీర్ఘ దీర్ఘ ull31:31;
+        గుర్తులేని దీర్ఘ దీర్ఘ ull32:32;
+        గుర్తులేని దీర్ఘ దీర్ఘ ull33:33;
+        గుర్తులేని దీర్ఘ దీర్ఘ ull64:64;
+        గుర్తులేని అక్షరం c;
     } s = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
     promote(s.u3);
@@ -28,7 +28,7 @@ int main (void)
     promote(s.ull33);
     promote(s.ull64);
     promote(s.c);
-    printf("\n");
+    రాయి("\n");
 
     promote((1 ? s.u3 : 1));
     promote((1 ? s.u31 : 1));
@@ -40,7 +40,7 @@ int main (void)
     promote((1 ? s.ull33 : 1));
     promote((1 ? s.ull64 : 1));
     promote((1 ? s.c : 1));
-    printf("\n");
+    రాయి("\n");
 
     promote(s.u3 << 1);
     promote(s.u31 << 1);
@@ -52,7 +52,7 @@ int main (void)
     promote(s.ull33 << 1);
     promote(s.ull64 << 1);
     promote(s.c << 1);
-    printf("\n");
+    రాయి("\n");
 
     promote(+s.u3);
     promote(+s.u31);
@@ -64,7 +64,7 @@ int main (void)
     promote(+s.ull33);
     promote(+s.ull64);
     promote(+s.c);
-    printf("\n");
+    రాయి("\n");
 
     promote(-s.u3);
     promote(-s.u31);
@@ -76,7 +76,7 @@ int main (void)
     promote(-s.ull33);
     promote(-s.ull64);
     promote(-s.c);
-    printf("\n");
+    రాయి("\n");
 
     promote(~s.u3);
     promote(~s.u31);
@@ -88,7 +88,7 @@ int main (void)
     promote(~s.ull33);
     promote(~s.ull64);
     promote(~s.c);
-    printf("\n");
+    రాయి("\n");
 
     promote(!s.u3);
     promote(!s.u31);
@@ -100,12 +100,12 @@ int main (void)
     promote(!s.ull33);
     promote(!s.ull64);
     promote(!s.c);
-    printf("\n");
+    రాయి("\n");
 
-    promote(+(unsigned)s.u3);
-    promote(-(unsigned)s.u3);
-    promote(~(unsigned)s.u3);
-    promote(!(unsigned)s.u3);
+    promote(+(గుర్తులేని)s.u3);
+    promote(-(గుర్తులేని)s.u3);
+    promote(~(గుర్తులేని)s.u3);
+    promote(!(గుర్తులేని)s.u3);
 
-    return 0;
+    తిరిగి 0;
 }

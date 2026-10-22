@@ -1,18 +1,18 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <errno.h>
+#అన్తర్భావ <stdio.h>
+#అన్తర్భావ <pthread.h>
+#అన్తర్భావ <errno.h>
 
-int
-main(void)
+పూర్ణాంకం
+ప్రధాన(శూన్య)
 {
-  int ret;
+  పూర్ణాంకం ret;
   pthread_condattr_t attr;
   pthread_cond_t condition;
 
   /* This test fails if symbol versioning does not work */
   pthread_condattr_init (&attr);
   pthread_condattr_setpshared (&attr, PTHREAD_PROCESS_SHARED);
-  printf ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
+  రాయి ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
   pthread_condattr_destroy (&attr);
-  return 0;
+  తిరిగి 0;
 }

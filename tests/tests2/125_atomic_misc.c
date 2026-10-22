@@ -1,76 +1,76 @@
-#include <stdatomic.h>
-int printf(const char*,...);
+#అన్తర్భావ <stdatomic.h>
+పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం*,...);
 
-#if defined test_atomic_compare_exchange
-int main()
+#ఒకవేళ defined test_atomic_compare_exchange
+పూర్ణాంకం ప్రధాన()
 {
-    _Atomic int a = 12;
-    int b = 77;
-    int r;
+    _Atomic పూర్ణాంకం a = 12;
+    పూర్ణాంకం b = 77;
+    పూర్ణాంకం r;
 
     atomic_store(&a, b + 0);
     r = atomic_compare_exchange_strong(&a, &b, 99);
-    printf("%d %d %d\n", r, a, b);
+    రాయి("%d %d %d\n", r, a, b);
 
     atomic_store(&a, b + 3);
     r = atomic_compare_exchange_strong(&a, &b, 99);
-    printf("%d %d %d\n", r, a, b);
+    రాయి("%d %d %d\n", r, a, b);
 
     atomic_store(&a, b + 5);
     r = atomic_exchange(&a,  33);
-    printf("%d %d %d\n", r, a, b);
+    రాయి("%d %d %d\n", r, a, b);
 
     atomic_store(&a, b + 10);
     r = atomic_exchange(&a, 66);
-    printf("%d %d %d\n", r, a, b);
+    రాయి("%d %d %d\n", r, a, b);
 
-    return 0;
+    తిరిగి 0;
 }
 
-#elif defined test_atomic_store
-int main()
+#లేదావేళ defined test_atomic_store
+పూర్ణాంకం ప్రధాన()
 {
-    int _Atomic i;
-    int r;
+    పూర్ణాంకం _Atomic i;
+    పూర్ణాంకం r;
     atomic_store(&i, 12);
     r = atomic_fetch_add(&i, i);
-    printf("r = %d, i = %d\n", r, i);
+    రాయి("r = %d, i = %d\n", r, i);
 }
 
-#elif defined test_atomic_store_pointer
-typedef struct { char c[4]; } c4;
-int main()
+#లేదావేళ defined test_atomic_store_సూచిక
+రకనిర్వచనం నిర్మాణం { అక్షరం c[4]; } c4;
+పూర్ణాంకం ప్రధాన()
 {
-    int i = 1;
-    int _Atomic *p = &i;
-    int k = 2;
+    పూర్ణాంకం i = 1;
+    పూర్ణాంకం _Atomic *p = &i;
+    పూర్ణాంకం k = 2;
     atomic_store(&p, &k);
-    printf("*p = %d\n", *p);
+    రాయి("*p = %d\n", *p);
 }
 
-#elif defined test_atomic_store_struct
-typedef struct { char c[4]; } c4;
-int main()
+#లేదావేళ defined test_atomic_store_struct
+రకనిర్వచనం నిర్మాణం { అక్షరం c[4]; } c4;
+పూర్ణాంకం ప్రధాన()
 {
     c4 _Atomic p;
     c4 v = { 1,2,3,4 };
     atomic_store(&p, v);
-    printf("%d %d %d %d\n", p.c[0], p.c[1], p.c[2], p.c[3]);
+    రాయి("%d %d %d %d\n", p.c[0], p.c[1], p.c[2], p.c[3]);
 }
 
-#elif defined test_atomic_op
+#లేదావేళ defined test_atomic_op
 
-#define OP1(func, v, e1, e2) atomic_##func(&c, v) == e1 && c == e2
-#define OP2(func, v, e1, e2) atomic_##func(&s, v) == e1 && s == e2
-#define OP4(func, v, e1, e2) atomic_##func(&i, v) == e1 && i == e2
-#define OP8(func, v, e1, e2) atomic_##func(&l, v) == e1 && l == e2
+#నిర్వచించు OP1(func, v, e1, e2) atomic_##func(&c, v) == e1 && c == e2
+#నిర్వచించు OP2(func, v, e1, e2) atomic_##func(&s, v) == e1 && s == e2
+#నిర్వచించు OP4(func, v, e1, e2) atomic_##func(&i, v) == e1 && i == e2
+#నిర్వచించు OP8(func, v, e1, e2) atomic_##func(&l, v) == e1 && l == e2
 
-#define OP(func, v, e1, e2) printf ("%s: %s\n", #func,                        \
+#నిర్వచించు OP(func, v, e1, e2) రాయి ("%s: %s\n", #func,                        \
                                     OP1(func,v,e1,e2) && OP2(func,v,e1,e2) && \
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
  
-int main()
+పూర్ణాంకం ప్రధాన()
 {
     atomic_char c;
     atomic_short s;
@@ -82,36 +82,36 @@ int main()
     atomic_init(&i, 0);
     atomic_init(&l, 0);
 
-    OP(fetch_add, 10, 0, 10);
+    OP(fetch_కూడు, 10, 0, 10);
     OP(fetch_sub, 5, 10, 5);
     OP(fetch_or, 0x10, 5, 21);
     OP(fetch_xor, 0x20, 21, 53);
     OP(fetch_and, 0x0f, 53, 5);
 }
 
-#elif defined test_atomic_op2
+#లేదావేళ defined test_atomic_op2
 
-typedef __SIZE_TYPE__ size64_t;
+రకనిర్వచనం __SIZE_TYPE__ size64_t;
 
-#define OP1(func, v, e1, e2) \
+#నిర్వచించు OP1(func, v, e1, e2) \
     __atomic_##func(&c, v, __ATOMIC_SEQ_CST) == e1 && c == e2
-#define OP2(func, v, e1, e2)\
+#నిర్వచించు OP2(func, v, e1, e2)\
     __atomic_##func(&s, v, __ATOMIC_SEQ_CST) == e1 && s == e2
-#define OP4(func, v, e1, e2)\
+#నిర్వచించు OP4(func, v, e1, e2)\
     __atomic_##func(&i, v, __ATOMIC_SEQ_CST) == e1 && i == e2
-#define OP8(func, v, e1, e2)\
+#నిర్వచించు OP8(func, v, e1, e2)\
     __atomic_##func(&l, v, __ATOMIC_SEQ_CST) == e1 && l == e2
 
-#define OP(func, v, e1, e2) printf ("%s: %s\n", #func,                        \
+#నిర్వచించు OP(func, v, e1, e2) రాయి ("%s: %s\n", #func,                        \
                                     OP1(func,v,e1,e2) && OP2(func,v,e1,e2) && \
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    signed char c;
-    short s;
-    int i;
+    గుర్తుగల అక్షరం c;
+    పొట్టి s;
+    పూర్ణాంకం i;
     size64_t l;
 
     atomic_init(&c, 0);
@@ -119,7 +119,7 @@ int main()
     atomic_init(&i, 0);
     atomic_init(&l, 0);
 
-    OP(fetch_add, 10, 0, 10);
+    OP(fetch_కూడు, 10, 0, 10);
     OP(fetch_sub, 5, 10, 5);
     OP(fetch_or, 0x10, 5, 21);
     OP(fetch_xor, 0x20, 21, 53);
@@ -131,7 +131,7 @@ int main()
     atomic_init(&i, 0);
     atomic_init(&l, 0);
 
-    OP(add_fetch, 10, 10, 10);
+    OP(కూడు_fetch, 10, 10, 10);
     OP(sub_fetch, 5, 5, 5);
     OP(or_fetch, 0x10, 21, 21);
     OP(xor_fetch, 0x20, 53, 53);
@@ -139,69 +139,69 @@ int main()
     OP(nand_fetch, 0x01, -2, -2);
 }
 
-#elif defined test_atomic_thread_signal
-int main()
+#లేదావేళ defined test_atomic_thread_signal
+పూర్ణాంకం ప్రధాన()
 {
-    int c;
+    పూర్ణాంకం c;
 
     atomic_thread_fence(__ATOMIC_SEQ_CST);
     atomic_signal_fence(__ATOMIC_SEQ_CST);
-    printf ("%d\n", atomic_is_lock_free(&c));
+    రాయి ("%d\n", atomic_is_lock_free(&c));
 }
 
-#elif defined test_atomic_error_1
-int main()
+#లేదావేళ defined test_atomic_error_1
+పూర్ణాంకం ప్రధాన()
 {
-    int _Atomic i;
+    పూర్ణాంకం _Atomic i;
     atomic_load(i);
 }
 
-#elif defined test_atomic_error_2
-int main()
+#లేదావేళ defined test_atomic_error_2
+పూర్ణాంకం ప్రధాన()
 {
-    struct { char c[3]; } _Atomic c3;
+    నిర్మాణం { అక్షరం c[3]; } _Atomic c3;
     atomic_load(&c3);
 }
 
-#elif defined test_atomic_error_3
-int main()
+#లేదావేళ defined test_atomic_error_3
+పూర్ణాంకం ప్రధాన()
 {
-    _Atomic int *p = 0;
+    _Atomic పూర్ణాంకం *p = 0;
     atomic_fetch_add(&p, 1);
 }
 
-#elif defined test_atomic_error_4
-int main()
+#లేదావేళ defined test_atomic_error_4
+పూర్ణాంకం ప్రధాన()
 {
-    int _Atomic i = 1;
-    char c = 2;
+    పూర్ణాంకం _Atomic i = 1;
+    అక్షరం c = 2;
     atomic_compare_exchange_strong(&i, &c, 0);
 }
 
-#elif defined test_atomic_warn_1
-int main()
+#లేదావేళ defined test_atomic_warn_1
+పూర్ణాంకం ప్రధాన()
 {
-    size_t _Atomic i = 1;
+    కొలత_t _Atomic i = 1;
     /* assignment to integer from pointer */
     atomic_store(&i, &i);
 }
 
-#elif defined test_atomic_warn_2
-int main()
+#లేదావేళ defined test_atomic_warn_2
+పూర్ణాంకం ప్రధాన()
 {
-    int i = 1;
-    char c = 2;
-    int _Atomic *p = &i;
+    పూర్ణాంకం i = 1;
+    అక్షరం c = 2;
+    పూర్ణాంకం _Atomic *p = &i;
     /* assignment from incompatible pointer */
     atomic_store(&p, &c);
 }
 
-#elif defined test_atomic_warn_3
-int main()
+#లేదావేళ defined test_atomic_warn_3
+పూర్ణాంకం ప్రధాన()
 {
-    int const i = 1;
+    పూర్ణాంకం స్థిరరాశి i = 1;
     /* assignment to read-only -location */
     atomic_fetch_add(&i, 2);
 }
 
-#endif
+#అయితే_ముగింపు

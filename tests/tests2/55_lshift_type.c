@@ -7,46 +7,46 @@ each of the operands. The type of the result is that of the promoted
 left operand."
 */
 
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (int) sizeof((M)+0)
-#define CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
-#define TEST1(X,T) do { CHECK(X,T); CHECK(X,unsigned T); } while (0)
-#define TEST2(X)                 \
-  do                             \
+#నిర్వచించు PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (పూర్ణాంకం) పరిమాణం((M)+0)
+#నిర్వచించు CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
+#నిర్వచించు TEST1(X,T) చేయి { CHECK(X,T); CHECK(X,గుర్తులేని T); } అయితే (0)
+#నిర్వచించు TEST2(X)                 \
+  చేయి                             \
     {                            \
-      TEST1((X),short);          \
-      TEST1((X),int);            \
-      TEST1((X),long);           \
-      TEST1((X),long long);      \
+      TEST1((X),పొట్టి);          \
+      TEST1((X),పూర్ణాంకం);            \
+      TEST1((X),దీర్ఘ);           \
+      TEST1((X),దీర్ఘ దీర్ఘ);      \
     }                            \
-  while (0)
-#define TEST3(X,T) do { TEST2((T)(X)); TEST2((unsigned T)(X)); } while (0)
-#define TEST4(X)                 \
-  do                             \
+  అయితే (0)
+#నిర్వచించు TEST3(X,T) చేయి { TEST2((T)(X)); TEST2((గుర్తులేని T)(X)); } అయితే (0)
+#నిర్వచించు TEST4(X)                 \
+  చేయి                             \
     {                            \
-      TEST3((X),short);          \
-      TEST3((X),int);            \
-      TEST3((X),long);           \
-      TEST3((X),long long);      \
+      TEST3((X),పొట్టి);          \
+      TEST3((X),పూర్ణాంకం);            \
+      TEST3((X),దీర్ఘ);           \
+      TEST3((X),దీర్ఘ దీర్ఘ);      \
     }                            \
- while (0)
+ అయితే (0)
 
-static int debug, nfailed = 0;
+స్థిర పూర్ణాంకం debug, nfailed = 0;
 
-static void check (const char *s, int arg1, int shift)
+స్థిర శూన్య check (స్థిరరాశి అక్షరం *s, పూర్ణాంకం arg1, పూర్ణాంకం జరుపు)
 {
-  int failed = arg1 != shift;
-  if (debug || failed)
-    printf ("%s %d %d\n", s, arg1, shift);
+  పూర్ణాంకం failed = arg1 != జరుపు;
+  ఒకవేళ (debug || failed)
+    రాయి ("%s %d %d\n", s, arg1, జరుపు);
   nfailed += failed;
 }
 
-int main (int argc, char **argv)
+పూర్ణాంకం ప్రధాన (పూర్ణాంకం argc, అక్షరం **argv)
 {
   debug = argc > 1;
   TEST4(1);
   TEST4(-1);
-  printf ("%d test(s) failed\n", nfailed);
-  return nfailed != 0;
+  రాయి ("%d test(s) failed\n", nfailed);
+  తిరిగి nfailed != 0;
 }

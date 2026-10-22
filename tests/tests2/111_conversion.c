@@ -1,24 +1,24 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-union u {
-    unsigned long ul;
-    long double ld;
+సంఘం u {
+    గుర్తులేని దీర్ఘ ul;
+    దీర్ఘ ద్విగుణ ld;
 };
 
-void
-conv (union u *p)
+శూన్య
+conv (సంఘం u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (గుర్తులేని పూర్ణాంకం) p->ld;
 }
 
-int main (void)
+పూర్ణాంకం ప్రధాన (శూన్య)
 {
-    union u v;
-    double d = 1234567890.0;
+    సంఘం u v;
+    ద్విగుణ d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
-    printf ("%lu\n", v.ul);
-    printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    రాయి ("%lu\n", v.ul);
+    రాయి ("%llu\n", (గుర్తులేని దీర్ఘ దీర్ఘ)d);
+    తిరిగి 0;
 }

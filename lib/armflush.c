@@ -5,12 +5,12 @@
    itself needs this function */
 
 /* ------------------------------------------------------------- */
-#if defined __arm__
+#ఒకవేళ defined __arm__
 
-#ifdef __TINYC__
+#నిర్వచితమైతే __TINYC__
 
 /* syscall wrapper */
-unsigned _tccsyscall(unsigned syscall_nr, ...);
+గుర్తులేని _tccsyscall(గుర్తులేని syscall_nr, ...);
 
 /* arm-tcc supports only fake asm currently */
 __asm__(
@@ -26,45 +26,45 @@ __asm__(
     );
 
 /* from unistd.h: */
-#if defined(__thumb__) || defined(__ARM_EABI__)
+#ఒకవేళ defined(__thumb__) || defined(__ARM_EABI__)
 # define __NR_SYSCALL_BASE      0x0
-#else
+#లేకపోతే
 # define __NR_SYSCALL_BASE      0x900000
-#endif
-#define __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
-#define __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
+#అయితే_ముగింపు
+#నిర్వచించు __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
+#నిర్వచించు __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
 
-#define syscall _tccsyscall
+#నిర్వచించు syscall _tccsyscall
 
-#else
+#లేకపోతే
 
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <stdio.h>
+#నిర్వచించు GNU_ఆధారం
+#అన్తర్భావ <unistd.h>
+#అన్తర్భావ <sys/syscall.h>
+#అన్తర్భావ <stdio.h>
 
-#endif
+#అయితే_ముగింపు
 
 /* Flushing for tccrun */
-void __clear_cache(void *beginning, void *end)
+శూన్య __clear_cache(శూన్య *beginning, శూన్య *చివర)
 {
 /* __ARM_NR_cacheflush is kernel private and should not be used in user space.
  * However, there is no ARM asm parser in tcc so we use it for now */
-    syscall(__ARM_NR_cacheflush, beginning, end, 0);
+    syscall(__ARM_NR_cacheflush, beginning, చివర, 0);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __aarch64__
-void __clear_cache(void *beg, void *end)
+#లేదావేళ defined __aarch64__
+శూన్య __clear_cache(శూన్య *beg, శూన్య *చివర)
 {
-    __arm64_clear_cache(beg, end);
+    __arm64_clear_cache(beg, చివర);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __riscv
-void __clear_cache(void *beg, void *end)
+#లేదావేళ defined __riscv
+శూన్య __clear_cache(శూన్య *beg, శూన్య *చివర)
 {
-    __riscv64_clear_cache(beg, end);
+    __riscv64_clear_cache(beg, చివర);
 }
 
-#endif
+#అయితే_ముగింపు

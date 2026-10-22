@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#అన్తర్భావ <stdio.h>
+#అన్తర్భావ <stdlib.h>
 asm (
     ".text;"
     ".globl _us;.globl _ss;.globl _uc;.globl _sc;"
@@ -8,34 +8,34 @@ asm (
 	"ret;"
 );
 
-#ifndef __leading_underscore
-#define us _us
-#define ss _ss
-#define uc _uc
-#define sc _sc
-#endif
+#నిర్వచితం_కాకపోతే __leading_underscore
+#నిర్వచించు us _us
+#నిర్వచించు ss _ss
+#నిర్వచించు uc _uc
+#నిర్వచించు sc _sc
+#అయితే_ముగింపు
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    unsigned short us(void);
-    short ss(void);
-    unsigned char uc(void);
-    signed char sc(void);
+    గుర్తులేని పొట్టి us(శూన్య);
+    పొట్టి ss(శూన్య);
+    గుర్తులేని అక్షరం uc(శూన్య);
+    గుర్తుగల అక్షరం sc(శూన్య);
 
-    unsigned short (*fpus)(void) = us;
-    short (*fpss)(void) = ss;
-    unsigned char (*fpuc)(void) = uc;
-    signed char (*fpsc)(void) = sc;
+    గుర్తులేని పొట్టి (*fpus)(శూన్య) = us;
+    పొట్టి (*fpss)(శూన్య) = ss;
+    గుర్తులేని అక్షరం (*fpuc)(శూన్య) = uc;
+    గుర్తుగల అక్షరం (*fpsc)(శూన్య) = sc;
 
-    printf("%08X %08X\n", us() + 1, fpus() + 1);
-    printf("%08X %08X\n", ss() + 1, fpss() + 1);
-    printf("%08X %08X\n", uc() + 1, fpuc() + 1);
-    printf("%08X %08X\n", sc() + 1, fpsc() + 1);
-    printf("\n");
-    printf("%08X %08X\n", fpus() + 1, us() + 1);
-    printf("%08X %08X\n", fpss() + 1, ss() + 1);
-    printf("%08X %08X\n", fpuc() + 1, uc() + 1);
-    printf("%08X %08X\n", fpsc() + 1, sc() + 1);
+    రాయి("%08X %08X\n", us() + 1, fpus() + 1);
+    రాయి("%08X %08X\n", ss() + 1, fpss() + 1);
+    రాయి("%08X %08X\n", uc() + 1, fpuc() + 1);
+    రాయి("%08X %08X\n", sc() + 1, fpsc() + 1);
+    రాయి("\n");
+    రాయి("%08X %08X\n", fpus() + 1, us() + 1);
+    రాయి("%08X %08X\n", fpss() + 1, ss() + 1);
+    రాయి("%08X %08X\n", fpuc() + 1, uc() + 1);
+    రాయి("%08X %08X\n", fpsc() + 1, sc() + 1);
 
-    return 0;
+    తిరిగి 0;
 }

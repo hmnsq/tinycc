@@ -1,17 +1,17 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int a;
+   పూర్ణాంకం a;
 
-   for (a = 0; a < 2; a++)
+   కొరకు (a = 0; a < 2; a++)
    {
-      int b = a;
+      పూర్ణాంకం b = a;
    }
 
-   printf("it's all good\n");
+   రాయి("it's all good\n");
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

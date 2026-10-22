@@ -1,80 +1,80 @@
 /* Check some way in where code suppression caused various
    miscompilations.  */
-extern int printf (const char *, ...);
-typedef __SIZE_TYPE__ size_t;
+బాహ్య పూర్ణాంకం రాయి (స్థిరరాశి అక్షరం *, ...);
+రకనిర్వచనం __SIZE_TYPE__ కొలత_t;
 
-size_t _brk_start, _brk_end;
-void * extend_brk(size_t size, size_t align)
+కొలత_t brk_ప్రారంభం, brk_చివర;
+శూన్య * extend_brk(కొలత_t కొలత, కొలత_t align)
 {
-    size_t mask = align - 1;
-    void *ret = 0;
+    కొలత_t ముసుగు = align - 1;
+    శూన్య *ret = 0;
 
-     do {
-	 if (__builtin_expect(!!(_brk_start == 0), 0))
-	   do {
-	       printf("wrong1\n");
-	   } while (0);
-     } while (0);
-     _brk_end = (_brk_end + mask) & ~mask;
-     ret = (void *)_brk_end;
-     _brk_end += size;
+     చేయి {
+	 ఒకవేళ (__builtin_expect(!!(brk_ప్రారంభం == 0), 0))
+	   చేయి {
+	       రాయి("wrong1\n");
+	   } అయితే (0);
+     } అయితే (0);
+     brk_చివర = (brk_చివర + ముసుగు) & ~ముసుగు;
+     ret = (శూన్య *)brk_చివర;
+     brk_చివర += కొలత;
 
-     return ret;
+     తిరిగి ret;
 }
 
-static void get_args (int a, int b)
+స్థిర శూన్య get_వాదనలు (పూర్ణాంకం a, పూర్ణాంకం b)
 {
-  if (a != 1)
-    printf("wrong2\n");
-  else
-    printf("okay\n");
+  ఒకవేళ (a != 1)
+    రాయి("wrong2\n");
+  లేకపోతే
+    రాయి("okay\n");
 }
 
-void bla(void)
+శూన్య bla(శూన్య)
 {
-  int __ret = 42;
+  పూర్ణాంకం __ret = 42;
   ({
-    if (__builtin_expect(!!(0), 0)) {
-      if (__builtin_expect(!!__ret, 0))
-        printf("wrong3\n");
-      int x = !!(__ret);
+    ఒకవేళ (__builtin_expect(!!(0), 0)) {
+      ఒకవేళ (__builtin_expect(!!__ret, 0))
+        రాయి("wrong3\n");
+      పూర్ణాంకం x = !!(__ret);
     }
     __ret;
   });
-  get_args(!!__ret, sizeof(__ret));
+  get_వాదనలు(!!__ret, పరిమాణం(__ret));
 }
 
-int ext;
+పూర్ణాంకం ext;
 
-void broken_jumpopt (int xxx)
+శూన్య broken_jumpopt (పూర్ణాంకం xxx)
 {
   /* This was broken in 8227db3a2 by code suppression during suppressed
      code :) */
   ext = (xxx || 1) || ((xxx && 1) || 1);
-  printf("okay: %d %d\n", xxx, ext);
+  రాయి("okay: %d %d\n", xxx, ext);
 }
 
-_Bool chk(unsigned long addr, unsigned long limit, unsigned long size)
+_Bool chk(గుర్తులేని దీర్ఘ addr, గుర్తులేని దీర్ఘ హద్దు, గుర్తులేని దీర్ఘ కొలత)
 {
   _Bool ret;
   /* This just needs to compile, no runtime test.  (And it doesn't compile
      only with certain internal checking added that's not committed).  */
-  if (0)
-    ret = 0 != (!!(addr > limit - size));
-  return 0;
+  ఒకవేళ (0)
+    ret = 0 != (!!(addr > హద్దు - కొలత));
+  తిరిగి 0;
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-  void *r;
-  _brk_start = 1024;
-  _brk_end = 1024;
+  శూన్య *r;
+  brk_ప్రారంభం = 1024;
+  brk_చివర = 1024;
   r = extend_brk (4096, 16);
-  if (!r)
-    printf("wrong4\n");
-  else
-    printf("okay\n");
+  ఒకవేళ (!r)
+    రాయి("wrong4\n");
+  లేకపోతే
+    రాయి("okay\n");
   bla();
   broken_jumpopt(42);
-  return 0;
+  తిరిగి 0;
 }

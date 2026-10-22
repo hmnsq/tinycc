@@ -1,20 +1,20 @@
-extern int write (int fd, void *buf, int len);
+బాహ్య పూర్ణాంకం లిఖ (పూర్ణాంకం fd, శూన్య *buf, పూర్ణాంకం len);
 
-static void __attribute__ ((constructor))
-testc (void)
+స్థిర శూన్య __attribute__ ((constructor))
+testc (శూన్య)
 {
-  write (1, "constructor\n", 12);
+  లిఖ (1, "constructor\n", 12);
 }
 
-static void __attribute__ ((destructor))
-testd (void)
+స్థిర శూన్య __attribute__ ((destructor))
+testd (శూన్య)
 {
-  write (1, "destructor\n", 11);
+  లిఖ (1, "destructor\n", 11);
 }
 
-int
-main (void)
+పూర్ణాంకం
+ప్రధాన (శూన్య)
 {
-  write (1, "main\n", 5);
-  return 0;
+  లిఖ (1, "main\n", 5);
+  తిరిగి 0;
 }

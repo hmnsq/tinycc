@@ -1,12 +1,12 @@
-#include <stdio.h>	// printf()
+#అన్తర్భావ <stdio.h>	// printf()
 
-#define CAT2(a,b) a##b
-#define CAT(a,b) CAT2(a,b)
-#define AB(x) CAT(x,y)
+#నిర్వచించు CAT2(a,b) a##b
+#నిర్వచించు CAT(a,b) CAT2(a,b)
+#నిర్వచించు AB(x) CAT(x,y)
 
-int main(void)
+పూర్ణాంకం ప్రధాన(శూన్య)
 {
-  int xy = 42;
-  printf("%d\n", CAT(A,B)(x));
-  return 0;
+  పూర్ణాంకం xy = 42;
+  రాయి("%d\n", CAT(A,B)(x));
+  తిరిగి 0;
 }

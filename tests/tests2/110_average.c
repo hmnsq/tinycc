@@ -1,27 +1,27 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-typedef struct
+రకనిర్వచనం నిర్మాణం
 {
-    double average;
-    int count;
+    ద్విగుణ సరాసరి;
+    పూర్ణాంకం లెక్క_2;
 }
 stats_type;
 
-static void
-testc (stats_type *s, long long data)
+స్థిర శూన్య
+testc (stats_type *s, దీర్ఘ దీర్ఘ దత్తాంశం)
 {
-    s->average = (s->average * s->count + data) / (s->count + 1);
-    s->count++;
+    s->సరాసరి = (s->సరాసరి * s->లెక్క_2 + దత్తాంశం) / (s->లెక్క_2 + 1);
+    s->లెక్క_2++;
 }
 
-int main (void)
+పూర్ణాంకం ప్రధాన (శూన్య)
 {
     stats_type s;
 
-    s.average = 0;
-    s.count = 0;
+    s.సరాసరి = 0;
+    s.లెక్క_2 = 0;
     testc (&s, 10);
     testc (&s, 20);
-    printf ("%g %d\n", s.average, s.count);
-    return 0;
+    రాయి ("%g %d\n", s.సరాసరి, s.లెక్క_2);
+    తిరిగి 0;
 }

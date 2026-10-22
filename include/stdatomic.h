@@ -9,163 +9,163 @@
  *===-----------------------------------------------------------------------===
  */
 
-#ifndef _STDATOMIC_H
-#define _STDATOMIC_H
+#నిర్వచితం_కాకపోతే _STDATOMIC_H
+#నిర్వచించు _STDATOMIC_H
 
-#include <stddef.h>
-#include <stdint.h>
-#include <stdbool.h>
+#అన్తర్భావ <stddef.h>
+#అన్తర్భావ <stdint.h>
+#అన్తర్భావ <stdbool.h>
 
-#define __ATOMIC_RELAXED 0
-#define __ATOMIC_CONSUME 1
-#define __ATOMIC_ACQUIRE 2
-#define __ATOMIC_RELEASE 3
-#define __ATOMIC_ACQ_REL 4
-#define __ATOMIC_SEQ_CST 5
+#నిర్వచించు __ATOMIC_RELAXED 0
+#నిర్వచించు __ATOMIC_CONSUME 1
+#నిర్వచించు __ATOMIC_ACQUIRE 2
+#నిర్వచించు __ATOMIC_RELEASE 3
+#నిర్వచించు __ATOMIC_ACQ_REL 4
+#నిర్వచించు __ATOMIC_SEQ_CST 5
 
 /* Memory ordering */
-typedef enum {
+రకనిర్వచనం గణన {
     memory_order_relaxed = __ATOMIC_RELAXED,
-    memory_order_consume = __ATOMIC_CONSUME,
-    memory_order_acquire = __ATOMIC_ACQUIRE,
-    memory_order_release = __ATOMIC_RELEASE,
-    memory_order_acq_rel = __ATOMIC_ACQ_REL,
-    memory_order_seq_cst = __ATOMIC_SEQ_CST,
+    జ్ఞాపకం_క్రమం_consume = __ATOMIC_CONSUME,
+    జ్ఞాపకం_క్రమం_acquire = __ATOMIC_ACQUIRE,
+    జ్ఞాపకం_క్రమం_release = __ATOMIC_RELEASE,
+    జ్ఞాపకం_క్రమం_acq_rel = __ATOMIC_ACQ_REL,
+    జ్ఞాపకం_క్రమం_seq_cst = __ATOMIC_SEQ_CST,
 } memory_order;
 
 /* Atomic typedefs */
-typedef _Atomic(_Bool) atomic_bool;
-typedef _Atomic(char) atomic_char;
-typedef _Atomic(signed char) atomic_schar;
-typedef _Atomic(unsigned char) atomic_uchar;
-typedef _Atomic(short) atomic_short;
-typedef _Atomic(unsigned short) atomic_ushort;
-typedef _Atomic(int) atomic_int;
-typedef _Atomic(unsigned int) atomic_uint;
-typedef _Atomic(long) atomic_long;
-typedef _Atomic(unsigned long) atomic_ulong;
-typedef _Atomic(long long) atomic_llong;
-typedef _Atomic(unsigned long long) atomic_ullong;
-typedef _Atomic(uint_least16_t) atomic_char16_t;
-typedef _Atomic(uint_least32_t) atomic_char32_t;
-typedef _Atomic(wchar_t) atomic_wchar_t;
-typedef _Atomic(int_least8_t) atomic_int_least8_t;
-typedef _Atomic(uint_least8_t) atomic_uint_least8_t;
-typedef _Atomic(int_least16_t) atomic_int_least16_t;
-typedef _Atomic(uint_least16_t) atomic_uint_least16_t;
-typedef _Atomic(int_least32_t) atomic_int_least32_t;
-typedef _Atomic(uint_least32_t) atomic_uint_least32_t;
-typedef _Atomic(int_least64_t) atomic_int_least64_t;
-typedef _Atomic(uint_least64_t) atomic_uint_least64_t;
-typedef _Atomic(int_fast8_t) atomic_int_fast8_t;
-typedef _Atomic(uint_fast8_t) atomic_uint_fast8_t;
-typedef _Atomic(int_fast16_t) atomic_int_fast16_t;
-typedef _Atomic(uint_fast16_t) atomic_uint_fast16_t;
-typedef _Atomic(int_fast32_t) atomic_int_fast32_t;
-typedef _Atomic(uint_fast32_t) atomic_uint_fast32_t;
-typedef _Atomic(int_fast64_t) atomic_int_fast64_t;
-typedef _Atomic(uint_fast64_t) atomic_uint_fast64_t;
-typedef _Atomic(intptr_t) atomic_intptr_t;
-typedef _Atomic(uintptr_t) atomic_uintptr_t;
-typedef _Atomic(size_t) atomic_size_t;
-typedef _Atomic(ptrdiff_t) atomic_ptrdiff_t;
-typedef _Atomic(intmax_t) atomic_intmax_t;
-typedef _Atomic(uintmax_t) atomic_uintmax_t;
+రకనిర్వచనం _Atomic(_Bool) atomic_bool;
+రకనిర్వచనం _Atomic(అక్షరం) atomic_char;
+రకనిర్వచనం _Atomic(గుర్తుగల అక్షరం) atomic_schar;
+రకనిర్వచనం _Atomic(గుర్తులేని అక్షరం) atomic_uchar;
+రకనిర్వచనం _Atomic(పొట్టి) atomic_short;
+రకనిర్వచనం _Atomic(గుర్తులేని పొట్టి) atomic_ushort;
+రకనిర్వచనం _Atomic(పూర్ణాంకం) atomic_int;
+రకనిర్వచనం _Atomic(గుర్తులేని పూర్ణాంకం) atomic_uint;
+రకనిర్వచనం _Atomic(దీర్ఘ) atomic_long;
+రకనిర్వచనం _Atomic(గుర్తులేని దీర్ఘ) atomic_ulong;
+రకనిర్వచనం _Atomic(దీర్ఘ దీర్ఘ) atomic_llong;
+రకనిర్వచనం _Atomic(గుర్తులేని దీర్ఘ దీర్ఘ) atomic_ullong;
+రకనిర్వచనం _Atomic(uint_least16_t) atomic_char16_t;
+రకనిర్వచనం _Atomic(uint_least32_t) atomic_char32_t;
+రకనిర్వచనం _Atomic(wchar_t) atomic_wchar_t;
+రకనిర్వచనం _Atomic(int_least8_t) atomic_int_least8_t;
+రకనిర్వచనం _Atomic(uint_least8_t) atomic_uint_least8_t;
+రకనిర్వచనం _Atomic(int_least16_t) atomic_int_least16_t;
+రకనిర్వచనం _Atomic(uint_least16_t) atomic_uint_least16_t;
+రకనిర్వచనం _Atomic(int_least32_t) atomic_int_least32_t;
+రకనిర్వచనం _Atomic(uint_least32_t) atomic_uint_least32_t;
+రకనిర్వచనం _Atomic(int_least64_t) atomic_int_least64_t;
+రకనిర్వచనం _Atomic(uint_least64_t) atomic_uint_least64_t;
+రకనిర్వచనం _Atomic(int_fast8_t) atomic_int_fast8_t;
+రకనిర్వచనం _Atomic(uint_fast8_t) atomic_uint_fast8_t;
+రకనిర్వచనం _Atomic(int_fast16_t) atomic_int_fast16_t;
+రకనిర్వచనం _Atomic(uint_fast16_t) atomic_uint_fast16_t;
+రకనిర్వచనం _Atomic(int_fast32_t) atomic_int_fast32_t;
+రకనిర్వచనం _Atomic(uint_fast32_t) atomic_uint_fast32_t;
+రకనిర్వచనం _Atomic(int_fast64_t) atomic_int_fast64_t;
+రకనిర్వచనం _Atomic(uint_fast64_t) atomic_uint_fast64_t;
+రకనిర్వచనం _Atomic(intptr_t) atomic_intptr_t;
+రకనిర్వచనం _Atomic(uintptr_t) atomic_uintptr_t;
+రకనిర్వచనం _Atomic(కొలత_t) atomic_size_t;
+రకనిర్వచనం _Atomic(ptrdiff_t) atomic_ptrdiff_t;
+రకనిర్వచనం _Atomic(intmax_t) atomic_intmax_t;
+రకనిర్వచనం _Atomic(uintmax_t) atomic_uintmax_t;
 
 /* Atomic flag */
-typedef struct {
-    atomic_bool value;
+రకనిర్వచనం నిర్మాణం {
+    atomic_bool విలువ;
 } atomic_flag;
 
-#define ATOMIC_FLAG_INIT {0}
-#define ATOMIC_VAR_INIT(value) (value)
+#నిర్వచించు ATOMIC_FLAG_INIT {0}
+#నిర్వచించు ATOMIC_VAR_INIT(విలువ) (విలువ)
 
 /* Generic routines */
-#define atomic_init(object, desired)                                      \
+#నిర్వచించు atomic_init(object, desired)                                      \
     atomic_store_explicit(object, desired, __ATOMIC_RELAXED)
 
-#define __atomic_store_n(ptr, val, order)                                 \
-    ({ __typeof__ ((void)0, *(ptr)) __val = (val);                      \
-       __atomic_store((ptr), &__val, (order)); })
-#define atomic_store_explicit(object, desired, order)                     \
+#నిర్వచించు __atomic_store_n(ptr, val, క్రమం)                                 \
+    ({ __typeof__ ((శూన్య)0, *(ptr)) __val = (val);                      \
+       __atomic_store((ptr), &__val, (క్రమం)); })
+#నిర్వచించు atomic_store_explicit(object, desired, క్రమం)                     \
     ({ __typeof__ (object) ptr = (object);                                \
        __typeof__ (*ptr) tmp = (desired);                                 \
-       __atomic_store (ptr, &tmp, (order));                               \
+       __atomic_store (ptr, &tmp, (క్రమం));                               \
     })
-#define atomic_store(object, desired)                                     \
+#నిర్వచించు atomic_store(object, desired)                                     \
      atomic_store_explicit (object, desired, __ATOMIC_SEQ_CST)
 
-#define __atomic_load_n(ptr, order)                                       \
+#నిర్వచించు __atomic_load_n(ptr, క్రమం)                                       \
     ({ typeof(*(ptr)) __val;                                              \
-       __atomic_load((ptr), &__val, (order));                             \
+       __atomic_load((ptr), &__val, (క్రమం));                             \
        __val; })
-#define atomic_load_explicit(object, order)                               \
+#నిర్వచించు atomic_load_explicit(object, క్రమం)                               \
     ({ __typeof__ (object) ptr = (object);                                \
-       __typeof__ ((void)0,*ptr) tmp;                                             \
-       __atomic_load (ptr, &tmp, (order));                                \
+       __typeof__ ((శూన్య)0,*ptr) tmp;                                             \
+       __atomic_load (ptr, &tmp, (క్రమం));                                \
        tmp;                                                               \
     })
-#define atomic_load(object) atomic_load_explicit (object, __ATOMIC_SEQ_CST)
+#నిర్వచించు atomic_load(object) atomic_load_explicit (object, __ATOMIC_SEQ_CST)
 
-#define atomic_exchange_explicit(object, desired, order)                  \
+#నిర్వచించు atomic_exchange_explicit(object, desired, క్రమం)                  \
     ({ __typeof__ (object) ptr = (object);                                \
        __typeof__ (*ptr) val = (desired);                                 \
        __typeof__ (*ptr) tmp;                                             \
-       __atomic_exchange (ptr, &val, &tmp, (order));                      \
+       __atomic_exchange (ptr, &val, &tmp, (క్రమం));                      \
        tmp;                                                               \
     })
-#define atomic_exchange(object, desired)                                  \
+#నిర్వచించు atomic_exchange(object, desired)                                  \
   atomic_exchange_explicit (object, desired, __ATOMIC_SEQ_CST)
-#define __atomic_compare_exchange_n(ptr, expected, desired, weak, success, failure) \
+#నిర్వచించు __atomic_compare_exchange_n(ptr, expected, desired, weak, success, failure) \
     ({ typeof(*(ptr)) __desired = (desired);                              \
        __atomic_compare_exchange((ptr), (expected), &__desired,          \
          (weak), (success), (failure)); })
-#define atomic_compare_exchange_strong_explicit(object, expected, desired, success, failure) \
+#నిర్వచించు atomic_compare_exchange_strong_explicit(object, expected, desired, success, failure) \
     ({ __typeof__ (object) ptr = (object);                                \
        __typeof__ (*ptr) tmp = desired;                                   \
        __atomic_compare_exchange(ptr, expected, &tmp, 0, success, failure); \
     })
-#define atomic_compare_exchange_strong(object, expected, desired)         \
+#నిర్వచించు atomic_compare_exchange_strong(object, expected, desired)         \
     atomic_compare_exchange_strong_explicit (object, expected, desired,   \
                                              __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST)
-#define atomic_compare_exchange_weak_explicit(object, expected, desired, success, failure) \
+#నిర్వచించు atomic_compare_exchange_weak_explicit(object, expected, desired, success, failure) \
     ({ __typeof__ (object) ptr = (object);                                \
        __typeof__ (*ptr) tmp = desired;                                   \
        __atomic_compare_exchange(ptr, expected, &tmp, 1, success, failure); \
     })
-#define atomic_compare_exchange_weak(object, expected, desired)           \
+#నిర్వచించు atomic_compare_exchange_weak(object, expected, desired)           \
     atomic_compare_exchange_weak_explicit (object, expected, desired,     \
                                            __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST)
 
-#define atomic_fetch_add(object, operand) \
-    __atomic_fetch_add(object, operand, __ATOMIC_SEQ_CST)
-#define atomic_fetch_add_explicit __atomic_fetch_add
+#నిర్వచించు atomic_fetch_add(object, నిర్వాహ్యం_2) \
+    __atomic_fetch_add(object, నిర్వాహ్యం_2, __ATOMIC_SEQ_CST)
+#నిర్వచించు atomic_fetch_add_explicit __atomic_fetch_add
 
-#define atomic_fetch_sub(object, operand) \
-    __atomic_fetch_sub(object, operand, __ATOMIC_SEQ_CST)
-#define atomic_fetch_sub_explicit __atomic_fetch_sub
+#నిర్వచించు atomic_fetch_sub(object, నిర్వాహ్యం_2) \
+    __atomic_fetch_sub(object, నిర్వాహ్యం_2, __ATOMIC_SEQ_CST)
+#నిర్వచించు atomic_fetch_sub_explicit __atomic_fetch_sub
 
-#define atomic_fetch_or(object, operand) \
-    __atomic_fetch_or(object, operand, __ATOMIC_SEQ_CST)
-#define atomic_fetch_or_explicit __atomic_fetch_or
+#నిర్వచించు atomic_fetch_or(object, నిర్వాహ్యం_2) \
+    __atomic_fetch_or(object, నిర్వాహ్యం_2, __ATOMIC_SEQ_CST)
+#నిర్వచించు atomic_fetch_or_explicit __atomic_fetch_or
 
-#define atomic_fetch_xor(object, operand) \
-    __atomic_fetch_xor(object, operand, __ATOMIC_SEQ_CST)
-#define atomic_fetch_xor_explicit __atomic_fetch_xor
+#నిర్వచించు atomic_fetch_xor(object, నిర్వాహ్యం_2) \
+    __atomic_fetch_xor(object, నిర్వాహ్యం_2, __ATOMIC_SEQ_CST)
+#నిర్వచించు atomic_fetch_xor_explicit __atomic_fetch_xor
 
-#define atomic_fetch_and(object, operand) \
-    __atomic_fetch_and(object, operand, __ATOMIC_SEQ_CST)
-#define atomic_fetch_and_explicit __atomic_fetch_and
+#నిర్వచించు atomic_fetch_and(object, నిర్వాహ్యం_2) \
+    __atomic_fetch_and(object, నిర్వాహ్యం_2, __ATOMIC_SEQ_CST)
+#నిర్వచించు atomic_fetch_and_explicit __atomic_fetch_and
 
-extern void atomic_thread_fence (memory_order);
-#define __atomic_thread_fence(order) atomic_thread_fence (order)
-extern void atomic_signal_fence (memory_order);
-#define __atomic_signal_fence(order) atomic_signal_fence(order)
-extern bool __atomic_is_lock_free(size_t size, void *ptr);
-#define atomic_is_lock_free(OBJ) __atomic_is_lock_free (sizeof (*(OBJ)), (OBJ))
+బాహ్య శూన్య atomic_thread_fence (memory_order);
+#నిర్వచించు __atomic_thread_fence(క్రమం) atomic_thread_fence (క్రమం)
+బాహ్య శూన్య atomic_signal_fence (memory_order);
+#నిర్వచించు __atomic_signal_fence(క్రమం) atomic_signal_fence(క్రమం)
+బాహ్య bool __atomic_is_lock_free(కొలత_t కొలత, శూన్య *ptr);
+#నిర్వచించు atomic_is_lock_free(OBJ) __atomic_is_lock_free (పరిమాణం (*(OBJ)), (OBJ))
 
-extern bool atomic_flag_test_and_set(void *object);
-extern bool atomic_flag_test_and_set_explicit(void *object, memory_order order);
-extern void atomic_flag_clear(void *object);
-extern void atomic_flag_clear_explicit(void *object, memory_order order);
-#endif /* _STDATOMIC_H */
+బాహ్య bool atomic_flag_test_and_set(శూన్య *object);
+బాహ్య bool atomic_flag_test_and_set_explicit(శూన్య *object, memory_order క్రమం);
+బాహ్య శూన్య atomic_flag_clear(శూన్య *object);
+బాహ్య శూన్య atomic_flag_clear_explicit(శూన్య *object, memory_order క్రమం);
+#అయితే_ముగింపు /* _STDATOMIC_H */

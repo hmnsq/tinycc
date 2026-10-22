@@ -1,24 +1,24 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-void fred(int x)
+శూన్య fred(పూర్ణాంకం x)
 {
-   switch (x)
+   ఎంపిక (x)
    {
-      case 1: printf("1\n"); return;
-      case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      స్థితి 1: రాయి("1\n"); తిరిగి;
+      స్థితి 2: రాయి("2\n"); ఆపు;
+      స్థితి 3: రాయి("3\n"); తిరిగి;
    }
 
-   printf("out\n");
+   రాయి("out\n");
 }
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   తిరిగి 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,41 +1,41 @@
-#include<stdio.h>
+#అన్తర్భావ<stdio.h>
 
-struct s1 {
-    unsigned char a:4, b:4;
+నిర్మాణం s1 {
+    గుర్తులేని అక్షరం a:4, b:4;
 } g1 = { 0x05, 0x0a };
 
-struct s2 {
-    unsigned char a, b;
+నిర్మాణం s2 {
+    గుర్తులేని అక్షరం a, b;
 } g2 = { 0x12, 0x34 };
 
-struct s4 {
-    unsigned short a, b;
+నిర్మాణం s4 {
+    గుర్తులేని పొట్టి a, b;
 } g4 = { 0x1245, 0x5678 };
 
-struct s8 {
-    unsigned a, b;
+నిర్మాణం s8 {
+    గుర్తులేని a, b;
 } g8 = { 0x12345678, 0x9abcdef0 };
 
 /* returned in 2 registers on riscv64 */
-struct s16 {
-    unsigned long long a, b;
+నిర్మాణం s16 {
+    గుర్తులేని దీర్ఘ దీర్ఘ a, b;
 } g16 = { 0x123456789abcdef0ULL, 0xfedcba9876543210ULL };
 
 /* Homogeneous float aggregate on ARM hard-float */
-struct s_f4 {
-    double a, b, c, d;
+నిర్మాణం s_f4 {
+    ద్విగుణ a, b, c, d;
 } g_f4 = { 1,2,3,4 };
 
-#define def(S) \
-struct s##S f##S(int x) \
+#నిర్వచించు def(S) \
+నిర్మాణం s##S f##S(పూర్ణాంకం x) \
 { \
-    struct s##S l##S = g##S, *p##S = &l##S; \
-    if (x == 0) \
-        return g##S; \
-    else if (x == 1) \
-        return l##S; \
-    else \
-        return *p##S; \
+    నిర్మాణం s##S l##S = g##S, *p##S = &l##S; \
+    ఒకవేళ (x == 0) \
+        తిరిగి g##S; \
+    లేకపోతే ఒకవేళ (x == 1) \
+        తిరిగి l##S; \
+    లేకపోతే \
+        తిరిగి *p##S; \
 }
 
 def(1)
@@ -45,26 +45,26 @@ def(8)
 def(16)
 def(_f4)
 
-#define chk(S,x) \
-    struct s##S l##S = f##S(x); \
-    printf("%02llx %02llx\n", \
-        (unsigned long long)l##S.a, \
-        (unsigned long long)l##S.b \
+#నిర్వచించు chk(S,x) \
+    నిర్మాణం s##S l##S = f##S(x); \
+    రాయి("%02llx %02llx\n", \
+        (గుర్తులేని దీర్ఘ దీర్ఘ)l##S.a, \
+        (గుర్తులేని దీర్ఘ దీర్ఘ)l##S.b \
         );
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-    for (int x = 0;;) {
+    కొరకు (పూర్ణాంకం x = 0;;) {
         chk(1,x);
         chk(2,x);
         chk(4,x);
         chk(8,x);
         chk(16,x);
-        struct s_f4 l_f4 = f_f4(x);
-        printf("%.1f %.1f %.1f %.1f\n", l_f4.a, l_f4.b, l_f4.c, l_f4.d);
-        if (++x > 2)
-            break;
-        printf("\n");
+        నిర్మాణం s_f4 l_f4 = f_f4(x);
+        రాయి("%.1f %.1f %.1f %.1f\n", l_f4.a, l_f4.b, l_f4.c, l_f4.d);
+        ఒకవేళ (++x > 2)
+            ఆపు;
+        రాయి("\n");
     }
-    return 0;
+    తిరిగి 0;
 }

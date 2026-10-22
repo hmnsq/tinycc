@@ -16,323 +16,323 @@
       check tccdefs_.h.
 */
 
-#if __SIZEOF_POINTER__ == 4
+#ఒకవేళ __SIZEOF_POINTER__ == 4
     /* 32bit systems. */
-#if defined  __OpenBSD__
-    #define __SIZE_TYPE__ unsigned long
-    #define __PTRDIFF_TYPE__ long
-#else
-    #define __SIZE_TYPE__ unsigned int
-    #define __PTRDIFF_TYPE__ int
-#endif
-    #define __ILP32__ 1
-    #define __INT64_TYPE__ long long
-#elif __SIZEOF_LONG__ == 4
+#ఒకవేళ defined  __OpenBSD__
+    #నిర్వచించు __SIZE_TYPE__ గుర్తులేని దీర్ఘ
+    #నిర్వచించు __PTRDIFF_TYPE__ దీర్ఘ
+#లేకపోతే
+    #నిర్వచించు __SIZE_TYPE__ గుర్తులేని పూర్ణాంకం
+    #నిర్వచించు __PTRDIFF_TYPE__ పూర్ణాంకం
+#అయితే_ముగింపు
+    #నిర్వచించు __ILP32__ 1
+    #నిర్వచించు __INT64_TYPE__ దీర్ఘ దీర్ఘ
+#లేదావేళ __SIZEOF_LONG__ == 4
     /* 64bit Windows. */
-    #define __SIZE_TYPE__ unsigned long long
-    #define __PTRDIFF_TYPE__ long long
-    #define __LLP64__ 1
-    #define __INT64_TYPE__ long long
-#else
+    #నిర్వచించు __SIZE_TYPE__ గుర్తులేని దీర్ఘ దీర్ఘ
+    #నిర్వచించు __PTRDIFF_TYPE__ దీర్ఘ దీర్ఘ
+    #నిర్వచించు __LLP64__ 1
+    #నిర్వచించు __INT64_TYPE__ దీర్ఘ దీర్ఘ
+#లేకపోతే
     /* Other 64bit systems. */
-    #define __SIZE_TYPE__ unsigned long
-    #define __PTRDIFF_TYPE__ long
-    #define __LP64__ 1
-# if defined __linux__
-    #define __INT64_TYPE__ long
-# else /* APPLE, BSD */
-    #define __INT64_TYPE__ long long
+    #నిర్వచించు __SIZE_TYPE__ గుర్తులేని దీర్ఘ
+    #నిర్వచించు __PTRDIFF_TYPE__ దీర్ఘ
+    #నిర్వచించు __LP64__ 1
+# ఒకవేళ defined __linux__
+    #నిర్వచించు __INT64_TYPE__ దీర్ఘ
+# లేకపోతే /* APPLE, BSD */
+    #నిర్వచించు __INT64_TYPE__ దీర్ఘ దీర్ఘ
 # endif
-#endif
-    #define __SIZEOF_INT__ 4
-    #define __INT_MAX__ 0x7fffffff
-#if __SIZEOF_LONG__ == 4
-    #define __LONG_MAX__ 0x7fffffffL
-#else
-    #define __LONG_MAX__ 0x7fffffffffffffffL
-#endif
-    #define __SIZEOF_LONG_LONG__ 8
-    #define __LONG_LONG_MAX__ 0x7fffffffffffffffLL
-    #define __CHAR_BIT__ 8
-    #define __ORDER_LITTLE_ENDIAN__ 1234
-    #define __ORDER_BIG_ENDIAN__ 4321
-    #define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
-#if defined _WIN32
-    #define __WCHAR_TYPE__ unsigned short
-    #define __WINT_TYPE__ unsigned short
-#elif defined __linux__
-    #define __WCHAR_TYPE__ int
-    #define __WINT_TYPE__ unsigned int
-#else
-    #define __WCHAR_TYPE__ int
-    #define __WINT_TYPE__ int
-#endif
+#అయితే_ముగింపు
+    #నిర్వచించు __SIZEOF_INT__ 4
+    #నిర్వచించు __INT_MAX__ 0x7fffffff
+#ఒకవేళ __SIZEOF_LONG__ == 4
+    #నిర్వచించు __LONG_MAX__ 0x7fffffffL
+#లేకపోతే
+    #నిర్వచించు __LONG_MAX__ 0x7fffffffffffffffL
+#అయితే_ముగింపు
+    #నిర్వచించు __SIZEOF_LONG_LONG__ 8
+    #నిర్వచించు __LONG_LONG_MAX__ 0x7fffffffffffffffLL
+    #నిర్వచించు __CHAR_BIT__ 8
+    #నిర్వచించు __ORDER_LITTLE_ENDIAN__ 1234
+    #నిర్వచించు __ORDER_BIG_ENDIAN__ 4321
+    #నిర్వచించు __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
+#ఒకవేళ defined _WIN32
+    #నిర్వచించు __WCHAR_TYPE__ గుర్తులేని పొట్టి
+    #నిర్వచించు __WINT_TYPE__ గుర్తులేని పొట్టి
+#లేదావేళ defined __linux__
+    #నిర్వచించు __WCHAR_TYPE__ పూర్ణాంకం
+    #నిర్వచించు __WINT_TYPE__ గుర్తులేని పూర్ణాంకం
+#లేకపోతే
+    #నిర్వచించు __WCHAR_TYPE__ పూర్ణాంకం
+    #నిర్వచించు __WINT_TYPE__ పూర్ణాంకం
+#అయితే_ముగింపు
 
-    #if __STDC_VERSION__ >= 201112L
+    #ఒకవేళ __STDC_VERSION__ >= 201112L
     # define __STDC_NO_ATOMICS__ 1
     # define __STDC_NO_COMPLEX__ 1
     # define __STDC_NO_THREADS__ 1
-#if !defined _WIN32
+#ఒకవేళ !defined _WIN32
     # define __STDC_UTF_16__ 1
     # define __STDC_UTF_32__ 1
-#endif
-    #endif
+#అయితే_ముగింపు
+    #అయితే_ముగింపు
 
-#if defined _WIN32
-    #define __declspec(x) __attribute__((x))
-    #define __cdecl
+#ఒకవేళ defined _WIN32
+    #నిర్వచించు __declspec(x) __attribute__((x))
+    #నిర్వచించు __cdecl
 
-#elif defined __FreeBSD__
-    #define __GNUC__ 9
-    #define __GNUC_MINOR__ 3
-    #define __GNUC_PATCHLEVEL__ 0
-    #define __GNUC_STDC_INLINE__ 1
-    #define __NO_TLS 1
-    #define __RUNETYPE_INTERNAL 1
-# if __SIZEOF_POINTER__ == 8
-    #define __SIZEOF_SIZE_T__ 8
-    #define __SIZEOF_PTRDIFF_T__ 8
-#else
-    #define __SIZEOF_SIZE_T__ 4
-    #define __SIZEOF_PTRDIFF_T__ 4
+#లేదావేళ defined __FreeBSD__
+    #నిర్వచించు __GNUC__ 9
+    #నిర్వచించు __GNUC_MINOR__ 3
+    #నిర్వచించు __GNUC_PATCHLEVEL__ 0
+    #నిర్వచించు __GNUC_STDC_INLINE__ 1
+    #నిర్వచించు __NO_TLS 1
+    #నిర్వచించు __RUNETYPE_INTERNAL 1
+# ఒకవేళ __SIZEOF_POINTER__ == 8
+    #నిర్వచించు __SIZEOF_SIZE_T__ 8
+    #నిర్వచించు __SIZEOF_PTRDIFF_T__ 8
+#లేకపోతే
+    #నిర్వచించు __SIZEOF_SIZE_T__ 4
+    #నిర్వచించు __SIZEOF_PTRDIFF_T__ 4
 # endif
 
-#elif defined __FreeBSD_kernel__
+#లేదావేళ defined __FreeBSD_kernel__
 
-#elif defined __NetBSD__
-    #define __GNUC__ 4
-    #define __GNUC_MINOR__ 1
-    #define __GNUC_PATCHLEVEL__ 0
-    #define _Pragma(x)
-    #define __ELF__ 1
-#if defined __aarch64__
-    #define _LOCORE /* avoids usage of __asm */
-#endif
+#లేదావేళ defined __NetBSD__
+    #నిర్వచించు __GNUC__ 4
+    #నిర్వచించు __GNUC_MINOR__ 1
+    #నిర్వచించు __GNUC_PATCHLEVEL__ 0
+    #నిర్వచించు _Pragma(x)
+    #నిర్వచించు __ELF__ 1
+#ఒకవేళ defined __aarch64__
+    #నిర్వచించు _LOCORE /* avoids usage of __asm */
+#అయితే_ముగింపు
 
-#elif defined __OpenBSD__
-    #define __GNUC__ 4
-    #define _ANSI_LIBRARY 1
+#లేదావేళ defined __OpenBSD__
+    #నిర్వచించు __GNUC__ 4
+    #నిర్వచించు _ANSI_LIBRARY 1
 
-#elif defined __APPLE__
+#లేదావేళ defined __APPLE__
     /* emulate APPLE-GCC to make libc's headerfiles compile: */
-    #define __GNUC__ 4   /* darwin emits warning on GCC<4 */
-    #define __APPLE_CC__ 1 /* for <TargetConditionals.h> */
-    #define __LITTLE_ENDIAN__ 1
-    #define _DONT_USE_CTYPE_INLINE_ 1
+    #నిర్వచించు __GNUC__ 4   /* darwin emits warning on GCC<4 */
+    #నిర్వచించు __APPLE_CC__ 1 /* for <TargetConditionals.h> */
+    #నిర్వచించు __LITTLE_ENDIAN__ 1
+    #నిర్వచించు _DONT_USE_CTYPE_INLINE_ 1
     /* avoids usage of GCC/clang specific builtins in libc-headerfiles: */
-    #define __FINITE_MATH_ONLY__ 1
-    #define _FORTIFY_SOURCE 0
+    #నిర్వచించు __FINITE_MATH_ONLY__ 1
+    #నిర్వచించు FORTIFY_ఆధారం 0
     //#define __has_builtin(x) 0
-    #define _Float16 short unsigned int /* fake type just for size & alignment (macOS Sequoia) */
+    #నిర్వచించు _Float16 పొట్టి గుర్తులేని పూర్ణాంకం /* fake type just for size & alignment (macOS Sequoia) */
 
-#elif defined __ANDROID__
-    #define  BIONIC_IOCTL_NO_SIGNEDNESS_OVERLOAD
+#లేదావేళ defined __ANDROID__
+    #నిర్వచించు  BIONIC_IOCTL_NO_SIGNEDNESS_OVERLOAD
 
-#else
+#లేకపోతే
     /* Linux */
 
-#endif
+#అయితే_ముగింపు
 
     /* Some derived integer types needed to get stdint.h to compile correctly on some platforms */
-#ifndef __NetBSD__
-    #define __UINTPTR_TYPE__ unsigned __PTRDIFF_TYPE__
-    #define __INTPTR_TYPE__ __PTRDIFF_TYPE__
-#endif
-    #define __INT32_TYPE__ int
+#నిర్వచితం_కాకపోతే __NetBSD__
+    #నిర్వచించు __UINTPTR_TYPE__ గుర్తులేని __PTRDIFF_TYPE__
+    #నిర్వచించు __INTPTR_TYPE__ __PTRDIFF_TYPE__
+#అయితే_ముగింపు
+    #నిర్వచించు __INT32_TYPE__ పూర్ణాంకం
 
-#if !defined _WIN32
+#ఒకవేళ !defined _WIN32
     /* glibc defines. We do not support __USER_NAME_PREFIX__ */
-    #define __REDIRECT(name, proto, alias) name proto __asm__ (#alias)
-    #define __REDIRECT_NTH(name, proto, alias) name proto __asm__ (#alias) __THROW
-    #define __REDIRECT_NTHNL(name, proto, alias) name proto __asm__ (#alias) __THROWNL
-#endif
+    #నిర్వచించు __REDIRECT(name, proto, alias) name proto __asm__ (#alias)
+    #నిర్వచించు __REDIRECT_NTH(name, proto, alias) name proto __asm__ (#alias) __THROW
+    #నిర్వచించు __REDIRECT_NTHNL(name, proto, alias) name proto __asm__ (#alias) __THROWNL
+#అయితే_ముగింపు
 
     /* not implemented */
-    #define  __PRETTY_FUNCTION__ __FUNCTION__
-    #define __has_builtin(x) 0
-    #define __has_feature(x) 0
-    #define __has_attribute(x) 0
+    #నిర్వచించు  __PRETTY_FUNCTION__ __FUNCTION__
+    #నిర్వచించు __has_builtin(x) 0
+    #నిర్వచించు __has_feature(x) 0
+    #నిర్వచించు __has_attribute(x) 0
     /* C23 Keywords */
-    #define _Nonnull
-    #define _Nullable
-    #define _Nullable_result
-    #define _Null_unspecified
+    #నిర్వచించు _Nonnull
+    #నిర్వచించు _Nullable
+    #నిర్వచించు Nullable_ఫలితం
+    #నిర్వచించు _Null_unspecified
 
     /* skip __builtin... with -E */
-    #ifndef __TCC_PP__
+    #నిర్వచితం_కాకపోతే __TCC_PP__
 
-    #define __builtin_offsetof(type, field) ((__SIZE_TYPE__)&((type*)0)->field)
-    #define __builtin_extract_return_addr(x) x
-#if !defined __linux__ && !defined _WIN32
+    #నిర్వచించు __builtin_offsetof(type, క్షేత్రం) ((__SIZE_TYPE__)&((type*)0)->క్షేత్రం)
+    #నిర్వచించు __builtin_extract_return_addr(x) x
+#ఒకవేళ !defined __linux__ && !defined _WIN32
     /* used by math.h */
-    #define __builtin_huge_val() 1e500
-    #define __builtin_huge_valf() 1e50f
-    #define __builtin_huge_vall() 1e5000L
-# if defined __APPLE__
-    #define __builtin_nanf(ignored_string) (0.0F/0.0F)
+    #నిర్వచించు __builtin_huge_val() 1e500
+    #నిర్వచించు __builtin_huge_valf() 1e50f
+    #నిర్వచించు __builtin_huge_vall() 1e5000L
+# ఒకవేళ defined __APPLE__
+    #నిర్వచించు __builtin_nanf(ignored_string) (0.0F/0.0F)
     /* used by floats.h to implement FLT_ROUNDS C99 macro. 1 == to nearest */
-    #define __builtin_flt_rounds() 1
+    #నిర్వచించు __builtin_flt_rounds() 1
     /* used by _fd_def.h */
-    #define __builtin_bzero(p, ignored_size) bzero(p, sizeof(*(p)))
-# else
-    #define __builtin_nanf(ignored_string) (0.0F/0.0F)
+    #నిర్వచించు __builtin_bzero(p, ignored_కొలత) bzero(p, పరిమాణం(*(p)))
+# లేకపోతే
+    #నిర్వచించు __builtin_nanf(ignored_string) (0.0F/0.0F)
 # endif
-#endif
+#అయితే_ముగింపు
 
     /* GCC's __uint128_t appears in some Linux/OSX header files.
        Just make it some type with same size and alignment. */
-    struct __uint128__ { char x[16]; } __attribute((__aligned__(16)));
-    #define __int128_t struct __uint128__
-    #define __uint128_t struct __uint128__
+    నిర్మాణం __uint128__ { అక్షరం x[16]; } __attribute((__aligned__(16)));
+    #నిర్వచించు __int128_t నిర్మాణం __uint128__
+    #నిర్వచించు __uint128_t నిర్మాణం __uint128__
 
     /* __builtin_va_list */
-#if defined __x86_64__
-#if !defined _WIN32
+#ఒకవేళ defined __x86_64__
+#ఒకవేళ !defined _WIN32
     /* GCC compatible definition of va_list. */
     /* This should be in sync with the declaration in our lib/va_list.c */
-    typedef struct {
-        unsigned gp_offset, fp_offset;
-        union {
-            unsigned overflow_offset;
-            char *overflow_arg_area;
+    రకనిర్వచనం నిర్మాణం {
+        గుర్తులేని gp_స్థానభ్రంశం, fp_స్థానభ్రంశం;
+        సంఘం {
+            గుర్తులేని అధికప్రవాహం_స్థానభ్రంశం;
+            అక్షరం *అధికప్రవాహం_arg_area;
         };
-        char *reg_save_area;
+        అక్షరం *reg_save_area;
     } __builtin_va_list[1];
 
-    void *__va_arg(__builtin_va_list ap, int arg_type, int size, int align);
-    #define __builtin_va_start(ap, last) \
-       (*(ap) = *(__builtin_va_list)((char*)__builtin_frame_address(0) - 24))
-    #define __builtin_va_arg(ap, t)   \
-       (*(t *)(__va_arg(ap, __builtin_va_arg_types(t), sizeof(t), __alignof__(t))))
-    #define __builtin_va_copy(dest, src) (*(dest) = *(src))
+    శూన్య *__va_arg(__builtin_va_list ap, పూర్ణాంకం arg_type, పూర్ణాంకం కొలత, పూర్ణాంకం align);
+    #నిర్వచించు __builtin_va_start(ap, చివరి) \
+       (*(ap) = *(__builtin_va_list)((అక్షరం*)__builtin_frame_address(0) - 24))
+    #నిర్వచించు __builtin_va_arg(ap, t)   \
+       (*(t *)(__va_arg(ap, __builtin_va_arg_types(t), పరిమాణం(t), __alignof__(t))))
+    #నిర్వచించు __builtin_va_copy(dest, src) (*(dest) = *(src))
 
-#else /* _WIN64 */
-    typedef char *__builtin_va_list;
-    #define __builtin_va_arg(ap, t) ((sizeof(t) > 8 || (sizeof(t) & (sizeof(t) - 1))) \
+#లేకపోతే /* _WIN64 */
+    రకనిర్వచనం అక్షరం *__builtin_va_list;
+    #నిర్వచించు __builtin_va_arg(ap, t) ((పరిమాణం(t) > 8 || (పరిమాణం(t) & (పరిమాణం(t) - 1))) \
         ? **(t **)((ap += 8) - 8) : *(t  *)((ap += 8) - 8))
-#endif
+#అయితే_ముగింపు
 
-#elif defined __arm__
-    typedef char *__builtin_va_list;
-    #define _tcc_alignof(type) ((int)&((struct {char c;type x;} *)0)->x)
-    #define _tcc_align(addr,type) (((unsigned)addr + _tcc_alignof(type) - 1) \
+#లేదావేళ defined __arm__
+    రకనిర్వచనం అక్షరం *__builtin_va_list;
+    #నిర్వచించు _tcc_alignof(type) ((పూర్ణాంకం)&((నిర్మాణం {అక్షరం c;type x;} *)0)->x)
+    #నిర్వచించు _tcc_align(addr,type) (((గుర్తులేని)addr + _tcc_alignof(type) - 1) \
                                   & ~(_tcc_alignof(type) - 1))
-    #define __builtin_va_start(ap,last) (ap = ((char *)&(last)) + ((sizeof(last)+3)&~3))
-    #define __builtin_va_arg(ap,type) (ap = (void *) ((_tcc_align(ap,type)+sizeof(type)+3) \
-                           &~3), *(type *)(ap - ((sizeof(type)+3)&~3)))
+    #నిర్వచించు __builtin_va_start(ap,చివరి) (ap = ((అక్షరం *)&(చివరి)) + ((పరిమాణం(చివరి)+3)&~3))
+    #నిర్వచించు __builtin_va_arg(ap,type) (ap = (శూన్య *) ((_tcc_align(ap,type)+పరిమాణం(type)+3) \
+                           &~3), *(type *)(ap - ((పరిమాణం(type)+3)&~3)))
 
-#elif defined __aarch64__
-#if defined _WIN32
-    typedef char *__builtin_va_list;
-#elif defined __APPLE__
-    typedef struct {
-        void *__stack;
+#లేదావేళ defined __aarch64__
+#ఒకవేళ defined _WIN32
+    రకనిర్వచనం అక్షరం *__builtin_va_list;
+#లేదావేళ defined __APPLE__
+    రకనిర్వచనం నిర్మాణం {
+        శూన్య *__stack;
     } __builtin_va_list;
 
-#else
-    typedef struct {
-        void *__stack, *__gr_top, *__vr_top;
-        int   __gr_offs, __vr_offs;
+#లేకపోతే
+    రకనిర్వచనం నిర్మాణం {
+        శూన్య *__stack, *__gr_top, *__vr_top;
+        పూర్ణాంకం   __gr_offs, __vr_offs;
     } __builtin_va_list;
 
-#endif
-#elif defined __riscv
-    typedef char *__builtin_va_list;
-    #define __va_reg_size (__riscv_xlen >> 3)
-    #define _tcc_align(addr,type) (((unsigned long)addr + __alignof__(type) - 1) \
+#అయితే_ముగింపు
+#లేదావేళ defined __riscv
+    రకనిర్వచనం అక్షరం *__builtin_va_list;
+    #నిర్వచించు __va_reg_size (__riscv_xlen >> 3)
+    #నిర్వచించు _tcc_align(addr,type) (((గుర్తులేని దీర్ఘ)addr + __alignof__(type) - 1) \
                                   & -(__alignof__(type)))
-    #define __builtin_va_arg(ap,type) (*(sizeof(type) > (2*__va_reg_size) ? *(type **)((ap += __va_reg_size) - __va_reg_size) : (ap = (va_list)(_tcc_align(ap,type) + (sizeof(type)+__va_reg_size - 1)& -__va_reg_size), (type *)(ap - ((sizeof(type)+ __va_reg_size - 1)& -__va_reg_size)))))
+    #నిర్వచించు __builtin_va_arg(ap,type) (*(పరిమాణం(type) > (2*__va_reg_size) ? *(type **)((ap += __va_reg_size) - __va_reg_size) : (ap = (va_list)(_tcc_align(ap,type) + (పరిమాణం(type)+__va_reg_size - 1)& -__va_reg_size), (type *)(ap - ((పరిమాణం(type)+ __va_reg_size - 1)& -__va_reg_size)))))
 
-#else /* __i386__ */
-    typedef char *__builtin_va_list;
-    #define __builtin_va_start(ap,last) (ap = ((char *)&(last)) + ((sizeof(last)+3)&~3))
-    #define __builtin_va_arg(ap,t) (*(t*)((ap+=(sizeof(t)+3)&~3)-((sizeof(t)+3)&~3)))
+#లేకపోతే /* __i386__ */
+    రకనిర్వచనం అక్షరం *__builtin_va_list;
+    #నిర్వచించు __builtin_va_start(ap,చివరి) (ap = ((అక్షరం *)&(చివరి)) + ((పరిమాణం(చివరి)+3)&~3))
+    #నిర్వచించు __builtin_va_arg(ap,t) (*(t*)((ap+=(పరిమాణం(t)+3)&~3)-((పరిమాణం(t)+3)&~3)))
 
-#endif
-    #define __builtin_va_end(ap) (void)(ap)
-    #ifndef __builtin_va_copy
+#అయితే_ముగింపు
+    #నిర్వచించు __builtin_va_end(ap) (శూన్య)(ap)
+    #నిర్వచితం_కాకపోతే __builtin_va_copy
     # define __builtin_va_copy(dest, src) (dest) = (src)
-    #endif
+    #అయితే_ముగింపు
 
     /* TCC BBUILTIN AND BOUNDS ALIASES */
-    #ifdef __leading_underscore
+    #నిర్వచితమైతే __leading_underscore
     # define __RENAME(X) __asm__("_"X)
-    #else
+    #లేకపోతే
     # define __RENAME(X) __asm__(X)
-    #endif
+    #అయితే_ముగింపు
 
-    #ifdef __TCC_BCHECK__
+    #నిర్వచితమైతే __TCC_BCHECK__
     # define __BUILTINBC(ret,name,params) ret __builtin_##name params __RENAME("__bound_"#name);
     # define __BOUND(ret,name,params) ret name params __RENAME("__bound_"#name);
-    #else
+    #లేకపోతే
     # define __BUILTINBC(ret,name,params) ret __builtin_##name params __RENAME(#name);
     # define __BOUND(ret,name,params)
-    #endif
-#ifdef _WIN32
-    #define __BOTH __BOUND
-    #define __BUILTIN(ret,name,params)
-#else
-    #define __BOTH(ret,name,params) __BUILTINBC(ret,name,params)__BOUND(ret,name,params)
-    #define __BUILTIN(ret,name,params) ret __builtin_##name params __RENAME(#name);
-#endif
+    #అయితే_ముగింపు
+#నిర్వచితమైతే _WIN32
+    #నిర్వచించు __BOTH __BOUND
+    #నిర్వచించు __BUILTIN(ret,name,params)
+#లేకపోతే
+    #నిర్వచించు __BOTH(ret,name,params) __BUILTINBC(ret,name,params)__BOUND(ret,name,params)
+    #నిర్వచించు __BUILTIN(ret,name,params) ret __builtin_##name params __RENAME(#name);
+#అయితే_ముగింపు
 
-    __BOTH(void*, memcpy, (void *, const void*, __SIZE_TYPE__))
-    __BOTH(void*, memmove, (void *, const void*, __SIZE_TYPE__))
-    __BOTH(void*, memset, (void *, int, __SIZE_TYPE__))
-    __BOTH(int, memcmp, (const void *, const void*, __SIZE_TYPE__))
-    __BOTH(__SIZE_TYPE__, strlen, (const char *))
-    __BOTH(char*, strcpy, (char *, const char *))
-    __BOTH(char*, strncpy, (char *, const char*, __SIZE_TYPE__))
-    __BOTH(int, strcmp, (const char*, const char*))
-    __BOTH(int, strncmp, (const char*, const char*, __SIZE_TYPE__))
-    __BOTH(char*, strcat, (char*, const char*))
-    __BOTH(char*, strncat, (char*, const char*, __SIZE_TYPE__))
-    __BOTH(char*, strchr, (const char*, int))
-    __BOTH(char*, strrchr, (const char*, int))
-    __BOTH(char*, strdup, (const char*))
-#if defined __ARM_EABI__
-    __BOUND(void*,__aeabi_memcpy,(void*,const void*,__SIZE_TYPE__))
-    __BOUND(void*,__aeabi_memmove,(void*,const void*,__SIZE_TYPE__))
-    __BOUND(void*,__aeabi_memmove4,(void*,const void*,__SIZE_TYPE__))
-    __BOUND(void*,__aeabi_memmove8,(void*,const void*,__SIZE_TYPE__))
-    __BOUND(void*,__aeabi_memset,(void*,int,__SIZE_TYPE__))
-#endif
+    __BOTH(శూన్య*, జ్ఞాపకం_నకలు, (శూన్య *, స్థిరరాశి శూన్య*, __SIZE_TYPE__))
+    __BOTH(శూన్య*, memmove, (శూన్య *, స్థిరరాశి శూన్య*, __SIZE_TYPE__))
+    __BOTH(శూన్య*, memset, (శూన్య *, పూర్ణాంకం, __SIZE_TYPE__))
+    __BOTH(పూర్ణాంకం, memcmp, (స్థిరరాశి శూన్య *, స్థిరరాశి శూన్య*, __SIZE_TYPE__))
+    __BOTH(__SIZE_TYPE__, అక్షరశ్రేణి_పొడవు, (స్థిరరాశి అక్షరం *))
+    __BOTH(అక్షరం*, strcpy, (అక్షరం *, స్థిరరాశి అక్షరం *))
+    __BOTH(అక్షరం*, strncpy, (అక్షరం *, స్థిరరాశి అక్షరం*, __SIZE_TYPE__))
+    __BOTH(పూర్ణాంకం, strcmp, (స్థిరరాశి అక్షరం*, స్థిరరాశి అక్షరం*))
+    __BOTH(పూర్ణాంకం, అక్షరశ్రేణి_పోలిక, (స్థిరరాశి అక్షరం*, స్థిరరాశి అక్షరం*, __SIZE_TYPE__))
+    __BOTH(అక్షరం*, strcat, (అక్షరం*, స్థిరరాశి అక్షరం*))
+    __BOTH(అక్షరం*, strncat, (అక్షరం*, స్థిరరాశి అక్షరం*, __SIZE_TYPE__))
+    __BOTH(అక్షరం*, strchr, (స్థిరరాశి అక్షరం*, పూర్ణాంకం))
+    __BOTH(అక్షరం*, strrchr, (స్థిరరాశి అక్షరం*, పూర్ణాంకం))
+    __BOTH(అక్షరం*, strdup, (స్థిరరాశి అక్షరం*))
+#ఒకవేళ defined __ARM_EABI__
+    __BOUND(శూన్య*,__aeabi_memcpy,(శూన్య*,స్థిరరాశి శూన్య*,__SIZE_TYPE__))
+    __BOUND(శూన్య*,__aeabi_memmove,(శూన్య*,స్థిరరాశి శూన్య*,__SIZE_TYPE__))
+    __BOUND(శూన్య*,__aeabi_memmove4,(శూన్య*,స్థిరరాశి శూన్య*,__SIZE_TYPE__))
+    __BOUND(శూన్య*,__aeabi_memmove8,(శూన్య*,స్థిరరాశి శూన్య*,__SIZE_TYPE__))
+    __BOUND(శూన్య*,__aeabi_memset,(శూన్య*,పూర్ణాంకం,__SIZE_TYPE__))
+#అయితే_ముగింపు
 
-#if defined __linux__ || defined __APPLE__ // HAVE MALLOC_REDIR
-    #define __MAYBE_REDIR __BUILTIN
-#else
-    #define __MAYBE_REDIR __BOTH
-#endif
-    __MAYBE_REDIR(void*, malloc, (__SIZE_TYPE__))
-    __MAYBE_REDIR(void*, realloc, (void *, __SIZE_TYPE__))
-    __MAYBE_REDIR(void*, calloc, (__SIZE_TYPE__, __SIZE_TYPE__))
-    __MAYBE_REDIR(void*, memalign, (__SIZE_TYPE__, __SIZE_TYPE__))
-    __MAYBE_REDIR(void, free, (void*))
-    __BOTH(void*, alloca, (__SIZE_TYPE__))
-    void *alloca(__SIZE_TYPE__);
-    __BUILTIN(void, abort, (void))
-    __BOUND(void, longjmp, ())
-#if !defined _WIN32
-    __BOUND(void*, mmap, ())
-    __BOUND(int, munmap, ())
-#endif
-    #undef __BUILTINBC
-    #undef __BUILTIN
-    #undef __BOUND
-    #undef __BOTH
-    #undef __MAYBE_REDIR
-    #undef __RENAME
+#ఒకవేళ defined __linux__ || defined __APPLE__ // HAVE MALLOC_REDIR
+    #నిర్వచించు __MAYBE_REDIR __BUILTIN
+#లేకపోతే
+    #నిర్వచించు __MAYBE_REDIR __BOTH
+#అయితే_ముగింపు
+    __MAYBE_REDIR(శూన్య*, జ్ఞాపకం_ఇవ్వు, (__SIZE_TYPE__))
+    __MAYBE_REDIR(శూన్య*, realloc, (శూన్య *, __SIZE_TYPE__))
+    __MAYBE_REDIR(శూన్య*, సున్నా_జ్ఞాపకం_ఇవ్వు, (__SIZE_TYPE__, __SIZE_TYPE__))
+    __MAYBE_REDIR(శూన్య*, memalign, (__SIZE_TYPE__, __SIZE_TYPE__))
+    __MAYBE_REDIR(శూన్య, విడుదల, (శూన్య*))
+    __BOTH(శూన్య*, alloca, (__SIZE_TYPE__))
+    శూన్య *alloca(__SIZE_TYPE__);
+    __BUILTIN(శూన్య, abort, (శూన్య))
+    __BOUND(శూన్య, longjmp, ())
+#ఒకవేళ !defined _WIN32
+    __BOUND(శూన్య*, mmap, ())
+    __BOUND(పూర్ణాంకం, munmap, ())
+#అయితే_ముగింపు
+    #నిర్వచనం_రద్దు __BUILTINBC
+    #నిర్వచనం_రద్దు __BUILTIN
+    #నిర్వచనం_రద్దు __BOUND
+    #నిర్వచనం_రద్దు __BOTH
+    #నిర్వచనం_రద్దు __MAYBE_REDIR
+    #నిర్వచనం_రద్దు __RENAME
 
-    #define __BUILTIN_EXTERN(name,u) 		\
-        int __builtin_##name(u int);		\
-        int __builtin_##name##l(u long);	\
-        int __builtin_##name##ll(u long long);
+    #నిర్వచించు __BUILTIN_EXTERN(name,u) 		\
+        పూర్ణాంకం __builtin_##name(u పూర్ణాంకం);		\
+        పూర్ణాంకం __builtin_##name##l(u దీర్ఘ);	\
+        పూర్ణాంకం __builtin_##name##ll(u దీర్ఘ దీర్ఘ);
     __BUILTIN_EXTERN(ffs,)
-    __BUILTIN_EXTERN(clz, unsigned)
-    __BUILTIN_EXTERN(ctz, unsigned)
+    __BUILTIN_EXTERN(clz, గుర్తులేని)
+    __BUILTIN_EXTERN(ctz, గుర్తులేని)
     __BUILTIN_EXTERN(clrsb,)
-    __BUILTIN_EXTERN(popcount, unsigned)
-    __BUILTIN_EXTERN(parity, unsigned)
-    #undef __BUILTIN_EXTERN
+    __BUILTIN_EXTERN(popcount, గుర్తులేని)
+    __BUILTIN_EXTERN(parity, గుర్తులేని)
+    #నిర్వచనం_రద్దు __BUILTIN_EXTERN
 
-    #endif /* ndef __TCC_PP__ */
+    #అయితే_ముగింపు /* ndef __TCC_PP__ */

@@ -18,43 +18,43 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#define USING_GLOBALS
-#include "tcc.h"
-#ifdef CONFIG_TCC_ASM
+#నిర్వచించు USING_GLOBALS
+#అన్తర్భావ "tcc.h"
+#నిర్వచితమైతే CONFIG_TCC_ASM
 
-static Section *last_text_section; /* to handle .previous asm directive */
-static int asmgoto_n;
+స్థిర Section *చివరి_పాఠ్యం_section; /* to handle .previous asm directive */
+స్థిర పూర్ణాంకం asmgoto_n;
 
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global);
-static Sym* asm_new_label(TCCState *s1, int label, int is_local);
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local, int sh_num, int value);
+స్థిర పూర్ణాంకం tcc_assemble_అంతర్గత(TCCState *s1, పూర్ణాంకం do_preprocess, పూర్ణాంకం global);
+స్థిర Sym* asm_new_label(TCCState *s1, పూర్ణాంకం label, పూర్ణాంకం is_local);
+స్థిర Sym* asm_new_label1(TCCState *s1, పూర్ణాంకం label, పూర్ణాంకం is_local, పూర్ణాంకం sh_అంకె, పూర్ణాంకం విలువ);
 
-#if PTR_SIZE == 8
+#ఒకవేళ PTR_కొలత == 8
 /* output constant with relocation if 'r & VT_SYM' is true */
-ST_FUNC void gen_addr64(int r, Sym *sym, int64_t c)
+ST_FUNC శూన్య gen_addr64(పూర్ణాంకం r, Sym *sym, int64_t c)
 {
-    if (r & VT_SYM)
-        greloca(cur_text_section, sym, ind, R_DATA_PTR, c), c=0;
+    ఒకవేళ (r & VT_SYM)
+        greloca(cur_పాఠ్యం_section, sym, ind, R_దత్తాంశం_PTR, c), c=0;
     gen_le32(c);
     gen_le32(c>>32);
 }
 
-ST_FUNC void gen_expr64(ExprValue *pe)
+ST_FUNC శూన్య gen_expr64(సమాసం_విలువ *pe)
 {
     gen_addr64(pe->sym ? VT_SYM : 0, pe->sym, pe->v);
 }
-#endif
+#అయితే_ముగింపు
 
-static int asm_get_prefix_name(TCCState *s1, const char *prefix, unsigned int n)
+స్థిర పూర్ణాంకం asm_get_ఉపసర్గ_name(TCCState *s1, స్థిరరాశి అక్షరం *ఉపసర్గ, గుర్తులేని పూర్ణాంకం n)
 {
-    char buf[64];
-    snprintf(buf, sizeof(buf), "%s%u", prefix, n);
-    return tok_alloc_const(buf);
+    అక్షరం buf[64];
+    snprintf(buf, పరిమాణం(buf), "%s%u", ఉపసర్గ, n);
+    తిరిగి tok_alloc_const(buf);
 }
 
-ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
+ST_FUNC పూర్ణాంకం asm_get_local_label_name(TCCState *s1, గుర్తులేని పూర్ణాంకం n)
 {
-    return asm_get_prefix_name(s1, "L..", n);
+    తిరిగి asm_get_ఉపసర్గ_name(s1, "L..", n);
 }
 
 /* If a C name has an _ prepended then only asm labels that start
@@ -63,47 +63,47 @@ ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
    the global C symbol table to track ASM names as well, so we need to
    transform those into ones that don't conflict with a C name,
    so prepend a '.' for them, but force the ELF asm name to be set.  */
-static int asm2cname(int v, int *addeddot)
+స్థిర పూర్ణాంకం asm2cname(పూర్ణాంకం v, పూర్ణాంకం *addeddot)
 {
-    const char *name;
+    స్థిరరాశి అక్షరం *name;
     *addeddot = 0;
-    if (!tcc_state->leading_underscore)
-      return v;
-    name = get_tok_str(v, NULL);
-    if (!name)
-      return v;
-    if (name[0] == '_') {
+    ఒకవేళ (!tcc_state->leading_underscore)
+      తిరిగి v;
+    name = get_tok_str(v, ఖాళీ);
+    ఒకవేళ (!name)
+      తిరిగి v;
+    ఒకవేళ (name[0] == '_') {
         v = tok_alloc_const(name + 1);
-    } else if (!strchr(name, '.')) {
-        char newname[256];
-        snprintf(newname, sizeof newname, ".%s", name);
+    } లేకపోతే ఒకవేళ (!strchr(name, '.')) {
+        అక్షరం newname[256];
+        snprintf(newname, పరిమాణం newname, ".%s", name);
         v = tok_alloc_const(newname);
         *addeddot = 1;
     }
-    return v;
+    తిరిగి v;
 }
 
-static Sym *asm_label_find(int v)
+స్థిర Sym *asm_label_కనుగొను(పూర్ణాంకం v)
 {
     Sym *sym;
-    int addeddot;
+    పూర్ణాంకం addeddot;
     v = asm2cname(v, &addeddot);
-    sym = sym_find(v);
-    while (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
+    sym = sym_కనుగొను(v);
+    అయితే (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
         sym = sym->prev_tok;
-    return sym;
+    తిరిగి sym;
 }
 
-static Sym *asm_label_push(int v)
+స్థిర Sym *asm_label_నెట్టు(పూర్ణాంకం v)
 {
-    int addeddot, v2 = asm2cname(v, &addeddot);
+    పూర్ణాంకం addeddot, v2 = asm2cname(v, &addeddot);
     /* We always add VT_EXTERN, for sym definition that's tentative
        (for .set, removed for real defs), for mere references it's correct
        as is.  */
-    Sym *sym = global_identifier_push(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
-    if (addeddot)
+    Sym *sym = global_identifier_నెట్టు(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
+    ఒకవేళ (addeddot)
         sym->asm_label = v;
-    return sym;
+    తిరిగి sym;
 }
 
 /* Return a symbol we can use inside the assembler, having name NAME.
@@ -116,243 +116,243 @@ static Sym *asm_label_push(int v)
    are anonymous in C, in this case CSYM can be used to transfer
    all information from that symbol to the (possibly newly created)
    asm symbol.  */
-ST_FUNC Sym* get_asm_sym(int name, Sym *csym)
+ST_FUNC Sym* get_asm_sym(పూర్ణాంకం name, Sym *csym)
 {
-    Sym *sym = asm_label_find(name);
-    if (!sym) {
-	sym = asm_label_push(name);
-	if (csym)
+    Sym *sym = asm_label_కనుగొను(name);
+    ఒకవేళ (!sym) {
+	sym = asm_label_నెట్టు(name);
+	ఒకవేళ (csym)
 	  sym->c = csym->c;
     }
-    return sym;
+    తిరిగి sym;
 }
 
-static Sym* asm_section_sym(TCCState *s1, Section *sec)
+స్థిర Sym* asm_section_sym(TCCState *s1, Section *sec)
 {
-    char buf[100]; int label; Sym *sym;
-    snprintf(buf, sizeof buf, "L.%s", sec->name);
+    అక్షరం buf[100]; పూర్ణాంకం label; Sym *sym;
+    snprintf(buf, పరిమాణం buf, "L.%s", sec->name);
     label = tok_alloc_const(buf);
-    sym = asm_label_find(label);
-    return sym ? sym : asm_new_label1(s1, label, 1, sec->sh_num, 0);
+    sym = asm_label_కనుగొను(label);
+    తిరిగి sym ? sym : asm_new_label1(s1, label, 1, sec->sh_అంకె, 0);
 }
 
 /* We do not use the C expression parser to handle symbols. Maybe the
    C expression parser could be tweaked to do so. */
 
-static void asm_expr_unary(TCCState *s1, ExprValue *pe)
+స్థిర శూన్య asm_సమాసం_unary(TCCState *s1, సమాసం_విలువ *pe)
 {
     Sym *sym;
-    int op, label;
+    పూర్ణాంకం op, label;
     uint64_t n;
-    const char *p;
+    స్థిరరాశి అక్షరం *p;
 
-    switch(tok) {
-    case TOK_PPNUM:
-        p = tokc.str.data;
-        n = strtoull(p, (char **)&p, 0);
-        if (*p == 'b' || *p == 'f') {
+    ఎంపిక(tok) {
+    స్థితి TOK_PPNUM:
+        p = tokc.str.దత్తాంశం;
+        n = strtoull(p, (అక్షరం **)&p, 0);
+        ఒకవేళ (*p == 'b' || *p == 'f') {
             /* backward or forward label */
             label = asm_get_local_label_name(s1, n);
-            sym = asm_label_find(label);
-            if (*p == 'b') {
+            sym = asm_label_కనుగొను(label);
+            ఒకవేళ (*p == 'b') {
                 /* backward : find the last corresponding defined label */
-                if (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
+                ఒకవేళ (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
                     sym = sym->prev_tok;
-                if (!sym)
-                    tcc_error("local label '%d' not found backward", (int)n);
-            } else {
+                ఒకవేళ (!sym)
+                    tcc_error("local label '%d' not found backward", (పూర్ణాంకం)n);
+            } లేకపోతే {
                 /* forward */
-                if (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
+                ఒకవేళ (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
                     /* if the last label is defined, then define a new one */
-		    sym = asm_label_push(label);
+		    sym = asm_label_నెట్టు(label);
                 }
             }
 	    pe->v = 0;
 	    pe->sym = sym;
 	    pe->pcrel = 0;
-        } else if (*p == '\0') {
+        } లేకపోతే ఒకవేళ (*p == '\0') {
             pe->v = n;
-            pe->sym = NULL;
+            pe->sym = ఖాళీ;
 	    pe->pcrel = 0;
-        } else {
+        } లేకపోతే {
             tcc_error("invalid number syntax");
         }
-        next();
-        break;
-    case '+':
-        next();
-        asm_expr_unary(s1, pe);
-        break;
-    case '-':
-    case '~':
+        తదుపరి();
+        ఆపు;
+    స్థితి '+':
+        తదుపరి();
+        asm_సమాసం_unary(s1, pe);
+        ఆపు;
+    స్థితి '-':
+    స్థితి '~':
         op = tok;
-        next();
-        asm_expr_unary(s1, pe);
-        if (pe->sym)
+        తదుపరి();
+        asm_సమాసం_unary(s1, pe);
+        ఒకవేళ (pe->sym)
             tcc_error("invalid operation with label");
-        if (op == '-')
+        ఒకవేళ (op == '-')
             pe->v = -pe->v;
-        else
+        లేకపోతే
             pe->v = ~pe->v;
-        break;
-    case TOK_CCHAR:
-    case TOK_LCHAR:
+        ఆపు;
+    స్థితి TOK_CCHAR:
+    స్థితి TOK_LCHAR:
 	pe->v = tokc.i;
-	pe->sym = NULL;
+	pe->sym = ఖాళీ;
 	pe->pcrel = 0;
-	next();
-	break;
-    case '(':
-        next();
-        asm_expr(s1, pe);
+	తదుపరి();
+	ఆపు;
+    స్థితి '(':
+        తదుపరి();
+        asm_సమాసం(s1, pe);
         skip(')');
-        break;
-    case '.':
+        ఆపు;
+    స్థితి '.':
         pe->v = ind;
-        pe->sym = asm_section_sym(s1, cur_text_section);
+        pe->sym = asm_section_sym(s1, cur_పాఠ్యం_section);
         pe->pcrel = 0;
-        next();
-        break;
-    default:
-        if (tok >= TOK_IDENT) {
+        తదుపరి();
+        ఆపు;
+    అప్రమేయ:
+        ఒకవేళ (tok >= TOK_IDENT) {
 	    ElfSym *esym;
             /* label case : if the label was not found, add one */
-	    sym = get_asm_sym(tok, NULL);
+	    sym = get_asm_sym(tok, ఖాళీ);
 	    esym = elfsym(sym);
-            if (esym && esym->st_shndx == SHN_ABS) {
+            ఒకవేళ (esym && esym->st_shndx == SHN_ABS) {
                 /* if absolute symbol, no need to put a symbol value */
-                pe->v = esym->st_value;
-                pe->sym = NULL;
+                pe->v = esym->st_విలువ;
+                pe->sym = ఖాళీ;
 		pe->pcrel = 0;
-            } else {
+            } లేకపోతే {
                 pe->v = 0;
                 pe->sym = sym;
 		pe->pcrel = 0;
             }
-            next();
-        } else {
+            తదుపరి();
+        } లేకపోతే {
             tcc_error("bad expression syntax [%s]", get_tok_str(tok, &tokc));
         }
-        break;
+        ఆపు;
     }
 }
     
-static void asm_expr_prod(TCCState *s1, ExprValue *pe)
+స్థిర శూన్య asm_సమాసం_prod(TCCState *s1, సమాసం_విలువ *pe)
 {
-    int op;
-    ExprValue e2;
+    పూర్ణాంకం op;
+    సమాసం_విలువ e2;
 
-    asm_expr_unary(s1, pe);
-    for(;;) {
+    asm_సమాసం_unary(s1, pe);
+    కొరకు(;;) {
         op = tok;
-        if (op != '*' && op != '/' && op != '%' && 
+        ఒకవేళ (op != '*' && op != '/' && op != '%' && 
             op != TOK_SHL && op != TOK_SAR)
-            break;
-        next();
-        asm_expr_unary(s1, &e2);
-        if (pe->sym || e2.sym)
+            ఆపు;
+        తదుపరి();
+        asm_సమాసం_unary(s1, &e2);
+        ఒకవేళ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-        case '*':
+        ఎంపిక(op) {
+        స్థితి '*':
             pe->v *= e2.v;
-            break;
-        case '/':  
-            if (e2.v == 0) {
+            ఆపు;
+        స్థితి '/':  
+            ఒకవేళ (e2.v == 0) {
             div_error:
                 tcc_error("division by zero");
             }
             pe->v /= e2.v;
-            break;
-        case '%':  
-            if (e2.v == 0)
-                goto div_error;
+            ఆపు;
+        స్థితి '%':  
+            ఒకవేళ (e2.v == 0)
+                వెళ్ళు div_error;
             pe->v %= e2.v;
-            break;
-        case TOK_SHL:
+            ఆపు;
+        స్థితి TOK_SHL:
             pe->v <<= e2.v;
-            break;
-        default:
-        case TOK_SAR:
+            ఆపు;
+        అప్రమేయ:
+        స్థితి TOK_SAR:
             pe->v >>= e2.v;
-            break;
+            ఆపు;
         }
     }
 }
 
-static void asm_expr_logic(TCCState *s1, ExprValue *pe)
+స్థిర శూన్య asm_సమాసం_logic(TCCState *s1, సమాసం_విలువ *pe)
 {
-    int op;
-    ExprValue e2;
+    పూర్ణాంకం op;
+    సమాసం_విలువ e2;
 
-    asm_expr_prod(s1, pe);
-    for(;;) {
+    asm_సమాసం_prod(s1, pe);
+    కొరకు(;;) {
         op = tok;
-        if (op != '&' && op != '|' && op != '^')
-            break;
-        next();
-        asm_expr_prod(s1, &e2);
-        if (pe->sym || e2.sym)
+        ఒకవేళ (op != '&' && op != '|' && op != '^')
+            ఆపు;
+        తదుపరి();
+        asm_సమాసం_prod(s1, &e2);
+        ఒకవేళ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-        case '&':
+        ఎంపిక(op) {
+        స్థితి '&':
             pe->v &= e2.v;
-            break;
-        case '|':  
+            ఆపు;
+        స్థితి '|':  
             pe->v |= e2.v;
-            break;
-        default:
-        case '^':
+            ఆపు;
+        అప్రమేయ:
+        స్థితి '^':
             pe->v ^= e2.v;
-            break;
+            ఆపు;
         }
     }
 }
 
-static inline void asm_expr_sum(TCCState *s1, ExprValue *pe)
+స్థిర అంతఃవరుస శూన్య asm_సమాసం_కూడిక(TCCState *s1, సమాసం_విలువ *pe)
 {
-    int op;
-    ExprValue e2;
+    పూర్ణాంకం op;
+    సమాసం_విలువ e2;
 
-    asm_expr_logic(s1, pe);
-    for(;;) {
+    asm_సమాసం_logic(s1, pe);
+    కొరకు(;;) {
         op = tok;
-        if (op != '+' && op != '-')
-            break;
-        next();
-        asm_expr_logic(s1, &e2);
-        if (op == '+') {
-            if (pe->sym != NULL && e2.sym != NULL)
-                goto cannot_relocate;
+        ఒకవేళ (op != '+' && op != '-')
+            ఆపు;
+        తదుపరి();
+        asm_సమాసం_logic(s1, &e2);
+        ఒకవేళ (op == '+') {
+            ఒకవేళ (pe->sym != ఖాళీ && e2.sym != ఖాళీ)
+                వెళ్ళు cannot_relocate;
             pe->v += e2.v;
-            if (pe->sym == NULL && e2.sym != NULL)
+            ఒకవేళ (pe->sym == ఖాళీ && e2.sym != ఖాళీ)
                 pe->sym = e2.sym;
-        } else {
+        } లేకపోతే {
             pe->v -= e2.v;
             /* NOTE: we are less powerful than gas in that case
                because we store only one symbol in the expression */
-	    if (!e2.sym) {
+	    ఒకవేళ (!e2.sym) {
 		/* OK */
-	    } else if (pe->sym == e2.sym) { 
+	    } లేకపోతే ఒకవేళ (pe->sym == e2.sym) { 
 		/* OK */
-		pe->sym = NULL; /* same symbols can be subtracted to NULL */
-	    } else {
+		pe->sym = ఖాళీ; /* same symbols can be subtracted to NULL */
+	    } లేకపోతే {
 		ElfSym *esym1, *esym2;
 		esym1 = elfsym(pe->sym);
 		esym2 = elfsym(e2.sym);
-		if (!esym2)
-		    goto cannot_relocate;
-		if (esym1 && esym1->st_shndx == esym2->st_shndx
+		ఒకవేళ (!esym2)
+		    వెళ్ళు cannot_relocate;
+		ఒకవేళ (esym1 && esym1->st_shndx == esym2->st_shndx
 		    && esym1->st_shndx != SHN_UNDEF) {
 		    /* we also accept defined symbols in the same section */
-		    pe->v += (int)(esym1->st_value - esym2->st_value);
-		    pe->sym = NULL;
-		} else if (esym2->st_shndx == cur_text_section->sh_num) {
+		    pe->v += (పూర్ణాంకం)(esym1->st_విలువ - esym2->st_విలువ);
+		    pe->sym = ఖాళీ;
+		} లేకపోతే ఒకవేళ (esym2->st_shndx == cur_పాఠ్యం_section->sh_అంకె) {
 		    /* When subtracting a defined symbol in current section
 		       this actually makes the value PC-relative.  */
-		    pe->v += (int)(0 - esym2->st_value);
+		    pe->v += (పూర్ణాంకం)(0 - esym2->st_విలువ);
 		    pe->pcrel = 1;
-		    e2.sym = NULL;
-		} else {
+		    e2.sym = ఖాళీ;
+		} లేకపోతే {
 cannot_relocate:
 		    tcc_error("invalid operation with label");
 		}
@@ -361,304 +361,304 @@ cannot_relocate:
     }
 }
 
-static inline void asm_expr_cmp(TCCState *s1, ExprValue *pe)
+స్థిర అంతఃవరుస శూన్య asm_సమాసం_cmp(TCCState *s1, సమాసం_విలువ *pe)
 {
-    int op;
-    ExprValue e2;
+    పూర్ణాంకం op;
+    సమాసం_విలువ e2;
 
-    asm_expr_sum(s1, pe);
-    for(;;) {
+    asm_సమాసం_కూడిక(s1, pe);
+    కొరకు(;;) {
         op = tok;
-	if (op != TOK_EQ && op != TOK_NE
+	ఒకవేళ (op != TOK_EQ && op != TOK_NE
 	    && (op > TOK_GT || op < TOK_ULE))
-            break;
-        next();
-        asm_expr_sum(s1, &e2);
-        if (pe->sym || e2.sym)
+            ఆపు;
+        తదుపరి();
+        asm_సమాసం_కూడిక(s1, &e2);
+        ఒకవేళ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-	case TOK_EQ:
+        ఎంపిక(op) {
+	స్థితి TOK_EQ:
 	    pe->v = pe->v == e2.v;
-	    break;
-	case TOK_NE:
+	    ఆపు;
+	స్థితి TOK_NE:
 	    pe->v = pe->v != e2.v;
-	    break;
-	case TOK_LT:
+	    ఆపు;
+	స్థితి TOK_LT:
 	    pe->v = (int64_t)pe->v < (int64_t)e2.v;
-	    break;
-	case TOK_GE:
+	    ఆపు;
+	స్థితి TOK_GE:
 	    pe->v = (int64_t)pe->v >= (int64_t)e2.v;
-	    break;
-	case TOK_LE:
+	    ఆపు;
+	స్థితి TOK_LE:
 	    pe->v = (int64_t)pe->v <= (int64_t)e2.v;
-	    break;
-	case TOK_GT:
+	    ఆపు;
+	స్థితి TOK_GT:
 	    pe->v = (int64_t)pe->v > (int64_t)e2.v;
-	    break;
-        default:
-            break;
+	    ఆపు;
+        అప్రమేయ:
+            ఆపు;
         }
 	/* GAS compare results are -1/0 not 1/0.  */
 	pe->v = -(int64_t)pe->v;
     }
 }
 
-ST_FUNC void asm_expr(TCCState *s1, ExprValue *pe)
+ST_FUNC శూన్య asm_సమాసం(TCCState *s1, సమాసం_విలువ *pe)
 {
-    asm_expr_cmp(s1, pe);
+    asm_సమాసం_cmp(s1, pe);
 }
 
-ST_FUNC int asm_int_expr(TCCState *s1)
+ST_FUNC పూర్ణాంకం asm_int_సమాసం(TCCState *s1)
 {
-    ExprValue e;
-    asm_expr(s1, &e);
-    if (e.sym)
+    సమాసం_విలువ e;
+    asm_సమాసం(s1, &e);
+    ఒకవేళ (e.sym)
         expect("constant");
-    if ((int)e.v != e.v)
-	tcc_error("integer out of range %lld", (long long)e.v);
-    return e.v;
+    ఒకవేళ ((పూర్ణాంకం)e.v != e.v)
+	tcc_error("integer out of range %lld", (దీర్ఘ దీర్ఘ)e.v);
+    తిరిగి e.v;
 }
 
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local,
-                           int sh_num, int value)
+స్థిర Sym* asm_new_label1(TCCState *s1, పూర్ణాంకం label, పూర్ణాంకం is_local,
+                           పూర్ణాంకం sh_అంకె, పూర్ణాంకం విలువ)
 {
     Sym *sym;
     ElfSym *esym;
 
-    sym = asm_label_find(label);
-    if (sym) {
+    sym = asm_label_కనుగొను(label);
+    ఒకవేళ (sym) {
 	esym = elfsym(sym);
 	/* A VT_EXTERN symbol, even if it has a section is considered
 	   overridable.  This is how we "define" .set targets.  Real
 	   definitions won't have VT_EXTERN set.  */
-        if (esym && esym->st_shndx != SHN_UNDEF) {
+        ఒకవేళ (esym && esym->st_shndx != SHN_UNDEF) {
             /* the label is already defined */
-            if (IS_ASM_SYM(sym)
+            ఒకవేళ (IS_ASM_SYM(sym)
                 && (is_local == 1 || (sym->type.t & VT_EXTERN)))
-                goto new_label;
-            if (!(sym->type.t & VT_EXTERN))
+                వెళ్ళు new_label;
+            ఒకవేళ (!(sym->type.t & VT_EXTERN))
                 tcc_error("assembler label '%s' already defined",
-                          get_tok_str(label, NULL));
+                          get_tok_str(label, ఖాళీ));
         }
-    } else {
+    } లేకపోతే {
     new_label:
-        sym = asm_label_push(label);
+        sym = asm_label_నెట్టు(label);
     }
-    if (!sym->c)
+    ఒకవేళ (!sym->c)
       put_extern_sym2(sym, SHN_UNDEF, 0, 0, 1);
     esym = elfsym(sym);
-    esym->st_shndx = sh_num;
-    esym->st_value = value;
-    if (is_local != 2)
+    esym->st_shndx = sh_అంకె;
+    esym->st_విలువ = విలువ;
+    ఒకవేళ (is_local != 2)
         sym->type.t &= ~VT_EXTERN;
-    return sym;
+    తిరిగి sym;
 }
 
-static Sym* asm_new_label(TCCState *s1, int label, int is_local)
+స్థిర Sym* asm_new_label(TCCState *s1, పూర్ణాంకం label, పూర్ణాంకం is_local)
 {
-    return asm_new_label1(s1, label, is_local, cur_text_section->sh_num, ind);
+    తిరిగి asm_new_label1(s1, label, is_local, cur_పాఠ్యం_section->sh_అంకె, ind);
 }
 
 /* Set the value of LABEL to that of some expression (possibly
    involving other symbols).  LABEL can be overwritten later still.  */
-static Sym* set_symbol(TCCState *s1, int label)
+స్థిర Sym* సమితి_చిహ్నం(TCCState *s1, పూర్ణాంకం label)
 {
-    long n;
-    ExprValue e;
+    దీర్ఘ n;
+    సమాసం_విలువ e;
     Sym *sym;
     ElfSym *esym;
-    next();
-    asm_expr(s1, &e);
+    తదుపరి();
+    asm_సమాసం(s1, &e);
     n = e.v;
     esym = elfsym(e.sym);
-    if (esym)
-	n += esym->st_value;
+    ఒకవేళ (esym)
+	n += esym->st_విలువ;
     sym = asm_new_label1(s1, label, 2, esym ? esym->st_shndx : SHN_ABS, n);
-    elfsym(sym)->st_other |= ST_ASM_SET;
-    return sym;
+    elfsym(sym)->st_other |= ST_ASM_సమితి;
+    తిరిగి sym;
 }
 
-static void use_section1(TCCState *s1, Section *sec)
+స్థిర శూన్య use_section1(TCCState *s1, Section *sec)
 {
-    cur_text_section->data_offset = ind;
-    cur_text_section = sec;
-    ind = cur_text_section->data_offset;
+    cur_పాఠ్యం_section->దత్తాంశం_స్థానభ్రంశం = ind;
+    cur_పాఠ్యం_section = sec;
+    ind = cur_పాఠ్యం_section->దత్తాంశం_స్థానభ్రంశం;
 }
 
-static void use_section(TCCState *s1, const char *name)
+స్థిర శూన్య use_section(TCCState *s1, స్థిరరాశి అక్షరం *name)
 {
     Section *sec;
-    sec = find_section(s1, name);
+    sec = కనుగొను_section(s1, name);
     use_section1(s1, sec);
 }
 
-static void push_section(TCCState *s1, const char *name)
+స్థిర శూన్య నెట్టు_section(TCCState *s1, స్థిరరాశి అక్షరం *name)
 {
-    Section *sec = find_section(s1, name);
-    sec->prev = cur_text_section;
+    Section *sec = కనుగొను_section(s1, name);
+    sec->prev = cur_పాఠ్యం_section;
     use_section1(s1, sec);
 }
 
-static void pop_section(TCCState *s1)
+స్థిర శూన్య తీయి_section(TCCState *s1)
 {
-    Section *prev = cur_text_section->prev;
-    if (!prev)
+    Section *prev = cur_పాఠ్యం_section->prev;
+    ఒకవేళ (!prev)
         tcc_error(".popsection without .pushsection");
-    cur_text_section->prev = NULL;
+    cur_పాఠ్యం_section->prev = ఖాళీ;
     use_section1(s1, prev);
 }
 
-static void asm_parse_directive(TCCState *s1, int global)
+స్థిర శూన్య asm_parse_directive(TCCState *s1, పూర్ణాంకం global)
 {
-    int n, offset, v, size, tok1, c;
+    పూర్ణాంకం n, స్థానభ్రంశం, v, కొలత, tok1, c;
     Section *sec;
     uint8_t *ptr;
 
     /* assembler directive */
-    sec = cur_text_section;
-    switch(tok) {
-    case TOK_ASMDIR_align:
-    case TOK_ASMDIR_balign:
-    case TOK_ASMDIR_p2align:
-    case TOK_ASMDIR_skip:
-    case TOK_ASMDIR_space:
+    sec = cur_పాఠ్యం_section;
+    ఎంపిక(tok) {
+    స్థితి TOK_ASMDIR_align:
+    స్థితి TOK_ASMDIR_balign:
+    స్థితి TOK_ASMDIR_p2align:
+    స్థితి TOK_ASMDIR_skip:
+    స్థితి TOK_ASMDIR_space:
         tok1 = tok;
-        next();
-        n = asm_int_expr(s1);
-        if (tok1 == TOK_ASMDIR_p2align)
+        తదుపరి();
+        n = asm_int_సమాసం(s1);
+        ఒకవేళ (tok1 == TOK_ASMDIR_p2align)
         {
-            if (n < 0 || n > 30)
+            ఒకవేళ (n < 0 || n > 30)
                 tcc_error("invalid p2align, must be between 0 and 30");
             n = 1 << n;
             tok1 = TOK_ASMDIR_align;
         }
-        if (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
-            if (n <= 0 || (n & (n-1)) != 0)
+        ఒకవేళ (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
+            ఒకవేళ (n <= 0 || (n & (n-1)) != 0)
                 tcc_error("alignment must be a positive power of two");
-            offset = (ind + n - 1) & -n;
-            size = offset - ind;
+            స్థానభ్రంశం = (ind + n - 1) & -n;
+            కొలత = స్థానభ్రంశం - ind;
             /* the section must have a compatible alignment */
-            if (sec->sh_addralign < n)
+            ఒకవేళ (sec->sh_addralign < n)
                 sec->sh_addralign = n;
             c = sec->sh_flags & SHF_EXECINSTR;
-        } else {
-	    if (n < 0)
+        } లేకపోతే {
+	    ఒకవేళ (n < 0)
 	        n = 0;
-            size = n, c = 0;
+            కొలత = n, c = 0;
         }
         v = 0;
-        if (tok == ',') {
-            next();
-            v = asm_int_expr(s1), c = 0;
+        ఒకవేళ (tok == ',') {
+            తదుపరి();
+            v = asm_int_సమాసం(s1), c = 0;
         }
     zero_pad:
-	if ((uint64_t)ind + size >= 1<<30)
+	ఒకవేళ ((uint64_t)ind + కొలత >= 1<<30)
 	    tcc_error("too much data");
-        if (sec->sh_type != SHT_NOBITS) {
-            if (c) {
-                gen_fill_nops(size);
-                break;
+        ఒకవేళ (sec->sh_type != SHT_NOBITS) {
+            ఒకవేళ (c) {
+                gen_fill_nops(కొలత);
+                ఆపు;
             }
-            sec->data_offset = ind;
-            ptr = section_ptr_add(sec, size);
-            memset(ptr, v, size);
+            sec->దత్తాంశం_స్థానభ్రంశం = ind;
+            ptr = section_ptr_కూడు(sec, కొలత);
+            memset(ptr, v, కొలత);
         }
-        ind += size;
-        break;
-    case TOK_ASMDIR_quad:
-#if PTR_SIZE == 8
-	size = 8;
-	goto asm_data;
-#else
-        next();
-        for(;;) {
+        ind += కొలత;
+        ఆపు;
+    స్థితి TOK_ASMDIR_quad:
+#ఒకవేళ PTR_కొలత == 8
+	కొలత = 8;
+	వెళ్ళు asm_దత్తాంశం;
+#లేకపోతే
+        తదుపరి();
+        కొరకు(;;) {
             uint64_t vl;
-            const char *p;
+            స్థిరరాశి అక్షరం *p;
 
-            p = tokc.str.data;
-            if (tok != TOK_PPNUM) {
+            p = tokc.str.దత్తాంశం;
+            ఒకవేళ (tok != TOK_PPNUM) {
             error_constant:
                 tcc_error("64 bit constant");
             }
-            vl = strtoll(p, (char **)&p, 0);
-            if (*p != '\0')
-                goto error_constant;
-            next();
-            if (sec->sh_type != SHT_NOBITS) {
+            vl = strtoll(p, (అక్షరం **)&p, 0);
+            ఒకవేళ (*p != '\0')
+                వెళ్ళు error_constant;
+            తదుపరి();
+            ఒకవేళ (sec->sh_type != SHT_NOBITS) {
                 /* XXX: endianness */
                 gen_le32(vl);
                 gen_le32(vl >> 32);
-            } else {
+            } లేకపోతే {
                 ind += 8;
             }
-            if (tok != ',')
-                break;
-            next();
+            ఒకవేళ (tok != ',')
+                ఆపు;
+            తదుపరి();
         }
-        break;
-#endif
-    case TOK_ASMDIR_byte:
-        size = 1;
-        goto asm_data;
-    case TOK_ASMDIR_word:
-    case TOK_ASMDIR_short:
-        size = 2;
-        goto asm_data;
-    case TOK_ASMDIR_long:
-    case TOK_ASMDIR_int:
-        size = 4;
-    asm_data:
-        next();
-        for(;;) {
-            ExprValue e;
-            asm_expr(s1, &e);
-            if (sec->sh_type != SHT_NOBITS) {
-                if (size == 4) {
+        ఆపు;
+#అయితే_ముగింపు
+    స్థితి TOK_ASMDIR_byte:
+        కొలత = 1;
+        వెళ్ళు asm_దత్తాంశం;
+    స్థితి TOK_ASMDIR_మాట:
+    స్థితి TOK_ASMDIR_short:
+        కొలత = 2;
+        వెళ్ళు asm_దత్తాంశం;
+    స్థితి TOK_ASMDIR_long:
+    స్థితి TOK_ASMDIR_int:
+        కొలత = 4;
+    asm_దత్తాంశం:
+        తదుపరి();
+        కొరకు(;;) {
+            సమాసం_విలువ e;
+            asm_సమాసం(s1, &e);
+            ఒకవేళ (sec->sh_type != SHT_NOBITS) {
+                ఒకవేళ (కొలత == 4) {
                     gen_expr32(&e);
-#if PTR_SIZE == 8
-		} else if (size == 8) {
+#ఒకవేళ PTR_కొలత == 8
+		} లేకపోతే ఒకవేళ (కొలత == 8) {
 		    gen_expr64(&e);
-#endif
-                } else {
-                    if (e.sym)
+#అయితే_ముగింపు
+                } లేకపోతే {
+                    ఒకవేళ (e.sym)
                         expect("constant");
-                    if (size == 1)
+                    ఒకవేళ (కొలత == 1)
                         g(e.v);
-                    else
+                    లేకపోతే
                         gen_le16(e.v);
                 }
-            } else {
-                ind += size;
+            } లేకపోతే {
+                ind += కొలత;
             }
-            if (tok != ',')
-                break;
-            next();
+            ఒకవేళ (tok != ',')
+                ఆపు;
+            తదుపరి();
         }
-        break;
-    case TOK_ASMDIR_fill:
+        ఆపు;
+    స్థితి TOK_ASMDIR_fill:
         {
-            int repeat, size, val, i, j;
+            పూర్ణాంకం repeat, కొలత, val, i, j;
             uint8_t repeat_buf[8];
-            next();
-            repeat = asm_int_expr(s1);
-            if (repeat < 0) {
+            తదుపరి();
+            repeat = asm_int_సమాసం(s1);
+            ఒకవేళ (repeat < 0) {
                 tcc_error("repeat < 0; .fill ignored");
-                break;
+                ఆపు;
             }
-            size = 1;
+            కొలత = 1;
             val = 0;
-            if (tok == ',') {
-                next();
-                size = asm_int_expr(s1);
-                if (size < 0) {
+            ఒకవేళ (tok == ',') {
+                తదుపరి();
+                కొలత = asm_int_సమాసం(s1);
+                ఒకవేళ (కొలత < 0) {
                     tcc_error("size < 0; .fill ignored");
-                    break;
+                    ఆపు;
                 }
-                if (size > 8)
-                    size = 8;
-                if (tok == ',') {
-                    next();
-                    val = asm_int_expr(s1);
+                ఒకవేళ (కొలత > 8)
+                    కొలత = 8;
+                ఒకవేళ (tok == ',') {
+                    తదుపరి();
+                    val = asm_int_సమాసం(s1);
                 }
             }
             /* XXX: endianness */
@@ -670,476 +670,476 @@ static void asm_parse_directive(TCCState *s1, int global)
             repeat_buf[5] = 0;
             repeat_buf[6] = 0;
             repeat_buf[7] = 0;
-            for(i = 0; i < repeat; i++) {
-                for(j = 0; j < size; j++) {
+            కొరకు(i = 0; i < repeat; i++) {
+                కొరకు(j = 0; j < కొలత; j++) {
                     g(repeat_buf[j]);
                 }
             }
         }
-        break;
-    case TOK_ASMDIR_rept:
+        ఆపు;
+    స్థితి TOK_ASMDIR_rept:
         {
-            int repeat;
+            పూర్ణాంకం repeat;
             TokenString *init_str;
-            next();
-            repeat = asm_int_expr(s1);
+            తదుపరి();
+            repeat = asm_int_సమాసం(s1);
             init_str = tok_str_alloc();
-            while (next(), tok != TOK_ASMDIR_endr) {
-                if (tok == CH_EOF)
+            అయితే (తదుపరి(), tok != TOK_ASMDIR_endr) {
+                ఒకవేళ (tok == CH_EOF)
                     tcc_error("we at end of file, .endr not found");
-                tok_str_add_tok(init_str);
+                tok_str_కూడు_tok(init_str);
             }
-            tok_str_add(init_str, TOK_EOF);
+            tok_str_కూడు(init_str, TOK_EOF);
             begin_macro(init_str, 1);
-            while (repeat-- > 0) {
-                tcc_assemble_internal(s1, (parse_flags & PARSE_FLAG_PREPROCESS),
+            అయితే (repeat-- > 0) {
+                tcc_assemble_అంతర్గత(s1, (parse_flags & PARSE_FLAG_PREPROCESS),
 				      global);
                 macro_ptr = init_str->str;
             }
-            end_macro();
-            next();
-            break;
+            చివర_macro();
+            తదుపరి();
+            ఆపు;
         }
-    case TOK_ASMDIR_org:
+    స్థితి TOK_ASMDIR_org:
         {
-	    ExprValue e;
+	    సమాసం_విలువ e;
 	    ElfSym *esym;
-            next();
-	    asm_expr(s1, &e);
+            తదుపరి();
+	    asm_సమాసం(s1, &e);
 	    n = e.v;
 	    esym = elfsym(e.sym);
-	    if (esym) {
-		if (esym->st_shndx != cur_text_section->sh_num)
+	    ఒకవేళ (esym) {
+		ఒకవేళ (esym->st_shndx != cur_పాఠ్యం_section->sh_అంకె)
 		  expect("constant or same-section symbol");
-		n += esym->st_value;
+		n += esym->st_విలువ;
 	    }
-            if (n < ind)
+            ఒకవేళ (n < ind)
                 tcc_error("attempt to .org backwards");
             v = c = 0;
-            size = n - ind;
-            goto zero_pad;
+            కొలత = n - ind;
+            వెళ్ళు zero_pad;
         }
-        break;
-    case TOK_ASMDIR_set:
-	next();
+        ఆపు;
+    స్థితి TOK_ASMDIR_సమితి:
+	తదుపరి();
 	tok1 = tok;
-	next();
+	తదుపరి();
 	/* Also accept '.set stuff', but don't do anything with this.
 	   It's used in GAS to set various features like '.set mips16'.  */
-	if (tok == ',')
-	    set_symbol(s1, tok1);
-	break;
-    case TOK_ASMDIR_globl:
-    case TOK_ASMDIR_global:
-    case TOK_ASMDIR_weak:
-    case TOK_ASMDIR_hidden:
+	ఒకవేళ (tok == ',')
+	    సమితి_చిహ్నం(s1, tok1);
+	ఆపు;
+    స్థితి TOK_ASMDIR_globl:
+    స్థితి TOK_ASMDIR_global:
+    స్థితి TOK_ASMDIR_weak:
+    స్థితి TOK_ASMDIR_hidden:
 	tok1 = tok;
-	do { 
+	చేయి { 
             Sym *sym;
-            next();
-	    if (tok < TOK_IDENT)
+            తదుపరి();
+	    ఒకవేళ (tok < TOK_IDENT)
 		expect("identifier");
-            sym = get_asm_sym(tok, NULL);
-	    if (tok1 != TOK_ASMDIR_hidden)
+            sym = get_asm_sym(tok, ఖాళీ);
+	    ఒకవేళ (tok1 != TOK_ASMDIR_hidden)
                 sym->type.t &= ~VT_STATIC;
-            if (tok1 == TOK_ASMDIR_weak)
+            ఒకవేళ (tok1 == TOK_ASMDIR_weak)
                 sym->a.weak = 1;
-	    else if (tok1 == TOK_ASMDIR_hidden)
+	    లేకపోతే ఒకవేళ (tok1 == TOK_ASMDIR_hidden)
 	        sym->a.visibility = STV_HIDDEN;
             update_storage(sym);
-            next();
-	} while (tok == ',');
-	break;
-    case TOK_ASMDIR_string:
-    case TOK_ASMDIR_ascii:
-    case TOK_ASMDIR_asciz:
+            తదుపరి();
+	} అయితే (tok == ',');
+	ఆపు;
+    స్థితి TOK_ASMDIR_string:
+    స్థితి TOK_ASMDIR_ascii:
+    స్థితి TOK_ASMDIR_asciz:
         {
-            const char *p;
-            int i, size, t;
+            స్థిరరాశి అక్షరం *p;
+            పూర్ణాంకం i, కొలత, t;
 
             t = tok;
-            next();
-            for(;;) {
-                if (tok != TOK_STR)
+            తదుపరి();
+            కొరకు(;;) {
+                ఒకవేళ (tok != TOK_STR)
                     expect("string constant");
-                p = tokc.str.data;
-                size = tokc.str.size;
-                if (t == TOK_ASMDIR_ascii && size > 0)
-                    size--;
-                for(i = 0; i < size; i++)
+                p = tokc.str.దత్తాంశం;
+                కొలత = tokc.str.కొలత;
+                ఒకవేళ (t == TOK_ASMDIR_ascii && కొలత > 0)
+                    కొలత--;
+                కొరకు(i = 0; i < కొలత; i++)
                     g(p[i]);
-                next();
-                if (tok == ',') {
-                    next();
-                } else if (tok != TOK_STR) {
-                    break;
+                తదుపరి();
+                ఒకవేళ (tok == ',') {
+                    తదుపరి();
+                } లేకపోతే ఒకవేళ (tok != TOK_STR) {
+                    ఆపు;
                 }
             }
 	}
-	break;
-    case TOK_ASMDIR_text:
-    case TOK_ASMDIR_data:
-    case TOK_ASMDIR_bss:
+	ఆపు;
+    స్థితి TOK_ASMDIR_పాఠ్యం:
+    స్థితి TOK_ASMDIR_దత్తాంశం:
+    స్థితి TOK_ASMDIR_bss:
 	{ 
-            char sname[64];
+            అక్షరం sname[64];
             tok1 = tok;
             n = 0;
-            next();
-            if (tok != ';' && tok != TOK_LINEFEED) {
-		n = asm_int_expr(s1);
-		next();
+            తదుపరి();
+            ఒకవేళ (tok != ';' && tok != TOK_LINEFEED) {
+		n = asm_int_సమాసం(s1);
+		తదుపరి();
             }
-            if (n)
-                sprintf(sname, "%s%d", get_tok_str(tok1, NULL), n);
-            else
-                sprintf(sname, "%s", get_tok_str(tok1, NULL));
+            ఒకవేళ (n)
+                sprintf(sname, "%s%d", get_tok_str(tok1, ఖాళీ), n);
+            లేకపోతే
+                sprintf(sname, "%s", get_tok_str(tok1, ఖాళీ));
             use_section(s1, sname);
 	}
-	break;
-    case TOK_ASMDIR_file:
+	ఆపు;
+    స్థితి TOK_ASMDIR_file:
         {
-            const char *p;
+            స్థిరరాశి అక్షరం *p;
             parse_flags &= ~PARSE_FLAG_TOK_STR;
-            next();
-            if (tok == TOK_PPNUM)
-                next();
-            if (tok == TOK_PPSTR && tokc.str.data[0] == '"') {
-                tokc.str.data[tokc.str.size - 2] = 0;
-                p = tokc.str.data + 1;
-            } else if (tok >= TOK_IDENT) {
+            తదుపరి();
+            ఒకవేళ (tok == TOK_PPNUM)
+                తదుపరి();
+            ఒకవేళ (tok == TOK_PPSTR && tokc.str.దత్తాంశం[0] == '"') {
+                tokc.str.దత్తాంశం[tokc.str.కొలత - 2] = 0;
+                p = tokc.str.దత్తాంశం + 1;
+            } లేకపోతే ఒకవేళ (tok >= TOK_IDENT) {
                 p = get_tok_str(tok, &tokc);
-            } else {
-                skip_to_eol(0);
-                break;
+            } లేకపోతే {
+                skip_గమ్యం_eol(0);
+                ఆపు;
             }
             tccpp_putfile(p);
-            next();
+            తదుపరి();
         }
-        break;
-    case TOK_ASMDIR_ident:
+        ఆపు;
+    స్థితి TOK_ASMDIR_ident:
         {
-            char ident[256];
+            అక్షరం ident[256];
 
             ident[0] = '\0';
-            next();
-            if (tok == TOK_STR)
-                pstrcat(ident, sizeof(ident), tokc.str.data);
-            else
-                pstrcat(ident, sizeof(ident), get_tok_str(tok, &tokc));
+            తదుపరి();
+            ఒకవేళ (tok == TOK_STR)
+                pstrcat(ident, పరిమాణం(ident), tokc.str.దత్తాంశం);
+            లేకపోతే
+                pstrcat(ident, పరిమాణం(ident), get_tok_str(tok, &tokc));
             tcc_warning_c(warn_unsupported)("ignoring .ident %s", ident);
-            next();
+            తదుపరి();
         }
-        break;
-    case TOK_ASMDIR_size:
+        ఆపు;
+    స్థితి TOK_ASMDIR_కొలత:
         { 
             Sym *sym;
             ElfSym *esym;
 
-            next();
-	    if (tok < TOK_IDENT)
+            తదుపరి();
+	    ఒకవేళ (tok < TOK_IDENT)
 		expect("identifier");
-            sym = asm_label_find(tok);
-            if (!sym)
-                tcc_error("label not found: %s", get_tok_str(tok, NULL));
+            sym = asm_label_కనుగొను(tok);
+            ఒకవేళ (!sym)
+                tcc_error("label not found: %s", get_tok_str(tok, ఖాళీ));
             /* XXX .size name,label2-label1 */
-            tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, NULL));
-            next();
+            tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, ఖాళీ));
+            తదుపరి();
             skip(',');
-            n = asm_int_expr(s1);
+            n = asm_int_సమాసం(s1);
             esym = elfsym(sym);
-            if (esym) {
-                esym->st_size = n;
+            ఒకవేళ (esym) {
+                esym->st_కొలత = n;
             }
         }
-        break;
-    case TOK_ASMDIR_type:
+        ఆపు;
+    స్థితి TOK_ASMDIR_type:
         { 
             Sym *sym;
-            const char *newtype;
-            int st_type;
+            స్థిరరాశి అక్షరం *newtype;
+            పూర్ణాంకం st_type;
 
-            next();
-	    if (tok < TOK_IDENT)
+            తదుపరి();
+	    ఒకవేళ (tok < TOK_IDENT)
 		expect("identifier");
-            sym = get_asm_sym(tok, NULL);
-            next();
+            sym = get_asm_sym(tok, ఖాళీ);
+            తదుపరి();
             skip(',');
-            if (tok == TOK_STR) {
-                newtype = tokc.str.data;
-            } else {
-                if (tok == '@' || tok == '%')
-                    next();
-                newtype = get_tok_str(tok, NULL);
+            ఒకవేళ (tok == TOK_STR) {
+                newtype = tokc.str.దత్తాంశం;
+            } లేకపోతే {
+                ఒకవేళ (tok == '@' || tok == '%')
+                    తదుపరి();
+                newtype = get_tok_str(tok, ఖాళీ);
             }
 
-            if (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
-                if (IS_ASM_SYM(sym))
+            ఒకవేళ (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
+                ఒకవేళ (IS_ASM_SYM(sym))
                     sym->type.t |= VT_ASM_FUNC;
                 st_type = STT_FUNC;
-            set_st_type:
-                if (sym->c) {
+            సమితి_st_type:
+                ఒకవేళ (sym->c) {
                     ElfSym *esym = elfsym(sym);
                     esym->st_info = ELFW(ST_INFO)(ELFW(ST_BIND)(esym->st_info), st_type);
                 }
-            } else if (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
+            } లేకపోతే ఒకవేళ (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
                 st_type = STT_OBJECT;
-                goto set_st_type;
-            } else
+                వెళ్ళు సమితి_st_type;
+            } లేకపోతే
                 tcc_warning_c(warn_unsupported)("change type of '%s' from 0x%x to '%s' ignored",
-                    get_tok_str(sym->v, NULL), sym->type.t, newtype);
+                    get_tok_str(sym->v, ఖాళీ), sym->type.t, newtype);
 
-            next();
+            తదుపరి();
         }
-        break;
-    case TOK_ASMDIR_pushsection:
-    case TOK_ASMDIR_section:
+        ఆపు;
+    స్థితి TOK_ASMDIR_pushsection:
+    స్థితి TOK_ASMDIR_section:
         {
-            char sname[256];
-	    int old_nb_section = s1->nb_sections;
-            int flags = SHF_ALLOC;
+            అక్షరం sname[256];
+	    పూర్ణాంకం old_nb_section = s1->nb_sections;
+            పూర్ణాంకం flags = SHF_ALLOC;
 
 	    tok1 = tok;
             /* XXX: support more options */
-            next();
+            తదుపరి();
             sname[0] = '\0';
-            while (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
-                if (tok == TOK_STR)
-                    pstrcat(sname, sizeof(sname), tokc.str.data);
-                else
-                    pstrcat(sname, sizeof(sname), get_tok_str(tok, NULL));
-                next();
+            అయితే (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
+                ఒకవేళ (tok == TOK_STR)
+                    pstrcat(sname, పరిమాణం(sname), tokc.str.దత్తాంశం);
+                లేకపోతే
+                    pstrcat(sname, పరిమాణం(sname), get_tok_str(tok, ఖాళీ));
+                తదుపరి();
             }
-            if (tok == ',') {
-                const char *p;
+            ఒకవేళ (tok == ',') {
+                స్థిరరాశి అక్షరం *p;
                 /* skip section options */
-                next();
-                if (tok != TOK_STR)
+                తదుపరి();
+                ఒకవేళ (tok != TOK_STR)
                     expect("string constant");
-                for (p = tokc.str.data; *p; ++p) {
-                    if (*p == 'w')
+                కొరకు (p = tokc.str.దత్తాంశం; *p; ++p) {
+                    ఒకవేళ (*p == 'w')
                         flags |= SHF_WRITE;
-                    if (*p == 'x')
+                    ఒకవేళ (*p == 'x')
                         flags |= SHF_EXECINSTR;
                 }
-                next();
-                if (tok == ',') {
-                    next();
-                    if (tok == '@' || tok == '%')
-                        next();
-                    next();
+                తదుపరి();
+                ఒకవేళ (tok == ',') {
+                    తదుపరి();
+                    ఒకవేళ (tok == '@' || tok == '%')
+                        తదుపరి();
+                    తదుపరి();
                 }
             }
-            last_text_section = cur_text_section;
-	    if (tok1 == TOK_ASMDIR_section)
+            చివరి_పాఠ్యం_section = cur_పాఠ్యం_section;
+	    ఒకవేళ (tok1 == TOK_ASMDIR_section)
 	        use_section(s1, sname);
-	    else
-	        push_section(s1, sname);
+	    లేకపోతే
+	        నెట్టు_section(s1, sname);
 	    /* If we just allocated a new section reset its alignment to
 	       1.  new_section normally acts for GCC compatibility and
 	       sets alignment to PTR_SIZE.  The assembler behaves different. */
-	    if (old_nb_section != s1->nb_sections) {
-	        cur_text_section->sh_addralign = 1;
+	    ఒకవేళ (old_nb_section != s1->nb_sections) {
+	        cur_పాఠ్యం_section->sh_addralign = 1;
                 /* Make .init and .fini sections executable by default.
                    GAS does so, too, and musl relies on it. */
-                if (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
+                ఒకవేళ (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
                     flags |= SHF_EXECINSTR;
-	        cur_text_section->sh_flags = flags;
+	        cur_పాఠ్యం_section->sh_flags = flags;
             }
         }
-        break;
-    case TOK_ASMDIR_previous:
+        ఆపు;
+    స్థితి TOK_ASMDIR_మునుపటి:
         { 
             Section *sec;
-            next();
-            if (!last_text_section)
+            తదుపరి();
+            ఒకవేళ (!చివరి_పాఠ్యం_section)
                 tcc_error("no previous section referenced");
-            sec = cur_text_section;
-            use_section1(s1, last_text_section);
-            last_text_section = sec;
+            sec = cur_పాఠ్యం_section;
+            use_section1(s1, చివరి_పాఠ్యం_section);
+            చివరి_పాఠ్యం_section = sec;
         }
-        break;
-    case TOK_ASMDIR_popsection:
-	next();
-	pop_section(s1);
-	break;
-#ifdef TCC_TARGET_I386
-    case TOK_ASMDIR_code16:
+        ఆపు;
+    స్థితి TOK_ASMDIR_popsection:
+	తదుపరి();
+	తీయి_section(s1);
+	ఆపు;
+#నిర్వచితమైతే TCC_లక్ష్యం_I386
+    స్థితి TOK_ASMDIR_code16:
         {
-            next();
-            s1->seg_size = 16;
+            తదుపరి();
+            s1->seg_కొలత = 16;
         }
-        break;
-    case TOK_ASMDIR_code32:
+        ఆపు;
+    స్థితి TOK_ASMDIR_code32:
         {
-            next();
-            s1->seg_size = 32;
+            తదుపరి();
+            s1->seg_కొలత = 32;
         }
-        break;
-#endif
-#if PTR_SIZE == 8
+        ఆపు;
+#అయితే_ముగింపు
+#ఒకవేళ PTR_కొలత == 8
     /* added for compatibility with GAS */
-    case TOK_ASMDIR_code64:
-        next();
-        break;
-#endif
-#ifdef TCC_TARGET_RISCV64
-    case TOK_ASMDIR_option:
-        next();
-        switch(tok){
-            case TOK_ASM_rvc:    /* Will be deprecated soon in favor of arch */
-            case TOK_ASM_norvc:  /* Will be deprecated soon in favor of arch */
-            case TOK_ASM_pic:
-            case TOK_ASM_nopic:
-            case TOK_ASM_relax:
-            case TOK_ASM_norelax:
-            case TOK_ASM_push:
-            case TOK_ASM_pop:
+    స్థితి TOK_ASMDIR_code64:
+        తదుపరి();
+        ఆపు;
+#అయితే_ముగింపు
+#నిర్వచితమైతే TCC_లక్ష్యం_RISCV64
+    స్థితి TOK_ASMDIR_option:
+        తదుపరి();
+        ఎంపిక(tok){
+            స్థితి TOK_ASM_rvc:    /* Will be deprecated soon in favor of arch */
+            స్థితి TOK_ASM_norvc:  /* Will be deprecated soon in favor of arch */
+            స్థితి TOK_ASM_pic:
+            స్థితి TOK_ASM_nopic:
+            స్థితి TOK_ASM_relax:
+            స్థితి TOK_ASM_norelax:
+            స్థితి TOK_ASM_నెట్టు:
+            స్థితి TOK_ASM_తీయి:
                 /* TODO: unimplemented */
-                next();
-                break;
-            case TOK_ASM_arch:
+                తదుపరి();
+                ఆపు;
+            స్థితి TOK_ASM_arch:
                 /* TODO: unimplemented, requires extra parsing */
-                tcc_error("unimp .option '.%s'", get_tok_str(tok, NULL));
-                break;
-            default:
-                tcc_error("unknown .option '.%s'", get_tok_str(tok, NULL));
-                break;
+                tcc_error("unimp .option '.%s'", get_tok_str(tok, ఖాళీ));
+                ఆపు;
+            అప్రమేయ:
+                tcc_error("unknown .option '.%s'", get_tok_str(tok, ఖాళీ));
+                ఆపు;
         }
-        break;
-#endif
+        ఆపు;
+#అయితే_ముగింపు
     /* TODO: Implement symvar support. FreeBSD >= 14 needs this */
-    case TOK_ASMDIR_symver:
-	next();
-	next();
+    స్థితి TOK_ASMDIR_symver:
+	తదుపరి();
+	తదుపరి();
         skip(',');
-	next();
+	తదుపరి();
         skip('@');
-	next();
-	break;
-    case TOK_ASMDIR_reloc:
+	తదుపరి();
+	ఆపు;
+    స్థితి TOK_ASMDIR_reloc:
 	{
-	    ExprValue e;
-	    const char *reloc_name;
-	    int reloc_type = -1;
+	    సమాసం_విలువ e;
+	    స్థిరరాశి అక్షరం *reloc_name;
+	    పూర్ణాంకం reloc_type = -1;
 
-	    next();
-	    asm_expr(s1, &e);
+	    తదుపరి();
+	    asm_సమాసం(s1, &e);
 	    skip(',');
-	    reloc_name = get_tok_str(tok, NULL);
-#if defined(TCC_TARGET_ARM64)
-	    if (!strcmp(reloc_name, "R_AARCH64_CALL26"))
+	    reloc_name = get_tok_str(tok, ఖాళీ);
+#ఒకవేళ defined(TCC_లక్ష్యం_ARM64)
+	    ఒకవేళ (!strcmp(reloc_name, "R_AARCH64_CALL26"))
 	        reloc_type = R_AARCH64_CALL26;
-#elif defined(TCC_TARGET_RISCV64)
-	    if (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
+#లేదావేళ defined(TCC_లక్ష్యం_RISCV64)
+	    ఒకవేళ (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
 	        reloc_type = R_RISCV_CALL;
-	    else if (!strcmp(reloc_name, "R_RISCV_BRANCH"))
+	    లేకపోతే ఒకవేళ (!strcmp(reloc_name, "R_RISCV_BRANCH"))
 	        reloc_type = R_RISCV_BRANCH;
-	    else if (!strcmp(reloc_name, "R_RISCV_JAL"))
+	    లేకపోతే ఒకవేళ (!strcmp(reloc_name, "R_RISCV_JAL"))
 	        reloc_type = R_RISCV_JAL;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
+	    లేకపోతే ఒకవేళ (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
 	        reloc_type = R_RISCV_PCREL_HI20;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
+	    లేకపోతే ఒకవేళ (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
 	        reloc_type = R_RISCV_PCREL_LO12_I;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
+	    లేకపోతే ఒకవేళ (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
 	        reloc_type = R_RISCV_PCREL_LO12_S;
-	    else if (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
+	    లేకపోతే ఒకవేళ (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
 	        reloc_type = R_RISCV_32_PCREL;
-	    else if (!strcmp(reloc_name, "R_RISCV_32"))
+	    లేకపోతే ఒకవేళ (!strcmp(reloc_name, "R_RISCV_32"))
 	        reloc_type = R_RISCV_32;
-	    else if (!strcmp(reloc_name, "R_RISCV_64"))
+	    లేకపోతే ఒకవేళ (!strcmp(reloc_name, "R_RISCV_64"))
 	        reloc_type = R_RISCV_64;
-#endif
-	    if (reloc_type < 0)
+#అయితే_ముగింపు
+	    ఒకవేళ (reloc_type < 0)
 	        tcc_error("unimp: reloc '%s' unknown", reloc_name);
-	    next();
+	    తదుపరి();
 	    skip(',');
-	    greloca(cur_text_section, get_asm_sym(tok, NULL), e.v, reloc_type, 0);
-	    next();
+	    greloca(cur_పాఠ్యం_section, get_asm_sym(tok, ఖాళీ), e.v, reloc_type, 0);
+	    తదుపరి();
 	}
-	break;
-    default:
-        tcc_error("unknown assembler directive '.%s'", get_tok_str(tok, NULL));
-        break;
+	ఆపు;
+    అప్రమేయ:
+        tcc_error("unknown assembler directive '.%s'", get_tok_str(tok, ఖాళీ));
+        ఆపు;
     }
 }
 
 
 /* assemble a file */
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global)
+స్థిర పూర్ణాంకం tcc_assemble_అంతర్గత(TCCState *s1, పూర్ణాంకం do_preprocess, పూర్ణాంకం global)
 {
-    int opcode;
-    int saved_parse_flags = parse_flags;
+    పూర్ణాంకం opcode;
+    పూర్ణాంకం saved_parse_flags = parse_flags;
 
     parse_flags = PARSE_FLAG_ASM_FILE | PARSE_FLAG_TOK_STR;
-    if (do_preprocess)
+    ఒకవేళ (do_preprocess)
         parse_flags |= PARSE_FLAG_PREPROCESS;
-    for(;;) {
-        next();
-        if (tok == TOK_EOF)
-            break;
-        tcc_debug_line(s1);
+    కొరకు(;;) {
+        తదుపరి();
+        ఒకవేళ (tok == TOK_EOF)
+            ఆపు;
+        tcc_debug_పంక్తి(s1);
         parse_flags |= PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     redo:
-#if !defined(TCC_TARGET_ARM64)
-        if (tok == '#') {
+#ఒకవేళ !defined(TCC_లక్ష్యం_ARM64)
+        ఒకవేళ (tok == '#') {
             /* horrible gas comment */
-            while (tok != TOK_LINEFEED)
-                next();
-        } else
-#endif
-        if (tok >= TOK_ASMDIR_FIRST && tok <= TOK_ASMDIR_LAST) {
+            అయితే (tok != TOK_LINEFEED)
+                తదుపరి();
+        } లేకపోతే
+#అయితే_ముగింపు
+        ఒకవేళ (tok >= TOK_ASMDIR_మొదటి && tok <= TOK_ASMDIR_చివరి) {
             asm_parse_directive(s1, global);
-        } else if (tok == TOK_PPNUM) {
-            const char *p;
-            int n;
-            p = tokc.str.data;
-            n = strtoul(p, (char **)&p, 10);
-            if (*p != '\0')
+        } లేకపోతే ఒకవేళ (tok == TOK_PPNUM) {
+            స్థిరరాశి అక్షరం *p;
+            పూర్ణాంకం n;
+            p = tokc.str.దత్తాంశం;
+            n = strtoul(p, (అక్షరం **)&p, 10);
+            ఒకవేళ (*p != '\0')
                 expect("':'");
             /* new local label */
             asm_new_label(s1, asm_get_local_label_name(s1, n), 1);
-            next();
+            తదుపరి();
             skip(':');
-            goto redo;
-        } else if (tok >= TOK_IDENT) {
+            వెళ్ళు redo;
+        } లేకపోతే ఒకవేళ (tok >= TOK_IDENT) {
             /* instruction or label */
             opcode = tok;
-            next();
-            if (tok == ':') {
+            తదుపరి();
+            ఒకవేళ (tok == ':') {
                 /* new label */
                 asm_new_label(s1, opcode, 0);
-                next();
-                goto redo;
-            } else if (tok == '=') {
-		set_symbol(s1, opcode);
-                goto redo;
-            } else {
+                తదుపరి();
+                వెళ్ళు redo;
+            } లేకపోతే ఒకవేళ (tok == '=') {
+		సమితి_చిహ్నం(s1, opcode);
+                వెళ్ళు redo;
+            } లేకపోతే {
                 asm_opcode(s1, opcode);
             }
         }
         /* end of line */
-        if (tok != ';' && tok != TOK_LINEFEED)
+        ఒకవేళ (tok != ';' && tok != TOK_LINEFEED)
             expect("end of line");
         parse_flags &= ~PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     }
 
     parse_flags = saved_parse_flags;
-    return 0;
+    తిరిగి 0;
 }
 
 /* Assemble the current file */
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+ST_FUNC పూర్ణాంకం tcc_assemble(TCCState *s1, పూర్ణాంకం do_preprocess)
 {
-    int ret;
-    tcc_debug_start(s1);
+    పూర్ణాంకం ret;
+    tcc_debug_ప్రారంభం(s1);
     /* default section is text */
-    cur_text_section = text_section;
-    ind = cur_text_section->data_offset;
+    cur_పాఠ్యం_section = పాఠ్యం_section;
+    ind = cur_పాఠ్యం_section->దత్తాంశం_స్థానభ్రంశం;
     nocode_wanted = 0;
-    ret = tcc_assemble_internal(s1, do_preprocess, 1);
-    cur_text_section->data_offset = ind;
-    tcc_debug_end(s1);
-    return ret;
+    ret = tcc_assemble_అంతర్గత(s1, do_preprocess, 1);
+    cur_పాఠ్యం_section->దత్తాంశం_స్థానభ్రంశం = ind;
+    tcc_debug_చివర(s1);
+    తిరిగి ret;
 }
 
 /********************************************************************/
@@ -1147,176 +1147,176 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
 
 /* assemble the string 'str' in the current C compilation unit without
    C preprocessing. */
-static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int global)
+స్థిర శూన్య tcc_assemble_inline(TCCState *s1, స్థిరరాశి అక్షరం *str, పూర్ణాంకం len, పూర్ణాంకం global)
 {
-    const int *saved_macro_ptr = macro_ptr;
-    int dotid = set_idnum('.', IS_ID);
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
-    int dolid = set_idnum('$', 0);
-#endif
+    స్థిరరాశి పూర్ణాంకం *saved_macro_ptr = macro_ptr;
+    పూర్ణాంకం dotid = సమితి_idnum('.', IS_ID);
+#ఒకవేళ !defined(TCC_లక్ష్యం_RISCV64) && !defined(TCC_లక్ష్యం_X86_64)
+    పూర్ణాంకం dolid = సమితి_idnum('$', 0);
+#అయితే_ముగింపు
 
     tcc_open_bf(s1, ":asm:", len);
-    memcpy(file->buffer, str, len);
-    macro_ptr = NULL;
-    tcc_assemble_internal(s1, 0, global);
+    జ్ఞాపకం_నకలు(file->బఫరు, str, len);
+    macro_ptr = ఖాళీ;
+    tcc_assemble_అంతర్గత(s1, 0, global);
     tcc_close();
 
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
-    set_idnum('$', dolid);
-#endif
-    set_idnum('.', dotid);
+#ఒకవేళ !defined(TCC_లక్ష్యం_RISCV64) && !defined(TCC_లక్ష్యం_X86_64)
+    సమితి_idnum('$', dolid);
+#అయితే_ముగింపు
+    సమితి_idnum('.', dotid);
     macro_ptr = saved_macro_ptr;
 }
 
 /* find a constraint by its number or id (gcc 3 extended
    syntax). return -1 if not found. Return in *pp in char after the
    constraint */
-ST_FUNC int find_constraint(ASMOperand *operands, int nb_operands, 
-                           const char *name, const char **pp)
+ST_FUNC పూర్ణాంకం కనుగొను_constraint(ASMOperand *operands, పూర్ణాంకం nb_operands, 
+                           స్థిరరాశి అక్షరం *name, స్థిరరాశి అక్షరం **pp)
 {
-    int index;
+    పూర్ణాంకం సూచీ;
     TokenSym *ts;
-    const char *p;
+    స్థిరరాశి అక్షరం *p;
 
-    if (isnum(*name)) {
-        index = 0;
-        while (isnum(*name)) {
-            index = (index * 10) + (*name) - '0';
+    ఒకవేళ (isnum(*name)) {
+        సూచీ = 0;
+        అయితే (isnum(*name)) {
+            సూచీ = (సూచీ * 10) + (*name) - '0';
             name++;
         }
-        if ((unsigned)index >= nb_operands)
-            index = -1;
-    } else if (*name == '[') {
+        ఒకవేళ ((గుర్తులేని)సూచీ >= nb_operands)
+            సూచీ = -1;
+    } లేకపోతే ఒకవేళ (*name == '[') {
         name++;
         p = strchr(name, ']');
-        if (p) {
+        ఒకవేళ (p) {
             ts = tok_alloc(name, p - name);
-            for(index = 0; index < nb_operands; index++) {
-                if (operands[index].id == ts->tok)
-                    goto found;
+            కొరకు(సూచీ = 0; సూచీ < nb_operands; సూచీ++) {
+                ఒకవేళ (operands[సూచీ].id == ts->tok)
+                    వెళ్ళు దొరికింది;
             }
-            index = -1;
-        found:
+            సూచీ = -1;
+        దొరికింది:
             name = p + 1;
-        } else {
-            index = -1;
+        } లేకపోతే {
+            సూచీ = -1;
         }
-    } else {
-        index = -1;
+    } లేకపోతే {
+        సూచీ = -1;
     }
-    if (pp)
+    ఒకవేళ (pp)
         *pp = name;
-    return index;
+    తిరిగి సూచీ;
 }
 
-static void subst_asm_operands(ASMOperand *operands, int nb_operands, 
-                               CString *out_str, const char *str)
+స్థిర శూన్య subst_asm_operands(ASMOperand *operands, పూర్ణాంకం nb_operands, 
+                               CString *బహిర్గతం_str, స్థిరరాశి అక్షరం *str)
 {
-    int c, index, modifier;
+    పూర్ణాంకం c, సూచీ, modifier;
     ASMOperand *op;
     SValue sv;
 
-    for(;;) {
+    కొరకు(;;) {
         c = *str++;
-        if (c == '%') {
-            if (*str == '%') {
+        ఒకవేళ (c == '%') {
+            ఒకవేళ (*str == '%') {
                 str++;
-                goto add_char;
+                వెళ్ళు కూడు_char;
             }
             modifier = 0;
-            if (*str == 'c' || *str == 'n' ||
+            ఒకవేళ (*str == 'c' || *str == 'n' ||
                 *str == 'b' || *str == 'w' || *str == 'h' || *str == 'k' ||
 		*str == 'q' || *str == 'l' ||
-#ifdef TCC_TARGET_ARM64
+#నిర్వచితమైతే TCC_లక్ష్యం_ARM64
                 *str == 'x' || *str == 's' || *str == 'd' || *str == 'Z' ||
-#endif
-#ifdef TCC_TARGET_RISCV64
+#అయితే_ముగింపు
+#నిర్వచితమైతే TCC_లక్ష్యం_RISCV64
 		*str == 'z' ||
-#endif
+#అయితే_ముగింపు
 		/* P in GCC would add "@PLT" to symbol refs in PIC mode,
 		   and make literal operands not be decorated with '$'.  */
 		*str == 'P')
                 modifier = *str++;
-            index = find_constraint(operands, nb_operands, str, &str);
-            if (index < 0)
+            సూచీ = కనుగొను_constraint(operands, nb_operands, str, &str);
+            ఒకవేళ (సూచీ < 0)
         error:
                 tcc_error("invalid operand reference after %%");
-            op = &operands[index];
-            if (modifier == 'l') {
-                cstr_cat(out_str, get_tok_str(op->is_label, NULL), -1);
-            } else {
-		if (op->vt == NULL)
-		    goto error;
+            op = &operands[సూచీ];
+            ఒకవేళ (modifier == 'l') {
+                cstr_cat(బహిర్గతం_str, get_tok_str(op->is_label, ఖాళీ), -1);
+            } లేకపోతే {
+		ఒకవేళ (op->vt == ఖాళీ)
+		    వెళ్ళు error;
                 sv = *op->vt;
-                if (op->reg >= 0) {
+                ఒకవేళ (op->reg >= 0) {
                     sv.r = op->reg;
-                    if (op->is_memory)
+                    ఒకవేళ (op->is_జ్ఞాపకం)
                       sv.r |= VT_LVAL;
                 }
-                subst_asm_operand(out_str, &sv, modifier);
+                subst_asm_నిర్వాహ్యం(బహిర్గతం_str, &sv, modifier);
             }
-        } else {
-        add_char:
-            cstr_ccat(out_str, c);
-            if (c == '\0')
-                break;
+        } లేకపోతే {
+        కూడు_char:
+            cstr_ccat(బహిర్గతం_str, c);
+            ఒకవేళ (c == '\0')
+                ఆపు;
         }
     }
 }
 
 
-static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
-                               int is_output)
+స్థిర శూన్య parse_asm_operands(ASMOperand *operands, పూర్ణాంకం *nb_operands_ptr,
+                               పూర్ణాంకం is_output)
 {
     ASMOperand *op;
-    int nb_operands;
-    char* astr;
+    పూర్ణాంకం nb_operands;
+    అక్షరం* astr;
 
-    if (tok != ':') {
+    ఒకవేళ (tok != ':') {
         nb_operands = *nb_operands_ptr;
-        for(;;) {
-            if (nb_operands >= MAX_ASM_OPERANDS)
+        కొరకు(;;) {
+            ఒకవేళ (nb_operands >= MAX_ASM_OPERANDS)
                 tcc_error("too many asm operands");
             op = &operands[nb_operands++];
             op->id = 0;
-            if (tok == '[') {
-                next();
-                if (tok < TOK_IDENT)
+            ఒకవేళ (tok == '[') {
+                తదుపరి();
+                ఒకవేళ (tok < TOK_IDENT)
                     expect("identifier");
                 op->id = tok;
-                next();
+                తదుపరి();
                 skip(']');
             }
-	    astr = parse_mult_str("string constant")->data;
-            pstrcpy(op->constraint, sizeof op->constraint, astr);
+	    astr = parse_mult_str("string constant")->దత్తాంశం;
+            pstrcpy(op->constraint, పరిమాణం op->constraint, astr);
             skip('(');
             gexpr();
-            if (is_output) {
-                if (!(vtop->type.t & VT_ARRAY))
+            ఒకవేళ (is_output) {
+                ఒకవేళ (!(vtop->type.t & VT_ARRAY))
                     test_lvalue();
-            } else {
+            } లేకపోతే {
                 /* we want to avoid LLOCAL case, except when the 'm'
                    constraint is used. Note that it may come from
                    register storage, so we need to convert (reg)
                    case */
-                if ((vtop->r & VT_LVAL) &&
+                ఒకవేళ ((vtop->r & VT_LVAL) &&
                     ((vtop->r & VT_VALMASK) == VT_LLOCAL ||
                      (vtop->r & VT_VALMASK) < VT_CONST) &&
                     !strchr(op->constraint, 'm')
-#ifdef TCC_TARGET_ARM64
+#నిర్వచితమైతే TCC_లక్ష్యం_ARM64
                     && !strchr(op->constraint, 'Q')
-                    && !strstr(op->constraint, "Ump")
-#endif
+                    && !అక్షరశ్రేణి_శోధన(op->constraint, "Ump")
+#అయితే_ముగింపు
                     ) {
                     gv(RC_INT);
                 }
             }
             op->vt = vtop;
             skip(')');
-            if (tok == ',') {
-                next();
-            } else {
-                break;
+            ఒకవేళ (tok == ',') {
+                తదుపరి();
+            } లేకపోతే {
+                ఆపు;
             }
         }
         *nb_operands_ptr = nb_operands;
@@ -1324,93 +1324,93 @@ static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
 }
 
 /* parse the GCC asm() instruction */
-ST_FUNC void asm_instr(void)
+ST_FUNC శూన్య asm_instr(శూన్య)
 {
     CString astr, *astr1;
 
     ASMOperand operands[MAX_ASM_OPERANDS];
-    int nb_outputs, nb_operands, i, must_subst, out_reg, nb_labels;
+    పూర్ణాంకం nb_outputs, nb_operands, i, must_subst, బహిర్గతం_reg, nb_labels;
     uint8_t clobber_regs[NB_ASM_REGS];
     Section *sec;
 
     /* since we always generate the asm() instruction, we can ignore
        volatile */
-    while (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
+    అయితే (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
            || tok == TOK_GOTO) {
-        next();
+        తదుపరి();
     }
 
     astr1 = parse_asm_str();
     cstr_new_s(&astr);
-    cstr_cat(&astr, astr1->data, astr1->size);
+    cstr_cat(&astr, astr1->దత్తాంశం, astr1->కొలత);
 
     nb_operands = 0;
     nb_outputs = 0;
     nb_labels = 0;
     must_subst = 0;
-    memset(clobber_regs, 0, sizeof(clobber_regs));
-    if (tok == ':') {
-        next();
+    memset(clobber_regs, 0, పరిమాణం(clobber_regs));
+    ఒకవేళ (tok == ':') {
+        తదుపరి();
         must_subst = 1;
         /* output args */
         parse_asm_operands(operands, &nb_operands, 1);
         nb_outputs = nb_operands;
-        if (tok == ':') {
-            next();
-            if (tok != ')') {
+        ఒకవేళ (tok == ':') {
+            తదుపరి();
+            ఒకవేళ (tok != ')') {
                 /* input args */
                 parse_asm_operands(operands, &nb_operands, 0);
-                if (tok == ':') {
+                ఒకవేళ (tok == ':') {
                     /* clobber list */
                     /* XXX: handle registers */
-                    next();
-                    for(;;) {
-                        if (tok == ':')
-                          break;
-                        if (tok != TOK_STR)
+                    తదుపరి();
+                    కొరకు(;;) {
+                        ఒకవేళ (tok == ':')
+                          ఆపు;
+                        ఒకవేళ (tok != TOK_STR)
                             expect("string constant");
-                        asm_clobber(clobber_regs, tokc.str.data);
-                        next();
-                        if (tok == ',') {
-                            next();
-                        } else {
-                            break;
+                        asm_clobber(clobber_regs, tokc.str.దత్తాంశం);
+                        తదుపరి();
+                        ఒకవేళ (tok == ',') {
+                            తదుపరి();
+                        } లేకపోతే {
+                            ఆపు;
                         }
                     }
                 }
-                if (tok == ':') {
+                ఒకవేళ (tok == ':') {
                     /* goto labels */
-                    next();
-                    for (;;) {
+                    తదుపరి();
+                    కొరకు (;;) {
                         Sym *csym;
-                        int asmname;
-                        if (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
+                        పూర్ణాంకం asmname;
+                        ఒకవేళ (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
                           tcc_error("too many asm operands");
-                        if (tok < TOK_UIDENT)
+                        ఒకవేళ (tok < TOK_UIDENT)
                           expect("label identifier");
 			memset(operands + nb_operands + nb_labels, 0,
-			       sizeof(operands[0]));
+			       పరిమాణం(operands[0]));
                         operands[nb_operands + nb_labels++].id = tok;
 
-                        csym = label_find(tok);
-                        if (!csym) {
-                            csym = label_push(&global_label_stack, tok,
+                        csym = label_కనుగొను(tok);
+                        ఒకవేళ (!csym) {
+                            csym = label_నెట్టు(&global_label_దొంతర, tok,
                                               LABEL_FORWARD);
-                        } else {
-                            if (csym->r == LABEL_DECLARED)
+                        } లేకపోతే {
+                            ఒకవేళ (csym->r == LABEL_DECLARED)
                               csym->r = LABEL_FORWARD;
                         }
-                        next();
-                        asmname = asm_get_prefix_name(tcc_state, "LG.",
+                        తదుపరి();
+                        asmname = asm_get_ఉపసర్గ_name(tcc_state, "LG.",
                                                       ++asmgoto_n);
-                        if (!csym->c)
+                        ఒకవేళ (!csym->c)
                           put_extern_sym2(csym, SHN_UNDEF, 0, 0, 1);
                         get_asm_sym(asmname, csym);
                         operands[nb_operands + nb_labels - 1].is_label = asmname;
 
-                        if (tok != ',')
-                          break;
-                        next();
+                        ఒకవేళ (tok != ',')
+                          ఆపు;
+                        తదుపరి();
                     }
                 }
             }
@@ -1419,7 +1419,7 @@ ST_FUNC void asm_instr(void)
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    ఒకవేళ (tok != ';')
         expect("';'");
     
     /* save all values in the memory */
@@ -1427,99 +1427,99 @@ ST_FUNC void asm_instr(void)
 
     /* compute constraints */
     asm_compute_constraints(operands, nb_operands, nb_outputs, 
-                            clobber_regs, &out_reg);
+                            clobber_regs, &బహిర్గతం_reg);
 
     /* substitute the operands in the asm string. No substitution is
        done if no operands (GCC behaviour) */
-#ifdef ASM_DEBUG
-    printf("asm: \"%s\"\n", (char *)astr.data);
-#endif
-    if (must_subst) {
+#నిర్వచితమైతే ASM_DEBUG
+    రాయి("asm: \"%s\"\n", (అక్షరం *)astr.దత్తాంశం);
+#అయితే_ముగింపు
+    ఒకవేళ (must_subst) {
         cstr_reset(astr1);
-        cstr_cat(astr1, astr.data, astr.size);
+        cstr_cat(astr1, astr.దత్తాంశం, astr.కొలత);
         cstr_reset(&astr);
-        subst_asm_operands(operands, nb_operands + nb_labels, &astr, astr1->data);
+        subst_asm_operands(operands, nb_operands + nb_labels, &astr, astr1->దత్తాంశం);
     }
 
-#ifdef ASM_DEBUG
-    printf("subst_asm: \"%s\"\n", (char *)astr.data);
-#endif
+#నిర్వచితమైతే ASM_DEBUG
+    రాయి("subst_asm: \"%s\"\n", (అక్షరం *)astr.దత్తాంశం);
+#అయితే_ముగింపు
 
     /* generate loads */
-    asm_gen_code(operands, nb_operands, nb_outputs, 0, 
-                 clobber_regs, out_reg);    
+    asm_gen_సంకేతం(operands, nb_operands, nb_outputs, 0, 
+                 clobber_regs, బహిర్గతం_reg);    
 
     /* We don't allow switching section within inline asm to
        bleed out to surrounding code.  */
-    sec = cur_text_section;
+    sec = cur_పాఠ్యం_section;
     /* assemble the string with tcc internal assembler */
-    tcc_assemble_inline(tcc_state, astr.data, astr.size - 1, 0);
+    tcc_assemble_inline(tcc_state, astr.దత్తాంశం, astr.కొలత - 1, 0);
     cstr_free_s(&astr);
-    if (sec != cur_text_section) {
+    ఒకవేళ (sec != cur_పాఠ్యం_section) {
         tcc_warning("inline asm tries to change current section");
         use_section1(tcc_state, sec);
     }
 
     /* restore the current C token */
-    next();
+    తదుపరి();
 
     /* store the output values if needed */
-    asm_gen_code(operands, nb_operands, nb_outputs, 1, 
-                 clobber_regs, out_reg);
+    asm_gen_సంకేతం(operands, nb_operands, nb_outputs, 1, 
+                 clobber_regs, బహిర్గతం_reg);
     
     /* free everything */
-    for(i=0;i<nb_operands;i++) {
+    కొరకు(i=0;i<nb_operands;i++) {
         vpop();
     }
 
 }
 
-ST_FUNC void asm_global_instr(void)
+ST_FUNC శూన్య asm_global_instr(శూన్య)
 {
     CString *astr;
-    int saved_nocode_wanted = nocode_wanted;
+    పూర్ణాంకం saved_nocode_wanted = nocode_wanted;
 
     /* Global asm blocks are always emitted.  */
     nocode_wanted = 0;
-    next();
+    తదుపరి();
     astr = parse_asm_str();
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    ఒకవేళ (tok != ';')
         expect("';'");
     
-#ifdef ASM_DEBUG
-    printf("asm_global: \"%s\"\n", (char *)astr->data);
-#endif
-    cur_text_section = text_section;
-    ind = cur_text_section->data_offset;
+#నిర్వచితమైతే ASM_DEBUG
+    రాయి("asm_global: \"%s\"\n", (అక్షరం *)astr->దత్తాంశం);
+#అయితే_ముగింపు
+    cur_పాఠ్యం_section = పాఠ్యం_section;
+    ind = cur_పాఠ్యం_section->దత్తాంశం_స్థానభ్రంశం;
 
     /* assemble the string with tcc internal assembler */
-    tcc_assemble_inline(tcc_state, astr->data, astr->size - 1, 1);
+    tcc_assemble_inline(tcc_state, astr->దత్తాంశం, astr->కొలత - 1, 1);
     
-    cur_text_section->data_offset = ind;
+    cur_పాఠ్యం_section->దత్తాంశం_స్థానభ్రంశం = ind;
 
     /* restore the current C token */
-    next();
+    తదుపరి();
 
     nocode_wanted = saved_nocode_wanted;
 }
 
 /********************************************************/
-#else
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+#లేకపోతే
+ST_FUNC పూర్ణాంకం tcc_assemble(TCCState *s1, పూర్ణాంకం do_preprocess)
 {
     tcc_error("asm not supported");
 }
 
-ST_FUNC void asm_instr(void)
+ST_FUNC శూన్య asm_instr(శూన్య)
 {
     tcc_error("inline asm() not supported");
 }
 
-ST_FUNC void asm_global_instr(void)
+ST_FUNC శూన్య asm_global_instr(శూన్య)
 {
     tcc_error("inline asm() not supported");
 }
-#endif /* CONFIG_TCC_ASM */
+#అయితే_ముగింపు /* CONFIG_TCC_ASM */

@@ -1,15 +1,15 @@
-#ifdef __leading_underscore
+#నిర్వచితమైతే __leading_underscore
 # define _ "_"
-#else
+#లేకపోతే
 # define _
-#endif
+#అయితే_ముగింపు
 
-extern int printf (const char *, ...);
-extern void vide(void);
+బాహ్య పూర్ణాంకం రాయి (స్థిరరాశి అక్షరం *, ...);
+బాహ్య శూన్య vide(శూన్య);
 __asm__(_"vide: ret");
 
-int main() {
+పూర్ణాంకం ప్రధాన() {
     vide();
-    printf ("okay\n");
-    return 0;
+    రాయి ("okay\n");
+    తిరిగి 0;
 }

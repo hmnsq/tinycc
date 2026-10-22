@@ -1,24 +1,24 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
 /* This test used to fail on x86_64 on linux with sse registers */
 
-struct Point {
-   float x;
-   float y;
+నిర్మాణం బిందువు_2 {
+   దశాంశం x;
+   దశాంశం y;
 };
 
-struct Rect {
-   struct Point top_left;
-   struct Point size;
+నిర్మాణం Rect {
+   నిర్మాణం బిందువు_2 శిఖరం_ఎడమ;
+   నిర్మాణం బిందువు_2 కొలత;
 };
 
-float foo(struct Point p, struct Rect r) {
-   return r.size.x;
+దశాంశం foo(నిర్మాణం బిందువు_2 p, నిర్మాణం Rect r) {
+   తిరిగి r.కొలత.x;
 }
 
-int main(int argc, char **argv) {
-   struct Point p = {1, 2};
-   struct Rect r = {{3, 4}, {5, 6}};
-   printf("%f\n", foo(p, r));
-   return 0;
+పూర్ణాంకం ప్రధాన(పూర్ణాంకం argc, అక్షరం **argv) {
+   నిర్మాణం బిందువు_2 p = {1, 2};
+   నిర్మాణం Rect r = {{3, 4}, {5, 6}};
+   రాయి("%f\n", foo(p, r));
+   తిరిగి 0;
 }

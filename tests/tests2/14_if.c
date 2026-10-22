@@ -1,21 +1,21 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int a = 1;
+   పూర్ణాంకం a = 1;
 
-   if (a)
-      printf("a is true\n");
-   else
-      printf("a is false\n");
+   ఒకవేళ (a)
+      రాయి("a is true\n");
+   లేకపోతే
+      రాయి("a is false\n");
 
-   int b = 0;
-   if (b)
-      printf("b is true\n");
-   else
-      printf("b is false\n");
+   పూర్ణాంకం b = 0;
+   ఒకవేళ (b)
+      రాయి("b is true\n");
+   లేకపోతే
+      రాయి("b is false\n");
 
-   return 0;
+   తిరిగి 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

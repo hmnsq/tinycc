@@ -1,30 +1,30 @@
-#define _ISOC99_SOURCE 1
+#నిర్వచించు ISOC99_ఆధారం 1
 
-#include <stdio.h>
-#include <math.h>
+#అన్తర్భావ <stdio.h>
+#అన్తర్భావ <math.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   printf("%f\n", sin(0.12));
-   printf("%f\n", cos(0.12));
-   printf("%f\n", tan(0.12));
-   printf("%f\n", asin(0.12));
-   printf("%f\n", acos(0.12));
-   printf("%f\n", atan(0.12));
-   printf("%f\n", sinh(0.12));
-   printf("%f\n", cosh(0.12));
-   printf("%f\n", tanh(0.12));
-   printf("%f\n", exp(0.12));
-   printf("%f\n", fabs(-0.12));
-   printf("%f\n", log(0.12));
-   printf("%f\n", log10(0.12));
-   printf("%f\n", pow(0.12, 0.12));
-   printf("%f\n", sqrt(0.12));
-   printf("%f\n", round(12.34));
-   printf("%f\n", ceil(12.34));
-   printf("%f\n", floor(12.34));
+   రాయి("%f\n", జ్యా(0.12));
+   రాయి("%f\n", కోజ్యా(0.12));
+   రాయి("%f\n", tan(0.12));
+   రాయి("%f\n", asin(0.12));
+   రాయి("%f\n", acos(0.12));
+   రాయి("%f\n", atan(0.12));
+   రాయి("%f\n", sinh(0.12));
+   రాయి("%f\n", cosh(0.12));
+   రాయి("%f\n", tanh(0.12));
+   రాయి("%f\n", ఘాతాంకం(0.12));
+   రాయి("%f\n", fabs(-0.12));
+   రాయి("%f\n", సంవర్గమానం(0.12));
+   రాయి("%f\n", log10(0.12));
+   రాయి("%f\n", ఘాతం(0.12, 0.12));
+   రాయి("%f\n", వర్గమూలం(0.12));
+   రాయి("%f\n", విడత(12.34));
+   రాయి("%f\n", ceil(12.34));
+   రాయి("%f\n", floor(12.34));
 
-   return 0;
+   తిరిగి 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

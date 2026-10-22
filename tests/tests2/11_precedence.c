@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+బాహ్య పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం *, ...);
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   పూర్ణాంకం a;
+   పూర్ణాంకం b;
+   పూర్ణాంకం c;
+   పూర్ణాంకం d;
+   పూర్ణాంకం e;
+   పూర్ణాంకం f;
+   పూర్ణాంకం x;
+   పూర్ణాంకం y;
 
    a = 12;
    b = 34;
@@ -19,23 +19,23 @@ int main()
    e = 0;
    f = 1;
 
-   printf("%d\n", c + d);
-   printf("%d\n", (y = c + d));
-   printf("%d\n", e || e && f);
-   printf("%d\n", e || f && f);
-   printf("%d\n", e && e || f);
-   printf("%d\n", e && f || f);
-   printf("%d\n", a && f | f);
-   printf("%d\n", a | b ^ c & d);
-   printf("%d, %d\n", a == a, a == b);
-   printf("%d, %d\n", a != a, a != b);
-   printf("%d\n", a != b && c != d);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", (4 << 4));
-   printf("%d\n", (64 >> 4));
+   రాయి("%d\n", c + d);
+   రాయి("%d\n", (y = c + d));
+   రాయి("%d\n", e || e && f);
+   రాయి("%d\n", e || f && f);
+   రాయి("%d\n", e && e || f);
+   రాయి("%d\n", e && f || f);
+   రాయి("%d\n", a && f | f);
+   రాయి("%d\n", a | b ^ c & d);
+   రాయి("%d, %d\n", a == a, a == b);
+   రాయి("%d, %d\n", a != a, a != b);
+   రాయి("%d\n", a != b && c != d);
+   రాయి("%d\n", a + b * c / f);
+   రాయి("%d\n", a + b * c / f);
+   రాయి("%d\n", (4 << 4));
+   రాయి("%d\n", (64 >> 4));
 
-   return 0;
+   తిరిగి 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

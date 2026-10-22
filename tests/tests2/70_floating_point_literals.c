@@ -1,79 +1,79 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main()
+పూర్ణాంకం ప్రధాన()
 {
     /* decimal floating constant */
-    float fa0 = .123f;
-    float fa1 = .123E12F;
-    float fa2 = .123e-12f;
-    float fa3 = .123e+12f;
-    printf("%f\n%f\n%f\n%f\n\n", fa0, fa1, fa2, fa3);
+    దశాంశం fa0 = .123f;
+    దశాంశం fa1 = .123E12F;
+    దశాంశం fa2 = .123e-12f;
+    దశాంశం fa3 = .123e+12f;
+    రాయి("%f\n%f\n%f\n%f\n\n", fa0, fa1, fa2, fa3);
 
-    float fb0 = 123.123f;
-    float fb1 = 123.123E12F;
-    float fb2 = 123.123e-12f;
-    float fb3 = 123.123e+12f;
-    printf("%f\n%f\n%f\n%f\n\n", fb0, fb1, fb2, fb3);
+    దశాంశం fb0 = 123.123f;
+    దశాంశం fb1 = 123.123E12F;
+    దశాంశం fb2 = 123.123e-12f;
+    దశాంశం fb3 = 123.123e+12f;
+    రాయి("%f\n%f\n%f\n%f\n\n", fb0, fb1, fb2, fb3);
 
-    float fc0 = 123.f;
-    float fc1 = 123.E12F;
-    float fc2 = 123.e-12f;
-    float fc3 = 123.e+12f;
-    printf("%f\n%f\n%f\n%f\n\n", fc0, fc1, fc2, fc3);
+    దశాంశం fc0 = 123.f;
+    దశాంశం fc1 = 123.E12F;
+    దశాంశం fc2 = 123.e-12f;
+    దశాంశం fc3 = 123.e+12f;
+    రాయి("%f\n%f\n%f\n%f\n\n", fc0, fc1, fc2, fc3);
 
-    float fd0 = 123E12F;
-    float fd1 = 123e-12f;
-    float fd2 = 123e+12f;
-    printf("%f\n%f\n%f\n\n", fd0, fd1, fd2);
-    printf("\n");
+    దశాంశం fd0 = 123E12F;
+    దశాంశం fd1 = 123e-12f;
+    దశాంశం fd2 = 123e+12f;
+    రాయి("%f\n%f\n%f\n\n", fd0, fd1, fd2);
+    రాయి("\n");
 
     /* hexadecimal floating constant */
-    double da0 = 0X.1ACP12;
-    double da1 = 0x.1acp-12;
-    double da2 = 0x.1acp+12;
-    double da3 = 0x1.00000000000000000000000000000000000000000000p+12;
-    double da4 = 0x1000000000000000000000000000000000000000000000p-140;
-    printf("%f\n%f\n%f\n%f\n%f\n\n", da0, da1, da2, da3, da4);
+    ద్విగుణ da0 = 0X.1ACP12;
+    ద్విగుణ da1 = 0x.1acp-12;
+    ద్విగుణ da2 = 0x.1acp+12;
+    ద్విగుణ da3 = 0x1.00000000000000000000000000000000000000000000p+12;
+    ద్విగుణ da4 = 0x1000000000000000000000000000000000000000000000p-140;
+    రాయి("%f\n%f\n%f\n%f\n%f\n\n", da0, da1, da2, da3, da4);
 
-    double db0 = 0X1AC.BDP12;
-    double db1 = 0x1ac.bdp-12;
-    double db2 = 0x1ac.dbp+12;
-    printf("%f\n%f\n%f\n\n", db0, db1, db2);
+    ద్విగుణ db0 = 0X1AC.BDP12;
+    ద్విగుణ db1 = 0x1ac.bdp-12;
+    ద్విగుణ db2 = 0x1ac.dbp+12;
+    రాయి("%f\n%f\n%f\n\n", db0, db1, db2);
 
-    double dc0 = 0X1AC.P12;
-    double dc1 = 0x1ac.p-12;
-    double dc2 = 0x1ac.p+12;
-    printf("%f\n%f\n%f\n\n", dc0, dc1, dc2);
+    ద్విగుణ dc0 = 0X1AC.P12;
+    ద్విగుణ dc1 = 0x1ac.p-12;
+    ద్విగుణ dc2 = 0x1ac.p+12;
+    రాయి("%f\n%f\n%f\n\n", dc0, dc1, dc2);
 
-    double dd0 = 0X1ACP12;
-    double dd1 = 0x1acp-12;
-    double dd2 = 0x1acp+12;
-    printf("%f\n%f\n%f\n\n", dd0, dd1, dd2);
-    printf("\n");
+    ద్విగుణ dd0 = 0X1ACP12;
+    ద్విగుణ dd1 = 0x1acp-12;
+    ద్విగుణ dd2 = 0x1acp+12;
+    రాయి("%f\n%f\n%f\n\n", dd0, dd1, dd2);
+    రాయి("\n");
 
-#ifdef __TINYC__
+#నిర్వచితమైతే __TINYC__
     /* TCC extension
        binary floating constant */
-    long double la0 = 0B.110101100P12L;
-    long double la1 = 0b.110101100p-12l;
-    long double la2 = 0b.110101100p+12l;
-    printf("%Lf\n%Lf\n%Lf\n\n", la0, la1, la2);
+    దీర్ఘ ద్విగుణ la0 = 0B.110101100P12L;
+    దీర్ఘ ద్విగుణ la1 = 0b.110101100p-12l;
+    దీర్ఘ ద్విగుణ la2 = 0b.110101100p+12l;
+    రాయి("%Lf\n%Lf\n%Lf\n\n", la0, la1, la2);
 
-    long double lb0 = 0B110101100.10111101P12L;
-    long double lb1 = 0b110101100.10111101p-12l;
-    long double lb2 = 0b110101100.10111101p+12l;
-    printf("%Lf\n%Lf\n%Lf\n\n", lb0, lb1, lb2);
+    దీర్ఘ ద్విగుణ lb0 = 0B110101100.10111101P12L;
+    దీర్ఘ ద్విగుణ lb1 = 0b110101100.10111101p-12l;
+    దీర్ఘ ద్విగుణ lb2 = 0b110101100.10111101p+12l;
+    రాయి("%Lf\n%Lf\n%Lf\n\n", lb0, lb1, lb2);
 
-    long double lc0 = 0B110101100.P12L;
-    long double lc1 = 0b110101100.p-12l;
-    long double lc2 = 0b110101100.p+12l;
-    printf("%Lf\n%Lf\n%Lf\n\n", lc0, lc1, lc2);
+    దీర్ఘ ద్విగుణ lc0 = 0B110101100.P12L;
+    దీర్ఘ ద్విగుణ lc1 = 0b110101100.p-12l;
+    దీర్ఘ ద్విగుణ lc2 = 0b110101100.p+12l;
+    రాయి("%Lf\n%Lf\n%Lf\n\n", lc0, lc1, lc2);
 
-    long double ld0 = 0B110101100P12L;
-    long double ld1 = 0b110101100p-12l;
-    long double ld2 = 0b110101100p+12l;
-    printf("%Lf\n%Lf\n%Lf\n\n", ld0, ld1, ld2);
-#endif
+    దీర్ఘ ద్విగుణ ld0 = 0B110101100P12L;
+    దీర్ఘ ద్విగుణ ld1 = 0b110101100p-12l;
+    దీర్ఘ ద్విగుణ ld2 = 0b110101100p+12l;
+    రాయి("%Lf\n%Lf\n%Lf\n\n", ld0, ld1, ld2);
+#అయితే_ముగింపు
 
-    return 0;
+    తిరిగి 0;
 }

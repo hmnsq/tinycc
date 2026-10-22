@@ -1,29 +1,29 @@
-_Alignas(16) int i1;
-int _Alignas(16) i2;
-void _Alignas(16) *p2;
+_Alignas(16) పూర్ణాంకం i1;
+పూర్ణాంకం _Alignas(16) i2;
+శూన్య _Alignas(16) *p2;
 _Alignas(16) i3;
-int _Alignas(double) i4;
-int _Alignas(int) i5;
-#if 0
+పూర్ణాంకం _Alignas(ద్విగుణ) i4;
+పూర్ణాంకం _Alignas(పూర్ణాంకం) i5;
+#ఒకవేళ 0
 /* The following are currently wrongly accepted by TCC but really shouldn't.  */
-int _Alignas(int _Alignas(16)) i6; //wrong, 'int _Alignas(16)' is no type-name
-typedef int _Alignas(16) int16aligned_t; //wrong, _Alignas invalid on typedef
+పూర్ణాంకం _Alignas(పూర్ణాంకం _Alignas(16)) i6; //wrong, 'int _Alignas(16)' is no type-name
+రకనిర్వచనం పూర్ణాంకం _Alignas(16) int16aligned_t; //wrong, _Alignas invalid on typedef
 int16aligned_t i7;
-#endif
+#అయితే_ముగింపు
 /* i8 should get an alignment of 16, because unlike _Alignas the
    corresponding attribute _does_ apply to type-name, though not in
    some clang versions.  */
-int _Alignas(int __attribute__((aligned(16)))) i8;
-extern int printf(const char*, ...);
-#ifdef _MSC_VER
-#define alignof(x) (int)__alignof(x)
-#else
-#define alignof(x) (int)__alignof__(x)
-#endif
-int main()
+పూర్ణాంకం _Alignas(పూర్ణాంకం __attribute__((aligned(16)))) i8;
+బాహ్య పూర్ణాంకం రాయి(స్థిరరాశి అక్షరం*, ...);
+#నిర్వచితమైతే _MSC_VER
+#నిర్వచించు alignof(x) (పూర్ణాంకం)__alignof(x)
+#లేకపోతే
+#నిర్వచించు alignof(x) (పూర్ణాంకం)__alignof__(x)
+#అయితే_ముగింపు
+పూర్ణాంకం ప్రధాన()
 {
-  printf("%d %d %d %d\n",
-         alignof(i1) == 16, alignof(i4) == alignof(double),
-         alignof(i5) == alignof(int) , alignof(i8) == 16);
-  return 0;
+  రాయి("%d %d %d %d\n",
+         alignof(i1) == 16, alignof(i4) == alignof(ద్విగుణ),
+         alignof(i5) == alignof(పూర్ణాంకం) , alignof(i8) == 16);
+  తిరిగి 0;
 }

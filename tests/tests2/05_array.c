@@ -1,21 +1,21 @@
-#include <stdio.h>
+#అన్తర్భావ <stdio.h>
 
-int main() 
+పూర్ణాంకం ప్రధాన() 
 {
-   int Count;
-   int Array[10];
+   పూర్ణాంకం లెక్క_3;
+   పూర్ణాంకం Array[10];
 
-   for (Count = 1; Count <= 10; Count++)
+   కొరకు (లెక్క_3 = 1; లెక్క_3 <= 10; లెక్క_3++)
    {
-      Array[Count-1] = Count * Count;
+      Array[లెక్క_3-1] = లెక్క_3 * లెక్క_3;
    }
 
-   for (Count = 0; Count < 10; Count++)
+   కొరకు (లెక్క_3 = 0; లెక్క_3 < 10; లెక్క_3++)
    {
-      printf("%d\n", Array[Count]);
+      రాయి("%d\n", Array[లెక్క_3]);
    }
 
-   return 0;
+   తిరిగి 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

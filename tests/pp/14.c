@@ -1,13 +1,13 @@
-#define W Z
-#define Z(X) W(X,2)
-#define Y(X) Z(X)
-#define X Y
-return X(X(1));
+#నిర్వచించు W Z
+#నిర్వచించు Z(X) W(X,2)
+#నిర్వచించు Y(X) Z(X)
+#నిర్వచించు X Y
+తిరిగి X(X(1));
 
-#define P Q
-#define Q(n) P(n,2)
-return P(1);
+#నిర్వచించు P Q
+#నిర్వచించు Q(n) P(n,2)
+తిరిగి P(1);
 
-#define A (B * B)
-#define B (A + A)
-return A + B;
+#నిర్వచించు A (B * B)
+#నిర్వచించు B (A + A)
+తిరిగి A + B;

@@ -3,83 +3,83 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#if !defined(_BASETYPS_H_)
-#define _BASETYPS_H_
+#ఒకవేళ !defined(_BASETYPS_H_)
+#నిర్వచించు _BASETYPS_H_
 
-#ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
-#endif
+#నిర్వచితమైతే __cplusplus
+#నిర్వచించు EXTERN_C బాహ్య "C"
+#లేకపోతే
+#నిర్వచించు EXTERN_C బాహ్య
+#అయితే_ముగింపు
 
-#define STDMETHODCALLTYPE WINAPI
-#define STDMETHODVCALLTYPE __cdecl
+#నిర్వచించు STDMETHODCALLTYPE WINAPI
+#నిర్వచించు STDMETHODVCALLTYPE __cdecl
 
-#define STDAPICALLTYPE WINAPI
-#define STDAPIVCALLTYPE __cdecl
+#నిర్వచించు STDAPICALLTYPE WINAPI
+#నిర్వచించు STDAPIVCALLTYPE __cdecl
 
-#define STDAPI EXTERN_C HRESULT WINAPI
-#define STDAPI_(type) EXTERN_C type WINAPI
+#నిర్వచించు STDAPI EXTERN_C HRESULT WINAPI
+#నిర్వచించు STDAPI_(type) EXTERN_C type WINAPI
 
-#define STDMETHODIMP HRESULT WINAPI
-#define STDMETHODIMP_(type) type WINAPI
+#నిర్వచించు STDMETHODIMP HRESULT WINAPI
+#నిర్వచించు STDMETHODIMP_(type) type WINAPI
 
-#define STDAPIV EXTERN_C HRESULT STDAPIVCALLTYPE
-#define STDAPIV_(type) EXTERN_C type STDAPIVCALLTYPE
+#నిర్వచించు STDAPIV EXTERN_C HRESULT STDAPIVCALLTYPE
+#నిర్వచించు STDAPIV_(type) EXTERN_C type STDAPIVCALLTYPE
 
-#define STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
-#define STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
+#నిర్వచించు STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
+#నిర్వచించు STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
 
-#if defined(__cplusplus) && !defined(CINTERFACE)
+#ఒకవేళ defined(__cplusplus) && !defined(CINTERFACE)
 
-#define __STRUCT__ struct
-#define STDMETHOD(method) virtual HRESULT WINAPI method
-#define STDMETHOD_(type,method) virtual type WINAPI method
-#define STDMETHODV(method) virtual HRESULT STDMETHODVCALLTYPE method
-#define STDMETHODV_(type,method) virtual type STDMETHODVCALLTYPE method
-#define PURE = 0
-#define THIS_
-#define THIS void
-#define DECLARE_INTERFACE(iface) __STRUCT__ iface
-#define DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : public baseiface
-#else
+#నిర్వచించు __STRUCT__ నిర్మాణం
+#నిర్వచించు STDMETHOD(పద్ధతి) మాయా HRESULT WINAPI పద్ధతి
+#నిర్వచించు STDMETHOD_(type,పద్ధతి) మాయా type WINAPI పద్ధతి
+#నిర్వచించు STDMETHODV(పద్ధతి) మాయా HRESULT STDMETHODVCALLTYPE పద్ధతి
+#నిర్వచించు STDMETHODV_(type,పద్ధతి) మాయా type STDMETHODVCALLTYPE పద్ధతి
+#నిర్వచించు శుద్ధ = 0
+#నిర్వచించు THIS_
+#నిర్వచించు THIS శూన్య
+#నిర్వచించు DECLARE_INTERFACE(iface) __STRUCT__ iface
+#నిర్వచించు DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : బహిరంగ baseiface
+#లేకపోతే
 
-#ifndef __OBJC__
-#define interface struct
-#endif
+#నిర్వచితం_కాకపోతే __OBJC__
+#నిర్వచించు interface నిర్మాణం
+#అయితే_ముగింపు
 
-#define STDMETHOD(method) HRESULT (WINAPI *method)
-#define STDMETHOD_(type,method) type (WINAPI *method)
-#define STDMETHODV(method) HRESULT (STDMETHODVCALLTYPE *method)
-#define STDMETHODV_(type,method) type (STDMETHODVCALLTYPE *method)
+#నిర్వచించు STDMETHOD(పద్ధతి) HRESULT (WINAPI *పద్ధతి)
+#నిర్వచించు STDMETHOD_(type,పద్ధతి) type (WINAPI *పద్ధతి)
+#నిర్వచించు STDMETHODV(పద్ధతి) HRESULT (STDMETHODVCALLTYPE *పద్ధతి)
+#నిర్వచించు STDMETHODV_(type,పద్ధతి) type (STDMETHODVCALLTYPE *పద్ధతి)
 
-#define PURE
-#define THIS_ INTERFACE *This,
-#define THIS INTERFACE *This
-#ifdef CONST_VTABLE
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-  const struct iface##Vtbl *lpVtbl; } iface; \
-  typedef const struct iface##Vtbl iface##Vtbl; \
-  const struct iface##Vtbl
-#else
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-    struct iface##Vtbl *lpVtbl; \
+#నిర్వచించు శుద్ధ
+#నిర్వచించు THIS_ INTERFACE *This,
+#నిర్వచించు THIS INTERFACE *This
+#నిర్వచితమైతే CONST_VTABLE
+#నిర్వచించు DECLARE_INTERFACE(iface) రకనిర్వచనం నిర్మాణం iface { \
+  స్థిరరాశి నిర్మాణం iface##Vtbl *lpVtbl; } iface; \
+  రకనిర్వచనం స్థిరరాశి నిర్మాణం iface##Vtbl iface##Vtbl; \
+  స్థిరరాశి నిర్మాణం iface##Vtbl
+#లేకపోతే
+#నిర్వచించు DECLARE_INTERFACE(iface) రకనిర్వచనం నిర్మాణం iface { \
+    నిర్మాణం iface##Vtbl *lpVtbl; \
   } iface; \
-  typedef struct iface##Vtbl iface##Vtbl; \
-  struct iface##Vtbl
-#endif
-#define DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
-#endif
+  రకనిర్వచనం నిర్మాణం iface##Vtbl iface##Vtbl; \
+  నిర్మాణం iface##Vtbl
+#అయితే_ముగింపు
+#నిర్వచించు DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
+#అయితే_ముగింపు
 
-#include <guiddef.h>
+#అన్తర్భావ <guiddef.h>
 
-#ifndef _ERROR_STATUS_T_DEFINED
-#define _ERROR_STATUS_T_DEFINED
-typedef unsigned long error_status_t;
-#endif
+#నిర్వచితం_కాకపోతే ERROR_స్థితి_T_DEFINED
+#నిర్వచించు ERROR_స్థితి_T_DEFINED
+రకనిర్వచనం గుర్తులేని దీర్ఘ error_స్థితి_t;
+#అయితే_ముగింపు
 
-#ifndef _WCHAR_T_DEFINED
-typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
-#endif
+#నిర్వచితం_కాకపోతే _WCHAR_T_DEFINED
+రకనిర్వచనం గుర్తులేని పొట్టి wchar_t;
+#నిర్వచించు _WCHAR_T_DEFINED
+#అయితే_ముగింపు
+#అయితే_ముగింపు

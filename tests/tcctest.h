@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+స్థిర అంతఃవరుస స్థిరరాశి అక్షరం *get_basefile_from_శీర్షిక(శూన్య)
 {
-  return __BASE_FILE__;
+  తిరిగి __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+స్థిర అంతఃవరుస స్థిరరాశి అక్షరం *get_file_from_శీర్షిక(శూన్య)
 {
-  return __FILE__;
+  తిరిగి __FILE__;
 }

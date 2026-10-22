@@ -3,60 +3,60 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef __ASSERT_H_
-#define __ASSERT_H_
+#నిర్వచితం_కాకపోతే __ASSERT_H_
+#నిర్వచించు __ASSERT_H_
 
-#include <_mingw.h>
-#ifdef __cplusplus
-#include <stdlib.h>
-#endif
+#అన్తర్భావ <_mingw.h>
+#నిర్వచితమైతే __cplusplus
+#అన్తర్భావ <stdlib.h>
+#అయితే_ముగింపు
 
-#ifdef NDEBUG
-#ifndef assert
-#define assert(_Expression) ((void)0)
-#endif
-#else
+#నిర్వచితమైతే NDEBUG
+#నిర్వచితం_కాకపోతే ప్రతిజ్ఞా
+#నిర్వచించు ప్రతిజ్ఞా(వ్యక్తీకరణ) ((శూన్య)0)
+#అయితే_ముగింపు
+#లేకపోతే
 
-#ifndef _CRT_TERMINATE_DEFINED
-#define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
- _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+#నిర్వచితం_కాకపోతే _CRT_TERMINATE_DEFINED
+#నిర్వచించు _CRT_TERMINATE_DEFINED
+  శూన్య __cdecl __MINGW_NOTHROW నిష్క్రమించు(పూర్ణాంకం సంకేతం_4) __MINGW_ATTRIB_NORETURN;
+ _CRTIMP శూన్య __cdecl __MINGW_NOTHROW _exit(పూర్ణాంకం సంకేతం_4) __MINGW_ATTRIB_NORETURN;
+#ఒకవేళ !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
 /* C99 function name */
-void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-__CRT_INLINE __MINGW_ATTRIB_NORETURN void __cdecl _Exit(int status)
-{  _exit(status); }
-#endif
+శూన్య __cdecl _Exit(పూర్ణాంకం) __MINGW_ATTRIB_NORETURN;
+__CRT_INLINE __MINGW_ATTRIB_NORETURN శూన్య __cdecl _Exit(పూర్ణాంకం స్థితి_2)
+{  _exit(స్థితి_2); }
+#అయితే_ముగింపు
 
-#pragma push_macro("abort")
-#undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#సూచన నెట్టు_macro("abort")
+#నిర్వచనం_రద్దు abort
+  శూన్య __cdecl __declspec(noreturn) abort(శూన్య);
+#సూచన తీయి_macro("abort")
 
-#endif
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
 
-extern void __cdecl _wassert(const wchar_t *_Message,const wchar_t *_File,unsigned _Line);
-extern void __cdecl _assert(const char *, const char *, unsigned);
+బాహ్య శూన్య __cdecl _wassert(స్థిరరాశి wchar_t *సందేశం_4,స్థిరరాశి wchar_t *_File,గుర్తులేని పంక్తి_2);
+బాహ్య శూన్య __cdecl _assert(స్థిరరాశి అక్షరం *, స్థిరరాశి అక్షరం *, గుర్తులేని);
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
+#అయితే_ముగింపు
 
-#ifndef assert
+#నిర్వచితం_కాకపోతే ప్రతిజ్ఞా
 //#define assert(_Expression) (void)((!!(_Expression)) || (_wassert(_CRT_WIDE(#_Expression),_CRT_WIDE(__FILE__),__LINE__),0))
-#define assert(e) ((e) ? (void)0 : _assert(#e, __FILE__, __LINE__))
-#endif
+#నిర్వచించు ప్రతిజ్ఞా(e) ((e) ? (శూన్య)0 : _assert(#e, __FILE__, __LINE__))
+#అయితే_ముగింపు
 
-#endif
+#అయితే_ముగింపు
 
-#if (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
+#ఒకవేళ (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
 /* C11, section 7.2: The macro static_assert expands to _Static_assert. */
-#define static_assert(exp, str) _Static_assert(exp, str) 
-#endif
+#నిర్వచించు static_assert(ఘాతాంకం, str) _Static_assert(ఘాతాంకం, str) 
+#అయితే_ముగింపు
 
-#endif
+#అయితే_ముగింపు

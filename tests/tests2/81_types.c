@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+గణన E *e;
+స్థిరరాశి గణన E *e1;
+గణన E స్థిరరాశి *e2;
+నిర్మాణం S *s;
+స్థిరరాశి నిర్మాణం S *s1;
+నిర్మాణం S స్థిరరాశి *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+రకనిర్వచనం పూర్ణాంకం (*fptr1)();
+పూర్ణాంకం f1 (పూర్ణాంకం (), పూర్ణాంకం);
+రకనిర్వచనం పూర్ణాంకం (*fptr2)(పూర్ణాంకం x);
+పూర్ణాంకం f2 (పూర్ణాంకం (పూర్ణాంకం x), పూర్ణాంకం);
+రకనిర్వచనం పూర్ణాంకం (*fptr3)(పూర్ణాంకం);
+పూర్ణాంకం f3 (పూర్ణాంకం (పూర్ణాంకం), పూర్ణాంకం);
+రకనిర్వచనం పూర్ణాంకం (*fptr4[4])(పూర్ణాంకం);
+పూర్ణాంకం f4 (పూర్ణాంకం (*[4])(పూర్ణాంకం), పూర్ణాంకం);
+రకనిర్వచనం పూర్ణాంకం (*fptr5)(fptr1);
+పూర్ణాంకం f5 (పూర్ణాంకం (పూర్ణాంకం()), fptr1);
+పూర్ణాంకం f1 (fptr1 fp, పూర్ణాంకం i)
 {
-  return (*fp)(i);
+  తిరిగి (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+పూర్ణాంకం f2 (fptr2 fp, పూర్ణాంకం i)
 {
-  return (*fp)(i);
+  తిరిగి (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+పూర్ణాంకం f3 (fptr3 fp, పూర్ణాంకం i)
 {
-  return (*fp)(i);
+  తిరిగి (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+పూర్ణాంకం f4 (fptr4 fp, పూర్ణాంకం i)
 {
-  return (*fp[i])(i);
+  తిరిగి (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+పూర్ణాంకం f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  తిరిగి fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+రకనిర్వచనం పూర్ణాంకం intx4[4];
+పూర్ణాంకం f8 (intx4, పూర్ణాంకం);
+పూర్ణాంకం f8 (పూర్ణాంకం ([4]), పూర్ణాంకం);
+పూర్ణాంకం f8 (పూర్ణాంకం y[4], పూర్ణాంకం i)
 {
-  return y[i];
+  తిరిగి y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+పూర్ణాంకం f9 (పూర్ణాంకం (*)(పూర్ణాంకం), పూర్ణాంకం);
+పూర్ణాంకం f9 (పూర్ణాంకం ((పూర్ణాంకం)), పూర్ణాంకం);
+పూర్ణాంకం f9 (పూర్ణాంకం f(పూర్ణాంకం), పూర్ణాంకం i)
 {
-  return f(i);
+  తిరిగి f(i);
 }
-int main () { return 0; }
+పూర్ణాంకం ప్రధాన () { తిరిగి 0; }

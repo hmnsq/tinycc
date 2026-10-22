@@ -3,180 +3,180 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINDEF_
-#define _WINDEF_
+#నిర్వచితం_కాకపోతే _WINDEF_
+#నిర్వచించు _WINDEF_
 
-#ifndef STRICT
-#define STRICT 1
-#endif
+#నిర్వచితం_కాకపోతే STRICT
+#నిర్వచించు STRICT 1
+#అయితే_ముగింపు
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#నిర్వచితం_కాకపోతే WINVER
+#నిర్వచించు WINVER 0x0502
+#అయితే_ముగింపు
 
-#ifndef BASETYPES
-#define BASETYPES
-  typedef unsigned long ULONG;
-  typedef ULONG *PULONG;
-  typedef unsigned short USHORT;
-  typedef USHORT *PUSHORT;
-  typedef unsigned char UCHAR;
-  typedef UCHAR *PUCHAR;
-  typedef char *PSZ;
-#endif
+#నిర్వచితం_కాకపోతే BASETYPES
+#నిర్వచించు BASETYPES
+  రకనిర్వచనం గుర్తులేని దీర్ఘ ULONG;
+  రకనిర్వచనం ULONG *PULONG;
+  రకనిర్వచనం గుర్తులేని పొట్టి USHORT;
+  రకనిర్వచనం USHORT *PUSHORT;
+  రకనిర్వచనం గుర్తులేని అక్షరం UCHAR;
+  రకనిర్వచనం UCHAR *PUCHAR;
+  రకనిర్వచనం అక్షరం *PSZ;
+#అయితే_ముగింపు
 
-#define MAX_PATH 260
+#నిర్వచించు MAX_మార్గం 260
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#నిర్వచితం_కాకపోతే ఖాళీ
+#నిర్వచితమైతే __cplusplus
+#నిర్వచించు ఖాళీ 0
+#లేకపోతే
+#నిర్వచించు ఖాళీ ((శూన్య *)0)
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#ifndef FALSE
-#define FALSE 0
-#endif
+#నిర్వచితం_కాకపోతే FALSE
+#నిర్వచించు FALSE 0
+#అయితే_ముగింపు
 
-#ifndef TRUE
-#define TRUE 1
-#endif
+#నిర్వచితం_కాకపోతే TRUE
+#నిర్వచించు TRUE 1
+#అయితే_ముగింపు
 
-#ifndef IN
-#define IN
-#endif
+#నిర్వచితం_కాకపోతే లోపల_2
+#నిర్వచించు లోపల_2
+#అయితే_ముగింపు
 
-#ifndef OUT
-#define OUT
-#endif
+#నిర్వచితం_కాకపోతే బహిర్గతం_2
+#నిర్వచించు బహిర్గతం_2
+#అయితే_ముగింపు
 
-#ifndef OPTIONAL
-#define OPTIONAL
-#endif
+#నిర్వచితం_కాకపోతే OPTIONAL
+#నిర్వచించు OPTIONAL
+#అయితే_ముగింపు
 
-#undef far
-#undef near
-#undef pascal
+#నిర్వచనం_రద్దు far
+#నిర్వచనం_రద్దు near
+#నిర్వచనం_రద్దు pascal
 
-#define far
-#define near
-#define pascal __stdcall
+#నిర్వచించు far
+#నిర్వచించు near
+#నిర్వచించు pascal __stdcall
 
-#define cdecl
-#ifndef CDECL
-#define CDECL
-#endif
-#ifndef CALLBACK
-#define CALLBACK __stdcall
-#endif
-#ifndef WINAPI
-#define WINAPI __stdcall
-#endif
-#define WINAPIV __cdecl
-#define APIENTRY WINAPI
-#define APIPRIVATE WINAPI
-#define PASCAL WINAPI
-#define WINAPI_INLINE WINAPI
+#నిర్వచించు cdecl
+#నిర్వచితం_కాకపోతే CDECL
+#నిర్వచించు CDECL
+#అయితే_ముగింపు
+#నిర్వచితం_కాకపోతే CALLBACK
+#నిర్వచించు CALLBACK __stdcall
+#అయితే_ముగింపు
+#నిర్వచితం_కాకపోతే WINAPI
+#నిర్వచించు WINAPI __stdcall
+#అయితే_ముగింపు
+#నిర్వచించు WINAPIV __cdecl
+#నిర్వచించు APIENTRY WINAPI
+#నిర్వచించు APIPRIVATE WINAPI
+#నిర్వచించు PASCAL WINAPI
+#నిర్వచించు WINAPI_INLINE WINAPI
 
-#undef FAR
-#undef NEAR
-#define FAR
-#define NEAR
-#ifndef CONST
-#define CONST const
-#endif
+#నిర్వచనం_రద్దు FAR
+#నిర్వచనం_రద్దు NEAR
+#నిర్వచించు FAR
+#నిర్వచించు NEAR
+#నిర్వచితం_కాకపోతే CONST
+#నిర్వచించు CONST స్థిరరాశి
+#అయితే_ముగింపు
 
-  typedef unsigned long DWORD;
-  typedef int WINBOOL;
-#define BOOL WINBOOL
-  typedef unsigned char BYTE;
-  typedef unsigned short WORD;
-  typedef float FLOAT;
-  typedef FLOAT *PFLOAT;
-  typedef WINBOOL *PBOOL;
-  typedef WINBOOL *LPBOOL;
-  typedef BYTE *PBYTE;
-  typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
-  typedef WORD *PWORD;
-  typedef WORD *LPWORD;
-  typedef long *LPLONG;
-  typedef DWORD *PDWORD;
-  typedef DWORD *LPDWORD;
-  typedef void *LPVOID;
+  రకనిర్వచనం గుర్తులేని దీర్ఘ DWORD;
+  రకనిర్వచనం పూర్ణాంకం WINBOOL;
+#నిర్వచించు BOOL WINBOOL
+  రకనిర్వచనం గుర్తులేని అక్షరం BYTE;
+  రకనిర్వచనం గుర్తులేని పొట్టి మాట_3;
+  రకనిర్వచనం దశాంశం FLOAT;
+  రకనిర్వచనం FLOAT *PFLOAT;
+  రకనిర్వచనం WINBOOL *PBOOL;
+  రకనిర్వచనం WINBOOL *LPBOOL;
+  రకనిర్వచనం BYTE *PBYTE;
+  రకనిర్వచనం BYTE *LPBYTE;
+  రకనిర్వచనం పూర్ణాంకం *PINT;
+  రకనిర్వచనం పూర్ణాంకం *LPINT;
+  రకనిర్వచనం మాట_3 *PWORD;
+  రకనిర్వచనం మాట_3 *LPWORD;
+  రకనిర్వచనం దీర్ఘ *LPLONG;
+  రకనిర్వచనం DWORD *PDWORD;
+  రకనిర్వచనం DWORD *LPDWORD;
+  రకనిర్వచనం శూన్య *LPVOID;
 # ifndef _LPCVOID_DEFINED
-#define _LPCVOID_DEFINED
-typedef CONST void *LPCVOID;
-#endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+#నిర్వచించు _LPCVOID_DEFINED
+రకనిర్వచనం CONST శూన్య *LPCVOID;
+#అయితే_ముగింపు
+  రకనిర్వచనం పూర్ణాంకం INT;
+  రకనిర్వచనం గుర్తులేని పూర్ణాంకం UINT;
+  రకనిర్వచనం గుర్తులేని పూర్ణాంకం *PUINT;
 
-#ifndef NT_INCLUDED
-#include <winnt.h>
-#endif
+#నిర్వచితం_కాకపోతే NT_INCLUDED
+#అన్తర్భావ <winnt.h>
+#అయితే_ముగింపు
 
 //gr #include <specstrings.h>
 
-  typedef UINT_PTR WPARAM;
-  typedef LONG_PTR LPARAM;
-  typedef LONG_PTR LRESULT;
+  రకనిర్వచనం UINT_PTR WPARAM;
+  రకనిర్వచనం LONG_PTR LPARAM;
+  రకనిర్వచనం LONG_PTR LRESULT;
 
-#ifndef __cplusplus
-#ifndef NOMINMAX
-#ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#endif
+#నిర్వచితం_కాకపోతే __cplusplus
+#నిర్వచితం_కాకపోతే NOMINMAX
+#నిర్వచితం_కాకపోతే max
+#నిర్వచించు max(a,b) (((a) > (b)) ? (a) : (b))
+#అయితే_ముగింపు
 
-#ifndef min
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#endif
-#endif
-#endif
+#నిర్వచితం_కాకపోతే min
+#నిర్వచించు min(a,b) (((a) < (b)) ? (a) : (b))
+#అయితే_ముగింపు
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#define MAKEWORD(a,b) ((WORD)(((BYTE)((DWORD_PTR)(a) & 0xff)) | ((WORD)((BYTE)((DWORD_PTR)(b) & 0xff))) << 8))
-#define MAKELONG(a,b) ((LONG)(((WORD)((DWORD_PTR)(a) & 0xffff)) | ((DWORD)((WORD)((DWORD_PTR)(b) & 0xffff))) << 16))
-#define LOWORD(l) ((WORD)((DWORD_PTR)(l) & 0xffff))
-#define HIWORD(l) ((WORD)((DWORD_PTR)(l) >> 16))
-#define LOBYTE(w) ((BYTE)((DWORD_PTR)(w) & 0xff))
-#define HIBYTE(w) ((BYTE)((DWORD_PTR)(w) >> 8))
+#నిర్వచించు MAKEWORD(a,b) ((మాట_3)(((BYTE)((DWORD_PTR)(a) & 0xff)) | ((మాట_3)((BYTE)((DWORD_PTR)(b) & 0xff))) << 8))
+#నిర్వచించు MAKELONG(a,b) ((LONG)(((మాట_3)((DWORD_PTR)(a) & 0xffff)) | ((DWORD)((మాట_3)((DWORD_PTR)(b) & 0xffff))) << 16))
+#నిర్వచించు LOWORD(l) ((మాట_3)((DWORD_PTR)(l) & 0xffff))
+#నిర్వచించు HIWORD(l) ((మాట_3)((DWORD_PTR)(l) >> 16))
+#నిర్వచించు LOBYTE(w) ((BYTE)((DWORD_PTR)(w) & 0xff))
+#నిర్వచించు HIBYTE(w) ((BYTE)((DWORD_PTR)(w) >> 8))
 
-#ifndef WIN_INTERNAL
+#నిర్వచితం_కాకపోతే WIN_అంతర్గత
   DECLARE_HANDLE (HWND);
   DECLARE_HANDLE (HHOOK);
-#ifdef WINABLE
+#నిర్వచితమైతే WINABLE
   DECLARE_HANDLE (HEVENT);
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-  typedef WORD ATOM;
+  రకనిర్వచనం మాట_3 ATOM;
 
-  typedef HANDLE *SPHANDLE;
-  typedef HANDLE *LPHANDLE;
-  typedef HANDLE HGLOBAL;
-  typedef HANDLE HLOCAL;
-  typedef HANDLE GLOBALHANDLE;
-  typedef HANDLE LOCALHANDLE;
-#ifdef _WIN64
-  typedef INT_PTR (WINAPI *FARPROC)();
-  typedef INT_PTR (WINAPI *NEARPROC)();
-  typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
-#endif
+  రకనిర్వచనం HANDLE *SPHANDLE;
+  రకనిర్వచనం HANDLE *LPHANDLE;
+  రకనిర్వచనం HANDLE HGLOBAL;
+  రకనిర్వచనం HANDLE HLOCAL;
+  రకనిర్వచనం HANDLE GLOBALHANDLE;
+  రకనిర్వచనం HANDLE LOCALHANDLE;
+#నిర్వచితమైతే _WIN64
+  రకనిర్వచనం INT_PTR (WINAPI *FARPROC)();
+  రకనిర్వచనం INT_PTR (WINAPI *NEARPROC)();
+  రకనిర్వచనం INT_PTR (WINAPI *PROC)();
+#లేకపోతే
+  రకనిర్వచనం పూర్ణాంకం (WINAPI *FARPROC)();
+  రకనిర్వచనం పూర్ణాంకం (WINAPI *NEARPROC)();
+  రకనిర్వచనం పూర్ణాంకం (WINAPI *PROC)();
+#అయితే_ముగింపు
 
-  typedef void *HGDIOBJ;
+  రకనిర్వచనం శూన్య *HGDIOBJ;
 
   DECLARE_HANDLE(HKEY);
-  typedef HKEY *PHKEY;
+  రకనిర్వచనం HKEY *PHKEY;
 
   DECLARE_HANDLE(HACCEL);
   DECLARE_HANDLE(HBITMAP);
@@ -191,7 +191,7 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HMENU);
   DECLARE_HANDLE(HMETAFILE);
   DECLARE_HANDLE(HINSTANCE);
-  typedef HINSTANCE HMODULE;
+  రకనిర్వచనం HINSTANCE HMODULE;
   DECLARE_HANDLE(HPALETTE);
   DECLARE_HANDLE(HPEN);
   DECLARE_HANDLE(HRGN);
@@ -204,90 +204,90 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
-  typedef HICON HCURSOR;
-  typedef DWORD COLORREF;
-  typedef DWORD *LPCOLORREF;
+  రకనిర్వచనం పూర్ణాంకం HFILE;
+  రకనిర్వచనం HICON HCURSOR;
+  రకనిర్వచనం DWORD COLORREF;
+  రకనిర్వచనం DWORD *LPCOLORREF;
 
-#define HFILE_ERROR ((HFILE)-1)
+#నిర్వచించు HFILE_ERROR ((HFILE)-1)
 
-  typedef struct tagRECT {
-    LONG left;
-    LONG top;
-    LONG right;
+  రకనిర్వచనం నిర్మాణం ట్యాగ్_RECT {
+    LONG ఎడమ;
+    LONG శిఖరం;
+    LONG కుడి;
     LONG bottom;
   } RECT,*PRECT,*NPRECT,*LPRECT;
 
-  typedef const RECT *LPCRECT;
+  రకనిర్వచనం స్థిరరాశి RECT *LPCRECT;
 
-  typedef struct _RECTL {
-    LONG left;
-    LONG top;
-    LONG right;
+  రకనిర్వచనం నిర్మాణం _RECTL {
+    LONG ఎడమ;
+    LONG శిఖరం;
+    LONG కుడి;
     LONG bottom;
   } RECTL,*PRECTL,*LPRECTL;
 
-  typedef const RECTL *LPCRECTL;
+  రకనిర్వచనం స్థిరరాశి RECTL *LPCRECTL;
 
-  typedef struct tagPOINT {
+  రకనిర్వచనం నిర్మాణం ట్యాగ్_బిందువు {
     LONG x;
     LONG y;
-  } POINT,*PPOINT,*NPPOINT,*LPPOINT;
+  } బిందువు_3,*PPOINT,*NPPOINT,*LPPOINT;
 
-  typedef struct _POINTL {
+  రకనిర్వచనం నిర్మాణం _POINTL {
     LONG x;
     LONG y;
   } POINTL,*PPOINTL;
 
-  typedef struct tagSIZE {
+  రకనిర్వచనం నిర్మాణం ట్యాగ్_కొలత {
     LONG cx;
     LONG cy;
-  } SIZE,*PSIZE,*LPSIZE;
+  } కొలత_2,*PSIZE,*LPSIZE;
 
-  typedef SIZE SIZEL;
-  typedef SIZE *PSIZEL,*LPSIZEL;
+  రకనిర్వచనం కొలత_2 SIZEL;
+  రకనిర్వచనం కొలత_2 *PSIZEL,*LPSIZEL;
 
-  typedef struct tagPOINTS {
+  రకనిర్వచనం నిర్మాణం ట్యాగ్_POINTS {
     SHORT x;
     SHORT y;
   } POINTS,*PPOINTS,*LPPOINTS;
 
-  typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+  రకనిర్వచనం నిర్మాణం _FILETIME {
+    DWORD dw_దిగువ_Date_సమయం;
+    DWORD dw_ఎగువ_Date_సమయం;
   } FILETIME,*PFILETIME,*LPFILETIME;
-#define _FILETIME_
+#నిర్వచించు _FILETIME_
 
-#define DM_UPDATE 1
-#define DM_COPY 2
-#define DM_PROMPT 4
-#define DM_MODIFY 8
+#నిర్వచించు DM_UPDATE 1
+#నిర్వచించు DM_COPY 2
+#నిర్వచించు DM_PROMPT 4
+#నిర్వచించు DM_MODIFY 8
 
-#define DM_IN_BUFFER DM_MODIFY
-#define DM_IN_PROMPT DM_PROMPT
-#define DM_OUT_BUFFER DM_COPY
-#define DM_OUT_DEFAULT DM_UPDATE
+#నిర్వచించు DM_లోపల_బఫరు DM_MODIFY
+#నిర్వచించు DM_లోపల_PROMPT DM_PROMPT
+#నిర్వచించు DM_బహిర్గతం_బఫరు DM_COPY
+#నిర్వచించు DM_బహిర్గతం_DEFAULT DM_UPDATE
 
-#define DC_FIELDS 1
-#define DC_PAPERS 2
-#define DC_PAPERSIZE 3
-#define DC_MINEXTENT 4
-#define DC_MAXEXTENT 5
-#define DC_BINS 6
-#define DC_DUPLEX 7
-#define DC_SIZE 8
-#define DC_EXTRA 9
-#define DC_VERSION 10
-#define DC_DRIVER 11
-#define DC_BINNAMES 12
-#define DC_ENUMRESOLUTIONS 13
-#define DC_FILEDEPENDENCIES 14
-#define DC_TRUETYPE 15
-#define DC_PAPERNAMES 16
-#define DC_ORIENTATION 17
-#define DC_COPIES 18
+#నిర్వచించు DC_FIELDS 1
+#నిర్వచించు DC_PAPERS 2
+#నిర్వచించు DC_PAPERSIZE 3
+#నిర్వచించు DC_MINEXTENT 4
+#నిర్వచించు DC_MAXEXTENT 5
+#నిర్వచించు DC_BINS 6
+#నిర్వచించు DC_DUPLEX 7
+#నిర్వచించు DC_కొలత 8
+#నిర్వచించు DC_EXTRA 9
+#నిర్వచించు DC_సంస్కరణ 10
+#నిర్వచించు DC_DRIVER 11
+#నిర్వచించు DC_BINNAMES 12
+#నిర్వచించు DC_ENUMRESOLUTIONS 13
+#నిర్వచించు DC_FILEDEPENDENCIES 14
+#నిర్వచించు DC_TRUETYPE 15
+#నిర్వచించు DC_PAPERNAMES 16
+#నిర్వచించు DC_ORIENTATION 17
+#నిర్వచించు DC_COPIES 18
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 }
-#endif
-#endif
+#అయితే_ముగింపు
+#అయితే_ముగింపు

@@ -1,54 +1,54 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+శూన్య foo(పూర్ణాంకం [5]);
+శూన్య fooc(పూర్ణాంకం x[స్థిరరాశి 5]);
+శూన్య foos(పూర్ణాంకం x[స్థిర 5]);
+శూన్య foov(పూర్ణాంకం x[అస్థిర 5]);
+శూన్య foor(పూర్ణాంకం x[పరిమిత 5]);
+శూన్య fooc(పూర్ణాంకం [స్థిరరాశి 5]);
+శూన్య foos(పూర్ణాంకం [స్థిర 5]);
+శూన్య foov(పూర్ణాంకం [అస్థిర 5]);
+శూన్య foor(పూర్ణాంకం [పరిమిత 5]);
+శూన్య fooc(పూర్ణాంకం (* స్థిరరాశి x));
+శూన్య foos(పూర్ణాంకం *x);
+శూన్య foov(పూర్ణాంకం * అస్థిర x);
+శూన్య foor(పూర్ణాంకం * పరిమిత x);
+శూన్య fooc(పూర్ణాంకం x[అస్థిర 5])
 {
   x[3] = 42;
-#ifdef INVALID
+#నిర్వచితమైతే INVALID
   x = 0;
-#endif
+#అయితే_ముగింపు
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+శూన్య foovm(పూర్ణాంకం x[స్థిరరాశి *]);
+శూన్య foovm(పూర్ణాంకం * స్థిరరాశి x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
-typedef restrict pointer_array restricted_pointer_array;
+రకనిర్వచనం పూర్ణాంకం *సూచిక_array[2];
+రకనిర్వచనం పూర్ణాంకం *పరిమిత restricted_సూచిక;
+రకనిర్వచనం పరిమిత సూచిక_array restricted_సూచిక_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
-                                             restricted_pointer *),
+_Static_assert(!__builtin_types_compatible_p(పూర్ణాంకం **,
+                                             restricted_సూచిక *),
                "nested restrict qualifier is retained");
-_Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
-                                            restricted_pointer[2]),
+_Static_assert(__builtin_types_compatible_p(restricted_సూచిక_array,
+                                            restricted_సూచిక[2]),
                "restrict can qualify an array of pointer types");
 
-restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+restricted_సూచిక *restricted_pp;
+పూర్ణాంకం **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
-                   restricted_pointer *),
+                   restricted_సూచిక *),
                "conditional expression combines restrict qualifiers");
 
-#ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+#నిర్వచితమైతే INVALID
+శూన్య wrongc(పూర్ణాంకం x[3][స్థిరరాశి 4]);
+శూన్య wrongvm(పూర్ణాంకం x[స్థిర *]);
+శూన్య foovm(పూర్ణాంకం x[స్థిరరాశి *])
 {
   x[2] = 1;
 }
-#endif
-int main()
+#అయితే_ముగింపు
+పూర్ణాంకం ప్రధాన()
 {
-  return 0;
+  తిరిగి 0;
 }

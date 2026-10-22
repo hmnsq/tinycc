@@ -1,7 +1,7 @@
-#ifndef _STDNORETURN_H
-#define _STDNORETURN_H
+#నిర్వచితం_కాకపోతే _STDNORETURN_H
+#నిర్వచించు _STDNORETURN_H
 
 /* ISOC11 noreturn */
-#define noreturn _Noreturn
+#నిర్వచించు noreturn _Noreturn
 
-#endif /* _STDNORETURN_H */
+#అయితే_ముగింపు /* _STDNORETURN_H */
