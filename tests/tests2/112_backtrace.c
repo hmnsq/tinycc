@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /* ------------------------------------------------------- */
-#if defined test_backtrace_1
+#ако defined test_backtrace_1
 
 void f3()
 {
@@ -18,18 +18,18 @@ void f1()
     printf("* f1()\n"), fflush(stdout);
     f2();
 }
-int main(int argc, char **argv)
+цео main(цео argc, char **argv)
 {
     printf("* main\n"), fflush(stdout);
     f1();
     printf("* exit main\n"), fflush(stdout);
-    return 0;
+    врати 0;
 }
 
 /* ------------------------------------------------------- */
 #elif defined test_bcheck_1
 
-struct s { int a,b,c,d,e; };
+struct s { цео a,b,c,d,e; };
 struct s s[3];
 struct s *ps = s;
 void f1()
@@ -37,20 +37,20 @@ void f1()
     printf("* f1()\n"), fflush(stdout);
     ps[3] = ps[2];
 }
-int main(int argc, char **argv)
+цео main(цео argc, char **argv)
 {
     printf("* main\n"), fflush(stdout);
     f1();
     printf("* exit main\n"), fflush(stdout);
-    return 0;
+    врати 0;
 }
 
 /* ------------------------------------------------------- */
 #elif defined test_tcc_backtrace_2
 
 /* test custom backtrace and 'exit()' redirection */
-int tcc_backtrace(const char *fmt, ...);
-void exit(int);
+цео tcc_backtrace(const char *fmt, ...);
+void exit(цео);
 
 void f2()
 {
@@ -64,30 +64,30 @@ void f1()
     tcc_backtrace("Hello from %s!", "f1");
     f2();
 }
-int main(int argc, char **argv)
+цео main(цео argc, char **argv)
 {
     printf("* main\n"), fflush(stdout);
     f1();
     printf("* exit main\n"), fflush(stdout);
-    return 0;
+    врати 0;
 }
 
 /* ------------------------------------------------------- */
 #elif defined test_tcc_backtrace_3
 
 /* this test should be run despite of the exit(34) above */
-int main(int argc, char **argv)
+цео main(цео argc, char **argv)
 {
     printf("* main\n"), fflush(stdout);
-    return 1;
+    врати 1;
 }
 
 /* ------------------------------------------------------- */
-#else
+#инако
 #include <stdlib.h>
 #include <string.h>
 char *strdup();
-int main()
+цео main()
 {
     char pad1[10];
     char a[10];
@@ -103,7 +103,7 @@ int main()
     a[9] = 0;
     memset (b, 'b', 10);
 
-#if defined test_bcheck_100
+#ако defined test_bcheck_100
     memcpy(&a[1],&b[0],10);
 #elif defined test_bcheck_101
     memcpy(&a[0],&b[1],10);

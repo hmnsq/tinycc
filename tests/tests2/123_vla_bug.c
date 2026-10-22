@@ -1,24 +1,24 @@
 typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
+extern цео printf(const char*, ...);
 extern size_t strlen(const char*);
 char str[] = "blabla";
-int g;
-int main()
+цео g;
+цео main()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
+  цео i = 0;
+#ако 0
+  ако (g) {
       char buf[strlen(str) + 10];
       buf[0] = 0;
   }
 alabel:
   printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
+#инако
+  за (i = 0; i < 5; i++) {
       switch (i) {
       case 10:
-          if (g) {
+          ако (g) {
               char buf[strlen(str) + 10];
               buf[0] = 0;
               goto do_cmd;
@@ -36,5 +36,5 @@ alabel:
       }
   }
 #endif
-  return 0;
+  врати 0;
 }

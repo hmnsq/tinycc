@@ -3,55 +3,55 @@
 
 #define N 20
 
-int nb_num;
-int tab[N];
-int stack_ptr;
-int stack_op[N];
-int stack_res[60];
-int result;
+цео nb_num;
+цео tab[N];
+цео stack_ptr;
+цео stack_op[N];
+цео stack_res[60];
+цео result;
 
-int find(int n, int i1, int a, int b, int op)
+цео find(цео n, цео i1, цео a, цео b, цео op)
 {
-    int i, j;
-    int c;
+    цео i, j;
+    цео c;
 
-    if (stack_ptr >= 0) {
+    ако (stack_ptr >= 0) {
         stack_res[3*stack_ptr] = a;
         stack_op[stack_ptr] = op;
         stack_res[3*stack_ptr+1] = b;
         stack_res[3*stack_ptr+2] = n;
-        if (n == result)
-            return 1;
+        ако (n == result)
+            врати 1;
         tab[i1] = n;
     }
 
-    for(i=0;i<nb_num;i++) {
-        for(j=i+1;j<nb_num;j++) {
+    за(i=0;i<nb_num;i++) {
+        за(j=i+1;j<nb_num;j++) {
             a = tab[i];
             b = tab[j];
-            if (a != 0 && b != 0) {
+            ако (a != 0 && b != 0) {
 
                 tab[j] = 0;
                 stack_ptr++;
 
-                if (find(a + b, i, a, b, '+'))
-                    return 1;
-                if (find(a - b, i, a, b, '-'))
-                    return 1;
-                if (find(b - a, i, b, a, '-'))
-                    return 1;
-                if (find(a * b, i, a, b, '*'))
-                    return 1;
-                if (b != 0) {
+                ако (find(a + b, i, a, b, '+'))
+                    врати 1;
+                ако (find(a - b, i, a, b, '-'))
+                    врати 1;
+                ако (find(b - a, i, b, a, '-'))
+                    врати 1;
+                ако (find(a * b, i, a, b, '*'))
+                    врати 1;
+                ако (b != 0) {
                     c = a / b;
-                    if (find(c, i, a, b, '/'))
-                        return 1;
+                    ако (find(c, i, a, b, '/'))
+                        врати 1;
                 }
 
-                if (a != 0) {
+                ако (a != 0) {
                     c = b / a;
-                    if (find(c, i, b, a, '/'))
-                        return 1;
+                    ако (find(c, i, b, a, '/'))
+                        врати 1;
                 }
 
                 stack_ptr--;
@@ -61,14 +61,14 @@ int find(int n, int i1, int a, int b, int op)
         }
     }
 
-    return 0;
+    врати 0;
 }
 
-int main(int argc, char **argv)
+цео main(цео argc, char **argv)
 {
-    int i, res, p;
+    цео i, res, p;
 
-    if (argc < 3) {
+    ако (argc < 3) {
         printf("usage: %s: result numbers...\n"
                "Try to find result from numbers with the 4 basic operations.\n", argv[0]);
         exit(1);
@@ -78,21 +78,21 @@ int main(int argc, char **argv)
     result = atoi(argv[p]);
     printf("result=%d\n", result);
     nb_num = 0;
-    for(i=p+1;i<argc;i++) {
+    за(i=p+1;i<argc;i++) {
         tab[nb_num++] = atoi(argv[i]);
     }
 
     stack_ptr = -1;
     res = find(0, 0, 0, 0, ' ');
-    if (res) {
-        for(i=0;i<=stack_ptr;i++) {
+    ако (res) {
+        за(i=0;i<=stack_ptr;i++) {
             printf("%d %c %d = %d\n",
                    stack_res[3*i], stack_op[i],
                    stack_res[3*i+1], stack_res[3*i+2]);
         }
-        return 0;
-    } else {
+        врати 0;
+    } инако {
         printf("Impossible\n");
-        return 1;
+        врати 1;
     }
 }

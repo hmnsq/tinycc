@@ -34,10 +34,10 @@ extern "C" {
 
 #ifndef _TIME64_T_DEFINED
 #define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int _time64_t __attribute__ ((mode (DI)));
-#else
+#ако _INTEGRAL_MAX_BITS >= 64
+#ако defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef цео _time64_t __attribute__ ((mode (DI)));
+#инако
   typedef __int64 __time64_t;
 #endif
 #endif
@@ -47,7 +47,7 @@ extern "C" {
 #define _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
   typedef __time32_t time_t;
-#else
+#инако
   typedef __time64_t time_t;
 #endif
 #endif
@@ -61,13 +61,13 @@ extern "C" {
 #define _SIZE_T_DEFINED
 #undef size_t
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
+#ако defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef unsigned цео size_t __attribute__ ((mode (DI)));
+#инако
   typedef unsigned __int64 size_t;
 #endif
-#else
-  typedef unsigned int size_t;
+#инако
+  typedef unsigned цео size_t;
 #endif
 #endif
 
@@ -75,20 +75,20 @@ extern "C" {
 #define _SSIZE_T_DEFINED
 #undef ssize_t
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
+#ако defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef цео ssize_t __attribute__ ((mode (DI)));
+#инако
   typedef __int64 ssize_t;
 #endif
-#else
-  typedef int ssize_t;
+#инако
+  typedef цео ssize_t;
 #endif
 #endif
 
 #ifndef NULL
 #ifdef __cplusplus
 #define NULL 0
-#else
+#инако
 #define NULL ((void *)0)
 #endif
 #endif
@@ -105,28 +105,28 @@ extern "C" {
 #ifndef _TM_DEFINED
 #define _TM_DEFINED
   struct tm {
-    int tm_sec;
-    int tm_min;
-    int tm_hour;
-    int tm_mday;
-    int tm_mon;
-    int tm_year;
-    int tm_wday;
-    int tm_yday;
-    int tm_isdst;
+    цео tm_sec;
+    цео tm_min;
+    цео tm_hour;
+    цео tm_mday;
+    цео tm_mon;
+    цео tm_year;
+    цео tm_wday;
+    цео tm_yday;
+    цео tm_isdst;
   };
 #endif
 
 #define CLOCKS_PER_SEC 1000
 
-  __MINGW_IMPORT int _daylight;
+  __MINGW_IMPORT цео _daylight;
   __MINGW_IMPORT long _dstbias;
   __MINGW_IMPORT long _timezone;
   __MINGW_IMPORT char * _tzname[2];
-  _CRTIMP errno_t __cdecl _get_daylight(int *_Daylight);
+  _CRTIMP errno_t __cdecl _get_daylight(цео *_Daylight);
   _CRTIMP errno_t __cdecl _get_dstbias(long *_Daylight_savings_bias);
   _CRTIMP errno_t __cdecl _get_timezone(long *_Timezone);
-  _CRTIMP errno_t __cdecl _get_tzname(size_t *_ReturnValue,char *_Buffer,size_t _SizeInBytes,int _Index);
+  _CRTIMP errno_t __cdecl _get_tzname(size_t *_ReturnValue,char *_Buffer,size_t _SizeInBytes,цео _Index);
   char *__cdecl asctime(const struct tm *_Tm);
   _CRTIMP char *__cdecl _ctime32(const __time32_t *_Time);
   clock_t __cdecl clock(void);
@@ -140,13 +140,13 @@ extern "C" {
   _CRTIMP __time32_t __cdecl _time32(__time32_t *_Time);
   _CRTIMP __time32_t __cdecl _mktime32(struct tm *_Tm);
   _CRTIMP __time32_t __cdecl _mkgmtime32(struct tm *_Tm);
-#if defined (_POSIX_) || defined(__GNUC__)
+#ако defined (_POSIX_) || defined(__GNUC__)
   void __cdecl tzset(void);
-#else
+#инако
   _CRTIMP void __cdecl _tzset(void);
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
+#ако _INTEGRAL_MAX_BITS >= 64
   double __cdecl _difftime64(__time64_t _Time1,__time64_t _Time2);
   _CRTIMP char *__cdecl _ctime64(const __time64_t *_Time);
   _CRTIMP struct tm *__cdecl _gmtime64(const __time64_t *_Time);
@@ -161,12 +161,12 @@ extern "C" {
 #ifndef _SIZE_T_DEFINED
 #define _SIZE_T_DEFINED
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
+#ако defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef unsigned цео size_t __attribute__ ((mode (DI)));
+#инако
   typedef unsigned __int64 size_t;
 #endif
-#else
+#инако
   typedef unsigned long size_t;
 #endif
 #endif
@@ -174,12 +174,12 @@ extern "C" {
 #ifndef _SSIZE_T_DEFINED
 #define _SSIZE_T_DEFINED
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
+#ако defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef цео ssize_t __attribute__ ((mode (DI)));
+#инако
   typedef __int64 ssize_t;
 #endif
-#else
+#инако
   typedef long ssize_t;
 #endif
 #endif
@@ -191,16 +191,16 @@ extern "C" {
   _CRTIMP size_t __cdecl _wcsftime_l(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm,_locale_t _Locale);
   _CRTIMP wchar_t *__cdecl _wstrdate(wchar_t *_Buffer);
   _CRTIMP wchar_t *__cdecl _wstrtime(wchar_t *_Buffer);
-#if _INTEGRAL_MAX_BITS >= 64
+#ако _INTEGRAL_MAX_BITS >= 64
   _CRTIMP wchar_t *__cdecl _wctime64(const __time64_t *_Time);
 #endif
 
-#if !defined (RC_INVOKED) && !defined (_INC_WTIME_INL)
+#ако !defined (RC_INVOKED) && !defined (_INC_WTIME_INL)
 #define _INC_WTIME_INL
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime32(_Time); }
-#else
-__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime64(_Time); }
+__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { врати _wctime32(_Time); }
+#инако
+__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { врати _wctime64(_Time); }
 #endif
 #endif
 
@@ -219,30 +219,30 @@ time_t __cdecl _mkgmtime(struct tm *_Tm);
 time_t __cdecl time(time_t *_Time);
 
 #ifdef _USE_32BIT_TIME_T
-#if 0
-__CRT_INLINE double __cdecl difftime(time_t _Time1,time_t _Time2) { return _difftime32(_Time1,_Time2); }
-__CRT_INLINE char *__cdecl ctime(const time_t *_Time) { return _ctime32(_Time); }
-__CRT_INLINE struct tm *__cdecl gmtime(const time_t *_Time) { return _gmtime32(_Time); }
-__CRT_INLINE struct tm *__cdecl localtime(const time_t *_Time) { return _localtime32(_Time); }
-__CRT_INLINE time_t __cdecl mktime(struct tm *_Tm) { return _mktime32(_Tm); }
-__CRT_INLINE time_t __cdecl _mkgmtime(struct tm *_Tm) { return _mkgmtime32(_Tm); }
-__CRT_INLINE time_t __cdecl time(time_t *_Time) { return _time32(_Time); }
+#ако 0
+__CRT_INLINE double __cdecl difftime(time_t _Time1,time_t _Time2) { врати _difftime32(_Time1,_Time2); }
+__CRT_INLINE char *__cdecl ctime(const time_t *_Time) { врати _ctime32(_Time); }
+__CRT_INLINE struct tm *__cdecl gmtime(const time_t *_Time) { врати _gmtime32(_Time); }
+__CRT_INLINE struct tm *__cdecl localtime(const time_t *_Time) { врати _localtime32(_Time); }
+__CRT_INLINE time_t __cdecl mktime(struct tm *_Tm) { врати _mktime32(_Tm); }
+__CRT_INLINE time_t __cdecl _mkgmtime(struct tm *_Tm) { врати _mkgmtime32(_Tm); }
+__CRT_INLINE time_t __cdecl time(time_t *_Time) { врати _time32(_Time); }
 #endif
-#else
-__CRT_INLINE double __cdecl difftime(time_t _Time1,time_t _Time2) { return _difftime64(_Time1,_Time2); }
-__CRT_INLINE char *__cdecl ctime(const time_t *_Time) { return _ctime64(_Time); }
-__CRT_INLINE struct tm *__cdecl gmtime(const time_t *_Time) { return _gmtime64(_Time); }
-__CRT_INLINE struct tm *__cdecl localtime(const time_t *_Time) { return _localtime64(_Time); }
-__CRT_INLINE time_t __cdecl mktime(struct tm *_Tm) { return _mktime64(_Tm); }
-__CRT_INLINE time_t __cdecl _mkgmtime(struct tm *_Tm) { return _mkgmtime64(_Tm); }
-__CRT_INLINE time_t __cdecl time(time_t *_Time) { return _time64(_Time); }
+#инако
+__CRT_INLINE double __cdecl difftime(time_t _Time1,time_t _Time2) { врати _difftime64(_Time1,_Time2); }
+__CRT_INLINE char *__cdecl ctime(const time_t *_Time) { врати _ctime64(_Time); }
+__CRT_INLINE struct tm *__cdecl gmtime(const time_t *_Time) { врати _gmtime64(_Time); }
+__CRT_INLINE struct tm *__cdecl localtime(const time_t *_Time) { врати _localtime64(_Time); }
+__CRT_INLINE time_t __cdecl mktime(struct tm *_Tm) { врати _mktime64(_Tm); }
+__CRT_INLINE time_t __cdecl _mkgmtime(struct tm *_Tm) { врати _mkgmtime64(_Tm); }
+__CRT_INLINE time_t __cdecl time(time_t *_Time) { врати _time64(_Time); }
 #endif
 #endif
 
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
+#ако !defined(NO_OLDNAMES) || defined(_POSIX)
 #define CLK_TCK CLOCKS_PER_SEC
 
-  __MINGW_IMPORT int daylight;
+  __MINGW_IMPORT цео daylight;
   __MINGW_IMPORT long dstbias;
   __MINGW_IMPORT long timezone;
   __MINGW_IMPORT char *tzname[2];
@@ -264,11 +264,11 @@ struct timeval {
 #ifndef _TIMEZONE_DEFINED /* also in sys/time.h */
 #define _TIMEZONE_DEFINED
 struct timezone {
-  int tz_minuteswest;
-  int tz_dsttime;
+  цео tz_minuteswest;
+  цео tz_dsttime;
 };
 
-  extern int __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
+  extern цео __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
 #endif
 #endif /* __STRICT_ANSI__ */
 

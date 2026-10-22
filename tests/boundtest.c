@@ -6,130 +6,130 @@
 //#define NB_ITS 1
 #define TAB_SIZE 100
 
-int tab[TAB_SIZE];
-int ret_sum;
+цео tab[TAB_SIZE];
+цео ret_sum;
 char tab3[256];
 
-int test1(void)
+цео test1(void)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE;i++) {
+    цео i, sum = 0;
+    за(i=0;i<TAB_SIZE;i++) {
         sum += tab[i];
     }
-    return sum;
+    врати sum;
 }
 
 /* error */
-int test2(void)
+цео test2(void)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    цео i, sum = 0;
+    за(i=0;i<TAB_SIZE + 1;i++) {
         sum += tab[i];
     }
-    return sum;
+    врати sum;
 }
 
 /* actually, profiling test */
-int test3(void)
+цео test3(void)
 {
-    int sum;
-    int i, it;
+    цео sum;
+    цео i, it;
 
     sum = 0;
-    for(it=0;it<NB_ITS;it++) {
-        for(i=0;i<TAB_SIZE;i++) {
+    за(it=0;it<NB_ITS;it++) {
+        за(i=0;i<TAB_SIZE;i++) {
             sum += tab[i];
         }
     }
-    return sum;
+    врати sum;
 }
 
 /* ok */
-int test4(void)
+цео test4(void)
 {
-    int i, sum = 0;
-    int *tab4;
+    цео i, sum = 0;
+    цео *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<20;i++) {
+    tab4 = malloc(20 * sizeof(цео));
+    за(i=0;i<20;i++) {
         sum += tab4[i];
     }
     free(tab4);
 
-    return sum;
+    врати sum;
 }
 
 /* error */
-int test5(void)
+цео test5(void)
 {
-    int i, sum = 0;
-    int *tab4;
+    цео i, sum = 0;
+    цео *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<21;i++) {
+    tab4 = malloc(20 * sizeof(цео));
+    за(i=0;i<21;i++) {
         sum += tab4[i];
     }
     free(tab4);
 
-    return sum;
+    врати sum;
 }
 
 /* error */
-int test6(void)
+цео test6(void)
 {
-    int i, sum = 0;
-    int *tab4;
+    цео i, sum = 0;
+    цео *tab4;
     
-    tab4 = malloc(20 * sizeof(int));
+    tab4 = malloc(20 * sizeof(цео));
     free(tab4);
-    for(i=0;i<21;i++) {
+    за(i=0;i<21;i++) {
         sum += tab4[i];
     }
 
-    return sum;
+    врати sum;
 }
 
 /* error */
-int test7(void)
+цео test7(void)
 {
-    int i, sum = 0;
-    int *p;
+    цео i, sum = 0;
+    цео *p;
 
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    за(i=0;i<TAB_SIZE + 1;i++) {
         p = &tab[i];
-        if (i == TAB_SIZE)
+        ако (i == TAB_SIZE)
             printf("i=%d %x\n", i, p);
         sum += *p;
     }
-    return sum;
+    врати sum;
 }
 
 /* ok */
-int test8(void)
+цео test8(void)
 {
-    int i, sum = 0;
-    int tab[10];
+    цео i, sum = 0;
+    цео tab[10];
 
-    for(i=0;i<10;i++) {
+    за(i=0;i<10;i++) {
         sum += tab[i];
     }
-    return sum;
+    врати sum;
 }
 
 /* error */
-int test9(void)
+цео test9(void)
 {
-    int i, sum = 0;
+    цео i, sum = 0;
     char tab[10];
 
-    for(i=0;i<11;i++) {
+    за(i=0;i<11;i++) {
         sum += tab[i];
     }
-    return sum;
+    врати sum;
 }
 
 /* ok */
-int test10(void)
+цео test10(void)
 {
     char tab[10];
     char tab1[10];
@@ -137,61 +137,61 @@ int test10(void)
     memset(tab, 0, 10);
     memcpy(tab, tab1, 10);
     memmove(tab, tab1, 10);
-    return 0;
+    врати 0;
 }
 
 /* error */
-int test11(void)
+цео test11(void)
 {
     char tab[10];
 
     memset(tab, 0, 11);
-    return 0;
+    врати 0;
 }
 
 /* error */
-int test12(void)
+цео test12(void)
 {
     void *ptr;
     ptr = malloc(10);
     free(ptr);
     free(ptr);
-    return 0;
+    врати 0;
 }
 
 /* error */
-int test13(void)
+цео test13(void)
 {
     char pad1 = 0;
     char tab[10];
     char pad2 = 0;
     memset(tab, 'a', sizeof(tab));
-    return strlen(tab);
+    врати strlen(tab);
 }
 
-int test14(void)
+цео test14(void)
 {
     char *p = alloca(TAB_SIZE);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    врати ret;
 }
 
 /* error */
-int test15(void)
+цео test15(void)
 {
     char *p = alloca(TAB_SIZE-1);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    врати ret;
 }
 
 /* ok */
-int test16()
+цео test16()
 {
     char *demo = "This is only a test.";
     char *p, *q;
@@ -202,11 +202,11 @@ int test16()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)+1),demo) );
 
-    return 0;
+    врати 0;
 }
 
 /* error */
-int test17()
+цео test17()
 {
     char *demo = "This is only a test.";
     char *p, *q;
@@ -217,20 +217,20 @@ int test17()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)),demo) );
 
-    return 0;
+    врати 0;
 }
 
-int test18(void)
+цео test18(void)
 {
-    int i, sum = 0, n = TAB_SIZE;
-    int tab[n];
-    for(i=0;i<TAB_SIZE+1;i++) {
+    цео i, sum = 0, n = TAB_SIZE;
+    цео tab[n];
+    за(i=0;i<TAB_SIZE+1;i++) {
         sum += tab[i];
     }
-    return sum;
+    врати sum;
 }
 
-int (*table_test[])(void) = {
+цео (*table_test[])(void) = {
     test1,
     test2,
     test3,
@@ -251,23 +251,23 @@ int (*table_test[])(void) = {
     test18
 };
 
-int main(int argc, char **argv)
+цео main(цео argc, char **argv)
 {
-    int i;
+    цео i;
     char *cp;
-    int index;
-    int (*ftest)(void);
-    int index_max = sizeof(table_test)/sizeof(table_test[0]);
+    цео index;
+    цео (*ftest)(void);
+    цео index_max = sizeof(table_test)/sizeof(table_test[0]);
 
     /* check bounds checking main arg */
-    for (i = 0; i < argc; i++) {
+    за (i = 0; i < argc; i++) {
         cp = argv[i];
-        while (*cp) {
+        док (*cp) {
             cp++;
         }
     }
 
-    if (argc < 2) {
+    ако (argc < 2) {
         printf(
     	    "test TCC bound checking system\n"
 	    "usage: boundtest N\n"
@@ -276,10 +276,10 @@ int main(int argc, char **argv)
     }
 
     index = 0;
-    if (argc >= 2)
+    ако (argc >= 2)
         index = atoi(argv[1]) - 1;
 
-    if ((index < 0) || (index >= index_max)) {
+    ако ((index < 0) || (index >= index_max)) {
         printf("N is outside of the valid range (%d)\n", index);
         exit(2);
     }
@@ -288,7 +288,7 @@ int main(int argc, char **argv)
     ftest = table_test[index];
     ftest();
 
-    return 0;
+    врати 0;
 }
 
 /*

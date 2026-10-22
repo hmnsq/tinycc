@@ -1,12 +1,12 @@
 #include <stdatomic.h>
-int printf(const char*,...);
+цео printf(const char*,...);
 
-#if defined test_atomic_compare_exchange
-int main()
+#ако defined test_atomic_compare_exchange
+цео main()
 {
-    _Atomic int a = 12;
-    int b = 77;
-    int r;
+    _Atomic цео a = 12;
+    цео b = 77;
+    цео r;
 
     atomic_store(&a, b + 0);
     r = atomic_compare_exchange_strong(&a, &b, 99);
@@ -24,14 +24,14 @@ int main()
     r = atomic_exchange(&a, 66);
     printf("%d %d %d\n", r, a, b);
 
-    return 0;
+    врати 0;
 }
 
 #elif defined test_atomic_store
-int main()
+цео main()
 {
-    int _Atomic i;
-    int r;
+    цео _Atomic i;
+    цео r;
     atomic_store(&i, 12);
     r = atomic_fetch_add(&i, i);
     printf("r = %d, i = %d\n", r, i);
@@ -39,18 +39,18 @@ int main()
 
 #elif defined test_atomic_store_pointer
 typedef struct { char c[4]; } c4;
-int main()
+цео main()
 {
-    int i = 1;
-    int _Atomic *p = &i;
-    int k = 2;
+    цео i = 1;
+    цео _Atomic *p = &i;
+    цео k = 2;
     atomic_store(&p, &k);
     printf("*p = %d\n", *p);
 }
 
 #elif defined test_atomic_store_struct
 typedef struct { char c[4]; } c4;
-int main()
+цео main()
 {
     c4 _Atomic p;
     c4 v = { 1,2,3,4 };
@@ -70,7 +70,7 @@ int main()
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
  
-int main()
+цео main()
 {
     atomic_char c;
     atomic_short s;
@@ -107,11 +107,11 @@ typedef __SIZE_TYPE__ size64_t;
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
 
-int main()
+цео main()
 {
     signed char c;
     short s;
-    int i;
+    цео i;
     size64_t l;
 
     atomic_init(&c, 0);
@@ -140,9 +140,9 @@ int main()
 }
 
 #elif defined test_atomic_thread_signal
-int main()
+цео main()
 {
-    int c;
+    цео c;
 
     atomic_thread_fence(__ATOMIC_SEQ_CST);
     atomic_signal_fence(__ATOMIC_SEQ_CST);
@@ -150,36 +150,36 @@ int main()
 }
 
 #elif defined test_atomic_error_1
-int main()
+цео main()
 {
-    int _Atomic i;
+    цео _Atomic i;
     atomic_load(i);
 }
 
 #elif defined test_atomic_error_2
-int main()
+цео main()
 {
     struct { char c[3]; } _Atomic c3;
     atomic_load(&c3);
 }
 
 #elif defined test_atomic_error_3
-int main()
+цео main()
 {
-    _Atomic int *p = 0;
+    _Atomic цео *p = 0;
     atomic_fetch_add(&p, 1);
 }
 
 #elif defined test_atomic_error_4
-int main()
+цео main()
 {
-    int _Atomic i = 1;
+    цео _Atomic i = 1;
     char c = 2;
     atomic_compare_exchange_strong(&i, &c, 0);
 }
 
 #elif defined test_atomic_warn_1
-int main()
+цео main()
 {
     size_t _Atomic i = 1;
     /* assignment to integer from pointer */
@@ -187,19 +187,19 @@ int main()
 }
 
 #elif defined test_atomic_warn_2
-int main()
+цео main()
 {
-    int i = 1;
+    цео i = 1;
     char c = 2;
-    int _Atomic *p = &i;
+    цео _Atomic *p = &i;
     /* assignment from incompatible pointer */
     atomic_store(&p, &c);
 }
 
 #elif defined test_atomic_warn_3
-int main()
+цео main()
 {
-    int const i = 1;
+    цео const i = 1;
     /* assignment to read-only -location */
     atomic_fetch_add(&i, 2);
 }

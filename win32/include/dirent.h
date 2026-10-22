@@ -56,7 +56,7 @@ extern "C" {
     *  -1 = off the end
     *   positive = 0 based index of next entry
     */
-    int			dd_stat;
+    цео			dd_stat;
 
     /* given path for dir with search pattern (struct is extended) */
     char			dd_name[1];
@@ -64,7 +64,7 @@ extern "C" {
 
   DIR* __cdecl opendir (const char*);
   struct dirent* __cdecl readdir (DIR*);
-  int __cdecl closedir (DIR*);
+  цео __cdecl closedir (DIR*);
   void __cdecl rewinddir (DIR*);
   long __cdecl telldir (DIR*);
   void __cdecl seekdir (DIR*, long);
@@ -104,7 +104,7 @@ extern "C" {
     *  -1 = off the end
     *   positive = 0 based index of next entry
     */
-    int			dd_stat;
+    цео			dd_stat;
 
     /* given path for dir with search pattern (struct is extended) */
     wchar_t			dd_name[1];
@@ -114,7 +114,7 @@ extern "C" {
 
   _WDIR* __cdecl _wopendir (const wchar_t*);
   struct _wdirent*  __cdecl _wreaddir (_WDIR*);
-  int __cdecl _wclosedir (_WDIR*);
+  цео __cdecl _wclosedir (_WDIR*);
   void __cdecl _wrewinddir (_WDIR*);
   long __cdecl _wtelldir (_WDIR*);
   void __cdecl _wseekdir (_WDIR*, long);

@@ -14,10 +14,10 @@
 extern "C" {
 #endif
 
-#if (defined(_X86_) && !defined(__x86_64))
+#ако (defined(_X86_) && !defined(__x86_64))
 
 #define _JBLEN 16
-#define _JBTYPE int
+#define _JBTYPE цео
 
   typedef struct __JUMP_BUFFER {
     unsigned long Ebp;
@@ -127,7 +127,7 @@ extern "C" {
 #elif defined(_ARM_)
 
 #define _JBLEN 28
-#define _JBTYPE int
+#define _JBTYPE цео
 
   typedef struct __JUMP_BUFFER {
     unsigned long Frame;
@@ -169,9 +169,9 @@ extern "C" {
     unsigned long Fpsr;
     double D[8];
   } _JUMP_BUFFER;
-#else
+#инако
 #define _JBLEN 1
-#define _JBTYPE int
+#define _JBTYPE цео
 #endif
 #ifndef _JMP_BUF_DEFINED
   typedef _JBTYPE jmp_buf[_JBLEN];
@@ -180,18 +180,18 @@ extern "C" {
 
 #pragma pack(pop)
 
-#if defined __aarch64__
-  int _setjmpex(jmp_buf _Buf, void *frame);
+#ако defined __aarch64__
+  цео _setjmpex(jmp_buf _Buf, void *frame);
   #define setjmp(BUF) _setjmpex((BUF), (char*)__builtin_frame_address(0) + 224)
 #elif defined __x86_64__
-  int _setjmp(jmp_buf _Buf, void *frame);
+  цео _setjmp(jmp_buf _Buf, void *frame);
   #define setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
-#else /* __i386__ */
-  int _setjmp(jmp_buf _Buf);
+#инако /* __i386__ */
+  цео _setjmp(jmp_buf _Buf);
   #define setjmp _setjmp
 #endif
 
-__declspec(noreturn) void longjmp(jmp_buf _Buf,int _Value);
+__declspec(noreturn) void longjmp(jmp_buf _Buf,цео _Value);
 
 #ifdef __cplusplus
 }

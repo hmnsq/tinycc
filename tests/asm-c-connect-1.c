@@ -1,27 +1,27 @@
 #include <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#ако (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#инако
 # define _
 #endif
 
 #ifdef __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
 #define __USED __attribute__((__used__))
-#else
+#инако
 #define __USED
 #endif
 
-static int __USED x1_c (void)
+static цео __USED x1_c (void)
 {
     printf(" x1");
-    return 1;
+    врати 1;
 }
 
-#if __i386__
+#ако __i386__
 asm(".text;"_"x1: call "_"x1_c; ret");
-#else
+#инако
 /* Keep stack aligned */
 asm(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
 #endif
@@ -34,7 +34,7 @@ void x6()
     printf(" x6-1");
 }
 
-int main(int argc, char *argv[])
+цео main(цео argc, char *argv[])
 {
     printf("*");
     asm("call "_"x1");
@@ -45,17 +45,17 @@ int main(int argc, char *argv[])
     callx5_again();
     x6();
     printf(" *\n");
-    return 0;
+    врати 0;
 }
 
 static
-int __USED x2(void)
+цео __USED x2(void)
 {
     printf(" x2");
-    return 2;
+    врати 2;
 }
 
-extern int x3(void);
+extern цео x3(void);
 
 void x4(void)
 {

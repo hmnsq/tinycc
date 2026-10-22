@@ -1,33 +1,33 @@
 #include <stdio.h>
 
-int main()
+цео main()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#ако 1
+#ако 0
    printf("a\n");
-#else
+#инако
    printf("b\n");
 #endif
-#else
-#if 0
+#инако
+#ако 0
    printf("c\n");
-#else
+#инако
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#ако 0
+#ако 1
    printf("e\n");
-#else
+#инако
    printf("f\n");
 #endif
-#else
-#if 1
+#инако
+#ако 1
    printf("g\n");
-#else
+#инако
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#инако
    printf("j\n");
 #endif
-#else
+#инако
 #ifdef DEF
    printf("k\n");
-#else
+#инако
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#инако
    printf("n\n");
 #endif
-#else
+#инако
 #ifndef DEF
    printf("o\n");
-#else
+#инако
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#ако ONE
+#ако ZERO
    printf("q\n");
-#else
+#инако
    printf("r\n");
 #endif
-#else
-#if ZERO
+#инако
+#ако ZERO
    printf("s\n");
-#else
+#инако
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   врати 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

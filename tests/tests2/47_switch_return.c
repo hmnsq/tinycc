@@ -1,24 +1,24 @@
 #include <stdio.h>
 
-void fred(int x)
+void fred(цео x)
 {
    switch (x)
    {
-      case 1: printf("1\n"); return;
+      case 1: printf("1\n"); врати;
       case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      case 3: printf("3\n"); врати;
    }
 
    printf("out\n");
 }
 
-int main()
+цео main()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   врати 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

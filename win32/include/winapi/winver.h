@@ -131,7 +131,7 @@ extern "C" {
 #define GetFileVersionInfo GetFileVersionInfoW
 #define VerLanguageName VerLanguageNameW
 #define VerQueryValue VerQueryValueW
-#else
+#инако
 #define VerFindFile VerFindFileA
 #define VerInstallFile VerInstallFileA
 #define GetFileVersionInfoSize GetFileVersionInfoSizeA

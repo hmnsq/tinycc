@@ -1,56 +1,56 @@
 #include <stdio.h>
 
-int f(void)
+цео f(void)
 {
-  return 5;
+  врати 5;
 }
 
 void test1()
 {
-  int count = 10;
+  цео count = 10;
   void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  за(;count--;) {
+    цео a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  ако(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } инако {
     printf("NOT OK\n");
   }
 }
 
 void test2()
 {
-  int count = 10;
+  цео count = 10;
   void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  за(;count--;) {
+    цео a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  ако(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } инако {
     printf("NOT OK\n");
   }
 }
 
 void test3()
 {
-  int count = 10;
+  цео count = 10;
   void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  док(count--) {
+      цео b[f()];
+      ако (count >= 0) {
+          цео a[f()];
 
           addr[count] = a;
 
@@ -58,56 +58,56 @@ void test3()
       }
   }
 
-  if(addr[9] == addr[0]) {
+  ако(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } инако {
     printf("NOT OK\n");
   }
 }
 
 void test4()
 {
-  int count = 10;
+  цео count = 10;
   void *addr[count];
   do {
-    int a[f()];
+    цео a[f()];
 
     addr[--count] = a;
 
     continue;
-  } while (count);
+  } док (count);
 
-  if(addr[9] == addr[0]) {
+  ако(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } инако {
     printf("NOT OK\n");
   }
 }
 
 void test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  цео count = 10;
+  цео a[f()];
+  цео c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
+  за(;count--;) {
+    цео b[f()];
+    цео i;
+    за (i=0; i<f(); i++) {
       b[i] = count;
     }
   }
 
-  if (c[0] == 42) {
+  ако (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } инако {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+цео main(void)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  врати 0;
 }

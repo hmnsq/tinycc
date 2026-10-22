@@ -5,7 +5,7 @@ void charfunc(char a)
    printf("char: %c\n", a);
 }
 
-void intfunc(int a)
+void intfunc(цео a)
 {
    printf("int: %d\n", a);
 }
@@ -15,7 +15,7 @@ void floatfunc(float a)
    printf("float: %f\n", a);
 }
 
-int main()
+цео main()
 {
    charfunc('a');
    charfunc(98);
@@ -38,8 +38,8 @@ int main()
 
    printf("%d %d\n", b, c);
 
-   int d = 'a';
-   int e = 97.0;
+   цео d = 'a';
+   цео e = 97.0;
 
    printf("%d %d\n", d, e);
 
@@ -48,7 +48,7 @@ int main()
 
    printf("%f %f\n", f, g);
 
-   return 0;
+   врати 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

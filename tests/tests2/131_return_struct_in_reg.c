@@ -27,15 +27,15 @@ struct s_f4 {
 } g_f4 = { 1,2,3,4 };
 
 #define def(S) \
-struct s##S f##S(int x) \
+struct s##S f##S(цео x) \
 { \
     struct s##S l##S = g##S, *p##S = &l##S; \
-    if (x == 0) \
-        return g##S; \
-    else if (x == 1) \
-        return l##S; \
-    else \
-        return *p##S; \
+    ако (x == 0) \
+        врати g##S; \
+    инако ако (x == 1) \
+        врати l##S; \
+    инако \
+        врати *p##S; \
 }
 
 def(1)
@@ -52,9 +52,9 @@ def(_f4)
         (unsigned long long)l##S.b \
         );
 
-int main()
+цео main()
 {
-    for (int x = 0;;) {
+    за (цео x = 0;;) {
         chk(1,x);
         chk(2,x);
         chk(4,x);
@@ -62,9 +62,9 @@ int main()
         chk(16,x);
         struct s_f4 l_f4 = f_f4(x);
         printf("%.1f %.1f %.1f %.1f\n", l_f4.a, l_f4.b, l_f4.c, l_f4.d);
-        if (++x > 2)
+        ако (++x > 2)
             break;
         printf("\n");
     }
-    return 0;
+    врати 0;
 }

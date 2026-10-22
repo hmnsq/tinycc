@@ -9,47 +9,47 @@ struct S const *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+typedef цео (*fptr1)();
+цео f1 (цео (), цео);
+typedef цео (*fptr2)(цео x);
+цео f2 (цео (цео x), цео);
+typedef цео (*fptr3)(цео);
+цео f3 (цео (цео), цео);
+typedef цео (*fptr4[4])(цео);
+цео f4 (цео (*[4])(цео), цео);
+typedef цео (*fptr5)(fptr1);
+цео f5 (цео (цео()), fptr1);
+цео f1 (fptr1 fp, цео i)
 {
-  return (*fp)(i);
+  врати (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+цео f2 (fptr2 fp, цео i)
 {
-  return (*fp)(i);
+  врати (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+цео f3 (fptr3 fp, цео i)
 {
-  return (*fp)(i);
+  врати (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+цео f4 (fptr4 fp, цео i)
 {
-  return (*fp[i])(i);
+  врати (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+цео f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  врати fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+typedef цео intx4[4];
+цео f8 (intx4, цео);
+цео f8 (цео ([4]), цео);
+цео f8 (цео y[4], цео i)
 {
-  return y[i];
+  врати y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+цео f9 (цео (*)(цео), цео);
+цео f9 (цео ((цео)), цео);
+цео f9 (цео f(цео), цео i)
 {
-  return f(i);
+  врати f(i);
 }
-int main () { return 0; }
+цео main () { врати 0; }

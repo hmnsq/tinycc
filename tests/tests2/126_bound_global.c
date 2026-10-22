@@ -1,13 +1,13 @@
 /* test bound checking code without -run */
 
-int arr[10];
+цео arr[10];
 
-int
-main(int argc, char **argv)
+цео
+main(цео argc, char **argv)
 {
-  int i;
+  цео i;
 
-  for (i = 0; i <= sizeof(arr)/sizeof(arr[0]); i++)
+  за (i = 0; i <= sizeof(arr)/sizeof(arr[0]); i++)
         arr[i] = 0;
-  return 0;
+  врати 0;
 }

@@ -24,7 +24,7 @@
 #include <setjmp.h>
 #include <stdatomic.h>
 
-#if !defined(__FreeBSD__) \
+#ако !defined(__FreeBSD__) \
  && !defined(__FreeBSD_kernel__) \
  && !defined(__DragonFly__) \
  && !defined(__OpenBSD__) \
@@ -33,7 +33,7 @@
 #include <malloc.h>
 #endif
 
-#if !defined(_WIN32)
+#ако !defined(_WIN32)
 #include <unistd.h>
 #include <sys/syscall.h>
 #endif
@@ -43,9 +43,9 @@
 #define BOUND_DEBUG             (1)
 #define BOUND_STATISTIC         (1)
 
-#if BOUND_DEBUG
- #define dprintf(a...)         if (print_calls) { bounds_loc(a); }
-#else
+#ако BOUND_DEBUG
+ #define dprintf(a...)         ако (print_calls) { bounds_loc(a); }
+#инако
  #define dprintf(a...)
 #endif
 
@@ -55,17 +55,17 @@
 #endif
 #ifdef __i386__
 #define FASTCALL __attribute__((regparm(3)))
-#else
+#инако
 #define FASTCALL
 #endif
 
 #ifdef _WIN32
 # define DLL_EXPORT __declspec(dllexport)
-#else
+#инако
 # define DLL_EXPORT
 #endif
 
-#if defined(__FreeBSD__) \
+#ако defined(__FreeBSD__) \
  || defined(__FreeBSD_kernel__) \
  || defined(__DragonFly__) \
  || defined(__OpenBSD__) \
@@ -110,7 +110,7 @@ static CRITICAL_SECTION bounds_sem;
 #define HAVE_TLS_FUNC          (1)
 #define HAVE_TLS_VAR           (0)
 
-#else
+#инако
 
 #define __USE_GNU              /* get RTLD_NEXT */
 #include <sys/mman.h>
@@ -124,34 +124,34 @@ static CRITICAL_SECTION bounds_sem;
 static dispatch_semaphore_t bounds_sem;
 #define INIT_SEM()             bounds_sem = dispatch_semaphore_create(1)
 #define EXIT_SEM()             dispatch_release(*(dispatch_object_t*)&bounds_sem)
-#define WAIT_SEM()             if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_FOREVER)
-#define POST_SEM()             if (use_sem) dispatch_semaphore_signal(bounds_sem)
-#define TRY_SEM()              if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_NOW)
+#define WAIT_SEM()             ако (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_FOREVER)
+#define POST_SEM()             ако (use_sem) dispatch_semaphore_signal(bounds_sem)
+#define TRY_SEM()              ако (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_NOW)
 #elif 0
 #include <semaphore.h>
 static sem_t bounds_sem;
 #define INIT_SEM()             sem_init (&bounds_sem, 0, 1)
 #define EXIT_SEM()             sem_destroy (&bounds_sem)
-#define WAIT_SEM()             if (use_sem) while (sem_wait (&bounds_sem) < 0 \
+#define WAIT_SEM()             ако (use_sem) док (sem_wait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
-#define POST_SEM()             if (use_sem) sem_post (&bounds_sem)
-#define TRY_SEM()              if (use_sem) while (sem_trywait (&bounds_sem) < 0 \
+#define POST_SEM()             ако (use_sem) sem_post (&bounds_sem)
+#define TRY_SEM()              ако (use_sem) док (sem_trywait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
 #elif 0
 static pthread_mutex_t bounds_mtx;
 #define INIT_SEM()             pthread_mutex_init (&bounds_mtx, NULL)
 #define EXIT_SEM()             pthread_mutex_destroy (&bounds_mtx)
-#define WAIT_SEM()             if (use_sem) pthread_mutex_lock (&bounds_mtx)
-#define POST_SEM()             if (use_sem) pthread_mutex_unlock (&bounds_mtx)
-#define TRY_SEM()              if (use_sem) pthread_mutex_trylock (&bounds_mtx)
-#else
+#define WAIT_SEM()             ако (use_sem) pthread_mutex_lock (&bounds_mtx)
+#define POST_SEM()             ако (use_sem) pthread_mutex_unlock (&bounds_mtx)
+#define TRY_SEM()              ако (use_sem) pthread_mutex_trylock (&bounds_mtx)
+#инако
 static pthread_spinlock_t bounds_spin;
 /* about 25% faster then semaphore. */
 #define INIT_SEM()             pthread_spin_init (&bounds_spin, 0)
 #define EXIT_SEM()             pthread_spin_destroy (&bounds_spin)
-#define WAIT_SEM()             if (use_sem) pthread_spin_lock (&bounds_spin)
-#define POST_SEM()             if (use_sem) pthread_spin_unlock (&bounds_spin)
-#define TRY_SEM()              if (use_sem) pthread_spin_trylock (&bounds_spin)
+#define WAIT_SEM()             ако (use_sem) pthread_spin_lock (&bounds_spin)
+#define POST_SEM()             ако (use_sem) pthread_spin_unlock (&bounds_spin)
+#define TRY_SEM()              ако (use_sem) pthread_spin_trylock (&bounds_spin)
 #endif
 #define HAVE_MEMALIGN          (1)
 #define MALLOC_REDIR           (1)
@@ -161,44 +161,44 @@ static pthread_spinlock_t bounds_spin;
 #define HAVE_SIGNAL            (1)
 #define HAVE_SIGACTION         (1)
 #define HAVE_FORK              (1)
-#if defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_RUN)
+#ако defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_RUN)
 #define HAVE_TLS_FUNC          (1)
 #define HAVE_TLS_VAR           (0)
-#else
+#инако
 #define HAVE_TLS_FUNC          (0)
 #define HAVE_TLS_VAR           (1)
 #endif
-#if defined CONFIG_TCC_MUSL || defined __ANDROID__
+#ако defined CONFIG_TCC_MUSL || defined __ANDROID__
 # undef HAVE_CTYPE
 #endif
 #endif
 
-#if MALLOC_REDIR
+#ако MALLOC_REDIR
 static void *(*malloc_redir) (size_t);
 static void *(*calloc_redir) (size_t, size_t);
 static void (*free_redir) (void *);
 static void *(*realloc_redir) (void *, size_t);
-static unsigned int pool_index;
+static unsigned цео pool_index;
 static unsigned char __attribute__((aligned(16))) initial_pool[256];
 #endif
-#if HAVE_MEMALIGN
+#ако HAVE_MEMALIGN
 static void *(*memalign_redir) (size_t, size_t);
 #endif
-#if HAVE_PTHREAD_CREATE
-static int (*pthread_create_redir) (pthread_t *thread,
+#ако HAVE_PTHREAD_CREATE
+static цео (*pthread_create_redir) (pthread_t *thread,
                                     const pthread_attr_t *attr,
                                     void *(*start_routine)(void *), void *arg);
 #endif
-#if HAVE_SIGNAL
-typedef void (*bound_sig)(int);
-static bound_sig (*signal_redir) (int signum, bound_sig handler);
+#ако HAVE_SIGNAL
+typedef void (*bound_sig)(цео);
+static bound_sig (*signal_redir) (цео signum, bound_sig handler);
 #endif
-#if HAVE_SIGACTION
-static int (*sigaction_redir) (int signum, const struct sigaction *act,
+#ако HAVE_SIGACTION
+static цео (*sigaction_redir) (цео signum, const struct sigaction *act,
                                struct sigaction *oldact);
 #endif
-#if HAVE_FORK
-static int (*fork_redir) (void);
+#ако HAVE_FORK
+static цео (*fork_redir) (void);
 #endif
 
 #define TCC_TYPE_NONE           (0)
@@ -227,7 +227,7 @@ typedef struct alloca_list_struct {
     struct alloca_list_struct *next;
 } alloca_list_type;
 
-#if defined(_WIN32)
+#ако defined(_WIN32)
 #define BOUND_TID_TYPE		DWORD
 #define BOUND_GET_TID(id)	id = GetCurrentThreadId()
 #elif defined(__OpenBSD__)
@@ -242,8 +242,8 @@ typedef struct alloca_list_struct {
 #elif defined(__linux__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	id = syscall (SYS_gettid)
-#else
-#define BOUND_TID_TYPE		int
+#инако
+#define BOUND_TID_TYPE		цео
 #define BOUND_GET_TID(id)	id = 0
 #endif
 
@@ -260,13 +260,13 @@ static Tree * splay (size_t addr, Tree *t);
 static Tree * splay_end (size_t addr, Tree *t);
 static Tree * splay_insert(size_t addr, size_t size, Tree * t);
 static Tree * splay_delete(size_t addr, Tree *t);
-void splay_printtree(Tree * t, int d);
+void splay_printtree(Tree * t, цео d);
 
 /* external interface */
-void __bounds_checking (int no_check);
+void __bounds_checking (цео no_check);
 void __bound_checking_lock (void);
 void __bound_checking_unlock (void);
-void __bound_never_fatal (int no_check);
+void __bound_never_fatal (цео no_check);
 DLL_EXPORT void * __bound_ptr_add(void *p, size_t offset);
 DLL_EXPORT void * __bound_ptr_indir1(void *p, size_t offset);
 DLL_EXPORT void * __bound_ptr_indir2(void *p, size_t offset);
@@ -276,54 +276,54 @@ DLL_EXPORT void * __bound_ptr_indir12(void *p, size_t offset);
 DLL_EXPORT void * __bound_ptr_indir16(void *p, size_t offset);
 DLL_EXPORT void FASTCALL __bound_local_new(void *p1);
 DLL_EXPORT void FASTCALL __bound_local_delete(void *p1);
-void __bound_init(size_t *, int);
-void __bound_main_arg(int argc, char **argv, char **envp);
+void __bound_init(size_t *, цео);
+void __bound_main_arg(цео argc, char **argv, char **envp);
 void __bound_exit(void);
 void __bound_exit_dll(size_t *);
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot, int flags, int fd,
+#ако !defined(_WIN32)
+void *__bound_mmap (void *start, size_t size, цео prot, цео flags, цео fd,
                     off_t offset);
-int __bound_munmap (void *start, size_t size);
-DLL_EXPORT void __bound_siglongjmp(jmp_buf env, int val);
+цео __bound_munmap (void *start, size_t size);
+DLL_EXPORT void __bound_siglongjmp(jmp_buf env, цео val);
 #endif
 DLL_EXPORT void __bound_new_region(void *p, size_t size);
 DLL_EXPORT void __bound_setjmp(jmp_buf env);
-DLL_EXPORT void __bound_longjmp(jmp_buf env, int val);
+DLL_EXPORT void __bound_longjmp(jmp_buf env, цео val);
 DLL_EXPORT void *__bound_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT int __bound_memcmp(const void *s1, const void *s2, size_t size);
+DLL_EXPORT цео __bound_memcmp(const void *s1, const void *s2, size_t size);
 DLL_EXPORT void *__bound_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound_memset(void *dst, int c, size_t size);
-DLL_EXPORT int __bound_strlen(const char *s);
+DLL_EXPORT void *__bound_memset(void *dst, цео c, size_t size);
+DLL_EXPORT цео __bound_strlen(const char *s);
 DLL_EXPORT char *__bound_strcpy(char *dst, const char *src);
 DLL_EXPORT char *__bound_strncpy(char *dst, const char *src, size_t n);
-DLL_EXPORT int __bound_strcmp(const char *s1, const char *s2);
-DLL_EXPORT int __bound_strncmp(const char *s1, const char *s2, size_t n);
+DLL_EXPORT цео __bound_strcmp(const char *s1, const char *s2);
+DLL_EXPORT цео __bound_strncmp(const char *s1, const char *s2, size_t n);
 DLL_EXPORT char *__bound_strcat(char *dest, const char *src);
 DLL_EXPORT char *__bound_strncat(char *dest, const char *src, size_t n);
-DLL_EXPORT char *__bound_strchr(const char *string, int ch);
-DLL_EXPORT char *__bound_strrchr(const char *string, int ch);
+DLL_EXPORT char *__bound_strchr(const char *string, цео ch);
+DLL_EXPORT char *__bound_strrchr(const char *string, цео ch);
 DLL_EXPORT char *__bound_strdup(const char *s);
 
-#if defined(__arm__) && defined(__ARM_EABI__)
+#ако defined(__arm__) && defined(__ARM_EABI__)
 DLL_EXPORT void *__bound___aeabi_memcpy(void *dst, const void *src, size_t size);
 DLL_EXPORT void *__bound___aeabi_memmove(void *dst, const void *src, size_t size);
 DLL_EXPORT void *__bound___aeabi_memmove4(void *dst, const void *src, size_t size);
 DLL_EXPORT void *__bound___aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memset(void *dst, int c, size_t size);
+DLL_EXPORT void *__bound___aeabi_memset(void *dst, цео c, size_t size);
 DLL_EXPORT void *__aeabi_memcpy(void *dst, const void *src, size_t size);
 DLL_EXPORT void *__aeabi_memmove(void *dst, const void *src, size_t size);
 DLL_EXPORT void *__aeabi_memmove4(void *dst, const void *src, size_t size);
 DLL_EXPORT void *__aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memset(void *dst, int c, size_t size);
+DLL_EXPORT void *__aeabi_memset(void *dst, цео c, size_t size);
 #endif
 
-#if MALLOC_REDIR
+#ако MALLOC_REDIR
 #define BOUND_MALLOC(a)          malloc_redir(a)
 #define BOUND_MEMALIGN(a,b)      memalign_redir(a,b)
 #define BOUND_FREE(a)            free_redir(a)
 #define BOUND_REALLOC(a,b)       realloc_redir(a,b)
 #define BOUND_CALLOC(a,b)        calloc_redir(a,b)
-#else
+#инако
 #define BOUND_MALLOC(a)          malloc(a)
 #define BOUND_MEMALIGN(a,b)      memalign(a,b)
 #define BOUND_FREE(a)            free(a)
@@ -337,12 +337,12 @@ DLL_EXPORT void *__bound_calloc(size_t nmemb, size_t size);
 #endif
 
 #define FREE_REUSE_SIZE (100)
-static unsigned int free_reuse_index;
+static unsigned цео free_reuse_index;
 static void *free_reuse_list[FREE_REUSE_SIZE];
 
 static Tree *tree = NULL;
 #define TREE_REUSE      (1)
-#if TREE_REUSE
+#ако TREE_REUSE
 static Tree *tree_free_list;
 #endif
 static alloca_list_type *alloca_list;
@@ -355,55 +355,55 @@ static unsigned char print_heap;
 static unsigned char print_statistic;
 static unsigned char no_strdup;
 static unsigned char use_sem;
-static _Atomic int never_fatal;
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-static int no_checking = 0;
+static _Atomic цео never_fatal;
+#ако HAVE_TLS_FUNC
+#ако defined(_WIN32)
+static цео no_checking = 0;
 static DWORD no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) LocalAlloc(LPTR, sizeof(int));  \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+#define NO_CHECKING_CHECK() ако (!p) {                                         \
+                                  p = (цео *) LocalAlloc(LPTR, sizeof(цео));  \
+                                  ако (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
                                   TlsSetValue(no_checking_key, p);            \
                             }
-#define NO_CHECKING_GET()   ({ int *p = TlsGetValue(no_checking_key);         \
+#define NO_CHECKING_GET()   ({ цео *p = TlsGetValue(no_checking_key);         \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = TlsGetValue(no_checking_key);          \
+#define NO_CHECKING_SET(v)  { цео *p = TlsGetValue(no_checking_key);          \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
-#else
-static int no_checking = 0;
+#инако
+static цео no_checking = 0;
 static pthread_key_t no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) BOUND_MALLOC(sizeof(int));      \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+#define NO_CHECKING_CHECK() ако (!p) {                                         \
+                                  p = (цео *) BOUND_MALLOC(sizeof(цео));      \
+                                  ако (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
                                   pthread_setspecific(no_checking_key, p);    \
                             }
-#define NO_CHECKING_GET()   ({ int *p = pthread_getspecific(no_checking_key); \
+#define NO_CHECKING_GET()   ({ цео *p = pthread_getspecific(no_checking_key); \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = pthread_getspecific(no_checking_key);  \
+#define NO_CHECKING_SET(v)  { цео *p = pthread_getspecific(no_checking_key);  \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
 #endif
 #elif HAVE_TLS_VAR
-static __thread int no_checking = 0;
+static __thread цео no_checking = 0;
 #define NO_CHECKING_GET()  no_checking
 #define NO_CHECKING_SET(v) no_checking = v 
-#else
-static _Atomic int no_checking = 0;
+#инако
+static _Atomic цео no_checking = 0;
 #define NO_CHECKING_GET()  no_checking
 #define NO_CHECKING_SET(v) no_checking = v 
 #endif
 static char exec[100];
 
-#if BOUND_STATISTIC
+#ако BOUND_STATISTIC
 static unsigned long long bound_ptr_add_count;
 static unsigned long long bound_ptr_indir1_count;
 static unsigned long long bound_ptr_indir2_count;
@@ -439,20 +439,20 @@ static unsigned long long bound_strrchr_count;
 static unsigned long long bound_strdup_count;
 static unsigned long long bound_not_found;
 #define INCR_COUNT(x)          ++x
-#else
+#инако
 #define INCR_COUNT(x)
 #endif
-#if BOUND_STATISTIC_SPLAY
+#ако BOUND_STATISTIC_SPLAY
 static unsigned long long bound_splay;
 static unsigned long long bound_splay_end;
 static unsigned long long bound_splay_insert;
 static unsigned long long bound_splay_delete;
 #define INCR_COUNT_SPLAY(x)    ++x
-#else
+#инако
 #define INCR_COUNT_SPLAY(x)
 #endif
 
-int tcc_backtrace(const char *fmt, ...);
+цео tcc_backtrace(const char *fmt, ...);
 
 /* print a bound error message */
 #define bound_warning(...) \
@@ -460,21 +460,21 @@ int tcc_backtrace(const char *fmt, ...);
         WAIT_SEM ();                                     \
         tcc_backtrace("^bcheck.c^BCHECK: " __VA_ARGS__); \
         POST_SEM ();                                     \
-    } while (0)
+    } док (0)
 
 #define bound_error(...)            \
     do {                            \
         bound_warning(__VA_ARGS__); \
-        if (never_fatal == 0)       \
+        ако (never_fatal == 0)       \
             exit(255);              \
-    } while (0)
+    } док (0)
 
 #define bounds_loc(fp, ...) \
     do {                            \
         WAIT_SEM (); \
         tcc_backtrace("^bcheck.c^\001" __VA_ARGS__); \
         POST_SEM (); \
-    } while (0)
+    } док (0)
 
 static void bound_alloc_error(const char *s)
 {
@@ -489,11 +489,11 @@ static void bound_not_found_warning(const char *file, const char *function,
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bounds_checking (int no_check)
+void __bounds_checking (цео no_check)
 {
-#if HAVE_TLS_FUNC || HAVE_TLS_VAR
+#ако HAVE_TLS_FUNC || HAVE_TLS_VAR
     NO_CHECKING_SET(NO_CHECKING_GET() + no_check);
-#else
+#инако
     atomic_fetch_add (&no_checking, no_check);
 #endif
 }
@@ -509,7 +509,7 @@ void __bound_checking_unlock(void)
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bound_never_fatal (int neverfatal)
+void __bound_never_fatal (цео neverfatal)
 {
     atomic_fetch_add (&never_fatal, neverfatal);
 }
@@ -520,47 +520,47 @@ void * __bound_ptr_add(void *p, size_t offset)
 {
     size_t addr = (size_t)p;
 
-    if (NO_CHECKING_GET())
-        return p + offset;
+    ако (NO_CHECKING_GET())
+        врати p + offset;
 
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",
             __FILE__, __FUNCTION__, p, (unsigned long)offset);
 
     WAIT_SEM ();
     INCR_COUNT(bound_ptr_add_count);
-    if (tree) {
+    ако (tree) {
         addr -= tree->start;
-        if (addr >= tree->size) {
+        ако (addr >= tree->size) {
             addr = (size_t)p;
             tree = splay (addr, tree);
             addr -= tree->start;
         }
-        if (addr >= tree->size) {
+        ако (addr >= tree->size) {
             addr = (size_t)p;
             tree = splay_end (addr, tree);
             addr -= tree->start;
         }
-        if (addr <= tree->size) {
-            if (tree->is_invalid || addr + offset > tree->size) {
+        ако (addr <= tree->size) {
+            ако (tree->is_invalid || addr + offset > tree->size) {
                 POST_SEM ();
-                if (print_warn_ptr_add)
+                ако (print_warn_ptr_add)
                     bound_warning("%p is outside of the region (0x%lx..0x%lx)",
                                   p + offset, (long)tree->start,
                                   (long)(tree->start + tree->size - 1));
-                if (never_fatal <= 0)
-                    return INVALID_POINTER; /* return an invalid pointer */
-                return p + offset;
+                ако (never_fatal <= 0)
+                    врати INVALID_POINTER; /* return an invalid pointer */
+                врати p + offset;
             }
         }
-        else if (p) { /* Allow NULL + offset. offsetoff is using it. */
+        инако ако (p) { /* Allow NULL + offset. offsetoff is using it. */
             INCR_COUNT(bound_not_found);
             POST_SEM ();
             bound_not_found_warning (__FILE__, __FUNCTION__, p);
-            return p + offset;
+            врати p + offset;
         }
     }
     POST_SEM ();
-    return p + offset;
+    врати p + offset;
 }
 
 /* return '(p + offset)' for pointer indirection (the resulting must
@@ -570,46 +570,46 @@ void * __bound_ptr_indir ## dsize (void *p, size_t offset)                     \
 {                                                                              \
     size_t addr = (size_t)p;                                                   \
                                                                                \
-    if (NO_CHECKING_GET())                                                     \
-        return p + offset;                                                     \
+    ако (NO_CHECKING_GET())                                                     \
+        врати p + offset;                                                     \
                                                                                \
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",                                    \
             __FILE__, __FUNCTION__, p, (unsigned long)offset);                 \
     WAIT_SEM ();                                                               \
     INCR_COUNT(bound_ptr_indir ## dsize ## _count);                            \
-    if (tree) {                                                                \
+    ако (tree) {                                                                \
         addr -= tree->start;                                                   \
-        if (addr >= tree->size) {                                              \
+        ако (addr >= tree->size) {                                              \
             addr = (size_t)p;                                                  \
             tree = splay (addr, tree);                                         \
             addr -= tree->start;                                               \
         }                                                                      \
-        if (addr >= tree->size) {                                              \
+        ако (addr >= tree->size) {                                              \
             addr = (size_t)p;                                                  \
             tree = splay_end (addr, tree);                                     \
             addr -= tree->start;                                               \
         }                                                                      \
-        if (addr <= tree->size) {                                              \
-            if (tree->is_invalid || addr + offset + dsize > tree->size) {      \
+        ако (addr <= tree->size) {                                              \
+            ако (tree->is_invalid || addr + offset + dsize > tree->size) {      \
                 POST_SEM ();                                                   \
                 bound_warning("%p (size %d) is outside of the region "         \
                               "(0x%lx..0x%lx)",                                \
                               p + offset, dsize, (long)tree->start,            \
                               (long)(tree->start + tree->size - 1));           \
-                if (never_fatal <= 0)                                          \
-                    return INVALID_POINTER; /* return an invalid pointer */    \
-                return p + offset;                                             \
+                ако (never_fatal <= 0)                                          \
+                    врати INVALID_POINTER; /* return an invalid pointer */    \
+                врати p + offset;                                             \
             }                                                                  \
         }                                                                      \
-        else {                                                                 \
+        инако {                                                                 \
             INCR_COUNT(bound_not_found);                                       \
             POST_SEM ();                                                       \
             bound_not_found_warning (__FILE__, __FUNCTION__, p);               \
-            return p + offset;                                                 \
+            врати p + offset;                                                 \
         }                                                                      \
     }                                                                          \
     POST_SEM ();                                                               \
-    return p + offset;                                                         \
+    врати p + offset;                                                         \
 }
 
 BOUND_PTR_INDIR(1)
@@ -620,7 +620,7 @@ BOUND_PTR_INDIR(12)
 BOUND_PTR_INDIR(16)
 
 /* Needed when using ...libtcc1-usegcc=yes in lib/Makefile */
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#ако (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
 /*
  * At least gcc 6.2 complains when __builtin_frame_address is used with
  * nonzero argument.
@@ -640,22 +640,22 @@ void FASTCALL __bound_local_new(void *p1)
 {
     size_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    ако (NO_CHECKING_GET())
+         врати;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
             __FILE__, __FUNCTION__, p, (void *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
+    док ((addr = p[0])) {
         INCR_COUNT(bound_local_new_count);
         tree = splay_insert(addr + fp, p[1], tree);
         p += 2;
     }
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#ако BOUND_DEBUG
+    ако (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
+        док ((addr = p[0])) {
             dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                     __FILE__, __FUNCTION__,
                     (void *) (addr + fp), (unsigned long) p[1]);
@@ -670,26 +670,26 @@ void FASTCALL __bound_local_delete(void *p1)
 {
     size_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    ако (NO_CHECKING_GET())
+         врати;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
             __FILE__, __FUNCTION__, p, (void *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
+    док ((addr = p[0])) {
         INCR_COUNT(bound_local_delete_count);
         tree = splay_delete(addr + fp, tree);
         p += 2;
     }
-    if (alloca_list) {
+    ако (alloca_list) {
         alloca_list_type *last = NULL;
         alloca_list_type *cur = alloca_list;
 
         do {
-            if (cur->fp == fp) {
-                if (last)
+            ако (cur->fp == fp) {
+                ако (last)
                     last->next = cur->next;
-                else
+                инако
                     alloca_list = cur->next;
                 tree = splay_delete ((size_t) cur->p, tree);
                 dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
@@ -697,40 +697,40 @@ void FASTCALL __bound_local_delete(void *p1)
                 BOUND_FREE (cur);
                 cur = last ? last->next : alloca_list;
              }
-             else {
+             инако {
                  last = cur;
                  cur = cur->next;
              }
-        } while (cur);
+        } док (cur);
     }
-    if (jmp_list) {
+    ако (jmp_list) {
         jmp_list_type *last = NULL;
         jmp_list_type *cur = jmp_list;
 
         do {
-            if (cur->fp == fp) {
-                if (last)
+            ако (cur->fp == fp) {
+                ако (last)
                     last->next = cur->next;
-                else
+                инако
                     jmp_list = cur->next;
                 dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                        __FILE__, __FUNCTION__, cur->penv);
                 BOUND_FREE (cur);
                 cur = last ? last->next : jmp_list;
             }
-            else {
+            инако {
                 last = cur;
                 cur = cur->next;
             }
-        } while (cur);
+        } док (cur);
     }
 
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#ако BOUND_DEBUG
+    ако (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
-            if (addr != 1) {
+        док ((addr = p[0])) {
+            ако (addr != 1) {
                 dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
                         (void *) (addr + fp), (unsigned long) p[1]);
@@ -749,8 +749,8 @@ void __bound_new_region(void *p, size_t size)
     alloca_list_type *cur;
     alloca_list_type *new;
 
-    if (NO_CHECKING_GET())
-        return;
+    ако (NO_CHECKING_GET())
+        врати;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, p, (unsigned long)size);
@@ -760,21 +760,21 @@ void __bound_new_region(void *p, size_t size)
     INCR_COUNT(bound_alloca_count);
     last = NULL;
     cur = alloca_list;
-    while (cur) {
-#if defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
-        int align = 4;
+    док (cur) {
+#ако defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
+        цео align = 4;
 #elif defined(__arm__)
-        int align = 8;
-#else
-        int align = 16;
+        цео align = 8;
+#инако
+        цео align = 16;
 #endif
         void *cure = (void *)((char *)cur->p + ((cur->size + align) & -align));
         void *pe = (void *)((char *)p + ((size + align) & -align));
-        if (cur->fp == fp && ((cur->p <= p && cure > p) ||
+        ако (cur->fp == fp && ((cur->p <= p && cure > p) ||
                               (p <= cur->p && pe > cur->p))) {
-            if (last)
+            ако (last)
                 last->next = cur->next;
-            else
+            инако
                 alloca_list = cur->next;
             tree = splay_delete((size_t)cur->p, tree);
             break;
@@ -783,7 +783,7 @@ void __bound_new_region(void *p, size_t size)
         cur = cur->next;
     }
     tree = splay_insert((size_t)p, size, tree);
-    if (new) {
+    ако (new) {
         new->fp = fp;
         new->p = p;
         new->size = size;
@@ -791,7 +791,7 @@ void __bound_new_region(void *p, size_t size)
         alloca_list = new;
     }
     POST_SEM ();
-    if (cur) {
+    ако (cur) {
         dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                 __FILE__, __FUNCTION__, cur->p);
         BOUND_FREE (cur);
@@ -803,25 +803,25 @@ void __bound_setjmp(jmp_buf env)
     jmp_list_type *jl;
     void *e = (void *) env;
 
-    if (NO_CHECKING_GET() == 0) {
+    ако (NO_CHECKING_GET() == 0) {
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, e);
         WAIT_SEM ();
         INCR_COUNT(bound_setjmp_count);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e)
+        док (jl) {
+            ако (jl->penv == e)
                 break;
             jl = jl->next;
         }
-        if (jl == NULL) {
+        ако (jl == NULL) {
             jl = BOUND_MALLOC (sizeof (jmp_list_type));
-            if (jl) {
+            ако (jl) {
                 jl->penv = e;
                 jl->next = jmp_list;
                 jmp_list = jl;
             }
         }
-        if (jl) {
+        ако (jl) {
             size_t fp;
 
             GET_CALLER_FP (fp);
@@ -833,63 +833,63 @@ void __bound_setjmp(jmp_buf env)
     }
 }
 
-static void __bound_long_jump(jmp_buf env, int val, int sig, const char *func)
+static void __bound_long_jump(jmp_buf env, цео val, цео sig, const char *func)
 {
     jmp_list_type *jl;
     void *e;
     BOUND_TID_TYPE tid;
 
-    if (NO_CHECKING_GET() == 0) {
+    ако (NO_CHECKING_GET() == 0) {
         e = (void *)env;
         BOUND_GET_TID(tid);
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, func, e);
         WAIT_SEM();
         INCR_COUNT(bound_longjmp_count);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e && jl->tid == tid) {
+        док (jl) {
+            ако (jl->penv == e && jl->tid == tid) {
                 size_t start_fp = (size_t)__builtin_frame_address(0);
                 size_t end_fp = jl->end_fp;
                 jmp_list_type *cur = jmp_list;
                 jmp_list_type *last = NULL;
 
-                while (cur->penv != e || cur->tid != tid) {
-                    if (cur->tid == tid) {
+                док (cur->penv != e || cur->tid != tid) {
+                    ако (cur->tid == tid) {
                         dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                                 __FILE__, func, cur->penv);
-                        if (last)
+                        ако (last)
                             last->next = cur->next;
-                        else
+                        инако
                             jmp_list = cur->next;
                         BOUND_FREE (cur);
                         cur = last ? last->next : jmp_list;
                     }
-                    else {
+                    инако {
                         last = cur;
                         cur = cur->next;
                     }
                 }
-                for (;;) {
+                за (;;) {
                     Tree *t = tree;
                     alloca_list_type *last;
                     alloca_list_type *cur;
 
-                    while (t && (t->start < start_fp || t->start > end_fp))
-                        if (t->start < start_fp)
+                    док (t && (t->start < start_fp || t->start > end_fp))
+                        ако (t->start < start_fp)
                             t = t->right;
-                        else
+                        инако
                             t = t->left;
-                    if (t == NULL)
+                    ако (t == NULL)
                         break;
                     last = NULL;
                     cur = alloca_list;
-                    while (cur) {
-                         if ((size_t) cur->p == t->start) {
+                    док (cur) {
+                         ако ((size_t) cur->p == t->start) {
                              dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                                      __FILE__, func, cur->p);
-                             if (last)
+                             ако (last)
                                  last->next = cur->next;
-                             else
+                             инако
                                  alloca_list = cur->next;
                              BOUND_FREE (cur);
                              break;
@@ -907,44 +907,44 @@ static void __bound_long_jump(jmp_buf env, int val, int sig, const char *func)
         }
         POST_SEM();
     }
-#if !defined(_WIN32)
+#ако !defined(_WIN32)
     sig ? siglongjmp(env, val) :
 #endif
     longjmp (env, val);
 }
 
-void __bound_longjmp(jmp_buf env, int val)
+void __bound_longjmp(jmp_buf env, цео val)
 {
     __bound_long_jump(env,val, 0, __FUNCTION__);
 }
 
-#if !defined(_WIN32)
-void __bound_siglongjmp(jmp_buf env, int val)
+#ако !defined(_WIN32)
+void __bound_siglongjmp(jmp_buf env, цео val)
 {
     __bound_long_jump(env,val, 1, __FUNCTION__);
 }
 #endif
 
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#ако (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
 #pragma GCC diagnostic pop
 #endif
 
-void __bound_init(size_t *p, int mode)
+void __bound_init(size_t *p, цео mode)
 {
     dprintf(stderr, "%s, %s(): start %s\n", __FILE__, __FUNCTION__,
             mode < 0 ? "lazy" : mode == 0 ? "normal use" : "for -run");
 
-    if (inited) {
+    ако (inited) {
         WAIT_SEM();
         goto add_bounds;
     }
     inited = 1;
 
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
+#ако HAVE_TLS_FUNC
+#ако defined(_WIN32)
     no_checking_key = TlsAlloc();
     TlsSetValue(no_checking_key, &no_checking);
-#else
+#инако
     pthread_key_create(&no_checking_key, NULL);
     pthread_setspecific(no_checking_key, &no_checking);
 #endif
@@ -959,7 +959,7 @@ void __bound_init(size_t *p, int mode)
 
     INIT_SEM ();
 
-#if MALLOC_REDIR
+#ако MALLOC_REDIR
     {
         void *addr = mode > 0 ? RTLD_DEFAULT : RTLD_NEXT;
 
@@ -968,7 +968,7 @@ void __bound_init(size_t *p, int mode)
            generated code segment isn't registered with dyld and hence the
            caller image of dlsym isn't known to it */
         *(void **) (&malloc_redir) = dlsym (addr, "malloc");
-        if (malloc_redir == NULL) {
+        ако (malloc_redir == NULL) {
             dprintf(stderr, "%s, %s(): use RTLD_DEFAULT\n",
                     __FILE__, __FUNCTION__);
             addr = RTLD_DEFAULT;
@@ -986,34 +986,34 @@ void __bound_init(size_t *p, int mode)
                 __FILE__, __FUNCTION__, realloc_redir);
         dprintf(stderr, "%s, %s(): memalign_redir %p\n",
                 __FILE__, __FUNCTION__, memalign_redir);
-        if (malloc_redir == NULL || free_redir == NULL)
+        ако (malloc_redir == NULL || free_redir == NULL)
             bound_alloc_error ("Cannot redirect malloc/free");
-#if HAVE_PTHREAD_CREATE
+#ако HAVE_PTHREAD_CREATE
         *(void **) (&pthread_create_redir) = dlsym (addr, "pthread_create");
         dprintf(stderr, "%s, %s(): pthread_create_redir %p\n",
                 __FILE__, __FUNCTION__, pthread_create_redir);
-        if (pthread_create_redir == NULL)
+        ако (pthread_create_redir == NULL)
             bound_alloc_error ("Cannot redirect pthread_create");
 #endif
-#if HAVE_SIGNAL
+#ако HAVE_SIGNAL
         *(void **) (&signal_redir) = dlsym (addr, "signal");
         dprintf(stderr, "%s, %s(): signal_redir %p\n",
                 __FILE__, __FUNCTION__, signal_redir);
-        if (signal_redir == NULL)
+        ако (signal_redir == NULL)
             bound_alloc_error ("Cannot redirect signal");
 #endif
-#if HAVE_SIGACTION
+#ако HAVE_SIGACTION
         *(void **) (&sigaction_redir) = dlsym (addr, "sigaction");
         dprintf(stderr, "%s, %s(): sigaction_redir %p\n",
                 __FILE__, __FUNCTION__, sigaction_redir);
-        if (sigaction_redir == NULL)
+        ако (sigaction_redir == NULL)
             bound_alloc_error ("Cannot redirect sigaction");
 #endif
-#if HAVE_FORK
+#ако HAVE_FORK
         *(void **) (&fork_redir) = dlsym (addr, "fork");
         dprintf(stderr, "%s, %s(): fork_redir %p\n",
                 __FILE__, __FUNCTION__, fork_redir);
-        if (fork_redir == NULL)
+        ако (fork_redir == NULL)
             bound_alloc_error ("Cannot redirect fork");
 #endif
     }
@@ -1031,10 +1031,10 @@ void __bound_init(size_t *p, int mode)
 
         /* Display exec name. Usefull when a lot of code is compiled with tcc */
         fp = fopen ("/proc/self/comm", "r");
-        if (fp) {
+        ако (fp) {
             memset (exec, 0, sizeof(exec));
             fread (exec, 1, sizeof(exec) - 2, fp);
-            if (strchr(exec,'\n'))
+            ако (strchr(exec,'\n'))
                 *strchr(exec,'\n') = '\0';
             strcat (exec, ":");
             fclose (fp);
@@ -1042,19 +1042,19 @@ void __bound_init(size_t *p, int mode)
         /* check if dlopen is used (is threre a better way?) */ 
         found = 0;
         fp = fopen ("/proc/self/maps", "r");
-        if (fp) {
-            while (fgets (line, sizeof(line), fp)) {
-                if (sscanf (line, "%lx-%lx", &start, &end) == 2 &&
+        ако (fp) {
+            док (fgets (line, sizeof(line), fp)) {
+                ако (sscanf (line, "%lx-%lx", &start, &end) == 2 &&
                             ad >= start && ad < end) {
                     found = 1;
                     break;
                 }
-                if (strstr (line,"[heap]"))
+                ако (strstr (line,"[heap]"))
                     break;
             }
             fclose (fp);
         }
-        if (found == 0) {
+        ако (found == 0) {
             use_sem = 1;
             no_strdup = 1;
         }
@@ -1063,11 +1063,11 @@ void __bound_init(size_t *p, int mode)
 
     WAIT_SEM ();
 
-#if HAVE_CTYPE
+#ако HAVE_CTYPE
 #ifdef __APPLE__
     tree = splay_insert((size_t) &_DefaultRuneLocale,
                         sizeof (_DefaultRuneLocale), tree);
-#else
+#инако
     /* XXX: Does not work if locale is changed */
     tree = splay_insert((size_t) __ctype_b_loc(),
                         sizeof (unsigned short *), tree);
@@ -1083,18 +1083,18 @@ void __bound_init(size_t *p, int mode)
                         384 * sizeof (__int32_t), tree);
 #endif
 #endif
-#if HAVE_ERRNO
-    tree = splay_insert((size_t) (&errno), sizeof (int), tree);
+#ако HAVE_ERRNO
+    tree = splay_insert((size_t) (&errno), sizeof (цео), tree);
 #endif
 
 add_bounds:
-    if (!p)
+    ако (!p)
         goto no_bounds;
 
     /* add all static bound check values */
-    while (p[0] != 0) {
+    док (p[0] != 0) {
         tree = splay_insert(p[0], p[1], tree);
-#if BOUND_DEBUG
+#ако BOUND_DEBUG
         dprintf(stderr, "%s, %s(): static var %p 0x%lx\n",
                 __FILE__, __FUNCTION__,
                 (void *) p[0], (unsigned long) p[1]);
@@ -1109,47 +1109,47 @@ no_bounds:
 }
 
 void
-#if (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
+#ако (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
 __attribute__((constructor))
 #endif
-__bound_main_arg(int argc, char **argv, char **envp)
+__bound_main_arg(цео argc, char **argv, char **envp)
 {
     __bound_init (0, -1);
-    if (argc && argv) {
-        int i;
+    ако (argc && argv) {
+        цео i;
 
         WAIT_SEM ();
-        for (i = 0; i < argc; i++)
+        за (i = 0; i < argc; i++)
             tree = splay_insert((size_t) argv[i], strlen (argv[i]) + 1, tree);
         tree = splay_insert((size_t) argv, (argc + 1) * sizeof(char *), tree);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
-            for (i = 0; i < argc; i++)
+#ако BOUND_DEBUG
+        ако (print_calls) {
+            за (i = 0; i < argc; i++)
                 dprintf(stderr, "%s, %s(): arg %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
                         argv[i], (unsigned long)(strlen (argv[i]) + 1));
             dprintf(stderr, "%s, %s(): argv %p %d\n",
                     __FILE__, __FUNCTION__, argv,
-                    (int)((argc + 1) * sizeof(char *)));
+                    (цео)((argc + 1) * sizeof(char *)));
         }
 #endif
     }
 
-    if (envp && *envp) {
+    ако (envp && *envp) {
         char **p = envp;
 
         WAIT_SEM ();
-        while (*p) {
+        док (*p) {
             tree = splay_insert((size_t) *p, strlen (*p) + 1, tree);
             ++p;
         }
         tree = splay_insert((size_t) envp, (++p - envp) * sizeof(char *), tree);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
+#ако BOUND_DEBUG
+        ако (print_calls) {
             p = envp;
-            while (*p) {
+            док (*p) {
                 dprintf(stderr, "%s, %s(): env %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
                         *p, (unsigned long)(strlen (*p) + 1));
@@ -1157,7 +1157,7 @@ __bound_main_arg(int argc, char **argv, char **envp)
             }
             dprintf(stderr, "%s, %s(): environ %p %d\n",
                     __FILE__, __FUNCTION__, envp,
-                    (int)((++p - envp) * sizeof(char *)));
+                    (цео)((++p - envp) * sizeof(char *)));
         }
 #endif
     }
@@ -1165,18 +1165,18 @@ __bound_main_arg(int argc, char **argv, char **envp)
 
 void __attribute__((destructor)) __bound_exit(void)
 {
-    int i;
+    цео i;
     static const char * const alloc_type[] = {
         "", "malloc", "calloc", "realloc", "memalign", "strdup"
     };
 
     dprintf(stderr, "%s, %s():\n", __FILE__, __FUNCTION__);
 
-    if (inited) {
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
+    ако (inited) {
+#ако !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
     !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__NetBSD__) && \
     !defined(__ANDROID__)
-        if (print_heap) {
+        ако (print_heap) {
             extern void __libc_freeres (void);
             __libc_freeres ();
         }
@@ -1185,34 +1185,34 @@ void __attribute__((destructor)) __bound_exit(void)
         NO_CHECKING_SET(1);
 
         TRY_SEM ();
-        while (alloca_list) {
+        док (alloca_list) {
             alloca_list_type *next = alloca_list->next;
 
             tree = splay_delete ((size_t) alloca_list->p, tree);
             BOUND_FREE (alloca_list);
             alloca_list = next;
         }
-        while (jmp_list) {
+        док (jmp_list) {
            jmp_list_type *next  = jmp_list->next;
 
            BOUND_FREE (jmp_list);
            jmp_list = next;
         }
-        for (i = 0; i < FREE_REUSE_SIZE; i++) {
-            if (free_reuse_list[i]) {
+        за (i = 0; i < FREE_REUSE_SIZE; i++) {
+            ако (free_reuse_list[i]) {
                 tree = splay_delete ((size_t) free_reuse_list[i], tree);
                 BOUND_FREE (free_reuse_list[i]);
              }
         }
-        while (tree) {
-            if (print_heap && tree->type != 0)
+        док (tree) {
+            ако (print_heap && tree->type != 0)
                 fprintf (stderr, "%s, %s(): %s found size %lu\n",
                          __FILE__, __FUNCTION__, alloc_type[tree->type],
                          (unsigned long) tree->size);
             tree = splay_delete (tree->start, tree);
         }
-#if TREE_REUSE
-        while (tree_free_list) {
+#ако TREE_REUSE
+        док (tree_free_list) {
             Tree *next = tree_free_list->left;
             BOUND_FREE (tree_free_list);
             tree_free_list = next;
@@ -1220,16 +1220,16 @@ void __attribute__((destructor)) __bound_exit(void)
 #endif
         POST_SEM ();
         EXIT_SEM ();
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
+#ако HAVE_TLS_FUNC
+#ако defined(_WIN32)
         TlsFree(no_checking_key);
-#else
+#инако
         pthread_key_delete(no_checking_key);
 #endif
 #endif
         inited = 0;
-        if (print_statistic) {
-#if BOUND_STATISTIC
+        ако (print_statistic) {
+#ако BOUND_STATISTIC
             fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_add_count);
             fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_count);
             fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_count);
@@ -1265,7 +1265,7 @@ void __attribute__((destructor)) __bound_exit(void)
             fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_count);
             fprintf (stderr, "bound_not_found          %llu\n", bound_not_found);
 #endif
-#if BOUND_STATISTIC_SPLAY
+#ако BOUND_STATISTIC_SPLAY
             fprintf (stderr, "bound_splay              %llu\n", bound_splay);
             fprintf (stderr, "bound_splay_end          %llu\n", bound_splay_end);
             fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_insert);
@@ -1279,12 +1279,12 @@ void __bound_exit_dll(size_t *p)
 {
     dprintf(stderr, "%s, %s()\n", __FILE__, __FUNCTION__);
 
-    if (p) {
+    ако (p) {
         WAIT_SEM ();
-	while (p[0] != 0) {
+	док (p[0] != 0) {
 	    tree = splay_delete(p[0], tree);
-#if BOUND_DEBUG
-            if (print_calls) {
+#ако BOUND_DEBUG
+            ако (print_calls) {
                 dprintf(stderr, "%s, %s(): remove static var %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
                         (void *) p[0], (unsigned long) p[1]);
@@ -1296,7 +1296,7 @@ void __bound_exit_dll(size_t *p)
     }
 }
 
-#if HAVE_PTHREAD_CREATE
+#ако HAVE_PTHREAD_CREATE
 typedef struct {
     void *(*start_routine) (void *);
     void *arg;
@@ -1307,27 +1307,27 @@ static void *bound_thread_create(void *bdata)
 {
     bound_thread_create_type *data = (bound_thread_create_type *) bdata;
     void *retval;
-#if HAVE_TLS_FUNC
-    int *p = (int *) BOUND_MALLOC(sizeof(int));
+#ако HAVE_TLS_FUNC
+    цео *p = (цео *) BOUND_MALLOC(sizeof(цео));
   
-    if (!p) bound_alloc_error("bound_thread_create malloc");
+    ако (!p) bound_alloc_error("bound_thread_create malloc");
     *p = 0;
     pthread_setspecific(no_checking_key, p);
 #endif
     pthread_sigmask(SIG_SETMASK, &data->old_mask, NULL);
     retval = data->start_routine(data->arg);
-#if HAVE_TLS_FUNC
+#ако HAVE_TLS_FUNC
     pthread_setspecific(no_checking_key, NULL);
     BOUND_FREE (p);
 #endif
     BOUND_FREE (data);
-    return retval;
+    врати retval;
 }
 
-int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+цео pthread_create(pthread_t *thread, const pthread_attr_t *attr,
                    void *(*start_routine) (void *), void *arg)
 {
-    int retval;
+    цео retval;
     bound_thread_create_type *data;
     sigset_t mask;
     sigset_t old_mask;
@@ -1337,24 +1337,24 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
     sigfillset(&mask);
     pthread_sigmask(SIG_SETMASK, &mask, &old_mask);
     data = (bound_thread_create_type *) BOUND_MALLOC(sizeof(bound_thread_create_type));
-    if (!data) bound_alloc_error("bound_thread_create malloc");
+    ако (!data) bound_alloc_error("bound_thread_create malloc");
     data->start_routine = start_routine;
     data->arg = arg;
     data->old_mask = old_mask;
     retval = pthread_create_redir(thread, attr, bound_thread_create, data);
     pthread_sigmask(SIG_SETMASK, &old_mask, NULL);
-    return retval;
+    врати retval;
 }
 #endif
 
-#if HAVE_SIGNAL || HAVE_SIGACTION
+#ако HAVE_SIGNAL || HAVE_SIGACTION
 typedef union {
-#if HAVE_SIGNAL
+#ако HAVE_SIGNAL
     bound_sig signal_handler;
 #endif
-#if HAVE_SIGACTION
-    void (*sig_handler)(int);
-    void (*sig_sigaction)(int, siginfo_t *, void *);
+#ако HAVE_SIGACTION
+    void (*sig_handler)(цео);
+    void (*sig_sigaction)(цео, siginfo_t *, void *);
 #endif
 } bound_sig_type;
 
@@ -1362,126 +1362,126 @@ static unsigned char bound_sig_used[NSIG];
 static bound_sig_type bound_sig_data[NSIG];
 #endif
 
-#if HAVE_SIGNAL
-static void signal_handler(int sig)
+#ако HAVE_SIGNAL
+static void signal_handler(цео sig)
 {
    __bounds_checking(1);
    bound_sig_data[sig].signal_handler(sig);
    __bounds_checking(-1);
 }
 
-bound_sig signal(int signum, bound_sig handler)
+bound_sig signal(цео signum, bound_sig handler)
 {
     bound_sig retval;
 
     dprintf (stderr, "%s, %s() %d %p\n", __FILE__, __FUNCTION__,
              signum, handler);
     retval = signal_redir(signum, handler ? signal_handler : handler);
-    if (retval != SIG_ERR) {
-        if (bound_sig_used[signum])
+    ако (retval != SIG_ERR) {
+        ако (bound_sig_used[signum])
             retval = bound_sig_data[signum].signal_handler;
-        if (handler) {
+        ако (handler) {
             bound_sig_used[signum] = 1;
             bound_sig_data[signum].signal_handler = handler;
         }
     }
-    return retval;
+    врати retval;
 }
 #endif
 
-#if HAVE_SIGACTION
-static void sig_handler(int sig)
+#ако HAVE_SIGACTION
+static void sig_handler(цео sig)
 {
    __bounds_checking(1);
    bound_sig_data[sig].sig_handler(sig);
    __bounds_checking(-1);
 }
 
-static void sig_sigaction(int sig, siginfo_t *info, void *ucontext)
+static void sig_sigaction(цео sig, siginfo_t *info, void *ucontext)
 {
    __bounds_checking(1);
    bound_sig_data[sig].sig_sigaction(sig, info, ucontext);
    __bounds_checking(-1);
 }
 
-int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)
+цео sigaction(цео signum, const struct sigaction *act, struct sigaction *oldact)
 {
-    int retval;
+    цео retval;
     struct sigaction nact, oact;
 
     dprintf (stderr, "%s, %s() %d %p %p\n", __FILE__, __FUNCTION__,
              signum, act, oldact);
 
-    if (sigaction_redir == NULL)
+    ако (sigaction_redir == NULL)
         __bound_init(0,-1);
 
-    if (act) {
+    ако (act) {
         nact = *act;
-        if (nact.sa_flags & SA_SIGINFO)
+        ако (nact.sa_flags & SA_SIGINFO)
             nact.sa_sigaction = sig_sigaction;
-        else
+        инако
             nact.sa_handler = sig_handler;
         retval = sigaction_redir(signum, &nact, &oact);
     }
-    else
+    инако
         retval = sigaction_redir(signum, act, &oact);
-    if (retval >= 0) {
-        if (bound_sig_used[signum]) {
-            if (oact.sa_flags & SA_SIGINFO)
+    ако (retval >= 0) {
+        ако (bound_sig_used[signum]) {
+            ако (oact.sa_flags & SA_SIGINFO)
                 oact.sa_sigaction = bound_sig_data[signum].sig_sigaction;
-            else
+            инако
                 oact.sa_handler = bound_sig_data[signum].sig_handler;
         }
-        if (oldact) {
+        ако (oldact) {
             *oldact = oact;
         }
-        if (act) {
+        ако (act) {
             bound_sig_used[signum] = 1;
-            if (act->sa_flags & SA_SIGINFO)
+            ако (act->sa_flags & SA_SIGINFO)
                 bound_sig_data[signum].sig_sigaction = act->sa_sigaction;
-            else
+            инако
                 bound_sig_data[signum].sig_handler = act->sa_handler;
         }
     }
-    return retval;
+    врати retval;
 }
 #endif
 
-#if HAVE_FORK
+#ако HAVE_FORK
 pid_t fork(void)
 {
     pid_t retval;
 
     WAIT_SEM();
     retval = (*fork_redir)();
-    if (retval == 0)
+    ако (retval == 0)
         INIT_SEM();
-    else
+    инако
         POST_SEM();
-    return retval;
+    врати retval;
 }
 #endif
 
-#if MALLOC_REDIR
+#ако MALLOC_REDIR
 void *malloc(size_t size)
-#else
+#инако
 void *__bound_malloc(size_t size, const void *caller)
 #endif
 {
     void *ptr;
     
-#if MALLOC_REDIR
+#ако MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    ако (malloc_redir == NULL) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
+        ако (malloc_redir == NULL) {
             ptr = &initial_pool[pool_index];
             pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+            ако (pool_index >= sizeof (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
                      __FILE__, __FUNCTION__, ptr, (unsigned long)size);
-            return ptr;
+            врати ptr;
         }
     }
 #endif
@@ -1492,38 +1492,38 @@ void *__bound_malloc(size_t size, const void *caller)
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, ptr, (unsigned long)size);
     
-    if (inited && NO_CHECKING_GET() == 0) {
+    ако (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
         INCR_COUNT(bound_malloc_count);
 
-        if (ptr) {
+        ако (ptr) {
             tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
+            ако (tree && tree->start == (size_t) ptr)
                 tree->type = TCC_TYPE_MALLOC;
         }
         POST_SEM ();
     }
-    return ptr;
+    врати ptr;
 }
 
-#if MALLOC_REDIR
+#ако MALLOC_REDIR
 void *memalign(size_t align, size_t size)
-#else
+#инако
 void *__bound_memalign(size_t align, size_t size, const void *caller)
 #endif
 {
     void *ptr;
 
-#if HAVE_MEMALIGN
+#ако HAVE_MEMALIGN
     /* we allocate one more byte to ensure the regions will be
        separated by at least one byte. With the glibc malloc, it may
        be in fact not necessary */
     ptr = BOUND_MEMALIGN(align, size + 1);
-#else
-    if (align > 4) {
+#инако
+    ако (align > 4) {
         /* XXX: handle it ? */
         ptr = NULL;
-    } else {
+    } инако {
         /* we suppose that malloc aligns to at least four bytes */
         ptr = BOUND_MALLOC(size + 1);
     }
@@ -1531,55 +1531,55 @@ void *__bound_memalign(size_t align, size_t size, const void *caller)
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, ptr, (unsigned long)size);
 
-    if (NO_CHECKING_GET() == 0) {
+    ако (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
         INCR_COUNT(bound_memalign_count);
 
-        if (ptr) {
+        ако (ptr) {
             tree = splay_insert((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
+            ако (tree && tree->start == (size_t) ptr)
                 tree->type = TCC_TYPE_MEMALIGN;
         }
         POST_SEM ();
     }
-    return ptr;
+    врати ptr;
 }
 
-#if MALLOC_REDIR
+#ако MALLOC_REDIR
 void free(void *ptr)
-#else
+#инако
 void __bound_free(void *ptr, const void *caller)
 #endif
 {
     size_t addr = (size_t) ptr;
     void *p;
 
-    if (ptr == NULL || tree == NULL
-#if MALLOC_REDIR
+    ако (ptr == NULL || tree == NULL
+#ако MALLOC_REDIR
         || ((unsigned char *) ptr >= &initial_pool[0] &&
             (unsigned char *) ptr < &initial_pool[sizeof(initial_pool)])
 #endif
         )
-        return;
+        врати;
 
     dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, ptr);
 
-    if (inited && NO_CHECKING_GET() == 0) {
+    ако (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
         INCR_COUNT(bound_free_count);
         tree = splay (addr, tree);
-        if (tree->start == addr) {
-            if (tree->is_invalid) {
+        ако (tree->start == addr) {
+            ако (tree->is_invalid) {
                 POST_SEM ();
                 bound_error("freeing invalid region");
-                return;
+                врати;
             }
             tree->is_invalid = 1;
             memset (ptr, 0x5a, tree->size);
             p = free_reuse_list[free_reuse_index];
             free_reuse_list[free_reuse_index] = ptr;
             free_reuse_index = (free_reuse_index + 1) % FREE_REUSE_SIZE;
-            if (p)
+            ако (p)
                 tree = splay_delete((size_t)p, tree);
             ptr = p;
         }
@@ -1588,65 +1588,65 @@ void __bound_free(void *ptr, const void *caller)
     BOUND_FREE (ptr);
 }
 
-#if MALLOC_REDIR
+#ако MALLOC_REDIR
 void *realloc(void *ptr, size_t size)
-#else
+#инако
 void *__bound_realloc(void *ptr, size_t size, const void *caller)
 #endif
 {
     void *new_ptr;
 
-    if (size == 0) {
-#if MALLOC_REDIR
+    ако (size == 0) {
+#ако MALLOC_REDIR
         free(ptr);
-#else
+#инако
         __bound_free(ptr, caller);
 #endif
-        return NULL;
+        врати NULL;
     }
 
     new_ptr = BOUND_REALLOC (ptr, size + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, new_ptr, (unsigned long)size);
 
-    if (NO_CHECKING_GET() == 0) {
+    ако (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
         INCR_COUNT(bound_realloc_count);
 
-        if (ptr)
+        ако (ptr)
             tree = splay_delete ((size_t) ptr, tree);
-        if (new_ptr) {
+        ако (new_ptr) {
             tree = splay_insert ((size_t) new_ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) new_ptr)
+            ако (tree && tree->start == (size_t) new_ptr)
                 tree->type = TCC_TYPE_REALLOC;
         }
         POST_SEM ();
     }
-    return new_ptr;
+    врати new_ptr;
 }
 
-#if MALLOC_REDIR
+#ако MALLOC_REDIR
 void *calloc(size_t nmemb, size_t size)
-#else
+#инако
 void *__bound_calloc(size_t nmemb, size_t size)
 #endif
 {
     void *ptr;
 
     size *= nmemb;
-#if MALLOC_REDIR
+#ако MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    ако (malloc_redir == NULL) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
+        ако (malloc_redir == NULL) {
             ptr = &initial_pool[pool_index];
             pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+            ако (pool_index >= sizeof (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
                      __FILE__, __FUNCTION__, ptr, (unsigned long)size);
             memset (ptr, 0, size);
-            return ptr;
+            врати ptr;
         }
     }
 #endif
@@ -1654,52 +1654,52 @@ void *__bound_calloc(size_t nmemb, size_t size)
     dprintf (stderr, "%s, %s(): %p, 0x%lx\n",
              __FILE__, __FUNCTION__, ptr, (unsigned long)size);
 
-    if (ptr) {
+    ако (ptr) {
         memset (ptr, 0, size);
-        if (NO_CHECKING_GET() == 0) {
+        ако (NO_CHECKING_GET() == 0) {
             WAIT_SEM ();
             INCR_COUNT(bound_calloc_count);
             tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
+            ако (tree && tree->start == (size_t) ptr)
                 tree->type = TCC_TYPE_CALLOC;
             POST_SEM ();
         }
     }
-    return ptr;
+    врати ptr;
 }
 
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot,
-                    int flags, int fd, off_t offset)
+#ако !defined(_WIN32)
+void *__bound_mmap (void *start, size_t size, цео prot,
+                    цео flags, цео fd, off_t offset)
 {
     void *result;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, start, (unsigned long)size);
     result = mmap (start, size, prot, flags, fd, offset);
-    if (result && NO_CHECKING_GET() == 0) {
+    ако (result && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
         INCR_COUNT(bound_mmap_count);
         tree = splay_insert((size_t)result, size, tree);
         POST_SEM ();
     }
-    return result;
+    врати result;
 }
 
-int __bound_munmap (void *start, size_t size)
+цео __bound_munmap (void *start, size_t size)
 {
-    int result;
+    цео result;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, start, (unsigned long)size);
-    if (start && NO_CHECKING_GET() == 0) {
+    ако (start && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
         INCR_COUNT(bound_munmap_count);
         tree = splay_delete ((size_t) start, tree);
         POST_SEM ();
     }
     result = munmap (start, size);
-    return result;
+    врати result;
 }
 #endif
 
@@ -1708,27 +1708,27 @@ int __bound_munmap (void *start, size_t size)
 /* check that (p ... p + size - 1) lies inside 'p' region, if any */
 static void __bound_check(const void *p, size_t size, const char *function)
 {
-    if (size != 0 && __bound_ptr_add((void *)p, size) == INVALID_POINTER) {
+    ако (size != 0 && __bound_ptr_add((void *)p, size) == INVALID_POINTER) {
         bound_error("invalid pointer %p, size 0x%lx in %s",
                 p, (unsigned long)size, function);
     }
 }
 
-static int check_overlap (const void *p1, size_t n1,
+static цео check_overlap (const void *p1, size_t n1,
                           const void *p2, size_t n2,
                           const char *function)
 {
     const void *p1e = (const void *) ((const char *) p1 + n1);
     const void *p2e = (const void *) ((const char *) p2 + n2);
 
-    if (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
+    ако (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
         ((p1 <= p2 && p1e > p2) ||     /* p1----p2====p1e----p2e */
          (p2 <= p1 && p2e > p1))) {    /* p2----p1====p2e----p1e */
         bound_error("overlapping regions %p(0x%lx), %p(0x%lx) in %s",
                 p1, (unsigned long)n1, p2, (unsigned long)n2, function);
-        return never_fatal < 0;
+        врати never_fatal < 0;
     }
-    return 0;
+    врати 0;
 }
 
 void *__bound_memcpy(void *dest, const void *src, size_t n)
@@ -1738,24 +1738,24 @@ void *__bound_memcpy(void *dest, const void *src, size_t n)
     INCR_COUNT(bound_mempcy_count);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return memcpy(dest, src, n);
+    ако (check_overlap(dest, n, src, n, "memcpy"))
+        врати dest;
+    врати memcpy(dest, src, n);
 }
 
-int __bound_memcmp(const void *s1, const void *s2, size_t n)
+цео __bound_memcmp(const void *s1, const void *s2, size_t n)
 {
     const unsigned char *u1 = (const unsigned char *) s1;
     const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    цео retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
     INCR_COUNT(bound_memcmp_count);
-    for (;;) {
-        if ((ssize_t) --n == -1)
+    за (;;) {
+        ако ((ssize_t) --n == -1)
             break;
-        else if (*u1 != *u2) {
+        инако ако (*u1 != *u2) {
             retval = *u1++ - *u2++;
             break;
         }
@@ -1764,7 +1764,7 @@ int __bound_memcmp(const void *s1, const void *s2, size_t n)
     }
     __bound_check(s1, (const void *)u1 - s1, "memcmp s1");
     __bound_check(s2, (const void *)u2 - s2, "memcmp s2");
-    return retval;
+    врати retval;
 }
 
 void *__bound_memmove(void *dest, const void *src, size_t n)
@@ -1774,19 +1774,19 @@ void *__bound_memmove(void *dest, const void *src, size_t n)
     INCR_COUNT(bound_memmove_count);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return memmove(dest, src, n);
+    врати memmove(dest, src, n);
 }
 
-void *__bound_memset(void *s, int c, size_t n)
+void *__bound_memset(void *s, цео c, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
             __FILE__, __FUNCTION__, s, c, (unsigned long)n);
     INCR_COUNT(bound_memset_count);
     __bound_check(s, n, "memset");
-    return memset(s, c, n);
+    врати memset(s, c, n);
 }
 
-#if defined(__arm__) && defined(__ARM_EABI__)
+#ако defined(__arm__) && defined(__ARM_EABI__)
 void *__bound___aeabi_memcpy(void *dest, const void *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
@@ -1794,9 +1794,9 @@ void *__bound___aeabi_memcpy(void *dest, const void *src, size_t n)
     INCR_COUNT(bound_mempcy_count);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return __aeabi_memcpy(dest, src, n);
+    ако (check_overlap(dest, n, src, n, "memcpy"))
+        врати dest;
+    врати __aeabi_memcpy(dest, src, n);
 }
 
 void *__bound___aeabi_memmove(void *dest, const void *src, size_t n)
@@ -1806,7 +1806,7 @@ void *__bound___aeabi_memmove(void *dest, const void *src, size_t n)
     INCR_COUNT(bound_memmove_count);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove(dest, src, n);
+    врати __aeabi_memmove(dest, src, n);
 }
 
 void *__bound___aeabi_memmove4(void *dest, const void *src, size_t n)
@@ -1816,7 +1816,7 @@ void *__bound___aeabi_memmove4(void *dest, const void *src, size_t n)
     INCR_COUNT(bound_memmove_count);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove4(dest, src, n);
+    врати __aeabi_memmove4(dest, src, n);
 }
 
 void *__bound___aeabi_memmove8(void *dest, const void *src, size_t n)
@@ -1826,29 +1826,29 @@ void *__bound___aeabi_memmove8(void *dest, const void *src, size_t n)
     INCR_COUNT(bound_memmove_count);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove8(dest, src, n);
+    врати __aeabi_memmove8(dest, src, n);
 }
 
-void *__bound___aeabi_memset(void *s, int c, size_t n)
+void *__bound___aeabi_memset(void *s, цео c, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
             __FILE__, __FUNCTION__, s, c, (unsigned long)n);
     INCR_COUNT(bound_memset_count);
     __bound_check(s, n, "memset");
-    return __aeabi_memset(s, c, n);
+    врати __aeabi_memset(s, c, n);
 }
 #endif
 
-int __bound_strlen(const char *s)
+цео __bound_strlen(const char *s)
 {
     const char *p = s;
 
     dprintf(stderr, "%s, %s(): %p\n",
             __FILE__, __FUNCTION__, s);
     INCR_COUNT(bound_strlen_count);
-    while (*p++);
+    док (*p++);
     __bound_check(s, p - s, "strlen");
-    return (p - s) - 1;
+    врати (p - s) - 1;
 }
 
 char *__bound_strcpy(char *dest, const char *src)
@@ -1859,13 +1859,13 @@ char *__bound_strcpy(char *dest, const char *src)
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
     INCR_COUNT(bound_strcpy_count);
-    while (*p++);
+    док (*p++);
     len = p - src;
     __bound_check(dest, len, "strcpy dest");
     __bound_check(src, len, "strcpy src");
-    if (check_overlap(dest, len, src, len, "strcpy"))
-        return dest;
-    return strcpy (dest, src);
+    ако (check_overlap(dest, len, src, len, "strcpy"))
+        врати dest;
+    врати strcpy (dest, src);
 }
 
 char *__bound_strncpy(char *dest, const char *src, size_t n)
@@ -1876,16 +1876,16 @@ char *__bound_strncpy(char *dest, const char *src, size_t n)
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
     INCR_COUNT(bound_strncpy_count);
-    while (len-- && *p++);
+    док (len-- && *p++);
     len = p - src;
     __bound_check(dest, len, "strncpy dest");
     __bound_check(src, len, "strncpy src");
-    if (check_overlap(dest, len, src, len, "strncpy"))
-        return dest;
-    return strncpy(dest, src, n);
+    ако (check_overlap(dest, len, src, len, "strncpy"))
+        врати dest;
+    врати strncpy(dest, src, n);
 }
 
-int __bound_strcmp(const char *s1, const char *s2)
+цео __bound_strcmp(const char *s1, const char *s2)
 {
     const unsigned char *u1 = (const unsigned char *) s1;
     const unsigned char *u2 = (const unsigned char *) s2;
@@ -1893,36 +1893,36 @@ int __bound_strcmp(const char *s1, const char *s2)
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, s1, s2);
     INCR_COUNT(bound_strcmp_count);
-    while (*u1 && *u1 == *u2) {
+    док (*u1 && *u1 == *u2) {
         ++u1;
         ++u2;
     }
     __bound_check(s1, ((const char *)u1 - s1) + 1, "strcmp s1");
     __bound_check(s2, ((const char *)u2 - s2) + 1, "strcmp s2");
-    return *u1 - *u2;
+    врати *u1 - *u2;
 }
 
-int __bound_strncmp(const char *s1, const char *s2, size_t n)
+цео __bound_strncmp(const char *s1, const char *s2, size_t n)
 {
     const unsigned char *u1 = (const unsigned char *) s1;
     const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    цео retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
     INCR_COUNT(bound_strncmp_count);
     do {
-        if ((ssize_t) --n == -1)
+        ако ((ssize_t) --n == -1)
             break;
-        else if (*u1 != *u2) {
+        инако ако (*u1 != *u2) {
             retval = *u1++ - *u2++;
             break;
         }
         ++u2;
-    } while (*u1++);
+    } док (*u1++);
     __bound_check(s1, (const char *)u1 - s1, "strncmp s1");
     __bound_check(s2, (const char *)u2 - s2, "strncmp s2");
-    return retval;
+    врати retval;
 }
 
 char *__bound_strcat(char *dest, const char *src)
@@ -1933,13 +1933,13 @@ char *__bound_strcat(char *dest, const char *src)
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
     INCR_COUNT(bound_strcat_count);
-    while (*dest++);
-    while (*src++);
+    док (*dest++);
+    док (*src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strcat dest");
     __bound_check(s, src - s, "strcat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
-        return dest;
-    return strcat(r, s);
+    ако (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
+        врати dest;
+    врати strcat(r, s);
 }
 
 char *__bound_strncat(char *dest, const char *src, size_t n)
@@ -1951,16 +1951,16 @@ char *__bound_strncat(char *dest, const char *src, size_t n)
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
     INCR_COUNT(bound_strncat_count);
-    while (*dest++);
-    while (len-- && *src++);
+    док (*dest++);
+    док (len-- && *src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strncat dest");
     __bound_check(s, src - s, "strncat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
-        return dest;
-    return strncat(r, s, n);
+    ако (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
+        врати dest;
+    врати strncat(r, s, n);
 }
 
-char *__bound_strchr(const char *s, int c)
+char *__bound_strchr(const char *s, цео c)
 {
     const unsigned char *str = (const unsigned char *) s;
     unsigned char ch = c;
@@ -1968,16 +1968,16 @@ char *__bound_strchr(const char *s, int c)
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
     INCR_COUNT(bound_strchr_count);
-    while (*str) {
-        if (*str == ch)
+    док (*str) {
+        ако (*str == ch)
             break;
         ++str;
     }
     __bound_check(s, ((const char *)str - s) + 1, "strchr");
-    return *str == ch ? (char *) str : NULL;
+    врати *str == ch ? (char *) str : NULL;
 }
 
-char *__bound_strrchr(const char *s, int c)
+char *__bound_strrchr(const char *s, цео c)
 {
     const unsigned char *str = (const unsigned char *) s;
     unsigned char ch = c;
@@ -1985,14 +1985,14 @@ char *__bound_strrchr(const char *s, int c)
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
     INCR_COUNT(bound_strrchr_count);
-    while (*str++);
+    док (*str++);
     __bound_check(s, (const char *)str - s, "strrchr");
-    while (str != (const unsigned char *)s) {
-        if (*--str == ch)
+    док (str != (const unsigned char *)s) {
+        ако (*--str == ch)
             break;
     }
     __bound_check(s, (const char *)str - s, "strrchr");
-    return *str == ch ? (char *) str : NULL;
+    врати *str == ch ? (char *) str : NULL;
 }
 
 char *__bound_strdup(const char *s)
@@ -2001,22 +2001,22 @@ char *__bound_strdup(const char *s)
     char *new;
 
     INCR_COUNT(bound_strdup_count);
-    while (*p++);
+    док (*p++);
     __bound_check(s, p - s, "strdup");
     new = BOUND_MALLOC ((p - s) + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, new, (unsigned long)(p -s));
-    if (new) {
-        if (NO_CHECKING_GET() == 0 && no_strdup == 0) {
+    ако (new) {
+        ако (NO_CHECKING_GET() == 0 && no_strdup == 0) {
             WAIT_SEM ();
             tree = splay_insert((size_t)new, p - s, tree);
-            if (tree && tree->start == (size_t) new)
+            ако (tree && tree->start == (size_t) new)
                 tree->type = TCC_TYPE_STRDUP;
             POST_SEM ();
         }
         memcpy (new, s, p - s);
     }
-    return new;
+    врати new;
 }
 
 /*
@@ -2077,40 +2077,40 @@ static Tree * splay (size_t addr, Tree *t)
 /* The starting root is t, and the tree used is defined by rat      */
 {
     Tree N, *l, *r, *y;
-    int comp;
+    цео comp;
     
     INCR_COUNT_SPLAY(bound_splay);
-    if (t == NULL) return t;
+    ако (t == NULL) врати t;
     N.left = N.right = NULL;
     l = r = &N;
  
-    for (;;) {
+    за (;;) {
         comp = compare(addr, t->start, t->size);
-        if (comp < 0) {
+        ако (comp < 0) {
             y = t->left;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) < 0) {
+            ако (y == NULL) break;
+            ако (compare(addr, y->start, y->size) < 0) {
                 t->left = y->right;                    /* rotate right */
                 y->right = t;
                 t = y;
-                if (t->left == NULL) break;
+                ако (t->left == NULL) break;
             }
             r->left = t;                               /* link right */
             r = t;
             t = t->left;
-        } else if (comp > 0) {
+        } инако ако (comp > 0) {
             y = t->right;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) > 0) {
+            ако (y == NULL) break;
+            ако (compare(addr, y->start, y->size) > 0) {
                 t->right = y->left;                    /* rotate left */
                 y->left = t;
                 t = y;
-                if (t->right == NULL) break;
+                ако (t->right == NULL) break;
             }
             l->right = t;                              /* link left */
             l = t;
             t = t->right;
-        } else {
+        } инако {
             break;
         }
     }
@@ -2119,7 +2119,7 @@ static Tree * splay (size_t addr, Tree *t)
     t->left = N.right;
     t->right = N.left;
 
-    return t;
+    врати t;
 }
 
 #define compare_end(start,tend) (start < tend ? -1 : \
@@ -2130,40 +2130,40 @@ static Tree * splay_end (size_t addr, Tree *t)
 /* The starting root is t, and the tree used is defined by rat  */
 {
     Tree N, *l, *r, *y;
-    int comp;
+    цео comp;
     
     INCR_COUNT_SPLAY(bound_splay_end);
-    if (t == NULL) return t;
+    ако (t == NULL) врати t;
     N.left = N.right = NULL;
     l = r = &N;
  
-    for (;;) {
+    за (;;) {
         comp = compare_end(addr, t->start + t->size);
-        if (comp < 0) {
+        ако (comp < 0) {
             y = t->left;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) < 0) {
+            ако (y == NULL) break;
+            ако (compare_end(addr, y->start + y->size) < 0) {
                 t->left = y->right;                    /* rotate right */
                 y->right = t;
                 t = y;
-                if (t->left == NULL) break;
+                ако (t->left == NULL) break;
             }
             r->left = t;                               /* link right */
             r = t;
             t = t->left;
-        } else if (comp > 0) {
+        } инако ако (comp > 0) {
             y = t->right;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) > 0) {
+            ако (y == NULL) break;
+            ако (compare_end(addr, y->start + y->size) > 0) {
                 t->right = y->left;                    /* rotate left */
                 y->left = t;
                 t = y;
-                if (t->right == NULL) break;
+                ако (t->right == NULL) break;
             }
             l->right = t;                              /* link left */
             l = t;
             t = t->right;
-        } else {
+        } инако {
             break;
         }
     }
@@ -2172,7 +2172,7 @@ static Tree * splay_end (size_t addr, Tree *t)
     t->left = N.right;
     t->right = N.left;
 
-    return t;
+    врати t;
 }
 
 static Tree * splay_insert(size_t addr, size_t size, Tree * t)
@@ -2182,33 +2182,33 @@ static Tree * splay_insert(size_t addr, size_t size, Tree * t)
     Tree * new;
 
     INCR_COUNT_SPLAY(bound_splay_insert);
-    if (t != NULL) {
+    ако (t != NULL) {
         t = splay(addr,t);
-        if (compare(addr, t->start, t->size)==0) {
-            return t;  /* it's already there */
+        ако (compare(addr, t->start, t->size)==0) {
+            врати t;  /* it's already there */
         }
     }
-#if TREE_REUSE
-    if (tree_free_list) {
+#ако TREE_REUSE
+    ако (tree_free_list) {
           new = tree_free_list;
           tree_free_list = new->left;
     }
-    else
+    инако
 #endif
     {
         new = (Tree *) BOUND_MALLOC (sizeof (Tree));
     }
-    if (new == NULL) {
+    ако (new == NULL) {
         bound_alloc_error("not enough memory for bound checking code");
     }
-    else {
-        if (t == NULL) {
+    инако {
+        ако (t == NULL) {
             new->left = new->right = NULL;
-        } else if (compare(addr, t->start, t->size) < 0) {
+        } инако ако (compare(addr, t->start, t->size) < 0) {
             new->left = t->left;
             new->right = t;
             t->left = NULL;
-        } else {
+        } инако {
             new->right = t->right;
             new->left = t;
             t->right = NULL;
@@ -2218,7 +2218,7 @@ static Tree * splay_insert(size_t addr, size_t size, Tree * t)
         new->type = TCC_TYPE_NONE;
         new->is_invalid = 0;
     }
-    return new;
+    врати new;
 }
 
 #define compare_destroy(start,tstart) (start < tstart ? -1 : \
@@ -2231,33 +2231,33 @@ static Tree * splay_delete(size_t addr, Tree *t)
     Tree * x;
 
     INCR_COUNT_SPLAY(bound_splay_delete);
-    if (t==NULL) return NULL;
+    ако (t==NULL) врати NULL;
     t = splay(addr,t);
-    if (compare_destroy(addr, t->start) == 0) {        /* found it */
-        if (t->left == NULL) {
+    ако (compare_destroy(addr, t->start) == 0) {        /* found it */
+        ако (t->left == NULL) {
             x = t->right;
-        } else {
+        } инако {
             x = splay(addr, t->left);
             x->right = t->right;
         }
-#if TREE_REUSE
+#ако TREE_REUSE
         t->left = tree_free_list;
         tree_free_list = t;
-#else
+#инако
         BOUND_FREE(t);
 #endif
-        return x;
-    } else {
-        return t;                                      /* It wasn't there */
+        врати x;
+    } инако {
+        врати t;                                      /* It wasn't there */
     }
 }
 
-void splay_printtree(Tree * t, int d)
+void splay_printtree(Tree * t, цео d)
 {
-    int i;
-    if (t == NULL) return;
+    цео i;
+    ако (t == NULL) врати;
     splay_printtree(t->right, d+1);
-    for (i=0; i<d; i++) fprintf(stderr," ");
+    за (i=0; i<d; i++) fprintf(stderr," ");
     fprintf(stderr,"%p(0x%lx:%u:%u)\n",
             (void *) t->start, (unsigned long) t->size,
             (unsigned)t->type, (unsigned)t->is_invalid);

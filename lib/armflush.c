@@ -5,7 +5,7 @@
    itself needs this function */
 
 /* ------------------------------------------------------------- */
-#if defined __arm__
+#ако defined __arm__
 
 #ifdef __TINYC__
 
@@ -26,9 +26,9 @@ __asm__(
     );
 
 /* from unistd.h: */
-#if defined(__thumb__) || defined(__ARM_EABI__)
+#ако defined(__thumb__) || defined(__ARM_EABI__)
 # define __NR_SYSCALL_BASE      0x0
-#else
+#инако
 # define __NR_SYSCALL_BASE      0x900000
 #endif
 #define __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
@@ -36,7 +36,7 @@ __asm__(
 
 #define syscall _tccsyscall
 
-#else
+#инако
 
 #define _GNU_SOURCE
 #include <unistd.h>

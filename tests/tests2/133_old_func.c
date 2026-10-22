@@ -1,24 +1,24 @@
-int printf(const char *s, ...);
+цео printf(const char *s, ...);
 
 float fx(x)
 float x;
 {
-    return 2.0 * x;
+    врати 2.0 * x;
 }
 
 void func(float a);
 
-void func3(struct p { int a; int b; } *q) {
+void func3(struct p { цео a; цео b; } *q) {
 }
 
 void func4(q)
- struct p { int a; int b; int c; } *q;
+ struct p { цео a; цео b; цео c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+struct p { цео a; цео b; цео c; цео d; };
 
-int
+цео
 main(void)
 {
     float fy();
@@ -31,7 +31,7 @@ main(void)
 float fy(x)
 float x;
 {
-    return 3.0 * x;
+    врати 3.0 * x;
 }
 
 void func(a)

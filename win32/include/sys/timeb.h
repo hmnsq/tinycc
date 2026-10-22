@@ -27,8 +27,8 @@ extern "C" {
 #ifdef _WIN64
 #undef _USE_32BIT_TIME_T
 #endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
+#инако
+#ако _INTEGRAL_MAX_BITS < 64
 #define _USE_32BIT_TIME_T
 #endif
 #endif
@@ -40,7 +40,7 @@ extern "C" {
 #endif
 
 #ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
+#ако _INTEGRAL_MAX_BITS >= 64
   typedef __int64 __time64_t;
 #endif
 #define _TIME64_T_DEFINED
@@ -49,7 +49,7 @@ extern "C" {
 #ifndef _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
   typedef __time32_t time_t;
-#else
+#инако
   typedef __time64_t time_t;
 #endif
 #define _TIME_T_DEFINED
@@ -74,7 +74,7 @@ extern "C" {
   };
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
+#ако _INTEGRAL_MAX_BITS >= 64
   struct __timeb64 {
     __time64_t time;
     unsigned short millitm;
@@ -87,14 +87,14 @@ extern "C" {
 #define _timeb __timeb32
 //gr #define _ftime _ftime32
 #define _ftime32 _ftime
-#else
+#инако
 #define _timeb __timeb64
 #define _ftime _ftime64
 #endif
 #endif
 
   _CRTIMP void __cdecl _ftime32(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
+#ако _INTEGRAL_MAX_BITS >= 64
   _CRTIMP void __cdecl _ftime64(struct __timeb64 *_Time);
 #endif
 
@@ -111,12 +111,12 @@ struct itimerspec {
 };
 #endif
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+#ако !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
 #ifdef _USE_32BIT_TIME_T
 __CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
   _ftime32((struct __timeb32 *)_Tmb);
 }
-#else
+#инако
 __CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
   _ftime64((struct __timeb64 *)_Tmb);
 }
