@@ -1,10 +1,10 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
 /* This was first introduced to test the ARM port */
 
 #define UINT_MAX ((unsigned) -1)
 
-int main()
+पूर्णाङ्क main()
 {
     printf("18/21=%u\n", 18/21);
     printf("18%%21=%u\n", 18%21);
@@ -66,5 +66,5 @@ int main()
     printf("-(UINT_MAX/2+3)/-2=%u\n", (0-(UINT_MAX/2+3))/-2);
     printf("-(UINT_MAX/2+3)%%-2=%u\n", (0-(UINT_MAX/2+3))%-2);
 
-    return 0;
+    प्रत्यागम 0;
 }

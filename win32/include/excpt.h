@@ -6,111 +6,111 @@
 #ifndef _INC_EXCPT
 #define _INC_EXCPT
 
-#include <_mingw.h>
+#अन्तर्भाव <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(धकेलो,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
-  struct _EXCEPTION_POINTERS;
+  संरचना _EXCEPTION_POINTERS;
 
 #ifndef EXCEPTION_DISPOSITION
-#define EXCEPTION_DISPOSITION   int
+#define EXCEPTION_DISPOSITION   पूर्णाङ्क
 #endif
 #define ExceptionContinueExecution 0
-#define ExceptionContinueSearch 1
+#define Exception_Continue_खोज 1
 #define ExceptionNestedException 2
 #define ExceptionCollidedUnwind 3
 
-#if (defined(_X86_) && !defined(__x86_64))
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
+#यदि (defined(_X86_) && !defined(__x86_64))
+  संरचना _EXCEPTION_RECORD;
+  संरचना _CONTEXT;
 
-  EXCEPTION_DISPOSITION __cdecl _except_handler(struct _EXCEPTION_RECORD *_ExceptionRecord,void *_EstablisherFrame,struct _CONTEXT *_ContextRecord,void *_DispatcherContext);
-#elif defined(__ia64__)
+  EXCEPTION_DISPOSITION __cdecl _except_handler(संरचना _EXCEPTION_RECORD *_ExceptionRecord,शून्य *_EstablisherFrame,संरचना _CONTEXT *_ContextRecord,शून्य *_DispatcherContext);
+#नोचेद्यदि defined(__ia64__)
 
-  typedef struct _EXCEPTION_POINTERS *Exception_info_ptr;
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
-  struct _DISPATCHER_CONTEXT;
+  प्रकारनिर्देश संरचना _EXCEPTION_POINTERS *Exception_info_ptr;
+  संरचना _EXCEPTION_RECORD;
+  संरचना _CONTEXT;
+  संरचना _DISPATCHER_CONTEXT;
 
-  _CRTIMP EXCEPTION_DISPOSITION __cdecl __C_specific_handler (struct _EXCEPTION_RECORD *_ExceptionRecord,unsigned __int64 _MemoryStackFp,unsigned __int64 _BackingStoreFp,struct _CONTEXT *_ContextRecord,struct _DISPATCHER_CONTEXT *_DispatcherContext,unsigned __int64 _GlobalPointer);
-#elif defined(__x86_64)
+  _CRTIMP EXCEPTION_DISPOSITION __cdecl __C_specific_handler (संरचना _EXCEPTION_RECORD *_ExceptionRecord,unsigned __int64 Memory_ढेर_Fp,unsigned __int64 _BackingStoreFp,संरचना _CONTEXT *_ContextRecord,संरचना _DISPATCHER_CONTEXT *_DispatcherContext,unsigned __int64 _GlobalPointer);
+#नोचेद्यदि defined(__x86_64)
 
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
+  संरचना _EXCEPTION_RECORD;
+  संरचना _CONTEXT;
 #endif
 
 #define GetExceptionCode _exception_code
 #define exception_code _exception_code
-#define GetExceptionInformation (struct _EXCEPTION_POINTERS *)_exception_info
-#define exception_info (struct _EXCEPTION_POINTERS *)_exception_info
+#define GetExceptionInformation (संरचना _EXCEPTION_POINTERS *)_exception_info
+#define exception_info (संरचना _EXCEPTION_POINTERS *)_exception_info
 #define AbnormalTermination _abnormal_termination
 #define abnormal_termination _abnormal_termination
 
-  unsigned long __cdecl _exception_code(void);
-  void *__cdecl _exception_info(void);
-  int __cdecl _abnormal_termination(void);
+  unsigned long __cdecl _exception_code(शून्य);
+  शून्य *__cdecl _exception_info(शून्य);
+  पूर्णाङ्क __cdecl _abnormal_termination(शून्य);
 
 #define EXCEPTION_EXECUTE_HANDLER 1
-#define EXCEPTION_CONTINUE_SEARCH 0
+#define EXCEPTION_CONTINUE_खोज 0
 #define EXCEPTION_CONTINUE_EXECUTION -1
 
   /* CRT stuff */
-  typedef void (__cdecl * _PHNDLR)(int);
+  प्रकारनिर्देश शून्य (__cdecl * _PHNDLR)(पूर्णाङ्क);
 
-  struct _XCPT_ACTION {
-    unsigned long XcptNum;
-    int SigNum;
+  संरचना _XCPT_ACTION {
+    unsigned long Xcpt_अंक;
+    पूर्णाङ्क Sig_अंक;
     _PHNDLR XcptAction;
   };
 
-  extern struct _XCPT_ACTION _XcptActTab[];
-  extern int _XcptActTabCount;
-  extern int _XcptActTabSize;
-  extern int _First_FPE_Indx;
-  extern int _Num_FPE;
+  बाह्य संरचना _XCPT_ACTION _XcptActTab[];
+  बाह्य पूर्णाङ्क Xcpt_Act_Tab_गिनती;
+  बाह्य पूर्णाङ्क _XcptActTabSize;
+  बाह्य पूर्णाङ्क _First_FPE_Indx;
+  बाह्य पूर्णाङ्क अंक_FPE;
 
-  int __cdecl __CppXcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
-  int __cdecl _XcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
+  पूर्णाङ्क __cdecl __CppXcptFilter(unsigned long Exception_अंक,संरचना _EXCEPTION_POINTERS * _ExceptionPtr);
+  पूर्णाङ्क __cdecl _XcptFilter(unsigned long Exception_अंक,संरचना _EXCEPTION_POINTERS * _ExceptionPtr);
 
   /*
   * The type of function that is expected as an exception handler to be
   * installed with _try1.
   */
-  typedef EXCEPTION_DISPOSITION (*PEXCEPTION_HANDLER)(struct _EXCEPTION_RECORD*, void*, struct _CONTEXT*, void*);
+  प्रकारनिर्देश EXCEPTION_DISPOSITION (*PEXCEPTION_HANDLER)(संरचना _EXCEPTION_RECORD*, शून्य*, संरचना _CONTEXT*, शून्य*);
 
 #ifndef HAVE_NO_SEH
   /*
   * This is not entirely necessary, but it is the structure installed by
   * the _try1 primitive below.
   */
-  typedef struct _EXCEPTION_REGISTRATION {
-    struct _EXCEPTION_REGISTRATION *prev;
-    EXCEPTION_DISPOSITION (*handler)(struct _EXCEPTION_RECORD*, void*, struct _CONTEXT*, void*);
+  प्रकारनिर्देश संरचना _EXCEPTION_REGISTRATION {
+    संरचना _EXCEPTION_REGISTRATION *prev;
+    EXCEPTION_DISPOSITION (*handler)(संरचना _EXCEPTION_RECORD*, शून्य*, संरचना _CONTEXT*, शून्य*);
   } EXCEPTION_REGISTRATION, *PEXCEPTION_REGISTRATION;
 
-  typedef EXCEPTION_REGISTRATION EXCEPTION_REGISTRATION_RECORD;
-  typedef PEXCEPTION_REGISTRATION PEXCEPTION_REGISTRATION_RECORD;
+  प्रकारनिर्देश EXCEPTION_REGISTRATION EXCEPTION_REGISTRATION_RECORD;
+  प्रकारनिर्देश PEXCEPTION_REGISTRATION PEXCEPTION_REGISTRATION_RECORD;
 #endif
 
-#if (defined(_X86_) && !defined(__x86_64))
+#यदि (defined(_X86_) && !defined(__x86_64))
 #define __try1(pHandler) \
   __asm__ ("pushl %0;pushl %%fs:0;movl %%esp,%%fs:0;" : : "g" (pHandler));
 
 #define	__except1	\
   __asm__ ("movl (%%esp),%%eax;movl %%eax,%%fs:0;addl $8,%%esp;" \
   : : : "%eax");
-#elif defined(__x86_64)
+#नोचेद्यदि defined(__x86_64)
 #define __try1(pHandler) \
   __asm__ ("pushq %0;pushq %%gs:0;movq %%rsp,%%gs:0;" : : "g" (pHandler));
 
 #define	__except1	\
   __asm__ ("movq (%%rsp),%%rax;movq %%rax,%%gs:0;addq $16,%%rsp;" \
   : : : "%rax");
-#else
+#अन्यथा
 #define __try1(pHandler)
 #define __except1
 #endif
@@ -119,5 +119,5 @@ extern "C" {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(निकालो)
 #endif

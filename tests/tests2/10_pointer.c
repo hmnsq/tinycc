@@ -1,17 +1,17 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-struct ziggy
+संरचना ziggy
 {
-   int a;
-   int b;
-   int c;
+   पूर्णाङ्क a;
+   पूर्णाङ्क b;
+   पूर्णाङ्क c;
 } bolshevic;
 
-int main()
+पूर्णाङ्क main()
 {
-   int a;
-   int *b;
-   int c;
+   पूर्णाङ्क a;
+   पूर्णाङ्क *b;
+   पूर्णाङ्क c;
 
    a = 42;
    b = &a;
@@ -25,7 +25,7 @@ int main()
    printf("bolshevic.b = %d\n", bolshevic.b);
    printf("bolshevic.c = %d\n", bolshevic.c);
 
-   struct ziggy *tsar = &bolshevic;
+   संरचना ziggy *tsar = &bolshevic;
 
    printf("tsar->a = %d\n", tsar->a);
    printf("tsar->b = %d\n", tsar->b);
@@ -34,7 +34,7 @@ int main()
    b = &(bolshevic.b);
    printf("bolshevic.b = %d\n", *b);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

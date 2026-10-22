@@ -1,18 +1,18 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   int a;
-   char b;
+   पूर्णाङ्क a;
+   वर्ण b;
 
    a = 0;
-   while (a < 2)
+   यावत् (a < 2)
    {
       printf("%d", a++);
-      break;
+      भङ्ग;
 
       b = 'A';
-      while (b < 'C')
+      यावत् (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

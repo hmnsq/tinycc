@@ -1,25 +1,25 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-extern int Array3[10];
-int Array3[] = { 12, 34, };
-int main()
+बाह्य पूर्णाङ्क Array3[10];
+पूर्णाङ्क Array3[] = { 12, 34, };
+पूर्णाङ्क main()
 {
-   int Count;
+   पूर्णाङ्क गिनती_3;
 
-   int Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
+   पूर्णाङ्क Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array[Count]);
+   प्रति (गिनती_3 = 0; गिनती_3 < 10; गिनती_3++)
+      printf("%d: %d\n", गिनती_3, Array[गिनती_3]);
 
-   int Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
+   पूर्णाङ्क Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array2[Count]);
+   प्रति (गिनती_3 = 0; गिनती_3 < 10; गिनती_3++)
+      printf("%d: %d\n", गिनती_3, Array2[गिनती_3]);
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array3[Count]);
+   प्रति (गिनती_3 = 0; गिनती_3 < 10; गिनती_3++)
+      printf("%d: %d\n", गिनती_3, Array3[गिनती_3]);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
