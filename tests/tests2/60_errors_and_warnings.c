@@ -1,77 +1,77 @@
-int printf(const char*, ...);
+صحيح printf(ثابت حرف*, ...);
 
-#if defined test_56_btype_excess_1
-struct A {} int i;
-#elif defined test_57_btype_excess_2
-char int i;
-#elif defined test_58_function_redefinition
-int f(void) { return 0; }
-int f(void) { return 1; }
+#إذا defined test_56_btype_excess_1
+بنية A {} صحيح i;
+#وإلاإذا defined test_57_btype_excess_2
+حرف صحيح i;
+#وإلاإذا defined test_58_function_redefinition
+صحيح f(فراغ) { إرجاع 0; }
+صحيح f(فراغ) { إرجاع 1; }
 
-#elif defined test_global_redefinition
-int xxx = 1;
-int xxx;
-int xxx = 2;
+#وإلاإذا defined test_global_redefinition
+صحيح xxx = 1;
+صحيح xxx;
+صحيح xxx = 2;
 
-#elif defined test_59_function_array
-int (*fct)[42](int x);
+#وإلاإذا defined test_59_function_array
+صحيح (*fct)[42](صحيح x);
 
-#elif defined test_60_enum_redefinition
-enum color { RED, GREEN, BLUE };
-enum color { R, G, B };
-enum color c;
+#وإلاإذا defined test_60_enum_redefinition
+تعداد color { RED, GREEN, BLUE };
+تعداد color { R, G, B };
+تعداد color c;
 
-#elif defined test_62_enumerator_redefinition
-enum color { RED, GREEN, BLUE };
-enum rgb { RED, G, B};
-enum color c = RED;
+#وإلاإذا defined test_62_enumerator_redefinition
+تعداد color { RED, GREEN, BLUE };
+تعداد rgb { RED, G, B};
+تعداد color c = RED;
 
-#elif defined test_63_local_enumerator_redefinition
-enum {
+#وإلاإذا defined test_63_local_enumerator_redefinition
+تعداد {
     FOO,
     BAR
 };
 
-int main(void)
+صحيح الرئيسية(فراغ)
 {
-    enum {
+    تعداد {
         FOO = 2,
         BAR
     };
 
-    return BAR - FOO;
+    إرجاع BAR - FOO;
 }
 
-#elif defined test_61_undefined_enum
-enum rgb3 c = 42;
+#وإلاإذا defined test_61_undefined_enum
+تعداد rgb3 c = 42;
 
-#elif defined test_74_non_const_init
-int i = i++;
+#وإلاإذا defined test_74_non_const_init
+صحيح i = i++;
 
-#elif defined test_pointer_assignment
+#وإلاإذا defined test_pointer_assignment
 
-void (*f1)(void);
-void f2(void) {}
+فراغ (*f1)(فراغ);
+فراغ f2(فراغ) {}
 
-struct s1 *ps1;
-struct s2 *ps2;
+بنية s1 *ps1;
+بنية s2 *ps2;
 
-void *v1, **v2, ***v3;
+فراغ *v1, **v2, ***v3;
 
-enum e1 { a = 4 } e10, *e11, *e12;
-enum e2 { b = -4 } e20, *e21;
-enum e3 { c = 5000000000LL } e30;
+تعداد e1 { a = 4 } e10, *e11, *e12;
+تعداد e2 { b = -4 } e20, *e21;
+تعداد e3 { c = 5000000000LL } e30;
 
-int *ip;
-unsigned int *up;
+صحيح *ip;
+unsigned صحيح *up;
 long *lp;
 long long *llp;
 
-char **c1;
-char const **c2;
-unsigned char **u1;
+حرف **c1;
+حرف ثابت **c2;
+unsigned حرف **u1;
 
-int no_main ()
+صحيح no_main ()
 {
     // function
     f1 = f2;
@@ -108,233 +108,233 @@ int no_main ()
     *c2 = *c1;
     **c2 = **c1;
 
-    return 0;
+    إرجاع 0;
 }
 
 
-#elif defined test_enum_compat
-enum e4;
-enum e5;
-void f3(enum e4 e);
-void f3(enum e5 e);
+#وإلاإذا defined test_enum_compat
+تعداد e4;
+تعداد e5;
+فراغ f3(تعداد e4 e);
+فراغ f3(تعداد e5 e);
 
-#elif defined test_enum_compat_2
-enum e6 { E1 = -1, E0 };
-void f3(enum e6);
-void f3(int);        // should work as int and e6 are compatible
-void f4(enum e6 e);
-void f4(unsigned e); // should error as unsigned and e6 are incompatible
+#وإلاإذا defined test_enum_compat_2
+تعداد e6 { E1 = -1, E0 };
+فراغ f3(تعداد e6);
+فراغ f3(صحيح);        // should work as int and e6 are compatible
+فراغ f4(تعداد e6 e);
+فراغ f4(unsigned e); // should error as unsigned and e6 are incompatible
 
-#elif defined test_ptr_to_str
-void f() { _Generic((int const *[]){0}, int:0); }
-#elif defined test_fnptr_to_str
-void f() { _Generic((int (*(*)(float,char))(double,int)){0}, int:0); }
-#elif defined test_array_to_str
-void f() { _Generic((int(*)[3]){0}, int:0); }
-#elif defined test_duplicate_def_1
-static enum myenum { L = -1 } L;                                                
-#elif defined test_duplicate_def_2
-void foo(void) {
-static enum myenum { L = -1 } L;                                                
+#وإلاإذا defined test_ptr_to_str
+فراغ f() { _Generic((صحيح ثابت *[]){0}, صحيح:0); }
+#وإلاإذا defined test_fnptr_to_str
+فراغ f() { _Generic((صحيح (*(*)(عائم,حرف))(مزدوج,صحيح)){0}, صحيح:0); }
+#وإلاإذا defined test_array_to_str
+فراغ f() { _Generic((صحيح(*)[3]){0}, صحيح:0); }
+#وإلاإذا defined test_duplicate_def_1
+ساكن تعداد myenum { L = -1 } L;                                                
+#وإلاإذا defined test_duplicate_def_2
+فراغ foo(فراغ) {
+ساكن تعداد myenum { L = -1 } L;                                                
 }
-#elif defined test_abstract_decls
-int bar(const char *());     // abstract declarator here is okay
-int bar (const char *(*g)()) // should match this 'g' argument
+#وإلاإذا defined test_abstract_decls
+صحيح bar(ثابت حرف *());     // abstract declarator here is okay
+صحيح bar (ثابت حرف *(*g)()) // should match this 'g' argument
 {
   g();
-  return 42;
+  إرجاع 42;
 }
-int foo(int ())              // abstract decl is wrong in definitions
+صحيح foo(صحيح ())              // abstract decl is wrong in definitions
 {
-  return 0;
-#elif defined test_invalid_1
-void f(char*);
-void g(void) {
-  f((char[]){1, ,});
+  إرجاع 0;
+#وإلاإذا defined test_invalid_1
+فراغ f(حرف*);
+فراغ g(فراغ) {
+  f((حرف[]){1, ,});
 }
-#elif defined test_invalid_2
-int ga = 0.42 { 2 };
-#elif defined test_invalid_3
-struct S { int a, b; };
-struct T { struct S x; };
-struct T gt = { 42 a: 1, 43 };
-#elif defined test_invalid_4
-enum E {
+#وإلاإذا defined test_invalid_2
+صحيح ga = 0.42 { 2 };
+#وإلاإذا defined test_invalid_3
+بنية S { صحيح a, b; };
+بنية T { بنية S x; };
+بنية T gt = { 42 a: 1, 43 };
+#وإلاإذا defined test_invalid_4
+تعداد E {
     x = 1 / 0
 };
-#elif defined test_conflicting_types
-int i;
-void foo(void) {
-    int i;
+#وإلاإذا defined test_conflicting_types
+صحيح i;
+فراغ foo(فراغ) {
+    صحيح i;
       {
-        extern double i;
+        خارجي مزدوج i;
         i = 42.2;
       }
 }
-#elif defined test_nested_types
-union u {
-    union u {
-        int i;
+#وإلاإذا defined test_nested_types
+اتحاد u {
+    اتحاد u {
+        صحيح i;
     } m;
 };
-#elif defined test_vla_1
-int X=1;
+#وإلاإذا defined test_vla_1
+صحيح X=1;
 
-int main(void) {
-  int t[][][X];
+صحيح الرئيسية(فراغ) {
+  صحيح t[][][X];
 }
-#elif defined test_invalid_alignas
+#وإلاإذا defined test_invalid_alignas
 /* _Alignas is no type qualifier */
-void * _Alignas(16) p1;
+فراغ * _Alignas(16) p1;
 
-#elif defined test_static_assert
+#وإلاإذا defined test_static_assert
 
 #define ONE 0
  _Static_assert(ONE == 0, "don't show me this");
- struct x{ _Static_assert(ONE == 1, "ONE is not 1"); };
+ بنية x{ _Static_assert(ONE == 1, "ONE is not 1"); };
 
-#elif defined test_static_assert_2
+#وإلاإذا defined test_static_assert_2
  _Static_assert(1, "1"" is 1");
-struct y {  _Static_assert(0, "0"" is 0"); };
+بنية y {  _Static_assert(0, "0"" is 0"); };
 
-#elif defined test_static_assert_c2x
+#وإلاإذا defined test_static_assert_c2x
  _Static_assert(1);
-struct z {  _Static_assert(0); }
+بنية z {  _Static_assert(0); }
 
-#elif defined test_static_assert_empty_string
+#وإلاإذا defined test_static_assert_empty_string
  _Static_assert(0,"");
 
-#elif defined test_void_array
- void t[3];
+#وإلاإذا defined test_void_array
+ فراغ t[3];
 
-#elif defined test_incomplete_enum_array
-  enum e t[3];
+#وإلاإذا defined test_incomplete_enum_array
+  تعداد e t[3];
 
-#elif defined test_incomplete_struct_array
-  struct s t[3];
+#وإلاإذا defined test_incomplete_struct_array
+  بنية s t[3];
 
-#elif defined test_const_fun_array
-  typedef void f(void);
-  const f t[3];
+#وإلاإذا defined test_const_fun_array
+  تعريفنوع فراغ f(فراغ);
+  ثابت f t[3];
 
-#elif defined test_incomplete_array_array
-  int t[][3]; // gr: not an error, see below
-
-/******************************************************************/
-#elif defined test_extern_array
-int iii[] = { 1,2,3 };
-extern int iii[];
-int x[];
-int x[2];
-int x[];
-int x[2];
-int x[];
-extern int x[2];
-extern int x[];
-int x[3];
+#وإلاإذا defined test_incomplete_array_array
+  صحيح t[][3]; // gr: not an error, see below
 
 /******************************************************************/
-#elif defined test_func_1 \
+#وإلاإذا defined test_extern_array
+صحيح iii[] = { 1,2,3 };
+خارجي صحيح iii[];
+صحيح x[];
+صحيح x[2];
+صحيح x[];
+صحيح x[2];
+صحيح x[];
+خارجي صحيح x[2];
+خارجي صحيح x[];
+صحيح x[3];
+
+/******************************************************************/
+#وإلاإذا defined test_func_1 \
  || defined test_func_2 \
  || defined test_func_3 \
  || defined test_func_4 \
  || defined test_func_5 \
  || defined test_func_6
-#if defined test_func_1
-int hello(int);
-#elif defined test_func_4
-static int hello(int);
+#إذا defined test_func_1
+صحيح hello(صحيح);
+#وإلاإذا defined test_func_4
+ساكن صحيح hello(صحيح);
 #endif
-int main () {
-#if defined test_func_6
-    static
+صحيح الرئيسية () {
+#إذا defined test_func_6
+    ساكن
 #endif
-    int hello(int);
+    صحيح hello(صحيح);
     hello(123);
-    return 0;
+    إرجاع 0;
 }
 
-#if defined test_func_3
-static int hello(int a)
-#elif defined test_func_5
-int hello(int a, int b)
-#else
-int hello(int a)
+#إذا defined test_func_3
+ساكن صحيح hello(صحيح a)
+#وإلاإذا defined test_func_5
+صحيح hello(صحيح a, صحيح b)
+#وإلا
+صحيح hello(صحيح a)
 #endif
-{ printf("%s: a = %d\n", __FUNCTION__, a); return 0; }
+{ printf("%s: a = %d\n", __FUNCTION__, a); إرجاع 0; }
 
 /******************************************************************/
-#elif defined test_var_1 \
+#وإلاإذا defined test_var_1 \
    || defined test_var_2 \
    || defined test_var_3
 #define P(n,v) printf("%-5s: %d ; %d\n", __FUNCTION__, n, v)
-#if defined test_var_1
-int xxx[];
+#إذا defined test_var_1
+صحيح xxx[];
 #endif
-int bar();
+صحيح bar();
 
-int main ()
+صحيح الرئيسية ()
 {
-#if !defined test_var_3
-    int xxx = 2;
+#إذا !defined test_var_3
+    صحيح xxx = 2;
 #endif
     {
-        extern int xxx[
-#if defined test_var_3
+        خارجي صحيح xxx[
+#إذا defined test_var_3
         2
 #endif
         ];
         P(1, xxx[0]);
         xxx[0] += 2;
     }
-#if !defined test_var_3
+#إذا !defined test_var_3
     P(2, xxx);
 #endif
     bar(123);
-    return 0;
+    إرجاع 0;
 }
-int xxx[1] = {1};
-int bar() { P(3, xxx[0]); return 0; }
+صحيح xxx[1] = {1};
+صحيح bar() { P(3, xxx[0]); إرجاع 0; }
 
-#elif defined test_var_4
-struct yyy { int y; };
-struct zzz;
-void f1() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+#وإلاإذا defined test_var_4
+بنية yyy { صحيح y; };
+بنية zzz;
+فراغ f1() {
+    خارجي حرف *x;
+    خارجي حرف **xx;
+    خارجي بنية yyy y;
+    خارجي بنية yyy *yy;
+    خارجي بنية zzz z;
+    خارجي بنية zzz *zz;
 }
-void f2() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+فراغ f2() {
+    خارجي حرف *x;
+    خارجي حرف **xx;
+    خارجي بنية yyy y;
+    خارجي بنية yyy *yy;
+    خارجي بنية zzz z;
+    خارجي بنية zzz *zz;
 }
-struct yyy y, *yy;
-struct zzz { int z; } z, *zz;
+بنية yyy y, *yy;
+بنية zzz { صحيح z; } z, *zz;
 
 /******************************************************************/
-#elif defined test_long_double_type_for_win32
+#وإلاإذا defined test_long_double_type_for_win32
 
-int main()
+صحيح الرئيسية()
 {
-    double *a = 0;
-    long double *b = a;
-    int n = _Generic(*a, double:0, long double:1);
+    مزدوج *a = 0;
+    long مزدوج *b = a;
+    صحيح n = _Generic(*a, مزدوج:0, long مزدوج:1);
 }
 
-#elif defined test_stray_backslash
+#وإلاإذا defined test_stray_backslash
 #define x \a
 x
 
-#elif defined test_stray_backslash2
+#وإلاإذا defined test_stray_backslash2
 
-int main()
+صحيح الرئيسية()
 {
 #define _S(x) #x
 #define S(x) _S(x)
@@ -342,336 +342,336 @@ int main()
 }
 
 /******************************************************************/
-#elif defined test_var_array
+#وإلاإذا defined test_var_array
 
-static struct var_len { int i; const char str[]; } var_array[] =
+ساكن بنية var_len { صحيح i; ثابت حرف str[]; } var_array[] =
 { { 1, "abcdefghijklmnopqrstuvwxyz" },
   { 2, "longlonglonglonglong" },
   { 3, "tst3" } };
 
-#elif defined test_var_array2
+#وإلاإذا defined test_var_array2
 
-struct c1 { int a; int b[]; };
-struct c1 c1 = { 1, { 2, 3, 4 } };
+بنية c1 { صحيح a; صحيح b[]; };
+بنية c1 c1 = { 1, { 2, 3, 4 } };
 
-struct c2 { int c; struct c1 c1; };
-struct c2 c2 = { 1, { 2, { 3, 4, 5 }}};
+بنية c2 { صحيح c; بنية c1 c1; };
+بنية c2 c2 = { 1, { 2, { 3, 4, 5 }}};
 
-#elif defined test_var_array3
+#وإلاإذا defined test_var_array3
 /* similar to test_var_array2 but with string initializers */
-struct A { int a; char b[]; };
-struct A a = { 1, "1" };
-struct B { struct A a; };
-struct B b = { { 1, "1" } };
+بنية A { صحيح a; حرف b[]; };
+بنية A a = { 1, "1" };
+بنية B { بنية A a; };
+بنية B b = { { 1, "1" } };
 /******************************************************************/
-#elif defined test_default_int_type
+#وإلاإذا defined test_default_int_type
 n; // warn
 f(); // don't warn
 
-#elif defined test_invalid_global_stmtexpr
-n[sizeof({3;})]; // crashed in block() due to missing local scope
+#وإلاإذا defined test_invalid_global_stmtexpr
+n[حجم({3;})]; // crashed in block() due to missing local scope
 
-#elif defined test_invalid_tokckill
+#وإلاإذا defined test_invalid_tokckill
 f(){"12"3;} // second const token killed the value of the first
 
 /******************************************************************/
-#elif defined test_duplicate_member
-struct S {
-  int a, a;
+#وإلاإذا defined test_duplicate_member
+بنية S {
+  صحيح a, a;
 };
-#elif defined test_duplicate_member_anon
-struct S1 {
-  int b;
-  struct {
-    int b;
+#وإلاإذا defined test_duplicate_member_anon
+بنية S1 {
+  صحيح b;
+  بنية {
+    صحيح b;
   } c;
 };
-struct S2 {
-  int d;
-  struct {
-    int d;
+بنية S2 {
+  صحيح d;
+  بنية {
+    صحيح d;
   };
 };
 
 /******************************************************************/
-#elif defined test_conflicting_array_definition
-extern int array[2];
-int array[] = { 1, 2, 3 };
+#وإلاإذا defined test_conflicting_array_definition
+خارجي صحيح array[2];
+صحيح array[] = { 1, 2, 3 };
 
-#elif defined test_incompatible_local_redef
-void foo (void)
+#وإلاإذا defined test_incompatible_local_redef
+فراغ foo (فراغ)
 {
-  typedef int localfunctype (int);
-  extern localfunctype func2;
-  typedef void localfunctype (int, int);
+  تعريفنوع صحيح localfunctype (صحيح);
+  خارجي localfunctype func2;
+  تعريفنوع فراغ localfunctype (صحيح, صحيح);
 }
 
-#elif defined test_cast_from_void
-void v() {}
-int f() { return v(); }
+#وإلاإذا defined test_cast_from_void
+فراغ v() {}
+صحيح f() { إرجاع v(); }
 
-#elif defined test_switch_W1 || defined test_switch_W2 \
+#وإلاإذا defined test_switch_W1 || defined test_switch_W2 \
    || defined test_switch_W3 || defined test_switch_W4
-#if defined test_switch_W1
+#إذا defined test_switch_W1
 #pragma comment(option, "-Wall")
-#elif defined test_switch_W2
+#وإلاإذا defined test_switch_W2
 #pragma comment(option, "-Wunsupported -Wno-implicit-function-declaration -Wstuff")
-#elif defined test_switch_W3
+#وإلاإذا defined test_switch_W3
 #pragma comment(option, "-Wwrite-strings -Werror=discarded-qualifiers")
-#elif defined test_switch_W4
+#وإلاإذا defined test_switch_W4
 #pragma comment(option, "-Wunsupported -Wno-error=implicit-function-declaration -Werror")
 #endif
-void func(void)
+فراغ func(فراغ)
 {
-    char *ccp = "123";
+    حرف *ccp = "123";
     fink();
 }
-__attribute__((stuff)) int fink() {return 0;}
+__attribute__((stuff)) صحيح fink() {إرجاع 0;}
 
-#elif defined test_invalid_funcparam_1
-void func(int a, int b, int a);
+#وإلاإذا defined test_invalid_funcparam_1
+فراغ func(صحيح a, صحيح b, صحيح a);
 
-#elif defined test_invalid_funcparam_2
-void func(int a, int if);
+#وإلاإذا defined test_invalid_funcparam_2
+فراغ func(صحيح a, صحيح إذا);
 
-#elif defined test_array_funcparam
-int amain(int argc, char *argv[static argc + 1])
+#وإلاإذا defined test_array_funcparam
+صحيح amain(صحيح argc, حرف *argv[ساكن argc + 1])
 {
-    int i;
+    صحيح i;
 
-    for (i = 0; i < argc; ++i)
+    لكل (i = 0; i < argc; ++i)
         printf("arg[%d] = \"%s\"\n", i, argv[i]);
-    return 0;
+    إرجاع 0;
 }
-int main()
+صحيح الرئيسية()
 {
-    return amain(2, (char *[]){ "X", "Y", 0 });
+    إرجاع amain(2, (حرف *[]){ "X", "Y", 0 });
 }
 
-#elif defined test_return_from_statement_expr
-int f() { ({ return 78; }); }
-int main() { return f(); }
+#وإلاإذا defined test_return_from_statement_تعبير
+صحيح f() { ({ إرجاع 78; }); }
+صحيح الرئيسية() { إرجاع f(); }
 
 /******************************************************************/
 
-#elif defined test_illegal_unicode
-int main() {
-    char *str = "\Uffffffff";
+#وإلاإذا defined test_illegal_unicode
+صحيح الرئيسية() {
+    حرف *str = "\Uffffffff";
 }
 
-#elif defined test_error_string
+#وإلاإذا defined test_error_string
 #error \123\\
 456
 
-#elif defined test_error_incomplete_type
-struct A;
-void f(struct A *);
+#وإلاإذا defined test_error_incomplete_type
+بنية A;
+فراغ f(بنية A *);
 
-int main()
+صحيح الرئيسية()
 {
-    f(&(struct A){});
+    f(&(بنية A){});
 }
 
-struct A {
-    int x;
+بنية A {
+    صحيح x;
 };
 
-#elif defined test_pp_error_1
-# if //no expression
+#وإلاإذا defined test_pp_error_1
+# إذا //no expression
 # endif
-#elif defined test_pp_error_2
-# if X(1,2) //undefined function macro
+#وإلاإذا defined test_pp_error_2
+# إذا X(1,2) //undefined function macro
 # endif
 
-#elif defined test_pointer_plus_double
+#وإلاإذا defined test_pointer_plus_double
 
-int *invalid_operation(int *p, double d)
+صحيح *invalid_operation(صحيح *p, مزدوج d)
 {
-    return p + d;
+    إرجاع p + d;
 }
 
-#elif defined test_duplicate_case
+#وإلاإذا defined test_duplicate_case
 
-int main()
+صحيح الرئيسية()
 {
-    unsigned int x;
-    switch (x) {
-        case -1 ... 0: /* empty case range with unsigned */
-        case 3:
-        case 1:
-        case 2:
-        case 3: /* show this line number in error */
-        case 4:
-        case 5:
+    unsigned صحيح x;
+    بدل (x) {
+        حالة -1 ... 0: /* empty case range with unsigned */
+        حالة 3:
+        حالة 1:
+        حالة 2:
+        حالة 3: /* show this line number in error */
+        حالة 4:
+        حالة 5:
     }
 }
-#elif defined test_normal_funcargs || defined test_reverse_funcargs
+#وإلاإذا defined test_normal_funcargs || defined test_reverse_funcargs
 
 #ifdef test_reverse_funcargs
 # pragma comment(option, "-freverse-funcargs")
 #endif
 
-int main()
+صحيح الرئيسية()
 {
     printf(" %d %d %d\n", printf("1"), printf("22"), printf("333"));
 }
 
-#elif defined test_scope_1 \
+#وإلاإذا defined test_scope_1 \
    || defined test_scope_2 \
    || defined test_scope_3
 
-struct xxx {int x[4];};
+بنية xxx {صحيح x[4];};
 
 /* 'ee' not defined outside of function, 'i' not redefined */
-int bar(enum ee { a = 12, b = 34 } i, int(*f)(int i))
+صحيح bar(تعداد ee { a = 12, b = 34 } i, صحيح(*f)(صحيح i))
 {
     printf("bar %d %d %d\n", i, a, b);
-    return 0;
+    إرجاع 0;
 }
 /* 'xxx' not defined outside of function */
-int foo(struct xxx {int x[3];}*p)
+صحيح foo(بنية xxx {صحيح x[3];}*p)
 {
-    printf("foo %d", sizeof *p);
-    return p->x[3];
+    printf("foo %d", حجم *p);
+    إرجاع p->x[3];
 }
 #ifdef test_scope_2
 /* incompatible redefinition */
-int foo(struct xxx {int x[2];}*p);
+صحيح foo(بنية xxx {صحيح x[2];}*p);
 #endif
 #ifndef test_scope_3
-enum ee { a = 1, b };
+تعداد ee { a = 1, b };
 #endif
 
-struct xxx x = { 11,22,33,44 };
-int main(int argc, char **argv)
+بنية xxx x = { 11,22,33,44 };
+صحيح الرئيسية(صحيح argc, حرف **argv)
 {
-    printf(" %d %d\n", foo(&x), sizeof (struct xxx));
-    enum ee e = b;
+    printf(" %d %d\n", foo(&x), حجم (بنية xxx));
+    تعداد ee e = b;
     bar(13 + e, 0);
 
 }
 
-#elif defined test_const_array_member_addr_ok
+#وإلاإذا defined test_const_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+تعريفنوع صحيح int_array[1];
+تعريفنوع بنية { int_array arr; } my_struct;
 
-int_array const *get_array(const my_struct *s)
+int_array ثابت *get_array(ثابت my_struct *s)
 {
-    return &(s->arr);
+    إرجاع &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_ok
+#وإلاإذا defined test_const_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+تعريفنوع صحيح int_array[1];
+تعريفنوع بنية { int_array arr; } my_struct;
 
-const int *good_decay(const my_struct *s)
+ثابت صحيح *good_decay(ثابت my_struct *s)
 {
-    return s->arr;
+    إرجاع s->arr;
 }
 
-#elif defined test_const_array_member_addr_bad
+#وإلاإذا defined test_const_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+تعريفنوع صحيح int_array[1];
+تعريفنوع بنية { int_array arr; } my_struct;
 
-int_array *bad_array_addr(const my_struct *s)
+int_array *bad_array_addr(ثابت my_struct *s)
 {
-    return &(s->arr);
+    إرجاع &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_bad
+#وإلاإذا defined test_const_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+تعريفنوع صحيح int_array[1];
+تعريفنوع بنية { int_array arr; } my_struct;
 
-int *bad_decay(const my_struct *s)
+صحيح *bad_decay(ثابت my_struct *s)
 {
-    return s->arr;
+    إرجاع s->arr;
 }
 
-#elif defined test_const_array_member_write_bad
+#وإلاإذا defined test_const_array_member_write_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+تعريفنوع صحيح int_array[1];
+تعريفنوع بنية { int_array arr; } my_struct;
 
-void bad_write(const my_struct *s)
+فراغ bad_write(ثابت my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_const_struct_array_member_write_bad
+#وإلاإذا defined test_const_struct_array_member_write_bad
 
-typedef struct { int x; } inner;
-typedef struct { inner arr[1]; } outer;
+تعريفنوع بنية { صحيح x; } inner;
+تعريفنوع بنية { inner arr[1]; } outer;
 
-void bad_inner_write(const outer *s)
+فراغ bad_inner_write(ثابت outer *s)
 {
     s->arr[0].x = 1;
 }
 
-#elif defined test_volatile_array_member_addr_ok
+#وإلاإذا defined test_volatile_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+تعريفنوع صحيح int_array[1];
+تعريفنوع بنية { int_array arr; } my_struct;
 
-int_array volatile *get_volatile_array(volatile my_struct *s)
+int_array متطاير *get_volatile_array(متطاير my_struct *s)
 {
-    return &(s->arr);
+    إرجاع &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_ok
+#وإلاإذا defined test_volatile_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+تعريفنوع صحيح int_array[1];
+تعريفنوع بنية { int_array arr; } my_struct;
 
-volatile int *good_volatile_decay(volatile my_struct *s)
+متطاير صحيح *good_volatile_decay(متطاير my_struct *s)
 {
-    return s->arr;
+    إرجاع s->arr;
 }
 
-#elif defined test_volatile_array_member_addr_bad
+#وإلاإذا defined test_volatile_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+تعريفنوع صحيح int_array[1];
+تعريفنوع بنية { int_array arr; } my_struct;
 
-int_array *bad_volatile_array_addr(volatile my_struct *s)
+int_array *bad_volatile_array_addr(متطاير my_struct *s)
 {
-    return &(s->arr);
+    إرجاع &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_bad
+#وإلاإذا defined test_volatile_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+تعريفنوع صحيح int_array[1];
+تعريفنوع بنية { int_array arr; } my_struct;
 
-int *bad_volatile_decay(volatile my_struct *s)
+صحيح *bad_volatile_decay(متطاير my_struct *s)
 {
-    return s->arr;
+    إرجاع s->arr;
 }
 
-#elif defined test_volatile_array_member_write_ok
+#وإلاإذا defined test_volatile_array_member_write_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+تعريفنوع صحيح int_array[1];
+تعريفنوع بنية { int_array arr; } my_struct;
 
-void good_volatile_write(volatile my_struct *s)
+فراغ good_volatile_write(متطاير my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_conditional_array_qualifiers
+#وإلاإذا defined test_conditional_array_qualifiers
 
-typedef int Array2[2];
-typedef int Array2x3[2][3];
+تعريفنوع صحيح Array2[2];
+تعريفنوع صحيح Array2x3[2][3];
 
 Array2 *p;
-const Array2 *cp;
-const Array2x3 *cap;
-volatile Array2x3 *vap;
+ثابت Array2 *cp;
+ثابت Array2x3 *cap;
+متطاير Array2x3 *vap;
 
-void test(void)
+فراغ test(فراغ)
 {
     (1 ? p : cp)[0][0] = 1;
     (1 ? cp : p)[0][0] = 2;
@@ -679,22 +679,22 @@ void test(void)
     (1 ? vap : cap)[0][0][0] = 4;
 }
 
-#elif defined test_restrict_scalar
+#وإلاإذا defined test_restrict_scalar
 
-restrict int object;
+restrict صحيح object;
 
-#elif defined test_restrict_function_pointer
+#وإلاإذا defined test_restrict_function_pointer
 
-int (*restrict function_pointer)(void);
+صحيح (*restrict function_pointer)(فراغ);
 
-#elif defined test_discarded_restrict
+#وإلاإذا defined test_discarded_restrict
 
-typedef int *restrict restricted_pointer;
+تعريفنوع صحيح *restrict restricted_pointer;
 
 restricted_pointer *source;
-int **destination;
+صحيح **destination;
 
-void test(void)
+فراغ test(فراغ)
 {
     destination = source;
 }

@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+ساكن مضمن ثابت حرف *get_basefile_from_header(فراغ)
 {
-  return __BASE_FILE__;
+  إرجاع __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+ساكن مضمن ثابت حرف *get_file_from_header(فراغ)
 {
-  return __FILE__;
+  إرجاع __FILE__;
 }

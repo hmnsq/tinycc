@@ -1,26 +1,26 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int myfunc(int x)
+صحيح myfunc(صحيح x)
 {
-   return x * x;
+   إرجاع x * x;
 }
 
-void vfunc(int a)
+فراغ vfunc(صحيح a)
 {
    printf("a=%d\n", a);
 }
 
-void qfunc()
+فراغ qfunc()
 {
    printf("qfunc()\n");
 }
 
-void zfunc()
+فراغ zfunc()
 {
-	((void (*)(void))0) ();
+	((فراغ (*)(فراغ))0) ();
 }
 
-int main()
+صحيح الرئيسية()
 {
    printf("%d\n", myfunc(3));
    printf("%d\n", myfunc(4));
@@ -29,7 +29,7 @@ int main()
 
    qfunc();
 
-   return 0;
+   إرجاع 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

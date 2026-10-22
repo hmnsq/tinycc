@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح الرئيسية()
 {
-   int a;
-   char b;
+   صحيح a;
+   حرف b;
 
    a = 0;
-   while (a < 2)
+   بينما (a < 2)
    {
       printf("%d", a++);
-      break;
+      اكسر;
 
       b = 'A';
-      while (b < 'C')
+      بينما (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   إرجاع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

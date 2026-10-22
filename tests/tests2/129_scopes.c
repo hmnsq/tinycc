@@ -1,179 +1,179 @@
-int printf(const char*, ...);
+صحيح printf(ثابت حرف*, ...);
 
 #define myassert(x) \
     printf("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
 
-enum{ in = 0};
+تعداد{ in = 0};
 
-int main_1(){
+صحيح main_1(){
     {
         myassert(!in);
-        if(sizeof(enum{in=1})) myassert(in);
+        إذا(حجم(تعداد{in=1})) myassert(in);
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        switch(sizeof(enum{in=1})) { default: myassert(in); }
+        بدل(حجم(تعداد{in=1})) { افتراضي: myassert(in); }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        while(sizeof(enum{in=1})) { myassert(in); break; }
+        بينما(حجم(تعداد{in=1})) { myassert(in); اكسر; }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        do{ myassert(!in);}while(0*sizeof(enum{in=1}));
+        افعل{ myassert(!in);}بينما(0*حجم(تعداد{in=1}));
         myassert(!in); //OOPS
     }
 
     {
         myassert(!in);
-        for(sizeof(enum{in=1});;){ myassert(in); break; }
+        لكل(حجم(تعداد{in=1});;){ myassert(in); اكسر; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;;sizeof(enum{in=1})){ myassert(in); break; }
+        لكل(;;حجم(تعداد{in=1})){ myassert(in); اكسر; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;sizeof(enum{in=1});){ myassert(in); break; }
+        لكل(;حجم(تعداد{in=1});){ myassert(in); اكسر; }
         myassert(!in); //OK
     }
-    return 0;
+    إرجاع 0;
 }
 
 /* --------------------------------------------- */
-int main_2()
+صحيح main_2()
 {
-  char c = 'a';
-  void func1(char c); /* param 'c' must not shadow local 'c' */
+  حرف c = 'a';
+  فراغ func1(حرف c); /* param 'c' must not shadow local 'c' */
   func1(c);
-  return 0;
+  إرجاع 0;
 }
 
-void func1(char c)
+فراغ func1(حرف c)
 {
     myassert(c == 'a');
 }
 
-struct st { int a; };
+بنية st { صحيح a; };
 
 /* --------------------------------------------- */
-int main_3()
+صحيح main_3()
 {
-  struct st func(void);
-  struct st st = func(); /* not an 'incompatible redefinition' */
+  بنية st func(فراغ);
+  بنية st st = func(); /* not an 'incompatible redefinition' */
   myassert(st.a == 10);
-  return 0;
+  إرجاع 0;
 }
 
-struct st func(void)
+بنية st func(فراغ)
 {
-  struct st st = { 10 };
-  return st;
+  بنية st st = { 10 };
+  إرجاع st;
 }
 
 /* --------------------------------------------- */
 /* func* 'md' must not be shadowed by param 'md' */
-static void f4(char *(*md)(char *md))
+ساكن فراغ f4(حرف *(*md)(حرف *md))
 {
    (*md)("test");
 }
-static char *a4(char *a)
+ساكن حرف *a4(حرف *a)
 {
-    int strcmp();
+    صحيح strcmp();
     myassert(!strcmp(a, "test"));
-    return a;
+    إرجاع a;
 }
 
-int main_4()
+صحيح main_4()
 {
     f4(a4);
-    return 0;
+    إرجاع 0;
 }
 
 /* --------------------------------------------- */
-int a5[3], b5[];
-int f5(void);
-int main_5()
+صحيح a5[3], b5[];
+صحيح f5(فراغ);
+صحيح main_5()
 {
-    extern int a5[3], b5[3];
+    خارجي صحيح a5[3], b5[3];
     a5[2]=10, b5[2]=4;
     myassert(f5() == 10 + 4);
-    return 0;
+    إرجاع 0;
 }
-int f5(void)
+صحيح f5(فراغ)
 {
-    return a5[2]+b5[2];
+    إرجاع a5[2]+b5[2];
 }
-int b5[3];
+صحيح b5[3];
 
 /* --------------------------------------------- */
-static int f6(int);
-int i6 = 11;
+ساكن صحيح f6(صحيح);
+صحيح i6 = 11;
 
-int main_6()
+صحيح main_6()
 {
     {
-        int i6 = 33, f6 = 44;
+        صحيح i6 = 33, f6 = 44;
         myassert(i6 == 33 && f6 == 44);
         {
-            int f6(int);
-            extern int i6;
+            صحيح f6(صحيح);
+            خارجي صحيح i6;
             myassert(i6 == 11 && f6(22) == 22);
         }
         myassert(i6 == 33 && f6 == 44);
     }
     myassert(i6 == 11 && f6(22) == 22);
-    return 0;
+    إرجاع 0;
 }
 
-int f6(int x)
+صحيح f6(صحيح x)
 {
-    return x;
+    إرجاع x;
 }
 
 /* --------------------------------------------- */
 
-#if defined __TINYC__ \
+#إذا defined __TINYC__ \
     ? !defined __leading_underscore \
     : !(defined __APPLE__ || defined _WIN32)
 # define _
-#else
+#وإلا
 # define _ "_"
 #endif
 
-struct xx7 { int a, b; };
+بنية xx7 { صحيح a, b; };
 
-void f7()
+فراغ f7()
 {
-    struct xx7 { int c; } x;
+    بنية xx7 { صحيح c; } x;
     {
-        extern struct xx7 { int a, b; } x __asm__(_"z7");
+        خارجي بنية xx7 { صحيح a, b; } x __asm__(_"z7");
         x.a = 12;
-        struct xx7 y = { 0,0 };
+        بنية xx7 y = { 0,0 };
     }
-    struct xx7 y = { 90 };
+    بنية xx7 y = { 90 };
     x.c = 78;
     printf("xx7 (1) : %d %d\n", x.c, y.c);
 }
 
-int main_7()
+صحيح main_7()
 {
     f7();
-    extern struct xx7 y __asm__(_"z7");
+    خارجي بنية xx7 y __asm__(_"z7");
     printf("xx7 (2) : %d %d\n", y.a, y.b);
-    return 0;
+    إرجاع 0;
 }
 
 
-struct xx7 z7 = { 0, 34 };
+بنية xx7 z7 = { 0, 34 };
 
 /* --------------------------------------------- */
-int main()
+صحيح الرئيسية()
 {
     main_1();
     main_2();
@@ -182,5 +182,5 @@ int main()
     main_5();
     main_6();
     main_7();
-    return 0;
+    إرجاع 0;
 }

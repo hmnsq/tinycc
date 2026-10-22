@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int fred()
+صحيح fred()
 {
    printf("fred\n");
-   return 0;
+   إرجاع 0;
 }
 
-int joe()
+صحيح joe()
 {
    printf("joe\n");
-   return 1;
+   إرجاع 1;
 }
 
-int main()
+صحيح الرئيسية()
 {
    printf("%d\n", fred() && joe());
    printf("%d\n", fred() || joe());
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", joe() && (0 + fred()));
    printf("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   إرجاع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

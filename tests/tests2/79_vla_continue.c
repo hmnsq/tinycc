@@ -1,113 +1,113 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int f(void)
+صحيح f(فراغ)
 {
-  return 5;
+  إرجاع 5;
 }
 
-void test1()
+فراغ test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  صحيح تعداد_3 = 10;
+  فراغ *addr[10];
+  لكل(;تعداد_3--;) {
+    صحيح a[f()];
 
-    addr[count] = a;
+    addr[تعداد_3] = a;
 
-    continue;
+    استمر;
   }
 
-  if(addr[9] == addr[0]) {
+  إذا(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } وإلا {
     printf("NOT OK\n");
   }
 }
 
-void test2()
+فراغ test2()
 {
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  صحيح تعداد_3 = 10;
+  فراغ *addr[تعداد_3];
+  لكل(;تعداد_3--;) {
+    صحيح a[f()];
 
-    addr[count] = a;
+    addr[تعداد_3] = a;
 
-    continue;
+    استمر;
   }
 
-  if(addr[9] == addr[0]) {
+  إذا(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } وإلا {
     printf("NOT OK\n");
   }
 }
 
-void test3()
+فراغ test3()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  صحيح تعداد_3 = 10;
+  فراغ *addr[تعداد_3];
+  بينما(تعداد_3--) {
+      صحيح b[f()];
+      إذا (تعداد_3 >= 0) {
+          صحيح a[f()];
 
-          addr[count] = a;
+          addr[تعداد_3] = a;
 
-          continue;
+          استمر;
       }
   }
 
-  if(addr[9] == addr[0]) {
+  إذا(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } وإلا {
     printf("NOT OK\n");
   }
 }
 
-void test4()
+فراغ test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  صحيح تعداد_3 = 10;
+  فراغ *addr[تعداد_3];
+  افعل {
+    صحيح a[f()];
 
-    addr[--count] = a;
+    addr[--تعداد_3] = a;
 
-    continue;
-  } while (count);
+    استمر;
+  } بينما (تعداد_3);
 
-  if(addr[9] == addr[0]) {
+  إذا(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } وإلا {
     printf("NOT OK\n");
   }
 }
 
-void test5()
+فراغ test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  صحيح تعداد_3 = 10;
+  صحيح a[f()];
+  صحيح c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  لكل(;تعداد_3--;) {
+    صحيح b[f()];
+    صحيح i;
+    لكل (i=0; i<f(); i++) {
+      b[i] = تعداد_3;
     }
   }
 
-  if (c[0] == 42) {
+  إذا (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } وإلا {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+صحيح الرئيسية(فراغ)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  إرجاع 0;
 }

@@ -1,9 +1,9 @@
-#include <stdio.h>
-double привет=0.1;
-int Lefèvre=2;
-int main(){
+#ضمن <stdio.h>
+مزدوج привет=0.1;
+صحيح Lefèvre=2;
+صحيح الرئيسية(){
     printf("привет=%g\n",привет);
     printf("Lefèvre=%d\n",Lefèvre);
-    return 0;
+    إرجاع 0;
 }
 // pcc & tcc only

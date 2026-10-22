@@ -1,123 +1,123 @@
-inline void inline_inline_2decl_only(void);
-inline void inline_inline_2decl_only(void);
+مضمن فراغ inline_inline_2decl_only(فراغ);
+مضمن فراغ inline_inline_2decl_only(فراغ);
 
-inline void inline_inline_undeclared(void){}
+مضمن فراغ inline_inline_undeclared(فراغ){}
 
-inline void inline_inline_predeclared(void);
-inline void inline_inline_predeclared(void){}
+مضمن فراغ inline_inline_predeclared(فراغ);
+مضمن فراغ inline_inline_predeclared(فراغ){}
 
-inline void inline_inline_postdeclared(void){}
-inline void inline_inline_postdeclared(void);
+مضمن فراغ inline_inline_postdeclared(فراغ){}
+مضمن فراغ inline_inline_postdeclared(فراغ);
 
-inline void inline_inline_prepostdeclared(void);
-inline void inline_inline_prepostdeclared(void){}
-inline void inline_inline_prepostdeclared(void);
+مضمن فراغ inline_inline_prepostdeclared(فراغ);
+مضمن فراغ inline_inline_prepostdeclared(فراغ){}
+مضمن فراغ inline_inline_prepostdeclared(فراغ);
 
-inline void inline_inline_undeclared2(void){}
+مضمن فراغ inline_inline_undeclared2(فراغ){}
 
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void){}
+مضمن فراغ inline_inline_predeclared2(فراغ);
+مضمن فراغ inline_inline_predeclared2(فراغ);
+مضمن فراغ inline_inline_predeclared2(فراغ){}
 
-inline void inline_inline_postdeclared2(void){}
-inline void inline_inline_postdeclared2(void);
-inline void inline_inline_postdeclared2(void);
+مضمن فراغ inline_inline_postdeclared2(فراغ){}
+مضمن فراغ inline_inline_postdeclared2(فراغ);
+مضمن فراغ inline_inline_postdeclared2(فراغ);
 
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void){}
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
+مضمن فراغ inline_inline_prepostdeclared2(فراغ);
+مضمن فراغ inline_inline_prepostdeclared2(فراغ);
+مضمن فراغ inline_inline_prepostdeclared2(فراغ){}
+مضمن فراغ inline_inline_prepostdeclared2(فراغ);
+مضمن فراغ inline_inline_prepostdeclared2(فراغ);
 
-extern void extern_extern_undeclared(void){}
+خارجي فراغ extern_extern_undeclared(فراغ){}
 
-extern void extern_extern_predeclared(void);
-extern void extern_extern_predeclared(void){}
+خارجي فراغ extern_extern_predeclared(فراغ);
+خارجي فراغ extern_extern_predeclared(فراغ){}
 
-extern void extern_extern_postdeclared(void){}
-extern void extern_extern_postdeclared(void);
+خارجي فراغ extern_extern_postdeclared(فراغ){}
+خارجي فراغ extern_extern_postdeclared(فراغ);
 
-extern void extern_extern_prepostdeclared(void);
-extern void extern_extern_prepostdeclared(void){}
-extern void extern_extern_prepostdeclared(void);
+خارجي فراغ extern_extern_prepostdeclared(فراغ);
+خارجي فراغ extern_extern_prepostdeclared(فراغ){}
+خارجي فراغ extern_extern_prepostdeclared(فراغ);
 
-extern void extern_extern_undeclared2(void){}
+خارجي فراغ extern_extern_undeclared2(فراغ){}
 
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void){}
+خارجي فراغ extern_extern_predeclared2(فراغ);
+خارجي فراغ extern_extern_predeclared2(فراغ);
+خارجي فراغ extern_extern_predeclared2(فراغ){}
 
-extern void extern_extern_postdeclared2(void){}
-extern void extern_extern_postdeclared2(void);
-extern void extern_extern_postdeclared2(void);
+خارجي فراغ extern_extern_postdeclared2(فراغ){}
+خارجي فراغ extern_extern_postdeclared2(فراغ);
+خارجي فراغ extern_extern_postdeclared2(فراغ);
 
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void){}
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
+خارجي فراغ extern_extern_prepostdeclared2(فراغ);
+خارجي فراغ extern_extern_prepostdeclared2(فراغ);
+خارجي فراغ extern_extern_prepostdeclared2(فراغ){}
+خارجي فراغ extern_extern_prepostdeclared2(فراغ);
+خارجي فراغ extern_extern_prepostdeclared2(فراغ);
 
-void extern_undeclared(void){}
+فراغ extern_undeclared(فراغ){}
 
-void extern_predeclared(void);
-void extern_predeclared(void){}
+فراغ extern_predeclared(فراغ);
+فراغ extern_predeclared(فراغ){}
 
-void extern_postdeclared(void){}
-void extern_postdeclared(void);
+فراغ extern_postdeclared(فراغ){}
+فراغ extern_postdeclared(فراغ);
 
-void extern_prepostdeclared(void);
-void extern_prepostdeclared(void){}
-void extern_prepostdeclared(void);
+فراغ extern_prepostdeclared(فراغ);
+فراغ extern_prepostdeclared(فراغ){}
+فراغ extern_prepostdeclared(فراغ);
 
-void extern_undeclared2(void){}
+فراغ extern_undeclared2(فراغ){}
 
-void extern_predeclared2(void);
-void extern_predeclared2(void);
-void extern_predeclared2(void){}
+فراغ extern_predeclared2(فراغ);
+فراغ extern_predeclared2(فراغ);
+فراغ extern_predeclared2(فراغ){}
 
-void extern_postdeclared2(void){}
-void extern_postdeclared2(void);
-void extern_postdeclared2(void);
+فراغ extern_postdeclared2(فراغ){}
+فراغ extern_postdeclared2(فراغ);
+فراغ extern_postdeclared2(فراغ);
 
 
-extern inline void noinst_extern_inline_undeclared(void){}
+خارجي مضمن فراغ noinst_extern_inline_undeclared(فراغ){}
 
-extern inline void noinst_extern_inline_postdeclared(void){}
-inline void noinst_extern_inline_postdeclared(void);
+خارجي مضمن فراغ noinst_extern_inline_postdeclared(فراغ){}
+مضمن فراغ noinst_extern_inline_postdeclared(فراغ);
 
-extern inline void noinst_extern_inline_postdeclared2(void){}
-inline void noinst_extern_inline_postdeclared2(void);
-inline void noinst_extern_inline_postdeclared2(void);
+خارجي مضمن فراغ noinst_extern_inline_postdeclared2(فراغ){}
+مضمن فراغ noinst_extern_inline_postdeclared2(فراغ);
+مضمن فراغ noinst_extern_inline_postdeclared2(فراغ);
 
-extern inline void inst_extern_inline_postdeclared(void){}
-extern inline void inst_extern_inline_postdeclared(void);
-inline void inst2_extern_inline_postdeclared(void){}
-void inst2_extern_inline_postdeclared(void);
+خارجي مضمن فراغ inst_extern_inline_postdeclared(فراغ){}
+خارجي مضمن فراغ inst_extern_inline_postdeclared(فراغ);
+مضمن فراغ inst2_extern_inline_postdeclared(فراغ){}
+فراغ inst2_extern_inline_postdeclared(فراغ);
 
-void inst_extern_inline_predeclared(void);
-extern inline void inst_extern_inline_predeclared(void){}
-void inst2_extern_inline_predeclared(void);
-inline void inst2_extern_inline_predeclared(void){}
-extern inline void inst3_extern_inline_predeclared(void);
-inline void inst3_extern_inline_predeclared(void){}
+فراغ inst_extern_inline_predeclared(فراغ);
+خارجي مضمن فراغ inst_extern_inline_predeclared(فراغ){}
+فراغ inst2_extern_inline_predeclared(فراغ);
+مضمن فراغ inst2_extern_inline_predeclared(فراغ){}
+خارجي مضمن فراغ inst3_extern_inline_predeclared(فراغ);
+مضمن فراغ inst3_extern_inline_predeclared(فراغ){}
 
-static inline void noinst_static_inline_postdeclared(void){}
-static inline void noinst_static_inline_postdeclared(void);
-static inline void noinst2_static_inline_postdeclared(void){}
-static void noinst2_static_inline_postdeclared(void);
+ساكن مضمن فراغ noinst_static_inline_postdeclared(فراغ){}
+ساكن مضمن فراغ noinst_static_inline_postdeclared(فراغ);
+ساكن مضمن فراغ noinst2_static_inline_postdeclared(فراغ){}
+ساكن فراغ noinst2_static_inline_postdeclared(فراغ);
 
-static void noinst_static_inline_predeclared(void);
-static inline void noinst_static_inline_predeclared(void){}
-static void noinst2_static_inline_predeclared(void);
-static inline void noinst2_static_inline_predeclared(void){}
+ساكن فراغ noinst_static_inline_predeclared(فراغ);
+ساكن مضمن فراغ noinst_static_inline_predeclared(فراغ){}
+ساكن فراغ noinst2_static_inline_predeclared(فراغ);
+ساكن مضمن فراغ noinst2_static_inline_predeclared(فراغ){}
 
-static void static_func(void);
-void static_func(void) { }
+ساكن فراغ static_func(فراغ);
+فراغ static_func(فراغ) { }
 
-inline void noinst_extern_inline_func(void);
-void noinst_extern_inline_func(void) { }
+مضمن فراغ noinst_extern_inline_func(فراغ);
+فراغ noinst_extern_inline_func(فراغ) { }
 
-int main()
+صحيح الرئيسية()
 {
         inline_inline_undeclared(); inline_inline_predeclared(); inline_inline_postdeclared();
         inline_inline_undeclared2(); inline_inline_predeclared2(); inline_inline_postdeclared2();
@@ -126,7 +126,7 @@ int main()
 	noinst_static_inline_predeclared();
 	noinst2_static_inline_predeclared();
 
-        void check_exports();
+        فراغ check_exports();
         check_exports();
-        return 0;
+        إرجاع 0;
 }

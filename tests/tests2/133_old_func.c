@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+صحيح printf(ثابت حرف *s, ...);
 
-float fx(x)
-float x;
+عائم fx(x)
+عائم x;
 {
-    return 2.0 * x;
+    إرجاع 2.0 * x;
 }
 
-void func(float a);
+فراغ func(عائم a);
 
-void func3(struct p { int a; int b; } *q) {
+فراغ func3(بنية p { صحيح a; صحيح b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+فراغ func4(q)
+ بنية p { صحيح a; صحيح b; صحيح c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+بنية p { صحيح a; صحيح b; صحيح c; صحيح d; };
 
-int
-main(void)
+صحيح
+الرئيسية(فراغ)
 {
-    float fy();
+    عائم fy();
 
     printf("%g %g\n", fx(2.0), fy(10.0));
     printf("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+عائم fy(x)
+عائم x;
 {
-    return 3.0 * x;
+    إرجاع 3.0 * x;
 }
 
-void func(a)
-float a;
+فراغ func(a)
+عائم a;
 {
     printf("%g\n", a);
 }
