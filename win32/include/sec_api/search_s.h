@@ -3,19 +3,19 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SEARCH_S
-#define _INC_SEARCH_S
+#ifndef INC_چارين_S
+#define INC_چارين_S
 
-#include <search.h>
+#ضمن <search.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#إذا defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
-  _CRTIMP void *__cdecl _lfind_s(const void *_Key,const void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
-  _CRTIMP void *__cdecl _lsearch_s(const void *_Key,void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
+  _CRTIMP فراغ *__cdecl _lfind_s(ثابت فراغ *کونچي_2,ثابت فراغ *_Base,unsigned صحيح *اڠک_Of_Elements,size_t _SizeOfElements,صحيح (__cdecl *_PtFuncCompare)(فراغ *,ثابت فراغ *,ثابت فراغ *),فراغ *_Context);
+  _CRTIMP فراغ *__cdecl _lsearch_s(ثابت فراغ *کونچي_2,فراغ *_Base,unsigned صحيح *اڠک_Of_Elements,size_t _SizeOfElements,صحيح (__cdecl *_PtFuncCompare)(فراغ *,ثابت فراغ *,ثابت فراغ *),فراغ *_Context);
 
 #ifdef __cplusplus
 }

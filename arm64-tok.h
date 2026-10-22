@@ -389,8 +389,8 @@
  DEF_ASM(clrex)
 
 /* Push/pop */
- DEF_ASM(push)
- DEF_ASM(pop)
+ DEF_ASM(تولق)
+ DEF_ASM(کلوار)
 
 /* Floating point */
  DEF_ASM(fmov)

@@ -1,25 +1,25 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-extern int Array3[10];
-int Array3[] = { 12, 34, };
-int main()
+خارجي صحيح Array3[10];
+صحيح Array3[] = { 12, 34, };
+صحيح main()
 {
-   int Count;
+   صحيح کيراءن_3;
 
-   int Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
+   صحيح Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array[Count]);
+   لكل (کيراءن_3 = 0; کيراءن_3 < 10; کيراءن_3++)
+      printf("%d: %d\n", کيراءن_3, Array[کيراءن_3]);
 
-   int Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
+   صحيح Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array2[Count]);
+   لكل (کيراءن_3 = 0; کيراءن_3 < 10; کيراءن_3++)
+      printf("%d: %d\n", کيراءن_3, Array2[کيراءن_3]);
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array3[Count]);
+   لكل (کيراءن_3 = 0; کيراءن_3 < 10; کيراءن_3++)
+      printf("%d: %d\n", کيراءن_3, Array3[کيراءن_3]);
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

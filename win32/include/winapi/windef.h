@@ -11,7 +11,7 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
 #ifndef WINVER
@@ -20,22 +20,22 @@ extern "C" {
 
 #ifndef BASETYPES
 #define BASETYPES
-  typedef unsigned long ULONG;
-  typedef ULONG *PULONG;
-  typedef unsigned short USHORT;
-  typedef USHORT *PUSHORT;
-  typedef unsigned char UCHAR;
-  typedef UCHAR *PUCHAR;
-  typedef char *PSZ;
+  تعريفنوع unsigned long ULONG;
+  تعريفنوع ULONG *PULONG;
+  تعريفنوع unsigned short USHORT;
+  تعريفنوع USHORT *PUSHORT;
+  تعريفنوع unsigned حرف UCHAR;
+  تعريفنوع UCHAR *PUCHAR;
+  تعريفنوع حرف *PSZ;
 #endif
 
 #define MAX_PATH 260
 
-#ifndef NULL
+#ifndef عدم
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define عدم 0
+#وإلا
+#define عدم ((فراغ *)0)
 #endif
 #endif
 
@@ -88,45 +88,45 @@ extern "C" {
 #define FAR
 #define NEAR
 #ifndef CONST
-#define CONST const
+#define CONST ثابت
 #endif
 
-  typedef unsigned long DWORD;
-  typedef int WINBOOL;
+  تعريفنوع unsigned long DWORD;
+  تعريفنوع صحيح WINBOOL;
 #define BOOL WINBOOL
-  typedef unsigned char BYTE;
-  typedef unsigned short WORD;
-  typedef float FLOAT;
-  typedef FLOAT *PFLOAT;
-  typedef WINBOOL *PBOOL;
-  typedef WINBOOL *LPBOOL;
-  typedef BYTE *PBYTE;
-  typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
-  typedef WORD *PWORD;
-  typedef WORD *LPWORD;
-  typedef long *LPLONG;
-  typedef DWORD *PDWORD;
-  typedef DWORD *LPDWORD;
-  typedef void *LPVOID;
+  تعريفنوع unsigned حرف BYTE;
+  تعريفنوع unsigned short WORD;
+  تعريفنوع عائم FLOAT;
+  تعريفنوع FLOAT *PFLOAT;
+  تعريفنوع WINBOOL *PBOOL;
+  تعريفنوع WINBOOL *LPBOOL;
+  تعريفنوع BYTE *PBYTE;
+  تعريفنوع BYTE *LPBYTE;
+  تعريفنوع صحيح *PINT;
+  تعريفنوع صحيح *LPINT;
+  تعريفنوع WORD *PWORD;
+  تعريفنوع WORD *LPWORD;
+  تعريفنوع long *LPLONG;
+  تعريفنوع DWORD *PDWORD;
+  تعريفنوع DWORD *LPDWORD;
+  تعريفنوع فراغ *LPVOID;
 # ifndef _LPCVOID_DEFINED
 #define _LPCVOID_DEFINED
-typedef CONST void *LPCVOID;
+تعريفنوع CONST فراغ *LPCVOID;
 #endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+  تعريفنوع صحيح INT;
+  تعريفنوع unsigned صحيح UINT;
+  تعريفنوع unsigned صحيح *PUINT;
 
 #ifndef NT_INCLUDED
-#include <winnt.h>
+#ضمن <winnt.h>
 #endif
 
 //gr #include <specstrings.h>
 
-  typedef UINT_PTR WPARAM;
-  typedef LONG_PTR LPARAM;
-  typedef LONG_PTR LRESULT;
+  تعريفنوع UINT_PTR WPARAM;
+  تعريفنوع LONG_PTR LPARAM;
+  تعريفنوع LONG_PTR LRESULT;
 
 #ifndef __cplusplus
 #ifndef NOMINMAX
@@ -155,28 +155,28 @@ typedef CONST void *LPCVOID;
 #endif
 #endif
 
-  typedef WORD ATOM;
+  تعريفنوع WORD ATOM;
 
-  typedef HANDLE *SPHANDLE;
-  typedef HANDLE *LPHANDLE;
-  typedef HANDLE HGLOBAL;
-  typedef HANDLE HLOCAL;
-  typedef HANDLE GLOBALHANDLE;
-  typedef HANDLE LOCALHANDLE;
+  تعريفنوع HANDLE *SPHANDLE;
+  تعريفنوع HANDLE *LPHANDLE;
+  تعريفنوع HANDLE HGLOBAL;
+  تعريفنوع HANDLE HLOCAL;
+  تعريفنوع HANDLE GLOBALHANDLE;
+  تعريفنوع HANDLE LOCALHANDLE;
 #ifdef _WIN64
-  typedef INT_PTR (WINAPI *FARPROC)();
-  typedef INT_PTR (WINAPI *NEARPROC)();
-  typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
+  تعريفنوع INT_PTR (WINAPI *FARPROC)();
+  تعريفنوع INT_PTR (WINAPI *NEARPROC)();
+  تعريفنوع INT_PTR (WINAPI *PROC)();
+#وإلا
+  تعريفنوع صحيح (WINAPI *FARPROC)();
+  تعريفنوع صحيح (WINAPI *NEARPROC)();
+  تعريفنوع صحيح (WINAPI *PROC)();
 #endif
 
-  typedef void *HGDIOBJ;
+  تعريفنوع فراغ *HGDIOBJ;
 
   DECLARE_HANDLE(HKEY);
-  typedef HKEY *PHKEY;
+  تعريفنوع HKEY *PHKEY;
 
   DECLARE_HANDLE(HACCEL);
   DECLARE_HANDLE(HBITMAP);
@@ -191,7 +191,7 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HMENU);
   DECLARE_HANDLE(HMETAFILE);
   DECLARE_HANDLE(HINSTANCE);
-  typedef HINSTANCE HMODULE;
+  تعريفنوع HINSTANCE HMODULE;
   DECLARE_HANDLE(HPALETTE);
   DECLARE_HANDLE(HPEN);
   DECLARE_HANDLE(HRGN);
@@ -204,57 +204,57 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
-  typedef HICON HCURSOR;
-  typedef DWORD COLORREF;
-  typedef DWORD *LPCOLORREF;
+  تعريفنوع صحيح HFILE;
+  تعريفنوع HICON HCURSOR;
+  تعريفنوع DWORD COLORREF;
+  تعريفنوع DWORD *LPCOLORREF;
 
 #define HFILE_ERROR ((HFILE)-1)
 
-  typedef struct tagRECT {
-    LONG left;
-    LONG top;
-    LONG right;
+  تعريفنوع بنية tagRECT {
+    LONG کيري;
+    LONG اتس;
+    LONG کانن;
     LONG bottom;
   } RECT,*PRECT,*NPRECT,*LPRECT;
 
-  typedef const RECT *LPCRECT;
+  تعريفنوع ثابت RECT *LPCRECT;
 
-  typedef struct _RECTL {
-    LONG left;
-    LONG top;
-    LONG right;
+  تعريفنوع بنية _RECTL {
+    LONG کيري;
+    LONG اتس;
+    LONG کانن;
     LONG bottom;
   } RECTL,*PRECTL,*LPRECTL;
 
-  typedef const RECTL *LPCRECTL;
+  تعريفنوع ثابت RECTL *LPCRECTL;
 
-  typedef struct tagPOINT {
+  تعريفنوع بنية tagPOINT {
     LONG x;
     LONG y;
   } POINT,*PPOINT,*NPPOINT,*LPPOINT;
 
-  typedef struct _POINTL {
+  تعريفنوع بنية _POINTL {
     LONG x;
     LONG y;
   } POINTL,*PPOINTL;
 
-  typedef struct tagSIZE {
+  تعريفنوع بنية tagSIZE {
     LONG cx;
     LONG cy;
   } SIZE,*PSIZE,*LPSIZE;
 
-  typedef SIZE SIZEL;
-  typedef SIZE *PSIZEL,*LPSIZEL;
+  تعريفنوع SIZE SIZEL;
+  تعريفنوع SIZE *PSIZEL,*LPSIZEL;
 
-  typedef struct tagPOINTS {
+  تعريفنوع بنية tagPOINTS {
     SHORT x;
     SHORT y;
   } POINTS,*PPOINTS,*LPPOINTS;
 
-  typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+  تعريفنوع بنية _FILETIME {
+    DWORD dw_رنده_Date_Time;
+    DWORD dw_تيڠݢي_Date_Time;
   } FILETIME,*PFILETIME,*LPFILETIME;
 #define _FILETIME_
 

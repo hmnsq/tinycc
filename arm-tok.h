@@ -295,8 +295,8 @@
 
  /* instruction macros */
 
- DEF_ASM_CONDED(push)
- DEF_ASM_CONDED(pop)
+ DEF_ASM_CONDED(تولق)
+ DEF_ASM_CONDED(کلوار)
 
  /* branches */
 

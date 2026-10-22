@@ -6,16 +6,16 @@
 #ifndef _TIMEB_H_
 #define _TIMEB_H_
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
 #ifndef _WIN32
 #error Only Win32 target is supported!
 #endif
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(تولق,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
 #ifndef _CRTIMP
@@ -27,30 +27,30 @@ extern "C" {
 #ifdef _WIN64
 #undef _USE_32BIT_TIME_T
 #endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
+#وإلا
+#إذا _INTEGRAL_MAX_BITS < 64
 #define _USE_32BIT_TIME_T
 #endif
 #endif
 #endif
 
 #ifndef _TIME32_T_DEFINED
-  typedef long __time32_t;
+  تعريفنوع long __time32_t;
 #define _TIME32_T_DEFINED
 #endif
 
 #ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
+#إذا _INTEGRAL_MAX_BITS >= 64
+  تعريفنوع __int64 __time64_t;
 #endif
 #define _TIME64_T_DEFINED
 #endif
 
 #ifndef _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
+  تعريفنوع __time32_t time_t;
+#وإلا
+  تعريفنوع __time64_t time_t;
 #endif
 #define _TIME_T_DEFINED
 #endif
@@ -58,7 +58,7 @@ extern "C" {
 #ifndef _TIMEB_DEFINED
 #define _TIMEB_DEFINED
 
-  struct __timeb32 {
+  بنية __timeb32 {
     __time32_t time;
     unsigned short millitm;
     short timezone;
@@ -66,7 +66,7 @@ extern "C" {
   };
 
 #ifndef	NO_OLDNAMES
-  struct timeb {
+  بنية timeb {
     time_t time;
     unsigned short millitm;
     short timezone;
@@ -74,8 +74,8 @@ extern "C" {
   };
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __timeb64 {
+#إذا _INTEGRAL_MAX_BITS >= 64
+  بنية __timeb64 {
     __time64_t time;
     unsigned short millitm;
     short timezone;
@@ -87,38 +87,38 @@ extern "C" {
 #define _timeb __timeb32
 //gr #define _ftime _ftime32
 #define _ftime32 _ftime
-#else
+#وإلا
 #define _timeb __timeb64
 #define _ftime _ftime64
 #endif
 #endif
 
-  _CRTIMP void __cdecl _ftime32(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP void __cdecl _ftime64(struct __timeb64 *_Time);
+  _CRTIMP فراغ __cdecl _ftime32(بنية __timeb32 *_Time);
+#إذا _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP فراغ __cdecl _ftime64(بنية __timeb64 *_Time);
 #endif
 
 #ifndef _TIMESPEC_DEFINED
 #define _TIMESPEC_DEFINED
-struct timespec {
+بنية timespec {
   time_t  tv_sec;   /* Seconds */
   long    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+بنية itimerspec {
+  بنية timespec  it_interval;  /* Timer period */
+  بنية timespec  it_value;     /* Timer expiration */
 };
 #endif
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+#إذا !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime32((struct __timeb32 *)_Tmb);
+__CRT_INLINE فراغ __cdecl ftime(بنية timeb *_Tmb) {
+  _ftime32((بنية __timeb32 *)_Tmb);
 }
-#else
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime64((struct __timeb64 *)_Tmb);
+#وإلا
+__CRT_INLINE فراغ __cdecl ftime(بنية timeb *_Tmb) {
+  _ftime64((بنية __timeb64 *)_Tmb);
 }
 #endif
 #endif
@@ -127,7 +127,7 @@ __CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(کلوار)
 
-#include <sec_api/sys/timeb_s.h>
+#ضمن <sec_api/sys/timeb_s.h>
 #endif
