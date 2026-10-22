@@ -1,9 +1,9 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
 /* This test is a snippet from the J interpreter */
 
-typedef long I;
-typedef struct{I c[4];I b,e,k;} PT;
+प्रकारनिर्देश long I;
+प्रकारनिर्देश संरचना{I c[4];I b,e,k;} PT;
 
 PT cases[] = {
  ((I)4194304L +(I)2097152L +(I)67108864L), (I)262144L, (((I)1L +(I)256L +(I)4L +(I)8L +(I)16L +(I)64L +(I)128L +(I)268435456L +(I)536870912L +(I)1024L +(I)4096L +(I)8192L +(I)16384L)+((I)2L +(I)131072L +(I)2048L)+(I)32L +(I)32768L +(I)65536L), -1L, 1,2,1,
@@ -17,11 +17,11 @@ PT cases[] = {
  (I)67108864L, ((I)1048576L +(I)524288L +(I)262144L +(((I)1L +(I)256L +(I)4L +(I)8L +(I)16L +(I)64L +(I)128L +(I)268435456L +(I)536870912L +(I)1024L +(I)4096L +(I)8192L +(I)16384L)+((I)2L +(I)131072L +(I)2048L)+(I)32L +(I)32768L +(I)65536L)), (I)134217728L, -1L, 0,2,0,
 };
 
-int main() {
-    int i, j;
+पूर्णाङ्क main() {
+    पूर्णाङ्क i, j;
 
-    for(j=0; j < sizeof(cases)/sizeof(cases[0]); j++) {
-	for(i=0; i < sizeof(cases->c)/sizeof(cases->c[0]); i++)
+    प्रति(j=0; j < परिमाण(cases)/परिमाण(cases[0]); j++) {
+	प्रति(i=0; i < परिमाण(cases->c)/परिमाण(cases->c[0]); i++)
 	    printf("cases[%d].c[%d]=%ld\n", j, i, cases[j].c[i]);
 
 	printf("cases[%d].b=%ld\n", j, cases[j].b);
@@ -29,5 +29,5 @@ int main() {
 	printf("cases[%d].k=%ld\n", j, cases[j].k);
 	printf("\n");
     }
-    return 0;
+    प्रत्यागम 0;
 }
