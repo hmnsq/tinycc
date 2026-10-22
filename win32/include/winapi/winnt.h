@@ -21,45 +21,45 @@ extern "C" {
 #define __CRT_UNALIGNED
 #endif
 
-#if defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
+#ပေႃး defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
 #define UNALIGNED __CRT_UNALIGNED
 #ifdef _WIN64
 #define UNALIGNED64 __CRT_UNALIGNED
-#else
+#ပေႃးဢမ်ႇ
 #define UNALIGNED64
 #endif
-#else
+#ပေႃးဢမ်ႇ
 #define UNALIGNED
 #define UNALIGNED64
 #endif
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
+#ပေႃး !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
 #define I_X86_
 #endif
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
+#ပေႃး !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
 #define _AMD64_
 #endif
 
-#if !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
-#if !defined(_IA64_)
+#ပေႃး !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
+#ပေႃး !defined(_IA64_)
 #define _IA64_
 #endif
 #endif
 
 
 #ifdef _WIN64
-#define MAX_NATURAL_ALIGNMENT sizeof(ULONGLONG)
+#define MAX_NATURAL_ALIGNMENT parimaa_na(ULONGLONG)
 #define MEMORY_ALLOCATION_ALIGNMENT 16
-#else
-#define MAX_NATURAL_ALIGNMENT sizeof(DWORD)
+#ပေႃးဢမ်ႇ
+#define MAX_NATURAL_ALIGNMENT parimaa_na(DWORD)
 #define MEMORY_ALLOCATION_ALIGNMENT 8
 #endif
 
 #ifdef __cplusplus
 #define TYPE_ALIGNMENT(t) __alignof__ (t)
-#else
-#define TYPE_ALIGNMENT(t) FIELD_OFFSET(struct { char x; t test; },test)
+#ပေႃးဢမ်ႇ
+#define TYPE_ALIGNMENT(t) FIELD_OFFSET(sa_nracanaa { var_na x; t test; },test)
 #endif
 
 #ifdef _WIN64
@@ -67,21 +67,21 @@ extern "C" {
 #define PROBE_ALIGNMENT(_s) TYPE_ALIGNMENT(DWORD)
 #elif defined(_IA64_) || defined(_ARM64_)
 #define PROBE_ALIGNMENT(_s) (TYPE_ALIGNMENT(_s) > TYPE_ALIGNMENT(DWORD) ? TYPE_ALIGNMENT(_s) : TYPE_ALIGNMENT(DWORD))
-#else
+#ပေႃးဢမ်ႇ
 #error No Target Architecture
 #endif
 #define PROBE_ALIGNMENT32(_s) TYPE_ALIGNMENT(DWORD)
-#else
+#ပေႃးဢမ်ႇ
 #define PROBE_ALIGNMENT(_s) TYPE_ALIGNMENT(DWORD)
 #endif
 
-#define C_ASSERT(e) typedef char __C_ASSERT__[(e)?1:-1]
+#define C_ASSERT(e) typedef var_na __C_ASSERT__[(e)?1:-1]
 
 #include <basetsd.h>
 
-#if defined(_X86_) || defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
+#ပေႃး defined(_X86_) || defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
 #define DECLSPEC_IMPORT __declspec(dllimport)
-#else
+#ပေႃးဢမ်ႇ
 #define DECLSPEC_IMPORT
 #endif
 
@@ -94,9 +94,9 @@ extern "C" {
 #endif
 
 #ifndef SYSTEM_CACHE_ALIGNMENT_SIZE
-#if defined(_AMD64_) || defined(I_X86_)
+#ပေႃး defined(_AMD64_) || defined(I_X86_)
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 64
-#else
+#ပေႃးဢမ်ႇ
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 128
 #endif
 #endif
@@ -146,7 +146,7 @@ extern "C" {
 
 #ifndef VOID
 #define VOID void
-  typedef char CHAR;
+  typedef var_na CHAR;
   typedef short SHORT;
   typedef long LONG;
 #endif
@@ -183,11 +183,11 @@ extern "C" {
   typedef LPCUWSTR PCUTSTR,LPCUTSTR;
   typedef LPWSTR LP;
 #define __TEXT(quote) L##quote
-#else
+#ပေႃးဢမ်ႇ
 #ifndef _TCHAR_DEFINED
 #define _TCHAR_DEFINED
-  typedef char TCHAR,*PTCHAR;
-  typedef unsigned char TBYTE ,*PTBYTE;
+  typedef var_na TCHAR,*PTCHAR;
+  typedef unsigned var_na TBYTE ,*PTBYTE;
 #endif
 
   typedef LPSTR LPTCH,PTCH;
@@ -202,7 +202,7 @@ extern "C" {
   typedef LONG *PLONG;
 
   typedef void *HANDLE;
-#define DECLARE_HANDLE(name) struct name##__ { int unused; }; typedef struct name##__ *name
+#define DECLARE_HANDLE(name) sa_nracanaa name##__ { puur_naa_nka unused; }; typedef sa_nracanaa name##__ *name
   typedef HANDLE *PHANDLE;
 
   typedef BYTE FCHAR;
@@ -216,7 +216,7 @@ extern "C" {
 
 #ifdef __cplusplus
 #define EXTERN_C extern "C"
-#else
+#ပေႃးဢမ်ႇ
 #define EXTERN_C extern
 #endif
 
@@ -233,7 +233,7 @@ extern "C" {
 #define STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
 #define STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
 
-  typedef char CCHAR;
+  typedef var_na CCHAR;
 #ifndef _LCID_DEFINED
 #define _LCID_DEFINED
 typedef DWORD LCID;
@@ -252,7 +252,7 @@ typedef DWORD LCID;
 #ifdef __ia64__
   __declspec(align(16))
 #endif
-    typedef struct _FLOAT128 {
+    typedef sa_nracanaa _FLOAT128 {
       __int64 LowPart;
       __int64 HighPart;
   } FLOAT128;
@@ -260,15 +260,15 @@ typedef DWORD LCID;
   typedef FLOAT128 *PFLOAT128;
 
 #define _ULONGLONG_
-#if((!(defined(_X86_) && !defined(__x86_64)) || (defined(_INTEGRAL_MAX_BITS) && _INTEGRAL_MAX_BITS >= 64)))
+#ပေႃး((!(defined(_X86_) && !defined(__x86_64)) || (defined(_INTEGRAL_MAX_BITS) && _INTEGRAL_MAX_BITS >= 64)))
   typedef __int64 LONGLONG;
   typedef unsigned __int64 ULONGLONG;
 
 #define MAXLONGLONG (0x7fffffffffffffff)
-#else
+#ပေႃးဢမ်ႇ
 
-  typedef double LONGLONG;
-  typedef double ULONGLONG;
+  typedef dviguu_na LONGLONG;
+  typedef dviguu_na ULONGLONG;
 #endif
 
   typedef LONGLONG *PLONGLONG;
@@ -276,12 +276,12 @@ typedef DWORD LCID;
 
   typedef LONGLONG USN;
 
-  typedef union _LARGE_INTEGER {
-    struct {
+  typedef sa_ngha _LARGE_INTEGER {
+    sa_nracanaa {
       DWORD LowPart;
       LONG HighPart;
     };
-    struct {
+    sa_nracanaa {
       DWORD LowPart;
       LONG HighPart;
     } u;
@@ -290,12 +290,12 @@ typedef DWORD LCID;
 
   typedef LARGE_INTEGER *PLARGE_INTEGER;
 
-  typedef union _ULARGE_INTEGER {
-    struct {
+  typedef sa_ngha _ULARGE_INTEGER {
+    sa_nracanaa {
       DWORD LowPart;
       DWORD HighPart;
     };
-    struct {
+    sa_nracanaa {
       DWORD LowPart;
       DWORD HighPart;
     } u;
@@ -304,7 +304,7 @@ typedef DWORD LCID;
 
   typedef ULARGE_INTEGER *PULARGE_INTEGER;
 
-  typedef struct _LUID {
+  typedef sa_nracanaa _LUID {
     DWORD LowPart;
     LONG HighPart;
   } LUID,*PLUID;
@@ -325,7 +325,7 @@ typedef DWORD LCID;
 #define Int32x32To64(a,b) ((LONGLONG)((LONG)(a)) *(LONGLONG)((LONG)(b)))
 #define UInt32x32To64(a,b) ((ULONGLONG)((DWORD)(a)) *(ULONGLONG)((DWORD)(b)))
 #define Int64ShrlMod32(a,b) ((ULONGLONG)(a) >> (b))
-#else
+#ပေႃးဢမ်ႇ
 #error Must define a target architecture.
 #endif
 
@@ -343,10 +343,10 @@ typedef DWORD LCID;
 #define RotateRight8 _rotr8
 #define RotateRight16 _rotr16
 
-    unsigned char __cdecl _rotl8(unsigned char Value,unsigned char Shift);
-    unsigned short __cdecl _rotl16(unsigned short Value,unsigned char Shift);
-    unsigned char __cdecl _rotr8(unsigned char Value,unsigned char Shift);
-    unsigned short __cdecl _rotr16(unsigned short Value,unsigned char Shift);
+    unsigned var_na __cdecl _rotl8(unsigned var_na Value,unsigned var_na Shift);
+    unsigned short __cdecl _rotl16(unsigned short Value,unsigned var_na Shift);
+    unsigned var_na __cdecl _rotr8(unsigned var_na Value,unsigned var_na Shift);
+    unsigned short __cdecl _rotr16(unsigned short Value,unsigned var_na Shift);
 #endif
 
 #define RotateLeft32 _rotl
@@ -354,10 +354,10 @@ typedef DWORD LCID;
 #define RotateRight32 _rotr
 #define RotateRight64 _rotr64
 
-    unsigned int __cdecl _rotl(unsigned int Value,int Shift);
-    unsigned __int64 __cdecl _rotl64(unsigned __int64 Value,int Shift);
-    unsigned int __cdecl _rotr(unsigned int Value,int Shift);
-    unsigned __int64 __cdecl _rotr64(unsigned __int64 Value,int Shift);
+    unsigned puur_naa_nka __cdecl _rotl(unsigned puur_naa_nka Value,puur_naa_nka Shift);
+    unsigned __int64 __cdecl _rotl64(unsigned __int64 Value,puur_naa_nka Shift);
+    unsigned puur_naa_nka __cdecl _rotr(unsigned puur_naa_nka Value,puur_naa_nka Shift);
+    unsigned __int64 __cdecl _rotr64(unsigned __int64 Value,puur_naa_nka Shift);
 #ifdef __cplusplus
   }
 #endif
@@ -373,22 +373,22 @@ typedef DWORD LCID;
 #endif
   typedef BOOLEAN *PBOOLEAN;
 
-  typedef struct _LIST_ENTRY {
-    struct _LIST_ENTRY *Flink;
-    struct _LIST_ENTRY *Blink;
+  typedef sa_nracanaa _LIST_ENTRY {
+    sa_nracanaa _LIST_ENTRY *Flink;
+    sa_nracanaa _LIST_ENTRY *Blink;
   } LIST_ENTRY,*PLIST_ENTRY,*RESTRICTED_POINTER PRLIST_ENTRY;
 
-  typedef struct _SINGLE_LIST_ENTRY {
-    struct _SINGLE_LIST_ENTRY *Next;
+  typedef sa_nracanaa _SINGLE_LIST_ENTRY {
+    sa_nracanaa _SINGLE_LIST_ENTRY *Next;
   } SINGLE_LIST_ENTRY,*PSINGLE_LIST_ENTRY;
 
-  typedef struct LIST_ENTRY32 {
+  typedef sa_nracanaa LIST_ENTRY32 {
     DWORD Flink;
     DWORD Blink;
   } LIST_ENTRY32;
   typedef LIST_ENTRY32 *PLIST_ENTRY32;
 
-  typedef struct LIST_ENTRY64 {
+  typedef sa_nracanaa LIST_ENTRY64 {
     ULONGLONG Flink;
     ULONGLONG Blink;
   } LIST_ENTRY64;
@@ -398,7 +398,7 @@ typedef DWORD LCID;
 
 #ifndef __OBJECTID_DEFINED
 #define __OBJECTID_DEFINED
-  typedef struct _OBJECTID {
+  typedef sa_nracanaa _OBJECTID {
     GUID Lineage;
     DWORD Uniquifier;
   } OBJECTID;
@@ -415,15 +415,15 @@ typedef DWORD LCID;
 #define MAXDWORD 0xffffffff
 
 #define FIELD_OFFSET(type,field) ((LONG)(LONG_PTR)&(((type *)0)->field))
-#define RTL_FIELD_SIZE(type,field) (sizeof(((type *)0)->field))
+#define RTL_FIELD_SIZE(type,field) (parimaa_na(((type *)0)->field))
 #define RTL_SIZEOF_THROUGH_FIELD(type,field) (FIELD_OFFSET(type,field) + RTL_FIELD_SIZE(type,field))
-#define RTL_CONTAINS_FIELD(Struct,Size,Field) ((((PCHAR)(&(Struct)->Field)) + sizeof((Struct)->Field)) <= (((PCHAR)(Struct))+(Size)))
-#define RTL_NUMBER_OF_V1(A) (sizeof(A)/sizeof((A)[0]))
+#define RTL_CONTAINS_FIELD(Struct,Size,Field) ((((PCHAR)(&(Struct)->Field)) + parimaa_na((Struct)->Field)) <= (((PCHAR)(Struct))+(Size)))
+#define RTL_NUMBER_OF_V1(A) (parimaa_na(A)/parimaa_na((A)[0]))
 #define RTL_NUMBER_OF_V2(A) RTL_NUMBER_OF_V1(A)
 
 #ifdef ENABLE_RTL_NUMBER_OF_V2
 #define RTL_NUMBER_OF(A) RTL_NUMBER_OF_V2(A)
-#else
+#ပေႃးဢမ်ႇ
 #define RTL_NUMBER_OF(A) RTL_NUMBER_OF_V1(A)
 #endif
 
@@ -436,11 +436,11 @@ typedef DWORD LCID;
 
 #ifdef __cplusplus
 #define RTL_CONST_CAST(type) const_cast<type>
-#else
+#ပေႃးဢမ်ႇ
 #define RTL_CONST_CAST(type) (type)
 #endif
 
-#define RTL_BITS_OF(sizeOfArg) (sizeof(sizeOfArg) *8)
+#define RTL_BITS_OF(sizeOfArg) (parimaa_na(sizeOfArg) *8)
 #define RTL_BITS_OF_FIELD(type,field) (RTL_BITS_OF(RTL_FIELD_TYPE(type,field)))
 #define CONTAINING_RECORD(address,type,field) ((type *)((PCHAR)(address) - (ULONG_PTR)(&((type *)0)->field)))
 
@@ -829,7 +829,7 @@ typedef DWORD LCID;
   typedef ULONG_PTR KSPIN_LOCK;
   typedef KSPIN_LOCK *PKSPIN_LOCK;
 
-#if defined(__x86_64) && !defined(RC_INVOKED)
+#ပေႃး defined(__x86_64) && !defined(RC_INVOKED)
 
 #ifdef __cplusplus
   extern "C" {
@@ -849,95 +849,95 @@ typedef DWORD LCID;
 #define InterlockedBitTestAndReset64 _interlockedbittestandreset64
 
     __CRT_INLINE BOOLEAN _bittest(LONG const *Base,LONG Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("btl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandcomplement(LONG *Base,LONG Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("btcl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN InterlockedBitTestAndComplement(LONG *Base,LONG Bit) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("lock ; btcl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandset(LONG *Base,LONG Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("btsl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandreset(LONG *Base,LONG Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("btrl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandset(LONG *Base,LONG Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("lock ; btsl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandreset(LONG *Base,LONG Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("lock ; btrl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittest64(LONG64 const *Base,LONG64 Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("btq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandcomplement64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("btcq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("btsq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandreset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("btrq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("lock ; btsq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandreset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("lock ; btrq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
 #define BitScanForward _BitScanForward
 #define BitScanReverse _BitScanReverse
@@ -945,20 +945,20 @@ typedef DWORD LCID;
 #define BitScanReverse64 _BitScanReverse64
 
     __CRT_INLINE BOOLEAN _BitScanForward(DWORD *Index,DWORD Mask) {
-      __asm__ __volatile__("bsfl %1,%0" : "=r" (Mask),"=m" ((*(volatile long *)Index)));
-      return Mask!=0;
+      __asm__ __volatile__("bsfl %1,%0" : "=r" (Mask),"=m" ((*(ca_ncala long *)Index)));
+      ပွၵ်ႈ Mask!=0;
     }
     __CRT_INLINE BOOLEAN _BitScanReverse(DWORD *Index,DWORD Mask) {
-      __asm__ __volatile__("bsrl %1,%0" : "=r" (Mask),"=m" ((*(volatile long *)Index)));
-      return Mask!=0;
+      __asm__ __volatile__("bsrl %1,%0" : "=r" (Mask),"=m" ((*(ca_ncala long *)Index)));
+      ပွၵ်ႈ Mask!=0;
     }
     __CRT_INLINE BOOLEAN _BitScanForward64(DWORD *Index,DWORD64 Mask) {
-      __asm__ __volatile__("bsfq %1,%0" : "=r" (Mask),"=m" ((*(volatile long long *)Index)));
-      return Mask!=0;
+      __asm__ __volatile__("bsfq %1,%0" : "=r" (Mask),"=m" ((*(ca_ncala long long *)Index)));
+      ပွၵ်ႈ Mask!=0;
     }
     __CRT_INLINE BOOLEAN _BitScanReverse64(DWORD *Index,DWORD64 Mask) {
-      __asm__ __volatile__("bsrq %1,%0" : "=r" (Mask),"=m" ((*(volatile long long *)Index)));
-      return Mask!=0;
+      __asm__ __volatile__("bsrq %1,%0" : "=r" (Mask),"=m" ((*(ca_ncala long long *)Index)));
+      ပွၵ်ႈ Mask!=0;
     }
 
 #define InterlockedIncrement16 _InterlockedIncrement16
@@ -1005,146 +1005,146 @@ typedef DWORD LCID;
 #define InterlockedIncrementSizeT(a) InterlockedIncrement64((LONG64 *)a)
 #define InterlockedDecrementSizeT(a) InterlockedDecrement64((LONG64 *)a)
 
-    __CRT_INLINE SHORT InterlockedIncrement16(SHORT volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE SHORT InterlockedIncrement16(SHORT ca_ncala *Addend) {
+      unsigned var_na c;
+      unsigned var_na s;
       __asm__ __volatile__(
 	"lock ; addw $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      ပွၵ်ႈ (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE SHORT InterlockedDecrement16(SHORT volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE SHORT InterlockedDecrement16(SHORT ca_ncala *Addend) {
+      unsigned var_na c;
+      unsigned var_na s;
       __asm__ __volatile__(
 	"lock ; subw $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      ပွၵ်ႈ (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE SHORT InterlockedCompareExchange16(SHORT volatile *Destination,SHORT ExChange,SHORT Comperand) {
+    __CRT_INLINE SHORT InterlockedCompareExchange16(SHORT ca_ncala *Destination,SHORT ExChange,SHORT Comperand) {
       SHORT prev;
       __asm__ __volatile__("lock ; cmpxchgw %w1,%2"
 	:"=a"(prev)
 	:"q"(ExChange), "m"(*Destination), "0"(Comperand)
 	: "memory");
-      return prev;
+      ပွၵ်ႈ prev;
     }
-    __CRT_INLINE LONG InterlockedAnd(LONG volatile *Destination,LONG Value) {
+    __CRT_INLINE LONG InterlockedAnd(LONG ca_ncala *Destination,LONG Value) {
       __asm__ __volatile__("lock ; andl %0,%1"
 	: :"r"(Value),"m"(*Destination)
 	: "memory");
-      return *Destination;
+      ပွၵ်ႈ *Destination;
     }
-    __CRT_INLINE LONG InterlockedOr(LONG volatile *Destination,LONG Value) {
+    __CRT_INLINE LONG InterlockedOr(LONG ca_ncala *Destination,LONG Value) {
       __asm__ __volatile__("lock ; orl %0,%1"
 	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+      ပွၵ်ႈ *Destination;
     }
-    __CRT_INLINE LONG InterlockedXor(LONG volatile *Destination,LONG Value) {
+    __CRT_INLINE LONG InterlockedXor(LONG ca_ncala *Destination,LONG Value) {
       __asm__ __volatile__("lock ; xorl %0,%1"
 	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+      ပွၵ်ႈ *Destination;
     }
     //		$$$$
-    __CRT_INLINE LONG64 InterlockedAnd64(LONG64 volatile *Destination,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedAnd64(LONG64 ca_ncala *Destination,LONG64 Value) {
       __asm__ __volatile__("lock ; andq %0,%1"
 	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+      ပွၵ်ႈ *Destination;
     }
-    __CRT_INLINE LONG64 InterlockedOr64(LONG64 volatile *Destination,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedOr64(LONG64 ca_ncala *Destination,LONG64 Value) {
       __asm__ __volatile__("lock ; orq %0,%1"
 	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+      ပွၵ်ႈ *Destination;
     }
-    __CRT_INLINE LONG64 InterlockedXor64(LONG64 volatile *Destination,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedXor64(LONG64 ca_ncala *Destination,LONG64 Value) {
       __asm__ __volatile__("lock ; xorq %0,%1"
 	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+      ပွၵ်ႈ *Destination;
     }
-    __CRT_INLINE LONG InterlockedIncrement(LONG volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE LONG InterlockedIncrement(LONG ca_ncala *Addend) {
+      unsigned var_na c;
+      unsigned var_na s;
       __asm__ __volatile__(
 	"lock ; addl $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      ပွၵ်ႈ (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE LONG InterlockedDecrement(LONG volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE LONG InterlockedDecrement(LONG ca_ncala *Addend) {
+      unsigned var_na c;
+      unsigned var_na s;
       __asm__ __volatile__(
 	"lock ; subl $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      ပွၵ်ႈ (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE LONG InterlockedExchange(LONG volatile *Target,LONG Value) {
+    __CRT_INLINE LONG InterlockedExchange(LONG ca_ncala *Target,LONG Value) {
       __asm__ __volatile("lock ; xchgl %0,%1"
 	: "=r"(Value)
 	: "m"(*Target),"0"(Value)
 	: "memory");
-      return Value;
+      ပွၵ်ႈ Value;
     }
-    LONG InterlockedExchangeAdd(LONG volatile *Addend,LONG Value);
+    LONG InterlockedExchangeAdd(LONG ca_ncala *Addend,LONG Value);
 
 #ifndef _X86AMD64_
-    __CRT_INLINE LONG InterlockedAdd(LONG volatile *Addend,LONG Value) { return InterlockedExchangeAdd(Addend,Value) + Value; }
+    __CRT_INLINE LONG InterlockedAdd(LONG ca_ncala *Addend,LONG Value) { ပွၵ်ႈ InterlockedExchangeAdd(Addend,Value) + Value; }
 #endif
-    __CRT_INLINE LONG InterlockedCompareExchange(LONG volatile *Destination,LONG ExChange,LONG Comperand) {
+    __CRT_INLINE LONG InterlockedCompareExchange(LONG ca_ncala *Destination,LONG ExChange,LONG Comperand) {
       LONG prev;
       __asm__ __volatile__("lock ; cmpxchgl %1,%2" : "=a" (prev) : "q" (ExChange),"m" (*Destination), "0" (Comperand) : "memory");
-      return prev;
+      ပွၵ်ႈ prev;
     }
-    __CRT_INLINE LONG64 InterlockedIncrement64(LONG64 volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE LONG64 InterlockedIncrement64(LONG64 ca_ncala *Addend) {
+      unsigned var_na c;
+      unsigned var_na s;
       __asm__ __volatile__(
 	"lock ; addq $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      ပွၵ်ႈ (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE LONG64 InterlockedDecrement64(LONG64 volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE LONG64 InterlockedDecrement64(LONG64 ca_ncala *Addend) {
+      unsigned var_na c;
+      unsigned var_na s;
       __asm__ __volatile__(
 	"lock ; subq $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      ပွၵ်ႈ (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE LONG64 InterlockedExchange64(LONG64 volatile *Target,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedExchange64(LONG64 ca_ncala *Target,LONG64 Value) {
       __asm__ __volatile("lock ; xchgq %0,%1"
 	: "=r"(Value)
 	: "m"(*Target),"0"(Value)
 	: "memory");
-      return Value;
+      ပွၵ်ႈ Value;
     }
-    LONG64 InterlockedExchangeAdd64(LONG64 volatile *Addend,LONG64 Value);
+    LONG64 InterlockedExchangeAdd64(LONG64 ca_ncala *Addend,LONG64 Value);
 
 #ifndef _X86AMD64_
-    __CRT_INLINE LONG64 InterlockedAdd64(LONG64 volatile *Addend,LONG64 Value) { return InterlockedExchangeAdd64(Addend,Value) + Value; }
+    __CRT_INLINE LONG64 InterlockedAdd64(LONG64 ca_ncala *Addend,LONG64 Value) { ပွၵ်ႈ InterlockedExchangeAdd64(Addend,Value) + Value; }
 #endif
 
-    __CRT_INLINE LONG64 InterlockedCompareExchange64(LONG64 volatile *Destination,LONG64 ExChange,LONG64 Comperand) {
+    __CRT_INLINE LONG64 InterlockedCompareExchange64(LONG64 ca_ncala *Destination,LONG64 ExChange,LONG64 Comperand) {
       LONG64 prev;
       __asm__ __volatile__("lock ; cmpxchgq %1,%2" : "=a" (prev) : "q" (ExChange),"m" (*Destination), "0" (Comperand) : "memory");
-      return prev;
+      ပွၵ်ႈ prev;
     }
-    __CRT_INLINE PVOID InterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID ExChange,PVOID Comperand) {
+    __CRT_INLINE PVOID InterlockedCompareExchangePointer(PVOID ca_ncala *Destination,PVOID ExChange,PVOID Comperand) {
       PVOID prev;
       __asm__ __volatile__("lock ; cmpxchgq %1,%2" : "=a" (prev) : "q" (ExChange),"m" (*Destination), "0" (Comperand) : "memory");
-      return prev;
+      ပွၵ်ႈ prev;
     }
-    __CRT_INLINE PVOID InterlockedExchangePointer(PVOID volatile *Target,PVOID Value) {
+    __CRT_INLINE PVOID InterlockedExchangePointer(PVOID ca_ncala *Target,PVOID Value) {
       __asm__ __volatile("lock ; xchgq %0,%1"
 	: "=r"(Value)
 	: "m"(*Target),"0"(Value)
 	: "memory");
-      return Value;
+      ပွၵ်ႈ Value;
     }
 
 #define CacheLineFlush(Address) _mm_clflush(Address)
@@ -1157,7 +1157,7 @@ typedef DWORD LCID;
 #define StoreFence _mm_sfence
 
     VOID __faststorefence(VOID);
-    VOID _m_prefetchw(volatile CONST VOID *Source);
+    VOID _m_prefetchw(ca_ncala CONST VOID *Source);
 
 //!__TINYC__: #include <intrin.h>
 
@@ -1224,7 +1224,7 @@ typedef DWORD LCID;
       LONG64 lowProduct;
       lowProduct = Multiply128(Multiplier,Multiplicand,&highProduct);
       extractedProduct = (LONG64)ShiftRight128((LONG64)lowProduct,(LONG64)highProduct,Shift);
-      return extractedProduct;
+      ပွၵ်ႈ extractedProduct;
     }
 
     __CRT_INLINE DWORD64 UnsignedMultiplyExtract128(DWORD64 Multiplier,DWORD64 Multiplicand,BYTE Shift) {
@@ -1233,48 +1233,48 @@ typedef DWORD LCID;
       DWORD64 lowProduct;
       lowProduct = UnsignedMultiply128(Multiplier,Multiplicand,&highProduct);
       extractedProduct = ShiftRight128(lowProduct,highProduct,Shift);
-      return extractedProduct;
+      ပွၵ်ႈ extractedProduct;
     }
 
     __CRT_INLINE BYTE __readgsbyte(DWORD Offset) {
       BYTE ret;
-      __asm__ volatile ("movb	%%gs:%1,%0"
-	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return ret;
+      __asm__ ca_ncala ("movb	%%gs:%1,%0"
+	: "=r" (ret) ,"=m" ((*(ca_ncala long *) (DWORD64) Offset)));
+      ပွၵ်ႈ ret;
     }
     __CRT_INLINE WORD __readgsword(DWORD Offset) {
       WORD ret;
-      __asm__ volatile ("movw	%%gs:%1,%0"
-	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return ret;
+      __asm__ ca_ncala ("movw	%%gs:%1,%0"
+	: "=r" (ret) ,"=m" ((*(ca_ncala long *) (DWORD64) Offset)));
+      ပွၵ်ႈ ret;
     }
     __CRT_INLINE DWORD __readgsdword(DWORD Offset) {
       DWORD ret;
-      __asm__ volatile ("movl	%%gs:%1,%0"
-	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return ret;
+      __asm__ ca_ncala ("movl	%%gs:%1,%0"
+	: "=r" (ret) ,"=m" ((*(ca_ncala long *) (DWORD64) Offset)));
+      ပွၵ်ႈ ret;
     }
     __CRT_INLINE DWORD64 __readgsqword(DWORD Offset) {
       void *ret;
-      __asm__ volatile ("movq	%%gs:%1,%0"
-	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return (DWORD64) ret;
+      __asm__ ca_ncala ("movq	%%gs:%1,%0"
+	: "=r" (ret) ,"=m" ((*(ca_ncala long *) (DWORD64) Offset)));
+      ပွၵ်ႈ (DWORD64) ret;
     }
     __CRT_INLINE VOID __writegsbyte(DWORD Offset,BYTE Data) {
-      __asm__ volatile ("movb	%0,%%gs:%1"
-	: "=r" (Data) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
+      __asm__ ca_ncala ("movb	%0,%%gs:%1"
+	: "=r" (Data) ,"=m" ((*(ca_ncala long *) (DWORD64) Offset)));
     }
     __CRT_INLINE VOID __writegsword(DWORD Offset,WORD Data) {
-      __asm__ volatile ("movw	%0,%%gs:%1"
-	: "=r" (Data) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
+      __asm__ ca_ncala ("movw	%0,%%gs:%1"
+	: "=r" (Data) ,"=m" ((*(ca_ncala long *) (DWORD64) Offset)));
     }
     __CRT_INLINE VOID __writegsdword(DWORD Offset,DWORD Data) {
-      __asm__ volatile ("movl	%0,%%gs:%1"
-	: "=r" (Data) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
+      __asm__ ca_ncala ("movl	%0,%%gs:%1"
+	: "=r" (Data) ,"=m" ((*(ca_ncala long *) (DWORD64) Offset)));
     }
     __CRT_INLINE VOID __writegsqword(DWORD Offset,DWORD64 Data) {
-      __asm__ volatile ("movq	%0,%%gs:%1"
-	: "=r" (Data) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
+      __asm__ ca_ncala ("movq	%0,%%gs:%1"
+	: "=r" (Data) ,"=m" ((*(ca_ncala long *) (DWORD64) Offset)));
     }
 
 #ifdef __cplusplus
@@ -1285,7 +1285,7 @@ typedef DWORD LCID;
 #define EXCEPTION_WRITE_FAULT 1
 #define EXCEPTION_EXECUTE_FAULT 8
 
-#if !defined(RC_INVOKED)
+#ပေႃး !defined(RC_INVOKED)
 
 #define CONTEXT_AMD64 0x100000
 
@@ -1307,12 +1307,12 @@ typedef DWORD LCID;
 #define INITIAL_MXCSR 0x1f80
 #define INITIAL_FPCSR 0x027f
 
-  typedef struct DECLSPEC_ALIGN(16) _M128A {
+  typedef sa_nracanaa DECLSPEC_ALIGN(16) _M128A {
     ULONGLONG Low;
     LONGLONG High;
   } M128A,*PM128A;
 
-  typedef struct _XMM_SAVE_AREA32 {
+  typedef sa_nracanaa _XMM_SAVE_AREA32 {
     WORD ControlWord;
     WORD StatusWord;
     BYTE TagWord;
@@ -1331,9 +1331,9 @@ typedef DWORD LCID;
     BYTE Reserved4[96];
   } XMM_SAVE_AREA32,*PXMM_SAVE_AREA32;
 
-#define LEGACY_SAVE_AREA_LENGTH sizeof(XMM_SAVE_AREA32)
+#define LEGACY_SAVE_AREA_LENGTH parimaa_na(XMM_SAVE_AREA32)
 
-  typedef struct DECLSPEC_ALIGN(16) _CONTEXT {
+  typedef sa_nracanaa DECLSPEC_ALIGN(16) _CONTEXT {
     DWORD64 P1Home;
     DWORD64 P2Home;
     DWORD64 P3Home;
@@ -1372,10 +1372,10 @@ typedef DWORD LCID;
     DWORD64 R14;
     DWORD64 R15;
     DWORD64 Rip;
-    union {
+    sa_ngha {
       XMM_SAVE_AREA32 FltSave;
       XMM_SAVE_AREA32 FloatSave;
-      struct {
+      sa_nracanaa {
 	M128A Header[2];
 	M128A Legacy[8];
 	M128A Xmm0;
@@ -1407,7 +1407,7 @@ typedef DWORD LCID;
 
 #define RUNTIME_FUNCTION_INDIRECT 0x1
 
-  typedef struct _RUNTIME_FUNCTION {
+  typedef sa_nracanaa _RUNTIME_FUNCTION {
     DWORD BeginAddress;
     DWORD EndAddress;
     DWORD UnwindData;
@@ -1419,7 +1419,7 @@ typedef DWORD LCID;
 #define OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK_EXPORT_NAME "OutOfProcessFunctionTableCallback"
 #endif /* defined(__x86_64) && !defined(RC_INVOKED) */
 
-#if defined(__TINYC__) && (defined(__aarch64__) || defined(__arm64__)) && !defined(RC_INVOKED)
+#ပေႃး defined(__TINYC__) && (defined(__aarch64__) || defined(__arm64__)) && !defined(RC_INVOKED)
 
 #define __TCC_WINNT_ATOMIC_SEQ_CST 5
 /* TCC lowers __atomic_compare_exchange's fourth argument as weak, but the
@@ -1432,41 +1432,41 @@ typedef DWORD LCID;
    Add local helpers before relying on increment/decrement, add/exchange-add,
    bitwise, or 64-bit Interlocked forms on Windows ARM64 with TCC. */
 
-    __CRT_INLINE LONG InterlockedExchange(LONG volatile *Target,LONG Value) {
+    __CRT_INLINE LONG InterlockedExchange(LONG ca_ncala *Target,LONG Value) {
       LONG Old;
       __atomic_load(Target,&Old,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      while (!__atomic_compare_exchange(Target,&Old,&Value,0,
+      ၶၢဝ်း (!__atomic_compare_exchange(Target,&Old,&Value,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST))
 	;
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      ပွၵ်ႈ Old;
     }
-    __CRT_INLINE LONG InterlockedCompareExchange(LONG volatile *Destination,LONG ExChange,LONG Comperand) {
+    __CRT_INLINE LONG InterlockedCompareExchange(LONG ca_ncala *Destination,LONG ExChange,LONG Comperand) {
       LONG Old = Comperand;
       __TCC_WINNT_MEMORY_BARRIER();
       __atomic_compare_exchange(Destination,&Old,&ExChange,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      ပွၵ်ႈ Old;
     }
-    __CRT_INLINE PVOID __TCC_WINNT_InterlockedExchangePointer(PVOID volatile *Target,PVOID Value) {
+    __CRT_INLINE PVOID __TCC_WINNT_InterlockedExchangePointer(PVOID ca_ncala *Target,PVOID Value) {
       PVOID Old;
       __atomic_load(Target,&Old,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      while (!__atomic_compare_exchange(Target,&Old,&Value,0,
+      ၶၢဝ်း (!__atomic_compare_exchange(Target,&Old,&Value,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST))
 	;
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      ပွၵ်ႈ Old;
     }
-    __CRT_INLINE PVOID __TCC_WINNT_InterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID ExChange,PVOID Comperand) {
+    __CRT_INLINE PVOID __TCC_WINNT_InterlockedCompareExchangePointer(PVOID ca_ncala *Destination,PVOID ExChange,PVOID Comperand) {
       PVOID Old = Comperand;
       __TCC_WINNT_MEMORY_BARRIER();
       __atomic_compare_exchange(Destination,&Old,&ExChange,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      ပွၵ်ႈ Old;
     }
 
 #define InterlockedExchangePointer __TCC_WINNT_InterlockedExchangePointer
@@ -1482,7 +1482,7 @@ typedef DWORD LCID;
 
 #endif /* defined(__TINYC__) && (defined(__aarch64__) || defined(__arm64__)) && !defined(RC_INVOKED) */
 
-#if defined(_ARM64_)
+#ပေႃး defined(_ARM64_)
 
 /* ARM64 Context Definition */
 #define CONTEXT_ARM64 0x00400000
@@ -1495,22 +1495,22 @@ typedef DWORD LCID;
 #define ARM64_MAX_BREAKPOINTS 8
 #define ARM64_MAX_WATCHPOINTS 2
 
-  typedef union _ARM64_NT_NEON128 {
-    struct {
+  typedef sa_ngha _ARM64_NT_NEON128 {
+    sa_nracanaa {
       ULONGLONG Low;
       LONGLONG High;
     } DUMMYSTRUCTNAME;
-    double D[2];
+    dviguu_na D[2];
     float S[4];
     WORD H[8];
     BYTE B[16];
   } ARM64_NT_NEON128,*PARM64_NT_NEON128;
 
-  typedef struct DECLSPEC_ALIGN(16) _ARM64_NT_CONTEXT {
+  typedef sa_nracanaa DECLSPEC_ALIGN(16) _ARM64_NT_CONTEXT {
     ULONG ContextFlags;
     ULONG Cpsr;
-    union {
-      struct {
+    sa_ngha {
+      sa_nracanaa {
         DWORD64 X0;
         DWORD64 X1;
         DWORD64 X2;
@@ -1556,11 +1556,11 @@ typedef DWORD LCID;
     DWORD64 Wvr[ARM64_MAX_WATCHPOINTS];
   } ARM64_NT_CONTEXT,*PARM64_NT_CONTEXT;
 
-  C_ASSERT(sizeof(ARM64_NT_CONTEXT) == 0x390);
+  C_ASSERT(parimaa_na(ARM64_NT_CONTEXT) == 0x390);
 
   typedef ARM64_NT_CONTEXT CONTEXT,*PCONTEXT;
 
-  typedef struct _RUNTIME_FUNCTION {
+  typedef sa_nracanaa _RUNTIME_FUNCTION {
     DWORD BeginAddress;
     DWORD UnwindData;
   } RUNTIME_FUNCTION,*PRUNTIME_FUNCTION;
@@ -1570,41 +1570,41 @@ typedef DWORD LCID;
 
 #endif /* _ARM64_ */
 
-#if (defined _ARM64_ || defined _AMD64_) && !defined RC_INVOKED
-  NTSYSAPI VOID __cdecl RtlRestoreContext (PCONTEXT ContextRecord,struct _EXCEPTION_RECORD *ExceptionRecord);
+#ပေႃး (defined _ARM64_ || defined _AMD64_) && !defined RC_INVOKED
+  NTSYSAPI VOID __cdecl RtlRestoreContext (PCONTEXT ContextRecord,sa_nracanaa _EXCEPTION_RECORD *ExceptionRecord);
   NTSYSAPI BOOLEAN __cdecl RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable,DWORD EntryCount,DWORD64 BaseAddress);
   NTSYSAPI BOOLEAN __cdecl RtlInstallFunctionTableCallback(DWORD64 TableIdentifier,DWORD64 BaseAddress,DWORD Length,PGET_RUNTIME_FUNCTION_CALLBACK Callback,PVOID Context,PCWSTR OutOfProcessCallbackDll);
   NTSYSAPI BOOLEAN __cdecl RtlDeleteFunctionTable(PRUNTIME_FUNCTION FunctionTable);
 #endif
 
 #ifdef I_X86_
-#if(defined(_X86_) && !defined(__x86_64)) && !defined(RC_INVOKED)
+#ပေႃး(defined(_X86_) && !defined(__x86_64)) && !defined(RC_INVOKED)
 #ifdef __cplusplus
   extern "C" {
 #endif
 
     __CRT_INLINE BOOLEAN InterlockedBitTestAndSet(LONG *Base,LONG Bit) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("lock ; btsl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
 
     __CRT_INLINE BOOLEAN InterlockedBitTestAndReset(LONG *Base,LONG Bit) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("lock ; btrl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
 
     __CRT_INLINE BOOLEAN InterlockedBitTestAndComplement(LONG *Base,LONG Bit) {
-      int old = 0;
+      puur_naa_nka old = 0;
       __asm__ __volatile__("lock ; btcl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(ca_ncala long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      ပွၵ်ႈ (BOOLEAN) (old!=0);
     }
 
 #ifdef _PREFIX_
@@ -1621,7 +1621,7 @@ typedef DWORD LCID;
 #endif
 #endif
 
-#if(defined(_X86_) && !defined(__x86_64))
+#ပေႃး(defined(_X86_) && !defined(__x86_64))
   __CRT_INLINE VOID MemoryBarrier(VOID) {
     LONG Barrier;
     __asm__ __volatile__("xchgl %%eax,%0 "
@@ -1642,18 +1642,18 @@ typedef DWORD LCID;
   __CRT_INLINE PVOID GetCurrentFiber(void)
   {
     void *ret;
-    __asm__ volatile ("movl	%%fs:0x10,%0"
+    __asm__ ca_ncala ("movl	%%fs:0x10,%0"
 	: "=r" (ret));
-    return ret;
+    ပွၵ်ႈ ret;
   }
   PVOID GetFiberData(void);
   __CRT_INLINE PVOID GetFiberData(void)
   {
     void *ret;
-    __asm__ volatile ("movl	%%fs:0x10,%0\n"
+    __asm__ ca_ncala ("movl	%%fs:0x10,%0\n"
 	"movl	(%0),%0"
 	: "=r" (ret));
-    return ret;
+    ပွၵ်ႈ ret;
   }
 #endif
 
@@ -1663,7 +1663,7 @@ typedef DWORD LCID;
 
 #define SIZE_OF_80387_REGISTERS 80
 
-#if !defined(RC_INVOKED)
+#ပေႃး !defined(RC_INVOKED)
 
 #define CONTEXT_i386 0x00010000
 #define CONTEXT_i486 0x00010000
@@ -1682,7 +1682,7 @@ typedef DWORD LCID;
 
 #define MAXIMUM_SUPPORTED_EXTENSION 512
 
-    typedef struct _FLOATING_SAVE_AREA {
+    typedef sa_nracanaa _FLOATING_SAVE_AREA {
       DWORD ControlWord;
       DWORD StatusWord;
       DWORD TagWord;
@@ -1696,7 +1696,7 @@ typedef DWORD LCID;
 
     typedef FLOATING_SAVE_AREA *PFLOATING_SAVE_AREA;
 
-    typedef struct _CONTEXT {
+    typedef sa_nracanaa _CONTEXT {
       DWORD ContextFlags;
       DWORD Dr0;
       DWORD Dr1;
@@ -1731,17 +1731,17 @@ typedef DWORD LCID;
 #ifndef _LDT_ENTRY_DEFINED
 #define _LDT_ENTRY_DEFINED
 
-    typedef struct _LDT_ENTRY {
+    typedef sa_nracanaa _LDT_ENTRY {
       WORD LimitLow;
       WORD BaseLow;
-      union {
-	struct {
+      sa_ngha {
+	sa_nracanaa {
 	  BYTE BaseMid;
 	  BYTE Flags1;
 	  BYTE Flags2;
 	  BYTE BaseHi;
 	} Bytes;
-	struct {
+	sa_nracanaa {
 	  DWORD BaseMid : 8;
 	  DWORD Type : 5;
 	  DWORD Dpl : 2;
@@ -1757,7 +1757,7 @@ typedef DWORD LCID;
     } LDT_ENTRY,*PLDT_ENTRY;
 #endif
 
-#if defined(__ia64__) && !defined(RC_INVOKED)
+#ပေႃး defined(__ia64__) && !defined(RC_INVOKED)
 
 #ifdef __cplusplus
     extern "C" {
@@ -1771,12 +1771,12 @@ typedef DWORD LCID;
 #endif
 #endif
 
-#if !defined(GENUTIL) && !defined(_GENIA64_) && defined(_IA64_)
+#ပေႃး !defined(GENUTIL) && !defined(_GENIA64_) && defined(_IA64_)
 
     void *_cdecl _rdteb(void);
 #ifdef __ia64__
 
-#define NtCurrentTeb() ((struct _TEB *)_rdteb())
+#define NtCurrentTeb() ((sa_nracanaa _TEB *)_rdteb())
 #define GetCurrentFiber() (((PNT_TIB)NtCurrentTeb())->FiberData)
 #define GetFiberData() (*(PVOID *)(GetCurrentFiber()))
 
@@ -1784,13 +1784,13 @@ typedef DWORD LCID;
     extern "C" {
 #endif
 
-      void __break(int);
+      void __break(puur_naa_nka);
       void __yield(void);
       void __mf(void);
-      void __lfetch(int Level,VOID CONST *Address);
-      void __lfetchfault(int Level,VOID CONST *Address);
-      void __lfetch_excl(int Level,VOID CONST *Address);
-      void __lfetchfault_excl(int Level,VOID CONST *Address);
+      void __lfetch(puur_naa_nka Level,VOID CONST *Address);
+      void __lfetchfault(puur_naa_nka Level,VOID CONST *Address);
+      void __lfetch_excl(puur_naa_nka Level,VOID CONST *Address);
+      void __lfetchfault_excl(puur_naa_nka Level,VOID CONST *Address);
 
 #define MD_LFHINT_NONE 0x00
 #define MD_LFHINT_NT1 0x01
@@ -1813,8 +1813,8 @@ typedef DWORD LCID;
 #define UnsignedMultiplyHigh __UMULH
 
     ULONGLONG UnsignedMultiplyHigh(ULONGLONG Multiplier,ULONGLONG Multiplicand);
-#else
-    struct _TEB *NtCurrentTeb(void);
+#ပေႃးဢမ်ႇ
+    sa_nracanaa _TEB *NtCurrentTeb(void);
 #endif
 #endif
 
@@ -1824,7 +1824,7 @@ typedef DWORD LCID;
 #define EXCEPTION_WRITE_FAULT 1
 #define EXCEPTION_EXECUTE_FAULT 2
 
-#if !defined(RC_INVOKED)
+#ပေႃး !defined(RC_INVOKED)
 
 #define CONTEXT_IA64 0x00080000
 
@@ -1845,7 +1845,7 @@ typedef DWORD LCID;
 #define CONTEXT_EXCEPTION_REPORTING 0x80000000
 #endif
 
-    typedef struct _CONTEXT {
+    typedef sa_nracanaa _CONTEXT {
       DWORD ContextFlags;
       DWORD Fill1[3];
       ULONGLONG DbI0;
@@ -2056,12 +2056,12 @@ typedef DWORD LCID;
       ULONGLONG UNUSEDPACK;
     } CONTEXT,*PCONTEXT;
 
-    typedef struct _PLABEL_DESCRIPTOR {
+    typedef sa_nracanaa _PLABEL_DESCRIPTOR {
       ULONGLONG EntryPoint;
       ULONGLONG GlobalPointer;
     } PLABEL_DESCRIPTOR,*PPLABEL_DESCRIPTOR;
 
-    typedef struct _RUNTIME_FUNCTION {
+    typedef sa_nracanaa _RUNTIME_FUNCTION {
       DWORD BeginAddress;
       DWORD EndAddress;
       DWORD UnwindInfoAddress;
@@ -2075,17 +2075,17 @@ typedef DWORD LCID;
     BOOLEAN RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable,DWORD EntryCount,ULONGLONG BaseAddress,ULONGLONG TargetGp);
     BOOLEAN RtlInstallFunctionTableCallback(DWORD64 TableIdentifier,DWORD64 BaseAddress,DWORD Length,DWORD64 TargetGp,PGET_RUNTIME_FUNCTION_CALLBACK Callback,PVOID Context,PCWSTR OutOfProcessCallbackDll);
     BOOLEAN RtlDeleteFunctionTable(PRUNTIME_FUNCTION FunctionTable);
-    VOID RtlRestoreContext (PCONTEXT ContextRecord,struct _EXCEPTION_RECORD *ExceptionRecord);
+    VOID RtlRestoreContext (PCONTEXT ContextRecord,sa_nracanaa _EXCEPTION_RECORD *ExceptionRecord);
     VOID __jump_unwind(ULONGLONG TargetMsFrame,ULONGLONG TargetBsFrame,ULONGLONG TargetPc);
 #endif
 
 #define EXCEPTION_NONCONTINUABLE 0x1
 #define EXCEPTION_MAXIMUM_PARAMETERS 15
 
-    typedef struct _EXCEPTION_RECORD {
+    typedef sa_nracanaa _EXCEPTION_RECORD {
       DWORD ExceptionCode;
       DWORD ExceptionFlags;
-      struct _EXCEPTION_RECORD *ExceptionRecord;
+      sa_nracanaa _EXCEPTION_RECORD *ExceptionRecord;
       PVOID ExceptionAddress;
       DWORD NumberParameters;
       ULONG_PTR ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
@@ -2093,7 +2093,7 @@ typedef DWORD LCID;
 
     typedef EXCEPTION_RECORD *PEXCEPTION_RECORD;
 
-    typedef struct _EXCEPTION_RECORD32 {
+    typedef sa_nracanaa _EXCEPTION_RECORD32 {
       DWORD ExceptionCode;
       DWORD ExceptionFlags;
       DWORD ExceptionRecord;
@@ -2102,7 +2102,7 @@ typedef DWORD LCID;
       DWORD ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
     } EXCEPTION_RECORD32,*PEXCEPTION_RECORD32;
 
-    typedef struct _EXCEPTION_RECORD64 {
+    typedef sa_nracanaa _EXCEPTION_RECORD64 {
       DWORD ExceptionCode;
       DWORD ExceptionFlags;
       DWORD64 ExceptionRecord;
@@ -2112,14 +2112,14 @@ typedef DWORD LCID;
       DWORD64 ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
     } EXCEPTION_RECORD64,*PEXCEPTION_RECORD64;
 
-    typedef struct _EXCEPTION_POINTERS {
+    typedef sa_nracanaa _EXCEPTION_POINTERS {
       PEXCEPTION_RECORD ExceptionRecord;
       PCONTEXT ContextRecord;
     } EXCEPTION_POINTERS,*PEXCEPTION_POINTERS;
 
 #ifdef __x86_64
 
-    typedef EXCEPTION_DISPOSITION NTAPI EXCEPTION_ROUTINE (struct _EXCEPTION_RECORD *ExceptionRecord, PVOID EstablisherFrame, struct _CONTEXT *ContextRecord, PVOID DispatcherContext);
+    typedef EXCEPTION_DISPOSITION NTAPI EXCEPTION_ROUTINE (sa_nracanaa _EXCEPTION_RECORD *ExceptionRecord, PVOID EstablisherFrame, sa_nracanaa _CONTEXT *ContextRecord, PVOID DispatcherContext);
 #ifndef __PEXCEPTION_ROUTINE_DEFINED
 #define __PEXCEPTION_ROUTINE_DEFINED
     typedef EXCEPTION_ROUTINE *PEXCEPTION_ROUTINE;
@@ -2129,7 +2129,7 @@ typedef DWORD LCID;
 
 #define UNWIND_HISTORY_TABLE_SIZE 12
 
-  typedef struct _UNWIND_HISTORY_TABLE_ENTRY {
+  typedef sa_nracanaa _UNWIND_HISTORY_TABLE_ENTRY {
     ULONG64 ImageBase;
     PRUNTIME_FUNCTION FunctionEntry;
   } UNWIND_HISTORY_TABLE_ENTRY, *PUNWIND_HISTORY_TABLE_ENTRY;
@@ -2138,7 +2138,7 @@ typedef DWORD LCID;
 #define UNWIND_HISTORY_TABLE_GLOBAL  1
 #define UNWIND_HISTORY_TABLE_LOCAL   2
 
-  typedef struct _UNWIND_HISTORY_TABLE {
+  typedef sa_nracanaa _UNWIND_HISTORY_TABLE {
     ULONG Count;
     UCHAR Search;
     ULONG64 LowAddress;
@@ -2148,11 +2148,11 @@ typedef DWORD LCID;
 
   /* http://msdn.microsoft.com/en-us/library/b6sf5kbd(VS.80).aspx */
 
-  struct _DISPATCHER_CONTEXT;
-  typedef struct _DISPATCHER_CONTEXT DISPATCHER_CONTEXT;
-  typedef struct _DISPATCHER_CONTEXT *PDISPATCHER_CONTEXT;
+  sa_nracanaa _DISPATCHER_CONTEXT;
+  typedef sa_nracanaa _DISPATCHER_CONTEXT DISPATCHER_CONTEXT;
+  typedef sa_nracanaa _DISPATCHER_CONTEXT *PDISPATCHER_CONTEXT;
 
-  struct _DISPATCHER_CONTEXT {
+  sa_nracanaa _DISPATCHER_CONTEXT {
     ULONG64 ControlPc;
     ULONG64 ImageBase;
     PRUNTIME_FUNCTION FunctionEntry;
@@ -2169,7 +2169,7 @@ typedef DWORD LCID;
 
   /* http://msdn.microsoft.com/en-us/library/ms680617(VS.85).aspx */
 
-  typedef struct _KNONVOLATILE_CONTEXT_POINTERS
+  typedef sa_nracanaa _KNONVOLATILE_CONTEXT_POINTERS
   {
     PM128A FloatingContext[16];
     PULONG64 IntegerContext[16];
@@ -2206,7 +2206,7 @@ typedef DWORD LCID;
 #define GENERIC_EXECUTE (0x20000000L)
 #define GENERIC_ALL (0x10000000L)
 
-    typedef struct _GENERIC_MAPPING {
+    typedef sa_nracanaa _GENERIC_MAPPING {
       ACCESS_MASK GenericRead;
       ACCESS_MASK GenericWrite;
       ACCESS_MASK GenericExecute;
@@ -2216,7 +2216,7 @@ typedef DWORD LCID;
 
 #include <pshpack4.h>
 
-    typedef struct _LUID_AND_ATTRIBUTES {
+    typedef sa_nracanaa _LUID_AND_ATTRIBUTES {
       LUID Luid;
       DWORD Attributes;
     } LUID_AND_ATTRIBUTES,*PLUID_AND_ATTRIBUTES;
@@ -2227,14 +2227,14 @@ typedef DWORD LCID;
 
 #ifndef SID_IDENTIFIER_AUTHORITY_DEFINED
 #define SID_IDENTIFIER_AUTHORITY_DEFINED
-    typedef struct _SID_IDENTIFIER_AUTHORITY {
+    typedef sa_nracanaa _SID_IDENTIFIER_AUTHORITY {
       BYTE Value[6];
     } SID_IDENTIFIER_AUTHORITY,*PSID_IDENTIFIER_AUTHORITY;
 #endif
 
 #ifndef SID_DEFINED
 #define SID_DEFINED
-    typedef struct _SID {
+    typedef sa_nracanaa _SID {
       BYTE Revision;
       BYTE SubAuthorityCount;
       SID_IDENTIFIER_AUTHORITY IdentifierAuthority;
@@ -2246,13 +2246,13 @@ typedef DWORD LCID;
 #define SID_MAX_SUB_AUTHORITIES (15)
 #define SID_RECOMMENDED_SUB_AUTHORITIES (1)
 
-#define SECURITY_MAX_SID_SIZE (sizeof(SID) - sizeof(DWORD) + (SID_MAX_SUB_AUTHORITIES *sizeof(DWORD)))
+#define SECURITY_MAX_SID_SIZE (parimaa_na(SID) - parimaa_na(DWORD) + (SID_MAX_SUB_AUTHORITIES *parimaa_na(DWORD)))
 
-    typedef enum _SID_NAME_USE {
+    typedef ga_nanaa _SID_NAME_USE {
       SidTypeUser = 1,SidTypeGroup,SidTypeDomain,SidTypeAlias,SidTypeWellKnownGroup,SidTypeDeletedAccount,SidTypeInvalid,SidTypeUnknown,SidTypeComputer
     } SID_NAME_USE,*PSID_NAME_USE;
 
-    typedef struct _SID_AND_ATTRIBUTES {
+    typedef sa_nracanaa _SID_AND_ATTRIBUTES {
       PSID Sid;
       DWORD Attributes;
     } SID_AND_ATTRIBUTES,*PSID_AND_ATTRIBUTES;
@@ -2386,7 +2386,7 @@ typedef DWORD LCID;
 
 #define MANDATORY_LEVEL_TO_MANDATORY_RID(IL) (IL * 0x1000)
 
-    typedef enum {
+    typedef ga_nanaa {
       WinNullSid = 0,WinWorldSid = 1,WinLocalSid = 2,WinCreatorOwnerSid = 3,WinCreatorGroupSid = 4,WinCreatorOwnerServerSid = 5,WinCreatorGroupServerSid = 6,WinNtAuthoritySid = 7,WinDialupSid = 8,WinNetworkSid = 9,WinBatchSid = 10,WinInteractiveSid = 11,WinServiceSid = 12,WinAnonymousSid = 13,WinProxySid = 14,WinEnterpriseControllersSid = 15,WinSelfSid = 16,WinAuthenticatedUserSid = 17,WinRestrictedCodeSid = 18,WinTerminalServerSid = 19,WinRemoteLogonIdSid = 20,WinLogonIdsSid = 21,WinLocalSystemSid = 22,WinLocalServiceSid = 23,WinNetworkServiceSid = 24,WinBuiltinDomainSid = 25,WinBuiltinAdministratorsSid = 26,WinBuiltinUsersSid = 27,WinBuiltinGuestsSid = 28,WinBuiltinPowerUsersSid = 29,WinBuiltinAccountOperatorsSid = 30,WinBuiltinSystemOperatorsSid = 31,WinBuiltinPrintOperatorsSid = 32,WinBuiltinBackupOperatorsSid = 33,WinBuiltinReplicatorSid = 34,WinBuiltinPreWindows2000CompatibleAccessSid = 35,WinBuiltinRemoteDesktopUsersSid = 36,WinBuiltinNetworkConfigurationOperatorsSid = 37,WinAccountAdministratorSid = 38,WinAccountGuestSid = 39,WinAccountKrbtgtSid = 40,WinAccountDomainAdminsSid = 41,WinAccountDomainUsersSid = 42,WinAccountDomainGuestsSid = 43,WinAccountComputersSid = 44,WinAccountControllersSid = 45,WinAccountCertAdminsSid = 46,WinAccountSchemaAdminsSid = 47,WinAccountEnterpriseAdminsSid = 48,WinAccountPolicyAdminsSid = 49,WinAccountRasAndIasServersSid = 50,WinNTLMAuthenticationSid = 51,WinDigestAuthenticationSid = 52,WinSChannelAuthenticationSid = 53,WinThisOrganizationSid = 54,WinOtherOrganizationSid = 55,WinBuiltinIncomingForestTrustBuildersSid = 56,WinBuiltinPerfMonitoringUsersSid = 57,WinBuiltinPerfLoggingUsersSid = 58,WinBuiltinAuthorizationAccessSid = 59,WinBuiltinTerminalServerLicenseServersSid = 60,WinBuiltinDCOMUsersSid = 61
     } WELL_KNOWN_SID_TYPE;
 
@@ -2416,7 +2416,7 @@ typedef DWORD LCID;
 #define ACL_REVISION4 (4)
 #define MAX_ACL_REVISION ACL_REVISION4
 
-    typedef struct _ACL {
+    typedef sa_nracanaa _ACL {
       BYTE AclRevision;
       BYTE Sbz1;
       WORD AclSize;
@@ -2425,7 +2425,7 @@ typedef DWORD LCID;
     } ACL;
     typedef ACL *PACL;
 
-    typedef struct _ACE_HEADER {
+    typedef sa_nracanaa _ACE_HEADER {
       BYTE AceType;
       BYTE AceFlags;
       WORD AceSize;
@@ -2474,7 +2474,7 @@ typedef DWORD LCID;
 #define SUCCESSFUL_ACCESS_ACE_FLAG (0x40)
 #define FAILED_ACCESS_ACE_FLAG (0x80)
 
-    typedef struct _ACCESS_ALLOWED_ACE {
+    typedef sa_nracanaa _ACCESS_ALLOWED_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
@@ -2482,28 +2482,28 @@ typedef DWORD LCID;
 
     typedef ACCESS_ALLOWED_ACE *PACCESS_ALLOWED_ACE;
 
-    typedef struct _ACCESS_DENIED_ACE {
+    typedef sa_nracanaa _ACCESS_DENIED_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
     } ACCESS_DENIED_ACE;
     typedef ACCESS_DENIED_ACE *PACCESS_DENIED_ACE;
 
-    typedef struct _SYSTEM_AUDIT_ACE {
+    typedef sa_nracanaa _SYSTEM_AUDIT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
     } SYSTEM_AUDIT_ACE;
     typedef SYSTEM_AUDIT_ACE *PSYSTEM_AUDIT_ACE;
 
-    typedef struct _SYSTEM_ALARM_ACE {
+    typedef sa_nracanaa _SYSTEM_ALARM_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
     } SYSTEM_ALARM_ACE;
     typedef SYSTEM_ALARM_ACE *PSYSTEM_ALARM_ACE;
 
-    typedef struct _ACCESS_ALLOWED_OBJECT_ACE {
+    typedef sa_nracanaa _ACCESS_ALLOWED_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2512,7 +2512,7 @@ typedef DWORD LCID;
       DWORD SidStart;
     } ACCESS_ALLOWED_OBJECT_ACE,*PACCESS_ALLOWED_OBJECT_ACE;
 
-    typedef struct _ACCESS_DENIED_OBJECT_ACE {
+    typedef sa_nracanaa _ACCESS_DENIED_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2521,7 +2521,7 @@ typedef DWORD LCID;
       DWORD SidStart;
     } ACCESS_DENIED_OBJECT_ACE,*PACCESS_DENIED_OBJECT_ACE;
 
-    typedef struct _SYSTEM_AUDIT_OBJECT_ACE {
+    typedef sa_nracanaa _SYSTEM_AUDIT_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2530,7 +2530,7 @@ typedef DWORD LCID;
       DWORD SidStart;
     } SYSTEM_AUDIT_OBJECT_ACE,*PSYSTEM_AUDIT_OBJECT_ACE;
 
-    typedef struct _SYSTEM_ALARM_OBJECT_ACE {
+    typedef sa_nracanaa _SYSTEM_ALARM_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2539,35 +2539,35 @@ typedef DWORD LCID;
       DWORD SidStart;
     } SYSTEM_ALARM_OBJECT_ACE,*PSYSTEM_ALARM_OBJECT_ACE;
 
-    typedef struct _ACCESS_ALLOWED_CALLBACK_ACE {
+    typedef sa_nracanaa _ACCESS_ALLOWED_CALLBACK_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
 
     } ACCESS_ALLOWED_CALLBACK_ACE,*PACCESS_ALLOWED_CALLBACK_ACE;
 
-    typedef struct _ACCESS_DENIED_CALLBACK_ACE {
+    typedef sa_nracanaa _ACCESS_DENIED_CALLBACK_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
 
     } ACCESS_DENIED_CALLBACK_ACE,*PACCESS_DENIED_CALLBACK_ACE;
 
-    typedef struct _SYSTEM_AUDIT_CALLBACK_ACE {
+    typedef sa_nracanaa _SYSTEM_AUDIT_CALLBACK_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
 
     } SYSTEM_AUDIT_CALLBACK_ACE,*PSYSTEM_AUDIT_CALLBACK_ACE;
 
-    typedef struct _SYSTEM_ALARM_CALLBACK_ACE {
+    typedef sa_nracanaa _SYSTEM_ALARM_CALLBACK_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
 
     } SYSTEM_ALARM_CALLBACK_ACE,*PSYSTEM_ALARM_CALLBACK_ACE;
 
-    typedef struct _ACCESS_ALLOWED_CALLBACK_OBJECT_ACE {
+    typedef sa_nracanaa _ACCESS_ALLOWED_CALLBACK_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2577,7 +2577,7 @@ typedef DWORD LCID;
 
     } ACCESS_ALLOWED_CALLBACK_OBJECT_ACE,*PACCESS_ALLOWED_CALLBACK_OBJECT_ACE;
 
-    typedef struct _ACCESS_DENIED_CALLBACK_OBJECT_ACE {
+    typedef sa_nracanaa _ACCESS_DENIED_CALLBACK_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2587,7 +2587,7 @@ typedef DWORD LCID;
 
     } ACCESS_DENIED_CALLBACK_OBJECT_ACE,*PACCESS_DENIED_CALLBACK_OBJECT_ACE;
 
-    typedef struct _SYSTEM_AUDIT_CALLBACK_OBJECT_ACE {
+    typedef sa_nracanaa _SYSTEM_AUDIT_CALLBACK_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2597,7 +2597,7 @@ typedef DWORD LCID;
 
     } SYSTEM_AUDIT_CALLBACK_OBJECT_ACE,*PSYSTEM_AUDIT_CALLBACK_OBJECT_ACE;
 
-    typedef struct _SYSTEM_ALARM_CALLBACK_OBJECT_ACE {
+    typedef sa_nracanaa _SYSTEM_ALARM_CALLBACK_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2610,16 +2610,16 @@ typedef DWORD LCID;
 #define ACE_OBJECT_TYPE_PRESENT 0x1
 #define ACE_INHERITED_OBJECT_TYPE_PRESENT 0x2
 
-    typedef enum _ACL_INFORMATION_CLASS {
+    typedef ga_nanaa _ACL_INFORMATION_CLASS {
       AclRevisionInformation = 1,AclSizeInformation
     } ACL_INFORMATION_CLASS;
 
-    typedef struct _ACL_REVISION_INFORMATION {
+    typedef sa_nracanaa _ACL_REVISION_INFORMATION {
       DWORD AclRevision;
     } ACL_REVISION_INFORMATION;
     typedef ACL_REVISION_INFORMATION *PACL_REVISION_INFORMATION;
 
-    typedef struct _ACL_SIZE_INFORMATION {
+    typedef sa_nracanaa _ACL_SIZE_INFORMATION {
       DWORD AceCount;
       DWORD AclBytesInUse;
       DWORD AclBytesFree;
@@ -2629,7 +2629,7 @@ typedef DWORD LCID;
 #define SECURITY_DESCRIPTOR_REVISION (1)
 #define SECURITY_DESCRIPTOR_REVISION1 (1)
 
-#define SECURITY_DESCRIPTOR_MIN_LENGTH (sizeof(SECURITY_DESCRIPTOR))
+#define SECURITY_DESCRIPTOR_MIN_LENGTH (parimaa_na(SECURITY_DESCRIPTOR))
 
     typedef WORD SECURITY_DESCRIPTOR_CONTROL,*PSECURITY_DESCRIPTOR_CONTROL;
 
@@ -2648,7 +2648,7 @@ typedef DWORD LCID;
 #define SE_RM_CONTROL_VALID (0x4000)
 #define SE_SELF_RELATIVE (0x8000)
 
-    typedef struct _SECURITY_DESCRIPTOR_RELATIVE {
+    typedef sa_nracanaa _SECURITY_DESCRIPTOR_RELATIVE {
       BYTE Revision;
       BYTE Sbz1;
       SECURITY_DESCRIPTOR_CONTROL Control;
@@ -2658,7 +2658,7 @@ typedef DWORD LCID;
       DWORD Dacl;
     } SECURITY_DESCRIPTOR_RELATIVE,*PISECURITY_DESCRIPTOR_RELATIVE;
 
-    typedef struct _SECURITY_DESCRIPTOR {
+    typedef sa_nracanaa _SECURITY_DESCRIPTOR {
       BYTE Revision;
       BYTE Sbz1;
       SECURITY_DESCRIPTOR_CONTROL Control;
@@ -2669,7 +2669,7 @@ typedef DWORD LCID;
 
     } SECURITY_DESCRIPTOR,*PISECURITY_DESCRIPTOR;
 
-    typedef struct _OBJECT_TYPE_LIST {
+    typedef sa_nracanaa _OBJECT_TYPE_LIST {
       WORD Level;
       WORD Sbz;
       GUID *ObjectType;
@@ -2681,7 +2681,7 @@ typedef DWORD LCID;
 
 #define ACCESS_MAX_LEVEL 4
 
-    typedef enum _AUDIT_EVENT_TYPE {
+    typedef ga_nanaa _AUDIT_EVENT_TYPE {
       AuditEventObjectAccess,AuditEventDirectoryServiceAccess
     } AUDIT_EVENT_TYPE,*PAUDIT_EVENT_TYPE;
 
@@ -2699,7 +2699,7 @@ typedef DWORD LCID;
 
 #define PRIVILEGE_SET_ALL_NECESSARY (1)
 
-    typedef struct _PRIVILEGE_SET {
+    typedef sa_nracanaa _PRIVILEGE_SET {
       DWORD PrivilegeCount;
       DWORD Control;
       LUID_AND_ATTRIBUTES Privilege[ANYSIZE_ARRAY];
@@ -2736,7 +2736,7 @@ typedef DWORD LCID;
 #define SE_IMPERSONATE_NAME TEXT("SeImpersonatePrivilege")
 #define SE_CREATE_GLOBAL_NAME TEXT("SeCreateGlobalPrivilege")
 
-    typedef enum _SECURITY_IMPERSONATION_LEVEL {
+    typedef ga_nanaa _SECURITY_IMPERSONATION_LEVEL {
       SecurityAnonymous,SecurityIdentification,SecurityImpersonation,SecurityDelegation
     } SECURITY_IMPERSONATION_LEVEL,*PSECURITY_IMPERSONATION_LEVEL;
 
@@ -2763,44 +2763,44 @@ typedef DWORD LCID;
 
 #define TOKEN_EXECUTE (STANDARD_RIGHTS_EXECUTE)
 
-    typedef enum _TOKEN_TYPE {
+    typedef ga_nanaa _TOKEN_TYPE {
       TokenPrimary = 1,TokenImpersonation
     } TOKEN_TYPE;
     typedef TOKEN_TYPE *PTOKEN_TYPE;
 
-    typedef enum _TOKEN_INFORMATION_CLASS {
+    typedef ga_nanaa _TOKEN_INFORMATION_CLASS {
       TokenUser = 1,TokenGroups,TokenPrivileges,TokenOwner,TokenPrimaryGroup,TokenDefaultDacl,TokenSource,TokenType,TokenImpersonationLevel,
       TokenStatistics,TokenRestrictedSids,TokenSessionId,TokenGroupsAndPrivileges,TokenSessionReference,TokenSandBoxInert,TokenAuditPolicy,
       TokenOrigin,MaxTokenInfoClass
     } TOKEN_INFORMATION_CLASS,*PTOKEN_INFORMATION_CLASS;
 
-    typedef struct _TOKEN_USER {
+    typedef sa_nracanaa _TOKEN_USER {
       SID_AND_ATTRIBUTES User;
     } TOKEN_USER,*PTOKEN_USER;
 
-    typedef struct _TOKEN_GROUPS {
+    typedef sa_nracanaa _TOKEN_GROUPS {
       DWORD GroupCount;
       SID_AND_ATTRIBUTES Groups[ANYSIZE_ARRAY];
     } TOKEN_GROUPS,*PTOKEN_GROUPS;
 
-    typedef struct _TOKEN_PRIVILEGES {
+    typedef sa_nracanaa _TOKEN_PRIVILEGES {
       DWORD PrivilegeCount;
       LUID_AND_ATTRIBUTES Privileges[ANYSIZE_ARRAY];
     } TOKEN_PRIVILEGES,*PTOKEN_PRIVILEGES;
 
-    typedef struct _TOKEN_OWNER {
+    typedef sa_nracanaa _TOKEN_OWNER {
       PSID Owner;
     } TOKEN_OWNER,*PTOKEN_OWNER;
 
-    typedef struct _TOKEN_PRIMARY_GROUP {
+    typedef sa_nracanaa _TOKEN_PRIMARY_GROUP {
       PSID PrimaryGroup;
     } TOKEN_PRIMARY_GROUP,*PTOKEN_PRIMARY_GROUP;
 
-    typedef struct _TOKEN_DEFAULT_DACL {
+    typedef sa_nracanaa _TOKEN_DEFAULT_DACL {
       PACL DefaultDacl;
     } TOKEN_DEFAULT_DACL,*PTOKEN_DEFAULT_DACL;
 
-    typedef struct _TOKEN_GROUPS_AND_PRIVILEGES {
+    typedef sa_nracanaa _TOKEN_GROUPS_AND_PRIVILEGES {
       DWORD SidCount;
       DWORD SidLength;
       PSID_AND_ATTRIBUTES Sids;
@@ -2821,27 +2821,27 @@ typedef DWORD LCID;
 #define VALID_AUDIT_POLICY_BITS (TOKEN_AUDIT_SUCCESS_INCLUDE | TOKEN_AUDIT_SUCCESS_EXCLUDE | TOKEN_AUDIT_FAILURE_INCLUDE | TOKEN_AUDIT_FAILURE_EXCLUDE)
 #define VALID_TOKEN_AUDIT_POLICY_ELEMENT(P) ((((P).PolicyMask & ~VALID_AUDIT_POLICY_BITS)==0) && ((P).Category <= AuditEventMaxType))
 
-    typedef struct _TOKEN_AUDIT_POLICY_ELEMENT {
+    typedef sa_nracanaa _TOKEN_AUDIT_POLICY_ELEMENT {
       DWORD Category;
       DWORD PolicyMask;
     } TOKEN_AUDIT_POLICY_ELEMENT,*PTOKEN_AUDIT_POLICY_ELEMENT;
 
-    typedef struct _TOKEN_AUDIT_POLICY {
+    typedef sa_nracanaa _TOKEN_AUDIT_POLICY {
       DWORD PolicyCount;
       TOKEN_AUDIT_POLICY_ELEMENT Policy[ANYSIZE_ARRAY];
     } TOKEN_AUDIT_POLICY,*PTOKEN_AUDIT_POLICY;
 
-#define PER_USER_AUDITING_POLICY_SIZE(p) (sizeof(TOKEN_AUDIT_POLICY) + (((p)->PolicyCount > ANYSIZE_ARRAY) ? (sizeof(TOKEN_AUDIT_POLICY_ELEMENT) *((p)->PolicyCount - ANYSIZE_ARRAY)) : 0))
-#define PER_USER_AUDITING_POLICY_SIZE_BY_COUNT(C) (sizeof(TOKEN_AUDIT_POLICY) + (((C) > ANYSIZE_ARRAY) ? (sizeof(TOKEN_AUDIT_POLICY_ELEMENT) *((C) - ANYSIZE_ARRAY)) : 0))
+#define PER_USER_AUDITING_POLICY_SIZE(p) (parimaa_na(TOKEN_AUDIT_POLICY) + (((p)->PolicyCount > ANYSIZE_ARRAY) ? (parimaa_na(TOKEN_AUDIT_POLICY_ELEMENT) *((p)->PolicyCount - ANYSIZE_ARRAY)) : 0))
+#define PER_USER_AUDITING_POLICY_SIZE_BY_COUNT(C) (parimaa_na(TOKEN_AUDIT_POLICY) + (((C) > ANYSIZE_ARRAY) ? (parimaa_na(TOKEN_AUDIT_POLICY_ELEMENT) *((C) - ANYSIZE_ARRAY)) : 0))
 
 #define TOKEN_SOURCE_LENGTH 8
 
-    typedef struct _TOKEN_SOURCE {
+    typedef sa_nracanaa _TOKEN_SOURCE {
       CHAR SourceName[TOKEN_SOURCE_LENGTH];
       LUID SourceIdentifier;
     } TOKEN_SOURCE,*PTOKEN_SOURCE;
 
-    typedef struct _TOKEN_STATISTICS {
+    typedef sa_nracanaa _TOKEN_STATISTICS {
       LUID TokenId;
       LUID AuthenticationId;
       LARGE_INTEGER ExpirationTime;
@@ -2854,14 +2854,14 @@ typedef DWORD LCID;
       LUID ModifiedId;
     } TOKEN_STATISTICS,*PTOKEN_STATISTICS;
 
-    typedef struct _TOKEN_CONTROL {
+    typedef sa_nracanaa _TOKEN_CONTROL {
       LUID TokenId;
       LUID AuthenticationId;
       LUID ModifiedId;
       TOKEN_SOURCE TokenSource;
     } TOKEN_CONTROL,*PTOKEN_CONTROL;
 
-    typedef struct _TOKEN_ORIGIN {
+    typedef sa_nracanaa _TOKEN_ORIGIN {
       LUID OriginatingLogonSession;
     } TOKEN_ORIGIN,*PTOKEN_ORIGIN;
 
@@ -2870,14 +2870,14 @@ typedef DWORD LCID;
 
     typedef BOOLEAN SECURITY_CONTEXT_TRACKING_MODE,*PSECURITY_CONTEXT_TRACKING_MODE;
 
-    typedef struct _SECURITY_QUALITY_OF_SERVICE {
+    typedef sa_nracanaa _SECURITY_QUALITY_OF_SERVICE {
       DWORD Length;
       SECURITY_IMPERSONATION_LEVEL ImpersonationLevel;
       SECURITY_CONTEXT_TRACKING_MODE ContextTrackingMode;
       BOOLEAN EffectiveOnly;
     } SECURITY_QUALITY_OF_SERVICE,*PSECURITY_QUALITY_OF_SERVICE;
 
-    typedef struct _SE_IMPERSONATION_STATE {
+    typedef sa_nracanaa _SE_IMPERSONATION_STATE {
       PACCESS_TOKEN Token;
       BOOLEAN CopyOnOpen;
       BOOLEAN EffectiveOnly;
@@ -2917,7 +2917,7 @@ typedef DWORD LCID;
 
 #ifdef _WIN64
 #define MAXIMUM_PROCESSORS 64
-#else
+#ပေႃးဢမ်ႇ
 #define MAXIMUM_PROCESSORS 32
 #endif
 
@@ -2940,7 +2940,7 @@ typedef DWORD LCID;
 #define JOB_OBJECT_SET_SECURITY_ATTRIBUTES (0x0010)
 #define JOB_OBJECT_ALL_ACCESS (STANDARD_RIGHTS_REQUIRED | SYNCHRONIZE | 0x1F)
 
-    typedef struct _JOB_SET_ARRAY {
+    typedef sa_nracanaa _JOB_SET_ARRAY {
       HANDLE JobHandle;
       DWORD MemberLevel;
       DWORD Flags;
@@ -2951,27 +2951,27 @@ typedef DWORD LCID;
 
 #ifndef _NT_TIB_DEFINED
 #define _NT_TIB_DEFINED
-    typedef struct _NT_TIB {
-      struct _EXCEPTION_REGISTRATION_RECORD *ExceptionList;
+    typedef sa_nracanaa _NT_TIB {
+      sa_nracanaa _EXCEPTION_REGISTRATION_RECORD *ExceptionList;
       PVOID StackBase;
       PVOID StackLimit;
       PVOID SubSystemTib;
-      union {
+      sa_ngha {
 	PVOID FiberData;
 	DWORD Version;
       };
       PVOID ArbitraryUserPointer;
-      struct _NT_TIB *Self;
+      sa_nracanaa _NT_TIB *Self;
     } NT_TIB;
     typedef NT_TIB *PNT_TIB;
 #endif
 
-    typedef struct _NT_TIB32 {
+    typedef sa_nracanaa _NT_TIB32 {
       DWORD ExceptionList;
       DWORD StackBase;
       DWORD StackLimit;
       DWORD SubSystemTib;
-      union {
+      sa_ngha {
 	DWORD FiberData;
 	DWORD Version;
       };
@@ -2979,12 +2979,12 @@ typedef DWORD LCID;
       DWORD Self;
     } NT_TIB32,*PNT_TIB32;
 
-    typedef struct _NT_TIB64 {
+    typedef sa_nracanaa _NT_TIB64 {
       DWORD64 ExceptionList;
       DWORD64 StackBase;
       DWORD64 StackLimit;
       DWORD64 SubSystemTib;
-      union {
+      sa_ngha {
 	DWORD64 FiberData;
 	DWORD Version;
       };
@@ -2992,7 +2992,7 @@ typedef DWORD LCID;
       DWORD64 Self;
     } NT_TIB64,*PNT_TIB64;
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_)
+#ပေႃး !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_)
 #define WX86
 #endif
 
@@ -3001,7 +3001,7 @@ typedef DWORD LCID;
 #define THREAD_BASE_PRIORITY_MIN (-2)
 #define THREAD_BASE_PRIORITY_IDLE (-15)
 
-    typedef struct _QUOTA_LIMITS {
+    typedef sa_nracanaa _QUOTA_LIMITS {
       SIZE_T PagedPoolLimit;
       SIZE_T NonPagedPoolLimit;
       SIZE_T MinimumWorkingSetSize;
@@ -3015,7 +3015,7 @@ typedef DWORD LCID;
 #define QUOTA_LIMITS_HARDWS_MAX_ENABLE 0x00000004
 #define QUOTA_LIMITS_HARDWS_MAX_DISABLE 0x00000008
 
-    typedef struct _QUOTA_LIMITS_EX {
+    typedef sa_nracanaa _QUOTA_LIMITS_EX {
       SIZE_T PagedPoolLimit;
       SIZE_T NonPagedPoolLimit;
       SIZE_T MinimumWorkingSetSize;
@@ -3030,7 +3030,7 @@ typedef DWORD LCID;
       DWORD Reserved5;
     } QUOTA_LIMITS_EX,*PQUOTA_LIMITS_EX;
 
-    typedef struct _IO_COUNTERS {
+    typedef sa_nracanaa _IO_COUNTERS {
       ULONGLONG ReadOperationCount;
       ULONGLONG WriteOperationCount;
       ULONGLONG OtherOperationCount;
@@ -3040,7 +3040,7 @@ typedef DWORD LCID;
     } IO_COUNTERS;
     typedef IO_COUNTERS *PIO_COUNTERS;
 
-    typedef struct _JOBOBJECT_BASIC_ACCOUNTING_INFORMATION {
+    typedef sa_nracanaa _JOBOBJECT_BASIC_ACCOUNTING_INFORMATION {
       LARGE_INTEGER TotalUserTime;
       LARGE_INTEGER TotalKernelTime;
       LARGE_INTEGER ThisPeriodTotalUserTime;
@@ -3051,7 +3051,7 @@ typedef DWORD LCID;
       DWORD TotalTerminatedProcesses;
     } JOBOBJECT_BASIC_ACCOUNTING_INFORMATION,*PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION;
 
-    typedef struct _JOBOBJECT_BASIC_LIMIT_INFORMATION {
+    typedef sa_nracanaa _JOBOBJECT_BASIC_LIMIT_INFORMATION {
       LARGE_INTEGER PerProcessUserTimeLimit;
       LARGE_INTEGER PerJobUserTimeLimit;
       DWORD LimitFlags;
@@ -3063,7 +3063,7 @@ typedef DWORD LCID;
       DWORD SchedulingClass;
     } JOBOBJECT_BASIC_LIMIT_INFORMATION,*PJOBOBJECT_BASIC_LIMIT_INFORMATION;
 
-    typedef struct _JOBOBJECT_EXTENDED_LIMIT_INFORMATION {
+    typedef sa_nracanaa _JOBOBJECT_EXTENDED_LIMIT_INFORMATION {
       JOBOBJECT_BASIC_LIMIT_INFORMATION BasicLimitInformation;
       IO_COUNTERS IoInfo;
       SIZE_T ProcessMemoryLimit;
@@ -3072,17 +3072,17 @@ typedef DWORD LCID;
       SIZE_T PeakJobMemoryUsed;
     } JOBOBJECT_EXTENDED_LIMIT_INFORMATION,*PJOBOBJECT_EXTENDED_LIMIT_INFORMATION;
 
-    typedef struct _JOBOBJECT_BASIC_PROCESS_ID_LIST {
+    typedef sa_nracanaa _JOBOBJECT_BASIC_PROCESS_ID_LIST {
       DWORD NumberOfAssignedProcesses;
       DWORD NumberOfProcessIdsInList;
       ULONG_PTR ProcessIdList[1];
     } JOBOBJECT_BASIC_PROCESS_ID_LIST,*PJOBOBJECT_BASIC_PROCESS_ID_LIST;
 
-    typedef struct _JOBOBJECT_BASIC_UI_RESTRICTIONS {
+    typedef sa_nracanaa _JOBOBJECT_BASIC_UI_RESTRICTIONS {
       DWORD UIRestrictionsClass;
     } JOBOBJECT_BASIC_UI_RESTRICTIONS,*PJOBOBJECT_BASIC_UI_RESTRICTIONS;
 
-    typedef struct _JOBOBJECT_SECURITY_LIMIT_INFORMATION {
+    typedef sa_nracanaa _JOBOBJECT_SECURITY_LIMIT_INFORMATION {
       DWORD SecurityLimitFlags;
       HANDLE JobToken;
       PTOKEN_GROUPS SidsToDisable;
@@ -3090,21 +3090,21 @@ typedef DWORD LCID;
       PTOKEN_GROUPS RestrictedSids;
     } JOBOBJECT_SECURITY_LIMIT_INFORMATION,*PJOBOBJECT_SECURITY_LIMIT_INFORMATION;
 
-    typedef struct _JOBOBJECT_END_OF_JOB_TIME_INFORMATION {
+    typedef sa_nracanaa _JOBOBJECT_END_OF_JOB_TIME_INFORMATION {
       DWORD EndOfJobTimeAction;
     } JOBOBJECT_END_OF_JOB_TIME_INFORMATION,*PJOBOBJECT_END_OF_JOB_TIME_INFORMATION;
 
-    typedef struct _JOBOBJECT_ASSOCIATE_COMPLETION_PORT {
+    typedef sa_nracanaa _JOBOBJECT_ASSOCIATE_COMPLETION_PORT {
       PVOID CompletionKey;
       HANDLE CompletionPort;
     } JOBOBJECT_ASSOCIATE_COMPLETION_PORT,*PJOBOBJECT_ASSOCIATE_COMPLETION_PORT;
 
-    typedef struct _JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION {
+    typedef sa_nracanaa _JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION {
       JOBOBJECT_BASIC_ACCOUNTING_INFORMATION BasicInfo;
       IO_COUNTERS IoInfo;
     } JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION,*PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION;
 
-    typedef struct _JOBOBJECT_JOBSET_INFORMATION {
+    typedef sa_nracanaa _JOBOBJECT_JOBSET_INFORMATION {
       DWORD MemberLevel;
     } JOBOBJECT_JOBSET_INFORMATION,*PJOBOBJECT_JOBSET_INFORMATION;
 
@@ -3171,7 +3171,7 @@ typedef DWORD LCID;
 
 #define JOB_OBJECT_SECURITY_VALID_FLAGS 0x0000000f
 
-    typedef enum _JOBOBJECTINFOCLASS {
+    typedef ga_nanaa _JOBOBJECTINFOCLASS {
       JobObjectBasicAccountingInformation = 1,JobObjectBasicLimitInformation,JobObjectBasicProcessIdList,JobObjectBasicUIRestrictions,
       JobObjectSecurityLimitInformation,JobObjectEndOfJobTimeInformation,JobObjectAssociateCompletionPortInformation,
       JobObjectBasicAndIoAccountingInformation,JobObjectExtendedLimitInformation,JobObjectJobSetInformation,MaxJobObjectInfoClass
@@ -3195,19 +3195,19 @@ typedef DWORD LCID;
 #define TIME_ZONE_ID_STANDARD 1
 #define TIME_ZONE_ID_DAYLIGHT 2
 
-    typedef enum _LOGICAL_PROCESSOR_RELATIONSHIP {
+    typedef ga_nanaa _LOGICAL_PROCESSOR_RELATIONSHIP {
       RelationProcessorCore,RelationNumaNode,RelationCache
     } LOGICAL_PROCESSOR_RELATIONSHIP;
 
 #define LTP_PC_SMT 0x1
 
-    typedef enum _PROCESSOR_CACHE_TYPE {
+    typedef ga_nanaa _PROCESSOR_CACHE_TYPE {
       CacheUnified,CacheInstruction,CacheData,CacheTrace
     } PROCESSOR_CACHE_TYPE;
 
 #define CACHE_FULLY_ASSOCIATIVE 0xFF
 
-    typedef struct _CACHE_DESCRIPTOR {
+    typedef sa_nracanaa _CACHE_DESCRIPTOR {
       BYTE Level;
       BYTE Associativity;
       WORD LineSize;
@@ -3215,14 +3215,14 @@ typedef DWORD LCID;
       PROCESSOR_CACHE_TYPE Type;
     } CACHE_DESCRIPTOR,*PCACHE_DESCRIPTOR;
 
-    typedef struct _SYSTEM_LOGICAL_PROCESSOR_INFORMATION {
+    typedef sa_nracanaa _SYSTEM_LOGICAL_PROCESSOR_INFORMATION {
       ULONG_PTR ProcessorMask;
       LOGICAL_PROCESSOR_RELATIONSHIP Relationship;
-      union {
-	struct {
+      sa_ngha {
+	sa_nracanaa {
 	  BYTE Flags;
 	} ProcessorCore;
-	struct {
+	sa_nracanaa {
 	  DWORD NodeNumber;
 	} NumaNode;
 	CACHE_DESCRIPTOR Cache;
@@ -3282,7 +3282,7 @@ typedef DWORD LCID;
 #define PF_SSE_DAZ_MODE_AVAILABLE 11
 #define PF_NX_ENABLED 12
 
-    typedef struct _MEMORY_BASIC_INFORMATION {
+    typedef sa_nracanaa _MEMORY_BASIC_INFORMATION {
       PVOID BaseAddress;
       PVOID AllocationBase;
       DWORD AllocationProtect;
@@ -3292,7 +3292,7 @@ typedef DWORD LCID;
       DWORD Type;
     } MEMORY_BASIC_INFORMATION,*PMEMORY_BASIC_INFORMATION;
 
-    typedef struct _MEMORY_BASIC_INFORMATION32 {
+    typedef sa_nracanaa _MEMORY_BASIC_INFORMATION32 {
       DWORD BaseAddress;
       DWORD AllocationBase;
       DWORD AllocationProtect;
@@ -3302,7 +3302,7 @@ typedef DWORD LCID;
       DWORD Type;
     } MEMORY_BASIC_INFORMATION32,*PMEMORY_BASIC_INFORMATION32;
 
-    typedef struct DECLSPEC_ALIGN(16) _MEMORY_BASIC_INFORMATION64 {
+    typedef sa_nracanaa DECLSPEC_ALIGN(16) _MEMORY_BASIC_INFORMATION64 {
       ULONGLONG BaseAddress;
       ULONGLONG AllocationBase;
       DWORD AllocationProtect;
@@ -3430,24 +3430,24 @@ typedef DWORD LCID;
 #define FILE_NAMED_STREAMS 0x00040000
 #define FILE_READ_ONLY_VOLUME 0x00080000
 
-    typedef struct _FILE_NOTIFY_INFORMATION {
+    typedef sa_nracanaa _FILE_NOTIFY_INFORMATION {
       DWORD NextEntryOffset;
       DWORD Action;
       DWORD FileNameLength;
       WCHAR FileName[1];
     } FILE_NOTIFY_INFORMATION,*PFILE_NOTIFY_INFORMATION;
 
-    typedef union _FILE_SEGMENT_ELEMENT {
+    typedef sa_ngha _FILE_SEGMENT_ELEMENT {
       PVOID64 Buffer;
       ULONGLONG Alignment;
     }FILE_SEGMENT_ELEMENT,*PFILE_SEGMENT_ELEMENT;
 
-    typedef struct _REPARSE_GUID_DATA_BUFFER {
+    typedef sa_nracanaa _REPARSE_GUID_DATA_BUFFER {
       DWORD ReparseTag;
       WORD ReparseDataLength;
       WORD Reserved;
       GUID ReparseGuid;
-      struct {
+      sa_nracanaa {
 	BYTE DataBuffer[1];
       } GenericReparseBuffer;
     } REPARSE_GUID_DATA_BUFFER,*PREPARSE_GUID_DATA_BUFFER;
@@ -3474,17 +3474,17 @@ typedef DWORD LCID;
 #define DUPLICATE_CLOSE_SOURCE 0x00000001
 #define DUPLICATE_SAME_ACCESS 0x00000002
 
-    typedef enum _SYSTEM_POWER_STATE {
+    typedef ga_nanaa _SYSTEM_POWER_STATE {
       PowerSystemUnspecified = 0,PowerSystemWorking = 1,PowerSystemSleeping1 = 2,PowerSystemSleeping2 = 3,PowerSystemSleeping3 = 4,PowerSystemHibernate = 5,PowerSystemShutdown = 6,PowerSystemMaximum = 7
     } SYSTEM_POWER_STATE,*PSYSTEM_POWER_STATE;
 
 #define POWER_SYSTEM_MAXIMUM 7
 
-    typedef enum {
+    typedef ga_nanaa {
       PowerActionNone = 0,PowerActionReserved,PowerActionSleep,PowerActionHibernate,PowerActionShutdown,PowerActionShutdownReset,PowerActionShutdownOff,PowerActionWarmEject
     } POWER_ACTION,*PPOWER_ACTION;
 
-    typedef enum _DEVICE_POWER_STATE {
+    typedef ga_nanaa _DEVICE_POWER_STATE {
       PowerDeviceUnspecified = 0,PowerDeviceD0,PowerDeviceD1,PowerDeviceD2,PowerDeviceD3,PowerDeviceMaximum
     } DEVICE_POWER_STATE,*PDEVICE_POWER_STATE;
 
@@ -3495,7 +3495,7 @@ typedef DWORD LCID;
 
     typedef DWORD EXECUTION_STATE;
 
-    typedef enum {
+    typedef ga_nanaa {
       LT_DONT_CARE,LT_LOWEST_LATENCY
     } LATENCY_TIME;
 
@@ -3509,7 +3509,7 @@ typedef DWORD LCID;
 #define PDCAP_WAKE_FROM_D3_SUPPORTED 0x00000080
 #define PDCAP_WARM_EJECT_SUPPORTED 0x00000100
 
-    typedef struct CM_Power_Data_s {
+    typedef sa_nracanaa CM_Power_Data_s {
       DWORD PD_Size;
       DEVICE_POWER_STATE PD_MostRecentPowerState;
       DWORD PD_Capabilities;
@@ -3520,16 +3520,16 @@ typedef DWORD LCID;
       SYSTEM_POWER_STATE PD_DeepestSystemWake;
     } CM_POWER_DATA,*PCM_POWER_DATA;
 
-    typedef enum {
+    typedef ga_nanaa {
       SystemPowerPolicyAc,SystemPowerPolicyDc,VerifySystemPolicyAc,VerifySystemPolicyDc,SystemPowerCapabilities,SystemBatteryState,SystemPowerStateHandler,ProcessorStateHandler,SystemPowerPolicyCurrent,AdministratorPowerPolicy,SystemReserveHiberFile,ProcessorInformation,SystemPowerInformation,ProcessorStateHandler2,LastWakeTime,LastSleepTime,SystemExecutionState,SystemPowerStateNotifyHandler,ProcessorPowerPolicyAc,ProcessorPowerPolicyDc,VerifyProcessorPowerPolicyAc,VerifyProcessorPowerPolicyDc,ProcessorPowerPolicyCurrent,SystemPowerStateLogging,SystemPowerLoggingEntry
     } POWER_INFORMATION_LEVEL;
 
-    typedef struct {
+    typedef sa_nracanaa {
       DWORD Granularity;
       DWORD Capacity;
     } BATTERY_REPORTING_SCALE,*PBATTERY_REPORTING_SCALE;
 
-    typedef struct {
+    typedef sa_nracanaa {
       POWER_ACTION Action;
       DWORD Flags;
       DWORD EventCode;
@@ -3550,7 +3550,7 @@ typedef DWORD LCID;
 #define POWER_USER_NOTIFY_SHUTDOWN 0x00000010
 #define POWER_FORCE_TRIGGER_RESET 0x80000000
 
-    typedef struct {
+    typedef sa_nracanaa {
       BOOLEAN Enable;
       BYTE Spare[3];
       DWORD BatteryLevel;
@@ -3568,7 +3568,7 @@ typedef DWORD LCID;
 #define PO_THROTTLE_ADAPTIVE 3
 #define PO_THROTTLE_MAXIMUM 4
 
-    typedef struct _SYSTEM_POWER_POLICY {
+    typedef sa_nracanaa _SYSTEM_POWER_POLICY {
       DWORD Revision;
       POWER_ACTION_POLICY PowerButton;
       POWER_ACTION_POLICY SleepButton;
@@ -3599,7 +3599,7 @@ typedef DWORD LCID;
       POWER_ACTION_POLICY OverThrottled;
     } SYSTEM_POWER_POLICY,*PSYSTEM_POWER_POLICY;
 
-    typedef struct _PROCESSOR_POWER_POLICY_INFO {
+    typedef sa_nracanaa _PROCESSOR_POWER_POLICY_INFO {
       DWORD TimeCheck;
       DWORD DemoteLimit;
       DWORD PromoteLimit;
@@ -3611,7 +3611,7 @@ typedef DWORD LCID;
       DWORD Reserved:30;
     } PROCESSOR_POWER_POLICY_INFO,*PPROCESSOR_POWER_POLICY_INFO;
 
-    typedef struct _PROCESSOR_POWER_POLICY {
+    typedef sa_nracanaa _PROCESSOR_POWER_POLICY {
       DWORD Revision;
       BYTE DynamicThrottle;
       BYTE Spare[3];
@@ -3621,7 +3621,7 @@ typedef DWORD LCID;
       PROCESSOR_POWER_POLICY_INFO Policy[3];
     } PROCESSOR_POWER_POLICY,*PPROCESSOR_POWER_POLICY;
 
-    typedef struct _ADMINISTRATOR_POWER_POLICY {
+    typedef sa_nracanaa _ADMINISTRATOR_POWER_POLICY {
       SYSTEM_POWER_STATE MinSleep;
       SYSTEM_POWER_STATE MaxSleep;
       DWORD MinVideoTimeout;
@@ -3630,7 +3630,7 @@ typedef DWORD LCID;
       DWORD MaxSpindownTimeout;
     } ADMINISTRATOR_POWER_POLICY,*PADMINISTRATOR_POWER_POLICY;
 
-    typedef struct {
+    typedef sa_nracanaa {
       BOOLEAN PowerButtonPresent;
       BOOLEAN SleepButtonPresent;
       BOOLEAN LidPresent;
@@ -3661,7 +3661,7 @@ typedef DWORD LCID;
       SYSTEM_POWER_STATE DefaultLowLatencyWake;
     } SYSTEM_POWER_CAPABILITIES,*PSYSTEM_POWER_CAPABILITIES;
 
-    typedef struct {
+    typedef sa_nracanaa {
       BOOLEAN AcOnLine;
       BOOLEAN BatteryPresent;
       BOOLEAN Charging;
@@ -3685,7 +3685,7 @@ typedef DWORD LCID;
 
 #include "pshpack2.h"
 
-    typedef struct _IMAGE_DOS_HEADER {
+    typedef sa_nracanaa _IMAGE_DOS_HEADER {
       WORD e_magic;
       WORD e_cblp;
       WORD e_cp;
@@ -3707,7 +3707,7 @@ typedef DWORD LCID;
       LONG e_lfanew;
     } IMAGE_DOS_HEADER,*PIMAGE_DOS_HEADER;
 
-    typedef struct _IMAGE_OS2_HEADER {
+    typedef sa_nracanaa _IMAGE_OS2_HEADER {
       WORD ne_magic;
       CHAR ne_ver;
       CHAR ne_rev;
@@ -3740,7 +3740,7 @@ typedef DWORD LCID;
       WORD ne_expver;
     } IMAGE_OS2_HEADER,*PIMAGE_OS2_HEADER;
 
-    typedef struct _IMAGE_VXD_HEADER {
+    typedef sa_nracanaa _IMAGE_VXD_HEADER {
       WORD e32_magic;
       BYTE e32_border;
       BYTE e32_worder;
@@ -3796,7 +3796,7 @@ typedef DWORD LCID;
 
 #include "poppack.h"
 
-    typedef struct _IMAGE_FILE_HEADER {
+    typedef sa_nracanaa _IMAGE_FILE_HEADER {
       WORD Machine;
       WORD NumberOfSections;
       DWORD TimeDateStamp;
@@ -3855,14 +3855,14 @@ typedef DWORD LCID;
 #define IMAGE_FILE_MACHINE_M32R 0x9041
 #define IMAGE_FILE_MACHINE_CEE 0xC0EE
 
-    typedef struct _IMAGE_DATA_DIRECTORY {
+    typedef sa_nracanaa _IMAGE_DATA_DIRECTORY {
       DWORD VirtualAddress;
       DWORD Size;
     } IMAGE_DATA_DIRECTORY,*PIMAGE_DATA_DIRECTORY;
 
 #define IMAGE_NUMBEROF_DIRECTORY_ENTRIES 16
 
-    typedef struct _IMAGE_OPTIONAL_HEADER {
+    typedef sa_nracanaa _IMAGE_OPTIONAL_HEADER {
 
       WORD Magic;
       BYTE MajorLinkerVersion;
@@ -3897,7 +3897,7 @@ typedef DWORD LCID;
       IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
     } IMAGE_OPTIONAL_HEADER32,*PIMAGE_OPTIONAL_HEADER32;
 
-    typedef struct _IMAGE_ROM_OPTIONAL_HEADER {
+    typedef sa_nracanaa _IMAGE_ROM_OPTIONAL_HEADER {
       WORD Magic;
       BYTE MajorLinkerVersion;
       BYTE MinorLinkerVersion;
@@ -3913,7 +3913,7 @@ typedef DWORD LCID;
       DWORD GpValue;
     } IMAGE_ROM_OPTIONAL_HEADER,*PIMAGE_ROM_OPTIONAL_HEADER;
 
-    typedef struct _IMAGE_OPTIONAL_HEADER64 {
+    typedef sa_nracanaa _IMAGE_OPTIONAL_HEADER64 {
       WORD Magic;
       BYTE MajorLinkerVersion;
       BYTE MinorLinkerVersion;
@@ -3960,26 +3960,26 @@ typedef DWORD LCID;
     typedef PIMAGE_OPTIONAL_HEADER64 PIMAGE_OPTIONAL_HEADER;
 #define IMAGE_SIZEOF_NT_OPTIONAL_HEADER IMAGE_SIZEOF_NT_OPTIONAL64_HEADER
 #define IMAGE_NT_OPTIONAL_HDR_MAGIC IMAGE_NT_OPTIONAL_HDR64_MAGIC
-#else
+#ပေႃးဢမ်ႇ
     typedef IMAGE_OPTIONAL_HEADER32 IMAGE_OPTIONAL_HEADER;
     typedef PIMAGE_OPTIONAL_HEADER32 PIMAGE_OPTIONAL_HEADER;
 #define IMAGE_SIZEOF_NT_OPTIONAL_HEADER IMAGE_SIZEOF_NT_OPTIONAL32_HEADER
 #define IMAGE_NT_OPTIONAL_HDR_MAGIC IMAGE_NT_OPTIONAL_HDR32_MAGIC
 #endif
 
-    typedef struct _IMAGE_NT_HEADERS64 {
+    typedef sa_nracanaa _IMAGE_NT_HEADERS64 {
       DWORD Signature;
       IMAGE_FILE_HEADER FileHeader;
       IMAGE_OPTIONAL_HEADER64 OptionalHeader;
     } IMAGE_NT_HEADERS64,*PIMAGE_NT_HEADERS64;
 
-    typedef struct _IMAGE_NT_HEADERS {
+    typedef sa_nracanaa _IMAGE_NT_HEADERS {
       DWORD Signature;
       IMAGE_FILE_HEADER FileHeader;
       IMAGE_OPTIONAL_HEADER32 OptionalHeader;
     } IMAGE_NT_HEADERS32,*PIMAGE_NT_HEADERS32;
 
-    typedef struct _IMAGE_ROM_HEADERS {
+    typedef sa_nracanaa _IMAGE_ROM_HEADERS {
       IMAGE_FILE_HEADER FileHeader;
       IMAGE_ROM_OPTIONAL_HEADER OptionalHeader;
     } IMAGE_ROM_HEADERS,*PIMAGE_ROM_HEADERS;
@@ -3987,7 +3987,7 @@ typedef DWORD LCID;
 #ifdef _WIN64
     typedef IMAGE_NT_HEADERS64 IMAGE_NT_HEADERS;
     typedef PIMAGE_NT_HEADERS64 PIMAGE_NT_HEADERS;
-#else
+#ပေႃးဢမ်ႇ
     typedef IMAGE_NT_HEADERS32 IMAGE_NT_HEADERS;
     typedef PIMAGE_NT_HEADERS32 PIMAGE_NT_HEADERS;
 #endif
@@ -4037,7 +4037,7 @@ typedef DWORD LCID;
 #define IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT 13
 #define IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR 14
 
-    typedef struct ANON_OBJECT_HEADER {
+    typedef sa_nracanaa ANON_OBJECT_HEADER {
       WORD Sig1;
       WORD Sig2;
       WORD Version;
@@ -4049,9 +4049,9 @@ typedef DWORD LCID;
 
 #define IMAGE_SIZEOF_SHORT_NAME 8
 
-    typedef struct _IMAGE_SECTION_HEADER {
+    typedef sa_nracanaa _IMAGE_SECTION_HEADER {
       BYTE Name[IMAGE_SIZEOF_SHORT_NAME];
-      union {
+      sa_ngha {
 	DWORD PhysicalAddress;
 	DWORD VirtualSize;
       } Misc;
@@ -4114,10 +4114,10 @@ typedef DWORD LCID;
 
 #include "pshpack2.h"
 
-    typedef struct _IMAGE_SYMBOL {
-      union {
+    typedef sa_nracanaa _IMAGE_SYMBOL {
+      sa_ngha {
 	BYTE ShortName[8];
-	struct {
+	sa_nracanaa {
 	  DWORD Short;
 	  DWORD Long;
 	} Name;
@@ -4222,31 +4222,31 @@ typedef DWORD LCID;
 #define DECREF(x) ((((x)>>N_TSHIFT)&~N_BTMASK)|((x)&N_BTMASK))
 #endif
 
-    typedef union _IMAGE_AUX_SYMBOL {
-      struct {
+    typedef sa_ngha _IMAGE_AUX_SYMBOL {
+      sa_nracanaa {
 	DWORD TagIndex;
-	union {
-	  struct {
+	sa_ngha {
+	  sa_nracanaa {
 	    WORD Linenumber;
 	    WORD Size;
 	  } LnSz;
 	  DWORD TotalSize;
 	} Misc;
-	union {
-	  struct {
+	sa_ngha {
+	  sa_nracanaa {
 	    DWORD PointerToLinenumber;
 	    DWORD PointerToNextFunction;
 	  } Function;
-	  struct {
+	  sa_nracanaa {
 	    WORD Dimension[4];
 	  } Array;
 	} FcnAry;
 	WORD TvIndex;
       } Sym;
-      struct {
+      sa_nracanaa {
 	BYTE Name[IMAGE_SIZEOF_SYMBOL];
       } File;
-      struct {
+      sa_nracanaa {
 	DWORD Length;
 	WORD NumberOfRelocations;
 	WORD NumberOfLinenumbers;
@@ -4259,13 +4259,13 @@ typedef DWORD LCID;
 
 #define IMAGE_SIZEOF_AUX_SYMBOL 18
 
-    typedef enum IMAGE_AUX_SYMBOL_TYPE {
+    typedef ga_nanaa IMAGE_AUX_SYMBOL_TYPE {
       IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF = 1
     } IMAGE_AUX_SYMBOL_TYPE;
 
 #include <pshpack2.h>
 
-    typedef struct IMAGE_AUX_SYMBOL_TOKEN_DEF {
+    typedef sa_nracanaa IMAGE_AUX_SYMBOL_TOKEN_DEF {
       BYTE bAuxType;
       BYTE bReserved;
       DWORD SymbolTableIndex;
@@ -4288,8 +4288,8 @@ typedef DWORD LCID;
 #define IMAGE_WEAK_EXTERN_SEARCH_LIBRARY 2
 #define IMAGE_WEAK_EXTERN_SEARCH_ALIAS 3
 
-    typedef struct _IMAGE_RELOCATION {
-      union {
+    typedef sa_nracanaa _IMAGE_RELOCATION {
+      sa_ngha {
 	DWORD VirtualAddress;
 	DWORD RelocCount;
       };
@@ -4610,8 +4610,8 @@ typedef DWORD LCID;
 #define X3_EMPTY_INST_WORD_POS_X 14
 #define X3_EMPTY_INST_VAL_POS_X 0
 
-    typedef struct _IMAGE_LINENUMBER {
-      union {
+    typedef sa_nracanaa _IMAGE_LINENUMBER {
+      sa_ngha {
 	DWORD SymbolTableIndex;
 	DWORD VirtualAddress;
       } Type;
@@ -4623,7 +4623,7 @@ typedef DWORD LCID;
 
 #include "poppack.h"
 
-    typedef struct _IMAGE_BASE_RELOCATION {
+    typedef sa_nracanaa _IMAGE_BASE_RELOCATION {
       DWORD VirtualAddress;
       DWORD SizeOfBlock;
 
@@ -4649,7 +4649,7 @@ typedef DWORD LCID;
 #define IMAGE_ARCHIVE_LINKER_MEMBER "/               "
 #define IMAGE_ARCHIVE_LONGNAMES_MEMBER "//              "
 
-    typedef struct _IMAGE_ARCHIVE_MEMBER_HEADER {
+    typedef sa_nracanaa _IMAGE_ARCHIVE_MEMBER_HEADER {
       BYTE Name[16];
       BYTE Date[12];
       BYTE UserID[6];
@@ -4661,7 +4661,7 @@ typedef DWORD LCID;
 
 #define IMAGE_SIZEOF_ARCHIVE_MEMBER_HDR 60
 
-    typedef struct _IMAGE_EXPORT_DIRECTORY {
+    typedef sa_nracanaa _IMAGE_EXPORT_DIRECTORY {
       DWORD Characteristics;
       DWORD TimeDateStamp;
       WORD MajorVersion;
@@ -4675,15 +4675,15 @@ typedef DWORD LCID;
       DWORD AddressOfNameOrdinals;
     } IMAGE_EXPORT_DIRECTORY,*PIMAGE_EXPORT_DIRECTORY;
 
-    typedef struct _IMAGE_IMPORT_BY_NAME {
+    typedef sa_nracanaa _IMAGE_IMPORT_BY_NAME {
       WORD Hint;
       BYTE Name[1];
     } IMAGE_IMPORT_BY_NAME,*PIMAGE_IMPORT_BY_NAME;
 
 #include "pshpack8.h"
 
-    typedef struct _IMAGE_THUNK_DATA64 {
-      union {
+    typedef sa_nracanaa _IMAGE_THUNK_DATA64 {
+      sa_ngha {
 	ULONGLONG ForwarderString;
 	ULONGLONG Function;
 	ULONGLONG Ordinal;
@@ -4694,8 +4694,8 @@ typedef DWORD LCID;
 
 #include "poppack.h"
 
-    typedef struct _IMAGE_THUNK_DATA32 {
-      union {
+    typedef sa_nracanaa _IMAGE_THUNK_DATA32 {
+      sa_ngha {
 	DWORD ForwarderString;
 	DWORD Function;
 	DWORD Ordinal;
@@ -4714,7 +4714,7 @@ typedef DWORD LCID;
     typedef VOID
       (NTAPI *PIMAGE_TLS_CALLBACK)(PVOID DllHandle,DWORD Reason,PVOID Reserved);
 
-    typedef struct _IMAGE_TLS_DIRECTORY64 {
+    typedef sa_nracanaa _IMAGE_TLS_DIRECTORY64 {
       ULONGLONG StartAddressOfRawData;
       ULONGLONG EndAddressOfRawData;
       ULONGLONG AddressOfIndex;
@@ -4724,7 +4724,7 @@ typedef DWORD LCID;
     } IMAGE_TLS_DIRECTORY64;
     typedef IMAGE_TLS_DIRECTORY64 *PIMAGE_TLS_DIRECTORY64;
 
-    typedef struct _IMAGE_TLS_DIRECTORY32 {
+    typedef sa_nracanaa _IMAGE_TLS_DIRECTORY32 {
       DWORD StartAddressOfRawData;
       DWORD EndAddressOfRawData;
       DWORD AddressOfIndex;
@@ -4742,7 +4742,7 @@ typedef DWORD LCID;
 #define IMAGE_SNAP_BY_ORDINAL(Ordinal) IMAGE_SNAP_BY_ORDINAL64(Ordinal)
     typedef IMAGE_TLS_DIRECTORY64 IMAGE_TLS_DIRECTORY;
     typedef PIMAGE_TLS_DIRECTORY64 PIMAGE_TLS_DIRECTORY;
-#else
+#ပေႃးဢမ်ႇ
 #define IMAGE_ORDINAL_FLAG IMAGE_ORDINAL_FLAG32
 #define IMAGE_ORDINAL(Ordinal) IMAGE_ORDINAL32(Ordinal)
     typedef IMAGE_THUNK_DATA32 IMAGE_THUNK_DATA;
@@ -4752,8 +4752,8 @@ typedef DWORD LCID;
     typedef PIMAGE_TLS_DIRECTORY32 PIMAGE_TLS_DIRECTORY;
 #endif
 
-    typedef struct _IMAGE_IMPORT_DESCRIPTOR {
-      union {
+    typedef sa_nracanaa _IMAGE_IMPORT_DESCRIPTOR {
+      sa_ngha {
 	DWORD Characteristics;
 	DWORD OriginalFirstThunk;
       };
@@ -4765,19 +4765,19 @@ typedef DWORD LCID;
     } IMAGE_IMPORT_DESCRIPTOR;
     typedef IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;
 
-    typedef struct _IMAGE_BOUND_IMPORT_DESCRIPTOR {
+    typedef sa_nracanaa _IMAGE_BOUND_IMPORT_DESCRIPTOR {
       DWORD TimeDateStamp;
       WORD OffsetModuleName;
       WORD NumberOfModuleForwarderRefs;
     } IMAGE_BOUND_IMPORT_DESCRIPTOR,*PIMAGE_BOUND_IMPORT_DESCRIPTOR;
 
-    typedef struct _IMAGE_BOUND_FORWARDER_REF {
+    typedef sa_nracanaa _IMAGE_BOUND_FORWARDER_REF {
       DWORD TimeDateStamp;
       WORD OffsetModuleName;
       WORD Reserved;
     } IMAGE_BOUND_FORWARDER_REF,*PIMAGE_BOUND_FORWARDER_REF;
 
-    typedef struct _IMAGE_RESOURCE_DIRECTORY {
+    typedef sa_nracanaa _IMAGE_RESOURCE_DIRECTORY {
       DWORD Characteristics;
       DWORD TimeDateStamp;
       WORD MajorVersion;
@@ -4789,42 +4789,42 @@ typedef DWORD LCID;
 #define IMAGE_RESOURCE_NAME_IS_STRING 0x80000000
 #define IMAGE_RESOURCE_DATA_IS_DIRECTORY 0x80000000
 
-    typedef struct _IMAGE_RESOURCE_DIRECTORY_ENTRY {
-      union {
-	struct {
+    typedef sa_nracanaa _IMAGE_RESOURCE_DIRECTORY_ENTRY {
+      sa_ngha {
+	sa_nracanaa {
 	  DWORD NameOffset:31;
 	  DWORD NameIsString:1;
 	};
 	DWORD Name;
 	WORD Id;
       };
-      union {
+      sa_ngha {
 	DWORD OffsetToData;
-	struct {
+	sa_nracanaa {
 	  DWORD OffsetToDirectory:31;
 	  DWORD DataIsDirectory:1;
 	};
       };
     } IMAGE_RESOURCE_DIRECTORY_ENTRY,*PIMAGE_RESOURCE_DIRECTORY_ENTRY;
 
-    typedef struct _IMAGE_RESOURCE_DIRECTORY_STRING {
+    typedef sa_nracanaa _IMAGE_RESOURCE_DIRECTORY_STRING {
       WORD Length;
       CHAR NameString[1];
     } IMAGE_RESOURCE_DIRECTORY_STRING,*PIMAGE_RESOURCE_DIRECTORY_STRING;
 
-    typedef struct _IMAGE_RESOURCE_DIR_STRING_U {
+    typedef sa_nracanaa _IMAGE_RESOURCE_DIR_STRING_U {
       WORD Length;
       WCHAR NameString[1];
     } IMAGE_RESOURCE_DIR_STRING_U,*PIMAGE_RESOURCE_DIR_STRING_U;
 
-    typedef struct _IMAGE_RESOURCE_DATA_ENTRY {
+    typedef sa_nracanaa _IMAGE_RESOURCE_DATA_ENTRY {
       DWORD OffsetToData;
       DWORD Size;
       DWORD CodePage;
       DWORD Reserved;
     } IMAGE_RESOURCE_DATA_ENTRY,*PIMAGE_RESOURCE_DATA_ENTRY;
 
-    typedef struct {
+    typedef sa_nracanaa {
       DWORD Size;
       DWORD TimeDateStamp;
       WORD MajorVersion;
@@ -4847,7 +4847,7 @@ typedef DWORD LCID;
       DWORD SEHandlerCount;
     } IMAGE_LOAD_CONFIG_DIRECTORY32,*PIMAGE_LOAD_CONFIG_DIRECTORY32;
 
-    typedef struct {
+    typedef sa_nracanaa {
       DWORD Size;
       DWORD TimeDateStamp;
       WORD MajorVersion;
@@ -4873,12 +4873,12 @@ typedef DWORD LCID;
 #ifdef _WIN64
     typedef IMAGE_LOAD_CONFIG_DIRECTORY64 IMAGE_LOAD_CONFIG_DIRECTORY;
     typedef PIMAGE_LOAD_CONFIG_DIRECTORY64 PIMAGE_LOAD_CONFIG_DIRECTORY;
-#else
+#ပေႃးဢမ်ႇ
     typedef IMAGE_LOAD_CONFIG_DIRECTORY32 IMAGE_LOAD_CONFIG_DIRECTORY;
     typedef PIMAGE_LOAD_CONFIG_DIRECTORY32 PIMAGE_LOAD_CONFIG_DIRECTORY;
 #endif
 
-    typedef struct _IMAGE_CE_RUNTIME_FUNCTION_ENTRY {
+    typedef sa_nracanaa _IMAGE_CE_RUNTIME_FUNCTION_ENTRY {
       DWORD FuncStart;
       DWORD PrologLen : 8;
       DWORD FuncLen : 22;
@@ -4886,7 +4886,7 @@ typedef DWORD LCID;
       DWORD ExceptionFlag : 1;
     } IMAGE_CE_RUNTIME_FUNCTION_ENTRY,*PIMAGE_CE_RUNTIME_FUNCTION_ENTRY;
 
-    typedef struct _IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY {
+    typedef sa_nracanaa _IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY {
       ULONGLONG BeginAddress;
       ULONGLONG EndAddress;
       ULONGLONG ExceptionHandler;
@@ -4894,7 +4894,7 @@ typedef DWORD LCID;
       ULONGLONG PrologEndAddress;
     } IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY,*PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY;
 
-    typedef struct _IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY {
+    typedef sa_nracanaa _IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY {
       DWORD BeginAddress;
       DWORD EndAddress;
       DWORD ExceptionHandler;
@@ -4902,7 +4902,7 @@ typedef DWORD LCID;
       DWORD PrologEndAddress;
     } IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY,*PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY;
 
-    typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY {
+    typedef sa_nracanaa _IMAGE_RUNTIME_FUNCTION_ENTRY {
       DWORD BeginAddress;
       DWORD EndAddress;
       DWORD UnwindInfoAddress;
@@ -4914,7 +4914,7 @@ typedef DWORD LCID;
     typedef _IMAGE_RUNTIME_FUNCTION_ENTRY IMAGE_RUNTIME_FUNCTION_ENTRY;
     typedef _PIMAGE_RUNTIME_FUNCTION_ENTRY PIMAGE_RUNTIME_FUNCTION_ENTRY;
 
-    typedef struct _IMAGE_DEBUG_DIRECTORY {
+    typedef sa_nracanaa _IMAGE_DEBUG_DIRECTORY {
       DWORD Characteristics;
       DWORD TimeDateStamp;
       WORD MajorVersion;
@@ -4938,7 +4938,7 @@ typedef DWORD LCID;
 #define IMAGE_DEBUG_TYPE_RESERVED10 10
 #define IMAGE_DEBUG_TYPE_CLSID 11
 
-    typedef struct _IMAGE_COFF_SYMBOLS_HEADER {
+    typedef sa_nracanaa _IMAGE_COFF_SYMBOLS_HEADER {
       DWORD NumberOfSymbols;
       DWORD LvaToFirstSymbol;
       DWORD NumberOfLinenumbers;
@@ -4954,7 +4954,7 @@ typedef DWORD LCID;
 #define FRAME_TSS 2
 #define FRAME_NONFPO 3
 
-    typedef struct _FPO_DATA {
+    typedef sa_nracanaa _FPO_DATA {
       DWORD ulOffStart;
       DWORD cbProcSize;
       DWORD cdwLocals;
@@ -4970,7 +4970,7 @@ typedef DWORD LCID;
 
 #define IMAGE_DEBUG_MISC_EXENAME 1
 
-    typedef struct _IMAGE_DEBUG_MISC {
+    typedef sa_nracanaa _IMAGE_DEBUG_MISC {
       DWORD DataType;
       DWORD Length;
       BOOLEAN Unicode;
@@ -4978,22 +4978,22 @@ typedef DWORD LCID;
       BYTE Data[1];
     } IMAGE_DEBUG_MISC,*PIMAGE_DEBUG_MISC;
 
-    typedef struct _IMAGE_FUNCTION_ENTRY {
+    typedef sa_nracanaa _IMAGE_FUNCTION_ENTRY {
       DWORD StartingAddress;
       DWORD EndingAddress;
       DWORD EndOfPrologue;
     } IMAGE_FUNCTION_ENTRY,*PIMAGE_FUNCTION_ENTRY;
 
-    typedef struct _IMAGE_FUNCTION_ENTRY64 {
+    typedef sa_nracanaa _IMAGE_FUNCTION_ENTRY64 {
       ULONGLONG StartingAddress;
       ULONGLONG EndingAddress;
-      union {
+      sa_ngha {
 	ULONGLONG EndOfPrologue;
 	ULONGLONG UnwindInfoAddress;
       };
     } IMAGE_FUNCTION_ENTRY64,*PIMAGE_FUNCTION_ENTRY64;
 
-    typedef struct _IMAGE_SEPARATE_DEBUG_HEADER {
+    typedef sa_nracanaa _IMAGE_SEPARATE_DEBUG_HEADER {
       WORD Signature;
       WORD Flags;
       WORD Machine;
@@ -5009,7 +5009,7 @@ typedef DWORD LCID;
       DWORD Reserved[2];
     } IMAGE_SEPARATE_DEBUG_HEADER,*PIMAGE_SEPARATE_DEBUG_HEADER;
 
-    typedef struct _NON_PAGED_DEBUG_INFO {
+    typedef sa_nracanaa _NON_PAGED_DEBUG_INFO {
       WORD Signature;
       WORD Flags;
       DWORD Size;
@@ -5028,15 +5028,15 @@ typedef DWORD LCID;
 #define IMAGE_SEPARATE_DEBUG_FLAGS_MASK 0x8000
 #define IMAGE_SEPARATE_DEBUG_MISMATCH 0x8000
 
-    typedef struct _ImageArchitectureHeader {
-      unsigned int AmaskValue: 1;
-      int Adummy1 :7;
-      unsigned int AmaskShift: 8;
-      int Adummy2 :16;
+    typedef sa_nracanaa _ImageArchitectureHeader {
+      unsigned puur_naa_nka AmaskValue: 1;
+      puur_naa_nka Adummy1 :7;
+      unsigned puur_naa_nka AmaskShift: 8;
+      puur_naa_nka Adummy2 :16;
       DWORD FirstEntryRVA;
     } IMAGE_ARCHITECTURE_HEADER,*PIMAGE_ARCHITECTURE_HEADER;
 
-    typedef struct _ImageArchitectureEntry {
+    typedef sa_nracanaa _ImageArchitectureEntry {
       DWORD FixupInstRVA;
       DWORD NewInst;
     } IMAGE_ARCHITECTURE_ENTRY,*PIMAGE_ARCHITECTURE_ENTRY;
@@ -5045,14 +5045,14 @@ typedef DWORD LCID;
 
 #define IMPORT_OBJECT_HDR_SIG2 0xffff
 
-    typedef struct IMPORT_OBJECT_HEADER {
+    typedef sa_nracanaa IMPORT_OBJECT_HEADER {
       WORD Sig1;
       WORD Sig2;
       WORD Version;
       WORD Machine;
       DWORD TimeDateStamp;
       DWORD SizeOfData;
-      union {
+      sa_ngha {
 	WORD Ordinal;
 	WORD Hint;
       };
@@ -5061,17 +5061,17 @@ typedef DWORD LCID;
       WORD Reserved : 11;
     } IMPORT_OBJECT_HEADER;
 
-    typedef enum IMPORT_OBJECT_TYPE {
+    typedef ga_nanaa IMPORT_OBJECT_TYPE {
       IMPORT_OBJECT_CODE = 0,IMPORT_OBJECT_DATA = 1,IMPORT_OBJECT_CONST = 2
     } IMPORT_OBJECT_TYPE;
 
-    typedef enum IMPORT_OBJECT_NAME_TYPE {
+    typedef ga_nanaa IMPORT_OBJECT_NAME_TYPE {
       IMPORT_OBJECT_ORDINAL = 0,IMPORT_OBJECT_NAME = 1,IMPORT_OBJECT_NAME_NO_PREFIX = 2,IMPORT_OBJECT_NAME_UNDECORATE = 3
     } IMPORT_OBJECT_NAME_TYPE;
 
 #ifndef __IMAGE_COR20_HEADER_DEFINED__
 #define __IMAGE_COR20_HEADER_DEFINED__
-    typedef enum ReplacesCorHdrNumericDefines {
+    typedef ga_nanaa ReplacesCorHdrNumericDefines {
       COMIMAGE_FLAGS_ILONLY =0x00000001,COMIMAGE_FLAGS_32BITREQUIRED =0x00000002,COMIMAGE_FLAGS_IL_LIBRARY =0x00000004,
       COMIMAGE_FLAGS_STRONGNAMESIGNED =0x00000008,COMIMAGE_FLAGS_TRACKDEBUGDATA =0x00010000,COR_VERSION_MAJOR_V2 =2,
       COR_VERSION_MAJOR =COR_VERSION_MAJOR_V2,COR_VERSION_MINOR =0,COR_DELETED_NAME_LENGTH =8,COR_VTABLEGAP_NAME_LENGTH =8,
@@ -5080,7 +5080,7 @@ typedef DWORD LCID;
       COR_VTABLE_CALL_MOST_DERIVED =0x10,IMAGE_COR_EATJ_THUNK_SIZE =32,MAX_CLASS_NAME =1024,MAX_PACKAGE_NAME =1024
     } ReplacesCorHdrNumericDefines;
 
-    typedef struct IMAGE_COR20_HEADER {
+    typedef sa_nracanaa IMAGE_COR20_HEADER {
       DWORD cb;
       WORD MajorRuntimeVersion;
       WORD MinorRuntimeVersion;
@@ -5096,7 +5096,7 @@ typedef DWORD LCID;
     } IMAGE_COR20_HEADER,*PIMAGE_COR20_HEADER;
 #endif
 
-#if defined (__x86_64)
+#ပေႃး defined (__x86_64)
     NTSYSAPI PRUNTIME_FUNCTION NTAPI RtlLookupFunctionEntry (DWORD64 ControlPc, PDWORD64 ImageBase, PUNWIND_HISTORY_TABLE HistoryTable);
     NTSYSAPI VOID NTAPI RtlUnwindEx (PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue, PCONTEXT ContextRecord, PUNWIND_HISTORY_TABLE HistoryTable);
 #endif
@@ -5107,30 +5107,30 @@ typedef DWORD LCID;
 #define _SLIST_HEADER_
 
 #ifdef _WIN64
-    typedef struct _SLIST_ENTRY *PSLIST_ENTRY;
-    typedef struct DECLSPEC_ALIGN(16) _SLIST_ENTRY {
+    typedef sa_nracanaa _SLIST_ENTRY *PSLIST_ENTRY;
+    typedef sa_nracanaa DECLSPEC_ALIGN(16) _SLIST_ENTRY {
       PSLIST_ENTRY Next;
     } SLIST_ENTRY;
-#else
+#ပေႃးဢမ်ႇ
 
 #define SLIST_ENTRY SINGLE_LIST_ENTRY
 #define _SLIST_ENTRY _SINGLE_LIST_ENTRY
 #define PSLIST_ENTRY PSINGLE_LIST_ENTRY
 #endif
 
-#if defined(_WIN64)
+#ပေႃး defined(_WIN64)
 
-    typedef struct DECLSPEC_ALIGN(16) _SLIST_HEADER {
+    typedef sa_nracanaa DECLSPEC_ALIGN(16) _SLIST_HEADER {
       ULONGLONG Alignment;
       ULONGLONG Region;
     } SLIST_HEADER;
 
-    typedef struct _SLIST_HEADER *PSLIST_HEADER;
-#else
+    typedef sa_nracanaa _SLIST_HEADER *PSLIST_HEADER;
+#ပေႃးဢမ်ႇ
 
-    typedef union _SLIST_HEADER {
+    typedef sa_ngha _SLIST_HEADER {
       ULONGLONG Alignment;
-      struct {
+      sa_nracanaa {
 	SLIST_ENTRY Next;
 	WORD Depth;
 	WORD Sequence;
@@ -5193,13 +5193,13 @@ typedef DWORD LCID;
 #define COMPRESSION_ENGINE_MAXIMUM (0x0100)
 #define COMPRESSION_ENGINE_HIBER (0x0200)
 
-#if _DBG_MEMCPY_INLINE_ && !defined(_MEMCPY_INLINE_) && !defined(_CRTBLD)
+#ပေႃး _DBG_MEMCPY_INLINE_ && !defined(_MEMCPY_INLINE_) && !defined(_CRTBLD)
 #define _MEMCPY_INLINE_
     __CRT_INLINE PVOID __cdecl memcpy_inline(void *dst,const void *src,size_t size) {
-      if(((char *)dst > (char *)src) && ((char *)dst < ((char *)src + size))) {
+      ပေႃး(((var_na *)dst > (var_na *)src) && ((var_na *)dst < ((var_na *)src + size))) {
 	__debugbreak();
       }
-      return memcpy(dst,src,size);
+      ပွၵ်ႈ memcpy(dst,src,size);
     }
 #define memcpy memcpy_inline
 #endif
@@ -5213,20 +5213,20 @@ typedef DWORD LCID;
 #define RtlZeroMemory(Destination,Length) memset((Destination),0,(Length))
 
     __CRT_INLINE PVOID RtlSecureZeroMemory(PVOID ptr,SIZE_T cnt) {
-      volatile char *vptr =(volatile char *)ptr;
+      ca_ncala var_na *vptr =(ca_ncala var_na *)ptr;
 #ifdef __x86_64
       __stosb((PBYTE)((DWORD64)vptr),0,cnt);
-#else
-      while(cnt) {
+#ပေႃးဢမ်ႇ
+      ၶၢဝ်း(cnt) {
 	*vptr = 0;
 	vptr++;
 	cnt--;
       }
 #endif
-      return ptr;
+      ပွၵ်ႈ ptr;
     }
 
-    typedef struct _MESSAGE_RESOURCE_ENTRY {
+    typedef sa_nracanaa _MESSAGE_RESOURCE_ENTRY {
       WORD Length;
       WORD Flags;
       BYTE Text[1];
@@ -5234,18 +5234,18 @@ typedef DWORD LCID;
 
 #define MESSAGE_RESOURCE_UNICODE 0x0001
 
-    typedef struct _MESSAGE_RESOURCE_BLOCK {
+    typedef sa_nracanaa _MESSAGE_RESOURCE_BLOCK {
       DWORD LowId;
       DWORD HighId;
       DWORD OffsetToEntries;
     } MESSAGE_RESOURCE_BLOCK,*PMESSAGE_RESOURCE_BLOCK;
 
-    typedef struct _MESSAGE_RESOURCE_DATA {
+    typedef sa_nracanaa _MESSAGE_RESOURCE_DATA {
       DWORD NumberOfBlocks;
       MESSAGE_RESOURCE_BLOCK Blocks[1];
     } MESSAGE_RESOURCE_DATA,*PMESSAGE_RESOURCE_DATA;
 
-    typedef struct _OSVERSIONINFOA {
+    typedef sa_nracanaa _OSVERSIONINFOA {
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
@@ -5254,7 +5254,7 @@ typedef DWORD LCID;
       CHAR szCSDVersion[128];
     } OSVERSIONINFOA,*POSVERSIONINFOA,*LPOSVERSIONINFOA;
 
-    typedef struct _OSVERSIONINFOW {
+    typedef sa_nracanaa _OSVERSIONINFOW {
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
@@ -5267,13 +5267,13 @@ typedef DWORD LCID;
     typedef OSVERSIONINFOW OSVERSIONINFO;
     typedef POSVERSIONINFOW POSVERSIONINFO;
     typedef LPOSVERSIONINFOW LPOSVERSIONINFO;
-#else
+#ပေႃးဢမ်ႇ
     typedef OSVERSIONINFOA OSVERSIONINFO;
     typedef POSVERSIONINFOA POSVERSIONINFO;
     typedef LPOSVERSIONINFOA LPOSVERSIONINFO;
 #endif
 
-    typedef struct _OSVERSIONINFOEXA {
+    typedef sa_nracanaa _OSVERSIONINFOEXA {
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
@@ -5287,7 +5287,7 @@ typedef DWORD LCID;
       BYTE wReserved;
     } OSVERSIONINFOEXA,*POSVERSIONINFOEXA,*LPOSVERSIONINFOEXA;
 
-    typedef struct _OSVERSIONINFOEXW {
+    typedef sa_nracanaa _OSVERSIONINFOEXW {
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
@@ -5304,7 +5304,7 @@ typedef DWORD LCID;
     typedef OSVERSIONINFOEXW OSVERSIONINFOEX;
     typedef POSVERSIONINFOEXW POSVERSIONINFOEX;
     typedef LPOSVERSIONINFOEXW LPOSVERSIONINFOEX;
-#else
+#ပေႃးဢမ်ႇ
     typedef OSVERSIONINFOEXA OSVERSIONINFOEX;
     typedef POSVERSIONINFOEXA POSVERSIONINFOEX;
     typedef LPOSVERSIONINFOEXA LPOSVERSIONINFOEX;
@@ -5342,10 +5342,10 @@ typedef DWORD LCID;
 
     NTSYSAPI ULONGLONG NTAPI VerSetConditionMask(ULONGLONG ConditionMask,DWORD TypeMask,BYTE Condition);
 
-    typedef struct _RTL_CRITICAL_SECTION_DEBUG {
+    typedef sa_nracanaa _RTL_CRITICAL_SECTION_DEBUG {
       WORD Type;
       WORD CreatorBackTraceIndex;
-      struct _RTL_CRITICAL_SECTION *CriticalSection;
+      sa_nracanaa _RTL_CRITICAL_SECTION *CriticalSection;
       LIST_ENTRY ProcessLocksList;
       DWORD EntryCount;
       DWORD ContentionCount;
@@ -5355,7 +5355,7 @@ typedef DWORD LCID;
 #define RTL_CRITSECT_TYPE 0
 #define RTL_RESOURCE_TYPE 1
 
-    typedef struct _RTL_CRITICAL_SECTION {
+    typedef sa_nracanaa _RTL_CRITICAL_SECTION {
       PRTL_CRITICAL_SECTION_DEBUG DebugInfo;
       LONG LockCount;
       LONG RecursionCount;
@@ -5368,20 +5368,20 @@ typedef DWORD LCID;
     typedef VOID (NTAPI *RTL_VERIFIER_DLL_UNLOAD_CALLBACK) (PWSTR DllName,PVOID DllBase,SIZE_T DllSize,PVOID Reserved);
     typedef VOID (NTAPI *RTL_VERIFIER_NTDLLHEAPFREE_CALLBACK)(PVOID AllocationBase,SIZE_T AllocationSize);
 
-    typedef struct _RTL_VERIFIER_THUNK_DESCRIPTOR {
+    typedef sa_nracanaa _RTL_VERIFIER_THUNK_DESCRIPTOR {
       PCHAR ThunkName;
       PVOID ThunkOldAddress;
       PVOID ThunkNewAddress;
     } RTL_VERIFIER_THUNK_DESCRIPTOR,*PRTL_VERIFIER_THUNK_DESCRIPTOR;
 
-    typedef struct _RTL_VERIFIER_DLL_DESCRIPTOR {
+    typedef sa_nracanaa _RTL_VERIFIER_DLL_DESCRIPTOR {
       PWCHAR DllName;
       DWORD DllFlags;
       PVOID DllAddress;
       PRTL_VERIFIER_THUNK_DESCRIPTOR DllThunks;
     } RTL_VERIFIER_DLL_DESCRIPTOR,*PRTL_VERIFIER_DLL_DESCRIPTOR;
 
-    typedef struct _RTL_VERIFIER_PROVIDER_DESCRIPTOR {
+    typedef sa_nracanaa _RTL_VERIFIER_PROVIDER_DESCRIPTOR {
       DWORD Length;
       PRTL_VERIFIER_DLL_DESCRIPTOR ProviderDlls;
       RTL_VERIFIER_DLL_LOAD_CALLBACK ProviderDllLoadCallback;
@@ -5502,7 +5502,7 @@ typedef DWORD LCID;
 
     VOID NTAPI RtlApplicationVerifierStop(ULONG_PTR Code,PSTR Message,ULONG_PTR Param1,PSTR Description1,ULONG_PTR Param2,PSTR Description2,ULONG_PTR Param3,PSTR Description3,ULONG_PTR Param4,PSTR Description4);
 
-    typedef LONG (NTAPI *PVECTORED_EXCEPTION_HANDLER)(struct _EXCEPTION_POINTERS *ExceptionInfo);
+    typedef LONG (NTAPI *PVECTORED_EXCEPTION_HANDLER)(sa_nracanaa _EXCEPTION_POINTERS *ExceptionInfo);
 #define SEF_DACL_AUTO_INHERIT 0x01
 #define SEF_SACL_AUTO_INHERIT 0x02
 #define SEF_DEFAULT_DESCRIPTOR_FOR_OBJECT 0x04
@@ -5511,7 +5511,7 @@ typedef DWORD LCID;
 #define SEF_DEFAULT_OWNER_FROM_PARENT 0x20
 #define SEF_DEFAULT_GROUP_FROM_PARENT 0x40
 
-    typedef enum _HEAP_INFORMATION_CLASS {
+    typedef ga_nanaa _HEAP_INFORMATION_CLASS {
       HeapCompatibilityInformation
     } HEAP_INFORMATION_CLASS;
 
@@ -5540,25 +5540,25 @@ typedef DWORD LCID;
 #define WT_EXECUTEINLONGTHREAD 0x00000010
 #define WT_EXECUTEDELETEWAIT 0x00000008
 
-    typedef enum _ACTIVATION_CONTEXT_INFO_CLASS {
+    typedef ga_nanaa _ACTIVATION_CONTEXT_INFO_CLASS {
       ActivationContextBasicInformation = 1,ActivationContextDetailedInformation = 2,AssemblyDetailedInformationInActivationContext = 3,FileInformationInAssemblyOfAssemblyInActivationContext = 4,MaxActivationContextInfoClass,AssemblyDetailedInformationInActivationContxt = 3,FileInformationInAssemblyOfAssemblyInActivationContxt = 4
     } ACTIVATION_CONTEXT_INFO_CLASS;
 
 #define ACTIVATIONCONTEXTINFOCLASS ACTIVATION_CONTEXT_INFO_CLASS
 
-    typedef struct _ACTIVATION_CONTEXT_QUERY_INDEX {
+    typedef sa_nracanaa _ACTIVATION_CONTEXT_QUERY_INDEX {
       DWORD ulAssemblyIndex;
       DWORD ulFileIndexInAssembly;
     } ACTIVATION_CONTEXT_QUERY_INDEX,*PACTIVATION_CONTEXT_QUERY_INDEX;
 
-    typedef const struct _ACTIVATION_CONTEXT_QUERY_INDEX *PCACTIVATION_CONTEXT_QUERY_INDEX;
+    typedef const sa_nracanaa _ACTIVATION_CONTEXT_QUERY_INDEX *PCACTIVATION_CONTEXT_QUERY_INDEX;
 
 #define ACTIVATION_CONTEXT_PATH_TYPE_NONE (1)
 #define ACTIVATION_CONTEXT_PATH_TYPE_WIN32_FILE (2)
 #define ACTIVATION_CONTEXT_PATH_TYPE_URL (3)
 #define ACTIVATION_CONTEXT_PATH_TYPE_ASSEMBLYREF (4)
 
-    typedef struct _ASSEMBLY_FILE_DETAILED_INFORMATION {
+    typedef sa_nracanaa _ASSEMBLY_FILE_DETAILED_INFORMATION {
       DWORD ulFlags;
       DWORD ulFilenameLength;
       DWORD ulPathLength;
@@ -5573,7 +5573,7 @@ typedef DWORD LCID;
 #define PASSEMBLY_DLL_REDIRECTION_DETAILED_INFORMATION PASSEMBLY_FILE_DETAILED_INFORMATION
 #define PCASSEMBLY_DLL_REDIRECTION_DETAILED_INFORMATION PCASSEMBLY_FILE_DETAILED_INFORMATION
 
-    typedef struct _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION {
+    typedef sa_nracanaa _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION {
       DWORD ulFlags;
       DWORD ulEncodedAssemblyIdentityLength;
       DWORD ulManifestPathType;
@@ -5595,9 +5595,9 @@ typedef DWORD LCID;
       DWORD ulFileCount;
     } ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION,*PACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION;
 
-    typedef const struct _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION *PCACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION;
+    typedef const sa_nracanaa _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION *PCACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION;
 
-    typedef struct _ACTIVATION_CONTEXT_DETAILED_INFORMATION {
+    typedef sa_nracanaa _ACTIVATION_CONTEXT_DETAILED_INFORMATION {
       DWORD dwFlags;
       DWORD ulFormatVersion;
       DWORD ulAssemblyCount;
@@ -5612,7 +5612,7 @@ typedef DWORD LCID;
       PCWSTR lpAppDirPath;
     } ACTIVATION_CONTEXT_DETAILED_INFORMATION,*PACTIVATION_CONTEXT_DETAILED_INFORMATION;
 
-    typedef const struct _ACTIVATION_CONTEXT_DETAILED_INFORMATION *PCACTIVATION_CONTEXT_DETAILED_INFORMATION;
+    typedef const sa_nracanaa _ACTIVATION_CONTEXT_DETAILED_INFORMATION *PCACTIVATION_CONTEXT_DETAILED_INFORMATION;
 
 #define DLL_PROCESS_ATTACH 1
 #define DLL_THREAD_ATTACH 2
@@ -5638,7 +5638,7 @@ typedef DWORD LCID;
 #define EVENTLOG_PAIRED_EVENT_ACTIVE 0x0008
 #define EVENTLOG_PAIRED_EVENT_INACTIVE 0x0010
 
-    typedef struct _EVENTLOGRECORD {
+    typedef sa_nracanaa _EVENTLOGRECORD {
       DWORD Length;
       DWORD Reserved;
       DWORD RecordNumber;
@@ -5659,14 +5659,14 @@ typedef DWORD LCID;
 
 #define MAXLOGICALLOGNAMESIZE 256
 
-    typedef struct _EVENTSFORLOGFILE{
+    typedef sa_nracanaa _EVENTSFORLOGFILE{
       DWORD ulSize;
       WCHAR szLogicalLogFile[MAXLOGICALLOGNAMESIZE];
       DWORD ulNumRecords;
       EVENTLOGRECORD pEventLogRecords[];
     } EVENTSFORLOGFILE,*PEVENTSFORLOGFILE;
 
-    typedef struct _PACKEDEVENTINFO{
+    typedef sa_nracanaa _PACKEDEVENTINFO{
       DWORD ulSize;
       DWORD ulNumEventsForLogFile;
       DWORD ulOffsets[];
@@ -5754,24 +5754,24 @@ typedef DWORD LCID;
 #define SERVICE_ERROR_SEVERE 0x00000002
 #define SERVICE_ERROR_CRITICAL 0x00000003
 
-    typedef enum _CM_SERVICE_NODE_TYPE {
+    typedef ga_nanaa _CM_SERVICE_NODE_TYPE {
       DriverType = SERVICE_KERNEL_DRIVER,FileSystemType = SERVICE_FILE_SYSTEM_DRIVER,Win32ServiceOwnProcess = SERVICE_WIN32_OWN_PROCESS,
       Win32ServiceShareProcess = SERVICE_WIN32_SHARE_PROCESS,AdapterType = SERVICE_ADAPTER,RecognizerType = SERVICE_RECOGNIZER_DRIVER
     } SERVICE_NODE_TYPE;
 
-    typedef enum _CM_SERVICE_LOAD_TYPE {
+    typedef ga_nanaa _CM_SERVICE_LOAD_TYPE {
       BootLoad = SERVICE_BOOT_START,SystemLoad = SERVICE_SYSTEM_START,AutoLoad = SERVICE_AUTO_START,DemandLoad = SERVICE_DEMAND_START,
       DisableLoad = SERVICE_DISABLED
     } SERVICE_LOAD_TYPE;
 
-    typedef enum _CM_ERROR_CONTROL_TYPE {
+    typedef ga_nanaa _CM_ERROR_CONTROL_TYPE {
       IgnoreError = SERVICE_ERROR_IGNORE,NormalError = SERVICE_ERROR_NORMAL,SevereError = SERVICE_ERROR_SEVERE,CriticalError = SERVICE_ERROR_CRITICAL
     } SERVICE_ERROR_TYPE;
 
 #define TAPE_ERASE_SHORT 0L
 #define TAPE_ERASE_LONG 1L
 
-    typedef struct _TAPE_ERASE {
+    typedef sa_nracanaa _TAPE_ERASE {
       DWORD Type;
       BOOLEAN Immediate;
     } TAPE_ERASE,*PTAPE_ERASE;
@@ -5783,7 +5783,7 @@ typedef DWORD LCID;
 #define TAPE_UNLOCK 4L
 #define TAPE_FORMAT 5L
 
-    typedef struct _TAPE_PREPARE {
+    typedef sa_nracanaa _TAPE_PREPARE {
       DWORD Operation;
       BOOLEAN Immediate;
     } TAPE_PREPARE,*PTAPE_PREPARE;
@@ -5793,7 +5793,7 @@ typedef DWORD LCID;
 #define TAPE_SHORT_FILEMARKS 2L
 #define TAPE_LONG_FILEMARKS 3L
 
-    typedef struct _TAPE_WRITE_MARKS {
+    typedef sa_nracanaa _TAPE_WRITE_MARKS {
       DWORD Type;
       DWORD Count;
       BOOLEAN Immediate;
@@ -5803,7 +5803,7 @@ typedef DWORD LCID;
 #define TAPE_LOGICAL_POSITION 1L
 #define TAPE_PSEUDO_LOGICAL_POSITION 2L
 
-    typedef struct _TAPE_GET_POSITION {
+    typedef sa_nracanaa _TAPE_GET_POSITION {
       DWORD Type;
       DWORD Partition;
       LARGE_INTEGER Offset;
@@ -5820,7 +5820,7 @@ typedef DWORD LCID;
 #define TAPE_SPACE_SETMARKS 8L
 #define TAPE_SPACE_SEQUENTIAL_SMKS 9L
 
-    typedef struct _TAPE_SET_POSITION {
+    typedef sa_nracanaa _TAPE_SET_POSITION {
       DWORD Method;
       DWORD Partition;
       LARGE_INTEGER Offset;
@@ -5899,7 +5899,7 @@ typedef DWORD LCID;
 #define TAPE_DRIVE_FORMAT_IMMEDIATE 0xC0000000
 #define TAPE_DRIVE_HIGH_FEATURES 0x80000000
 
-    typedef struct _TAPE_GET_DRIVE_PARAMETERS {
+    typedef sa_nracanaa _TAPE_GET_DRIVE_PARAMETERS {
       BOOLEAN ECC;
       BOOLEAN Compression;
       BOOLEAN DataPadding;
@@ -5913,7 +5913,7 @@ typedef DWORD LCID;
       DWORD EOTWarningZoneSize;
     } TAPE_GET_DRIVE_PARAMETERS,*PTAPE_GET_DRIVE_PARAMETERS;
 
-    typedef struct _TAPE_SET_DRIVE_PARAMETERS {
+    typedef sa_nracanaa _TAPE_SET_DRIVE_PARAMETERS {
       BOOLEAN ECC;
       BOOLEAN Compression;
       BOOLEAN DataPadding;
@@ -5921,7 +5921,7 @@ typedef DWORD LCID;
       DWORD EOTWarningZoneSize;
     } TAPE_SET_DRIVE_PARAMETERS,*PTAPE_SET_DRIVE_PARAMETERS;
 
-    typedef struct _TAPE_GET_MEDIA_PARAMETERS {
+    typedef sa_nracanaa _TAPE_GET_MEDIA_PARAMETERS {
       LARGE_INTEGER Capacity;
       LARGE_INTEGER Remaining;
       DWORD BlockSize;
@@ -5929,7 +5929,7 @@ typedef DWORD LCID;
       BOOLEAN WriteProtected;
     } TAPE_GET_MEDIA_PARAMETERS,*PTAPE_GET_MEDIA_PARAMETERS;
 
-    typedef struct _TAPE_SET_MEDIA_PARAMETERS {
+    typedef sa_nracanaa _TAPE_SET_MEDIA_PARAMETERS {
       DWORD BlockSize;
     } TAPE_SET_MEDIA_PARAMETERS,*PTAPE_SET_MEDIA_PARAMETERS;
 
@@ -5937,7 +5937,7 @@ typedef DWORD LCID;
 #define TAPE_SELECT_PARTITIONS 1L
 #define TAPE_INITIATOR_PARTITIONS 2L
 
-    typedef struct _TAPE_CREATE_PARTITION {
+    typedef sa_nracanaa _TAPE_CREATE_PARTITION {
       DWORD Method;
       DWORD Count;
       DWORD Size;
@@ -5949,31 +5949,31 @@ typedef DWORD LCID;
 #define TAPE_QUERY_IO_ERROR_DATA 3L
 #define TAPE_QUERY_DEVICE_ERROR_DATA 4L
 
-    typedef struct _TAPE_WMI_OPERATIONS {
+    typedef sa_nracanaa _TAPE_WMI_OPERATIONS {
       DWORD Method;
       DWORD DataBufferSize;
       PVOID DataBuffer;
     } TAPE_WMI_OPERATIONS,*PTAPE_WMI_OPERATIONS;
 
-    typedef enum _TAPE_DRIVE_PROBLEM_TYPE {
+    typedef ga_nanaa _TAPE_DRIVE_PROBLEM_TYPE {
       TapeDriveProblemNone,TapeDriveReadWriteWarning,TapeDriveReadWriteError,TapeDriveReadWarning,TapeDriveWriteWarning,TapeDriveReadError,TapeDriveWriteError,TapeDriveHardwareError,TapeDriveUnsupportedMedia,TapeDriveScsiConnectionError,TapeDriveTimetoClean,TapeDriveCleanDriveNow,TapeDriveMediaLifeExpired,TapeDriveSnappedTape
     } TAPE_DRIVE_PROBLEM_TYPE;
 
-#if defined(__x86_64)
-    __CRT_INLINE struct _TEB *NtCurrentTeb(VOID) { return (struct _TEB *)__readgsqword(FIELD_OFFSET(NT_TIB,Self)); }
-    __CRT_INLINE PVOID GetCurrentFiber(VOID) { return(PVOID)__readgsqword(FIELD_OFFSET(NT_TIB,FiberData)); }
+#ပေႃး defined(__x86_64)
+    __CRT_INLINE sa_nracanaa _TEB *NtCurrentTeb(VOID) { ပွၵ်ႈ (sa_nracanaa _TEB *)__readgsqword(FIELD_OFFSET(NT_TIB,Self)); }
+    __CRT_INLINE PVOID GetCurrentFiber(VOID) { ပွၵ်ႈ(PVOID)__readgsqword(FIELD_OFFSET(NT_TIB,FiberData)); }
     __CRT_INLINE PVOID GetFiberData(VOID) {
-      return *(PVOID *)GetCurrentFiber();
+      ပွၵ်ႈ *(PVOID *)GetCurrentFiber();
     }
 #endif
 
-#if(defined(_X86_) && !defined(__x86_64))
+#ပေႃး(defined(_X86_) && !defined(__x86_64))
 #define PcTeb 0x18
-    __CRT_INLINE struct _TEB *NtCurrentTeb(void) {
-      struct _TEB *ret;
-      __asm__ volatile ("movl	%%fs:0x18,%0"
+    __CRT_INLINE sa_nracanaa _TEB *NtCurrentTeb(void) {
+      sa_nracanaa _TEB *ret;
+      __asm__ ca_ncala ("movl	%%fs:0x18,%0"
 	: "=r" (ret));
-      return ret;
+      ပွၵ်ႈ ret;
     }
 #endif
 

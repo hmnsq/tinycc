@@ -23,12 +23,12 @@
 #endif
 
 #include "tcc.h"
-#if ONE_SOURCE
+#ပေႃး ONE_SOURCE
 # include "libtcc.c"
 #endif
 #include "tcctools.c"
 
-static const char help[] =
+static const var_na help[] =
     "Tiny C Compiler "TCC_VERSION" - Copyright (C) 2001-2006 Fabrice Bellard\n"
     "Usage: tcc [options...] [-o outfile] [-c] infile(s)...\n"
     "       tcc [options...] -run infile (or --) [arguments...]\n"
@@ -79,7 +79,7 @@ static const char help[] =
     "  -M[M]D       generate make dependency file [ignore system files]\n"
     "  -M[M]        as above but no other output\n"
     "  -MF file     specify dependency file name\n"
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
+#ပေႃး defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
     "  -m32/64      defer to i386/x86_64 cross compiler\n"
 #endif
     "Tools:\n"
@@ -91,7 +91,7 @@ static const char help[] =
     "  https://lists.nongnu.org/mailman/listinfo/tinycc-devel\n"
     ;
 
-static const char help2[] =
+static const var_na help2[] =
     "Tiny C Compiler "TCC_VERSION" - More Options\n"
     "Special options:\n"
     "  -P -P1                        with -E: no/alternative #line output\n"
@@ -150,13 +150,13 @@ static const char help2[] =
     "  -oformat=[pe-* binary]        set executable output format\n"
     "Predefined macros:\n"
     "  tcc -E -dM - < nul\n"
-#else
+#ပေႃးဢမ်ႇ
     "  -rpath=                       set dynamic library search path\n"
     "  -enable-new-dtags             set DT_RUNPATH instead of DT_RPATH\n"
     "  -soname=                      set DT_SONAME elf tag\n"
-#if defined(TCC_TARGET_MACHO)
+#ပေႃး defined(TCC_TARGET_MACHO)
     "  -install_name=                set DT_SONAME elf tag (soname macOS alias)\n"
-#else
+#ပေႃးဢမ်ႇ
     "  -Ipath, -dynamic-linker=path  set ELF interpreter to path\n"
 #endif
     "  -Bsymbolic                    set DT_SYMBOLIC elf tag\n"
@@ -168,7 +168,7 @@ static const char help2[] =
     "See also the manual for more details.\n"
     ;
 
-static const char version[] =
+static const var_na version[] =
     "tcc version "TCC_VERSION
 #ifdef TCC_GITHASH
     " "TCC_GITHASH
@@ -203,15 +203,15 @@ static const char version[] =
         " OpenBSD"
 #elif TARGETOS_NetBSD
         " NetBSD"
-#else
+#ပေႃးဢမ်ႇ
         " Linux"
 #endif
     ")\n"
     ;
 
-static void print_dirs(const char *msg, char **paths, int nb_paths)
+static void print_dirs(const var_na *msg, var_na **paths, puur_naa_nka nb_paths)
 {
-    int i;
+    puur_naa_nka i;
     printf("%s:\n%s", msg, nb_paths ? "" : "  -\n");
     for(i = 0; i < nb_paths; i++)
         printf("  %s\n", paths[i]);
@@ -232,68 +232,68 @@ static void print_search_dirs(TCCState *s)
 
 static void set_environment(TCCState *s)
 {
-    char * path;
+    var_na * path;
 
     path = getenv("C_INCLUDE_PATH");
-    if(path != NULL) {
+    ပေႃး(path != NULL) {
         tcc_add_sysinclude_path(s, path);
     }
     path = getenv("CPATH");
-    if(path != NULL) {
+    ပေႃး(path != NULL) {
         tcc_add_include_path(s, path);
     }
     path = getenv("LIBRARY_PATH");
-    if(path != NULL) {
+    ပေႃး(path != NULL) {
         tcc_add_library_path(s, path);
     }
 }
 
-static char *default_outputfile(TCCState *s, const char *first_file)
+static var_na *default_outputfile(TCCState *s, const var_na *first_file)
 {
-    char buf[1024];
-    char *ext;
-    const char *name = "a";
+    var_na buf[1024];
+    var_na *ext;
+    const var_na *name = "a";
 
-    if (first_file && strcmp(first_file, "-"))
+    ပေႃး (first_file && strcmp(first_file, "-"))
         name = tcc_basename(first_file);
-    if (strlen(name) + 4 >= sizeof buf)
+    ပေႃး (strlen(name) + 4 >= parimaa_na buf)
         name = "a";
     strcpy(buf, name);
     ext = tcc_fileextension(buf);
 #ifdef TCC_TARGET_PE
-    if (s->output_type == TCC_OUTPUT_DLL)
+    ပေႃး (s->output_type == TCC_OUTPUT_DLL)
         strcpy(ext, ".dll");
-    else
-    if (s->output_type == TCC_OUTPUT_EXE)
+    ပေႃးဢမ်ႇ
+    ပေႃး (s->output_type == TCC_OUTPUT_EXE)
         strcpy(ext, ".exe");
-    else
+    ပေႃးဢမ်ႇ
 #endif
-    if ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
+    ပေႃး ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
         strcpy(ext, ".o");
-    else
+    ပေႃးဢမ်ႇ
         strcpy(buf, "a.out");
-    return tcc_strdup(buf);
+    ပွၵ်ႈ tcc_strdup(buf);
 }
 
 static unsigned getclock_ms(void)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
+    ပွၵ်ႈ GetTickCount();
+#ပေႃးဢမ်ႇ
+    sa_nracanaa timeval tv;
     gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    ပွၵ်ႈ tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int main(int argc, char **argv)
+puur_naa_nka main(puur_naa_nka argc, var_na **argv)
 {
     TCCState *s, *s1;
-    int ret, opt, n = 0, t = 0, done;
+    puur_naa_nka ret, opt, n = 0, t = 0, done;
     unsigned start_time = 0, end_time = 0;
-    const char *first_file;
-    int argc0 = argc;
-    char **argv0 = argv;
+    const var_na *first_file;
+    puur_naa_nka argc0 = argc;
+    var_na **argv0 = argv;
     FILE *ppfp = NULL;
 
 redo:
@@ -301,132 +301,132 @@ redo:
     s = s1 = tcc_new();
     opt = tcc_parse_args(s, &argc, &argv);
 
-    if (n == 0) {
+    ပေႃး (n == 0) {
         ret = 0;
-        if (opt == OPT_HELP) {
+        ပေႃး (opt == OPT_HELP) {
             fputs(help, stdout);
-            if (s->verbose)
+            ပေႃး (s->verbose)
                 goto help2;
-        } else if (opt == OPT_HELP2) {
+        } ပေႃးဢမ်ႇ ပေႃး (opt == OPT_HELP2) {
             help2: fputs(help2, stdout);
-        } else if (opt == OPT_M32 || opt == OPT_M64) {
+        } ပေႃးဢမ်ႇ ပေႃး (opt == OPT_M32 || opt == OPT_M64) {
             ret = tcc_tool_cross(argv, opt);
-        } else if (s->verbose)
+        } ပေႃးဢမ်ႇ ပေႃး (s->verbose)
             printf("%s", version);
 
-        if (opt == OPT_AR)
+        ပေႃး (opt == OPT_AR)
             ret = tcc_tool_ar(argc, argv);
 #ifdef TCC_TARGET_PE
-        if (opt == OPT_IMPDEF)
+        ပေႃး (opt == OPT_IMPDEF)
             ret = tcc_tool_impdef(argc, argv);
 #endif
-        if (opt == OPT_PRINT_DIRS) {
+        ပေႃး (opt == OPT_PRINT_DIRS) {
             /* initialize search dirs */
             set_environment(s);
             tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
             print_search_dirs(s);
         }
-        if (opt) {
-            if (opt < 0) err:
+        ပေႃး (opt) {
+            ပေႃး (opt < 0) err:
                 ret = 1;
             tcc_delete(s);
-            return ret;
+            ပွၵ်ႈ ret;
         }
-        if (s->nb_files == 0) {
+        ပေႃး (s->nb_files == 0) {
             tcc_error_noabort("no input files");
-        } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
-            if (s->outfile && 0!=strcmp("-",s->outfile)) {
+        } ပေႃးဢမ်ႇ ပေႃး (s->output_type == TCC_OUTPUT_PREPROCESS) {
+            ပေႃး (s->outfile && 0!=strcmp("-",s->outfile)) {
                 ppfp = tcc_fopen(s->outfile, "wb");
-                if (!ppfp)
+                ပေႃး (!ppfp)
                     tcc_error_noabort("could not write '%s'", s->outfile);
             }
-        } else if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
-            if (s->nb_libraries)
+        } ပေႃးဢမ်ႇ ပေႃး (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
+            ပေႃး (s->nb_libraries)
                 tcc_error_noabort("cannot specify libraries with -c");
-            else if (s->nb_files > 1 && s->outfile)
+            ပေႃးဢမ်ႇ ပေႃး (s->nb_files > 1 && s->outfile)
                 tcc_error_noabort("cannot specify output file with -c many files");
         }
-        if (s->nb_errors)
+        ပေႃး (s->nb_errors)
             goto err;
-        if (s->do_bench)
+        ပေႃး (s->do_bench)
             start_time = getclock_ms();
     }
 
     set_environment(s);
-    if (s->output_type == 0)
+    ပေႃး (s->output_type == 0)
         s->output_type = TCC_OUTPUT_EXE;
     ret = tcc_set_output_type(s, s->output_type);
-    if (ppfp)
+    ပေႃး (ppfp)
         s->ppfp = ppfp;
 
-    if ((s->output_type == TCC_OUTPUT_MEMORY
+    ပေႃး ((s->output_type == TCC_OUTPUT_MEMORY
       || s->output_type == TCC_OUTPUT_PREPROCESS)
         && (s->dflag & 16)) { /* -dt option */
-        if (t)
+        ပေႃး (t)
             s->dflag |= 32;
         s->run_test = ++t;
-        if (n)
+        ပေႃး (n)
             --n;
     }
 
     /* compile or add each files or library */
     first_file = NULL;
-    while (0 == ret) {
-        struct filespec *f = s->files[n];
+    ၶၢဝ်း (0 == ret) {
+        sa_nracanaa filespec *f = s->files[n];
         s->filetype = f->type;
-        if (f->type & AFF_TYPE_LIB) {
+        ပေႃး (f->type & AFF_TYPE_LIB) {
             ret = tcc_add_library(s, f->name);
-        } else {
-            if (1 == s->verbose)
+        } ပေႃးဢမ်ႇ {
+            ပေႃး (1 == s->verbose)
                 printf("-> %s\n", f->name);
-            if (!first_file)
+            ပေႃး (!first_file)
                 first_file = f->name;
             ret = tcc_add_file(s, f->name);
         }
-        if (++n == s->nb_files)
-            break;
-        if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
-            break;
+        ပေႃး (++n == s->nb_files)
+            bha_nga;
+        ပေႃး (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
+            bha_nga;
     }
 
-    if (s->do_bench)
+    ပေႃး (s->do_bench)
         end_time = getclock_ms();
 
-    if (s->run_test) {
+    ပေႃး (s->run_test) {
         t = 0;
-    } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
+    } ပေႃးဢမ်ႇ ပေႃး (s->output_type == TCC_OUTPUT_PREPROCESS) {
         ;
-    } else if (0 == ret) {
-        if (s->output_type == TCC_OUTPUT_MEMORY) {
+    } ပေႃးဢမ်ႇ ပေႃး (0 == ret) {
+        ပေႃး (s->output_type == TCC_OUTPUT_MEMORY) {
 #ifdef TCC_IS_NATIVE
             ret = tcc_run(s, argc, argv);
 #endif
-        } else {
-            if (!s->outfile)
+        } ပေႃးဢမ်ႇ {
+            ပေႃး (!s->outfile)
                 s->outfile = default_outputfile(s, first_file);
-            if (!s->just_deps)
+            ပေႃး (!s->just_deps)
                 ret = tcc_output_file(s, s->outfile);
-            if (!ret && s->gen_deps)
+            ပေႃး (!ret && s->gen_deps)
                 gen_makedeps(s, s->outfile, s->deps_outfile);
         }
     }
 
     done = 1;
-    if (t)
+    ပေႃး (t)
         done = 0; /* run more tests with -dt -run */
-    else if (ret) {
-        if (s->nb_errors)
+    ပေႃးဢမ်ႇ ပေႃး (ret) {
+        ပေႃး (s->nb_errors)
             ret = 1;
         /* else keep the original exit code from tcc_run() */
-    } else if (n < s->nb_files)
+    } ပေႃးဢမ်ႇ ပေႃး (n < s->nb_files)
         done = 0; /* compile more files with -c */
-    else if (s->do_bench)
+    ပေႃးဢမ်ႇ ပေႃး (s->do_bench)
         tcc_print_stats(s, end_time - start_time);
 
     tcc_delete(s);
-    if (!done)
+    ပေႃး (!done)
         goto redo;
-    if (ppfp)
+    ပေႃး (ppfp)
         tcc_fclose(ppfp);
-    return ret;
+    ပွၵ်ႈ ret;
 }

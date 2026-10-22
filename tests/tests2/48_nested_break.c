@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
-   int a;
-   char b;
+   puur_naa_nka a;
+   var_na b;
 
    a = 0;
-   while (a < 2)
+   ၶၢဝ်း (a < 2)
    {
       printf("%d", a++);
-      break;
+      bha_nga;
 
       b = 'A';
-      while (b < 'C')
+      ၶၢဝ်း (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   ပွၵ်ႈ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

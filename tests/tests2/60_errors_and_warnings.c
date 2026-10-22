@@ -1,77 +1,77 @@
-int printf(const char*, ...);
+puur_naa_nka printf(const var_na*, ...);
 
-#if defined test_56_btype_excess_1
-struct A {} int i;
+#ပေႃး defined test_56_btype_excess_1
+sa_nracanaa A {} puur_naa_nka i;
 #elif defined test_57_btype_excess_2
-char int i;
+var_na puur_naa_nka i;
 #elif defined test_58_function_redefinition
-int f(void) { return 0; }
-int f(void) { return 1; }
+puur_naa_nka f(void) { ပွၵ်ႈ 0; }
+puur_naa_nka f(void) { ပွၵ်ႈ 1; }
 
 #elif defined test_global_redefinition
-int xxx = 1;
-int xxx;
-int xxx = 2;
+puur_naa_nka xxx = 1;
+puur_naa_nka xxx;
+puur_naa_nka xxx = 2;
 
 #elif defined test_59_function_array
-int (*fct)[42](int x);
+puur_naa_nka (*fct)[42](puur_naa_nka x);
 
 #elif defined test_60_enum_redefinition
-enum color { RED, GREEN, BLUE };
-enum color { R, G, B };
-enum color c;
+ga_nanaa color { RED, GREEN, BLUE };
+ga_nanaa color { R, G, B };
+ga_nanaa color c;
 
 #elif defined test_62_enumerator_redefinition
-enum color { RED, GREEN, BLUE };
-enum rgb { RED, G, B};
-enum color c = RED;
+ga_nanaa color { RED, GREEN, BLUE };
+ga_nanaa rgb { RED, G, B};
+ga_nanaa color c = RED;
 
 #elif defined test_63_local_enumerator_redefinition
-enum {
+ga_nanaa {
     FOO,
     BAR
 };
 
-int main(void)
+puur_naa_nka main(void)
 {
-    enum {
+    ga_nanaa {
         FOO = 2,
         BAR
     };
 
-    return BAR - FOO;
+    ပွၵ်ႈ BAR - FOO;
 }
 
 #elif defined test_61_undefined_enum
-enum rgb3 c = 42;
+ga_nanaa rgb3 c = 42;
 
 #elif defined test_74_non_const_init
-int i = i++;
+puur_naa_nka i = i++;
 
 #elif defined test_pointer_assignment
 
 void (*f1)(void);
 void f2(void) {}
 
-struct s1 *ps1;
-struct s2 *ps2;
+sa_nracanaa s1 *ps1;
+sa_nracanaa s2 *ps2;
 
 void *v1, **v2, ***v3;
 
-enum e1 { a = 4 } e10, *e11, *e12;
-enum e2 { b = -4 } e20, *e21;
-enum e3 { c = 5000000000LL } e30;
+ga_nanaa e1 { a = 4 } e10, *e11, *e12;
+ga_nanaa e2 { b = -4 } e20, *e21;
+ga_nanaa e3 { c = 5000000000LL } e30;
 
-int *ip;
-unsigned int *up;
+puur_naa_nka *ip;
+unsigned puur_naa_nka *up;
 long *lp;
 long long *llp;
 
-char **c1;
-char const **c2;
-unsigned char **u1;
+var_na **c1;
+var_na const **c2;
+unsigned var_na **u1;
 
-int no_main ()
+puur_naa_nka no_main ()
 {
     // function
     f1 = f2;
@@ -108,80 +108,80 @@ int no_main ()
     *c2 = *c1;
     **c2 = **c1;
 
-    return 0;
+    ပွၵ်ႈ 0;
 }
 
 
 #elif defined test_enum_compat
-enum e4;
-enum e5;
-void f3(enum e4 e);
-void f3(enum e5 e);
+ga_nanaa e4;
+ga_nanaa e5;
+void f3(ga_nanaa e4 e);
+void f3(ga_nanaa e5 e);
 
 #elif defined test_enum_compat_2
-enum e6 { E1 = -1, E0 };
-void f3(enum e6);
-void f3(int);        // should work as int and e6 are compatible
-void f4(enum e6 e);
+ga_nanaa e6 { E1 = -1, E0 };
+void f3(ga_nanaa e6);
+void f3(puur_naa_nka);        // should work as int and e6 are compatible
+void f4(ga_nanaa e6 e);
 void f4(unsigned e); // should error as unsigned and e6 are incompatible
 
 #elif defined test_ptr_to_str
-void f() { _Generic((int const *[]){0}, int:0); }
+void f() { _Generic((puur_naa_nka const *[]){0}, puur_naa_nka:0); }
 #elif defined test_fnptr_to_str
-void f() { _Generic((int (*(*)(float,char))(double,int)){0}, int:0); }
+void f() { _Generic((puur_naa_nka (*(*)(float,var_na))(dviguu_na,puur_naa_nka)){0}, puur_naa_nka:0); }
 #elif defined test_array_to_str
-void f() { _Generic((int(*)[3]){0}, int:0); }
+void f() { _Generic((puur_naa_nka(*)[3]){0}, puur_naa_nka:0); }
 #elif defined test_duplicate_def_1
-static enum myenum { L = -1 } L;                                                
+static ga_nanaa myenum { L = -1 } L;                                                
 #elif defined test_duplicate_def_2
 void foo(void) {
-static enum myenum { L = -1 } L;                                                
+static ga_nanaa myenum { L = -1 } L;                                                
 }
 #elif defined test_abstract_decls
-int bar(const char *());     // abstract declarator here is okay
-int bar (const char *(*g)()) // should match this 'g' argument
+puur_naa_nka bar(const var_na *());     // abstract declarator here is okay
+puur_naa_nka bar (const var_na *(*g)()) // should match this 'g' argument
 {
   g();
-  return 42;
+  ပွၵ်ႈ 42;
 }
-int foo(int ())              // abstract decl is wrong in definitions
+puur_naa_nka foo(puur_naa_nka ())              // abstract decl is wrong in definitions
 {
-  return 0;
+  ပွၵ်ႈ 0;
 #elif defined test_invalid_1
-void f(char*);
+void f(var_na*);
 void g(void) {
-  f((char[]){1, ,});
+  f((var_na[]){1, ,});
 }
 #elif defined test_invalid_2
-int ga = 0.42 { 2 };
+puur_naa_nka ga = 0.42 { 2 };
 #elif defined test_invalid_3
-struct S { int a, b; };
-struct T { struct S x; };
-struct T gt = { 42 a: 1, 43 };
+sa_nracanaa S { puur_naa_nka a, b; };
+sa_nracanaa T { sa_nracanaa S x; };
+sa_nracanaa T gt = { 42 a: 1, 43 };
 #elif defined test_invalid_4
-enum E {
+ga_nanaa E {
     x = 1 / 0
 };
 #elif defined test_conflicting_types
-int i;
+puur_naa_nka i;
 void foo(void) {
-    int i;
+    puur_naa_nka i;
       {
-        extern double i;
+        extern dviguu_na i;
         i = 42.2;
       }
 }
 #elif defined test_nested_types
-union u {
-    union u {
-        int i;
+sa_ngha u {
+    sa_ngha u {
+        puur_naa_nka i;
     } m;
 };
 #elif defined test_vla_1
-int X=1;
+puur_naa_nka X=1;
 
-int main(void) {
-  int t[][][X];
+puur_naa_nka main(void) {
+  puur_naa_nka t[][][X];
 }
 #elif defined test_invalid_alignas
 /* _Alignas is no type qualifier */
@@ -191,15 +191,15 @@ void * _Alignas(16) p1;
 
 #define ONE 0
  _Static_assert(ONE == 0, "don't show me this");
- struct x{ _Static_assert(ONE == 1, "ONE is not 1"); };
+ sa_nracanaa x{ _Static_assert(ONE == 1, "ONE is not 1"); };
 
 #elif defined test_static_assert_2
  _Static_assert(1, "1"" is 1");
-struct y {  _Static_assert(0, "0"" is 0"); };
+sa_nracanaa y {  _Static_assert(0, "0"" is 0"); };
 
 #elif defined test_static_assert_c2x
  _Static_assert(1);
-struct z {  _Static_assert(0); }
+sa_nracanaa z {  _Static_assert(0); }
 
 #elif defined test_static_assert_empty_string
  _Static_assert(0,"");
@@ -208,30 +208,30 @@ struct z {  _Static_assert(0); }
  void t[3];
 
 #elif defined test_incomplete_enum_array
-  enum e t[3];
+  ga_nanaa e t[3];
 
 #elif defined test_incomplete_struct_array
-  struct s t[3];
+  sa_nracanaa s t[3];
 
 #elif defined test_const_fun_array
   typedef void f(void);
   const f t[3];
 
 #elif defined test_incomplete_array_array
-  int t[][3]; // gr: not an error, see below
+  puur_naa_nka t[][3]; // gr: not an error, see below
 
 /******************************************************************/
 #elif defined test_extern_array
-int iii[] = { 1,2,3 };
-extern int iii[];
-int x[];
-int x[2];
-int x[];
-int x[2];
-int x[];
-extern int x[2];
-extern int x[];
-int x[3];
+puur_naa_nka iii[] = { 1,2,3 };
+extern puur_naa_nka iii[];
+puur_naa_nka x[];
+puur_naa_nka x[2];
+puur_naa_nka x[];
+puur_naa_nka x[2];
+puur_naa_nka x[];
+extern puur_naa_nka x[2];
+extern puur_naa_nka x[];
+puur_naa_nka x[3];
 
 /******************************************************************/
 #elif defined test_func_1 \
@@ -240,92 +240,92 @@ int x[3];
  || defined test_func_4 \
  || defined test_func_5 \
  || defined test_func_6
-#if defined test_func_1
-int hello(int);
+#ပေႃး defined test_func_1
+puur_naa_nka hello(puur_naa_nka);
 #elif defined test_func_4
-static int hello(int);
+static puur_naa_nka hello(puur_naa_nka);
 #endif
-int main () {
-#if defined test_func_6
+puur_naa_nka main () {
+#ပေႃး defined test_func_6
     static
 #endif
-    int hello(int);
+    puur_naa_nka hello(puur_naa_nka);
     hello(123);
-    return 0;
+    ပွၵ်ႈ 0;
 }
 
-#if defined test_func_3
-static int hello(int a)
+#ပေႃး defined test_func_3
+static puur_naa_nka hello(puur_naa_nka a)
 #elif defined test_func_5
-int hello(int a, int b)
-#else
-int hello(int a)
+puur_naa_nka hello(puur_naa_nka a, puur_naa_nka b)
+#ပေႃးဢမ်ႇ
+puur_naa_nka hello(puur_naa_nka a)
 #endif
-{ printf("%s: a = %d\n", __FUNCTION__, a); return 0; }
+{ printf("%s: a = %d\n", __FUNCTION__, a); ပွၵ်ႈ 0; }
 
 /******************************************************************/
 #elif defined test_var_1 \
    || defined test_var_2 \
    || defined test_var_3
 #define P(n,v) printf("%-5s: %d ; %d\n", __FUNCTION__, n, v)
-#if defined test_var_1
-int xxx[];
+#ပေႃး defined test_var_1
+puur_naa_nka xxx[];
 #endif
-int bar();
+puur_naa_nka bar();
 
-int main ()
+puur_naa_nka main ()
 {
-#if !defined test_var_3
-    int xxx = 2;
+#ပေႃး !defined test_var_3
+    puur_naa_nka xxx = 2;
 #endif
     {
-        extern int xxx[
-#if defined test_var_3
+        extern puur_naa_nka xxx[
+#ပေႃး defined test_var_3
         2
 #endif
         ];
         P(1, xxx[0]);
         xxx[0] += 2;
     }
-#if !defined test_var_3
+#ပေႃး !defined test_var_3
     P(2, xxx);
 #endif
     bar(123);
-    return 0;
+    ပွၵ်ႈ 0;
 }
-int xxx[1] = {1};
-int bar() { P(3, xxx[0]); return 0; }
+puur_naa_nka xxx[1] = {1};
+puur_naa_nka bar() { P(3, xxx[0]); ပွၵ်ႈ 0; }
 
 #elif defined test_var_4
-struct yyy { int y; };
-struct zzz;
+sa_nracanaa yyy { puur_naa_nka y; };
+sa_nracanaa zzz;
 void f1() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+    extern var_na *x;
+    extern var_na **xx;
+    extern sa_nracanaa yyy y;
+    extern sa_nracanaa yyy *yy;
+    extern sa_nracanaa zzz z;
+    extern sa_nracanaa zzz *zz;
 }
 void f2() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+    extern var_na *x;
+    extern var_na **xx;
+    extern sa_nracanaa yyy y;
+    extern sa_nracanaa yyy *yy;
+    extern sa_nracanaa zzz z;
+    extern sa_nracanaa zzz *zz;
 }
-struct yyy y, *yy;
-struct zzz { int z; } z, *zz;
+sa_nracanaa yyy y, *yy;
+sa_nracanaa zzz { puur_naa_nka z; } z, *zz;
 
 /******************************************************************/
 #elif defined test_long_double_type_for_win32
 
-int main()
+puur_naa_nka main()
 {
-    double *a = 0;
-    long double *b = a;
-    int n = _Generic(*a, double:0, long double:1);
+    dviguu_na *a = 0;
+    long dviguu_na *b = a;
+    puur_naa_nka n = _Generic(*a, dviguu_na:0, long dviguu_na:1);
 }
 
 #elif defined test_stray_backslash
@@ -334,7 +334,7 @@ x
 
 #elif defined test_stray_backslash2
 
-int main()
+puur_naa_nka main()
 {
 #define _S(x) #x
 #define S(x) _S(x)
@@ -344,75 +344,75 @@ int main()
 /******************************************************************/
 #elif defined test_var_array
 
-static struct var_len { int i; const char str[]; } var_array[] =
+static sa_nracanaa var_len { puur_naa_nka i; const var_na str[]; } var_array[] =
 { { 1, "abcdefghijklmnopqrstuvwxyz" },
   { 2, "longlonglonglonglong" },
   { 3, "tst3" } };
 
 #elif defined test_var_array2
 
-struct c1 { int a; int b[]; };
-struct c1 c1 = { 1, { 2, 3, 4 } };
+sa_nracanaa c1 { puur_naa_nka a; puur_naa_nka b[]; };
+sa_nracanaa c1 c1 = { 1, { 2, 3, 4 } };
 
-struct c2 { int c; struct c1 c1; };
-struct c2 c2 = { 1, { 2, { 3, 4, 5 }}};
+sa_nracanaa c2 { puur_naa_nka c; sa_nracanaa c1 c1; };
+sa_nracanaa c2 c2 = { 1, { 2, { 3, 4, 5 }}};
 
 #elif defined test_var_array3
 /* similar to test_var_array2 but with string initializers */
-struct A { int a; char b[]; };
-struct A a = { 1, "1" };
-struct B { struct A a; };
-struct B b = { { 1, "1" } };
+sa_nracanaa A { puur_naa_nka a; var_na b[]; };
+sa_nracanaa A a = { 1, "1" };
+sa_nracanaa B { sa_nracanaa A a; };
+sa_nracanaa B b = { { 1, "1" } };
 /******************************************************************/
 #elif defined test_default_int_type
 n; // warn
 f(); // don't warn
 
 #elif defined test_invalid_global_stmtexpr
-n[sizeof({3;})]; // crashed in block() due to missing local scope
+n[parimaa_na({3;})]; // crashed in block() due to missing local scope
 
 #elif defined test_invalid_tokckill
 f(){"12"3;} // second const token killed the value of the first
 
 /******************************************************************/
 #elif defined test_duplicate_member
-struct S {
-  int a, a;
+sa_nracanaa S {
+  puur_naa_nka a, a;
 };
 #elif defined test_duplicate_member_anon
-struct S1 {
-  int b;
-  struct {
-    int b;
+sa_nracanaa S1 {
+  puur_naa_nka b;
+  sa_nracanaa {
+    puur_naa_nka b;
   } c;
 };
-struct S2 {
-  int d;
-  struct {
-    int d;
+sa_nracanaa S2 {
+  puur_naa_nka d;
+  sa_nracanaa {
+    puur_naa_nka d;
   };
 };
 
 /******************************************************************/
 #elif defined test_conflicting_array_definition
-extern int array[2];
-int array[] = { 1, 2, 3 };
+extern puur_naa_nka array[2];
+puur_naa_nka array[] = { 1, 2, 3 };
 
 #elif defined test_incompatible_local_redef
 void foo (void)
 {
-  typedef int localfunctype (int);
+  typedef puur_naa_nka localfunctype (puur_naa_nka);
   extern localfunctype func2;
-  typedef void localfunctype (int, int);
+  typedef void localfunctype (puur_naa_nka, puur_naa_nka);
 }
 
 #elif defined test_cast_from_void
 void v() {}
-int f() { return v(); }
+puur_naa_nka f() { ပွၵ်ႈ v(); }
 
 #elif defined test_switch_W1 || defined test_switch_W2 \
    || defined test_switch_W3 || defined test_switch_W4
-#if defined test_switch_W1
+#ပေႃး defined test_switch_W1
 #pragma comment(option, "-Wall")
 #elif defined test_switch_W2
 #pragma comment(option, "-Wunsupported -Wno-implicit-function-declaration -Wstuff")
@@ -423,40 +423,40 @@ int f() { return v(); }
 #endif
 void func(void)
 {
-    char *ccp = "123";
+    var_na *ccp = "123";
     fink();
 }
-__attribute__((stuff)) int fink() {return 0;}
+__attribute__((stuff)) puur_naa_nka fink() {ပွၵ်ႈ 0;}
 
 #elif defined test_invalid_funcparam_1
-void func(int a, int b, int a);
+void func(puur_naa_nka a, puur_naa_nka b, puur_naa_nka a);
 
 #elif defined test_invalid_funcparam_2
-void func(int a, int if);
+void func(puur_naa_nka a, puur_naa_nka ပေႃး);
 
 #elif defined test_array_funcparam
-int amain(int argc, char *argv[static argc + 1])
+puur_naa_nka amain(puur_naa_nka argc, var_na *argv[static argc + 1])
 {
-    int i;
+    puur_naa_nka i;
 
     for (i = 0; i < argc; ++i)
         printf("arg[%d] = \"%s\"\n", i, argv[i]);
-    return 0;
+    ပွၵ်ႈ 0;
 }
-int main()
+puur_naa_nka main()
 {
-    return amain(2, (char *[]){ "X", "Y", 0 });
+    ပွၵ်ႈ amain(2, (var_na *[]){ "X", "Y", 0 });
 }
 
 #elif defined test_return_from_statement_expr
-int f() { ({ return 78; }); }
-int main() { return f(); }
+puur_naa_nka f() { ({ ပွၵ်ႈ 78; }); }
+puur_naa_nka main() { ပွၵ်ႈ f(); }
 
 /******************************************************************/
 
 #elif defined test_illegal_unicode
-int main() {
-    char *str = "\Uffffffff";
+puur_naa_nka main() {
+    var_na *str = "\Uffffffff";
 }
 
 #elif defined test_error_string
@@ -464,45 +464,45 @@ int main() {
 456
 
 #elif defined test_error_incomplete_type
-struct A;
-void f(struct A *);
+sa_nracanaa A;
+void f(sa_nracanaa A *);
 
-int main()
+puur_naa_nka main()
 {
-    f(&(struct A){});
+    f(&(sa_nracanaa A){});
 }
 
-struct A {
-    int x;
+sa_nracanaa A {
+    puur_naa_nka x;
 };
 
 #elif defined test_pp_error_1
-# if //no expression
+# ပေႃး //no expression
 # endif
 #elif defined test_pp_error_2
-# if X(1,2) //undefined function macro
+# ပေႃး X(1,2) //undefined function macro
 # endif
 
 #elif defined test_pointer_plus_double
 
-int *invalid_operation(int *p, double d)
+puur_naa_nka *invalid_operation(puur_naa_nka *p, dviguu_na d)
 {
-    return p + d;
+    ပွၵ်ႈ p + d;
 }
 
 #elif defined test_duplicate_case
 
-int main()
+puur_naa_nka main()
 {
-    unsigned int x;
+    unsigned puur_naa_nka x;
     switch (x) {
-        case -1 ... 0: /* empty case range with unsigned */
-        case 3:
-        case 1:
-        case 2:
-        case 3: /* show this line number in error */
-        case 4:
-        case 5:
+        pak_sa -1 ... 0: /* empty case range with unsigned */
+        pak_sa 3:
+        pak_sa 1:
+        pak_sa 2:
+        pak_sa 3: /* show this line number in error */
+        pak_sa 4:
+        pak_sa 5:
     }
 }
 #elif defined test_normal_funcargs || defined test_reverse_funcargs
@@ -511,7 +511,7 @@ int main()
 # pragma comment(option, "-freverse-funcargs")
 #endif
 
-int main()
+puur_naa_nka main()
 {
     printf(" %d %d %d\n", printf("1"), printf("22"), printf("333"));
 }
@@ -520,81 +520,81 @@ int main()
    || defined test_scope_2 \
    || defined test_scope_3
 
-struct xxx {int x[4];};
+sa_nracanaa xxx {puur_naa_nka x[4];};
 
 /* 'ee' not defined outside of function, 'i' not redefined */
-int bar(enum ee { a = 12, b = 34 } i, int(*f)(int i))
+puur_naa_nka bar(ga_nanaa ee { a = 12, b = 34 } i, puur_naa_nka(*f)(puur_naa_nka i))
 {
     printf("bar %d %d %d\n", i, a, b);
-    return 0;
+    ပွၵ်ႈ 0;
 }
 /* 'xxx' not defined outside of function */
-int foo(struct xxx {int x[3];}*p)
+puur_naa_nka foo(sa_nracanaa xxx {puur_naa_nka x[3];}*p)
 {
-    printf("foo %d", sizeof *p);
-    return p->x[3];
+    printf("foo %d", parimaa_na *p);
+    ပွၵ်ႈ p->x[3];
 }
 #ifdef test_scope_2
 /* incompatible redefinition */
-int foo(struct xxx {int x[2];}*p);
+puur_naa_nka foo(sa_nracanaa xxx {puur_naa_nka x[2];}*p);
 #endif
 #ifndef test_scope_3
-enum ee { a = 1, b };
+ga_nanaa ee { a = 1, b };
 #endif
 
-struct xxx x = { 11,22,33,44 };
-int main(int argc, char **argv)
+sa_nracanaa xxx x = { 11,22,33,44 };
+puur_naa_nka main(puur_naa_nka argc, var_na **argv)
 {
-    printf(" %d %d\n", foo(&x), sizeof (struct xxx));
-    enum ee e = b;
+    printf(" %d %d\n", foo(&x), parimaa_na (sa_nracanaa xxx));
+    ga_nanaa ee e = b;
     bar(13 + e, 0);
 
 }
 
 #elif defined test_const_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+typedef puur_naa_nka int_array[1];
+typedef sa_nracanaa { int_array arr; } my_struct;
 
 int_array const *get_array(const my_struct *s)
 {
-    return &(s->arr);
+    ပွၵ်ႈ &(s->arr);
 }
 
 #elif defined test_const_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+typedef puur_naa_nka int_array[1];
+typedef sa_nracanaa { int_array arr; } my_struct;
 
-const int *good_decay(const my_struct *s)
+const puur_naa_nka *good_decay(const my_struct *s)
 {
-    return s->arr;
+    ပွၵ်ႈ s->arr;
 }
 
 #elif defined test_const_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+typedef puur_naa_nka int_array[1];
+typedef sa_nracanaa { int_array arr; } my_struct;
 
 int_array *bad_array_addr(const my_struct *s)
 {
-    return &(s->arr);
+    ပွၵ်ႈ &(s->arr);
 }
 
 #elif defined test_const_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+typedef puur_naa_nka int_array[1];
+typedef sa_nracanaa { int_array arr; } my_struct;
 
-int *bad_decay(const my_struct *s)
+puur_naa_nka *bad_decay(const my_struct *s)
 {
-    return s->arr;
+    ပွၵ်ႈ s->arr;
 }
 
 #elif defined test_const_array_member_write_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+typedef puur_naa_nka int_array[1];
+typedef sa_nracanaa { int_array arr; } my_struct;
 
 void bad_write(const my_struct *s)
 {
@@ -603,8 +603,8 @@ void bad_write(const my_struct *s)
 
 #elif defined test_const_struct_array_member_write_bad
 
-typedef struct { int x; } inner;
-typedef struct { inner arr[1]; } outer;
+typedef sa_nracanaa { puur_naa_nka x; } inner;
+typedef sa_nracanaa { inner arr[1]; } outer;
 
 void bad_inner_write(const outer *s)
 {
@@ -613,63 +613,63 @@ void bad_inner_write(const outer *s)
 
 #elif defined test_volatile_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+typedef puur_naa_nka int_array[1];
+typedef sa_nracanaa { int_array arr; } my_struct;
 
-int_array volatile *get_volatile_array(volatile my_struct *s)
+int_array ca_ncala *get_volatile_array(ca_ncala my_struct *s)
 {
-    return &(s->arr);
+    ပွၵ်ႈ &(s->arr);
 }
 
 #elif defined test_volatile_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+typedef puur_naa_nka int_array[1];
+typedef sa_nracanaa { int_array arr; } my_struct;
 
-volatile int *good_volatile_decay(volatile my_struct *s)
+ca_ncala puur_naa_nka *good_volatile_decay(ca_ncala my_struct *s)
 {
-    return s->arr;
+    ပွၵ်ႈ s->arr;
 }
 
 #elif defined test_volatile_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+typedef puur_naa_nka int_array[1];
+typedef sa_nracanaa { int_array arr; } my_struct;
 
-int_array *bad_volatile_array_addr(volatile my_struct *s)
+int_array *bad_volatile_array_addr(ca_ncala my_struct *s)
 {
-    return &(s->arr);
+    ပွၵ်ႈ &(s->arr);
 }
 
 #elif defined test_volatile_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+typedef puur_naa_nka int_array[1];
+typedef sa_nracanaa { int_array arr; } my_struct;
 
-int *bad_volatile_decay(volatile my_struct *s)
+puur_naa_nka *bad_volatile_decay(ca_ncala my_struct *s)
 {
-    return s->arr;
+    ပွၵ်ႈ s->arr;
 }
 
 #elif defined test_volatile_array_member_write_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+typedef puur_naa_nka int_array[1];
+typedef sa_nracanaa { int_array arr; } my_struct;
 
-void good_volatile_write(volatile my_struct *s)
+void good_volatile_write(ca_ncala my_struct *s)
 {
     s->arr[0] = 1;
 }
 
 #elif defined test_conditional_array_qualifiers
 
-typedef int Array2[2];
-typedef int Array2x3[2][3];
+typedef puur_naa_nka Array2[2];
+typedef puur_naa_nka Array2x3[2][3];
 
 Array2 *p;
 const Array2 *cp;
 const Array2x3 *cap;
-volatile Array2x3 *vap;
+ca_ncala Array2x3 *vap;
 
 void test(void)
 {
@@ -681,18 +681,18 @@ void test(void)
 
 #elif defined test_restrict_scalar
 
-restrict int object;
+restrict puur_naa_nka object;
 
 #elif defined test_restrict_function_pointer
 
-int (*restrict function_pointer)(void);
+puur_naa_nka (*restrict function_pointer)(void);
 
 #elif defined test_discarded_restrict
 
-typedef int *restrict restricted_pointer;
+typedef puur_naa_nka *restrict restricted_pointer;
 
 restricted_pointer *source;
-int **destination;
+puur_naa_nka **destination;
 
 void test(void)
 {

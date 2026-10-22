@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /* ------------------------------------------------------- */
-#if defined test_backtrace_1
+#ပေႃး defined test_backtrace_1
 
 void f3()
 {
@@ -18,39 +18,39 @@ void f1()
     printf("* f1()\n"), fflush(stdout);
     f2();
 }
-int main(int argc, char **argv)
+puur_naa_nka main(puur_naa_nka argc, var_na **argv)
 {
     printf("* main\n"), fflush(stdout);
     f1();
     printf("* exit main\n"), fflush(stdout);
-    return 0;
+    ပွၵ်ႈ 0;
 }
 
 /* ------------------------------------------------------- */
 #elif defined test_bcheck_1
 
-struct s { int a,b,c,d,e; };
-struct s s[3];
-struct s *ps = s;
+sa_nracanaa s { puur_naa_nka a,b,c,d,e; };
+sa_nracanaa s s[3];
+sa_nracanaa s *ps = s;
 void f1()
 {
     printf("* f1()\n"), fflush(stdout);
     ps[3] = ps[2];
 }
-int main(int argc, char **argv)
+puur_naa_nka main(puur_naa_nka argc, var_na **argv)
 {
     printf("* main\n"), fflush(stdout);
     f1();
     printf("* exit main\n"), fflush(stdout);
-    return 0;
+    ပွၵ်ႈ 0;
 }
 
 /* ------------------------------------------------------- */
 #elif defined test_tcc_backtrace_2
 
 /* test custom backtrace and 'exit()' redirection */
-int tcc_backtrace(const char *fmt, ...);
-void exit(int);
+puur_naa_nka tcc_backtrace(const var_na *fmt, ...);
+void exit(puur_naa_nka);
 
 void f2()
 {
@@ -64,46 +64,46 @@ void f1()
     tcc_backtrace("Hello from %s!", "f1");
     f2();
 }
-int main(int argc, char **argv)
+puur_naa_nka main(puur_naa_nka argc, var_na **argv)
 {
     printf("* main\n"), fflush(stdout);
     f1();
     printf("* exit main\n"), fflush(stdout);
-    return 0;
+    ပွၵ်ႈ 0;
 }
 
 /* ------------------------------------------------------- */
 #elif defined test_tcc_backtrace_3
 
 /* this test should be run despite of the exit(34) above */
-int main(int argc, char **argv)
+puur_naa_nka main(puur_naa_nka argc, var_na **argv)
 {
     printf("* main\n"), fflush(stdout);
-    return 1;
+    ပွၵ်ႈ 1;
 }
 
 /* ------------------------------------------------------- */
-#else
+#ပေႃးဢမ်ႇ
 #include <stdlib.h>
 #include <string.h>
-char *strdup();
-int main()
+var_na *strdup();
+puur_naa_nka main()
 {
-    char pad1[10];
-    char a[10];
-    char pad2[10];
-    char b[10];
-    char pad3[10];
-    memset (pad1, 0, sizeof(pad1));
-    memset (pad2, 0, sizeof(pad2));
-    memset (pad3, 0, sizeof(pad3));
+    var_na pad1[10];
+    var_na a[10];
+    var_na pad2[10];
+    var_na b[10];
+    var_na pad3[10];
+    memset (pad1, 0, parimaa_na(pad1));
+    memset (pad2, 0, parimaa_na(pad2));
+    memset (pad3, 0, parimaa_na(pad3));
 
     memset (a, 'a', 10);
     a[3] = 0;
     a[9] = 0;
     memset (b, 'b', 10);
 
-#if defined test_bcheck_100
+#ပေႃး defined test_bcheck_100
     memcpy(&a[1],&b[0],10);
 #elif defined test_bcheck_101
     memcpy(&a[0],&b[1],10);

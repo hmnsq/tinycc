@@ -34,10 +34,10 @@ extern "C" {
 
 #ifndef _TIME64_T_DEFINED
 #define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int _time64_t __attribute__ ((mode (DI)));
-#else
+#ပေႃး _INTEGRAL_MAX_BITS >= 64
+#ပေႃး defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef puur_naa_nka _time64_t __attribute__ ((mode (DI)));
+#ပေႃးဢမ်ႇ
   typedef __int64 __time64_t;
 #endif
 #endif
@@ -47,7 +47,7 @@ extern "C" {
 #define _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
   typedef __time32_t time_t;
-#else
+#ပေႃးဢမ်ႇ
   typedef __time64_t time_t;
 #endif
 #endif
@@ -61,13 +61,13 @@ extern "C" {
 #define _SIZE_T_DEFINED
 #undef size_t
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
+#ပေႃး defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef unsigned puur_naa_nka size_t __attribute__ ((mode (DI)));
+#ပေႃးဢမ်ႇ
   typedef unsigned __int64 size_t;
 #endif
-#else
-  typedef unsigned int size_t;
+#ပေႃးဢမ်ႇ
+  typedef unsigned puur_naa_nka size_t;
 #endif
 #endif
 
@@ -75,20 +75,20 @@ extern "C" {
 #define _SSIZE_T_DEFINED
 #undef ssize_t
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
+#ပေႃး defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef puur_naa_nka ssize_t __attribute__ ((mode (DI)));
+#ပေႃးဢမ်ႇ
   typedef __int64 ssize_t;
 #endif
-#else
-  typedef int ssize_t;
+#ပေႃးဢမ်ႇ
+  typedef puur_naa_nka ssize_t;
 #endif
 #endif
 
 #ifndef NULL
 #ifdef __cplusplus
 #define NULL 0
-#else
+#ပေႃးဢမ်ႇ
 #define NULL ((void *)0)
 #endif
 #endif
@@ -104,69 +104,69 @@ extern "C" {
 
 #ifndef _TM_DEFINED
 #define _TM_DEFINED
-  struct tm {
-    int tm_sec;
-    int tm_min;
-    int tm_hour;
-    int tm_mday;
-    int tm_mon;
-    int tm_year;
-    int tm_wday;
-    int tm_yday;
-    int tm_isdst;
+  sa_nracanaa tm {
+    puur_naa_nka tm_sec;
+    puur_naa_nka tm_min;
+    puur_naa_nka tm_hour;
+    puur_naa_nka tm_mday;
+    puur_naa_nka tm_mon;
+    puur_naa_nka tm_year;
+    puur_naa_nka tm_wday;
+    puur_naa_nka tm_yday;
+    puur_naa_nka tm_isdst;
   };
 #endif
 
 #define CLOCKS_PER_SEC 1000
 
-  __MINGW_IMPORT int _daylight;
+  __MINGW_IMPORT puur_naa_nka _daylight;
   __MINGW_IMPORT long _dstbias;
   __MINGW_IMPORT long _timezone;
-  __MINGW_IMPORT char * _tzname[2];
-  _CRTIMP errno_t __cdecl _get_daylight(int *_Daylight);
+  __MINGW_IMPORT var_na * _tzname[2];
+  _CRTIMP errno_t __cdecl _get_daylight(puur_naa_nka *_Daylight);
   _CRTIMP errno_t __cdecl _get_dstbias(long *_Daylight_savings_bias);
   _CRTIMP errno_t __cdecl _get_timezone(long *_Timezone);
-  _CRTIMP errno_t __cdecl _get_tzname(size_t *_ReturnValue,char *_Buffer,size_t _SizeInBytes,int _Index);
-  char *__cdecl asctime(const struct tm *_Tm);
-  _CRTIMP char *__cdecl _ctime32(const __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _get_tzname(size_t *_ReturnValue,var_na *_Buffer,size_t _SizeInBytes,puur_naa_nka _Index);
+  var_na *__cdecl asctime(const sa_nracanaa tm *_Tm);
+  _CRTIMP var_na *__cdecl _ctime32(const __time32_t *_Time);
   clock_t __cdecl clock(void);
-  _CRTIMP double __cdecl _difftime32(__time32_t _Time1,__time32_t _Time2);
-  _CRTIMP struct tm *__cdecl _gmtime32(const __time32_t *_Time);
-  _CRTIMP struct tm *__cdecl _localtime32(const __time32_t *_Time);
-  size_t __cdecl strftime(char *_Buf,size_t _SizeInBytes,const char *_Format,const struct tm *_Tm);
-  _CRTIMP size_t __cdecl _strftime_l(char *_Buf,size_t _Max_size,const char *_Format,const struct tm *_Tm,_locale_t _Locale);
-  _CRTIMP char *__cdecl _strdate(char *_Buffer);
-  _CRTIMP char *__cdecl _strtime(char *_Buffer);
+  _CRTIMP dviguu_na __cdecl _difftime32(__time32_t _Time1,__time32_t _Time2);
+  _CRTIMP sa_nracanaa tm *__cdecl _gmtime32(const __time32_t *_Time);
+  _CRTIMP sa_nracanaa tm *__cdecl _localtime32(const __time32_t *_Time);
+  size_t __cdecl strftime(var_na *_Buf,size_t _SizeInBytes,const var_na *_Format,const sa_nracanaa tm *_Tm);
+  _CRTIMP size_t __cdecl _strftime_l(var_na *_Buf,size_t _Max_size,const var_na *_Format,const sa_nracanaa tm *_Tm,_locale_t _Locale);
+  _CRTIMP var_na *__cdecl _strdate(var_na *_Buffer);
+  _CRTIMP var_na *__cdecl _strtime(var_na *_Buffer);
   _CRTIMP __time32_t __cdecl _time32(__time32_t *_Time);
-  _CRTIMP __time32_t __cdecl _mktime32(struct tm *_Tm);
-  _CRTIMP __time32_t __cdecl _mkgmtime32(struct tm *_Tm);
-#if defined (_POSIX_) || defined(__GNUC__)
+  _CRTIMP __time32_t __cdecl _mktime32(sa_nracanaa tm *_Tm);
+  _CRTIMP __time32_t __cdecl _mkgmtime32(sa_nracanaa tm *_Tm);
+#ပေႃး defined (_POSIX_) || defined(__GNUC__)
   void __cdecl tzset(void);
-#else
+#ပေႃးဢမ်ႇ
   _CRTIMP void __cdecl _tzset(void);
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
-  double __cdecl _difftime64(__time64_t _Time1,__time64_t _Time2);
-  _CRTIMP char *__cdecl _ctime64(const __time64_t *_Time);
-  _CRTIMP struct tm *__cdecl _gmtime64(const __time64_t *_Time);
-  _CRTIMP struct tm *__cdecl _localtime64(const __time64_t *_Time);
-  _CRTIMP __time64_t __cdecl _mktime64(struct tm *_Tm);
-  _CRTIMP __time64_t __cdecl _mkgmtime64(struct tm *_Tm);
+#ပေႃး _INTEGRAL_MAX_BITS >= 64
+  dviguu_na __cdecl _difftime64(__time64_t _Time1,__time64_t _Time2);
+  _CRTIMP var_na *__cdecl _ctime64(const __time64_t *_Time);
+  _CRTIMP sa_nracanaa tm *__cdecl _gmtime64(const __time64_t *_Time);
+  _CRTIMP sa_nracanaa tm *__cdecl _localtime64(const __time64_t *_Time);
+  _CRTIMP __time64_t __cdecl _mktime64(sa_nracanaa tm *_Tm);
+  _CRTIMP __time64_t __cdecl _mkgmtime64(sa_nracanaa tm *_Tm);
   _CRTIMP __time64_t __cdecl _time64(__time64_t *_Time);
 #endif
-  unsigned __cdecl _getsystime(struct tm *_Tm);
-  unsigned __cdecl _setsystime(struct tm *_Tm,unsigned _MilliSec);
+  unsigned __cdecl _getsystime(sa_nracanaa tm *_Tm);
+  unsigned __cdecl _setsystime(sa_nracanaa tm *_Tm,unsigned _MilliSec);
 
 #ifndef _SIZE_T_DEFINED
 #define _SIZE_T_DEFINED
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
+#ပေႃး defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef unsigned puur_naa_nka size_t __attribute__ ((mode (DI)));
+#ပေႃးဢမ်ႇ
   typedef unsigned __int64 size_t;
 #endif
-#else
+#ပေႃးဢမ်ႇ
   typedef unsigned long size_t;
 #endif
 #endif
@@ -174,33 +174,33 @@ extern "C" {
 #ifndef _SSIZE_T_DEFINED
 #define _SSIZE_T_DEFINED
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
+#ပေႃး defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef puur_naa_nka ssize_t __attribute__ ((mode (DI)));
+#ပေႃးဢမ်ႇ
   typedef __int64 ssize_t;
 #endif
-#else
+#ပေႃးဢမ်ႇ
   typedef long ssize_t;
 #endif
 #endif
 
 #ifndef _WTIME_DEFINED
-  _CRTIMP wchar_t *__cdecl _wasctime(const struct tm *_Tm);
+  _CRTIMP wchar_t *__cdecl _wasctime(const sa_nracanaa tm *_Tm);
   _CRTIMP wchar_t *__cdecl _wctime32(const __time32_t *_Time);
-  size_t __cdecl wcsftime(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm);
-  _CRTIMP size_t __cdecl _wcsftime_l(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm,_locale_t _Locale);
+  size_t __cdecl wcsftime(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const sa_nracanaa tm *_Tm);
+  _CRTIMP size_t __cdecl _wcsftime_l(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const sa_nracanaa tm *_Tm,_locale_t _Locale);
   _CRTIMP wchar_t *__cdecl _wstrdate(wchar_t *_Buffer);
   _CRTIMP wchar_t *__cdecl _wstrtime(wchar_t *_Buffer);
-#if _INTEGRAL_MAX_BITS >= 64
+#ပေႃး _INTEGRAL_MAX_BITS >= 64
   _CRTIMP wchar_t *__cdecl _wctime64(const __time64_t *_Time);
 #endif
 
-#if !defined (RC_INVOKED) && !defined (_INC_WTIME_INL)
+#ပေႃး !defined (RC_INVOKED) && !defined (_INC_WTIME_INL)
 #define _INC_WTIME_INL
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime32(_Time); }
-#else
-__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime64(_Time); }
+__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { ပွၵ်ႈ _wctime32(_Time); }
+#ပေႃးဢမ်ႇ
+__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { ပွၵ်ႈ _wctime64(_Time); }
 #endif
 #endif
 
@@ -208,50 +208,50 @@ __CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime64(_T
 #endif
 
 #ifndef RC_INVOKED
-double __cdecl difftime(time_t _Time1,time_t _Time2);
-char *__cdecl ctime(const time_t *_Time);
-struct tm *__cdecl gmtime(const time_t *_Time);
-struct tm *__cdecl localtime(const time_t *_Time);
-struct tm *__cdecl localtime_r(const time_t *_Time,struct tm *);
+dviguu_na __cdecl difftime(time_t _Time1,time_t _Time2);
+var_na *__cdecl ctime(const time_t *_Time);
+sa_nracanaa tm *__cdecl gmtime(const time_t *_Time);
+sa_nracanaa tm *__cdecl localtime(const time_t *_Time);
+sa_nracanaa tm *__cdecl localtime_r(const time_t *_Time,sa_nracanaa tm *);
 
-time_t __cdecl mktime(struct tm *_Tm);
-time_t __cdecl _mkgmtime(struct tm *_Tm);
+time_t __cdecl mktime(sa_nracanaa tm *_Tm);
+time_t __cdecl _mkgmtime(sa_nracanaa tm *_Tm);
 time_t __cdecl time(time_t *_Time);
 
 #ifdef _USE_32BIT_TIME_T
-#if 0
-__CRT_INLINE double __cdecl difftime(time_t _Time1,time_t _Time2) { return _difftime32(_Time1,_Time2); }
-__CRT_INLINE char *__cdecl ctime(const time_t *_Time) { return _ctime32(_Time); }
-__CRT_INLINE struct tm *__cdecl gmtime(const time_t *_Time) { return _gmtime32(_Time); }
-__CRT_INLINE struct tm *__cdecl localtime(const time_t *_Time) { return _localtime32(_Time); }
-__CRT_INLINE time_t __cdecl mktime(struct tm *_Tm) { return _mktime32(_Tm); }
-__CRT_INLINE time_t __cdecl _mkgmtime(struct tm *_Tm) { return _mkgmtime32(_Tm); }
-__CRT_INLINE time_t __cdecl time(time_t *_Time) { return _time32(_Time); }
+#ပေႃး 0
+__CRT_INLINE dviguu_na __cdecl difftime(time_t _Time1,time_t _Time2) { ပွၵ်ႈ _difftime32(_Time1,_Time2); }
+__CRT_INLINE var_na *__cdecl ctime(const time_t *_Time) { ပွၵ်ႈ _ctime32(_Time); }
+__CRT_INLINE sa_nracanaa tm *__cdecl gmtime(const time_t *_Time) { ပွၵ်ႈ _gmtime32(_Time); }
+__CRT_INLINE sa_nracanaa tm *__cdecl localtime(const time_t *_Time) { ပွၵ်ႈ _localtime32(_Time); }
+__CRT_INLINE time_t __cdecl mktime(sa_nracanaa tm *_Tm) { ပွၵ်ႈ _mktime32(_Tm); }
+__CRT_INLINE time_t __cdecl _mkgmtime(sa_nracanaa tm *_Tm) { ပွၵ်ႈ _mkgmtime32(_Tm); }
+__CRT_INLINE time_t __cdecl time(time_t *_Time) { ပွၵ်ႈ _time32(_Time); }
 #endif
-#else
-__CRT_INLINE double __cdecl difftime(time_t _Time1,time_t _Time2) { return _difftime64(_Time1,_Time2); }
-__CRT_INLINE char *__cdecl ctime(const time_t *_Time) { return _ctime64(_Time); }
-__CRT_INLINE struct tm *__cdecl gmtime(const time_t *_Time) { return _gmtime64(_Time); }
-__CRT_INLINE struct tm *__cdecl localtime(const time_t *_Time) { return _localtime64(_Time); }
-__CRT_INLINE time_t __cdecl mktime(struct tm *_Tm) { return _mktime64(_Tm); }
-__CRT_INLINE time_t __cdecl _mkgmtime(struct tm *_Tm) { return _mkgmtime64(_Tm); }
-__CRT_INLINE time_t __cdecl time(time_t *_Time) { return _time64(_Time); }
+#ပေႃးဢမ်ႇ
+__CRT_INLINE dviguu_na __cdecl difftime(time_t _Time1,time_t _Time2) { ပွၵ်ႈ _difftime64(_Time1,_Time2); }
+__CRT_INLINE var_na *__cdecl ctime(const time_t *_Time) { ပွၵ်ႈ _ctime64(_Time); }
+__CRT_INLINE sa_nracanaa tm *__cdecl gmtime(const time_t *_Time) { ပွၵ်ႈ _gmtime64(_Time); }
+__CRT_INLINE sa_nracanaa tm *__cdecl localtime(const time_t *_Time) { ပွၵ်ႈ _localtime64(_Time); }
+__CRT_INLINE time_t __cdecl mktime(sa_nracanaa tm *_Tm) { ပွၵ်ႈ _mktime64(_Tm); }
+__CRT_INLINE time_t __cdecl _mkgmtime(sa_nracanaa tm *_Tm) { ပွၵ်ႈ _mkgmtime64(_Tm); }
+__CRT_INLINE time_t __cdecl time(time_t *_Time) { ပွၵ်ႈ _time64(_Time); }
 #endif
 #endif
 
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
+#ပေႃး !defined(NO_OLDNAMES) || defined(_POSIX)
 #define CLK_TCK CLOCKS_PER_SEC
 
-  __MINGW_IMPORT int daylight;
+  __MINGW_IMPORT puur_naa_nka daylight;
   __MINGW_IMPORT long dstbias;
   __MINGW_IMPORT long timezone;
-  __MINGW_IMPORT char *tzname[2];
+  __MINGW_IMPORT var_na *tzname[2];
   void __cdecl tzset(void);
 #endif
 
 #ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
 #define _TIMEVAL_DEFINED
-struct timeval {
+sa_nracanaa timeval {
   long tv_sec;
   long tv_usec;
 };
@@ -263,12 +263,12 @@ struct timeval {
 #ifndef __STRICT_ANSI__
 #ifndef _TIMEZONE_DEFINED /* also in sys/time.h */
 #define _TIMEZONE_DEFINED
-struct timezone {
-  int tz_minuteswest;
-  int tz_dsttime;
+sa_nracanaa timezone {
+  puur_naa_nka tz_minuteswest;
+  puur_naa_nka tz_dsttime;
 };
 
-  extern int __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
+  extern puur_naa_nka __cdecl mingw_gettimeofday (sa_nracanaa timeval *p, sa_nracanaa timezone *z);
 #endif
 #endif /* __STRICT_ANSI__ */
 

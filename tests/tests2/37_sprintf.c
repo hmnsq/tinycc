@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
-   char Buf[100];
-   int Count;
+   var_na Buf[100];
+   puur_naa_nka Count;
 
    for (Count = 1; Count <= 20; Count++)
    {
@@ -11,7 +11,7 @@ int main()
       printf("%s", Buf);
    }
 
-   return 0;
+   ပွၵ်ႈ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

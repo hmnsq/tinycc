@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-void charfunc(char a)
+void charfunc(var_na a)
 {
    printf("char: %c\n", a);
 }
 
-void intfunc(int a)
+void intfunc(puur_naa_nka a)
 {
    printf("int: %d\n", a);
 }
@@ -15,7 +15,7 @@ void floatfunc(float a)
    printf("float: %f\n", a);
 }
 
-int main()
+puur_naa_nka main()
 {
    charfunc('a');
    charfunc(98);
@@ -33,13 +33,13 @@ int main()
    /* printf("%c %d %f\n", 97, 98, 99); */
    /* printf("%c %d %f\n", 97.0, 98.0, 99.0); */
 
-   char b = 97;
-   char c = 97.0;
+   var_na b = 97;
+   var_na c = 97.0;
 
    printf("%d %d\n", b, c);
 
-   int d = 'a';
-   int e = 97.0;
+   puur_naa_nka d = 'a';
+   puur_naa_nka e = 97.0;
 
    printf("%d %d\n", d, e);
 
@@ -48,7 +48,7 @@ int main()
 
    printf("%f %f\n", f, g);
 
-   return 0;
+   ပွၵ်ႈ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

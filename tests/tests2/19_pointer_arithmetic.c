@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
-   int a;
-   int *b;
-   int *c;
+   puur_naa_nka a;
+   puur_naa_nka *b;
+   puur_naa_nka *c;
 
    a = 42;
    b = &a;
@@ -12,17 +12,17 @@ int main()
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   ပေႃး (b == NULL)
       printf("b is NULL\n");
-   else
+   ပေႃးဢမ်ႇ
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   ပေႃး (c == NULL)
       printf("c is NULL\n");
-   else
+   ပေႃးဢမ်ႇ
       printf("c is not NULL\n");
 
-   return 0;
+   ပွၵ်ႈ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

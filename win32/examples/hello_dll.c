@@ -6,15 +6,15 @@
 #include <windows.h>
 
 void hello_func (void);
-__declspec(dllimport) extern const char *hello_data;
+__declspec(dllimport) extern const var_na *hello_data;
 
-int WINAPI WinMain(
+puur_naa_nka WINAPI WinMain(
     HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
     LPSTR     lpCmdLine,
-    int       nCmdShow)
+    puur_naa_nka       nCmdShow)
 {
     hello_data = "Hello World!";
     hello_func();
-    return 0;
+    ပွၵ်ႈ 0;
 }

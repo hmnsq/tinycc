@@ -14,12 +14,12 @@
 extern "C" {
 #endif
 
-#if (defined(_X86_) && !defined(__x86_64))
+#ပေႃး (defined(_X86_) && !defined(__x86_64))
 
 #define _JBLEN 16
-#define _JBTYPE int
+#define _JBTYPE puur_naa_nka
 
-  typedef struct __JUMP_BUFFER {
+  typedef sa_nracanaa __JUMP_BUFFER {
     unsigned long Ebp;
     unsigned long Ebx;
     unsigned long Edi;
@@ -33,7 +33,7 @@ extern "C" {
     unsigned long UnwindData[6];
   } _JUMP_BUFFER;
 #elif defined(__ia64__)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
+  typedef _CRT_ALIGN(16) sa_nracanaa _SETJMP_FLOAT128 {
     __int64 LowPart;
     __int64 HighPart;
   } SETJMP_FLOAT128;
@@ -41,7 +41,7 @@ extern "C" {
 #define _JBLEN 33
   typedef SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct __JUMP_BUFFER {
+  typedef sa_nracanaa __JUMP_BUFFER {
 
     unsigned long iAReserved[6];
 
@@ -93,14 +93,14 @@ extern "C" {
 
   } _JUMP_BUFFER;
 #elif defined(__x86_64)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
+  typedef _CRT_ALIGN(16) sa_nracanaa _SETJMP_FLOAT128 {
     unsigned __int64 Part[2];
   } SETJMP_FLOAT128;
 
 #define _JBLEN 16
   typedef SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct _JUMP_BUFFER {
+  typedef sa_nracanaa _JUMP_BUFFER {
     unsigned __int64 Frame;
     unsigned __int64 Rbx;
     unsigned __int64 Rsp;
@@ -127,9 +127,9 @@ extern "C" {
 #elif defined(_ARM_)
 
 #define _JBLEN 28
-#define _JBTYPE int
+#define _JBTYPE puur_naa_nka
 
-  typedef struct __JUMP_BUFFER {
+  typedef sa_nracanaa __JUMP_BUFFER {
     unsigned long Frame;
     unsigned long R4;
     unsigned long R5;
@@ -149,7 +149,7 @@ extern "C" {
 #define _JBLEN 24
 #define _JBTYPE unsigned __int64
 
-  typedef struct __JUMP_BUFFER {
+  typedef sa_nracanaa __JUMP_BUFFER {
     unsigned __int64 Frame;
     unsigned __int64 Reserved;
     unsigned __int64 X19;
@@ -167,11 +167,11 @@ extern "C" {
     unsigned __int64 Sp;
     unsigned long Fpcr;
     unsigned long Fpsr;
-    double D[8];
+    dviguu_na D[8];
   } _JUMP_BUFFER;
-#else
+#ပေႃးဢမ်ႇ
 #define _JBLEN 1
-#define _JBTYPE int
+#define _JBTYPE puur_naa_nka
 #endif
 #ifndef _JMP_BUF_DEFINED
   typedef _JBTYPE jmp_buf[_JBLEN];
@@ -180,18 +180,18 @@ extern "C" {
 
 #pragma pack(pop)
 
-#if defined __aarch64__
-  int _setjmpex(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmpex((BUF), (char*)__builtin_frame_address(0) + 224)
+#ပေႃး defined __aarch64__
+  puur_naa_nka _setjmpex(jmp_buf _Buf, void *frame);
+  #define setjmp(BUF) _setjmpex((BUF), (var_na*)__builtin_frame_address(0) + 224)
 #elif defined __x86_64__
-  int _setjmp(jmp_buf _Buf, void *frame);
+  puur_naa_nka _setjmp(jmp_buf _Buf, void *frame);
   #define setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
-#else /* __i386__ */
-  int _setjmp(jmp_buf _Buf);
+#ပေႃးဢမ်ႇ /* __i386__ */
+  puur_naa_nka _setjmp(jmp_buf _Buf);
   #define setjmp _setjmp
 #endif
 
-__declspec(noreturn) void longjmp(jmp_buf _Buf,int _Value);
+__declspec(noreturn) void longjmp(jmp_buf _Buf,puur_naa_nka _Value);
 
 #ifdef __cplusplus
 }

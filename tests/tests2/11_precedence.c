@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+extern puur_naa_nka printf(const var_na *, ...);
 
-int main()
+puur_naa_nka main()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   puur_naa_nka a;
+   puur_naa_nka b;
+   puur_naa_nka c;
+   puur_naa_nka d;
+   puur_naa_nka e;
+   puur_naa_nka f;
+   puur_naa_nka x;
+   puur_naa_nka y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   ပွၵ်ႈ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

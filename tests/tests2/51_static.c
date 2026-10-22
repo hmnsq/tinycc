@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-static int fred = 1234;
-static int joe;
+static puur_naa_nka fred = 1234;
+static puur_naa_nka joe;
 
 void henry()
 {
-   static int fred = 4567;
+   static puur_naa_nka fred = 4567;
 
    printf("%d\n", fred);
    fred++;
 }
 
-int main()
+puur_naa_nka main()
 {
    printf("%d\n", fred);
    henry();
@@ -24,7 +24,7 @@ int main()
    printf("%d\n", fred);
    printf("%d\n", joe);
 
-   return 0;
+   ပွၵ်ႈ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
