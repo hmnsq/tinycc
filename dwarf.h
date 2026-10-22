@@ -30,7 +30,7 @@
 #define	_DWARF_H 1
 
 /* DWARF Unit Header Types.  */
-enum
+تعداد
   {
     DW_UT_compile = 0x01,
     DW_UT_type = 0x02,
@@ -44,7 +44,7 @@ enum
   };
 
 /* DWARF tags.  */
-enum
+تعداد
   {
     DW_TAG_array_type = 0x01,
     DW_TAG_class_type = 0x02,
@@ -93,7 +93,7 @@ enum
     DW_TAG_packed_type = 0x2d,
     DW_TAG_subprogram = 0x2e,
     DW_TAG_template_type_parameter = 0x2f,
-    DW_TAG_template_value_parameter = 0x30,
+    DW_TAG_template_قيمة_parameter = 0x30,
     DW_TAG_thrown_type = 0x31,
     DW_TAG_try_block = 0x32,
     DW_TAG_variant_part = 0x33,
@@ -143,7 +143,7 @@ enum
 
 
 /* Children determination encodings.  */
-enum
+تعداد
   {
     DW_CHILDREN_no = 0,
     DW_CHILDREN_yes = 1
@@ -151,7 +151,7 @@ enum
 
 
 /* DWARF attributes encodings.  */
-enum
+تعداد
   {
     DW_AT_sibling = 0x01,
     DW_AT_location = 0x02,
@@ -169,20 +169,20 @@ enum
     /* 0x0e reserved.  */
     /* 0x0f reserved.  */
     DW_AT_stmt_list = 0x10,
-    DW_AT_low_pc = 0x11,
-    DW_AT_high_pc = 0x12,
+    DW_AT_أدنى_pc = 0x11,
+    DW_AT_عالي_pc = 0x12,
     DW_AT_language = 0x13,
     /* 0x14 reserved.  */
     DW_AT_discr = 0x15,
-    DW_AT_discr_value = 0x16,
+    DW_AT_discr_قيمة = 0x16,
     DW_AT_visibility = 0x17,
     DW_AT_import = 0x18,
     DW_AT_string_length = 0x19,
     DW_AT_common_reference = 0x1a,
     DW_AT_comp_dir = 0x1b,
-    DW_AT_const_value = 0x1c,
+    DW_AT_const_قيمة = 0x1c,
     DW_AT_containing_type = 0x1d,
-    DW_AT_default_value = 0x1e,
+    DW_AT_default_قيمة = 0x1e,
     /* 0x1f reserved.  */
     DW_AT_inline = 0x20,
     DW_AT_is_optional = 0x21,
@@ -207,11 +207,11 @@ enum
     DW_AT_artificial = 0x34,
     DW_AT_base_types = 0x35,
     DW_AT_calling_convention = 0x36,
-    DW_AT_count = 0x37,
+    DW_AT_عدد = 0x37,
     DW_AT_data_member_location = 0x38,
     DW_AT_decl_column = 0x39,
     DW_AT_decl_file = 0x3a,
-    DW_AT_decl_line = 0x3b,
+    DW_AT_decl_سطر = 0x3b,
     DW_AT_declaration = 0x3c,
     DW_AT_discr_list = 0x3d,
     DW_AT_encoding = 0x3e,
@@ -241,13 +241,13 @@ enum
     DW_AT_trampoline = 0x56,
     DW_AT_call_column = 0x57,
     DW_AT_call_file = 0x58,
-    DW_AT_call_line = 0x59,
+    DW_AT_call_سطر = 0x59,
     DW_AT_description = 0x5a,
-    DW_AT_binary_scale = 0x5b,
+    DW_AT_ثنائي_scale = 0x5b,
     DW_AT_decimal_scale = 0x5c,
     DW_AT_small = 0x5d,
     DW_AT_decimal_sign = 0x5e,
-    DW_AT_digit_count = 0x5f,
+    DW_AT_digit_عدد = 0x5f,
     DW_AT_picture_string = 0x60,
     DW_AT_mutable = 0x61,
     DW_AT_threads_scaled = 0x62,
@@ -260,7 +260,7 @@ enum
     DW_AT_signature = 0x69,
     DW_AT_main_subprogram = 0x6a,
     DW_AT_data_bit_offset = 0x6b,
-    DW_AT_const_expr = 0x6c,
+    DW_AT_const_تعبير = 0x6c,
     DW_AT_enum_class = 0x6d,
     DW_AT_linkage_name = 0x6e,
     DW_AT_string_length_bit_size = 0x6f,
@@ -278,7 +278,7 @@ enum
     DW_AT_call_all_source_calls = 0x7b,
     DW_AT_call_all_tail_calls = 0x7c,
     DW_AT_call_return_pc = 0x7d,
-    DW_AT_call_value = 0x7e,
+    DW_AT_call_قيمة = 0x7e,
     DW_AT_call_origin = 0x7f,
     DW_AT_call_parameter = 0x80,
     DW_AT_call_pc = 0x81,
@@ -286,7 +286,7 @@ enum
     DW_AT_call_target = 0x83,
     DW_AT_call_target_clobbered = 0x84,
     DW_AT_call_data_location = 0x85,
-    DW_AT_call_data_value = 0x86,
+    DW_AT_call_data_قيمة = 0x86,
     DW_AT_noreturn = 0x87,
     DW_AT_alignment = 0x88,
     DW_AT_export_symbols = 0x89,
@@ -331,8 +331,8 @@ enum
     DW_AT_GNU_shared_locks_required = 0x210e,
     DW_AT_GNU_odr_signature = 0x210f,
     DW_AT_GNU_template_name = 0x2110,
-    DW_AT_GNU_call_site_value = 0x2111,
-    DW_AT_GNU_call_site_data_value = 0x2112,
+    DW_AT_GNU_call_site_قيمة = 0x2111,
+    DW_AT_GNU_call_site_data_قيمة = 0x2112,
     DW_AT_GNU_call_site_target = 0x2113,
     DW_AT_GNU_call_site_target_clobbered = 0x2114,
     DW_AT_GNU_tail_call = 0x2115,
@@ -371,7 +371,7 @@ enum
 #define DW_AT_member		0x14
 
 /* DWARF form encodings.  */
-enum
+تعداد
   {
     DW_FORM_addr = 0x01,
     DW_FORM_block2 = 0x03,
@@ -402,7 +402,7 @@ enum
     DW_FORM_ref_sup4 = 0x1c,
     DW_FORM_strp_sup = 0x1d,
     DW_FORM_data16 = 0x1e,
-    DW_FORM_line_strp = 0x1f,
+    DW_FORM_سطر_strp = 0x1f,
     DW_FORM_ref_sig8 = 0x20,
     DW_FORM_implicit_const = 0x21,
     DW_FORM_loclistx = 0x22,
@@ -427,7 +427,7 @@ enum
 
 
 /* DWARF location operation encodings.  */
-enum
+تعداد
   {
     DW_OP_addr = 0x03,		/* Constant address.  */
     DW_OP_deref = 0x06,
@@ -574,20 +574,20 @@ enum
     DW_OP_deref_size = 0x94,	/* 1-byte size of data retrieved.  */
     DW_OP_xderef_size = 0x95,	/* 1-byte size of data retrieved.  */
     DW_OP_nop = 0x96,
-    DW_OP_push_object_address = 0x97,
+    DW_OP_ادفع_object_address = 0x97,
     DW_OP_call2 = 0x98,
     DW_OP_call4 = 0x99,
     DW_OP_call_ref = 0x9a,
     DW_OP_form_tls_address = 0x9b,/* TLS offset to address in current thread */
     DW_OP_call_frame_cfa = 0x9c,/* CFA as determined by CFI.  */
     DW_OP_bit_piece = 0x9d,	/* ULEB128 size and ULEB128 offset in bits.  */
-    DW_OP_implicit_value = 0x9e, /* DW_FORM_block follows opcode.  */
-    DW_OP_stack_value = 0x9f,	 /* No operands, special like DW_OP_piece.  */
+    DW_OP_implicit_قيمة = 0x9e, /* DW_FORM_block follows opcode.  */
+    DW_OP_مكدس_قيمة = 0x9f,	 /* No operands, special like DW_OP_piece.  */
 
     DW_OP_implicit_pointer = 0xa0,
     DW_OP_addrx = 0xa1,
     DW_OP_constx = 0xa2,
-    DW_OP_entry_value = 0xa3,
+    DW_OP_entry_قيمة = 0xa3,
     DW_OP_const_type = 0xa4,
     DW_OP_regval_type = 0xa5,
     DW_OP_deref_type = 0xa6,
@@ -596,11 +596,11 @@ enum
     DW_OP_reinterpret = 0xa9,
 
     /* GNU extensions.  */
-    DW_OP_GNU_push_tls_address = 0xe0,
+    DW_OP_GNU_ادفع_tls_address = 0xe0,
     DW_OP_GNU_uninit = 0xf0,
     DW_OP_GNU_encoded_addr = 0xf1,
     DW_OP_GNU_implicit_pointer = 0xf2,
-    DW_OP_GNU_entry_value = 0xf3,
+    DW_OP_GNU_entry_قيمة = 0xf3,
     DW_OP_GNU_const_type = 0xf4,
     DW_OP_GNU_regval_type = 0xf5,
     DW_OP_GNU_deref_type = 0xf6,
@@ -612,7 +612,7 @@ enum
     DW_OP_GNU_addr_index = 0xfb,
     DW_OP_GNU_const_index = 0xfc,
 
-    DW_OP_GNU_variable_value = 0xfd,
+    DW_OP_GNU_variable_قيمة = 0xfd,
 
     DW_OP_lo_user = 0xe0,	/* Implementation-defined range start.  */
     DW_OP_hi_user = 0xff	/* Implementation-defined range end.  */
@@ -620,7 +620,7 @@ enum
 
 
 /* DWARF base type encodings.  */
-enum
+تعداد
   {
     DW_ATE_void = 0x0,
     DW_ATE_address = 0x1,
@@ -648,7 +648,7 @@ enum
 
 
 /* DWARF decimal sign encodings.  */
-enum
+تعداد
   {
     DW_DS_unsigned = 1,
     DW_DS_leading_overpunch = 2,
@@ -659,7 +659,7 @@ enum
 
 
 /* DWARF endianity encodings.  */
-enum
+تعداد
   {
     DW_END_default = 0,
     DW_END_big = 1,
@@ -671,7 +671,7 @@ enum
 
 
 /* DWARF accessibility encodings.  */
-enum
+تعداد
   {
     DW_ACCESS_public = 1,
     DW_ACCESS_protected = 2,
@@ -680,7 +680,7 @@ enum
 
 
 /* DWARF visibility encodings.  */
-enum
+تعداد
   {
     DW_VIS_local = 1,
     DW_VIS_exported = 2,
@@ -689,7 +689,7 @@ enum
 
 
 /* DWARF virtuality encodings.  */
-enum
+تعداد
   {
     DW_VIRTUALITY_none = 0,
     DW_VIRTUALITY_virtual = 1,
@@ -698,7 +698,7 @@ enum
 
 
 /* DWARF language encodings.  */
-enum
+تعداد
   {
     DW_LANG_C89 = 0x0001,	     /* ISO C:1989 */
     DW_LANG_C = 0x0002,		     /* C */
@@ -747,7 +747,7 @@ enum
 #define DW_LANG_PL1 DW_LANG_PLI
 
 /* DWARF identifier case encodings.  */
-enum
+تعداد
   {
     DW_ID_case_sensitive = 0,
     DW_ID_up_case = 1,
@@ -760,20 +760,20 @@ enum
    Used as values of DW_AT_calling_convention for subroutines
    (normal, program or nocall) or structures, unions and class types
    (normal, reference or value).  */
-enum
+تعداد
   {
     DW_CC_normal = 0x1,
     DW_CC_program = 0x2,
     DW_CC_nocall = 0x3,
     DW_CC_pass_by_reference = 0x4,
-    DW_CC_pass_by_value = 0x5,
+    DW_CC_pass_by_قيمة = 0x5,
     DW_CC_lo_user = 0x40,
     DW_CC_hi_user = 0xff
   };
 
 
 /* DWARF inline encodings.  */
-enum
+تعداد
   {
     DW_INL_not_inlined = 0,
     DW_INL_inlined = 1,
@@ -783,7 +783,7 @@ enum
 
 
 /* DWARF ordering encodings.  */
-enum
+تعداد
   {
     DW_ORD_row_major = 0,
     DW_ORD_col_major = 1
@@ -791,14 +791,14 @@ enum
 
 
 /* DWARF discriminant descriptor encodings.  */
-enum
+تعداد
   {
     DW_DSC_label = 0,
     DW_DSC_range = 1
   };
 
 /* DWARF defaulted member function encodings.  */
-enum
+تعداد
   {
     DW_DEFAULTED_no = 0,
     DW_DEFAULTED_in_class = 1,
@@ -806,7 +806,7 @@ enum
   };
 
 /* DWARF line content descriptions.  */
-enum
+تعداد
   {
     DW_LNCT_path = 0x1,
     DW_LNCT_directory_index = 0x2,
@@ -818,11 +818,11 @@ enum
   };
 
 /* DWARF standard opcode encodings.  */
-enum
+تعداد
   {
     DW_LNS_copy = 1,
     DW_LNS_advance_pc = 2,
-    DW_LNS_advance_line = 3,
+    DW_LNS_advance_سطر = 3,
     DW_LNS_set_file = 4,
     DW_LNS_set_column = 5,
     DW_LNS_negate_stmt = 6,
@@ -836,7 +836,7 @@ enum
 
 
 /* DWARF extended opcode encodings.  */
-enum
+تعداد
   {
     DW_LNE_end_sequence = 1,
     DW_LNE_set_address = 2,
@@ -853,7 +853,7 @@ enum
 
 
 /* DWARF macinfo type encodings.  */
-enum
+تعداد
   {
     DW_MACINFO_define = 1,
     DW_MACINFO_undef = 2,
@@ -864,7 +864,7 @@ enum
 
 
 /* DWARF debug_macro type encodings.  */
-enum
+تعداد
   {
     DW_MACRO_define = 0x01,
     DW_MACRO_undef = 0x02,
@@ -897,7 +897,7 @@ enum
 
 
 /* Range list entry encoding.  */
-enum
+تعداد
   {
     DW_RLE_end_of_list = 0x0,
     DW_RLE_base_addressx = 0x1,
@@ -911,7 +911,7 @@ enum
 
 
 /* Location list entry encoding.  */
-enum
+تعداد
   {
     DW_LLE_end_of_list = 0x0,
     DW_LLE_base_addressx = 0x1,
@@ -926,7 +926,7 @@ enum
 
 
 /* GNU DebugFission list entry encodings (.debug_loc.dwo).  */
-enum
+تعداد
   {
     DW_LLE_GNU_end_of_list_entry = 0x0,
     DW_LLE_GNU_base_address_selection_entry = 0x1,
@@ -935,12 +935,12 @@ enum
   };
 
 /* DWARF5 package file section identifiers.  */
-enum
+تعداد
   {
     DW_SECT_INFO = 1,
     /* Reserved = 2, */
     DW_SECT_ABBREV = 3,
-    DW_SECT_LINE = 4,
+    DW_SECT_سطر = 4,
     DW_SECT_LOCLISTS = 5,
     DW_SECT_STR_OFFSETS = 6,
     DW_SECT_MACRO = 7,
@@ -949,7 +949,7 @@ enum
 
 
 /* DWARF call frame instruction encodings.  */
-enum
+تعداد
   {
     DW_CFA_advance_loc = 0x40,
     DW_CFA_offset = 0x80,
@@ -964,7 +964,7 @@ enum
     DW_CFA_offset_extended = 0x05,
     DW_CFA_restore_extended = 0x06,
     DW_CFA_undefined = 0x07,
-    DW_CFA_same_value = 0x08,
+    DW_CFA_same_قيمة = 0x08,
     DW_CFA_register = 0x09,
     DW_CFA_remember_state = 0x0a,
     DW_CFA_restore_state = 0x0b,
@@ -980,17 +980,17 @@ enum
     DW_CFA_val_offset_sf = 0x15,
     DW_CFA_val_expression = 0x16,
 
-    DW_CFA_low_user = 0x1c,
+    DW_CFA_أدنى_user = 0x1c,
     DW_CFA_MIPS_advance_loc8 = 0x1d,
     DW_CFA_GNU_window_save = 0x2d,
     DW_CFA_AARCH64_negate_ra_state = 0x2d,
-    DW_CFA_GNU_args_size = 0x2e,
+    DW_CFA_GNU_وسائط_size = 0x2e,
     DW_CFA_GNU_negative_offset_extended = 0x2f,
-    DW_CFA_high_user = 0x3f
+    DW_CFA_عالي_user = 0x3f
   };
 
 /* ID indicating CIE as opposed to FDE in .debug_frame.  */
-enum
+تعداد
   {
     DW_CIE_ID_32 = 0xffffffffU,		 /* In 32-bit format CIE header.  */
     DW_CIE_ID_64 = 0xffffffffffffffffULL /* In 64-bit format CIE header.  */
@@ -998,7 +998,7 @@ enum
 
 
 /* Information for GNU unwind information.  */
-enum
+تعداد
   {
     DW_EH_PE_absptr = 0x00,
     DW_EH_PE_omit = 0xff,
