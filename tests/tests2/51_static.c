@@ -1,30 +1,30 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-static int fred = 1234;
-static int joe;
+स्थिर पूर्णांक fred = 1234;
+स्थिर पूर्णांक joe;
 
-void henry()
+शून्य henry()
 {
-   static int fred = 4567;
+   स्थिर पूर्णांक fred = 4567;
 
-   printf("%d\n", fred);
+   म_लिखो("%d\n", fred);
    fred++;
 }
 
-int main()
+पूर्णांक main()
 {
-   printf("%d\n", fred);
+   म_लिखो("%d\n", fred);
    henry();
    henry();
    henry();
    henry();
-   printf("%d\n", fred);
+   म_लिखो("%d\n", fred);
    fred = 8901;
    joe = 2345;
-   printf("%d\n", fred);
-   printf("%d\n", joe);
+   म_लिखो("%d\n", fred);
+   म_लिखो("%d\n", joe);
 
-   return 0;
+   परत 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

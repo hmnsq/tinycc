@@ -1,77 +1,77 @@
-int printf(const char*, ...);
+पूर्णांक म_लिखो(स्थिरांक अक्षर*, ...);
 
-#if defined test_56_btype_excess_1
-struct A {} int i;
-#elif defined test_57_btype_excess_2
-char int i;
-#elif defined test_58_function_redefinition
-int f(void) { return 0; }
-int f(void) { return 1; }
+#जर defined test_56_btype_excess_1
+संरचना A {} पूर्णांक i;
+#किंवाजर defined test_57_btype_excess_2
+अक्षर पूर्णांक i;
+#किंवाजर defined test_58_function_redefinition
+पूर्णांक f(शून्य) { परत 0; }
+पूर्णांक f(शून्य) { परत 1; }
 
-#elif defined test_global_redefinition
-int xxx = 1;
-int xxx;
-int xxx = 2;
+#किंवाजर defined test_global_redefinition
+पूर्णांक xxx = 1;
+पूर्णांक xxx;
+पूर्णांक xxx = 2;
 
-#elif defined test_59_function_array
-int (*fct)[42](int x);
+#किंवाजर defined test_59_function_array
+पूर्णांक (*fct)[42](पूर्णांक x);
 
-#elif defined test_60_enum_redefinition
-enum color { RED, GREEN, BLUE };
-enum color { R, G, B };
-enum color c;
+#किंवाजर defined test_60_enum_redefinition
+गणना color { RED, GREEN, BLUE };
+गणना color { R, G, B };
+गणना color c;
 
-#elif defined test_62_enumerator_redefinition
-enum color { RED, GREEN, BLUE };
-enum rgb { RED, G, B};
-enum color c = RED;
+#किंवाजर defined test_62_enumerator_redefinition
+गणना color { RED, GREEN, BLUE };
+गणना rgb { RED, G, B};
+गणना color c = RED;
 
-#elif defined test_63_local_enumerator_redefinition
-enum {
+#किंवाजर defined test_63_local_enumerator_redefinition
+गणना {
     FOO,
     BAR
 };
 
-int main(void)
+पूर्णांक main(शून्य)
 {
-    enum {
+    गणना {
         FOO = 2,
         BAR
     };
 
-    return BAR - FOO;
+    परत BAR - FOO;
 }
 
-#elif defined test_61_undefined_enum
-enum rgb3 c = 42;
+#किंवाजर defined test_61_undefined_enum
+गणना rgb3 c = 42;
 
-#elif defined test_74_non_const_init
-int i = i++;
+#किंवाजर defined test_74_non_const_init
+पूर्णांक i = i++;
 
-#elif defined test_pointer_assignment
+#किंवाजर defined test_pointer_assignment
 
-void (*f1)(void);
-void f2(void) {}
+शून्य (*f1)(शून्य);
+शून्य f2(शून्य) {}
 
-struct s1 *ps1;
-struct s2 *ps2;
+संरचना s1 *ps1;
+संरचना s2 *ps2;
 
-void *v1, **v2, ***v3;
+शून्य *v1, **v2, ***v3;
 
-enum e1 { a = 4 } e10, *e11, *e12;
-enum e2 { b = -4 } e20, *e21;
-enum e3 { c = 5000000000LL } e30;
+गणना e1 { a = 4 } e10, *e11, *e12;
+गणना e2 { b = -4 } e20, *e21;
+गणना e3 { c = 5000000000LL } e30;
 
-int *ip;
-unsigned int *up;
-long *lp;
-long long *llp;
+पूर्णांक *ip;
+अचिन्हित पूर्णांक *up;
+दीर्घ *lp;
+दीर्घ दीर्घ *llp;
 
-char **c1;
-char const **c2;
-unsigned char **u1;
+अक्षर **c1;
+अक्षर स्थिरांक **c2;
+अचिन्हित अक्षर **u1;
 
-int no_main ()
+पूर्णांक no_main ()
 {
     // function
     f1 = f2;
@@ -108,570 +108,570 @@ int no_main ()
     *c2 = *c1;
     **c2 = **c1;
 
-    return 0;
+    परत 0;
 }
 
 
-#elif defined test_enum_compat
-enum e4;
-enum e5;
-void f3(enum e4 e);
-void f3(enum e5 e);
+#किंवाजर defined test_enum_compat
+गणना e4;
+गणना e5;
+शून्य f3(गणना e4 e);
+शून्य f3(गणना e5 e);
 
-#elif defined test_enum_compat_2
-enum e6 { E1 = -1, E0 };
-void f3(enum e6);
-void f3(int);        // should work as int and e6 are compatible
-void f4(enum e6 e);
-void f4(unsigned e); // should error as unsigned and e6 are incompatible
+#किंवाजर defined test_enum_compat_2
+गणना e6 { E1 = -1, E0 };
+शून्य f3(गणना e6);
+शून्य f3(पूर्णांक);        // should work as int and e6 are compatible
+शून्य f4(गणना e6 e);
+शून्य f4(अचिन्हित e); // should error as unsigned and e6 are incompatible
 
-#elif defined test_ptr_to_str
-void f() { _Generic((int const *[]){0}, int:0); }
-#elif defined test_fnptr_to_str
-void f() { _Generic((int (*(*)(float,char))(double,int)){0}, int:0); }
-#elif defined test_array_to_str
-void f() { _Generic((int(*)[3]){0}, int:0); }
-#elif defined test_duplicate_def_1
-static enum myenum { L = -1 } L;                                                
-#elif defined test_duplicate_def_2
-void foo(void) {
-static enum myenum { L = -1 } L;                                                
+#किंवाजर defined test_ptr_to_str
+शून्य f() { _Generic((पूर्णांक स्थिरांक *[]){0}, पूर्णांक:0); }
+#किंवाजर defined test_fnptr_to_str
+शून्य f() { _Generic((पूर्णांक (*(*)(दशांश,अक्षर))(द्विगुण,पूर्णांक)){0}, पूर्णांक:0); }
+#किंवाजर defined test_array_to_str
+शून्य f() { _Generic((पूर्णांक(*)[3]){0}, पूर्णांक:0); }
+#किंवाजर defined test_duplicate_def_1
+स्थिर गणना myenum { L = -1 } L;                                                
+#किंवाजर defined test_duplicate_def_2
+शून्य foo(शून्य) {
+स्थिर गणना myenum { L = -1 } L;                                                
 }
-#elif defined test_abstract_decls
-int bar(const char *());     // abstract declarator here is okay
-int bar (const char *(*g)()) // should match this 'g' argument
+#किंवाजर defined test_abstract_decls
+पूर्णांक bar(स्थिरांक अक्षर *());     // abstract declarator here is okay
+पूर्णांक bar (स्थिरांक अक्षर *(*g)()) // should match this 'g' argument
 {
   g();
-  return 42;
+  परत 42;
 }
-int foo(int ())              // abstract decl is wrong in definitions
+पूर्णांक foo(पूर्णांक ())              // abstract decl is wrong in definitions
 {
-  return 0;
-#elif defined test_invalid_1
-void f(char*);
-void g(void) {
-  f((char[]){1, ,});
+  परत 0;
+#किंवाजर defined test_invalid_1
+शून्य f(अक्षर*);
+शून्य g(शून्य) {
+  f((अक्षर[]){1, ,});
 }
-#elif defined test_invalid_2
-int ga = 0.42 { 2 };
-#elif defined test_invalid_3
-struct S { int a, b; };
-struct T { struct S x; };
-struct T gt = { 42 a: 1, 43 };
-#elif defined test_invalid_4
-enum E {
+#किंवाजर defined test_invalid_2
+पूर्णांक ga = 0.42 { 2 };
+#किंवाजर defined test_invalid_3
+संरचना S { पूर्णांक a, b; };
+संरचना T { संरचना S x; };
+संरचना T gt = { 42 a: 1, 43 };
+#किंवाजर defined test_invalid_4
+गणना E {
     x = 1 / 0
 };
-#elif defined test_conflicting_types
-int i;
-void foo(void) {
-    int i;
+#किंवाजर defined test_conflicting_types
+पूर्णांक i;
+शून्य foo(शून्य) {
+    पूर्णांक i;
       {
-        extern double i;
+        बाह्य द्विगुण i;
         i = 42.2;
       }
 }
-#elif defined test_nested_types
-union u {
-    union u {
-        int i;
+#किंवाजर defined test_nested_types
+संघ u {
+    संघ u {
+        पूर्णांक i;
     } m;
 };
-#elif defined test_vla_1
-int X=1;
+#किंवाजर defined test_vla_1
+पूर्णांक X=1;
 
-int main(void) {
-  int t[][][X];
+पूर्णांक main(शून्य) {
+  पूर्णांक t[][][X];
 }
-#elif defined test_invalid_alignas
+#किंवाजर defined test_invalid_alignas
 /* _Alignas is no type qualifier */
-void * _Alignas(16) p1;
+शून्य * _Alignas(16) p1;
 
-#elif defined test_static_assert
+#किंवाजर defined test_static_assert
 
 #define ONE 0
  _Static_assert(ONE == 0, "don't show me this");
- struct x{ _Static_assert(ONE == 1, "ONE is not 1"); };
+ संरचना x{ _Static_assert(ONE == 1, "ONE is not 1"); };
 
-#elif defined test_static_assert_2
+#किंवाजर defined test_static_assert_2
  _Static_assert(1, "1"" is 1");
-struct y {  _Static_assert(0, "0"" is 0"); };
+संरचना y {  _Static_assert(0, "0"" is 0"); };
 
-#elif defined test_static_assert_c2x
+#किंवाजर defined test_static_assert_c2x
  _Static_assert(1);
-struct z {  _Static_assert(0); }
+संरचना z {  _Static_assert(0); }
 
-#elif defined test_static_assert_empty_string
+#किंवाजर defined test_static_assert_empty_string
  _Static_assert(0,"");
 
-#elif defined test_void_array
- void t[3];
+#किंवाजर defined test_void_array
+ शून्य t[3];
 
-#elif defined test_incomplete_enum_array
-  enum e t[3];
+#किंवाजर defined test_incomplete_enum_array
+  गणना e t[3];
 
-#elif defined test_incomplete_struct_array
-  struct s t[3];
+#किंवाजर defined test_incomplete_struct_array
+  संरचना s t[3];
 
-#elif defined test_const_fun_array
-  typedef void f(void);
-  const f t[3];
+#किंवाजर defined test_const_fun_array
+  प्रकारव्याख्या शून्य f(शून्य);
+  स्थिरांक f t[3];
 
-#elif defined test_incomplete_array_array
-  int t[][3]; // gr: not an error, see below
-
-/******************************************************************/
-#elif defined test_extern_array
-int iii[] = { 1,2,3 };
-extern int iii[];
-int x[];
-int x[2];
-int x[];
-int x[2];
-int x[];
-extern int x[2];
-extern int x[];
-int x[3];
+#किंवाजर defined test_incomplete_array_array
+  पूर्णांक t[][3]; // gr: not an error, see below
 
 /******************************************************************/
-#elif defined test_func_1 \
+#किंवाजर defined test_extern_array
+पूर्णांक iii[] = { 1,2,3 };
+बाह्य पूर्णांक iii[];
+पूर्णांक x[];
+पूर्णांक x[2];
+पूर्णांक x[];
+पूर्णांक x[2];
+पूर्णांक x[];
+बाह्य पूर्णांक x[2];
+बाह्य पूर्णांक x[];
+पूर्णांक x[3];
+
+/******************************************************************/
+#किंवाजर defined test_func_1 \
  || defined test_func_2 \
  || defined test_func_3 \
  || defined test_func_4 \
  || defined test_func_5 \
  || defined test_func_6
-#if defined test_func_1
-int hello(int);
-#elif defined test_func_4
-static int hello(int);
+#जर defined test_func_1
+पूर्णांक hello(पूर्णांक);
+#किंवाजर defined test_func_4
+स्थिर पूर्णांक hello(पूर्णांक);
 #endif
-int main () {
-#if defined test_func_6
-    static
+पूर्णांक main () {
+#जर defined test_func_6
+    स्थिर
 #endif
-    int hello(int);
+    पूर्णांक hello(पूर्णांक);
     hello(123);
-    return 0;
+    परत 0;
 }
 
-#if defined test_func_3
-static int hello(int a)
-#elif defined test_func_5
-int hello(int a, int b)
-#else
-int hello(int a)
+#जर defined test_func_3
+स्थिर पूर्णांक hello(पूर्णांक a)
+#किंवाजर defined test_func_5
+पूर्णांक hello(पूर्णांक a, पूर्णांक b)
+#अन्यथा
+पूर्णांक hello(पूर्णांक a)
 #endif
-{ printf("%s: a = %d\n", __FUNCTION__, a); return 0; }
+{ म_लिखो("%s: a = %d\n", __FUNCTION__, a); परत 0; }
 
 /******************************************************************/
-#elif defined test_var_1 \
+#किंवाजर defined test_var_1 \
    || defined test_var_2 \
    || defined test_var_3
-#define P(n,v) printf("%-5s: %d ; %d\n", __FUNCTION__, n, v)
-#if defined test_var_1
-int xxx[];
+#define P(n,v) म_लिखो("%-5s: %d ; %d\n", __FUNCTION__, n, v)
+#जर defined test_var_1
+पूर्णांक xxx[];
 #endif
-int bar();
+पूर्णांक bar();
 
-int main ()
+पूर्णांक main ()
 {
-#if !defined test_var_3
-    int xxx = 2;
+#जर !defined test_var_3
+    पूर्णांक xxx = 2;
 #endif
     {
-        extern int xxx[
-#if defined test_var_3
+        बाह्य पूर्णांक xxx[
+#जर defined test_var_3
         2
 #endif
         ];
         P(1, xxx[0]);
         xxx[0] += 2;
     }
-#if !defined test_var_3
+#जर !defined test_var_3
     P(2, xxx);
 #endif
     bar(123);
-    return 0;
+    परत 0;
 }
-int xxx[1] = {1};
-int bar() { P(3, xxx[0]); return 0; }
+पूर्णांक xxx[1] = {1};
+पूर्णांक bar() { P(3, xxx[0]); परत 0; }
 
-#elif defined test_var_4
-struct yyy { int y; };
-struct zzz;
-void f1() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+#किंवाजर defined test_var_4
+संरचना yyy { पूर्णांक y; };
+संरचना zzz;
+शून्य f1() {
+    बाह्य अक्षर *x;
+    बाह्य अक्षर **xx;
+    बाह्य संरचना yyy y;
+    बाह्य संरचना yyy *yy;
+    बाह्य संरचना zzz z;
+    बाह्य संरचना zzz *zz;
 }
-void f2() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+शून्य f2() {
+    बाह्य अक्षर *x;
+    बाह्य अक्षर **xx;
+    बाह्य संरचना yyy y;
+    बाह्य संरचना yyy *yy;
+    बाह्य संरचना zzz z;
+    बाह्य संरचना zzz *zz;
 }
-struct yyy y, *yy;
-struct zzz { int z; } z, *zz;
+संरचना yyy y, *yy;
+संरचना zzz { पूर्णांक z; } z, *zz;
 
 /******************************************************************/
-#elif defined test_long_double_type_for_win32
+#किंवाजर defined test_long_double_type_for_win32
 
-int main()
+पूर्णांक main()
 {
-    double *a = 0;
-    long double *b = a;
-    int n = _Generic(*a, double:0, long double:1);
+    द्विगुण *a = 0;
+    दीर्घ द्विगुण *b = a;
+    पूर्णांक n = _Generic(*a, द्विगुण:0, दीर्घ द्विगुण:1);
 }
 
-#elif defined test_stray_backslash
+#किंवाजर defined test_stray_backslash
 #define x \a
 x
 
-#elif defined test_stray_backslash2
+#किंवाजर defined test_stray_backslash2
 
-int main()
+पूर्णांक main()
 {
 #define _S(x) #x
 #define S(x) _S(x)
-    printf("%sn\n", S(\\));
+    म_लिखो("%sn\n", S(\\));
 }
 
 /******************************************************************/
-#elif defined test_var_array
+#किंवाजर defined test_var_array
 
-static struct var_len { int i; const char str[]; } var_array[] =
+स्थिर संरचना var_len { पूर्णांक i; स्थिरांक अक्षर str[]; } var_array[] =
 { { 1, "abcdefghijklmnopqrstuvwxyz" },
   { 2, "longlonglonglonglong" },
   { 3, "tst3" } };
 
-#elif defined test_var_array2
+#किंवाजर defined test_var_array2
 
-struct c1 { int a; int b[]; };
-struct c1 c1 = { 1, { 2, 3, 4 } };
+संरचना c1 { पूर्णांक a; पूर्णांक b[]; };
+संरचना c1 c1 = { 1, { 2, 3, 4 } };
 
-struct c2 { int c; struct c1 c1; };
-struct c2 c2 = { 1, { 2, { 3, 4, 5 }}};
+संरचना c2 { पूर्णांक c; संरचना c1 c1; };
+संरचना c2 c2 = { 1, { 2, { 3, 4, 5 }}};
 
-#elif defined test_var_array3
+#किंवाजर defined test_var_array3
 /* similar to test_var_array2 but with string initializers */
-struct A { int a; char b[]; };
-struct A a = { 1, "1" };
-struct B { struct A a; };
-struct B b = { { 1, "1" } };
+संरचना A { पूर्णांक a; अक्षर b[]; };
+संरचना A a = { 1, "1" };
+संरचना B { संरचना A a; };
+संरचना B b = { { 1, "1" } };
 /******************************************************************/
-#elif defined test_default_int_type
+#किंवाजर defined test_default_int_type
 n; // warn
 f(); // don't warn
 
-#elif defined test_invalid_global_stmtexpr
-n[sizeof({3;})]; // crashed in block() due to missing local scope
+#किंवाजर defined test_invalid_global_stmtexpr
+n[आकार({3;})]; // crashed in block() due to missing local scope
 
-#elif defined test_invalid_tokckill
+#किंवाजर defined test_invalid_tokckill
 f(){"12"3;} // second const token killed the value of the first
 
 /******************************************************************/
-#elif defined test_duplicate_member
-struct S {
-  int a, a;
+#किंवाजर defined test_duplicate_member
+संरचना S {
+  पूर्णांक a, a;
 };
-#elif defined test_duplicate_member_anon
-struct S1 {
-  int b;
-  struct {
-    int b;
+#किंवाजर defined test_duplicate_member_anon
+संरचना S1 {
+  पूर्णांक b;
+  संरचना {
+    पूर्णांक b;
   } c;
 };
-struct S2 {
-  int d;
-  struct {
-    int d;
+संरचना S2 {
+  पूर्णांक d;
+  संरचना {
+    पूर्णांक d;
   };
 };
 
 /******************************************************************/
-#elif defined test_conflicting_array_definition
-extern int array[2];
-int array[] = { 1, 2, 3 };
+#किंवाजर defined test_conflicting_array_definition
+बाह्य पूर्णांक array[2];
+पूर्णांक array[] = { 1, 2, 3 };
 
-#elif defined test_incompatible_local_redef
-void foo (void)
+#किंवाजर defined test_incompatible_local_redef
+शून्य foo (शून्य)
 {
-  typedef int localfunctype (int);
-  extern localfunctype func2;
-  typedef void localfunctype (int, int);
+  प्रकारव्याख्या पूर्णांक localfunctype (पूर्णांक);
+  बाह्य localfunctype func2;
+  प्रकारव्याख्या शून्य localfunctype (पूर्णांक, पूर्णांक);
 }
 
-#elif defined test_cast_from_void
-void v() {}
-int f() { return v(); }
+#किंवाजर defined test_cast_from_void
+शून्य v() {}
+पूर्णांक f() { परत v(); }
 
-#elif defined test_switch_W1 || defined test_switch_W2 \
+#किंवाजर defined test_switch_W1 || defined test_switch_W2 \
    || defined test_switch_W3 || defined test_switch_W4
-#if defined test_switch_W1
+#जर defined test_switch_W1
 #pragma comment(option, "-Wall")
-#elif defined test_switch_W2
+#किंवाजर defined test_switch_W2
 #pragma comment(option, "-Wunsupported -Wno-implicit-function-declaration -Wstuff")
-#elif defined test_switch_W3
+#किंवाजर defined test_switch_W3
 #pragma comment(option, "-Wwrite-strings -Werror=discarded-qualifiers")
-#elif defined test_switch_W4
+#किंवाजर defined test_switch_W4
 #pragma comment(option, "-Wunsupported -Wno-error=implicit-function-declaration -Werror")
 #endif
-void func(void)
+शून्य func(शून्य)
 {
-    char *ccp = "123";
+    अक्षर *ccp = "123";
     fink();
 }
-__attribute__((stuff)) int fink() {return 0;}
+__attribute__((stuff)) पूर्णांक fink() {परत 0;}
 
-#elif defined test_invalid_funcparam_1
-void func(int a, int b, int a);
+#किंवाजर defined test_invalid_funcparam_1
+शून्य func(पूर्णांक a, पूर्णांक b, पूर्णांक a);
 
-#elif defined test_invalid_funcparam_2
-void func(int a, int if);
+#किंवाजर defined test_invalid_funcparam_2
+शून्य func(पूर्णांक a, पूर्णांक जर);
 
-#elif defined test_array_funcparam
-int amain(int argc, char *argv[static argc + 1])
+#किंवाजर defined test_array_funcparam
+पूर्णांक amain(पूर्णांक argc, अक्षर *argv[स्थिर argc + 1])
 {
-    int i;
+    पूर्णांक i;
 
-    for (i = 0; i < argc; ++i)
-        printf("arg[%d] = \"%s\"\n", i, argv[i]);
-    return 0;
+    साठी (i = 0; i < argc; ++i)
+        म_लिखो("arg[%d] = \"%s\"\n", i, argv[i]);
+    परत 0;
 }
-int main()
+पूर्णांक main()
 {
-    return amain(2, (char *[]){ "X", "Y", 0 });
+    परत amain(2, (अक्षर *[]){ "X", "Y", 0 });
 }
 
-#elif defined test_return_from_statement_expr
-int f() { ({ return 78; }); }
-int main() { return f(); }
+#किंवाजर defined test_return_from_statement_अभिव्यक्ती
+पूर्णांक f() { ({ परत 78; }); }
+पूर्णांक main() { परत f(); }
 
 /******************************************************************/
 
-#elif defined test_illegal_unicode
-int main() {
-    char *str = "\Uffffffff";
+#किंवाजर defined test_illegal_unicode
+पूर्णांक main() {
+    अक्षर *str = "\Uffffffff";
 }
 
-#elif defined test_error_string
+#किंवाजर defined test_error_string
 #error \123\\
 456
 
-#elif defined test_error_incomplete_type
-struct A;
-void f(struct A *);
+#किंवाजर defined test_error_incomplete_type
+संरचना A;
+शून्य f(संरचना A *);
 
-int main()
+पूर्णांक main()
 {
-    f(&(struct A){});
+    f(&(संरचना A){});
 }
 
-struct A {
-    int x;
+संरचना A {
+    पूर्णांक x;
 };
 
-#elif defined test_pp_error_1
-# if //no expression
+#किंवाजर defined test_pp_error_1
+# जर //no expression
 # endif
-#elif defined test_pp_error_2
-# if X(1,2) //undefined function macro
+#किंवाजर defined test_pp_error_2
+# जर X(1,2) //undefined function macro
 # endif
 
-#elif defined test_pointer_plus_double
+#किंवाजर defined test_pointer_plus_double
 
-int *invalid_operation(int *p, double d)
+पूर्णांक *invalid_operation(पूर्णांक *p, द्विगुण d)
 {
-    return p + d;
+    परत p + d;
 }
 
-#elif defined test_duplicate_case
+#किंवाजर defined test_duplicate_case
 
-int main()
+पूर्णांक main()
 {
-    unsigned int x;
-    switch (x) {
-        case -1 ... 0: /* empty case range with unsigned */
-        case 3:
-        case 1:
-        case 2:
-        case 3: /* show this line number in error */
-        case 4:
-        case 5:
+    अचिन्हित पूर्णांक x;
+    निवड (x) {
+        स्थिती -1 ... 0: /* empty case range with unsigned */
+        स्थिती 3:
+        स्थिती 1:
+        स्थिती 2:
+        स्थिती 3: /* show this line number in error */
+        स्थिती 4:
+        स्थिती 5:
     }
 }
-#elif defined test_normal_funcargs || defined test_reverse_funcargs
+#किंवाजर defined test_normal_funcargs || defined test_reverse_funcargs
 
 #ifdef test_reverse_funcargs
 # pragma comment(option, "-freverse-funcargs")
 #endif
 
-int main()
+पूर्णांक main()
 {
-    printf(" %d %d %d\n", printf("1"), printf("22"), printf("333"));
+    म_लिखो(" %d %d %d\n", म_लिखो("1"), म_लिखो("22"), म_लिखो("333"));
 }
 
-#elif defined test_scope_1 \
+#किंवाजर defined test_scope_1 \
    || defined test_scope_2 \
    || defined test_scope_3
 
-struct xxx {int x[4];};
+संरचना xxx {पूर्णांक x[4];};
 
 /* 'ee' not defined outside of function, 'i' not redefined */
-int bar(enum ee { a = 12, b = 34 } i, int(*f)(int i))
+पूर्णांक bar(गणना ee { a = 12, b = 34 } i, पूर्णांक(*f)(पूर्णांक i))
 {
-    printf("bar %d %d %d\n", i, a, b);
-    return 0;
+    म_लिखो("bar %d %d %d\n", i, a, b);
+    परत 0;
 }
 /* 'xxx' not defined outside of function */
-int foo(struct xxx {int x[3];}*p)
+पूर्णांक foo(संरचना xxx {पूर्णांक x[3];}*p)
 {
-    printf("foo %d", sizeof *p);
-    return p->x[3];
+    म_लिखो("foo %d", आकार *p);
+    परत p->x[3];
 }
 #ifdef test_scope_2
 /* incompatible redefinition */
-int foo(struct xxx {int x[2];}*p);
+पूर्णांक foo(संरचना xxx {पूर्णांक x[2];}*p);
 #endif
 #ifndef test_scope_3
-enum ee { a = 1, b };
+गणना ee { a = 1, b };
 #endif
 
-struct xxx x = { 11,22,33,44 };
-int main(int argc, char **argv)
+संरचना xxx x = { 11,22,33,44 };
+पूर्णांक main(पूर्णांक argc, अक्षर **argv)
 {
-    printf(" %d %d\n", foo(&x), sizeof (struct xxx));
-    enum ee e = b;
+    म_लिखो(" %d %d\n", foo(&x), आकार (संरचना xxx));
+    गणना ee e = b;
     bar(13 + e, 0);
 
 }
 
-#elif defined test_const_array_member_addr_ok
+#किंवाजर defined test_const_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+प्रकारव्याख्या पूर्णांक int_array[1];
+प्रकारव्याख्या संरचना { int_array arr; } my_struct;
 
-int_array const *get_array(const my_struct *s)
+int_array स्थिरांक *get_array(स्थिरांक my_struct *s)
 {
-    return &(s->arr);
+    परत &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_ok
+#किंवाजर defined test_const_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+प्रकारव्याख्या पूर्णांक int_array[1];
+प्रकारव्याख्या संरचना { int_array arr; } my_struct;
 
-const int *good_decay(const my_struct *s)
+स्थिरांक पूर्णांक *good_decay(स्थिरांक my_struct *s)
 {
-    return s->arr;
+    परत s->arr;
 }
 
-#elif defined test_const_array_member_addr_bad
+#किंवाजर defined test_const_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+प्रकारव्याख्या पूर्णांक int_array[1];
+प्रकारव्याख्या संरचना { int_array arr; } my_struct;
 
-int_array *bad_array_addr(const my_struct *s)
+int_array *bad_array_addr(स्थिरांक my_struct *s)
 {
-    return &(s->arr);
+    परत &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_bad
+#किंवाजर defined test_const_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+प्रकारव्याख्या पूर्णांक int_array[1];
+प्रकारव्याख्या संरचना { int_array arr; } my_struct;
 
-int *bad_decay(const my_struct *s)
+पूर्णांक *bad_decay(स्थिरांक my_struct *s)
 {
-    return s->arr;
+    परत s->arr;
 }
 
-#elif defined test_const_array_member_write_bad
+#किंवाजर defined test_const_array_member_write_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+प्रकारव्याख्या पूर्णांक int_array[1];
+प्रकारव्याख्या संरचना { int_array arr; } my_struct;
 
-void bad_write(const my_struct *s)
+शून्य bad_write(स्थिरांक my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_const_struct_array_member_write_bad
+#किंवाजर defined test_const_struct_array_member_write_bad
 
-typedef struct { int x; } inner;
-typedef struct { inner arr[1]; } outer;
+प्रकारव्याख्या संरचना { पूर्णांक x; } inner;
+प्रकारव्याख्या संरचना { inner arr[1]; } outer;
 
-void bad_inner_write(const outer *s)
+शून्य bad_inner_write(स्थिरांक outer *s)
 {
     s->arr[0].x = 1;
 }
 
-#elif defined test_volatile_array_member_addr_ok
+#किंवाजर defined test_volatile_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+प्रकारव्याख्या पूर्णांक int_array[1];
+प्रकारव्याख्या संरचना { int_array arr; } my_struct;
 
-int_array volatile *get_volatile_array(volatile my_struct *s)
+int_array अस्थिर *get_volatile_array(अस्थिर my_struct *s)
 {
-    return &(s->arr);
+    परत &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_ok
+#किंवाजर defined test_volatile_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+प्रकारव्याख्या पूर्णांक int_array[1];
+प्रकारव्याख्या संरचना { int_array arr; } my_struct;
 
-volatile int *good_volatile_decay(volatile my_struct *s)
+अस्थिर पूर्णांक *good_volatile_decay(अस्थिर my_struct *s)
 {
-    return s->arr;
+    परत s->arr;
 }
 
-#elif defined test_volatile_array_member_addr_bad
+#किंवाजर defined test_volatile_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+प्रकारव्याख्या पूर्णांक int_array[1];
+प्रकारव्याख्या संरचना { int_array arr; } my_struct;
 
-int_array *bad_volatile_array_addr(volatile my_struct *s)
+int_array *bad_volatile_array_addr(अस्थिर my_struct *s)
 {
-    return &(s->arr);
+    परत &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_bad
+#किंवाजर defined test_volatile_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+प्रकारव्याख्या पूर्णांक int_array[1];
+प्रकारव्याख्या संरचना { int_array arr; } my_struct;
 
-int *bad_volatile_decay(volatile my_struct *s)
+पूर्णांक *bad_volatile_decay(अस्थिर my_struct *s)
 {
-    return s->arr;
+    परत s->arr;
 }
 
-#elif defined test_volatile_array_member_write_ok
+#किंवाजर defined test_volatile_array_member_write_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+प्रकारव्याख्या पूर्णांक int_array[1];
+प्रकारव्याख्या संरचना { int_array arr; } my_struct;
 
-void good_volatile_write(volatile my_struct *s)
+शून्य good_volatile_write(अस्थिर my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_conditional_array_qualifiers
+#किंवाजर defined test_conditional_array_qualifiers
 
-typedef int Array2[2];
-typedef int Array2x3[2][3];
+प्रकारव्याख्या पूर्णांक Array2[2];
+प्रकारव्याख्या पूर्णांक Array2x3[2][3];
 
 Array2 *p;
-const Array2 *cp;
-const Array2x3 *cap;
-volatile Array2x3 *vap;
+स्थिरांक Array2 *cp;
+स्थिरांक Array2x3 *cap;
+अस्थिर Array2x3 *vap;
 
-void test(void)
+शून्य test(शून्य)
 {
     (1 ? p : cp)[0][0] = 1;
     (1 ? cp : p)[0][0] = 2;
@@ -679,22 +679,22 @@ void test(void)
     (1 ? vap : cap)[0][0][0] = 4;
 }
 
-#elif defined test_restrict_scalar
+#किंवाजर defined test_restrict_scalar
 
-restrict int object;
+restrict पूर्णांक object;
 
-#elif defined test_restrict_function_pointer
+#किंवाजर defined test_restrict_function_pointer
 
-int (*restrict function_pointer)(void);
+पूर्णांक (*restrict function_pointer)(शून्य);
 
-#elif defined test_discarded_restrict
+#किंवाजर defined test_discarded_restrict
 
-typedef int *restrict restricted_pointer;
+प्रकारव्याख्या पूर्णांक *restrict restricted_pointer;
 
 restricted_pointer *source;
-int **destination;
+पूर्णांक **destination;
 
-void test(void)
+शून्य test(शून्य)
 {
     destination = source;
 }

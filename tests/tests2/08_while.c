@@ -1,24 +1,24 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णांक main()
 {
-   int a;
-   int p;
-   int t;
+   पूर्णांक a;
+   पूर्णांक p;
+   पूर्णांक t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   while (a < 100)
+   पर्यंत (a < 100)
    {
-      printf("%d\n", a);
+      म_लिखो("%d\n", a);
       t = a;
       a = t + p;
       p = t;
    }
 
-   return 0;
+   परत 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

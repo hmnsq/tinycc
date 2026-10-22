@@ -1,40 +1,40 @@
-typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
-extern size_t strlen(const char*);
-char str[] = "blabla";
-int g;
-int main()
+प्रकारव्याख्या __SIZE_TYPE__ माप_प्रकार;
+बाह्य पूर्णांक म_लिखो(स्थिरांक अक्षर*, ...);
+बाह्य माप_प्रकार म_माप(स्थिरांक अक्षर*);
+अक्षर str[] = "blabla";
+पूर्णांक g;
+पूर्णांक main()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
-      char buf[strlen(str) + 10];
+  पूर्णांक i = 0;
+#जर 0
+  जर (g) {
+      अक्षर buf[म_माप(str) + 10];
       buf[0] = 0;
   }
 alabel:
-  printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
-      switch (i) {
-      case 10:
-          if (g) {
-              char buf[strlen(str) + 10];
+  म_लिखो("default: i = %d\n", i);
+#अन्यथा
+  साठी (i = 0; i < 5; i++) {
+      निवड (i) {
+      स्थिती 10:
+          जर (g) {
+              अक्षर buf[म_माप(str) + 10];
               buf[0] = 0;
-              goto do_cmd;
+              जा do_cmd;
           }
-          break;
-      case 1:
-          printf("reached 3\n");
+          थांबा;
+      स्थिती 1:
+          म_लिखो("reached 3\n");
     do_cmd:
-          printf("after do_cmd");
-          break;
-      default:
+          म_लिखो("after do_cmd");
+          थांबा;
+      पूर्वनिर्धारित:
           g++;
-          printf("default: i = %d\n", i);
-          break;
+          म_लिखो("default: i = %d\n", i);
+          थांबा;
       }
   }
 #endif
-  return 0;
+  परत 0;
 }

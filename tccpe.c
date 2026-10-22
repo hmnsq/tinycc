@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "tcc.h"
+#अन्तर्भाव "tcc.h"
 
 #define PE_MERGE_DATA 1
 #define PE_PRINT_SECTIONS 0
@@ -26,10 +26,10 @@
 #ifndef _WIN32
 #define stricmp strcasecmp
 #define strnicmp strncasecmp
-#include <sys/stat.h> /* chmod() */
+#अन्तर्भाव <sys/stat.h> /* chmod() */
 #endif
 
-#if defined TCC_TARGET_X86_64
+#जर defined TCC_TARGET_X86_64
 # define REL_TYPE_DIRECT R_X86_64_64
 # define R_XXX_THUNKFIX R_X86_64_PC32
 # define R_XXX_RELATIVE R_X86_64_RELATIVE
@@ -43,7 +43,7 @@
 # define DLLCHARACTERISTICS 0
 # define OS_VER 0x0400
 
-#elif defined TCC_TARGET_ARM
+#किंवाजर defined TCC_TARGET_ARM
 # define REL_TYPE_DIRECT R_ARM_ABS32
 # define R_XXX_THUNKFIX R_ARM_ABS32
 # define R_XXX_RELATIVE R_ARM_RELATIVE
@@ -58,7 +58,7 @@
 # define DLLCHARACTERISTICS 0
 # define OS_VER 0x0400
 
-#elif defined TCC_TARGET_ARM64
+#किंवाजर defined TCC_TARGET_ARM64
 # define REL_TYPE_DIRECT R_AARCH64_ABS64
 # define R_XXX_THUNKFIX R_AARCH64_ABS64
 # define R_XXX_RELATIVE R_AARCH64_RELATIVE
@@ -72,7 +72,7 @@
 # define OS_VER 0x0602
 # define DLLCHARACTERISTICS 0x8160
 
-#elif defined TCC_TARGET_I386
+#किंवाजर defined TCC_TARGET_I386
 # define REL_TYPE_DIRECT R_386_32
 # define R_XXX_THUNKFIX R_386_32
 # define R_XXX_RELATIVE R_386_RELATIVE
@@ -87,11 +87,11 @@
 # define DLLCHARACTERISTICS 0
 #endif
 
-#if PTR_SIZE == 8
+#जर PTR_SIZE == 8
 # define ADDR3264 ULONGLONG
 # define PE_MAGIC 0x020B
 # define PE_IMAGE_REL IMAGE_REL_BASED_DIR64
-#else
+#अन्यथा
 # define ADDR3264 DWORD
 # define PE_MAGIC 0x010B
 # define PE_IMAGE_REL IMAGE_REL_BASED_HIGHLOW
@@ -102,13 +102,13 @@
 /* ----------------------------------------------------------- */
 /* definitions below are from winnt.h */
 
-typedef unsigned char BYTE;
-typedef unsigned short WORD;
-typedef unsigned int DWORD;
-typedef unsigned long long ULONGLONG;
-#pragma pack(push, 1)
+प्रकारव्याख्या अचिन्हित अक्षर BYTE;
+प्रकारव्याख्या अचिन्हित लघु WORD;
+प्रकारव्याख्या अचिन्हित पूर्णांक DWORD;
+प्रकारव्याख्या अचिन्हित दीर्घ दीर्घ ULONGLONG;
+#pragma pack(ढकला, 1)
 
-typedef struct _IMAGE_DOS_HEADER {  /* DOS .EXE header */
+प्रकारव्याख्या संरचना _IMAGE_DOS_HEADER {  /* DOS .EXE header */
     WORD e_magic;         /* Magic number */
     WORD e_cblp;          /* Bytes on last page of file */
     WORD e_cp;            /* Pages in file */
@@ -132,12 +132,12 @@ typedef struct _IMAGE_DOS_HEADER {  /* DOS .EXE header */
 
 #define IMAGE_NT_SIGNATURE  0x00004550  /* PE00 */
 
-typedef struct _IMAGE_FILE_HEADER {
+प्रकारव्याख्या संरचना _IMAGE_FILE_HEADER {
     WORD    Machine;
-    WORD    NumberOfSections;
+    WORD    संख्या_Of_Sections;
     DWORD   TimeDateStamp;
-    DWORD   PointerToSymbolTable;
-    DWORD   NumberOfSymbols;
+    DWORD   Pointer_To_चिन्ह_Table;
+    DWORD   संख्या_Of_Symbols;
     WORD    SizeOfOptionalHeader;
     WORD    Characteristics;
 } IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
@@ -145,13 +145,13 @@ typedef struct _IMAGE_FILE_HEADER {
 
 #define IMAGE_SIZEOF_FILE_HEADER 20
 
-typedef struct _IMAGE_DATA_DIRECTORY {
+प्रकारव्याख्या संरचना _IMAGE_DATA_DIRECTORY {
     DWORD   VirtualAddress;
     DWORD   Size;
 } IMAGE_DATA_DIRECTORY, *PIMAGE_DATA_DIRECTORY;
 
 
-typedef struct _IMAGE_OPTIONAL_HEADER {
+प्रकारव्याख्या संरचना _IMAGE_OPTIONAL_HEADER {
     /* Standard fields. */
     WORD    Magic;
     BYTE    MajorLinkerVersion;
@@ -161,7 +161,7 @@ typedef struct _IMAGE_OPTIONAL_HEADER {
     DWORD   SizeOfUninitializedData;
     DWORD   AddressOfEntryPoint;
     DWORD   BaseOfCode;
-#if PTR_SIZE == 4
+#जर PTR_SIZE == 4
     DWORD   BaseOfData;
 #endif
     /* NT additional fields. */
@@ -174,18 +174,18 @@ typedef struct _IMAGE_OPTIONAL_HEADER {
     WORD    MinorImageVersion;
     WORD    MajorSubsystemVersion;
     WORD    MinorSubsystemVersion;
-    DWORD   Win32VersionValue;
+    DWORD   Win32_Version_मूल्य;
     DWORD   SizeOfImage;
     DWORD   SizeOfHeaders;
     DWORD   CheckSum;
     WORD    Subsystem;
     WORD    DllCharacteristics;
-    ADDR3264 SizeOfStackReserve;
-    ADDR3264 SizeOfStackCommit;
+    ADDR3264 Size_Of_चळत_Reserve;
+    ADDR3264 Size_Of_चळत_Commit;
     ADDR3264 SizeOfHeapReserve;
     ADDR3264 SizeOfHeapCommit;
     DWORD   LoaderFlags;
-    DWORD   NumberOfRvaAndSizes;
+    DWORD   संख्या_Of_Rva_And_Sizes;
     IMAGE_DATA_DIRECTORY DataDirectory[16];
 } IMAGE_OPTIONAL_HEADER32, IMAGE_OPTIONAL_HEADER64, IMAGE_OPTIONAL_HEADER;
 
@@ -209,9 +209,9 @@ typedef struct _IMAGE_OPTIONAL_HEADER {
 /* Section header format. */
 #define IMAGE_SIZEOF_SHORT_NAME         8
 
-typedef struct _IMAGE_SECTION_HEADER {
+प्रकारव्याख्या संरचना _IMAGE_SECTION_HEADER {
     BYTE    Name[IMAGE_SIZEOF_SHORT_NAME];
-    union {
+    संघ {
             DWORD   PhysicalAddress;
             DWORD   VirtualSize;
     } Misc;
@@ -220,28 +220,28 @@ typedef struct _IMAGE_SECTION_HEADER {
     DWORD   PointerToRawData;
     DWORD   PointerToRelocations;
     DWORD   PointerToLinenumbers;
-    WORD    NumberOfRelocations;
-    WORD    NumberOfLinenumbers;
+    WORD    संख्या_Of_Relocations;
+    WORD    संख्या_Of_Linenumbers;
     DWORD   Characteristics;
 } IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
 
 #define IMAGE_SIZEOF_SECTION_HEADER     40
 
-typedef struct _IMAGE_EXPORT_DIRECTORY {
+प्रकारव्याख्या संरचना _IMAGE_EXPORT_DIRECTORY {
     DWORD Characteristics;
     DWORD TimeDateStamp;
     WORD MajorVersion;
     WORD MinorVersion;
     DWORD Name;
     DWORD Base;
-    DWORD NumberOfFunctions;
-    DWORD NumberOfNames;
+    DWORD संख्या_Of_Functions;
+    DWORD संख्या_Of_Names;
     DWORD AddressOfFunctions;
     DWORD AddressOfNames;
     DWORD AddressOfNameOrdinals;
 } IMAGE_EXPORT_DIRECTORY,*PIMAGE_EXPORT_DIRECTORY;
 
-typedef struct _IMAGE_TLS_DIRECTORY {
+प्रकारव्याख्या संरचना _IMAGE_TLS_DIRECTORY {
     ADDR3264 StartAddressOfRawData;
     ADDR3264 EndAddressOfRawData;
     ADDR3264 AddressOfIndex;
@@ -250,8 +250,8 @@ typedef struct _IMAGE_TLS_DIRECTORY {
     DWORD Characteristics;
 } IMAGE_TLS_DIRECTORY;
 
-typedef struct _IMAGE_IMPORT_DESCRIPTOR {
-    union {
+प्रकारव्याख्या संरचना _IMAGE_IMPORT_DESCRIPTOR {
+    संघ {
         DWORD Characteristics;
         DWORD OriginalFirstThunk;
     };
@@ -261,7 +261,7 @@ typedef struct _IMAGE_IMPORT_DESCRIPTOR {
     DWORD FirstThunk;
 } IMAGE_IMPORT_DESCRIPTOR;
 
-typedef struct _IMAGE_BASE_RELOCATION {
+प्रकारव्याख्या संरचना _IMAGE_BASE_RELOCATION {
     DWORD   VirtualAddress;
     DWORD   SizeOfBlock;
 //  WORD    TypeOffset[1];
@@ -270,8 +270,8 @@ typedef struct _IMAGE_BASE_RELOCATION {
 #define IMAGE_SIZEOF_BASE_RELOCATION     8
 
 #define IMAGE_REL_BASED_ABSOLUTE         0
-#define IMAGE_REL_BASED_HIGH             1
-#define IMAGE_REL_BASED_LOW              2
+#define IMAGE_REL_BASED_वरचा             1
+#define IMAGE_REL_BASED_खालचा              2
 #define IMAGE_REL_BASED_HIGHLOW          3
 #define IMAGE_REL_BASED_HIGHADJ          4
 #define IMAGE_REL_BASED_MIPS_JMPADDR     5
@@ -288,14 +288,14 @@ typedef struct _IMAGE_BASE_RELOCATION {
 #define IMAGE_SCN_MEM_READ                  0x40000000
 #define IMAGE_SCN_MEM_WRITE                 0x80000000
 
-#define IMAGE_DLLCHARACTERISTICS_HIGH_ENTROPY_VA 0x0020
+#define IMAGE_DLLCHARACTERISTICS_वरचा_ENTROPY_VA 0x0020
 #define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 0x0040
 #define IMAGE_DLLCHARACTERISTICS_NX_COMPAT 0x0100
 #define IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE 0x8000
 
 #define IMAGE_FILE_RELOCS_STRIPPED 0x0001
 
-#pragma pack(pop)
+#pragma pack(काढा)
 
 /* ----------------------------------------------------------- */
 #endif /* ndef IMAGE_NT_SIGNATURE */
@@ -306,45 +306,45 @@ typedef struct _IMAGE_BASE_RELOCATION {
   #define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 0x0040
 #endif
 
-#pragma pack(push, 1)
-struct pe_header
+#pragma pack(ढकला, 1)
+संरचना pe_header
 {
     IMAGE_DOS_HEADER doshdr;
     BYTE dosstub[0x40];
     DWORD nt_sig;
     IMAGE_FILE_HEADER filehdr;
-#if PTR_SIZE == 8
+#जर PTR_SIZE == 8
     IMAGE_OPTIONAL_HEADER64 opthdr;
-#else
+#अन्यथा
 #ifdef _WIN64
     IMAGE_OPTIONAL_HEADER32 opthdr;
-#else
+#अन्यथा
     IMAGE_OPTIONAL_HEADER opthdr;
 #endif
 #endif
 };
 
-struct pe_reloc_header {
+संरचना pe_reloc_header {
     DWORD offset;
     DWORD size;
 };
 
-struct pe_rsrc_header {
-    struct _IMAGE_FILE_HEADER filehdr;
-    struct _IMAGE_SECTION_HEADER sectionhdr;
+संरचना pe_rsrc_header {
+    संरचना _IMAGE_FILE_HEADER filehdr;
+    संरचना _IMAGE_SECTION_HEADER sectionhdr;
 };
 
-struct pe_rsrc_reloc {
+संरचना pe_rsrc_reloc {
     DWORD offset;
     DWORD size;
     WORD type;
 };
-#pragma pack(pop)
+#pragma pack(काढा)
 
 /* ------------------------------------------------------------- */
 /* internal temporary structures */
 
-enum {
+गणना {
     sec_text = 0,
     sec_rdata ,
     sec_data ,
@@ -360,8 +360,8 @@ enum {
     sec_last
 };
 
-#if 0
-static const DWORD pe_sec_flags[] = {
+#जर 0
+स्थिर स्थिरांक DWORD pe_sec_flags[] = {
     0x60000020, /* ".text"     , */
     0xC0000040, /* ".data"     , */
     0xC0000080, /* ".bss"      , */
@@ -374,9 +374,9 @@ static const DWORD pe_sec_flags[] = {
 };
 #endif
 
-struct section_info {
-    int cls;
-    char name[32];
+संरचना section_info {
+    पूर्णांक cls;
+    अक्षर name[32];
     ADDR3264 sh_addr;
     DWORD sh_size;
     DWORD pe_flags;
@@ -385,29 +385,29 @@ struct section_info {
     IMAGE_SECTION_HEADER ish;
 };
 
-struct import_symbol {
-    int sym_index;
-    int iat_index;
-    int thk_offset;
+संरचना import_चिन्ह {
+    पूर्णांक sym_index;
+    पूर्णांक iat_index;
+    पूर्णांक thk_offset;
 };
 
-struct pe_import_info {
-    int dll_index;
-    int sym_count;
-    struct import_symbol **symbols;
+संरचना pe_import_info {
+    पूर्णांक dll_index;
+    पूर्णांक sym_मोजणी;
+    संरचना import_चिन्ह **symbols;
 };
 
-struct pe_info {
+संरचना pe_info {
     TCCState *s1;
     Section *reloc;
     Section *thunk;
     Section *coffsym;
     Section *coffstr;
-    const char *filename;
-    int type;
+    स्थिरांक अक्षर *filename;
+    पूर्णांक type;
     DWORD sizeofheaders;
     ADDR3264 imagebase;
-    const char *start_symbol;
+    स्थिरांक अक्षर *start_चिन्ह;
     DWORD start_addr;
     DWORD imp_offs;
     DWORD imp_size;
@@ -418,17 +418,17 @@ struct pe_info {
     DWORD tls_dir;
     DWORD tls_data;
     DWORD tls_size;
-    int subsystem;
+    पूर्णांक subsystem;
     DWORD section_align;
     DWORD file_align;
-    struct section_info **sec_info;
-    int sec_count;
-    struct pe_import_info **imp_info;
-    int imp_count;
+    संरचना section_info **sec_info;
+    पूर्णांक sec_मोजणी;
+    संरचना pe_import_info **imp_info;
+    पूर्णांक imp_मोजणी;
     /* output */
-    FILE *op;
+    खाता *op;
     DWORD sum;
-    unsigned pos;
+    अचिन्हित pos;
 };
 
 #define PE_NUL 0
@@ -439,80 +439,80 @@ struct pe_info {
 
 /* --------------------------------------------*/
 
-static const char *pe_export_name(TCCState *s1, ElfW(Sym) *sym)
+स्थिर स्थिरांक अक्षर *pe_export_name(TCCState *s1, ElfW(Sym) *sym)
 {
-    const char *name = (char*)symtab_section->link->data + sym->st_name;
-    if (s1->leading_underscore && name[0] == '_' && !(sym->st_other & ST_PE_STDCALL))
-        return name + 1;
-    return name;
+    स्थिरांक अक्षर *name = (अक्षर*)symtab_section->link->data + sym->st_name;
+    जर (s1->leading_underscore && name[0] == '_' && !(sym->st_other & ST_PE_STDCALL))
+        परत name + 1;
+    परत name;
 }
 
 
-static int dynarray_assoc(void **pp, int n, int key)
+स्थिर पूर्णांक dynarray_assoc(शून्य **pp, पूर्णांक n, पूर्णांक किल्ली)
 {
-    int i;
-    for (i = 0; i < n; ++i, ++pp)
-    if (key == **(int **) pp)
-        return i;
-    return -1;
+    पूर्णांक i;
+    साठी (i = 0; i < n; ++i, ++pp)
+    जर (किल्ली == **(पूर्णांक **) pp)
+        परत i;
+    परत -1;
 }
 
-static DWORD umin(DWORD a, DWORD b)
+स्थिर DWORD umin(DWORD a, DWORD b)
 {
-    return a < b ? a : b;
+    परत a < b ? a : b;
 }
 
-static DWORD umax(DWORD a, DWORD b)
+स्थिर DWORD umax(DWORD a, DWORD b)
 {
-    return a < b ? b : a;
+    परत a < b ? b : a;
 }
 
-static DWORD pe_file_align(struct pe_info *pe, DWORD n)
+स्थिर DWORD pe_file_align(संरचना pe_info *pe, DWORD n)
 {
-    return (n + (pe->file_align - 1)) & ~(pe->file_align - 1);
+    परत (n + (pe->file_align - 1)) & ~(pe->file_align - 1);
 }
 
-static ADDR3264 pe_virtual_align(struct pe_info *pe, ADDR3264 n)
+स्थिर ADDR3264 pe_virtual_align(संरचना pe_info *pe, ADDR3264 n)
 {
-    return (n + (pe->section_align - 1)) & ~(ADDR3264)(pe->section_align - 1);
+    परत (n + (pe->section_align - 1)) & ~(ADDR3264)(pe->section_align - 1);
 }
 
-static void pe_align_section(Section *s, int a)
+स्थिर शून्य pe_align_section(Section *s, पूर्णांक a)
 {
-    int i = s->data_offset & (a-1);
-    if (i)
+    पूर्णांक i = s->data_offset & (a-1);
+    जर (i)
         section_ptr_add(s, a - i);
 }
 
-static void pe_set_datadir(struct pe_header *hdr, int dir, DWORD addr, DWORD size)
+स्थिर शून्य pe_set_datadir(संरचना pe_header *hdr, पूर्णांक dir, DWORD addr, DWORD size)
 {
     hdr->opthdr.DataDirectory[dir].VirtualAddress = addr;
     hdr->opthdr.DataDirectory[dir].Size = size;
 }
 
-static int pe_fwrite(struct pe_info *pe, const void *data, int len)
+स्थिर पूर्णांक pe_fwrite(संरचना pe_info *pe, स्थिरांक शून्य *data, पूर्णांक len)
 {
-    const WORD *p = data;
+    स्थिरांक WORD *p = data;
     DWORD sum;
-    int ret, i;
-    pe->pos += (ret = fwrite(data, 1, len, pe->op));
+    पूर्णांक ret, i;
+    pe->pos += (ret = ख_डालो(data, 1, len, pe->op));
     sum = pe->sum;
-    for (i = len; i > 0; i -= 2) {
+    साठी (i = len; i > 0; i -= 2) {
         sum += (i >= 2) ? *p++ : *(BYTE*)p;
         sum = (sum + (sum >> 16)) & 0xFFFF;
     }
     pe->sum = sum;
-    return len == ret ? 0 : -1;
+    परत len == ret ? 0 : -1;
 }
 
-static void pe_fpad(struct pe_info *pe, DWORD new_pos)
+स्थिर शून्य pe_fpad(संरचना pe_info *pe, DWORD new_pos)
 {
-    char buf[256];
-    int n, diff = new_pos - pe->pos;
-    memset(buf, 0, sizeof buf);
-    while (diff > 0) {
-        diff -= n = umin(diff, sizeof buf);
-        fwrite(buf, n, 1, pe->op);
+    अक्षर buf[256];
+    पूर्णांक n, diff = new_pos - pe->pos;
+    स_रखो(buf, 0, आकार buf);
+    पर्यंत (diff > 0) {
+        diff -= n = umin(diff, आकार buf);
+        ख_डालो(buf, n, 1, pe->op);
     }
     pe->pos = new_pos;
 }
@@ -520,71 +520,71 @@ static void pe_fpad(struct pe_info *pe, DWORD new_pos)
 /*----------------------------------------------------------------------------*/
 /* some DWARF support with COFF symbol/string table for gdb */
 
-#pragma pack(push, 1)
-struct syment
+#pragma pack(ढकला, 1)
+संरचना syment
 {
-    union {
-        char        n_name[8];     /* old COFF version */
-        struct {
+    संघ {
+        अक्षर        n_name[8];     /* old COFF version */
+        संरचना {
             int32_t n_zeroes;      /* new == 0 */
             int32_t n_offset;      /* offset into string table */
         };
     };
-    int32_t         n_value;        /* value of symbol */
-    short           n_scnum;        /* section number */
-    unsigned short  n_type;         /* type and derived type */
-    char            n_sclass;       /* storage class */
-    char            n_numaux;       /* number of aux. entries */
+    int32_t         n_मूल्य;        /* value of symbol */
+    लघु           n_scnum;        /* section number */
+    अचिन्हित लघु  n_type;         /* type and derived type */
+    अक्षर            n_sclass;       /* storage class */
+    अक्षर            n_numaux;       /* number of aux. entries */
 };
-#pragma pack(pop)
+#pragma pack(काढा)
 
 #define SHF_PRIVATE 0x80000000
 
-static void pe_add_coffsym(struct pe_info *pe)
+स्थिर शून्य pe_add_coffsym(संरचना pe_info *pe)
 {
     TCCState *s1 = pe->s1;
     ElfSym *esym;
-    struct syment *se;
-    int n;
+    संरचना syment *se;
+    पूर्णांक n;
 
-    if (NULL == pe->coffsym) {
+    जर (रिक्त == pe->coffsym) {
         pe->coffsym = new_section(s1, ".coffsym", SHT_PROGBITS, SHF_PRIVATE);
         pe->coffstr = new_section(s1, ".coffstr", SHT_PROGBITS, SHF_PRIVATE);
         section_ptr_add(pe->coffstr, 4); /* coff string table size */
-        return;
+        परत;
     }
 
-#if 0
-    se = section_ptr_add(pe->coffsym, sizeof *se);
-    strcpy(se->n_name, ".file");
+#जर 0
+    se = section_ptr_add(pe->coffsym, आकार *se);
+    म_नकल(se->n_name, ".file");
     se->n_scnum = -2;
     se->n_sclass = 0x67;
     se->n_numaux = 1;
-    se = section_ptr_add(pe->coffsym, sizeof *se);
-    strcpy((char*)se, "no-file");
+    se = section_ptr_add(pe->coffsym, आकार *se);
+    म_नकल((अक्षर*)se, "no-file");
 #endif
 
-#if 1
+#जर 1
     esym = (ElfSym*)s1->symtab->data;
-    for (n = s1->symtab->data_offset / sizeof *esym; ++esym, --n;) {
-        int sym_bind = ELFW(ST_BIND)(esym->st_info);
-        if (sym_bind == STB_GLOBAL) {
-            char *name = esym->st_name + (char*)s1->symtab->link->data;
-            int nl = strlen(name);
-            addr_t value = esym->st_value;
-            int shnum = esym->st_shndx;
-            if (shnum != SHN_UNDEF && shnum < s1->nb_sections) {
+    साठी (n = s1->symtab->data_offset / आकार *esym; ++esym, --n;) {
+        पूर्णांक sym_bind = ELFW(ST_BIND)(esym->st_info);
+        जर (sym_bind == STB_GLOBAL) {
+            अक्षर *name = esym->st_name + (अक्षर*)s1->symtab->link->data;
+            पूर्णांक nl = म_माप(name);
+            addr_t मूल्य = esym->st_मूल्य;
+            पूर्णांक shnum = esym->st_shndx;
+            जर (shnum != SHN_UNDEF && shnum < s1->nb_sections) {
                 Section *s = s1->sections[shnum];
                 shnum = s->sh_info;
-                value = value - s->sh_addr;
+                मूल्य = मूल्य - s->sh_addr;
             }
-            se = section_ptr_add(pe->coffsym, sizeof *se);
-            se->n_value = value;
+            se = section_ptr_add(pe->coffsym, आकार *se);
+            se->n_मूल्य = मूल्य;
             se->n_scnum = shnum;
             se->n_sclass = 2; // C_EXT
-            if (nl <= 8)
-                memcpy(se->n_name, name, nl);
-            else
+            जर (nl <= 8)
+                स_नकल(se->n_name, name, nl);
+            अन्यथा
                 se->n_offset = put_elf_str(pe->coffstr, name);
         }
     }
@@ -594,23 +594,23 @@ static void pe_add_coffsym(struct pe_info *pe)
 
 /* Run cv2pdb, available at https://github.com/rainers/cv2pdb.  It reads
    and strips the dwarf info and creates a <exename>.pdb file instead */
-static void pe_create_pdb(TCCState *s1, const char *exename)
+स्थिर शून्य pe_create_pdb(TCCState *s1, स्थिरांक अक्षर *exename)
 {
-    char buf[300]; int r;
-    snprintf(buf, sizeof buf, "cv2pdb.exe \"%s\"", exename);
-    r = system(buf);
-    strcpy(tcc_fileextension(strcpy(buf, exename)), ".pdb");
-    if (r) {
+    अक्षर buf[300]; पूर्णांक r;
+    snprintf(buf, आकार buf, "cv2pdb.exe \"%s\"", exename);
+    r = प्रणाली(buf);
+    म_नकल(tcc_fileextension(म_नकल(buf, exename)), ".pdb");
+    जर (r) {
         tcc_error_noabort("could not create '%s'\n(need working cv2pdb from https://github.com/rainers/cv2pdb)", buf);
-    } else if (s1->verbose) {
-        printf("<- %s\n", buf);
+    } अन्यथा जर (s1->verbose) {
+        म_लिखो("<- %s\n", buf);
     }
 }
 
 /*----------------------------------------------------------------------------*/
-static int pe_write(struct pe_info *pe)
+स्थिर पूर्णांक pe_write(संरचना pe_info *pe)
 {
-    static const struct pe_header pe_template = {
+    स्थिर स्थिरांक संरचना pe_header pe_template = {
     {
     /* IMAGE_DOS_HEADER doshdr */
     0x5A4D, /*WORD e_magic;         Magic number */
@@ -663,7 +663,7 @@ static int pe_write(struct pe_info *pe)
     0x00000000, /*DWORD   SizeOfUninitializedData; */
     0x00000000, /*DWORD   AddressOfEntryPoint; */
     0x00000000, /*DWORD   BaseOfCode; */
-#if PTR_SIZE == 4
+#जर PTR_SIZE == 4
     0x00000000, /*DWORD   BaseOfData; */
 #endif
     /* NT additional fields. */
@@ -694,34 +694,34 @@ static int pe_write(struct pe_info *pe)
      {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}}
     }};
 
-    struct pe_header pe_header = pe_template;
+    संरचना pe_header pe_header = pe_template;
 
-    int i;
+    पूर्णांक i;
     DWORD file_offset;
-    struct section_info *si;
+    संरचना section_info *si;
     IMAGE_SECTION_HEADER *psh;
     TCCState *s1 = pe->s1;
 
-    if (s1->do_debug)
+    जर (s1->do_debug)
         pe_add_coffsym(pe);
 
-    pe->op = fopen(pe->filename, "wb");
-    if (NULL == pe->op)
-        return tcc_error_noabort("could not write '%s': %s", pe->filename, strerror(errno));
+    pe->op = ख_खोलो(pe->filename, "wb");
+    जर (रिक्त == pe->op)
+        परत tcc_error_noabort("could not write '%s': %s", pe->filename, म_त्रुटि(त्रुटि_सं));
 
     pe->sizeofheaders = pe_file_align(pe,
-        sizeof (struct pe_header)
-        + pe->sec_count * sizeof (IMAGE_SECTION_HEADER)
+        आकार (संरचना pe_header)
+        + pe->sec_मोजणी * आकार (IMAGE_SECTION_HEADER)
         );
 
     file_offset = pe->sizeofheaders;
 
-    if (2 == s1->verbose)
-        printf("-------------------------------"
+    जर (2 == s1->verbose)
+        म_लिखो("-------------------------------"
                "\n  virt   file   size  section" "\n");
-    for (i = 0; i < pe->sec_count; ++i) {
+    साठी (i = 0; i < pe->sec_मोजणी; ++i) {
         DWORD addr, size;
-        const char *sh_name;
+        स्थिरांक अक्षर *sh_name;
 
         si = pe->sec_info[i];
         sh_name = si->name;
@@ -729,58 +729,58 @@ static int pe_write(struct pe_info *pe)
         size = si->sh_size;
         psh = &si->ish;
 
-        if (2 == s1->verbose)
-            printf("%6x %6x %6x  %s\n",
-                (unsigned)addr, (unsigned)file_offset, (unsigned)size, sh_name);
+        जर (2 == s1->verbose)
+            म_लिखो("%6x %6x %6x  %s\n",
+                (अचिन्हित)addr, (अचिन्हित)file_offset, (अचिन्हित)size, sh_name);
 
-        switch (si->cls) {
-            case sec_text:
-                if (!pe_header.opthdr.BaseOfCode)
+        निवड (si->cls) {
+            स्थिती sec_text:
+                जर (!pe_header.opthdr.BaseOfCode)
                     pe_header.opthdr.BaseOfCode = addr;
-                break;
+                थांबा;
 
-            case sec_data:
-#if PTR_SIZE == 4
-                if (!pe_header.opthdr.BaseOfData)
+            स्थिती sec_data:
+#जर PTR_SIZE == 4
+                जर (!pe_header.opthdr.BaseOfData)
                     pe_header.opthdr.BaseOfData = addr;
 #endif
-                break;
+                थांबा;
 
-            case sec_bss:
-                break;
+            स्थिती sec_bss:
+                थांबा;
 
-            case sec_reloc:
+            स्थिती sec_reloc:
                 pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_BASERELOC, addr, size);
-                break;
+                थांबा;
 
-            case sec_rsrc:
+            स्थिती sec_rsrc:
                 pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_RESOURCE, addr, size);
-                break;
+                थांबा;
 
-            case sec_pdata:
+            स्थिती sec_pdata:
                 pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_EXCEPTION, addr, size);
-                break;
+                थांबा;
         }
 
-        if (pe->imp_size) {
+        जर (pe->imp_size) {
             pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_IMPORT,
                 pe->imp_offs, pe->imp_size);
             pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_IAT,
                 pe->iat_offs, pe->iat_size);
         }
-        if (pe->exp_size) {
+        जर (pe->exp_size) {
             pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_EXPORT,
                 pe->exp_offs, pe->exp_size);
         }
-        if (pe->tls_size) {
+        जर (pe->tls_size) {
             pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_TLS,
                 pe->tls_dir + (pe->thunk->sh_addr - pe->imagebase), pe->tls_size);
         }
 
-        memcpy(psh->Name, sh_name, umin(strlen(sh_name), sizeof psh->Name));
-        if (pe->coffstr && strlen(sh_name) > 8) {
+        स_नकल(psh->Name, sh_name, umin(म_माप(sh_name), आकार psh->Name));
+        जर (pe->coffstr && म_माप(sh_name) > 8) {
             /* long section name, for example ".debug_info" */
-            snprintf((char*)psh->Name, 8, "/%d", put_elf_str(pe->coffstr, sh_name));
+            snprintf((अक्षर*)psh->Name, 8, "/%d", put_elf_str(pe->coffstr, sh_name));
         }
 
         psh->Characteristics = si->pe_flags;
@@ -789,144 +789,144 @@ static int pe_write(struct pe_info *pe)
         pe_header.opthdr.SizeOfImage =
             umax(pe_virtual_align(pe, size + addr), pe_header.opthdr.SizeOfImage);
 
-        if (si->data_size) {
+        जर (si->data_size) {
             psh->PointerToRawData = file_offset;
             file_offset = pe_file_align(pe, file_offset + si->data_size);
             psh->SizeOfRawData = file_offset - psh->PointerToRawData;
-            if (si->cls == sec_text)
+            जर (si->cls == sec_text)
                 pe_header.opthdr.SizeOfCode += psh->SizeOfRawData;
-            else
+            अन्यथा
                 pe_header.opthdr.SizeOfInitializedData += psh->SizeOfRawData;
         }
     }
 
     //pe_header.filehdr.TimeDateStamp = time(NULL);
-    pe_header.filehdr.NumberOfSections = pe->sec_count;
+    pe_header.filehdr.संख्या_Of_Sections = pe->sec_मोजणी;
     pe_header.opthdr.AddressOfEntryPoint = pe->start_addr;
     pe_header.opthdr.SizeOfHeaders = pe->sizeofheaders;
     pe_header.opthdr.ImageBase = pe->imagebase;
     pe_header.opthdr.Subsystem = pe->subsystem;
     pe_header.opthdr.DllCharacteristics = s1->pe_dll_characteristics;
-    if (s1->pe_stack_size)
-        pe_header.opthdr.SizeOfStackReserve = s1->pe_stack_size;
-    if (PE_DLL == pe->type)
+    जर (s1->pe_चळत_size)
+        pe_header.opthdr.Size_Of_चळत_Reserve = s1->pe_चळत_size;
+    जर (PE_DLL == pe->type)
         pe_header.filehdr.Characteristics = CHARACTERISTICS_DLL;
     pe_header.filehdr.Characteristics |= s1->pe_characteristics;
-    if (pe->reloc)
+    जर (pe->reloc)
         pe_header.filehdr.Characteristics &= ~IMAGE_FILE_RELOCS_STRIPPED;
 
-    if (pe->coffsym) {
+    जर (pe->coffsym) {
         pe_add_coffsym(pe);
-        pe_header.filehdr.PointerToSymbolTable = file_offset;
-        pe_header.filehdr.NumberOfSymbols
-            = pe->coffsym->data_offset / sizeof (struct syment);
+        pe_header.filehdr.Pointer_To_चिन्ह_Table = file_offset;
+        pe_header.filehdr.संख्या_Of_Symbols
+            = pe->coffsym->data_offset / आकार (संरचना syment);
     }
 
-    pe_fwrite(pe, &pe_header, sizeof pe_header);
-    for (i = 0; i < pe->sec_count; ++i)
-        pe_fwrite(pe, &pe->sec_info[i]->ish, sizeof(IMAGE_SECTION_HEADER));
+    pe_fwrite(pe, &pe_header, आकार pe_header);
+    साठी (i = 0; i < pe->sec_मोजणी; ++i)
+        pe_fwrite(pe, &pe->sec_info[i]->ish, आकार(IMAGE_SECTION_HEADER));
 
     file_offset = pe->sizeofheaders;
-    for (i = 0; i < pe->sec_count; ++i) {
+    साठी (i = 0; i < pe->sec_मोजणी; ++i) {
         Section *s;
         si = pe->sec_info[i];
-        if (!si->data_size)
-            continue;
-        for (s = si->sec; s; s = s->prev) {
+        जर (!si->data_size)
+            सुरूठेवा;
+        साठी (s = si->sec; s; s = s->prev) {
             pe_fpad(pe, file_offset);
             pe_fwrite(pe, s->data, s->data_offset);
-            if (s->prev)
+            जर (s->prev)
                 file_offset += s->prev->sh_addr - s->sh_addr;
         }
         file_offset = si->ish.PointerToRawData + si->ish.SizeOfRawData;
         pe_fpad(pe, file_offset);
     }
 
-    if (pe->coffsym) {
+    जर (pe->coffsym) {
         pe_fwrite(pe, pe->coffsym->data, pe->coffsym->data_offset);
         pe_fwrite(pe, pe->coffstr->data, pe->coffstr->data_offset);
         file_offset = pe->pos;
     }
 
     pe->sum += file_offset;
-    fseek(pe->op, offsetof(struct pe_header, opthdr.CheckSum), SEEK_SET);
-    pe_fwrite(pe, &pe->sum, sizeof (DWORD));
+    ख_जाओ(pe->op, दुरत्व(संरचना pe_header, opthdr.CheckSum), शुरू_से);
+    pe_fwrite(pe, &pe->sum, आकार (DWORD));
 
-    fclose (pe->op);
+    ख_बंद (pe->op);
 #ifndef _WIN32
     chmod(pe->filename, 0777);
 #endif
 
-    if (2 == s1->verbose)
-        printf("-------------------------------\n");
-    if (s1->verbose)
-        printf("<- %s (%u bytes)\n", pe->filename, (unsigned)file_offset);
+    जर (2 == s1->verbose)
+        म_लिखो("-------------------------------\n");
+    जर (s1->verbose)
+        म_लिखो("<- %s (%u bytes)\n", pe->filename, (अचिन्हित)file_offset);
 
-    if (s1->do_debug & 16)
+    जर (s1->do_debug & 16)
         pe_create_pdb(s1, pe->filename);
-    return 0;
+    परत 0;
 }
 
 /*----------------------------------------------------------------------------*/
 
-static struct import_symbol *pe_add_import(struct pe_info *pe, int sym_index)
+स्थिर संरचना import_चिन्ह *pe_add_import(संरचना pe_info *pe, पूर्णांक sym_index)
 {
-    int i;
-    int dll_index;
-    struct pe_import_info *p;
-    struct import_symbol *s;
+    पूर्णांक i;
+    पूर्णांक dll_index;
+    संरचना pe_import_info *p;
+    संरचना import_चिन्ह *s;
     ElfW(Sym) *isym;
 
     isym = (ElfW(Sym) *)pe->s1->dynsymtab_section->data + sym_index;
     dll_index = isym->st_size;
 
-    i = dynarray_assoc ((void**)pe->imp_info, pe->imp_count, dll_index);
-    if (-1 != i) {
+    i = dynarray_assoc ((शून्य**)pe->imp_info, pe->imp_मोजणी, dll_index);
+    जर (-1 != i) {
         p = pe->imp_info[i];
-        goto found_dll;
+        जा found_dll;
     }
-    p = tcc_mallocz(sizeof *p);
+    p = tcc_mallocz(आकार *p);
     p->dll_index = dll_index;
-    dynarray_add(&pe->imp_info, &pe->imp_count, p);
+    dynarray_add(&pe->imp_info, &pe->imp_मोजणी, p);
 
 found_dll:
-    i = dynarray_assoc ((void**)p->symbols, p->sym_count, sym_index);
-    if (-1 != i)
-        return p->symbols[i];
+    i = dynarray_assoc ((शून्य**)p->symbols, p->sym_मोजणी, sym_index);
+    जर (-1 != i)
+        परत p->symbols[i];
 
-    s = tcc_mallocz(sizeof *s);
-    dynarray_add(&p->symbols, &p->sym_count, s);
+    s = tcc_mallocz(आकार *s);
+    dynarray_add(&p->symbols, &p->sym_मोजणी, s);
     s->sym_index = sym_index;
-    return s;
+    परत s;
 }
 
-static void pe_free_imports(struct pe_info *pe)
+स्थिर शून्य pe_free_imports(संरचना pe_info *pe)
 {
-    int i;
-    for (i = 0; i < pe->imp_count; ++i) {
-        struct pe_import_info *p = pe->imp_info[i];
-        dynarray_reset(&p->symbols, &p->sym_count);
+    पूर्णांक i;
+    साठी (i = 0; i < pe->imp_मोजणी; ++i) {
+        संरचना pe_import_info *p = pe->imp_info[i];
+        dynarray_reset(&p->symbols, &p->sym_मोजणी);
     }
-    dynarray_reset(&pe->imp_info, &pe->imp_count);
+    dynarray_reset(&pe->imp_info, &pe->imp_मोजणी);
 }
 
 /*----------------------------------------------------------------------------*/
-static void pe_build_imports(struct pe_info *pe)
+स्थिर शून्य pe_build_imports(संरचना pe_info *pe)
 {
-    int thk_ptr, ent_ptr, dll_ptr, sym_cnt, i;
+    पूर्णांक thk_ptr, ent_ptr, dll_ptr, sym_cnt, i;
     DWORD rva_base = pe->thunk->sh_addr - pe->imagebase;
-    int ndlls = pe->imp_count;
+    पूर्णांक ndlls = pe->imp_मोजणी;
     TCCState *s1 = pe->s1;
 
-    for (sym_cnt = i = 0; i < ndlls; ++i)
-        sym_cnt += pe->imp_info[i]->sym_count;
+    साठी (sym_cnt = i = 0; i < ndlls; ++i)
+        sym_cnt += pe->imp_info[i]->sym_मोजणी;
 
-    if (0 == sym_cnt)
-        return;
+    जर (0 == sym_cnt)
+        परत;
 
     pe_align_section(pe->thunk, 16);
-    pe->imp_size = (ndlls + 1) * sizeof(IMAGE_IMPORT_DESCRIPTOR);
-    pe->iat_size = (sym_cnt + ndlls) * sizeof(ADDR3264);
+    pe->imp_size = (ndlls + 1) * आकार(IMAGE_IMPORT_DESCRIPTOR);
+    pe->iat_size = (sym_cnt + ndlls) * आकार(ADDR3264);
     dll_ptr = pe->thunk->data_offset;
     thk_ptr = dll_ptr + pe->imp_size;
     ent_ptr = thk_ptr + pe->iat_size;
@@ -934,19 +934,19 @@ static void pe_build_imports(struct pe_info *pe)
     pe->iat_offs = thk_ptr + rva_base;
     section_ptr_add(pe->thunk, pe->imp_size + 2*pe->iat_size);
 
-    for (i = 0; i < pe->imp_count; ++i) {
+    साठी (i = 0; i < pe->imp_मोजणी; ++i) {
         IMAGE_IMPORT_DESCRIPTOR *hdr;
-        int k, n, dllindex;
+        पूर्णांक k, n, dllindex;
         ADDR3264 v;
-        struct pe_import_info *p = pe->imp_info[i];
-        const char *name;
+        संरचना pe_import_info *p = pe->imp_info[i];
+        स्थिरांक अक्षर *name;
         DLLReference *dllref;
 
         dllindex = p->dll_index;
-        if (dllindex)
+        जर (dllindex)
             name = tcc_basename((dllref = s1->loaded_dlls[dllindex-1])->name);
-        else
-            name = "", dllref = NULL;
+        अन्यथा
+            name = "", dllref = रिक्त;
 
         /* put the dll name into the import header */
         v = put_elf_str(pe->thunk, name);
@@ -955,150 +955,150 @@ static void pe_build_imports(struct pe_info *pe)
         hdr->OriginalFirstThunk = ent_ptr + rva_base;
         hdr->Name = v + rva_base;
 
-        for (k = 0, n = p->sym_count; k <= n; ++k) {
-            if (k < n) {
-                int iat_index = p->symbols[k]->iat_index;
-                int sym_index = p->symbols[k]->sym_index;
+        साठी (k = 0, n = p->sym_मोजणी; k <= n; ++k) {
+            जर (k < n) {
+                पूर्णांक iat_index = p->symbols[k]->iat_index;
+                पूर्णांक sym_index = p->symbols[k]->sym_index;
                 ElfW(Sym) *imp_sym = (ElfW(Sym) *)s1->dynsymtab_section->data + sym_index;
-                const char *name = (char*)s1->dynsymtab_section->link->data + imp_sym->st_name;
-                int ordinal;
+                स्थिरांक अक्षर *name = (अक्षर*)s1->dynsymtab_section->link->data + imp_sym->st_name;
+                पूर्णांक ordinal;
 
                 /* patch symbol (and possibly its underscored alias) */
-                do {
+                करा {
                     ElfW(Sym) *esym = (ElfW(Sym) *)symtab_section->data + iat_index;
-                    iat_index = esym->st_value;
-                    esym->st_value = thk_ptr;
-                    esym->st_shndx = pe->thunk->sh_num;
-                } while (iat_index);
+                    iat_index = esym->st_मूल्य;
+                    esym->st_मूल्य = thk_ptr;
+                    esym->st_shndx = pe->thunk->sh_अंक;
+                } पर्यंत (iat_index);
 
-                if (dllref)
-                    v = 0, ordinal = imp_sym->st_value; /* ordinal from pe_load_def */
-                else
-                    ordinal = 0, v = imp_sym->st_value; /* address from tcc_add_symbol() */
+                जर (dllref)
+                    v = 0, ordinal = imp_sym->st_मूल्य; /* ordinal from pe_load_def */
+                अन्यथा
+                    ordinal = 0, v = imp_sym->st_मूल्य; /* address from tcc_add_symbol() */
 
 #ifdef TCC_IS_NATIVE
-                if (pe->type == PE_RUN) {
-                    if (dllref) {
-                        if ( !dllref->handle )
+                जर (pe->type == PE_RUN) {
+                    जर (dllref) {
+                        जर ( !dllref->handle )
                             dllref->handle = LoadLibraryA(dllref->name);
-                        v = (ADDR3264)GetProcAddress(dllref->handle, ordinal?(char*)0+ordinal:name);
+                        v = (ADDR3264)GetProcAddress(dllref->handle, ordinal?(अक्षर*)0+ordinal:name);
                     }
-                    if (!v)
+                    जर (!v)
                         tcc_error_noabort("could not resolve symbol '%s'", name);
-                } else
+                } अन्यथा
 #endif
-                if (ordinal) {
-                    v = ordinal | (ADDR3264)1 << (sizeof(ADDR3264)*8 - 1);
-                } else {
+                जर (ordinal) {
+                    v = ordinal | (ADDR3264)1 << (आकार(ADDR3264)*8 - 1);
+                } अन्यथा {
                     v = pe->thunk->data_offset + rva_base;
-                    section_ptr_add(pe->thunk, sizeof(WORD)); /* hint, not used */
+                    section_ptr_add(pe->thunk, आकार(WORD)); /* hint, not used */
                     put_elf_str(pe->thunk, name);
                 }
 
-            } else {
+            } अन्यथा {
                 v = 0; /* last entry is zero */
             }
 
             *(ADDR3264*)(pe->thunk->data+thk_ptr) =
             *(ADDR3264*)(pe->thunk->data+ent_ptr) = v;
-            thk_ptr += sizeof (ADDR3264);
-            ent_ptr += sizeof (ADDR3264);
+            thk_ptr += आकार (ADDR3264);
+            ent_ptr += आकार (ADDR3264);
         }
-        dll_ptr += sizeof(IMAGE_IMPORT_DESCRIPTOR);
+        dll_ptr += आकार(IMAGE_IMPORT_DESCRIPTOR);
     }
 }
 
 /* ------------------------------------------------------------- */
 
-struct pe_sort_sym
+संरचना pe_sort_sym
 {
-    int index;
-    const char *name;
+    पूर्णांक index;
+    स्थिरांक अक्षर *name;
 };
 
-static int sym_cmp(const void *va, const void *vb)
+स्थिर पूर्णांक sym_cmp(स्थिरांक शून्य *va, स्थिरांक शून्य *vb)
 {
-    const char *ca = (*(struct pe_sort_sym**)va)->name;
-    const char *cb = (*(struct pe_sort_sym**)vb)->name;
-    return strcmp(ca, cb);
+    स्थिरांक अक्षर *ca = (*(संरचना pe_sort_sym**)va)->name;
+    स्थिरांक अक्षर *cb = (*(संरचना pe_sort_sym**)vb)->name;
+    परत म_भेद(ca, cb);
 }
 
-static void pe_build_exports(struct pe_info *pe)
+स्थिर शून्य pe_build_exports(संरचना pe_info *pe)
 {
     ElfW(Sym) *sym;
-    int sym_index, sym_end;
+    पूर्णांक sym_index, sym_end;
     DWORD rva_base, base_o, func_o, name_o, ord_o, str_o;
     IMAGE_EXPORT_DIRECTORY *hdr;
-    int sym_count, ord;
-    struct pe_sort_sym **sorted, *p;
+    पूर्णांक sym_मोजणी, ord;
+    संरचना pe_sort_sym **sorted, *p;
     TCCState *s1 = pe->s1;
 
-    FILE *op;
-    char buf[260];
-    const char *dllname;
-    const char *name;
+    खाता *op;
+    अक्षर buf[260];
+    स्थिरांक अक्षर *dllname;
+    स्थिरांक अक्षर *name;
 
     rva_base = pe->thunk->sh_addr - pe->imagebase;
-    sym_count = 0, sorted = NULL, op = NULL;
+    sym_मोजणी = 0, sorted = रिक्त, op = रिक्त;
 
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
+    sym_end = symtab_section->data_offset / आकार(ElfW(Sym));
+    साठी (sym_index = 1; sym_index < sym_end; ++sym_index) {
         sym = (ElfW(Sym)*)symtab_section->data + sym_index;
         name = pe_export_name(s1, sym);
-        if (sym->st_other & ST_PE_EXPORT) {
-            p = tcc_malloc(sizeof *p);
+        जर (sym->st_other & ST_PE_EXPORT) {
+            p = tcc_malloc(आकार *p);
             p->index = sym_index;
             p->name = name;
-            dynarray_add(&sorted, &sym_count, p);
+            dynarray_add(&sorted, &sym_मोजणी, p);
         }
-#if 0
-        if (sym->st_other & ST_PE_EXPORT)
-            printf("export: %s\n", name);
-        if (sym->st_other & ST_PE_STDCALL)
-            printf("stdcall: %s\n", name);
+#जर 0
+        जर (sym->st_other & ST_PE_EXPORT)
+            म_लिखो("export: %s\n", name);
+        जर (sym->st_other & ST_PE_STDCALL)
+            म_लिखो("stdcall: %s\n", name);
 #endif
     }
 
-    if (0 == sym_count)
-        return;
+    जर (0 == sym_मोजणी)
+        परत;
 
-    qsort (sorted, sym_count, sizeof *sorted, sym_cmp);
+    क्विक (sorted, sym_मोजणी, आकार *sorted, sym_cmp);
 
     pe_align_section(pe->thunk, 16);
     dllname = tcc_basename(pe->filename);
 
     base_o = pe->thunk->data_offset;
-    func_o = base_o + sizeof(IMAGE_EXPORT_DIRECTORY);
-    name_o = func_o + sym_count * sizeof (DWORD);
-    ord_o = name_o + sym_count * sizeof (DWORD);
-    str_o = ord_o + sym_count * sizeof(WORD);
+    func_o = base_o + आकार(IMAGE_EXPORT_DIRECTORY);
+    name_o = func_o + sym_मोजणी * आकार (DWORD);
+    ord_o = name_o + sym_मोजणी * आकार (DWORD);
+    str_o = ord_o + sym_मोजणी * आकार(WORD);
 
     hdr = section_ptr_add(pe->thunk, str_o - base_o);
     hdr->Characteristics        = 0;
     hdr->Base                   = 1;
-    hdr->NumberOfFunctions      = sym_count;
-    hdr->NumberOfNames          = sym_count;
+    hdr->संख्या_Of_Functions      = sym_मोजणी;
+    hdr->संख्या_Of_Names          = sym_मोजणी;
     hdr->AddressOfFunctions     = func_o + rva_base;
     hdr->AddressOfNames         = name_o + rva_base;
     hdr->AddressOfNameOrdinals  = ord_o + rva_base;
     hdr->Name                   = str_o + rva_base;
     put_elf_str(pe->thunk, dllname);
 
-#if 1
+#जर 1
     /* automatically write exports to <output-filename>.def */
-    pstrcpy(buf, sizeof buf, pe->filename);
-    strcpy(tcc_fileextension(buf), ".def");
-    op = fopen(buf, "wb");
-    if (NULL == op) {
-        tcc_error_noabort("could not create '%s': %s", buf, strerror(errno));
-    } else {
-        fprintf(op, "LIBRARY %s\n\nEXPORTS\n", dllname);
-        if (s1->verbose)
-            printf("<- %s (%d symbol%s)\n", buf, sym_count, &"s"[sym_count < 2]);
+    pstrcpy(buf, आकार buf, pe->filename);
+    म_नकल(tcc_fileextension(buf), ".def");
+    op = ख_खोलो(buf, "wb");
+    जर (रिक्त == op) {
+        tcc_error_noabort("could not create '%s': %s", buf, म_त्रुटि(त्रुटि_सं));
+    } अन्यथा {
+        ख_लिखो(op, "LIBRARY %s\n\nEXPORTS\n", dllname);
+        जर (s1->verbose)
+            म_लिखो("<- %s (%d symbol%s)\n", buf, sym_मोजणी, &"s"[sym_मोजणी < 2]);
     }
 #endif
 
-    for (ord = 0; ord < sym_count; ++ord)
+    साठी (ord = 0; ord < sym_मोजणी; ++ord)
     {
         p = sorted[ord], sym_index = p->index, name = p->name;
         /* insert actual address later in relocate_sections() */
@@ -1109,112 +1109,112 @@ static void pe_build_exports(struct pe_info *pe)
         *(WORD*)(pe->thunk->data + ord_o)
             = ord;
         put_elf_str(pe->thunk, name);
-        func_o += sizeof (DWORD);
-        name_o += sizeof (DWORD);
-        ord_o += sizeof (WORD);
-        if (op)
-            fprintf(op, "%s\n", name);
+        func_o += आकार (DWORD);
+        name_o += आकार (DWORD);
+        ord_o += आकार (WORD);
+        जर (op)
+            ख_लिखो(op, "%s\n", name);
     }
 
     pe->exp_offs = base_o + rva_base;
     pe->exp_size = pe->thunk->data_offset - base_o;
-    dynarray_reset(&sorted, &sym_count);
-    if (op)
-        fclose(op);
+    dynarray_reset(&sorted, &sym_मोजणी);
+    जर (op)
+        ख_बंद(op);
 }
 
 /* ------------------------------------------------------------- */
-static void pe_build_reloc (struct pe_info *pe)
+स्थिर शून्य pe_build_reloc (संरचना pe_info *pe)
 {
     DWORD offset, block_ptr, sh_addr, addr;
-    int count, i;
+    पूर्णांक मोजणी_2, i;
     ElfW_Rel *rel, *rel_end;
-    Section *s = NULL, *sr;
-    struct pe_reloc_header *hdr;
+    Section *s = रिक्त, *sr;
+    संरचना pe_reloc_header *hdr;
     TCCState *s1 = pe->s1;
-    int dwarf = 0, n;
+    पूर्णांक dwarf = 0, n;
 
-    sh_addr = offset = block_ptr = count = i = 0;
-    rel = rel_end = NULL;
+    sh_addr = offset = block_ptr = मोजणी_2 = i = 0;
+    rel = rel_end = रिक्त;
 
-    for(;;) {
-        if (rel < rel_end) {
-            int type = ELFW(R_TYPE)(rel->r_info);
+    साठी(;;) {
+        जर (rel < rel_end) {
+            पूर्णांक type = ELFW(R_TYPE)(rel->r_info);
             addr = rel->r_offset + sh_addr;
             ++ rel;
-            if (type != REL_TYPE_DIRECT)
-                continue;
-            if (dwarf) { /* don't runtime-relocate dwarf-to-dwarf */
+            जर (type != REL_TYPE_DIRECT)
+                सुरूठेवा;
+            जर (dwarf) { /* don't runtime-relocate dwarf-to-dwarf */
                 n = ((ElfSym *)s1->symtab->data + ELFW(R_SYM)(rel[-1].r_info))->st_shndx;
-                if (n >= s1->dwlo && n < s1->dwhi)
-                    continue;
+                जर (n >= s1->dwlo && n < s1->dwhi)
+                    सुरूठेवा;
             }
-            if (count == 0) { /* new block */
+            जर (मोजणी_2 == 0) { /* new block */
                 block_ptr = pe->reloc->data_offset;
-                section_ptr_add(pe->reloc, sizeof(struct pe_reloc_header));
+                section_ptr_add(pe->reloc, आकार(संरचना pe_reloc_header));
                 offset = addr & 0xFFFFFFFF<<12;
             }
-            if ((addr -= offset)  < (1<<12)) { /* one block spans 4k addresses */
-                WORD *wp = section_ptr_add(pe->reloc, sizeof (WORD));
+            जर ((addr -= offset)  < (1<<12)) { /* one block spans 4k addresses */
+                WORD *wp = section_ptr_add(pe->reloc, आकार (WORD));
                 *wp = addr | PE_IMAGE_REL<<12;
-                ++count;
-                continue;
+                ++मोजणी_2;
+                सुरूठेवा;
             }
             -- rel;
 
-        } else if (s) {
+        } अन्यथा जर (s) {
             sr = s->reloc;
-            if (sr) {
+            जर (sr) {
                 rel = (ElfW_Rel *)sr->data;
                 rel_end = (ElfW_Rel *)(sr->data + sr->data_offset);
                 sh_addr = s->sh_addr;
-                dwarf = s->sh_num >= s1->dwlo && s->sh_num < s1->dwhi;
+                dwarf = s->sh_अंक >= s1->dwlo && s->sh_अंक < s1->dwhi;
             }
             s = s->prev;
-            continue;
+            सुरूठेवा;
 
-        } else if (i < pe->sec_count) {
+        } अन्यथा जर (i < pe->sec_मोजणी) {
             s = pe->sec_info[i]->sec, ++i;
-            continue;
+            सुरूठेवा;
 
-        } else if (!count)
-            break;
+        } अन्यथा जर (!मोजणी_2)
+            थांबा;
 
         /* fill the last block and ready for a new one */
-        if (count & 1) /* align for DWORDS */
-            section_ptr_add(pe->reloc, sizeof(WORD)), ++count;
-        hdr = (struct pe_reloc_header *)(pe->reloc->data + block_ptr);
+        जर (मोजणी_2 & 1) /* align for DWORDS */
+            section_ptr_add(pe->reloc, आकार(WORD)), ++मोजणी_2;
+        hdr = (संरचना pe_reloc_header *)(pe->reloc->data + block_ptr);
         hdr -> offset = offset - pe->imagebase;
-        hdr -> size = count * sizeof(WORD) + sizeof(struct pe_reloc_header);
-        count = 0;
+        hdr -> size = मोजणी_2 * आकार(WORD) + आकार(संरचना pe_reloc_header);
+        मोजणी_2 = 0;
     }
 }
 
 /* ------------------------------------------------------------- */
-static void pe_build_tls(struct pe_info *pe, Section *s)
+स्थिर शून्य pe_build_tls(संरचना pe_info *pe, Section *s)
 {
     TCCState *s1 = pe->s1;
     IMAGE_TLS_DIRECTORY *d;
-    int c, n;
+    पूर्णांक c, n;
 
-    if (0 == s) {
-        pe->tls_size = sizeof (IMAGE_TLS_DIRECTORY);
+    जर (0 == s) {
+        pe->tls_size = आकार (IMAGE_TLS_DIRECTORY);
         pe->tls_dir = section_add(pe->thunk, pe->tls_size, 16);
         pe->tls_data = section_add(data_section, PTR_SIZE * (1+3), 16);
         /* put relocations on entries */
-        c = put_elf_sym(symtab_section, 0, 0, 0, 0, data_section->sh_num, 0);
-        for (n = 0; n < 4; ++n)
+        c = put_elf_sym(symtab_section, 0, 0, 0, 0, data_section->sh_अंक, 0);
+        साठी (n = 0; n < 4; ++n)
             put_elf_reloc(symtab_section, pe->thunk, pe->tls_dir + PTR_SIZE*n, REL_TYPE_DIRECT, c);
         /* for generators */
         set_elf_sym(symtab_section, pe->tls_data, PTR_SIZE * 4,
                 ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT),
-                0, data_section->sh_num, "__tls_index");
-        return;
+                0, data_section->sh_अंक, "__tls_index");
+        परत;
     }
 
-    if (0 == s1->tls_start)
+    जर (0 == s1->tls_start)
         s1->tls_start = s->sh_addr;
-    d = (void*)(pe->thunk->data + pe->tls_dir);
+    d = (शून्य*)(pe->thunk->data + pe->tls_dir);
     d->StartAddressOfRawData = s1->tls_start - data_section->sh_addr;
     d->EndAddressOfRawData = s->sh_addr + s->data_offset - data_section->sh_addr;
     d->AddressOfIndex = pe->tls_data;
@@ -1226,147 +1226,147 @@ static void pe_build_tls(struct pe_info *pe, Section *s)
 }
 
 /* ------------------------------------------------------------- */
-static int pe_section_class(Section *s)
+स्थिर पूर्णांक pe_section_class(Section *s)
 {
-    int type, flags;
-    const char *name;
+    पूर्णांक type, flags;
+    स्थिरांक अक्षर *name;
     type = s->sh_type;
     flags = s->sh_flags;
     name = s->name;
 
-    if (0 == memcmp(name, ".stab", 5) || 0 == memcmp(name, ".debug_", 7)) {
-        return sec_debug;
-    } else if (flags & SHF_ALLOC) {
-        if (flags & SHF_TLS)
-            return sec_tdata + (type == SHT_NOBITS);
-        if (type == SHT_PROGBITS
+    जर (0 == स_भेद(name, ".stab", 5) || 0 == स_भेद(name, ".debug_", 7)) {
+        परत sec_debug;
+    } अन्यथा जर (flags & SHF_ALLOC) {
+        जर (flags & SHF_TLS)
+            परत sec_tdata + (type == SHT_NOBITS);
+        जर (type == SHT_PROGBITS
          || type == SHT_INIT_ARRAY
          || type == SHT_FINI_ARRAY) {
-            if (flags & SHF_EXECINSTR)
-                return sec_text;
-            if (flags & SHF_WRITE)
-                return sec_data;
-            if (0 == strcmp(name, ".rsrc"))
-                return sec_rsrc;
-            if (0 == strcmp(name, ".iedat"))
-                return sec_idata;
-            if (0 == strcmp(name, ".pdata"))
-                return sec_pdata;
-            return sec_rdata;
-        } else if (type == SHT_NOBITS) {
-            return sec_bss;
+            जर (flags & SHF_EXECINSTR)
+                परत sec_text;
+            जर (flags & SHF_WRITE)
+                परत sec_data;
+            जर (0 == म_भेद(name, ".rsrc"))
+                परत sec_rsrc;
+            जर (0 == म_भेद(name, ".iedat"))
+                परत sec_idata;
+            जर (0 == म_भेद(name, ".pdata"))
+                परत sec_pdata;
+            परत sec_rdata;
+        } अन्यथा जर (type == SHT_NOBITS) {
+            परत sec_bss;
         }
-        return sec_other;
-    } else {
-        if (0 == strcmp(name, ".reloc"))
-            return sec_reloc;
+        परत sec_other;
+    } अन्यथा {
+        जर (0 == म_भेद(name, ".reloc"))
+            परत sec_reloc;
     }
-    return sec_last;
+    परत sec_last;
 }
 
-static int pe_assign_addresses (struct pe_info *pe)
+स्थिर पूर्णांक pe_assign_addresses (संरचना pe_info *pe)
 {
-    int i, k, n, c, nbs;
+    पूर्णांक i, k, n, c, nbs;
     ADDR3264 addr;
-    int *sec_order, *sec_cls;
-    struct section_info *si;
+    पूर्णांक *sec_order, *sec_cls;
+    संरचना section_info *si;
     Section *s;
     TCCState *s1 = pe->s1;
 
-    if (PE_DLL == pe->type
+    जर (PE_DLL == pe->type
         || (s1->pe_dll_characteristics & IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE))
         pe->reloc = new_section(s1, ".reloc", SHT_PROGBITS, 0);
     pe->thunk = rodata_section;
     //pe->thunk = new_section(s1, ".iedat", SHT_PROGBITS, SHF_ALLOC);
 
     nbs = s1->nb_sections;
-    sec_order = tcc_mallocz(2 * sizeof (int) * nbs);
+    sec_order = tcc_mallocz(2 * आकार (पूर्णांक) * nbs);
     sec_cls = sec_order + nbs;
-    for (i = 1; i < nbs; ++i) {
+    साठी (i = 1; i < nbs; ++i) {
         s = s1->sections[i];
         k = pe_section_class(s);
-        for (n = i; n > 1 && k < (c = sec_cls[n - 1]); --n)
+        साठी (n = i; n > 1 && k < (c = sec_cls[n - 1]); --n)
             sec_cls[n] = c, sec_order[n] = sec_order[n - 1];
         sec_cls[n] = k, sec_order[n] = i;
-        if ((s->sh_flags & SHF_TLS) && 0 == pe->tls_size)
-            pe_build_tls(pe, NULL);
+        जर ((s->sh_flags & SHF_TLS) && 0 == pe->tls_size)
+            pe_build_tls(pe, रिक्त);
     }
-    si = NULL;
+    si = रिक्त;
     addr = pe->imagebase + 1;
-    for (i = 1; (c = sec_cls[i]) < sec_last; ++i) {
+    साठी (i = 1; (c = sec_cls[i]) < sec_last; ++i) {
         s = s1->sections[sec_order[i]];
 
-        if (PE_MERGE_DATA && c == sec_bss)
+        जर (PE_MERGE_DATA && c == sec_bss)
             c = sec_data;
-        if (c == sec_tbss)
+        जर (c == sec_tbss)
             c = sec_tdata;
 
-        if (si && c == si->cls && c != sec_debug) {
+        जर (si && c == si->cls && c != sec_debug) {
             /* merge with previous section */
             s->sh_addr = addr = ((addr - 1) | (s->sh_addralign - 1)) + 1;
-        } else {
-            si = NULL;
+        } अन्यथा {
+            si = रिक्त;
             s->sh_addr = addr = pe_virtual_align(pe, addr);
         }
 
-        if (s == pe->thunk) {
+        जर (s == pe->thunk) {
             pe_build_imports(pe);
             pe_build_exports(pe);
         }
 
-        if (s == pe->reloc)
+        जर (s == pe->reloc)
             pe_build_reloc (pe);
 
-        if (0 == s->data_offset)
-            continue;
+        जर (0 == s->data_offset)
+            सुरूठेवा;
 
-        if (si)
-            goto add_section;
+        जर (si)
+            जा add_section;
 
-        si = tcc_mallocz(sizeof *si);
-        dynarray_add(&pe->sec_info, &pe->sec_count, si);
+        si = tcc_mallocz(आकार *si);
+        dynarray_add(&pe->sec_info, &pe->sec_मोजणी, si);
 
-        strcpy(si->name, s->name);
+        म_नकल(si->name, s->name);
         si->cls = c;
         si->sh_addr = addr;
 
         si->pe_flags = IMAGE_SCN_MEM_READ;
-        if (s->sh_flags & SHF_EXECINSTR)
+        जर (s->sh_flags & SHF_EXECINSTR)
             si->pe_flags |= IMAGE_SCN_MEM_EXECUTE | IMAGE_SCN_CNT_CODE;
-        else if (s->sh_type == SHT_NOBITS && !(s->sh_flags & SHF_TLS))
+        अन्यथा जर (s->sh_type == SHT_NOBITS && !(s->sh_flags & SHF_TLS))
             si->pe_flags |= IMAGE_SCN_CNT_UNINITIALIZED_DATA;
-        else
+        अन्यथा
             si->pe_flags |= IMAGE_SCN_CNT_INITIALIZED_DATA;
-        if (s->sh_flags & SHF_WRITE)
+        जर (s->sh_flags & SHF_WRITE)
             si->pe_flags |= IMAGE_SCN_MEM_WRITE;
-        if (0 == (s->sh_flags & SHF_ALLOC))
+        जर (0 == (s->sh_flags & SHF_ALLOC))
             si->pe_flags |= IMAGE_SCN_MEM_DISCARDABLE;
 
 add_section:
-        s->sh_info = pe->sec_count; /* section number for coff syms */
+        s->sh_info = pe->sec_मोजणी; /* section number for coff syms */
         addr += s->data_offset;
         si->sh_size = addr - si->sh_addr;
-        if (s->sh_type != SHT_NOBITS) {
+        जर (s->sh_type != SHT_NOBITS) {
             Section **ps = &si->sec;
-            while (*ps)
+            पर्यंत (*ps)
                 ps = &(*ps)->prev;
-            *ps = s, s->prev = NULL;
+            *ps = s, s->prev = रिक्त;
             si->data_size = si->sh_size;
         }
 
-        if (s->sh_flags & SHF_TLS) {
-            strcpy(si->name, ".tls");
+        जर (s->sh_flags & SHF_TLS) {
+            म_नकल(si->name, ".tls");
             pe_build_tls(pe, s);
         }
 
         //printf("%08x %05x %08x %s\n", si->sh_addr, si->sh_size, si->pe_flags, s->name);
     }
-#if 0
-    for (i = 1; i < nbs; ++i) {
+#जर 0
+    साठी (i = 1; i < nbs; ++i) {
         Section *s = s1->sections[sec_order[i]];
-        int type = s->sh_type;
-        int flags = s->sh_flags;
-        printf("section %-16s %-10s %p %04x %2d %s,%s,%s\n",
+        पूर्णांक type = s->sh_type;
+        पूर्णांक flags = s->sh_flags;
+        म_लिखो("section %-16s %-10s %p %04x %2d %s,%s,%s\n",
             s->name,
             type == SHT_PROGBITS ? "progbits" :
             type == SHT_INIT_ARRAY ? "initarr" :
@@ -1376,88 +1376,88 @@ add_section:
             type == SHT_STRTAB ? "strtab" :
             type == SHT_RELX ? "rel" : "???",
             s->sh_addr,
-            (unsigned)s->data_offset,
+            (अचिन्हित)s->data_offset,
             s->sh_addralign,
             flags & SHF_ALLOC ? "alloc" : "",
             flags & SHF_WRITE ? "write" : "",
             flags & SHF_EXECINSTR ? "exec" : ""
             );
-        fflush(stdout);
+        ख_साफ(मानक_निकास);
     }
     s1->verbose = 2;
 #endif
     tcc_free(sec_order);
-    return 0;
+    परत 0;
 }
 
 /*----------------------------------------------------------------------------*/
-static int pe_check_symbols(struct pe_info *pe)
+स्थिर पूर्णांक pe_check_symbols(संरचना pe_info *pe)
 {
-    int sym_index, sym_end;
-    int ret = 0;
+    पूर्णांक sym_index, sym_end;
+    पूर्णांक ret = 0;
     TCCState *s1 = pe->s1;
 
     pe_align_section(text_section, 8);
 
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
+    sym_end = symtab_section->data_offset / आकार(ElfW(Sym));
+    साठी (sym_index = 1; sym_index < sym_end; ++sym_index) {
         ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + sym_index;
-        if (sym->st_shndx == SHN_UNDEF) {
-            const char *name = (char*)symtab_section->link->data + sym->st_name;
-            unsigned type = ELFW(ST_TYPE)(sym->st_info);
-            int imp_sym = 0;
-            struct import_symbol *is;
+        जर (sym->st_shndx == SHN_UNDEF) {
+            स्थिरांक अक्षर *name = (अक्षर*)symtab_section->link->data + sym->st_name;
+            अचिन्हित type = ELFW(ST_TYPE)(sym->st_info);
+            पूर्णांक imp_sym = 0;
+            संरचना import_चिन्ह *is;
 
-            int _imp_, n;
-            char buffer[200];
-            const char *s, *p;
+            पूर्णांक _imp_, n;
+            अक्षर buffer[200];
+            स्थिरांक अक्षर *s, *p;
 
             n = _imp_ = 0;
-            if (sym->st_other & ST_PE_IMPORT)
+            जर (sym->st_other & ST_PE_IMPORT)
                 _imp_ = 1;
-            do {
+            करा {
                 s = pe_export_name(s1, sym);
-                if (n) {
+                जर (n) {
                     /* second try: */
-                    if (sym->st_other & ST_PE_STDCALL) {
+                    जर (sym->st_other & ST_PE_STDCALL) {
                         /* try w/0 stdcall deco (windows API convention) */
-                        p = strrchr(s, '@');
-                        if (!p || s[0] != '_')
-                            break;
-                        strcpy(buffer, s+1)[p-s-1] = 0, s = buffer;
-                    } else if (s[0] != '_') { /* try non-ansi function */
-                        buffer[0] = '_', strcpy(buffer + 1, s), s = buffer;
-                    } else if (0 == memcmp(s, "_imp__", 6)) { /* mingw 3.7 */
+                        p = म_खोजप(s, '@');
+                        जर (!p || s[0] != '_')
+                            थांबा;
+                        म_नकल(buffer, s+1)[p-s-1] = 0, s = buffer;
+                    } अन्यथा जर (s[0] != '_') { /* try non-ansi function */
+                        buffer[0] = '_', म_नकल(buffer + 1, s), s = buffer;
+                    } अन्यथा जर (0 == स_भेद(s, "_imp__", 6)) { /* mingw 3.7 */
                         s += 6, _imp_ = 1;
-                    } else if (0 == memcmp(s, "__imp_", 6)) { /* mingw 2.0 */
+                    } अन्यथा जर (0 == स_भेद(s, "__imp_", 6)) { /* mingw 2.0 */
                         s += 6, _imp_ = 1;
-                    } else {
-                        break;
+                    } अन्यथा {
+                        थांबा;
                     }
                 }
                 imp_sym = find_elf_sym(s1->dynsymtab_section, s);
-            } while (0 == imp_sym && ++n < 2);
+            } पर्यंत (0 == imp_sym && ++n < 2);
 
             //printf("pe_find_export (%d) %4x %s\n", n, imp_sym, name);
-            if (0 == imp_sym)
-                continue; /* will throw the 'undefined' error in relocate_syms() */
+            जर (0 == imp_sym)
+                सुरूठेवा; /* will throw the 'undefined' error in relocate_syms() */
 
             is = pe_add_import(pe, imp_sym);
 
-            if (type == STT_FUNC
+            जर (type == STT_FUNC
                 /* symbols from assembler often have no type */
                 || (type == STT_NOTYPE && 0 == _imp_)) {
-                unsigned offset = is->thk_offset;
-                if (offset) {
+                अचिन्हित offset = is->thk_offset;
+                जर (offset) {
                     /* got aliased symbol, like stricmp and _stricmp */
-                } else {
-                    unsigned char *p;
+                } अन्यथा {
+                    अचिन्हित अक्षर *p;
 
                     /* add a helper symbol, will be patched later in
                        pe_build_imports */
-                    sprintf(buffer, "IAT.%s", name);
+                    प्र_लिखो(buffer, "IAT.%s", name);
                     is->iat_index = put_elf_sym(
-                        symtab_section, 0, sizeof(DWORD),
+                        symtab_section, 0, आकार(DWORD),
                         ELFW(ST_INFO)(STB_LOCAL, STT_OBJECT),
                         0, SHN_UNDEF, buffer);
 
@@ -1471,7 +1471,7 @@ static int pe_check_symbols(struct pe_info *pe)
                     write32le(p + 4, 0xE59CF000); // arm code ldr pc, [ip]
                     put_elf_reloc(symtab_section, text_section,
                         offset + 8, R_XXX_THUNKFIX, is->iat_index); // offset to IAT position
-#elif defined(TCC_TARGET_ARM64)
+#किंवाजर defined(TCC_TARGET_ARM64)
                     p = section_ptr_add(text_section, 24);
                     write32le(p + 0, 0x58000090); /* ldr x16, [pc, #16] */
                     write32le(p + 4, 0xf9400210); /* ldr x16, [x16] */
@@ -1479,7 +1479,7 @@ static int pe_check_symbols(struct pe_info *pe)
                     write32le(p + 12, 0xd503201f); /* nop for alignment */
                     put_elf_reloc(symtab_section, text_section,
                         offset + 16, R_XXX_THUNKFIX, is->iat_index);
-#else
+#अन्यथा
                     p = section_ptr_add(text_section, 8);
                     write16le(p, 0x25FF);
 #ifdef TCC_TARGET_X86_64
@@ -1492,67 +1492,67 @@ static int pe_check_symbols(struct pe_info *pe)
                 /* tcc_realloc might have altered sym's address */
                 sym = (ElfW(Sym) *)symtab_section->data + sym_index;
                 /* patch the original symbol */
-                sym->st_value = offset;
-                sym->st_shndx = text_section->sh_num;
+                sym->st_मूल्य = offset;
+                sym->st_shndx = text_section->sh_अंक;
                 sym->st_other &= ~ST_PE_EXPORT; /* do not export */
 
-            } else { /* STT_OBJECT */
-                if (0 == _imp_)
+            } अन्यथा { /* STT_OBJECT */
+                जर (0 == _imp_)
                     ret = tcc_error_noabort("symbol '%s' is missing __declspec(dllimport)", name);
                 /* original symbol will be patched later in pe_build_imports */
-                sym->st_value = is->iat_index; /* chain potential alias */
+                sym->st_मूल्य = is->iat_index; /* chain potential alias */
                 is->iat_index = sym_index;
             }
 
-        } else if (s1->rdynamic
+        } अन्यथा जर (s1->rdynamic
                    && ELFW(ST_BIND)(sym->st_info) != STB_LOCAL) {
             /* if -rdynamic option, then export all non local symbols */
             sym->st_other |= ST_PE_EXPORT;
         }
     }
-    return ret;
+    परत ret;
 }
 
 /*----------------------------------------------------------------------------*/
-#if PE_PRINT_SECTIONS
-static void pe_print_section(FILE * f, Section * s)
+#जर PE_PRINT_SECTIONS
+स्थिर शून्य pe_print_section(खाता * f, Section * s)
 {
     /* just if you're curious */
     BYTE *p, *e, b;
-    int i, n, l, m;
+    पूर्णांक i, n, l, m;
     p = s->data;
     e = s->data + s->data_offset;
     l = e - p;
 
-    fprintf(f, "section  \"%s\"", s->name);
-    if (s->link)
-        fprintf(f, "\nlink     \"%s\"", s->link->name);
-    if (s->reloc)
-        fprintf(f, "\nreloc    \"%s\"", s->reloc->name);
-    fprintf(f, "\nv_addr   %08X", (unsigned)s->sh_addr);
-    fprintf(f, "\ncontents %08X", (unsigned)l);
-    fprintf(f, "\n\n");
+    ख_लिखो(f, "section  \"%s\"", s->name);
+    जर (s->link)
+        ख_लिखो(f, "\nlink     \"%s\"", s->link->name);
+    जर (s->reloc)
+        ख_लिखो(f, "\nreloc    \"%s\"", s->reloc->name);
+    ख_लिखो(f, "\nv_addr   %08X", (अचिन्हित)s->sh_addr);
+    ख_लिखो(f, "\ncontents %08X", (अचिन्हित)l);
+    ख_लिखो(f, "\n\n");
 
-    if (s->sh_type == SHT_NOBITS)
-        return;
+    जर (s->sh_type == SHT_NOBITS)
+        परत;
 
-    if (0 == l)
-        return;
+    जर (0 == l)
+        परत;
 
-    if (s->sh_type == SHT_SYMTAB)
-        m = sizeof(ElfW(Sym));
-    else if (s->sh_type == SHT_RELX)
-        m = sizeof(ElfW_Rel);
-    else
+    जर (s->sh_type == SHT_SYMTAB)
+        m = आकार(ElfW(Sym));
+    अन्यथा जर (s->sh_type == SHT_RELX)
+        m = आकार(ElfW_Rel);
+    अन्यथा
         m = 16;
 
-    fprintf(f, "%-8s", "offset");
-    for (i = 0; i < m; ++i)
-        fprintf(f, " %02x", i);
+    ख_लिखो(f, "%-8s", "offset");
+    साठी (i = 0; i < m; ++i)
+        ख_लिखो(f, " %02x", i);
     n = 56;
 
-    if (s->sh_type == SHT_SYMTAB || s->sh_type == SHT_RELX) {
-        const char *fields1[] = {
+    जर (s->sh_type == SHT_SYMTAB || s->sh_type == SHT_RELX) {
+        स्थिरांक अक्षर *fields1[] = {
             "name",
             "value",
             "size",
@@ -1560,198 +1560,198 @@ static void pe_print_section(FILE * f, Section * s)
             "type",
             "other",
             "shndx",
-            NULL
+            रिक्त
         };
 
-        const char *fields2[] = {
+        स्थिरांक अक्षर *fields2[] = {
             "offs",
             "type",
             "symb",
-            NULL
+            रिक्त
         };
 
-        const char **p;
+        स्थिरांक अक्षर **p;
 
-        if (s->sh_type == SHT_SYMTAB)
+        जर (s->sh_type == SHT_SYMTAB)
             p = fields1, n = 106;
-        else
+        अन्यथा
             p = fields2, n = 58;
 
-        for (i = 0; p[i]; ++i)
-            fprintf(f, "%6s", p[i]);
-        fprintf(f, "  symbol");
+        साठी (i = 0; p[i]; ++i)
+            ख_लिखो(f, "%6s", p[i]);
+        ख_लिखो(f, "  symbol");
     }
 
-    fprintf(f, "\n");
-    for (i = 0; i < n; ++i)
-        fprintf(f, "-");
-    fprintf(f, "\n");
+    ख_लिखो(f, "\n");
+    साठी (i = 0; i < n; ++i)
+        ख_लिखो(f, "-");
+    ख_लिखो(f, "\n");
 
-    for (i = 0; i < l;)
+    साठी (i = 0; i < l;)
     {
-        fprintf(f, "%08X", i);
-        for (n = 0; n < m; ++n) {
-            if (n + i < l)
-                fprintf(f, " %02X", p[i + n]);
-            else
-                fprintf(f, "   ");
+        ख_लिखो(f, "%08X", i);
+        साठी (n = 0; n < m; ++n) {
+            जर (n + i < l)
+                ख_लिखो(f, " %02X", p[i + n]);
+            अन्यथा
+                ख_लिखो(f, "   ");
         }
 
-        if (s->sh_type == SHT_SYMTAB) {
+        जर (s->sh_type == SHT_SYMTAB) {
             ElfW(Sym) *sym = (ElfW(Sym) *) (p + i);
-            const char *name = s->link->data + sym->st_name;
-            fprintf(f, "  %04X  %04X  %04X   %02X    %02X    %02X   %04X  \"%s\"",
-                    (unsigned)sym->st_name,
-                    (unsigned)sym->st_value,
-                    (unsigned)sym->st_size,
-                    (unsigned)ELFW(ST_BIND)(sym->st_info),
-                    (unsigned)ELFW(ST_TYPE)(sym->st_info),
-                    (unsigned)sym->st_other,
-                    (unsigned)sym->st_shndx,
+            स्थिरांक अक्षर *name = s->link->data + sym->st_name;
+            ख_लिखो(f, "  %04X  %04X  %04X   %02X    %02X    %02X   %04X  \"%s\"",
+                    (अचिन्हित)sym->st_name,
+                    (अचिन्हित)sym->st_मूल्य,
+                    (अचिन्हित)sym->st_size,
+                    (अचिन्हित)ELFW(ST_BIND)(sym->st_info),
+                    (अचिन्हित)ELFW(ST_TYPE)(sym->st_info),
+                    (अचिन्हित)sym->st_other,
+                    (अचिन्हित)sym->st_shndx,
                     name);
 
-        } else if (s->sh_type == SHT_RELX) {
+        } अन्यथा जर (s->sh_type == SHT_RELX) {
             ElfW_Rel *rel = (ElfW_Rel *) (p + i);
             ElfW(Sym) *sym =
                 (ElfW(Sym) *) s->link->data + ELFW(R_SYM)(rel->r_info);
-            const char *name = s->link->link->data + sym->st_name;
-            fprintf(f, "  %04X   %02X   %04X  \"%s\"",
-                    (unsigned)rel->r_offset,
-                    (unsigned)ELFW(R_TYPE)(rel->r_info),
-                    (unsigned)ELFW(R_SYM)(rel->r_info),
+            स्थिरांक अक्षर *name = s->link->link->data + sym->st_name;
+            ख_लिखो(f, "  %04X   %02X   %04X  \"%s\"",
+                    (अचिन्हित)rel->r_offset,
+                    (अचिन्हित)ELFW(R_TYPE)(rel->r_info),
+                    (अचिन्हित)ELFW(R_SYM)(rel->r_info),
                     name);
-        } else {
-            fprintf(f, "   ");
-            for (n = 0; n < m; ++n) {
-                if (n + i < l) {
+        } अन्यथा {
+            ख_लिखो(f, "   ");
+            साठी (n = 0; n < m; ++n) {
+                जर (n + i < l) {
                     b = p[i + n];
-                    if (b < 32 || b >= 127)
+                    जर (b < 32 || b >= 127)
                         b = '.';
-                    fprintf(f, "%c", b);
+                    ख_लिखो(f, "%c", b);
                 }
             }
         }
         i += m;
-        fprintf(f, "\n");
+        ख_लिखो(f, "\n");
     }
-    fprintf(f, "\n\n");
+    ख_लिखो(f, "\n\n");
 }
 
-static void pe_print_sections(TCCState *s1, const char *fname)
+स्थिर शून्य pe_print_sections(TCCState *s1, स्थिरांक अक्षर *fname)
 {
     Section *s;
-    FILE *f;
-    int i;
-    f = fopen(fname, "w");
-    for (i = 1; i < s1->nb_sections; ++i) {
+    खाता *f;
+    पूर्णांक i;
+    f = ख_खोलो(fname, "w");
+    साठी (i = 1; i < s1->nb_sections; ++i) {
         s = s1->sections[i];
         pe_print_section(f, s);
     }
     pe_print_section(f, s1->dynsymtab_section);
-    fclose(f);
+    ख_बंद(f);
 }
 #endif
 
 /* ------------------------------------------------------------- */
 
-ST_FUNC int pe_putimport(TCCState *s1, int dllindex, const char *name, addr_t value)
+ST_FUNC पूर्णांक pe_putimport(TCCState *s1, पूर्णांक dllindex, स्थिरांक अक्षर *name, addr_t मूल्य)
 {
-    return set_elf_sym(
+    परत set_elf_sym(
         s1->dynsymtab_section,
-        value,
+        मूल्य,
         dllindex, /* st_size */
         ELFW(ST_INFO)(STB_GLOBAL, STT_NOTYPE),
         0,
-        value ? SHN_ABS : SHN_UNDEF,
+        मूल्य ? SHN_ABS : SHN_UNDEF,
         name
         );
 }
 
-static int read_mem(int fd, unsigned offset, void *buffer, unsigned len)
+स्थिर पूर्णांक read_mem(पूर्णांक fd, अचिन्हित offset, शून्य *buffer, अचिन्हित len)
 {
-    lseek(fd, offset, SEEK_SET);
-    return len == read(fd, buffer, len);
+    lseek(fd, offset, शुरू_से);
+    परत len == पठ(fd, buffer, len);
 }
 
 /* ------------------------------------------------------------- */
 
-static int get_dllexports(int fd, char **pp)
+स्थिर पूर्णांक get_dllexports(पूर्णांक fd, अक्षर **pp)
 {
-    int i, k, l, n, n0, ret;
-    char *p;
+    पूर्णांक i, k, l, n, n0, ret;
+    अक्षर *p;
 
     IMAGE_SECTION_HEADER ish;
     IMAGE_EXPORT_DIRECTORY ied;
     IMAGE_DOS_HEADER dh;
     IMAGE_FILE_HEADER ih;
     DWORD sig, ref, addr;
-    DWORD *namep = NULL, p0 = 0, p1;
+    DWORD *namep = रिक्त, p0 = 0, p1;
 
-    int pef_hdroffset, opt_hdroffset, sec_hdroffset;
+    पूर्णांक pef_hdroffset, opt_hdroffset, sec_hdroffset;
 
     n = n0 = 0;
-    p = NULL;
+    p = रिक्त;
     ret = 1;
-    if (!read_mem(fd, 0, &dh, sizeof dh))
-        goto the_end;
-    if (!read_mem(fd, dh.e_lfanew, &sig, sizeof sig))
-        goto the_end;
-    if (sig != 0x00004550)
-        goto the_end;
-    pef_hdroffset = dh.e_lfanew + sizeof sig;
-    if (!read_mem(fd, pef_hdroffset, &ih, sizeof ih))
-        goto the_end;
-    opt_hdroffset = pef_hdroffset + sizeof ih;
-    if (ih.Machine == 0x014C || ih.Machine == 0x01C0) {
+    जर (!read_mem(fd, 0, &dh, आकार dh))
+        जा the_end;
+    जर (!read_mem(fd, dh.e_lfanew, &sig, आकार sig))
+        जा the_end;
+    जर (sig != 0x00004550)
+        जा the_end;
+    pef_hdroffset = dh.e_lfanew + आकार sig;
+    जर (!read_mem(fd, pef_hdroffset, &ih, आकार ih))
+        जा the_end;
+    opt_hdroffset = pef_hdroffset + आकार ih;
+    जर (ih.Machine == 0x014C || ih.Machine == 0x01C0) {
         IMAGE_OPTIONAL_HEADER32 oh;
-        sec_hdroffset = opt_hdroffset + sizeof oh;
-        if (!read_mem(fd, opt_hdroffset, &oh, sizeof oh))
-            goto the_end;
-        if (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.NumberOfRvaAndSizes)
-            goto the_end_0;
+        sec_hdroffset = opt_hdroffset + आकार oh;
+        जर (!read_mem(fd, opt_hdroffset, &oh, आकार oh))
+            जा the_end;
+        जर (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.संख्या_Of_Rva_And_Sizes)
+            जा the_end_0;
         addr = oh.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress;
-    } else if (ih.Machine == 0x8664 || ih.Machine == 0xAA64) {
+    } अन्यथा जर (ih.Machine == 0x8664 || ih.Machine == 0xAA64) {
         IMAGE_OPTIONAL_HEADER64 oh;
-        sec_hdroffset = opt_hdroffset + sizeof oh;
-        if (!read_mem(fd, opt_hdroffset, &oh, sizeof oh))
-            goto the_end;
-        if (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.NumberOfRvaAndSizes)
-            goto the_end_0;
+        sec_hdroffset = opt_hdroffset + आकार oh;
+        जर (!read_mem(fd, opt_hdroffset, &oh, आकार oh))
+            जा the_end;
+        जर (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.संख्या_Of_Rva_And_Sizes)
+            जा the_end_0;
         addr = oh.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress;
-    } else
-        goto the_end;
+    } अन्यथा
+        जा the_end;
 
     //printf("addr: %08x\n", addr);
-    for (i = 0; i < ih.NumberOfSections; ++i) {
-        if (!read_mem(fd, sec_hdroffset + i * sizeof ish, &ish, sizeof ish))
-            goto the_end;
+    साठी (i = 0; i < ih.संख्या_Of_Sections; ++i) {
+        जर (!read_mem(fd, sec_hdroffset + i * आकार ish, &ish, आकार ish))
+            जा the_end;
         //printf("vaddr: %08x\n", ish.VirtualAddress);
-        if (addr >= ish.VirtualAddress && addr < ish.VirtualAddress + ish.SizeOfRawData)
-            goto found;
+        जर (addr >= ish.VirtualAddress && addr < ish.VirtualAddress + ish.SizeOfRawData)
+            जा found;
     }
-    goto the_end_0;
+    जा the_end_0;
 found:
     ref = ish.VirtualAddress - ish.PointerToRawData;
-    if (!read_mem(fd, addr - ref, &ied, sizeof ied))
-        goto the_end;
-    k = ied.NumberOfNames;
-    if (k) {
-        namep = tcc_malloc(l = k * sizeof *namep);
-        if (!read_mem(fd, ied.AddressOfNames - ref, namep, l))
-            goto the_end;
-        for (i = l = 0; i < k; ++i) {
+    जर (!read_mem(fd, addr - ref, &ied, आकार ied))
+        जा the_end;
+    k = ied.संख्या_Of_Names;
+    जर (k) {
+        namep = tcc_malloc(l = k * आकार *namep);
+        जर (!read_mem(fd, ied.AddressOfNames - ref, namep, l))
+            जा the_end;
+        साठी (i = l = 0; i < k; ++i) {
             p1 = namep[i] - ref;
-            if (p1 != p0)
-                lseek(fd, p0 = p1, SEEK_SET), l = 0;
-            do {
-                if (0 == l) {
-                    if (n + 1000 >= n0)
+            जर (p1 != p0)
+                lseek(fd, p0 = p1, शुरू_से), l = 0;
+            करा {
+                जर (0 == l) {
+                    जर (n + 1000 >= n0)
                         p = tcc_realloc(p, n0 += 1000);
-                    if ((l = read(fd, p + n, 1000 - 1)) <= 0)
-                        goto the_end;
+                    जर ((l = पठ(fd, p + n, 1000 - 1)) <= 0)
+                        जा the_end;
                 }
                 --l, ++p0;
-            } while (p[n++]);
+            } पर्यंत (p[n++]);
         }
         p[n] = 0;
     }
@@ -1759,10 +1759,10 @@ the_end_0:
     ret = 0;
 the_end:
     tcc_free(namep);
-    if (ret && p)
-        tcc_free(p), p = NULL;
+    जर (ret && p)
+        tcc_free(p), p = रिक्त;
     *pp = p;
-    return ret;
+    परत ret;
 }
 
 /* -------------------------------------------------------------
@@ -1770,52 +1770,52 @@ the_end:
  *  as generated by 'windres.exe -O coff ...'.
  */
 
-static int pe_load_res(TCCState *s1, int fd)
+स्थिर पूर्णांक pe_load_res(TCCState *s1, पूर्णांक fd)
 {
-    struct pe_rsrc_header hdr;
+    संरचना pe_rsrc_header hdr;
     Section *rsrc_section;
-    int i, ret = -1, sym_index;
+    पूर्णांक i, ret = -1, sym_index;
     BYTE *ptr;
-    unsigned offs;
+    अचिन्हित offs;
 
-    if (!read_mem(fd, 0, &hdr, sizeof hdr))
-        goto quit;
+    जर (!read_mem(fd, 0, &hdr, आकार hdr))
+        जा quit;
 
-    if (hdr.filehdr.Machine != IMAGE_FILE_MACHINE
-        || hdr.filehdr.NumberOfSections != 1
-        || strcmp((char*)hdr.sectionhdr.Name, ".rsrc") != 0)
-        goto quit;
+    जर (hdr.filehdr.Machine != IMAGE_FILE_MACHINE
+        || hdr.filehdr.संख्या_Of_Sections != 1
+        || म_भेद((अक्षर*)hdr.sectionhdr.Name, ".rsrc") != 0)
+        जा quit;
 
     rsrc_section = new_section(s1, ".rsrc", SHT_PROGBITS, SHF_ALLOC);
     ptr = section_ptr_add(rsrc_section, hdr.sectionhdr.SizeOfRawData);
     offs = hdr.sectionhdr.PointerToRawData;
-    if (!read_mem(fd, offs, ptr, hdr.sectionhdr.SizeOfRawData))
-        goto quit;
+    जर (!read_mem(fd, offs, ptr, hdr.sectionhdr.SizeOfRawData))
+        जा quit;
     offs = hdr.sectionhdr.PointerToRelocations;
-    sym_index = put_elf_sym(symtab_section, 0, 0, 0, 0, rsrc_section->sh_num, ".rsrc");
-    for (i = 0; i < hdr.sectionhdr.NumberOfRelocations; ++i) {
-        struct pe_rsrc_reloc rel;
-        if (!read_mem(fd, offs, &rel, sizeof rel))
-            goto quit;
+    sym_index = put_elf_sym(symtab_section, 0, 0, 0, 0, rsrc_section->sh_अंक, ".rsrc");
+    साठी (i = 0; i < hdr.sectionhdr.संख्या_Of_Relocations; ++i) {
+        संरचना pe_rsrc_reloc rel;
+        जर (!read_mem(fd, offs, &rel, आकार rel))
+            जा quit;
         // printf("rsrc_reloc: %x %x %x\n", rel.offset, rel.size, rel.type);
-        if (rel.type != RSRC_RELTYPE)
-            goto quit;
+        जर (rel.type != RSRC_RELTYPE)
+            जा quit;
         put_elf_reloc(symtab_section, rsrc_section,
             rel.offset, R_XXX_RELATIVE, sym_index);
-        offs += sizeof rel;
+        offs += आकार rel;
     }
     ret = 0;
 quit:
-    return ret;
+    परत ret;
 }
 
 /* ------------------------------------------------------------- */
 
-static char *trimfront(char *p)
+स्थिर अक्षर *trimfront(अक्षर *p)
 {
-    while ((unsigned char)*p <= ' ' && *p && *p != '\n')
+    पर्यंत ((अचिन्हित अक्षर)*p <= ' ' && *p && *p != '\n')
 	++p;
-    return p;
+    परत p;
 }
 
 /*
@@ -1827,134 +1827,134 @@ static char *trimback(char *a, char *e)
     return a;
 }*/
 
-static char *get_token(char **s, char *f)
+स्थिर अक्षर *get_token(अक्षर **s, अक्षर *f)
 {
-    char *p, *e;
-    int q;
+    अक्षर *p, *e;
+    पूर्णांक q;
 
     p = trimfront(*s);
     q = *p;
-    if (q == '"') /* support quoted LIBRARY "xyz.dll" */
+    जर (q == '"') /* support quoted LIBRARY "xyz.dll" */
         ++p;
-    else
+    अन्यथा
         q = ' ';
-    for (e = p; (unsigned char)*e >= ' ' && *e != q; ++e)
+    साठी (e = p; (अचिन्हित अक्षर)*e >= ' ' && *e != q; ++e)
         ;
-    if (*e == '"')
+    जर (*e == '"')
         *e++ = 0;
     *s = trimfront(e);
     *f = **s, *e = 0;
-    return p;
+    परत p;
 }
 
-static int pe_load_def(TCCState *s1, int fd)
+स्थिर पूर्णांक pe_load_def(TCCState *s1, पूर्णांक fd)
 {
-    int state = 0, ret = -1, dllindex = 0, ord;
-    char dllname[80], *buf, *line, *p, *x, next;
+    पूर्णांक state = 0, ret = -1, dllindex = 0, ord;
+    अक्षर dllname[80], *buf, *ओळ, *p, *x, next;
 
     buf = tcc_load_text(fd);
-    if (!buf)
-        return ret;
+    जर (!buf)
+        परत ret;
 
-    for (line = buf;; ++line)  {
-        p = get_token(&line, &next);
-        if (!(*p && *p != ';'))
-            goto skip;
-        switch (state) {
-        case 0:
-            if (0 != stricmp(p, "LIBRARY") || next == '\n')
-                goto quit;
-            pstrcpy(dllname, sizeof dllname, get_token(&line, &next));
-            if (!*tcc_fileextension(dllname))
-                pstrcat(dllname, sizeof dllname, ".dll");
+    साठी (ओळ = buf;; ++ओळ)  {
+        p = get_token(&ओळ, &next);
+        जर (!(*p && *p != ';'))
+            जा skip;
+        निवड (state) {
+        स्थिती 0:
+            जर (0 != stricmp(p, "LIBRARY") || next == '\n')
+                जा quit;
+            pstrcpy(dllname, आकार dllname, get_token(&ओळ, &next));
+            जर (!*tcc_fileextension(dllname))
+                pstrcat(dllname, आकार dllname, ".dll");
             ++state;
-            break;
-        case 1:
-            if (0 != stricmp(p, "EXPORTS"))
-                goto quit;
+            थांबा;
+        स्थिती 1:
+            जर (0 != stricmp(p, "EXPORTS"))
+                जा quit;
             ++state;
-            break;
-        case 2:
+            थांबा;
+        स्थिती 2:
             dllindex = tcc_add_dllref(s1, dllname, 0)->index;
             ++state;
             /* fall through */
-        default:
+        पूर्वनिर्धारित:
             /* get ordinal and will store in sym->st_value */
             ord = 0;
-            if (next == '@') {
-                x = get_token(&line, &next);
-                ord = (int)strtol(x + 1, &x, 10);
+            जर (next == '@') {
+                x = get_token(&ओळ, &next);
+                ord = (पूर्णांक)म_से_दीर्घ(x + 1, &x, 10);
             }
             //printf("token %s ; %s : %d\n", dllname, p, ord);
             pe_putimport(s1, dllindex, p, ord);
-            break;
+            थांबा;
         }
 skip:
-        while ((unsigned char)next > ' ')
-            get_token(&line, &next);
-        if (next != '\n')
-            break;
+        पर्यंत ((अचिन्हित अक्षर)next > ' ')
+            get_token(&ओळ, &next);
+        जर (next != '\n')
+            थांबा;
     }
     ret = 0;
 quit:
     tcc_free(buf);
-    return ret;
+    परत ret;
 }
 
 /* ------------------------------------------------------------- */
 
-static int pe_load_dll(TCCState *s1, int fd, const char *filename)
+स्थिर पूर्णांक pe_load_dll(TCCState *s1, पूर्णांक fd, स्थिरांक अक्षर *filename)
 {
-    char *p, *q;
+    अक्षर *p, *q;
     DLLReference *ref = tcc_add_dllref(s1, filename, 0);
-    if (ref->found)
-        return 0;
-    if (get_dllexports(fd, &p))
-        return -1;
-    if (p) {
-        for (q = p; *q; q += 1 + strlen(q))
+    जर (ref->found)
+        परत 0;
+    जर (get_dllexports(fd, &p))
+        परत -1;
+    जर (p) {
+        साठी (q = p; *q; q += 1 + म_माप(q))
             pe_putimport(s1, ref->index, q, 0);
         tcc_free(p);
     }
-    return 0;
+    परत 0;
 }
 
-ST_FUNC int pe_load_file(struct TCCState *s1, int fd, const char *filename)
+ST_FUNC पूर्णांक pe_load_file(संरचना TCCState *s1, पूर्णांक fd, स्थिरांक अक्षर *filename)
 {
-    int ret = -1;
-    char buf[10];
-    if (0 == strcmp(tcc_fileextension(filename), ".def"))
+    पूर्णांक ret = -1;
+    अक्षर buf[10];
+    जर (0 == म_भेद(tcc_fileextension(filename), ".def"))
         ret = pe_load_def(s1, fd);
-    else if (pe_load_res(s1, fd) == 0)
+    अन्यथा जर (pe_load_res(s1, fd) == 0)
         ret = 0;
-    else if (read_mem(fd, 0, buf, 4) && 0 == memcmp(buf, "MZ", 2))
+    अन्यथा जर (read_mem(fd, 0, buf, 4) && 0 == स_भेद(buf, "MZ", 2))
         ret = pe_load_dll(s1, fd, filename);
-    return ret;
+    परत ret;
 }
 
-PUB_FUNC int tcc_get_dllexports(const char *filename, char **pp)
+PUB_FUNC पूर्णांक tcc_get_dllexports(स्थिरांक अक्षर *filename, अक्षर **pp)
 {
-    int ret, fd = open(filename, O_RDONLY | O_BINARY);
-    if (fd < 0)
-        return -1;
+    पूर्णांक ret, fd = खोलो(filename, O_RDONLY | O_द्विमान_2);
+    जर (fd < 0)
+        परत -1;
     ret = get_dllexports(fd, pp);
-    close(fd);
-    return ret;
+    बंद(fd);
+    परत ret;
 }
 
 /* ------------------------------------------------------------- */
 #ifdef TCC_TARGET_X86_64
-static unsigned pe_add_unwind_info(TCCState *s1)
+स्थिर अचिन्हित pe_add_unwind_info(TCCState *s1)
 {
-    if (NULL == s1->uw_pdata) {
+    जर (रिक्त == s1->uw_pdata) {
         s1->uw_pdata = find_section(s1, ".pdata");
         s1->uw_pdata->sh_addralign = 4;
     }
-    if (0 == s1->uw_sym)
-        s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0, text_section->sh_num, ".uw_base");
-    if (0 == s1->uw_offs) {
+    जर (0 == s1->uw_sym)
+        s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0, text_section->sh_अंक, ".uw_base");
+    जर (0 == s1->uw_offs) {
         /* As our functions all have the same stackframe, we use one entry for all */
-        static const unsigned char uw_info[] = {
+        स्थिर स्थिरांक अचिन्हित अक्षर uw_info[] = {
             0x01, // UBYTE: 3 Version , UBYTE: 5 Flags
             0x04, // UBYTE Size of prolog
             0x02, // UBYTE Count of unwind codes
@@ -1967,23 +1967,23 @@ static unsigned pe_add_unwind_info(TCCState *s1)
         };
 
         Section *s = text_section;
-        unsigned char *p;
+        अचिन्हित अक्षर *p;
 
         section_ptr_add(s, -s->data_offset & 3); /* align */
         s1->uw_offs = s->data_offset;
-        p = section_ptr_add(s, sizeof uw_info);
-        memcpy(p, uw_info, sizeof uw_info);
+        p = section_ptr_add(s, आकार uw_info);
+        स_नकल(p, uw_info, आकार uw_info);
     }
 
-    return s1->uw_offs;
+    परत s1->uw_offs;
 }
 
-ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
+ST_FUNC शून्य pe_add_unwind_data(अचिन्हित start, अचिन्हित end, अचिन्हित चळत)
 {
     TCCState *s1 = tcc_state;
     Section *pd;
-    unsigned o, n, d;
-    struct /* _RUNTIME_FUNCTION */ {
+    अचिन्हित o, n, d;
+    संरचना /* _RUNTIME_FUNCTION */ {
       DWORD BeginAddress;
       DWORD EndAddress;
       DWORD UnwindData;
@@ -1992,7 +1992,7 @@ ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
     d = pe_add_unwind_info(s1);
     pd = s1->uw_pdata;
     o = pd->data_offset;
-    p = section_ptr_add(pd, sizeof *p);
+    p = section_ptr_add(pd, आकार *p);
 
     /* record this function */
     p->BeginAddress = start;
@@ -2000,11 +2000,11 @@ ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
     p->UnwindData = d;
 
     /* put relocations on it */
-    for (n = o + sizeof *p; o < n; o += sizeof p->BeginAddress)
+    साठी (n = o + आकार *p; o < n; o += आकार p->BeginAddress)
         put_elf_reloc(symtab_section, pd, o, R_XXX_RELATIVE, s1->uw_sym);
 }
 
-#elif defined(TCC_TARGET_ARM64)
+#किंवाजर defined(TCC_TARGET_ARM64)
 /* ARM64 unwind codes:
    save_fplr_x: 10iiiiii  - stp x29,lr,[sp,#-(i+1)*8]!
    set_fp:      11100001  - mov x29,sp
@@ -2012,38 +2012,38 @@ ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
    alloc_m:     11000iii xxxxxxxx - sub sp,sp,#X*16 (up to 32KB)
    end:         11100100  - end of unwind codes
 */
-static Section *pe_add_unwind_info(TCCState *s1)
+स्थिर Section *pe_add_unwind_info(TCCState *s1)
 {
     Section *s;
 
-    if (NULL == s1->uw_pdata) {
+    जर (रिक्त == s1->uw_pdata) {
         s1->uw_pdata = find_section(s1, ".pdata");
         s1->uw_pdata->sh_addralign = 4;
     }
     s = find_section(s1, ".xdata");
     s->sh_addralign = 4;
-    if (0 == s1->uw_sym)
+    जर (0 == s1->uw_sym)
         s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0,
-                                  text_section->sh_num, ".uw_text_base");
-    if (0 == s1->uw_xsym)
+                                  text_section->sh_अंक, ".uw_text_base");
+    जर (0 == s1->uw_xsym)
         s1->uw_xsym = put_elf_sym(symtab_section, 0, 0, 0, 0,
-                                  s->sh_num, ".uw_base");
-    return s;
+                                  s->sh_अंक, ".uw_base");
+    परत s;
 }
 
-ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
+ST_FUNC शून्य pe_add_unwind_data(अचिन्हित start, अचिन्हित end, अचिन्हित चळत)
 {
     TCCState *s1 = tcc_state;
     Section *pd, *xd;
-    unsigned o, d, code_bytes, func_len;
-    unsigned char *q;
+    अचिन्हित o, d, code_bytes, func_len;
+    अचिन्हित अक्षर *q;
     uint32_t header;
-    struct /* _RUNTIME_FUNCTION */ {
+    संरचना /* _RUNTIME_FUNCTION */ {
         DWORD BeginAddress;
         DWORD UnwindData;
     } *p;
 
-    int epilog;
+    पूर्णांक epilog;
 
     xd = pe_add_unwind_info(s1);
     pd = s1->uw_pdata;
@@ -2069,11 +2069,11 @@ ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
     *q++ = 0xE1; /* set_fp */
     *q++ = 0x9B; /* save_fplr_x: stp x29,lr,[sp,#-224]! */
     *q++ = 0xE4; /* end */
-    while ((unsigned)(q - (xd->data + d + 4)) < code_bytes)
+    पर्यंत ((अचिन्हित)(q - (xd->data + d + 4)) < code_bytes)
         *q++ = 0xE3; /* nop padding */
 
     o = pd->data_offset;
-    p = section_ptr_add(pd, sizeof *p);
+    p = section_ptr_add(pd, आकार *p);
     p->BeginAddress = start;
     p->UnwindData = d;
     put_elf_reloc(symtab_section, pd, o, R_XXX_RELATIVE, s1->uw_sym);
@@ -2081,68 +2081,68 @@ ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
 }
 #endif
 /* ------------------------------------------------------------- */
-#if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
+#जर defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
 #define PE_STDSYM(n,s) n
-#else
+#अन्यथा
 #define PE_STDSYM(n,s) "_" n s
 #endif
 
-static void pe_add_runtime(TCCState *s1, struct pe_info *pe)
+स्थिर शून्य pe_add_runtime(TCCState *s1, संरचना pe_info *pe)
 {
-    const char *start_symbol;
-    int pe_type;
+    स्थिरांक अक्षर *start_चिन्ह;
+    पूर्णांक pe_type;
 
-    if (TCC_OUTPUT_DLL == s1->output_type) {
+    जर (TCC_OUTPUT_DLL == s1->output_type) {
         pe_type = PE_DLL;
-        start_symbol = PE_STDSYM("__dllstart","@12");
-    } else {
-        const char *run_symbol;
-        if (find_elf_sym(symtab_section, PE_STDSYM("WinMain","@16"))) {
-            start_symbol = "__winstart";
-            run_symbol = "__runwinmain";
+        start_चिन्ह = PE_STDSYM("__dllstart","@12");
+    } अन्यथा {
+        स्थिरांक अक्षर *run_चिन्ह;
+        जर (find_elf_sym(symtab_section, PE_STDSYM("WinMain","@16"))) {
+            start_चिन्ह = "__winstart";
+            run_चिन्ह = "__runwinmain";
             pe_type = PE_GUI;
-        } else if (find_elf_sym(symtab_section, PE_STDSYM("wWinMain","@16"))) {
-            start_symbol = "__wwinstart";
-            run_symbol = "__runwwinmain";
+        } अन्यथा जर (find_elf_sym(symtab_section, PE_STDSYM("wWinMain","@16"))) {
+            start_चिन्ह = "__wwinstart";
+            run_चिन्ह = "__runwwinmain";
             pe_type = PE_GUI;
-        } else if (find_elf_sym(symtab_section, "wmain")) {
-            start_symbol = "__wstart";
-            run_symbol = "__runwmain";
+        } अन्यथा जर (find_elf_sym(symtab_section, "wmain")) {
+            start_चिन्ह = "__wstart";
+            run_चिन्ह = "__runwmain";
             pe_type = PE_EXE;
-        } else {
-            start_symbol =  "__start";
-            run_symbol = "__runmain";
+        } अन्यथा {
+            start_चिन्ह =  "__start";
+            run_चिन्ह = "__runmain";
             pe_type = PE_EXE;
-            if (s1->pe_subsystem == 2)
+            जर (s1->pe_subsystem == 2)
                 pe_type = PE_GUI;
         }
 
-        if (TCC_OUTPUT_MEMORY == s1->output_type && !s1->nostdlib)
-            start_symbol = run_symbol;
+        जर (TCC_OUTPUT_MEMORY == s1->output_type && !s1->nostdlib)
+            start_चिन्ह = run_चिन्ह;
     }
-    if (s1->elf_entryname) {
-        pe->start_symbol = start_symbol = s1->elf_entryname;
-    } else {
-        pe->start_symbol = start_symbol + 1;
-        if (!s1->leading_underscore || strchr(start_symbol, '@'))
-            ++start_symbol;
+    जर (s1->elf_entryname) {
+        pe->start_चिन्ह = start_चिन्ह = s1->elf_entryname;
+    } अन्यथा {
+        pe->start_चिन्ह = start_चिन्ह + 1;
+        जर (!s1->leading_underscore || म_अक्षर(start_चिन्ह, '@'))
+            ++start_चिन्ह;
     }
 
 #ifdef CONFIG_TCC_BACKTRACE
-    if (s1->do_backtrace) {
+    जर (s1->do_backtrace) {
 #ifdef CONFIG_TCC_BCHECK
-        if (s1->do_bounds_check && s1->output_type != TCC_OUTPUT_DLL) {
-	    if (s1->output_type == TCC_OUTPUT_MEMORY)
+        जर (s1->do_bounds_check && s1->output_type != TCC_OUTPUT_DLL) {
+	    जर (s1->output_type == TCC_OUTPUT_MEMORY)
                 tcc_add_support(s1, "bcheck_run.o");
-	    else
+	    अन्यथा
                 tcc_add_support(s1, "bcheck.o");
 	}
 #endif
-        if (s1->output_type == TCC_OUTPUT_EXE)
+        जर (s1->output_type == TCC_OUTPUT_EXE)
             tcc_add_support(s1, "bt-exe.o");
-        if (s1->output_type == TCC_OUTPUT_DLL)
+        जर (s1->output_type == TCC_OUTPUT_DLL)
             tcc_add_support(s1, "bt-dll.o");
-        if (s1->output_type != TCC_OUTPUT_DLL)
+        जर (s1->output_type != TCC_OUTPUT_DLL)
             tcc_add_support(s1, "bt-log.o");
         tcc_add_btstub(s1);
     }
@@ -2150,38 +2150,38 @@ static void pe_add_runtime(TCCState *s1, struct pe_info *pe)
 
     /* grab the startup code from libtcc1.a */
 #ifdef TCC_IS_NATIVE
-    if (TCC_OUTPUT_MEMORY != s1->output_type || s1->run_main)
+    जर (TCC_OUTPUT_MEMORY != s1->output_type || s1->run_main)
 #endif
-    set_global_sym(s1, start_symbol, NULL, 0);
+    set_global_sym(s1, start_चिन्ह, रिक्त, 0);
 
-    if (0 == s1->nostdlib) {
-        static const char * const libs[] = {
-            "msvcrt", "kernel32", "", "user32", "gdi32", NULL
+    जर (0 == s1->nostdlib) {
+        स्थिर स्थिरांक अक्षर * स्थिरांक libs[] = {
+            "msvcrt", "kernel32", "", "user32", "gdi32", रिक्त
         };
-        const char * const *pp, *p;
-        if (TCC_LIBTCC1[0])
+        स्थिरांक अक्षर * स्थिरांक *pp, *p;
+        जर (TCC_LIBTCC1[0])
             tcc_add_support(s1, TCC_LIBTCC1);
         s1->static_link = 0; /* no static crt for tcc */
-        for (pp = libs; 0 != (p = *pp); ++pp) {
-            if (*p)
+        साठी (pp = libs; 0 != (p = *pp); ++pp) {
+            जर (*p)
                 tcc_add_library(s1, p);
-            else if (PE_DLL != pe_type && PE_GUI != pe_type)
-                break;
+            अन्यथा जर (PE_DLL != pe_type && PE_GUI != pe_type)
+                थांबा;
         }
     }
 
     /* need this for 'tccelf.c:relocate_sections()' */
-    if (TCC_OUTPUT_DLL == s1->output_type)
+    जर (TCC_OUTPUT_DLL == s1->output_type)
         s1->output_type = TCC_OUTPUT_EXE;
-    if (TCC_OUTPUT_MEMORY == s1->output_type)
+    जर (TCC_OUTPUT_MEMORY == s1->output_type)
         pe_type = PE_RUN;
     pe->type = pe_type;
 }
 
-ST_FUNC int pe_setsubsy(TCCState *s1, const char *arg)
+ST_FUNC पूर्णांक pe_setsubsy(TCCState *s1, स्थिरांक अक्षर *arg)
 {
-    static const struct subsy { const char* p; int v; } x[] = {
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
+    स्थिर स्थिरांक संरचना subsy { स्थिरांक अक्षर* p; पूर्णांक v; } x[] = {
+#जर defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
         { "native", 1 },
         { "gui", 2 },
         { "windows", 2 },
@@ -2191,69 +2191,69 @@ ST_FUNC int pe_setsubsy(TCCState *s1, const char *arg)
         { "efiboot", 11 },
         { "efiruntime", 12 },
         { "efirom", 13 },
-#elif defined(TCC_TARGET_ARM)
+#किंवाजर defined(TCC_TARGET_ARM)
         { "wince", 9 },
 #endif
         { 0, -1 }};
-    const struct subsy *y;
-    for (y = x;; ++y) {
-        if (!y->p)
-            return -1;
-        if (0 == strcmp(y->p, arg)) {
+    स्थिरांक संरचना subsy *y;
+    साठी (y = x;; ++y) {
+        जर (!y->p)
+            परत -1;
+        जर (0 == म_भेद(y->p, arg)) {
             s1->pe_subsystem = y->v;
-            return 0;
+            परत 0;
         }
     }
 }
 
-static void pe_set_options(TCCState * s1, struct pe_info *pe)
+स्थिर शून्य pe_set_options(TCCState * s1, संरचना pe_info *pe)
 {
-    if (PE_DLL == pe->type) {
+    जर (PE_DLL == pe->type) {
         /* XXX: check if is correct for arm-pe target */
         pe->imagebase = IMAGE_BASE_DLL;
-    } else {
+    } अन्यथा {
         pe->imagebase = IMAGE_BASE_EXE;
     }
 
-#if defined(TCC_TARGET_ARM)
+#जर defined(TCC_TARGET_ARM)
     /* we use "console" subsystem by default */
     pe->subsystem = 9;
-#else
-    if (PE_DLL == pe->type || PE_GUI == pe->type)
+#अन्यथा
+    जर (PE_DLL == pe->type || PE_GUI == pe->type)
         pe->subsystem = 2;
-    else
+    अन्यथा
         pe->subsystem = 3;
 #endif
     /* Allow override via -Wl,-subsystem=... option */
-    if (s1->pe_subsystem != 0)
+    जर (s1->pe_subsystem != 0)
         pe->subsystem = s1->pe_subsystem;
 
     /* set default file/section alignment */
-    if (pe->subsystem == 1) {
+    जर (pe->subsystem == 1) {
         pe->section_align = 0x20;
         pe->file_align = 0x20;
-    } else {
+    } अन्यथा {
         pe->section_align = 0x1000;
         pe->file_align = 0x200;
     }
 
-    if (s1->section_align != 0)
+    जर (s1->section_align != 0)
         pe->section_align = s1->section_align;
-    if (s1->pe_file_align != 0)
+    जर (s1->pe_file_align != 0)
         pe->file_align = s1->pe_file_align;
 
-    if ((pe->subsystem >= 10) && (pe->subsystem <= 12))
+    जर ((pe->subsystem >= 10) && (pe->subsystem <= 12))
         pe->imagebase = 0;
 
-    if (s1->has_text_addr)
+    जर (s1->has_text_addr)
         pe->imagebase = s1->text_addr;
 }
 
-ST_FUNC int pe_output_file(TCCState *s1, const char *filename)
+ST_FUNC पूर्णांक pe_output_file(TCCState *s1, स्थिरांक अक्षर *filename)
 {
-    struct pe_info pe;
+    संरचना pe_info pe;
 
-    memset(&pe, 0, sizeof pe);
+    स_रखो(&pe, 0, आकार pe);
     pe.filename = filename;
     pe.s1 = s1;
     s1->filetype = 0;
@@ -2266,39 +2266,39 @@ ST_FUNC int pe_output_file(TCCState *s1, const char *filename)
     resolve_common_syms(s1);
     pe_set_options(s1, &pe);
     pe_check_symbols(&pe);
-    if (s1->nb_errors)
-        goto done;
-    if (filename) {
+    जर (s1->nb_errors)
+        जा done;
+    जर (filename) {
         pe_assign_addresses(&pe);
         relocate_syms(s1, s1->symtab, 0);
-        if (s1->nb_errors)
-            goto done;
+        जर (s1->nb_errors)
+            जा done;
         s1->pe_imagebase = pe.imagebase;
         relocate_sections(s1);
         pe.start_addr = (DWORD)
-            (get_sym_addr(s1, pe.start_symbol, 1, 1) - pe.imagebase);
-        if (s1->nb_errors)
-            goto done;
+            (get_sym_addr(s1, pe.start_चिन्ह, 1, 1) - pe.imagebase);
+        जर (s1->nb_errors)
+            जा done;
         pe_write(&pe);
-    } else {
+    } अन्यथा {
         /* -run */
 #ifdef TCC_IS_NATIVE
         pe.thunk = data_section;
         pe_build_imports(&pe);
-        s1->run_main = pe.start_symbol;
-#if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
+        s1->run_main = pe.start_चिन्ह;
+#जर defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
         s1->uw_pdata = find_section(s1, ".pdata");
 #endif
 #endif
     }
 done:
-    dynarray_reset(&pe.sec_info, &pe.sec_count);
+    dynarray_reset(&pe.sec_info, &pe.sec_मोजणी);
     pe_free_imports(&pe);
-#if PE_PRINT_SECTIONS
-    if (g_debug & 8)
+#जर PE_PRINT_SECTIONS
+    जर (g_debug & 8)
         pe_print_sections(s1, "tcc.log");
 #endif
-    return s1->nb_errors ? -1 : 0;
+    परत s1->nb_errors ? -1 : 0;
 }
 
 /* ------------------------------------------------------------- */

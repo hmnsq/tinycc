@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+पूर्णांक म_लिखो(स्थिरांक अक्षर *s, ...);
 
-float fx(x)
-float x;
+दशांश fx(x)
+दशांश x;
 {
-    return 2.0 * x;
+    परत 2.0 * x;
 }
 
-void func(float a);
+शून्य func(दशांश a);
 
-void func3(struct p { int a; int b; } *q) {
+शून्य func3(संरचना p { पूर्णांक a; पूर्णांक b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+शून्य func4(q)
+ संरचना p { पूर्णांक a; पूर्णांक b; पूर्णांक c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+संरचना p { पूर्णांक a; पूर्णांक b; पूर्णांक c; पूर्णांक d; };
 
-int
-main(void)
+पूर्णांक
+main(शून्य)
 {
-    float fy();
+    दशांश fy();
 
-    printf("%g %g\n", fx(2.0), fy(10.0));
-    printf("%g %g\n", fx(2.0f), fy(10.0f));
+    म_लिखो("%g %g\n", fx(2.0), fy(10.0));
+    म_लिखो("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+दशांश fy(x)
+दशांश x;
 {
-    return 3.0 * x;
+    परत 3.0 * x;
 }
 
-void func(a)
-float a;
+शून्य func(a)
+दशांश a;
 {
-    printf("%g\n", a);
+    म_लिखो("%g\n", a);
 }

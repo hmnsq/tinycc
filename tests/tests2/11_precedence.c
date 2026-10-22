@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+बाह्य पूर्णांक म_लिखो(स्थिरांक अक्षर *, ...);
 
-int main()
+पूर्णांक main()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   पूर्णांक a;
+   पूर्णांक b;
+   पूर्णांक c;
+   पूर्णांक d;
+   पूर्णांक e;
+   पूर्णांक f;
+   पूर्णांक x;
+   पूर्णांक y;
 
    a = 12;
    b = 34;
@@ -19,23 +19,23 @@ int main()
    e = 0;
    f = 1;
 
-   printf("%d\n", c + d);
-   printf("%d\n", (y = c + d));
-   printf("%d\n", e || e && f);
-   printf("%d\n", e || f && f);
-   printf("%d\n", e && e || f);
-   printf("%d\n", e && f || f);
-   printf("%d\n", a && f | f);
-   printf("%d\n", a | b ^ c & d);
-   printf("%d, %d\n", a == a, a == b);
-   printf("%d, %d\n", a != a, a != b);
-   printf("%d\n", a != b && c != d);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", (4 << 4));
-   printf("%d\n", (64 >> 4));
+   म_लिखो("%d\n", c + d);
+   म_लिखो("%d\n", (y = c + d));
+   म_लिखो("%d\n", e || e && f);
+   म_लिखो("%d\n", e || f && f);
+   म_लिखो("%d\n", e && e || f);
+   म_लिखो("%d\n", e && f || f);
+   म_लिखो("%d\n", a && f | f);
+   म_लिखो("%d\n", a | b ^ c & d);
+   म_लिखो("%d, %d\n", a == a, a == b);
+   म_लिखो("%d, %d\n", a != a, a != b);
+   म_लिखो("%d\n", a != b && c != d);
+   म_लिखो("%d\n", a + b * c / f);
+   म_लिखो("%d\n", a + b * c / f);
+   म_लिखो("%d\n", (4 << 4));
+   म_लिखो("%d\n", (64 >> 4));
 
-   return 0;
+   परत 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

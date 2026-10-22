@@ -1,30 +1,30 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णांक main()
 {
     /* must not affect how #pragma ppop_macro works */
-    #define pop_macro foobar1
+    #define काढा_macro foobar1
 
     /* must not affect how #pragma push_macro works */
-    #define push_macro foobar2
+    #define ढकला_macro foobar2
 
-    #undef abort
-    #define abort "111"
-    printf("abort = %s\n", abort);
+    #undef पात
+    #define पात "111"
+    म_लिखो("abort = %s\n", पात);
 
-    #pragma push_macro("abort")
-    #undef abort
-    #define abort "222"
-    printf("abort = %s\n", abort);
+    #pragma ढकला_macro("abort")
+    #undef पात
+    #define पात "222"
+    म_लिखो("abort = %s\n", पात);
 
-    #pragma push_macro("abort")
-    #undef abort
-    #define abort "333"
-    printf("abort = %s\n", abort);
+    #pragma ढकला_macro("abort")
+    #undef पात
+    #define पात "333"
+    म_लिखो("abort = %s\n", पात);
 
-    #pragma pop_macro("abort")
-    printf("abort = %s\n", abort);
+    #pragma काढा_macro("abort")
+    म_लिखो("abort = %s\n", पात);
 
-    #pragma pop_macro("abort")
-    printf("abort = %s\n", abort);
+    #pragma काढा_macro("abort")
+    म_लिखो("abort = %s\n", पात);
 }

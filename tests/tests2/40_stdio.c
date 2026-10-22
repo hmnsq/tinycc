@@ -1,52 +1,52 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णांक main()
 {
-   FILE *f = fopen("fred.txt", "w");
-   fwrite("hello\nhello\n", 1, 12, f);
-   fclose(f);
+   खाता *f = ख_खोलो("fred.txt", "w");
+   ख_डालो("hello\nhello\n", 1, 12, f);
+   ख_बंद(f);
 
-   char freddy[7];
-   f = fopen("fred.txt", "r");
-   if (fread(freddy, 1, 6, f) != 6)
-      printf("couldn't read fred.txt\n");
+   अक्षर freddy[7];
+   f = ख_खोलो("fred.txt", "r");
+   जर (ख_पढ़ो(freddy, 1, 6, f) != 6)
+      म_लिखो("couldn't read fred.txt\n");
 
    freddy[6] = '\0';
-   fclose(f);
+   ख_बंद(f);
 
-   printf("%s", freddy);
+   म_लिखो("%s", freddy);
 
-   int InChar;
-   char ShowChar;
-   f = fopen("fred.txt", "r");
-   while ( (InChar = fgetc(f)) != EOF)
+   पूर्णांक InChar;
+   अक्षर ShowChar;
+   f = ख_खोलो("fred.txt", "r");
+   पर्यंत ( (InChar = ख_अक्षर_लो(f)) != खातापूर्ण)
    {
       ShowChar = InChar;
-      if (ShowChar < ' ')
+      जर (ShowChar < ' ')
          ShowChar = '.';
 
-      printf("ch: %d '%c'\n", InChar, ShowChar);
+      म_लिखो("ch: %d '%c'\n", InChar, ShowChar);
    }
-   fclose(f);
+   ख_बंद(f);
 
-   f = fopen("fred.txt", "r");
-   while ( (InChar = getc(f)) != EOF)
+   f = ख_खोलो("fred.txt", "r");
+   पर्यंत ( (InChar = अ_लो(f)) != खातापूर्ण)
    {
       ShowChar = InChar;
-      if (ShowChar < ' ')
+      जर (ShowChar < ' ')
          ShowChar = '.';
 
-      printf("ch: %d '%c'\n", InChar, ShowChar);
+      म_लिखो("ch: %d '%c'\n", InChar, ShowChar);
    }
-   fclose(f);
+   ख_बंद(f);
 
-   f = fopen("fred.txt", "r");
-   while (fgets(freddy, sizeof(freddy), f) != NULL)
-      printf("x: %s", freddy);
+   f = ख_खोलो("fred.txt", "r");
+   पर्यंत (ख_माला_लो(freddy, आकार(freddy), f) != रिक्त)
+      म_लिखो("x: %s", freddy);
 
-   fclose(f);
+   ख_बंद(f);
 
-   return 0;
+   परत 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

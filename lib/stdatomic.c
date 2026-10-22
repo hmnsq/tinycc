@@ -1,9 +1,9 @@
 // for libtcc1, avoid including files that are not part of tcc
 // #include <stdint.h>
-#define uint8_t unsigned char
-#define uint16_t unsigned short
-#define uint32_t unsigned int
-#define uint64_t unsigned long long
+#define uint8_t अचिन्हित अक्षर
+#define uint16_t अचिन्हित लघु
+#define uint32_t अचिन्हित पूर्णांक
+#define uint64_t अचिन्हित दीर्घ दीर्घ
 #define bool _Bool
 #define false 0
 #define true 1
@@ -13,46 +13,46 @@
 #define __ATOMIC_RELEASE 3
 #define __ATOMIC_ACQ_REL 4
 #define __ATOMIC_SEQ_CST 5
-typedef __SIZE_TYPE__ size_t;
+प्रकारव्याख्या __SIZE_TYPE__ माप_प्रकार;
 
 #define ATOMIC_GEN_OP(TYPE, MODE, NAME, OP, RET) \
-    TYPE __atomic_##NAME##_##MODE(volatile void *atom, TYPE value, int memorder) \
+    TYPE __atomic_##NAME##_##MODE(अस्थिर शून्य *atom, TYPE मूल्य, पूर्णांक memorder) \
     { \
         TYPE xchg, cmp; \
         __atomic_load((TYPE *)atom, (TYPE *)&cmp, __ATOMIC_RELAXED); \
-        do { \
+        करा { \
             xchg = (OP); \
-        } while (!__atomic_compare_exchange((TYPE *)atom, &cmp, &xchg, true, \
+        } पर्यंत (!__atomic_compare_exchange((TYPE *)atom, &cmp, &xchg, true, \
                                             __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST)); \
-        return RET; \
+        परत RET; \
     }
 
 #define ATOMIC_EXCHANGE(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, exchange, value, cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, exchange, मूल्य, cmp)
 #define ATOMIC_ADD_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, add_fetch, (cmp + value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, add_fetch, (cmp + मूल्य), xchg)
 #define ATOMIC_SUB_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, sub_fetch, (cmp - value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, sub_fetch, (cmp - मूल्य), xchg)
 #define ATOMIC_AND_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, and_fetch, (cmp & value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, and_fetch, (cmp & मूल्य), xchg)
 #define ATOMIC_OR_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, or_fetch, (cmp | value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, or_fetch, (cmp | मूल्य), xchg)
 #define ATOMIC_XOR_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, xor_fetch, (cmp ^ value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, xor_fetch, (cmp ^ मूल्य), xchg)
 #define ATOMIC_NAND_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, nand_fetch, ~(cmp & value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, nand_fetch, ~(cmp & मूल्य), xchg)
 #define ATOMIC_FETCH_ADD(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_add, (cmp + value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_add, (cmp + मूल्य), cmp)
 #define ATOMIC_FETCH_SUB(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_sub, (cmp - value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_sub, (cmp - मूल्य), cmp)
 #define ATOMIC_FETCH_AND(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_and, (cmp & value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_and, (cmp & मूल्य), cmp)
 #define ATOMIC_FETCH_OR(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_or, (cmp | value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_or, (cmp | मूल्य), cmp)
 #define ATOMIC_FETCH_XOR(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_xor, (cmp ^ value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_xor, (cmp ^ मूल्य), cmp)
 #define ATOMIC_FETCH_NAND(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_nand, ~(cmp & value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_nand, ~(cmp & मूल्य), cmp)
 
 #define ATOMIC_GEN(TYPE, SIZE) \
     ATOMIC_EXCHANGE(TYPE, SIZE) \
@@ -77,28 +77,28 @@ ATOMIC_GEN(uint64_t, 8)
 /* uses alias to allow building with gcc/clang */
 #ifdef __TINYC__
 #define ATOMIC(x)      __atomic_##x
-#else
+#अन्यथा
 #define ATOMIC(x)      __tcc_atomic_##x
 #endif
 
-bool ATOMIC(is_lock_free) (unsigned long size, const volatile void *ptr)
+bool ATOMIC(is_lock_free) (अचिन्हित दीर्घ size, स्थिरांक अस्थिर शून्य *ptr)
 {
     bool ret;
 
-    switch (size) {
-    case 1: ret = true; break;
-    case 2: ret = true; break;
-    case 4: ret = true; break;
-#if defined __x86_64__ || defined __aarch64__ || defined __riscv
-    case 8: ret = true; break;
-#else
-    case 8: ret = false; break;
+    निवड (size) {
+    स्थिती 1: ret = true; थांबा;
+    स्थिती 2: ret = true; थांबा;
+    स्थिती 4: ret = true; थांबा;
+#जर defined __x86_64__ || defined __aarch64__ || defined __riscv
+    स्थिती 8: ret = true; थांबा;
+#अन्यथा
+    स्थिती 8: ret = false; थांबा;
 #endif
-    default: ret = false; break;
+    पूर्वनिर्धारित: ret = false; थांबा;
     }
-    return ret;
+    परत ret;
 }
 
 #ifndef __TINYC__
-bool __atomic_is_lock_free(unsigned long size, const volatile void *ptr) __attribute__((alias("__tcc_atomic_is_lock_free")));
+bool __atomic_is_lock_free(अचिन्हित दीर्घ size, स्थिरांक अस्थिर शून्य *ptr) __attribute__((alias("__tcc_atomic_is_lock_free")));
 #endif

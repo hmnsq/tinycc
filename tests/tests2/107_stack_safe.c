@@ -1,13 +1,13 @@
-extern int printf(const char *, ...);
+बाह्य पूर्णांक म_लिखो(स्थिरांक अक्षर *, ...);
 
-static void func_ull_ull(unsigned long long l1,unsigned long long l2){
+स्थिर शून्य func_ull_ull(अचिन्हित दीर्घ दीर्घ l1,अचिन्हित दीर्घ दीर्घ l2){
 }
 
-int main()
+पूर्णांक main()
 {
-  int a,b,c,d;
+  पूर्णांक a,b,c,d;
   a=1;b=2;c=3;d=4;
-  func_ull_ull((unsigned long long)a/1.0,(unsigned long long)b/1.0);
-  printf("%d %d %d %d",a,b,c,d);
-  return 0;
+  func_ull_ull((अचिन्हित दीर्घ दीर्घ)a/1.0,(अचिन्हित दीर्घ दीर्घ)b/1.0);
+  म_लिखो("%d %d %d %d",a,b,c,d);
+  परत 0;
 }

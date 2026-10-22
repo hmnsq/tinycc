@@ -1,20 +1,20 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णांक main()
 {
-   int a = 24680;
-   int b = 01234567;
-   int c = 0x2468ac;
-   int d = 0x2468AC;
-   int e = 0b010101010101;
+   पूर्णांक a = 24680;
+   पूर्णांक b = 01234567;
+   पूर्णांक c = 0x2468ac;
+   पूर्णांक d = 0x2468AC;
+   पूर्णांक e = 0b010101010101;
 
-   printf("%d\n", a);
-   printf("%d\n", b);
-   printf("%d\n", c);
-   printf("%d\n", d);
-   printf("%d\n", e);
+   म_लिखो("%d\n", a);
+   म_लिखो("%d\n", b);
+   म_लिखो("%d\n", c);
+   म_लिखो("%d\n", d);
+   म_लिखो("%d\n", e);
 
-   return 0;
+   परत 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

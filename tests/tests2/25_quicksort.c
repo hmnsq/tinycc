@@ -1,52 +1,52 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int array[16];
+पूर्णांक array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+शून्य swap(पूर्णांक a, पूर्णांक b)
 {
-   int tmp  = array[a];
+   पूर्णांक tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+पूर्णांक partition(पूर्णांक डावा, पूर्णांक उजवा)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   पूर्णांक pivotIndex = डावा;
+   पूर्णांक pivot_मूल्य = array[pivotIndex];
+   पूर्णांक index = डावा;
+   पूर्णांक i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   swap(pivotIndex, उजवा);
+   साठी(i = डावा; i < उजवा; i++)
    {
-      if(array[i] < pivotValue)
+      जर(array[i] < pivot_मूल्य)
       {
          swap(i, index);
          index += 1;
       }
    }
-   swap(right, index);
+   swap(उजवा, index);
 
-   return index;
+   परत index;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+शून्य quicksort(पूर्णांक डावा, पूर्णांक उजवा)
 {
-   if(left >= right)
-      return;
+   जर(डावा >= उजवा)
+      परत;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   पूर्णांक index = partition(डावा, उजवा);
+   quicksort(डावा, index - 1);
+   quicksort(index + 1, उजवा);
 }
 
-int main()
+पूर्णांक main()
 {
-   int i;
+   पूर्णांक i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   साठी (i = 0; i < 16; i++)
+      म_लिखो("%d ", array[i]);
 
-   printf("\n");
+   म_लिखो("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   साठी (i = 0; i < 16; i++)
+      म_लिखो("%d ", array[i]);
 
-   printf("\n");
+   म_लिखो("\n");
 
-   return 0;
+   परत 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

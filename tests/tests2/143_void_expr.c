@@ -1,17 +1,17 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-static void f(int x)
+स्थिर शून्य f(पूर्णांक x)
 {
-     printf("f(%d)\n", x);
+     म_लिखो("f(%d)\n", x);
 }
 
-int main(void)
+पूर्णांक main(शून्य)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
-         printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+     पूर्णांक मोजणी_2 = 0, i = 0;
+     साठी (; i < 3; ++i) {
+         म_लिखो("%d\n", i);
+         (शून्य)(i || (f(i), ++मोजणी_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     म_लिखो("count %d\n", मोजणी_2);
+     परत मोजणी_2 == 1 ? 0 : 1;
 }

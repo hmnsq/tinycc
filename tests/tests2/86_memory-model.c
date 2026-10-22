@@ -1,38 +1,38 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int
+पूर्णांक
 main()
 {
-#if defined(__LLP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LLP64__\n");
+#जर defined(__LLP64__)
+	जर (आकार(लघु) == 2
+	    && आकार(पूर्णांक) == 4
+	    && आकार(दीर्घ पूर्णांक) == 4
+	    && आकार(दीर्घ दीर्घ पूर्णांक) == 8
+	    && आकार(शून्य*) == 8) {
+		(शून्य)म_लिखो("Ok\n");
+	} अन्यथा {
+		(शून्य)म_लिखो("KO __LLP64__\n");
 	}
-#elif defined(__LP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 8
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LP64__\n");
+#किंवाजर defined(__LP64__)
+	जर (आकार(लघु) == 2
+	    && आकार(पूर्णांक) == 4
+	    && आकार(दीर्घ पूर्णांक) == 8
+	    && आकार(दीर्घ दीर्घ पूर्णांक) == 8
+	    && आकार(शून्य*) == 8) {
+		(शून्य)म_लिखो("Ok\n");
+	} अन्यथा {
+		(शून्य)म_लिखो("KO __LP64__\n");
 	}
-#elif defined(__ILP32__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(void*) == 4) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __ILP32__\n");
+#किंवाजर defined(__ILP32__)
+	जर (आकार(लघु) == 2
+	    && आकार(पूर्णांक) == 4
+	    && आकार(दीर्घ पूर्णांक) == 4
+	    && आकार(शून्य*) == 4) {
+		(शून्य)म_लिखो("Ok\n");
+	} अन्यथा {
+		(शून्य)म_लिखो("KO __ILP32__\n");
 	}
-#else
-	(void)printf("KO no __*LP*__ defined.\n");
+#अन्यथा
+	(शून्य)म_लिखो("KO no __*LP*__ defined.\n");
 #endif
 }

@@ -1,11 +1,11 @@
 /* This checks various ways of dead code inside if statements
    where there are non-obvious ways of how the code is actually
    not dead due to reachable by labels.  */
-extern int printf (const char *, ...);
-static void kb_wait_1(void)
+बाह्य पूर्णांक म_लिखो (स्थिरांक अक्षर *, ...);
+स्थिर शून्य kb_wait_1(शून्य)
 {
-  unsigned long timeout = 2;
-  do {
+  अचिन्हित दीर्घ timeout = 2;
+  करा {
       /* Here the else arm is a statement expression that's supposed
          to be suppressed.  The label inside the while would unsuppress
 	 code generation again if not handled correctly.  And that
@@ -13,153 +13,153 @@ static void kb_wait_1(void)
 	 jump-around emitted, the whole statement expression really
 	 needs to not generate code (perhaps except useless forward jumps).  */
       (1 ? 
-       printf("timeout=%ld\n", timeout) :
+       म_लिखो("timeout=%ld\n", timeout) :
        ({
-	int i = 1;
-	while (1)
-	  while (i--)
+	पूर्णांक i = 1;
+	पर्यंत (1)
+	  पर्यंत (i--)
 	    some_label:
-	      printf("error\n");
-	goto some_label;
+	      म_लिखो("error\n");
+	जा some_label;
 	})
       );
       timeout--;
-  } while (timeout);
+  } पर्यंत (timeout);
 }
 
-static int global;
+स्थिर पूर्णांक global;
 
-static void foo(int i)
+स्थिर शून्य foo(पूर्णांक i)
 {
   global+=i;
-  printf ("g=%d\n", global);
+  म_लिखो ("g=%d\n", global);
 }
 
-static int check(void)
+स्थिर पूर्णांक check(शून्य)
 {
-  printf ("check %d\n", global);
-  return 1;
+  म_लिखो ("check %d\n", global);
+  परत 1;
 }
 
-static void dowhile(void)
+स्थिर शून्य dowhile(शून्य)
 {
-  do {
+  करा {
       foo(1);
-      if (global == 1) {
-	  continue;
-      } else if (global == 2) {
-	  continue;
+      जर (global == 1) {
+	  सुरूठेवा;
+      } अन्यथा जर (global == 2) {
+	  सुरूठेवा;
       }
       /* The following break shouldn't disable the check() call,
          as it's reachable by the continues above.  */
-      break;
-  } while (check());
+      थांबा;
+  } पर्यंत (check());
 }
 
-static void nondead_after_dead_return(void)
+स्थिर शून्य nondead_after_dead_return(शून्य)
 {
   /* This statement expr is not entered, and hence that fact that it
      doesn't fall-through should not influence the surrounding code.  */
-  0 && ({ return; 0;});
-  printf ("nondead works\n");
-  return;
+  0 && ({ परत; 0;});
+  म_लिखो ("nondead works\n");
+  परत;
 }
 
-int main (void)
+पूर्णांक main (शून्य)
 {
-  int i = 1;
+  पूर्णांक i = 1;
   kb_wait_1();
 
   /* Simple test of dead code at first sight which isn't actually dead. */
-  if (0) {
+  जर (0) {
 yeah:
-      printf ("yeah\n");
-  } else {
-      printf ("boo\n");
+      म_लिखो ("yeah\n");
+  } अन्यथा {
+      म_लिखो ("boo\n");
   }
-  if (i--)
-    goto yeah;
+  जर (i--)
+    जा yeah;
 
   /* Some more non-obvious uses where the problems are loops, so that even
      the first loop statements aren't actually dead.  */
   i = 1;
-  if (0) {
-      while (i--) {
-	  printf ("once\n");
+  जर (0) {
+      पर्यंत (i--) {
+	  म_लिखो ("once\n");
 enterloop:
-	  printf ("twice\n");
+	  म_लिखो ("twice\n");
       }
   }
-  if (i >= 0)
-    goto enterloop;
+  जर (i >= 0)
+    जा enterloop;
 
   /* The same with statement expressions.  One might be tempted to
      handle them specially by counting if inside statement exprs and
      not unsuppressing code at loops at all then.
      See kb_wait_1 for the other side of the medal where that wouldn't work.  */
   i = ({
-      int j = 1;
-      if (0) {
-	  while (j--) {
-	      printf ("SEonce\n");
+      पूर्णांक j = 1;
+      जर (0) {
+	  पर्यंत (j--) {
+	      म_लिखो ("SEonce\n");
     enterexprloop:
-	      printf ("SEtwice\n");
+	      म_लिखो ("SEtwice\n");
 	  }
       }
-      if (j >= 0)
-	goto enterexprloop;
+      जर (j >= 0)
+	जा enterexprloop;
       j; });
 
   /* The other two loop forms: */
   i = 1;
-  if (0) {
-      for (i = 1; i--;) {
-	  printf ("once2\n");
+  जर (0) {
+      साठी (i = 1; i--;) {
+	  म_लिखो ("once2\n");
 enterloop2:
-	  printf ("twice2\n");
+	  म_लिखो ("twice2\n");
       }
   }
-  if (i > 0)
-    goto enterloop2;
+  जर (i > 0)
+    जा enterloop2;
 
   i = 1;
-  if (0) {
-      do {
-	  printf ("once3\n");
+  जर (0) {
+      करा {
+	  म_लिखो ("once3\n");
 enterloop3:
-	  printf ("twice3\n");
-      } while (i--);
+	  म_लिखो ("twice3\n");
+      } पर्यंत (i--);
   }
-  if (i > 0)
-    goto enterloop3;
+  जर (i > 0)
+    जा enterloop3;
 
   /* And check that case and default labels have the same effect
      of disabling code suppression.  */
   i = 41;
-  switch (i) {
-      if (0) {
-	  printf ("error\n");
-      case 42:
-	  printf ("error2\n");
-      case 41:
-	  printf ("caseok\n");
+  निवड (i) {
+      जर (0) {
+	  म_लिखो ("error\n");
+      स्थिती 42:
+	  म_लिखो ("error2\n");
+      स्थिती 41:
+	  म_लिखो ("caseok\n");
       }
   }
 
   i = 41;
-  switch (i) {
-      if (0) {
-	  printf ("error3\n");
-      default:
-	  printf ("caseok2\n");
-	  break;
-      case 42:
-	  printf ("error4\n");
+  निवड (i) {
+      जर (0) {
+	  म_लिखो ("error3\n");
+      पूर्वनिर्धारित:
+	  म_लिखो ("caseok2\n");
+	  थांबा;
+      स्थिती 42:
+	  म_लिखो ("error4\n");
       }
   }
 
   dowhile();
   nondead_after_dead_return();
 
-  return 0;
+  परत 0;
 }

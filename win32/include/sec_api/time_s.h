@@ -6,50 +6,50 @@
 #ifndef _TIME_H__S
 #define _TIME_H__S
 
-#include <time.h>
+#अन्तर्भाव <time.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#जर defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
-  _CRTIMP errno_t __cdecl _ctime32_s(char *_Buf,size_t _SizeInBytes,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _gmtime32_s(struct tm *_Tm,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _localtime32_s(struct tm *_Tm,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _strdate_s(char *_Buf,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _strtime_s(char *_Buf ,size_t _SizeInBytes);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _ctime64_s(char *_Buf,size_t _SizeInBytes,const __time64_t *_Time);
-  _CRTIMP errno_t __cdecl _gmtime64_s(struct tm *_Tm,const __time64_t *_Time);
-  _CRTIMP errno_t __cdecl _localtime64_s(struct tm *_Tm,const __time64_t *_Time);
+  _CRTIMP errno_t __cdecl _ctime32_s(अक्षर *_Buf,माप_प्रकार _SizeInBytes,स्थिरांक __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _gmtime32_s(संरचना पंचांग *_Tm,स्थिरांक __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _localtime32_s(संरचना पंचांग *_Tm,स्थिरांक __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _strdate_s(अक्षर *_Buf,माप_प्रकार _SizeInBytes);
+  _CRTIMP errno_t __cdecl _strtime_s(अक्षर *_Buf ,माप_प्रकार _SizeInBytes);
+#जर _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP errno_t __cdecl _ctime64_s(अक्षर *_Buf,माप_प्रकार _SizeInBytes,स्थिरांक __time64_t *_Time);
+  _CRTIMP errno_t __cdecl _gmtime64_s(संरचना पंचांग *_Tm,स्थिरांक __time64_t *_Time);
+  _CRTIMP errno_t __cdecl _localtime64_s(संरचना पंचांग *_Tm,स्थिरांक __time64_t *_Time);
 #endif
 
 #ifndef _WTIME_S_DEFINED
 #define _WTIME_S_DEFINED
-  _CRTIMP errno_t __cdecl _wasctime_s(wchar_t *_Buf,size_t _SizeInWords,const struct tm *_Tm);
-  _CRTIMP errno_t __cdecl _wctime32_s(wchar_t *_Buf,size_t _SizeInWords,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _wstrdate_s(wchar_t *_Buf,size_t _SizeInWords);
-  _CRTIMP errno_t __cdecl _wstrtime_s(wchar_t *_Buf,size_t _SizeInWords);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _wctime64_s(wchar_t *_Buf,size_t _SizeInWords,const __time64_t *_Time);
+  _CRTIMP errno_t __cdecl _wasctime_s(ब_अक्षर_प्रकार *_Buf,माप_प्रकार Size_In_शब्द,स्थिरांक संरचना पंचांग *_Tm);
+  _CRTIMP errno_t __cdecl _wctime32_s(ब_अक्षर_प्रकार *_Buf,माप_प्रकार Size_In_शब्द,स्थिरांक __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _wstrdate_s(ब_अक्षर_प्रकार *_Buf,माप_प्रकार Size_In_शब्द);
+  _CRTIMP errno_t __cdecl _wstrtime_s(ब_अक्षर_प्रकार *_Buf,माप_प्रकार Size_In_शब्द);
+#जर _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP errno_t __cdecl _wctime64_s(ब_अक्षर_प्रकार *_Buf,माप_प्रकार Size_In_शब्द,स्थिरांक __time64_t *_Time);
 #endif
 
-#if !defined (RC_INVOKED) && !defined (_INC_WTIME_S_INL)
+#जर !defined (RC_INVOKED) && !defined (_INC_WTIME_S_INL)
 #define _INC_WTIME_S_INL
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *_Buffer,size_t _SizeInWords,const time_t *_Time) { return _wctime32_s(_Buffer,_SizeInWords,_Time); }
-#else
-__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *_Buffer,size_t _SizeInWords,const time_t *_Time) { return _wctime64_s(_Buffer,_SizeInWords,_Time); }
+__CRT_INLINE errno_t __cdecl _wctime_s(ब_अक्षर_प्रकार *_Buffer,माप_प्रकार Size_In_शब्द,स्थिरांक समय_प्रकार *_Time) { परत _wctime32_s(_Buffer,Size_In_शब्द,_Time); }
+#अन्यथा
+__CRT_INLINE errno_t __cdecl _wctime_s(ब_अक्षर_प्रकार *_Buffer,माप_प्रकार Size_In_शब्द,स्थिरांक समय_प्रकार *_Time) { परत _wctime64_s(_Buffer,Size_In_शब्द,_Time); }
 #endif
 #endif
 #endif
 
 #ifndef RC_INVOKED
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE errno_t __cdecl localtime_s(struct tm *_Tm,const time_t *_Time) { return _localtime32_s(_Tm,_Time); }
-#else
-__CRT_INLINE errno_t __cdecl localtime_s(struct tm *_Tm,const time_t *_Time) { return _localtime64_s(_Tm,_Time); }
+__CRT_INLINE errno_t __cdecl localtime_s(संरचना पंचांग *_Tm,स्थिरांक समय_प्रकार *_Time) { परत _localtime32_s(_Tm,_Time); }
+#अन्यथा
+__CRT_INLINE errno_t __cdecl localtime_s(संरचना पंचांग *_Tm,स्थिरांक समय_प्रकार *_Time) { परत _localtime64_s(_Tm,_Time); }
 #endif
 #endif
 

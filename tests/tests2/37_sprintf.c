@@ -1,17 +1,17 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णांक main()
 {
-   char Buf[100];
-   int Count;
+   अक्षर Buf[100];
+   पूर्णांक मोजणी_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   साठी (मोजणी_3 = 1; मोजणी_3 <= 20; मोजणी_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
-      printf("%s", Buf);
+      प्र_लिखो(Buf, "->%02d<-\n", मोजणी_3);
+      म_लिखो("%s", Buf);
    }
 
-   return 0;
+   परत 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

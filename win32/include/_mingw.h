@@ -24,13 +24,13 @@
 #undef WIN32
 /* <-- */
 
-#include <stddef.h>
-#include <stdarg.h>
+#अन्तर्भाव <stddef.h>
+#अन्तर्भाव <stdarg.h>
 
-#define __int8 char
-#define __int16 short
-#define __int32 int
-#define __int64 long long
+#define __int8 अक्षर
+#define __int16 लघु
+#define __int32 पूर्णांक
+#define __int64 दीर्घ दीर्घ
 #define _HAVE_INT64
 
 #define __cdecl
@@ -40,7 +40,7 @@
 
 #define __MSVCRT__ 1
 #undef _MSVCRT_
-#define __MINGW_IMPORT extern __declspec(dllimport)
+#define __MINGW_IMPORT बाह्य __declspec(dllimport)
 #define __MINGW_ATTRIB_NORETURN __declspec(noreturn)
 #define __MINGW_ATTRIB_CONST
 #define __MINGW_ATTRIB_DEPRECATED
@@ -50,8 +50,8 @@
 #define __MINGW_NOTHROW
 #define __GNUC_VA_LIST
 
-#define _CRTIMP extern
-#define __CRT_INLINE static __inline__
+#define _CRTIMP बाह्य
+#define __CRT_INLINE स्थिर __inline__
 
 #define _CRT_ALIGN(x) __attribute__((aligned(x)))
 #define DECLSPEC_ALIGN(x) __attribute__((aligned(x)))
@@ -60,26 +60,26 @@
 #define _CONST_RETURN
 
 #ifndef _TRUNCATE
-#define _TRUNCATE ((size_t)-1)
+#define _TRUNCATE ((माप_प्रकार)-1)
 #endif
 
-#define __CRT_STRINGIZE(_Value) #_Value
-#define _CRT_STRINGIZE(_Value) __CRT_STRINGIZE(_Value)
+#define __CRT_STRINGIZE(मूल्य_2) #_Value
+#define _CRT_STRINGIZE(मूल्य_2) __CRT_STRINGIZE(मूल्य_2)
 #define __CRT_WIDE(_String) L ## _String
 #define _CRT_WIDE(_String) __CRT_WIDE(_String)
 
 #ifdef _WIN64
 #define __stdcall
-#if defined(__aarch64__)
+#जर defined(__aarch64__)
 #define _M_ARM64 1
 #define _ARM64_ 1
-#else
+#अन्यथा
 #define _AMD64_ 1
 #define __x86_64 1
 #define _M_X64 100 /* Visual Studio */
 #define _M_AMD64 100 /* Visual Studio */
 #endif
-#else
+#अन्यथा
 #define __stdcall __attribute__((__stdcall__))
 #define _X86_ 1
 #define _M_IX86 300 /* Visual Studio */
@@ -101,39 +101,39 @@
 
 #ifndef _TIME32_T_DEFINED
 #define _TIME32_T_DEFINED
-typedef long __time32_t;
+प्रकारव्याख्या दीर्घ __time32_t;
 #endif
 
 #ifndef _TIME64_T_DEFINED
 #define _TIME64_T_DEFINED
-typedef long long __time64_t;
+प्रकारव्याख्या दीर्घ दीर्घ __time64_t;
 #endif
 
 #ifndef _TIME_T_DEFINED
 #define _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
-typedef __time32_t time_t;
-#else
-typedef __time64_t time_t;
+प्रकारव्याख्या __time32_t समय_प्रकार;
+#अन्यथा
+प्रकारव्याख्या __time64_t समय_प्रकार;
 #endif
 #endif
 
 #ifndef _WCTYPE_T_DEFINED
 #define _WCTYPE_T_DEFINED
-typedef wchar_t wctype_t;
+प्रकारव्याख्या ब_अक्षर_प्रकार wctype_t;
 #endif
 
 #ifndef _WINT_T
 #define _WINT_T
-typedef __WINT_TYPE__ wint_t;
+प्रकारव्याख्या __WINT_TYPE__ wint_t;
 #endif
 
-typedef int errno_t;
+प्रकारव्याख्या पूर्णांक errno_t;
 #define _ERRCODE_DEFINED
 
-typedef struct threadlocaleinfostruct *pthreadlocinfo;
-typedef struct threadmbcinfostruct *pthreadmbcinfo;
-typedef struct localeinfo_struct _locale_tstruct,*_locale_t;
+प्रकारव्याख्या संरचना threadlocaleinfostruct *pthreadlocinfo;
+प्रकारव्याख्या संरचना threadmbcinfostruct *pthreadmbcinfo;
+प्रकारव्याख्या संरचना localeinfo_struct _locale_tstruct,*_locale_t;
 
 /* for winapi */
 #define _ANONYMOUS_UNION

@@ -287,9 +287,9 @@ add (%ebx), %dl
     imul $1, %eax
     
     idivw 0x1000
-    div %ecx
-    div %bl
-    div %ecx, %eax
+    भाग %ecx
+    भाग %bl
+    भाग %ecx, %eax
 
 and $15,%bx
 and $-20,%edx
@@ -307,17 +307,17 @@ shrd %cl, %eax, %edx
 shrd %eax, %edx
 
 L4:
-call 0x1000
-call L4
+बोलवा 0x1000
+बोलवा L4
 #ifdef __i386__
-call *%eax
+बोलवा *%eax
 #else
-call *%rax
+बोलवा *%rax
 #endif
-call *0x1000
-call func1
+बोलवा *0x1000
+बोलवा func1
 
-.global L5,L6
+.वैश्विक L5,L6
 
 L5:
 L6:

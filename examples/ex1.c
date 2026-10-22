@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#अन्तर्भाव <tcclib.h>
 
-int main()
+पूर्णांक main()
 {
-    printf("Hello World\n");
-    return 0;
+    म_लिखो("Hello World\n");
+    परत 0;
 }

@@ -1,21 +1,21 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int factorial(int i) 
+पूर्णांक factorial(पूर्णांक i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   जर (i < 2)
+      परत i;
+   अन्यथा
+      परत i * factorial(i - 1);
 }
 
-int main()
+पूर्णांक main()
 {
-   int Count;
+   पूर्णांक मोजणी_3;
 
-   for (Count = 1; Count <= 10; Count++)
-      printf("%d\n", factorial(Count));
+   साठी (मोजणी_3 = 1; मोजणी_3 <= 10; मोजणी_3++)
+      म_लिखो("%d\n", factorial(मोजणी_3));
 
-   return 0;
+   परत 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

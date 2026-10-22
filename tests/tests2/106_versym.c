@@ -1,18 +1,18 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <errno.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <pthread.h>
+#अन्तर्भाव <errno.h>
 
-int
-main(void)
+पूर्णांक
+main(शून्य)
 {
-  int ret;
+  पूर्णांक ret;
   pthread_condattr_t attr;
   pthread_cond_t condition;
 
   /* This test fails if symbol versioning does not work */
   pthread_condattr_init (&attr);
   pthread_condattr_setpshared (&attr, PTHREAD_PROCESS_SHARED);
-  printf ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
+  म_लिखो ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
   pthread_condattr_destroy (&attr);
-  return 0;
+  परत 0;
 }

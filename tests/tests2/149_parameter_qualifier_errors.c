@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+शून्य defined_const(पूर्णांक *pointer);
 
-void defined_const(int *const pointer)
+शून्य defined_const(पूर्णांक *स्थिरांक pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+पूर्णांक main(शून्य)
 {
-    return 0;
+    परत 0;
 }

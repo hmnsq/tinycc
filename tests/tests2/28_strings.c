@@ -1,45 +1,45 @@
-#include <stdio.h>
-#include <string.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <string.h>
 
-int main()
+पूर्णांक main()
 {
-   char a[10];
+   अक्षर a[10];
 
-   strcpy(a, "hello");
-   printf("%s\n", a);
+   म_नकल(a, "hello");
+   म_लिखो("%s\n", a);
 
-   strncpy(a, "gosh", 2);
-   printf("%s\n", a);
+   म_नकलन(a, "gosh", 2);
+   म_लिखो("%s\n", a);
 
-   printf("%d\n", strcmp(a, "apple") > 0);
-   printf("%d\n", strcmp(a, "goere") > 0);
-   printf("%d\n", strcmp(a, "zebra") < 0);
+   म_लिखो("%d\n", म_भेद(a, "apple") > 0);
+   म_लिखो("%d\n", म_भेद(a, "goere") > 0);
+   म_लिखो("%d\n", म_भेद(a, "zebra") < 0);
 
-   printf("%d\n", strlen(a));
+   म_लिखो("%d\n", म_माप(a));
 
-   strcat(a, "!");
-   printf("%s\n", a);
+   म_जोड़ो(a, "!");
+   म_लिखो("%s\n", a);
 
-   printf("%d\n", strncmp(a, "apple", 2) > 0);
-   printf("%d\n", strncmp(a, "goere", 2) == 0);
-   printf("%d\n", strncmp(a, "goerg", 2) == 0);
-   printf("%d\n", strncmp(a, "zebra", 2) < 0);
+   म_लिखो("%d\n", म_भेदन(a, "apple", 2) > 0);
+   म_लिखो("%d\n", म_भेदन(a, "goere", 2) == 0);
+   म_लिखो("%d\n", म_भेदन(a, "goerg", 2) == 0);
+   म_लिखो("%d\n", म_भेदन(a, "zebra", 2) < 0);
 
-   printf("%s\n", strchr(a, 'o'));
-   printf("%s\n", strrchr(a, 'l'));
-   printf("%d\n", strrchr(a, 'x') == NULL);
+   म_लिखो("%s\n", म_अक्षर(a, 'o'));
+   म_लिखो("%s\n", म_खोजप(a, 'l'));
+   म_लिखो("%d\n", म_खोजप(a, 'x') == रिक्त);
 
-   memset(&a[1], 'r', 4);
-   printf("%s\n", a);
+   स_रखो(&a[1], 'r', 4);
+   म_लिखो("%s\n", a);
 
-   memcpy(&a[2], a, 2);
-   printf("%s\n", a);
+   स_नकल(&a[2], a, 2);
+   म_लिखो("%s\n", a);
 
-   printf("%d\n", memcmp(a, "apple", 4) > 0);
-   printf("%d\n", memcmp(a, "grgr", 4) == 0);
-   printf("%d\n", memcmp(a, "zebra", 4) < 0);
+   म_लिखो("%d\n", स_भेद(a, "apple", 4) > 0);
+   म_लिखो("%d\n", स_भेद(a, "grgr", 4) == 0);
+   म_लिखो("%d\n", स_भेद(a, "zebra", 4) < 0);
 
-   return 0;
+   परत 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

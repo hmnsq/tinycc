@@ -1,32 +1,32 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णांक main()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   पूर्णांक a[4][4];
+   पूर्णांक b = 0;
+   पूर्णांक x;
+   पूर्णांक y;
 
-   for (x = 0; x < 4; x++)
+   साठी (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      साठी (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   साठी (x = 0; x < 4; x++)
    {
-      printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      म_लिखो("x=%d: ", x);
+      साठी (y = 0; y < 4; y++)
       {
-         printf("%d ", a[x][y]);
+         म_लिखो("%d ", a[x][y]);
       }
-      printf("\n");
+      म_लिखो("\n");
    }
 
-   return 0;
+   परत 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

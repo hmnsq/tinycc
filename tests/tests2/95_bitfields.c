@@ -1,91 +1,91 @@
 /* ----------------------------------------------------------------------- */
-#if TEST == 1
+#जर TEST == 1
 {
-    struct M P A __s
+    संरचना M P A __s
     {
-        unsigned x : 12;
-        unsigned char y : 7;
-        unsigned z : 28;
-        unsigned a: 4;
-        unsigned b: 5;
+        अचिन्हित x : 12;
+        अचिन्हित अक्षर y : 7;
+        अचिन्हित z : 28;
+        अचिन्हित a: 4;
+        अचिन्हित b: 5;
     };
     TEST_STRUCT(0x333,0x44,0x555555,6,7);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 2
+#किंवाजर TEST == 2
 {
-    struct M P __s
+    संरचना M P __s
     {
-        int x: 12;
-        char y: 6;
-        long long z:63;
-        A char a:4;
-        long long b:2;
+        पूर्णांक x: 12;
+        अक्षर y: 6;
+        दीर्घ दीर्घ z:63;
+        A अक्षर a:4;
+        दीर्घ दीर्घ b:2;
 
     };
     TEST_STRUCT(3,30,0x123456789abcdef0LL,5,2);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 3
+#किंवाजर TEST == 3
 {
-    struct M P __s
+    संरचना M P __s
     {
-        unsigned x:5, y:5, :0, z:5; char a:5; A short b:5;
+        अचिन्हित x:5, y:5, :0, z:5; अक्षर a:5; A लघु b:5;
     };
     TEST_STRUCT(21,23,25,6,14);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 4
+#किंवाजर TEST == 4
 {
-    struct M P __s {
-        int x : 3;
-        int : 2;
-        int y : 1;
-        int : 0;
-        int z : 5;
-        int a : 7;
-        unsigned int b : 7;
+    संरचना M P __s {
+        पूर्णांक x : 3;
+        पूर्णांक : 2;
+        पूर्णांक y : 1;
+        पूर्णांक : 0;
+        पूर्णांक z : 5;
+        पूर्णांक a : 7;
+        अचिन्हित पूर्णांक b : 7;
     };
     TEST_STRUCT(3,1,15,120,120);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 5
+#किंवाजर TEST == 5
 {
-    struct M P __s {
-        long long x : 45;
-        long long : 2;
-        long long y : 30;
-        unsigned long long z : 38;
-        char a; short b;
+    संरचना M P __s {
+        दीर्घ दीर्घ x : 45;
+        दीर्घ दीर्घ : 2;
+        दीर्घ दीर्घ y : 30;
+        अचिन्हित दीर्घ दीर्घ z : 38;
+        अक्षर a; लघु b;
     };
     TEST_STRUCT(0x123456789ULL, 120<<25, 120, 0x44, 0x77);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 6
+#किंवाजर TEST == 6
 {
-    struct M P __s {
-	int a;
-	signed char b;
-	int x : 12, y : 4, : 0, : 4, z : 3;
-	char d;
+    संरचना M P __s {
+	पूर्णांक a;
+	चिन्हित अक्षर b;
+	पूर्णांक x : 12, y : 4, : 0, : 4, z : 3;
+	अक्षर d;
     };
     TEST_STRUCT(1,2,3,4,-3);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 7
+#किंवाजर TEST == 7
 {
 #ifdef _WIN32
-    typedef long long int ll;
-#else
-    typedef long int ll;
+    प्रकारव्याख्या दीर्घ दीर्घ पूर्णांक ll;
+#अन्यथा
+    प्रकारव्याख्या दीर्घ पूर्णांक ll;
 #endif
-    struct M P __s {
+    संरचना M P __s {
         ll d : 16;
         ll b : 16;
         ll x : 16;
@@ -99,66 +99,66 @@
 }
 
 /* ----------------------------------------------------------------------- */
-#elif defined PACK
+#किंवाजर defined PACK
 
-#if PACK
-# pragma pack(push,1)
+#जर PACK
+# pragma pack(ढकला,1)
 # define P //_P
-#else
+#अन्यथा
 # define P
 #endif
 
-printf("\n\n" + 2*top);
+म_लिखो("\n\n" + 2*शीर्ष);
 #define TEST 1
-#include SELF
-top = 0;
+#अन्तर्भाव SELF
+शीर्ष = 0;
 #define TEST 2
-#include SELF
+#अन्तर्भाव SELF
 #define TEST 3
-#include SELF
+#अन्तर्भाव SELF
 #define TEST 4
-#include SELF
+#अन्तर्भाव SELF
 #define TEST 5
-#include SELF
+#अन्तर्भाव SELF
 #define TEST 6
-#include SELF
+#अन्तर्भाव SELF
 #define TEST 7
-#include SELF
+#अन्तर्भाव SELF
 
-#if PACK
-# pragma pack(pop)
+#जर PACK
+# pragma pack(काढा)
 #endif
 
 #undef P
 #undef PACK
 
 /* ----------------------------------------------------------------------- */
-#elif defined ALIGN
+#किंवाजर defined ALIGN
 
-#if ALIGN
+#जर ALIGN
 # define A _A(16)
-#else
+#अन्यथा
 # define A
 #endif
 
 #define PACK 0
-#include SELF
+#अन्तर्भाव SELF
 #define PACK 1
-#include SELF
+#अन्तर्भाव SELF
 
 #undef A
 #undef ALIGN
 
 /* ----------------------------------------------------------------------- */
-#elif defined MS_BF
+#किंवाजर defined MS_BF
 
-#if MS_BF
+#जर MS_BF
 # ifdef __TINYC__
 #  pragma comment(option, "-mms-bitfields")
 # elif defined __GNUC__
 #  define M __attribute__((ms_struct))
 # endif
-#else
+#अन्यथा
 # ifdef __TINYC__
 #  pragma comment(option, "-mno-ms-bitfields")
 # elif defined __GNUC__
@@ -170,52 +170,52 @@ top = 0;
 #endif
 
 #define ALIGN 0
-#include SELF
+#अन्तर्भाव SELF
 #define ALIGN 1
-#include SELF
+#अन्तर्भाव SELF
 
 #undef M
 #undef MS_BF
 
 /* ----------------------------------------------------------------------- */
-#else
+#अन्यथा
 
-#include <stdio.h>
-#include <string.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <string.h>
 /* some gcc headers #define __attribute__ to empty if it's not gcc */
 #undef __attribute__
 
-void dump(void *p, int s)
+शून्य dump(शून्य *p, पूर्णांक s)
 {
-    int i;
-    for (i = s; --i >= 0;)
-        printf("%02X", ((unsigned char*)p)[i]);
-    printf("\n");
+    पूर्णांक i;
+    साठी (i = s; --i >= 0;)
+        म_लिखो("%02X", ((अचिन्हित अक्षर*)p)[i]);
+    म_लिखो("\n");
 }
 
 #define pv(m) \
-    printf(sizeof (s->m + 0) == 8 ? " %016llx" : " %02x", s->m)
+    म_लिखो(आकार (s->m + 0) == 8 ? " %016llx" : " %02x", s->m)
 
 #define TEST_STRUCT(v1,v2,v3,v4,v5) { \
-        struct __s _s, *s = & _s; \
-        printf("\n---- TEST %d%s%s%s ----\n" + top, \
+        संरचना __s _s, *s = & _s; \
+        म_लिखो("\n---- TEST %d%s%s%s ----\n" + शीर्ष, \
             TEST, MS_BF?" - MS-BITFIELDS":"", \
             PACK?" - PACKED":"", \
             ALIGN?" - WITH ALIGN":""); \
-        memset(s, 0, sizeof *s); \
+        स_रखो(s, 0, आकार *s); \
         s->x = -1, s->y = -1, s->z = -1, s->a = -1, s->b = -1; \
-        printf("bits in use : "), dump(s, sizeof *s); \
+        म_लिखो("bits in use : "), dump(s, आकार *s); \
         s->x = v1, s->y = v2, s->z = v3, s->a += v4, ++s->a, s->b = v5; \
-        printf("bits as set : "), dump(s, sizeof *s); \
-        printf("values      :"), pv(x), pv(y), pv(z), pv(a), pv(b), printf("\n"); \
-        printf("align/size  : %d %d\n", alignof(struct __s),sizeof(struct __s)); \
+        म_लिखो("bits as set : "), dump(s, आकार *s); \
+        म_लिखो("values      :"), pv(x), pv(y), pv(z), pv(a), pv(b), म_लिखो("\n"); \
+        म_लिखो("align/size  : %d %d\n", alignof(संरचना __s),आकार(संरचना __s)); \
     }
 
 #ifdef _MSC_VER
 # define _A(n) __declspec(align(n))
 # define _P
 # define alignof(x) __alignof(x)
-#else
+#अन्यथा
 # define _A(n) __attribute__((aligned(n)))
 # define _P __attribute__((packed))
 # define alignof(x) __alignof__(x)
@@ -227,13 +227,13 @@ void dump(void *p, int s)
 
 #define SELF "95_bitfields.c"
 
-int top = 1;
+पूर्णांक शीर्ष = 1;
 
-int main()
+पूर्णांक main()
 {
 #define MS_BF MS_BITFIELDS
-#include SELF
-    return 0;
+#अन्तर्भाव SELF
+    परत 0;
 }
 
 /* ----------------------------------------------------------------------- */

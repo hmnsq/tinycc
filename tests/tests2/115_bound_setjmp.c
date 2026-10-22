@@ -1,172 +1,172 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <string.h>
+#अन्तर्भाव <setjmp.h>
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   पूर्णांक i, a[2], b[2];                \
+              साठी (i = 0; i < 2; i++) a[i] = 0; \
+              साठी (i = 0; i < 2; i++) b[i] = 0
 
-static jmp_buf jmp;
+स्थिर लाँघ_बफ jmp;
 
-static void tst1 (void)
+स्थिर शून्य tst1 (शून्य)
 {
     TST;
-    longjmp(jmp, 1);
+    दीर्घ_लाँघ(jmp, 1);
 }
 
-static void tst2(void)
+स्थिर शून्य tst2(शून्य)
 {
-    jmp_buf jmp;
+    लाँघ_बफ jmp;
 
-    setjmp (jmp);
+    बनाओ_लाँघ (jmp);
     TST;
     tst1();
 }
 
-static void tst3 (jmp_buf loc)
+स्थिर शून्य tst3 (लाँघ_बफ loc)
 {
     TST;
-    longjmp(loc, 1);
+    दीर्घ_लाँघ(loc, 1);
 }
 
-static void tst4(jmp_buf loc)
+स्थिर शून्य tst4(लाँघ_बफ loc)
 {
-    jmp_buf jmp;
+    लाँघ_बफ jmp;
 
-    setjmp (jmp);
+    बनाओ_लाँघ (jmp);
     TST;
     tst3(loc);
 }
 
-static void tst (void)
+स्थिर शून्य tst (शून्य)
 {
-    jmp_buf loc;
-    static int cnt;
+    लाँघ_बफ loc;
+    स्थिर पूर्णांक cnt;
 
     cnt = 0;
-    if (setjmp (jmp) == 0) {
+    जर (बनाओ_लाँघ (jmp) == 0) {
         TST;
         tst2();
     }
-    else {
+    अन्यथा {
         cnt++;
     }
-    if (setjmp (loc) == 0) {
+    जर (बनाओ_लाँघ (loc) == 0) {
         TST;
         tst4(loc);
     }
-    else {
+    अन्यथा {
         cnt++;
     }
-    if (cnt != 2)
-        printf ("incorrect cnt %d\n", cnt);
+    जर (cnt != 2)
+        म_लिखो ("incorrect cnt %d\n", cnt);
 }
 
-static jmp_buf buf1;
-static jmp_buf buf2;
-static int *p;
-static int n_x = 6;
-static int g_counter;
+स्थिर लाँघ_बफ buf1;
+स्थिर लाँघ_बफ buf2;
+स्थिर पूर्णांक *p;
+स्थिर पूर्णांक n_x = 6;
+स्थिर पूर्णांक g_counter;
 
-static void stack (void)
+स्थिर शून्य चळत (शून्य)
 {
-    static int counter;
-    static int way_point1;
-    static int way_point2;
+    स्थिर पूर्णांक counter;
+    स्थिर पूर्णांक way_point1;
+    स्थिर पूर्णांक way_point2;
 
     counter = 0;
     way_point1 = 3;
     way_point2 = 2;
     g_counter = 0;
-    if (setjmp (buf1) != 101) {
-        int a[n_x];
+    जर (बनाओ_लाँघ (buf1) != 101) {
+        पूर्णांक a[n_x];
         g_counter++;
         p = &a[0];
-        if (g_counter < 5)
-            longjmp (buf1, 2);
-        else if (g_counter == 5)
-            longjmp (buf1, 101);
-        else {
-            setjmp (buf2); 
-            longjmp (buf1, 101);
+        जर (g_counter < 5)
+            दीर्घ_लाँघ (buf1, 2);
+        अन्यथा जर (g_counter == 5)
+            दीर्घ_लाँघ (buf1, 101);
+        अन्यथा {
+            बनाओ_लाँघ (buf2); 
+            दीर्घ_लाँघ (buf1, 101);
         }
     }
     
     way_point1--;
 
-    if (counter == 0) {
+    जर (counter == 0) {
         counter++;
         {
-            int a[n_x];
+            पूर्णांक a[n_x];
             g_counter++;
             p = &a[0];
-            if (g_counter < 5)
-                longjmp (buf1, 2);
-            else if (g_counter == 5)
-                longjmp (buf1, 101);
-            else {
-                setjmp (buf2);
-                longjmp (buf1, 101);
+            जर (g_counter < 5)
+                दीर्घ_लाँघ (buf1, 2);
+            अन्यथा जर (g_counter == 5)
+                दीर्घ_लाँघ (buf1, 101);
+            अन्यथा {
+                बनाओ_लाँघ (buf2);
+                दीर्घ_लाँघ (buf1, 101);
             }
         }
     }
 
     way_point2--;
 
-    if (counter == 1) {
+    जर (counter == 1) {
         counter++;
-        longjmp (buf2, 2);
+        दीर्घ_लाँघ (buf2, 2);
     }
 
-    if (!(way_point1 == 0 && way_point2 == 0 &&
+    जर (!(way_point1 == 0 && way_point2 == 0 &&
           g_counter == 6 && counter == 2))
-        printf ("Failed %d %d %d %d\n",
+        म_लिखो ("Failed %d %d %d %d\n",
                 way_point1, way_point2, g_counter, counter);
 }
 
-static jmp_buf env;
-static int last_value;
+स्थिर लाँघ_बफ env;
+स्थिर पूर्णांक last_मूल्य;
 
-static void jump (int val)
+स्थिर शून्य jump (पूर्णांक val)
 {
-    longjmp (env, val);
+    दीर्घ_लाँघ (env, val);
 }
 
-static void check (void)
+स्थिर शून्य check (शून्य)
 {
-    int value;
+    पूर्णांक मूल्य;
 
-    last_value = -1;
-    value = setjmp (env);
-    if (value != last_value + 1) {
-        printf ("incorrect value %d %d\n",
-                value, last_value + 1);
-        return;
+    last_मूल्य = -1;
+    मूल्य = बनाओ_लाँघ (env);
+    जर (मूल्य != last_मूल्य + 1) {
+        म_लिखो ("incorrect value %d %d\n",
+                मूल्य, last_मूल्य + 1);
+        परत;
     }
-    last_value = value;
-    switch (value) {
-#if !(defined(__FreeBSD__) || defined(__NetBSD__))
+    last_मूल्य = मूल्य;
+    निवड (मूल्य) {
+#जर !(defined(__FreeBSD__) || defined(__NetBSD__))
     /* longjmp(jmp_buf, 0) not supported */
-    case 0:
+    स्थिती 0:
         jump (0);
 #endif
-    default:
-        if (value < 10)
-          jump (value + 1);
+    पूर्वनिर्धारित:
+        जर (मूल्य < 10)
+          jump (मूल्य + 1);
     }
 }
 
-int
-main (void)
+पूर्णांक
+main (शून्य)
 {
-    int i;
+    पूर्णांक i;
 
-    for (i = 0; i < 10;  i++) {
+    साठी (i = 0; i < 10;  i++) {
         tst();
-        stack();
+        चळत();
         check();
     }
-    return 0;
+    परत 0;
 }
 
 

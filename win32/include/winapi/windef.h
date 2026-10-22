@@ -11,7 +11,7 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
 #ifndef WINVER
@@ -20,22 +20,22 @@ extern "C" {
 
 #ifndef BASETYPES
 #define BASETYPES
-  typedef unsigned long ULONG;
-  typedef ULONG *PULONG;
-  typedef unsigned short USHORT;
-  typedef USHORT *PUSHORT;
-  typedef unsigned char UCHAR;
-  typedef UCHAR *PUCHAR;
-  typedef char *PSZ;
+  प्रकारव्याख्या अचिन्हित दीर्घ ULONG;
+  प्रकारव्याख्या ULONG *PULONG;
+  प्रकारव्याख्या अचिन्हित लघु USHORT;
+  प्रकारव्याख्या USHORT *PUSHORT;
+  प्रकारव्याख्या अचिन्हित अक्षर UCHAR;
+  प्रकारव्याख्या UCHAR *PUCHAR;
+  प्रकारव्याख्या अक्षर *PSZ;
 #endif
 
 #define MAX_PATH 260
 
-#ifndef NULL
+#ifndef रिक्त
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define रिक्त 0
+#अन्यथा
+#define रिक्त ((शून्य *)0)
 #endif
 #endif
 
@@ -88,45 +88,45 @@ extern "C" {
 #define FAR
 #define NEAR
 #ifndef CONST
-#define CONST const
+#define CONST स्थिरांक
 #endif
 
-  typedef unsigned long DWORD;
-  typedef int WINBOOL;
+  प्रकारव्याख्या अचिन्हित दीर्घ DWORD;
+  प्रकारव्याख्या पूर्णांक WINBOOL;
 #define BOOL WINBOOL
-  typedef unsigned char BYTE;
-  typedef unsigned short WORD;
-  typedef float FLOAT;
-  typedef FLOAT *PFLOAT;
-  typedef WINBOOL *PBOOL;
-  typedef WINBOOL *LPBOOL;
-  typedef BYTE *PBYTE;
-  typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
-  typedef WORD *PWORD;
-  typedef WORD *LPWORD;
-  typedef long *LPLONG;
-  typedef DWORD *PDWORD;
-  typedef DWORD *LPDWORD;
-  typedef void *LPVOID;
+  प्रकारव्याख्या अचिन्हित अक्षर BYTE;
+  प्रकारव्याख्या अचिन्हित लघु WORD;
+  प्रकारव्याख्या दशांश FLOAT;
+  प्रकारव्याख्या FLOAT *PFLOAT;
+  प्रकारव्याख्या WINBOOL *PBOOL;
+  प्रकारव्याख्या WINBOOL *LPBOOL;
+  प्रकारव्याख्या BYTE *PBYTE;
+  प्रकारव्याख्या BYTE *LPBYTE;
+  प्रकारव्याख्या पूर्णांक *PINT;
+  प्रकारव्याख्या पूर्णांक *LPINT;
+  प्रकारव्याख्या WORD *PWORD;
+  प्रकारव्याख्या WORD *LPWORD;
+  प्रकारव्याख्या दीर्घ *LPLONG;
+  प्रकारव्याख्या DWORD *PDWORD;
+  प्रकारव्याख्या DWORD *LPDWORD;
+  प्रकारव्याख्या शून्य *LPVOID;
 # ifndef _LPCVOID_DEFINED
 #define _LPCVOID_DEFINED
-typedef CONST void *LPCVOID;
+प्रकारव्याख्या CONST शून्य *LPCVOID;
 #endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+  प्रकारव्याख्या पूर्णांक INT;
+  प्रकारव्याख्या अचिन्हित पूर्णांक UINT;
+  प्रकारव्याख्या अचिन्हित पूर्णांक *PUINT;
 
 #ifndef NT_INCLUDED
-#include <winnt.h>
+#अन्तर्भाव <winnt.h>
 #endif
 
 //gr #include <specstrings.h>
 
-  typedef UINT_PTR WPARAM;
-  typedef LONG_PTR LPARAM;
-  typedef LONG_PTR LRESULT;
+  प्रकारव्याख्या UINT_PTR WPARAM;
+  प्रकारव्याख्या LONG_PTR LPARAM;
+  प्रकारव्याख्या LONG_PTR LRESULT;
 
 #ifndef __cplusplus
 #ifndef NOMINMAX
@@ -155,28 +155,28 @@ typedef CONST void *LPCVOID;
 #endif
 #endif
 
-  typedef WORD ATOM;
+  प्रकारव्याख्या WORD ATOM;
 
-  typedef HANDLE *SPHANDLE;
-  typedef HANDLE *LPHANDLE;
-  typedef HANDLE HGLOBAL;
-  typedef HANDLE HLOCAL;
-  typedef HANDLE GLOBALHANDLE;
-  typedef HANDLE LOCALHANDLE;
+  प्रकारव्याख्या HANDLE *SPHANDLE;
+  प्रकारव्याख्या HANDLE *LPHANDLE;
+  प्रकारव्याख्या HANDLE HGLOBAL;
+  प्रकारव्याख्या HANDLE HLOCAL;
+  प्रकारव्याख्या HANDLE GLOBALHANDLE;
+  प्रकारव्याख्या HANDLE LOCALHANDLE;
 #ifdef _WIN64
-  typedef INT_PTR (WINAPI *FARPROC)();
-  typedef INT_PTR (WINAPI *NEARPROC)();
-  typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
+  प्रकारव्याख्या INT_PTR (WINAPI *FARPROC)();
+  प्रकारव्याख्या INT_PTR (WINAPI *NEARPROC)();
+  प्रकारव्याख्या INT_PTR (WINAPI *PROC)();
+#अन्यथा
+  प्रकारव्याख्या पूर्णांक (WINAPI *FARPROC)();
+  प्रकारव्याख्या पूर्णांक (WINAPI *NEARPROC)();
+  प्रकारव्याख्या पूर्णांक (WINAPI *PROC)();
 #endif
 
-  typedef void *HGDIOBJ;
+  प्रकारव्याख्या शून्य *HGDIOBJ;
 
   DECLARE_HANDLE(HKEY);
-  typedef HKEY *PHKEY;
+  प्रकारव्याख्या HKEY *PHKEY;
 
   DECLARE_HANDLE(HACCEL);
   DECLARE_HANDLE(HBITMAP);
@@ -191,7 +191,7 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HMENU);
   DECLARE_HANDLE(HMETAFILE);
   DECLARE_HANDLE(HINSTANCE);
-  typedef HINSTANCE HMODULE;
+  प्रकारव्याख्या HINSTANCE HMODULE;
   DECLARE_HANDLE(HPALETTE);
   DECLARE_HANDLE(HPEN);
   DECLARE_HANDLE(HRGN);
@@ -204,57 +204,57 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
-  typedef HICON HCURSOR;
-  typedef DWORD COLORREF;
-  typedef DWORD *LPCOLORREF;
+  प्रकारव्याख्या पूर्णांक HFILE;
+  प्रकारव्याख्या HICON HCURSOR;
+  प्रकारव्याख्या DWORD COLORREF;
+  प्रकारव्याख्या DWORD *LPCOLORREF;
 
 #define HFILE_ERROR ((HFILE)-1)
 
-  typedef struct tagRECT {
-    LONG left;
-    LONG top;
-    LONG right;
+  प्रकारव्याख्या संरचना tagRECT {
+    LONG डावा;
+    LONG शीर्ष;
+    LONG उजवा;
     LONG bottom;
   } RECT,*PRECT,*NPRECT,*LPRECT;
 
-  typedef const RECT *LPCRECT;
+  प्रकारव्याख्या स्थिरांक RECT *LPCRECT;
 
-  typedef struct _RECTL {
-    LONG left;
-    LONG top;
-    LONG right;
+  प्रकारव्याख्या संरचना _RECTL {
+    LONG डावा;
+    LONG शीर्ष;
+    LONG उजवा;
     LONG bottom;
   } RECTL,*PRECTL,*LPRECTL;
 
-  typedef const RECTL *LPCRECTL;
+  प्रकारव्याख्या स्थिरांक RECTL *LPCRECTL;
 
-  typedef struct tagPOINT {
+  प्रकारव्याख्या संरचना tagPOINT {
     LONG x;
     LONG y;
   } POINT,*PPOINT,*NPPOINT,*LPPOINT;
 
-  typedef struct _POINTL {
+  प्रकारव्याख्या संरचना _POINTL {
     LONG x;
     LONG y;
   } POINTL,*PPOINTL;
 
-  typedef struct tagSIZE {
+  प्रकारव्याख्या संरचना tagSIZE {
     LONG cx;
     LONG cy;
   } SIZE,*PSIZE,*LPSIZE;
 
-  typedef SIZE SIZEL;
-  typedef SIZE *PSIZEL,*LPSIZEL;
+  प्रकारव्याख्या SIZE SIZEL;
+  प्रकारव्याख्या SIZE *PSIZEL,*LPSIZEL;
 
-  typedef struct tagPOINTS {
+  प्रकारव्याख्या संरचना tagPOINTS {
     SHORT x;
     SHORT y;
   } POINTS,*PPOINTS,*LPPOINTS;
 
-  typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+  प्रकारव्याख्या संरचना _FILETIME {
+    DWORD dw_खालचा_Date_Time;
+    DWORD dw_वरचा_Date_Time;
   } FILETIME,*PFILETIME,*LPFILETIME;
 #define _FILETIME_
 

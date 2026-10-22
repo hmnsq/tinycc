@@ -6,10 +6,10 @@
 #ifndef _INC_STRING
 #define _INC_STRING
 
-#include <_mingw.h>
+#अन्तर्भाव <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
 #ifndef _NLSCMP_DEFINED
@@ -17,11 +17,11 @@ extern "C" {
 #define _NLSCMPERROR 2147483647
 #endif
 
-#ifndef NULL
+#ifndef रिक्त
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define रिक्त 0
+#अन्यथा
+#define रिक्त ((शून्य *)0)
 #endif
 #endif
 
@@ -29,130 +29,130 @@ extern "C" {
 
 #ifndef _CRT_MEMORY_DEFINED
 #define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+  _CRTIMP शून्य *__cdecl _memccpy(शून्य *_Dst,स्थिरांक शून्य *_Src,पूर्णांक _Val,माप_प्रकार Max_मोजणी);
+  _CONST_RETURN शून्य *__cdecl स_प्रथम(स्थिरांक शून्य *_Buf ,पूर्णांक _Val,माप_प्रकार Max_मोजणी);
+  _CRTIMP पूर्णांक __cdecl _memicmp(स्थिरांक शून्य *_Buf1,स्थिरांक शून्य *_Buf2,माप_प्रकार _Size);
+  _CRTIMP पूर्णांक __cdecl _memicmp_l(स्थिरांक शून्य *_Buf1,स्थिरांक शून्य *_Buf2,माप_प्रकार _Size,_locale_t _Locale);
+  पूर्णांक __cdecl स_भेद(स्थिरांक शून्य *_Buf1,स्थिरांक शून्य *_Buf2,माप_प्रकार _Size);
+  शून्य *__cdecl स_नकल(शून्य *_Dst,स्थिरांक शून्य *_Src,माप_प्रकार _Size);
+  शून्य *__cdecl स_रखो(शून्य *_Dst,पूर्णांक _Val,माप_प्रकार _Size);
 #ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
+  शून्य *__cdecl memccpy(शून्य *_Dst,स्थिरांक शून्य *_Src,पूर्णांक _Val,माप_प्रकार _Size);
+  पूर्णांक __cdecl memicmp(स्थिरांक शून्य *_Buf1,स्थिरांक शून्य *_Buf2,माप_प्रकार _Size);
 #endif
 #endif
-  char *__cdecl _strset(char *_Str,int _Val);
-  char *__cdecl strcpy(char *_Dest,const char *_Source);
-  char *__cdecl strcat(char *_Dest,const char *_Source);
-  int __cdecl strcmp(const char *_Str1,const char *_Str2);
-  size_t __cdecl strlen(const char *_Str);
-#if 0
-  size_t __cdecl strnlen(const char *_Str,size_t _MaxCount);
+  अक्षर *__cdecl _strset(अक्षर *_Str,पूर्णांक _Val);
+  अक्षर *__cdecl म_नकल(अक्षर *_Dest,स्थिरांक अक्षर *_Source);
+  अक्षर *__cdecl म_जोड़ो(अक्षर *_Dest,स्थिरांक अक्षर *_Source);
+  पूर्णांक __cdecl म_भेद(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2);
+  माप_प्रकार __cdecl म_माप(स्थिरांक अक्षर *_Str);
+#जर 0
+  माप_प्रकार __cdecl strnlen(स्थिरांक अक्षर *_Str,माप_प्रकार Max_मोजणी);
 #endif
-  void *__cdecl memmove(void *_Dst,const void *_Src,size_t _Size);
-  _CRTIMP char *__cdecl _strdup(const char *_Src);
-  _CONST_RETURN char *__cdecl strchr(const char *_Str,int _Val);
-  _CRTIMP int __cdecl _stricmp(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _strcmpi(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _stricmp_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  int __cdecl strcoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _strcoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _stricoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _stricoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _strncoll (const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _strncoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _strnicoll (const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _strnicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  size_t __cdecl strcspn(const char *_Str,const char *_Control);
-  _CRTIMP char *__cdecl _strerror(const char *_ErrMsg);
-  char *__cdecl strerror(int);
-  _CRTIMP char *__cdecl _strlwr(char *_String);
-  char *strlwr_l(char *_String,_locale_t _Locale);
-  char *__cdecl strncat(char *_Dest,const char *_Source,size_t _Count);
-  int __cdecl strncmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _strnicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _strnicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  char *strncpy(char *_Dest,const char *_Source,size_t _Count);
-  _CRTIMP char *__cdecl _strnset(char *_Str,int _Val,size_t _MaxCount);
-  _CONST_RETURN char *__cdecl strpbrk(const char *_Str,const char *_Control);
-  _CONST_RETURN char *__cdecl strrchr(const char *_Str,int _Ch);
-  _CRTIMP char *__cdecl _strrev(char *_Str);
-  size_t __cdecl strspn(const char *_Str,const char *_Control);
-  _CONST_RETURN char *__cdecl strstr(const char *_Str,const char *_SubStr);
-  char *__cdecl strtok(char *_Str,const char *_Delim);
-  _CRTIMP char *__cdecl _strupr(char *_String);
-  _CRTIMP char *_strupr_l(char *_String,_locale_t _Locale);
-  size_t __cdecl strxfrm(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _strxfrm_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
+  शून्य *__cdecl स_हटाओ(शून्य *_Dst,स्थिरांक शून्य *_Src,माप_प्रकार _Size);
+  _CRTIMP अक्षर *__cdecl _strdup(स्थिरांक अक्षर *_Src);
+  _CONST_RETURN अक्षर *__cdecl म_अक्षर(स्थिरांक अक्षर *_Str,पूर्णांक _Val);
+  _CRTIMP पूर्णांक __cdecl _stricmp(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2);
+  _CRTIMP पूर्णांक __cdecl _strcmpi(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2);
+  _CRTIMP पूर्णांक __cdecl _stricmp_l(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2,_locale_t _Locale);
+  पूर्णांक __cdecl strcoll(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2);
+  _CRTIMP पूर्णांक __cdecl _strcoll_l(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _stricoll(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2);
+  _CRTIMP पूर्णांक __cdecl _stricoll_l(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _strncoll (स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2,माप_प्रकार Max_मोजणी);
+  _CRTIMP पूर्णांक __cdecl _strncoll_l(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2,माप_प्रकार Max_मोजणी,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _strnicoll (स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2,माप_प्रकार Max_मोजणी);
+  _CRTIMP पूर्णांक __cdecl _strnicoll_l(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2,माप_प्रकार Max_मोजणी,_locale_t _Locale);
+  माप_प्रकार __cdecl म_खोज(स्थिरांक अक्षर *_Str,स्थिरांक अक्षर *_Control);
+  _CRTIMP अक्षर *__cdecl _strerror(स्थिरांक अक्षर *Err_संदेश);
+  अक्षर *__cdecl म_त्रुटि(पूर्णांक);
+  _CRTIMP अक्षर *__cdecl _strlwr(अक्षर *_String);
+  अक्षर *strlwr_l(अक्षर *_String,_locale_t _Locale);
+  अक्षर *__cdecl म_जोड़न(अक्षर *_Dest,स्थिरांक अक्षर *_Source,माप_प्रकार मोजणी_5);
+  पूर्णांक __cdecl म_भेदन(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2,माप_प्रकार Max_मोजणी);
+  _CRTIMP पूर्णांक __cdecl _strnicmp(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2,माप_प्रकार Max_मोजणी);
+  _CRTIMP पूर्णांक __cdecl _strnicmp_l(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2,माप_प्रकार Max_मोजणी,_locale_t _Locale);
+  अक्षर *म_नकलन(अक्षर *_Dest,स्थिरांक अक्षर *_Source,माप_प्रकार मोजणी_5);
+  _CRTIMP अक्षर *__cdecl _strnset(अक्षर *_Str,पूर्णांक _Val,माप_प्रकार Max_मोजणी);
+  _CONST_RETURN अक्षर *__cdecl strpbrk(स्थिरांक अक्षर *_Str,स्थिरांक अक्षर *_Control);
+  _CONST_RETURN अक्षर *__cdecl म_खोजप(स्थिरांक अक्षर *_Str,पूर्णांक _Ch);
+  _CRTIMP अक्षर *__cdecl _strrev(अक्षर *_Str);
+  माप_प्रकार __cdecl म_अखोज(स्थिरांक अक्षर *_Str,स्थिरांक अक्षर *_Control);
+  _CONST_RETURN अक्षर *__cdecl म_माला(स्थिरांक अक्षर *_Str,स्थिरांक अक्षर *_SubStr);
+  अक्षर *__cdecl म_मोहर(अक्षर *_Str,स्थिरांक अक्षर *_Delim);
+  _CRTIMP अक्षर *__cdecl _strupr(अक्षर *_String);
+  _CRTIMP अक्षर *_strupr_l(अक्षर *_String,_locale_t _Locale);
+  माप_प्रकार __cdecl strxfrm(अक्षर *_Dst,स्थिरांक अक्षर *_Src,माप_प्रकार Max_मोजणी);
+  _CRTIMP माप_प्रकार __cdecl _strxfrm_l(अक्षर *_Dst,स्थिरांक अक्षर *_Src,माप_प्रकार Max_मोजणी,_locale_t _Locale);
 
 #ifndef	NO_OLDNAMES
-  char *__cdecl strdup(const char *_Src);
-  int __cdecl strcmpi(const char *_Str1,const char *_Str2);
-  int __cdecl stricmp(const char *_Str1,const char *_Str2);
-  char *__cdecl strlwr(char *_Str);
-  int __cdecl strnicmp(const char *_Str1,const char *_Str,size_t _MaxCount);
-  __CRT_INLINE int __cdecl strncasecmp (const char *__sz1, const char *__sz2, size_t __sizeMaxCompare) { return _strnicmp (__sz1, __sz2, __sizeMaxCompare); }
-  __CRT_INLINE int __cdecl strcasecmp (const char *__sz1, const char *__sz2) { return _stricmp (__sz1, __sz2); }
-  char *__cdecl strnset(char *_Str,int _Val,size_t _MaxCount);
-  char *__cdecl strrev(char *_Str);
-  char *__cdecl strset(char *_Str,int _Val);
-  char *__cdecl strupr(char *_Str);
+  अक्षर *__cdecl strdup(स्थिरांक अक्षर *_Src);
+  पूर्णांक __cdecl strcmpi(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2);
+  पूर्णांक __cdecl stricmp(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str2);
+  अक्षर *__cdecl strlwr(अक्षर *_Str);
+  पूर्णांक __cdecl strnicmp(स्थिरांक अक्षर *_Str1,स्थिरांक अक्षर *_Str,माप_प्रकार Max_मोजणी);
+  __CRT_INLINE पूर्णांक __cdecl strncasecmp (स्थिरांक अक्षर *__sz1, स्थिरांक अक्षर *__sz2, माप_प्रकार __sizeMaxCompare) { परत _strnicmp (__sz1, __sz2, __sizeMaxCompare); }
+  __CRT_INLINE पूर्णांक __cdecl strcasecmp (स्थिरांक अक्षर *__sz1, स्थिरांक अक्षर *__sz2) { परत _stricmp (__sz1, __sz2); }
+  अक्षर *__cdecl strnset(अक्षर *_Str,पूर्णांक _Val,माप_प्रकार Max_मोजणी);
+  अक्षर *__cdecl strrev(अक्षर *_Str);
+  अक्षर *__cdecl strset(अक्षर *_Str,पूर्णांक _Val);
+  अक्षर *__cdecl strupr(अक्षर *_Str);
 #endif
 
 #ifndef _WSTRING_DEFINED
 #define _WSTRING_DEFINED
 
-  _CRTIMP wchar_t *__cdecl _wcsdup(const wchar_t *_Str);
-  wchar_t *__cdecl wcscat(wchar_t *_Dest,const wchar_t *_Source);
-  _CONST_RETURN wchar_t *__cdecl wcschr(const wchar_t *_Str,wchar_t _Ch);
-  int __cdecl wcscmp(const wchar_t *_Str1,const wchar_t *_Str2);
-  wchar_t *__cdecl wcscpy(wchar_t *_Dest,const wchar_t *_Source);
-  size_t __cdecl wcscspn(const wchar_t *_Str,const wchar_t *_Control);
-  size_t __cdecl wcslen(const wchar_t *_Str);
-  size_t __cdecl wcsnlen(const wchar_t *_Src,size_t _MaxCount);
-  wchar_t *wcsncat(wchar_t *_Dest,const wchar_t *_Source,size_t _Count);
-  int __cdecl wcsncmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  wchar_t *wcsncpy(wchar_t *_Dest,const wchar_t *_Source,size_t _Count);
-  _CONST_RETURN wchar_t *__cdecl wcspbrk(const wchar_t *_Str,const wchar_t *_Control);
-  _CONST_RETURN wchar_t *__cdecl wcsrchr(const wchar_t *_Str,wchar_t _Ch);
-  size_t __cdecl wcsspn(const wchar_t *_Str,const wchar_t *_Control);
-  _CONST_RETURN wchar_t *__cdecl wcsstr(const wchar_t *_Str,const wchar_t *_SubStr);
-  wchar_t *__cdecl wcstok(wchar_t *_Str,const wchar_t *_Delim);
-  _CRTIMP wchar_t *__cdecl _wcserror(int _ErrNum);
-  _CRTIMP wchar_t *__cdecl __wcserror(const wchar_t *_Str);
-  _CRTIMP int __cdecl _wcsicmp(const wchar_t *_Str1,const wchar_t *_Str2);
-  _CRTIMP int __cdecl _wcsicmp_l(const wchar_t *_Str1,const wchar_t *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _wcsnicmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _wcsnicmp_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wcsnset(wchar_t *_Str,wchar_t _Val,size_t _MaxCount);
-  _CRTIMP wchar_t *__cdecl _wcsrev(wchar_t *_Str);
-  _CRTIMP wchar_t *__cdecl _wcsset(wchar_t *_Str,wchar_t _Val);
-  _CRTIMP wchar_t *__cdecl _wcslwr(wchar_t *_String);
-  _CRTIMP wchar_t *_wcslwr_l(wchar_t *_String,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wcsupr(wchar_t *_String);
-  _CRTIMP wchar_t *_wcsupr_l(wchar_t *_String,_locale_t _Locale);
-  size_t __cdecl wcsxfrm(wchar_t *_Dst,const wchar_t *_Src,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _wcsxfrm_l(wchar_t *_Dst,const wchar_t *_Src,size_t _MaxCount,_locale_t _Locale);
-  int __cdecl wcscoll(const wchar_t *_Str1,const wchar_t *_Str2);
-  _CRTIMP int __cdecl _wcscoll_l(const wchar_t *_Str1,const wchar_t *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _wcsicoll(const wchar_t *_Str1,const wchar_t *_Str2);
-  _CRTIMP int __cdecl _wcsicoll_l(const wchar_t *_Str1,const wchar_t *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _wcsncoll(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _wcsncoll_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _wcsnicoll(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _wcsnicoll_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcsdup(स्थिरांक ब_अक्षर_प्रकार *_Str);
+  ब_अक्षर_प्रकार *__cdecl wcscat(ब_अक्षर_प्रकार *_Dest,स्थिरांक ब_अक्षर_प्रकार *_Source);
+  _CONST_RETURN ब_अक्षर_प्रकार *__cdecl wcschr(स्थिरांक ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Ch);
+  पूर्णांक __cdecl wcscmp(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2);
+  ब_अक्षर_प्रकार *__cdecl wcscpy(ब_अक्षर_प्रकार *_Dest,स्थिरांक ब_अक्षर_प्रकार *_Source);
+  माप_प्रकार __cdecl wcscspn(स्थिरांक ब_अक्षर_प्रकार *_Str,स्थिरांक ब_अक्षर_प्रकार *_Control);
+  माप_प्रकार __cdecl wcslen(स्थिरांक ब_अक्षर_प्रकार *_Str);
+  माप_प्रकार __cdecl wcsnlen(स्थिरांक ब_अक्षर_प्रकार *_Src,माप_प्रकार Max_मोजणी);
+  ब_अक्षर_प्रकार *wcsncat(ब_अक्षर_प्रकार *_Dest,स्थिरांक ब_अक्षर_प्रकार *_Source,माप_प्रकार मोजणी_5);
+  पूर्णांक __cdecl wcsncmp(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_मोजणी);
+  ब_अक्षर_प्रकार *wcsncpy(ब_अक्षर_प्रकार *_Dest,स्थिरांक ब_अक्षर_प्रकार *_Source,माप_प्रकार मोजणी_5);
+  _CONST_RETURN ब_अक्षर_प्रकार *__cdecl wcspbrk(स्थिरांक ब_अक्षर_प्रकार *_Str,स्थिरांक ब_अक्षर_प्रकार *_Control);
+  _CONST_RETURN ब_अक्षर_प्रकार *__cdecl wcsrchr(स्थिरांक ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Ch);
+  माप_प्रकार __cdecl wcsspn(स्थिरांक ब_अक्षर_प्रकार *_Str,स्थिरांक ब_अक्षर_प्रकार *_Control);
+  _CONST_RETURN ब_अक्षर_प्रकार *__cdecl wcsstr(स्थिरांक ब_अक्षर_प्रकार *_Str,स्थिरांक ब_अक्षर_प्रकार *_SubStr);
+  ब_अक्षर_प्रकार *__cdecl wcstok(ब_अक्षर_प्रकार *_Str,स्थिरांक ब_अक्षर_प्रकार *_Delim);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcserror(पूर्णांक Err_अंक);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl __wcserror(स्थिरांक ब_अक्षर_प्रकार *_Str);
+  _CRTIMP पूर्णांक __cdecl _wcsicmp(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2);
+  _CRTIMP पूर्णांक __cdecl _wcsicmp_l(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _wcsnicmp(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_मोजणी);
+  _CRTIMP पूर्णांक __cdecl _wcsnicmp_l(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_मोजणी,_locale_t _Locale);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcsnset(ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Val,माप_प्रकार Max_मोजणी);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcsrev(ब_अक्षर_प्रकार *_Str);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcsset(ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Val);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcslwr(ब_अक्षर_प्रकार *_String);
+  _CRTIMP ब_अक्षर_प्रकार *_wcslwr_l(ब_अक्षर_प्रकार *_String,_locale_t _Locale);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcsupr(ब_अक्षर_प्रकार *_String);
+  _CRTIMP ब_अक्षर_प्रकार *_wcsupr_l(ब_अक्षर_प्रकार *_String,_locale_t _Locale);
+  माप_प्रकार __cdecl wcsxfrm(ब_अक्षर_प्रकार *_Dst,स्थिरांक ब_अक्षर_प्रकार *_Src,माप_प्रकार Max_मोजणी);
+  _CRTIMP माप_प्रकार __cdecl _wcsxfrm_l(ब_अक्षर_प्रकार *_Dst,स्थिरांक ब_अक्षर_प्रकार *_Src,माप_प्रकार Max_मोजणी,_locale_t _Locale);
+  पूर्णांक __cdecl wcscoll(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2);
+  _CRTIMP पूर्णांक __cdecl _wcscoll_l(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _wcsicoll(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2);
+  _CRTIMP पूर्णांक __cdecl _wcsicoll_l(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _wcsncoll(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_मोजणी);
+  _CRTIMP पूर्णांक __cdecl _wcsncoll_l(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_मोजणी,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _wcsnicoll(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_मोजणी);
+  _CRTIMP पूर्णांक __cdecl _wcsnicoll_l(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_मोजणी,_locale_t _Locale);
 
 #ifndef	NO_OLDNAMES
-  wchar_t *__cdecl wcsdup(const wchar_t *_Str);
+  ब_अक्षर_प्रकार *__cdecl wcsdup(स्थिरांक ब_अक्षर_प्रकार *_Str);
 #define wcswcs wcsstr
-  int __cdecl wcsicmp(const wchar_t *_Str1,const wchar_t *_Str2);
-  int __cdecl wcsnicmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  wchar_t *__cdecl wcsnset(wchar_t *_Str,wchar_t _Val,size_t _MaxCount);
-  wchar_t *__cdecl wcsrev(wchar_t *_Str);
-  wchar_t *__cdecl wcsset(wchar_t *_Str,wchar_t _Val);
-  wchar_t *__cdecl wcslwr(wchar_t *_Str);
-  wchar_t *__cdecl wcsupr(wchar_t *_Str);
-  int __cdecl wcsicoll(const wchar_t *_Str1,const wchar_t *_Str2);
+  पूर्णांक __cdecl wcsicmp(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2);
+  पूर्णांक __cdecl wcsnicmp(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_मोजणी);
+  ब_अक्षर_प्रकार *__cdecl wcsnset(ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Val,माप_प्रकार Max_मोजणी);
+  ब_अक्षर_प्रकार *__cdecl wcsrev(ब_अक्षर_प्रकार *_Str);
+  ब_अक्षर_प्रकार *__cdecl wcsset(ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Val);
+  ब_अक्षर_प्रकार *__cdecl wcslwr(ब_अक्षर_प्रकार *_Str);
+  ब_अक्षर_प्रकार *__cdecl wcsupr(ब_अक्षर_प्रकार *_Str);
+  पूर्णांक __cdecl wcsicoll(स्थिरांक ब_अक्षर_प्रकार *_Str1,स्थिरांक ब_अक्षर_प्रकार *_Str2);
 #endif
 #endif
 
@@ -160,5 +160,5 @@ extern "C" {
 }
 #endif
 
-#include <sec_api/string_s.h>
+#अन्तर्भाव <sec_api/string_s.h>
 #endif

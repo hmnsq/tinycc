@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+बाह्य पूर्णांक म_लिखो(स्थिरांक अक्षर *, ...);
+शून्य f(शून्य);
+शून्य bar(शून्य) { शून्य f(शून्य); f(); }
+शून्य foo(शून्य) { बाह्य शून्य f(शून्य); f(); }
+शून्य f(शून्य) { म_लिखो("f\n"); }
 
-int main()
+पूर्णांक main()
 {
   bar();
   foo();
-  return 0;
+  परत 0;
 }

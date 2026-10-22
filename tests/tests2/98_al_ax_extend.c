@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-asm (
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <stdlib.h>
+यंत्र (
     ".text;"
     ".globl _us;.globl _ss;.globl _uc;.globl _sc;"
     "_us:;_ss:;_uc:;_sc:;"
@@ -15,27 +15,27 @@ asm (
 #define sc _sc
 #endif
 
-int main()
+पूर्णांक main()
 {
-    unsigned short us(void);
-    short ss(void);
-    unsigned char uc(void);
-    signed char sc(void);
+    अचिन्हित लघु us(शून्य);
+    लघु ss(शून्य);
+    अचिन्हित अक्षर uc(शून्य);
+    चिन्हित अक्षर sc(शून्य);
 
-    unsigned short (*fpus)(void) = us;
-    short (*fpss)(void) = ss;
-    unsigned char (*fpuc)(void) = uc;
-    signed char (*fpsc)(void) = sc;
+    अचिन्हित लघु (*fpus)(शून्य) = us;
+    लघु (*fpss)(शून्य) = ss;
+    अचिन्हित अक्षर (*fpuc)(शून्य) = uc;
+    चिन्हित अक्षर (*fpsc)(शून्य) = sc;
 
-    printf("%08X %08X\n", us() + 1, fpus() + 1);
-    printf("%08X %08X\n", ss() + 1, fpss() + 1);
-    printf("%08X %08X\n", uc() + 1, fpuc() + 1);
-    printf("%08X %08X\n", sc() + 1, fpsc() + 1);
-    printf("\n");
-    printf("%08X %08X\n", fpus() + 1, us() + 1);
-    printf("%08X %08X\n", fpss() + 1, ss() + 1);
-    printf("%08X %08X\n", fpuc() + 1, uc() + 1);
-    printf("%08X %08X\n", fpsc() + 1, sc() + 1);
+    म_लिखो("%08X %08X\n", us() + 1, fpus() + 1);
+    म_लिखो("%08X %08X\n", ss() + 1, fpss() + 1);
+    म_लिखो("%08X %08X\n", uc() + 1, fpuc() + 1);
+    म_लिखो("%08X %08X\n", sc() + 1, fpsc() + 1);
+    म_लिखो("\n");
+    म_लिखो("%08X %08X\n", fpus() + 1, us() + 1);
+    म_लिखो("%08X %08X\n", fpss() + 1, ss() + 1);
+    म_लिखो("%08X %08X\n", fpuc() + 1, uc() + 1);
+    म_लिखो("%08X %08X\n", fpsc() + 1, sc() + 1);
 
-    return 0;
+    परत 0;
 }

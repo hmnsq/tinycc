@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#अन्तर्भाव <stdlib.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णांक main()
 {
-    printf("Hello World\n");
-    return 0;
+    म_लिखो("Hello World\n");
+    परत 0;
 }

@@ -389,8 +389,8 @@
  DEF_ASM(clrex)
 
 /* Push/pop */
- DEF_ASM(push)
- DEF_ASM(pop)
+ DEF_ASM(ढकला)
+ DEF_ASM(काढा)
 
 /* Floating point */
  DEF_ASM(fmov)
@@ -404,7 +404,7 @@
  DEF_ASM(fmaxnm)
  DEF_ASM(fminnm)
  DEF_ASM(fsqrt)
- DEF_ASM(fabs)
+ DEF_ASM(भ_असल)
  DEF_ASM(fneg)
  DEF_ASM(frintn)
  DEF_ASM(frintp)

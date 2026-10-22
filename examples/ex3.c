@@ -1,23 +1,23 @@
-#include <tcclib.h>
+#अन्तर्भाव <tcclib.h>
 
-int fib(int n)
+पूर्णांक fib(पूर्णांक n)
 {
-    if (n <= 2)
-        return 1;
-    else
-        return fib(n-1) + fib(n-2);
+    जर (n <= 2)
+        परत 1;
+    अन्यथा
+        परत fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+पूर्णांक main(पूर्णांक argc, अक्षर **argv)
 {
-    int n;
-    if (argc < 2) {
-        printf("usage: fib n\n"
+    पूर्णांक n;
+    जर (argc < 2) {
+        म_लिखो("usage: fib n\n"
                "Compute nth Fibonacci number\n");
-        return 1;
+        परत 1;
     }
 
-    n = atoi(argv[1]);
-    printf("fib(%d) = %d\n", n, fib(n));
-    return 0;
+    n = म_से_प(argv[1]);
+    म_लिखो("fib(%d) = %d\n", n, fib(n));
+    परत 0;
 }

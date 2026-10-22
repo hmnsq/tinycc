@@ -1,98 +1,98 @@
-#include <stdlib.h>
-#include <stdio.h>
+#अन्तर्भाव <stdlib.h>
+#अन्तर्भाव <stdio.h>
 
 #define N 20
 
-int nb_num;
-int tab[N];
-int stack_ptr;
-int stack_op[N];
-int stack_res[60];
-int result;
+पूर्णांक nb_अंक;
+पूर्णांक tab[N];
+पूर्णांक चळत_ptr;
+पूर्णांक चळत_op[N];
+पूर्णांक चळत_res[60];
+पूर्णांक result;
 
-int find(int n, int i1, int a, int b, int op)
+पूर्णांक find(पूर्णांक n, पूर्णांक i1, पूर्णांक a, पूर्णांक b, पूर्णांक op)
 {
-    int i, j;
-    int c;
+    पूर्णांक i, j;
+    पूर्णांक c;
 
-    if (stack_ptr >= 0) {
-        stack_res[3*stack_ptr] = a;
-        stack_op[stack_ptr] = op;
-        stack_res[3*stack_ptr+1] = b;
-        stack_res[3*stack_ptr+2] = n;
-        if (n == result)
-            return 1;
+    जर (चळत_ptr >= 0) {
+        चळत_res[3*चळत_ptr] = a;
+        चळत_op[चळत_ptr] = op;
+        चळत_res[3*चळत_ptr+1] = b;
+        चळत_res[3*चळत_ptr+2] = n;
+        जर (n == result)
+            परत 1;
         tab[i1] = n;
     }
 
-    for(i=0;i<nb_num;i++) {
-        for(j=i+1;j<nb_num;j++) {
+    साठी(i=0;i<nb_अंक;i++) {
+        साठी(j=i+1;j<nb_अंक;j++) {
             a = tab[i];
             b = tab[j];
-            if (a != 0 && b != 0) {
+            जर (a != 0 && b != 0) {
 
                 tab[j] = 0;
-                stack_ptr++;
+                चळत_ptr++;
 
-                if (find(a + b, i, a, b, '+'))
-                    return 1;
-                if (find(a - b, i, a, b, '-'))
-                    return 1;
-                if (find(b - a, i, b, a, '-'))
-                    return 1;
-                if (find(a * b, i, a, b, '*'))
-                    return 1;
-                if (b != 0) {
+                जर (find(a + b, i, a, b, '+'))
+                    परत 1;
+                जर (find(a - b, i, a, b, '-'))
+                    परत 1;
+                जर (find(b - a, i, b, a, '-'))
+                    परत 1;
+                जर (find(a * b, i, a, b, '*'))
+                    परत 1;
+                जर (b != 0) {
                     c = a / b;
-                    if (find(c, i, a, b, '/'))
-                        return 1;
+                    जर (find(c, i, a, b, '/'))
+                        परत 1;
                 }
 
-                if (a != 0) {
+                जर (a != 0) {
                     c = b / a;
-                    if (find(c, i, b, a, '/'))
-                        return 1;
+                    जर (find(c, i, b, a, '/'))
+                        परत 1;
                 }
 
-                stack_ptr--;
+                चळत_ptr--;
                 tab[i] = a;
                 tab[j] = b;
             }
         }
     }
 
-    return 0;
+    परत 0;
 }
 
-int main(int argc, char **argv)
+पूर्णांक main(पूर्णांक argc, अक्षर **argv)
 {
-    int i, res, p;
+    पूर्णांक i, res, p;
 
-    if (argc < 3) {
-        printf("usage: %s: result numbers...\n"
+    जर (argc < 3) {
+        म_लिखो("usage: %s: result numbers...\n"
                "Try to find result from numbers with the 4 basic operations.\n", argv[0]);
-        exit(1);
+        निकास(1);
     }
 
     p = 1;
-    result = atoi(argv[p]);
-    printf("result=%d\n", result);
-    nb_num = 0;
-    for(i=p+1;i<argc;i++) {
-        tab[nb_num++] = atoi(argv[i]);
+    result = म_से_प(argv[p]);
+    म_लिखो("result=%d\n", result);
+    nb_अंक = 0;
+    साठी(i=p+1;i<argc;i++) {
+        tab[nb_अंक++] = म_से_प(argv[i]);
     }
 
-    stack_ptr = -1;
+    चळत_ptr = -1;
     res = find(0, 0, 0, 0, ' ');
-    if (res) {
-        for(i=0;i<=stack_ptr;i++) {
-            printf("%d %c %d = %d\n",
-                   stack_res[3*i], stack_op[i],
-                   stack_res[3*i+1], stack_res[3*i+2]);
+    जर (res) {
+        साठी(i=0;i<=चळत_ptr;i++) {
+            म_लिखो("%d %c %d = %d\n",
+                   चळत_res[3*i], चळत_op[i],
+                   चळत_res[3*i+1], चळत_res[3*i+2]);
         }
-        return 0;
-    } else {
-        printf("Impossible\n");
-        return 1;
+        परत 0;
+    } अन्यथा {
+        म_लिखो("Impossible\n");
+        परत 1;
     }
 }

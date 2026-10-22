@@ -3,18 +3,18 @@
 //  HELLO_DLL.C - Windows DLL example - main application part
 //
 
-#include <windows.h>
+#अन्तर्भाव <windows.h>
 
-void hello_func (void);
-__declspec(dllimport) extern const char *hello_data;
+शून्य hello_func (शून्य);
+__declspec(dllimport) बाह्य स्थिरांक अक्षर *hello_data;
 
-int WINAPI WinMain(
+पूर्णांक WINAPI WinMain(
     HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
-    LPSTR     lpCmdLine,
-    int       nCmdShow)
+    LPSTR     lp_Cmd_ओळ,
+    पूर्णांक       nCmdShow)
 {
     hello_data = "Hello World!";
     hello_func();
-    return 0;
+    परत 0;
 }

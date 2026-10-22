@@ -1,15 +1,15 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main() 
+पूर्णांक main() 
 {
-   int Count;
+   पूर्णांक मोजणी_3;
 
-   for (Count = 1; Count <= 10; Count++)
+   साठी (मोजणी_3 = 1; मोजणी_3 <= 10; मोजणी_3++)
    {
-      printf("%d\n", Count);
+      म_लिखो("%d\n", मोजणी_3);
    }
 
-   return 0;
+   परत 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

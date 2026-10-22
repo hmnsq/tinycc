@@ -1,84 +1,84 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
-#if !defined(_WIN32)
-#include <pthread.h>
-#else
-#include <windows.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <string.h>
+#अन्तर्भाव <setjmp.h>
+#जर !defined(_WIN32)
+#अन्तर्भाव <pthread.h>
+#अन्यथा
+#अन्तर्भाव <windows.h>
 #endif
 
 #define	SIZE	10
-#define	COUNT	10
+#define	मोजणी_4	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   पूर्णांक i, a[2], b[2];                \
+              साठी (i = 0; i < 2; i++) a[i] = 0; \
+              साठी (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+स्थिर पूर्णांक मोजणी_2[SIZE];
 
-static void tst1 (jmp_buf loc)
+स्थिर शून्य tst1 (लाँघ_बफ loc)
 {
     TST;
-    longjmp(loc, 1);
+    दीर्घ_लाँघ(loc, 1);
 }
 
-static void tst2(jmp_buf loc)
+स्थिर शून्य tst2(लाँघ_बफ loc)
 {
-    jmp_buf jmp;
+    लाँघ_बफ jmp;
 
-    setjmp (jmp);
+    बनाओ_लाँघ (jmp);
     TST;
     tst1(loc);
 }
 
-static void *tst (void * index)
+स्थिर शून्य *tst (शून्य * index)
 {
-    jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    लाँघ_बफ loc;
+    पूर्णांक i = *(पूर्णांक *) index;
+    स्थिर पूर्णांक v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    साठी (v[i] = 0; v[i] < मोजणी_4; v[i]++) {
+        जर (बनाओ_लाँघ (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
-            count[i]++;
+        अन्यथा {
+            मोजणी_2[i]++;
         }
-        i = *(int *) index;
+        i = *(पूर्णांक *) index;
     }
-    return NULL;
+    परत रिक्त;
 }
 
-int
-main (void)
+पूर्णांक
+main (शून्य)
 {
-    int i;
-#if !defined(_WIN32)
+    पूर्णांक i;
+#जर !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#अन्यथा
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    पूर्णांक index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    साठी (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
-        pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
-        id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
+#जर !defined(_WIN32)
+        pthread_create (&id[i], रिक्त, tst, (शून्य *) &index[i]);
+#अन्यथा
+        id[i] = CreateThread(रिक्त, 8192, (LPTHREAD_START_ROUTINE) tst, (शून्य *) &index[i], 0, रिक्त);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
-        pthread_join (id[i], NULL);
-#else
+    साठी (i = 0; i < SIZE; i++) {
+#जर !defined(_WIN32)
+        pthread_join (id[i], रिक्त);
+#अन्यथा
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
-            printf ("error: %d %d\n", i, count[i]);
+    साठी (i = 0; i < SIZE; i++) {
+        जर (मोजणी_2[i] != मोजणी_4)
+            म_लिखो ("error: %d %d\n", i, मोजणी_2[i]);
     }
-    return 0;
+    परत 0;
 }

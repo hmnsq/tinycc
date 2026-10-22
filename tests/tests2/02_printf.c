@@ -1,18 +1,18 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main() 
+पूर्णांक main() 
 {
-   printf("Hello world\n");
+   म_लिखो("Hello world\n");
 
-   int Count;
-   for (Count = -5; Count <= 5; Count++)
-      printf("Count = %d\n", Count);
+   पूर्णांक मोजणी_3;
+   साठी (मोजणी_3 = -5; मोजणी_3 <= 5; मोजणी_3++)
+      म_लिखो("Count = %d\n", मोजणी_3);
 
-   printf("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
-   printf("Character 'A' is '%c'\n", 65);
-   printf("Character 'a' is '%c'\n", 'a');
+   म_लिखो("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
+   म_लिखो("Character 'A' is '%c'\n", 65);
+   म_लिखो("Character 'a' is '%c'\n", 'a');
 
-   return 0;
+   परत 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

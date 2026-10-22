@@ -1,102 +1,102 @@
 /*****************************************************************************/
 /* test 'nodata_wanted' data output suppression */
 
-#if defined test_static_data_error
-void foo() {
-    if (1) {
-	static short w = (int)&foo; /* initializer not computable */
+#जर defined test_static_data_error
+शून्य foo() {
+    जर (1) {
+	स्थिर लघु w = (पूर्णांक)&foo; /* initializer not computable */
     }
 }
 
-#elif defined test_static_nodata_error
-void foo() {
-    if (0) {
-	static short w = (int)&foo; /* initializer not computable */
+#किंवाजर defined test_static_nodata_error
+शून्य foo() {
+    जर (0) {
+	स्थिर लघु w = (पूर्णांक)&foo; /* initializer not computable */
     }
 }
 
-#elif defined test_global_data_error
-void foo();
-static short w = (int)&foo; /* initializer not computable */
+#किंवाजर defined test_global_data_error
+शून्य foo();
+स्थिर लघु w = (पूर्णांक)&foo; /* initializer not computable */
 
 
-#elif defined test_local_data_noerror
-void foo() {
-    short w = &foo; /* 2 cast warnings */
+#किंवाजर defined test_local_data_noerror
+शून्य foo() {
+    लघु w = &foo; /* 2 cast warnings */
 }
 
-#elif defined test_data_suppression_off || defined test_data_suppression_on
+#किंवाजर defined test_data_suppression_off || defined test_data_suppression_on
 
-#if defined test_data_suppression_on
+#जर defined test_data_suppression_on
 # define SKIP 1
-#else
+#अन्यथा
 # define SKIP 0
 #endif
 
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 /* some gcc headers #define __attribute__ to empty if it's not gcc */
 #undef __attribute__
 
-int main()
+पूर्णांक main()
 {
     __label__ ts0, te0, ts1, te1;
-    int tl, dl;
+    पूर्णांक tl, dl;
 
-    static const char ds0 = 0;
-    static const char de0 = 0;
+    स्थिर स्थिरांक अक्षर ds0 = 0;
+    स्थिर स्थिरांक अक्षर de0 = 0;
     /* get reference size of empty jmp */
 ts0:;
-    if (!SKIP) {}
+    जर (!SKIP) {}
 te0:;
     dl = -(&de0 - &ds0);
     tl = -(&&te0 - &&ts0);
 
     /* test data and code suppression */
-    static const char ds1 = 0;
+    स्थिर स्थिरांक अक्षर ds1 = 0;
 ts1:;
-    if (!SKIP) {
-        void *p = (void*)&main;
-        char cc[] = "static string";
-        double d = 8.0;
-        struct
+    जर (!SKIP) {
+        शून्य *p = (शून्य*)&main;
+        अक्षर cc[] = "static string";
+        द्विगुण d = 8.0;
+        संरचना
 #ifndef __arm__
         __attribute__((packed))
 #endif
         {
-            unsigned x : 12;
-            unsigned char y : 7;
-            unsigned z : 28, a: 4, b: 5;
+            अचिन्हित x : 12;
+            अचिन्हित अक्षर y : 7;
+            अचिन्हित z : 28, a: 4, b: 5;
         } s = { 0x333,0x44,0x555555,6,7 };
 
-        printf("data:\n");
-        printf("  %d - %.1f - %.1f - %s - %s\n",
-            sizeof 8.0, 8.0, d, __FUNCTION__, cc);
-        printf("  %x %x %x %x %x\n",
+        म_लिखो("data:\n");
+        म_लिखो("  %d - %.1f - %.1f - %s - %s\n",
+            आकार 8.0, 8.0, d, __FUNCTION__, cc);
+        म_लिखो("  %x %x %x %x %x\n",
             s.x, s.y, s.z, s.a, s.b);
     }
 te1:;
-    static const char de1 = 0;
+    स्थिर स्थिरांक अक्षर de1 = 0;
 
     dl += &de1 - &ds1;
     tl += &&te1 - &&ts1;
-    printf("size of data/text:\n  %s/%s\n",
+    म_लिखो("size of data/text:\n  %s/%s\n",
         dl ? "non-zero":"zero", tl ? "non-zero":"zero");
     /*printf("# %d/%d\n", dl, tl);*/
 }
 
-#elif defined test_static_data
+#किंवाजर defined test_static_data
 
-#include <stdio.h>
-int main(int argc, char **argv)
+#अन्तर्भाव <stdio.h>
+पूर्णांक main(पूर्णांक argc, अक्षर **argv)
 {
-    goto there;
-    if (0) {
-        static int a = 1;
-        printf("hello\n"); /* the "hello\n" string is still suppressed */
+    जा there;
+    जर (0) {
+        स्थिर पूर्णांक a = 1;
+        म_लिखो("hello\n"); /* the "hello\n" string is still suppressed */
 there:
-        printf("a = %d\n", a);
+        म_लिखो("a = %d\n", a);
     }
-    return 0;
+    परत 0;
 }
 
 #endif
