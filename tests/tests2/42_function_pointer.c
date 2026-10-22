@@ -1,22 +1,22 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int fred(int p)
+ಪೂರ್ಣಾಂಕ fred(ಪೂರ್ಣಾಂಕ p)
 {
-   printf("yo %d\n", p);
-   return 42;
+   ಬರೆ("yo %d\n", p);
+   ಹಿಂತಿರುಗಿ 42;
 }
 
-int (*f)(int) = &fred;
+ಪೂರ್ಣಾಂಕ (*f)(ಪೂರ್ಣಾಂಕ) = &fred;
 
 /* To test what this is supposed to test the destination function
    (fprint here) must not be called directly anywhere in the test.  */
-int (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
+ಪೂರ್ಣಾಂಕ (*fprintfptr)(FILE *, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...) = &fprintf;
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
    fprintfptr(stdout, "%d\n", (*f)(24));
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,35 +1,35 @@
-#include <stdio.h>
-#include <windows.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <windows.h>
 
-#define PTR(x) ((PVOID)(ULONG_PTR)(x))
-#define CHECK(name, expr) printf("%s: %s\n", name, (expr) ? "yes" : "no")
+#ವ್ಯಾಖ್ಯಾನಿಸು PTR(x) ((PVOID)(ULONG_PTR)(x))
+#ವ್ಯಾಖ್ಯಾನಿಸು CHECK(name, ಅಭಿವ್ಯಕ್ತಿ) ಬರೆ("%s: %s\n", name, (ಅಭಿವ್ಯಕ್ತಿ) ? "yes" : "no")
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-    PVOID volatile slot = PTR(0x1111222233334444ULL);
+    PVOID ಅಸ್ಥಿರ ಸ್ಥಾನ = PTR(0x1111222233334444ULL);
     PVOID old;
 
-    old = InterlockedExchangePointer(&slot, PTR(0x5555666677778888ULL));
+    old = Interlocked_Exchange_ಸೂಚಕ(&ಸ್ಥಾನ, PTR(0x5555666677778888ULL));
     CHECK("exchange old", old == PTR(0x1111222233334444ULL));
-    CHECK("exchange stored", slot == PTR(0x5555666677778888ULL));
+    CHECK("exchange stored", ಸ್ಥಾನ == PTR(0x5555666677778888ULL));
 
-    old = InterlockedCompareExchangePointer(&slot,
+    old = Interlocked_Compare_Exchange_ಸೂಚಕ(&ಸ್ಥಾನ,
                                             PTR(0x9999aaaabbbbccccULL),
                                             PTR(0x5555666677778888ULL));
     CHECK("compare old", old == PTR(0x5555666677778888ULL));
-    CHECK("compare stored", slot == PTR(0x9999aaaabbbbccccULL));
+    CHECK("compare stored", ಸ್ಥಾನ == PTR(0x9999aaaabbbbccccULL));
 
-    old = InterlockedCompareExchangePointerAcquire(&slot,
+    old = Interlocked_Compare_Exchange_ಸೂಚಕ_Acquire(&ಸ್ಥಾನ,
                                                    PTR(0xdddd111122223333ULL),
                                                    PTR(0x0123456789abcdefULL));
     CHECK("acquire old", old == PTR(0x9999aaaabbbbccccULL));
-    CHECK("acquire stored", slot == PTR(0x9999aaaabbbbccccULL));
+    CHECK("acquire stored", ಸ್ಥಾನ == PTR(0x9999aaaabbbbccccULL));
 
-    old = InterlockedCompareExchangePointerRelease(&slot,
+    old = Interlocked_Compare_Exchange_ಸೂಚಕ_Release(&ಸ್ಥಾನ,
                                                    PTR(0xdddd111122223333ULL),
                                                    PTR(0x9999aaaabbbbccccULL));
     CHECK("release old", old == PTR(0x9999aaaabbbbccccULL));
-    CHECK("release stored", slot == PTR(0xdddd111122223333ULL));
+    CHECK("release stored", ಸ್ಥಾನ == PTR(0xdddd111122223333ULL));
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

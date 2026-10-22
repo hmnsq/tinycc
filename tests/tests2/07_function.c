@@ -1,35 +1,35 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int myfunc(int x)
+ಪೂರ್ಣಾಂಕ myfunc(ಪೂರ್ಣಾಂಕ x)
 {
-   return x * x;
+   ಹಿಂತಿರುಗಿ x * x;
 }
 
-void vfunc(int a)
+ಶೂನ್ಯ vfunc(ಪೂರ್ಣಾಂಕ a)
 {
-   printf("a=%d\n", a);
+   ಬರೆ("a=%d\n", a);
 }
 
-void qfunc()
+ಶೂನ್ಯ qfunc()
 {
-   printf("qfunc()\n");
+   ಬರೆ("qfunc()\n");
 }
 
-void zfunc()
+ಶೂನ್ಯ zfunc()
 {
-	((void (*)(void))0) ();
+	((ಶೂನ್ಯ (*)(ಶೂನ್ಯ))0) ();
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   printf("%d\n", myfunc(3));
-   printf("%d\n", myfunc(4));
+   ಬರೆ("%d\n", myfunc(3));
+   ಬರೆ("%d\n", myfunc(4));
 
    vfunc(1234);
 
    qfunc();
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

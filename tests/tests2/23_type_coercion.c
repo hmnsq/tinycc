@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-void charfunc(char a)
+ಶೂನ್ಯ charfunc(ಅಕ್ಷರ a)
 {
-   printf("char: %c\n", a);
+   ಬರೆ("char: %c\n", a);
 }
 
-void intfunc(int a)
+ಶೂನ್ಯ intfunc(ಪೂರ್ಣಾಂಕ a)
 {
-   printf("int: %d\n", a);
+   ಬರೆ("int: %d\n", a);
 }
 
-void floatfunc(float a)
+ಶೂನ್ಯ floatfunc(ದಶಮಾಂಶ a)
 {
-   printf("float: %f\n", a);
+   ಬರೆ("float: %f\n", a);
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
    charfunc('a');
    charfunc(98);
@@ -33,22 +33,22 @@ int main()
    /* printf("%c %d %f\n", 97, 98, 99); */
    /* printf("%c %d %f\n", 97.0, 98.0, 99.0); */
 
-   char b = 97;
-   char c = 97.0;
+   ಅಕ್ಷರ b = 97;
+   ಅಕ್ಷರ c = 97.0;
 
-   printf("%d %d\n", b, c);
+   ಬರೆ("%d %d\n", b, c);
 
-   int d = 'a';
-   int e = 97.0;
+   ಪೂರ್ಣಾಂಕ d = 'a';
+   ಪೂರ್ಣಾಂಕ e = 97.0;
 
-   printf("%d %d\n", d, e);
+   ಬರೆ("%d %d\n", d, e);
 
-   float f = 'a';
-   float g = 97;
+   ದಶಮಾಂಶ f = 'a';
+   ದಶಮಾಂಶ g = 97;
 
-   printf("%f %f\n", f, g);
+   ಬರೆ("%f %f\n", f, g);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

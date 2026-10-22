@@ -1,113 +1,113 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int f(void)
+ಪೂರ್ಣಾಂಕ f(ಶೂನ್ಯ)
 {
-  return 5;
+  ಹಿಂತಿರುಗಿ 5;
 }
 
-void test1()
+ಶೂನ್ಯ test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_3 = 10;
+  ಶೂನ್ಯ *addr[10];
+  ಗಾಗಿ(;ಎಣಿಕೆ_3--;) {
+    ಪೂರ್ಣಾಂಕ a[f()];
 
-    addr[count] = a;
+    addr[ಎಣಿಕೆ_3] = a;
 
-    continue;
+    ಮುಂದುವರಿ;
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
-  }
-}
-
-void test2()
-{
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
-
-    addr[count] = a;
-
-    continue;
-  }
-
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ಆದರೆ(addr[9] == addr[0]) {
+    ಬರೆ("OK\n");
+  } ಇಲ್ಲದಿದ್ದರೆ {
+    ಬರೆ("NOT OK\n");
   }
 }
 
-void test3()
+ಶೂನ್ಯ test2()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_3 = 10;
+  ಶೂನ್ಯ *addr[ಎಣಿಕೆ_3];
+  ಗಾಗಿ(;ಎಣಿಕೆ_3--;) {
+    ಪೂರ್ಣಾಂಕ a[f()];
 
-          addr[count] = a;
+    addr[ಎಣಿಕೆ_3] = a;
 
-          continue;
+    ಮುಂದುವರಿ;
+  }
+
+  ಆದರೆ(addr[9] == addr[0]) {
+    ಬರೆ("OK\n");
+  } ಇಲ್ಲದಿದ್ದರೆ {
+    ಬರೆ("NOT OK\n");
+  }
+}
+
+ಶೂನ್ಯ test3()
+{
+  ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_3 = 10;
+  ಶೂನ್ಯ *addr[ಎಣಿಕೆ_3];
+  ಆಗ(ಎಣಿಕೆ_3--) {
+      ಪೂರ್ಣಾಂಕ b[f()];
+      ಆದರೆ (ಎಣಿಕೆ_3 >= 0) {
+          ಪೂರ್ಣಾಂಕ a[f()];
+
+          addr[ಎಣಿಕೆ_3] = a;
+
+          ಮುಂದುವರಿ;
       }
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ಆದರೆ(addr[9] == addr[0]) {
+    ಬರೆ("OK\n");
+  } ಇಲ್ಲದಿದ್ದರೆ {
+    ಬರೆ("NOT OK\n");
   }
 }
 
-void test4()
+ಶೂನ್ಯ test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_3 = 10;
+  ಶೂನ್ಯ *addr[ಎಣಿಕೆ_3];
+  ಮಾಡು {
+    ಪೂರ್ಣಾಂಕ a[f()];
 
-    addr[--count] = a;
+    addr[--ಎಣಿಕೆ_3] = a;
 
-    continue;
-  } while (count);
+    ಮುಂದುವರಿ;
+  } ಆಗ (ಎಣಿಕೆ_3);
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ಆದರೆ(addr[9] == addr[0]) {
+    ಬರೆ("OK\n");
+  } ಇಲ್ಲದಿದ್ದರೆ {
+    ಬರೆ("NOT OK\n");
   }
 }
 
-void test5()
+ಶೂನ್ಯ test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_3 = 10;
+  ಪೂರ್ಣಾಂಕ a[f()];
+  ಪೂರ್ಣಾಂಕ c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  ಗಾಗಿ(;ಎಣಿಕೆ_3--;) {
+    ಪೂರ್ಣಾಂಕ b[f()];
+    ಪೂರ್ಣಾಂಕ i;
+    ಗಾಗಿ (i=0; i<f(); i++) {
+      b[i] = ಎಣಿಕೆ_3;
     }
   }
 
-  if (c[0] == 42) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  ಆದರೆ (c[0] == 42) {
+    ಬರೆ("OK\n");
+  } ಇಲ್ಲದಿದ್ದರೆ {
+    ಬರೆ("NOT OK\n");
   }
 }
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  ಹಿಂತಿರುಗಿ 0;
 }

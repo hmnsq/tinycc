@@ -7,46 +7,46 @@ each of the operands. The type of the result is that of the promoted
 left operand."
 */
 
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (int) sizeof((M)+0)
-#define CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
-#define TEST1(X,T) do { CHECK(X,T); CHECK(X,unsigned T); } while (0)
-#define TEST2(X)                 \
-  do                             \
+#ವ್ಯಾಖ್ಯಾನಿಸು PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (ಪೂರ್ಣಾಂಕ) ಗಾತ್ರ((M)+0)
+#ವ್ಯಾಖ್ಯಾನಿಸು CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST1(X,T) ಮಾಡು { CHECK(X,T); CHECK(X,ಚಿಹ್ನೆರಹಿತ T); } ಆಗ (0)
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST2(X)                 \
+  ಮಾಡು                             \
     {                            \
-      TEST1((X),short);          \
-      TEST1((X),int);            \
-      TEST1((X),long);           \
-      TEST1((X),long long);      \
+      TEST1((X),ಗಿಡ್ಡ);          \
+      TEST1((X),ಪೂರ್ಣಾಂಕ);            \
+      TEST1((X),ದೀರ್ಘ);           \
+      TEST1((X),ದೀರ್ಘ ದೀರ್ಘ);      \
     }                            \
-  while (0)
-#define TEST3(X,T) do { TEST2((T)(X)); TEST2((unsigned T)(X)); } while (0)
-#define TEST4(X)                 \
-  do                             \
+  ಆಗ (0)
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST3(X,T) ಮಾಡು { TEST2((T)(X)); TEST2((ಚಿಹ್ನೆರಹಿತ T)(X)); } ಆಗ (0)
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST4(X)                 \
+  ಮಾಡು                             \
     {                            \
-      TEST3((X),short);          \
-      TEST3((X),int);            \
-      TEST3((X),long);           \
-      TEST3((X),long long);      \
+      TEST3((X),ಗಿಡ್ಡ);          \
+      TEST3((X),ಪೂರ್ಣಾಂಕ);            \
+      TEST3((X),ದೀರ್ಘ);           \
+      TEST3((X),ದೀರ್ಘ ದೀರ್ಘ);      \
     }                            \
- while (0)
+ ಆಗ (0)
 
-static int debug, nfailed = 0;
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ debug, nfailed = 0;
 
-static void check (const char *s, int arg1, int shift)
+ಸ್ಥಿರ ಶೂನ್ಯ check (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s, ಪೂರ್ಣಾಂಕ arg1, ಪೂರ್ಣಾಂಕ ಸರಿಸು)
 {
-  int failed = arg1 != shift;
-  if (debug || failed)
-    printf ("%s %d %d\n", s, arg1, shift);
+  ಪೂರ್ಣಾಂಕ failed = arg1 != ಸರಿಸು;
+  ಆದರೆ (debug || failed)
+    ಬರೆ ("%s %d %d\n", s, arg1, ಸರಿಸು);
   nfailed += failed;
 }
 
-int main (int argc, char **argv)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ (ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv)
 {
   debug = argc > 1;
   TEST4(1);
   TEST4(-1);
-  printf ("%d test(s) failed\n", nfailed);
-  return nfailed != 0;
+  ಬರೆ ("%d test(s) failed\n", nfailed);
+  ಹಿಂತಿರುಗಿ nfailed != 0;
 }

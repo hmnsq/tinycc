@@ -1,27 +1,27 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-enum fred { a, b, c };
+ಎಣಿಕೆ fred { a, b, c };
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   printf("a=%d\n", a);
-   printf("b=%d\n", b);
-   printf("c=%d\n", c);
+   ಬರೆ("a=%d\n", a);
+   ಬರೆ("b=%d\n", b);
+   ಬರೆ("c=%d\n", c);
 
-   enum fred d;
+   ಎಣಿಕೆ fred d;
 
-   typedef enum { e, f, g } h;
-   typedef enum { i, j, k } m;
+   ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಎಣಿಕೆ { e, f, g } h;
+   ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಎಣಿಕೆ { i, j, k } m;
 
-   printf("e=%d\n", e);
-   printf("f=%d\n", f);
-   printf("g=%d\n", g);
+   ಬರೆ("e=%d\n", e);
+   ಬರೆ("f=%d\n", f);
+   ಬರೆ("g=%d\n", g);
 
-   printf("i=%d\n", i);
-   printf("j=%d\n", j);
-   printf("k=%d\n", k);
+   ಬರೆ("i=%d\n", i);
+   ಬರೆ("j=%d\n", j);
+   ಬರೆ("k=%d\n", k);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main() 
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ() 
 {
-   printf("Hello world\n");
+   ಬರೆ("Hello world\n");
 
-   int Count;
-   for (Count = -5; Count <= 5; Count++)
-      printf("Count = %d\n", Count);
+   ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_4;
+   ಗಾಗಿ (ಎಣಿಕೆ_4 = -5; ಎಣಿಕೆ_4 <= 5; ಎಣಿಕೆ_4++)
+      ಬರೆ("Count = %d\n", ಎಣಿಕೆ_4);
 
-   printf("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
-   printf("Character 'A' is '%c'\n", 65);
-   printf("Character 'a' is '%c'\n", 'a');
+   ಬರೆ("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
+   ಬರೆ("Character 'A' is '%c'\n", 65);
+   ಬರೆ("Character 'a' is '%c'\n", 'a');
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -1,52 +1,52 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int array[16];
+ಪೂರ್ಣಾಂಕ array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+ಶೂನ್ಯ ಅದಲುಬದಲು_2(ಪೂರ್ಣಾಂಕ a, ಪೂರ್ಣಾಂಕ b)
 {
-   int tmp  = array[a];
+   ಪೂರ್ಣಾಂಕ tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+ಪೂರ್ಣಾಂಕ ವಿಭಜನೆ(ಪೂರ್ಣಾಂಕ ಎಡ, ಪೂರ್ಣಾಂಕ ಬಲ)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   ಪೂರ್ಣಾಂಕ ಅಚ್ಚು_ಸೂಚ್ಯಂಕ = ಎಡ;
+   ಪೂರ್ಣಾಂಕ ಅಚ್ಚು_ಮೌಲ್ಯ = array[ಅಚ್ಚು_ಸೂಚ್ಯಂಕ];
+   ಪೂರ್ಣಾಂಕ ಸೂಚ್ಯಂಕ = ಎಡ;
+   ಪೂರ್ಣಾಂಕ i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   ಅದಲುಬದಲು_2(ಅಚ್ಚು_ಸೂಚ್ಯಂಕ, ಬಲ);
+   ಗಾಗಿ(i = ಎಡ; i < ಬಲ; i++)
    {
-      if(array[i] < pivotValue)
+      ಆದರೆ(array[i] < ಅಚ್ಚು_ಮೌಲ್ಯ)
       {
-         swap(i, index);
-         index += 1;
+         ಅದಲುಬದಲು_2(i, ಸೂಚ್ಯಂಕ);
+         ಸೂಚ್ಯಂಕ += 1;
       }
    }
-   swap(right, index);
+   ಅದಲುಬದಲು_2(ಬಲ, ಸೂಚ್ಯಂಕ);
 
-   return index;
+   ಹಿಂತಿರುಗಿ ಸೂಚ್ಯಂಕ;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+ಶೂನ್ಯ quicksort(ಪೂರ್ಣಾಂಕ ಎಡ, ಪೂರ್ಣಾಂಕ ಬಲ)
 {
-   if(left >= right)
-      return;
+   ಆದರೆ(ಎಡ >= ಬಲ)
+      ಹಿಂತಿರುಗಿ;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   ಪೂರ್ಣಾಂಕ ಸೂಚ್ಯಂಕ = ವಿಭಜನೆ(ಎಡ, ಬಲ);
+   quicksort(ಎಡ, ಸೂಚ್ಯಂಕ - 1);
+   quicksort(ಸೂಚ್ಯಂಕ + 1, ಬಲ);
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int i;
+   ಪೂರ್ಣಾಂಕ i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   ಗಾಗಿ (i = 0; i < 16; i++)
+      ಬರೆ("%d ", array[i]);
 
-   printf("\n");
+   ಬರೆ("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   ಗಾಗಿ (i = 0; i < 16; i++)
+      ಬರೆ("%d ", array[i]);
 
-   printf("\n");
+   ಬರೆ("\n");
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

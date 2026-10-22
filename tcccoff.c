@@ -19,162 +19,162 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "tcc.h"
+#ಅನ್ತರ್ಭಾವ "tcc.h"
 
 /* XXX: this file uses tcc_error() to the effect of exit(1) */
-#undef _tcc_error
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು _tcc_error
 
-#define MAXNSCNS 255		/* MAXIMUM NUMBER OF SECTIONS         */
-#define MAX_STR_TABLE 1000000
+#ವ್ಯಾಖ್ಯಾನಿಸು MAXNSCNS 255		/* MAXIMUM NUMBER OF SECTIONS         */
+#ವ್ಯಾಖ್ಯಾನಿಸು MAX_STR_ಕೋಷ್ಟಕ 1000000
 AOUTHDR o_filehdr;		/* OPTIONAL (A.OUT) FILE HEADER       */
 
-SCNHDR section_header[MAXNSCNS];
+SCNHDR section_ಶೀರ್ಷಿಕೆ[MAXNSCNS];
 
-#define MAX_FUNCS 1000
-#define MAX_FUNC_NAME_LENGTH 128
+#ವ್ಯಾಖ್ಯಾನಿಸು MAX_FUNCS 1000
+#ವ್ಯಾಖ್ಯಾನಿಸು MAX_FUNC_NAME_ಉದ್ದಳತೆ 128
 
-int nFuncs;
-char Func[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
-char AssociatedFile[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
-int LineNoFilePtr[MAX_FUNCS];
-int EndAddress[MAX_FUNCS];
-int LastLineNo[MAX_FUNCS];
-int FuncEntries[MAX_FUNCS];
+ಪೂರ್ಣಾಂಕ nFuncs;
+ಅಕ್ಷರ Func[MAX_FUNCS][MAX_FUNC_NAME_ಉದ್ದಳತೆ];
+ಅಕ್ಷರ AssociatedFile[MAX_FUNCS][MAX_FUNC_NAME_ಉದ್ದಳತೆ];
+ಪೂರ್ಣಾಂಕ ಸಾಲು_No_File_Ptr[MAX_FUNCS];
+ಪೂರ್ಣಾಂಕ ಕೊನೆ_ವಿಳಾಸ[MAX_FUNCS];
+ಪೂರ್ಣಾಂಕ ಕೊನೆಯ_ಸಾಲು_No[MAX_FUNCS];
+ಪೂರ್ಣಾಂಕ FuncEntries[MAX_FUNCS];
 
-int OutputTheSection(Section * sect);
-short int GetCoffFlags(const char *s);
-void SortSymbolTable(TCCState *s1);
-Section *FindSection(TCCState * s1, const char *sname);
+ಪೂರ್ಣಾಂಕ OutputTheSection(Section * sect);
+ಗಿಡ್ಡ ಪೂರ್ಣಾಂಕ GetCoffFlags(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s);
+ಶೂನ್ಯ ವಿಂಗಡಿಸು_ಚಿಹ್ನೆ_ಕೋಷ್ಟಕ(TCCState *s1);
+Section *ಕಂಡುಹಿಡಿ_Section(TCCState * s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *sname);
 
-int C67_main_entry_point;
+ಪೂರ್ಣಾಂಕ C67_main_ನಮೂದು_ಬಿಂದು;
 
-int FindCoffSymbolIndex(TCCState * s1, const char *func_name);
-int nb_syms;
+ಪೂರ್ಣಾಂಕ ಕಂಡುಹಿಡಿ_Coff_ಚಿಹ್ನೆ_ಸೂಚ್ಯಂಕ(TCCState * s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *func_name);
+ಪೂರ್ಣಾಂಕ nb_syms;
 
-typedef struct {
-    long tag;
-    long size;
-    long fileptr;
-    long nextsym;
-    short int dummy;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ {
+    ದೀರ್ಘ ಟ್ಯಾಗ್;
+    ದೀರ್ಘ ಗಾತ್ರ_2;
+    ದೀರ್ಘ fileptr;
+    ದೀರ್ಘ nextsym;
+    ಗಿಡ್ಡ ಪೂರ್ಣಾಂಕ dummy;
 } AUXFUNC;
 
-typedef struct {
-    long regmask;
-    unsigned short lineno;
-    unsigned short nentries;
-    int localframe;
-    int nextentry;
-    short int dummy;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ {
+    ದೀರ್ಘ regmask;
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ lineno;
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ nentries;
+    ಪೂರ್ಣಾಂಕ localframe;
+    ಪೂರ್ಣಾಂಕ nextentry;
+    ಗಿಡ್ಡ ಪೂರ್ಣಾಂಕ dummy;
 } AUXBF;
 
-typedef struct {
-    long dummy;
-    unsigned short lineno;
-    unsigned short dummy1;
-    int dummy2;
-    int dummy3;
-    unsigned short dummy4;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ {
+    ದೀರ್ಘ dummy;
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ lineno;
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ dummy1;
+    ಪೂರ್ಣಾಂಕ dummy2;
+    ಪೂರ್ಣಾಂಕ dummy3;
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ dummy4;
 } AUXEF;
 
-ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
+ST_FUNC ಪೂರ್ಣಾಂಕ tcc_output_coff(TCCState *s1, FILE *f)
 {
     Section *tcc_sect;
     SCNHDR *coff_sec;
-    int file_pointer;
-    char *Coff_str_table, *pCoff_str_table;
-    int CoffTextSectionNo, coff_nb_syms;
+    ಪೂರ್ಣಾಂಕ file_ಸೂಚಕ;
+    ಅಕ್ಷರ *Coff_str_ಕೋಷ್ಟಕ, *p_Coff_str_ಕೋಷ್ಟಕ;
+    ಪೂರ್ಣಾಂಕ Coff_ಪಠ್ಯ_Section_No, coff_nb_syms;
     FILHDR file_hdr;		/* FILE HEADER STRUCTURE              */
     Section *stext, *sdata, *sbss;
-    int i, NSectionsToOutput = 0;
+    ಪೂರ್ಣಾಂಕ i, NSections_ಗಮ್ಯ_Output = 0;
 
-    Coff_str_table = pCoff_str_table = NULL;
+    Coff_str_ಕೋಷ್ಟಕ = p_Coff_str_ಕೋಷ್ಟಕ = ಖಾಲಿ;
 
-    stext = FindSection(s1, ".text");
-    sdata = FindSection(s1, ".data");
-    sbss = FindSection(s1, ".bss");
+    stext = ಕಂಡುಹಿಡಿ_Section(s1, ".text");
+    sdata = ಕಂಡುಹಿಡಿ_Section(s1, ".data");
+    sbss = ಕಂಡುಹಿಡಿ_Section(s1, ".bss");
 
-    nb_syms = symtab_section->data_offset / sizeof(Elf32_Sym);
-    coff_nb_syms = FindCoffSymbolIndex(s1, "XXXXXXXXXX1");
+    nb_syms = symtab_section->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ(Elf32_Sym);
+    coff_nb_syms = ಕಂಡುಹಿಡಿ_Coff_ಚಿಹ್ನೆ_ಸೂಚ್ಯಂಕ(s1, "XXXXXXXXXX1");
 
     file_hdr.f_magic = COFF_C67_MAGIC;	/* magic number */
     file_hdr.f_timdat = 0;	/* time & date stamp */
-    file_hdr.f_opthdr = sizeof(AOUTHDR);	/* sizeof(optional hdr) */
+    file_hdr.f_opthdr = ಗಾತ್ರ(AOUTHDR);	/* sizeof(optional hdr) */
     file_hdr.f_flags = 0x1143;	/* flags (copied from what code composer does) */
-    file_hdr.f_TargetID = 0x99;	/* for C6x = 0x0099 */
+    file_hdr.f_ಗುರಿ_ID = 0x99;	/* for C6x = 0x0099 */
 
     o_filehdr.magic = 0x0108;	/* see magic.h                          */
     o_filehdr.vstamp = 0x0190;	/* version stamp                        */
-    o_filehdr.tsize = stext->data_offset;	/* text size in bytes, padded to FW bdry */
-    o_filehdr.dsize = sdata->data_offset;	/* initialized data "  "                */
-    o_filehdr.bsize = sbss->data_offset;	/* uninitialized data "   "             */
-    o_filehdr.entrypt = C67_main_entry_point;	/* entry pt.                          */
-    o_filehdr.text_start = stext->sh_addr;	/* base of text used for this file      */
-    o_filehdr.data_start = sdata->sh_addr;	/* base of data used for this file      */
+    o_filehdr.tsize = stext->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;	/* text size in bytes, padded to FW bdry */
+    o_filehdr.dsize = sdata->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;	/* initialized data "  "                */
+    o_filehdr.bsize = sbss->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;	/* uninitialized data "   "             */
+    o_filehdr.entrypt = C67_main_ನಮೂದು_ಬಿಂದು;	/* entry pt.                          */
+    o_filehdr.ಪಠ್ಯ_ಆರಂಭ = stext->sh_addr;	/* base of text used for this file      */
+    o_filehdr.ದತ್ತಾಂಶ_ಆರಂಭ = sdata->sh_addr;	/* base of data used for this file      */
 
 
     // create all the section headers
 
-    file_pointer = FILHSZ + sizeof(AOUTHDR);
+    file_ಸೂಚಕ = FILHSZ + ಗಾತ್ರ(AOUTHDR);
 
-    CoffTextSectionNo = -1;
+    Coff_ಪಠ್ಯ_Section_No = -1;
 
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    ಗಾಗಿ (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_ಶೀರ್ಷಿಕೆ[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
-	    NSectionsToOutput++;
+	ಆದರೆ (OutputTheSection(tcc_sect)) {
+	    NSections_ಗಮ್ಯ_Output++;
 
-	    if (CoffTextSectionNo == -1 && tcc_sect == stext)
-		CoffTextSectionNo = NSectionsToOutput;	// rem which coff sect number the .text sect is
+	    ಆದರೆ (Coff_ಪಠ್ಯ_Section_No == -1 && tcc_sect == stext)
+		Coff_ಪಠ್ಯ_Section_No = NSections_ಗಮ್ಯ_Output;	// rem which coff sect number the .text sect is
 
 	    strcpy(coff_sec->s_name, tcc_sect->name);	/* section name */
 
 	    coff_sec->s_paddr = tcc_sect->sh_addr;	/* physical address */
 	    coff_sec->s_vaddr = tcc_sect->sh_addr;	/* virtual address */
-	    coff_sec->s_size = tcc_sect->data_offset;	/* section size */
+	    coff_sec->s_ಗಾತ್ರ = tcc_sect->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;	/* section size */
 	    coff_sec->s_scnptr = 0;	/* file ptr to raw data for section */
 	    coff_sec->s_relptr = 0;	/* file ptr to relocation */
 	    coff_sec->s_lnnoptr = 0;	/* file ptr to line numbers */
 	    coff_sec->s_nreloc = 0;	/* number of relocation entries */
 	    coff_sec->s_flags = GetCoffFlags(coff_sec->s_name);	/* flags */
 	    coff_sec->s_reserved = 0;	/* reserved byte */
-	    coff_sec->s_page = 0;	/* memory page id */
+	    coff_sec->s_ಪುಟ = 0;	/* memory page id */
 
-	    file_pointer += sizeof(SCNHDR);
+	    file_ಸೂಚಕ += ಗಾತ್ರ(SCNHDR);
 	}
     }
 
-    file_hdr.f_nscns = NSectionsToOutput;	/* number of sections */
+    file_hdr.f_nscns = NSections_ಗಮ್ಯ_Output;	/* number of sections */
 
     // now loop through and determine file pointer locations
     // for the raw data
 
 
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    ಗಾಗಿ (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_ಶೀರ್ಷಿಕೆ[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	ಆದರೆ (OutputTheSection(tcc_sect)) {
 	    // put raw data
-	    coff_sec->s_scnptr = file_pointer;	/* file ptr to raw data for section */
-	    file_pointer += coff_sec->s_size;
+	    coff_sec->s_scnptr = file_ಸೂಚಕ;	/* file ptr to raw data for section */
+	    file_ಸೂಚಕ += coff_sec->s_ಗಾತ್ರ;
 	}
     }
 
     // now loop through and determine file pointer locations
     // for the relocation data
 
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    ಗಾಗಿ (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_ಶೀರ್ಷಿಕೆ[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	ಆದರೆ (OutputTheSection(tcc_sect)) {
 	    // put relocations data
-	    if (coff_sec->s_nreloc > 0) {
-		coff_sec->s_relptr = file_pointer;	/* file ptr to relocation */
-		file_pointer += coff_sec->s_nreloc * sizeof(struct reloc);
+	    ಆದರೆ (coff_sec->s_nreloc > 0) {
+		coff_sec->s_relptr = file_ಸೂಚಕ;	/* file ptr to relocation */
+		file_ಸೂಚಕ += coff_sec->s_nreloc * ಗಾತ್ರ(ರಚನೆ reloc);
 	    }
 	}
     }
@@ -182,132 +182,132 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // now loop through and determine file pointer locations
     // for the line number data
 
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    ಗಾಗಿ (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_ಶೀರ್ಷಿಕೆ[i];
 	tcc_sect = s1->sections[i];
 
 	coff_sec->s_nlnno = 0;
 	coff_sec->s_lnnoptr = 0;
 
-	if (s1->do_debug && tcc_sect == stext) {
+	ಆದರೆ (s1->do_debug && tcc_sect == stext) {
 	    // count how many line nos data
 
 	    // also find association between source file name and function
 	    // so we can sort the symbol table
 
 
-	    Stab_Sym *sym, *sym_end;
-	    char func_name[MAX_FUNC_NAME_LENGTH],
-		last_func_name[MAX_FUNC_NAME_LENGTH];
-	    unsigned long func_addr, last_pc, pc;
-	    const char *incl_files[INCLUDE_STACK_SIZE];
-	    int incl_index, len, last_line_num;
-	    const char *str, *p;
+	    Stab_Sym *sym, *sym_ಕೊನೆ;
+	    ಅಕ್ಷರ func_name[MAX_FUNC_NAME_ಉದ್ದಳತೆ],
+		ಕೊನೆಯ_func_name[MAX_FUNC_NAME_ಉದ್ದಳತೆ];
+	    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ func_addr, ಕೊನೆಯ_pc, pc;
+	    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *incl_files[INCLUDE_ರಾಶಿ_ಗಾತ್ರ];
+	    ಪೂರ್ಣಾಂಕ incl_ಸೂಚ್ಯಂಕ, len, ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ;
+	    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *str, *p;
 
-	    coff_sec->s_lnnoptr = file_pointer;	/* file ptr to linno */
+	    coff_sec->s_lnnoptr = file_ಸೂಚಕ;	/* file ptr to linno */
 
 
 	    func_name[0] = '\0';
 	    func_addr = 0;
-	    incl_index = 0;
-	    last_func_name[0] = '\0';
-	    last_pc = 0xffffffff;
-	    last_line_num = 1;
-	    sym = (Stab_Sym *) stab_section->data + 1;
-	    sym_end =
-		(Stab_Sym *) (stab_section->data +
-			      stab_section->data_offset);
+	    incl_ಸೂಚ್ಯಂಕ = 0;
+	    ಕೊನೆಯ_func_name[0] = '\0';
+	    ಕೊನೆಯ_pc = 0xffffffff;
+	    ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ = 1;
+	    sym = (Stab_Sym *) stab_section->ದತ್ತಾಂಶ + 1;
+	    sym_ಕೊನೆ =
+		(Stab_Sym *) (stab_section->ದತ್ತಾಂಶ +
+			      stab_section->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
 
 	    nFuncs = 0;
-	    while (sym < sym_end) {
-		switch (sym->n_type) {
+	    ಆಗ (sym < sym_ಕೊನೆ) {
+		ಆಯ್ಕೆ (sym->n_type) {
 		    /* function start or end */
-		case N_FUN:
-		    if (sym->n_strx == 0) {
+		ಸ್ಥಿತಿ N_FUN:
+		    ಆದರೆ (sym->n_strx == 0) {
 			// end of function
 
 			coff_sec->s_nlnno++;
-			file_pointer += LINESZ;
+			file_ಸೂಚಕ += LINESZ;
 
-			pc = sym->n_value + func_addr;
+			pc = sym->n_ಮೌಲ್ಯ + func_addr;
 			func_name[0] = '\0';
 			func_addr = 0;
-			EndAddress[nFuncs] = pc;
+			ಕೊನೆ_ವಿಳಾಸ[nFuncs] = pc;
 			FuncEntries[nFuncs] =
-			    (file_pointer -
-			     LineNoFilePtr[nFuncs]) / LINESZ - 1;
-			LastLineNo[nFuncs++] = last_line_num + 1;
-		    } else {
+			    (file_ಸೂಚಕ -
+			     ಸಾಲು_No_File_Ptr[nFuncs]) / LINESZ - 1;
+			ಕೊನೆಯ_ಸಾಲು_No[nFuncs++] = ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ + 1;
+		    } ಇಲ್ಲದಿದ್ದರೆ {
 			// beginning of function
 
-			LineNoFilePtr[nFuncs] = file_pointer;
+			ಸಾಲು_No_File_Ptr[nFuncs] = file_ಸೂಚಕ;
 			coff_sec->s_nlnno++;
-			file_pointer += LINESZ;
+			file_ಸೂಚಕ += LINESZ;
 
 			str =
-			    (const char *) stabstr_section->data +
+			    (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *) stabstr_section->ದತ್ತಾಂಶ +
 			    sym->n_strx;
 
 			p = strchr(str, ':');
-			if (!p) {
-			    pstrcpy(func_name, sizeof(func_name), str);
-			    pstrcpy(Func[nFuncs], sizeof(func_name), str);
-			} else {
+			ಆದರೆ (!p) {
+			    pstrcpy(func_name, ಗಾತ್ರ(func_name), str);
+			    pstrcpy(Func[nFuncs], ಗಾತ್ರ(func_name), str);
+			} ಇಲ್ಲದಿದ್ದರೆ {
 			    len = p - str;
-			    if (len > sizeof(func_name) - 1)
-				len = sizeof(func_name) - 1;
-			    memcpy(func_name, str, len);
-			    memcpy(Func[nFuncs], str, len);
+			    ಆದರೆ (len > ಗಾತ್ರ(func_name) - 1)
+				len = ಗಾತ್ರ(func_name) - 1;
+			    ಸ್ಮರಣೆ_ನಕಲು(func_name, str, len);
+			    ಸ್ಮರಣೆ_ನಕಲು(Func[nFuncs], str, len);
 			    func_name[len] = '\0';
 			}
 
 			// save the file that it came in so we can sort later
-			pstrcpy(AssociatedFile[nFuncs], sizeof(func_name),
-				incl_files[incl_index - 1]);
+			pstrcpy(AssociatedFile[nFuncs], ಗಾತ್ರ(func_name),
+				incl_files[incl_ಸೂಚ್ಯಂಕ - 1]);
 
-			func_addr = sym->n_value;
+			func_addr = sym->n_ಮೌಲ್ಯ;
 		    }
-		    break;
+		    ನಿಲ್ಲಿಸು;
 
 		    /* line number info */
-		case N_SLINE:
-		    pc = sym->n_value + func_addr;
+		ಸ್ಥಿತಿ N_SLINE:
+		    pc = sym->n_ಮೌಲ್ಯ + func_addr;
 
-		    last_pc = pc;
-		    last_line_num = sym->n_desc;
+		    ಕೊನೆಯ_pc = pc;
+		    ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ = sym->n_desc;
 
 		    /* XXX: slow! */
-		    strcpy(last_func_name, func_name);
+		    strcpy(ಕೊನೆಯ_func_name, func_name);
 
 		    coff_sec->s_nlnno++;
-		    file_pointer += LINESZ;
-		    break;
+		    file_ಸೂಚಕ += LINESZ;
+		    ನಿಲ್ಲಿಸು;
 		    /* include files */
-		case N_BINCL:
+		ಸ್ಥಿತಿ N_BINCL:
 		    str =
-			(const char *) stabstr_section->data + sym->n_strx;
-		  add_incl:
-		    if (incl_index < INCLUDE_STACK_SIZE) {
-			incl_files[incl_index++] = str;
+			(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *) stabstr_section->ದತ್ತಾಂಶ + sym->n_strx;
+		  ಕೂಡಿಸು_incl:
+		    ಆದರೆ (incl_ಸೂಚ್ಯಂಕ < INCLUDE_ರಾಶಿ_ಗಾತ್ರ) {
+			incl_files[incl_ಸೂಚ್ಯಂಕ++] = str;
 		    }
-		    break;
-		case N_EINCL:
-		    if (incl_index > 1)
-			incl_index--;
-		    break;
-		case N_SO:
-		    if (sym->n_strx == 0) {
-			incl_index = 0;	/* end of translation unit */
-		    } else {
+		    ನಿಲ್ಲಿಸು;
+		ಸ್ಥಿತಿ N_EINCL:
+		    ಆದರೆ (incl_ಸೂಚ್ಯಂಕ > 1)
+			incl_ಸೂಚ್ಯಂಕ--;
+		    ನಿಲ್ಲಿಸು;
+		ಸ್ಥಿತಿ N_SO:
+		    ಆದರೆ (sym->n_strx == 0) {
+			incl_ಸೂಚ್ಯಂಕ = 0;	/* end of translation unit */
+		    } ಇಲ್ಲದಿದ್ದರೆ {
 			str =
-			    (const char *) stabstr_section->data +
+			    (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *) stabstr_section->ದತ್ತಾಂಶ +
 			    sym->n_strx;
 			/* do not add path */
-			len = strlen(str);
-			if (len > 0 && str[len - 1] != '/')
-			    goto add_incl;
+			len = ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(str);
+			ಆದರೆ (len > 0 && str[len - 1] != '/')
+			    ಹೋಗು ಕೂಡಿಸು_incl;
 		    }
-		    break;
+		    ನಿಲ್ಲಿಸು;
 		}
 		sym++;
 	    }
@@ -315,51 +315,51 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
     }
 
-    file_hdr.f_symptr = file_pointer;	/* file pointer to symtab */
+    file_hdr.f_symptr = file_ಸೂಚಕ;	/* file pointer to symtab */
 
-    if (s1->do_debug)
+    ಆದರೆ (s1->do_debug)
 	file_hdr.f_nsyms = coff_nb_syms;	/* number of symtab entries */
-    else
+    ಇಲ್ಲದಿದ್ದರೆ
 	file_hdr.f_nsyms = 0;
 
-    file_pointer += file_hdr.f_nsyms * SYMNMLEN;
+    file_ಸೂಚಕ += file_hdr.f_nsyms * SYMNMLEN;
 
     // OK now we are all set to write the file
 
 
     fwrite(&file_hdr, FILHSZ, 1, f);
-    fwrite(&o_filehdr, sizeof(o_filehdr), 1, f);
+    fwrite(&o_filehdr, ಗಾತ್ರ(o_filehdr), 1, f);
 
     // write section headers
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    ಗಾಗಿ (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_ಶೀರ್ಷಿಕೆ[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
-	    fwrite(coff_sec, sizeof(SCNHDR), 1, f);
+	ಆದರೆ (OutputTheSection(tcc_sect)) {
+	    fwrite(coff_sec, ಗಾತ್ರ(SCNHDR), 1, f);
 	}
     }
 
     // write raw data
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    ಗಾಗಿ (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_ಶೀರ್ಷಿಕೆ[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
-	    fwrite(tcc_sect->data, tcc_sect->data_offset, 1, f);
+	ಆದರೆ (OutputTheSection(tcc_sect)) {
+	    fwrite(tcc_sect->ದತ್ತಾಂಶ, tcc_sect->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ, 1, f);
 	}
     }
 
     // write relocation data
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    ಗಾಗಿ (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_ಶೀರ್ಷಿಕೆ[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	ಆದರೆ (OutputTheSection(tcc_sect)) {
 	    // put relocations data
-	    if (coff_sec->s_nreloc > 0) {
+	    ಆದರೆ (coff_sec->s_nreloc > 0) {
 		fwrite(tcc_sect->reloc,
-		       coff_sec->s_nreloc * sizeof(struct reloc), 1, f);
+		       coff_sec->s_nreloc * ಗಾತ್ರ(ರಚನೆ reloc), 1, f);
 	    }
 	}
     }
@@ -368,136 +368,136 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // group the symbols in order of filename, func1, func2, etc
     // finally global symbols
 
-    if (s1->do_debug)
-	SortSymbolTable(s1);
+    ಆದರೆ (s1->do_debug)
+	ವಿಂಗಡಿಸು_ಚಿಹ್ನೆ_ಕೋಷ್ಟಕ(s1);
 
     // write line no data
 
-    for (i = 1; i < s1->nb_sections; i++) {
-	coff_sec = &section_header[i];
+    ಗಾಗಿ (i = 1; i < s1->nb_sections; i++) {
+	coff_sec = &section_ಶೀರ್ಷಿಕೆ[i];
 	tcc_sect = s1->sections[i];
 
-	if (s1->do_debug && tcc_sect == stext) {
+	ಆದರೆ (s1->do_debug && tcc_sect == stext) {
 	    // count how many line nos data
 
 
-	    Stab_Sym *sym, *sym_end;
-	    char func_name[128], last_func_name[128];
-	    unsigned long func_addr, last_pc, pc;
-	    const char *incl_files[INCLUDE_STACK_SIZE];
-	    int incl_index, len, last_line_num;
-	    const char *str, *p;
+	    Stab_Sym *sym, *sym_ಕೊನೆ;
+	    ಅಕ್ಷರ func_name[128], ಕೊನೆಯ_func_name[128];
+	    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ func_addr, ಕೊನೆಯ_pc, pc;
+	    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *incl_files[INCLUDE_ರಾಶಿ_ಗಾತ್ರ];
+	    ಪೂರ್ಣಾಂಕ incl_ಸೂಚ್ಯಂಕ, len, ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ;
+	    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *str, *p;
 
-	    LINENO CoffLineNo;
+	    LINENO Coff_ಸಾಲು_No;
 
 	    func_name[0] = '\0';
 	    func_addr = 0;
-	    incl_index = 0;
-	    last_func_name[0] = '\0';
-	    last_pc = 0;
-	    last_line_num = 1;
-	    sym = (Stab_Sym *) stab_section->data + 1;
-	    sym_end =
-		(Stab_Sym *) (stab_section->data +
-			      stab_section->data_offset);
+	    incl_ಸೂಚ್ಯಂಕ = 0;
+	    ಕೊನೆಯ_func_name[0] = '\0';
+	    ಕೊನೆಯ_pc = 0;
+	    ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ = 1;
+	    sym = (Stab_Sym *) stab_section->ದತ್ತಾಂಶ + 1;
+	    sym_ಕೊನೆ =
+		(Stab_Sym *) (stab_section->ದತ್ತಾಂಶ +
+			      stab_section->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
 
-	    while (sym < sym_end) {
-		switch (sym->n_type) {
+	    ಆಗ (sym < sym_ಕೊನೆ) {
+		ಆಯ್ಕೆ (sym->n_type) {
 		    /* function start or end */
-		case N_FUN:
-		    if (sym->n_strx == 0) {
+		ಸ್ಥಿತಿ N_FUN:
+		    ಆದರೆ (sym->n_strx == 0) {
 			// end of function
 
-			CoffLineNo.l_addr.l_paddr = last_pc;
-			CoffLineNo.l_lnno = last_line_num + 1;
-			fwrite(&CoffLineNo, 6, 1, f);
+			Coff_ಸಾಲು_No.l_addr.l_paddr = ಕೊನೆಯ_pc;
+			Coff_ಸಾಲು_No.l_lnno = ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ + 1;
+			fwrite(&Coff_ಸಾಲು_No, 6, 1, f);
 
-			pc = sym->n_value + func_addr;
+			pc = sym->n_ಮೌಲ್ಯ + func_addr;
 			func_name[0] = '\0';
 			func_addr = 0;
-		    } else {
+		    } ಇಲ್ಲದಿದ್ದರೆ {
 			// beginning of function
 
 			str =
-			    (const char *) stabstr_section->data +
+			    (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *) stabstr_section->ದತ್ತಾಂಶ +
 			    sym->n_strx;
 
 
 			p = strchr(str, ':');
-			if (!p) {
-			    pstrcpy(func_name, sizeof(func_name), str);
-			} else {
+			ಆದರೆ (!p) {
+			    pstrcpy(func_name, ಗಾತ್ರ(func_name), str);
+			} ಇಲ್ಲದಿದ್ದರೆ {
 			    len = p - str;
-			    if (len > sizeof(func_name) - 1)
-				len = sizeof(func_name) - 1;
-			    memcpy(func_name, str, len);
+			    ಆದರೆ (len > ಗಾತ್ರ(func_name) - 1)
+				len = ಗಾತ್ರ(func_name) - 1;
+			    ಸ್ಮರಣೆ_ನಕಲು(func_name, str, len);
 			    func_name[len] = '\0';
 			}
-			func_addr = sym->n_value;
-			last_pc = func_addr;
-			last_line_num = -1;
+			func_addr = sym->n_ಮೌಲ್ಯ;
+			ಕೊನೆಯ_pc = func_addr;
+			ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ = -1;
 
 			// output a function begin
 
-			CoffLineNo.l_addr.l_symndx =
-			    FindCoffSymbolIndex(s1, func_name);
-			CoffLineNo.l_lnno = 0;
+			Coff_ಸಾಲು_No.l_addr.l_symndx =
+			    ಕಂಡುಹಿಡಿ_Coff_ಚಿಹ್ನೆ_ಸೂಚ್ಯಂಕ(s1, func_name);
+			Coff_ಸಾಲು_No.l_lnno = 0;
 
-			fwrite(&CoffLineNo, 6, 1, f);
+			fwrite(&Coff_ಸಾಲು_No, 6, 1, f);
 		    }
-		    break;
+		    ನಿಲ್ಲಿಸು;
 
 		    /* line number info */
-		case N_SLINE:
-		    pc = sym->n_value + func_addr;
+		ಸ್ಥಿತಿ N_SLINE:
+		    pc = sym->n_ಮೌಲ್ಯ + func_addr;
 
 
 		    /* XXX: slow! */
-		    strcpy(last_func_name, func_name);
+		    strcpy(ಕೊನೆಯ_func_name, func_name);
 
 		    // output a line reference
 
-		    CoffLineNo.l_addr.l_paddr = last_pc;
+		    Coff_ಸಾಲು_No.l_addr.l_paddr = ಕೊನೆಯ_pc;
 
-		    if (last_line_num == -1) {
-			CoffLineNo.l_lnno = sym->n_desc;
-		    } else {
-			CoffLineNo.l_lnno = last_line_num + 1;
+		    ಆದರೆ (ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ == -1) {
+			Coff_ಸಾಲು_No.l_lnno = sym->n_desc;
+		    } ಇಲ್ಲದಿದ್ದರೆ {
+			Coff_ಸಾಲು_No.l_lnno = ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ + 1;
 		    }
 
-		    fwrite(&CoffLineNo, 6, 1, f);
+		    fwrite(&Coff_ಸಾಲು_No, 6, 1, f);
 
-		    last_pc = pc;
-		    last_line_num = sym->n_desc;
+		    ಕೊನೆಯ_pc = pc;
+		    ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ = sym->n_desc;
 
-		    break;
+		    ನಿಲ್ಲಿಸು;
 
 		    /* include files */
-		case N_BINCL:
+		ಸ್ಥಿತಿ N_BINCL:
 		    str =
-			(const char *) stabstr_section->data + sym->n_strx;
-		  add_incl2:
-		    if (incl_index < INCLUDE_STACK_SIZE) {
-			incl_files[incl_index++] = str;
+			(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *) stabstr_section->ದತ್ತಾಂಶ + sym->n_strx;
+		  ಕೂಡಿಸು_incl2:
+		    ಆದರೆ (incl_ಸೂಚ್ಯಂಕ < INCLUDE_ರಾಶಿ_ಗಾತ್ರ) {
+			incl_files[incl_ಸೂಚ್ಯಂಕ++] = str;
 		    }
-		    break;
-		case N_EINCL:
-		    if (incl_index > 1)
-			incl_index--;
-		    break;
-		case N_SO:
-		    if (sym->n_strx == 0) {
-			incl_index = 0;	/* end of translation unit */
-		    } else {
+		    ನಿಲ್ಲಿಸು;
+		ಸ್ಥಿತಿ N_EINCL:
+		    ಆದರೆ (incl_ಸೂಚ್ಯಂಕ > 1)
+			incl_ಸೂಚ್ಯಂಕ--;
+		    ನಿಲ್ಲಿಸು;
+		ಸ್ಥಿತಿ N_SO:
+		    ಆದರೆ (sym->n_strx == 0) {
+			incl_ಸೂಚ್ಯಂಕ = 0;	/* end of translation unit */
+		    } ಇಲ್ಲದಿದ್ದರೆ {
 			str =
-			    (const char *) stabstr_section->data +
+			    (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *) stabstr_section->ದತ್ತಾಂಶ +
 			    sym->n_strx;
 			/* do not add path */
-			len = strlen(str);
-			if (len > 0 && str[len - 1] != '/')
-			    goto add_incl2;
+			len = ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(str);
+			ಆದರೆ (len > 0 && str[len - 1] != '/')
+			    ಹೋಗು ಕೂಡಿಸು_incl2;
 		    }
-		    break;
+		    ನಿಲ್ಲಿಸು;
 		}
 		sym++;
 	    }
@@ -505,51 +505,51 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     }
 
     // write symbol table
-    if (s1->do_debug) {
-	int k;
-	struct syment csym;
+    ಆದರೆ (s1->do_debug) {
+	ಪೂರ್ಣಾಂಕ k;
+	ರಚನೆ syment csym;
 	AUXFUNC auxfunc;
 	AUXBF auxbf;
 	AUXEF auxef;
-	int i;
+	ಪೂರ್ಣಾಂಕ i;
 	Elf32_Sym *p;
-	const char *name;
-	int nstr;
-	int n = 0;
+	ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name;
+	ಪೂರ್ಣಾಂಕ nstr;
+	ಪೂರ್ಣಾಂಕ n = 0;
 
-	Coff_str_table = (char *) tcc_malloc(MAX_STR_TABLE);
-	pCoff_str_table = Coff_str_table;
+	Coff_str_ಕೋಷ್ಟಕ = (ಅಕ್ಷರ *) tcc_malloc(MAX_STR_ಕೋಷ್ಟಕ);
+	p_Coff_str_ಕೋಷ್ಟಕ = Coff_str_ಕೋಷ್ಟಕ;
 	nstr = 0;
 
-	p = (Elf32_Sym *) symtab_section->data;
+	p = (Elf32_Sym *) symtab_section->ದತ್ತಾಂಶ;
 
 
-	for (i = 0; i < nb_syms; i++) {
+	ಗಾಗಿ (i = 0; i < nb_syms; i++) {
 
-	    name = symtab_section->link->data + p->st_name;
+	    name = symtab_section->link->ದತ್ತಾಂಶ + p->st_name;
 
-	    for (k = 0; k < 8; k++)
+	    ಗಾಗಿ (k = 0; k < 8; k++)
 		csym._n._n_name[k] = 0;
 
-	    if (strlen(name) <= 8) {
+	    ಆದರೆ (ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(name) <= 8) {
 		strcpy(csym._n._n_name, name);
-	    } else {
-		if (pCoff_str_table - Coff_str_table + strlen(name) >
-		    MAX_STR_TABLE - 1)
+	    } ಇಲ್ಲದಿದ್ದರೆ {
+		ಆದರೆ (p_Coff_str_ಕೋಷ್ಟಕ - Coff_str_ಕೋಷ್ಟಕ + ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(name) >
+		    MAX_STR_ಕೋಷ್ಟಕ - 1)
 		    tcc_error("String table too large");
 
 		csym._n._n_n._n_zeroes = 0;
-		csym._n._n_n._n_offset =
-		    pCoff_str_table - Coff_str_table + 4;
+		csym._n._n_n.n_ಸ್ಥಾನಾಂತರ =
+		    p_Coff_str_ಕೋಷ್ಟಕ - Coff_str_ಕೋಷ್ಟಕ + 4;
 
-		strcpy(pCoff_str_table, name);
-		pCoff_str_table += strlen(name) + 1;	// skip over null
+		strcpy(p_Coff_str_ಕೋಷ್ಟಕ, name);
+		p_Coff_str_ಕೋಷ್ಟಕ += ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(name) + 1;	// skip over null
 		nstr++;
 	    }
 
-	    if (p->st_info == 4) {
+	    ಆದರೆ (p->st_info == 4) {
 		// put a filename symbol
-		csym.n_value = 33;	// ?????
+		csym.n_ಮೌಲ್ಯ = 33;	// ?????
 		csym.n_scnum = N_DEBUG;
 		csym.n_type = 0;
 		csym.n_sclass = C_FILE;
@@ -557,21 +557,21 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		fwrite(&csym, 18, 1, f);
 		n++;
 
-	    } else if (p->st_info == 0x12) {
+	    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (p->st_info == 0x12) {
 		// find the function data
 
-		for (k = 0; k < nFuncs; k++) {
-		    if (strcmp(name, Func[k]) == 0)
-			break;
+		ಗಾಗಿ (k = 0; k < nFuncs; k++) {
+		    ಆದರೆ (strcmp(name, Func[k]) == 0)
+			ನಿಲ್ಲಿಸು;
 		}
 
-		if (k >= nFuncs) {
+		ಆದರೆ (k >= nFuncs) {
 		    tcc_error("debug info can't find function: %s", name);
 		}
 		// put a Function Name
 
-		csym.n_value = p->st_value;	// physical address
-		csym.n_scnum = CoffTextSectionNo;
+		csym.n_ಮೌಲ್ಯ = p->st_ಮೌಲ್ಯ;	// physical address
+		csym.n_scnum = Coff_ಪಠ್ಯ_Section_No;
 		csym.n_type = MKTYPE(T_INT, DT_FCN, 0, 0, 0, 0, 0);
 		csym.n_sclass = C_EXT;
 		csym.n_numaux = 1;
@@ -579,9 +579,9 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 		// now put aux info
 
-		auxfunc.tag = 0;
-		auxfunc.size = EndAddress[k] - p->st_value;
-		auxfunc.fileptr = LineNoFilePtr[k];
+		auxfunc.ಟ್ಯಾಗ್ = 0;
+		auxfunc.ಗಾತ್ರ_2 = ಕೊನೆ_ವಿಳಾಸ[k] - p->st_ಮೌಲ್ಯ;
+		auxfunc.fileptr = ಸಾಲು_No_File_Ptr[k];
 		auxfunc.nextsym = n + 6;	// tktk
 		auxfunc.dummy = 0;
 		fwrite(&auxfunc, 18, 1, f);
@@ -589,8 +589,8 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		// put a .bf
 
 		strcpy(csym._n._n_name, ".bf");
-		csym.n_value = p->st_value;	// physical address
-		csym.n_scnum = CoffTextSectionNo;
+		csym.n_ಮೌಲ್ಯ = p->st_ಮೌಲ್ಯ;	// physical address
+		csym.n_scnum = Coff_ಪಠ್ಯ_Section_No;
 		csym.n_type = 0;
 		csym.n_sclass = C_FCN;
 		csym.n_numaux = 1;
@@ -609,8 +609,8 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		// put a .ef
 
 		strcpy(csym._n._n_name, ".ef");
-		csym.n_value = EndAddress[k];	// physical address  
-		csym.n_scnum = CoffTextSectionNo;
+		csym.n_ಮೌಲ್ಯ = ಕೊನೆ_ವಿಳಾಸ[k];	// physical address  
+		csym.n_scnum = Coff_ಪಠ್ಯ_Section_No;
 		csym.n_type = 0;
 		csym.n_sclass = C_FCN;
 		csym.n_numaux = 1;
@@ -619,7 +619,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		// now put aux info
 
 		auxef.dummy = 0;
-		auxef.lineno = LastLineNo[k];
+		auxef.lineno = ಕೊನೆಯ_ಸಾಲು_No[k];
 		auxef.dummy1 = 0;
 		auxef.dummy2 = 0;
 		auxef.dummy3 = 0;
@@ -628,37 +628,37 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 		n += 6;
 
-	    } else {
+	    } ಇಲ್ಲದಿದ್ದರೆ {
 		// try an put some type info
 
-		if ((p->st_other & VT_BTYPE) == VT_DOUBLE) {
+		ಆದರೆ ((p->st_other & VT_BTYPE) == VT_DOUBLE) {
 		    csym.n_type = T_DOUBLE;	// int
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_FLOAT) {
+		} ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ ((p->st_other & VT_BTYPE) == VT_FLOAT) {
 		    csym.n_type = T_FLOAT;
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_INT) {
+		} ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ ((p->st_other & VT_BTYPE) == VT_INT) {
 		    csym.n_type = T_INT;	// int
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_SHORT) {
+		} ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ ((p->st_other & VT_BTYPE) == VT_SHORT) {
 		    csym.n_type = T_SHORT;
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_BYTE) {
+		} ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ ((p->st_other & VT_BTYPE) == VT_BYTE) {
 		    csym.n_type = T_CHAR;
 		    csym.n_sclass = C_EXT;
-		} else {
+		} ಇಲ್ಲದಿದ್ದರೆ {
 		    csym.n_type = T_INT;	// just mark as a label
 		    csym.n_sclass = C_LABEL;
 		}
 
 
-		csym.n_value = p->st_value;
+		csym.n_ಮೌಲ್ಯ = p->st_ಮೌಲ್ಯ;
 		csym.n_scnum = 2;
 		csym.n_numaux = 1;
 		fwrite(&csym, 18, 1, f);
 
-		auxfunc.tag = 0;
-		auxfunc.size = 0x20;
+		auxfunc.ಟ್ಯಾಗ್ = 0;
+		auxfunc.ಗಾತ್ರ_2 = 0x20;
 		auxfunc.fileptr = 0;
 		auxfunc.nextsym = 0;
 		auxfunc.dummy = 0;
@@ -672,20 +672,20 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	}
     }
 
-    if (s1->do_debug) {
+    ಆದರೆ (s1->do_debug) {
 	// write string table
 
 	// first write the size
-	i = pCoff_str_table - Coff_str_table;
+	i = p_Coff_str_ಕೋಷ್ಟಕ - Coff_str_ಕೋಷ್ಟಕ;
 	fwrite(&i, 4, 1, f);
 
 	// then write the strings
-	fwrite(Coff_str_table, i, 1, f);
+	fwrite(Coff_str_ಕೋಷ್ಟಕ, i, 1, f);
 
-	tcc_free(Coff_str_table);
+	tcc_free(Coff_str_ಕೋಷ್ಟಕ);
     }
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 
@@ -693,53 +693,53 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 // group the symbols in order of filename, func1, func2, etc
 // finally global symbols
 
-void SortSymbolTable(TCCState *s1)
+ಶೂನ್ಯ ವಿಂಗಡಿಸು_ಚಿಹ್ನೆ_ಕೋಷ್ಟಕ(TCCState *s1)
 {
-    int i, j, k, n = 0;
-    Elf32_Sym *p, *p2, *NewTable;
-    char *name, *name2;
+    ಪೂರ್ಣಾಂಕ i, j, k, n = 0;
+    Elf32_Sym *p, *p2, *New_ಕೋಷ್ಟಕ;
+    ಅಕ್ಷರ *name, *name2;
 
-    NewTable = (Elf32_Sym *) tcc_malloc(nb_syms * sizeof(Elf32_Sym));
+    New_ಕೋಷ್ಟಕ = (Elf32_Sym *) tcc_malloc(nb_syms * ಗಾತ್ರ(Elf32_Sym));
 
-    p = (Elf32_Sym *) symtab_section->data;
+    p = (Elf32_Sym *) symtab_section->ದತ್ತಾಂಶ;
 
 
     // find a file symbol, copy it over
     // then scan the whole symbol list and copy any function
     // symbols that match the file association
 
-    for (i = 0; i < nb_syms; i++) {
-	if (p->st_info == 4) {
-	    name = (char *) symtab_section->link->data + p->st_name;
+    ಗಾಗಿ (i = 0; i < nb_syms; i++) {
+	ಆದರೆ (p->st_info == 4) {
+	    name = (ಅಕ್ಷರ *) symtab_section->link->ದತ್ತಾಂಶ + p->st_name;
 
 	    // this is a file symbol, copy it over
 
-	    NewTable[n++] = *p;
+	    New_ಕೋಷ್ಟಕ[n++] = *p;
 
-	    p2 = (Elf32_Sym *) symtab_section->data;
+	    p2 = (Elf32_Sym *) symtab_section->ದತ್ತಾಂಶ;
 
-	    for (j = 0; j < nb_syms; j++) {
-		if (p2->st_info == 0x12) {
+	    ಗಾಗಿ (j = 0; j < nb_syms; j++) {
+		ಆದರೆ (p2->st_info == 0x12) {
 		    // this is a func symbol
 
 		    name2 =
-			(char *) symtab_section->link->data + p2->st_name;
+			(ಅಕ್ಷರ *) symtab_section->link->ದತ್ತಾಂಶ + p2->st_name;
 
 		    // find the function data index
 
-		    for (k = 0; k < nFuncs; k++) {
-			if (strcmp(name2, Func[k]) == 0)
-			    break;
+		    ಗಾಗಿ (k = 0; k < nFuncs; k++) {
+			ಆದರೆ (strcmp(name2, Func[k]) == 0)
+			    ನಿಲ್ಲಿಸು;
 		    }
 
-		    if (k >= nFuncs) {
+		    ಆದರೆ (k >= nFuncs) {
                         tcc_error("debug (sort) info can't find function: %s", name2);
 		    }
 
-		    if (strcmp(AssociatedFile[k], name) == 0) {
+		    ಆದರೆ (strcmp(AssociatedFile[k], name) == 0) {
 			// yes they match copy it over
 
-			NewTable[n++] = *p2;
+			New_ಕೋಷ್ಟಕ[n++] = *p2;
 		    }
 		}
 		p2++;
@@ -751,47 +751,47 @@ void SortSymbolTable(TCCState *s1)
     // now all the filename and func symbols should have been copied over
     // copy all the rest over (all except file and funcs)
 
-    p = (Elf32_Sym *) symtab_section->data;
-    for (i = 0; i < nb_syms; i++) {
-	if (p->st_info != 4 && p->st_info != 0x12) {
-	    NewTable[n++] = *p;
+    p = (Elf32_Sym *) symtab_section->ದತ್ತಾಂಶ;
+    ಗಾಗಿ (i = 0; i < nb_syms; i++) {
+	ಆದರೆ (p->st_info != 4 && p->st_info != 0x12) {
+	    New_ಕೋಷ್ಟಕ[n++] = *p;
 	}
 	p++;
     }
 
-    if (n != nb_syms)
+    ಆದರೆ (n != nb_syms)
 	tcc_error("Internal Compiler error, debug info");
 
     // copy it all back
 
-    p = (Elf32_Sym *) symtab_section->data;
-    for (i = 0; i < nb_syms; i++) {
-	*p++ = NewTable[i];
+    p = (Elf32_Sym *) symtab_section->ದತ್ತಾಂಶ;
+    ಗಾಗಿ (i = 0; i < nb_syms; i++) {
+	*p++ = New_ಕೋಷ್ಟಕ[i];
     }
 
-    tcc_free(NewTable);
+    tcc_free(New_ಕೋಷ್ಟಕ);
 }
 
 
-int FindCoffSymbolIndex(TCCState *s1, const char *func_name)
+ಪೂರ್ಣಾಂಕ ಕಂಡುಹಿಡಿ_Coff_ಚಿಹ್ನೆ_ಸೂಚ್ಯಂಕ(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *func_name)
 {
-    int i, n = 0;
+    ಪೂರ್ಣಾಂಕ i, n = 0;
     Elf32_Sym *p;
-    char *name;
+    ಅಕ್ಷರ *name;
 
-    p = (Elf32_Sym *) symtab_section->data;
+    p = (Elf32_Sym *) symtab_section->ದತ್ತಾಂಶ;
 
-    for (i = 0; i < nb_syms; i++) {
+    ಗಾಗಿ (i = 0; i < nb_syms; i++) {
 
-	name = (char *) symtab_section->link->data + p->st_name;
+	name = (ಅಕ್ಷರ *) symtab_section->link->ದತ್ತಾಂಶ + p->st_name;
 
-	if (p->st_info == 4) {
+	ಆದರೆ (p->st_info == 4) {
 	    // put a filename symbol
 	    n++;
-	} else if (p->st_info == 0x12) {
+	} ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (p->st_info == 0x12) {
 
-	    if (strcmp(func_name, name) == 0)
-		return n;
+	    ಆದರೆ (strcmp(func_name, name) == 0)
+		ಹಿಂತಿರುಗಿ n;
 
 	    n += 6;
 
@@ -807,115 +807,115 @@ int FindCoffSymbolIndex(TCCState *s1, const char *func_name)
 
 	    // now put aux info
 
-	} else {
+	} ಇಲ್ಲದಿದ್ದರೆ {
 	    n += 2;
 	}
 
 	p++;
     }
 
-    return n;			// total number of symbols
+    ಹಿಂತಿರುಗಿ n;			// total number of symbols
 }
 
-int OutputTheSection(Section * sect)
+ಪೂರ್ಣಾಂಕ OutputTheSection(Section * sect)
 {
-    const char *s = sect->name;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s = sect->name;
 
-    if (!strcmp(s, ".text"))
-	return 1;
-    else if (!strcmp(s, ".data"))
-	return 1;
-    else
-	return 0;
+    ಆದರೆ (!strcmp(s, ".text"))
+	ಹಿಂತಿರುಗಿ 1;
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (!strcmp(s, ".data"))
+	ಹಿಂತಿರುಗಿ 1;
+    ಇಲ್ಲದಿದ್ದರೆ
+	ಹಿಂತಿರುಗಿ 0;
 }
 
-short int GetCoffFlags(const char *s)
+ಗಿಡ್ಡ ಪೂರ್ಣಾಂಕ GetCoffFlags(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s)
 {
-    if (!strcmp(s, ".text"))
-	return STYP_TEXT | STYP_DATA | STYP_ALIGN | 0x400;
-    else if (!strcmp(s, ".data"))
-	return STYP_DATA;
-    else if (!strcmp(s, ".bss"))
-	return STYP_BSS;
-    else if (!strcmp(s, ".stack"))
-	return STYP_BSS | STYP_ALIGN | 0x200;
-    else if (!strcmp(s, ".cinit"))
-	return STYP_COPY | STYP_DATA | STYP_ALIGN | 0x200;
-    else
-	return 0;
+    ಆದರೆ (!strcmp(s, ".text"))
+	ಹಿಂತಿರುಗಿ STYP_ಪಠ್ಯ | STYP_ದತ್ತಾಂಶ | STYP_ALIGN | 0x400;
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (!strcmp(s, ".data"))
+	ಹಿಂತಿರುಗಿ STYP_ದತ್ತಾಂಶ;
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (!strcmp(s, ".bss"))
+	ಹಿಂತಿರುಗಿ STYP_BSS;
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (!strcmp(s, ".stack"))
+	ಹಿಂತಿರುಗಿ STYP_BSS | STYP_ALIGN | 0x200;
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (!strcmp(s, ".cinit"))
+	ಹಿಂತಿರುಗಿ STYP_COPY | STYP_ದತ್ತಾಂಶ | STYP_ALIGN | 0x200;
+    ಇಲ್ಲದಿದ್ದರೆ
+	ಹಿಂತಿರುಗಿ 0;
 }
 
-Section *FindSection(TCCState * s1, const char *sname)
+Section *ಕಂಡುಹಿಡಿ_Section(TCCState * s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *sname)
 {
     Section *s;
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    ಗಾಗಿ (i = 1; i < s1->nb_sections; i++) {
 	s = s1->sections[i];
 
-	if (!strcmp(sname, s->name))
-	    return s;
+	ಆದರೆ (!strcmp(sname, s->name))
+	    ಹಿಂತಿರುಗಿ s;
     }
 
     tcc_error("could not find section %s", sname);
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-ST_FUNC int tcc_load_coff(TCCState * s1, int fd)
+ST_FUNC ಪೂರ್ಣಾಂಕ tcc_ತುಂಬು_coff(TCCState * s1, ಪೂರ್ಣಾಂಕ fd)
 {
 // tktk TokenSym *ts;
 
     FILE *f;
-    unsigned int str_size;
-    char *Coff_str_table, *name;
-    int i, k;
-    struct syment csym;
-    char name2[9];
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ str_ಗಾತ್ರ;
+    ಅಕ್ಷರ *Coff_str_ಕೋಷ್ಟಕ, *name;
+    ಪೂರ್ಣಾಂಕ i, k;
+    ರಚನೆ syment csym;
+    ಅಕ್ಷರ name2[9];
     FILHDR file_hdr;		/* FILE HEADER STRUCTURE              */
 
     f = fdopen(fd, "rb");
-    if (!f) {
+    ಆದರೆ (!f) {
 	tcc_error("Unable to open .out file for input");
     }
 
-    if (fread(&file_hdr, FILHSZ, 1, f) != 1)
+    ಆದರೆ (fread(&file_hdr, FILHSZ, 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
-    if (fread(&o_filehdr, sizeof(o_filehdr), 1, f) != 1)
+    ಆದರೆ (fread(&o_filehdr, ಗಾತ್ರ(o_filehdr), 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
     // first read the string table
 
-    if (fseek(f, file_hdr.f_symptr + file_hdr.f_nsyms * SYMESZ, SEEK_SET))
+    ಆದರೆ (fseek(f, file_hdr.f_symptr + file_hdr.f_nsyms * SYMESZ, SEEK_SET))
 	tcc_error("error reading .out file for input");
 
-    if (fread(&str_size, sizeof(int), 1, f) != 1)
+    ಆದರೆ (fread(&str_ಗಾತ್ರ, ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ), 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
 
-    Coff_str_table = (char *) tcc_malloc(str_size);
+    Coff_str_ಕೋಷ್ಟಕ = (ಅಕ್ಷರ *) tcc_malloc(str_ಗಾತ್ರ);
 
-    if (fread(Coff_str_table, str_size - 4, 1, f) != 1)
+    ಆದರೆ (fread(Coff_str_ಕೋಷ್ಟಕ, str_ಗಾತ್ರ - 4, 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
     // read/process all the symbols
 
     // seek back to symbols
 
-    if (fseek(f, file_hdr.f_symptr, SEEK_SET))
+    ಆದರೆ (fseek(f, file_hdr.f_symptr, SEEK_SET))
 	tcc_error("error reading .out file for input");
 
-    for (i = 0; i < file_hdr.f_nsyms; i++) {
-	if (fread(&csym, SYMESZ, 1, f) != 1)
+    ಗಾಗಿ (i = 0; i < file_hdr.f_nsyms; i++) {
+	ಆದರೆ (fread(&csym, SYMESZ, 1, f) != 1)
 	    tcc_error("error reading .out file for input");
 
-	if (csym._n._n_n._n_zeroes == 0) {
-	    name = Coff_str_table + csym._n._n_n._n_offset - 4;
-	} else {
+	ಆದರೆ (csym._n._n_n._n_zeroes == 0) {
+	    name = Coff_str_ಕೋಷ್ಟಕ + csym._n._n_n.n_ಸ್ಥಾನಾಂತರ - 4;
+	} ಇಲ್ಲದಿದ್ದರೆ {
 	    name = csym._n._n_name;
 
-	    if (name[7] != 0) {
-		for (k = 0; k < 8; k++)
+	    ಆದರೆ (name[7] != 0) {
+		ಗಾಗಿ (k = 0; k < 8; k++)
 		    name2[k] = name[k];
 
 		name2[8] = 0;
@@ -926,26 +926,26 @@ ST_FUNC int tcc_load_coff(TCCState * s1, int fd)
 //              if (strcmp("_DAC_Buffer",name)==0)  // tktk
 //                      name[0]=0;
 
-	if (((csym.n_type & 0x30) == 0x20 && csym.n_sclass == 0x2) || ((csym.n_type & 0x30) == 0x30 && csym.n_sclass == 0x2) || (csym.n_type == 0x4 && csym.n_sclass == 0x2) || (csym.n_type == 0x8 && csym.n_sclass == 0x2) ||	// structures
+	ಆದರೆ (((csym.n_type & 0x30) == 0x20 && csym.n_sclass == 0x2) || ((csym.n_type & 0x30) == 0x30 && csym.n_sclass == 0x2) || (csym.n_type == 0x4 && csym.n_sclass == 0x2) || (csym.n_type == 0x8 && csym.n_sclass == 0x2) ||	// structures
 	    (csym.n_type == 0x18 && csym.n_sclass == 0x2) ||	// pointer to structure
 	    (csym.n_type == 0x7 && csym.n_sclass == 0x2) ||	// doubles
 	    (csym.n_type == 0x6 && csym.n_sclass == 0x2))	// floats
 	{
 	    // strip off any leading underscore (except for other main routine)
 
-	    if (name[0] == '_' && strcmp(name, "_main") != 0)
+	    ಆದರೆ (name[0] == '_' && strcmp(name, "_main") != 0)
 		name++;
 
-	    tcc_add_symbol(s1, name, (void*)(uintptr_t)csym.n_value);
+	    tcc_ಕೂಡಿಸು_ಚಿಹ್ನೆ(s1, name, (ಶೂನ್ಯ*)(uintptr_t)csym.n_ಮೌಲ್ಯ);
 	}
 	// skip any aux records
 
-	if (csym.n_numaux == 1) {
-	    if (fread(&csym, SYMESZ, 1, f) != 1)
+	ಆದರೆ (csym.n_numaux == 1) {
+	    ಆದರೆ (fread(&csym, SYMESZ, 1, f) != 1)
 		tcc_error("error reading .out file for input");
 	    i++;
 	}
     }
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

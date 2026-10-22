@@ -3,53 +3,53 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_DOS
-#define _INC_DOS
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INC_DOS
+#ವ್ಯಾಖ್ಯಾನಿಸು _INC_DOS
 
-#include <_mingw.h>
-#include <io.h>
+#ಅನ್ತರ್ಭಾವ <_mingw.h>
+#ಅನ್ತರ್ಭಾವ <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ಸೂಚನೆ pack(ತಳ್ಳು,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _DISKFREE_T_DEFINED
-#define _DISKFREE_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _DISKFREE_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _DISKFREE_T_DEFINED
 
-  struct _diskfree_t {
-    unsigned total_clusters;
-    unsigned avail_clusters;
-    unsigned sectors_per_cluster;
-    unsigned bytes_per_sector;
+  ರಚನೆ _diskfree_t {
+    ಚಿಹ್ನೆರಹಿತ ಒಟ್ಟು_clusters;
+    ಚಿಹ್ನೆರಹಿತ avail_clusters;
+    ಚಿಹ್ನೆರಹಿತ sectors_ಪ್ರತಿ_cluster;
+    ಚಿಹ್ನೆರಹಿತ ಬೈಟುಗಳು_ಪ್ರತಿ_sector;
   };
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define _A_NORMAL 0x00
-#define _A_RDONLY 0x01
-#define _A_HIDDEN 0x02
-#define _A_SYSTEM 0x04
-#define _A_SUBDIR 0x10
-#define _A_ARCH 0x20
+#ವ್ಯಾಖ್ಯಾನಿಸು A_ಸಾಮಾನ್ಯ 0x00
+#ವ್ಯಾಖ್ಯಾನಿಸು _A_RDONLY 0x01
+#ವ್ಯಾಖ್ಯಾನಿಸು _A_HIDDEN 0x02
+#ವ್ಯಾಖ್ಯಾನಿಸು _A_SYSTEM 0x04
+#ವ್ಯಾಖ್ಯಾನಿಸು _A_SUBDIR 0x10
+#ವ್ಯಾಖ್ಯಾನಿಸು _A_ARCH 0x20
 
-#ifndef _GETDISKFREE_DEFINED
-#define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _GETDISKFREE_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _GETDISKFREE_DEFINED
+  _CRTIMP ಚಿಹ್ನೆರಹಿತ __cdecl _getdiskfree(ಚಿಹ್ನೆರಹಿತ _Drive,ರಚನೆ _diskfree_t *_DiskFree);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if (defined(_X86_) && !defined(__x86_64))
-  void __cdecl _disable(void);
-  void __cdecl _enable(void);
-#endif
+#ಆದರೆ (defined(_X86_) && !defined(__x86_64))
+  ಶೂನ್ಯ __cdecl _disable(ಶೂನ್ಯ);
+  ಶೂನ್ಯ __cdecl _enable(ಶೂನ್ಯ);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef	NO_OLDNAMES
-#define diskfree_t _diskfree_t
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ	NO_OLDNAMES
+#ವ್ಯಾಖ್ಯಾನಿಸು diskfree_t _diskfree_t
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#pragma pack(pop)
-#endif
+#ಸೂಚನೆ pack(ತೆಗೆ)
+#ಆದರೆ_ಅಂತ್ಯ

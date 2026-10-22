@@ -1,49 +1,49 @@
 /* ------------------------------------------------------------- */
 /* minimal startup with runtime linker to msvcrt */
 
-#if 0
+#ಆದರೆ 0
 
-#define REDIR_ALL \
+#ವ್ಯಾಖ್ಯಾನಿಸು REDIR_ALL \
  REDIR(__set_app_type)\
  REDIR(__getmainargs)\
  REDIR(_controlfp)\
  REDIR(_vsnprintf)\
- REDIR(exit)\
+ REDIR(ನಿರ್ಗಮಿಸು)\
  \
  REDIR(puts)\
- REDIR(printf)\
- REDIR(putchar)\
+ REDIR(ಬರೆ)\
+ REDIR(ಅಕ್ಷರ_ಬರೆ)\
  REDIR(strtod)\
  REDIR(memset)\
  REDIR(strcpy)\
- REDIR(strlen)\
- REDIR(malloc)\
- REDIR(free)\
+ REDIR(ಅಕ್ಷರಸರಣಿ_ಉದ್ದ)\
+ REDIR(ಸ್ಮರಣೆ_ಕೊಡು)\
+ REDIR(ಬಿಡುಗಡೆ)\
 
-#if defined __i386__ && !defined __TINYC__
+#ಆದರೆ defined __i386__ && !defined __TINYC__
 # define __leading_underscore 1
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __leading_underscore
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __leading_underscore
 # define _(s) "_"#s
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define _(s) #s
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define REDIR(s) void *s;
-static struct { REDIR_ALL } all_ptrs;
-#undef REDIR
+#ವ್ಯಾಖ್ಯಾನಿಸು REDIR(s) ಶೂನ್ಯ *s;
+ಸ್ಥಿರ ರಚನೆ { REDIR_ALL } all_ptrs;
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು REDIR
 
-#define REDIR(s) #s"\0"
-static const char all_names[] = REDIR_ALL;
-#undef REDIR
+#ವ್ಯಾಖ್ಯಾನಿಸು REDIR(s) #s"\0"
+ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ all_ಹೆಸರುಗಳು[] = REDIR_ALL;
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು REDIR
 
-#if __aarch64__
-  #if defined __TINYC__
+#ಆದರೆ __aarch64__
+  #ಆದರೆ defined __TINYC__
   # define ALIGN ".align 8"
-  #else
+  #ಇಲ್ಲದಿದ್ದರೆ
   # define ALIGN ".align 3" /* .align is power of 2 on non-ELF platforms */
-  #endif
+  #ಆದರೆ_ಅಂತ್ಯ
 # define REDIR(s) \
     __asm__("\n"_(s)":"); \
     __asm__(".int 0x58000090"); /* ldr x16, [pc, #16] */ \
@@ -55,110 +55,110 @@ static const char all_names[] = REDIR_ALL;
 
     __asm__("\t.text\n\t"ALIGN"\nall_jmps:");
     REDIR_ALL
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define REDIR(s) \
     __asm__("\n"_(s)":");\
     __asm__("jmp *%0"::"m"(all_ptrs.s));\
     __asm__(".global "_(s));
 
-    static void all_jmps() { REDIR_ALL }
-#endif
-#undef REDIR
+    ಸ್ಥಿರ ಶೂನ್ಯ all_jmps() { REDIR_ALL }
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು REDIR
 
-#if 0
+#ಆದರೆ 0
 # include <windows.h>
-#else
-# if __i386__
+#ಇಲ್ಲದಿದ್ದರೆ
+# ಆದರೆ __i386__
 #  define STDCALL __declspec(stdcall)
-# else
+# ಇಲ್ಲದಿದ್ದರೆ
 #  define STDCALL
 # endif
-# define DWORD long unsigned
-# define HMODULE void*
-# define HANDLE void*
-S TDCALL HMODULE LoadLibraryA(const char *);
-S TDCALL HMODULE GetProcAddress(HMODULE , char*);
-S TDCALL void ExitProcess(int);
-S TDCALL int WriteFile(HANDLE, const void*, DWORD, DWORD*, void*);
+# define DWORD ದೀರ್ಘ ಚಿಹ್ನೆರಹಿತ
+# define HMODULE ಶೂನ್ಯ*
+# define HANDLE ಶೂನ್ಯ*
+S TDCALL HMODULE ತುಂಬು_Library_A(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *);
+S TDCALL HMODULE Get_Proc_ವಿಳಾಸ(HMODULE , ಅಕ್ಷರ*);
+S TDCALL ಶೂನ್ಯ ExitProcess(ಪೂರ್ಣಾಂಕ);
+S TDCALL ಪೂರ್ಣಾಂಕ WriteFile(HANDLE, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ*, DWORD, DWORD*, ಶೂನ್ಯ*);
 S TDCALL HANDLE GetStdHandle(DWORD);
-S TDCALL int FlushFileBuffers(HANDLE);
+S TDCALL ಪೂರ್ಣಾಂಕ FlushFileBuffers(HANDLE);
 # define STD_ERROR_HANDLE -12
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-static void eput(const char *s)
+ಸ್ಥಿರ ಶೂನ್ಯ eput(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s)
 {
-    DWORD n_out;
-    int n = 0;
-    while (s[n])
+    DWORD n_ಹೊರಹೋಗು;
+    ಪೂರ್ಣಾಂಕ n = 0;
+    ಆಗ (s[n])
         ++n;
-    WriteFile(GetStdHandle(STD_ERROR_HANDLE), s, n, &n_out, 0);
+    WriteFile(GetStdHandle(STD_ERROR_HANDLE), s, n, &n_ಹೊರಹೋಗು, 0);
 }
 
-static void rt_reloc()
+ಸ್ಥಿರ ಶೂನ್ಯ rt_reloc()
 {
-    const char *s = all_names;
-    void **p = (void**)&all_ptrs;
-    void *dll = LoadLibraryA("msvcrt.dll");
-    do {
-        char buf[100], *d = buf;
-        *p = (void*)GetProcAddress(dll, (char*)s);
-        *d++ = '_'; do *d++ = *s; while (*s++);
-        if (0 == *p)
-            *p = (void*)GetProcAddress(dll, buf);
-        if (0 == *p) {
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s = all_ಹೆಸರುಗಳು;
+    ಶೂನ್ಯ **p = (ಶೂನ್ಯ**)&all_ptrs;
+    ಶೂನ್ಯ *dll = ತುಂಬು_Library_A("msvcrt.dll");
+    ಮಾಡು {
+        ಅಕ್ಷರ buf[100], *d = buf;
+        *p = (ಶೂನ್ಯ*)Get_Proc_ವಿಳಾಸ(dll, (ಅಕ್ಷರ*)s);
+        *d++ = '_'; ಮಾಡು *d++ = *s; ಆಗ (*s++);
+        ಆದರೆ (0 == *p)
+            *p = (ಶೂನ್ಯ*)Get_Proc_ವಿಳಾಸ(dll, buf);
+        ಆದರೆ (0 == *p) {
             eput("MSVCRT_START.C: RUNTIME RELOCATION ERROR: '");
             eput(buf+1);
             eput("'\n");
             ExitProcess(-1);
         }
         ++p;
-    } while (*s);
+    } ಆಗ (*s);
 }
 
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define rt_reloc()
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-int main(int argc, char **argv, char **env);
-void exit(int);
-void __set_app_type(int apptype);
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv, ಅಕ್ಷರ **env);
+ಶೂನ್ಯ ನಿರ್ಗಮಿಸು(ಪೂರ್ಣಾಂಕ);
+ಶೂನ್ಯ __set_app_type(ಪೂರ್ಣಾಂಕ apptype);
 
-typedef struct { int newmode; } _startupinfo;
-int __getmainargs(int *pargc, char ***pargv, char ***penv, int globb, _startupinfo*);
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ { ಪೂರ್ಣಾಂಕ newmode; } _startupinfo;
+ಪೂರ್ಣಾಂಕ __getmainargs(ಪೂರ್ಣಾಂಕ *pargc, ಅಕ್ಷರ ***pargv, ಅಕ್ಷರ ***penv, ಪೂರ್ಣಾಂಕ globb, _startupinfo*);
 
-void _controlfp(unsigned a, unsigned b);
-#define _MCW_PC 0x00030000 // Precision Control
-#define _PC_53 0x00010000 // 53 bits
+ಶೂನ್ಯ _controlfp(ಚಿಹ್ನೆರಹಿತ a, ಚಿಹ್ನೆರಹಿತ b);
+#ವ್ಯಾಖ್ಯಾನಿಸು _MCW_PC 0x00030000 // Precision Control
+#ವ್ಯಾಖ್ಯಾನಿಸು _PC_53 0x00010000 // 53 bits
 
-int __argc;
-char **__argv;
-char **environ;
-_startupinfo start_info = {0};
+ಪೂರ್ಣಾಂಕ __argc;
+ಅಕ್ಷರ **__argv;
+ಅಕ್ಷರ **environ;
+_startupinfo ಆರಂಭ_info = {0};
 
-void mainCRTStartup(void)
+ಶೂನ್ಯ mainCRTStartup(ಶೂನ್ಯ)
 {
     rt_reloc();
-#if defined __i386__ || defined __x86_64__
+#ಆದರೆ defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
     __set_app_type(1);
-    __getmainargs(&__argc, &__argv, &environ, 0, &start_info);
-    exit(main(__argc, __argv, environ));
+    __getmainargs(&__argc, &__argv, &environ, 0, &ಆರಂಭ_info);
+    ನಿರ್ಗಮಿಸು(ಮುಖ್ಯ(__argc, __argv, environ));
 }
 
-#include <stdarg.h>
-#define size_t __SIZE_TYPE__
-int printf(const char *, ...);
-int _vsnprintf(char *, size_t, const char *, va_list);
+#ಅನ್ತರ್ಭಾವ <stdarg.h>
+#ವ್ಯಾಖ್ಯಾನಿಸು ಗಾತ್ರ_t __SIZE_TYPE__
+ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...);
+ಪೂರ್ಣಾಂಕ _vsnprintf(ಅಕ್ಷರ *, ಗಾತ್ರ_t, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, va_list);
 
 /* undefined on windows-11-arm64 */
-int vprintf(const char *format, va_list ap)
+ಪೂರ್ಣಾಂಕ vprintf(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *format, va_list ap)
 {
-    char buf[1000];
-    _vsnprintf(buf, sizeof buf, format, ap);
-    return printf("%s", buf);
+    ಅಕ್ಷರ buf[1000];
+    _vsnprintf(buf, ಗಾತ್ರ buf, format, ap);
+    ಹಿಂತಿರುಗಿ ಬರೆ("%s", buf);
 }
 
-void __main() {} /* for gcc */
-void _pei386_runtime_relocator(void) {} /* for gcc */
-void __chkstk(unsigned n) {} /* for clang */
+ಶೂನ್ಯ __main() {} /* for gcc */
+ಶೂನ್ಯ _pei386_runtime_relocator(ಶೂನ್ಯ) {} /* for gcc */
+ಶೂನ್ಯ __chkstk(ಚಿಹ್ನೆರಹಿತ n) {} /* for clang */

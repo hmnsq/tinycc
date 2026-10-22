@@ -1,28 +1,28 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
-#if !defined(_WIN32)
-#include <pthread.h>
-#else
-#include <windows.h>
-#endif
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
+#ಅನ್ತರ್ಭಾವ <setjmp.h>
+#ಆದರೆ !defined(_WIN32)
+#ಅನ್ತರ್ಭಾವ <pthread.h>
+#ಇಲ್ಲದಿದ್ದರೆ
+#ಅನ್ತರ್ಭಾವ <windows.h>
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define	SIZE	10
-#define	COUNT	10
+#ವ್ಯಾಖ್ಯಾನಿಸು	ಗಾತ್ರ_3	10
+#ವ್ಯಾಖ್ಯಾನಿಸು	ಎಣಿಕೆ_5	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#ವ್ಯಾಖ್ಯಾನಿಸು TST   ಪೂರ್ಣಾಂಕ i, a[2], b[2];                \
+              ಗಾಗಿ (i = 0; i < 2; i++) a[i] = 0; \
+              ಗಾಗಿ (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_3[ಗಾತ್ರ_3];
 
-static void tst1 (jmp_buf loc)
+ಸ್ಥಿರ ಶೂನ್ಯ tst1 (jmp_buf loc)
 {
     TST;
     longjmp(loc, 1);
 }
 
-static void tst2(jmp_buf loc)
+ಸ್ಥಿರ ಶೂನ್ಯ tst2(jmp_buf loc)
 {
     jmp_buf jmp;
 
@@ -31,54 +31,54 @@ static void tst2(jmp_buf loc)
     tst1(loc);
 }
 
-static void *tst (void * index)
+ಸ್ಥಿರ ಶೂನ್ಯ *tst (ಶೂನ್ಯ * ಸೂಚ್ಯಂಕ)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    ಪೂರ್ಣಾಂಕ i = *(ಪೂರ್ಣಾಂಕ *) ಸೂಚ್ಯಂಕ;
+    ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ v[ಗಾತ್ರ_3];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    ಗಾಗಿ (v[i] = 0; v[i] < ಎಣಿಕೆ_5; v[i]++) {
+        ಆದರೆ (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
-            count[i]++;
+        ಇಲ್ಲದಿದ್ದರೆ {
+            ಎಣಿಕೆ_3[i]++;
         }
-        i = *(int *) index;
+        i = *(ಪೂರ್ಣಾಂಕ *) ಸೂಚ್ಯಂಕ;
     }
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-int
-main (void)
+ಪೂರ್ಣಾಂಕ
+ಮುಖ್ಯ (ಶೂನ್ಯ)
 {
-    int i;
-#if !defined(_WIN32)
-    pthread_t id[SIZE];
-#else
-    HANDLE id[SIZE];
-#endif
-    int index[SIZE];
+    ಪೂರ್ಣಾಂಕ i;
+#ಆದರೆ !defined(_WIN32)
+    pthread_t id[ಗಾತ್ರ_3];
+#ಇಲ್ಲದಿದ್ದರೆ
+    HANDLE id[ಗಾತ್ರ_3];
+#ಆದರೆ_ಅಂತ್ಯ
+    ಪೂರ್ಣಾಂಕ ಸೂಚ್ಯಂಕ[ಗಾತ್ರ_3];
 
-    for (i = 0; i < SIZE; i++) {
-        index[i] = i;
-#if !defined(_WIN32)
-        pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
-        id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
-#endif
+    ಗಾಗಿ (i = 0; i < ಗಾತ್ರ_3; i++) {
+        ಸೂಚ್ಯಂಕ[i] = i;
+#ಆದರೆ !defined(_WIN32)
+        pthread_create (&id[i], ಖಾಲಿ, tst, (ಶೂನ್ಯ *) &ಸೂಚ್ಯಂಕ[i]);
+#ಇಲ್ಲದಿದ್ದರೆ
+        id[i] = CreateThread(ಖಾಲಿ, 8192, (LPTHREAD_ಆರಂಭ_ROUTINE) tst, (ಶೂನ್ಯ *) &ಸೂಚ್ಯಂಕ[i], 0, ಖಾಲಿ);
+#ಆದರೆ_ಅಂತ್ಯ
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
-        pthread_join (id[i], NULL);
-#else
+    ಗಾಗಿ (i = 0; i < ಗಾತ್ರ_3; i++) {
+#ಆದರೆ !defined(_WIN32)
+        pthread_join (id[i], ಖಾಲಿ);
+#ಇಲ್ಲದಿದ್ದರೆ
         WaitForSingleObject(id[i], INFINITE);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
-            printf ("error: %d %d\n", i, count[i]);
+    ಗಾಗಿ (i = 0; i < ಗಾತ್ರ_3; i++) {
+        ಆದರೆ (ಎಣಿಕೆ_3[i] != ಎಣಿಕೆ_5)
+            ಬರೆ ("error: %d %d\n", i, ಎಣಿಕೆ_3[i]);
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

@@ -1,4 +1,4 @@
-#define a() YES
-#define b() a
+#ವ್ಯಾಖ್ಯಾನಿಸು a() YES
+#ವ್ಯಾಖ್ಯಾನಿಸು b() a
 b()
 b()()

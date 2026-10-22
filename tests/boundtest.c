@@ -1,236 +1,236 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
 
-#define NB_ITS 1000000
+#ವ್ಯಾಖ್ಯಾನಿಸು NB_ITS 1000000
 //#define NB_ITS 1
-#define TAB_SIZE 100
+#ವ್ಯಾಖ್ಯಾನಿಸು TAB_ಗಾತ್ರ 100
 
-int tab[TAB_SIZE];
-int ret_sum;
-char tab3[256];
+ಪೂರ್ಣಾಂಕ tab[TAB_ಗಾತ್ರ];
+ಪೂರ್ಣಾಂಕ ret_ಮೊತ್ತ;
+ಅಕ್ಷರ tab3[256];
 
-int test1(void)
+ಪೂರ್ಣಾಂಕ test1(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE;i++) {
-        sum += tab[i];
+    ಪೂರ್ಣಾಂಕ i, ಮೊತ್ತ = 0;
+    ಗಾಗಿ(i=0;i<TAB_ಗಾತ್ರ;i++) {
+        ಮೊತ್ತ += tab[i];
     }
-    return sum;
+    ಹಿಂತಿರುಗಿ ಮೊತ್ತ;
 }
 
 /* error */
-int test2(void)
+ಪೂರ್ಣಾಂಕ test2(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE + 1;i++) {
-        sum += tab[i];
+    ಪೂರ್ಣಾಂಕ i, ಮೊತ್ತ = 0;
+    ಗಾಗಿ(i=0;i<TAB_ಗಾತ್ರ + 1;i++) {
+        ಮೊತ್ತ += tab[i];
     }
-    return sum;
+    ಹಿಂತಿರುಗಿ ಮೊತ್ತ;
 }
 
 /* actually, profiling test */
-int test3(void)
+ಪೂರ್ಣಾಂಕ test3(ಶೂನ್ಯ)
 {
-    int sum;
-    int i, it;
+    ಪೂರ್ಣಾಂಕ ಮೊತ್ತ;
+    ಪೂರ್ಣಾಂಕ i, it;
 
-    sum = 0;
-    for(it=0;it<NB_ITS;it++) {
-        for(i=0;i<TAB_SIZE;i++) {
-            sum += tab[i];
+    ಮೊತ್ತ = 0;
+    ಗಾಗಿ(it=0;it<NB_ITS;it++) {
+        ಗಾಗಿ(i=0;i<TAB_ಗಾತ್ರ;i++) {
+            ಮೊತ್ತ += tab[i];
         }
     }
-    return sum;
+    ಹಿಂತಿರುಗಿ ಮೊತ್ತ;
 }
 
 /* ok */
-int test4(void)
+ಪೂರ್ಣಾಂಕ test4(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    int *tab4;
+    ಪೂರ್ಣಾಂಕ i, ಮೊತ್ತ = 0;
+    ಪೂರ್ಣಾಂಕ *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<20;i++) {
-        sum += tab4[i];
+    tab4 = ಸ್ಮರಣೆ_ಕೊಡು(20 * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
+    ಗಾಗಿ(i=0;i<20;i++) {
+        ಮೊತ್ತ += tab4[i];
     }
-    free(tab4);
+    ಬಿಡುಗಡೆ(tab4);
 
-    return sum;
+    ಹಿಂತಿರುಗಿ ಮೊತ್ತ;
 }
 
 /* error */
-int test5(void)
+ಪೂರ್ಣಾಂಕ test5(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    int *tab4;
+    ಪೂರ್ಣಾಂಕ i, ಮೊತ್ತ = 0;
+    ಪೂರ್ಣಾಂಕ *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<21;i++) {
-        sum += tab4[i];
+    tab4 = ಸ್ಮರಣೆ_ಕೊಡು(20 * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
+    ಗಾಗಿ(i=0;i<21;i++) {
+        ಮೊತ್ತ += tab4[i];
     }
-    free(tab4);
+    ಬಿಡುಗಡೆ(tab4);
 
-    return sum;
+    ಹಿಂತಿರುಗಿ ಮೊತ್ತ;
 }
 
 /* error */
-int test6(void)
+ಪೂರ್ಣಾಂಕ test6(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    int *tab4;
+    ಪೂರ್ಣಾಂಕ i, ಮೊತ್ತ = 0;
+    ಪೂರ್ಣಾಂಕ *tab4;
     
-    tab4 = malloc(20 * sizeof(int));
-    free(tab4);
-    for(i=0;i<21;i++) {
-        sum += tab4[i];
+    tab4 = ಸ್ಮರಣೆ_ಕೊಡು(20 * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
+    ಬಿಡುಗಡೆ(tab4);
+    ಗಾಗಿ(i=0;i<21;i++) {
+        ಮೊತ್ತ += tab4[i];
     }
 
-    return sum;
+    ಹಿಂತಿರುಗಿ ಮೊತ್ತ;
 }
 
 /* error */
-int test7(void)
+ಪೂರ್ಣಾಂಕ test7(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    int *p;
+    ಪೂರ್ಣಾಂಕ i, ಮೊತ್ತ = 0;
+    ಪೂರ್ಣಾಂಕ *p;
 
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    ಗಾಗಿ(i=0;i<TAB_ಗಾತ್ರ + 1;i++) {
         p = &tab[i];
-        if (i == TAB_SIZE)
-            printf("i=%d %x\n", i, p);
-        sum += *p;
+        ಆದರೆ (i == TAB_ಗಾತ್ರ)
+            ಬರೆ("i=%d %x\n", i, p);
+        ಮೊತ್ತ += *p;
     }
-    return sum;
+    ಹಿಂತಿರುಗಿ ಮೊತ್ತ;
 }
 
 /* ok */
-int test8(void)
+ಪೂರ್ಣಾಂಕ test8(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    int tab[10];
+    ಪೂರ್ಣಾಂಕ i, ಮೊತ್ತ = 0;
+    ಪೂರ್ಣಾಂಕ tab[10];
 
-    for(i=0;i<10;i++) {
-        sum += tab[i];
+    ಗಾಗಿ(i=0;i<10;i++) {
+        ಮೊತ್ತ += tab[i];
     }
-    return sum;
+    ಹಿಂತಿರುಗಿ ಮೊತ್ತ;
 }
 
 /* error */
-int test9(void)
+ಪೂರ್ಣಾಂಕ test9(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    char tab[10];
+    ಪೂರ್ಣಾಂಕ i, ಮೊತ್ತ = 0;
+    ಅಕ್ಷರ tab[10];
 
-    for(i=0;i<11;i++) {
-        sum += tab[i];
+    ಗಾಗಿ(i=0;i<11;i++) {
+        ಮೊತ್ತ += tab[i];
     }
-    return sum;
+    ಹಿಂತಿರುಗಿ ಮೊತ್ತ;
 }
 
 /* ok */
-int test10(void)
+ಪೂರ್ಣಾಂಕ test10(ಶೂನ್ಯ)
 {
-    char tab[10];
-    char tab1[10];
+    ಅಕ್ಷರ tab[10];
+    ಅಕ್ಷರ tab1[10];
 
     memset(tab, 0, 10);
-    memcpy(tab, tab1, 10);
+    ಸ್ಮರಣೆ_ನಕಲು(tab, tab1, 10);
     memmove(tab, tab1, 10);
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* error */
-int test11(void)
+ಪೂರ್ಣಾಂಕ test11(ಶೂನ್ಯ)
 {
-    char tab[10];
+    ಅಕ್ಷರ tab[10];
 
     memset(tab, 0, 11);
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* error */
-int test12(void)
+ಪೂರ್ಣಾಂಕ test12(ಶೂನ್ಯ)
 {
-    void *ptr;
-    ptr = malloc(10);
-    free(ptr);
-    free(ptr);
-    return 0;
+    ಶೂನ್ಯ *ptr;
+    ptr = ಸ್ಮರಣೆ_ಕೊಡು(10);
+    ಬಿಡುಗಡೆ(ptr);
+    ಬಿಡುಗಡೆ(ptr);
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* error */
-int test13(void)
+ಪೂರ್ಣಾಂಕ test13(ಶೂನ್ಯ)
 {
-    char pad1 = 0;
-    char tab[10];
-    char pad2 = 0;
-    memset(tab, 'a', sizeof(tab));
-    return strlen(tab);
+    ಅಕ್ಷರ pad1 = 0;
+    ಅಕ್ಷರ tab[10];
+    ಅಕ್ಷರ pad2 = 0;
+    memset(tab, 'a', ಗಾತ್ರ(tab));
+    ಹಿಂತಿರುಗಿ ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(tab);
 }
 
-int test14(void)
+ಪೂರ್ಣಾಂಕ test14(ಶೂನ್ಯ)
 {
-    char *p = alloca(TAB_SIZE);
-    size_t ret;
-    memset(p, 'a', TAB_SIZE);
-    p[TAB_SIZE-1] = 0;
-    ret = strlen(p);
-    return ret;
+    ಅಕ್ಷರ *p = alloca(TAB_ಗಾತ್ರ);
+    ಗಾತ್ರ_t ret;
+    memset(p, 'a', TAB_ಗಾತ್ರ);
+    p[TAB_ಗಾತ್ರ-1] = 0;
+    ret = ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(p);
+    ಹಿಂತಿರುಗಿ ret;
 }
 
 /* error */
-int test15(void)
+ಪೂರ್ಣಾಂಕ test15(ಶೂನ್ಯ)
 {
-    char *p = alloca(TAB_SIZE-1);
-    size_t ret;
-    memset(p, 'a', TAB_SIZE);
-    p[TAB_SIZE-1] = 0;
-    ret = strlen(p);
-    return ret;
+    ಅಕ್ಷರ *p = alloca(TAB_ಗಾತ್ರ-1);
+    ಗಾತ್ರ_t ret;
+    memset(p, 'a', TAB_ಗಾತ್ರ);
+    p[TAB_ಗಾತ್ರ-1] = 0;
+    ret = ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(p);
+    ಹಿಂತಿರುಗಿ ret;
 }
 
 /* ok */
-int test16()
+ಪೂರ್ಣಾಂಕ test16()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    ಅಕ್ಷರ *demo = "This is only a test.";
+    ಅಕ್ಷರ *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
 
     /* Test alloca embedded in a larger expression */
-    printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)+1),demo) );
+    ಬರೆ("alloca : %s : %s\n", p, strcpy(q=alloca(ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(demo)+1),demo) );
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* error */
-int test17()
+ಪೂರ್ಣಾಂಕ test17()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    ಅಕ್ಷರ *demo = "This is only a test.";
+    ಅಕ್ಷರ *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
 
     /* Test alloca embedded in a larger expression */
-    printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)),demo) );
+    ಬರೆ("alloca : %s : %s\n", p, strcpy(q=alloca(ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(demo)),demo) );
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-int test18(void)
+ಪೂರ್ಣಾಂಕ test18(ಶೂನ್ಯ)
 {
-    int i, sum = 0, n = TAB_SIZE;
-    int tab[n];
-    for(i=0;i<TAB_SIZE+1;i++) {
-        sum += tab[i];
+    ಪೂರ್ಣಾಂಕ i, ಮೊತ್ತ = 0, n = TAB_ಗಾತ್ರ;
+    ಪೂರ್ಣಾಂಕ tab[n];
+    ಗಾಗಿ(i=0;i<TAB_ಗಾತ್ರ+1;i++) {
+        ಮೊತ್ತ += tab[i];
     }
-    return sum;
+    ಹಿಂತಿರುಗಿ ಮೊತ್ತ;
 }
 
-int (*table_test[])(void) = {
+ಪೂರ್ಣಾಂಕ (*ಕೋಷ್ಟಕ_test[])(ಶೂನ್ಯ) = {
     test1,
     test2,
     test3,
@@ -251,44 +251,44 @@ int (*table_test[])(void) = {
     test18
 };
 
-int main(int argc, char **argv)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv)
 {
-    int i;
-    char *cp;
-    int index;
-    int (*ftest)(void);
-    int index_max = sizeof(table_test)/sizeof(table_test[0]);
+    ಪೂರ್ಣಾಂಕ i;
+    ಅಕ್ಷರ *cp;
+    ಪೂರ್ಣಾಂಕ ಸೂಚ್ಯಂಕ;
+    ಪೂರ್ಣಾಂಕ (*ftest)(ಶೂನ್ಯ);
+    ಪೂರ್ಣಾಂಕ ಸೂಚ್ಯಂಕ_max = ಗಾತ್ರ(ಕೋಷ್ಟಕ_test)/ಗಾತ್ರ(ಕೋಷ್ಟಕ_test[0]);
 
     /* check bounds checking main arg */
-    for (i = 0; i < argc; i++) {
+    ಗಾಗಿ (i = 0; i < argc; i++) {
         cp = argv[i];
-        while (*cp) {
+        ಆಗ (*cp) {
             cp++;
         }
     }
 
-    if (argc < 2) {
-        printf(
+    ಆದರೆ (argc < 2) {
+        ಬರೆ(
     	    "test TCC bound checking system\n"
 	    "usage: boundtest N\n"
-            "  1 <= N <= %d\n", index_max);
-        exit(1);
+            "  1 <= N <= %d\n", ಸೂಚ್ಯಂಕ_max);
+        ನಿರ್ಗಮಿಸು(1);
     }
 
-    index = 0;
-    if (argc >= 2)
-        index = atoi(argv[1]) - 1;
+    ಸೂಚ್ಯಂಕ = 0;
+    ಆದರೆ (argc >= 2)
+        ಸೂಚ್ಯಂಕ = atoi(argv[1]) - 1;
 
-    if ((index < 0) || (index >= index_max)) {
-        printf("N is outside of the valid range (%d)\n", index);
-        exit(2);
+    ಆದರೆ ((ಸೂಚ್ಯಂಕ < 0) || (ಸೂಚ್ಯಂಕ >= ಸೂಚ್ಯಂಕ_max)) {
+        ಬರೆ("N is outside of the valid range (%d)\n", ಸೂಚ್ಯಂಕ);
+        ನಿರ್ಗಮಿಸು(2);
     }
 
     /* well, we also use bounds on this ! */
-    ftest = table_test[index];
+    ftest = ಕೋಷ್ಟಕ_test[ಸೂಚ್ಯಂಕ];
     ftest();
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /*

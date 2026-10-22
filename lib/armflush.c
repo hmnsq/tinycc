@@ -5,12 +5,12 @@
    itself needs this function */
 
 /* ------------------------------------------------------------- */
-#if defined __arm__
+#ಆದರೆ defined __arm__
 
-#ifdef __TINYC__
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __TINYC__
 
 /* syscall wrapper */
-unsigned _tccsyscall(unsigned syscall_nr, ...);
+ಚಿಹ್ನೆರಹಿತ _tccsyscall(ಚಿಹ್ನೆರಹಿತ syscall_nr, ...);
 
 /* arm-tcc supports only fake asm currently */
 __asm__(
@@ -26,45 +26,45 @@ __asm__(
     );
 
 /* from unistd.h: */
-#if defined(__thumb__) || defined(__ARM_EABI__)
+#ಆದರೆ defined(__thumb__) || defined(__ARM_EABI__)
 # define __NR_SYSCALL_BASE      0x0
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define __NR_SYSCALL_BASE      0x900000
-#endif
-#define __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
-#define __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿಸು __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
+#ವ್ಯಾಖ್ಯಾನಿಸು __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
 
-#define syscall _tccsyscall
+#ವ್ಯಾಖ್ಯಾನಿಸು syscall _tccsyscall
 
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <stdio.h>
+#ವ್ಯಾಖ್ಯಾನಿಸು GNU_ಮೂಲ
+#ಅನ್ತರ್ಭಾವ <unistd.h>
+#ಅನ್ತರ್ಭಾವ <sys/syscall.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* Flushing for tccrun */
-void __clear_cache(void *beginning, void *end)
+ಶೂನ್ಯ __clear_cache(ಶೂನ್ಯ *beginning, ಶೂನ್ಯ *ಕೊನೆ)
 {
 /* __ARM_NR_cacheflush is kernel private and should not be used in user space.
  * However, there is no ARM asm parser in tcc so we use it for now */
-    syscall(__ARM_NR_cacheflush, beginning, end, 0);
+    syscall(__ARM_NR_cacheflush, beginning, ಕೊನೆ, 0);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __aarch64__
-void __clear_cache(void *beg, void *end)
+#ಅಥವಾಆದರೆ defined __aarch64__
+ಶೂನ್ಯ __clear_cache(ಶೂನ್ಯ *beg, ಶೂನ್ಯ *ಕೊನೆ)
 {
-    __arm64_clear_cache(beg, end);
+    __arm64_clear_cache(beg, ಕೊನೆ);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __riscv
-void __clear_cache(void *beg, void *end)
+#ಅಥವಾಆದರೆ defined __riscv
+ಶೂನ್ಯ __clear_cache(ಶೂನ್ಯ *beg, ಶೂನ್ಯ *ಕೊನೆ)
 {
-    __riscv64_clear_cache(beg, end);
+    __riscv64_clear_cache(beg, ಕೊನೆ);
 }
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

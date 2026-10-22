@@ -1,11 +1,11 @@
-#ifndef _STDBOOL_H
-#define _STDBOOL_H
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _STDBOOL_H
+#ವ್ಯಾಖ್ಯಾನಿಸು _STDBOOL_H
 
 /* ISOC99 boolean */
 
-#define bool	_Bool
-#define true	1
-#define false	0
-#define __bool_true_false_are_defined 1
+#ವ್ಯಾಖ್ಯಾನಿಸು bool	_Bool
+#ವ್ಯಾಖ್ಯಾನಿಸು true	1
+#ವ್ಯಾಖ್ಯಾನಿಸು false	0
+#ವ್ಯಾಖ್ಯಾನಿಸು __bool_true_false_are_defined 1
 
-#endif /* _STDBOOL_H */
+#ಆದರೆ_ಅಂತ್ಯ /* _STDBOOL_H */

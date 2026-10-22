@@ -1,86 +1,86 @@
 //+---------------------------------------------------------------------------
 
 // _UNICODE for tchar.h, UNICODE for API
-#include <tchar.h>
+#ಅನ್ತರ್ಭಾವ <tchar.h>
 
-#include <windows.h>
-#include <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <windows.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
 
-#define __UNKNOWN_APP    0
-#define __CONSOLE_APP    1
-#define __GUI_APP        2
-void __set_app_type(int);
-void _controlfp(unsigned a, unsigned b);
+#ವ್ಯಾಖ್ಯಾನಿಸು __UNKNOWN_APP    0
+#ವ್ಯಾಖ್ಯಾನಿಸು __CONSOLE_APP    1
+#ವ್ಯಾಖ್ಯಾನಿಸು __GUI_APP        2
+ಶೂನ್ಯ __set_app_type(ಪೂರ್ಣಾಂಕ);
+ಶೂನ್ಯ _controlfp(ಚಿಹ್ನೆರಹಿತ a, ಚಿಹ್ನೆರಹಿತ b);
 
-#ifdef _UNICODE
-#define __tgetmainargs __wgetmainargs
-#define _twinstart _wwinstart
-#define _runtwinmain _runwwinmain
-int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int);
-#else
-#define __tgetmainargs __getmainargs
-#define _twinstart _winstart
-#define _runtwinmain _runwinmain
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _UNICODE
+#ವ್ಯಾಖ್ಯಾನಿಸು __tgetmainargs __wgetmainargs
+#ವ್ಯಾಖ್ಯಾನಿಸು _twinstart _wwinstart
+#ವ್ಯಾಖ್ಯಾನಿಸು _runtwinmain _runwwinmain
+ಪೂರ್ಣಾಂಕ APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, ಪೂರ್ಣಾಂಕ);
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು __tgetmainargs __getmainargs
+#ವ್ಯಾಖ್ಯಾನಿಸು _twinstart _winstart
+#ವ್ಯಾಖ್ಯಾನಿಸು _runtwinmain _runwinmain
+#ಆದರೆ_ಅಂತ್ಯ
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ { ಪೂರ್ಣಾಂಕ newmode; } _startupinfo;
+ಪೂರ್ಣಾಂಕ __cdecl __tgetmainargs(ಪೂರ್ಣಾಂಕ *pargc, _TCHAR ***pargv, _TCHAR ***penv, ಪೂರ್ಣಾಂಕ globb, _startupinfo*);
 
-#include "crtinit.c"
+#ಅನ್ತರ್ಭಾವ "crtinit.c"
 
-static int go_winmain(TCHAR *arg1)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ go_winmain(TCHAR *arg1)
 {
     STARTUPINFO si;
     _TCHAR *szCmd, *p;
-    int fShow;
-    int retval;
+    ಪೂರ್ಣಾಂಕ fShow;
+    ಪೂರ್ಣಾಂಕ retval;
 
     GetStartupInfo(&si);
-    if (si.dwFlags & STARTF_USESHOWWINDOW)
-        fShow = si.wShowWindow;
-    else
+    ಆದರೆ (si.dwFlags & STARTF_USESHOWWINDOW)
+        fShow = si.w_Show_ಕಿಟಕಿ;
+    ಇಲ್ಲದಿದ್ದರೆ
         fShow = SW_SHOWDEFAULT;
 
-    szCmd = NULL, p = GetCommandLine();
-    if (arg1)
+    szCmd = ಖಾಲಿ, p = Get_Command_ಸಾಲು();
+    ಆದರೆ (arg1)
         szCmd = _tcsstr(p, arg1);
-    if (NULL == szCmd)
+    ಆದರೆ (ಖಾಲಿ == szCmd)
         szCmd = _tcsdup(__T(""));
-    else if (szCmd > p && szCmd[-1] == __T('"'))
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (szCmd > p && szCmd[-1] == __T('"'))
         --szCmd;
-#if defined __i386__ || defined __x86_64__
+#ಆದರೆ defined __i386__ || defined __x86_64__
     _controlfp(0x10000, 0x30000);
-#endif
-    run_ctors(__argc, __targv, _tenviron);
-    retval = _tWinMain(GetModuleHandle(NULL), NULL, szCmd, fShow);
-    run_dtors();
-    return retval;
+#ಆದರೆ_ಅಂತ್ಯ
+    ಸತತ_ctors(__argc, __targv, _tenviron);
+    retval = _tWinMain(GetModuleHandle(ಖಾಲಿ), ಖಾಲಿ, szCmd, fShow);
+    ಸತತ_dtors();
+    ಹಿಂತಿರುಗಿ retval;
 }
 
-static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
+ಸ್ಥಿರ LONG WINAPI catch_sig(EXCEPTION_ಸೂಚಕಗಳು *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  ಹಿಂತಿರುಗಿ _XcptFilter(ex->Exception_ದಾಖಲೆ->Exception_ಸಂಕೇತ, ex);
 }
 
-int _twinstart(void)
+ಪೂರ್ಣಾಂಕ _twinstart(ಶೂನ್ಯ)
 {
-    _startupinfo start_info_con = {0};
-    SetUnhandledExceptionFilter(catch_sig);
+    _startupinfo ಆರಂಭ_info_con = {0};
+    ಗಣ_Unhandled_Exception_Filter(catch_sig);
     __set_app_type(__GUI_APP);
-    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info_con);
-    exit(go_winmain(__argc > 1 ? __targv[1] : NULL));
+    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &ಆರಂಭ_info_con);
+    ನಿರ್ಗಮಿಸು(go_winmain(__argc > 1 ? __targv[1] : ಖಾಲಿ));
 }
 
-int _runtwinmain(int argc, /* as tcc passed in */ char **argv)
+ಪೂರ್ಣಾಂಕ _runtwinmain(ಪೂರ್ಣಾಂಕ argc, /* as tcc passed in */ ಅಕ್ಷರ **argv)
 {
-#ifdef UNICODE
-    _startupinfo start_info = {0};
-    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ UNICODE
+    _startupinfo ಆರಂಭ_info = {0};
+    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &ಆರಂಭ_info);
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc)
+    ಆದರೆ (argc < __argc)
         __targv += __argc - argc, __argc = argc;
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
     __argc = argc, __targv = argv;
-#endif
-    return go_winmain(__argc > 1 ? __targv[1] : NULL);
+#ಆದರೆ_ಅಂತ್ಯ
+    ಹಿಂತಿರುಗಿ go_winmain(__argc > 1 ? __targv[1] : ಖಾಲಿ);
 }

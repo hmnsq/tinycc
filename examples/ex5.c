@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    printf("Hello World\n");
-    return 0;
+    ಬರೆ("Hello World\n");
+    ಹಿಂತಿರುಗಿ 0;
 }

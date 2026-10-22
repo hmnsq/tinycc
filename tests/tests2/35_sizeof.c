@@ -1,30 +1,30 @@
-int printf(const char*, ...);
+ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ*, ...);
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    char a;
-    short b;
+    ಅಕ್ಷರ a;
+    ಗಿಡ್ಡ b;
 
-    printf("sizeof a : %d %d\n", sizeof(char), sizeof(a));
-    printf("sizeof b : %d %d\n", sizeof(short), sizeof(b));
+    ಬರೆ("sizeof a : %d %d\n", ಗಾತ್ರ(ಅಕ್ಷರ), ಗಾತ್ರ(a));
+    ಬರೆ("sizeof b : %d %d\n", ಗಾತ್ರ(ಗಿಡ್ಡ), ಗಾತ್ರ(b));
 
-    int ii[] = {}; /* gnu extension, size = 0 */
-    printf("sizeof ii : %d\n", sizeof ii);
+    ಪೂರ್ಣಾಂಕ ii[] = {}; /* gnu extension, size = 0 */
+    ಬರೆ("sizeof ii : %d\n", ಗಾತ್ರ ii);
 
-    int kk[] = { 1 };
-    printf("sizeof kk : %d\n", sizeof kk);
+    ಪೂರ್ಣಾಂಕ kk[] = { 1 };
+    ಬರೆ("sizeof kk : %d\n", ಗಾತ್ರ kk);
 
-    char cc[] = "12";
-    printf("sizeof cc : %d\n", sizeof cc);
+    ಅಕ್ಷರ cc[] = "12";
+    ಬರೆ("sizeof cc : %d\n", ಗಾತ್ರ cc);
 
     __WCHAR_TYPE__ ll[] = L"12345";
-    printf("len-of ll : %d\n", sizeof ll / sizeof ll[0]);
+    ಬರೆ("len-of ll : %d\n", ಗಾತ್ರ ll / ಗಾತ್ರ ll[0]);
 
-    static struct {
-        int a,b,c;
-        int d[];
+    ಸ್ಥಿರ ರಚನೆ {
+        ಪೂರ್ಣಾಂಕ a,b,c;
+        ಪೂರ್ಣಾಂಕ d[];
     } ss[] = {{ 1, 2, 3, {} }};
-    printf("sizeof ss : %d\n", sizeof ss);
+    ಬರೆ("sizeof ss : %d\n", ಗಾತ್ರ ss);
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

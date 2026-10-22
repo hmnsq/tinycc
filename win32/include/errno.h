@@ -3,73 +3,73 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_ERRNO
-#define _INC_ERRNO
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INC_ERRNO
+#ವ್ಯಾಖ್ಯಾನಿಸು _INC_ERRNO
 
-#include <_mingw.h>
+#ಅನ್ತರ್ಭಾವ <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _CRT_ERRNO_DEFINED
-#define _CRT_ERRNO_DEFINED
-  _CRTIMP int *__cdecl _errno(void);
-#define errno (*_errno())
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _CRT_ERRNO_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _CRT_ERRNO_DEFINED
+  _CRTIMP ಪೂರ್ಣಾಂಕ *__cdecl _errno(ಶೂನ್ಯ);
+#ವ್ಯಾಖ್ಯಾನಿಸು errno (*_errno())
 
-  errno_t __cdecl _set_errno(int _Value);
-  errno_t __cdecl _get_errno(int *_Value);
-#endif
+  errno_t __cdecl ಗಣ_errno(ಪೂರ್ಣಾಂಕ ಮೌಲ್ಯ_2);
+  errno_t __cdecl _get_errno(ಪೂರ್ಣಾಂಕ *ಮೌಲ್ಯ_2);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define EPERM 1
-#define ENOENT 2
-#define ESRCH 3
-#define EINTR 4
-#define EIO 5
-#define ENXIO 6
-#define E2BIG 7
-#define ENOEXEC 8
-#define EBADF 9
-#define ECHILD 10
-#define EAGAIN 11
-#define ENOMEM 12
-#define EACCES 13
-#define EFAULT 14
-#define EBUSY 16
-#define EEXIST 17
-#define EXDEV 18
-#define ENODEV 19
-#define ENOTDIR 20
-#define EISDIR 21
-#define ENFILE 23
-#define EMFILE 24
-#define ENOTTY 25
-#define EFBIG 27
-#define ENOSPC 28
-#define ESPIPE 29
-#define EROFS 30
-#define EMLINK 31
-#define EPIPE 32
-#define EDOM 33
-#define EDEADLK 36
-#define ENAMETOOLONG 38
-#define ENOLCK 39
-#define ENOSYS 40
-#define ENOTEMPTY 41
+#ವ್ಯಾಖ್ಯಾನಿಸು EPERM 1
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOENT 2
+#ವ್ಯಾಖ್ಯಾನಿಸು ESRCH 3
+#ವ್ಯಾಖ್ಯಾನಿಸು EINTR 4
+#ವ್ಯಾಖ್ಯಾನಿಸು EIO 5
+#ವ್ಯಾಖ್ಯಾನಿಸು ENXIO 6
+#ವ್ಯಾಖ್ಯಾನಿಸು E2BIG 7
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOEXEC 8
+#ವ್ಯಾಖ್ಯಾನಿಸು EBADF 9
+#ವ್ಯಾಖ್ಯಾನಿಸು ECHILD 10
+#ವ್ಯಾಖ್ಯಾನಿಸು EAGAIN 11
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOMEM 12
+#ವ್ಯಾಖ್ಯಾನಿಸು EACCES 13
+#ವ್ಯಾಖ್ಯಾನಿಸು EFAULT 14
+#ವ್ಯಾಖ್ಯಾನಿಸು EBUSY 16
+#ವ್ಯಾಖ್ಯಾನಿಸು EEXIST 17
+#ವ್ಯಾಖ್ಯಾನಿಸು EXDEV 18
+#ವ್ಯಾಖ್ಯಾನಿಸು ENODEV 19
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOTDIR 20
+#ವ್ಯಾಖ್ಯಾನಿಸು EISDIR 21
+#ವ್ಯಾಖ್ಯಾನಿಸು ENFILE 23
+#ವ್ಯಾಖ್ಯಾನಿಸು EMFILE 24
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOTTY 25
+#ವ್ಯಾಖ್ಯಾನಿಸು EFBIG 27
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOSPC 28
+#ವ್ಯಾಖ್ಯಾನಿಸು ESPIPE 29
+#ವ್ಯಾಖ್ಯಾನಿಸು EROFS 30
+#ವ್ಯಾಖ್ಯಾನಿಸು EMLINK 31
+#ವ್ಯಾಖ್ಯಾನಿಸು EPIPE 32
+#ವ್ಯಾಖ್ಯಾನಿಸು EDOM 33
+#ವ್ಯಾಖ್ಯಾನಿಸು EDEADLK 36
+#ವ್ಯಾಖ್ಯಾನಿಸು ENAMETOOLONG 38
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOLCK 39
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOSYS 40
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOTEMPTY 41
 
-#ifndef RC_INVOKED
-#if !defined(_SECURECRT_ERRCODE_VALUES_DEFINED)
-#define _SECURECRT_ERRCODE_VALUES_DEFINED
-#define EINVAL 22
-#define ERANGE 34
-#define EILSEQ 42
-#define STRUNCATE 80
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ RC_INVOKED
+#ಆದರೆ !defined(SECURECRT_ERRCODE_ಮೌಲ್ಯಗಳು_DEFINED)
+#ವ್ಯಾಖ್ಯಾನಿಸು SECURECRT_ERRCODE_ಮೌಲ್ಯಗಳು_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು EINVAL 22
+#ವ್ಯಾಖ್ಯಾನಿಸು ERANGE 34
+#ವ್ಯಾಖ್ಯಾನಿಸು EILSEQ 42
+#ವ್ಯಾಖ್ಯಾನಿಸು STRUNCATE 80
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define EDEADLOCK EDEADLK
+#ವ್ಯಾಖ್ಯಾನಿಸು EDEADLOCK EDEADLK
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ

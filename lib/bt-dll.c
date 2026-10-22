@@ -1,10 +1,10 @@
 /* ------------------------------------------------------------- */
 /* stubs for calling bcheck functions from a dll. */
 
-#include <windows.h>
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <windows.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-#define REDIR_ALL \
+#ವ್ಯಾಖ್ಯಾನಿಸು REDIR_ALL \
   REDIR(__bt_init) \
   REDIR(__bt_exit) \
   REDIR(tcc_backtrace) \
@@ -40,21 +40,21 @@
   REDIR(__bound_setjmp) \
   REDIR(__bound_longjmp)
 
-#ifdef __leading_underscore
-#define _(s) "_"#s
-#else
-#define _(s) #s
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __leading_underscore
+#ವ್ಯಾಖ್ಯಾನಿಸು _(s) "_"#s
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು _(s) #s
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define REDIR(s) void *s;
-static struct { REDIR_ALL } all_ptrs;
-#undef REDIR
+#ವ್ಯಾಖ್ಯಾನಿಸು REDIR(s) ಶೂನ್ಯ *s;
+ಸ್ಥಿರ ರಚನೆ { REDIR_ALL } all_ptrs;
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು REDIR
 
-#define REDIR(s) #s"\0"
-static const char all_names[] = REDIR_ALL;
-#undef REDIR
+#ವ್ಯಾಖ್ಯಾನಿಸು REDIR(s) #s"\0"
+ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ all_ಹೆಸರುಗಳು[] = REDIR_ALL;
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು REDIR
 
-#if __aarch64__
+#ಆದರೆ __aarch64__
 # define REDIR(s) \
     __asm__(".global "_(s)";"_(s)":"); \
     __asm__(".int 0x58000090"); /* ldr x16, [pc, #16] */ \
@@ -66,30 +66,30 @@ static const char all_names[] = REDIR_ALL;
 
     __asm__(".text\n.align 8\nall_jmps:");
     REDIR_ALL
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define REDIR(s) \
-    __asm__(".global "_(s)";"_(s)":"); goto *all_ptrs.s;
-    static void all_jmps() { REDIR_ALL }
-#endif
-#undef REDIR
+    __asm__(".global "_(s)";"_(s)":"); ಹೋಗು *all_ptrs.s;
+    ಸ್ಥಿರ ಶೂನ್ಯ all_jmps() { REDIR_ALL }
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು REDIR
 
-void __bt_init_dll(int bcheck)
+ಶೂನ್ಯ __bt_init_dll(ಪೂರ್ಣಾಂಕ bcheck)
 {
-    const char *s = all_names;
-    void **p = (void**)&all_ptrs;
-    do {
-        *p = (void*)GetProcAddress(GetModuleHandle(NULL), (char*)s);
-        if (NULL == *p) {
-            char buf[100];
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s = all_ಹೆಸರುಗಳು;
+    ಶೂನ್ಯ **p = (ಶೂನ್ಯ**)&all_ptrs;
+    ಮಾಡು {
+        *p = (ಶೂನ್ಯ*)Get_Proc_ವಿಳಾಸ(GetModuleHandle(ಖಾಲಿ), (ಅಕ್ಷರ*)s);
+        ಆದರೆ (ಖಾಲಿ == *p) {
+            ಅಕ್ಷರ buf[100];
             sprintf(buf,
                 "Error: function '%s()' not found in executable. "
                 "(Need -bt or -b for linking the exe.)", s);
-            if (GetStdHandle(STD_ERROR_HANDLE))
+            ಆದರೆ (GetStdHandle(STD_ERROR_HANDLE))
                 fprintf(stderr, "TCC/BCHECK: %s\n", buf), fflush(stderr);
-            else
-                MessageBox(NULL, buf, "TCC/BCHECK", MB_ICONERROR);
+            ಇಲ್ಲದಿದ್ದರೆ
+                ಸಂದೇಶ_Box(ಖಾಲಿ, buf, "TCC/BCHECK", MB_ICONERROR);
             ExitProcess(1);
         }
         s = strchr(s,'\0') + 1, ++p;
-    } while (*s && (bcheck || p < &all_ptrs.__bound_ptr_add));
+    } ಆಗ (*s && (bcheck || p < &all_ptrs.__bound_ptr_add));
 }

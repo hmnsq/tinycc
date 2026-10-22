@@ -3,154 +3,154 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef GUID_DEFINED
-#define GUID_DEFINED
-typedef struct _GUID {
-  unsigned long Data1;
-  unsigned short Data2;
-  unsigned short Data3;
-  unsigned char Data4[8 ];
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ GUID_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು GUID_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _GUID {
+  ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ Data1;
+  ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ Data2;
+  ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ Data3;
+  ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ Data4[8 ];
 } GUID;
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef UUID_DEFINED
-#define UUID_DEFINED
-typedef GUID UUID;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ UUID_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು UUID_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ GUID UUID;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef FAR
-#define FAR
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ FAR
+#ವ್ಯಾಖ್ಯಾನಿಸು FAR
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef DECLSPEC_SELECTANY
-#define DECLSPEC_SELECTANY __declspec(selectany)
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ DECLSPEC_SELECTANY
+#ವ್ಯಾಖ್ಯಾನಿಸು DECLSPEC_SELECTANY __declspec(selectany)
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef EXTERN_C
-#ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ EXTERN_C
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿಸು EXTERN_C ಬಾಹ್ಯ "C"
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು EXTERN_C ಬಾಹ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef DEFINE_GUID
-#undef DEFINE_GUID
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ DEFINE_GUID
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು DEFINE_GUID
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef INITGUID
-#ifdef __cplusplus
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#else
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#endif
-#else
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID name
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ INITGUID
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿಸು DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C ಸ್ಥಿರಾಂಕ GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) ಸ್ಥಿರಾಂಕ GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
+#ಆದರೆ_ಅಂತ್ಯ
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C ಸ್ಥಿರಾಂಕ GUID name
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define DEFINE_OLEGUID(name,l,w1,w2) DEFINE_GUID(name,l,w1,w2,0xC0,0,0,0,0,0,0,0x46)
+#ವ್ಯಾಖ್ಯಾನಿಸು DEFINE_OLEGUID(name,l,w1,w2) DEFINE_GUID(name,l,w1,w2,0xC0,0,0,0,0,0,0,0x46)
 
-#ifndef _GUIDDEF_H_
-#define _GUIDDEF_H_
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _GUIDDEF_H_
+#ವ್ಯಾಖ್ಯಾನಿಸು _GUIDDEF_H_
 
-#ifndef __LPGUID_DEFINED__
-#define __LPGUID_DEFINED__
-typedef GUID *LPGUID;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __LPGUID_DEFINED__
+#ವ್ಯಾಖ್ಯಾನಿಸು __LPGUID_DEFINED__
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ GUID *LPGUID;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef __LPCGUID_DEFINED__
-#define __LPCGUID_DEFINED__
-typedef const GUID *LPCGUID;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __LPCGUID_DEFINED__
+#ವ್ಯಾಖ್ಯಾನಿಸು __LPCGUID_DEFINED__
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಸ್ಥಿರಾಂಕ GUID *LPCGUID;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef __IID_DEFINED__
-#define __IID_DEFINED__
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __IID_DEFINED__
+#ವ್ಯಾಖ್ಯಾನಿಸು __IID_DEFINED__
 
-typedef GUID IID;
-typedef IID *LPIID;
-#define IID_NULL GUID_NULL
-#define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
-typedef GUID CLSID;
-typedef CLSID *LPCLSID;
-#define CLSID_NULL GUID_NULL
-#define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
-typedef GUID FMTID;
-typedef FMTID *LPFMTID;
-#define FMTID_NULL GUID_NULL
-#define IsEqualFMTID(rfmtid1,rfmtid2) IsEqualGUID(rfmtid1,rfmtid2)
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ GUID IID;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ IID *LPIID;
+#ವ್ಯಾಖ್ಯಾನಿಸು IID_NULL GUID_NULL
+#ವ್ಯಾಖ್ಯಾನಿಸು IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ GUID CLSID;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ CLSID *LPCLSID;
+#ವ್ಯಾಖ್ಯಾನಿಸು CLSID_NULL GUID_NULL
+#ವ್ಯಾಖ್ಯಾನಿಸು IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ GUID FMTID;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ FMTID *LPFMTID;
+#ವ್ಯಾಖ್ಯಾನಿಸು FMTID_NULL GUID_NULL
+#ವ್ಯಾಖ್ಯಾನಿಸು IsEqualFMTID(rfmtid1,rfmtid2) IsEqualGUID(rfmtid1,rfmtid2)
 
-#ifdef __midl_proxy
-#define __MIDL_CONST
-#else
-#define __MIDL_CONST const
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __midl_proxy
+#ವ್ಯಾಖ್ಯಾನಿಸು __MIDL_CONST
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು __MIDL_CONST ಸ್ಥಿರಾಂಕ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _REFGUID_DEFINED
-#define _REFGUID_DEFINED
-#ifdef __cplusplus
-#define REFGUID const GUID &
-#else
-#define REFGUID const GUID *__MIDL_CONST
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _REFGUID_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _REFGUID_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿಸು REFGUID ಸ್ಥಿರಾಂಕ GUID &
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು REFGUID ಸ್ಥಿರಾಂಕ GUID *__MIDL_CONST
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _REFIID_DEFINED
-#define _REFIID_DEFINED
-#ifdef __cplusplus
-#define REFIID const IID &
-#else
-#define REFIID const IID *__MIDL_CONST
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _REFIID_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _REFIID_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿಸು REFIID ಸ್ಥಿರಾಂಕ IID &
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು REFIID ಸ್ಥಿರಾಂಕ IID *__MIDL_CONST
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _REFCLSID_DEFINED
-#define _REFCLSID_DEFINED
-#ifdef __cplusplus
-#define REFCLSID const IID &
-#else
-#define REFCLSID const IID *__MIDL_CONST
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _REFCLSID_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _REFCLSID_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿಸು REFCLSID ಸ್ಥಿರಾಂಕ IID &
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು REFCLSID ಸ್ಥಿರಾಂಕ IID *__MIDL_CONST
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _REFFMTID_DEFINED
-#define _REFFMTID_DEFINED
-#ifdef __cplusplus
-#define REFFMTID const IID &
-#else
-#define REFFMTID const IID *__MIDL_CONST
-#endif
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _REFFMTID_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _REFFMTID_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿಸು REFFMTID ಸ್ಥಿರಾಂಕ IID &
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು REFFMTID ಸ್ಥಿರಾಂಕ IID *__MIDL_CONST
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _SYS_GUID_OPERATORS_
-#define _SYS_GUID_OPERATORS_
-#include <string.h>
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _SYS_GUID_OPERATORS_
+#ವ್ಯಾಖ್ಯಾನಿಸು _SYS_GUID_OPERATORS_
+#ಅನ್ತರ್ಭಾವ <string.h>
 
-#ifdef __cplusplus
-__inline int InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
-  return (((unsigned long *) &rguid1)[0]==((unsigned long *) &rguid2)[0] && ((unsigned long *) &rguid1)[1]==((unsigned long *) &rguid2)[1] &&
-    ((unsigned long *) &rguid1)[2]==((unsigned long *) &rguid2)[2] && ((unsigned long *) &rguid1)[3]==((unsigned long *) &rguid2)[3]);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+__inline ಪೂರ್ಣಾಂಕ InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
+  ಹಿಂತಿರುಗಿ (((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) &rguid1)[0]==((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) &rguid2)[0] && ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) &rguid1)[1]==((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) &rguid2)[1] &&
+    ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) &rguid1)[2]==((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) &rguid2)[2] && ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) &rguid1)[3]==((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) &rguid2)[3]);
 }
-__inline int IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { return !memcmp(&rguid1,&rguid2,sizeof(GUID)); }
-#else
-#define InlineIsEqualGUID(rguid1,rguid2) (((unsigned long *) rguid1)[0]==((unsigned long *) rguid2)[0] && ((unsigned long *) rguid1)[1]==((unsigned long *) rguid2)[1] && ((unsigned long *) rguid1)[2]==((unsigned long *) rguid2)[2] && ((unsigned long *) rguid1)[3]==((unsigned long *) rguid2)[3])
-#define IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,sizeof(GUID)))
-#endif
+__inline ಪೂರ್ಣಾಂಕ IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { ಹಿಂತಿರುಗಿ !memcmp(&rguid1,&rguid2,ಗಾತ್ರ(GUID)); }
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು InlineIsEqualGUID(rguid1,rguid2) (((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) rguid1)[0]==((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) rguid2)[0] && ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) rguid1)[1]==((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) rguid2)[1] && ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) rguid1)[2]==((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) rguid2)[2] && ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) rguid1)[3]==((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ *) rguid2)[3])
+#ವ್ಯಾಖ್ಯಾನಿಸು IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,ಗಾತ್ರ(GUID)))
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __INLINE_ISEQUAL_GUID
-#undef IsEqualGUID
-#define IsEqualGUID(rguid1,rguid2) InlineIsEqualGUID(rguid1,rguid2)
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __INLINE_ISEQUAL_GUID
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು IsEqualGUID
+#ವ್ಯಾಖ್ಯಾನಿಸು IsEqualGUID(rguid1,rguid2) InlineIsEqualGUID(rguid1,rguid2)
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
-#define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
+#ವ್ಯಾಖ್ಯಾನಿಸು IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
+#ವ್ಯಾಖ್ಯಾನಿಸು IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
 
-#if !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
-#define _SYS_GUID_OPERATOR_EQ_
-#ifdef __cplusplus
-__inline int operator==(REFGUID guidOne,REFGUID guidOther) { return IsEqualGUID(guidOne,guidOther); }
-__inline int operator!=(REFGUID guidOne,REFGUID guidOther) { return !(guidOne==guidOther); }
-#endif
-#endif
-#endif
-#endif
+#ಆದರೆ !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
+#ವ್ಯಾಖ್ಯಾನಿಸು _SYS_GUID_OPERATOR_EQ_
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+__inline ಪೂರ್ಣಾಂಕ ಕ್ರಿಯಾಕಾರಕ==(REFGUID guidOne,REFGUID guidOther) { ಹಿಂತಿರುಗಿ IsEqualGUID(guidOne,guidOther); }
+__inline ಪೂರ್ಣಾಂಕ ಕ್ರಿಯಾಕಾರಕ!=(REFGUID guidOne,REFGUID guidOther) { ಹಿಂತಿರುಗಿ !(guidOne==guidOther); }
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ

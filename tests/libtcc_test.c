@@ -3,26 +3,26 @@
  *
  * libtcc can be useful to use tcc as a "backend" for a code generator.
  */
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "libtcc.h"
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
+#ಅನ್ತರ್ಭಾವ "libtcc.h"
 
-void handle_error(void *opaque, const char *msg)
+ಶೂನ್ಯ handle_error(ಶೂನ್ಯ *opaque, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಸಂದೇಶ)
 {
-    fprintf(opaque, "%s\n", msg);
+    fprintf(opaque, "%s\n", ಸಂದೇಶ);
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+ಪೂರ್ಣಾಂಕ ಕೂಡಿಸು(ಪೂರ್ಣಾಂಕ a, ಪೂರ್ಣಾಂಕ b)
 {
-    return a + b;
+    ಹಿಂತಿರುಗಿ a + b;
 }
 
 /* this strinc is referenced by the generated code */
-const char hello[] = "Hello World!";
+ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ hello[] = "Hello World!";
 
-char my_program[] =
+ಅಕ್ಷರ my_ಕಾರ್ಯಕ್ರಮ[] =
 "#include <tcclib.h>\n" /* include the "Simple libc header for TCC" */
 "extern int add(int a, int b);\n"
 "#ifdef _WIN32\n" /* dynamically linked data needs 'dllimport' */
@@ -45,53 +45,53 @@ char my_program[] =
 "    return 0;\n"
 "}\n";
 
-int main(int argc, char **argv)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv)
 {
     TCCState *s;
-    int i;
-    int (*func)(int);
+    ಪೂರ್ಣಾಂಕ i;
+    ಪೂರ್ಣಾಂಕ (*func)(ಪೂರ್ಣಾಂಕ);
 
     s = tcc_new();
-    if (!s) {
+    ಆದರೆ (!s) {
         fprintf(stderr, "Could not create tcc state\n");
-        exit(1);
+        ನಿರ್ಗಮಿಸು(1);
     }
 
     /* set custom error/warning printer */
-    tcc_set_error_func(s, stderr, handle_error);
+    tcc_ಗಣ_error_func(s, stderr, handle_error);
 
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-    for (i = 1; i < argc; ++i) {
-        char *a = argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
-                tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
-                tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
-                tcc_add_library_path(s, a+2);
+    ಗಾಗಿ (i = 1; i < argc; ++i) {
+        ಅಕ್ಷರ *a = argv[i];
+        ಆದರೆ (a[0] == '-') {
+            ಆದರೆ (a[1] == 'B')
+                tcc_ಗಣ_lib_ಮಾರ್ಗ(s, a+2);
+            ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (a[1] == 'I')
+                tcc_ಕೂಡಿಸು_include_ಮಾರ್ಗ(s, a+2);
+            ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (a[1] == 'L')
+                tcc_ಕೂಡಿಸು_library_ಮಾರ್ಗ(s, a+2);
         }
     }
 
     /* MUST BE CALLED before any compilation */
-    tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
+    tcc_ಗಣ_output_type(s, TCC_OUTPUT_ಸ್ಮರಣೆ);
 
-    if (tcc_compile_string(s, my_program) == -1)
-        return 1;
+    ಆದರೆ (tcc_compile_string(s, my_ಕಾರ್ಯಕ್ರಮ) == -1)
+        ಹಿಂತಿರುಗಿ 1;
 
     /* as a test, we add symbols that the compiled program can use.
        You may also open a dll with tcc_add_dll() and use symbols from that */
-    tcc_add_symbol(s, "add", add);
-    tcc_add_symbol(s, "hello", hello);
+    tcc_ಕೂಡಿಸು_ಚಿಹ್ನೆ(s, "add", ಕೂಡಿಸು);
+    tcc_ಕೂಡಿಸು_ಚಿಹ್ನೆ(s, "hello", hello);
 
     /* relocate the code */
-    if (tcc_relocate(s) < 0)
-        return 1;
+    ಆದರೆ (tcc_relocate(s) < 0)
+        ಹಿಂತಿರುಗಿ 1;
 
     /* get entry symbol */
-    func = tcc_get_symbol(s, "foo");
-    if (!func)
-        return 1;
+    func = tcc_get_ಚಿಹ್ನೆ(s, "foo");
+    ಆದರೆ (!func)
+        ಹಿಂತಿರುಗಿ 1;
 
     /* run the code */
     func(32);
@@ -99,5 +99,5 @@ int main(int argc, char **argv)
     /* delete the state */
     tcc_delete(s);
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

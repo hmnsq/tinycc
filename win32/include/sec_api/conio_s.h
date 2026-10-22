@@ -4,39 +4,39 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _INC_CONIO_S
-#define _INC_CONIO_S
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INC_CONIO_S
+#ವ್ಯಾಖ್ಯಾನಿಸು _INC_CONIO_S
 
-#include <conio.h>
+#ಅನ್ತರ್ಭಾವ <conio.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ಆದರೆ defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
-  _CRTIMP errno_t __cdecl _cgets_s(char *_Buffer,size_t _Size,size_t *_SizeRead);
-  _CRTIMP int __cdecl _cprintf_s(const char *_Format,...);
-  _CRTIMP int __cdecl _cscanf_s(const char *_Format,...);
-  _CRTIMP int __cdecl _cscanf_s_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_s(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_s_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_s_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP errno_t __cdecl _cgets_s(ಅಕ್ಷರ *ಬಫರ್_2,ಗಾತ್ರ_t ಗಾತ್ರ_5,ಗಾತ್ರ_t *ಗಾತ್ರ_Read);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _cprintf_s(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Format,...);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _cscanf_s(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Format,...);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _cscanf_s_l(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Format,_locale_t _Locale,...);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _vcprintf_s(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Format,va_list _ArgList);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _cprintf_s_l(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Format,_locale_t _Locale,...);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _vcprintf_s_l(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Format,_locale_t _Locale,va_list _ArgList);
 
-#ifndef _WCONIO_DEFINED_S
-#define _WCONIO_DEFINED_S
-  _CRTIMP errno_t __cdecl _cgetws_s(wchar_t *_Buffer,size_t _SizeInWords,size_t *_SizeRead);
-  _CRTIMP int __cdecl _cwprintf_s(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_s(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_s_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_s(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_s_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_s_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WCONIO_DEFINED_S
+#ವ್ಯಾಖ್ಯಾನಿಸು _WCONIO_DEFINED_S
+  _CRTIMP errno_t __cdecl _cgetws_s(wchar_t *ಬಫರ್_2,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಪದಗಳು,ಗಾತ್ರ_t *ಗಾತ್ರ_Read);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _cwprintf_s(ಸ್ಥಿರಾಂಕ wchar_t *_Format,...);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _cwscanf_s(ಸ್ಥಿರಾಂಕ wchar_t *_Format,...);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _cwscanf_s_l(ಸ್ಥಿರಾಂಕ wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _vcwprintf_s(ಸ್ಥಿರಾಂಕ wchar_t *_Format,va_list _ArgList);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _cwprintf_s_l(ಸ್ಥಿರಾಂಕ wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl _vcwprintf_s_l(ಸ್ಥಿರಾಂಕ wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ

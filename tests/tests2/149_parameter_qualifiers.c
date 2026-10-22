@@ -1,71 +1,71 @@
-void pointer_parameters(int *const cp, int *volatile vp, int *restrict rp)
+ಶೂನ್ಯ ಸೂಚಕ_parameters(ಪೂರ್ಣಾಂಕ *ಸ್ಥಿರಾಂಕ cp, ಪೂರ್ಣಾಂಕ *ಅಸ್ಥಿರ vp, ಪೂರ್ಣಾಂಕ *ಸೀಮಿತ rp)
 {
-    _Static_assert(_Generic(&cp, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&cp, ಪೂರ್ಣಾಂಕ *ಸ್ಥಿರಾಂಕ *: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                    "const pointer parameter remains qualified");
-    _Static_assert(_Generic(&vp, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&vp, ಪೂರ್ಣಾಂಕ *ಅಸ್ಥಿರ *: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                    "volatile pointer parameter remains qualified");
-   _Static_assert(_Generic(&rp, int *restrict *: 1, default: 0),
+   _Static_assert(_Generic(&rp, ಪೂರ್ಣಾಂಕ *ಸೀಮಿತ *: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                   "restrict pointer parameter remains qualified");
 }
 
-void array_parameters(int ca[const 2], int va[volatile 2], int ra[restrict 2])
+ಶೂನ್ಯ array_parameters(ಪೂರ್ಣಾಂಕ ca[ಸ್ಥಿರಾಂಕ 2], ಪೂರ್ಣಾಂಕ va[ಅಸ್ಥಿರ 2], ಪೂರ್ಣಾಂಕ ra[ಸೀಮಿತ 2])
 {
-    _Static_assert(_Generic(&ca, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&ca, ಪೂರ್ಣಾಂಕ *ಸ್ಥಿರಾಂಕ *: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                    "const array parameter adjusts to qualified pointer");
-    _Static_assert(_Generic(&va, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&va, ಪೂರ್ಣಾಂಕ *ಅಸ್ಥಿರ *: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                    "volatile array parameter adjusts to qualified pointer");
-    _Static_assert(_Generic(&ra, int *restrict *: 1, default: 0),
+    _Static_assert(_Generic(&ra, ಪೂರ್ಣಾಂಕ *ಸೀಮಿತ *: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                    "restrict array parameter adjusts to qualified pointer");
 }
 
-void declared_const(int *const pointer);
-void declared_const(int *pointer)
+ಶೂನ್ಯ declared_const(ಪೂರ್ಣಾಂಕ *ಸ್ಥಿರಾಂಕ ಸೂಚಕ_2);
+ಶೂನ್ಯ declared_const(ಪೂರ್ಣಾಂಕ *ಸೂಚಕ_2)
 {
-    _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+    _Static_assert(_Generic(&ಸೂಚಕ_2, ಪೂರ್ಣಾಂಕ **: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                    "declaration qualifier does not affect definition");
-    pointer = 0;
+    ಸೂಚಕ_2 = 0;
 }
 
-void defined_const(int *pointer);
-void defined_const(int *const pointer)
+ಶೂನ್ಯ defined_const(ಪೂರ್ಣಾಂಕ *ಸೂಚಕ_2);
+ಶೂನ್ಯ defined_const(ಪೂರ್ಣಾಂಕ *ಸ್ಥಿರಾಂಕ ಸೂಚಕ_2)
 {
-    _Static_assert(_Generic(&pointer, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&ಸೂಚಕ_2, ಪೂರ್ಣಾಂಕ *ಸ್ಥಿರಾಂಕ *: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                    "definition retains const");
 }
 
-void declared_volatile(int *volatile pointer);
-void declared_volatile(int *pointer)
+ಶೂನ್ಯ declared_volatile(ಪೂರ್ಣಾಂಕ *ಅಸ್ಥಿರ ಸೂಚಕ_2);
+ಶೂನ್ಯ declared_volatile(ಪೂರ್ಣಾಂಕ *ಸೂಚಕ_2)
 {
-    _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+    _Static_assert(_Generic(&ಸೂಚಕ_2, ಪೂರ್ಣಾಂಕ **: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                    "declaration qualifier does not affect definition");
-    pointer = 0;
+    ಸೂಚಕ_2 = 0;
 }
 
-void defined_volatile(int *pointer);
-void defined_volatile(int *volatile pointer)
+ಶೂನ್ಯ defined_volatile(ಪೂರ್ಣಾಂಕ *ಸೂಚಕ_2);
+ಶೂನ್ಯ defined_volatile(ಪೂರ್ಣಾಂಕ *ಅಸ್ಥಿರ ಸೂಚಕ_2)
 {
-    _Static_assert(_Generic(&pointer, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&ಸೂಚಕ_2, ಪೂರ್ಣಾಂಕ *ಅಸ್ಥಿರ *: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                    "definition retains volatile");
-    pointer = 0;
+    ಸೂಚಕ_2 = 0;
 }
 
-void declared_restrict(int *restrict pointer);
-void declared_restrict(int *pointer)
+ಶೂನ್ಯ declared_restrict(ಪೂರ್ಣಾಂಕ *ಸೀಮಿತ ಸೂಚಕ_2);
+ಶೂನ್ಯ declared_restrict(ಪೂರ್ಣಾಂಕ *ಸೂಚಕ_2)
 {
-  _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+  _Static_assert(_Generic(&ಸೂಚಕ_2, ಪೂರ್ಣಾಂಕ **: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                  "declaration qualifier does not affect definition");
-  pointer = 0;
+  ಸೂಚಕ_2 = 0;
 }
 
-void defined_restrict(int *pointer);
-void defined_restrict(int *restrict pointer)
+ಶೂನ್ಯ defined_restrict(ಪೂರ್ಣಾಂಕ *ಸೂಚಕ_2);
+ಶೂನ್ಯ defined_restrict(ಪೂರ್ಣಾಂಕ *ಸೀಮಿತ ಸೂಚಕ_2)
 {
-  _Static_assert(_Generic(&pointer, int *restrict *: 1, default: 0),
+  _Static_assert(_Generic(&ಸೂಚಕ_2, ಪೂರ್ಣಾಂಕ *ಸೀಮಿತ *: 1, ಪೂರ್ವನಿಯೋಜಿತ: 0),
                  "definition retains restrict");
-  pointer = 0;
+  ಸೂಚಕ_2 = 0;
 }
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

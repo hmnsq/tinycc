@@ -1,91 +1,91 @@
 /* ----------------------------------------------------------------------- */
-#if TEST == 1
+#ಆದರೆ TEST == 1
 {
-    struct M P A __s
+    ರಚನೆ M P A __s
     {
-        unsigned x : 12;
-        unsigned char y : 7;
-        unsigned z : 28;
-        unsigned a: 4;
-        unsigned b: 5;
+        ಚಿಹ್ನೆರಹಿತ x : 12;
+        ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ y : 7;
+        ಚಿಹ್ನೆರಹಿತ z : 28;
+        ಚಿಹ್ನೆರಹಿತ a: 4;
+        ಚಿಹ್ನೆರಹಿತ b: 5;
     };
     TEST_STRUCT(0x333,0x44,0x555555,6,7);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 2
+#ಅಥವಾಆದರೆ TEST == 2
 {
-    struct M P __s
+    ರಚನೆ M P __s
     {
-        int x: 12;
-        char y: 6;
-        long long z:63;
-        A char a:4;
-        long long b:2;
+        ಪೂರ್ಣಾಂಕ x: 12;
+        ಅಕ್ಷರ y: 6;
+        ದೀರ್ಘ ದೀರ್ಘ z:63;
+        A ಅಕ್ಷರ a:4;
+        ದೀರ್ಘ ದೀರ್ಘ b:2;
 
     };
     TEST_STRUCT(3,30,0x123456789abcdef0LL,5,2);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 3
+#ಅಥವಾಆದರೆ TEST == 3
 {
-    struct M P __s
+    ರಚನೆ M P __s
     {
-        unsigned x:5, y:5, :0, z:5; char a:5; A short b:5;
+        ಚಿಹ್ನೆರಹಿತ x:5, y:5, :0, z:5; ಅಕ್ಷರ a:5; A ಗಿಡ್ಡ b:5;
     };
     TEST_STRUCT(21,23,25,6,14);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 4
+#ಅಥವಾಆದರೆ TEST == 4
 {
-    struct M P __s {
-        int x : 3;
-        int : 2;
-        int y : 1;
-        int : 0;
-        int z : 5;
-        int a : 7;
-        unsigned int b : 7;
+    ರಚನೆ M P __s {
+        ಪೂರ್ಣಾಂಕ x : 3;
+        ಪೂರ್ಣಾಂಕ : 2;
+        ಪೂರ್ಣಾಂಕ y : 1;
+        ಪೂರ್ಣಾಂಕ : 0;
+        ಪೂರ್ಣಾಂಕ z : 5;
+        ಪೂರ್ಣಾಂಕ a : 7;
+        ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ b : 7;
     };
     TEST_STRUCT(3,1,15,120,120);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 5
+#ಅಥವಾಆದರೆ TEST == 5
 {
-    struct M P __s {
-        long long x : 45;
-        long long : 2;
-        long long y : 30;
-        unsigned long long z : 38;
-        char a; short b;
+    ರಚನೆ M P __s {
+        ದೀರ್ಘ ದೀರ್ಘ x : 45;
+        ದೀರ್ಘ ದೀರ್ಘ : 2;
+        ದೀರ್ಘ ದೀರ್ಘ y : 30;
+        ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ z : 38;
+        ಅಕ್ಷರ a; ಗಿಡ್ಡ b;
     };
     TEST_STRUCT(0x123456789ULL, 120<<25, 120, 0x44, 0x77);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 6
+#ಅಥವಾಆದರೆ TEST == 6
 {
-    struct M P __s {
-	int a;
-	signed char b;
-	int x : 12, y : 4, : 0, : 4, z : 3;
-	char d;
+    ರಚನೆ M P __s {
+	ಪೂರ್ಣಾಂಕ a;
+	ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ b;
+	ಪೂರ್ಣಾಂಕ x : 12, y : 4, : 0, : 4, z : 3;
+	ಅಕ್ಷರ d;
     };
     TEST_STRUCT(1,2,3,4,-3);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 7
+#ಅಥವಾಆದರೆ TEST == 7
 {
-#ifdef _WIN32
-    typedef long long int ll;
-#else
-    typedef long int ll;
-#endif
-    struct M P __s {
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN32
+    ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ ದೀರ್ಘ ಪೂರ್ಣಾಂಕ ll;
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ ಪೂರ್ಣಾಂಕ ll;
+#ಆದರೆ_ಅಂತ್ಯ
+    ರಚನೆ M P __s {
         ll d : 16;
         ll b : 16;
         ll x : 16;
@@ -99,143 +99,143 @@
 }
 
 /* ----------------------------------------------------------------------- */
-#elif defined PACK
+#ಅಥವಾಆದರೆ defined PACK
 
-#if PACK
-# pragma pack(push,1)
+#ಆದರೆ PACK
+# pragma pack(ತಳ್ಳು,1)
 # define P //_P
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define P
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-printf("\n\n" + 2*top);
-#define TEST 1
-#include SELF
-top = 0;
-#define TEST 2
-#include SELF
-#define TEST 3
-#include SELF
-#define TEST 4
-#include SELF
-#define TEST 5
-#include SELF
-#define TEST 6
-#include SELF
-#define TEST 7
-#include SELF
+ಬರೆ("\n\n" + 2*ತುದಿ);
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST 1
+#ಅನ್ತರ್ಭಾವ SELF
+ತುದಿ = 0;
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST 2
+#ಅನ್ತರ್ಭಾವ SELF
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST 3
+#ಅನ್ತರ್ಭಾವ SELF
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST 4
+#ಅನ್ತರ್ಭಾವ SELF
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST 5
+#ಅನ್ತರ್ಭಾವ SELF
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST 6
+#ಅನ್ತರ್ಭಾವ SELF
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST 7
+#ಅನ್ತರ್ಭಾವ SELF
 
-#if PACK
-# pragma pack(pop)
-#endif
+#ಆದರೆ PACK
+# pragma pack(ತೆಗೆ)
+#ಆದರೆ_ಅಂತ್ಯ
 
-#undef P
-#undef PACK
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು P
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು PACK
 
 /* ----------------------------------------------------------------------- */
-#elif defined ALIGN
+#ಅಥವಾಆದರೆ defined ALIGN
 
-#if ALIGN
+#ಆದರೆ ALIGN
 # define A _A(16)
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define A
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define PACK 0
-#include SELF
-#define PACK 1
-#include SELF
+#ವ್ಯಾಖ್ಯಾನಿಸು PACK 0
+#ಅನ್ತರ್ಭಾವ SELF
+#ವ್ಯಾಖ್ಯಾನಿಸು PACK 1
+#ಅನ್ತರ್ಭಾವ SELF
 
-#undef A
-#undef ALIGN
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು A
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು ALIGN
 
 /* ----------------------------------------------------------------------- */
-#elif defined MS_BF
+#ಅಥವಾಆದರೆ defined MS_BF
 
-#if MS_BF
+#ಆದರೆ MS_BF
 # ifdef __TINYC__
 #  pragma comment(option, "-mms-bitfields")
 # elif defined __GNUC__
 #  define M __attribute__((ms_struct))
 # endif
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # ifdef __TINYC__
 #  pragma comment(option, "-mno-ms-bitfields")
 # elif defined __GNUC__
 #  define M __attribute__((gcc_struct))
 # endif
-#endif
-#ifndef M
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ M
 # define M
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define ALIGN 0
-#include SELF
-#define ALIGN 1
-#include SELF
+#ವ್ಯಾಖ್ಯಾನಿಸು ALIGN 0
+#ಅನ್ತರ್ಭಾವ SELF
+#ವ್ಯಾಖ್ಯಾನಿಸು ALIGN 1
+#ಅನ್ತರ್ಭಾವ SELF
 
-#undef M
-#undef MS_BF
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು M
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು MS_BF
 
 /* ----------------------------------------------------------------------- */
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 
-#include <stdio.h>
-#include <string.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
 /* some gcc headers #define __attribute__ to empty if it's not gcc */
-#undef __attribute__
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು __attribute__
 
-void dump(void *p, int s)
+ಶೂನ್ಯ dump(ಶೂನ್ಯ *p, ಪೂರ್ಣಾಂಕ s)
 {
-    int i;
-    for (i = s; --i >= 0;)
-        printf("%02X", ((unsigned char*)p)[i]);
-    printf("\n");
+    ಪೂರ್ಣಾಂಕ i;
+    ಗಾಗಿ (i = s; --i >= 0;)
+        ಬರೆ("%02X", ((ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ*)p)[i]);
+    ಬರೆ("\n");
 }
 
-#define pv(m) \
-    printf(sizeof (s->m + 0) == 8 ? " %016llx" : " %02x", s->m)
+#ವ್ಯಾಖ್ಯಾನಿಸು pv(m) \
+    ಬರೆ(ಗಾತ್ರ (s->m + 0) == 8 ? " %016llx" : " %02x", s->m)
 
-#define TEST_STRUCT(v1,v2,v3,v4,v5) { \
-        struct __s _s, *s = & _s; \
-        printf("\n---- TEST %d%s%s%s ----\n" + top, \
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST_STRUCT(v1,v2,v3,v4,v5) { \
+        ರಚನೆ __s _s, *s = & _s; \
+        ಬರೆ("\n---- TEST %d%s%s%s ----\n" + ತುದಿ, \
             TEST, MS_BF?" - MS-BITFIELDS":"", \
             PACK?" - PACKED":"", \
             ALIGN?" - WITH ALIGN":""); \
-        memset(s, 0, sizeof *s); \
+        memset(s, 0, ಗಾತ್ರ *s); \
         s->x = -1, s->y = -1, s->z = -1, s->a = -1, s->b = -1; \
-        printf("bits in use : "), dump(s, sizeof *s); \
+        ಬರೆ("bits in use : "), dump(s, ಗಾತ್ರ *s); \
         s->x = v1, s->y = v2, s->z = v3, s->a += v4, ++s->a, s->b = v5; \
-        printf("bits as set : "), dump(s, sizeof *s); \
-        printf("values      :"), pv(x), pv(y), pv(z), pv(a), pv(b), printf("\n"); \
-        printf("align/size  : %d %d\n", alignof(struct __s),sizeof(struct __s)); \
+        ಬರೆ("bits as set : "), dump(s, ಗಾತ್ರ *s); \
+        ಬರೆ("values      :"), pv(x), pv(y), pv(z), pv(a), pv(b), ಬರೆ("\n"); \
+        ಬರೆ("align/size  : %d %d\n", alignof(ರಚನೆ __s),ಗಾತ್ರ(ರಚನೆ __s)); \
     }
 
-#ifdef _MSC_VER
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _MSC_VER
 # define _A(n) __declspec(align(n))
 # define _P
 # define alignof(x) __alignof(x)
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define _A(n) __attribute__((aligned(n)))
 # define _P __attribute__((packed))
 # define alignof(x) __alignof__(x)
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef MS_BITFIELDS
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ MS_BITFIELDS
 # define MS_BITFIELDS 0
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define SELF "95_bitfields.c"
+#ವ್ಯಾಖ್ಯಾನಿಸು SELF "95_bitfields.c"
 
-int top = 1;
+ಪೂರ್ಣಾಂಕ ತುದಿ = 1;
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-#define MS_BF MS_BITFIELDS
-#include SELF
-    return 0;
+#ವ್ಯಾಖ್ಯಾನಿಸು MS_BF MS_BITFIELDS
+#ಅನ್ತರ್ಭಾವ SELF
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* ----------------------------------------------------------------------- */
-#endif
-#undef TEST
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು TEST

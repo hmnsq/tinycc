@@ -1,15 +1,15 @@
-static int simple_jump(void)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ simple_jump(ಶೂನ್ಯ)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 0;
+  asm ಹೋಗು ("jmp %l[label]" : : : : label);
+  ಹಿಂತಿರುಗಿ 0;
 label:
-  return 1;
+  ಹಿಂತಿರುಗಿ 1;
 }
 
-static int three_way_jump(int val, int *addr)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ three_way_jump(ಪೂರ್ಣಾಂಕ val, ಪೂರ್ಣಾಂಕ *addr)
 {
   *addr = 42;
-  asm goto ("cmp $0, %1\n\t"
+  asm ಹೋಗು ("cmp $0, %1\n\t"
             "jg %l[larger]\n\t"
             "jl %l[smaller]\n\t"
             "incl %0\n\t"
@@ -17,46 +17,46 @@ static int three_way_jump(int val, int *addr)
             : "r" (val)
             :
             : smaller, larger);
-  return 1;
+  ಹಿಂತಿರುಗಿ 1;
 smaller:
-  return 2;
+  ಹಿಂತಿರುಗಿ 2;
 larger:
-  return 3;
+  ಹಿಂತಿರುಗಿ 3;
 }
 
-static int another_jump(void)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ another_jump(ಶೂನ್ಯ)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 70;
+  asm ಹೋಗು ("jmp %l[label]" : : : : label);
+  ಹಿಂತಿರುಗಿ 70;
   /* Use the same label name as in simple_jump to check that
      that doesn't confuse our C/ASM symbol tables */
 label:
-  return 71;
+  ಹಿಂತಿರುಗಿ 71;
 }
 
-extern int printf (const char *, ...);
-int main(void)
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ ಬರೆ (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...);
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-  int i;
-  if (simple_jump () == 1)
-    printf ("simple_jump: okay\n");
-  else
-    printf ("simple_jump: wrong\n");
-  if (another_jump () == 71)
-    printf ("another_jump: okay\n");
-  else
-    printf ("another_jump: wrong\n");
-  if (three_way_jump(0, &i) == 1 && i == 43)
-    printf ("three_way_jump(0): okay\n");
-  else
-    printf ("three_way_jump(0): wrong (i=%d)\n", i);
-  if (three_way_jump(1, &i) == 3 && i == 42)
-    printf ("three_way_jump(1): okay\n");
-  else
-    printf ("three_way_jump(1): wrong (i=%d)\n", i);
-  if (three_way_jump(-1, &i) == 2 && i == 42)
-    printf ("three_way_jump(-1): okay\n");
-  else
-    printf ("three_way_jump(-1): wrong (i=%d)\n", i);
-  return 0;
+  ಪೂರ್ಣಾಂಕ i;
+  ಆದರೆ (simple_jump () == 1)
+    ಬರೆ ("simple_jump: okay\n");
+  ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ ("simple_jump: wrong\n");
+  ಆದರೆ (another_jump () == 71)
+    ಬರೆ ("another_jump: okay\n");
+  ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ ("another_jump: wrong\n");
+  ಆದರೆ (three_way_jump(0, &i) == 1 && i == 43)
+    ಬರೆ ("three_way_jump(0): okay\n");
+  ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ ("three_way_jump(0): wrong (i=%d)\n", i);
+  ಆದರೆ (three_way_jump(1, &i) == 3 && i == 42)
+    ಬರೆ ("three_way_jump(1): okay\n");
+  ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ ("three_way_jump(1): wrong (i=%d)\n", i);
+  ಆದರೆ (three_way_jump(-1, &i) == 2 && i == 42)
+    ಬರೆ ("three_way_jump(-1): okay\n");
+  ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ ("three_way_jump(-1): wrong (i=%d)\n", i);
+  ಹಿಂತಿರುಗಿ 0;
 }

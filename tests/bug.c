@@ -1,35 +1,35 @@
-#include <stdio.h>
-#include <stdarg.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdarg.h>
 
-int compile_errors(void)
+ಪೂರ್ಣಾಂಕ compile_errors(ಶೂನ್ಯ)
 {
-#if TEST == 1
+#ಆದರೆ TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ i = (&"Foobar"[1] - &"Foobar"[0]);
   }
-#endif
-#if TEST == 2
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
-    static long i=((char*)&(v.c)-(char*)&v);
+    ರಚನೆ{ಪೂರ್ಣಾಂಕ c;}v;
+    ಸ್ಥಿರ ದೀರ್ಘ i=((ಅಕ್ಷರ*)&(v.c)-(ಅಕ್ಷರ*)&v);
   }
-#endif
-#if TEST == 3
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ TEST == 3
   {
     /* Not constant */
-    static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
-    void *p = &&l1 + ar[0];
-    goto *p;
-   l1: return 1;
-   l2: return 2;
+    ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಗಿಡ್ಡ ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
+    ಶೂನ್ಯ *p = &&l1 + ar[0];
+    ಹೋಗು *p;
+   l1: ಹಿಂತಿರುಗಿ 1;
+   l2: ಹಿಂತಿರುಗಿ 2;
   }
-#endif
-  return 0;
+#ಆದರೆ_ಅಂತ್ಯ
+  ಹಿಂತಿರುಗಿ 0;
 }
 
-int
-main(void)
+ಪೂರ್ಣಾಂಕ
+ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
 }

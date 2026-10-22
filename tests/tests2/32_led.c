@@ -28,33 +28,33 @@ cursor to a previous line.
 
 
 
-#include <stdlib.h>
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-#define MAX_DIGITS 32
-#define NO_MAIN
+#ವ್ಯಾಖ್ಯಾನಿಸು MAX_DIGITS 32
+#ವ್ಯಾಖ್ಯಾನಿಸು NO_MAIN
 
 
 /* Print the top line of the digit d into buffer. 
    Does not null terminate buffer. */
 
-void topline(int d, char *p){
+ಶೂನ್ಯ topline(ಪೂರ್ಣಾಂಕ d, ಅಕ್ಷರ *p){
 
    *p++ = ' ';
-   switch(d){
+   ಆಯ್ಕೆ(d){
 
       /* all these have _ on top line */
 
-      case 0:
-      case 2:
-      case 3:
-      case 5:
-      case 7:
-      case 8:
-      case 9:
+      ಸ್ಥಿತಿ 0:
+      ಸ್ಥಿತಿ 2:
+      ಸ್ಥಿತಿ 3:
+      ಸ್ಥಿತಿ 5:
+      ಸ್ಥಿತಿ 7:
+      ಸ್ಥಿತಿ 8:
+      ಸ್ಥಿತಿ 9:
          *p++ = '_';
-         break;
-      default:
+         ನಿಲ್ಲಿಸು;
+      ಪೂರ್ವನಿಯೋಜಿತ:
          *p++=' ';
 
    }
@@ -64,55 +64,55 @@ void topline(int d, char *p){
 /* Print the middle line of the digit d into the buffer. 
    Does not null terminate. */
 
-void midline(int d, char *p){
+ಶೂನ್ಯ midline(ಪೂರ್ಣಾಂಕ d, ಅಕ್ಷರ *p){
 
-   switch(d){
+   ಆಯ್ಕೆ(d){
 
       /* those that have leading | on middle line */
 
-      case 0:
-      case 4:
-      case 5:
-      case 6:
-      case 8:
-      case 9:
+      ಸ್ಥಿತಿ 0:
+      ಸ್ಥಿತಿ 4:
+      ಸ್ಥಿತಿ 5:
+      ಸ್ಥಿತಿ 6:
+      ಸ್ಥಿತಿ 8:
+      ಸ್ಥಿತಿ 9:
          *p++='|';
-         break;
-      default:
+         ನಿಲ್ಲಿಸು;
+      ಪೂರ್ವನಿಯೋಜಿತ:
          *p++=' ';	
    }
-   switch(d){
+   ಆಯ್ಕೆ(d){
 
       /* those that have _ on middle line */
 
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-      case 6:
-      case 8:
-      case 9:
+      ಸ್ಥಿತಿ 2:
+      ಸ್ಥಿತಿ 3:
+      ಸ್ಥಿತಿ 4:
+      ಸ್ಥಿತಿ 5:
+      ಸ್ಥಿತಿ 6:
+      ಸ್ಥಿತಿ 8:
+      ಸ್ಥಿತಿ 9:
          *p++='_';
-         break;
-      default:
+         ನಿಲ್ಲಿಸು;
+      ಪೂರ್ವನಿಯೋಜಿತ:
          *p++=' ';
 
    }
-   switch(d){
+   ಆಯ್ಕೆ(d){
 
       /* those that have closing | on middle line */
 
-      case 0:
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-      case 7:
-      case 8:
-      case 9:
+      ಸ್ಥಿತಿ 0:
+      ಸ್ಥಿತಿ 1:
+      ಸ್ಥಿತಿ 2:
+      ಸ್ಥಿತಿ 3:
+      ಸ್ಥಿತಿ 4:
+      ಸ್ಥಿತಿ 7:
+      ಸ್ಥಿತಿ 8:
+      ಸ್ಥಿತಿ 9:
          *p++='|';
-         break;
-      default:
+         ನಿಲ್ಲಿಸು;
+      ಪೂರ್ವನಿಯೋಜಿತ:
          *p++=' ';
 
    }
@@ -120,54 +120,54 @@ void midline(int d, char *p){
 
 /* Print the bottom line of the digit d. Does not null terminate. */
 
-void botline(int d, char *p){
+ಶೂನ್ಯ botline(ಪೂರ್ಣಾಂಕ d, ಅಕ್ಷರ *p){
 
 
-   switch(d){
+   ಆಯ್ಕೆ(d){
 
       /* those that have leading | on bottom line */
 
-      case 0:
-      case 2:
-      case 6:
-      case 8:
+      ಸ್ಥಿತಿ 0:
+      ಸ್ಥಿತಿ 2:
+      ಸ್ಥಿತಿ 6:
+      ಸ್ಥಿತಿ 8:
          *p++='|';
-         break;
-      default:
+         ನಿಲ್ಲಿಸು;
+      ಪೂರ್ವನಿಯೋಜಿತ:
          *p++=' ';	
    }
-   switch(d){
+   ಆಯ್ಕೆ(d){
 
       /* those that have _ on bottom line */
 
-      case 0:
-      case 2:
-      case 3:
-      case 5:
-      case 6:
-      case 8:
+      ಸ್ಥಿತಿ 0:
+      ಸ್ಥಿತಿ 2:
+      ಸ್ಥಿತಿ 3:
+      ಸ್ಥಿತಿ 5:
+      ಸ್ಥಿತಿ 6:
+      ಸ್ಥಿತಿ 8:
          *p++='_';
-         break;
-      default:
+         ನಿಲ್ಲಿಸು;
+      ಪೂರ್ವನಿಯೋಜಿತ:
          *p++=' ';
 
    }
-   switch(d){
+   ಆಯ್ಕೆ(d){
 
       /* those that have closing | on bottom line */
 
-      case 0:
-      case 1:
-      case 3:
-      case 4:
-      case 5:
-      case 6:
-      case 7:
-      case 8:
-      case 9:
+      ಸ್ಥಿತಿ 0:
+      ಸ್ಥಿತಿ 1:
+      ಸ್ಥಿತಿ 3:
+      ಸ್ಥಿತಿ 4:
+      ಸ್ಥಿತಿ 5:
+      ಸ್ಥಿತಿ 6:
+      ಸ್ಥಿತಿ 7:
+      ಸ್ಥಿತಿ 8:
+      ಸ್ಥಿತಿ 9:
          *p++='|';
-         break;
-      default:
+         ನಿಲ್ಲಿಸು;
+      ಪೂರ್ವನಿಯೋಜಿತ:
          *p++=' ';
 
    }
@@ -175,26 +175,26 @@ void botline(int d, char *p){
 
 /* Write the led representation of integer to string buffer. */
 
-void print_led(unsigned long x, char *buf)
+ಶೂನ್ಯ print_led(ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ x, ಅಕ್ಷರ *buf)
 {
 
-   int i=0,n;
-   static int d[MAX_DIGITS];
+   ಪೂರ್ಣಾಂಕ i=0,n;
+   ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ d[MAX_DIGITS];
 
 
    /* extract digits from x */
 
    n = ( x == 0L ? 1 : 0 );  /* 0 is a digit, hence a special case */
 
-   while(x){
-      d[n++] = (int)(x%10L);
-      if(n >= MAX_DIGITS)break;
+   ಆಗ(x){
+      d[n++] = (ಪೂರ್ಣಾಂಕ)(x%10L);
+      ಆದರೆ(n >= MAX_DIGITS)ನಿಲ್ಲಿಸು;
       x = x/10L;
    }
 
    /* print top lines of all digits */
 
-   for(i=n-1;i>=0;i--){
+   ಗಾಗಿ(i=n-1;i>=0;i--){
       topline(d[i],buf);
       buf += 3;
       *buf++=' ';
@@ -203,7 +203,7 @@ void print_led(unsigned long x, char *buf)
 
    /* print middle lines of all digits */
 
-   for(i=n-1;i>=0;i--){
+   ಗಾಗಿ(i=n-1;i>=0;i--){
       midline(d[i],buf);
       buf += 3;
       *buf++=' ';
@@ -212,7 +212,7 @@ void print_led(unsigned long x, char *buf)
 
    /* print bottom lines of all digits */
 
-   for(i=n-1;i>=0;i--){
+   ಗಾಗಿ(i=n-1;i>=0;i--){
       botline(d[i],buf);
       buf += 3;
       *buf++=' ';
@@ -221,27 +221,27 @@ void print_led(unsigned long x, char *buf)
    *buf='\0';
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   char buf[5*MAX_DIGITS];
+   ಅಕ್ಷರ buf[5*MAX_DIGITS];
    print_led(1234567, buf);
-   printf("%s\n",buf);
+   ಬರೆ("%s\n",buf);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
-#ifndef NO_MAIN
-int main(int argc, char **argv)
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ NO_MAIN
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv)
 {
 
-   int i=0,n;
-   long x;
-   static int d[MAX_DIGITS];
-   char buf[5*MAX_DIGITS];
+   ಪೂರ್ಣಾಂಕ i=0,n;
+   ದೀರ್ಘ x;
+   ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ d[MAX_DIGITS];
+   ಅಕ್ಷರ buf[5*MAX_DIGITS];
 
-   if(argc != 2){
+   ಆದರೆ(argc != 2){
       fprintf(stderr,"led: usage: led integer\n");
-      return 1;
+      ಹಿಂತಿರುಗಿ 1;
    }
 
    /* fetch argument from command line */
@@ -250,17 +250,17 @@ int main(int argc, char **argv)
 
    /* sanity check */
 
-   if(x<0){
+   ಆದರೆ(x<0){
       fprintf(stderr,"led: %d must be non-negative\n",x);
-      return 1;
+      ಹಿಂತಿರುಗಿ 1;
    }
 
    print_led(x,buf);
-   printf("%s\n",buf);
+   ಬರೆ("%s\n",buf);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

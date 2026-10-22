@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
-  SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+ಎಣಿಕೆ ವೃಕ್ಷ_ಸಂಕೇತ {
+  SOME_ಸಂಕೇತ = 148, /* has bit 7 set, and hence all further enum values as well */
+  ಕೊನೆಯ_AND_ಬಳಸದ_ವೃಕ್ಷ_ಸಂಕೇತ
 };
-typedef union tree_node *tree;
-struct tree_common
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಒಕ್ಕೂಟ ವೃಕ್ಷ_ಗಂಟು *ವೃಕ್ಷ_2;
+ರಚನೆ ವೃಕ್ಷ_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
-  unsigned side_effects_flag : 1;
+  ಒಕ್ಕೂಟ ವೃಕ್ಷ_ಗಂಟು *chain;
+  ಒಕ್ಕೂಟ ವೃಕ್ಷ_ಗಂಟು *type;
+  ಎಣಿಕೆ ವೃಕ್ಷ_ಸಂಕೇತ ಸಂಕೇತ_2 : 8;
+  ಚಿಹ್ನೆರಹಿತ side_effects_flag : 1;
 };
-union tree_node
+ಒಕ್ಕೂಟ ವೃಕ್ಷ_ಗಂಟು
 {
-  struct tree_common common;
+  ರಚನೆ ವೃಕ್ಷ_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+ಎಣಿಕೆ c_ವೃಕ್ಷ_ಸಂಕೇತ {
+  C_DUMMY_ವೃಕ್ಷ_ಸಂಕೇತ = ಕೊನೆಯ_AND_ಬಳಸದ_ವೃಕ್ಷ_ಸಂಕೇತ,
+  STMT_ಅಭಿವ್ಯಕ್ತಿ,
+  ಕೊನೆಯ_C_ವೃಕ್ಷ_ಸಂಕೇತ
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+ಎಣಿಕೆ cplus_ವೃಕ್ಷ_ಸಂಕೇತ {
+  CP_DUMMY_ವೃಕ್ಷ_ಸಂಕೇತ = ಕೊನೆಯ_C_ವೃಕ್ಷ_ಸಂಕೇತ,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  ಕೊನೆಯ_CPLUS_ವೃಕ್ಷ_ಸಂಕೇತ
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...);
+ಪೂರ್ಣಾಂಕ blah(){ಹಿಂತಿರುಗಿ 0;}
 
-int convert_like_real (tree convs)
+ಪೂರ್ಣಾಂಕ convert_like_real (ವೃಕ್ಷ_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  ಆಯ್ಕೆ (((ಎಣಿಕೆ ವೃಕ್ಷ_ಸಂಕೇತ) (convs)->common.ಸಂಕೇತ_2))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    ಸ್ಥಿತಿ AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      ಹಿಂತಿರುಗಿ blah();
+    ಪೂರ್ವನಿಯೋಜಿತ:
+      ನಿಲ್ಲಿಸು;
     };
-   printf("unsigned enum bit-fields broken\n");
-   return 0;
+   ಬರೆ("unsigned enum bit-fields broken\n");
+   ಹಿಂತಿರುಗಿ 0;
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-  union tree_node convs;
+  ಒಕ್ಕೂಟ ವೃಕ್ಷ_ಗಂಟು convs;
 
-  convs.common.code = AMBIG_CONV;
+  convs.common.ಸಂಕೇತ_2 = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  ಹಿಂತಿರುಗಿ 0;
 }

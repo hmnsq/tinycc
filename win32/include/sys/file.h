@@ -9,6 +9,6 @@
  * This file.h maps to the root fcntl.h
  * TODO?
  */
-#ifndef __STRICT_ANSI__
-#include <fcntl.h>
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __STRICT_ANSI__
+#ಅನ್ತರ್ಭಾವ <fcntl.h>
+#ಆದರೆ_ಅಂತ್ಯ

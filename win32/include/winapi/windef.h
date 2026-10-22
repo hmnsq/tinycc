@@ -3,180 +3,180 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINDEF_
-#define _WINDEF_
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WINDEF_
+#ವ್ಯಾಖ್ಯಾನಿಸು _WINDEF_
 
-#ifndef STRICT
-#define STRICT 1
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ STRICT
+#ವ್ಯಾಖ್ಯಾನಿಸು STRICT 1
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WINVER
+#ವ್ಯಾಖ್ಯಾನಿಸು WINVER 0x0502
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef BASETYPES
-#define BASETYPES
-  typedef unsigned long ULONG;
-  typedef ULONG *PULONG;
-  typedef unsigned short USHORT;
-  typedef USHORT *PUSHORT;
-  typedef unsigned char UCHAR;
-  typedef UCHAR *PUCHAR;
-  typedef char *PSZ;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ BASETYPES
+#ವ್ಯಾಖ್ಯಾನಿಸು BASETYPES
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ULONG;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ULONG *PULONG;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ USHORT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ USHORT *PUSHORT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ UCHAR;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ UCHAR *PUCHAR;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಅಕ್ಷರ *PSZ;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define MAX_PATH 260
+#ವ್ಯಾಖ್ಯಾನಿಸು MAX_ಮಾರ್ಗ 260
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ಖಾಲಿ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿಸು ಖಾಲಿ 0
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು ಖಾಲಿ ((ಶೂನ್ಯ *)0)
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef FALSE
-#define FALSE 0
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ FALSE
+#ವ್ಯಾಖ್ಯಾನಿಸು FALSE 0
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef TRUE
-#define TRUE 1
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ TRUE
+#ವ್ಯಾಖ್ಯಾನಿಸು TRUE 1
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef IN
-#define IN
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ಒಳ_2
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_2
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef OUT
-#define OUT
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ಹೊರಹೋಗು_2
+#ವ್ಯಾಖ್ಯಾನಿಸು ಹೊರಹೋಗು_2
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef OPTIONAL
-#define OPTIONAL
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ OPTIONAL
+#ವ್ಯಾಖ್ಯಾನಿಸು OPTIONAL
+#ಆದರೆ_ಅಂತ್ಯ
 
-#undef far
-#undef near
-#undef pascal
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು far
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು near
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು pascal
 
-#define far
-#define near
-#define pascal __stdcall
+#ವ್ಯಾಖ್ಯಾನಿಸು far
+#ವ್ಯಾಖ್ಯಾನಿಸು near
+#ವ್ಯಾಖ್ಯಾನಿಸು pascal __stdcall
 
-#define cdecl
-#ifndef CDECL
-#define CDECL
-#endif
-#ifndef CALLBACK
-#define CALLBACK __stdcall
-#endif
-#ifndef WINAPI
-#define WINAPI __stdcall
-#endif
-#define WINAPIV __cdecl
-#define APIENTRY WINAPI
-#define APIPRIVATE WINAPI
-#define PASCAL WINAPI
-#define WINAPI_INLINE WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು cdecl
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ CDECL
+#ವ್ಯಾಖ್ಯಾನಿಸು CDECL
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ CALLBACK
+#ವ್ಯಾಖ್ಯಾನಿಸು CALLBACK __stdcall
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು WINAPI __stdcall
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿಸು WINAPIV __cdecl
+#ವ್ಯಾಖ್ಯಾನಿಸು APIENTRY WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು APIPRIVATE WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು PASCAL WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು WINAPI_INLINE WINAPI
 
-#undef FAR
-#undef NEAR
-#define FAR
-#define NEAR
-#ifndef CONST
-#define CONST const
-#endif
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು FAR
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು NEAR
+#ವ್ಯಾಖ್ಯಾನಿಸು FAR
+#ವ್ಯಾಖ್ಯಾನಿಸು NEAR
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ CONST
+#ವ್ಯಾಖ್ಯಾನಿಸು CONST ಸ್ಥಿರಾಂಕ
+#ಆದರೆ_ಅಂತ್ಯ
 
-  typedef unsigned long DWORD;
-  typedef int WINBOOL;
-#define BOOL WINBOOL
-  typedef unsigned char BYTE;
-  typedef unsigned short WORD;
-  typedef float FLOAT;
-  typedef FLOAT *PFLOAT;
-  typedef WINBOOL *PBOOL;
-  typedef WINBOOL *LPBOOL;
-  typedef BYTE *PBYTE;
-  typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
-  typedef WORD *PWORD;
-  typedef WORD *LPWORD;
-  typedef long *LPLONG;
-  typedef DWORD *PDWORD;
-  typedef DWORD *LPDWORD;
-  typedef void *LPVOID;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ DWORD;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ WINBOOL;
+#ವ್ಯಾಖ್ಯಾನಿಸು BOOL WINBOOL
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ BYTE;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ ಶಬ್ದ_3;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದಶಮಾಂಶ FLOAT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ FLOAT *PFLOAT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WINBOOL *PBOOL;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WINBOOL *LPBOOL;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ BYTE *PBYTE;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ BYTE *LPBYTE;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ *PINT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ *LPINT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಶಬ್ದ_3 *PWORD;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಶಬ್ದ_3 *LPWORD;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ *LPLONG;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ DWORD *PDWORD;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ DWORD *LPDWORD;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಶೂನ್ಯ *LPVOID;
 # ifndef _LPCVOID_DEFINED
-#define _LPCVOID_DEFINED
-typedef CONST void *LPCVOID;
-#endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+#ವ್ಯಾಖ್ಯಾನಿಸು _LPCVOID_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ CONST ಶೂನ್ಯ *LPCVOID;
+#ಆದರೆ_ಅಂತ್ಯ
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ INT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ UINT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ *PUINT;
 
-#ifndef NT_INCLUDED
-#include <winnt.h>
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ NT_INCLUDED
+#ಅನ್ತರ್ಭಾವ <winnt.h>
+#ಆದರೆ_ಅಂತ್ಯ
 
 //gr #include <specstrings.h>
 
-  typedef UINT_PTR WPARAM;
-  typedef LONG_PTR LPARAM;
-  typedef LONG_PTR LRESULT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ UINT_PTR WPARAM;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LONG_PTR LPARAM;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LONG_PTR LRESULT;
 
-#ifndef __cplusplus
-#ifndef NOMINMAX
-#ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ NOMINMAX
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ max
+#ವ್ಯಾಖ್ಯಾನಿಸು max(a,b) (((a) > (b)) ? (a) : (b))
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef min
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#endif
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ min
+#ವ್ಯಾಖ್ಯಾನಿಸು min(a,b) (((a) < (b)) ? (a) : (b))
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define MAKEWORD(a,b) ((WORD)(((BYTE)((DWORD_PTR)(a) & 0xff)) | ((WORD)((BYTE)((DWORD_PTR)(b) & 0xff))) << 8))
-#define MAKELONG(a,b) ((LONG)(((WORD)((DWORD_PTR)(a) & 0xffff)) | ((DWORD)((WORD)((DWORD_PTR)(b) & 0xffff))) << 16))
-#define LOWORD(l) ((WORD)((DWORD_PTR)(l) & 0xffff))
-#define HIWORD(l) ((WORD)((DWORD_PTR)(l) >> 16))
-#define LOBYTE(w) ((BYTE)((DWORD_PTR)(w) & 0xff))
-#define HIBYTE(w) ((BYTE)((DWORD_PTR)(w) >> 8))
+#ವ್ಯಾಖ್ಯಾನಿಸು MAKEWORD(a,b) ((ಶಬ್ದ_3)(((BYTE)((DWORD_PTR)(a) & 0xff)) | ((ಶಬ್ದ_3)((BYTE)((DWORD_PTR)(b) & 0xff))) << 8))
+#ವ್ಯಾಖ್ಯಾನಿಸು MAKELONG(a,b) ((LONG)(((ಶಬ್ದ_3)((DWORD_PTR)(a) & 0xffff)) | ((DWORD)((ಶಬ್ದ_3)((DWORD_PTR)(b) & 0xffff))) << 16))
+#ವ್ಯಾಖ್ಯಾನಿಸು LOWORD(l) ((ಶಬ್ದ_3)((DWORD_PTR)(l) & 0xffff))
+#ವ್ಯಾಖ್ಯಾನಿಸು HIWORD(l) ((ಶಬ್ದ_3)((DWORD_PTR)(l) >> 16))
+#ವ್ಯಾಖ್ಯಾನಿಸು LOBYTE(w) ((BYTE)((DWORD_PTR)(w) & 0xff))
+#ವ್ಯಾಖ್ಯಾನಿಸು HIBYTE(w) ((BYTE)((DWORD_PTR)(w) >> 8))
 
-#ifndef WIN_INTERNAL
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WIN_ಆಂತರಿಕ
   DECLARE_HANDLE (HWND);
   DECLARE_HANDLE (HHOOK);
-#ifdef WINABLE
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ WINABLE
   DECLARE_HANDLE (HEVENT);
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-  typedef WORD ATOM;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಶಬ್ದ_3 ATOM;
 
-  typedef HANDLE *SPHANDLE;
-  typedef HANDLE *LPHANDLE;
-  typedef HANDLE HGLOBAL;
-  typedef HANDLE HLOCAL;
-  typedef HANDLE GLOBALHANDLE;
-  typedef HANDLE LOCALHANDLE;
-#ifdef _WIN64
-  typedef INT_PTR (WINAPI *FARPROC)();
-  typedef INT_PTR (WINAPI *NEARPROC)();
-  typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
-#endif
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE *SPHANDLE;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE *LPHANDLE;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE HGLOBAL;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE HLOCAL;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE GLOBALHANDLE;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE LOCALHANDLE;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT_PTR (WINAPI *FARPROC)();
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT_PTR (WINAPI *NEARPROC)();
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT_PTR (WINAPI *PROC)();
+#ಇಲ್ಲದಿದ್ದರೆ
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WINAPI *FARPROC)();
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WINAPI *NEARPROC)();
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WINAPI *PROC)();
+#ಆದರೆ_ಅಂತ್ಯ
 
-  typedef void *HGDIOBJ;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಶೂನ್ಯ *HGDIOBJ;
 
   DECLARE_HANDLE(HKEY);
-  typedef HKEY *PHKEY;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HKEY *PHKEY;
 
   DECLARE_HANDLE(HACCEL);
   DECLARE_HANDLE(HBITMAP);
@@ -191,7 +191,7 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HMENU);
   DECLARE_HANDLE(HMETAFILE);
   DECLARE_HANDLE(HINSTANCE);
-  typedef HINSTANCE HMODULE;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HINSTANCE HMODULE;
   DECLARE_HANDLE(HPALETTE);
   DECLARE_HANDLE(HPEN);
   DECLARE_HANDLE(HRGN);
@@ -204,90 +204,90 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
-  typedef HICON HCURSOR;
-  typedef DWORD COLORREF;
-  typedef DWORD *LPCOLORREF;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ HFILE;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HICON HCURSOR;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ DWORD COLORREF;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ DWORD *LPCOLORREF;
 
-#define HFILE_ERROR ((HFILE)-1)
+#ವ್ಯಾಖ್ಯಾನಿಸು HFILE_ERROR ((HFILE)-1)
 
-  typedef struct tagRECT {
-    LONG left;
-    LONG top;
-    LONG right;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ ಟ್ಯಾಗ್_RECT {
+    LONG ಎಡ;
+    LONG ತುದಿ;
+    LONG ಬಲ;
     LONG bottom;
   } RECT,*PRECT,*NPRECT,*LPRECT;
 
-  typedef const RECT *LPCRECT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಸ್ಥಿರಾಂಕ RECT *LPCRECT;
 
-  typedef struct _RECTL {
-    LONG left;
-    LONG top;
-    LONG right;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _RECTL {
+    LONG ಎಡ;
+    LONG ತುದಿ;
+    LONG ಬಲ;
     LONG bottom;
   } RECTL,*PRECTL,*LPRECTL;
 
-  typedef const RECTL *LPCRECTL;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಸ್ಥಿರಾಂಕ RECTL *LPCRECTL;
 
-  typedef struct tagPOINT {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ ಟ್ಯಾಗ್_ಬಿಂದು {
     LONG x;
     LONG y;
-  } POINT,*PPOINT,*NPPOINT,*LPPOINT;
+  } ಬಿಂದು_3,*PPOINT,*NPPOINT,*LPPOINT;
 
-  typedef struct _POINTL {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _POINTL {
     LONG x;
     LONG y;
   } POINTL,*PPOINTL;
 
-  typedef struct tagSIZE {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ ಟ್ಯಾಗ್_ಗಾತ್ರ {
     LONG cx;
     LONG cy;
-  } SIZE,*PSIZE,*LPSIZE;
+  } ಗಾತ್ರ_3,*PSIZE,*LPSIZE;
 
-  typedef SIZE SIZEL;
-  typedef SIZE *PSIZEL,*LPSIZEL;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಗಾತ್ರ_3 SIZEL;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಗಾತ್ರ_3 *PSIZEL,*LPSIZEL;
 
-  typedef struct tagPOINTS {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ ಟ್ಯಾಗ್_POINTS {
     SHORT x;
     SHORT y;
   } POINTS,*PPOINTS,*LPPOINTS;
 
-  typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _FILETIME {
+    DWORD dw_ಕೆಳಗಿನ_Date_ಸಮಯ;
+    DWORD dw_ಮೇಲಿನ_Date_ಸಮಯ;
   } FILETIME,*PFILETIME,*LPFILETIME;
-#define _FILETIME_
+#ವ್ಯಾಖ್ಯಾನಿಸು _FILETIME_
 
-#define DM_UPDATE 1
-#define DM_COPY 2
-#define DM_PROMPT 4
-#define DM_MODIFY 8
+#ವ್ಯಾಖ್ಯಾನಿಸು DM_UPDATE 1
+#ವ್ಯಾಖ್ಯಾನಿಸು DM_COPY 2
+#ವ್ಯಾಖ್ಯಾನಿಸು DM_PROMPT 4
+#ವ್ಯಾಖ್ಯಾನಿಸು DM_MODIFY 8
 
-#define DM_IN_BUFFER DM_MODIFY
-#define DM_IN_PROMPT DM_PROMPT
-#define DM_OUT_BUFFER DM_COPY
-#define DM_OUT_DEFAULT DM_UPDATE
+#ವ್ಯಾಖ್ಯಾನಿಸು DM_ಒಳ_ಬಫರ್ DM_MODIFY
+#ವ್ಯಾಖ್ಯಾನಿಸು DM_ಒಳ_PROMPT DM_PROMPT
+#ವ್ಯಾಖ್ಯಾನಿಸು DM_ಹೊರಹೋಗು_ಬಫರ್ DM_COPY
+#ವ್ಯಾಖ್ಯಾನಿಸು DM_ಹೊರಹೋಗು_DEFAULT DM_UPDATE
 
-#define DC_FIELDS 1
-#define DC_PAPERS 2
-#define DC_PAPERSIZE 3
-#define DC_MINEXTENT 4
-#define DC_MAXEXTENT 5
-#define DC_BINS 6
-#define DC_DUPLEX 7
-#define DC_SIZE 8
-#define DC_EXTRA 9
-#define DC_VERSION 10
-#define DC_DRIVER 11
-#define DC_BINNAMES 12
-#define DC_ENUMRESOLUTIONS 13
-#define DC_FILEDEPENDENCIES 14
-#define DC_TRUETYPE 15
-#define DC_PAPERNAMES 16
-#define DC_ORIENTATION 17
-#define DC_COPIES 18
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_FIELDS 1
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_PAPERS 2
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_PAPERSIZE 3
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_MINEXTENT 4
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_MAXEXTENT 5
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_BINS 6
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_DUPLEX 7
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_ಗಾತ್ರ 8
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_EXTRA 9
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_ಆವೃತ್ತಿ 10
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_DRIVER 11
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_BINNAMES 12
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_ENUMRESOLUTIONS 13
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_FILEDEPENDENCIES 14
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_TRUETYPE 15
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_PAPERNAMES 16
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_ORIENTATION 17
+#ವ್ಯಾಖ್ಯಾನಿಸು DC_COPIES 18
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ

@@ -1,30 +1,30 @@
-#define _ISOC99_SOURCE 1
+#ವ್ಯಾಖ್ಯಾನಿಸು ISOC99_ಮೂಲ 1
 
-#include <stdio.h>
-#include <math.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <math.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   printf("%f\n", sin(0.12));
-   printf("%f\n", cos(0.12));
-   printf("%f\n", tan(0.12));
-   printf("%f\n", asin(0.12));
-   printf("%f\n", acos(0.12));
-   printf("%f\n", atan(0.12));
-   printf("%f\n", sinh(0.12));
-   printf("%f\n", cosh(0.12));
-   printf("%f\n", tanh(0.12));
-   printf("%f\n", exp(0.12));
-   printf("%f\n", fabs(-0.12));
-   printf("%f\n", log(0.12));
-   printf("%f\n", log10(0.12));
-   printf("%f\n", pow(0.12, 0.12));
-   printf("%f\n", sqrt(0.12));
-   printf("%f\n", round(12.34));
-   printf("%f\n", ceil(12.34));
-   printf("%f\n", floor(12.34));
+   ಬರೆ("%f\n", ಜ್ಯಾ(0.12));
+   ಬರೆ("%f\n", ಕೋಜ್ಯಾ(0.12));
+   ಬರೆ("%f\n", tan(0.12));
+   ಬರೆ("%f\n", asin(0.12));
+   ಬರೆ("%f\n", acos(0.12));
+   ಬರೆ("%f\n", atan(0.12));
+   ಬರೆ("%f\n", sinh(0.12));
+   ಬರೆ("%f\n", cosh(0.12));
+   ಬರೆ("%f\n", tanh(0.12));
+   ಬರೆ("%f\n", ಘಾತಾಂಕ(0.12));
+   ಬರೆ("%f\n", fabs(-0.12));
+   ಬರೆ("%f\n", ಲಘುಗಣಕ(0.12));
+   ಬರೆ("%f\n", log10(0.12));
+   ಬರೆ("%f\n", ಘಾತ(0.12, 0.12));
+   ಬರೆ("%f\n", ವರ್ಗಮೂಲ(0.12));
+   ಬರೆ("%f\n", ಸುತ್ತು(12.34));
+   ಬರೆ("%f\n", ceil(12.34));
+   ಬರೆ("%f\n", floor(12.34));
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

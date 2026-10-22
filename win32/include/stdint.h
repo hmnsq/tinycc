@@ -22,159 +22,159 @@
  */
 
 
-#ifndef _STDINT_H
-#define _STDINT_H
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _STDINT_H
+#ವ್ಯಾಖ್ಯಾನಿಸು _STDINT_H
 
-#include <_mingw.h>
+#ಅನ್ತರ್ಭಾವ <_mingw.h>
 
-#define __need_wint_t
-#define __need_wchar_t
-#include "stddef.h"
+#ವ್ಯಾಖ್ಯಾನಿಸು __need_wint_t
+#ವ್ಯಾಖ್ಯಾನಿಸು __need_wchar_t
+#ಅನ್ತರ್ಭಾವ "stddef.h"
 
-#ifndef __int8_t_defined
-#define __int8_t_defined
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __int8_t_defined
+#ವ್ಯಾಖ್ಯಾನಿಸು __int8_t_defined
 /* 7.18.1.1  Exact-width integer types */
-typedef signed char int8_t;
-typedef unsigned char   uint8_t;
-typedef short  int16_t;
-typedef unsigned short  uint16_t;
-typedef int  int32_t;
-typedef unsigned   uint32_t;
-typedef long long  int64_t;
-typedef unsigned long long   uint64_t;
-#endif
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ int8_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ   uint8_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಗಿಡ್ಡ  int16_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ  uint16_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ  int32_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ   uint32_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ ದೀರ್ಘ  int64_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ   uint64_t;
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* 7.18.1.2  Minimum-width integer types */
-typedef signed char int_least8_t;
-typedef unsigned char   uint_least8_t;
-typedef short  int_least16_t;
-typedef unsigned short  uint_least16_t;
-typedef int  int_least32_t;
-typedef unsigned   uint_least32_t;
-typedef long long  int_least64_t;
-typedef unsigned long long   uint_least64_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ int_least8_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ   uint_least8_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಗಿಡ್ಡ  int_least16_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ  uint_least16_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ  int_least32_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ   uint_least32_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ ದೀರ್ಘ  int_least64_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ   uint_least64_t;
 
 /*  7.18.1.3  Fastest minimum-width integer types
  *  Not actually guaranteed to be fastest for all purposes
  *  Here we use the exact-width types for 8 and 16-bit ints.
  */
-typedef char int_fast8_t;
-typedef unsigned char uint_fast8_t;
-typedef short  int_fast16_t;
-typedef unsigned short  uint_fast16_t;
-typedef int  int_fast32_t;
-typedef unsigned  int  uint_fast32_t;
-typedef long long  int_fast64_t;
-typedef unsigned long long   uint_fast64_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಅಕ್ಷರ int_fast8_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ uint_fast8_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಗಿಡ್ಡ  int_fast16_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ  uint_fast16_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ  int_fast32_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ  ಪೂರ್ಣಾಂಕ  uint_fast32_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ ದೀರ್ಘ  int_fast64_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ   uint_fast64_t;
 
 /* 7.18.1.5  Greatest-width integer types */
-typedef long long  intmax_t;
-typedef unsigned long long   uintmax_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ ದೀರ್ಘ  intmax_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ   uintmax_t;
 
 /* 7.18.2  Limits of specified-width integer types */
-#if !defined ( __cplusplus) || defined (__STDC_LIMIT_MACROS)
+#ಆದರೆ !defined ( __cplusplus) || defined (__STDC_LIMIT_MACROS)
 
 /* 7.18.2.1  Limits of exact-width integer types */
-#define INT8_MIN (-128)
-#define INT16_MIN (-32768)
-#define INT32_MIN (-2147483647 - 1)
-#define INT64_MIN  (-9223372036854775807LL - 1)
+#ವ್ಯಾಖ್ಯಾನಿಸು INT8_MIN (-128)
+#ವ್ಯಾಖ್ಯಾನಿಸು INT16_MIN (-32768)
+#ವ್ಯಾಖ್ಯಾನಿಸು INT32_MIN (-2147483647 - 1)
+#ವ್ಯಾಖ್ಯಾನಿಸು INT64_MIN  (-9223372036854775807LL - 1)
 
-#define INT8_MAX 127
-#define INT16_MAX 32767
-#define INT32_MAX 2147483647
-#define INT64_MAX 9223372036854775807LL
+#ವ್ಯಾಖ್ಯಾನಿಸು INT8_MAX 127
+#ವ್ಯಾಖ್ಯಾನಿಸು INT16_MAX 32767
+#ವ್ಯಾಖ್ಯಾನಿಸು INT32_MAX 2147483647
+#ವ್ಯಾಖ್ಯಾನಿಸು INT64_MAX 9223372036854775807LL
 
-#define UINT8_MAX 0xff /* 255U */
-#define UINT16_MAX 0xffff /* 65535U */
-#define UINT32_MAX 0xffffffff  /* 4294967295U */
-#define UINT64_MAX 0xffffffffffffffffULL /* 18446744073709551615ULL */
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT8_MAX 0xff /* 255U */
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT16_MAX 0xffff /* 65535U */
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT32_MAX 0xffffffff  /* 4294967295U */
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT64_MAX 0xffffffffffffffffULL /* 18446744073709551615ULL */
 
 /* 7.18.2.2  Limits of minimum-width integer types */
-#define INT_LEAST8_MIN INT8_MIN
-#define INT_LEAST16_MIN INT16_MIN
-#define INT_LEAST32_MIN INT32_MIN
-#define INT_LEAST64_MIN INT64_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_LEAST8_MIN INT8_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_LEAST16_MIN INT16_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_LEAST32_MIN INT32_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_LEAST64_MIN INT64_MIN
 
-#define INT_LEAST8_MAX INT8_MAX
-#define INT_LEAST16_MAX INT16_MAX
-#define INT_LEAST32_MAX INT32_MAX
-#define INT_LEAST64_MAX INT64_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_LEAST8_MAX INT8_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_LEAST16_MAX INT16_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_LEAST32_MAX INT32_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_LEAST64_MAX INT64_MAX
 
-#define UINT_LEAST8_MAX UINT8_MAX
-#define UINT_LEAST16_MAX UINT16_MAX
-#define UINT_LEAST32_MAX UINT32_MAX
-#define UINT_LEAST64_MAX UINT64_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT_LEAST8_MAX UINT8_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT_LEAST16_MAX UINT16_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT_LEAST32_MAX UINT32_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT_LEAST64_MAX UINT64_MAX
 
 /* 7.18.2.3  Limits of fastest minimum-width integer types */
-#define INT_FAST8_MIN INT8_MIN
-#define INT_FAST16_MIN INT16_MIN
-#define INT_FAST32_MIN INT32_MIN
-#define INT_FAST64_MIN INT64_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_FAST8_MIN INT8_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_FAST16_MIN INT16_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_FAST32_MIN INT32_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_FAST64_MIN INT64_MIN
 
-#define INT_FAST8_MAX INT8_MAX
-#define INT_FAST16_MAX INT16_MAX
-#define INT_FAST32_MAX INT32_MAX
-#define INT_FAST64_MAX INT64_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_FAST8_MAX INT8_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_FAST16_MAX INT16_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_FAST32_MAX INT32_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು INT_FAST64_MAX INT64_MAX
 
-#define UINT_FAST8_MAX UINT8_MAX
-#define UINT_FAST16_MAX UINT16_MAX
-#define UINT_FAST32_MAX UINT32_MAX
-#define UINT_FAST64_MAX UINT64_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT_FAST8_MAX UINT8_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT_FAST16_MAX UINT16_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT_FAST32_MAX UINT32_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT_FAST64_MAX UINT64_MAX
 
 /* 7.18.2.4  Limits of integer types capable of holding
     object pointers */
-#ifdef _WIN64
-#define INTPTR_MIN INT64_MIN
-#define INTPTR_MAX INT64_MAX
-#define UINTPTR_MAX UINT64_MAX
-#else
-#define INTPTR_MIN INT32_MIN
-#define INTPTR_MAX INT32_MAX
-#define UINTPTR_MAX UINT32_MAX
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+#ವ್ಯಾಖ್ಯಾನಿಸು INTPTR_MIN INT64_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು INTPTR_MAX INT64_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು UINTPTR_MAX UINT64_MAX
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು INTPTR_MIN INT32_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು INTPTR_MAX INT32_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು UINTPTR_MAX UINT32_MAX
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* 7.18.2.5  Limits of greatest-width integer types */
-#define INTMAX_MIN INT64_MIN
-#define INTMAX_MAX INT64_MAX
-#define UINTMAX_MAX UINT64_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು INTMAX_MIN INT64_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು INTMAX_MAX INT64_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು UINTMAX_MAX UINT64_MAX
 
 /* 7.18.3  Limits of other integer types */
-#ifdef _WIN64
-#define PTRDIFF_MIN INT64_MIN
-#define PTRDIFF_MAX INT64_MAX
-#else
-#define PTRDIFF_MIN INT32_MIN
-#define PTRDIFF_MAX INT32_MAX
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+#ವ್ಯಾಖ್ಯಾನಿಸು PTRDIFF_MIN INT64_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು PTRDIFF_MAX INT64_MAX
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು PTRDIFF_MIN INT32_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು PTRDIFF_MAX INT32_MAX
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define SIG_ATOMIC_MIN INT32_MIN
-#define SIG_ATOMIC_MAX INT32_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು SIG_ATOMIC_MIN INT32_MIN
+#ವ್ಯಾಖ್ಯಾನಿಸು SIG_ATOMIC_MAX INT32_MAX
 
-#ifndef SIZE_MAX
-#ifdef _WIN64
-#define SIZE_MAX UINT64_MAX
-#else
-#define SIZE_MAX UINT32_MAX
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ SIZE_MAX
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+#ವ್ಯಾಖ್ಯಾನಿಸು SIZE_MAX UINT64_MAX
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು SIZE_MAX UINT32_MAX
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef WCHAR_MIN  /* also in wchar.h */
-#define WCHAR_MIN 0
-#define WCHAR_MAX ((wchar_t)-1) /* UINT16_MAX */
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WCHAR_MIN  /* also in wchar.h */
+#ವ್ಯಾಖ್ಯಾನಿಸು WCHAR_MIN 0
+#ವ್ಯಾಖ್ಯಾನಿಸು WCHAR_MAX ((wchar_t)-1) /* UINT16_MAX */
+#ಆದರೆ_ಅಂತ್ಯ
 
 /*
  * wint_t is unsigned short for compatibility with MS runtime
  */
-#define WINT_MIN 0
-#define WINT_MAX ((wint_t)-1) /* UINT16_MAX */
+#ವ್ಯಾಖ್ಯಾನಿಸು WINT_MIN 0
+#ವ್ಯಾಖ್ಯಾನಿಸು WINT_MAX ((wint_t)-1) /* UINT16_MAX */
 
-#endif /* !defined ( __cplusplus) || defined __STDC_LIMIT_MACROS */
+#ಆದರೆ_ಅಂತ್ಯ /* !defined ( __cplusplus) || defined __STDC_LIMIT_MACROS */
 
 
 /* 7.18.4  Macros for integer constants */
-#if !defined ( __cplusplus) || defined (__STDC_CONSTANT_MACROS)
+#ಆದರೆ !defined ( __cplusplus) || defined (__STDC_CONSTANT_MACROS)
 
 /* 7.18.4.1  Macros for minimum-width integer constants
 
@@ -191,22 +191,22 @@ typedef unsigned long long   uintmax_t;
 	The trick used here is from Clive D W Feather.
 */
 
-#define INT8_C(val) (INT_LEAST8_MAX-INT_LEAST8_MAX+(val))
-#define INT16_C(val) (INT_LEAST16_MAX-INT_LEAST16_MAX+(val))
-#define INT32_C(val) (INT_LEAST32_MAX-INT_LEAST32_MAX+(val))
+#ವ್ಯಾಖ್ಯಾನಿಸು INT8_C(val) (INT_LEAST8_MAX-INT_LEAST8_MAX+(val))
+#ವ್ಯಾಖ್ಯಾನಿಸು INT16_C(val) (INT_LEAST16_MAX-INT_LEAST16_MAX+(val))
+#ವ್ಯಾಖ್ಯಾನಿಸು INT32_C(val) (INT_LEAST32_MAX-INT_LEAST32_MAX+(val))
 /*  The 'trick' doesn't work in C89 for long long because, without
     suffix, (val) will be evaluated as int, not intmax_t */
-#define INT64_C(val) val##LL
+#ವ್ಯಾಖ್ಯಾನಿಸು INT64_C(val) val##LL
 
-#define UINT8_C(val) (UINT_LEAST8_MAX-UINT_LEAST8_MAX+(val))
-#define UINT16_C(val) (UINT_LEAST16_MAX-UINT_LEAST16_MAX+(val))
-#define UINT32_C(val) (UINT_LEAST32_MAX-UINT_LEAST32_MAX+(val))
-#define UINT64_C(val) val##ULL
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT8_C(val) (UINT_LEAST8_MAX-UINT_LEAST8_MAX+(val))
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT16_C(val) (UINT_LEAST16_MAX-UINT_LEAST16_MAX+(val))
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT32_C(val) (UINT_LEAST32_MAX-UINT_LEAST32_MAX+(val))
+#ವ್ಯಾಖ್ಯಾನಿಸು UINT64_C(val) val##ULL
 
 /* 7.18.4.2  Macros for greatest-width integer constants */
-#define INTMAX_C(val) val##LL
-#define UINTMAX_C(val) val##ULL
+#ವ್ಯಾಖ್ಯಾನಿಸು INTMAX_C(val) val##LL
+#ವ್ಯಾಖ್ಯಾನಿಸು UINTMAX_C(val) val##ULL
 
-#endif  /* !defined ( __cplusplus) || defined __STDC_CONSTANT_MACROS */
+#ಆದರೆ_ಅಂತ್ಯ  /* !defined ( __cplusplus) || defined __STDC_CONSTANT_MACROS */
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

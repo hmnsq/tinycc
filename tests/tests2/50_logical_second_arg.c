@@ -1,29 +1,29 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int fred()
+ಪೂರ್ಣಾಂಕ fred()
 {
-   printf("fred\n");
-   return 0;
+   ಬರೆ("fred\n");
+   ಹಿಂತಿರುಗಿ 0;
 }
 
-int joe()
+ಪೂರ್ಣಾಂಕ joe()
 {
-   printf("joe\n");
-   return 1;
+   ಬರೆ("joe\n");
+   ಹಿಂತಿರುಗಿ 1;
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   printf("%d\n", fred() && joe());
-   printf("%d\n", fred() || joe());
-   printf("%d\n", joe() && fred());
-   printf("%d\n", joe() || fred());
-   printf("%d\n", fred() && (1 + joe()));
-   printf("%d\n", fred() || (0 + joe()));
-   printf("%d\n", joe() && (0 + fred()));
-   printf("%d\n", joe() || (1 + fred()));
+   ಬರೆ("%d\n", fred() && joe());
+   ಬರೆ("%d\n", fred() || joe());
+   ಬರೆ("%d\n", joe() && fred());
+   ಬರೆ("%d\n", joe() || fred());
+   ಬರೆ("%d\n", fred() && (1 + joe()));
+   ಬರೆ("%d\n", fred() || (0 + joe()));
+   ಬರೆ("%d\n", joe() && (0 + fred()));
+   ಬರೆ("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

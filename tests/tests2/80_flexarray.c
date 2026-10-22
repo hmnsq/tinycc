@@ -1,26 +1,26 @@
-#include <stdio.h>
-struct wchar {
-    char *data; char mem[];
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+ರಚನೆ wchar {
+    ಅಕ್ಷರ *ದತ್ತಾಂಶ; ಅಕ್ಷರ mem[];
 };
-struct wint {
-    char *data; int mem[];
+ರಚನೆ wint {
+    ಅಕ್ಷರ *ದತ್ತಾಂಶ; ಪೂರ್ಣಾಂಕ mem[];
 };
-int f1char (void) {
-    char s[9]="nonono";
-    struct wchar q = {"bugs"};
-    return !s[0];
+ಪೂರ್ಣಾಂಕ f1char (ಶೂನ್ಯ) {
+    ಅಕ್ಷರ s[9]="nonono";
+    ರಚನೆ wchar q = {"bugs"};
+    ಹಿಂತಿರುಗಿ !s[0];
 }
-int f1int (void) {
-    char s[9]="nonono";
-    struct wint q = {"bugs"};
-    return !s[0];
+ಪೂರ್ಣಾಂಕ f1int (ಶೂನ್ಯ) {
+    ಅಕ್ಷರ s[9]="nonono";
+    ರಚನೆ wint q = {"bugs"};
+    ಹಿಂತಿರುಗಿ !s[0];
 }
-int empty[] = {}; // GNU extension
-int main (void) {
-   char s[9]="nonono";
-   static struct wchar q = {"bugs", {'c'}};
+ಪೂರ್ಣಾಂಕ ಖಾಲಿಗಳು[] = {}; // GNU extension
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ (ಶೂನ್ಯ) {
+   ಅಕ್ಷರ s[9]="nonono";
+   ಸ್ಥಿರ ರಚನೆ wchar q = {"bugs", {'c'}};
    //printf ("tcc has %s %s\n", s, q.data);
-   if (f1char() || f1int())
-     printf ("bla\n");
-   return !s[0];
+   ಆದರೆ (f1char() || f1int())
+     ಬರೆ ("bla\n");
+   ಹಿಂತಿರುಗಿ !s[0];
 }

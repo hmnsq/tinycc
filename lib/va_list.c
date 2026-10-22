@@ -1,12 +1,12 @@
 /* va_list.c - tinycc support for va_list on X86_64 */
 
-#if defined __x86_64__
+#ಆದರೆ defined __x86_64__
 
 /* Avoid include files, they may not be available when cross compiling */
-extern void abort(void);
+ಬಾಹ್ಯ ಶೂನ್ಯ abort(ಶೂನ್ಯ);
 
 /* This should be in sync with our include/stdarg.h */
-enum __va_arg_type {
+ಎಣಿಕೆ __va_arg_type {
     __va_gen_reg, __va_float_reg, __va_stack
 };
 
@@ -23,45 +23,45 @@ typedef struct {
 } __builtin_va_list[1];
 */
 
-extern void *memcpy(void *dest, const void *src, unsigned long n);
+ಬಾಹ್ಯ ಶೂನ್ಯ *ಸ್ಮರಣೆ_ನಕಲು(ಶೂನ್ಯ *dest, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ *src, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ n);
 
-void *__va_arg(__builtin_va_list ap,
-               int arg_type,
-               int size, int align)
+ಶೂನ್ಯ *__va_arg(__builtin_va_list ap,
+               ಪೂರ್ಣಾಂಕ arg_type,
+               ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_2, ಪೂರ್ಣಾಂಕ align)
 {
-    size = (size + 7) & ~7;
+    ಗಾತ್ರ_2 = (ಗಾತ್ರ_2 + 7) & ~7;
     align = (align + 7) & ~7;
-    switch ((enum __va_arg_type)arg_type) {
-    case __va_gen_reg:
-        if (ap->gp_offset + size <= 48) {
-            ap->gp_offset += size;
-            return ap->reg_save_area + ap->gp_offset - size;
+    ಆಯ್ಕೆ ((ಎಣಿಕೆ __va_arg_type)arg_type) {
+    ಸ್ಥಿತಿ __va_gen_reg:
+        ಆದರೆ (ap->gp_ಸ್ಥಾನಾಂತರ + ಗಾತ್ರ_2 <= 48) {
+            ap->gp_ಸ್ಥಾನಾಂತರ += ಗಾತ್ರ_2;
+            ಹಿಂತಿರುಗಿ ap->reg_save_area + ap->gp_ಸ್ಥಾನಾಂತರ - ಗಾತ್ರ_2;
         }
-        goto use_overflow_area;
+        ಹೋಗು use_ಅತಿಪ್ರವಾಹ_area;
 
-    case __va_float_reg:
-        if (ap->fp_offset < 128 + 48) {
-            ap->fp_offset += 16;
-            if (size == 8)
-                return ap->reg_save_area + ap->fp_offset - 16;
-            if (ap->fp_offset < 128 + 48) {
-                memcpy(ap->reg_save_area + ap->fp_offset - 8,
-                       ap->reg_save_area + ap->fp_offset, 8);
-                ap->fp_offset += 16;
-                return ap->reg_save_area + ap->fp_offset - 32;
+    ಸ್ಥಿತಿ __va_float_reg:
+        ಆದರೆ (ap->fp_ಸ್ಥಾನಾಂತರ < 128 + 48) {
+            ap->fp_ಸ್ಥಾನಾಂತರ += 16;
+            ಆದರೆ (ಗಾತ್ರ_2 == 8)
+                ಹಿಂತಿರುಗಿ ap->reg_save_area + ap->fp_ಸ್ಥಾನಾಂತರ - 16;
+            ಆದರೆ (ap->fp_ಸ್ಥಾನಾಂತರ < 128 + 48) {
+                ಸ್ಮರಣೆ_ನಕಲು(ap->reg_save_area + ap->fp_ಸ್ಥಾನಾಂತರ - 8,
+                       ap->reg_save_area + ap->fp_ಸ್ಥಾನಾಂತರ, 8);
+                ap->fp_ಸ್ಥಾನಾಂತರ += 16;
+                ಹಿಂತಿರುಗಿ ap->reg_save_area + ap->fp_ಸ್ಥಾನಾಂತರ - 32;
             }
         }
-        goto use_overflow_area;
+        ಹೋಗು use_ಅತಿಪ್ರವಾಹ_area;
 
-    case __va_stack:
-    use_overflow_area:
-        ap->overflow_arg_area += size;
-        ap->overflow_arg_area = (char*)((long long)(ap->overflow_arg_area + align - 1) & -align);
-        return ap->overflow_arg_area - size;
+    ಸ್ಥಿತಿ __va_stack:
+    use_ಅತಿಪ್ರವಾಹ_area:
+        ap->ಅತಿಪ್ರವಾಹ_arg_area += ಗಾತ್ರ_2;
+        ap->ಅತಿಪ್ರವಾಹ_arg_area = (ಅಕ್ಷರ*)((ದೀರ್ಘ ದೀರ್ಘ)(ap->ಅತಿಪ್ರವಾಹ_arg_area + align - 1) & -align);
+        ಹಿಂತಿರುಗಿ ap->ಅತಿಪ್ರವಾಹ_arg_area - ಗಾತ್ರ_2;
 
-    default: /* should never happen */
+    ಪೂರ್ವನಿಯೋಜಿತ: /* should never happen */
         abort();
-        return 0;
+        ಹಿಂತಿರುಗಿ 0;
     }
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   char a;
-   int b;
-   double c;
+   ಅಕ್ಷರ a;
+   ಪೂರ್ಣಾಂಕ b;
+   ದ್ವಿಗುಣ c;
 
-   printf("%d\n", sizeof(a));
-   printf("%d\n", sizeof(b));
-   printf("%d\n", sizeof(c));
+   ಬರೆ("%d\n", ಗಾತ್ರ(a));
+   ಬರೆ("%d\n", ಗಾತ್ರ(b));
+   ಬರೆ("%d\n", ಗಾತ್ರ(c));
 
-   printf("%d\n", sizeof(!a));
+   ಬರೆ("%d\n", ಗಾತ್ರ(!a));
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

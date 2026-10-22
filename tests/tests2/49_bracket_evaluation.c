@@ -1,23 +1,23 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-struct point
+ರಚನೆ ಬಿಂದು
 {
-   double x;
-   double y;
+   ದ್ವಿಗುಣ x;
+   ದ್ವಿಗುಣ y;
 };
 
-struct point point_array[100];
+ರಚನೆ ಬಿಂದು ಬಿಂದು_array[100];
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int my_point = 10;
+   ಪೂರ್ಣಾಂಕ my_ಬಿಂದು = 10;
 
-   point_array[my_point].x = 12.34;
-   point_array[my_point].y = 56.78;
+   ಬಿಂದು_array[my_ಬಿಂದು].x = 12.34;
+   ಬಿಂದು_array[my_ಬಿಂದು].y = 56.78;
 
-   printf("%f, %f\n", point_array[my_point].x, point_array[my_point].y);
+   ಬರೆ("%f, %f\n", ಬಿಂದು_array[my_ಬಿಂದು].x, ಬಿಂದು_array[my_ಬಿಂದು].y);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int factorial(int i) 
+ಪೂರ್ಣಾಂಕ ಅಪವರ್ತ್ಯಲಬ್ಧ(ಪೂರ್ಣಾಂಕ i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   ಆದರೆ (i < 2)
+      ಹಿಂತಿರುಗಿ i;
+   ಇಲ್ಲದಿದ್ದರೆ
+      ಹಿಂತಿರುಗಿ i * ಅಪವರ್ತ್ಯಲಬ್ಧ(i - 1);
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int Count;
+   ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_4;
 
-   for (Count = 1; Count <= 10; Count++)
-      printf("%d\n", factorial(Count));
+   ಗಾಗಿ (ಎಣಿಕೆ_4 = 1; ಎಣಿಕೆ_4 <= 10; ಎಣಿಕೆ_4++)
+      ಬರೆ("%d\n", ಅಪವರ್ತ್ಯಲಬ್ಧ(ಎಣಿಕೆ_4));
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,4 +1,4 @@
-#define foobar 1
-#define C(x,y) x##y
-#define D(x) (C(x,bar))
+#ವ್ಯಾಖ್ಯಾನಿಸು foobar 1
+#ವ್ಯಾಖ್ಯಾನಿಸು C(x,y) x##y
+#ವ್ಯಾಖ್ಯಾನಿಸು D(x) (C(x,bar))
 D(foo)

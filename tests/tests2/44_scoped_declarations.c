@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int a;
+   ಪೂರ್ಣಾಂಕ a;
 
-   for (a = 0; a < 2; a++)
+   ಗಾಗಿ (a = 0; a < 2; a++)
    {
-      int b = a;
+      ಪೂರ್ಣಾಂಕ b = a;
    }
 
-   printf("it's all good\n");
+   ಬರೆ("it's all good\n");
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

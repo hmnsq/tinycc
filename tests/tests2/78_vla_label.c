@@ -1,45 +1,45 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+ಶೂನ್ಯ f1(ಪೂರ್ಣಾಂಕ argc)
 {
-  char test[argc];
-  if(0)
+  ಅಕ್ಷರ test[argc];
+  ಆದರೆ(0)
   label:
-    printf("boom!\n");
-  if(argc-- == 0)
-    return;
-  goto label;
+    ಬರೆ("boom!\n");
+  ಆದರೆ(argc-- == 0)
+    ಹಿಂತಿರುಗಿ;
+  ಹೋಗು label;
 }
 
 /* This segfaulted on 2015-11-19. */
-void f2(void)
+ಶೂನ್ಯ f2(ಶೂನ್ಯ)
 {
-    goto start;
+    ಹೋಗು ಆರಂಭ;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
-    start:
+        ಪೂರ್ಣಾಂಕ a[1 && 1]; /* not a variable-length array */
+        ಪೂರ್ಣಾಂಕ b[1 || 1]; /* not a variable-length array */
+        ಪೂರ್ಣಾಂಕ c[1 ? 1 : 1]; /* not a variable-length array */
+    ಆರಂಭ:
         a[0] = 0;
         b[0] = 0;
         c[0] = 0;
     }
 }
 
-void f3(void)
+ಶೂನ್ಯ f3(ಶೂನ್ಯ)
 {
-    printf("%d\n", 0 ? printf("x1\n") : 11);
-    printf("%d\n", 1 ? 12 : printf("x2\n"));
-    printf("%d\n", 0 && printf("x3\n"));
-    printf("%d\n", 1 || printf("x4\n"));
+    ಬರೆ("%d\n", 0 ? ಬರೆ("x1\n") : 11);
+    ಬರೆ("%d\n", 1 ? 12 : ಬರೆ("x2\n"));
+    ಬರೆ("%d\n", 0 && ಬರೆ("x3\n"));
+    ಬರೆ("%d\n", 1 || ಬರೆ("x4\n"));
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  ಹಿಂತಿರುಗಿ 0;
 }

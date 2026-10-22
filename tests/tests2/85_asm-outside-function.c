@@ -1,15 +1,15 @@
-#ifdef __leading_underscore
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __leading_underscore
 # define _ "_"
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define _
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-extern int printf (const char *, ...);
-extern void vide(void);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ ಬರೆ (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...);
+ಬಾಹ್ಯ ಶೂನ್ಯ vide(ಶೂನ್ಯ);
 __asm__(_"vide: ret");
 
-int main() {
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ() {
     vide();
-    printf ("okay\n");
-    return 0;
+    ಬರೆ ("okay\n");
+    ಹಿಂತಿರುಗಿ 0;
 }

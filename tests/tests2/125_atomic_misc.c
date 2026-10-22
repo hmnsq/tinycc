@@ -1,76 +1,76 @@
-#include <stdatomic.h>
-int printf(const char*,...);
+#ಅನ್ತರ್ಭಾವ <stdatomic.h>
+ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ*,...);
 
-#if defined test_atomic_compare_exchange
-int main()
+#ಆದರೆ defined test_atomic_compare_exchange
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    _Atomic int a = 12;
-    int b = 77;
-    int r;
+    _Atomic ಪೂರ್ಣಾಂಕ a = 12;
+    ಪೂರ್ಣಾಂಕ b = 77;
+    ಪೂರ್ಣಾಂಕ r;
 
     atomic_store(&a, b + 0);
     r = atomic_compare_exchange_strong(&a, &b, 99);
-    printf("%d %d %d\n", r, a, b);
+    ಬರೆ("%d %d %d\n", r, a, b);
 
     atomic_store(&a, b + 3);
     r = atomic_compare_exchange_strong(&a, &b, 99);
-    printf("%d %d %d\n", r, a, b);
+    ಬರೆ("%d %d %d\n", r, a, b);
 
     atomic_store(&a, b + 5);
     r = atomic_exchange(&a,  33);
-    printf("%d %d %d\n", r, a, b);
+    ಬರೆ("%d %d %d\n", r, a, b);
 
     atomic_store(&a, b + 10);
     r = atomic_exchange(&a, 66);
-    printf("%d %d %d\n", r, a, b);
+    ಬರೆ("%d %d %d\n", r, a, b);
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-#elif defined test_atomic_store
-int main()
+#ಅಥವಾಆದರೆ defined test_atomic_store
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    int _Atomic i;
-    int r;
+    ಪೂರ್ಣಾಂಕ _Atomic i;
+    ಪೂರ್ಣಾಂಕ r;
     atomic_store(&i, 12);
     r = atomic_fetch_add(&i, i);
-    printf("r = %d, i = %d\n", r, i);
+    ಬರೆ("r = %d, i = %d\n", r, i);
 }
 
-#elif defined test_atomic_store_pointer
-typedef struct { char c[4]; } c4;
-int main()
+#ಅಥವಾಆದರೆ defined test_atomic_store_ಸೂಚಕ
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ { ಅಕ್ಷರ c[4]; } c4;
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    int i = 1;
-    int _Atomic *p = &i;
-    int k = 2;
+    ಪೂರ್ಣಾಂಕ i = 1;
+    ಪೂರ್ಣಾಂಕ _Atomic *p = &i;
+    ಪೂರ್ಣಾಂಕ k = 2;
     atomic_store(&p, &k);
-    printf("*p = %d\n", *p);
+    ಬರೆ("*p = %d\n", *p);
 }
 
-#elif defined test_atomic_store_struct
-typedef struct { char c[4]; } c4;
-int main()
+#ಅಥವಾಆದರೆ defined test_atomic_store_struct
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ { ಅಕ್ಷರ c[4]; } c4;
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
     c4 _Atomic p;
     c4 v = { 1,2,3,4 };
     atomic_store(&p, v);
-    printf("%d %d %d %d\n", p.c[0], p.c[1], p.c[2], p.c[3]);
+    ಬರೆ("%d %d %d %d\n", p.c[0], p.c[1], p.c[2], p.c[3]);
 }
 
-#elif defined test_atomic_op
+#ಅಥವಾಆದರೆ defined test_atomic_op
 
-#define OP1(func, v, e1, e2) atomic_##func(&c, v) == e1 && c == e2
-#define OP2(func, v, e1, e2) atomic_##func(&s, v) == e1 && s == e2
-#define OP4(func, v, e1, e2) atomic_##func(&i, v) == e1 && i == e2
-#define OP8(func, v, e1, e2) atomic_##func(&l, v) == e1 && l == e2
+#ವ್ಯಾಖ್ಯಾನಿಸು OP1(func, v, e1, e2) atomic_##func(&c, v) == e1 && c == e2
+#ವ್ಯಾಖ್ಯಾನಿಸು OP2(func, v, e1, e2) atomic_##func(&s, v) == e1 && s == e2
+#ವ್ಯಾಖ್ಯಾನಿಸು OP4(func, v, e1, e2) atomic_##func(&i, v) == e1 && i == e2
+#ವ್ಯಾಖ್ಯಾನಿಸು OP8(func, v, e1, e2) atomic_##func(&l, v) == e1 && l == e2
 
-#define OP(func, v, e1, e2) printf ("%s: %s\n", #func,                        \
+#ವ್ಯಾಖ್ಯಾನಿಸು OP(func, v, e1, e2) ಬರೆ ("%s: %s\n", #func,                        \
                                     OP1(func,v,e1,e2) && OP2(func,v,e1,e2) && \
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
  
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
     atomic_char c;
     atomic_short s;
@@ -82,36 +82,36 @@ int main()
     atomic_init(&i, 0);
     atomic_init(&l, 0);
 
-    OP(fetch_add, 10, 0, 10);
+    OP(fetch_ಕೂಡಿಸು, 10, 0, 10);
     OP(fetch_sub, 5, 10, 5);
     OP(fetch_or, 0x10, 5, 21);
     OP(fetch_xor, 0x20, 21, 53);
     OP(fetch_and, 0x0f, 53, 5);
 }
 
-#elif defined test_atomic_op2
+#ಅಥವಾಆದರೆ defined test_atomic_op2
 
-typedef __SIZE_TYPE__ size64_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __SIZE_TYPE__ size64_t;
 
-#define OP1(func, v, e1, e2) \
+#ವ್ಯಾಖ್ಯಾನಿಸು OP1(func, v, e1, e2) \
     __atomic_##func(&c, v, __ATOMIC_SEQ_CST) == e1 && c == e2
-#define OP2(func, v, e1, e2)\
+#ವ್ಯಾಖ್ಯಾನಿಸು OP2(func, v, e1, e2)\
     __atomic_##func(&s, v, __ATOMIC_SEQ_CST) == e1 && s == e2
-#define OP4(func, v, e1, e2)\
+#ವ್ಯಾಖ್ಯಾನಿಸು OP4(func, v, e1, e2)\
     __atomic_##func(&i, v, __ATOMIC_SEQ_CST) == e1 && i == e2
-#define OP8(func, v, e1, e2)\
+#ವ್ಯಾಖ್ಯಾನಿಸು OP8(func, v, e1, e2)\
     __atomic_##func(&l, v, __ATOMIC_SEQ_CST) == e1 && l == e2
 
-#define OP(func, v, e1, e2) printf ("%s: %s\n", #func,                        \
+#ವ್ಯಾಖ್ಯಾನಿಸು OP(func, v, e1, e2) ಬರೆ ("%s: %s\n", #func,                        \
                                     OP1(func,v,e1,e2) && OP2(func,v,e1,e2) && \
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    signed char c;
-    short s;
-    int i;
+    ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ c;
+    ಗಿಡ್ಡ s;
+    ಪೂರ್ಣಾಂಕ i;
     size64_t l;
 
     atomic_init(&c, 0);
@@ -119,7 +119,7 @@ int main()
     atomic_init(&i, 0);
     atomic_init(&l, 0);
 
-    OP(fetch_add, 10, 0, 10);
+    OP(fetch_ಕೂಡಿಸು, 10, 0, 10);
     OP(fetch_sub, 5, 10, 5);
     OP(fetch_or, 0x10, 5, 21);
     OP(fetch_xor, 0x20, 21, 53);
@@ -131,7 +131,7 @@ int main()
     atomic_init(&i, 0);
     atomic_init(&l, 0);
 
-    OP(add_fetch, 10, 10, 10);
+    OP(ಕೂಡಿಸು_fetch, 10, 10, 10);
     OP(sub_fetch, 5, 5, 5);
     OP(or_fetch, 0x10, 21, 21);
     OP(xor_fetch, 0x20, 53, 53);
@@ -139,69 +139,69 @@ int main()
     OP(nand_fetch, 0x01, -2, -2);
 }
 
-#elif defined test_atomic_thread_signal
-int main()
+#ಅಥವಾಆದರೆ defined test_atomic_thread_signal
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    int c;
+    ಪೂರ್ಣಾಂಕ c;
 
     atomic_thread_fence(__ATOMIC_SEQ_CST);
     atomic_signal_fence(__ATOMIC_SEQ_CST);
-    printf ("%d\n", atomic_is_lock_free(&c));
+    ಬರೆ ("%d\n", atomic_is_lock_free(&c));
 }
 
-#elif defined test_atomic_error_1
-int main()
+#ಅಥವಾಆದರೆ defined test_atomic_error_1
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    int _Atomic i;
+    ಪೂರ್ಣಾಂಕ _Atomic i;
     atomic_load(i);
 }
 
-#elif defined test_atomic_error_2
-int main()
+#ಅಥವಾಆದರೆ defined test_atomic_error_2
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    struct { char c[3]; } _Atomic c3;
+    ರಚನೆ { ಅಕ್ಷರ c[3]; } _Atomic c3;
     atomic_load(&c3);
 }
 
-#elif defined test_atomic_error_3
-int main()
+#ಅಥವಾಆದರೆ defined test_atomic_error_3
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    _Atomic int *p = 0;
+    _Atomic ಪೂರ್ಣಾಂಕ *p = 0;
     atomic_fetch_add(&p, 1);
 }
 
-#elif defined test_atomic_error_4
-int main()
+#ಅಥವಾಆದರೆ defined test_atomic_error_4
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    int _Atomic i = 1;
-    char c = 2;
+    ಪೂರ್ಣಾಂಕ _Atomic i = 1;
+    ಅಕ್ಷರ c = 2;
     atomic_compare_exchange_strong(&i, &c, 0);
 }
 
-#elif defined test_atomic_warn_1
-int main()
+#ಅಥವಾಆದರೆ defined test_atomic_warn_1
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    size_t _Atomic i = 1;
+    ಗಾತ್ರ_t _Atomic i = 1;
     /* assignment to integer from pointer */
     atomic_store(&i, &i);
 }
 
-#elif defined test_atomic_warn_2
-int main()
+#ಅಥವಾಆದರೆ defined test_atomic_warn_2
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    int i = 1;
-    char c = 2;
-    int _Atomic *p = &i;
+    ಪೂರ್ಣಾಂಕ i = 1;
+    ಅಕ್ಷರ c = 2;
+    ಪೂರ್ಣಾಂಕ _Atomic *p = &i;
     /* assignment from incompatible pointer */
     atomic_store(&p, &c);
 }
 
-#elif defined test_atomic_warn_3
-int main()
+#ಅಥವಾಆದರೆ defined test_atomic_warn_3
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    int const i = 1;
+    ಪೂರ್ಣಾಂಕ ಸ್ಥಿರಾಂಕ i = 1;
     /* assignment to read-only -location */
     atomic_fetch_add(&i, 2);
 }
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

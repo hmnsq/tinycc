@@ -1,18 +1,18 @@
-extern int printf (const char *, ...);
-extern void target(void);
-extern void alias_for_target(void);
-extern void asm_for_target(void);
-extern int g_int, alias_int;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ ಬರೆ (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...);
+ಬಾಹ್ಯ ಶೂನ್ಯ ಗುರಿ(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ alias_for_ಗುರಿ(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ asm_for_ಗುರಿ(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ g_int, alias_int;
 
-void inunit2(void);
+ಶೂನ್ಯ inunit2(ಶೂನ್ಯ);
 
-void inunit2(void)
+ಶೂನ್ಯ inunit2(ಶೂನ್ಯ)
 {
-  printf("in unit2:\n");
-  target();
-  alias_for_target();
+  ಬರೆ("in unit2:\n");
+  ಗುರಿ();
+  alias_for_ಗುರಿ();
   /* This symbol is not supposed to be available in this unit:
      asm_for_target();
    */
-  printf("g_int = %d\nalias_int = %d\n", g_int, alias_int);
+  ಬರೆ("g_int = %d\nalias_int = %d\n", g_int, alias_int);
 }

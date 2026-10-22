@@ -3,170 +3,170 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_WCTYPE
-#define _INC_WCTYPE
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INC_WCTYPE
+#ವ್ಯಾಖ್ಯಾನಿಸು _INC_WCTYPE
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
+#ದೋಷ Only Win32 ಗುರಿ is supported!
+#ಆದರೆ_ಅಂತ್ಯ
 
-#include <_mingw.h>
+#ಅನ್ತರ್ಭಾವ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ಸೂಚನೆ pack(ತಳ್ಳು,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _CRTIMP
+#ವ್ಯಾಖ್ಯಾನಿಸು _CRTIMP __declspec(dllimport)
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WCHAR_T_DEFINED
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ wchar_t;
+#ವ್ಯಾಖ್ಯಾನಿಸು _WCHAR_T_DEFINED
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _WCTYPE_T_DEFINED
-  typedef unsigned short wint_t;
-  typedef unsigned short wctype_t;
-#define _WCTYPE_T_DEFINED
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WCTYPE_T_DEFINED
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ wint_t;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ wctype_t;
+#ವ್ಯಾಖ್ಯಾನಿಸು _WCTYPE_T_DEFINED
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef WEOF
-#define WEOF (wint_t)(0xFFFF)
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WEOF
+#ವ್ಯಾಖ್ಯಾನಿಸು WEOF (wint_t)(0xFFFF)
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _CRT_CTYPEDATA_DEFINED
-#define _CRT_CTYPEDATA_DEFINED
-#ifndef _CTYPE_DISABLE_MACROS
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _CRT_CTYPEDATA_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _CRT_CTYPEDATA_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _CTYPE_DISABLE_MACROS
 
-#ifndef __PCTYPE_FUNC
-#define __PCTYPE_FUNC __pctype_func()
-#ifdef _MSVCRT_
-#define __pctype_func() (_pctype)
-#else
-#define __pctype_func() (*_imp___pctype)
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __PCTYPE_FUNC
+#ವ್ಯಾಖ್ಯಾನಿಸು __PCTYPE_FUNC __pctype_func()
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _MSVCRT_
+#ವ್ಯಾಖ್ಯಾನಿಸು __pctype_func() (_pctype)
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು __pctype_func() (*_imp___pctype)
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _pctype
-#ifdef _MSVCRT_
-  extern unsigned short *_pctype;
-#else
-  extern unsigned short **_imp___pctype;
-#define _pctype (*_imp___pctype)
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _pctype
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _MSVCRT_
+  ಬಾಹ್ಯ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ *_pctype;
+#ಇಲ್ಲದಿದ್ದರೆ
+  ಬಾಹ್ಯ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ **_imp___pctype;
+#ವ್ಯಾಖ್ಯಾನಿಸು _pctype (*_imp___pctype)
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _CRT_WCTYPEDATA_DEFINED
-#define _CRT_WCTYPEDATA_DEFINED
-#ifndef _CTYPE_DISABLE_MACROS
-#ifndef _wctype
-#ifdef _MSVCRT_
-  extern unsigned short *_wctype;
-#else
-  extern unsigned short **_imp___wctype;
-#define _wctype (*_imp___wctype)
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _CRT_WCTYPEDATA_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _CRT_WCTYPEDATA_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _CTYPE_DISABLE_MACROS
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _wctype
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _MSVCRT_
+  ಬಾಹ್ಯ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ *_wctype;
+#ಇಲ್ಲದಿದ್ದರೆ
+  ಬಾಹ್ಯ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ **_imp___wctype;
+#ವ್ಯಾಖ್ಯಾನಿಸು _wctype (*_imp___wctype)
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _pwctype
-#ifdef _MSVCRT_
-  extern unsigned short *_pwctype;
-#else
-  extern unsigned short **_imp___pwctype;
-#define _pwctype (*_imp___pwctype)
-#define __pwctype_func() (*_imp___pwctype)
-#endif
-#endif
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _pwctype
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _MSVCRT_
+  ಬಾಹ್ಯ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ *_pwctype;
+#ಇಲ್ಲದಿದ್ದರೆ
+  ಬಾಹ್ಯ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ **_imp___pwctype;
+#ವ್ಯಾಖ್ಯಾನಿಸು _pwctype (*_imp___pwctype)
+#ವ್ಯಾಖ್ಯಾನಿಸು __pwctype_func() (*_imp___pwctype)
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define _UPPER 0x1
-#define _LOWER 0x2
-#define _DIGIT 0x4
-#define _SPACE 0x8
+#ವ್ಯಾಖ್ಯಾನಿಸು ಊರ್ಧ್ವ_3 0x1
+#ವ್ಯಾಖ್ಯಾನಿಸು ಅಧೋ_2 0x2
+#ವ್ಯಾಖ್ಯಾನಿಸು _DIGIT 0x4
+#ವ್ಯಾಖ್ಯಾನಿಸು _SPACE 0x8
 
-#define _PUNCT 0x10
-#define _CONTROL 0x20
-#define _BLANK 0x40
-#define _HEX 0x80
+#ವ್ಯಾಖ್ಯಾನಿಸು _PUNCT 0x10
+#ವ್ಯಾಖ್ಯಾನಿಸು _CONTROL 0x20
+#ವ್ಯಾಖ್ಯಾನಿಸು _BLANK 0x40
+#ವ್ಯಾಖ್ಯಾನಿಸು _HEX 0x80
 
-#define _LEADBYTE 0x8000
-#define _ALPHA (0x0100|_UPPER|_LOWER)
+#ವ್ಯಾಖ್ಯಾನಿಸು _LEADBYTE 0x8000
+#ವ್ಯಾಖ್ಯಾನಿಸು _ALPHA (0x0100|ಊರ್ಧ್ವ_3|ಅಧೋ_2)
 
-#ifndef _WCTYPE_DEFINED
-#define _WCTYPE_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WCTYPE_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _WCTYPE_DEFINED
 
-  int __cdecl iswalpha(wint_t);
-  int __cdecl iswupper(wint_t);
-  int __cdecl iswlower(wint_t);
-  int __cdecl iswdigit(wint_t);
-  int __cdecl iswxdigit(wint_t);
-  int __cdecl iswspace(wint_t);
-  int __cdecl iswpunct(wint_t);
-  int __cdecl iswalnum(wint_t);
-  int __cdecl iswprint(wint_t);
-  int __cdecl iswgraph(wint_t);
-  int __cdecl iswcntrl(wint_t);
-  int __cdecl iswascii(wint_t);
-  int __cdecl isleadbyte(int);
+  ಪೂರ್ಣಾಂಕ __cdecl iswalpha(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl iswupper(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl iswlower(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl iswdigit(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl iswxdigit(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl iswspace(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl iswpunct(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl iswalnum(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl iswprint(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl iswgraph(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl iswcntrl(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl iswascii(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl isleadbyte(ಪೂರ್ಣಾಂಕ);
   wint_t __cdecl towupper(wint_t);
   wint_t __cdecl towlower(wint_t);
-  int __cdecl iswctype(wint_t,wctype_t);
-  _CRTIMP int __cdecl __iswcsymf(wint_t);
-  _CRTIMP int __cdecl __iswcsym(wint_t);
-  int __cdecl is_wctype(wint_t,wctype_t);
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl isblank(int _C);
-#endif
-#endif
+  ಪೂರ್ಣಾಂಕ __cdecl iswctype(wint_t,wctype_t);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl __iswcsymf(wint_t);
+  _CRTIMP ಪೂರ್ಣಾಂಕ __cdecl __iswcsym(wint_t);
+  ಪೂರ್ಣಾಂಕ __cdecl is_wctype(wint_t,wctype_t);
+#ಆದರೆ (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+ಪೂರ್ಣಾಂಕ __cdecl isblank(ಪೂರ್ಣಾಂಕ _C);
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _WCTYPE_INLINE_DEFINED
-#define _WCTYPE_INLINE_DEFINED
-#ifndef __cplusplus
-#define iswalpha(_c) (iswctype(_c,_ALPHA))
-#define iswupper(_c) (iswctype(_c,_UPPER))
-#define iswlower(_c) (iswctype(_c,_LOWER))
-#define iswdigit(_c) (iswctype(_c,_DIGIT))
-#define iswxdigit(_c) (iswctype(_c,_HEX))
-#define iswspace(_c) (iswctype(_c,_SPACE))
-#define iswpunct(_c) (iswctype(_c,_PUNCT))
-#define iswalnum(_c) (iswctype(_c,_ALPHA|_DIGIT))
-#define iswprint(_c) (iswctype(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT))
-#define iswgraph(_c) (iswctype(_c,_PUNCT|_ALPHA|_DIGIT))
-#define iswcntrl(_c) (iswctype(_c,_CONTROL))
-#define iswascii(_c) ((unsigned)(_c) < 0x80)
-#define isleadbyte(c) (__pctype_func()[(unsigned char)(c)] & _LEADBYTE)
-#else
-  __CRT_INLINE int __cdecl iswalpha(wint_t _C) {return (iswctype(_C,_ALPHA)); }
-  __CRT_INLINE int __cdecl iswupper(wint_t _C) {return (iswctype(_C,_UPPER)); }
-  __CRT_INLINE int __cdecl iswlower(wint_t _C) {return (iswctype(_C,_LOWER)); }
-  __CRT_INLINE int __cdecl iswdigit(wint_t _C) {return (iswctype(_C,_DIGIT)); }
-  __CRT_INLINE int __cdecl iswxdigit(wint_t _C) {return (iswctype(_C,_HEX)); }
-  __CRT_INLINE int __cdecl iswspace(wint_t _C) {return (iswctype(_C,_SPACE)); }
-  __CRT_INLINE int __cdecl iswpunct(wint_t _C) {return (iswctype(_C,_PUNCT)); }
-  __CRT_INLINE int __cdecl iswalnum(wint_t _C) {return (iswctype(_C,_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswprint(wint_t _C) {return (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswgraph(wint_t _C) {return (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswcntrl(wint_t _C) {return (iswctype(_C,_CONTROL)); }
-  __CRT_INLINE int __cdecl iswascii(wint_t _C) {return ((unsigned)(_C) < 0x80); }
-  __CRT_INLINE int __cdecl isleadbyte(int _C) {return (__pctype_func()[(unsigned char)(_C)] & _LEADBYTE); }
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WCTYPE_INLINE_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _WCTYPE_INLINE_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿಸು iswalpha(_c) (iswctype(_c,_ALPHA))
+#ವ್ಯಾಖ್ಯಾನಿಸು iswupper(_c) (iswctype(_c,ಊರ್ಧ್ವ_3))
+#ವ್ಯಾಖ್ಯಾನಿಸು iswlower(_c) (iswctype(_c,ಅಧೋ_2))
+#ವ್ಯಾಖ್ಯಾನಿಸು iswdigit(_c) (iswctype(_c,_DIGIT))
+#ವ್ಯಾಖ್ಯಾನಿಸು iswxdigit(_c) (iswctype(_c,_HEX))
+#ವ್ಯಾಖ್ಯಾನಿಸು iswspace(_c) (iswctype(_c,_SPACE))
+#ವ್ಯಾಖ್ಯಾನಿಸು iswpunct(_c) (iswctype(_c,_PUNCT))
+#ವ್ಯಾಖ್ಯಾನಿಸು iswalnum(_c) (iswctype(_c,_ALPHA|_DIGIT))
+#ವ್ಯಾಖ್ಯಾನಿಸು iswprint(_c) (iswctype(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT))
+#ವ್ಯಾಖ್ಯಾನಿಸು iswgraph(_c) (iswctype(_c,_PUNCT|_ALPHA|_DIGIT))
+#ವ್ಯಾಖ್ಯಾನಿಸು iswcntrl(_c) (iswctype(_c,_CONTROL))
+#ವ್ಯಾಖ್ಯಾನಿಸು iswascii(_c) ((ಚಿಹ್ನೆರಹಿತ)(_c) < 0x80)
+#ವ್ಯಾಖ್ಯಾನಿಸು isleadbyte(c) (__pctype_func()[(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ)(c)] & _LEADBYTE)
+#ಇಲ್ಲದಿದ್ದರೆ
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswalpha(wint_t _C) {ಹಿಂತಿರುಗಿ (iswctype(_C,_ALPHA)); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswupper(wint_t _C) {ಹಿಂತಿರುಗಿ (iswctype(_C,ಊರ್ಧ್ವ_3)); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswlower(wint_t _C) {ಹಿಂತಿರುಗಿ (iswctype(_C,ಅಧೋ_2)); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswdigit(wint_t _C) {ಹಿಂತಿರುಗಿ (iswctype(_C,_DIGIT)); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswxdigit(wint_t _C) {ಹಿಂತಿರುಗಿ (iswctype(_C,_HEX)); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswspace(wint_t _C) {ಹಿಂತಿರುಗಿ (iswctype(_C,_SPACE)); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswpunct(wint_t _C) {ಹಿಂತಿರುಗಿ (iswctype(_C,_PUNCT)); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswalnum(wint_t _C) {ಹಿಂತಿರುಗಿ (iswctype(_C,_ALPHA|_DIGIT)); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswprint(wint_t _C) {ಹಿಂತಿರುಗಿ (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswgraph(wint_t _C) {ಹಿಂತಿರುಗಿ (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswcntrl(wint_t _C) {ಹಿಂತಿರುಗಿ (iswctype(_C,_CONTROL)); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl iswascii(wint_t _C) {ಹಿಂತಿರುಗಿ ((ಚಿಹ್ನೆರಹಿತ)(_C) < 0x80); }
+  __CRT_INLINE ಪೂರ್ಣಾಂಕ __cdecl isleadbyte(ಪೂರ್ಣಾಂಕ _C) {ಹಿಂತಿರುಗಿ (__pctype_func()[(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ)(_C)] & _LEADBYTE); }
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-  typedef wchar_t wctrans_t;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ wchar_t wctrans_t;
   wint_t __cdecl towctrans(wint_t,wctrans_t);
-  wctrans_t __cdecl wctrans(const char *);
-  wctype_t __cdecl wctype(const char *);
+  wctrans_t __cdecl wctrans(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *);
+  wctype_t __cdecl wctype(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *);
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#pragma pack(pop)
-#endif
+#ಸೂಚನೆ pack(ತೆಗೆ)
+#ಆದರೆ_ಅಂತ್ಯ

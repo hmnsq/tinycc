@@ -1,19 +1,19 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    long long int res = 0;
+    ದೀರ್ಘ ದೀರ್ಘ ಪೂರ್ಣಾಂಕ res = 0;
 
-    if (res < -2147483648LL) {
-        printf("Error: 0 < -2147483648\n");
-        return 1;
+    ಆದರೆ (res < -2147483648LL) {
+        ಬರೆ("Error: 0 < -2147483648\n");
+        ಹಿಂತಿರುಗಿ 1;
     }
-    else
-    if (2147483647LL < res) {
-        printf("Error: 2147483647 < 0\n");
-        return 2;
+    ಇಲ್ಲದಿದ್ದರೆ
+    ಆದರೆ (2147483647LL < res) {
+        ಬರೆ("Error: 2147483647 < 0\n");
+        ಹಿಂತಿರುಗಿ 2;
     }
-    else
-        printf("long long constant test ok.\n");
-    return 0;
+    ಇಲ್ಲದಿದ್ದರೆ
+        ಬರೆ("long long constant test ok.\n");
+    ಹಿಂತಿರುಗಿ 0;
 }

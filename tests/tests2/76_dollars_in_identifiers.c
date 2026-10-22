@@ -1,41 +1,41 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-#define $(x) x
-#define $fred 10
-#define joe$ 20
-#define hen$y 30
+#ವ್ಯಾಖ್ಯಾನಿಸು $(x) x
+#ವ್ಯಾಖ್ಯಾನಿಸು $fred 10
+#ವ್ಯಾಖ್ಯಾನಿಸು joe$ 20
+#ವ್ಯಾಖ್ಯಾನಿಸು hen$y 30
 
-#define $10(x) x*10
-#define _$10(x) x/10
+#ವ್ಯಾಖ್ಯಾನಿಸು $10(x) x*10
+#ವ್ಯಾಖ್ಯಾನಿಸು _$10(x) x/10
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   printf("fred=%d\n", $fred);
-   printf("joe=%d\n", joe$);
-   printf("henry=%d\n", hen$y);
+   ಬರೆ("fred=%d\n", $fred);
+   ಬರೆ("joe=%d\n", joe$);
+   ಬರೆ("henry=%d\n", hen$y);
 
-   printf("fred2=%d\n", $($fred));
-   printf("joe2=%d\n", $(joe$));
-   printf("henry2=%d\n", $(hen$y));
+   ಬರೆ("fred2=%d\n", $($fred));
+   ಬರೆ("joe2=%d\n", $(joe$));
+   ಬರೆ("henry2=%d\n", $(hen$y));
 
-   printf("fred10=%d\n", $10($fred));
-   printf("joe_10=%d\n", _$10(joe$));
+   ಬರೆ("fred10=%d\n", $10($fred));
+   ಬರೆ("joe_10=%d\n", _$10(joe$));
 
-   int $ = 10;
-   int a100$ = 100;
-   int a$$ = 1000;
-   int a$c$b = 2121;
-   int $100 = 10000;
-   const char *$$$ = "money";
+   ಪೂರ್ಣಾಂಕ $ = 10;
+   ಪೂರ್ಣಾಂಕ a100$ = 100;
+   ಪೂರ್ಣಾಂಕ a$$ = 1000;
+   ಪೂರ್ಣಾಂಕ a$c$b = 2121;
+   ಪೂರ್ಣಾಂಕ $100 = 10000;
+   ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *$$$ = "money";
 
-   printf("local=%d\n", $);
-   printf("a100$=%d\n", a100$);
-   printf("a$$=%d\n", a$$);
-   printf("a$c$b=%d\n", a$c$b);
-   printf("$100=%d\n", $100);
-   printf("$$$=%s", $$$);
+   ಬರೆ("local=%d\n", $);
+   ಬರೆ("a100$=%d\n", a100$);
+   ಬರೆ("a$$=%d\n", a$$);
+   ಬರೆ("a$c$b=%d\n", a$c$b);
+   ಬರೆ("$100=%d\n", $100);
+   ಬರೆ("$$$=%s", $$$);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,53 +1,53 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
-} Node;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ {
+    ಪೂರ್ಣಾಂಕ ದತ್ತಾಂಶ[4];
+    ದ್ವಿಗುಣ d1;
+    ದ್ವಿಗುಣ d2;
+} ಗಂಟು_2;
 
-typedef struct {
-    int a, b, c;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ {
+    ಪೂರ್ಣಾಂಕ a, b, c;
 } A;
 
-Node init(Node self) {
-    self.data[0] = 0;
-    self.data[1] = 1;
-    self.data[2] = 2;
-    self.data[3] = 3;
+ಗಂಟು_2 init(ಗಂಟು_2 self) {
+    self.ದತ್ತಾಂಶ[0] = 0;
+    self.ದತ್ತಾಂಶ[1] = 1;
+    self.ದತ್ತಾಂಶ[2] = 2;
+    self.ದತ್ತಾಂಶ[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    ಹಿಂತಿರುಗಿ self;
 }
 
-void dummy(Node self) {
+ಶೂನ್ಯ dummy(ಗಂಟು_2 self) {
 }
 
-void print_data(Node data) {
-    printf ("%d %d %d %d %g %g\n",
-            data.data[0], data.data[1], data.data[2], data.data[3],
-            data.d1, data.d2);
+ಶೂನ್ಯ print_ದತ್ತಾಂಶ(ಗಂಟು_2 ದತ್ತಾಂಶ) {
+    ಬರೆ ("%d %d %d %d %g %g\n",
+            ದತ್ತಾಂಶ.ದತ್ತಾಂಶ[0], ದತ್ತಾಂಶ.ದತ್ತಾಂಶ[1], ದತ್ತಾಂಶ.ದತ್ತಾಂಶ[2], ದತ್ತಾಂಶ.ದತ್ತಾಂಶ[3],
+            ದತ್ತಾಂಶ.d1, ದತ್ತಾಂಶ.d2);
 }
 
-A test(void)
+A test(ಶೂನ್ಯ)
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    ಗಾಗಿ (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    ಹಿಂತಿರುಗಿ arr[29];
 }
 
-int main(void) {
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    ಗಂಟು_2 ದತ್ತಾಂಶ;
     A a;
-    dummy (data);
-    char val;
-    data = init (data);
-    print_data(data);
+    dummy (ದತ್ತಾಂಶ);
+    ಅಕ್ಷರ val;
+    ದತ್ತಾಂಶ = init (ದತ್ತಾಂಶ);
+    print_ದತ್ತಾಂಶ(ದತ್ತಾಂಶ);
     a = test();
-    printf("%d\n", a.b);
-    return 0;
+    ಬರೆ("%d\n", a.b);
+    ಹಿಂತಿರುಗಿ 0;
 }

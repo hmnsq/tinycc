@@ -26,7 +26,7 @@
      DEF(TOK_VOLATILE1, "volatile")
      DEF(TOK_VOLATILE2, "__volatile") /* gcc keyword */
      DEF(TOK_VOLATILE3, "__volatile__") /* gcc keyword */
-     DEF(TOK_REGISTER, "register")
+     DEF(TOK_ರಿಜಿಸ್ಟರ್, "register")
      DEF(TOK_SIGNED1, "signed")
      DEF(TOK_SIGNED2, "__signed") /* gcc keyword */
      DEF(TOK_SIGNED3, "__signed__") /* gcc keyword */
@@ -74,7 +74,7 @@
 /* preprocessor only */
      DEF(TOK_DEFINE, "define")
      DEF(TOK_INCLUDE, "include")
-     DEF(TOK_INCLUDE_NEXT, "include_next")
+     DEF(TOK_INCLUDE_ಮುಂದಿನ, "include_next")
      DEF(TOK_IFDEF, "ifdef")
      DEF(TOK_IFNDEF, "ifndef")
      DEF(TOK_ELIF, "elif")
@@ -83,17 +83,17 @@
      DEF(TOK_UNDEF, "undef")
      DEF(TOK_ERROR, "error")
      DEF(TOK_WARNING, "warning")
-     DEF(TOK_LINE, "line")
+     DEF(TOK_ಸಾಲು, "line")
      DEF(TOK_PRAGMA, "pragma")
-     DEF(TOK___LINE__, "__LINE__")
+     DEF(TOK_ಸಾಲು_2, "__LINE__")
      DEF(TOK___FILE__, "__FILE__")
      DEF(TOK___DATE__, "__DATE__")
-     DEF(TOK___TIME__, "__TIME__")
+     DEF(TOK_ಸಮಯ, "__TIME__")
      DEF(TOK___FUNCTION__, "__FUNCTION__")
-     DEF(TOK___VA_ARGS__, "__VA_ARGS__")
+     DEF(TOK_VA_ವಾದಗಳು, "__VA_ARGS__")
      DEF(TOK___COUNTER__, "__COUNTER__")
      DEF(TOK___HAS_INCLUDE, "__has_include")
-     DEF(TOK___HAS_INCLUDE_NEXT, "__has_include_next")
+     DEF(TOK_HAS_INCLUDE_ಮುಂದಿನ, "__has_include_next")
 
 /* special identifiers */
      DEF(TOK___FUNC__, "__func__")
@@ -149,12 +149,12 @@
      DEF(TOK_PURE1, "pure")
      DEF(TOK_PURE2, "__pure__")
 
-     DEF(TOK_MODE, "__mode__")
-     DEF(TOK_MODE_QI, "__QI__")
-     DEF(TOK_MODE_DI, "__DI__")
-     DEF(TOK_MODE_HI, "__HI__")
-     DEF(TOK_MODE_SI, "__SI__")
-     DEF(TOK_MODE_word, "__word__")
+     DEF(TOK_ಬಹುಲಕ, "__mode__")
+     DEF(TOK_ಬಹುಲಕ_QI, "__QI__")
+     DEF(TOK_ಬಹುಲಕ_DI, "__DI__")
+     DEF(TOK_ಬಹುಲಕ_HI, "__HI__")
+     DEF(TOK_ಬಹುಲಕ_SI, "__SI__")
+     DEF(TOK_ಬಹುಲಕ_ಶಬ್ದ, "__word__")
 
      DEF(TOK_DLLEXPORT, "dllexport")
      DEF(TOK_DLLIMPORT, "dllimport")
@@ -166,26 +166,26 @@
      DEF(TOK_VISIBILITY2, "__visibility__")
 
      DEF(TOK_builtin_types_compatible_p, "__builtin_types_compatible_p")
-     DEF(TOK_builtin_choose_expr, "__builtin_choose_expr")
+     DEF(TOK_builtin_ಆರಿಸು_ಅಭಿವ್ಯಕ್ತಿ, "__builtin_choose_expr")
      DEF(TOK_builtin_constant_p, "__builtin_constant_p")
-     DEF(TOK_builtin_frame_address, "__builtin_frame_address")
-     DEF(TOK_builtin_return_address, "__builtin_return_address")
+     DEF(TOK_builtin_ಚೌಕಟ್ಟು_ವಿಳಾಸ, "__builtin_frame_address")
+     DEF(TOK_builtin_return_ವಿಳಾಸ, "__builtin_return_address")
      DEF(TOK_builtin_expect, "__builtin_expect")
      DEF(TOK_builtin_unreachable, "__builtin_unreachable")
      /*DEF(TOK_builtin_va_list, "__builtin_va_list")*/
-#if defined TCC_TARGET_PE && defined TCC_TARGET_X86_64
-     DEF(TOK_builtin_va_start, "__builtin_va_start")
-#elif defined TCC_TARGET_X86_64
+#ಆದರೆ defined TCC_ಗುರಿ_PE && defined TCC_ಗುರಿ_X86_64
+     DEF(TOK_builtin_va_ಆರಂಭ, "__builtin_va_start")
+#ಅಥವಾಆದರೆ defined TCC_ಗುರಿ_X86_64
      DEF(TOK_builtin_va_arg_types, "__builtin_va_arg_types")
-#elif defined TCC_TARGET_ARM64
-     DEF(TOK_builtin_va_start, "__builtin_va_start")
+#ಅಥವಾಆದರೆ defined TCC_ಗುರಿ_ARM64
+     DEF(TOK_builtin_va_ಆರಂಭ, "__builtin_va_start")
      DEF(TOK_builtin_va_arg, "__builtin_va_arg")
-#elif defined TCC_TARGET_RISCV64
-     DEF(TOK_builtin_va_start, "__builtin_va_start")
-#endif
+#ಅಥವಾಆದರೆ defined TCC_ಗುರಿ_RISCV64
+     DEF(TOK_builtin_va_ಆರಂಭ, "__builtin_va_start")
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* atomic operations */
-#define DEF_ATOMIC(ID) DEF(TOK_##__##ID, "__"#ID)
+#ವ್ಯಾಖ್ಯಾನಿಸು DEF_ATOMIC(ID) DEF(TOK_##__##ID, "__"#ID)
      DEF_ATOMIC(atomic_store)
      DEF_ATOMIC(atomic_load)
      DEF_ATOMIC(atomic_exchange)
@@ -196,7 +196,7 @@
      DEF_ATOMIC(atomic_fetch_xor)
      DEF_ATOMIC(atomic_fetch_and)
      DEF_ATOMIC(atomic_fetch_nand)
-     DEF_ATOMIC(atomic_add_fetch)
+     DEF_ATOMIC(atomic_ಕೂಡಿಸು_fetch)
      DEF_ATOMIC(atomic_sub_fetch)
      DEF_ATOMIC(atomic_or_fetch)
      DEF_ATOMIC(atomic_xor_fetch)
@@ -205,22 +205,22 @@
 
 /* pragma */
      DEF(TOK_pack, "pack")
-#if !defined(TCC_TARGET_I386) && !defined(TCC_TARGET_X86_64) && \
-    !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64) && \
-    !defined(TCC_TARGET_RISCV64)
+#ಆದರೆ !defined(TCC_ಗುರಿ_I386) && !defined(TCC_ಗುರಿ_X86_64) && \
+    !defined(TCC_ಗುರಿ_ARM) && !defined(TCC_ಗುರಿ_ARM64) && \
+    !defined(TCC_ಗುರಿ_RISCV64)
      /* already defined for assembler */
-     DEF(TOK_ASM_push, "push")
-     DEF(TOK_ASM_pop, "pop")
-#endif
+     DEF(TOK_ASM_ತಳ್ಳು, "push")
+     DEF(TOK_ASM_ತೆಗೆ, "pop")
+#ಆದರೆ_ಅಂತ್ಯ
      DEF(TOK_comment, "comment")
      DEF(TOK_lib, "lib")
-     DEF(TOK_push_macro, "push_macro")
-     DEF(TOK_pop_macro, "pop_macro")
+     DEF(TOK_ತಳ್ಳು_macro, "push_macro")
+     DEF(TOK_ತೆಗೆ_macro, "pop_macro")
      DEF(TOK_once, "once")
      DEF(TOK_option, "option")
 
 /* builtin functions or variables */
-#ifndef TCC_ARM_EABI
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ TCC_ARM_EABI
      DEF(TOK_memcpy, "memcpy")
      DEF(TOK_memmove, "memmove")
      DEF(TOK_memset, "memset")
@@ -239,9 +239,9 @@
 # endif
      DEF(TOK___fixunssfdi, "__fixunssfdi")
      DEF(TOK___fixunsdfdi, "__fixunsdfdi")
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if defined TCC_TARGET_ARM
+#ಆದರೆ defined TCC_ಗುರಿ_ARM
 # ifdef TCC_ARM_EABI
      DEF(TOK_memcpy, "__aeabi_memcpy")
      DEF(TOK_memmove, "__aeabi_memmove")
@@ -265,7 +265,7 @@
      DEF(TOK___floatundidf, "__aeabi_ul2d")
      DEF(TOK___fixunssfdi, "__aeabi_f2ulz")
      DEF(TOK___fixunsdfdi, "__aeabi_d2ulz")
-# else
+# ಇಲ್ಲದಿದ್ದರೆ
      DEF(TOK___modsi3, "__modsi3")
      DEF(TOK___umodsi3, "__umodsi3")
      DEF(TOK___divsi3, "__divsi3")
@@ -282,39 +282,39 @@
      DEF(TOK___fixsfdi, "__fixsfdi")
      DEF(TOK___fixdfdi, "__fixdfdi")
 # endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if defined TCC_TARGET_C67
+#ಆದರೆ defined TCC_ಗುರಿ_C67
      DEF(TOK__divi, "_divi")
      DEF(TOK__divu, "_divu")
      DEF(TOK__divf, "_divf")
      DEF(TOK__divd, "_divd")
      DEF(TOK__remi, "_remi")
      DEF(TOK__remu, "_remu")
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if defined TCC_TARGET_I386
+#ಆದರೆ defined TCC_ಗುರಿ_I386
      DEF(TOK___fixsfdi, "__fixsfdi")
      DEF(TOK___fixdfdi, "__fixdfdi")
      DEF(TOK___fixxfdi, "__fixxfdi")
-#endif
-#if defined TCC_TARGET_X86_64
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ defined TCC_ಗುರಿ_X86_64
      DEF(TOK___fixxfdi, "__fixxfdi")
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
      DEF(TOK_alloca, "alloca")
 
-#if defined TCC_TARGET_PE
+#ಆದರೆ defined TCC_ಗುರಿ_PE
      DEF(TOK___chkstk, "__chkstk")
-     DEF(TOK___tls_index, "__tls_index")
-#endif
-#ifdef TCC_TARGET_ARM64
+     DEF(TOK_tls_ಸೂಚ್ಯಂಕ, "__tls_index")
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_ARM64
      DEF(TOK___arm64_clear_cache, "__arm64_clear_cache")
-#endif
-#ifdef TCC_TARGET_RISCV64
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_RISCV64
      DEF(TOK___riscv64_clear_cache, "__riscv64_clear_cache")
-#endif
-#if defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ defined TCC_ಗುರಿ_ARM64 || defined TCC_ಗುರಿ_RISCV64
      DEF(TOK___addtf3, "__addtf3")
      DEF(TOK___subtf3, "__subtf3")
      DEF(TOK___multf3, "__multf3")
@@ -338,11 +338,11 @@
      DEF(TOK___letf2, "__letf2")
      DEF(TOK___gttf2, "__gttf2")
      DEF(TOK___getf2, "__getf2")
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* bound checking symbols */
-#ifdef CONFIG_TCC_BCHECK
-     DEF(TOK___bound_ptr_add, "__bound_ptr_add")
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BCHECK
+     DEF(TOK_bound_ptr_ಕೂಡಿಸು, "__bound_ptr_add")
      DEF(TOK___bound_ptr_indir1, "__bound_ptr_indir1")
      DEF(TOK___bound_ptr_indir2, "__bound_ptr_indir2")
      DEF(TOK___bound_ptr_indir4, "__bound_ptr_indir4")
@@ -355,11 +355,11 @@
      DEF(TOK___bound_setjmp, "__bound_setjmp")
      DEF(TOK___bound_longjmp, "__bound_longjmp")
      DEF(TOK___bound_new_region, "__bound_new_region")
-# ifdef TCC_TARGET_PE
-#  ifdef TCC_TARGET_X86_64
+# ifdef TCC_ಗುರಿ_PE
+#  ifdef TCC_ಗುರಿ_X86_64
      DEF(TOK___bound_alloca_nr, "__bound_alloca_nr")
 #  endif
-# else
+# ಇಲ್ಲದಿದ್ದರೆ
      DEF(TOK_sigsetjmp, "sigsetjmp")
      DEF(TOK___sigsetjmp, "__sigsetjmp")
      DEF(TOK_siglongjmp, "siglongjmp")
@@ -367,24 +367,24 @@
      DEF(TOK_setjmp, "setjmp")
      DEF(TOK__setjmp, "_setjmp")
      DEF(TOK_longjmp, "longjmp")
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 
 /*********************************************************************/
 /* Tiny Assembler */
-#define DEF_ASM(x) DEF(TOK_ASM_ ## x, #x)
-#define DEF_ASMDIR(x) DEF(TOK_ASMDIR_ ## x, "." #x)
-#define TOK_ASM_int TOK_INT
+#ವ್ಯಾಖ್ಯಾನಿಸು DEF_ASM(x) DEF(TOK_ASM_ ## x, #x)
+#ವ್ಯಾಖ್ಯಾನಿಸು DEF_ASMDIR(x) DEF(TOK_ASMDIR_ ## x, "." #x)
+#ವ್ಯಾಖ್ಯಾನಿಸು TOK_ASM_int TOK_INT
 
-#define TOK_ASMDIR_FIRST TOK_ASMDIR_byte
-#define TOK_ASMDIR_LAST TOK_ASMDIR_section
+#ವ್ಯಾಖ್ಯಾನಿಸು TOK_ASMDIR_ಮೊದಲ TOK_ASMDIR_byte
+#ವ್ಯಾಖ್ಯಾನಿಸು TOK_ASMDIR_ಕೊನೆಯ TOK_ASMDIR_section
 
  DEF_ASMDIR(byte)       /* must be first directive */
- DEF_ASMDIR(word)
+ DEF_ASMDIR(ಶಬ್ದ)
  DEF_ASMDIR(align)
  DEF_ASMDIR(balign)
  DEF_ASMDIR(p2align)
- DEF_ASMDIR(set)
+ DEF_ASMDIR(ಗಣ)
  DEF_ASMDIR(skip)
  DEF_ASMDIR(space)
  DEF_ASMDIR(string)
@@ -396,12 +396,12 @@
  DEF_ASMDIR(weak)
  DEF_ASMDIR(hidden)
  DEF_ASMDIR(ident)
- DEF_ASMDIR(size)
+ DEF_ASMDIR(ಗಾತ್ರ_2)
  DEF_ASMDIR(type)
- DEF_ASMDIR(text)
- DEF_ASMDIR(data)
+ DEF_ASMDIR(ಪಠ್ಯ)
+ DEF_ASMDIR(ದತ್ತಾಂಶ)
  DEF_ASMDIR(bss)
- DEF_ASMDIR(previous)
+ DEF_ASMDIR(ಹಿಂದಿನ)
  DEF_ASMDIR(pushsection)
  DEF_ASMDIR(popsection)
  DEF_ASMDIR(fill)
@@ -409,34 +409,34 @@
  DEF_ASMDIR(endr)
  DEF_ASMDIR(org)
  DEF_ASMDIR(quad)
-#if PTR_SIZE == 4
+#ಆದರೆ PTR_ಗಾತ್ರ == 4
  DEF_ASMDIR(code16)
  DEF_ASMDIR(code32)
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
  DEF_ASMDIR(code64)
-#endif
-#if defined(TCC_TARGET_RISCV64)
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ defined(TCC_ಗುರಿ_RISCV64)
  DEF_ASMDIR(option)
-#endif
- DEF_ASMDIR(short)
- DEF_ASMDIR(long)
- DEF_ASMDIR(int)
+#ಆದರೆ_ಅಂತ್ಯ
+ DEF_ASMDIR(ಗಿಡ್ಡ)
+ DEF_ASMDIR(ದೀರ್ಘ)
+ DEF_ASMDIR(ಪೂರ್ಣಾಂಕ)
  DEF_ASMDIR(symver)
  DEF_ASMDIR(reloc)
  DEF_ASMDIR(section)    /* must be last directive */
 
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
-#include "i386-tok.h"
-#endif
+#ಆದರೆ defined TCC_ಗುರಿ_I386 || defined TCC_ಗುರಿ_X86_64
+#ಅನ್ತರ್ಭಾವ "i386-tok.h"
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if defined TCC_TARGET_ARM
-#include "arm-tok.h"
-#endif
+#ಆದರೆ defined TCC_ಗುರಿ_ARM
+#ಅನ್ತರ್ಭಾವ "arm-tok.h"
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if defined TCC_TARGET_ARM64
-#include "arm64-tok.h"
-#endif
+#ಆದರೆ defined TCC_ಗುರಿ_ARM64
+#ಅನ್ತರ್ಭಾವ "arm64-tok.h"
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if defined TCC_TARGET_RISCV64
-#include "riscv64-tok.h"
-#endif
+#ಆದರೆ defined TCC_ಗುರಿ_RISCV64
+#ಅನ್ತರ್ಭಾವ "riscv64-tok.h"
+#ಆದರೆ_ಅಂತ್ಯ

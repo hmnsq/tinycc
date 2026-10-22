@@ -1,13 +1,13 @@
-extern int printf(const char *, ...);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...);
 
-static void func_ull_ull(unsigned long long l1,unsigned long long l2){
+ಸ್ಥಿರ ಶೂನ್ಯ func_ull_ull(ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ l1,ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ l2){
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-  int a,b,c,d;
+  ಪೂರ್ಣಾಂಕ a,b,c,d;
   a=1;b=2;c=3;d=4;
-  func_ull_ull((unsigned long long)a/1.0,(unsigned long long)b/1.0);
-  printf("%d %d %d %d",a,b,c,d);
-  return 0;
+  func_ull_ull((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)a/1.0,(ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)b/1.0);
+  ಬರೆ("%d %d %d %d",a,b,c,d);
+  ಹಿಂತಿರುಗಿ 0;
 }

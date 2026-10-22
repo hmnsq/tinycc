@@ -1,153 +1,153 @@
-int printf(const char *, ...);
+ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...);
 
-#define assert(x) ((x) \
-    ? (printf(" 1 (%s)\n",#x),1) \
-    : (printf("%s:%d: error: (%s)\n",__FILE__,__LINE__,#x),0))
+#ವ್ಯಾಖ್ಯಾನಿಸು ಪ್ರತಿಜ್ಞಾ(x) ((x) \
+    ? (ಬರೆ(" 1 (%s)\n",#x),1) \
+    : (ಬರೆ("%s:%d: error: (%s)\n",__FILE__,__LINE__,#x),0))
 
-#define O 100
-#define SO 200
-
-/* ------------------------------------------------------ */
-#if TEST-O == 1
-extern char etext[], _etext[];
-extern char edata[], _edata[];
-extern char end[], _end[];
-int check_linker_symbols(void)
-{
-    int errors = 0;
-    errors += !assert(etext == _etext);
-    errors += !assert(edata == _edata);
-    errors += !assert(end == _end);
-    return errors;
-}
-
-#elif TEST-MAIN == 1
-int check_linker_symbols(void);
-int main(void)
-{
-    printf("linker symbols test\n");
-    assert(check_linker_symbols() == 0);
-}
+#ವ್ಯಾಖ್ಯಾನಿಸು O 100
+#ವ್ಯಾಖ್ಯಾನಿಸು SO 200
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 2
-extern char etext[], edata[], end[];
-void get_dso_end(char **p)
+#ಆದರೆ TEST-O == 1
+ಬಾಹ್ಯ ಅಕ್ಷರ etext[], _etext[];
+ಬಾಹ್ಯ ಅಕ್ಷರ edata[], _edata[];
+ಬಾಹ್ಯ ಅಕ್ಷರ ಕೊನೆ[], ಕೊನೆ_3[];
+ಪೂರ್ಣಾಂಕ check_linker_symbols(ಶೂನ್ಯ)
+{
+    ಪೂರ್ಣಾಂಕ errors = 0;
+    errors += !ಪ್ರತಿಜ್ಞಾ(etext == _etext);
+    errors += !ಪ್ರತಿಜ್ಞಾ(edata == _edata);
+    errors += !ಪ್ರತಿಜ್ಞಾ(ಕೊನೆ == ಕೊನೆ_3);
+    ಹಿಂತಿರುಗಿ errors;
+}
+
+#ಅಥವಾಆದರೆ TEST-MAIN == 1
+ಪೂರ್ಣಾಂಕ check_linker_symbols(ಶೂನ್ಯ);
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
+{
+    ಬರೆ("linker symbols test\n");
+    ಪ್ರತಿಜ್ಞಾ(check_linker_symbols() == 0);
+}
+
+/* ------------------------------------------------------ */
+#ಅಥವಾಆದರೆ TEST-SO == 2
+ಬಾಹ್ಯ ಅಕ್ಷರ etext[], edata[], ಕೊನೆ[];
+ಶೂನ್ಯ get_dso_ಕೊನೆ(ಅಕ್ಷರ **p)
 {
     p[0] = etext;
     p[1] = edata;
-    p[2] = end;
+    p[2] = ಕೊನೆ;
 }
 
-#elif TEST-MAIN == 2
-extern char _etext[], _edata[], _end[];
-extern void get_dso_end(char **);
-static int fill_data = 123;
-static int fill_bss;
+#ಅಥವಾಆದರೆ TEST-MAIN == 2
+ಬಾಹ್ಯ ಅಕ್ಷರ _etext[], _edata[], ಕೊನೆ_3[];
+ಬಾಹ್ಯ ಶೂನ್ಯ get_dso_ಕೊನೆ(ಅಕ್ಷರ **);
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ fill_ದತ್ತಾಂಶ = 123;
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ fill_bss;
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-    char *p[3];
-    printf("DSO linker symbols test\n");
-    get_dso_end(p);
-    assert(p[0] == _etext) || printf("-- %p %p\n", p[0], _etext);
-    assert(p[1] == _edata) || printf("-- %p %p\n", p[1], _edata);
-    assert(p[2] == _end)   || printf("-- %p %p\n", p[2], _end);
-}
-
-/* ------------------------------------------------------ */
-#elif TEST-MAIN == 3
-
-int etext(void) { return 1; }
-int edata(void) { return 2; }
-int end(void) { return 3; }
-int main(void)
-{
-    printf("user definition test\n");
-    assert(etext() + edata() + end() == 6);
+    ಅಕ್ಷರ *p[3];
+    ಬರೆ("DSO linker symbols test\n");
+    get_dso_ಕೊನೆ(p);
+    ಪ್ರತಿಜ್ಞಾ(p[0] == _etext) || ಬರೆ("-- %p %p\n", p[0], _etext);
+    ಪ್ರತಿಜ್ಞಾ(p[1] == _edata) || ಬರೆ("-- %p %p\n", p[1], _edata);
+    ಪ್ರತಿಜ್ಞಾ(p[2] == ಕೊನೆ_3)   || ಬರೆ("-- %p %p\n", p[2], ಕೊನೆ_3);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 4
-unsigned char copy_reloc_data[257];
+#ಅಥವಾಆದರೆ TEST-MAIN == 3
 
-#elif TEST-MAIN == 4
-extern unsigned char copy_reloc_data[257];
-extern char end[], _end[];
-
-int main(void)
+ಪೂರ್ಣಾಂಕ etext(ಶೂನ್ಯ) { ಹಿಂತಿರುಗಿ 1; }
+ಪೂರ್ಣಾಂಕ edata(ಶೂನ್ಯ) { ಹಿಂತಿರುಗಿ 2; }
+ಪೂರ್ಣಾಂಕ ಕೊನೆ(ಶೂನ್ಯ) { ಹಿಂತಿರುಗಿ 3; }
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-    unsigned long data_end;
-    printf("end copy relocation test\n");
-    copy_reloc_data[256] = 42;
-    data_end = (unsigned long)(copy_reloc_data + sizeof copy_reloc_data);
-    assert(end == _end);
-    assert((unsigned long)end >= data_end);
-    assert(copy_reloc_data[256] == 42);
+    ಬರೆ("user definition test\n");
+    ಪ್ರತಿಜ್ಞಾ(etext() + edata() + ಕೊನೆ() == 6);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-O == 5
-void __attribute__((section(".text.linker_test"), noinline, used))
-linker_test_text(void)
+#ಅಥವಾಆದರೆ TEST-SO == 4
+ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ copy_reloc_ದತ್ತಾಂಶ[257];
+
+#ಅಥವಾಆದರೆ TEST-MAIN == 4
+ಬಾಹ್ಯ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ copy_reloc_ದತ್ತಾಂಶ[257];
+ಬಾಹ್ಯ ಅಕ್ಷರ ಕೊನೆ[], ಕೊನೆ_3[];
+
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
+{
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದತ್ತಾಂಶ_ಕೊನೆ;
+    ಬರೆ("end copy relocation test\n");
+    copy_reloc_ದತ್ತಾಂಶ[256] = 42;
+    ದತ್ತಾಂಶ_ಕೊನೆ = (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ)(copy_reloc_ದತ್ತಾಂಶ + ಗಾತ್ರ copy_reloc_ದತ್ತಾಂಶ);
+    ಪ್ರತಿಜ್ಞಾ(ಕೊನೆ == ಕೊನೆ_3);
+    ಪ್ರತಿಜ್ಞಾ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ)ಕೊನೆ >= ದತ್ತಾಂಶ_ಕೊನೆ);
+    ಪ್ರತಿಜ್ಞಾ(copy_reloc_ದತ್ತಾಂಶ[256] == 42);
+}
+
+/* ------------------------------------------------------ */
+#ಅಥವಾಆದರೆ TEST-O == 5
+ಶೂನ್ಯ __attribute__((section(".text.linker_test"), noinline, ಬಳಸಿದ))
+linker_test_ಪಠ್ಯ(ಶೂನ್ಯ)
 {
 }
-__attribute__((section(".bss.linker_test"), used))
-unsigned char linker_test_bss[257];
+__attribute__((section(".bss.linker_test"), ಬಳಸಿದ))
+ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ linker_test_bss[257];
 
-__attribute__((section(".data.linker_test"), used))
-unsigned char linker_test_data[23] = { 1 };
+__attribute__((section(".data.linker_test"), ಬಳಸಿದ))
+ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ linker_test_ದತ್ತಾಂಶ[23] = { 1 };
 
-#elif TEST-MAIN == 5
-extern void linker_test_text(void);
-extern unsigned char linker_test_data[23];
-extern unsigned char linker_test_bss[257];
-extern char etext[], _etext[];
-extern char edata[], _edata[];
-extern char end[], _end[];
+#ಅಥವಾಆದರೆ TEST-MAIN == 5
+ಬಾಹ್ಯ ಶೂನ್ಯ linker_test_ಪಠ್ಯ(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ linker_test_ದತ್ತಾಂಶ[23];
+ಬಾಹ್ಯ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ linker_test_bss[257];
+ಬಾಹ್ಯ ಅಕ್ಷರ etext[], _etext[];
+ಬಾಹ್ಯ ಅಕ್ಷರ edata[], _edata[];
+ಬಾಹ್ಯ ಅಕ್ಷರ ಕೊನೆ[], ಕೊನೆ_3[];
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-    char* text_addr = (void*)linker_test_text;
-    char* data_end = linker_test_data + sizeof linker_test_data;
-    char* bss_end = linker_test_bss + sizeof linker_test_bss;
+    ಅಕ್ಷರ* ಪಠ್ಯ_addr = (ಶೂನ್ಯ*)linker_test_ಪಠ್ಯ;
+    ಅಕ್ಷರ* ದತ್ತಾಂಶ_ಕೊನೆ = linker_test_ದತ್ತಾಂಶ + ಗಾತ್ರ linker_test_ದತ್ತಾಂಶ;
+    ಅಕ್ಷರ* bss_ಕೊನೆ = linker_test_bss + ಗಾತ್ರ linker_test_bss;
 
-    printf("linker boundary test\n");
-    linker_test_data[22] = 42;
+    ಬರೆ("linker boundary test\n");
+    linker_test_ದತ್ತಾಂಶ[22] = 42;
     linker_test_bss[256] = 42;
-    assert(linker_test_bss > linker_test_data);
-    assert(etext == _etext);
-    assert(edata == _edata);
-    assert(end == _end);
-    assert(etext >= text_addr);
-    assert(edata >= data_end);
-    assert(end >= bss_end);
-    assert(linker_test_data[22] == 42);
-    assert(linker_test_bss[256] == 42);
+    ಪ್ರತಿಜ್ಞಾ(linker_test_bss > linker_test_ದತ್ತಾಂಶ);
+    ಪ್ರತಿಜ್ಞಾ(etext == _etext);
+    ಪ್ರತಿಜ್ಞಾ(edata == _edata);
+    ಪ್ರತಿಜ್ಞಾ(ಕೊನೆ == ಕೊನೆ_3);
+    ಪ್ರತಿಜ್ಞಾ(etext >= ಪಠ್ಯ_addr);
+    ಪ್ರತಿಜ್ಞಾ(edata >= ದತ್ತಾಂಶ_ಕೊನೆ);
+    ಪ್ರತಿಜ್ಞಾ(ಕೊನೆ >= bss_ಕೊನೆ);
+    ಪ್ರತಿಜ್ಞಾ(linker_test_ದತ್ತಾಂಶ[22] == 42);
+    ಪ್ರತಿಜ್ಞಾ(linker_test_bss[256] == 42);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 6
-int end;
-int eight = 8;
-int nine;
-int dso_add() { return end + eight + nine; }
+#ಅಥವಾಆದರೆ TEST-SO == 6
+ಪೂರ್ಣಾಂಕ ಕೊನೆ;
+ಪೂರ್ಣಾಂಕ eight = 8;
+ಪೂರ್ಣಾಂಕ nine;
+ಪೂರ್ಣಾಂಕ dso_ಕೂಡಿಸು() { ಹಿಂತಿರುಗಿ ಕೊನೆ + eight + nine; }
 
-#elif TEST-MAIN == 6
-int end = 7;
-int eight;
-int nine = 9;
-int dso_add();
-int main()
+#ಅಥವಾಆದರೆ TEST-MAIN == 6
+ಪೂರ್ಣಾಂಕ ಕೊನೆ = 7;
+ಪೂರ್ಣಾಂಕ eight;
+ಪೂರ್ಣಾಂಕ nine = 9;
+ಪೂರ್ಣಾಂಕ dso_ಕೂಡಿಸು();
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    int sum;
-    printf("DSO initialized data test\n");
-    sum = dso_add();
-    assert(end == 7);
-    assert(eight == 8);
-    assert(nine == 9);
-    assert(sum == 24) || printf("-- %d + %d + %d = %d\n", end, eight, nine, sum);
+    ಪೂರ್ಣಾಂಕ ಮೊತ್ತ;
+    ಬರೆ("DSO initialized data test\n");
+    ಮೊತ್ತ = dso_ಕೂಡಿಸು();
+    ಪ್ರತಿಜ್ಞಾ(ಕೊನೆ == 7);
+    ಪ್ರತಿಜ್ಞಾ(eight == 8);
+    ಪ್ರತಿಜ್ಞಾ(nine == 9);
+    ಪ್ರತಿಜ್ಞಾ(ಮೊತ್ತ == 24) || ಬರೆ("-- %d + %d + %d = %d\n", ಕೊನೆ, eight, nine, ಮೊತ್ತ);
 }
 
 /* ------------------------------------------------------ */
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

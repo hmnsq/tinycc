@@ -3,121 +3,121 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_TYPES
-#define _INC_TYPES
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INC_TYPES
+#ವ್ಯಾಖ್ಯಾನಿಸು _INC_TYPES
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
+#ದೋಷ Only Win32 ಗುರಿ is supported!
+#ಆದರೆ_ಅಂತ್ಯ
 
-#include <_mingw.h>
+#ಅನ್ತರ್ಭಾವ <_mingw.h>
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __TINYC__ /* gr */
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ USE_32_ಬಿಟ್_ಸಮಯ_T
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು USE_32_ಬಿಟ್_ಸಮಯ_T
+#ಆದರೆ_ಅಂತ್ಯ
+#ಇಲ್ಲದಿದ್ದರೆ
+#ಆದರೆ INTEGRAL_MAX_ಬಿಟ್ಟುಗಳು < 64
+#ವ್ಯಾಖ್ಯಾನಿಸು USE_32_ಬಿಟ್_ಸಮಯ_T
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-typedef long __time32_t;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _TIME32_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _TIME32_T_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ __time32_t;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-typedef __int64 __time64_t;
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _TIME64_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _TIME64_T_DEFINED
+#ಆದರೆ INTEGRAL_MAX_ಬಿಟ್ಟುಗಳು >= 64
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __int64 __time64_t;
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-typedef __time32_t time_t;
-#else
-typedef __time64_t time_t;
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ಸಮಯ_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು ಸಮಯ_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ USE_32_ಬಿಟ್_ಸಮಯ_T
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __time32_t time_t;
+#ಇಲ್ಲದಿದ್ದರೆ
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __time64_t time_t;
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _INO_T_DEFINED
-#define _INO_T_DEFINED
-typedef unsigned short _ino_t;
-#ifndef	NO_OLDNAMES
-typedef unsigned short ino_t;
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INO_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _INO_T_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ _ino_t;
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ	NO_OLDNAMES
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ ino_t;
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _DEV_T_DEFINED
-#define _DEV_T_DEFINED
-typedef unsigned int _dev_t;
-#ifndef	NO_OLDNAMES
-typedef unsigned int dev_t;
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _DEV_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _DEV_T_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ _dev_t;
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ	NO_OLDNAMES
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ dev_t;
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _PID_T_
-#define	_PID_T_
-#ifndef _WIN64
-typedef int	_pid_t;
-#else
-typedef __int64	_pid_t;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _PID_T_
+#ವ್ಯಾಖ್ಯಾನಿಸು	_PID_T_
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN64
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ	_pid_t;
+#ಇಲ್ಲದಿದ್ದರೆ
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __int64	_pid_t;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef	NO_OLDNAMES
-typedef _pid_t	pid_t;
-#endif
-#endif	/* Not _PID_T_ */
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ	NO_OLDNAMES
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ _pid_t	pid_t;
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ	/* Not _PID_T_ */
 
-#ifndef _MODE_T_
-#define	_MODE_T_
-typedef unsigned short _mode_t;
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ಬಹುಲಕ_T
+#ವ್ಯಾಖ್ಯಾನಿಸು	ಬಹುಲಕ_T
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ ಬಹುಲಕ_t;
 
-#ifndef	NO_OLDNAMES
-typedef _mode_t	mode_t;
-#endif
-#endif	/* Not _MODE_T_ */
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ	NO_OLDNAMES
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಬಹುಲಕ_t	mode_t;
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ	/* Not _MODE_T_ */
 
-#ifndef _OFF_T_DEFINED
-#define _OFF_T_DEFINED
-#ifndef _OFF_T_
-#define _OFF_T_
-  typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long off_t;
-#endif
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _OFF_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _OFF_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _OFF_T_
+#ವ್ಯಾಖ್ಯಾನಿಸು _OFF_T_
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ _off_t;
+#ಆದರೆ !defined(NO_OLDNAMES) || defined(_POSIX)
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ off_t;
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _OFF64_T_DEFINED
-#define _OFF64_T_DEFINED
-  typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long long off64_t;
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _OFF64_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _OFF64_T_DEFINED
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ ದೀರ್ಘ _off64_t;
+#ಆದರೆ !defined(NO_OLDNAMES) || defined(_POSIX)
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ ದೀರ್ಘ off64_t;
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* required by (unbundled) unistd.h for usleep arg type */
-#ifndef __NO_ISOCEXT
-typedef unsigned int useconds_t;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __NO_ISOCEXT
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ useconds_t;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _TIMESPEC_DEFINED
-#define _TIMESPEC_DEFINED
-struct timespec {
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _TIMESPEC_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _TIMESPEC_DEFINED
+ರಚನೆ timespec {
   time_t  tv_sec;   /* Seconds */
-  long    tv_nsec;  /* Nanoseconds */
+  ದೀರ್ಘ    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+ರಚನೆ itimerspec {
+  ರಚನೆ timespec  it_interval;  /* Timer period */
+  ರಚನೆ timespec  it_value;     /* Timer expiration */
 };
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

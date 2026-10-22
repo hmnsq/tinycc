@@ -3,9 +3,9 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_VADEFS
-#define _INC_VADEFS
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INC_VADEFS
+#ವ್ಯಾಖ್ಯಾನಿಸು _INC_VADEFS
 
 //!__TINYC__: GNUC specific stuff removed
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

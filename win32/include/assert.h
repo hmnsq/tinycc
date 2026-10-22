@@ -3,60 +3,60 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef __ASSERT_H_
-#define __ASSERT_H_
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __ASSERT_H_
+#ವ್ಯಾಖ್ಯಾನಿಸು __ASSERT_H_
 
-#include <_mingw.h>
-#ifdef __cplusplus
-#include <stdlib.h>
-#endif
+#ಅನ್ತರ್ಭಾವ <_mingw.h>
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef NDEBUG
-#ifndef assert
-#define assert(_Expression) ((void)0)
-#endif
-#else
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ NDEBUG
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ಪ್ರತಿಜ್ಞಾ
+#ವ್ಯಾಖ್ಯಾನಿಸು ಪ್ರತಿಜ್ಞಾ(ಅಭಿವ್ಯಕ್ತಿ_2) ((ಶೂನ್ಯ)0)
+#ಆದರೆ_ಅಂತ್ಯ
+#ಇಲ್ಲದಿದ್ದರೆ
 
-#ifndef _CRT_TERMINATE_DEFINED
-#define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
- _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _CRT_TERMINATE_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _CRT_TERMINATE_DEFINED
+  ಶೂನ್ಯ __cdecl __MINGW_NOTHROW ನಿರ್ಗಮಿಸು(ಪೂರ್ಣಾಂಕ ಸಂಕೇತ_4) __MINGW_ATTRIB_NORETURN;
+ _CRTIMP ಶೂನ್ಯ __cdecl __MINGW_NOTHROW _exit(ಪೂರ್ಣಾಂಕ ಸಂಕೇತ_4) __MINGW_ATTRIB_NORETURN;
+#ಆದರೆ !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
 /* C99 function name */
-void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-__CRT_INLINE __MINGW_ATTRIB_NORETURN void __cdecl _Exit(int status)
-{  _exit(status); }
-#endif
+ಶೂನ್ಯ __cdecl _Exit(ಪೂರ್ಣಾಂಕ) __MINGW_ATTRIB_NORETURN;
+__CRT_INLINE __MINGW_ATTRIB_NORETURN ಶೂನ್ಯ __cdecl _Exit(ಪೂರ್ಣಾಂಕ ಸ್ಥಿತಿ_2)
+{  _exit(ಸ್ಥಿತಿ_2); }
+#ಆದರೆ_ಅಂತ್ಯ
 
-#pragma push_macro("abort")
-#undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#ಸೂಚನೆ ತಳ್ಳು_macro("abort")
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು abort
+  ಶೂನ್ಯ __cdecl __declspec(noreturn) abort(ಶೂನ್ಯ);
+#ಸೂಚನೆ ತೆಗೆ_macro("abort")
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
 
-extern void __cdecl _wassert(const wchar_t *_Message,const wchar_t *_File,unsigned _Line);
-extern void __cdecl _assert(const char *, const char *, unsigned);
+ಬಾಹ್ಯ ಶೂನ್ಯ __cdecl _wassert(ಸ್ಥಿರಾಂಕ wchar_t *ಸಂದೇಶ_4,ಸ್ಥಿರಾಂಕ wchar_t *_File,ಚಿಹ್ನೆರಹಿತ ಸಾಲು_2);
+ಬಾಹ್ಯ ಶೂನ್ಯ __cdecl _assert(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ಚಿಹ್ನೆರಹಿತ);
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef assert
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ಪ್ರತಿಜ್ಞಾ
 //#define assert(_Expression) (void)((!!(_Expression)) || (_wassert(_CRT_WIDE(#_Expression),_CRT_WIDE(__FILE__),__LINE__),0))
-#define assert(e) ((e) ? (void)0 : _assert(#e, __FILE__, __LINE__))
-#endif
+#ವ್ಯಾಖ್ಯಾನಿಸು ಪ್ರತಿಜ್ಞಾ(e) ((e) ? (ಶೂನ್ಯ)0 : _assert(#e, __FILE__, __LINE__))
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
+#ಆದರೆ (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
 /* C11, section 7.2: The macro static_assert expands to _Static_assert. */
-#define static_assert(exp, str) _Static_assert(exp, str) 
-#endif
+#ವ್ಯಾಖ್ಯಾನಿಸು static_assert(ಘಾತಾಂಕ, str) _Static_assert(ಘಾತಾಂಕ, str) 
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

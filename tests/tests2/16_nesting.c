@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int x, y, z;
+   ಪೂರ್ಣಾಂಕ x, y, z;
 
-   for (x = 0; x < 2; x++)
+   ಗಾಗಿ (x = 0; x < 2; x++)
    {
-      for (y = 0; y < 3; y++)
+      ಗಾಗಿ (y = 0; y < 3; y++)
       {
-         for (z = 0; z < 3; z++)
+         ಗಾಗಿ (z = 0; z < 3; z++)
          {
-            printf("%d %d %d\n", x, y, z);
+            ಬರೆ("%d %d %d\n", x, y, z);
          }
       }
    }
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

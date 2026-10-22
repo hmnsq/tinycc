@@ -1,56 +1,56 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-void fred()
+ಶೂನ್ಯ fred()
 {
-   printf("In fred()\n");
-   goto done;
-   printf("In middle\n");
-done:
-   printf("At end\n");
+   ಬರೆ("In fred()\n");
+   ಹೋಗು ಮುಗಿದ;
+   ಬರೆ("In middle\n");
+ಮುಗಿದ:
+   ಬರೆ("At end\n");
 }
 
-void joe()
+ಶೂನ್ಯ joe()
 {
-   int b = 5678;
+   ಪೂರ್ಣಾಂಕ b = 5678;
 
-   printf("In joe()\n");
+   ಬರೆ("In joe()\n");
 
    {
-      int c = 1234;
-      printf("c = %d\n", c);
-      goto outer;
-      printf("uh-oh\n");
+      ಪೂರ್ಣಾಂಕ c = 1234;
+      ಬರೆ("c = %d\n", c);
+      ಹೋಗು outer;
+      ಬರೆ("uh-oh\n");
    }
 
 outer:    
 
-   printf("done\n");
+   ಬರೆ("done\n");
 }
 
-void henry()
+ಶೂನ್ಯ henry()
 {
-   int a;
+   ಪೂರ್ಣಾಂಕ a;
 
-   printf("In henry()\n");
-   goto inner;
+   ಬರೆ("In henry()\n");
+   ಹೋಗು inner;
 
    {
-      int b;
+      ಪೂರ್ಣಾಂಕ b;
 inner:    
       b = 1234;
-      printf("b = %d\n", b);
+      ಬರೆ("b = %d\n", b);
    }
 
-   printf("done\n");
+   ಬರೆ("done\n");
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

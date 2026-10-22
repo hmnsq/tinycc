@@ -18,419 +18,419 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "tcc.h"
+#ಅನ್ತರ್ಭಾವ "tcc.h"
 
 /* Define this to get some debug output during relocation processing.  */
-#undef DEBUG_RELOC
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು DEBUG_RELOC
 
 /********************************************************/
 /* global variables */
 
 /* elf version information */
-struct sym_version {
-    char *lib;
-    char *version;
-    int out_index;
-    int prev_same_lib;
+ರಚನೆ sym_ಆವೃತ್ತಿ {
+    ಅಕ್ಷರ *lib;
+    ಅಕ್ಷರ *ಆವೃತ್ತಿ;
+    ಪೂರ್ಣಾಂಕ ಹೊರಹೋಗು_ಸೂಚ್ಯಂಕ;
+    ಪೂರ್ಣಾಂಕ prev_same_lib;
 };
 
-#define nb_sym_versions     s1->nb_sym_versions
-#define sym_versions        s1->sym_versions
-#define nb_sym_to_version   s1->nb_sym_to_version
-#define sym_to_version      s1->sym_to_version
-#define dt_verneednum       s1->dt_verneednum
-#define versym_section      s1->versym_section
-#define verneed_section     s1->verneed_section
+#ವ್ಯಾಖ್ಯಾನಿಸು nb_sym_versions     s1->nb_sym_versions
+#ವ್ಯಾಖ್ಯಾನಿಸು sym_versions        s1->sym_versions
+#ವ್ಯಾಖ್ಯಾನಿಸು nb_sym_ಗಮ್ಯ_ಆವೃತ್ತಿ   s1->nb_sym_ಗಮ್ಯ_ಆವೃತ್ತಿ
+#ವ್ಯಾಖ್ಯಾನಿಸು sym_ಗಮ್ಯ_ಆವೃತ್ತಿ      s1->sym_ಗಮ್ಯ_ಆವೃತ್ತಿ
+#ವ್ಯಾಖ್ಯಾನಿಸು dt_verneednum       s1->dt_verneednum
+#ವ್ಯಾಖ್ಯಾನಿಸು versym_section      s1->versym_section
+#ವ್ಯಾಖ್ಯಾನಿಸು verneed_section     s1->verneed_section
 
 /* special flag to indicate that the section should not be linked to the other ones */
-#define SHF_PRIVATE 0x80000000
+#ವ್ಯಾಖ್ಯಾನಿಸು SHF_ಖಾಸಗಿ 0x80000000
 /* section is dynsymtab_section */
-#define SHF_DYNSYM 0x40000000
+#ವ್ಯಾಖ್ಯಾನಿಸು SHF_DYNSYM 0x40000000
 
-#ifdef TCC_TARGET_PE
-#define shf_RELRO SHF_ALLOC
-static const char rdata[] = ".rdata";
-#else
-#define shf_RELRO SHF_ALLOC /* eventually made SHF_WRITE in sort_sections() */
-static const char rdata[] = ".data.ro";
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_PE
+#ವ್ಯಾಖ್ಯಾನಿಸು shf_RELRO SHF_ALLOC
+ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ rdata[] = ".rdata";
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು shf_RELRO SHF_ALLOC /* eventually made SHF_WRITE in sort_sections() */
+ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ rdata[] = ".data.ro";
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* ------------------------------------------------------------------------- */
 
-ST_FUNC void tccelf_new(TCCState *s)
+ST_FUNC ಶೂನ್ಯ tccelf_new(TCCState *s)
 {
     TCCState *s1 = s;
 
     /* no section zero */
-    dynarray_add(&s->sections, &s->nb_sections, NULL);
+    dynarray_ಕೂಡಿಸು(&s->sections, &s->nb_sections, ಖಾಲಿ);
 
     /* create standard sections */
-    text_section = new_section(s, ".text", SHT_PROGBITS, SHF_ALLOC | SHF_EXECINSTR);
-    data_section = new_section(s, ".data", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
+    ಪಠ್ಯ_section = new_section(s, ".text", SHT_PROGBITS, SHF_ALLOC | SHF_EXECINSTR);
+    ದತ್ತಾಂಶ_section = new_section(s, ".data", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
     /* create ro data section (make ro after relocation done with GNU_RELRO) */
     rodata_section = new_section(s, rdata, SHT_PROGBITS, shf_RELRO);
     bss_section = new_section(s, ".bss", SHT_NOBITS, SHF_ALLOC | SHF_WRITE);
-    common_section = new_section(s, ".common", SHT_NOBITS, SHF_PRIVATE);
-    common_section->sh_num = SHN_COMMON;
+    common_section = new_section(s, ".common", SHT_NOBITS, SHF_ಖಾಸಗಿ);
+    common_section->sh_ಅಂಕೆ = SHN_COMMON;
 
     /* symbols are always generated for linking stage */
     symtab_section = new_symtab(s, ".symtab", SHT_SYMTAB, 0,
                                 ".strtab",
-                                ".hashtab", SHF_PRIVATE);
+                                ".hashtab", SHF_ಖಾಸಗಿ);
 
     /* private symbol table for dynamic symbols */
-    s->dynsymtab_section = new_symtab(s, ".dynsymtab", SHT_SYMTAB, SHF_PRIVATE|SHF_DYNSYM,
+    s->dynsymtab_section = new_symtab(s, ".dynsymtab", SHT_SYMTAB, SHF_ಖಾಸಗಿ|SHF_DYNSYM,
                                       ".dynstrtab",
-                                      ".dynhashtab", SHF_PRIVATE);
+                                      ".dynhashtab", SHF_ಖಾಸಗಿ);
     get_sym_attr(s, 0, 1);
 
-    if (s->do_debug) {
+    ಆದರೆ (s->do_debug) {
         /* add debug sections */
         tcc_debug_new(s);
     }
 
-#if TCC_EH_FRAME
-    if (s->output_format != TCC_OUTPUT_FORMAT_ELF)
+#ಆದರೆ TCC_EH_ಚೌಕಟ್ಟು
+    ಆದರೆ (s->output_format != TCC_OUTPUT_FORMAT_ELF)
         s->unwind_tables = 0;
-    tcc_eh_frame_start(s);
-#endif
+    tcc_eh_ಚೌಕಟ್ಟು_ಆರಂಭ(s);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef CONFIG_TCC_BCHECK
-    if (s->do_bounds_check) {
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BCHECK
+    ಆದರೆ (s->do_bounds_check) {
         /* if bound checking, then add corresponding sections */
         /* (make ro after relocation done with GNU_RELRO) */
         bounds_section = new_section(s, ".bounds", SHT_PROGBITS, shf_RELRO);
         lbounds_section = new_section(s, ".lbounds", SHT_PROGBITS, shf_RELRO);
     }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef TCC_TARGET_PE
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_PE
     /* to make sure that -ltcc1 -Wl,-e,_start will grab the startup code
        from libtcc1.a (unless _start defined) */
-    if (s->elf_entryname)
-        set_global_sym(s, s->elf_entryname, NULL, 0); /* SHN_UNDEF */
-#endif
+    ಆದರೆ (s->elf_entryname)
+        ಗಣ_global_sym(s, s->elf_entryname, ಖಾಲಿ, 0); /* SHN_UNDEF */
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef ELF_OBJ_ONLY
-    if (NULL == s->elfint && s1->output_type != TCC_OUTPUT_OBJ) {
-        const char *p = CONFIG_TCC_ELFINTERP;
-#if defined TCC_TARGET_ARM && defined CONFIG_TCC_ELFINTERP_ARMHF
-        if (s->float_abi == ARM_HARD_FLOAT)
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
+    ಆದರೆ (ಖಾಲಿ == s->elfint && s1->output_type != TCC_OUTPUT_OBJ) {
+        ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *p = CONFIG_TCC_ELFINTERP;
+#ಆದರೆ defined TCC_ಗುರಿ_ARM && defined CONFIG_TCC_ELFINTERP_ARMHF
+        ಆದರೆ (s->float_abi == ARM_HARD_FLOAT)
             p = CONFIG_TCC_ELFINTERP_ARMHF;
-#endif
-#if defined TCC_IS_NATIVE && defined TARGETOS_BSD
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ defined TCC_IS_NATIVE && defined TARGETOS_BSD
         /* see commit 55cb2170cd5ce77a7d76dcaf462fad2707281605 */
-        { const char *e = getenv("LD_SO"); if (e) p = e; }
-#endif
+        { ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *e = getenv("LD_SO"); ಆದರೆ (e) p = e; }
+#ಆದರೆ_ಅಂತ್ಯ
         s->elfint = tcc_strdup(p);
     }
-#endif /* ndef ELF_OBJ_ONLY */
+#ಆದರೆ_ಅಂತ್ಯ /* ndef ELF_OBJ_ONLY */
 }
 
-ST_FUNC void free_section(Section *s)
+ST_FUNC ಶೂನ್ಯ free_section(Section *s)
 {
-    if (!s)
-        return;
-    tcc_free(s->data);
-    s->data = NULL;
-    s->data_allocated = s->data_offset = 0;
+    ಆದರೆ (!s)
+        ಹಿಂತಿರುಗಿ;
+    tcc_free(s->ದತ್ತಾಂಶ);
+    s->ದತ್ತಾಂಶ = ಖಾಲಿ;
+    s->ದತ್ತಾಂಶ_allocated = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = 0;
 }
 
-ST_FUNC void tccelf_delete(TCCState *s1)
+ST_FUNC ಶೂನ್ಯ tccelf_delete(TCCState *s1)
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
 
-#ifndef ELF_OBJ_ONLY
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
     /* free symbol versions */
-    for (i = 0; i < nb_sym_versions; i++) {
-        tcc_free(sym_versions[i].version);
+    ಗಾಗಿ (i = 0; i < nb_sym_versions; i++) {
+        tcc_free(sym_versions[i].ಆವೃತ್ತಿ);
         tcc_free(sym_versions[i].lib);
     }
     tcc_free(sym_versions);
-    tcc_free(sym_to_version);
-#endif
+    tcc_free(sym_ಗಮ್ಯ_ಆವೃತ್ತಿ);
+#ಆದರೆ_ಅಂತ್ಯ
 
     /* free all sections */
-    for(i = 1; i < s1->nb_sections; i++)
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++)
         free_section(s1->sections[i]);
     dynarray_reset(&s1->sections, &s1->nb_sections);
 
-    for(i = 0; i < s1->nb_priv_sections; i++)
+    ಗಾಗಿ(i = 0; i < s1->nb_priv_sections; i++)
         free_section(s1->priv_sections[i]);
     dynarray_reset(&s1->priv_sections, &s1->nb_priv_sections);
 
     tcc_free(s1->sym_attrs);
-    symtab_section = NULL; /* for tccrun.c:rt_printline() */
+    symtab_section = ಖಾಲಿ; /* for tccrun.c:rt_printline() */
 }
 
 /* save section data state */
-ST_FUNC void tccelf_begin_file(TCCState *s1)
+ST_FUNC ಶೂನ್ಯ tccelf_begin_file(TCCState *s1)
 {
-    Section *s; int i;
-    for (i = 1; i < s1->nb_sections; i++) {
+    Section *s; ಪೂರ್ಣಾಂಕ i;
+    ಗಾಗಿ (i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        s->sh_offset = s->data_offset;
+        s->sh_ಸ್ಥಾನಾಂತರ = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
     }
     /* disable symbol hashing during compilation */
-    s = s1->symtab, s->reloc = s->hash, s->hash = NULL;
-#if defined TCC_TARGET_X86_64 && defined TCC_TARGET_PE
+    s = s1->symtab, s->reloc = s->hash, s->hash = ಖಾಲಿ;
+#ಆದರೆ defined TCC_ಗುರಿ_X86_64 && defined TCC_ಗುರಿ_PE
     s1->uw_sym = 0;
     s1->uw_offs = 0;
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-static void update_relocs(TCCState *s1, Section *s, int *old_to_new_syms, int first_sym);
+ಸ್ಥಿರ ಶೂನ್ಯ update_relocs(TCCState *s1, Section *s, ಪೂರ್ಣಾಂಕ *old_ಗಮ್ಯ_new_syms, ಪೂರ್ಣಾಂಕ ಮೊದಲ_sym);
 
 /* At the end of compilation, convert any UNDEF syms to global, and merge
    with previously existing symbols */
-ST_FUNC void tccelf_end_file(TCCState *s1)
+ST_FUNC ಶೂನ್ಯ tccelf_ಕೊನೆ_file(TCCState *s1)
 {
     Section *s = s1->symtab;
-    int first_sym, nb_syms, *tr, i;
+    ಪೂರ್ಣಾಂಕ ಮೊದಲ_sym, nb_syms, *tr, i;
 
-    first_sym = s->sh_offset / sizeof (ElfSym);
-    nb_syms = s->data_offset / sizeof (ElfSym) - first_sym;
-    s->data_offset = s->sh_offset;
-    s->link->data_offset = s->link->sh_offset;
-    s->hash = s->reloc, s->reloc = NULL;
-    tr = tcc_mallocz(nb_syms * sizeof *tr);
+    ಮೊದಲ_sym = s->sh_ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ (ElfSym);
+    nb_syms = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ (ElfSym) - ಮೊದಲ_sym;
+    s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = s->sh_ಸ್ಥಾನಾಂತರ;
+    s->link->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = s->link->sh_ಸ್ಥಾನಾಂತರ;
+    s->hash = s->reloc, s->reloc = ಖಾಲಿ;
+    tr = tcc_mallocz(nb_syms * ಗಾತ್ರ *tr);
 
-    for (i = 0; i < nb_syms; ++i) {
-        ElfSym *sym = (ElfSym*)s->data + first_sym + i;
-        if (sym->st_shndx == SHN_UNDEF) {
-            int sym_bind = ELFW(ST_BIND)(sym->st_info);
-            int sym_type = ELFW(ST_TYPE)(sym->st_info);
-            if (sym_bind == STB_LOCAL)
+    ಗಾಗಿ (i = 0; i < nb_syms; ++i) {
+        ElfSym *sym = (ElfSym*)s->ದತ್ತಾಂಶ + ಮೊದಲ_sym + i;
+        ಆದರೆ (sym->st_shndx == SHN_UNDEF) {
+            ಪೂರ್ಣಾಂಕ sym_bind = ELFW(ST_BIND)(sym->st_info);
+            ಪೂರ್ಣಾಂಕ sym_type = ELFW(ST_TYPE)(sym->st_info);
+            ಆದರೆ (sym_bind == STB_LOCAL)
                 sym_bind = STB_GLOBAL;
-#ifndef TCC_TARGET_PE
-            if (sym_bind == STB_GLOBAL && s1->output_type == TCC_OUTPUT_OBJ) {
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ TCC_ಗುರಿ_PE
+            ಆದರೆ (sym_bind == STB_GLOBAL && s1->output_type == TCC_OUTPUT_OBJ) {
                 /* undefined symbols with STT_FUNC are confusing gnu ld when
                    linking statically to STT_GNU_IFUNC.  Keep TLS typed,
                    otherwise gnu ld rejects non-TLS refs to TLS definitions. */
-                if (sym_type != STT_TLS)
+                ಆದರೆ (sym_type != STT_TLS)
                     sym_type = STT_NOTYPE;
             }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
             sym->st_info = ELFW(ST_INFO)(sym_bind, sym_type);
         }
-        tr[i] = set_elf_sym(s, sym->st_value, sym->st_size, sym->st_info,
-            sym->st_other, sym->st_shndx, (char*)s->link->data + sym->st_name);
+        tr[i] = ಗಣ_elf_sym(s, sym->st_ಮೌಲ್ಯ, sym->st_ಗಾತ್ರ, sym->st_info,
+            sym->st_other, sym->st_shndx, (ಅಕ್ಷರ*)s->link->ದತ್ತಾಂಶ + sym->st_name);
     }
     /* now update relocations */
-    update_relocs(s1, s, tr, first_sym);
+    update_relocs(s1, s, tr, ಮೊದಲ_sym);
     tcc_free(tr);
     /* record text/data/bss output for -bench info */
-    for (i = 0; i < 4; ++i) {
+    ಗಾಗಿ (i = 0; i < 4; ++i) {
         s = s1->sections[i + 1];
-        s1->total_output[i] += s->data_offset - s->sh_offset;
+        s1->ಒಟ್ಟು_output[i] += s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ - s->sh_ಸ್ಥಾನಾಂತರ;
     }
 }
 
-ST_FUNC Section *new_section(TCCState *s1, const char *name, int sh_type, int sh_flags)
+ST_FUNC Section *new_section(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, ಪೂರ್ಣಾಂಕ sh_type, ಪೂರ್ಣಾಂಕ sh_flags)
 {
     Section *sec;
 
-    sec = tcc_mallocz(sizeof(Section) + strlen(name));
+    sec = tcc_mallocz(ಗಾತ್ರ(Section) + ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(name));
     sec->s1 = s1;
     strcpy(sec->name, name);
     sec->sh_type = sh_type;
     sec->sh_flags = sh_flags;
-    switch(sh_type) {
-    case SHT_GNU_versym:
+    ಆಯ್ಕೆ(sh_type) {
+    ಸ್ಥಿತಿ SHT_GNU_versym:
         sec->sh_addralign = 2;
-        break;
-    case SHT_HASH:
-    case SHT_GNU_HASH:
-    case SHT_REL:
-    case SHT_RELA:
-    case SHT_DYNSYM:
-    case SHT_SYMTAB:
-    case SHT_DYNAMIC:
-    case SHT_GNU_verneed:
-    case SHT_GNU_verdef:
-        sec->sh_addralign = PTR_SIZE;
-        break;
-    case SHT_STRTAB:
+        ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ SHT_HASH:
+    ಸ್ಥಿತಿ SHT_GNU_HASH:
+    ಸ್ಥಿತಿ SHT_REL:
+    ಸ್ಥಿತಿ SHT_RELA:
+    ಸ್ಥಿತಿ SHT_DYNSYM:
+    ಸ್ಥಿತಿ SHT_SYMTAB:
+    ಸ್ಥಿತಿ SHT_DYNAMIC:
+    ಸ್ಥಿತಿ SHT_GNU_verneed:
+    ಸ್ಥಿತಿ SHT_GNU_verdef:
+        sec->sh_addralign = PTR_ಗಾತ್ರ;
+        ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ SHT_STRTAB:
         sec->sh_addralign = 1;
-        break;
-    default:
-        sec->sh_addralign =  PTR_SIZE; /* gcc/pcc default alignment */
-        break;
+        ನಿಲ್ಲಿಸು;
+    ಪೂರ್ವನಿಯೋಜಿತ:
+        sec->sh_addralign =  PTR_ಗಾತ್ರ; /* gcc/pcc default alignment */
+        ನಿಲ್ಲಿಸು;
     }
 
-    if (sh_flags & SHF_PRIVATE) {
-        dynarray_add(&s1->priv_sections, &s1->nb_priv_sections, sec);
-    } else {
-        sec->sh_num = s1->nb_sections;
-        dynarray_add(&s1->sections, &s1->nb_sections, sec);
+    ಆದರೆ (sh_flags & SHF_ಖಾಸಗಿ) {
+        dynarray_ಕೂಡಿಸು(&s1->priv_sections, &s1->nb_priv_sections, sec);
+    } ಇಲ್ಲದಿದ್ದರೆ {
+        sec->sh_ಅಂಕೆ = s1->nb_sections;
+        dynarray_ಕೂಡಿಸು(&s1->sections, &s1->nb_sections, sec);
     }
 
-    return sec;
+    ಹಿಂತಿರುಗಿ sec;
 }
 
-ST_FUNC void init_symtab(Section *s)
+ST_FUNC ಶೂನ್ಯ init_symtab(Section *s)
 {
-    int *ptr, nb_buckets = 1;
+    ಪೂರ್ಣಾಂಕ *ptr, nb_buckets = 1;
     put_elf_str(s->link, "");
-    section_ptr_add(s, sizeof (ElfW(Sym)));
-    ptr = section_ptr_add(s->hash, (2 + nb_buckets + 1) * sizeof(int));
+    section_ptr_ಕೂಡಿಸು(s, ಗಾತ್ರ (ElfW(Sym)));
+    ptr = section_ptr_ಕೂಡಿಸು(s->hash, (2 + nb_buckets + 1) * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
     ptr[0] = nb_buckets;
     ptr[1] = 1;
-    memset(ptr + 2, 0, (nb_buckets + 1) * sizeof(int));
+    memset(ptr + 2, 0, (nb_buckets + 1) * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
 }
 
 ST_FUNC Section *new_symtab(TCCState *s1,
-                           const char *symtab_name, int sh_type, int sh_flags,
-                           const char *strtab_name,
-                           const char *hash_name, int hash_sh_flags)
+                           ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *symtab_name, ಪೂರ್ಣಾಂಕ sh_type, ಪೂರ್ಣಾಂಕ sh_flags,
+                           ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *strtab_name,
+                           ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *hash_name, ಪೂರ್ಣಾಂಕ hash_sh_flags)
 {
     Section *symtab, *strtab, *hash;
     symtab = new_section(s1, symtab_name, sh_type, sh_flags);
-    symtab->sh_entsize = sizeof(ElfW(Sym));
+    symtab->sh_entsize = ಗಾತ್ರ(ElfW(Sym));
     strtab = new_section(s1, strtab_name, SHT_STRTAB, sh_flags);
     symtab->link = strtab;
     hash = new_section(s1, hash_name, SHT_HASH, hash_sh_flags);
-    hash->sh_entsize = sizeof(int);
+    hash->sh_entsize = ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ);
     symtab->hash = hash;
     hash->link = symtab;
     init_symtab(symtab);
-    return symtab;
+    ಹಿಂತಿರುಗಿ symtab;
 }
 
 /* realloc section and set its content to zero */
-ST_FUNC void section_realloc(Section *sec, unsigned long new_size)
+ST_FUNC ಶೂನ್ಯ section_realloc(Section *sec, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ new_ಗಾತ್ರ)
 {
-    unsigned long size;
-    unsigned char *data;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಗಾತ್ರ_2;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *ದತ್ತಾಂಶ;
 
-    size = sec->data_allocated;
-    if (size == 0)
-        size = 1;
-    while (size < new_size)
-        size = size * 2;
-    data = tcc_realloc(sec->data, size);
-    memset(data + sec->data_allocated, 0, size - sec->data_allocated);
-    sec->data = data;
-    sec->data_allocated = size;
+    ಗಾತ್ರ_2 = sec->ದತ್ತಾಂಶ_allocated;
+    ಆದರೆ (ಗಾತ್ರ_2 == 0)
+        ಗಾತ್ರ_2 = 1;
+    ಆಗ (ಗಾತ್ರ_2 < new_ಗಾತ್ರ)
+        ಗಾತ್ರ_2 = ಗಾತ್ರ_2 * 2;
+    ದತ್ತಾಂಶ = tcc_realloc(sec->ದತ್ತಾಂಶ, ಗಾತ್ರ_2);
+    memset(ದತ್ತಾಂಶ + sec->ದತ್ತಾಂಶ_allocated, 0, ಗಾತ್ರ_2 - sec->ದತ್ತಾಂಶ_allocated);
+    sec->ದತ್ತಾಂಶ = ದತ್ತಾಂಶ;
+    sec->ದತ್ತಾಂಶ_allocated = ಗಾತ್ರ_2;
 }
 
 /* reserve at least 'size' bytes aligned per 'align' in section
    'sec' from current offset, and return the aligned offset */
-ST_FUNC size_t section_add(Section *sec, addr_t size, int align)
+ST_FUNC ಗಾತ್ರ_t section_ಕೂಡಿಸು(Section *sec, addr_t ಗಾತ್ರ_2, ಪೂರ್ಣಾಂಕ align)
 {
-    size_t offset, offset1;
+    ಗಾತ್ರ_t ಸ್ಥಾನಾಂತರ, offset1;
 
-    offset = (sec->data_offset + align - 1) & -align;
-    offset1 = offset + size;
-    if (sec->sh_type != SHT_NOBITS && offset1 > sec->data_allocated)
+    ಸ್ಥಾನಾಂತರ = (sec->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ + align - 1) & -align;
+    offset1 = ಸ್ಥಾನಾಂತರ + ಗಾತ್ರ_2;
+    ಆದರೆ (sec->sh_type != SHT_NOBITS && offset1 > sec->ದತ್ತಾಂಶ_allocated)
         section_realloc(sec, offset1);
-    sec->data_offset = offset1;
-    if (align > sec->sh_addralign)
+    sec->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = offset1;
+    ಆದರೆ (align > sec->sh_addralign)
         sec->sh_addralign = align;
-    return offset;
+    ಹಿಂತಿರುಗಿ ಸ್ಥಾನಾಂತರ;
 }
 
 /* reserve at least 'size' bytes in section 'sec' from
    sec->data_offset. */
-ST_FUNC void *section_ptr_add(Section *sec, addr_t size)
+ST_FUNC ಶೂನ್ಯ *section_ptr_ಕೂಡಿಸು(Section *sec, addr_t ಗಾತ್ರ_2)
 {
-    size_t offset = section_add(sec, size, 1);
-    return sec->data + offset;
+    ಗಾತ್ರ_t ಸ್ಥಾನಾಂತರ = section_ಕೂಡಿಸು(sec, ಗಾತ್ರ_2, 1);
+    ಹಿಂತಿರುಗಿ sec->ದತ್ತಾಂಶ + ಸ್ಥಾನಾಂತರ;
 }
 
-#ifndef ELF_OBJ_ONLY
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
 /* reserve at least 'size' bytes from section start */
-static void section_reserve(Section *sec, unsigned long size)
+ಸ್ಥಿರ ಶೂನ್ಯ section_reserve(Section *sec, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಗಾತ್ರ_2)
 {
-    if (size > sec->data_allocated)
-        section_realloc(sec, size);
-    if (size > sec->data_offset)
-        sec->data_offset = size;
+    ಆದರೆ (ಗಾತ್ರ_2 > sec->ದತ್ತಾಂಶ_allocated)
+        section_realloc(sec, ಗಾತ್ರ_2);
+    ಆದರೆ (ಗಾತ್ರ_2 > sec->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ)
+        sec->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = ಗಾತ್ರ_2;
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-static Section *have_section(TCCState *s1, const char *name)
+ಸ್ಥಿರ Section *have_section(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name)
 {
     Section *sec;
-    int i;
-    for(i = 1; i < s1->nb_sections; i++) {
+    ಪೂರ್ಣಾಂಕ i;
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
         sec = s1->sections[i];
-        if (!strcmp(name, sec->name))
-            return sec;
+        ಆದರೆ (!strcmp(name, sec->name))
+            ಹಿಂತಿರುಗಿ sec;
     }
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
 /* return a reference to a section, and create it if it does not
    exists */
-ST_FUNC Section *find_section(TCCState *s1, const char *name)
+ST_FUNC Section *ಕಂಡುಹಿಡಿ_section(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name)
 {
     Section *sec = have_section(s1, name);
-    if (sec)
-        return sec;
+    ಆದರೆ (sec)
+        ಹಿಂತಿರುಗಿ sec;
     /* sections are created as PROGBITS */
-    return new_section(s1, name, SHT_PROGBITS, SHF_ALLOC);
+    ಹಿಂತಿರುಗಿ new_section(s1, name, SHT_PROGBITS, SHF_ALLOC);
 }
 
 /* ------------------------------------------------------------------------- */
 
-ST_FUNC int put_elf_str(Section *s, const char *sym)
+ST_FUNC ಪೂರ್ಣಾಂಕ put_elf_str(Section *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *sym)
 {
-    int offset, len;
-    char *ptr;
+    ಪೂರ್ಣಾಂಕ ಸ್ಥಾನಾಂತರ, len;
+    ಅಕ್ಷರ *ptr;
 
-    len = strlen(sym) + 1;
-    offset = s->data_offset;
-    ptr = section_ptr_add(s, len);
+    len = ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(sym) + 1;
+    ಸ್ಥಾನಾಂತರ = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
+    ptr = section_ptr_ಕೂಡಿಸು(s, len);
     memmove(ptr, sym, len);
-    return offset;
+    ಹಿಂತಿರುಗಿ ಸ್ಥಾನಾಂತರ;
 }
 
 /* elf symbol hashing function */
-static ElfW(Word) elf_hash(const unsigned char *name)
+ಸ್ಥಿರ ElfW(ಶಬ್ದ_2) elf_hash(ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *name)
 {
-    ElfW(Word) h = 0, g;
+    ElfW(ಶಬ್ದ_2) h = 0, g;
 
-    while (*name) {
+    ಆಗ (*name) {
         h = (h << 4) + *name++;
         g = h & 0xf0000000;
-        if (g)
+        ಆದರೆ (g)
             h ^= g >> 24;
         h &= ~g;
     }
-    return h;
+    ಹಿಂತಿರುಗಿ h;
 }
 
 /* rebuild hash table of section s */
 /* NOTE: we do factorize the hash table code to go faster */
-static void rebuild_hash(Section *s, unsigned int nb_buckets)
+ಸ್ಥಿರ ಶೂನ್ಯ rebuild_hash(Section *s, ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ nb_buckets)
 {
     ElfW(Sym) *sym;
-    int *ptr, *hash, nb_syms, sym_index, h;
-    unsigned char *strtab;
+    ಪೂರ್ಣಾಂಕ *ptr, *hash, nb_syms, sym_ಸೂಚ್ಯಂಕ, h;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *strtab;
 
-    strtab = s->link->data;
-    nb_syms = s->data_offset / sizeof(ElfW(Sym));
+    strtab = s->link->ದತ್ತಾಂಶ;
+    nb_syms = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ(ElfW(Sym));
 
-    if (!nb_buckets)
-        nb_buckets = ((int*)s->hash->data)[0];
+    ಆದರೆ (!nb_buckets)
+        nb_buckets = ((ಪೂರ್ಣಾಂಕ*)s->hash->ದತ್ತಾಂಶ)[0];
 
-    s->hash->data_offset = 0;
-    ptr = section_ptr_add(s->hash, (2 + nb_buckets + nb_syms) * sizeof(int));
+    s->hash->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = 0;
+    ptr = section_ptr_ಕೂಡಿಸು(s->hash, (2 + nb_buckets + nb_syms) * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
     ptr[0] = nb_buckets;
     ptr[1] = nb_syms;
     ptr += 2;
     hash = ptr;
-    memset(hash, 0, (nb_buckets + 1) * sizeof(int));
+    memset(hash, 0, (nb_buckets + 1) * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
     ptr += nb_buckets + 1;
 
-    sym = (ElfW(Sym) *)s->data + 1;
-    for(sym_index = 1; sym_index < nb_syms; sym_index++) {
-        if (ELFW(ST_BIND)(sym->st_info) != STB_LOCAL) {
+    sym = (ElfW(Sym) *)s->ದತ್ತಾಂಶ + 1;
+    ಗಾಗಿ(sym_ಸೂಚ್ಯಂಕ = 1; sym_ಸೂಚ್ಯಂಕ < nb_syms; sym_ಸೂಚ್ಯಂಕ++) {
+        ಆದರೆ (ELFW(ST_BIND)(sym->st_info) != STB_LOCAL) {
             h = elf_hash(strtab + sym->st_name) % nb_buckets;
             *ptr = hash[h];
-            hash[h] = sym_index;
-        } else {
+            hash[h] = sym_ಸೂಚ್ಯಂಕ;
+        } ಇಲ್ಲದಿದ್ದರೆ {
             *ptr = 0;
         }
         ptr++;
@@ -439,426 +439,426 @@ static void rebuild_hash(Section *s, unsigned int nb_buckets)
 }
 
 /* return the symbol number */
-ST_FUNC int put_elf_sym(Section *s, addr_t value, unsigned long size,
-    int info, int other, int shndx, const char *name)
+ST_FUNC ಪೂರ್ಣಾಂಕ put_elf_sym(Section *s, addr_t ಮೌಲ್ಯ, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಗಾತ್ರ_2,
+    ಪೂರ್ಣಾಂಕ info, ಪೂರ್ಣಾಂಕ other, ಪೂರ್ಣಾಂಕ shndx, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name)
 {
-    int name_offset, sym_index;
-    int nbuckets, h;
+    ಪೂರ್ಣಾಂಕ name_ಸ್ಥಾನಾಂತರ, sym_ಸೂಚ್ಯಂಕ;
+    ಪೂರ್ಣಾಂಕ nbuckets, h;
     ElfW(Sym) *sym;
     Section *hs;
 
-    sym = section_ptr_add(s, sizeof(ElfW(Sym)));
-    if (name && name[0])
-        name_offset = put_elf_str(s->link, name);
-    else
-        name_offset = 0;
+    sym = section_ptr_ಕೂಡಿಸು(s, ಗಾತ್ರ(ElfW(Sym)));
+    ಆದರೆ (name && name[0])
+        name_ಸ್ಥಾನಾಂತರ = put_elf_str(s->link, name);
+    ಇಲ್ಲದಿದ್ದರೆ
+        name_ಸ್ಥಾನಾಂತರ = 0;
     /* XXX: endianness */
-    sym->st_name = name_offset;
-    sym->st_value = value;
-    sym->st_size = size;
+    sym->st_name = name_ಸ್ಥಾನಾಂತರ;
+    sym->st_ಮೌಲ್ಯ = ಮೌಲ್ಯ;
+    sym->st_ಗಾತ್ರ = ಗಾತ್ರ_2;
     sym->st_info = info;
     sym->st_other = other;
     sym->st_shndx = shndx;
-    sym_index = sym - (ElfW(Sym) *)s->data;
+    sym_ಸೂಚ್ಯಂಕ = sym - (ElfW(Sym) *)s->ದತ್ತಾಂಶ;
     hs = s->hash;
-    if (hs) {
-        int *ptr, *base;
-        ptr = section_ptr_add(hs, sizeof(int));
-        base = (int *)hs->data;
+    ಆದರೆ (hs) {
+        ಪೂರ್ಣಾಂಕ *ptr, *ತಳ;
+        ptr = section_ptr_ಕೂಡಿಸು(hs, ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
+        ತಳ = (ಪೂರ್ಣಾಂಕ *)hs->ದತ್ತಾಂಶ;
         /* only add global or weak symbols. */
-        if (ELFW(ST_BIND)(info) != STB_LOCAL) {
+        ಆದರೆ (ELFW(ST_BIND)(info) != STB_LOCAL) {
             /* add another hashing entry */
-            nbuckets = base[0];
-            h = elf_hash((unsigned char *)s->link->data + name_offset) % nbuckets;
-            *ptr = base[2 + h];
-            base[2 + h] = sym_index;
-            base[1]++;
+            nbuckets = ತಳ[0];
+            h = elf_hash((ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *)s->link->ದತ್ತಾಂಶ + name_ಸ್ಥಾನಾಂತರ) % nbuckets;
+            *ptr = ತಳ[2 + h];
+            ತಳ[2 + h] = sym_ಸೂಚ್ಯಂಕ;
+            ತಳ[1]++;
             /* we resize the hash table */
             hs->nb_hashed_syms++;
-            if (hs->nb_hashed_syms > 2 * nbuckets) {
+            ಆದರೆ (hs->nb_hashed_syms > 2 * nbuckets) {
                 rebuild_hash(s, 2 * nbuckets);
             }
-        } else {
+        } ಇಲ್ಲದಿದ್ದರೆ {
             *ptr = 0;
-            base[1]++;
+            ತಳ[1]++;
         }
     }
-    return sym_index;
+    ಹಿಂತಿರುಗಿ sym_ಸೂಚ್ಯಂಕ;
 }
 
-ST_FUNC int find_elf_sym(Section *s, const char *name)
+ST_FUNC ಪೂರ್ಣಾಂಕ ಕಂಡುಹಿಡಿ_elf_sym(Section *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name)
 {
     ElfW(Sym) *sym;
     Section *hs;
-    int nbuckets, sym_index, h;
-    const char *name1;
+    ಪೂರ್ಣಾಂಕ nbuckets, sym_ಸೂಚ್ಯಂಕ, h;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name1;
 
     hs = s->hash;
-    if (!hs)
-        return 0;
-    nbuckets = ((int *)hs->data)[0];
-    h = elf_hash((unsigned char *) name) % nbuckets;
-    sym_index = ((int *)hs->data)[2 + h];
-    while (sym_index != 0) {
-        sym = &((ElfW(Sym) *)s->data)[sym_index];
-        name1 = (char *) s->link->data + sym->st_name;
-        if (!strcmp(name, name1))
-            return sym_index;
-        sym_index = ((int *)hs->data)[2 + nbuckets + sym_index];
+    ಆದರೆ (!hs)
+        ಹಿಂತಿರುಗಿ 0;
+    nbuckets = ((ಪೂರ್ಣಾಂಕ *)hs->ದತ್ತಾಂಶ)[0];
+    h = elf_hash((ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *) name) % nbuckets;
+    sym_ಸೂಚ್ಯಂಕ = ((ಪೂರ್ಣಾಂಕ *)hs->ದತ್ತಾಂಶ)[2 + h];
+    ಆಗ (sym_ಸೂಚ್ಯಂಕ != 0) {
+        sym = &((ElfW(Sym) *)s->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
+        name1 = (ಅಕ್ಷರ *) s->link->ದತ್ತಾಂಶ + sym->st_name;
+        ಆದರೆ (!strcmp(name, name1))
+            ಹಿಂತಿರುಗಿ sym_ಸೂಚ್ಯಂಕ;
+        sym_ಸೂಚ್ಯಂಕ = ((ಪೂರ್ಣಾಂಕ *)hs->ದತ್ತಾಂಶ)[2 + nbuckets + sym_ಸೂಚ್ಯಂಕ];
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* return elf symbol value, signal error if 'err' is nonzero, decorate
    name if FORC */
-ST_FUNC addr_t get_sym_addr(TCCState *s1, const char *name, int err, int forc)
+ST_FUNC addr_t get_sym_addr(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, ಪೂರ್ಣಾಂಕ err, ಪೂರ್ಣಾಂಕ forc)
 {
-    int sym_index;
+    ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ;
     ElfW(Sym) *sym;
-    char buf[256];
-    if (forc && s1->leading_underscore
-#ifdef TCC_TARGET_PE
+    ಅಕ್ಷರ buf[256];
+    ಆದರೆ (forc && s1->leading_underscore
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_PE
         /* win32-32bit stdcall symbols always have _ already */
         && !strchr(name, '@')
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
         ) {
         buf[0] = '_';
-        pstrcpy(buf + 1, sizeof(buf) - 1, name);
+        pstrcpy(buf + 1, ಗಾತ್ರ(buf) - 1, name);
         name = buf;
     }
-    sym_index = find_elf_sym(s1->symtab, name);
-    sym = &((ElfW(Sym) *)s1->symtab->data)[sym_index];
-    if (!sym_index || sym->st_shndx == SHN_UNDEF) {
-        if (err)
+    sym_ಸೂಚ್ಯಂಕ = ಕಂಡುಹಿಡಿ_elf_sym(s1->symtab, name);
+    sym = &((ElfW(Sym) *)s1->symtab->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
+    ಆದರೆ (!sym_ಸೂಚ್ಯಂಕ || sym->st_shndx == SHN_UNDEF) {
+        ಆದರೆ (err)
             tcc_error_noabort("%s not defined", name);
-        return (addr_t)-1;
+        ಹಿಂತಿರುಗಿ (addr_t)-1;
     }
-    return sym->st_value;
+    ಹಿಂತಿರುಗಿ sym->st_ಮೌಲ್ಯ;
 }
 
 /* return elf symbol value */
-LIBTCCAPI void *tcc_get_symbol(TCCState *s, const char *name)
+LIBTCCAPI ಶೂನ್ಯ *tcc_get_ಚಿಹ್ನೆ(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name)
 {
     addr_t addr = get_sym_addr(s, name, 0, 1);
-    return addr == -1 ? NULL : (void*)(uintptr_t)addr;
+    ಹಿಂತಿರುಗಿ addr == -1 ? ಖಾಲಿ : (ಶೂನ್ಯ*)(uintptr_t)addr;
 }
 
-LIBTCCAPI int tcc_add_symbol(TCCState *s1, const char *name, const void *val)
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_ಕೂಡಿಸು_ಚಿಹ್ನೆ(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ *val)
 {
-#ifdef TCC_TARGET_PE
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_PE
     /* On x86_64 'val' might not be reachable with a 32bit offset.
        So it is handled here as if it were in a DLL. */
     pe_putimport(s1, 0, name, (uintptr_t)val);
-#else
-    char buf[256];
-    if (s1->leading_underscore) {
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಅಕ್ಷರ buf[256];
+    ಆದರೆ (s1->leading_underscore) {
         buf[0] = '_';
-        pstrcpy(buf + 1, sizeof(buf) - 1, name);
+        pstrcpy(buf + 1, ಗಾತ್ರ(buf) - 1, name);
         name = buf;
     }
-    set_global_sym(s1, name, NULL, (addr_t)(uintptr_t)val); /* NULL: SHN_ABS */
-#endif
-    return 0;
+    ಗಣ_global_sym(s1, name, ಖಾಲಿ, (addr_t)(uintptr_t)val); /* NULL: SHN_ABS */
+#ಆದರೆ_ಅಂತ್ಯ
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* list elf symbol names and values */
-ST_FUNC void list_elf_symbols(TCCState *s, void *ctx,
-    void (*symbol_cb)(void *ctx, const char *name, const void *val))
+ST_FUNC ಶೂನ್ಯ list_elf_symbols(TCCState *s, ಶೂನ್ಯ *ctx,
+    ಶೂನ್ಯ (*ಚಿಹ್ನೆ_cb)(ಶೂನ್ಯ *ctx, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ *val))
 {
     ElfW(Sym) *sym;
     Section *symtab;
-    int sym_index, end_sym;
-    const char *name;
-    unsigned char sym_vis, sym_bind;
+    ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ, ಕೊನೆ_sym;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ sym_vis, sym_bind;
 
     symtab = s->symtab;
-    end_sym = symtab->data_offset / sizeof (ElfSym);
-    for (sym_index = 0; sym_index < end_sym; ++sym_index) {
-        sym = &((ElfW(Sym) *)symtab->data)[sym_index];
-        if (sym->st_value) {
-            name = (char *) symtab->link->data + sym->st_name;
+    ಕೊನೆ_sym = symtab->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ (ElfSym);
+    ಗಾಗಿ (sym_ಸೂಚ್ಯಂಕ = 0; sym_ಸೂಚ್ಯಂಕ < ಕೊನೆ_sym; ++sym_ಸೂಚ್ಯಂಕ) {
+        sym = &((ElfW(Sym) *)symtab->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
+        ಆದರೆ (sym->st_ಮೌಲ್ಯ) {
+            name = (ಅಕ್ಷರ *) symtab->link->ದತ್ತಾಂಶ + sym->st_name;
             sym_bind = ELFW(ST_BIND)(sym->st_info);
             sym_vis = ELFW(ST_VISIBILITY)(sym->st_other);
-            if (sym_bind == STB_GLOBAL && sym_vis == STV_DEFAULT)
-                symbol_cb(ctx, name, (void*)(uintptr_t)sym->st_value);
+            ಆದರೆ (sym_bind == STB_GLOBAL && sym_vis == STV_DEFAULT)
+                ಚಿಹ್ನೆ_cb(ctx, name, (ಶೂನ್ಯ*)(uintptr_t)sym->st_ಮೌಲ್ಯ);
         }
     }
 }
 
 /* list elf symbol names and values */
-LIBTCCAPI void tcc_list_symbols(TCCState *s, void *ctx,
-    void (*symbol_cb)(void *ctx, const char *name, const void *val))
+LIBTCCAPI ಶೂನ್ಯ tcc_list_symbols(TCCState *s, ಶೂನ್ಯ *ctx,
+    ಶೂನ್ಯ (*ಚಿಹ್ನೆ_cb)(ಶೂನ್ಯ *ctx, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ *val))
 {
-    list_elf_symbols(s, ctx, symbol_cb);
+    list_elf_symbols(s, ctx, ಚಿಹ್ನೆ_cb);
 }
 
-#ifndef ELF_OBJ_ONLY
-static void
-version_add (TCCState *s1)
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
+ಸ್ಥಿರ ಶೂನ್ಯ
+ಆವೃತ್ತಿ_ಕೂಡಿಸು (TCCState *s1)
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
     ElfW(Sym) *sym;
-    ElfW(Verneed) *vn = NULL;
+    ElfW(Verneed) *vn = ಖಾಲಿ;
     Section *symtab;
-    int sym_index, end_sym, nb_versions = 2, nb_entries = 0;
+    ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ, ಕೊನೆ_sym, nb_versions = 2, nb_entries = 0;
     ElfW(Half) *versym;
-    const char *name;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name;
 
-    if (0 == nb_sym_versions)
-        return;
+    ಆದರೆ (0 == nb_sym_versions)
+        ಹಿಂತಿರುಗಿ;
     versym_section = new_section(s1, ".gnu.version", SHT_GNU_versym, SHF_ALLOC);
-    versym_section->sh_entsize = sizeof(ElfW(Half));
+    versym_section->sh_entsize = ಗಾತ್ರ(ElfW(Half));
     versym_section->link = s1->dynsym;
 
     /* add needed symbols */
     symtab = s1->dynsym;
-    end_sym = symtab->data_offset / sizeof (ElfSym);
-    versym = section_ptr_add(versym_section, end_sym * sizeof(ElfW(Half)));
-    for (sym_index = 1; sym_index < end_sym; ++sym_index) {
-        int dllindex, verndx;
-        sym = &((ElfW(Sym) *)symtab->data)[sym_index];
-        name = (char *) symtab->link->data + sym->st_name;
-        dllindex = find_elf_sym(s1->dynsymtab_section, name);
-        verndx = (dllindex && dllindex < nb_sym_to_version)
-                 ? sym_to_version[dllindex] : -1;
-        if (verndx >= 0
+    ಕೊನೆ_sym = symtab->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ (ElfSym);
+    versym = section_ptr_ಕೂಡಿಸು(versym_section, ಕೊನೆ_sym * ಗಾತ್ರ(ElfW(Half)));
+    ಗಾಗಿ (sym_ಸೂಚ್ಯಂಕ = 1; sym_ಸೂಚ್ಯಂಕ < ಕೊನೆ_sym; ++sym_ಸೂಚ್ಯಂಕ) {
+        ಪೂರ್ಣಾಂಕ dllindex, verndx;
+        sym = &((ElfW(Sym) *)symtab->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
+        name = (ಅಕ್ಷರ *) symtab->link->ದತ್ತಾಂಶ + sym->st_name;
+        dllindex = ಕಂಡುಹಿಡಿ_elf_sym(s1->dynsymtab_section, name);
+        verndx = (dllindex && dllindex < nb_sym_ಗಮ್ಯ_ಆವೃತ್ತಿ)
+                 ? sym_ಗಮ್ಯ_ಆವೃತ್ತಿ[dllindex] : -1;
+        ಆದರೆ (verndx >= 0
             /* XXX: on android, clang refuses to link with a libtcc.so made by tcc
                when defined symbols have a version > 1 or when the version is '0'.
                Whereas version '1' for example for 'signal' in an exe defeats
                bcheck's signal_redir. */
             && (sym->st_shndx == SHN_UNDEF || (s1->output_type & TCC_OUTPUT_EXE))
             ) {
-            if (!sym_versions[verndx].out_index)
-              sym_versions[verndx].out_index = nb_versions++;
-            versym[sym_index] = sym_versions[verndx].out_index;
-        } else {
-            versym[sym_index] = 1; /* (*global*) */
+            ಆದರೆ (!sym_versions[verndx].ಹೊರಹೋಗು_ಸೂಚ್ಯಂಕ)
+              sym_versions[verndx].ಹೊರಹೋಗು_ಸೂಚ್ಯಂಕ = nb_versions++;
+            versym[sym_ಸೂಚ್ಯಂಕ] = sym_versions[verndx].ಹೊರಹೋಗು_ಸೂಚ್ಯಂಕ;
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            versym[sym_ಸೂಚ್ಯಂಕ] = 1; /* (*global*) */
         }
         //printf("SYM %d %s\n", versym[sym_index], name);
     }
     /* generate verneed section, but not when it will be empty.  Some
        dynamic linkers look at their contents even when DTVERNEEDNUM and
        section size is zero.  */
-    if (nb_versions > 2) {
+    ಆದರೆ (nb_versions > 2) {
         verneed_section = new_section(s1, ".gnu.version_r",
                                       SHT_GNU_verneed, SHF_ALLOC);
         verneed_section->link = s1->dynsym->link;
-        for (i = nb_sym_versions; i-- > 0;) {
-            struct sym_version *sv = &sym_versions[i];
-            int n_same_libs = 0, prev;
-            size_t vnofs;
+        ಗಾಗಿ (i = nb_sym_versions; i-- > 0;) {
+            ರಚನೆ sym_ಆವೃತ್ತಿ *sv = &sym_versions[i];
+            ಪೂರ್ಣಾಂಕ n_same_libs = 0, prev;
+            ಗಾತ್ರ_t vnofs;
             ElfW(Vernaux) *vna = 0;
-            if (sv->out_index < 1)
-              continue;
+            ಆದರೆ (sv->ಹೊರಹೋಗು_ಸೂಚ್ಯಂಕ < 1)
+              ಮುಂದುವರಿ;
 
             /* make sure that a DT_NEEDED tag is put */
             /* abitest-tcc fails on older i386-linux with "ld-linux.so.2" DT_NEEDED
                ret_int_test... Inconsistency detected by ld.so: dl-minimal.c: 148:
                realloc: Assertion `ptr == alloc_last_block' failed! */
-            if (strcmp(sv->lib, "ld-linux.so.2"))
-                tcc_add_dllref(s1, sv->lib, 0);
+            ಆದರೆ (strcmp(sv->lib, "ld-linux.so.2"))
+                tcc_ಕೂಡಿಸು_dllref(s1, sv->lib, 0);
 
-            vnofs = section_add(verneed_section, sizeof(*vn), 1);
-            vn = (ElfW(Verneed)*)(verneed_section->data + vnofs);
-            vn->vn_version = 1;
+            vnofs = section_ಕೂಡಿಸು(verneed_section, ಗಾತ್ರ(*vn), 1);
+            vn = (ElfW(Verneed)*)(verneed_section->ದತ್ತಾಂಶ + vnofs);
+            vn->vn_ಆವೃತ್ತಿ = 1;
             vn->vn_file = put_elf_str(verneed_section->link, sv->lib);
-            vn->vn_aux = sizeof (*vn);
-            do {
+            vn->vn_aux = ಗಾತ್ರ (*vn);
+            ಮಾಡು {
                 prev = sv->prev_same_lib;
-                if (sv->out_index > 0) {
-                    vna = section_ptr_add(verneed_section, sizeof(*vna));
-                    vna->vna_hash = elf_hash ((const unsigned char *)sv->version);
+                ಆದರೆ (sv->ಹೊರಹೋಗು_ಸೂಚ್ಯಂಕ > 0) {
+                    vna = section_ptr_ಕೂಡಿಸು(verneed_section, ಗಾತ್ರ(*vna));
+                    vna->vna_hash = elf_hash ((ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *)sv->ಆವೃತ್ತಿ);
                     vna->vna_flags = 0;
-                    vna->vna_other = sv->out_index;
-                    sv->out_index = -2;
-                    vna->vna_name = put_elf_str(verneed_section->link, sv->version);
-                    vna->vna_next = sizeof (*vna);
+                    vna->vna_other = sv->ಹೊರಹೋಗು_ಸೂಚ್ಯಂಕ;
+                    sv->ಹೊರಹೋಗು_ಸೂಚ್ಯಂಕ = -2;
+                    vna->vna_name = put_elf_str(verneed_section->link, sv->ಆವೃತ್ತಿ);
+                    vna->vna_ಮುಂದಿನ = ಗಾತ್ರ (*vna);
                     //printf("LIB %d %s %s\n", vna->vna_other, sv->lib, verneed_section->link->data + vna->vna_name);
                     n_same_libs++;
                 }
-                if (prev >= 0)
+                ಆದರೆ (prev >= 0)
                   sv = &sym_versions[prev];
-            } while(prev >= 0);
-            vna->vna_next = 0;
-            vn = (ElfW(Verneed)*)(verneed_section->data + vnofs);
+            } ಆಗ(prev >= 0);
+            vna->vna_ಮುಂದಿನ = 0;
+            vn = (ElfW(Verneed)*)(verneed_section->ದತ್ತಾಂಶ + vnofs);
             vn->vn_cnt = n_same_libs;
-            vn->vn_next = sizeof(*vn) + n_same_libs * sizeof(*vna);
+            vn->vn_ಮುಂದಿನ = ಗಾತ್ರ(*vn) + n_same_libs * ಗಾತ್ರ(*vna);
             nb_entries++;
         }
-        if (vn)
-          vn->vn_next = 0;
+        ಆದರೆ (vn)
+          vn->vn_ಮುಂದಿನ = 0;
         verneed_section->sh_info = nb_entries;
     }
     dt_verneednum = nb_entries;
 }
-#endif /* ndef ELF_OBJ_ONLY */
+#ಆದರೆ_ಅಂತ್ಯ /* ndef ELF_OBJ_ONLY */
 
 /* catch .tbss also */
-static int IS_BSS(TCCState *s1, int ndx)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ IS_BSS(TCCState *s1, ಪೂರ್ಣಾಂಕ ndx)
 {
-    return ndx == SHN_COMMON
+    ಹಿಂತಿರುಗಿ ndx == SHN_COMMON
      || (ndx < s1->nb_sections
          && s1->sections[ndx]->sh_type == SHT_NOBITS);
 }
 
 /* add an elf symbol : check if it is already defined and patch
    it. Return symbol index. NOTE that sh_num can be SHN_UNDEF. */
-ST_FUNC int set_elf_sym(Section *s, addr_t value, unsigned long size,
-                       int info, int other, int shndx, const char *name)
+ST_FUNC ಪೂರ್ಣಾಂಕ ಗಣ_elf_sym(Section *s, addr_t ಮೌಲ್ಯ, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಗಾತ್ರ_2,
+                       ಪೂರ್ಣಾಂಕ info, ಪೂರ್ಣಾಂಕ other, ಪೂರ್ಣಾಂಕ shndx, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name)
 {
     TCCState *s1 = s->s1;
     ElfW(Sym) *esym;
-    int sym_bind, sym_index, sym_type, esym_bind;
-    unsigned char sym_vis, esym_vis, new_vis;
+    ಪೂರ್ಣಾಂಕ sym_bind, sym_ಸೂಚ್ಯಂಕ, sym_type, esym_bind;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ sym_vis, esym_vis, new_vis;
 
     sym_bind = ELFW(ST_BIND)(info);
     sym_type = ELFW(ST_TYPE)(info);
     sym_vis = ELFW(ST_VISIBILITY)(other);
 
-    if (sym_bind != STB_LOCAL) {
+    ಆದರೆ (sym_bind != STB_LOCAL) {
         /* we search global or weak symbols */
-        sym_index = find_elf_sym(s, name);
-        if (!sym_index)
-            goto do_def;
-        esym = &((ElfW(Sym) *)s->data)[sym_index];
-        if (esym->st_value == value && esym->st_size == size && esym->st_info == info
+        sym_ಸೂಚ್ಯಂಕ = ಕಂಡುಹಿಡಿ_elf_sym(s, name);
+        ಆದರೆ (!sym_ಸೂಚ್ಯಂಕ)
+            ಹೋಗು do_def;
+        esym = &((ElfW(Sym) *)s->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
+        ಆದರೆ (esym->st_ಮೌಲ್ಯ == ಮೌಲ್ಯ && esym->st_ಗಾತ್ರ == ಗಾತ್ರ_2 && esym->st_info == info
             && esym->st_other == other && esym->st_shndx == shndx)
-            return sym_index;
-        if (esym->st_shndx != SHN_UNDEF) {
+            ಹಿಂತಿರುಗಿ sym_ಸೂಚ್ಯಂಕ;
+        ಆದರೆ (esym->st_shndx != SHN_UNDEF) {
             esym_bind = ELFW(ST_BIND)(esym->st_info);
             /* propagate the most constraining visibility */
             /* STV_DEFAULT(0)<STV_PROTECTED(3)<STV_HIDDEN(2)<STV_INTERNAL(1) */
             esym_vis = ELFW(ST_VISIBILITY)(esym->st_other);
-            if (esym_vis == STV_DEFAULT) {
+            ಆದರೆ (esym_vis == STV_DEFAULT) {
                 new_vis = sym_vis;
-            } else if (sym_vis == STV_DEFAULT) {
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (sym_vis == STV_DEFAULT) {
                 new_vis = esym_vis;
-            } else {
+            } ಇಲ್ಲದಿದ್ದರೆ {
                 new_vis = (esym_vis < sym_vis) ? esym_vis : sym_vis;
             }
             esym->st_other = (esym->st_other & ~ELFW(ST_VISIBILITY)(-1))
                              | new_vis;
-            if (shndx == SHN_UNDEF) {
+            ಆದರೆ (shndx == SHN_UNDEF) {
                 /* ignore adding of undefined symbol if the
                    corresponding symbol is already defined */
-            } else if (sym_bind == STB_GLOBAL && esym_bind == STB_WEAK) {
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (sym_bind == STB_GLOBAL && esym_bind == STB_WEAK) {
                 /* global overrides weak, so patch */
-                goto do_patch;
-            } else if (sym_bind == STB_WEAK && esym_bind == STB_GLOBAL) {
+                ಹೋಗು do_patch;
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (sym_bind == STB_WEAK && esym_bind == STB_GLOBAL) {
                 /* weak is ignored if already global */
-            } else if (sym_bind == STB_WEAK && esym_bind == STB_WEAK) {
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (sym_bind == STB_WEAK && esym_bind == STB_WEAK) {
                 /* keep first-found weak definition, ignore subsequents */
-            } else if (sym_vis == STV_HIDDEN || sym_vis == STV_INTERNAL) {
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (sym_vis == STV_HIDDEN || sym_vis == STV_ಆಂತರಿಕ) {
                 /* ignore hidden symbols after */
-            } else if (s->sh_flags & SHF_DYNSYM) {
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_flags & SHF_DYNSYM) {
                 /* we accept that two DLL define the same symbol */
-            } else if (!IS_BSS(s1, shndx) && IS_BSS(s1, esym->st_shndx)) {
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (!IS_BSS(s1, shndx) && IS_BSS(s1, esym->st_shndx)) {
                 /* data symbol gets precedence over common/bss */
-                goto do_patch;
-            } else if (IS_BSS(s1, shndx)) {
+                ಹೋಗು do_patch;
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (IS_BSS(s1, shndx)) {
                 /* data symbol keeps precedence over common/bss */
-	    } else if (esym->st_other & ST_ASM_SET) {
+	    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (esym->st_other & ST_ASM_ಗಣ) {
 		/* If the existing symbol came from an asm .set
 		   we can override.  */
-		goto do_patch;
-            } else {
-#if 0
-                printf("new_bind=%x new_shndx=%x new_vis=%x old_bind=%x old_shndx=%x old_vis=%x\n",
+		ಹೋಗು do_patch;
+            } ಇಲ್ಲದಿದ್ದರೆ {
+#ಆದರೆ 0
+                ಬರೆ("new_bind=%x new_shndx=%x new_vis=%x old_bind=%x old_shndx=%x old_vis=%x\n",
                        sym_bind, shndx, new_vis, esym_bind, esym->st_shndx, esym_vis);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
                 tcc_error_noabort("link symbol '%s' defined twice", name);
             }
-        } else {
+        } ಇಲ್ಲದಿದ್ದರೆ {
             esym->st_other = other;
         do_patch:
             esym->st_info = ELFW(ST_INFO)(sym_bind, sym_type);
             esym->st_shndx = shndx;
-            esym->st_value = value;
-            esym->st_size = size;
+            esym->st_ಮೌಲ್ಯ = ಮೌಲ್ಯ;
+            esym->st_ಗಾತ್ರ = ಗಾತ್ರ_2;
         }
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
     do_def:
-        sym_index = put_elf_sym(s, value, size,
+        sym_ಸೂಚ್ಯಂಕ = put_elf_sym(s, ಮೌಲ್ಯ, ಗಾತ್ರ_2,
                                 ELFW(ST_INFO)(sym_bind, sym_type), other,
                                 shndx, name);
     }
-    return sym_index;
+    ಹಿಂತಿರುಗಿ sym_ಸೂಚ್ಯಂಕ;
 }
 
 /* put relocation */
-ST_FUNC void put_elf_reloca(Section *symtab, Section *s, unsigned long offset,
-                            int type, int symbol, addr_t addend)
+ST_FUNC ಶೂನ್ಯ put_elf_reloca(Section *symtab, Section *s, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಸ್ಥಾನಾಂತರ,
+                            ಪೂರ್ಣಾಂಕ type, ಪೂರ್ಣಾಂಕ ಚಿಹ್ನೆ, addr_t addend)
 {
     TCCState *s1 = s->s1;
-    char buf[256];
+    ಅಕ್ಷರ buf[256];
     Section *sr;
     ElfW_Rel *rel;
 
     sr = s->reloc;
-    if (!sr) {
+    ಆದರೆ (!sr) {
         /* if no relocation section, create it */
-        snprintf(buf, sizeof(buf), REL_SECTION_FMT, s->name);
+        snprintf(buf, ಗಾತ್ರ(buf), REL_SECTION_FMT, s->name);
         /* if the symtab is allocated, then we consider the relocation
            are also */
         sr = new_section(s->s1, buf, SHT_RELX, symtab->sh_flags);
-        sr->sh_entsize = sizeof(ElfW_Rel);
+        sr->sh_entsize = ಗಾತ್ರ(ElfW_Rel);
         sr->link = symtab;
-        sr->sh_info = s->sh_num;
+        sr->sh_info = s->sh_ಅಂಕೆ;
         s->reloc = sr;
     }
-    rel = section_ptr_add(sr, sizeof(ElfW_Rel));
-    rel->r_offset = offset;
-    rel->r_info = ELFW(R_INFO)(symbol, type);
-#if SHT_RELX == SHT_RELA
+    rel = section_ptr_ಕೂಡಿಸು(sr, ಗಾತ್ರ(ElfW_Rel));
+    rel->r_ಸ್ಥಾನಾಂತರ = ಸ್ಥಾನಾಂತರ;
+    rel->r_info = ELFW(R_INFO)(ಚಿಹ್ನೆ, type);
+#ಆದರೆ SHT_RELX == SHT_RELA
     rel->r_addend = addend;
-#endif
-    if (SHT_RELX != SHT_RELA && addend)
+#ಆದರೆ_ಅಂತ್ಯ
+    ಆದರೆ (SHT_RELX != SHT_RELA && addend)
         tcc_error_noabort("non-zero addend on REL architecture");
 }
 
-ST_FUNC void put_elf_reloc(Section *symtab, Section *s, unsigned long offset,
-                           int type, int symbol)
+ST_FUNC ಶೂನ್ಯ put_elf_reloc(Section *symtab, Section *s, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಸ್ಥಾನಾಂತರ,
+                           ಪೂರ್ಣಾಂಕ type, ಪೂರ್ಣಾಂಕ ಚಿಹ್ನೆ)
 {
-    put_elf_reloca(symtab, s, offset, type, symbol, 0);
+    put_elf_reloca(symtab, s, ಸ್ಥಾನಾಂತರ, type, ಚಿಹ್ನೆ, 0);
 }
 
-ST_FUNC struct sym_attr *get_sym_attr(TCCState *s1, int index, int alloc)
+ST_FUNC ರಚನೆ sym_attr *get_sym_attr(TCCState *s1, ಪೂರ್ಣಾಂಕ ಸೂಚ್ಯಂಕ, ಪೂರ್ಣಾಂಕ alloc)
 {
-    int n;
-    struct sym_attr *tab;
+    ಪೂರ್ಣಾಂಕ n;
+    ರಚನೆ sym_attr *tab;
 
-    if (index >= s1->nb_sym_attrs) {
-        if (!alloc)
-            return s1->sym_attrs;
+    ಆದರೆ (ಸೂಚ್ಯಂಕ >= s1->nb_sym_attrs) {
+        ಆದರೆ (!alloc)
+            ಹಿಂತಿರುಗಿ s1->sym_attrs;
         /* find immediately bigger power of 2 and reallocate array */
         n = 1;
-        while (index >= n)
+        ಆಗ (ಸೂಚ್ಯಂಕ >= n)
             n *= 2;
-        tab = tcc_realloc(s1->sym_attrs, n * sizeof(*s1->sym_attrs));
+        tab = tcc_realloc(s1->sym_attrs, n * ಗಾತ್ರ(*s1->sym_attrs));
         s1->sym_attrs = tab;
         memset(s1->sym_attrs + s1->nb_sym_attrs, 0,
-               (n - s1->nb_sym_attrs) * sizeof(*s1->sym_attrs));
+               (n - s1->nb_sym_attrs) * ಗಾತ್ರ(*s1->sym_attrs));
         s1->nb_sym_attrs = n;
     }
-    return &s1->sym_attrs[index];
+    ಹಿಂತಿರುಗಿ &s1->sym_attrs[ಸೂಚ್ಯಂಕ];
 }
 
-static void update_relocs(TCCState *s1, Section *s, int *old_to_new_syms, int first_sym)
+ಸ್ಥಿರ ಶೂನ್ಯ update_relocs(TCCState *s1, Section *s, ಪೂರ್ಣಾಂಕ *old_ಗಮ್ಯ_new_syms, ಪೂರ್ಣಾಂಕ ಮೊದಲ_sym)
 {
-    int i, type, sym_index;
+    ಪೂರ್ಣಾಂಕ i, type, sym_ಸೂಚ್ಯಂಕ;
     Section *sr;
     ElfW_Rel *rel;
 
-    for(i = 1; i < s1->nb_sections; i++) {
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
         sr = s1->sections[i];
-        if (sr->sh_type == SHT_RELX && sr->link == s) {
+        ಆದರೆ (sr->sh_type == SHT_RELX && sr->link == s) {
             for_each_elem(sr, 0, rel, ElfW_Rel) {
-                sym_index = ELFW(R_SYM)(rel->r_info);
+                sym_ಸೂಚ್ಯಂಕ = ELFW(R_SYM)(rel->r_info);
                 type = ELFW(R_TYPE)(rel->r_info);
-                if ((sym_index -= first_sym) < 0)
-                    continue; /* zero sym_index in reloc (can happen with asm) */
-                sym_index = old_to_new_syms[sym_index];
-                rel->r_info = ELFW(R_INFO)(sym_index, type);
+                ಆದರೆ ((sym_ಸೂಚ್ಯಂಕ -= ಮೊದಲ_sym) < 0)
+                    ಮುಂದುವರಿ; /* zero sym_index in reloc (can happen with asm) */
+                sym_ಸೂಚ್ಯಂಕ = old_ಗಮ್ಯ_new_syms[sym_ಸೂಚ್ಯಂಕ];
+                rel->r_info = ELFW(R_INFO)(sym_ಸೂಚ್ಯಂಕ, type);
             }
         }
     }
@@ -868,483 +868,483 @@ static void update_relocs(TCCState *s1, Section *s, int *old_to_new_syms, int fi
    the global and weak ones. Since TCC cannot sort it while generating
    the code, we must do it after. All the relocation tables are also
    modified to take into account the symbol table sorting */
-static void sort_syms(TCCState *s1, Section *s)
+ಸ್ಥಿರ ಶೂನ್ಯ ವಿಂಗಡಿಸು_syms(TCCState *s1, Section *s)
 {
-    int *old_to_new_syms;
+    ಪೂರ್ಣಾಂಕ *old_ಗಮ್ಯ_new_syms;
     ElfW(Sym) *new_syms;
-    int nb_syms, i;
+    ಪೂರ್ಣಾಂಕ nb_syms, i;
     ElfW(Sym) *p, *q;
 
-    nb_syms = s->data_offset / sizeof(ElfW(Sym));
-    new_syms = tcc_malloc(nb_syms * sizeof(ElfW(Sym)));
-    old_to_new_syms = tcc_malloc(nb_syms * sizeof(int));
+    nb_syms = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ(ElfW(Sym));
+    new_syms = tcc_malloc(nb_syms * ಗಾತ್ರ(ElfW(Sym)));
+    old_ಗಮ್ಯ_new_syms = tcc_malloc(nb_syms * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
 
     /* first pass for local symbols */
-    p = (ElfW(Sym) *)s->data;
+    p = (ElfW(Sym) *)s->ದತ್ತಾಂಶ;
     q = new_syms;
-    for(i = 0; i < nb_syms; i++) {
-        if (ELFW(ST_BIND)(p->st_info) == STB_LOCAL) {
-            old_to_new_syms[i] = q - new_syms;
+    ಗಾಗಿ(i = 0; i < nb_syms; i++) {
+        ಆದರೆ (ELFW(ST_BIND)(p->st_info) == STB_LOCAL) {
+            old_ಗಮ್ಯ_new_syms[i] = q - new_syms;
             *q++ = *p;
         }
         p++;
     }
     /* save the number of local symbols in section header */
-    if( s->sh_size )    /* this 'if' makes IDA happy */
+    ಆದರೆ( s->sh_ಗಾತ್ರ )    /* this 'if' makes IDA happy */
         s->sh_info = q - new_syms;
 
     /* then second pass for non local symbols */
-    p = (ElfW(Sym) *)s->data;
-    for(i = 0; i < nb_syms; i++) {
-        if (ELFW(ST_BIND)(p->st_info) != STB_LOCAL) {
-            old_to_new_syms[i] = q - new_syms;
+    p = (ElfW(Sym) *)s->ದತ್ತಾಂಶ;
+    ಗಾಗಿ(i = 0; i < nb_syms; i++) {
+        ಆದರೆ (ELFW(ST_BIND)(p->st_info) != STB_LOCAL) {
+            old_ಗಮ್ಯ_new_syms[i] = q - new_syms;
             *q++ = *p;
         }
         p++;
     }
 
     /* we copy the new symbols to the old */
-    memcpy(s->data, new_syms, nb_syms * sizeof(ElfW(Sym)));
+    ಸ್ಮರಣೆ_ನಕಲು(s->ದತ್ತಾಂಶ, new_syms, nb_syms * ಗಾತ್ರ(ElfW(Sym)));
     tcc_free(new_syms);
 
-    update_relocs(s1, s, old_to_new_syms, 0);
-    tcc_free(old_to_new_syms);
+    update_relocs(s1, s, old_ಗಮ್ಯ_new_syms, 0);
+    tcc_free(old_ಗಮ್ಯ_new_syms);
 }
 
-#ifndef ELF_OBJ_ONLY
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
 /* See: https://flapenguin.me/elf-dt-gnu-hash */
-#define	ELFCLASS_BITS (PTR_SIZE * 8)
+#ವ್ಯಾಖ್ಯಾನಿಸು	ELFCLASS_ಬಿಟ್ಟುಗಳು (PTR_ಗಾತ್ರ * 8)
 
-static Section *create_gnu_hash(TCCState *s1)
+ಸ್ಥಿರ Section *create_gnu_hash(TCCState *s1)
 {
-    int nb_syms, i, ndef, nbuckets, symoffset, bloom_size, bloom_shift;
+    ಪೂರ್ಣಾಂಕ nb_syms, i, ndef, nbuckets, symoffset, bloom_ಗಾತ್ರ, bloom_ಸರಿಸು;
     ElfW(Sym) *p;
     Section *gnu_hash;
     Section *dynsym = s1->dynsym;
-    Elf32_Word *ptr;
+    Elf32_ಶಬ್ದ *ptr;
 
     gnu_hash = new_section(s1, ".gnu.hash", SHT_GNU_HASH, SHF_ALLOC);
     gnu_hash->link = dynsym->hash->link;
 
-    nb_syms = dynsym->data_offset / sizeof(ElfW(Sym));
+    nb_syms = dynsym->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ(ElfW(Sym));
 
     /* count def symbols */
     ndef = 0;
-    p = (ElfW(Sym) *)dynsym->data;
-    for(i = 0; i < nb_syms; i++, p++)
+    p = (ElfW(Sym) *)dynsym->ದತ್ತಾಂಶ;
+    ಗಾಗಿ(i = 0; i < nb_syms; i++, p++)
         ndef += p->st_shndx != SHN_UNDEF;
 
     /* calculate gnu hash sizes and fill header */
     nbuckets = ndef / 4 + 1;
     symoffset = nb_syms - ndef;
-    bloom_shift = PTR_SIZE == 8 ? 6 : 5;
-    bloom_size = 1; /* must be power of two */
-    while (ndef >= bloom_size * (1 << (bloom_shift - 3)))
-	bloom_size *= 2;
-    ptr = section_ptr_add(gnu_hash, 4 * 4 +
-				    PTR_SIZE * bloom_size +
+    bloom_ಸರಿಸು = PTR_ಗಾತ್ರ == 8 ? 6 : 5;
+    bloom_ಗಾತ್ರ = 1; /* must be power of two */
+    ಆಗ (ndef >= bloom_ಗಾತ್ರ * (1 << (bloom_ಸರಿಸು - 3)))
+	bloom_ಗಾತ್ರ *= 2;
+    ptr = section_ptr_ಕೂಡಿಸು(gnu_hash, 4 * 4 +
+				    PTR_ಗಾತ್ರ * bloom_ಗಾತ್ರ +
 				    nbuckets * 4 +
 				    ndef * 4);
     ptr[0] = nbuckets;
     ptr[1] = symoffset;
-    ptr[2] = bloom_size;
-    ptr[3] = bloom_shift;
-    return gnu_hash;
+    ptr[2] = bloom_ಗಾತ್ರ;
+    ptr[3] = bloom_ಸರಿಸು;
+    ಹಿಂತಿರುಗಿ gnu_hash;
 }
 
-static Elf32_Word elf_gnu_hash (const unsigned char *name)
+ಸ್ಥಿರ Elf32_ಶಬ್ದ elf_gnu_hash (ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *name)
 {
-    Elf32_Word h = 5381;
-    unsigned char c;
+    Elf32_ಶಬ್ದ h = 5381;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ c;
 
-    while ((c = *name++))
+    ಆಗ ((c = *name++))
         h = h * 33 + c;
-    return h;
+    ಹಿಂತಿರುಗಿ h;
 }
 
-static void update_gnu_hash(TCCState *s1, Section *gnu_hash)
+ಸ್ಥಿರ ಶೂನ್ಯ update_gnu_hash(TCCState *s1, Section *gnu_hash)
 {
-    int *old_to_new_syms;
+    ಪೂರ್ಣಾಂಕ *old_ಗಮ್ಯ_new_syms;
     ElfW(Sym) *new_syms;
-    int nb_syms, i, nbuckets, bloom_size, bloom_shift;
+    ಪೂರ್ಣಾಂಕ nb_syms, i, nbuckets, bloom_ಗಾತ್ರ, bloom_ಸರಿಸು;
     ElfW(Sym) *p, *q;
     Section *vs;
     Section *dynsym = s1->dynsym;
-    Elf32_Word *ptr, *buckets, *chain, *hash;
-    unsigned int *nextbuck;
+    Elf32_ಶಬ್ದ *ptr, *buckets, *chain, *hash;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ *nextbuck;
     addr_t *bloom;
-    unsigned char *strtab;
-    struct { int first, last; } *buck;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *strtab;
+    ರಚನೆ { ಪೂರ್ಣಾಂಕ ಮೊದಲ, ಕೊನೆಯ; } *buck;
 
-    strtab = dynsym->link->data;
-    nb_syms = dynsym->data_offset / sizeof(ElfW(Sym));
-    new_syms = tcc_malloc(nb_syms * sizeof(ElfW(Sym)));
-    old_to_new_syms = tcc_malloc(nb_syms * sizeof(int));
-    hash = tcc_malloc(nb_syms * sizeof(Elf32_Word));
-    nextbuck = tcc_malloc(nb_syms * sizeof(int));
+    strtab = dynsym->link->ದತ್ತಾಂಶ;
+    nb_syms = dynsym->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ(ElfW(Sym));
+    new_syms = tcc_malloc(nb_syms * ಗಾತ್ರ(ElfW(Sym)));
+    old_ಗಮ್ಯ_new_syms = tcc_malloc(nb_syms * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
+    hash = tcc_malloc(nb_syms * ಗಾತ್ರ(Elf32_ಶಬ್ದ));
+    nextbuck = tcc_malloc(nb_syms * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
 
     /* calculate hashes and copy undefs */
-    p = (ElfW(Sym) *)dynsym->data;
+    p = (ElfW(Sym) *)dynsym->ದತ್ತಾಂಶ;
     q = new_syms;
-    for(i = 0; i < nb_syms; i++, p++) {
-        if (p->st_shndx == SHN_UNDEF) {
-            old_to_new_syms[i] = q - new_syms;
+    ಗಾಗಿ(i = 0; i < nb_syms; i++, p++) {
+        ಆದರೆ (p->st_shndx == SHN_UNDEF) {
+            old_ಗಮ್ಯ_new_syms[i] = q - new_syms;
             *q++ = *p;
         }
-	else
+	ಇಲ್ಲದಿದ್ದರೆ
 	    hash[i] = elf_gnu_hash(strtab + p->st_name);
     }
 
-    ptr = (Elf32_Word *) gnu_hash->data;
+    ptr = (Elf32_ಶಬ್ದ *) gnu_hash->ದತ್ತಾಂಶ;
     nbuckets = ptr[0];
-    bloom_size = ptr[2];
-    bloom_shift = ptr[3];
-    bloom = (addr_t *) (void *) &ptr[4];
-    buckets = (Elf32_Word*) (void *) &bloom[bloom_size];
+    bloom_ಗಾತ್ರ = ptr[2];
+    bloom_ಸರಿಸು = ptr[3];
+    bloom = (addr_t *) (ಶೂನ್ಯ *) &ptr[4];
+    buckets = (Elf32_ಶಬ್ದ*) (ಶೂನ್ಯ *) &bloom[bloom_ಗಾತ್ರ];
     chain = &buckets[nbuckets];
-    buck = tcc_malloc(nbuckets * sizeof(*buck));
+    buck = tcc_malloc(nbuckets * ಗಾತ್ರ(*buck));
 
-    if (gnu_hash->data_offset != 4 * 4 +
-				 PTR_SIZE * bloom_size +
+    ಆದರೆ (gnu_hash->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ != 4 * 4 +
+				 PTR_ಗಾತ್ರ * bloom_ಗಾತ್ರ +
 				 nbuckets * 4 +
 				 (nb_syms - (q - new_syms)) * 4)
 	tcc_error_noabort ("gnu_hash size incorrect");
 
     /* find buckets */
-    for(i = 0; i < nbuckets; i++)
-	buck[i].first = -1;
+    ಗಾಗಿ(i = 0; i < nbuckets; i++)
+	buck[i].ಮೊದಲ = -1;
 
-    p = (ElfW(Sym) *)dynsym->data;
-    for(i = 0; i < nb_syms; i++, p++)
-        if (p->st_shndx != SHN_UNDEF) {
-	    int bucket = hash[i] % nbuckets;
+    p = (ElfW(Sym) *)dynsym->ದತ್ತಾಂಶ;
+    ಗಾಗಿ(i = 0; i < nb_syms; i++, p++)
+        ಆದರೆ (p->st_shndx != SHN_UNDEF) {
+	    ಪೂರ್ಣಾಂಕ ಪಾತ್ರೆ = hash[i] % nbuckets;
 
-	    if (buck[bucket].first == -1)
-		buck[bucket].first = buck[bucket].last = i;
-	    else {
-		nextbuck[buck[bucket].last] = i;
-		buck[bucket].last = i;
+	    ಆದರೆ (buck[ಪಾತ್ರೆ].ಮೊದಲ == -1)
+		buck[ಪಾತ್ರೆ].ಮೊದಲ = buck[ಪಾತ್ರೆ].ಕೊನೆಯ = i;
+	    ಇಲ್ಲದಿದ್ದರೆ {
+		nextbuck[buck[ಪಾತ್ರೆ].ಕೊನೆಯ] = i;
+		buck[ಪಾತ್ರೆ].ಕೊನೆಯ = i;
 	    }
 	}
 
     /* fill buckets/chains/bloom and sort symbols */
-    p = (ElfW(Sym) *)dynsym->data;
-    for(i = 0; i < nbuckets; i++) {
-	int cur = buck[i].first;
+    p = (ElfW(Sym) *)dynsym->ದತ್ತಾಂಶ;
+    ಗಾಗಿ(i = 0; i < nbuckets; i++) {
+	ಪೂರ್ಣಾಂಕ cur = buck[i].ಮೊದಲ;
 
-	if (cur != -1) {
+	ಆದರೆ (cur != -1) {
 	    buckets[i] = q - new_syms;
-	    for (;;) {
-                old_to_new_syms[cur] = q - new_syms;
+	    ಗಾಗಿ (;;) {
+                old_ಗಮ್ಯ_new_syms[cur] = q - new_syms;
                 *q++ = p[cur];
 	        *chain++ = hash[cur] & ~1;
-		bloom[(hash[cur] / ELFCLASS_BITS) % bloom_size] |=
-		    (addr_t)1 << (hash[cur] % ELFCLASS_BITS) |
-		    (addr_t)1 << ((hash[cur] >> bloom_shift) % ELFCLASS_BITS);
-		if (cur == buck[i].last)
-		    break;
+		bloom[(hash[cur] / ELFCLASS_ಬಿಟ್ಟುಗಳು) % bloom_ಗಾತ್ರ] |=
+		    (addr_t)1 << (hash[cur] % ELFCLASS_ಬಿಟ್ಟುಗಳು) |
+		    (addr_t)1 << ((hash[cur] >> bloom_ಸರಿಸು) % ELFCLASS_ಬಿಟ್ಟುಗಳು);
+		ಆದರೆ (cur == buck[i].ಕೊನೆಯ)
+		    ನಿಲ್ಲಿಸು;
 		cur = nextbuck[cur];
 	    }
 	    chain[-1] |= 1;
 	}
     }
 
-    memcpy(dynsym->data, new_syms, nb_syms * sizeof(ElfW(Sym)));
+    ಸ್ಮರಣೆ_ನಕಲು(dynsym->ದತ್ತಾಂಶ, new_syms, nb_syms * ಗಾತ್ರ(ElfW(Sym)));
     tcc_free(new_syms);
     tcc_free(hash);
     tcc_free(buck);
     tcc_free(nextbuck);
 
-    update_relocs(s1, dynsym, old_to_new_syms, 0);
+    update_relocs(s1, dynsym, old_ಗಮ್ಯ_new_syms, 0);
 
     /* modify the versions */
     vs = versym_section;
-    if (vs) {
-	ElfW(Half) *newver, *versym = (ElfW(Half) *)vs->data;
+    ಆದರೆ (vs) {
+	ElfW(Half) *newver, *versym = (ElfW(Half) *)vs->ದತ್ತಾಂಶ;
 
-	if (1/*versym*/) {
-            newver = tcc_malloc(nb_syms * sizeof(*newver));
-	    for (i = 0; i < nb_syms; i++)
-	        newver[old_to_new_syms[i]] = versym[i];
-	    memcpy(vs->data, newver, nb_syms * sizeof(*newver));
+	ಆದರೆ (1/*versym*/) {
+            newver = tcc_malloc(nb_syms * ಗಾತ್ರ(*newver));
+	    ಗಾಗಿ (i = 0; i < nb_syms; i++)
+	        newver[old_ಗಮ್ಯ_new_syms[i]] = versym[i];
+	    ಸ್ಮರಣೆ_ನಕಲು(vs->ದತ್ತಾಂಶ, newver, nb_syms * ಗಾತ್ರ(*newver));
 	    tcc_free(newver);
 	}
     }
 
-    tcc_free(old_to_new_syms);
+    tcc_free(old_ಗಮ್ಯ_new_syms);
 
     /* rebuild hash */
-    ptr = (Elf32_Word *) dynsym->hash->data;
+    ptr = (Elf32_ಶಬ್ದ *) dynsym->hash->ದತ್ತಾಂಶ;
     rebuild_hash(dynsym, ptr[0]);
 }
-#endif /* ELF_OBJ_ONLY */
+#ಆದರೆ_ಅಂತ್ಯ /* ELF_OBJ_ONLY */
 
 /* relocate symbol table, resolve undefined symbols if do_resolve is
    true and output error if undefined symbol. */
-ST_FUNC void relocate_syms(TCCState *s1, Section *symtab, int do_resolve)
+ST_FUNC ಶೂನ್ಯ relocate_syms(TCCState *s1, Section *symtab, ಪೂರ್ಣಾಂಕ do_resolve)
 {
     ElfW(Sym) *sym;
-    int sym_bind, sh_num;
-    const char *name;
+    ಪೂರ್ಣಾಂಕ sym_bind, sh_ಅಂಕೆ;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name;
 
     for_each_elem(symtab, 1, sym, ElfW(Sym)) {
-        sh_num = sym->st_shndx;
-        if (sh_num == SHN_UNDEF) {
-            if (do_resolve == 2) /* relocating dynsym */
-                continue;
-            name = (char *) s1->symtab->link->data + sym->st_name;
+        sh_ಅಂಕೆ = sym->st_shndx;
+        ಆದರೆ (sh_ಅಂಕೆ == SHN_UNDEF) {
+            ಆದರೆ (do_resolve == 2) /* relocating dynsym */
+                ಮುಂದುವರಿ;
+            name = (ಅಕ್ಷರ *) s1->symtab->link->ದತ್ತಾಂಶ + sym->st_name;
             /* Use ld.so to resolve symbol for us (for tcc -run) */
-            if (do_resolve) {
-#if defined TCC_IS_NATIVE && !defined TCC_TARGET_PE
+            ಆದರೆ (do_resolve) {
+#ಆದರೆ defined TCC_IS_NATIVE && !defined TCC_ಗುರಿ_PE
                 /* dlsym() needs the undecorated name.  */
-                const char *name_ud = &name[s1->leading_underscore];
-                void *addr = NULL;
-                if (!s1->nostdlib)
+                ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name_ud = &name[s1->leading_underscore];
+                ಶೂನ್ಯ *addr = ಖಾಲಿ;
+                ಆದರೆ (!s1->nostdlib)
                     addr = dlsym(RTLD_DEFAULT, name_ud);
-		if (addr == NULL) {
-		    int i;
-		    for (i = 0; i < s1->nb_loaded_dlls; i++)
-                        if ((addr = dlsym(s1->loaded_dlls[i]->handle, name_ud)))
-			    break;
+		ಆದರೆ (addr == ಖಾಲಿ) {
+		    ಪೂರ್ಣಾಂಕ i;
+		    ಗಾಗಿ (i = 0; i < s1->nb_loaded_dlls; i++)
+                        ಆದರೆ ((addr = dlsym(s1->loaded_dlls[i]->handle, name_ud)))
+			    ನಿಲ್ಲಿಸು;
 		}
-                if (addr) {
-                    sym->st_value = (addr_t) addr;
-#ifdef DEBUG_RELOC
-		    printf ("relocate_sym: %s -> 0x%lx\n", name, sym->st_value);
-#endif
-                    goto found;
+                ಆದರೆ (addr) {
+                    sym->st_ಮೌಲ್ಯ = (addr_t) addr;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ DEBUG_RELOC
+		    ಬರೆ ("relocate_sym: %s -> 0x%lx\n", name, sym->st_ಮೌಲ್ಯ);
+#ಆದರೆ_ಅಂತ್ಯ
+                    ಹೋಗು ಸಿಕ್ಕಿತು;
                 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
             /* if dynamic symbol exist, it will be used in relocate_section */
-            } else if (s1->dynsym && find_elf_sym(s1->dynsym, name))
-                goto found;
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s1->dynsym && ಕಂಡುಹಿಡಿ_elf_sym(s1->dynsym, name))
+                ಹೋಗು ಸಿಕ್ಕಿತು;
             /* XXX: _fp_hw seems to be part of the ABI, so we ignore
                it */
-            if (!strcmp(name, "_fp_hw"))
-                goto found;
+            ಆದರೆ (!strcmp(name, "_fp_hw"))
+                ಹೋಗು ಸಿಕ್ಕಿತು;
             /* only weak symbols are accepted to be undefined. Their
                value is zero */
             sym_bind = ELFW(ST_BIND)(sym->st_info);
-            if (sym_bind == STB_WEAK)
-                sym->st_value = 0;
-            else
+            ಆದರೆ (sym_bind == STB_WEAK)
+                sym->st_ಮೌಲ್ಯ = 0;
+            ಇಲ್ಲದಿದ್ದರೆ
                 tcc_error_noabort("unresolved reference to '%s'", name);
 
-        } else if (sh_num < SHN_LORESERVE) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (sh_ಅಂಕೆ < SHN_LORESERVE) {
             /* add section base */
-            sym->st_value += s1->sections[sym->st_shndx]->sh_addr;
+            sym->st_ಮೌಲ್ಯ += s1->sections[sym->st_shndx]->sh_addr;
         }
-    found: ;
+    ಸಿಕ್ಕಿತು: ;
     }
 }
 
 /* relocate a given section (CPU dependent) by applying the relocations
    in the associated relocation section */
-static void relocate_section(TCCState *s1, Section *s, Section *sr)
+ಸ್ಥಿರ ಶೂನ್ಯ relocate_section(TCCState *s1, Section *s, Section *sr)
 {
     ElfW_Rel *rel;
     ElfW(Sym) *sym;
-    int type, sym_index;
-    unsigned char *ptr;
+    ಪೂರ್ಣಾಂಕ type, sym_ಸೂಚ್ಯಂಕ;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *ptr;
     addr_t tgt, addr;
-    int is_dwarf = s->sh_num >= s1->dwlo && s->sh_num < s1->dwhi;
+    ಪೂರ್ಣಾಂಕ is_dwarf = s->sh_ಅಂಕೆ >= s1->dwlo && s->sh_ಅಂಕೆ < s1->dwhi;
 
-    qrel = (ElfW_Rel *)sr->data;
+    qrel = (ElfW_Rel *)sr->ದತ್ತಾಂಶ;
     for_each_elem(sr, 0, rel, ElfW_Rel) {
-	if (s->data == NULL) /* bss */
-	    continue;
-        ptr = s->data + rel->r_offset;
-        sym_index = ELFW(R_SYM)(rel->r_info);
-        sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+	ಆದರೆ (s->ದತ್ತಾಂಶ == ಖಾಲಿ) /* bss */
+	    ಮುಂದುವರಿ;
+        ptr = s->ದತ್ತಾಂಶ + rel->r_ಸ್ಥಾನಾಂತರ;
+        sym_ಸೂಚ್ಯಂಕ = ELFW(R_SYM)(rel->r_info);
+        sym = &((ElfW(Sym) *)symtab_section->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
         type = ELFW(R_TYPE)(rel->r_info);
-        tgt = sym->st_value;
-#if SHT_RELX == SHT_RELA
+        tgt = sym->st_ಮೌಲ್ಯ;
+#ಆದರೆ SHT_RELX == SHT_RELA
         tgt += rel->r_addend;
-#endif
-        if (is_dwarf && type == R_DATA_32DW
+#ಆದರೆ_ಅಂತ್ಯ
+        ಆದರೆ (is_dwarf && type == R_ದತ್ತಾಂಶ_32_DW
             && sym->st_shndx >= s1->dwlo && sym->st_shndx < s1->dwhi) {
             /* dwarf section relocation to each other */
             add32le(ptr, tgt - s1->sections[sym->st_shndx]->sh_addr);
-            continue;
+            ಮುಂದುವರಿ;
         }
-        addr = s->sh_addr + rel->r_offset;
+        addr = s->sh_addr + rel->r_ಸ್ಥಾನಾಂತರ;
         relocate(s1, rel, type, ptr, addr, tgt);
     }
 
-#ifndef ELF_OBJ_ONLY
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
     /* if the relocation is allocated, we change its symbol table */
-    if (sr->sh_flags & SHF_ALLOC) {
+    ಆದರೆ (sr->sh_flags & SHF_ALLOC) {
         sr->link = s1->dynsym;
-        if (s1->output_type & TCC_OUTPUT_DYN) {
-            size_t r = (uint8_t*)qrel - sr->data;
-            if (sizeof ((Stab_Sym*)0)->n_value < PTR_SIZE
+        ಆದರೆ (s1->output_type & TCC_OUTPUT_DYN) {
+            ಗಾತ್ರ_t r = (uint8_t*)qrel - sr->ದತ್ತಾಂಶ;
+            ಆದರೆ (ಗಾತ್ರ ((Stab_Sym*)0)->n_ಮೌಲ್ಯ < PTR_ಗಾತ್ರ
                 && 0 == strcmp(s->name, ".stab"))
                 r = 0; /* cannot apply 64bit relocation to 32bit value */
-            sr->data_offset = sr->sh_size = r;
-#ifdef CONFIG_TCC_PIE
-            if (r && (s->sh_flags & SHF_EXECINSTR))
-                tcc_warning("%d relocations to %s", (unsigned)(r / sizeof *qrel), s->name);
-#endif
+            sr->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = sr->sh_ಗಾತ್ರ = r;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_PIE
+            ಆದರೆ (r && (s->sh_flags & SHF_EXECINSTR))
+                tcc_warning("%d relocations to %s", (ಚಿಹ್ನೆರಹಿತ)(r / ಗಾತ್ರ *qrel), s->name);
+#ಆದರೆ_ಅಂತ್ಯ
         }
     }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef TCC_TARGET_RISCV64
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_RISCV64
     dynarray_reset(&s1->pcrel_hi_entries, &s1->nb_pcrel_hi_entries);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
 /* relocate all sections */
-ST_FUNC void relocate_sections(TCCState *s1)
+ST_FUNC ಶೂನ್ಯ relocate_sections(TCCState *s1)
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
     Section *s, *sr;
 
-    for (i = 1; i < s1->nb_sections; ++i) {
+    ಗಾಗಿ (i = 1; i < s1->nb_sections; ++i) {
         sr = s1->sections[i];
-        if (sr->sh_type != SHT_RELX)
-            continue;
+        ಆದರೆ (sr->sh_type != SHT_RELX)
+            ಮುಂದುವರಿ;
         s = s1->sections[sr->sh_info];
-#ifndef TCC_TARGET_MACHO
-        if (s != s1->got
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ TCC_ಗುರಿ_MACHO
+        ಆದರೆ (s != s1->got
             || s1->static_link
-            || s1->output_type == TCC_OUTPUT_MEMORY)
-#endif
+            || s1->output_type == TCC_OUTPUT_ಸ್ಮರಣೆ)
+#ಆದರೆ_ಅಂತ್ಯ
         {
             relocate_section(s1, s, sr);
         }
-#ifndef ELF_OBJ_ONLY
-        if (sr->sh_flags & SHF_ALLOC) {
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
+        ಆದರೆ (sr->sh_flags & SHF_ALLOC) {
             ElfW_Rel *rel;
             /* relocate relocation table in 'sr' */
             for_each_elem(sr, 0, rel, ElfW_Rel)
-                rel->r_offset += s->sh_addr;
+                rel->r_ಸ್ಥಾನಾಂತರ += s->sh_addr;
         }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
     }
 }
 
-#ifndef ELF_OBJ_ONLY
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
 /* count the number of dynamic relocations so that we can reserve
    their space */
-static int prepare_dynamic_rel(TCCState *s1, Section *sr)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ prepare_dynamic_rel(TCCState *s1, Section *sr)
 {
-    int count = 0;
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64) || \
-    defined(TCC_TARGET_ARM) || defined(TCC_TARGET_ARM64) || \
-    defined(TCC_TARGET_RISCV64)
+    ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_3 = 0;
+#ಆದರೆ defined(TCC_ಗುರಿ_I386) || defined(TCC_ಗುರಿ_X86_64) || \
+    defined(TCC_ಗುರಿ_ARM) || defined(TCC_ಗುರಿ_ARM64) || \
+    defined(TCC_ಗುರಿ_RISCV64)
     ElfW_Rel *rel;
     for_each_elem(sr, 0, rel, ElfW_Rel) {
-        int sym_index = ELFW(R_SYM)(rel->r_info);
-        int type = ELFW(R_TYPE)(rel->r_info);
-        switch(type) {
-#if defined(TCC_TARGET_I386)
-        case R_386_32:
-            if (!get_sym_attr(s1, sym_index, 0)->dyn_index
-                && ((ElfW(Sym)*)symtab_section->data + sym_index)->st_shndx == SHN_UNDEF) {
+        ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ = ELFW(R_SYM)(rel->r_info);
+        ಪೂರ್ಣಾಂಕ type = ELFW(R_TYPE)(rel->r_info);
+        ಆಯ್ಕೆ(type) {
+#ಆದರೆ defined(TCC_ಗುರಿ_I386)
+        ಸ್ಥಿತಿ R_386_32:
+            ಆದರೆ (!get_sym_attr(s1, sym_ಸೂಚ್ಯಂಕ, 0)->dyn_ಸೂಚ್ಯಂಕ
+                && ((ElfW(Sym)*)symtab_section->ದತ್ತಾಂಶ + sym_ಸೂಚ್ಯಂಕ)->st_shndx == SHN_UNDEF) {
                 /* don't fixup unresolved (weak) symbols */
-                rel->r_info = ELFW(R_INFO)(sym_index, R_386_RELATIVE);
-                break;
+                rel->r_info = ELFW(R_INFO)(sym_ಸೂಚ್ಯಂಕ, R_386_RELATIVE);
+                ನಿಲ್ಲಿಸು;
             }
-#elif defined(TCC_TARGET_X86_64)
-        case R_X86_64_32:
-        case R_X86_64_32S:
-        case R_X86_64_64:
-#elif defined(TCC_TARGET_ARM)
-        case R_ARM_ABS32:
-        case R_ARM_TARGET1:
-#elif defined(TCC_TARGET_ARM64)
-        case R_AARCH64_ABS32:
-        case R_AARCH64_ABS64:
-#elif defined(TCC_TARGET_RISCV64)
-        case R_RISCV_32:
-        case R_RISCV_64:
-#endif
-            count++;
-            break;
-#if defined(TCC_TARGET_I386)
-        case R_386_PC32:
+#ಅಥವಾಆದರೆ defined(TCC_ಗುರಿ_X86_64)
+        ಸ್ಥಿತಿ R_X86_64_32:
+        ಸ್ಥಿತಿ R_X86_64_32S:
+        ಸ್ಥಿತಿ R_X86_64_64:
+#ಅಥವಾಆದರೆ defined(TCC_ಗುರಿ_ARM)
+        ಸ್ಥಿತಿ R_ARM_ABS32:
+        ಸ್ಥಿತಿ R_ARM_TARGET1:
+#ಅಥವಾಆದರೆ defined(TCC_ಗುರಿ_ARM64)
+        ಸ್ಥಿತಿ R_AARCH64_ABS32:
+        ಸ್ಥಿತಿ R_AARCH64_ABS64:
+#ಅಥವಾಆದರೆ defined(TCC_ಗುರಿ_RISCV64)
+        ಸ್ಥಿತಿ R_RISCV_32:
+        ಸ್ಥಿತಿ R_RISCV_64:
+#ಆದರೆ_ಅಂತ್ಯ
+            ಎಣಿಕೆ_3++;
+            ನಿಲ್ಲಿಸು;
+#ಆದರೆ defined(TCC_ಗುರಿ_I386)
+        ಸ್ಥಿತಿ R_386_PC32:
 	{
-	    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+	    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
             /* Hidden defined symbols can and must be resolved locally.
                We're misusing a PLT32 reloc for this, as that's always
                resolved to its address even in shared libs.  */
-	    if (sym->st_shndx != SHN_UNDEF &&
+	    ಆದರೆ (sym->st_shndx != SHN_UNDEF &&
 		ELFW(ST_VISIBILITY)(sym->st_other) == STV_HIDDEN) {
-                rel->r_info = ELFW(R_INFO)(sym_index, R_386_PLT32);
-	        break;
+                rel->r_info = ELFW(R_INFO)(sym_ಸೂಚ್ಯಂಕ, R_386_PLT32);
+	        ನಿಲ್ಲಿಸು;
 	    }
 	}
-#elif defined(TCC_TARGET_X86_64)
-        case R_X86_64_PC32:
+#ಅಥವಾಆದರೆ defined(TCC_ಗುರಿ_X86_64)
+        ಸ್ಥಿತಿ R_X86_64_PC32:
 	{
-	    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+	    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
             /* Hidden defined symbols can and must be resolved locally.
                We're misusing a PLT32 reloc for this, as that's always
                resolved to its address even in shared libs.  */
-	    if (sym->st_shndx != SHN_UNDEF &&
+	    ಆದರೆ (sym->st_shndx != SHN_UNDEF &&
 		ELFW(ST_VISIBILITY)(sym->st_other) == STV_HIDDEN) {
-                rel->r_info = ELFW(R_INFO)(sym_index, R_X86_64_PLT32);
-	        break;
+                rel->r_info = ELFW(R_INFO)(sym_ಸೂಚ್ಯಂಕ, R_X86_64_PLT32);
+	        ನಿಲ್ಲಿಸು;
 	    }
 	}
-#elif defined(TCC_TARGET_ARM64)
-        case R_AARCH64_PREL32:
-#endif
-            if (s1->output_type != TCC_OUTPUT_DLL)
-                break;
-            if (get_sym_attr(s1, sym_index, 0)->dyn_index)
-                count++;
-            break;
-        default:
-            break;
+#ಅಥವಾಆದರೆ defined(TCC_ಗುರಿ_ARM64)
+        ಸ್ಥಿತಿ R_AARCH64_PREL32:
+#ಆದರೆ_ಅಂತ್ಯ
+            ಆದರೆ (s1->output_type != TCC_OUTPUT_DLL)
+                ನಿಲ್ಲಿಸು;
+            ಆದರೆ (get_sym_attr(s1, sym_ಸೂಚ್ಯಂಕ, 0)->dyn_ಸೂಚ್ಯಂಕ)
+                ಎಣಿಕೆ_3++;
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
+            ನಿಲ್ಲಿಸು;
         }
     }
-#endif
-    return count;
+#ಆದರೆ_ಅಂತ್ಯ
+    ಹಿಂತಿರುಗಿ ಎಣಿಕೆ_3;
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef NEED_BUILD_GOT
-static int build_got(TCCState *s1)
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ NEED_BUILD_GOT
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ build_got(TCCState *s1)
 {
     /* if no got, then create it */
     s1->got = new_section(s1, ".got", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
     s1->got->sh_entsize = 4;
     /* keep space for _DYNAMIC pointer and two dummy got entries */
-    section_ptr_add(s1->got, 3 * PTR_SIZE);
-    return set_elf_sym(symtab_section, 0, 0, ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT),
-        0, s1->got->sh_num, "_GLOBAL_OFFSET_TABLE_");
+    section_ptr_ಕೂಡಿಸು(s1->got, 3 * PTR_ಗಾತ್ರ);
+    ಹಿಂತಿರುಗಿ ಗಣ_elf_sym(symtab_section, 0, 0, ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT),
+        0, s1->got->sh_ಅಂಕೆ, "_GLOBAL_OFFSET_TABLE_");
 }
 
 /* Create a GOT and (for function call) a PLT entry corresponding to a symbol
    in s1->symtab. When creating the dynamic symbol table entry for the GOT
    relocation, use 'size' and 'info' for the corresponding symbol metadata.
    Returns the offset of the GOT or (if any) PLT entry. */
-static struct sym_attr * put_got_entry(TCCState *s1, int dyn_reloc_type,
-                                       int sym_index)
+ಸ್ಥಿರ ರಚನೆ sym_attr * put_got_ನಮೂದು(TCCState *s1, ಪೂರ್ಣಾಂಕ dyn_reloc_type,
+                                       ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ)
 {
-    int need_plt_entry;
-    const char *name;
+    ಪೂರ್ಣಾಂಕ need_plt_ನಮೂದು;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name;
     ElfW(Sym) *sym;
-    struct sym_attr *attr;
-    unsigned got_offset;
-    char plt_name[200];
-    int len;
+    ರಚನೆ sym_attr *attr;
+    ಚಿಹ್ನೆರಹಿತ got_ಸ್ಥಾನಾಂತರ;
+    ಅಕ್ಷರ plt_name[200];
+    ಪೂರ್ಣಾಂಕ len;
     Section *s_rel;
 
-    need_plt_entry = (dyn_reloc_type == R_JMP_SLOT);
-    attr = get_sym_attr(s1, sym_index, 1);
+    need_plt_ನಮೂದು = (dyn_reloc_type == R_JMP_ಸ್ಥಾನ);
+    attr = get_sym_attr(s1, sym_ಸೂಚ್ಯಂಕ, 1);
 
     /* In case a function is both called and its address taken 2 GOT entries
        are created, one for taking the address (GOT) and the other for the PLT
        entry (PLTGOT).  */
-    if (need_plt_entry ? attr->plt_offset : attr->got_offset)
-        return attr;
+    ಆದರೆ (need_plt_ನಮೂದು ? attr->plt_ಸ್ಥಾನಾಂತರ : attr->got_ಸ್ಥಾನಾಂತರ)
+        ಹಿಂತಿರುಗಿ attr;
 
     s_rel = s1->got;
-    if (need_plt_entry) {
-        if (!s1->plt) {
+    ಆದರೆ (need_plt_ನಮೂದು) {
+        ಆದರೆ (!s1->plt) {
             s1->plt = new_section(s1, ".plt", SHT_PROGBITS, SHF_ALLOC | SHF_EXECINSTR);
             s1->plt->sh_entsize = 4;
         }
@@ -1352,8 +1352,8 @@ static struct sym_attr * put_got_entry(TCCState *s1, int dyn_reloc_type,
     }
 
     /* create the GOT entry */
-    got_offset = s1->got->data_offset;
-    section_ptr_add(s1->got, PTR_SIZE);
+    got_ಸ್ಥಾನಾಂತರ = s1->got->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
+    section_ptr_ಕೂಡಿಸು(s1->got, PTR_ಗಾತ್ರ);
 
     /* Create the GOT relocation that will insert the address of the object or
        function of interest in the GOT entry. This is a static relocation for
@@ -1363,12 +1363,12 @@ static struct sym_attr * put_got_entry(TCCState *s1, int dyn_reloc_type,
        associated to a PLT entry) but is currently done at load time for an
        unknown reason. */
 
-    sym = &((ElfW(Sym) *) symtab_section->data)[sym_index];
-    name = (char *) symtab_section->link->data + sym->st_name;
+    sym = &((ElfW(Sym) *) symtab_section->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
+    name = (ಅಕ್ಷರ *) symtab_section->link->ದತ್ತಾಂಶ + sym->st_name;
     //printf("sym %d %s\n", need_plt_entry, name);
 
-    if (s1->dynsym) {
-	if (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
+    ಆದರೆ (s1->dynsym) {
+	ಆದರೆ (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
 	    /* Hack alarm.  We don't want to emit dynamic symbols
 	       and symbol based relocs for STB_LOCAL symbols, but rather
 	       want to resolve them directly.  At this point the symbol
@@ -1383,83 +1383,83 @@ static struct sym_attr * put_got_entry(TCCState *s1, int dyn_reloc_type,
 	       so the types serves as a marker for later (and is retained
 	       also for the final output, which is okay because then the
 	       got is just normal data).  */
-	    put_elf_reloc(s1->dynsym, s1->got, got_offset, R_RELATIVE,
-			  sym_index);
-	} else {
-	    if (0 == attr->dyn_index)
-                attr->dyn_index = set_elf_sym(s1->dynsym, sym->st_value,
-                                              sym->st_size, sym->st_info, 0,
+	    put_elf_reloc(s1->dynsym, s1->got, got_ಸ್ಥಾನಾಂತರ, R_RELATIVE,
+			  sym_ಸೂಚ್ಯಂಕ);
+	} ಇಲ್ಲದಿದ್ದರೆ {
+	    ಆದರೆ (0 == attr->dyn_ಸೂಚ್ಯಂಕ)
+                attr->dyn_ಸೂಚ್ಯಂಕ = ಗಣ_elf_sym(s1->dynsym, sym->st_ಮೌಲ್ಯ,
+                                              sym->st_ಗಾತ್ರ, sym->st_info, 0,
                                               sym->st_shndx, name);
-	    put_elf_reloc(s1->dynsym, s_rel, got_offset, dyn_reloc_type,
-			  attr->dyn_index);
+	    put_elf_reloc(s1->dynsym, s_rel, got_ಸ್ಥಾನಾಂತರ, dyn_reloc_type,
+			  attr->dyn_ಸೂಚ್ಯಂಕ);
 	}
-    } else {
-        put_elf_reloc(symtab_section, s1->got, got_offset, dyn_reloc_type,
-                      sym_index);
+    } ಇಲ್ಲದಿದ್ದರೆ {
+        put_elf_reloc(symtab_section, s1->got, got_ಸ್ಥಾನಾಂತರ, dyn_reloc_type,
+                      sym_ಸೂಚ್ಯಂಕ);
     }
 
-    if (need_plt_entry) {
-        attr->plt_offset = create_plt_entry(s1, got_offset, attr);
+    ಆದರೆ (need_plt_ನಮೂದು) {
+        attr->plt_ಸ್ಥಾನಾಂತರ = create_plt_ನಮೂದು(s1, got_ಸ್ಥಾನಾಂತರ, attr);
 
         /* create a symbol 'sym@plt' for the PLT jump vector */
-        len = strlen(name);
-        if (len > sizeof plt_name - 5)
-            len = sizeof plt_name - 5;
-        memcpy(plt_name, name, len);
+        len = ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(name);
+        ಆದರೆ (len > ಗಾತ್ರ plt_name - 5)
+            len = ಗಾತ್ರ plt_name - 5;
+        ಸ್ಮರಣೆ_ನಕಲು(plt_name, name, len);
         strcpy(plt_name + len, "@plt");
-        attr->plt_sym = put_elf_sym(s1->symtab, attr->plt_offset, 0,
-            ELFW(ST_INFO)(STB_GLOBAL, STT_FUNC), 0, s1->plt->sh_num, plt_name);
-    } else {
-        attr->got_offset = got_offset;
+        attr->plt_sym = put_elf_sym(s1->symtab, attr->plt_ಸ್ಥಾನಾಂತರ, 0,
+            ELFW(ST_INFO)(STB_GLOBAL, STT_FUNC), 0, s1->plt->sh_ಅಂಕೆ, plt_name);
+    } ಇಲ್ಲದಿದ್ದರೆ {
+        attr->got_ಸ್ಥಾನಾಂತರ = got_ಸ್ಥಾನಾಂತರ;
     }
 
-    return attr;
+    ಹಿಂತಿರುಗಿ attr;
 }
 
 /* build GOT and PLT entries */
 /* Two passes because R_JMP_SLOT should become first. Some targets
    (arm, arm64) do not allow mixing R_JMP_SLOT and R_GLOB_DAT. */
-ST_FUNC void build_got_entries(TCCState *s1, int got_sym)
+ST_FUNC ಶೂನ್ಯ build_got_entries(TCCState *s1, ಪೂರ್ಣಾಂಕ got_sym)
 {
     Section *s;
     ElfW_Rel *rel;
     ElfW(Sym) *sym;
-    int i, type, gotplt_entry, reloc_type, sym_index;
-    struct sym_attr *attr;
-    int pass = 0;
+    ಪೂರ್ಣಾಂಕ i, type, gotplt_ನಮೂದು, reloc_type, sym_ಸೂಚ್ಯಂಕ;
+    ರಚನೆ sym_attr *attr;
+    ಪೂರ್ಣಾಂಕ pass = 0;
 redo:
-    for(i = 1; i < s1->nb_sections; i++) {
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_RELX)
-            continue;
+        ಆದರೆ (s->sh_type != SHT_RELX)
+            ಮುಂದುವರಿ;
         /* no need to handle got relocations */
-        if (s->link != symtab_section)
-            continue;
+        ಆದರೆ (s->link != symtab_section)
+            ಮುಂದುವರಿ;
         for_each_elem(s, 0, rel, ElfW_Rel) {
             type = ELFW(R_TYPE)(rel->r_info);
-            gotplt_entry = gotplt_entry_type(type);
-            if (gotplt_entry == -1) {
+            gotplt_ನಮೂದು = gotplt_ನಮೂದು_type(type);
+            ಆದರೆ (gotplt_ನಮೂದು == -1) {
                 tcc_error_noabort ("Unknown relocation type for got: %d", type);
-                continue;
+                ಮುಂದುವರಿ;
             }
-            sym_index = ELFW(R_SYM)(rel->r_info);
-            sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+            sym_ಸೂಚ್ಯಂಕ = ELFW(R_SYM)(rel->r_info);
+            sym = &((ElfW(Sym) *)symtab_section->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
 
-            if (gotplt_entry == NO_GOTPLT_ENTRY) {
-                continue;
+            ಆದರೆ (gotplt_ನಮೂದು == NO_GOTPLT_ನಮೂದು) {
+                ಮುಂದುವರಿ;
             }
 
             /* Automatically create PLT/GOT [entry] if it is an undefined
 	       reference (resolved at runtime), or the symbol is absolute,
 	       probably created by tcc_add_symbol, and thus on 64-bit
 	       targets might be too far from application code.  */
-            if (gotplt_entry == AUTO_GOTPLT_ENTRY) {
-                if (sym->st_shndx == SHN_UNDEF) {
+            ಆದರೆ (gotplt_ನಮೂದು == AUTO_GOTPLT_ನಮೂದು) {
+                ಆದರೆ (sym->st_shndx == SHN_UNDEF) {
                     ElfW(Sym) *esym;
-		    int dynindex;
-                    if (!PCRELATIVE_DLLPLT
+		    ಪೂರ್ಣಾಂಕ dynindex;
+                    ಆದರೆ (!PCRELATIVE_DLLPLT
                         && (s1->output_type & TCC_OUTPUT_DYN))
-                        continue;
+                        ಮುಂದುವರಿ;
 		    /* Relocations for UNDEF symbols would normally need
 		       to be transferred into the executable or shared object.
 		       If that were done AUTO_GOTPLT_ENTRY wouldn't exist.
@@ -1470,156 +1470,156 @@ redo:
 		       bind_exe_dynsyms (and the symbol adjusted to be defined),
 		       and for functions we were generated a dynamic symbol
 		       of function type.  */
-		    if (s1->dynsym) {
+		    ಆದರೆ (s1->dynsym) {
 			/* dynsym isn't set for -run :-/  */
-			dynindex = get_sym_attr(s1, sym_index, 0)->dyn_index;
-			esym = (ElfW(Sym) *)s1->dynsym->data + dynindex;
-			if (dynindex
+			dynindex = get_sym_attr(s1, sym_ಸೂಚ್ಯಂಕ, 0)->dyn_ಸೂಚ್ಯಂಕ;
+			esym = (ElfW(Sym) *)s1->dynsym->ದತ್ತಾಂಶ + dynindex;
+			ಆದರೆ (dynindex
 			    && (ELFW(ST_TYPE)(esym->st_info) == STT_FUNC
 				|| (ELFW(ST_TYPE)(esym->st_info) == STT_NOTYPE
 				    && ELFW(ST_TYPE)(sym->st_info) == STT_FUNC)))
-			    goto jmp_slot;
+			    ಹೋಗು jmp_ಸ್ಥಾನ;
 		    }
-                } else if (sym->st_shndx == SHN_ABS) {
-                    if (sym->st_value == 0) /* from tcc_add_btstub() */
-                        continue;
-#ifndef TCC_TARGET_ARM
-                    if (PTR_SIZE != 8)
-                        continue;
-#endif
+                } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (sym->st_shndx == SHN_ABS) {
+                    ಆದರೆ (sym->st_ಮೌಲ್ಯ == 0) /* from tcc_add_btstub() */
+                        ಮುಂದುವರಿ;
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ TCC_ಗುರಿ_ARM
+                    ಆದರೆ (PTR_ಗಾತ್ರ != 8)
+                        ಮುಂದುವರಿ;
+#ಆದರೆ_ಅಂತ್ಯ
                     /* from tcc_add_symbol(): on 64 bit platforms these
                        need to go through .got */
-                } else
-                    continue;
+                } ಇಲ್ಲದಿದ್ದರೆ
+                    ಮುಂದುವರಿ;
             }
 
-#ifdef TCC_TARGET_I386
-            if ((type == R_386_PLT32 || type == R_386_PC32) &&
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_I386
+            ಆದರೆ ((type == R_386_PLT32 || type == R_386_PC32) &&
 		sym->st_shndx != SHN_UNDEF &&
                 (ELFW(ST_VISIBILITY)(sym->st_other) != STV_DEFAULT ||
 		 ELFW(ST_BIND)(sym->st_info) == STB_LOCAL ||
 		 s1->output_type & TCC_OUTPUT_EXE)) {
-		if (pass != 0)
-		    continue;
-                rel->r_info = ELFW(R_INFO)(sym_index, R_386_PC32);
-                continue;
+		ಆದರೆ (pass != 0)
+		    ಮುಂದುವರಿ;
+                rel->r_info = ELFW(R_INFO)(sym_ಸೂಚ್ಯಂಕ, R_386_PC32);
+                ಮುಂದುವರಿ;
             }
-#endif
-#ifdef TCC_TARGET_X86_64
-            if ((type == R_X86_64_PLT32 || type == R_X86_64_PC32) &&
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_X86_64
+            ಆದರೆ ((type == R_X86_64_PLT32 || type == R_X86_64_PC32) &&
 		sym->st_shndx != SHN_UNDEF &&
                 (ELFW(ST_VISIBILITY)(sym->st_other) != STV_DEFAULT ||
 		 ELFW(ST_BIND)(sym->st_info) == STB_LOCAL ||
 		 s1->output_type & TCC_OUTPUT_EXE)) {
-		if (pass != 0)
-		    continue;
-                rel->r_info = ELFW(R_INFO)(sym_index, R_X86_64_PC32);
-                continue;
+		ಆದರೆ (pass != 0)
+		    ಮುಂದುವರಿ;
+                rel->r_info = ELFW(R_INFO)(sym_ಸೂಚ್ಯಂಕ, R_X86_64_PC32);
+                ಮುಂದುವರಿ;
             }
-#endif
-            reloc_type = code_reloc(type);
-            if (reloc_type == -1) {
+#ಆದರೆ_ಅಂತ್ಯ
+            reloc_type = ಸಂಕೇತ_reloc(type);
+            ಆದರೆ (reloc_type == -1) {
                 tcc_error_noabort ("Unknown relocation type: %d", type);
-                continue;
+                ಮುಂದುವರಿ;
             }
 
-            if (reloc_type != 0) {
-        jmp_slot:
-	        if (pass != 0)
-                    continue;
-                reloc_type = R_JMP_SLOT;
-            } else {
-	        if (pass != 1)
-                    continue;
+            ಆದರೆ (reloc_type != 0) {
+        jmp_ಸ್ಥಾನ:
+	        ಆದರೆ (pass != 0)
+                    ಮುಂದುವರಿ;
+                reloc_type = R_JMP_ಸ್ಥಾನ;
+            } ಇಲ್ಲದಿದ್ದರೆ {
+	        ಆದರೆ (pass != 1)
+                    ಮುಂದುವರಿ;
                 reloc_type = R_GLOB_DAT;
             }
 
-            if (!s1->got)
+            ಆದರೆ (!s1->got)
                 got_sym = build_got(s1);
 
-            if (gotplt_entry == BUILD_GOT_ONLY)
-                continue;
+            ಆದರೆ (gotplt_ನಮೂದು == BUILD_GOT_ONLY)
+                ಮುಂದುವರಿ;
 
-            attr = put_got_entry(s1, reloc_type, sym_index);
+            attr = put_got_ನಮೂದು(s1, reloc_type, sym_ಸೂಚ್ಯಂಕ);
 
-            if (reloc_type == R_JMP_SLOT)
+            ಆದರೆ (reloc_type == R_JMP_ಸ್ಥಾನ)
                 rel->r_info = ELFW(R_INFO)(attr->plt_sym, type);
         }
     }
-    if (++pass < 2)
-        goto redo;
+    ಆದರೆ (++pass < 2)
+        ಹೋಗು redo;
     /* .rel.plt refers to .got actually */
-    if (s1->plt && s1->plt->reloc)
-        s1->plt->reloc->sh_info = s1->got->sh_num;
-    if (got_sym) /* set size */
-        ((ElfW(Sym)*)symtab_section->data)[got_sym].st_size = s1->got->data_offset;
+    ಆದರೆ (s1->plt && s1->plt->reloc)
+        s1->plt->reloc->sh_info = s1->got->sh_ಅಂಕೆ;
+    ಆದರೆ (got_sym) /* set size */
+        ((ElfW(Sym)*)symtab_section->ದತ್ತಾಂಶ)[got_sym].st_ಗಾತ್ರ = s1->got->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
 }
-#endif /* def NEED_BUILD_GOT */
+#ಆದರೆ_ಅಂತ್ಯ /* def NEED_BUILD_GOT */
 
-ST_FUNC int set_global_sym(TCCState *s1, const char *name, Section *sec, addr_t offs)
+ST_FUNC ಪೂರ್ಣಾಂಕ ಗಣ_global_sym(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, Section *sec, addr_t offs)
 {
-    int shn = sec ? sec->sh_num : offs || !name ? SHN_ABS : SHN_UNDEF;
-    if (sec && offs == -1)
-        offs = sec->data_offset;
-    return set_elf_sym(symtab_section, offs, 0,
+    ಪೂರ್ಣಾಂಕ shn = sec ? sec->sh_ಅಂಕೆ : offs || !name ? SHN_ABS : SHN_UNDEF;
+    ಆದರೆ (sec && offs == -1)
+        offs = sec->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
+    ಹಿಂತಿರುಗಿ ಗಣ_elf_sym(symtab_section, offs, 0,
         ELFW(ST_INFO)(name ? STB_GLOBAL : STB_LOCAL, STT_NOTYPE), 0, shn, name);
 }
 
-static void add_init_array_defines(TCCState *s1, const char *section_name)
+ಸ್ಥಿರ ಶೂನ್ಯ ಕೂಡಿಸು_init_array_ನಿರೂಪಿಸುತ್ತದೆ(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *section_name)
 {
     Section *s;
-    addr_t end_offset;
-    char buf[1024];
+    addr_t ಕೊನೆ_ಸ್ಥಾನಾಂತರ;
+    ಅಕ್ಷರ buf[1024];
     s = have_section(s1, section_name);
-    if (!s || !(s->sh_flags & SHF_ALLOC)) {
-        end_offset = 0;
-        s = text_section;
-    } else {
-        end_offset = s->data_offset;
+    ಆದರೆ (!s || !(s->sh_flags & SHF_ALLOC)) {
+        ಕೊನೆ_ಸ್ಥಾನಾಂತರ = 0;
+        s = ಪಠ್ಯ_section;
+    } ಇಲ್ಲದಿದ್ದರೆ {
+        ಕೊನೆ_ಸ್ಥಾನಾಂತರ = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
     }
-    snprintf(buf, sizeof(buf), "__%s_start", section_name + 1);
-    set_global_sym(s1, buf, s, 0);
-    snprintf(buf, sizeof(buf), "__%s_end", section_name + 1);
-    set_global_sym(s1, buf, s, end_offset);
+    snprintf(buf, ಗಾತ್ರ(buf), "__%s_start", section_name + 1);
+    ಗಣ_global_sym(s1, buf, s, 0);
+    snprintf(buf, ಗಾತ್ರ(buf), "__%s_end", section_name + 1);
+    ಗಣ_global_sym(s1, buf, s, ಕೊನೆ_ಸ್ಥಾನಾಂತರ);
 }
 
-ST_FUNC void add_array (TCCState *s1, const char *sec, int c)
+ST_FUNC ಶೂನ್ಯ ಕೂಡಿಸು_array (TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *sec, ಪೂರ್ಣಾಂಕ c)
 {
     Section *s;
-    s = find_section(s1, sec);
+    s = ಕಂಡುಹಿಡಿ_section(s1, sec);
     s->sh_flags = shf_RELRO;
     s->sh_type = sec[1] == 'i' ? SHT_INIT_ARRAY : SHT_FINI_ARRAY;
-    put_elf_reloc (s1->symtab, s, s->data_offset, R_DATA_PTR, c);
-    section_ptr_add(s, PTR_SIZE);
+    put_elf_reloc (s1->symtab, s, s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ, R_ದತ್ತಾಂಶ_PTR, c);
+    section_ptr_ಕೂಡಿಸು(s, PTR_ಗಾತ್ರ);
 }
 
-#ifdef CONFIG_TCC_BCHECK
-ST_FUNC void tcc_add_bcheck(TCCState *s1)
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BCHECK
+ST_FUNC ಶೂನ್ಯ tcc_ಕೂಡಿಸು_bcheck(TCCState *s1)
 {
-    if (0 == s1->do_bounds_check)
-        return;
-    section_ptr_add(bounds_section, sizeof(addr_t));
+    ಆದರೆ (0 == s1->do_bounds_check)
+        ಹಿಂತಿರುಗಿ;
+    section_ptr_ಕೂಡಿಸು(bounds_section, ಗಾತ್ರ(addr_t));
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* set symbol to STB_LOCAL and resolve. The point is to not export it as
    a dynamic symbol to allow so's to have one each with a different value. */
-static void set_local_sym(TCCState *s1, const char *name, Section *s, int offset)
+ಸ್ಥಿರ ಶೂನ್ಯ ಗಣ_local_sym(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, Section *s, ಪೂರ್ಣಾಂಕ ಸ್ಥಾನಾಂತರ)
 {
-    int c = find_elf_sym(s1->symtab, name);
-    if (c) {
-        ElfW(Sym) *esym = (ElfW(Sym)*)s1->symtab->data + c;
+    ಪೂರ್ಣಾಂಕ c = ಕಂಡುಹಿಡಿ_elf_sym(s1->symtab, name);
+    ಆದರೆ (c) {
+        ElfW(Sym) *esym = (ElfW(Sym)*)s1->symtab->ದತ್ತಾಂಶ + c;
         esym->st_info = ELFW(ST_INFO)(STB_LOCAL, STT_NOTYPE);
-        esym->st_value = offset;
-        esym->st_shndx = s->sh_num;
+        esym->st_ಮೌಲ್ಯ = ಸ್ಥಾನಾಂತರ;
+        esym->st_shndx = s->sh_ಅಂಕೆ;
     }
 }
 
 /* avoid generating debug/test_coverage code for stub functions */
-static void tcc_compile_string_no_debug(TCCState *s, const char *str)
+ಸ್ಥಿರ ಶೂನ್ಯ tcc_compile_string_no_debug(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *str)
 {
-    int save_do_debug = s->do_debug;
-    int save_test_coverage = s->test_coverage;
+    ಪೂರ್ಣಾಂಕ save_do_debug = s->do_debug;
+    ಪೂರ್ಣಾಂಕ save_test_coverage = s->test_coverage;
 
     s->do_debug = 0;
     s->test_coverage = 0;
@@ -1628,37 +1628,37 @@ static void tcc_compile_string_no_debug(TCCState *s, const char *str)
     s->test_coverage = save_test_coverage;
 }
 
-#ifdef CONFIG_TCC_BACKTRACE
-static void put_ptr(TCCState *s1, Section *s, int offs)
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BACKTRACE
+ಸ್ಥಿರ ಶೂನ್ಯ put_ptr(TCCState *s1, Section *s, ಪೂರ್ಣಾಂಕ offs)
 {
-    int c;
-    c = set_global_sym(s1, NULL, s, offs);
-    s = data_section;
-    put_elf_reloc (s1->symtab, s, s->data_offset, R_DATA_PTR, c);
-    section_ptr_add(s, PTR_SIZE);
+    ಪೂರ್ಣಾಂಕ c;
+    c = ಗಣ_global_sym(s1, ಖಾಲಿ, s, offs);
+    s = ದತ್ತಾಂಶ_section;
+    put_elf_reloc (s1->symtab, s, s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ, R_ದತ್ತಾಂಶ_PTR, c);
+    section_ptr_ಕೂಡಿಸು(s, PTR_ಗಾತ್ರ);
 }
 
-ST_FUNC void tcc_add_btstub(TCCState *s1)
+ST_FUNC ಶೂನ್ಯ tcc_ಕೂಡಿಸು_btstub(TCCState *s1)
 {
     Section *s;
-    int n, o, *p;
+    ಪೂರ್ಣಾಂಕ n, o, *p;
     CString cstr;
-    const char *__rt_info = &"___rt_info"[!s1->leading_underscore];
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *__rt_info = &"___rt_info"[!s1->leading_underscore];
 
-    s = data_section;
+    s = ದತ್ತಾಂಶ_section;
     /* Align to PTR_SIZE */
-    section_add(s, 0, PTR_SIZE);
-    o = s->data_offset;
+    section_ಕೂಡಿಸು(s, 0, PTR_ಗಾತ್ರ);
+    o = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
     /* create a struct rt_context (see tccrun.c) */
-    if (s1->dwarf) {
-        put_ptr(s1, dwarf_line_section, 0);
-        put_ptr(s1, dwarf_line_section, -1);
-	if (s1->dwarf >= 5)
-            put_ptr(s1, dwarf_line_str_section, 0);
-	else
+    ಆದರೆ (s1->dwarf) {
+        put_ptr(s1, dwarf_ಸಾಲು_section, 0);
+        put_ptr(s1, dwarf_ಸಾಲು_section, -1);
+	ಆದರೆ (s1->dwarf >= 5)
+            put_ptr(s1, dwarf_ಸಾಲು_str_section, 0);
+	ಇಲ್ಲದಿದ್ದರೆ
             put_ptr(s1, dwarf_str_section, 0);
     }
-    else
+    ಇಲ್ಲದಿದ್ದರೆ
     {
         put_ptr(s1, stab_section, 0);
         put_ptr(s1, stab_section, -1);
@@ -1666,36 +1666,36 @@ ST_FUNC void tcc_add_btstub(TCCState *s1)
     }
 
     /* skip esym_start/esym_end/elf_str (not loaded) */
-    section_ptr_add(s, 3 * PTR_SIZE);
+    section_ptr_ಕೂಡಿಸು(s, 3 * PTR_ಗಾತ್ರ);
 
-    if (s1->output_type == TCC_OUTPUT_MEMORY && 0 == s1->dwarf) {
-        put_ptr(s1, text_section, 0);
-    } else {
+    ಆದರೆ (s1->output_type == TCC_OUTPUT_ಸ್ಮರಣೆ && 0 == s1->dwarf) {
+        put_ptr(s1, ಪಠ್ಯ_section, 0);
+    } ಇಲ್ಲದಿದ್ದರೆ {
         /* prog_base : local nameless symbol with offset 0 at SHN_ABS */
-        put_ptr(s1, NULL, 0);
-#if defined TCC_TARGET_MACHO
+        put_ptr(s1, ಖಾಲಿ, 0);
+#ಆದರೆ defined TCC_ಗುರಿ_MACHO
         /* adjust for __PAGEZERO */
-        if (s1->dwarf == 0 && s1->output_type == TCC_OUTPUT_EXE)
-            write64le(data_section->data + data_section->data_offset - PTR_SIZE,
+        ಆದರೆ (s1->dwarf == 0 && s1->output_type == TCC_OUTPUT_EXE)
+            write64le(ದತ್ತಾಂಶ_section->ದತ್ತಾಂಶ + ದತ್ತಾಂಶ_section->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ - PTR_ಗಾತ್ರ,
 	              (uint64_t)1 << 32);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
     }
-    n = 3 * PTR_SIZE;
-#ifdef CONFIG_TCC_BCHECK
-    if (s1->do_bounds_check) {
+    n = 3 * PTR_ಗಾತ್ರ;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BCHECK
+    ಆದರೆ (s1->do_bounds_check) {
         put_ptr(s1, bounds_section, 0);
-        n -= PTR_SIZE;
+        n -= PTR_ಗಾತ್ರ;
     }
-#endif
-    section_ptr_add(s, n);
-    p = section_ptr_add(s, 2 * sizeof (int));
-    p[0] = s1->rt_num_callers;
+#ಆದರೆ_ಅಂತ್ಯ
+    section_ptr_ಕೂಡಿಸು(s, n);
+    p = section_ptr_ಕೂಡಿಸು(s, 2 * ಗಾತ್ರ (ಪೂರ್ಣಾಂಕ));
+    p[0] = s1->rt_ಅಂಕೆ_callers;
     p[1] = s1->dwarf;
     // if (s->data_offset - o != 10*PTR_SIZE + 2*sizeof (int)) exit(99);
 
-    if (s1->output_type == TCC_OUTPUT_MEMORY) {
-        set_global_sym(s1, __rt_info, s, o);
-        return;
+    ಆದರೆ (s1->output_type == TCC_OUTPUT_ಸ್ಮರಣೆ) {
+        ಗಣ_global_sym(s1, __rt_info, s, o);
+        ಹಿಂತಿರುಗಿ;
     }
 
     cstr_new(&cstr);
@@ -1703,50 +1703,50 @@ ST_FUNC void tcc_add_btstub(TCCState *s1)
         "extern void __bt_init(),__bt_exit(),__bt_init_dll();"
         "static void *__rt_info[];"
         "__attribute__((constructor)) static void __bt_init_rt(){");
-#ifdef TCC_TARGET_PE
-    if (s1->output_type == TCC_OUTPUT_DLL)
-#ifdef CONFIG_TCC_BCHECK
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_PE
+    ಆದರೆ (s1->output_type == TCC_OUTPUT_DLL)
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BCHECK
         cstr_printf(&cstr, "__bt_init_dll(%d);", s1->do_bounds_check);
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
         cstr_printf(&cstr, "__bt_init_dll(0);");
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
     cstr_printf(&cstr, "__bt_init(__rt_info,%d);}",
         s1->output_type != TCC_OUTPUT_DLL);
     /* In case dlcose is called by application */
     cstr_printf(&cstr,
         "__attribute__((destructor)) static void __bt_exit_rt(){"
         "__bt_exit(__rt_info);}");
-    tcc_compile_string_no_debug(s1, cstr.data);
+    tcc_compile_string_no_debug(s1, cstr.ದತ್ತಾಂಶ);
     cstr_free(&cstr);
-    set_local_sym(s1, __rt_info, s, o);
+    ಗಣ_local_sym(s1, __rt_info, s, o);
 }
-#endif /* def CONFIG_TCC_BACKTRACE */
+#ಆದರೆ_ಅಂತ್ಯ /* def CONFIG_TCC_BACKTRACE */
 
-static void tcc_tcov_add_file(TCCState *s1, const char *filename)
+ಸ್ಥಿರ ಶೂನ್ಯ tcc_tcov_ಕೂಡಿಸು_file(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *filename)
 {
     CString cstr;
-    void *ptr;
-    char wd[1024];
+    ಶೂನ್ಯ *ptr;
+    ಅಕ್ಷರ wd[1024];
 
-    if (tcov_section == NULL)
-        return;
-    section_ptr_add(tcov_section, 1);
-    write32le (tcov_section->data, tcov_section->data_offset);
+    ಆದರೆ (tcov_section == ಖಾಲಿ)
+        ಹಿಂತಿರುಗಿ;
+    section_ptr_ಕೂಡಿಸು(tcov_section, 1);
+    write32le (tcov_section->ದತ್ತಾಂಶ, tcov_section->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
 
     cstr_new (&cstr);
-    if (filename[0] == '/')
+    ಆದರೆ (filename[0] == '/')
         cstr_printf (&cstr, "%s.tcov", filename);
-    else {
-        getcwd (wd, sizeof(wd));
+    ಇಲ್ಲದಿದ್ದರೆ {
+        getcwd (wd, ಗಾತ್ರ(wd));
         cstr_printf (&cstr, "%s/%s.tcov", wd, filename);
     }
-    ptr = section_ptr_add(tcov_section, cstr.size + 1);
-    strcpy((char *)ptr, cstr.data);
-    unlink((char *)ptr);
-#ifdef _WIN32
-    normalize_slashes((char *)ptr);
-#endif
+    ptr = section_ptr_ಕೂಡಿಸು(tcov_section, cstr.ಗಾತ್ರ_2 + 1);
+    strcpy((ಅಕ್ಷರ *)ptr, cstr.ದತ್ತಾಂಶ);
+    unlink((ಅಕ್ಷರ *)ptr);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN32
+    normalize_slashes((ಅಕ್ಷರ *)ptr);
+#ಆದರೆ_ಅಂತ್ಯ
     cstr_free (&cstr);
 
     cstr_new(&cstr);
@@ -1756,282 +1756,282 @@ static void tcc_tcov_add_file(TCCState *s1, const char *filename)
         "__attribute__((destructor)) static void __tcov_exit() {"
         "__store_test_coverage(__tcov_data);"
         "}");
-    tcc_compile_string_no_debug(s1, cstr.data);
+    tcc_compile_string_no_debug(s1, cstr.ದತ್ತಾಂಶ);
     cstr_free(&cstr);
-    set_local_sym(s1, &"___tcov_data"[!s1->leading_underscore], tcov_section, 0);
+    ಗಣ_local_sym(s1, &"___tcov_data"[!s1->leading_underscore], tcov_section, 0);
 }
 
-#ifdef TCC_TARGET_UNIX
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_UNIX
 /* add libc crt1/crti objects */
-ST_FUNC void tccelf_add_crtbegin(TCCState *s1)
+ST_FUNC ಶೂನ್ಯ tccelf_ಕೂಡಿಸು_crtbegin(TCCState *s1)
 {
-#if TARGETOS_OpenBSD
-    if (s1->output_type != TCC_OUTPUT_DLL)
-        tcc_add_crt(s1, "crt0.o");
-    if (s1->output_type == TCC_OUTPUT_DLL)
-        tcc_add_crt(s1, "crtbeginS.o");
-    else
-        tcc_add_crt(s1, "crtbegin.o");
-#elif TARGETOS_FreeBSD || TARGETOS_NetBSD
-    if (s1->output_type != TCC_OUTPUT_DLL)
-#if TARGETOS_FreeBSD
-        tcc_add_crt(s1, "crt1.o");
-#else
-        tcc_add_crt(s1, "crt0.o");
-#endif
-    tcc_add_crt(s1, "crti.o");
-    if (s1->static_link)
-        tcc_add_crt(s1, "crtbeginT.o");
-    else if (s1->output_type == TCC_OUTPUT_DLL)
-        tcc_add_crt(s1, "crtbeginS.o");
-    else
-        tcc_add_crt(s1, "crtbegin.o");
-#elif TARGETOS_ANDROID
-    if (s1->output_type == TCC_OUTPUT_DLL)
-        tcc_add_crt(s1, "crtbegin_so.o");
-    else
-        tcc_add_crt(s1, "crtbegin_dynamic.o");
-#else
-    if (s1->output_type != TCC_OUTPUT_DLL)
-        tcc_add_crt(s1, "crt1.o");
-    tcc_add_crt(s1, "crti.o");
-#endif
+#ಆದರೆ TARGETOS_OpenBSD
+    ಆದರೆ (s1->output_type != TCC_OUTPUT_DLL)
+        tcc_ಕೂಡಿಸು_crt(s1, "crt0.o");
+    ಆದರೆ (s1->output_type == TCC_OUTPUT_DLL)
+        tcc_ಕೂಡಿಸು_crt(s1, "crtbeginS.o");
+    ಇಲ್ಲದಿದ್ದರೆ
+        tcc_ಕೂಡಿಸು_crt(s1, "crtbegin.o");
+#ಅಥವಾಆದರೆ TARGETOS_FreeBSD || TARGETOS_NetBSD
+    ಆದರೆ (s1->output_type != TCC_OUTPUT_DLL)
+#ಆದರೆ TARGETOS_FreeBSD
+        tcc_ಕೂಡಿಸು_crt(s1, "crt1.o");
+#ಇಲ್ಲದಿದ್ದರೆ
+        tcc_ಕೂಡಿಸು_crt(s1, "crt0.o");
+#ಆದರೆ_ಅಂತ್ಯ
+    tcc_ಕೂಡಿಸು_crt(s1, "crti.o");
+    ಆದರೆ (s1->static_link)
+        tcc_ಕೂಡಿಸು_crt(s1, "crtbeginT.o");
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s1->output_type == TCC_OUTPUT_DLL)
+        tcc_ಕೂಡಿಸು_crt(s1, "crtbeginS.o");
+    ಇಲ್ಲದಿದ್ದರೆ
+        tcc_ಕೂಡಿಸು_crt(s1, "crtbegin.o");
+#ಅಥವಾಆದರೆ TARGETOS_ANDROID
+    ಆದರೆ (s1->output_type == TCC_OUTPUT_DLL)
+        tcc_ಕೂಡಿಸು_crt(s1, "crtbegin_so.o");
+    ಇಲ್ಲದಿದ್ದರೆ
+        tcc_ಕೂಡಿಸು_crt(s1, "crtbegin_dynamic.o");
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಆದರೆ (s1->output_type != TCC_OUTPUT_DLL)
+        tcc_ಕೂಡಿಸು_crt(s1, "crt1.o");
+    tcc_ಕೂಡಿಸು_crt(s1, "crti.o");
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-ST_FUNC void tccelf_add_crtend(TCCState *s1)
+ST_FUNC ಶೂನ್ಯ tccelf_ಕೂಡಿಸು_crtend(TCCState *s1)
 {
-#if TARGETOS_OpenBSD
-    if (s1->output_type == TCC_OUTPUT_DLL)
-        tcc_add_crt(s1, "crtendS.o");
-    else
-        tcc_add_crt(s1, "crtend.o");
-#elif TARGETOS_FreeBSD || TARGETOS_NetBSD
-    if (s1->output_type == TCC_OUTPUT_DLL)
-        tcc_add_crt(s1, "crtendS.o");
-    else
-        tcc_add_crt(s1, "crtend.o");
-    tcc_add_crt(s1, "crtn.o");
-#elif TARGETOS_ANDROID
-    if (s1->output_type == TCC_OUTPUT_DLL)
-        tcc_add_crt(s1, "crtend_so.o");
-    else
-        tcc_add_crt(s1, "crtend_android.o");
-#else
-    tcc_add_crt(s1, "crtn.o");
-#endif
+#ಆದರೆ TARGETOS_OpenBSD
+    ಆದರೆ (s1->output_type == TCC_OUTPUT_DLL)
+        tcc_ಕೂಡಿಸು_crt(s1, "crtendS.o");
+    ಇಲ್ಲದಿದ್ದರೆ
+        tcc_ಕೂಡಿಸು_crt(s1, "crtend.o");
+#ಅಥವಾಆದರೆ TARGETOS_FreeBSD || TARGETOS_NetBSD
+    ಆದರೆ (s1->output_type == TCC_OUTPUT_DLL)
+        tcc_ಕೂಡಿಸು_crt(s1, "crtendS.o");
+    ಇಲ್ಲದಿದ್ದರೆ
+        tcc_ಕೂಡಿಸು_crt(s1, "crtend.o");
+    tcc_ಕೂಡಿಸು_crt(s1, "crtn.o");
+#ಅಥವಾಆದರೆ TARGETOS_ANDROID
+    ಆದರೆ (s1->output_type == TCC_OUTPUT_DLL)
+        tcc_ಕೂಡಿಸು_crt(s1, "crtend_so.o");
+    ಇಲ್ಲದಿದ್ದರೆ
+        tcc_ಕೂಡಿಸು_crt(s1, "crtend_android.o");
+#ಇಲ್ಲದಿದ್ದರೆ
+    tcc_ಕೂಡಿಸು_crt(s1, "crtn.o");
+#ಆದರೆ_ಅಂತ್ಯ
 }
-#endif /* TCC_TARGET_UNIX */
+#ಆದರೆ_ಅಂತ್ಯ /* TCC_TARGET_UNIX */
 
-#ifndef TCC_TARGET_PE
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ TCC_ಗುರಿ_PE
 /* add tcc runtime libraries */
-ST_FUNC void tcc_add_runtime(TCCState *s1)
+ST_FUNC ಶೂನ್ಯ tcc_ಕೂಡಿಸು_runtime(TCCState *s1)
 {
     s1->filetype = 0;
 
-#ifdef CONFIG_TCC_BCHECK
-    tcc_add_bcheck(s1);
-#endif
-    tcc_add_pragma_libs(s1);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BCHECK
+    tcc_ಕೂಡಿಸು_bcheck(s1);
+#ಆದರೆ_ಅಂತ್ಯ
+    tcc_ಕೂಡಿಸು_pragma_libs(s1);
 
     /* add libc */
-    if (!s1->nostdlib) {
-        int lpthread = s1->option_pthread;
+    ಆದರೆ (!s1->nostdlib) {
+        ಪೂರ್ಣಾಂಕ lpthread = s1->option_pthread;
 
-#ifdef CONFIG_TCC_BCHECK
-        if (s1->do_bounds_check && s1->output_type != TCC_OUTPUT_DLL) {
-	    if (s1->output_type == TCC_OUTPUT_MEMORY)
-                tcc_add_support(s1, "bcheck_run.o");
-	    else
-                tcc_add_support(s1, "bcheck.o");
-# if !(TARGETOS_OpenBSD || TARGETOS_NetBSD)
-            tcc_add_library(s1, "dl");
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BCHECK
+        ಆದರೆ (s1->do_bounds_check && s1->output_type != TCC_OUTPUT_DLL) {
+	    ಆದರೆ (s1->output_type == TCC_OUTPUT_ಸ್ಮರಣೆ)
+                tcc_ಕೂಡಿಸು_support(s1, "bcheck_run.o");
+	    ಇಲ್ಲದಿದ್ದರೆ
+                tcc_ಕೂಡಿಸು_support(s1, "bcheck.o");
+# ಆದರೆ !(TARGETOS_OpenBSD || TARGETOS_NetBSD)
+            tcc_ಕೂಡಿಸು_library(s1, "dl");
 # endif
             lpthread = 1;
         }
-#endif
-#ifdef CONFIG_TCC_BACKTRACE
-        if (s1->do_backtrace) {
-            if (s1->output_type & TCC_OUTPUT_EXE)
-                tcc_add_support(s1, "bt-exe.o");
-            if (s1->output_type != TCC_OUTPUT_DLL)
-                tcc_add_support(s1, "bt-log.o");
-            tcc_add_btstub(s1);
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BACKTRACE
+        ಆದರೆ (s1->do_backtrace) {
+            ಆದರೆ (s1->output_type & TCC_OUTPUT_EXE)
+                tcc_ಕೂಡಿಸು_support(s1, "bt-exe.o");
+            ಆದರೆ (s1->output_type != TCC_OUTPUT_DLL)
+                tcc_ಕೂಡಿಸು_support(s1, "bt-log.o");
+            tcc_ಕೂಡಿಸು_btstub(s1);
             lpthread = 1;
         }
-#endif
-        if (lpthread)
-            tcc_add_library(s1, "pthread");
-        tcc_add_library(s1, "c");
-#ifdef TCC_LIBGCC
-        if (!s1->static_link) {
-            if (TCC_LIBGCC[0] == '/')
-                tcc_add_file(s1, TCC_LIBGCC);
-            else
-                tcc_add_dll(s1, TCC_LIBGCC, AFF_PRINT_ERROR);
+#ಆದರೆ_ಅಂತ್ಯ
+        ಆದರೆ (lpthread)
+            tcc_ಕೂಡಿಸು_library(s1, "pthread");
+        tcc_ಕೂಡಿಸು_library(s1, "c");
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_LIBGCC
+        ಆದರೆ (!s1->static_link) {
+            ಆದರೆ (TCC_LIBGCC[0] == '/')
+                tcc_ಕೂಡಿಸು_file(s1, TCC_LIBGCC);
+            ಇಲ್ಲದಿದ್ದರೆ
+                tcc_ಕೂಡಿಸು_dll(s1, TCC_LIBGCC, AFF_PRINT_ERROR);
         }
-#endif
-#if defined TCC_TARGET_ARM && TARGETOS_FreeBSD
-        tcc_add_library(s1, "gcc_s"); // unwind code
-#endif
-        if (TCC_LIBTCC1[0]) {
-            tcc_add_support(s1, TCC_LIBTCC1);
-            tcc_add_library(s1, "c");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ defined TCC_ಗುರಿ_ARM && TARGETOS_FreeBSD
+        tcc_ಕೂಡಿಸು_library(s1, "gcc_s"); // unwind code
+#ಆದರೆ_ಅಂತ್ಯ
+        ಆದರೆ (TCC_LIBTCC1[0]) {
+            tcc_ಕೂಡಿಸು_support(s1, TCC_LIBTCC1);
+            tcc_ಕೂಡಿಸು_library(s1, "c");
         }
-#ifndef TCC_TARGET_MACHO
-        if (s1->output_type != TCC_OUTPUT_MEMORY)
-            tccelf_add_crtend(s1);
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ TCC_ಗುರಿ_MACHO
+        ಆದರೆ (s1->output_type != TCC_OUTPUT_ಸ್ಮರಣೆ)
+            tccelf_ಕೂಡಿಸು_crtend(s1);
+#ಆದರೆ_ಅಂತ್ಯ
     }
 }
-#endif /* ndef TCC_TARGET_PE */
+#ಆದರೆ_ಅಂತ್ಯ /* ndef TCC_TARGET_PE */
 
 /* set _etext/_edata/_end  f=0:set  f=1:when_needed  f=2,3:just_update */
-static void set_linker_sym(TCCState *s1, const char *name, Section *sec, int f)
+ಸ್ಥಿರ ಶೂನ್ಯ ಗಣ_linker_sym(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, Section *sec, ಪೂರ್ಣಾಂಕ f)
 {
-    int sym_index, esym_index, defined;
+    ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ, esym_ಸೂಚ್ಯಂಕ, defined;
     ElfW(Sym) *sym, *esym;
-    sym_index = find_elf_sym(symtab_section, name);
-    sym = (ElfW(Sym) *)symtab_section->data + sym_index;
-    esym_index = find_elf_sym(s1->dynsymtab_section, name);
-    esym = (ElfW(Sym) *)s1->dynsymtab_section->data + esym_index;
+    sym_ಸೂಚ್ಯಂಕ = ಕಂಡುಹಿಡಿ_elf_sym(symtab_section, name);
+    sym = (ElfW(Sym) *)symtab_section->ದತ್ತಾಂಶ + sym_ಸೂಚ್ಯಂಕ;
+    esym_ಸೂಚ್ಯಂಕ = ಕಂಡುಹಿಡಿ_elf_sym(s1->dynsymtab_section, name);
+    esym = (ElfW(Sym) *)s1->dynsymtab_section->ದತ್ತಾಂಶ + esym_ಸೂಚ್ಯಂಕ;
     defined = sym->st_shndx != SHN_UNDEF
-        || (esym->st_shndx != SHN_UNDEF && esym->st_size);
-    switch (f) {
-    case 1: /* old symbols w/o '_' */
-        if (!(sym_index || esym_index) || defined)
-            break;
-    case 0:
-        if (defined) {
+        || (esym->st_shndx != SHN_UNDEF && esym->st_ಗಾತ್ರ);
+    ಆಯ್ಕೆ (f) {
+    ಸ್ಥಿತಿ 1: /* old symbols w/o '_' */
+        ಆದರೆ (!(sym_ಸೂಚ್ಯಂಕ || esym_ಸೂಚ್ಯಂಕ) || defined)
+            ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ 0:
+        ಆದರೆ (defined) {
             tcc_warning("linker symbol '%s' already defined", name);
-            break;
+            ನಿಲ್ಲಿಸು;
         }
-        sym_index = set_global_sym(s1, name, sec, -1);
-        get_sym_attr(s1, sym_index, 1)->linker_sym = 1;
-        break;
-    default: /* update (bss only) */
-        if (get_sym_attr(s1, sym_index, 0)->linker_sym)
-            sym->st_value = sec->data_offset;
+        sym_ಸೂಚ್ಯಂಕ = ಗಣ_global_sym(s1, name, sec, -1);
+        get_sym_attr(s1, sym_ಸೂಚ್ಯಂಕ, 1)->linker_sym = 1;
+        ನಿಲ್ಲಿಸು;
+    ಪೂರ್ವನಿಯೋಜಿತ: /* update (bss only) */
+        ಆದರೆ (get_sym_attr(s1, sym_ಸೂಚ್ಯಂಕ, 0)->linker_sym)
+            sym->st_ಮೌಲ್ಯ = sec->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
     }
-#ifndef ELF_OBJ_ONLY
-    if (name[0] == '_')
-        set_linker_sym(s1, name + 1, sec, f + 1);
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
+    ಆದರೆ (name[0] == '_')
+        ಗಣ_linker_sym(s1, name + 1, sec, f + 1);
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
 /* add various standard linker symbols (must be done after the
    sections are filled (for example after allocating common
    symbols)) */
-static void tcc_add_linker_symbols(TCCState *s1)
+ಸ್ಥಿರ ಶೂನ್ಯ tcc_ಕೂಡಿಸು_linker_symbols(TCCState *s1)
 {
-    char buf[1024];
-    int i;
+    ಅಕ್ಷರ buf[1024];
+    ಪೂರ್ಣಾಂಕ i;
     Section *s;
 
-    set_linker_sym(s1, "_etext", text_section, 0);
-    set_linker_sym(s1, "_edata", data_section, 0);
-    set_linker_sym(s1, "_end", bss_section, 0);
-#if TARGETOS_OpenBSD
-    set_global_sym(s1, "__executable_start", NULL, ELF_START_ADDR);
-#endif
+    ಗಣ_linker_sym(s1, "_etext", ಪಠ್ಯ_section, 0);
+    ಗಣ_linker_sym(s1, "_edata", ದತ್ತಾಂಶ_section, 0);
+    ಗಣ_linker_sym(s1, "_end", bss_section, 0);
+#ಆದರೆ TARGETOS_OpenBSD
+    ಗಣ_global_sym(s1, "__executable_start", ಖಾಲಿ, ELF_ಆರಂಭ_ADDR);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef TCC_TARGET_RISCV64
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_RISCV64
     /* XXX should be .sdata+0x800, not .data+0x800 */
-    set_global_sym(s1, "__global_pointer$", data_section, 0x800);
-#endif
+    ಗಣ_global_sym(s1, "__global_pointer$", ದತ್ತಾಂಶ_section, 0x800);
+#ಆದರೆ_ಅಂತ್ಯ
     /* horrible new standard ldscript defines */
-    add_init_array_defines(s1, ".preinit_array");
-    add_init_array_defines(s1, ".init_array");
-    add_init_array_defines(s1, ".fini_array");
+    ಕೂಡಿಸು_init_array_ನಿರೂಪಿಸುತ್ತದೆ(s1, ".preinit_array");
+    ಕೂಡಿಸು_init_array_ನಿರೂಪಿಸುತ್ತದೆ(s1, ".init_array");
+    ಕೂಡಿಸು_init_array_ನಿರೂಪಿಸುತ್ತದೆ(s1, ".fini_array");
     /* add start and stop symbols for sections whose name can be
        expressed in C */
-    for(i = 1; i < s1->nb_sections; i++) {
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if ((s->sh_flags & SHF_ALLOC)
+        ಆದರೆ ((s->sh_flags & SHF_ALLOC)
             && (s->sh_type == SHT_PROGBITS || s->sh_type == SHT_NOBITS
                 || s->sh_type == SHT_STRTAB)) {
             /* check if section name can be expressed in C */
-            const char *p0, *p;
+            ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *p0, *p;
             p0 = s->name;
-            if (*p0 == '.')
+            ಆದರೆ (*p0 == '.')
                 ++p0;
             p = p0;
-            for(;;) {
-                int c = *p;
-                if (!c)
-                    break;
-                if (!isid(c) && !isnum(c))
-                    goto next_sec;
+            ಗಾಗಿ(;;) {
+                ಪೂರ್ಣಾಂಕ c = *p;
+                ಆದರೆ (!c)
+                    ನಿಲ್ಲಿಸು;
+                ಆದರೆ (!isid(c) && !isnum(c))
+                    ಹೋಗು ಮುಂದಿನ_sec;
                 p++;
             }
-            snprintf(buf, sizeof(buf), "__start_%s", p0);
-            set_global_sym(s1, buf, s, 0);
-            snprintf(buf, sizeof(buf), "__stop_%s", p0);
-            set_global_sym(s1, buf, s, -1);
+            snprintf(buf, ಗಾತ್ರ(buf), "__start_%s", p0);
+            ಗಣ_global_sym(s1, buf, s, 0);
+            snprintf(buf, ಗಾತ್ರ(buf), "__stop_%s", p0);
+            ಗಣ_global_sym(s1, buf, s, -1);
         }
-    next_sec: ;
+    ಮುಂದಿನ_sec: ;
     }
 }
 
-ST_FUNC void resolve_common_syms(TCCState *s1)
+ST_FUNC ಶೂನ್ಯ resolve_common_syms(TCCState *s1)
 {
     ElfW(Sym) *sym;
 
     /* Allocate common symbols in BSS.  */
     for_each_elem(symtab_section, 1, sym, ElfW(Sym)) {
-        if (sym->st_shndx == SHN_COMMON && sym->st_size) {
+        ಆದರೆ (sym->st_shndx == SHN_COMMON && sym->st_ಗಾತ್ರ) {
             /* symbol alignment is in st_value for SHN_COMMONs */
-	    sym->st_value = section_add(bss_section, sym->st_size,
-					sym->st_value);
-            sym->st_shndx = bss_section->sh_num;
+	    sym->st_ಮೌಲ್ಯ = section_ಕೂಡಿಸು(bss_section, sym->st_ಗಾತ್ರ,
+					sym->st_ಮೌಲ್ಯ);
+            sym->st_shndx = bss_section->sh_ಅಂಕೆ;
         }
     }
 
     /* Now assign linker provided symbols their value.  */
-    if (s1->output_type != TCC_OUTPUT_DLL)
-        tcc_add_linker_symbols(s1);
+    ಆದರೆ (s1->output_type != TCC_OUTPUT_DLL)
+        tcc_ಕೂಡಿಸು_linker_symbols(s1);
 }
 
-#ifndef ELF_OBJ_ONLY
-ST_FUNC void fill_got_entry(TCCState *s1, ElfW_Rel *rel)
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
+ST_FUNC ಶೂನ್ಯ fill_got_ನಮೂದು(TCCState *s1, ElfW_Rel *rel)
 {
-    int sym_index = ELFW(R_SYM) (rel->r_info);
-    ElfW(Sym) *sym = &((ElfW(Sym) *) symtab_section->data)[sym_index];
-    struct sym_attr *attr = get_sym_attr(s1, sym_index, 0);
-    unsigned offset = attr->got_offset;
+    ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ = ELFW(R_SYM) (rel->r_info);
+    ElfW(Sym) *sym = &((ElfW(Sym) *) symtab_section->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
+    ರಚನೆ sym_attr *attr = get_sym_attr(s1, sym_ಸೂಚ್ಯಂಕ, 0);
+    ಚಿಹ್ನೆರಹಿತ ಸ್ಥಾನಾಂತರ = attr->got_ಸ್ಥಾನಾಂತರ;
 
-    if (0 == offset)
-        return;
-    section_reserve(s1->got, offset + PTR_SIZE);
-#if PTR_SIZE == 8
-    write64le(s1->got->data + offset, sym->st_value);
-#else
-    write32le(s1->got->data + offset, sym->st_value);
-#endif
+    ಆದರೆ (0 == ಸ್ಥಾನಾಂತರ)
+        ಹಿಂತಿರುಗಿ;
+    section_reserve(s1->got, ಸ್ಥಾನಾಂತರ + PTR_ಗಾತ್ರ);
+#ಆದರೆ PTR_ಗಾತ್ರ == 8
+    write64le(s1->got->ದತ್ತಾಂಶ + ಸ್ಥಾನಾಂತರ, sym->st_ಮೌಲ್ಯ);
+#ಇಲ್ಲದಿದ್ದರೆ
+    write32le(s1->got->ದತ್ತಾಂಶ + ಸ್ಥಾನಾಂತರ, sym->st_ಮೌಲ್ಯ);
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
 /* Perform relocation to GOT or PLT entries */
-ST_FUNC void fill_got(TCCState *s1)
+ST_FUNC ಶೂನ್ಯ fill_got(TCCState *s1)
 {
     Section *s;
     ElfW_Rel *rel;
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
 
-    for(i = 1; i < s1->nb_sections; i++) {
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_RELX)
-            continue;
+        ಆದರೆ (s->sh_type != SHT_RELX)
+            ಮುಂದುವರಿ;
         /* no need to handle got relocations */
-        if (s->link != symtab_section)
-            continue;
+        ಆದರೆ (s->link != symtab_section)
+            ಮುಂದುವರಿ;
         for_each_elem(s, 0, rel, ElfW_Rel) {
-            switch (ELFW(R_TYPE) (rel->r_info)) {
-                case R_X86_64_GOT32:
-                case R_X86_64_GOTPCREL:
-		case R_X86_64_GOTPCRELX:
-		case R_X86_64_REX_GOTPCRELX:
-                case R_X86_64_PLT32:
-                    fill_got_entry(s1, rel);
-                    break;
+            ಆಯ್ಕೆ (ELFW(R_TYPE) (rel->r_info)) {
+                ಸ್ಥಿತಿ R_X86_64_GOT32:
+                ಸ್ಥಿತಿ R_X86_64_GOTPCREL:
+		ಸ್ಥಿತಿ R_X86_64_GOTPCRELX:
+		ಸ್ಥಿತಿ R_X86_64_REX_GOTPCRELX:
+                ಸ್ಥಿತಿ R_X86_64_PLT32:
+                    fill_got_ನಮೂದು(s1, rel);
+                    ನಿಲ್ಲಿಸು;
             }
         }
     }
@@ -2039,55 +2039,55 @@ ST_FUNC void fill_got(TCCState *s1)
 
 /* See put_got_entry for a description.  This is the second stage
    where GOT references to local defined symbols are rewritten.  */
-static void fill_local_got_entries(TCCState *s1)
+ಸ್ಥಿರ ಶೂನ್ಯ fill_local_got_entries(TCCState *s1)
 {
     ElfW_Rel *rel;
-    if (!s1->got->reloc)
-        return;
+    ಆದರೆ (!s1->got->reloc)
+        ಹಿಂತಿರುಗಿ;
     for_each_elem(s1->got->reloc, 0, rel, ElfW_Rel) {
-	if (ELFW(R_TYPE)(rel->r_info) == R_RELATIVE) {
-	    int sym_index = ELFW(R_SYM) (rel->r_info);
-	    ElfW(Sym) *sym = &((ElfW(Sym) *) symtab_section->data)[sym_index];
-	    struct sym_attr *attr = get_sym_attr(s1, sym_index, 0);
-	    unsigned offset = attr->got_offset;
-	    if (offset != rel->r_offset - s1->got->sh_addr)
+	ಆದರೆ (ELFW(R_TYPE)(rel->r_info) == R_RELATIVE) {
+	    ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ = ELFW(R_SYM) (rel->r_info);
+	    ElfW(Sym) *sym = &((ElfW(Sym) *) symtab_section->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
+	    ರಚನೆ sym_attr *attr = get_sym_attr(s1, sym_ಸೂಚ್ಯಂಕ, 0);
+	    ಚಿಹ್ನೆರಹಿತ ಸ್ಥಾನಾಂತರ = attr->got_ಸ್ಥಾನಾಂತರ;
+	    ಆದರೆ (ಸ್ಥಾನಾಂತರ != rel->r_ಸ್ಥಾನಾಂತರ - s1->got->sh_addr)
 	        tcc_error_noabort("fill_local_got_entries: huh?");
 	    rel->r_info = ELFW(R_INFO)(0, R_RELATIVE);
-#if SHT_RELX == SHT_RELA
-	    rel->r_addend = sym->st_value;
-#else
+#ಆದರೆ SHT_RELX == SHT_RELA
+	    rel->r_addend = sym->st_ಮೌಲ್ಯ;
+#ಇಲ್ಲದಿದ್ದರೆ
 	    /* All our REL architectures also happen to be 32bit LE.  */
-	    write32le(s1->got->data + offset, sym->st_value);
-#endif
+	    write32le(s1->got->ದತ್ತಾಂಶ + ಸ್ಥಾನಾಂತರ, sym->st_ಮೌಲ್ಯ);
+#ಆದರೆ_ಅಂತ್ಯ
 	}
     }
 }
 
 /* Bind symbols of executable: resolve undefined symbols from exported symbols
    in shared libraries */
-static void bind_exe_dynsyms(TCCState *s1, int is_PIE)
+ಸ್ಥಿರ ಶೂನ್ಯ bind_exe_dynsyms(TCCState *s1, ಪೂರ್ಣಾಂಕ is_PIE)
 {
-    const char *name;
-    int sym_index, index;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name;
+    ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ, ಸೂಚ್ಯಂಕ;
     ElfW(Sym) *sym, *esym;
-    int type;
+    ಪೂರ್ಣಾಂಕ type;
 
     /* Resolve undefined symbols from dynamic symbols. When there is a match:
        - if STT_FUNC or STT_GNU_IFUNC symbol -> add it in PLT
        - if STT_OBJECT symbol -> add it in .bss section with suitable reloc */
     for_each_elem(symtab_section, 1, sym, ElfW(Sym)) {
-        if (sym->st_shndx == SHN_UNDEF
+        ಆದರೆ (sym->st_shndx == SHN_UNDEF
             /* bss symbols may be initialized in the shared library */
             || sym->st_shndx == SHN_COMMON
-            || sym->st_shndx == bss_section->sh_num) {
-            name = (char *) symtab_section->link->data + sym->st_name;
-            sym_index = find_elf_sym(s1->dynsymtab_section, name);
-            esym = &((ElfW(Sym) *)s1->dynsymtab_section->data)[sym_index];
-            if (sym_index && esym->st_shndx != SHN_UNDEF) {
-                if (is_PIE)
-                    continue;
+            || sym->st_shndx == bss_section->sh_ಅಂಕೆ) {
+            name = (ಅಕ್ಷರ *) symtab_section->link->ದತ್ತಾಂಶ + sym->st_name;
+            sym_ಸೂಚ್ಯಂಕ = ಕಂಡುಹಿಡಿ_elf_sym(s1->dynsymtab_section, name);
+            esym = &((ElfW(Sym) *)s1->dynsymtab_section->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
+            ಆದರೆ (sym_ಸೂಚ್ಯಂಕ && esym->st_shndx != SHN_UNDEF) {
+                ಆದರೆ (is_PIE)
+                    ಮುಂದುವರಿ;
                 type = ELFW(ST_TYPE)(esym->st_info);
-                if ((type == STT_FUNC) || (type == STT_GNU_IFUNC)) {
+                ಆದರೆ ((type == STT_FUNC) || (type == STT_GNU_IFUNC)) {
                     /* Indirect functions shall have STT_FUNC type in executable
                      * dynsym section. Indeed, a dlsym call following a lazy
                      * resolution would pick the symbol value from the
@@ -2095,58 +2095,58 @@ static void bind_exe_dynsyms(TCCState *s1, int is_PIE)
                      * of the function wanted by the caller of dlsym instead of
                      * the address of the function that would return that
                      * address */
-                    int dynindex
-		      = put_elf_sym(s1->dynsym, 0, esym->st_size,
+                    ಪೂರ್ಣಾಂಕ dynindex
+		      = put_elf_sym(s1->dynsym, 0, esym->st_ಗಾತ್ರ,
 				    ELFW(ST_INFO)(STB_GLOBAL,STT_FUNC), 0, 0,
 				    name);
-		    int index = sym - (ElfW(Sym) *) symtab_section->data;
-		    get_sym_attr(s1, index, 1)->dyn_index = dynindex;
-                } else if (type == STT_OBJECT) {
-                    unsigned long offset;
+		    ಪೂರ್ಣಾಂಕ ಸೂಚ್ಯಂಕ = sym - (ElfW(Sym) *) symtab_section->ದತ್ತಾಂಶ;
+		    get_sym_attr(s1, ಸೂಚ್ಯಂಕ, 1)->dyn_ಸೂಚ್ಯಂಕ = dynindex;
+                } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (type == STT_OBJECT) {
+                    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಸ್ಥಾನಾಂತರ;
                     ElfW(Sym) *dynsym;
-                    if (sym->st_shndx == bss_section->sh_num) {
-                        offset = sym->st_value;
-                    } else {
-                        offset = bss_section->data_offset;
+                    ಆದರೆ (sym->st_shndx == bss_section->sh_ಅಂಕೆ) {
+                        ಸ್ಥಾನಾಂತರ = sym->st_ಮೌಲ್ಯ;
+                    } ಇಲ್ಲದಿದ್ದರೆ {
+                        ಸ್ಥಾನಾಂತರ = bss_section->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
                         /* XXX: which alignment ? */
-                        offset = (offset + 16 - 1) & -16;
-                        bss_section->data_offset = offset + esym->st_size;
+                        ಸ್ಥಾನಾಂತರ = (ಸ್ಥಾನಾಂತರ + 16 - 1) & -16;
+                        bss_section->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = ಸ್ಥಾನಾಂತರ + esym->st_ಗಾತ್ರ;
                     }
-                    set_elf_sym (s1->symtab, offset, esym->st_size,
-                                 esym->st_info, 0, bss_section->sh_num, name);
-                    index = put_elf_sym(s1->dynsym, offset, esym->st_size,
-                                        esym->st_info, 0, bss_section->sh_num,
+                    ಗಣ_elf_sym (s1->symtab, ಸ್ಥಾನಾಂತರ, esym->st_ಗಾತ್ರ,
+                                 esym->st_info, 0, bss_section->sh_ಅಂಕೆ, name);
+                    ಸೂಚ್ಯಂಕ = put_elf_sym(s1->dynsym, ಸ್ಥಾನಾಂತರ, esym->st_ಗಾತ್ರ,
+                                        esym->st_info, 0, bss_section->sh_ಅಂಕೆ,
                                         name);
                     /* Ensure R_COPY works for weak symbol aliases */
-                    if (ELFW(ST_BIND)(esym->st_info) == STB_WEAK) {
+                    ಆದರೆ (ELFW(ST_BIND)(esym->st_info) == STB_WEAK) {
                         for_each_elem(s1->dynsymtab_section, 1, dynsym, ElfW(Sym)) {
-                            if ((dynsym->st_value == esym->st_value)
+                            ಆದರೆ ((dynsym->st_ಮೌಲ್ಯ == esym->st_ಮೌಲ್ಯ)
                                 && (ELFW(ST_BIND)(dynsym->st_info) == STB_GLOBAL)) {
-                                char *dynname = (char *) s1->dynsymtab_section->link->data
+                                ಅಕ್ಷರ *dynname = (ಅಕ್ಷರ *) s1->dynsymtab_section->link->ದತ್ತಾಂಶ
                                                 + dynsym->st_name;
-                                put_elf_sym(s1->dynsym, offset, dynsym->st_size,
+                                put_elf_sym(s1->dynsym, ಸ್ಥಾನಾಂತರ, dynsym->st_ಗಾತ್ರ,
                                             dynsym->st_info, 0,
-                                            bss_section->sh_num, dynname);
-                                break;
+                                            bss_section->sh_ಅಂಕೆ, dynname);
+                                ನಿಲ್ಲಿಸು;
                             }
                         }
                     }
                     put_elf_reloc(s1->dynsym, bss_section,
-                                  offset, R_COPY, index);
+                                  ಸ್ಥಾನಾಂತರ, R_COPY, ಸೂಚ್ಯಂಕ);
                 }
-            } else if (sym->st_shndx == SHN_UNDEF) {
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (sym->st_shndx == SHN_UNDEF) {
                 /* STB_WEAK undefined symbols are accepted */
                 /* XXX: _fp_hw seems to be part of the ABI, so we ignore it */
-                if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK ||
+                ಆದರೆ (ELFW(ST_BIND)(sym->st_info) == STB_WEAK ||
                     !strcmp(name, "_fp_hw")) {
-                } else {
+                } ಇಲ್ಲದಿದ್ದರೆ {
                     tcc_error_noabort("unresolved reference to '%s'", name);
                 }
             }
         }
     }
     /* update _end symbol with new bss length */
-    set_linker_sym(s1, "_end", bss_section, 2);
+    ಗಣ_linker_sym(s1, "_end", bss_section, 2);
 }
 
 /* Bind symbols of libraries: export all non local symbols of executable that
@@ -2154,25 +2154,25 @@ static void bind_exe_dynsyms(TCCState *s1, int is_PIE)
    search symbol first in executable and then in libraries. Therefore a
    reference to a symbol already defined by a library can still be resolved by
    a symbol in the executable.   With -rdynamic, export all defined symbols */
-static void bind_libs_dynsyms(TCCState *s1)
+ಸ್ಥಿರ ಶೂನ್ಯ bind_libs_dynsyms(TCCState *s1)
 {
-    const char *name;
-    int dynsym_index;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name;
+    ಪೂರ್ಣಾಂಕ dynsym_ಸೂಚ್ಯಂಕ;
     ElfW(Sym) *sym, *esym;
 
     for_each_elem(symtab_section, 1, sym, ElfW(Sym)) {
-        name = (char *)symtab_section->link->data + sym->st_name;
-        dynsym_index = find_elf_sym(s1->dynsymtab_section, name);
-        if (sym->st_shndx != SHN_UNDEF) {
-            if (ELFW(ST_BIND)(sym->st_info) != STB_LOCAL
-                && (dynsym_index || s1->rdynamic))
-                set_elf_sym(s1->dynsym, sym->st_value, sym->st_size,
+        name = (ಅಕ್ಷರ *)symtab_section->link->ದತ್ತಾಂಶ + sym->st_name;
+        dynsym_ಸೂಚ್ಯಂಕ = ಕಂಡುಹಿಡಿ_elf_sym(s1->dynsymtab_section, name);
+        ಆದರೆ (sym->st_shndx != SHN_UNDEF) {
+            ಆದರೆ (ELFW(ST_BIND)(sym->st_info) != STB_LOCAL
+                && (dynsym_ಸೂಚ್ಯಂಕ || s1->rdynamic))
+                ಗಣ_elf_sym(s1->dynsym, sym->st_ಮೌಲ್ಯ, sym->st_ಗಾತ್ರ,
                             sym->st_info, 0, sym->st_shndx, name);
-        } else if (dynsym_index) {
-            esym = (ElfW(Sym) *)s1->dynsymtab_section->data + dynsym_index;
-            if (esym->st_shndx == SHN_UNDEF) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (dynsym_ಸೂಚ್ಯಂಕ) {
+            esym = (ElfW(Sym) *)s1->dynsymtab_section->ದತ್ತಾಂಶ + dynsym_ಸೂಚ್ಯಂಕ;
+            ಆದರೆ (esym->st_shndx == SHN_UNDEF) {
                 /* weak symbols can stay undefined */
-                if (ELFW(ST_BIND)(esym->st_info) != STB_WEAK)
+                ಆದರೆ (ELFW(ST_BIND)(esym->st_info) != STB_WEAK)
                     tcc_warning("unresolved dynamic reference to '%s'", name);
             }
         }
@@ -2183,194 +2183,194 @@ static void bind_libs_dynsyms(TCCState *s1)
    non local symbols they define can resolve a reference in another shared
    library or in the executable. Correspondingly, it allows undefined local
    symbols to be resolved by other shared libraries or by the executable. */
-static void export_global_syms(TCCState *s1)
+ಸ್ಥಿರ ಶೂನ್ಯ export_global_syms(TCCState *s1)
 {
-    int dynindex, index;
-    const char *name;
+    ಪೂರ್ಣಾಂಕ dynindex, ಸೂಚ್ಯಂಕ;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name;
     ElfW(Sym) *sym;
     for_each_elem(symtab_section, 1, sym, ElfW(Sym)) {
-        if (ELFW(ST_BIND)(sym->st_info) != STB_LOCAL) {
-	    name = (char *) symtab_section->link->data + sym->st_name;
-	    dynindex = set_elf_sym(s1->dynsym, sym->st_value, sym->st_size,
+        ಆದರೆ (ELFW(ST_BIND)(sym->st_info) != STB_LOCAL) {
+	    name = (ಅಕ್ಷರ *) symtab_section->link->ದತ್ತಾಂಶ + sym->st_name;
+	    dynindex = ಗಣ_elf_sym(s1->dynsym, sym->st_ಮೌಲ್ಯ, sym->st_ಗಾತ್ರ,
 				   sym->st_info, 0, sym->st_shndx, name);
-	    index = sym - (ElfW(Sym) *) symtab_section->data;
-            get_sym_attr(s1, index, 1)->dyn_index = dynindex;
+	    ಸೂಚ್ಯಂಕ = sym - (ElfW(Sym) *) symtab_section->ದತ್ತಾಂಶ;
+            get_sym_attr(s1, ಸೂಚ್ಯಂಕ, 1)->dyn_ಸೂಚ್ಯಂಕ = dynindex;
         }
     }
 }
 
 /* decide if an unallocated section should be output. */
-static int set_sec_sizes(TCCState *s1)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ಗಣ_sec_sizes(TCCState *s1)
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
     Section *s;
-    int textrel = 0;
-    int file_type = s1->output_type;
+    ಪೂರ್ಣಾಂಕ textrel = 0;
+    ಪೂರ್ಣಾಂಕ file_type = s1->output_type;
 
     /* Allocate strings for section names */
-    for(i = 1; i < s1->nb_sections; i++) {
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type == SHT_RELX && !(s->sh_flags & SHF_ALLOC)) {
+        ಆದರೆ (s->sh_type == SHT_RELX && !(s->sh_flags & SHF_ALLOC)) {
             /* when generating a DLL, we include relocations but
                we may patch them */
-            if ((file_type & TCC_OUTPUT_DYN)
+            ಆದರೆ ((file_type & TCC_OUTPUT_DYN)
                 && (s1->sections[s->sh_info]->sh_flags & SHF_ALLOC)) {
-                int count = prepare_dynamic_rel(s1, s);
-                if (count) {
+                ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_3 = prepare_dynamic_rel(s1, s);
+                ಆದರೆ (ಎಣಿಕೆ_3) {
                     /* allocate the section */
                     s->sh_flags |= SHF_ALLOC;
-                    s->sh_size = count * sizeof(ElfW_Rel);
-                    if (s1->sections[s->sh_info]->sh_flags & SHF_EXECINSTR)
-                        textrel += count;
+                    s->sh_ಗಾತ್ರ = ಎಣಿಕೆ_3 * ಗಾತ್ರ(ElfW_Rel);
+                    ಆದರೆ (s1->sections[s->sh_info]->sh_flags & SHF_EXECINSTR)
+                        textrel += ಎಣಿಕೆ_3;
                 }
             }
-        } else if ((s->sh_flags & SHF_ALLOC)
-#ifdef TCC_TARGET_ARM
-                   || s->sh_type == SHT_ARM_ATTRIBUTES
-#endif
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ ((s->sh_flags & SHF_ALLOC)
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_ARM
+                   || s->sh_type == SHT_ARM_ಗುಣಲಕ್ಷಣಗಳು
+#ಆದರೆ_ಅಂತ್ಯ
                    || s1->do_debug) {
-            s->sh_size = s->data_offset;
+            s->sh_ಗಾತ್ರ = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
         }
     }
-    return textrel;
+    ಹಿಂತಿರುಗಿ textrel;
 }
 
 /* various data used under elf_output_file() */
-struct dyn_inf {
+ರಚನೆ dyn_inf {
     Section *dynamic;
     Section *dynstr;
     Section *interp;
     Section *note;
     Section *gnu_hash;
-    struct {
+    ರಚನೆ {
         /* Info to be copied in dynamic section */
-        unsigned long data_offset;
+        ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
         addr_t rel_addr;
-        addr_t rel_size;
+        addr_t rel_ಗಾತ್ರ;
     };
 
     ElfW(Phdr) *phdr;
-    int phnum;
-    int shnum;
-    int tls;
-    int relro;
-    int notes;
-    int ehfr;
-    int dyna;
+    ಪೂರ್ಣಾಂಕ phnum;
+    ಪೂರ್ಣಾಂಕ shnum;
+    ಪೂರ್ಣಾಂಕ tls;
+    ಪೂರ್ಣಾಂಕ relro;
+    ಪೂರ್ಣಾಂಕ notes;
+    ಪೂರ್ಣಾಂಕ ehfr;
+    ಪೂರ್ಣಾಂಕ dyna;
 };
 
 /* Decide the layout of sections loaded in memory. This must be done before
    program headers are filled since they contain info about the layout.
    We do the following ordering: interp, symbol tables, relocations, progbits,
    nobits */
-static int sort_sections(TCCState *s1, int *sec_order, struct dyn_inf *d)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ವಿಂಗಡಿಸು_sections(TCCState *s1, ಪೂರ್ಣಾಂಕ *sec_ಕ್ರಮ, ರಚನೆ dyn_inf *d)
 {
     Section *s;
-    int i, j, k, f, f0, n;
-    int nb_sections = s1->nb_sections;
-    int *sec_cls = sec_order + nb_sections;
-    int tls_align = 0; /* need common alignment for all tls sections */
+    ಪೂರ್ಣಾಂಕ i, j, k, f, f0, n;
+    ಪೂರ್ಣಾಂಕ nb_sections = s1->nb_sections;
+    ಪೂರ್ಣಾಂಕ *sec_cls = sec_ಕ್ರಮ + nb_sections;
+    ಪೂರ್ಣಾಂಕ tls_align = 0; /* need common alignment for all tls sections */
 
-    for (i = 1; i < nb_sections; i++) {
+    ಗಾಗಿ (i = 1; i < nb_sections; i++) {
         s = s1->sections[i];
-        if (0 == s->sh_name) {
+        ಆದರೆ (0 == s->sh_name) {
             j = 0x900; /* no sh_name: won't go to file */
-        } else if (s->sh_flags & SHF_ALLOC) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_flags & SHF_ALLOC) {
             j = 0x100;
-            if ((s->sh_flags & (SHF_WRITE|SHF_TLS)) == SHF_WRITE)
+            ಆದರೆ ((s->sh_flags & (SHF_WRITE|SHF_TLS)) == SHF_WRITE)
                 j = 0x200;
-        } else {
+        } ಇಲ್ಲದಿದ್ದರೆ {
             j = 0x700;
         }
-        if (j >= 0x700 && s1->output_format != TCC_OUTPUT_FORMAT_ELF)
-            s->sh_size = 0, j = 0x900;
+        ಆದರೆ (j >= 0x700 && s1->output_format != TCC_OUTPUT_FORMAT_ELF)
+            s->sh_ಗಾತ್ರ = 0, j = 0x900;
 
-        if (s->sh_type == SHT_SYMTAB || s->sh_type == SHT_DYNSYM) {
+        ಆದರೆ (s->sh_type == SHT_SYMTAB || s->sh_type == SHT_DYNSYM) {
             k = 0x10;
-        } else if (s->sh_type == SHT_STRTAB && strcmp(s->name, ".stabstr")) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_type == SHT_STRTAB && strcmp(s->name, ".stabstr")) {
             k = 0x11;
-            if (i == nb_sections - 1) /* ".shstrtab" assumed to stay last */
+            ಆದರೆ (i == nb_sections - 1) /* ".shstrtab" assumed to stay last */
                 k = 0xff;
-        } else if (s->sh_type == SHT_HASH || s->sh_type == SHT_GNU_HASH) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_type == SHT_HASH || s->sh_type == SHT_GNU_HASH) {
             k = 0x12;
-        } else if (s->sh_type == SHT_GNU_verdef
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_type == SHT_GNU_verdef
                   || s->sh_type == SHT_GNU_verneed
                   || s->sh_type == SHT_GNU_versym) {
             k = 0x13;
-        } else if (s->sh_type == SHT_RELX) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_type == SHT_RELX) {
             k = 0x20;
-            if (s1->plt && s == s1->plt->reloc)
+            ಆದರೆ (s1->plt && s == s1->plt->reloc)
                 k = 0x21;
-        } else if (s->sh_flags & SHF_EXECINSTR) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_flags & SHF_EXECINSTR) {
             k = 0x60;
         /* RELRO sections --> */
-        } else if (s->sh_flags & SHF_TLS) {
-            if (s->sh_addralign > tls_align)
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_flags & SHF_TLS) {
+            ಆದರೆ (s->sh_addralign > tls_align)
                 tls_align = s->sh_addralign;
             k = 0x40 + (s->sh_type == SHT_NOBITS);
-        } else if (s->sh_type == SHT_PREINIT_ARRAY) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_type == SHT_PREINIT_ARRAY) {
             k = 0x42;
-        } else if (s->sh_type == SHT_INIT_ARRAY) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_type == SHT_INIT_ARRAY) {
             k = 0x43;
-        } else if (s->sh_type == SHT_FINI_ARRAY) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_type == SHT_FINI_ARRAY) {
             k = 0x44;
-        } else if (s->sh_type == SHT_DYNAMIC) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_type == SHT_DYNAMIC) {
             k = 0x48;
-        } else if (s == s1->got) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s == s1->got) {
             k = 0x49; /* .got as RELRO needs BIND_NOW in DT_FLAGS */
-        } else if (s->reloc && (s->reloc->sh_flags & SHF_ALLOC) && j == 0x100) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->reloc && (s->reloc->sh_flags & SHF_ALLOC) && j == 0x100) {
             k = 0x45; /* +1 for data.ro */
         /* <-- */
-        } else if (s->sh_type == SHT_NOTE) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_type == SHT_NOTE) {
             k = 0x08, d->notes = 1;
-        } else if (s->sh_type == SHT_NOBITS) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_type == SHT_NOBITS) {
             k = 0x70; /* bss */
-        } else if (s == d->interp) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s == d->interp) {
             k = 0x00;
-        } else {
-            k = 0x50; /* data */
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            k = 0x50; /*ದತ್ತಾಂಶ*/
         }
         k += j;
         /* make our standard sections come last to have _etext/_edata correct values */
-        if (s->sh_num <= bss_section->sh_num)
+        ಆದರೆ (s->sh_ಅಂಕೆ <= bss_section->sh_ಅಂಕೆ)
             ++k;
         /* make RELRO section writable */
-        if ((k & 0xfff0) == 0x140)
+        ಆದರೆ ((k & 0xfff0) == 0x140)
             k += 0x100, s->sh_flags |= SHF_WRITE;
         /* sort by insert */
-        for (n = i; n > 1 && k < (f = sec_cls[n - 1]); --n)
-            sec_cls[n] = f, sec_order[n] = sec_order[n - 1];
-        sec_cls[n] = k, sec_order[n] = i;
+        ಗಾಗಿ (n = i; n > 1 && k < (f = sec_cls[n - 1]); --n)
+            sec_cls[n] = f, sec_ಕ್ರಮ[n] = sec_ಕ್ರಮ[n - 1];
+        sec_cls[n] = k, sec_ಕ್ರಮ[n] = i;
     }
-    sec_order[0] = 0;
+    sec_ಕ್ರಮ[0] = 0;
     d->shnum = 1;
 
-#define SHFX_NEWPH (1 << 4)
-#define SHFX_RELRO (1 << 5)
+#ವ್ಯಾಖ್ಯಾನಿಸು SHFX_NEWPH (1 << 4)
+#ವ್ಯಾಖ್ಯಾನಿಸು SHFX_RELRO (1 << 5)
 
     /* count PT_LOAD headers needed */
     n = f0 = 0;
-    for (i = 1; i < nb_sections; i++) {
-        s = s1->sections[sec_order[i]];
+    ಗಾಗಿ (i = 1; i < nb_sections; i++) {
+        s = s1->sections[sec_ಕ್ರಮ[i]];
         k = sec_cls[i];
         f = 0;
-        if (k < 0x900)
+        ಆದರೆ (k < 0x900)
             ++d->shnum;
-        if (k < 0x700) {
+        ಆದರೆ (k < 0x700) {
             f = s->sh_flags & (SHF_ALLOC|SHF_WRITE|SHF_EXECINSTR);
-#if TARGETOS_NetBSD || TARGETOS_FreeBSD
+#ಆದರೆ TARGETOS_NetBSD || TARGETOS_FreeBSD
 	    /* NetBSD only supports 2 PT_LOAD sections.
 	       See: https://blog.netbsd.org/tnf/entry/the_first_report_on_lld */
-	    if ((f & SHF_WRITE) == 0)
+	    ಆದರೆ ((f & SHF_WRITE) == 0)
                 f |= SHF_EXECINSTR;
             k = 0; /* no relro */
-#endif
-            if ((k & 0xfff0) == 0x240) /* RELRO sections */
+#ಆದರೆ_ಅಂತ್ಯ
+            ಆದರೆ ((k & 0xfff0) == 0x240) /* RELRO sections */
                 d->relro = 1, f |= SHFX_RELRO;
             /* start new header when flags changed, but avoid zero memsz */
-            if (f != f0 && s->sh_size)
+            ಆದರೆ (f != f0 && s->sh_ಗಾತ್ರ)
                 f0 = f, ++n, f |= SHFX_NEWPH;
-            if ((s->sh_flags & SHF_TLS) && s->sh_size) {
+            ಆದರೆ ((s->sh_flags & SHF_TLS) && s->sh_ಗಾತ್ರ) {
                 s->sh_addralign = tls_align;
                 d->tls = 1, f |= SHF_TLS;
             }
@@ -2378,201 +2378,201 @@ static int sort_sections(TCCState *s1, int *sec_order, struct dyn_inf *d)
         sec_cls[i] = f;
         //printf("ph %d sec %02d : %3X %3X  %8.2X  %04X  %s\n", (f>0) * n, i, f, k, s->sh_type, (int)s->sh_size, s->name);
     }
-    return n;
+    ಹಿಂತಿರುಗಿ n;
 }
 
-static ElfW(Phdr) *fill_phdr(ElfW(Phdr) *ph, int type, Section *s)
+ಸ್ಥಿರ ElfW(Phdr) *fill_phdr(ElfW(Phdr) *ph, ಪೂರ್ಣಾಂಕ type, Section *s)
 {
     ph->p_type = type;
     ph->p_flags = PF_R;
-    if (s) {
-        if (s->sh_flags & SHF_WRITE)
+    ಆದರೆ (s) {
+        ಆದರೆ (s->sh_flags & SHF_WRITE)
             ph->p_flags |= PF_W;
-        ph->p_offset = s->sh_offset;
+        ph->p_ಸ್ಥಾನಾಂತರ = s->sh_ಸ್ಥಾನಾಂತರ;
         ph->p_vaddr = s->sh_addr;
-        ph->p_filesz = s->sh_size;
+        ph->p_filesz = s->sh_ಗಾತ್ರ;
         ph->p_align = s->sh_addralign;
     }
     ph->p_paddr = ph->p_vaddr;
     ph->p_memsz = ph->p_filesz;
-    return ph;
+    ಹಿಂತಿರುಗಿ ph;
 }
 
-static ElfW(Phdr) *update_phdr(ElfW(Phdr) *ph, int type, Section *s, addr_t addr, int file_offset)
+ಸ್ಥಿರ ElfW(Phdr) *update_phdr(ElfW(Phdr) *ph, ಪೂರ್ಣಾಂಕ type, Section *s, addr_t addr, ಪೂರ್ಣಾಂಕ file_ಸ್ಥಾನಾಂತರ)
 {
-    if (ph->p_type == 0) {
+    ಆದರೆ (ph->p_type == 0) {
         fill_phdr(ph, type, s);
     }
-    ph->p_filesz = file_offset - ph->p_offset;
+    ph->p_filesz = file_ಸ್ಥಾನಾಂತರ - ph->p_ಸ್ಥಾನಾಂತರ;
     ph->p_memsz = addr - ph->p_vaddr;
-    return ph;
+    ಹಿಂತಿರುಗಿ ph;
 }
 
 /* Assign sections to segments and decide how are sections laid out when loaded
    in memory. This function also fills corresponding program headers. */
-static int layout_sections(TCCState *s1, int *sec_order, struct dyn_inf *d)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ layout_sections(TCCState *s1, ಪೂರ್ಣಾಂಕ *sec_ಕ್ರಮ, ರಚನೆ dyn_inf *d)
 {
     Section *s;
-    addr_t addr, tmp, align, s_align, base;
-    ElfW(Phdr) *ph = NULL, *ph2;
-    int i, f, n, phnum, phfill;
-    int file_offset;
+    addr_t addr, tmp, align, s_align, ತಳ;
+    ElfW(Phdr) *ph = ಖಾಲಿ, *ph2;
+    ಪೂರ್ಣಾಂಕ i, f, n, phnum, phfill;
+    ಪೂರ್ಣಾಂಕ file_ಸ್ಥಾನಾಂತರ;
 
     /* compute number of program headers */
-    phnum = sort_sections(s1, sec_order, d);
+    phnum = ವಿಂಗಡಿಸು_sections(s1, sec_ಕ್ರಮ, d);
     phfill = 0; /* set to 1 to have dll's with a PT_PHDR */
-    if (d->interp)
+    ಆದರೆ (d->interp)
         phfill = 2;
     phnum += phfill;
-    if (d->dynamic)
+    ಆದರೆ (d->dynamic)
         d->dyna = phnum++;
-    if (d->notes)
+    ಆದರೆ (d->notes)
         d->notes = phnum++;
-    if (d->tls)
+    ಆದರೆ (d->tls)
         d->tls = phnum++;
-    if (eh_frame_hdr_section)
+    ಆದರೆ (eh_ಚೌಕಟ್ಟು_hdr_section)
         d->ehfr = phnum++;
-    if (d->relro)
+    ಆದರೆ (d->relro)
         d->relro = phnum++;
     d->phnum = phnum;
-    d->phdr = tcc_mallocz(phnum * sizeof(ElfW(Phdr)));
+    d->phdr = tcc_mallocz(phnum * ಗಾತ್ರ(ElfW(Phdr)));
 
-    file_offset = 0;
-    if (s1->output_format == TCC_OUTPUT_FORMAT_ELF) {
-        file_offset = (sizeof(ElfW(Ehdr)) + phnum * sizeof(ElfW(Phdr)) + 3) & -4;
-        file_offset += d->shnum * sizeof (ElfW(Shdr));
+    file_ಸ್ಥಾನಾಂತರ = 0;
+    ಆದರೆ (s1->output_format == TCC_OUTPUT_FORMAT_ELF) {
+        file_ಸ್ಥಾನಾಂತರ = (ಗಾತ್ರ(ElfW(Ehdr)) + phnum * ಗಾತ್ರ(ElfW(Phdr)) + 3) & -4;
+        file_ಸ್ಥಾನಾಂತರ += d->shnum * ಗಾತ್ರ (ElfW(Shdr));
     }
 
-    s_align = ELF_PAGE_SIZE;
-    if (s1->section_align)
+    s_align = ELF_ಪುಟ_ಗಾತ್ರ;
+    ಆದರೆ (s1->section_align)
         s_align = s1->section_align;
 
-    addr = ELF_START_ADDR;
-    if (s1->output_type & TCC_OUTPUT_DYN)
+    addr = ELF_ಆರಂಭ_ADDR;
+    ಆದರೆ (s1->output_type & TCC_OUTPUT_DYN)
         addr = 0;
 
-    if (s1->has_text_addr) {
-        addr = s1->text_addr;
-        if (0) {
-            int a_offset, p_offset;
+    ಆದರೆ (s1->has_ಪಠ್ಯ_addr) {
+        addr = s1->ಪಠ್ಯ_addr;
+        ಆದರೆ (0) {
+            ಪೂರ್ಣಾಂಕ a_ಸ್ಥಾನಾಂತರ, p_ಸ್ಥಾನಾಂತರ;
             /* we ensure that (addr % ELF_PAGE_SIZE) == file_offset %
                ELF_PAGE_SIZE */
-            a_offset = (int) (addr & (s_align - 1));
-            p_offset = file_offset & (s_align - 1);
-            if (a_offset < p_offset)
-                a_offset += s_align;
-            file_offset += (a_offset - p_offset);
+            a_ಸ್ಥಾನಾಂತರ = (ಪೂರ್ಣಾಂಕ) (addr & (s_align - 1));
+            p_ಸ್ಥಾನಾಂತರ = file_ಸ್ಥಾನಾಂತರ & (s_align - 1);
+            ಆದರೆ (a_ಸ್ಥಾನಾಂತರ < p_ಸ್ಥಾನಾಂತರ)
+                a_ಸ್ಥಾನಾಂತರ += s_align;
+            file_ಸ್ಥಾನಾಂತರ += (a_ಸ್ಥಾನಾಂತರ - p_ಸ್ಥಾನಾಂತರ);
         }
     }
-    base = addr;
+    ತಳ = addr;
     /* compute address after headers */
-    addr += file_offset;
+    addr += file_ಸ್ಥಾನಾಂತರ;
 
     n = 0;
-    for(i = 1; i < s1->nb_sections; i++) {
-        s = s1->sections[sec_order[i]];
-        f = sec_order[i + s1->nb_sections];
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
+        s = s1->sections[sec_ಕ್ರಮ[i]];
+        f = sec_ಕ್ರಮ[i + s1->nb_sections];
         align = s->sh_addralign - 1;
 
-        if (f == 0) { /* no alloc */
-            file_offset = (file_offset + align) & ~align;
-            s->sh_offset = file_offset;
-            if (s->sh_type != SHT_NOBITS)
-                file_offset += s->sh_size;
-            continue;
+        ಆದರೆ (f == 0) { /* no alloc */
+            file_ಸ್ಥಾನಾಂತರ = (file_ಸ್ಥಾನಾಂತರ + align) & ~align;
+            s->sh_ಸ್ಥಾನಾಂತರ = file_ಸ್ಥಾನಾಂತರ;
+            ಆದರೆ (s->sh_type != SHT_NOBITS)
+                file_ಸ್ಥಾನಾಂತರ += s->sh_ಗಾತ್ರ;
+            ಮುಂದುವರಿ;
         }
 
-        if ((f & SHFX_NEWPH) && n) {
+        ಆದರೆ ((f & SHFX_NEWPH) && n) {
             /* different rwx section flags */
-            if (s1->output_format == TCC_OUTPUT_FORMAT_ELF) {
+            ಆದರೆ (s1->output_format == TCC_OUTPUT_FORMAT_ELF) {
                 /* if in the middle of a page, w e duplicate the page in
                    memory so that one copy is RX and the other is RW */
-                if ((addr & (s_align - 1)) != 0)
+                ಆದರೆ ((addr & (s_align - 1)) != 0)
                     addr += s_align;
-            } else {
+            } ಇಲ್ಲದಿದ್ದರೆ {
                 align = s_align - 1;
             }
         }
 
         tmp = addr;
         addr = (addr + align) & ~align;
-        file_offset += (int)(addr - tmp);
-        s->sh_offset = file_offset;
+        file_ಸ್ಥಾನಾಂತರ += (ಪೂರ್ಣಾಂಕ)(addr - tmp);
+        s->sh_ಸ್ಥಾನಾಂತರ = file_ಸ್ಥಾನಾಂತರ;
         s->sh_addr = addr;
 
         //printf("%d : %08x %08x %04x %03x %s %d\n", n, (int)file_offset, (int)addr, (int)s->sh_size, s->sh_type, s->name, align + 1);
-        addr += s->sh_size;
-        if (s->sh_type != SHT_NOBITS)
-            file_offset += s->sh_size;
+        addr += s->sh_ಗಾತ್ರ;
+        ಆದರೆ (s->sh_type != SHT_NOBITS)
+            file_ಸ್ಥಾನಾಂತರ += s->sh_ಗಾತ್ರ;
 
-        if (f & SHFX_NEWPH) {
+        ಆದರೆ (f & SHFX_NEWPH) {
             /* set new program header */
             ph = &d->phdr[phfill + n];
-            fill_phdr(ph, PT_LOAD, s);
+            fill_phdr(ph, PT_ತುಂಬು, s);
             ph->p_align = s_align;
-            if (f & SHF_EXECINSTR)
+            ಆದರೆ (f & SHF_EXECINSTR)
                 ph->p_flags |= PF_X;
-            if (n == 0) {
+            ಆದರೆ (n == 0) {
 		/* Make the first PT_LOAD segment include the program
 		   headers itself (and the ELF header as well), it'll
 		   come out with same memory use but will make various
 		   tools like binutils strip work better.  */
-		ph->p_offset = 0;
-                ph->p_paddr = ph->p_vaddr = base;
+		ph->p_ಸ್ಥಾನಾಂತರ = 0;
+                ph->p_paddr = ph->p_vaddr = ತಳ;
             }
             ++n;
         }
 
-        if (ph)
-            update_phdr(ph, 0, 0, addr, file_offset);
+        ಆದರೆ (ph)
+            update_phdr(ph, 0, 0, addr, file_ಸ್ಥಾನಾಂತರ);
 
-        if (f & SHFX_RELRO) {
-            ph2 = update_phdr(&d->phdr[d->relro], PT_GNU_RELRO, s, addr, file_offset);
+        ಆದರೆ (f & SHFX_RELRO) {
+            ph2 = update_phdr(&d->phdr[d->relro], PT_GNU_RELRO, s, addr, file_ಸ್ಥಾನಾಂತರ);
             ph2->p_align = 1;
         }
-        if (f & SHF_TLS) {
-            ph2 = update_phdr(&d->phdr[d->tls], PT_TLS, s, addr, file_offset);
-            if (s->sh_type == SHT_NOBITS)
-                addr -= s->sh_size;
+        ಆದರೆ (f & SHF_TLS) {
+            ph2 = update_phdr(&d->phdr[d->tls], PT_TLS, s, addr, file_ಸ್ಥಾನಾಂತರ);
+            ಆದರೆ (s->sh_type == SHT_NOBITS)
+                addr -= s->sh_ಗಾತ್ರ;
             /* for xxx-link.c:relocate() */
-            s1->tls_start = ph2->p_vaddr;
-            s1->tls_end = s1->tls_start + ph2->p_memsz + (-ph2->p_memsz & (ph2->p_align - 1));
+            s1->tls_ಆರಂಭ = ph2->p_vaddr;
+            s1->tls_ಕೊನೆ = s1->tls_ಆರಂಭ + ph2->p_memsz + (-ph2->p_memsz & (ph2->p_align - 1));
         }
-        if (s->sh_type == SHT_NOTE) {
-            update_phdr(&d->phdr[d->notes], PT_NOTE, s, addr, file_offset);
+        ಆದರೆ (s->sh_type == SHT_NOTE) {
+            update_phdr(&d->phdr[d->notes], PT_NOTE, s, addr, file_ಸ್ಥಾನಾಂತರ);
         }
     }
 
     /* Fill other headers */
-    if (d->dyna)
+    ಆದರೆ (d->dyna)
         fill_phdr(&d->phdr[d->dyna], PT_DYNAMIC, d->dynamic);
-    if (d->ehfr)
-        fill_phdr(&d->phdr[d->ehfr], PT_GNU_EH_FRAME, eh_frame_hdr_section);
-    if (d->interp)
+    ಆದರೆ (d->ehfr)
+        fill_phdr(&d->phdr[d->ehfr], PT_GNU_EH_ಚೌಕಟ್ಟು, eh_ಚೌಕಟ್ಟು_hdr_section);
+    ಆದರೆ (d->interp)
         fill_phdr(&d->phdr[1], PT_INTERP, d->interp);
-    if (phfill) {
+    ಆದರೆ (phfill) {
         ph = &d->phdr[0];
-        ph->p_offset = sizeof(ElfW(Ehdr));
-        ph->p_vaddr = base + ph->p_offset;
-        ph->p_filesz = phnum * sizeof(ElfW(Phdr));
+        ph->p_ಸ್ಥಾನಾಂತರ = ಗಾತ್ರ(ElfW(Ehdr));
+        ph->p_vaddr = ತಳ + ph->p_ಸ್ಥಾನಾಂತರ;
+        ph->p_filesz = phnum * ಗಾತ್ರ(ElfW(Phdr));
         ph->p_align = 4;
-        fill_phdr(ph, PT_PHDR, NULL);
+        fill_phdr(ph, PT_PHDR, ಖಾಲಿ);
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* put dynamic tag */
-static void put_dt(Section *dynamic, int dt, addr_t val)
+ಸ್ಥಿರ ಶೂನ್ಯ put_dt(Section *dynamic, ಪೂರ್ಣಾಂಕ dt, addr_t val)
 {
     ElfW(Dyn) *dyn;
-    dyn = section_ptr_add(dynamic, sizeof(ElfW(Dyn)));
-    dyn->d_tag = dt;
+    dyn = section_ptr_ಕೂಡಿಸು(dynamic, ಗಾತ್ರ(ElfW(Dyn)));
+    dyn->d_ಟ್ಯಾಗ್ = dt;
     dyn->d_un.d_val = val;
 }
 
 /* Fill the dynamic section with tags describing the address and size of
    sections */
-static void fill_dynamic(TCCState *s1, struct dyn_inf *dyninf)
+ಸ್ಥಿರ ಶೂನ್ಯ fill_dynamic(TCCState *s1, ರಚನೆ dyn_inf *dyninf)
 {
     Section *dynamic = dyninf->dynamic;
     Section *s;
@@ -2582,61 +2582,61 @@ static void fill_dynamic(TCCState *s1, struct dyn_inf *dyninf)
     put_dt(dynamic, DT_GNU_HASH, dyninf->gnu_hash->sh_addr);
     put_dt(dynamic, DT_STRTAB, dyninf->dynstr->sh_addr);
     put_dt(dynamic, DT_SYMTAB, s1->dynsym->sh_addr);
-    put_dt(dynamic, DT_STRSZ, dyninf->dynstr->data_offset);
-    put_dt(dynamic, DT_SYMENT, sizeof(ElfW(Sym)));
-#if PTR_SIZE == 8
+    put_dt(dynamic, DT_STRSZ, dyninf->dynstr->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
+    put_dt(dynamic, DT_SYMENT, ಗಾತ್ರ(ElfW(Sym)));
+#ಆದರೆ PTR_ಗಾತ್ರ == 8
     put_dt(dynamic, DT_RELA, dyninf->rel_addr);
-    put_dt(dynamic, DT_RELASZ, dyninf->rel_size);
-    put_dt(dynamic, DT_RELAENT, sizeof(ElfW_Rel));
-    if (s1->plt && s1->plt->reloc) {
+    put_dt(dynamic, DT_RELASZ, dyninf->rel_ಗಾತ್ರ);
+    put_dt(dynamic, DT_RELAENT, ಗಾತ್ರ(ElfW_Rel));
+    ಆದರೆ (s1->plt && s1->plt->reloc) {
         put_dt(dynamic, DT_PLTGOT, s1->got->sh_addr);
-        put_dt(dynamic, DT_PLTRELSZ, s1->plt->reloc->data_offset);
+        put_dt(dynamic, DT_PLTRELSZ, s1->plt->reloc->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
         put_dt(dynamic, DT_JMPREL, s1->plt->reloc->sh_addr);
         put_dt(dynamic, DT_PLTREL, DT_RELA);
     }
     put_dt(dynamic, DT_RELACOUNT, 0);
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
     put_dt(dynamic, DT_REL, dyninf->rel_addr);
-    put_dt(dynamic, DT_RELSZ, dyninf->rel_size);
-    put_dt(dynamic, DT_RELENT, sizeof(ElfW_Rel));
-    if (s1->plt && s1->plt->reloc) {
+    put_dt(dynamic, DT_RELSZ, dyninf->rel_ಗಾತ್ರ);
+    put_dt(dynamic, DT_RELENT, ಗಾತ್ರ(ElfW_Rel));
+    ಆದರೆ (s1->plt && s1->plt->reloc) {
         put_dt(dynamic, DT_PLTGOT, s1->got->sh_addr);
-        put_dt(dynamic, DT_PLTRELSZ, s1->plt->reloc->data_offset);
+        put_dt(dynamic, DT_PLTRELSZ, s1->plt->reloc->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
         put_dt(dynamic, DT_JMPREL, s1->plt->reloc->sh_addr);
         put_dt(dynamic, DT_PLTREL, DT_REL);
     }
     put_dt(dynamic, DT_RELCOUNT, 0);
-#endif
-    if (versym_section && verneed_section) {
+#ಆದರೆ_ಅಂತ್ಯ
+    ಆದರೆ (versym_section && verneed_section) {
 	/* The dynamic linker can not handle VERSYM without VERNEED */
         put_dt(dynamic, DT_VERSYM, versym_section->sh_addr);
         put_dt(dynamic, DT_VERNEED, verneed_section->sh_addr);
         put_dt(dynamic, DT_VERNEEDNUM, dt_verneednum);
     }
     s = have_section(s1, ".preinit_array");
-    if (s && s->data_offset) {
+    ಆದರೆ (s && s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ) {
         put_dt(dynamic, DT_PREINIT_ARRAY, s->sh_addr);
-        put_dt(dynamic, DT_PREINIT_ARRAYSZ, s->data_offset);
+        put_dt(dynamic, DT_PREINIT_ARRAYSZ, s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
     }
     s = have_section(s1, ".init_array");
-    if (s && s->data_offset) {
+    ಆದರೆ (s && s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ) {
         put_dt(dynamic, DT_INIT_ARRAY, s->sh_addr);
-        put_dt(dynamic, DT_INIT_ARRAYSZ, s->data_offset);
+        put_dt(dynamic, DT_INIT_ARRAYSZ, s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
     }
     s = have_section(s1, ".fini_array");
-    if (s && s->data_offset) {
+    ಆದರೆ (s && s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ) {
         put_dt(dynamic, DT_FINI_ARRAY, s->sh_addr);
-        put_dt(dynamic, DT_FINI_ARRAYSZ, s->data_offset);
+        put_dt(dynamic, DT_FINI_ARRAYSZ, s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
     }
     s = have_section(s1, ".init");
-    if (s && s->data_offset) {
+    ಆದರೆ (s && s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ) {
         put_dt(dynamic, DT_INIT, s->sh_addr);
     }
     s = have_section(s1, ".fini");
-    if (s && s->data_offset) {
+    ಆದರೆ (s && s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ) {
         put_dt(dynamic, DT_FINI, s->sh_addr);
     }
-    if (s1->do_debug)
+    ಆದರೆ (s1->do_debug)
         put_dt(dynamic, DT_DEBUG, 0);
     put_dt(dynamic, DT_NULL, 0);
 }
@@ -2646,38 +2646,38 @@ static void fill_dynamic(TCCState *s1, struct dyn_inf *dyninf)
    The gaps are then filled with 0 in tcc_output_elf. The 0 is intepreted as
    R_...NONE reloc. This does work on most targets but on OpenBSD/arm64 this
    is illegal. OpenBSD/arm64 does not support R_...NONE reloc. */
-static void update_reloc_sections(TCCState *s1, struct dyn_inf *dyninf)
+ಸ್ಥಿರ ಶೂನ್ಯ update_reloc_sections(TCCState *s1, ರಚನೆ dyn_inf *dyninf)
 {
-    int i;
-    unsigned long file_offset = 0;
+    ಪೂರ್ಣಾಂಕ i;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ file_ಸ್ಥಾನಾಂತರ = 0;
     Section *s;
-    Section *relocplt = s1->plt ? s1->plt->reloc : NULL;
+    Section *relocplt = s1->plt ? s1->plt->reloc : ಖಾಲಿ;
 
     /* dynamic relocation table information, for .dynamic section */
-    dyninf->rel_addr = dyninf->rel_size = 0;
+    dyninf->rel_addr = dyninf->rel_ಗಾತ್ರ = 0;
 
-    for(i = 1; i < s1->nb_sections; i++) {
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-	if (s->sh_type == SHT_RELX && s != relocplt) {
-	    if (dyninf->rel_size == 0) {
+	ಆದರೆ (s->sh_type == SHT_RELX && s != relocplt) {
+	    ಆದರೆ (dyninf->rel_ಗಾತ್ರ == 0) {
 		dyninf->rel_addr = s->sh_addr;
-		file_offset = s->sh_offset;
+		file_ಸ್ಥಾನಾಂತರ = s->sh_ಸ್ಥಾನಾಂತರ;
 	    }
-	    else {
-		s->sh_addr = dyninf->rel_addr + dyninf->rel_size;
-		s->sh_offset = file_offset + dyninf->rel_size;
+	    ಇಲ್ಲದಿದ್ದರೆ {
+		s->sh_addr = dyninf->rel_addr + dyninf->rel_ಗಾತ್ರ;
+		s->sh_ಸ್ಥಾನಾಂತರ = file_ಸ್ಥಾನಾಂತರ + dyninf->rel_ಗಾತ್ರ;
 	    }
-	    dyninf->rel_size += s->sh_size;
+	    dyninf->rel_ಗಾತ್ರ += s->sh_ಗಾತ್ರ;
 	}
     }
 }
-#endif /* ndef ELF_OBJ_ONLY */
+#ಆದರೆ_ಅಂತ್ಯ /* ndef ELF_OBJ_ONLY */
 
 /* Create an ELF file on disk.
    This function handle ELF specific layout requirements */
-static int tcc_output_elf(TCCState *s1, FILE *f, int phnum, ElfW(Phdr) *phdr)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ tcc_output_elf(TCCState *s1, FILE *f, ಪೂರ್ಣಾಂಕ phnum, ElfW(Phdr) *phdr)
 {
-    int i, shnum, offset, size, file_type;
+    ಪೂರ್ಣಾಂಕ i, shnum, ಸ್ಥಾನಾಂತರ, ಗಾತ್ರ_2, file_type;
     Section *s;
     ElfW(Ehdr) ehdr;
     ElfW(Shdr) shdr, *sh;
@@ -2685,11 +2685,11 @@ static int tcc_output_elf(TCCState *s1, FILE *f, int phnum, ElfW(Phdr) *phdr)
     file_type = s1->output_type;
     shnum = s1->nb_sections;
 
-    memset(&ehdr, 0, sizeof(ehdr));
-    if (phnum > 0) {
-        ehdr.e_phentsize = sizeof(ElfW(Phdr));
+    memset(&ehdr, 0, ಗಾತ್ರ(ehdr));
+    ಆದರೆ (phnum > 0) {
+        ehdr.e_phentsize = ಗಾತ್ರ(ElfW(Phdr));
         ehdr.e_phnum = phnum;
-        ehdr.e_phoff = sizeof(ElfW(Ehdr));
+        ehdr.e_phoff = ಗಾತ್ರ(ElfW(Ehdr));
     }
 
     /* fill header */
@@ -2701,180 +2701,180 @@ static int tcc_output_elf(TCCState *s1, FILE *f, int phnum, ElfW(Phdr) *phdr)
     ehdr.e_ident[5] = ELFDATA2LSB;
     ehdr.e_ident[6] = EV_CURRENT;
 
-#if TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
+#ಆದರೆ TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
     ehdr.e_ident[EI_OSABI] = ELFOSABI_FREEBSD;
-#elif TARGETOS_OpenBSD
+#ಅಥವಾಆದರೆ TARGETOS_OpenBSD
     ehdr.e_ident[EI_OSABI] = ELFOSABI_OPENBSD;
-#elif TARGETOS_NetBSD
+#ಅಥವಾಆದರೆ TARGETOS_NetBSD
     ehdr.e_ident[EI_OSABI] = ELFOSABI_NETBSD;
-#elif defined TCC_TARGET_ARM && defined TCC_ARM_EABI
+#ಅಥವಾಆದರೆ defined TCC_ಗುರಿ_ARM && defined TCC_ARM_EABI
     ehdr.e_flags = EF_ARM_EABI_VER5;
     ehdr.e_flags |= s1->float_abi == ARM_HARD_FLOAT
         ? EF_ARM_VFP_FLOAT : EF_ARM_SOFT_FLOAT;
-#elif defined TCC_TARGET_ARM
+#ಅಥವಾಆದರೆ defined TCC_ಗುರಿ_ARM
     ehdr.e_ident[EI_OSABI] = ELFOSABI_ARM;
-#elif defined TCC_TARGET_RISCV64
+#ಅಥವಾಆದರೆ defined TCC_ಗುರಿ_RISCV64
     /* XXX should be configurable */
     ehdr.e_flags = EF_RISCV_FLOAT_ABI_DOUBLE;
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-    if (file_type == TCC_OUTPUT_OBJ) {
+    ಆದರೆ (file_type == TCC_OUTPUT_OBJ) {
         ehdr.e_type = ET_REL;
-    } else {
-        if (file_type & TCC_OUTPUT_DYN)
+    } ಇಲ್ಲದಿದ್ದರೆ {
+        ಆದರೆ (file_type & TCC_OUTPUT_DYN)
             ehdr.e_type = ET_DYN;
-        else
+        ಇಲ್ಲದಿದ್ದರೆ
             ehdr.e_type = ET_EXEC;
-        if (s1->elf_entryname)
-            ehdr.e_entry = get_sym_addr(s1, s1->elf_entryname, 1, 0);
-        else
-            ehdr.e_entry = get_sym_addr(s1, "_start", !!(file_type & TCC_OUTPUT_EXE), 0);
-        if (ehdr.e_entry == (addr_t)-1)
-            ehdr.e_entry = text_section->sh_addr;
-        if (s1->nb_errors)
-            return -1;
+        ಆದರೆ (s1->elf_entryname)
+            ehdr.e_ನಮೂದು = get_sym_addr(s1, s1->elf_entryname, 1, 0);
+        ಇಲ್ಲದಿದ್ದರೆ
+            ehdr.e_ನಮೂದು = get_sym_addr(s1, "_start", !!(file_type & TCC_OUTPUT_EXE), 0);
+        ಆದರೆ (ehdr.e_ನಮೂದು == (addr_t)-1)
+            ehdr.e_ನಮೂದು = ಪಠ್ಯ_section->sh_addr;
+        ಆದರೆ (s1->nb_errors)
+            ಹಿಂತಿರುಗಿ -1;
     }
 
-    sort_syms(s1, s1->symtab);
+    ವಿಂಗಡಿಸು_syms(s1, s1->symtab);
 
-    ehdr.e_machine = EM_TCC_TARGET;
-    ehdr.e_version = EV_CURRENT;
-    ehdr.e_shoff = (sizeof(ElfW(Ehdr)) + phnum * sizeof(ElfW(Phdr)) + 3) & -4;
-    ehdr.e_ehsize = sizeof(ElfW(Ehdr));
-    ehdr.e_shentsize = sizeof(ElfW(Shdr));
+    ehdr.e_machine = EM_TCC_ಗುರಿ;
+    ehdr.e_ಆವೃತ್ತಿ = EV_CURRENT;
+    ehdr.e_shoff = (ಗಾತ್ರ(ElfW(Ehdr)) + phnum * ಗಾತ್ರ(ElfW(Phdr)) + 3) & -4;
+    ehdr.e_ehsize = ಗಾತ್ರ(ElfW(Ehdr));
+    ehdr.e_shentsize = ಗಾತ್ರ(ElfW(Shdr));
     ehdr.e_shnum = shnum;
     ehdr.e_shstrndx = shnum - 1;
 
-    offset = fwrite(&ehdr, 1, sizeof(ElfW(Ehdr)), f);
-    if (phdr)
-        offset += fwrite(phdr, 1, phnum * sizeof(ElfW(Phdr)), f);
+    ಸ್ಥಾನಾಂತರ = fwrite(&ehdr, 1, ಗಾತ್ರ(ElfW(Ehdr)), f);
+    ಆದರೆ (phdr)
+        ಸ್ಥಾನಾಂತರ += fwrite(phdr, 1, phnum * ಗಾತ್ರ(ElfW(Phdr)), f);
 
     /* output section headers */
-    while (offset < ehdr.e_shoff) {
+    ಆಗ (ಸ್ಥಾನಾಂತರ < ehdr.e_shoff) {
         fputc(0, f);
-        offset++;
+        ಸ್ಥಾನಾಂತರ++;
     }
 
-    for(i = 0; i < shnum; i++) {
+    ಗಾಗಿ(i = 0; i < shnum; i++) {
         sh = &shdr;
-        memset(sh, 0, sizeof(ElfW(Shdr)));
-        if (i) {
+        memset(sh, 0, ಗಾತ್ರ(ElfW(Shdr)));
+        ಆದರೆ (i) {
             s = s1->sections[i];
             sh->sh_name = s->sh_name;
             sh->sh_type = s->sh_type;
             sh->sh_flags = s->sh_flags;
             sh->sh_entsize = s->sh_entsize;
             sh->sh_info = s->sh_info;
-            if (s->link)
-                sh->sh_link = s->link->sh_num;
+            ಆದರೆ (s->link)
+                sh->sh_link = s->link->sh_ಅಂಕೆ;
             sh->sh_addralign = s->sh_addralign;
             sh->sh_addr = s->sh_addr;
-            sh->sh_offset = s->sh_offset;
-            sh->sh_size = s->sh_size;
+            sh->sh_ಸ್ಥಾನಾಂತರ = s->sh_ಸ್ಥಾನಾಂತರ;
+            sh->sh_ಗಾತ್ರ = s->sh_ಗಾತ್ರ;
         }
-        offset += fwrite(sh, 1, sizeof(ElfW(Shdr)), f);
+        ಸ್ಥಾನಾಂತರ += fwrite(sh, 1, ಗಾತ್ರ(ElfW(Shdr)), f);
     }
 
     /* output sections */
-    for(i = 1; i < s1->nb_sections; i++) {
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_NOBITS) {
-            while (offset < s->sh_offset) {
+        ಆದರೆ (s->sh_type != SHT_NOBITS) {
+            ಆಗ (ಸ್ಥಾನಾಂತರ < s->sh_ಸ್ಥಾನಾಂತರ) {
                 fputc(0, f);
-                offset++;
+                ಸ್ಥಾನಾಂತರ++;
             }
-            size = s->sh_size;
-            if (size)
-                offset += fwrite(s->data, 1, size, f);
+            ಗಾತ್ರ_2 = s->sh_ಗಾತ್ರ;
+            ಆದರೆ (ಗಾತ್ರ_2)
+                ಸ್ಥಾನಾಂತರ += fwrite(s->ದತ್ತಾಂಶ, 1, ಗಾತ್ರ_2, f);
         }
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-static int tcc_output_binary(TCCState *s1, FILE *f)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ tcc_output_ದ್ವಿಮಾನ(TCCState *s1, FILE *f)
 {
     Section *s;
-    int i, offset, size;
+    ಪೂರ್ಣಾಂಕ i, ಸ್ಥಾನಾಂತರ, ಗಾತ್ರ_2;
 
-    offset = 0;
-    for(i=1;i<s1->nb_sections;i++) {
+    ಸ್ಥಾನಾಂತರ = 0;
+    ಗಾಗಿ(i=1;i<s1->nb_sections;i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_NOBITS &&
+        ಆದರೆ (s->sh_type != SHT_NOBITS &&
             (s->sh_flags & SHF_ALLOC)) {
-            while (offset < s->sh_offset) {
+            ಆಗ (ಸ್ಥಾನಾಂತರ < s->sh_ಸ್ಥಾನಾಂತರ) {
                 fputc(0, f);
-                offset++;
+                ಸ್ಥಾನಾಂತರ++;
             }
-            size = s->sh_size;
-            fwrite(s->data, 1, size, f);
-            offset += size;
+            ಗಾತ್ರ_2 = s->sh_ಗಾತ್ರ;
+            fwrite(s->ದತ್ತಾಂಶ, 1, ಗಾತ್ರ_2, f);
+            ಸ್ಥಾನಾಂತರ += ಗಾತ್ರ_2;
         }
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* Write an elf, coff or "binary" file */
-static int tcc_write_elf_file(TCCState *s1, const char *filename, int phnum,
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ tcc_write_elf_file(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *filename, ಪೂರ್ಣಾಂಕ phnum,
                               ElfW(Phdr) *phdr)
 {
-    int fd, mode, file_type, ret;
+    ಪೂರ್ಣಾಂಕ fd, ಬಹುಲಕ, file_type, ret;
     FILE *f;
 
     file_type = s1->output_type;
-    if (file_type == TCC_OUTPUT_OBJ)
-        mode = 0666;
-    else
-        mode = 0777;
+    ಆದರೆ (file_type == TCC_OUTPUT_OBJ)
+        ಬಹುಲಕ = 0666;
+    ಇಲ್ಲದಿದ್ದರೆ
+        ಬಹುಲಕ = 0777;
     unlink(filename);
-    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, mode);
-    if (fd < 0 || (f = fdopen(fd, "wb")) == NULL)
-        return tcc_error_noabort("could not write '%s: %s'", filename, strerror(errno));
-    if (s1->verbose)
-        printf("<- %s\n", filename);
-#ifdef TCC_TARGET_COFF
-    if (s1->output_format == TCC_OUTPUT_FORMAT_COFF)
+    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_ದ್ವಿಮಾನ_2, ಬಹುಲಕ);
+    ಆದರೆ (fd < 0 || (f = fdopen(fd, "wb")) == ಖಾಲಿ)
+        ಹಿಂತಿರುಗಿ tcc_error_noabort("could not write '%s: %s'", filename, strerror(errno));
+    ಆದರೆ (s1->verbose)
+        ಬರೆ("<- %s\n", filename);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_COFF
+    ಆದರೆ (s1->output_format == TCC_OUTPUT_FORMAT_COFF)
         tcc_output_coff(s1, f);
-    else
-#endif
-    if (s1->output_format == TCC_OUTPUT_FORMAT_ELF)
+    ಇಲ್ಲದಿದ್ದರೆ
+#ಆದರೆ_ಅಂತ್ಯ
+    ಆದರೆ (s1->output_format == TCC_OUTPUT_FORMAT_ELF)
         ret = tcc_output_elf(s1, f, phnum, phdr);
-    else
-        ret = tcc_output_binary(s1, f);
+    ಇಲ್ಲದಿದ್ದರೆ
+        ret = tcc_output_ದ್ವಿಮಾನ(s1, f);
     fclose(f);
 
-    return ret;
+    ಹಿಂತಿರುಗಿ ret;
 }
 
-#ifndef ELF_OBJ_ONLY
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
 /* order sections according to sec_order, remove sections
    that we aren't going to output.  */
-static void reorder_sections(TCCState *s1, int *sec_order)
+ಸ್ಥಿರ ಶೂನ್ಯ reorder_sections(TCCState *s1, ಪೂರ್ಣಾಂಕ *sec_ಕ್ರಮ)
 {
-    int i, nnew, k, *backmap;
+    ಪೂರ್ಣಾಂಕ i, nnew, k, *backmap;
     Section **snew, *s;
     ElfW(Sym) *sym;
 
-    backmap = tcc_malloc(s1->nb_sections * sizeof(backmap[0]));
-    for (i = 0, nnew = 0, snew = NULL; i < s1->nb_sections; i++) {
-	k = sec_order ? sec_order[i] : i;
+    backmap = tcc_malloc(s1->nb_sections * ಗಾತ್ರ(backmap[0]));
+    ಗಾಗಿ (i = 0, nnew = 0, snew = ಖಾಲಿ; i < s1->nb_sections; i++) {
+	k = sec_ಕ್ರಮ ? sec_ಕ್ರಮ[i] : i;
 	s = s1->sections[k];
-	if (!i || s->sh_name) {
+	ಆದರೆ (!i || s->sh_name) {
 	    backmap[k] = nnew;
-            dynarray_add(&snew, &nnew, s);
-	} else {
+            dynarray_ಕೂಡಿಸು(&snew, &nnew, s);
+	} ಇಲ್ಲದಿದ್ದರೆ {
 	    backmap[k] = 0;
             /* just remember to free them later */
-	    dynarray_add(&s1->priv_sections, &s1->nb_priv_sections, s);
+	    dynarray_ಕೂಡಿಸು(&s1->priv_sections, &s1->nb_priv_sections, s);
 	}
     }
-    for (i = 1; i < nnew; i++) {
+    ಗಾಗಿ (i = 1; i < nnew; i++) {
 	s = snew[i];
-        s->sh_num = i;
-        if (s->sh_type == SHT_RELX)
+        s->sh_ಅಂಕೆ = i;
+        ಆದರೆ (s->sh_type == SHT_RELX)
             s->sh_info = backmap[s->sh_info];
-        else if (s->sh_type == SHT_SYMTAB || s->sh_type == SHT_DYNSYM)
+        ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s->sh_type == SHT_SYMTAB || s->sh_type == SHT_DYNSYM)
             for_each_elem(s, 1, sym, ElfW(Sym))
-                if (sym->st_shndx < s1->nb_sections)
+                ಆದರೆ (sym->st_shndx < s1->nb_sections)
                     sym->st_shndx = backmap[sym->st_shndx];
     }
     tcc_free(s1->sections);
@@ -2883,21 +2883,21 @@ static void reorder_sections(TCCState *s1, int *sec_order)
     tcc_free(backmap);
 }
 
-#ifdef TCC_TARGET_ARM
-static void create_arm_attribute_section(TCCState *s1)
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_ARM
+ಸ್ಥಿರ ಶೂನ್ಯ create_arm_attribute_section(TCCState *s1)
 {
    // Needed for DLL support.
-    static const unsigned char arm_attr[] = {
+    ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ arm_attr[] = {
         0x41,                            // 'A'
         0x2c, 0x00, 0x00, 0x00,          // size 0x2c
         'a', 'e', 'a', 'b', 'i', 0x00,   // "aeabi"
         0x01, 0x22, 0x00, 0x00, 0x00,    // 'File Attributes', size 0x22
         0x05, 0x36, 0x00,                // 'CPU_name', "6"
-#if CONFIG_TCC_CPUVER >= 7
+#ಆದರೆ CONFIG_TCC_CPUVER >= 7
         0x06, 0x0a,                      // 'CPU_arch', 'v7'
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
         0x06, 0x06,                      // 'CPU_arch', 'v6'
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
         0x08, 0x01,                      // 'ARM_ISA_use', 'Yes'
         0x09, 0x01,                      // 'THUMB_ISA_use', 'Thumb-1'
         0x0a, 0x02,                      // 'FP_arch', 'VFPv2'
@@ -2911,22 +2911,22 @@ static void create_arm_attribute_section(TCCState *s1)
         0x1c, 0x01,                      // 'ABI_VFP_args', 'VFP registers'
         0x22, 0x01                       // 'CPU_unaligned_access', 'v6'
     };
-    Section *attr = new_section(s1, ".ARM.attributes", SHT_ARM_ATTRIBUTES, 0);
-    unsigned char *ptr = section_ptr_add(attr, sizeof(arm_attr));
+    Section *attr = new_section(s1, ".ARM.attributes", SHT_ARM_ಗುಣಲಕ್ಷಣಗಳು, 0);
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *ptr = section_ptr_ಕೂಡಿಸು(attr, ಗಾತ್ರ(arm_attr));
     attr->sh_addralign = 1;
-    memcpy(ptr, arm_attr, sizeof(arm_attr));
-    if (s1->float_abi != ARM_HARD_FLOAT) {
+    ಸ್ಮರಣೆ_ನಕಲು(ptr, arm_attr, ಗಾತ್ರ(arm_attr));
+    ಆದರೆ (s1->float_abi != ARM_HARD_FLOAT) {
         ptr[26] = 0x00; // 'FP_arch', 'No'
         ptr[41] = 0x1e; // 'ABI_optimization_goals'
         ptr[42] = 0x06; // 'Aggressive Debug'
     }
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef TCC_TARGET_RISCV64
-static void create_riscv_attribute_section(TCCState *s1)
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_RISCV64
+ಸ್ಥಿರ ಶೂನ್ಯ create_riscv_attribute_section(TCCState *s1)
 {
-    static const unsigned char riscv_attr[] = {
+    ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ riscv_attr[] = {
         0x41,                           /* 'A' */
         0x49, 0x00, 0x00, 0x00,         /* total_len = 73 */
         'r', 'i', 's', 'c', 'v', 0x00,  /* "riscv\0" */
@@ -2938,114 +2938,114 @@ static void create_riscv_attribute_section(TCCState *s1)
         'c','2','p','0','_','z','i','c','s','r','2','p','0','_',
         'z','i','f','e','n','c','e','i','2','p','0', 0x00,
     };
-    Section *attr = new_section(s1, ".riscv.attributes", SHT_RISCV_ATTRIBUTES, 0);
-    unsigned char *ptr = section_ptr_add(attr, sizeof(riscv_attr));
+    Section *attr = new_section(s1, ".riscv.attributes", SHT_RISCV_ಗುಣಲಕ್ಷಣಗಳು, 0);
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *ptr = section_ptr_ಕೂಡಿಸು(attr, ಗಾತ್ರ(riscv_attr));
     attr->sh_addralign = 1;
-    memcpy(ptr, riscv_attr, sizeof(riscv_attr));
+    ಸ್ಮರಣೆ_ನಕಲು(ptr, riscv_attr, ಗಾತ್ರ(riscv_attr));
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if TARGETOS_OpenBSD || TARGETOS_NetBSD || TARGETOS_FreeBSD
+#ಆದರೆ TARGETOS_OpenBSD || TARGETOS_NetBSD || TARGETOS_FreeBSD
 
-static void fill_bsd_note(Section *s, int type,
-			  const char *value, uint32_t data)
+ಸ್ಥಿರ ಶೂನ್ಯ fill_bsd_note(Section *s, ಪೂರ್ಣಾಂಕ type,
+			  ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಮೌಲ್ಯ, uint32_t ದತ್ತಾಂಶ)
 {
-    unsigned long offset = 0;
-    char *ptr;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಸ್ಥಾನಾಂತರ = 0;
+    ಅಕ್ಷರ *ptr;
     ElfW(Nhdr) *note;
-    int align = s->sh_addralign;
+    ಪೂರ್ಣಾಂಕ align = s->sh_addralign;
 
     /* check if type present */
-    while (offset + sizeof(ElfW(Nhdr)) < s->data_offset) {
-        note = (ElfW(Nhdr) *) (s->data + offset);
-	if (note->n_type == type)
-	    return;
-	offset += (sizeof(ElfW(Nhdr)) + note->n_namesz + note->n_descsz +
+    ಆಗ (ಸ್ಥಾನಾಂತರ + ಗಾತ್ರ(ElfW(Nhdr)) < s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ) {
+        note = (ElfW(Nhdr) *) (s->ದತ್ತಾಂಶ + ಸ್ಥಾನಾಂತರ);
+	ಆದರೆ (note->n_type == type)
+	    ಹಿಂತಿರುಗಿ;
+	ಸ್ಥಾನಾಂತರ += (ಗಾತ್ರ(ElfW(Nhdr)) + note->n_namesz + note->n_descsz +
 		  align - 1) & -align;
     }
-    ptr = section_ptr_add(s, sizeof(ElfW(Nhdr)) + 8 + 4);
+    ptr = section_ptr_ಕೂಡಿಸು(s, ಗಾತ್ರ(ElfW(Nhdr)) + 8 + 4);
     note = (ElfW(Nhdr) *) ptr;
     note->n_namesz = 8;
     note->n_descsz = 4;
     note->n_type = type;
-    strcpy (ptr + sizeof(ElfW(Nhdr)), value);
-    memcpy (ptr + sizeof(ElfW(Nhdr)) + 8, &data, 4);
+    strcpy (ptr + ಗಾತ್ರ(ElfW(Nhdr)), ಮೌಲ್ಯ);
+    ಸ್ಮರಣೆ_ನಕಲು (ptr + ಗಾತ್ರ(ElfW(Nhdr)) + 8, &ದತ್ತಾಂಶ, 4);
 }
 
-static Section *create_bsd_note_section(TCCState *s1,
-					const char *name,
-					const char *value)
+ಸ್ಥಿರ Section *create_bsd_note_section(TCCState *s1,
+					ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name,
+					ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಮೌಲ್ಯ)
 {
     Section *s;
-    unsigned int major = 0, minor = 0, patch = 0;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ major = 0, minor = 0, patch = 0;
 
-#ifdef CONFIG_OS_RELEASE
-    sscanf(CONFIG_OS_RELEASE, "%u.%u.%u", &major, &minor, &patch);
-#endif
-#if TARGETOS_FreeBSD
-    if (major < 14)
-	return NULL;
-#endif
-    s = find_section (s1, name);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_OS_RELEASE
+    ಅಕ್ಷರಸರಣಿ_ಓದು(CONFIG_OS_RELEASE, "%u.%u.%u", &major, &minor, &patch);
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ TARGETOS_FreeBSD
+    ಆದರೆ (major < 14)
+	ಹಿಂತಿರುಗಿ ಖಾಲಿ;
+#ಆದರೆ_ಅಂತ್ಯ
+    s = ಕಂಡುಹಿಡಿ_section (s1, name);
     s->sh_type = SHT_NOTE;
-#if TARGETOS_OpenBSD
-    fill_bsd_note(s, ELF_NOTE_OS_GNU, value, 0);
-#elif TARGETOS_NetBSD
-    fill_bsd_note(s, 1 /* NT_NETBSD_IDENT_TAG */, value,
+#ಆದರೆ TARGETOS_OpenBSD
+    fill_bsd_note(s, ELF_NOTE_OS_GNU, ಮೌಲ್ಯ, 0);
+#ಅಥವಾಆದರೆ TARGETOS_NetBSD
+    fill_bsd_note(s, 1 /* NT_NETBSD_IDENT_TAG */, ಮೌಲ್ಯ,
 		  major * 100000000u + (minor % 100u) * 1000000u +
 		  (patch % 10000u) * 100u);
-#elif TARGETOS_FreeBSD
-    fill_bsd_note(s, 1 /* NT_FREEBSD_ABI_TAG */, value,
+#ಅಥವಾಆದರೆ TARGETOS_FreeBSD
+    fill_bsd_note(s, 1 /* NT_FREEBSD_ABI_TAG */, ಮೌಲ್ಯ,
 		  major * 100000u + (minor % 100u) * 1000u);
-    fill_bsd_note(s, 4 /* NT_FREEBSD_FEATURE_CTL */, value, 0);
-    fill_bsd_note(s, 2 /* NT_FREEBSD_NOINIT_TAG */, value, 0);
-#endif
-    return s;
+    fill_bsd_note(s, 4 /* NT_FREEBSD_FEATURE_CTL */, ಮೌಲ್ಯ, 0);
+    fill_bsd_note(s, 2 /* NT_FREEBSD_NOINIT_TAG */, ಮೌಲ್ಯ, 0);
+#ಆದರೆ_ಅಂತ್ಯ
+    ಹಿಂತಿರುಗಿ s;
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-static void alloc_sec_names(TCCState *s1, int is_obj);
+ಸ್ಥಿರ ಶೂನ್ಯ alloc_sec_ಹೆಸರುಗಳು(TCCState *s1, ಪೂರ್ಣಾಂಕ is_obj);
 
 /* Output an elf, coff or binary file */
 /* XXX: suppress unneeded sections */
-static int elf_output_file(TCCState *s1, const char *filename)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ elf_output_file(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *filename)
 {
-    int i, ret, file_type, *sec_order;
-    struct dyn_inf dyninf = {0};
+    ಪೂರ್ಣಾಂಕ i, ret, file_type, *sec_ಕ್ರಮ;
+    ರಚನೆ dyn_inf dyninf = {0};
     Section *interp, *dynstr, *dynamic;
-    int textrel, got_sym, dt_flags_1;
+    ಪೂರ್ಣಾಂಕ textrel, got_sym, dt_flags_1;
 
     file_type = s1->output_type;
     ret = -1;
-    interp = dynstr = dynamic = NULL;
-    sec_order = NULL;
+    interp = dynstr = dynamic = ಖಾಲಿ;
+    sec_ಕ್ರಮ = ಖಾಲಿ;
 
-#ifdef TCC_TARGET_ARM
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_ARM
     create_arm_attribute_section (s1);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef TCC_TARGET_RISCV64
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_RISCV64
     create_riscv_attribute_section(s1);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if TARGETOS_OpenBSD
+#ಆದರೆ TARGETOS_OpenBSD
     dyninf.note = create_bsd_note_section (s1, ".note.openbsd.ident", "OpenBSD");
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if TARGETOS_NetBSD
+#ಆದರೆ TARGETOS_NetBSD
     dyninf.note = create_bsd_note_section (s1, ".note.netbsd.ident", "NetBSD");
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if TARGETOS_FreeBSD
+#ಆದರೆ TARGETOS_FreeBSD
     dyninf.note = create_bsd_note_section (s1, ".note.tag", "FreeBSD");
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
         /* if linking, also link in runtime libraries (libc, libgcc, etc.) */
-        tcc_add_runtime(s1);
+        tcc_ಕೂಡಿಸು_runtime(s1);
 	resolve_common_syms(s1);
 
-        if (!s1->static_link) {
-            if (file_type & TCC_OUTPUT_EXE) {
+        ಆದರೆ (!s1->static_link) {
+            ಆದರೆ (file_type & TCC_OUTPUT_EXE) {
                 /* add interpreter section only if executable */
                 interp = new_section(s1, ".interp", SHT_PROGBITS, SHF_ALLOC);
                 interp->sh_addralign = 1;
@@ -3064,83 +3064,83 @@ static int elf_output_file(TCCState *s1, const char *filename)
             dynamic = new_section(s1, ".dynamic", SHT_DYNAMIC,
                                   SHF_ALLOC | SHF_WRITE);
             dynamic->link = dynstr;
-            dynamic->sh_entsize = sizeof(ElfW(Dyn));
+            dynamic->sh_entsize = ಗಾತ್ರ(ElfW(Dyn));
 
             got_sym = build_got(s1);
-            if (file_type & TCC_OUTPUT_EXE) {
+            ಆದರೆ (file_type & TCC_OUTPUT_EXE) {
                 bind_exe_dynsyms(s1, file_type & TCC_OUTPUT_DYN);
-                if (s1->nb_errors)
-                    goto the_end;
+                ಆದರೆ (s1->nb_errors)
+                    ಹೋಗು the_ಕೊನೆ;
             }
             build_got_entries(s1, got_sym);
-            if (file_type & TCC_OUTPUT_EXE) {
+            ಆದರೆ (file_type & TCC_OUTPUT_EXE) {
                 bind_libs_dynsyms(s1);
-            } else {
+            } ಇಲ್ಲದಿದ್ದರೆ {
                 /* shared library case: simply export all global symbols */
                 export_global_syms(s1);
             }
-#if TCC_EH_FRAME
+#ಆದರೆ TCC_EH_ಚೌಕಟ್ಟು
 	    /* fill with initial data */
-	    tcc_eh_frame_hdr(s1, 0);
-#endif
+	    tcc_eh_ಚೌಕಟ್ಟು_hdr(s1, 0);
+#ಆದರೆ_ಅಂತ್ಯ
 	    dyninf.gnu_hash = create_gnu_hash(s1);
-        } else {
+        } ಇಲ್ಲದಿದ್ದರೆ {
             build_got_entries(s1, 0);
         }
-	version_add (s1);
+	ಆವೃತ್ತಿ_ಕೂಡಿಸು (s1);
 
-    textrel = set_sec_sizes(s1);
+    textrel = ಗಣ_sec_sizes(s1);
 
-    if (!s1->static_link) {
+    ಆದರೆ (!s1->static_link) {
         /* add a list of needed dlls */
-        for(i = 0; i < s1->nb_loaded_dlls; i++) {
+        ಗಾಗಿ(i = 0; i < s1->nb_loaded_dlls; i++) {
             DLLReference *dllref = s1->loaded_dlls[i];
-            if (dllref->level == 0)
+            ಆದರೆ (dllref->level == 0)
                 put_dt(dynamic, DT_NEEDED, put_elf_str(dynstr, dllref->name));
         }
 
-        if (s1->rpath)
+        ಆದರೆ (s1->rpath)
             put_dt(dynamic, s1->enable_new_dtags ? DT_RUNPATH : DT_RPATH,
                    put_elf_str(dynstr, s1->rpath));
 
         dt_flags_1 = DF_1_NOW;
-        if (file_type & TCC_OUTPUT_DYN) {
-            if (s1->soname)
+        ಆದರೆ (file_type & TCC_OUTPUT_DYN) {
+            ಆದರೆ (s1->soname)
                 put_dt(dynamic, DT_SONAME, put_elf_str(dynstr, s1->soname));
             /* XXX: currently, since we do not handle PIC code, we
                must relocate the readonly segments */
-            if (textrel)
+            ಆದರೆ (textrel)
                 put_dt(dynamic, DT_TEXTREL, 0);
-            if (file_type & TCC_OUTPUT_EXE)
+            ಆದರೆ (file_type & TCC_OUTPUT_EXE)
                 dt_flags_1 = DF_1_NOW | DF_1_PIE;
-	    if (s1->znodelete)
+	    ಆದರೆ (s1->znodelete)
 		dt_flags_1 |= DF_1_NODELETE;
         }
         put_dt(dynamic, DT_FLAGS, DF_BIND_NOW);
         put_dt(dynamic, DT_FLAGS_1, dt_flags_1);
-        if (s1->symbolic)
+        ಆದರೆ (s1->symbolic)
             put_dt(dynamic, DT_SYMBOLIC, 0);
 
         dyninf.dynamic = dynamic;
         dyninf.dynstr = dynstr;
         /* remember offset and reserve space for 2nd call below */
-        dyninf.data_offset = dynamic->data_offset;
+        dyninf.ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = dynamic->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
         fill_dynamic(s1, &dyninf);
-        dynamic->sh_size = dynamic->data_offset;
-        dynstr->sh_size = dynstr->data_offset;
+        dynamic->sh_ಗಾತ್ರ = dynamic->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
+        dynstr->sh_ಗಾತ್ರ = dynstr->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
     }
 
     /* create and fill .shstrtab section */
-    alloc_sec_names(s1, 0);
+    alloc_sec_ಹೆಸರುಗಳು(s1, 0);
     /* this array is used to reorder sections in the output file */
-    sec_order = tcc_malloc(sizeof(int) * 2 * s1->nb_sections);
+    sec_ಕ್ರಮ = tcc_malloc(ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ) * 2 * s1->nb_sections);
     /* compute section to program header mapping */
-    layout_sections(s1, sec_order, &dyninf);
+    layout_sections(s1, sec_ಕ್ರಮ, &dyninf);
 
-        if (dynamic) {
+        ಆದರೆ (dynamic) {
             /* put in GOT the dynamic section address and relocate PLT */
-            write32le(s1->got->data, dynamic->sh_addr);
-            if (file_type == TCC_OUTPUT_EXE
+            write32le(s1->got->ದತ್ತಾಂಶ, dynamic->sh_addr);
+            ಆದರೆ (file_type == TCC_OUTPUT_EXE
                 || (RELOCATE_DLLPLT && (file_type & TCC_OUTPUT_DYN)))
                 relocate_plt(s1);
             /* relocate symbols in .dynsym now that final addresses are known */
@@ -3150,319 +3150,319 @@ static int elf_output_file(TCCState *s1, const char *filename)
         /* if building executable or DLL, then relocate each section
            except the GOT which is already relocated */
         relocate_syms(s1, s1->symtab, 0);
-        if (s1->nb_errors != 0)
-            goto the_end;
+        ಆದರೆ (s1->nb_errors != 0)
+            ಹೋಗು the_ಕೊನೆ;
         relocate_sections(s1);
-        if (dynamic) {
+        ಆದರೆ (dynamic) {
 	    update_reloc_sections (s1, &dyninf);
-            dynamic->data_offset = dyninf.data_offset;
+            dynamic->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = dyninf.ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
             fill_dynamic(s1, &dyninf);
 	}
         /* Perform relocation to GOT or PLT entries */
-        if (file_type == TCC_OUTPUT_EXE && s1->static_link)
+        ಆದರೆ (file_type == TCC_OUTPUT_EXE && s1->static_link)
             fill_got(s1);
-        else if (s1->got)
+        ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (s1->got)
             fill_local_got_entries(s1);
 
-    if (dyninf.gnu_hash)
+    ಆದರೆ (dyninf.gnu_hash)
         update_gnu_hash(s1, dyninf.gnu_hash);
 
-    reorder_sections(s1, sec_order);
-#if TCC_EH_FRAME
+    reorder_sections(s1, sec_ಕ್ರಮ);
+#ಆದರೆ TCC_EH_ಚೌಕಟ್ಟು
     /* fill with final data */
-    tcc_eh_frame_hdr(s1, 1);
-#endif
+    tcc_eh_ಚೌಕಟ್ಟು_hdr(s1, 1);
+#ಆದರೆ_ಅಂತ್ಯ
     /* Create the ELF file with name 'filename' */
     ret = tcc_write_elf_file(s1, filename, dyninf.phnum, dyninf.phdr);
- the_end:
-    tcc_free(sec_order);
+ the_ಕೊನೆ:
+    tcc_free(sec_ಕ್ರಮ);
     tcc_free(dyninf.phdr);
-    return ret;
+    ಹಿಂತಿರುಗಿ ret;
 }
-#endif /* ndef ELF_OBJ_ONLY */
+#ಆದರೆ_ಅಂತ್ಯ /* ndef ELF_OBJ_ONLY */
 
 /* Allocate strings for section names */
-static void alloc_sec_names(TCCState *s1, int is_obj)
+ಸ್ಥಿರ ಶೂನ್ಯ alloc_sec_ಹೆಸರುಗಳು(TCCState *s1, ಪೂರ್ಣಾಂಕ is_obj)
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
     Section *s, *strsec;
 
     strsec = new_section(s1, ".shstrtab", SHT_STRTAB, 0);
     put_elf_str(strsec, "");
-    for(i = 1; i < s1->nb_sections; i++) {
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (is_obj)
-            s->sh_size = s->data_offset;
-	if (s->sh_size || s == strsec || (s->sh_flags & SHF_ALLOC) || is_obj)
+        ಆದರೆ (is_obj)
+            s->sh_ಗಾತ್ರ = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
+	ಆದರೆ (s->sh_ಗಾತ್ರ || s == strsec || (s->sh_flags & SHF_ALLOC) || is_obj)
             s->sh_name = put_elf_str(strsec, s->name);
     }
-    strsec->sh_size = strsec->data_offset;
+    strsec->sh_ಗಾತ್ರ = strsec->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
 }
 
 /* Output an elf .o file */
-static int elf_output_obj(TCCState *s1, const char *filename)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ elf_output_obj(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *filename)
 {
     Section *s;
-    int i, ret, file_offset;
+    ಪೂರ್ಣಾಂಕ i, ret, file_ಸ್ಥಾನಾಂತರ;
     /* Allocate strings for section names */
-    alloc_sec_names(s1, 1);
-    file_offset = (sizeof (ElfW(Ehdr)) + 3) & -4;
-    file_offset += s1->nb_sections * sizeof(ElfW(Shdr));
-    for(i = 1; i < s1->nb_sections; i++) {
+    alloc_sec_ಹೆಸರುಗಳು(s1, 1);
+    file_ಸ್ಥಾನಾಂತರ = (ಗಾತ್ರ (ElfW(Ehdr)) + 3) & -4;
+    file_ಸ್ಥಾನಾಂತರ += s1->nb_sections * ಗಾತ್ರ(ElfW(Shdr));
+    ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        file_offset = (file_offset + 15) & -16;
-        s->sh_offset = file_offset;
-        if (s->sh_type != SHT_NOBITS)
-            file_offset += s->sh_size;
+        file_ಸ್ಥಾನಾಂತರ = (file_ಸ್ಥಾನಾಂತರ + 15) & -16;
+        s->sh_ಸ್ಥಾನಾಂತರ = file_ಸ್ಥಾನಾಂತರ;
+        ಆದರೆ (s->sh_type != SHT_NOBITS)
+            file_ಸ್ಥಾನಾಂತರ += s->sh_ಗಾತ್ರ;
     }
     /* Create the ELF file with name 'filename' */
-    ret = tcc_write_elf_file(s1, filename, 0, NULL);
-    return ret;
+    ret = tcc_write_elf_file(s1, filename, 0, ಖಾಲಿ);
+    ಹಿಂತಿರುಗಿ ret;
 }
 
-LIBTCCAPI int tcc_output_file(TCCState *s, const char *filename)
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_output_file(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *filename)
 {
     s->nb_errors = 0;
-    if (s->test_coverage)
-        tcc_tcov_add_file(s, filename);
-    if (s->output_type == TCC_OUTPUT_OBJ)
-        return elf_output_obj(s, filename);
-#ifdef TCC_TARGET_PE
-    return  pe_output_file(s, filename);
-#elif defined TCC_TARGET_MACHO
-    return macho_output_file(s, filename);
-#else
-    return elf_output_file(s, filename);
-#endif
+    ಆದರೆ (s->test_coverage)
+        tcc_tcov_ಕೂಡಿಸು_file(s, filename);
+    ಆದರೆ (s->output_type == TCC_OUTPUT_OBJ)
+        ಹಿಂತಿರುಗಿ elf_output_obj(s, filename);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_PE
+    ಹಿಂತಿರುಗಿ  pe_output_file(s, filename);
+#ಅಥವಾಆದರೆ defined TCC_ಗುರಿ_MACHO
+    ಹಿಂತಿರುಗಿ macho_output_file(s, filename);
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಹಿಂತಿರುಗಿ elf_output_file(s, filename);
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-ST_FUNC ssize_t full_read(int fd, void *buf, size_t count) {
-    char *cbuf = buf;
-    size_t rnum = 0;
-    while (1) {
-        ssize_t num = read(fd, cbuf, count-rnum);
-        if (num < 0) return num;
-        if (num == 0) return rnum;
-        rnum += num;
-        cbuf += num;
+ST_FUNC ssize_t ತುಂಬಿದ_read(ಪೂರ್ಣಾಂಕ fd, ಶೂನ್ಯ *buf, ಗಾತ್ರ_t ಎಣಿಕೆ_3) {
+    ಅಕ್ಷರ *cbuf = buf;
+    ಗಾತ್ರ_t rnum = 0;
+    ಆಗ (1) {
+        ssize_t ಅಂಕೆ = ಪಠ(fd, cbuf, ಎಣಿಕೆ_3-rnum);
+        ಆದರೆ (ಅಂಕೆ < 0) ಹಿಂತಿರುಗಿ ಅಂಕೆ;
+        ಆದರೆ (ಅಂಕೆ == 0) ಹಿಂತಿರುಗಿ rnum;
+        rnum += ಅಂಕೆ;
+        cbuf += ಅಂಕೆ;
     }
 }
 
-ST_FUNC void *load_data(int fd, unsigned long file_offset, unsigned long size)
+ST_FUNC ಶೂನ್ಯ *ತುಂಬು_ದತ್ತಾಂಶ(ಪೂರ್ಣಾಂಕ fd, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ file_ಸ್ಥಾನಾಂತರ, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಗಾತ್ರ_2)
 {
-    void *data;
+    ಶೂನ್ಯ *ದತ್ತಾಂಶ;
 
-    data = tcc_malloc(size);
-    lseek(fd, file_offset, SEEK_SET);
-    full_read(fd, data, size);
-    return data;
+    ದತ್ತಾಂಶ = tcc_malloc(ಗಾತ್ರ_2);
+    lseek(fd, file_ಸ್ಥಾನಾಂತರ, SEEK_SET);
+    ತುಂಬಿದ_read(fd, ದತ್ತಾಂಶ, ಗಾತ್ರ_2);
+    ಹಿಂತಿರುಗಿ ದತ್ತಾಂಶ;
 }
 
-typedef struct SectionMergeInfo {
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ Section_ವಿಲೀನ_Info {
     Section *s;            /* corresponding existing section */
-    unsigned long offset;  /* offset of the new section in the existing section */
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಸ್ಥಾನಾಂತರ;  /* offset of the new section in the existing section */
     uint8_t new_section;       /* true if section 's' was added */
     uint8_t link_once;         /* true if link once section */
-} SectionMergeInfo;
+} Section_ವಿಲೀನ_Info;
 
-ST_FUNC int tcc_object_type(int fd, ElfW(Ehdr) *h)
+ST_FUNC ಪೂರ್ಣಾಂಕ tcc_object_type(ಪೂರ್ಣಾಂಕ fd, ElfW(Ehdr) *h)
 {
-    int size = full_read(fd, h, sizeof *h);
-    if (size == sizeof *h && 0 == memcmp(h, ELFMAG, 4)) {
-        if (h->e_type == ET_REL)
-            return AFF_BINTYPE_REL;
-        if (h->e_type == ET_DYN)
-            return AFF_BINTYPE_DYN;
-    } else if (size >= 8) {
-        if (0 == memcmp(h, ARMAG, 8))
-            return AFF_BINTYPE_AR;
-#ifdef TCC_TARGET_COFF
-        if (((struct filehdr*)h)->f_magic == COFF_C67_MAGIC)
-            return AFF_BINTYPE_C67;
-#endif
+    ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_2 = ತುಂಬಿದ_read(fd, h, ಗಾತ್ರ *h);
+    ಆದರೆ (ಗಾತ್ರ_2 == ಗಾತ್ರ *h && 0 == memcmp(h, ELFMAG, 4)) {
+        ಆದರೆ (h->e_type == ET_REL)
+            ಹಿಂತಿರುಗಿ AFF_BINTYPE_REL;
+        ಆದರೆ (h->e_type == ET_DYN)
+            ಹಿಂತಿರುಗಿ AFF_BINTYPE_DYN;
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (ಗಾತ್ರ_2 >= 8) {
+        ಆದರೆ (0 == memcmp(h, ARMAG, 8))
+            ಹಿಂತಿರುಗಿ AFF_BINTYPE_AR;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_COFF
+        ಆದರೆ (((ರಚನೆ filehdr*)h)->f_magic == COFF_C67_MAGIC)
+            ಹಿಂತಿರುಗಿ AFF_BINTYPE_C67;
+#ಆದರೆ_ಅಂತ್ಯ
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* load an object file and merge it with current files */
 /* XXX: handle correctly stab (debug) info */
-ST_FUNC int tcc_load_object_file(TCCState *s1,
-                                int fd, unsigned long file_offset)
+ST_FUNC ಪೂರ್ಣಾಂಕ tcc_ತುಂಬು_object_file(TCCState *s1,
+                                ಪೂರ್ಣಾಂಕ fd, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ file_ಸ್ಥಾನಾಂತರ)
 {
     ElfW(Ehdr) ehdr;
     ElfW(Shdr) *shdr, *sh;
-    unsigned long size, offset, offseti;
-    int i, j, nb_syms, sym_index, ret, seencompressed;
-    char *strsec, *strtab;
-    int stab_index, stabstr_index;
-    int *old_to_new_syms;
-    char *sh_name, *name;
-    SectionMergeInfo *sm_table, *sm;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಗಾತ್ರ_2, ಸ್ಥಾನಾಂತರ, offseti;
+    ಪೂರ್ಣಾಂಕ i, j, nb_syms, sym_ಸೂಚ್ಯಂಕ, ret, seencompressed;
+    ಅಕ್ಷರ *strsec, *strtab;
+    ಪೂರ್ಣಾಂಕ stab_ಸೂಚ್ಯಂಕ, stabstr_ಸೂಚ್ಯಂಕ;
+    ಪೂರ್ಣಾಂಕ *old_ಗಮ್ಯ_new_syms;
+    ಅಕ್ಷರ *sh_name, *name;
+    Section_ವಿಲೀನ_Info *sm_ಕೋಷ್ಟಕ, *sm;
     ElfW(Sym) *sym, *symtab;
     ElfW_Rel *rel;
     Section *s;
 
-    lseek(fd, file_offset, SEEK_SET);
-    if (tcc_object_type(fd, &ehdr) != AFF_BINTYPE_REL)
-        goto invalid;
+    lseek(fd, file_ಸ್ಥಾನಾಂತರ, SEEK_SET);
+    ಆದರೆ (tcc_object_type(fd, &ehdr) != AFF_BINTYPE_REL)
+        ಹೋಗು invalid;
     /* test CPU specific stuff */
-    if (ehdr.e_ident[5] != ELFDATA2LSB ||
-        ehdr.e_machine != EM_TCC_TARGET) {
+    ಆದರೆ (ehdr.e_ident[5] != ELFDATA2LSB ||
+        ehdr.e_machine != EM_TCC_ಗುರಿ) {
 invalid:
-        return tcc_error_noabort("invalid object file");
+        ಹಿಂತಿರುಗಿ tcc_error_noabort("invalid object file");
     }
     /* read sections */
-    shdr = load_data(fd, file_offset + ehdr.e_shoff,
-                     sizeof(ElfW(Shdr)) * ehdr.e_shnum);
-    sm_table = tcc_mallocz(sizeof(SectionMergeInfo) * ehdr.e_shnum);
+    shdr = ತುಂಬು_ದತ್ತಾಂಶ(fd, file_ಸ್ಥಾನಾಂತರ + ehdr.e_shoff,
+                     ಗಾತ್ರ(ElfW(Shdr)) * ehdr.e_shnum);
+    sm_ಕೋಷ್ಟಕ = tcc_mallocz(ಗಾತ್ರ(Section_ವಿಲೀನ_Info) * ehdr.e_shnum);
 
     /* load section names */
     sh = &shdr[ehdr.e_shstrndx];
-    strsec = load_data(fd, file_offset + sh->sh_offset, sh->sh_size);
+    strsec = ತುಂಬು_ದತ್ತಾಂಶ(fd, file_ಸ್ಥಾನಾಂತರ + sh->sh_ಸ್ಥಾನಾಂತರ, sh->sh_ಗಾತ್ರ);
 
     /* load symtab and strtab */
-    old_to_new_syms = NULL;
-    symtab = NULL;
-    strtab = NULL;
+    old_ಗಮ್ಯ_new_syms = ಖಾಲಿ;
+    symtab = ಖಾಲಿ;
+    strtab = ಖಾಲಿ;
     nb_syms = 0;
     seencompressed = 0;
-    stab_index = stabstr_index = 0;
+    stab_ಸೂಚ್ಯಂಕ = stabstr_ಸೂಚ್ಯಂಕ = 0;
     ret = -1;
 
-    for(i = 1; i < ehdr.e_shnum; i++) {
+    ಗಾಗಿ(i = 1; i < ehdr.e_shnum; i++) {
         sh = &shdr[i];
-        if (sh->sh_type == SHT_SYMTAB) {
-            if (symtab) {
+        ಆದರೆ (sh->sh_type == SHT_SYMTAB) {
+            ಆದರೆ (symtab) {
                 tcc_error_noabort("object must contain only one symtab");
-                goto the_end;
+                ಹೋಗು the_ಕೊನೆ;
             }
-            nb_syms = sh->sh_size / sizeof(ElfW(Sym));
-            symtab = load_data(fd, file_offset + sh->sh_offset, sh->sh_size);
-            sm_table[i].s = symtab_section;
+            nb_syms = sh->sh_ಗಾತ್ರ / ಗಾತ್ರ(ElfW(Sym));
+            symtab = ತುಂಬು_ದತ್ತಾಂಶ(fd, file_ಸ್ಥಾನಾಂತರ + sh->sh_ಸ್ಥಾನಾಂತರ, sh->sh_ಗಾತ್ರ);
+            sm_ಕೋಷ್ಟಕ[i].s = symtab_section;
 
             /* now load strtab */
             sh = &shdr[sh->sh_link];
-            strtab = load_data(fd, file_offset + sh->sh_offset, sh->sh_size);
+            strtab = ತುಂಬು_ದತ್ತಾಂಶ(fd, file_ಸ್ಥಾನಾಂತರ + sh->sh_ಸ್ಥಾನಾಂತರ, sh->sh_ಗಾತ್ರ);
         }
-	if (sh->sh_flags & SHF_COMPRESSED)
+	ಆದರೆ (sh->sh_flags & SHF_COMPRESSED)
 	    seencompressed = 1;
     }
 
     /* now examine each section and try to merge its content with the
        ones in memory */
-    for(i = 1; i < ehdr.e_shnum; i++) {
+    ಗಾಗಿ(i = 1; i < ehdr.e_shnum; i++) {
         /* no need to examine section name strtab */
-        if (i == ehdr.e_shstrndx)
-            continue;
+        ಆದರೆ (i == ehdr.e_shstrndx)
+            ಮುಂದುವರಿ;
         sh = &shdr[i];
-	if (sh->sh_type == SHT_RELX)
+	ಆದರೆ (sh->sh_type == SHT_RELX)
 	  sh = &shdr[sh->sh_info];
         /* ignore sections types we do not handle (plus relocs to those) */
         sh_name = strsec + sh->sh_name;
-        if (0 == strncmp(sh_name, ".debug_", 7)
-         || 0 == strncmp(sh_name, ".stab", 5)) {
-	    if (!s1->do_debug || seencompressed)
-	        continue;
-#if !(TARGETOS_OpenBSD || TARGETOS_FreeBSD || TARGETOS_NetBSD)
-        } else if (0 == strncmp(sh_name, ".eh_frame", 9)) {
-            if (NULL == eh_frame_section)
-                continue;
-#endif
-        } else
-        if (sh->sh_type != SHT_PROGBITS &&
+        ಆದರೆ (0 == ಅಕ್ಷರಸರಣಿ_ಹೋಲಿಕೆ(sh_name, ".debug_", 7)
+         || 0 == ಅಕ್ಷರಸರಣಿ_ಹೋಲಿಕೆ(sh_name, ".stab", 5)) {
+	    ಆದರೆ (!s1->do_debug || seencompressed)
+	        ಮುಂದುವರಿ;
+#ಆದರೆ !(TARGETOS_OpenBSD || TARGETOS_FreeBSD || TARGETOS_NetBSD)
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (0 == ಅಕ್ಷರಸರಣಿ_ಹೋಲಿಕೆ(sh_name, ".eh_frame", 9)) {
+            ಆದರೆ (ಖಾಲಿ == eh_ಚೌಕಟ್ಟು_section)
+                ಮುಂದುವರಿ;
+#ಆದರೆ_ಅಂತ್ಯ
+        } ಇಲ್ಲದಿದ್ದರೆ
+        ಆದರೆ (sh->sh_type != SHT_PROGBITS &&
             sh->sh_type != SHT_NOTE &&
             sh->sh_type != SHT_NOBITS &&
             sh->sh_type != SHT_PREINIT_ARRAY &&
             sh->sh_type != SHT_INIT_ARRAY &&
             sh->sh_type != SHT_FINI_ARRAY
-#ifdef TCC_ARM_EABI
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ARM_EABI
             /* Added in commit f99d3de221db23e322c6c18c8249282e27726c25
                but suppressed in 3cfaaaf1eb97d858e583412616f68f75fdad5da5
                So don't load it in order to avoid dangling references from
                (STT_SECTION) symbols. */
             // && sh->sh_type != SHT_ARM_EXIDX
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if TARGETOS_OpenBSD || TARGETOS_FreeBSD || TARGETOS_NetBSD
+#ಆದರೆ TARGETOS_OpenBSD || TARGETOS_FreeBSD || TARGETOS_NetBSD
             && sh->sh_type != SHT_X86_64_UNWIND
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
             )
-            continue;
+            ಮುಂದುವರಿ;
 
 	sh = &shdr[i];
         sh_name = strsec + sh->sh_name;
-        if (sh->sh_addralign < 1)
+        ಆದರೆ (sh->sh_addralign < 1)
             sh->sh_addralign = 1;
         /* find corresponding section, if any */
-        for(j = 1; j < s1->nb_sections;j++) {
+        ಗಾಗಿ(j = 1; j < s1->nb_sections;j++) {
             s = s1->sections[j];
-            if (strcmp(s->name, sh_name))
-                continue;
-            if (sh->sh_type != s->sh_type
+            ಆದರೆ (strcmp(s->name, sh_name))
+                ಮುಂದುವರಿ;
+            ಆದರೆ (sh->sh_type != s->sh_type
                 && strcmp (s->name, ".eh_frame")
                 /* some crt1.o seem to have two ".note.GNU-stack" (SHT_NOTE & SHT_PROGBITS) */
                 && strcmp (s->name, ".note.GNU-stack")
                 ) {
                 tcc_error_noabort("section type conflict: %s %02x <> %02x", s->name, sh->sh_type, s->sh_type);
-                goto the_end;
+                ಹೋಗು the_ಕೊನೆ;
             }
-            if (!strncmp(sh_name, ".gnu.linkonce", 13)) {
+            ಆದರೆ (!ಅಕ್ಷರಸರಣಿ_ಹೋಲಿಕೆ(sh_name, ".gnu.linkonce", 13)) {
                 /* if a 'linkonce' section is already present, we
                    do not add it again. It is a little tricky as
                    symbols can still be defined in
                    it. */
-                sm_table[i].link_once = 1;
-                goto next;
+                sm_ಕೋಷ್ಟಕ[i].link_once = 1;
+                ಹೋಗು ಮುಂದಿನ;
             }
-            if (stab_section) {
-                if (s == stab_section)
-                    stab_index = i;
-                if (s == stab_section->link)
-                    stabstr_index = i;
+            ಆದರೆ (stab_section) {
+                ಆದರೆ (s == stab_section)
+                    stab_ಸೂಚ್ಯಂಕ = i;
+                ಆದರೆ (s == stab_section->link)
+                    stabstr_ಸೂಚ್ಯಂಕ = i;
             }
-            goto found;
+            ಹೋಗು ಸಿಕ್ಕಿತು;
         }
         /* not found: create new section */
-        s = new_section(s1, sh_name, sh->sh_type, sh->sh_flags & ~SHF_GROUP);
+        s = new_section(s1, sh_name, sh->sh_type, sh->sh_flags & ~SHF_ಗುಂಪು);
         /* take as much info as possible from the section. sh_link and
            sh_info will be updated later */
         s->sh_addralign = sh->sh_addralign;
         s->sh_entsize = sh->sh_entsize;
-        sm_table[i].new_section = 1;
-    found:
-        size = sh->sh_size;
+        sm_ಕೋಷ್ಟಕ[i].new_section = 1;
+    ಸಿಕ್ಕಿತು:
+        ಗಾತ್ರ_2 = sh->sh_ಗಾತ್ರ;
         /* align start of section */
-        offset = section_add(s, size, sh->sh_addralign);
-        if (sh->sh_addralign > s->sh_addralign)
+        ಸ್ಥಾನಾಂತರ = section_ಕೂಡಿಸು(s, ಗಾತ್ರ_2, sh->sh_addralign);
+        ಆದರೆ (sh->sh_addralign > s->sh_addralign)
             s->sh_addralign = sh->sh_addralign;
-        sm_table[i].offset = offset;
-        sm_table[i].s = s;
+        sm_ಕೋಷ್ಟಕ[i].ಸ್ಥಾನಾಂತರ = ಸ್ಥಾನಾಂತರ;
+        sm_ಕೋಷ್ಟಕ[i].s = s;
         /* concatenate sections */
-        if (sh->sh_type != SHT_NOBITS && size) {
-            unsigned char *ptr;
-            lseek(fd, file_offset + sh->sh_offset, SEEK_SET);
-            ptr = s->data + offset;
-            full_read(fd, ptr, size);
+        ಆದರೆ (sh->sh_type != SHT_NOBITS && ಗಾತ್ರ_2) {
+            ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *ptr;
+            lseek(fd, file_ಸ್ಥಾನಾಂತರ + sh->sh_ಸ್ಥಾನಾಂತರ, SEEK_SET);
+            ptr = s->ದತ್ತಾಂಶ + ಸ್ಥಾನಾಂತರ;
+            ತುಂಬಿದ_read(fd, ptr, ಗಾತ್ರ_2);
         }
-#if defined TCC_TARGET_ARM || defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
+#ಆದರೆ defined TCC_ಗುರಿ_ARM || defined TCC_ಗುರಿ_ARM64 || defined TCC_ಗುರಿ_RISCV64
         /* align code sections to instruction lenght */
         /* This is needed if we compile a c file after this */
-        if (s->sh_flags & SHF_EXECINSTR)
-            section_add(s, 0, 4);
-#endif
-    next: ;
+        ಆದರೆ (s->sh_flags & SHF_EXECINSTR)
+            section_ಕೂಡಿಸು(s, 0, 4);
+#ಆದರೆ_ಅಂತ್ಯ
+    ಮುಂದಿನ: ;
     }
 
     /* gr relocate stab strings */
-    if (stab_index && stabstr_index) {
+    ಆದರೆ (stab_ಸೂಚ್ಯಂಕ && stabstr_ಸೂಚ್ಯಂಕ) {
         Stab_Sym *a, *b;
-        unsigned o;
-        s = sm_table[stab_index].s;
-        a = (Stab_Sym *)(s->data + sm_table[stab_index].offset);
-        b = (Stab_Sym *)(s->data + s->data_offset);
-        o = sm_table[stabstr_index].offset;
-        while (a < b) {
-            if (a->n_strx)
+        ಚಿಹ್ನೆರಹಿತ o;
+        s = sm_ಕೋಷ್ಟಕ[stab_ಸೂಚ್ಯಂಕ].s;
+        a = (Stab_Sym *)(s->ದತ್ತಾಂಶ + sm_ಕೋಷ್ಟಕ[stab_ಸೂಚ್ಯಂಕ].ಸ್ಥಾನಾಂತರ);
+        b = (Stab_Sym *)(s->ದತ್ತಾಂಶ + s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
+        o = sm_ಕೋಷ್ಟಕ[stabstr_ಸೂಚ್ಯಂಕ].ಸ್ಥಾನಾಂತರ;
+        ಆಗ (a < b) {
+            ಆದರೆ (a->n_strx)
                 a->n_strx += o;
             a++;
         }
@@ -3470,101 +3470,101 @@ invalid:
 
     /* second short pass to update sh_link and sh_info fields of new
        sections */
-    for(i = 1; i < ehdr.e_shnum; i++) {
-        s = sm_table[i].s;
-        if (!s || !sm_table[i].new_section)
-            continue;
+    ಗಾಗಿ(i = 1; i < ehdr.e_shnum; i++) {
+        s = sm_ಕೋಷ್ಟಕ[i].s;
+        ಆದರೆ (!s || !sm_ಕೋಷ್ಟಕ[i].new_section)
+            ಮುಂದುವರಿ;
         sh = &shdr[i];
-        if (sh->sh_link > 0)
-            s->link = sm_table[sh->sh_link].s;
-        if (sh->sh_type == SHT_RELX) {
-            s->sh_info = sm_table[sh->sh_info].s->sh_num;
+        ಆದರೆ (sh->sh_link > 0)
+            s->link = sm_ಕೋಷ್ಟಕ[sh->sh_link].s;
+        ಆದರೆ (sh->sh_type == SHT_RELX) {
+            s->sh_info = sm_ಕೋಷ್ಟಕ[sh->sh_info].s->sh_ಅಂಕೆ;
             /* update backward link */
             s1->sections[s->sh_info]->reloc = s;
         }
     }
 
-    if (!symtab)
-        goto done;
+    ಆದರೆ (!symtab)
+        ಹೋಗು ಮುಗಿದ;
 
     /* resolve symbols */
-    old_to_new_syms = tcc_mallocz(nb_syms * sizeof(int));
+    old_ಗಮ್ಯ_new_syms = tcc_mallocz(nb_syms * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
 
     sym = symtab + 1;
-    for(i = 1; i < nb_syms; i++, sym++) {
-        if (sym->st_shndx != SHN_UNDEF &&
+    ಗಾಗಿ(i = 1; i < nb_syms; i++, sym++) {
+        ಆದರೆ (sym->st_shndx != SHN_UNDEF &&
             sym->st_shndx < SHN_LORESERVE) {
-            sm = &sm_table[sym->st_shndx];
-            if (sm->link_once) {
+            sm = &sm_ಕೋಷ್ಟಕ[sym->st_shndx];
+            ಆದರೆ (sm->link_once) {
                 /* if a symbol is in a link once section, we use the
                    already defined symbol. It is very important to get
                    correct relocations */
-                if (ELFW(ST_BIND)(sym->st_info) != STB_LOCAL) {
+                ಆದರೆ (ELFW(ST_BIND)(sym->st_info) != STB_LOCAL) {
                     name = strtab + sym->st_name;
-                    sym_index = find_elf_sym(symtab_section, name);
-                    if (sym_index)
-                        old_to_new_syms[i] = sym_index;
+                    sym_ಸೂಚ್ಯಂಕ = ಕಂಡುಹಿಡಿ_elf_sym(symtab_section, name);
+                    ಆದರೆ (sym_ಸೂಚ್ಯಂಕ)
+                        old_ಗಮ್ಯ_new_syms[i] = sym_ಸೂಚ್ಯಂಕ;
                 }
-                continue;
+                ಮುಂದುವರಿ;
             }
             /* if no corresponding section added, no need to add symbol */
-            if (!sm->s)
-                continue;
+            ಆದರೆ (!sm->s)
+                ಮುಂದುವರಿ;
             /* convert section number */
-            sym->st_shndx = sm->s->sh_num;
+            sym->st_shndx = sm->s->sh_ಅಂಕೆ;
             /* offset value */
-            sym->st_value += sm->offset;
+            sym->st_ಮೌಲ್ಯ += sm->ಸ್ಥಾನಾಂತರ;
         }
         /* add symbol */
         name = strtab + sym->st_name;
-        sym_index = set_elf_sym(symtab_section, sym->st_value, sym->st_size,
+        sym_ಸೂಚ್ಯಂಕ = ಗಣ_elf_sym(symtab_section, sym->st_ಮೌಲ್ಯ, sym->st_ಗಾತ್ರ,
                                 sym->st_info, sym->st_other,
                                 sym->st_shndx, name);
-        old_to_new_syms[i] = sym_index;
+        old_ಗಮ್ಯ_new_syms[i] = sym_ಸೂಚ್ಯಂಕ;
     }
 
     /* third pass to patch relocation entries */
-    for(i = 1; i < ehdr.e_shnum; i++) {
-        s = sm_table[i].s;
-        if (!s)
-            continue;
+    ಗಾಗಿ(i = 1; i < ehdr.e_shnum; i++) {
+        s = sm_ಕೋಷ್ಟಕ[i].s;
+        ಆದರೆ (!s)
+            ಮುಂದುವರಿ;
         sh = &shdr[i];
-        offset = sm_table[i].offset;
-        size = sh->sh_size;
-        switch(s->sh_type) {
-        case SHT_RELX:
+        ಸ್ಥಾನಾಂತರ = sm_ಕೋಷ್ಟಕ[i].ಸ್ಥಾನಾಂತರ;
+        ಗಾತ್ರ_2 = sh->sh_ಗಾತ್ರ;
+        ಆಯ್ಕೆ(s->sh_type) {
+        ಸ್ಥಿತಿ SHT_RELX:
             /* take relocation offset information */
-            offseti = sm_table[sh->sh_info].offset;
-	    for (rel = (ElfW_Rel *) s->data + (offset / sizeof(*rel));
-		 rel < (ElfW_Rel *) s->data + ((offset + size) / sizeof(*rel));
+            offseti = sm_ಕೋಷ್ಟಕ[sh->sh_info].ಸ್ಥಾನಾಂತರ;
+	    ಗಾಗಿ (rel = (ElfW_Rel *) s->ದತ್ತಾಂಶ + (ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ(*rel));
+		 rel < (ElfW_Rel *) s->ದತ್ತಾಂಶ + ((ಸ್ಥಾನಾಂತರ + ಗಾತ್ರ_2) / ಗಾತ್ರ(*rel));
 		 rel++) {
-                int type;
-                unsigned sym_index;
+                ಪೂರ್ಣಾಂಕ type;
+                ಚಿಹ್ನೆರಹಿತ sym_ಸೂಚ್ಯಂಕ;
                 /* convert symbol index */
                 type = ELFW(R_TYPE)(rel->r_info);
-                sym_index = ELFW(R_SYM)(rel->r_info);
+                sym_ಸೂಚ್ಯಂಕ = ELFW(R_SYM)(rel->r_info);
                 /* NOTE: only one symtab assumed */
-                if (sym_index >= nb_syms)
-                    goto invalid_reloc;
-                sym_index = old_to_new_syms[sym_index];
+                ಆದರೆ (sym_ಸೂಚ್ಯಂಕ >= nb_syms)
+                    ಹೋಗು invalid_reloc;
+                sym_ಸೂಚ್ಯಂಕ = old_ಗಮ್ಯ_new_syms[sym_ಸೂಚ್ಯಂಕ];
                 /* ignore link_once in rel section. */
-                if (!sym_index && !sm_table[sh->sh_info].link_once
-#ifdef TCC_TARGET_ARM
+                ಆದರೆ (!sym_ಸೂಚ್ಯಂಕ && !sm_ಕೋಷ್ಟಕ[sh->sh_info].link_once
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_ARM
                     && type != R_ARM_V4BX
-#elif defined TCC_TARGET_RISCV64
+#ಅಥವಾಆದರೆ defined TCC_ಗುರಿ_RISCV64
                     && type != R_RISCV_ALIGN
                     && type != R_RISCV_RELAX
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
                    ) {
                 invalid_reloc:
                     tcc_error_noabort("Invalid relocation entry [%2d] '%s' @ %.8x",
-                        i, strsec + sh->sh_name, (int)rel->r_offset);
-                    goto the_end;
+                        i, strsec + sh->sh_name, (ಪೂರ್ಣಾಂಕ)rel->r_ಸ್ಥಾನಾಂತರ);
+                    ಹೋಗು the_ಕೊನೆ;
                 }
-                rel->r_info = ELFW(R_INFO)(sym_index, type);
+                rel->r_info = ELFW(R_INFO)(sym_ಸೂಚ್ಯಂಕ, type);
                 /* offset the relocation offset */
-                rel->r_offset += offseti;
-#ifdef TCC_TARGET_ARM
+                rel->r_ಸ್ಥಾನಾಂತರ += offseti;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_ARM
                 /* Jumps and branches from a Thumb code to a PLT entry need
                    special handling since PLT entries are ARM code.
                    Unconditional bl instructions referencing PLT entries are
@@ -3573,176 +3573,176 @@ invalid:
                    entry require to add a Thumb stub before the PLT entry to
                    switch to ARM mode. We set bit plt_thumb_stub of the
                    attribute of a symbol to indicate such a case. */
-                if (type == R_ARM_THM_JUMP24)
-                    get_sym_attr(s1, sym_index, 1)->plt_thumb_stub = 1;
-#endif
+                ಆದರೆ (type == R_ARM_THM_JUMP24)
+                    get_sym_attr(s1, sym_ಸೂಚ್ಯಂಕ, 1)->plt_thumb_stub = 1;
+#ಆದರೆ_ಅಂತ್ಯ
             }
-            break;
-        default:
-            break;
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
+            ನಿಲ್ಲಿಸು;
         }
     }
- done:
+ ಮುಗಿದ:
     ret = !s1->nb_errors - 1; /* errors possibly from set_elf_sym() */
- the_end:
+ the_ಕೊನೆ:
     tcc_free(symtab);
     tcc_free(strtab);
-    tcc_free(old_to_new_syms);
-    tcc_free(sm_table);
+    tcc_free(old_ಗಮ್ಯ_new_syms);
+    tcc_free(sm_ಕೋಷ್ಟಕ);
     tcc_free(strsec);
     tcc_free(shdr);
-    return ret;
+    ಹಿಂತಿರುಗಿ ret;
 }
 
-typedef struct ArchiveHeader {
-    char ar_name[16];           /* name of this member */
-    char ar_date[12];           /* file mtime */
-    char ar_uid[6];             /* owner uid; printed as decimal */
-    char ar_gid[6];             /* owner gid; printed as decimal */
-    char ar_mode[8];            /* file mode, printed as octal   */
-    char ar_size[10];           /* file size, printed as decimal */
-    char ar_fmag[2];            /* should contain ARFMAG */
-} ArchiveHeader;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ Archive_ಶೀರ್ಷಿಕೆ {
+    ಅಕ್ಷರ ar_name[16];           /* name of this member */
+    ಅಕ್ಷರ ar_date[12];           /* file mtime */
+    ಅಕ್ಷರ ar_uid[6];             /* owner uid; printed as decimal */
+    ಅಕ್ಷರ ar_gid[6];             /* owner gid; printed as decimal */
+    ಅಕ್ಷರ ar_ಬಹುಲಕ[8];            /* file mode, printed as octal   */
+    ಅಕ್ಷರ ar_ಗಾತ್ರ[10];           /* file size, printed as decimal */
+    ಅಕ್ಷರ ar_fmag[2];            /* should contain ARFMAG */
+} Archive_ಶೀರ್ಷಿಕೆ;
 
-#define ARFMAG "`\n"
+#ವ್ಯಾಖ್ಯಾನಿಸು ARFMAG "`\n"
 
-static unsigned long long get_be(const uint8_t *b, int n)
+ಸ್ಥಿರ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ get_be(ಸ್ಥಿರಾಂಕ uint8_t *b, ಪೂರ್ಣಾಂಕ n)
 {
-    unsigned long long ret = 0;
-    while (n)
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ ret = 0;
+    ಆಗ (n)
         ret = (ret << 8) | *b++, --n;
-    return ret;
+    ಹಿಂತಿರುಗಿ ret;
 }
 
-static int read_ar_header(int fd, int offset, ArchiveHeader *hdr)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ read_ar_ಶೀರ್ಷಿಕೆ(ಪೂರ್ಣಾಂಕ fd, ಪೂರ್ಣಾಂಕ ಸ್ಥಾನಾಂತರ, Archive_ಶೀರ್ಷಿಕೆ *hdr)
 {
-    char *p, *e;
-    int len;
-    lseek(fd, offset, SEEK_SET);
-    len = full_read(fd, hdr, sizeof(ArchiveHeader));
-    if (len != sizeof(ArchiveHeader))
-        return len ? -1 : 0;
-    if (memcmp(hdr->ar_fmag, ARFMAG, sizeof hdr->ar_fmag))
-        return -1;
+    ಅಕ್ಷರ *p, *e;
+    ಪೂರ್ಣಾಂಕ len;
+    lseek(fd, ಸ್ಥಾನಾಂತರ, SEEK_SET);
+    len = ತುಂಬಿದ_read(fd, hdr, ಗಾತ್ರ(Archive_ಶೀರ್ಷಿಕೆ));
+    ಆದರೆ (len != ಗಾತ್ರ(Archive_ಶೀರ್ಷಿಕೆ))
+        ಹಿಂತಿರುಗಿ len ? -1 : 0;
+    ಆದರೆ (memcmp(hdr->ar_fmag, ARFMAG, ಗಾತ್ರ hdr->ar_fmag))
+        ಹಿಂತಿರುಗಿ -1;
     p = hdr->ar_name;
-    for (e = p + sizeof hdr->ar_name; e > p && e[-1] == ' ';)
+    ಗಾಗಿ (e = p + ಗಾತ್ರ hdr->ar_name; e > p && e[-1] == ' ';)
         --e;
     *e = '\0';
-    hdr->ar_size[sizeof hdr->ar_size-1] = 0;
-    return len;
+    hdr->ar_ಗಾತ್ರ[ಗಾತ್ರ hdr->ar_ಗಾತ್ರ-1] = 0;
+    ಹಿಂತಿರುಗಿ len;
 }
 
 /* load only the objects which resolve undefined symbols */
-static int tcc_load_alacarte(TCCState *s1, int fd, int size, int entrysize)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ tcc_ತುಂಬು_alacarte(TCCState *s1, ಪೂರ್ಣಾಂಕ fd, ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_2, ಪೂರ್ಣಾಂಕ entrysize)
 {
-    int i, bound, nsyms, sym_index, len, ret = -1;
-    unsigned long long off;
-    uint8_t *data;
-    const char *ar_names, *p;
-    const uint8_t *ar_index;
+    ಪೂರ್ಣಾಂಕ i, bound, nsyms, sym_ಸೂಚ್ಯಂಕ, len, ret = -1;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ off;
+    uint8_t *ದತ್ತಾಂಶ;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ar_ಹೆಸರುಗಳು, *p;
+    ಸ್ಥಿರಾಂಕ uint8_t *ar_ಸೂಚ್ಯಂಕ;
     ElfW(Sym) *sym;
-    ArchiveHeader hdr;
+    Archive_ಶೀರ್ಷಿಕೆ hdr;
 
-    data = tcc_malloc(size);
-    if (full_read(fd, data, size) != size)
-        goto invalid;
-    nsyms = get_be(data, entrysize);
-    ar_index = data + entrysize;
-    ar_names = (char *) ar_index + nsyms * entrysize;
+    ದತ್ತಾಂಶ = tcc_malloc(ಗಾತ್ರ_2);
+    ಆದರೆ (ತುಂಬಿದ_read(fd, ದತ್ತಾಂಶ, ಗಾತ್ರ_2) != ಗಾತ್ರ_2)
+        ಹೋಗು invalid;
+    nsyms = get_be(ದತ್ತಾಂಶ, entrysize);
+    ar_ಸೂಚ್ಯಂಕ = ದತ್ತಾಂಶ + entrysize;
+    ar_ಹೆಸರುಗಳು = (ಅಕ್ಷರ *) ar_ಸೂಚ್ಯಂಕ + nsyms * entrysize;
 
-    do {
+    ಮಾಡು {
         bound = 0;
-        for (p = ar_names, i = 0; i < nsyms; i++, p += strlen(p)+1) {
+        ಗಾಗಿ (p = ar_ಹೆಸರುಗಳು, i = 0; i < nsyms; i++, p += ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(p)+1) {
             Section *s = symtab_section;
-            sym_index = find_elf_sym(s, p);
-            if (!sym_index)
-                continue;
-            sym = &((ElfW(Sym) *)s->data)[sym_index];
-            if(sym->st_shndx != SHN_UNDEF)
-                continue;
-            off = get_be(ar_index + i * entrysize, entrysize);
-            len = read_ar_header(fd, off, &hdr);
-            if (len <= 0 || memcmp(hdr.ar_fmag, ARFMAG, 2)) {
+            sym_ಸೂಚ್ಯಂಕ = ಕಂಡುಹಿಡಿ_elf_sym(s, p);
+            ಆದರೆ (!sym_ಸೂಚ್ಯಂಕ)
+                ಮುಂದುವರಿ;
+            sym = &((ElfW(Sym) *)s->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
+            ಆದರೆ(sym->st_shndx != SHN_UNDEF)
+                ಮುಂದುವರಿ;
+            off = get_be(ar_ಸೂಚ್ಯಂಕ + i * entrysize, entrysize);
+            len = read_ar_ಶೀರ್ಷಿಕೆ(fd, off, &hdr);
+            ಆದರೆ (len <= 0 || memcmp(hdr.ar_fmag, ARFMAG, 2)) {
         invalid:
                 tcc_error_noabort("invalid archive");
-                goto the_end;
+                ಹೋಗು the_ಕೊನೆ;
             }
             off += len;
-            if (s1->verbose == 2)
-                printf("   -> %s\n", hdr.ar_name);
-            if (tcc_load_object_file(s1, fd, off) < 0)
-                goto the_end;
+            ಆದರೆ (s1->verbose == 2)
+                ಬರೆ("   -> %s\n", hdr.ar_name);
+            ಆದರೆ (tcc_ತುಂಬು_object_file(s1, fd, off) < 0)
+                ಹೋಗು the_ಕೊನೆ;
             ++bound;
         }
-    } while(bound);
+    } ಆಗ(bound);
     ret = 0;
- the_end:
-    tcc_free(data);
-    return ret;
+ the_ಕೊನೆ:
+    tcc_free(ದತ್ತಾಂಶ);
+    ಹಿಂತಿರುಗಿ ret;
 }
 
 /* load a '.a' file */
-ST_FUNC int tcc_load_archive(TCCState *s1, int fd, int alacarte)
+ST_FUNC ಪೂರ್ಣಾಂಕ tcc_ತುಂಬು_archive(TCCState *s1, ಪೂರ್ಣಾಂಕ fd, ಪೂರ್ಣಾಂಕ alacarte)
 {
-    ArchiveHeader hdr;
+    Archive_ಶೀರ್ಷಿಕೆ hdr;
     /* char magic[8]; */
-    int size, len;
-    unsigned long file_offset;
+    ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_2, len;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ file_ಸ್ಥಾನಾಂತರ;
     ElfW(Ehdr) ehdr;
 
     /* skip magic which was already checked */
     /* full_read(fd, magic, sizeof(magic)); */
-    file_offset = sizeof ARMAG - 1;
+    file_ಸ್ಥಾನಾಂತರ = ಗಾತ್ರ ARMAG - 1;
 
-    for(;;) {
-        len = read_ar_header(fd, file_offset, &hdr);
-        if (len == 0)
-            return 0;
-        if (len < 0)
-            return tcc_error_noabort("invalid archive");
-        file_offset += len;
-        size = strtol(hdr.ar_size, NULL, 0);
-        if (alacarte) {
+    ಗಾಗಿ(;;) {
+        len = read_ar_ಶೀರ್ಷಿಕೆ(fd, file_ಸ್ಥಾನಾಂತರ, &hdr);
+        ಆದರೆ (len == 0)
+            ಹಿಂತಿರುಗಿ 0;
+        ಆದರೆ (len < 0)
+            ಹಿಂತಿರುಗಿ tcc_error_noabort("invalid archive");
+        file_ಸ್ಥಾನಾಂತರ += len;
+        ಗಾತ್ರ_2 = strtol(hdr.ar_ಗಾತ್ರ, ಖಾಲಿ, 0);
+        ಆದರೆ (alacarte) {
             /* coff symbol table : we handle it */
-            if (!strcmp(hdr.ar_name, "/"))
-                return tcc_load_alacarte(s1, fd, size, 4);
-            if (!strcmp(hdr.ar_name, "/SYM64/"))
-                return tcc_load_alacarte(s1, fd, size, 8);
-        } else if (tcc_object_type(fd, &ehdr) == AFF_BINTYPE_REL) {
-            if (s1->verbose == 2)
-                printf("   -> %s\n", hdr.ar_name);
-            if (tcc_load_object_file(s1, fd, file_offset) < 0)
-                return -1;
+            ಆದರೆ (!strcmp(hdr.ar_name, "/"))
+                ಹಿಂತಿರುಗಿ tcc_ತುಂಬು_alacarte(s1, fd, ಗಾತ್ರ_2, 4);
+            ಆದರೆ (!strcmp(hdr.ar_name, "/SYM64/"))
+                ಹಿಂತಿರುಗಿ tcc_ತುಂಬು_alacarte(s1, fd, ಗಾತ್ರ_2, 8);
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (tcc_object_type(fd, &ehdr) == AFF_BINTYPE_REL) {
+            ಆದರೆ (s1->verbose == 2)
+                ಬರೆ("   -> %s\n", hdr.ar_name);
+            ಆದರೆ (tcc_ತುಂಬು_object_file(s1, fd, file_ಸ್ಥಾನಾಂತರ) < 0)
+                ಹಿಂತಿರುಗಿ -1;
         }
         /* align to even */
-        file_offset = (file_offset + size + 1) & ~1;
+        file_ಸ್ಥಾನಾಂತರ = (file_ಸ್ಥಾನಾಂತರ + ಗಾತ್ರ_2 + 1) & ~1;
     }
 }
 
-#ifndef ELF_OBJ_ONLY
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ELF_OBJ_ONLY
 /* Set LV[I] to the global index of sym-version (LIB,VERSION).  Maybe resizes
    LV, maybe create a new entry for (LIB,VERSION).  */
-static void set_ver_to_ver(TCCState *s1, int *n, int **lv, int i, char *lib, char *version)
+ಸ್ಥಿರ ಶೂನ್ಯ ಗಣ_ver_ಗಮ್ಯ_ver(TCCState *s1, ಪೂರ್ಣಾಂಕ *n, ಪೂರ್ಣಾಂಕ **lv, ಪೂರ್ಣಾಂಕ i, ಅಕ್ಷರ *lib, ಅಕ್ಷರ *ಆವೃತ್ತಿ)
 {
-    while (i >= *n) {
-        *lv = tcc_realloc(*lv, (*n + 1) * sizeof(**lv));
+    ಆಗ (i >= *n) {
+        *lv = tcc_realloc(*lv, (*n + 1) * ಗಾತ್ರ(**lv));
         (*lv)[(*n)++] = -1;
     }
-    if ((*lv)[i] == -1) {
-        int v, prev_same_lib = -1;
-        for (v = 0; v < nb_sym_versions; v++) {
-            if (strcmp(sym_versions[v].lib, lib))
-              continue;
+    ಆದರೆ ((*lv)[i] == -1) {
+        ಪೂರ್ಣಾಂಕ v, prev_same_lib = -1;
+        ಗಾಗಿ (v = 0; v < nb_sym_versions; v++) {
+            ಆದರೆ (strcmp(sym_versions[v].lib, lib))
+              ಮುಂದುವರಿ;
             prev_same_lib = v;
-            if (!strcmp(sym_versions[v].version, version))
-              break;
+            ಆದರೆ (!strcmp(sym_versions[v].ಆವೃತ್ತಿ, ಆವೃತ್ತಿ))
+              ನಿಲ್ಲಿಸು;
         }
-        if (v == nb_sym_versions) {
+        ಆದರೆ (v == nb_sym_versions) {
             sym_versions = tcc_realloc (sym_versions,
-                                        (v + 1) * sizeof(*sym_versions));
+                                        (v + 1) * ಗಾತ್ರ(*sym_versions));
             sym_versions[v].lib = tcc_strdup(lib);
-            sym_versions[v].version = tcc_strdup(version);
-            sym_versions[v].out_index = 0;
+            sym_versions[v].ಆವೃತ್ತಿ = tcc_strdup(ಆವೃತ್ತಿ);
+            sym_versions[v].ಹೊರಹೋಗು_ಸೂಚ್ಯಂಕ = 0;
             sym_versions[v].prev_same_lib = prev_same_lib;
             nb_sym_versions++;
         }
@@ -3752,197 +3752,197 @@ static void set_ver_to_ver(TCCState *s1, int *n, int **lv, int i, char *lib, cha
 
 /* Associates symbol SYM_INDEX (in dynsymtab) with sym-version index
    VERNDX.  */
-static void
-set_sym_version(TCCState *s1, int sym_index, int verndx)
+ಸ್ಥಿರ ಶೂನ್ಯ
+ಗಣ_sym_ಆವೃತ್ತಿ(TCCState *s1, ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ, ಪೂರ್ಣಾಂಕ verndx)
 {
-    if (sym_index >= nb_sym_to_version) {
-        int newelems = sym_index ? sym_index * 2 : 1;
-        sym_to_version = tcc_realloc(sym_to_version,
-                                     newelems * sizeof(*sym_to_version));
-        memset(sym_to_version + nb_sym_to_version, -1,
-               (newelems - nb_sym_to_version) * sizeof(*sym_to_version));
-        nb_sym_to_version = newelems;
+    ಆದರೆ (sym_ಸೂಚ್ಯಂಕ >= nb_sym_ಗಮ್ಯ_ಆವೃತ್ತಿ) {
+        ಪೂರ್ಣಾಂಕ newelems = sym_ಸೂಚ್ಯಂಕ ? sym_ಸೂಚ್ಯಂಕ * 2 : 1;
+        sym_ಗಮ್ಯ_ಆವೃತ್ತಿ = tcc_realloc(sym_ಗಮ್ಯ_ಆವೃತ್ತಿ,
+                                     newelems * ಗಾತ್ರ(*sym_ಗಮ್ಯ_ಆವೃತ್ತಿ));
+        memset(sym_ಗಮ್ಯ_ಆವೃತ್ತಿ + nb_sym_ಗಮ್ಯ_ಆವೃತ್ತಿ, -1,
+               (newelems - nb_sym_ಗಮ್ಯ_ಆವೃತ್ತಿ) * ಗಾತ್ರ(*sym_ಗಮ್ಯ_ಆವೃತ್ತಿ));
+        nb_sym_ಗಮ್ಯ_ಆವೃತ್ತಿ = newelems;
     }
-    if (sym_to_version[sym_index] < 0)
-      sym_to_version[sym_index] = verndx;
+    ಆದರೆ (sym_ಗಮ್ಯ_ಆವೃತ್ತಿ[sym_ಸೂಚ್ಯಂಕ] < 0)
+      sym_ಗಮ್ಯ_ಆವೃತ್ತಿ[sym_ಸೂಚ್ಯಂಕ] = verndx;
 }
 
-struct versym_info {
-    int nb_versyms;
+ರಚನೆ versym_info {
+    ಪೂರ್ಣಾಂಕ nb_versyms;
     ElfW(Verdef) *verdef;
     ElfW(Verneed) *verneed;
     ElfW(Half) *versym;
-    int nb_local_ver, *local_ver;
+    ಪೂರ್ಣಾಂಕ nb_local_ver, *local_ver;
 };
 
 
-static void store_version(TCCState *s1, struct versym_info *v, char *dynstr)
+ಸ್ಥಿರ ಶೂನ್ಯ store_ಆವೃತ್ತಿ(TCCState *s1, ರಚನೆ versym_info *v, ಅಕ್ಷರ *dynstr)
 {
-    char *lib, *version;
-    uint32_t next;
-    int i;
+    ಅಕ್ಷರ *lib, *ಆವೃತ್ತಿ;
+    uint32_t ಮುಂದಿನ;
+    ಪೂರ್ಣಾಂಕ i;
 
-#define	DEBUG_VERSION 0
+#ವ್ಯಾಖ್ಯಾನಿಸು	DEBUG_ಆವೃತ್ತಿ 0
 
-    if (v->versym && v->verdef) {
+    ಆದರೆ (v->versym && v->verdef) {
       ElfW(Verdef) *vdef = v->verdef;
-      lib = NULL;
-      do {
+      lib = ಖಾಲಿ;
+      ಮಾಡು {
         ElfW(Verdaux) *verdaux =
-	  (ElfW(Verdaux) *) (((char *) vdef) + vdef->vd_aux);
+	  (ElfW(Verdaux) *) (((ಅಕ್ಷರ *) vdef) + vdef->vd_aux);
 
-#if DEBUG_VERSION
-	printf ("verdef: version:%u flags:%u index:%u, hash:%u\n",
-	        vdef->vd_version, vdef->vd_flags, vdef->vd_ndx,
+#ಆದರೆ DEBUG_ಆವೃತ್ತಿ
+	ಬರೆ ("verdef: version:%u flags:%u index:%u, hash:%u\n",
+	        vdef->vd_ಆವೃತ್ತಿ, vdef->vd_flags, vdef->vd_ndx,
 		vdef->vd_hash);
-#endif
-	if (vdef->vd_cnt) {
-          version = dynstr + verdaux->vda_name;
+#ಆದರೆ_ಅಂತ್ಯ
+	ಆದರೆ (vdef->vd_cnt) {
+          ಆವೃತ್ತಿ = dynstr + verdaux->vda_name;
 
-	  if (lib == NULL)
-	    lib = version;
-	  else
-            set_ver_to_ver(s1, &v->nb_local_ver, &v->local_ver, vdef->vd_ndx,
-                           lib, version);
-#if DEBUG_VERSION
-	  printf ("  verdaux(%u): %s\n", vdef->vd_ndx, version);
-#endif
+	  ಆದರೆ (lib == ಖಾಲಿ)
+	    lib = ಆವೃತ್ತಿ;
+	  ಇಲ್ಲದಿದ್ದರೆ
+            ಗಣ_ver_ಗಮ್ಯ_ver(s1, &v->nb_local_ver, &v->local_ver, vdef->vd_ndx,
+                           lib, ಆವೃತ್ತಿ);
+#ಆದರೆ DEBUG_ಆವೃತ್ತಿ
+	  ಬರೆ ("  verdaux(%u): %s\n", vdef->vd_ndx, ಆವೃತ್ತಿ);
+#ಆದರೆ_ಅಂತ್ಯ
 	}
-        next = vdef->vd_next;
-        vdef = (ElfW(Verdef) *) (((char *) vdef) + next);
-      } while (next);
+        ಮುಂದಿನ = vdef->vd_ಮುಂದಿನ;
+        vdef = (ElfW(Verdef) *) (((ಅಕ್ಷರ *) vdef) + ಮುಂದಿನ);
+      } ಆಗ (ಮುಂದಿನ);
     }
-    if (v->versym && v->verneed) {
+    ಆದರೆ (v->versym && v->verneed) {
       ElfW(Verneed) *vneed = v->verneed;
-      do {
+      ಮಾಡು {
         ElfW(Vernaux) *vernaux =
-	  (ElfW(Vernaux) *) (((char *) vneed) + vneed->vn_aux);
+	  (ElfW(Vernaux) *) (((ಅಕ್ಷರ *) vneed) + vneed->vn_aux);
 
         lib = dynstr + vneed->vn_file;
-#if DEBUG_VERSION
-	printf ("verneed: %u %s\n", vneed->vn_version, lib);
-#endif
-	for (i = 0; i < vneed->vn_cnt; i++) {
-	  if ((vernaux->vna_other & 0x8000) == 0) { /* hidden */
-              version = dynstr + vernaux->vna_name;
-              set_ver_to_ver(s1, &v->nb_local_ver, &v->local_ver, vernaux->vna_other,
-                             lib, version);
-#if DEBUG_VERSION
-	    printf ("  vernaux(%u): %u %u %s\n",
+#ಆದರೆ DEBUG_ಆವೃತ್ತಿ
+	ಬರೆ ("verneed: %u %s\n", vneed->vn_ಆವೃತ್ತಿ, lib);
+#ಆದರೆ_ಅಂತ್ಯ
+	ಗಾಗಿ (i = 0; i < vneed->vn_cnt; i++) {
+	  ಆದರೆ ((vernaux->vna_other & 0x8000) == 0) { /* hidden */
+              ಆವೃತ್ತಿ = dynstr + vernaux->vna_name;
+              ಗಣ_ver_ಗಮ್ಯ_ver(s1, &v->nb_local_ver, &v->local_ver, vernaux->vna_other,
+                             lib, ಆವೃತ್ತಿ);
+#ಆದರೆ DEBUG_ಆವೃತ್ತಿ
+	    ಬರೆ ("  vernaux(%u): %u %u %s\n",
 		    vernaux->vna_other, vernaux->vna_hash,
-		    vernaux->vna_flags, version);
-#endif
+		    vernaux->vna_flags, ಆವೃತ್ತಿ);
+#ಆದರೆ_ಅಂತ್ಯ
 	  }
-	  vernaux = (ElfW(Vernaux) *) (((char *) vernaux) + vernaux->vna_next);
+	  vernaux = (ElfW(Vernaux) *) (((ಅಕ್ಷರ *) vernaux) + vernaux->vna_ಮುಂದಿನ);
 	}
-        next = vneed->vn_next;
-        vneed = (ElfW(Verneed) *) (((char *) vneed) + next);
-      } while (next);
+        ಮುಂದಿನ = vneed->vn_ಮುಂದಿನ;
+        vneed = (ElfW(Verneed) *) (((ಅಕ್ಷರ *) vneed) + ಮುಂದಿನ);
+      } ಆಗ (ಮುಂದಿನ);
     }
 
-#if DEBUG_VERSION
-    for (i = 0; i < v->nb_local_ver; i++) {
-      if (v->local_ver[i] > 0) {
-        printf ("%d: lib: %s, version %s\n",
+#ಆದರೆ DEBUG_ಆವೃತ್ತಿ
+    ಗಾಗಿ (i = 0; i < v->nb_local_ver; i++) {
+      ಆದರೆ (v->local_ver[i] > 0) {
+        ಬರೆ ("%d: lib: %s, version %s\n",
 		i, sym_versions[v->local_ver[i]].lib,
-                sym_versions[v->local_ver[i]].version);
+                sym_versions[v->local_ver[i]].ಆವೃತ್ತಿ);
       }
     }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
 /* load a library / DLL
    'level = 0' means that the DLL is referenced by the user
    (so it should be added as DT_NEEDED in the generated ELF file) */
-ST_FUNC int tcc_load_dll(TCCState *s1, int fd, const char *filename, int level)
+ST_FUNC ಪೂರ್ಣಾಂಕ tcc_ತುಂಬು_dll(TCCState *s1, ಪೂರ್ಣಾಂಕ fd, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *filename, ಪೂರ್ಣಾಂಕ level)
 {
     ElfW(Ehdr) ehdr;
     ElfW(Shdr) *shdr, *sh, *sh1;
-    int i, nb_syms, nb_dts, sym_bind, ret = -1;
+    ಪೂರ್ಣಾಂಕ i, nb_syms, nb_dts, sym_bind, ret = -1;
     ElfW(Sym) *sym, *dynsym;
     ElfW(Dyn) *dt, *dynamic;
 
-    char *dynstr;
-    int sym_index;
-    const char *name, *soname;
-    struct versym_info v;
+    ಅಕ್ಷರ *dynstr;
+    ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, *soname;
+    ರಚನೆ versym_info v;
 
-    full_read(fd, &ehdr, sizeof(ehdr));
+    ತುಂಬಿದ_read(fd, &ehdr, ಗಾತ್ರ(ehdr));
 
     /* test CPU specific stuff */
-    if (ehdr.e_ident[5] != ELFDATA2LSB ||
-        ehdr.e_machine != EM_TCC_TARGET) {
-        return tcc_error_noabort("bad architecture");
+    ಆದರೆ (ehdr.e_ident[5] != ELFDATA2LSB ||
+        ehdr.e_machine != EM_TCC_ಗುರಿ) {
+        ಹಿಂತಿರುಗಿ tcc_error_noabort("bad architecture");
     }
 
     /* read sections */
-    shdr = load_data(fd, ehdr.e_shoff, sizeof(ElfW(Shdr)) * ehdr.e_shnum);
+    shdr = ತುಂಬು_ದತ್ತಾಂಶ(fd, ehdr.e_shoff, ಗಾತ್ರ(ElfW(Shdr)) * ehdr.e_shnum);
 
     /* load dynamic section and dynamic symbols */
     nb_syms = 0;
     nb_dts = 0;
-    dynamic = NULL;
-    dynsym = NULL; /* avoid warning */
-    dynstr = NULL; /* avoid warning */
-    memset(&v, 0, sizeof v);
+    dynamic = ಖಾಲಿ;
+    dynsym = ಖಾಲಿ; /* avoid warning */
+    dynstr = ಖಾಲಿ; /* avoid warning */
+    memset(&v, 0, ಗಾತ್ರ v);
 
-    for(i = 0, sh = shdr; i < ehdr.e_shnum; i++, sh++) {
-        switch(sh->sh_type) {
-        case SHT_DYNAMIC:
-            nb_dts = sh->sh_size / sizeof(ElfW(Dyn));
-            dynamic = load_data(fd, sh->sh_offset, sh->sh_size);
-            break;
-        case SHT_DYNSYM:
-            nb_syms = sh->sh_size / sizeof(ElfW(Sym));
-            dynsym = load_data(fd, sh->sh_offset, sh->sh_size);
+    ಗಾಗಿ(i = 0, sh = shdr; i < ehdr.e_shnum; i++, sh++) {
+        ಆಯ್ಕೆ(sh->sh_type) {
+        ಸ್ಥಿತಿ SHT_DYNAMIC:
+            nb_dts = sh->sh_ಗಾತ್ರ / ಗಾತ್ರ(ElfW(Dyn));
+            dynamic = ತುಂಬು_ದತ್ತಾಂಶ(fd, sh->sh_ಸ್ಥಾನಾಂತರ, sh->sh_ಗಾತ್ರ);
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ SHT_DYNSYM:
+            nb_syms = sh->sh_ಗಾತ್ರ / ಗಾತ್ರ(ElfW(Sym));
+            dynsym = ತುಂಬು_ದತ್ತಾಂಶ(fd, sh->sh_ಸ್ಥಾನಾಂತರ, sh->sh_ಗಾತ್ರ);
             sh1 = &shdr[sh->sh_link];
-            dynstr = load_data(fd, sh1->sh_offset, sh1->sh_size);
-            break;
-        case SHT_GNU_verdef:
-	    v.verdef = load_data(fd, sh->sh_offset, sh->sh_size);
-	    break;
-        case SHT_GNU_verneed:
-	    v.verneed = load_data(fd, sh->sh_offset, sh->sh_size);
-	    break;
-        case SHT_GNU_versym:
-            v.nb_versyms = sh->sh_size / sizeof(ElfW(Half));
-	    v.versym = load_data(fd, sh->sh_offset, sh->sh_size);
-	    break;
-        default:
-            break;
+            dynstr = ತುಂಬು_ದತ್ತಾಂಶ(fd, sh1->sh_ಸ್ಥಾನಾಂತರ, sh1->sh_ಗಾತ್ರ);
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ SHT_GNU_verdef:
+	    v.verdef = ತುಂಬು_ದತ್ತಾಂಶ(fd, sh->sh_ಸ್ಥಾನಾಂತರ, sh->sh_ಗಾತ್ರ);
+	    ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ SHT_GNU_verneed:
+	    v.verneed = ತುಂಬು_ದತ್ತಾಂಶ(fd, sh->sh_ಸ್ಥಾನಾಂತರ, sh->sh_ಗಾತ್ರ);
+	    ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ SHT_GNU_versym:
+            v.nb_versyms = sh->sh_ಗಾತ್ರ / ಗಾತ್ರ(ElfW(Half));
+	    v.versym = ತುಂಬು_ದತ್ತಾಂಶ(fd, sh->sh_ಸ್ಥಾನಾಂತರ, sh->sh_ಗಾತ್ರ);
+	    ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
+            ನಿಲ್ಲಿಸು;
         }
     }
 
-    if (!dynamic)
-        goto the_end;
+    ಆದರೆ (!dynamic)
+        ಹೋಗು the_ಕೊನೆ;
 
     /* compute the real library name */
     soname = tcc_basename(filename);
-    for(i = 0, dt = dynamic; i < nb_dts; i++, dt++)
-        if (dt->d_tag == DT_SONAME)
+    ಗಾಗಿ(i = 0, dt = dynamic; i < nb_dts; i++, dt++)
+        ಆದರೆ (dt->d_ಟ್ಯಾಗ್ == DT_SONAME)
             soname = dynstr + dt->d_un.d_val;
 
     /* if the dll is already loaded, do not load it */
-    if (tcc_add_dllref(s1, soname, level)->found)
-        goto ret_success;
+    ಆದರೆ (tcc_ಕೂಡಿಸು_dllref(s1, soname, level)->ಸಿಕ್ಕಿತು)
+        ಹೋಗು ret_success;
 
-    if (v.nb_versyms != nb_syms)
-        tcc_free (v.versym), v.versym = NULL;
-    else
-        store_version(s1, &v, dynstr);
+    ಆದರೆ (v.nb_versyms != nb_syms)
+        tcc_free (v.versym), v.versym = ಖಾಲಿ;
+    ಇಲ್ಲದಿದ್ದರೆ
+        store_ಆವೃತ್ತಿ(s1, &v, dynstr);
 
     /* add dynamic symbols in dynsym_section */
-    for(i = 1, sym = dynsym + 1; i < nb_syms; i++, sym++) {
+    ಗಾಗಿ(i = 1, sym = dynsym + 1; i < nb_syms; i++, sym++) {
         sym_bind = ELFW(ST_BIND)(sym->st_info);
-        if (sym_bind == STB_LOCAL)
-            continue;
+        ಆದರೆ (sym_bind == STB_LOCAL)
+            ಮುಂದುವರಿ;
         name = dynstr + sym->st_name;
-        sym_index = set_elf_sym(s1->dynsymtab_section, sym->st_value, sym->st_size,
+        sym_ಸೂಚ್ಯಂಕ = ಗಣ_elf_sym(s1->dynsymtab_section, sym->st_ಮೌಲ್ಯ, sym->st_ಗಾತ್ರ,
                                 sym->st_info, sym->st_other, sym->st_shndx, name);
-        if (v.versym) {
+        ಆದರೆ (v.versym) {
             ElfW(Half) vsym = v.versym[i];
-            if ((vsym & 0x8000) == 0 && vsym > 0 && vsym < v.nb_local_ver)
-                set_sym_version(s1, sym_index, v.local_ver[vsym]);
+            ಆದರೆ ((vsym & 0x8000) == 0 && vsym > 0 && vsym < v.nb_local_ver)
+                ಗಣ_sym_ಆವೃತ್ತಿ(s1, sym_ಸೂಚ್ಯಂಕ, v.local_ver[vsym]);
         }
     }
 
@@ -3953,29 +3953,29 @@ ST_FUNC int tcc_load_dll(TCCState *s1, int fd, const char *filename, int level)
        When tcc output mode is OUTPUT_MEM,
        tcc calls dlopen, which handles DT_NEEDED for us */
 
-#if 0
-    for(i = 0, dt = dynamic; i < nb_dts; i++, dt++)
-        if (dt->d_tag == DT_RPATH)
-            tcc_add_library_path(s1, dynstr + dt->d_un.d_val);
+#ಆದರೆ 0
+    ಗಾಗಿ(i = 0, dt = dynamic; i < nb_dts; i++, dt++)
+        ಆದರೆ (dt->d_ಟ್ಯಾಗ್ == DT_RPATH)
+            tcc_ಕೂಡಿಸು_library_ಮಾರ್ಗ(s1, dynstr + dt->d_un.d_val);
 
     /* load all referenced DLLs */
-    for(i = 0, dt = dynamic; i < nb_dts; i++, dt++) {
-        switch(dt->d_tag) {
-        case DT_NEEDED:
+    ಗಾಗಿ(i = 0, dt = dynamic; i < nb_dts; i++, dt++) {
+        ಆಯ್ಕೆ(dt->d_ಟ್ಯಾಗ್) {
+        ಸ್ಥಿತಿ DT_NEEDED:
             name = dynstr + dt->d_un.d_val;
-            if (tcc_add_dllref(s1, name, -1))
-                continue;
-            if (tcc_add_dll(s1, name, AFF_REFERENCED_DLL) < 0) {
+            ಆದರೆ (tcc_ಕೂಡಿಸು_dllref(s1, name, -1))
+                ಮುಂದುವರಿ;
+            ಆದರೆ (tcc_ಕೂಡಿಸು_dll(s1, name, AFF_REFERENCED_DLL) < 0) {
                 ret = tcc_error_noabort("referenced dll '%s' not found", name);
-                goto the_end;
+                ಹೋಗು the_ಕೊನೆ;
             }
         }
     }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
  ret_success:
     ret = 0;
- the_end:
+ the_ಕೊನೆ:
     tcc_free(dynstr);
     tcc_free(dynsym);
     tcc_free(dynamic);
@@ -3984,232 +3984,232 @@ ST_FUNC int tcc_load_dll(TCCState *s1, int fd, const char *filename, int level)
     tcc_free(v.verdef);
     tcc_free(v.verneed);
     tcc_free(v.versym);
-    return ret;
+    ಹಿಂತಿರುಗಿ ret;
 }
 
-#define LD_TOK_NAME 256
-#define LD_TOK_EOF  (-1)
-static int ld_inp(TCCState *s1)
+#ವ್ಯಾಖ್ಯಾನಿಸು LD_TOK_NAME 256
+#ವ್ಯಾಖ್ಯಾನಿಸು LD_TOK_EOF  (-1)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ld_inp(TCCState *s1)
 {
-    int c = *s1->ld_p;
-    if (c == 0)
-        return CH_EOF;
+    ಪೂರ್ಣಾಂಕ c = *s1->ld_p;
+    ಆದರೆ (c == 0)
+        ಹಿಂತಿರುಗಿ CH_EOF;
     ++s1->ld_p;
-    return c;
+    ಹಿಂತಿರುಗಿ c;
 }
-#define ld_unget(s1, ch) if (ch != CH_EOF) --s1->ld_p
+#ವ್ಯಾಖ್ಯಾನಿಸು ld_unget(s1, ch) ಆದರೆ (ch != CH_EOF) --s1->ld_p
 
 /* return next ld script token */
-static int ld_next(TCCState *s1, char *name, int name_size)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ld_ಮುಂದಿನ(TCCState *s1, ಅಕ್ಷರ *name, ಪೂರ್ಣಾಂಕ name_ಗಾತ್ರ)
 {
-    int c, d, ch;
-    char *q;
+    ಪೂರ್ಣಾಂಕ c, d, ch;
+    ಅಕ್ಷರ *q;
 
  redo:
     ch = ld_inp(s1);
     q = name, *q++ = ch;
-    switch(ch) {
-    case ' ':
-    case '\t':
-    case '\f':
-    case '\v':
-    case '\r':
-    case '\n':
-        goto redo;
-    case '/':
+    ಆಯ್ಕೆ(ch) {
+    ಸ್ಥಿತಿ ' ':
+    ಸ್ಥಿತಿ '\t':
+    ಸ್ಥಿತಿ '\f':
+    ಸ್ಥಿತಿ '\v':
+    ಸ್ಥಿತಿ '\r':
+    ಸ್ಥಿತಿ '\n':
+        ಹೋಗು redo;
+    ಸ್ಥಿತಿ '/':
         ch = ld_inp(s1);
-        if (ch == '*') { /* comment */
-            for (d = 0;; d = ch) {
+        ಆದರೆ (ch == '*') { /* comment */
+            ಗಾಗಿ (d = 0;; d = ch) {
                 ch = ld_inp(s1);
-                if (ch == CH_EOF || (ch == '/' && d == '*'))
-                    break;
+                ಆದರೆ (ch == CH_EOF || (ch == '/' && d == '*'))
+                    ನಿಲ್ಲಿಸು;
             }
-            goto redo;
-        } else {
-            goto parse_name;
+            ಹೋಗು redo;
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            ಹೋಗು parse_name;
         }
-        break;
-    case '\\':
+        ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ '\\':
     /* case 'a' ... 'z': */
-    case 'a':
-       case 'b':
-       case 'c':
-       case 'd':
-       case 'e':
-       case 'f':
-       case 'g':
-       case 'h':
-       case 'i':
-       case 'j':
-       case 'k':
-       case 'l':
-       case 'm':
-       case 'n':
-       case 'o':
-       case 'p':
-       case 'q':
-       case 'r':
-       case 's':
-       case 't':
-       case 'u':
-       case 'v':
-       case 'w':
-       case 'x':
-       case 'y':
-       case 'z':
+    ಸ್ಥಿತಿ 'a':
+       ಸ್ಥಿತಿ 'b':
+       ಸ್ಥಿತಿ 'c':
+       ಸ್ಥಿತಿ 'd':
+       ಸ್ಥಿತಿ 'e':
+       ಸ್ಥಿತಿ 'f':
+       ಸ್ಥಿತಿ 'g':
+       ಸ್ಥಿತಿ 'h':
+       ಸ್ಥಿತಿ 'i':
+       ಸ್ಥಿತಿ 'j':
+       ಸ್ಥಿತಿ 'k':
+       ಸ್ಥಿತಿ 'l':
+       ಸ್ಥಿತಿ 'm':
+       ಸ್ಥಿತಿ 'n':
+       ಸ್ಥಿತಿ 'o':
+       ಸ್ಥಿತಿ 'p':
+       ಸ್ಥಿತಿ 'q':
+       ಸ್ಥಿತಿ 'r':
+       ಸ್ಥಿತಿ 's':
+       ಸ್ಥಿತಿ 't':
+       ಸ್ಥಿತಿ 'u':
+       ಸ್ಥಿತಿ 'v':
+       ಸ್ಥಿತಿ 'w':
+       ಸ್ಥಿತಿ 'x':
+       ಸ್ಥಿತಿ 'y':
+       ಸ್ಥಿತಿ 'z':
     /* case 'A' ... 'z': */
-    case 'A':
-       case 'B':
-       case 'C':
-       case 'D':
-       case 'E':
-       case 'F':
-       case 'G':
-       case 'H':
-       case 'I':
-       case 'J':
-       case 'K':
-       case 'L':
-       case 'M':
-       case 'N':
-       case 'O':
-       case 'P':
-       case 'Q':
-       case 'R':
-       case 'S':
-       case 'T':
-       case 'U':
-       case 'V':
-       case 'W':
-       case 'X':
-       case 'Y':
-       case 'Z':
-    case '-':
-    case '_':
-    case '.':
-    case '$':
-    case '~':
-        for(;;) {
+    ಸ್ಥಿತಿ 'A':
+       ಸ್ಥಿತಿ 'B':
+       ಸ್ಥಿತಿ 'C':
+       ಸ್ಥಿತಿ 'D':
+       ಸ್ಥಿತಿ 'E':
+       ಸ್ಥಿತಿ 'F':
+       ಸ್ಥಿತಿ 'G':
+       ಸ್ಥಿತಿ 'H':
+       ಸ್ಥಿತಿ 'I':
+       ಸ್ಥಿತಿ 'J':
+       ಸ್ಥಿತಿ 'K':
+       ಸ್ಥಿತಿ 'L':
+       ಸ್ಥಿತಿ 'M':
+       ಸ್ಥಿತಿ 'N':
+       ಸ್ಥಿತಿ 'O':
+       ಸ್ಥಿತಿ 'P':
+       ಸ್ಥಿತಿ 'Q':
+       ಸ್ಥಿತಿ 'R':
+       ಸ್ಥಿತಿ 'S':
+       ಸ್ಥಿತಿ 'T':
+       ಸ್ಥಿತಿ 'U':
+       ಸ್ಥಿತಿ 'V':
+       ಸ್ಥಿತಿ 'W':
+       ಸ್ಥಿತಿ 'X':
+       ಸ್ಥಿತಿ 'Y':
+       ಸ್ಥಿತಿ 'Z':
+    ಸ್ಥಿತಿ '-':
+    ಸ್ಥಿತಿ '_':
+    ಸ್ಥಿತಿ '.':
+    ಸ್ಥಿತಿ '$':
+    ಸ್ಥಿತಿ '~':
+        ಗಾಗಿ(;;) {
             ch = ld_inp(s1);
     parse_name:
-            if (!((ch >= 'a' && ch <= 'z') ||
+            ಆದರೆ (!((ch >= 'a' && ch <= 'z') ||
                   (ch >= 'A' && ch <= 'Z') ||
                   (ch >= '0' && ch <= '9') ||
                   strchr("/.-_+=$:\\,~", ch)))
-                break;
-            if ((q - name) < name_size - 1) {
+                ನಿಲ್ಲಿಸು;
+            ಆದರೆ ((q - name) < name_ಗಾತ್ರ - 1) {
                 *q++ = ch;
             }
         }
         ld_unget(s1, ch);
         c = LD_TOK_NAME;
-        break;
-    case CH_EOF:
+        ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ CH_EOF:
         c = LD_TOK_EOF;
-        break;
-    default:
+        ನಿಲ್ಲಿಸು;
+    ಪೂರ್ವನಿಯೋಜಿತ:
         c = ch;
-        break;
+        ನಿಲ್ಲಿಸು;
     }
     *q = '\0';
-    return c;
+    ಹಿಂತಿರುಗಿ c;
 }
 
-static int ld_add_file(TCCState *s1, const char filename[])
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ld_ಕೂಡಿಸು_file(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ filename[])
 {
-    if (filename[0] == '-' && filename[1] == 'l')
-        return tcc_add_library(s1, filename + 2);
-    if (CONFIG_SYSROOT[0] != '\0' || !IS_ABSPATH(filename)) {
+    ಆದರೆ (filename[0] == '-' && filename[1] == 'l')
+        ಹಿಂತಿರುಗಿ tcc_ಕೂಡಿಸು_library(s1, filename + 2);
+    ಆದರೆ (CONFIG_SYSROOT[0] != '\0' || !IS_ABSPATH(filename)) {
         /* lookup via library paths */
-        int ret = tcc_add_dll(s1, tcc_basename(filename), 0);
-        if (ret != FILE_NOT_FOUND)
-            return ret;
+        ಪೂರ್ಣಾಂಕ ret = tcc_ಕೂಡಿಸು_dll(s1, tcc_basename(filename), 0);
+        ಆದರೆ (ret != FILE_NOT_ಸಿಕ್ಕಿತು)
+            ಹಿಂತಿರುಗಿ ret;
     }
-    return tcc_add_file_internal(s1, filename, AFF_PRINT_ERROR);
+    ಹಿಂತಿರುಗಿ tcc_ಕೂಡಿಸು_file_ಆಂತರಿಕ(s1, filename, AFF_PRINT_ERROR);
 }
 
 /* did static libraries add new undefined symbols? */
-static int new_undef_sym(TCCState *s1, int sym_offset)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ new_undef_sym(TCCState *s1, ಪೂರ್ಣಾಂಕ sym_ಸ್ಥಾನಾಂತರ)
 {
-    while (sym_offset < s1->symtab->data_offset) {
-        ElfW(Sym) *esym = (void*)(s1->symtab->data + sym_offset);
-        if (esym->st_shndx == SHN_UNDEF)
-            return 1;
-        sym_offset += sizeof (ElfW(Sym));
+    ಆಗ (sym_ಸ್ಥಾನಾಂತರ < s1->symtab->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ) {
+        ElfW(Sym) *esym = (ಶೂನ್ಯ*)(s1->symtab->ದತ್ತಾಂಶ + sym_ಸ್ಥಾನಾಂತರ);
+        ಆದರೆ (esym->st_shndx == SHN_UNDEF)
+            ಹಿಂತಿರುಗಿ 1;
+        sym_ಸ್ಥಾನಾಂತರ += ಗಾತ್ರ (ElfW(Sym));
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-static int ld_add_file_list(TCCState *s1, const char *cmd)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ld_ಕೂಡಿಸು_file_list(TCCState *s1, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *cmd)
 {
-    char filename[1024];
-    int t, c, sym_offset, ret = 0;
-    unsigned char *pos = s1->ld_p;
+    ಅಕ್ಷರ filename[1024];
+    ಪೂರ್ಣಾಂಕ t, c, sym_ಸ್ಥಾನಾಂತರ, ret = 0;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *pos = s1->ld_p;
 
 repeat:
     s1->ld_p = pos;
-    sym_offset = s1->symtab->data_offset;
+    sym_ಸ್ಥಾನಾಂತರ = s1->symtab->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
     c = cmd[0];
 
-    t = ld_next(s1, filename, sizeof(filename));
-    if (t != '(')
-        return tcc_error_noabort("expected '(' after %s", cmd);
-    t = ld_next(s1, filename, sizeof(filename));
-    for(;;) {
-        if (t == LD_TOK_EOF) {
-            return tcc_error_noabort("unexpected end of file");
-        } else if (t == ')') {
-            break;
-        } else if (t != LD_TOK_NAME) {
-            return tcc_error_noabort("unexpected token '%c'", t);
-        } else if (!strcmp(filename, "AS_NEEDED")) {
-            ret |= ld_add_file_list(s1, filename);
-        } else if (c == 'I' || c == 'G' || c == 'A') {
-            ret |= !!ld_add_file(s1, filename);
+    t = ld_ಮುಂದಿನ(s1, filename, ಗಾತ್ರ(filename));
+    ಆದರೆ (t != '(')
+        ಹಿಂತಿರುಗಿ tcc_error_noabort("expected '(' after %s", cmd);
+    t = ld_ಮುಂದಿನ(s1, filename, ಗಾತ್ರ(filename));
+    ಗಾಗಿ(;;) {
+        ಆದರೆ (t == LD_TOK_EOF) {
+            ಹಿಂತಿರುಗಿ tcc_error_noabort("unexpected end of file");
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (t == ')') {
+            ನಿಲ್ಲಿಸು;
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (t != LD_TOK_NAME) {
+            ಹಿಂತಿರುಗಿ tcc_error_noabort("unexpected token '%c'", t);
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (!strcmp(filename, "AS_NEEDED")) {
+            ret |= ld_ಕೂಡಿಸು_file_list(s1, filename);
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (c == 'I' || c == 'G' || c == 'A') {
+            ret |= !!ld_ಕೂಡಿಸು_file(s1, filename);
         }
-        if (ret < 0)
-            return ret;
-        t = ld_next(s1, filename, sizeof(filename));
-        if (t == ',')
-            t = ld_next(s1, filename, sizeof(filename));
+        ಆದರೆ (ret < 0)
+            ಹಿಂತಿರುಗಿ ret;
+        t = ld_ಮುಂದಿನ(s1, filename, ಗಾತ್ರ(filename));
+        ಆದರೆ (t == ',')
+            t = ld_ಮುಂದಿನ(s1, filename, ಗಾತ್ರ(filename));
     }
-    if (c == 'G' && ret == 0 && new_undef_sym(s1, sym_offset))
-        goto repeat;
-    return ret;
+    ಆದರೆ (c == 'G' && ret == 0 && new_undef_sym(s1, sym_ಸ್ಥಾನಾಂತರ))
+        ಹೋಗು repeat;
+    ಹಿಂತಿರುಗಿ ret;
 }
 
 /* interpret a subset of GNU ldscripts to handle the dummy libc.so
    files */
-ST_FUNC int tcc_load_ldscript(TCCState *s1, int fd)
+ST_FUNC ಪೂರ್ಣಾಂಕ tcc_ತುಂಬು_ldscript(TCCState *s1, ಪೂರ್ಣಾಂಕ fd)
 {
-    char cmd[64];
-    int t, ret = 0, noscript = 1;
-    unsigned char *text_ptr, *saved_ptr;
+    ಅಕ್ಷರ cmd[64];
+    ಪೂರ್ಣಾಂಕ t, ret = 0, noscript = 1;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *ಪಠ್ಯ_ptr, *saved_ptr;
 
     saved_ptr = s1->ld_p;
-    s1->ld_p = text_ptr = (void*)tcc_load_text(fd);
-    for(;;) {
-        t = ld_next(s1, cmd, sizeof(cmd));
-        if (t == LD_TOK_EOF)
-            break;
-        if (!strcmp(cmd, "INPUT") ||
+    s1->ld_p = ಪಠ್ಯ_ptr = (ಶೂನ್ಯ*)tcc_ತುಂಬು_ಪಠ್ಯ(fd);
+    ಗಾಗಿ(;;) {
+        t = ld_ಮುಂದಿನ(s1, cmd, ಗಾತ್ರ(cmd));
+        ಆದರೆ (t == LD_TOK_EOF)
+            ನಿಲ್ಲಿಸು;
+        ಆದರೆ (!strcmp(cmd, "INPUT") ||
             !strcmp(cmd, "GROUP")) {
-            ret |= ld_add_file_list(s1, cmd);
-        } else if (!strcmp(cmd, "OUTPUT_FORMAT") ||
+            ret |= ld_ಕೂಡಿಸು_file_list(s1, cmd);
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (!strcmp(cmd, "OUTPUT_FORMAT") ||
                    !strcmp(cmd, "TARGET")) {
             /* ignore some commands */
-            ret |= ld_add_file_list(s1, cmd);
-        } else if (noscript) {
+            ret |= ld_ಕೂಡಿಸು_file_list(s1, cmd);
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (noscript) {
             ret = FILE_NOT_RECOGNIZED;
-        } else {
+        } ಇಲ್ಲದಿದ್ದರೆ {
             ret = tcc_error_noabort("unexpected '%s'", cmd);
         }
-        if (ret < 0)
-            break;
+        ಆದರೆ (ret < 0)
+            ನಿಲ್ಲಿಸು;
         noscript = 0;
     }
-    tcc_free(text_ptr);
+    tcc_free(ಪಠ್ಯ_ptr);
     s1->ld_p = saved_ptr;
-    return ret < 0 ? ret : -ret;
+    ಹಿಂತಿರುಗಿ ret < 0 ? ret : -ret;
 }
-#endif /* !ELF_OBJ_ONLY */
+#ಆದರೆ_ಅಂತ್ಯ /* !ELF_OBJ_ONLY */

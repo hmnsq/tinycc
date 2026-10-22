@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-union u {
-    unsigned long ul;
-    long double ld;
+ಒಕ್ಕೂಟ u {
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ul;
+    ದೀರ್ಘ ದ್ವಿಗುಣ ld;
 };
 
-void
-conv (union u *p)
+ಶೂನ್ಯ
+conv (ಒಕ್ಕೂಟ u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ) p->ld;
 }
 
-int main (void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ (ಶೂನ್ಯ)
 {
-    union u v;
-    double d = 1234567890.0;
+    ಒಕ್ಕೂಟ u v;
+    ದ್ವಿಗುಣ d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
-    printf ("%lu\n", v.ul);
-    printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    ಬರೆ ("%lu\n", v.ul);
+    ಬರೆ ("%llu\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)d);
+    ಹಿಂತಿರುಗಿ 0;
 }

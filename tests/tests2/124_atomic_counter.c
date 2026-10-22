@@ -1,20 +1,20 @@
-#include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "threads.h"
-#include <stdatomic.h>
+#ಅನ್ತರ್ಭಾವ <stddef.h>
+#ಅನ್ತರ್ಭಾವ <stdint.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ "threads.h"
+#ಅನ್ತರ್ಭಾವ <stdatomic.h>
 
-#define NR_THREADS 16
-#define NR_STEPS 10000
+#ವ್ಯಾಖ್ಯಾನಿಸು NR_ಎಳೆಗಳು 16
+#ವ್ಯಾಖ್ಯಾನಿಸು NR_ಹೆಜ್ಜೆಗಳು 10000
 
-#define BUG_ON(COND) \
-    do { \
-        if (!!(COND)) \
+#ವ್ಯಾಖ್ಯಾನಿಸು BUG_ON(COND) \
+    ಮಾಡು { \
+        ಆದರೆ (!!(COND)) \
             abort(); \
-    } while (0)
+    } ಆಗ (0)
 
-typedef struct {
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ {
     atomic_flag flag;
     atomic_uchar uc;
     atomic_ushort us;
@@ -22,67 +22,67 @@ typedef struct {
     atomic_size_t ul;
 } counter_type;
 
-static
-void *adder_simple(void *arg)
+ಸ್ಥಿರ
+ಶೂನ್ಯ *adder_simple(ಶೂನ್ಯ *arg)
 {
-    size_t step;
+    ಗಾತ್ರ_t ಹೆಜ್ಜೆ;
     counter_type *counter = arg;
 
-    for (step = 0; step < NR_STEPS; ++step) {
+    ಗಾಗಿ (ಹೆಜ್ಜೆ = 0; ಹೆಜ್ಜೆ < NR_ಹೆಜ್ಜೆಗಳು; ++ಹೆಜ್ಜೆ) {
         atomic_fetch_add_explicit(&counter->uc, 1, memory_order_relaxed);
         atomic_fetch_add_explicit(&counter->us, 1, memory_order_relaxed);
         atomic_fetch_add_explicit(&counter->ui, 1, memory_order_relaxed);
         atomic_fetch_add_explicit(&counter->ul, 1, memory_order_relaxed);
     }
 
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-static
-void *adder_cmpxchg(void *arg)
+ಸ್ಥಿರ
+ಶೂನ್ಯ *adder_cmpxchg(ಶೂನ್ಯ *arg)
 {
-    size_t step;
+    ಗಾತ್ರ_t ಹೆಜ್ಜೆ;
     counter_type *counter = arg;
 
-    for (step = 0; step < NR_STEPS; ++step) {
-        unsigned char xchgc;
-        unsigned short xchgs;
-        unsigned int xchgi;
-        size_t xchgl;
-        unsigned char cmpc = atomic_load_explicit(&counter->uc, memory_order_relaxed);
-        unsigned short cmps = atomic_load_explicit(&counter->us, memory_order_relaxed);
-        unsigned int cmpi = atomic_load_explicit(&counter->ui, memory_order_relaxed);
-        size_t cmpl = atomic_load_explicit(&counter->ul, memory_order_relaxed);
+    ಗಾಗಿ (ಹೆಜ್ಜೆ = 0; ಹೆಜ್ಜೆ < NR_ಹೆಜ್ಜೆಗಳು; ++ಹೆಜ್ಜೆ) {
+        ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ xchgc;
+        ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ xchgs;
+        ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ xchgi;
+        ಗಾತ್ರ_t xchgl;
+        ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ cmpc = atomic_load_explicit(&counter->uc, memory_order_relaxed);
+        ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ cmps = atomic_load_explicit(&counter->us, memory_order_relaxed);
+        ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ cmpi = atomic_load_explicit(&counter->ui, memory_order_relaxed);
+        ಗಾತ್ರ_t cmpl = atomic_load_explicit(&counter->ul, memory_order_relaxed);
 
-        do {
+        ಮಾಡು {
             xchgc = (cmpc + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->uc,
+        } ಆಗ (!atomic_compare_exchange_strong_explicit(&counter->uc,
             &cmpc, xchgc, memory_order_relaxed, memory_order_relaxed));
-        do {
+        ಮಾಡು {
             xchgs = (cmps + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->us,
+        } ಆಗ (!atomic_compare_exchange_strong_explicit(&counter->us,
             &cmps, xchgs, memory_order_relaxed, memory_order_relaxed));
-        do {
+        ಮಾಡು {
             xchgi = (cmpi + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->ui,
+        } ಆಗ (!atomic_compare_exchange_strong_explicit(&counter->ui,
             &cmpi, xchgi, memory_order_relaxed, memory_order_relaxed));
-        do {
+        ಮಾಡು {
             xchgl = (cmpl + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->ul,
+        } ಆಗ (!atomic_compare_exchange_strong_explicit(&counter->ul,
             &cmpl, xchgl, memory_order_relaxed, memory_order_relaxed));
     }
 
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-static
-void *adder_test_and_set(void *arg)
+ಸ್ಥಿರ
+ಶೂನ್ಯ *adder_test_and_ಗಣ(ಶೂನ್ಯ *arg)
 {
-    size_t step;
+    ಗಾತ್ರ_t ಹೆಜ್ಜೆ;
     counter_type *counter = arg;
 
-    for (step = 0; step < NR_STEPS; ++step) {
-        while (atomic_flag_test_and_set(&counter->flag));
+    ಗಾಗಿ (ಹೆಜ್ಜೆ = 0; ಹೆಜ್ಜೆ < NR_ಹೆಜ್ಜೆಗಳು; ++ಹೆಜ್ಜೆ) {
+        ಆಗ (atomic_flag_test_and_set(&counter->flag));
         ++counter->uc;
         ++counter->us;
         ++counter->ui;
@@ -90,15 +90,15 @@ void *adder_test_and_set(void *arg)
         atomic_flag_clear(&counter->flag);
     }
 
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-static
-void atomic_counter_test(void *(*adder)(void *arg))
+ಸ್ಥಿರ
+ಶೂನ್ಯ atomic_counter_test(ಶೂನ್ಯ *(*adder)(ಶೂನ್ಯ *arg))
 {
-    size_t index;
+    ಗಾತ್ರ_t ಸೂಚ್ಯಂಕ;
     counter_type counter;
-    pthread_t thread[NR_THREADS];
+    pthread_t thread[NR_ಎಳೆಗಳು];
 
     atomic_flag_clear(&counter.flag);
     atomic_init(&counter.uc, 0);
@@ -106,27 +106,27 @@ void atomic_counter_test(void *(*adder)(void *arg))
     atomic_init(&counter.ui, 0);
     atomic_init(&counter.ul, 0);
 
-    for (index = 0; index < NR_THREADS; ++index)
-        BUG_ON(pthread_create(&thread[index], NULL, adder, (void *)&counter));
+    ಗಾಗಿ (ಸೂಚ್ಯಂಕ = 0; ಸೂಚ್ಯಂಕ < NR_ಎಳೆಗಳು; ++ಸೂಚ್ಯಂಕ)
+        BUG_ON(pthread_create(&thread[ಸೂಚ್ಯಂಕ], ಖಾಲಿ, adder, (ಶೂನ್ಯ *)&counter));
 
-    for (index = 0; index < NR_THREADS; ++index)
-        BUG_ON(pthread_join(thread[index], NULL));
+    ಗಾಗಿ (ಸೂಚ್ಯಂಕ = 0; ಸೂಚ್ಯಂಕ < NR_ಎಳೆಗಳು; ++ಸೂಚ್ಯಂಕ)
+        BUG_ON(pthread_join(thread[ಸೂಚ್ಯಂಕ], ಖಾಲಿ));
 
-    if (atomic_load(&counter.uc) == ((NR_THREADS * NR_STEPS) & 0xffu)
-        && atomic_load(&counter.us) == ((NR_THREADS * NR_STEPS) & 0xffffu)
-        && atomic_load(&counter.ui) == (NR_THREADS * NR_STEPS)
-        && atomic_load(&counter.ul) == (NR_THREADS * NR_STEPS)
+    ಆದರೆ (atomic_load(&counter.uc) == ((NR_ಎಳೆಗಳು * NR_ಹೆಜ್ಜೆಗಳು) & 0xffu)
+        && atomic_load(&counter.us) == ((NR_ಎಳೆಗಳು * NR_ಹೆಜ್ಜೆಗಳು) & 0xffffu)
+        && atomic_load(&counter.ui) == (NR_ಎಳೆಗಳು * NR_ಹೆಜ್ಜೆಗಳು)
+        && atomic_load(&counter.ul) == (NR_ಎಳೆಗಳು * NR_ಹೆಜ್ಜೆಗಳು)
         )
-        printf("SUCCESS\n");
-    else
-        printf("FAILURE\n");
+        ಬರೆ("SUCCESS\n");
+    ಇಲ್ಲದಿದ್ದರೆ
+        ಬರೆ("FAILURE\n");
 }
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
     atomic_counter_test(adder_simple);
     atomic_counter_test(adder_cmpxchg);
-    atomic_counter_test(adder_test_and_set);
+    atomic_counter_test(adder_test_and_ಗಣ);
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

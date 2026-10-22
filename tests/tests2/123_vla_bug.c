@@ -1,40 +1,40 @@
-typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
-extern size_t strlen(const char*);
-char str[] = "blabla";
-int g;
-int main()
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __SIZE_TYPE__ ಗಾತ್ರ_t;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ*, ...);
+ಬಾಹ್ಯ ಗಾತ್ರ_t ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ*);
+ಅಕ್ಷರ str[] = "blabla";
+ಪೂರ್ಣಾಂಕ g;
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
-      char buf[strlen(str) + 10];
+  ಪೂರ್ಣಾಂಕ i = 0;
+#ಆದರೆ 0
+  ಆದರೆ (g) {
+      ಅಕ್ಷರ buf[ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(str) + 10];
       buf[0] = 0;
   }
 alabel:
-  printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
-      switch (i) {
-      case 10:
-          if (g) {
-              char buf[strlen(str) + 10];
+  ಬರೆ("default: i = %d\n", i);
+#ಇಲ್ಲದಿದ್ದರೆ
+  ಗಾಗಿ (i = 0; i < 5; i++) {
+      ಆಯ್ಕೆ (i) {
+      ಸ್ಥಿತಿ 10:
+          ಆದರೆ (g) {
+              ಅಕ್ಷರ buf[ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(str) + 10];
               buf[0] = 0;
-              goto do_cmd;
+              ಹೋಗು do_cmd;
           }
-          break;
-      case 1:
-          printf("reached 3\n");
+          ನಿಲ್ಲಿಸು;
+      ಸ್ಥಿತಿ 1:
+          ಬರೆ("reached 3\n");
     do_cmd:
-          printf("after do_cmd");
-          break;
-      default:
+          ಬರೆ("after do_cmd");
+          ನಿಲ್ಲಿಸು;
+      ಪೂರ್ವನಿಯೋಜಿತ:
           g++;
-          printf("default: i = %d\n", i);
-          break;
+          ಬರೆ("default: i = %d\n", i);
+          ನಿಲ್ಲಿಸು;
       }
   }
-#endif
-  return 0;
+#ಆದರೆ_ಅಂತ್ಯ
+  ಹಿಂತಿರುಗಿ 0;
 }

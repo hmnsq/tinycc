@@ -3,50 +3,50 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_MBSTRING_S
-#define _INC_MBSTRING_S
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INC_MBSTRING_S
+#ವ್ಯಾಖ್ಯಾನಿಸು _INC_MBSTRING_S
 
-#include <mbstring.h>
+#ಅನ್ತರ್ಭಾವ <mbstring.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ಆದರೆ defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _MBSTRING_S_DEFINED
-#define _MBSTRING_S_DEFINED
-  _CRTIMP errno_t __cdecl _mbscat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbscat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbscpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbscpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbslwr_s(unsigned char *_Str,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _mbslwr_s_l(unsigned char *_Str,size_t _SizeInBytes,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbcat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbcat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbcpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbcpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Ch,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Ch,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsncat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsncat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsncpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsncpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val);
-  _CRTIMP errno_t __cdecl _mbsset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP unsigned char *__cdecl _mbstok_s(unsigned char *_Str,const unsigned char *_Delim,unsigned char **_Context);
-  _CRTIMP unsigned char *__cdecl _mbstok_s_l(unsigned char *_Str,const unsigned char *_Delim,unsigned char **_Context,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsupr_s(unsigned char *_Str,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _mbsupr_s_l(unsigned char *_Str,size_t _SizeInBytes,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbccpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,int *_PCopied,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbccpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,int *_PCopied,const unsigned char *_Src,_locale_t _Locale);
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _MBSTRING_S_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _MBSTRING_S_DEFINED
+  _CRTIMP errno_t __cdecl _mbscat_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src);
+  _CRTIMP errno_t __cdecl _mbscat_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbscpy_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src);
+  _CRTIMP errno_t __cdecl _mbscpy_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbslwr_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Str,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು);
+  _CRTIMP errno_t __cdecl _mbslwr_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Str,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbcat_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src,ಗಾತ್ರ_t Max_ಎಣಿಕೆ);
+  _CRTIMP errno_t __cdecl _mbsnbcat_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src,ಗಾತ್ರ_t Max_ಎಣಿಕೆ,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbcpy_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src,ಗಾತ್ರ_t Max_ಎಣಿಕೆ);
+  _CRTIMP errno_t __cdecl _mbsnbcpy_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src,ಗಾತ್ರ_t Max_ಎಣಿಕೆ,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbset_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ _Ch,ಗಾತ್ರ_t Max_ಎಣಿಕೆ);
+  _CRTIMP errno_t __cdecl _mbsnbset_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ _Ch,ಗಾತ್ರ_t Max_ಎಣಿಕೆ,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsncat_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src,ಗಾತ್ರ_t Max_ಎಣಿಕೆ);
+  _CRTIMP errno_t __cdecl _mbsncat_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src,ಗಾತ್ರ_t Max_ಎಣಿಕೆ,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsncpy_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src,ಗಾತ್ರ_t Max_ಎಣಿಕೆ);
+  _CRTIMP errno_t __cdecl _mbsncpy_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src,ಗಾತ್ರ_t Max_ಎಣಿಕೆ,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnset_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ _Val,ಗಾತ್ರ_t Max_ಎಣಿಕೆ);
+  _CRTIMP errno_t __cdecl _mbsnset_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ _Val,ಗಾತ್ರ_t Max_ಎಣಿಕೆ,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsset_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ _Val);
+  _CRTIMP errno_t __cdecl _mbsset_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ _Val,_locale_t _Locale);
+  _CRTIMP ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *__cdecl _mbstok_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Str,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Delim,ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ **_Context);
+  _CRTIMP ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *__cdecl _mbstok_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Str,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Delim,ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ **_Context,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsupr_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Str,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು);
+  _CRTIMP errno_t __cdecl _mbsupr_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Str,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbccpy_s(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಪೂರ್ಣಾಂಕ *_PCopied,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src);
+  _CRTIMP errno_t __cdecl _mbccpy_s_l(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಪೂರ್ಣಾಂಕ *_PCopied,ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *_Src,_locale_t _Locale);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ

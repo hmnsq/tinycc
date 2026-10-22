@@ -1,7 +1,7 @@
-#ifndef _STDNORETURN_H
-#define _STDNORETURN_H
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _STDNORETURN_H
+#ವ್ಯಾಖ್ಯಾನಿಸು _STDNORETURN_H
 
 /* ISOC11 noreturn */
-#define noreturn _Noreturn
+#ವ್ಯಾಖ್ಯಾನಿಸು noreturn _Noreturn
 
-#endif /* _STDNORETURN_H */
+#ಆದರೆ_ಅಂತ್ಯ /* _STDNORETURN_H */

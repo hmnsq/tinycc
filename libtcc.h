@@ -1,61 +1,61 @@
-#ifndef LIBTCC_H
-#define LIBTCC_H
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ LIBTCC_H
+#ವ್ಯಾಖ್ಯಾನಿಸು LIBTCC_H
 
-#ifndef LIBTCCAPI
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ LIBTCCAPI
 # define LIBTCCAPI
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
 /*****************************/
 /* set custom allocator for all allocations (optional), NULL for default. */
-typedef void *TCCReallocFunc(void *ptr, unsigned long size);
-LIBTCCAPI void tcc_set_realloc(TCCReallocFunc *my_realloc);
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಶೂನ್ಯ *TCCReallocFunc(ಶೂನ್ಯ *ptr, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಗಾತ್ರ_2);
+LIBTCCAPI ಶೂನ್ಯ tcc_ಗಣ_realloc(TCCReallocFunc *my_realloc);
 
 /*****************************/
-typedef struct TCCState TCCState;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ TCCState TCCState;
 
 /* create a new TCC compilation context */
-LIBTCCAPI TCCState *tcc_new(void);
+LIBTCCAPI TCCState *tcc_new(ಶೂನ್ಯ);
 
 /* free a TCC compilation context */
-LIBTCCAPI void tcc_delete(TCCState *s);
+LIBTCCAPI ಶೂನ್ಯ tcc_delete(TCCState *s);
 
 /* set CONFIG_TCCDIR at runtime */
-LIBTCCAPI void tcc_set_lib_path(TCCState *s, const char *path);
+LIBTCCAPI ಶೂನ್ಯ tcc_ಗಣ_lib_ಮಾರ್ಗ(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಮಾರ್ಗ);
 
 /* set error/warning callback (optional) */
-typedef void TCCErrorFunc(void *opaque, const char *msg);
-LIBTCCAPI void tcc_set_error_func(TCCState *s, void *error_opaque, TCCErrorFunc *error_func);
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಶೂನ್ಯ TCCErrorFunc(ಶೂನ್ಯ *opaque, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಸಂದೇಶ);
+LIBTCCAPI ಶೂನ್ಯ tcc_ಗಣ_error_func(TCCState *s, ಶೂನ್ಯ *error_opaque, TCCErrorFunc *error_func);
 
 /* set options as from command line (multiple supported) */
-LIBTCCAPI int tcc_set_options(TCCState *s, const char *str);
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_ಗಣ_options(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *str);
 
 /*****************************/
 /* preprocessor */
 
 /* add include path */
-LIBTCCAPI int tcc_add_include_path(TCCState *s, const char *pathname);
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_ಕೂಡಿಸು_include_ಮಾರ್ಗ(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *pathname);
 
 /* add in system include path */
-LIBTCCAPI int tcc_add_sysinclude_path(TCCState *s, const char *pathname);
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_ಕೂಡಿಸು_sysinclude_ಮಾರ್ಗ(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *pathname);
 
 /* define preprocessor symbol 'sym'. value can be NULL, sym can be "sym=val" */
-LIBTCCAPI void tcc_define_symbol(TCCState *s, const char *sym, const char *value);
+LIBTCCAPI ಶೂನ್ಯ tcc_define_ಚಿಹ್ನೆ(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *sym, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಮೌಲ್ಯ);
 
 /* undefine preprocess symbol 'sym' */
-LIBTCCAPI void tcc_undefine_symbol(TCCState *s, const char *sym);
+LIBTCCAPI ಶೂನ್ಯ tcc_undefine_ಚಿಹ್ನೆ(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *sym);
 
 /*****************************/
 /* compiling */
 
 /* add a file (C file, dll, object, library, ld script). Return -1 if error. */
-LIBTCCAPI int tcc_add_file(TCCState *s, const char *filename);
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_ಕೂಡಿಸು_file(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *filename);
 
 /* compile a string containing a C source. Return -1 if error. */
-LIBTCCAPI int tcc_compile_string(TCCState *s, const char *buf);
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_compile_string(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *buf);
 
 /* Tip: to have more specific errors/warnings from tcc_compile_string(),
    you can prefix the string with "#line <num> \"<filename>\"\n" */
@@ -64,53 +64,53 @@ LIBTCCAPI int tcc_compile_string(TCCState *s, const char *buf);
 /* linking commands */
 
 /* set output type. MUST BE CALLED before any compilation */
-LIBTCCAPI int tcc_set_output_type(TCCState *s, int output_type);
-#define TCC_OUTPUT_MEMORY   1 /* output will be run in memory */
-#define TCC_OUTPUT_EXE      2 /* executable file */
-#define TCC_OUTPUT_DLL      4 /* dynamic library */
-#define TCC_OUTPUT_OBJ      3 /* object file */
-#define TCC_OUTPUT_PREPROCESS 5 /* only preprocess */
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_ಗಣ_output_type(TCCState *s, ಪೂರ್ಣಾಂಕ output_type);
+#ವ್ಯಾಖ್ಯಾನಿಸು TCC_OUTPUT_ಸ್ಮರಣೆ   1 /* output will be run in memory */
+#ವ್ಯಾಖ್ಯಾನಿಸು TCC_OUTPUT_EXE      2 /* executable file */
+#ವ್ಯಾಖ್ಯಾನಿಸು TCC_OUTPUT_DLL      4 /* dynamic library */
+#ವ್ಯಾಖ್ಯಾನಿಸು TCC_OUTPUT_OBJ      3 /* object file */
+#ವ್ಯಾಖ್ಯಾನಿಸು TCC_OUTPUT_PREPROCESS 5 /* only preprocess */
 
 /* equivalent to -Lpath option */
-LIBTCCAPI int tcc_add_library_path(TCCState *s, const char *pathname);
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_ಕೂಡಿಸು_library_ಮಾರ್ಗ(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *pathname);
 
 /* the library name is the same as the argument of the '-l' option */
-LIBTCCAPI int tcc_add_library(TCCState *s, const char *libraryname);
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_ಕೂಡಿಸು_library(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *libraryname);
 
 /* add a symbol to the compiled program */
-LIBTCCAPI int tcc_add_symbol(TCCState *s, const char *name, const void *val);
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_ಕೂಡಿಸು_ಚಿಹ್ನೆ(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ *val);
 
 /* output an executable, library or object file. DO NOT call
    tcc_relocate() before. */
-LIBTCCAPI int tcc_output_file(TCCState *s, const char *filename);
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_output_file(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *filename);
 
 /* link and run main() function and return its value. DO NOT call
    tcc_relocate() before. */
-LIBTCCAPI int tcc_run(TCCState *s, int argc, char **argv);
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_ಸತತ(TCCState *s, ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv);
 
 /* do all relocations (needed before using tcc_get_symbol()) */
-LIBTCCAPI int tcc_relocate(TCCState *s1);
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_relocate(TCCState *s1);
 
 /* return symbol value or NULL if not found */
-LIBTCCAPI void *tcc_get_symbol(TCCState *s, const char *name);
+LIBTCCAPI ಶೂನ್ಯ *tcc_get_ಚಿಹ್ನೆ(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name);
 
 /* list all (global) symbols and their values via 'symbol_cb()' */
-LIBTCCAPI void tcc_list_symbols(TCCState *s, void *ctx,
-    void (*symbol_cb)(void *ctx, const char *name, const void *val));
+LIBTCCAPI ಶೂನ್ಯ tcc_list_symbols(TCCState *s, ಶೂನ್ಯ *ctx,
+    ಶೂನ್ಯ (*ಚಿಹ್ನೆ_cb)(ಶೂನ್ಯ *ctx, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ *val));
 
 /* experimental/advanced section (see libtcc_test_mt.c for an example) */
 
 /* catch runtime exceptions (optionally limit backtraces at top_func),
    when using tcc_set_options("-bt") and when not using tcc_run() */
-LIBTCCAPI void *_tcc_setjmp(TCCState *s1, void *jmp_buf, void *top_func, void *longjmp);
-#define tcc_setjmp(s1,jb,f) setjmp(_tcc_setjmp(s1, jb, f, longjmp))
+LIBTCCAPI ಶೂನ್ಯ *_tcc_setjmp(TCCState *s1, ಶೂನ್ಯ *jmp_buf, ಶೂನ್ಯ *ತುದಿ_func, ಶೂನ್ಯ *longjmp);
+#ವ್ಯಾಖ್ಯಾನಿಸು tcc_setjmp(s1,jb,f) setjmp(_tcc_setjmp(s1, jb, f, longjmp))
 
 /* custom error printer for runtime exceptions. Returning 0 stops backtrace */
-typedef int TCCBtFunc(void *udata, void *pc, const char *file, int line, const char* func, const char *msg);
-LIBTCCAPI void tcc_set_backtrace_func(TCCState *s1, void* userdata, TCCBtFunc*);
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ TCCBtFunc(ಶೂನ್ಯ *udata, ಶೂನ್ಯ *pc, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *file, ಪೂರ್ಣಾಂಕ ಸಾಲು, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ* func, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಸಂದೇಶ);
+LIBTCCAPI ಶೂನ್ಯ tcc_ಗಣ_backtrace_func(TCCState *s1, ಶೂನ್ಯ* userdata, TCCBtFunc*);
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

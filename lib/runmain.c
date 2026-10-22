@@ -1,86 +1,86 @@
 /* ------------------------------------------------------------- */
 /* support for tcc_run() */
 
-#ifdef __leading_underscore
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __leading_underscore
 # define _(s) s
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define _(s) _##s
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _WIN32
-extern void (*_(_init_array_start)[]) (int argc, char **argv, char **envp);
-extern void (*_(_init_array_end)[]) (int argc, char **argv, char **envp);
-static void run_ctors(int argc, char **argv, char **env)
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
+ಬಾಹ್ಯ ಶೂನ್ಯ (*_(init_array_ಆರಂಭ)[]) (ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv, ಅಕ್ಷರ **envp);
+ಬಾಹ್ಯ ಶೂನ್ಯ (*_(init_array_ಕೊನೆ)[]) (ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv, ಅಕ್ಷರ **envp);
+ಸ್ಥಿರ ಶೂನ್ಯ ಸತತ_ctors(ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv, ಅಕ್ಷರ **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
-        (*_(_init_array_start)[i++])(argc, argv, env);
+    ಪೂರ್ಣಾಂಕ i = 0;
+    ಆಗ (&_(init_array_ಆರಂಭ)[i] != _(init_array_ಕೊನೆ))
+        (*_(init_array_ಆರಂಭ)[i++])(argc, argv, env);
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
-static void run_dtors(void)
+ಬಾಹ್ಯ ಶೂನ್ಯ (*_(fini_array_ಆರಂಭ)[]) (ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ (*_(fini_array_ಕೊನೆ)[]) (ಶೂನ್ಯ);
+ಸ್ಥಿರ ಶೂನ್ಯ ಸತತ_dtors(ಶೂನ್ಯ)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
-        (*_(_fini_array_end)[--i])();
-}
-
-static void *rt_exitfunc[32];
-static void *rt_exitarg[32];
-static int __rt_nr_exit;
-
-void __run_on_exit(int ret)
-{
-    int n = __rt_nr_exit;
-    while (n)
-	--n, ((void(*)(int,void*))rt_exitfunc[n])(ret, rt_exitarg[n]);
+    ಪೂರ್ಣಾಂಕ i = 0;
+    ಆಗ (&_(fini_array_ಕೊನೆ)[i] != _(fini_array_ಆರಂಭ))
+        (*_(fini_array_ಕೊನೆ)[--i])();
 }
 
-int on_exit(void *function, void *arg)
+ಸ್ಥಿರ ಶೂನ್ಯ *rt_exitfunc[32];
+ಸ್ಥಿರ ಶೂನ್ಯ *rt_exitarg[32];
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ __rt_nr_exit;
+
+ಶೂನ್ಯ __run_on_exit(ಪೂರ್ಣಾಂಕ ret)
 {
-    int n = __rt_nr_exit;
-    if (n < 32) {
+    ಪೂರ್ಣಾಂಕ n = __rt_nr_exit;
+    ಆಗ (n)
+	--n, ((ಶೂನ್ಯ(*)(ಪೂರ್ಣಾಂಕ,ಶೂನ್ಯ*))rt_exitfunc[n])(ret, rt_exitarg[n]);
+}
+
+ಪೂರ್ಣಾಂಕ on_exit(ಶೂನ್ಯ *function, ಶೂನ್ಯ *arg)
+{
+    ಪೂರ್ಣಾಂಕ n = __rt_nr_exit;
+    ಆದರೆ (n < 32) {
 	rt_exitfunc[n] = function;
 	rt_exitarg[n] = arg;
         __rt_nr_exit = n + 1;
-        return 0;
+        ಹಿಂತಿರುಗಿ 0;
     }
-    return 1;
+    ಹಿಂತಿರುಗಿ 1;
 }
 
-int atexit(void (*function)(void))
+ಪೂರ್ಣಾಂಕ atexit(ಶೂನ್ಯ (*function)(ಶೂನ್ಯ))
 {
-    return on_exit(function, 0);
+    ಹಿಂತಿರುಗಿ on_exit(function, 0);
 }
 
-typedef struct rt_frame {
-    void *ip, *fp, *sp;
-} rt_frame;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ rt_ಚೌಕಟ್ಟು {
+    ಶೂನ್ಯ *ip, *fp, *sp;
+} rt_ಚೌಕಟ್ಟು;
 
-__attribute__((noreturn)) void __rt_exit(rt_frame *, int);
+__attribute__((noreturn)) ಶೂನ್ಯ __rt_exit(rt_ಚೌಕಟ್ಟು *, ಪೂರ್ಣಾಂಕ);
 
-void exit(int code)
+ಶೂನ್ಯ ನಿರ್ಗಮಿಸು(ಪೂರ್ಣಾಂಕ ಸಂಕೇತ_2)
 {
-    rt_frame f;
-    run_dtors();
-    __run_on_exit(code);
+    rt_ಚೌಕಟ್ಟು f;
+    ಸತತ_dtors();
+    __run_on_exit(ಸಂಕೇತ_2);
     f.fp = 0;
-    f.ip = exit;
-    __rt_exit(&f, code);
+    f.ip = ನಿರ್ಗಮಿಸು;
+    __rt_exit(&f, ಸಂಕೇತ_2);
 }
 
-#ifndef _WIN32
-int main(int, char**, char**);
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಪೂರ್ಣಾಂಕ, ಅಕ್ಷರ**, ಅಕ್ಷರ**);
 
-int _runmain(int argc, char **argv, char **envp)
+ಪೂರ್ಣಾಂಕ _runmain(ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv, ಅಕ್ಷರ **envp)
 {
-    int ret;
-    run_ctors(argc, argv, envp);
-    ret = main(argc, argv, envp);
-    run_dtors();
+    ಪೂರ್ಣಾಂಕ ret;
+    ಸತತ_ctors(argc, argv, envp);
+    ret = ಮುಖ್ಯ(argc, argv, envp);
+    ಸತತ_dtors();
     __run_on_exit(ret);
-    return ret;
+    ಹಿಂತಿರುಗಿ ret;
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

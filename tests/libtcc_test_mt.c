@@ -2,77 +2,77 @@
  * Multi-thread Test for libtcc
  */
 
-#ifndef FIB
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
-#include "libtcc.h"
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ FIB
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
+#ಅನ್ತರ್ಭಾವ <setjmp.h>
+#ಅನ್ತರ್ಭಾವ "libtcc.h"
 
-#define M 20 /* number of states */
-#define F(n) (n % 20 + 2) /* fib argument */
+#ವ್ಯಾಖ್ಯಾನಿಸು M 20 /* number of states */
+#ವ್ಯಾಖ್ಯಾನಿಸು F(n) (n % 20 + 2) /* fib argument */
 
-#ifdef _WIN32
-#include <windows.h>
-#define TF_TYPE(func, param) DWORD WINAPI func(void *param)
-typedef TF_TYPE(ThreadFunc, x);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN32
+#ಅನ್ತರ್ಭಾವ <windows.h>
+#ವ್ಯಾಖ್ಯಾನಿಸು TF_TYPE(func, param) DWORD WINAPI func(ಶೂನ್ಯ *param)
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ TF_TYPE(ThreadFunc, x);
 HANDLE hh[M];
-void create_thread(ThreadFunc f, int n)
+ಶೂನ್ಯ create_thread(ThreadFunc f, ಪೂರ್ಣಾಂಕ n)
 {
     DWORD tid;
-    hh[n] = CreateThread(NULL, 0, f, (void*)(size_t)n, 0, &tid);
+    hh[n] = CreateThread(ಖಾಲಿ, 0, f, (ಶೂನ್ಯ*)(ಗಾತ್ರ_t)n, 0, &tid);
 }
-void wait_threads(int n)
+ಶೂನ್ಯ wait_ಎಳೆಗಳು(ಪೂರ್ಣಾಂಕ n)
 {
-    WaitForMultipleObjects(n, hh, TRUE, INFINITE);
-    while (n)
+    Wait_For_ಅಪವರ್ತ್ಯ_Objects(n, hh, TRUE, INFINITE);
+    ಆಗ (n)
         CloseHandle(hh[--n]);
 }
-void sleep_ms(unsigned n)
+ಶೂನ್ಯ sleep_ms(ಚಿಹ್ನೆರಹಿತ n)
 {
     Sleep(n);
 }
-#else
-#include <sys/time.h>
-#include <unistd.h>
-#include <pthread.h>
-#define TF_TYPE(func, param) void* func(void *param)
-typedef TF_TYPE(ThreadFunc, x);
+#ಇಲ್ಲದಿದ್ದರೆ
+#ಅನ್ತರ್ಭಾವ <sys/time.h>
+#ಅನ್ತರ್ಭಾವ <unistd.h>
+#ಅನ್ತರ್ಭಾವ <pthread.h>
+#ವ್ಯಾಖ್ಯಾನಿಸು TF_TYPE(func, param) ಶೂನ್ಯ* func(ಶೂನ್ಯ *param)
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ TF_TYPE(ThreadFunc, x);
 pthread_t hh[M];
-void create_thread(ThreadFunc f, int n)
+ಶೂನ್ಯ create_thread(ThreadFunc f, ಪೂರ್ಣಾಂಕ n)
 {
-    pthread_create(&hh[n], NULL, f, (void*)(size_t)n);
+    pthread_create(&hh[n], ಖಾಲಿ, f, (ಶೂನ್ಯ*)(ಗಾತ್ರ_t)n);
 }
-void wait_threads(int n)
+ಶೂನ್ಯ wait_ಎಳೆಗಳು(ಪೂರ್ಣಾಂಕ n)
 {
-    while (n)
-        pthread_join(hh[--n], NULL);
+    ಆಗ (n)
+        pthread_join(hh[--n], ಖಾಲಿ);
 
 }
-void sleep_ms(unsigned n)
+ಶೂನ್ಯ sleep_ms(ಚಿಹ್ನೆರಹಿತ n)
 {
     usleep(n * 1000);
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-void handle_error(void *opaque, const char *msg)
+ಶೂನ್ಯ handle_error(ಶೂನ್ಯ *opaque, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಸಂದೇಶ)
 {
-    fprintf(opaque, "%s\n", msg);
+    fprintf(opaque, "%s\n", ಸಂದೇಶ);
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+ಪೂರ್ಣಾಂಕ ಕೂಡಿಸು(ಪೂರ್ಣಾಂಕ a, ಪೂರ್ಣಾಂಕ b)
 {
-    return a + b;
+    ಹಿಂತಿರುಗಿ a + b;
 }
 
-#define _str(s) #s
-#define str(s) _str(s)
+#ವ್ಯಾಖ್ಯಾನಿಸು _str(s) #s
+#ವ್ಯಾಖ್ಯಾನಿಸು str(s) _str(s)
 /* as a trick, prepend #line directive for better error/warning messages */
-#define PROG(lbl) \
-    char lbl[] = "#line " str(__LINE__) " " str(__FILE__) "\n\n"
+#ವ್ಯಾಖ್ಯಾನಿಸು PROG(lbl) \
+    ಅಕ್ಷರ lbl[] = "#line " str(__LINE__) " " str(__FILE__) "\n\n"
 
-PROG(my_program)
+PROG(my_ಕಾರ್ಯಕ್ರಮ)
 "#include <tcclib.h>\n" /* include the "Simple libc header for TCC" */
 "int add(int a, int b);\n"
 "int fib(int n)\n"
@@ -94,270 +94,270 @@ PROG(my_program)
 "#  warning is this the correct file:line...\n"
 "}\n";
 
-int g_argc; char **g_argv;
+ಪೂರ್ಣಾಂಕ g_argc; ಅಕ್ಷರ **g_argv;
 
-void parse_args(TCCState *s)
+ಶೂನ್ಯ parse_ವಾದಗಳು(TCCState *s)
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-    for (i = 1; i < g_argc; ++i) {
-        char *a = g_argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
-                tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
-                tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
-                tcc_add_library_path(s, a+2);
-            else if (a[1] == 'D')
-                tcc_define_symbol(s, a+2, NULL);
+    ಗಾಗಿ (i = 1; i < g_argc; ++i) {
+        ಅಕ್ಷರ *a = g_argv[i];
+        ಆದರೆ (a[0] == '-') {
+            ಆದರೆ (a[1] == 'B')
+                tcc_ಗಣ_lib_ಮಾರ್ಗ(s, a+2);
+            ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (a[1] == 'I')
+                tcc_ಕೂಡಿಸು_include_ಮಾರ್ಗ(s, a+2);
+            ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (a[1] == 'L')
+                tcc_ಕೂಡಿಸು_library_ಮಾರ್ಗ(s, a+2);
+            ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (a[1] == 'D')
+                tcc_define_ಚಿಹ್ನೆ(s, a+2, ಖಾಲಿ);
         }
     }
 }
 
-int backtrace_func(
-    void *ud,
-    void *pc,
-    const char *file,
-    int line,
-    const char *func,
-    const char *msg)
+ಪೂರ್ಣಾಂಕ backtrace_func(
+    ಶೂನ್ಯ *ud,
+    ಶೂನ್ಯ *pc,
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *file,
+    ಪೂರ್ಣಾಂಕ ಸಾಲು,
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *func,
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಸಂದೇಶ)
 {
-#if 0
-    printf("\n  *** %p %s %s:%d in '%s'",
+#ಆದರೆ 0
+    ಬರೆ("\n  *** %p %s %s:%d in '%s'",
         pc,
-        msg ? "at" : "by",
+        ಸಂದೇಶ ? "at" : "by",
         file ? file : "?",
-        line,
+        ಸಾಲು,
         func ? func : "?");
-    return 1; // want more backtrace levels
-#else
+    ಹಿಂತಿರುಗಿ 1; // want more backtrace levels
+#ಇಲ್ಲದಿದ್ದರೆ
     //printf(" [%d]", *(int*)ud);
-    printf("!");
-    return 0; // cancel backtrace
-#endif
+    ಬರೆ("!");
+    ಹಿಂತಿರುಗಿ 0; // cancel backtrace
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-TCCState *new_state(int w)
+TCCState *new_state(ಪೂರ್ಣಾಂಕ w)
 {
     TCCState *s = tcc_new();
-    if (!s) {
+    ಆದರೆ (!s) {
         fprintf(stderr, __FILE__ ": could not create tcc state\n");
-        exit(1);
+        ನಿರ್ಗಮಿಸು(1);
     }
-    tcc_set_error_func(s, stdout, handle_error);
-    parse_args(s);
-    if (0 == (w & 1))
-        tcc_set_options(s, "-w");
-    if (w & 2) {
-        tcc_set_options(s, "-bt");
-        tcc_define_symbol(s, "N_CRASH", str(M/2));
-    } else
-        tcc_define_symbol(s, "N_CRASH", "-1000");
-    tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
-    return s;
+    tcc_ಗಣ_error_func(s, stdout, handle_error);
+    parse_ವಾದಗಳು(s);
+    ಆದರೆ (0 == (w & 1))
+        tcc_ಗಣ_options(s, "-w");
+    ಆದರೆ (w & 2) {
+        tcc_ಗಣ_options(s, "-bt");
+        tcc_define_ಚಿಹ್ನೆ(s, "N_CRASH", str(M/2));
+    } ಇಲ್ಲದಿದ್ದರೆ
+        tcc_define_ಚಿಹ್ನೆ(s, "N_CRASH", "-1000");
+    tcc_ಗಣ_output_type(s, TCC_OUTPUT_ಸ್ಮರಣೆ);
+    ಹಿಂತಿರುಗಿ s;
 }
 
-void *reloc_state(TCCState *s, const char *entry)
+ಶೂನ್ಯ *reloc_state(TCCState *s, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *entry)
 {
-    void *func;
-    tcc_add_symbol(s, "add", add);
-    tcc_add_symbol(s, "printf", printf);
-    if (tcc_relocate(s) < 0) {
+    ಶೂನ್ಯ *func;
+    tcc_ಕೂಡಿಸು_ಚಿಹ್ನೆ(s, "add", ಕೂಡಿಸು);
+    tcc_ಕೂಡಿಸು_ಚಿಹ್ನೆ(s, "printf", ಬರೆ);
+    ಆದರೆ (tcc_relocate(s) < 0) {
         fprintf(stderr, __FILE__ ": could not relocate tcc state.\n");
-        return NULL;
+        ಹಿಂತಿರುಗಿ ಖಾಲಿ;
     }
-    func = tcc_get_symbol(s, entry);
-    if (!func)
+    func = tcc_get_ಚಿಹ್ನೆ(s, entry);
+    ಆದರೆ (!func)
         fprintf(stderr, __FILE__ ": could not get entry symbol.\n");
-    return func;
+    ಹಿಂತಿರುಗಿ func;
 }
 
 /* work with several states at the same time */
-int state_test(int w)
+ಪೂರ್ಣಾಂಕ state_test(ಪೂರ್ಣಾಂಕ w)
 {
     TCCState *s[M];
-    int (*funcs[M])(int);
-    int n;
+    ಪೂರ್ಣಾಂಕ (*funcs[M])(ಪೂರ್ಣಾಂಕ);
+    ಪೂರ್ಣಾಂಕ n;
     jmp_buf jb;
 
-    for (n = 0; n < M + 4; ++n) {
-        unsigned a = n, b = n - 1, c = n - 2, d = n - 3, e = n - 4;
-        if (a < M)
+    ಗಾಗಿ (n = 0; n < M + 4; ++n) {
+        ಚಿಹ್ನೆರಹಿತ a = n, b = n - 1, c = n - 2, d = n - 3, e = n - 4;
+        ಆದರೆ (a < M)
             s[a] = new_state(w);
-        if (b < M)
-            if (tcc_compile_string(s[b], my_program) == -1)
-                break;
-        if (c < M)
+        ಆದರೆ (b < M)
+            ಆದರೆ (tcc_compile_string(s[b], my_ಕಾರ್ಯಕ್ರಮ) == -1)
+                ನಿಲ್ಲಿಸು;
+        ಆದರೆ (c < M)
             funcs[c] = reloc_state(s[c], "foo");
-        if (d < M && funcs[d]) {
-            tcc_set_backtrace_func(s[d], &d, backtrace_func);
-            if (0 == tcc_setjmp(s[d], jb, funcs[d]))
+        ಆದರೆ (d < M && funcs[d]) {
+            tcc_ಗಣ_backtrace_func(s[d], &d, backtrace_func);
+            ಆದರೆ (0 == tcc_setjmp(s[d], jb, funcs[d]))
                 funcs[d](F(d));
         }
-        if (e < M)
+        ಆದರೆ (e < M)
             tcc_delete(s[e]);
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* simple compilation in threads */
 TF_TYPE(thread_test_simple, vn)
 {
     TCCState *s;
-    int (*func)(int);
-    int ret;
-    int n = (size_t)vn;
+    ಪೂರ್ಣಾಂಕ (*func)(ಪೂರ್ಣಾಂಕ);
+    ಪೂರ್ಣಾಂಕ ret;
+    ಪೂರ್ಣಾಂಕ n = (ಗಾತ್ರ_t)vn;
     jmp_buf jb;
 
     s = new_state(0); /* '2' for exceptions */
     sleep_ms(1);
-    ret = tcc_compile_string(s, my_program);
+    ret = tcc_compile_string(s, my_ಕಾರ್ಯಕ್ರಮ);
     sleep_ms(1);
-    if (ret >= 0) {
+    ಆದರೆ (ret >= 0) {
         func = reloc_state(s, "foo");
-        tcc_set_backtrace_func(s, &n, backtrace_func);
-        if (func) {
-            if (0 == tcc_setjmp(s, jb, func))
+        tcc_ಗಣ_backtrace_func(s, &n, backtrace_func);
+        ಆದರೆ (func) {
+            ಆದರೆ (0 == tcc_setjmp(s, jb, func))
                 func(F(n));
         }
     }
     tcc_delete(s);
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* more complex compilation in threads */
 TF_TYPE(thread_test_complex, vn)
 {
     TCCState *s;
-    int ret;
-    int n = (size_t)vn;
-    char *argv[30], b[10];
-    int argc = 0, i;
+    ಪೂರ್ಣಾಂಕ ret;
+    ಪೂರ್ಣಾಂಕ n = (ಗಾತ್ರ_t)vn;
+    ಅಕ್ಷರ *argv[30], b[10];
+    ಪೂರ್ಣಾಂಕ argc = 0, i;
 
     sprintf(b, "%d", F(n));
 
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
-#if 0
+    ಗಾಗಿ (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+#ಆದರೆ 0
     argv[argc++] = "-run";
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
-#endif
+    ಗಾಗಿ (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+#ಆದರೆ_ಅಂತ್ಯ
     argv[argc++] = "-DFIB";
     argv[argc++] = "-run";
     argv[argc++] = __FILE__;
     argv[argc++] = b;
-    argv[argc] = NULL;
+    argv[argc] = ಖಾಲಿ;
 
     s = new_state(1);
     sleep_ms(2);
-    ret = tcc_add_file(s, argv[0]);
+    ret = tcc_ಕೂಡಿಸು_file(s, argv[0]);
     sleep_ms(3);
-    if (ret == 0)
-        tcc_run(s, argc, argv);
+    ಆದರೆ (ret == 0)
+        tcc_ಸತತ(s, argc, argv);
     tcc_delete(s);
     fflush(stdout);
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-void time_tcc(int n, const char *src)
+ಶೂನ್ಯ ಸಮಯ_tcc(ಪೂರ್ಣಾಂಕ n, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *src)
 {
     TCCState *s;
-    int ret, i = 0;
-    while (i++ < n) {
+    ಪೂರ್ಣಾಂಕ ret, i = 0;
+    ಆಗ (i++ < n) {
         s = new_state(1);
-        printf(" %d", i), fflush(stdout);
-        ret = tcc_add_file(s, src);
+        ಬರೆ(" %d", i), fflush(stdout);
+        ret = tcc_ಕೂಡಿಸು_file(s, src);
         tcc_delete(s);
-        if (ret < 0)
-            exit(1);
+        ಆದರೆ (ret < 0)
+            ನಿರ್ಗಮಿಸು(1);
     }
 }
 
-static unsigned getclock_ms(void)
+ಸ್ಥಿರ ಚಿಹ್ನೆರಹಿತ getclock_ms(ಶೂನ್ಯ)
 {
-#ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN32
+    ಹಿಂತಿರುಗಿ Get_Tick_ಎಣಿಕೆ();
+#ಇಲ್ಲದಿದ್ದರೆ
+    ರಚನೆ timeval tv;
+    gettimeofday(&tv, ಖಾಲಿ);
+    ಹಿಂತಿರುಗಿ tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-int main(int argc, char **argv)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv)
 {
-    int n;
-    unsigned t;
+    ಪೂರ್ಣಾಂಕ n;
+    ಚಿಹ್ನೆರಹಿತ t;
 
     g_argc = argc;
     g_argv = argv;
 
-    if (argc < 2) {
+    ಆದರೆ (argc < 2) {
         fprintf(stderr, "usage: libtcc_test_mt tcc.c <options>\n");
-        return 1;
+        ಹಿಂತಿರುಗಿ 1;
     }
 
-#if 1
-    printf("running fib with mixed calls\n "), fflush(stdout);
+#ಆದರೆ 1
+    ಬರೆ("running fib with mixed calls\n "), fflush(stdout);
     t = getclock_ms();
     state_test(0);
-    printf("\n (%u ms)\n", getclock_ms() - t);
-#endif
-#if 1
-    printf("producing some exceptions (!)\n "), fflush(stdout);
+    ಬರೆ("\n (%u ms)\n", getclock_ms() - t);
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ 1
+    ಬರೆ("producing some exceptions (!)\n "), fflush(stdout);
     t = getclock_ms();
     state_test(2);
-    printf("\n (%u ms)\n", getclock_ms() - t);
-#endif
-#if 1
+    ಬರೆ("\n (%u ms)\n", getclock_ms() - t);
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ 1
     //{ int i; for (i = 0; i < 100; ++i) { printf("(%d) ", i);
-    printf("running fib in threads\n "), fflush(stdout);
+    ಬರೆ("running fib in threads\n "), fflush(stdout);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    ಗಾಗಿ (n = 0; n < M; ++n)
         create_thread(thread_test_simple, n);
-    wait_threads(n);
-    printf("\n (%u ms)\n", getclock_ms() - t);
+    wait_ಎಳೆಗಳು(n);
+    ಬರೆ("\n (%u ms)\n", getclock_ms() - t);
         //}}
-#endif
-#if 1
-    printf("running tcc.c in threads to run fib\n "), fflush(stdout);
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ 1
+    ಬರೆ("running tcc.c in threads to run fib\n "), fflush(stdout);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    ಗಾಗಿ (n = 0; n < M; ++n)
         create_thread(thread_test_complex, n);
-    wait_threads(n);
-    printf("\n (%u ms)\n", getclock_ms() - t);
-#endif
-#if 1
-    printf("compiling tcc.c 10 times\n "), fflush(stdout);
+    wait_ಎಳೆಗಳು(n);
+    ಬರೆ("\n (%u ms)\n", getclock_ms() - t);
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ 1
+    ಬರೆ("compiling tcc.c 10 times\n "), fflush(stdout);
     t = getclock_ms();
-    time_tcc(10, argv[1]);
-    printf("\n (%u ms)\n", getclock_ms() - t), fflush(stdout);
-#endif
-    return 0;
+    ಸಮಯ_tcc(10, argv[1]);
+    ಬರೆ("\n (%u ms)\n", getclock_ms() - t), fflush(stdout);
+#ಆದರೆ_ಅಂತ್ಯ
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-#else
-#include <tcclib.h>
-#ifdef _WIN32
+#ಇಲ್ಲದಿದ್ದರೆ
+#ಅನ್ತರ್ಭಾವ <tcclib.h>
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN32
 # ifndef _WIN64
     __declspec(stdcall)
 # endif
-    void Sleep(unsigned);
+    ಶೂನ್ಯ Sleep(ಚಿಹ್ನೆರಹಿತ);
 # define sleep_ms Sleep
-#else
-    int usleep(unsigned long);
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಪೂರ್ಣಾಂಕ usleep(ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ);
 # define sleep_ms(x) usleep((x)*1000);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-int fib(n)
+ಪೂರ್ಣಾಂಕ fib(n)
 {
-    return (n <= 2) ? 1 : fib(n-1) + fib(n-2);
+    ಹಿಂತಿರುಗಿ (n <= 2) ? 1 : fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv)
 {
     sleep_ms(333);
-    printf(" %d", fib(atoi(argv[1])));
-    return 0;
+    ಬರೆ(" %d", fib(atoi(argv[1])));
+    ಹಿಂತಿರುಗಿ 0;
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

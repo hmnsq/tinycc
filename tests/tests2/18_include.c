@@ -1,47 +1,47 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   printf("including\n");
-#include "18_include.h"
-#define  test_missing_nl
-   printf("done\n");
+   ಬರೆ("including\n");
+#ಅನ್ತರ್ಭಾವ "18_include.h"
+#ವ್ಯಾಖ್ಯಾನಿಸು  test_missing_nl
+   ಬರೆ("done\n");
 
-#define  INC   "18_include.h"
+#ವ್ಯಾಖ್ಯಾನಿಸು  INC   "18_include.h"
 
-#ifdef __has_include
-#if defined __has_include
-#if __has_include("18_include.h")
-   printf("has_include\n");
-#endif
-#if __has_include(INC)
-   printf("has_include\n");
-#endif
-#if __has_include("not_found_18_include.h")
-   printf("has_include not found\n");
-#endif
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __has_include
+#ಆದರೆ defined __has_include
+#ಆದರೆ __has_include("18_include.h")
+   ಬರೆ("has_include\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ __has_include(INC)
+   ಬರೆ("has_include\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ __has_include("not_found_18_include.h")
+   ಬರೆ("has_include not found\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __has_include_next
-#if defined __has_include_next
-#if __has_include_next("18_include.h")
-   printf("has_include_next\n");
-#endif
-#if __has_include_next(INC)
-   printf("has_include_next\n");
-#endif
-#if __has_include_next("not_found_18_include.h")
-   printf("has_include_next not found\n");
-#endif
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __has_include_next
+#ಆದರೆ defined __has_include_next
+#ಆದರೆ __has_include_next("18_include.h")
+   ಬರೆ("has_include_next\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ __has_include_next(INC)
+   ಬರೆ("has_include_next\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ __has_include_next("not_found_18_include.h")
+   ಬರೆ("has_include_next not found\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#include "18_include2.h"
-#include "./18_include2.h"
-#include "../tests2/18_include2.h"
+#ಅನ್ತರ್ಭಾವ "18_include2.h"
+#ಅನ್ತರ್ಭಾವ "./18_include2.h"
+#ಅನ್ತರ್ಭಾವ "../tests2/18_include2.h"
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

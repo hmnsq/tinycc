@@ -4,44 +4,44 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _SYS_TIME_H_
-#define _SYS_TIME_H_
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ SYS_ಸಮಯ_H
+#ವ್ಯಾಖ್ಯಾನಿಸು SYS_ಸಮಯ_H
 
-#include <time.h>
+#ಅನ್ತರ್ಭಾವ <time.h>
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ  __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef __STRICT_ANSI__
-#ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
-#define _TIMEVAL_DEFINED
-struct timeval {
-  long tv_sec;
-  long tv_usec;
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __STRICT_ANSI__
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _TIMEVAL_DEFINED /* also in winsock[2].h */
+#ವ್ಯಾಖ್ಯಾನಿಸು _TIMEVAL_DEFINED
+ರಚನೆ timeval {
+  ದೀರ್ಘ tv_sec;
+  ದೀರ್ಘ tv_usec;
 };
-#define timerisset(tvp)	 ((tvp)->tv_sec || (tvp)->tv_usec)
-#define timercmp(tvp, uvp, cmp) \
+#ವ್ಯಾಖ್ಯಾನಿಸು timerisset(tvp)	 ((tvp)->tv_sec || (tvp)->tv_usec)
+#ವ್ಯಾಖ್ಯಾನಿಸು timercmp(tvp, uvp, cmp) \
   (((tvp)->tv_sec != (uvp)->tv_sec) ? \
   ((tvp)->tv_sec cmp (uvp)->tv_sec) : \
   ((tvp)->tv_usec cmp (uvp)->tv_usec))
-#define timerclear(tvp)	 (tvp)->tv_sec = (tvp)->tv_usec = 0
-#endif /* _TIMEVAL_DEFINED */
+#ವ್ಯಾಖ್ಯಾನಿಸು timerclear(tvp)	 (tvp)->tv_sec = (tvp)->tv_usec = 0
+#ಆದರೆ_ಅಂತ್ಯ /* _TIMEVAL_DEFINED */
 
-#ifndef _TIMEZONE_DEFINED /* also in sys/time.h */
-#define _TIMEZONE_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _TIMEZONE_DEFINED /* also in sys/time.h */
+#ವ್ಯಾಖ್ಯಾನಿಸು _TIMEZONE_DEFINED
 /* Provided for compatibility with code that assumes that
    the presence of gettimeofday function implies a definition
    of struct timezone. */
-struct timezone
+ರಚನೆ timezone
 {
-  int tz_minuteswest; /* of Greenwich */
-  int tz_dsttime;     /* type of dst correction to apply */
+  ಪೂರ್ಣಾಂಕ tz_minuteswest; /* of Greenwich */
+  ಪೂರ್ಣಾಂಕ tz_dsttime;     /* type of dst correction to apply */
 };
 
-  extern int __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ __cdecl mingw_gettimeofday (ರಚನೆ timeval *p, ರಚನೆ timezone *z);
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /*
    Implementation as per:
@@ -50,20 +50,20 @@ struct timezone
 
    The timezone pointer arg is ignored.  Errors are ignored.
 */
-#ifndef _GETTIMEOFDAY_DEFINED
-#define _GETTIMEOFDAY_DEFINED
-int __cdecl gettimeofday(struct timeval *__restrict__,
-                         void *__restrict__  /* tzp (unused) */);
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _GETTIMEOFDAY_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _GETTIMEOFDAY_DEFINED
+ಪೂರ್ಣಾಂಕ __cdecl gettimeofday(ರಚನೆ timeval *__restrict__,
+                         ಶೂನ್ಯ *__restrict__  /* tzp (unused) */);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif /* __STRICT_ANSI__ */
+#ಆದರೆ_ಅಂತ್ಯ /* __STRICT_ANSI__ */
 
-#ifdef  __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ  __cplusplus
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* Adding timespec definition.  */
-#include <sys/timeb.h>
+#ಅನ್ತರ್ಭಾವ <sys/timeb.h>
 
 
-#endif /* _SYS_TIME_H_ */
+#ಆದರೆ_ಅಂತ್ಯ /* _SYS_TIME_H_ */

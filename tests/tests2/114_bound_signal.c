@@ -1,155 +1,155 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <semaphore.h>
-#include <signal.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <setjmp.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <pthread.h>
+#ಅನ್ತರ್ಭಾವ <semaphore.h>
+#ಅನ್ತರ್ಭಾವ <signal.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
+#ಅನ್ತರ್ಭಾವ <sys/types.h>
+#ಅನ್ತರ್ಭಾವ <sys/wait.h>
+#ಅನ್ತರ್ಭಾವ <sys/time.h>
+#ಅನ್ತರ್ಭಾವ <unistd.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <errno.h>
+#ಅನ್ತರ್ಭಾವ <setjmp.h>
 
-static volatile int run = 1;
-static sem_t sem;
-static sem_t sem_child;
+ಸ್ಥಿರ ಅಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ಸತತ = 1;
+ಸ್ಥಿರ sem_t sem;
+ಸ್ಥಿರ sem_t sem_ಮಗು;
 
-static void
-add (int n)
+ಸ್ಥಿರ ಶೂನ್ಯ
+ಕೂಡಿಸು (ಪೂರ್ಣಾಂಕ n)
 {
-    int i;
-    int arr[n];
+    ಪೂರ್ಣಾಂಕ i;
+    ಪೂರ್ಣಾಂಕ arr[n];
 
-    for (i = 0; i < n; i++) {
+    ಗಾಗಿ (i = 0; i < n; i++) {
         arr[i]++;
     }
-    memset (&arr[0], 0, n * sizeof(int));
+    memset (&arr[0], 0, n * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
 }
 
-static void *
-high_load (void *unused)
+ಸ್ಥಿರ ಶೂನ್ಯ *
+ಮೇಲಿನ_ತುಂಬು (ಶೂನ್ಯ *ಬಳಸದ)
 {
-    while (run) {
-        add(10);
-        add(20);
+    ಆಗ (ಸತತ) {
+        ಕೂಡಿಸು(10);
+        ಕೂಡಿಸು(20);
     }
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-static void *
-do_signal (void *unused)
+ಸ್ಥಿರ ಶೂನ್ಯ *
+do_signal (ಶೂನ್ಯ *ಬಳಸದ)
 {
-    while (run) {
+    ಆಗ (ಸತತ) {
         kill (getpid(), SIGUSR1);
-        while (sem_wait(&sem) < 0 && errno == EINTR);
+        ಆಗ (sem_wait(&sem) < 0 && errno == EINTR);
     }
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-static void *
-do_fork (void *unused)
+ಸ್ಥಿರ ಶೂನ್ಯ *
+do_fork (ಶೂನ್ಯ *ಬಳಸದ)
 {
     pid_t pid;
 
-    while (run) {
-        switch ((pid = fork())) {
-        case 0:
-            add(1000);
-            add(2000);
-            exit(0);
-            break;
-        case -1:
-            return NULL;
-        default:
-            while (sem_wait(&sem_child) < 0 && errno == EINTR);
-            wait(NULL);
-            break;
+    ಆಗ (ಸತತ) {
+        ಆಯ್ಕೆ ((pid = fork())) {
+        ಸ್ಥಿತಿ 0:
+            ಕೂಡಿಸು(1000);
+            ಕೂಡಿಸು(2000);
+            ನಿರ್ಗಮಿಸು(0);
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ -1:
+            ಹಿಂತಿರುಗಿ ಖಾಲಿ;
+        ಪೂರ್ವನಿಯೋಜಿತ:
+            ಆಗ (sem_wait(&sem_ಮಗು) < 0 && errno == EINTR);
+            wait(ಖಾಲಿ);
+            ನಿಲ್ಲಿಸು;
         }
     }
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-static void signal_handler(int sig)
+ಸ್ಥಿರ ಶೂನ್ಯ signal_handler(ಪೂರ್ಣಾಂಕ sig)
 {
-    add(10);
-    add(20);
+    ಕೂಡಿಸು(10);
+    ಕೂಡಿಸು(20);
     sem_post (&sem);
 }
 
-static void child_handler(int sig)
+ಸ್ಥಿರ ಶೂನ್ಯ ಮಗು_handler(ಪೂರ್ಣಾಂಕ sig)
 {
-    add(10);
-    add(20);
-    sem_post (&sem_child);
+    ಕೂಡಿಸು(10);
+    ಕೂಡಿಸು(20);
+    sem_post (&sem_ಮಗು);
 }
 
-static unsigned getclock_ms(void)
+ಸ್ಥಿರ ಚಿಹ್ನೆರಹಿತ getclock_ms(ಶೂನ್ಯ)
 {
-#ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN32
+    ಹಿಂತಿರುಗಿ Get_Tick_ಎಣಿಕೆ();
+#ಇಲ್ಲದಿದ್ದರೆ
+    ರಚನೆ timeval tv;
+    gettimeofday(&tv, ಖಾಲಿ);
+    ಹಿಂತಿರುಗಿ tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-int
-main (void)
+ಪೂರ್ಣಾಂಕ
+ಮುಖ್ಯ (ಶೂನ್ಯ)
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
     pthread_t id1, id2, id3;
-    struct sigaction act;
+    ರಚನೆ sigaction act;
     sigjmp_buf sj;
     sigset_t m;
-    time_t end;
+    time_t ಕೊನೆ;
 
-    memset (&act, 0, sizeof (act));
+    memset (&act, 0, ಗಾತ್ರ (act));
     act.sa_handler = signal_handler;
     act.sa_flags = 0;
     sigemptyset (&act.sa_mask);
-    sigaction (SIGUSR1, &act, NULL);
-    act.sa_handler = child_handler;
-    sigaction (SIGCHLD, &act, NULL);
+    sigaction (SIGUSR1, &act, ಖಾಲಿ);
+    act.sa_handler = ಮಗು_handler;
+    sigaction (SIGCHLD, &act, ಖಾಲಿ);
 
-    printf ("start\n"); fflush(stdout);
+    ಬರೆ ("start\n"); fflush(stdout);
 
     sem_init (&sem, 0, 0);
-    sem_init (&sem_child, 0, 0);
-    pthread_create(&id1, NULL, high_load, NULL);
-    pthread_create(&id2, NULL, do_signal, NULL);
-#if !defined(__APPLE__)
-    pthread_create(&id3, NULL, do_fork, NULL);
-#endif
+    sem_init (&sem_ಮಗು, 0, 0);
+    pthread_create(&id1, ಖಾಲಿ, ಮೇಲಿನ_ತುಂಬು, ಖಾಲಿ);
+    pthread_create(&id2, ಖಾಲಿ, do_signal, ಖಾಲಿ);
+#ಆದರೆ !defined(__APPLE__)
+    pthread_create(&id3, ಖಾಲಿ, do_fork, ಖಾಲಿ);
+#ಆದರೆ_ಅಂತ್ಯ
 
     /* sleep does not work !!! */
-    end = getclock_ms() + 200;
-    while (getclock_ms() < end) ;
-    run = 0;
+    ಕೊನೆ = getclock_ms() + 200;
+    ಆಗ (getclock_ms() < ಕೊನೆ) ;
+    ಸತತ = 0;
 
-    pthread_join(id1, NULL);
-    pthread_join(id2, NULL);
-#if !defined(__APPLE__)
-    pthread_join(id3, NULL);
-#endif
+    pthread_join(id1, ಖಾಲಿ);
+    pthread_join(id2, ಖಾಲಿ);
+#ಆದರೆ !defined(__APPLE__)
+    pthread_join(id3, ಖಾಲಿ);
+#ಆದರೆ_ಅಂತ್ಯ
     sem_destroy (&sem);
-    sem_destroy (&sem_child);
+    sem_destroy (&sem_ಮಗು);
 
-    printf ("end\n"); fflush(stdout);
+    ಬರೆ ("end\n"); fflush(stdout);
 
     sigemptyset (&m);
-    sigprocmask (SIG_SETMASK, &m, NULL);
-    if (sigsetjmp (sj, 0) == 0)
+    sigprocmask (SIG_SETMASK, &m, ಖಾಲಿ);
+    ಆದರೆ (sigsetjmp (sj, 0) == 0)
     {
         sigaddset (&m, SIGUSR1);
-        sigprocmask (SIG_SETMASK, &m, NULL);
+        sigprocmask (SIG_SETMASK, &m, ಖಾಲಿ);
         siglongjmp (sj, 1);
-        printf ("failed");
-        return 1;
+        ಬರೆ ("failed");
+        ಹಿಂತಿರುಗಿ 1;
     }
-    sigprocmask (SIG_SETMASK, NULL, &m);
-    if (!sigismember (&m, SIGUSR1))
-        printf ("failed");
-    return 0;
+    sigprocmask (SIG_SETMASK, ಖಾಲಿ, &m);
+    ಆದರೆ (!sigismember (&m, SIGUSR1))
+        ಬರೆ ("failed");
+    ಹಿಂತಿರುಗಿ 0;
 }

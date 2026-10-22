@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+ಎಣಿಕೆ E *e;
+ಸ್ಥಿರಾಂಕ ಎಣಿಕೆ E *e1;
+ಎಣಿಕೆ E ಸ್ಥಿರಾಂಕ *e2;
+ರಚನೆ S *s;
+ಸ್ಥಿರಾಂಕ ರಚನೆ S *s1;
+ರಚನೆ S ಸ್ಥಿರಾಂಕ *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (*fptr1)();
+ಪೂರ್ಣಾಂಕ f1 (ಪೂರ್ಣಾಂಕ (), ಪೂರ್ಣಾಂಕ);
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (*fptr2)(ಪೂರ್ಣಾಂಕ x);
+ಪೂರ್ಣಾಂಕ f2 (ಪೂರ್ಣಾಂಕ (ಪೂರ್ಣಾಂಕ x), ಪೂರ್ಣಾಂಕ);
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (*fptr3)(ಪೂರ್ಣಾಂಕ);
+ಪೂರ್ಣಾಂಕ f3 (ಪೂರ್ಣಾಂಕ (ಪೂರ್ಣಾಂಕ), ಪೂರ್ಣಾಂಕ);
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (*fptr4[4])(ಪೂರ್ಣಾಂಕ);
+ಪೂರ್ಣಾಂಕ f4 (ಪೂರ್ಣಾಂಕ (*[4])(ಪೂರ್ಣಾಂಕ), ಪೂರ್ಣಾಂಕ);
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (*fptr5)(fptr1);
+ಪೂರ್ಣಾಂಕ f5 (ಪೂರ್ಣಾಂಕ (ಪೂರ್ಣಾಂಕ()), fptr1);
+ಪೂರ್ಣಾಂಕ f1 (fptr1 fp, ಪೂರ್ಣಾಂಕ i)
 {
-  return (*fp)(i);
+  ಹಿಂತಿರುಗಿ (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+ಪೂರ್ಣಾಂಕ f2 (fptr2 fp, ಪೂರ್ಣಾಂಕ i)
 {
-  return (*fp)(i);
+  ಹಿಂತಿರುಗಿ (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+ಪೂರ್ಣಾಂಕ f3 (fptr3 fp, ಪೂರ್ಣಾಂಕ i)
 {
-  return (*fp)(i);
+  ಹಿಂತಿರುಗಿ (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+ಪೂರ್ಣಾಂಕ f4 (fptr4 fp, ಪೂರ್ಣಾಂಕ i)
 {
-  return (*fp[i])(i);
+  ಹಿಂತಿರುಗಿ (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+ಪೂರ್ಣಾಂಕ f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  ಹಿಂತಿರುಗಿ fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ intx4[4];
+ಪೂರ್ಣಾಂಕ f8 (intx4, ಪೂರ್ಣಾಂಕ);
+ಪೂರ್ಣಾಂಕ f8 (ಪೂರ್ಣಾಂಕ ([4]), ಪೂರ್ಣಾಂಕ);
+ಪೂರ್ಣಾಂಕ f8 (ಪೂರ್ಣಾಂಕ y[4], ಪೂರ್ಣಾಂಕ i)
 {
-  return y[i];
+  ಹಿಂತಿರುಗಿ y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+ಪೂರ್ಣಾಂಕ f9 (ಪೂರ್ಣಾಂಕ (*)(ಪೂರ್ಣಾಂಕ), ಪೂರ್ಣಾಂಕ);
+ಪೂರ್ಣಾಂಕ f9 (ಪೂರ್ಣಾಂಕ ((ಪೂರ್ಣಾಂಕ)), ಪೂರ್ಣಾಂಕ);
+ಪೂರ್ಣಾಂಕ f9 (ಪೂರ್ಣಾಂಕ f(ಪೂರ್ಣಾಂಕ), ಪೂರ್ಣಾಂಕ i)
 {
-  return f(i);
+  ಹಿಂತಿರುಗಿ f(i);
 }
-int main () { return 0; }
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ () { ಹಿಂತಿರುಗಿ 0; }

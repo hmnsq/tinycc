@@ -4,1471 +4,1471 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _WINSOCK2API_
-#define _WINSOCK2API_
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WINSOCK2API_
+#ವ್ಯಾಖ್ಯಾನಿಸು _WINSOCK2API_
 
-#ifndef INCL_WINSOCK_API_TYPEDEFS
-#define INCL_WINSOCK_API_TYPEDEFS 0
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ INCL_WINSOCK_API_TYPEDEFS
+#ವ್ಯಾಖ್ಯಾನಿಸು INCL_WINSOCK_API_TYPEDEFS 0
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _INC_WINDOWS
-#include <windows.h>
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INC_WINDOWS
+#ಅನ್ತರ್ಭಾವ <windows.h>
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef MAKEWORD
-#define MAKEWORD(low,high) ((WORD)(((BYTE)(low)) | ((WORD)((BYTE)(high))) << 8))
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ MAKEWORD
+#ವ್ಯಾಖ್ಯಾನಿಸು MAKEWORD(ಕೆಳಗಿನ,ಮೇಲಿನ) ((ಶಬ್ದ_3)(((BYTE)(ಕೆಳಗಿನ)) | ((ಶಬ್ದ_3)((BYTE)(ಮೇಲಿನ))) << 8))
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef WINSOCK_VERSION
-#define WINSOCK_VERSION MAKEWORD(2,2)
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WINSOCK_ಆವೃತ್ತಿ
+#ವ್ಯಾಖ್ಯಾನಿಸು WINSOCK_ಆವೃತ್ತಿ MAKEWORD(2,2)
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef WINSOCK_API_LINKAGE
-#ifdef DECLSPEC_IMPORT
-#define WINSOCK_API_LINKAGE DECLSPEC_IMPORT
-#else
-#define WINSOCK_API_LINKAGE
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WINSOCK_API_LINKAGE
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ DECLSPEC_IMPORT
+#ವ್ಯಾಖ್ಯಾನಿಸು WINSOCK_API_LINKAGE DECLSPEC_IMPORT
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು WINSOCK_API_LINKAGE
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _WINSOCK_SOCKET_DEFINED
-#define _WINSOCK_SOCKET_DEFINED
-  typedef unsigned char u_char;
-  typedef unsigned short u_short;
-  typedef unsigned int u_int;
-  typedef unsigned long u_long;
-  __MINGW_EXTENSION typedef unsigned __int64 u_int64;
-  typedef INT_PTR SOCKET;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WINSOCK_SOCKET_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _WINSOCK_SOCKET_DEFINED
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ u_char;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ u_short;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ u_int;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ u_long;
+  __MINGW_EXTENSION ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ __int64 u_int64;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT_PTR SOCKET;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef FD_SETSIZE
-#define FD_SETSIZE 64
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ FD_SETSIZE
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_SETSIZE 64
+#ಆದರೆ_ಅಂತ್ಯ
 
-  typedef struct fd_set {
-    u_int fd_count;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ fd_set {
+    u_int fd_ಎಣಿಕೆ;
     SOCKET fd_array[FD_SETSIZE];
   } fd_set;
 
-  extern int WINAPI __WSAFDIsSet(SOCKET,fd_set *);
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ WINAPI __WSAFDIsSet(SOCKET,fd_set *);
 
-#define FD_CLR(fd,set) do { u_int __i; for(__i = 0;__i < ((fd_set *)(set))->fd_count;__i++) { if (((fd_set *)(set))->fd_array[__i]==fd) { while (__i < ((fd_set *)(set))->fd_count-1) { ((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i+1]; __i++; } ((fd_set *)(set))->fd_count--; break; } } } while(0)
-#define FD_SET(fd,set) do { u_int __i; for(__i = 0;__i < ((fd_set *)(set))->fd_count;__i++) { if (((fd_set *)(set))->fd_array[__i]==(fd)) { break; } } if (__i==((fd_set *)(set))->fd_count) { if (((fd_set *)(set))->fd_count < FD_SETSIZE) { ((fd_set *)(set))->fd_array[__i] = (fd); ((fd_set *)(set))->fd_count++; } } } while(0)
-#define FD_ZERO(set) (((fd_set *)(set))->fd_count=0)
-#define FD_ISSET(fd,set) __WSAFDIsSet((SOCKET)(fd),(fd_set *)(set))
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_CLR(fd,ಗಣ) ಮಾಡು { u_int __i; ಗಾಗಿ(__i = 0;__i < ((fd_set *)(ಗಣ))->fd_ಎಣಿಕೆ;__i++) { ಆದರೆ (((fd_set *)(ಗಣ))->fd_array[__i]==fd) { ಆಗ (__i < ((fd_set *)(ಗಣ))->fd_ಎಣಿಕೆ-1) { ((fd_set *)(ಗಣ))->fd_array[__i] = ((fd_set *)(ಗಣ))->fd_array[__i+1]; __i++; } ((fd_set *)(ಗಣ))->fd_ಎಣಿಕೆ--; ನಿಲ್ಲಿಸು; } } } ಆಗ(0)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_SET(fd,ಗಣ) ಮಾಡು { u_int __i; ಗಾಗಿ(__i = 0;__i < ((fd_set *)(ಗಣ))->fd_ಎಣಿಕೆ;__i++) { ಆದರೆ (((fd_set *)(ಗಣ))->fd_array[__i]==(fd)) { ನಿಲ್ಲಿಸು; } } ಆದರೆ (__i==((fd_set *)(ಗಣ))->fd_ಎಣಿಕೆ) { ಆದರೆ (((fd_set *)(ಗಣ))->fd_ಎಣಿಕೆ < FD_SETSIZE) { ((fd_set *)(ಗಣ))->fd_array[__i] = (fd); ((fd_set *)(ಗಣ))->fd_ಎಣಿಕೆ++; } } } ಆಗ(0)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_ZERO(ಗಣ) (((fd_set *)(ಗಣ))->fd_ಎಣಿಕೆ=0)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_ISSET(fd,ಗಣ) __WSAFDIsSet((SOCKET)(fd),(fd_set *)(ಗಣ))
 
-#ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
-#define _TIMEVAL_DEFINED
-  struct timeval {
-    long tv_sec;
-    long tv_usec;
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _TIMEVAL_DEFINED /* also in winsock[2].h */
+#ವ್ಯಾಖ್ಯಾನಿಸು _TIMEVAL_DEFINED
+  ರಚನೆ timeval {
+    ದೀರ್ಘ tv_sec;
+    ದೀರ್ಘ tv_usec;
   };
 
-#define timerisset(tvp) ((tvp)->tv_sec || (tvp)->tv_usec)
-#define timercmp(tvp,uvp,cmp) ((tvp)->tv_sec cmp (uvp)->tv_sec || (tvp)->tv_sec==(uvp)->tv_sec && (tvp)->tv_usec cmp (uvp)->tv_usec)
-#define timerclear(tvp) (tvp)->tv_sec = (tvp)->tv_usec = 0
-#endif /* _TIMEVAL_DEFINED */
+#ವ್ಯಾಖ್ಯಾನಿಸು timerisset(tvp) ((tvp)->tv_sec || (tvp)->tv_usec)
+#ವ್ಯಾಖ್ಯಾನಿಸು timercmp(tvp,uvp,cmp) ((tvp)->tv_sec cmp (uvp)->tv_sec || (tvp)->tv_sec==(uvp)->tv_sec && (tvp)->tv_usec cmp (uvp)->tv_usec)
+#ವ್ಯಾಖ್ಯಾನಿಸು timerclear(tvp) (tvp)->tv_sec = (tvp)->tv_usec = 0
+#ಆದರೆ_ಅಂತ್ಯ /* _TIMEVAL_DEFINED */
 
-#define IOCPARM_MASK 0x7f
-#define IOC_VOID 0x20000000
-#define IOC_OUT 0x40000000
-#define IOC_IN 0x80000000
-#define IOC_INOUT (IOC_IN|IOC_OUT)
+#ವ್ಯಾಖ್ಯಾನಿಸು IOCPARM_ಮುಖವಾಡ 0x7f
+#ವ್ಯಾಖ್ಯಾನಿಸು IOC_VOID 0x20000000
+#ವ್ಯಾಖ್ಯಾನಿಸು IOC_ಹೊರಹೋಗು 0x40000000
+#ವ್ಯಾಖ್ಯಾನಿಸು IOC_ಒಳ 0x80000000
+#ವ್ಯಾಖ್ಯಾನಿಸು IOC_INOUT (IOC_ಒಳ|IOC_ಹೊರಹೋಗು)
 
-#define _IO(x,y) (IOC_VOID|((x)<<8)|(y))
-#define _IOR(x,y,t) (IOC_OUT|(((long)sizeof(t)&IOCPARM_MASK)<<16)|((x)<<8)|(y))
-#define _IOW(x,y,t) (IOC_IN|(((long)sizeof(t)&IOCPARM_MASK)<<16)|((x)<<8)|(y))
+#ವ್ಯಾಖ್ಯಾನಿಸು _IO(x,y) (IOC_VOID|((x)<<8)|(y))
+#ವ್ಯಾಖ್ಯಾನಿಸು _IOR(x,y,t) (IOC_ಹೊರಹೋಗು|(((ದೀರ್ಘ)ಗಾತ್ರ(t)&IOCPARM_ಮುಖವಾಡ)<<16)|((x)<<8)|(y))
+#ವ್ಯಾಖ್ಯಾನಿಸು _IOW(x,y,t) (IOC_ಒಳ|(((ದೀರ್ಘ)ಗಾತ್ರ(t)&IOCPARM_ಮುಖವಾಡ)<<16)|((x)<<8)|(y))
 
-#define FIONREAD _IOR('f',127,u_long)
-#define FIONBIO _IOW('f',126,u_long)
-#define FIOASYNC _IOW('f',125,u_long)
+#ವ್ಯಾಖ್ಯಾನಿಸು FIONREAD _IOR('f',127,u_long)
+#ವ್ಯಾಖ್ಯಾನಿಸು FIONBIO _IOW('f',126,u_long)
+#ವ್ಯಾಖ್ಯಾನಿಸು FIOASYNC _IOW('f',125,u_long)
 
-#define SIOCSHIWAT _IOW('s',0,u_long)
-#define SIOCGHIWAT _IOR('s',1,u_long)
-#define SIOCSLOWAT _IOW('s',2,u_long)
-#define SIOCGLOWAT _IOR('s',3,u_long)
-#define SIOCATMARK _IOR('s',7,u_long)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIOCSHIWAT _IOW('s',0,u_long)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIOCGHIWAT _IOR('s',1,u_long)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIOCSLOWAT _IOW('s',2,u_long)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIOCGLOWAT _IOR('s',3,u_long)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIOCATMARK _IOR('s',7,u_long)
 
-#define h_addr h_addr_list[0]
+#ವ್ಯಾಖ್ಯಾನಿಸು h_addr h_addr_list[0]
 
-  struct hostent {
-    char *h_name;
-    char **h_aliases;
-    short h_addrtype;
-    short h_length;
-    char **h_addr_list;
+  ರಚನೆ hostent {
+    ಅಕ್ಷರ *h_name;
+    ಅಕ್ಷರ **h_aliases;
+    ಗಿಡ್ಡ h_addrtype;
+    ಗಿಡ್ಡ h_ಉದ್ದಳತೆ;
+    ಅಕ್ಷರ **h_addr_list;
   };
 
-  struct netent {
-    char *n_name;
-    char **n_aliases;
-    short n_addrtype;
+  ರಚನೆ netent {
+    ಅಕ್ಷರ *n_name;
+    ಅಕ್ಷರ **n_aliases;
+    ಗಿಡ್ಡ n_addrtype;
     u_long n_net;
   };
 
-  struct servent {
-    char *s_name;
-    char **s_aliases;
-#ifdef _WIN64
-    char *s_proto;
-    short s_port;
-#else
-    short s_port;
-    char *s_proto;
-#endif
+  ರಚನೆ servent {
+    ಅಕ್ಷರ *s_name;
+    ಅಕ್ಷರ **s_aliases;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+    ಅಕ್ಷರ *s_proto;
+    ಗಿಡ್ಡ s_ಪೋರ್ಟ್;
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಗಿಡ್ಡ s_ಪೋರ್ಟ್;
+    ಅಕ್ಷರ *s_proto;
+#ಆದರೆ_ಅಂತ್ಯ
   };
 
-  struct protoent {
-    char *p_name;
-    char **p_aliases;
-    short p_proto;
+  ರಚನೆ protoent {
+    ಅಕ್ಷರ *p_name;
+    ಅಕ್ಷರ **p_aliases;
+    ಗಿಡ್ಡ p_proto;
   };
 
-#define IPPROTO_IP 0
-#define IPPROTO_HOPOPTS 0
-#define IPPROTO_ICMP 1
-#define IPPROTO_IGMP 2
-#define IPPROTO_GGP 3
-#define IPPROTO_IPV4 4
-#define IPPROTO_TCP 6
-#define IPPROTO_PUP 12
-#define IPPROTO_UDP 17
-#define IPPROTO_IDP 22
-#define IPPROTO_IPV6 41
-#define IPPROTO_ROUTING 43
-#define IPPROTO_FRAGMENT 44
-#define IPPROTO_ESP 50
-#define IPPROTO_AH 51
-#define IPPROTO_ICMPV6 58
-#define IPPROTO_NONE 59
-#define IPPROTO_DSTOPTS 60
-#define IPPROTO_ND 77
-#define IPPROTO_ICLFXBM 78
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_IP 0
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_HOPOPTS 0
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_ICMP 1
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_IGMP 2
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_GGP 3
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_IPV4 4
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_TCP 6
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_PUP 12
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_UDP 17
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_IDP 22
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_IPV6 41
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_ROUTING 43
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_FRAGMENT 44
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_ESP 50
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_AH 51
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_ICMPV6 58
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_NONE 59
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_DSTOPTS 60
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_ND 77
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_ICLFXBM 78
 
-#define IPPROTO_RAW 255
-#define IPPROTO_MAX 256
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_RAW 255
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPROTO_MAX 256
 
-#define IPPORT_ECHO 7
-#define IPPORT_DISCARD 9
-#define IPPORT_SYSTAT 11
-#define IPPORT_DAYTIME 13
-#define IPPORT_NETSTAT 15
-#define IPPORT_FTP 21
-#define IPPORT_TELNET 23
-#define IPPORT_SMTP 25
-#define IPPORT_TIMESERVER 37
-#define IPPORT_NAMESERVER 42
-#define IPPORT_WHOIS 43
-#define IPPORT_MTP 57
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_ECHO 7
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_DISCARD 9
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_SYSTAT 11
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_DAYTIME 13
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_NETSTAT 15
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_FTP 21
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_TELNET 23
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_SMTP 25
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_TIMESERVER 37
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_NAMESERVER 42
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_WHOIS 43
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_MTP 57
 
-#define IPPORT_TFTP 69
-#define IPPORT_RJE 77
-#define IPPORT_FINGER 79
-#define IPPORT_TTYLINK 87
-#define IPPORT_SUPDUP 95
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_TFTP 69
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_RJE 77
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_FINGER 79
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_TTYLINK 87
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_SUPDUP 95
 
-#define IPPORT_EXECSERVER 512
-#define IPPORT_LOGINSERVER 513
-#define IPPORT_CMDSERVER 514
-#define IPPORT_EFSSERVER 520
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_EXECSERVER 512
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_LOGINSERVER 513
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_CMDSERVER 514
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_EFSSERVER 520
 
-#define IPPORT_BIFFUDP 512
-#define IPPORT_WHOSERVER 513
-#define IPPORT_ROUTESERVER 520
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_BIFFUDP 512
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_WHOSERVER 513
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_ROUTESERVER 520
 
-#define IPPORT_RESERVED 1024
+#ವ್ಯಾಖ್ಯಾನಿಸು IPPORT_RESERVED 1024
 
-#define IMPLINK_IP 155
-#define IMPLINK_LOWEXPER 156
-#define IMPLINK_HIGHEXPER 158
+#ವ್ಯಾಖ್ಯಾನಿಸು IMPLINK_IP 155
+#ವ್ಯಾಖ್ಯಾನಿಸು IMPLINK_LOWEXPER 156
+#ವ್ಯಾಖ್ಯಾನಿಸು IMPLINK_HIGHEXPER 158
 
-#ifndef s_addr
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ s_addr
 
-  struct in_addr {
-    union {
-      struct { u_char s_b1,s_b2,s_b3,s_b4; } S_un_b;
-      struct { u_short s_w1,s_w2; } S_un_w;
+  ರಚನೆ ಒಳ_addr {
+    ಒಕ್ಕೂಟ {
+      ರಚನೆ { u_char s_b1,s_b2,s_b3,s_b4; } S_un_b;
+      ರಚನೆ { u_short s_w1,s_w2; } S_un_w;
       u_long S_addr;
     } S_un;
   };
 
-#define s_addr S_un.S_addr
-#define s_host S_un.S_un_b.s_b2
-#define s_net S_un.S_un_b.s_b1
-#define s_imp S_un.S_un_w.s_w2
-#define s_impno S_un.S_un_b.s_b4
-#define s_lh S_un.S_un_b.s_b3
+#ವ್ಯಾಖ್ಯಾನಿಸು s_addr S_un.S_addr
+#ವ್ಯಾಖ್ಯಾನಿಸು s_host S_un.S_un_b.s_b2
+#ವ್ಯಾಖ್ಯಾನಿಸು s_net S_un.S_un_b.s_b1
+#ವ್ಯಾಖ್ಯಾನಿಸು s_imp S_un.S_un_w.s_w2
+#ವ್ಯಾಖ್ಯಾನಿಸು s_impno S_un.S_un_b.s_b4
+#ವ್ಯಾಖ್ಯಾನಿಸು s_lh S_un.S_un_b.s_b3
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define IN_CLASSA(i) (((long)(i) & 0x80000000)==0)
-#define IN_CLASSA_NET 0xff000000
-#define IN_CLASSA_NSHIFT 24
-#define IN_CLASSA_HOST 0x00ffffff
-#define IN_CLASSA_MAX 128
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSA(i) (((ದೀರ್ಘ)(i) & 0x80000000)==0)
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSA_NET 0xff000000
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSA_NSHIFT 24
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSA_HOST 0x00ffffff
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSA_MAX 128
 
-#define IN_CLASSB(i) (((long)(i) & 0xc0000000)==0x80000000)
-#define IN_CLASSB_NET 0xffff0000
-#define IN_CLASSB_NSHIFT 16
-#define IN_CLASSB_HOST 0x0000ffff
-#define IN_CLASSB_MAX 65536
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSB(i) (((ದೀರ್ಘ)(i) & 0xc0000000)==0x80000000)
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSB_NET 0xffff0000
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSB_NSHIFT 16
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSB_HOST 0x0000ffff
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSB_MAX 65536
 
-#define IN_CLASSC(i) (((long)(i) & 0xe0000000)==0xc0000000)
-#define IN_CLASSC_NET 0xffffff00
-#define IN_CLASSC_NSHIFT 8
-#define IN_CLASSC_HOST 0x000000ff
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSC(i) (((ದೀರ್ಘ)(i) & 0xe0000000)==0xc0000000)
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSC_NET 0xffffff00
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSC_NSHIFT 8
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSC_HOST 0x000000ff
 
-#define IN_CLASSD(i) (((long)(i) & 0xf0000000)==0xe0000000)
-#define IN_CLASSD_NET 0xf0000000
-#define IN_CLASSD_NSHIFT 28
-#define IN_CLASSD_HOST 0x0fffffff
-#define IN_MULTICAST(i) IN_CLASSD(i)
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSD(i) (((ದೀರ್ಘ)(i) & 0xf0000000)==0xe0000000)
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSD_NET 0xf0000000
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSD_NSHIFT 28
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_CLASSD_HOST 0x0fffffff
+#ವ್ಯಾಖ್ಯಾನಿಸು ಒಳ_MULTICAST(i) ಒಳ_CLASSD(i)
 
-#define INADDR_ANY (u_long)0x00000000
-#define INADDR_LOOPBACK 0x7f000001
-#define INADDR_BROADCAST (u_long)0xffffffff
-#define INADDR_NONE 0xffffffff
+#ವ್ಯಾಖ್ಯಾನಿಸು INADDR_ANY (u_long)0x00000000
+#ವ್ಯಾಖ್ಯಾನಿಸು INADDR_LOOPBACK 0x7f000001
+#ವ್ಯಾಖ್ಯಾನಿಸು INADDR_ಪ್ರಸಾರ (u_long)0xffffffff
+#ವ್ಯಾಖ್ಯಾನಿಸು INADDR_NONE 0xffffffff
 
-#define ADDR_ANY INADDR_ANY
+#ವ್ಯಾಖ್ಯಾನಿಸು ADDR_ANY INADDR_ANY
 
-  struct sockaddr_in {
-    short sin_family;
-    u_short sin_port;
-    struct in_addr sin_addr;
-    char sin_zero[8];
+  ರಚನೆ sockaddr_ಒಳ {
+    ಗಿಡ್ಡ sin_family;
+    u_short sin_ಪೋರ್ಟ್;
+    ರಚನೆ ಒಳ_addr sin_addr;
+    ಅಕ್ಷರ sin_zero[8];
   };
 
-#define WSADESCRIPTION_LEN 256
-#define WSASYS_STATUS_LEN 128
+#ವ್ಯಾಖ್ಯಾನಿಸು WSADESCRIPTION_LEN 256
+#ವ್ಯಾಖ್ಯಾನಿಸು WSASYS_ಸ್ಥಿತಿ_LEN 128
 
-  typedef struct WSAData {
-    WORD wVersion;
-    WORD wHighVersion;
-#ifdef _WIN64
-    unsigned short iMaxSockets;
-    unsigned short iMaxUdpDg;
-    char *lpVendorInfo;
-    char szDescription[WSADESCRIPTION_LEN+1];
-    char szSystemStatus[WSASYS_STATUS_LEN+1];
-#else
-    char szDescription[WSADESCRIPTION_LEN+1];
-    char szSystemStatus[WSASYS_STATUS_LEN+1];
-    unsigned short iMaxSockets;
-    unsigned short iMaxUdpDg;
-    char *lpVendorInfo;
-#endif
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ WSAData {
+    ಶಬ್ದ_3 w_ಆವೃತ್ತಿ;
+    ಶಬ್ದ_3 w_ಮೇಲಿನ_ಆವೃತ್ತಿ;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ iMaxSockets;
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ iMaxUdpDg;
+    ಅಕ್ಷರ *lpVendorInfo;
+    ಅಕ್ಷರ szDescription[WSADESCRIPTION_LEN+1];
+    ಅಕ್ಷರ sz_System_ಸ್ಥಿತಿ[WSASYS_ಸ್ಥಿತಿ_LEN+1];
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಅಕ್ಷರ szDescription[WSADESCRIPTION_LEN+1];
+    ಅಕ್ಷರ sz_System_ಸ್ಥಿತಿ[WSASYS_ಸ್ಥಿತಿ_LEN+1];
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ iMaxSockets;
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ iMaxUdpDg;
+    ಅಕ್ಷರ *lpVendorInfo;
+#ಆದರೆ_ಅಂತ್ಯ
   } WSADATA,*LPWSADATA;
 
-#define INVALID_SOCKET (SOCKET)(~0)
-#define SOCKET_ERROR (-1)
+#ವ್ಯಾಖ್ಯಾನಿಸು INVALID_SOCKET (SOCKET)(~0)
+#ವ್ಯಾಖ್ಯಾನಿಸು SOCKET_ERROR (-1)
 
-#define FROM_PROTOCOL_INFO (-1)
+#ವ್ಯಾಖ್ಯಾನಿಸು FROM_PROTOCOL_INFO (-1)
 
-#define SOCK_STREAM 1
-#define SOCK_DGRAM 2
-#define SOCK_RAW 3
-#define SOCK_RDM 4
-#define SOCK_SEQPACKET 5
+#ವ್ಯಾಖ್ಯಾನಿಸು SOCK_ಹರಿವು 1
+#ವ್ಯಾಖ್ಯಾನಿಸು SOCK_DGRAM 2
+#ವ್ಯಾಖ್ಯಾನಿಸು SOCK_RAW 3
+#ವ್ಯಾಖ್ಯಾನಿಸು SOCK_RDM 4
+#ವ್ಯಾಖ್ಯಾನಿಸು SOCK_SEQPACKET 5
 
-#define SO_DEBUG 0x0001
-#define SO_ACCEPTCONN 0x0002
-#define SO_REUSEADDR 0x0004
-#define SO_KEEPALIVE 0x0008
-#define SO_DONTROUTE 0x0010
-#define SO_BROADCAST 0x0020
-#define SO_USELOOPBACK 0x0040
-#define SO_LINGER 0x0080
-#define SO_OOBINLINE 0x0100
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_DEBUG 0x0001
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_ACCEPTCONN 0x0002
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_REUSEADDR 0x0004
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_KEEPALIVE 0x0008
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_DONTROUTE 0x0010
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_ಪ್ರಸಾರ 0x0020
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_USELOOPBACK 0x0040
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_LINGER 0x0080
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_OOBINLINE 0x0100
 
-#define SO_DONTLINGER (int)(~SO_LINGER)
-#define SO_EXCLUSIVEADDRUSE ((int)(~SO_REUSEADDR))
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_DONTLINGER (ಪೂರ್ಣಾಂಕ)(~SO_LINGER)
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_EXCLUSIVEADDRUSE ((ಪೂರ್ಣಾಂಕ)(~SO_REUSEADDR))
 
-#define SO_SNDBUF 0x1001
-#define SO_RCVBUF 0x1002
-#define SO_SNDLOWAT 0x1003
-#define SO_RCVLOWAT 0x1004
-#define SO_SNDTIMEO 0x1005
-#define SO_RCVTIMEO 0x1006
-#define SO_ERROR 0x1007
-#define SO_TYPE 0x1008
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_SNDBUF 0x1001
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_RCVBUF 0x1002
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_SNDLOWAT 0x1003
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_RCVLOWAT 0x1004
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_SNDTIMEO 0x1005
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_RCVTIMEO 0x1006
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_ERROR 0x1007
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_TYPE 0x1008
 
-#define SO_GROUP_ID 0x2001
-#define SO_GROUP_PRIORITY 0x2002
-#define SO_MAX_MSG_SIZE 0x2003
-#define SO_PROTOCOL_INFOA 0x2004
-#define SO_PROTOCOL_INFOW 0x2005
-#ifdef UNICODE
-#define SO_PROTOCOL_INFO SO_PROTOCOL_INFOW
-#else
-#define SO_PROTOCOL_INFO SO_PROTOCOL_INFOA
-#endif
-#define PVD_CONFIG 0x3001
-#define SO_CONDITIONAL_ACCEPT 0x3002
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_ಗುಂಪು_ID 0x2001
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_ಗುಂಪು_ಆದ್ಯತೆ 0x2002
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_MAX_ಸಂದೇಶ_ಗಾತ್ರ 0x2003
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_PROTOCOL_INFOA 0x2004
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_PROTOCOL_INFOW 0x2005
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ UNICODE
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_PROTOCOL_INFO SO_PROTOCOL_INFOW
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_PROTOCOL_INFO SO_PROTOCOL_INFOA
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿಸು PVD_CONFIG 0x3001
+#ವ್ಯಾಖ್ಯಾನಿಸು SO_CONDITIONAL_ACCEPT 0x3002
 
-#define TCP_NODELAY 0x0001
+#ವ್ಯಾಖ್ಯಾನಿಸು TCP_NODELAY 0x0001
 
-#define AF_UNSPEC 0
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_UNSPEC 0
 
-#define AF_UNIX 1
-#define AF_INET 2
-#define AF_IMPLINK 3
-#define AF_PUP 4
-#define AF_CHAOS 5
-#define AF_NS 6
-#define AF_IPX AF_NS
-#define AF_ISO 7
-#define AF_OSI AF_ISO
-#define AF_ECMA 8
-#define AF_DATAKIT 9
-#define AF_CCITT 10
-#define AF_SNA 11
-#define AF_DECnet 12
-#define AF_DLI 13
-#define AF_LAT 14
-#define AF_HYLINK 15
-#define AF_APPLETALK 16
-#define AF_NETBIOS 17
-#define AF_VOICEVIEW 18
-#define AF_FIREFOX 19
-#define AF_UNKNOWN1 20
-#define AF_BAN 21
-#define AF_ATM 22
-#define AF_INET6 23
-#define AF_CLUSTER 24
-#define AF_12844 25
-#define AF_IRDA 26
-#define AF_NETDES 28
-#define AF_TCNPROCESS 29
-#define AF_TCNMESSAGE 30
-#define AF_ICLFXBM 31
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_UNIX 1
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_INET 2
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_IMPLINK 3
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_PUP 4
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_CHAOS 5
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_NS 6
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_IPX AF_NS
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_ISO 7
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_OSI AF_ISO
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_ECMA 8
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_DATAKIT 9
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_CCITT 10
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_SNA 11
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_DECnet 12
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_DLI 13
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_LAT 14
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_HYLINK 15
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_APPLETALK 16
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_NETBIOS 17
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_VOICEVIEW 18
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_FIREFOX 19
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_UNKNOWN1 20
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_BAN 21
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_ATM 22
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_INET6 23
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_CLUSTER 24
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_12844 25
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_IRDA 26
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_NETDES 28
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_TCNPROCESS 29
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_TCNMESSAGE 30
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_ICLFXBM 31
 
-#define AF_MAX 32
+#ವ್ಯಾಖ್ಯಾನಿಸು AF_MAX 32
 
-  struct sockaddr {
+  ರಚನೆ sockaddr {
     u_short sa_family;
-    char sa_data[14];
+    ಅಕ್ಷರ sa_ದತ್ತಾಂಶ[14];
   };
 
-#define _SS_MAXSIZE 128
-#define _SS_ALIGNSIZE (8)
+#ವ್ಯಾಖ್ಯಾನಿಸು _SS_MAXSIZE 128
+#ವ್ಯಾಖ್ಯಾನಿಸು _SS_ALIGNSIZE (8)
 
-#define _SS_PAD1SIZE (_SS_ALIGNSIZE - sizeof (short))
-#define _SS_PAD2SIZE (_SS_MAXSIZE - (sizeof (short) + _SS_PAD1SIZE + _SS_ALIGNSIZE))
+#ವ್ಯಾಖ್ಯಾನಿಸು SS_PAD1_ಗಾತ್ರ (_SS_ALIGNSIZE - ಗಾತ್ರ (ಗಿಡ್ಡ))
+#ವ್ಯಾಖ್ಯಾನಿಸು SS_PAD2_ಗಾತ್ರ (_SS_MAXSIZE - (ಗಾತ್ರ (ಗಿಡ್ಡ) + SS_PAD1_ಗಾತ್ರ + _SS_ALIGNSIZE))
 
-  struct sockaddr_storage {
-    short ss_family;
-    char __ss_pad1[_SS_PAD1SIZE];
+  ರಚನೆ sockaddr_storage {
+    ಗಿಡ್ಡ ss_family;
+    ಅಕ್ಷರ __ss_pad1[SS_PAD1_ಗಾತ್ರ];
 
     __MINGW_EXTENSION __int64 __ss_align;
-    char __ss_pad2[_SS_PAD2SIZE];
+    ಅಕ್ಷರ __ss_pad2[SS_PAD2_ಗಾತ್ರ];
 
   };
 
-  struct sockproto {
+  ರಚನೆ sockproto {
     u_short sp_family;
     u_short sp_protocol;
   };
 
-#define PF_UNSPEC AF_UNSPEC
-#define PF_UNIX AF_UNIX
-#define PF_INET AF_INET
-#define PF_IMPLINK AF_IMPLINK
-#define PF_PUP AF_PUP
-#define PF_CHAOS AF_CHAOS
-#define PF_NS AF_NS
-#define PF_IPX AF_IPX
-#define PF_ISO AF_ISO
-#define PF_OSI AF_OSI
-#define PF_ECMA AF_ECMA
-#define PF_DATAKIT AF_DATAKIT
-#define PF_CCITT AF_CCITT
-#define PF_SNA AF_SNA
-#define PF_DECnet AF_DECnet
-#define PF_DLI AF_DLI
-#define PF_LAT AF_LAT
-#define PF_HYLINK AF_HYLINK
-#define PF_APPLETALK AF_APPLETALK
-#define PF_VOICEVIEW AF_VOICEVIEW
-#define PF_FIREFOX AF_FIREFOX
-#define PF_UNKNOWN1 AF_UNKNOWN1
-#define PF_BAN AF_BAN
-#define PF_ATM AF_ATM
-#define PF_INET6 AF_INET6
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_UNSPEC AF_UNSPEC
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_UNIX AF_UNIX
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_INET AF_INET
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_IMPLINK AF_IMPLINK
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_PUP AF_PUP
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_CHAOS AF_CHAOS
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_NS AF_NS
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_IPX AF_IPX
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_ISO AF_ISO
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_OSI AF_OSI
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_ECMA AF_ECMA
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_DATAKIT AF_DATAKIT
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_CCITT AF_CCITT
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_SNA AF_SNA
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_DECnet AF_DECnet
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_DLI AF_DLI
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_LAT AF_LAT
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_HYLINK AF_HYLINK
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_APPLETALK AF_APPLETALK
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_VOICEVIEW AF_VOICEVIEW
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_FIREFOX AF_FIREFOX
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_UNKNOWN1 AF_UNKNOWN1
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_BAN AF_BAN
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_ATM AF_ATM
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_INET6 AF_INET6
 
-#define PF_MAX AF_MAX
+#ವ್ಯಾಖ್ಯಾನಿಸು PF_MAX AF_MAX
 
-  struct linger {
+  ರಚನೆ linger {
     u_short l_onoff;
     u_short l_linger;
   };
 
-#define SOL_SOCKET 0xffff
+#ವ್ಯಾಖ್ಯಾನಿಸು SOL_SOCKET 0xffff
 
-#define SOMAXCONN 0x7fffffff
+#ವ್ಯಾಖ್ಯಾನಿಸು SOMAXCONN 0x7fffffff
 
-#define MSG_OOB 0x1
-#define MSG_PEEK 0x2
-#define MSG_DONTROUTE 0x4
-#define MSG_WAITALL 0x8
+#ವ್ಯಾಖ್ಯಾನಿಸು ಸಂದೇಶ_OOB 0x1
+#ವ್ಯಾಖ್ಯಾನಿಸು ಸಂದೇಶ_PEEK 0x2
+#ವ್ಯಾಖ್ಯಾನಿಸು ಸಂದೇಶ_DONTROUTE 0x4
+#ವ್ಯಾಖ್ಯಾನಿಸು ಸಂದೇಶ_WAITALL 0x8
 
-#define MSG_PARTIAL 0x8000
+#ವ್ಯಾಖ್ಯಾನಿಸು ಸಂದೇಶ_PARTIAL 0x8000
 
-#define MSG_INTERRUPT 0x10
+#ವ್ಯಾಖ್ಯಾನಿಸು ಸಂದೇಶ_ಅಡಚಣೆ 0x10
 
-#define MSG_MAXIOVLEN 16
+#ವ್ಯಾಖ್ಯಾನಿಸು ಸಂದೇಶ_MAXIOVLEN 16
 
-#define MAXGETHOSTSTRUCT 1024
+#ವ್ಯಾಖ್ಯಾನಿಸು MAXGETHOSTSTRUCT 1024
 
-#define FD_READ_BIT 0
-#define FD_READ (1 << FD_READ_BIT)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_READ_ಬಿಟ್ 0
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_READ (1 << FD_READ_ಬಿಟ್)
 
-#define FD_WRITE_BIT 1
-#define FD_WRITE (1 << FD_WRITE_BIT)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_WRITE_ಬಿಟ್ 1
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_WRITE (1 << FD_WRITE_ಬಿಟ್)
 
-#define FD_OOB_BIT 2
-#define FD_OOB (1 << FD_OOB_BIT)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_OOB_ಬಿಟ್ 2
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_OOB (1 << FD_OOB_ಬಿಟ್)
 
-#define FD_ACCEPT_BIT 3
-#define FD_ACCEPT (1 << FD_ACCEPT_BIT)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_ACCEPT_ಬಿಟ್ 3
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_ACCEPT (1 << FD_ACCEPT_ಬಿಟ್)
 
-#define FD_CONNECT_BIT 4
-#define FD_CONNECT (1 << FD_CONNECT_BIT)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_CONNECT_ಬಿಟ್ 4
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_CONNECT (1 << FD_CONNECT_ಬಿಟ್)
 
-#define FD_CLOSE_BIT 5
-#define FD_CLOSE (1 << FD_CLOSE_BIT)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_CLOSE_ಬಿಟ್ 5
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_CLOSE (1 << FD_CLOSE_ಬಿಟ್)
 
-#define FD_QOS_BIT 6
-#define FD_QOS (1 << FD_QOS_BIT)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_QOS_ಬಿಟ್ 6
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_QOS (1 << FD_QOS_ಬಿಟ್)
 
-#define FD_GROUP_QOS_BIT 7
-#define FD_GROUP_QOS (1 << FD_GROUP_QOS_BIT)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_ಗುಂಪು_QOS_ಬಿಟ್ 7
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_ಗುಂಪು_QOS (1 << FD_ಗುಂಪು_QOS_ಬಿಟ್)
 
-#define FD_ROUTING_INTERFACE_CHANGE_BIT 8
-#define FD_ROUTING_INTERFACE_CHANGE (1 << FD_ROUTING_INTERFACE_CHANGE_BIT)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_ROUTING_INTERFACE_CHANGE_ಬಿಟ್ 8
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_ROUTING_INTERFACE_CHANGE (1 << FD_ROUTING_INTERFACE_CHANGE_ಬಿಟ್)
 
-#define FD_ADDRESS_LIST_CHANGE_BIT 9
-#define FD_ADDRESS_LIST_CHANGE (1 << FD_ADDRESS_LIST_CHANGE_BIT)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_ವಿಳಾಸ_LIST_CHANGE_ಬಿಟ್ 9
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_ವಿಳಾಸ_LIST_CHANGE (1 << FD_ವಿಳಾಸ_LIST_CHANGE_ಬಿಟ್)
 
-#define FD_MAX_EVENTS 10
-#define FD_ALL_EVENTS ((1 << FD_MAX_EVENTS) - 1)
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_MAX_EVENTS 10
+#ವ್ಯಾಖ್ಯಾನಿಸು FD_ALL_EVENTS ((1 << FD_MAX_EVENTS) - 1)
 
-#ifndef WSABASEERR
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSABASEERR
 
-#define WSABASEERR 10000
+#ವ್ಯಾಖ್ಯಾನಿಸು WSABASEERR 10000
 
-#define WSAEINTR (WSABASEERR+4)
-#define WSAEBADF (WSABASEERR+9)
-#define WSAEACCES (WSABASEERR+13)
-#define WSAEFAULT (WSABASEERR+14)
-#define WSAEINVAL (WSABASEERR+22)
-#define WSAEMFILE (WSABASEERR+24)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEINTR (WSABASEERR+4)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEBADF (WSABASEERR+9)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEACCES (WSABASEERR+13)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEFAULT (WSABASEERR+14)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEINVAL (WSABASEERR+22)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEMFILE (WSABASEERR+24)
 
-#define WSAEWOULDBLOCK (WSABASEERR+35)
-#define WSAEINPROGRESS (WSABASEERR+36)
-#define WSAEALREADY (WSABASEERR+37)
-#define WSAENOTSOCK (WSABASEERR+38)
-#define WSAEDESTADDRREQ (WSABASEERR+39)
-#define WSAEMSGSIZE (WSABASEERR+40)
-#define WSAEPROTOTYPE (WSABASEERR+41)
-#define WSAENOPROTOOPT (WSABASEERR+42)
-#define WSAEPROTONOSUPPORT (WSABASEERR+43)
-#define WSAESOCKTNOSUPPORT (WSABASEERR+44)
-#define WSAEOPNOTSUPP (WSABASEERR+45)
-#define WSAEPFNOSUPPORT (WSABASEERR+46)
-#define WSAEAFNOSUPPORT (WSABASEERR+47)
-#define WSAEADDRINUSE (WSABASEERR+48)
-#define WSAEADDRNOTAVAIL (WSABASEERR+49)
-#define WSAENETDOWN (WSABASEERR+50)
-#define WSAENETUNREACH (WSABASEERR+51)
-#define WSAENETRESET (WSABASEERR+52)
-#define WSAECONNABORTED (WSABASEERR+53)
-#define WSAECONNRESET (WSABASEERR+54)
-#define WSAENOBUFS (WSABASEERR+55)
-#define WSAEISCONN (WSABASEERR+56)
-#define WSAENOTCONN (WSABASEERR+57)
-#define WSAESHUTDOWN (WSABASEERR+58)
-#define WSAETOOMANYREFS (WSABASEERR+59)
-#define WSAETIMEDOUT (WSABASEERR+60)
-#define WSAECONNREFUSED (WSABASEERR+61)
-#define WSAELOOP (WSABASEERR+62)
-#define WSAENAMETOOLONG (WSABASEERR+63)
-#define WSAEHOSTDOWN (WSABASEERR+64)
-#define WSAEHOSTUNREACH (WSABASEERR+65)
-#define WSAENOTEMPTY (WSABASEERR+66)
-#define WSAEPROCLIM (WSABASEERR+67)
-#define WSAEUSERS (WSABASEERR+68)
-#define WSAEDQUOT (WSABASEERR+69)
-#define WSAESTALE (WSABASEERR+70)
-#define WSAEREMOTE (WSABASEERR+71)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEWOULDBLOCK (WSABASEERR+35)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEINPROGRESS (WSABASEERR+36)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEALREADY (WSABASEERR+37)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAENOTSOCK (WSABASEERR+38)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEDESTADDRREQ (WSABASEERR+39)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEMSGSIZE (WSABASEERR+40)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEPROTOTYPE (WSABASEERR+41)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAENOPROTOOPT (WSABASEERR+42)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEPROTONOSUPPORT (WSABASEERR+43)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAESOCKTNOSUPPORT (WSABASEERR+44)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEOPNOTSUPP (WSABASEERR+45)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEPFNOSUPPORT (WSABASEERR+46)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEAFNOSUPPORT (WSABASEERR+47)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEADDRINUSE (WSABASEERR+48)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEADDRNOTAVAIL (WSABASEERR+49)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAENETDOWN (WSABASEERR+50)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAENETUNREACH (WSABASEERR+51)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAENETRESET (WSABASEERR+52)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAECONNABORTED (WSABASEERR+53)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAECONNRESET (WSABASEERR+54)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAENOBUFS (WSABASEERR+55)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEISCONN (WSABASEERR+56)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAENOTCONN (WSABASEERR+57)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAESHUTDOWN (WSABASEERR+58)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAETOOMANYREFS (WSABASEERR+59)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAETIMEDOUT (WSABASEERR+60)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAECONNREFUSED (WSABASEERR+61)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAELOOP (WSABASEERR+62)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAENAMETOOLONG (WSABASEERR+63)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEHOSTDOWN (WSABASEERR+64)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEHOSTUNREACH (WSABASEERR+65)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAENOTEMPTY (WSABASEERR+66)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEPROCLIM (WSABASEERR+67)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEUSERS (WSABASEERR+68)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEDQUOT (WSABASEERR+69)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAESTALE (WSABASEERR+70)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEREMOTE (WSABASEERR+71)
 
-#define WSASYSNOTREADY (WSABASEERR+91)
-#define WSAVERNOTSUPPORTED (WSABASEERR+92)
-#define WSANOTINITIALISED (WSABASEERR+93)
-#define WSAEDISCON (WSABASEERR+101)
-#ifndef WSAHOST_NOT_FOUND
-#define WSAHOST_NOT_FOUND (WSABASEERR+1001)
-#endif
-#ifndef WSATRY_AGAIN
-#define WSATRY_AGAIN (WSABASEERR+1002)
-#endif
-#ifndef WSANO_RECOVERY
-#define WSANO_RECOVERY (WSABASEERR+1003)
-#endif
-#ifndef WSANO_DATA
-#define WSANO_DATA (WSABASEERR+1004)
-#endif
+#ವ್ಯಾಖ್ಯಾನಿಸು WSASYSNOTREADY (WSABASEERR+91)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAVERNOTSUPPORTED (WSABASEERR+92)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSANOTINITIALISED (WSABASEERR+93)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEDISCON (WSABASEERR+101)
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSAHOST_NOT_ಸಿಕ್ಕಿತು
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAHOST_NOT_ಸಿಕ್ಕಿತು (WSABASEERR+1001)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSATRY_AGAIN
+#ವ್ಯಾಖ್ಯಾನಿಸು WSATRY_AGAIN (WSABASEERR+1002)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSANO_RECOVERY
+#ವ್ಯಾಖ್ಯಾನಿಸು WSANO_RECOVERY (WSABASEERR+1003)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSANO_ದತ್ತಾಂಶ
+#ವ್ಯಾಖ್ಯಾನಿಸು WSANO_ದತ್ತಾಂಶ (WSABASEERR+1004)
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define WSAENOMORE (WSABASEERR+102)
-#define WSAECANCELLED (WSABASEERR+103)
-#define WSAEINVALIDPROCTABLE (WSABASEERR+104)
-#define WSAEINVALIDPROVIDER (WSABASEERR+105)
-#define WSAEPROVIDERFAILEDINIT (WSABASEERR+106)
-#define WSASYSCALLFAILURE (WSABASEERR+107)
-#define WSASERVICE_NOT_FOUND (WSABASEERR+108)
-#define WSATYPE_NOT_FOUND (WSABASEERR+109)
-#define WSA_E_NO_MORE (WSABASEERR+110)
-#define WSA_E_CANCELLED (WSABASEERR+111)
-#define WSAEREFUSED (WSABASEERR+112)
-#ifndef WSA_QOS_RECEIVERS
-#define WSA_QOS_RECEIVERS (WSABASEERR + 1005)
-#endif
-#ifndef WSA_QOS_SENDERS
-#define WSA_QOS_SENDERS (WSABASEERR + 1006)
-#endif
-#ifndef WSA_QOS_NO_SENDERS
-#define WSA_QOS_NO_SENDERS (WSABASEERR + 1007)
-#define WSA_QOS_NO_RECEIVERS (WSABASEERR + 1008)
-#define WSA_QOS_REQUEST_CONFIRMED (WSABASEERR + 1009)
-#define WSA_QOS_ADMISSION_FAILURE (WSABASEERR + 1010)
-#define WSA_QOS_POLICY_FAILURE (WSABASEERR + 1011)
-#define WSA_QOS_BAD_STYLE (WSABASEERR + 1012)
-#define WSA_QOS_BAD_OBJECT (WSABASEERR + 1013)
-#define WSA_QOS_TRAFFIC_CTRL_ERROR (WSABASEERR + 1014)
-#define WSA_QOS_GENERIC_ERROR (WSABASEERR + 1015)
-#define WSA_QOS_ESERVICETYPE (WSABASEERR + 1016)
-#define WSA_QOS_EFLOWSPEC (WSABASEERR + 1017)
-#define WSA_QOS_EPROVSPECBUF (WSABASEERR + 1018)
-#endif
-#ifndef WSA_QOS_EFILTERSTYLE
-#define WSA_QOS_EFILTERSTYLE (WSABASEERR + 1019)
-#endif
-#ifndef WSA_QOS_EFILTERTYPE
-#define WSA_QOS_EFILTERTYPE (WSABASEERR + 1020)
-#endif
-#ifndef WSA_QOS_EFILTERCOUNT
-#define WSA_QOS_EFILTERCOUNT (WSABASEERR + 1021)
-#endif
-#ifndef WSA_QOS_EOBJLENGTH
-#define WSA_QOS_EOBJLENGTH (WSABASEERR + 1022)
-#endif
-#ifndef WSA_QOS_EFLOWCOUNT
-#define WSA_QOS_EFLOWCOUNT (WSABASEERR + 1023)
-#endif
-#ifndef WSA_QOS_EUNKNOWNPSOBJ
-#define WSA_QOS_EUNKNOWNPSOBJ (WSABASEERR + 1024)
-#endif
-#ifndef WSA_QOS_EPOLICYOBJ
-#define WSA_QOS_EPOLICYOBJ (WSABASEERR + 1025)
-#endif
-#ifndef WSA_QOS_EFLOWDESC
-#define WSA_QOS_EFLOWDESC (WSABASEERR + 1026)
-#endif
-#ifndef WSA_QOS_EPSFLOWSPEC
-#define WSA_QOS_EPSFLOWSPEC (WSABASEERR + 1027)
-#endif
-#ifndef WSA_QOS_EPSFILTERSPEC
-#define WSA_QOS_EPSFILTERSPEC (WSABASEERR + 1028)
-#endif
-#ifndef WSA_QOS_ESDMODEOBJ
-#define WSA_QOS_ESDMODEOBJ (WSABASEERR + 1029)
-#endif
-#ifndef WSA_QOS_ESHAPERATEOBJ
-#define WSA_QOS_ESHAPERATEOBJ (WSABASEERR + 1030)
-#endif
-#ifndef WSA_QOS_RESERVED_PETYPE
-#define WSA_QOS_RESERVED_PETYPE (WSABASEERR + 1031)
-#endif
-#endif // WSABASEERR
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAENOMORE (WSABASEERR+102)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAECANCELLED (WSABASEERR+103)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEINVALIDPROCTABLE (WSABASEERR+104)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEINVALIDPROVIDER (WSABASEERR+105)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEPROVIDERFAILEDINIT (WSABASEERR+106)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSASYSCALLFAILURE (WSABASEERR+107)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSASERVICE_NOT_ಸಿಕ್ಕಿತು (WSABASEERR+108)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSATYPE_NOT_ಸಿಕ್ಕಿತು (WSABASEERR+109)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_E_NO_ಇನ್ನಷ್ಟು (WSABASEERR+110)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_E_CANCELLED (WSABASEERR+111)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEREFUSED (WSABASEERR+112)
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_RECEIVERS
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_RECEIVERS (WSABASEERR + 1005)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_SENDERS
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_SENDERS (WSABASEERR + 1006)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_NO_SENDERS
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_NO_SENDERS (WSABASEERR + 1007)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_NO_RECEIVERS (WSABASEERR + 1008)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_REQUEST_CONFIRMED (WSABASEERR + 1009)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_ADMISSION_FAILURE (WSABASEERR + 1010)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_POLICY_FAILURE (WSABASEERR + 1011)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_BAD_STYLE (WSABASEERR + 1012)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_BAD_OBJECT (WSABASEERR + 1013)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_TRAFFIC_CTRL_ERROR (WSABASEERR + 1014)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_GENERIC_ERROR (WSABASEERR + 1015)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_ESERVICETYPE (WSABASEERR + 1016)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EFLOWSPEC (WSABASEERR + 1017)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EPROVSPECBUF (WSABASEERR + 1018)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_EFILTERSTYLE
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EFILTERSTYLE (WSABASEERR + 1019)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_EFILTERTYPE
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EFILTERTYPE (WSABASEERR + 1020)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_EFILTERCOUNT
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EFILTERCOUNT (WSABASEERR + 1021)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_EOBJLENGTH
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EOBJLENGTH (WSABASEERR + 1022)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_EFLOWCOUNT
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EFLOWCOUNT (WSABASEERR + 1023)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_EUNKNOWNPSOBJ
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EUNKNOWNPSOBJ (WSABASEERR + 1024)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_EPOLICYOBJ
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EPOLICYOBJ (WSABASEERR + 1025)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_EFLOWDESC
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EFLOWDESC (WSABASEERR + 1026)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_EPSFLOWSPEC
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EPSFLOWSPEC (WSABASEERR + 1027)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_EPSFILTERSPEC
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_EPSFILTERSPEC (WSABASEERR + 1028)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_ESDMODEOBJ
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_ESDMODEOBJ (WSABASEERR + 1029)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_ESHAPERATEOBJ
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_ESHAPERATEOBJ (WSABASEERR + 1030)
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WSA_QOS_RESERVED_PETYPE
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_QOS_RESERVED_PETYPE (WSABASEERR + 1031)
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ // WSABASEERR
 
-#define h_errno WSAGetLastError()
-#define HOST_NOT_FOUND WSAHOST_NOT_FOUND
-#define TRY_AGAIN WSATRY_AGAIN
-#define NO_RECOVERY WSANO_RECOVERY
-#define NO_DATA WSANO_DATA
+#ವ್ಯಾಖ್ಯಾನಿಸು h_errno WSAGet_ಕೊನೆಯ_Error()
+#ವ್ಯಾಖ್ಯಾನಿಸು HOST_NOT_ಸಿಕ್ಕಿತು WSAHOST_NOT_ಸಿಕ್ಕಿತು
+#ವ್ಯಾಖ್ಯಾನಿಸು TRY_AGAIN WSATRY_AGAIN
+#ವ್ಯಾಖ್ಯಾನಿಸು NO_RECOVERY WSANO_RECOVERY
+#ವ್ಯಾಖ್ಯಾನಿಸು NO_ದತ್ತಾಂಶ WSANO_ದತ್ತಾಂಶ
 
-#define WSANO_ADDRESS WSANO_DATA
-#define NO_ADDRESS WSANO_ADDRESS
+#ವ್ಯಾಖ್ಯಾನಿಸು WSANO_ವಿಳಾಸ WSANO_ದತ್ತಾಂಶ
+#ವ್ಯಾಖ್ಯಾನಿಸು NO_ವಿಳಾಸ WSANO_ವಿಳಾಸ
 
-#if 0
-#define EWOULDBLOCK WSAEWOULDBLOCK
-#define EINPROGRESS WSAEINPROGRESS
-#define EALREADY WSAEALREADY
-#define ENOTSOCK WSAENOTSOCK
-#define EDESTADDRREQ WSAEDESTADDRREQ
-#define EMSGSIZE WSAEMSGSIZE
-#define EPROTOTYPE WSAEPROTOTYPE
-#define ENOPROTOOPT WSAENOPROTOOPT
-#define EPROTONOSUPPORT WSAEPROTONOSUPPORT
-#define ESOCKTNOSUPPORT WSAESOCKTNOSUPPORT
-#define EOPNOTSUPP WSAEOPNOTSUPP
-#define EPFNOSUPPORT WSAEPFNOSUPPORT
-#define EAFNOSUPPORT WSAEAFNOSUPPORT
-#define EADDRINUSE WSAEADDRINUSE
-#define EADDRNOTAVAIL WSAEADDRNOTAVAIL
-#define ENETDOWN WSAENETDOWN
-#define ENETUNREACH WSAENETUNREACH
-#define ENETRESET WSAENETRESET
-#define ECONNABORTED WSAECONNABORTED
-#define ECONNRESET WSAECONNRESET
-#define ENOBUFS WSAENOBUFS
-#define EISCONN WSAEISCONN
-#define ENOTCONN WSAENOTCONN
-#define ESHUTDOWN WSAESHUTDOWN
-#define ETOOMANYREFS WSAETOOMANYREFS
-#define ETIMEDOUT WSAETIMEDOUT
-#define ECONNREFUSED WSAECONNREFUSED
-#define ELOOP WSAELOOP
-#define ENAMETOOLONG WSAENAMETOOLONG
-#define EHOSTDOWN WSAEHOSTDOWN
-#define EHOSTUNREACH WSAEHOSTUNREACH
-#define ENOTEMPTY WSAENOTEMPTY
-#define EPROCLIM WSAEPROCLIM
-#define EUSERS WSAEUSERS
-#define EDQUOT WSAEDQUOT
-#define ESTALE WSAESTALE
-#define EREMOTE WSAEREMOTE
-#endif
+#ಆದರೆ 0
+#ವ್ಯಾಖ್ಯಾನಿಸು EWOULDBLOCK WSAEWOULDBLOCK
+#ವ್ಯಾಖ್ಯಾನಿಸು EINPROGRESS WSAEINPROGRESS
+#ವ್ಯಾಖ್ಯಾನಿಸು EALREADY WSAEALREADY
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOTSOCK WSAENOTSOCK
+#ವ್ಯಾಖ್ಯಾನಿಸು EDESTADDRREQ WSAEDESTADDRREQ
+#ವ್ಯಾಖ್ಯಾನಿಸು EMSGSIZE WSAEMSGSIZE
+#ವ್ಯಾಖ್ಯಾನಿಸು EPROTOTYPE WSAEPROTOTYPE
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOPROTOOPT WSAENOPROTOOPT
+#ವ್ಯಾಖ್ಯಾನಿಸು EPROTONOSUPPORT WSAEPROTONOSUPPORT
+#ವ್ಯಾಖ್ಯಾನಿಸು ESOCKTNOSUPPORT WSAESOCKTNOSUPPORT
+#ವ್ಯಾಖ್ಯಾನಿಸು EOPNOTSUPP WSAEOPNOTSUPP
+#ವ್ಯಾಖ್ಯಾನಿಸು EPFNOSUPPORT WSAEPFNOSUPPORT
+#ವ್ಯಾಖ್ಯಾನಿಸು EAFNOSUPPORT WSAEAFNOSUPPORT
+#ವ್ಯಾಖ್ಯಾನಿಸು EADDRINUSE WSAEADDRINUSE
+#ವ್ಯಾಖ್ಯಾನಿಸು EADDRNOTAVAIL WSAEADDRNOTAVAIL
+#ವ್ಯಾಖ್ಯಾನಿಸು ENETDOWN WSAENETDOWN
+#ವ್ಯಾಖ್ಯಾನಿಸು ENETUNREACH WSAENETUNREACH
+#ವ್ಯಾಖ್ಯಾನಿಸು ENETRESET WSAENETRESET
+#ವ್ಯಾಖ್ಯಾನಿಸು ECONNABORTED WSAECONNABORTED
+#ವ್ಯಾಖ್ಯಾನಿಸು ECONNRESET WSAECONNRESET
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOBUFS WSAENOBUFS
+#ವ್ಯಾಖ್ಯಾನಿಸು EISCONN WSAEISCONN
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOTCONN WSAENOTCONN
+#ವ್ಯಾಖ್ಯಾನಿಸು ESHUTDOWN WSAESHUTDOWN
+#ವ್ಯಾಖ್ಯಾನಿಸು ETOOMANYREFS WSAETOOMANYREFS
+#ವ್ಯಾಖ್ಯಾನಿಸು ETIMEDOUT WSAETIMEDOUT
+#ವ್ಯಾಖ್ಯಾನಿಸು ECONNREFUSED WSAECONNREFUSED
+#ವ್ಯಾಖ್ಯಾನಿಸು ELOOP WSAELOOP
+#ವ್ಯಾಖ್ಯಾನಿಸು ENAMETOOLONG WSAENAMETOOLONG
+#ವ್ಯಾಖ್ಯಾನಿಸು EHOSTDOWN WSAEHOSTDOWN
+#ವ್ಯಾಖ್ಯಾನಿಸು EHOSTUNREACH WSAEHOSTUNREACH
+#ವ್ಯಾಖ್ಯಾನಿಸು ENOTEMPTY WSAENOTEMPTY
+#ವ್ಯಾಖ್ಯಾನಿಸು EPROCLIM WSAEPROCLIM
+#ವ್ಯಾಖ್ಯಾನಿಸು EUSERS WSAEUSERS
+#ವ್ಯಾಖ್ಯಾನಿಸು EDQUOT WSAEDQUOT
+#ವ್ಯಾಖ್ಯಾನಿಸು ESTALE WSAESTALE
+#ವ್ಯಾಖ್ಯಾನಿಸು EREMOTE WSAEREMOTE
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define WSAAPI WINAPI
-#define WSAEVENT HANDLE
-#define LPWSAEVENT LPHANDLE
-#define WSAOVERLAPPED OVERLAPPED
-  typedef struct _OVERLAPPED *LPWSAOVERLAPPED;
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAAPI WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEVENT HANDLE
+#ವ್ಯಾಖ್ಯಾನಿಸು LPWSAEVENT LPHANDLE
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAOVERLAPPED OVERLAPPED
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _OVERLAPPED *LPWSAOVERLAPPED;
 
-#define WSA_IO_PENDING (ERROR_IO_PENDING)
-#define WSA_IO_INCOMPLETE (ERROR_IO_INCOMPLETE)
-#define WSA_INVALID_HANDLE (ERROR_INVALID_HANDLE)
-#define WSA_INVALID_PARAMETER (ERROR_INVALID_PARAMETER)
-#define WSA_NOT_ENOUGH_MEMORY (ERROR_NOT_ENOUGH_MEMORY)
-#define WSA_OPERATION_ABORTED (ERROR_OPERATION_ABORTED)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_IO_PENDING (ERROR_IO_PENDING)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_IO_INCOMPLETE (ERROR_IO_INCOMPLETE)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_INVALID_HANDLE (ERROR_INVALID_HANDLE)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_INVALID_PARAMETER (ERROR_INVALID_PARAMETER)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_NOT_ENOUGH_ಸ್ಮರಣೆ (ERROR_NOT_ENOUGH_ಸ್ಮರಣೆ)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_OPERATION_ABORTED (ERROR_OPERATION_ABORTED)
 
-#define WSA_INVALID_EVENT ((WSAEVENT)NULL)
-#define WSA_MAXIMUM_WAIT_EVENTS (MAXIMUM_WAIT_OBJECTS)
-#define WSA_WAIT_FAILED (WAIT_FAILED)
-#define WSA_WAIT_EVENT_0 (WAIT_OBJECT_0)
-#define WSA_WAIT_IO_COMPLETION (WAIT_IO_COMPLETION)
-#define WSA_WAIT_TIMEOUT (WAIT_TIMEOUT)
-#define WSA_INFINITE (INFINITE)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_INVALID_EVENT ((WSAEVENT)ಖಾಲಿ)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_ಗರಿಷ್ಠ_WAIT_EVENTS (ಗರಿಷ್ಠ_WAIT_OBJECTS)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_WAIT_FAILED (WAIT_FAILED)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_WAIT_EVENT_0 (WAIT_OBJECT_0)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_WAIT_IO_COMPLETION (WAIT_IO_COMPLETION)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_WAIT_TIMEOUT (WAIT_TIMEOUT)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_INFINITE (INFINITE)
 
-  typedef struct _WSABUF {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSABUF {
     u_long len;
-    char *buf;
+    ಅಕ್ಷರ *buf;
   } WSABUF,*LPWSABUF;
 
-#include <qos.h>
+#ಅನ್ತರ್ಭಾವ <qos.h>
 
-  typedef struct _QualityOfService {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ Quality_ದ_Service {
     FLOWSPEC SendingFlowspec;
     FLOWSPEC ReceivingFlowspec;
     WSABUF ProviderSpecific;
   } QOS,*LPQOS;
 
-#define CF_ACCEPT 0x0000
-#define CF_REJECT 0x0001
-#define CF_DEFER 0x0002
+#ವ್ಯಾಖ್ಯಾನಿಸು CF_ACCEPT 0x0000
+#ವ್ಯಾಖ್ಯಾನಿಸು CF_REJECT 0x0001
+#ವ್ಯಾಖ್ಯಾನಿಸು CF_DEFER 0x0002
 
-#define SD_RECEIVE 0x00
-#define SD_SEND 0x01
-#define SD_BOTH 0x02
+#ವ್ಯಾಖ್ಯಾನಿಸು SD_RECEIVE 0x00
+#ವ್ಯಾಖ್ಯಾನಿಸು SD_SEND 0x01
+#ವ್ಯಾಖ್ಯಾನಿಸು SD_BOTH 0x02
 
-  typedef unsigned int GROUP;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ ಗುಂಪು_3;
 
-#define SG_UNCONSTRAINED_GROUP 0x01
-#define SG_CONSTRAINED_GROUP 0x02
+#ವ್ಯಾಖ್ಯಾನಿಸು SG_UNCONSTRAINED_ಗುಂಪು 0x01
+#ವ್ಯಾಖ್ಯಾನಿಸು SG_CONSTRAINED_ಗುಂಪು 0x02
 
-  typedef struct _WSANETWORKEVENTS {
-    long lNetworkEvents;
-    int iErrorCode[FD_MAX_EVENTS];
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSANETWORKEVENTS {
+    ದೀರ್ಘ l_ಜಾಲ_Events;
+    ಪೂರ್ಣಾಂಕ i_Error_ಸಂಕೇತ[FD_MAX_EVENTS];
   } WSANETWORKEVENTS,*LPWSANETWORKEVENTS;
 
-#ifndef GUID_DEFINED
-#include <guiddef.h>
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ GUID_DEFINED
+#ಅನ್ತರ್ಭಾವ <guiddef.h>
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define MAX_PROTOCOL_CHAIN 7
+#ವ್ಯಾಖ್ಯಾನಿಸು MAX_PROTOCOL_CHAIN 7
 
-#define BASE_PROTOCOL 1
-#define LAYERED_PROTOCOL 0
+#ವ್ಯಾಖ್ಯಾನಿಸು ತಳ_PROTOCOL 1
+#ವ್ಯಾಖ್ಯಾನಿಸು LAYERED_PROTOCOL 0
 
-  typedef struct _WSAPROTOCOLCHAIN {
-    int ChainLen;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSAPROTOCOLCHAIN {
+    ಪೂರ್ಣಾಂಕ ChainLen;
 
     DWORD ChainEntries[MAX_PROTOCOL_CHAIN];
   } WSAPROTOCOLCHAIN,*LPWSAPROTOCOLCHAIN;
 
-#define WSAPROTOCOL_LEN 255
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAPROTOCOL_LEN 255
 
-  typedef struct _WSAPROTOCOL_INFOA {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSAPROTOCOL_INFOA {
     DWORD dwServiceFlags1;
     DWORD dwServiceFlags2;
     DWORD dwServiceFlags3;
     DWORD dwServiceFlags4;
     DWORD dwProviderFlags;
     GUID ProviderId;
-    DWORD dwCatalogEntryId;
+    DWORD dw_Catalog_ನಮೂದು_Id;
     WSAPROTOCOLCHAIN ProtocolChain;
-    int iVersion;
-    int iAddressFamily;
-    int iMaxSockAddr;
-    int iMinSockAddr;
-    int iSocketType;
-    int iProtocol;
-    int iProtocolMaxOffset;
-    int iNetworkByteOrder;
-    int iSecurityScheme;
-    DWORD dwMessageSize;
+    ಪೂರ್ಣಾಂಕ i_ಆವೃತ್ತಿ;
+    ಪೂರ್ಣಾಂಕ i_ವಿಳಾಸ_Family;
+    ಪೂರ್ಣಾಂಕ iMaxSockAddr;
+    ಪೂರ್ಣಾಂಕ iMinSockAddr;
+    ಪೂರ್ಣಾಂಕ iSocketType;
+    ಪೂರ್ಣಾಂಕ iProtocol;
+    ಪೂರ್ಣಾಂಕ i_Protocol_Max_ಸ್ಥಾನಾಂತರ;
+    ಪೂರ್ಣಾಂಕ i_ಜಾಲ_Byte_ಕ್ರಮ;
+    ಪೂರ್ಣಾಂಕ iSecurityScheme;
+    DWORD dw_ಸಂದೇಶ_ಗಾತ್ರ;
     DWORD dwProviderReserved;
     CHAR szProtocol[WSAPROTOCOL_LEN+1];
   } WSAPROTOCOL_INFOA,*LPWSAPROTOCOL_INFOA;
-  typedef struct _WSAPROTOCOL_INFOW {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSAPROTOCOL_INFOW {
     DWORD dwServiceFlags1;
     DWORD dwServiceFlags2;
     DWORD dwServiceFlags3;
     DWORD dwServiceFlags4;
     DWORD dwProviderFlags;
     GUID ProviderId;
-    DWORD dwCatalogEntryId;
+    DWORD dw_Catalog_ನಮೂದು_Id;
     WSAPROTOCOLCHAIN ProtocolChain;
-    int iVersion;
-    int iAddressFamily;
-    int iMaxSockAddr;
-    int iMinSockAddr;
-    int iSocketType;
-    int iProtocol;
-    int iProtocolMaxOffset;
-    int iNetworkByteOrder;
-    int iSecurityScheme;
-    DWORD dwMessageSize;
+    ಪೂರ್ಣಾಂಕ i_ಆವೃತ್ತಿ;
+    ಪೂರ್ಣಾಂಕ i_ವಿಳಾಸ_Family;
+    ಪೂರ್ಣಾಂಕ iMaxSockAddr;
+    ಪೂರ್ಣಾಂಕ iMinSockAddr;
+    ಪೂರ್ಣಾಂಕ iSocketType;
+    ಪೂರ್ಣಾಂಕ iProtocol;
+    ಪೂರ್ಣಾಂಕ i_Protocol_Max_ಸ್ಥಾನಾಂತರ;
+    ಪೂರ್ಣಾಂಕ i_ಜಾಲ_Byte_ಕ್ರಮ;
+    ಪೂರ್ಣಾಂಕ iSecurityScheme;
+    DWORD dw_ಸಂದೇಶ_ಗಾತ್ರ;
     DWORD dwProviderReserved;
     WCHAR szProtocol[WSAPROTOCOL_LEN+1];
   } WSAPROTOCOL_INFOW,*LPWSAPROTOCOL_INFOW;
-#ifdef UNICODE
-  typedef WSAPROTOCOL_INFOW WSAPROTOCOL_INFO;
-  typedef LPWSAPROTOCOL_INFOW LPWSAPROTOCOL_INFO;
-#else
-  typedef WSAPROTOCOL_INFOA WSAPROTOCOL_INFO;
-  typedef LPWSAPROTOCOL_INFOA LPWSAPROTOCOL_INFO;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ UNICODE
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WSAPROTOCOL_INFOW WSAPROTOCOL_INFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LPWSAPROTOCOL_INFOW LPWSAPROTOCOL_INFO;
+#ಇಲ್ಲದಿದ್ದರೆ
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WSAPROTOCOL_INFOA WSAPROTOCOL_INFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LPWSAPROTOCOL_INFOA LPWSAPROTOCOL_INFO;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define PFL_MULTIPLE_PROTO_ENTRIES 0x00000001
-#define PFL_RECOMMENDED_PROTO_ENTRY 0x00000002
-#define PFL_HIDDEN 0x00000004
-#define PFL_MATCHES_PROTOCOL_ZERO 0x00000008
+#ವ್ಯಾಖ್ಯಾನಿಸು PFL_ಅಪವರ್ತ್ಯ_PROTO_ENTRIES 0x00000001
+#ವ್ಯಾಖ್ಯಾನಿಸು PFL_RECOMMENDED_PROTO_ನಮೂದು 0x00000002
+#ವ್ಯಾಖ್ಯಾನಿಸು PFL_HIDDEN 0x00000004
+#ವ್ಯಾಖ್ಯಾನಿಸು PFL_MATCHES_PROTOCOL_ZERO 0x00000008
 
-#define XP1_CONNECTIONLESS 0x00000001
-#define XP1_GUARANTEED_DELIVERY 0x00000002
-#define XP1_GUARANTEED_ORDER 0x00000004
-#define XP1_MESSAGE_ORIENTED 0x00000008
-#define XP1_PSEUDO_STREAM 0x00000010
-#define XP1_GRACEFUL_CLOSE 0x00000020
-#define XP1_EXPEDITED_DATA 0x00000040
-#define XP1_CONNECT_DATA 0x00000080
-#define XP1_DISCONNECT_DATA 0x00000100
-#define XP1_SUPPORT_BROADCAST 0x00000200
-#define XP1_SUPPORT_MULTIPOINT 0x00000400
-#define XP1_MULTIPOINT_CONTROL_PLANE 0x00000800
-#define XP1_MULTIPOINT_DATA_PLANE 0x00001000
-#define XP1_QOS_SUPPORTED 0x00002000
-#define XP1_INTERRUPT 0x00004000
-#define XP1_UNI_SEND 0x00008000
-#define XP1_UNI_RECV 0x00010000
-#define XP1_IFS_HANDLES 0x00020000
-#define XP1_PARTIAL_MESSAGE 0x00040000
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_CONNECTIONLESS 0x00000001
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_GUARANTEED_DELIVERY 0x00000002
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_GUARANTEED_ಕ್ರಮ 0x00000004
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_ಸಂದೇಶ_ORIENTED 0x00000008
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_PSEUDO_ಹರಿವು 0x00000010
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_GRACEFUL_CLOSE 0x00000020
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_EXPEDITED_ದತ್ತಾಂಶ 0x00000040
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_CONNECT_ದತ್ತಾಂಶ 0x00000080
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_DISCONNECT_ದತ್ತಾಂಶ 0x00000100
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_SUPPORT_ಪ್ರಸಾರ 0x00000200
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_SUPPORT_MULTIPOINT 0x00000400
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_MULTIPOINT_CONTROL_PLANE 0x00000800
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_MULTIPOINT_ದತ್ತಾಂಶ_PLANE 0x00001000
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_QOS_SUPPORTED 0x00002000
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_ಅಡಚಣೆ 0x00004000
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_UNI_SEND 0x00008000
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_UNI_RECV 0x00010000
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_IFS_HANDLES 0x00020000
+#ವ್ಯಾಖ್ಯಾನಿಸು XP1_PARTIAL_ಸಂದೇಶ 0x00040000
 
-#define BIGENDIAN 0x0000
-#define LITTLEENDIAN 0x0001
+#ವ್ಯಾಖ್ಯಾನಿಸು BIGENDIAN 0x0000
+#ವ್ಯಾಖ್ಯಾನಿಸು LITTLEENDIAN 0x0001
 
-#define SECURITY_PROTOCOL_NONE 0x0000
+#ವ್ಯಾಖ್ಯಾನಿಸು SECURITY_PROTOCOL_NONE 0x0000
 
-#define JL_SENDER_ONLY 0x01
-#define JL_RECEIVER_ONLY 0x02
-#define JL_BOTH 0x04
+#ವ್ಯಾಖ್ಯಾನಿಸು JL_SENDER_ONLY 0x01
+#ವ್ಯಾಖ್ಯಾನಿಸು JL_RECEIVER_ONLY 0x02
+#ವ್ಯಾಖ್ಯಾನಿಸು JL_BOTH 0x04
 
-#define WSA_FLAG_OVERLAPPED 0x01
-#define WSA_FLAG_MULTIPOINT_C_ROOT 0x02
-#define WSA_FLAG_MULTIPOINT_C_LEAF 0x04
-#define WSA_FLAG_MULTIPOINT_D_ROOT 0x08
-#define WSA_FLAG_MULTIPOINT_D_LEAF 0x10
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_FLAG_OVERLAPPED 0x01
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_FLAG_MULTIPOINT_C_ಬೇರು 0x02
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_FLAG_MULTIPOINT_C_ಎಲೆ 0x04
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_FLAG_MULTIPOINT_D_ಬೇರು 0x08
+#ವ್ಯಾಖ್ಯಾನಿಸು WSA_FLAG_MULTIPOINT_D_ಎಲೆ 0x10
 
-#define IOC_UNIX 0x00000000
-#define IOC_WS2 0x08000000
-#define IOC_PROTOCOL 0x10000000
-#define IOC_VENDOR 0x18000000
+#ವ್ಯಾಖ್ಯಾನಿಸು IOC_UNIX 0x00000000
+#ವ್ಯಾಖ್ಯಾನಿಸು IOC_WS2 0x08000000
+#ವ್ಯಾಖ್ಯಾನಿಸು IOC_PROTOCOL 0x10000000
+#ವ್ಯಾಖ್ಯಾನಿಸು IOC_VENDOR 0x18000000
 
-#define _WSAIO(x,y) (IOC_VOID|(x)|(y))
-#define _WSAIOR(x,y) (IOC_OUT|(x)|(y))
-#define _WSAIOW(x,y) (IOC_IN|(x)|(y))
-#define _WSAIORW(x,y) (IOC_INOUT|(x)|(y))
+#ವ್ಯಾಖ್ಯಾನಿಸು _WSAIO(x,y) (IOC_VOID|(x)|(y))
+#ವ್ಯಾಖ್ಯಾನಿಸು _WSAIOR(x,y) (IOC_ಹೊರಹೋಗು|(x)|(y))
+#ವ್ಯಾಖ್ಯಾನಿಸು _WSAIOW(x,y) (IOC_ಒಳ|(x)|(y))
+#ವ್ಯಾಖ್ಯಾನಿಸು _WSAIORW(x,y) (IOC_INOUT|(x)|(y))
 
-#define SIO_ASSOCIATE_HANDLE _WSAIOW(IOC_WS2,1)
-#define SIO_ENABLE_CIRCULAR_QUEUEING _WSAIO(IOC_WS2,2)
-#define SIO_FIND_ROUTE _WSAIOR(IOC_WS2,3)
-#define SIO_FLUSH _WSAIO(IOC_WS2,4)
-#define SIO_GET_BROADCAST_ADDRESS _WSAIOR(IOC_WS2,5)
-#define SIO_GET_EXTENSION_FUNCTION_POINTER _WSAIORW(IOC_WS2,6)
-#define SIO_GET_QOS _WSAIORW(IOC_WS2,7)
-#define SIO_GET_GROUP_QOS _WSAIORW(IOC_WS2,8)
-#define SIO_MULTIPOINT_LOOPBACK _WSAIOW(IOC_WS2,9)
-#define SIO_MULTICAST_SCOPE _WSAIOW(IOC_WS2,10)
-#define SIO_SET_QOS _WSAIOW(IOC_WS2,11)
-#define SIO_SET_GROUP_QOS _WSAIOW(IOC_WS2,12)
-#define SIO_TRANSLATE_HANDLE _WSAIORW(IOC_WS2,13)
-#define SIO_ROUTING_INTERFACE_QUERY _WSAIORW(IOC_WS2,20)
-#define SIO_ROUTING_INTERFACE_CHANGE _WSAIOW(IOC_WS2,21)
-#define SIO_ADDRESS_LIST_QUERY _WSAIOR(IOC_WS2,22)
-#define SIO_ADDRESS_LIST_CHANGE _WSAIO(IOC_WS2,23)
-#define SIO_QUERY_TARGET_PNP_HANDLE _WSAIOR(IOC_WS2,24)
-#define SIO_ADDRESS_LIST_SORT _WSAIORW(IOC_WS2,25)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_ASSOCIATE_HANDLE _WSAIOW(IOC_WS2,1)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_ENABLE_CIRCULAR_QUEUEING _WSAIO(IOC_WS2,2)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_ಕಂಡುಹಿಡಿ_ROUTE _WSAIOR(IOC_WS2,3)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_FLUSH _WSAIO(IOC_WS2,4)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_GET_ಪ್ರಸಾರ_ವಿಳಾಸ _WSAIOR(IOC_WS2,5)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_GET_EXTENSION_FUNCTION_ಸೂಚಕ _WSAIORW(IOC_WS2,6)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_GET_QOS _WSAIORW(IOC_WS2,7)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_GET_ಗುಂಪು_QOS _WSAIORW(IOC_WS2,8)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_MULTIPOINT_LOOPBACK _WSAIOW(IOC_WS2,9)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_MULTICAST_SCOPE _WSAIOW(IOC_WS2,10)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_ಗಣ_QOS _WSAIOW(IOC_WS2,11)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_ಗಣ_ಗುಂಪು_QOS _WSAIOW(IOC_WS2,12)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_TRANSLATE_HANDLE _WSAIORW(IOC_WS2,13)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_ROUTING_INTERFACE_QUERY _WSAIORW(IOC_WS2,20)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_ROUTING_INTERFACE_CHANGE _WSAIOW(IOC_WS2,21)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_ವಿಳಾಸ_LIST_QUERY _WSAIOR(IOC_WS2,22)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_ವಿಳಾಸ_LIST_CHANGE _WSAIO(IOC_WS2,23)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_QUERY_ಗುರಿ_PNP_HANDLE _WSAIOR(IOC_WS2,24)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_ವಿಳಾಸ_LIST_ವಿಂಗಡಿಸು _WSAIORW(IOC_WS2,25)
 
-  typedef int (CALLBACK *LPCONDITIONPROC)(LPWSABUF lpCallerId,LPWSABUF lpCallerData,LPQOS lpSQOS,LPQOS lpGQOS,LPWSABUF lpCalleeId,LPWSABUF lpCalleeData,GROUP *g,DWORD_PTR dwCallbackData);
-  typedef void (CALLBACK *LPWSAOVERLAPPED_COMPLETION_ROUTINE)(DWORD dwError,DWORD cbTransferred,LPWSAOVERLAPPED lpOverlapped,DWORD dwFlags);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (CALLBACK *LPCONDITIONPROC)(LPWSABUF lpCallerId,LPWSABUF lp_Caller_ದತ್ತಾಂಶ,LPQOS lpSQOS,LPQOS lpGQOS,LPWSABUF lpCalleeId,LPWSABUF lp_Callee_ದತ್ತಾಂಶ,ಗುಂಪು_3 *g,DWORD_PTR dw_Callback_ದತ್ತಾಂಶ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಶೂನ್ಯ (CALLBACK *LPWSAOVERLAPPED_COMPLETION_ROUTINE)(DWORD dwError,DWORD cbTransferred,LPWSAOVERLAPPED lpOverlapped,DWORD dwFlags);
 
-#define SIO_NSP_NOTIFY_CHANGE _WSAIOW(IOC_WS2,25)
+#ವ್ಯಾಖ್ಯಾನಿಸು SIO_NSP_NOTIFY_CHANGE _WSAIOW(IOC_WS2,25)
 
-  typedef enum _WSACOMPLETIONTYPE {
-    NSP_NOTIFY_IMMEDIATELY = 0,NSP_NOTIFY_HWND,NSP_NOTIFY_EVENT,NSP_NOTIFY_PORT,NSP_NOTIFY_APC
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಎಣಿಕೆ _WSACOMPLETIONTYPE {
+    NSP_NOTIFY_IMMEDIATELY = 0,NSP_NOTIFY_HWND,NSP_NOTIFY_EVENT,NSP_NOTIFY_ಪೋರ್ಟ್,NSP_NOTIFY_APC
   } WSACOMPLETIONTYPE,*PWSACOMPLETIONTYPE,*LPWSACOMPLETIONTYPE;
 
-  typedef struct _WSACOMPLETION {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSACOMPLETION {
     WSACOMPLETIONTYPE Type;
-    union {
-      struct {
+    ಒಕ್ಕೂಟ {
+      ರಚನೆ {
 	HWND hWnd;
-	UINT uMsg;
+	UINT u_ಸಂದೇಶ;
 	WPARAM context;
-      } WindowMessage;
-      struct {
+      } ಕಿಟಕಿ_ಸಂದೇಶ;
+      ರಚನೆ {
 	LPWSAOVERLAPPED lpOverlapped;
       } Event;
-      struct {
+      ರಚನೆ {
 	LPWSAOVERLAPPED lpOverlapped;
 	LPWSAOVERLAPPED_COMPLETION_ROUTINE lpfnCompletionProc;
       } Apc;
-      struct {
+      ರಚನೆ {
 	LPWSAOVERLAPPED lpOverlapped;
-	HANDLE hPort;
-	ULONG_PTR Key;
-      } Port;
+	HANDLE h_ಪೋರ್ಟ್;
+	ULONG_PTR ಕೀಲಿ_3;
+      } ಪೋರ್ಟ್;
     } Parameters;
   } WSACOMPLETION,*PWSACOMPLETION,*LPWSACOMPLETION;
 
-#define TH_NETDEV 0x00000001
-#define TH_TAPI 0x00000002
+#ವ್ಯಾಖ್ಯಾನಿಸು TH_NETDEV 0x00000001
+#ವ್ಯಾಖ್ಯಾನಿಸು TH_TAPI 0x00000002
 
-  typedef struct sockaddr SOCKADDR;
-  typedef struct sockaddr *PSOCKADDR;
-  typedef struct sockaddr *LPSOCKADDR;
-  typedef struct sockaddr_storage SOCKADDR_STORAGE;
-  typedef struct sockaddr_storage *PSOCKADDR_STORAGE;
-  typedef struct sockaddr_storage *LPSOCKADDR_STORAGE;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ sockaddr SOCKADDR;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ sockaddr *PSOCKADDR;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ sockaddr *LPSOCKADDR;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ sockaddr_storage SOCKADDR_STORAGE;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ sockaddr_storage *PSOCKADDR_STORAGE;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ sockaddr_storage *LPSOCKADDR_STORAGE;
 
-#ifndef _tagBLOB_DEFINED
-#define _tagBLOB_DEFINED
-#define _BLOB_DEFINED
-#define _LPBLOB_DEFINED
-  typedef struct _BLOB {
-    ULONG cbSize;
-    BYTE *pBlobData;
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ಟ್ಯಾಗ್_BLOB_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು ಟ್ಯಾಗ್_BLOB_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _BLOB_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _LPBLOB_DEFINED
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _BLOB {
+    ULONG cb_ಗಾತ್ರ;
+    BYTE *p_Blob_ದತ್ತಾಂಶ;
   } BLOB,*LPBLOB;
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define SERVICE_MULTIPLE (0x00000001)
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_ಅಪವರ್ತ್ಯ (0x00000001)
 
-#define NS_ALL (0)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_ALL (0)
 
-#define NS_SAP (1)
-#define NS_NDS (2)
-#define NS_PEER_BROWSE (3)
-#define NS_SLP (5)
-#define NS_DHCP (6)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_SAP (1)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_NDS (2)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_PEER_BROWSE (3)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_SLP (5)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_DHCP (6)
 
-#define NS_TCPIP_LOCAL (10)
-#define NS_TCPIP_HOSTS (11)
-#define NS_DNS (12)
-#define NS_NETBT (13)
-#define NS_WINS (14)
-#define NS_NLA (15)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_TCPIP_LOCAL (10)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_TCPIP_HOSTS (11)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_DNS (12)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_NETBT (13)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_WINS (14)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_NLA (15)
 
-#define NS_NBP (20)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_NBP (20)
 
-#define NS_MS (30)
-#define NS_STDA (31)
-#define NS_NTDS (32)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_MS (30)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_STDA (31)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_NTDS (32)
 
-#define NS_X500 (40)
-#define NS_NIS (41)
-#define NS_NISPLUS (42)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_X500 (40)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_NIS (41)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_NISPLUS (42)
 
-#define NS_WRQ (50)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_WRQ (50)
 
-#define NS_NETDES (60)
+#ವ್ಯಾಖ್ಯಾನಿಸು NS_NETDES (60)
 
-#define RES_UNUSED_1 (0x00000001)
-#define RES_FLUSH_CACHE (0x00000002)
-#ifndef RES_SERVICE
-#define RES_SERVICE (0x00000004)
-#endif
+#ವ್ಯಾಖ್ಯಾನಿಸು RES_ಬಳಸದ_1 (0x00000001)
+#ವ್ಯಾಖ್ಯಾನಿಸು RES_FLUSH_CACHE (0x00000002)
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ RES_SERVICE
+#ವ್ಯಾಖ್ಯಾನಿಸು RES_SERVICE (0x00000004)
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define SERVICE_TYPE_VALUE_IPXPORTA "IpxSocket"
-#define SERVICE_TYPE_VALUE_IPXPORTW L"IpxSocket"
-#define SERVICE_TYPE_VALUE_SAPIDA "SapId"
-#define SERVICE_TYPE_VALUE_SAPIDW L"SapId"
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_IPXPORTA "IpxSocket"
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_IPXPORTW L"IpxSocket"
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_SAPIDA "SapId"
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_SAPIDW L"SapId"
 
-#define SERVICE_TYPE_VALUE_TCPPORTA "TcpPort"
-#define SERVICE_TYPE_VALUE_TCPPORTW L"TcpPort"
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_TCPPORTA "TcpPort"
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_TCPPORTW L"TcpPort"
 
-#define SERVICE_TYPE_VALUE_UDPPORTA "UdpPort"
-#define SERVICE_TYPE_VALUE_UDPPORTW L"UdpPort"
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_UDPPORTA "UdpPort"
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_UDPPORTW L"UdpPort"
 
-#define SERVICE_TYPE_VALUE_OBJECTIDA "ObjectId"
-#define SERVICE_TYPE_VALUE_OBJECTIDW L"ObjectId"
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_OBJECTIDA "ObjectId"
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_OBJECTIDW L"ObjectId"
 
-#ifdef UNICODE
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ UNICODE
 
-#define SERVICE_TYPE_VALUE_SAPID SERVICE_TYPE_VALUE_SAPIDW
-#define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTW
-#define SERVICE_TYPE_VALUE_UDPPORT SERVICE_TYPE_VALUE_UDPPORTW
-#define SERVICE_TYPE_VALUE_OBJECTID SERVICE_TYPE_VALUE_OBJECTIDW
-#else
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_SAPID SERVICE_TYPE_ಮೌಲ್ಯ_SAPIDW
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_TCPPORT SERVICE_TYPE_ಮೌಲ್ಯ_TCPPORTW
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_UDPPORT SERVICE_TYPE_ಮೌಲ್ಯ_UDPPORTW
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_OBJECTID SERVICE_TYPE_ಮೌಲ್ಯ_OBJECTIDW
+#ಇಲ್ಲದಿದ್ದರೆ
 
-#define SERVICE_TYPE_VALUE_SAPID SERVICE_TYPE_VALUE_SAPIDA
-#define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTA
-#define SERVICE_TYPE_VALUE_UDPPORT SERVICE_TYPE_VALUE_UDPPORTA
-#define SERVICE_TYPE_VALUE_OBJECTID SERVICE_TYPE_VALUE_OBJECTIDA
-#endif
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_SAPID SERVICE_TYPE_ಮೌಲ್ಯ_SAPIDA
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_TCPPORT SERVICE_TYPE_ಮೌಲ್ಯ_TCPPORTA
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_UDPPORT SERVICE_TYPE_ಮೌಲ್ಯ_UDPPORTA
+#ವ್ಯಾಖ್ಯಾನಿಸು SERVICE_TYPE_ಮೌಲ್ಯ_OBJECTID SERVICE_TYPE_ಮೌಲ್ಯ_OBJECTIDA
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef __CSADDR_DEFINED__
-#define __CSADDR_DEFINED__
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __CSADDR_DEFINED__
+#ವ್ಯಾಖ್ಯಾನಿಸು __CSADDR_DEFINED__
 
-  typedef struct _SOCKET_ADDRESS {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ SOCKET_ವಿಳಾಸ {
     LPSOCKADDR lpSockaddr;
-    INT iSockaddrLength;
-  } SOCKET_ADDRESS,*PSOCKET_ADDRESS,*LPSOCKET_ADDRESS;
+    INT i_Sockaddr_ಉದ್ದಳತೆ;
+  } SOCKET_ವಿಳಾಸ_2,*PSOCKET_ವಿಳಾಸ,*LPSOCKET_ವಿಳಾಸ;
 
-  typedef struct _CSADDR_INFO {
-    SOCKET_ADDRESS LocalAddr;
-    SOCKET_ADDRESS RemoteAddr;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _CSADDR_INFO {
+    SOCKET_ವಿಳಾಸ_2 LocalAddr;
+    SOCKET_ವಿಳಾಸ_2 RemoteAddr;
     INT iSocketType;
     INT iProtocol;
   } CSADDR_INFO,*PCSADDR_INFO,*LPCSADDR_INFO;
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-  typedef struct _SOCKET_ADDRESS_LIST {
-    INT iAddressCount;
-    SOCKET_ADDRESS Address[1];
-  } SOCKET_ADDRESS_LIST,*LPSOCKET_ADDRESS_LIST;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ SOCKET_ವಿಳಾಸ_LIST {
+    INT i_ವಿಳಾಸ_ಎಣಿಕೆ;
+    SOCKET_ವಿಳಾಸ_2 ವಿಳಾಸ_2[1];
+  } SOCKET_ವಿಳಾಸ_LIST_2,*LPSOCKET_ವಿಳಾಸ_LIST;
 
-  typedef struct _AFPROTOCOLS {
-    INT iAddressFamily;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _AFPROTOCOLS {
+    INT i_ವಿಳಾಸ_Family;
     INT iProtocol;
   } AFPROTOCOLS,*PAFPROTOCOLS,*LPAFPROTOCOLS;
 
-  typedef enum _WSAEcomparator {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಎಣಿಕೆ _WSAEcomparator {
     COMP_EQUAL = 0,COMP_NOTLESS
   } WSAECOMPARATOR,*PWSAECOMPARATOR,*LPWSAECOMPARATOR;
 
-  typedef struct _WSAVersion {
-    DWORD dwVersion;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSAVersion {
+    DWORD dw_ಆವೃತ್ತಿ;
     WSAECOMPARATOR ecHow;
   } WSAVERSION,*PWSAVERSION,*LPWSAVERSION;
 
-  typedef struct _WSAQuerySetA {
-    DWORD dwSize;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ WSAQuery_ಗಣ_A {
+    DWORD dw_ಗಾತ್ರ;
     LPSTR lpszServiceInstanceName;
     LPGUID lpServiceClassId;
-    LPWSAVERSION lpVersion;
+    LPWSAVERSION lp_ಆವೃತ್ತಿ;
     LPSTR lpszComment;
     DWORD dwNameSpace;
     LPGUID lpNSProviderId;
     LPSTR lpszContext;
-    DWORD dwNumberOfProtocols;
+    DWORD dw_ಸಂಖ್ಯೆ_ದ_Protocols;
     LPAFPROTOCOLS lpafpProtocols;
     LPSTR lpszQueryString;
-    DWORD dwNumberOfCsAddrs;
-    LPCSADDR_INFO lpcsaBuffer;
+    DWORD dw_ಸಂಖ್ಯೆ_ದ_Cs_Addrs;
+    LPCSADDR_INFO lpcsa_ಬಫರ್;
     DWORD dwOutputFlags;
     LPBLOB lpBlob;
   } WSAQUERYSETA,*PWSAQUERYSETA,*LPWSAQUERYSETA;
 
-  typedef struct _WSAQuerySetW {
-    DWORD dwSize;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ WSAQuery_ಗಣ_W {
+    DWORD dw_ಗಾತ್ರ;
     LPWSTR lpszServiceInstanceName;
     LPGUID lpServiceClassId;
-    LPWSAVERSION lpVersion;
+    LPWSAVERSION lp_ಆವೃತ್ತಿ;
     LPWSTR lpszComment;
     DWORD dwNameSpace;
     LPGUID lpNSProviderId;
     LPWSTR lpszContext;
-    DWORD dwNumberOfProtocols;
+    DWORD dw_ಸಂಖ್ಯೆ_ದ_Protocols;
     LPAFPROTOCOLS lpafpProtocols;
     LPWSTR lpszQueryString;
-    DWORD dwNumberOfCsAddrs;
-    LPCSADDR_INFO lpcsaBuffer;
+    DWORD dw_ಸಂಖ್ಯೆ_ದ_Cs_Addrs;
+    LPCSADDR_INFO lpcsa_ಬಫರ್;
     DWORD dwOutputFlags;
     LPBLOB lpBlob;
   } WSAQUERYSETW,*PWSAQUERYSETW,*LPWSAQUERYSETW;
 
-#ifdef UNICODE
-  typedef WSAQUERYSETW WSAQUERYSET;
-  typedef PWSAQUERYSETW PWSAQUERYSET;
-  typedef LPWSAQUERYSETW LPWSAQUERYSET;
-#else
-  typedef WSAQUERYSETA WSAQUERYSET;
-  typedef PWSAQUERYSETA PWSAQUERYSET;
-  typedef LPWSAQUERYSETA LPWSAQUERYSET;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ UNICODE
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WSAQUERYSETW WSAQUERYSET;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ PWSAQUERYSETW PWSAQUERYSET;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LPWSAQUERYSETW LPWSAQUERYSET;
+#ಇಲ್ಲದಿದ್ದರೆ
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WSAQUERYSETA WSAQUERYSET;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ PWSAQUERYSETA PWSAQUERYSET;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LPWSAQUERYSETA LPWSAQUERYSET;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define LUP_DEEP 0x0001
-#define LUP_CONTAINERS 0x0002
-#define LUP_NOCONTAINERS 0x0004
-#define LUP_NEAREST 0x0008
-#define LUP_RETURN_NAME 0x0010
-#define LUP_RETURN_TYPE 0x0020
-#define LUP_RETURN_VERSION 0x0040
-#define LUP_RETURN_COMMENT 0x0080
-#define LUP_RETURN_ADDR 0x0100
-#define LUP_RETURN_BLOB 0x0200
-#define LUP_RETURN_ALIASES 0x0400
-#define LUP_RETURN_QUERY_STRING 0x0800
-#define LUP_RETURN_ALL 0x0FF0
-#define LUP_RES_SERVICE 0x8000
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_DEEP 0x0001
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_CONTAINERS 0x0002
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_NOCONTAINERS 0x0004
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_ಹತ್ತಿರದ 0x0008
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_RETURN_NAME 0x0010
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_RETURN_TYPE 0x0020
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_RETURN_ಆವೃತ್ತಿ 0x0040
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_RETURN_COMMENT 0x0080
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_RETURN_ADDR 0x0100
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_RETURN_BLOB 0x0200
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_RETURN_ALIASES 0x0400
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_RETURN_QUERY_STRING 0x0800
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_RETURN_ALL 0x0FF0
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_RES_SERVICE 0x8000
 
-#define LUP_FLUSHCACHE 0x1000
-#define LUP_FLUSHPREVIOUS 0x2000
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_FLUSHCACHE 0x1000
+#ವ್ಯಾಖ್ಯಾನಿಸು LUP_FLUSHPREVIOUS 0x2000
 
-#define RESULT_IS_ALIAS 0x0001
-#define RESULT_IS_ADDED 0x0010
-#define RESULT_IS_CHANGED 0x0020
-#define RESULT_IS_DELETED 0x0040
+#ವ್ಯಾಖ್ಯಾನಿಸು ಫಲಿತಾಂಶ_IS_ALIAS 0x0001
+#ವ್ಯಾಖ್ಯಾನಿಸು ಫಲಿತಾಂಶ_IS_ADDED 0x0010
+#ವ್ಯಾಖ್ಯಾನಿಸು ಫಲಿತಾಂಶ_IS_ಬದಲಾಯಿತು 0x0020
+#ವ್ಯಾಖ್ಯಾನಿಸು ಫಲಿತಾಂಶ_IS_DELETED 0x0040
 
-  typedef enum _WSAESETSERVICEOP {
-    RNRSERVICE_REGISTER=0,RNRSERVICE_DEREGISTER,RNRSERVICE_DELETE
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಎಣಿಕೆ _WSAESETSERVICEOP {
+    RNRSERVICE_ರಿಜಿಸ್ಟರ್=0,RNRSERVICE_DEREGISTER,RNRSERVICE_DELETE
   } WSAESETSERVICEOP,*PWSAESETSERVICEOP,*LPWSAESETSERVICEOP;
 
-  typedef struct _WSANSClassInfoA {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSANSClassInfoA {
     LPSTR lpszName;
     DWORD dwNameSpace;
-    DWORD dwValueType;
-    DWORD dwValueSize;
-    LPVOID lpValue;
+    DWORD dw_ಮೌಲ್ಯ_Type;
+    DWORD dw_ಮೌಲ್ಯ_ಗಾತ್ರ;
+    LPVOID lp_ಮೌಲ್ಯ;
   } WSANSCLASSINFOA,*PWSANSCLASSINFOA,*LPWSANSCLASSINFOA;
 
-  typedef struct _WSANSClassInfoW {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSANSClassInfoW {
     LPWSTR lpszName;
     DWORD dwNameSpace;
-    DWORD dwValueType;
-    DWORD dwValueSize;
-    LPVOID lpValue;
+    DWORD dw_ಮೌಲ್ಯ_Type;
+    DWORD dw_ಮೌಲ್ಯ_ಗಾತ್ರ;
+    LPVOID lp_ಮೌಲ್ಯ;
   } WSANSCLASSINFOW,*PWSANSCLASSINFOW,*LPWSANSCLASSINFOW;
 
-#ifdef UNICODE
-  typedef WSANSCLASSINFOW WSANSCLASSINFO;
-  typedef PWSANSCLASSINFOW PWSANSCLASSINFO;
-  typedef LPWSANSCLASSINFOW LPWSANSCLASSINFO;
-#else
-  typedef WSANSCLASSINFOA WSANSCLASSINFO;
-  typedef PWSANSCLASSINFOA PWSANSCLASSINFO;
-  typedef LPWSANSCLASSINFOA LPWSANSCLASSINFO;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ UNICODE
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WSANSCLASSINFOW WSANSCLASSINFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ PWSANSCLASSINFOW PWSANSCLASSINFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LPWSANSCLASSINFOW LPWSANSCLASSINFO;
+#ಇಲ್ಲದಿದ್ದರೆ
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WSANSCLASSINFOA WSANSCLASSINFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ PWSANSCLASSINFOA PWSANSCLASSINFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LPWSANSCLASSINFOA LPWSANSCLASSINFO;
+#ಆದರೆ_ಅಂತ್ಯ
 
-  typedef struct _WSAServiceClassInfoA {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSAServiceClassInfoA {
     LPGUID lpServiceClassId;
     LPSTR lpszServiceClassName;
-    DWORD dwCount;
+    DWORD dw_ಎಣಿಕೆ;
     LPWSANSCLASSINFOA lpClassInfos;
   } WSASERVICECLASSINFOA,*PWSASERVICECLASSINFOA,*LPWSASERVICECLASSINFOA;
 
-  typedef struct _WSAServiceClassInfoW {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSAServiceClassInfoW {
     LPGUID lpServiceClassId;
     LPWSTR lpszServiceClassName;
-    DWORD dwCount;
+    DWORD dw_ಎಣಿಕೆ;
     LPWSANSCLASSINFOW lpClassInfos;
   } WSASERVICECLASSINFOW,*PWSASERVICECLASSINFOW,*LPWSASERVICECLASSINFOW;
 
-#ifdef UNICODE
-  typedef WSASERVICECLASSINFOW WSASERVICECLASSINFO;
-  typedef PWSASERVICECLASSINFOW PWSASERVICECLASSINFO;
-  typedef LPWSASERVICECLASSINFOW LPWSASERVICECLASSINFO;
-#else
-  typedef WSASERVICECLASSINFOA WSASERVICECLASSINFO;
-  typedef PWSASERVICECLASSINFOA PWSASERVICECLASSINFO;
-  typedef LPWSASERVICECLASSINFOA LPWSASERVICECLASSINFO;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ UNICODE
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WSASERVICECLASSINFOW WSASERVICECLASSINFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ PWSASERVICECLASSINFOW PWSASERVICECLASSINFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LPWSASERVICECLASSINFOW LPWSASERVICECLASSINFO;
+#ಇಲ್ಲದಿದ್ದರೆ
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WSASERVICECLASSINFOA WSASERVICECLASSINFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ PWSASERVICECLASSINFOA PWSASERVICECLASSINFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LPWSASERVICECLASSINFOA LPWSASERVICECLASSINFO;
+#ಆದರೆ_ಅಂತ್ಯ
 
-  typedef struct _WSANAMESPACE_INFOA {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSANAMESPACE_INFOA {
     GUID NSProviderId;
     DWORD dwNameSpace;
-    WINBOOL fActive;
-    DWORD dwVersion;
+    WINBOOL f_ಸಕ್ರಿಯ;
+    DWORD dw_ಆವೃತ್ತಿ;
     LPSTR lpszIdentifier;
   } WSANAMESPACE_INFOA,*PWSANAMESPACE_INFOA,*LPWSANAMESPACE_INFOA;
 
-  typedef struct _WSANAMESPACE_INFOW {
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ _WSANAMESPACE_INFOW {
     GUID NSProviderId;
     DWORD dwNameSpace;
-    WINBOOL fActive;
-    DWORD dwVersion;
+    WINBOOL f_ಸಕ್ರಿಯ;
+    DWORD dw_ಆವೃತ್ತಿ;
     LPWSTR lpszIdentifier;
   } WSANAMESPACE_INFOW,*PWSANAMESPACE_INFOW,*LPWSANAMESPACE_INFOW;
 
-#ifdef UNICODE
-  typedef WSANAMESPACE_INFOW WSANAMESPACE_INFO;
-  typedef PWSANAMESPACE_INFOW PWSANAMESPACE_INFO;
-  typedef LPWSANAMESPACE_INFOW LPWSANAMESPACE_INFO;
-#else
-  typedef WSANAMESPACE_INFOA WSANAMESPACE_INFO;
-  typedef PWSANAMESPACE_INFOA PWSANAMESPACE_INFO;
-  typedef LPWSANAMESPACE_INFOA LPWSANAMESPACE_INFO;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ UNICODE
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WSANAMESPACE_INFOW WSANAMESPACE_INFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ PWSANAMESPACE_INFOW PWSANAMESPACE_INFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LPWSANAMESPACE_INFOW LPWSANAMESPACE_INFO;
+#ಇಲ್ಲದಿದ್ದರೆ
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WSANAMESPACE_INFOA WSANAMESPACE_INFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ PWSANAMESPACE_INFOA PWSANAMESPACE_INFO;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ LPWSANAMESPACE_INFOA LPWSANAMESPACE_INFO;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if INCL_WINSOCK_API_TYPEDEFS
-#ifdef UNICODE
-#define LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETW
-#define LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSW
-#define LPFN_WSASOCKET LPFN_WSASOCKETW
-#define LPFN_WSAADDRESSTOSTRING LPFN_WSAADDRESSTOSTRINGW
-#define LPFN_WSASTRINGTOADDRESS LPFN_WSASTRINGTOADDRESSW
-#define LPFN_WSALOOKUPSERVICEBEGIN LPFN_WSALOOKUPSERVICEBEGINW
-#define LPFN_WSALOOKUPSERVICENEXT LPFN_WSALOOKUPSERVICENEXTW
-#define LPFN_WSAINSTALLSERVICECLASS LPFN_WSAINSTALLSERVICECLASSW
-#define LPFN_WSAGETSERVICECLASSINFO LPFN_WSAGETSERVICECLASSINFOW
-#define LPFN_WSAENUMNAMESPACEPROVIDERS LPFN_WSAENUMNAMESPACEPROVIDERSW
-#define LPFN_WSAGETSERVICECLASSNAMEBYCLASSID LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW
-#define LPFN_WSASETSERVICE LPFN_WSASETSERVICEW
-#else
-#define LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETA
-#define LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSA
-#define LPFN_WSASOCKET LPFN_WSASOCKETA
-#define LPFN_WSAADDRESSTOSTRING LPFN_WSAADDRESSTOSTRINGA
-#define LPFN_WSASTRINGTOADDRESS LPFN_WSASTRINGTOADDRESSA
-#define LPFN_WSALOOKUPSERVICEBEGIN LPFN_WSALOOKUPSERVICEBEGINA
-#define LPFN_WSALOOKUPSERVICENEXT LPFN_WSALOOKUPSERVICENEXTA
-#define LPFN_WSAINSTALLSERVICECLASS LPFN_WSAINSTALLSERVICECLASSA
-#define LPFN_WSAGETSERVICECLASSINFO LPFN_WSAGETSERVICECLASSINFOA
-#define LPFN_WSAENUMNAMESPACEPROVIDERS LPFN_WSAENUMNAMESPACEPROVIDERSA
-#define LPFN_WSAGETSERVICECLASSNAMEBYCLASSID LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDA
-#define LPFN_WSASETSERVICE LPFN_WSASETSERVICEA
-#endif
+#ಆದರೆ INCL_WINSOCK_API_TYPEDEFS
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ UNICODE
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETW
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSW
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSASOCKET LPFN_WSASOCKETW
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAADDRESSTOSTRING LPFN_WSAADDRESSTOSTRINGW
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSASTRINGTOADDRESS LPFN_WSASTRINGTOADDRESSW
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSALOOKUPSERVICEBEGIN LPFN_WSALOOKUPSERVICEBEGINW
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSALOOKUPSERVICENEXT LPFN_WSALOOKUPSERVICENEXTW
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAINSTALLSERVICECLASS LPFN_WSAINSTALLSERVICECLASSW
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAGETSERVICECLASSINFO LPFN_WSAGETSERVICECLASSINFOW
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAENUMNAMESPACEPROVIDERS LPFN_WSAENUMNAMESPACEPROVIDERSW
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAGETSERVICECLASSNAMEBYCLASSID LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSASETSERVICE LPFN_WSASETSERVICEW
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETA
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSA
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSASOCKET LPFN_WSASOCKETA
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAADDRESSTOSTRING LPFN_WSAADDRESSTOSTRINGA
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSASTRINGTOADDRESS LPFN_WSASTRINGTOADDRESSA
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSALOOKUPSERVICEBEGIN LPFN_WSALOOKUPSERVICEBEGINA
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSALOOKUPSERVICENEXT LPFN_WSALOOKUPSERVICENEXTA
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAINSTALLSERVICECLASS LPFN_WSAINSTALLSERVICECLASSA
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAGETSERVICECLASSINFO LPFN_WSAGETSERVICECLASSINFOA
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAENUMNAMESPACEPROVIDERS LPFN_WSAENUMNAMESPACEPROVIDERSA
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSAGETSERVICECLASSNAMEBYCLASSID LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDA
+#ವ್ಯಾಖ್ಯಾನಿಸು LPFN_WSASETSERVICE LPFN_WSASETSERVICEA
+#ಆದರೆ_ಅಂತ್ಯ
 
-  typedef SOCKET (WSAAPI *LPFN_ACCEPT)(SOCKET s,struct sockaddr *addr,int *addrlen);
-  typedef int (WSAAPI *LPFN_BIND)(SOCKET s,const struct sockaddr *name,int namelen);
-  typedef int (WSAAPI *LPFN_CLOSESOCKET)(SOCKET s);
-  typedef int (WSAAPI *LPFN_CONNECT)(SOCKET s,const struct sockaddr *name,int namelen);
-  typedef int (WSAAPI *LPFN_IOCTLSOCKET)(SOCKET s,long cmd,u_long *argp);
-  typedef int (WSAAPI *LPFN_GETPEERNAME)(SOCKET s,struct sockaddr *name,int *namelen);
-  typedef int (WSAAPI *LPFN_GETSOCKNAME)(SOCKET s,struct sockaddr *name,int *namelen);
-  typedef int (WSAAPI *LPFN_GETSOCKOPT)(SOCKET s,int level,int optname,char *optval,int *optlen);
-  typedef u_long (WSAAPI *LPFN_HTONL)(u_long hostlong);
-  typedef u_short (WSAAPI *LPFN_HTONS)(u_short hostshort);
-  typedef unsigned long (WSAAPI *LPFN_INET_ADDR)(const char *cp);
-  typedef char *(WSAAPI *LPFN_INET_NTOA)(struct in_addr in);
-  typedef int (WSAAPI *LPFN_LISTEN)(SOCKET s,int backlog);
-  typedef u_long (WSAAPI *LPFN_NTOHL)(u_long netlong);
-  typedef u_short (WSAAPI *LPFN_NTOHS)(u_short netshort);
-  typedef int (WSAAPI *LPFN_RECV)(SOCKET s,char *buf,int len,int flags);
-  typedef int (WSAAPI *LPFN_RECVFROM)(SOCKET s,char *buf,int len,int flags,struct sockaddr *from,int *fromlen);
-  typedef int (WSAAPI *LPFN_SELECT)(int nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,const struct timeval *timeout);
-  typedef int (WSAAPI *LPFN_SEND)(SOCKET s,const char *buf,int len,int flags);
-  typedef int (WSAAPI *LPFN_SENDTO)(SOCKET s,const char *buf,int len,int flags,const struct sockaddr *to,int tolen);
-  typedef int (WSAAPI *LPFN_SETSOCKOPT)(SOCKET s,int level,int optname,const char *optval,int optlen);
-  typedef int (WSAAPI *LPFN_SHUTDOWN)(SOCKET s,int how);
-  typedef SOCKET (WSAAPI *LPFN_SOCKET)(int af,int type,int protocol);
-  typedef struct hostent *(WSAAPI *LPFN_GETHOSTBYADDR)(const char *addr,int len,int type);
-  typedef struct hostent *(WSAAPI *LPFN_GETHOSTBYNAME)(const char *name);
-  typedef int (WSAAPI *LPFN_GETHOSTNAME)(char *name,int namelen);
-  typedef struct servent *(WSAAPI *LPFN_GETSERVBYPORT)(int port,const char *proto);
-  typedef struct servent *(WSAAPI *LPFN_GETSERVBYNAME)(const char *name,const char *proto);
-  typedef struct protoent *(WSAAPI *LPFN_GETPROTOBYNUMBER)(int number);
-  typedef struct protoent *(WSAAPI *LPFN_GETPROTOBYNAME)(const char *name);
-  typedef int (WSAAPI *LPFN_WSASTARTUP)(WORD wVersionRequested,LPWSADATA lpWSAData);
-  typedef int (WSAAPI *LPFN_WSACLEANUP)(void);
-  typedef void (WSAAPI *LPFN_WSASETLASTERROR)(int iError);
-  typedef int (WSAAPI *LPFN_WSAGETLASTERROR)(void);
-  typedef WINBOOL (WSAAPI *LPFN_WSAISBLOCKING)(void);
-  typedef int (WSAAPI *LPFN_WSAUNHOOKBLOCKINGHOOK)(void);
-  typedef FARPROC (WSAAPI *LPFN_WSASETBLOCKINGHOOK)(FARPROC lpBlockFunc);
-  typedef int (WSAAPI *LPFN_WSACANCELBLOCKINGCALL)(void);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYNAME)(HWND hWnd,u_int wMsg,const char *name,const char *proto,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYPORT)(HWND hWnd,u_int wMsg,int port,const char *proto,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNAME)(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNUMBER)(HWND hWnd,u_int wMsg,int number,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYNAME)(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYADDR)(HWND hWnd,u_int wMsg,const char *addr,int len,int type,char *buf,int buflen);
-  typedef int (WSAAPI *LPFN_WSACANCELASYNCREQUEST)(HANDLE hAsyncTaskHandle);
-  typedef int (WSAAPI *LPFN_WSAASYNCSELECT)(SOCKET s,HWND hWnd,u_int wMsg,long lEvent);
-  typedef SOCKET (WSAAPI *LPFN_WSAACCEPT)(SOCKET s,struct sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dwCallbackData);
-  typedef WINBOOL (WSAAPI *LPFN_WSACLOSEEVENT)(WSAEVENT hEvent);
-  typedef int (WSAAPI *LPFN_WSACONNECT)(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
-  typedef WSAEVENT (WSAAPI *LPFN_WSACREATEEVENT)(void);
-  typedef int (WSAAPI *LPFN_WSADUPLICATESOCKETA)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
-  typedef int (WSAAPI *LPFN_WSADUPLICATESOCKETW)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
-  typedef int (WSAAPI *LPFN_WSAENUMNETWORKEVENTS)(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
-  typedef int (WSAAPI *LPFN_WSAENUMPROTOCOLSA)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  typedef int (WSAAPI *LPFN_WSAENUMPROTOCOLSW)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  typedef int (WSAAPI *LPFN_WSAEVENTSELECT)(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
-  typedef WINBOOL (WSAAPI *LPFN_WSAGETOVERLAPPEDRESULT)(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
-  typedef WINBOOL (WSAAPI *LPFN_WSAGETQOSBYNAME)(SOCKET s,LPWSABUF lpQOSName,LPQOS lpQOS);
-  typedef int (WSAAPI *LPFN_WSAHTONL)(SOCKET s,u_long hostlong,u_long *lpnetlong);
-  typedef int (WSAAPI *LPFN_WSAHTONS)(SOCKET s,u_short hostshort,u_short *lpnetshort);
-  typedef int (WSAAPI *LPFN_WSAIOCTL)(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef SOCKET (WSAAPI *LPFN_WSAJOINLEAF)(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
-  typedef int (WSAAPI *LPFN_WSANTOHL)(SOCKET s,u_long netlong,u_long *lphostlong);
-  typedef int (WSAAPI *LPFN_WSANTOHS)(SOCKET s,u_short netshort,u_short *lphostshort);
-  typedef int (WSAAPI *LPFN_WSARECV)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef int (WSAAPI *LPFN_WSARECVDISCONNECT)(SOCKET s,LPWSABUF lpInboundDisconnectData);
-  typedef int (WSAAPI *LPFN_WSARECVFROM)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,struct sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef WINBOOL (WSAAPI *LPFN_WSARESETEVENT)(WSAEVENT hEvent);
-  typedef int (WSAAPI *LPFN_WSASEND)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef int (WSAAPI *LPFN_WSASENDDISCONNECT)(SOCKET s,LPWSABUF lpOutboundDisconnectData);
-  typedef int (WSAAPI *LPFN_WSASENDTO)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,const struct sockaddr *lpTo,int iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef WINBOOL (WSAAPI *LPFN_WSASETEVENT)(WSAEVENT hEvent);
-  typedef SOCKET (WSAAPI *LPFN_WSASOCKETA)(int af,int type,int protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
-  typedef SOCKET (WSAAPI *LPFN_WSASOCKETW)(int af,int type,int protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
-  typedef DWORD (WSAAPI *LPFN_WSAWAITFORMULTIPLEEVENTS)(DWORD cEvents,const WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
-  typedef INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGA)(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
-  typedef INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGW)(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
-  typedef INT (WSAAPI *LPFN_WSASTRINGTOADDRESSA)(LPSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
-  typedef INT (WSAAPI *LPFN_WSASTRINGTOADDRESSW)(LPWSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINA)(LPWSAQUERYSETA lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINW)(LPWSAQUERYSETW lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTA)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETA lpqsResults);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTW)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETW lpqsResults);
-  typedef INT (WSAAPI *LPFN_WSANSPIOCTL)(HANDLE hLookup,DWORD dwControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSACOMPLETION lpCompletion);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICEEND)(HANDLE hLookup);
-  typedef INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSA)(LPWSASERVICECLASSINFOA lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSW)(LPWSASERVICECLASSINFOW lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAREMOVESERVICECLASS)(LPGUID lpServiceClassId);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOA)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOA lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOW)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOW lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSA)(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOA lpnspBuffer);
-  typedef INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSW)(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOW lpnspBuffer);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDA)(LPGUID lpServiceClassId,LPSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW)(LPGUID lpServiceClassId,LPWSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
-  typedef INT (WSAAPI *LPFN_WSASETSERVICEA)(LPWSAQUERYSETA lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
-  typedef INT (WSAAPI *LPFN_WSASETSERVICEW)(LPWSAQUERYSETW lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
-  typedef INT (WSAAPI *LPFN_WSAPROVIDERCONFIGCHANGE)(LPHANDLE lpNotificationHandle,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-#endif
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ SOCKET (WSAAPI *LPFN_ACCEPT)(SOCKET s,ರಚನೆ sockaddr *addr,ಪೂರ್ಣಾಂಕ *addrlen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_BIND)(SOCKET s,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ namelen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_CLOSESOCKET)(SOCKET s);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_CONNECT)(SOCKET s,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ namelen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_IOCTLSOCKET)(SOCKET s,ದೀರ್ಘ cmd,u_long *argp);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_GETPEERNAME)(SOCKET s,ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ *namelen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_GETSOCKNAME)(SOCKET s,ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ *namelen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_GETSOCKOPT)(SOCKET s,ಪೂರ್ಣಾಂಕ level,ಪೂರ್ಣಾಂಕ optname,ಅಕ್ಷರ *optval,ಪೂರ್ಣಾಂಕ *optlen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ u_long (WSAAPI *LPFN_HTONL)(u_long hostlong);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ u_short (WSAAPI *LPFN_HTONS)(u_short hostshort);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ (WSAAPI *LPFN_INET_ADDR)(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *cp);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಅಕ್ಷರ *(WSAAPI *LPFN_INET_NTOA)(ರಚನೆ ಒಳ_addr ಒಳ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_LISTEN)(SOCKET s,ಪೂರ್ಣಾಂಕ backlog);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ u_long (WSAAPI *LPFN_NTOHL)(u_long netlong);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ u_short (WSAAPI *LPFN_NTOHS)(u_short netshort);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_RECV)(SOCKET s,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ flags);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_RECVFROM)(SOCKET s,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ flags,ರಚನೆ sockaddr *from,ಪೂರ್ಣಾಂಕ *fromlen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_SELECT)(ಪೂರ್ಣಾಂಕ nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,ಸ್ಥಿರಾಂಕ ರಚನೆ timeval *timeout);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_SEND)(SOCKET s,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ flags);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_SENDTO)(SOCKET s,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ flags,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *ಗಮ್ಯ,ಪೂರ್ಣಾಂಕ tolen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_SETSOCKOPT)(SOCKET s,ಪೂರ್ಣಾಂಕ level,ಪೂರ್ಣಾಂಕ optname,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *optval,ಪೂರ್ಣಾಂಕ optlen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_SHUTDOWN)(SOCKET s,ಪೂರ್ಣಾಂಕ how);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ SOCKET (WSAAPI *LPFN_SOCKET)(ಪೂರ್ಣಾಂಕ af,ಪೂರ್ಣಾಂಕ type,ಪೂರ್ಣಾಂಕ protocol);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ hostent *(WSAAPI *LPFN_GETHOSTBYADDR)(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *addr,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ type);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ hostent *(WSAAPI *LPFN_GETHOSTBYNAME)(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_GETHOSTNAME)(ಅಕ್ಷರ *name,ಪೂರ್ಣಾಂಕ namelen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ servent *(WSAAPI *LPFN_GETSERVBYPORT)(ಪೂರ್ಣಾಂಕ ಪೋರ್ಟ್_2,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *proto);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ servent *(WSAAPI *LPFN_GETSERVBYNAME)(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *proto);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ protoent *(WSAAPI *LPFN_GETPROTOBYNUMBER)(ಪೂರ್ಣಾಂಕ ಸಂಖ್ಯೆ_3);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ protoent *(WSAAPI *LPFN_GETPROTOBYNAME)(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSASTARTUP)(ಶಬ್ದ_3 w_ಆವೃತ್ತಿ_Requested,LPWSADATA lpWSAData);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSACLEANUP)(ಶೂನ್ಯ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಶೂನ್ಯ (WSAAPI *LPFN_WSASETLASTERROR)(ಪೂರ್ಣಾಂಕ iError);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSAGETLASTERROR)(ಶೂನ್ಯ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WINBOOL (WSAAPI *LPFN_WSAISBLOCKING)(ಶೂನ್ಯ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSAUNHOOKBLOCKINGHOOK)(ಶೂನ್ಯ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ FARPROC (WSAAPI *LPFN_WSASETBLOCKINGHOOK)(FARPROC lp_ಖಂಡ_Func);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSACANCELBLOCKINGCALL)(ಶೂನ್ಯ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYNAME)(HWND hWnd,u_int w_ಸಂದೇಶ,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *proto,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYPORT)(HWND hWnd,u_int w_ಸಂದೇಶ,ಪೂರ್ಣಾಂಕ ಪೋರ್ಟ್_2,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *proto,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNAME)(HWND hWnd,u_int w_ಸಂದೇಶ,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNUMBER)(HWND hWnd,u_int w_ಸಂದೇಶ,ಪೂರ್ಣಾಂಕ ಸಂಖ್ಯೆ_3,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYNAME)(HWND hWnd,u_int w_ಸಂದೇಶ,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYADDR)(HWND hWnd,u_int w_ಸಂದೇಶ,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *addr,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ type,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSACANCELASYNCREQUEST)(HANDLE hAsyncTaskHandle);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSAASYNCSELECT)(SOCKET s,HWND hWnd,u_int w_ಸಂದೇಶ,ದೀರ್ಘ lEvent);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ SOCKET (WSAAPI *LPFN_WSAACCEPT)(SOCKET s,ರಚನೆ sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dw_Callback_ದತ್ತಾಂಶ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WINBOOL (WSAAPI *LPFN_WSACLOSEEVENT)(WSAEVENT hEvent);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSACONNECT)(SOCKET s,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ namelen,LPWSABUF lp_Caller_ದತ್ತಾಂಶ,LPWSABUF lp_Callee_ದತ್ತಾಂಶ,LPQOS lpSQOS,LPQOS lpGQOS);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WSAEVENT (WSAAPI *LPFN_WSACREATEEVENT)(ಶೂನ್ಯ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSADUPLICATESOCKETA)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSADUPLICATESOCKETW)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSAENUMNETWORKEVENTS)(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lp_ಜಾಲ_Events);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSAENUMPROTOCOLSA)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lp_Protocol_ಬಫರ್,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSAENUMPROTOCOLSW)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lp_Protocol_ಬಫರ್,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSAEVENTSELECT)(SOCKET s,WSAEVENT hEventObject,ದೀರ್ಘ l_ಜಾಲ_Events);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WINBOOL (WSAAPI *LPFN_WSAGETOVERLAPPEDRESULT)(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WINBOOL (WSAAPI *LPFN_WSAGETQOSBYNAME)(SOCKET s,LPWSABUF lpQOSName,LPQOS lpQOS);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSAHTONL)(SOCKET s,u_long hostlong,u_long *lpnetlong);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSAHTONS)(SOCKET s,u_short hostshort,u_short *lpnetshort);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSAIOCTL)(SOCKET s,DWORD dw_Io_Control_ಸಂಕೇತ,LPVOID lpv_ಒಳ_ಬಫರ್,DWORD cb_ಒಳ_ಬಫರ್,LPVOID lpv_ಹೊರಹೋಗು_ಬಫರ್,DWORD cb_ಹೊರಹೋಗು_ಬಫರ್,LPDWORD lpcb_ಬೈಟುಗಳು_Returned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ SOCKET (WSAAPI *LPFN_WSAJOINLEAF)(SOCKET s,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ namelen,LPWSABUF lp_Caller_ದತ್ತಾಂಶ,LPWSABUF lp_Callee_ದತ್ತಾಂಶ,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSANTOHL)(SOCKET s,u_long netlong,u_long *lphostlong);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSANTOHS)(SOCKET s,u_short netshort,u_short *lphostshort);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSARECV)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_ಬಫರ್_ಎಣಿಕೆ,LPDWORD lp_ಸಂಖ್ಯೆ_ದ_ಬೈಟುಗಳು_Recvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSARECVDISCONNECT)(SOCKET s,LPWSABUF lp_Inbound_Disconnect_ದತ್ತಾಂಶ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSARECVFROM)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_ಬಫರ್_ಎಣಿಕೆ,LPDWORD lp_ಸಂಖ್ಯೆ_ದ_ಬೈಟುಗಳು_Recvd,LPDWORD lpFlags,ರಚನೆ sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WINBOOL (WSAAPI *LPFN_WSARESETEVENT)(WSAEVENT hEvent);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSASEND)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_ಬಫರ್_ಎಣಿಕೆ,LPDWORD lp_ಸಂಖ್ಯೆ_ದ_ಬೈಟುಗಳು_ಕಳುಹಿಸಿದ,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSASENDDISCONNECT)(SOCKET s,LPWSABUF lp_Outbound_Disconnect_ದತ್ತಾಂಶ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ (WSAAPI *LPFN_WSASENDTO)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_ಬಫರ್_ಎಣಿಕೆ,LPDWORD lp_ಸಂಖ್ಯೆ_ದ_ಬೈಟುಗಳು_ಕಳುಹಿಸಿದ,DWORD dwFlags,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *lp_ಗಮ್ಯ,ಪೂರ್ಣಾಂಕ iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ WINBOOL (WSAAPI *LPFN_WSASETEVENT)(WSAEVENT hEvent);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ SOCKET (WSAAPI *LPFN_WSASOCKETA)(ಪೂರ್ಣಾಂಕ af,ಪೂರ್ಣಾಂಕ type,ಪೂರ್ಣಾಂಕ protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,ಗುಂಪು_3 g,DWORD dwFlags);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ SOCKET (WSAAPI *LPFN_WSASOCKETW)(ಪೂರ್ಣಾಂಕ af,ಪೂರ್ಣಾಂಕ type,ಪೂರ್ಣಾಂಕ protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,ಗುಂಪು_3 g,DWORD dwFlags);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ DWORD (WSAAPI *LPFN_WSAWAITFORMULTIPLEEVENTS)(DWORD cEvents,ಸ್ಥಿರಾಂಕ WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGA)(LPSOCKADDR lpsa_ವಿಳಾಸ,DWORD dw_ವಿಳಾಸ_ಉದ್ದಳತೆ,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpsz_ವಿಳಾಸ_String,LPDWORD lpdw_ವಿಳಾಸ_String_ಉದ್ದಳತೆ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGW)(LPSOCKADDR lpsa_ವಿಳಾಸ,DWORD dw_ವಿಳಾಸ_ಉದ್ದಳತೆ,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpsz_ವಿಳಾಸ_String,LPDWORD lpdw_ವಿಳಾಸ_String_ಉದ್ದಳತೆ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSASTRINGTOADDRESSA)(LPSTR ವಿಳಾಸ_String,INT ವಿಳಾಸ_Family,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSOCKADDR lp_ವಿಳಾಸ,LPINT lp_ವಿಳಾಸ_ಉದ್ದಳತೆ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSASTRINGTOADDRESSW)(LPWSTR ವಿಳಾಸ_String,INT ವಿಳಾಸ_Family,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPSOCKADDR lp_ವಿಳಾಸ,LPINT lp_ವಿಳಾಸ_ಉದ್ದಳತೆ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINA)(LPWSAQUERYSETA lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINW)(LPWSAQUERYSETW lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTA)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ,LPWSAQUERYSETA lpqsResults);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTW)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ,LPWSAQUERYSETW lpqsResults);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSANSPIOCTL)(HANDLE hLookup,DWORD dw_Control_ಸಂಕೇತ,LPVOID lpv_ಒಳ_ಬಫರ್,DWORD cb_ಒಳ_ಬಫರ್,LPVOID lpv_ಹೊರಹೋಗು_ಬಫರ್,DWORD cb_ಹೊರಹೋಗು_ಬಫರ್,LPDWORD lpcb_ಬೈಟುಗಳು_Returned,LPWSACOMPLETION lpCompletion);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSALOOKUPSERVICEEND)(HANDLE hLookup);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSA)(LPWSASERVICECLASSINFOA lpServiceClassInfo);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSW)(LPWSASERVICECLASSINFOW lpServiceClassInfo);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAREMOVESERVICECLASS)(LPGUID lpServiceClassId);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOA)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdw_Buf_ಗಾತ್ರ,LPWSASERVICECLASSINFOA lpServiceClassInfo);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOW)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdw_Buf_ಗಾತ್ರ,LPWSASERVICECLASSINFOW lpServiceClassInfo);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSA)(LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ,LPWSANAMESPACE_INFOA lpnsp_ಬಫರ್);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSW)(LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ,LPWSANAMESPACE_INFOW lpnsp_ಬಫರ್);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDA)(LPGUID lpServiceClassId,LPSTR lpszServiceClassName,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW)(LPGUID lpServiceClassId,LPWSTR lpszServiceClassName,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSASETSERVICEA)(LPWSAQUERYSETA lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSASETSERVICEW)(LPWSAQUERYSETW lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ INT (WSAAPI *LPFN_WSAPROVIDERCONFIGCHANGE)(LPHANDLE lpNotificationHandle,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef UNICODE
-#define WSADuplicateSocket WSADuplicateSocketW
-#define WSAEnumProtocols WSAEnumProtocolsW
-#define WSAAddressToString WSAAddressToStringW
-#define WSASocket WSASocketW
-#define WSAStringToAddress WSAStringToAddressW
-#define WSALookupServiceBegin WSALookupServiceBeginW
-#define WSALookupServiceNext WSALookupServiceNextW
-#define WSAInstallServiceClass WSAInstallServiceClassW
-#define WSAGetServiceClassInfo WSAGetServiceClassInfoW
-#define WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersW
-#define WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdW
-#define WSASetService WSASetServiceW
-#else
-#define WSADuplicateSocket WSADuplicateSocketA
-#define WSAEnumProtocols WSAEnumProtocolsA
-#define WSASocket WSASocketA
-#define WSAAddressToString WSAAddressToStringA
-#define WSAStringToAddress WSAStringToAddressA
-#define WSALookupServiceBegin WSALookupServiceBeginA
-#define WSALookupServiceNext WSALookupServiceNextA
-#define WSAInstallServiceClass WSAInstallServiceClassA
-#define WSAGetServiceClassInfo WSAGetServiceClassInfoA
-#define WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersA
-#define WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdA
-#define WSASetService WSASetServiceA
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ UNICODE
+#ವ್ಯಾಖ್ಯಾನಿಸು WSADuplicateSocket WSADuplicateSocketW
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEnumProtocols WSAEnumProtocolsW
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAAddress_ಗಮ್ಯ_String WSAAddress_ಗಮ್ಯ_String_W
+#ವ್ಯಾಖ್ಯಾನಿಸು WSASocket WSASocketW
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAString_ಗಮ್ಯ_ವಿಳಾಸ WSAString_ಗಮ್ಯ_ವಿಳಾಸ_W
+#ವ್ಯಾಖ್ಯಾನಿಸು WSALookupServiceBegin WSALookupServiceBeginW
+#ವ್ಯಾಖ್ಯಾನಿಸು WSALookup_Service_ಮುಂದಿನ WSALookup_Service_ಮುಂದಿನ_W
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAInstallServiceClass WSAInstallServiceClassW
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAGetServiceClassInfo WSAGetServiceClassInfoW
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersW
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdW
+#ವ್ಯಾಖ್ಯಾನಿಸು WSASetService WSASetServiceW
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು WSADuplicateSocket WSADuplicateSocketA
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEnumProtocols WSAEnumProtocolsA
+#ವ್ಯಾಖ್ಯಾನಿಸು WSASocket WSASocketA
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAAddress_ಗಮ್ಯ_String WSAAddress_ಗಮ್ಯ_String_A
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAString_ಗಮ್ಯ_ವಿಳಾಸ WSAString_ಗಮ್ಯ_ವಿಳಾಸ_A
+#ವ್ಯಾಖ್ಯಾನಿಸು WSALookupServiceBegin WSALookupServiceBeginA
+#ವ್ಯಾಖ್ಯಾನಿಸು WSALookup_Service_ಮುಂದಿನ WSALookup_Service_ಮುಂದಿನ_A
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAInstallServiceClass WSAInstallServiceClassA
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAGetServiceClassInfo WSAGetServiceClassInfoA
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersA
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdA
+#ವ್ಯಾಖ್ಯಾನಿಸು WSASetService WSASetServiceA
+#ಆದರೆ_ಅಂತ್ಯ
 
-  WINSOCK_API_LINKAGE SOCKET WSAAPI accept(SOCKET s,struct sockaddr *addr,int *addrlen);
-  WINSOCK_API_LINKAGE int WSAAPI bind(SOCKET s,const struct sockaddr *name,int namelen);
-  WINSOCK_API_LINKAGE int WSAAPI closesocket(SOCKET s);
-  WINSOCK_API_LINKAGE int WSAAPI connect(SOCKET s,const struct sockaddr *name,int namelen);
-  WINSOCK_API_LINKAGE int WSAAPI ioctlsocket(SOCKET s,long cmd,u_long *argp);
-  WINSOCK_API_LINKAGE int WSAAPI getpeername(SOCKET s,struct sockaddr *name,int *namelen);
-  WINSOCK_API_LINKAGE int WSAAPI getsockname(SOCKET s,struct sockaddr *name,int *namelen);
-  WINSOCK_API_LINKAGE int WSAAPI getsockopt(SOCKET s,int level,int optname,char *optval,int *optlen);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI accept(SOCKET s,ರಚನೆ sockaddr *addr,ಪೂರ್ಣಾಂಕ *addrlen);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI bind(SOCKET s,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ namelen);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI closesocket(SOCKET s);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI connect(SOCKET s,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ namelen);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI ioctlsocket(SOCKET s,ದೀರ್ಘ cmd,u_long *argp);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI getpeername(SOCKET s,ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ *namelen);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI getsockname(SOCKET s,ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ *namelen);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI getsockopt(SOCKET s,ಪೂರ್ಣಾಂಕ level,ಪೂರ್ಣಾಂಕ optname,ಅಕ್ಷರ *optval,ಪೂರ್ಣಾಂಕ *optlen);
   WINSOCK_API_LINKAGE u_long WSAAPI htonl(u_long hostlong);
   WINSOCK_API_LINKAGE u_short WSAAPI htons(u_short hostshort);
-  WINSOCK_API_LINKAGE unsigned long WSAAPI inet_addr(const char *cp);
-  WINSOCK_API_LINKAGE char *WSAAPI inet_ntoa(struct in_addr in);
-  WINSOCK_API_LINKAGE int WSAAPI listen(SOCKET s,int backlog);
+  WINSOCK_API_LINKAGE ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ WSAAPI inet_addr(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *cp);
+  WINSOCK_API_LINKAGE ಅಕ್ಷರ *WSAAPI inet_ntoa(ರಚನೆ ಒಳ_addr ಒಳ);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI listen(SOCKET s,ಪೂರ್ಣಾಂಕ backlog);
   WINSOCK_API_LINKAGE u_long WSAAPI ntohl(u_long netlong);
   WINSOCK_API_LINKAGE u_short WSAAPI ntohs(u_short netshort);
-  WINSOCK_API_LINKAGE int WSAAPI recv(SOCKET s,char *buf,int len,int flags);
-  WINSOCK_API_LINKAGE int WSAAPI recvfrom(SOCKET s,char *buf,int len,int flags,struct sockaddr *from,int *fromlen);
-  WINSOCK_API_LINKAGE int WSAAPI select(int nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,const struct timeval *timeout);
-  WINSOCK_API_LINKAGE int WSAAPI send(SOCKET s,const char *buf,int len,int flags);
-  WINSOCK_API_LINKAGE int WSAAPI sendto(SOCKET s,const char *buf,int len,int flags,const struct sockaddr *to,int tolen);
-  WINSOCK_API_LINKAGE int WSAAPI setsockopt(SOCKET s,int level,int optname,const char *optval,int optlen);
-  WINSOCK_API_LINKAGE int WSAAPI shutdown(SOCKET s,int how);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI socket(int af,int type,int protocol);
-  WINSOCK_API_LINKAGE struct hostent *WSAAPI gethostbyaddr(const char *addr,int len,int type);
-  WINSOCK_API_LINKAGE struct hostent *WSAAPI gethostbyname(const char *name);
-  WINSOCK_API_LINKAGE int WSAAPI gethostname(char *name,int namelen);
-  WINSOCK_API_LINKAGE struct servent *WSAAPI getservbyport(int port,const char *proto);
-  WINSOCK_API_LINKAGE struct servent *WSAAPI getservbyname(const char *name,const char *proto);
-  WINSOCK_API_LINKAGE struct protoent *WSAAPI getprotobynumber(int number);
-  WINSOCK_API_LINKAGE struct protoent *WSAAPI getprotobyname(const char *name);
-  WINSOCK_API_LINKAGE int WSAAPI WSAStartup(WORD wVersionRequested,LPWSADATA lpWSAData);
-  WINSOCK_API_LINKAGE int WSAAPI WSACleanup(void);
-  WINSOCK_API_LINKAGE void WSAAPI WSASetLastError(int iError);
-  WINSOCK_API_LINKAGE int WSAAPI WSAGetLastError(void);
-  WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAIsBlocking(void);
-  WINSOCK_API_LINKAGE int WSAAPI WSAUnhookBlockingHook(void);
-  WINSOCK_API_LINKAGE FARPROC WSAAPI WSASetBlockingHook(FARPROC lpBlockFunc);
-  WINSOCK_API_LINKAGE int WSAAPI WSACancelBlockingCall(void);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByName(HWND hWnd,u_int wMsg,const char *name,const char *proto,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByPort(HWND hWnd,u_int wMsg,int port,const char *proto,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByName(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByNumber(HWND hWnd,u_int wMsg,int number,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByName(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByAddr(HWND hWnd,u_int wMsg,const char *addr,int len,int type,char *buf,int buflen);
-  WINSOCK_API_LINKAGE int WSAAPI WSACancelAsyncRequest(HANDLE hAsyncTaskHandle);
-  WINSOCK_API_LINKAGE int WSAAPI WSAAsyncSelect(SOCKET s,HWND hWnd,u_int wMsg,long lEvent);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAAccept(SOCKET s,struct sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dwCallbackData);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI recv(SOCKET s,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ flags);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI recvfrom(SOCKET s,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ flags,ರಚನೆ sockaddr *from,ಪೂರ್ಣಾಂಕ *fromlen);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI select(ಪೂರ್ಣಾಂಕ nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,ಸ್ಥಿರಾಂಕ ರಚನೆ timeval *timeout);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI send(SOCKET s,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ flags);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI sendto(SOCKET s,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ flags,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *ಗಮ್ಯ,ಪೂರ್ಣಾಂಕ tolen);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI setsockopt(SOCKET s,ಪೂರ್ಣಾಂಕ level,ಪೂರ್ಣಾಂಕ optname,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *optval,ಪೂರ್ಣಾಂಕ optlen);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI shutdown(SOCKET s,ಪೂರ್ಣಾಂಕ how);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI socket(ಪೂರ್ಣಾಂಕ af,ಪೂರ್ಣಾಂಕ type,ಪೂರ್ಣಾಂಕ protocol);
+  WINSOCK_API_LINKAGE ರಚನೆ hostent *WSAAPI gethostbyaddr(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *addr,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ type);
+  WINSOCK_API_LINKAGE ರಚನೆ hostent *WSAAPI gethostbyname(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI gethostname(ಅಕ್ಷರ *name,ಪೂರ್ಣಾಂಕ namelen);
+  WINSOCK_API_LINKAGE ರಚನೆ servent *WSAAPI getservbyport(ಪೂರ್ಣಾಂಕ ಪೋರ್ಟ್_2,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *proto);
+  WINSOCK_API_LINKAGE ರಚನೆ servent *WSAAPI getservbyname(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *proto);
+  WINSOCK_API_LINKAGE ರಚನೆ protoent *WSAAPI getprotobynumber(ಪೂರ್ಣಾಂಕ ಸಂಖ್ಯೆ_3);
+  WINSOCK_API_LINKAGE ರಚನೆ protoent *WSAAPI getprotobyname(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAStartup(ಶಬ್ದ_3 w_ಆವೃತ್ತಿ_Requested,LPWSADATA lpWSAData);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSACleanup(ಶೂನ್ಯ);
+  WINSOCK_API_LINKAGE ಶೂನ್ಯ WSAAPI WSASet_ಕೊನೆಯ_Error(ಪೂರ್ಣಾಂಕ iError);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAGet_ಕೊನೆಯ_Error(ಶೂನ್ಯ);
+  WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAIsBlocking(ಶೂನ್ಯ);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAUnhookBlockingHook(ಶೂನ್ಯ);
+  WINSOCK_API_LINKAGE FARPROC WSAAPI WSASetBlockingHook(FARPROC lp_ಖಂಡ_Func);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSACancelBlockingCall(ಶೂನ್ಯ);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByName(HWND hWnd,u_int w_ಸಂದೇಶ,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *proto,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsync_Get_Serv_By_ಪೋರ್ಟ್(HWND hWnd,u_int w_ಸಂದೇಶ,ಪೂರ್ಣಾಂಕ ಪೋರ್ಟ್_2,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *proto,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByName(HWND hWnd,u_int w_ಸಂದೇಶ,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsync_Get_Proto_By_ಸಂಖ್ಯೆ(HWND hWnd,u_int w_ಸಂದೇಶ,ಪೂರ್ಣಾಂಕ ಸಂಖ್ಯೆ_3,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByName(HWND hWnd,u_int w_ಸಂದೇಶ,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByAddr(HWND hWnd,u_int w_ಸಂದೇಶ,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *addr,ಪೂರ್ಣಾಂಕ len,ಪೂರ್ಣಾಂಕ type,ಅಕ್ಷರ *buf,ಪೂರ್ಣಾಂಕ buflen);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSACancelAsyncRequest(HANDLE hAsyncTaskHandle);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAAsyncSelect(SOCKET s,HWND hWnd,u_int w_ಸಂದೇಶ,ದೀರ್ಘ lEvent);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAAccept(SOCKET s,ರಚನೆ sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dw_Callback_ದತ್ತಾಂಶ);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSACloseEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE int WSAAPI WSAConnect(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
-  WINSOCK_API_LINKAGE WSAEVENT WSAAPI WSACreateEvent(void);
-  WINSOCK_API_LINKAGE int WSAAPI WSADuplicateSocketA(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
-  WINSOCK_API_LINKAGE int WSAAPI WSADuplicateSocketW(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumNetworkEvents(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumProtocolsA(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumProtocolsW(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEventSelect(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
-  WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAGetOverlappedResult(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAConnect(SOCKET s,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ namelen,LPWSABUF lp_Caller_ದತ್ತಾಂಶ,LPWSABUF lp_Callee_ದತ್ತಾಂಶ,LPQOS lpSQOS,LPQOS lpGQOS);
+  WINSOCK_API_LINKAGE WSAEVENT WSAAPI WSACreateEvent(ಶೂನ್ಯ);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSADuplicateSocketA(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSADuplicateSocketW(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAEnum_ಜಾಲ_Events(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lp_ಜಾಲ_Events);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAEnumProtocolsA(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lp_Protocol_ಬಫರ್,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAEnumProtocolsW(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lp_Protocol_ಬಫರ್,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAEventSelect(SOCKET s,WSAEVENT hEventObject,ದೀರ್ಘ l_ಜಾಲ_Events);
+  WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAGet_Overlapped_ಫಲಿತಾಂಶ(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAGetQOSByName(SOCKET s,LPWSABUF lpQOSName,LPQOS lpQOS);
-  WINSOCK_API_LINKAGE int WSAAPI WSAHtonl(SOCKET s,u_long hostlong,u_long *lpnetlong);
-  WINSOCK_API_LINKAGE int WSAAPI WSAHtons(SOCKET s,u_short hostshort,u_short *lpnetshort);
-  WINSOCK_API_LINKAGE int WSAAPI WSAIoctl(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAJoinLeaf(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
-  WINSOCK_API_LINKAGE int WSAAPI WSANtohl(SOCKET s,u_long netlong,u_long *lphostlong);
-  WINSOCK_API_LINKAGE int WSAAPI WSANtohs(SOCKET s,u_short netshort,u_short *lphostshort);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecv(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecvDisconnect(SOCKET s,LPWSABUF lpInboundDisconnectData);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecvFrom(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,struct sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAHtonl(SOCKET s,u_long hostlong,u_long *lpnetlong);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAHtons(SOCKET s,u_short hostshort,u_short *lpnetshort);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAIoctl(SOCKET s,DWORD dw_Io_Control_ಸಂಕೇತ,LPVOID lpv_ಒಳ_ಬಫರ್,DWORD cb_ಒಳ_ಬಫರ್,LPVOID lpv_ಹೊರಹೋಗು_ಬಫರ್,DWORD cb_ಹೊರಹೋಗು_ಬಫರ್,LPDWORD lpcb_ಬೈಟುಗಳು_Returned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAJoin_ಎಲೆ(SOCKET s,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *name,ಪೂರ್ಣಾಂಕ namelen,LPWSABUF lp_Caller_ದತ್ತಾಂಶ,LPWSABUF lp_Callee_ದತ್ತಾಂಶ,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSANtohl(SOCKET s,u_long netlong,u_long *lphostlong);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSANtohs(SOCKET s,u_short netshort,u_short *lphostshort);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSARecv(SOCKET s,LPWSABUF lpBuffers,DWORD dw_ಬಫರ್_ಎಣಿಕೆ,LPDWORD lp_ಸಂಖ್ಯೆ_ದ_ಬೈಟುಗಳು_Recvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSARecvDisconnect(SOCKET s,LPWSABUF lp_Inbound_Disconnect_ದತ್ತಾಂಶ);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSARecvFrom(SOCKET s,LPWSABUF lpBuffers,DWORD dw_ಬಫರ್_ಎಣಿಕೆ,LPDWORD lp_ಸಂಖ್ಯೆ_ದ_ಬೈಟುಗಳು_Recvd,LPDWORD lpFlags,ರಚನೆ sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAResetEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE int WSAAPI WSASend(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE int WSAAPI WSASendDisconnect(SOCKET s,LPWSABUF lpOutboundDisconnectData);
-  WINSOCK_API_LINKAGE int WSAAPI WSASendTo(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,const struct sockaddr *lpTo,int iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSASend(SOCKET s,LPWSABUF lpBuffers,DWORD dw_ಬಫರ್_ಎಣಿಕೆ,LPDWORD lp_ಸಂಖ್ಯೆ_ದ_ಬೈಟುಗಳು_ಕಳುಹಿಸಿದ,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSASendDisconnect(SOCKET s,LPWSABUF lp_Outbound_Disconnect_ದತ್ತಾಂಶ);
+  WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSASend_ಗಮ್ಯ(SOCKET s,LPWSABUF lpBuffers,DWORD dw_ಬಫರ್_ಎಣಿಕೆ,LPDWORD lp_ಸಂಖ್ಯೆ_ದ_ಬೈಟುಗಳು_ಕಳುಹಿಸಿದ,DWORD dwFlags,ಸ್ಥಿರಾಂಕ ರಚನೆ sockaddr *lp_ಗಮ್ಯ,ಪೂರ್ಣಾಂಕ iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSASetEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketA(int af,int type,int protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketW(int af,int type,int protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
-  WINSOCK_API_LINKAGE DWORD WSAAPI WSAWaitForMultipleEvents(DWORD cEvents,const WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAAddressToStringA(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAAddressToStringW(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAStringToAddressA(LPSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAStringToAddressW(LPWSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketA(ಪೂರ್ಣಾಂಕ af,ಪೂರ್ಣಾಂಕ type,ಪೂರ್ಣಾಂಕ protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,ಗುಂಪು_3 g,DWORD dwFlags);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketW(ಪೂರ್ಣಾಂಕ af,ಪೂರ್ಣಾಂಕ type,ಪೂರ್ಣಾಂಕ protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,ಗುಂಪು_3 g,DWORD dwFlags);
+  WINSOCK_API_LINKAGE DWORD WSAAPI WSAWait_For_ಅಪವರ್ತ್ಯ_Events(DWORD cEvents,ಸ್ಥಿರಾಂಕ WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAAddress_ಗಮ್ಯ_String_A(LPSOCKADDR lpsa_ವಿಳಾಸ,DWORD dw_ವಿಳಾಸ_ಉದ್ದಳತೆ,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpsz_ವಿಳಾಸ_String,LPDWORD lpdw_ವಿಳಾಸ_String_ಉದ್ದಳತೆ);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAAddress_ಗಮ್ಯ_String_W(LPSOCKADDR lpsa_ವಿಳಾಸ,DWORD dw_ವಿಳಾಸ_ಉದ್ದಳತೆ,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpsz_ವಿಳಾಸ_String,LPDWORD lpdw_ವಿಳಾಸ_String_ಉದ್ದಳತೆ);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAString_ಗಮ್ಯ_ವಿಳಾಸ_A(LPSTR ವಿಳಾಸ_String,INT ವಿಳಾಸ_Family,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSOCKADDR lp_ವಿಳಾಸ,LPINT lp_ವಿಳಾಸ_ಉದ್ದಳತೆ);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAString_ಗಮ್ಯ_ವಿಳಾಸ_W(LPWSTR ವಿಳಾಸ_String,INT ವಿಳಾಸ_Family,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPSOCKADDR lp_ವಿಳಾಸ,LPINT lp_ವಿಳಾಸ_ಉದ್ದಳತೆ);
   WINSOCK_API_LINKAGE INT WSAAPI WSALookupServiceBeginA(LPWSAQUERYSETA lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
   WINSOCK_API_LINKAGE INT WSAAPI WSALookupServiceBeginW(LPWSAQUERYSETW lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
-  WINSOCK_API_LINKAGE INT WSAAPI WSALookupServiceNextA(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETA lpqsResults);
-  WINSOCK_API_LINKAGE INT WSAAPI WSALookupServiceNextW(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETW lpqsResults);
-  WINSOCK_API_LINKAGE INT WSAAPI WSANSPIoctl(HANDLE hLookup,DWORD dwControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSACOMPLETION lpCompletion);
-  WINSOCK_API_LINKAGE INT WSAAPI WSALookupServiceEnd(HANDLE hLookup);
+  WINSOCK_API_LINKAGE INT WSAAPI WSALookup_Service_ಮುಂದಿನ_A(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ,LPWSAQUERYSETA lpqsResults);
+  WINSOCK_API_LINKAGE INT WSAAPI WSALookup_Service_ಮುಂದಿನ_W(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ,LPWSAQUERYSETW lpqsResults);
+  WINSOCK_API_LINKAGE INT WSAAPI WSANSPIoctl(HANDLE hLookup,DWORD dw_Control_ಸಂಕೇತ,LPVOID lpv_ಒಳ_ಬಫರ್,DWORD cb_ಒಳ_ಬಫರ್,LPVOID lpv_ಹೊರಹೋಗು_ಬಫರ್,DWORD cb_ಹೊರಹೋಗು_ಬಫರ್,LPDWORD lpcb_ಬೈಟುಗಳು_Returned,LPWSACOMPLETION lpCompletion);
+  WINSOCK_API_LINKAGE INT WSAAPI WSALookup_Service_ಕೊನೆ(HANDLE hLookup);
   WINSOCK_API_LINKAGE INT WSAAPI WSAInstallServiceClassA(LPWSASERVICECLASSINFOA lpServiceClassInfo);
   WINSOCK_API_LINKAGE INT WSAAPI WSAInstallServiceClassW(LPWSASERVICECLASSINFOW lpServiceClassInfo);
   WINSOCK_API_LINKAGE INT WSAAPI WSARemoveServiceClass(LPGUID lpServiceClassId);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassInfoA(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOA lpServiceClassInfo);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassInfoW(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOW lpServiceClassInfo);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAEnumNameSpaceProvidersA(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOA lpnspBuffer);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAEnumNameSpaceProvidersW(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOW lpnspBuffer);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassNameByClassIdA(LPGUID lpServiceClassId,LPSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassNameByClassIdW(LPGUID lpServiceClassId,LPWSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassInfoA(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdw_Buf_ಗಾತ್ರ,LPWSASERVICECLASSINFOA lpServiceClassInfo);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassInfoW(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdw_Buf_ಗಾತ್ರ,LPWSASERVICECLASSINFOW lpServiceClassInfo);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAEnumNameSpaceProvidersA(LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ,LPWSANAMESPACE_INFOA lpnsp_ಬಫರ್);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAEnumNameSpaceProvidersW(LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ,LPWSANAMESPACE_INFOW lpnsp_ಬಫರ್);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassNameByClassIdA(LPGUID lpServiceClassId,LPSTR lpszServiceClassName,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassNameByClassIdW(LPGUID lpServiceClassId,LPWSTR lpszServiceClassName,LPDWORD lpdw_ಬಫರ್_ಉದ್ದಳತೆ);
   WINSOCK_API_LINKAGE INT WSAAPI WSASetServiceA(LPWSAQUERYSETA lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
   WINSOCK_API_LINKAGE INT WSAAPI WSASetServiceW(LPWSAQUERYSETW lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
   WINSOCK_API_LINKAGE INT WSAAPI WSAProviderConfigChange(LPHANDLE lpNotificationHandle,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
 
-  typedef struct sockaddr_in SOCKADDR_IN;
-  typedef struct sockaddr_in *PSOCKADDR_IN;
-  typedef struct sockaddr_in *LPSOCKADDR_IN;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ sockaddr_ಒಳ SOCKADDR_ಒಳ;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ sockaddr_ಒಳ *PSOCKADDR_ಒಳ;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ sockaddr_ಒಳ *LPSOCKADDR_ಒಳ;
 
-  typedef struct linger LINGER;
-  typedef struct linger *PLINGER;
-  typedef struct linger *LPLINGER;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ linger LINGER;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ linger *PLINGER;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ linger *LPLINGER;
 
-  typedef struct in_addr IN_ADDR;
-  typedef struct in_addr *PIN_ADDR;
-  typedef struct in_addr *LPIN_ADDR;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ ಒಳ_addr ಒಳ_ADDR;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ ಒಳ_addr *PIN_ADDR;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ ಒಳ_addr *LPIN_ADDR;
 
-  typedef struct fd_set FD_SET;
-  typedef struct fd_set *PFD_SET;
-  typedef struct fd_set *LPFD_SET;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ fd_set FD_SET;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ fd_set *PFD_ಗಣ;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ fd_set *LPFD_ಗಣ;
 
-  typedef struct hostent HOSTENT;
-  typedef struct hostent *PHOSTENT;
-  typedef struct hostent *LPHOSTENT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ hostent HOSTENT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ hostent *PHOSTENT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ hostent *LPHOSTENT;
 
-  typedef struct servent SERVENT;
-  typedef struct servent *PSERVENT;
-  typedef struct servent *LPSERVENT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ servent SERVENT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ servent *PSERVENT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ servent *LPSERVENT;
 
-  typedef struct protoent PROTOENT;
-  typedef struct protoent *PPROTOENT;
-  typedef struct protoent *LPPROTOENT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ protoent PROTOENT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ protoent *PPROTOENT;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ protoent *LPPROTOENT;
 
-  typedef struct timeval TIMEVAL;
-  typedef struct timeval *PTIMEVAL;
-  typedef struct timeval *LPTIMEVAL;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ timeval TIMEVAL;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ timeval *PTIMEVAL;
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ timeval *LPTIMEVAL;
 
-#define WSAMAKEASYNCREPLY(buflen,error) MAKELONG(buflen,error)
-#define WSAMAKESELECTREPLY(event,error) MAKELONG(event,error)
-#define WSAGETASYNCBUFLEN(lParam) LOWORD(lParam)
-#define WSAGETASYNCERROR(lParam) HIWORD(lParam)
-#define WSAGETSELECTEVENT(lParam) LOWORD(lParam)
-#define WSAGETSELECTERROR(lParam) HIWORD(lParam)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAMAKEASYNCREPLY(buflen,error) MAKELONG(buflen,error)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAMAKESELECTREPLY(event,error) MAKELONG(event,error)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAGETASYNCBUFLEN(lParam) LOWORD(lParam)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAGETASYNCERROR(lParam) HIWORD(lParam)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAGETSELECTEVENT(lParam) LOWORD(lParam)
+#ವ್ಯಾಖ್ಯಾನಿಸು WSAGETSELECTERROR(lParam) HIWORD(lParam)
 
 /* #if (_WIN32_WINNT >= 0x0600) */
-#define POLLRDNORM  0x0100
-#define POLLRDBAND  0x0200
-#define POLLIN      (POLLRDNORM | POLLRDBAND)
-#define POLLPRI     0x0400
+#ವ್ಯಾಖ್ಯಾನಿಸು POLLRDNORM  0x0100
+#ವ್ಯಾಖ್ಯಾನಿಸು POLLRDBAND  0x0200
+#ವ್ಯಾಖ್ಯಾನಿಸು POLLIN      (POLLRDNORM | POLLRDBAND)
+#ವ್ಯಾಖ್ಯಾನಿಸು POLLPRI     0x0400
 
-#define POLLWRNORM  0x0010
-#define POLLOUT     (POLLWRNORM)
-#define POLLWRBAND  0x0020
+#ವ್ಯಾಖ್ಯಾನಿಸು POLLWRNORM  0x0010
+#ವ್ಯಾಖ್ಯಾನಿಸು POLLOUT     (POLLWRNORM)
+#ವ್ಯಾಖ್ಯಾನಿಸು POLLWRBAND  0x0020
 
-#define POLLERR     0x0001
-#define POLLHUP     0x0002
-#define POLLNVAL    0x0004
+#ವ್ಯಾಖ್ಯಾನಿಸು POLLERR     0x0001
+#ವ್ಯಾಖ್ಯಾನಿಸು POLLHUP     0x0002
+#ವ್ಯಾಖ್ಯಾನಿಸು POLLNVAL    0x0004
 
-typedef struct pollfd {
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ pollfd {
         SOCKET fd;
         SHORT  events;
         SHORT  revents;
 } WSAPOLLFD, *PWSAPOLLFD, FAR *LPWSAPOLLFD;
 
-WINSOCK_API_LINKAGE int WSAAPI WSAPoll(LPWSAPOLLFD fdArray, ULONG fds, INT timeout);
+WINSOCK_API_LINKAGE ಪೂರ್ಣಾಂಕ WSAAPI WSAPoll(LPWSAPOLLFD fdArray, ULONG fds, INT timeout);
 /* #endif // (_WIN32_WINNT >= 0x0600) */
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef _NEED_POPPACK
-#include <poppack.h>
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _NEED_POPPACK
+#ಅನ್ತರ್ಭಾವ <poppack.h>
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef IPV6STRICT
-#include <wsipv6ok.h>
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ IPV6STRICT
+#ಅನ್ತರ್ಭಾವ <wsipv6ok.h>
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _WINSOCKAPI_
-#define _WINSOCKAPI_
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WINSOCKAPI_
+#ವ್ಯಾಖ್ಯಾನಿಸು _WINSOCKAPI_
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef _INC_WINSOCK_H
-#include <mswsock.h>
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _INC_WINSOCK_H
+#ಅನ್ತರ್ಭಾವ <mswsock.h>
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

@@ -1,12 +1,12 @@
-#include <stdio.h>	// printf()
+#ಅನ್ತರ್ಭಾವ <stdio.h>	// printf()
 
-#define CAT2(a,b) a##b
-#define CAT(a,b) CAT2(a,b)
-#define AB(x) CAT(x,y)
+#ವ್ಯಾಖ್ಯಾನಿಸು CAT2(a,b) a##b
+#ವ್ಯಾಖ್ಯಾನಿಸು CAT(a,b) CAT2(a,b)
+#ವ್ಯಾಖ್ಯಾನಿಸು AB(x) CAT(x,y)
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-  int xy = 42;
-  printf("%d\n", CAT(A,B)(x));
-  return 0;
+  ಪೂರ್ಣಾಂಕ xy = 42;
+  ಬರೆ("%d\n", CAT(A,B)(x));
+  ಹಿಂತಿರುಗಿ 0;
 }

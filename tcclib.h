@@ -4,79 +4,79 @@
  * only for your convenience so that you do not need to put the whole
  * glibc include files on your floppy disk 
  */
-#ifndef _TCCLIB_H
-#define _TCCLIB_H
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _TCCLIB_H
+#ವ್ಯಾಖ್ಯಾನಿಸು _TCCLIB_H
 
-#include <stddef.h>
-#include <stdarg.h>
+#ಅನ್ತರ್ಭಾವ <stddef.h>
+#ಅನ್ತರ್ಭಾವ <stdarg.h>
 
 /* stdlib.h */
-void *calloc(size_t nmemb, size_t size);
-void *malloc(size_t size);
-void free(void *ptr);
-void *realloc(void *ptr, size_t size);
-int atoi(const char *nptr);
-long int strtol(const char *nptr, char **endptr, int base);
-unsigned long int strtoul(const char *nptr, char **endptr, int base);
-void exit(int);
-void *alloca(size_t);
+ಶೂನ್ಯ *ಸೊನ್ನೆ_ಸ್ಮರಣೆ_ಕೊಡು(ಗಾತ್ರ_t nmemb, ಗಾತ್ರ_t ಗಾತ್ರ_2);
+ಶೂನ್ಯ *ಸ್ಮರಣೆ_ಕೊಡು(ಗಾತ್ರ_t ಗಾತ್ರ_2);
+ಶೂನ್ಯ ಬಿಡುಗಡೆ(ಶೂನ್ಯ *ptr);
+ಶೂನ್ಯ *realloc(ಶೂನ್ಯ *ptr, ಗಾತ್ರ_t ಗಾತ್ರ_2);
+ಪೂರ್ಣಾಂಕ atoi(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *nptr);
+ದೀರ್ಘ ಪೂರ್ಣಾಂಕ strtol(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *nptr, ಅಕ್ಷರ **endptr, ಪೂರ್ಣಾಂಕ ತಳ);
+ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಪೂರ್ಣಾಂಕ strtoul(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *nptr, ಅಕ್ಷರ **endptr, ಪೂರ್ಣಾಂಕ ತಳ);
+ಶೂನ್ಯ ನಿರ್ಗಮಿಸು(ಪೂರ್ಣಾಂಕ);
+ಶೂನ್ಯ *alloca(ಗಾತ್ರ_t);
 
 /* stdio.h */
-typedef struct __FILE FILE;
-#define EOF (-1)
-extern FILE *stdin;
-extern FILE *stdout;
-extern FILE *stderr;
-FILE *fopen(const char *path, const char *mode);
-FILE *fdopen(int fildes, const char *mode);
-FILE *freopen(const  char *path, const char *mode, FILE *stream);
-int fclose(FILE *stream);
-size_t  fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
-size_t  fwrite(void *ptr, size_t size, size_t nmemb, FILE *stream);
-int fgetc(FILE *stream);
-char *fgets(char *s, int size, FILE *stream);
-int getc(FILE *stream);
-int getchar(void);
-char *gets(char *s);
-int ungetc(int c, FILE *stream);
-int fflush(FILE *stream);
-int puts(const char *s);
-int putchar (int c);
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ __FILE FILE;
+#ವ್ಯಾಖ್ಯಾನಿಸು EOF (-1)
+ಬಾಹ್ಯ FILE *stdin;
+ಬಾಹ್ಯ FILE *stdout;
+ಬಾಹ್ಯ FILE *stderr;
+FILE *fopen(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಮಾರ್ಗ, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಬಹುಲಕ);
+FILE *fdopen(ಪೂರ್ಣಾಂಕ fildes, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಬಹುಲಕ);
+FILE *freopen(ಸ್ಥಿರಾಂಕ  ಅಕ್ಷರ *ಮಾರ್ಗ, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಬಹುಲಕ, FILE *ಹರಿವು);
+ಪೂರ್ಣಾಂಕ fclose(FILE *ಹರಿವು);
+ಗಾತ್ರ_t  fread(ಶೂನ್ಯ *ptr, ಗಾತ್ರ_t ಗಾತ್ರ_2, ಗಾತ್ರ_t nmemb, FILE *ಹರಿವು);
+ಗಾತ್ರ_t  fwrite(ಶೂನ್ಯ *ptr, ಗಾತ್ರ_t ಗಾತ್ರ_2, ಗಾತ್ರ_t nmemb, FILE *ಹರಿವು);
+ಪೂರ್ಣಾಂಕ fgetc(FILE *ಹರಿವು);
+ಅಕ್ಷರ *fgets(ಅಕ್ಷರ *s, ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_2, FILE *ಹರಿವು);
+ಪೂರ್ಣಾಂಕ getc(FILE *ಹರಿವು);
+ಪೂರ್ಣಾಂಕ getchar(ಶೂನ್ಯ);
+ಅಕ್ಷರ *gets(ಅಕ್ಷರ *s);
+ಪೂರ್ಣಾಂಕ ungetc(ಪೂರ್ಣಾಂಕ c, FILE *ಹರಿವು);
+ಪೂರ್ಣಾಂಕ fflush(FILE *ಹರಿವು);
+ಪೂರ್ಣಾಂಕ puts(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s);
+ಪೂರ್ಣಾಂಕ ಅಕ್ಷರ_ಬರೆ (ಪೂರ್ಣಾಂಕ c);
 
-int printf(const char *format, ...);
-int fprintf(FILE *stream, const char *format, ...);
-int sprintf(char *str, const char *format, ...);
-int snprintf(char *str, size_t size, const  char  *format, ...);
-int asprintf(char **strp, const char *format, ...);
-int dprintf(int fd, const char *format, ...);
-int vprintf(const char *format, va_list ap);
-int vfprintf(FILE  *stream,  const  char *format, va_list ap);
-int vsprintf(char *str, const char *format, va_list ap);
-int vsnprintf(char *str, size_t size, const char  *format, va_list ap);
-int vasprintf(char  **strp,  const  char *format, va_list ap);
-int vdprintf(int fd, const char *format, va_list ap);
+ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *format, ...);
+ಪೂರ್ಣಾಂಕ fprintf(FILE *ಹರಿವು, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *format, ...);
+ಪೂರ್ಣಾಂಕ sprintf(ಅಕ್ಷರ *str, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *format, ...);
+ಪೂರ್ಣಾಂಕ snprintf(ಅಕ್ಷರ *str, ಗಾತ್ರ_t ಗಾತ್ರ_2, ಸ್ಥಿರಾಂಕ  ಅಕ್ಷರ  *format, ...);
+ಪೂರ್ಣಾಂಕ asprintf(ಅಕ್ಷರ **strp, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *format, ...);
+ಪೂರ್ಣಾಂಕ dprintf(ಪೂರ್ಣಾಂಕ fd, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *format, ...);
+ಪೂರ್ಣಾಂಕ vprintf(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *format, va_list ap);
+ಪೂರ್ಣಾಂಕ vfprintf(FILE  *ಹರಿವು,  ಸ್ಥಿರಾಂಕ  ಅಕ್ಷರ *format, va_list ap);
+ಪೂರ್ಣಾಂಕ vsprintf(ಅಕ್ಷರ *str, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *format, va_list ap);
+ಪೂರ್ಣಾಂಕ vsnprintf(ಅಕ್ಷರ *str, ಗಾತ್ರ_t ಗಾತ್ರ_2, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ  *format, va_list ap);
+ಪೂರ್ಣಾಂಕ vasprintf(ಅಕ್ಷರ  **strp,  ಸ್ಥಿರಾಂಕ  ಅಕ್ಷರ *format, va_list ap);
+ಪೂರ್ಣಾಂಕ vdprintf(ಪೂರ್ಣಾಂಕ fd, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *format, va_list ap);
 
-void perror(const char *s);
+ಶೂನ್ಯ perror(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s);
 
 /* string.h */
-char *strcat(char *dest, const char *src);
-char *strchr(const char *s, int c);
-char *strrchr(const char *s, int c);
-char *strcpy(char *dest, const char *src);
-void *memcpy(void *dest, const void *src, size_t n);
-void *memmove(void *dest, const void *src, size_t n);
-void *memset(void *s, int c, size_t n);
-char *strdup(const char *s);
-size_t strlen(const char *s);
+ಅಕ್ಷರ *strcat(ಅಕ್ಷರ *dest, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *src);
+ಅಕ್ಷರ *strchr(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s, ಪೂರ್ಣಾಂಕ c);
+ಅಕ್ಷರ *strrchr(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s, ಪೂರ್ಣಾಂಕ c);
+ಅಕ್ಷರ *strcpy(ಅಕ್ಷರ *dest, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *src);
+ಶೂನ್ಯ *ಸ್ಮರಣೆ_ನಕಲು(ಶೂನ್ಯ *dest, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ *src, ಗಾತ್ರ_t n);
+ಶೂನ್ಯ *memmove(ಶೂನ್ಯ *dest, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ *src, ಗಾತ್ರ_t n);
+ಶೂನ್ಯ *memset(ಶೂನ್ಯ *s, ಪೂರ್ಣಾಂಕ c, ಗಾತ್ರ_t n);
+ಅಕ್ಷರ *strdup(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s);
+ಗಾತ್ರ_t ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s);
 
 /* dlfcn.h */
-#define RTLD_LAZY       0x001
-#define RTLD_NOW        0x002
-#define RTLD_GLOBAL     0x100
+#ವ್ಯಾಖ್ಯಾನಿಸು RTLD_LAZY       0x001
+#ವ್ಯಾಖ್ಯಾನಿಸು RTLD_NOW        0x002
+#ವ್ಯಾಖ್ಯಾನಿಸು RTLD_GLOBAL     0x100
 
-void *dlopen(const char *filename, int flag);
-const char *dlerror(void);
-void *dlsym(void *handle, char *symbol);
-int dlclose(void *handle);
+ಶೂನ್ಯ *dlopen(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *filename, ಪೂರ್ಣಾಂಕ flag);
+ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *dlerror(ಶೂನ್ಯ);
+ಶೂನ್ಯ *dlsym(ಶೂನ್ಯ *handle, ಅಕ್ಷರ *ಚಿಹ್ನೆ);
+ಪೂರ್ಣಾಂಕ dlclose(ಶೂನ್ಯ *handle);
 
-#endif /* _TCCLIB_H */
+#ಆದರೆ_ಅಂತ್ಯ /* _TCCLIB_H */

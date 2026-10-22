@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...);
+ಶೂನ್ಯ f(ಶೂನ್ಯ);
+ಶೂನ್ಯ bar(ಶೂನ್ಯ) { ಶೂನ್ಯ f(ಶೂನ್ಯ); f(); }
+ಶೂನ್ಯ foo(ಶೂನ್ಯ) { ಬಾಹ್ಯ ಶೂನ್ಯ f(ಶೂನ್ಯ); f(); }
+ಶೂನ್ಯ f(ಶೂನ್ಯ) { ಬರೆ("f\n"); }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
   bar();
   foo();
-  return 0;
+  ಹಿಂತಿರುಗಿ 0;
 }

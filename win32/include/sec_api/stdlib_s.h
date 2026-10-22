@@ -3,65 +3,65 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_STDLIB_S
-#define _INC_STDLIB_S
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INC_STDLIB_S
+#ವ್ಯಾಖ್ಯಾನಿಸು _INC_STDLIB_S
 
-#include <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ಆದರೆ defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
-  _CRTIMP errno_t __cdecl _dupenv_s(char **_PBuffer,size_t *_PBufferSizeInBytes,const char *_VarName);
-  _CRTIMP errno_t __cdecl _itoa_s(int _Value,char *_DstBuf,size_t _Size,int _Radix);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _i64toa_s(__int64 _Val,char *_DstBuf,size_t _Size,int _Radix);
-  _CRTIMP errno_t __cdecl _ui64toa_s(unsigned __int64 _Val,char *_DstBuf,size_t _Size,int _Radix);
-#endif
-  _CRTIMP errno_t __cdecl _ltoa_s(long _Val,char *_DstBuf,size_t _Size,int _Radix);
-  _CRTIMP errno_t __cdecl mbstowcs_s(size_t *_PtNumOfCharConverted,wchar_t *_DstBuf,size_t _SizeInWords,const char *_SrcBuf,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbstowcs_s_l(size_t *_PtNumOfCharConverted,wchar_t *_DstBuf,size_t _SizeInWords,const char *_SrcBuf,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _ultoa_s(unsigned long _Val,char *_DstBuf,size_t _Size,int _Radix);
-  _CRTIMP errno_t __cdecl _wctomb_s_l(int *_SizeConverted,char *_MbCh,size_t _SizeInBytes,wchar_t _WCh,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl wcstombs_s(size_t *_PtNumOfCharConverted,char *_Dst,size_t _DstSizeInBytes,const wchar_t *_Src,size_t _MaxCountInBytes);
-  _CRTIMP errno_t __cdecl _wcstombs_s_l(size_t *_PtNumOfCharConverted,char *_Dst,size_t _DstSizeInBytes,const wchar_t *_Src,size_t _MaxCountInBytes,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _dupenv_s(ಅಕ್ಷರ **_PBuffer,ಗಾತ್ರ_t *PBuffer_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_VarName);
+  _CRTIMP errno_t __cdecl _itoa_s(ಪೂರ್ಣಾಂಕ ಮೌಲ್ಯ_2,ಅಕ್ಷರ *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_5,ಪೂರ್ಣಾಂಕ _Radix);
+#ಆದರೆ INTEGRAL_MAX_ಬಿಟ್ಟುಗಳು >= 64
+  _CRTIMP errno_t __cdecl _i64toa_s(__int64 _Val,ಅಕ್ಷರ *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_5,ಪೂರ್ಣಾಂಕ _Radix);
+  _CRTIMP errno_t __cdecl _ui64toa_s(ಚಿಹ್ನೆರಹಿತ __int64 _Val,ಅಕ್ಷರ *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_5,ಪೂರ್ಣಾಂಕ _Radix);
+#ಆದರೆ_ಅಂತ್ಯ
+  _CRTIMP errno_t __cdecl _ltoa_s(ದೀರ್ಘ _Val,ಅಕ್ಷರ *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_5,ಪೂರ್ಣಾಂಕ _Radix);
+  _CRTIMP errno_t __cdecl mbstowcs_s(ಗಾತ್ರ_t *Pt_ಅಂಕೆ_ದ_Char_Converted,wchar_t *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಪದಗಳು,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_SrcBuf,ಗಾತ್ರ_t Max_ಎಣಿಕೆ);
+  _CRTIMP errno_t __cdecl _mbstowcs_s_l(ಗಾತ್ರ_t *Pt_ಅಂಕೆ_ದ_Char_Converted,wchar_t *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಪದಗಳು,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_SrcBuf,ಗಾತ್ರ_t Max_ಎಣಿಕೆ,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _ultoa_s(ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ _Val,ಅಕ್ಷರ *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_5,ಪೂರ್ಣಾಂಕ _Radix);
+  _CRTIMP errno_t __cdecl _wctomb_s_l(ಪೂರ್ಣಾಂಕ *ಗಾತ್ರ_Converted,ಅಕ್ಷರ *_MbCh,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,wchar_t _WCh,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl wcstombs_s(ಗಾತ್ರ_t *Pt_ಅಂಕೆ_ದ_Char_Converted,ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ wchar_t *_Src,ಗಾತ್ರ_t Max_ಎಣಿಕೆ_ಒಳ_ಬೈಟುಗಳು);
+  _CRTIMP errno_t __cdecl _wcstombs_s_l(ಗಾತ್ರ_t *Pt_ಅಂಕೆ_ದ_Char_Converted,ಅಕ್ಷರ *_Dst,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು,ಸ್ಥಿರಾಂಕ wchar_t *_Src,ಗಾತ್ರ_t Max_ಎಣಿಕೆ_ಒಳ_ಬೈಟುಗಳು,_locale_t _Locale);
 
-#ifndef _WSTDLIB_S_DEFINED
-#define _WSTDLIB_S_DEFINED
-  _CRTIMP errno_t __cdecl _itow_s (int _Val,wchar_t *_DstBuf,size_t _SizeInWords,int _Radix);
-  _CRTIMP errno_t __cdecl _ltow_s (long _Val,wchar_t *_DstBuf,size_t _SizeInWords,int _Radix);
-  _CRTIMP errno_t __cdecl _ultow_s (unsigned long _Val,wchar_t *_DstBuf,size_t _SizeInWords,int _Radix);
-  _CRTIMP errno_t __cdecl _wgetenv_s(size_t *_ReturnSize,wchar_t *_DstBuf,size_t _DstSizeInWords,const wchar_t *_VarName);
-  _CRTIMP errno_t __cdecl _wdupenv_s(wchar_t **_Buffer,size_t *_BufferSizeInWords,const wchar_t *_VarName);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _i64tow_s(__int64 _Val,wchar_t *_DstBuf,size_t _SizeInWords,int _Radix);
-  _CRTIMP errno_t __cdecl _ui64tow_s(unsigned __int64 _Val,wchar_t *_DstBuf,size_t _SizeInWords,int _Radix);
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WSTDLIB_S_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _WSTDLIB_S_DEFINED
+  _CRTIMP errno_t __cdecl _itow_s (ಪೂರ್ಣಾಂಕ _Val,wchar_t *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಪದಗಳು,ಪೂರ್ಣಾಂಕ _Radix);
+  _CRTIMP errno_t __cdecl _ltow_s (ದೀರ್ಘ _Val,wchar_t *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಪದಗಳು,ಪೂರ್ಣಾಂಕ _Radix);
+  _CRTIMP errno_t __cdecl _ultow_s (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ _Val,wchar_t *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಪದಗಳು,ಪೂರ್ಣಾಂಕ _Radix);
+  _CRTIMP errno_t __cdecl _wgetenv_s(ಗಾತ್ರ_t *Return_ಗಾತ್ರ,wchar_t *_DstBuf,ಗಾತ್ರ_t Dst_ಗಾತ್ರ_ಒಳ_ಪದಗಳು,ಸ್ಥಿರಾಂಕ wchar_t *_VarName);
+  _CRTIMP errno_t __cdecl _wdupenv_s(wchar_t **ಬಫರ್_2,ಗಾತ್ರ_t *ಬಫರ್_ಗಾತ್ರ_ಒಳ_ಪದಗಳು,ಸ್ಥಿರಾಂಕ wchar_t *_VarName);
+#ಆದರೆ INTEGRAL_MAX_ಬಿಟ್ಟುಗಳು >= 64
+  _CRTIMP errno_t __cdecl _i64tow_s(__int64 _Val,wchar_t *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಪದಗಳು,ಪೂರ್ಣಾಂಕ _Radix);
+  _CRTIMP errno_t __cdecl _ui64tow_s(ಚಿಹ್ನೆರಹಿತ __int64 _Val,wchar_t *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಪದಗಳು,ಪೂರ್ಣಾಂಕ _Radix);
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _POSIX_
-  _CRTIMP errno_t __cdecl _ecvt_s(char *_DstBuf,size_t _Size,double _Val,int _NumOfDights,int *_PtDec,int *_PtSign);
-  _CRTIMP errno_t __cdecl _fcvt_s(char *_DstBuf,size_t _Size,double _Val,int _NumOfDec,int *_PtDec,int *_PtSign);
-  _CRTIMP errno_t __cdecl _gcvt_s(char *_DstBuf,size_t _Size,double _Val,int _NumOfDigits);
-  _CRTIMP errno_t __cdecl _makepath_s(char *_PathResult,size_t _Size,const char *_Drive,const char *_Dir,const char *_Filename,const char *_Ext);
-  _CRTIMP errno_t __cdecl _putenv_s(const char *_Name,const char *_Value);
-  _CRTIMP errno_t __cdecl _searchenv_s(const char *_Filename,const char *_EnvVar,char *_ResultPath,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _splitpath_s(const char *_FullPath,char *_Drive,size_t _DriveSize,char *_Dir,size_t _DirSize,char *_Filename,size_t _FilenameSize,char *_Ext,size_t _ExtSize);
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _POSIX_
+  _CRTIMP errno_t __cdecl _ecvt_s(ಅಕ್ಷರ *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_5,ದ್ವಿಗುಣ _Val,ಪೂರ್ಣಾಂಕ ಅಂಕೆ_ದ_Dights,ಪೂರ್ಣಾಂಕ *_PtDec,ಪೂರ್ಣಾಂಕ *_PtSign);
+  _CRTIMP errno_t __cdecl _fcvt_s(ಅಕ್ಷರ *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_5,ದ್ವಿಗುಣ _Val,ಪೂರ್ಣಾಂಕ ಅಂಕೆ_ದ_Dec,ಪೂರ್ಣಾಂಕ *_PtDec,ಪೂರ್ಣಾಂಕ *_PtSign);
+  _CRTIMP errno_t __cdecl _gcvt_s(ಅಕ್ಷರ *_DstBuf,ಗಾತ್ರ_t ಗಾತ್ರ_5,ದ್ವಿಗುಣ _Val,ಪೂರ್ಣಾಂಕ ಅಂಕೆ_ದ_Digits);
+  _CRTIMP errno_t __cdecl _makepath_s(ಅಕ್ಷರ *ಮಾರ್ಗ_ಫಲಿತಾಂಶ,ಗಾತ್ರ_t ಗಾತ್ರ_5,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Drive,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Dir,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Filename,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Ext);
+  _CRTIMP errno_t __cdecl _putenv_s(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Name,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಮೌಲ್ಯ_2);
+  _CRTIMP errno_t __cdecl _searchenv_s(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Filename,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_EnvVar,ಅಕ್ಷರ *ಫಲಿತಾಂಶ_ಮಾರ್ಗ,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಬೈಟುಗಳು);
+  _CRTIMP errno_t __cdecl _splitpath_s(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ತುಂಬಿದ_ಮಾರ್ಗ,ಅಕ್ಷರ *_Drive,ಗಾತ್ರ_t Drive_ಗಾತ್ರ,ಅಕ್ಷರ *_Dir,ಗಾತ್ರ_t Dir_ಗಾತ್ರ,ಅಕ್ಷರ *_Filename,ಗಾತ್ರ_t Filename_ಗಾತ್ರ,ಅಕ್ಷರ *_Ext,ಗಾತ್ರ_t Ext_ಗಾತ್ರ);
 
-#ifndef _WSTDLIBP_S_DEFINED
-#define _WSTDLIBP_S_DEFINED
-  _CRTIMP errno_t __cdecl _wmakepath_s(wchar_t *_PathResult,size_t _SizeInWords,const wchar_t *_Drive,const wchar_t *_Dir,const wchar_t *_Filename,const wchar_t *_Ext);
-  _CRTIMP errno_t __cdecl _wputenv_s(const wchar_t *_Name,const wchar_t *_Value);
-  _CRTIMP errno_t __cdecl _wsearchenv_s(const wchar_t *_Filename,const wchar_t *_EnvVar,wchar_t *_ResultPath,size_t _SizeInWords);
-  _CRTIMP errno_t __cdecl _wsplitpath_s(const wchar_t *_FullPath,wchar_t *_Drive,size_t _DriveSizeInWords,wchar_t *_Dir,size_t _DirSizeInWords,wchar_t *_Filename,size_t _FilenameSizeInWords,wchar_t *_Ext,size_t _ExtSizeInWords);
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WSTDLIBP_S_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _WSTDLIBP_S_DEFINED
+  _CRTIMP errno_t __cdecl _wmakepath_s(wchar_t *ಮಾರ್ಗ_ಫಲಿತಾಂಶ,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಪದಗಳು,ಸ್ಥಿರಾಂಕ wchar_t *_Drive,ಸ್ಥಿರಾಂಕ wchar_t *_Dir,ಸ್ಥಿರಾಂಕ wchar_t *_Filename,ಸ್ಥಿರಾಂಕ wchar_t *_Ext);
+  _CRTIMP errno_t __cdecl _wputenv_s(ಸ್ಥಿರಾಂಕ wchar_t *_Name,ಸ್ಥಿರಾಂಕ wchar_t *ಮೌಲ್ಯ_2);
+  _CRTIMP errno_t __cdecl _wsearchenv_s(ಸ್ಥಿರಾಂಕ wchar_t *_Filename,ಸ್ಥಿರಾಂಕ wchar_t *_EnvVar,wchar_t *ಫಲಿತಾಂಶ_ಮಾರ್ಗ,ಗಾತ್ರ_t ಗಾತ್ರ_ಒಳ_ಪದಗಳು);
+  _CRTIMP errno_t __cdecl _wsplitpath_s(ಸ್ಥಿರಾಂಕ wchar_t *ತುಂಬಿದ_ಮಾರ್ಗ,wchar_t *_Drive,ಗಾತ್ರ_t Drive_ಗಾತ್ರ_ಒಳ_ಪದಗಳು,wchar_t *_Dir,ಗಾತ್ರ_t Dir_ಗಾತ್ರ_ಒಳ_ಪದಗಳು,wchar_t *_Filename,ಗಾತ್ರ_t Filename_ಗಾತ್ರ_ಒಳ_ಪದಗಳು,wchar_t *_Ext,ಗಾತ್ರ_t Ext_ಗಾತ್ರ_ಒಳ_ಪದಗಳು);
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ

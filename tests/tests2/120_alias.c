@@ -1,37 +1,37 @@
 /* Check semantics of various constructs to generate renamed symbols.  */
 
-extern int printf (const char *, ...);
-void target(void);
-void target(void) {
-    printf("in target function\n");
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ ಬರೆ (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...);
+ಶೂನ್ಯ ಗುರಿ(ಶೂನ್ಯ);
+ಶೂನ್ಯ ಗುರಿ(ಶೂನ್ಯ) {
+    ಬರೆ("in target function\n");
 }
-void alias_for_target(void) __attribute__((alias("target")));
+ಶೂನ್ಯ alias_for_ಗುರಿ(ಶೂನ್ಯ) __attribute__((alias("target")));
 
-int g_int = 34;
-int alias_int __attribute__((alias("g_int")));
+ಪೂರ್ಣಾಂಕ g_int = 34;
+ಪೂರ್ಣಾಂಕ alias_int __attribute__((alias("g_int")));
 
-#ifdef __leading_underscore
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __leading_underscore
 # define _ "_"
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define _
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-void asm_for_target(void) __asm__(_"target");
-int asm_int __asm__(_"g_int");
+ಶೂನ್ಯ asm_for_ಗುರಿ(ಶೂನ್ಯ) __asm__(_"target");
+ಪೂರ್ಣಾಂಕ asm_int __asm__(_"g_int");
 
 /* This is not supposed to compile, alias targets must be defined in the
    same unit.  In TCC they even must be defined before the reference
 void alias_for_undef(void) __attribute__((alias("undefined")));
 */
 
-extern void inunit2(void);
+ಬಾಹ್ಯ ಶೂನ್ಯ inunit2(ಶೂನ್ಯ);
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-  target();
-  alias_for_target();
-  asm_for_target();
-  printf("g_int = %d\nalias_int = %d\nasm_int = %d\n", g_int, alias_int, asm_int);
+  ಗುರಿ();
+  alias_for_ಗುರಿ();
+  asm_for_ಗುರಿ();
+  ಬರೆ("g_int = %d\nalias_int = %d\nasm_int = %d\n", g_int, alias_int, asm_int);
   inunit2();
-  return 0;
+  ಹಿಂತಿರುಗಿ 0;
 }

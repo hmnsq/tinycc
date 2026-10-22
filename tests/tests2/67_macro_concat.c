@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-#define P(A,B) A ## B ; bob
-#define Q(A,B) A ## B+
+#ವ್ಯಾಖ್ಯಾನಿಸು P(A,B) A ## B ; bob
+#ವ್ಯಾಖ್ಯಾನಿಸು Q(A,B) A ## B+
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-    int bob, jim = 21;
+    ಪೂರ್ಣಾಂಕ bob, jim = 21;
     bob = P(jim,) *= 2;
-    printf("jim: %d, bob: %d\n", jim, bob);
+    ಬರೆ("jim: %d, bob: %d\n", jim, bob);
     jim = 60 Q(+,)3;
-    printf("jim: %d\n", jim);
-    return 0;
+    ಬರೆ("jim: %d\n", jim);
+    ಹಿಂತಿರುಗಿ 0;
 }

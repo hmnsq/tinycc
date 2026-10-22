@@ -1,38 +1,38 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int
-main()
+ಪೂರ್ಣಾಂಕ
+ಮುಖ್ಯ()
 {
-#if defined(__LLP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LLP64__\n");
+#ಆದರೆ defined(__LLP64__)
+	ಆದರೆ (ಗಾತ್ರ(ಗಿಡ್ಡ) == 2
+	    && ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ) == 4
+	    && ಗಾತ್ರ(ದೀರ್ಘ ಪೂರ್ಣಾಂಕ) == 4
+	    && ಗಾತ್ರ(ದೀರ್ಘ ದೀರ್ಘ ಪೂರ್ಣಾಂಕ) == 8
+	    && ಗಾತ್ರ(ಶೂನ್ಯ*) == 8) {
+		(ಶೂನ್ಯ)ಬರೆ("Ok\n");
+	} ಇಲ್ಲದಿದ್ದರೆ {
+		(ಶೂನ್ಯ)ಬರೆ("KO __LLP64__\n");
 	}
-#elif defined(__LP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 8
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LP64__\n");
+#ಅಥವಾಆದರೆ defined(__LP64__)
+	ಆದರೆ (ಗಾತ್ರ(ಗಿಡ್ಡ) == 2
+	    && ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ) == 4
+	    && ಗಾತ್ರ(ದೀರ್ಘ ಪೂರ್ಣಾಂಕ) == 8
+	    && ಗಾತ್ರ(ದೀರ್ಘ ದೀರ್ಘ ಪೂರ್ಣಾಂಕ) == 8
+	    && ಗಾತ್ರ(ಶೂನ್ಯ*) == 8) {
+		(ಶೂನ್ಯ)ಬರೆ("Ok\n");
+	} ಇಲ್ಲದಿದ್ದರೆ {
+		(ಶೂನ್ಯ)ಬರೆ("KO __LP64__\n");
 	}
-#elif defined(__ILP32__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(void*) == 4) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __ILP32__\n");
+#ಅಥವಾಆದರೆ defined(__ILP32__)
+	ಆದರೆ (ಗಾತ್ರ(ಗಿಡ್ಡ) == 2
+	    && ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ) == 4
+	    && ಗಾತ್ರ(ದೀರ್ಘ ಪೂರ್ಣಾಂಕ) == 4
+	    && ಗಾತ್ರ(ಶೂನ್ಯ*) == 4) {
+		(ಶೂನ್ಯ)ಬರೆ("Ok\n");
+	} ಇಲ್ಲದಿದ್ದರೆ {
+		(ಶೂನ್ಯ)ಬರೆ("KO __ILP32__\n");
 	}
-#else
-	(void)printf("KO no __*LP*__ defined.\n");
-#endif
+#ಇಲ್ಲದಿದ್ದರೆ
+	(ಶೂನ್ಯ)ಬರೆ("KO no __*LP*__ defined.\n");
+#ಆದರೆ_ಅಂತ್ಯ
 }

@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int a = 1;
+   ಪೂರ್ಣಾಂಕ a = 1;
 
-   if (a)
-      printf("a is true\n");
-   else
-      printf("a is false\n");
+   ಆದರೆ (a)
+      ಬರೆ("a is true\n");
+   ಇಲ್ಲದಿದ್ದರೆ
+      ಬರೆ("a is false\n");
 
-   int b = 0;
-   if (b)
-      printf("b is true\n");
-   else
-      printf("b is false\n");
+   ಪೂರ್ಣಾಂಕ b = 0;
+   ಆದರೆ (b)
+      ಬರೆ("b is true\n");
+   ಇಲ್ಲದಿದ್ದರೆ
+      ಬರೆ("b is false\n");
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

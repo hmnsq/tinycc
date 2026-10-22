@@ -3,89 +3,89 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_LOCALE
-#define _INC_LOCALE
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INC_LOCALE
+#ವ್ಯಾಖ್ಯಾನಿಸು _INC_LOCALE
 
-#include <_mingw.h>
+#ಅನ್ತರ್ಭಾವ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ಸೂಚನೆ pack(ತಳ್ಳು,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ಖಾಲಿ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿಸು ಖಾಲಿ 0
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು ಖಾಲಿ ((ಶೂನ್ಯ *)0)
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define LC_ALL 0
-#define LC_COLLATE 1
-#define LC_CTYPE 2
-#define LC_MONETARY 3
-#define LC_NUMERIC 4
-#define LC_TIME 5
+#ವ್ಯಾಖ್ಯಾನಿಸು LC_ALL 0
+#ವ್ಯಾಖ್ಯಾನಿಸು LC_COLLATE 1
+#ವ್ಯಾಖ್ಯಾನಿಸು LC_CTYPE 2
+#ವ್ಯಾಖ್ಯಾನಿಸು LC_MONETARY 3
+#ವ್ಯಾಖ್ಯಾನಿಸು LC_NUMERIC 4
+#ವ್ಯಾಖ್ಯಾನಿಸು LC_ಸಮಯ 5
 
-#define LC_MIN LC_ALL
-#define LC_MAX LC_TIME
+#ವ್ಯಾಖ್ಯಾನಿಸು LC_MIN LC_ALL
+#ವ್ಯಾಖ್ಯಾನಿಸು LC_MAX LC_ಸಮಯ
 
-#ifndef _LCONV_DEFINED
-#define _LCONV_DEFINED
-  struct lconv {
-    char *decimal_point;
-    char *thousands_sep;
-    char *grouping;
-    char *int_curr_symbol;
-    char *currency_symbol;
-    char *mon_decimal_point;
-    char *mon_thousands_sep;
-    char *mon_grouping;
-    char *positive_sign;
-    char *negative_sign;
-    char int_frac_digits;
-    char frac_digits;
-    char p_cs_precedes;
-    char p_sep_by_space;
-    char n_cs_precedes;
-    char n_sep_by_space;
-    char p_sign_posn;
-    char n_sign_posn;
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _LCONV_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _LCONV_DEFINED
+  ರಚನೆ lconv {
+    ಅಕ್ಷರ *decimal_ಬಿಂದು;
+    ಅಕ್ಷರ *thousands_sep;
+    ಅಕ್ಷರ *grouping;
+    ಅಕ್ಷರ *int_curr_ಚಿಹ್ನೆ;
+    ಅಕ್ಷರ *currency_ಚಿಹ್ನೆ;
+    ಅಕ್ಷರ *mon_decimal_ಬಿಂದು;
+    ಅಕ್ಷರ *mon_thousands_sep;
+    ಅಕ್ಷರ *mon_grouping;
+    ಅಕ್ಷರ *ಧನಾತ್ಮಕ_sign;
+    ಅಕ್ಷರ *negative_sign;
+    ಅಕ್ಷರ int_frac_digits;
+    ಅಕ್ಷರ frac_digits;
+    ಅಕ್ಷರ p_cs_precedes;
+    ಅಕ್ಷರ p_sep_by_space;
+    ಅಕ್ಷರ n_cs_precedes;
+    ಅಕ್ಷರ n_sep_by_space;
+    ಅಕ್ಷರ p_sign_posn;
+    ಅಕ್ಷರ n_sign_posn;
   };
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _CONFIG_LOCALE_SWT
-#define _CONFIG_LOCALE_SWT
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _CONFIG_LOCALE_SWT
+#ವ್ಯಾಖ್ಯಾನಿಸು _CONFIG_LOCALE_SWT
 
-#define _ENABLE_PER_THREAD_LOCALE 0x1
-#define _DISABLE_PER_THREAD_LOCALE 0x2
-#define _ENABLE_PER_THREAD_LOCALE_GLOBAL 0x10
-#define _DISABLE_PER_THREAD_LOCALE_GLOBAL 0x20
-#define _ENABLE_PER_THREAD_LOCALE_NEW 0x100
-#define _DISABLE_PER_THREAD_LOCALE_NEW 0x200
+#ವ್ಯಾಖ್ಯಾನಿಸು ENABLE_ಪ್ರತಿ_THREAD_LOCALE 0x1
+#ವ್ಯಾಖ್ಯಾನಿಸು DISABLE_ಪ್ರತಿ_THREAD_LOCALE 0x2
+#ವ್ಯಾಖ್ಯಾನಿಸು ENABLE_ಪ್ರತಿ_THREAD_LOCALE_GLOBAL 0x10
+#ವ್ಯಾಖ್ಯಾನಿಸು DISABLE_ಪ್ರತಿ_THREAD_LOCALE_GLOBAL 0x20
+#ವ್ಯಾಖ್ಯಾನಿಸು ENABLE_ಪ್ರತಿ_THREAD_LOCALE_NEW 0x100
+#ವ್ಯಾಖ್ಯಾನಿಸು DISABLE_ಪ್ರತಿ_THREAD_LOCALE_NEW 0x200
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-  int __cdecl _configthreadlocale(int _Flag);
-  char *__cdecl setlocale(int _Category,const char *_Locale);
-  _CRTIMP struct lconv *__cdecl localeconv(void);
-  _locale_t __cdecl _get_current_locale(void);
-  _locale_t __cdecl _create_locale(int _Category,const char *_Locale);
-  void __cdecl _free_locale(_locale_t _Locale);
-  _locale_t __cdecl __get_current_locale(void);
-  _locale_t __cdecl __create_locale(int _Category,const char *_Locale);
-  void __cdecl __free_locale(_locale_t _Locale);
+  ಪೂರ್ಣಾಂಕ __cdecl _configthreadlocale(ಪೂರ್ಣಾಂಕ _Flag);
+  ಅಕ್ಷರ *__cdecl setlocale(ಪೂರ್ಣಾಂಕ _Category,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Locale);
+  _CRTIMP ರಚನೆ lconv *__cdecl localeconv(ಶೂನ್ಯ);
+  _locale_t __cdecl _get_current_locale(ಶೂನ್ಯ);
+  _locale_t __cdecl _create_locale(ಪೂರ್ಣಾಂಕ _Category,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Locale);
+  ಶೂನ್ಯ __cdecl _free_locale(_locale_t _Locale);
+  _locale_t __cdecl __get_current_locale(ಶೂನ್ಯ);
+  _locale_t __cdecl __create_locale(ಪೂರ್ಣಾಂಕ _Category,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *_Locale);
+  ಶೂನ್ಯ __cdecl __free_locale(_locale_t _Locale);
 
-#ifndef _WLOCALE_DEFINED
-#define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WLOCALE_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _WLOCALE_DEFINED
+  _CRTIMP wchar_t *__cdecl _wsetlocale(ಪೂರ್ಣಾಂಕ _Category,ಸ್ಥಿರಾಂಕ wchar_t *_Locale);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#pragma pack(pop)
-#endif
+#ಸೂಚನೆ pack(ತೆಗೆ)
+#ಆದರೆ_ಅಂತ್ಯ

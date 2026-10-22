@@ -1,15 +1,15 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...);
+ಅಕ್ಷರ t[] = "012345678";
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-    char *data = t;
-    unsigned long long r = 4;
-    unsigned a = 5;
-    unsigned long long b = 12;
+    ಅಕ್ಷರ *ದತ್ತಾಂಶ = t;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ r = 4;
+    ಚಿಹ್ನೆರಹಿತ a = 5;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ b = 12;
 
-    *(unsigned*)(data + r) += a - b;
+    *(ಚಿಹ್ನೆರಹಿತ*)(ದತ್ತಾಂಶ + r) += a - b;
 
-    printf("data = \"%s\"\n", data);
-    return 0;
+    ಬರೆ("data = \"%s\"\n", ದತ್ತಾಂಶ);
+    ಹಿಂತಿರುಗಿ 0;
 }

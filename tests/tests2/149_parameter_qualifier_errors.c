@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+ಶೂನ್ಯ defined_const(ಪೂರ್ಣಾಂಕ *ಸೂಚಕ_2);
 
-void defined_const(int *const pointer)
+ಶೂನ್ಯ defined_const(ಪೂರ್ಣಾಂಕ *ಸ್ಥಿರಾಂಕ ಸೂಚಕ_2)
 {
-    pointer = 0;
+    ಸೂಚಕ_2 = 0;
 }
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

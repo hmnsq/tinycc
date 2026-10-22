@@ -26,97 +26,97 @@
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
 
-#define TRUE 1
-#define FALSE 0
+#ವ್ಯಾಖ್ಯಾನಿಸು TRUE 1
+#ವ್ಯಾಖ್ಯಾನಿಸು FALSE 0
 
 /* This is the number of "disks" on tower A initially. Taken to be 64 in the
  * legend. The number of moves required, in general, is 2^N - 1. For N = 64,
  * this is 18,446,744,073,709,551,615 */
-#define N 4
+#ವ್ಯಾಖ್ಯಾನಿಸು N 4
 
 /* These are the three towers. For example if the state of A is 0,1,3,4, that
  * means that there are three discs on A of sizes 1, 3, and 4. (Think of right
  * as being the "down" direction.) */
-int A[N], B[N], C[N]; 
+ಪೂರ್ಣಾಂಕ A[N], B[N], C[N]; 
 
-void Hanoi(int,int*,int*,int*);
+ಶೂನ್ಯ ಹನೋಯ್(ಪೂರ್ಣಾಂಕ,ಪೂರ್ಣಾಂಕ*,ಪೂರ್ಣಾಂಕ*,ಪೂರ್ಣಾಂಕ*);
 
 /* Print the current configuration of A, B, and C to the screen */
-void PrintAll()
+ಶೂನ್ಯ PrintAll()
 {
-   int i;
+   ಪೂರ್ಣಾಂಕ i;
 
-   printf("A: ");
-   for(i=0;i<N;i++)printf(" %d ",A[i]);
-   printf("\n");
+   ಬರೆ("A: ");
+   ಗಾಗಿ(i=0;i<N;i++)ಬರೆ(" %d ",A[i]);
+   ಬರೆ("\n");
 
-   printf("B: ");
-   for(i=0;i<N;i++)printf(" %d ",B[i]);
-   printf("\n");
+   ಬರೆ("B: ");
+   ಗಾಗಿ(i=0;i<N;i++)ಬರೆ(" %d ",B[i]);
+   ಬರೆ("\n");
 
-   printf("C: ");
-   for(i=0;i<N;i++)printf(" %d ",C[i]);
-   printf("\n");
-   printf("------------------------------------------\n");
-   return;
+   ಬರೆ("C: ");
+   ಗಾಗಿ(i=0;i<N;i++)ಬರೆ(" %d ",C[i]);
+   ಬರೆ("\n");
+   ಬರೆ("------------------------------------------\n");
+   ಹಿಂತಿರುಗಿ;
 }
 
 /* Move the leftmost nonzero element of source to dest, leave behind 0. */
 /* Returns the value moved (not used.) */
-int Move(int *source, int *dest)
+ಪೂರ್ಣಾಂಕ Move(ಪೂರ್ಣಾಂಕ *ಮೂಲ, ಪೂರ್ಣಾಂಕ *dest)
 {
-   int i = 0, j = 0;
+   ಪೂರ್ಣಾಂಕ i = 0, j = 0;
 
-   while (i<N && (source[i])==0) i++;
-   while (j<N && (dest[j])==0) j++;
+   ಆಗ (i<N && (ಮೂಲ[i])==0) i++;
+   ಆಗ (j<N && (dest[j])==0) j++;
 
-   dest[j-1] = source[i];
-   source[i] = 0;
+   dest[j-1] = ಮೂಲ[i];
+   ಮೂಲ[i] = 0;
    PrintAll();       /* Print configuration after each move. */
-   return dest[j-1];
+   ಹಿಂತಿರುಗಿ dest[j-1];
 }
 
 
 /* Moves first n nonzero numbers from source to dest using the rules of Hanoi.
    Calls itself recursively.
    */
-void Hanoi(int n,int *source, int *dest, int *spare)
+ಶೂನ್ಯ ಹನೋಯ್(ಪೂರ್ಣಾಂಕ n,ಪೂರ್ಣಾಂಕ *ಮೂಲ, ಪೂರ್ಣಾಂಕ *dest, ಪೂರ್ಣಾಂಕ *ಹೆಚ್ಚುವರಿ)
 {
-   int i;
-   if(n==1){
-      Move(source,dest);
-      return;
+   ಪೂರ್ಣಾಂಕ i;
+   ಆದರೆ(n==1){
+      Move(ಮೂಲ,dest);
+      ಹಿಂತಿರುಗಿ;
    }
 
-   Hanoi(n-1,source,spare,dest);
-   Move(source,dest);
-   Hanoi(n-1,spare,dest,source);	
-   return;
+   ಹನೋಯ್(n-1,ಮೂಲ,ಹೆಚ್ಚುವರಿ,dest);
+   Move(ಮೂಲ,dest);
+   ಹನೋಯ್(n-1,ಹೆಚ್ಚುವರಿ,dest,ಮೂಲ);	
+   ಹಿಂತಿರುಗಿ;
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int i;
+   ಪೂರ್ಣಾಂಕ i;
 
    /* initialize the towers */
-   for(i=0;i<N;i++)A[i]=i+1;
-   for(i=0;i<N;i++)B[i]=0;
-   for(i=0;i<N;i++)C[i]=0;
+   ಗಾಗಿ(i=0;i<N;i++)A[i]=i+1;
+   ಗಾಗಿ(i=0;i<N;i++)B[i]=0;
+   ಗಾಗಿ(i=0;i<N;i++)C[i]=0;
 
-   printf("Solution of Tower of Hanoi Problem with %d Disks\n\n",N);
+   ಬರೆ("Solution of Tower of Hanoi Problem with %d Disks\n\n",N);
 
    /* Print the starting state */
-   printf("Starting state:\n");
+   ಬರೆ("Starting state:\n");
    PrintAll();
-   printf("\n\nSubsequent states:\n\n");
+   ಬರೆ("\n\nSubsequent states:\n\n");
 
    /* Do it! Use A = Source, B = Destination, C = Spare */
-   Hanoi(N,A,B,C);
+   ಹನೋಯ್(N,A,B,C);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main(int argc, char **argv)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv)
 {
-   int Count;
+   ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_4;
 
-   printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   ಬರೆ("hello world %d\n", argc);
+   ಗಾಗಿ (ಎಣಿಕೆ_4 = 1; ಎಣಿಕೆ_4 < argc; ಎಣಿಕೆ_4++)
+      ಬರೆ("arg %d: %s\n", ಎಣಿಕೆ_4, argv[ಎಣಿಕೆ_4]);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

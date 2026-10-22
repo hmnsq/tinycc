@@ -1,24 +1,24 @@
-#include <stdio.h>
-#include <stdlib.h>	// atoi()
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>	// atoi()
 
-int fib(n)
+ಪೂರ್ಣಾಂಕ fib(n)
 {
-	if (n <= 2)
-		return 1;
-	else
-		return fib(n-1) + fib(n-2);
+	ಆದರೆ (n <= 2)
+		ಹಿಂತಿರುಗಿ 1;
+	ಇಲ್ಲದಿದ್ದರೆ
+		ಹಿಂತಿರುಗಿ fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv) 
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv) 
 {
-	int n;
-	if (argc < 2) {
-		printf("usage: fib n\n"
+	ಪೂರ್ಣಾಂಕ n;
+	ಆದರೆ (argc < 2) {
+		ಬರೆ("usage: fib n\n"
 			   "Compute nth Fibonacci number\n");
-		return 1;
+		ಹಿಂತಿರುಗಿ 1;
 	}
 		
 	n = atoi(argv[1]);
-	printf("fib(%d) = %d\n", n, fib(n));
-	return 0;
+	ಬರೆ("fib(%d) = %d\n", n, fib(n));
+	ಹಿಂತಿರುಗಿ 0;
 }

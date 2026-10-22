@@ -1,17 +1,17 @@
-#include <stdio.h>
-int main() {
-  printf("%d\n", (int)-1.0);
-  double d = -1.0;
-  printf("%d\n", (int)d);
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ() {
+  ಬರೆ("%d\n", (ಪೂರ್ಣಾಂಕ)-1.0);
+  ದ್ವಿಗುಣ d = -1.0;
+  ಬರೆ("%d\n", (ಪೂರ್ಣಾಂಕ)d);
 
-  printf("%d\n", (int)-2147483648.0);
+  ಬರೆ("%d\n", (ಪೂರ್ಣಾಂಕ)-2147483648.0);
   d = -2147483648.0;
-  printf("%d\n", (int)d);
+  ಬರೆ("%d\n", (ಪೂರ್ಣಾಂಕ)d);
 
-#ifndef _WIN32
-  printf("%llu\n", (unsigned long long)1e19);
-#else
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
+  ಬರೆ("%llu\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)1e19);
+#ಇಲ್ಲದಿದ್ದರೆ
   /* some msvc compiler won't compile tcc correctly in this ragard */
-  printf("10000000000000000000\n");
-#endif
+  ಬರೆ("10000000000000000000\n");
+#ಆದರೆ_ಅಂತ್ಯ
 }

@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+ಸ್ಥಿರಾಂಕ ಪೂರ್ಣಾಂಕ const_return(ಶೂನ್ಯ);
+ಅಸ್ಥಿರ ಪೂರ್ಣಾಂಕ volatile_return(ಶೂನ್ಯ);
+ಪೂರ್ಣಾಂಕ *ಸೀಮಿತ restrict_return(ಶೂನ್ಯ);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, ಪೂರ್ಣಾಂಕ *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, ಪೂರ್ಣಾಂಕ *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, ಪೂರ್ಣಾಂಕ **),
                "restrict is removed from a return type");
 
-int const_return(void)
+ಪೂರ್ಣಾಂಕ const_return(ಶೂನ್ಯ)
 {
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
-int volatile_return(void)
+ಪೂರ್ಣಾಂಕ volatile_return(ಶೂನ್ಯ)
 {
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
-int *restrict_return(void)
+ಪೂರ್ಣಾಂಕ *restrict_return(ಶೂನ್ಯ)
 {
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }

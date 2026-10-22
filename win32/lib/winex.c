@@ -1,27 +1,27 @@
 /* ------------------------------------------------------------------------- */
 /* winex.c : extra stuff */
 
-#if __aarch64__
-#include <stdlib.h>
+#ಆದರೆ __aarch64__
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
 /* replaces environ from arm64-msvcrt.dll which does not exist */
-char **_environ;
+ಅಕ್ಷರ **_environ;
 wchar_t **_wenviron;
 /* those do exist but have problems */
-int __argc;
-char **__argv;
+ಪೂರ್ಣಾಂಕ __argc;
+ಅಕ್ಷರ **__argv;
 wchar_t **__wargv;
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if __aarch64__ || __x86_64__
+#ಆದರೆ __aarch64__ || __x86_64__
 /* MSVC x64 intrinsic */
-void __faststorefence(void)
+ಶೂನ್ಯ __faststorefence(ಶೂನ್ಯ)
 {
-#if __aarch64__
+#ಆದರೆ __aarch64__
     /* ARM64: Data Memory Barrier (Inner Shareable) */
     __asm__("dmb ish");
-#elif __x86_64__
+#ಅಥವಾಆದರೆ __x86_64__
     /* x86-64: lock prefix to flush store buffer */
     __asm__("lock; orl $0,(%%rsp)" ::: "memory");
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

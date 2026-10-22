@@ -7,425 +7,425 @@
  *  with operands, constraints, and clobbers.
  */
 
-#ifdef TARGET_DEFS_ONLY
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ ಗುರಿ_DEFS_ONLY
 
-#define CONFIG_TCC_ASM
+#ವ್ಯಾಖ್ಯಾನಿಸು CONFIG_TCC_ASM
 /* 32 general purpose + 32 SIMD/FP registers */
-#define NB_ASM_REGS 64
+#ವ್ಯಾಖ್ಯಾನಿಸು NB_ASM_REGS 64
 
-ST_FUNC void g(int c);
-ST_FUNC void gen_le16(int c);
-ST_FUNC void gen_le32(int c);
+ST_FUNC ಶೂನ್ಯ g(ಪೂರ್ಣಾಂಕ c);
+ST_FUNC ಶೂನ್ಯ gen_le16(ಪೂರ್ಣಾಂಕ c);
+ST_FUNC ಶೂನ್ಯ gen_le32(ಪೂರ್ಣಾಂಕ c);
 
 /*************************************************************/
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 /*************************************************************/
 
-#define USING_GLOBALS
-#include "tcc.h"
+#ವ್ಯಾಖ್ಯಾನಿಸು USING_GLOBALS
+#ಅನ್ತರ್ಭಾವ "tcc.h"
 
 /* Register type flags */
-#define REG_X     0x01  /* 64-bit general purpose */
-#define REG_W     0x02  /* 32-bit general purpose */
-#define REG_V     0x04  /* 128-bit SIMD */
-#define REG_D     0x08  /* 64-bit FP */
-#define REG_S     0x10  /* 32-bit FP */
-#define REG_H     0x20  /* 16-bit FP */
-#define REG_B     0x40  /* 8-bit SIMD */
+#ವ್ಯಾಖ್ಯಾನಿಸು REG_X     0x01  /* 64-bit general purpose */
+#ವ್ಯಾಖ್ಯಾನಿಸು REG_W     0x02  /* 32-bit general purpose */
+#ವ್ಯಾಖ್ಯಾನಿಸು REG_V     0x04  /* 128-bit SIMD */
+#ವ್ಯಾಖ್ಯಾನಿಸು REG_D     0x08  /* 64-bit FP */
+#ವ್ಯಾಖ್ಯಾನಿಸು REG_S     0x10  /* 32-bit FP */
+#ವ್ಯಾಖ್ಯಾನಿಸು REG_H     0x20  /* 16-bit FP */
+#ವ್ಯಾಖ್ಯಾನಿಸು REG_B     0x40  /* 8-bit SIMD */
 
 /* Operand types */
-enum {
+ಎಣಿಕೆ {
     OPT_REG,
     OPT_IM,
     OPT_ADDR,
     OPT_COND,
 };
 
-#define OP_REG     (1 << OPT_REG)
-#define OP_IM      (1 << OPT_IM)
-#define OP_ADDR    (1 << OPT_ADDR)
-#define OP_COND    (1 << OPT_COND)
+#ವ್ಯಾಖ್ಯಾನಿಸು OP_REG     (1 << OPT_REG)
+#ವ್ಯಾಖ್ಯಾನಿಸು OP_IM      (1 << OPT_IM)
+#ವ್ಯಾಖ್ಯಾನಿಸು OP_ADDR    (1 << OPT_ADDR)
+#ವ್ಯಾಖ್ಯಾನಿಸು OP_COND    (1 << OPT_COND)
 
 /* Register allocation masks */
-#define REG_OUT_MASK 0x01
-#define REG_IN_MASK  0x02
+#ವ್ಯಾಖ್ಯಾನಿಸು REG_ಹೊರಹೋಗು_ಮುಖವಾಡ 0x01
+#ವ್ಯಾಖ್ಯಾನಿಸು REG_ಒಳ_ಮುಖವಾಡ  0x02
 
-#define is_reg_allocated(reg) (regs_allocated[reg] & reg_mask)
+#ವ್ಯಾಖ್ಯಾನಿಸು is_reg_allocated(reg) (regs_allocated[reg] & reg_ಮುಖವಾಡ)
 
 /* ARM64 register constants */
-#define TREG_X0  0
-#define TREG_X1  1
-#define TREG_X2  2
-#define TREG_X3  3
-#define TREG_X4  4
-#define TREG_X5  5
-#define TREG_X6  6
-#define TREG_X7  7
-#define TREG_X8  8
-#define TREG_X9  9
-#define TREG_X10 10
-#define TREG_X11 11
-#define TREG_X12 12
-#define TREG_X13 13
-#define TREG_X14 14
-#define TREG_X15 15
-#define TREG_X16 16
-#define TREG_X17 17
-#define TREG_X18 18
-#define TREG_X19 19
-#define TREG_X20 20
-#define TREG_X21 21
-#define TREG_X22 22
-#define TREG_X23 23
-#define TREG_X24 24
-#define TREG_X25 25
-#define TREG_X26 26
-#define TREG_X27 27
-#define TREG_X28 28
-#define TREG_X29 29
-#define TREG_X30 30
-#define TREG_SP  31
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X0  0
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X1  1
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X2  2
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X3  3
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X4  4
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X5  5
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X6  6
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X7  7
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X8  8
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X9  9
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X10 10
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X11 11
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X12 12
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X13 13
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X14 14
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X15 15
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X16 16
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X17 17
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X18 18
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X19 19
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X20 20
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X21 21
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X22 22
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X23 23
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X24 24
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X25 25
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X26 26
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X27 27
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X28 28
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X29 29
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_X30 30
+#ವ್ಯಾಖ್ಯಾನಿಸು TREG_SP  31
 
-#define ARM64_FREG_BASE 20
-#define ARM64_FREG_LAST (ARM64_FREG_BASE + 7)
+#ವ್ಯಾಖ್ಯಾನಿಸು ARM64_FREG_ತಳ 20
+#ವ್ಯಾಖ್ಯಾನಿಸು ARM64_FREG_ಕೊನೆಯ (ARM64_FREG_ತಳ + 7)
 
-typedef struct Operand {
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ ಕಾರ್ಯಾಂಶ {
     uint32_t type;
     int8_t reg;
     int8_t reg2;
     uint8_t reg_type;
-    uint8_t shift;
-    uint8_t addr_mode;
-    int reg_tok;
-    ExprValue e;
-} Operand;
+    uint8_t ಸರಿಸು;
+    uint8_t addr_ಬಹುಲಕ;
+    ಪೂರ್ಣಾಂಕ reg_tok;
+    ಅಭಿವ್ಯಕ್ತಿ_ಮೌಲ್ಯ e;
+} ಕಾರ್ಯಾಂಶ;
 
-enum {
+ಎಣಿಕೆ {
     ADDR_OFF,
     ADDR_PRE,
     ADDR_POST,
 };
 
 /* Forward declaration */
-static void parse_addr_operand(TCCState *s1, Operand *op);
+ಸ್ಥಿರ ಶೂನ್ಯ parse_addr_ಕಾರ್ಯಾಂಶ(TCCState *s1, ಕಾರ್ಯಾಂಶ *op);
 
 /* XXX: make it faster ? */
-ST_FUNC void g(int c)
+ST_FUNC ಶೂನ್ಯ g(ಪೂರ್ಣಾಂಕ c)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    ಪೂರ್ಣಾಂಕ ind1;
+    ಆದರೆ (nocode_wanted)
+        ಹಿಂತಿರುಗಿ;
     ind1 = ind + 1;
-    if (ind1 > cur_text_section->data_allocated)
-        section_realloc(cur_text_section, ind1);
-    cur_text_section->data[ind] = c;
+    ಆದರೆ (ind1 > cur_ಪಠ್ಯ_section->ದತ್ತಾಂಶ_allocated)
+        section_realloc(cur_ಪಠ್ಯ_section, ind1);
+    cur_ಪಠ್ಯ_section->ದತ್ತಾಂಶ[ind] = c;
     ind = ind1;
 }
 
-ST_FUNC void gen_le16(int c)
+ST_FUNC ಶೂನ್ಯ gen_le16(ಪೂರ್ಣಾಂಕ c)
 {
     g(c);
     g(c >> 8);
 }
 
-ST_FUNC void gen_le32(int c)
+ST_FUNC ಶೂನ್ಯ gen_le32(ಪೂರ್ಣಾಂಕ c)
 {
     gen_le16(c);
     gen_le16(c >> 16);
 }
 
-ST_FUNC void gen_expr32(ExprValue *pe)
+ST_FUNC ಶೂನ್ಯ gen_expr32(ಅಭಿವ್ಯಕ್ತಿ_ಮೌಲ್ಯ *pe)
 {
     gen_le32(pe->v);
 }
 
 /* Emit 32-bit instruction */
-static void emit_instr32(uint32_t val)
+ಸ್ಥಿರ ಶೂನ್ಯ emit_instr32(uint32_t val)
 {
-    if (nocode_wanted)
-        return;
-    if (ind + 4 > cur_text_section->data_allocated)
-        section_realloc(cur_text_section, ind + 4);
-    write32le(cur_text_section->data + ind, val);
+    ಆದರೆ (nocode_wanted)
+        ಹಿಂತಿರುಗಿ;
+    ಆದರೆ (ind + 4 > cur_ಪಠ್ಯ_section->ದತ್ತಾಂಶ_allocated)
+        section_realloc(cur_ಪಠ್ಯ_section, ind + 4);
+    write32le(cur_ಪಠ್ಯ_section->ದತ್ತಾಂಶ + ind, val);
     ind += 4;
 }
 
 /* Parse ARM64 register token for assembler syntax. */
-static int arm64_parse_asm_reg(int t)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ arm64_parse_asm_reg(ಪೂರ್ಣಾಂಕ t)
 {
     /* X registers (64-bit) */
-    if (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
-        return t - TOK_ASM_x0;
+    ಆದರೆ (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
+        ಹಿಂತಿರುಗಿ t - TOK_ASM_x0;
     /* W registers (32-bit) */
-    if (t >= TOK_ASM_w0 && t <= TOK_ASM_w30)
-        return t - TOK_ASM_w0;
+    ಆದರೆ (t >= TOK_ASM_w0 && t <= TOK_ASM_w30)
+        ಹಿಂತಿರುಗಿ t - TOK_ASM_w0;
     /* V registers (128-bit SIMD) */
-    if (t >= TOK_ASM_v0 && t <= TOK_ASM_v31)
-        return (t - TOK_ASM_v0) + 32;
+    ಆದರೆ (t >= TOK_ASM_v0 && t <= TOK_ASM_v31)
+        ಹಿಂತಿರುಗಿ (t - TOK_ASM_v0) + 32;
     /* D registers (64-bit FP) */
-    if (t >= TOK_ASM_d0 && t <= TOK_ASM_d31)
-        return (t - TOK_ASM_d0) + 32;
+    ಆದರೆ (t >= TOK_ASM_d0 && t <= TOK_ASM_d31)
+        ಹಿಂತಿರುಗಿ (t - TOK_ASM_d0) + 32;
     /* S registers (32-bit FP) */
-    if (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
-        return (t - TOK_ASM_s0) + 32;
+    ಆದರೆ (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
+        ಹಿಂತಿರುಗಿ (t - TOK_ASM_s0) + 32;
     /* H registers (16-bit FP) */
-    if (t >= TOK_ASM_h0 && t <= TOK_ASM_h31)
-        return (t - TOK_ASM_h0) + 32;
+    ಆದರೆ (t >= TOK_ASM_h0 && t <= TOK_ASM_h31)
+        ಹಿಂತಿರುಗಿ (t - TOK_ASM_h0) + 32;
     /* B registers (8-bit SIMD) */
-    if (t >= TOK_ASM_b0 && t <= TOK_ASM_b31)
-        return (t - TOK_ASM_b0) + 32;
+    ಆದರೆ (t >= TOK_ASM_b0 && t <= TOK_ASM_b31)
+        ಹಿಂತಿರುಗಿ (t - TOK_ASM_b0) + 32;
     /* Special registers */
-    if (t == TOK_ASM_sp || t == TOK_ASM_xzr || t == TOK_ASM_wzr)
-        return 31;  /* SP/ZR encoded as 31 */
-    return -1;
+    ಆದರೆ (t == TOK_ASM_sp || t == TOK_ASM_xzr || t == TOK_ASM_wzr)
+        ಹಿಂತಿರುಗಿ 31;  /* SP/ZR encoded as 31 */
+    ಹಿಂತಿರುಗಿ -1;
 }
 
 /* Get register type from token */
-static uint8_t get_reg_type(int t)
+ಸ್ಥಿರ uint8_t get_reg_type(ಪೂರ್ಣಾಂಕ t)
 {
-    if (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
-        return REG_X;
-    if (t >= TOK_ASM_w0 && t <= TOK_ASM_w30)
-        return REG_W;
-    if (t >= TOK_ASM_v0 && t <= TOK_ASM_v31)
-        return REG_V;
-    if (t >= TOK_ASM_d0 && t <= TOK_ASM_d31)
-        return REG_D;
-    if (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
-        return REG_S;
-    if (t >= TOK_ASM_h0 && t <= TOK_ASM_h31)
-        return REG_H;
-    if (t >= TOK_ASM_b0 && t <= TOK_ASM_b31)
-        return REG_B;
+    ಆದರೆ (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
+        ಹಿಂತಿರುಗಿ REG_X;
+    ಆದರೆ (t >= TOK_ASM_w0 && t <= TOK_ASM_w30)
+        ಹಿಂತಿರುಗಿ REG_W;
+    ಆದರೆ (t >= TOK_ASM_v0 && t <= TOK_ASM_v31)
+        ಹಿಂತಿರುಗಿ REG_V;
+    ಆದರೆ (t >= TOK_ASM_d0 && t <= TOK_ASM_d31)
+        ಹಿಂತಿರುಗಿ REG_D;
+    ಆದರೆ (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
+        ಹಿಂತಿರುಗಿ REG_S;
+    ಆದರೆ (t >= TOK_ASM_h0 && t <= TOK_ASM_h31)
+        ಹಿಂತಿರುಗಿ REG_H;
+    ಆದರೆ (t >= TOK_ASM_b0 && t <= TOK_ASM_b31)
+        ಹಿಂತಿರುಗಿ REG_B;
     /* Special registers - sp is 64-bit, xzr is 64-bit, wzr is 32-bit */
-    if (t == TOK_ASM_sp || t == TOK_ASM_xzr)
-        return REG_X;
-    if (t == TOK_ASM_wzr)
-        return REG_W;
-    return REG_X;
+    ಆದರೆ (t == TOK_ASM_sp || t == TOK_ASM_xzr)
+        ಹಿಂತಿರುಗಿ REG_X;
+    ಆದರೆ (t == TOK_ASM_wzr)
+        ಹಿಂತಿರುಗಿ REG_W;
+    ಹಿಂತಿರುಗಿ REG_X;
 }
 
 /* Parse condition code */
-static int parse_condition(int t)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ parse_condition(ಪೂರ್ಣಾಂಕ t)
 {
-    switch (t) {
-        case TOK_ASM_eq: return 0;
-        case TOK_ASM_ne: return 1;
-        case TOK_ASM_cs:
-        case TOK_ASM_hs: return 2;
-        case TOK_ASM_cc:
-        case TOK_ASM_lo: return 3;
-        case TOK_ASM_mi: return 4;
-        case TOK_ASM_pl: return 5;
-        case TOK_ASM_vs: return 6;
-        case TOK_ASM_vc: return 7;
-        case TOK_ASM_hi: return 8;
-        case TOK_ASM_ls: return 9;
-        case TOK_ASM_ge: return 10;
-        case TOK_ASM_lt: return 11;
-        case TOK_ASM_gt: return 12;
-        case TOK_ASM_le: return 13;
-        case TOK_ASM_al: return 14;
-        default: return -1;
+    ಆಯ್ಕೆ (t) {
+        ಸ್ಥಿತಿ TOK_ASM_eq: ಹಿಂತಿರುಗಿ 0;
+        ಸ್ಥಿತಿ TOK_ASM_ne: ಹಿಂತಿರುಗಿ 1;
+        ಸ್ಥಿತಿ TOK_ASM_cs:
+        ಸ್ಥಿತಿ TOK_ASM_hs: ಹಿಂತಿರುಗಿ 2;
+        ಸ್ಥಿತಿ TOK_ASM_cc:
+        ಸ್ಥಿತಿ TOK_ASM_lo: ಹಿಂತಿರುಗಿ 3;
+        ಸ್ಥಿತಿ TOK_ASM_mi: ಹಿಂತಿರುಗಿ 4;
+        ಸ್ಥಿತಿ TOK_ASM_pl: ಹಿಂತಿರುಗಿ 5;
+        ಸ್ಥಿತಿ TOK_ASM_vs: ಹಿಂತಿರುಗಿ 6;
+        ಸ್ಥಿತಿ TOK_ASM_vc: ಹಿಂತಿರುಗಿ 7;
+        ಸ್ಥಿತಿ TOK_ASM_hi: ಹಿಂತಿರುಗಿ 8;
+        ಸ್ಥಿತಿ TOK_ASM_ls: ಹಿಂತಿರುಗಿ 9;
+        ಸ್ಥಿತಿ TOK_ASM_ge: ಹಿಂತಿರುಗಿ 10;
+        ಸ್ಥಿತಿ TOK_ASM_lt: ಹಿಂತಿರುಗಿ 11;
+        ಸ್ಥಿತಿ TOK_ASM_gt: ಹಿಂತಿರುಗಿ 12;
+        ಸ್ಥಿತಿ TOK_ASM_le: ಹಿಂತಿರುಗಿ 13;
+        ಸ್ಥಿತಿ TOK_ASM_al: ಹಿಂತಿರುಗಿ 14;
+        ಪೂರ್ವನಿಯೋಜಿತ: ಹಿಂತಿರುಗಿ -1;
     }
 }
 
-static int parse_barrier_option_name(int t)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ parse_barrier_option_name(ಪೂರ್ಣಾಂಕ t)
 {
-    const char *name;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name;
 
-    if (t < TOK_IDENT)
-        return -1;
-    name = get_tok_str(t, NULL);
-    if (!strcmp(name, "oshld")) return 0x1;
-    if (!strcmp(name, "oshst")) return 0x2;
-    if (!strcmp(name, "osh"))   return 0x3;
-    if (!strcmp(name, "nshld")) return 0x5;
-    if (!strcmp(name, "nshst")) return 0x6;
-    if (!strcmp(name, "nsh"))   return 0x7;
-    if (!strcmp(name, "ishld")) return 0x9;
-    if (!strcmp(name, "ishst")) return 0xA;
-    if (!strcmp(name, "ish"))   return 0xB;
-    if (!strcmp(name, "ld"))    return 0xD;
-    if (!strcmp(name, "st"))    return 0xE;
-    if (!strcmp(name, "sy"))    return 0xF;
-    return -1;
+    ಆದರೆ (t < TOK_IDENT)
+        ಹಿಂತಿರುಗಿ -1;
+    name = get_tok_str(t, ಖಾಲಿ);
+    ಆದರೆ (!strcmp(name, "oshld")) ಹಿಂತಿರುಗಿ 0x1;
+    ಆದರೆ (!strcmp(name, "oshst")) ಹಿಂತಿರುಗಿ 0x2;
+    ಆದರೆ (!strcmp(name, "osh"))   ಹಿಂತಿರುಗಿ 0x3;
+    ಆದರೆ (!strcmp(name, "nshld")) ಹಿಂತಿರುಗಿ 0x5;
+    ಆದರೆ (!strcmp(name, "nshst")) ಹಿಂತಿರುಗಿ 0x6;
+    ಆದರೆ (!strcmp(name, "nsh"))   ಹಿಂತಿರುಗಿ 0x7;
+    ಆದರೆ (!strcmp(name, "ishld")) ಹಿಂತಿರುಗಿ 0x9;
+    ಆದರೆ (!strcmp(name, "ishst")) ಹಿಂತಿರುಗಿ 0xA;
+    ಆದರೆ (!strcmp(name, "ish"))   ಹಿಂತಿರುಗಿ 0xB;
+    ಆದರೆ (!strcmp(name, "ld"))    ಹಿಂತಿರುಗಿ 0xD;
+    ಆದರೆ (!strcmp(name, "st"))    ಹಿಂತಿರುಗಿ 0xE;
+    ಆದರೆ (!strcmp(name, "sy"))    ಹಿಂತಿರುಗಿ 0xF;
+    ಹಿಂತಿರುಗಿ -1;
 }
 
-static int arm64_parse_regvar(int t)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ arm64_parse_regvar(ಪೂರ್ಣಾಂಕ t)
 {
-    if (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
-        return t - TOK_ASM_x0;
-    if (t >= TOK_ASM_v0 && t <= TOK_ASM_v7)
-        return ARM64_FREG_BASE + (t - TOK_ASM_v0);
-    if (t >= TOK_ASM_d0 && t <= TOK_ASM_d7)
-        return ARM64_FREG_BASE + (t - TOK_ASM_d0);
-    if (t >= TOK_ASM_s0 && t <= TOK_ASM_s7)
-        return ARM64_FREG_BASE + (t - TOK_ASM_s0);
-    if (t >= TOK_ASM_h0 && t <= TOK_ASM_h7)
-        return ARM64_FREG_BASE + (t - TOK_ASM_h0);
-    if (t >= TOK_ASM_b0 && t <= TOK_ASM_b7)
-        return ARM64_FREG_BASE + (t - TOK_ASM_b0);
-    return -1;
+    ಆದರೆ (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
+        ಹಿಂತಿರುಗಿ t - TOK_ASM_x0;
+    ಆದರೆ (t >= TOK_ASM_v0 && t <= TOK_ASM_v7)
+        ಹಿಂತಿರುಗಿ ARM64_FREG_ತಳ + (t - TOK_ASM_v0);
+    ಆದರೆ (t >= TOK_ASM_d0 && t <= TOK_ASM_d7)
+        ಹಿಂತಿರುಗಿ ARM64_FREG_ತಳ + (t - TOK_ASM_d0);
+    ಆದರೆ (t >= TOK_ASM_s0 && t <= TOK_ASM_s7)
+        ಹಿಂತಿರುಗಿ ARM64_FREG_ತಳ + (t - TOK_ASM_s0);
+    ಆದರೆ (t >= TOK_ASM_h0 && t <= TOK_ASM_h7)
+        ಹಿಂತಿರುಗಿ ARM64_FREG_ತಳ + (t - TOK_ASM_h0);
+    ಆದರೆ (t >= TOK_ASM_b0 && t <= TOK_ASM_b7)
+        ಹಿಂತಿರುಗಿ ARM64_FREG_ತಳ + (t - TOK_ASM_b0);
+    ಹಿಂತಿರುಗಿ -1;
 }
 
 /* Parse a single operand */
-static void parse_operand(TCCState *s1, Operand *op)
+ಸ್ಥಿರ ಶೂನ್ಯ parse_ಕಾರ್ಯಾಂಶ(TCCState *s1, ಕಾರ್ಯಾಂಶ *op)
 {
-    int reg;
+    ಪೂರ್ಣಾಂಕ reg;
 
     op->type = 0;
     op->reg = -1;
     op->reg2 = -1;
     op->reg_type = 0;
-    op->shift = 0;
-    op->addr_mode = ADDR_OFF;
+    op->ಸರಿಸು = 0;
+    op->addr_ಬಹುಲಕ = ADDR_OFF;
     op->reg_tok = 0;
 
     /* Address operand in brackets [xn, ...] */
-    if (tok == '[') {
-        parse_addr_operand(s1, op);
-        return;
+    ಆದರೆ (tok == '[') {
+        parse_addr_ಕಾರ್ಯಾಂಶ(s1, op);
+        ಹಿಂತಿರುಗಿ;
     }
 
     /* Register */
     reg = arm64_parse_asm_reg(tok);
-    if (reg >= 0) {
+    ಆದರೆ (reg >= 0) {
         op->type = OP_REG;
         op->reg = reg;
         op->reg_type = get_reg_type(tok);
         op->reg_tok = tok;
-        next();
-        return;
+        ಮುಂದಿನ();
+        ಹಿಂತಿರುಗಿ;
     }
 
     /* Condition code */
     reg = parse_condition(tok);
-    if (reg >= 0) {
+    ಆದರೆ (reg >= 0) {
         op->type = OP_COND;
         op->reg = reg;
-        next();
-        return;
+        ಮುಂದಿನ();
+        ಹಿಂತಿರುಗಿ;
     }
 
     /* Immediate or address expression */
-    if (tok == '#' || tok == ':' || tok == '@' || tok == '$') {
-        next();
-        asm_expr(s1, &op->e);
+    ಆದರೆ (tok == '#' || tok == ':' || tok == '@' || tok == '$') {
+        ಮುಂದಿನ();
+        asm_ಅಭಿವ್ಯಕ್ತಿ(s1, &op->e);
         op->type = OP_IM;
-    } else if (tok >= TOK_IDENT) {
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (tok >= TOK_IDENT) {
         tcc_error("invalid operand '%s'", get_tok_str(tok, &tokc));
         op->type = OP_IM;
-    } else {
-        asm_expr(s1, &op->e);
+    } ಇಲ್ಲದಿದ್ದರೆ {
+        asm_ಅಭಿವ್ಯಕ್ತಿ(s1, &op->e);
         op->type = OP_IM;
     }
 }
 
 /* Parse a symbolic/immediate expression operand used by branch instructions. */
-static void parse_expr_operand(TCCState *s1, Operand *op)
+ಸ್ಥಿರ ಶೂನ್ಯ parse_ಅಭಿವ್ಯಕ್ತಿ_ಕಾರ್ಯಾಂಶ(TCCState *s1, ಕಾರ್ಯಾಂಶ *op)
 {
     op->type = OP_IM;
     op->reg = -1;
     op->reg2 = -1;
     op->reg_type = 0;
-    op->shift = 0;
-    op->addr_mode = ADDR_OFF;
+    op->ಸರಿಸು = 0;
+    op->addr_ಬಹುಲಕ = ADDR_OFF;
     op->reg_tok = 0;
 
-    if (tok == '#' || tok == ':' || tok == '@' || tok == '$')
-        next();
-    asm_expr(s1, &op->e);
+    ಆದರೆ (tok == '#' || tok == ':' || tok == '@' || tok == '$')
+        ಮುಂದಿನ();
+    asm_ಅಭಿವ್ಯಕ್ತಿ(s1, &op->e);
 }
 
 /* Parse address operand in brackets [xn, ...] */
-static void parse_addr_operand(TCCState *s1, Operand *op)
+ಸ್ಥಿರ ಶೂನ್ಯ parse_addr_ಕಾರ್ಯಾಂಶ(TCCState *s1, ಕಾರ್ಯಾಂಶ *op)
 {
-    int reg;
+    ಪೂರ್ಣಾಂಕ reg;
 
     op->type = OP_ADDR;
     op->reg = -1;
     op->reg2 = -1;
     op->e.v = 0;
-    op->e.sym = NULL;
-    op->addr_mode = ADDR_OFF;
+    op->e.sym = ಖಾಲಿ;
+    op->addr_ಬಹುಲಕ = ADDR_OFF;
     op->reg_tok = 0;
 
     skip('[');
     reg = arm64_parse_asm_reg(tok);
-    if (reg < 0 || reg >= 32) {
+    ಆದರೆ (reg < 0 || reg >= 32) {
         tcc_error("invalid register in address operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
     op->reg = reg;
     op->reg_tok = tok;
-    next();
+    ಮುಂದಿನ();
     /* Check for offset */
-    if (tok == ',') {
-        next();
-        if (tok == '#' || tok == '@' || tok == '$')
-            next();
-        asm_expr(s1, &op->e);
+    ಆದರೆ (tok == ',') {
+        ಮುಂದಿನ();
+        ಆದರೆ (tok == '#' || tok == '@' || tok == '$')
+            ಮುಂದಿನ();
+        asm_ಅಭಿವ್ಯಕ್ತಿ(s1, &op->e);
     }
     skip(']');
-    if (tok == '!') {
-        op->addr_mode = ADDR_PRE;
-        next();
-    } else if (tok == ',') {
-        op->addr_mode = ADDR_POST;
-        next();
-        if (tok == '#' || tok == '@' || tok == '$')
-            next();
-        asm_expr(s1, &op->e);
+    ಆದರೆ (tok == '!') {
+        op->addr_ಬಹುಲಕ = ADDR_PRE;
+        ಮುಂದಿನ();
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (tok == ',') {
+        op->addr_ಬಹುಲಕ = ADDR_POST;
+        ಮುಂದಿನ();
+        ಆದರೆ (tok == '#' || tok == '@' || tok == '$')
+            ಮುಂದಿನ();
+        asm_ಅಭಿವ್ಯಕ್ತಿ(s1, &op->e);
     }
 }
 
 /* Generate MOVZ/MOVN/MOVK with base opcode */
-static void gen_mov_with_base(int rd, uint16_t imm, int shift,
-                              int is_64bit, uint32_t base_opcode)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_mov_with_ತಳ(ಪೂರ್ಣಾಂಕ rd, uint16_t imm, ಪೂರ್ಣಾಂಕ ಸರಿಸು,
+                              ಪೂರ್ಣಾಂಕ is_64bit, uint32_t ತಳ_opcode)
 {
-    uint32_t instr = base_opcode;
-    if (is_64bit) instr |= ARM64_SF(1);
+    uint32_t instr = ತಳ_opcode;
+    ಆದರೆ (is_64bit) instr |= ARM64_SF(1);
     /* shift is halfword index (0-3), encode as LSL #0/16/32/48 */
-    instr |= ARM64_IMM_HW(imm, shift);
+    instr |= ARM64_IMM_HW(imm, ಸರಿಸು);
     instr |= ARM64_RD(rd);
     emit_instr32(instr);
 }
 
-static void gen_movz(int rd, uint16_t imm, int shift, int is_64bit)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_movz(ಪೂರ್ಣಾಂಕ rd, uint16_t imm, ಪೂರ್ಣಾಂಕ ಸರಿಸು, ಪೂರ್ಣಾಂಕ is_64bit)
 {
-    gen_mov_with_base(rd, imm, shift, is_64bit, ARM64_MOVZ);
+    gen_mov_with_ತಳ(rd, imm, ಸರಿಸು, is_64bit, ARM64_MOVZ);
 }
 
 /* Generate MOVN instruction */
-static void gen_movn(int rd, uint16_t imm, int shift, int is_64bit)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_movn(ಪೂರ್ಣಾಂಕ rd, uint16_t imm, ಪೂರ್ಣಾಂಕ ಸರಿಸು, ಪೂರ್ಣಾಂಕ is_64bit)
 {
-    gen_mov_with_base(rd, imm, shift, is_64bit, ARM64_MOVN);
+    gen_mov_with_ತಳ(rd, imm, ಸರಿಸು, is_64bit, ARM64_MOVN);
 }
 
 /* Generate MOVK instruction */
-static void gen_movk(int rd, uint16_t imm, int shift, int is_64bit)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_movk(ಪೂರ್ಣಾಂಕ rd, uint16_t imm, ಪೂರ್ಣಾಂಕ ಸರಿಸು, ಪೂರ್ಣಾಂಕ is_64bit)
 {
-    gen_mov_with_base(rd, imm, shift, is_64bit, ARM64_MOVK);
+    gen_mov_with_ತಳ(rd, imm, ಸರಿಸು, is_64bit, ARM64_MOVK);
 }
 
 /* Generate ADD (immediate) */
-static void gen_add_imm(int rd, int rn, uint32_t imm, int is_64bit, int setflags)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_ಕೂಡಿಸು_imm(ಪೂರ್ಣಾಂಕ rd, ಪೂರ್ಣಾಂಕ rn, uint32_t imm, ಪೂರ್ಣಾಂಕ is_64bit, ಪೂರ್ಣಾಂಕ setflags)
 {
-    uint32_t instr = ARM64_ADD_IMM;
+    uint32_t instr = ARM64_ಕೂಡಿಸು_IMM;
     uint32_t imm12;
 
-    if (is_64bit) instr |= ARM64_SF(1);
-    if (setflags) instr |= ARM64_S(1);
+    ಆದರೆ (is_64bit) instr |= ARM64_SF(1);
+    ಆದರೆ (setflags) instr |= ARM64_S(1);
 
-    if (imm <= 0xFFF) {
+    ಆದರೆ (imm <= 0xFFF) {
         imm12 = imm;
-    } else if (!(imm & 0xFFF) && (imm >> 12) <= 0xFFF) {
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (!(imm & 0xFFF) && (imm >> 12) <= 0xFFF) {
         instr |= ARM64_SH(1);
         imm12 = imm >> 12;
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
         tcc_error("add immediate out of range");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
     instr |= ARM64_IMM12(imm12);
@@ -435,22 +435,22 @@ static void gen_add_imm(int rd, int rn, uint32_t imm, int is_64bit, int setflags
 }
 
 /* Generate SUB (immediate) */
-static void gen_sub_imm(int rd, int rn, uint32_t imm, int is_64bit, int setflags)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_sub_imm(ಪೂರ್ಣಾಂಕ rd, ಪೂರ್ಣಾಂಕ rn, uint32_t imm, ಪೂರ್ಣಾಂಕ is_64bit, ಪೂರ್ಣಾಂಕ setflags)
 {
     uint32_t instr = ARM64_SUB_IMM;
     uint32_t imm12;
 
-    if (is_64bit) instr |= ARM64_SF(1);
-    if (setflags) instr |= ARM64_S(1);
+    ಆದರೆ (is_64bit) instr |= ARM64_SF(1);
+    ಆದರೆ (setflags) instr |= ARM64_S(1);
 
-    if (imm <= 0xFFF) {
+    ಆದರೆ (imm <= 0xFFF) {
         imm12 = imm;
-    } else if (!(imm & 0xFFF) && (imm >> 12) <= 0xFFF) {
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (!(imm & 0xFFF) && (imm >> 12) <= 0xFFF) {
         instr |= ARM64_SH(1);
         imm12 = imm >> 12;
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
         tcc_error("sub immediate out of range");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
     instr |= ARM64_IMM12(imm12);
@@ -460,10 +460,10 @@ static void gen_sub_imm(int rd, int rn, uint32_t imm, int is_64bit, int setflags
 }
 
 /* Generate data processing register instruction */
-static void gen_dp_reg(uint32_t opcode, int rd, int rn, int rm, int is_64bit)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_dp_reg(uint32_t opcode, ಪೂರ್ಣಾಂಕ rd, ಪೂರ್ಣಾಂಕ rn, ಪೂರ್ಣಾಂಕ rm, ಪೂರ್ಣಾಂಕ is_64bit)
 {
     uint32_t instr = opcode;
-    if (is_64bit) instr |= ARM64_SF(1);
+    ಆದರೆ (is_64bit) instr |= ARM64_SF(1);
     instr |= ARM64_RM(rm);
     instr |= ARM64_RN(rn);
     instr |= ARM64_RD(rd);
@@ -471,62 +471,62 @@ static void gen_dp_reg(uint32_t opcode, int rd, int rn, int rm, int is_64bit)
 }
 
 /* Generate LDR/STR (unsigned immediate) */
-static void gen_ldst_imm(uint32_t base_opcode, int rt, int rn,
-                         int32_t offset, int size_log2)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_ldst_imm(uint32_t ತಳ_opcode, ಪೂರ್ಣಾಂಕ rt, ಪೂರ್ಣಾಂಕ rn,
+                         int32_t ಸ್ಥಾನಾಂತರ, ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_log2)
 {
-    uint32_t instr = base_opcode;
+    uint32_t instr = ತಳ_opcode;
     uint32_t unscaled_opcode = 0;
     uint32_t imm12;
 
-    if (offset >= 0 && !(offset & ((1 << size_log2) - 1))) {
-    imm12 = offset >> size_log2;
-        if (imm12 <= 0xFFF) {
+    ಆದರೆ (ಸ್ಥಾನಾಂತರ >= 0 && !(ಸ್ಥಾನಾಂತರ & ((1 << ಗಾತ್ರ_log2) - 1))) {
+    imm12 = ಸ್ಥಾನಾಂತರ >> ಗಾತ್ರ_log2;
+        ಆದರೆ (imm12 <= 0xFFF) {
     instr |= ARM64_IMM12(imm12);
     instr |= ARM64_RN(rn);
     instr |= ARM64_RT(rt);
     emit_instr32(instr);
-            return;
+            ಹಿಂತಿರುಗಿ;
         }
     }
 
-    switch (base_opcode) {
-    case ARM64_LDR_X: unscaled_opcode = ARM64_LDUR_X; break;
-    case ARM64_LDR_W: unscaled_opcode = ARM64_LDUR_W; break;
-    case ARM64_LDR_B: unscaled_opcode = ARM64_LDUR_B; break;
-    case ARM64_LDR_H: unscaled_opcode = ARM64_LDUR_H; break;
-    case ARM64_LDR_D: unscaled_opcode = ARM64_LDUR_D_SIMD; break;
-    case ARM64_STR_X: unscaled_opcode = ARM64_STUR_X; break;
-    case ARM64_STR_W: unscaled_opcode = ARM64_STUR_W; break;
-    case ARM64_STR_B: unscaled_opcode = ARM64_STUR_B; break;
-    case ARM64_STR_H: unscaled_opcode = ARM64_STUR_H; break;
-    case ARM64_STR_D: unscaled_opcode = ARM64_STUR_D_SIMD; break;
+    ಆಯ್ಕೆ (ತಳ_opcode) {
+    ಸ್ಥಿತಿ ARM64_LDR_X: unscaled_opcode = ARM64_LDUR_X; ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ ARM64_LDR_W: unscaled_opcode = ARM64_LDUR_W; ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ ARM64_LDR_B: unscaled_opcode = ARM64_LDUR_B; ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ ARM64_LDR_H: unscaled_opcode = ARM64_LDUR_H; ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ ARM64_LDR_D: unscaled_opcode = ARM64_LDUR_D_SIMD; ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ ARM64_STR_X: unscaled_opcode = ARM64_STUR_X; ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ ARM64_STR_W: unscaled_opcode = ARM64_STUR_W; ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ ARM64_STR_B: unscaled_opcode = ARM64_STUR_B; ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ ARM64_STR_H: unscaled_opcode = ARM64_STUR_H; ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ ARM64_STR_D: unscaled_opcode = ARM64_STUR_D_SIMD; ನಿಲ್ಲಿಸು;
     }
 
-    if (unscaled_opcode && offset >= -256 && offset <= 255) {
+    ಆದರೆ (unscaled_opcode && ಸ್ಥಾನಾಂತರ >= -256 && ಸ್ಥಾನಾಂತರ <= 255) {
         instr = unscaled_opcode;
-        instr |= ((uint32_t)offset & 0x1FFU) << 12;
+        instr |= ((uint32_t)ಸ್ಥಾನಾಂತರ & 0x1FFU) << 12;
         instr |= ARM64_RN(rn);
         instr |= ARM64_RT(rt);
         emit_instr32(instr);
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
-    if (offset & ((1 << size_log2) - 1))
+    ಆದರೆ (ಸ್ಥಾನಾಂತರ & ((1 << ಗಾತ್ರ_log2) - 1))
         tcc_error("invalid load/store offset");
     tcc_error("load/store offset out of range");
 }
 
 /* Generate STP/LDP (signed immediate) */
-static void gen_ldst_pair(uint32_t base_opcode, int rt, int rt2, int rn,
-                          int32_t offset, int size_log2)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_ldst_pair(uint32_t ತಳ_opcode, ಪೂರ್ಣಾಂಕ rt, ಪೂರ್ಣಾಂಕ rt2, ಪೂರ್ಣಾಂಕ rn,
+                          int32_t ಸ್ಥಾನಾಂತರ, ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_log2)
 {
     int32_t imm7;
-    uint32_t instr = base_opcode;
+    uint32_t instr = ತಳ_opcode;
 
-    if (offset & ((1 << size_log2) - 1))
+    ಆದರೆ (ಸ್ಥಾನಾಂತರ & ((1 << ಗಾತ್ರ_log2) - 1))
         tcc_error("invalid pair load/store offset");
-    imm7 = offset >> size_log2;
-    if (imm7 < -64 || imm7 > 63)
+    imm7 = ಸ್ಥಾನಾಂತರ >> ಗಾತ್ರ_log2;
+    ಆದರೆ (imm7 < -64 || imm7 > 63)
         tcc_error("pair load/store offset out of range");
 
     instr |= ARM64_IMM7(imm7);
@@ -538,26 +538,26 @@ static void gen_ldst_pair(uint32_t base_opcode, int rt, int rt2, int rn,
 
 /* Generate B (branch) */
 /* Generate B/BL with base opcode */
-static void gen_b_or_bl(int32_t offset, uint32_t base_opcode)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_b_or_bl(int32_t ಸ್ಥಾನಾಂತರ, uint32_t ತಳ_opcode)
 {
-    uint32_t instr = base_opcode;
-    instr |= ARM64_OFFSET26(offset);
+    uint32_t instr = ತಳ_opcode;
+    instr |= ARM64_OFFSET26(ಸ್ಥಾನಾಂತರ);
     emit_instr32(instr);
 }
 
-static void gen_b(int32_t offset)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_b(int32_t ಸ್ಥಾನಾಂತರ)
 {
-    gen_b_or_bl(offset, ARM64_B);
+    gen_b_or_bl(ಸ್ಥಾನಾಂತರ, ARM64_B);
 }
 
 /* Generate BL (branch with link) */
-static void gen_bl(int32_t offset)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_bl(int32_t ಸ್ಥಾನಾಂತರ)
 {
-    gen_b_or_bl(offset, ARM64_BL);
+    gen_b_or_bl(ಸ್ಥಾನಾಂತರ, ARM64_BL);
 }
 
 /* Generate BR (branch to register) */
-static void gen_br(int rn)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_br(ಪೂರ್ಣಾಂಕ rn)
 {
     uint32_t instr = ARM64_BR;
     instr |= ARM64_RN(rn);
@@ -565,7 +565,7 @@ static void gen_br(int rn)
 }
 
 /* Generate BLR (branch with link to register) */
-static void gen_blr(int rn)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_blr(ಪೂರ್ಣಾಂಕ rn)
 {
     uint32_t instr = ARM64_BLR;
     instr |= ARM64_RN(rn);
@@ -573,7 +573,7 @@ static void gen_blr(int rn)
 }
 
 /* Generate RET */
-static void gen_ret(int rn)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_ret(ಪೂರ್ಣಾಂಕ rn)
 {
     uint32_t instr = ARM64_RET;
     instr |= ARM64_RN(rn);
@@ -581,129 +581,129 @@ static void gen_ret(int rn)
 }
 
 /* Generate conditional branch */
-static void gen_b_cond(int cond, int32_t offset)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_b_cond(ಪೂರ್ಣಾಂಕ cond, int32_t ಸ್ಥಾನಾಂತರ)
 {
     uint32_t instr = ARM64_B_COND;
-    instr |= ARM64_OFFSET19(offset);
+    instr |= ARM64_OFFSET19(ಸ್ಥಾನಾಂತರ);
     instr |= ARM64_COND(cond);
     emit_instr32(instr);
 }
 
 /* Generate CBZ */
 /* Generate CBZ/CBNZ with base opcode */
-static void gen_cbz_or_cbnz(int rt, int32_t offset, int is_64bit, uint32_t base_opcode)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_cbz_or_cbnz(ಪೂರ್ಣಾಂಕ rt, int32_t ಸ್ಥಾನಾಂತರ, ಪೂರ್ಣಾಂಕ is_64bit, uint32_t ತಳ_opcode)
 {
-    uint32_t instr = base_opcode;
-    if (is_64bit) instr |= ARM64_SF(1);
-    instr |= ARM64_OFFSET19(offset);
+    uint32_t instr = ತಳ_opcode;
+    ಆದರೆ (is_64bit) instr |= ARM64_SF(1);
+    instr |= ARM64_OFFSET19(ಸ್ಥಾನಾಂತರ);
     instr |= ARM64_RT(rt);
     emit_instr32(instr);
 }
 
-static void gen_cbz(int rt, int32_t offset, int is_64bit)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_cbz(ಪೂರ್ಣಾಂಕ rt, int32_t ಸ್ಥಾನಾಂತರ, ಪೂರ್ಣಾಂಕ is_64bit)
 {
-    gen_cbz_or_cbnz(rt, offset, is_64bit, ARM64_CBZ);
+    gen_cbz_or_cbnz(rt, ಸ್ಥಾನಾಂತರ, is_64bit, ARM64_CBZ);
 }
 
 /* Generate CBNZ */
-static void gen_cbnz(int rt, int32_t offset, int is_64bit)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_cbnz(ಪೂರ್ಣಾಂಕ rt, int32_t ಸ್ಥಾನಾಂತರ, ಪೂರ್ಣಾಂಕ is_64bit)
 {
-    gen_cbz_or_cbnz(rt, offset, is_64bit, ARM64_CBNZ);
+    gen_cbz_or_cbnz(rt, ಸ್ಥಾನಾಂತರ, is_64bit, ARM64_CBNZ);
 }
 
 /* Generate MOV (register) - ORR with zero register */
-static void gen_mov_reg(int rd, int rm, int is_64bit)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_mov_reg(ಪೂರ್ಣಾಂಕ rd, ಪೂರ್ಣಾಂಕ rm, ಪೂರ್ಣಾಂಕ is_64bit)
 {
     uint32_t instr = ARM64_MOV_REG;
-    if (is_64bit) instr |= ARM64_SF(1);
+    ಆದರೆ (is_64bit) instr |= ARM64_SF(1);
     instr |= ARM64_RM(rm);
     instr |= ARM64_RD(rd);
     emit_instr32(instr);
 }
 
-static int arm64_asm_encode_bimm64(uint64_t x)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ arm64_asm_encode_bimm64(uint64_t x)
 {
-    int neg, rep, pos, len;
+    ಪೂರ್ಣಾಂಕ neg, rep, pos, len;
 
     neg = x & 1;
-    if (neg)
+    ಆದರೆ (neg)
         x = ~x;
-    if (!x)
-        return -1;
+    ಆದರೆ (!x)
+        ಹಿಂತಿರುಗಿ -1;
 
-    if (x >> 2 == (x & ((((uint64_t)1) << (64 - 2)) - 1)))
+    ಆದರೆ (x >> 2 == (x & ((((uint64_t)1) << (64 - 2)) - 1)))
         rep = 2, x &= (((uint64_t)1) << 2) - 1;
-    else if (x >> 4 == (x & ((((uint64_t)1) << (64 - 4)) - 1)))
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (x >> 4 == (x & ((((uint64_t)1) << (64 - 4)) - 1)))
         rep = 4, x &= (((uint64_t)1) << 4) - 1;
-    else if (x >> 8 == (x & ((((uint64_t)1) << (64 - 8)) - 1)))
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (x >> 8 == (x & ((((uint64_t)1) << (64 - 8)) - 1)))
         rep = 8, x &= (((uint64_t)1) << 8) - 1;
-    else if (x >> 16 == (x & ((((uint64_t)1) << (64 - 16)) - 1)))
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (x >> 16 == (x & ((((uint64_t)1) << (64 - 16)) - 1)))
         rep = 16, x &= (((uint64_t)1) << 16) - 1;
-    else if (x >> 32 == (x & ((((uint64_t)1) << (64 - 32)) - 1)))
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (x >> 32 == (x & ((((uint64_t)1) << (64 - 32)) - 1)))
         rep = 32, x &= (((uint64_t)1) << 32) - 1;
-    else
+    ಇಲ್ಲದಿದ್ದರೆ
         rep = 64;
 
     pos = 0;
-    if (!(x & ((((uint64_t)1) << 32) - 1)))
+    ಆದರೆ (!(x & ((((uint64_t)1) << 32) - 1)))
         x >>= 32, pos += 32;
-    if (!(x & ((((uint64_t)1) << 16) - 1)))
+    ಆದರೆ (!(x & ((((uint64_t)1) << 16) - 1)))
         x >>= 16, pos += 16;
-    if (!(x & ((((uint64_t)1) << 8) - 1)))
+    ಆದರೆ (!(x & ((((uint64_t)1) << 8) - 1)))
         x >>= 8, pos += 8;
-    if (!(x & ((((uint64_t)1) << 4) - 1)))
+    ಆದರೆ (!(x & ((((uint64_t)1) << 4) - 1)))
         x >>= 4, pos += 4;
-    if (!(x & ((((uint64_t)1) << 2) - 1)))
+    ಆದರೆ (!(x & ((((uint64_t)1) << 2) - 1)))
         x >>= 2, pos += 2;
-    if (!(x & ((((uint64_t)1) << 1) - 1)))
+    ಆದರೆ (!(x & ((((uint64_t)1) << 1) - 1)))
         x >>= 1, pos += 1;
 
     len = 0;
-    if (!(~x & ((((uint64_t)1) << 32) - 1)))
+    ಆದರೆ (!(~x & ((((uint64_t)1) << 32) - 1)))
         x >>= 32, len += 32;
-    if (!(~x & ((((uint64_t)1) << 16) - 1)))
+    ಆದರೆ (!(~x & ((((uint64_t)1) << 16) - 1)))
         x >>= 16, len += 16;
-    if (!(~x & ((((uint64_t)1) << 8) - 1)))
+    ಆದರೆ (!(~x & ((((uint64_t)1) << 8) - 1)))
         x >>= 8, len += 8;
-    if (!(~x & ((((uint64_t)1) << 4) - 1)))
+    ಆದರೆ (!(~x & ((((uint64_t)1) << 4) - 1)))
         x >>= 4, len += 4;
-    if (!(~x & ((((uint64_t)1) << 2) - 1)))
+    ಆದರೆ (!(~x & ((((uint64_t)1) << 2) - 1)))
         x >>= 2, len += 2;
-    if (!(~x & ((((uint64_t)1) << 1) - 1)))
+    ಆದರೆ (!(~x & ((((uint64_t)1) << 1) - 1)))
         x >>= 1, len += 1;
 
-    if (x)
-        return -1;
-    if (neg) {
+    ಆದರೆ (x)
+        ಹಿಂತಿರುಗಿ -1;
+    ಆದರೆ (neg) {
         pos = (pos + len) & (rep - 1);
         len = rep - len;
     }
-    return ((0x1000 & rep << 6) | (((rep - 1) ^ 31) << 1 & 63) |
+    ಹಿಂತಿರುಗಿ ((0x1000 & rep << 6) | (((rep - 1) ^ 31) << 1 & 63) |
             ((rep - pos) & (rep - 1)) << 6 | (len - 1));
 }
 
-static void gen_logical_imm(uint32_t opcode, int rd, int rn,
-                            uint64_t imm, int is_64bit)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_logical_imm(uint32_t opcode, ಪೂರ್ಣಾಂಕ rd, ಪೂರ್ಣಾಂಕ rn,
+                            uint64_t imm, ಪೂರ್ಣಾಂಕ is_64bit)
 {
     uint32_t instr;
     uint64_t val;
-    int enc;
+    ಪೂರ್ಣಾಂಕ enc;
 
-    if (is_64bit)
+    ಆದರೆ (is_64bit)
         val = imm;
-    else {
+    ಇಲ್ಲದಿದ್ದರೆ {
         val = (uint32_t)imm;
         val |= val << 32;
     }
 
     enc = arm64_asm_encode_bimm64(val);
-    if (enc < 0) {
+    ಆದರೆ (enc < 0) {
         tcc_error("logical immediate out of range");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
     instr = opcode;
-    if (is_64bit)
+    ಆದರೆ (is_64bit)
         instr |= ARM64_SF(1);
     instr |= ARM64_N(enc >> 12);
     instr |= ARM64_IMM_R(enc >> 6);
@@ -715,313 +715,313 @@ static void gen_logical_imm(uint32_t opcode, int rd, int rn,
 
 /* return the constraint priority (we allocate first the lowest
    numbered constraints) */
-static inline int constraint_priority(const char *str)
+ಸ್ಥಿರ ಸಾಲೊಳಗೆ ಪೂರ್ಣಾಂಕ constraint_ಆದ್ಯತೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *str)
 {
-    int priority, c, pr;
+    ಪೂರ್ಣಾಂಕ ಆದ್ಯತೆ, c, pr;
 
-    priority = 0;
-    for (;;) {
+    ಆದ್ಯತೆ = 0;
+    ಗಾಗಿ (;;) {
         c = *str++;
-        if (c == '\0')
-            break;
-        switch (c) {
-        case '=':
-        case '+':
-        case '&':
-            continue;
-        case 'r':
+        ಆದರೆ (c == '\0')
+            ನಿಲ್ಲಿಸು;
+        ಆಯ್ಕೆ (c) {
+        ಸ್ಥಿತಿ '=':
+        ಸ್ಥಿತಿ '+':
+        ಸ್ಥಿತಿ '&':
+            ಮುಂದುವರಿ;
+        ಸ್ಥಿತಿ 'r':
             pr = 1;
-            break;
-        case 'w':
-        case 'f':
-        case 'x':
-        case 'y':
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'w':
+        ಸ್ಥಿತಿ 'f':
+        ಸ್ಥಿತಿ 'x':
+        ಸ್ಥಿತಿ 'y':
             pr = 3;
-            break;
-        case 'm':
-        case 'Q':
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'm':
+        ಸ್ಥಿತಿ 'Q':
             pr = 4;
-            break;
-        case 'i':
-        case 'S':
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'i':
+        ಸ್ಥಿತಿ 'S':
             pr = 5;
-            break;
-        case 'U':
-            if (str[0] == 'm' && str[1] == 'p') {
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'U':
+            ಆದರೆ (str[0] == 'm' && str[1] == 'p') {
                 str += 2;
                 pr = 4;
-                break;
+                ನಿಲ್ಲಿಸು;
             }
             tcc_warning("unknown constraint '%c'", c);
             pr = 0;
-            break;
-        case 'I':
-        case 'J':
-        case 'K':
-        case 'L':
-        case 'M':
-        case 'N':
-        case 'Z':
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'I':
+        ಸ್ಥಿತಿ 'J':
+        ಸ್ಥಿತಿ 'K':
+        ಸ್ಥಿತಿ 'L':
+        ಸ್ಥಿತಿ 'M':
+        ಸ್ಥಿತಿ 'N':
+        ಸ್ಥಿತಿ 'Z':
             pr = 6;
-            break;
-        case 'n':
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'n':
             pr = 7;
-            break;
-        case 'g':
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'g':
             pr = 8;
-            break;
-        default:
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
             tcc_warning("unknown constraint '%c'", c);
             pr = 0;
-            break;
+            ನಿಲ್ಲಿಸು;
         }
-        if (pr > priority)
-            priority = pr;
+        ಆದರೆ (pr > ಆದ್ಯತೆ)
+            ಆದ್ಯತೆ = pr;
     }
-    return priority;
+    ಹಿಂತಿರುಗಿ ಆದ್ಯತೆ;
 }
 
-static const char *skip_constraint_modifiers(const char *p)
+ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *skip_constraint_modifiers(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *p)
 {
-    while (*p == '=' || *p == '&' || *p == '+' || *p == '%')
+    ಆಗ (*p == '=' || *p == '&' || *p == '+' || *p == '%')
         p++;
-    return p;
+    ಹಿಂತಿರುಗಿ p;
 }
 
-static int is_valid_add_imm(int64_t val)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ is_valid_ಕೂಡಿಸು_imm(int64_t val)
 {
-    return val >= 0 && val <= 4095;
+    ಹಿಂತಿರುಗಿ val >= 0 && val <= 4095;
 }
 
-static int is_valid_logical_imm(int64_t val, int bits)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ is_valid_logical_imm(int64_t val, ಪೂರ್ಣಾಂಕ ಬಿಟ್ಟುಗಳು)
 {
     uint64_t uval;
 
     uval = (uint64_t)val;
-    if (bits == 32) {
+    ಆದರೆ (ಬಿಟ್ಟುಗಳು == 32) {
         uval = (uint32_t)uval;
         uval |= uval << 32;
     }
-    return arm64_asm_encode_bimm64(uval) >= 0;
+    ಹಿಂತಿರುಗಿ arm64_asm_encode_bimm64(uval) >= 0;
 }
 
-static int is_valid_movw_imm(int64_t val)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ is_valid_movw_imm(int64_t val)
 {
     uint64_t uval = (uint64_t)val;
 
-    if (uval <= 0xFFFF)
-        return 1;
-    if (uval >= 0xFFFF0000 && (uval & 0xFFFF) == 0)
-        return 1;
-    if (uval >= 0xFFFF00000000ULL && (uval & 0xFFFFFFFFULL) == 0)
-        return 1;
-    if ((uval & 0xFFFFFFFF00000000ULL) == 0)
-        return 1;
+    ಆದರೆ (uval <= 0xFFFF)
+        ಹಿಂತಿರುಗಿ 1;
+    ಆದರೆ (uval >= 0xFFFF0000 && (uval & 0xFFFF) == 0)
+        ಹಿಂತಿರುಗಿ 1;
+    ಆದರೆ (uval >= 0xFFFF00000000ULL && (uval & 0xFFFFFFFFULL) == 0)
+        ಹಿಂತಿರುಗಿ 1;
+    ಆದರೆ ((uval & 0xFFFFFFFF00000000ULL) == 0)
+        ಹಿಂತಿರುಗಿ 1;
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-static int is_valid_movw_shift(int shift, int is_64bit)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ is_valid_movw_ಸರಿಸು(ಪೂರ್ಣಾಂಕ ಸರಿಸು, ಪೂರ್ಣಾಂಕ is_64bit)
 {
-    if (shift < 0 || (shift & 15))
-        return 0;
-    if (shift > (is_64bit ? 48 : 16))
-        return 0;
-    return 1;
+    ಆದರೆ (ಸರಿಸು < 0 || (ಸರಿಸು & 15))
+        ಹಿಂತಿರುಗಿ 0;
+    ಆದರೆ (ಸರಿಸು > (is_64bit ? 48 : 16))
+        ಹಿಂತಿರುಗಿ 0;
+    ಹಿಂತಿರುಗಿ 1;
 }
 
-static int arm64_memory_is_base_only(const SValue *sv)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ arm64_ಸ್ಮರಣೆ_is_ತಳ_only(ಸ್ಥಿರಾಂಕ SValue *sv)
 {
-    int r;
+    ಪೂರ್ಣಾಂಕ r;
 
     r = sv->r;
-    if ((r & VT_VALMASK) == VT_CONST)
-        return 0;
-    if ((r & VT_VALMASK) == VT_LOCAL)
-        return 0;
-    if ((r & VT_VALMASK) == VT_LLOCAL)
-        return 1;
-    if (r & VT_LVAL)
-        return (r & VT_VALMASK) < VT_CONST;
-    return 0;
+    ಆದರೆ ((r & VT_VALMASK) == VT_CONST)
+        ಹಿಂತಿರುಗಿ 0;
+    ಆದರೆ ((r & VT_VALMASK) == VT_LOCAL)
+        ಹಿಂತಿರುಗಿ 0;
+    ಆದರೆ ((r & VT_VALMASK) == VT_LLOCAL)
+        ಹಿಂತಿರುಗಿ 1;
+    ಆದರೆ (r & VT_LVAL)
+        ಹಿಂತಿರುಗಿ (r & VT_VALMASK) < VT_CONST;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-static int arm64_memory_is_pair_suitable(const SValue *sv)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ arm64_ಸ್ಮರಣೆ_is_pair_suitable(ಸ್ಥಿರಾಂಕ SValue *sv)
 {
-    int64_t offset;
+    int64_t ಸ್ಥಾನಾಂತರ;
 
-    if (arm64_memory_is_base_only(sv))
-        return 1;
-    if ((sv->r & VT_VALMASK) != VT_LOCAL)
-        return 0;
+    ಆದರೆ (arm64_ಸ್ಮರಣೆ_is_ತಳ_only(sv))
+        ಹಿಂತಿರುಗಿ 1;
+    ಆದರೆ ((sv->r & VT_VALMASK) != VT_LOCAL)
+        ಹಿಂತಿರುಗಿ 0;
 
-    offset = (int64_t)sv->c.i;
-    return (offset & 7) == 0 && offset >= -512 && offset <= 504;
+    ಸ್ಥಾನಾಂತರ = (int64_t)sv->c.i;
+    ಹಿಂತಿರುಗಿ (ಸ್ಥಾನಾಂತರ & 7) == 0 && ಸ್ಥಾನಾಂತರ >= -512 && ಸ್ಥಾನಾಂತರ <= 504;
 }
 
-static int arm64_int_reg_is_allocatable(int reg)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ arm64_int_reg_is_allocatable(ಪೂರ್ಣಾಂಕ reg)
 {
-#ifdef TCC_TARGET_PE
-    return reg >= TREG_X0 && reg <= TREG_X17;
-#else
-    return reg >= TREG_X0 && reg <= TREG_X30;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_PE
+    ಹಿಂತಿರುಗಿ reg >= TREG_X0 && reg <= TREG_X17;
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಹಿಂತಿರುಗಿ reg >= TREG_X0 && reg <= TREG_X30;
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-static int arm64_memory_needs_address_reg(const SValue *sv)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ arm64_ಸ್ಮರಣೆ_needs_ವಿಳಾಸ_reg(ಸ್ಥಿರಾಂಕ SValue *sv)
 {
-    int r;
+    ಪೂರ್ಣಾಂಕ r;
 
     r = sv->r & ~(VT_BOUNDED | VT_NONCONST);
-    if (!(r & VT_LVAL))
-        return 0;
-    switch (r & VT_VALMASK) {
-    case VT_LOCAL:
-    case VT_LLOCAL:
-    case VT_CONST:
-        return 1;
+    ಆದರೆ (!(r & VT_LVAL))
+        ಹಿಂತಿರುಗಿ 0;
+    ಆಯ್ಕೆ (r & VT_VALMASK) {
+    ಸ್ಥಿತಿ VT_LOCAL:
+    ಸ್ಥಿತಿ VT_LLOCAL:
+    ಸ್ಥಿತಿ VT_CONST:
+        ಹಿಂತಿರುಗಿ 1;
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-static int arm64_prepare_memory_operand(ASMOperand *op, uint8_t *regs_allocated)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ arm64_prepare_ಸ್ಮರಣೆ_ಕಾರ್ಯಾಂಶ(ASMOperand *op, uint8_t *regs_allocated)
 {
-    int reg;
+    ಪೂರ್ಣಾಂಕ reg;
 
-    if (!arm64_memory_needs_address_reg(op->vt))
-        return 1;
+    ಆದರೆ (!arm64_ಸ್ಮರಣೆ_needs_ವಿಳಾಸ_reg(op->vt))
+        ಹಿಂತಿರುಗಿ 1;
 
-    for (reg = 0; reg < 31; reg++) {
-        if (arm64_int_reg_is_allocatable(reg)
-            && !(regs_allocated[reg] & REG_IN_MASK)) {
-            regs_allocated[reg] |= REG_IN_MASK;
+    ಗಾಗಿ (reg = 0; reg < 31; reg++) {
+        ಆದರೆ (arm64_int_reg_is_allocatable(reg)
+            && !(regs_allocated[reg] & REG_ಒಳ_ಮುಖವಾಡ)) {
+            regs_allocated[reg] |= REG_ಒಳ_ಮುಖವಾಡ;
             op->reg = reg;
-            op->is_memory = 1;
-            return 1;
+            op->is_ಸ್ಮರಣೆ = 1;
+            ಹಿಂತಿರುಗಿ 1;
         }
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-static void arm64_load_memory_operand_base(int reg, SValue *sv)
+ಸ್ಥಿರ ಶೂನ್ಯ arm64_ತುಂಬು_ಸ್ಮರಣೆ_ಕಾರ್ಯಾಂಶ_ತಳ(ಪೂರ್ಣಾಂಕ reg, SValue *sv)
 {
-    SValue base;
-    int rval;
+    SValue ತಳ;
+    ಪೂರ್ಣಾಂಕ rval;
 
-    base = *sv;
-    base.type.t = VT_PTR;
-    rval = base.r & VT_VALMASK;
-    if (rval == VT_LLOCAL) {
-        base.r = (base.r & ~VT_VALMASK) | VT_LOCAL | VT_LVAL;
-    } else if (rval == VT_CONST || rval == VT_LOCAL) {
-        base.r &= ~VT_LVAL;
-    } else {
-        tcc_internal_error("unsupported ARM64 memory operand base");
+    ತಳ = *sv;
+    ತಳ.type.t = VT_PTR;
+    rval = ತಳ.r & VT_VALMASK;
+    ಆದರೆ (rval == VT_LLOCAL) {
+        ತಳ.r = (ತಳ.r & ~VT_VALMASK) | VT_LOCAL | VT_LVAL;
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (rval == VT_CONST || rval == VT_LOCAL) {
+        ತಳ.r &= ~VT_LVAL;
+    } ಇಲ್ಲದಿದ್ದರೆ {
+        tcc_ಆಂತರಿಕ_error("unsupported ARM64 memory operand base");
     }
-    load(reg, &base);
+    ತುಂಬು(reg, &ತಳ);
 }
 
-static int operand_is_sp(const Operand *op)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ಕಾರ್ಯಾಂಶ_is_sp(ಸ್ಥಿರಾಂಕ ಕಾರ್ಯಾಂಶ *op)
 {
-    return op->reg_tok == TOK_ASM_sp;
+    ಹಿಂತಿರುಗಿ op->reg_tok == TOK_ASM_sp;
 }
 
-static int parse_sysreg_name(int t)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ parse_sysreg_name(ಪೂರ್ಣಾಂಕ t)
 {
-    const char *name;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name;
 
-    if (t < TOK_IDENT)
-        return -1;
-    name = get_tok_str(t, NULL);
-    if (!strcmp(name, "FPCR") || !strcmp(name, "fpcr"))
-        return 0;
-    if (!strcmp(name, "FPSR") || !strcmp(name, "fpsr"))
-        return 1;
-    return -1;
+    ಆದರೆ (t < TOK_IDENT)
+        ಹಿಂತಿರುಗಿ -1;
+    name = get_tok_str(t, ಖಾಲಿ);
+    ಆದರೆ (!strcmp(name, "FPCR") || !strcmp(name, "fpcr"))
+        ಹಿಂತಿರುಗಿ 0;
+    ಆದರೆ (!strcmp(name, "FPSR") || !strcmp(name, "fpsr"))
+        ಹಿಂತಿರುಗಿ 1;
+    ಹಿಂತಿರುಗಿ -1;
 }
 
-static void gen_mrs(int rt, int sysreg)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_mrs(ಪೂರ್ಣಾಂಕ rt, ಪೂರ್ಣಾಂಕ sysreg)
 {
     uint32_t instr;
 
-    switch (sysreg) {
-        case 0: /* FPCR */
+    ಆಯ್ಕೆ (sysreg) {
+        ಸ್ಥಿತಿ 0: /* FPCR */
             instr = ARM64_MRS_FPCR;
-            break;
-        case 1: /* FPSR */
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 1: /* FPSR */
             instr = ARM64_MRS_FPSR;
-            break;
-        default:
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
             tcc_error("unsupported system register");
-            return;
+            ಹಿಂತಿರುಗಿ;
     }
     emit_instr32(instr | ARM64_RD(rt));
 }
 
-static void gen_msr(int rt, int sysreg)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_msr(ಪೂರ್ಣಾಂಕ rt, ಪೂರ್ಣಾಂಕ sysreg)
 {
     uint32_t instr;
 
-    switch (sysreg) {
-        case 0: /* FPCR */
+    ಆಯ್ಕೆ (sysreg) {
+        ಸ್ಥಿತಿ 0: /* FPCR */
             instr = ARM64_MSR_FPCR;
-            break;
-        case 1: /* FPSR */
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 1: /* FPSR */
             instr = ARM64_MSR_FPSR;
-            break;
-        default:
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
             tcc_error("unsupported system register");
-            return;
+            ಹಿಂತಿರುಗಿ;
     }
     emit_instr32(instr | ARM64_RD(rt));
 }
 
 /* Generate NOP */
-static void gen_nop(void)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_nop(ಶೂನ್ಯ)
 {
     emit_instr32(ARM64_NOP);
 }
 
 /* Generate shift operations (LSL, LSR, ASR, ROR) */
-static void gen_shift(int rd, int rn, int rm_or_imm, int shift_type, int is_imm, int is_64bit)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_ಸರಿಸು(ಪೂರ್ಣಾಂಕ rd, ಪೂರ್ಣಾಂಕ rn, ಪೂರ್ಣಾಂಕ rm_or_imm, ಪೂರ್ಣಾಂಕ ಸರಿಸು_type, ಪೂರ್ಣಾಂಕ is_imm, ಪೂರ್ಣಾಂಕ is_64bit)
 {
     uint32_t instr;
-    int width = is_64bit ? 64 : 32;
+    ಪೂರ್ಣಾಂಕ ಅಗಲ = is_64bit ? 64 : 32;
 
-    if (is_imm) {
+    ಆದರೆ (is_imm) {
         /* Shift by immediate */
-        switch (shift_type) {
-            case 0: /* LSL - UBFM alias */
-                if (rm_or_imm < 0 || rm_or_imm >= width) {
+        ಆಯ್ಕೆ (ಸರಿಸು_type) {
+            ಸ್ಥಿತಿ 0: /* LSL - UBFM alias */
+                ಆದರೆ (rm_or_imm < 0 || rm_or_imm >= ಅಗಲ) {
                     tcc_error("shift immediate out of range");
-                    return;
+                    ಹಿಂತಿರುಗಿ;
                 }
                 instr = is_64bit ? ARM64_LSL_IMM : ARM64_LSR_IMM_32;
-                instr |= ARM64_IMM_R((width - rm_or_imm) & (width - 1));
-                instr |= ARM64_IMM_S(width - rm_or_imm - 1);
-                break;
-            case 1: /* LSR - UBFM alias: immr = shift, imms = width - 1 */
-                if (rm_or_imm < 0 || rm_or_imm >= width) {
+                instr |= ARM64_IMM_R((ಅಗಲ - rm_or_imm) & (ಅಗಲ - 1));
+                instr |= ARM64_IMM_S(ಅಗಲ - rm_or_imm - 1);
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ 1: /* LSR - UBFM alias: immr = shift, imms = width - 1 */
+                ಆದರೆ (rm_or_imm < 0 || rm_or_imm >= ಅಗಲ) {
                     tcc_error("shift immediate out of range");
-                    return;
+                    ಹಿಂತಿರುಗಿ;
                 }
                 instr = is_64bit ? ARM64_LSL_IMM : ARM64_LSR_IMM_32;
                 instr |= ARM64_IMM_R(rm_or_imm);
-                instr |= ARM64_IMM_S(width - 1);
-                break;
-            case 2: /* ASR - SBFM alias: immr = shift, imms = width - 1 */
-                if (rm_or_imm < 0 || rm_or_imm >= width) {
+                instr |= ARM64_IMM_S(ಅಗಲ - 1);
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ 2: /* ASR - SBFM alias: immr = shift, imms = width - 1 */
+                ಆದರೆ (rm_or_imm < 0 || rm_or_imm >= ಅಗಲ) {
                     tcc_error("shift immediate out of range");
-                    return;
+                    ಹಿಂತಿರುಗಿ;
                 }
                 instr = is_64bit ? ARM64_ASR_IMM : (ARM64_ASR_IMM & ~(1U << 31));
                 instr |= ARM64_IMM_R(rm_or_imm);
-                instr |= ARM64_IMM_S(width - 1);
-                break;
-            case 3: /* ROR - EXTR alias: Rm = source, Rn = source, imms = shift */
-                if (rm_or_imm < 0 || rm_or_imm >= width) {
+                instr |= ARM64_IMM_S(ಅಗಲ - 1);
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ 3: /* ROR - EXTR alias: Rm = source, Rn = source, imms = shift */
+                ಆದರೆ (rm_or_imm < 0 || rm_or_imm >= ಅಗಲ) {
                     tcc_error("shift immediate out of range");
-                    return;
+                    ಹಿಂತಿರುಗಿ;
                 }
                 instr = is_64bit ? ARM64_EXTR64 : ARM64_EXTR;
                 instr |= ARM64_RM(rn);
@@ -1029,33 +1029,33 @@ static void gen_shift(int rd, int rn, int rm_or_imm, int shift_type, int is_imm,
                 instr |= ARM64_RN(rn);
                 instr |= ARM64_RD(rd);
                 emit_instr32(instr);
-                return;
-            default:
+                ಹಿಂತಿರುಗಿ;
+            ಪೂರ್ವನಿಯೋಜಿತ:
                 tcc_error("unknown shift type");
-                return;
+                ಹಿಂತಿರುಗಿ;
         }
         instr |= ARM64_RN(rn);
         instr |= ARM64_RD(rd);
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
         /* Shift by register */
-        switch (shift_type) {
-            case 0: /* LSL */
+        ಆಯ್ಕೆ (ಸರಿಸು_type) {
+            ಸ್ಥಿತಿ 0: /* LSL */
                 instr = ARM64_LSL_REG;
-                break;
-            case 1: /* LSR */
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ 1: /* LSR */
                 instr = ARM64_LSR_REG;
-                break;
-            case 2: /* ASR */
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ 2: /* ASR */
                 instr = ARM64_ASR_REG;
-                break;
-            case 3: /* ROR */
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ 3: /* ROR */
                 instr = ARM64_ROR_REG;
-                break;
-            default:
+                ನಿಲ್ಲಿಸು;
+            ಪೂರ್ವನಿಯೋಜಿತ:
                 tcc_error("unknown shift type");
-                return;
+                ಹಿಂತಿರುಗಿ;
         }
-        if (is_64bit)
+        ಆದರೆ (is_64bit)
             instr |= ARM64_SF(1);
         instr |= ARM64_RM(rm_or_imm);
         instr |= ARM64_RN(rn);
@@ -1065,134 +1065,134 @@ static void gen_shift(int rd, int rn, int rm_or_imm, int shift_type, int is_imm,
 }
 
 /* Handle shift instructions */
-static void asm_shift(TCCState *s1, int token)
+ಸ್ಥಿರ ಶೂನ್ಯ asm_ಸರಿಸು(TCCState *s1, ಪೂರ್ಣಾಂಕ token)
 {
-    Operand op1, op2, op3;
-    int rd, rn, shift_amount;
-    int shift_type;
-    int is_64bit = 1;
+    ಕಾರ್ಯಾಂಶ op1, op2, op3;
+    ಪೂರ್ಣಾಂಕ rd, rn, ಸರಿಸು_amount;
+    ಪೂರ್ಣಾಂಕ ಸರಿಸು_type;
+    ಪೂರ್ಣಾಂಕ is_64bit = 1;
 
-    switch (token) {
-        case TOK_ASM_lsl:
-            shift_type = 0;
-            break;
-        case TOK_ASM_lsr:
-            shift_type = 1;
-            break;
-        case TOK_ASM_asr:
-            shift_type = 2;
-            break;
-        case TOK_ASM_ror:
-            shift_type = 3;
-            break;
-        default:
+    ಆಯ್ಕೆ (token) {
+        ಸ್ಥಿತಿ TOK_ASM_lsl:
+            ಸರಿಸು_type = 0;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_lsr:
+            ಸರಿಸು_type = 1;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_asr:
+            ಸರಿಸು_type = 2;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_ror:
+            ಸರಿಸು_type = 3;
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
             tcc_error("unknown shift instruction");
-            return;
+            ಹಿಂತಿರುಗಿ;
     }
 
-    parse_operand(s1, &op1);
-    if (tok == ',') next();
-    parse_operand(s1, &op2);
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op1);
+    ಆದರೆ (tok == ',') ಮುಂದಿನ();
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op2);
 
-    if (!(op1.type & OP_REG)) {
+    ಆದರೆ (!(op1.type & OP_REG)) {
         tcc_error("expected register in first operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
-    if (!(op2.type & OP_REG)) {
+    ಆದರೆ (!(op2.type & OP_REG)) {
         tcc_error("expected register in second operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
     rd = op1.reg;
     rn = op2.reg;
 
-    if (tok == ',') {
-        next();
-        parse_operand(s1, &op3);
+    ಆದರೆ (tok == ',') {
+        ಮುಂದಿನ();
+        parse_ಕಾರ್ಯಾಂಶ(s1, &op3);
         is_64bit = (op1.reg_type & REG_X);
-        if (is_64bit != !!(op2.reg_type & REG_X)) {
+        ಆದರೆ (is_64bit != !!(op2.reg_type & REG_X)) {
             tcc_error("mismatched register widths");
-            return;
+            ಹಿಂತಿರುಗಿ;
         }
-        if (op3.type & OP_REG) {
-            if (is_64bit != !!(op3.reg_type & REG_X)) {
+        ಆದರೆ (op3.type & OP_REG) {
+            ಆದರೆ (is_64bit != !!(op3.reg_type & REG_X)) {
                 tcc_error("mismatched register widths");
-                return;
+                ಹಿಂತಿರುಗಿ;
             }
-            gen_shift(rd, rn, op3.reg, shift_type, 0, is_64bit);
-        } else if (op3.type & OP_IM) {
-            shift_amount = op3.e.v;
-            gen_shift(rd, rn, shift_amount, shift_type, 1, is_64bit);
-        } else {
+            gen_ಸರಿಸು(rd, rn, op3.reg, ಸರಿಸು_type, 0, is_64bit);
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (op3.type & OP_IM) {
+            ಸರಿಸು_amount = op3.e.v;
+            gen_ಸರಿಸು(rd, rn, ಸರಿಸು_amount, ಸರಿಸು_type, 1, is_64bit);
+        } ಇಲ್ಲದಿದ್ದರೆ {
             tcc_error("shift requires immediate or register operand");
         }
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
         tcc_error("shift requires immediate or register operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 }
 
 /* Generate barrier instructions (ISB, DSB, DMB) */
-static void gen_barrier(int barrier_type, int option)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_barrier(ಪೂರ್ಣಾಂಕ barrier_type, ಪೂರ್ಣಾಂಕ option)
 {
     uint32_t instr;
 
-    switch (barrier_type) {
-        case 0: /* ISB - Instruction Synchronization Barrier */
+    ಆಯ್ಕೆ (barrier_type) {
+        ಸ್ಥಿತಿ 0: /* ISB - Instruction Synchronization Barrier */
             instr = ARM64_ISB;
-            break;
-        case 1: /* DSB - Data Synchronization Barrier */
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 1: /* DSB - Data Synchronization Barrier */
             instr = ARM64_DSB;
-            break;
-        case 2: /* DMB - Data Memory Barrier */
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 2: /* DMB - Data Memory Barrier */
             instr = ARM64_DMB;
-            break;
-        default:
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
             tcc_error("unknown barrier type");
-            return;
+            ಹಿಂತಿರುಗಿ;
     }
     instr |= ARM64_ISB_OPTION(option);
     emit_instr32(instr);
 }
 
 /* Handle barrier instructions */
-static void asm_barrier(TCCState *s1, int token)
+ಸ್ಥಿರ ಶೂನ್ಯ asm_barrier(TCCState *s1, ಪೂರ್ಣಾಂಕ token)
 {
-    int barrier_type, option;
-    Operand op;
+    ಪೂರ್ಣಾಂಕ barrier_type, option;
+    ಕಾರ್ಯಾಂಶ op;
 
-    switch (token) {
-        case TOK_ASM_isb:
+    ಆಯ್ಕೆ (token) {
+        ಸ್ಥಿತಿ TOK_ASM_isb:
             barrier_type = 0;
-            break;
-        case TOK_ASM_dsb:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_dsb:
             barrier_type = 1;
-            break;
-        case TOK_ASM_dmb:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_dmb:
             barrier_type = 2;
-            break;
-        default:
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
             tcc_error("unknown barrier instruction");
-            return;
+            ಹಿಂತಿರುಗಿ;
     }
 
     /* Default option = sy/full system. */
     option = 0xF;
 
     /* Check for an optional named or numeric barrier scope. */
-    if (tok != TOK_LINEFEED) {
+    ಆದರೆ (tok != TOK_LINEFEED) {
         option = parse_barrier_option_name(tok);
-        if (option >= 0) {
-            next();
-        } else {
-            parse_operand(s1, &op);
-            if (!(op.type & OP_IM) || op.e.sym) {
+        ಆದರೆ (option >= 0) {
+            ಮುಂದಿನ();
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            parse_ಕಾರ್ಯಾಂಶ(s1, &op);
+            ಆದರೆ (!(op.type & OP_IM) || op.e.sym) {
                 tcc_error("barrier option must be an immediate or scope name");
-                return;
+                ಹಿಂತಿರುಗಿ;
             }
-            if (op.e.v > 0xF) {
+            ಆದರೆ (op.e.v > 0xF) {
                 tcc_error("barrier option out of range");
-                return;
+                ಹಿಂತಿರುಗಿ;
             }
             option = op.e.v;
         }
@@ -1202,879 +1202,879 @@ static void asm_barrier(TCCState *s1, int token)
 }
 
 /* Generate immediate move sequence */
-static void gen_mov_imm(int rd, uint64_t imm, int is_64bit)
+ಸ್ಥಿರ ಶೂನ್ಯ gen_mov_imm(ಪೂರ್ಣಾಂಕ rd, uint64_t imm, ಪೂರ್ಣಾಂಕ is_64bit)
 {
     uint16_t hw;
-    int i, first = 1;
+    ಪೂರ್ಣಾಂಕ i, ಮೊದಲ = 1;
 
-    for (i = 0; i < (is_64bit ? 4 : 2); i++) {
+    ಗಾಗಿ (i = 0; i < (is_64bit ? 4 : 2); i++) {
         hw = (imm >> (i * 16)) & 0xFFFF;
-        if (hw != 0 || i == 0) {
-            if (first) {
+        ಆದರೆ (hw != 0 || i == 0) {
+            ಆದರೆ (ಮೊದಲ) {
                 /* Pass halfword index (0-3), not bit count */
                 gen_movz(rd, hw, i, is_64bit);
-                first = 0;
-            } else {
+                ಮೊದಲ = 0;
+            } ಇಲ್ಲದಿದ್ದರೆ {
                 gen_movk(rd, hw, i, is_64bit);
             }
-        } else if (!first) {
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (!ಮೊದಲ) {
             gen_movk(rd, hw, i, is_64bit);
         }
     }
 }
 
 /* Handle mov instruction */
-static void asm_mov(TCCState *s1)
+ಸ್ಥಿರ ಶೂನ್ಯ asm_mov(TCCState *s1)
 {
-    Operand op1, op2;
-    int rd, rn;
-    int is_64bit;
+    ಕಾರ್ಯಾಂಶ op1, op2;
+    ಪೂರ್ಣಾಂಕ rd, rn;
+    ಪೂರ್ಣಾಂಕ is_64bit;
 
-    parse_operand(s1, &op1);
-    if (tok == ',') next();
-    parse_operand(s1, &op2);
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op1);
+    ಆದರೆ (tok == ',') ಮುಂದಿನ();
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op2);
     rd = op1.reg;
     is_64bit = (op1.reg_type & REG_X);
 
-    if (op2.type & OP_IM) {
+    ಆದರೆ (op2.type & OP_IM) {
         /* Handle immediate: mov x0, #123 */
-        if (operand_is_sp(&op1)) {
+        ಆದರೆ (ಕಾರ್ಯಾಂಶ_is_sp(&op1)) {
             tcc_error("cannot move an immediate into sp");
-            return;
+            ಹಿಂತಿರುಗಿ;
         }
         gen_mov_imm(rd, op2.e.v, is_64bit);
-    } else if (op2.type & OP_REG) {
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (op2.type & OP_REG) {
         /* Handle register: mov x0, x1 */
         rn = op2.reg;
-        if (operand_is_sp(&op1) || operand_is_sp(&op2))
-            gen_add_imm(rd, rn, 0, 1, 0);
-        else
+        ಆದರೆ (ಕಾರ್ಯಾಂಶ_is_sp(&op1) || ಕಾರ್ಯಾಂಶ_is_sp(&op2))
+            gen_ಕೂಡಿಸು_imm(rd, rn, 0, 1, 0);
+        ಇಲ್ಲದಿದ್ದರೆ
             gen_mov_reg(rd, rn, is_64bit);
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
         tcc_error("invalid operand for mov");
     }
 }
 
 /* Handle data processing instructions */
-static void asm_data_proc(TCCState *s1, int token)
+ಸ್ಥಿರ ಶೂನ್ಯ asm_ದತ್ತಾಂಶ_proc(TCCState *s1, ಪೂರ್ಣಾಂಕ token)
 {
-    Operand op1, op2, op3;
-    int rd, rn, rm;
-    int is_64bit = 1;
+    ಕಾರ್ಯಾಂಶ op1, op2, op3;
+    ಪೂರ್ಣಾಂಕ rd, rn, rm;
+    ಪೂರ್ಣಾಂಕ is_64bit = 1;
     uint32_t opcode;
 
-    switch (token) {
-        case TOK_ASM_add:
-        case TOK_ASM_adds:
-            opcode = token == TOK_ASM_add ? ARM64_ADD_REG : ARM64_ADDS_REG;
-            break;
-        case TOK_ASM_sub:
-        case TOK_ASM_subs:
+    ಆಯ್ಕೆ (token) {
+        ಸ್ಥಿತಿ TOK_ASM_ಕೂಡಿಸು:
+        ಸ್ಥಿತಿ TOK_ASM_adds:
+            opcode = token == TOK_ASM_ಕೂಡಿಸು ? ARM64_ಕೂಡಿಸು_REG : ARM64_ADDS_REG;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_sub:
+        ಸ್ಥಿತಿ TOK_ASM_subs:
             opcode = token == TOK_ASM_sub ? ARM64_SUB_REG : ARM64_SUBS_REG;
-            break;
-        case TOK_ASM_and:
-        case TOK_ASM_ands:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_and:
+        ಸ್ಥಿತಿ TOK_ASM_ands:
             opcode = token == TOK_ASM_and ? ARM64_AND_REG : ARM64_ANDS_REG;
-            break;
-        case TOK_ASM_orr:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_orr:
             opcode = ARM64_ORR_REG;
-            break;
-        case TOK_ASM_eor:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_eor:
             opcode = ARM64_EOR_REG;
-            break;
-        case TOK_ASM_mul:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_mul:
             opcode = ARM64_MUL_REG;
-            break;
-        default:
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
             tcc_error("unsupported data processing instruction");
-            return;
+            ಹಿಂತಿರುಗಿ;
     }
 
-    parse_operand(s1, &op1);
-    if (tok == ',') next();
-    parse_operand(s1, &op2);
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op1);
+    ಆದರೆ (tok == ',') ಮುಂದಿನ();
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op2);
 
-    if (!(op1.type & OP_REG)) {
+    ಆದರೆ (!(op1.type & OP_REG)) {
         tcc_error("expected register in first operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
-    if (!(op2.type & OP_REG)) {
+    ಆದರೆ (!(op2.type & OP_REG)) {
         tcc_error("expected register in second operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
     rd = op1.reg;
     rn = op2.reg;
 
-    if (tok == ',') {
-        next();
-        parse_operand(s1, &op3);
+    ಆದರೆ (tok == ',') {
+        ಮುಂದಿನ();
+        parse_ಕಾರ್ಯಾಂಶ(s1, &op3);
         is_64bit = (op1.reg_type & REG_X);
-        if (is_64bit != !!(op2.reg_type & REG_X)) {
+        ಆದರೆ (is_64bit != !!(op2.reg_type & REG_X)) {
             tcc_error("mismatched register widths");
-            return;
+            ಹಿಂತಿರುಗಿ;
         }
-        if (op3.type & OP_IM) {
-            if (token == TOK_ASM_add || token == TOK_ASM_adds)
-                gen_add_imm(rd, rn, op3.e.v, is_64bit,
+        ಆದರೆ (op3.type & OP_IM) {
+            ಆದರೆ (token == TOK_ASM_ಕೂಡಿಸು || token == TOK_ASM_adds)
+                gen_ಕೂಡಿಸು_imm(rd, rn, op3.e.v, is_64bit,
                             token == TOK_ASM_adds);
-            else if (token == TOK_ASM_sub || token == TOK_ASM_subs)
+            ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (token == TOK_ASM_sub || token == TOK_ASM_subs)
                 gen_sub_imm(rd, rn, op3.e.v, is_64bit,
                             token == TOK_ASM_subs);
-            else if (token == TOK_ASM_and)
+            ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (token == TOK_ASM_and)
                 gen_logical_imm(ARM64_AND_IMM, rd, rn, op3.e.v, is_64bit);
-            else if (token == TOK_ASM_ands)
+            ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (token == TOK_ASM_ands)
                 gen_logical_imm(ARM64_ANDS_IMM, rd, rn, op3.e.v, is_64bit);
-            else if (token == TOK_ASM_orr)
-                gen_logical_imm(ARM64_ORR_IMM_BASE, rd, rn, op3.e.v, is_64bit);
-            else if (token == TOK_ASM_eor)
+            ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (token == TOK_ASM_orr)
+                gen_logical_imm(ARM64_ORR_IMM_ತಳ, rd, rn, op3.e.v, is_64bit);
+            ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (token == TOK_ASM_eor)
                 gen_logical_imm(ARM64_EOR_IMM, rd, rn, op3.e.v, is_64bit);
-            else
+            ಇಲ್ಲದಿದ್ದರೆ
                 tcc_error("immediate operand not valid for this instruction");
-        } else {
-            if (!(op3.type & OP_REG)) {
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            ಆದರೆ (!(op3.type & OP_REG)) {
                 tcc_error("expected register in third operand");
-                return;
+                ಹಿಂತಿರುಗಿ;
             }
             rm = op3.reg;
-            if (is_64bit != !!(op2.reg_type & REG_X) || is_64bit != !!(op3.reg_type & REG_X)) {
+            ಆದರೆ (is_64bit != !!(op2.reg_type & REG_X) || is_64bit != !!(op3.reg_type & REG_X)) {
                 tcc_error("mismatched register widths");
-                return;
+                ಹಿಂತಿರುಗಿ;
             }
             gen_dp_reg(opcode, rd, rn, rm, is_64bit);
         }
-    } else if (op2.type & OP_IM) {
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (op2.type & OP_IM) {
         tcc_error("missing source register for immediate form");
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
         tcc_error("missing third operand");
     }
 }
 
 /* Handle load/store instructions */
-static void asm_ldst(TCCState *s1, int token)
+ಸ್ಥಿರ ಶೂನ್ಯ asm_ldst(TCCState *s1, ಪೂರ್ಣಾಂಕ token)
 {
-    Operand op1, op2;
-    int rt, rn;
-    int32_t offset = 0;
-    int size_log2 = 3;
-    uint32_t base_opcode;
+    ಕಾರ್ಯಾಂಶ op1, op2;
+    ಪೂರ್ಣಾಂಕ rt, rn;
+    int32_t ಸ್ಥಾನಾಂತರ = 0;
+    ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_log2 = 3;
+    uint32_t ತಳ_opcode;
 
-    parse_operand(s1, &op1);
-    if (tok == ',') next();
-    parse_operand(s1, &op2);
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op1);
+    ಆದರೆ (tok == ',') ಮುಂದಿನ();
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op2);
 
-    if (!(op1.type & OP_REG)) {
+    ಆದರೆ (!(op1.type & OP_REG)) {
         tcc_error("expected register in first operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
-    if (op2.type != OP_ADDR) {
+    ಆದರೆ (op2.type != OP_ADDR) {
         tcc_error("expected address operand in second operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
     rt = op1.reg;
     rn = op2.reg;
-    offset = op2.e.v;
+    ಸ್ಥಾನಾಂತರ = op2.e.v;
 
-    switch (token) {
-        case TOK_ASM_ldr:
-            if (op1.reg_type & REG_X) {
-                base_opcode = ARM64_LDR_X;
-                size_log2 = 3;
-            } else if (op1.reg_type & REG_W) {
-                base_opcode = ARM64_LDR_W;
-                size_log2 = 2;
-            } else if (op1.reg_type & REG_D) {
-                base_opcode = ARM64_LDR_D;
-                size_log2 = 3;
-            } else {
+    ಆಯ್ಕೆ (token) {
+        ಸ್ಥಿತಿ TOK_ASM_ldr:
+            ಆದರೆ (op1.reg_type & REG_X) {
+                ತಳ_opcode = ARM64_LDR_X;
+                ಗಾತ್ರ_log2 = 3;
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (op1.reg_type & REG_W) {
+                ತಳ_opcode = ARM64_LDR_W;
+                ಗಾತ್ರ_log2 = 2;
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (op1.reg_type & REG_D) {
+                ತಳ_opcode = ARM64_LDR_D;
+                ಗಾತ್ರ_log2 = 3;
+            } ಇಲ್ಲದಿದ್ದರೆ {
                 tcc_error("ldr requires a w, x, or d register");
-                return;
+                ಹಿಂತಿರುಗಿ;
             }
-            break;
-        case TOK_ASM_ldrb:
-            base_opcode = ARM64_LDR_B;
-            size_log2 = 0;
-            break;
-        case TOK_ASM_ldrh:
-            base_opcode = ARM64_LDR_H;
-            size_log2 = 1;
-            break;
-        case TOK_ASM_str:
-            if (op1.reg_type & REG_X) {
-                base_opcode = ARM64_STR_X;
-                size_log2 = 3;
-            } else if (op1.reg_type & REG_W) {
-                base_opcode = ARM64_STR_W;
-                size_log2 = 2;
-            } else if (op1.reg_type & REG_D) {
-                base_opcode = ARM64_STR_D;
-                size_log2 = 3;
-            } else {
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_ldrb:
+            ತಳ_opcode = ARM64_LDR_B;
+            ಗಾತ್ರ_log2 = 0;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_ldrh:
+            ತಳ_opcode = ARM64_LDR_H;
+            ಗಾತ್ರ_log2 = 1;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_str:
+            ಆದರೆ (op1.reg_type & REG_X) {
+                ತಳ_opcode = ARM64_STR_X;
+                ಗಾತ್ರ_log2 = 3;
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (op1.reg_type & REG_W) {
+                ತಳ_opcode = ARM64_STR_W;
+                ಗಾತ್ರ_log2 = 2;
+            } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (op1.reg_type & REG_D) {
+                ತಳ_opcode = ARM64_STR_D;
+                ಗಾತ್ರ_log2 = 3;
+            } ಇಲ್ಲದಿದ್ದರೆ {
                 tcc_error("str requires a w, x, or d register");
-                return;
+                ಹಿಂತಿರುಗಿ;
             }
-            break;
-        case TOK_ASM_strb:
-            base_opcode = ARM64_STR_B;
-            size_log2 = 0;
-            break;
-        case TOK_ASM_strh:
-            base_opcode = ARM64_STR_H;
-            size_log2 = 1;
-            break;
-        default:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_strb:
+            ತಳ_opcode = ARM64_STR_B;
+            ಗಾತ್ರ_log2 = 0;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_strh:
+            ತಳ_opcode = ARM64_STR_H;
+            ಗಾತ್ರ_log2 = 1;
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
             tcc_error("unsupported load/store instruction");
-            return;
+            ಹಿಂತಿರುಗಿ;
     }
 
-    if (op2.addr_mode != ADDR_OFF)
+    ಆದರೆ (op2.addr_ಬಹುಲಕ != ADDR_OFF)
         tcc_error("only offset addressing is implemented for ldr/str");
-    gen_ldst_imm(base_opcode, rt, rn, offset, size_log2);
+    gen_ldst_imm(ತಳ_opcode, rt, rn, ಸ್ಥಾನಾಂತರ, ಗಾತ್ರ_log2);
 }
 
-static void asm_ldst_pair(TCCState *s1, int token)
+ಸ್ಥಿರ ಶೂನ್ಯ asm_ldst_pair(TCCState *s1, ಪೂರ್ಣಾಂಕ token)
 {
-    Operand op1, op2, op3;
-    uint32_t base_opcode;
-    int size_log2 = 3;
+    ಕಾರ್ಯಾಂಶ op1, op2, op3;
+    uint32_t ತಳ_opcode;
+    ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_log2 = 3;
 
-    parse_operand(s1, &op1);
-    if (tok == ',')
-        next();
-    parse_operand(s1, &op2);
-    if (tok == ',')
-        next();
-    parse_operand(s1, &op3);
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op1);
+    ಆದರೆ (tok == ',')
+        ಮುಂದಿನ();
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op2);
+    ಆದರೆ (tok == ',')
+        ಮುಂದಿನ();
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op3);
 
-    if (!(op1.type & OP_REG)) {
+    ಆದರೆ (!(op1.type & OP_REG)) {
         tcc_error("expected register in first operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
-    if (!(op2.type & OP_REG)) {
+    ಆದರೆ (!(op2.type & OP_REG)) {
         tcc_error("expected register in second operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
-    if (!(op3.type & OP_ADDR))
+    ಆದರೆ (!(op3.type & OP_ADDR))
         tcc_error("pair load/store requires an address operand");
 
-    if ((op1.reg_type & REG_X) && (op2.reg_type & REG_X)) {
-        if (token == TOK_ASM_stp) {
-            base_opcode = op3.addr_mode == ADDR_PRE ? ARM64_STP_X_PRE :
-                          op3.addr_mode == ADDR_POST ? ARM64_STP_X_POST :
+    ಆದರೆ ((op1.reg_type & REG_X) && (op2.reg_type & REG_X)) {
+        ಆದರೆ (token == TOK_ASM_stp) {
+            ತಳ_opcode = op3.addr_ಬಹುಲಕ == ADDR_PRE ? ARM64_STP_X_PRE :
+                          op3.addr_ಬಹುಲಕ == ADDR_POST ? ARM64_STP_X_POST :
                           ARM64_STP_X;
-        } else {
-            base_opcode = op3.addr_mode == ADDR_PRE ? ARM64_LDP_X_PRE :
-                          op3.addr_mode == ADDR_POST ? ARM64_LDP_X_POST :
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            ತಳ_opcode = op3.addr_ಬಹುಲಕ == ADDR_PRE ? ARM64_LDP_X_PRE :
+                          op3.addr_ಬಹುಲಕ == ADDR_POST ? ARM64_LDP_X_POST :
                           ARM64_LDP_X;
         }
-    } else if ((op1.reg_type & REG_D) && (op2.reg_type & REG_D)) {
-        if (token == TOK_ASM_stp) {
-            base_opcode = op3.addr_mode == ADDR_PRE ? ARM64_STP_D_PRE :
-                          op3.addr_mode == ADDR_POST ? ARM64_STP_D_POST :
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ ((op1.reg_type & REG_D) && (op2.reg_type & REG_D)) {
+        ಆದರೆ (token == TOK_ASM_stp) {
+            ತಳ_opcode = op3.addr_ಬಹುಲಕ == ADDR_PRE ? ARM64_STP_D_PRE :
+                          op3.addr_ಬಹುಲಕ == ADDR_POST ? ARM64_STP_D_POST :
                           ARM64_STP_D;
-        } else {
-            base_opcode = op3.addr_mode == ADDR_PRE ? ARM64_LDP_D_PRE :
-                          op3.addr_mode == ADDR_POST ? ARM64_LDP_D_POST :
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            ತಳ_opcode = op3.addr_ಬಹುಲಕ == ADDR_PRE ? ARM64_LDP_D_PRE :
+                          op3.addr_ಬಹುಲಕ == ADDR_POST ? ARM64_LDP_D_POST :
                           ARM64_LDP_D;
         }
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
         tcc_error("stp/ldp requires matching x or d registers");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
-    gen_ldst_pair(base_opcode, op1.reg, op2.reg, op3.reg, op3.e.v, size_log2);
+    gen_ldst_pair(ತಳ_opcode, op1.reg, op2.reg, op3.reg, op3.e.v, ಗಾತ್ರ_log2);
 }
 
-static void asm_sysreg(TCCState *s1, int token)
+ಸ್ಥಿರ ಶೂನ್ಯ asm_sysreg(TCCState *s1, ಪೂರ್ಣಾಂಕ token)
 {
-    Operand op;
-    int sysreg;
+    ಕಾರ್ಯಾಂಶ op;
+    ಪೂರ್ಣಾಂಕ sysreg;
 
-    if (token == TOK_ASM_mrs) {
-        parse_operand(s1, &op);
-        if (tok == ',')
-            next();
+    ಆದರೆ (token == TOK_ASM_mrs) {
+        parse_ಕಾರ್ಯಾಂಶ(s1, &op);
+        ಆದರೆ (tok == ',')
+            ಮುಂದಿನ();
         sysreg = parse_sysreg_name(tok);
-        if (sysreg < 0)
+        ಆದರೆ (sysreg < 0)
             tcc_error("unsupported system register");
-        next();
+        ಮುಂದಿನ();
         gen_mrs(op.reg, sysreg);
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
     sysreg = parse_sysreg_name(tok);
-    if (sysreg < 0)
+    ಆದರೆ (sysreg < 0)
         tcc_error("unsupported system register");
-    next();
-    if (tok == ',')
-        next();
-    parse_operand(s1, &op);
+    ಮುಂದಿನ();
+    ಆದರೆ (tok == ',')
+        ಮುಂದಿನ();
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op);
     gen_msr(op.reg, sysreg);
 }
 
 /* Get condition code from branch instruction token */
-static int get_branch_condition(int branch_token)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ get_branch_condition(ಪೂರ್ಣಾಂಕ branch_token)
 {
-    int cond_token;
+    ಪೂರ್ಣಾಂಕ cond_token;
 
     /* Map branch token to condition token (strip 'b' prefix) */
-    switch (branch_token) {
-        case TOK_ASM_beq: cond_token = TOK_ASM_eq; break;
-        case TOK_ASM_bne: cond_token = TOK_ASM_ne; break;
-        case TOK_ASM_bcs:
-        case TOK_ASM_bhs: cond_token = TOK_ASM_cs; break;
-        case TOK_ASM_bcc:
-        case TOK_ASM_blo: cond_token = TOK_ASM_cc; break;
-        case TOK_ASM_bmi: cond_token = TOK_ASM_mi; break;
-        case TOK_ASM_bpl: cond_token = TOK_ASM_pl; break;
-        case TOK_ASM_bvs: cond_token = TOK_ASM_vs; break;
-        case TOK_ASM_bvc: cond_token = TOK_ASM_vc; break;
-        case TOK_ASM_bhi: cond_token = TOK_ASM_hi; break;
-        case TOK_ASM_bls: cond_token = TOK_ASM_ls; break;
-        case TOK_ASM_bge: cond_token = TOK_ASM_ge; break;
-        case TOK_ASM_blt: cond_token = TOK_ASM_lt; break;
-        case TOK_ASM_bgt: cond_token = TOK_ASM_gt; break;
-        case TOK_ASM_ble: cond_token = TOK_ASM_le; break;
-        default: return -1;
+    ಆಯ್ಕೆ (branch_token) {
+        ಸ್ಥಿತಿ TOK_ASM_beq: cond_token = TOK_ASM_eq; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_bne: cond_token = TOK_ASM_ne; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_bcs:
+        ಸ್ಥಿತಿ TOK_ASM_bhs: cond_token = TOK_ASM_cs; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_bcc:
+        ಸ್ಥಿತಿ TOK_ASM_blo: cond_token = TOK_ASM_cc; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_bmi: cond_token = TOK_ASM_mi; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_bpl: cond_token = TOK_ASM_pl; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_bvs: cond_token = TOK_ASM_vs; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_bvc: cond_token = TOK_ASM_vc; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_bhi: cond_token = TOK_ASM_hi; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_bls: cond_token = TOK_ASM_ls; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_bge: cond_token = TOK_ASM_ge; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_blt: cond_token = TOK_ASM_lt; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_bgt: cond_token = TOK_ASM_gt; ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_ble: cond_token = TOK_ASM_le; ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ: ಹಿಂತಿರುಗಿ -1;
     }
 
-    return parse_condition(cond_token);
+    ಹಿಂತಿರುಗಿ parse_condition(cond_token);
 }
 
 /* Handle branch instructions */
-static void asm_branch(TCCState *s1, int token)
+ಸ್ಥಿರ ಶೂನ್ಯ asm_branch(TCCState *s1, ಪೂರ್ಣಾಂಕ token)
 {
-    Operand op;
-    int cond;
+    ಕಾರ್ಯಾಂಶ op;
+    ಪೂರ್ಣಾಂಕ cond;
     Sym *sym;
-    int32_t offset;
+    int32_t ಸ್ಥಾನಾಂತರ;
 
     /* ret can be used without operand */
-    if (token == TOK_ASM_ret && (tok == TOK_LINEFEED || tok == ';' || tok == TOK_EOF)) {
+    ಆದರೆ (token == TOK_ASM_ret && (tok == TOK_LINEFEED || tok == ';' || tok == TOK_EOF)) {
         gen_ret(30);  /* x30 is the link register */
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
-    if (token == TOK_ASM_br || token == TOK_ASM_blr || token == TOK_ASM_ret)
-        parse_operand(s1, &op);
-    else
-        parse_expr_operand(s1, &op);
+    ಆದರೆ (token == TOK_ASM_br || token == TOK_ASM_blr || token == TOK_ASM_ret)
+        parse_ಕಾರ್ಯಾಂಶ(s1, &op);
+    ಇಲ್ಲದಿದ್ದರೆ
+        parse_ಅಭಿವ್ಯಕ್ತಿ_ಕಾರ್ಯಾಂಶ(s1, &op);
 
-    if (op.type & OP_IM) {
+    ಆದರೆ (op.type & OP_IM) {
         sym = op.e.sym;
-        if (sym) {
+        ಆದರೆ (sym) {
             /* Symbolic address - emit relocation */
-            offset = 0;
+            ಸ್ಥಾನಾಂತರ = 0;
 
             cond = get_branch_condition(token);
-            if (cond >= 0) {
+            ಆದರೆ (cond >= 0) {
                 /* Conditional branch - use CONDBR19 relocation */
                 gen_b_cond(cond, 0);
-                greloca(cur_text_section, sym, ind - 4, R_AARCH64_CONDBR19, 0);
-            } else {
-                switch (token) {
-                    case TOK_ASM_b:
+                greloca(cur_ಪಠ್ಯ_section, sym, ind - 4, R_AARCH64_CONDBR19, 0);
+            } ಇಲ್ಲದಿದ್ದರೆ {
+                ಆಯ್ಕೆ (token) {
+                    ಸ್ಥಿತಿ TOK_ASM_b:
                         gen_b(0);
-                        greloca(cur_text_section, sym, ind - 4, R_AARCH64_JUMP26, 0);
-                        break;
-                    case TOK_ASM_bl:
+                        greloca(cur_ಪಠ್ಯ_section, sym, ind - 4, R_AARCH64_JUMP26, 0);
+                        ನಿಲ್ಲಿಸು;
+                    ಸ್ಥಿತಿ TOK_ASM_bl:
                         gen_bl(0);
-                        greloca(cur_text_section, sym, ind - 4, R_AARCH64_CALL26, 0);
-                        break;
-                    default:
+                        greloca(cur_ಪಠ್ಯ_section, sym, ind - 4, R_AARCH64_CALL26, 0);
+                        ನಿಲ್ಲಿಸು;
+                    ಪೂರ್ವನಿಯೋಜಿತ:
                         tcc_error("unsupported branch");
                 }
             }
-        } else {
-            offset = (int32_t)op.e.v - ind;
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            ಸ್ಥಾನಾಂತರ = (int32_t)op.e.v - ind;
 
             cond = get_branch_condition(token);
-            if (cond >= 0) {
-                gen_b_cond(cond, offset);
-            } else {
-                switch (token) {
-                    case TOK_ASM_b:
-                        gen_b(offset);
-                        break;
-                    case TOK_ASM_bl:
-                        gen_bl(offset);
-                        break;
-                    default:
+            ಆದರೆ (cond >= 0) {
+                gen_b_cond(cond, ಸ್ಥಾನಾಂತರ);
+            } ಇಲ್ಲದಿದ್ದರೆ {
+                ಆಯ್ಕೆ (token) {
+                    ಸ್ಥಿತಿ TOK_ASM_b:
+                        gen_b(ಸ್ಥಾನಾಂತರ);
+                        ನಿಲ್ಲಿಸು;
+                    ಸ್ಥಿತಿ TOK_ASM_bl:
+                        gen_bl(ಸ್ಥಾನಾಂತರ);
+                        ನಿಲ್ಲಿಸು;
+                    ಪೂರ್ವನಿಯೋಜಿತ:
                         tcc_error("unsupported branch");
                 }
             }
         }
-    } else if (op.type & OP_REG) {
-        switch (token) {
-            case TOK_ASM_br:
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (op.type & OP_REG) {
+        ಆಯ್ಕೆ (token) {
+            ಸ್ಥಿತಿ TOK_ASM_br:
                 gen_br(op.reg);
-                break;
-            case TOK_ASM_blr:
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ TOK_ASM_blr:
                 gen_blr(op.reg);
-                break;
-            case TOK_ASM_ret:
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ TOK_ASM_ret:
                 gen_ret(op.reg);
-                break;
-            default:
+                ನಿಲ್ಲಿಸು;
+            ಪೂರ್ವನಿಯೋಜಿತ:
                 tcc_error("register branch not valid");
         }
     }
 }
 
 /* Handle CBZ/CBNZ */
-static void asm_cb(TCCState *s1, int token)
+ಸ್ಥಿರ ಶೂನ್ಯ asm_cb(TCCState *s1, ಪೂರ್ಣಾಂಕ token)
 {
-    Operand op1, op2;
-    int rt, is_64bit;
-    int32_t offset;
+    ಕಾರ್ಯಾಂಶ op1, op2;
+    ಪೂರ್ಣಾಂಕ rt, is_64bit;
+    int32_t ಸ್ಥಾನಾಂತರ;
     Sym *sym;
 
-    parse_operand(s1, &op1);
-    if (tok == ',') next();
-    parse_expr_operand(s1, &op2);
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op1);
+    ಆದರೆ (tok == ',') ಮುಂದಿನ();
+    parse_ಅಭಿವ್ಯಕ್ತಿ_ಕಾರ್ಯಾಂಶ(s1, &op2);
 
     rt = op1.reg;
     is_64bit = (op1.reg_type & REG_X);
     sym = op2.e.sym;
 
-    if (sym) {
+    ಆದರೆ (sym) {
         /* Symbolic address - emit relocation */
-        offset = 0;
-        if (token == TOK_ASM_cbz) {
-            gen_cbz(rt, offset, is_64bit);
-            greloca(cur_text_section, sym, ind - 4, R_AARCH64_CONDBR19, 0);
-        } else {
-            gen_cbnz(rt, offset, is_64bit);
-            greloca(cur_text_section, sym, ind - 4, R_AARCH64_CONDBR19, 0);
+        ಸ್ಥಾನಾಂತರ = 0;
+        ಆದರೆ (token == TOK_ASM_cbz) {
+            gen_cbz(rt, ಸ್ಥಾನಾಂತರ, is_64bit);
+            greloca(cur_ಪಠ್ಯ_section, sym, ind - 4, R_AARCH64_CONDBR19, 0);
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            gen_cbnz(rt, ಸ್ಥಾನಾಂತರ, is_64bit);
+            greloca(cur_ಪಠ್ಯ_section, sym, ind - 4, R_AARCH64_CONDBR19, 0);
         }
-    } else {
-        offset = (int32_t)op2.e.v - ind;
-        if (token == TOK_ASM_cbz)
-            gen_cbz(rt, offset, is_64bit);
-        else
-            gen_cbnz(rt, offset, is_64bit);
+    } ಇಲ್ಲದಿದ್ದರೆ {
+        ಸ್ಥಾನಾಂತರ = (int32_t)op2.e.v - ind;
+        ಆದರೆ (token == TOK_ASM_cbz)
+            gen_cbz(rt, ಸ್ಥಾನಾಂತರ, is_64bit);
+        ಇಲ್ಲದಿದ್ದರೆ
+            gen_cbnz(rt, ಸ್ಥಾನಾಂತರ, is_64bit);
     }
 }
 
 /* Handle MOVZ/MOVN/MOVK */
-static void asm_move_wide(TCCState *s1, int token)
+ಸ್ಥಿರ ಶೂನ್ಯ asm_move_wide(TCCState *s1, ಪೂರ್ಣಾಂಕ token)
 {
-    Operand op1, op2;
-    int rd, is_64bit = 1;
+    ಕಾರ್ಯಾಂಶ op1, op2;
+    ಪೂರ್ಣಾಂಕ rd, is_64bit = 1;
     uint16_t imm;
-    int shift = 0;
+    ಪೂರ್ಣಾಂಕ ಸರಿಸು = 0;
 
-    parse_operand(s1, &op1);
-    if (tok == ',') next();
-    parse_operand(s1, &op2);
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op1);
+    ಆದರೆ (tok == ',') ಮುಂದಿನ();
+    parse_ಕಾರ್ಯಾಂಶ(s1, &op2);
 
-    if (!(op1.type & OP_REG)) {
+    ಆದರೆ (!(op1.type & OP_REG)) {
         tcc_error("expected register in first operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
-    if (!(op2.type & OP_IM) || op2.e.sym) {
+    ಆದರೆ (!(op2.type & OP_IM) || op2.e.sym) {
         tcc_error("expected immediate in second operand");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
     rd = op1.reg;
     is_64bit = (op1.reg_type & REG_X);
-    if ((uint64_t)op2.e.v > 0xFFFF) {
+    ಆದರೆ ((uint64_t)op2.e.v > 0xFFFF) {
         tcc_error("move wide immediate out of range");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
     imm = op2.e.v;
 
-    if (tok == ',') {
-        next();
-        if (tok != TOK_ASM_lsl) {
+    ಆದರೆ (tok == ',') {
+        ಮುಂದಿನ();
+        ಆದರೆ (tok != TOK_ASM_lsl) {
             tcc_error("move wide shift must use lsl");
-            return;
+            ಹಿಂತಿರುಗಿ;
         }
-            next();
-            if (tok == '#') next();
-            asm_expr(s1, &op2.e);
-        if (op2.e.sym || !is_valid_movw_shift((int)op2.e.v, is_64bit)) {
+            ಮುಂದಿನ();
+            ಆದರೆ (tok == '#') ಮುಂದಿನ();
+            asm_ಅಭಿವ್ಯಕ್ತಿ(s1, &op2.e);
+        ಆದರೆ (op2.e.sym || !is_valid_movw_ಸರಿಸು((ಪೂರ್ಣಾಂಕ)op2.e.v, is_64bit)) {
             tcc_error("move wide shift out of range");
-            return;
+            ಹಿಂತಿರುಗಿ;
         }
-            shift = (int)op2.e.v / 16;
+            ಸರಿಸು = (ಪೂರ್ಣಾಂಕ)op2.e.v / 16;
         }
 
-    switch (token) {
-        case TOK_ASM_movz:
-            gen_movz(rd, imm, shift, is_64bit);
-            break;
-        case TOK_ASM_movn:
-            gen_movn(rd, imm, shift, is_64bit);
-            break;
-        case TOK_ASM_movk:
-            gen_movk(rd, imm, shift, is_64bit);
-            break;
-        default:
+    ಆಯ್ಕೆ (token) {
+        ಸ್ಥಿತಿ TOK_ASM_movz:
+            gen_movz(rd, imm, ಸರಿಸು, is_64bit);
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_movn:
+            gen_movn(rd, imm, ಸರಿಸು, is_64bit);
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ TOK_ASM_movk:
+            gen_movk(rd, imm, ಸರಿಸು, is_64bit);
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
             tcc_error("unknown move wide instruction");
     }
 }
 
 /* Main assembler opcode dispatcher */
-ST_FUNC void asm_opcode(TCCState *s1, int opcode)
+ST_FUNC ಶೂನ್ಯ asm_opcode(TCCState *s1, ಪೂರ್ಣಾಂಕ opcode)
 {
-    switch (opcode) {
-        case TOK_ASM_add:
-        case TOK_ASM_adds:
-        case TOK_ASM_sub:
-        case TOK_ASM_subs:
-        case TOK_ASM_and:
-        case TOK_ASM_ands:
-        case TOK_ASM_orr:
-        case TOK_ASM_eor:
-        case TOK_ASM_mul:
-            asm_data_proc(s1, opcode);
-            break;
+    ಆಯ್ಕೆ (opcode) {
+        ಸ್ಥಿತಿ TOK_ASM_ಕೂಡಿಸು:
+        ಸ್ಥಿತಿ TOK_ASM_adds:
+        ಸ್ಥಿತಿ TOK_ASM_sub:
+        ಸ್ಥಿತಿ TOK_ASM_subs:
+        ಸ್ಥಿತಿ TOK_ASM_and:
+        ಸ್ಥಿತಿ TOK_ASM_ands:
+        ಸ್ಥಿತಿ TOK_ASM_orr:
+        ಸ್ಥಿತಿ TOK_ASM_eor:
+        ಸ್ಥಿತಿ TOK_ASM_mul:
+            asm_ದತ್ತಾಂಶ_proc(s1, opcode);
+            ನಿಲ್ಲಿಸು;
 
-        case TOK_ASM_mov:
+        ಸ್ಥಿತಿ TOK_ASM_mov:
             /* mov is handled separately - it's ORR with zero register */
             asm_mov(s1);
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case TOK_ASM_lsl:
-        case TOK_ASM_lsr:
-        case TOK_ASM_asr:
-        case TOK_ASM_ror:
-            asm_shift(s1, opcode);
-            break;
+        ಸ್ಥಿತಿ TOK_ASM_lsl:
+        ಸ್ಥಿತಿ TOK_ASM_lsr:
+        ಸ್ಥಿತಿ TOK_ASM_asr:
+        ಸ್ಥಿತಿ TOK_ASM_ror:
+            asm_ಸರಿಸು(s1, opcode);
+            ನಿಲ್ಲಿಸು;
 
-        case TOK_ASM_ldr:
-        case TOK_ASM_ldrb:
-        case TOK_ASM_ldrh:
-        case TOK_ASM_str:
-        case TOK_ASM_strb:
-        case TOK_ASM_strh:
+        ಸ್ಥಿತಿ TOK_ASM_ldr:
+        ಸ್ಥಿತಿ TOK_ASM_ldrb:
+        ಸ್ಥಿತಿ TOK_ASM_ldrh:
+        ಸ್ಥಿತಿ TOK_ASM_str:
+        ಸ್ಥಿತಿ TOK_ASM_strb:
+        ಸ್ಥಿತಿ TOK_ASM_strh:
             asm_ldst(s1, opcode);
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case TOK_ASM_ldp:
-        case TOK_ASM_stp:
+        ಸ್ಥಿತಿ TOK_ASM_ldp:
+        ಸ್ಥಿತಿ TOK_ASM_stp:
             asm_ldst_pair(s1, opcode);
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case TOK_ASM_b:
-        case TOK_ASM_bl:
-        case TOK_ASM_br:
-        case TOK_ASM_blr:
-        case TOK_ASM_ret:
-        case TOK_ASM_beq:
-        case TOK_ASM_bne:
-        case TOK_ASM_bcs:
-        case TOK_ASM_bhs:
-        case TOK_ASM_bcc:
-        case TOK_ASM_blo:
-        case TOK_ASM_bmi:
-        case TOK_ASM_bpl:
-        case TOK_ASM_bvs:
-        case TOK_ASM_bvc:
-        case TOK_ASM_bhi:
-        case TOK_ASM_bls:
-        case TOK_ASM_bge:
-        case TOK_ASM_blt:
-        case TOK_ASM_bgt:
-        case TOK_ASM_ble:
+        ಸ್ಥಿತಿ TOK_ASM_b:
+        ಸ್ಥಿತಿ TOK_ASM_bl:
+        ಸ್ಥಿತಿ TOK_ASM_br:
+        ಸ್ಥಿತಿ TOK_ASM_blr:
+        ಸ್ಥಿತಿ TOK_ASM_ret:
+        ಸ್ಥಿತಿ TOK_ASM_beq:
+        ಸ್ಥಿತಿ TOK_ASM_bne:
+        ಸ್ಥಿತಿ TOK_ASM_bcs:
+        ಸ್ಥಿತಿ TOK_ASM_bhs:
+        ಸ್ಥಿತಿ TOK_ASM_bcc:
+        ಸ್ಥಿತಿ TOK_ASM_blo:
+        ಸ್ಥಿತಿ TOK_ASM_bmi:
+        ಸ್ಥಿತಿ TOK_ASM_bpl:
+        ಸ್ಥಿತಿ TOK_ASM_bvs:
+        ಸ್ಥಿತಿ TOK_ASM_bvc:
+        ಸ್ಥಿತಿ TOK_ASM_bhi:
+        ಸ್ಥಿತಿ TOK_ASM_bls:
+        ಸ್ಥಿತಿ TOK_ASM_bge:
+        ಸ್ಥಿತಿ TOK_ASM_blt:
+        ಸ್ಥಿತಿ TOK_ASM_bgt:
+        ಸ್ಥಿತಿ TOK_ASM_ble:
             asm_branch(s1, opcode);
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case TOK_ASM_cbz:
-        case TOK_ASM_cbnz:
+        ಸ್ಥಿತಿ TOK_ASM_cbz:
+        ಸ್ಥಿತಿ TOK_ASM_cbnz:
             asm_cb(s1, opcode);
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case TOK_ASM_movz:
-        case TOK_ASM_movn:
-        case TOK_ASM_movk:
+        ಸ್ಥಿತಿ TOK_ASM_movz:
+        ಸ್ಥಿತಿ TOK_ASM_movn:
+        ಸ್ಥಿತಿ TOK_ASM_movk:
             asm_move_wide(s1, opcode);
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case TOK_ASM_mrs:
-        case TOK_ASM_msr:
+        ಸ್ಥಿತಿ TOK_ASM_mrs:
+        ಸ್ಥಿತಿ TOK_ASM_msr:
             asm_sysreg(s1, opcode);
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case TOK_ASM_isb:
-        case TOK_ASM_dsb:
-        case TOK_ASM_dmb:
+        ಸ್ಥಿತಿ TOK_ASM_isb:
+        ಸ್ಥಿತಿ TOK_ASM_dsb:
+        ಸ್ಥಿತಿ TOK_ASM_dmb:
             asm_barrier(s1, opcode);
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case TOK_ASM_nop:
+        ಸ್ಥಿತಿ TOK_ASM_nop:
             gen_nop();
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        default:
+        ಪೂರ್ವನಿಯೋಜಿತ:
             tcc_error("ARM64 instruction '%s' not implemented",
-                     get_tok_str(opcode, NULL));
-            break;
+                     get_tok_str(opcode, ಖಾಲಿ));
+            ನಿಲ್ಲಿಸು;
     }
 }
 
 /* Substitute assembler operand */
-ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
+ST_FUNC ಶೂನ್ಯ subst_asm_ಕಾರ್ಯಾಂಶ(CString *ಕೂಡಿಸು_str, SValue *sv, ಪೂರ್ಣಾಂಕ modifier)
 {
-    int r, reg, size, fp_reg, align;
+    ಪೂರ್ಣಾಂಕ r, reg, ಗಾತ್ರ_2, fp_reg, align;
     int64_t val;
     uint64_t uval;
 
     r = sv->r;
-    if ((r & VT_VALMASK) == VT_CONST) {
-        if ((modifier == 'w' || modifier == 'x') && !(r & VT_LVAL)
+    ಆದರೆ ((r & VT_VALMASK) == VT_CONST) {
+        ಆದರೆ ((modifier == 'w' || modifier == 'x') && !(r & VT_LVAL)
             && !(r & VT_SYM) && sv->c.i == 0) {
-            cstr_cat(add_str, modifier == 'w' ? "wzr" : "xzr", -1);
-            return;
+            cstr_cat(ಕೂಡಿಸು_str, modifier == 'w' ? "wzr" : "xzr", -1);
+            ಹಿಂತಿರುಗಿ;
         }
-        if (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
+        ಆದರೆ (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
             modifier != 'P')
-            cstr_ccat(add_str, '#');
-        if (r & VT_SYM) {
-            const char *name = get_tok_str(sv->sym->v, NULL);
-            if (sv->sym->v >= SYM_FIRST_ANOM)
-                get_asm_sym(tok_alloc(name, strlen(name))->tok, sv->sym);
-            if (tcc_state->leading_underscore)
-                cstr_ccat(add_str, '_');
-            cstr_cat(add_str, name, -1);
-            if ((uint32_t) sv->c.i == 0)
-                goto no_offset;
-            cstr_ccat(add_str, '+');
+            cstr_ccat(ಕೂಡಿಸು_str, '#');
+        ಆದರೆ (r & VT_SYM) {
+            ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name = get_tok_str(sv->sym->v, ಖಾಲಿ);
+            ಆದರೆ (sv->sym->v >= SYM_ಮೊದಲ_ANOM)
+                get_asm_sym(tok_alloc(name, ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(name))->tok, sv->sym);
+            ಆದರೆ (tcc_state->leading_underscore)
+                cstr_ccat(ಕೂಡಿಸು_str, '_');
+            cstr_cat(ಕೂಡಿಸು_str, name, -1);
+            ಆದರೆ ((uint32_t) sv->c.i == 0)
+                ಹೋಗು no_ಸ್ಥಾನಾಂತರ;
+            cstr_ccat(ಕೂಡಿಸು_str, '+');
         }
         uval = sv->c.i;
-        if (modifier == 'n') {
+        ಆದರೆ (modifier == 'n') {
             val = -(int64_t)uval;
-            cstr_printf(add_str, "%lld", (long long)val);
-        } else if (uval > 0x7fffffffffffffffULL) {
-            cstr_printf(add_str, "0x%llx", (unsigned long long)uval);
-        } else {
+            cstr_printf(ಕೂಡಿಸು_str, "%lld", (ದೀರ್ಘ ದೀರ್ಘ)val);
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (uval > 0x7fffffffffffffffULL) {
+            cstr_printf(ಕೂಡಿಸು_str, "0x%llx", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)uval);
+        } ಇಲ್ಲದಿದ್ದರೆ {
             val = (int64_t)uval;
-            cstr_printf(add_str, "%lld", (long long)val);
+            cstr_printf(ಕೂಡಿಸು_str, "%lld", (ದೀರ್ಘ ದೀರ್ಘ)val);
         }
-      no_offset:;
-    } else if ((r & VT_VALMASK) == VT_LOCAL) {
-        cstr_printf(add_str, "[x29,#%d]", (int) sv->c.i);
-    } else if (r & VT_LVAL) {
+      no_ಸ್ಥಾನಾಂತರ:;
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ ((r & VT_VALMASK) == VT_LOCAL) {
+        cstr_printf(ಕೂಡಿಸು_str, "[x29,#%d]", (ಪೂರ್ಣಾಂಕ) sv->c.i);
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (r & VT_LVAL) {
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
-            tcc_internal_error("");
-        cstr_printf(add_str, "[x%d]", reg);
-    } else {
+        ಆದರೆ (reg >= VT_CONST)
+            tcc_ಆಂತರಿಕ_error("");
+        cstr_printf(ಕೂಡಿಸು_str, "[x%d]", reg);
+    } ಇಲ್ಲದಿದ್ದರೆ {
         /* register case */
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
-            tcc_internal_error("");
+        ಆದರೆ (reg >= VT_CONST)
+            tcc_ಆಂತರಿಕ_error("");
 
-        if (ARM64_FREG_BASE <= reg && reg <= ARM64_FREG_LAST) {
-            fp_reg = reg - ARM64_FREG_BASE;
-            size = type_size(&sv->type, &align);
+        ಆದರೆ (ARM64_FREG_ತಳ <= reg && reg <= ARM64_FREG_ಕೊನೆಯ) {
+            fp_reg = reg - ARM64_FREG_ತಳ;
+            ಗಾತ್ರ_2 = type_ಗಾತ್ರ(&sv->type, &align);
 
-            if (modifier == 0)
-                modifier = size <= 4 ? 's'
-                         : size == 8 ? 'd'
+            ಆದರೆ (modifier == 0)
+                modifier = ಗಾತ್ರ_2 <= 4 ? 's'
+                         : ಗಾತ್ರ_2 == 8 ? 'd'
                          : 'q';
 
-            switch (modifier) {
-            case 'b':
-            case 'h':
-            case 's':
-            case 'd':
-            case 'q':
-            case 'Z':
-                cstr_printf(add_str, "%c%d", modifier == 'Z' ? 'z' : modifier,
+            ಆಯ್ಕೆ (modifier) {
+            ಸ್ಥಿತಿ 'b':
+            ಸ್ಥಿತಿ 'h':
+            ಸ್ಥಿತಿ 's':
+            ಸ್ಥಿತಿ 'd':
+            ಸ್ಥಿತಿ 'q':
+            ಸ್ಥಿತಿ 'Z':
+                cstr_printf(ಕೂಡಿಸು_str, "%c%d", modifier == 'Z' ? 'z' : modifier,
                             fp_reg);
-                return;
-            default:
+                ಹಿಂತಿರುಗಿ;
+            ಪೂರ್ವನಿಯೋಜಿತ:
                 tcc_error("invalid operand modifier for SIMD/FP register");
-                return;
+                ಹಿಂತಿರುಗಿ;
             }
         }
 
         /* choose register operand size */
-        if ((sv->type.t & VT_BTYPE) == VT_BYTE ||
+        ಆದರೆ ((sv->type.t & VT_BTYPE) == VT_BYTE ||
             (sv->type.t & VT_BTYPE) == VT_BOOL)
-            size = 1;
-        else if ((sv->type.t & VT_BTYPE) == VT_SHORT)
-            size = 2;
-        else if ((sv->type.t & VT_BTYPE) == VT_LLONG ||
+            ಗಾತ್ರ_2 = 1;
+        ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ ((sv->type.t & VT_BTYPE) == VT_SHORT)
+            ಗಾತ್ರ_2 = 2;
+        ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ ((sv->type.t & VT_BTYPE) == VT_LLONG ||
                  (sv->type.t & VT_BTYPE) == VT_PTR)
-            size = 8;
-        else
-            size = 4;
+            ಗಾತ್ರ_2 = 8;
+        ಇಲ್ಲದಿದ್ದರೆ
+            ಗಾತ್ರ_2 = 4;
 
-        if (modifier == 'x') {
-            size = 8;
-        } else if (modifier == 'w' || modifier == 'k') {
-            size = 4;
-        } else if (modifier == 'b') {
-            size = 1;
-        } else if (modifier == 'h') {
-            size = 2;
-        } else if (modifier == 'q') {
-            size = 8;
+        ಆದರೆ (modifier == 'x') {
+            ಗಾತ್ರ_2 = 8;
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (modifier == 'w' || modifier == 'k') {
+            ಗಾತ್ರ_2 = 4;
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (modifier == 'b') {
+            ಗಾತ್ರ_2 = 1;
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (modifier == 'h') {
+            ಗಾತ್ರ_2 = 2;
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (modifier == 'q') {
+            ಗಾತ್ರ_2 = 8;
         }
 
-        if (size <= 4) {
-            cstr_printf(add_str, "w%d", reg);
-        } else {
-            cstr_printf(add_str, "x%d", reg);
+        ಆದರೆ (ಗಾತ್ರ_2 <= 4) {
+            cstr_printf(ಕೂಡಿಸು_str, "w%d", reg);
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            cstr_printf(ಕೂಡಿಸು_str, "x%d", reg);
         }
     }
 }
 
-ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
-                          int nb_outputs, int is_output,
+ST_FUNC ಶೂನ್ಯ asm_gen_ಸಂಕೇತ(ASMOperand *operands, ಪೂರ್ಣಾಂಕ nb_operands,
+                          ಪೂರ್ಣಾಂಕ nb_outputs, ಪೂರ್ಣಾಂಕ is_output,
                           uint8_t *clobber_regs,
-                          int out_reg)
+                          ಪೂರ್ಣಾಂಕ ಹೊರಹೋಗು_reg)
 {
     uint8_t regs_allocated[NB_ASM_REGS];
     ASMOperand *op;
-    int i, reg, saved_count, stack_size, stack_off;
-    int saved_regs[12];
-    static const uint8_t reg_saved[] = {
+    ಪೂರ್ಣಾಂಕ i, reg, saved_ಎಣಿಕೆ, ರಾಶಿ_ಗಾತ್ರ, ರಾಶಿ_off;
+    ಪೂರ್ಣಾಂಕ saved_regs[12];
+    ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ uint8_t reg_saved[] = {
         19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
         29, 30
     };
 
-    memcpy(regs_allocated, clobber_regs, sizeof(regs_allocated));
-    for (i = 0; i < nb_operands; i++) {
+    ಸ್ಮರಣೆ_ನಕಲು(regs_allocated, clobber_regs, ಗಾತ್ರ(regs_allocated));
+    ಗಾಗಿ (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        if (op->reg >= 0)
+        ಆದರೆ (op->reg >= 0)
             regs_allocated[op->reg] = 1;
     }
 
-    saved_count = 0;
-    for (i = 0; i < sizeof(reg_saved) / sizeof(reg_saved[0]); i++) {
+    saved_ಎಣಿಕೆ = 0;
+    ಗಾಗಿ (i = 0; i < ಗಾತ್ರ(reg_saved) / ಗಾತ್ರ(reg_saved[0]); i++) {
         reg = reg_saved[i];
-        if (regs_allocated[reg])
-            saved_regs[saved_count++] = reg;
+        ಆದರೆ (regs_allocated[reg])
+            saved_regs[saved_ಎಣಿಕೆ++] = reg;
     }
-    stack_size = ((saved_count + 1) / 2) * 16;
+    ರಾಶಿ_ಗಾತ್ರ = ((saved_ಎಣಿಕೆ + 1) / 2) * 16;
 
-    if (!is_output) {
-        if (saved_count > 0) {
-            gen_sub_imm(31, 31, stack_size, 1, 0);
+    ಆದರೆ (!is_output) {
+        ಆದರೆ (saved_ಎಣಿಕೆ > 0) {
+            gen_sub_imm(31, 31, ರಾಶಿ_ಗಾತ್ರ, 1, 0);
 
-            for (i = stack_off = 0; i < saved_count; ) {
-                if (i + 1 < saved_count) {
+            ಗಾಗಿ (i = ರಾಶಿ_off = 0; i < saved_ಎಣಿಕೆ; ) {
+                ಆದರೆ (i + 1 < saved_ಎಣಿಕೆ) {
                     gen_ldst_pair(ARM64_STP_X, saved_regs[i], saved_regs[i + 1],
-                                  TREG_SP, stack_off, 3);
-                    stack_off += 16;
+                                  TREG_SP, ರಾಶಿ_off, 3);
+                    ರಾಶಿ_off += 16;
                     i += 2;
-                } else {
+                } ಇಲ್ಲದಿದ್ದರೆ {
                     gen_ldst_imm(ARM64_STR_X, saved_regs[i], TREG_SP,
-                                 stack_off, 3);
+                                 ರಾಶಿ_off, 3);
                     i++;
                 }
             }
         }
 
-        for (i = 0; i < nb_operands; i++) {
+        ಗಾಗಿ (i = 0; i < nb_operands; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if (op->is_memory) {
-                    arm64_load_memory_operand_base(op->reg, op->vt);
-                } else if (i >= nb_outputs || op->is_rw) {
-                    load(op->reg, op->vt);
+            ಆದರೆ (op->reg >= 0) {
+                ಆದರೆ (op->is_ಸ್ಮರಣೆ) {
+                    arm64_ತುಂಬು_ಸ್ಮರಣೆ_ಕಾರ್ಯಾಂಶ_ತಳ(op->reg, op->vt);
+                } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (i >= nb_outputs || op->is_rw) {
+                    ತುಂಬು(op->reg, op->vt);
                 }
             }
         }
-    } else {
-        for (i = 0; i < nb_outputs; i++) {
+    } ಇಲ್ಲದಿದ್ದರೆ {
+        ಗಾಗಿ (i = 0; i < nb_outputs; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if (op->is_memory)
-                    continue;
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
-                    if (!op->is_memory) {
+            ಆದರೆ (op->reg >= 0) {
+                ಆದರೆ (op->is_ಸ್ಮರಣೆ)
+                    ಮುಂದುವರಿ;
+                ಆದರೆ ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+                    ಆದರೆ (!op->is_ಸ್ಮರಣೆ) {
                         SValue sv;
                         sv = *op->vt;
                         sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL;
                         sv.type.t = VT_PTR;
-                        load(out_reg, &sv);
+                        ತುಂಬು(ಹೊರಹೋಗು_reg, &sv);
 
                         sv = *op->vt;
-                        sv.r = (sv.r & ~VT_VALMASK) | out_reg;
+                        sv.r = (sv.r & ~VT_VALMASK) | ಹೊರಹೋಗು_reg;
                         store(op->reg, &sv);
                     }
-                } else {
+                } ಇಲ್ಲದಿದ್ದರೆ {
                     store(op->reg, op->vt);
                 }
             }
         }
 
-        if (saved_count > 0) {
-            for (i = stack_off = 0; i < saved_count; ) {
-                if (i + 1 < saved_count) {
+        ಆದರೆ (saved_ಎಣಿಕೆ > 0) {
+            ಗಾಗಿ (i = ರಾಶಿ_off = 0; i < saved_ಎಣಿಕೆ; ) {
+                ಆದರೆ (i + 1 < saved_ಎಣಿಕೆ) {
                     gen_ldst_pair(ARM64_LDP_X, saved_regs[i], saved_regs[i + 1],
-                                  TREG_SP, stack_off, 3);
-                    stack_off += 16;
+                                  TREG_SP, ರಾಶಿ_off, 3);
+                    ರಾಶಿ_off += 16;
                     i += 2;
-                } else {
+                } ಇಲ್ಲದಿದ್ದರೆ {
                     gen_ldst_imm(ARM64_LDR_X, saved_regs[i], TREG_SP,
-                                 stack_off, 3);
+                                 ರಾಶಿ_off, 3);
                     i++;
                 }
             }
-            gen_add_imm(31, 31, stack_size, 1, 0);
+            gen_ಕೂಡಿಸು_imm(31, 31, ರಾಶಿ_ಗಾತ್ರ, 1, 0);
         }
     }
 }
 
-ST_FUNC void asm_compute_constraints(ASMOperand *operands,
-                                    int nb_operands, int nb_outputs,
-                                    const uint8_t *clobber_regs,
-                                    int *pout_reg)
+ST_FUNC ಶೂನ್ಯ asm_compute_constraints(ASMOperand *operands,
+                                    ಪೂರ್ಣಾಂಕ nb_operands, ಪೂರ್ಣಾಂಕ nb_outputs,
+                                    ಸ್ಥಿರಾಂಕ uint8_t *clobber_regs,
+                                    ಪೂರ್ಣಾಂಕ *pout_reg)
 {
     ASMOperand *op;
-    int sorted_op[MAX_ASM_OPERANDS];
-    int i, j, k, p1, p2, tmp, reg, c, reg_mask;
-    const char *str;
+    ಪೂರ್ಣಾಂಕ sorted_op[MAX_ASM_OPERANDS];
+    ಪೂರ್ಣಾಂಕ i, j, k, p1, p2, tmp, reg, c, reg_ಮುಖವಾಡ;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *str;
     uint8_t regs_allocated[NB_ASM_REGS];
 
-    for (i = 0; i < nb_operands; i++) {
+    ಗಾಗಿ (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        op->input_index = -1;
-        op->ref_index = -1;
+        op->ಒಳಹರಿವು_ಸೂಚ್ಯಂಕ = -1;
+        op->ref_ಸೂಚ್ಯಂಕ = -1;
         op->reg = -1;
-        op->is_memory = 0;
+        op->is_ಸ್ಮರಣೆ = 0;
         op->is_rw = 0;
         op->is_llong = 0;
     }
 
-    for (i = 0; i < nb_operands; i++) {
+    ಗಾಗಿ (i = 0; i < nb_operands; i++) {
         op = &operands[i];
         str = op->constraint;
         str = skip_constraint_modifiers(str);
-        if (isnum(*str) || *str == '[') {
-            k = find_constraint(operands, nb_operands, str, NULL);
-            if ((unsigned)k >= i || i < nb_outputs)
+        ಆದರೆ (isnum(*str) || *str == '[') {
+            k = ಕಂಡುಹಿಡಿ_constraint(operands, nb_operands, str, ಖಾಲಿ);
+            ಆದರೆ ((ಚಿಹ್ನೆರಹಿತ)k >= i || i < nb_outputs)
                 tcc_error("invalid reference in constraint %d ('%s')", i, str);
-            op->ref_index = k;
-            if (operands[k].input_index >= 0)
+            op->ref_ಸೂಚ್ಯಂಕ = k;
+            ಆದರೆ (operands[k].ಒಳಹರಿವು_ಸೂಚ್ಯಂಕ >= 0)
                 tcc_error("cannot reference twice the same operand");
-            operands[k].input_index = i;
-            op->priority = 5;
-        } else if ((op->vt->r & VT_VALMASK) == VT_LOCAL
+            operands[k].ಒಳಹರಿವು_ಸೂಚ್ಯಂಕ = i;
+            op->ಆದ್ಯತೆ = 5;
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ ((op->vt->r & VT_VALMASK) == VT_LOCAL
                    && op->vt->sym
                    && (reg = op->vt->sym->r & VT_VALMASK) < VT_CONST) {
-            op->priority = 1;
+            op->ಆದ್ಯತೆ = 1;
             op->reg = reg;
-        } else {
-            op->priority = constraint_priority(str);
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            op->ಆದ್ಯತೆ = constraint_ಆದ್ಯತೆ(str);
         }
     }
 
-    for (i = 0; i < nb_operands; i++)
+    ಗಾಗಿ (i = 0; i < nb_operands; i++)
         sorted_op[i] = i;
-    for (i = 0; i < nb_operands - 1; i++) {
-        for (j = i + 1; j < nb_operands; j++) {
-            p1 = operands[sorted_op[i]].priority;
-            p2 = operands[sorted_op[j]].priority;
-            if (p2 < p1) {
+    ಗಾಗಿ (i = 0; i < nb_operands - 1; i++) {
+        ಗಾಗಿ (j = i + 1; j < nb_operands; j++) {
+            p1 = operands[sorted_op[i]].ಆದ್ಯತೆ;
+            p2 = operands[sorted_op[j]].ಆದ್ಯತೆ;
+            ಆದರೆ (p2 < p1) {
                 tmp = sorted_op[i];
                 sorted_op[i] = sorted_op[j];
                 sorted_op[j] = tmp;
@@ -2082,195 +2082,195 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         }
     }
 
-    for (i = 0; i < NB_ASM_REGS; i++) {
-        if (clobber_regs[i])
-            regs_allocated[i] = REG_IN_MASK | REG_OUT_MASK;
-        else
+    ಗಾಗಿ (i = 0; i < NB_ASM_REGS; i++) {
+        ಆದರೆ (clobber_regs[i])
+            regs_allocated[i] = REG_ಒಳ_ಮುಖವಾಡ | REG_ಹೊರಹೋಗು_ಮುಖವಾಡ;
+        ಇಲ್ಲದಿದ್ದರೆ
             regs_allocated[i] = 0;
     }
 
-    for (i = 0; i < nb_operands; i++) {
+    ಗಾಗಿ (i = 0; i < nb_operands; i++) {
         j = sorted_op[i];
         op = &operands[j];
         str = op->constraint;
-        if (op->ref_index >= 0)
-            continue;
-        if (op->input_index >= 0) {
-            reg_mask = REG_IN_MASK | REG_OUT_MASK;
-        } else if (j < nb_outputs) {
-            reg_mask = REG_OUT_MASK;
-        } else {
-            reg_mask = REG_IN_MASK;
+        ಆದರೆ (op->ref_ಸೂಚ್ಯಂಕ >= 0)
+            ಮುಂದುವರಿ;
+        ಆದರೆ (op->ಒಳಹರಿವು_ಸೂಚ್ಯಂಕ >= 0) {
+            reg_ಮುಖವಾಡ = REG_ಒಳ_ಮುಖವಾಡ | REG_ಹೊರಹೋಗು_ಮುಖವಾಡ;
+        } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (j < nb_outputs) {
+            reg_ಮುಖವಾಡ = REG_ಹೊರಹೋಗು_ಮುಖವಾಡ;
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            reg_ಮುಖವಾಡ = REG_ಒಳ_ಮುಖವಾಡ;
         }
-        if (op->reg >= 0) {
-            if (is_reg_allocated(op->reg))
+        ಆದರೆ (op->reg >= 0) {
+            ಆದರೆ (is_reg_allocated(op->reg))
                 tcc_error("asm regvar requests register that's taken already");
             reg = op->reg;
-            goto reg_found;
+            ಹೋಗು reg_ಸಿಕ್ಕಿತು;
         }
-    try_next:
+    try_ಮುಂದಿನ:
         c = *str++;
-        switch (c) {
-        case '=':
-            goto try_next;
-        case '+':
+        ಆಯ್ಕೆ (c) {
+        ಸ್ಥಿತಿ '=':
+            ಹೋಗು try_ಮುಂದಿನ;
+        ಸ್ಥಿತಿ '+':
             op->is_rw = 1;
-        case '&':
-            if (j >= nb_outputs)
+        ಸ್ಥಿತಿ '&':
+            ಆದರೆ (j >= nb_outputs)
                 tcc_error("'%c' modifier can only be applied to outputs", c);
-            reg_mask = REG_IN_MASK | REG_OUT_MASK;
-            goto try_next;
-        case 'r':
-            for (reg = 0; reg < 31; reg++) {
-                if (arm64_int_reg_is_allocatable(reg)
+            reg_ಮುಖವಾಡ = REG_ಒಳ_ಮುಖವಾಡ | REG_ಹೊರಹೋಗು_ಮುಖವಾಡ;
+            ಹೋಗು try_ಮುಂದಿನ;
+        ಸ್ಥಿತಿ 'r':
+            ಗಾಗಿ (reg = 0; reg < 31; reg++) {
+                ಆದರೆ (arm64_int_reg_is_allocatable(reg)
                     && !is_reg_allocated(reg))
-                    goto reg_found;
+                    ಹೋಗು reg_ಸಿಕ್ಕಿತು;
             }
-            goto try_next;
-        case 'w':
-        case 'f':
-            for (reg = ARM64_FREG_BASE; reg <= ARM64_FREG_LAST; reg++) {
-                if (!is_reg_allocated(reg))
-                    goto reg_found;
+            ಹೋಗು try_ಮುಂದಿನ;
+        ಸ್ಥಿತಿ 'w':
+        ಸ್ಥಿತಿ 'f':
+            ಗಾಗಿ (reg = ARM64_FREG_ತಳ; reg <= ARM64_FREG_ಕೊನೆಯ; reg++) {
+                ಆದರೆ (!is_reg_allocated(reg))
+                    ಹೋಗು reg_ಸಿಕ್ಕಿತು;
             }
-            goto try_next;
-        case 'x':
-        case 'y':
-            for (reg = ARM64_FREG_BASE; reg <= ARM64_FREG_LAST; reg++) {
-                if (!is_reg_allocated(reg))
-                    goto reg_found;
+            ಹೋಗು try_ಮುಂದಿನ;
+        ಸ್ಥಿತಿ 'x':
+        ಸ್ಥಿತಿ 'y':
+            ಗಾಗಿ (reg = ARM64_FREG_ತಳ; reg <= ARM64_FREG_ಕೊನೆಯ; reg++) {
+                ಆದರೆ (!is_reg_allocated(reg))
+                    ಹೋಗು reg_ಸಿಕ್ಕಿತು;
             }
-            goto try_next;
-        case 'm':
-        case 'g':
-            if (j < nb_outputs || c == 'm') {
-                if (!arm64_prepare_memory_operand(op, regs_allocated))
-                    goto try_next;
+            ಹೋಗು try_ಮುಂದಿನ;
+        ಸ್ಥಿತಿ 'm':
+        ಸ್ಥಿತಿ 'g':
+            ಆದರೆ (j < nb_outputs || c == 'm') {
+                ಆದರೆ (!arm64_prepare_ಸ್ಮರಣೆ_ಕಾರ್ಯಾಂಶ(op, regs_allocated))
+                    ಹೋಗು try_ಮುಂದಿನ;
             }
-            break;
-        case 'Q':
-            if (!arm64_memory_is_base_only(op->vt))
-                goto try_next;
-            if (!arm64_prepare_memory_operand(op, regs_allocated))
-                goto try_next;
-            break;
-        case 'S':
-            if ((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) != (VT_CONST | VT_SYM))
-                goto try_next;
-            break;
-        case 'U':
-            if (str[0] != 'm' || str[1] != 'p')
-                goto try_next;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'Q':
+            ಆದರೆ (!arm64_ಸ್ಮರಣೆ_is_ತಳ_only(op->vt))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ಆದರೆ (!arm64_prepare_ಸ್ಮರಣೆ_ಕಾರ್ಯಾಂಶ(op, regs_allocated))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'S':
+            ಆದರೆ ((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) != (VT_CONST | VT_SYM))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'U':
+            ಆದರೆ (str[0] != 'm' || str[1] != 'p')
+                ಹೋಗು try_ಮುಂದಿನ;
             str += 2;
-            if (!arm64_memory_is_pair_suitable(op->vt))
-                goto try_next;
-            if (!arm64_prepare_memory_operand(op, regs_allocated))
-                goto try_next;
-            break;
-        case 'i':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
-                goto try_next;
-            break;
-        case 'I':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
-                goto try_next;
-            if (!is_valid_add_imm(op->vt->c.i))
-                goto try_next;
-            break;
-        case 'J':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
-                goto try_next;
-            if (!is_valid_add_imm(-op->vt->c.i))
-                goto try_next;
-            break;
-        case 'K':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
-                goto try_next;
-            if (!is_valid_logical_imm(op->vt->c.i, 32))
-                goto try_next;
-            break;
-        case 'L':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
-                goto try_next;
-            if (!is_valid_logical_imm(op->vt->c.i, 64))
-                goto try_next;
-            break;
-        case 'M':
-        case 'N':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
-                goto try_next;
-            if (!is_valid_movw_imm(op->vt->c.i))
-                goto try_next;
-            break;
-        case 'Z':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
-                goto try_next;
-            if (op->vt->c.i != 0)
-                goto try_next;
-            break;
-        case 'n':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
-                goto try_next;
-            break;
-        default:
+            ಆದರೆ (!arm64_ಸ್ಮರಣೆ_is_pair_suitable(op->vt))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ಆದರೆ (!arm64_prepare_ಸ್ಮರಣೆ_ಕಾರ್ಯಾಂಶ(op, regs_allocated))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'i':
+            ಆದರೆ (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'I':
+            ಆದರೆ (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ಆದರೆ (!is_valid_ಕೂಡಿಸು_imm(op->vt->c.i))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'J':
+            ಆದರೆ (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ಆದರೆ (!is_valid_ಕೂಡಿಸು_imm(-op->vt->c.i))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'K':
+            ಆದರೆ (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ಆದರೆ (!is_valid_logical_imm(op->vt->c.i, 32))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'L':
+            ಆದರೆ (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ಆದರೆ (!is_valid_logical_imm(op->vt->c.i, 64))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'M':
+        ಸ್ಥಿತಿ 'N':
+            ಆದರೆ (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ಆದರೆ (!is_valid_movw_imm(op->vt->c.i))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'Z':
+            ಆದರೆ (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ಆದರೆ (op->vt->c.i != 0)
+                ಹೋಗು try_ಮುಂದಿನ;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 'n':
+            ಆದರೆ (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
+                ಹೋಗು try_ಮುಂದಿನ;
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
             tcc_error("asm constraint %d ('%s') could not be satisfied",
                        j, op->constraint);
-            break;
+            ನಿಲ್ಲಿಸು;
         }
-        if (op->input_index >= 0) {
-            operands[op->input_index].reg = op->reg;
-            operands[op->input_index].is_llong = op->is_llong;
+        ಆದರೆ (op->ಒಳಹರಿವು_ಸೂಚ್ಯಂಕ >= 0) {
+            operands[op->ಒಳಹರಿವು_ಸೂಚ್ಯಂಕ].reg = op->reg;
+            operands[op->ಒಳಹರಿವು_ಸೂಚ್ಯಂಕ].is_llong = op->is_llong;
         }
-        continue;
-    reg_found:
+        ಮುಂದುವರಿ;
+    reg_ಸಿಕ್ಕಿತು:
         op->is_llong = 0;
         op->reg = reg;
-        regs_allocated[reg] |= reg_mask;
-        if (op->input_index >= 0) {
-            operands[op->input_index].reg = op->reg;
-            operands[op->input_index].is_llong = op->is_llong;
+        regs_allocated[reg] |= reg_ಮುಖವಾಡ;
+        ಆದರೆ (op->ಒಳಹರಿವು_ಸೂಚ್ಯಂಕ >= 0) {
+            operands[op->ಒಳಹರಿವು_ಸೂಚ್ಯಂಕ].reg = op->reg;
+            operands[op->ಒಳಹರಿವು_ಸೂಚ್ಯಂಕ].is_llong = op->is_llong;
         }
     }
 
     *pout_reg = -1;
-    for (i = 0; i < nb_operands; i++) {
+    ಗಾಗಿ (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        if (op->reg >= 0 &&
+        ಆದರೆ (op->reg >= 0 &&
             (op->vt->r & VT_VALMASK) == VT_LLOCAL &&
-            !op->is_memory) {
-            for (reg = 0; reg < 31; reg++) {
-                if (!(regs_allocated[reg] & REG_OUT_MASK))
-                    goto reg_found2;
+            !op->is_ಸ್ಮರಣೆ) {
+            ಗಾಗಿ (reg = 0; reg < 31; reg++) {
+                ಆದರೆ (!(regs_allocated[reg] & REG_ಹೊರಹೋಗು_ಮುಖವಾಡ))
+                    ಹೋಗು reg_found2;
             }
             tcc_error("could not find free output register for reloading");
         reg_found2:
             *pout_reg = reg;
-            break;
+            ನಿಲ್ಲಿಸು;
         }
     }
 }
 
 /* Handle clobber list */
-ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str)
+ST_FUNC ಶೂನ್ಯ asm_clobber(uint8_t *clobber_regs, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *str)
 {
-    int reg;
+    ಪೂರ್ಣಾಂಕ reg;
 
-    if (!strcmp(str, "memory") ||
+    ಆದರೆ (!strcmp(str, "memory") ||
         !strcmp(str, "cc") ||
         !strcmp(str, "flags"))
-        return;
+        ಹಿಂತಿರುಗಿ;
 
     reg = arm64_parse_regvar(tok_alloc_const(str));
-    if (reg == -1)
+    ಆದರೆ (reg == -1)
         tcc_error("invalid clobber register '%s'", str);
     clobber_regs[reg] = 1;
 }
 
 /* Parse register variable - this is the ST_FUNC that tcc.h expects */
-ST_FUNC int asm_parse_regvar(int t)
+ST_FUNC ಪೂರ್ಣಾಂಕ asm_parse_regvar(ಪೂರ್ಣಾಂಕ t)
 {
-    return arm64_parse_regvar(t);
+    ಹಿಂತಿರುಗಿ arm64_parse_regvar(t);
 }
 
 /*************************************************************/
-#endif /* ndef TARGET_DEFS_ONLY */
+#ಆದರೆ_ಅಂತ್ಯ /* ndef TARGET_DEFS_ONLY */

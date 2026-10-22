@@ -1,26 +1,26 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int a;
-   char b;
+   ಪೂರ್ಣಾಂಕ a;
+   ಅಕ್ಷರ b;
 
    a = 0;
-   while (a < 2)
+   ಆಗ (a < 2)
    {
-      printf("%d", a++);
-      break;
+      ಬರೆ("%d", a++);
+      ನಿಲ್ಲಿಸು;
 
       b = 'A';
-      while (b < 'C')
+      ಆಗ (b < 'C')
       {
-         printf("%c", b++);
+         ಬರೆ("%c", b++);
       }
-      printf("e");
+      ಬರೆ("e");
    }
-   printf("\n");
+   ಬರೆ("\n");
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

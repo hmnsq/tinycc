@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+ಸ್ಥಿರ ಸಾಲೊಳಗೆ ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *get_basefile_from_ಶೀರ್ಷಿಕೆ(ಶೂನ್ಯ)
 {
-  return __BASE_FILE__;
+  ಹಿಂತಿರುಗಿ __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+ಸ್ಥಿರ ಸಾಲೊಳಗೆ ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *get_file_from_ಶೀರ್ಷಿಕೆ(ಶೂನ್ಯ)
 {
-  return __FILE__;
+  ಹಿಂತಿರುಗಿ __FILE__;
 }

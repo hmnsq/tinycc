@@ -1,27 +1,27 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-typedef struct
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ
 {
-    double average;
-    int count;
+    ದ್ವಿಗುಣ ಸರಾಸರಿ_ಮೌಲ್ಯ;
+    ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_3;
 }
 stats_type;
 
-static void
-testc (stats_type *s, long long data)
+ಸ್ಥಿರ ಶೂನ್ಯ
+testc (stats_type *s, ದೀರ್ಘ ದೀರ್ಘ ದತ್ತಾಂಶ)
 {
-    s->average = (s->average * s->count + data) / (s->count + 1);
-    s->count++;
+    s->ಸರಾಸರಿ_ಮೌಲ್ಯ = (s->ಸರಾಸರಿ_ಮೌಲ್ಯ * s->ಎಣಿಕೆ_3 + ದತ್ತಾಂಶ) / (s->ಎಣಿಕೆ_3 + 1);
+    s->ಎಣಿಕೆ_3++;
 }
 
-int main (void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ (ಶೂನ್ಯ)
 {
     stats_type s;
 
-    s.average = 0;
-    s.count = 0;
+    s.ಸರಾಸರಿ_ಮೌಲ್ಯ = 0;
+    s.ಎಣಿಕೆ_3 = 0;
     testc (&s, 10);
     testc (&s, 20);
-    printf ("%g %d\n", s.average, s.count);
-    return 0;
+    ಬರೆ ("%g %d\n", s.ಸರಾಸರಿ_ಮೌಲ್ಯ, s.ಎಣಿಕೆ_3);
+    ಹಿಂತಿರುಗಿ 0;
 }

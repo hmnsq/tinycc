@@ -1,15 +1,15 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-void fred(void)
+ಶೂನ್ಯ fred(ಶೂನ್ಯ)
 {
-   printf("yo\n");
+   ಬರೆ("yo\n");
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
    fred();
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

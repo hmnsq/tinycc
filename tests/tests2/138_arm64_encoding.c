@@ -2,39 +2,39 @@
    Exercises shift-by-immediate, load/store addressing modes,
    conditional branches, and system register access. */
 
-#include <stdio.h>
-#include <stdint.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdint.h>
 
 /* ---- shift-by-immediate helpers ---- */
 
-static uint32_t lsl32(uint32_t x, int n) { return x << n; }
-static uint32_t lsr32(uint32_t x, int n) { return x >> n; }
-static int32_t  asr32(int32_t  x, int n) { return x >> n; }
-static uint64_t lsl64(uint64_t x, int n) { return x << n; }
-static uint64_t lsr64(uint64_t x, int n) { return x >> n; }
-static int64_t  asr64(int64_t  x, int n) { return x >> n; }
+ಸ್ಥಿರ uint32_t lsl32(uint32_t x, ಪೂರ್ಣಾಂಕ n) { ಹಿಂತಿರುಗಿ x << n; }
+ಸ್ಥಿರ uint32_t lsr32(uint32_t x, ಪೂರ್ಣಾಂಕ n) { ಹಿಂತಿರುಗಿ x >> n; }
+ಸ್ಥಿರ int32_t  asr32(int32_t  x, ಪೂರ್ಣಾಂಕ n) { ಹಿಂತಿರುಗಿ x >> n; }
+ಸ್ಥಿರ uint64_t lsl64(uint64_t x, ಪೂರ್ಣಾಂಕ n) { ಹಿಂತಿರುಗಿ x << n; }
+ಸ್ಥಿರ uint64_t lsr64(uint64_t x, ಪೂರ್ಣಾಂಕ n) { ಹಿಂತಿರುಗಿ x >> n; }
+ಸ್ಥಿರ int64_t  asr64(int64_t  x, ಪೂರ್ಣಾಂಕ n) { ಹಿಂತಿರುಗಿ x >> n; }
 
-static void test_shifts(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_shifts(ಶೂನ್ಯ)
 {
-    printf("shift-imm:\n");
-    printf("%x\n", lsl32(1, 0));
-    printf("%x\n", lsl32(1, 15));
-    printf("%x\n", lsl32(1, 31));
-    printf("%x\n", lsr32(0x80000000U, 31));
-    printf("%x\n", lsr32(0x80000000U, 16));
-    printf("%x\n", asr32(-1, 1));
-    printf("%x\n", asr32(-256, 4));
-    printf("%llx\n", (unsigned long long)lsl64(1ULL, 0));
-    printf("%llx\n", (unsigned long long)lsl64(1ULL, 32));
-    printf("%llx\n", (unsigned long long)lsl64(1ULL, 63));
-    printf("%llx\n", (unsigned long long)lsr64(0x8000000000000000ULL, 63));
-    printf("%llx\n", (unsigned long long)asr64(-1LL, 1));
-    printf("%llx\n", (unsigned long long)asr64(-256LL, 4));
+    ಬರೆ("shift-imm:\n");
+    ಬರೆ("%x\n", lsl32(1, 0));
+    ಬರೆ("%x\n", lsl32(1, 15));
+    ಬರೆ("%x\n", lsl32(1, 31));
+    ಬರೆ("%x\n", lsr32(0x80000000U, 31));
+    ಬರೆ("%x\n", lsr32(0x80000000U, 16));
+    ಬರೆ("%x\n", asr32(-1, 1));
+    ಬರೆ("%x\n", asr32(-256, 4));
+    ಬರೆ("%llx\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)lsl64(1ULL, 0));
+    ಬರೆ("%llx\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)lsl64(1ULL, 32));
+    ಬರೆ("%llx\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)lsl64(1ULL, 63));
+    ಬರೆ("%llx\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)lsr64(0x8000000000000000ULL, 63));
+    ಬರೆ("%llx\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)asr64(-1LL, 1));
+    ಬರೆ("%llx\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)asr64(-256LL, 4));
 }
 
 /* ---- load/store with various addressing modes ---- */
 
-static void test_ldr_str(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_ldr_str(ಶೂನ್ಯ)
 {
     int64_t buf[4] = { 0x1122334455667788LL, 0x99AABBCCDDEEFF00LL,
                        0x0F1E2D3C4B5A6978LL, 0x0000000000000001LL };
@@ -42,34 +42,34 @@ static void test_ldr_str(void)
     int32_t wval;
     int64_t *p;
 
-    printf("ldr-str:\n");
+    ಬರೆ("ldr-str:\n");
 
     /* LDR X, [Xn, #offset] */
     val = buf[0];
-    printf("%llx\n", (unsigned long long)val);
+    ಬರೆ("%llx\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)val);
     val = buf[1];
-    printf("%llx\n", (unsigned long long)val);
+    ಬರೆ("%llx\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)val);
 
     /* LDR W, [Xn, #offset] (32-bit load) */
     wval = *(int32_t*)&buf[0];
-    printf("%x\n", (unsigned)wval);
+    ಬರೆ("%x\n", (ಚಿಹ್ನೆರಹಿತ)wval);
 
     /* Pre-indexed: store pointer, modify */
     p = &buf[0];
     val = *(p + 2);
-    printf("%llx\n", (unsigned long long)val);
+    ಬರೆ("%llx\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)val);
 
     /* Post-indexed simulation via pointer arithmetic */
     p = &buf[0];
     val = *p;
     p++;
-    printf("%llx %llx\n", (unsigned long long)val,
-           (unsigned long long)*p);
+    ಬರೆ("%llx %llx\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)val,
+           (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)*p);
 }
 
 /* ---- STP/LDP (store/load pair) ---- */
 
-static void test_ldp_stp(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_ldp_stp(ಶೂನ್ಯ)
 {
     int64_t src[2] = { 0xAAAABBBBCCCCDDDDLL, 0x1111222233334444LL };
     int64_t dst[2];
@@ -78,192 +78,192 @@ static void test_ldp_stp(void)
     dst[0] = src[0];
     dst[1] = src[1];
 
-    printf("ldp-stp:\n");
-    printf("%llx %llx\n",
-           (unsigned long long)dst[0],
-           (unsigned long long)dst[1]);
+    ಬರೆ("ldp-stp:\n");
+    ಬರೆ("%llx %llx\n",
+           (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)dst[0],
+           (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)dst[1]);
 }
 
 /* ---- CBZ / CBNZ via C patterns ---- */
 
-static const char *cbz_test(int x)
+ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *cbz_test(ಪೂರ್ಣಾಂಕ x)
 {
-    if (x == 0)
-        return "zero";
-    return "nonzero";
+    ಆದರೆ (x == 0)
+        ಹಿಂತಿರುಗಿ "zero";
+    ಹಿಂತಿರುಗಿ "nonzero";
 }
 
-static const char *cbnz_test(int x)
+ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *cbnz_test(ಪೂರ್ಣಾಂಕ x)
 {
-    if (x != 0)
-        return "nonzero";
-    return "zero";
+    ಆದರೆ (x != 0)
+        ಹಿಂತಿರುಗಿ "nonzero";
+    ಹಿಂತಿರುಗಿ "zero";
 }
 
-static void test_cond_branches(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_cond_branches(ಶೂನ್ಯ)
 {
-    printf("cbz-cbnz:\n");
-    printf("%s\n", cbz_test(0));
-    printf("%s\n", cbz_test(42));
-    printf("%s\n", cbnz_test(0));
-    printf("%s\n", cbnz_test(42));
+    ಬರೆ("cbz-cbnz:\n");
+    ಬರೆ("%s\n", cbz_test(0));
+    ಬರೆ("%s\n", cbz_test(42));
+    ಬರೆ("%s\n", cbnz_test(0));
+    ಬರೆ("%s\n", cbnz_test(42));
 }
 
 /* ---- conditional compare patterns (CCMP/CCMN) ---- */
 
-static int cond_select(int a, int b)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ cond_select(ಪೂರ್ಣಾಂಕ a, ಪೂರ್ಣಾಂಕ b)
 {
     /* TCC should generate csel or equivalent */
-    return a > b ? a : b;
+    ಹಿಂತಿರುಗಿ a > b ? a : b;
 }
 
-static void test_cond_select(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_cond_select(ಶೂನ್ಯ)
 {
-    printf("csel:\n");
-    printf("%d\n", cond_select(5, 10));
-    printf("%d\n", cond_select(10, 5));
-    printf("%d\n", cond_select(0, 0));
-    printf("%d\n", cond_select(-1, 1));
+    ಬರೆ("csel:\n");
+    ಬರೆ("%d\n", cond_select(5, 10));
+    ಬರೆ("%d\n", cond_select(10, 5));
+    ಬರೆ("%d\n", cond_select(0, 0));
+    ಬರೆ("%d\n", cond_select(-1, 1));
 }
 
 /* ---- MRS/MSR system registers (FPCR/FPSR) ---- */
 
-static void test_sysregs(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_sysregs(ಶೂನ್ಯ)
 {
-    unsigned int fpcr, fpsr;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ fpcr, fpsr;
 
-    printf("sysregs:\n");
+    ಬರೆ("sysregs:\n");
 
     /* Read FPCR */
-    __asm__ volatile ("mrs %0, fpcr" : "=r"(fpcr));
-    printf("%u\n", fpcr & 0x0F);
+    __asm__ ಅಸ್ಥಿರ ("mrs %0, fpcr" : "=r"(fpcr));
+    ಬರೆ("%u\n", fpcr & 0x0F);
 
     /* Read FPSR */
-    __asm__ volatile ("mrs %0, fpsr" : "=r"(fpsr));
-    printf("%u\n", fpsr);
+    __asm__ ಅಸ್ಥಿರ ("mrs %0, fpsr" : "=r"(fpsr));
+    ಬರೆ("%u\n", fpsr);
 
     /* Write/restore FPCR (should be same value) */
-    __asm__ volatile ("msr fpcr, %0" : : "r"(fpcr));
+    __asm__ ಅಸ್ಥಿರ ("msr fpcr, %0" : : "r"(fpcr));
 
     /* Read back and verify */
     {
-        unsigned int check;
-        __asm__ volatile ("mrs %0, fpcr" : "=r"(check));
-        printf("%s\n", check == fpcr ? "ok" : "fail");
+        ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ check;
+        __asm__ ಅಸ್ಥಿರ ("mrs %0, fpcr" : "=r"(check));
+        ಬರೆ("%s\n", check == fpcr ? "ok" : "fail");
     }
 }
 
 /* ---- NOP encoding (should not crash) ---- */
 
-static void test_nop(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_nop(ಶೂನ್ಯ)
 {
-    printf("nop:\n");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    printf("ok\n");
+    ಬರೆ("nop:\n");
+    __asm__ ಅಸ್ಥಿರ ("nop");
+    __asm__ ಅಸ್ಥಿರ ("nop");
+    __asm__ ಅಸ್ಥಿರ ("nop");
+    ಬರೆ("ok\n");
 }
 
 /* ---- barrier instructions ---- */
 
-static void test_barriers(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_barriers(ಶೂನ್ಯ)
 {
-    printf("barriers:\n");
-    __asm__ volatile ("dmb sy");
-    __asm__ volatile ("dsb sy");
-    __asm__ volatile ("isb");
-    printf("ok\n");
+    ಬರೆ("barriers:\n");
+    __asm__ ಅಸ್ಥಿರ ("dmb sy");
+    __asm__ ಅಸ್ಥಿರ ("dsb sy");
+    __asm__ ಅಸ್ಥಿರ ("isb");
+    ಬರೆ("ok\n");
 }
 
 /* ---- MOV (register) patterns ---- */
 
-static int64_t mov_x0_x1(int64_t x)
+ಸ್ಥಿರ int64_t mov_x0_x1(int64_t x)
 {
-    register int64_t r __asm__("x0") = x;
-    __asm__ volatile ("" : "=r"(r) : "0"(r));
-    return r;
+    ನೋಂದಣಿ int64_t r __asm__("x0") = x;
+    __asm__ ಅಸ್ಥಿರ ("" : "=r"(r) : "0"(r));
+    ಹಿಂತಿರುಗಿ r;
 }
 
-static void test_mov_reg(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_mov_reg(ಶೂನ್ಯ)
 {
-    printf("mov-reg:\n");
-    printf("%lld\n", (long long)mov_x0_x1(42));
-    printf("%lld\n", (long long)mov_x0_x1(-1));
+    ಬರೆ("mov-reg:\n");
+    ಬರೆ("%lld\n", (ದೀರ್ಘ ದೀರ್ಘ)mov_x0_x1(42));
+    ಬರೆ("%lld\n", (ದೀರ್ಘ ದೀರ್ಘ)mov_x0_x1(-1));
 }
 
 /* ---- large struct passing (reference semantics) ---- */
 
-struct large { int64_t a, b, c, d; };
+ರಚನೆ large { int64_t a, b, c, d; };
 
-static int64_t sum_large(struct large s)
+ಸ್ಥಿರ int64_t ಮೊತ್ತ_large(ರಚನೆ large s)
 {
-    return s.a + s.b + s.c + s.d;
+    ಹಿಂತಿರುಗಿ s.a + s.b + s.c + s.d;
 }
 
-static struct large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
+ಸ್ಥಿರ ರಚನೆ large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
 {
-    struct large s = { a, b, c, d };
-    return s;
+    ರಚನೆ large s = { a, b, c, d };
+    ಹಿಂತಿರುಗಿ s;
 }
 
-static void test_large_structs(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_large_structs(ಶೂನ್ಯ)
 {
-    struct large s = { 1, 2, 3, 4 };
-    struct large t;
+    ರಚನೆ large s = { 1, 2, 3, 4 };
+    ರಚನೆ large t;
 
-    printf("large-struct:\n");
-    printf("%lld\n", (long long)sum_large(s));
+    ಬರೆ("large-struct:\n");
+    ಬರೆ("%lld\n", (ದೀರ್ಘ ದೀರ್ಘ)ಮೊತ್ತ_large(s));
 
     t = make_large(10, 20, 30, 40);
-    printf("%lld %lld %lld %lld\n",
-           (long long)t.a, (long long)t.b,
-           (long long)t.c, (long long)t.d);
+    ಬರೆ("%lld %lld %lld %lld\n",
+           (ದೀರ್ಘ ದೀರ್ಘ)t.a, (ದೀರ್ಘ ದೀರ್ಘ)t.b,
+           (ದೀರ್ಘ ದೀರ್ಘ)t.c, (ದೀರ್ಘ ದೀರ್ಘ)t.d);
 }
 
 /* ---- boundary-sized structs ---- */
 
-struct s18 { char x[18]; };
-struct s24 { char x[24]; };
-struct s32 { char x[32]; };
+ರಚನೆ s18 { ಅಕ್ಷರ x[18]; };
+ರಚನೆ s24 { ಅಕ್ಷರ x[24]; };
+ರಚನೆ s32 { ಅಕ್ಷರ x[32]; };
 
-static void print_s18(struct s18 s) { printf("%.18s\n", s.x); }
-static void print_s24(struct s24 s) { printf("%.24s\n", s.x); }
-static void print_s32(struct s32 s) { printf("%.32s\n", s.x); }
+ಸ್ಥಿರ ಶೂನ್ಯ print_s18(ರಚನೆ s18 s) { ಬರೆ("%.18s\n", s.x); }
+ಸ್ಥಿರ ಶೂನ್ಯ print_s24(ರಚನೆ s24 s) { ಬರೆ("%.24s\n", s.x); }
+ಸ್ಥಿರ ಶೂನ್ಯ print_s32(ರಚನೆ s32 s) { ಬರೆ("%.32s\n", s.x); }
 
-static struct s18 ret_s18(void)
+ಸ್ಥಿರ ರಚನೆ s18 ret_s18(ಶೂನ್ಯ)
 {
-    struct s18 s = { "123456789012345678" };
-    return s;
+    ರಚನೆ s18 s = { "123456789012345678" };
+    ಹಿಂತಿರುಗಿ s;
 }
 
-static struct s24 ret_s24(void)
+ಸ್ಥಿರ ರಚನೆ s24 ret_s24(ಶೂನ್ಯ)
 {
-    struct s24 s = { "123456789012345678901234" };
-    return s;
+    ರಚನೆ s24 s = { "123456789012345678901234" };
+    ಹಿಂತಿರುಗಿ s;
 }
 
-static struct s32 ret_s32(void)
+ಸ್ಥಿರ ರಚನೆ s32 ret_s32(ಶೂನ್ಯ)
 {
-    struct s32 s = { "12345678901234567890123456789012" };
-    return s;
+    ರಚನೆ s32 s = { "12345678901234567890123456789012" };
+    ಹಿಂತಿರುಗಿ s;
 }
 
-static void test_boundary_structs(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_boundary_structs(ಶೂನ್ಯ)
 {
-    struct s18 a;
-    struct s24 b;
-    struct s32 c;
+    ರಚನೆ s18 a;
+    ರಚನೆ s24 b;
+    ರಚನೆ s32 c;
 
-    printf("boundary-structs:\n");
+    ಬರೆ("boundary-structs:\n");
     a = ret_s18();
-    printf("%.18s\n", a.x);
+    ಬರೆ("%.18s\n", a.x);
     b = ret_s24();
-    printf("%.24s\n", b.x);
+    ಬರೆ("%.24s\n", b.x);
     c = ret_s32();
-    printf("%.32s\n", c.x);
+    ಬರೆ("%.32s\n", c.x);
 }
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
     test_shifts();
     test_ldr_str();
@@ -276,5 +276,5 @@ int main(void)
     test_mov_reg();
     test_large_structs();
     test_boundary_structs();
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

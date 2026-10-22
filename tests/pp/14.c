@@ -1,13 +1,13 @@
-#define W Z
-#define Z(X) W(X,2)
-#define Y(X) Z(X)
-#define X Y
-return X(X(1));
+#ವ್ಯಾಖ್ಯಾನಿಸು W Z
+#ವ್ಯಾಖ್ಯಾನಿಸು Z(X) W(X,2)
+#ವ್ಯಾಖ್ಯಾನಿಸು Y(X) Z(X)
+#ವ್ಯಾಖ್ಯಾನಿಸು X Y
+ಹಿಂತಿರುಗಿ X(X(1));
 
-#define P Q
-#define Q(n) P(n,2)
-return P(1);
+#ವ್ಯಾಖ್ಯಾನಿಸು P Q
+#ವ್ಯಾಖ್ಯಾನಿಸು Q(n) P(n,2)
+ಹಿಂತಿರುಗಿ P(1);
 
-#define A (B * B)
-#define B (A + A)
-return A + B;
+#ವ್ಯಾಖ್ಯಾನಿಸು A (B * B)
+#ವ್ಯಾಖ್ಯಾನಿಸು B (A + A)
+ಹಿಂತಿರುಗಿ A + B;

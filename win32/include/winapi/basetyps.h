@@ -3,83 +3,83 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#if !defined(_BASETYPS_H_)
-#define _BASETYPS_H_
+#ಆದರೆ !defined(_BASETYPS_H_)
+#ವ್ಯಾಖ್ಯಾನಿಸು _BASETYPS_H_
 
-#ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿಸು EXTERN_C ಬಾಹ್ಯ "C"
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು EXTERN_C ಬಾಹ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define STDMETHODCALLTYPE WINAPI
-#define STDMETHODVCALLTYPE __cdecl
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHODCALLTYPE WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHODVCALLTYPE __cdecl
 
-#define STDAPICALLTYPE WINAPI
-#define STDAPIVCALLTYPE __cdecl
+#ವ್ಯಾಖ್ಯಾನಿಸು STDAPICALLTYPE WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು STDAPIVCALLTYPE __cdecl
 
-#define STDAPI EXTERN_C HRESULT WINAPI
-#define STDAPI_(type) EXTERN_C type WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು STDAPI EXTERN_C HRESULT WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು STDAPI_(type) EXTERN_C type WINAPI
 
-#define STDMETHODIMP HRESULT WINAPI
-#define STDMETHODIMP_(type) type WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHODIMP HRESULT WINAPI
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHODIMP_(type) type WINAPI
 
-#define STDAPIV EXTERN_C HRESULT STDAPIVCALLTYPE
-#define STDAPIV_(type) EXTERN_C type STDAPIVCALLTYPE
+#ವ್ಯಾಖ್ಯಾನಿಸು STDAPIV EXTERN_C HRESULT STDAPIVCALLTYPE
+#ವ್ಯಾಖ್ಯಾನಿಸು STDAPIV_(type) EXTERN_C type STDAPIVCALLTYPE
 
-#define STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
-#define STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
 
-#if defined(__cplusplus) && !defined(CINTERFACE)
+#ಆದರೆ defined(__cplusplus) && !defined(CINTERFACE)
 
-#define __STRUCT__ struct
-#define STDMETHOD(method) virtual HRESULT WINAPI method
-#define STDMETHOD_(type,method) virtual type WINAPI method
-#define STDMETHODV(method) virtual HRESULT STDMETHODVCALLTYPE method
-#define STDMETHODV_(type,method) virtual type STDMETHODVCALLTYPE method
-#define PURE = 0
-#define THIS_
-#define THIS void
-#define DECLARE_INTERFACE(iface) __STRUCT__ iface
-#define DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : public baseiface
-#else
+#ವ್ಯಾಖ್ಯಾನಿಸು __STRUCT__ ರಚನೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHOD(ವಿಧಾನ_2) ವಾಸ್ತವಿಕ HRESULT WINAPI ವಿಧಾನ_2
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHOD_(type,ವಿಧಾನ_2) ವಾಸ್ತವಿಕ type WINAPI ವಿಧಾನ_2
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHODV(ವಿಧಾನ_2) ವಾಸ್ತವಿಕ HRESULT STDMETHODVCALLTYPE ವಿಧಾನ_2
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHODV_(type,ವಿಧಾನ_2) ವಾಸ್ತವಿಕ type STDMETHODVCALLTYPE ವಿಧಾನ_2
+#ವ್ಯಾಖ್ಯಾನಿಸು ಶುದ್ಧ = 0
+#ವ್ಯಾಖ್ಯಾನಿಸು THIS_
+#ವ್ಯಾಖ್ಯಾನಿಸು THIS ಶೂನ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿಸು DECLARE_INTERFACE(iface) __STRUCT__ iface
+#ವ್ಯಾಖ್ಯಾನಿಸು DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : ಸಾರ್ವಜನಿಕ baseiface
+#ಇಲ್ಲದಿದ್ದರೆ
 
-#ifndef __OBJC__
-#define interface struct
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __OBJC__
+#ವ್ಯಾಖ್ಯಾನಿಸು interface ರಚನೆ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define STDMETHOD(method) HRESULT (WINAPI *method)
-#define STDMETHOD_(type,method) type (WINAPI *method)
-#define STDMETHODV(method) HRESULT (STDMETHODVCALLTYPE *method)
-#define STDMETHODV_(type,method) type (STDMETHODVCALLTYPE *method)
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHOD(ವಿಧಾನ_2) HRESULT (WINAPI *ವಿಧಾನ_2)
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHOD_(type,ವಿಧಾನ_2) type (WINAPI *ವಿಧಾನ_2)
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHODV(ವಿಧಾನ_2) HRESULT (STDMETHODVCALLTYPE *ವಿಧಾನ_2)
+#ವ್ಯಾಖ್ಯಾನಿಸು STDMETHODV_(type,ವಿಧಾನ_2) type (STDMETHODVCALLTYPE *ವಿಧಾನ_2)
 
-#define PURE
-#define THIS_ INTERFACE *This,
-#define THIS INTERFACE *This
-#ifdef CONST_VTABLE
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-  const struct iface##Vtbl *lpVtbl; } iface; \
-  typedef const struct iface##Vtbl iface##Vtbl; \
-  const struct iface##Vtbl
-#else
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-    struct iface##Vtbl *lpVtbl; \
+#ವ್ಯಾಖ್ಯಾನಿಸು ಶುದ್ಧ
+#ವ್ಯಾಖ್ಯಾನಿಸು THIS_ INTERFACE *This,
+#ವ್ಯಾಖ್ಯಾನಿಸು THIS INTERFACE *This
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONST_VTABLE
+#ವ್ಯಾಖ್ಯಾನಿಸು DECLARE_INTERFACE(iface) ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ iface { \
+  ಸ್ಥಿರಾಂಕ ರಚನೆ iface##Vtbl *lpVtbl; } iface; \
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಸ್ಥಿರಾಂಕ ರಚನೆ iface##Vtbl iface##Vtbl; \
+  ಸ್ಥಿರಾಂಕ ರಚನೆ iface##Vtbl
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು DECLARE_INTERFACE(iface) ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ iface { \
+    ರಚನೆ iface##Vtbl *lpVtbl; \
   } iface; \
-  typedef struct iface##Vtbl iface##Vtbl; \
-  struct iface##Vtbl
-#endif
-#define DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
-#endif
+  ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ iface##Vtbl iface##Vtbl; \
+  ರಚನೆ iface##Vtbl
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿಸು DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
+#ಆದರೆ_ಅಂತ್ಯ
 
-#include <guiddef.h>
+#ಅನ್ತರ್ಭಾವ <guiddef.h>
 
-#ifndef _ERROR_STATUS_T_DEFINED
-#define _ERROR_STATUS_T_DEFINED
-typedef unsigned long error_status_t;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ERROR_ಸ್ಥಿತಿ_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು ERROR_ಸ್ಥಿತಿ_T_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ error_ಸ್ಥಿತಿ_t;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _WCHAR_T_DEFINED
-typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WCHAR_T_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ wchar_t;
+#ವ್ಯಾಖ್ಯಾನಿಸು _WCHAR_T_DEFINED
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ

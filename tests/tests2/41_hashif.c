@@ -1,85 +1,85 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   printf("#include test\n");
+   ಬರೆ("#include test\n");
 
-#if 1
-#if 0
-   printf("a\n");
-#else
-   printf("b\n");
-#endif
-#else
-#if 0
-   printf("c\n");
-#else
-   printf("d\n");
-#endif
-#endif
+#ಆದರೆ 1
+#ಆದರೆ 0
+   ಬರೆ("a\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+   ಬರೆ("b\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಇಲ್ಲದಿದ್ದರೆ
+#ಆದರೆ 0
+   ಬರೆ("c\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+   ಬರೆ("d\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if 0
-#if 1
-   printf("e\n");
-#else
-   printf("f\n");
-#endif
-#else
-#if 1
-   printf("g\n");
-#else
-   printf("h\n");
-#endif
-#endif
+#ಆದರೆ 0
+#ಆದರೆ 1
+   ಬರೆ("e\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+   ಬರೆ("f\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಇಲ್ಲದಿದ್ದರೆ
+#ಆದರೆ 1
+   ಬರೆ("g\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+   ಬರೆ("h\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define DEF
+#ವ್ಯಾಖ್ಯಾನಿಸು DEF
 
-#ifdef DEF
-#ifdef DEF
-   printf("i\n");
-#else
-   printf("j\n");
-#endif
-#else
-#ifdef DEF
-   printf("k\n");
-#else
-   printf("l\n");
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ DEF
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ DEF
+   ಬರೆ("i\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+   ಬರೆ("j\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ DEF
+   ಬರೆ("k\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+   ಬರೆ("l\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef DEF
-#ifndef DEF
-   printf("m\n");
-#else
-   printf("n\n");
-#endif
-#else
-#ifndef DEF
-   printf("o\n");
-#else
-   printf("p\n");
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ DEF
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ DEF
+   ಬರೆ("m\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+   ಬರೆ("n\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ DEF
+   ಬರೆ("o\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+   ಬರೆ("p\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define ONE 1
-#define ZERO 0
+#ವ್ಯಾಖ್ಯಾನಿಸು ONE 1
+#ವ್ಯಾಖ್ಯಾನಿಸು ZERO 0
 
-#if ONE
-#if ZERO
-   printf("q\n");
-#else
-   printf("r\n");
-#endif
-#else
-#if ZERO
-   printf("s\n");
-#else
-   printf("t\n");
-#endif
-#endif
+#ಆದರೆ ONE
+#ಆದರೆ ZERO
+   ಬರೆ("q\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+   ಬರೆ("r\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಇಲ್ಲದಿದ್ದರೆ
+#ಆದರೆ ZERO
+   ಬರೆ("s\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+   ಬರೆ("t\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

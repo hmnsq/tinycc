@@ -1,26 +1,26 @@
 //+---------------------------------------------------------------------------
 
-#ifdef __leading_underscore
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __leading_underscore
 # define _(s) s
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define _(s) _##s
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-extern void (*_(_init_array_start)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_init_array_end)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
+ಬಾಹ್ಯ ಶೂನ್ಯ (*_(init_array_ಆರಂಭ)[]) (ಪೂರ್ಣಾಂಕ argc, _TCHAR **argv, _TCHAR **envp);
+ಬಾಹ್ಯ ಶೂನ್ಯ (*_(init_array_ಕೊನೆ)[]) (ಪೂರ್ಣಾಂಕ argc, _TCHAR **argv, _TCHAR **envp);
+ಬಾಹ್ಯ ಶೂನ್ಯ (*_(fini_array_ಆರಂಭ)[]) (ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ (*_(fini_array_ಕೊನೆ)[]) (ಶೂನ್ಯ);
 
-static void run_ctors(int argc, _TCHAR **argv, _TCHAR **env)
+ಸ್ಥಿರ ಶೂನ್ಯ ಸತತ_ctors(ಪೂರ್ಣಾಂಕ argc, _TCHAR **argv, _TCHAR **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
-        (*_(_init_array_start)[i++])(argc, argv, env);
+    ಪೂರ್ಣಾಂಕ i = 0;
+    ಆಗ (&_(init_array_ಆರಂಭ)[i] != _(init_array_ಕೊನೆ))
+        (*_(init_array_ಆರಂಭ)[i++])(argc, argv, env);
 }
 
-static void run_dtors(void)
+ಸ್ಥಿರ ಶೂನ್ಯ ಸತತ_dtors(ಶೂನ್ಯ)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
-        (*_(_fini_array_end)[--i])();
+    ಪೂರ್ಣಾಂಕ i = 0;
+    ಆಗ (&_(fini_array_ಕೊನೆ)[i] != _(fini_array_ಆರಂಭ))
+        (*_(fini_array_ಕೊನೆ)[--i])();
 }

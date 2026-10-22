@@ -1,272 +1,272 @@
 /*
  * TCC auto test program
  */
-#include "config.h"
+#ಅನ್ತರ್ಭಾವ "config.h"
 
 /* identify the configured reference compiler in use */
-#define CC_gcc 1
-#define CC_clang 2
-#define CC_tcc 3
+#ವ್ಯಾಖ್ಯಾನಿಸು CC_gcc 1
+#ವ್ಯಾಖ್ಯಾನಿಸು CC_clang 2
+#ವ್ಯಾಖ್ಯಾನಿಸು CC_tcc 3
 
 /* Unfortunately, gcc version < 3 does not handle that! */
-#define ALL_ISOC99
+#ವ್ಯಾಖ್ಯಾನಿಸು ALL_ISOC99
 
 /* only gcc 3 handles _Bool correctly */
-#define BOOL_ISOC99
+#ವ್ಯಾಖ್ಯಾನಿಸು BOOL_ISOC99
 
 /* __VA_ARGS__ and __func__ support */
-#define C99_MACROS
+#ವ್ಯಾಖ್ಯಾನಿಸು C99_MACROS
 
-#if defined(_WIN32) \
+#ಆದರೆ defined(_WIN32) \
     || (defined(__arm__) \
         && (defined(__FreeBSD__) \
          || defined(__OpenBSD__) \
          || defined(__NetBSD__) \
          || defined __ANDROID__))
-#define LONG_LONG_FORMAT "%lld"
-#define ULONG_LONG_FORMAT "%llu"
-#define XLONG_LONG_FORMAT "%llx"
-#else
-#define LONG_LONG_FORMAT "%Ld"
-#define ULONG_LONG_FORMAT "%Lu"
-#define XLONG_LONG_FORMAT "%Lx"
-#endif
+#ವ್ಯಾಖ್ಯಾನಿಸು LONG_LONG_FORMAT "%lld"
+#ವ್ಯಾಖ್ಯಾನಿಸು ULONG_LONG_FORMAT "%llu"
+#ವ್ಯಾಖ್ಯಾನಿಸು XLONG_LONG_FORMAT "%llx"
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು LONG_LONG_FORMAT "%Ld"
+#ವ್ಯಾಖ್ಯಾನಿಸು ULONG_LONG_FORMAT "%Lu"
+#ವ್ಯಾಖ್ಯಾನಿಸು XLONG_LONG_FORMAT "%Lx"
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* MinGW has 80-bit rather than 64-bit long double which isn't
    compatible with printf in msvcrt */
-#if defined(_WIN32)
-#define LONG_DOUBLE double
-#define LONG_DOUBLE_LITERAL(x) x
-#else
-#define LONG_DOUBLE long double
-#define LONG_DOUBLE_LITERAL(x) x ## L
-#endif
+#ಆದರೆ defined(_WIN32)
+#ವ್ಯಾಖ್ಯಾನಿಸು LONG_DOUBLE ದ್ವಿಗುಣ
+#ವ್ಯಾಖ್ಯಾನಿಸು LONG_DOUBLE_LITERAL(x) x
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು LONG_DOUBLE ದೀರ್ಘ ದ್ವಿಗುಣ
+#ವ್ಯಾಖ್ಯಾನಿಸು LONG_DOUBLE_LITERAL(x) x ## L
+#ಆದರೆ_ಅಂತ್ಯ
 
-typedef __SIZE_TYPE__ uintptr_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __SIZE_TYPE__ uintptr_t;
 
 /* test various include syntaxes */
 
-#define TCCLIB_INC <tcclib.h>
-#define TCCLIB_INC1 <tcclib
-#define TCCLIB_INC2 h>
-#define TCCLIB_INC3 "tcclib.h"
+#ವ್ಯಾಖ್ಯಾನಿಸು TCCLIB_INC <tcclib.h>
+#ವ್ಯಾಖ್ಯಾನಿಸು TCCLIB_INC1 <tcclib
+#ವ್ಯಾಖ್ಯಾನಿಸು TCCLIB_INC2 h>
+#ವ್ಯಾಖ್ಯಾನಿಸು TCCLIB_INC3 "tcclib.h"
 
-#include TCCLIB_INC
+#ಅನ್ತರ್ಭಾವ TCCLIB_INC
 
-#include TCCLIB_INC1.TCCLIB_INC2
+#ಅನ್ತರ್ಭಾವ TCCLIB_INC1.TCCLIB_INC2
 
-#include TCCLIB_INC1.h>
+#ಅನ್ತರ್ಭಾವ TCCLIB_INC1.h>
 
-#include TCCLIB_INC3
+#ಅನ್ತರ್ಭಾವ TCCLIB_INC3
 
-#include <tcclib.h>
+#ಅನ್ತರ್ಭಾವ <tcclib.h>
 
-#include "tcclib.h"
+#ಅನ್ತರ್ಭಾವ "tcclib.h"
 
-#include "tcctest.h"
+#ಅನ್ತರ್ಭಾವ "tcctest.h"
 
 /* Test two more ways to include a file named like a pp-number */
-#define INC(name) <tests/name.h>
-#define funnyname 42test.h
-#define incdir tests/
-#ifdef __clang__
+#ವ್ಯಾಖ್ಯಾನಿಸು INC(name) <tests/name.h>
+#ವ್ಯಾಖ್ಯಾನಿಸು funnyname 42test.h
+#ವ್ಯಾಖ್ಯಾನಿಸು incdir tests/
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __clang__
 /* clang's preprocessor is broken in this regard and adds spaces
    to the tokens 'incdir' and 'funnyname' when expanding */
-#define incname <tests/42test.h>
-#else
-#define incname < incdir funnyname >
-#endif
-#define __stringify(x) #x
-#define stringify(x) __stringify(x)
-#include INC(42test)
-#include incname
-#include stringify(funnyname)
+#ವ್ಯಾಖ್ಯಾನಿಸು incname <tests/42test.h>
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು incname < incdir funnyname >
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿಸು __stringify(x) #x
+#ವ್ಯಾಖ್ಯಾನಿಸು stringify(x) __stringify(x)
+#ಅನ್ತರ್ಭಾವ INC(42test)
+#ಅನ್ತರ್ಭಾವ incname
+#ಅನ್ತರ್ಭಾವ stringify(funnyname)
 
-int fib(int n);
-void num(int n);
-void forward_ref(void);
-int isid(int c);
+ಪೂರ್ಣಾಂಕ fib(ಪೂರ್ಣಾಂಕ n);
+ಶೂನ್ಯ ಅಂಕೆ(ಪೂರ್ಣಾಂಕ n);
+ಶೂನ್ಯ forward_ref(ಶೂನ್ಯ);
+ಪೂರ್ಣಾಂಕ isid(ಪೂರ್ಣಾಂಕ c);
 
 /* Line joining happens before tokenization, so the following
    must be parsed as ellipsis.  */
-void funny_line_continuation (int, ..\
+ಶೂನ್ಯ funny_ಸಾಲು_continuation (ಪೂರ್ಣಾಂಕ, ..\
 . );
 
-#define A 2
-#define N 1234 + A
-#define pf printf
-#define M1(a, b)  (a) + (b)
+#ವ್ಯಾಖ್ಯಾನಿಸು A 2
+#ವ್ಯಾಖ್ಯಾನಿಸು N 1234 + A
+#ವ್ಯಾಖ್ಯಾನಿಸು pf ಬರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು M1(a, b)  (a) + (b)
 
-#define str\
+#ವ್ಯಾಖ್ಯಾನಿಸು str\
 (s) # s
-#define glue(a, b) a ## b
-#define xglue(a, b) glue(a, b)
-#define HIGHLOW "hello"
-#define LOW LOW ", world"
+#ವ್ಯಾಖ್ಯಾನಿಸು glue(a, b) a ## b
+#ವ್ಯಾಖ್ಯಾನಿಸು xglue(a, b) glue(a, b)
+#ವ್ಯಾಖ್ಯಾನಿಸು HIGHLOW "hello"
+#ವ್ಯಾಖ್ಯಾನಿಸು ಕೆಳಗಿನ_2 ಕೆಳಗಿನ_2 ", world"
 
-static int onetwothree = 123;
-#define onetwothree4 onetwothree
-#define onetwothree xglue(onetwothree,4)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ onetwothree = 123;
+#ವ್ಯಾಖ್ಯಾನಿಸು onetwothree4 onetwothree
+#ವ್ಯಾಖ್ಯಾನಿಸು onetwothree xglue(onetwothree,4)
 
-#define min(a, b) ((a) < (b) ? (a) : (b))
+#ವ್ಯಾಖ್ಯಾನಿಸು min(a, b) ((a) < (b) ? (a) : (b))
 
-#ifdef C99_MACROS
-#define dprintf(level,...) printf(__VA_ARGS__)
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ C99_MACROS
+#ವ್ಯಾಖ್ಯಾನಿಸು dprintf(level,...) ಬರೆ(__VA_ARGS__)
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* gcc vararg macros */
-#define dprintf1(level, fmt, args...) printf(fmt, ## args)
+#ವ್ಯಾಖ್ಯಾನಿಸು dprintf1(level, fmt, ವಾದಗಳು...) ಬರೆ(fmt, ## ವಾದಗಳು)
 
-#define MACRO_NOARGS()
+#ವ್ಯಾಖ್ಯಾನಿಸು MACRO_NOARGS()
 
-#define TEST_CALL(f, ...) f(__VA_ARGS__)
-#define TEST_CONST()      123
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST_CALL(f, ...) f(__VA_ARGS__)
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST_CONST()      123
 
-#define AAA 3
-#undef AAA
-#define AAA 4
+#ವ್ಯಾಖ್ಯಾನಿಸು AAA 3
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು AAA
+#ವ್ಯಾಖ್ಯಾನಿಸು AAA 4
 
-#if 1
-#define B3 1
-#elif 1
-#define B3 2
-#elif 0
-#define B3 3
-#else
-#define B3 4
-#endif
+#ಆದರೆ 1
+#ವ್ಯಾಖ್ಯಾನಿಸು B3 1
+#ಅಥವಾಆದರೆ 1
+#ವ್ಯಾಖ್ಯಾನಿಸು B3 2
+#ಅಥವಾಆದರೆ 0
+#ವ್ಯಾಖ್ಯಾನಿಸು B3 3
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು B3 4
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define __INT64_C(c)	c ## LL
-#define INT64_MIN	(-__INT64_C(9223372036854775807)-1)
+#ವ್ಯಾಖ್ಯಾನಿಸು __INT64_C(c)	c ## LL
+#ವ್ಯಾಖ್ಯಾನಿಸು INT64_MIN	(-__INT64_C(9223372036854775807)-1)
 
-int qq(int x)
+ಪೂರ್ಣಾಂಕ qq(ಪೂರ್ಣಾಂಕ x)
 {
-    return x + 40;
+    ಹಿಂತಿರುಗಿ x + 40;
 }
-#define qq(x) x
+#ವ್ಯಾಖ್ಯಾನಿಸು qq(x) x
 
-#define spin_lock(lock) do { } while (0)
-#define wq_spin_lock spin_lock
-#define TEST2() wq_spin_lock(a)
+#ವ್ಯಾಖ್ಯಾನಿಸು spin_ಬೀಗ(ಬೀಗ) ಮಾಡು { } ಆಗ (0)
+#ವ್ಯಾಖ್ಯಾನಿಸು wq_spin_ಬೀಗ spin_ಬೀಗ
+#ವ್ಯಾಖ್ಯಾನಿಸು TEST2() wq_spin_ಬೀಗ(a)
 
-void macro_test(void)
+ಶೂನ್ಯ macro_test(ಶೂನ್ಯ)
 {
     pf("N=%d\n", N);
-    printf("aaa=%d\n", AAA);
+    ಬರೆ("aaa=%d\n", AAA);
 
-    printf("min=%d\n", min(1, min(2, -1)));
+    ಬರೆ("min=%d\n", min(1, min(2, -1)));
 
-    printf("s1=%s\n", glue(HIGH, LOW));
-    printf("s2=%s\n", xglue(HIGH, LOW));
-    printf("s3=%s\n", str("c"));
-    printf("s4=%s\n", str(a1));
-    printf("B3=%d\n", B3);
+    ಬರೆ("s1=%s\n", glue(ಮೇಲಿನ_2, ಕೆಳಗಿನ_2));
+    ಬರೆ("s2=%s\n", xglue(ಮೇಲಿನ_2, ಕೆಳಗಿನ_2));
+    ಬರೆ("s3=%s\n", str("c"));
+    ಬರೆ("s4=%s\n", str(a1));
+    ಬರೆ("B3=%d\n", B3);
 
-    printf("onetwothree=%d\n", onetwothree);
+    ಬರೆ("onetwothree=%d\n", onetwothree);
 
-#ifdef A
-    printf("A defined\n");
-#endif
-#ifdef B
-    printf("B defined\n");
-#endif
-#ifdef A
-    printf("A defined\n");
-#else
-    printf("A not defined\n");
-#endif
-#ifdef B
-    printf("B defined\n");
-#else
-    printf("B not defined\n");
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ A
+    ಬರೆ("A defined\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ B
+    ಬರೆ("B defined\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ A
+    ಬರೆ("A defined\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ("A not defined\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ B
+    ಬರೆ("B defined\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ("B not defined\n");
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef A
-    printf("A defined\n");
-#ifdef B
-    printf("B1 defined\n");
-#else
-    printf("B1 not defined\n");
-#endif
-#else
-    printf("A not defined\n");
-#ifdef B
-    printf("B2 defined\n");
-#else
-    printf("B2 not defined\n");
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ A
+    ಬರೆ("A defined\n");
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ B
+    ಬರೆ("B1 defined\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ("B1 not defined\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ("A not defined\n");
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ B
+    ಬರೆ("B2 defined\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ("B2 not defined\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if 1+1
-    printf("test true1\n");
-#endif
-#if 0
-    printf("test true2\n");
-#endif
-#if 1-1
-    printf("test true3\n");
-#endif
-#if defined(A)
-    printf("test trueA\n");
-#endif
-#if defined(B)
-    printf("test trueB\n");
-#endif
+#ಆದರೆ 1+1
+    ಬರೆ("test true1\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ 0
+    ಬರೆ("test true2\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ 1-1
+    ಬರೆ("test true3\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ defined(A)
+    ಬರೆ("test trueA\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ defined(B)
+    ಬರೆ("test trueB\n");
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if 0
-    printf("test 0\n");
-#elif 0
-    printf("test 1\n");
-#elif 2
-    printf("test 2\n");
-#else
-    printf("test 3\n");
-#endif
+#ಆದರೆ 0
+    ಬರೆ("test 0\n");
+#ಅಥವಾಆದರೆ 0
+    ಬರೆ("test 1\n");
+#ಅಥವಾಆದರೆ 2
+    ಬರೆ("test 2\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ("test 3\n");
+#ಆದರೆ_ಅಂತ್ಯ
 
     MACRO_NOARGS();
 
-    printf("%d\n", TEST_CALL(TEST_CONST));
+    ಬರೆ("%d\n", TEST_CALL(TEST_CONST));
 
     /* not strictly preprocessor, but we test it there */
-#ifdef C99_MACROS
-    printf("__func__ = %s\n", __func__);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ C99_MACROS
+    ಬರೆ("__func__ = %s\n", __func__);
     dprintf(1, "vaarg=%d\n", 1);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
     dprintf1(1, "vaarg1\n");
     dprintf1(1, "vaarg1=%d\n", 2);
     dprintf1(1, "vaarg1=%d %d\n", 1, 2);
 
     /* gcc extension */
-    printf("func='%s'\n", __FUNCTION__);
+    ಬರೆ("func='%s'\n", __FUNCTION__);
 
     /* complicated macros in glibc */
-    printf("INT64_MIN=" LONG_LONG_FORMAT "\n", INT64_MIN);
+    ಬರೆ("INT64_MIN=" LONG_LONG_FORMAT "\n", INT64_MIN);
     {
-        int a;
+        ಪೂರ್ಣಾಂಕ a;
         a = 1;
         glue(a+, +);
-        printf("a=%d\n", a);
+        ಬರೆ("a=%d\n", a);
         glue(a <, <= 2);
-        printf("a=%d\n", a);
+        ಬರೆ("a=%d\n", a);
     }
     
     /* macro function with argument outside the macro string */
-#define MF_s MF_hello
-#define MF_hello(msg) printf("%s\n",msg)
+#ವ್ಯಾಖ್ಯಾನಿಸು MF_s MF_hello
+#ವ್ಯಾಖ್ಯಾನಿಸು MF_hello(ಸಂದೇಶ) ಬರೆ("%s\n",ಸಂದೇಶ)
 
-#define MF_t printf("tralala\n"); MF_hello
+#ವ್ಯಾಖ್ಯಾನಿಸು MF_t ಬರೆ("tralala\n"); MF_hello
 
     MF_s("hi");
     MF_t("hi");
     
     /* test macro substitution inside args (should not eat stream) */
-    printf("qq=%d\n", qq(qq)(2));
+    ಬರೆ("qq=%d\n", qq(qq)(2));
 
     /* test zero argument case. NOTE: gcc 2.95.x does not accept a
        null argument without a space. gcc 3.2 fixes that. */
 
-#define qq1(x) 1
-    printf("qq1=%d\n", qq1( ));
+#ವ್ಯಾಖ್ಯಾನಿಸು qq1(x) 1
+    ಬರೆ("qq1=%d\n", qq1( ));
 
     /* comment with stray handling *\
 /
@@ -283,103 +283,103 @@ comment
        comment.  */
     TEST2 /* the comment */ ();
 
-    printf("basefromheader %s\n", get_basefile_from_header());
-    printf("base %s\n", __BASE_FILE__);
-#if !(defined _WIN32 && CC_NAME == CC_clang)
+    ಬರೆ("basefromheader %s\n", get_basefile_from_ಶೀರ್ಷಿಕೆ());
+    ಬರೆ("base %s\n", __BASE_FILE__);
+#ಆದರೆ !(defined _WIN32 && CC_NAME == CC_clang)
     {
       /* Some compilers (clang) prepend './' to __FILE__ from included
          files.  */
-      const char *fn = get_file_from_header();
-      if (fn[0] == '.' && fn[1] == '/')
+      ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *fn = get_file_from_ಶೀರ್ಷಿಕೆ();
+      ಆದರೆ (fn[0] == '.' && fn[1] == '/')
         fn += 2;
-      printf("filefromheader %s\n", fn);
+      ಬರೆ("filefromheader %s\n", fn);
     }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-    printf("file %s\n", __FILE__);
+    ಬರೆ("file %s\n", __FILE__);
 
     /* Check that funnily named include was in fact included */
     have_included_42test_h = 1;
-    have_included_42test_h_second = 1;
-    have_included_42test_h_third = 1;
+    have_included_42test_h_ಎರಡನೇ = 1;
+    have_included_42test_h_ಮೂರನೇ = 1;
 
     /* Check that we don't complain about stray \ here */
-    printf("print a backslash: %s\n", stringify(\\));
+    ಬರೆ("print a backslash: %s\n", stringify(\\));
 }
 
 
-static void print_num(char *fn, int line, int num) {
-    printf("fn %s, line %d, num %d\n", fn, line, num);
+ಸ್ಥಿರ ಶೂನ್ಯ print_ಅಂಕೆ(ಅಕ್ಷರ *fn, ಪೂರ್ಣಾಂಕ ಸಾಲು, ಪೂರ್ಣಾಂಕ ಅಂಕೆ) {
+    ಬರೆ("fn %s, line %d, num %d\n", fn, ಸಾಲು, ಅಂಕೆ);
 }
 
-void recursive_macro_test(void)
+ಶೂನ್ಯ recursive_macro_test(ಶೂನ್ಯ)
 {
 
-#define ELF32_ST_TYPE(val)              ((val) & 0xf)
-#define ELF32_ST_INFO(bind, type)       (((bind) << 4) + ((type) & 0xf))
-#define STB_WEAK        2               /* Weak symbol */
-#define ELFW(type) ELF##32##_##type
-    printf("%d\n", ELFW(ST_INFO)(STB_WEAK, ELFW(ST_TYPE)(123)));
+#ವ್ಯಾಖ್ಯಾನಿಸು ELF32_ST_TYPE(val)              ((val) & 0xf)
+#ವ್ಯಾಖ್ಯಾನಿಸು ELF32_ST_INFO(bind, type)       (((bind) << 4) + ((type) & 0xf))
+#ವ್ಯಾಖ್ಯಾನಿಸು STB_WEAK        2               /* Weak symbol */
+#ವ್ಯಾಖ್ಯಾನಿಸು ELFW(type) ELF##32##_##type
+    ಬರೆ("%d\n", ELFW(ST_INFO)(STB_WEAK, ELFW(ST_TYPE)(123)));
 
-#define WRAP(x) x
+#ವ್ಯಾಖ್ಯಾನಿಸು WRAP(x) x
     
-#define print_num(x) print_num(__FILE__,__LINE__,x)
-    print_num(123);
-    WRAP(print_num(123));
-    WRAP(WRAP(print_num(123)));
+#ವ್ಯಾಖ್ಯಾನಿಸು print_ಅಂಕೆ(x) print_ಅಂಕೆ(__FILE__,__LINE__,x)
+    print_ಅಂಕೆ(123);
+    WRAP(print_ಅಂಕೆ(123));
+    WRAP(WRAP(print_ಅಂಕೆ(123)));
 
-static struct recursive_macro { int rm_field; } G;
-#define rm_field (G.rm_field)
-    printf("rm_field = %d\n", rm_field);
-    printf("rm_field = %d\n", WRAP(rm_field));
-    WRAP((printf("rm_field = %d %d\n", rm_field, WRAP(rm_field))));
+ಸ್ಥಿರ ರಚನೆ recursive_macro { ಪೂರ್ಣಾಂಕ rm_ಕ್ಷೇತ್ರ; } G;
+#ವ್ಯಾಖ್ಯಾನಿಸು rm_ಕ್ಷೇತ್ರ (G.rm_ಕ್ಷೇತ್ರ)
+    ಬರೆ("rm_field = %d\n", rm_ಕ್ಷೇತ್ರ);
+    ಬರೆ("rm_field = %d\n", WRAP(rm_ಕ್ಷೇತ್ರ));
+    WRAP((ಬರೆ("rm_field = %d %d\n", rm_ಕ್ಷೇತ್ರ, WRAP(rm_ಕ್ಷೇತ್ರ))));
 }
 
-#if __TINYC__
-int op(a, b)
+#ಆದರೆ __TINYC__
+ಪೂರ್ಣಾಂಕ op(a, b)
 {
-    return a / b;
+    ಹಿಂತಿರುಗಿ a / b;
 }
 
-int ret(a)
+ಪೂರ್ಣಾಂಕ ret(a)
 {
-    if (a == 2)
-        return 1;
-    if (a == 3)
-        return 2;
-    return 0;
+    ಆದರೆ (a == 2)
+        ಹಿಂತಿರುಗಿ 1;
+    ಆದರೆ (a == 3)
+        ಹಿಂತಿರುಗಿ 2;
+    ಹಿಂತಿರುಗಿ 0;
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if !defined(__TINYC__) && (__GNUC__ >= 8)
+#ಆದರೆ !defined(__TINYC__) && (__GNUC__ >= 8)
 /* Old GCCs don't regard "foo"[1] as constant, even in GNU dialect. */
-#define CONSTANTINDEXEDSTRLIT
-#endif
-char str_ag1[] = "b";
-char str_ag2[] = { "b" };
+#ವ್ಯಾಖ್ಯಾನಿಸು CONSTANTINDEXEDSTRLIT
+#ಆದರೆ_ಅಂತ್ಯ
+ಅಕ್ಷರ str_ag1[] = "b";
+ಅಕ್ಷರ str_ag2[] = { "b" };
 /*char str_bg1[] = ("cccc"); GCC accepts this with pedantic warning, TCC not */
-#ifdef CONSTANTINDEXEDSTRLIT
-char str_ag3[] = { "ab"[1], 0 };
-char str_x[2] = { "xy" "z"[2], 0 };
-#endif
-char *str_ar[] = { "one", "two" };
-struct str_SS {unsigned char a[3], b; };
-struct str_SS str_sinit15 = { "r" };
-struct str_SS str_sinit16[] = { { "q" }, 2 };
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONSTANTINDEXEDSTRLIT
+ಅಕ್ಷರ str_ag3[] = { "ab"[1], 0 };
+ಅಕ್ಷರ str_x[2] = { "xy" "z"[2], 0 };
+#ಆದರೆ_ಅಂತ್ಯ
+ಅಕ್ಷರ *str_ar[] = { "one", "two" };
+ರಚನೆ str_SS {ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ a[3], b; };
+ರಚನೆ str_SS str_sinit15 = { "r" };
+ರಚನೆ str_SS str_sinit16[] = { { "q" }, 2 };
 
-static void string_test2()
+ಸ್ಥಿರ ಶೂನ್ಯ string_test2()
 {
-    char *p = "hello";
-    char a3[2] = { "p" };
-    char a4[2] = { "ab" "c"[2], 0 };
-    char *pa1 = "def" + 1;
-    char *pa2 = { "xyz" + 1 };
-    int i = 0;
-    struct str_SS ss = { { [0 ... 1] = 'a' }, 0 };
-#ifndef CONSTANTINDEXEDSTRLIT
-    char str_ag3[] = { "ab"[1], 0 };
-    char str_x[2] = { "xy" "z"[2], 0 };
-#endif
+    ಅಕ್ಷರ *p = "hello";
+    ಅಕ್ಷರ a3[2] = { "p" };
+    ಅಕ್ಷರ a4[2] = { "ab" "c"[2], 0 };
+    ಅಕ್ಷರ *pa1 = "def" + 1;
+    ಅಕ್ಷರ *pa2 = { "xyz" + 1 };
+    ಪೂರ್ಣಾಂಕ i = 0;
+    ರಚನೆ str_SS ss = { { [0 ... 1] = 'a' }, 0 };
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ CONSTANTINDEXEDSTRLIT
+    ಅಕ್ಷರ str_ag3[] = { "ab"[1], 0 };
+    ಅಕ್ಷರ str_x[2] = { "xy" "z"[2], 0 };
+#ಆದರೆ_ಅಂತ್ಯ
     puts("string_test2");
     puts(str_ag1);
     puts(str_ag2);
@@ -392,7 +392,7 @@ static void string_test2()
     puts(a4);
     puts(p);
     puts("world");
-    printf("%s\n", "bla");
+    ಬರೆ("%s\n", "bla");
     puts(str_ar[0]);
     puts(str_ar[1]);
     puts(ss.a);
@@ -401,89 +401,89 @@ static void string_test2()
     puts(pa2);
 }
 
-void ps(const char *s)
+ಶೂನ್ಯ ps(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s)
 {
-    int c;
-    while (1) {
+    ಪೂರ್ಣಾಂಕ c;
+    ಆಗ (1) {
         c = *s;
-        if (c == 0)
-            break;
-        printf("%c", c);
+        ಆದರೆ (c == 0)
+            ನಿಲ್ಲಿಸು;
+        ಬರೆ("%c", c);
         s++;
     }
 }
 
-const char foo1_string[] = "\
+ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ foo1_string[] = "\
 bar\n\
 test\14\
 1";
 
-void string_test()
+ಶೂನ್ಯ string_test()
 {
-    unsigned int b;
-    printf("string:\n");
-    printf("\141\1423\143\n");/* dezdez test */
-    printf("\x41\x42\x43\x3a\n");
-    printf("c=%c\n", 'r');
-    printf("wc=%C 0x%lx %C\n", L'a', L'\x1234', L'c');
-    printf("foo1_string='%s'\n", foo1_string);
-#if 0
-    printf("wstring=%S\n", L"abc");
-    printf("wstring=%S\n", L"abc" L"def" "ghi");
-    printf("'\\377'=%d '\\xff'=%d\n", '\377', '\xff');
-    printf("L'\\377'=%d L'\\xff'=%d\n", L'\377', L'\xff');
-#endif
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ b;
+    ಬರೆ("string:\n");
+    ಬರೆ("\141\1423\143\n");/* dezdez test */
+    ಬರೆ("\x41\x42\x43\x3a\n");
+    ಬರೆ("c=%c\n", 'r');
+    ಬರೆ("wc=%C 0x%lx %C\n", L'a', L'\x1234', L'c');
+    ಬರೆ("foo1_string='%s'\n", foo1_string);
+#ಆದರೆ 0
+    ಬರೆ("wstring=%S\n", L"abc");
+    ಬರೆ("wstring=%S\n", L"abc" L"def" "ghi");
+    ಬರೆ("'\\377'=%d '\\xff'=%d\n", '\377', '\xff');
+    ಬರೆ("L'\\377'=%d L'\\xff'=%d\n", L'\377', L'\xff');
+#ಆದರೆ_ಅಂತ್ಯ
     ps("test\n");
     b = 32;
-    while ((b = b + 1) < 96) {
-        printf("%c", b);
+    ಆಗ ((b = b + 1) < 96) {
+        ಬರೆ("%c", b);
     }
-    printf("\n");
-    printf("fib=%d\n", fib(33));
+    ಬರೆ("\n");
+    ಬರೆ("fib=%d\n", fib(33));
     b = 262144;
-    while (b != 0x80000000) {
-        num(b);
+    ಆಗ (b != 0x80000000) {
+        ಅಂಕೆ(b);
         b = b * 2;
     }
     string_test2();
 }
 
 
-void if1t(int n, int a, int b, int c)
+ಶೂನ್ಯ if1t(ಪೂರ್ಣಾಂಕ n, ಪೂರ್ಣಾಂಕ a, ಪೂರ್ಣಾಂಕ b, ಪೂರ್ಣಾಂಕ c)
 {
-    if (a && b) printf("if1t: %d 1 %d %d\n", n, a, b);
-    if (a && !b) printf("if1t: %d 2 %d %d\n", n, a, b);
-    if (!a && b) printf("if1t: %d 3 %d %d\n", n, a, b);
-    if (!a && !b) printf("if1t: %d 4 %d %d\n", n, a, b);
-    if (a || b) printf("if1t: %d 5 %d %d\n", n, a, b);
-    if (a || !b) printf("if1t: %d 6 %d %d\n", n, a, b);
-    if (!a || b) printf("if1t: %d 7 %d %d\n", n, a, b);
-    if (!a || !b) printf("if1t: %d 8 %d %d\n", n, a, b);
-    if (a && b || c) printf("if1t: %d 9 %d %d %d\n", n, a, b, c);
-    if (a || b && c) printf("if1t: %d 10 %d %d %d\n", n, a, b, c);
-    if (a > b - 1 && c) printf("if1t: %d 11 %d %d %d\n", n, a, b, c);
-    if (a > b - 1 || c) printf("if1t: %d 12 %d %d %d\n", n, a, b, c);
-    if (a > 0 && 1) printf("if1t: %d 13 %d %d %d\n", n, a, b, c);
-    if (a > 0 || 0) printf("if1t: %d 14 %d %d %d\n", n, a, b, c);
+    ಆದರೆ (a && b) ಬರೆ("if1t: %d 1 %d %d\n", n, a, b);
+    ಆದರೆ (a && !b) ಬರೆ("if1t: %d 2 %d %d\n", n, a, b);
+    ಆದರೆ (!a && b) ಬರೆ("if1t: %d 3 %d %d\n", n, a, b);
+    ಆದರೆ (!a && !b) ಬರೆ("if1t: %d 4 %d %d\n", n, a, b);
+    ಆದರೆ (a || b) ಬರೆ("if1t: %d 5 %d %d\n", n, a, b);
+    ಆದರೆ (a || !b) ಬರೆ("if1t: %d 6 %d %d\n", n, a, b);
+    ಆದರೆ (!a || b) ಬರೆ("if1t: %d 7 %d %d\n", n, a, b);
+    ಆದರೆ (!a || !b) ಬರೆ("if1t: %d 8 %d %d\n", n, a, b);
+    ಆದರೆ (a && b || c) ಬರೆ("if1t: %d 9 %d %d %d\n", n, a, b, c);
+    ಆದರೆ (a || b && c) ಬರೆ("if1t: %d 10 %d %d %d\n", n, a, b, c);
+    ಆದರೆ (a > b - 1 && c) ಬರೆ("if1t: %d 11 %d %d %d\n", n, a, b, c);
+    ಆದರೆ (a > b - 1 || c) ಬರೆ("if1t: %d 12 %d %d %d\n", n, a, b, c);
+    ಆದರೆ (a > 0 && 1) ಬರೆ("if1t: %d 13 %d %d %d\n", n, a, b, c);
+    ಆದರೆ (a > 0 || 0) ಬರೆ("if1t: %d 14 %d %d %d\n", n, a, b, c);
 }
 
-void if2t(void)
+ಶೂನ್ಯ if2t(ಶೂನ್ಯ)
 {
-    if (0 && 1 || printf("if2t:ok\n") || 1)
-      printf("if2t:ok2\n");
-    printf("if2t:ok3\n");
+    ಆದರೆ (0 && 1 || ಬರೆ("if2t:ok\n") || 1)
+      ಬರೆ("if2t:ok2\n");
+    ಬರೆ("if2t:ok3\n");
 }
 
-void if3t(void)
+ಶೂನ್ಯ if3t(ಶೂನ್ಯ)
 {
-    volatile long long i = 1;
-    if (i <= 18446744073709551615ULL)
+    ಅಸ್ಥಿರ ದೀರ್ಘ ದೀರ್ಘ i = 1;
+    ಆದರೆ (i <= 18446744073709551615ULL)
       ;
-    else
-      printf ("if3t:wrong 1\n");
+    ಇಲ್ಲದಿದ್ದರೆ
+      ಬರೆ ("if3t:wrong 1\n");
 }
 
-void if_test(void)
+ಶೂನ್ಯ if_test(ಶೂನ್ಯ)
 {
     if1t(1, 0, 0, 0);
     if1t(2, 0, 3, 0);
@@ -493,103 +493,103 @@ void if_test(void)
     if3t();
 }
 
-void loop_test()
+ಶೂನ್ಯ loop_test()
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
     i = 0;
-    while (i < 10)
-        printf("%d", i++);
-    printf("\n");
-    for(i = 0; i < 10;i++)
-        printf("%d", i);
-    printf("\n");
+    ಆಗ (i < 10)
+        ಬರೆ("%d", i++);
+    ಬರೆ("\n");
+    ಗಾಗಿ(i = 0; i < 10;i++)
+        ಬರೆ("%d", i);
+    ಬರೆ("\n");
     i = 0;
-    do {
-        printf("%d", i++);
-    } while (i < 10);
-    printf("\n");
+    ಮಾಡು {
+        ಬರೆ("%d", i++);
+    } ಆಗ (i < 10);
+    ಬರೆ("\n");
 
-    char count = 123;
+    ಅಕ್ಷರ ಎಣಿಕೆ_3 = 123;
     /* c99 for loop init test */
-    for (size_t count = 1; count < 3; count++)
-        printf("count=%d\n", count);
-    printf("count = %d\n", count);
+    ಗಾಗಿ (ಗಾತ್ರ_t ಎಣಿಕೆ_3 = 1; ಎಣಿಕೆ_3 < 3; ಎಣಿಕೆ_3++)
+        ಬರೆ("count=%d\n", ಎಣಿಕೆ_3);
+    ಬರೆ("count = %d\n", ಎಣಿಕೆ_3);
 
     /* break/continue tests */
     i = 0;
-    while (1) {
-        if (i == 6)
-            break;
+    ಆಗ (1) {
+        ಆದರೆ (i == 6)
+            ನಿಲ್ಲಿಸು;
         i++;
-        if (i == 3)
-            continue;
-        printf("%d", i);
+        ಆದರೆ (i == 3)
+            ಮುಂದುವರಿ;
+        ಬರೆ("%d", i);
     }
-    printf("\n");
+    ಬರೆ("\n");
 
     /* break/continue tests */
     i = 0;
-    do {
-        if (i == 6)
-            break;
+    ಮಾಡು {
+        ಆದರೆ (i == 6)
+            ನಿಲ್ಲಿಸು;
         i++;
-        if (i == 3)
-            continue;
-        printf("%d", i);
-    } while(1);
-    printf("\n");
+        ಆದರೆ (i == 3)
+            ಮುಂದುವರಿ;
+        ಬರೆ("%d", i);
+    } ಆಗ(1);
+    ಬರೆ("\n");
 
-    for(i = 0;i < 10;i++) {
-        if (i == 3)
-            continue;
-        printf("%d", i);
+    ಗಾಗಿ(i = 0;i < 10;i++) {
+        ಆದರೆ (i == 3)
+            ಮುಂದುವರಿ;
+        ಬರೆ("%d", i);
     }
-    printf("\n");
+    ಬರೆ("\n");
 }
 
-typedef int typedef_and_label;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ typedef_and_label;
 
-void goto_test()
+ಶೂನ್ಯ goto_test()
 {
-    int i;
-    static void *label_table[3] = { &&label1, &&label2, &&label3 };
-    struct {
-        int bla;
+    ಪೂರ್ಣಾಂಕ i;
+    ಸ್ಥಿರ ಶೂನ್ಯ *label_ಕೋಷ್ಟಕ[3] = { &&label1, &&label2, &&label3 };
+    ರಚನೆ {
+        ಪೂರ್ಣಾಂಕ bla;
         /* This needs to parse as typedef, not as label.  */
         typedef_and_label : 32;
     } y = {1};
 
-    printf("\ngoto:\n");
+    ಬರೆ("\ngoto:\n");
     i = 0;
     /* This is a normal decl.  */
     typedef_and_label x;
     /* This needs to parse as label, not as start of decl.  */
  typedef_and_label:
  s_loop:
-    if (i >= 10) 
-        goto s_end;
-    printf("%d", i);
+    ಆದರೆ (i >= 10) 
+        ಹೋಗು s_ಕೊನೆ;
+    ಬರೆ("%d", i);
     i++;
-    goto s_loop;
- s_end:
-    printf("\n");
+    ಹೋಗು s_loop;
+ s_ಕೊನೆ:
+    ಬರೆ("\n");
 
     /* we also test computed gotos (GCC extension) */
-    for(i=0;i<3;i++) {
-        goto *label_table[i];
+    ಗಾಗಿ(i=0;i<3;i++) {
+        ಹೋಗು *label_ಕೋಷ್ಟಕ[i];
     label1:
-        printf("label1\n");
-        goto next;
+        ಬರೆ("label1\n");
+        ಹೋಗು ಮುಂದಿನ;
     label2:
-        printf("label2\n");
-        goto next;
+        ಬರೆ("label2\n");
+        ಹೋಗು ಮುಂದಿನ;
     label3:
-        printf("label3\n");
-    next: ;
+        ಬರೆ("label3\n");
+    ಮುಂದಿನ: ;
     }
 }
 
-enum {
+ಎಣಿಕೆ {
     E0,
     E1 = 2,
     E2 = 4,
@@ -597,1180 +597,1180 @@ enum {
     E4,
 };
 
-enum test {
+ಎಣಿಕೆ test {
     E5 = 1000,
 };
 
-struct S_enum {
-    enum {E6 = 42, E7, E8} e:8;
+ರಚನೆ S_enum {
+    ಎಣಿಕೆ {E6 = 42, E7, E8} e:8;
 };
 
-enum ELong {
+ಎಣಿಕೆ ELong {
     /* This is either 0 on L32 machines, or a large number
        on L64 machines.  We should be able to store this.  */
-    EL_large = ((unsigned long)0xf000 << 31) << 1,
+    EL_large = ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ)0xf000 << 31) << 1,
 };
 
-enum { BIASU = -1U<<31 };
-enum { BIASS = -1 << 31 };
+ಎಣಿಕೆ { BIASU = -1U<<31 };
+ಎಣಿಕೆ { BIASS = -1 << 31 };
 
-static int getint(int i)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ getint(ಪೂರ್ಣಾಂಕ i)
 {
-  if (i)
-    return 0;
-  else
-    return (int)(-1U << 31);
+  ಆದರೆ (i)
+    ಹಿಂತಿರುಗಿ 0;
+  ಇಲ್ಲದಿದ್ದರೆ
+    ಹಿಂತಿರುಗಿ (ಪೂರ್ಣಾಂಕ)(-1U << 31);
 }
 
-void enum_test()
+ಶೂನ್ಯ enum_test()
 {
-    enum test b1;
+    ಎಣಿಕೆ test b1;
     /* The following should give no warning */
-    unsigned *p = &b1;
-    struct S_enum s = {E7};
-    printf("%d %d %d %d %d %d %d\n", s.e,
+    ಚಿಹ್ನೆರಹಿತ *p = &b1;
+    ರಚನೆ S_enum s = {E7};
+    ಬರೆ("%d %d %d %d %d %d %d\n", s.e,
            E0, E1, E2, E3, E4, E5);
     b1 = 1;
-    printf("b1=%d\n", b1);
-    printf("enum large: %ld\n", EL_large);
+    ಬರೆ("b1=%d\n", b1);
+    ಬರೆ("enum large: %ld\n", EL_large);
 
-    if (getint(0) == BIASU)
-      printf("enum unsigned: ok\n");
-    else
-      printf("enum unsigned: wrong\n");
-    if (getint(0) == BIASS)
-      printf("enum unsigned: ok\n");
-    else
-      printf("enum unsigned: wrong\n");
+    ಆದರೆ (getint(0) == BIASU)
+      ಬರೆ("enum unsigned: ok\n");
+    ಇಲ್ಲದಿದ್ದರೆ
+      ಬರೆ("enum unsigned: wrong\n");
+    ಆದರೆ (getint(0) == BIASS)
+      ಬರೆ("enum unsigned: ok\n");
+    ಇಲ್ಲದಿದ್ದರೆ
+      ಬರೆ("enum unsigned: wrong\n");
 }
 
-typedef int *my_ptr;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ *my_ptr;
 
-typedef int mytype1;
-typedef int mytype2;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ mytype1;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ mytype2;
 
-void typedef_test()
+ಶೂನ್ಯ typedef_test()
 {
     my_ptr a;
     mytype1 mytype2;
-    int b;
+    ಪೂರ್ಣಾಂಕ b;
 
     a = &b;
     *a = 1234;
-    printf("a=%d\n", *a);
+    ಬರೆ("a=%d\n", *a);
     mytype2 = 2;
-    printf("mytype2=%d\n", mytype2);
+    ಬರೆ("mytype2=%d\n", mytype2);
 }
 
-void forward_test()
+ಶೂನ್ಯ forward_test()
 {
     forward_ref();
     forward_ref();
 }
 
 
-void forward_ref(void)
+ಶೂನ್ಯ forward_ref(ಶೂನ್ಯ)
 {
-    printf("forward ok\n");
+    ಬರೆ("forward ok\n");
 }
 
-typedef struct struct1 {
-    int f1;
-    int f2, f3;
-    union union1 {
-        int v1;
-        int v2;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ struct1 {
+    ಪೂರ್ಣಾಂಕ f1;
+    ಪೂರ್ಣಾಂಕ f2, f3;
+    ಒಕ್ಕೂಟ union1 {
+        ಪೂರ್ಣಾಂಕ v1;
+        ಪೂರ್ಣಾಂಕ v2;
     } u;
-    char str[3];
+    ಅಕ್ಷರ str[3];
 } struct1;
 
-struct struct2 {
-    int a;
-    char b;
+ರಚನೆ struct2 {
+    ಪೂರ್ಣಾಂಕ a;
+    ಅಕ್ಷರ b;
 };
 
-union union2 {
-    int w1;
-    int w2;
+ಒಕ್ಕೂಟ union2 {
+    ಪೂರ್ಣಾಂಕ w1;
+    ಪೂರ್ಣಾಂಕ w2;
 };
 
-struct struct1 st1, st2;
+ರಚನೆ struct1 st1, st2;
 
-struct empty_mem {
+ರಚನೆ ಖಾಲಿಗಳು_mem {
     /* nothing */ ;
-    int x;
+    ಪೂರ್ಣಾಂಕ x;
 };
 
-int tab[3];
-int tab2[3][2];
+ಪೂರ್ಣಾಂಕ tab[3];
+ಪೂರ್ಣಾಂಕ tab2[3][2];
 
-int g;
+ಪೂರ್ಣಾಂಕ g;
 
-void f1(int g)
+ಶೂನ್ಯ f1(ಪೂರ್ಣಾಂಕ g)
 {
-    printf("g1=%d\n", g);
+    ಬರೆ("g1=%d\n", g);
 }
 
-void scope_test()
+ಶೂನ್ಯ scope_test()
 {
     g = 2;
     f1(1);
-    printf("g2=%d\n", g);
+    ಬರೆ("g2=%d\n", g);
     {
-        int g;
+        ಪೂರ್ಣಾಂಕ g;
         g = 3;
-        printf("g3=%d\n", g);
+        ಬರೆ("g3=%d\n", g);
         {
-            int g;
+            ಪೂರ್ಣಾಂಕ g;
             g = 4;
-            printf("g4=%d\n", g);
+            ಬರೆ("g4=%d\n", g);
         }
     }
-    printf("g5=%d\n", g);
+    ಬರೆ("g5=%d\n", g);
 }
 
-int st2_i;
-int *st2_p = &st2_i;
-void scope2_test()
+ಪೂರ್ಣಾಂಕ st2_i;
+ಪೂರ್ಣಾಂಕ *st2_p = &st2_i;
+ಶೂನ್ಯ scope2_test()
 {
-    char a[50];
+    ಅಕ್ಷರ a[50];
     st2_i = 42;
-    for (int st2_i = 1; st2_i < 10; st2_i++) {
-        extern int st2_i;
+    ಗಾಗಿ (ಪೂರ್ಣಾಂಕ st2_i = 1; st2_i < 10; st2_i++) {
+        ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ st2_i;
         st2_i++;
-        printf("exloc: %d\n", st2_i);
+        ಬರೆ("exloc: %d\n", st2_i);
     }
-    printf("exloc: %d\n", *st2_p);
+    ಬರೆ("exloc: %d\n", *st2_p);
 }
 
 /* C has tentative definition, and they may be repeated.  */
-extern int st_global1;
-int st_global1=42;
-extern int st_global1;
-int st_global1;
-extern int st_global2;
-int st_global2;
-extern int st_global2;
-int st_global2;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ st_global1;
+ಪೂರ್ಣಾಂಕ st_global1=42;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ st_global1;
+ಪೂರ್ಣಾಂಕ st_global1;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ st_global2;
+ಪೂರ್ಣಾಂಕ st_global2;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ st_global2;
+ಪೂರ್ಣಾಂಕ st_global2;
 
-void array_test()
+ಶೂನ್ಯ array_test()
 {
-    int i, j, a[4];
+    ಪೂರ್ಣಾಂಕ i, j, a[4];
 
-    printf("sizeof(a) = %d\n", sizeof(a));
-    printf("sizeof(\"a\") = %d\n", sizeof("a"));
-#ifdef C99_MACROS
-    printf("sizeof(__func__) = %d\n", sizeof(__func__));
-#endif
-    printf("sizeof tab %d\n", sizeof(tab));
-    printf("sizeof tab2 %d\n", sizeof tab2);
+    ಬರೆ("sizeof(a) = %d\n", ಗಾತ್ರ(a));
+    ಬರೆ("sizeof(\"a\") = %d\n", ಗಾತ್ರ("a"));
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ C99_MACROS
+    ಬರೆ("sizeof(__func__) = %d\n", ಗಾತ್ರ(__func__));
+#ಆದರೆ_ಅಂತ್ಯ
+    ಬರೆ("sizeof tab %d\n", ಗಾತ್ರ(tab));
+    ಬರೆ("sizeof tab2 %d\n", ಗಾತ್ರ tab2);
     tab[0] = 1;
     tab[1] = 2;
     tab[2] = 3;
-    printf("%d %d %d\n", tab[0], tab[1], tab[2]);
-    for(i=0;i<3;i++)
-        for(j=0;j<2;j++)
+    ಬರೆ("%d %d %d\n", tab[0], tab[1], tab[2]);
+    ಗಾಗಿ(i=0;i<3;i++)
+        ಗಾಗಿ(j=0;j<2;j++)
             tab2[i][j] = 10 * i + j;
-    for(i=0;i<3*2;i++) {
-        printf(" %3d", ((int *)tab2)[i]);
+    ಗಾಗಿ(i=0;i<3*2;i++) {
+        ಬರೆ(" %3d", ((ಪೂರ್ಣಾಂಕ *)tab2)[i]);
     }
-    printf("\n");
-    printf("sizeof(size_t)=%d\n", sizeof(size_t));
-    printf("sizeof(ptrdiff_t)=%d\n", sizeof(ptrdiff_t));
+    ಬರೆ("\n");
+    ಬರೆ("sizeof(size_t)=%d\n", ಗಾತ್ರ(ಗಾತ್ರ_t));
+    ಬರೆ("sizeof(ptrdiff_t)=%d\n", ಗಾತ್ರ(ptrdiff_t));
 }
 
-void expr_test()
+ಶೂನ್ಯ ಅಭಿವ್ಯಕ್ತಿ_test()
 {
-    int a, b;
+    ಪೂರ್ಣಾಂಕ a, b;
     a = 0;
-    printf("%d\n", a += 1);
-    printf("%d\n", a -= 2);
-    printf("%d\n", a *= 31232132);
-    printf("%d\n", a /= 4);
-    printf("%d\n", a %= 20);
-    printf("%d\n", a &= 6);
-    printf("%d\n", a ^= 7);
-    printf("%d\n", a |= 8);
-    printf("%d\n", a >>= 3);
-    printf("%d\n", a <<= 4);
+    ಬರೆ("%d\n", a += 1);
+    ಬರೆ("%d\n", a -= 2);
+    ಬರೆ("%d\n", a *= 31232132);
+    ಬರೆ("%d\n", a /= 4);
+    ಬರೆ("%d\n", a %= 20);
+    ಬರೆ("%d\n", a &= 6);
+    ಬರೆ("%d\n", a ^= 7);
+    ಬರೆ("%d\n", a |= 8);
+    ಬರೆ("%d\n", a >>= 3);
+    ಬರೆ("%d\n", a <<= 4);
 
     a = 22321;
     b = -22321;
-    printf("%d\n", a + 1);
-    printf("%d\n", a - 2);
-    printf("%d\n", a * 312);
-    printf("%d\n", a / 4);
-    printf("%d\n", b / 4);
-    printf("%d\n", (unsigned)b / 4);
-    printf("%d\n", a % 20);
-    printf("%d\n", b % 20);
-    printf("%d\n", (unsigned)b % 20);
-    printf("%d\n", a & 6);
-    printf("%d\n", a ^ 7);
-    printf("%d\n", a | 8);
-    printf("%d\n", a >> 3);
-    printf("%d\n", b >> 3);
-    printf("%d\n", (unsigned)b >> 3);
-    printf("%d\n", a << 4);
-    printf("%d\n", ~a);
-    printf("%d\n", -a);
-    printf("%d\n", +a);
+    ಬರೆ("%d\n", a + 1);
+    ಬರೆ("%d\n", a - 2);
+    ಬರೆ("%d\n", a * 312);
+    ಬರೆ("%d\n", a / 4);
+    ಬರೆ("%d\n", b / 4);
+    ಬರೆ("%d\n", (ಚಿಹ್ನೆರಹಿತ)b / 4);
+    ಬರೆ("%d\n", a % 20);
+    ಬರೆ("%d\n", b % 20);
+    ಬರೆ("%d\n", (ಚಿಹ್ನೆರಹಿತ)b % 20);
+    ಬರೆ("%d\n", a & 6);
+    ಬರೆ("%d\n", a ^ 7);
+    ಬರೆ("%d\n", a | 8);
+    ಬರೆ("%d\n", a >> 3);
+    ಬರೆ("%d\n", b >> 3);
+    ಬರೆ("%d\n", (ಚಿಹ್ನೆರಹಿತ)b >> 3);
+    ಬರೆ("%d\n", a << 4);
+    ಬರೆ("%d\n", ~a);
+    ಬರೆ("%d\n", -a);
+    ಬರೆ("%d\n", +a);
 
-    printf("%d\n", 12 + 1);
-    printf("%d\n", 12 - 2);
-    printf("%d\n", 12 * 312);
-    printf("%d\n", 12 / 4);
-    printf("%d\n", 12 % 20);
-    printf("%d\n", 12 & 6);
-    printf("%d\n", 12 ^ 7);
-    printf("%d\n", 12 | 8);
-    printf("%d\n", 12 >> 2);
-    printf("%d\n", 12 << 4);
-    printf("%d\n", ~12);
-    printf("%d\n", -12);
-    printf("%d\n", +12);
-    printf("%d %d %d %d\n", 
+    ಬರೆ("%d\n", 12 + 1);
+    ಬರೆ("%d\n", 12 - 2);
+    ಬರೆ("%d\n", 12 * 312);
+    ಬರೆ("%d\n", 12 / 4);
+    ಬರೆ("%d\n", 12 % 20);
+    ಬರೆ("%d\n", 12 & 6);
+    ಬರೆ("%d\n", 12 ^ 7);
+    ಬರೆ("%d\n", 12 | 8);
+    ಬರೆ("%d\n", 12 >> 2);
+    ಬರೆ("%d\n", 12 << 4);
+    ಬರೆ("%d\n", ~12);
+    ಬರೆ("%d\n", -12);
+    ಬರೆ("%d\n", +12);
+    ಬರೆ("%d %d %d %d\n", 
            isid('a'), 
            isid('g'), 
            isid('T'), 
            isid('('));
 }
 
-int isid(int c)
+ಪೂರ್ಣಾಂಕ isid(ಪೂರ್ಣಾಂಕ c)
 {
-    return (c >= 'a' & c <= 'z') | (c >= 'A' & c <= 'Z') | c == '_';
+    ಹಿಂತಿರುಗಿ (c >= 'a' & c <= 'z') | (c >= 'A' & c <= 'Z') | c == '_';
 }
 
 /**********************/
 
-int vstack[10], *vstack_ptr;
+ಪೂರ್ಣಾಂಕ vstack[10], *vstack_ptr;
 
-void vpush(int vt, int vc)
+ಶೂನ್ಯ vpush(ಪೂರ್ಣಾಂಕ vt, ಪೂರ್ಣಾಂಕ vc)
 {
     *vstack_ptr++ = vt;
     *vstack_ptr++ = vc;
 }
 
-void vpop(int *ft, int *fc)
+ಶೂನ್ಯ vpop(ಪೂರ್ಣಾಂಕ *ft, ಪೂರ್ಣಾಂಕ *fc)
 {
     *fc = *--vstack_ptr;
     *ft = *--vstack_ptr;
 }
 
-void expr2_test()
+ಶೂನ್ಯ expr2_test()
 {
-    int a, b;
+    ಪೂರ್ಣಾಂಕ a, b;
 
     vstack_ptr = vstack;
     vpush(1432432, 2);
     vstack_ptr[-2] &= ~0xffffff80;
     vpop(&a, &b);
-    printf("res= %d %d\n", a, b);
+    ಬರೆ("res= %d %d\n", a, b);
 }
 
-int const_len_ar[sizeof(1/0)]; /* div-by-zero, but in unevaluated context */
+ಪೂರ್ಣಾಂಕ const_len_ar[ಗಾತ್ರ(1/0)]; /* div-by-zero, but in unevaluated context */
 
-void constant_expr_test()
+ಶೂನ್ಯ constant_ಅಭಿವ್ಯಕ್ತಿ_test()
 {
-    int a;
+    ಪೂರ್ಣಾಂಕ a;
     a = 3;
-    printf("%d\n", a * 16);
-    printf("%d\n", a * 1);
-    printf("%d\n", a + 0);
-    printf("%d\n", sizeof(const_len_ar));
+    ಬರೆ("%d\n", a * 16);
+    ಬರೆ("%d\n", a * 1);
+    ಬರೆ("%d\n", a + 0);
+    ಬರೆ("%d\n", ಗಾತ್ರ(const_len_ar));
 }
 
-int tab4[10];
+ಪೂರ್ಣಾಂಕ tab4[10];
 
-void expr_ptr_test()
+ಶೂನ್ಯ ಅಭಿವ್ಯಕ್ತಿ_ptr_test()
 {
-    int arr[10], *p, *q;
-    int i = -1;
+    ಪೂರ್ಣಾಂಕ arr[10], *p, *q;
+    ಪೂರ್ಣಾಂಕ i = -1;
 
     p = tab4;
     q = tab4 + 10;
-    printf("diff=%d\n", q - p);
+    ಬರೆ("diff=%d\n", q - p);
     p++;
-    printf("inc=%d\n", p - tab4);
+    ಬರೆ("inc=%d\n", p - tab4);
     p--;
-    printf("dec=%d\n", p - tab4);
+    ಬರೆ("dec=%d\n", p - tab4);
     ++p;
-    printf("inc=%d\n", p - tab4);
+    ಬರೆ("inc=%d\n", p - tab4);
     --p;
-    printf("dec=%d\n", p - tab4);
-    printf("add=%d\n", p + 3 - tab4);
-    printf("add=%d\n", 3 + p - tab4);
+    ಬರೆ("dec=%d\n", p - tab4);
+    ಬರೆ("add=%d\n", p + 3 - tab4);
+    ಬರೆ("add=%d\n", 3 + p - tab4);
 
     /* check if 64bit support is ok */
     q = p = 0;
     q += i;
-    printf("%p %p %ld\n", q, p, p-q);
-    printf("%d %d %d %d %d %d\n",
+    ಬರೆ("%p %p %ld\n", q, p, p-q);
+    ಬರೆ("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
     i = 0xf0000000;
     p += i;
-    printf("%p %p %ld\n", q, p, p-q);
-    printf("%d %d %d %d %d %d\n",
+    ಬರೆ("%p %p %ld\n", q, p, p-q);
+    ಬರೆ("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
-    p = (int *)((char *)p + 0xf0000000);
-    printf("%p %p %ld\n", q, p, p-q);
-    printf("%d %d %d %d %d %d\n",
+    p = (ಪೂರ್ಣಾಂಕ *)((ಅಕ್ಷರ *)p + 0xf0000000);
+    ಬರೆ("%p %p %ld\n", q, p, p-q);
+    ಬರೆ("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
     p += 0xf0000000;
-    printf("%p %p %ld\n", q, p, p-q);
-    printf("%d %d %d %d %d %d\n",
+    ಬರೆ("%p %p %ld\n", q, p, p-q);
+    ಬರೆ("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
     {
-        struct size12 {
-            int i, j, k;
+        ರಚನೆ size12 {
+            ಪೂರ್ಣಾಂಕ i, j, k;
         };
-        struct size12 s[2], *sp = s;
-        int i, j;
+        ರಚನೆ size12 s[2], *sp = s;
+        ಪೂರ್ಣಾಂಕ i, j;
         sp->i = 42;
         sp++;
         j = -1;
-        printf("%d\n", sp[j].i);
+        ಬರೆ("%d\n", sp[j].i);
     }
-#ifdef __LP64__
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __LP64__
     i = 1;
-    p = (int*)0x100000000UL + i;
-    i = ((long)p) >> 32;
-    printf("largeptr: %p %d\n", p, i);
-#endif
+    p = (ಪೂರ್ಣಾಂಕ*)0x100000000UL + i;
+    i = ((ದೀರ್ಘ)p) >> 32;
+    ಬರೆ("largeptr: %p %d\n", p, i);
+#ಆದರೆ_ಅಂತ್ಯ
     p = &arr[0];
     q = p + 3;
-    printf ("%d\n", (int)((p - q) / 3));
+    ಬರೆ ("%d\n", (ಪೂರ್ಣಾಂಕ)((p - q) / 3));
 }
 
-void expr_cmp_test()
+ಶೂನ್ಯ ಅಭಿವ್ಯಕ್ತಿ_cmp_test()
 {
-    int a, b;
+    ಪೂರ್ಣಾಂಕ a, b;
     a = -1;
     b = 1;
-    printf("%d\n", a == a);
-    printf("%d\n", a != a);
+    ಬರೆ("%d\n", a == a);
+    ಬರೆ("%d\n", a != a);
 
-    printf("%d\n", a < b);
-    printf("%d\n", a <= b);
-    printf("%d\n", a <= a);
-    printf("%d\n", b >= a);
-    printf("%d\n", a >= a);
-    printf("%d\n", b > a);
+    ಬರೆ("%d\n", a < b);
+    ಬರೆ("%d\n", a <= b);
+    ಬರೆ("%d\n", a <= a);
+    ಬರೆ("%d\n", b >= a);
+    ಬರೆ("%d\n", a >= a);
+    ಬರೆ("%d\n", b > a);
 
-    printf("%d\n", (unsigned)a < b);
-    printf("%d\n", (unsigned)a <= b);
-    printf("%d\n", (unsigned)a <= a);
-    printf("%d\n", (unsigned)b >= a);
-    printf("%d\n", (unsigned)a >= a);
-    printf("%d\n", (unsigned)b > a);
+    ಬರೆ("%d\n", (ಚಿಹ್ನೆರಹಿತ)a < b);
+    ಬರೆ("%d\n", (ಚಿಹ್ನೆರಹಿತ)a <= b);
+    ಬರೆ("%d\n", (ಚಿಹ್ನೆರಹಿತ)a <= a);
+    ಬರೆ("%d\n", (ಚಿಹ್ನೆರಹಿತ)b >= a);
+    ಬರೆ("%d\n", (ಚಿಹ್ನೆರಹಿತ)a >= a);
+    ಬರೆ("%d\n", (ಚಿಹ್ನೆರಹಿತ)b > a);
 }
 
-struct empty {
+ರಚನೆ ಖಾಲಿಗಳು {
 };
 
-struct aligntest1 {
-    char a[10];
+ರಚನೆ aligntest1 {
+    ಅಕ್ಷರ a[10];
 };
 
-struct aligntest2 {
-    int a;
-    char b[10];
+ರಚನೆ aligntest2 {
+    ಪೂರ್ಣಾಂಕ a;
+    ಅಕ್ಷರ b[10];
 };
 
-struct aligntest3 {
-    double a, b;
+ರಚನೆ aligntest3 {
+    ದ್ವಿಗುಣ a, b;
 };
 
-struct aligntest4 {
-    double a[0];
+ರಚನೆ aligntest4 {
+    ದ್ವಿಗುಣ a[0];
 };
 
-struct __attribute__((aligned(16))) aligntest5
+ರಚನೆ __attribute__((aligned(16))) aligntest5
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
 };
-struct aligntest6
+ರಚನೆ aligntest6
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
 } __attribute__((aligned(16)));
-struct aligntest7
+ರಚನೆ aligntest7
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
 };
-struct aligntest5 altest5[2];
-struct aligntest6 altest6[2];
-int pad1;
+ರಚನೆ aligntest5 altest5[2];
+ರಚನೆ aligntest6 altest6[2];
+ಪೂರ್ಣಾಂಕ pad1;
 /* altest7 is correctly aligned to 16 bytes also with TCC,
    but __alignof__ returns the wrong result (4) because we
    can't store the alignment yet when specified on symbols
    directly (it's stored in the type so we'd need to make
    a copy of it). -- FIXED */
-struct aligntest7 altest7[2] __attribute__((aligned(16)));
+ರಚನೆ aligntest7 altest7[2] __attribute__((aligned(16)));
 
-struct aligntest8
+ರಚನೆ aligntest8
 {
-  int i;
+  ಪೂರ್ಣಾಂಕ i;
 } __attribute__((aligned(4096)));
 
-struct Large {
-    unsigned long flags;
-    union {
-	void *u1;
-	int *u2;
+ರಚನೆ Large {
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ flags;
+    ಒಕ್ಕೂಟ {
+	ಶೂನ್ಯ *u1;
+	ಪೂರ್ಣಾಂಕ *u2;
     };
 
-    struct {
-	union {
-	    unsigned long index;
-	    void *freelist;
+    ರಚನೆ {
+	ಒಕ್ಕೂಟ {
+	    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಸೂಚ್ಯಂಕ;
+	    ಶೂನ್ಯ *freelist;
 	};
-	union {
-	    unsigned long counters;
-	    struct {
-		int bla;
+	ಒಕ್ಕೂಟ {
+	    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ counters;
+	    ರಚನೆ {
+		ಪೂರ್ಣಾಂಕ bla;
 	    };
 	};
     };
 
-    union {
-	struct {
-	    long u3;
-	    long u4;
+    ಒಕ್ಕೂಟ {
+	ರಚನೆ {
+	    ದೀರ್ಘ u3;
+	    ದೀರ್ಘ u4;
 	};
-	void *u5;
-	struct {
-	    unsigned long compound_head;
-	    unsigned int compound_dtor;
-	    unsigned int compound_order;
+	ಶೂನ್ಯ *u5;
+	ರಚನೆ {
+	    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ compound_ತಲೆ;
+	    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ compound_dtor;
+	    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ compound_ಕ್ರಮ;
 	};
     };
-} __attribute__((aligned(2 * sizeof(long))));
+} __attribute__((aligned(2 * ಗಾತ್ರ(ದೀರ್ಘ))));
 
-typedef unsigned long long __attribute__((aligned(4))) unaligned_u64;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ __attribute__((aligned(4))) unaligned_u64;
 
-struct aligntest9 {
-    unsigned int buf_nr;
-    unaligned_u64 start_lba;
+ರಚನೆ aligntest9 {
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ buf_nr;
+    unaligned_u64 ಆರಂಭ_lba;
 };
 
-struct aligntest10 {
-    unsigned int buf_nr;
-    unsigned long long start_lba;
+ರಚನೆ aligntest10 {
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ buf_nr;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ ಆರಂಭ_lba;
 };
 
-void struct_test()
+ಶೂನ್ಯ struct_test()
 {
     struct1 *s;
-    union union2 u;
-    struct Large ls;
+    ಒಕ್ಕೂಟ union2 u;
+    ರಚನೆ Large ls;
 
-    printf("sizes: %d %d %d %d\n",
-           sizeof(struct struct1),
-           sizeof(struct struct2),
-           sizeof(union union1),
-           sizeof(union union2));
-    printf("offsets: %d\n", (int)((char*)&st1.u.v1 - (char*)&st1));
+    ಬರೆ("sizes: %d %d %d %d\n",
+           ಗಾತ್ರ(ರಚನೆ struct1),
+           ಗಾತ್ರ(ರಚನೆ struct2),
+           ಗಾತ್ರ(ಒಕ್ಕೂಟ union1),
+           ಗಾತ್ರ(ಒಕ್ಕೂಟ union2));
+    ಬರೆ("offsets: %d\n", (ಪೂರ್ಣಾಂಕ)((ಅಕ್ಷರ*)&st1.u.v1 - (ಅಕ್ಷರ*)&st1));
     st1.f1 = 1;
     st1.f2 = 2;
     st1.f3 = 3;
-    printf("st1: %d %d %d\n",
+    ಬರೆ("st1: %d %d %d\n",
            st1.f1, st1.f2, st1.f3);
     st1.u.v1 = 1;
     st1.u.v2 = 2;
-    printf("union1: %d\n", st1.u.v1);
+    ಬರೆ("union1: %d\n", st1.u.v1);
     u.w1 = 1;
     u.w2 = 2;
-    printf("union2: %d\n", u.w1);
+    ಬರೆ("union2: %d\n", u.w1);
     s = &st2;
     s->f1 = 3;
     s->f2 = 2;
     s->f3 = 1;
-    printf("st2: %d %d %d\n",
+    ಬರೆ("st2: %d %d %d\n",
            s->f1, s->f2, s->f3);
-    printf("str_addr=%x\n", (int)(uintptr_t)st1.str - (int)(uintptr_t)&st1.f1);
+    ಬರೆ("str_addr=%x\n", (ಪೂರ್ಣಾಂಕ)(uintptr_t)st1.str - (ಪೂರ್ಣಾಂಕ)(uintptr_t)&st1.f1);
 
     /* align / size tests */
-    printf("aligntest1 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest1), __alignof__(struct aligntest1));
-    printf("aligntest2 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest2), __alignof__(struct aligntest2));
-    printf("aligntest3 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest3), __alignof__(struct aligntest3));
-#if !(defined _WIN32 && CC_NAME == CC_clang)
-    printf("aligntest4 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest4), __alignof__(struct aligntest4));
-#endif
-    printf("aligntest5 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest5), __alignof__(struct aligntest5));
-    printf("aligntest6 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest6), __alignof__(struct aligntest6));
-    printf("aligntest7 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest7), __alignof__(struct aligntest7));
-    printf("aligntest8 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest8), __alignof__(struct aligntest8));
-#if !(defined _WIN32 && CC_NAME == CC_clang)
-    printf("aligntest9 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest9), __alignof__(struct aligntest9));
-#endif
-    printf("aligntest10 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest10), __alignof__(struct aligntest10));
-    printf("altest5 sizeof=%d alignof=%d\n",
-           sizeof(altest5), __alignof__(altest5));
-    printf("altest6 sizeof=%d alignof=%d\n",
-           sizeof(altest6), __alignof__(altest6));
-    printf("altest7 sizeof=%d alignof=%d\n",
-           sizeof(altest7), __alignof__(altest7));
+    ಬರೆ("aligntest1 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(ರಚನೆ aligntest1), __alignof__(ರಚನೆ aligntest1));
+    ಬರೆ("aligntest2 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(ರಚನೆ aligntest2), __alignof__(ರಚನೆ aligntest2));
+    ಬರೆ("aligntest3 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(ರಚನೆ aligntest3), __alignof__(ರಚನೆ aligntest3));
+#ಆದರೆ !(defined _WIN32 && CC_NAME == CC_clang)
+    ಬರೆ("aligntest4 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(ರಚನೆ aligntest4), __alignof__(ರಚನೆ aligntest4));
+#ಆದರೆ_ಅಂತ್ಯ
+    ಬರೆ("aligntest5 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(ರಚನೆ aligntest5), __alignof__(ರಚನೆ aligntest5));
+    ಬರೆ("aligntest6 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(ರಚನೆ aligntest6), __alignof__(ರಚನೆ aligntest6));
+    ಬರೆ("aligntest7 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(ರಚನೆ aligntest7), __alignof__(ರಚನೆ aligntest7));
+    ಬರೆ("aligntest8 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(ರಚನೆ aligntest8), __alignof__(ರಚನೆ aligntest8));
+#ಆದರೆ !(defined _WIN32 && CC_NAME == CC_clang)
+    ಬರೆ("aligntest9 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(ರಚನೆ aligntest9), __alignof__(ರಚನೆ aligntest9));
+#ಆದರೆ_ಅಂತ್ಯ
+    ಬರೆ("aligntest10 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(ರಚನೆ aligntest10), __alignof__(ರಚನೆ aligntest10));
+    ಬರೆ("altest5 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(altest5), __alignof__(altest5));
+    ಬರೆ("altest6 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(altest6), __alignof__(altest6));
+    ಬರೆ("altest7 sizeof=%d alignof=%d\n",
+           ಗಾತ್ರ(altest7), __alignof__(altest7));
            
     /* empty structures (GCC extension) */
-#if !(defined _WIN32 && CC_NAME == CC_clang)
-    printf("sizeof(struct empty) = %d\n", sizeof(struct empty));
-#endif
-    printf("alignof(struct empty) = %d\n", __alignof__(struct empty));
+#ಆದರೆ !(defined _WIN32 && CC_NAME == CC_clang)
+    ಬರೆ("sizeof(struct empty) = %d\n", ಗಾತ್ರ(ರಚನೆ ಖಾಲಿಗಳು));
+#ಆದರೆ_ಅಂತ್ಯ
+    ಬರೆ("alignof(struct empty) = %d\n", __alignof__(ರಚನೆ ಖಾಲಿಗಳು));
 
-    printf("Large: sizeof=%d\n", sizeof(ls));
-    memset(&ls, 0, sizeof(ls));
-    ls.compound_head = 42;
-    printf("Large: offsetof(compound_head)=%d\n", (int)((char*)&ls.compound_head - (char*)&ls));
+    ಬರೆ("Large: sizeof=%d\n", ಗಾತ್ರ(ls));
+    memset(&ls, 0, ಗಾತ್ರ(ls));
+    ls.compound_ತಲೆ = 42;
+    ಬರೆ("Large: offsetof(compound_head)=%d\n", (ಪೂರ್ಣಾಂಕ)((ಅಕ್ಷರ*)&ls.compound_ತಲೆ - (ಅಕ್ಷರ*)&ls));
 }
 
 /* simulate char/short return value with undefined upper bits */
-static int __csf(int x) { return x; }
-static void *_csf = __csf;
-#define csf(t,n) ((t(*)(int))_csf)(n)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ __csf(ಪೂರ್ಣಾಂಕ x) { ಹಿಂತಿರುಗಿ x; }
+ಸ್ಥಿರ ಶೂನ್ಯ *_csf = __csf;
+#ವ್ಯಾಖ್ಯಾನಿಸು csf(t,n) ((t(*)(ಪೂರ್ಣಾಂಕ))_csf)(n)
 
 /* XXX: depend on endianness */
-void char_short_test()
+ಶೂನ್ಯ char_short_test()
 {
-    int var1, var2;
-    signed char var3;
-    long long var4;
+    ಪೂರ್ಣಾಂಕ var1, var2;
+    ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ var3;
+    ದೀರ್ಘ ದೀರ್ಘ var4;
 
     var1 = 0x01020304;
     var2 = 0xfffefdfc;
-    printf("s8=%d %d\n", 
-           *(signed char *)&var1, *(signed char *)&var2);
-    printf("u8=%d %d\n", 
-           *(unsigned char *)&var1, *(unsigned char *)&var2);
-    printf("s16=%d %d\n", 
-           *(short *)&var1, *(short *)&var2);
-    printf("u16=%d %d\n", 
-           *(unsigned short *)&var1, *(unsigned short *)&var2);
-    printf("s32=%d %d\n", 
-           *(int *)&var1, *(int *)&var2);
-    printf("u32=%d %d\n", 
-           *(unsigned int *)&var1, *(unsigned int *)&var2);
-    *(signed char *)&var1 = 0x08;
-    printf("var1=%x\n", var1);
-    *(short *)&var1 = 0x0809;
-    printf("var1=%x\n", var1);
-    *(int *)&var1 = 0x08090a0b;
-    printf("var1=%x\n", var1);
+    ಬರೆ("s8=%d %d\n", 
+           *(ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ *)&var1, *(ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ *)&var2);
+    ಬರೆ("u8=%d %d\n", 
+           *(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *)&var1, *(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *)&var2);
+    ಬರೆ("s16=%d %d\n", 
+           *(ಗಿಡ್ಡ *)&var1, *(ಗಿಡ್ಡ *)&var2);
+    ಬರೆ("u16=%d %d\n", 
+           *(ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ *)&var1, *(ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ *)&var2);
+    ಬರೆ("s32=%d %d\n", 
+           *(ಪೂರ್ಣಾಂಕ *)&var1, *(ಪೂರ್ಣಾಂಕ *)&var2);
+    ಬರೆ("u32=%d %d\n", 
+           *(ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ *)&var1, *(ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ *)&var2);
+    *(ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ *)&var1 = 0x08;
+    ಬರೆ("var1=%x\n", var1);
+    *(ಗಿಡ್ಡ *)&var1 = 0x0809;
+    ಬರೆ("var1=%x\n", var1);
+    *(ಪೂರ್ಣಾಂಕ *)&var1 = 0x08090a0b;
+    ಬರೆ("var1=%x\n", var1);
 
     var1 = 0x778899aa;
     var4 = 0x11223344aa998877ULL;
     var1 = var3 = var1 + 1;
     var4 = var3 = var4 + 1;
-    printf("promote char/short assign %d "LONG_LONG_FORMAT"\n", var1, var4);
+    ಬರೆ("promote char/short assign %d "LONG_LONG_FORMAT"\n", var1, var4);
     var1 = 0x778899aa;
     var4 = 0x11223344aa998877ULL;
-    printf("promote char/short assign VA %d %d\n", var3 = var1 + 1, var3 = var4 + 1);
-    printf("promote char/short cast VA %d %d\n", (signed char)(var1 + 1), (signed char)(var4 + 1));
-#if !defined __arm__ && !defined __riscv
+    ಬರೆ("promote char/short assign VA %d %d\n", var3 = var1 + 1, var3 = var4 + 1);
+    ಬರೆ("promote char/short cast VA %d %d\n", (ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ)(var1 + 1), (ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ)(var4 + 1));
+#ಆದರೆ !defined __arm__ && !defined __riscv
     /* We can't really express GCC behaviour of return type promotion in
        the presence of undefined behaviour (like __csf is).  */
-    var1 = csf(unsigned char,0x89898989);
-    var4 = csf(signed char,0xabababab);
-#ifdef __clang__
+    var1 = csf(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ,0x89898989);
+    var4 = csf(ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ,0xabababab);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __clang__
     /* on macos 15 arm64 this prints -1987475063 instead of 137 */
     var1 &= 0xff;
-#endif
-    printf("promote char/short funcret %d "LONG_LONG_FORMAT"\n", var1, var4);
-    printf("promote char/short fumcret VA %d %d %d %d\n",
-        csf(unsigned short,0xcdcdcdcd),
-        csf(short,0xefefefef),
+#ಆದರೆ_ಅಂತ್ಯ
+    ಬರೆ("promote char/short funcret %d "LONG_LONG_FORMAT"\n", var1, var4);
+    ಬರೆ("promote char/short fumcret VA %d %d %d %d\n",
+        csf(ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ,0xcdcdcdcd),
+        csf(ಗಿಡ್ಡ,0xefefefef),
         csf(_Bool,0x33221100),
         csf(_Bool,0x33221101));
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
     var3 = -10;
-    var1 = (signed char)(unsigned char)(var3 + 1);
-    var4 = (signed char)(unsigned char)(var3 + 1);
-    printf("promote multicast (char)(unsigned char) %d "LONG_LONG_FORMAT"\n", var1, var4);
+    var1 = (ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ)(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ)(var3 + 1);
+    var4 = (ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ)(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ)(var3 + 1);
+    ಬರೆ("promote multicast (char)(unsigned char) %d "LONG_LONG_FORMAT"\n", var1, var4);
     var4 = 0x11223344aa998877ULL;
-    var4 = (unsigned)(int)(var4 + 1);
-    printf("promote multicast (unsigned)(int) "LONG_LONG_FORMAT"\n", var4);
+    var4 = (ಚಿಹ್ನೆರಹಿತ)(ಪೂರ್ಣಾಂಕ)(var4 + 1);
+    ಬರೆ("promote multicast (unsigned)(int) "LONG_LONG_FORMAT"\n", var4);
     var4 = 0x11223344bbaa9988ULL;
-    var4 = (unsigned)(signed char)(var4 + 1);
-    printf("promote multicast (unsigned)(char) "LONG_LONG_FORMAT"\n", var4);
+    var4 = (ಚಿಹ್ನೆರಹಿತ)(ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ)(var4 + 1);
+    ಬರೆ("promote multicast (unsigned)(char) "LONG_LONG_FORMAT"\n", var4);
 }
 
 /******************/
 
-typedef struct Sym {
-    int v;
-    int t;
-    int c;
-    struct Sym *next;
-    struct Sym *prev;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ Sym {
+    ಪೂರ್ಣಾಂಕ v;
+    ಪೂರ್ಣಾಂಕ t;
+    ಪೂರ್ಣಾಂಕ c;
+    ರಚನೆ Sym *ಮುಂದಿನ;
+    ರಚನೆ Sym *prev;
 } Sym;
 
-#define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
-#define TOUPPER(c) (ISLOWER(c) ? 'A' + ((c) - 'a') : (c))
+#ವ್ಯಾಖ್ಯಾನಿಸು ISLOWER(c) ('a' <= (c) && (c) <= 'z')
+#ವ್ಯಾಖ್ಯಾನಿಸು TOUPPER(c) (ISLOWER(c) ? 'A' + ((c) - 'a') : (c))
 
-static int toupper1(int a)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ toupper1(ಪೂರ್ಣಾಂಕ a)
 {
-    return TOUPPER(a);
+    ಹಿಂತಿರುಗಿ TOUPPER(a);
 }
 
-static unsigned int calc_vm_flags(unsigned int prot)
+ಸ್ಥಿರ ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ calc_vm_flags(ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ prot)
 {
-  unsigned int prot_bits;
+  ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ prot_ಬಿಟ್ಟುಗಳು;
   /* This used to segfault in some revisions: */
-  prot_bits = ((0x1==0x00000001)?(prot&0x1):(prot&0x1)?0x00000001:0);
-  return prot_bits;
+  prot_ಬಿಟ್ಟುಗಳು = ((0x1==0x00000001)?(prot&0x1):(prot&0x1)?0x00000001:0);
+  ಹಿಂತಿರುಗಿ prot_ಬಿಟ್ಟುಗಳು;
 }
 
-enum cast_enum { FIRST, LAST };
+ಎಣಿಕೆ cast_enum { ಮೊದಲ_2, ಕೊನೆಯ_2 };
 
-static void tst_cast(enum cast_enum ce)
+ಸ್ಥಿರ ಶೂನ್ಯ tst_cast(ಎಣಿಕೆ cast_enum ce)
 {
-    printf("%d\n", ce);
+    ಬರೆ("%d\n", ce);
 }
 
-void bool_test()
+ಶೂನ್ಯ bool_test()
 {
-    int *s, a, b, t, f, i;
+    ಪೂರ್ಣಾಂಕ *s, a, b, t, f, i;
 
     a = 0;
-    s = (void*)0;
-    printf("!s=%d\n", !s);
+    s = (ಶೂನ್ಯ*)0;
+    ಬರೆ("!s=%d\n", !s);
 
-    if (!s || !s[0])
+    ಆದರೆ (!s || !s[0])
         a = 1;
-    printf("a=%d\n", a);
+    ಬರೆ("a=%d\n", a);
 
-    printf("a=%d %d %d\n", 0 || 0, 0 || 1, 1 || 1);
-    printf("a=%d %d %d\n", 0 && 0, 0 && 1, 1 && 1);
-    printf("a=%d %d\n", 1 ? 1 : 0, 0 ? 1 : 0);
-#if 1 && 1
-    printf("a1\n");
-#endif
-#if 1 || 0
-    printf("a2\n");
-#endif
-#if 1 ? 0 : 1
-    printf("a3\n");
-#endif
-#if 0 ? 0 : 1
-    printf("a4\n");
-#endif
+    ಬರೆ("a=%d %d %d\n", 0 || 0, 0 || 1, 1 || 1);
+    ಬರೆ("a=%d %d %d\n", 0 && 0, 0 && 1, 1 && 1);
+    ಬರೆ("a=%d %d\n", 1 ? 1 : 0, 0 ? 1 : 0);
+#ಆದರೆ 1 && 1
+    ಬರೆ("a1\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ 1 || 0
+    ಬರೆ("a2\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ 1 ? 0 : 1
+    ಬರೆ("a3\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ 0 ? 0 : 1
+    ಬರೆ("a4\n");
+#ಆದರೆ_ಅಂತ್ಯ
 
     a = 4;
-    printf("b=%d\n", a + (0 ? 1 : a / 2));
+    ಬರೆ("b=%d\n", a + (0 ? 1 : a / 2));
 
     /* test register spilling */
     a = 10;
     b = 10;
     a = (a + b) * ((a < b) ?
                    ((b - a) * (a - b)): a + b);
-    printf("a=%d\n", a);
+    ಬರೆ("a=%d\n", a);
 
     /* test complex || or && expressions */
     t = 1;
     f = 0;
     a = 32;
-    printf("exp=%d\n", f == (32 <= a && a <= 3));
-    printf("r=%d\n", (t || f) + (t && f));
+    ಬರೆ("exp=%d\n", f == (32 <= a && a <= 3));
+    ಬರೆ("r=%d\n", (t || f) + (t && f));
 
     /* check that types of casted &&/|| are preserved (here the unsignedness) */
     t = 1;
-    printf("type of bool: %d\n", (int) ( (~ ((unsigned int) (t && 1))) / 2) );
-    tst_cast(t >= 0 ? FIRST : LAST);
+    ಬರೆ("type of bool: %d\n", (ಪೂರ್ಣಾಂಕ) ( (~ ((ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ) (t && 1))) / 2) );
+    tst_cast(t >= 0 ? ಮೊದಲ_2 : ಕೊನೆಯ_2);
 
-    printf("type of cond: %d\n", (~(t ? 0U : (unsigned int)0)) / 2 );
+    ಬರೆ("type of cond: %d\n", (~(t ? 0U : (ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ)0)) / 2 );
     /* test ? : cast */
     {
-        int aspect_on;
-        int aspect_native = 65536;
-        double bfu_aspect = 1.0;
-        int aspect;
-        for(aspect_on = 0; aspect_on < 2; aspect_on++) {
+        ಪೂರ್ಣಾಂಕ aspect_on;
+        ಪೂರ್ಣಾಂಕ aspect_native = 65536;
+        ದ್ವಿಗುಣ bfu_aspect = 1.0;
+        ಪೂರ್ಣಾಂಕ aspect;
+        ಗಾಗಿ(aspect_on = 0; aspect_on < 2; aspect_on++) {
             aspect=aspect_on?(aspect_native*bfu_aspect+0.5):65535UL;
-            printf("aspect=%d\n", aspect);
+            ಬರೆ("aspect=%d\n", aspect);
         }
     }
 
     /* test ? : GCC extension */
     {
-        static int v1 = 34 ? : -1; /* constant case */
-        static int v2 = 0 ? : -1; /* constant case */
-        int a = 30;
+        ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ v1 = 34 ? : -1; /* constant case */
+        ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ v2 = 0 ? : -1; /* constant case */
+        ಪೂರ್ಣಾಂಕ a = 30;
         
-        printf("%d %d\n", v1, v2);
-        printf("%d %d\n", a - 30 ? : a * 2, a + 1 ? : a * 2);
+        ಬರೆ("%d %d\n", v1, v2);
+        ಬರೆ("%d %d\n", a - 30 ? : a * 2, a + 1 ? : a * 2);
     }
 
     /* again complex expression */
-    for(i=0;i<256;i++) {
-        if (toupper1 (i) != TOUPPER (i))
-            printf("error %d\n", i);
+    ಗಾಗಿ(i=0;i<256;i++) {
+        ಆದರೆ (toupper1 (i) != TOUPPER (i))
+            ಬರೆ("error %d\n", i);
     }
-    printf ("bits = 0x%x\n", calc_vm_flags (0x1));
+    ಬರೆ ("bits = 0x%x\n", calc_vm_flags (0x1));
 }
 
-extern int undefined_function(void);
-extern int defined_function(void);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ undefined_function(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ defined_function(ಶೂನ್ಯ);
 
-#ifdef __clang__
-int undefined_function(void) {}
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __clang__
+ಪೂರ್ಣಾಂಕ undefined_function(ಶೂನ್ಯ) {}
+#ಆದರೆ_ಅಂತ್ಯ
 
-static inline void refer_to_undefined(void)
+ಸ್ಥಿರ ಸಾಲೊಳಗೆ ಶೂನ್ಯ refer_ಗಮ್ಯ_undefined(ಶೂನ್ಯ)
 {
   undefined_function();
 }
 
-void optimize_out_test(void)
+ಶೂನ್ಯ optimize_ಹೊರಹೋಗು_test(ಶೂನ್ಯ)
 {
-  int i = 0 ? undefined_function() : defined_function();
-  printf ("oo:%d\n", i);
-  int j = 1 ? defined_function() : undefined_function();
-  printf ("oo:%d\n", j);
-  if (0)
-    printf("oo:%d\n", undefined_function());
-  else
-    printf("oo:%d\n", defined_function());
-  if (1)
-    printf("oo:%d\n", defined_function());
-  else
-    printf("oo:%d\n", undefined_function());
-  while (1) {
-      printf("oow:%d\n", defined_function());
-      break;
-      printf("oow:%d\n", undefined_function());
+  ಪೂರ್ಣಾಂಕ i = 0 ? undefined_function() : defined_function();
+  ಬರೆ ("oo:%d\n", i);
+  ಪೂರ್ಣಾಂಕ j = 1 ? defined_function() : undefined_function();
+  ಬರೆ ("oo:%d\n", j);
+  ಆದರೆ (0)
+    ಬರೆ("oo:%d\n", undefined_function());
+  ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ("oo:%d\n", defined_function());
+  ಆದರೆ (1)
+    ಬರೆ("oo:%d\n", defined_function());
+  ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ("oo:%d\n", undefined_function());
+  ಆಗ (1) {
+      ಬರೆ("oow:%d\n", defined_function());
+      ನಿಲ್ಲಿಸು;
+      ಬರೆ("oow:%d\n", undefined_function());
   }
   j = 1;
   /* Following is a switch without {} block intentionally.  */
-  switch (j)
-    case 1: break;
-  printf ("oos:%d\n", defined_function());
+  ಆಯ್ಕೆ (j)
+    ಸ್ಥಿತಿ 1: ನಿಲ್ಲಿಸು;
+  ಬರೆ ("oos:%d\n", defined_function());
   /* The following break shouldn't lead to disabled code after
      the while.  */
-  while (1)
-    break;
-  printf ("ool1:%d\n", defined_function());
+  ಆಗ (1)
+    ನಿಲ್ಲಿಸು;
+  ಬರೆ ("ool1:%d\n", defined_function());
   /* Same for the other types of loops.  */
-  do
-    break;
-  while (1);
-  printf ("ool2:%d\n", defined_function());
-  for (;;)
-    break;
-  printf ("ool3:%d\n", defined_function());
+  ಮಾಡು
+    ನಿಲ್ಲಿಸು;
+  ಆಗ (1);
+  ಬರೆ ("ool2:%d\n", defined_function());
+  ಗಾಗಿ (;;)
+    ನಿಲ್ಲಿಸು;
+  ಬರೆ ("ool3:%d\n", defined_function());
   /* Normal {} blocks without controlling statements
      shouldn't reactivate code emission */
-  while (1) {
+  ಆಗ (1) {
 	{
-	  break;
+	  ನಿಲ್ಲಿಸು;
 	}
-      printf ("ool4:%d\n", undefined_function());
+      ಬರೆ ("ool4:%d\n", undefined_function());
   }
   j = 1;
-  while (j) {
-      if (j == 0)
-	break; /* this break shouldn't disable code outside the if. */
-      printf("ool5:%d\n", defined_function());
+  ಆಗ (j) {
+      ಆದರೆ (j == 0)
+	ನಿಲ್ಲಿಸು; /* this break shouldn't disable code outside the if. */
+      ಬರೆ("ool5:%d\n", defined_function());
       j--;
   }
 
   j = 1;
-  while (j) {
-      if (1)
+  ಆಗ (j) {
+      ಆದರೆ (1)
 	j--;
-      else
-	breakhere: break;
-      printf("ool6:%d\n", defined_function());
-      goto breakhere;
+      ಇಲ್ಲದಿದ್ದರೆ
+	breakhere: ನಿಲ್ಲಿಸು;
+      ಬರೆ("ool6:%d\n", defined_function());
+      ಹೋಗು breakhere;
   }
   j = 1;
-  while (j) {
+  ಆಗ (j) {
       j--;
-      continue;
-      printf("ool7:%d\n", undefined_function());
+      ಮುಂದುವರಿ;
+      ಬರೆ("ool7:%d\n", undefined_function());
   }
 
   /* Test that constants in logical && are optimized: */
   i = 0 && undefined_function();
   i = defined_function() && 0 && undefined_function();
-  if (0 && undefined_function())
+  ಆದರೆ (0 && undefined_function())
     undefined_function();
-  if (defined_function() && 0)
+  ಆದರೆ (defined_function() && 0)
     undefined_function();
-  if (0 && 0)
+  ಆದರೆ (0 && 0)
     undefined_function();
-  if (defined_function() && 0 && undefined_function())
+  ಆದರೆ (defined_function() && 0 && undefined_function())
     undefined_function();
   /* The same for || : */
   i = 1 || undefined_function();
   i = defined_function() || 1 || undefined_function();
-  if (1 || undefined_function())
+  ಆದರೆ (1 || undefined_function())
     ;
-  else
+  ಇಲ್ಲದಿದ್ದರೆ
     undefined_function();
-  if (defined_function() || 1)
+  ಆದರೆ (defined_function() || 1)
     ;
-  else
+  ಇಲ್ಲದಿದ್ದರೆ
     undefined_function();
-  if (1 || 1)
+  ಆದರೆ (1 || 1)
     ;
-  else
+  ಇಲ್ಲದಿದ್ದರೆ
     undefined_function();
-  if (defined_function() || 1 || undefined_function())
+  ಆದರೆ (defined_function() || 1 || undefined_function())
     ;
-  else
+  ಇಲ್ಲದಿದ್ದರೆ
     undefined_function();
 
-  if (defined_function() && 0)
-    refer_to_undefined();
+  ಆದರೆ (defined_function() && 0)
+    refer_ಗಮ್ಯ_undefined();
 
-  if (0) {
-      (void)sizeof( ({
-		     do { } while (0);
+  ಆದರೆ (0) {
+      (ಶೂನ್ಯ)ಗಾತ್ರ( ({
+		     ಮಾಡು { } ಆಗ (0);
 		     0;
 		     }) );
       undefined_function();
   }
 
-  if (0) {
-      switch (defined_function()) {
-          case 0: undefined_function(); break;
-          default: undefined_function(); break;
+  ಆದರೆ (0) {
+      ಆಯ್ಕೆ (defined_function()) {
+          ಸ್ಥಿತಿ 0: undefined_function(); ನಿಲ್ಲಿಸು;
+          ಪೂರ್ವನಿಯೋಜಿತ: undefined_function(); ನಿಲ್ಲಿಸು;
       }
   }
 
   /* Leave the "if(1)return; printf()" in this order and last in the function */
-  if (1)
-    return;
-  printf ("oor:%d\n", undefined_function());
+  ಆದರೆ (1)
+    ಹಿಂತಿರುಗಿ;
+  ಬರೆ ("oor:%d\n", undefined_function());
 }
 
-int defined_function(void)
+ಪೂರ್ಣಾಂಕ defined_function(ಶೂನ್ಯ)
 {
-  static int i = 40;
-  return i++;
+  ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ i = 40;
+  ಹಿಂತಿರುಗಿ i++;
 }
 
 /* GCC accepts that */
-static int tab_reinit[];
-static int tab_reinit[10];
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ tab_reinit[];
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ tab_reinit[10];
 
-static int tentative_ar[];
-static int tentative_ar[] = {1,2,3};
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ tentative_ar[];
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ tentative_ar[] = {1,2,3};
 
-int cinit1; /* a global variable can be defined several times without error ! */
-int cinit1; 
-int cinit1 = 0;
-int *cinit2 = (int []){3, 2, 1};
+ಪೂರ್ಣಾಂಕ cinit1; /* a global variable can be defined several times without error ! */
+ಪೂರ್ಣಾಂಕ cinit1; 
+ಪೂರ್ಣಾಂಕ cinit1 = 0;
+ಪೂರ್ಣಾಂಕ *cinit2 = (ಪೂರ್ಣಾಂಕ []){3, 2, 1};
 uintptr_t cinit3 = (uintptr_t)"AA";
-char const * const cinit8[] = { [0 ... 1] = "BB", [2 ... 4] = "CC" };
-void *cinit52 = &(void*){ (void*) 52 };
+ಅಕ್ಷರ ಸ್ಥಿರಾಂಕ * ಸ್ಥಿರಾಂಕ cinit8[] = { [0 ... 1] = "BB", [2 ... 4] = "CC" };
+ಶೂನ್ಯ *cinit52 = &(ಶೂನ್ಯ*){ (ಶೂನ್ಯ*) 52 };
 
-#if __TINYC__ || __GNUC__ >= 6
-int cinit4 = (int){44};
-void *cinit51 = (void*){ (void*) 51 };
-struct _c6 { int a,b; } cinit6 = (struct _c6){61,62}, *cinit7 = &(struct _c6){71,72};
-#else
-int cinit4 = 44;
-void *cinit51 = (void*)51;
-struct _c6 { int a,b; } cinit6 = { 61,62 }, cinit70 = {71,72}, *cinit7 = &cinit70;
-#endif
+#ಆದರೆ __TINYC__ || __GNUC__ >= 6
+ಪೂರ್ಣಾಂಕ cinit4 = (ಪೂರ್ಣಾಂಕ){44};
+ಶೂನ್ಯ *cinit51 = (ಶೂನ್ಯ*){ (ಶೂನ್ಯ*) 51 };
+ರಚನೆ _c6 { ಪೂರ್ಣಾಂಕ a,b; } cinit6 = (ರಚನೆ _c6){61,62}, *cinit7 = &(ರಚನೆ _c6){71,72};
+#ಇಲ್ಲದಿದ್ದರೆ
+ಪೂರ್ಣಾಂಕ cinit4 = 44;
+ಶೂನ್ಯ *cinit51 = (ಶೂನ್ಯ*)51;
+ರಚನೆ _c6 { ಪೂರ್ಣಾಂಕ a,b; } cinit6 = { 61,62 }, cinit70 = {71,72}, *cinit7 = &cinit70;
+#ಆದರೆ_ಅಂತ್ಯ
 
-void compound_literal_test(void)
+ಶೂನ್ಯ compound_literal_test(ಶೂನ್ಯ)
 {
-    int *p, i;
-    char *q, *q3;
+    ಪೂರ್ಣಾಂಕ *p, i;
+    ಅಕ್ಷರ *q, *q3;
 
-    printf("cinit3 : %s\n", cinit3);
-    printf("cinit4 : %d\n", cinit4);
-    printf("cinit51 : %d\n", (int)cinit51);
-    printf("cinit52 : %d\n", *(int*)cinit52);
-    printf("cinit6 : %d %d\n", cinit6.a, cinit6.b);
-    printf("cinit7 : %d %d\n", cinit7->a, cinit7->b);
-    printf("cinit8 : %s %s %s %s %s\n", cinit8[0], cinit8[1], cinit8[2], cinit8[3], cinit8[4]);
+    ಬರೆ("cinit3 : %s\n", cinit3);
+    ಬರೆ("cinit4 : %d\n", cinit4);
+    ಬರೆ("cinit51 : %d\n", (ಪೂರ್ಣಾಂಕ)cinit51);
+    ಬರೆ("cinit52 : %d\n", *(ಪೂರ್ಣಾಂಕ*)cinit52);
+    ಬರೆ("cinit6 : %d %d\n", cinit6.a, cinit6.b);
+    ಬರೆ("cinit7 : %d %d\n", cinit7->a, cinit7->b);
+    ಬರೆ("cinit8 : %s %s %s %s %s\n", cinit8[0], cinit8[1], cinit8[2], cinit8[3], cinit8[4]);
 
-    p = (int []){1, 2, 3};
-    for(i=0;i<3;i++)
-        printf(" %d", p[i]);
-    printf("\n");
+    p = (ಪೂರ್ಣಾಂಕ []){1, 2, 3};
+    ಗಾಗಿ(i=0;i<3;i++)
+        ಬರೆ(" %d", p[i]);
+    ಬರೆ("\n");
 
-    for(i=0;i<3;i++)
-        printf("%d", cinit2[i]);
-    printf("\n");
+    ಗಾಗಿ(i=0;i<3;i++)
+        ಬರೆ("%d", cinit2[i]);
+    ಬರೆ("\n");
 
     q = "tralala1";
-    printf("q1=%s\n", q);
+    ಬರೆ("q1=%s\n", q);
 
-    q = (char *){ "tralala2" };
-    printf("q2=%s\n", q);
+    q = (ಅಕ್ಷರ *){ "tralala2" };
+    ಬರೆ("q2=%s\n", q);
 
-    q3 = (char *){ q };
-    printf("q3=%s\n", q3);
+    q3 = (ಅಕ್ಷರ *){ q };
+    ಬರೆ("q3=%s\n", q3);
 
-    q = (char []){ "tralala3" };
-    printf("q4=%s\n", q);
+    q = (ಅಕ್ಷರ []){ "tralala3" };
+    ಬರೆ("q4=%s\n", q);
 
-#ifdef ALL_ISOC99
-    p = (int []){1, 2, cinit1 + 3};
-    for(i=0;i<3;i++)
-        printf(" %d", p[i]);
-    printf("\n");
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ ALL_ISOC99
+    p = (ಪೂರ್ಣಾಂಕ []){1, 2, cinit1 + 3};
+    ಗಾಗಿ(i=0;i<3;i++)
+        ಬರೆ(" %d", p[i]);
+    ಬರೆ("\n");
 
-    for(i=0;i<3;i++) {
-        p = (int []){1, 2, 4 + i};
-        printf("%d %d %d\n", 
+    ಗಾಗಿ(i=0;i<3;i++) {
+        p = (ಪೂರ್ಣಾಂಕ []){1, 2, 4 + i};
+        ಬರೆ("%d %d %d\n", 
                p[0],
                p[1],
                p[2]);
     }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
 
-#if __TINYC__
+#ಆದರೆ __TINYC__
 
 /* K & R protos */
 
 kr_func1(a, b)
 {
-    return a + b;
+    ಹಿಂತಿರುಗಿ a + b;
 }
 
-int kr_func2(a, b)
+ಪೂರ್ಣಾಂಕ kr_func2(a, b)
 {
-    return a + b;
+    ಹಿಂತಿರುಗಿ a + b;
 }
 
 kr_test()
 {
-    printf("func1=%d\n", kr_func1(3, 4));
-    printf("func2=%d\n", kr_func2(3, 4));
-    return 0;
+    ಬರೆ("func1=%d\n", kr_func1(3, 4));
+    ಬರೆ("func2=%d\n", kr_func2(3, 4));
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* We try to handle this syntax.  Make at least sure it doesn't segfault.  */
-char invalid_function_def()[] {return 0;}
+ಅಕ್ಷರ invalid_function_def()[] {ಹಿಂತಿರುಗಿ 0;}
 
-#else
-# define kr_test() printf("func1=7\nfunc2=7\n")
-#endif
+#ಇಲ್ಲದಿದ್ದರೆ
+# define kr_test() ಬರೆ("func1=7\nfunc2=7\n")
+#ಆದರೆ_ಅಂತ್ಯ
 
-void num(int n)
+ಶೂನ್ಯ ಅಂಕೆ(ಪೂರ್ಣಾಂಕ n)
 {
-    char *tab, *p;
-    tab = (char*)malloc(20); 
+    ಅಕ್ಷರ *tab, *p;
+    tab = (ಅಕ್ಷರ*)ಸ್ಮರಣೆ_ಕೊಡು(20); 
     p = tab;
-    while (1) {
+    ಆಗ (1) {
         *p = 48 + (n % 10);
         p++;
         n = n / 10;
-        if (n == 0)
-            break;
+        ಆದರೆ (n == 0)
+            ನಿಲ್ಲಿಸು;
     }
-    while (p != tab) {
+    ಆಗ (p != tab) {
         p--;
-        printf("%c", *p);
+        ಬರೆ("%c", *p);
     }
-    printf("\n");
-    free(tab);
+    ಬರೆ("\n");
+    ಬಿಡುಗಡೆ(tab);
 }
 
 /* structure assignment tests */
-struct structa1 {
-    int f1;
-    char f2;
+ರಚನೆ structa1 {
+    ಪೂರ್ಣಾಂಕ f1;
+    ಅಕ್ಷರ f2;
 };
 
-void struct_assign_test1(struct structa1 s1, int t, float f)
+ಶೂನ್ಯ struct_ನಿಯೋಜಿಸು_test1(ರಚನೆ structa1 s1, ಪೂರ್ಣಾಂಕ t, ದಶಮಾಂಶ f)
 {
-    printf("%d %d %d %f\n", s1.f1, s1.f2, t, f);
+    ಬರೆ("%d %d %d %f\n", s1.f1, s1.f2, t, f);
 }
 
-struct structa1 struct_assign_test2(struct structa1 s1, int t)
+ರಚನೆ structa1 struct_ನಿಯೋಜಿಸು_test2(ರಚನೆ structa1 s1, ಪೂರ್ಣಾಂಕ t)
 {
     s1.f1 += t;
     s1.f2 -= t;
-    return s1;
+    ಹಿಂತಿರುಗಿ s1;
 }
 
-void struct_assign_test(void)
+ಶೂನ್ಯ struct_ನಿಯೋಜಿಸು_test(ಶೂನ್ಯ)
 {
-    struct S {
-      struct structa1 lsta1, lsta2;
-      int i;
+    ರಚನೆ S {
+      ರಚನೆ structa1 lsta1, lsta2;
+      ಪೂರ್ಣಾಂಕ i;
     } s = {{1,2}, {3,4}}, *ps;
     
     ps = &s;
     ps->i = 4;
 
-    struct_assign_test1(ps->lsta2, 3, 4.5);
-    printf("before call: %d %d\n", s.lsta2.f1, s.lsta2.f2);
-    ps->lsta2 = struct_assign_test2(ps->lsta2, ps->i);
-    printf("after call: %d %d\n", ps->lsta2.f1, ps->lsta2.f2);
+    struct_ನಿಯೋಜಿಸು_test1(ps->lsta2, 3, 4.5);
+    ಬರೆ("before call: %d %d\n", s.lsta2.f1, s.lsta2.f2);
+    ps->lsta2 = struct_ನಿಯೋಜಿಸು_test2(ps->lsta2, ps->i);
+    ಬರೆ("after call: %d %d\n", ps->lsta2.f1, ps->lsta2.f2);
 
-    static struct {
-        void (*elem)();
+    ಸ್ಥಿರ ರಚನೆ {
+        ಶೂನ್ಯ (*elem)();
     } t[] = {
         /* XXX: we should allow this even without braces */
-        { struct_assign_test }
+        { struct_ನಿಯೋಜಿಸು_test }
     };
-    printf("%d\n", struct_assign_test == t[0].elem);
+    ಬರೆ("%d\n", struct_ನಿಯೋಜಿಸು_test == t[0].elem);
 
-    s.lsta1 = s.lsta2 = struct_assign_test2(s.lsta1, 1);
-    printf("%d %d\n", s.lsta1.f1, s.lsta1.f2);
+    s.lsta1 = s.lsta2 = struct_ನಿಯೋಜಿಸು_test2(s.lsta1, 1);
+    ಬರೆ("%d %d\n", s.lsta1.f1, s.lsta1.f2);
 }
 
 /* casts to short/char */
 
-void cast1(char a, short b, unsigned char c, unsigned short d)
+ಶೂನ್ಯ cast1(ಅಕ್ಷರ a, ಗಿಡ್ಡ b, ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ c, ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ d)
 {
-    printf("%d %d %d %d\n", a, b, c, d);
+    ಬರೆ("%d %d %d %d\n", a, b, c, d);
 }
 
-char bcast;
-short scast;
+ಅಕ್ಷರ bcast;
+ಗಿಡ್ಡ scast;
 
-void cast_test()
+ಶೂನ್ಯ cast_test()
 {
-    int a;
-    char c;
-    char tab[10];
-    unsigned b,d;
-    short s;
-    char *p = NULL;
-    unsigned long ul = 0x80000000UL;
+    ಪೂರ್ಣಾಂಕ a;
+    ಅಕ್ಷರ c;
+    ಅಕ್ಷರ tab[10];
+    ಚಿಹ್ನೆರಹಿತ b,d;
+    ಗಿಡ್ಡ s;
+    ಅಕ್ಷರ *p = ಖಾಲಿ;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ul = 0x80000000UL;
     p -= 0x700000000042;
 
     a = 0xfffff;
     cast1(a, a, a, a);
     a = 0xffffe;
-    printf("%d %d %d %d\n",
-           (char)(a + 1),
-           (short)(a + 1),
-           (unsigned char)(a + 1),
-           (unsigned short)(a + 1));
-    printf("%d %d %d %d\n",
-           (char)0xfffff,
-           (short)0xfffff,
-           (unsigned char)0xfffff,
-           (unsigned short)0xfffff);
+    ಬರೆ("%d %d %d %d\n",
+           (ಅಕ್ಷರ)(a + 1),
+           (ಗಿಡ್ಡ)(a + 1),
+           (ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ)(a + 1),
+           (ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ)(a + 1));
+    ಬರೆ("%d %d %d %d\n",
+           (ಅಕ್ಷರ)0xfffff,
+           (ಗಿಡ್ಡ)0xfffff,
+           (ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ)0xfffff,
+           (ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ)0xfffff);
 
     a = (bcast = 128) + 1;
-    printf("%d\n", a);
+    ಬರೆ("%d\n", a);
     a = (scast = 65536) + 1;
-    printf("%d\n", a);
+    ಬರೆ("%d\n", a);
     
-    printf("sizeof(c) = %d, sizeof((int)c) = %d\n", sizeof(c), sizeof((int)c));
+    ಬರೆ("sizeof(c) = %d, sizeof((int)c) = %d\n", ಗಾತ್ರ(c), ಗಾತ್ರ((ಪೂರ್ಣಾಂಕ)c));
     
     /* test cast from unsigned to signed short to int */
     b = 0xf000;
-    d = (short)b;
-    printf("((unsigned)(short)0x%08x) = 0x%08x\n", b, d);
+    d = (ಗಿಡ್ಡ)b;
+    ಬರೆ("((unsigned)(short)0x%08x) = 0x%08x\n", b, d);
     b = 0xf0f0;
-    d = (char)b;
-    printf("((unsigned)(char)0x%08x) = 0x%08x\n", b, d);
+    d = (ಅಕ್ಷರ)b;
+    ಬರೆ("((unsigned)(char)0x%08x) = 0x%08x\n", b, d);
     
     /* test implicit int casting for array accesses */
     c = 0;
     tab[1] = 2;
     tab[c] = 1;
-    printf("%d %d\n", tab[0], tab[1]);
+    ಬರೆ("%d %d\n", tab[0], tab[1]);
 
     /* test implicit casting on some operators */
-    printf("sizeof(+(char)'a') = %d\n", sizeof(+(char)'a'));
-    printf("sizeof(-(char)'a') = %d\n", sizeof(-(char)'a'));
-    printf("sizeof(~(char)'a') = %d\n", sizeof(-(char)'a'));
+    ಬರೆ("sizeof(+(char)'a') = %d\n", ಗಾತ್ರ(+(ಅಕ್ಷರ)'a'));
+    ಬರೆ("sizeof(-(char)'a') = %d\n", ಗಾತ್ರ(-(ಅಕ್ಷರ)'a'));
+    ಬರೆ("sizeof(~(char)'a') = %d\n", ಗಾತ್ರ(-(ಅಕ್ಷರ)'a'));
 
-#if CC_NAME != CC_clang /* clang doesn't support non-portable conversions */
+#ಆದರೆ CC_NAME != CC_clang /* clang doesn't support non-portable conversions */
     /* from pointer to integer types */
-    printf("%d %d %ld %ld %lld %lld\n",
-           (int)p, (unsigned int)p,
-           (long)p, (unsigned long)p,
-           (long long)p, (unsigned long long)p);
-#endif
+    ಬರೆ("%d %d %ld %ld %lld %lld\n",
+           (ಪೂರ್ಣಾಂಕ)p, (ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ)p,
+           (ದೀರ್ಘ)p, (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ)p,
+           (ದೀರ್ಘ ದೀರ್ಘ)p, (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)p);
+#ಆದರೆ_ಅಂತ್ಯ
 
     /* from integers to pointers */
-    printf("%p %p %p %p\n",
-           (void *)a, (void *)b, (void *)c, (void *)d);
+    ಬರೆ("%p %p %p %p\n",
+           (ಶೂನ್ಯ *)a, (ಶೂನ್ಯ *)b, (ಶೂನ್ಯ *)c, (ಶೂನ್ಯ *)d);
 
     /* int to int with sign set */
-    printf("0x%lx\n", (unsigned long)(int)ul);
+    ಬರೆ("0x%lx\n", (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ)(ಪೂರ್ಣಾಂಕ)ul);
 }
 
 /* initializers tests */
-struct structinit1 {
-    int f1;
-    char f2;
-    short f3;
-    int farray[3];
+ರಚನೆ structinit1 {
+    ಪೂರ್ಣಾಂಕ f1;
+    ಅಕ್ಷರ f2;
+    ಗಿಡ್ಡ f3;
+    ಪೂರ್ಣಾಂಕ farray[3];
 };
 
-int sinit1 = 2;
-int sinit2 = { 3 };
-int sinit3[3] = { 1, 2, {3}, };
-int sinit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
-int sinit5[3][2] = { 1, 2, 3, 4, 5, 6 };
-int sinit6[] = { 1, 2, 3 };
-int sinit7[] = { [2] = 3, [0] = 1, 2 };
-char sinit8[] = "hello" "trala";
+ಪೂರ್ಣಾಂಕ sinit1 = 2;
+ಪೂರ್ಣಾಂಕ sinit2 = { 3 };
+ಪೂರ್ಣಾಂಕ sinit3[3] = { 1, 2, {3}, };
+ಪೂರ್ಣಾಂಕ sinit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
+ಪೂರ್ಣಾಂಕ sinit5[3][2] = { 1, 2, 3, 4, 5, 6 };
+ಪೂರ್ಣಾಂಕ sinit6[] = { 1, 2, 3 };
+ಪೂರ್ಣಾಂಕ sinit7[] = { [2] = 3, [0] = 1, 2 };
+ಅಕ್ಷರ sinit8[] = "hello" "trala";
 
-struct structinit1 sinit9 = { 1, 2, 3 };
-struct structinit1 sinit10 = { .f2 = 2, 3, .f1 = 1 };
-struct structinit1 sinit11 = { .f2 = 2, 3, .f1 = 1, 
-#ifdef ALL_ISOC99
+ರಚನೆ structinit1 sinit9 = { 1, 2, 3 };
+ರಚನೆ structinit1 sinit10 = { .f2 = 2, 3, .f1 = 1 };
+ರಚನೆ structinit1 sinit11 = { .f2 = 2, 3, .f1 = 1, 
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ ALL_ISOC99
                                .farray[0] = 10,
                                .farray[1] = 11,
                                .farray[2] = 12,
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 };
 
-char *sinit12 = "hello world";
-char *sinit13[] = {
+ಅಕ್ಷರ *sinit12 = "hello world";
+ಅಕ್ಷರ *sinit13[] = {
     "test1",
     "test2",
     "test3",
 };
-char sinit14[10] = { "abc" };
-int sinit15[3] = { sizeof(sinit15), 1, 2 };
+ಅಕ್ಷರ sinit14[10] = { "abc" };
+ಪೂರ್ಣಾಂಕ sinit15[3] = { ಗಾತ್ರ(sinit15), 1, 2 };
 
-struct { int a[3], b; } sinit16[] = { { 1 }, 2 };
+ರಚನೆ { ಪೂರ್ಣಾಂಕ a[3], b; } sinit16[] = { { 1 }, 2 };
 
-struct bar {
-        char *s;
-        int len;
+ರಚನೆ bar {
+        ಅಕ್ಷರ *s;
+        ಪೂರ್ಣಾಂಕ len;
 } sinit17[] = {
         "a1", 4,
         "a2", 1
 };
 
-int sinit18[10] = {
+ಪೂರ್ಣಾಂಕ sinit18[10] = {
     [2 ... 5] = 20,
     2,
     [8] = 10,
 };
 
-struct complexinit0 {
-    int a;
-    int b;
+ರಚನೆ complexinit0 {
+    ಪೂರ್ಣಾಂಕ a;
+    ಪೂರ್ಣಾಂಕ b;
 };
 
-struct complexinit {
-    int a;
-    const struct complexinit0 *b;
+ರಚನೆ complexinit {
+    ಪೂರ್ಣಾಂಕ a;
+    ಸ್ಥಿರಾಂಕ ರಚನೆ complexinit0 *b;
 };
 
-const static struct complexinit cix[] = {
+ಸ್ಥಿರಾಂಕ ಸ್ಥಿರ ರಚನೆ complexinit cix[] = {
     [0] = {
 	.a = 2000,
-	.b = (const struct complexinit0[]) {
+	.b = (ಸ್ಥಿರಾಂಕ ರಚನೆ complexinit0[]) {
 		{ 2001, 2002 },
 		{ 2003, 2003 },
 		{}
@@ -1778,105 +1778,105 @@ const static struct complexinit cix[] = {
     }
 };
 
-struct complexinit2 {
-	int a;
-	int b[];
+ರಚನೆ complexinit2 {
+	ಪೂರ್ಣಾಂಕ a;
+	ಪೂರ್ಣಾಂಕ b[];
 };
 
-struct complexinit2 cix20;
+ರಚನೆ complexinit2 cix20;
 
-struct complexinit2 cix21 = {
+ರಚನೆ complexinit2 cix21 = {
 	.a = 3000,
 	.b = { 3001, 3002, 3003 }
 };
 
-struct complexinit2 cix22 = {
+ರಚನೆ complexinit2 cix22 = {
 	.a = 4000,
 	.b = { 4001, 4002, 4003, 4004, 4005, 4006 }
 };
 
-typedef int arrtype1[];
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ arrtype1[];
 arrtype1 sinit19;
 arrtype1 sinit20;
 arrtype1 sinit19 = {1};
 arrtype1 sinit20 = {2,3};
-typedef int arrtype2[3];
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ arrtype2[3];
 arrtype2 sinit21;
 arrtype2 sinit22;
 arrtype2 sinit21 = {4};
 arrtype2 sinit22 = {5,6,7};
 
 /* Address comparisons of non-weak symbols with zero can be const-folded */
-int sinit23[2] = { "astring" ? sizeof("astring") : -1,
+ಪೂರ್ಣಾಂಕ sinit23[2] = { "astring" ? ಗಾತ್ರ("astring") : -1,
 		   &sinit23 ? 42 : -1 };
 
-int sinit24 = 2 || 1 / 0; /* exception in constant but unevaluated context */
+ಪೂರ್ಣಾಂಕ sinit24 = 2 || 1 / 0; /* exception in constant but unevaluated context */
 
 /* bitfield init */
-struct bf_SS {unsigned int bit:1,bits31:31; };
-struct bf_SS bf_init = { .bit = 1 };
-struct bfn_SS {int a,b; struct bf_SS c; int d,e; };
-struct bfn_SS bfn_init = { .c.bit = 1 };
-struct bfa_SS {int a,b; struct bf_SS c[3]; int d,e; };
-struct bfa_SS bfa_init = { .c[1].bit = 1 };
-struct bf_SS bfaa_init[3] = { [1].bit = 1 };
-struct bf_SS bfaa_vinit[] = { [2].bit = 1 };
-struct b2_SS {long long int field : 52; long long int pad : 12; };
-struct b2_SS bf_init2 = {0xFFF000FFF000FLL, 0x123};
+ರಚನೆ bf_SS {ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ ಬಿಟ್:1,bits31:31; };
+ರಚನೆ bf_SS bf_init = { .ಬಿಟ್ = 1 };
+ರಚನೆ bfn_SS {ಪೂರ್ಣಾಂಕ a,b; ರಚನೆ bf_SS c; ಪೂರ್ಣಾಂಕ d,e; };
+ರಚನೆ bfn_SS bfn_init = { .c.ಬಿಟ್ = 1 };
+ರಚನೆ bfa_SS {ಪೂರ್ಣಾಂಕ a,b; ರಚನೆ bf_SS c[3]; ಪೂರ್ಣಾಂಕ d,e; };
+ರಚನೆ bfa_SS bfa_init = { .c[1].ಬಿಟ್ = 1 };
+ರಚನೆ bf_SS bfaa_init[3] = { [1].ಬಿಟ್ = 1 };
+ರಚನೆ bf_SS bfaa_vinit[] = { [2].ಬಿಟ್ = 1 };
+ರಚನೆ b2_SS {ದೀರ್ಘ ದೀರ್ಘ ಪೂರ್ಣಾಂಕ ಕ್ಷೇತ್ರ : 52; ದೀರ್ಘ ದೀರ್ಘ ಪೂರ್ಣಾಂಕ pad : 12; };
+ರಚನೆ b2_SS bf_init2 = {0xFFF000FFF000FLL, 0x123};
 
-extern int external_inited = 42;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ external_inited = 42;
 
-void init_test(void)
+ಶೂನ್ಯ init_test(ಶೂನ್ಯ)
 {
-    int linit1 = 2;
-    int linit2 = { 3 };
-    int linit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
-    int linit6[] = { 1, 2, 3 };
-    int i, j;
-    char linit8[] = "hello" "trala";
-    int linit12[10] = { 1, 2 };
-    int linit13[10] = { 1, 2, [7] = 3, [3] = 4, };
-    char linit14[10] = "abc";
-    int linit15[10] = { linit1, linit1 + 1, [6] = linit1 + 2, };
-    struct linit16 { int a1, a2, a3, a4; } linit16 = { 1, .a3 = 2 };
-    int linit17 = sizeof(linit17);
-    int zero = 0;
+    ಪೂರ್ಣಾಂಕ linit1 = 2;
+    ಪೂರ್ಣಾಂಕ linit2 = { 3 };
+    ಪೂರ್ಣಾಂಕ linit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
+    ಪೂರ್ಣಾಂಕ linit6[] = { 1, 2, 3 };
+    ಪೂರ್ಣಾಂಕ i, j;
+    ಅಕ್ಷರ linit8[] = "hello" "trala";
+    ಪೂರ್ಣಾಂಕ linit12[10] = { 1, 2 };
+    ಪೂರ್ಣಾಂಕ linit13[10] = { 1, 2, [7] = 3, [3] = 4, };
+    ಅಕ್ಷರ linit14[10] = "abc";
+    ಪೂರ್ಣಾಂಕ linit15[10] = { linit1, linit1 + 1, [6] = linit1 + 2, };
+    ರಚನೆ linit16 { ಪೂರ್ಣಾಂಕ a1, a2, a3, a4; } linit16 = { 1, .a3 = 2 };
+    ಪೂರ್ಣಾಂಕ linit17 = ಗಾತ್ರ(linit17);
+    ಪೂರ್ಣಾಂಕ zero = 0;
     /* Addresses on non-weak symbols are non-zero, but not the access itself */
-    int linit18[2] = {&zero ? 1 : -1, zero ? -1 : 1 };
-    struct bf_SS bf_finit = { .bit = 1 };
-    struct bfn_SS bfn_finit = { .c.bit = 1 };
-    struct bfa_SS bfa_finit = { .c[1].bit = 1 };
-    struct bf_SS bfaa_finit[3] = { [1].bit = 1 };
-    struct bf_SS bfaa_fvinit[] = { [2].bit = 1 };
-    struct b2_SS bf_finit2 = {0xFFF000FFF000FLL, 0x123};
+    ಪೂರ್ಣಾಂಕ linit18[2] = {&zero ? 1 : -1, zero ? -1 : 1 };
+    ರಚನೆ bf_SS bf_finit = { .ಬಿಟ್ = 1 };
+    ರಚನೆ bfn_SS bfn_finit = { .c.ಬಿಟ್ = 1 };
+    ರಚನೆ bfa_SS bfa_finit = { .c[1].ಬಿಟ್ = 1 };
+    ರಚನೆ bf_SS bfaa_finit[3] = { [1].ಬಿಟ್ = 1 };
+    ರಚನೆ bf_SS bfaa_fvinit[] = { [2].ಬಿಟ್ = 1 };
+    ರಚನೆ b2_SS bf_finit2 = {0xFFF000FFF000FLL, 0x123};
     
-    printf("sinit1=%d\n", sinit1);
-    printf("sinit2=%d\n", sinit2);
-    printf("sinit3=%d %d %d %d\n", 
-           sizeof(sinit3),
+    ಬರೆ("sinit1=%d\n", sinit1);
+    ಬರೆ("sinit2=%d\n", sinit2);
+    ಬರೆ("sinit3=%d %d %d %d\n", 
+           ಗಾತ್ರ(sinit3),
            sinit3[0],
            sinit3[1],
            sinit3[2]
            );
-    printf("sinit6=%d\n", sizeof(sinit6));
-    printf("sinit7=%d %d %d %d\n", 
-           sizeof(sinit7),
+    ಬರೆ("sinit6=%d\n", ಗಾತ್ರ(sinit6));
+    ಬರೆ("sinit7=%d %d %d %d\n", 
+           ಗಾತ್ರ(sinit7),
            sinit7[0],
            sinit7[1],
            sinit7[2]
            );
-    printf("sinit8=%s\n", sinit8);
-    printf("sinit9=%d %d %d\n", 
+    ಬರೆ("sinit8=%s\n", sinit8);
+    ಬರೆ("sinit9=%d %d %d\n", 
            sinit9.f1,
            sinit9.f2,
            sinit9.f3
            );
-    printf("sinit10=%d %d %d\n", 
+    ಬರೆ("sinit10=%d %d %d\n", 
            sinit10.f1,
            sinit10.f2,
            sinit10.f3
            );
-    printf("sinit11=%d %d %d %d %d %d\n", 
+    ಬರೆ("sinit11=%d %d %d %d %d %d\n", 
            sinit11.f1,
            sinit11.f2,
            sinit11.f3,
@@ -1885,235 +1885,235 @@ void init_test(void)
            sinit11.farray[2]
            );
 
-    for(i=0;i<3;i++)
-        for(j=0;j<2;j++)
-            printf("[%d][%d] = %d %d %d\n", 
+    ಗಾಗಿ(i=0;i<3;i++)
+        ಗಾಗಿ(j=0;j<2;j++)
+            ಬರೆ("[%d][%d] = %d %d %d\n", 
                    i, j, sinit4[i][j], sinit5[i][j], linit4[i][j]);
-    printf("linit1=%d\n", linit1);
-    printf("linit2=%d\n", linit2);
-    printf("linit6=%d\n", sizeof(linit6));
-    printf("linit8=%d %s\n", sizeof(linit8), linit8);
+    ಬರೆ("linit1=%d\n", linit1);
+    ಬರೆ("linit2=%d\n", linit2);
+    ಬರೆ("linit6=%d\n", ಗಾತ್ರ(linit6));
+    ಬರೆ("linit8=%d %s\n", ಗಾತ್ರ(linit8), linit8);
 
-    printf("sinit12=%s\n", sinit12);
-    printf("sinit13=%d %s %s %s\n",
-           sizeof(sinit13), 
+    ಬರೆ("sinit12=%s\n", sinit12);
+    ಬರೆ("sinit13=%d %s %s %s\n",
+           ಗಾತ್ರ(sinit13), 
            sinit13[0],
            sinit13[1],
            sinit13[2]);
-    printf("sinit14=%s\n", sinit14);
+    ಬರೆ("sinit14=%s\n", sinit14);
 
-    for(i=0;i<10;i++) printf(" %d", linit12[i]);
-    printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit13[i]);
-    printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit14[i]);
-    printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit15[i]);
-    printf("\n");
-    printf("%d %d %d %d\n", 
+    ಗಾಗಿ(i=0;i<10;i++) ಬರೆ(" %d", linit12[i]);
+    ಬರೆ("\n");
+    ಗಾಗಿ(i=0;i<10;i++) ಬರೆ(" %d", linit13[i]);
+    ಬರೆ("\n");
+    ಗಾಗಿ(i=0;i<10;i++) ಬರೆ(" %d", linit14[i]);
+    ಬರೆ("\n");
+    ಗಾಗಿ(i=0;i<10;i++) ಬರೆ(" %d", linit15[i]);
+    ಬರೆ("\n");
+    ಬರೆ("%d %d %d %d\n", 
            linit16.a1,
            linit16.a2,
            linit16.a3,
            linit16.a4);
     /* test that initialisation is done after variable declare */
-    printf("linit17=%d\n", linit17);
-    printf("sinit15=%d\n", sinit15[0]);
-    printf("sinit16=%d %d\n", sinit16[0].a[0], sinit16[1].a[0]);
-    printf("sinit17=%s %d %s %d\n",
+    ಬರೆ("linit17=%d\n", linit17);
+    ಬರೆ("sinit15=%d\n", sinit15[0]);
+    ಬರೆ("sinit16=%d %d\n", sinit16[0].a[0], sinit16[1].a[0]);
+    ಬರೆ("sinit17=%s %d %s %d\n",
            sinit17[0].s, sinit17[0].len,
            sinit17[1].s, sinit17[1].len);
-    for(i=0;i<10;i++)
-        printf("%x ", sinit18[i]);
-    printf("\n");
+    ಗಾಗಿ(i=0;i<10;i++)
+        ಬರೆ("%x ", sinit18[i]);
+    ಬರೆ("\n");
     /* complex init check */
-    printf("cix: %d %d %d %d %d %d %d\n",
+    ಬರೆ("cix: %d %d %d %d %d %d %d\n",
 	cix[0].a,
 	cix[0].b[0].a, cix[0].b[0].b,
 	cix[0].b[1].a, cix[0].b[1].b,
 	cix[0].b[2].a, cix[0].b[2].b);
-    printf("cix2: %d %d\n", cix21.b[2], cix22.b[5]);
-    printf("sizeof cix20 %d, cix21 %d, sizeof cix22 %d\n", sizeof cix20, sizeof cix21, sizeof cix22);
+    ಬರೆ("cix2: %d %d\n", cix21.b[2], cix22.b[5]);
+    ಬರೆ("sizeof cix20 %d, cix21 %d, sizeof cix22 %d\n", ಗಾತ್ರ cix20, ಗಾತ್ರ cix21, ಗಾತ್ರ cix22);
 
-    printf("arrtype1: %d %d %d\n", sinit19[0], sinit20[0], sinit20[1]);
-    printf("arrtype2: %d %d\n", sizeof(sinit19), sizeof(sinit20));
-    printf("arrtype3: %d %d %d\n", sinit21[0], sinit21[1], sinit21[2]);
-    printf("arrtype4: %d %d %d\n", sinit22[0], sinit22[1], sinit22[2]);
-    printf("arrtype5: %d %d\n", sizeof(sinit21), sizeof(sinit22));
-    printf("arrtype6: %d\n", sizeof(arrtype2));
+    ಬರೆ("arrtype1: %d %d %d\n", sinit19[0], sinit20[0], sinit20[1]);
+    ಬರೆ("arrtype2: %d %d\n", ಗಾತ್ರ(sinit19), ಗಾತ್ರ(sinit20));
+    ಬರೆ("arrtype3: %d %d %d\n", sinit21[0], sinit21[1], sinit21[2]);
+    ಬರೆ("arrtype4: %d %d %d\n", sinit22[0], sinit22[1], sinit22[2]);
+    ಬರೆ("arrtype5: %d %d\n", ಗಾತ್ರ(sinit21), ಗಾತ್ರ(sinit22));
+    ಬರೆ("arrtype6: %d\n", ಗಾತ್ರ(arrtype2));
 
-    printf("sinit23= %d %d\n", sinit23[0], sinit23[1]);
-    printf("sinit24=%d\n", sinit24);
-    printf("linit18= %d %d\n", linit18[0], linit18[1]);
-    printf ("bf1: %u %u\n", bf_init.bit, bf_init.bits31);
-    printf ("bf2: %u %u\n", bf_finit.bit, bf_finit.bits31);
-    printf ("bf3: %u %u\n", bfn_init.c.bit, bfn_init.c.bits31);
-    printf ("bf4: %u %u\n", bfn_finit.c.bit, bfn_finit.c.bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf5[%d]: %u %u\n", i, bfa_init.c[i].bit, bfa_init.c[i].bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf6[%d]: %u %u\n", i, bfa_finit.c[i].bit, bfa_finit.c[i].bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf7[%d]: %u %u\n", i, bfaa_init[i].bit, bfaa_init[i].bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf8[%d]: %u %u\n", i, bfaa_finit[i].bit, bfaa_finit[i].bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf9[%d]: %u %u\n", i, bfaa_vinit[i].bit, bfaa_vinit[i].bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf10[%d]: %u %u\n", i, bfaa_fvinit[i].bit, bfaa_fvinit[i].bits31);
+    ಬರೆ("sinit23= %d %d\n", sinit23[0], sinit23[1]);
+    ಬರೆ("sinit24=%d\n", sinit24);
+    ಬರೆ("linit18= %d %d\n", linit18[0], linit18[1]);
+    ಬರೆ ("bf1: %u %u\n", bf_init.ಬಿಟ್, bf_init.bits31);
+    ಬರೆ ("bf2: %u %u\n", bf_finit.ಬಿಟ್, bf_finit.bits31);
+    ಬರೆ ("bf3: %u %u\n", bfn_init.c.ಬಿಟ್, bfn_init.c.bits31);
+    ಬರೆ ("bf4: %u %u\n", bfn_finit.c.ಬಿಟ್, bfn_finit.c.bits31);
+    ಗಾಗಿ (i = 0; i < 3; i++)
+        ಬರೆ ("bf5[%d]: %u %u\n", i, bfa_init.c[i].ಬಿಟ್, bfa_init.c[i].bits31);
+    ಗಾಗಿ (i = 0; i < 3; i++)
+        ಬರೆ ("bf6[%d]: %u %u\n", i, bfa_finit.c[i].ಬಿಟ್, bfa_finit.c[i].bits31);
+    ಗಾಗಿ (i = 0; i < 3; i++)
+        ಬರೆ ("bf7[%d]: %u %u\n", i, bfaa_init[i].ಬಿಟ್, bfaa_init[i].bits31);
+    ಗಾಗಿ (i = 0; i < 3; i++)
+        ಬರೆ ("bf8[%d]: %u %u\n", i, bfaa_finit[i].ಬಿಟ್, bfaa_finit[i].bits31);
+    ಗಾಗಿ (i = 0; i < 3; i++)
+        ಬರೆ ("bf9[%d]: %u %u\n", i, bfaa_vinit[i].ಬಿಟ್, bfaa_vinit[i].bits31);
+    ಗಾಗಿ (i = 0; i < 3; i++)
+        ಬರೆ ("bf10[%d]: %u %u\n", i, bfaa_fvinit[i].ಬಿಟ್, bfaa_fvinit[i].bits31);
 }
 
-void switch_uc(unsigned char uc)
+ಶೂನ್ಯ switch_uc(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ uc)
 {
-	switch (uc) {
-	    case 0xfb ... 0xfe:
-		printf("ucsw:1\n");
-		break;
-	    case 0xff:
-		printf("ucsw:2\n");
-		break;
-	    case 0 ... 5:
-		printf("ucsw:3\n");
-		break;
-	    default:
-		printf("ucsw: broken!\n");
+	ಆಯ್ಕೆ (uc) {
+	    ಸ್ಥಿತಿ 0xfb ... 0xfe:
+		ಬರೆ("ucsw:1\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ 0xff:
+		ಬರೆ("ucsw:2\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ 0 ... 5:
+		ಬರೆ("ucsw:3\n");
+		ನಿಲ್ಲಿಸು;
+	    ಪೂರ್ವನಿಯೋಜಿತ:
+		ಬರೆ("ucsw: broken!\n");
 	}
 }
 
-void switch_sc(signed char sc)
+ಶೂನ್ಯ switch_sc(ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ sc)
 {
-	switch (sc) {
-	    case -5 ... -2:
-		printf("scsw:1\n");
-		break;
-	    case -1:
-		printf("scsw:2\n");
-		break;
-	    case 0 ... 5:
-		printf("scsw:3\n");
-		break;
-	    default:
-		printf("scsw: broken!\n");
+	ಆಯ್ಕೆ (sc) {
+	    ಸ್ಥಿತಿ -5 ... -2:
+		ಬರೆ("scsw:1\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ -1:
+		ಬರೆ("scsw:2\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ 0 ... 5:
+		ಬರೆ("scsw:3\n");
+		ನಿಲ್ಲಿಸು;
+	    ಪೂರ್ವನಿಯೋಜಿತ:
+		ಬರೆ("scsw: broken!\n");
 	}
 }
 
-void switch_test()
+ಶೂನ್ಯ switch_test()
 {
-    int i;
-    unsigned long long ull;
-    long long ll;
+    ಪೂರ್ಣಾಂಕ i;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ ull;
+    ದೀರ್ಘ ದೀರ್ಘ ll;
 
-    for(i=0;i<15;i++) {
-        switch(i) {
-        case 0:
-        case 1:
-            printf("a");
-            break;
-        default:
-            printf("%d", i);
-            break;
-        case 8 ... 12:
-            printf("c");
-            break;
-        case 3:
-            printf("b");
-            break;
-        case 0xc33c6b9fU:
-        case 0x7c9eeeb9U:
-            break;
+    ಗಾಗಿ(i=0;i<15;i++) {
+        ಆಯ್ಕೆ(i) {
+        ಸ್ಥಿತಿ 0:
+        ಸ್ಥಿತಿ 1:
+            ಬರೆ("a");
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
+            ಬರೆ("%d", i);
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 8 ... 12:
+            ಬರೆ("c");
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 3:
+            ಬರೆ("b");
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ 0xc33c6b9fU:
+        ಸ್ಥಿತಿ 0x7c9eeeb9U:
+            ನಿಲ್ಲಿಸು;
         }
     }
-    printf("\n");
+    ಬರೆ("\n");
 
-    for (i = 1; i <= 5; i++) {
-	ull = (unsigned long long)i << 61;
-	switch (ull) {
-	    case 1ULL << 61:
-		printf("ullsw:1\n");
-		break;
-	    case 2ULL << 61:
-		printf("ullsw:2\n");
-		break;
-	    case 3ULL << 61:
-		printf("ullsw:3\n");
-		break;
-	    case 4ULL << 61:
-		printf("ullsw:4\n");
-		break;
-	    case 5ULL << 61:
-		printf("ullsw:5\n");
-		break;
-	    default:
-		printf("ullsw: broken!\n");
+    ಗಾಗಿ (i = 1; i <= 5; i++) {
+	ull = (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)i << 61;
+	ಆಯ್ಕೆ (ull) {
+	    ಸ್ಥಿತಿ 1ULL << 61:
+		ಬರೆ("ullsw:1\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ 2ULL << 61:
+		ಬರೆ("ullsw:2\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ 3ULL << 61:
+		ಬರೆ("ullsw:3\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ 4ULL << 61:
+		ಬರೆ("ullsw:4\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ 5ULL << 61:
+		ಬರೆ("ullsw:5\n");
+		ನಿಲ್ಲಿಸು;
+	    ಪೂರ್ವನಿಯೋಜಿತ:
+		ಬರೆ("ullsw: broken!\n");
 	}
     }
 
-    for (i = 1; i <= 5; i++) {
-	ll = (long long)i << 61;
-	switch (ll) {
-	    case 1LL << 61:
-		printf("llsw:1\n");
-		break;
-	    case 2LL << 61:
-		printf("llsw:2\n");
-		break;
-	    case 3LL << 61:
-		printf("llsw:3\n");
-		break;
-	    case 4LL << 61:
-		printf("llsw:4\n");
-		break;
-	    case 5LL << 61:
-		printf("llsw:5\n");
-		break;
-	    default:
-		printf("llsw: broken!\n");
+    ಗಾಗಿ (i = 1; i <= 5; i++) {
+	ll = (ದೀರ್ಘ ದೀರ್ಘ)i << 61;
+	ಆಯ್ಕೆ (ll) {
+	    ಸ್ಥಿತಿ 1LL << 61:
+		ಬರೆ("llsw:1\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ 2LL << 61:
+		ಬರೆ("llsw:2\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ 3LL << 61:
+		ಬರೆ("llsw:3\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ 4LL << 61:
+		ಬರೆ("llsw:4\n");
+		ನಿಲ್ಲಿಸು;
+	    ಸ್ಥಿತಿ 5LL << 61:
+		ಬರೆ("llsw:5\n");
+		ನಿಲ್ಲಿಸು;
+	    ಪೂರ್ವನಿಯೋಜಿತ:
+		ಬರೆ("llsw: broken!\n");
 	}
     }
 
-    for (i = -5; i <= 5; i++) {
-	switch_uc((unsigned char)i);
+    ಗಾಗಿ (i = -5; i <= 5; i++) {
+	switch_uc((ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ)i);
     }
 
-    for (i = -5; i <= 5; i++) {
-	switch_sc ((signed char)i);
+    ಗಾಗಿ (i = -5; i <= 5; i++) {
+	switch_sc ((ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ)i);
     }
 }
 
 /* ISOC99 _Bool type */
-void c99_bool_test(void)
+ಶೂನ್ಯ c99_bool_test(ಶೂನ್ಯ)
 {
-#ifdef BOOL_ISOC99
-    int a;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ BOOL_ISOC99
+    ಪೂರ್ಣಾಂಕ a;
     _Bool b, b2;
 
-    printf("sizeof(_Bool) = %d\n", sizeof(_Bool));
+    ಬರೆ("sizeof(_Bool) = %d\n", ಗಾತ್ರ(_Bool));
     a = 3;
-    printf("cast: %d %d %d\n", (_Bool)10, (_Bool)0, (_Bool)a);
+    ಬರೆ("cast: %d %d %d\n", (_Bool)10, (_Bool)0, (_Bool)a);
     b = 3;
-    printf("b = %d\n", b);
+    ಬರೆ("b = %d\n", b);
     b++;
-    printf("b = %d\n", b);
+    ಬರೆ("b = %d\n", b);
     b2 = 0;
-    printf("sizeof(x ? _Bool : _Bool) = %d (should be sizeof int)\n",
-           sizeof ((volatile int)a ? b : b2));
-#endif
+    ಬರೆ("sizeof(x ? _Bool : _Bool) = %d (should be sizeof int)\n",
+           ಗಾತ್ರ ((ಅಸ್ಥಿರ ಪೂರ್ಣಾಂಕ)a ? b : b2));
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-void bitfield_test(void)
+ಶೂನ್ಯ bitfield_test(ಶೂನ್ಯ)
 {
-    int a;
-    short sa;
-    unsigned char ca;
-    struct sbf1 {
-        int f1 : 3;
-        int : 2;
-        int f2 : 1;
-        int : 0;
-        int f3 : 5;
-        int f4 : 7;
-        unsigned int f5 : 7;
+    ಪೂರ್ಣಾಂಕ a;
+    ಗಿಡ್ಡ sa;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ ca;
+    ರಚನೆ sbf1 {
+        ಪೂರ್ಣಾಂಕ f1 : 3;
+        ಪೂರ್ಣಾಂಕ : 2;
+        ಪೂರ್ಣಾಂಕ f2 : 1;
+        ಪೂರ್ಣಾಂಕ : 0;
+        ಪೂರ್ಣಾಂಕ f3 : 5;
+        ಪೂರ್ಣಾಂಕ f4 : 7;
+        ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ f5 : 7;
     } st1;
-    printf("sizeof(st1) = %d\n", sizeof(st1));
+    ಬರೆ("sizeof(st1) = %d\n", ಗಾತ್ರ(st1));
 
     st1.f1 = 3;
     st1.f2 = 1;
@@ -2122,98 +2122,98 @@ void bitfield_test(void)
     st1.f4 = a;
     st1.f5 = a;
     st1.f5++;
-    printf("%d %d %d %d %d\n",
+    ಬರೆ("%d %d %d %d %d\n",
            st1.f1, st1.f2, st1.f3, st1.f4, st1.f5);
     sa = st1.f5;
     ca = st1.f5;
-    printf("%d %d\n", sa, ca);
+    ಬರೆ("%d %d\n", sa, ca);
 
     st1.f1 = 7;
-    if (st1.f1 == -1) 
-        printf("st1.f1 == -1\n");
-    else 
-        printf("st1.f1 != -1\n");
-    if (st1.f2 == -1) 
-        printf("st1.f2 == -1\n");
-    else 
-        printf("st1.f2 != -1\n");
+    ಆದರೆ (st1.f1 == -1) 
+        ಬರೆ("st1.f1 == -1\n");
+    ಇಲ್ಲದಿದ್ದರೆ 
+        ಬರೆ("st1.f1 != -1\n");
+    ಆದರೆ (st1.f2 == -1) 
+        ಬರೆ("st1.f2 == -1\n");
+    ಇಲ್ಲದಿದ್ದರೆ 
+        ಬರೆ("st1.f2 != -1\n");
 
-    struct sbf2 {
-        long long f1 : 45;
-        long long : 2;
-        long long f2 : 35;
-        unsigned long long f3 : 38;
+    ರಚನೆ sbf2 {
+        ದೀರ್ಘ ದೀರ್ಘ f1 : 45;
+        ದೀರ್ಘ ದೀರ್ಘ : 2;
+        ದೀರ್ಘ ದೀರ್ಘ f2 : 35;
+        ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ f3 : 38;
     } st2;
     st2.f1 = 0x123456789ULL;
     a = 120;
-    st2.f2 = (long long)a << 25;
+    st2.f2 = (ದೀರ್ಘ ದೀರ್ಘ)a << 25;
     st2.f3 = a;
     st2.f2++;
-    printf("%lld %lld %lld\n", st2.f1, st2.f2, st2.f3);
+    ಬರೆ("%lld %lld %lld\n", st2.f1, st2.f2, st2.f3);
 
-#if 0
-    Disabled for now until further clarification re GCC compatibility
-    struct sbf3 {
-        int f1 : 7;
-        int f2 : 1;
-        char f3;
-        int f4 : 8;
-        int f5 : 1;
-        int f6 : 16;
+#ಆದರೆ 0
+    Disabled ಗಾಗಿ now until further clarification re GCC compatibility
+    ರಚನೆ sbf3 {
+        ಪೂರ್ಣಾಂಕ f1 : 7;
+        ಪೂರ್ಣಾಂಕ f2 : 1;
+        ಅಕ್ಷರ f3;
+        ಪೂರ್ಣಾಂಕ f4 : 8;
+        ಪೂರ್ಣಾಂಕ f5 : 1;
+        ಪೂರ್ಣಾಂಕ f6 : 16;
     } st3;
-    printf("sizeof(st3) = %d\n", sizeof(st3));
-#endif
+    ಬರೆ("sizeof(st3) = %d\n", ಗಾತ್ರ(st3));
+#ಆದರೆ_ಅಂತ್ಯ
 
-    struct sbf4 {
-	int x : 31;
-	char y : 2;
+    ರಚನೆ sbf4 {
+	ಪೂರ್ಣಾಂಕ x : 31;
+	ಅಕ್ಷರ y : 2;
     } st4;
     st4.y = 1;
-    printf("st4.y == %d\n", st4.y);
-    struct sbf5 {
-	int a;
-	char b;
-	int x : 12, y : 4, : 0, : 4, z : 3;
-	char c;
+    ಬರೆ("st4.y == %d\n", st4.y);
+    ರಚನೆ sbf5 {
+	ಪೂರ್ಣಾಂಕ a;
+	ಅಕ್ಷರ b;
+	ಪೂರ್ಣಾಂಕ x : 12, y : 4, : 0, : 4, z : 3;
+	ಅಕ್ಷರ c;
     } st5 = { 1, 2, 3, 4, -3, 6 };
-    printf("st5 = %d %d %d %d %d %d\n", st5.a, st5.b, st5.x, st5.y, st5.z, st5.c);
-    struct sbf6 {
-	short x : 12;
-	unsigned char y : 2;
+    ಬರೆ("st5 = %d %d %d %d %d %d\n", st5.a, st5.b, st5.x, st5.y, st5.z, st5.c);
+    ರಚನೆ sbf6 {
+	ಗಿಡ್ಡ x : 12;
+	ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ y : 2;
     } st6;
     st6.y = 1;
-    printf("st6.y == %d\n", st6.y);
+    ಬರೆ("st6.y == %d\n", st6.y);
 }
 
-#ifdef __x86_64__
-#define FLOAT_FMT "%f\n"
-#else
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __x86_64__
+#ವ್ಯಾಖ್ಯಾನಿಸು FLOAT_FMT "%f\n"
+#ಇಲ್ಲದಿದ್ದರೆ
 /* x86's float isn't compatible with GCC */
-#define FLOAT_FMT "%.5f\n"
-#endif
+#ವ್ಯಾಖ್ಯಾನಿಸು FLOAT_FMT "%.5f\n"
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* declare strto* functions as they are C99 */
-double strtod(const char *nptr, char **endptr);
+ದ್ವಿಗುಣ strtod(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *nptr, ಅಕ್ಷರ **endptr);
 
-#if defined(_WIN32)
-float strtof(const char *nptr, char **endptr) {return (float)strtod(nptr, endptr);}
-LONG_DOUBLE strtold(const char *nptr, char **endptr) {return (LONG_DOUBLE)strtod(nptr, endptr);}
-#else
-float strtof(const char *nptr, char **endptr);
-LONG_DOUBLE strtold(const char *nptr, char **endptr);
-#endif
+#ಆದರೆ defined(_WIN32)
+ದಶಮಾಂಶ strtof(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *nptr, ಅಕ್ಷರ **endptr) {ಹಿಂತಿರುಗಿ (ದಶಮಾಂಶ)strtod(nptr, endptr);}
+LONG_DOUBLE strtold(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *nptr, ಅಕ್ಷರ **endptr) {ಹಿಂತಿರುಗಿ (LONG_DOUBLE)strtod(nptr, endptr);}
+#ಇಲ್ಲದಿದ್ದರೆ
+ದಶಮಾಂಶ strtof(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *nptr, ಅಕ್ಷರ **endptr);
+LONG_DOUBLE strtold(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *nptr, ಅಕ್ಷರ **endptr);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define FTEST(prefix, typename, type, fmt)\
-void prefix ## cmp(type a, type b)\
+#ವ್ಯಾಖ್ಯಾನಿಸು FTEST(ಪೂರ್ವಪ್ರತ್ಯಯ, typename, type, fmt)\
+ಶೂನ್ಯ ಪೂರ್ವಪ್ರತ್ಯಯ ## cmp(type a, type b)\
 {\
-    printf("%d %d %d %d %d %d\n",\
+    ಬರೆ("%d %d %d %d %d %d\n",\
            a == b,\
            a != b,\
            a < b,\
            a > b,\
            a >= b,\
            a <= b);\
-    printf(fmt " " fmt " " fmt " " fmt " " fmt " " fmt " " fmt "\n",\
+    ಬರೆ(fmt " " fmt " " fmt " " fmt " " fmt " " fmt " " fmt "\n",\
            a,\
            b,\
            a + b,\
@@ -2221,247 +2221,247 @@ void prefix ## cmp(type a, type b)\
            a * b,\
            a / b,\
            -a);\
-    printf(fmt "\n", ++a);\
-    printf(fmt "\n", a++);\
-    printf(fmt "\n", a);\
+    ಬರೆ(fmt "\n", ++a);\
+    ಬರೆ(fmt "\n", a++);\
+    ಬರೆ(fmt "\n", a);\
     b = 0;\
-    printf("%d %d\n", !a, !b);\
+    ಬರೆ("%d %d\n", !a, !b);\
 }\
-void prefix ## fcast(type a)\
+ಶೂನ್ಯ ಪೂರ್ವಪ್ರತ್ಯಯ ## fcast(type a)\
 {\
-    float fa;\
-    double da;\
+    ದಶಮಾಂಶ fa;\
+    ದ್ವಿಗುಣ da;\
     LONG_DOUBLE la;\
-    int ia;\
-    long long llia;\
-    unsigned int ua;\
-    unsigned long long llua;\
+    ಪೂರ್ಣಾಂಕ ia;\
+    ದೀರ್ಘ ದೀರ್ಘ llia;\
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ ua;\
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ llua;\
     type b;\
     fa = a;\
     da = a;\
     la = a;\
-    printf("ftof: %f %f %Lf\n", fa, da, la);\
-    ia = (int)a;\
-    llia = (long long)a;\
+    ಬರೆ("ftof: %f %f %Lf\n", fa, da, la);\
+    ia = (ಪೂರ್ಣಾಂಕ)a;\
+    llia = (ದೀರ್ಘ ದೀರ್ಘ)a;\
     a = (a >= 0) ? a : -a;\
-    ua = (unsigned int)a;\
-    llua = (unsigned long long)a;\
-    printf("ftoi: %d %u %lld %llu\n", ia, ua, llia, llua);\
+    ua = (ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ)a;\
+    llua = (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)a;\
+    ಬರೆ("ftoi: %d %u %lld %llu\n", ia, ua, llia, llua);\
     ia = -1234;\
     ua = 0x81234500;\
     llia = -0x123456789012345LL;\
     llua = 0xf123456789012345LLU;\
     b = ia;\
-    printf("itof: " fmt "\n", b);\
+    ಬರೆ("itof: " fmt "\n", b);\
     b = ua;\
-    printf("utof: " fmt "\n", b);\
+    ಬರೆ("utof: " fmt "\n", b);\
     b = llia;\
-    printf("lltof: " fmt "\n", b);\
+    ಬರೆ("lltof: " fmt "\n", b);\
     b = llua;\
-    if (CC_NAME != CC_clang) printf("ulltof: " fmt "\n", b);\
+    ಆದರೆ (CC_NAME != CC_clang) ಬರೆ("ulltof: " fmt "\n", b);\
 }\
 \
-float prefix ## retf(type a) { return a; }\
-double prefix ## retd(type a) { return a; }\
-LONG_DOUBLE prefix ## retld(type a) { return a; }\
+ದಶಮಾಂಶ ಪೂರ್ವಪ್ರತ್ಯಯ ## retf(type a) { ಹಿಂತಿರುಗಿ a; }\
+ದ್ವಿಗುಣ ಪೂರ್ವಪ್ರತ್ಯಯ ## retd(type a) { ಹಿಂತಿರುಗಿ a; }\
+LONG_DOUBLE ಪೂರ್ವಪ್ರತ್ಯಯ ## retld(type a) { ಹಿಂತಿರುಗಿ a; }\
 \
-void prefix ## call(void)\
+ಶೂನ್ಯ ಪೂರ್ವಪ್ರತ್ಯಯ ## call(ಶೂನ್ಯ)\
 {\
-    printf("float: " FLOAT_FMT, prefix ## retf(42.123456789));\
-    printf("double: %f\n", prefix ## retd(42.123456789));\
-    printf("long double: %Lf\n", prefix ## retld(42.123456789));\
-    printf("strto%s: %f\n", #prefix, (double)strto ## prefix("1.2", NULL));\
+    ಬರೆ("float: " FLOAT_FMT, ಪೂರ್ವಪ್ರತ್ಯಯ ## retf(42.123456789));\
+    ಬರೆ("double: %f\n", ಪೂರ್ವಪ್ರತ್ಯಯ ## retd(42.123456789));\
+    ಬರೆ("long double: %Lf\n", ಪೂರ್ವಪ್ರತ್ಯಯ ## retld(42.123456789));\
+    ಬರೆ("strto%s: %f\n", #prefix, (ದ್ವಿಗುಣ)strto ## ಪೂರ್ವಪ್ರತ್ಯಯ("1.2", ಖಾಲಿ));\
 }\
 \
-void prefix ## signed_zeros(void) \
+ಶೂನ್ಯ ಪೂರ್ವಪ್ರತ್ಯಯ ## signed_zeros(ಶೂನ್ಯ) \
 {\
   type x = 0.0, y = -0.0, n, p;\
-  if (x == y)\
-    printf ("Test 1.0 / x != 1.0 / y  returns %d (should be 1).\n",\
+  ಆದರೆ (x == y)\
+    ಬರೆ ("Test 1.0 / x != 1.0 / y  returns %d (should be 1).\n",\
             1.0 / x != 1.0 / y);\
-  else\
-    printf ("x != y; this is wrong!\n");\
+  ಇಲ್ಲದಿದ್ದರೆ\
+    ಬರೆ ("x != y; this is wrong!\n");\
 \
   n = -x;\
-  if (x == n)\
-    printf ("Test 1.0 / x != 1.0 / -x returns %d (should be 1).\n",\
+  ಆದರೆ (x == n)\
+    ಬರೆ ("Test 1.0 / x != 1.0 / -x returns %d (should be 1).\n",\
             1.0 / x != 1.0 / n);\
-  else\
-    printf ("x != -x; this is wrong!\n");\
+  ಇಲ್ಲದಿದ್ದರೆ\
+    ಬರೆ ("x != -x; this is wrong!\n");\
 \
   p = +y;\
-  if (x == p)\
-    printf ("Test 1.0 / x != 1.0 / +y returns %d (should be 1).\n",\
+  ಆದರೆ (x == p)\
+    ಬರೆ ("Test 1.0 / x != 1.0 / +y returns %d (should be 1).\n",\
             1.0 / x != 1.0 / p);\
-  else\
-    printf ("x != +y; this is wrong!\n");\
+  ಇಲ್ಲದಿದ್ದರೆ\
+    ಬರೆ ("x != +y; this is wrong!\n");\
   p = -y;\
-  if (x == p)\
-    printf ("Test 1.0 / x != 1.0 / -y returns %d (should be 0).\n",\
+  ಆದರೆ (x == p)\
+    ಬರೆ ("Test 1.0 / x != 1.0 / -y returns %d (should be 0).\n",\
             1.0 / x != 1.0 / p);\
-  else\
-    printf ("x != -y; this is wrong!\n");\
+  ಇಲ್ಲದಿದ್ದರೆ\
+    ಬರೆ ("x != -y; this is wrong!\n");\
 }\
-void prefix ## nan(void)\
+ಶೂನ್ಯ ಪೂರ್ವಪ್ರತ್ಯಯ ## nan(ಶೂನ್ಯ)\
 {\
     type nan = 0.0/0.0;\
     type nnan = -nan; \
-    printf("nantest: " fmt " " fmt "\n", nan, nnan);\
+    ಬರೆ("nantest: " fmt " " fmt "\n", nan, nnan);\
 }\
-void prefix ## test(void)\
+ಶೂನ್ಯ ಪೂರ್ವಪ್ರತ್ಯಯ ## test(ಶೂನ್ಯ)\
 {\
-    printf("testing '%s'\n", #typename);\
-    prefix ## cmp(1, 2.5);\
-    prefix ## cmp(2, 1.5);\
-    prefix ## cmp(1, 1);\
-    prefix ## fcast(234.6);\
-    prefix ## fcast(-2334.6);\
-    prefix ## call();\
-    prefix ## signed_zeros();\
-    if (CC_NAME != CC_clang) prefix ## nan();\
+    ಬರೆ("testing '%s'\n", #typename);\
+    ಪೂರ್ವಪ್ರತ್ಯಯ ## cmp(1, 2.5);\
+    ಪೂರ್ವಪ್ರತ್ಯಯ ## cmp(2, 1.5);\
+    ಪೂರ್ವಪ್ರತ್ಯಯ ## cmp(1, 1);\
+    ಪೂರ್ವಪ್ರತ್ಯಯ ## fcast(234.6);\
+    ಪೂರ್ವಪ್ರತ್ಯಯ ## fcast(-2334.6);\
+    ಪೂರ್ವಪ್ರತ್ಯಯ ## call();\
+    ಪೂರ್ವಪ್ರತ್ಯಯ ## signed_zeros();\
+    ಆದರೆ (CC_NAME != CC_clang) ಪೂರ್ವಪ್ರತ್ಯಯ ## nan();\
 }
 
-FTEST(f, float, float, "%f")
-FTEST(d, double, double, "%f")
-FTEST(ld, long double, LONG_DOUBLE, "%Lf")
+FTEST(f, ದಶಮಾಂಶ, ದಶಮಾಂಶ, "%f")
+FTEST(d, ದ್ವಿಗುಣ, ದ್ವಿಗುಣ, "%f")
+FTEST(ld, ದೀರ್ಘ ದ್ವಿಗುಣ, LONG_DOUBLE, "%Lf")
 
-double ftab1[3] = { 1.2, 3.4, -5.6 };
+ದ್ವಿಗುಣ ftab1[3] = { 1.2, 3.4, -5.6 };
 
 
-void float_test(void)
+ಶೂನ್ಯ float_test(ಶೂನ್ಯ)
 {
-#if !defined(__arm__) || defined(__ARM_PCS_VFP) || defined __ANDROID__
-    volatile float fa, fb;
-    volatile double da, db;
-    int a;
-    unsigned int b;
-    static double nan2 = 0.0/0.0;
-    static double inf1 = 1.0/0.0;
-    static double inf2 = 1e5000;
-    volatile LONG_DOUBLE la;
+#ಆದರೆ !defined(__arm__) || defined(__ARM_PCS_VFP) || defined __ANDROID__
+    ಅಸ್ಥಿರ ದಶಮಾಂಶ fa, fb;
+    ಅಸ್ಥಿರ ದ್ವಿಗುಣ da, db;
+    ಪೂರ್ಣಾಂಕ a;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ b;
+    ಸ್ಥಿರ ದ್ವಿಗುಣ nan2 = 0.0/0.0;
+    ಸ್ಥಿರ ದ್ವಿಗುಣ inf1 = 1.0/0.0;
+    ಸ್ಥಿರ ದ್ವಿಗುಣ inf2 = 1e5000;
+    ಅಸ್ಥಿರ LONG_DOUBLE la;
 
-    printf("sizeof(float) = %d\n", sizeof(float));
-    printf("sizeof(double) = %d\n", sizeof(double));
-    printf("sizeof(long double) = %d\n", sizeof(LONG_DOUBLE));
+    ಬರೆ("sizeof(float) = %d\n", ಗಾತ್ರ(ದಶಮಾಂಶ));
+    ಬರೆ("sizeof(double) = %d\n", ಗಾತ್ರ(ದ್ವಿಗುಣ));
+    ಬರೆ("sizeof(long double) = %d\n", ಗಾತ್ರ(LONG_DOUBLE));
     ftest();
     dtest();
     ldtest();
-    printf("%f %f %f\n", ftab1[0], ftab1[1], ftab1[2]);
-    printf("%f %f %f\n", 2.12, .5, 2.3e10);
+    ಬರೆ("%f %f %f\n", ftab1[0], ftab1[1], ftab1[2]);
+    ಬರೆ("%f %f %f\n", 2.12, .5, 2.3e10);
     //    printf("%f %f %f\n", 0x1234p12, 0x1e23.23p10, 0x12dp-10);
     da = 123;
-    printf("da=%f\n", da);
+    ಬರೆ("da=%f\n", da);
     fa = 123;
-    printf("fa=%f\n", fa);
+    ಬರೆ("fa=%f\n", fa);
     a = 4000000000;
     da = a;
-    printf("da = %f\n", da);
+    ಬರೆ("da = %f\n", da);
     b = 4000000000;
     db = b;
-    printf("db = %f\n", db);
-    printf("nan != nan = %d, inf1 = %f, inf2 = %f\n", nan2 != nan2, inf1, inf2);
+    ಬರೆ("db = %f\n", db);
+    ಬರೆ("nan != nan = %d, inf1 = %f, inf2 = %f\n", nan2 != nan2, inf1, inf2);
     da = 0x0.88p-1022;  /* a subnormal */
     la = da;
-    printf ("da subnormal = %a\n", da);
-    printf ("da subnormal = %.40g\n", da);
-    printf ("la subnormal = %La\n", la);
-    printf ("la subnormal = %.40Lg\n", la);
+    ಬರೆ ("da subnormal = %a\n", da);
+    ಬರೆ ("da subnormal = %.40g\n", da);
+    ಬರೆ ("la subnormal = %La\n", la);
+    ಬರೆ ("la subnormal = %.40Lg\n", la);
     da /= 2;
     la = da;
-    printf ("da/2 subnormal = %a\n", da);
-    printf ("da/2 subnormal = %.40g\n", da);
-    printf ("la/2 subnormal = %La\n", la);
-    printf ("la/2 subnormal = %.40Lg\n", la);
+    ಬರೆ ("da/2 subnormal = %a\n", da);
+    ಬರೆ ("da/2 subnormal = %.40g\n", da);
+    ಬರೆ ("la/2 subnormal = %La\n", la);
+    ಬರೆ ("la/2 subnormal = %.40Lg\n", la);
     fa = 0x0.88p-126f;  /* a subnormal */
     la = fa;
-    printf ("fa subnormal = %a\n", fa);
-    printf ("fa subnormal = %.40g\n", fa);
-    printf ("la subnormal = %La\n", la);
-    printf ("la subnormal = %.40Lg\n", la);
+    ಬರೆ ("fa subnormal = %a\n", fa);
+    ಬರೆ ("fa subnormal = %.40g\n", fa);
+    ಬರೆ ("la subnormal = %La\n", la);
+    ಬರೆ ("la subnormal = %.40Lg\n", la);
     fa /= 2;
     la = fa;
-    printf ("fa/2 subnormal = %a\n", fa);
-    printf ("fa/2 subnormal = %.40g\n", fa);
-    printf ("la/2 subnormal = %La\n", la);
-    printf ("la/2 subnormal = %.40Lg\n", la);
-#endif
+    ಬರೆ ("fa/2 subnormal = %a\n", fa);
+    ಬರೆ ("fa/2 subnormal = %.40g\n", fa);
+    ಬರೆ ("la/2 subnormal = %La\n", la);
+    ಬರೆ ("la/2 subnormal = %.40Lg\n", la);
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-int fib(int n)
+ಪೂರ್ಣಾಂಕ fib(ಪೂರ್ಣಾಂಕ n)
 {
-    if (n <= 2)
-        return 1;
-    else
-        return fib(n-1) + fib(n-2);
+    ಆದರೆ (n <= 2)
+        ಹಿಂತಿರುಗಿ 1;
+    ಇಲ್ಲದಿದ್ದರೆ
+        ಹಿಂತಿರುಗಿ fib(n-1) + fib(n-2);
 }
 
-#if __GNUC__ == 3 || __GNUC__ == 4
+#ಆದರೆ __GNUC__ == 3 || __GNUC__ == 4
 # define aligned_function 0
-#else
-void __attribute__((aligned(16))) aligned_function(int i) {}
-#endif
+#ಇಲ್ಲದಿದ್ದರೆ
+ಶೂನ್ಯ __attribute__((aligned(16))) aligned_function(ಪೂರ್ಣಾಂಕ i) {}
+#ಆದರೆ_ಅಂತ್ಯ
 
-void funcptr_test()
+ಶೂನ್ಯ funcptr_test()
 {
-    void (*func)(int);
-    int a;
-    struct {
-        int dummy;
-        void (*func)(int);
+    ಶೂನ್ಯ (*func)(ಪೂರ್ಣಾಂಕ);
+    ಪೂರ್ಣಾಂಕ a;
+    ರಚನೆ {
+        ಪೂರ್ಣಾಂಕ dummy;
+        ಶೂನ್ಯ (*func)(ಪೂರ್ಣಾಂಕ);
     } st1;
-    long diff;
+    ದೀರ್ಘ diff;
 
-    func = &num;
+    func = &ಅಂಕೆ;
     (*func)(12345);
-    func = num;
+    func = ಅಂಕೆ;
     a = 1;
     a = 1;
     func(12345);
     /* more complicated pointer computation */
-    st1.func = num;
+    st1.func = ಅಂಕೆ;
     st1.func(12346);
-    printf("sizeof1 = %d\n", sizeof(funcptr_test));
-    printf("sizeof2 = %d\n", sizeof funcptr_test);
-    printf("sizeof3 = %d\n", sizeof(&funcptr_test));
-    printf("sizeof4 = %d\n", sizeof &funcptr_test);
+    ಬರೆ("sizeof1 = %d\n", ಗಾತ್ರ(funcptr_test));
+    ಬರೆ("sizeof2 = %d\n", ಗಾತ್ರ funcptr_test);
+    ಬರೆ("sizeof3 = %d\n", ಗಾತ್ರ(&funcptr_test));
+    ಬರೆ("sizeof4 = %d\n", ಗಾತ್ರ &funcptr_test);
     a = 0;
-    func = num + a;
-    diff = func - num;
+    func = ಅಂಕೆ + a;
+    diff = func - ಅಂಕೆ;
     func(42);
     (func + diff)(42);
-    (num + a)(43);
+    (ಅಂಕೆ + a)(43);
 
     /* Check that we can align functions */
     func = aligned_function;
-    printf("aligned_function (should be zero): %d\n", ((int)(uintptr_t)func) & 15);
+    ಬರೆ("aligned_function (should be zero): %d\n", ((ಪೂರ್ಣಾಂಕ)(uintptr_t)func) & 15);
 }
 
-void lloptest(long long a, long long b)
+ಶೂನ್ಯ lloptest(ದೀರ್ಘ ದೀರ್ಘ a, ದೀರ್ಘ ದೀರ್ಘ b)
 {
-    unsigned long long ua, ub;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ ua, ub;
 
     ua = a;
     ub = b;
     /* arith */
-    printf("arith: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+    ಬರೆ("arith: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            a + b,
            a - b,
            a * b);
     
-    if (b != 0) {
-        printf("arith1: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+    ಆದರೆ (b != 0) {
+        ಬರೆ("arith1: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            a / b,
            a % b);
     }
 
-    /* binary */
-    printf("bin: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+    /*ದ್ವಿಮಾನ*/
+    ಬರೆ("bin: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            a & b,
            a | b,
            a ^ b);
 
     /* tests */
-    printf("test: %d %d %d %d %d %d\n",
+    ಬರೆ("test: %d %d %d %d %d %d\n",
            a == b,
            a != b,
            a < b,
@@ -2469,7 +2469,7 @@ void lloptest(long long a, long long b)
            a >= b,
            a <= b);
     
-    printf("utest: %d %d %d %d %d %d\n",
+    ಬರೆ("utest: %d %d %d %d %d %d\n",
            ua == ub,
            ua != ub,
            ua < ub,
@@ -2480,107 +2480,107 @@ void lloptest(long long a, long long b)
     /* arith2 */
     a++;
     b++;
-    printf("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
-    printf("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a++, b++);
-    printf("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", --a, --b);
-    printf("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
+    ಬರೆ("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
+    ಬರೆ("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a++, b++);
+    ಬರೆ("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", --a, --b);
+    ಬರೆ("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
     b = ub = 0;
-    printf("not: %d %d %d %d\n", !a, !ua, !b, !ub);
+    ಬರೆ("not: %d %d %d %d\n", !a, !ua, !b, !ub);
 }
 
-void llshift(long long a, int b)
+ಶೂನ್ಯ llshift(ದೀರ್ಘ ದೀರ್ಘ a, ಪೂರ್ಣಾಂಕ b)
 {
-    printf("shift: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
-           (unsigned long long)a >> b,
+    ಬರೆ("shift: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+           (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)a >> b,
            a >> b,
            a << b);
-    printf("shiftc: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
-           (unsigned long long)a >> 3,
+    ಬರೆ("shiftc: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+           (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)a >> 3,
            a >> 3,
            a << 3);
-    printf("shiftc: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
-           (unsigned long long)a >> 35,
+    ಬರೆ("shiftc: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+           (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)a >> 35,
            a >> 35,
            a << 35);
 }
 
-void llfloat(void)
+ಶೂನ್ಯ llfloat(ಶೂನ್ಯ)
 {
-    float fa;
-    double da;
+    ದಶಮಾಂಶ fa;
+    ದ್ವಿಗುಣ da;
     LONG_DOUBLE lda;
-    long long la, lb, lc;
-    unsigned long long ula, ulb, ulc;
+    ದೀರ್ಘ ದೀರ್ಘ la, lb, lc;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ ula, ulb, ulc;
     la = 0x12345678;
     ula = 0x72345678;
     la = (la << 20) | 0x12345;
     ula = ula << 33;
-    printf("la=" LONG_LONG_FORMAT " ula=" ULONG_LONG_FORMAT "\n", la, ula);
+    ಬರೆ("la=" LONG_LONG_FORMAT " ula=" ULONG_LONG_FORMAT "\n", la, ula);
 
     fa = la;
     da = la;
     lda = la;
-    printf("lltof: %f %f %Lf\n", fa, da, lda);
+    ಬರೆ("lltof: %f %f %Lf\n", fa, da, lda);
 
     la = fa;
     lb = da;
     lc = lda;
-    printf("ftoll: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", la, lb, lc);
+    ಬರೆ("ftoll: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", la, lb, lc);
 
     fa = ula;
     da = ula;
     lda = ula;
-    printf("ulltof: %f %f %Lf\n", fa, da, lda);
+    ಬರೆ("ulltof: %f %f %Lf\n", fa, da, lda);
 
     ula = fa;
     ulb = da;
     ulc = lda;
-    printf("ftoull: " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT "\n", ula, ulb, ulc);
+    ಬರೆ("ftoull: " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT "\n", ula, ulb, ulc);
 }
 
-long long llfunc1(int a)
+ದೀರ್ಘ ದೀರ್ಘ llfunc1(ಪೂರ್ಣಾಂಕ a)
 {
-    return a * 2;
+    ಹಿಂತಿರುಗಿ a * 2;
 }
 
-struct S {
-    int id; 
-    char item;
+ರಚನೆ S {
+    ಪೂರ್ಣಾಂಕ id; 
+    ಅಕ್ಷರ ಅಂಶ;
 };
 
-long long int value(struct S *v)
+ದೀರ್ಘ ದೀರ್ಘ ಪೂರ್ಣಾಂಕ ಮೌಲ್ಯ(ರಚನೆ S *v)
 {
-    return ((long long int)v->item);
+    ಹಿಂತಿರುಗಿ ((ದೀರ್ಘ ದೀರ್ಘ ಪೂರ್ಣಾಂಕ)v->ಅಂಶ);
 }
 
-long long llfunc2(long long x, long long y, int z)
+ದೀರ್ಘ ದೀರ್ಘ llfunc2(ದೀರ್ಘ ದೀರ್ಘ x, ದೀರ್ಘ ದೀರ್ಘ y, ಪೂರ್ಣಾಂಕ z)
 {
-    return x * y * z;
+    ಹಿಂತಿರುಗಿ x * y * z;
 }
 
-void check_opl_save_regs(char *a, long long b, int c)
+ಶೂನ್ಯ check_opl_save_regs(ಅಕ್ಷರ *a, ದೀರ್ಘ ದೀರ್ಘ b, ಪೂರ್ಣಾಂಕ c)
 {
     *a = b < 0 && !c;
 }
 
-void longlong_test(void)
+ಶೂನ್ಯ longlong_test(ಶೂನ್ಯ)
 {
-    long long a, b, c;
-    int ia;
-    unsigned int ua;
-    printf("sizeof(long long) = %d\n", sizeof(long long));
+    ದೀರ್ಘ ದೀರ್ಘ a, b, c;
+    ಪೂರ್ಣಾಂಕ ia;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ ua;
+    ಬರೆ("sizeof(long long) = %d\n", ಗಾತ್ರ(ದೀರ್ಘ ದೀರ್ಘ));
     ia = -1;
     ua = -2;
     a = ia;
     b = ua;
-    printf(LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
-    printf(LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " "XLONG_LONG_FORMAT"\n",
-           (long long)1,
-           (long long)-2,
+    ಬರೆ(LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
+    ಬರೆ(LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " "XLONG_LONG_FORMAT"\n",
+           (ದೀರ್ಘ ದೀರ್ಘ)1,
+           (ದೀರ್ಘ ದೀರ್ಘ)-2,
            1LL,
            0x1234567812345679);
     a = llfunc1(-3);
-    printf(LONG_LONG_FORMAT "\n", a);
+    ಬರೆ(LONG_LONG_FORMAT "\n", a);
 
     lloptest(1000, 23);
     lloptest(0xff, 0x1234);
@@ -2592,85 +2592,85 @@ void longlong_test(void)
     llshift(b, 47);
 
     llfloat();
-#if 1
+#ಆದರೆ 1
     b = 0x12345678;
     a = -1;
     c = a + b;
-    printf(XLONG_LONG_FORMAT"\n", c);
-#endif
+    ಬರೆ(XLONG_LONG_FORMAT"\n", c);
+#ಆದರೆ_ಅಂತ್ಯ
 
     /* long long reg spill test */
     {
-          struct S a;
+          ರಚನೆ S a;
 
-          a.item = 3;
-          printf("%lld\n", value(&a));
+          a.ಅಂಶ = 3;
+          ಬರೆ("%lld\n", ಮೌಲ್ಯ(&a));
     }
     lloptest(0x80000000, 0);
 
     {
-        long long *p, v, **pp;
+        ದೀರ್ಘ ದೀರ್ಘ *p, v, **pp;
         v = 1;
         p = &v;
         p[0]++;
-        printf("another long long spill test : %lld\n", *p);
+        ಬರೆ("another long long spill test : %lld\n", *p);
         pp = &p;
 
         v = llfunc2(**pp, **pp, ia);
-        printf("a long long function (arm-)reg-args test : %lld\n", v);
+        ಬರೆ("a long long function (arm-)reg-args test : %lld\n", v);
     }
     a = 68719476720LL;
     b = 4294967295LL;
-    printf("%d %d %d %d\n", a > b, a < b, a >= b, a <= b);
+    ಬರೆ("%d %d %d %d\n", a > b, a < b, a >= b, a <= b);
 
-    printf(LONG_LONG_FORMAT "\n", 0x123456789LLU);
+    ಬರೆ(LONG_LONG_FORMAT "\n", 0x123456789LLU);
 
     /* long long pointer deref in argument passing test */
     a = 0x123;
-    long long *p = &a;
+    ದೀರ್ಘ ದೀರ್ಘ *p = &a;
     llshift(*p, 5);
 
     /* shortening followed by widening */
-    unsigned long long u = 0x8000000000000001ULL;
-    u = (unsigned)(u + 1);
-    printf("long long u=" ULONG_LONG_FORMAT "\n", u);
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ u = 0x8000000000000001ULL;
+    u = (ಚಿಹ್ನೆರಹಿತ)(u + 1);
+    ಬರೆ("long long u=" ULONG_LONG_FORMAT "\n", u);
     u = 0x11223344aa998877ULL;
-    u = (unsigned)(int)(u + 1);
-    printf("long long u=" ULONG_LONG_FORMAT "\n", u);
+    u = (ಚಿಹ್ನೆರಹಿತ)(ಪೂರ್ಣಾಂಕ)(u + 1);
+    ಬರೆ("long long u=" ULONG_LONG_FORMAT "\n", u);
 
     /* was a problem with missing save_regs in gen_opl on 32-bit platforms */
-    char cc = 78;
+    ಅಕ್ಷರ cc = 78;
     check_opl_save_regs(&cc, -1, 0);
-    printf("check_opl_save_regs: %d\n", cc);
+    ಬರೆ("check_opl_save_regs: %d\n", cc);
 }
 
-void manyarg_test(void)
+ಶೂನ್ಯ manyarg_test(ಶೂನ್ಯ)
 {
     LONG_DOUBLE ld = 1234567891234LL;
-    printf("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f\n",
+    ಬರೆ("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f\n",
            1, 2, 3, 4, 5, 6, 7, 8,
            0.1, 1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.0);
-    printf("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
+    ಬರೆ("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
            LONG_LONG_FORMAT " " LONG_LONG_FORMAT " %f %f\n",
            1, 2, 3, 4, 5, 6, 7, 8,
            0.1, 1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.0,
            1234567891234LL, 987654321986LL,
            42.0, 43.0);
-    printf("%Lf %d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
+    ಬರೆ("%Lf %d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
            LONG_LONG_FORMAT " " LONG_LONG_FORMAT " %f %f\n",
            ld, 1, 2, 3, 4, 5, 6, 7, 8,
            0.1, 1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.0,
            1234567891234LL, 987654321986LL,
            42.0, 43.0);
-    printf("%d %d %d %d %d %d %d %d %Lf\n",
+    ಬರೆ("%d %d %d %d %d %d %d %d %Lf\n",
            1, 2, 3, 4, 5, 6, 7, 8, ld);
-    printf("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
+    ಬರೆ("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
            LONG_LONG_FORMAT " " LONG_LONG_FORMAT "%f %f %Lf\n",
            1, 2, 3, 4, 5, 6, 7, 8,
            0.1, 1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.0,
            1234567891234LL, 987654321986LL,
            42.0, 43.0, ld);
-    printf("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
+    ಬರೆ("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
            "%Lf " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " %f %f %Lf\n",
            1, 2, 3, 4, 5, 6, 7, 8,
            0.1, 1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.0,
@@ -2678,166 +2678,166 @@ void manyarg_test(void)
            42.0, 43.0, ld);
 }
 
-void*
+ಶೂನ್ಯ*
 va_arg_with_struct_ptr(va_list ap) {
         /*
          * This was a BUG identified with FFTW-3.3.8 on arm64.
          * The test case only checks it compiles on all supported
          * architectures. This function is not currently called.
          */
-        struct X { int _x; };
-        struct X *x = va_arg(ap, struct X *);
-        return x;
+        ರಚನೆ X { ಪೂರ್ಣಾಂಕ _x; };
+        ರಚನೆ X *x = va_arg(ap, ರಚನೆ X *);
+        ಹಿಂತಿರುಗಿ x;
 }
 
-void vprintf1(const char *fmt, ...)
+ಶೂನ್ಯ vprintf1(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *fmt, ...)
 {
     va_list ap, aq;
-    const char *p;
-    int c, i;
-    double d;
-    long long ll;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *p;
+    ಪೂರ್ಣಾಂಕ c, i;
+    ದ್ವಿಗುಣ d;
+    ದೀರ್ಘ ದೀರ್ಘ ll;
     LONG_DOUBLE ld;
 
     va_start(aq, fmt);
     va_copy(ap, aq);
     
     p = fmt;
-    for(;;) {
+    ಗಾಗಿ(;;) {
         c = *p;
-        if (c == '\0')
-            break;
+        ಆದರೆ (c == '\0')
+            ನಿಲ್ಲಿಸು;
         p++;
-        if (c == '%') {
+        ಆದರೆ (c == '%') {
             c = *p;
-            switch(c) {
-            case '\0':
-                goto the_end;
-            case 'd':
-                i = va_arg(ap, int);
-                printf("%d", i);
-                break;
-            case 'f':
-                d = va_arg(ap, double);
-                printf("%f", d);
-                break;
-            case 'l':
-                ll = va_arg(ap, long long);
-                printf(LONG_LONG_FORMAT, ll);
-                break;
-            case 'F':
+            ಆಯ್ಕೆ(c) {
+            ಸ್ಥಿತಿ '\0':
+                ಹೋಗು the_ಕೊನೆ;
+            ಸ್ಥಿತಿ 'd':
+                i = va_arg(ap, ಪೂರ್ಣಾಂಕ);
+                ಬರೆ("%d", i);
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ 'f':
+                d = va_arg(ap, ದ್ವಿಗುಣ);
+                ಬರೆ("%f", d);
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ 'l':
+                ll = va_arg(ap, ದೀರ್ಘ ದೀರ್ಘ);
+                ಬರೆ(LONG_LONG_FORMAT, ll);
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ 'F':
                 ld = va_arg(ap, LONG_DOUBLE);
-                printf("%Lf", ld);
-                break;
+                ಬರೆ("%Lf", ld);
+                ನಿಲ್ಲಿಸು;
             }
             p++;
-        } else {
-            putchar(c);
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            ಅಕ್ಷರ_ಬರೆ(c);
         }
     }
- the_end:
+ the_ಕೊನೆ:
     va_end(aq);
     va_end(ap);
 }
 
-struct myspace {
-    short int profile;
+ರಚನೆ myspace {
+    ಗಿಡ್ಡ ಪೂರ್ಣಾಂಕ profile;
 };
-struct myspace2 {
-#if CC_NAME == CC_clang /* clang7 doesn't support zero sized structs */
-    char a[1];
-#else
-    char a[0];
-#endif
+ರಚನೆ myspace2 {
+#ಆದರೆ CC_NAME == CC_clang /* clang7 doesn't support zero sized structs */
+    ಅಕ್ಷರ a[1];
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಅಕ್ಷರ a[0];
+#ಆದರೆ_ಅಂತ್ಯ
 };
-struct myspace3 {
-    char a[1];
+ರಚನೆ myspace3 {
+    ಅಕ್ಷರ a[1];
 };
-struct myspace4 {
-    char a[2];
+ರಚನೆ myspace4 {
+    ಅಕ್ಷರ a[2];
 };
-struct mytest {
-    void *foo, *bar, *baz;
+ರಚನೆ mytest {
+    ಶೂನ್ಯ *foo, *bar, *baz;
 };
 
-struct mytest stdarg_for_struct(struct myspace bob, ...)
+ರಚನೆ mytest stdarg_for_struct(ರಚನೆ myspace bob, ...)
 {
-    struct myspace george, bill;
-    struct myspace2 alex1;
-    struct myspace3 alex2;
-    struct myspace4 alex3;
+    ರಚನೆ myspace george, bill;
+    ರಚನೆ myspace2 alex1;
+    ರಚನೆ myspace3 alex2;
+    ರಚನೆ myspace4 alex3;
     va_list ap;
-    short int validate;
+    ಗಿಡ್ಡ ಪೂರ್ಣಾಂಕ validate;
 
     va_start(ap, bob);
-    alex1    = va_arg(ap, struct myspace2);
-    alex2    = va_arg(ap, struct myspace3);
-    alex3    = va_arg(ap, struct myspace4);
-    bill     = va_arg(ap, struct myspace);
-    george   = va_arg(ap, struct myspace);
-    validate = va_arg(ap, int);
-    printf("stdarg_for_struct: %d %d %d %d %d %d %d\n",
+    alex1    = va_arg(ap, ರಚನೆ myspace2);
+    alex2    = va_arg(ap, ರಚನೆ myspace3);
+    alex3    = va_arg(ap, ರಚನೆ myspace4);
+    bill     = va_arg(ap, ರಚನೆ myspace);
+    george   = va_arg(ap, ರಚನೆ myspace);
+    validate = va_arg(ap, ಪೂರ್ಣಾಂಕ);
+    ಬರೆ("stdarg_for_struct: %d %d %d %d %d %d %d\n",
            alex2.a[0], alex3.a[0], alex3.a[1],
            bob.profile, bill.profile, george.profile, validate);
     va_end(ap);
-    return (struct mytest) {};
+    ಹಿಂತಿರುಗಿ (ರಚನೆ mytest) {};
 }
 
-void stdarg_for_libc(const char *fmt, ...)
+ಶೂನ್ಯ stdarg_for_libc(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *fmt, ...)
 {
-    va_list args;
-    va_start(args, fmt);
-    vprintf(fmt, args);
-    va_end(args);
+    va_list ವಾದಗಳು;
+    va_start(ವಾದಗಳು, fmt);
+    vprintf(fmt, ವಾದಗಳು);
+    va_end(ವಾದಗಳು);
 }
 
-void stdarg_syntax(int n, ...)
+ಶೂನ್ಯ stdarg_syntax(ಪೂರ್ಣಾಂಕ n, ...)
 {
-    int i;
+    ಪೂರ್ಣಾಂಕ i;
     va_list ap;
-    if (1)
+    ಆದರೆ (1)
       va_start(ap, n);
-    else
+    ಇಲ್ಲದಿದ್ದರೆ
       ;
-    i = va_arg(ap, int);
-    printf("stdarg_void_expr: %d\n", i);
+    i = va_arg(ap, ಪೂರ್ಣಾಂಕ);
+    ಬರೆ("stdarg_void_expr: %d\n", i);
     (va_end(ap));
 }
 
-typedef struct{
-    double x,y;
-} point;
-point pts[]={{1.0,2.0},{3.0,4.0},{5.0,6.0},{7.0,8.0},{9.0,10.0},{11.0,12.0}};
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ{
+    ದ್ವಿಗುಣ x,y;
+} ಬಿಂದು;
+ಬಿಂದು pts[]={{1.0,2.0},{3.0,4.0},{5.0,6.0},{7.0,8.0},{9.0,10.0},{11.0,12.0}};
 
-static void stdarg_double_struct(int nargs, int posd,...)
+ಸ್ಥಿರ ಶೂನ್ಯ stdarg_double_struct(ಪೂರ್ಣಾಂಕ nargs, ಪೂರ್ಣಾಂಕ posd,...)
 {
-    int i;
-    double d;
-    point pi;
-    va_list args;
+    ಪೂರ್ಣಾಂಕ i;
+    ದ್ವಿಗುಣ d;
+    ಬಿಂದು pi;
+    va_list ವಾದಗಳು;
 
-    printf ("stdarg_double_struct: %d\n", posd);
-    va_start(args,posd);
-    for(i = 0; i < nargs; i++) {
-        if (i == posd) {
-            d = va_arg (args, double);
-            printf ("d %d = %g\n", i, d);
+    ಬರೆ ("stdarg_double_struct: %d\n", posd);
+    va_start(ವಾದಗಳು,posd);
+    ಗಾಗಿ(i = 0; i < nargs; i++) {
+        ಆದರೆ (i == posd) {
+            d = va_arg (ವಾದಗಳು, ದ್ವಿಗುಣ);
+            ಬರೆ ("d %d = %g\n", i, d);
         }
-        else {
-            pi = va_arg (args, point);
-            printf ("pts[%d] = %g %g\n", i, pi.x, pi.y);
+        ಇಲ್ಲದಿದ್ದರೆ {
+            pi = va_arg (ವಾದಗಳು, ಬಿಂದು);
+            ಬರೆ ("pts[%d] = %g %g\n", i, pi.x, pi.y);
         }
     }
-    va_end(args);
+    va_end(ವಾದಗಳು);
 }
 
-void stdarg_test(void)
+ಶೂನ್ಯ stdarg_test(ಶೂನ್ಯ)
 {
     LONG_DOUBLE ld = 1234567891234LL;
-    struct myspace bob;
-    struct myspace2 bob2;
-    struct myspace3 bob3;
-    struct myspace4 bob4;
+    ರಚನೆ myspace bob;
+    ರಚನೆ myspace2 bob2;
+    ರಚನೆ myspace3 bob3;
+    ರಚನೆ myspace4 bob4;
 
     vprintf1("%d %d %d\n", 1, 2, 3);
     vprintf1("%f %d %f\n", 1.0, 2, 3.0);
@@ -2885,219 +2885,219 @@ void stdarg_test(void)
     stdarg_for_struct(bob, bob2, bob3, bob4, bob, bob, bob.profile);
     stdarg_for_libc("stdarg_for_libc: %s %.2f %d\n", "string", 1.23, 456);
     stdarg_syntax(1, 17);
-#if !(defined _WIN32 && CC_NAME == CC_clang) /* broken clang */
+#ಆದರೆ !(defined _WIN32 && CC_NAME == CC_clang) /* broken clang */
     stdarg_double_struct(6,-1,pts[0],pts[1],pts[2],pts[3],pts[4],pts[5]);
     stdarg_double_struct(7,1,pts[0],-1.0,pts[1],pts[2],pts[3],pts[4],pts[5]);
     stdarg_double_struct(7,2,pts[0],pts[1],-1.0,pts[2],pts[3],pts[4],pts[5]);
     stdarg_double_struct(7,3,pts[0],pts[1],pts[2],-1.0,pts[3],pts[4],pts[5]);
     stdarg_double_struct(7,4,pts[0],pts[1],pts[2],pts[3],-1.0,pts[4],pts[5]);
     stdarg_double_struct(7,5,pts[0],pts[1],pts[2],pts[3],pts[4],-1.0,pts[5]);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-int reltab[3] = { 1, 2, 3 };
+ಪೂರ್ಣಾಂಕ reltab[3] = { 1, 2, 3 };
 
-int *rel1 = &reltab[1];
-int *rel2 = &reltab[2];
+ಪೂರ್ಣಾಂಕ *rel1 = &reltab[1];
+ಪೂರ್ಣಾಂಕ *rel2 = &reltab[2];
 
-void getmyaddress(void)
+ಶೂನ್ಯ getmyaddress(ಶೂನ್ಯ)
 {
-    printf("in getmyaddress\n");
+    ಬರೆ("in getmyaddress\n");
 }
 
-#ifdef __LP64__
-long __pa_symbol(void)
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __LP64__
+ದೀರ್ಘ __pa_symbol(ಶೂನ್ಯ)
 {
     /* This 64bit constant was handled incorrectly, it was used as addend
        (which can hold 64bit just fine) in connection with a symbol,
        and TCC generates wrong code for that (displacements are 32bit only).
        This effectively is "+ 0x80000000", and if addresses of globals
        are below 2GB the result should be a number without high 32 bits set.  */
-       return ((long)(((unsigned long)(&rel1))) - (0xffffffff80000000UL));
+       ಹಿಂತಿರುಗಿ ((ದೀರ್ಘ)(((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ)(&rel1))) - (0xffffffff80000000UL));
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 uintptr_t theaddress = (uintptr_t)getmyaddress;
-void relocation_test(void)
+ಶೂನ್ಯ relocation_test(ಶೂನ್ಯ)
 {
-    void (*fptr)(void) = (void (*)(void))theaddress;
-    printf("*rel1=%d\n", *rel1);
-    printf("*rel2=%d\n", *rel2);
+    ಶೂನ್ಯ (*fptr)(ಶೂನ್ಯ) = (ಶೂನ್ಯ (*)(ಶೂನ್ಯ))theaddress;
+    ಬರೆ("*rel1=%d\n", *rel1);
+    ಬರೆ("*rel2=%d\n", *rel2);
     fptr();
-#ifdef __LP64__
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __LP64__
     // compare 'addend' displacement versus conventional arithmetics
-    printf("pa_symbol: %d\n", (long)&rel1 == __pa_symbol() - 0x80000000);
-#endif
+    ಬರೆ("pa_symbol: %d\n", (ದೀರ್ಘ)&rel1 == __pa_symbol() - 0x80000000);
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-void old_style_f(a,b,c)
-     int a, b;
-     double c;
+ಶೂನ್ಯ old_style_f(a,b,c)
+     ಪೂರ್ಣಾಂಕ a, b;
+     ದ್ವಿಗುಣ c;
 {
-    printf("a=%d b=%d b=%f\n", a, b, c);
+    ಬರೆ("a=%d b=%d b=%f\n", a, b, c);
 }
 
-void decl_func1(int cmpfn())
+ಶೂನ್ಯ decl_func1(ಪೂರ್ಣಾಂಕ cmpfn())
 {
-    printf("cmpfn=%lx\n", (long)cmpfn);
+    ಬರೆ("cmpfn=%lx\n", (ದೀರ್ಘ)cmpfn);
 }
 
-void decl_func2(cmpfn)
-int cmpfn();
+ಶೂನ್ಯ decl_func2(cmpfn)
+ಪೂರ್ಣಾಂಕ cmpfn();
 {
-    printf("cmpfn=%lx\n", (long)cmpfn);
+    ಬರೆ("cmpfn=%lx\n", (ದೀರ್ಘ)cmpfn);
 }
 
-void old_style_function_test(void)
+ಶೂನ್ಯ old_style_function_test(ಶೂನ್ಯ)
 {
-#if CC_NAME == CC_clang
+#ಆದರೆ CC_NAME == CC_clang
     /* recent clang versions (at least 15.0) raise an error:
        incompatible pointer to integer conversion passing 'void *'
        For the purpose of this test, pass 1 instead.
      */
     old_style_f(1, 2, 3.0);
-#else
-    old_style_f((void *)1, 2, 3.0);
-#endif
-    decl_func1(NULL);
-    decl_func2(NULL);
+#ಇಲ್ಲದಿದ್ದರೆ
+    old_style_f((ಶೂನ್ಯ *)1, 2, 3.0);
+#ಆದರೆ_ಅಂತ್ಯ
+    decl_func1(ಖಾಲಿ);
+    decl_func2(ಖಾಲಿ);
 }
 
-void alloca_test()
+ಶೂನ್ಯ alloca_test()
 {
-    char *p = alloca(16);
+    ಅಕ್ಷರ *p = alloca(16);
     strcpy(p,"123456789012345");
-    printf("alloca: p is %s\n", p);
-    char *demo = "This is only a test.\n";
+    ಬರೆ("alloca: p is %s\n", p);
+    ಅಕ್ಷರ *demo = "This is only a test.\n";
     /* Test alloca embedded in a larger expression */
-    printf("alloca: %s\n", strcpy(alloca(strlen(demo)+1),demo) );
+    ಬರೆ("alloca: %s\n", strcpy(alloca(ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(demo)+1),demo) );
 }
 
-void *bounds_checking_is_enabled()
+ಶೂನ್ಯ *bounds_checking_is_enabled()
 {
-    char ca[10], *cp = ca-1;
-    return (ca != cp + 1) ? cp : NULL;
+    ಅಕ್ಷರ ca[10], *cp = ca-1;
+    ಹಿಂತಿರುಗಿ (ca != cp + 1) ? cp : ಖಾಲಿ;
 }
 
-typedef int constant_negative_array_size_as_compile_time_assertion_idiom[(1 ? 2 : 0) - 1];
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ constant_negative_array_ಗಾತ್ರ_as_compile_ಸಮಯ_assertion_idiom[(1 ? 2 : 0) - 1];
 
-void c99_vla_test_1(int size1, int size2)
+ಶೂನ್ಯ c99_vla_test_1(ಪೂರ್ಣಾಂಕ size1, ಪೂರ್ಣಾಂಕ size2)
 {
-    int size = size1 * size2;
-    int tab1[size][2], tab2[10][2];
-    void *tab1_ptr, *tab2_ptr, *bad_ptr;
+    ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_2 = size1 * size2;
+    ಪೂರ್ಣಾಂಕ tab1[ಗಾತ್ರ_2][2], tab2[10][2];
+    ಶೂನ್ಯ *tab1_ptr, *tab2_ptr, *bad_ptr;
 
     /* "size" should have been 'captured' at tab1 declaration, 
         so modifying it should have no effect on VLA behaviour. */
-    size = size-1;
+    ಗಾತ್ರ_2 = ಗಾತ್ರ_2-1;
     
-    printf("Test C99 VLA 1 (sizeof): ");
-    printf("%s\n", (sizeof tab1 == size1 * size2 * 2 * sizeof(int)) ? "PASSED" : "FAILED");
+    ಬರೆ("Test C99 VLA 1 (sizeof): ");
+    ಬರೆ("%s\n", (ಗಾತ್ರ tab1 == size1 * size2 * 2 * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ)) ? "PASSED" : "FAILED");
     tab1_ptr = tab1;
     tab2_ptr = tab2;
-    printf("Test C99 VLA 2 (ptrs subtract): ");
-    printf("%s\n", (tab2 - tab1 == (tab2_ptr - tab1_ptr) / (sizeof(int) * 2)) ? "PASSED" : "FAILED");
-    printf("Test C99 VLA 3 (ptr add): ");
-    printf("%s\n", &tab1[5][1] == (tab1_ptr + (5 * 2 + 1) * sizeof(int)) ? "PASSED" : "FAILED");
-    printf("Test C99 VLA 4 (ptr access): ");
+    ಬರೆ("Test C99 VLA 2 (ptrs subtract): ");
+    ಬರೆ("%s\n", (tab2 - tab1 == (tab2_ptr - tab1_ptr) / (ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ) * 2)) ? "PASSED" : "FAILED");
+    ಬರೆ("Test C99 VLA 3 (ptr add): ");
+    ಬರೆ("%s\n", &tab1[5][1] == (tab1_ptr + (5 * 2 + 1) * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ)) ? "PASSED" : "FAILED");
+    ಬರೆ("Test C99 VLA 4 (ptr access): ");
     tab1[size1][1] = 42;
-    printf("%s\n", (*((int *) (tab1_ptr + (size1 * 2 + 1) * sizeof(int))) == 42) ? "PASSED" : "FAILED");
+    ಬರೆ("%s\n", (*((ಪೂರ್ಣಾಂಕ *) (tab1_ptr + (size1 * 2 + 1) * ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ))) == 42) ? "PASSED" : "FAILED");
 
-    printf("Test C99 VLA 5 (bounds checking (might be disabled)): ");
-    if (bad_ptr = bounds_checking_is_enabled()) {
-        int *t1 = &tab1[size1 * size2 - 1][3];
-        int *t2 = &tab2[9][3];
-        printf("%s ", bad_ptr == t1 ? "PASSED" : "FAILED");
-        printf("%s ", bad_ptr == t2 ? "PASSED" : "FAILED");
+    ಬರೆ("Test C99 VLA 5 (bounds checking (might be disabled)): ");
+    ಆದರೆ (bad_ptr = bounds_checking_is_enabled()) {
+        ಪೂರ್ಣಾಂಕ *t1 = &tab1[size1 * size2 - 1][3];
+        ಪೂರ್ಣಾಂಕ *t2 = &tab2[9][3];
+        ಬರೆ("%s ", bad_ptr == t1 ? "PASSED" : "FAILED");
+        ಬರೆ("%s ", bad_ptr == t2 ? "PASSED" : "FAILED");
 
-        char*c1 = 1 + sizeof(tab1) + (char*)tab1;
-        char*c2 = 1 + sizeof(tab2) + (char*)tab2;
-        printf("%s ", bad_ptr == c1 ? "PASSED" : "FAILED");
-        printf("%s ", bad_ptr == c2 ? "PASSED" : "FAILED");
+        ಅಕ್ಷರ*c1 = 1 + ಗಾತ್ರ(tab1) + (ಅಕ್ಷರ*)tab1;
+        ಅಕ್ಷರ*c2 = 1 + ಗಾತ್ರ(tab2) + (ಅಕ್ಷರ*)tab2;
+        ಬರೆ("%s ", bad_ptr == c1 ? "PASSED" : "FAILED");
+        ಬರೆ("%s ", bad_ptr == c2 ? "PASSED" : "FAILED");
 
-        int *i1 = tab1[-1];
-        int *i2 = tab2[-1];
-        printf("%s ", bad_ptr == i1 ? "PASSED" : "FAILED");
-        printf("%s ", bad_ptr == i2 ? "PASSED" : "FAILED");
+        ಪೂರ್ಣಾಂಕ *i1 = tab1[-1];
+        ಪೂರ್ಣಾಂಕ *i2 = tab2[-1];
+        ಬರೆ("%s ", bad_ptr == i1 ? "PASSED" : "FAILED");
+        ಬರೆ("%s ", bad_ptr == i2 ? "PASSED" : "FAILED");
 
-        int *x1 = tab1[size1 * size2 + 1];
-        int *x2 = tab2[10 + 1];
-        printf("%s ", bad_ptr == x1 ? "PASSED" : "FAILED");
-        printf("%s ", bad_ptr == x2 ? "PASSED" : "FAILED");
-    } else {
-        printf("PASSED PASSED PASSED PASSED PASSED PASSED PASSED PASSED ");
+        ಪೂರ್ಣಾಂಕ *x1 = tab1[size1 * size2 + 1];
+        ಪೂರ್ಣಾಂಕ *x2 = tab2[10 + 1];
+        ಬರೆ("%s ", bad_ptr == x1 ? "PASSED" : "FAILED");
+        ಬರೆ("%s ", bad_ptr == x2 ? "PASSED" : "FAILED");
+    } ಇಲ್ಲದಿದ್ದರೆ {
+        ಬರೆ("PASSED PASSED PASSED PASSED PASSED PASSED PASSED PASSED ");
     }
-    printf("\n");
+    ಬರೆ("\n");
 }
 
-void c99_vla_test_2(int d, int h, int w)
+ಶೂನ್ಯ c99_vla_test_2(ಪೂರ್ಣಾಂಕ d, ಪೂರ್ಣಾಂಕ h, ಪೂರ್ಣಾಂಕ w)
 {
-    int x, y, z;
-    int (*arr)[h][w] = malloc(sizeof(int) * d*h*w);
-    int c = 1;
-    static int (*starr)[h][w];
+    ಪೂರ್ಣಾಂಕ x, y, z;
+    ಪೂರ್ಣಾಂಕ (*arr)[h][w] = ಸ್ಮರಣೆ_ಕೊಡು(ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ) * d*h*w);
+    ಪೂರ್ಣಾಂಕ c = 1;
+    ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ (*starr)[h][w];
 
-    printf("Test C99 VLA 6 (pointer)\n");
+    ಬರೆ("Test C99 VLA 6 (pointer)\n");
 
-    for (z=0; z<d; z++) {
-        for (y=0; y<h; y++) {
-            for (x=0; x<w; x++) {
+    ಗಾಗಿ (z=0; z<d; z++) {
+        ಗಾಗಿ (y=0; y<h; y++) {
+            ಗಾಗಿ (x=0; x<w; x++) {
                 arr[z][y][x] = c++;
             }
         }
     }
-    for (z=0; z<d; z++) {
-        for (y=0; y<h; y++) {
-            for (x=0; x<w; x++) {
-                printf(" %2d", arr[z][y][x]);
+    ಗಾಗಿ (z=0; z<d; z++) {
+        ಗಾಗಿ (y=0; y<h; y++) {
+            ಗಾಗಿ (x=0; x<w; x++) {
+                ಬರೆ(" %2d", arr[z][y][x]);
             }
             puts("");
         }
         puts("");
     }
     starr = &arr[1];
-    printf(" sizes : %d %d %d\n"
+    ಬರೆ(" sizes : %d %d %d\n"
            " pdiff : %d %d\n"
            " tests : %d %d %d\n",
-        sizeof (*arr), sizeof (*arr)[0], sizeof (*arr)[0][0],
+        ಗಾತ್ರ (*arr), ಗಾತ್ರ (*arr)[0], ಗಾತ್ರ (*arr)[0][0],
         arr + 2 - arr, *arr + 3 - *arr,
-        0 == sizeof (*arr + 1) - sizeof arr,
-        0 == sizeof sizeof *arr - sizeof arr,
+        0 == ಗಾತ್ರ (*arr + 1) - ಗಾತ್ರ arr,
+        0 == ಗಾತ್ರ ಗಾತ್ರ *arr - ಗಾತ್ರ arr,
         starr[0][2][3] == arr[1][2][3]
         );
-    free (arr);
+    ಬಿಡುಗಡೆ (arr);
 }
 
-void c99_vla_test_3a (int arr[2][3][4])
+ಶೂನ್ಯ c99_vla_test_3a (ಪೂರ್ಣಾಂಕ arr[2][3][4])
 {
-    printf ("%d\n", arr[1][2][3]);
+    ಬರೆ ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3b(int s, int arr[s][3][4])
+ಶೂನ್ಯ c99_vla_test_3b(ಪೂರ್ಣಾಂಕ s, ಪೂರ್ಣಾಂಕ arr[s][3][4])
 {
-    printf ("%d\n", arr[1][2][3]);
+    ಬರೆ ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3c(int s, int arr[2][s][4])
+ಶೂನ್ಯ c99_vla_test_3c(ಪೂರ್ಣಾಂಕ s, ಪೂರ್ಣಾಂಕ arr[2][s][4])
 {
-    printf ("%d\n", arr[1][2][3]);
+    ಬರೆ ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3d(int s, int arr[2][3][s])
+ಶೂನ್ಯ c99_vla_test_3d(ಪೂರ್ಣಾಂಕ s, ಪೂರ್ಣಾಂಕ arr[2][3][s])
 {
-    printf ("%d\n", arr[1][2][3]);
+    ಬರೆ ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3e(int s, int arr[][3][--s])
+ಶೂನ್ಯ c99_vla_test_3e(ಪೂರ್ಣಾಂಕ s, ಪೂರ್ಣಾಂಕ arr[][3][--s])
 {
-    printf ("%d %d %d\n", sizeof arr, s, arr[1][2][3]);
+    ಬರೆ ("%d %d %d\n", ಗಾತ್ರ arr, s, arr[1][2][3]);
 }
 
-void c99_vla_test_3(void)
+ಶೂನ್ಯ c99_vla_test_3(ಶೂನ್ಯ)
 {
-    int a[2][3][4];
+    ಪೂರ್ಣಾಂಕ a[2][3][4];
 
-    memset (a, 0, sizeof(a));
+    memset (a, 0, ಗಾತ್ರ(a));
     a[1][2][3] = 123;
     c99_vla_test_3a(a);
     c99_vla_test_3b(2, a);
@@ -3106,7 +3106,7 @@ void c99_vla_test_3(void)
     c99_vla_test_3e(5, a);
 }
 
-void c99_vla_test(void)
+ಶೂನ್ಯ c99_vla_test(ಶೂನ್ಯ)
 {
     c99_vla_test_1(5, 2);
     c99_vla_test_2(3, 4, 5);
@@ -3114,29 +3114,29 @@ void c99_vla_test(void)
 }
 
 
-void sizeof_test(void)
+ಶೂನ್ಯ sizeof_test(ಶೂನ್ಯ)
 {
-    int a;
-    int **ptr;
+    ಪೂರ್ಣಾಂಕ a;
+    ಪೂರ್ಣಾಂಕ **ptr;
 
-    printf("sizeof(int) = %d\n", sizeof(int));
-    printf("sizeof(unsigned int) = %d\n", sizeof(unsigned int));
-    printf("sizeof(long) = %d\n", sizeof(long));
-    printf("sizeof(unsigned long) = %d\n", sizeof(unsigned long));
-    printf("sizeof(short) = %d\n", sizeof(short));
-    printf("sizeof(unsigned short) = %d\n", sizeof(unsigned short));
-    printf("sizeof(char) = %d\n", sizeof(char));
-    printf("sizeof(unsigned char) = %d\n", sizeof(unsigned char));
-    printf("sizeof(func) = %d\n", sizeof sizeof_test());
+    ಬರೆ("sizeof(int) = %d\n", ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ));
+    ಬರೆ("sizeof(unsigned int) = %d\n", ಗಾತ್ರ(ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ));
+    ಬರೆ("sizeof(long) = %d\n", ಗಾತ್ರ(ದೀರ್ಘ));
+    ಬರೆ("sizeof(unsigned long) = %d\n", ಗಾತ್ರ(ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ));
+    ಬರೆ("sizeof(short) = %d\n", ಗಾತ್ರ(ಗಿಡ್ಡ));
+    ಬರೆ("sizeof(unsigned short) = %d\n", ಗಾತ್ರ(ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ));
+    ಬರೆ("sizeof(char) = %d\n", ಗಾತ್ರ(ಅಕ್ಷರ));
+    ಬರೆ("sizeof(unsigned char) = %d\n", ಗಾತ್ರ(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ));
+    ಬರೆ("sizeof(func) = %d\n", ಗಾತ್ರ sizeof_test());
     a = 1;
-    printf("sizeof(a++) = %d\n", sizeof a++);
-    printf("a=%d\n", a);
-    ptr = NULL;
-    printf("sizeof(**ptr) = %d\n", sizeof (**ptr));
+    ಬರೆ("sizeof(a++) = %d\n", ಗಾತ್ರ a++);
+    ಬರೆ("a=%d\n", a);
+    ptr = ಖಾಲಿ;
+    ಬರೆ("sizeof(**ptr) = %d\n", ಗಾತ್ರ (**ptr));
 
     /* The type of sizeof should be as large as a pointer, actually
        it should be size_t.  */
-    printf("sizeof(sizeof(int) = %d\n", sizeof(sizeof(int)));
+    ಬರೆ("sizeof(sizeof(int) = %d\n", ಗಾತ್ರ(ಗಾತ್ರ(ಪೂರ್ಣಾಂಕ)));
     uintptr_t t = 1;
     uintptr_t t2;
     /* Effectively <<32, but defined also on 32bit machines.  */
@@ -3145,121 +3145,121 @@ void sizeof_test(void)
     t++;
     /* This checks that sizeof really can be used to manipulate 
        uintptr_t objects, without truncation.  */
-    t2 = t & -sizeof(uintptr_t);
-    printf ("%lu %lu\n", t, t2);
+    t2 = t & -ಗಾತ್ರ(uintptr_t);
+    ಬರೆ ("%lu %lu\n", t, t2);
 
     /* some alignof tests */
-    printf("__alignof__(int) = %d\n", __alignof__(int));
-    printf("__alignof__(unsigned int) = %d\n", __alignof__(unsigned int));
-    printf("__alignof__(short) = %d\n", __alignof__(short));
-    printf("__alignof__(unsigned short) = %d\n", __alignof__(unsigned short));
-    printf("__alignof__(char) = %d\n", __alignof__(char));
-    printf("__alignof__(unsigned char) = %d\n", __alignof__(unsigned char));
-    printf("__alignof__(func) = %d\n", __alignof__ sizeof_test());
+    ಬರೆ("__alignof__(int) = %d\n", __alignof__(ಪೂರ್ಣಾಂಕ));
+    ಬರೆ("__alignof__(unsigned int) = %d\n", __alignof__(ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ));
+    ಬರೆ("__alignof__(short) = %d\n", __alignof__(ಗಿಡ್ಡ));
+    ಬರೆ("__alignof__(unsigned short) = %d\n", __alignof__(ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ));
+    ಬರೆ("__alignof__(char) = %d\n", __alignof__(ಅಕ್ಷರ));
+    ಬರೆ("__alignof__(unsigned char) = %d\n", __alignof__(ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ));
+    ಬರೆ("__alignof__(func) = %d\n", __alignof__ sizeof_test());
 
     /* sizes of VLAs need to be evaluated even inside sizeof: */
     a = 2;
-    printf("sizeof(char[1+2*a]) = %d\n", sizeof(char[1+2*a]));
+    ಬರೆ("sizeof(char[1+2*a]) = %d\n", ಗಾತ್ರ(ಅಕ್ಷರ[1+2*a]));
     /* And checking if sizeof compound literal works.  Parenthesized: */
-    printf("sizeof( (struct {int i; int j;}){4,5} ) = %d\n",
-	   sizeof( (struct {int i; int j;}){4,5} ));
+    ಬರೆ("sizeof( (struct {int i; int j;}){4,5} ) = %d\n",
+	   ಗಾತ್ರ( (ರಚನೆ {ಪೂರ್ಣಾಂಕ i; ಪೂರ್ಣಾಂಕ j;}){4,5} ));
     /* And as direct sizeof argument (as unary expression): */
-    printf("sizeof (struct {short i; short j;}){4,5} = %d\n",
-	   sizeof (struct {short i; short j;}){4,5} );
+    ಬರೆ("sizeof (struct {short i; short j;}){4,5} = %d\n",
+	   ಗಾತ್ರ (ರಚನೆ {ಗಿಡ್ಡ i; ಗಿಡ್ಡ j;}){4,5} );
 
     /* sizeof(x && y) should be sizeof(int), even if constant
        evaluating is possible. */
-    printf("sizeof(t && 0) = %d\n", sizeof(t && 0));
-    printf("sizeof(1 && 1) = %d\n", sizeof(1 && 1));
-    printf("sizeof(t || 1) = %d\n", sizeof(t || 1));
-    printf("sizeof(0 || 0) = %d\n", sizeof(0 || 0));
+    ಬರೆ("sizeof(t && 0) = %d\n", ಗಾತ್ರ(t && 0));
+    ಬರೆ("sizeof(1 && 1) = %d\n", ಗಾತ್ರ(1 && 1));
+    ಬರೆ("sizeof(t || 1) = %d\n", ಗಾತ್ರ(t || 1));
+    ಬರೆ("sizeof(0 || 0) = %d\n", ಗಾತ್ರ(0 || 0));
 
-    int arr[4], fn();
-    printf("sizeof(0, arr) = %d\n", sizeof(0, arr));
-    printf("sizeof(0, fn) = %d\n", sizeof(0, fn));
+    ಪೂರ್ಣಾಂಕ arr[4], fn();
+    ಬರೆ("sizeof(0, arr) = %d\n", ಗಾತ್ರ(0, arr));
+    ಬರೆ("sizeof(0, fn) = %d\n", ಗಾತ್ರ(0, fn));
 }
 
-void typeof_test(void)
+ಶೂನ್ಯ typeof_test(ಶೂನ್ಯ)
 {
-    double a;
+    ದ್ವಿಗುಣ a;
     typeof(a) b;
-    typeof(float) c;
+    typeof(ದಶಮಾಂಶ) c;
 
     a = 1.5;
     b = 2.5;
     c = 3.5;
-    printf("a=%f b=%f c=%f\n", a, b, c);
+    ಬರೆ("a=%f b=%f c=%f\n", a, b, c);
 }
 
 
-struct hlist_node;
-struct hlist_head {
-    struct hlist_node *first, *last;
+ರಚನೆ hlist_ಗಂಟು;
+ರಚನೆ hlist_ತಲೆ {
+    ರಚನೆ hlist_ಗಂಟು *ಮೊದಲ, *ಕೊನೆಯ;
 };
 
-void consume_ulong (unsigned long i)
+ಶೂನ್ಯ consume_ulong (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ i)
 {
     i = 0;
 }
 
-void statement_expr_test(void)
+ಶೂನ್ಯ statement_ಅಭಿವ್ಯಕ್ತಿ_test(ಶೂನ್ಯ)
 {
-    int a, i;
+    ಪೂರ್ಣಾಂಕ a, i;
 
     /* Basic stmt expr test */
     a = 0;
-    for(i=0;i<10;i++) {
+    ಗಾಗಿ(i=0;i<10;i++) {
         a += 1 + 
-            ( { int b, j; 
+            ( { ಪೂರ್ಣಾಂಕ b, j; 
                 b = 0; 
-                for(j=0;j<5;j++) 
+                ಗಾಗಿ(j=0;j<5;j++) 
                     b += j; b; 
             } );
     }
-    printf("a=%d\n", a);
+    ಬರೆ("a=%d\n", a);
     
     /* Test that symbols aren't freed prematurely.
        With SYM_DEBUG valgrind will show a read from a freed
        symbol, and tcc will show an (invalid) warning on the initialization
        of 'ptr' below, if symbols are popped after the stmt expr.  */
-    void *v = (void*)39;
+    ಶೂನ್ಯ *v = (ಶೂನ್ಯ*)39;
     typeof(({
-	    (struct hlist_node *)v;
+	    (ರಚನೆ hlist_ಗಂಟು *)v;
 	    })) x;
     typeof (x)
-	ptr = (struct hlist_node *)v;
+	ptr = (ರಚನೆ hlist_ಗಂಟು *)v;
 
     /* This part used to segfault when symbols were popped prematurely.
        The symbols for the static local would be overwritten with
        helper symbols from the pre-processor expansions in between.  */
-#define some_attr     __attribute__((aligned(1)))
-#define tps(str) ({                  \
-            static const char *t some_attr = str; \
+#ವ್ಯಾಖ್ಯಾನಿಸು some_attr     __attribute__((aligned(1)))
+#ವ್ಯಾಖ್ಯಾನಿಸು tps(str) ({                  \
+            ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *t some_attr = str; \
             t;                                    \
           })
-    printf ("stmtexpr: %s %s\n",
+    ಬರೆ ("stmtexpr: %s %s\n",
 	    tps("somerandomlongstring"),
 	    tps("anotherlongstring"));
 
     /* Test that the three decls of 't' don't interact.  */
-    int t = 40;
-    int b = ({ int t = 41; t; });
-    int c = ({ int t = 42; t; });
+    ಪೂರ್ಣಾಂಕ t = 40;
+    ಪೂರ್ಣಾಂಕ b = ({ ಪೂರ್ಣಾಂಕ t = 41; t; });
+    ಪೂರ್ಣಾಂಕ c = ({ ಪೂರ್ಣಾಂಕ t = 42; t; });
 
     /* Test that aggregate return values work.  */
-    struct hlist_head h
+    ರಚನೆ hlist_ತಲೆ h
 	= ({
-	   typedef struct hlist_head T;
-	   long pre = 48;
-	   T t = { (void*)43, (void*)44 };
-	   long post = 49;
+	   ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ hlist_ತಲೆ T;
+	   ದೀರ್ಘ pre = 48;
+	   T t = { (ಶೂನ್ಯ*)43, (ಶೂನ್ಯ*)44 };
+	   ದೀರ್ಘ post = 49;
 	   t;
 	   });
-    printf ("stmtexpr: %d %d %d\n", t, b, c);
-    printf ("stmtexpr: %ld %ld\n", (long)h.first, (long)h.last);
+    ಬರೆ ("stmtexpr: %d %d %d\n", t, b, c);
+    ಬರೆ ("stmtexpr: %ld %ld\n", (ದೀರ್ಘ)h.ಮೊದಲ, (ದೀರ್ಘ)h.ಕೊನೆಯ);
 
     /* Test that we can give out addresses of local labels.  */
-    consume_ulong(({ __label__ __here; __here: (unsigned long)&&__here; }));
+    consume_ulong(({ __label__ __here; __here: (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ)&&__here; }));
 
     /* Test interaction between local and global label stacks and the
        need to defer popping symbol from them when within statement
@@ -3268,55 +3268,55 @@ void statement_expr_test(void)
     ({
       {
         __label__ LBL;
-       LBL: if (i++ == 0) goto LBL;
+       LBL: ಆದರೆ (i++ == 0) ಹೋಗು LBL;
       }
       /* jump to a classical label out of an expr-stmt that had previously
          overshadowed that classical label */
-      goto LBL;
+      ಹೋಗು LBL;
     });
   LBL:
-    printf("stmtexpr: %d should be 2\n", i);
+    ಬರೆ("stmtexpr: %d should be 2\n", i);
 }
 
-void local_label_test(void)
+ಶೂನ್ಯ local_label_test(ಶೂನ್ಯ)
 {
-    int a;
-    goto l1;
+    ಪೂರ್ಣಾಂಕ a;
+    ಹೋಗು l1;
  l2:
     a = 1 + ({
         __label__ l1, l2, l3, l4;
-        goto l1;
+        ಹೋಗು l1;
     l4:
-        printf("aa1\n");
-        goto l3;
+        ಬರೆ("aa1\n");
+        ಹೋಗು l3;
     l2:
-        printf("aa3\n");
-        goto l4;
+        ಬರೆ("aa3\n");
+        ಹೋಗು l4;
     l1:
-        printf("aa2\n");
-        goto l2;
+        ಬರೆ("aa2\n");
+        ಹೋಗು l2;
     l3:;
         1;
     });
-    printf("a=%d\n", a);
-    return;
+    ಬರೆ("a=%d\n", a);
+    ಹಿಂತಿರುಗಿ;
  l4:
-    printf("bb1\n");
-    goto l2;
+    ಬರೆ("bb1\n");
+    ಹೋಗು l2;
  l1:
-    printf("bb2\n");
-    goto l4;
+    ಬರೆ("bb2\n");
+    ಹೋಗು l4;
 }
 
 /* inline assembler test */
-#if (defined(__i386__) || defined(__x86_64__)) && !(defined _WIN32 && CC_NAME == CC_clang)
+#ಆದರೆ (defined(__i386__) || defined(__x86_64__)) && !(defined _WIN32 && CC_NAME == CC_clang)
 
-typedef __SIZE_TYPE__ word;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __SIZE_TYPE__ ಶಬ್ದ;
 
 /* from linux kernel */
-static char * strncat1(char * dest,const char * src,size_t count)
+ಸ್ಥಿರ ಅಕ್ಷರ * strncat1(ಅಕ್ಷರ * dest,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ * src,ಗಾತ್ರ_t ಎಣಿಕೆ_3)
 {
-word d0, d1, d2, d3;
+ಶಬ್ದ d0, d1, d2, d3;
 __asm__ __volatile__(
 	"repne\n\t"
 	"scasb\n\t"
@@ -3331,14 +3331,14 @@ __asm__ __volatile__(
 	"2:\txor %2,%2\n\t"
 	"stosb"
 	: "=&S" (d0), "=&D" (d1), "=&a" (d2), "=&c" (d3)
-	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (count)
+	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (ಎಣಿಕೆ_3)
 	: "memory");
-return dest;
+ಹಿಂತಿರುಗಿ dest;
 }
 
-static char * strncat2(char * dest,const char * src,size_t count)
+ಸ್ಥಿರ ಅಕ್ಷರ * strncat2(ಅಕ್ಷರ * dest,ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ * src,ಗಾತ್ರ_t ಎಣಿಕೆ_3)
 {
-word d0, d1, d2, d3;
+ಶಬ್ದ d0, d1, d2, d3;
 __asm__ __volatile__(
 	"repne scasb\n\t" /* one-line repne prefix + string op */
 	"dec %1\n\t"
@@ -3352,14 +3352,14 @@ __asm__ __volatile__(
 	"2:\txor %2,%2\n\t"
 	"stosb"
 	: "=&S" (d0), "=&D" (d1), "=&a" (d2), "=&c" (d3)
-	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (count)
+	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (ಎಣಿಕೆ_3)
 	: "memory");
-return dest;
+ಹಿಂತಿರುಗಿ dest;
 }
 
-static inline void * memcpy1(void * to, const void * from, size_t n)
+ಸ್ಥಿರ ಸಾಲೊಳಗೆ ಶೂನ್ಯ * memcpy1(ಶೂನ್ಯ * ಗಮ್ಯ, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ * from, ಗಾತ್ರ_t n)
 {
-word d0, d1, d2;
+ಶಬ್ದ d0, d1, d2;
 __asm__ __volatile__(
 	"rep ; movsl\n\t"
 	"testb $2,%b4\n\t"
@@ -3370,14 +3370,14 @@ __asm__ __volatile__(
 	"movsb\n"
 	"2:"
 	: "=&c" (d0), "=&D" (d1), "=&S" (d2)
-	:"0" (n/4), "q" (n),"1" ((word) to),"2" ((word) from)
+	:"0" (n/4), "q" (n),"1" ((ಶಬ್ದ) ಗಮ್ಯ),"2" ((ಶಬ್ದ) from)
 	: "memory");
-return (to);
+ಹಿಂತಿರುಗಿ (ಗಮ್ಯ);
 }
 
-static inline void * memcpy2(void * to, const void * from, size_t n)
+ಸ್ಥಿರ ಸಾಲೊಳಗೆ ಶೂನ್ಯ * memcpy2(ಶೂನ್ಯ * ಗಮ್ಯ, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ * from, ಗಾತ್ರ_t n)
 {
-word d0, d1, d2;
+ಶಬ್ದ d0, d1, d2;
 __asm__ __volatile__(
 	"rep movsl\n\t"  /* one-line rep prefix + string op */
 	"testb $2,%b4\n\t"
@@ -3388,134 +3388,134 @@ __asm__ __volatile__(
 	"movsb\n"
 	"2:"
 	: "=&c" (d0), "=&D" (d1), "=&S" (d2)
-	:"0" (n/4), "q" (n),"1" ((word) to),"2" ((word) from)
+	:"0" (n/4), "q" (n),"1" ((ಶಬ್ದ) ಗಮ್ಯ),"2" ((ಶಬ್ದ) from)
 	: "memory");
-return (to);
+ಹಿಂತಿರುಗಿ (ಗಮ್ಯ);
 }
 
-static __inline__ void sigaddset1(unsigned int *set, int _sig)
+ಸ್ಥಿರ __inline__ ಶೂನ್ಯ sigaddset1(ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ *ಗಣ, ಪೂರ್ಣಾಂಕ _sig)
 {
-	__asm__("btsl %1,%0" : "=m"(*set) : "Ir"(_sig - 1) : "cc");
+	__asm__("btsl %1,%0" : "=m"(*ಗಣ) : "Ir"(_sig - 1) : "cc");
 }
 
-static __inline__ void sigdelset1(unsigned int *set, int _sig)
+ಸ್ಥಿರ __inline__ ಶೂನ್ಯ sigdelset1(ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ *ಗಣ, ಪೂರ್ಣಾಂಕ _sig)
 {
-	asm("btrl %1,%0" : "=m"(*set) : "Ir"(_sig - 1) : "cc", "flags");
+	asm("btrl %1,%0" : "=m"(*ಗಣ) : "Ir"(_sig - 1) : "cc", "flags");
 }
 
-#ifdef __clang__
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __clang__
 /* clang's inline asm is uncapable of 'xchgb %b0,%h0' */
-static __inline__ __const__ unsigned int swab32(unsigned int x)
+ಸ್ಥಿರ __inline__ __const__ ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ swab32(ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ x)
 {
-        return ((x >> 24) & 0xff) |
+        ಹಿಂತಿರುಗಿ ((x >> 24) & 0xff) |
                ((x >> 8) & 0xff00) |
                ((x << 8) & 0xff0000) |
                ((x << 24) & 0xff000000);
 }
-#else
-static __inline__ __const__ unsigned int swab32(unsigned int x)
+#ಇಲ್ಲದಿದ್ದರೆ
+ಸ್ಥಿರ __inline__ __const__ ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ swab32(ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ x)
 {
 	__asm__("xchgb %b0,%h0\n\t"	/* swap lower bytes	*/
 		"rorl $16,%0\n\t"	/* swap words		*/
 		"xchgb %b0,%h0"		/* swap higher bytes	*/
 		:"=" "q" (x)
 		: "0" (x));
-	return x;
+	ಹಿಂತಿರುಗಿ x;
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-static __inline__ unsigned long long mul64(unsigned int a, unsigned int b)
+ಸ್ಥಿರ __inline__ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ mul64(ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ a, ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ b)
 {
-    unsigned long long res;
-#ifdef __x86_64__
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ res;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __x86_64__
     /* Using the A constraint is wrong (it means rdx:rax, which is too large)
        but still test the 32bit->64bit mull.  */
-    unsigned int resh, resl;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ resh, resl;
     __asm__("mull %2" : "=a" (resl), "=d" (resh) : "a" (a), "r" (b));
-    res = ((unsigned long long)resh << 32) | resl;
-#else
+    res = ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)resh << 32) | resl;
+#ಇಲ್ಲದಿದ್ದರೆ
     __asm__("mull %2" : "=A" (res) : "a" (a), "r" (b));
-#endif
-    return res;
+#ಆದರೆ_ಅಂತ್ಯ
+    ಹಿಂತಿರುಗಿ res;
 }
 
-static __inline__ unsigned long long inc64(unsigned long long a)
+ಸ್ಥಿರ __inline__ ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ inc64(ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ a)
 {
-    unsigned long long res;
-#ifdef __x86_64__
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ res;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __x86_64__
     /* Using the A constraint is wrong, and increments are tested
        elsewhere.  */
     res = a + 1;
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
     __asm__("addl $1, %%eax ; adcl $0, %%edx" : "=A" (res) : "A" (a));
-#endif
-    return res;
+#ಆದರೆ_ಅಂತ್ಯ
+    ಹಿಂತಿರುಗಿ res;
 }
 
-struct struct123 {
-    int a;
-    int b;
+ರಚನೆ struct123 {
+    ಪೂರ್ಣಾಂಕ a;
+    ಪೂರ್ಣಾಂಕ b;
 };
-struct struct1231 {
-    word addr;
+ರಚನೆ struct1231 {
+    ಶಬ್ದ addr;
 };
 
-word mconstraint_test(struct struct1231 *r)
+ಶಬ್ದ mconstraint_test(ರಚನೆ struct1231 *r)
 {
-    word ret;
-    unsigned int a[2];
+    ಶಬ್ದ ret;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ a[2];
     a[0] = 0;
-    __asm__ volatile ("lea %2,%0; movl 4(%0),%k0; addl %2,%k0; movl $51,%2; movl $52,4%2; movl $63,%1"
+    __asm__ ಅಸ್ಥಿರ ("lea %2,%0; movl 4(%0),%k0; addl %2,%k0; movl $51,%2; movl $52,4%2; movl $63,%1"
 	             : "=&r" (ret), "=m" (a)
-	             : "m" (*(struct struct123 *)r->addr));
-    return ret + a[0];
+	             : "m" (*(ರಚನೆ struct123 *)r->addr));
+    ಹಿಂತಿರುಗಿ ret + a[0];
 }
 
-#ifdef __x86_64__
-int fls64(unsigned long long x)
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __x86_64__
+ಪೂರ್ಣಾಂಕ fls64(ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ x)
 {
-  int bitpos = -1;
+  ಪೂರ್ಣಾಂಕ bitpos = -1;
   asm("bsrq %1,%q0"
       : "+r" (bitpos)
       : "rm" (x));
-  return bitpos + 1;
+  ಹಿಂತಿರುಗಿ bitpos + 1;
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-void other_constraints_test(void)
+ಶೂನ್ಯ other_constraints_test(ಶೂನ್ಯ)
 {
-    word ret;
-    int var;
-#if CC_NAME != CC_clang
-    __asm__ volatile ("mov %P1,%0" : "=r" (ret) : "p" (&var));
-    printf ("oc1: %d\n", ret == (word)&var);
-#endif
+    ಶಬ್ದ ret;
+    ಪೂರ್ಣಾಂಕ var;
+#ಆದರೆ CC_NAME != CC_clang
+    __asm__ ಅಸ್ಥಿರ ("mov %P1,%0" : "=r" (ret) : "p" (&var));
+    ಬರೆ ("oc1: %d\n", ret == (ಶಬ್ದ)&var);
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-#ifndef _WIN32
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
 /* Test global asm blocks playing with aliases.  */
-void base_func(void)
+ಶೂನ್ಯ ತಳ_func(ಶೂನ್ಯ)
 {
-  printf ("asmc: base\n");
+  ಬರೆ ("asmc: base\n");
 }
 
-#ifndef __APPLE__
-extern void override_func1 (void);
-extern void override_func2 (void);
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __APPLE__
+ಬಾಹ್ಯ ಶೂನ್ಯ override_func1 (ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ override_func2 (ಶೂನ್ಯ);
 
 asm(".weak override_func1\n.set override_func1, base_func");
 asm(".set override_func1, base_func");
 asm(".set override_func2, base_func");
 
-void override_func2 (void)
+ಶೂನ್ಯ override_func2 (ಶೂನ್ಯ)
 {
-  printf ("asmc: override2\n");
+  ಬರೆ ("asmc: override2\n");
 }
 
 /* This checks a construct used by the linux kernel to encode
    references to strings by PC relative references.  */
-extern int bug_table[] __attribute__((section("__bug_table")));
-char * get_asm_string (void)
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ bug_ಕೋಷ್ಟಕ[] __attribute__((section("__bug_table")));
+ಅಕ್ಷರ * get_asm_string (ಶೂನ್ಯ)
 {
   /* On i386 when -fPIC is enabled this would cause a compile error with GCC,
      the problem being the "i" constraint used with a symbolic operand
@@ -3531,9 +3531,9 @@ char * get_asm_string (void)
      to the printed operand (as in "$.LC0" where the template only wants the
      bare operand ".LC0").  But the code below is what the linux kernel
      happens to use and as such is the one we want to test.  */
-#ifndef __clang__
-  extern int some_symbol;
-  asm volatile (".globl some_symbol\n"
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __clang__
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ some_ಚಿಹ್ನೆ;
+  asm ಅಸ್ಥಿರ (".globl some_symbol\n"
 		"jmp .+6\n"
 		"1:\n"
 		"some_symbol: .long 0\n"
@@ -3545,15 +3545,15 @@ char * get_asm_string (void)
 		   PC-relative references work.  */
 		"2:\t.long 1b - 2b, %c0 - 2b\n"
 		".popsection\n" : : "i" ("A string"));
-  char * str = ((char*)bug_table) + bug_table[1];
-  return str;
-#else
-  return (char *) "A string";
-#endif
+  ಅಕ್ಷರ * str = ((ಅಕ್ಷರ*)bug_ಕೋಷ್ಟಕ) + bug_ಕೋಷ್ಟಕ[1];
+  ಹಿಂತಿರುಗಿ str;
+#ಇಲ್ಲದಿದ್ದರೆ
+  ಹಿಂತಿರುಗಿ (ಅಕ್ಷರ *) "A string";
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
 /* This checks another constructs with local labels.  */
-extern unsigned char alld_stuff[];
+ಬಾಹ್ಯ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ alld_stuff[];
 asm(".data\n"
     ".byte 41\n"
     "alld_stuff:\n"
@@ -3567,75 +3567,75 @@ asm(".data\n"
     ".popsection\n"
     ".byte 662b - 661b\n"  /* So that this value is undeniably 1.  */);
 
-void asm_local_label_diff (void)
+ಶೂನ್ಯ asm_local_label_diff (ಶೂನ್ಯ)
 {
-  printf ("asm_local_label_diff: %d %d\n", alld_stuff[0], alld_stuff[1]);
+  ಬರೆ ("asm_local_label_diff: %d %d\n", alld_stuff[0], alld_stuff[1]);
 }
-#endif //!__APPLE__
-#endif //!_WIN32
+#ಆದರೆ_ಅಂತ್ಯ //!__APPLE__
+#ಆದರೆ_ಅಂತ್ಯ //!_WIN32
 
 /* This checks that static local variables are available from assembler.  */
-void asm_local_statics (void)
+ಶೂನ್ಯ asm_local_statics (ಶೂನ್ಯ)
 {
-  static int localint = 41;
+  ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ localint = 41;
   asm("incl %0" : "+m" (localint));
-  printf ("asm_local_statics: %d\n", localint);
+  ಬರೆ ("asm_local_statics: %d\n", localint);
 }
 
-static
-unsigned int set;
+ಸ್ಥಿರ
+ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ ಗಣ;
 
-void fancy_copy (unsigned *in, unsigned *out)
+ಶೂನ್ಯ fancy_copy (ಚಿಹ್ನೆರಹಿತ *ಒಳ, ಚಿಹ್ನೆರಹಿತ *ಹೊರಹೋಗು)
 {
-  asm volatile ("" : "=r" (*out) : "0" (*in));
+  asm ಅಸ್ಥಿರ ("" : "=r" (*ಹೊರಹೋಗು) : "0" (*ಒಳ));
 }
 
-void fancy_copy2 (unsigned *in, unsigned *out)
+ಶೂನ್ಯ fancy_copy2 (ಚಿಹ್ನೆರಹಿತ *ಒಳ, ಚಿಹ್ನೆರಹಿತ *ಹೊರಹೋಗು)
 {
-  asm volatile ("mov %0,(%1)" : : "r" (*in), "r" (out) : "memory");
+  asm ಅಸ್ಥಿರ ("mov %0,(%1)" : : "r" (*ಒಳ), "r" (ಹೊರಹೋಗು) : "memory");
 }
 
-#if defined __x86_64__
-void clobber_r12(void)
+#ಆದರೆ defined __x86_64__
+ಶೂನ್ಯ clobber_r12(ಶೂನ್ಯ)
 {
-    asm volatile("mov $1, %%r12" ::: "r12");
+    asm ಅಸ್ಥಿರ("mov $1, %%r12" ::: "r12");
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-void test_high_clobbers_really(void)
+ಶೂನ್ಯ test_ಮೇಲಿನ_clobbers_really(ಶೂನ್ಯ)
 {
-#if defined __x86_64__
-    register word val asm("r12");
-    word val2;
+#ಆದರೆ defined __x86_64__
+    ನೋಂದಣಿ ಶಬ್ದ val asm("r12");
+    ಶಬ್ದ val2;
     /* This tests if asm clobbers correctly save/restore callee saved
        registers if they are clobbered and if it's the high 8 x86-64
        registers.  This is fragile for GCC as the constraints do not
        correctly capture the data flow, but good enough for us.  */
-    asm volatile("mov $0x4542, %%r12" : "=r" (val):: "memory");
+    asm ಅಸ್ಥಿರ("mov $0x4542, %%r12" : "=r" (val):: "memory");
     clobber_r12();
-    asm volatile("mov %%r12, %0" : "=r" (val2) : "r" (val): "memory");
-    printf("asmhc: 0x%x\n", val2);
-#endif
+    asm ಅಸ್ಥಿರ("mov %%r12, %0" : "=r" (val2) : "r" (val): "memory");
+    ಬರೆ("asmhc: 0x%x\n", val2);
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-void test_high_clobbers(void)
+ಶೂನ್ಯ test_ಮೇಲಿನ_clobbers(ಶೂನ್ಯ)
 {
-#if defined __x86_64__
-    word x1, x2;
-    asm volatile("mov %%r12,%0" :: "m" (x1)); /* save r12 */
-    test_high_clobbers_really();
-    asm volatile("mov %%r12,%0" :: "m" (x2)); /* new r12 */
-    asm volatile("mov %0,%%r12" :: "m" (x1)); /* restore r12 */
+#ಆದರೆ defined __x86_64__
+    ಶಬ್ದ x1, x2;
+    asm ಅಸ್ಥಿರ("mov %%r12,%0" :: "m" (x1)); /* save r12 */
+    test_ಮೇಲಿನ_clobbers_really();
+    asm ಅಸ್ಥಿರ("mov %%r12,%0" :: "m" (x2)); /* new r12 */
+    asm ಅಸ್ಥಿರ("mov %0,%%r12" :: "m" (x1)); /* restore r12 */
     /* should be 0 but tcc doesn't save r12 automatically, which has
        bad effects when gcc helds TCCState *s in r12 in tcc.c:main */
     //printf("r12-clobber-diff: %lx\n", x2 - x1);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-static long cpu_number;
-void trace_console(long len, long len2)
+ಸ್ಥಿರ ದೀರ್ಘ cpu_ಸಂಖ್ಯೆ;
+ಶೂನ್ಯ trace_console(ದೀರ್ಘ len, ದೀರ್ಘ len2)
 {
-#ifdef __x86_64__
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __x86_64__
     /* This generated invalid code when the emission of the switch
        table isn't disabled.  The asms are necessary to show the bug,
        normal statements don't work (they need to generate some code
@@ -3649,51 +3649,51 @@ void trace_console(long len, long len2)
        It also is necessary that the switches are in a statement expression
        (which has the property of not being enterable from outside. no
        matter what).  */
-    if (0
+    ಆದರೆ (0
         &&
             ({
-              long pscr_ret__;
-              switch(len) {
-                case 4:
+              ದೀರ್ಘ pscr_ret__;
+              ಆಯ್ಕೆ(len) {
+                ಸ್ಥಿತಿ 4:
                     {
-                       long pfo_ret__;
-                       switch (len2) {
-                         case 8:	printf("bla"); pfo_ret__ = 42; break;
+                       ದೀರ್ಘ pfo_ret__;
+                       ಆಯ್ಕೆ (len2) {
+                         ಸ್ಥಿತಿ 8:	ಬರೆ("bla"); pfo_ret__ = 42; ನಿಲ್ಲಿಸು;
                        }
                        pscr_ret__ = pfo_ret__;
                     }
-                  break;
-                case 8:
+                  ನಿಲ್ಲಿಸು;
+                ಸ್ಥಿತಿ 8:
                     {
-                       long pfo_ret__;
-                       switch (len2) {
-                         case 1:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 2:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 4:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 8:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         default: printf("impossible\n");
+                       ದೀರ್ಘ pfo_ret__;
+                       ಆಯ್ಕೆ (len2) {
+                         ಸ್ಥಿತಿ 1:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_ಸಂಖ್ಯೆ));	ನಿಲ್ಲಿಸು;
+                         ಸ್ಥಿತಿ 2:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_ಸಂಖ್ಯೆ));	ನಿಲ್ಲಿಸು;
+                         ಸ್ಥಿತಿ 4:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_ಸಂಖ್ಯೆ));	ನಿಲ್ಲಿಸು;
+                         ಸ್ಥಿತಿ 8:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_ಸಂಖ್ಯೆ));	ನಿಲ್ಲಿಸು;
+                         ಪೂರ್ವನಿಯೋಜಿತ: ಬರೆ("impossible\n");
                        }
                        pscr_ret__ = pfo_ret__;
                     };
-                  break;
+                  ನಿಲ್ಲಿಸು;
               }
               pscr_ret__;
             }))
       {
-        printf("huh?\n");
+        ಬರೆ("huh?\n");
       }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-void test_asm_dead_code(void)
+ಶೂನ್ಯ test_asm_dead_ಸಂಕೇತ(ಶೂನ್ಯ)
 {
-  word rdi;
+  ಶಬ್ದ rdi;
   /* Try to make sure that xdi contains a zero, and hence will
      lead to a segfault if the next asm is evaluated without
      arguments being set up.  */
-  asm volatile ("" : "=D" (rdi) : "0" (0));
-  (void)sizeof (({
-      int var;
+  asm ಅಸ್ಥಿರ ("" : "=D" (rdi) : "0" (0));
+  (ಶೂನ್ಯ)ಗಾತ್ರ (({
+      ಪೂರ್ಣಾಂಕ var;
       /* This shouldn't trigger a segfault, either the argument
          registers need to be set up and the asm emitted despite
 	 this being in an unevaluated context, or both the argument
@@ -3701,16 +3701,16 @@ void test_asm_dead_code(void)
 	 is better.  Disabling asm code gen when suppression is on
 	 also fixes the above trace_console bug, but that came earlier
 	 than asm suppression.  */
-      asm volatile ("movl $0,(%0)" : : "D" (&var) : "memory");
+      asm ಅಸ್ಥಿರ ("movl $0,(%0)" : : "D" (&var) : "memory");
       var;
   }));
 }
 
-void test_asm_call(void)
+ಶೂನ್ಯ test_asm_call(ಶೂನ್ಯ)
 {
-#if defined __x86_64__ && !defined _WIN64  && !defined(__APPLE__)
-  static char str[] = "PATH";
-  char *s;
+#ಆದರೆ defined __x86_64__ && !defined _WIN64  && !defined(__APPLE__)
+  ಸ್ಥಿರ ಅಕ್ಷರ str[] = "PATH";
+  ಅಕ್ಷರ *s;
   /* This tests if a reference to an undefined symbol from an asm
      block, which isn't otherwise referenced in this file, is correctly
      regarded as global symbol, so that it's resolved by other object files
@@ -3719,218 +3719,218 @@ void test_asm_call(void)
      would have a global symbol entry, not triggering the bug which is
      tested here).  */
   /* two pushes so stack remains aligned */
-  asm volatile ("push %%rdi; push %%rdi; mov %0, %%rdi;"
-#if 1 && !defined(__TINYC__) && (defined(__PIC__) || defined(__PIE__))
+  asm ಅಸ್ಥಿರ ("push %%rdi; push %%rdi; mov %0, %%rdi;"
+#ಆದರೆ 1 && !defined(__TINYC__) && (defined(__PIC__) || defined(__PIE__))
 		"call getenv@plt;"
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 		"call getenv;"
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 		"pop %%rdi; pop %%rdi"
 		: "=a" (s) : "r" (str));
-  printf("asmd: %s\n", s);
-#endif
+  ಬರೆ("asmd: %s\n", s);
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-#if defined __x86_64__
+#ಆದರೆ defined __x86_64__
 # define RX "(%rip)"
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define RX
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-void asm_dot_test(void)
+ಶೂನ್ಯ asm_dot_test(ಶೂನ್ಯ)
 {
-#ifndef __APPLE__
-    int x;
-    for (x = 1;; ++x) {
-        int r = x;
-        switch (x) {
-        case 1:
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __APPLE__
+    ಪೂರ್ಣಾಂಕ x;
+    ಗಾಗಿ (x = 1;; ++x) {
+        ಪೂರ್ಣಾಂಕ r = x;
+        ಆಯ್ಕೆ (x) {
+        ಸ್ಥಿತಿ 1:
             asm(".text; lea S"RX",%eax; lea ."RX",%ecx; sub %ecx,%eax; S=.; jmp p0");
-        case 2:
-#ifndef __clang__
+        ಸ್ಥಿತಿ 2:
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __clang__
             /* clangs internal assembler is broken */
             asm(".text; jmp .+6; .int 123; mov .-4"RX",%eax; jmp p0");
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
             asm(".text; mov $123, %eax; jmp p0");
-#endif
-	case 3:
-#if !defined(_WIN32) && !defined(__clang__)
+#ಆದರೆ_ಅಂತ್ಯ
+	ಸ್ಥಿತಿ 3:
+#ಆದರೆ !defined(_WIN32) && !defined(__clang__)
             asm(".pushsection \".data\"; Y=.; .int 999; X=Y; .int 456; X=.-4; .popsection");
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
             asm(".data; Y=.; .int 999; X=Y; .int 456; X=.-4; .text");
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
             asm(".text; mov X"RX",%eax; jmp p0");
-        case 4:
-#ifdef __clang__
+        ಸ್ಥಿತಿ 4:
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __clang__
             /* Bah!  Clang!  Doesn't want to redefine 'X'  */
             asm(".text; mov $789,%eax; jmp p0");
-#else
-#ifndef _WIN32
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
             asm(".data; X=.; .int 789; Y=.; .int 999; .previous");
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
             asm(".data; X=.; .int 789; Y=.; .int 999; .text");
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
             asm(".text; mov X"RX",%eax; X=Y; jmp p0");
-#endif
-        case 0:
-	    asm(".text; p0=.; mov %%eax,%0;" : "=m"(r)); break;
+#ಆದರೆ_ಅಂತ್ಯ
+        ಸ್ಥಿತಿ 0:
+	    asm(".text; p0=.; mov %%eax,%0;" : "=m"(r)); ನಿಲ್ಲಿಸು;
 	}
-        if (r == x)
-            break;
-        printf("asm_dot_test %d: %d\n", x, r);
+        ಆದರೆ (r == x)
+            ನಿಲ್ಲಿಸು;
+        ಬರೆ("asm_dot_test %d: %d\n", x, r);
     }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-void asm_pcrel_test(void)
+ಶೂನ್ಯ asm_pcrel_test(ಶೂನ್ಯ)
 {
-    unsigned o1, o2;
+    ಚಿಹ್ನೆರಹಿತ o1, o2;
     /* subtract text-section label from forward or other-section label */
     asm("1: mov $2f-1b,%%eax; mov %%eax,%0" : "=m"(o1));
     /* verify ... */
     asm("2: lea 2b"RX",%eax; lea 1b"RX",%ecx; sub %ecx,%eax");
     asm("mov %%eax,%0" : "=m"(o2));
-    printf("%s : %x\n", __FUNCTION__, o1 - o2); /* should be zero */
+    ಬರೆ("%s : %x\n", __FUNCTION__, o1 - o2); /* should be zero */
 }
 
-void asm_test(void)
+ಶೂನ್ಯ asm_test(ಶೂನ್ಯ)
 {
-    char buf[128];
-    unsigned int val, val2;
-    struct struct123 s1;
-    struct struct1231 s2 = { (word)&s1 };
+    ಅಕ್ಷರ buf[128];
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ val, val2;
+    ರಚನೆ struct123 s1;
+    ರಚನೆ struct1231 s2 = { (ಶಬ್ದ)&s1 };
     /* Hide the outer base_func, but check later that the inline
        asm block gets the outer one.  */
-    int base_func = 42;
-    void override_func3 (void);
-    word asmret;
-#ifdef BOOL_ISOC99
+    ಪೂರ್ಣಾಂಕ ತಳ_func = 42;
+    ಶೂನ್ಯ override_func3 (ಶೂನ್ಯ);
+    ಶಬ್ದ asmret;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ BOOL_ISOC99
     _Bool somebool;
-#endif
-    register int regvar asm("%esi");
+#ಆದರೆ_ಅಂತ್ಯ
+    ನೋಂದಣಿ ಪೂರ್ಣಾಂಕ regvar asm("%esi");
 
     // parse 0x1E-1 as 3 tokens in asm mode
-    asm volatile ("mov $0x1E-1,%eax");
+    asm ಅಸ್ಥಿರ ("mov $0x1E-1,%eax");
 
     /* test the no operand case */
-    asm volatile ("xorl %eax, %eax");
+    asm ಅಸ್ಥಿರ ("xorl %eax, %eax");
 
     memcpy1(buf, "hello", 6);
     strncat1(buf, " worldXXXXX", 3);
-    printf("%s\n", buf);
+    ಬರೆ("%s\n", buf);
 
     memcpy2(buf, "hello", 6);
     strncat2(buf, " worldXXXXX", 3);
-    printf("%s\n", buf);
+    ಬರೆ("%s\n", buf);
 
     /* 'A' constraint test */
-    printf("mul64=0x%Lx\n", mul64(0x12345678, 0xabcd1234));
-    printf("inc64=0x%Lx\n", inc64(0x12345678ffffffff));
+    ಬರೆ("mul64=0x%Lx\n", mul64(0x12345678, 0xabcd1234));
+    ಬರೆ("inc64=0x%Lx\n", inc64(0x12345678ffffffff));
 
     s1.a = 42;
     s1.b = 43;
-    printf("mconstraint: %d", mconstraint_test(&s2));
-    printf(" %d %d\n", s1.a, s1.b);
+    ಬರೆ("mconstraint: %d", mconstraint_test(&s2));
+    ಬರೆ(" %d %d\n", s1.a, s1.b);
     other_constraints_test();
-    set = 0xff;
-    sigdelset1(&set, 2);
-    sigaddset1(&set, 16);
+    ಗಣ = 0xff;
+    sigdelset1(&ಗಣ, 2);
+    sigaddset1(&ಗಣ, 16);
     /* NOTE: we test here if C labels are correctly restored after the
        asm statement */
-    goto label1;
+    ಹೋಗು label1;
  label2:
-    __asm__("btsl %1,%0" : "=m"(set) : "Ir"(20) : "cc");
-    printf("set=0x%x\n", set);
+    __asm__("btsl %1,%0" : "=m"(ಗಣ) : "Ir"(20) : "cc");
+    ಬರೆ("set=0x%x\n", ಗಣ);
     val = 0x01020304;
-    printf("swab32(0x%08x) = 0x%0x\n", val, swab32(val));
-#ifndef _WIN32
-#ifndef __APPLE__
+    ಬರೆ("swab32(0x%08x) = 0x%0x\n", val, swab32(val));
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __APPLE__
     override_func1();
     override_func2();
     /* The base_func ref from the following inline asm should find
        the global one, not the local decl from this function.  */
-    asm volatile(".weak override_func3\n.set override_func3, base_func");
+    asm ಅಸ್ಥಿರ(".weak override_func3\n.set override_func3, base_func");
     override_func3();
-    printf("asmstr: %s\n", get_asm_string());
+    ಬರೆ("asmstr: %s\n", get_asm_string());
     asm_local_label_diff();
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
     asm_local_statics();
-#ifndef __clang__
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __clang__
     /* clang can't deal with the type change */
     /* Check that we can also load structs of appropriate layout
        into registers.  */
-    asm volatile("" : "=r" (asmret) : "0"(s2));
-    if (asmret != s2.addr)
-      printf("asmstr: failed\n");
-#endif
-#ifdef BOOL_ISOC99
+    asm ಅಸ್ಥಿರ("" : "=r" (asmret) : "0"(s2));
+    ಆದರೆ (asmret != s2.addr)
+      ಬರೆ("asmstr: failed\n");
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ BOOL_ISOC99
     /* Check that the typesize correctly sets the register size to
        8 bit.  */
-    asm volatile("cmp %1,%2; sete %0" : "=a"(somebool) : "r"(1), "r"(2));
-    if (!somebool)
-      printf("asmbool: failed\n");
-#endif
+    asm ಅಸ್ಥಿರ("cmp %1,%2; sete %0" : "=a"(somebool) : "r"(1), "r"(2));
+    ಆದರೆ (!somebool)
+      ಬರೆ("asmbool: failed\n");
+#ಆದರೆ_ಅಂತ್ಯ
     val = 43;
     fancy_copy (&val, &val2);
-    printf ("fancycpy(%d)=%d\n", val, val2);
+    ಬರೆ ("fancycpy(%d)=%d\n", val, val2);
     val = 44;
     fancy_copy2 (&val, &val2);
-    printf ("fancycpy2(%d)=%d\n", val, val2);
-    asm volatile ("mov $0x4243, %%esi" : "=r" (regvar));
-    printf ("regvar=%x\n", regvar);
-    test_high_clobbers();
+    ಬರೆ ("fancycpy2(%d)=%d\n", val, val2);
+    asm ಅಸ್ಥಿರ ("mov $0x4243, %%esi" : "=r" (regvar));
+    ಬರೆ ("regvar=%x\n", regvar);
+    test_ಮೇಲಿನ_clobbers();
     trace_console(8, 8);
-    test_asm_dead_code();
+    test_asm_dead_ಸಂಕೇತ();
     test_asm_call();
     asm_dot_test();
     asm_pcrel_test();
-    return;
+    ಹಿಂತಿರುಗಿ;
  label1:
-    goto label2;
+    ಹೋಗು label2;
 }
 
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 
-void asm_test(void)
+ಶೂನ್ಯ asm_test(ಶೂನ್ಯ)
 {
 }
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define COMPAT_TYPE(type1, type2) \
+#ವ್ಯಾಖ್ಯಾನಿಸು COMPAT_TYPE(type1, type2) \
 {\
-    printf("__builtin_types_compatible_p(%s, %s) = %d\n", #type1, #type2, \
+    ಬರೆ("__builtin_types_compatible_p(%s, %s) = %d\n", #type1, #type2, \
            __builtin_types_compatible_p (type1, type2));\
 }
 
-int constant_p_var;
+ಪೂರ್ಣಾಂಕ constant_p_var;
 
-int func(void);
+ಪೂರ್ಣಾಂಕ func(ಶೂನ್ಯ);
 
 
 /* __builtin_clz and __builtin_ctz return random values for 0 */
-static void builtin_test_bits(unsigned long long x, int cnt[])
+ಸ್ಥಿರ ಶೂನ್ಯ builtin_test_ಬಿಟ್ಟುಗಳು(ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ x, ಪೂರ್ಣಾಂಕ cnt[])
 {
-#if GCC_MAJOR >= 4
+#ಆದರೆ GCC_MAJOR >= 4
     cnt[0] += __builtin_ffs(x);
     cnt[1] += __builtin_ffsl(x);
     cnt[2] += __builtin_ffsll(x);
 
-    if ((unsigned int) x) cnt[3] += __builtin_clz(x);
-    if ((unsigned long) x) cnt[4] += __builtin_clzl(x);
-    if ((unsigned long long) x) cnt[5] += __builtin_clzll(x);
+    ಆದರೆ ((ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ) x) cnt[3] += __builtin_clz(x);
+    ಆದರೆ ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ) x) cnt[4] += __builtin_clzl(x);
+    ಆದರೆ ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ) x) cnt[5] += __builtin_clzll(x);
 
-    if ((unsigned int) x) cnt[6] += __builtin_ctz(x);
-    if ((unsigned long) x) cnt[7] += __builtin_ctzl(x);
-    if ((unsigned long long) x) cnt[8] += __builtin_ctzll(x);
+    ಆದರೆ ((ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ) x) cnt[6] += __builtin_ctz(x);
+    ಆದರೆ ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ) x) cnt[7] += __builtin_ctzl(x);
+    ಆದರೆ ((ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ) x) cnt[8] += __builtin_ctzll(x);
 
-#if GCC_MAJOR >= 6 && (CC_NAME != CC_clang || GCC_MAJOR >= 11)
+#ಆದರೆ GCC_MAJOR >= 6 && (CC_NAME != CC_clang || GCC_MAJOR >= 11)
 /* Apple clang 10 does not have __builtin_clrsb[l[l]] */
     cnt[9] += __builtin_clrsb(x);
     cnt[10] += __builtin_clrsbl(x);
     cnt[11] += __builtin_clrsbll(x);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
     cnt[12] += __builtin_popcount(x);
     cnt[13] += __builtin_popcountl(x);
@@ -3939,237 +3939,237 @@ static void builtin_test_bits(unsigned long long x, int cnt[])
     cnt[15] += __builtin_parity(x);
     cnt[16] += __builtin_parityl(x);
     cnt[17] += __builtin_parityll(x);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-void builtin_test(void)
+ಶೂನ್ಯ builtin_test(ಶೂನ್ಯ)
 {
-    short s;
-    int i;
-    long long ll;
-#if GCC_MAJOR >= 3
-    COMPAT_TYPE(int, int);
-    COMPAT_TYPE(int, unsigned int);
-    COMPAT_TYPE(int, char);
-    COMPAT_TYPE(int, const int);
-    COMPAT_TYPE(int, volatile int);
-    COMPAT_TYPE(int[2], const int[2]);
-    COMPAT_TYPE(int[2][3], volatile int[][3]);
-    COMPAT_TYPE(int (*)[], const int (*)[]);
-#ifndef __clang__
-    COMPAT_TYPE(__typeof__(1 ? (const int (*)[2])0 : (int (*)[2])0),
-                const int (*)[2]);
-    COMPAT_TYPE(__typeof__(1 ? (const int (*)[2][3])0 :
-                              (volatile int (*)[2][3])0),
-                const volatile int (*)[2][3]);
-    COMPAT_TYPE(__typeof__(1 ? (volatile int (*)[2][3])0 :
-                              (const int (*)[2][3])0),
-                const volatile int (*)[2][3]);
-#else
+    ಗಿಡ್ಡ s;
+    ಪೂರ್ಣಾಂಕ i;
+    ದೀರ್ಘ ದೀರ್ಘ ll;
+#ಆದರೆ GCC_MAJOR >= 3
+    COMPAT_TYPE(ಪೂರ್ಣಾಂಕ, ಪೂರ್ಣಾಂಕ);
+    COMPAT_TYPE(ಪೂರ್ಣಾಂಕ, ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ);
+    COMPAT_TYPE(ಪೂರ್ಣಾಂಕ, ಅಕ್ಷರ);
+    COMPAT_TYPE(ಪೂರ್ಣಾಂಕ, ಸ್ಥಿರಾಂಕ ಪೂರ್ಣಾಂಕ);
+    COMPAT_TYPE(ಪೂರ್ಣಾಂಕ, ಅಸ್ಥಿರ ಪೂರ್ಣಾಂಕ);
+    COMPAT_TYPE(ಪೂರ್ಣಾಂಕ[2], ಸ್ಥಿರಾಂಕ ಪೂರ್ಣಾಂಕ[2]);
+    COMPAT_TYPE(ಪೂರ್ಣಾಂಕ[2][3], ಅಸ್ಥಿರ ಪೂರ್ಣಾಂಕ[][3]);
+    COMPAT_TYPE(ಪೂರ್ಣಾಂಕ (*)[], ಸ್ಥಿರಾಂಕ ಪೂರ್ಣಾಂಕ (*)[]);
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __clang__
+    COMPAT_TYPE(__typeof__(1 ? (ಸ್ಥಿರಾಂಕ ಪೂರ್ಣಾಂಕ (*)[2])0 : (ಪೂರ್ಣಾಂಕ (*)[2])0),
+                ಸ್ಥಿರಾಂಕ ಪೂರ್ಣಾಂಕ (*)[2]);
+    COMPAT_TYPE(__typeof__(1 ? (ಸ್ಥಿರಾಂಕ ಪೂರ್ಣಾಂಕ (*)[2][3])0 :
+                              (ಅಸ್ಥಿರ ಪೂರ್ಣಾಂಕ (*)[2][3])0),
+                ಸ್ಥಿರಾಂಕ ಅಸ್ಥಿರ ಪೂರ್ಣಾಂಕ (*)[2][3]);
+    COMPAT_TYPE(__typeof__(1 ? (ಅಸ್ಥಿರ ಪೂರ್ಣಾಂಕ (*)[2][3])0 :
+                              (ಸ್ಥಿರಾಂಕ ಪೂರ್ಣಾಂಕ (*)[2][3])0),
+                ಸ್ಥಿರಾಂಕ ಅಸ್ಥಿರ ಪೂರ್ಣಾಂಕ (*)[2][3]);
+#ಇಲ್ಲದಿದ್ದರೆ
     /* clang doesn't combine qualifiers through array types */
-    printf("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2])0 : (int (*)[2])0), const int (*)[2]) = 1\n");
-    printf("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2][3])0 : (volatile int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
-    printf("__builtin_types_compatible_p(__typeof__(1 ? (volatile int (*)[2][3])0 : (const int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
-#endif
-    COMPAT_TYPE(int *, int *);
-    COMPAT_TYPE(int *, void *);
-    COMPAT_TYPE(int *, const int *);
-    COMPAT_TYPE(char *, unsigned char *);
-    COMPAT_TYPE(char *, signed char *);
-    COMPAT_TYPE(char *, char *);
-    COMPAT_TYPE(char **, void *);
-#endif
-    printf("res1 = %d\n", __builtin_constant_p(1));
-    printf("res2 = %d\n", __builtin_constant_p(1 + 2));
-    printf("res3 = %d\n", __builtin_constant_p(&constant_p_var));
-    printf("res4 = %d\n", __builtin_constant_p(constant_p_var));
-    printf("res5 = %d\n", __builtin_constant_p(100000 / constant_p_var));
-    printf("res6 = %d\n", __builtin_constant_p(i && 1));
-    printf("res7 = %d\n", __builtin_constant_p("hi"));
-    printf("res8 = %d\n", __builtin_constant_p(func()));
-#ifndef __clang__
-    printf("res10 = %d\n", __builtin_constant_p(i && 0));
-    printf("res11 = %d\n", __builtin_constant_p(i * 0));
-    printf("res12 = %d\n", __builtin_constant_p(i && 0 ? i : 34));
-    printf("res13 = %d\n", __builtin_constant_p((1,7)));
-#else
+    ಬರೆ("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2])0 : (int (*)[2])0), const int (*)[2]) = 1\n");
+    ಬರೆ("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2][3])0 : (volatile int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
+    ಬರೆ("__builtin_types_compatible_p(__typeof__(1 ? (volatile int (*)[2][3])0 : (const int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
+#ಆದರೆ_ಅಂತ್ಯ
+    COMPAT_TYPE(ಪೂರ್ಣಾಂಕ *, ಪೂರ್ಣಾಂಕ *);
+    COMPAT_TYPE(ಪೂರ್ಣಾಂಕ *, ಶೂನ್ಯ *);
+    COMPAT_TYPE(ಪೂರ್ಣಾಂಕ *, ಸ್ಥಿರಾಂಕ ಪೂರ್ಣಾಂಕ *);
+    COMPAT_TYPE(ಅಕ್ಷರ *, ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *);
+    COMPAT_TYPE(ಅಕ್ಷರ *, ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ *);
+    COMPAT_TYPE(ಅಕ್ಷರ *, ಅಕ್ಷರ *);
+    COMPAT_TYPE(ಅಕ್ಷರ **, ಶೂನ್ಯ *);
+#ಆದರೆ_ಅಂತ್ಯ
+    ಬರೆ("res1 = %d\n", __builtin_constant_p(1));
+    ಬರೆ("res2 = %d\n", __builtin_constant_p(1 + 2));
+    ಬರೆ("res3 = %d\n", __builtin_constant_p(&constant_p_var));
+    ಬರೆ("res4 = %d\n", __builtin_constant_p(constant_p_var));
+    ಬರೆ("res5 = %d\n", __builtin_constant_p(100000 / constant_p_var));
+    ಬರೆ("res6 = %d\n", __builtin_constant_p(i && 1));
+    ಬರೆ("res7 = %d\n", __builtin_constant_p("hi"));
+    ಬರೆ("res8 = %d\n", __builtin_constant_p(func()));
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __clang__
+    ಬರೆ("res10 = %d\n", __builtin_constant_p(i && 0));
+    ಬರೆ("res11 = %d\n", __builtin_constant_p(i * 0));
+    ಬರೆ("res12 = %d\n", __builtin_constant_p(i && 0 ? i : 34));
+    ಬರೆ("res13 = %d\n", __builtin_constant_p((1,7)));
+#ಇಲ್ಲದಿದ್ದರೆ
     /* clang doesn't regard these as constant expression */
-    printf("res10 = 1\n");
-    printf("res11 = 1\n");
-    printf("res12 = 1\n");
-    printf("res13 = 0\n");
-#endif
+    ಬರೆ("res10 = 1\n");
+    ಬರೆ("res11 = 1\n");
+    ಬರೆ("res12 = 1\n");
+    ಬರೆ("res13 = 0\n");
+#ಆದರೆ_ಅಂತ್ಯ
 
     s = 1;
     ll = 2;
     i = __builtin_choose_expr (1 != 0, ll, s);
-    printf("bce: %d\n", i);
+    ಬರೆ("bce: %d\n", i);
     i = __builtin_choose_expr (1 != 1, ll, s);
-    printf("bce: %d\n", i);
-    i = sizeof (__builtin_choose_expr (1, ll, s));
-    printf("bce: %d\n", i);
-    i = sizeof (__builtin_choose_expr (0, ll, s));
-    printf("bce: %d\n", i);
+    ಬರೆ("bce: %d\n", i);
+    i = ಗಾತ್ರ (__builtin_choose_expr (1, ll, s));
+    ಬರೆ("bce: %d\n", i);
+    i = ಗಾತ್ರ (__builtin_choose_expr (0, ll, s));
+    ಬರೆ("bce: %d\n", i);
 
     //printf("bera: %p\n", __builtin_extract_return_addr((void*)43));
 
     {
-	int cnt[18];
-	unsigned long long r = 0;
+	ಪೂರ್ಣಾಂಕ cnt[18];
+	ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ r = 0;
 
-	memset(cnt, 0, sizeof(cnt));
-	builtin_test_bits(0, cnt);
-	builtin_test_bits(0xffffffffffffffffull, cnt);
-        for (i = 0; i < 64; i++)
-	    builtin_test_bits(1ull << i, cnt);
-        for (i = 0; i < 1000; i++) {
+	memset(cnt, 0, ಗಾತ್ರ(cnt));
+	builtin_test_ಬಿಟ್ಟುಗಳು(0, cnt);
+	builtin_test_ಬಿಟ್ಟುಗಳು(0xffffffffffffffffull, cnt);
+        ಗಾಗಿ (i = 0; i < 64; i++)
+	    builtin_test_ಬಿಟ್ಟುಗಳು(1ull << i, cnt);
+        ಗಾಗಿ (i = 0; i < 1000; i++) {
 	    r = 0x5851f42d4c957f2dull * r + 0x14057b7ef767814full;
-	    builtin_test_bits(r, cnt);
+	    builtin_test_ಬಿಟ್ಟುಗಳು(r, cnt);
 	}
-	for (i = 0; i < 18; i++)
-	    printf ("%d %d\n", i, cnt[i]);
+	ಗಾಗಿ (i = 0; i < 18; i++)
+	    ಬರೆ ("%d %d\n", i, cnt[i]);
     }
 }
 
-#if defined _WIN32 || (defined __APPLE__ && GCC_MAJOR >= 15)
-void weak_test(void) {}
-#else
-extern int __attribute__((weak)) weak_f1(void);
-extern int __attribute__((weak)) weak_f2(void);
-extern int                       weak_f3(void);
-extern int __attribute__((weak)) weak_v1;
-extern int __attribute__((weak)) weak_v2;
-extern int                       weak_v3;
+#ಆದರೆ defined _WIN32 || (defined __APPLE__ && GCC_MAJOR >= 15)
+ಶೂನ್ಯ weak_test(ಶೂನ್ಯ) {}
+#ಇಲ್ಲದಿದ್ದರೆ
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ __attribute__((weak)) weak_f1(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ __attribute__((weak)) weak_f2(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ                       weak_f3(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ __attribute__((weak)) weak_v1;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ __attribute__((weak)) weak_v2;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ                       weak_v3;
 
-extern int                           (*weak_fpa)() __attribute__((weak));
-extern int __attribute__((weak))     (*weak_fpb)();
-extern     __attribute__((weak)) int (*weak_fpc)();
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ                           (*weak_fpa)() __attribute__((weak));
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ __attribute__((weak))     (*weak_fpb)();
+ಬಾಹ್ಯ     __attribute__((weak)) ಪೂರ್ಣಾಂಕ (*weak_fpc)();
 
-extern int                     weak_asm_f1(void) asm("weak_asm_f1x") __attribute((weak));
-extern int __attribute((weak)) weak_asm_f2(void) asm("weak_asm_f2x")                    ;
-extern int __attribute((weak)) weak_asm_f3(void) asm("weak_asm_f3x") __attribute((weak));
-extern int                     weak_asm_v1       asm("weak_asm_v1x") __attribute((weak));
-extern int __attribute((weak)) weak_asm_v2       asm("weak_asm_v2x")                    ;
-extern int __attribute((weak)) weak_asm_v3(void) asm("weak_asm_v3x") __attribute((weak));
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ                     weak_asm_f1(ಶೂನ್ಯ) asm("weak_asm_f1x") __attribute((weak));
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ __attribute((weak)) weak_asm_f2(ಶೂನ್ಯ) asm("weak_asm_f2x")                    ;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ __attribute((weak)) weak_asm_f3(ಶೂನ್ಯ) asm("weak_asm_f3x") __attribute((weak));
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ                     weak_asm_v1       asm("weak_asm_v1x") __attribute((weak));
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ __attribute((weak)) weak_asm_v2       asm("weak_asm_v2x")                    ;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ __attribute((weak)) weak_asm_v3(ಶೂನ್ಯ) asm("weak_asm_v3x") __attribute((weak));
 
-#ifndef __clang__
-static const size_t dummy = 0;
-extern __typeof(dummy) weak_dummy1 __attribute__((weak, alias("dummy")));
-extern __typeof(dummy) __attribute__((weak, alias("dummy"))) weak_dummy2;
-extern __attribute__((weak, alias("dummy"))) __typeof(dummy) weak_dummy3;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __clang__
+ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಗಾತ್ರ_t dummy = 0;
+ಬಾಹ್ಯ __typeof(dummy) weak_dummy1 __attribute__((weak, alias("dummy")));
+ಬಾಹ್ಯ __typeof(dummy) __attribute__((weak, alias("dummy"))) weak_dummy2;
+ಬಾಹ್ಯ __attribute__((weak, alias("dummy"))) __typeof(dummy) weak_dummy3;
+#ಆದರೆ_ಅಂತ್ಯ
 
-int some_lib_func(void);
-int dummy_impl_of_slf(void) { return 444; }
-#ifndef __clang__
-int some_lib_func(void) __attribute__((weak, alias("dummy_impl_of_slf")));
-#endif
+ಪೂರ್ಣಾಂಕ some_lib_func(ಶೂನ್ಯ);
+ಪೂರ್ಣಾಂಕ dummy_impl_ದ_slf(ಶೂನ್ಯ) { ಹಿಂತಿರುಗಿ 444; }
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __clang__
+ಪೂರ್ಣಾಂಕ some_lib_func(ಶೂನ್ಯ) __attribute__((weak, alias("dummy_impl_of_slf")));
+#ಆದರೆ_ಅಂತ್ಯ
 
-int weak_toolate() __attribute__((weak));
-int weak_toolate() { return 0; }
+ಪೂರ್ಣಾಂಕ weak_toolate() __attribute__((weak));
+ಪೂರ್ಣಾಂಕ weak_toolate() { ಹಿಂತಿರುಗಿ 0; }
 
-void __attribute__((weak)) weak_test(void)
+ಶೂನ್ಯ __attribute__((weak)) weak_test(ಶೂನ್ಯ)
 {
-	printf("weak_f1=%d\n", weak_f1 ? weak_f1() : 123);
-	printf("weak_f2=%d\n", weak_f2 ? weak_f2() : 123);
-	printf("weak_f3=%d\n", weak_f3 ? weak_f3() : 123);
-	printf("weak_v1=%d\n",&weak_v1 ? weak_v1   : 123);
-	printf("weak_v2=%d\n",&weak_v2 ? weak_v2   : 123);
-	printf("weak_v3=%d\n",&weak_v3 ? weak_v3   : 123);
+	ಬರೆ("weak_f1=%d\n", weak_f1 ? weak_f1() : 123);
+	ಬರೆ("weak_f2=%d\n", weak_f2 ? weak_f2() : 123);
+	ಬರೆ("weak_f3=%d\n", weak_f3 ? weak_f3() : 123);
+	ಬರೆ("weak_v1=%d\n",&weak_v1 ? weak_v1   : 123);
+	ಬರೆ("weak_v2=%d\n",&weak_v2 ? weak_v2   : 123);
+	ಬರೆ("weak_v3=%d\n",&weak_v3 ? weak_v3   : 123);
 
-	printf("weak_fpa=%d\n",&weak_fpa ? weak_fpa() : 123);
-	printf("weak_fpb=%d\n",&weak_fpb ? weak_fpb() : 123);
-	printf("weak_fpc=%d\n",&weak_fpc ? weak_fpc() : 123);
+	ಬರೆ("weak_fpa=%d\n",&weak_fpa ? weak_fpa() : 123);
+	ಬರೆ("weak_fpb=%d\n",&weak_fpb ? weak_fpb() : 123);
+	ಬರೆ("weak_fpc=%d\n",&weak_fpc ? weak_fpc() : 123);
 	
-	printf("weak_asm_f1=%d\n", weak_asm_f1 != NULL);
-	printf("weak_asm_f2=%d\n", weak_asm_f2 != NULL);
-	printf("weak_asm_f3=%d\n", weak_asm_f3 != NULL);
-	printf("weak_asm_v1=%d\n",&weak_asm_v1 != NULL);
-	printf("weak_asm_v2=%d\n",&weak_asm_v2 != NULL);
-	printf("weak_asm_v3=%d\n",&weak_asm_v3 != NULL);
-#ifdef __clang__
-	printf("some_lib_func=444\n");
-#else
-	printf("some_lib_func=%d\n", &some_lib_func ? some_lib_func() : 0);
-#endif
+	ಬರೆ("weak_asm_f1=%d\n", weak_asm_f1 != ಖಾಲಿ);
+	ಬರೆ("weak_asm_f2=%d\n", weak_asm_f2 != ಖಾಲಿ);
+	ಬರೆ("weak_asm_f3=%d\n", weak_asm_f3 != ಖಾಲಿ);
+	ಬರೆ("weak_asm_v1=%d\n",&weak_asm_v1 != ಖಾಲಿ);
+	ಬರೆ("weak_asm_v2=%d\n",&weak_asm_v2 != ಖಾಲಿ);
+	ಬರೆ("weak_asm_v3=%d\n",&weak_asm_v3 != ಖಾಲಿ);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __clang__
+	ಬರೆ("some_lib_func=444\n");
+#ಇಲ್ಲದಿದ್ದರೆ
+	ಬರೆ("some_lib_func=%d\n", &some_lib_func ? some_lib_func() : 0);
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-int __attribute__((weak)) weak_f2() { return 222; }
-int __attribute__((weak)) weak_f3() { return 333; }
-int __attribute__((weak)) weak_v2 = 222;
-int __attribute__((weak)) weak_v3 = 333;
-#endif
+ಪೂರ್ಣಾಂಕ __attribute__((weak)) weak_f2() { ಹಿಂತಿರುಗಿ 222; }
+ಪೂರ್ಣಾಂಕ __attribute__((weak)) weak_f3() { ಹಿಂತಿರುಗಿ 333; }
+ಪೂರ್ಣಾಂಕ __attribute__((weak)) weak_v2 = 222;
+ಪೂರ್ಣಾಂಕ __attribute__((weak)) weak_v3 = 333;
+#ಆದರೆ_ಅಂತ್ಯ
 
-void const_func(const int a)
+ಶೂನ್ಯ const_func(ಸ್ಥಿರಾಂಕ ಪೂರ್ಣಾಂಕ a)
 {
 }
 
-void const_warn_test(void)
+ಶೂನ್ಯ const_warn_test(ಶೂನ್ಯ)
 {
     const_func(1);
 }
 
-struct condstruct {
-  int i;
+ರಚನೆ condstruct {
+  ಪೂರ್ಣಾಂಕ i;
 };
 
-int getme (struct condstruct *s, int i)
+ಪೂರ್ಣಾಂಕ getme (ರಚನೆ condstruct *s, ಪೂರ್ಣಾಂಕ i)
 {
-  int i1 = (i == 0 ? 0 : s)->i;
-  int i2 = (i == 0 ? s : 0)->i;
-  int i3 = (i == 0 ? (void*)0 : s)->i;
-  int i4 = (i == 0 ? s : (void*)0)->i;
-  return i1 + i2 + i3 + i4;
+  ಪೂರ್ಣಾಂಕ i1 = (i == 0 ? 0 : s)->i;
+  ಪೂರ್ಣಾಂಕ i2 = (i == 0 ? s : 0)->i;
+  ಪೂರ್ಣಾಂಕ i3 = (i == 0 ? (ಶೂನ್ಯ*)0 : s)->i;
+  ಪೂರ್ಣಾಂಕ i4 = (i == 0 ? s : (ಶೂನ್ಯ*)0)->i;
+  ಹಿಂತಿರುಗಿ i1 + i2 + i3 + i4;
 }
 
-struct global_data
+ರಚನೆ global_ದತ್ತಾಂಶ
 {
-  int a[40];
-  int *b[40];
+  ಪೂರ್ಣಾಂಕ a[40];
+  ಪೂರ್ಣಾಂಕ *b[40];
 };
 
-struct global_data global_data;
+ರಚನೆ global_ದತ್ತಾಂಶ global_ದತ್ತಾಂಶ;
 
-int global_data_getstuff (int *, int);
+ಪೂರ್ಣಾಂಕ global_ದತ್ತಾಂಶ_getstuff (ಪೂರ್ಣಾಂಕ *, ಪೂರ್ಣಾಂಕ);
 
-void global_data_callit (int i)
+ಶೂನ್ಯ global_ದತ್ತಾಂಶ_callit (ಪೂರ್ಣಾಂಕ i)
 {
-  *global_data.b[i] = global_data_getstuff (global_data.b[i], 1);
+  *global_ದತ್ತಾಂಶ.b[i] = global_ದತ್ತಾಂಶ_getstuff (global_ದತ್ತಾಂಶ.b[i], 1);
 }
 
-int global_data_getstuff (int *p, int i)
+ಪೂರ್ಣಾಂಕ global_ದತ್ತಾಂಶ_getstuff (ಪೂರ್ಣಾಂಕ *p, ಪೂರ್ಣಾಂಕ i)
 {
-  return *p + i;
+  ಹಿಂತಿರುಗಿ *p + i;
 }
 
-void global_data_test (void)
+ಶೂನ್ಯ global_ದತ್ತಾಂಶ_test (ಶೂನ್ಯ)
 {
-  global_data.a[0] = 42;
-  global_data.b[0] = &global_data.a[0];
-  global_data_callit (0);
-  printf ("%d\n", global_data.a[0]);
+  global_ದತ್ತಾಂಶ.a[0] = 42;
+  global_ದತ್ತಾಂಶ.b[0] = &global_ದತ್ತಾಂಶ.a[0];
+  global_ದತ್ತಾಂಶ_callit (0);
+  ಬರೆ ("%d\n", global_ದತ್ತಾಂಶ.a[0]);
 }
 
-struct cmpcmpS
+ರಚನೆ cmpcmpS
 {
-  unsigned char fill : 3;
-  unsigned char b1 : 1;
-  unsigned char b2 : 1;
-  unsigned char fill2 : 3;
+  ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ fill : 3;
+  ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ b1 : 1;
+  ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ b2 : 1;
+  ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ fill2 : 3;
 };
 
-int glob1, glob2, glob3;
+ಪೂರ್ಣಾಂಕ glob1, glob2, glob3;
 
-void compare_comparisons (struct cmpcmpS *s)
+ಶೂನ್ಯ compare_comparisons (ರಚನೆ cmpcmpS *s)
 {
-  if (s->b1 != (glob1 == glob2)
+  ಆದರೆ (s->b1 != (glob1 == glob2)
       || (s->b2 != (glob1 == glob3)))
-    printf ("comparing comparisons broken\n");
+    ಬರೆ ("comparing comparisons broken\n");
 }
 
-void cmp_comparison_test(void)
+ಶೂನ್ಯ cmp_comparison_test(ಶೂನ್ಯ)
 {
-  struct cmpcmpS s;
+  ರಚನೆ cmpcmpS s;
   s.b1 = 1;
   glob1 = 42; glob2 = 42;
   s.b2 = 0;
@@ -4177,56 +4177,56 @@ void cmp_comparison_test(void)
   compare_comparisons (&s);
 }
 
-int fcompare (double a, double b, int code)
+ಪೂರ್ಣಾಂಕ fcompare (ದ್ವಿಗುಣ a, ದ್ವಿಗುಣ b, ಪೂರ್ಣಾಂಕ ಸಂಕೇತ_2)
 {
-  switch (code) {
-    case 0: return a == b;
-    case 1: return a != b;
-    case 2: return a < b;
-    case 3: return a >= b;
-    case 4: return a > b;
-    case 5: return a <= b;
+  ಆಯ್ಕೆ (ಸಂಕೇತ_2) {
+    ಸ್ಥಿತಿ 0: ಹಿಂತಿರುಗಿ a == b;
+    ಸ್ಥಿತಿ 1: ಹಿಂತಿರುಗಿ a != b;
+    ಸ್ಥಿತಿ 2: ಹಿಂತಿರುಗಿ a < b;
+    ಸ್ಥಿತಿ 3: ಹಿಂತಿರುಗಿ a >= b;
+    ಸ್ಥಿತಿ 4: ಹಿಂತಿರುಗಿ a > b;
+    ಸ್ಥಿತಿ 5: ಹಿಂತಿರುಗಿ a <= b;
   }
-  return 0;
+  ಹಿಂತಿರುಗಿ 0;
 }
 
-void math_cmp_test(void)
+ಶೂನ್ಯ math_cmp_test(ಶೂನ್ಯ)
 {
-  double nan = 0.0/0.0;
-  double one = 1.0;
-  double two = 2.0;
-  int comp = 0;
-  int v;
-#define bug(a,b,op,iop,part) printf("Test broken: %s %s %s %s %d\n", #a, #b, #op, #iop, part)
+  ದ್ವಿಗುಣ nan = 0.0/0.0;
+  ದ್ವಿಗುಣ one = 1.0;
+  ದ್ವಿಗುಣ two = 2.0;
+  ಪೂರ್ಣಾಂಕ comp = 0;
+  ಪೂರ್ಣಾಂಕ v;
+#ವ್ಯಾಖ್ಯಾನಿಸು bug(a,b,op,iop,part) ಬರೆ("Test broken: %s %s %s %s %d\n", #a, #b, #op, #iop, part)
 
   /* This asserts that "a op b" is _not_ true, but "a iop b" is true.
      And it does this in various ways so that all code generation paths
      are checked (generating inverted tests, or non-inverted tests, or
      producing a 0/1 value without jumps (that's done in the fcompare
      function).  */
-#define FCMP(a,b,op,iop,code) \
-  if (fcompare (a,b,code))    \
+#ವ್ಯಾಖ್ಯಾನಿಸು FCMP(a,b,op,iop,ಸಂಕೇತ_2) \
+  ಆದರೆ (fcompare (a,b,ಸಂಕೇತ_2))    \
     bug (a,b,op,iop,1); \
-  if (a op b) \
+  ಆದರೆ (a op b) \
     bug (a,b,op,iop,2); \
-  if (a iop b) \
+  ಆದರೆ (a iop b) \
     ; \
-  else \
+  ಇಲ್ಲದಿದ್ದರೆ \
     bug (a,b,op,iop,3); \
-  if ((a op b) || comp) \
+  ಆದರೆ ((a op b) || comp) \
     bug (a,b,op,iop,4); \
-  if ((a iop b) || comp) \
+  ಆದರೆ ((a iop b) || comp) \
     ; \
-  else \
+  ಇಲ್ಲದಿದ್ದರೆ \
     bug (a,b,op,iop,5); \
-  if (v = !(a op b), !v) bug(a,b,op,iop,7);
+  ಆದರೆ (v = !(a op b), !v) bug(a,b,op,iop,7);
 
   /* Equality tests.  */
   FCMP(nan, nan, ==, !=, 0);
   FCMP(one, two, ==, !=, 0);
   FCMP(one, one, !=, ==, 1);
   /* Non-equality is a bit special.  */
-  if (!fcompare (nan, nan, 1))
+  ಆದರೆ (!fcompare (nan, nan, 1))
     bug (nan, nan, !=, ==, 6);
 
   /* Relational tests on numbers.  */
@@ -4244,14 +4244,14 @@ void math_cmp_test(void)
   FCMP(nan, nan, <=, !=, 5);
 }
 
-double get100 () { return 100.0; }
+ದ್ವಿಗುಣ get100 () { ಹಿಂತಿರುಗಿ 100.0; }
 
-void callsave_test(void)
+ಶೂನ್ಯ callsave_test(ಶೂನ್ಯ)
 {
-  int i, s; double *d; double t;
-  s = sizeof (double);
-  printf ("callsavetest: %d\n", s);
-  d = alloca (sizeof(double));
+  ಪೂರ್ಣಾಂಕ i, s; ದ್ವಿಗುಣ *d; ದ್ವಿಗುಣ t;
+  s = ಗಾತ್ರ (ದ್ವಿಗುಣ);
+  ಬರೆ ("callsavetest: %d\n", s);
+  d = alloca (ಗಾತ್ರ(ದ್ವಿಗುಣ));
   d[0] = 10.0;
   /* x86-64 had a bug were the next call to get100 would evict
      the lvalue &d[0] as VT_LLOCAL, and the reload would be done
@@ -4259,128 +4259,128 @@ void callsave_test(void)
      with the high 32 bit set (which is likely on x86-64) the access
      generates a segfault.  */
   i = d[0] > get100 ();
-  printf ("%d\n", i);
+  ಬರೆ ("%d\n", i);
 }
 
 
-void bfa3(ptrdiff_t str_offset)
+ಶೂನ್ಯ bfa3(ptrdiff_t str_ಸ್ಥಾನಾಂತರ)
 {
-    printf("bfa3: %s\n", (char *)__builtin_frame_address(3) + str_offset);
+    ಬರೆ("bfa3: %s\n", (ಅಕ್ಷರ *)__builtin_frame_address(3) + str_ಸ್ಥಾನಾಂತರ);
 }
-void bfa2(ptrdiff_t str_offset)
+ಶೂನ್ಯ bfa2(ptrdiff_t str_ಸ್ಥಾನಾಂತರ)
 {
-    printf("bfa2: %s\n", (char *)__builtin_frame_address(2) + str_offset);
-    bfa3(str_offset);
+    ಬರೆ("bfa2: %s\n", (ಅಕ್ಷರ *)__builtin_frame_address(2) + str_ಸ್ಥಾನಾಂತರ);
+    bfa3(str_ಸ್ಥಾನಾಂತರ);
 }
-void bfa1(ptrdiff_t str_offset)
+ಶೂನ್ಯ bfa1(ptrdiff_t str_ಸ್ಥಾನಾಂತರ)
 {
-    printf("bfa1: %s\n", (char *)__builtin_frame_address(1) + str_offset);
-    bfa2(str_offset);
+    ಬರೆ("bfa1: %s\n", (ಅಕ್ಷರ *)__builtin_frame_address(1) + str_ಸ್ಥಾನಾಂತರ);
+    bfa2(str_ಸ್ಥಾನಾಂತರ);
 }
 
-void builtin_frame_address_test(void)
+ಶೂನ್ಯ builtin_ಚೌಕಟ್ಟು_ವಿಳಾಸ_test(ಶೂನ್ಯ)
 {
 /* builtin_frame_address fails on ARM with gcc which make test3 fail */
-#ifndef __arm__
-    char str[] = "__builtin_frame_address";
-    char *fp0 = __builtin_frame_address(0);
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __arm__
+    ಅಕ್ಷರ str[] = "__builtin_frame_address";
+    ಅಕ್ಷರ *fp0 = __builtin_frame_address(0);
 
-    printf("str: %s\n", str);
-#ifndef __riscv // gcc dumps core. tcc, clang work
+    ಬರೆ("str: %s\n", str);
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __riscv // gcc dumps core. tcc, clang work
     bfa1(str-fp0);
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-char via_volatile (char i)
+ಅಕ್ಷರ ಮೂಲಕ_volatile (ಅಕ್ಷರ i)
 {
-  char volatile vi;
+  ಅಕ್ಷರ ಅಸ್ಥಿರ vi;
   vi = i;
-  return vi;
+  ಹಿಂತಿರುಗಿ vi;
 }
 
-void volatile_test(void)
+ಶೂನ್ಯ volatile_test(ಶೂನ್ಯ)
 {
-    if (via_volatile (42) != 42)
-      printf (" broken\n");
-    else
-      printf (" ok\n");
+    ಆದರೆ (ಮೂಲಕ_volatile (42) != 42)
+      ಬರೆ (" broken\n");
+    ಇಲ್ಲದಿದ್ದರೆ
+      ಬರೆ (" ok\n");
 }
 
-struct __attribute__((__packed__)) Spacked {
-    char a;
-    short b;
-    int c;
+ರಚನೆ __attribute__((__packed__)) Spacked {
+    ಅಕ್ಷರ a;
+    ಗಿಡ್ಡ b;
+    ಪೂರ್ಣಾಂಕ c;
 };
-struct Spacked spacked;
-typedef struct __attribute__((__packed__)) {
-    char a;
-    short b;
-    int c;
+ರಚನೆ Spacked spacked;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ __attribute__((__packed__)) {
+    ಅಕ್ಷರ a;
+    ಗಿಡ್ಡ b;
+    ಪೂರ್ಣಾಂಕ c;
 } Spacked2;
 Spacked2 spacked2;
-typedef struct Spacked3_s {
-    char a;
-    short b;
-    int c;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ Spacked3_s {
+    ಅಕ್ಷರ a;
+    ಗಿಡ್ಡ b;
+    ಪೂರ್ಣಾಂಕ c;
 } __attribute__((__packed__)) Spacked3;
 Spacked3 spacked3;
-struct gate_struct64 {
-    unsigned short offset_low;
-    unsigned short segment;
-    unsigned ist : 3, zero0 : 5, type : 5, dpl : 2, p : 1;
-    unsigned short offset_middle;
-    unsigned offset_high;
-    unsigned zero1;
+ರಚನೆ gate_struct64 {
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ ಸ್ಥಾನಾಂತರ_ಕೆಳಗಿನ;
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ segment;
+    ಚಿಹ್ನೆರಹಿತ ist : 3, zero0 : 5, type : 5, dpl : 2, p : 1;
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ ಸ್ಥಾನಾಂತರ_ಮಧ್ಯ;
+    ಚಿಹ್ನೆರಹಿತ ಸ್ಥಾನಾಂತರ_ಮೇಲಿನ;
+    ಚಿಹ್ನೆರಹಿತ zero1;
 } __attribute__((packed));
-typedef struct gate_struct64 gate_desc;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ gate_struct64 gate_desc;
 gate_desc a_gate_desc;
-void attrib_test(void)
+ಶೂನ್ಯ attrib_test(ಶೂನ್ಯ)
 {
-#ifndef _WIN32
-  printf("attr: %d %d %d %d\n", sizeof(struct Spacked),
-	 sizeof(spacked), sizeof(Spacked2), sizeof(spacked2));
-  printf("attr: %d %d\n", sizeof(Spacked3), sizeof(spacked3));
-  printf("attr: %d %d\n", sizeof(gate_desc), sizeof(a_gate_desc));
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
+  ಬರೆ("attr: %d %d %d %d\n", ಗಾತ್ರ(ರಚನೆ Spacked),
+	 ಗಾತ್ರ(spacked), ಗಾತ್ರ(Spacked2), ಗಾತ್ರ(spacked2));
+  ಬರೆ("attr: %d %d\n", ಗಾತ್ರ(Spacked3), ಗಾತ್ರ(spacked3));
+  ಬರೆ("attr: %d %d\n", ಗಾತ್ರ(gate_desc), ಗಾತ್ರ(a_gate_desc));
+#ಆದರೆ_ಅಂತ್ಯ
 }
-extern __attribute__((__unused__)) char * __attribute__((__unused__)) *
-strange_attrib_placement (void);
+ಬಾಹ್ಯ __attribute__((__unused__)) ಅಕ್ಷರ * __attribute__((__unused__)) *
+strange_attrib_placement (ಶೂನ್ಯ);
 
-void * __attribute__((__unused__)) get_void_ptr (void *a)
+ಶೂನ್ಯ * __attribute__((__unused__)) get_void_ptr (ಶೂನ್ಯ *a)
 {
-  return a;
+  ಹಿಂತಿರುಗಿ a;
 }
 
 /* This part checks for a bug in TOK_GET (used for inline expansion),
    where the large long long constant left the the high bits set for
    the integer constant token.  */
-static inline
-int __get_order(unsigned long long size)
+ಸ್ಥಿರ ಸಾಲೊಳಗೆ
+ಪೂರ್ಣಾಂಕ __get_order(ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ ಗಾತ್ರ_2)
 {
-  int order;
-  size -= 0xffff880000000000ULL; // this const left high bits set in the token
+  ಪೂರ್ಣಾಂಕ ಕ್ರಮ;
+  ಗಾತ್ರ_2 -= 0xffff880000000000ULL; // this const left high bits set in the token
     {
-      struct S { int i : 1; } s; // constructed for this '1'
+      ರಚನೆ S { ಪೂರ್ಣಾಂಕ i : 1; } s; // constructed for this '1'
     }
-  order = size;
-  return order;
+  ಕ್ರಮ = ಗಾತ್ರ_2;
+  ಹಿಂತಿರುಗಿ ಕ್ರಮ;
 }
 
 /* This just forces the above inline function to be actually emitted.  */
-int force_get_order(unsigned long s)
+ಪೂರ್ಣಾಂಕ force_get_ಕ್ರಮ(ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ s)
 {
-    return __get_order(s);
+    ಹಿಂತಿರುಗಿ __get_order(s);
 }
 
-#define pv(m) printf(sizeof (s->m + 0) == 8 ? "%016llx\n" : "%02x\n", s->m)
+#ವ್ಯಾಖ್ಯಾನಿಸು pv(m) ಬರೆ(ಗಾತ್ರ (s->m + 0) == 8 ? "%016llx\n" : "%02x\n", s->m)
 
 /* Test failed when using bounds checking */
-void bounds_check1_test (void)
+ಶೂನ್ಯ bounds_check1_test (ಶೂನ್ಯ)
 {
-    struct s {
-        int x;
-        long long y;
+    ರಚನೆ s {
+        ಪೂರ್ಣಾಂಕ x;
+        ದೀರ್ಘ ದೀರ್ಘ y;
     } _s, *s = &_s;
     s->x = 10;
     s->y = 20;
@@ -4389,150 +4389,150 @@ void bounds_check1_test (void)
 }
 
 /* This failed on arm64/riscv64 */
-void map_add(int a, int b, int c, int d, int e, int f, int g, int h, int i)
+ಶೂನ್ಯ map_ಕೂಡಿಸು(ಪೂರ್ಣಾಂಕ a, ಪೂರ್ಣಾಂಕ b, ಪೂರ್ಣಾಂಕ c, ಪೂರ್ಣಾಂಕ d, ಪೂರ್ಣಾಂಕ e, ಪೂರ್ಣಾಂಕ f, ಪೂರ್ಣಾಂಕ g, ಪೂರ್ಣಾಂಕ h, ಪೂರ್ಣಾಂಕ i)
 {
-  printf ("%d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i);
+  ಬರೆ ("%d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i);
 }
 
-void func_arg_test(void)
+ಶೂನ್ಯ func_arg_test(ಶೂನ್ಯ)
 {
-    int a = 0;
-    int b = 1;
-    map_add(0, 1, 2, 3, 4, 5, 6, 7, a && b);
+    ಪೂರ್ಣಾಂಕ a = 0;
+    ಪೂರ್ಣಾಂಕ b = 1;
+    map_ಕೂಡಿಸು(0, 1, 2, 3, 4, 5, 6, 7, a && b);
 }
 
 /* gcc 2.95.3 does not handle correctly CR in strings or after strays */
-#define CORRECT_CR_HANDLING
+#ವ್ಯಾಖ್ಯಾನಿಸು CORRECT_CR_HANDLING
 
 /* deprecated and no longer supported in gcc 3.3 */
 /* no longer supported by default in TinyCC */
-#ifdef __TINYC__
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __TINYC__
 /* # define ACCEPT_LF_IN_STRINGS */
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define	tcc_test()
+#ವ್ಯಾಖ್ಯಾನಿಸು	tcc_test()
 
 /* keep this as the last test because GCC messes up line-numbers
    with the ^L^K^M characters below */
-void whitespace_test(void)
+ಶೂನ್ಯ whitespace_test(ಶೂನ್ಯ)
 {
-    char *str;
-    int tcc_test = 1;
+    ಅಕ್ಷರ *str;
+    ಪೂರ್ಣಾಂಕ tcc_test = 1;
 
-#if 1
+#ಆದರೆ 1
     pri\
 ntf("whitspace:\n");
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
     pf("N=%d\n", 2);
 
-#ifdef CORRECT_CR_HANDLING
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CORRECT_CR_HANDLING
     pri\
 ntf("aaa=%d\n", 3);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
     pri\
 \
 ntf("min=%d\n", 4);
 
-#ifdef ACCEPT_LF_IN_STRINGS
-    printf("len1=%d\n", strlen("
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ ACCEPT_LF_ಒಳ_ಅಕ್ಷರಸರಣಿಗಳು
+    ಬರೆ("len1=%d\n", ಅಕ್ಷರಸರಣಿ_ಉದ್ದ("
 "));
-#ifdef CORRECT_CR_HANDLING
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CORRECT_CR_HANDLING
     str = "
 ";
-    printf("len1=%d str[0]=%d\n", strlen(str), str[0]);
-#endif
-    printf("len1=%d\n", strlen("a
+    ಬರೆ("len1=%d str[0]=%d\n", ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(str), str[0]);
+#ಆದರೆ_ಅಂತ್ಯ
+    ಬರೆ("len1=%d\n", ಅಕ್ಷರಸರಣಿ_ಉದ್ದ("a
 "));
-#else
-    printf("len1=1\nlen1=1 str[0]=10\nlen1=3\n");
-#endif /* ACCEPT_LF_IN_STRINGS */
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ("len1=1\nlen1=1 str[0]=10\nlen1=3\n");
+#ಆದರೆ_ಅಂತ್ಯ /* ACCEPT_LF_IN_STRINGS */
 
-#ifdef __LINE__
-    printf("__LINE__ defined\n");
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __LINE__
+    ಬರೆ("__LINE__ defined\n");
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if 0
+#ಆದರೆ 0
     /* wrong with GCC */
-    printf("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
-#line 1111
-    printf("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
-#line 2222 "test"
-    printf("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
-#endif
+    ಬರೆ("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
+#ಸಾಲು 1111
+    ಬರೆ("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
+#ಸಾಲು 2222 "test"
+    ಬರೆ("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
+#ಆದರೆ_ಅಂತ್ಯ
 
-    printf("\\
+    ಬರೆ("\\
 "12\\
 063\\
 n 456\"\n");
 
-    printf ("%d\n",
-#if 1
+    ಬರೆ ("%d\n",
+#ಆದರೆ 1
 	    tcc_test
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
             );
 
 }
 
-#define RUN(test) puts("---- " #test " ----"), test(), puts("")
+#ವ್ಯಾಖ್ಯಾನಿಸು ಸತತ_2(test) puts("---- " #test " ----"), test(), puts("")
 
-int main(int argc, char **argv)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv)
 {
-    RUN(whitespace_test);
-    RUN(macro_test);
-    RUN(recursive_macro_test);
-    RUN(string_test);
-    RUN(expr_test);
-    RUN(scope_test);
-    RUN(scope2_test);
-    RUN(forward_test);
-    RUN(funcptr_test);
-    RUN(if_test);
-    RUN(loop_test);
-    RUN(switch_test);
-    RUN(goto_test);
-    RUN(enum_test);
-    RUN(typedef_test);
-    RUN(struct_test);
-    RUN(array_test);
-    RUN(expr_ptr_test);
-    RUN(bool_test);
-    RUN(optimize_out_test);
-    RUN(expr2_test);
-    RUN(constant_expr_test);
-    RUN(expr_cmp_test);
-    RUN(char_short_test);
-    RUN(init_test);
-    RUN(compound_literal_test);
-    RUN(kr_test);
-    RUN(struct_assign_test);
-    RUN(cast_test);
-    RUN(bitfield_test);
-    RUN(c99_bool_test);
-    RUN(float_test);
-    RUN(longlong_test);
-    RUN(manyarg_test);
-    RUN(stdarg_test);
-    RUN(relocation_test);
-    RUN(old_style_function_test);
-    RUN(alloca_test);
-    RUN(c99_vla_test);
-    RUN(sizeof_test);
-    RUN(typeof_test);
-    RUN(statement_expr_test);
-    RUN(local_label_test);
-    RUN(asm_test);
-    RUN(builtin_test);
-    RUN(weak_test);
-    RUN(global_data_test);
-    RUN(cmp_comparison_test);
-    RUN(math_cmp_test);
-    RUN(callsave_test);
-    RUN(builtin_frame_address_test);
-    RUN(volatile_test);
-    RUN(attrib_test);
-    RUN(bounds_check1_test);
-    RUN(func_arg_test);
+    ಸತತ_2(whitespace_test);
+    ಸತತ_2(macro_test);
+    ಸತತ_2(recursive_macro_test);
+    ಸತತ_2(string_test);
+    ಸತತ_2(ಅಭಿವ್ಯಕ್ತಿ_test);
+    ಸತತ_2(scope_test);
+    ಸತತ_2(scope2_test);
+    ಸತತ_2(forward_test);
+    ಸತತ_2(funcptr_test);
+    ಸತತ_2(if_test);
+    ಸತತ_2(loop_test);
+    ಸತತ_2(switch_test);
+    ಸತತ_2(goto_test);
+    ಸತತ_2(enum_test);
+    ಸತತ_2(typedef_test);
+    ಸತತ_2(struct_test);
+    ಸತತ_2(array_test);
+    ಸತತ_2(ಅಭಿವ್ಯಕ್ತಿ_ptr_test);
+    ಸತತ_2(bool_test);
+    ಸತತ_2(optimize_ಹೊರಹೋಗು_test);
+    ಸತತ_2(expr2_test);
+    ಸತತ_2(constant_ಅಭಿವ್ಯಕ್ತಿ_test);
+    ಸತತ_2(ಅಭಿವ್ಯಕ್ತಿ_cmp_test);
+    ಸತತ_2(char_short_test);
+    ಸತತ_2(init_test);
+    ಸತತ_2(compound_literal_test);
+    ಸತತ_2(kr_test);
+    ಸತತ_2(struct_ನಿಯೋಜಿಸು_test);
+    ಸತತ_2(cast_test);
+    ಸತತ_2(bitfield_test);
+    ಸತತ_2(c99_bool_test);
+    ಸತತ_2(float_test);
+    ಸತತ_2(longlong_test);
+    ಸತತ_2(manyarg_test);
+    ಸತತ_2(stdarg_test);
+    ಸತತ_2(relocation_test);
+    ಸತತ_2(old_style_function_test);
+    ಸತತ_2(alloca_test);
+    ಸತತ_2(c99_vla_test);
+    ಸತತ_2(sizeof_test);
+    ಸತತ_2(typeof_test);
+    ಸತತ_2(statement_ಅಭಿವ್ಯಕ್ತಿ_test);
+    ಸತತ_2(local_label_test);
+    ಸತತ_2(asm_test);
+    ಸತತ_2(builtin_test);
+    ಸತತ_2(weak_test);
+    ಸತತ_2(global_ದತ್ತಾಂಶ_test);
+    ಸತತ_2(cmp_comparison_test);
+    ಸತತ_2(math_cmp_test);
+    ಸತತ_2(callsave_test);
+    ಸತತ_2(builtin_ಚೌಕಟ್ಟು_ವಿಳಾಸ_test);
+    ಸತತ_2(volatile_test);
+    ಸತತ_2(attrib_test);
+    ಸತತ_2(bounds_check1_test);
+    ಸತತ_2(func_arg_test);
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

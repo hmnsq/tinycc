@@ -3,6 +3,6 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#if !(defined(lint) || defined(RC_INVOKED))
-#pragma pack(push,2)
-#endif
+#ಆದರೆ !(defined(lint) || defined(RC_INVOKED))
+#ಸೂಚನೆ pack(ತಳ್ಳು,2)
+#ಆದರೆ_ಅಂತ್ಯ

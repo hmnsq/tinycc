@@ -1,38 +1,38 @@
-extern int printf(const char*, ...);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ*, ...);
 
-struct fred;
+ರಚನೆ fred;
 
-void fred$(struct fred* this)
+ಶೂನ್ಯ fred$(ರಚನೆ fred* this)
 {
-    printf("~fred()\n");
+    ಬರೆ("~fred()\n");
 }
 
-struct __attribute__((__cleanup__(fred$))) fred
+ರಚನೆ __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   ಪೂರ್ಣಾಂಕ boris;
+   ಪೂರ್ಣಾಂಕ natasha;
 };
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    struct fred  __attribute__((__cleanup__(fred$))) bloggs;
+    ರಚನೆ fred  __attribute__((__cleanup__(fred$))) bloggs;
 
    bloggs.boris = 12;
    bloggs.natasha = 34;
 
-   printf("%d\n", bloggs.boris);
-   printf("%d\n", bloggs.natasha);
+   ಬರೆ("%d\n", bloggs.boris);
+   ಬರೆ("%d\n", bloggs.natasha);
 
-   struct fred jones[2];
+   ರಚನೆ fred jones[2];
    jones[0].boris = 12;
    jones[0].natasha = 34;
    jones[1].boris = 56;
    jones[1].natasha = 78;
 
-   printf("%d\n", jones[0].boris);
-   printf("%d\n", jones[0].natasha);
-   printf("%d\n", jones[1].boris);
-   printf("%d\n", jones[1].natasha);
+   ಬರೆ("%d\n", jones[0].boris);
+   ಬರೆ("%d\n", jones[0].natasha);
+   ಬರೆ("%d\n", jones[1].boris);
+   ಬರೆ("%d\n", jones[1].natasha);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }

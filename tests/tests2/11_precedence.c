@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *, ...);
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   ಪೂರ್ಣಾಂಕ a;
+   ಪೂರ್ಣಾಂಕ b;
+   ಪೂರ್ಣಾಂಕ c;
+   ಪೂರ್ಣಾಂಕ d;
+   ಪೂರ್ಣಾಂಕ e;
+   ಪೂರ್ಣಾಂಕ f;
+   ಪೂರ್ಣಾಂಕ x;
+   ಪೂರ್ಣಾಂಕ y;
 
    a = 12;
    b = 34;
@@ -19,23 +19,23 @@ int main()
    e = 0;
    f = 1;
 
-   printf("%d\n", c + d);
-   printf("%d\n", (y = c + d));
-   printf("%d\n", e || e && f);
-   printf("%d\n", e || f && f);
-   printf("%d\n", e && e || f);
-   printf("%d\n", e && f || f);
-   printf("%d\n", a && f | f);
-   printf("%d\n", a | b ^ c & d);
-   printf("%d, %d\n", a == a, a == b);
-   printf("%d, %d\n", a != a, a != b);
-   printf("%d\n", a != b && c != d);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", (4 << 4));
-   printf("%d\n", (64 >> 4));
+   ಬರೆ("%d\n", c + d);
+   ಬರೆ("%d\n", (y = c + d));
+   ಬರೆ("%d\n", e || e && f);
+   ಬರೆ("%d\n", e || f && f);
+   ಬರೆ("%d\n", e && e || f);
+   ಬರೆ("%d\n", e && f || f);
+   ಬರೆ("%d\n", a && f | f);
+   ಬರೆ("%d\n", a | b ^ c & d);
+   ಬರೆ("%d, %d\n", a == a, a == b);
+   ಬರೆ("%d, %d\n", a != a, a != b);
+   ಬರೆ("%d\n", a != b && c != d);
+   ಬರೆ("%d\n", a + b * c / f);
+   ಬರೆ("%d\n", a + b * c / f);
+   ಬರೆ("%d\n", (4 << 4));
+   ಬರೆ("%d\n", (64 >> 4));
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

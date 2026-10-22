@@ -1,18 +1,18 @@
 X1 __COUNTER__
 X2 __COUNTER__
-#if __COUNTER__
+#ಆದರೆ __COUNTER__
 X3 __COUNTER__
-#endif
-#define pass(x) x
-#define a x __COUNTER__ y
-#define a2 pass(__COUNTER__)
-#define f(c) c __COUNTER__
-#define apply(d) d d __COUNTER__ x2 f(d) y2 __COUNTER__
-#define _paste(a,b) a ## b
-#define paste(a,b) _paste(a,b)
-#define _paste3(a,b,c) a ## b ## c
-#define doublepaste(a,b) _paste3(a,b,b)
-#define str(x) #x
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿಸು pass(x) x
+#ವ್ಯಾಖ್ಯಾನಿಸು a x __COUNTER__ y
+#ವ್ಯಾಖ್ಯಾನಿಸು a2 pass(__COUNTER__)
+#ವ್ಯಾಖ್ಯಾನಿಸು f(c) c __COUNTER__
+#ವ್ಯಾಖ್ಯಾನಿಸು apply(d) d d __COUNTER__ x2 f(d) y2 __COUNTER__
+#ವ್ಯಾಖ್ಯಾನಿಸು _paste(a,b) a ## b
+#ವ್ಯಾಖ್ಯಾನಿಸು paste(a,b) _paste(a,b)
+#ವ್ಯಾಖ್ಯಾನಿಸು _paste3(a,b,c) a ## b ## c
+#ವ್ಯಾಖ್ಯಾನಿಸು doublepaste(a,b) _paste3(a,b,b)
+#ವ್ಯಾಖ್ಯಾನಿಸು str(x) #x
 X4 a
 X5 f(a)
 X6 f(b)

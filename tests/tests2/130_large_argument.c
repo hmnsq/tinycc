@@ -1,41 +1,41 @@
-#include<stdio.h>
+#ಅನ್ತರ್ಭಾವ<stdio.h>
 
-struct large1 {
-    int a[768];
+ರಚನೆ large1 {
+    ಪೂರ್ಣಾಂಕ a[768];
 };
 
-struct large2 {
-    int a[1920];
+ರಚನೆ large2 {
+    ಪೂರ್ಣಾಂಕ a[1920];
 };
 
-void pass_large_struct1(struct large1 in)
+ಶೂನ್ಯ pass_large_struct1(ರಚನೆ large1 ಒಳ)
 {
-    printf("%d %d\n", in.a[200], in.a[767]);
-    return;
+    ಬರೆ("%d %d\n", ಒಳ.a[200], ಒಳ.a[767]);
+    ಹಿಂತಿರುಗಿ;
 }
 
-void pass_large_struct2(struct large2 in)
+ಶೂನ್ಯ pass_large_struct2(ರಚನೆ large2 ಒಳ)
 {
-    printf("%d %d %d\n", in.a[200], in.a[1023], in.a[1919]);
-    return;
+    ಬರೆ("%d %d %d\n", ಒಳ.a[200], ಒಳ.a[1023], ಒಳ.a[1919]);
+    ಹಿಂತಿರುಗಿ;
 }
 
-void pass_many_args(int a, int b, int c, int d, int e, int f, int g, int h, int i,
-                    int j, int k, int l, int m)
+ಶೂನ್ಯ pass_many_ವಾದಗಳು(ಪೂರ್ಣಾಂಕ a, ಪೂರ್ಣಾಂಕ b, ಪೂರ್ಣಾಂಕ c, ಪೂರ್ಣಾಂಕ d, ಪೂರ್ಣಾಂಕ e, ಪೂರ್ಣಾಂಕ f, ಪೂರ್ಣಾಂಕ g, ಪೂರ್ಣಾಂಕ h, ಪೂರ್ಣಾಂಕ i,
+                    ಪೂರ್ಣಾಂಕ j, ಪೂರ್ಣಾಂಕ k, ಪೂರ್ಣಾಂಕ l, ಪೂರ್ಣಾಂಕ m)
 {
-    printf("%d %d %d %d %d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i,
+    ಬರೆ("%d %d %d %d %d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i,
            j, k, l, m);
-    return;
+    ಹಿಂತಿರುಗಿ;
 }
 
-struct large1 l1 = { .a = { [200] = 1, [767] = 2 } };
-struct large2 l2 = { .a = { [200] = 3, [1023] = 4, [1919] = 5} };
+ರಚನೆ large1 l1 = { .a = { [200] = 1, [767] = 2 } };
+ರಚನೆ large2 l2 = { .a = { [200] = 3, [1023] = 4, [1919] = 5} };
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
     pass_large_struct1(l1);
     pass_large_struct2(l2);
-    pass_many_args(13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+    pass_many_ವಾದಗಳು(13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

@@ -1,43 +1,43 @@
-int tcc_backtrace(const char*, ...);
-#define hello() \
+ಪೂರ್ಣಾಂಕ tcc_backtrace(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ*, ...);
+#ವ್ಯಾಖ್ಯಾನಿಸು hello() \
     tcc_backtrace("hello from %s() / %s:%d",__FUNCTION__,__FILE__,__LINE__)
 
-#ifndef _WIN32
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
 # define __declspec(n)
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if DLL==1
-__declspec(dllexport) int f_1()
+#ಆದರೆ DLL==1
+__declspec(dllexport) ಪೂರ್ಣಾಂಕ f_1()
 {
     hello();
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 
-#elif DLL==2
-__declspec(dllexport) int f_2()
+#ಅಥವಾಆದರೆ DLL==2
+__declspec(dllexport) ಪೂರ್ಣಾಂಕ f_2()
 {
     hello();
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 
-int f_1();
-int f_2();
-int f_main()
+ಪೂರ್ಣಾಂಕ f_1();
+ಪೂರ್ಣಾಂಕ f_2();
+ಪೂರ್ಣಾಂಕ f_main()
 {
     hello();
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-int main ()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ ()
 {
     f_1();
     f_2();
     f_main();
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ

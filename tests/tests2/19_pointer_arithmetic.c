@@ -1,28 +1,28 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int a;
-   int *b;
-   int *c;
+   ಪೂರ್ಣಾಂಕ a;
+   ಪೂರ್ಣಾಂಕ *b;
+   ಪೂರ್ಣಾಂಕ *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = ಖಾಲಿ;
 
-   printf("%d\n", *b);
+   ಬರೆ("%d\n", *b);
 
-   if (b == NULL)
-      printf("b is NULL\n");
-   else
-      printf("b is not NULL\n");
+   ಆದರೆ (b == ಖಾಲಿ)
+      ಬರೆ("b is NULL\n");
+   ಇಲ್ಲದಿದ್ದರೆ
+      ಬರೆ("b is not NULL\n");
 
-   if (c == NULL)
-      printf("c is NULL\n");
-   else
-      printf("c is not NULL\n");
+   ಆದರೆ (c == ಖಾಲಿ)
+      ಬರೆ("c is NULL\n");
+   ಇಲ್ಲದಿದ್ದರೆ
+      ಬರೆ("c is not NULL\n");
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

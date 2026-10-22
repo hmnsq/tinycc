@@ -1,23 +1,23 @@
 // https://lists.nongnu.org/archive/html/tinycc-devel/2024-12/msg00019.html
 // x86_64/i386 void gfunc_call(int nb_args), when push struct args, need fetch cpu flag before generating any code
 
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-struct string {
-	char *str;
-	int len;
+ರಚನೆ string {
+	ಅಕ್ಷರ *str;
+	ಪೂರ್ಣಾಂಕ len;
 };
 
-void dummy(struct string fpath, int dump_arg) {
+ಶೂನ್ಯ dummy(ರಚನೆ string fpath, ಪೂರ್ಣಾಂಕ dump_arg) {
 }
 
-int main() {
-	int a = 1;
-	struct string x;
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ() {
+	ಪೂರ್ಣಾಂಕ a = 1;
+	ರಚನೆ string x;
 	x.str = "gg.v";
 	x.len = 4;
 	dummy(x, a == 0);
-	printf("done\n");
-	return 0;
+	ಬರೆ("done\n");
+	ಹಿಂತಿರುಗಿ 0;
 }
 

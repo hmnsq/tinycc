@@ -5,24 +5,24 @@
  */
 /* 7.8 Format conversion of integer types <inttypes.h> */
 
-#ifndef _INTTYPES_H_
-#define _INTTYPES_H_
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _INTTYPES_H_
+#ವ್ಯಾಖ್ಯಾನಿಸು _INTTYPES_H_
 
-#include <_mingw.h>
-#include <stdint.h>
-#define __need_wchar_t
-#include <stddef.h>
+#ಅನ್ತರ್ಭಾವ <_mingw.h>
+#ಅನ್ತರ್ಭಾವ <stdint.h>
+#ವ್ಯಾಖ್ಯಾನಿಸು __need_wchar_t
+#ಅನ್ತರ್ಭಾವ <stddef.h>
 
-#ifdef	__cplusplus
-extern	"C"	{
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ	__cplusplus
+ಬಾಹ್ಯ	"C"	{
+#ಆದರೆ_ಅಂತ್ಯ
 
-typedef struct {
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ {
 	intmax_t quot;
 	intmax_t rem;
 	} imaxdiv_t;
 
-#if !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS)
+#ಆದರೆ !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS)
 
 /* 7.8.1 Macros for format specifiers
  * 
@@ -33,109 +33,109 @@ typedef struct {
  */
 
 /* fprintf macros for signed types */
-#define PRId8 "d"
-#define PRId16 "d"
-#define PRId32 "d"
-#define PRId64 "I64d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRId8 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRId16 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRId32 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRId64 "I64d"
 
-#define PRIdLEAST8 "d"
-#define PRIdLEAST16 "d"
-#define PRIdLEAST32 "d"
-#define PRIdLEAST64 "I64d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIdLEAST8 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIdLEAST16 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIdLEAST32 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIdLEAST64 "I64d"
 
-#define PRIdFAST8 "d"
-#define PRIdFAST16 "d"
-#define PRIdFAST32 "d"
-#define PRIdFAST64 "I64d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIdFAST8 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIdFAST16 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIdFAST32 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIdFAST64 "I64d"
 
-#define PRIdMAX "I64d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIdMAX "I64d"
 
-#define PRIi8 "i"
-#define PRIi16 "i"
-#define PRIi32 "i"
-#define PRIi64 "I64i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIi8 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIi16 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIi32 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIi64 "I64i"
 
-#define PRIiLEAST8 "i"
-#define PRIiLEAST16 "i"
-#define PRIiLEAST32 "i"
-#define PRIiLEAST64 "I64i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIiLEAST8 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIiLEAST16 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIiLEAST32 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIiLEAST64 "I64i"
 
-#define PRIiFAST8 "i"
-#define PRIiFAST16 "i"
-#define PRIiFAST32 "i"
-#define PRIiFAST64 "I64i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIiFAST8 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIiFAST16 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIiFAST32 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIiFAST64 "I64i"
 
-#define PRIiMAX "I64i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIiMAX "I64i"
 
-#define PRIo8 "o"
-#define PRIo16 "o"
-#define PRIo32 "o"
-#define PRIo64 "I64o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIo8 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIo16 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIo32 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIo64 "I64o"
 
-#define PRIoLEAST8 "o"
-#define PRIoLEAST16 "o"
-#define PRIoLEAST32 "o"
-#define PRIoLEAST64 "I64o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIoLEAST8 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIoLEAST16 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIoLEAST32 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIoLEAST64 "I64o"
 
-#define PRIoFAST8 "o"
-#define PRIoFAST16 "o"
-#define PRIoFAST32 "o"
-#define PRIoFAST64 "I64o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIoFAST8 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIoFAST16 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIoFAST32 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIoFAST64 "I64o"
 
-#define PRIoMAX "I64o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIoMAX "I64o"
 
 /* fprintf macros for unsigned types */
-#define PRIu8 "u"
-#define PRIu16 "u"
-#define PRIu32 "u"
-#define PRIu64 "I64u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIu8 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIu16 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIu32 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIu64 "I64u"
 
 
-#define PRIuLEAST8 "u"
-#define PRIuLEAST16 "u"
-#define PRIuLEAST32 "u"
-#define PRIuLEAST64 "I64u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIuLEAST8 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIuLEAST16 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIuLEAST32 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIuLEAST64 "I64u"
 
-#define PRIuFAST8 "u"
-#define PRIuFAST16 "u"
-#define PRIuFAST32 "u"
-#define PRIuFAST64 "I64u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIuFAST8 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIuFAST16 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIuFAST32 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIuFAST64 "I64u"
 
-#define PRIuMAX "I64u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIuMAX "I64u"
 
-#define PRIx8 "x"
-#define PRIx16 "x"
-#define PRIx32 "x"
-#define PRIx64 "I64x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIx8 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIx16 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIx32 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIx64 "I64x"
 
-#define PRIxLEAST8 "x"
-#define PRIxLEAST16 "x"
-#define PRIxLEAST32 "x"
-#define PRIxLEAST64 "I64x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIxLEAST8 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIxLEAST16 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIxLEAST32 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIxLEAST64 "I64x"
 
-#define PRIxFAST8 "x"
-#define PRIxFAST16 "x"
-#define PRIxFAST32 "x"
-#define PRIxFAST64 "I64x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIxFAST8 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIxFAST16 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIxFAST32 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIxFAST64 "I64x"
 
-#define PRIxMAX "I64x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIxMAX "I64x"
 
-#define PRIX8 "X"
-#define PRIX16 "X"
-#define PRIX32 "X"
-#define PRIX64 "I64X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIX8 "X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIX16 "X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIX32 "X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIX64 "I64X"
 
-#define PRIXLEAST8 "X"
-#define PRIXLEAST16 "X"
-#define PRIXLEAST32 "X"
-#define PRIXLEAST64 "I64X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIXLEAST8 "X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIXLEAST16 "X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIXLEAST32 "X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIXLEAST64 "I64X"
 
-#define PRIXFAST8 "X"
-#define PRIXFAST16 "X"
-#define PRIXFAST32 "X"
-#define PRIXFAST64 "I64X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIXFAST8 "X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIXFAST16 "X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIXFAST32 "X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIXFAST64 "I64X"
 
-#define PRIXMAX "I64X"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIXMAX "I64X"
 
 /*
  *   fscanf macros for signed int types
@@ -144,154 +144,154 @@ typedef struct {
  *   no length identifiers
  */
 
-#define SCNd16 "hd"
-#define SCNd32 "d"
-#define SCNd64 "I64d"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNd16 "hd"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNd32 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNd64 "I64d"
 
-#define SCNdLEAST16 "hd"
-#define SCNdLEAST32 "d"
-#define SCNdLEAST64 "I64d"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNdLEAST16 "hd"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNdLEAST32 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNdLEAST64 "I64d"
 
-#define SCNdFAST16 "hd"
-#define SCNdFAST32 "d"
-#define SCNdFAST64 "I64d"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNdFAST16 "hd"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNdFAST32 "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNdFAST64 "I64d"
 
-#define SCNdMAX "I64d"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNdMAX "I64d"
 
-#define SCNi16 "hi"
-#define SCNi32 "i"
-#define SCNi64 "I64i"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNi16 "hi"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNi32 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNi64 "I64i"
 
-#define SCNiLEAST16 "hi"
-#define SCNiLEAST32 "i"
-#define SCNiLEAST64 "I64i"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNiLEAST16 "hi"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNiLEAST32 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNiLEAST64 "I64i"
 
-#define SCNiFAST16 "hi"
-#define SCNiFAST32 "i"
-#define SCNiFAST64 "I64i"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNiFAST16 "hi"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNiFAST32 "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNiFAST64 "I64i"
 
-#define SCNiMAX "I64i"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNiMAX "I64i"
 
-#define SCNo16 "ho"
-#define SCNo32 "o"
-#define SCNo64 "I64o"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNo16 "ho"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNo32 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNo64 "I64o"
 
-#define SCNoLEAST16 "ho"
-#define SCNoLEAST32 "o"
-#define SCNoLEAST64 "I64o"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNoLEAST16 "ho"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNoLEAST32 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNoLEAST64 "I64o"
 
-#define SCNoFAST16 "ho"
-#define SCNoFAST32 "o"
-#define SCNoFAST64 "I64o"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNoFAST16 "ho"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNoFAST32 "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNoFAST64 "I64o"
 
-#define SCNoMAX "I64o"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNoMAX "I64o"
 
-#define SCNx16 "hx"
-#define SCNx32 "x"
-#define SCNx64 "I64x"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNx16 "hx"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNx32 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNx64 "I64x"
 
-#define SCNxLEAST16 "hx"
-#define SCNxLEAST32 "x"
-#define SCNxLEAST64 "I64x"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNxLEAST16 "hx"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNxLEAST32 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNxLEAST64 "I64x"
 
-#define SCNxFAST16 "hx"
-#define SCNxFAST32 "x"
-#define SCNxFAST64 "I64x"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNxFAST16 "hx"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNxFAST32 "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNxFAST64 "I64x"
 
-#define SCNxMAX "I64x"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNxMAX "I64x"
 
 /* fscanf macros for unsigned int types */
 
-#define SCNu16 "hu"
-#define SCNu32 "u"
-#define SCNu64 "I64u"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNu16 "hu"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNu32 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNu64 "I64u"
 
-#define SCNuLEAST16 "hu"
-#define SCNuLEAST32 "u"
-#define SCNuLEAST64 "I64u"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNuLEAST16 "hu"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNuLEAST32 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNuLEAST64 "I64u"
 
-#define SCNuFAST16 "hu"
-#define SCNuFAST32 "u"
-#define SCNuFAST64 "I64u"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNuFAST16 "hu"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNuFAST32 "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNuFAST64 "I64u"
 
-#define SCNuMAX "I64u"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNuMAX "I64u"
 
-#ifdef _WIN64
-#define PRIdPTR "I64d"
-#define PRIiPTR "I64i"
-#define PRIoPTR "I64o"
-#define PRIuPTR "I64u"
-#define PRIxPTR "I64x"
-#define PRIXPTR "I64X"
-#define SCNdPTR "I64d"
-#define SCNiPTR "I64i"
-#define SCNoPTR "I64o"
-#define SCNxPTR "I64x"
-#define SCNuPTR "I64u"
-#else
-#define PRIdPTR "d"
-#define PRIiPTR "i"
-#define PRIoPTR "o"
-#define PRIuPTR "u"
-#define PRIxPTR "x"
-#define PRIXPTR "X"
-#define SCNdPTR "d"
-#define SCNiPTR "i"
-#define SCNoPTR "o"
-#define SCNxPTR "x"
-#define SCNuPTR "u"
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIdPTR "I64d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIiPTR "I64i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIoPTR "I64o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIuPTR "I64u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIxPTR "I64x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIXPTR "I64X"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNdPTR "I64d"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNiPTR "I64i"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNoPTR "I64o"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNxPTR "I64x"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNuPTR "I64u"
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIdPTR "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIiPTR "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIoPTR "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIuPTR "u"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIxPTR "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು PRIXPTR "X"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNdPTR "d"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNiPTR "i"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNoPTR "o"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNxPTR "x"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNuPTR "u"
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#ಆದರೆ defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 /*
  * no length modifier for char types prior to C9x
  * MS runtime  scanf appears to treat "hh" as "h" 
  */
 
 /* signed char */
-#define SCNd8 "hhd"
-#define SCNdLEAST8 "hhd"
-#define SCNdFAST8 "hhd"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNd8 "hhd"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNdLEAST8 "hhd"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNdFAST8 "hhd"
 
-#define SCNi8 "hhi"
-#define SCNiLEAST8 "hhi"
-#define SCNiFAST8 "hhi"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNi8 "hhi"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNiLEAST8 "hhi"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNiFAST8 "hhi"
 
-#define SCNo8 "hho"
-#define SCNoLEAST8 "hho"
-#define SCNoFAST8 "hho"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNo8 "hho"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNoLEAST8 "hho"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNoFAST8 "hho"
 
-#define SCNx8 "hhx"
-#define SCNxLEAST8 "hhx"
-#define SCNxFAST8 "hhx"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNx8 "hhx"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNxLEAST8 "hhx"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNxFAST8 "hhx"
 
 /* unsigned char */
-#define SCNu8 "hhu"
-#define SCNuLEAST8 "hhu"
-#define SCNuFAST8 "hhu"
-#endif /* __STDC_VERSION__ >= 199901 */
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNu8 "hhu"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNuLEAST8 "hhu"
+#ವ್ಯಾಖ್ಯಾನಿಸು SCNuFAST8 "hhu"
+#ಆದರೆ_ಅಂತ್ಯ /* __STDC_VERSION__ >= 199901 */
 
-#endif	/* !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS) */
+#ಆದರೆ_ಅಂತ್ಯ	/* !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS) */
 
 intmax_t __cdecl imaxabs (intmax_t j);
 __CRT_INLINE intmax_t __cdecl imaxabs (intmax_t j)
-	{return	(j >= 0 ? j : -j);}
+	{ಹಿಂತಿರುಗಿ	(j >= 0 ? j : -j);}
 imaxdiv_t __cdecl imaxdiv (intmax_t numer, intmax_t denom);
 
 /* 7.8.2 Conversion functions for greatest-width integer types */
 
-intmax_t __cdecl strtoimax (const char* __restrict__ nptr,
-                            char** __restrict__ endptr, int base);
-uintmax_t __cdecl strtoumax (const char* __restrict__ nptr,
-			     char** __restrict__ endptr, int base);
+intmax_t __cdecl strtoimax (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ* __restrict__ nptr,
+                            ಅಕ್ಷರ** __restrict__ endptr, ಪೂರ್ಣಾಂಕ ತಳ);
+uintmax_t __cdecl strtoumax (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ* __restrict__ nptr,
+			     ಅಕ್ಷರ** __restrict__ endptr, ಪೂರ್ಣಾಂಕ ತಳ);
 
-intmax_t __cdecl wcstoimax (const wchar_t* __restrict__ nptr,
-                            wchar_t** __restrict__ endptr, int base);
-uintmax_t __cdecl wcstoumax (const wchar_t* __restrict__ nptr,
-			     wchar_t** __restrict__ endptr, int base);
+intmax_t __cdecl wcstoimax (ಸ್ಥಿರಾಂಕ wchar_t* __restrict__ nptr,
+                            wchar_t** __restrict__ endptr, ಪೂರ್ಣಾಂಕ ತಳ);
+uintmax_t __cdecl wcstoumax (ಸ್ಥಿರಾಂಕ wchar_t* __restrict__ nptr,
+			     wchar_t** __restrict__ endptr, ಪೂರ್ಣಾಂಕ ತಳ);
 
-#ifdef	__cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ	__cplusplus
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif /* ndef _INTTYPES_H */
+#ಆದರೆ_ಅಂತ್ಯ /* ndef _INTTYPES_H */

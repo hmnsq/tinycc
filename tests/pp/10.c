@@ -1,8 +1,8 @@
-#define f(x) x
-#define g(x) f(x) f(x
-#define i(x) g(x)) g(x
-#define h(x) i(x))) i(x
-#define k(x) i(x))) i(x))))
+#ವ್ಯಾಖ್ಯಾನಿಸು f(x) x
+#ವ್ಯಾಖ್ಯಾನಿಸು g(x) f(x) f(x
+#ವ್ಯಾಖ್ಯಾನಿಸು i(x) g(x)) g(x
+#ವ್ಯಾಖ್ಯಾನಿಸು h(x) i(x))) i(x
+#ವ್ಯಾಖ್ಯಾನಿಸು k(x) i(x))) i(x))))
 f(x)
 g(x))
 i(x)))

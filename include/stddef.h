@@ -1,27 +1,27 @@
-#ifndef _STDDEF_H
-#define _STDDEF_H
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _STDDEF_H
+#ವ್ಯಾಖ್ಯಾನಿಸು _STDDEF_H
 
-typedef __SIZE_TYPE__ size_t;
-typedef __PTRDIFF_TYPE__ ssize_t;
-typedef __WCHAR_TYPE__ wchar_t;
-typedef __PTRDIFF_TYPE__ ptrdiff_t;
-typedef __PTRDIFF_TYPE__ intptr_t;
-typedef __SIZE_TYPE__ uintptr_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __SIZE_TYPE__ ಗಾತ್ರ_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __PTRDIFF_TYPE__ ssize_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __WCHAR_TYPE__ wchar_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __PTRDIFF_TYPE__ ptrdiff_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __PTRDIFF_TYPE__ intptr_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __SIZE_TYPE__ uintptr_t;
 
-#if __STDC_VERSION__ >= 201112L
-typedef union { long long __ll; long double __ld; } max_align_t;
-#endif
+#ಆದರೆ __STDC_VERSION__ >= 201112L
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಒಕ್ಕೂಟ { ದೀರ್ಘ ದೀರ್ಘ __ll; ದೀರ್ಘ ದ್ವಿಗುಣ __ld; } max_align_t;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef NULL
-#define NULL ((void*)0)
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ಖಾಲಿ
+#ವ್ಯಾಖ್ಯಾನಿಸು ಖಾಲಿ ((ಶೂನ್ಯ*)0)
+#ಆದರೆ_ಅಂತ್ಯ
 
-#undef offsetof
-#define offsetof(type, field) __builtin_offsetof(type, field)
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು offsetof
+#ವ್ಯಾಖ್ಯಾನಿಸು offsetof(type, ಕ್ಷೇತ್ರ) __builtin_offsetof(type, ಕ್ಷೇತ್ರ)
 
-void *alloca(size_t size);
+ಶೂನ್ಯ *alloca(ಗಾತ್ರ_t ಗಾತ್ರ_2);
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* Older glibc require a wint_t from <stddef.h> (when requested
    by __need_wint_t, as otherwise stddef.h isn't allowed to
@@ -30,10 +30,10 @@ void *alloca(size_t size);
    already (without requiring wint_t).  Some other libs define _WINT_T
    if they've already provided that type, so we can use that as guard.
    TCC defines __WINT_TYPE__ for us.  */
-#if defined (__need_wint_t)
-#ifndef _WINT_T
-#define _WINT_T
-typedef __WINT_TYPE__ wint_t;
-#endif
-#undef __need_wint_t
-#endif
+#ಆದರೆ defined (__need_wint_t)
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WINT_T
+#ವ್ಯಾಖ್ಯಾನಿಸು _WINT_T
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __WINT_TYPE__ wint_t;
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು __need_wint_t
+#ಆದರೆ_ಅಂತ್ಯ

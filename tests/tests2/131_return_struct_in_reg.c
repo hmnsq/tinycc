@@ -1,41 +1,41 @@
-#include<stdio.h>
+#ಅನ್ತರ್ಭಾವ<stdio.h>
 
-struct s1 {
-    unsigned char a:4, b:4;
+ರಚನೆ s1 {
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ a:4, b:4;
 } g1 = { 0x05, 0x0a };
 
-struct s2 {
-    unsigned char a, b;
+ರಚನೆ s2 {
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ a, b;
 } g2 = { 0x12, 0x34 };
 
-struct s4 {
-    unsigned short a, b;
+ರಚನೆ s4 {
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ a, b;
 } g4 = { 0x1245, 0x5678 };
 
-struct s8 {
-    unsigned a, b;
+ರಚನೆ s8 {
+    ಚಿಹ್ನೆರಹಿತ a, b;
 } g8 = { 0x12345678, 0x9abcdef0 };
 
 /* returned in 2 registers on riscv64 */
-struct s16 {
-    unsigned long long a, b;
+ರಚನೆ s16 {
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ a, b;
 } g16 = { 0x123456789abcdef0ULL, 0xfedcba9876543210ULL };
 
 /* Homogeneous float aggregate on ARM hard-float */
-struct s_f4 {
-    double a, b, c, d;
+ರಚನೆ s_f4 {
+    ದ್ವಿಗುಣ a, b, c, d;
 } g_f4 = { 1,2,3,4 };
 
-#define def(S) \
-struct s##S f##S(int x) \
+#ವ್ಯಾಖ್ಯಾನಿಸು def(S) \
+ರಚನೆ s##S f##S(ಪೂರ್ಣಾಂಕ x) \
 { \
-    struct s##S l##S = g##S, *p##S = &l##S; \
-    if (x == 0) \
-        return g##S; \
-    else if (x == 1) \
-        return l##S; \
-    else \
-        return *p##S; \
+    ರಚನೆ s##S l##S = g##S, *p##S = &l##S; \
+    ಆದರೆ (x == 0) \
+        ಹಿಂತಿರುಗಿ g##S; \
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (x == 1) \
+        ಹಿಂತಿರುಗಿ l##S; \
+    ಇಲ್ಲದಿದ್ದರೆ \
+        ಹಿಂತಿರುಗಿ *p##S; \
 }
 
 def(1)
@@ -45,26 +45,26 @@ def(8)
 def(16)
 def(_f4)
 
-#define chk(S,x) \
-    struct s##S l##S = f##S(x); \
-    printf("%02llx %02llx\n", \
-        (unsigned long long)l##S.a, \
-        (unsigned long long)l##S.b \
+#ವ್ಯಾಖ್ಯಾನಿಸು chk(S,x) \
+    ರಚನೆ s##S l##S = f##S(x); \
+    ಬರೆ("%02llx %02llx\n", \
+        (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)l##S.a, \
+        (ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ)l##S.b \
         );
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    for (int x = 0;;) {
+    ಗಾಗಿ (ಪೂರ್ಣಾಂಕ x = 0;;) {
         chk(1,x);
         chk(2,x);
         chk(4,x);
         chk(8,x);
         chk(16,x);
-        struct s_f4 l_f4 = f_f4(x);
-        printf("%.1f %.1f %.1f %.1f\n", l_f4.a, l_f4.b, l_f4.c, l_f4.d);
-        if (++x > 2)
-            break;
-        printf("\n");
+        ರಚನೆ s_f4 l_f4 = f_f4(x);
+        ಬರೆ("%.1f %.1f %.1f %.1f\n", l_f4.a, l_f4.b, l_f4.c, l_f4.d);
+        ಆದರೆ (++x > 2)
+            ನಿಲ್ಲಿಸು;
+        ಬರೆ("\n");
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

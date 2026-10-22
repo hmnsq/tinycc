@@ -1,45 +1,45 @@
-#include <stdatomic.h>
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdatomic.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-static int value_calls;
-static int order_calls;
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ಮೌಲ್ಯ_calls;
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ಕ್ರಮ_calls;
 
-static int next_value(void)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ಮುಂದಿನ_ಮೌಲ್ಯ(ಶೂನ್ಯ)
 {
-    ++value_calls;
-    return 42;
+    ++ಮೌಲ್ಯ_calls;
+    ಹಿಂತಿರುಗಿ 42;
 }
 
-static int next_order(void)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ ಮುಂದಿನ_ಕ್ರಮ(ಶೂನ್ಯ)
 {
-    ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    ++ಕ್ರಮ_calls;
+    ಹಿಂತಿರುಗಿ __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
-    void (*signal_fence)(memory_order) = &atomic_signal_fence;
+    ಪೂರ್ಣಾಂಕ ಮೌಲ್ಯಗಳು[2] = {7, 8};
+    ಪೂರ್ಣಾಂಕ ಸೂಚ್ಯಂಕ = 0;
+    ಪೂರ್ಣಾಂಕ ಮೌಲ್ಯ = 1;
+    ಅಸ್ಥಿರ ಪೂರ್ಣಾಂಕ vol = 0;
+    ಪೂರ್ಣಾಂಕ *ಸೂಚಕ_2 = &ಮೌಲ್ಯ;
+    ಶೂನ್ಯ (*signal_fence)(memory_order) = &atomic_signal_fence;
 
-    __atomic_store_n(&values[index++], next_value(), next_order());
-    printf("%d %d %d %d %d\n", index, value_calls, order_calls,
-           values[0], values[1]);
-    __atomic_store_n(&value, value + 1, __ATOMIC_RELAXED);
-    printf("%d\n", value);
+    __atomic_store_n(&ಮೌಲ್ಯಗಳು[ಸೂಚ್ಯಂಕ++], ಮುಂದಿನ_ಮೌಲ್ಯ(), ಮುಂದಿನ_ಕ್ರಮ());
+    ಬರೆ("%d %d %d %d %d\n", ಸೂಚ್ಯಂಕ, ಮೌಲ್ಯ_calls, ಕ್ರಮ_calls,
+           ಮೌಲ್ಯಗಳು[0], ಮೌಲ್ಯಗಳು[1]);
+    __atomic_store_n(&ಮೌಲ್ಯ, ಮೌಲ್ಯ + 1, __ATOMIC_RELAXED);
+    ಬರೆ("%d\n", ಮೌಲ್ಯ);
     __atomic_store_n(&vol, 13, __ATOMIC_RELEASE);
-    printf("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
-    __atomic_store_n(&pointer, &values[0], __ATOMIC_RELEASE);
-    printf("%d\n", *__atomic_load_n(&pointer, __ATOMIC_ACQUIRE));
+    ಬರೆ("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
+    __atomic_store_n(&ಸೂಚಕ_2, &ಮೌಲ್ಯಗಳು[0], __ATOMIC_RELEASE);
+    ಬರೆ("%d\n", *__atomic_load_n(&ಸೂಚಕ_2, __ATOMIC_ACQUIRE));
 
-    atomic_signal_fence(memory_order_acquire);
+    atomic_signal_fence(ಸ್ಮರಣೆ_ಕ್ರಮ_acquire);
     __atomic_signal_fence(__ATOMIC_RELEASE);
-    signal_fence(memory_order_seq_cst);
-    atomic_thread_fence(memory_order_seq_cst);
+    signal_fence(ಸ್ಮರಣೆ_ಕ್ರಮ_seq_cst);
+    atomic_thread_fence(ಸ್ಮರಣೆ_ಕ್ರಮ_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
     puts("ok");
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

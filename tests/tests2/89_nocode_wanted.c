@@ -1,112 +1,112 @@
-extern int printf(const char *format, ...);
-static void kb_wait_1(void)
+ಬಾಹ್ಯ ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *format, ...);
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_1(ಶೂನ್ಯ)
 {
-    unsigned long timeout = 2;
-    do {
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ timeout = 2;
+    ಮಾಡು {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ಬರೆ("timeout=%ld\n", timeout) :
             ({
-                while (1)
-                    printf("error\n");
+                ಆಗ (1)
+                    ಬರೆ("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ಆಗ (timeout);
 }
-static void kb_wait_2(void)
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_2(ಶೂನ್ಯ)
 {
-    unsigned long timeout = 2;
-    do {
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ timeout = 2;
+    ಮಾಡು {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ಬರೆ("timeout=%ld\n", timeout) :
             ({
-                for (;;)
-                    printf("error\n");
+                ಗಾಗಿ (;;)
+                    ಬರೆ("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ಆಗ (timeout);
 }
-static void kb_wait_2_1(void)
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_2_1(ಶೂನ್ಯ)
 {
-    unsigned long timeout = 2;
-    do {
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ timeout = 2;
+    ಮಾಡು {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ಬರೆ("timeout=%ld\n", timeout) :
             ({
-                do {
-                    printf("error\n");
-		} while (1);
+                ಮಾಡು {
+                    ಬರೆ("error\n");
+		} ಆಗ (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } ಆಗ (timeout);
 }
-static void kb_wait_2_2(void)
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_2_2(ಶೂನ್ಯ)
 {
-    unsigned long timeout = 2;
-    do {
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ timeout = 2;
+    ಮಾಡು {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ಬರೆ("timeout=%ld\n", timeout) :
             ({
                 label:
-                    printf("error\n");
-		goto label;
+                    ಬರೆ("error\n");
+		ಹೋಗು label;
             })
         );
         timeout--;
-    } while (timeout);
+    } ಆಗ (timeout);
 }
-static void kb_wait_3(void)
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_3(ಶೂನ್ಯ)
 {
-    unsigned long timeout = 2;
-    do {
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ timeout = 2;
+    ಮಾಡು {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ಬರೆ("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
-                goto label;
+                ಪೂರ್ಣಾಂಕ i = 1;
+                ಹೋಗು label;
                 i = i + 2;
             label:
                 i = i + 3;
             })
         );
         timeout--;
-    } while (timeout);
+    } ಆಗ (timeout);
 }
-static void kb_wait_4(void)
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_4(ಶೂನ್ಯ)
 {
-    unsigned long timeout = 2;
-    do {
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ timeout = 2;
+    ಮಾಡು {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            ಬರೆ("timeout=%ld\n", timeout) :
             ({
-                switch(timeout) {
-                    case 2:
-                        printf("timeout is 2");
-                        break;
-                    case 1:
-                        printf("timeout is 1");
-                        break;
-                    default:
-                        printf("timeout is 0?");
-                        break;
+                ಆಯ್ಕೆ(timeout) {
+                    ಸ್ಥಿತಿ 2:
+                        ಬರೆ("timeout is 2");
+                        ನಿಲ್ಲಿಸು;
+                    ಸ್ಥಿತಿ 1:
+                        ಬರೆ("timeout is 1");
+                        ನಿಲ್ಲಿಸು;
+                    ಪೂರ್ವನಿಯೋಜಿತ:
+                        ಬರೆ("timeout is 0?");
+                        ನಿಲ್ಲಿಸು;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } ಆಗ (timeout);
 }
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    printf("begin\n");
+    ಬರೆ("begin\n");
     kb_wait_1();
     kb_wait_2();
     kb_wait_2_1();
     kb_wait_2_2();
     kb_wait_3();
     kb_wait_4();
-    printf("end\n");
-    return 0;
+    ಬರೆ("end\n");
+    ಹಿಂತಿರುಗಿ 0;
 }

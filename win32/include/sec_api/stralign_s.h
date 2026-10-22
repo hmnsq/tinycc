@@ -3,28 +3,28 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef __STRALIGN_H_S_
-#define __STRALIGN_H_S_
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __STRALIGN_H_S_
+#ವ್ಯಾಖ್ಯಾನಿಸು __STRALIGN_H_S_
 
-#include <stralign.h>
+#ಅನ್ತರ್ಭಾವ <stralign.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ಆದರೆ defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if !defined(I_X86_) && defined(_WSTRING_S_DEFINED)
-#if defined(__cplusplus) && defined(_WConst_Return)
-  static __inline PUWSTR ua_wcscpy_s(PUWSTR Destination,size_t DestinationSize,PCUWSTR Source) {
-    if(WSTR_ALIGNED(Source) && WSTR_ALIGNED(Destination)) return (wcscpy_s((PWSTR)Destination,DestinationSize,(PCWSTR)Source)==0 ? Destination : NULL);
-    return uaw_wcscpy((PCUWSTR)String,Character);
+#ಆದರೆ !defined(I_X86_) && defined(_WSTRING_S_DEFINED)
+#ಆದರೆ defined(__cplusplus) && defined(_WConst_Return)
+  ಸ್ಥಿರ __inline PUWSTR ua_wcscpy_s(PUWSTR Destination,ಗಾತ್ರ_t Destination_ಗಾತ್ರ,PCUWSTR ಮೂಲ_2) {
+    ಆದರೆ(WSTR_ALIGNED(ಮೂಲ_2) && WSTR_ALIGNED(Destination)) ಹಿಂತಿರುಗಿ (wcscpy_s((PWSTR)Destination,Destination_ಗಾತ್ರ,(PCWSTR)ಮೂಲ_2)==0 ? Destination : ಖಾಲಿ);
+    ಹಿಂತಿರುಗಿ uaw_wcscpy((PCUWSTR)String,Character);
   }
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 }
-#endif
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ

@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
 asm (
     ".text;"
     ".globl _us;.globl _ss;.globl _uc;.globl _sc;"
@@ -8,34 +8,34 @@ asm (
 	"ret;"
 );
 
-#ifndef __leading_underscore
-#define us _us
-#define ss _ss
-#define uc _uc
-#define sc _sc
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __leading_underscore
+#ವ್ಯಾಖ್ಯಾನಿಸು us _us
+#ವ್ಯಾಖ್ಯಾನಿಸು ss _ss
+#ವ್ಯಾಖ್ಯಾನಿಸು uc _uc
+#ವ್ಯಾಖ್ಯಾನಿಸು sc _sc
+#ಆದರೆ_ಅಂತ್ಯ
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-    unsigned short us(void);
-    short ss(void);
-    unsigned char uc(void);
-    signed char sc(void);
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ us(ಶೂನ್ಯ);
+    ಗಿಡ್ಡ ss(ಶೂನ್ಯ);
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ uc(ಶೂನ್ಯ);
+    ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ sc(ಶೂನ್ಯ);
 
-    unsigned short (*fpus)(void) = us;
-    short (*fpss)(void) = ss;
-    unsigned char (*fpuc)(void) = uc;
-    signed char (*fpsc)(void) = sc;
+    ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ (*fpus)(ಶೂನ್ಯ) = us;
+    ಗಿಡ್ಡ (*fpss)(ಶೂನ್ಯ) = ss;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ (*fpuc)(ಶೂನ್ಯ) = uc;
+    ಚಿಹ್ನೆಯುಳ್ಳ ಅಕ್ಷರ (*fpsc)(ಶೂನ್ಯ) = sc;
 
-    printf("%08X %08X\n", us() + 1, fpus() + 1);
-    printf("%08X %08X\n", ss() + 1, fpss() + 1);
-    printf("%08X %08X\n", uc() + 1, fpuc() + 1);
-    printf("%08X %08X\n", sc() + 1, fpsc() + 1);
-    printf("\n");
-    printf("%08X %08X\n", fpus() + 1, us() + 1);
-    printf("%08X %08X\n", fpss() + 1, ss() + 1);
-    printf("%08X %08X\n", fpuc() + 1, uc() + 1);
-    printf("%08X %08X\n", fpsc() + 1, sc() + 1);
+    ಬರೆ("%08X %08X\n", us() + 1, fpus() + 1);
+    ಬರೆ("%08X %08X\n", ss() + 1, fpss() + 1);
+    ಬರೆ("%08X %08X\n", uc() + 1, fpuc() + 1);
+    ಬರೆ("%08X %08X\n", sc() + 1, fpsc() + 1);
+    ಬರೆ("\n");
+    ಬರೆ("%08X %08X\n", fpus() + 1, us() + 1);
+    ಬರೆ("%08X %08X\n", fpss() + 1, ss() + 1);
+    ಬರೆ("%08X %08X\n", fpuc() + 1, uc() + 1);
+    ಬರೆ("%08X %08X\n", fpsc() + 1, sc() + 1);
 
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }

@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+ಪೂರ್ಣಾಂಕ ಬರೆ(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *s, ...);
 
-float fx(x)
-float x;
+ದಶಮಾಂಶ fx(x)
+ದಶಮಾಂಶ x;
 {
-    return 2.0 * x;
+    ಹಿಂತಿರುಗಿ 2.0 * x;
 }
 
-void func(float a);
+ಶೂನ್ಯ func(ದಶಮಾಂಶ a);
 
-void func3(struct p { int a; int b; } *q) {
+ಶೂನ್ಯ func3(ರಚನೆ p { ಪೂರ್ಣಾಂಕ a; ಪೂರ್ಣಾಂಕ b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+ಶೂನ್ಯ func4(q)
+ ರಚನೆ p { ಪೂರ್ಣಾಂಕ a; ಪೂರ್ಣಾಂಕ b; ಪೂರ್ಣಾಂಕ c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+ರಚನೆ p { ಪೂರ್ಣಾಂಕ a; ಪೂರ್ಣಾಂಕ b; ಪೂರ್ಣಾಂಕ c; ಪೂರ್ಣಾಂಕ d; };
 
-int
-main(void)
+ಪೂರ್ಣಾಂಕ
+ಮುಖ್ಯ(ಶೂನ್ಯ)
 {
-    float fy();
+    ದಶಮಾಂಶ fy();
 
-    printf("%g %g\n", fx(2.0), fy(10.0));
-    printf("%g %g\n", fx(2.0f), fy(10.0f));
+    ಬರೆ("%g %g\n", fx(2.0), fy(10.0));
+    ಬರೆ("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+ದಶಮಾಂಶ fy(x)
+ದಶಮಾಂಶ x;
 {
-    return 3.0 * x;
+    ಹಿಂತಿರುಗಿ 3.0 * x;
 }
 
-void func(a)
-float a;
+ಶೂನ್ಯ func(a)
+ದಶಮಾಂಶ a;
 {
-    printf("%g\n", a);
+    ಬರೆ("%g\n", a);
 }

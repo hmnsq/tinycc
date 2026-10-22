@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main() 
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ() 
 {
-   int a;
+   ಪೂರ್ಣಾಂಕ a;
    a = 42;
-   printf("%d\n", a);
+   ಬರೆ("%d\n", a);
 
-   int b = 64;
-   printf("%d\n", b);
+   ಪೂರ್ಣಾಂಕ b = 64;
+   ಬರೆ("%d\n", b);
 
-   int c = 12, d = 34;
-   printf("%d, %d\n", c, d);
+   ಪೂರ್ಣಾಂಕ c = 12, d = 34;
+   ಬರೆ("%d, %d\n", c, d);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

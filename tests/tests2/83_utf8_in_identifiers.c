@@ -1,9 +1,9 @@
-#include <stdio.h>
-double привет=0.1;
-int Lefèvre=2;
-int main(){
-    printf("привет=%g\n",привет);
-    printf("Lefèvre=%d\n",Lefèvre);
-    return 0;
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+ದ್ವಿಗುಣ привет=0.1;
+ಪೂರ್ಣಾಂಕ Lefèvre=2;
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ(){
+    ಬರೆ("привет=%g\n",привет);
+    ಬರೆ("Lefèvre=%d\n",Lefèvre);
+    ಹಿಂತಿರುಗಿ 0;
 }
 // pcc & tcc only

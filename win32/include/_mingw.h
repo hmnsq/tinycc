@@ -15,157 +15,157 @@
  *
  */
 
-#ifndef __MINGW_H
-#define __MINGW_H
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __MINGW_H
+#ವ್ಯಾಖ್ಯಾನಿಸು __MINGW_H
 
 /* some winapi files define these before including _mingw.h --> */
-#undef __cdecl
-#undef _X86_
-#undef WIN32
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು __cdecl
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು _X86_
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು WIN32
 /* <-- */
 
-#include <stddef.h>
-#include <stdarg.h>
+#ಅನ್ತರ್ಭಾವ <stddef.h>
+#ಅನ್ತರ್ಭಾವ <stdarg.h>
 
-#define __int8 char
-#define __int16 short
-#define __int32 int
-#define __int64 long long
-#define _HAVE_INT64
+#ವ್ಯಾಖ್ಯಾನಿಸು __int8 ಅಕ್ಷರ
+#ವ್ಯಾಖ್ಯಾನಿಸು __int16 ಗಿಡ್ಡ
+#ವ್ಯಾಖ್ಯಾನಿಸು __int32 ಪೂರ್ಣಾಂಕ
+#ವ್ಯಾಖ್ಯಾನಿಸು __int64 ದೀರ್ಘ ದೀರ್ಘ
+#ವ್ಯಾಖ್ಯಾನಿಸು _HAVE_INT64
 
-#define __cdecl
-#define __declspec(x) __attribute__((x))
-#define __unaligned __attribute__((packed))
-#define __fastcall __attribute__((fastcall))
+#ವ್ಯಾಖ್ಯಾನಿಸು __cdecl
+#ವ್ಯಾಖ್ಯಾನಿಸು __declspec(x) __attribute__((x))
+#ವ್ಯಾಖ್ಯಾನಿಸು __unaligned __attribute__((packed))
+#ವ್ಯಾಖ್ಯಾನಿಸು __fastcall __attribute__((fastcall))
 
-#define __MSVCRT__ 1
-#undef _MSVCRT_
-#define __MINGW_IMPORT extern __declspec(dllimport)
-#define __MINGW_ATTRIB_NORETURN __declspec(noreturn)
-#define __MINGW_ATTRIB_CONST
-#define __MINGW_ATTRIB_DEPRECATED
-#define __MINGW_ATTRIB_MALLOC
-#define __MINGW_ATTRIB_PURE
-#define __MINGW_ATTRIB_NONNULL(arg)
-#define __MINGW_NOTHROW
-#define __GNUC_VA_LIST
+#ವ್ಯಾಖ್ಯಾನಿಸು __MSVCRT__ 1
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು _MSVCRT_
+#ವ್ಯಾಖ್ಯಾನಿಸು __MINGW_IMPORT ಬಾಹ್ಯ __declspec(dllimport)
+#ವ್ಯಾಖ್ಯಾನಿಸು __MINGW_ATTRIB_NORETURN __declspec(noreturn)
+#ವ್ಯಾಖ್ಯಾನಿಸು __MINGW_ATTRIB_CONST
+#ವ್ಯಾಖ್ಯಾನಿಸು __MINGW_ATTRIB_DEPRECATED
+#ವ್ಯಾಖ್ಯಾನಿಸು __MINGW_ATTRIB_MALLOC
+#ವ್ಯಾಖ್ಯಾನಿಸು __MINGW_ATTRIB_PURE
+#ವ್ಯಾಖ್ಯಾನಿಸು __MINGW_ATTRIB_NONNULL(arg)
+#ವ್ಯಾಖ್ಯಾನಿಸು __MINGW_NOTHROW
+#ವ್ಯಾಖ್ಯಾನಿಸು __GNUC_VA_LIST
 
-#define _CRTIMP extern
-#define __CRT_INLINE static __inline__
+#ವ್ಯಾಖ್ಯಾನಿಸು _CRTIMP ಬಾಹ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿಸು __CRT_INLINE ಸ್ಥಿರ __inline__
 
-#define _CRT_ALIGN(x) __attribute__((aligned(x)))
-#define DECLSPEC_ALIGN(x) __attribute__((aligned(x)))
-#define _CRT_PACKING 8
-#define __CRT_UNALIGNED
-#define _CONST_RETURN
+#ವ್ಯಾಖ್ಯಾನಿಸು _CRT_ALIGN(x) __attribute__((aligned(x)))
+#ವ್ಯಾಖ್ಯಾನಿಸು DECLSPEC_ALIGN(x) __attribute__((aligned(x)))
+#ವ್ಯಾಖ್ಯಾನಿಸು _CRT_PACKING 8
+#ವ್ಯಾಖ್ಯಾನಿಸು __CRT_UNALIGNED
+#ವ್ಯಾಖ್ಯಾನಿಸು _CONST_RETURN
 
-#ifndef _TRUNCATE
-#define _TRUNCATE ((size_t)-1)
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _TRUNCATE
+#ವ್ಯಾಖ್ಯಾನಿಸು _TRUNCATE ((ಗಾತ್ರ_t)-1)
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define __CRT_STRINGIZE(_Value) #_Value
-#define _CRT_STRINGIZE(_Value) __CRT_STRINGIZE(_Value)
-#define __CRT_WIDE(_String) L ## _String
-#define _CRT_WIDE(_String) __CRT_WIDE(_String)
+#ವ್ಯಾಖ್ಯಾನಿಸು __CRT_STRINGIZE(ಮೌಲ್ಯ_2) #_Value
+#ವ್ಯಾಖ್ಯಾನಿಸು _CRT_STRINGIZE(ಮೌಲ್ಯ_2) __CRT_STRINGIZE(ಮೌಲ್ಯ_2)
+#ವ್ಯಾಖ್ಯಾನಿಸು __CRT_WIDE(_String) L ## _String
+#ವ್ಯಾಖ್ಯಾನಿಸು _CRT_WIDE(_String) __CRT_WIDE(_String)
 
-#ifdef _WIN64
-#define __stdcall
-#if defined(__aarch64__)
-#define _M_ARM64 1
-#define _ARM64_ 1
-#else
-#define _AMD64_ 1
-#define __x86_64 1
-#define _M_X64 100 /* Visual Studio */
-#define _M_AMD64 100 /* Visual Studio */
-#endif
-#else
-#define __stdcall __attribute__((__stdcall__))
-#define _X86_ 1
-#define _M_IX86 300 /* Visual Studio */
-#ifndef __MINGW_USE_VC2005_COMPAT /* time became 64, but not timeval.tv_sec */
-# ifndef _USE_32BIT_TIME_T
-#  define _USE_32BIT_TIME_T
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+#ವ್ಯಾಖ್ಯಾನಿಸು __stdcall
+#ಆದರೆ defined(__aarch64__)
+#ವ್ಯಾಖ್ಯಾನಿಸು _M_ARM64 1
+#ವ್ಯಾಖ್ಯಾನಿಸು _ARM64_ 1
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು _AMD64_ 1
+#ವ್ಯಾಖ್ಯಾನಿಸು __x86_64 1
+#ವ್ಯಾಖ್ಯಾನಿಸು _M_X64 100 /* Visual Studio */
+#ವ್ಯಾಖ್ಯಾನಿಸು _M_AMD64 100 /* Visual Studio */
+#ಆದರೆ_ಅಂತ್ಯ
+#ಇಲ್ಲದಿದ್ದರೆ
+#ವ್ಯಾಖ್ಯಾನಿಸು __stdcall __attribute__((__stdcall__))
+#ವ್ಯಾಖ್ಯಾನಿಸು _X86_ 1
+#ವ್ಯಾಖ್ಯಾನಿಸು _M_IX86 300 /* Visual Studio */
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ __MINGW_USE_VC2005_COMPAT /* time became 64, but not timeval.tv_sec */
+# ifndef USE_32_ಬಿಟ್_ಸಮಯ_T
+#  define USE_32_ಬಿಟ್_ಸಮಯ_T
 # endif
-#endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* in stddef.h */
-#define _SIZE_T_DEFINED
-#define _SSIZE_T_DEFINED
-#define _PTRDIFF_T_DEFINED
-#define _WCHAR_T_DEFINED
-#define _UINTPTR_T_DEFINED
-#define _INTPTR_T_DEFINED
-#define _INTEGRAL_MAX_BITS 64
+#ವ್ಯಾಖ್ಯಾನಿಸು _SIZE_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _SSIZE_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _PTRDIFF_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _WCHAR_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _UINTPTR_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _INTPTR_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು INTEGRAL_MAX_ಬಿಟ್ಟುಗಳು 64
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-typedef long __time32_t;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _TIME32_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _TIME32_T_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ __time32_t;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-typedef long long __time64_t;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _TIME64_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _TIME64_T_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ದೀರ್ಘ ದೀರ್ಘ __time64_t;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-typedef __time32_t time_t;
-#else
-typedef __time64_t time_t;
-#endif
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ ಸಮಯ_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು ಸಮಯ_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ USE_32_ಬಿಟ್_ಸಮಯ_T
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __time32_t time_t;
+#ಇಲ್ಲದಿದ್ದರೆ
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __time64_t time_t;
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _WCTYPE_T_DEFINED
-#define _WCTYPE_T_DEFINED
-typedef wchar_t wctype_t;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WCTYPE_T_DEFINED
+#ವ್ಯಾಖ್ಯಾನಿಸು _WCTYPE_T_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ wchar_t wctype_t;
+#ಆದರೆ_ಅಂತ್ಯ
 
-#ifndef _WINT_T
-#define _WINT_T
-typedef __WINT_TYPE__ wint_t;
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WINT_T
+#ವ್ಯಾಖ್ಯಾನಿಸು _WINT_T
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ __WINT_TYPE__ wint_t;
+#ಆದರೆ_ಅಂತ್ಯ
 
-typedef int errno_t;
-#define _ERRCODE_DEFINED
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಪೂರ್ಣಾಂಕ errno_t;
+#ವ್ಯಾಖ್ಯಾನಿಸು _ERRCODE_DEFINED
 
-typedef struct threadlocaleinfostruct *pthreadlocinfo;
-typedef struct threadmbcinfostruct *pthreadmbcinfo;
-typedef struct localeinfo_struct _locale_tstruct,*_locale_t;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ threadlocaleinfostruct *pthreadlocinfo;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ threadmbcinfostruct *pthreadmbcinfo;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ localeinfo_struct _locale_tstruct,*_locale_t;
 
 /* for winapi */
-#define _ANONYMOUS_UNION
-#define _ANONYMOUS_STRUCT
-#define DECLSPEC_NORETURN __declspec(noreturn)
-#define DECLARE_STDCALL_P(type) __stdcall type
-#define NOSERVICE 1
-#define NOMCX 1
-#define NOIME 1
-#define __INTRIN_H_
-#ifndef DUMMYUNIONNAME
+#ವ್ಯಾಖ್ಯಾನಿಸು _ANONYMOUS_UNION
+#ವ್ಯಾಖ್ಯಾನಿಸು _ANONYMOUS_STRUCT
+#ವ್ಯಾಖ್ಯಾನಿಸು DECLSPEC_NORETURN __declspec(noreturn)
+#ವ್ಯಾಖ್ಯಾನಿಸು DECLARE_STDCALL_P(type) __stdcall type
+#ವ್ಯಾಖ್ಯಾನಿಸು NOSERVICE 1
+#ವ್ಯಾಖ್ಯಾನಿಸು NOMCX 1
+#ವ್ಯಾಖ್ಯಾನಿಸು NOIME 1
+#ವ್ಯಾಖ್ಯಾನಿಸು __INTRIN_H_
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ DUMMYUNIONNAME
 #  define DUMMYUNIONNAME
 #  define DUMMYUNIONNAME1
 #  define DUMMYUNIONNAME2
 #  define DUMMYUNIONNAME3
 #  define DUMMYUNIONNAME4
 #  define DUMMYUNIONNAME5
-#endif
-#ifndef DUMMYSTRUCTNAME
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ DUMMYSTRUCTNAME
 #  define DUMMYSTRUCTNAME
-#endif
-#ifndef WINVER
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ WINVER
 # define WINVER 0x0502
-#endif
-#ifndef _WIN32_WINNT
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32_WINNT
 # define _WIN32_WINNT 0x502
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define __C89_NAMELESS
-#define __MINGW_EXTENSION
-#define WINAPI_FAMILY_PARTITION(X) 1
-#define MINGW_HAS_SECURE_API
-#define WIN32 1
+#ವ್ಯಾಖ್ಯಾನಿಸು __C89_NAMELESS
+#ವ್ಯಾಖ್ಯಾನಿಸು __MINGW_EXTENSION
+#ವ್ಯಾಖ್ಯಾನಿಸು WINAPI_FAMILY_ವಿಭಜನೆ(X) 1
+#ವ್ಯಾಖ್ಯಾನಿಸು MINGW_HAS_SECURE_API
+#ವ್ಯಾಖ್ಯಾನಿಸು WIN32 1
 
-#endif /* __MINGW_H */
+#ಆದರೆ_ಅಂತ್ಯ /* __MINGW_H */

@@ -1,98 +1,98 @@
-typedef unsigned char u8;
-typedef struct {} empty_s;
-struct contains_empty {
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ u8;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ {} ಖಾಲಿಗಳು_s;
+ರಚನೆ ಒಳಗೊಂಡಿದೆ_ಖಾಲಿಗಳು {
     u8 a;
-    empty_s empty;
+    ಖಾಲಿಗಳು_s ಖಾಲಿಗಳು;
     u8 b;
 };
-struct contains_empty ce = { { (1) }, (empty_s){}, 022, };
+ರಚನೆ ಒಳಗೊಂಡಿದೆ_ಖಾಲಿಗಳು ce = { { (1) }, (ಖಾಲಿಗಳು_s){}, 022, };
 /* The following decl of 'q' would demonstrate the TCC bug in init_putv when
    handling copying compound literals.  (Compound literals
    aren't acceptable constant initializers in isoc99, but
    we accept them like gcc, except for this case)
 //char *q = (char *){ "trara" }; */
-struct SS {u8 a[3], b; };
-struct SS sinit16[] = { { 1 }, 2 };
-struct S
+ರಚನೆ SS {u8 a[3], b; };
+ರಚನೆ SS sinit16[] = { { 1 }, 2 };
+ರಚನೆ S
 {
   u8 a,b;
   u8 c[2];
 };
 
-struct T
+ರಚನೆ T
 {
   u8 s[16];
   u8 a;
 };
 
-struct U
+ರಚನೆ U
 {
   u8 a;
-  struct S s;
+  ರಚನೆ S s;
   u8 b;
-  struct T t;
+  ರಚನೆ T t;
 };
 
-struct V
+ರಚನೆ V
 {
-  struct S s;
-  struct T t;
+  ರಚನೆ S s;
+  ರಚನೆ T t;
   u8 a;
 };
 
-struct W
+ರಚನೆ W
 {
-  struct V t;
-  struct S s[];
+  ರಚನೆ V t;
+  ರಚನೆ S s[];
 };
 
-struct S gs = ((struct S){1, 2, 3, 4});
-struct S gs2 = {1, 2, {3, 4}};
-struct T gt = {"hello", 42};
-struct U gu = {3, 5,6,7,8, 4, "huhu", 43};
-struct U gu2 = {3, {5,6,7,8}, 4, {"huhu", 43}};
+ರಚನೆ S gs = ((ರಚನೆ S){1, 2, 3, 4});
+ರಚನೆ S gs2 = {1, 2, {3, 4}};
+ರಚನೆ T gt = {"hello", 42};
+ರಚನೆ U gu = {3, 5,6,7,8, 4, "huhu", 43};
+ರಚನೆ U gu2 = {3, {5,6,7,8}, 4, {"huhu", 43}};
 /* Optional braces around scalar initializers.  Accepted, but with
    a warning.  */
-struct U gu3 = { {3}, {5,6,7,8,}, 4, {"huhu", 43}};
+ರಚನೆ U gu3 = { {3}, {5,6,7,8,}, 4, {"huhu", 43}};
 /* Many superfluous braces and leaving out one initializer for U.s.c[1] */
-struct U gu4 = { 3, {5,6,7,},  5, { "bla", {44}} };
+ರಚನೆ U gu4 = { 3, {5,6,7,},  5, { "bla", {44}} };
 /* Superfluous braces and useless parens around values */
-struct S gs3 = { (1), {(2)}, {(((3))), {4}}};
+ರಚನೆ S gs3 = { (1), {(2)}, {(((3))), {4}}};
 /* Superfluous braces, and leaving out braces for V.t, plus cast */
-struct V gv = {{{3},4,{5,6}}, "haha", (u8)45, 46};
+ರಚನೆ V gv = {{{3},4,{5,6}}, "haha", (u8)45, 46};
 /* Compound literal */
-struct V gv2 = {(struct S){7,8,{9,10}}, {"hihi", 47}, 48};
+ರಚನೆ V gv2 = {(ರಚನೆ S){7,8,{9,10}}, {"hihi", 47}, 48};
 /* Parens around compound literal */
-struct V gv3 = {((struct S){7,8,{9,10}}), {"hoho", 49}, 50};
+ರಚನೆ V gv3 = {((ರಚನೆ S){7,8,{9,10}}), {"hoho", 49}, 50};
 /* Initialization of a flex array member (warns in GCC) */
-struct W gw = {{1,2,3,4}, {1,2,3,4,5}};
+ರಚನೆ W gw = {{1,2,3,4}, {1,2,3,4,5}};
 
-union UU {
+ಒಕ್ಕೂಟ UU {
     u8 a;
     u8 b;
 };
-struct SU {
-    union UU u;
+ರಚನೆ SU {
+    ಒಕ್ಕೂಟ UU u;
     u8 c;
 };
-struct SU gsu = {5,6};
+ರಚನೆ SU gsu = {5,6};
 
 /* Unnamed struct/union members aren't ISO C, but it's a widely accepted
    extension.  See below for further extensions to that under -fms-extension.*/
-union UV {
-    struct {u8 a,b;};
-    struct S s;
+ಒಕ್ಕೂಟ UV {
+    ರಚನೆ {u8 a,b;};
+    ರಚನೆ S s;
 };
-union UV guv = {{6,5}};
-union UV guv2 = {{.b = 7, .a = 8}};
-union UV guv3 = {.b = 8, .a = 7};
+ಒಕ್ಕೂಟ UV guv = {{6,5}};
+ಒಕ್ಕೂಟ UV guv2 = {{.b = 7, .a = 8}};
+ಒಕ್ಕೂಟ UV guv3 = {.b = 8, .a = 7};
 
-struct SSU {
-    int y;
-    struct { int x; };
+ರಚನೆ SSU {
+    ಪೂರ್ಣಾಂಕ y;
+    ರಚನೆ { ಪೂರ್ಣಾಂಕ x; };
 };
-struct SSU gssu1 = { .y = 5, .x = 3 };
-struct SSU gssu2 = { 5, 3 };
+ರಚನೆ SSU gssu1 = { .y = 5, .x = 3 };
+ರಚನೆ SSU gssu2 = { 5, 3 };
 
 /* Under -fms-extensions also the following is valid:
 union UV2 {
@@ -103,84 +103,84 @@ struct Anon gan = { 10, 11 }; // ... which makes it available here.
 union UV2 guv4 = {{4,3}};     // and the other inits from above as well
 */
 
-struct in6_addr {
-    union {
+ರಚನೆ in6_addr {
+    ಒಕ್ಕೂಟ {
 	u8 u6_addr8[16];
-	unsigned short u6_addr16[8];
+	ಚಿಹ್ನೆರಹಿತ ಗಿಡ್ಡ u6_addr16[8];
     } u;
 };
-struct flowi6 {
-    struct in6_addr saddr, daddr;
+ರಚನೆ flowi6 {
+    ರಚನೆ in6_addr saddr, daddr;
 };
-struct pkthdr {
-    struct in6_addr daddr, saddr;
+ರಚನೆ pkthdr {
+    ರಚನೆ in6_addr daddr, saddr;
 };
-struct pkthdr phdr = { { { 6,5,4,3 } }, { { 9,8,7,6 } } };
+ರಚನೆ pkthdr phdr = { { { 6,5,4,3 } }, { { 9,8,7,6 } } };
 
-struct Wrap {
-    void *func;
+ರಚನೆ Wrap {
+    ಶೂನ್ಯ *func;
 };
-int global;
-void inc_global (void)
+ಪೂರ್ಣಾಂಕ global;
+ಶೂನ್ಯ inc_global (ಶೂನ್ಯ)
 {
   global++;
 }
 
-struct Wrap global_wrap[] = {
-    ((struct Wrap) {inc_global}),
+ರಚನೆ Wrap global_wrap[] = {
+    ((ರಚನೆ Wrap) {inc_global}),
     inc_global,
 };
 
-#include <stdio.h>
-void print_ (const char *name, const u8 *p, long size)
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+ಶೂನ್ಯ print_ (ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name, ಸ್ಥಿರಾಂಕ u8 *p, ದೀರ್ಘ ಗಾತ್ರ_2)
 {
-  printf ("%s:", name);
-  while (size--) {
-      printf (" %x", *p++);
+  ಬರೆ ("%s:", name);
+  ಆಗ (ಗಾತ್ರ_2--) {
+      ಬರೆ (" %x", *p++);
   }
-  printf ("\n");
+  ಬರೆ ("\n");
 }
-#define print(x) print_(#x, (u8*)&x, sizeof (x))
-#if 1
-void foo (struct W *w, struct pkthdr *phdr_)
+#ವ್ಯಾಖ್ಯಾನಿಸು print(x) print_(#x, (u8*)&x, ಗಾತ್ರ (x))
+#ಆದರೆ 1
+ಶೂನ್ಯ foo (ರಚನೆ W *w, ರಚನೆ pkthdr *phdr_)
 {
-  struct S ls = {1, 2, 3, 4};
-  struct S ls2 = {1, 2, {3, 4}};
-  struct T lt = {"hello", 42};
-  struct U lu = {3, 5,6,7,8, 4, "huhu", 43};
-  struct U lu1 = {3, ls, 4, {"huhu", 43}};
-  struct U lu2 = {3, (ls), 4, {"huhu", 43}};
-  const struct S *pls = &ls;
-  struct S ls21 = *pls;
-  struct U lu22 = {3, *pls, 4, {"huhu", 43}};
+  ರಚನೆ S ls = {1, 2, 3, 4};
+  ರಚನೆ S ls2 = {1, 2, {3, 4}};
+  ರಚನೆ T lt = {"hello", 42};
+  ರಚನೆ U lu = {3, 5,6,7,8, 4, "huhu", 43};
+  ರಚನೆ U lu1 = {3, ls, 4, {"huhu", 43}};
+  ರಚನೆ U lu2 = {3, (ls), 4, {"huhu", 43}};
+  ಸ್ಥಿರಾಂಕ ರಚನೆ S *pls = &ls;
+  ರಚನೆ S ls21 = *pls;
+  ರಚನೆ U lu22 = {3, *pls, 4, {"huhu", 43}};
   /* Incomplete bracing.  */
-  struct U lu21 = {3, ls, 4, "huhu", 43};
+  ರಚನೆ U lu21 = {3, ls, 4, "huhu", 43};
   /* Optional braces around scalar initializers.  Accepted, but with
      a warning.  */
-  struct U lu3 = { 3, {5,6,7,8,}, 4, {"huhu", 43}};
+  ರಚನೆ U lu3 = { 3, {5,6,7,8,}, 4, {"huhu", 43}};
   /* Many superfluous braces and leaving out one initializer for U.s.c[1] */
-  struct U lu4 = { 3, {5,6,7,},  5, { "bla", 44} };
+  ರಚನೆ U lu4 = { 3, {5,6,7,},  5, { "bla", 44} };
   /* Superfluous braces and useless parens around values */
-  struct S ls3 = { (1), (2), {(((3))), 4}};
+  ರಚನೆ S ls3 = { (1), (2), {(((3))), 4}};
   /* Superfluous braces, and leaving out braces for V.t, plus cast */
-  struct V lv = {{3,4,{5,6}}, "haha", (u8)45, 46};
+  ರಚನೆ V lv = {{3,4,{5,6}}, "haha", (u8)45, 46};
   /* Compound literal */
-  struct V lv2 = {(struct S)w->t.s, {"hihi", 47}, 48};
+  ರಚನೆ V lv2 = {(ರಚನೆ S)w->t.s, {"hihi", 47}, 48};
   /* Parens around compound literal */
-  struct V lv3 = {((struct S){7,8,{9,10}}), ((const struct W *)w)->t.t, 50};
-  const struct pkthdr *phdr = phdr_;
-  struct flowi6 flow = { .daddr = phdr->daddr, .saddr = phdr->saddr };
-  int elt = 0x42;
+  ರಚನೆ V lv3 = {((ರಚನೆ S){7,8,{9,10}}), ((ಸ್ಥಿರಾಂಕ ರಚನೆ W *)w)->t.t, 50};
+  ಸ್ಥಿರಾಂಕ ರಚನೆ pkthdr *phdr = phdr_;
+  ರಚನೆ flowi6 flow = { .daddr = phdr->daddr, .saddr = phdr->saddr };
+  ಪೂರ್ಣಾಂಕ elt = 0x42;
   /* Range init, overlapping */
-  struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
-  struct SSU lssu1 = { 5, 3 };
-  struct SSU lssu2 = { .y = 5, .x = 3 };
+  ರಚನೆ T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+  ರಚನೆ SSU lssu1 = { 5, 3 };
+  ರಚನೆ SSU lssu2 = { .y = 5, .x = 3 };
   /* designated initializers in GNU form */
-#if defined(__GNUC__) || defined(__TINYC__)
-  struct S ls4 = {a: 1, b: 2, c: {3, 4}};
-#else
-  struct S ls4 = {.a = 1, .b = 2, .c = {3, 4}};
-#endif
+#ಆದರೆ defined(__GNUC__) || defined(__TINYC__)
+  ರಚನೆ S ls4 = {a: 1, b: 2, c: {3, 4}};
+#ಇಲ್ಲದಿದ್ದರೆ
+  ರಚನೆ S ls4 = {.a = 1, .b = 2, .c = {3, 4}};
+#ಆದರೆ_ಅಂತ್ಯ
   print(ls);
   print(ls2);
   print(lt);
@@ -202,35 +202,35 @@ void foo (struct W *w, struct pkthdr *phdr_)
   print(flow);
   print(ls4);
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-void test_compound_with_relocs (void)
+ಶೂನ್ಯ test_compound_with_relocs (ಶೂನ್ಯ)
 {
-  struct Wrap local_wrap[] = {
-      ((struct Wrap) {inc_global}),
+  ರಚನೆ Wrap local_wrap[] = {
+      ((ರಚನೆ Wrap) {inc_global}),
       inc_global,
   };
-  void (*p)(void);
+  ಶೂನ್ಯ (*p)(ಶೂನ್ಯ);
   p = global_wrap[0].func; p();
   p = global_wrap[1].func; p();
   p = local_wrap[0].func; p();
   p = local_wrap[1].func; p();
 }
 
-void sys_ni(void) { printf("ni\n"); }
-void sys_one(void) { printf("one\n"); }
-void sys_two(void) { printf("two\n"); }
-void sys_three(void) { printf("three\n"); }
-void sys_four(void) { printf("four\n"); }
-typedef void (*fptr)(void);
+ಶೂನ್ಯ sys_ni(ಶೂನ್ಯ) { ಬರೆ("ni\n"); }
+ಶೂನ್ಯ sys_one(ಶೂನ್ಯ) { ಬರೆ("one\n"); }
+ಶೂನ್ಯ sys_two(ಶೂನ್ಯ) { ಬರೆ("two\n"); }
+ಶೂನ್ಯ sys_three(ಶೂನ್ಯ) { ಬರೆ("three\n"); }
+ಶೂನ್ಯ sys_four(ಶೂನ್ಯ) { ಬರೆ("four\n"); }
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ಶೂನ್ಯ (*fptr)(ಶೂನ್ಯ);
 
-#define array_size(a) (sizeof a / sizeof a[0])
+#ವ್ಯಾಖ್ಯಾನಿಸು array_ಗಾತ್ರ(a) (ಗಾತ್ರ a / ಗಾತ್ರ a[0])
 
-void test_multi_relocs(void)
+ಶೂನ್ಯ test_multi_relocs(ಶೂನ್ಯ)
 {
-  int i;
+  ಪೂರ್ಣಾಂಕ i;
 
-  static const fptr tabl1[4] = {
+  ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ fptr tabl1[4] = {
       [0 ... 3] = &sys_ni,
       [0] = sys_one,
       [1] = sys_two,
@@ -239,13 +239,13 @@ void test_multi_relocs(void)
       [1 ... 2] = &sys_ni,
       [1] = 0,
   };
-  for (i = 0; i < array_size(tabl1); i++)
-    if (tabl1[i])
+  ಗಾಗಿ (i = 0; i < array_ಗಾತ್ರ(tabl1); i++)
+    ಆದರೆ (tabl1[i])
       tabl1[i]();
-    else
-      printf("(0)\n");
+    ಇಲ್ಲದಿದ್ದರೆ
+      ಬರೆ("(0)\n");
 
-  const fptr tabl2[4] = {
+  ಸ್ಥಿರಾಂಕ fptr tabl2[4] = {
       [0 ... 3] = &sys_ni,
       [0] = sys_one,
       [1] = sys_two,
@@ -254,38 +254,38 @@ void test_multi_relocs(void)
       [1 ... 2] = &sys_ni,
       [1] = 0,
   };
-  for (i = 0; i < array_size(tabl2); i++)
-    if (tabl2[i])
+  ಗಾಗಿ (i = 0; i < array_ಗಾತ್ರ(tabl2); i++)
+    ಆದರೆ (tabl2[i])
       tabl2[i]();
-    else
-      printf("(0)\n");
+    ಇಲ್ಲದಿದ್ದರೆ
+      ಬರೆ("(0)\n");
 
-  int c = 0;
-  int dd[] = {
+  ಪೂರ್ಣಾಂಕ c = 0;
+  ಪೂರ್ಣಾಂಕ dd[] = {
     [0 ... 1] = ++c,
     [2 ... 3] = ++c
   };
-  for (i = 0; i < array_size(dd); i++)
-    printf(" %d", dd[i]);
-  printf("\n");
+  ಗಾಗಿ (i = 0; i < array_ಗಾತ್ರ(dd); i++)
+    ಬರೆ(" %d", dd[i]);
+  ಬರೆ("\n");
 
   /* multi-dimensional flex array with range initializers */
-  static char m1[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
-  char        m2[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
-  int g, j, k;
-  for (g = 2; g-- > 0;) {
-    printf("mdfa %s: %d -", "locl\0glob" + g * 5, sizeof m1);
-    for (i = 0; i < array_size(m1); i++)
-    for (j = 0; j < array_size(m1[0]); j++)
-    for (k = 0; k < array_size(m1[0][0]); k++)
-      printf(" %d", (g ? m1:m2)[i][j][k]);
-    printf("\n");
+  ಸ್ಥಿರ ಅಕ್ಷರ m1[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
+  ಅಕ್ಷರ        m2[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
+  ಪೂರ್ಣಾಂಕ g, j, k;
+  ಗಾಗಿ (g = 2; g-- > 0;) {
+    ಬರೆ("mdfa %s: %d -", "locl\0glob" + g * 5, ಗಾತ್ರ m1);
+    ಗಾಗಿ (i = 0; i < array_ಗಾತ್ರ(m1); i++)
+    ಗಾಗಿ (j = 0; j < array_ಗಾತ್ರ(m1[0]); j++)
+    ಗಾಗಿ (k = 0; k < array_ಗಾತ್ರ(m1[0][0]); k++)
+      ಬರೆ(" %d", (g ? m1:m2)[i][j][k]);
+    ಬರೆ("\n");
   }
 }
 
-void test_init_ranges(void) {
-    int i,c=0;
-    static void *gostring[] = {
+ಶೂನ್ಯ test_init_ranges(ಶೂನ್ಯ) {
+    ಪೂರ್ಣಾಂಕ i,c=0;
+    ಸ್ಥಿರ ಶೂನ್ಯ *gostring[] = {
         [0 ... 31] = &&l_bad, [127] = &&l_bad,
         [32 ... 126] = &&l_loop,
         ['\\'] = &&l_esc, ['"'] = &&l_qdown,
@@ -296,8 +296,8 @@ void test_init_ranges(void) {
         [248 ... 255] = &&l_bad
     };
 
-    for (i = 0; i < 256; i++) {
-        goto *gostring[i];
+    ಗಾಗಿ (i = 0; i < 256; i++) {
+        ಹೋಗು *gostring[i];
         l_bad: c++;
         l_loop: c++;
         l_esc: c++;
@@ -306,55 +306,55 @@ void test_init_ranges(void) {
         l_utf8_3: c++;
         l_utf8_4: c++;
     }
-    printf ("%d\n", c);
+    ಬರೆ ("%d\n", c);
 }
 
 
 /* Following is from GCC gcc.c-torture/execute/20050613-1.c.  */
 
-struct SEA { int i; int j; int k; int l; };
-struct SEB { struct SEA a; int r[1]; };
-struct SEC { struct SEA a; int r[0]; };
-struct SED { struct SEA a; int r[]; };
+ರಚನೆ SEA { ಪೂರ್ಣಾಂಕ i; ಪೂರ್ಣಾಂಕ j; ಪೂರ್ಣಾಂಕ k; ಪೂರ್ಣಾಂಕ l; };
+ರಚನೆ SEB { ರಚನೆ SEA a; ಪೂರ್ಣಾಂಕ r[1]; };
+ರಚನೆ SEC { ರಚನೆ SEA a; ಪೂರ್ಣಾಂಕ r[0]; };
+ರಚನೆ SED { ರಚನೆ SEA a; ಪೂರ್ಣಾಂಕ r[]; };
 
-static void
-test_correct_filling (struct SEA *x)
+ಸ್ಥಿರ ಶೂನ್ಯ
+test_correct_filling (ರಚನೆ SEA *x)
 {
-  static int i;
-  if (x->i != 0 || x->j != 5 || x->k != 0 || x->l != 0)
-    printf("sea_fill%d: wrong\n", i);
-  else
-    printf("sea_fill%d: okay\n", i);
+  ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ i;
+  ಆದರೆ (x->i != 0 || x->j != 5 || x->k != 0 || x->l != 0)
+    ಬರೆ("sea_fill%d: wrong\n", i);
+  ಇಲ್ಲದಿದ್ದರೆ
+    ಬರೆ("sea_fill%d: okay\n", i);
   i++;
 }
 
-int
-test_zero_init (void)
+ಪೂರ್ಣಾಂಕ
+test_zero_init (ಶೂನ್ಯ)
 {
   /* The peculiarity here is that only a.j is initialized.  That
      means that all other members must be zero initialized.  TCC
      once didn't do that for sub-level designators.  */
-  struct SEB b = { .a.j = 5 };
-  struct SEC c = { .a.j = 5 };
-  struct SED d = { .a.j = 5 };
+  ರಚನೆ SEB b = { .a.j = 5 };
+  ರಚನೆ SEC c = { .a.j = 5 };
+  ರಚನೆ SED d = { .a.j = 5 };
   test_correct_filling (&b.a);
   test_correct_filling (&c.a);
   test_correct_filling (&d.a);
-  return 0;
+  ಹಿಂತಿರುಗಿ 0;
 }
 
-void test_init_struct_from_struct(void)
+ಶೂನ್ಯ test_init_struct_from_struct(ಶೂನ್ಯ)
 {
-    int i = 0;
-    struct S {int x,y;}
+    ಪೂರ್ಣಾಂಕ i = 0;
+    ರಚನೆ S {ಪೂರ್ಣಾಂಕ x,y;}
         a = {1,2},
         b = {3,4},
         c[] = {a,b},
         d[] = {++i, ++i, ++i, ++i},
-        e[] = {b, (struct S){5,6}}
+        e[] = {b, (ರಚನೆ S){5,6}}
         ;
 
-    printf("%s: %d %d %d %d - %d %d %d %d - %d %d %d %d\n",
+    ಬರೆ("%s: %d %d %d %d - %d %d %d %d - %d %d %d %d\n",
         __FUNCTION__,
         c[0].x,
         c[0].y,
@@ -371,24 +371,24 @@ void test_init_struct_from_struct(void)
         );
 }
 
-typedef struct {
-    unsigned int a;
-    unsigned int : 32;
-    unsigned int b;
-    unsigned long long : 64;
-    unsigned int c;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ {
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ a;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ : 32;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ b;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ : 64;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ c;
 } tst_bf;
 
 tst_bf arr[] = { { 1, 2, 3 } };
 
-void
-test_init_bf(void)
+ಶೂನ್ಯ
+test_init_bf(ಶೂನ್ಯ)
 {
-    printf ("%s: %d %d %d\n", __FUNCTION__, arr[0].a, arr[0].b, arr[0].c);
+    ಬರೆ ("%s: %d %d %d\n", __FUNCTION__, arr[0].a, arr[0].b, arr[0].c);
 }
 
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
   print(ce);
   print(gs);
@@ -420,5 +420,5 @@ int main()
   test_init_ranges();
   test_init_struct_from_struct();
   test_init_bf();
-  return 0;
+  ಹಿಂತಿರುಗಿ 0;
 }

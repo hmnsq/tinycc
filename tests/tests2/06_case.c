@@ -1,29 +1,29 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int Count;
+   ಪೂರ್ಣಾಂಕ ಎಣಿಕೆ_4;
 
-   for (Count = 0; Count < 4; Count++)
+   ಗಾಗಿ (ಎಣಿಕೆ_4 = 0; ಎಣಿಕೆ_4 < 4; ಎಣಿಕೆ_4++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      ಬರೆ("%d\n", ಎಣಿಕೆ_4);
+      ಆಯ್ಕೆ (ಎಣಿಕೆ_4)
       {
-         case 1:
-            printf("%d\n", 1);
-            break;
+         ಸ್ಥಿತಿ 1:
+            ಬರೆ("%d\n", 1);
+            ನಿಲ್ಲಿಸು;
 
-         case 2:
-            printf("%d\n", 2);
-            break;
+         ಸ್ಥಿತಿ 2:
+            ಬರೆ("%d\n", 2);
+            ನಿಲ್ಲಿಸು;
 
-         default:
-            printf("%d\n", 0);
-            break;
+         ಪೂರ್ವನಿಯೋಜಿತ:
+            ಬರೆ("%d\n", 0);
+            ನಿಲ್ಲಿಸು;
       }
    }
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

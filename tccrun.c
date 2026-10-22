@@ -18,294 +18,294 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "tcc.h"
+#ಅನ್ತರ್ಭಾವ "tcc.h"
 
 /* only native compiler supports -run */
-#ifdef TCC_IS_NATIVE
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_IS_NATIVE
 
-#ifdef CONFIG_TCC_BACKTRACE
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BACKTRACE
 /* runtime debug info block */
-typedef struct rt_context
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ rt_context
 {
     /* tccelf.c:tcc_add_btstub() wants these in that order: */
-    union {
-	struct {
+    ಒಕ್ಕೂಟ {
+	ರಚನೆ {
 	    Stab_Sym *stab_sym;
-	    Stab_Sym *stab_sym_end;
-	    char *stab_str;
+	    Stab_Sym *stab_sym_ಕೊನೆ;
+	    ಅಕ್ಷರ *stab_str;
 	};
-	struct {
-	    unsigned char *dwarf_line;
-	    unsigned char *dwarf_line_end;
-	    unsigned char *dwarf_line_str;
+	ರಚನೆ {
+	    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *dwarf_ಸಾಲು;
+	    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *dwarf_ಸಾಲು_ಕೊನೆ;
+	    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *dwarf_ಸಾಲು_str;
 	};
     };
-    ElfW(Sym) *esym_start;
-    ElfW(Sym) *esym_end;
-    char *elf_str;
+    ElfW(Sym) *esym_ಆರಂಭ;
+    ElfW(Sym) *esym_ಕೊನೆ;
+    ಅಕ್ಷರ *elf_str;
     // 6 * PTR_SIZE
-    addr_t prog_base;
-    void *bounds_start;
-    void *top_func;
-    struct rt_context *next;
+    addr_t prog_ತಳ;
+    ಶೂನ್ಯ *bounds_ಆರಂಭ;
+    ಶೂನ್ಯ *ತುದಿ_func;
+    ರಚನೆ rt_context *ಮುಂದಿನ;
     // 10 * PTR_SIZE
-    int num_callers;
-    int dwarf;
+    ಪೂರ್ಣಾಂಕ ಅಂಕೆ_callers;
+    ಪೂರ್ಣಾಂಕ dwarf;
 } rt_context;
 
 /* linked list of rt_contexts */
-static rt_context *g_rc;
-static int signal_set;
-static void set_exception_handler(void);
-#endif /* def CONFIG_TCC_BACKTRACE */
+ಸ್ಥಿರ rt_context *g_rc;
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ signal_ಗಣ;
+ಸ್ಥಿರ ಶೂನ್ಯ ಗಣ_exception_handler(ಶೂನ್ಯ);
+#ಆದರೆ_ಅಂತ್ಯ /* def CONFIG_TCC_BACKTRACE */
 
-typedef struct rt_frame {
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ rt_ಚೌಕಟ್ಟು {
     addr_t ip, fp, sp;
-} rt_frame;
+} rt_ಚೌಕಟ್ಟು;
 
-static TCCState *g_s1;
+ಸ್ಥಿರ TCCState *g_s1;
 /* semaphore to protect it */
-TCC_SEM(static rt_sem);
-static void rt_wait_sem(void) { WAIT_SEM(&rt_sem); }
-static void rt_post_sem(void) { POST_SEM(&rt_sem); }
-static int rt_get_caller_pc(addr_t *paddr, rt_frame *f, int level);
-static void rt_exit(rt_frame *f, int code);
+TCC_SEM(ಸ್ಥಿರ rt_sem);
+ಸ್ಥಿರ ಶೂನ್ಯ rt_wait_sem(ಶೂನ್ಯ) { WAIT_SEM(&rt_sem); }
+ಸ್ಥಿರ ಶೂನ್ಯ rt_post_sem(ಶೂನ್ಯ) { POST_SEM(&rt_sem); }
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ rt_get_caller_pc(addr_t *paddr, rt_ಚೌಕಟ್ಟು *f, ಪೂರ್ಣಾಂಕ level);
+ಸ್ಥಿರ ಶೂನ್ಯ rt_exit(rt_ಚೌಕಟ್ಟು *f, ಪೂರ್ಣಾಂಕ ಸಂಕೇತ_2);
 
 /* ------------------------------------------------------------- */
 /* defined when included from lib/bt-exe.c */
-#ifndef CONFIG_TCC_BACKTRACE_ONLY
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ CONFIG_TCC_BACKTRACE_ONLY
 
-#ifndef _WIN32
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
 # include <sys/mman.h>
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-static int protect_pages(void *ptr, unsigned long length, int mode);
-static int tcc_relocate_ex(TCCState *s1, void *ptr, unsigned ptr_diff);
-static void st_link(TCCState *s1);
-static void st_unlink(TCCState *s1);
-#ifdef CONFIG_TCC_BACKTRACE
-static int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap);
-#endif
-#ifdef _WIN64
-static void *win64_add_function_table(TCCState *s1);
-static void win64_del_function_table(void *);
-#endif
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ protect_ಪುಟಗಳು(ಶೂನ್ಯ *ptr, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಉದ್ದಳತೆ, ಪೂರ್ಣಾಂಕ ಬಹುಲಕ);
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ tcc_relocate_ex(TCCState *s1, ಶೂನ್ಯ *ptr, ಚಿಹ್ನೆರಹಿತ ptr_diff);
+ಸ್ಥಿರ ಶೂನ್ಯ st_link(TCCState *s1);
+ಸ್ಥಿರ ಶೂನ್ಯ st_unlink(TCCState *s1);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BACKTRACE
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ _tcc_backtrace(rt_ಚೌಕಟ್ಟು *f, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *fmt, va_list ap);
+#ಆದರೆ_ಅಂತ್ಯ
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+ಸ್ಥಿರ ಶೂನ್ಯ *win64_ಕೂಡಿಸು_function_ಕೋಷ್ಟಕ(TCCState *s1);
+ಸ್ಥಿರ ಶೂನ್ಯ win64_del_function_ಕೋಷ್ಟಕ(ಶೂನ್ಯ *);
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if !defined PAGESIZE
-# if defined _SC_PAGESIZE
+#ಆದರೆ !defined PAGESIZE
+# ಆದರೆ defined _SC_PAGESIZE
 #  define PAGESIZE sysconf(_SC_PAGESIZE)
 # elif defined __APPLE__
 #  include <libkern/OSCacheControl.h>
 #  define PAGESIZE getpagesize()
-# else
+# ಇಲ್ಲದಿದ್ದರೆ
 #  define PAGESIZE 4096
 # endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#define PAGEALIGN(n) ((addr_t)n + (-(addr_t)n & (PAGESIZE-1)))
+#ವ್ಯಾಖ್ಯಾನಿಸು PAGEALIGN(n) ((addr_t)n + (-(addr_t)n & (PAGESIZE-1)))
 
-#if !_WIN32 && !__APPLE__
+#ಆದರೆ !_WIN32 && !__APPLE__
 //#define CONFIG_SELINUX 1
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* use VirtualAlloc() instead of tcc_malloc() */
-#if defined _WIN32 && !defined CONFIG_RUNMEM_VIRTUALALLOC
+#ಆದರೆ defined _WIN32 && !defined CONFIG_RUNMEM_VIRTUALALLOC
 # define CONFIG_RUNMEM_VIRTUALALLOC 1
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-static int rt_mem(TCCState *s1, int size)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ rt_mem(TCCState *s1, ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_2)
 {
-    void *ptr;
-    int ptr_diff = 0;
-#ifdef CONFIG_SELINUX
+    ಶೂನ್ಯ *ptr;
+    ಪೂರ್ಣಾಂಕ ptr_diff = 0;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_SELINUX
     /* Using mmap instead of malloc */
-    void *prw;
-    char tmpfname[] = "/tmp/.tccrunXXXXXX";
-    int fd = mkstemp(tmpfname);
+    ಶೂನ್ಯ *prw;
+    ಅಕ್ಷರ tmpfname[] = "/tmp/.tccrunXXXXXX";
+    ಪೂರ್ಣಾಂಕ fd = mkstemp(tmpfname);
     unlink(tmpfname);
-    ftruncate(fd, size);
+    ftruncate(fd, ಗಾತ್ರ_2);
 
-    ptr = mmap(NULL, size * 2, PROT_READ|PROT_EXEC, MAP_SHARED, fd, 0);
+    ptr = mmap(ಖಾಲಿ, ಗಾತ್ರ_2 * 2, PROT_READ|PROT_EXEC, MAP_SHARED, fd, 0);
     /* mmap RW memory at fixed distance */
-    prw = mmap((char*)ptr + size, size, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_FIXED, fd, 0);
+    prw = mmap((ಅಕ್ಷರ*)ptr + ಗಾತ್ರ_2, ಗಾತ್ರ_2, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_FIXED, fd, 0);
     close(fd);
-    if (ptr == MAP_FAILED || prw == MAP_FAILED)
-	return tcc_error_noabort("tccrun: could not map memory");
-    ptr_diff = (char*)prw - (char*)ptr; /* = size; */
+    ಆದರೆ (ptr == MAP_FAILED || prw == MAP_FAILED)
+	ಹಿಂತಿರುಗಿ tcc_error_noabort("tccrun: could not map memory");
+    ptr_diff = (ಅಕ್ಷರ*)prw - (ಅಕ್ಷರ*)ptr; /* = size; */
     //printf("map %p %p %p\n", ptr, prw, (void*)ptr_diff);
-    size *= 2;
-#elif CONFIG_RUNMEM_VIRTUALALLOC
+    ಗಾತ್ರ_2 *= 2;
+#ಅಥವಾಆದರೆ CONFIG_RUNMEM_VIRTUALALLOC
     /* always page-aligned */
-    ptr = VirtualAlloc(NULL, size, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-    if (!ptr)
-        return tcc_error_noabort("tccrun: could not allocate memory");
-#else
-    ptr = tcc_malloc(size += PAGESIZE); /* one extra page to align malloc memory */
-#endif
-    s1->run_ptr = ptr;
-    s1->run_size = size;
-    return ptr_diff;
+    ptr = VirtualAlloc(ಖಾಲಿ, ಗಾತ್ರ_2, MEM_RESERVE | MEM_COMMIT, ಪುಟ_READWRITE);
+    ಆದರೆ (!ptr)
+        ಹಿಂತಿರುಗಿ tcc_error_noabort("tccrun: could not allocate memory");
+#ಇಲ್ಲದಿದ್ದರೆ
+    ptr = tcc_malloc(ಗಾತ್ರ_2 += PAGESIZE); /* one extra page to align malloc memory */
+#ಆದರೆ_ಅಂತ್ಯ
+    s1->ಸತತ_ptr = ptr;
+    s1->ಸತತ_ಗಾತ್ರ = ಗಾತ್ರ_2;
+    ಹಿಂತಿರುಗಿ ptr_diff;
 }
 
 /* ------------------------------------------------------------- */
 /* Do all relocations (needed before using tcc_get_symbol())
    Returns -1 on error. */
 
-LIBTCCAPI int tcc_relocate(TCCState *s1)
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_relocate(TCCState *s1)
 {
-    int size, ret, ptr_diff;
+    ಪೂರ್ಣಾಂಕ ಗಾತ್ರ_2, ret, ptr_diff;
 
-    if (s1->run_ptr)
-        exit(tcc_error_noabort("'tcc_relocate()' twice is no longer supported"));
-#ifdef CONFIG_TCC_BACKTRACE
-    if (s1->do_backtrace)
-        tcc_add_symbol(s1, "_tcc_backtrace", _tcc_backtrace); /* for bt-log.c */
-#endif
-    size = tcc_relocate_ex(s1, NULL, 0);
-    if (size < 0)
-        return -1;
-    ptr_diff = rt_mem(s1, size);
-    if (ptr_diff < 0)
-        return -1;
-    ret = tcc_relocate_ex(s1, s1->run_ptr, ptr_diff);
-    if (ret == 0)
+    ಆದರೆ (s1->ಸತತ_ptr)
+        ನಿರ್ಗಮಿಸು(tcc_error_noabort("'tcc_relocate()' twice is no longer supported"));
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BACKTRACE
+    ಆದರೆ (s1->do_backtrace)
+        tcc_ಕೂಡಿಸು_ಚಿಹ್ನೆ(s1, "_tcc_backtrace", _tcc_backtrace); /* for bt-log.c */
+#ಆದರೆ_ಅಂತ್ಯ
+    ಗಾತ್ರ_2 = tcc_relocate_ex(s1, ಖಾಲಿ, 0);
+    ಆದರೆ (ಗಾತ್ರ_2 < 0)
+        ಹಿಂತಿರುಗಿ -1;
+    ptr_diff = rt_mem(s1, ಗಾತ್ರ_2);
+    ಆದರೆ (ptr_diff < 0)
+        ಹಿಂತಿರುಗಿ -1;
+    ret = tcc_relocate_ex(s1, s1->ಸತತ_ptr, ptr_diff);
+    ಆದರೆ (ret == 0)
         st_link(s1);
-    return ret;
+    ಹಿಂತಿರುಗಿ ret;
 }
 
-ST_FUNC void tcc_run_free(TCCState *s1)
+ST_FUNC ಶೂನ್ಯ tcc_ಸತತ_free(TCCState *s1)
 {
-    unsigned size;
-    void *ptr;
-    int i;
+    ಚಿಹ್ನೆರಹಿತ ಗಾತ್ರ_2;
+    ಶೂನ್ಯ *ptr;
+    ಪೂರ್ಣಾಂಕ i;
 
     /* free any loaded DLLs */
-    for ( i = 0; i < s1->nb_loaded_dlls; i++) {
+    ಗಾಗಿ ( i = 0; i < s1->nb_loaded_dlls; i++) {
         DLLReference *ref = s1->loaded_dlls[i];
-        if ( ref->handle )
-#ifdef _WIN32
+        ಆದರೆ ( ref->handle )
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN32
             FreeLibrary((HMODULE)ref->handle);
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
             dlclose(ref->handle);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
     }
     /* unmap or unprotect and free memory */
-    ptr = s1->run_ptr;
-    if (NULL == ptr)
-        return;
+    ptr = s1->ಸತತ_ptr;
+    ಆದರೆ (ಖಾಲಿ == ptr)
+        ಹಿಂತಿರುಗಿ;
     st_unlink(s1);
-#ifdef _WIN64
-    win64_del_function_table(s1->run_function_table);
-#endif
-    size = s1->run_size;
-#ifdef CONFIG_SELINUX
-    munmap(ptr, size);
-#elif CONFIG_RUNMEM_VIRTUALALLOC
-    VirtualFree(ptr, size, MEM_RELEASE);
-#else
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+    win64_del_function_ಕೋಷ್ಟಕ(s1->ಸತತ_function_ಕೋಷ್ಟಕ);
+#ಆದರೆ_ಅಂತ್ಯ
+    ಗಾತ್ರ_2 = s1->ಸತತ_ಗಾತ್ರ;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_SELINUX
+    munmap(ptr, ಗಾತ್ರ_2);
+#ಅಥವಾಆದರೆ CONFIG_RUNMEM_VIRTUALALLOC
+    VirtualFree(ptr, ಗಾತ್ರ_2, MEM_RELEASE);
+#ಇಲ್ಲದಿದ್ದರೆ
     /* unprotect memory to make it usable for malloc again */
-    protect_pages((void*)PAGEALIGN(ptr), size - PAGESIZE, 2 /*rw*/);
+    protect_ಪುಟಗಳು((ಶೂನ್ಯ*)PAGEALIGN(ptr), ಗಾತ್ರ_2 - PAGESIZE, 2 /*rw*/);
     tcc_free(ptr);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-#define RT_EXIT_ZERO 0xE0E00E0E /* passed from longjmp instead of '0' */
+#ವ್ಯಾಖ್ಯಾನಿಸು RT_EXIT_ZERO 0xE0E00E0E /* passed from longjmp instead of '0' */
 
 /* launch the compiled program with the given arguments */
-LIBTCCAPI int tcc_run(TCCState *s1, int argc, char **argv)
+LIBTCCAPI ಪೂರ್ಣಾಂಕ tcc_ಸತತ(TCCState *s1, ಪೂರ್ಣಾಂಕ argc, ಅಕ್ಷರ **argv)
 {
-    int (*prog_main)(int, char **, char **), ret;
-    const char *top_sym;
+    ಪೂರ್ಣಾಂಕ (*prog_main)(ಪೂರ್ಣಾಂಕ, ಅಕ್ಷರ **, ಅಕ್ಷರ **), ret;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ತುದಿ_sym;
     jmp_buf main_jb;
 
-#if defined(__APPLE__)
-    extern char ***_NSGetEnviron(void);
-    char **envp = *_NSGetEnviron();
-#elif defined(__OpenBSD__) || defined(__NetBSD__)  || defined(__FreeBSD__)
-    extern char **environ;
-    char **envp = environ;
-#else
-    char **envp = environ;
-#endif
+#ಆದರೆ defined(__APPLE__)
+    ಬಾಹ್ಯ ಅಕ್ಷರ ***_NSGetEnviron(ಶೂನ್ಯ);
+    ಅಕ್ಷರ **envp = *_NSGetEnviron();
+#ಅಥವಾಆದರೆ defined(__OpenBSD__) || defined(__NetBSD__)  || defined(__FreeBSD__)
+    ಬಾಹ್ಯ ಅಕ್ಷರ **environ;
+    ಅಕ್ಷರ **envp = environ;
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಅಕ್ಷರ **envp = environ;
+#ಆದರೆ_ಅಂತ್ಯ
 
     /* tcc -dt -run ... nothing to do if no main() */
-    if ((s1->dflag & 16) && (addr_t)-1 == get_sym_addr(s1, "main", 0, 1))
-        return 0;
+    ಆದರೆ ((s1->dflag & 16) && (addr_t)-1 == get_sym_addr(s1, "main", 0, 1))
+        ಹಿಂತಿರುಗಿ 0;
 
-    tcc_add_symbol(s1, "__rt_exit", rt_exit);
-    s1->run_main = "_runmain", top_sym = "main";
-    if (s1->elf_entryname)
-        s1->run_main = top_sym = s1->elf_entryname;
-    tcc_add_support(s1, "runmain.o");
+    tcc_ಕೂಡಿಸು_ಚಿಹ್ನೆ(s1, "__rt_exit", rt_exit);
+    s1->ಸತತ_main = "_runmain", ತುದಿ_sym = "main";
+    ಆದರೆ (s1->elf_entryname)
+        s1->ಸತತ_main = ತುದಿ_sym = s1->elf_entryname;
+    tcc_ಕೂಡಿಸು_support(s1, "runmain.o");
 
-    if (tcc_relocate(s1) < 0)
-        return -1;
+    ಆದರೆ (tcc_relocate(s1) < 0)
+        ಹಿಂತಿರುಗಿ -1;
 
-    prog_main = (void*)get_sym_addr(s1, s1->run_main, 1, 1);
-    if ((addr_t)-1 == (addr_t)prog_main)
-        return -1;
+    prog_main = (ಶೂನ್ಯ*)get_sym_addr(s1, s1->ಸತತ_main, 1, 1);
+    ಆದರೆ ((addr_t)-1 == (addr_t)prog_main)
+        ಹಿಂತಿರುಗಿ -1;
 
     /* custom stdin for run_main, mainly if stdin is/was an input file.
      * fileno(stdin) should remain 0, as posix mandates to use the smallest
      * free fd, which is 0 after the initial fclose in freopen. windows too.
      * to set stdin to the tty, use /dev/tty (posix) or con (windows).
      */
-    if (s1->run_stdin && !freopen(s1->run_stdin, "r", stdin)) {
-        tcc_error_noabort("failed to reopen stdin from '%s'", s1->run_stdin);
-        return -1;
+    ಆದರೆ (s1->ಸತತ_stdin && !freopen(s1->ಸತತ_stdin, "r", stdin)) {
+        tcc_error_noabort("failed to reopen stdin from '%s'", s1->ಸತತ_stdin);
+        ಹಿಂತಿರುಗಿ -1;
     }
 
     errno = 0; /* clean errno value */
     fflush(stdout);
     fflush(stderr);
 
-    ret = tcc_setjmp(s1, main_jb, tcc_get_symbol(s1, top_sym));
-    if (0 == ret) {
+    ret = tcc_setjmp(s1, main_jb, tcc_get_ಚಿಹ್ನೆ(s1, ತುದಿ_sym));
+    ಆದರೆ (0 == ret) {
         ret = prog_main(argc, argv, envp);
-    } else if (RT_EXIT_ZERO == ret) {
+    } ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (RT_EXIT_ZERO == ret) {
         ret = 0;
     }
 
-    if (s1->dflag & 16 && ret) /* tcc -dt -run ... */
+    ಆದರೆ (s1->dflag & 16 && ret) /* tcc -dt -run ... */
         fprintf(s1->ppfp, "[returns %d]\n", ret), fflush(s1->ppfp);
-    return ret;
+    ಹಿಂತಿರುಗಿ ret;
 }
 
 /* ------------------------------------------------------------- */
 /* remove all STB_LOCAL symbols */
-static void cleanup_symbols(TCCState *s1)
+ಸ್ಥಿರ ಶೂನ್ಯ cleanup_symbols(TCCState *s1)
 {
     Section *s = s1->symtab;
-    int sym_index, end_sym = s->data_offset / sizeof (ElfSym);
+    ಪೂರ್ಣಾಂಕ sym_ಸೂಚ್ಯಂಕ, ಕೊನೆ_sym = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ (ElfSym);
     /* reset symtab */
-    s->data_offset = s->link->data_offset = s->hash->data_offset = 0;
+    s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = s->link->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = s->hash->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ = 0;
     init_symtab(s);
     /* add global symbols again */
-    for (sym_index = 1; sym_index < end_sym; ++sym_index) {
-        ElfW(Sym) *sym = &((ElfW(Sym) *)s->data)[sym_index];
-        const char *name = (char *)s->link->data + sym->st_name;
-        if (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL)
-            continue;
+    ಗಾಗಿ (sym_ಸೂಚ್ಯಂಕ = 1; sym_ಸೂಚ್ಯಂಕ < ಕೊನೆ_sym; ++sym_ಸೂಚ್ಯಂಕ) {
+        ElfW(Sym) *sym = &((ElfW(Sym) *)s->ದತ್ತಾಂಶ)[sym_ಸೂಚ್ಯಂಕ];
+        ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *name = (ಅಕ್ಷರ *)s->link->ದತ್ತಾಂಶ + sym->st_name;
+        ಆದರೆ (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL)
+            ಮುಂದುವರಿ;
         //printf("sym %s\n", name);
-        put_elf_sym(s, sym->st_value, sym->st_size, sym->st_info, sym->st_other, sym->st_shndx, name);
+        put_elf_sym(s, sym->st_ಮೌಲ್ಯ, sym->st_ಗಾತ್ರ, sym->st_info, sym->st_other, sym->st_shndx, name);
     }
 }
 
 /* free all sections except symbols */
-static void cleanup_sections(TCCState *s1)
+ಸ್ಥಿರ ಶೂನ್ಯ cleanup_sections(TCCState *s1)
 {
-    struct { Section **secs; int nb_secs; } *p = (void*)&s1->sections;
-    int i, f = 2;
-    do {
-        for (i = --f; i < p->nb_secs; i++) {
+    ರಚನೆ { Section **secs; ಪೂರ್ಣಾಂಕ nb_secs; } *p = (ಶೂನ್ಯ*)&s1->sections;
+    ಪೂರ್ಣಾಂಕ i, f = 2;
+    ಮಾಡು {
+        ಗಾಗಿ (i = --f; i < p->nb_secs; i++) {
             Section *s = p->secs[i];
-            if (s == s1->symtab || s == s1->symtab->link || s == s1->symtab->hash) {
-                s->data = tcc_realloc(s->data, s->data_allocated = s->data_offset);
-            } else {
-                free_section(s), tcc_free(s), p->secs[i] = NULL;
+            ಆದರೆ (s == s1->symtab || s == s1->symtab->link || s == s1->symtab->hash) {
+                s->ದತ್ತಾಂಶ = tcc_realloc(s->ದತ್ತಾಂಶ, s->ದತ್ತಾಂಶ_allocated = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
+            } ಇಲ್ಲದಿದ್ದರೆ {
+                free_section(s), tcc_free(s), p->secs[i] = ಖಾಲಿ;
             }
         }
-    } while (++p, f);
+    } ಆಗ (++p, f);
 }
 
 /* ------------------------------------------------------------- */
@@ -317,928 +317,928 @@ static void cleanup_sections(TCCState *s1)
    executable code. These targets need CONFIG_RUNMEM_RO=1.
    The disadvantage of this is that it requires a little bit more memory. */
 
-#ifndef CONFIG_RUNMEM_RO
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ CONFIG_RUNMEM_RO
 # ifdef __APPLE__
 #   define CONFIG_RUNMEM_RO 1
-# else
+# ಇಲ್ಲದಿದ್ದರೆ
 #   define CONFIG_RUNMEM_RO 0
 #  endif
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* relocate code. Return -1 on error, required size if ptr is NULL,
    otherwise copy code into buffer passed by the caller */
-static int tcc_relocate_ex(TCCState *s1, void *ptr, unsigned ptr_diff)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ tcc_relocate_ex(TCCState *s1, ಶೂನ್ಯ *ptr, ಚಿಹ್ನೆರಹಿತ ptr_diff)
 {
     Section *s;
-    unsigned offset, length, align, i, k, f;
-    unsigned n, copy;
+    ಚಿಹ್ನೆರಹಿತ ಸ್ಥಾನಾಂತರ, ಉದ್ದಳತೆ, align, i, k, f;
+    ಚಿಹ್ನೆರಹಿತ n, copy;
     addr_t mem, addr;
 
-    if (NULL == ptr) {
+    ಆದರೆ (ಖಾಲಿ == ptr) {
         s1->nb_errors = 0;
-#ifdef TCC_TARGET_PE
-        pe_output_file(s1, NULL);
-#else
-        tcc_add_runtime(s1);
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_PE
+        pe_output_file(s1, ಖಾಲಿ);
+#ಇಲ್ಲದಿದ್ದರೆ
+        tcc_ಕೂಡಿಸು_runtime(s1);
 	resolve_common_syms(s1);
         build_got_entries(s1, 0);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
     }
 
-    offset = copy = 0;
+    ಸ್ಥಾನಾಂತರ = copy = 0;
     mem = (addr_t)ptr;
 redo:
-    if (s1->verbose == 2 && copy)
-        printf(&"-----------------------------------------------------\n"[PTR_SIZE*2 - 8]);
-    if (s1->nb_errors)
-        return -1;
-    if (copy == 3)
-        return 0;
+    ಆದರೆ (s1->verbose == 2 && copy)
+        ಬರೆ(&"-----------------------------------------------------\n"[PTR_ಗಾತ್ರ*2 - 8]);
+    ಆದರೆ (s1->nb_errors)
+        ಹಿಂತಿರುಗಿ -1;
+    ಆದರೆ (copy == 3)
+        ಹಿಂತಿರುಗಿ 0;
 
-    for (k = 0; k < 3; ++k) { /* 0:rx, 1:ro, 2:rw sections */
+    ಗಾಗಿ (k = 0; k < 3; ++k) { /* 0:rx, 1:ro, 2:rw sections */
         n = 0; addr = 0;
-        for(i = 1; i < s1->nb_sections; i++) {
-            static const char shf[] = {
+        ಗಾಗಿ(i = 1; i < s1->nb_sections; i++) {
+            ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ shf[] = {
                 SHF_ALLOC|SHF_EXECINSTR, SHF_ALLOC, SHF_ALLOC|SHF_WRITE
                 };
             s = s1->sections[i];
-            if (shf[k] != (s->sh_flags & (SHF_ALLOC|SHF_WRITE|SHF_EXECINSTR)))
-                continue;
-            length = s->data_offset;
-            if (copy == 2) {
-                if (addr == 0)
+            ಆದರೆ (shf[k] != (s->sh_flags & (SHF_ALLOC|SHF_WRITE|SHF_EXECINSTR)))
+                ಮುಂದುವರಿ;
+            ಉದ್ದಳತೆ = s->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ;
+            ಆದರೆ (copy == 2) {
+                ಆದರೆ (addr == 0)
                     addr = s->sh_addr;
-                n = (s->sh_addr - addr) + length;
-                continue;
+                n = (s->sh_addr - addr) + ಉದ್ದಳತೆ;
+                ಮುಂದುವರಿ;
             }
-            if (copy) { /* final step: copy section data to memory */
-                if (s1->verbose == 2)
-                    printf("%d: %-16s %p  len %05x  align %04x\n",
-                        k, s->name, (void*)s->sh_addr, length, s->sh_addralign);
-                ptr = (void*)s->sh_addr;
-                if (k == 0)
-                    ptr = (void*)(s->sh_addr + ptr_diff);
-                if (NULL == s->data || s->sh_type == SHT_NOBITS)
-                    memset(ptr, 0, length);
-                else
-                    memcpy(ptr, s->data, length);
-                continue;
+            ಆದರೆ (copy) { /* final step: copy section data to memory */
+                ಆದರೆ (s1->verbose == 2)
+                    ಬರೆ("%d: %-16s %p  len %05x  align %04x\n",
+                        k, s->name, (ಶೂನ್ಯ*)s->sh_addr, ಉದ್ದಳತೆ, s->sh_addralign);
+                ptr = (ಶೂನ್ಯ*)s->sh_addr;
+                ಆದರೆ (k == 0)
+                    ptr = (ಶೂನ್ಯ*)(s->sh_addr + ptr_diff);
+                ಆದರೆ (ಖಾಲಿ == s->ದತ್ತಾಂಶ || s->sh_type == SHT_NOBITS)
+                    memset(ptr, 0, ಉದ್ದಳತೆ);
+                ಇಲ್ಲದಿದ್ದರೆ
+                    ಸ್ಮರಣೆ_ನಕಲು(ptr, s->ದತ್ತಾಂಶ, ಉದ್ದಳತೆ);
+                ಮುಂದುವರಿ;
             }
 
-            if ((s->sh_flags & SHF_TLS) && length)
-                return tcc_error_noabort("thread-local storage not supported with -run");
+            ಆದರೆ ((s->sh_flags & SHF_TLS) && ಉದ್ದಳತೆ)
+                ಹಿಂತಿರುಗಿ tcc_error_noabort("thread-local storage not supported with -run");
 
             align = s->sh_addralign;
-            if (++n == 1) {
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
+            ಆದರೆ (++n == 1) {
+#ಆದರೆ defined TCC_ಗುರಿ_I386 || defined TCC_ಗುರಿ_X86_64
                 /* To avoid that x86 processors would reload cached instructions
                    each time when data is written in the near, we need to make
                    sure that code and data do not share the same 64 byte unit */
-                if (align < 64)
+                ಆದರೆ (align < 64)
                     align = 64;
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
                 /* start new page for different permissions */
-                if (k <= CONFIG_RUNMEM_RO)
+                ಆದರೆ (k <= CONFIG_RUNMEM_RO)
                     align = PAGESIZE;
             }
             s->sh_addralign = align;
             addr = k ? mem + ptr_diff : mem;
-            offset += -(addr + offset) & (align - 1);
-            s->sh_addr = mem ? addr + offset : 0;
-            offset += length;
+            ಸ್ಥಾನಾಂತರ += -(addr + ಸ್ಥಾನಾಂತರ) & (align - 1);
+            s->sh_addr = mem ? addr + ಸ್ಥಾನಾಂತರ : 0;
+            ಸ್ಥಾನಾಂತರ += ಉದ್ದಳತೆ;
         }
-        if (copy == 2) { /* set permissions */
-            if (n == 0) /* no data  */
-                continue;
-#ifdef CONFIG_SELINUX
-            if (k == 0) /* SHF_EXECINSTR has its own mapping */
-                continue;
-#endif
+        ಆದರೆ (copy == 2) { /* set permissions */
+            ಆದರೆ (n == 0) /* no data  */
+                ಮುಂದುವರಿ;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_SELINUX
+            ಆದರೆ (k == 0) /* SHF_EXECINSTR has its own mapping */
+                ಮುಂದುವರಿ;
+#ಆದರೆ_ಅಂತ್ಯ
             f = k;
-            if (f >= CONFIG_RUNMEM_RO) {
-                if (f != 0)
-                    continue;
+            ಆದರೆ (f >= CONFIG_RUNMEM_RO) {
+                ಆದರೆ (f != 0)
+                    ಮುಂದುವರಿ;
                 f = 3; /* change only SHF_EXECINSTR to rwx */
             }
             n = PAGEALIGN(n);
-            if (s1->verbose == 2) {
-                printf("protect         %3s %p  len %05x\n",
-                    &"rx\0ro\0rw\0rwx"[f*3], (void*)addr, (unsigned)n);
+            ಆದರೆ (s1->verbose == 2) {
+                ಬರೆ("protect         %3s %p  len %05x\n",
+                    &"rx\0ro\0rw\0rwx"[f*3], (ಶೂನ್ಯ*)addr, (ಚಿಹ್ನೆರಹಿತ)n);
             }
-            if (protect_pages((void*)addr, n, f) < 0)
-                return tcc_error_noabort(
-#ifdef _WIN32
+            ಆದರೆ (protect_ಪುಟಗಳು((ಶೂನ್ಯ*)addr, n, f) < 0)
+                ಹಿಂತಿರುಗಿ tcc_error_noabort(
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN32
                     "VirtualProtect failed");
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
                     "mprotect failed (did you mean to configure --with-selinux?)");
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
         }
     }
 
-    if (0 == mem)
-        return PAGEALIGN(offset);
+    ಆದರೆ (0 == mem)
+        ಹಿಂತಿರುಗಿ PAGEALIGN(ಸ್ಥಾನಾಂತರ);
 
-    if (++copy == 2) {
-        goto redo;
+    ಆದರೆ (++copy == 2) {
+        ಹೋಗು redo;
     }
-    if (copy == 3) {
-#ifdef _WIN64
-        s1->run_function_table = win64_add_function_table(s1);
-#endif
+    ಆದರೆ (copy == 3) {
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+        s1->ಸತತ_function_ಕೋಷ್ಟಕ = win64_ಕೂಡಿಸು_function_ಕೋಷ್ಟಕ(s1);
+#ಆದರೆ_ಅಂತ್ಯ
         /* remove local symbols and free sections except symtab */
         cleanup_symbols(s1);
         cleanup_sections(s1);
-        goto redo;
+        ಹೋಗು redo;
     }
 
     /* relocate symbols */
     relocate_syms(s1, s1->symtab, 1);
-    if (s1->nb_errors)
-        goto redo;
+    ಆದರೆ (s1->nb_errors)
+        ಹೋಗು redo;
     /* relocate sections */
-#ifdef TCC_TARGET_PE
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ TCC_ಗುರಿ_PE
     s1->pe_imagebase = mem;
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
     relocate_plt(s1);
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
     relocate_sections(s1);
-    goto redo;
+    ಹೋಗು redo;
 }
 
 /* ------------------------------------------------------------- */
 /* allow to run code in memory */
 
-static int protect_pages(void *ptr, unsigned long length, int mode)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ protect_ಪುಟಗಳು(ಶೂನ್ಯ *ptr, ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ಉದ್ದಳತೆ, ಪೂರ್ಣಾಂಕ ಬಹುಲಕ)
 {
-#ifdef _WIN32
-    static const unsigned char protect[] = {
-        PAGE_EXECUTE_READ,
-        PAGE_READONLY,
-        PAGE_READWRITE,
-        PAGE_EXECUTE_READWRITE
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN32
+    ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ protect[] = {
+        ಪುಟ_EXECUTE_READ,
+        ಪುಟ_READONLY,
+        ಪುಟ_READWRITE,
+        ಪುಟ_EXECUTE_READWRITE
         };
     DWORD old;
-    if (!VirtualProtect(ptr, length, protect[mode], &old))
-        return -1;
-#else
-    static const unsigned char protect[] = {
+    ಆದರೆ (!VirtualProtect(ptr, ಉದ್ದಳತೆ, protect[ಬಹುಲಕ], &old))
+        ಹಿಂತಿರುಗಿ -1;
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಸ್ಥಿರ ಸ್ಥಿರಾಂಕ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ protect[] = {
         PROT_READ | PROT_EXEC,
         PROT_READ,
         PROT_READ | PROT_WRITE,
         PROT_READ | PROT_WRITE | PROT_EXEC
         };
-    if (mprotect(ptr, length, protect[mode]))
-        return -1;
-#endif
+    ಆದರೆ (mprotect(ptr, ಉದ್ದಳತೆ, protect[ಬಹುಲಕ]))
+        ಹಿಂತಿರುಗಿ -1;
+#ಆದರೆ_ಅಂತ್ಯ
 /* XXX: BSD sometimes dump core with bad system call */
-#if (defined TCC_TARGET_ARM && !TARGETOS_BSD) \
-    || defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
-    if (mode == 0 || mode == 3) {
-#ifdef _WIN32
-        FlushInstructionCache(GetCurrentProcess(), ptr, length);
-#else
-        void __clear_cache(void *beginning, void *end);
-        __clear_cache(ptr, (char *)ptr + length);
-#endif
+#ಆದರೆ (defined TCC_ಗುರಿ_ARM && !TARGETOS_BSD) \
+    || defined TCC_ಗುರಿ_ARM64 || defined TCC_ಗುರಿ_RISCV64
+    ಆದರೆ (ಬಹುಲಕ == 0 || ಬಹುಲಕ == 3) {
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN32
+        FlushInstructionCache(GetCurrentProcess(), ptr, ಉದ್ದಳತೆ);
+#ಇಲ್ಲದಿದ್ದರೆ
+        ಶೂನ್ಯ __clear_cache(ಶೂನ್ಯ *beginning, ಶೂನ್ಯ *ಕೊನೆ);
+        __clear_cache(ptr, (ಅಕ್ಷರ *)ptr + ಉದ್ದಳತೆ);
+#ಆದರೆ_ಅಂತ್ಯ
     }
-#endif
-    return 0;
+#ಆದರೆ_ಅಂತ್ಯ
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-#ifdef _WIN64
-static void *win64_add_function_table(TCCState *s1)
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+ಸ್ಥಿರ ಶೂನ್ಯ *win64_ಕೂಡಿಸು_function_ಕೋಷ್ಟಕ(TCCState *s1)
 {
-    void *p = NULL;
-    if (s1->uw_pdata) {
-        p = (void*)s1->uw_pdata->sh_addr;
-        RtlAddFunctionTable(
+    ಶೂನ್ಯ *p = ಖಾಲಿ;
+    ಆದರೆ (s1->uw_pdata) {
+        p = (ಶೂನ್ಯ*)s1->uw_pdata->sh_addr;
+        Rtl_ಕೂಡಿಸು_Function_ಕೋಷ್ಟಕ(
             (RUNTIME_FUNCTION*)p,
-            s1->uw_pdata->data_offset / sizeof (RUNTIME_FUNCTION),
+            s1->uw_pdata->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ / ಗಾತ್ರ (RUNTIME_FUNCTION),
             s1->pe_imagebase
             );
-        s1->uw_pdata = NULL;
+        s1->uw_pdata = ಖಾಲಿ;
     }
-    return p;
+    ಹಿಂತಿರುಗಿ p;
 }
 
-static void win64_del_function_table(void *p)
+ಸ್ಥಿರ ಶೂನ್ಯ win64_del_function_ಕೋಷ್ಟಕ(ಶೂನ್ಯ *p)
 {
-    if (p) {
-        RtlDeleteFunctionTable((RUNTIME_FUNCTION*)p);
+    ಆದರೆ (p) {
+        Rtl_Delete_Function_ಕೋಷ್ಟಕ((RUNTIME_FUNCTION*)p);
     }
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-static void bt_link(TCCState *s1)
+ಸ್ಥಿರ ಶೂನ್ಯ bt_link(TCCState *s1)
 {
-#ifdef CONFIG_TCC_BACKTRACE
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BACKTRACE
     rt_context *rc;
-    if (!s1->do_backtrace)
-        return;
-    rc = tcc_get_symbol(s1, "__rt_info");
-    if (!rc)
-        return;
-    rc->esym_start = (ElfW(Sym) *)(symtab_section->data);
-    rc->esym_end = (ElfW(Sym) *)(symtab_section->data + symtab_section->data_offset);
-    rc->elf_str = (char *)symtab_section->link->data;
-    if (PTR_SIZE == 8 && !s1->dwarf)
-        rc->prog_base &= 0xffffffff00000000ULL;
-#ifdef CONFIG_TCC_BCHECK
-    if (s1->do_bounds_check) {
-        void *p;
-        if ((p = tcc_get_symbol(s1, "__bound_init")))
-            ((void(*)(void*,int))p)(rc->bounds_start, 1);
+    ಆದರೆ (!s1->do_backtrace)
+        ಹಿಂತಿರುಗಿ;
+    rc = tcc_get_ಚಿಹ್ನೆ(s1, "__rt_info");
+    ಆದರೆ (!rc)
+        ಹಿಂತಿರುಗಿ;
+    rc->esym_ಆರಂಭ = (ElfW(Sym) *)(symtab_section->ದತ್ತಾಂಶ);
+    rc->esym_ಕೊನೆ = (ElfW(Sym) *)(symtab_section->ದತ್ತಾಂಶ + symtab_section->ದತ್ತಾಂಶ_ಸ್ಥಾನಾಂತರ);
+    rc->elf_str = (ಅಕ್ಷರ *)symtab_section->link->ದತ್ತಾಂಶ;
+    ಆದರೆ (PTR_ಗಾತ್ರ == 8 && !s1->dwarf)
+        rc->prog_ತಳ &= 0xffffffff00000000ULL;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BCHECK
+    ಆದರೆ (s1->do_bounds_check) {
+        ಶೂನ್ಯ *p;
+        ಆದರೆ ((p = tcc_get_ಚಿಹ್ನೆ(s1, "__bound_init")))
+            ((ಶೂನ್ಯ(*)(ಶೂನ್ಯ*,ಪೂರ್ಣಾಂಕ))p)(rc->bounds_ಆರಂಭ, 1);
     }
-#endif
-    rc->next = g_rc, g_rc = rc, s1->rc = rc;
-    if (0 == signal_set)
-        set_exception_handler(), signal_set = 1;
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
+    rc->ಮುಂದಿನ = g_rc, g_rc = rc, s1->rc = rc;
+    ಆದರೆ (0 == signal_ಗಣ)
+        ಗಣ_exception_handler(), signal_ಗಣ = 1;
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-static void st_link(TCCState *s1)
+ಸ್ಥಿರ ಶೂನ್ಯ st_link(TCCState *s1)
 {
     rt_wait_sem();
-    s1->next = g_s1, g_s1 = s1;
+    s1->ಮುಂದಿನ = g_s1, g_s1 = s1;
     bt_link(s1);
     rt_post_sem();
 }
 
 /* remove 'el' from 'list' */
-static void ptr_unlink(void *list, void *e, unsigned next)
+ಸ್ಥಿರ ಶೂನ್ಯ ptr_unlink(ಶೂನ್ಯ *list, ಶೂನ್ಯ *e, ಚಿಹ್ನೆರಹಿತ ಮುಂದಿನ)
 {
-    void **pp, **nn, *p;
-    for (pp = list; !!(p = *pp); pp = nn) {
-        nn = (void*)((char*)p + next); /* nn = &p->next; */
-        if (p == e) {
+    ಶೂನ್ಯ **pp, **nn, *p;
+    ಗಾಗಿ (pp = list; !!(p = *pp); pp = nn) {
+        nn = (ಶೂನ್ಯ*)((ಅಕ್ಷರ*)p + ಮುಂದಿನ); /* nn = &p->next; */
+        ಆದರೆ (p == e) {
             *pp = *nn;
-            break;
+            ನಿಲ್ಲಿಸು;
         }
     }
 }
 
-static void st_unlink(TCCState *s1)
+ಸ್ಥಿರ ಶೂನ್ಯ st_unlink(TCCState *s1)
 {
     rt_wait_sem();
-#ifdef CONFIG_TCC_BACKTRACE
-    ptr_unlink(&g_rc, s1->rc, offsetof(rt_context, next));
-#endif
-    ptr_unlink(&g_s1, s1, offsetof(TCCState, next));
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BACKTRACE
+    ptr_unlink(&g_rc, s1->rc, offsetof(rt_context, ಮುಂದಿನ));
+#ಆದರೆ_ಅಂತ್ಯ
+    ptr_unlink(&g_s1, s1, offsetof(TCCState, ಮುಂದಿನ));
     rt_post_sem();
 }
 
-LIBTCCAPI void *_tcc_setjmp(TCCState *s1, void *p_jmp_buf, void *func, void *p_longjmp)
+LIBTCCAPI ಶೂನ್ಯ *_tcc_setjmp(TCCState *s1, ಶೂನ್ಯ *p_jmp_buf, ಶೂನ್ಯ *func, ಶೂನ್ಯ *p_longjmp)
 {
-    s1->run_lj = p_longjmp;
-    s1->run_jb = p_jmp_buf;
-#ifdef CONFIG_TCC_BACKTRACE
-    if (s1->rc)
-        s1->rc->top_func = func;
-#endif
-    return p_jmp_buf;
+    s1->ಸತತ_lj = p_longjmp;
+    s1->ಸತತ_jb = p_jmp_buf;
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BACKTRACE
+    ಆದರೆ (s1->rc)
+        s1->rc->ತುದಿ_func = func;
+#ಆದರೆ_ಅಂತ್ಯ
+    ಹಿಂತಿರುಗಿ p_jmp_buf;
 }
 
-LIBTCCAPI void tcc_set_backtrace_func(TCCState *s1, void *data, TCCBtFunc *func)
+LIBTCCAPI ಶೂನ್ಯ tcc_ಗಣ_backtrace_func(TCCState *s1, ಶೂನ್ಯ *ದತ್ತಾಂಶ, TCCBtFunc *func)
 {
     s1->bt_func = func;
-    s1->bt_data = data;
+    s1->bt_ದತ್ತಾಂಶ = ದತ್ತಾಂಶ;
 }
 
-static TCCState *rt_find_state(rt_frame *f)
+ಸ್ಥಿರ TCCState *rt_ಕಂಡುಹಿಡಿ_state(rt_ಚೌಕಟ್ಟು *f)
 {
     TCCState *s;
-    int level;
+    ಪೂರ್ಣಾಂಕ level;
     addr_t pc;
 
     s = g_s1;
-    if (NULL == s || NULL == s->next) {
+    ಆದರೆ (ಖಾಲಿ == s || ಖಾಲಿ == s->ಮುಂದಿನ) {
         /* play it safe in the simple case when there is only one state */
-        return s;
+        ಹಿಂತಿರುಗಿ s;
     }
-    for (level = 0; level < 8; ++level) {
-        if (rt_get_caller_pc(&pc, f, level) < 0)
-            break;
-        for (s = g_s1; s; s = s->next) {
-            if (pc >= (addr_t)s->run_ptr
-             && pc  < (addr_t)s->run_ptr + s->run_size)
-                return s;
+    ಗಾಗಿ (level = 0; level < 8; ++level) {
+        ಆದರೆ (rt_get_caller_pc(&pc, f, level) < 0)
+            ನಿಲ್ಲಿಸು;
+        ಗಾಗಿ (s = g_s1; s; s = s->ಮುಂದಿನ) {
+            ಆದರೆ (pc >= (addr_t)s->ಸತತ_ptr
+             && pc  < (addr_t)s->ಸತತ_ptr + s->ಸತತ_ಗಾತ್ರ)
+                ಹಿಂತಿರುಗಿ s;
         }
     }
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-static void rt_exit(rt_frame *f, int code)
+ಸ್ಥಿರ ಶೂನ್ಯ rt_exit(rt_ಚೌಕಟ್ಟು *f, ಪೂರ್ಣಾಂಕ ಸಂಕೇತ_2)
 {
     TCCState *s;
     rt_wait_sem();
-    s = rt_find_state(f);
+    s = rt_ಕಂಡುಹಿಡಿ_state(f);
     rt_post_sem();
-    if (s && s->run_lj) {
-#ifdef CONFIG_TCC_BCHECK
-        if (f->fp) { /* called from signal */
-            void *p = tcc_get_symbol(s, "__bound_exit");
-            if (p)
-                ((void (*)(void))p)();
+    ಆದರೆ (s && s->ಸತತ_lj) {
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BCHECK
+        ಆದರೆ (f->fp) { /* called from signal */
+            ಶೂನ್ಯ *p = tcc_get_ಚಿಹ್ನೆ(s, "__bound_exit");
+            ಆದರೆ (p)
+                ((ಶೂನ್ಯ (*)(ಶೂನ್ಯ))p)();
         }
-#endif
-        if (code == 0)
-            code = RT_EXIT_ZERO;
-        ((void(*)(void*,int))s->run_lj)(s->run_jb, code);
+#ಆದರೆ_ಅಂತ್ಯ
+        ಆದರೆ (ಸಂಕೇತ_2 == 0)
+            ಸಂಕೇತ_2 = RT_EXIT_ZERO;
+        ((ಶೂನ್ಯ(*)(ಶೂನ್ಯ*,ಪೂರ್ಣಾಂಕ))s->ಸತತ_lj)(s->ಸತತ_jb, ಸಂಕೇತ_2);
     }
-    exit(code);
+    ನಿರ್ಗಮಿಸು(ಸಂಕೇತ_2);
 }
 
 /* ------------------------------------------------------------- */
-#else // if defined CONFIG_TCC_BACKTRACE_ONLY
-static void rt_exit(rt_frame *f, int code)
+#ಇಲ್ಲದಿದ್ದರೆ // if defined CONFIG_TCC_BACKTRACE_ONLY
+ಸ್ಥಿರ ಶೂನ್ಯ rt_exit(rt_ಚೌಕಟ್ಟು *f, ಪೂರ್ಣಾಂಕ ಸಂಕೇತ_2)
 {
-    exit(code);
+    ನಿರ್ಗಮಿಸು(ಸಂಕೇತ_2);
 }
-#endif //ndef CONFIG_TCC_BACKTRACE_ONLY
+#ಆದರೆ_ಅಂತ್ಯ //ndef CONFIG_TCC_BACKTRACE_ONLY
 /* ------------------------------------------------------------- */
-#ifdef CONFIG_TCC_BACKTRACE
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_BACKTRACE
 
-static int rt_vprintf(const char *fmt, va_list ap)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ rt_vprintf(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *fmt, va_list ap)
 {
-    int ret = vfprintf(stderr, fmt, ap);
+    ಪೂರ್ಣಾಂಕ ret = vfprintf(stderr, fmt, ap);
     fflush(stderr);
-    return ret;
+    ಹಿಂತಿರುಗಿ ret;
 }
 
-static int rt_printf(const char *fmt, ...)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ rt_printf(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *fmt, ...)
 {
     va_list ap;
-    int r;
+    ಪೂರ್ಣಾಂಕ r;
     va_start(ap, fmt);
     r = rt_vprintf(fmt, ap);
     va_end(ap);
-    return r;
+    ಹಿಂತಿರುಗಿ r;
 }
 
-static char *rt_elfsym(rt_context *rc, addr_t wanted_pc, addr_t *func_addr)
+ಸ್ಥಿರ ಅಕ್ಷರ *rt_elfsym(rt_context *rc, addr_t wanted_pc, addr_t *func_addr)
 {
     ElfW(Sym) *esym;
-    for (esym = rc->esym_start + 1; esym < rc->esym_end; ++esym) {
-        int type = ELFW(ST_TYPE)(esym->st_info);
-        if ((type == STT_FUNC || type == STT_GNU_IFUNC)
-            && wanted_pc >= esym->st_value
-            && wanted_pc < esym->st_value + esym->st_size) {
-            *func_addr = esym->st_value;
-            return rc->elf_str + esym->st_name;
+    ಗಾಗಿ (esym = rc->esym_ಆರಂಭ + 1; esym < rc->esym_ಕೊನೆ; ++esym) {
+        ಪೂರ್ಣಾಂಕ type = ELFW(ST_TYPE)(esym->st_info);
+        ಆದರೆ ((type == STT_FUNC || type == STT_GNU_IFUNC)
+            && wanted_pc >= esym->st_ಮೌಲ್ಯ
+            && wanted_pc < esym->st_ಮೌಲ್ಯ + esym->st_ಗಾತ್ರ) {
+            *func_addr = esym->st_ಮೌಲ್ಯ;
+            ಹಿಂತಿರುಗಿ rc->elf_str + esym->st_name;
         }
     }
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-typedef struct bt_info
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ bt_info
 {
-    char file[100];
-    int line;
-    char func[100];
+    ಅಕ್ಷರ file[100];
+    ಪೂರ್ಣಾಂಕ ಸಾಲು;
+    ಅಕ್ಷರ func[100];
     addr_t func_pc;
 } bt_info;
 
 /* print the position in the source file of PC value 'pc' by reading
    the stabs debug information */
-static addr_t rt_printline (rt_context *rc, addr_t wanted_pc, bt_info *bi)
+ಸ್ಥಿರ addr_t rt_printline (rt_context *rc, addr_t wanted_pc, bt_info *bi)
 {
-    char func_name[128];
-    addr_t func_addr, last_pc, pc;
-    const char *incl_files[INCLUDE_STACK_SIZE];
-    int incl_index, last_incl_index, len, last_line_num, i;
-    const char *str, *p;
+    ಅಕ್ಷರ func_name[128];
+    addr_t func_addr, ಕೊನೆಯ_pc, pc;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *incl_files[INCLUDE_ರಾಶಿ_ಗಾತ್ರ];
+    ಪೂರ್ಣಾಂಕ incl_ಸೂಚ್ಯಂಕ, ಕೊನೆಯ_incl_ಸೂಚ್ಯಂಕ, len, ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ, i;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *str, *p;
     Stab_Sym *sym;
 
     func_name[0] = '\0';
     func_addr = 0;
-    incl_index = 0;
-    last_pc = (addr_t)-1;
-    last_line_num = 1;
-    last_incl_index = 0;
+    incl_ಸೂಚ್ಯಂಕ = 0;
+    ಕೊನೆಯ_pc = (addr_t)-1;
+    ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ = 1;
+    ಕೊನೆಯ_incl_ಸೂಚ್ಯಂಕ = 0;
 
-    for (sym = rc->stab_sym + 1; sym < rc->stab_sym_end; ++sym) {
+    ಗಾಗಿ (sym = rc->stab_sym + 1; sym < rc->stab_sym_ಕೊನೆ; ++sym) {
         str = rc->stab_str + sym->n_strx;
-        pc = sym->n_value;
+        pc = sym->n_ಮೌಲ್ಯ;
 
-        switch(sym->n_type) {
-        case N_SLINE:
-            if (func_addr)
-                goto rel_pc;
-        case N_SO:
-        case N_SOL:
-            goto abs_pc;
-        case N_FUN:
-            if (sym->n_strx == 0) /* end of function */
-                goto rel_pc;
+        ಆಯ್ಕೆ(sym->n_type) {
+        ಸ್ಥಿತಿ N_SLINE:
+            ಆದರೆ (func_addr)
+                ಹೋಗು rel_pc;
+        ಸ್ಥಿತಿ N_SO:
+        ಸ್ಥಿತಿ N_SOL:
+            ಹೋಗು abs_pc;
+        ಸ್ಥಿತಿ N_FUN:
+            ಆದರೆ (sym->n_strx == 0) /* end of function */
+                ಹೋಗು rel_pc;
         abs_pc:
-#if PTR_SIZE == 8
+#ಆದರೆ PTR_ಗಾತ್ರ == 8
             /* Stab_Sym.n_value is only 32bits */
-            pc += rc->prog_base;
-#endif
-            goto check_pc;
+            pc += rc->prog_ತಳ;
+#ಆದರೆ_ಅಂತ್ಯ
+            ಹೋಗು check_pc;
         rel_pc:
             pc += func_addr;
         check_pc:
-            if (pc >= wanted_pc && wanted_pc >= last_pc)
-                goto found;
-            break;
+            ಆದರೆ (pc >= wanted_pc && wanted_pc >= ಕೊನೆಯ_pc)
+                ಹೋಗು ಸಿಕ್ಕಿತು;
+            ನಿಲ್ಲಿಸು;
         }
 
-        switch(sym->n_type) {
+        ಆಯ್ಕೆ(sym->n_type) {
             /* function start or end */
-        case N_FUN:
-            if (sym->n_strx == 0)
-                goto reset_func;
+        ಸ್ಥಿತಿ N_FUN:
+            ಆದರೆ (sym->n_strx == 0)
+                ಹೋಗು reset_func;
             p = strchr(str, ':');
-            if (0 == p || (len = p - str + 1, len > sizeof func_name))
-                len = sizeof func_name;
+            ಆದರೆ (0 == p || (len = p - str + 1, len > ಗಾತ್ರ func_name))
+                len = ಗಾತ್ರ func_name;
             pstrcpy(func_name, len, str);
             func_addr = pc;
-            break;
+            ನಿಲ್ಲಿಸು;
             /* line number info */
-        case N_SLINE:
-            last_pc = pc;
-            last_line_num = sym->n_desc;
-            last_incl_index = incl_index;
-            break;
+        ಸ್ಥಿತಿ N_SLINE:
+            ಕೊನೆಯ_pc = pc;
+            ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ = sym->n_desc;
+            ಕೊನೆಯ_incl_ಸೂಚ್ಯಂಕ = incl_ಸೂಚ್ಯಂಕ;
+            ನಿಲ್ಲಿಸು;
             /* include files */
-        case N_BINCL:
-            if (incl_index < INCLUDE_STACK_SIZE)
-                incl_files[incl_index++] = str;
-            break;
-        case N_EINCL:
-            if (incl_index > 1)
-                incl_index--;
-            break;
+        ಸ್ಥಿತಿ N_BINCL:
+            ಆದರೆ (incl_ಸೂಚ್ಯಂಕ < INCLUDE_ರಾಶಿ_ಗಾತ್ರ)
+                incl_files[incl_ಸೂಚ್ಯಂಕ++] = str;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ N_EINCL:
+            ಆದರೆ (incl_ಸೂಚ್ಯಂಕ > 1)
+                incl_ಸೂಚ್ಯಂಕ--;
+            ನಿಲ್ಲಿಸು;
             /* start/end of translation unit */
-        case N_SO:
-            incl_index = 0;
-            if (sym->n_strx) {
+        ಸ್ಥಿತಿ N_SO:
+            incl_ಸೂಚ್ಯಂಕ = 0;
+            ಆದರೆ (sym->n_strx) {
                 /* do not add path */
-                len = strlen(str);
-                if (len > 0 && str[len - 1] != '/')
-                    incl_files[incl_index++] = str;
+                len = ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(str);
+                ಆದರೆ (len > 0 && str[len - 1] != '/')
+                    incl_files[incl_ಸೂಚ್ಯಂಕ++] = str;
             }
         reset_func:
             func_name[0] = '\0';
             func_addr = 0;
-            last_pc = (addr_t)-1;
-            break;
+            ಕೊನೆಯ_pc = (addr_t)-1;
+            ನಿಲ್ಲಿಸು;
             /* alternative file name (from #line or #include directives) */
-        case N_SOL:
-            if (incl_index)
-                incl_files[incl_index-1] = str;
-            break;
+        ಸ್ಥಿತಿ N_SOL:
+            ಆದರೆ (incl_ಸೂಚ್ಯಂಕ)
+                incl_files[incl_ಸೂಚ್ಯಂಕ-1] = str;
+            ನಿಲ್ಲಿಸು;
         }
     }
-    last_incl_index = 0, func_name[0] = 0, func_addr = 0;
-found:
-    i = last_incl_index;
-    if (i > 0) {
-        pstrcpy(bi->file, sizeof bi->file, incl_files[--i]);
-        bi->line = last_line_num;
+    ಕೊನೆಯ_incl_ಸೂಚ್ಯಂಕ = 0, func_name[0] = 0, func_addr = 0;
+ಸಿಕ್ಕಿತು:
+    i = ಕೊನೆಯ_incl_ಸೂಚ್ಯಂಕ;
+    ಆದರೆ (i > 0) {
+        pstrcpy(bi->file, ಗಾತ್ರ bi->file, incl_files[--i]);
+        bi->ಸಾಲು = ಕೊನೆಯ_ಸಾಲು_ಅಂಕೆ;
     }
-    pstrcpy(bi->func, sizeof bi->func, func_name);
+    pstrcpy(bi->func, ಗಾತ್ರ bi->func, func_name);
     bi->func_pc = func_addr;
-    return func_addr;
+    ಹಿಂತಿರುಗಿ func_addr;
 }
 
 /* ------------------------------------------------------------- */
 /* rt_printline - dwarf version */
 
-#define DIR_TABLE_SIZE	(64)
-#define FILE_TABLE_SIZE	(512)
+#ವ್ಯಾಖ್ಯಾನಿಸು DIR_ಕೋಷ್ಟಕ_ಗಾತ್ರ	(64)
+#ವ್ಯಾಖ್ಯಾನಿಸು FILE_ಕೋಷ್ಟಕ_ಗಾತ್ರ	(512)
 
-#define	dwarf_ignore_type(ln, end) /* timestamp/size/md5/... */ \
-	switch (entry_format[j].form) { \
-	case DW_FORM_data1: (ln) += 1; break; \
-	case DW_FORM_data2: (ln) += 2; break; \
-	case DW_FORM_data4: (ln) += 3; break; \
-	case DW_FORM_data8: (ln) += 8; break; \
-	case DW_FORM_data16: (ln) += 16; break; \
-	case DW_FORM_udata: dwarf_read_uleb128(&(ln), (end)); break; \
-	default: goto next_line; \
+#ವ್ಯಾಖ್ಯಾನಿಸು	dwarf_ignore_type(ln, ಕೊನೆ) /* timestamp/size/md5/... */ \
+	ಆಯ್ಕೆ (ನಮೂದು_format[j].form) { \
+	ಸ್ಥಿತಿ DW_FORM_data1: (ln) += 1; ನಿಲ್ಲಿಸು; \
+	ಸ್ಥಿತಿ DW_FORM_data2: (ln) += 2; ನಿಲ್ಲಿಸು; \
+	ಸ್ಥಿತಿ DW_FORM_data4: (ln) += 3; ನಿಲ್ಲಿಸು; \
+	ಸ್ಥಿತಿ DW_FORM_data8: (ln) += 8; ನಿಲ್ಲಿಸು; \
+	ಸ್ಥಿತಿ DW_FORM_data16: (ln) += 16; ನಿಲ್ಲಿಸು; \
+	ಸ್ಥಿತಿ DW_FORM_udata: dwarf_read_uleb128(&(ln), (ಕೊನೆ)); ನಿಲ್ಲಿಸು; \
+	ಪೂರ್ವನಿಯೋಜಿತ: ಹೋಗು ಮುಂದಿನ_ಸಾಲು; \
 	}
 
-static addr_t rt_printline_dwarf (rt_context *rc, addr_t wanted_pc, bt_info *bi)
+ಸ್ಥಿರ addr_t rt_printline_dwarf (rt_context *rc, addr_t wanted_pc, bt_info *bi)
 {
-    unsigned char *ln;
-    unsigned char *cp;
-    unsigned char *end;
-    unsigned char *opcode_length;
-    unsigned long long size;
-    unsigned int length;
-    unsigned char version;
-    unsigned int min_insn_length;
-    unsigned int max_ops_per_insn;
-    int line_base;
-    unsigned int line_range;
-    unsigned int opcode_base;
-    unsigned int opindex;
-    unsigned int col;
-    unsigned int i;
-    unsigned int j;
-    unsigned int len;
-    unsigned long long value;
-    struct {
-	unsigned int type;
-	unsigned int form;
-    } entry_format[256];
-    unsigned int dir_size;
-#if 0
-    char *dirs[DIR_TABLE_SIZE];
-#endif
-    unsigned int filename_size;
-    struct /*dwarf_filename_struct*/ {
-        unsigned int dir_entry;
-        char *name;
-    } filename_table[FILE_TABLE_SIZE];
-    addr_t last_pc;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *ln;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *cp;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *ಕೊನೆ;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ *opcode_ಉದ್ದಳತೆ;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ ಗಾತ್ರ_2;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ ಉದ್ದಳತೆ;
+    ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ ಆವೃತ್ತಿ;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ min_insn_ಉದ್ದಳತೆ;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ max_ops_ಪ್ರತಿ_insn;
+    ಪೂರ್ಣಾಂಕ ಸಾಲು_ತಳ;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ ಸಾಲು_range;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ opcode_ತಳ;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ opindex;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ ಲಂಬಸಾಲು;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ i;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ j;
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ len;
+    ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ ಮೌಲ್ಯ;
+    ರಚನೆ {
+	ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ type;
+	ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ form;
+    } ನಮೂದು_format[256];
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ dir_ಗಾತ್ರ;
+#ಆದರೆ 0
+    ಅಕ್ಷರ *dirs[DIR_ಕೋಷ್ಟಕ_ಗಾತ್ರ];
+#ಆದರೆ_ಅಂತ್ಯ
+    ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ filename_ಗಾತ್ರ;
+    ರಚನೆ /*dwarf_filename_struct*/ {
+        ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ dir_ನಮೂದು;
+        ಅಕ್ಷರ *name;
+    } filename_ಕೋಷ್ಟಕ[FILE_ಕೋಷ್ಟಕ_ಗಾತ್ರ];
+    addr_t ಕೊನೆಯ_pc;
     addr_t pc;
     addr_t func_addr;
-    int line;
-    char *filename;
-    char *function;
+    ಪೂರ್ಣಾಂಕ ಸಾಲು;
+    ಅಕ್ಷರ *filename;
+    ಅಕ್ಷರ *function;
 
-    filename = NULL;
-    function = NULL;
+    filename = ಖಾಲಿ;
+    function = ಖಾಲಿ;
     func_addr = 0;
-    line = 0;
+    ಸಾಲು = 0;
 
-    ln = rc->dwarf_line;
-    while (ln < rc->dwarf_line_end) {
-	dir_size = 0;
-	filename_size = 0;
-        last_pc = 0;
+    ln = rc->dwarf_ಸಾಲು;
+    ಆಗ (ln < rc->dwarf_ಸಾಲು_ಕೊನೆ) {
+	dir_ಗಾತ್ರ = 0;
+	filename_ಗಾತ್ರ = 0;
+        ಕೊನೆಯ_pc = 0;
         pc = 0;
         func_addr = 0;
-        line = 1;
-        filename = NULL;
-        function = NULL;
-	length = 4;
-	size = dwarf_read_4(ln, rc->dwarf_line_end);
-	if (size == 0xffffffffu) // dwarf 64
-	    length = 8, size = dwarf_read_8(ln, rc->dwarf_line_end);
-	end = ln + size;
-	if (end < ln || end > rc->dwarf_line_end)
-	    break;
-	version = dwarf_read_2(ln, end);
-	if (version >= 5)
-	    ln += length + 2; // address size, segment selector, prologue Length
-	else
-	    ln += length; // prologue Length
-	min_insn_length = dwarf_read_1(ln, end);
-	if (version >= 4)
-	    max_ops_per_insn = dwarf_read_1(ln, end);
-	else
-	    max_ops_per_insn = 1;
+        ಸಾಲು = 1;
+        filename = ಖಾಲಿ;
+        function = ಖಾಲಿ;
+	ಉದ್ದಳತೆ = 4;
+	ಗಾತ್ರ_2 = dwarf_read_4(ln, rc->dwarf_ಸಾಲು_ಕೊನೆ);
+	ಆದರೆ (ಗಾತ್ರ_2 == 0xffffffffu) // dwarf 64
+	    ಉದ್ದಳತೆ = 8, ಗಾತ್ರ_2 = dwarf_read_8(ln, rc->dwarf_ಸಾಲು_ಕೊನೆ);
+	ಕೊನೆ = ln + ಗಾತ್ರ_2;
+	ಆದರೆ (ಕೊನೆ < ln || ಕೊನೆ > rc->dwarf_ಸಾಲು_ಕೊನೆ)
+	    ನಿಲ್ಲಿಸು;
+	ಆವೃತ್ತಿ = dwarf_read_2(ln, ಕೊನೆ);
+	ಆದರೆ (ಆವೃತ್ತಿ >= 5)
+	    ln += ಉದ್ದಳತೆ + 2; // address size, segment selector, prologue Length
+	ಇಲ್ಲದಿದ್ದರೆ
+	    ln += ಉದ್ದಳತೆ; // prologue Length
+	min_insn_ಉದ್ದಳತೆ = dwarf_read_1(ln, ಕೊನೆ);
+	ಆದರೆ (ಆವೃತ್ತಿ >= 4)
+	    max_ops_ಪ್ರತಿ_insn = dwarf_read_1(ln, ಕೊನೆ);
+	ಇಲ್ಲದಿದ್ದರೆ
+	    max_ops_ಪ್ರತಿ_insn = 1;
 	ln++; // Initial value of 'is_stmt'
-	line_base = dwarf_read_1(ln, end);
-	line_base |= line_base >= 0x80 ? ~0xff : 0;
-	line_range = dwarf_read_1(ln, end);
-	opcode_base = dwarf_read_1(ln, end);
-	opcode_length = ln;
-	ln += opcode_base - 1;
+	ಸಾಲು_ತಳ = dwarf_read_1(ln, ಕೊನೆ);
+	ಸಾಲು_ತಳ |= ಸಾಲು_ತಳ >= 0x80 ? ~0xff : 0;
+	ಸಾಲು_range = dwarf_read_1(ln, ಕೊನೆ);
+	opcode_ತಳ = dwarf_read_1(ln, ಕೊನೆ);
+	opcode_ಉದ್ದಳತೆ = ln;
+	ln += opcode_ತಳ - 1;
 	opindex = 0;
-	if (version >= 5) {
-	    col = dwarf_read_1(ln, end);
-	    for (i = 0; i < col; i++) {
-	        entry_format[i].type = dwarf_read_uleb128(&ln, end);
-	        entry_format[i].form = dwarf_read_uleb128(&ln, end);
+	ಆದರೆ (ಆವೃತ್ತಿ >= 5) {
+	    ಲಂಬಸಾಲು = dwarf_read_1(ln, ಕೊನೆ);
+	    ಗಾಗಿ (i = 0; i < ಲಂಬಸಾಲು; i++) {
+	        ನಮೂದು_format[i].type = dwarf_read_uleb128(&ln, ಕೊನೆ);
+	        ನಮೂದು_format[i].form = dwarf_read_uleb128(&ln, ಕೊನೆ);
 	    }
-	    dir_size = dwarf_read_uleb128(&ln, end);
-	    for (i = 0; i < dir_size; i++) {
-		for (j = 0; j < col; j++) {
-		    if (entry_format[j].type == DW_LNCT_path) {
-		        if (entry_format[j].form != DW_FORM_line_strp)
-			    goto next_line;
-#if 0
-		        value = length == 4 ? dwarf_read_4(ln, end)
-					    : dwarf_read_8(ln, end);
-		        if (i < DIR_TABLE_SIZE)
-		            dirs[i] = (char *)rc->dwarf_line_str + value;
-#else
-			length == 4 ? dwarf_read_4(ln, end)
-				    : dwarf_read_8(ln, end);
-#endif
+	    dir_ಗಾತ್ರ = dwarf_read_uleb128(&ln, ಕೊನೆ);
+	    ಗಾಗಿ (i = 0; i < dir_ಗಾತ್ರ; i++) {
+		ಗಾಗಿ (j = 0; j < ಲಂಬಸಾಲು; j++) {
+		    ಆದರೆ (ನಮೂದು_format[j].type == DW_LNCT_ಮಾರ್ಗ) {
+		        ಆದರೆ (ನಮೂದು_format[j].form != DW_FORM_ಸಾಲು_strp)
+			    ಹೋಗು ಮುಂದಿನ_ಸಾಲು;
+#ಆದರೆ 0
+		        ಮೌಲ್ಯ = ಉದ್ದಳತೆ == 4 ? dwarf_read_4(ln, ಕೊನೆ)
+					    : dwarf_read_8(ln, ಕೊನೆ);
+		        ಆದರೆ (i < DIR_ಕೋಷ್ಟಕ_ಗಾತ್ರ)
+		            dirs[i] = (ಅಕ್ಷರ *)rc->dwarf_ಸಾಲು_str + ಮೌಲ್ಯ;
+#ಇಲ್ಲದಿದ್ದರೆ
+			ಉದ್ದಳತೆ == 4 ? dwarf_read_4(ln, ಕೊನೆ)
+				    : dwarf_read_8(ln, ಕೊನೆ);
+#ಆದರೆ_ಅಂತ್ಯ
 		    }
-		    else 
-			dwarf_ignore_type(ln, end);
+		    ಇಲ್ಲದಿದ್ದರೆ 
+			dwarf_ignore_type(ln, ಕೊನೆ);
 		}
 	    }
-	    col = dwarf_read_1(ln, end);
-	    for (i = 0; i < col; i++) {
-	        entry_format[i].type = dwarf_read_uleb128(&ln, end);
-	        entry_format[i].form = dwarf_read_uleb128(&ln, end);
+	    ಲಂಬಸಾಲು = dwarf_read_1(ln, ಕೊನೆ);
+	    ಗಾಗಿ (i = 0; i < ಲಂಬಸಾಲು; i++) {
+	        ನಮೂದು_format[i].type = dwarf_read_uleb128(&ln, ಕೊನೆ);
+	        ನಮೂದು_format[i].form = dwarf_read_uleb128(&ln, ಕೊನೆ);
 	    }
-	    filename_size = dwarf_read_uleb128(&ln, end);
-	    for (i = 0; i < filename_size; i++)
-		for (j = 0; j < col; j++) {
-		    if (entry_format[j].type == DW_LNCT_path) {
-			if (entry_format[j].form != DW_FORM_line_strp)
-			    goto next_line;
-			value = length == 4 ? dwarf_read_4(ln, end)
-					    : dwarf_read_8(ln, end);
-		        if (i < FILE_TABLE_SIZE)
-		            filename_table[i].name =
-				(char *)rc->dwarf_line_str + value;
+	    filename_ಗಾತ್ರ = dwarf_read_uleb128(&ln, ಕೊನೆ);
+	    ಗಾಗಿ (i = 0; i < filename_ಗಾತ್ರ; i++)
+		ಗಾಗಿ (j = 0; j < ಲಂಬಸಾಲು; j++) {
+		    ಆದರೆ (ನಮೂದು_format[j].type == DW_LNCT_ಮಾರ್ಗ) {
+			ಆದರೆ (ನಮೂದು_format[j].form != DW_FORM_ಸಾಲು_strp)
+			    ಹೋಗು ಮುಂದಿನ_ಸಾಲು;
+			ಮೌಲ್ಯ = ಉದ್ದಳತೆ == 4 ? dwarf_read_4(ln, ಕೊನೆ)
+					    : dwarf_read_8(ln, ಕೊನೆ);
+		        ಆದರೆ (i < FILE_ಕೋಷ್ಟಕ_ಗಾತ್ರ)
+		            filename_ಕೋಷ್ಟಕ[i].name =
+				(ಅಕ್ಷರ *)rc->dwarf_ಸಾಲು_str + ಮೌಲ್ಯ;
 	            }
-		    else if (entry_format[j].type == DW_LNCT_directory_index) {
-			switch (entry_format[j].form) {
-			case DW_FORM_data1: value = dwarf_read_1(ln, end); break;
-			case DW_FORM_data2: value = dwarf_read_2(ln, end); break;
-			case DW_FORM_data4: value = dwarf_read_4(ln, end); break;
-			case DW_FORM_udata: value = dwarf_read_uleb128(&ln, end); break;
-			default: goto next_line;
+		    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ (ನಮೂದು_format[j].type == DW_LNCT_directory_ಸೂಚ್ಯಂಕ) {
+			ಆಯ್ಕೆ (ನಮೂದು_format[j].form) {
+			ಸ್ಥಿತಿ DW_FORM_data1: ಮೌಲ್ಯ = dwarf_read_1(ln, ಕೊನೆ); ನಿಲ್ಲಿಸು;
+			ಸ್ಥಿತಿ DW_FORM_data2: ಮೌಲ್ಯ = dwarf_read_2(ln, ಕೊನೆ); ನಿಲ್ಲಿಸು;
+			ಸ್ಥಿತಿ DW_FORM_data4: ಮೌಲ್ಯ = dwarf_read_4(ln, ಕೊನೆ); ನಿಲ್ಲಿಸು;
+			ಸ್ಥಿತಿ DW_FORM_udata: ಮೌಲ್ಯ = dwarf_read_uleb128(&ln, ಕೊನೆ); ನಿಲ್ಲಿಸು;
+			ಪೂರ್ವನಿಯೋಜಿತ: ಹೋಗು ಮುಂದಿನ_ಸಾಲು;
 			}
-		        if (i < FILE_TABLE_SIZE)
-		            filename_table[i].dir_entry = value;
+		        ಆದರೆ (i < FILE_ಕೋಷ್ಟಕ_ಗಾತ್ರ)
+		            filename_ಕೋಷ್ಟಕ[i].dir_ನಮೂದು = ಮೌಲ್ಯ;
 		    }
-		    else 
-			dwarf_ignore_type(ln, end);
+		    ಇಲ್ಲದಿದ್ದರೆ 
+			dwarf_ignore_type(ln, ಕೊನೆ);
 	    }
 	}
-	else {
-	    while ((dwarf_read_1(ln, end))) {
-#if 0
-		if (++dir_size < DIR_TABLE_SIZE)
-		    dirs[dir_size - 1] = (char *)ln - 1;
-#endif
-		while (dwarf_read_1(ln, end)) {}
+	ಇಲ್ಲದಿದ್ದರೆ {
+	    ಆಗ ((dwarf_read_1(ln, ಕೊನೆ))) {
+#ಆದರೆ 0
+		ಆದರೆ (++dir_ಗಾತ್ರ < DIR_ಕೋಷ್ಟಕ_ಗಾತ್ರ)
+		    dirs[dir_ಗಾತ್ರ - 1] = (ಅಕ್ಷರ *)ln - 1;
+#ಆದರೆ_ಅಂತ್ಯ
+		ಆಗ (dwarf_read_1(ln, ಕೊನೆ)) {}
 	    }
-	    while ((dwarf_read_1(ln, end))) {
-		if (++filename_size < FILE_TABLE_SIZE) {
-		    filename_table[filename_size - 1].name = (char *)ln - 1;
-		    while (dwarf_read_1(ln, end)) {}
-		    filename_table[filename_size - 1].dir_entry =
-		        dwarf_read_uleb128(&ln, end);
+	    ಆಗ ((dwarf_read_1(ln, ಕೊನೆ))) {
+		ಆದರೆ (++filename_ಗಾತ್ರ < FILE_ಕೋಷ್ಟಕ_ಗಾತ್ರ) {
+		    filename_ಕೋಷ್ಟಕ[filename_ಗಾತ್ರ - 1].name = (ಅಕ್ಷರ *)ln - 1;
+		    ಆಗ (dwarf_read_1(ln, ಕೊನೆ)) {}
+		    filename_ಕೋಷ್ಟಕ[filename_ಗಾತ್ರ - 1].dir_ನಮೂದು =
+		        dwarf_read_uleb128(&ln, ಕೊನೆ);
 		}
-		else {
-		    while (dwarf_read_1(ln, end)) {}
-		    dwarf_read_uleb128(&ln, end);
+		ಇಲ್ಲದಿದ್ದರೆ {
+		    ಆಗ (dwarf_read_1(ln, ಕೊನೆ)) {}
+		    dwarf_read_uleb128(&ln, ಕೊನೆ);
 		}
-		dwarf_read_uleb128(&ln, end); // time
-		dwarf_read_uleb128(&ln, end); // size
+		dwarf_read_uleb128(&ln, ಕೊನೆ); //ಸಮಯ
+		dwarf_read_uleb128(&ln, ಕೊನೆ); //ಗಾತ್ರ
 	    }
 	}
-	if (filename_size >= 1)
-	    filename = filename_table[0].name;
-	while (ln < end) {
-	    last_pc = pc;
-	    i = dwarf_read_1(ln, end);
-	    if (i >= opcode_base) {
-	        if (max_ops_per_insn == 1)
-		    pc += ((i - opcode_base) / line_range) * min_insn_length;
-		else {
-		    pc += (opindex + (i - opcode_base) / line_range) /
-			  max_ops_per_insn * min_insn_length;
-		    opindex = (opindex + (i - opcode_base) / line_range) %
-			       max_ops_per_insn;
+	ಆದರೆ (filename_ಗಾತ್ರ >= 1)
+	    filename = filename_ಕೋಷ್ಟಕ[0].name;
+	ಆಗ (ln < ಕೊನೆ) {
+	    ಕೊನೆಯ_pc = pc;
+	    i = dwarf_read_1(ln, ಕೊನೆ);
+	    ಆದರೆ (i >= opcode_ತಳ) {
+	        ಆದರೆ (max_ops_ಪ್ರತಿ_insn == 1)
+		    pc += ((i - opcode_ತಳ) / ಸಾಲು_range) * min_insn_ಉದ್ದಳತೆ;
+		ಇಲ್ಲದಿದ್ದರೆ {
+		    pc += (opindex + (i - opcode_ತಳ) / ಸಾಲು_range) /
+			  max_ops_ಪ್ರತಿ_insn * min_insn_ಉದ್ದಳತೆ;
+		    opindex = (opindex + (i - opcode_ತಳ) / ಸಾಲು_range) %
+			       max_ops_ಪ್ರತಿ_insn;
 		}
-		i = (int)((i - opcode_base) % line_range) + line_base;
+		i = (ಪೂರ್ಣಾಂಕ)((i - opcode_ತಳ) % ಸಾಲು_range) + ಸಾಲು_ತಳ;
 check_pc:
-		if (pc >= wanted_pc && wanted_pc >= last_pc)
-		    goto found;
-		line += i;
+		ಆದರೆ (pc >= wanted_pc && wanted_pc >= ಕೊನೆಯ_pc)
+		    ಹೋಗು ಸಿಕ್ಕಿತು;
+		ಸಾಲು += i;
 	    }
-	    else {
-	        switch (i) {
-	        case 0:
-		    len = dwarf_read_uleb128(&ln, end);
+	    ಇಲ್ಲದಿದ್ದರೆ {
+	        ಆಯ್ಕೆ (i) {
+	        ಸ್ಥಿತಿ 0:
+		    len = dwarf_read_uleb128(&ln, ಕೊನೆ);
 		    cp = ln;
 		    ln += len;
-		    if (len == 0)
-		        goto next_line;
-		    switch (dwarf_read_1(cp, end)) {
-		    case DW_LNE_end_sequence:
-		        break;
-		    case DW_LNE_set_address:
-#if PTR_SIZE == 4
-		        pc = dwarf_read_4(cp, end);
-#else
-		        pc = dwarf_read_8(cp, end);
-#endif
-#if defined TCC_TARGET_MACHO
-			pc += rc->prog_base;
-#endif
+		    ಆದರೆ (len == 0)
+		        ಹೋಗು ಮುಂದಿನ_ಸಾಲು;
+		    ಆಯ್ಕೆ (dwarf_read_1(cp, ಕೊನೆ)) {
+		    ಸ್ಥಿತಿ DW_LNE_ಕೊನೆ_sequence:
+		        ನಿಲ್ಲಿಸು;
+		    ಸ್ಥಿತಿ DW_LNE_ಗಣ_ವಿಳಾಸ:
+#ಆದರೆ PTR_ಗಾತ್ರ == 4
+		        pc = dwarf_read_4(cp, ಕೊನೆ);
+#ಇಲ್ಲದಿದ್ದರೆ
+		        pc = dwarf_read_8(cp, ಕೊನೆ);
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ defined TCC_ಗುರಿ_MACHO
+			pc += rc->prog_ತಳ;
+#ಆದರೆ_ಅಂತ್ಯ
 		        opindex = 0;
-		        break;
-		    case DW_LNE_define_file: /* deprecated */
-		        if (++filename_size < FILE_TABLE_SIZE) {
-		            filename_table[filename_size - 1].name = (char *)ln - 1;
-		            while (dwarf_read_1(ln, end)) {}
-		            filename_table[filename_size - 1].dir_entry =
-		                dwarf_read_uleb128(&ln, end);
+		        ನಿಲ್ಲಿಸು;
+		    ಸ್ಥಿತಿ DW_LNE_define_file: /* deprecated */
+		        ಆದರೆ (++filename_ಗಾತ್ರ < FILE_ಕೋಷ್ಟಕ_ಗಾತ್ರ) {
+		            filename_ಕೋಷ್ಟಕ[filename_ಗಾತ್ರ - 1].name = (ಅಕ್ಷರ *)ln - 1;
+		            ಆಗ (dwarf_read_1(ln, ಕೊನೆ)) {}
+		            filename_ಕೋಷ್ಟಕ[filename_ಗಾತ್ರ - 1].dir_ನಮೂದು =
+		                dwarf_read_uleb128(&ln, ಕೊನೆ);
 		        }
-		        else {
-		            while (dwarf_read_1(ln, end)) {}
-		            dwarf_read_uleb128(&ln, end);
+		        ಇಲ್ಲದಿದ್ದರೆ {
+		            ಆಗ (dwarf_read_1(ln, ಕೊನೆ)) {}
+		            dwarf_read_uleb128(&ln, ಕೊನೆ);
 		        }
-		        dwarf_read_uleb128(&ln, end); // time
-		        dwarf_read_uleb128(&ln, end); // size
-		        break;
-		    case DW_LNE_hi_user - 1:
-		        function = (char *)cp;
+		        dwarf_read_uleb128(&ln, ಕೊನೆ); //ಸಮಯ
+		        dwarf_read_uleb128(&ln, ಕೊನೆ); //ಗಾತ್ರ
+		        ನಿಲ್ಲಿಸು;
+		    ಸ್ಥಿತಿ DW_LNE_hi_user - 1:
+		        function = (ಅಕ್ಷರ *)cp;
 		        func_addr = pc;
-		        break;
-		    default:
-		        break;
+		        ನಿಲ್ಲಿಸು;
+		    ಪೂರ್ವನಿಯೋಜಿತ:
+		        ನಿಲ್ಲಿಸು;
 		    }
-		    break;
-	        case DW_LNS_advance_pc:
-		    if (max_ops_per_insn == 1)
-		        pc += dwarf_read_uleb128(&ln, end) * min_insn_length;
-		    else {
-		        unsigned long long off = dwarf_read_uleb128(&ln, end);
+		    ನಿಲ್ಲಿಸು;
+	        ಸ್ಥಿತಿ DW_LNS_advance_pc:
+		    ಆದರೆ (max_ops_ಪ್ರತಿ_insn == 1)
+		        pc += dwarf_read_uleb128(&ln, ಕೊನೆ) * min_insn_ಉದ್ದಳತೆ;
+		    ಇಲ್ಲದಿದ್ದರೆ {
+		        ಚಿಹ್ನೆರಹಿತ ದೀರ್ಘ ದೀರ್ಘ off = dwarf_read_uleb128(&ln, ಕೊನೆ);
 
-		        pc += (opindex + off) / max_ops_per_insn *
-			      min_insn_length;
-		        opindex = (opindex + off) % max_ops_per_insn;
+		        pc += (opindex + off) / max_ops_ಪ್ರತಿ_insn *
+			      min_insn_ಉದ್ದಳತೆ;
+		        opindex = (opindex + off) % max_ops_ಪ್ರತಿ_insn;
 		    }
 		    i = 0;
-		    goto check_pc;
-	        case DW_LNS_advance_line:
-		    line += dwarf_read_sleb128(&ln, end);
-		    break;
-	        case DW_LNS_set_file:
-		    i = dwarf_read_uleb128(&ln, end);
-		    i -= i > 0 && version < 5;
-		    if (i < FILE_TABLE_SIZE && i < filename_size)
-		        filename = filename_table[i].name;
-		    break;
-	        case DW_LNS_const_add_pc:
-		    if (max_ops_per_insn ==  1)
-		        pc += ((255 - opcode_base) / line_range) * min_insn_length;
-		    else {
-		        unsigned int off = (255 - opcode_base) / line_range;
+		    ಹೋಗು check_pc;
+	        ಸ್ಥಿತಿ DW_LNS_advance_ಸಾಲು:
+		    ಸಾಲು += dwarf_read_sleb128(&ln, ಕೊನೆ);
+		    ನಿಲ್ಲಿಸು;
+	        ಸ್ಥಿತಿ DW_LNS_ಗಣ_file:
+		    i = dwarf_read_uleb128(&ln, ಕೊನೆ);
+		    i -= i > 0 && ಆವೃತ್ತಿ < 5;
+		    ಆದರೆ (i < FILE_ಕೋಷ್ಟಕ_ಗಾತ್ರ && i < filename_ಗಾತ್ರ)
+		        filename = filename_ಕೋಷ್ಟಕ[i].name;
+		    ನಿಲ್ಲಿಸು;
+	        ಸ್ಥಿತಿ DW_LNS_const_ಕೂಡಿಸು_pc:
+		    ಆದರೆ (max_ops_ಪ್ರತಿ_insn ==  1)
+		        pc += ((255 - opcode_ತಳ) / ಸಾಲು_range) * min_insn_ಉದ್ದಳತೆ;
+		    ಇಲ್ಲದಿದ್ದರೆ {
+		        ಚಿಹ್ನೆರಹಿತ ಪೂರ್ಣಾಂಕ off = (255 - opcode_ತಳ) / ಸಾಲು_range;
 
-		        pc += ((opindex + off) / max_ops_per_insn) *
-			      min_insn_length;
-		        opindex = (opindex + off) % max_ops_per_insn;
+		        pc += ((opindex + off) / max_ops_ಪ್ರತಿ_insn) *
+			      min_insn_ಉದ್ದಳತೆ;
+		        opindex = (opindex + off) % max_ops_ಪ್ರತಿ_insn;
 		    }
 		    i = 0;
-		    goto check_pc;
-	        case DW_LNS_fixed_advance_pc:
-		    i = dwarf_read_2(ln, end);
+		    ಹೋಗು check_pc;
+	        ಸ್ಥಿತಿ DW_LNS_fixed_advance_pc:
+		    i = dwarf_read_2(ln, ಕೊನೆ);
 		    pc += i;
 		    opindex = 0;
 		    i = 0;
-		    goto check_pc;
-	        default:
-		    for (j = 0; j < opcode_length[i - 1]; j++)
-                        dwarf_read_uleb128 (&ln, end);
-		    break;
+		    ಹೋಗು check_pc;
+	        ಪೂರ್ವನಿಯೋಜಿತ:
+		    ಗಾಗಿ (j = 0; j < opcode_ಉದ್ದಳತೆ[i - 1]; j++)
+                        dwarf_read_uleb128 (&ln, ಕೊನೆ);
+		    ನಿಲ್ಲಿಸು;
 		}
 	    }
 	}
-next_line:
-	ln = end;
+ಮುಂದಿನ_ಸಾಲು:
+	ln = ಕೊನೆ;
     }
-    filename = function = NULL, func_addr = 0;
-found:
-    if (filename)
-        pstrcpy(bi->file, sizeof bi->file, filename), bi->line = line;
-    if (function)
-        pstrcpy(bi->func, sizeof bi->func, function);
+    filename = function = ಖಾಲಿ, func_addr = 0;
+ಸಿಕ್ಕಿತು:
+    ಆದರೆ (filename)
+        pstrcpy(bi->file, ಗಾತ್ರ bi->file, filename), bi->ಸಾಲು = ಸಾಲು;
+    ಆದರೆ (function)
+        pstrcpy(bi->func, ಗಾತ್ರ bi->func, function);
     bi->func_pc = func_addr;
-    return (addr_t)func_addr;
+    ಹಿಂತಿರುಗಿ (addr_t)func_addr;
 }
 /* ------------------------------------------------------------- */
-#ifndef CONFIG_TCC_BACKTRACE_ONLY
-static
-#endif
-int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap)
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ CONFIG_TCC_BACKTRACE_ONLY
+ಸ್ಥಿರ
+#ಆದರೆ_ಅಂತ್ಯ
+ಪೂರ್ಣಾಂಕ _tcc_backtrace(rt_ಚೌಕಟ್ಟು *f, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *fmt, va_list ap)
 {
     rt_context *rc, *rc2;
     addr_t pc;
-    char skip[40], msg[200];
-    int i, level, ret, n, one;
-    const char *a, *b;
+    ಅಕ್ಷರ skip[40], ಸಂದೇಶ[200];
+    ಪೂರ್ಣಾಂಕ i, level, ret, n, one;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *a, *b;
     bt_info bi;
     addr_t (*getinfo)(rt_context*, addr_t, bt_info*);
 
     skip[0] = 0;
     /* If fmt is like "^file.c^..." then skip calls from 'file.c' */
-    if (fmt[0] == '^' && (b = strchr(a = fmt + 1, fmt[0]))) {
-        memcpy(skip, a, b - a), skip[b - a] = 0;
+    ಆದರೆ (fmt[0] == '^' && (b = strchr(a = fmt + 1, fmt[0]))) {
+        ಸ್ಮರಣೆ_ನಕಲು(skip, a, b - a), skip[b - a] = 0;
         fmt = b + 1;
     }
     one = 0;
     /* hack for bcheck.c:dprintf(): one level, no newline */
-    if (fmt[0] == '\001')
+    ಆದರೆ (fmt[0] == '\001')
         ++fmt, one = 1;
-    vsnprintf(msg, sizeof msg, fmt, ap);
+    vsnprintf(ಸಂದೇಶ, ಗಾತ್ರ ಸಂದೇಶ, fmt, ap);
 
     rt_wait_sem();
     rc = g_rc;
     getinfo = rt_printline, n = 6;
-    if (rc) {
-        if (rc->dwarf)
+    ಆದರೆ (rc) {
+        ಆದರೆ (rc->dwarf)
             getinfo = rt_printline_dwarf;
-        if (rc->num_callers)
-            n = rc->num_callers;
+        ಆದರೆ (rc->ಅಂಕೆ_callers)
+            n = rc->ಅಂಕೆ_callers;
     }
 
-    for (i = level = 0; level < n; i++) {
+    ಗಾಗಿ (i = level = 0; level < n; i++) {
         ret = rt_get_caller_pc(&pc, f, i);
-        if (ret == -1)
-            break;
-        memset(&bi, 0, sizeof bi);
-        for (rc2 = rc; rc2; rc2 = rc2->next) {
-            if (getinfo(rc2, pc, &bi))
-                break;
+        ಆದರೆ (ret == -1)
+            ನಿಲ್ಲಿಸು;
+        memset(&bi, 0, ಗಾತ್ರ bi);
+        ಗಾಗಿ (rc2 = rc; rc2; rc2 = rc2->ಮುಂದಿನ) {
+            ಆದರೆ (getinfo(rc2, pc, &bi))
+                ನಿಲ್ಲಿಸು;
             /* we try symtab symbols (no line number info) */
-            if (!!(a = rt_elfsym(rc2, pc, &bi.func_pc))) {
-                pstrcpy(bi.func, sizeof bi.func, a);
-                break;
+            ಆದರೆ (!!(a = rt_elfsym(rc2, pc, &bi.func_pc))) {
+                pstrcpy(bi.func, ಗಾತ್ರ bi.func, a);
+                ನಿಲ್ಲಿಸು;
             }
         }
         //fprintf(stderr, "%d rc %p %p\n", i, (void*)pcfunc, (void*)pc);
-        if (skip[0] && strstr(bi.file, skip))
-            continue;
-#ifndef CONFIG_TCC_BACKTRACE_ONLY
+        ಆದರೆ (skip[0] && ಅಕ್ಷರಸರಣಿ_ಹುಡುಕು(bi.file, skip))
+            ಮುಂದುವರಿ;
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ CONFIG_TCC_BACKTRACE_ONLY
         {
-            TCCState *s = rt_find_state(f);
-            if (s && s->bt_func) {
+            TCCState *s = rt_ಕಂಡುಹಿಡಿ_state(f);
+            ಆದರೆ (s && s->bt_func) {
                 ret = s->bt_func(
-                    s->bt_data,
-                    (void*)pc,
-                    bi.file[0] ? bi.file : NULL,
-                    bi.line,
-                    bi.func[0] ? bi.func : NULL,
-                    level == 0 ? msg : NULL
+                    s->bt_ದತ್ತಾಂಶ,
+                    (ಶೂನ್ಯ*)pc,
+                    bi.file[0] ? bi.file : ಖಾಲಿ,
+                    bi.ಸಾಲು,
+                    bi.func[0] ? bi.func : ಖಾಲಿ,
+                    level == 0 ? ಸಂದೇಶ : ಖಾಲಿ
                     );
-                if (ret == 0)
-                    break;
-                goto check_break;
+                ಆದರೆ (ret == 0)
+                    ನಿಲ್ಲಿಸು;
+                ಹೋಗು check_break;
             }
         }
-#endif
-        if (bi.file[0]) {
-            rt_printf("%s:%d", bi.file, bi.line);
-        } else {
-            rt_printf("0x%08llx", (long long)pc);
+#ಆದರೆ_ಅಂತ್ಯ
+        ಆದರೆ (bi.file[0]) {
+            rt_printf("%s:%d", bi.file, bi.ಸಾಲು);
+        } ಇಲ್ಲದಿದ್ದರೆ {
+            rt_printf("0x%08llx", (ದೀರ್ಘ ದೀರ್ಘ)pc);
         }
         rt_printf(": %s %s", level ? "by" : "at", bi.func[0] ? bi.func : "???");
-        if (level == 0) {
-            rt_printf(": %s", msg);
-            if (one)
-                break;
+        ಆದರೆ (level == 0) {
+            rt_printf(": %s", ಸಂದೇಶ);
+            ಆದರೆ (one)
+                ನಿಲ್ಲಿಸು;
         }
         rt_printf("\n");
 
-#ifndef CONFIG_TCC_BACKTRACE_ONLY
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ CONFIG_TCC_BACKTRACE_ONLY
     check_break:
-#endif
-        if (rc2
+#ಆದರೆ_ಅಂತ್ಯ
+        ಆದರೆ (rc2
             && bi.func_pc
-            && bi.func_pc == (addr_t)rc2->top_func)
-            break;
+            && bi.func_pc == (addr_t)rc2->ತುದಿ_func)
+            ನಿಲ್ಲಿಸು;
         ++level;
     }
     rt_post_sem();
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* emit a run time error at position 'pc' */
-static int rt_error(rt_frame *f, const char *fmt, ...)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ rt_error(rt_ಚೌಕಟ್ಟು *f, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *fmt, ...)
 {
-    va_list ap; char msg[200]; int ret;
+    va_list ap; ಅಕ್ಷರ ಸಂದೇಶ[200]; ಪೂರ್ಣಾಂಕ ret;
     va_start(ap, fmt);
-    snprintf(msg, sizeof msg, "RUNTIME ERROR: %s", fmt);
-    ret = _tcc_backtrace(f, msg, ap);
+    snprintf(ಸಂದೇಶ, ಗಾತ್ರ ಸಂದೇಶ, "RUNTIME ERROR: %s", fmt);
+    ret = _tcc_backtrace(f, ಸಂದೇಶ, ap);
     va_end(ap);
-    return ret;
+    ಹಿಂತಿರುಗಿ ret;
 }
 
 /* ------------------------------------------------------------- */
 
-#ifndef _WIN32
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
 # include <signal.h>
 # ifndef __OpenBSD__
 #  include <sys/ucontext.h>
 # endif
-#else
+#ಇಲ್ಲದಿದ್ದರೆ
 # define ucontext_t CONTEXT
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* translate from ucontext_t* to internal rt_context * */
-static void rt_getcontext(ucontext_t *uc, rt_frame *rc)
+ಸ್ಥಿರ ಶೂನ್ಯ rt_getcontext(ucontext_t *uc, rt_ಚೌಕಟ್ಟು *rc)
 {
-#if defined _WIN64 && defined __aarch64__
+#ಆದರೆ defined _WIN64 && defined __aarch64__
     rc->ip = uc->Pc;      /* Program Counter */
     rc->fp = uc->Fp;      /* Frame Pointer (X29) */
     rc->sp = uc->Sp;      /* Stack Pointer (X30 is LR, but SP is separate) */
-#elif defined _WIN64
+#ಅಥವಾಆದರೆ defined _WIN64
     rc->ip = uc->Rip;
     rc->fp = uc->Rbp;
     rc->sp = uc->Rsp;
-#elif defined _WIN32
+#ಅಥವಾಆದರೆ defined _WIN32
     rc->ip = uc->Eip;
     rc->fp = uc->Ebp;
     rc->sp = uc->Esp;
-#elif defined __i386__
-# if defined(__APPLE__)
+#ಅಥವಾಆದರೆ defined __i386__
+# ಆದರೆ defined(__APPLE__)
     rc->ip = uc->uc_mcontext->__ss.__eip;
     rc->fp = uc->uc_mcontext->__ss.__ebp;
 # elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__DragonFly__)
@@ -1256,12 +1256,12 @@ static void rt_getcontext(ucontext_t *uc, rt_frame *rc)
 # elif !defined REG_EIP && defined EIP /* fix for glibc 2.1 */
     rc->ip = uc->uc_mcontext.gregs[EIP];
     rc->fp = uc->uc_mcontext.gregs[EBP];
-# else
+# ಇಲ್ಲದಿದ್ದರೆ
     rc->ip = uc->uc_mcontext.gregs[REG_EIP];
     rc->fp = uc->uc_mcontext.gregs[REG_EBP];
 # endif
-#elif defined(__x86_64__)
-# if defined(__APPLE__)
+#ಅಥವಾಆದರೆ defined(__x86_64__)
+# ಆದರೆ defined(__APPLE__)
     rc->ip = uc->uc_mcontext->__ss.__rip;
     rc->fp = uc->uc_mcontext->__ss.__rbp;
 # elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__DragonFly__)
@@ -1273,316 +1273,316 @@ static void rt_getcontext(ucontext_t *uc, rt_frame *rc)
 # elif defined(__OpenBSD__)
     rc->ip = uc->sc_rip;
     rc->fp = uc->sc_rbp;
-# else
+# ಇಲ್ಲದಿದ್ದರೆ
     rc->ip = uc->uc_mcontext.gregs[REG_RIP];
     rc->fp = uc->uc_mcontext.gregs[REG_RBP];
 # endif
-#elif defined(__arm__) && defined(__NetBSD__)
+#ಅಥವಾಆದರೆ defined(__arm__) && defined(__NetBSD__)
     rc->ip = uc->uc_mcontext.__gregs[_REG_PC];
     rc->fp = uc->uc_mcontext.__gregs[_REG_FP];
-#elif defined(__arm__) && defined(__OpenBSD__)
+#ಅಥವಾಆದರೆ defined(__arm__) && defined(__OpenBSD__)
     rc->ip = uc->sc_pc;
     rc->fp = uc->sc_r11;
-#elif defined(__arm__) && defined(__FreeBSD__)
+#ಅಥವಾಆದರೆ defined(__arm__) && defined(__FreeBSD__)
     rc->ip = uc->uc_mcontext.__gregs[_REG_PC];
     rc->fp = uc->uc_mcontext.__gregs[_REG_FP];
-#elif defined(__arm__)
+#ಅಥವಾಆದರೆ defined(__arm__)
     rc->ip = uc->uc_mcontext.arm_pc;
     rc->fp = uc->uc_mcontext.arm_fp;
-#elif defined(__aarch64__) && defined(__APPLE__)
+#ಅಥವಾಆದರೆ defined(__aarch64__) && defined(__APPLE__)
     // see:
     // /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk/usr/include/mach/arm/_structs.h
     rc->ip = uc->uc_mcontext->__ss.__pc;
     rc->fp = uc->uc_mcontext->__ss.__fp;
-#elif defined(__aarch64__) && defined(__FreeBSD__)
+#ಅಥವಾಆದರೆ defined(__aarch64__) && defined(__FreeBSD__)
     rc->ip = uc->uc_mcontext.mc_gpregs.gp_elr; /* aka REG_PC */
     rc->fp = uc->uc_mcontext.mc_gpregs.gp_x[29];
-#elif defined(__aarch64__) && defined(__NetBSD__)
+#ಅಥವಾಆದರೆ defined(__aarch64__) && defined(__NetBSD__)
     rc->ip = uc->uc_mcontext.__gregs[_REG_PC];
     rc->fp = uc->uc_mcontext.__gregs[_REG_FP];
-#elif defined(__aarch64__) && defined(__OpenBSD__)
+#ಅಥವಾಆದರೆ defined(__aarch64__) && defined(__OpenBSD__)
     rc->ip = uc->sc_elr;
     rc->fp = uc->sc_x[29];
-#elif defined(__aarch64__)
+#ಅಥವಾಆದರೆ defined(__aarch64__)
     rc->ip = uc->uc_mcontext.pc;
     rc->fp = uc->uc_mcontext.regs[29];
-#elif defined(__riscv) && defined(__OpenBSD__)
+#ಅಥವಾಆದರೆ defined(__riscv) && defined(__OpenBSD__)
     rc->ip = uc->sc_sepc;
     rc->fp = uc->sc_s[0];
-#elif defined(__riscv)
+#ಅಥವಾಆದರೆ defined(__riscv)
     rc->ip = uc->uc_mcontext.__gregs[REG_PC];
     rc->fp = uc->uc_mcontext.__gregs[REG_S0];
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
 /* ------------------------------------------------------------- */
-#ifndef _WIN32
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ _WIN32
 /* signal handler for fatal errors */
-static void sig_error(int signum, siginfo_t *siginf, void *puc)
+ಸ್ಥಿರ ಶೂನ್ಯ sig_error(ಪೂರ್ಣಾಂಕ signum, siginfo_t *siginf, ಶೂನ್ಯ *puc)
 {
-    rt_frame f;
+    rt_ಚೌಕಟ್ಟು f;
     rt_getcontext(puc, &f);
 
-    switch(signum) {
-    case SIGFPE:
-        switch(siginf->si_code) {
-        case FPE_INTDIV:
-        case FPE_FLTDIV:
+    ಆಯ್ಕೆ(signum) {
+    ಸ್ಥಿತಿ SIGFPE:
+        ಆಯ್ಕೆ(siginf->si_code) {
+        ಸ್ಥಿತಿ FPE_INTDIV:
+        ಸ್ಥಿತಿ FPE_FLTDIV:
             rt_error(&f, "division by zero");
-            break;
-        default:
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
             rt_error(&f, "floating point exception");
-            break;
+            ನಿಲ್ಲಿಸು;
         }
-        break;
-    case SIGBUS:
-    case SIGSEGV:
+        ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ SIGBUS:
+    ಸ್ಥಿತಿ SIGSEGV:
         rt_error(&f, "invalid memory access");
-        break;
-    case SIGILL:
+        ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ SIGILL:
         rt_error(&f, "illegal instruction");
-        break;
-    case SIGABRT:
+        ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ SIGABRT:
         rt_error(&f, "abort() called");
-        break;
-    default:
+        ನಿಲ್ಲಿಸು;
+    ಪೂರ್ವನಿಯೋಜಿತ:
         rt_error(&f, "caught signal %d", signum);
-        break;
+        ನಿಲ್ಲಿಸು;
     }
     {
         sigset_t s;
         sigemptyset(&s);
         sigaddset(&s, signum);
-        sigprocmask(SIG_UNBLOCK, &s, NULL);
+        sigprocmask(SIG_UNBLOCK, &s, ಖಾಲಿ);
     }
     rt_exit(&f, 255);
 }
 
-#ifndef SA_SIGINFO
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ SA_SIGINFO
 # define SA_SIGINFO 0x00000004u
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* Generate a stack backtrace when a CPU exception occurs. */
-static void set_exception_handler(void)
+ಸ್ಥಿರ ಶೂನ್ಯ ಗಣ_exception_handler(ಶೂನ್ಯ)
 {
-    struct sigaction sigact;
+    ರಚನೆ sigaction sigact;
     /* install TCC signal handlers to print debug info on fatal
        runtime errors */
     sigemptyset (&sigact.sa_mask);
     sigact.sa_flags = SA_SIGINFO; //| SA_RESETHAND;
-#if 0//def SIGSTKSZ // this causes signals not to work at all on some (older) linuxes
+#ಆದರೆ 0//def SIGSTKSZ // this causes signals not to work at all on some (older) linuxes
     sigact.sa_flags |= SA_ONSTACK;
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
     sigact.sa_sigaction = sig_error;
-    sigaction(SIGFPE, &sigact, NULL);
-    sigaction(SIGILL, &sigact, NULL);
-    sigaction(SIGSEGV, &sigact, NULL);
-    sigaction(SIGBUS, &sigact, NULL);
-    sigaction(SIGABRT, &sigact, NULL);
-#if 0//def SIGSTKSZ
+    sigaction(SIGFPE, &sigact, ಖಾಲಿ);
+    sigaction(SIGILL, &sigact, ಖಾಲಿ);
+    sigaction(SIGSEGV, &sigact, ಖಾಲಿ);
+    sigaction(SIGBUS, &sigact, ಖಾಲಿ);
+    sigaction(SIGABRT, &sigact, ಖಾಲಿ);
+#ಆದರೆ 0//def SIGSTKSZ
     /* This allows stack overflow to be reported instead of a SEGV */
     {
         stack_t ss;
-        static unsigned char stack[SIGSTKSZ] __attribute__((aligned(16)));
+        ಸ್ಥಿರ ಚಿಹ್ನೆರಹಿತ ಅಕ್ಷರ ರಾಶಿ[SIGSTKSZ] __attribute__((aligned(16)));
 
-        ss.ss_sp = stack;
+        ss.ss_sp = ರಾಶಿ;
         ss.ss_size = SIGSTKSZ;
         ss.ss_flags = 0;
-        sigaltstack(&ss, NULL);
+        sigaltstack(&ss, ಖಾಲಿ);
     }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-#else /* WIN32 */
+#ಇಲ್ಲದಿದ್ದರೆ /* WIN32 */
 
 /* signal handler for fatal errors */
-static long __stdcall cpu_exception_handler(EXCEPTION_POINTERS *ex_info)
+ಸ್ಥಿರ ದೀರ್ಘ __stdcall cpu_exception_handler(EXCEPTION_ಸೂಚಕಗಳು *ex_info)
 {
-    rt_frame f;
-    unsigned code;
-    rt_getcontext(ex_info->ContextRecord, &f);
+    rt_ಚೌಕಟ್ಟು f;
+    ಚಿಹ್ನೆರಹಿತ ಸಂಕೇತ_2;
+    rt_getcontext(ex_info->Context_ದಾಖಲೆ, &f);
 
-    switch (code = ex_info->ExceptionRecord->ExceptionCode) {
-    case EXCEPTION_ACCESS_VIOLATION:
+    ಆಯ್ಕೆ (ಸಂಕೇತ_2 = ex_info->Exception_ದಾಖಲೆ->Exception_ಸಂಕೇತ) {
+    ಸ್ಥಿತಿ EXCEPTION_ACCESS_VIOLATION:
 	rt_error(&f, "invalid memory access");
-        break;
-    case EXCEPTION_STACK_OVERFLOW:
+        ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ EXCEPTION_ರಾಶಿ_ಅತಿಪ್ರವಾಹ:
         rt_error(&f, "stack overflow");
-        break;
-    case EXCEPTION_INT_DIVIDE_BY_ZERO:
+        ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ EXCEPTION_INT_DIVIDE_BY_ZERO:
         rt_error(&f, "division by zero");
-        break;
-    case EXCEPTION_BREAKPOINT:
-    case EXCEPTION_SINGLE_STEP:
+        ನಿಲ್ಲಿಸು;
+    ಸ್ಥಿತಿ EXCEPTION_BREAKPOINT:
+    ಸ್ಥಿತಿ EXCEPTION_SINGLE_ಹೆಜ್ಜೆ:
         f.ip = *(addr_t*)f.sp;
         rt_error(&f, "breakpoint/single-step exception:");
-        return EXCEPTION_CONTINUE_SEARCH;
-    default:
-        rt_error(&f, "caught exception %08x", code);
-        break;
+        ಹಿಂತಿರುಗಿ EXCEPTION_CONTINUE_ಹುಡುಕು;
+    ಪೂರ್ವನಿಯೋಜಿತ:
+        rt_error(&f, "caught exception %08x", ಸಂಕೇತ_2);
+        ನಿಲ್ಲಿಸು;
     }
     rt_exit(&f, 255);
-    return EXCEPTION_EXECUTE_HANDLER;
+    ಹಿಂತಿರುಗಿ EXCEPTION_EXECUTE_HANDLER;
 }
 
 /* Generate a stack backtrace when a CPU exception occurs. */
-static void set_exception_handler(void)
+ಸ್ಥಿರ ಶೂನ್ಯ ಗಣ_exception_handler(ಶೂನ್ಯ)
 {
-#ifdef _WIN64
-    AddVectoredExceptionHandler(1, cpu_exception_handler);
-#else
-    SetUnhandledExceptionFilter(cpu_exception_handler);
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ _WIN64
+    ಕೂಡಿಸು_Vectored_Exception_Handler(1, cpu_exception_handler);
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಗಣ_Unhandled_Exception_Filter(cpu_exception_handler);
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
 /* ------------------------------------------------------------- */
 /* return the PC at frame level 'level'. Return negative if not found */
-#if defined(__i386__) || defined(__x86_64__)
-static int rt_get_caller_pc(addr_t *paddr, rt_frame *rc, int level)
+#ಆದರೆ defined(__i386__) || defined(__x86_64__)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ rt_get_caller_pc(addr_t *paddr, rt_ಚೌಕಟ್ಟು *rc, ಪೂರ್ಣಾಂಕ level)
 {
-    if (level == 0) {
+    ಆದರೆ (level == 0) {
         *paddr = rc->ip;
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
         addr_t fp = rc->fp;
-        while (1) {
-            if (fp < 0x1000)
-                return -1;
-            if (0 == --level)
-                break;
+        ಆಗ (1) {
+            ಆದರೆ (fp < 0x1000)
+                ಹಿಂತಿರುಗಿ -1;
+            ಆದರೆ (0 == --level)
+                ನಿಲ್ಲಿಸು;
             /* XXX: check address validity with program info */
             fp = ((addr_t *)fp)[0];
         }
         *paddr = ((addr_t *)fp)[1];
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
 /* XXX: only supports linux/bsd */
-#elif defined(__arm__) && !defined(_WIN32)
-static int rt_get_caller_pc(addr_t *paddr, rt_frame *rc, int level)
+#ಅಥವಾಆದರೆ defined(__arm__) && !defined(_WIN32)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ rt_get_caller_pc(addr_t *paddr, rt_ಚೌಕಟ್ಟು *rc, ಪೂರ್ಣಾಂಕ level)
 {
-    if (level == 0) {
+    ಆದರೆ (level == 0) {
         *paddr = rc->ip;
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
         addr_t fp = rc->fp;
-        while (1) {
-            if (fp < 0x1000)
-                return -1;
-            if (0 == --level)
-                break;
+        ಆಗ (1) {
+            ಆದರೆ (fp < 0x1000)
+                ಹಿಂತಿರುಗಿ -1;
+            ಆದರೆ (0 == --level)
+                ನಿಲ್ಲಿಸು;
             fp = ((addr_t *)fp)[0];
         }
         *paddr = ((addr_t *)fp)[2];
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-#elif defined(__aarch64__)
-static int rt_get_caller_pc(addr_t *paddr, rt_frame *rc, int level)
+#ಅಥವಾಆದರೆ defined(__aarch64__)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ rt_get_caller_pc(addr_t *paddr, rt_ಚೌಕಟ್ಟು *rc, ಪೂರ್ಣಾಂಕ level)
 {
-    if (level == 0) {
+    ಆದರೆ (level == 0) {
         *paddr = rc->ip;
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
         addr_t fp = rc->fp;
-        while (1) {
-            if (fp < 0x1000)
-                return -1;
-            if (0 == --level)
-                break;
+        ಆಗ (1) {
+            ಆದರೆ (fp < 0x1000)
+                ಹಿಂತಿರುಗಿ -1;
+            ಆದರೆ (0 == --level)
+                ನಿಲ್ಲಿಸು;
             fp = ((addr_t *)fp)[0];
         }
         *paddr = ((addr_t *)fp)[1];
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-#elif defined(__riscv)
-static int rt_get_caller_pc(addr_t *paddr, rt_frame *rc, int level)
+#ಅಥವಾಆದರೆ defined(__riscv)
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ rt_get_caller_pc(addr_t *paddr, rt_ಚೌಕಟ್ಟು *rc, ಪೂರ್ಣಾಂಕ level)
 {
-    if (level == 0) {
+    ಆದರೆ (level == 0) {
         *paddr = rc->ip;
-    } else {
+    } ಇಲ್ಲದಿದ್ದರೆ {
         addr_t fp = rc->fp;
-        while (1) {
-            if (fp < 0x1000)
-                return -1;
-            if (0 == --level)
-                break;
+        ಆಗ (1) {
+            ಆದರೆ (fp < 0x1000)
+                ಹಿಂತಿರುಗಿ -1;
+            ಆದರೆ (0 == --level)
+                ನಿಲ್ಲಿಸು;
             fp = ((addr_t *)fp)[-2];
         }
         *paddr = ((addr_t *)fp)[-1];
     }
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
 
-#else
-#warning add arch specific rt_get_caller_pc()
-static int rt_get_caller_pc(addr_t *paddr, rt_frame *rc, int level)
+#ಇಲ್ಲದಿದ್ದರೆ
+#warning ಕೂಡಿಸು arch specific rt_get_caller_pc()
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ rt_get_caller_pc(addr_t *paddr, rt_ಚೌಕಟ್ಟು *rc, ಪೂರ್ಣಾಂಕ level)
 {
-    return -1;
+    ಹಿಂತಿರುಗಿ -1;
 }
 
-#endif
-#else // for runmain.c:exit(); when CONFIG_TCC_BACKTRACE == 0 */
-static int rt_get_caller_pc(addr_t *paddr, rt_frame *f, int level)
+#ಆದರೆ_ಅಂತ್ಯ
+#ಇಲ್ಲದಿದ್ದರೆ // for runmain.c:exit(); when CONFIG_TCC_BACKTRACE == 0 */
+ಸ್ಥಿರ ಪೂರ್ಣಾಂಕ rt_get_caller_pc(addr_t *paddr, rt_ಚೌಕಟ್ಟು *f, ಪೂರ್ಣಾಂಕ level)
 {
-    if (level)
-        return -1;
+    ಆದರೆ (level)
+        ಹಿಂತಿರುಗಿ -1;
     *paddr = f->ip;
-    return 0;
+    ಹಿಂತಿರುಗಿ 0;
 }
-#endif /* CONFIG_TCC_BACKTRACE */
+#ಆದರೆ_ಅಂತ್ಯ /* CONFIG_TCC_BACKTRACE */
 /* ------------------------------------------------------------- */
-#ifdef CONFIG_TCC_STATIC
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ CONFIG_TCC_STATIC
 
 /* dummy function for profiling */
-ST_FUNC void *dlopen(const char *filename, int flag)
+ST_FUNC ಶೂನ್ಯ *dlopen(ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *filename, ಪೂರ್ಣಾಂಕ flag)
 {
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-ST_FUNC void dlclose(void *p)
+ST_FUNC ಶೂನ್ಯ dlclose(ಶೂನ್ಯ *p)
 {
 }
 
-ST_FUNC const char *dlerror(void)
+ST_FUNC ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *dlerror(ಶೂನ್ಯ)
 {
-    return "error";
+    ಹಿಂತಿರುಗಿ "error";
 }
 
-typedef struct TCCSyms {
-    char *str;
-    void *ptr;
+ಪ್ರಕಾರವ್ಯಾಖ್ಯೆ ರಚನೆ TCCSyms {
+    ಅಕ್ಷರ *str;
+    ಶೂನ್ಯ *ptr;
 } TCCSyms;
 
 
 /* add the symbol you want here if no dynamic linking is done */
-static TCCSyms tcc_syms[] = {
-#if !defined(CONFIG_TCCBOOT)
-#define TCCSYM(a) { #a, &a, },
-    TCCSYM(printf)
+ಸ್ಥಿರ TCCSyms tcc_syms[] = {
+#ಆದರೆ !defined(CONFIG_TCCBOOT)
+#ವ್ಯಾಖ್ಯಾನಿಸು TCCSYM(a) { #a, &a, },
+    TCCSYM(ಬರೆ)
     TCCSYM(fprintf)
     TCCSYM(fopen)
     TCCSYM(fclose)
-#undef TCCSYM
-#endif
-    { NULL, NULL },
+#ವ್ಯಾಖ್ಯಾನ_ರದ್ದು TCCSYM
+#ಆದರೆ_ಅಂತ್ಯ
+    { ಖಾಲಿ, ಖಾಲಿ },
 };
 
-ST_FUNC void *dlsym(void *handle, const char *symbol)
+ST_FUNC ಶೂನ್ಯ *dlsym(ಶೂನ್ಯ *handle, ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ *ಚಿಹ್ನೆ)
 {
     TCCSyms *p;
     p = tcc_syms;
-    while (p->str != NULL) {
-        if (!strcmp(p->str, symbol))
-            return p->ptr;
+    ಆಗ (p->str != ಖಾಲಿ) {
+        ಆದರೆ (!strcmp(p->str, ಚಿಹ್ನೆ))
+            ಹಿಂತಿರುಗಿ p->ptr;
         p++;
     }
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-#endif /* CONFIG_TCC_STATIC */
-#endif /* TCC_IS_NATIVE */
+#ಆದರೆ_ಅಂತ್ಯ /* CONFIG_TCC_STATIC */
+#ಆದರೆ_ಅಂತ್ಯ /* TCC_IS_NATIVE */
 /* ------------------------------------------------------------- */

@@ -1,32 +1,32 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   ಪೂರ್ಣಾಂಕ a[4][4];
+   ಪೂರ್ಣಾಂಕ b = 0;
+   ಪೂರ್ಣಾಂಕ x;
+   ಪೂರ್ಣಾಂಕ y;
 
-   for (x = 0; x < 4; x++)
+   ಗಾಗಿ (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      ಗಾಗಿ (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   ಗಾಗಿ (x = 0; x < 4; x++)
    {
-      printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      ಬರೆ("x=%d: ", x);
+      ಗಾಗಿ (y = 0; y < 4; y++)
       {
-         printf("%d ", a[x][y]);
+         ಬರೆ("%d ", a[x][y]);
       }
-      printf("\n");
+      ಬರೆ("\n");
    }
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

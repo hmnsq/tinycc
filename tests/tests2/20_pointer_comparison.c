@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   ಪೂರ್ಣಾಂಕ a;
+   ಪೂರ್ಣಾಂಕ b;
+   ಪೂರ್ಣಾಂಕ *d;
+   ಪೂರ್ಣಾಂಕ *e;
    d = &a;
    e = &b;
    a = 12;
    b = 34;
-   printf("%d\n", *d);
-   printf("%d\n", *e);
-   printf("%d\n", d == e);
-   printf("%d\n", d != e);
+   ಬರೆ("%d\n", *d);
+   ಬರೆ("%d\n", *e);
+   ಬರೆ("%d\n", d == e);
+   ಬರೆ("%d\n", d != e);
    d = e;
-   printf("%d\n", d == e);
-   printf("%d\n", d != e);
+   ಬರೆ("%d\n", d == e);
+   ಬರೆ("%d\n", d != e);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

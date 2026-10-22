@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-void fred(int x)
+ಶೂನ್ಯ fred(ಪೂರ್ಣಾಂಕ x)
 {
-   switch (x)
+   ಆಯ್ಕೆ (x)
    {
-      case 1: printf("1\n"); return;
-      case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      ಸ್ಥಿತಿ 1: ಬರೆ("1\n"); ಹಿಂತಿರುಗಿ;
+      ಸ್ಥಿತಿ 2: ಬರೆ("2\n"); ನಿಲ್ಲಿಸು;
+      ಸ್ಥಿತಿ 3: ಬರೆ("3\n"); ಹಿಂತಿರುಗಿ;
    }
 
-   printf("out\n");
+   ಬರೆ("out\n");
 }
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

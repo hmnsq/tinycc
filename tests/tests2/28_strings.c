@@ -1,45 +1,45 @@
-#include <stdio.h>
-#include <string.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
 
-int main()
+ಪೂರ್ಣಾಂಕ ಮುಖ್ಯ()
 {
-   char a[10];
+   ಅಕ್ಷರ a[10];
 
    strcpy(a, "hello");
-   printf("%s\n", a);
+   ಬರೆ("%s\n", a);
 
    strncpy(a, "gosh", 2);
-   printf("%s\n", a);
+   ಬರೆ("%s\n", a);
 
-   printf("%d\n", strcmp(a, "apple") > 0);
-   printf("%d\n", strcmp(a, "goere") > 0);
-   printf("%d\n", strcmp(a, "zebra") < 0);
+   ಬರೆ("%d\n", strcmp(a, "apple") > 0);
+   ಬರೆ("%d\n", strcmp(a, "goere") > 0);
+   ಬರೆ("%d\n", strcmp(a, "zebra") < 0);
 
-   printf("%d\n", strlen(a));
+   ಬರೆ("%d\n", ಅಕ್ಷರಸರಣಿ_ಉದ್ದ(a));
 
    strcat(a, "!");
-   printf("%s\n", a);
+   ಬರೆ("%s\n", a);
 
-   printf("%d\n", strncmp(a, "apple", 2) > 0);
-   printf("%d\n", strncmp(a, "goere", 2) == 0);
-   printf("%d\n", strncmp(a, "goerg", 2) == 0);
-   printf("%d\n", strncmp(a, "zebra", 2) < 0);
+   ಬರೆ("%d\n", ಅಕ್ಷರಸರಣಿ_ಹೋಲಿಕೆ(a, "apple", 2) > 0);
+   ಬರೆ("%d\n", ಅಕ್ಷರಸರಣಿ_ಹೋಲಿಕೆ(a, "goere", 2) == 0);
+   ಬರೆ("%d\n", ಅಕ್ಷರಸರಣಿ_ಹೋಲಿಕೆ(a, "goerg", 2) == 0);
+   ಬರೆ("%d\n", ಅಕ್ಷರಸರಣಿ_ಹೋಲಿಕೆ(a, "zebra", 2) < 0);
 
-   printf("%s\n", strchr(a, 'o'));
-   printf("%s\n", strrchr(a, 'l'));
-   printf("%d\n", strrchr(a, 'x') == NULL);
+   ಬರೆ("%s\n", strchr(a, 'o'));
+   ಬರೆ("%s\n", strrchr(a, 'l'));
+   ಬರೆ("%d\n", strrchr(a, 'x') == ಖಾಲಿ);
 
    memset(&a[1], 'r', 4);
-   printf("%s\n", a);
+   ಬರೆ("%s\n", a);
 
-   memcpy(&a[2], a, 2);
-   printf("%s\n", a);
+   ಸ್ಮರಣೆ_ನಕಲು(&a[2], a, 2);
+   ಬರೆ("%s\n", a);
 
-   printf("%d\n", memcmp(a, "apple", 4) > 0);
-   printf("%d\n", memcmp(a, "grgr", 4) == 0);
-   printf("%d\n", memcmp(a, "zebra", 4) < 0);
+   ಬರೆ("%d\n", memcmp(a, "apple", 4) > 0);
+   ಬರೆ("%d\n", memcmp(a, "grgr", 4) == 0);
+   ಬರೆ("%d\n", memcmp(a, "zebra", 4) < 0);
 
-   return 0;
+   ಹಿಂತಿರುಗಿ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -13,7 +13,7 @@ ifeq ($(findstring $(MAKECMDGOALS),clean distclean),)
 endif
 
 ifeq (-$(GCC_MAJOR)-$(findstring $(GCC_MINOR),56789)-,-4--)
- CFLAGS += -D_FORTIFY_SOURCE=0
+ CFLAGS += -DFORTIFY_ಮೂಲ=0
 endif
 
 LIBTCC = libtcc.a
@@ -96,28 +96,28 @@ CFLAGS_P = $(CFLAGS) -pg -static -DCONFIG_TCC_STATIC -DTCC_PROFILE
 LIBS_P = $(LIBS)
 LDFLAGS_P = $(LDFLAGS)
 
-DEF-i386           = -DTCC_TARGET_I386
-DEF-i386-win32     = -DTCC_TARGET_I386 -DTCC_TARGET_PE
+DEF-i386           = -DTCC_ಗುರಿ_I386
+DEF-i386-win32     = -DTCC_ಗುರಿ_I386 -DTCC_ಗುರಿ_PE
 DEF-i386-OpenBSD   = $(DEF-i386) -DTARGETOS_OpenBSD
-DEF-x86_64         = -DTCC_TARGET_X86_64
-DEF-x86_64-win32   = -DTCC_TARGET_X86_64 -DTCC_TARGET_PE
-DEF-x86_64-osx     = -DTCC_TARGET_X86_64 -DTCC_TARGET_MACHO
-DEF-arm-fpa        = -DTCC_TARGET_ARM
-DEF-arm-fpa-ld     = -DTCC_TARGET_ARM -DLDOUBLE_SIZE=12
-DEF-arm-vfp        = -DTCC_TARGET_ARM -DTCC_ARM_VFP
-DEF-arm-eabi       = -DTCC_TARGET_ARM -DTCC_ARM_VFP -DTCC_ARM_EABI
+DEF-x86_64         = -DTCC_ಗುರಿ_X86_64
+DEF-x86_64-win32   = -DTCC_ಗುರಿ_X86_64 -DTCC_ಗುರಿ_PE
+DEF-x86_64-osx     = -DTCC_ಗುರಿ_X86_64 -DTCC_ಗುರಿ_MACHO
+DEF-arm-fpa        = -DTCC_ಗುರಿ_ARM
+DEF-arm-fpa-ld     = -DTCC_ಗುರಿ_ARM -DLDOUBLE_ಗಾತ್ರ=12
+DEF-arm-vfp        = -DTCC_ಗುರಿ_ARM -DTCC_ARM_VFP
+DEF-arm-eabi       = -DTCC_ಗುರಿ_ARM -DTCC_ARM_VFP -DTCC_ARM_EABI
 DEF-arm-eabihf     = $(DEF-arm-eabi) -DTCC_ARM_HARDFLOAT
 DEF-arm            = $(DEF-arm-eabihf)
 DEF-arm-NetBSD     = $(DEF-arm-eabihf) -DTARGETOS_NetBSD
-DEF-arm-wince      = $(DEF-arm-eabihf) -DTCC_TARGET_PE
-DEF-arm64          = -DTCC_TARGET_ARM64
-DEF-arm64-osx      = $(DEF-arm64) -DTCC_TARGET_MACHO
+DEF-arm-wince      = $(DEF-arm-eabihf) -DTCC_ಗುರಿ_PE
+DEF-arm64          = -DTCC_ಗುರಿ_ARM64
+DEF-arm64-osx      = $(DEF-arm64) -DTCC_ಗುರಿ_MACHO
 DEF-arm64-FreeBSD  = $(DEF-arm64) -DTARGETOS_FreeBSD
 DEF-arm64-NetBSD   = $(DEF-arm64) -DTARGETOS_NetBSD
 DEF-arm64-OpenBSD  = $(DEF-arm64) -DTARGETOS_OpenBSD
-DEF-arm64-win32    = $(DEF-arm64) -DTCC_TARGET_PE
-DEF-riscv64        = -DTCC_TARGET_RISCV64
-DEF-c67            = -DTCC_TARGET_C67 -w # disable warnigs
+DEF-arm64-win32    = $(DEF-arm64) -DTCC_ಗುರಿ_PE
+DEF-riscv64        = -DTCC_ಗುರಿ_RISCV64
+DEF-c67            = -DTCC_ಗುರಿ_C67 -w # disable warnigs
 DEF-x86_64-FreeBSD = $(DEF-x86_64) -DTARGETOS_FreeBSD
 DEF-x86_64-NetBSD  = $(DEF-x86_64) -DTARGETOS_NetBSD
 DEF-x86_64-OpenBSD = $(DEF-x86_64) -DTARGETOS_OpenBSD
@@ -233,11 +233,11 @@ LIBTCC_OBJ = $(patsubst %.c,$(X)%.o,$(LIBTCC_SRC))
 LIBTCC_INC = $(filter %.h %-gen.c %-link.c,$($T_FILES))
 TCC_FILES = $(X)tcc.o $(LIBTCC_OBJ)
 $(X)tccpp.o : $(TCCDEFS_H)
-$(X)libtcc.o : DEFINES += -DONE_SOURCE=0
-$(CROSS_TARGET)-tcc.o : DEFINES += -DONE_SOURCE=0
+$(X)libtcc.o : DEFINES += -DONE_ಮೂಲ=0
+$(CROSS_TARGET)-tcc.o : DEFINES += -DONE_ಮೂಲ=0
 endif
 # native tcc always made from tcc.o and libtcc.[so|a]
-tcc.o : DEFINES += -DONE_SOURCE=0
+tcc.o : DEFINES += -DONE_ಮೂಲ=0
 
 GITHASH:=$(shell git rev-parse --abbrev-ref HEAD 2>/dev/null || echo no)
 ifneq ($(GITHASH),no)
