@@ -1,104 +1,104 @@
-extern int printf(const char *format, ...);
-static void kb_wait_1(void)
+বাহ্য পূর্ণাঙ্ক printf(ধ্রুব বর্ণ *format, ...);
+স্থির শূন্য kb_wait_1(শূন্য)
 {
     unsigned long timeout = 2;
-    do {
+    কুরু {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                while (1)
+                যাবত্ (1)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } যাবত্ (timeout);
 }
-static void kb_wait_2(void)
+স্থির শূন্য kb_wait_2(শূন্য)
 {
     unsigned long timeout = 2;
-    do {
+    কুরু {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                for (;;)
+                প্রতি (;;)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } যাবত্ (timeout);
 }
-static void kb_wait_2_1(void)
+স্থির শূন্য kb_wait_2_1(শূন্য)
 {
     unsigned long timeout = 2;
-    do {
+    কুরু {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                do {
+                কুরু {
                     printf("error\n");
-		} while (1);
+		} যাবত্ (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } যাবত্ (timeout);
 }
-static void kb_wait_2_2(void)
+স্থির শূন্য kb_wait_2_2(শূন্য)
 {
     unsigned long timeout = 2;
-    do {
+    কুরু {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
                 label:
                     printf("error\n");
-		goto label;
+		গচ্ছ label;
             })
         );
         timeout--;
-    } while (timeout);
+    } যাবত্ (timeout);
 }
-static void kb_wait_3(void)
+স্থির শূন্য kb_wait_3(শূন্য)
 {
     unsigned long timeout = 2;
-    do {
+    কুরু {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
-                goto label;
+                পূর্ণাঙ্ক i = 1;
+                গচ্ছ label;
                 i = i + 2;
             label:
                 i = i + 3;
             })
         );
         timeout--;
-    } while (timeout);
+    } যাবত্ (timeout);
 }
-static void kb_wait_4(void)
+স্থির শূন্য kb_wait_4(শূন্য)
 {
     unsigned long timeout = 2;
-    do {
+    কুরু {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                switch(timeout) {
-                    case 2:
+                বিকল্প(timeout) {
+                    পক্ষ 2:
                         printf("timeout is 2");
-                        break;
-                    case 1:
+                        ভঙ্গ;
+                    পক্ষ 1:
                         printf("timeout is 1");
-                        break;
-                    default:
+                        ভঙ্গ;
+                    স্বভাব:
                         printf("timeout is 0?");
-                        break;
+                        ভঙ্গ;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } যাবত্ (timeout);
 }
-int main()
+পূর্ণাঙ্ক main()
 {
     printf("begin\n");
     kb_wait_1();
@@ -108,5 +108,5 @@ int main()
     kb_wait_3();
     kb_wait_4();
     printf("end\n");
-    return 0;
+    প্রত্যাগম 0;
 }

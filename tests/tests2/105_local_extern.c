@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+বাহ্য পূর্ণাঙ্ক printf(ধ্রুব বর্ণ *, ...);
+শূন্য f(শূন্য);
+শূন্য bar(শূন্য) { শূন্য f(শূন্য); f(); }
+শূন্য foo(শূন্য) { বাহ্য শূন্য f(শূন্য); f(); }
+শূন্য f(শূন্য) { printf("f\n"); }
 
-int main()
+পূর্ণাঙ্ক main()
 {
   bar();
   foo();
-  return 0;
+  প্রত্যাগম 0;
 }

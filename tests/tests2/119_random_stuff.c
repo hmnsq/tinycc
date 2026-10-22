@@ -1,133 +1,133 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-struct big_struct { char a[262144]; };
+সংরচনা big_struct { বর্ণ a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+স্থির ধ্রুব বর্ণ str[] = "abcdefghijklmnopqrstuvwxyz";
 
-void tst_branch(void)
+শূন্য tst_branch(শূন্য)
 {
   printf("tst_branch --");
-  goto *&&a; 
+  গচ্ছ *&&a; 
   printf (" dummy");
 a: ;
   printf(" --\n");
 }
 
-void tst_void_ptr(void *pv, int i) 
+শূন্য tst_void_ptr(শূন্য *pv, পূর্ণাঙ্ক i) 
 {
   i ? *pv : *pv; // dr106
 }
 
-void tst_shift(void)
+শূন্য tst_shift(শূন্য)
 {
-  int i = 1;
+  পূর্ণাঙ্ক i = 1;
   long long l = 1;
   i = i << 32; // illegal. just test
   l = l << 64; // illegal. just test
 }
 
-#if !defined(_WIN32)
-#include <sys/mman.h>
+#যদি !defined(_WIN32)
+#অন্তর্ভাব <sys/mman.h>
 
-void tst_const_addr(void)
+শূন্য tst_const_addr(শূন্য)
 {
-  void *addr = mmap ((void *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
-  if (addr != (void *) -1) {
-    *(int *)0x20000000 += 42;
+  শূন্য *addr = mmap ((শূন্য *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
+  যদি (addr != (শূন্য *) -1) {
+    *(পূর্ণাঙ্ক *)0x20000000 += 42;
     munmap (addr, 4096);
   }
 }
 #endif
 
-struct zero_struct {};
+সংরচনা zero_struct {};
 
-struct zero_struct tst_zero_struct(void)
+সংরচনা zero_struct tst_zero_struct(শূন্য)
 {
-  struct zero_struct ret;
-  return ret;
+  সংরচনা zero_struct ret;
+  প্রত্যাগম ret;
 }
 
-struct big_struct tst_big(struct big_struct tst)
+সংরচনা big_struct tst_big(সংরচনা big_struct tst)
 {
-   return tst;
+   প্রত্যাগম tst;
 }
 
-void tst_adr (int (*fp)(char *, const char *, ...))
+শূন্য tst_adr (পূর্ণাঙ্ক (*fp)(বর্ণ *, ধ্রুব বর্ণ *, ...))
 {
-  char buf[10];
+  বর্ণ buf[10];
   (*fp)(buf, "%.0f", 5.0);
   printf("tst_adr %s\n", buf);
 }
 
-int tst(void)
+পূর্ণাঙ্ক tst(শূন্য)
 {
-  long long value = 3;
-  return -value;
+  long long মান = 3;
+  প্রত্যাগম -মান;
 }
 
-void tst_compare(void)
+শূন্য tst_compare(শূন্য)
 {
   /* This failed on risc64 */
   printf ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
 }
 
 #pragma pack(1)
-struct S { int d:24; int f:14; } i, j;
+সংরচনা S { পূর্ণাঙ্ক d:24; পূর্ণাঙ্ক f:14; } i, j;
 #pragma pack()
 
-void tst_pack (void)
+শূন্য tst_pack (শূন্য)
 {
   i.f = 5; j.f = 5;
   printf("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
 }
 
-void tst_cast(void)
+শূন্য tst_cast(শূন্য)
 {
-  signed char c = (signed char) 0xaaaaaaaa;
-  int r = (unsigned short) c ^ (signed char) 0x99999999;
+  signed বর্ণ c = (signed বর্ণ) 0xaaaaaaaa;
+  পূর্ণাঙ্ক r = (unsigned short) c ^ (signed বর্ণ) 0x99999999;
   printf ("schar to ushort cast: %x\n", r);
 }
 
-struct {
-    int (*print)(const char *format, ...);
+সংরচনা {
+    পূর্ণাঙ্ক (*print)(ধ্রুব বর্ণ *format, ...);
 } tst_indir = {
     printf
 };
 
-void tst_indir_func(void)
+শূন্য tst_indir_func(শূন্য)
 {
     tst_indir.print("tst_indir_func %d\n", 10);
 }
 
-struct V {
-  int x, y, z;
+সংরচনা V {
+  পূর্ণাঙ্ক x, y, z;
 };
 
-struct V vec(void)
+সংরচনা V vec(শূন্য)
 {
-  return (struct V) { 1, 2, 3 };
+  প্রত্যাগম (সংরচনা V) { 1, 2, 3 };
 }
 
-void func(float f, struct V v)
+শূন্য func(ভিন্ন f, সংরচনা V v)
 {
   printf("%g\n", f);
 }
 
-void tst_struct_return_align(void)
+শূন্য tst_struct_return_align(শূন্য)
 {
-  float d = 5.0f;
+  ভিন্ন d = 5.0f;
   func(d, vec());
 }
 
-int
-main (void)
+পূর্ণাঙ্ক
+main (শূন্য)
 {
-  struct big_struct big;
+  সংরচনা big_struct big;
 
   tst_branch();
   tst_shift();
   tst_void_ptr(&big.a[0], 0);
-#if !defined(_WIN32)
+#যদি !defined(_WIN32)
   tst_const_addr();
 #endif
   tst_zero_struct();

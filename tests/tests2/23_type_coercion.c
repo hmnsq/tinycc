@@ -1,21 +1,21 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-void charfunc(char a)
+শূন্য charfunc(বর্ণ a)
 {
    printf("char: %c\n", a);
 }
 
-void intfunc(int a)
+শূন্য intfunc(পূর্ণাঙ্ক a)
 {
    printf("int: %d\n", a);
 }
 
-void floatfunc(float a)
+শূন্য floatfunc(ভিন্ন a)
 {
    printf("float: %f\n", a);
 }
 
-int main()
+পূর্ণাঙ্ক main()
 {
    charfunc('a');
    charfunc(98);
@@ -33,22 +33,22 @@ int main()
    /* printf("%c %d %f\n", 97, 98, 99); */
    /* printf("%c %d %f\n", 97.0, 98.0, 99.0); */
 
-   char b = 97;
-   char c = 97.0;
+   বর্ণ b = 97;
+   বর্ণ c = 97.0;
 
    printf("%d %d\n", b, c);
 
-   int d = 'a';
-   int e = 97.0;
+   পূর্ণাঙ্ক d = 'a';
+   পূর্ণাঙ্ক e = 97.0;
 
    printf("%d %d\n", d, e);
 
-   float f = 'a';
-   float g = 97;
+   ভিন্ন f = 'a';
+   ভিন্ন g = 97;
 
    printf("%f %f\n", f, g);
 
-   return 0;
+   প্রত্যাগম 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

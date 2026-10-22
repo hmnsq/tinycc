@@ -1,33 +1,33 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#যদি 1
+#যদি 0
    printf("a\n");
-#else
+#অন্যথা
    printf("b\n");
 #endif
-#else
-#if 0
+#অন্যথা
+#যদি 0
    printf("c\n");
-#else
+#অন্যথা
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#যদি 0
+#যদি 1
    printf("e\n");
-#else
+#অন্যথা
    printf("f\n");
 #endif
-#else
-#if 1
+#অন্যথা
+#যদি 1
    printf("g\n");
-#else
+#অন্যথা
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#অন্যথা
    printf("j\n");
 #endif
-#else
+#অন্যথা
 #ifdef DEF
    printf("k\n");
-#else
+#অন্যথা
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#অন্যথা
    printf("n\n");
 #endif
-#else
+#অন্যথা
 #ifndef DEF
    printf("o\n");
-#else
+#অন্যথা
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#যদি ONE
+#যদি ZERO
    printf("q\n");
-#else
+#অন্যথা
    printf("r\n");
 #endif
-#else
-#if ZERO
+#অন্যথা
+#যদি ZERO
    printf("s\n");
-#else
+#অন্যথা
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   প্রত্যাগম 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

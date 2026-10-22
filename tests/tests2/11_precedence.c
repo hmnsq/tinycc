@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+বাহ্য পূর্ণাঙ্ক printf(ধ্রুব বর্ণ *, ...);
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   পূর্ণাঙ্ক a;
+   পূর্ণাঙ্ক b;
+   পূর্ণাঙ্ক c;
+   পূর্ণাঙ্ক d;
+   পূর্ণাঙ্ক e;
+   পূর্ণাঙ্ক f;
+   পূর্ণাঙ্ক x;
+   পূর্ণাঙ্ক y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   প্রত্যাগম 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

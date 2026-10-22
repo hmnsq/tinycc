@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+শূন্য defined_const(পূর্ণাঙ্ক *pointer);
 
-void defined_const(int *const pointer)
+শূন্য defined_const(পূর্ণাঙ্ক *ধ্রুব pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+পূর্ণাঙ্ক main(শূন্য)
 {
-    return 0;
+    প্রত্যাগম 0;
 }

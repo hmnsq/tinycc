@@ -1,52 +1,52 @@
 /* Check some way in where code suppression caused various
    miscompilations.  */
-extern int printf (const char *, ...);
-typedef __SIZE_TYPE__ size_t;
+বাহ্য পূর্ণাঙ্ক printf (ধ্রুব বর্ণ *, ...);
+প্রকারনির্দেশ __SIZE_TYPE__ size_t;
 
 size_t _brk_start, _brk_end;
-void * extend_brk(size_t size, size_t align)
+শূন্য * extend_brk(size_t size, size_t align)
 {
     size_t mask = align - 1;
-    void *ret = 0;
+    শূন্য *ret = 0;
 
-     do {
-	 if (__builtin_expect(!!(_brk_start == 0), 0))
-	   do {
+     কুরু {
+	 যদি (__builtin_expect(!!(_brk_start == 0), 0))
+	   কুরু {
 	       printf("wrong1\n");
-	   } while (0);
-     } while (0);
+	   } যাবত্ (0);
+     } যাবত্ (0);
      _brk_end = (_brk_end + mask) & ~mask;
-     ret = (void *)_brk_end;
+     ret = (শূন্য *)_brk_end;
      _brk_end += size;
 
-     return ret;
+     প্রত্যাগম ret;
 }
 
-static void get_args (int a, int b)
+স্থির শূন্য get_args (পূর্ণাঙ্ক a, পূর্ণাঙ্ক b)
 {
-  if (a != 1)
+  যদি (a != 1)
     printf("wrong2\n");
-  else
+  অন্যথা
     printf("okay\n");
 }
 
-void bla(void)
+শূন্য bla(শূন্য)
 {
-  int __ret = 42;
+  পূর্ণাঙ্ক __ret = 42;
   ({
-    if (__builtin_expect(!!(0), 0)) {
-      if (__builtin_expect(!!__ret, 0))
+    যদি (__builtin_expect(!!(0), 0)) {
+      যদি (__builtin_expect(!!__ret, 0))
         printf("wrong3\n");
-      int x = !!(__ret);
+      পূর্ণাঙ্ক x = !!(__ret);
     }
     __ret;
   });
-  get_args(!!__ret, sizeof(__ret));
+  get_args(!!__ret, পরিমাণ(__ret));
 }
 
-int ext;
+পূর্ণাঙ্ক ext;
 
-void broken_jumpopt (int xxx)
+শূন্য broken_jumpopt (পূর্ণাঙ্ক xxx)
 {
   /* This was broken in 8227db3a2 by code suppression during suppressed
      code :) */
@@ -59,22 +59,22 @@ _Bool chk(unsigned long addr, unsigned long limit, unsigned long size)
   _Bool ret;
   /* This just needs to compile, no runtime test.  (And it doesn't compile
      only with certain internal checking added that's not committed).  */
-  if (0)
+  যদি (0)
     ret = 0 != (!!(addr > limit - size));
-  return 0;
+  প্রত্যাগম 0;
 }
 
-int main()
+পূর্ণাঙ্ক main()
 {
-  void *r;
+  শূন্য *r;
   _brk_start = 1024;
   _brk_end = 1024;
   r = extend_brk (4096, 16);
-  if (!r)
+  যদি (!r)
     printf("wrong4\n");
-  else
+  অন্যথা
     printf("okay\n");
   bla();
   broken_jumpopt(42);
-  return 0;
+  প্রত্যাগম 0;
 }

@@ -1,31 +1,31 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int
-main (void)
+পূর্ণাঙ্ক
+main (শূন্য)
 {
-    int n = 0;
-    int  first=1;
-    int *p[101];
-    if (0) {
+    পূর্ণাঙ্ক n = 0;
+    পূর্ণাঙ্ক  first=1;
+    পূর্ণাঙ্ক *p[101];
+    যদি (0) {
         lab:;
     }
-    int x[n % 100 + 1];
-    if (first == 0) {
-        if (&x[0] != p[n % 100 + 1]) {
+    পূর্ণাঙ্ক x[n % 100 + 1];
+    যদি (first == 0) {
+        যদি (&x[0] != p[n % 100 + 1]) {
             printf ("ERROR: %p %p\n", &x[0], p[n % 100 + 1]);
-            return(1);
+            প্রত্যাগম(1);
         }
     }
-    else {
+    অন্যথা {
         p[n % 100 + 1] = &x[0];
         first = n < 100;
     }
     x[0] = 1;
     x[n % 100] = 2;
     n++;
-    if (n < 100000)
-        goto lab;
+    যদি (n < 100000)
+        গচ্ছ lab;
     printf ("OK\n");
-    return 0;
+    প্রত্যাগম 0;
 }
 

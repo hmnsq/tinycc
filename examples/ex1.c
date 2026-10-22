@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#অন্তর্ভাব <tcclib.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
     printf("Hello World\n");
-    return 0;
+    প্রত্যাগম 0;
 }

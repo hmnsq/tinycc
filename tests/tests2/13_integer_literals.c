@@ -1,12 +1,12 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   int a = 24680;
-   int b = 01234567;
-   int c = 0x2468ac;
-   int d = 0x2468AC;
-   int e = 0b010101010101;
+   পূর্ণাঙ্ক a = 24680;
+   পূর্ণাঙ্ক b = 01234567;
+   পূর্ণাঙ্ক c = 0x2468ac;
+   পূর্ণাঙ্ক d = 0x2468AC;
+   পূর্ণাঙ্ক e = 0b010101010101;
 
    printf("%d\n", a);
    printf("%d\n", b);
@@ -14,7 +14,7 @@ int main()
    printf("%d\n", d);
    printf("%d\n", e);
 
-   return 0;
+   প্রত্যাগম 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

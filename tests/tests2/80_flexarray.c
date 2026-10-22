@@ -1,26 +1,26 @@
-#include <stdio.h>
-struct wchar {
-    char *data; char mem[];
+#অন্তর্ভাব <stdio.h>
+সংরচনা wchar {
+    বর্ণ *data; বর্ণ mem[];
 };
-struct wint {
-    char *data; int mem[];
+সংরচনা wint {
+    বর্ণ *data; পূর্ণাঙ্ক mem[];
 };
-int f1char (void) {
-    char s[9]="nonono";
-    struct wchar q = {"bugs"};
-    return !s[0];
+পূর্ণাঙ্ক f1char (শূন্য) {
+    বর্ণ s[9]="nonono";
+    সংরচনা wchar q = {"bugs"};
+    প্রত্যাগম !s[0];
 }
-int f1int (void) {
-    char s[9]="nonono";
-    struct wint q = {"bugs"};
-    return !s[0];
+পূর্ণাঙ্ক f1int (শূন্য) {
+    বর্ণ s[9]="nonono";
+    সংরচনা wint q = {"bugs"};
+    প্রত্যাগম !s[0];
 }
-int empty[] = {}; // GNU extension
-int main (void) {
-   char s[9]="nonono";
-   static struct wchar q = {"bugs", {'c'}};
+পূর্ণাঙ্ক empty[] = {}; // GNU extension
+পূর্ণাঙ্ক main (শূন্য) {
+   বর্ণ s[9]="nonono";
+   স্থির সংরচনা wchar q = {"bugs", {'c'}};
    //printf ("tcc has %s %s\n", s, q.data);
-   if (f1char() || f1int())
+   যদি (f1char() || f1int())
      printf ("bla\n");
-   return !s[0];
+   প্রত্যাগম !s[0];
 }

@@ -1,123 +1,123 @@
-inline void inline_inline_2decl_only(void);
-inline void inline_inline_2decl_only(void);
+অন্তঃস্থ শূন্য inline_inline_2decl_only(শূন্য);
+অন্তঃস্থ শূন্য inline_inline_2decl_only(শূন্য);
 
-inline void inline_inline_undeclared(void){}
+অন্তঃস্থ শূন্য inline_inline_undeclared(শূন্য){}
 
-inline void inline_inline_predeclared(void);
-inline void inline_inline_predeclared(void){}
+অন্তঃস্থ শূন্য inline_inline_predeclared(শূন্য);
+অন্তঃস্থ শূন্য inline_inline_predeclared(শূন্য){}
 
-inline void inline_inline_postdeclared(void){}
-inline void inline_inline_postdeclared(void);
+অন্তঃস্থ শূন্য inline_inline_postdeclared(শূন্য){}
+অন্তঃস্থ শূন্য inline_inline_postdeclared(শূন্য);
 
-inline void inline_inline_prepostdeclared(void);
-inline void inline_inline_prepostdeclared(void){}
-inline void inline_inline_prepostdeclared(void);
+অন্তঃস্থ শূন্য inline_inline_prepostdeclared(শূন্য);
+অন্তঃস্থ শূন্য inline_inline_prepostdeclared(শূন্য){}
+অন্তঃস্থ শূন্য inline_inline_prepostdeclared(শূন্য);
 
-inline void inline_inline_undeclared2(void){}
+অন্তঃস্থ শূন্য inline_inline_undeclared2(শূন্য){}
 
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void){}
+অন্তঃস্থ শূন্য inline_inline_predeclared2(শূন্য);
+অন্তঃস্থ শূন্য inline_inline_predeclared2(শূন্য);
+অন্তঃস্থ শূন্য inline_inline_predeclared2(শূন্য){}
 
-inline void inline_inline_postdeclared2(void){}
-inline void inline_inline_postdeclared2(void);
-inline void inline_inline_postdeclared2(void);
+অন্তঃস্থ শূন্য inline_inline_postdeclared2(শূন্য){}
+অন্তঃস্থ শূন্য inline_inline_postdeclared2(শূন্য);
+অন্তঃস্থ শূন্য inline_inline_postdeclared2(শূন্য);
 
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void){}
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
+অন্তঃস্থ শূন্য inline_inline_prepostdeclared2(শূন্য);
+অন্তঃস্থ শূন্য inline_inline_prepostdeclared2(শূন্য);
+অন্তঃস্থ শূন্য inline_inline_prepostdeclared2(শূন্য){}
+অন্তঃস্থ শূন্য inline_inline_prepostdeclared2(শূন্য);
+অন্তঃস্থ শূন্য inline_inline_prepostdeclared2(শূন্য);
 
-extern void extern_extern_undeclared(void){}
+বাহ্য শূন্য extern_extern_undeclared(শূন্য){}
 
-extern void extern_extern_predeclared(void);
-extern void extern_extern_predeclared(void){}
+বাহ্য শূন্য extern_extern_predeclared(শূন্য);
+বাহ্য শূন্য extern_extern_predeclared(শূন্য){}
 
-extern void extern_extern_postdeclared(void){}
-extern void extern_extern_postdeclared(void);
+বাহ্য শূন্য extern_extern_postdeclared(শূন্য){}
+বাহ্য শূন্য extern_extern_postdeclared(শূন্য);
 
-extern void extern_extern_prepostdeclared(void);
-extern void extern_extern_prepostdeclared(void){}
-extern void extern_extern_prepostdeclared(void);
+বাহ্য শূন্য extern_extern_prepostdeclared(শূন্য);
+বাহ্য শূন্য extern_extern_prepostdeclared(শূন্য){}
+বাহ্য শূন্য extern_extern_prepostdeclared(শূন্য);
 
-extern void extern_extern_undeclared2(void){}
+বাহ্য শূন্য extern_extern_undeclared2(শূন্য){}
 
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void){}
+বাহ্য শূন্য extern_extern_predeclared2(শূন্য);
+বাহ্য শূন্য extern_extern_predeclared2(শূন্য);
+বাহ্য শূন্য extern_extern_predeclared2(শূন্য){}
 
-extern void extern_extern_postdeclared2(void){}
-extern void extern_extern_postdeclared2(void);
-extern void extern_extern_postdeclared2(void);
+বাহ্য শূন্য extern_extern_postdeclared2(শূন্য){}
+বাহ্য শূন্য extern_extern_postdeclared2(শূন্য);
+বাহ্য শূন্য extern_extern_postdeclared2(শূন্য);
 
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void){}
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
+বাহ্য শূন্য extern_extern_prepostdeclared2(শূন্য);
+বাহ্য শূন্য extern_extern_prepostdeclared2(শূন্য);
+বাহ্য শূন্য extern_extern_prepostdeclared2(শূন্য){}
+বাহ্য শূন্য extern_extern_prepostdeclared2(শূন্য);
+বাহ্য শূন্য extern_extern_prepostdeclared2(শূন্য);
 
-void extern_undeclared(void){}
+শূন্য extern_undeclared(শূন্য){}
 
-void extern_predeclared(void);
-void extern_predeclared(void){}
+শূন্য extern_predeclared(শূন্য);
+শূন্য extern_predeclared(শূন্য){}
 
-void extern_postdeclared(void){}
-void extern_postdeclared(void);
+শূন্য extern_postdeclared(শূন্য){}
+শূন্য extern_postdeclared(শূন্য);
 
-void extern_prepostdeclared(void);
-void extern_prepostdeclared(void){}
-void extern_prepostdeclared(void);
+শূন্য extern_prepostdeclared(শূন্য);
+শূন্য extern_prepostdeclared(শূন্য){}
+শূন্য extern_prepostdeclared(শূন্য);
 
-void extern_undeclared2(void){}
+শূন্য extern_undeclared2(শূন্য){}
 
-void extern_predeclared2(void);
-void extern_predeclared2(void);
-void extern_predeclared2(void){}
+শূন্য extern_predeclared2(শূন্য);
+শূন্য extern_predeclared2(শূন্য);
+শূন্য extern_predeclared2(শূন্য){}
 
-void extern_postdeclared2(void){}
-void extern_postdeclared2(void);
-void extern_postdeclared2(void);
+শূন্য extern_postdeclared2(শূন্য){}
+শূন্য extern_postdeclared2(শূন্য);
+শূন্য extern_postdeclared2(শূন্য);
 
 
-extern inline void noinst_extern_inline_undeclared(void){}
+বাহ্য অন্তঃস্থ শূন্য noinst_extern_inline_undeclared(শূন্য){}
 
-extern inline void noinst_extern_inline_postdeclared(void){}
-inline void noinst_extern_inline_postdeclared(void);
+বাহ্য অন্তঃস্থ শূন্য noinst_extern_inline_postdeclared(শূন্য){}
+অন্তঃস্থ শূন্য noinst_extern_inline_postdeclared(শূন্য);
 
-extern inline void noinst_extern_inline_postdeclared2(void){}
-inline void noinst_extern_inline_postdeclared2(void);
-inline void noinst_extern_inline_postdeclared2(void);
+বাহ্য অন্তঃস্থ শূন্য noinst_extern_inline_postdeclared2(শূন্য){}
+অন্তঃস্থ শূন্য noinst_extern_inline_postdeclared2(শূন্য);
+অন্তঃস্থ শূন্য noinst_extern_inline_postdeclared2(শূন্য);
 
-extern inline void inst_extern_inline_postdeclared(void){}
-extern inline void inst_extern_inline_postdeclared(void);
-inline void inst2_extern_inline_postdeclared(void){}
-void inst2_extern_inline_postdeclared(void);
+বাহ্য অন্তঃস্থ শূন্য inst_extern_inline_postdeclared(শূন্য){}
+বাহ্য অন্তঃস্থ শূন্য inst_extern_inline_postdeclared(শূন্য);
+অন্তঃস্থ শূন্য inst2_extern_inline_postdeclared(শূন্য){}
+শূন্য inst2_extern_inline_postdeclared(শূন্য);
 
-void inst_extern_inline_predeclared(void);
-extern inline void inst_extern_inline_predeclared(void){}
-void inst2_extern_inline_predeclared(void);
-inline void inst2_extern_inline_predeclared(void){}
-extern inline void inst3_extern_inline_predeclared(void);
-inline void inst3_extern_inline_predeclared(void){}
+শূন্য inst_extern_inline_predeclared(শূন্য);
+বাহ্য অন্তঃস্থ শূন্য inst_extern_inline_predeclared(শূন্য){}
+শূন্য inst2_extern_inline_predeclared(শূন্য);
+অন্তঃস্থ শূন্য inst2_extern_inline_predeclared(শূন্য){}
+বাহ্য অন্তঃস্থ শূন্য inst3_extern_inline_predeclared(শূন্য);
+অন্তঃস্থ শূন্য inst3_extern_inline_predeclared(শূন্য){}
 
-static inline void noinst_static_inline_postdeclared(void){}
-static inline void noinst_static_inline_postdeclared(void);
-static inline void noinst2_static_inline_postdeclared(void){}
-static void noinst2_static_inline_postdeclared(void);
+স্থির অন্তঃস্থ শূন্য noinst_static_inline_postdeclared(শূন্য){}
+স্থির অন্তঃস্থ শূন্য noinst_static_inline_postdeclared(শূন্য);
+স্থির অন্তঃস্থ শূন্য noinst2_static_inline_postdeclared(শূন্য){}
+স্থির শূন্য noinst2_static_inline_postdeclared(শূন্য);
 
-static void noinst_static_inline_predeclared(void);
-static inline void noinst_static_inline_predeclared(void){}
-static void noinst2_static_inline_predeclared(void);
-static inline void noinst2_static_inline_predeclared(void){}
+স্থির শূন্য noinst_static_inline_predeclared(শূন্য);
+স্থির অন্তঃস্থ শূন্য noinst_static_inline_predeclared(শূন্য){}
+স্থির শূন্য noinst2_static_inline_predeclared(শূন্য);
+স্থির অন্তঃস্থ শূন্য noinst2_static_inline_predeclared(শূন্য){}
 
-static void static_func(void);
-void static_func(void) { }
+স্থির শূন্য static_func(শূন্য);
+শূন্য static_func(শূন্য) { }
 
-inline void noinst_extern_inline_func(void);
-void noinst_extern_inline_func(void) { }
+অন্তঃস্থ শূন্য noinst_extern_inline_func(শূন্য);
+শূন্য noinst_extern_inline_func(শূন্য) { }
 
-int main()
+পূর্ণাঙ্ক main()
 {
         inline_inline_undeclared(); inline_inline_predeclared(); inline_inline_postdeclared();
         inline_inline_undeclared2(); inline_inline_predeclared2(); inline_inline_postdeclared2();
@@ -126,7 +126,7 @@ int main()
 	noinst_static_inline_predeclared();
 	noinst2_static_inline_predeclared();
 
-        void check_exports();
+        শূন্য check_exports();
         check_exports();
-        return 0;
+        প্রত্যাগম 0;
 }

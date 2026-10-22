@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#অন্তর্ভাব <stdlib.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
     printf("Hello World\n");
-    return 0;
+    প্রত্যাগম 0;
 }

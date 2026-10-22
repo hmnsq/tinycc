@@ -12,9 +12,9 @@
 #ifndef _STDATOMIC_H
 #define _STDATOMIC_H
 
-#include <stddef.h>
-#include <stdint.h>
-#include <stdbool.h>
+#অন্তর্ভাব <stddef.h>
+#অন্তর্ভাব <stdint.h>
+#অন্তর্ভাব <stdbool.h>
 
 #define __ATOMIC_RELAXED 0
 #define __ATOMIC_CONSUME 1
@@ -24,7 +24,7 @@
 #define __ATOMIC_SEQ_CST 5
 
 /* Memory ordering */
-typedef enum {
+প্রকারনির্দেশ গণনা {
     memory_order_relaxed = __ATOMIC_RELAXED,
     memory_order_consume = __ATOMIC_CONSUME,
     memory_order_acquire = __ATOMIC_ACQUIRE,
@@ -34,58 +34,58 @@ typedef enum {
 } memory_order;
 
 /* Atomic typedefs */
-typedef _Atomic(_Bool) atomic_bool;
-typedef _Atomic(char) atomic_char;
-typedef _Atomic(signed char) atomic_schar;
-typedef _Atomic(unsigned char) atomic_uchar;
-typedef _Atomic(short) atomic_short;
-typedef _Atomic(unsigned short) atomic_ushort;
-typedef _Atomic(int) atomic_int;
-typedef _Atomic(unsigned int) atomic_uint;
-typedef _Atomic(long) atomic_long;
-typedef _Atomic(unsigned long) atomic_ulong;
-typedef _Atomic(long long) atomic_llong;
-typedef _Atomic(unsigned long long) atomic_ullong;
-typedef _Atomic(uint_least16_t) atomic_char16_t;
-typedef _Atomic(uint_least32_t) atomic_char32_t;
-typedef _Atomic(wchar_t) atomic_wchar_t;
-typedef _Atomic(int_least8_t) atomic_int_least8_t;
-typedef _Atomic(uint_least8_t) atomic_uint_least8_t;
-typedef _Atomic(int_least16_t) atomic_int_least16_t;
-typedef _Atomic(uint_least16_t) atomic_uint_least16_t;
-typedef _Atomic(int_least32_t) atomic_int_least32_t;
-typedef _Atomic(uint_least32_t) atomic_uint_least32_t;
-typedef _Atomic(int_least64_t) atomic_int_least64_t;
-typedef _Atomic(uint_least64_t) atomic_uint_least64_t;
-typedef _Atomic(int_fast8_t) atomic_int_fast8_t;
-typedef _Atomic(uint_fast8_t) atomic_uint_fast8_t;
-typedef _Atomic(int_fast16_t) atomic_int_fast16_t;
-typedef _Atomic(uint_fast16_t) atomic_uint_fast16_t;
-typedef _Atomic(int_fast32_t) atomic_int_fast32_t;
-typedef _Atomic(uint_fast32_t) atomic_uint_fast32_t;
-typedef _Atomic(int_fast64_t) atomic_int_fast64_t;
-typedef _Atomic(uint_fast64_t) atomic_uint_fast64_t;
-typedef _Atomic(intptr_t) atomic_intptr_t;
-typedef _Atomic(uintptr_t) atomic_uintptr_t;
-typedef _Atomic(size_t) atomic_size_t;
-typedef _Atomic(ptrdiff_t) atomic_ptrdiff_t;
-typedef _Atomic(intmax_t) atomic_intmax_t;
-typedef _Atomic(uintmax_t) atomic_uintmax_t;
+প্রকারনির্দেশ _Atomic(_Bool) atomic_bool;
+প্রকারনির্দেশ _Atomic(বর্ণ) atomic_char;
+প্রকারনির্দেশ _Atomic(signed বর্ণ) atomic_schar;
+প্রকারনির্দেশ _Atomic(unsigned বর্ণ) atomic_uchar;
+প্রকারনির্দেশ _Atomic(short) atomic_short;
+প্রকারনির্দেশ _Atomic(unsigned short) atomic_ushort;
+প্রকারনির্দেশ _Atomic(পূর্ণাঙ্ক) atomic_int;
+প্রকারনির্দেশ _Atomic(unsigned পূর্ণাঙ্ক) atomic_uint;
+প্রকারনির্দেশ _Atomic(long) atomic_long;
+প্রকারনির্দেশ _Atomic(unsigned long) atomic_ulong;
+প্রকারনির্দেশ _Atomic(long long) atomic_llong;
+প্রকারনির্দেশ _Atomic(unsigned long long) atomic_ullong;
+প্রকারনির্দেশ _Atomic(uint_least16_t) atomic_char16_t;
+প্রকারনির্দেশ _Atomic(uint_least32_t) atomic_char32_t;
+প্রকারনির্দেশ _Atomic(wchar_t) atomic_wchar_t;
+প্রকারনির্দেশ _Atomic(int_least8_t) atomic_int_least8_t;
+প্রকারনির্দেশ _Atomic(uint_least8_t) atomic_uint_least8_t;
+প্রকারনির্দেশ _Atomic(int_least16_t) atomic_int_least16_t;
+প্রকারনির্দেশ _Atomic(uint_least16_t) atomic_uint_least16_t;
+প্রকারনির্দেশ _Atomic(int_least32_t) atomic_int_least32_t;
+প্রকারনির্দেশ _Atomic(uint_least32_t) atomic_uint_least32_t;
+প্রকারনির্দেশ _Atomic(int_least64_t) atomic_int_least64_t;
+প্রকারনির্দেশ _Atomic(uint_least64_t) atomic_uint_least64_t;
+প্রকারনির্দেশ _Atomic(int_fast8_t) atomic_int_fast8_t;
+প্রকারনির্দেশ _Atomic(uint_fast8_t) atomic_uint_fast8_t;
+প্রকারনির্দেশ _Atomic(int_fast16_t) atomic_int_fast16_t;
+প্রকারনির্দেশ _Atomic(uint_fast16_t) atomic_uint_fast16_t;
+প্রকারনির্দেশ _Atomic(int_fast32_t) atomic_int_fast32_t;
+প্রকারনির্দেশ _Atomic(uint_fast32_t) atomic_uint_fast32_t;
+প্রকারনির্দেশ _Atomic(int_fast64_t) atomic_int_fast64_t;
+প্রকারনির্দেশ _Atomic(uint_fast64_t) atomic_uint_fast64_t;
+প্রকারনির্দেশ _Atomic(intptr_t) atomic_intptr_t;
+প্রকারনির্দেশ _Atomic(uintptr_t) atomic_uintptr_t;
+প্রকারনির্দেশ _Atomic(size_t) atomic_size_t;
+প্রকারনির্দেশ _Atomic(ptrdiff_t) atomic_ptrdiff_t;
+প্রকারনির্দেশ _Atomic(intmax_t) atomic_intmax_t;
+প্রকারনির্দেশ _Atomic(uintmax_t) atomic_uintmax_t;
 
 /* Atomic flag */
-typedef struct {
-    atomic_bool value;
+প্রকারনির্দেশ সংরচনা {
+    atomic_bool মান;
 } atomic_flag;
 
 #define ATOMIC_FLAG_INIT {0}
-#define ATOMIC_VAR_INIT(value) (value)
+#define ATOMIC_VAR_INIT(মান) (মান)
 
 /* Generic routines */
 #define atomic_init(object, desired)                                      \
     atomic_store_explicit(object, desired, __ATOMIC_RELAXED)
 
 #define __atomic_store_n(ptr, val, order)                                 \
-    ({ __typeof__ ((void)0, *(ptr)) __val = (val);                      \
+    ({ __typeof__ ((শূন্য)0, *(ptr)) __val = (val);                      \
        __atomic_store((ptr), &__val, (order)); })
 #define atomic_store_explicit(object, desired, order)                     \
     ({ __typeof__ (object) ptr = (object);                                \
@@ -101,7 +101,7 @@ typedef struct {
        __val; })
 #define atomic_load_explicit(object, order)                               \
     ({ __typeof__ (object) ptr = (object);                                \
-       __typeof__ ((void)0,*ptr) tmp;                                             \
+       __typeof__ ((শূন্য)0,*ptr) tmp;                                             \
        __atomic_load (ptr, &tmp, (order));                                \
        tmp;                                                               \
     })
@@ -157,15 +157,15 @@ typedef struct {
     __atomic_fetch_and(object, operand, __ATOMIC_SEQ_CST)
 #define atomic_fetch_and_explicit __atomic_fetch_and
 
-extern void atomic_thread_fence (memory_order);
+বাহ্য শূন্য atomic_thread_fence (memory_order);
 #define __atomic_thread_fence(order) atomic_thread_fence (order)
-extern void atomic_signal_fence (memory_order);
+বাহ্য শূন্য atomic_signal_fence (memory_order);
 #define __atomic_signal_fence(order) atomic_signal_fence(order)
-extern bool __atomic_is_lock_free(size_t size, void *ptr);
-#define atomic_is_lock_free(OBJ) __atomic_is_lock_free (sizeof (*(OBJ)), (OBJ))
+বাহ্য bool __atomic_is_lock_free(size_t size, শূন্য *ptr);
+#define atomic_is_lock_free(OBJ) __atomic_is_lock_free (পরিমাণ (*(OBJ)), (OBJ))
 
-extern bool atomic_flag_test_and_set(void *object);
-extern bool atomic_flag_test_and_set_explicit(void *object, memory_order order);
-extern void atomic_flag_clear(void *object);
-extern void atomic_flag_clear_explicit(void *object, memory_order order);
+বাহ্য bool atomic_flag_test_and_set(শূন্য *object);
+বাহ্য bool atomic_flag_test_and_set_explicit(শূন্য *object, memory_order order);
+বাহ্য শূন্য atomic_flag_clear(শূন্য *object);
+বাহ্য শূন্য atomic_flag_clear_explicit(শূন্য *object, memory_order order);
 #endif /* _STDATOMIC_H */

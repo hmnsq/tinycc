@@ -1,53 +1,53 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
-} Node;
+প্রকারনির্দেশ সংরচনা {
+    পূর্ণাঙ্ক data[4];
+    দ্বিগুণ d1;
+    দ্বিগুণ d2;
+} গ্রন্থি_2;
 
-typedef struct {
-    int a, b, c;
+প্রকারনির্দেশ সংরচনা {
+    পূর্ণাঙ্ক a, b, c;
 } A;
 
-Node init(Node self) {
+গ্রন্থি_2 init(গ্রন্থি_2 self) {
     self.data[0] = 0;
     self.data[1] = 1;
     self.data[2] = 2;
     self.data[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    প্রত্যাগম self;
 }
 
-void dummy(Node self) {
+শূন্য dummy(গ্রন্থি_2 self) {
 }
 
-void print_data(Node data) {
+শূন্য print_data(গ্রন্থি_2 data) {
     printf ("%d %d %d %d %g %g\n",
             data.data[0], data.data[1], data.data[2], data.data[3],
             data.d1, data.d2);
 }
 
-A test(void)
+A test(শূন্য)
 {
-    int i;
+    পূর্ণাঙ্ক i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    প্রতি (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    প্রত্যাগম arr[29];
 }
 
-int main(void) {
+পূর্ণাঙ্ক main(শূন্য) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    গ্রন্থি_2 data;
     A a;
     dummy (data);
-    char val;
+    বর্ণ val;
     data = init (data);
     print_data(data);
     a = test();
     printf("%d\n", a.b);
-    return 0;
+    প্রত্যাগম 0;
 }

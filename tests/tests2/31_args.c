@@ -1,14 +1,14 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main(int argc, char **argv)
+পূর্ণাঙ্ক main(পূর্ণাঙ্ক argc, বর্ণ **argv)
 {
-   int Count;
+   পূর্ণাঙ্ক গুনতি_3;
 
    printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   প্রতি (গুনতি_3 = 1; গুনতি_3 < argc; গুনতি_3++)
+      printf("arg %d: %s\n", গুনতি_3, argv[গুনতি_3]);
 
-   return 0;
+   প্রত্যাগম 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

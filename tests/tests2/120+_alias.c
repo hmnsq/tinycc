@@ -1,12 +1,12 @@
-extern int printf (const char *, ...);
-extern void target(void);
-extern void alias_for_target(void);
-extern void asm_for_target(void);
-extern int g_int, alias_int;
+বাহ্য পূর্ণাঙ্ক printf (ধ্রুব বর্ণ *, ...);
+বাহ্য শূন্য target(শূন্য);
+বাহ্য শূন্য alias_for_target(শূন্য);
+বাহ্য শূন্য asm_for_target(শূন্য);
+বাহ্য পূর্ণাঙ্ক g_int, alias_int;
 
-void inunit2(void);
+শূন্য inunit2(শূন্য);
 
-void inunit2(void)
+শূন্য inunit2(শূন্য)
 {
   printf("in unit2:\n");
   target();

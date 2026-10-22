@@ -7,46 +7,46 @@ each of the operands. The type of the result is that of the promoted
 left operand."
 */
 
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (int) sizeof((M)+0)
+#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (পূর্ণাঙ্ক) পরিমাণ((M)+0)
 #define CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
-#define TEST1(X,T) do { CHECK(X,T); CHECK(X,unsigned T); } while (0)
+#define TEST1(X,T) কুরু { CHECK(X,T); CHECK(X,unsigned T); } যাবত্ (0)
 #define TEST2(X)                 \
-  do                             \
+  কুরু                             \
     {                            \
       TEST1((X),short);          \
-      TEST1((X),int);            \
+      TEST1((X),পূর্ণাঙ্ক);            \
       TEST1((X),long);           \
       TEST1((X),long long);      \
     }                            \
-  while (0)
-#define TEST3(X,T) do { TEST2((T)(X)); TEST2((unsigned T)(X)); } while (0)
+  যাবত্ (0)
+#define TEST3(X,T) কুরু { TEST2((T)(X)); TEST2((unsigned T)(X)); } যাবত্ (0)
 #define TEST4(X)                 \
-  do                             \
+  কুরু                             \
     {                            \
       TEST3((X),short);          \
-      TEST3((X),int);            \
+      TEST3((X),পূর্ণাঙ্ক);            \
       TEST3((X),long);           \
       TEST3((X),long long);      \
     }                            \
- while (0)
+ যাবত্ (0)
 
-static int debug, nfailed = 0;
+স্থির পূর্ণাঙ্ক debug, nfailed = 0;
 
-static void check (const char *s, int arg1, int shift)
+স্থির শূন্য check (ধ্রুব বর্ণ *s, পূর্ণাঙ্ক arg1, পূর্ণাঙ্ক shift)
 {
-  int failed = arg1 != shift;
-  if (debug || failed)
+  পূর্ণাঙ্ক failed = arg1 != shift;
+  যদি (debug || failed)
     printf ("%s %d %d\n", s, arg1, shift);
   nfailed += failed;
 }
 
-int main (int argc, char **argv)
+পূর্ণাঙ্ক main (পূর্ণাঙ্ক argc, বর্ণ **argv)
 {
   debug = argc > 1;
   TEST4(1);
   TEST4(-1);
   printf ("%d test(s) failed\n", nfailed);
-  return nfailed != 0;
+  প্রত্যাগম nfailed != 0;
 }

@@ -6,19 +6,19 @@
 #ifndef _INC_LOCALE
 #define _INC_LOCALE
 
-#include <_mingw.h>
+#অন্তর্ভাব <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ঠেলো,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্য "C" {
 #endif
 
-#ifndef NULL
+#ifndef রিক্ত
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define রিক্ত 0
+#অন্যথা
+#define রিক্ত ((শূন্য *)0)
 #endif
 #endif
 
@@ -34,25 +34,25 @@ extern "C" {
 
 #ifndef _LCONV_DEFINED
 #define _LCONV_DEFINED
-  struct lconv {
-    char *decimal_point;
-    char *thousands_sep;
-    char *grouping;
-    char *int_curr_symbol;
-    char *currency_symbol;
-    char *mon_decimal_point;
-    char *mon_thousands_sep;
-    char *mon_grouping;
-    char *positive_sign;
-    char *negative_sign;
-    char int_frac_digits;
-    char frac_digits;
-    char p_cs_precedes;
-    char p_sep_by_space;
-    char n_cs_precedes;
-    char n_sep_by_space;
-    char p_sign_posn;
-    char n_sign_posn;
+  সংরচনা lconv {
+    বর্ণ *decimal_point;
+    বর্ণ *thousands_sep;
+    বর্ণ *grouping;
+    বর্ণ *int_curr_প্রতীক;
+    বর্ণ *currency_প্রতীক;
+    বর্ণ *mon_decimal_point;
+    বর্ণ *mon_thousands_sep;
+    বর্ণ *mon_grouping;
+    বর্ণ *positive_sign;
+    বর্ণ *negative_sign;
+    বর্ণ int_frac_digits;
+    বর্ণ frac_digits;
+    বর্ণ p_cs_precedes;
+    বর্ণ p_sep_by_space;
+    বর্ণ n_cs_precedes;
+    বর্ণ n_sep_by_space;
+    বর্ণ p_sign_posn;
+    বর্ণ n_sign_posn;
   };
 #endif
 
@@ -68,24 +68,24 @@ extern "C" {
 
 #endif
 
-  int __cdecl _configthreadlocale(int _Flag);
-  char *__cdecl setlocale(int _Category,const char *_Locale);
-  _CRTIMP struct lconv *__cdecl localeconv(void);
-  _locale_t __cdecl _get_current_locale(void);
-  _locale_t __cdecl _create_locale(int _Category,const char *_Locale);
-  void __cdecl _free_locale(_locale_t _Locale);
-  _locale_t __cdecl __get_current_locale(void);
-  _locale_t __cdecl __create_locale(int _Category,const char *_Locale);
-  void __cdecl __free_locale(_locale_t _Locale);
+  পূর্ণাঙ্ক __cdecl _configthreadlocale(পূর্ণাঙ্ক _Flag);
+  বর্ণ *__cdecl setlocale(পূর্ণাঙ্ক _Category,ধ্রুব বর্ণ *_Locale);
+  _CRTIMP সংরচনা lconv *__cdecl localeconv(শূন্য);
+  _locale_t __cdecl _get_current_locale(শূন্য);
+  _locale_t __cdecl _create_locale(পূর্ণাঙ্ক _Category,ধ্রুব বর্ণ *_Locale);
+  শূন্য __cdecl _free_locale(_locale_t _Locale);
+  _locale_t __cdecl __get_current_locale(শূন্য);
+  _locale_t __cdecl __create_locale(পূর্ণাঙ্ক _Category,ধ্রুব বর্ণ *_Locale);
+  শূন্য __cdecl __free_locale(_locale_t _Locale);
 
 #ifndef _WLOCALE_DEFINED
 #define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
+  _CRTIMP wchar_t *__cdecl _wsetlocale(পূর্ণাঙ্ক _Category,ধ্রুব wchar_t *_Locale);
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(বের_করো)
 #endif

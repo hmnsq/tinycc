@@ -1,9 +1,9 @@
-#include <stdio.h>
-#include <string.h>
+#অন্তর্ভাব <stdio.h>
+#অন্তর্ভাব <string.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   char a[10];
+   বর্ণ a[10];
 
    strcpy(a, "hello");
    printf("%s\n", a);
@@ -27,7 +27,7 @@ int main()
 
    printf("%s\n", strchr(a, 'o'));
    printf("%s\n", strrchr(a, 'l'));
-   printf("%d\n", strrchr(a, 'x') == NULL);
+   printf("%d\n", strrchr(a, 'x') == রিক্ত);
 
    memset(&a[1], 'r', 4);
    printf("%s\n", a);
@@ -39,7 +39,7 @@ int main()
    printf("%d\n", memcmp(a, "grgr", 4) == 0);
    printf("%d\n", memcmp(a, "zebra", 4) < 0);
 
-   return 0;
+   প্রত্যাগম 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,21 +1,21 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   int a = 1;
+   পূর্ণাঙ্ক a = 1;
 
-   if (a)
+   যদি (a)
       printf("a is true\n");
-   else
+   অন্যথা
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   পূর্ণাঙ্ক b = 0;
+   যদি (b)
       printf("b is true\n");
-   else
+   অন্যথা
       printf("b is false\n");
 
-   return 0;
+   প্রত্যাগম 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

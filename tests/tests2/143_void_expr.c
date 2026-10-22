@@ -1,17 +1,17 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-static void f(int x)
+স্থির শূন্য f(পূর্ণাঙ্ক x)
 {
      printf("f(%d)\n", x);
 }
 
-int main(void)
+পূর্ণাঙ্ক main(শূন্য)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
+     পূর্ণাঙ্ক গুনতি_2 = 0, i = 0;
+     প্রতি (; i < 3; ++i) {
          printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+         (শূন্য)(i || (f(i), ++গুনতি_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     printf("count %d\n", গুনতি_2);
+     প্রত্যাগম গুনতি_2 == 1 ? 0 : 1;
 }

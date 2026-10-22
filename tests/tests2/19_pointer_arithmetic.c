@@ -1,28 +1,28 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   int a;
-   int *b;
-   int *c;
+   পূর্ণাঙ্ক a;
+   পূর্ণাঙ্ক *b;
+   পূর্ণাঙ্ক *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = রিক্ত;
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   যদি (b == রিক্ত)
       printf("b is NULL\n");
-   else
+   অন্যথা
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   যদি (c == রিক্ত)
       printf("c is NULL\n");
-   else
+   অন্যথা
       printf("c is not NULL\n");
 
-   return 0;
+   প্রত্যাগম 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,6 +1,6 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-enum fred
+গণনা fred
 {
    a,
    b,
@@ -19,42 +19,42 @@ enum fred
 /* Strict ISO C doesn't allow this kind of forward declaration of
    enums, but GCC accepts it (and gives only pedantic warning), and
    it occurs in the wild.  */
-enum efoo;
-struct Sforward_use {
-    int (*fmember) (enum efoo x);
+গণনা efoo;
+সংরচনা Sforward_use {
+    পূর্ণাঙ্ক (*fmember) (গণনা efoo x);
 };
 
-extern enum efoo it_real_fn(void);
-enum efoo {
+বাহ্য গণনা efoo it_real_fn(শূন্য);
+গণনা efoo {
   ONE,
   TWO,
 };
-struct S2 {
-  enum efoo (*f2) (void);
+সংরচনা S2 {
+  গণনা efoo (*f2) (শূন্য);
 };
-void should_compile(struct S2 *s)
+শূন্য should_compile(সংরচনা S2 *s)
 {
   s->f2 = it_real_fn;
 }
 
-enum efoo it_real_fn(void)
+গণনা efoo it_real_fn(শূন্য)
 {
-  return TWO;
+  প্রত্যাগম TWO;
 }
 
-static unsigned int deref_uintptr(unsigned int *p)
+স্থির unsigned পূর্ণাঙ্ক deref_uintptr(unsigned পূর্ণাঙ্ক *p)
 {
-  return *p;
+  প্রত্যাগম *p;
 }
 
-enum Epositive {
+গণনা Epositive {
     epos_one, epos_two
 };
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   enum fred frod;
-   enum Epositive epos = epos_two;
+   গণনা fred frod;
+   গণনা Epositive epos = epos_two;
 
    printf("%d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h);
    /* printf("%d\n", frod); */
@@ -66,7 +66,7 @@ int main()
    /* Following should compile without warning.  */
    printf ("enum to int: %u\n", deref_uintptr(&epos));
 
-   return 0;
+   প্রত্যাগম 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

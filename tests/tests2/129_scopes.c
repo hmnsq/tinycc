@@ -1,179 +1,179 @@
-int printf(const char*, ...);
+পূর্ণাঙ্ক printf(ধ্রুব বর্ণ*, ...);
 
 #define myassert(x) \
     printf("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
 
-enum{ in = 0};
+গণনা{ in = 0};
 
-int main_1(){
+পূর্ণাঙ্ক main_1(){
     {
         myassert(!in);
-        if(sizeof(enum{in=1})) myassert(in);
+        যদি(পরিমাণ(গণনা{in=1})) myassert(in);
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        switch(sizeof(enum{in=1})) { default: myassert(in); }
+        বিকল্প(পরিমাণ(গণনা{in=1})) { স্বভাব: myassert(in); }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        while(sizeof(enum{in=1})) { myassert(in); break; }
+        যাবত্(পরিমাণ(গণনা{in=1})) { myassert(in); ভঙ্গ; }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        do{ myassert(!in);}while(0*sizeof(enum{in=1}));
+        কুরু{ myassert(!in);}যাবত্(0*পরিমাণ(গণনা{in=1}));
         myassert(!in); //OOPS
     }
 
     {
         myassert(!in);
-        for(sizeof(enum{in=1});;){ myassert(in); break; }
+        প্রতি(পরিমাণ(গণনা{in=1});;){ myassert(in); ভঙ্গ; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;;sizeof(enum{in=1})){ myassert(in); break; }
+        প্রতি(;;পরিমাণ(গণনা{in=1})){ myassert(in); ভঙ্গ; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;sizeof(enum{in=1});){ myassert(in); break; }
+        প্রতি(;পরিমাণ(গণনা{in=1});){ myassert(in); ভঙ্গ; }
         myassert(!in); //OK
     }
-    return 0;
+    প্রত্যাগম 0;
 }
 
 /* --------------------------------------------- */
-int main_2()
+পূর্ণাঙ্ক main_2()
 {
-  char c = 'a';
-  void func1(char c); /* param 'c' must not shadow local 'c' */
+  বর্ণ c = 'a';
+  শূন্য func1(বর্ণ c); /* param 'c' must not shadow local 'c' */
   func1(c);
-  return 0;
+  প্রত্যাগম 0;
 }
 
-void func1(char c)
+শূন্য func1(বর্ণ c)
 {
     myassert(c == 'a');
 }
 
-struct st { int a; };
+সংরচনা st { পূর্ণাঙ্ক a; };
 
 /* --------------------------------------------- */
-int main_3()
+পূর্ণাঙ্ক main_3()
 {
-  struct st func(void);
-  struct st st = func(); /* not an 'incompatible redefinition' */
+  সংরচনা st func(শূন্য);
+  সংরচনা st st = func(); /* not an 'incompatible redefinition' */
   myassert(st.a == 10);
-  return 0;
+  প্রত্যাগম 0;
 }
 
-struct st func(void)
+সংরচনা st func(শূন্য)
 {
-  struct st st = { 10 };
-  return st;
+  সংরচনা st st = { 10 };
+  প্রত্যাগম st;
 }
 
 /* --------------------------------------------- */
 /* func* 'md' must not be shadowed by param 'md' */
-static void f4(char *(*md)(char *md))
+স্থির শূন্য f4(বর্ণ *(*md)(বর্ণ *md))
 {
    (*md)("test");
 }
-static char *a4(char *a)
+স্থির বর্ণ *a4(বর্ণ *a)
 {
-    int strcmp();
+    পূর্ণাঙ্ক strcmp();
     myassert(!strcmp(a, "test"));
-    return a;
+    প্রত্যাগম a;
 }
 
-int main_4()
+পূর্ণাঙ্ক main_4()
 {
     f4(a4);
-    return 0;
+    প্রত্যাগম 0;
 }
 
 /* --------------------------------------------- */
-int a5[3], b5[];
-int f5(void);
-int main_5()
+পূর্ণাঙ্ক a5[3], b5[];
+পূর্ণাঙ্ক f5(শূন্য);
+পূর্ণাঙ্ক main_5()
 {
-    extern int a5[3], b5[3];
+    বাহ্য পূর্ণাঙ্ক a5[3], b5[3];
     a5[2]=10, b5[2]=4;
     myassert(f5() == 10 + 4);
-    return 0;
+    প্রত্যাগম 0;
 }
-int f5(void)
+পূর্ণাঙ্ক f5(শূন্য)
 {
-    return a5[2]+b5[2];
+    প্রত্যাগম a5[2]+b5[2];
 }
-int b5[3];
+পূর্ণাঙ্ক b5[3];
 
 /* --------------------------------------------- */
-static int f6(int);
-int i6 = 11;
+স্থির পূর্ণাঙ্ক f6(পূর্ণাঙ্ক);
+পূর্ণাঙ্ক i6 = 11;
 
-int main_6()
+পূর্ণাঙ্ক main_6()
 {
     {
-        int i6 = 33, f6 = 44;
+        পূর্ণাঙ্ক i6 = 33, f6 = 44;
         myassert(i6 == 33 && f6 == 44);
         {
-            int f6(int);
-            extern int i6;
+            পূর্ণাঙ্ক f6(পূর্ণাঙ্ক);
+            বাহ্য পূর্ণাঙ্ক i6;
             myassert(i6 == 11 && f6(22) == 22);
         }
         myassert(i6 == 33 && f6 == 44);
     }
     myassert(i6 == 11 && f6(22) == 22);
-    return 0;
+    প্রত্যাগম 0;
 }
 
-int f6(int x)
+পূর্ণাঙ্ক f6(পূর্ণাঙ্ক x)
 {
-    return x;
+    প্রত্যাগম x;
 }
 
 /* --------------------------------------------- */
 
-#if defined __TINYC__ \
+#যদি defined __TINYC__ \
     ? !defined __leading_underscore \
     : !(defined __APPLE__ || defined _WIN32)
 # define _
-#else
+#অন্যথা
 # define _ "_"
 #endif
 
-struct xx7 { int a, b; };
+সংরচনা xx7 { পূর্ণাঙ্ক a, b; };
 
-void f7()
+শূন্য f7()
 {
-    struct xx7 { int c; } x;
+    সংরচনা xx7 { পূর্ণাঙ্ক c; } x;
     {
-        extern struct xx7 { int a, b; } x __asm__(_"z7");
+        বাহ্য সংরচনা xx7 { পূর্ণাঙ্ক a, b; } x __asm__(_"z7");
         x.a = 12;
-        struct xx7 y = { 0,0 };
+        সংরচনা xx7 y = { 0,0 };
     }
-    struct xx7 y = { 90 };
+    সংরচনা xx7 y = { 90 };
     x.c = 78;
     printf("xx7 (1) : %d %d\n", x.c, y.c);
 }
 
-int main_7()
+পূর্ণাঙ্ক main_7()
 {
     f7();
-    extern struct xx7 y __asm__(_"z7");
+    বাহ্য সংরচনা xx7 y __asm__(_"z7");
     printf("xx7 (2) : %d %d\n", y.a, y.b);
-    return 0;
+    প্রত্যাগম 0;
 }
 
 
-struct xx7 z7 = { 0, 34 };
+সংরচনা xx7 z7 = { 0, 34 };
 
 /* --------------------------------------------- */
-int main()
+পূর্ণাঙ্ক main()
 {
     main_1();
     main_2();
@@ -182,5 +182,5 @@ int main()
     main_5();
     main_6();
     main_7();
-    return 0;
+    প্রত্যাগম 0;
 }

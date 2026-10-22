@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+গণনা E *e;
+ধ্রুব গণনা E *e1;
+গণনা E ধ্রুব *e2;
+সংরচনা S *s;
+ধ্রুব সংরচনা S *s1;
+সংরচনা S ধ্রুব *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+প্রকারনির্দেশ পূর্ণাঙ্ক (*fptr1)();
+পূর্ণাঙ্ক f1 (পূর্ণাঙ্ক (), পূর্ণাঙ্ক);
+প্রকারনির্দেশ পূর্ণাঙ্ক (*fptr2)(পূর্ণাঙ্ক x);
+পূর্ণাঙ্ক f2 (পূর্ণাঙ্ক (পূর্ণাঙ্ক x), পূর্ণাঙ্ক);
+প্রকারনির্দেশ পূর্ণাঙ্ক (*fptr3)(পূর্ণাঙ্ক);
+পূর্ণাঙ্ক f3 (পূর্ণাঙ্ক (পূর্ণাঙ্ক), পূর্ণাঙ্ক);
+প্রকারনির্দেশ পূর্ণাঙ্ক (*fptr4[4])(পূর্ণাঙ্ক);
+পূর্ণাঙ্ক f4 (পূর্ণাঙ্ক (*[4])(পূর্ণাঙ্ক), পূর্ণাঙ্ক);
+প্রকারনির্দেশ পূর্ণাঙ্ক (*fptr5)(fptr1);
+পূর্ণাঙ্ক f5 (পূর্ণাঙ্ক (পূর্ণাঙ্ক()), fptr1);
+পূর্ণাঙ্ক f1 (fptr1 fp, পূর্ণাঙ্ক i)
 {
-  return (*fp)(i);
+  প্রত্যাগম (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+পূর্ণাঙ্ক f2 (fptr2 fp, পূর্ণাঙ্ক i)
 {
-  return (*fp)(i);
+  প্রত্যাগম (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+পূর্ণাঙ্ক f3 (fptr3 fp, পূর্ণাঙ্ক i)
 {
-  return (*fp)(i);
+  প্রত্যাগম (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+পূর্ণাঙ্ক f4 (fptr4 fp, পূর্ণাঙ্ক i)
 {
-  return (*fp[i])(i);
+  প্রত্যাগম (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+পূর্ণাঙ্ক f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  প্রত্যাগম fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+প্রকারনির্দেশ পূর্ণাঙ্ক intx4[4];
+পূর্ণাঙ্ক f8 (intx4, পূর্ণাঙ্ক);
+পূর্ণাঙ্ক f8 (পূর্ণাঙ্ক ([4]), পূর্ণাঙ্ক);
+পূর্ণাঙ্ক f8 (পূর্ণাঙ্ক y[4], পূর্ণাঙ্ক i)
 {
-  return y[i];
+  প্রত্যাগম y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+পূর্ণাঙ্ক f9 (পূর্ণাঙ্ক (*)(পূর্ণাঙ্ক), পূর্ণাঙ্ক);
+পূর্ণাঙ্ক f9 (পূর্ণাঙ্ক ((পূর্ণাঙ্ক)), পূর্ণাঙ্ক);
+পূর্ণাঙ্ক f9 (পূর্ণাঙ্ক f(পূর্ণাঙ্ক), পূর্ণাঙ্ক i)
 {
-  return f(i);
+  প্রত্যাগম f(i);
 }
-int main () { return 0; }
+পূর্ণাঙ্ক main () { প্রত্যাগম 0; }

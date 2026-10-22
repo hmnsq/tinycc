@@ -1,21 +1,21 @@
-extern int printf(const char*, ...);
+বাহ্য পূর্ণাঙ্ক printf(ধ্রুব বর্ণ*, ...);
 
-struct fred;
+সংরচনা fred;
 
-void fred$(struct fred* this)
+শূন্য fred$(সংরচনা fred* this)
 {
     printf("~fred()\n");
 }
 
-struct __attribute__((__cleanup__(fred$))) fred
+সংরচনা __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   পূর্ণাঙ্ক boris;
+   পূর্ণাঙ্ক natasha;
 };
 
-int main()
+পূর্ণাঙ্ক main()
 {
-    struct fred  __attribute__((__cleanup__(fred$))) bloggs;
+    সংরচনা fred  __attribute__((__cleanup__(fred$))) bloggs;
 
    bloggs.boris = 12;
    bloggs.natasha = 34;
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", bloggs.boris);
    printf("%d\n", bloggs.natasha);
 
-   struct fred jones[2];
+   সংরচনা fred jones[2];
    jones[0].boris = 12;
    jones[0].natasha = 34;
    jones[1].boris = 56;
@@ -34,5 +34,5 @@ int main()
    printf("%d\n", jones[1].boris);
    printf("%d\n", jones[1].natasha);
 
-   return 0;
+   প্রত্যাগম 0;
 }

@@ -1,41 +1,41 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+পূর্ণাঙ্ক atexit(শূন্য (*function)(শূন্য));
+পূর্ণাঙ্ক on_exit(শূন্য (*function)(পূর্ণাঙ্ক, শূন্য *), শূন্য *arg);
+শূন্য exit(পূর্ণাঙ্ক status);
 
-void __attribute((constructor)) startup5(void)
+শূন্য __attribute((constructor)) startup5(শূন্য)
 {
     printf ("startup5\n");
 }
 
-void cleanup1(void)
+শূন্য cleanup1(শূন্য)
 {
     printf ("cleanup1\n");
     fflush(stdout);
 }
 
-void cleanup2(void)
+শূন্য cleanup2(শূন্য)
 {
     printf ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+শূন্য cleanup3(পূর্ণাঙ্ক ret, শূন্য *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (বর্ণ *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+শূন্য cleanup4(পূর্ণাঙ্ক ret, শূন্য *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (বর্ণ *) arg);
 }
 
-void __attribute((destructor)) cleanup5(void)
+শূন্য __attribute((destructor)) cleanup5(শূন্য)
 {
     printf ("cleanup5\n");
 }
 
-void test(void)
+শূন্য test(শূন্য)
 {
     atexit(cleanup1);
     atexit(cleanup2);
@@ -43,15 +43,15 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#যদি defined test_128_return
+পূর্ণাঙ্ক main(পূর্ণাঙ্ক argc, বর্ণ **argv)
 {
     test();
-    return 1;
+    প্রত্যাগম 1;
 } 
 
-#elif defined test_128_exit
-int main(int argc, char **argv)
+#নোচেদ্যদি defined test_128_exit
+পূর্ণাঙ্ক main(পূর্ণাঙ্ক argc, বর্ণ **argv)
 {
     test();
     exit(2);
