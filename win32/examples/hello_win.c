@@ -8,9 +8,9 @@
 
 #define APPNAME "HELLO_WIN"
 
-char szAppName[] = APPNAME; // The name of this application
-char szTitle[]   = APPNAME; // The title bar text
-const char *pWindowText;
+var_na szAppName[] = APPNAME; // The name of this application
+var_na szTitle[]   = APPNAME; // The title bar text
+const var_na *pWindowText;
 
 void CenterWindow(HWND hWnd);
 
@@ -29,26 +29,26 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message) {
 
         // ----------------------- first and last
-        case WM_CREATE:
+        pak_sa WM_CREATE:
             CenterWindow(hwnd);
-            break;
+            bha_nga;
 
-        case WM_DESTROY:
+        pak_sa WM_DESTROY:
             PostQuitMessage(0);
-            break;
+            bha_nga;
 
         // ----------------------- get out of it...
-        case WM_RBUTTONUP:
+        pak_sa WM_RBUTTONUP:
             DestroyWindow(hwnd);
-            break;
+            bha_nga;
 
-        case WM_KEYDOWN:
-            if (VK_ESCAPE == wParam)
+        pak_sa WM_KEYDOWN:
+            ᱡᱩᱫᱤ (VK_ESCAPE == wParam)
                 DestroyWindow(hwnd);
-            break;
+            bha_nga;
 
         // ----------------------- display our minimal info
-        case WM_PAINT:
+        pak_sa WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC         hdc;
@@ -61,14 +61,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
             DrawText(hdc, pWindowText, -1, &rc, DT_CENTER|DT_SINGLELINE|DT_VCENTER);
 
             EndPaint(hwnd, &ps);
-            break;
+            bha_nga;
         }
 
         // ----------------------- let windows do all other stuff
         default:
-            return DefWindowProc(hwnd, message, wParam, lParam);
+            ᱨᱩᱣᱟᱹᱲ DefWindowProc(hwnd, message, wParam, lParam);
     }
-    return 0;
+    ᱨᱩᱣᱟᱹᱲ 0;
 }
 
 //+---------------------------------------------------------------------------
@@ -78,11 +78,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 //  Synopsis:   standard entrypoint for GUI Win32 apps
 //
 //----------------------------------------------------------------------------
-int APIENTRY WinMain(
+puur_naa_nka APIENTRY WinMain(
         HINSTANCE hInstance,
         HINSTANCE hPrevInstance,
         LPSTR lpCmdLine,
-        int nCmdShow
+        puur_naa_nka nCmdShow
         )
 {
     MSG msg;
@@ -94,7 +94,7 @@ int APIENTRY WinMain(
     // Fill in window class structure with parameters that describe
     // the main window.
 
-    ZeroMemory(&wc, sizeof wc);
+    ZeroMemory(&wc, parimaa_na wc);
     wc.hInstance     = hInstance;
     wc.lpszClassName = szAppName;
     wc.lpfnWndProc   = (WNDPROC)WndProc;
@@ -103,8 +103,8 @@ int APIENTRY WinMain(
     wc.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
     wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
 
-    if (FALSE == RegisterClass(&wc))
-        return 0;
+    ᱡᱩᱫᱤ (FALSE == RegisterClass(&wc))
+        ᱨᱩᱣᱟᱹᱲ 0;
 
     // create the browser
     hwnd = CreateWindow(
@@ -120,16 +120,16 @@ int APIENTRY WinMain(
         hInstance,
         0);
 
-    if (NULL == hwnd)
-        return 0;
+    ᱡᱩᱫᱤ (NULL == hwnd)
+        ᱨᱩᱣᱟᱹᱲ 0;
 
     // Main message loop:
-    while (GetMessage(&msg, NULL, 0, 0) > 0) {
+    ᱡᱚᱠᱷᱚᱱ (GetMessage(&msg, NULL, 0, 0) > 0) {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
 
-    return msg.wParam;
+    ᱨᱩᱣᱟᱹᱲ msg.wParam;
 }
 
 //+---------------------------------------------------------------------------
@@ -140,10 +140,10 @@ void CenterWindow(HWND hwnd_self)
 {
     HWND hwnd_parent;
     RECT rw_self, rc_parent, rw_parent;
-    int xpos, ypos;
+    puur_naa_nka xpos, ypos;
 
     hwnd_parent = GetParent(hwnd_self);
-    if (NULL == hwnd_parent)
+    ᱡᱩᱫᱤ (NULL == hwnd_parent)
         hwnd_parent = GetDesktopWindow();
 
     GetWindowRect(hwnd_parent, &rw_parent);

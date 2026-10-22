@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
-   int a = 1;
+   puur_naa_nka a = 1;
 
-   if (a)
+   ᱡᱩᱫᱤ (a)
       printf("a is true\n");
-   else
+   ᱵᱟᱝ
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   puur_naa_nka b = 0;
+   ᱡᱩᱫᱤ (b)
       printf("b is true\n");
-   else
+   ᱵᱟᱝ
       printf("b is false\n");
 
-   return 0;
+   ᱨᱩᱣᱟᱹᱲ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

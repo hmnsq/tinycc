@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
-   int a;
-   int p;
-   int t;
+   puur_naa_nka a;
+   puur_naa_nka p;
+   puur_naa_nka t;
 
    a = 1;
    p = 0;
@@ -16,9 +16,9 @@ int main()
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } ᱡᱚᱠᱷᱚᱱ (a < 100);
 
-   return 0;
+   ᱨᱩᱣᱟᱹᱲ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :
