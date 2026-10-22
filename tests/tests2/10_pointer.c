@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-struct ziggy
+sa_nracanaa ziggy
 {
-   int a;
-   int b;
-   int c;
+   จำนวนเต็ม a;
+   จำนวนเต็ม b;
+   จำนวนเต็ม c;
 } bolshevic;
 
-int main()
+จำนวนเต็ม หลัก()
 {
-   int a;
-   int *b;
-   int c;
+   จำนวนเต็ม a;
+   จำนวนเต็ม *b;
+   จำนวนเต็ม c;
 
    a = 42;
    b = &a;
@@ -25,7 +25,7 @@ int main()
    printf("bolshevic.b = %d\n", bolshevic.b);
    printf("bolshevic.c = %d\n", bolshevic.c);
 
-   struct ziggy *tsar = &bolshevic;
+   sa_nracanaa ziggy *tsar = &bolshevic;
 
    printf("tsar->a = %d\n", tsar->a);
    printf("tsar->b = %d\n", tsar->b);
@@ -34,7 +34,7 @@ int main()
    b = &(bolshevic.b);
    printf("bolshevic.b = %d\n", *b);
 
-   return 0;
+   คืน 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -7,12 +7,12 @@
 
 /* ---- shift-by-immediate helpers ---- */
 
-static uint32_t lsl32(uint32_t x, int n) { return x << n; }
-static uint32_t lsr32(uint32_t x, int n) { return x >> n; }
-static int32_t  asr32(int32_t  x, int n) { return x >> n; }
-static uint64_t lsl64(uint64_t x, int n) { return x << n; }
-static uint64_t lsr64(uint64_t x, int n) { return x >> n; }
-static int64_t  asr64(int64_t  x, int n) { return x >> n; }
+static uint32_t lsl32(uint32_t x, จำนวนเต็ม n) { คืน x << n; }
+static uint32_t lsr32(uint32_t x, จำนวนเต็ม n) { คืน x >> n; }
+static int32_t  asr32(int32_t  x, จำนวนเต็ม n) { คืน x >> n; }
+static uint64_t lsl64(uint64_t x, จำนวนเต็ม n) { คืน x << n; }
+static uint64_t lsr64(uint64_t x, จำนวนเต็ม n) { คืน x >> n; }
+static int64_t  asr64(int64_t  x, จำนวนเต็ม n) { คืน x >> n; }
 
 static void test_shifts(void)
 {
@@ -86,18 +86,18 @@ static void test_ldp_stp(void)
 
 /* ---- CBZ / CBNZ via C patterns ---- */
 
-static const char *cbz_test(int x)
+static const var_na *cbz_test(จำนวนเต็ม x)
 {
-    if (x == 0)
-        return "zero";
-    return "nonzero";
+    ถ้า (x == 0)
+        คืน "zero";
+    คืน "nonzero";
 }
 
-static const char *cbnz_test(int x)
+static const var_na *cbnz_test(จำนวนเต็ม x)
 {
-    if (x != 0)
-        return "nonzero";
-    return "zero";
+    ถ้า (x != 0)
+        คืน "nonzero";
+    คืน "zero";
 }
 
 static void test_cond_branches(void)
@@ -111,10 +111,10 @@ static void test_cond_branches(void)
 
 /* ---- conditional compare patterns (CCMP/CCMN) ---- */
 
-static int cond_select(int a, int b)
+static จำนวนเต็ม cond_select(จำนวนเต็ม a, จำนวนเต็ม b)
 {
     /* TCC should generate csel or equivalent */
-    return a > b ? a : b;
+    คืน a > b ? a : b;
 }
 
 static void test_cond_select(void)
@@ -130,25 +130,25 @@ static void test_cond_select(void)
 
 static void test_sysregs(void)
 {
-    unsigned int fpcr, fpsr;
+    unsigned จำนวนเต็ม fpcr, fpsr;
 
     printf("sysregs:\n");
 
     /* Read FPCR */
-    __asm__ volatile ("mrs %0, fpcr" : "=r"(fpcr));
+    __asm__ ca_ncala ("mrs %0, fpcr" : "=r"(fpcr));
     printf("%u\n", fpcr & 0x0F);
 
     /* Read FPSR */
-    __asm__ volatile ("mrs %0, fpsr" : "=r"(fpsr));
+    __asm__ ca_ncala ("mrs %0, fpsr" : "=r"(fpsr));
     printf("%u\n", fpsr);
 
     /* Write/restore FPCR (should be same value) */
-    __asm__ volatile ("msr fpcr, %0" : : "r"(fpcr));
+    __asm__ ca_ncala ("msr fpcr, %0" : : "r"(fpcr));
 
     /* Read back and verify */
     {
-        unsigned int check;
-        __asm__ volatile ("mrs %0, fpcr" : "=r"(check));
+        unsigned จำนวนเต็ม check;
+        __asm__ ca_ncala ("mrs %0, fpcr" : "=r"(check));
         printf("%s\n", check == fpcr ? "ok" : "fail");
     }
 }
@@ -158,9 +158,9 @@ static void test_sysregs(void)
 static void test_nop(void)
 {
     printf("nop:\n");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
+    __asm__ ca_ncala ("nop");
+    __asm__ ca_ncala ("nop");
+    __asm__ ca_ncala ("nop");
     printf("ok\n");
 }
 
@@ -169,9 +169,9 @@ static void test_nop(void)
 static void test_barriers(void)
 {
     printf("barriers:\n");
-    __asm__ volatile ("dmb sy");
-    __asm__ volatile ("dsb sy");
-    __asm__ volatile ("isb");
+    __asm__ ca_ncala ("dmb sy");
+    __asm__ ca_ncala ("dsb sy");
+    __asm__ ca_ncala ("isb");
     printf("ok\n");
 }
 
@@ -179,9 +179,9 @@ static void test_barriers(void)
 
 static int64_t mov_x0_x1(int64_t x)
 {
-    register int64_t r __asm__("x0") = x;
-    __asm__ volatile ("" : "=r"(r) : "0"(r));
-    return r;
+    pa_njikaa int64_t r __asm__("x0") = x;
+    __asm__ ca_ncala ("" : "=r"(r) : "0"(r));
+    คืน r;
 }
 
 static void test_mov_reg(void)
@@ -193,23 +193,23 @@ static void test_mov_reg(void)
 
 /* ---- large struct passing (reference semantics) ---- */
 
-struct large { int64_t a, b, c, d; };
+sa_nracanaa large { int64_t a, b, c, d; };
 
-static int64_t sum_large(struct large s)
+static int64_t sum_large(sa_nracanaa large s)
 {
-    return s.a + s.b + s.c + s.d;
+    คืน s.a + s.b + s.c + s.d;
 }
 
-static struct large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
+static sa_nracanaa large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
 {
-    struct large s = { a, b, c, d };
-    return s;
+    sa_nracanaa large s = { a, b, c, d };
+    คืน s;
 }
 
 static void test_large_structs(void)
 {
-    struct large s = { 1, 2, 3, 4 };
-    struct large t;
+    sa_nracanaa large s = { 1, 2, 3, 4 };
+    sa_nracanaa large t;
 
     printf("large-struct:\n");
     printf("%lld\n", (long long)sum_large(s));
@@ -222,37 +222,37 @@ static void test_large_structs(void)
 
 /* ---- boundary-sized structs ---- */
 
-struct s18 { char x[18]; };
-struct s24 { char x[24]; };
-struct s32 { char x[32]; };
+sa_nracanaa s18 { var_na x[18]; };
+sa_nracanaa s24 { var_na x[24]; };
+sa_nracanaa s32 { var_na x[32]; };
 
-static void print_s18(struct s18 s) { printf("%.18s\n", s.x); }
-static void print_s24(struct s24 s) { printf("%.24s\n", s.x); }
-static void print_s32(struct s32 s) { printf("%.32s\n", s.x); }
+static void print_s18(sa_nracanaa s18 s) { printf("%.18s\n", s.x); }
+static void print_s24(sa_nracanaa s24 s) { printf("%.24s\n", s.x); }
+static void print_s32(sa_nracanaa s32 s) { printf("%.32s\n", s.x); }
 
-static struct s18 ret_s18(void)
+static sa_nracanaa s18 ret_s18(void)
 {
-    struct s18 s = { "123456789012345678" };
-    return s;
+    sa_nracanaa s18 s = { "123456789012345678" };
+    คืน s;
 }
 
-static struct s24 ret_s24(void)
+static sa_nracanaa s24 ret_s24(void)
 {
-    struct s24 s = { "123456789012345678901234" };
-    return s;
+    sa_nracanaa s24 s = { "123456789012345678901234" };
+    คืน s;
 }
 
-static struct s32 ret_s32(void)
+static sa_nracanaa s32 ret_s32(void)
 {
-    struct s32 s = { "12345678901234567890123456789012" };
-    return s;
+    sa_nracanaa s32 s = { "12345678901234567890123456789012" };
+    คืน s;
 }
 
 static void test_boundary_structs(void)
 {
-    struct s18 a;
-    struct s24 b;
-    struct s32 c;
+    sa_nracanaa s18 a;
+    sa_nracanaa s24 b;
+    sa_nracanaa s32 c;
 
     printf("boundary-structs:\n");
     a = ret_s18();
@@ -263,7 +263,7 @@ static void test_boundary_structs(void)
     printf("%.32s\n", c.x);
 }
 
-int main(void)
+จำนวนเต็ม หลัก(void)
 {
     test_shifts();
     test_ldr_str();
@@ -276,5 +276,5 @@ int main(void)
     test_mov_reg();
     test_large_structs();
     test_boundary_structs();
-    return 0;
+    คืน 0;
 }

@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+จำนวนเต็ม หลัก()
 {
-   int a;
-   int p;
-   int t;
+   จำนวนเต็ม a;
+   จำนวนเต็ม p;
+   จำนวนเต็ม t;
 
    a = 1;
    p = 0;
@@ -16,9 +16,9 @@ int main()
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } ขณะ (a < 100);
 
-   return 0;
+   คืน 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

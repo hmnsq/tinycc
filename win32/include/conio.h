@@ -12,37 +12,37 @@
 extern "C" {
 #endif
 
-  _CRTIMP char *_cgets(char *_Buffer);
-  _CRTIMP int __cdecl _cprintf(const char *_Format,...);
-  _CRTIMP int __cdecl _cputs(const char *_Str);
-  _CRTIMP int __cdecl _cscanf(const char *_Format,...);
-  _CRTIMP int __cdecl _cscanf_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _getch(void);
-  _CRTIMP int __cdecl _getche(void);
-  _CRTIMP int __cdecl _vcprintf(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_p(const char *_Format,...);
-  _CRTIMP int __cdecl _vcprintf_p(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_p_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_p_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _kbhit(void);
+  _CRTIMP var_na *_cgets(var_na *_Buffer);
+  _CRTIMP จำนวนเต็ม __cdecl _cprintf(const var_na *_Format,...);
+  _CRTIMP จำนวนเต็ม __cdecl _cputs(const var_na *_Str);
+  _CRTIMP จำนวนเต็ม __cdecl _cscanf(const var_na *_Format,...);
+  _CRTIMP จำนวนเต็ม __cdecl _cscanf_l(const var_na *_Format,_locale_t _Locale,...);
+  _CRTIMP จำนวนเต็ม __cdecl _getch(void);
+  _CRTIMP จำนวนเต็ม __cdecl _getche(void);
+  _CRTIMP จำนวนเต็ม __cdecl _vcprintf(const var_na *_Format,va_list _ArgList);
+  _CRTIMP จำนวนเต็ม __cdecl _cprintf_p(const var_na *_Format,...);
+  _CRTIMP จำนวนเต็ม __cdecl _vcprintf_p(const var_na *_Format,va_list _ArgList);
+  _CRTIMP จำนวนเต็ม __cdecl _cprintf_l(const var_na *_Format,_locale_t _Locale,...);
+  _CRTIMP จำนวนเต็ม __cdecl _vcprintf_l(const var_na *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP จำนวนเต็ม __cdecl _cprintf_p_l(const var_na *_Format,_locale_t _Locale,...);
+  _CRTIMP จำนวนเต็ม __cdecl _vcprintf_p_l(const var_na *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP จำนวนเต็ม __cdecl _kbhit(void);
 
-#if defined(_X86_) && !defined(__x86_64)
-  int __cdecl _inp(unsigned short);
+#ถ้า defined(_X86_) && !defined(__x86_64)
+  จำนวนเต็ม __cdecl _inp(unsigned short);
   unsigned short __cdecl _inpw(unsigned short);
   unsigned long __cdecl _inpd(unsigned short);
-  int __cdecl _outp(unsigned short,int);
+  จำนวนเต็ม __cdecl _outp(unsigned short,จำนวนเต็ม);
   unsigned short __cdecl _outpw(unsigned short,unsigned short);
   unsigned long __cdecl _outpd(unsigned short,unsigned long);
 #endif
 
-  _CRTIMP int __cdecl _putch(int _Ch);
-  _CRTIMP int __cdecl _ungetch(int _Ch);
-  _CRTIMP int __cdecl _getch_nolock(void);
-  _CRTIMP int __cdecl _getche_nolock(void);
-  _CRTIMP int __cdecl _putch_nolock(int _Ch);
-  _CRTIMP int __cdecl _ungetch_nolock(int _Ch);
+  _CRTIMP จำนวนเต็ม __cdecl _putch(จำนวนเต็ม _Ch);
+  _CRTIMP จำนวนเต็ม __cdecl _ungetch(จำนวนเต็ม _Ch);
+  _CRTIMP จำนวนเต็ม __cdecl _getch_nolock(void);
+  _CRTIMP จำนวนเต็ม __cdecl _getche_nolock(void);
+  _CRTIMP จำนวนเต็ม __cdecl _putch_nolock(จำนวนเต็ม _Ch);
+  _CRTIMP จำนวนเต็ม __cdecl _ungetch_nolock(จำนวนเต็ม _Ch);
 
 #ifndef _WCONIO_DEFINED
 #define _WCONIO_DEFINED
@@ -56,17 +56,17 @@ extern "C" {
   _CRTIMP wint_t __cdecl _getwche(void);
   _CRTIMP wint_t __cdecl _putwch(wchar_t _WCh);
   _CRTIMP wint_t __cdecl _ungetwch(wint_t _WCh);
-  _CRTIMP int __cdecl _cputws(const wchar_t *_String);
-  _CRTIMP int __cdecl _cwprintf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vcwprintf_p(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP จำนวนเต็ม __cdecl _cputws(const wchar_t *_String);
+  _CRTIMP จำนวนเต็ม __cdecl _cwprintf(const wchar_t *_Format,...);
+  _CRTIMP จำนวนเต็ม __cdecl _cwscanf(const wchar_t *_Format,...);
+  _CRTIMP จำนวนเต็ม __cdecl _cwscanf_l(const wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP จำนวนเต็ม __cdecl _vcwprintf(const wchar_t *_Format,va_list _ArgList);
+  _CRTIMP จำนวนเต็ม __cdecl _cwprintf_p(const wchar_t *_Format,...);
+  _CRTIMP จำนวนเต็ม __cdecl _vcwprintf_p(const wchar_t *_Format,va_list _ArgList);
+  _CRTIMP จำนวนเต็ม __cdecl _cwprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP จำนวนเต็ม __cdecl _vcwprintf_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP จำนวนเต็ม __cdecl _cwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP จำนวนเต็ม __cdecl _vcwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
   _CRTIMP wint_t __cdecl _putwch_nolock(wchar_t _WCh);
   _CRTIMP wint_t __cdecl _getwch_nolock(void);
   _CRTIMP wint_t __cdecl _getwche_nolock(void);
@@ -74,31 +74,31 @@ extern "C" {
 #endif
 
 #ifndef	NO_OLDNAMES
-  char *__cdecl cgets(char *_Buffer);
-  int __cdecl cprintf(const char *_Format,...);
-  int __cdecl cputs(const char *_Str);
-  int __cdecl cscanf(const char *_Format,...);
-  int __cdecl getch(void);
-  int __cdecl getche(void);
-  int __cdecl kbhit(void);
-  int __cdecl putch(int _Ch);
-  int __cdecl ungetch(int _Ch);
+  var_na *__cdecl cgets(var_na *_Buffer);
+  จำนวนเต็ม __cdecl cprintf(const var_na *_Format,...);
+  จำนวนเต็ม __cdecl cputs(const var_na *_Str);
+  จำนวนเต็ม __cdecl cscanf(const var_na *_Format,...);
+  จำนวนเต็ม __cdecl getch(void);
+  จำนวนเต็ม __cdecl getche(void);
+  จำนวนเต็ม __cdecl kbhit(void);
+  จำนวนเต็ม __cdecl putch(จำนวนเต็ม _Ch);
+  จำนวนเต็ม __cdecl ungetch(จำนวนเต็ม _Ch);
 
-#if (defined(_X86_) && !defined(__x86_64))
-  int __cdecl inp(unsigned short);
+#ถ้า (defined(_X86_) && !defined(__x86_64))
+  จำนวนเต็ม __cdecl inp(unsigned short);
   unsigned short __cdecl inpw(unsigned short);
-  int __cdecl outp(unsigned short,int);
+  จำนวนเต็ม __cdecl outp(unsigned short,จำนวนเต็ม);
   unsigned short __cdecl outpw(unsigned short,unsigned short);
 #endif
 
   /* I/O intrin functions.  */
-  __CRT_INLINE unsigned char __inbyte(unsigned short Port)
+  __CRT_INLINE unsigned var_na __inbyte(unsigned short Port)
   {
-      unsigned char value;
+      unsigned var_na value;
       __asm__ __volatile__ ("inb %w1,%b0"
           : "=a" (value)
           : "Nd" (Port));
-      return value;
+      คืน value;
   }
   __CRT_INLINE unsigned short __inword(unsigned short Port)
   {
@@ -106,7 +106,7 @@ extern "C" {
       __asm__ __volatile__ ("inw %w1,%w0"
           : "=a" (value)
           : "Nd" (Port));
-      return value;
+      คืน value;
   }
   __CRT_INLINE unsigned long __indword(unsigned short Port)
   {
@@ -114,9 +114,9 @@ extern "C" {
       __asm__ __volatile__ ("inl %w1,%0"
           : "=a" (value)
           : "Nd" (Port));
-      return value;
+      คืน value;
   }
-  __CRT_INLINE void __outbyte(unsigned short Port,unsigned char Data)
+  __CRT_INLINE void __outbyte(unsigned short Port,unsigned var_na Data)
   {
       __asm__ __volatile__ ("outb %b0,%w1"
           :
@@ -134,7 +134,7 @@ extern "C" {
           :
           : "a" (Data), "Nd" (Port));
   }
-  __CRT_INLINE void __inbytestring(unsigned short Port,unsigned char *Buffer,unsigned long Count)
+  __CRT_INLINE void __inbytestring(unsigned short Port,unsigned var_na *Buffer,unsigned long Count)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insb " 
@@ -159,7 +159,7 @@ extern "C" {
 		);
   }
 
-  __CRT_INLINE void __outbytestring(unsigned short Port,unsigned char *Buffer,unsigned long Count)
+  __CRT_INLINE void __outbytestring(unsigned short Port,unsigned var_na *Buffer,unsigned long Count)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsb " 
@@ -190,7 +190,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr0, %[value]" 
           : [value] "=q" (value));
-      return value;
+      คืน value;
   }
  
   /* Register sizes are different between 32/64 bit mode. So we have to do this for _WIN64 and _WIN32
@@ -212,7 +212,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
           : [value] "=q" (value));
-      return value;
+      คืน value;
   }
 
  __CRT_INLINE void __writecr2(unsigned __int64 Data)
@@ -230,7 +230,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
           : [value] "=q" (value));
-      return value;
+      คืน value;
   }
 
  __CRT_INLINE void __writecr3(unsigned __int64 Data)
@@ -248,7 +248,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
           : [value] "=q" (value));
-      return value;
+      คืน value;
   }
 
  __CRT_INLINE void __writecr4(unsigned __int64 Data)
@@ -266,7 +266,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
           : [value] "=q" (value));
-      return value;
+      คืน value;
   }
 
  __CRT_INLINE void __writecr8(unsigned __int64 Data)
@@ -295,7 +295,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
           : [value] "=q" (value));
-      return value;
+      คืน value;
   }
 
  __CRT_INLINE void __writecr2(unsigned Data)
@@ -313,7 +313,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
           : [value] "=q" (value));
-      return value;
+      คืน value;
   }
 
  __CRT_INLINE void __writecr3(unsigned Data)
@@ -331,7 +331,7 @@ extern "C" {
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
           : [value] "=q" (value));
-      return value;
+      คืน value;
   }
 
  __CRT_INLINE void __writecr4(unsigned Data)
@@ -348,7 +348,7 @@ extern "C" {
    unsigned long value;      __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
           : [value] "=q" (value));
-     return value;
+     คืน value;
  }
 
  __CRT_INLINE void __writecr8(unsigned Data)
@@ -369,7 +369,7 @@ extern "C" {
            "rdmsr"
            : "=a" (val1), "=d" (val2)
            : "c" (msr));
-      return val1 | (val2 << 32);
+      คืน val1 | (val2 << 32);
   }
 
  __CRT_INLINE void __writemsr (unsigned long msr, unsigned __int64 Value)
@@ -387,10 +387,10 @@ extern "C" {
       __asm__ __volatile__ (
           "rdtsc" 
           : "=a" (val1), "=d" (val2));
-      return val1 | (val2 << 32);
+      คืน val1 | (val2 << 32);
   }
 
-  __CRT_INLINE void __cpuid(int CPUInfo[4], int InfoType)
+  __CRT_INLINE void __cpuid(จำนวนเต็ม CPUInfo[4], จำนวนเต็ม InfoType)
   {
       __asm__ __volatile__ (
           "cpuid"

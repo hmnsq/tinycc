@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+ga_nanaa E *e;
+const ga_nanaa E *e1;
+ga_nanaa E const *e2;
+sa_nracanaa S *s;
+const sa_nracanaa S *s1;
+sa_nracanaa S const *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+typedef จำนวนเต็ม (*fptr1)();
+จำนวนเต็ม f1 (จำนวนเต็ม (), จำนวนเต็ม);
+typedef จำนวนเต็ม (*fptr2)(จำนวนเต็ม x);
+จำนวนเต็ม f2 (จำนวนเต็ม (จำนวนเต็ม x), จำนวนเต็ม);
+typedef จำนวนเต็ม (*fptr3)(จำนวนเต็ม);
+จำนวนเต็ม f3 (จำนวนเต็ม (จำนวนเต็ม), จำนวนเต็ม);
+typedef จำนวนเต็ม (*fptr4[4])(จำนวนเต็ม);
+จำนวนเต็ม f4 (จำนวนเต็ม (*[4])(จำนวนเต็ม), จำนวนเต็ม);
+typedef จำนวนเต็ม (*fptr5)(fptr1);
+จำนวนเต็ม f5 (จำนวนเต็ม (จำนวนเต็ม()), fptr1);
+จำนวนเต็ม f1 (fptr1 fp, จำนวนเต็ม i)
 {
-  return (*fp)(i);
+  คืน (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+จำนวนเต็ม f2 (fptr2 fp, จำนวนเต็ม i)
 {
-  return (*fp)(i);
+  คืน (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+จำนวนเต็ม f3 (fptr3 fp, จำนวนเต็ม i)
 {
-  return (*fp)(i);
+  คืน (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+จำนวนเต็ม f4 (fptr4 fp, จำนวนเต็ม i)
 {
-  return (*fp[i])(i);
+  คืน (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+จำนวนเต็ม f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  คืน fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+typedef จำนวนเต็ม intx4[4];
+จำนวนเต็ม f8 (intx4, จำนวนเต็ม);
+จำนวนเต็ม f8 (จำนวนเต็ม ([4]), จำนวนเต็ม);
+จำนวนเต็ม f8 (จำนวนเต็ม y[4], จำนวนเต็ม i)
 {
-  return y[i];
+  คืน y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+จำนวนเต็ม f9 (จำนวนเต็ม (*)(จำนวนเต็ม), จำนวนเต็ม);
+จำนวนเต็ม f9 (จำนวนเต็ม ((จำนวนเต็ม)), จำนวนเต็ม);
+จำนวนเต็ม f9 (จำนวนเต็ม f(จำนวนเต็ม), จำนวนเต็ม i)
 {
-  return f(i);
+  คืน f(i);
 }
-int main () { return 0; }
+จำนวนเต็ม หลัก () { คืน 0; }

@@ -3,21 +3,21 @@
 
 #include <stdio.h>
 
-struct string {
-	char *str;
-	int len;
+sa_nracanaa string {
+	var_na *str;
+	จำนวนเต็ม len;
 };
 
-void dummy(struct string fpath, int dump_arg) {
+void dummy(sa_nracanaa string fpath, จำนวนเต็ม dump_arg) {
 }
 
-int main() {
-	int a = 1;
-	struct string x;
+จำนวนเต็ม หลัก() {
+	จำนวนเต็ม a = 1;
+	sa_nracanaa string x;
 	x.str = "gg.v";
 	x.len = 4;
 	dummy(x, a == 0);
 	printf("done\n");
-	return 0;
+	คืน 0;
 }
 

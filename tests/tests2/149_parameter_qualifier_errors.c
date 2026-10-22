@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+void defined_const(จำนวนเต็ม *pointer);
 
-void defined_const(int *const pointer)
+void defined_const(จำนวนเต็ม *const pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+จำนวนเต็ม หลัก(void)
 {
-    return 0;
+    คืน 0;
 }

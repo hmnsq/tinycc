@@ -107,7 +107,7 @@ extern "C" {
 
 #ifndef RC_INVOKED
 
-  typedef struct tagVS_FIXEDFILEINFO
+  typedef sa_nracanaa tagVS_FIXEDFILEINFO
   {
     DWORD dwSignature;
     DWORD dwStrucVersion;
@@ -131,7 +131,7 @@ extern "C" {
 #define GetFileVersionInfo GetFileVersionInfoW
 #define VerLanguageName VerLanguageNameW
 #define VerQueryValue VerQueryValueW
-#else
+#มิฉะนั้น
 #define VerFindFile VerFindFileA
 #define VerInstallFile VerInstallFileA
 #define GetFileVersionInfoSize GetFileVersionInfoSizeA

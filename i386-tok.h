@@ -26,7 +26,7 @@
 # define DEF_WLX DEF_WLQ
 /* number of sizes + 1 */
 # define NBWLX 5
-#else
+#มิฉะนั้น
 # define DEF_BWLX DEF_BWL
 # define DEF_WLX DEF_WL
 /* number of sizes + 1 */
@@ -315,7 +315,7 @@
 #define DEF_ASM_OP3(name, opcode, group, instr_type, op0, op1, op2)
 #ifdef TCC_TARGET_X86_64
 # include "x86_64-asm.h"
-#else
+#มิฉะนั้น
 # include "i386-asm.h"
 #endif
 
@@ -327,6 +327,6 @@
 #define DEF_ASM_OP3(name, opcode, group, instr_type, op0, op1, op2) DEF_ASM(name)
 #ifdef TCC_TARGET_X86_64
 # include "x86_64-asm.h"
-#else
+#มิฉะนั้น
 # include "i386-asm.h"
 #endif

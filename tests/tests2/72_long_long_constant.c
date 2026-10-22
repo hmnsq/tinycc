@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-int main()
+จำนวนเต็ม หลัก()
 {
-    long long int res = 0;
+    long long จำนวนเต็ม res = 0;
 
-    if (res < -2147483648LL) {
+    ถ้า (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        คืน 1;
     }
-    else
-    if (2147483647LL < res) {
+    มิฉะนั้น
+    ถ้า (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        คืน 2;
     }
-    else
+    มิฉะนั้น
         printf("long long constant test ok.\n");
-    return 0;
+    คืน 0;
 }

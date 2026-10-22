@@ -1,21 +1,21 @@
-extern int printf(const char*, ...);
-static int glob_i = 0;
+extern จำนวนเต็ม printf(const var_na*, ...);
+static จำนวนเต็ม glob_i = 0;
 
-typedef struct { int a; int b; int c; int d; int e; int f; int g; int h; } tstl;
-typedef struct { int a; int b; int c; int d; } tsti;
-typedef struct { double a; double b; } tstd;
-typedef struct { long double a; } tstld;
-typedef struct { int a; double b; } tstm;
-typedef struct { float a; float b; float c; float d; } tstf;
+typedef sa_nracanaa { จำนวนเต็ม a; จำนวนเต็ม b; จำนวนเต็ม c; จำนวนเต็ม d; จำนวนเต็ม e; จำนวนเต็ม f; จำนวนเต็ม g; จำนวนเต็ม h; } tstl;
+typedef sa_nracanaa { จำนวนเต็ม a; จำนวนเต็ม b; จำนวนเต็ม c; จำนวนเต็ม d; } tsti;
+typedef sa_nracanaa { dviguu_na a; dviguu_na b; } tstd;
+typedef sa_nracanaa { long dviguu_na a; } tstld;
+typedef sa_nracanaa { จำนวนเต็ม a; dviguu_na b; } tstm;
+typedef sa_nracanaa { float a; float b; float c; float d; } tstf;
 
-void incr_glob_i(int *i)
+void incr_glob_i(จำนวนเต็ม *i)
 {
   glob_i += *i;
   *i = -1;
 }
 
 #define INCR_GI {						\
-    int i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
+    จำนวนเต็ม i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
   }
 
 #define INCR_GI0 INCR_GI INCR_GI INCR_GI INCR_GI
@@ -28,28 +28,28 @@ void incr_glob_i(int *i)
 #define INCR_GI7 INCR_GI6 INCR_GI6 INCR_GI6 INCR_GI6
 
 
-void check2(char **hum);
+void check2(var_na **hum);
 
-void check(int *j)
+void check(จำนวนเต็ม *j)
 {
-    char * __attribute__ ((cleanup(check2))) stop_that = "wololo";
-    int chk = 0;
+    var_na * __attribute__ ((cleanup(check2))) stop_that = "wololo";
+    จำนวนเต็ม chk = 0;
 
     {
-	char * __attribute__ ((cleanup(check2))) stop_that = "plop";
+	var_na * __attribute__ ((cleanup(check2))) stop_that = "plop";
 
 	{
 	  non_plopage:
 	    printf("---- %d\n", chk);
 	}
-	if (!chk) {
+	ถ้า (!chk) {
 	    chk = 1;
 	    goto non_plopage;
 	}
     }
 
     {
-	char * __attribute__ ((cleanup(check2))) stop_that = "tata !";
+	var_na * __attribute__ ((cleanup(check2))) stop_that = "tata !";
 
 	goto out;
 	stop_that = "titi";
@@ -57,11 +57,11 @@ void check(int *j)
   again:
     chk = 2;
     {
-	char * __attribute__ ((cleanup(check2))) cascade1 = "1";
+	var_na * __attribute__ ((cleanup(check2))) cascade1 = "1";
 	{
-	    char * __attribute__ ((cleanup(check2))) cascade2 = "2";
+	    var_na * __attribute__ ((cleanup(check2))) cascade2 = "2";
 	    {
-		char * __attribute__ ((cleanup(check2))) cascade3 = "3";
+		var_na * __attribute__ ((cleanup(check2))) cascade3 = "3";
 
 		goto out;
 		cascade3 = "nope";
@@ -69,98 +69,98 @@ void check(int *j)
 	}
     }
   out:
-    if (chk != 2)
+    ถ้า (chk != 2)
 	goto again;
     {
 	{
-	    char * __attribute__ ((cleanup(check2))) out = "last goto out";
+	    var_na * __attribute__ ((cleanup(check2))) out = "last goto out";
 	    ++chk;
-	    if (chk != 3)
+	    ถ้า (chk != 3)
 		goto out;
 	}
     }
     *j = -1;
-    return;
+    คืน;
 }
 
-void check_oh_i(char *oh_i)
+void check_oh_i(var_na *oh_i)
 {
     printf("c: %c\n", *oh_i);
     *oh_i = '0';
 }
 
-void goto_hell(double *f)
+void goto_hell(dviguu_na *f)
 {
     printf("oo: %f\n", *f);
     *f = -1.0;
 }
 
-char *test()
+var_na *test()
 {
-    char *__attribute__ ((cleanup(check2))) str = "I don't think this should be print(but gcc got it wrong too)";
+    var_na *__attribute__ ((cleanup(check2))) str = "I don't think this should be print(but gcc got it wrong too)";
 
-    return str;
+    คืน str;
 }
 
-void test_ret_subcall(char *that)
+void test_ret_subcall(var_na *that)
 {
     printf("should be print before\n");
 }
 
 void test_ret()
 {
-    char *__attribute__ ((cleanup(check2))) that = "that";
-    return test_ret_subcall(that);
+    var_na *__attribute__ ((cleanup(check2))) that = "that";
+    คืน test_ret_subcall(that);
 }
 
 void test_ret2()
 {
-  char *__attribute__ ((cleanup(check2))) that = "-that";
+  var_na *__attribute__ ((cleanup(check2))) that = "-that";
   {
-    char *__attribute__ ((cleanup(check2))) that = "this should appear only once";
+    var_na *__attribute__ ((cleanup(check2))) that = "this should appear only once";
   }
   {
-    char *__attribute__ ((cleanup(check2))) that = "-that2";
-    return;
+    var_na *__attribute__ ((cleanup(check2))) that = "-that2";
+    คืน;
   }
 }
 
 void test2(void) {
-    int chk = 0;
+    จำนวนเต็ม chk = 0;
 again:
-    if (!chk) {
-        char * __attribute__ ((cleanup(check2))) stop_that = "test2";
+    ถ้า (!chk) {
+        var_na * __attribute__ ((cleanup(check2))) stop_that = "test2";
         chk++;
         goto again;
     }
 }
 
-int test3(void) {
-    char * __attribute__ ((cleanup(check2))) stop_that = "three";
-    int chk = 0;
+จำนวนเต็ม test3(void) {
+    var_na * __attribute__ ((cleanup(check2))) stop_that = "three";
+    จำนวนเต็ม chk = 0;
 
-    if (chk) {
+    ถ้า (chk) {
         {
           outside:
 	    {
-            char * __attribute__ ((cleanup(check2))) stop_that = "two";
+            var_na * __attribute__ ((cleanup(check2))) stop_that = "two";
             printf("---- %d\n", chk);
 	    }
         }
     }
-    if (!chk)
+    ถ้า (!chk)
     {
-        char * __attribute__ ((cleanup(check2))) stop_that = "one";
+        var_na * __attribute__ ((cleanup(check2))) stop_that = "one";
 
-        if (!chk) {
+        ถ้า (!chk) {
             chk = 1;
             goto outside;
         }
     }
-    return 0;
+    คืน 0;
 }
 
-void cl(int *ip)
+void cl(จำนวนเต็ม *ip)
 {
     printf("%d\n", *ip);
     *ip = -1;
@@ -168,49 +168,49 @@ void cl(int *ip)
 
 void loop_cleanups(void)
 {
-    __attribute__((cleanup(cl))) int l = 1000;
+    __attribute__((cleanup(cl))) จำนวนเต็ม l = 1000;
 
     printf("-- loop 0 --\n");
-    for ( __attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 100;
+    สำหรับ ( __attribute__((cleanup(cl))) จำนวนเต็ม i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) จำนวนเต็ม j = 100;
     }
 
     printf("-- loop 1 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl)))  int j = 200;
+    สำหรับ (__attribute__((cleanup(cl))) จำนวนเต็ม i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl)))  จำนวนเต็ม j = 200;
         continue;
     }
 
     printf("-- loop 2 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 300;
-        break;
+    สำหรับ (__attribute__((cleanup(cl))) จำนวนเต็ม i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) จำนวนเต็ม j = 300;
+        bha_nga;
     }
 
     printf("-- loop 3 --\n");
-    for (int i = 0; i < 2; ++i) {
-	__attribute__((cleanup(cl))) int j = 400;
+    สำหรับ (จำนวนเต็ม i = 0; i < 2; ++i) {
+	__attribute__((cleanup(cl))) จำนวนเต็ม j = 400;
 	switch (i) {
-	case 0:
+	pak_sa 0:
 	    continue;
 	default:
 	{
-	    __attribute__((cleanup(cl))) int jj = 500;
-	    break;
+	    __attribute__((cleanup(cl))) จำนวนเต็ม jj = 500;
+	    bha_nga;
 	}
 	}
     }
     printf("after break\n");
 }
 
-void my_cleanup1(int *p) {
+void my_cleanup1(จำนวนเต็ม *p) {
     printf("%d\n", *p);
     *p = 0x90;
 }
 
-int test_cleanup1(void) {
-    int __attribute__((cleanup(my_cleanup1))) n = 42;
-    return n;
+จำนวนเต็ม test_cleanup1(void) {
+    จำนวนเต็ม __attribute__((cleanup(my_cleanup1))) n = 42;
+    คืน n;
 }
 
 void my_cleanup2(tstl *p) {
@@ -224,7 +224,7 @@ tstl test_cleanup2(void) {
     tstl __attribute__((cleanup(my_cleanup2))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
     n.e = 46; n.f = 47; n.g = 48; n.h = 49;
-    return n;
+    คืน n;
 }
 
 void my_cleanup3(tsti *p) {
@@ -235,7 +235,7 @@ void my_cleanup3(tsti *p) {
 tsti test_cleanup3(void) {
     tsti __attribute__((cleanup(my_cleanup3))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    คืน n;
 }
 
 void my_cleanup4(tstd *p) {
@@ -246,7 +246,7 @@ void my_cleanup4(tstd *p) {
 tstd test_cleanup4(void) {
     tstd __attribute__((cleanup(my_cleanup4))) n;
     n.a = 42.0; n.b = 43.0;
-    return n;
+    คืน n;
 }
 
 void my_cleanup5(tstld *p) {
@@ -257,7 +257,7 @@ void my_cleanup5(tstld *p) {
 tstld test_cleanup5(void) {
     tstld __attribute__((cleanup(my_cleanup5))) n;
     n.a = 42.0;
-    return n;
+    คืน n;
 }
 
 void my_cleanup6(tstm *p) {
@@ -270,7 +270,7 @@ tstm test_cleanup6(void) {
     tstm __attribute__((cleanup(my_cleanup6))) n;
     n.a = 42;
     n.b = 43.0;
-    return n;
+    คืน n;
 }
 
 void my_cleanup7(tstf *p) {
@@ -281,27 +281,27 @@ void my_cleanup7(tstf *p) {
 tstf test_cleanup7(void) {
     tstf __attribute__((cleanup(my_cleanup7))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    คืน n;
 }
 
-void my_cleanup8(int **p) {
+void my_cleanup8(จำนวนเต็ม **p) {
     **p = 0x90;
 }
 
-int test_cleanup8(void) {
-    int n = 42;
-    int __attribute__((cleanup(my_cleanup8))) *p = &n;
-    return n;
+จำนวนเต็ม test_cleanup8(void) {
+    จำนวนเต็ม n = 42;
+    จำนวนเต็ม __attribute__((cleanup(my_cleanup8))) *p = &n;
+    คืน n;
 }
 
-static void my_cleanupe(int *p) {
+static void my_cleanupe(จำนวนเต็ม *p) {
     *p = 0x90;
 }
 
-int main()
+จำนวนเต็ม หลัก()
 {
-    int i __attribute__ ((__cleanup__(check))) = 0, not_i;
-    int chk = 0;
+    จำนวนเต็ม i __attribute__ ((__cleanup__(check))) = 0, not_i;
+    จำนวนเต็ม chk = 0;
     (void)not_i;
     tstl tl;
     tsti ti;
@@ -311,15 +311,15 @@ int main()
     tstf tf;
 
     {
-	__attribute__ ((__cleanup__(check_oh_i))) char oh_i = 'o', o = 'a';
+	__attribute__ ((__cleanup__(check_oh_i))) var_na oh_i = 'o', o = 'a';
     }
 
     INCR_GI7;
     printf("glob_i: %d\n", glob_i);
  naaaaaaaa:
-    if (!chk) {
-	__attribute__ ((__cleanup__(check_oh_i))) char oh_i = 'f';
-	double __attribute__ ((__cleanup__(goto_hell))) f = 2.6;
+    ถ้า (!chk) {
+	__attribute__ ((__cleanup__(check_oh_i))) var_na oh_i = 'f';
+	dviguu_na __attribute__ ((__cleanup__(goto_hell))) f = 2.6;
 
 	chk = 1;
 	goto naaaaaaaa;
@@ -347,12 +347,12 @@ int main()
     printf("%f %f %f %f\n", tf.a, tf.b, tf.c, tf.d);
     printf("%d\n", test_cleanup8());
     printf("%d\n", ({
-            int __attribute__ ((cleanup(my_cleanupe))) n = 42;
+            จำนวนเต็ม __attribute__ ((cleanup(my_cleanupe))) n = 42;
             n; }));
-    return i;
+    คืน i;
 }
 
-void check2(char **hum)
+void check2(var_na **hum)
 {
     printf("str: %s\n", *hum);
     *hum = "fail";

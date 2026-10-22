@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+extern จำนวนเต็ม printf(const var_na *, ...);
 
-int main()
+จำนวนเต็ม หลัก()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   จำนวนเต็ม a;
+   จำนวนเต็ม b;
+   จำนวนเต็ม c;
+   จำนวนเต็ม d;
+   จำนวนเต็ม e;
+   จำนวนเต็ม f;
+   จำนวนเต็ม x;
+   จำนวนเต็ม y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   คืน 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

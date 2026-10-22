@@ -44,7 +44,7 @@ typedef unsigned short fexcept_t;
    environment as stored by fnstenv or fstenv, augmented by
    the  contents of the MXCSR register, as stored by stmxcsr
    (if CPU supports it). */
-typedef struct
+typedef sa_nracanaa
 {
   unsigned short __control_word;
   unsigned short __unused0;
@@ -52,13 +52,13 @@ typedef struct
   unsigned short __unused1;
   unsigned short __tag_word;
   unsigned short __unused2;  
-  unsigned int	 __ip_offset;    /* instruction pointer offset */
+  unsigned จำนวนเต็ม	 __ip_offset;    /* instruction pointer offset */
   unsigned short __ip_selector;  
   unsigned short __opcode;
-  unsigned int	 __data_offset;
+  unsigned จำนวนเต็ม	 __data_offset;
   unsigned short __data_selector;  
   unsigned short __unused3;
-  unsigned int   __mxcsr; /* contents of the MXCSR register  */
+  unsigned จำนวนเต็ม   __mxcsr; /* contents of the MXCSR register  */
 } fenv_t;
 
 
@@ -82,23 +82,23 @@ extern "C" {
 /*TODO: Some of these could be inlined */
 /* 7.6.2 Exception */
 
-extern int __cdecl feclearexcept (int);
-extern int __cdecl fegetexceptflag (fexcept_t * flagp, int excepts);
-extern int __cdecl feraiseexcept (int excepts );
-extern int __cdecl fesetexceptflag (const fexcept_t *, int);
-extern int __cdecl fetestexcept (int excepts);
+extern จำนวนเต็ม __cdecl feclearexcept (จำนวนเต็ม);
+extern จำนวนเต็ม __cdecl fegetexceptflag (fexcept_t * flagp, จำนวนเต็ม excepts);
+extern จำนวนเต็ม __cdecl feraiseexcept (จำนวนเต็ม excepts );
+extern จำนวนเต็ม __cdecl fesetexceptflag (const fexcept_t *, จำนวนเต็ม);
+extern จำนวนเต็ม __cdecl fetestexcept (จำนวนเต็ม excepts);
 
 /* 7.6.3 Rounding */
 
-extern int __cdecl fegetround (void);
-extern int __cdecl fesetround (int mode);
+extern จำนวนเต็ม __cdecl fegetround (void);
+extern จำนวนเต็ม __cdecl fesetround (จำนวนเต็ม mode);
 
 /* 7.6.4 Environment */
 
-extern int __cdecl fegetenv(fenv_t * envp);
-extern int __cdecl fesetenv(const fenv_t * );
-extern int __cdecl feupdateenv(const fenv_t *);
-extern int __cdecl feholdexcept(fenv_t *);
+extern จำนวนเต็ม __cdecl fegetenv(fenv_t * envp);
+extern จำนวนเต็ม __cdecl fesetenv(const fenv_t * );
+extern จำนวนเต็ม __cdecl feupdateenv(const fenv_t *);
+extern จำนวนเต็ม __cdecl feholdexcept(fenv_t *);
 
 #ifdef __cplusplus
 }

@@ -1,9 +1,9 @@
 #include <stdio.h>
-double привет=0.1;
-int Lefèvre=2;
-int main(){
+dviguu_na привет=0.1;
+จำนวนเต็ม Lefèvre=2;
+จำนวนเต็ม หลัก(){
     printf("привет=%g\n",привет);
     printf("Lefèvre=%d\n",Lefèvre);
-    return 0;
+    คืน 0;
 }
 // pcc & tcc only

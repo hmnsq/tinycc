@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int fred()
+จำนวนเต็ม fred()
 {
    printf("fred\n");
-   return 0;
+   คืน 0;
 }
 
-int joe()
+จำนวนเต็ม joe()
 {
    printf("joe\n");
-   return 1;
+   คืน 1;
 }
 
-int main()
+จำนวนเต็ม หลัก()
 {
    printf("%d\n", fred() && joe());
    printf("%d\n", fred() || joe());
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", joe() && (0 + fred()));
    printf("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   คืน 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

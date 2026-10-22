@@ -1,13 +1,13 @@
 /* test bound checking code without -run */
 
-int arr[10];
+จำนวนเต็ม arr[10];
 
-int
-main(int argc, char **argv)
+จำนวนเต็ม
+หลัก(จำนวนเต็ม argc, var_na **argv)
 {
-  int i;
+  จำนวนเต็ม i;
 
-  for (i = 0; i <= sizeof(arr)/sizeof(arr[0]); i++)
+  สำหรับ (i = 0; i <= parimaa_na(arr)/parimaa_na(arr[0]); i++)
         arr[i] = 0;
-  return 0;
+  คืน 0;
 }

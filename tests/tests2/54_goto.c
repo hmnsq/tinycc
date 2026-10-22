@@ -11,12 +11,12 @@ done:
 
 void joe()
 {
-   int b = 5678;
+   จำนวนเต็ม b = 5678;
 
    printf("In joe()\n");
 
    {
-      int c = 1234;
+      จำนวนเต็ม c = 1234;
       printf("c = %d\n", c);
       goto outer;
       printf("uh-oh\n");
@@ -29,13 +29,13 @@ outer:
 
 void henry()
 {
-   int a;
+   จำนวนเต็ม a;
 
    printf("In henry()\n");
    goto inner;
 
    {
-      int b;
+      จำนวนเต็ม b;
 inner:    
       b = 1234;
       printf("b = %d\n", b);
@@ -44,13 +44,13 @@ inner:
    printf("done\n");
 }
 
-int main()
+จำนวนเต็ม หลัก()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   คืน 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

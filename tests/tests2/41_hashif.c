@@ -1,33 +1,33 @@
 #include <stdio.h>
 
-int main()
+จำนวนเต็ม หลัก()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#ถ้า 1
+#ถ้า 0
    printf("a\n");
-#else
+#มิฉะนั้น
    printf("b\n");
 #endif
-#else
-#if 0
+#มิฉะนั้น
+#ถ้า 0
    printf("c\n");
-#else
+#มิฉะนั้น
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#ถ้า 0
+#ถ้า 1
    printf("e\n");
-#else
+#มิฉะนั้น
    printf("f\n");
 #endif
-#else
-#if 1
+#มิฉะนั้น
+#ถ้า 1
    printf("g\n");
-#else
+#มิฉะนั้น
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#มิฉะนั้น
    printf("j\n");
 #endif
-#else
+#มิฉะนั้น
 #ifdef DEF
    printf("k\n");
-#else
+#มิฉะนั้น
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#มิฉะนั้น
    printf("n\n");
 #endif
-#else
+#มิฉะนั้น
 #ifndef DEF
    printf("o\n");
-#else
+#มิฉะนั้น
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#ถ้า ONE
+#ถ้า ZERO
    printf("q\n");
-#else
+#มิฉะนั้น
    printf("r\n");
 #endif
-#else
-#if ZERO
+#มิฉะนั้น
+#ถ้า ZERO
    printf("s\n");
-#else
+#มิฉะนั้น
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   คืน 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

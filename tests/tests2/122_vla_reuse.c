@@ -1,31 +1,31 @@
 #include <stdio.h>
 
-int
-main (void)
+จำนวนเต็ม
+หลัก (void)
 {
-    int n = 0;
-    int  first=1;
-    int *p[101];
-    if (0) {
+    จำนวนเต็ม n = 0;
+    จำนวนเต็ม  first=1;
+    จำนวนเต็ม *p[101];
+    ถ้า (0) {
         lab:;
     }
-    int x[n % 100 + 1];
-    if (first == 0) {
-        if (&x[0] != p[n % 100 + 1]) {
+    จำนวนเต็ม x[n % 100 + 1];
+    ถ้า (first == 0) {
+        ถ้า (&x[0] != p[n % 100 + 1]) {
             printf ("ERROR: %p %p\n", &x[0], p[n % 100 + 1]);
-            return(1);
+            คืน(1);
         }
     }
-    else {
+    มิฉะนั้น {
         p[n % 100 + 1] = &x[0];
         first = n < 100;
     }
     x[0] = 1;
     x[n % 100] = 2;
     n++;
-    if (n < 100000)
+    ถ้า (n < 100000)
         goto lab;
     printf ("OK\n");
-    return 0;
+    คืน 0;
 }
 

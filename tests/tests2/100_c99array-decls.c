@@ -1,31 +1,31 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+void foo(จำนวนเต็ม [5]);
+void fooc(จำนวนเต็ม x[const 5]);
+void foos(จำนวนเต็ม x[static 5]);
+void foov(จำนวนเต็ม x[ca_ncala 5]);
+void foor(จำนวนเต็ม x[restrict 5]);
+void fooc(จำนวนเต็ม [const 5]);
+void foos(จำนวนเต็ม [static 5]);
+void foov(จำนวนเต็ม [ca_ncala 5]);
+void foor(จำนวนเต็ม [restrict 5]);
+void fooc(จำนวนเต็ม (* const x));
+void foos(จำนวนเต็ม *x);
+void foov(จำนวนเต็ม * ca_ncala x);
+void foor(จำนวนเต็ม * restrict x);
+void fooc(จำนวนเต็ม x[ca_ncala 5])
 {
   x[3] = 42;
 #ifdef INVALID
   x = 0;
 #endif
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+void foovm(จำนวนเต็ม x[const *]);
+void foovm(จำนวนเต็ม * const x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
+typedef จำนวนเต็ม *pointer_array[2];
+typedef จำนวนเต็ม *restrict restricted_pointer;
 typedef restrict pointer_array restricted_pointer_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
+_Static_assert(!__builtin_types_compatible_p(จำนวนเต็ม **,
                                              restricted_pointer *),
                "nested restrict qualifier is retained");
 _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
@@ -33,7 +33,7 @@ _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
                "restrict can qualify an array of pointer types");
 
 restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+จำนวนเต็ม **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
@@ -41,14 +41,14 @@ _Static_assert(__builtin_types_compatible_p(
                "conditional expression combines restrict qualifiers");
 
 #ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+void wrongc(จำนวนเต็ม x[3][const 4]);
+void wrongvm(จำนวนเต็ม x[static *]);
+void foovm(จำนวนเต็ม x[const *])
 {
   x[2] = 1;
 }
 #endif
-int main()
+จำนวนเต็ม หลัก()
 {
-  return 0;
+  คืน 0;
 }

@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
 #include <tcclib.h>
 
-int main()
+จำนวนเต็ม หลัก()
 {
     printf("Hello World\n");
-    return 0;
+    คืน 0;
 }

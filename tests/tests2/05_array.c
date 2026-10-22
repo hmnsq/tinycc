@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main() 
+จำนวนเต็ม หลัก() 
 {
-   int Count;
-   int Array[10];
+   จำนวนเต็ม Count;
+   จำนวนเต็ม Array[10];
 
-   for (Count = 1; Count <= 10; Count++)
+   สำหรับ (Count = 1; Count <= 10; Count++)
    {
       Array[Count-1] = Count * Count;
    }
 
-   for (Count = 0; Count < 10; Count++)
+   สำหรับ (Count = 0; Count < 10; Count++)
    {
       printf("%d\n", Array[Count]);
    }
 
-   return 0;
+   คืน 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

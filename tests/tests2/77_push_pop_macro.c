@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+จำนวนเต็ม หลัก()
 {
     /* must not affect how #pragma ppop_macro works */
     #define pop_macro foobar1

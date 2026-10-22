@@ -17,7 +17,7 @@ extern "C" {
 
 #ifndef _DISKFREE_T_DEFINED
 #define _DISKFREE_T_DEFINED
-  struct _diskfree_t {
+  sa_nracanaa _diskfree_t {
     unsigned total_clusters;
     unsigned avail_clusters;
     unsigned sectors_per_cluster;
@@ -25,39 +25,39 @@ extern "C" {
   };
 #endif
 
-  _CRTIMP char *__cdecl _getcwd(char *_DstBuf,int _SizeInBytes);
-  _CRTIMP char *__cdecl _getdcwd(int _Drive,char *_DstBuf,int _SizeInBytes);
-  char *__cdecl _getdcwd_nolock(int _Drive,char *_DstBuf,int _SizeInBytes);
-  _CRTIMP int __cdecl _chdir(const char *_Path);
-  _CRTIMP int __cdecl _mkdir(const char *_Path);
-  _CRTIMP int __cdecl _rmdir(const char *_Path);
-  _CRTIMP int __cdecl _chdrive(int _Drive);
-  _CRTIMP int __cdecl _getdrive(void);
+  _CRTIMP var_na *__cdecl _getcwd(var_na *_DstBuf,จำนวนเต็ม _SizeInBytes);
+  _CRTIMP var_na *__cdecl _getdcwd(จำนวนเต็ม _Drive,var_na *_DstBuf,จำนวนเต็ม _SizeInBytes);
+  var_na *__cdecl _getdcwd_nolock(จำนวนเต็ม _Drive,var_na *_DstBuf,จำนวนเต็ม _SizeInBytes);
+  _CRTIMP จำนวนเต็ม __cdecl _chdir(const var_na *_Path);
+  _CRTIMP จำนวนเต็ม __cdecl _mkdir(const var_na *_Path);
+  _CRTIMP จำนวนเต็ม __cdecl _rmdir(const var_na *_Path);
+  _CRTIMP จำนวนเต็ม __cdecl _chdrive(จำนวนเต็ม _Drive);
+  _CRTIMP จำนวนเต็ม __cdecl _getdrive(void);
   _CRTIMP unsigned long __cdecl _getdrives(void);
 
 #ifndef _GETDISKFREE_DEFINED
 #define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
+  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,sa_nracanaa _diskfree_t *_DiskFree);
 #endif
 
 #ifndef _WDIRECT_DEFINED
 #define _WDIRECT_DEFINED
-  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP wchar_t *__cdecl _wgetdcwd(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  wchar_t *__cdecl _wgetdcwd_nolock(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP int __cdecl _wchdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wmkdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wrmdir(const wchar_t *_Path);
+  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,จำนวนเต็ม _SizeInWords);
+  _CRTIMP wchar_t *__cdecl _wgetdcwd(จำนวนเต็ม _Drive,wchar_t *_DstBuf,จำนวนเต็ม _SizeInWords);
+  wchar_t *__cdecl _wgetdcwd_nolock(จำนวนเต็ม _Drive,wchar_t *_DstBuf,จำนวนเต็ม _SizeInWords);
+  _CRTIMP จำนวนเต็ม __cdecl _wchdir(const wchar_t *_Path);
+  _CRTIMP จำนวนเต็ม __cdecl _wmkdir(const wchar_t *_Path);
+  _CRTIMP จำนวนเต็ม __cdecl _wrmdir(const wchar_t *_Path);
 #endif
 
 #ifndef	NO_OLDNAMES
 
 #define diskfree_t _diskfree_t
 
-  char *__cdecl getcwd(char *_DstBuf,int _SizeInBytes);
-  int __cdecl chdir(const char *_Path);
-  int __cdecl mkdir(const char *_Path);
-  int __cdecl rmdir(const char *_Path);
+  var_na *__cdecl getcwd(var_na *_DstBuf,จำนวนเต็ม _SizeInBytes);
+  จำนวนเต็ม __cdecl chdir(const var_na *_Path);
+  จำนวนเต็ม __cdecl mkdir(const var_na *_Path);
+  จำนวนเต็ม __cdecl rmdir(const var_na *_Path);
 #endif
 
 #ifdef __cplusplus

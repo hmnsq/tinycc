@@ -1,28 +1,28 @@
 #include <stdio.h>
 
-int array[16];
+จำนวนเต็ม array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+void swap(จำนวนเต็ม a, จำนวนเต็ม b)
 {
-   int tmp  = array[a];
+   จำนวนเต็ม tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+จำนวนเต็ม partition(จำนวนเต็ม left, จำนวนเต็ม right)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   จำนวนเต็ม pivotIndex = left;
+   จำนวนเต็ม pivotValue = array[pivotIndex];
+   จำนวนเต็ม index = left;
+   จำนวนเต็ม i;
 
    swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   สำหรับ(i = left; i < right; i++)
    {
-      if(array[i] < pivotValue)
+      ถ้า(array[i] < pivotValue)
       {
          swap(i, index);
          index += 1;
@@ -30,23 +30,23 @@ int partition(int left, int right)
    }
    swap(right, index);
 
-   return index;
+   คืน index;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+void quicksort(จำนวนเต็ม left, จำนวนเต็ม right)
 {
-   if(left >= right)
-      return;
+   ถ้า(left >= right)
+      คืน;
 
-   int index = partition(left, right);
+   จำนวนเต็ม index = partition(left, right);
    quicksort(left, index - 1);
    quicksort(index + 1, right);
 }
 
-int main()
+จำนวนเต็ม หลัก()
 {
-   int i;
+   จำนวนเต็ม i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
+   สำหรับ (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
+   สำหรับ (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
-   return 0;
+   คืน 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

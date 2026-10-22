@@ -1,28 +1,28 @@
 #include <stdatomic.h>
 #include <stdio.h>
 
-static int value_calls;
-static int order_calls;
+static จำนวนเต็ม value_calls;
+static จำนวนเต็ม order_calls;
 
-static int next_value(void)
+static จำนวนเต็ม next_value(void)
 {
     ++value_calls;
-    return 42;
+    คืน 42;
 }
 
-static int next_order(void)
+static จำนวนเต็ม next_order(void)
 {
     ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    คืน __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+จำนวนเต็ม หลัก(void)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
+    จำนวนเต็ม values[2] = {7, 8};
+    จำนวนเต็ม index = 0;
+    จำนวนเต็ม value = 1;
+    ca_ncala จำนวนเต็ม vol = 0;
+    จำนวนเต็ม *pointer = &value;
     void (*signal_fence)(memory_order) = &atomic_signal_fence;
 
     __atomic_store_n(&values[index++], next_value(), next_order());
@@ -41,5 +41,5 @@ int main(void)
     atomic_thread_fence(memory_order_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
     puts("ok");
-    return 0;
+    คืน 0;
 }

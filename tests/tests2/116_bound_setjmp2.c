@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <setjmp.h>
-#if !defined(_WIN32)
+#ถ้า !defined(_WIN32)
 #include <pthread.h>
-#else
+#มิฉะนั้น
 #include <windows.h>
 #endif
 
 #define	SIZE	10
 #define	COUNT	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   จำนวนเต็ม i, a[2], b[2];                \
+              สำหรับ (i = 0; i < 2; i++) a[i] = 0; \
+              สำหรับ (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+static จำนวนเต็ม count[SIZE];
 
 static void tst1 (jmp_buf loc)
 {
@@ -34,51 +34,51 @@ static void tst2(jmp_buf loc)
 static void *tst (void * index)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    จำนวนเต็ม i = *(จำนวนเต็ม *) index;
+    static จำนวนเต็ม v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    สำหรับ (v[i] = 0; v[i] < COUNT; v[i]++) {
+        ถ้า (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
+        มิฉะนั้น {
             count[i]++;
         }
-        i = *(int *) index;
+        i = *(จำนวนเต็ม *) index;
     }
-    return NULL;
+    คืน NULL;
 }
 
-int
-main (void)
+จำนวนเต็ม
+หลัก (void)
 {
-    int i;
-#if !defined(_WIN32)
+    จำนวนเต็ม i;
+#ถ้า !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#มิฉะนั้น
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    จำนวนเต็ม index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    สำหรับ (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
+#ถ้า !defined(_WIN32)
         pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
+#มิฉะนั้น
         id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
+    สำหรับ (i = 0; i < SIZE; i++) {
+#ถ้า !defined(_WIN32)
         pthread_join (id[i], NULL);
-#else
+#มิฉะนั้น
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
+    สำหรับ (i = 0; i < SIZE; i++) {
+        ถ้า (count[i] != COUNT)
             printf ("error: %d %d\n", i, count[i]);
     }
-    return 0;
+    คืน 0;
 }

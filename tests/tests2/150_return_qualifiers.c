@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+const จำนวนเต็ม const_return(void);
+ca_ncala จำนวนเต็ม volatile_return(void);
+จำนวนเต็ม *restrict restrict_return(void);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, จำนวนเต็ม *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, จำนวนเต็ม *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, จำนวนเต็ม **),
                "restrict is removed from a return type");
 
-int const_return(void)
+จำนวนเต็ม const_return(void)
 {
-   return 0;
+   คืน 0;
 }
 
-int volatile_return(void)
+จำนวนเต็ม volatile_return(void)
 {
-   return 0;
+   คืน 0;
 }
 
-int *restrict_return(void)
+จำนวนเต็ม *restrict_return(void)
 {
-   return 0;
+   คืน 0;
 }
 
-int main(void)
+จำนวนเต็ม หลัก(void)
 {
-   return 0;
+   คืน 0;
 }

@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+จำนวนเต็ม หลัก()
 {
-   int a;
-   int *b;
-   int *c;
+   จำนวนเต็ม a;
+   จำนวนเต็ม *b;
+   จำนวนเต็ม *c;
 
    a = 42;
    b = &a;
@@ -12,17 +12,17 @@ int main()
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   ถ้า (b == NULL)
       printf("b is NULL\n");
-   else
+   มิฉะนั้น
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   ถ้า (c == NULL)
       printf("c is NULL\n");
-   else
+   มิฉะนั้น
       printf("c is not NULL\n");
 
-   return 0;
+   คืน 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

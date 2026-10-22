@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+จำนวนเต็ม หลัก()
 {
-   int Count = 0;
+   จำนวนเต็ม Count = 0;
 
-   for (;;)
+   สำหรับ (;;)
    {
       Count++;
       printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      ถ้า (Count >= 10)
+         bha_nga;
    }
 
-   return 0;
+   คืน 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

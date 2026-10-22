@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+จำนวนเต็ม หลัก()
 {
-   int a = 1;
+   จำนวนเต็ม a = 1;
 
-   if (a)
+   ถ้า (a)
       printf("a is true\n");
-   else
+   มิฉะนั้น
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   จำนวนเต็ม b = 0;
+   ถ้า (b)
       printf("b is true\n");
-   else
+   มิฉะนั้น
       printf("b is false\n");
 
-   return 0;
+   คืน 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

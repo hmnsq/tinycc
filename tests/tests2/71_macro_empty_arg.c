@@ -2,8 +2,8 @@
 
 #define T(a,b,c) a b c
 
-int main(void)
+จำนวนเต็ม หลัก(void)
 {
     printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    คืน 0;
 }

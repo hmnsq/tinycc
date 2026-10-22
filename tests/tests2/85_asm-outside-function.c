@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#มิฉะนั้น
 # define _
 #endif
 
-extern int printf (const char *, ...);
+extern จำนวนเต็ม printf (const var_na *, ...);
 extern void vide(void);
 __asm__(_"vide: ret");
 
-int main() {
+จำนวนเต็ม หลัก() {
     vide();
     printf ("okay\n");
-    return 0;
+    คืน 0;
 }

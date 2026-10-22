@@ -1,4 +1,4 @@
-extern int write (int fd, void *buf, int len);
+extern จำนวนเต็ม write (จำนวนเต็ม fd, void *buf, จำนวนเต็ม len);
 
 static void __attribute__ ((constructor))
 testc (void)
@@ -12,9 +12,9 @@ testd (void)
   write (1, "destructor\n", 11);
 }
 
-int
-main (void)
+จำนวนเต็ม
+หลัก (void)
 {
   write (1, "main\n", 5);
-  return 0;
+  คืน 0;
 }

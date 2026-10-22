@@ -1,22 +1,22 @@
 #include <stdio.h>
 
-int fred(int p)
+จำนวนเต็ม fred(จำนวนเต็ม p)
 {
    printf("yo %d\n", p);
-   return 42;
+   คืน 42;
 }
 
-int (*f)(int) = &fred;
+จำนวนเต็ม (*f)(จำนวนเต็ม) = &fred;
 
 /* To test what this is supposed to test the destination function
    (fprint here) must not be called directly anywhere in the test.  */
-int (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
+จำนวนเต็ม (*fprintfptr)(FILE *, const var_na *, ...) = &fprintf;
 
-int main()
+จำนวนเต็ม หลัก()
 {
    fprintfptr(stdout, "%d\n", (*f)(24));
 
-   return 0;
+   คืน 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

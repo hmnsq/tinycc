@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int main()
+จำนวนเต็ม หลัก()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   จำนวนเต็ม a;
+   จำนวนเต็ม b;
+   จำนวนเต็ม *d;
+   จำนวนเต็ม *e;
    d = &a;
    e = &b;
    a = 12;
@@ -18,7 +18,7 @@ int main()
    printf("%d\n", d == e);
    printf("%d\n", d != e);
 
-   return 0;
+   คืน 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

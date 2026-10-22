@@ -1,12 +1,12 @@
 #include <stdatomic.h>
-int printf(const char*,...);
+จำนวนเต็ม printf(const var_na*,...);
 
-#if defined test_atomic_compare_exchange
-int main()
+#ถ้า defined test_atomic_compare_exchange
+จำนวนเต็ม หลัก()
 {
-    _Atomic int a = 12;
-    int b = 77;
-    int r;
+    _Atomic จำนวนเต็ม a = 12;
+    จำนวนเต็ม b = 77;
+    จำนวนเต็ม r;
 
     atomic_store(&a, b + 0);
     r = atomic_compare_exchange_strong(&a, &b, 99);
@@ -24,33 +24,33 @@ int main()
     r = atomic_exchange(&a, 66);
     printf("%d %d %d\n", r, a, b);
 
-    return 0;
+    คืน 0;
 }
 
 #elif defined test_atomic_store
-int main()
+จำนวนเต็ม หลัก()
 {
-    int _Atomic i;
-    int r;
+    จำนวนเต็ม _Atomic i;
+    จำนวนเต็ม r;
     atomic_store(&i, 12);
     r = atomic_fetch_add(&i, i);
     printf("r = %d, i = %d\n", r, i);
 }
 
 #elif defined test_atomic_store_pointer
-typedef struct { char c[4]; } c4;
-int main()
+typedef sa_nracanaa { var_na c[4]; } c4;
+จำนวนเต็ม หลัก()
 {
-    int i = 1;
-    int _Atomic *p = &i;
-    int k = 2;
+    จำนวนเต็ม i = 1;
+    จำนวนเต็ม _Atomic *p = &i;
+    จำนวนเต็ม k = 2;
     atomic_store(&p, &k);
     printf("*p = %d\n", *p);
 }
 
 #elif defined test_atomic_store_struct
-typedef struct { char c[4]; } c4;
-int main()
+typedef sa_nracanaa { var_na c[4]; } c4;
+จำนวนเต็ม หลัก()
 {
     c4 _Atomic p;
     c4 v = { 1,2,3,4 };
@@ -70,7 +70,7 @@ int main()
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
  
-int main()
+จำนวนเต็ม หลัก()
 {
     atomic_char c;
     atomic_short s;
@@ -107,11 +107,11 @@ typedef __SIZE_TYPE__ size64_t;
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
 
-int main()
+จำนวนเต็ม หลัก()
 {
-    signed char c;
+    signed var_na c;
     short s;
-    int i;
+    จำนวนเต็ม i;
     size64_t l;
 
     atomic_init(&c, 0);
@@ -140,9 +140,9 @@ int main()
 }
 
 #elif defined test_atomic_thread_signal
-int main()
+จำนวนเต็ม หลัก()
 {
-    int c;
+    จำนวนเต็ม c;
 
     atomic_thread_fence(__ATOMIC_SEQ_CST);
     atomic_signal_fence(__ATOMIC_SEQ_CST);
@@ -150,36 +150,36 @@ int main()
 }
 
 #elif defined test_atomic_error_1
-int main()
+จำนวนเต็ม หลัก()
 {
-    int _Atomic i;
+    จำนวนเต็ม _Atomic i;
     atomic_load(i);
 }
 
 #elif defined test_atomic_error_2
-int main()
+จำนวนเต็ม หลัก()
 {
-    struct { char c[3]; } _Atomic c3;
+    sa_nracanaa { var_na c[3]; } _Atomic c3;
     atomic_load(&c3);
 }
 
 #elif defined test_atomic_error_3
-int main()
+จำนวนเต็ม หลัก()
 {
-    _Atomic int *p = 0;
+    _Atomic จำนวนเต็ม *p = 0;
     atomic_fetch_add(&p, 1);
 }
 
 #elif defined test_atomic_error_4
-int main()
+จำนวนเต็ม หลัก()
 {
-    int _Atomic i = 1;
-    char c = 2;
+    จำนวนเต็ม _Atomic i = 1;
+    var_na c = 2;
     atomic_compare_exchange_strong(&i, &c, 0);
 }
 
 #elif defined test_atomic_warn_1
-int main()
+จำนวนเต็ม หลัก()
 {
     size_t _Atomic i = 1;
     /* assignment to integer from pointer */
@@ -187,19 +187,19 @@ int main()
 }
 
 #elif defined test_atomic_warn_2
-int main()
+จำนวนเต็ม หลัก()
 {
-    int i = 1;
-    char c = 2;
-    int _Atomic *p = &i;
+    จำนวนเต็ม i = 1;
+    var_na c = 2;
+    จำนวนเต็ม _Atomic *p = &i;
     /* assignment from incompatible pointer */
     atomic_store(&p, &c);
 }
 
 #elif defined test_atomic_warn_3
-int main()
+จำนวนเต็ม หลัก()
 {
-    int const i = 1;
+    จำนวนเต็ม const i = 1;
     /* assignment to read-only -location */
     atomic_fetch_add(&i, 2);
 }

@@ -469,13 +469,13 @@ extern "C" {
   typedef DWORD CALTYPE;
   typedef DWORD CALID;
 
-  typedef struct _cpinfo {
+  typedef sa_nracanaa _cpinfo {
     UINT MaxCharSize;
     BYTE DefaultChar[MAX_DEFAULTCHAR];
     BYTE LeadByte[MAX_LEADBYTES];
   } CPINFO,*LPCPINFO;
 
-  typedef struct _cpinfoexA {
+  typedef sa_nracanaa _cpinfoexA {
     UINT MaxCharSize;
     BYTE DefaultChar[MAX_DEFAULTCHAR];
     BYTE LeadByte[MAX_LEADBYTES];
@@ -484,7 +484,7 @@ extern "C" {
     CHAR CodePageName[MAX_PATH];
   } CPINFOEXA,*LPCPINFOEXA;
 
-  typedef struct _cpinfoexW {
+  typedef sa_nracanaa _cpinfoexW {
     UINT MaxCharSize;
     BYTE DefaultChar[MAX_DEFAULTCHAR];
     BYTE LeadByte[MAX_LEADBYTES];
@@ -496,12 +496,12 @@ extern "C" {
 #ifdef UNICODE
   typedef CPINFOEXW CPINFOEX;
   typedef LPCPINFOEXW LPCPINFOEX;
-#else
+#มิฉะนั้น
   typedef CPINFOEXA CPINFOEX;
   typedef LPCPINFOEXA LPCPINFOEX;
 #endif
 
-  typedef struct _numberfmtA {
+  typedef sa_nracanaa _numberfmtA {
     UINT NumDigits;
     UINT LeadingZero;
     UINT Grouping;
@@ -510,7 +510,7 @@ extern "C" {
     UINT NegativeOrder;
   } NUMBERFMTA,*LPNUMBERFMTA;
 
-  typedef struct _numberfmtW {
+  typedef sa_nracanaa _numberfmtW {
     UINT NumDigits;
     UINT LeadingZero;
     UINT Grouping;
@@ -522,12 +522,12 @@ extern "C" {
 #ifdef UNICODE
   typedef NUMBERFMTW NUMBERFMT;
   typedef LPNUMBERFMTW LPNUMBERFMT;
-#else
+#มิฉะนั้น
   typedef NUMBERFMTA NUMBERFMT;
   typedef LPNUMBERFMTA LPNUMBERFMT;
 #endif
 
-  typedef struct _currencyfmtA {
+  typedef sa_nracanaa _currencyfmtA {
     UINT NumDigits;
     UINT LeadingZero;
     UINT Grouping;
@@ -538,7 +538,7 @@ extern "C" {
     LPSTR lpCurrencySymbol;
   } CURRENCYFMTA,*LPCURRENCYFMTA;
 
-  typedef struct _currencyfmtW {
+  typedef sa_nracanaa _currencyfmtW {
     UINT NumDigits;
     UINT LeadingZero;
     UINT Grouping;
@@ -552,18 +552,18 @@ extern "C" {
 #ifdef UNICODE
   typedef CURRENCYFMTW CURRENCYFMT;
   typedef LPCURRENCYFMTW LPCURRENCYFMT;
-#else
+#มิฉะนั้น
   typedef CURRENCYFMTA CURRENCYFMT;
   typedef LPCURRENCYFMTA LPCURRENCYFMT;
 #endif
 
-  enum SYSNLS_FUNCTION {
+  ga_nanaa SYSNLS_FUNCTION {
     COMPARE_STRING = 0x0001
   };
 
   typedef DWORD NLS_FUNCTION;
 
-  typedef struct _nlsversioninfo{
+  typedef sa_nracanaa _nlsversioninfo{
     DWORD dwNLSVersionInfoSize;
     DWORD dwNLSVersion;
     DWORD dwDefinedVersion;
@@ -575,16 +575,16 @@ extern "C" {
 
 #define GEOID_NOT_AVAILABLE -1
 
-  enum SYSGEOTYPE {
+  ga_nanaa SYSGEOTYPE {
     GEO_NATION = 0x0001,GEO_LATITUDE = 0x0002,GEO_LONGITUDE = 0x0003,GEO_ISO2 = 0x0004,GEO_ISO3 = 0x0005,GEO_RFC1766 = 0x0006,GEO_LCID = 0x0007,
     GEO_FRIENDLYNAME= 0x0008,GEO_OFFICIALNAME= 0x0009,GEO_TIMEZONES = 0x000A,GEO_OFFICIALLANGUAGES = 0x000B
   };
 
-  enum SYSGEOCLASS {
+  ga_nanaa SYSGEOCLASS {
     GEOCLASS_NATION = 16,GEOCLASS_REGION = 14
   };
   
-  typedef enum  _NORM_FORM  {
+  typedef ga_nanaa  _NORM_FORM  {
   NormalizationOther   = 0,
   NormalizationC       = 0x1,
   NormalizationD       = 0x2,
@@ -625,7 +625,7 @@ extern "C" {
 #define TIMEFMT_ENUMPROC TIMEFMT_ENUMPROCW
 #define CALINFO_ENUMPROC CALINFO_ENUMPROCW
 #define CALINFO_ENUMPROCEX CALINFO_ENUMPROCEXW
-#else
+#มิฉะนั้น
 #define LANGUAGEGROUP_ENUMPROC LANGUAGEGROUP_ENUMPROCA
 #define LANGGROUPLOCALE_ENUMPROC LANGGROUPLOCALE_ENUMPROCA
 #define UILANGUAGE_ENUMPROC UILANGUAGE_ENUMPROCA
@@ -663,7 +663,7 @@ extern "C" {
 #define EnumUILanguages EnumUILanguagesW
 #define EnumSystemLocales EnumSystemLocalesW
 #define EnumSystemCodePages EnumSystemCodePagesW
-#else
+#มิฉะนั้น
 #define GetCPInfoEx GetCPInfoExA
 #define CompareString CompareStringA
 #define LCMapString LCMapStringA
@@ -698,28 +698,28 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI GetCPInfoExW(UINT CodePage,DWORD dwFlags,LPCPINFOEXW lpCPInfoEx);
   WINBASEAPI WINBOOL WINAPI IsDBCSLeadByte(BYTE TestChar);
   WINBASEAPI WINBOOL WINAPI IsDBCSLeadByteEx(UINT CodePage,BYTE TestChar);
-  WINBASEAPI int WINAPI MultiByteToWideChar(UINT CodePage,DWORD dwFlags,LPCSTR lpMultiByteStr,int cbMultiByte,LPWSTR lpWideCharStr,int cchWideChar);
-  WINBASEAPI int WINAPI WideCharToMultiByte(UINT CodePage,DWORD dwFlags,LPCWSTR lpWideCharStr,int cchWideChar,LPSTR lpMultiByteStr,int cbMultiByte,LPCSTR lpDefaultChar,LPBOOL lpUsedDefaultChar);
-  WINBASEAPI int WINAPI CompareStringA(LCID Locale,DWORD dwCmpFlags,LPCSTR lpString1,int cchCount1,LPCSTR lpString2,int cchCount2);
-  WINBASEAPI int WINAPI CompareStringW(LCID Locale,DWORD dwCmpFlags,LPCWSTR lpString1,int cchCount1,LPCWSTR lpString2,int cchCount2);
-  WINBASEAPI int WINAPI LCMapStringA(LCID Locale,DWORD dwMapFlags,LPCSTR lpSrcStr,int cchSrc,LPSTR lpDestStr,int cchDest);
-  WINBASEAPI int WINAPI LCMapStringW(LCID Locale,DWORD dwMapFlags,LPCWSTR lpSrcStr,int cchSrc,LPWSTR lpDestStr,int cchDest);
-  WINBASEAPI int WINAPI GetLocaleInfoA(LCID Locale,LCTYPE LCType,LPSTR lpLCData,int cchData);
-  WINBASEAPI int WINAPI GetLocaleInfoW(LCID Locale,LCTYPE LCType,LPWSTR lpLCData,int cchData);
+  WINBASEAPI จำนวนเต็ม WINAPI MultiByteToWideChar(UINT CodePage,DWORD dwFlags,LPCSTR lpMultiByteStr,จำนวนเต็ม cbMultiByte,LPWSTR lpWideCharStr,จำนวนเต็ม cchWideChar);
+  WINBASEAPI จำนวนเต็ม WINAPI WideCharToMultiByte(UINT CodePage,DWORD dwFlags,LPCWSTR lpWideCharStr,จำนวนเต็ม cchWideChar,LPSTR lpMultiByteStr,จำนวนเต็ม cbMultiByte,LPCSTR lpDefaultChar,LPBOOL lpUsedDefaultChar);
+  WINBASEAPI จำนวนเต็ม WINAPI CompareStringA(LCID Locale,DWORD dwCmpFlags,LPCSTR lpString1,จำนวนเต็ม cchCount1,LPCSTR lpString2,จำนวนเต็ม cchCount2);
+  WINBASEAPI จำนวนเต็ม WINAPI CompareStringW(LCID Locale,DWORD dwCmpFlags,LPCWSTR lpString1,จำนวนเต็ม cchCount1,LPCWSTR lpString2,จำนวนเต็ม cchCount2);
+  WINBASEAPI จำนวนเต็ม WINAPI LCMapStringA(LCID Locale,DWORD dwMapFlags,LPCSTR lpSrcStr,จำนวนเต็ม cchSrc,LPSTR lpDestStr,จำนวนเต็ม cchDest);
+  WINBASEAPI จำนวนเต็ม WINAPI LCMapStringW(LCID Locale,DWORD dwMapFlags,LPCWSTR lpSrcStr,จำนวนเต็ม cchSrc,LPWSTR lpDestStr,จำนวนเต็ม cchDest);
+  WINBASEAPI จำนวนเต็ม WINAPI GetLocaleInfoA(LCID Locale,LCTYPE LCType,LPSTR lpLCData,จำนวนเต็ม cchData);
+  WINBASEAPI จำนวนเต็ม WINAPI GetLocaleInfoW(LCID Locale,LCTYPE LCType,LPWSTR lpLCData,จำนวนเต็ม cchData);
   WINBASEAPI WINBOOL WINAPI SetLocaleInfoA(LCID Locale,LCTYPE LCType,LPCSTR lpLCData);
   WINBASEAPI WINBOOL WINAPI SetLocaleInfoW(LCID Locale,LCTYPE LCType,LPCWSTR lpLCData);
-  WINBASEAPI int WINAPI GetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPSTR lpCalData,int cchData,LPDWORD lpValue);
-  WINBASEAPI int WINAPI GetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPWSTR lpCalData,int cchData,LPDWORD lpValue);
+  WINBASEAPI จำนวนเต็ม WINAPI GetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPSTR lpCalData,จำนวนเต็ม cchData,LPDWORD lpValue);
+  WINBASEAPI จำนวนเต็ม WINAPI GetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPWSTR lpCalData,จำนวนเต็ม cchData,LPDWORD lpValue);
   WINBASEAPI WINBOOL WINAPI SetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPCSTR lpCalData);
   WINBASEAPI WINBOOL WINAPI SetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPCWSTR lpCalData);
-  WINBASEAPI int WINAPI GetTimeFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCSTR lpFormat,LPSTR lpTimeStr,int cchTime);
-  WINBASEAPI int WINAPI GetTimeFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCWSTR lpFormat,LPWSTR lpTimeStr,int cchTime);
-  WINBASEAPI int WINAPI GetDateFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCSTR lpFormat,LPSTR lpDateStr,int cchDate);
-  WINBASEAPI int WINAPI GetDateFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCWSTR lpFormat,LPWSTR lpDateStr,int cchDate);
-  WINBASEAPI int WINAPI GetNumberFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST NUMBERFMTA *lpFormat,LPSTR lpNumberStr,int cchNumber);
-  WINBASEAPI int WINAPI GetNumberFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST NUMBERFMTW *lpFormat,LPWSTR lpNumberStr,int cchNumber);
-  WINBASEAPI int WINAPI GetCurrencyFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST CURRENCYFMTA *lpFormat,LPSTR lpCurrencyStr,int cchCurrency);
-  WINBASEAPI int WINAPI GetCurrencyFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST CURRENCYFMTW *lpFormat,LPWSTR lpCurrencyStr,int cchCurrency);
+  WINBASEAPI จำนวนเต็ม WINAPI GetTimeFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCSTR lpFormat,LPSTR lpTimeStr,จำนวนเต็ม cchTime);
+  WINBASEAPI จำนวนเต็ม WINAPI GetTimeFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCWSTR lpFormat,LPWSTR lpTimeStr,จำนวนเต็ม cchTime);
+  WINBASEAPI จำนวนเต็ม WINAPI GetDateFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCSTR lpFormat,LPSTR lpDateStr,จำนวนเต็ม cchDate);
+  WINBASEAPI จำนวนเต็ม WINAPI GetDateFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCWSTR lpFormat,LPWSTR lpDateStr,จำนวนเต็ม cchDate);
+  WINBASEAPI จำนวนเต็ม WINAPI GetNumberFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST NUMBERFMTA *lpFormat,LPSTR lpNumberStr,จำนวนเต็ม cchNumber);
+  WINBASEAPI จำนวนเต็ม WINAPI GetNumberFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST NUMBERFMTW *lpFormat,LPWSTR lpNumberStr,จำนวนเต็ม cchNumber);
+  WINBASEAPI จำนวนเต็ม WINAPI GetCurrencyFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST CURRENCYFMTA *lpFormat,LPSTR lpCurrencyStr,จำนวนเต็ม cchCurrency);
+  WINBASEAPI จำนวนเต็ม WINAPI GetCurrencyFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST CURRENCYFMTW *lpFormat,LPWSTR lpCurrencyStr,จำนวนเต็ม cchCurrency);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoA(CALINFO_ENUMPROCA lpCalInfoEnumProc,LCID Locale,CALID Calendar,CALTYPE CalType);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoW(CALINFO_ENUMPROCW lpCalInfoEnumProc,LCID Locale,CALID Calendar,CALTYPE CalType);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoExA(CALINFO_ENUMPROCEXA lpCalInfoEnumProcEx,LCID Locale,CALID Calendar,CALTYPE CalType);
@@ -734,8 +734,8 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI GetNLSVersion(NLS_FUNCTION Function,LCID Locale,LPNLSVERSIONINFO lpVersionInformation);
   WINBASEAPI WINBOOL WINAPI IsNLSDefinedString(NLS_FUNCTION Function,DWORD dwFlags,LPNLSVERSIONINFO lpVersionInformation,LPCWSTR lpString,INT cchStr);
   WINBASEAPI WINBOOL WINAPI IsValidLocale(LCID Locale,DWORD dwFlags);
-  WINBASEAPI int WINAPI GetGeoInfoA(GEOID Location,GEOTYPE GeoType,LPSTR lpGeoData,int cchData,LANGID LangId);
-  WINBASEAPI int WINAPI GetGeoInfoW(GEOID Location,GEOTYPE GeoType,LPWSTR lpGeoData,int cchData,LANGID LangId);
+  WINBASEAPI จำนวนเต็ม WINAPI GetGeoInfoA(GEOID Location,GEOTYPE GeoType,LPSTR lpGeoData,จำนวนเต็ม cchData,LANGID LangId);
+  WINBASEAPI จำนวนเต็ม WINAPI GetGeoInfoW(GEOID Location,GEOTYPE GeoType,LPWSTR lpGeoData,จำนวนเต็ม cchData,LANGID LangId);
   WINBASEAPI WINBOOL WINAPI EnumSystemGeoID(GEOCLASS GeoClass,GEOID ParentGeoId,GEO_ENUMPROC lpGeoEnumProc);
   WINBASEAPI GEOID WINAPI GetUserGeoID(GEOCLASS GeoClass);
   WINBASEAPI WINBOOL WINAPI SetUserGeoID(GEOID GeoId);
@@ -748,12 +748,12 @@ extern "C" {
   WINBASEAPI LANGID WINAPI GetUserDefaultLangID(void);
   WINBASEAPI LCID WINAPI GetSystemDefaultLCID(void);
   WINBASEAPI LCID WINAPI GetUserDefaultLCID(void);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeExA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeExW(LCID Locale,DWORD dwInfoType,LPCWSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeW(DWORD dwInfoType,LPCWSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI int WINAPI FoldStringA(DWORD dwMapFlags,LPCSTR lpSrcStr,int cchSrc,LPSTR lpDestStr,int cchDest);
-  WINBASEAPI int WINAPI FoldStringW(DWORD dwMapFlags,LPCWSTR lpSrcStr,int cchSrc,LPWSTR lpDestStr,int cchDest);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeExA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,จำนวนเต็ม cchSrc,LPWORD lpCharType);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeExW(LCID Locale,DWORD dwInfoType,LPCWSTR lpSrcStr,จำนวนเต็ม cchSrc,LPWORD lpCharType);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,จำนวนเต็ม cchSrc,LPWORD lpCharType);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeW(DWORD dwInfoType,LPCWSTR lpSrcStr,จำนวนเต็ม cchSrc,LPWORD lpCharType);
+  WINBASEAPI จำนวนเต็ม WINAPI FoldStringA(DWORD dwMapFlags,LPCSTR lpSrcStr,จำนวนเต็ม cchSrc,LPSTR lpDestStr,จำนวนเต็ม cchDest);
+  WINBASEAPI จำนวนเต็ม WINAPI FoldStringW(DWORD dwMapFlags,LPCWSTR lpSrcStr,จำนวนเต็ม cchSrc,LPWSTR lpDestStr,จำนวนเต็ม cchDest);
   WINBASEAPI WINBOOL WINAPI EnumSystemLanguageGroupsA(LANGUAGEGROUP_ENUMPROCA lpLanguageGroupEnumProc,DWORD dwFlags,LONG_PTR lParam);
   WINBASEAPI WINBOOL WINAPI EnumSystemLanguageGroupsW(LANGUAGEGROUP_ENUMPROCW lpLanguageGroupEnumProc,DWORD dwFlags,LONG_PTR lParam);
   WINBASEAPI WINBOOL WINAPI EnumLanguageGroupLocalesA(LANGGROUPLOCALE_ENUMPROCA lpLangGroupLocaleEnumProc,LGRPID LanguageGroup,DWORD dwFlags,LONG_PTR lParam);
@@ -764,11 +764,11 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI EnumSystemLocalesW(LOCALE_ENUMPROCW lpLocaleEnumProc,DWORD dwFlags);
   WINBASEAPI WINBOOL WINAPI EnumSystemCodePagesA(CODEPAGE_ENUMPROCA lpCodePageEnumProc,DWORD dwFlags);
   WINBASEAPI WINBOOL WINAPI EnumSystemCodePagesW(CODEPAGE_ENUMPROCW lpCodePageEnumProc,DWORD dwFlags);
-  WINBASEAPI WINBOOL WINAPI IsNormalizedString(NORM_FORM NormForm,LPCWSTR lpString,int cwLength);
-  WINBASEAPI int WINAPI NormalizeString(NORM_FORM NormForm,LPCWSTR lpSrcString,int cwSrcLength,LPWSTR lpDstString,int cwDstLength);
-  WINBASEAPI int WINAPI IdnToAscii(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,int cchUnicodeChar,LPWSTR lpASCIICharStr,int cchASCIIChar);
-  WINBASEAPI int WINAPI IdnToNameprepUnicode(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,int cchUnicodeChar,LPWSTR lpNameprepCharStr,int cchNameprepChar);
-  WINBASEAPI int WINAPI IdnToUnicode(DWORD dwFlags,LPCWSTR lpASCIICharStr,int cchASCIIChar,LPWSTR lpUnicodeCharStr,int cchUnicodeChar);
+  WINBASEAPI WINBOOL WINAPI IsNormalizedString(NORM_FORM NormForm,LPCWSTR lpString,จำนวนเต็ม cwLength);
+  WINBASEAPI จำนวนเต็ม WINAPI NormalizeString(NORM_FORM NormForm,LPCWSTR lpSrcString,จำนวนเต็ม cwSrcLength,LPWSTR lpDstString,จำนวนเต็ม cwDstLength);
+  WINBASEAPI จำนวนเต็ม WINAPI IdnToAscii(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,จำนวนเต็ม cchUnicodeChar,LPWSTR lpASCIICharStr,จำนวนเต็ม cchASCIIChar);
+  WINBASEAPI จำนวนเต็ม WINAPI IdnToNameprepUnicode(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,จำนวนเต็ม cchUnicodeChar,LPWSTR lpNameprepCharStr,จำนวนเต็ม cchNameprepChar);
+  WINBASEAPI จำนวนเต็ม WINAPI IdnToUnicode(DWORD dwFlags,LPCWSTR lpASCIICharStr,จำนวนเต็ม cchASCIIChar,LPWSTR lpUnicodeCharStr,จำนวนเต็ม cchUnicodeChar);
 
 #endif
 
