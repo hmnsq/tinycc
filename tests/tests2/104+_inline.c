@@ -1,11 +1,11 @@
 
 #define GOT(f) \
-    __attribute__((weak)) void f(void); \
+    __attribute__((weak)) शून्य f(शून्य); \
     printf("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
 
-int printf(const char*, ...);
+पूर्णाङ्क printf(ध्रुव वर्ण*, ...);
 
-void check_exports()
+शून्य check_exports()
 {
     // 0
     GOT(inline_inline_2decl_only)

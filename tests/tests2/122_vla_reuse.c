@@ -1,31 +1,31 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int
-main (void)
+पूर्णाङ्क
+main (शून्य)
 {
-    int n = 0;
-    int  first=1;
-    int *p[101];
-    if (0) {
+    पूर्णाङ्क n = 0;
+    पूर्णाङ्क  first=1;
+    पूर्णाङ्क *p[101];
+    यदि (0) {
         lab:;
     }
-    int x[n % 100 + 1];
-    if (first == 0) {
-        if (&x[0] != p[n % 100 + 1]) {
+    पूर्णाङ्क x[n % 100 + 1];
+    यदि (first == 0) {
+        यदि (&x[0] != p[n % 100 + 1]) {
             printf ("ERROR: %p %p\n", &x[0], p[n % 100 + 1]);
-            return(1);
+            प्रत्यागम(1);
         }
     }
-    else {
+    अन्यथा {
         p[n % 100 + 1] = &x[0];
         first = n < 100;
     }
     x[0] = 1;
     x[n % 100] = 2;
     n++;
-    if (n < 100000)
-        goto lab;
+    यदि (n < 100000)
+        गच्छ lab;
     printf ("OK\n");
-    return 0;
+    प्रत्यागम 0;
 }
 
