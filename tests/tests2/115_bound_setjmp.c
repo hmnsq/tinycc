@@ -1,20 +1,20 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <string.h>
+#अन्तर्भाव <setjmp.h>
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#परिभाषय TST   पूर्णाङ्क i, a[2], b[2];                \
+              प्रति (i = 0; i < 2; i++) a[i] = 0; \
+              प्रति (i = 0; i < 2; i++) b[i] = 0
 
-static jmp_buf jmp;
+स्थिर jmp_buf jmp;
 
-static void tst1 (void)
+स्थिर शून्य tst1 (शून्य)
 {
     TST;
     longjmp(jmp, 1);
 }
 
-static void tst2(void)
+स्थिर शून्य tst2(शून्य)
 {
     jmp_buf jmp;
 
@@ -23,13 +23,13 @@ static void tst2(void)
     tst1();
 }
 
-static void tst3 (jmp_buf loc)
+स्थिर शून्य tst3 (jmp_buf loc)
 {
     TST;
     longjmp(loc, 1);
 }
 
-static void tst4(jmp_buf loc)
+स्थिर शून्य tst4(jmp_buf loc)
 {
     jmp_buf jmp;
 
@@ -38,55 +38,55 @@ static void tst4(jmp_buf loc)
     tst3(loc);
 }
 
-static void tst (void)
+स्थिर शून्य tst (शून्य)
 {
     jmp_buf loc;
-    static int cnt;
+    स्थिर पूर्णाङ्क cnt;
 
     cnt = 0;
-    if (setjmp (jmp) == 0) {
+    यदि (setjmp (jmp) == 0) {
         TST;
         tst2();
     }
-    else {
+    अन्यथा {
         cnt++;
     }
-    if (setjmp (loc) == 0) {
+    यदि (setjmp (loc) == 0) {
         TST;
         tst4(loc);
     }
-    else {
+    अन्यथा {
         cnt++;
     }
-    if (cnt != 2)
-        printf ("incorrect cnt %d\n", cnt);
+    यदि (cnt != 2)
+        प्रारूप_लिख ("incorrect cnt %d\n", cnt);
 }
 
-static jmp_buf buf1;
-static jmp_buf buf2;
-static int *p;
-static int n_x = 6;
-static int g_counter;
+स्थिर jmp_buf buf1;
+स्थिर jmp_buf buf2;
+स्थिर पूर्णाङ्क *p;
+स्थिर पूर्णाङ्क n_x = 6;
+स्थिर पूर्णाङ्क g_गणक;
 
-static void stack (void)
+स्थिर शून्य राशिः (शून्य)
 {
-    static int counter;
-    static int way_point1;
-    static int way_point2;
+    स्थिर पूर्णाङ्क गणक;
+    स्थिर पूर्णाङ्क way_point1;
+    स्थिर पूर्णाङ्क way_point2;
 
-    counter = 0;
+    गणक = 0;
     way_point1 = 3;
     way_point2 = 2;
-    g_counter = 0;
-    if (setjmp (buf1) != 101) {
-        int a[n_x];
-        g_counter++;
+    g_गणक = 0;
+    यदि (setjmp (buf1) != 101) {
+        पूर्णाङ्क a[n_x];
+        g_गणक++;
         p = &a[0];
-        if (g_counter < 5)
+        यदि (g_गणक < 5)
             longjmp (buf1, 2);
-        else if (g_counter == 5)
+        अन्यथा यदि (g_गणक == 5)
             longjmp (buf1, 101);
-        else {
+        अन्यथा {
             setjmp (buf2); 
             longjmp (buf1, 101);
         }
@@ -94,17 +94,17 @@ static void stack (void)
     
     way_point1--;
 
-    if (counter == 0) {
-        counter++;
+    यदि (गणक == 0) {
+        गणक++;
         {
-            int a[n_x];
-            g_counter++;
+            पूर्णाङ्क a[n_x];
+            g_गणक++;
             p = &a[0];
-            if (g_counter < 5)
+            यदि (g_गणक < 5)
                 longjmp (buf1, 2);
-            else if (g_counter == 5)
+            अन्यथा यदि (g_गणक == 5)
                 longjmp (buf1, 101);
-            else {
+            अन्यथा {
                 setjmp (buf2);
                 longjmp (buf1, 101);
             }
@@ -113,60 +113,60 @@ static void stack (void)
 
     way_point2--;
 
-    if (counter == 1) {
-        counter++;
+    यदि (गणक == 1) {
+        गणक++;
         longjmp (buf2, 2);
     }
 
-    if (!(way_point1 == 0 && way_point2 == 0 &&
-          g_counter == 6 && counter == 2))
-        printf ("Failed %d %d %d %d\n",
-                way_point1, way_point2, g_counter, counter);
+    यदि (!(way_point1 == 0 && way_point2 == 0 &&
+          g_गणक == 6 && गणक == 2))
+        प्रारूप_लिख ("Failed %d %d %d %d\n",
+                way_point1, way_point2, g_गणक, गणक);
 }
 
-static jmp_buf env;
-static int last_value;
+स्थिर jmp_buf env;
+स्थिर पूर्णाङ्क चरमः_मानम्;
 
-static void jump (int val)
+स्थिर शून्य jump (पूर्णाङ्क val)
 {
     longjmp (env, val);
 }
 
-static void check (void)
+स्थिर शून्य check (शून्य)
 {
-    int value;
+    पूर्णाङ्क मानम्;
 
-    last_value = -1;
-    value = setjmp (env);
-    if (value != last_value + 1) {
-        printf ("incorrect value %d %d\n",
-                value, last_value + 1);
-        return;
+    चरमः_मानम् = -1;
+    मानम् = setjmp (env);
+    यदि (मानम् != चरमः_मानम् + 1) {
+        प्रारूप_लिख ("incorrect value %d %d\n",
+                मानम्, चरमः_मानम् + 1);
+        प्रत्यागम;
     }
-    last_value = value;
-    switch (value) {
-#if !(defined(__FreeBSD__) || defined(__NetBSD__))
+    चरमः_मानम् = मानम्;
+    विकल्प (मानम्) {
+#यदि !(defined(__FreeBSD__) || defined(__NetBSD__))
     /* longjmp(jmp_buf, 0) not supported */
-    case 0:
+    पक्ष 0:
         jump (0);
-#endif
-    default:
-        if (value < 10)
-          jump (value + 1);
+#यदि_अन्तः
+    स्वभाव:
+        यदि (मानम् < 10)
+          jump (मानम् + 1);
     }
 }
 
-int
-main (void)
+पूर्णाङ्क
+मुख्यम् (शून्य)
 {
-    int i;
+    पूर्णाङ्क i;
 
-    for (i = 0; i < 10;  i++) {
+    प्रति (i = 0; i < 10;  i++) {
         tst();
-        stack();
+        राशिः();
         check();
     }
-    return 0;
+    प्रत्यागम 0;
 }
 
 

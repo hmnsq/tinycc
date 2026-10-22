@@ -3,38 +3,38 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_MEMORY
-#define _INC_MEMORY
+#यदि_अपरिभाषितम् INC_स्मृतिः
+#परिभाषय INC_स्मृतिः
 
-#include <_mingw.h>
+#अन्तर्भाव <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#ifndef _CONST_RETURN
-#define _CONST_RETURN
-#endif
+#यदि_अपरिभाषितम् _CONST_RETURN
+#परिभाषय _CONST_RETURN
+#यदि_अन्तः
 
-#define _WConst_return _CONST_RETURN
+#परिभाषय _WConst_return _CONST_RETURN
 
-#ifndef _CRT_MEMORY_DEFINED
-#define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+#यदि_अपरिभाषितम् CRT_स्मृतिः_DEFINED
+#परिभाषय CRT_स्मृतिः_DEFINED
+  _CRTIMP शून्य *__cdecl _memccpy(शून्य *_Dst,ध्रुव शून्य *_Src,पूर्णाङ्क _Val,आकार_t Max_गणनम्);
+  _CONST_RETURN शून्य *__cdecl memchr(ध्रुव शून्य *_Buf ,पूर्णाङ्क _Val,आकार_t Max_गणनम्);
+  _CRTIMP पूर्णाङ्क __cdecl _memicmp(ध्रुव शून्य *_Buf1,ध्रुव शून्य *_Buf2,आकार_t आकार_4);
+  _CRTIMP पूर्णाङ्क __cdecl _memicmp_l(ध्रुव शून्य *_Buf1,ध्रुव शून्य *_Buf2,आकार_t आकार_4,_locale_t _Locale);
+  पूर्णाङ्क __cdecl memcmp(ध्रुव शून्य *_Buf1,ध्रुव शून्य *_Buf2,आकार_t आकार_4);
+  शून्य *__cdecl स्मृतिं_प्रतिलिख(शून्य *_Dst,ध्रुव शून्य *_Src,आकार_t आकार_4);
+  शून्य *__cdecl स्मृतिं_पूरय(शून्य *_Dst,पूर्णाङ्क _Val,आकार_t आकार_4);
 
-#ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-#endif
-#endif
+#यदि_अपरिभाषितम्	NO_OLDNAMES
+  शून्य *__cdecl memccpy(शून्य *_Dst,ध्रुव शून्य *_Src,पूर्णाङ्क _Val,आकार_t आकार_4);
+  पूर्णाङ्क __cdecl memicmp(ध्रुव शून्य *_Buf1,ध्रुव शून्य *_Buf2,आकार_t आकार_4);
+#यदि_अन्तः
+#यदि_अन्तः
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
-#endif
+#यदि_अन्तः
+#यदि_अन्तः

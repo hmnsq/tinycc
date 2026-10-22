@@ -1,80 +1,80 @@
 /* Check some way in where code suppression caused various
    miscompilations.  */
-extern int printf (const char *, ...);
-typedef __SIZE_TYPE__ size_t;
+बाह्य पूर्णाङ्क प्रारूप_लिख (ध्रुव वर्ण *, ...);
+प्रकारनिर्देश __SIZE_TYPE__ आकार_t;
 
-size_t _brk_start, _brk_end;
-void * extend_brk(size_t size, size_t align)
+आकार_t _brk_start, brk_अन्तः;
+शून्य * extend_brk(आकार_t आकार, आकार_t align)
 {
-    size_t mask = align - 1;
-    void *ret = 0;
+    आकार_t आवरणम् = align - 1;
+    शून्य *ret = 0;
 
-     do {
-	 if (__builtin_expect(!!(_brk_start == 0), 0))
-	   do {
-	       printf("wrong1\n");
-	   } while (0);
-     } while (0);
-     _brk_end = (_brk_end + mask) & ~mask;
-     ret = (void *)_brk_end;
-     _brk_end += size;
+     कुरु {
+	 यदि (__builtin_expect(!!(_brk_start == 0), 0))
+	   कुरु {
+	       प्रारूप_लिख("wrong1\n");
+	   } यावत् (0);
+     } यावत् (0);
+     brk_अन्तः = (brk_अन्तः + आवरणम्) & ~आवरणम्;
+     ret = (शून्य *)brk_अन्तः;
+     brk_अन्तः += आकार;
 
-     return ret;
+     प्रत्यागम ret;
 }
 
-static void get_args (int a, int b)
+स्थिर शून्य get_तर्काः (पूर्णाङ्क a, पूर्णाङ्क b)
 {
-  if (a != 1)
-    printf("wrong2\n");
-  else
-    printf("okay\n");
+  यदि (a != 1)
+    प्रारूप_लिख("wrong2\n");
+  अन्यथा
+    प्रारूप_लिख("okay\n");
 }
 
-void bla(void)
+शून्य bla(शून्य)
 {
-  int __ret = 42;
+  पूर्णाङ्क __ret = 42;
   ({
-    if (__builtin_expect(!!(0), 0)) {
-      if (__builtin_expect(!!__ret, 0))
-        printf("wrong3\n");
-      int x = !!(__ret);
+    यदि (__builtin_expect(!!(0), 0)) {
+      यदि (__builtin_expect(!!__ret, 0))
+        प्रारूप_लिख("wrong3\n");
+      पूर्णाङ्क x = !!(__ret);
     }
     __ret;
   });
-  get_args(!!__ret, sizeof(__ret));
+  get_तर्काः(!!__ret, परिमाण(__ret));
 }
 
-int ext;
+पूर्णाङ्क ext;
 
-void broken_jumpopt (int xxx)
+शून्य broken_jumpopt (पूर्णाङ्क xxx)
 {
   /* This was broken in 8227db3a2 by code suppression during suppressed
      code :) */
   ext = (xxx || 1) || ((xxx && 1) || 1);
-  printf("okay: %d %d\n", xxx, ext);
+  प्रारूप_लिख("okay: %d %d\n", xxx, ext);
 }
 
-_Bool chk(unsigned long addr, unsigned long limit, unsigned long size)
+_Bool chk(अचिह्नित दीर्घ addr, अचिह्नित दीर्घ सीमा, अचिह्नित दीर्घ आकार)
 {
   _Bool ret;
   /* This just needs to compile, no runtime test.  (And it doesn't compile
      only with certain internal checking added that's not committed).  */
-  if (0)
-    ret = 0 != (!!(addr > limit - size));
-  return 0;
+  यदि (0)
+    ret = 0 != (!!(addr > सीमा - आकार));
+  प्रत्यागम 0;
 }
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-  void *r;
+  शून्य *r;
   _brk_start = 1024;
-  _brk_end = 1024;
+  brk_अन्तः = 1024;
   r = extend_brk (4096, 16);
-  if (!r)
-    printf("wrong4\n");
-  else
-    printf("okay\n");
+  यदि (!r)
+    प्रारूप_लिख("wrong4\n");
+  अन्यथा
+    प्रारूप_लिख("okay\n");
   bla();
   broken_jumpopt(42);
-  return 0;
+  प्रत्यागम 0;
 }

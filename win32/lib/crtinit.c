@@ -1,26 +1,26 @@
 //+---------------------------------------------------------------------------
 
-#ifdef __leading_underscore
+#यदि_परिभाषितम् __leading_underscore
 # define _(s) s
-#else
+#अन्यथा
 # define _(s) _##s
-#endif
+#यदि_अन्तः
 
-extern void (*_(_init_array_start)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_init_array_end)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
+बाह्य शून्य (*_(_init_array_start)[]) (पूर्णाङ्क argc, _TCHAR **argv, _TCHAR **envp);
+बाह्य शून्य (*_(init_array_अन्तः)[]) (पूर्णाङ्क argc, _TCHAR **argv, _TCHAR **envp);
+बाह्य शून्य (*_(_fini_array_start)[]) (शून्य);
+बाह्य शून्य (*_(fini_array_अन्तः)[]) (शून्य);
 
-static void run_ctors(int argc, _TCHAR **argv, _TCHAR **env)
+स्थिर शून्य सततम्_ctors(पूर्णाङ्क argc, _TCHAR **argv, _TCHAR **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
+    पूर्णाङ्क i = 0;
+    यावत् (&_(_init_array_start)[i] != _(init_array_अन्तः))
         (*_(_init_array_start)[i++])(argc, argv, env);
 }
 
-static void run_dtors(void)
+स्थिर शून्य सततम्_dtors(शून्य)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
-        (*_(_fini_array_end)[--i])();
+    पूर्णाङ्क i = 0;
+    यावत् (&_(fini_array_अन्तः)[i] != _(_fini_array_start))
+        (*_(fini_array_अन्तः)[--i])();
 }

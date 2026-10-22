@@ -13,59 +13,59 @@
 .globl _(alloca), _(__alloca)
 _(alloca):
 _(__alloca):
-    pop     %edx
-    pop     %eax
-    add     $3,%eax
+    उद्धर     %edx
+    उद्धर     %eax
+    योजय     $3,%eax
     and     $-4,%eax
     jz      p3
 
 #ifdef _WIN32
 p1:
-    cmp     $4096,%eax
+    तुलय     $4096,%eax
     jb      p2
     test    %eax,-4096(%esp)
-    sub     $4096,%esp
-    sub     $4096,%eax
-    jmp     p1
+    वियोजय     $4096,%esp
+    वियोजय     $4096,%eax
+    कूर्द     p1
 p2:
 #endif
-    sub     %eax,%esp
-    mov     %esp,%eax
+    वियोजय     %eax,%esp
+    चालय     %esp,%eax
 p3:
-    push    %edx
-    push    %edx
-    ret
+    निक्षिप    %edx
+    निक्षिप    %edx
+    प्रत्यागच्छ
 
 /* ---------------------------------------------- */
 #elif defined __x86_64__
 
 .globl _(alloca)
 _(alloca):
-    pop     %rdx
+    उद्धर     %rdx
 #ifdef _WIN32
-    mov     %rcx,%rax
+    चालय     %rcx,%rax
 #else
-    mov     %rdi,%rax
+    चालय     %rdi,%rax
 #endif
-    add     $15,%rax
+    योजय     $15,%rax
     and     $-16,%rax
     jz      p3
 
 #ifdef _WIN32
 p1:
-    cmp     $4096,%rax
+    तुलय     $4096,%rax
     jb      p2
     test    %rax,-4096(%rsp)
-    sub     $4096,%rsp
-    sub     $4096,%rax
-    jmp p1
+    वियोजय     $4096,%rsp
+    वियोजय     $4096,%rax
+    कूर्द p1
 p2:
 #endif
-    sub     %rax,%rsp
-    mov     %rsp,%rax
+    वियोजय     %rax,%rsp
+    चालय     %rsp,%rax
 p3:
-    push    %rdx
-    ret
+    निक्षिप    %rdx
+    प्रत्यागच्छ
 
 /* ---------------------------------------------- */
 #elif defined __arm__
@@ -74,8 +74,8 @@ p3:
 _(alloca):
     rsb sp, r0, sp
     bic sp, sp, #7
-    mov r0, sp
-    mov pc, lr
+    चालय r0, sp
+    चालय pc, lr
 
 /* ---------------------------------------------- */
 #elif defined __aarch64__ || defined __arm64__
@@ -101,37 +101,37 @@ _(alloca):
     .int 0x910003e0
     .int 0xd65f03c0
 #else
-    add x0, x0, #15     // Round up to 16-byte boundary
+    योजय x0, x0, #15     // Round up to 16-byte boundary
     and x0, x0, #-16    // Ensure 16-byte alignment
 #ifdef _WIN32
     cbz x0, p100        // If size is 0, skip to return
     // Windows requires page-wise allocation with stack probing
-    mov x1, #4096       // Page size = 4096 bytes
+    चालय x1, #4096       // Page size = 4096 bytes
 
 p101:
-    cmp x0, x1          // Compare remaining size with page size
+    तुलय x0, x1          // Compare remaining size with page size
     b.lo    p102        // If less than page, jump to remainder
 
     // Probe first, then allocate
-    sub x2, sp, x1      // Calculate guard page address (sp - 4096)
+    वियोजय x2, sp, x1      // Calculate guard page address (sp - 4096)
     ldr xzr, [x2]       // Touch guard page FIRST
-    sub sp, sp, x1      // THEN allocate the page
+    वियोजय sp, sp, x1      // THEN allocate the page
 
-    sub x0, x0, x1      // Decrement remaining size
+    वियोजय x0, x0, x1      // Decrement remaining size
     b   p101            // Continue loop
 
 p102:
     // Allocate remaining bytes (less than one page)
     cbz x0, p100        // If no remaining bytes, skip
-    sub sp, sp, x0      // Allocate remaining space
+    वियोजय sp, sp, x0      // Allocate remaining space
 #else
     // Non-Windows: simple one-time allocation
-    sub sp, sp, x0      // Allocate space on stack
+    वियोजय sp, sp, x0      // Allocate space on stack
 #endif
 
 p100:
-    mov x0, sp          // Return allocated address
-    ret                 // Return to caller
+    चालय x0, sp          // Return allocated address
+    प्रत्यागच्छ                 // Return to caller
 #endif
 
 /* ---------------------------------------------- */
@@ -139,10 +139,10 @@ p100:
 
 .globl _(alloca)
 _(alloca):
-    sub    sp, sp, a0
+    वियोजय    sp, sp, a0
     addi   sp, sp, -15
     andi   sp, sp, -16
-    add    a0, sp, zero
-    ret
+    योजय    a0, sp, zero
+    प्रत्यागच्छ
 
 #endif

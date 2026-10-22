@@ -3,419 +3,419 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINGDI_
-#define _WINGDI_
+#यदि_अपरिभाषितम् _WINGDI_
+#परिभाषय _WINGDI_
 
-#define WINGDIAPI DECLSPEC_IMPORT
-#define WINSPOOLAPI DECLSPEC_IMPORT
+#परिभाषय WINGDIAPI DECLSPEC_IMPORT
+#परिभाषय WINSPOOLAPI DECLSPEC_IMPORT
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#यदि_अपरिभाषितम् WINVER
+#परिभाषय WINVER 0x0502
+#यदि_अन्तः
 
-#ifndef NOGDI
-#ifndef NORASTEROPS
-#define R2_BLACK 1
-#define R2_NOTMERGEPEN 2
-#define R2_MASKNOTPEN 3
-#define R2_NOTCOPYPEN 4
-#define R2_MASKPENNOT 5
-#define R2_NOT 6
-#define R2_XORPEN 7
-#define R2_NOTMASKPEN 8
-#define R2_MASKPEN 9
-#define R2_NOTXORPEN 10
-#define R2_NOP 11
-#define R2_MERGENOTPEN 12
-#define R2_COPYPEN 13
-#define R2_MERGEPENNOT 14
-#define R2_MERGEPEN 15
-#define R2_WHITE 16
-#define R2_LAST 16
+#यदि_अपरिभाषितम् NOGDI
+#यदि_अपरिभाषितम् NORASTEROPS
+#परिभाषय R2_BLACK 1
+#परिभाषय R2_NOTMERGEPEN 2
+#परिभाषय R2_MASKNOTPEN 3
+#परिभाषय R2_NOTCOPYPEN 4
+#परिभाषय R2_MASKPENNOT 5
+#परिभाषय R2_NOT 6
+#परिभाषय R2_XORPEN 7
+#परिभाषय R2_NOTMASKPEN 8
+#परिभाषय R2_MASKPEN 9
+#परिभाषय R2_NOTXORPEN 10
+#परिभाषय R2_NOP 11
+#परिभाषय R2_MERGENOTPEN 12
+#परिभाषय R2_COPYPEN 13
+#परिभाषय R2_MERGEPENNOT 14
+#परिभाषय R2_MERGEPEN 15
+#परिभाषय R2_WHITE 16
+#परिभाषय R2_चरमः 16
 
-#define SRCCOPY (DWORD)0x00CC0020
-#define SRCPAINT (DWORD)0x00EE0086
-#define SRCAND (DWORD)0x008800C6
-#define SRCINVERT (DWORD)0x00660046
-#define SRCERASE (DWORD)0x00440328
-#define NOTSRCCOPY (DWORD)0x00330008
-#define NOTSRCERASE (DWORD)0x001100A6
-#define MERGECOPY (DWORD)0x00C000CA
-#define MERGEPAINT (DWORD)0x00BB0226
-#define PATCOPY (DWORD)0x00F00021
-#define PATPAINT (DWORD)0x00FB0A09
-#define PATINVERT (DWORD)0x005A0049
-#define DSTINVERT (DWORD)0x00550009
-#define BLACKNESS (DWORD)0x00000042
-#define WHITENESS (DWORD)0x00FF0062
-#define NOMIRRORBITMAP (DWORD)0x80000000
-#define CAPTUREBLT (DWORD)0x40000000
-#define MAKEROP4(fore,back) (DWORD)((((back) << 8) & 0xFF000000) | (fore))
-#endif
+#परिभाषय SRCCOPY (DWORD)0x00CC0020
+#परिभाषय SRCPAINT (DWORD)0x00EE0086
+#परिभाषय SRCAND (DWORD)0x008800C6
+#परिभाषय SRCINVERT (DWORD)0x00660046
+#परिभाषय SRCERASE (DWORD)0x00440328
+#परिभाषय NOTSRCCOPY (DWORD)0x00330008
+#परिभाषय NOTSRCERASE (DWORD)0x001100A6
+#परिभाषय MERGECOPY (DWORD)0x00C000CA
+#परिभाषय MERGEPAINT (DWORD)0x00BB0226
+#परिभाषय PATCOPY (DWORD)0x00F00021
+#परिभाषय PATPAINT (DWORD)0x00FB0A09
+#परिभाषय PATINVERT (DWORD)0x005A0049
+#परिभाषय DSTINVERT (DWORD)0x00550009
+#परिभाषय BLACKNESS (DWORD)0x00000042
+#परिभाषय WHITENESS (DWORD)0x00FF0062
+#परिभाषय NOMIRRORBITMAP (DWORD)0x80000000
+#परिभाषय CAPTUREBLT (DWORD)0x40000000
+#परिभाषय MAKEROP4(fore,पृष्ठभागः) (DWORD)((((पृष्ठभागः) << 8) & 0xFF000000) | (fore))
+#यदि_अन्तः
 
-#define GDI_ERROR (0xFFFFFFFFL)
-#define HGDI_ERROR (LongToHandle(0xFFFFFFFFL))
+#परिभाषय GDI_ERROR (0xFFFFFFFFL)
+#परिभाषय HGDI_ERROR (Long_गन्तव्यम्_Handle(0xFFFFFFFFL))
 
-#define ERROR 0
-#define NULLREGION 1
-#define SIMPLEREGION 2
-#define COMPLEXREGION 3
-#define RGN_ERROR ERROR
+#परिभाषय ERROR 0
+#परिभाषय NULLREGION 1
+#परिभाषय SIMPLEREGION 2
+#परिभाषय COMPLEXREGION 3
+#परिभाषय RGN_ERROR ERROR
 
-#define RGN_AND 1
-#define RGN_OR 2
-#define RGN_XOR 3
-#define RGN_DIFF 4
-#define RGN_COPY 5
-#define RGN_MIN RGN_AND
-#define RGN_MAX RGN_COPY
+#परिभाषय RGN_AND 1
+#परिभाषय RGN_OR 2
+#परिभाषय RGN_XOR 3
+#परिभाषय RGN_DIFF 4
+#परिभाषय RGN_COPY 5
+#परिभाषय RGN_MIN RGN_AND
+#परिभाषय RGN_MAX RGN_COPY
 
-#define BLACKONWHITE 1
-#define WHITEONBLACK 2
-#define COLORONCOLOR 3
-#define HALFTONE 4
-#define MAXSTRETCHBLTMODE 4
+#परिभाषय BLACKONWHITE 1
+#परिभाषय WHITEONBLACK 2
+#परिभाषय COLORONCOLOR 3
+#परिभाषय HALFTONE 4
+#परिभाषय MAXSTRETCHBLTMODE 4
 
-#define STRETCH_ANDSCANS BLACKONWHITE
-#define STRETCH_ORSCANS WHITEONBLACK
-#define STRETCH_DELETESCANS COLORONCOLOR
-#define STRETCH_HALFTONE HALFTONE
+#परिभाषय STRETCH_ANDSCANS BLACKONWHITE
+#परिभाषय STRETCH_ORSCANS WHITEONBLACK
+#परिभाषय STRETCH_DELETESCANS COLORONCOLOR
+#परिभाषय STRETCH_HALFTONE HALFTONE
 
-#define ALTERNATE 1
-#define WINDING 2
-#define POLYFILL_LAST 2
+#परिभाषय ALTERNATE 1
+#परिभाषय WINDING 2
+#परिभाषय POLYFILL_चरमः 2
 
-#define LAYOUT_RTL 0x00000001
-#define LAYOUT_BTT 0x00000002
-#define LAYOUT_VBH 0x00000004
-#define LAYOUT_ORIENTATIONMASK (LAYOUT_RTL | LAYOUT_BTT | LAYOUT_VBH)
-#define LAYOUT_BITMAPORIENTATIONPRESERVED 0x00000008
+#परिभाषय LAYOUT_RTL 0x00000001
+#परिभाषय LAYOUT_BTT 0x00000002
+#परिभाषय LAYOUT_VBH 0x00000004
+#परिभाषय LAYOUT_ORIENTATIONMASK (LAYOUT_RTL | LAYOUT_BTT | LAYOUT_VBH)
+#परिभाषय LAYOUT_BITMAPORIENTATIONPRESERVED 0x00000008
 
-#define TA_NOUPDATECP 0
-#define TA_UPDATECP 1
+#परिभाषय TA_NOUPDATECP 0
+#परिभाषय TA_UPDATECP 1
 
-#define TA_LEFT 0
-#define TA_RIGHT 2
-#define TA_CENTER 6
+#परिभाषय TA_वामः 0
+#परिभाषय TA_दक्षिणः 2
+#परिभाषय TA_CENTER 6
 
-#define TA_TOP 0
-#define TA_BOTTOM 8
-#define TA_BASELINE 24
-#define TA_RTLREADING 256
-#define TA_MASK (TA_BASELINE+TA_CENTER+TA_UPDATECP+TA_RTLREADING)
+#परिभाषय TA_शिखरम् 0
+#परिभाषय TA_BOTTOM 8
+#परिभाषय TA_BASELINE 24
+#परिभाषय TA_RTLREADING 256
+#परिभाषय TA_आवरणम् (TA_BASELINE+TA_CENTER+TA_UPDATECP+TA_RTLREADING)
 
-#define VTA_BASELINE TA_BASELINE
-#define VTA_LEFT TA_BOTTOM
-#define VTA_RIGHT TA_TOP
-#define VTA_CENTER TA_CENTER
-#define VTA_BOTTOM TA_RIGHT
-#define VTA_TOP TA_LEFT
+#परिभाषय VTA_BASELINE TA_BASELINE
+#परिभाषय VTA_वामः TA_BOTTOM
+#परिभाषय VTA_दक्षिणः TA_शिखरम्
+#परिभाषय VTA_CENTER TA_CENTER
+#परिभाषय VTA_BOTTOM TA_दक्षिणः
+#परिभाषय VTA_शिखरम् TA_वामः
 
-#define ETO_OPAQUE 0x0002
-#define ETO_CLIPPED 0x0004
-#define ETO_GLYPH_INDEX 0x0010
-#define ETO_RTLREADING 0x0080
-#define ETO_NUMERICSLOCAL 0x0400
-#define ETO_NUMERICSLATIN 0x0800
-#define ETO_IGNORELANGUAGE 0x1000
-#define ETO_PDY 0x2000
+#परिभाषय ETO_OPAQUE 0x0002
+#परिभाषय ETO_CLIPPED 0x0004
+#परिभाषय ETO_GLYPH_सूचकांक 0x0010
+#परिभाषय ETO_RTLREADING 0x0080
+#परिभाषय ETO_NUMERICSLOCAL 0x0400
+#परिभाषय ETO_NUMERICSLATIN 0x0800
+#परिभाषय ETO_IGNORELANGUAGE 0x1000
+#परिभाषय ETO_PDY 0x2000
 
-#define ASPECT_FILTERING 0x0001
+#परिभाषय ASPECT_FILTERING 0x0001
 
-#define DCB_RESET 0x0001
-#define DCB_ACCUMULATE 0x0002
-#define DCB_DIRTY DCB_ACCUMULATE
-#define DCB_SET (DCB_RESET | DCB_ACCUMULATE)
-#define DCB_ENABLE 0x0004
-#define DCB_DISABLE 0x0008
+#परिभाषय DCB_RESET 0x0001
+#परिभाषय DCB_ACCUMULATE 0x0002
+#परिभाषय DCB_DIRTY DCB_ACCUMULATE
+#परिभाषय DCB_समुच्चयः (DCB_RESET | DCB_ACCUMULATE)
+#परिभाषय DCB_ENABLE 0x0004
+#परिभाषय DCB_DISABLE 0x0008
 
-#ifndef NOMETAFILE
+#यदि_अपरिभाषितम् NOMETAFILE
 
-#define META_SETBKCOLOR 0x0201
-#define META_SETBKMODE 0x0102
-#define META_SETMAPMODE 0x0103
-#define META_SETROP2 0x0104
-#define META_SETRELABS 0x0105
-#define META_SETPOLYFILLMODE 0x0106
-#define META_SETSTRETCHBLTMODE 0x0107
-#define META_SETTEXTCHAREXTRA 0x0108
-#define META_SETTEXTCOLOR 0x0209
-#define META_SETTEXTJUSTIFICATION 0x020A
-#define META_SETWINDOWORG 0x020B
-#define META_SETWINDOWEXT 0x020C
-#define META_SETVIEWPORTORG 0x020D
-#define META_SETVIEWPORTEXT 0x020E
-#define META_OFFSETWINDOWORG 0x020F
-#define META_SCALEWINDOWEXT 0x0410
-#define META_OFFSETVIEWPORTORG 0x0211
-#define META_SCALEVIEWPORTEXT 0x0412
-#define META_LINETO 0x0213
-#define META_MOVETO 0x0214
-#define META_EXCLUDECLIPRECT 0x0415
-#define META_INTERSECTCLIPRECT 0x0416
-#define META_ARC 0x0817
-#define META_ELLIPSE 0x0418
-#define META_FLOODFILL 0x0419
-#define META_PIE 0x081A
-#define META_RECTANGLE 0x041B
-#define META_ROUNDRECT 0x061C
-#define META_PATBLT 0x061D
-#define META_SAVEDC 0x001E
-#define META_SETPIXEL 0x041F
-#define META_OFFSETCLIPRGN 0x0220
-#define META_TEXTOUT 0x0521
-#define META_BITBLT 0x0922
-#define META_STRETCHBLT 0x0B23
-#define META_POLYGON 0x0324
-#define META_POLYLINE 0x0325
-#define META_ESCAPE 0x0626
-#define META_RESTOREDC 0x0127
-#define META_FILLREGION 0x0228
-#define META_FRAMEREGION 0x0429
-#define META_INVERTREGION 0x012A
-#define META_PAINTREGION 0x012B
-#define META_SELECTCLIPREGION 0x012C
-#define META_SELECTOBJECT 0x012D
-#define META_SETTEXTALIGN 0x012E
-#define META_CHORD 0x0830
-#define META_SETMAPPERFLAGS 0x0231
-#define META_EXTTEXTOUT 0x0a32
-#define META_SETDIBTODEV 0x0d33
-#define META_SELECTPALETTE 0x0234
-#define META_REALIZEPALETTE 0x0035
-#define META_ANIMATEPALETTE 0x0436
-#define META_SETPALENTRIES 0x0037
-#define META_POLYPOLYGON 0x0538
-#define META_RESIZEPALETTE 0x0139
-#define META_DIBBITBLT 0x0940
-#define META_DIBSTRETCHBLT 0x0b41
-#define META_DIBCREATEPATTERNBRUSH 0x0142
-#define META_STRETCHDIB 0x0f43
-#define META_EXTFLOODFILL 0x0548
-#define META_SETLAYOUT 0x0149
-#define META_DELETEOBJECT 0x01f0
-#define META_CREATEPALETTE 0x00f7
-#define META_CREATEPATTERNBRUSH 0x01F9
-#define META_CREATEPENINDIRECT 0x02FA
-#define META_CREATEFONTINDIRECT 0x02FB
-#define META_CREATEBRUSHINDIRECT 0x02FC
-#define META_CREATEREGION 0x06FF
+#परिभाषय META_SETBKCOLOR 0x0201
+#परिभाषय META_SETBKMODE 0x0102
+#परिभाषय META_SETMAPMODE 0x0103
+#परिभाषय META_SETROP2 0x0104
+#परिभाषय META_SETRELABS 0x0105
+#परिभाषय META_SETPOLYFILLMODE 0x0106
+#परिभाषय META_SETSTRETCHBLTMODE 0x0107
+#परिभाषय META_SETTEXTCHAREXTRA 0x0108
+#परिभाषय META_SETTEXTCOLOR 0x0209
+#परिभाषय META_SETTEXTJUSTIFICATION 0x020A
+#परिभाषय META_SETWINDOWORG 0x020B
+#परिभाषय META_SETWINDOWEXT 0x020C
+#परिभाषय META_SETVIEWPORTORG 0x020D
+#परिभाषय META_SETVIEWPORTEXT 0x020E
+#परिभाषय META_OFFSETWINDOWORG 0x020F
+#परिभाषय META_SCALEWINDOWEXT 0x0410
+#परिभाषय META_OFFSETVIEWPORTORG 0x0211
+#परिभाषय META_SCALEVIEWPORTEXT 0x0412
+#परिभाषय META_LINETO 0x0213
+#परिभाषय META_MOVETO 0x0214
+#परिभाषय META_EXCLUDECLIPRECT 0x0415
+#परिभाषय META_INTERSECTCLIPRECT 0x0416
+#परिभाषय META_ARC 0x0817
+#परिभाषय META_ELLIPSE 0x0418
+#परिभाषय META_FLOODFILL 0x0419
+#परिभाषय META_PIE 0x081A
+#परिभाषय META_RECTANGLE 0x041B
+#परिभाषय META_ROUNDRECT 0x061C
+#परिभाषय META_PATBLT 0x061D
+#परिभाषय META_SAVEDC 0x001E
+#परिभाषय META_SETPIXEL 0x041F
+#परिभाषय META_OFFSETCLIPRGN 0x0220
+#परिभाषय META_TEXTOUT 0x0521
+#परिभाषय META_BITBLT 0x0922
+#परिभाषय META_STRETCHBLT 0x0B23
+#परिभाषय META_POLYGON 0x0324
+#परिभाषय META_POLYLINE 0x0325
+#परिभाषय META_ESCAPE 0x0626
+#परिभाषय META_RESTOREDC 0x0127
+#परिभाषय META_FILLREGION 0x0228
+#परिभाषय META_FRAMEREGION 0x0429
+#परिभाषय META_INVERTREGION 0x012A
+#परिभाषय META_PAINTREGION 0x012B
+#परिभाषय META_SELECTCLIPREGION 0x012C
+#परिभाषय META_SELECTOBJECT 0x012D
+#परिभाषय META_SETTEXTALIGN 0x012E
+#परिभाषय META_CHORD 0x0830
+#परिभाषय META_SETMAPPERFLAGS 0x0231
+#परिभाषय META_EXTTEXTOUT 0x0a32
+#परिभाषय META_SETDIBTODEV 0x0d33
+#परिभाषय META_SELECTPALETTE 0x0234
+#परिभाषय META_REALIZEPALETTE 0x0035
+#परिभाषय META_ANIMATEPALETTE 0x0436
+#परिभाषय META_SETPALENTRIES 0x0037
+#परिभाषय META_POLYPOLYGON 0x0538
+#परिभाषय META_RESIZEPALETTE 0x0139
+#परिभाषय META_DIBBITBLT 0x0940
+#परिभाषय META_DIBSTRETCHBLT 0x0b41
+#परिभाषय META_DIBCREATEPATTERNBRUSH 0x0142
+#परिभाषय META_STRETCHDIB 0x0f43
+#परिभाषय META_EXTFLOODFILL 0x0548
+#परिभाषय META_SETLAYOUT 0x0149
+#परिभाषय META_DELETEOBJECT 0x01f0
+#परिभाषय META_CREATEPALETTE 0x00f7
+#परिभाषय META_CREATEPATTERNBRUSH 0x01F9
+#परिभाषय META_CREATEPENINDIRECT 0x02FA
+#परिभाषय META_CREATEFONTINDIRECT 0x02FB
+#परिभाषय META_CREATEBRUSHINDIRECT 0x02FC
+#परिभाषय META_CREATEREGION 0x06FF
 
-  typedef struct _DRAWPATRECT {
+  प्रकारनिर्देश संरचना _DRAWPATRECT {
     POINT ptPosition;
-    POINT ptSize;
+    POINT pt_आकार;
     WORD wStyle;
-    WORD wPattern;
+    WORD w_आदर्शः;
   } DRAWPATRECT,*PDRAWPATRECT;
-#endif
+#यदि_अन्तः
 
-#define NEWFRAME 1
-#define ABORTDOC 2
-#define NEXTBAND 3
-#define SETCOLORTABLE 4
-#define GETCOLORTABLE 5
-#define FLUSHOUTPUT 6
-#define DRAFTMODE 7
-#define QUERYESCSUPPORT 8
-#define SETABORTPROC 9
-#define STARTDOC 10
-#define ENDDOC 11
-#define GETPHYSPAGESIZE 12
-#define GETPRINTINGOFFSET 13
-#define GETSCALINGFACTOR 14
-#define MFCOMMENT 15
-#define GETPENWIDTH 16
-#define SETCOPYCOUNT 17
-#define SELECTPAPERSOURCE 18
-#define DEVICEDATA 19
-#define PASSTHROUGH 19
-#define GETTECHNOLGY 20
-#define GETTECHNOLOGY 20
-#define SETLINECAP 21
-#define SETLINEJOIN 22
-#define SETMITERLIMIT 23
-#define BANDINFO 24
-#define DRAWPATTERNRECT 25
-#define GETVECTORPENSIZE 26
-#define GETVECTORBRUSHSIZE 27
-#define ENABLEDUPLEX 28
-#define GETSETPAPERBINS 29
-#define GETSETPRINTORIENT 30
-#define ENUMPAPERBINS 31
-#define SETDIBSCALING 32
-#define EPSPRINTING 33
-#define ENUMPAPERMETRICS 34
-#define GETSETPAPERMETRICS 35
-#define POSTSCRIPT_DATA 37
-#define POSTSCRIPT_IGNORE 38
-#define MOUSETRAILS 39
-#define GETDEVICEUNITS 42
+#परिभाषय NEWFRAME 1
+#परिभाषय ABORTDOC 2
+#परिभाषय NEXTBAND 3
+#परिभाषय SETCOLORTABLE 4
+#परिभाषय GETCOLORTABLE 5
+#परिभाषय FLUSHOUTPUT 6
+#परिभाषय DRAFTMODE 7
+#परिभाषय QUERYESCSUPPORT 8
+#परिभाषय SETABORTPROC 9
+#परिभाषय STARTDOC 10
+#परिभाषय ENDDOC 11
+#परिभाषय GETPHYSPAGESIZE 12
+#परिभाषय GETPRINTINGOFFSET 13
+#परिभाषय GETSCALINGFACTOR 14
+#परिभाषय MFCOMMENT 15
+#परिभाषय GETPENWIDTH 16
+#परिभाषय SETCOPYCOUNT 17
+#परिभाषय SELECTPAPERSOURCE 18
+#परिभाषय DEVICEDATA 19
+#परिभाषय PASSTHROUGH 19
+#परिभाषय GETTECHNOLGY 20
+#परिभाषय GETTECHNOLOGY 20
+#परिभाषय SETLINECAP 21
+#परिभाषय SETLINEJOIN 22
+#परिभाषय SETMITERLIMIT 23
+#परिभाषय BANDINFO 24
+#परिभाषय DRAWPATTERNRECT 25
+#परिभाषय GETVECTORPENSIZE 26
+#परिभाषय GETVECTORBRUSHSIZE 27
+#परिभाषय ENABLEDUPLEX 28
+#परिभाषय GETSETPAPERBINS 29
+#परिभाषय GETSETPRINTORIENT 30
+#परिभाषय ENUMPAPERBINS 31
+#परिभाषय SETDIBSCALING 32
+#परिभाषय EPSPRINTING 33
+#परिभाषय ENUMPAPERMETRICS 34
+#परिभाषय GETSETPAPERMETRICS 35
+#परिभाषय POSTSCRIPT_दत्त 37
+#परिभाषय POSTSCRIPT_IGNORE 38
+#परिभाषय MOUSETRAILS 39
+#परिभाषय GETDEVICEUNITS 42
 
-#define GETEXTENDEDTEXTMETRICS 256
-#define GETEXTENTTABLE 257
-#define GETPAIRKERNTABLE 258
-#define GETTRACKKERNTABLE 259
-#define EXTTEXTOUT 512
-#define GETFACENAME 513
-#define DOWNLOADFACE 514
-#define ENABLERELATIVEWIDTHS 768
-#define ENABLEPAIRKERNING 769
-#define SETKERNTRACK 770
-#define SETALLJUSTVALUES 771
-#define SETCHARSET 772
+#परिभाषय GETEXTENDEDTEXTMETRICS 256
+#परिभाषय GETEXTENTTABLE 257
+#परिभाषय GETPAIRKERNTABLE 258
+#परिभाषय GETTRACKKERNTABLE 259
+#परिभाषय EXTTEXTOUT 512
+#परिभाषय GETFACENAME 513
+#परिभाषय DOWNLOADFACE 514
+#परिभाषय ENABLERELATIVEWIDTHS 768
+#परिभाषय ENABLEPAIRKERNING 769
+#परिभाषय SETKERNTRACK 770
+#परिभाषय SETALLJUSTVALUES 771
+#परिभाषय SETCHARSET 772
 
-#define STRETCHBLT 2048
-#define METAFILE_DRIVER 2049
-#define GETSETSCREENPARAMS 3072
-#define QUERYDIBSUPPORT 3073
-#define BEGIN_PATH 4096
-#define CLIP_TO_PATH 4097
-#define END_PATH 4098
-#define EXT_DEVICE_CAPS 4099
-#define RESTORE_CTM 4100
-#define SAVE_CTM 4101
-#define SET_ARC_DIRECTION 4102
-#define SET_BACKGROUND_COLOR 4103
-#define SET_POLY_MODE 4104
-#define SET_SCREEN_ANGLE 4105
-#define SET_SPREAD 4106
-#define TRANSFORM_CTM 4107
-#define SET_CLIP_BOX 4108
-#define SET_BOUNDS 4109
-#define SET_MIRROR_MODE 4110
-#define OPENCHANNEL 4110
-#define DOWNLOADHEADER 4111
-#define CLOSECHANNEL 4112
-#define POSTSCRIPT_PASSTHROUGH 4115
-#define ENCAPSULATED_POSTSCRIPT 4116
+#परिभाषय STRETCHBLT 2048
+#परिभाषय METAFILE_DRIVER 2049
+#परिभाषय GETSETSCREENPARAMS 3072
+#परिभाषय QUERYDIBSUPPORT 3073
+#परिभाषय BEGIN_मार्गः 4096
+#परिभाषय CLIP_गन्तव्यम्_मार्गः 4097
+#परिभाषय अन्तः_मार्गः 4098
+#परिभाषय EXT_DEVICE_CAPS 4099
+#परिभाषय RESTORE_CTM 4100
+#परिभाषय SAVE_CTM 4101
+#परिभाषय समुच्चयः_ARC_DIRECTION 4102
+#परिभाषय समुच्चयः_BACKGROUND_COLOR 4103
+#परिभाषय समुच्चयः_POLY_बहुलकम् 4104
+#परिभाषय समुच्चयः_SCREEN_ANGLE 4105
+#परिभाषय समुच्चयः_प्रसारः 4106
+#परिभाषय TRANSFORM_CTM 4107
+#परिभाषय समुच्चयः_CLIP_BOX 4108
+#परिभाषय समुच्चयः_BOUNDS 4109
+#परिभाषय समुच्चयः_MIRROR_बहुलकम् 4110
+#परिभाषय OPENCHANNEL 4110
+#परिभाषय DOWNLOADHEADER 4111
+#परिभाषय CLOSECHANNEL 4112
+#परिभाषय POSTSCRIPT_PASSTHROUGH 4115
+#परिभाषय ENCAPSULATED_POSTSCRIPT 4116
 
-#define POSTSCRIPT_IDENTIFY 4117
-#define POSTSCRIPT_INJECTION 4118
+#परिभाषय POSTSCRIPT_IDENTIFY 4117
+#परिभाषय POSTSCRIPT_INJECTION 4118
 
-#define CHECKJPEGFORMAT 4119
-#define CHECKPNGFORMAT 4120
+#परिभाषय CHECKJPEGFORMAT 4119
+#परिभाषय CHECKPNGFORMAT 4120
 
-#define GET_PS_FEATURESETTING 4121
+#परिभाषय GET_PS_FEATURESETTING 4121
 
-#define SPCLPASSTHROUGH2 4568
+#परिभाषय SPCLPASSTHROUGH2 4568
 
-#define PSIDENT_GDICENTRIC 0
-#define PSIDENT_PSCENTRIC 1
+#परिभाषय PSIDENT_GDICENTRIC 0
+#परिभाषय PSIDENT_PSCENTRIC 1
 
-  typedef struct _PSINJECTDATA {
-    DWORD DataBytes;
+  प्रकारनिर्देश संरचना _PSINJECTDATA {
+    DWORD दत्त_अष्टकानि;
     WORD InjectionPoint;
-    WORD PageNumber;
+    WORD Page_सङ्ख्या;
   } PSINJECTDATA,*PPSINJECTDATA;
 
-#define PSINJECT_BEGINSTREAM 1
-#define PSINJECT_PSADOBE 2
-#define PSINJECT_PAGESATEND 3
-#define PSINJECT_PAGES 4
+#परिभाषय PSINJECT_BEGINSTREAM 1
+#परिभाषय PSINJECT_PSADOBE 2
+#परिभाषय PSINJECT_PAGESATEND 3
+#परिभाषय PSINJECT_पृष्ठानि 4
 
-#define PSINJECT_DOCNEEDEDRES 5
-#define PSINJECT_DOCSUPPLIEDRES 6
-#define PSINJECT_PAGEORDER 7
-#define PSINJECT_ORIENTATION 8
-#define PSINJECT_BOUNDINGBOX 9
-#define PSINJECT_DOCUMENTPROCESSCOLORS 10
+#परिभाषय PSINJECT_DOCNEEDEDRES 5
+#परिभाषय PSINJECT_DOCSUPPLIEDRES 6
+#परिभाषय PSINJECT_PAGEORDER 7
+#परिभाषय PSINJECT_ORIENTATION 8
+#परिभाषय PSINJECT_BOUNDINGBOX 9
+#परिभाषय PSINJECT_DOCUMENTPROCESSCOLORS 10
 
-#define PSINJECT_COMMENTS 11
-#define PSINJECT_BEGINDEFAULTS 12
-#define PSINJECT_ENDDEFAULTS 13
-#define PSINJECT_BEGINPROLOG 14
-#define PSINJECT_ENDPROLOG 15
-#define PSINJECT_BEGINSETUP 16
-#define PSINJECT_ENDSETUP 17
-#define PSINJECT_TRAILER 18
-#define PSINJECT_EOF 19
-#define PSINJECT_ENDSTREAM 20
-#define PSINJECT_DOCUMENTPROCESSCOLORSATEND 21
+#परिभाषय PSINJECT_COMMENTS 11
+#परिभाषय PSINJECT_BEGINDEFAULTS 12
+#परिभाषय PSINJECT_ENDDEFAULTS 13
+#परिभाषय PSINJECT_BEGINPROLOG 14
+#परिभाषय PSINJECT_ENDPROLOG 15
+#परिभाषय PSINJECT_BEGINSETUP 16
+#परिभाषय PSINJECT_ENDSETUP 17
+#परिभाषय PSINJECT_TRAILER 18
+#परिभाषय PSINJECT_EOF 19
+#परिभाषय PSINJECT_ENDSTREAM 20
+#परिभाषय PSINJECT_DOCUMENTPROCESSCOLORSATEND 21
 
-#define PSINJECT_PAGENUMBER 100
-#define PSINJECT_BEGINPAGESETUP 101
-#define PSINJECT_ENDPAGESETUP 102
-#define PSINJECT_PAGETRAILER 103
-#define PSINJECT_PLATECOLOR 104
+#परिभाषय PSINJECT_PAGENUMBER 100
+#परिभाषय PSINJECT_BEGINPAGESETUP 101
+#परिभाषय PSINJECT_ENDPAGESETUP 102
+#परिभाषय PSINJECT_PAGETRAILER 103
+#परिभाषय PSINJECT_PLATECOLOR 104
 
-#define PSINJECT_SHOWPAGE 105
-#define PSINJECT_PAGEBBOX 106
-#define PSINJECT_ENDPAGECOMMENTS 107
+#परिभाषय PSINJECT_SHOWPAGE 105
+#परिभाषय PSINJECT_PAGEBBOX 106
+#परिभाषय PSINJECT_ENDPAGECOMMENTS 107
 
-#define PSINJECT_VMSAVE 200
-#define PSINJECT_VMRESTORE 201
+#परिभाषय PSINJECT_VMSAVE 200
+#परिभाषय PSINJECT_VMRESTORE 201
 
-#define FEATURESETTING_NUP 0
-#define FEATURESETTING_OUTPUT 1
-#define FEATURESETTING_PSLEVEL 2
-#define FEATURESETTING_CUSTPAPER 3
-#define FEATURESETTING_MIRROR 4
-#define FEATURESETTING_NEGATIVE 5
-#define FEATURESETTING_PROTOCOL 6
+#परिभाषय FEATURESETTING_NUP 0
+#परिभाषय FEATURESETTING_OUTPUT 1
+#परिभाषय FEATURESETTING_PSLEVEL 2
+#परिभाषय FEATURESETTING_CUSTPAPER 3
+#परिभाषय FEATURESETTING_MIRROR 4
+#परिभाषय FEATURESETTING_NEGATIVE 5
+#परिभाषय FEATURESETTING_PROTOCOL 6
 
-#define FEATURESETTING_PRIVATE_BEGIN 0x1000
-#define FEATURESETTING_PRIVATE_END 0x1FFF
+#परिभाषय FEATURESETTING_वैयक्तिकम्_BEGIN 0x1000
+#परिभाषय FEATURESETTING_वैयक्तिकम्_अन्तः 0x1FFF
 
-  typedef struct _PSFEATURE_OUTPUT {
+  प्रकारनिर्देश संरचना _PSFEATURE_OUTPUT {
     WINBOOL bPageIndependent;
-    WINBOOL bSetPageDevice;
+    WINBOOL b_समुच्चयः_Page_Device;
   } PSFEATURE_OUTPUT,*PPSFEATURE_OUTPUT;
 
-  typedef struct _PSFEATURE_CUSTPAPER {
+  प्रकारनिर्देश संरचना _PSFEATURE_CUSTPAPER {
     LONG lOrientation;
-    LONG lWidth;
+    LONG l_विस्तारः;
     LONG lHeight;
-    LONG lWidthOffset;
-    LONG lHeightOffset;
+    LONG l_विस्तारः_विस्थापनम्;
+    LONG l_Height_विस्थापनम्;
   } PSFEATURE_CUSTPAPER,*PPSFEATURE_CUSTPAPER;
 
-#define PSPROTOCOL_ASCII 0
-#define PSPROTOCOL_BCP 1
-#define PSPROTOCOL_TBCP 2
-#define PSPROTOCOL_BINARY 3
+#परिभाषय PSPROTOCOL_ASCII 0
+#परिभाषय PSPROTOCOL_BCP 1
+#परिभाषय PSPROTOCOL_TBCP 2
+#परिभाषय PSPROTOCOL_द्विमान 3
 
-#define QDI_SETDIBITS 1
-#define QDI_GETDIBITS 2
-#define QDI_DIBTOSCREEN 4
-#define QDI_STRETCHDIB 8
+#परिभाषय QDI_SETDIBITS 1
+#परिभाषय QDI_GETDIBITS 2
+#परिभाषय QDI_DIBTOSCREEN 4
+#परिभाषय QDI_STRETCHDIB 8
 
-#define SP_NOTREPORTED 0x4000
-#define SP_ERROR (-1)
-#define SP_APPABORT (-2)
-#define SP_USERABORT (-3)
-#define SP_OUTOFDISK (-4)
-#define SP_OUTOFMEMORY (-5)
+#परिभाषय SP_NOTREPORTED 0x4000
+#परिभाषय SP_ERROR (-1)
+#परिभाषय SP_APPABORT (-2)
+#परिभाषय SP_USERABORT (-3)
+#परिभाषय SP_OUTOFDISK (-4)
+#परिभाषय SP_OUTOFMEMORY (-5)
 
-#define PR_JOBSTATUS 0x0000
+#परिभाषय PR_JOBSTATUS 0x0000
 
-#define OBJ_PEN 1
-#define OBJ_BRUSH 2
-#define OBJ_DC 3
-#define OBJ_METADC 4
-#define OBJ_PAL 5
-#define OBJ_FONT 6
-#define OBJ_BITMAP 7
-#define OBJ_REGION 8
-#define OBJ_METAFILE 9
-#define OBJ_MEMDC 10
-#define OBJ_EXTPEN 11
-#define OBJ_ENHMETADC 12
-#define OBJ_ENHMETAFILE 13
-#define OBJ_COLORSPACE 14
+#परिभाषय OBJ_PEN 1
+#परिभाषय OBJ_BRUSH 2
+#परिभाषय OBJ_DC 3
+#परिभाषय OBJ_METADC 4
+#परिभाषय OBJ_PAL 5
+#परिभाषय OBJ_FONT 6
+#परिभाषय OBJ_BITMAP 7
+#परिभाषय OBJ_REGION 8
+#परिभाषय OBJ_METAFILE 9
+#परिभाषय OBJ_MEMDC 10
+#परिभाषय OBJ_EXTPEN 11
+#परिभाषय OBJ_ENHMETADC 12
+#परिभाषय OBJ_ENHMETAFILE 13
+#परिभाषय OBJ_COLORSPACE 14
 
-#define MWT_IDENTITY 1
-#define MWT_LEFTMULTIPLY 2
-#define MWT_RIGHTMULTIPLY 3
+#परिभाषय MWT_तटस्थः 1
+#परिभाषय MWT_LEFTMULTIPLY 2
+#परिभाषय MWT_RIGHTMULTIPLY 3
 
-#define MWT_MIN MWT_IDENTITY
-#define MWT_MAX MWT_RIGHTMULTIPLY
+#परिभाषय MWT_MIN MWT_तटस्थः
+#परिभाषय MWT_MAX MWT_RIGHTMULTIPLY
 
-#define _XFORM_
-  typedef struct tagXFORM {
+#परिभाषय _XFORM_
+  प्रकारनिर्देश संरचना चिह्नकम्_XFORM {
     FLOAT eM11;
     FLOAT eM12;
     FLOAT eM21;
@@ -424,298 +424,298 @@ extern "C" {
     FLOAT eDy;
   } XFORM,*PXFORM,*LPXFORM;
 
-  typedef struct tagBITMAP {
+  प्रकारनिर्देश संरचना चिह्नकम्_BITMAP {
     LONG bmType;
-    LONG bmWidth;
+    LONG bm_विस्तारः;
     LONG bmHeight;
-    LONG bmWidthBytes;
+    LONG bm_विस्तारः_अष्टकानि;
     WORD bmPlanes;
-    WORD bmBitsPixel;
-    LPVOID bmBits;
+    WORD bm_द्वयङ्काः_Pixel;
+    LPVOID bm_द्वयङ्काः;
   } BITMAP,*PBITMAP,*NPBITMAP,*LPBITMAP;
 
-#include <pshpack1.h>
-  typedef struct tagRGBTRIPLE {
+#अन्तर्भाव <pshpack1.h>
+  प्रकारनिर्देश संरचना चिह्नकम्_RGBTRIPLE {
     BYTE rgbtBlue;
     BYTE rgbtGreen;
     BYTE rgbtRed;
   } RGBTRIPLE;
-#include <poppack.h>
+#अन्तर्भाव <poppack.h>
 
-  typedef struct tagRGBQUAD {
+  प्रकारनिर्देश संरचना चिह्नकम्_RGBQUAD {
     BYTE rgbBlue;
     BYTE rgbGreen;
     BYTE rgbRed;
     BYTE rgbReserved;
   } RGBQUAD;
-  typedef RGBQUAD *LPRGBQUAD;
+  प्रकारनिर्देश RGBQUAD *LPRGBQUAD;
 
-#define CS_ENABLE 0x00000001L
-#define CS_DISABLE 0x00000002L
-#define CS_DELETE_TRANSFORM 0x00000003L
+#परिभाषय CS_ENABLE 0x00000001L
+#परिभाषय CS_DISABLE 0x00000002L
+#परिभाषय CS_DELETE_TRANSFORM 0x00000003L
 
 //!__TINYC__: #define LCS_SIGNATURE 'PSOC'
 //!__TINYC__: #define LCS_sRGB 'sRGB'
 //!__TINYC__: #define LCS_WINDOWS_COLOR_SPACE 'Win '
 
-  typedef LONG LCSCSTYPE;
-#define LCS_CALIBRATED_RGB 0x00000000L
+  प्रकारनिर्देश LONG LCSCSTYPE;
+#परिभाषय LCS_CALIBRATED_RGB 0x00000000L
 
-  typedef LONG LCSGAMUTMATCH;
-#define LCS_GM_BUSINESS 0x00000001L
-#define LCS_GM_GRAPHICS 0x00000002L
-#define LCS_GM_IMAGES 0x00000004L
-#define LCS_GM_ABS_COLORIMETRIC 0x00000008L
+  प्रकारनिर्देश LONG LCSGAMUTMATCH;
+#परिभाषय LCS_GM_BUSINESS 0x00000001L
+#परिभाषय LCS_GM_GRAPHICS 0x00000002L
+#परिभाषय LCS_GM_IMAGES 0x00000004L
+#परिभाषय LCS_GM_ABS_COLORIMETRIC 0x00000008L
 
-#define CM_OUT_OF_GAMUT 255
-#define CM_IN_GAMUT 0
+#परिभाषय CM_बहिर्गमनम्_सम्बन्धि_GAMUT 255
+#परिभाषय CM_अन्तर्_GAMUT 0
 
-#define ICM_ADDPROFILE 1
-#define ICM_DELETEPROFILE 2
-#define ICM_QUERYPROFILE 3
-#define ICM_SETDEFAULTPROFILE 4
-#define ICM_REGISTERICMATCHER 5
-#define ICM_UNREGISTERICMATCHER 6
-#define ICM_QUERYMATCH 7
+#परिभाषय ICM_ADDPROFILE 1
+#परिभाषय ICM_DELETEPROFILE 2
+#परिभाषय ICM_QUERYPROFILE 3
+#परिभाषय ICM_SETDEFAULTPROFILE 4
+#परिभाषय ICM_REGISTERICMATCHER 5
+#परिभाषय ICM_UNREGISTERICMATCHER 6
+#परिभाषय ICM_QUERYMATCH 7
 
-#define GetKValue(cmyk) ((BYTE)(cmyk))
-#define GetYValue(cmyk) ((BYTE)((cmyk)>> 8))
-#define GetMValue(cmyk) ((BYTE)((cmyk)>>16))
-#define GetCValue(cmyk) ((BYTE)((cmyk)>>24))
+#परिभाषय GetKValue(cmyk) ((BYTE)(cmyk))
+#परिभाषय GetYValue(cmyk) ((BYTE)((cmyk)>> 8))
+#परिभाषय GetMValue(cmyk) ((BYTE)((cmyk)>>16))
+#परिभाषय GetCValue(cmyk) ((BYTE)((cmyk)>>24))
 
-#define CMYK(c,m,y,k) ((COLORREF)((((BYTE)(k)|((WORD)((BYTE)(y))<<8))|(((DWORD)(BYTE)(m))<<16))|(((DWORD)(BYTE)(c))<<24)))
+#परिभाषय CMYK(c,m,y,k) ((COLORREF)((((BYTE)(k)|((WORD)((BYTE)(y))<<8))|(((DWORD)(BYTE)(m))<<16))|(((DWORD)(BYTE)(c))<<24)))
 
-  typedef long FXPT16DOT16,*LPFXPT16DOT16;
-  typedef long FXPT2DOT30,*LPFXPT2DOT30;
+  प्रकारनिर्देश दीर्घ FXPT16DOT16,*LPFXPT16DOT16;
+  प्रकारनिर्देश दीर्घ FXPT2DOT30,*LPFXPT2DOT30;
 
-  typedef struct tagCIEXYZ {
+  प्रकारनिर्देश संरचना चिह्नकम्_CIEXYZ {
     FXPT2DOT30 ciexyzX;
     FXPT2DOT30 ciexyzY;
     FXPT2DOT30 ciexyzZ;
   } CIEXYZ;
-  typedef CIEXYZ *LPCIEXYZ;
+  प्रकारनिर्देश CIEXYZ *LPCIEXYZ;
 
-  typedef struct tagICEXYZTRIPLE {
+  प्रकारनिर्देश संरचना चिह्नकम्_ICEXYZTRIPLE {
     CIEXYZ ciexyzRed;
     CIEXYZ ciexyzGreen;
     CIEXYZ ciexyzBlue;
   } CIEXYZTRIPLE;
 
-  typedef CIEXYZTRIPLE *LPCIEXYZTRIPLE;
+  प्रकारनिर्देश CIEXYZTRIPLE *LPCIEXYZTRIPLE;
 
-  typedef struct tagLOGCOLORSPACEA {
+  प्रकारनिर्देश संरचना चिह्नकम्_LOGCOLORSPACEA {
     DWORD lcsSignature;
-    DWORD lcsVersion;
-    DWORD lcsSize;
+    DWORD lcs_संस्करणम्;
+    DWORD lcs_आकार;
     LCSCSTYPE lcsCSType;
     LCSGAMUTMATCH lcsIntent;
     CIEXYZTRIPLE lcsEndpoints;
     DWORD lcsGammaRed;
     DWORD lcsGammaGreen;
     DWORD lcsGammaBlue;
-    CHAR lcsFilename[MAX_PATH];
+    CHAR lcsFilename[MAX_मार्गः];
   } LOGCOLORSPACEA,*LPLOGCOLORSPACEA;
 
-  typedef struct tagLOGCOLORSPACEW {
+  प्रकारनिर्देश संरचना चिह्नकम्_LOGCOLORSPACEW {
     DWORD lcsSignature;
-    DWORD lcsVersion;
-    DWORD lcsSize;
+    DWORD lcs_संस्करणम्;
+    DWORD lcs_आकार;
     LCSCSTYPE lcsCSType;
     LCSGAMUTMATCH lcsIntent;
     CIEXYZTRIPLE lcsEndpoints;
     DWORD lcsGammaRed;
     DWORD lcsGammaGreen;
     DWORD lcsGammaBlue;
-    WCHAR lcsFilename[MAX_PATH];
+    WCHAR lcsFilename[MAX_मार्गः];
   } LOGCOLORSPACEW,*LPLOGCOLORSPACEW;
 
-#ifdef UNICODE
-  typedef LOGCOLORSPACEW LOGCOLORSPACE;
-  typedef LPLOGCOLORSPACEW LPLOGCOLORSPACE;
-#else
-  typedef LOGCOLORSPACEA LOGCOLORSPACE;
-  typedef LPLOGCOLORSPACEA LPLOGCOLORSPACE;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश LOGCOLORSPACEW LOGCOLORSPACE;
+  प्रकारनिर्देश LPLOGCOLORSPACEW LPLOGCOLORSPACE;
+#अन्यथा
+  प्रकारनिर्देश LOGCOLORSPACEA LOGCOLORSPACE;
+  प्रकारनिर्देश LPLOGCOLORSPACEA LPLOGCOLORSPACE;
+#यदि_अन्तः
 
-  typedef struct tagBITMAPCOREHEADER {
-    DWORD bcSize;
-    WORD bcWidth;
+  प्रकारनिर्देश संरचना चिह्नकम्_BITMAPCOREHEADER {
+    DWORD bc_आकार;
+    WORD bc_विस्तारः;
     WORD bcHeight;
     WORD bcPlanes;
-    WORD bcBitCount;
+    WORD bc_Bit_गणनम्;
   } BITMAPCOREHEADER,*LPBITMAPCOREHEADER,*PBITMAPCOREHEADER;
 
-  typedef struct tagBITMAPINFOHEADER {
-    DWORD biSize;
-    LONG biWidth;
+  प्रकारनिर्देश संरचना चिह्नकम्_BITMAPINFOHEADER {
+    DWORD bi_आकार;
+    LONG bi_विस्तारः;
     LONG biHeight;
     WORD biPlanes;
-    WORD biBitCount;
+    WORD bi_Bit_गणनम्;
     DWORD biCompression;
-    DWORD biSizeImage;
-    LONG biXPelsPerMeter;
-    LONG biYPelsPerMeter;
-    DWORD biClrUsed;
+    DWORD bi_आकार_Image;
+    LONG bi_XPels_प्रत्येकम्_Meter;
+    LONG bi_YPels_प्रत्येकम्_Meter;
+    DWORD bi_Clr_प्रयुक्तम्;
     DWORD biClrImportant;
   } BITMAPINFOHEADER,*LPBITMAPINFOHEADER,*PBITMAPINFOHEADER;
 
-  typedef struct {
-    DWORD bV4Size;
-    LONG bV4Width;
+  प्रकारनिर्देश संरचना {
+    DWORD b_V4_आकार;
+    LONG b_V4_विस्तारः;
     LONG bV4Height;
     WORD bV4Planes;
-    WORD bV4BitCount;
+    WORD b_V4_Bit_गणनम्;
     DWORD bV4V4Compression;
-    DWORD bV4SizeImage;
-    LONG bV4XPelsPerMeter;
-    LONG bV4YPelsPerMeter;
-    DWORD bV4ClrUsed;
+    DWORD b_V4_आकार_Image;
+    LONG b_V4_XPels_प्रत्येकम्_Meter;
+    LONG b_V4_YPels_प्रत्येकम्_Meter;
+    DWORD b_V4_Clr_प्रयुक्तम्;
     DWORD bV4ClrImportant;
-    DWORD bV4RedMask;
-    DWORD bV4GreenMask;
-    DWORD bV4BlueMask;
-    DWORD bV4AlphaMask;
+    DWORD b_V4_Red_आवरणम्;
+    DWORD b_V4_Green_आवरणम्;
+    DWORD b_V4_Blue_आवरणम्;
+    DWORD b_V4_Alpha_आवरणम्;
     DWORD bV4CSType;
     CIEXYZTRIPLE bV4Endpoints;
     DWORD bV4GammaRed;
     DWORD bV4GammaGreen;
     DWORD bV4GammaBlue;
-  } BITMAPV4HEADER,*LPBITMAPV4HEADER,*PBITMAPV4HEADER;
+  } BITMAPV4_शीर्षकम्,*LPBITMAPV4_शीर्षकम्,*PBITMAPV4_शीर्षकम्;
 
-  typedef struct {
-    DWORD bV5Size;
-    LONG bV5Width;
+  प्रकारनिर्देश संरचना {
+    DWORD b_V5_आकार;
+    LONG b_V5_विस्तारः;
     LONG bV5Height;
     WORD bV5Planes;
-    WORD bV5BitCount;
+    WORD b_V5_Bit_गणनम्;
     DWORD bV5Compression;
-    DWORD bV5SizeImage;
-    LONG bV5XPelsPerMeter;
-    LONG bV5YPelsPerMeter;
-    DWORD bV5ClrUsed;
+    DWORD b_V5_आकार_Image;
+    LONG b_V5_XPels_प्रत्येकम्_Meter;
+    LONG b_V5_YPels_प्रत्येकम्_Meter;
+    DWORD b_V5_Clr_प्रयुक्तम्;
     DWORD bV5ClrImportant;
-    DWORD bV5RedMask;
-    DWORD bV5GreenMask;
-    DWORD bV5BlueMask;
-    DWORD bV5AlphaMask;
+    DWORD b_V5_Red_आवरणम्;
+    DWORD b_V5_Green_आवरणम्;
+    DWORD b_V5_Blue_आवरणम्;
+    DWORD b_V5_Alpha_आवरणम्;
     DWORD bV5CSType;
     CIEXYZTRIPLE bV5Endpoints;
     DWORD bV5GammaRed;
     DWORD bV5GammaGreen;
     DWORD bV5GammaBlue;
     DWORD bV5Intent;
-    DWORD bV5ProfileData;
-    DWORD bV5ProfileSize;
+    DWORD b_V5_Profile_दत्त;
+    DWORD b_V5_Profile_आकार;
     DWORD bV5Reserved;
-  } BITMAPV5HEADER,*LPBITMAPV5HEADER,*PBITMAPV5HEADER;
+  } BITMAPV5_शीर्षकम्,*LPBITMAPV5_शीर्षकम्,*PBITMAPV5_शीर्षकम्;
 
 //!__TINYC__: #define PROFILE_LINKED 'LINK'
 //!__TINYC__: #define PROFILE_EMBEDDED 'MBED'
 
-#define BI_RGB 0L
-#define BI_RLE8 1L
-#define BI_RLE4 2L
-#define BI_BITFIELDS 3L
-#define BI_JPEG 4L
-#define BI_PNG 5L
+#परिभाषय BI_RGB 0L
+#परिभाषय BI_RLE8 1L
+#परिभाषय BI_RLE4 2L
+#परिभाषय BI_BITFIELDS 3L
+#परिभाषय BI_JPEG 4L
+#परिभाषय BI_PNG 5L
 
-  typedef struct tagBITMAPINFO {
-    BITMAPINFOHEADER bmiHeader;
+  प्रकारनिर्देश संरचना चिह्नकम्_BITMAPINFO {
+    BITMAPINFOHEADER bmi_शीर्षकम्;
     RGBQUAD bmiColors[1];
   } BITMAPINFO,*LPBITMAPINFO,*PBITMAPINFO;
 
-  typedef struct tagBITMAPCOREINFO {
-    BITMAPCOREHEADER bmciHeader;
+  प्रकारनिर्देश संरचना चिह्नकम्_BITMAPCOREINFO {
+    BITMAPCOREHEADER bmci_शीर्षकम्;
     RGBTRIPLE bmciColors[1];
   } BITMAPCOREINFO,*LPBITMAPCOREINFO,*PBITMAPCOREINFO;
 
-#include <pshpack2.h>
-  typedef struct tagBITMAPFILEHEADER {
+#अन्तर्भाव <pshpack2.h>
+  प्रकारनिर्देश संरचना चिह्नकम्_BITMAPFILEHEADER {
     WORD bfType;
-    DWORD bfSize;
+    DWORD bf_आकार;
     WORD bfReserved1;
     WORD bfReserved2;
-    DWORD bfOffBits;
+    DWORD bf_Off_द्वयङ्काः;
   } BITMAPFILEHEADER,*LPBITMAPFILEHEADER,*PBITMAPFILEHEADER;
-#include <poppack.h>
+#अन्तर्भाव <poppack.h>
 
-#define MAKEPOINTS(l) (*((POINTS *)&(l)))
+#परिभाषय MAKEPOINTS(l) (*((POINTS *)&(l)))
 
-#ifndef NOFONTSIG
-  typedef struct tagFONTSIGNATURE {
+#यदि_अपरिभाषितम् NOFONTSIG
+  प्रकारनिर्देश संरचना चिह्नकम्_FONTSIGNATURE {
     DWORD fsUsb[4];
     DWORD fsCsb[2];
   } FONTSIGNATURE,*PFONTSIGNATURE,*LPFONTSIGNATURE;
 
-  typedef struct tagCHARSETINFO {
+  प्रकारनिर्देश संरचना चिह्नकम्_CHARSETINFO {
     UINT ciCharset;
     UINT ciACP;
     FONTSIGNATURE fs;
   } CHARSETINFO,*PCHARSETINFO,*NPCHARSETINFO,*LPCHARSETINFO;
 
-#define TCI_SRCCHARSET 1
-#define TCI_SRCCODEPAGE 2
-#define TCI_SRCFONTSIG 3
-#define TCI_SRCLOCALE 0x1000
+#परिभाषय TCI_SRCCHARSET 1
+#परिभाषय TCI_SRCCODEPAGE 2
+#परिभाषय TCI_SRCFONTSIG 3
+#परिभाषय TCI_SRCLOCALE 0x1000
 
-  typedef struct tagLOCALESIGNATURE {
+  प्रकारनिर्देश संरचना चिह्नकम्_LOCALESIGNATURE {
     DWORD lsUsb[4];
     DWORD lsCsbDefault[2];
     DWORD lsCsbSupported[2];
   } LOCALESIGNATURE,*PLOCALESIGNATURE,*LPLOCALESIGNATURE;
-#endif
+#यदि_अन्तः
 
 
-#ifndef NOMETAFILE
-  typedef struct tagHANDLETABLE {
+#यदि_अपरिभाषितम् NOMETAFILE
+  प्रकारनिर्देश संरचना चिह्नकम्_HANDLETABLE {
     HGDIOBJ objectHandle[1];
   } HANDLETABLE,*PHANDLETABLE,*LPHANDLETABLE;
 
-  typedef struct tagMETARECORD {
-    DWORD rdSize;
+  प्रकारनिर्देश संरचना चिह्नकम्_METARECORD {
+    DWORD rd_आकार;
     WORD rdFunction;
     WORD rdParm[1];
   } METARECORD;
-  typedef struct tagMETARECORD UNALIGNED *PMETARECORD;
-  typedef struct tagMETARECORD UNALIGNED *LPMETARECORD;
+  प्रकारनिर्देश संरचना चिह्नकम्_METARECORD UNALIGNED *PMETARECORD;
+  प्रकारनिर्देश संरचना चिह्नकम्_METARECORD UNALIGNED *LPMETARECORD;
 
-  typedef struct tagMETAFILEPICT {
+  प्रकारनिर्देश संरचना चिह्नकम्_METAFILEPICT {
     LONG mm;
     LONG xExt;
     LONG yExt;
     HMETAFILE hMF;
   } METAFILEPICT,*LPMETAFILEPICT;
 
-#include <pshpack2.h>
-  typedef struct tagMETAHEADER {
+#अन्तर्भाव <pshpack2.h>
+  प्रकारनिर्देश संरचना चिह्नकम्_METAHEADER {
     WORD mtType;
-    WORD mtHeaderSize;
-    WORD mtVersion;
-    DWORD mtSize;
+    WORD mt_शीर्षकम्_आकार;
+    WORD mt_संस्करणम्;
+    DWORD mt_आकार;
     WORD mtNoObjects;
-    DWORD mtMaxRecord;
+    DWORD mt_Max_लेखः;
     WORD mtNoParameters;
   } METAHEADER;
-  typedef struct tagMETAHEADER UNALIGNED *PMETAHEADER;
-  typedef struct tagMETAHEADER UNALIGNED *LPMETAHEADER;
+  प्रकारनिर्देश संरचना चिह्नकम्_METAHEADER UNALIGNED *PMETAHEADER;
+  प्रकारनिर्देश संरचना चिह्नकम्_METAHEADER UNALIGNED *LPMETAHEADER;
 
-#include <poppack.h>
+#अन्तर्भाव <poppack.h>
 
-  typedef struct tagENHMETARECORD {
+  प्रकारनिर्देश संरचना चिह्नकम्_ENHMETARECORD {
     DWORD iType;
-    DWORD nSize;
+    DWORD n_आकार;
     DWORD dParm[1];
   } ENHMETARECORD,*PENHMETARECORD,*LPENHMETARECORD;
 
-  typedef struct tagENHMETAHEADER {
+  प्रकारनिर्देश संरचना चिह्नकम्_ENHMETAHEADER {
     DWORD iType;
-    DWORD nSize;
+    DWORD n_आकार;
     RECTL rclBounds;
     RECTL rclFrame;
     DWORD dSignature;
-    DWORD nVersion;
-    DWORD nBytes;
-    DWORD nRecords;
+    DWORD n_संस्करणम्;
+    DWORD n_अष्टकानि;
+    DWORD n_लेखाः;
     WORD nHandles;
     WORD sReserved;
     DWORD nDescription;
@@ -728,175 +728,175 @@ extern "C" {
     DWORD bOpenGL;
     SIZEL szlMicrometers;
   } ENHMETAHEADER,*PENHMETAHEADER,*LPENHMETAHEADER;
-#endif
+#यदि_अन्तः
 
-#ifndef NOTEXTMETRIC
-#define TMPF_FIXED_PITCH 0x01
-#define TMPF_VECTOR 0x02
-#define TMPF_DEVICE 0x08
-#define TMPF_TRUETYPE 0x04
+#यदि_अपरिभाषितम् NOTEXTMETRIC
+#परिभाषय TMPF_FIXED_PITCH 0x01
+#परिभाषय TMPF_सदिशम् 0x02
+#परिभाषय TMPF_DEVICE 0x08
+#परिभाषय TMPF_TRUETYPE 0x04
 
-#ifdef UNICODE
-  typedef WCHAR BCHAR;
-#else
-  typedef BYTE BCHAR;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश WCHAR BCHAR;
+#अन्यथा
+  प्रकारनिर्देश BYTE BCHAR;
+#यदि_अन्तः
 
-#ifndef _TEXTMETRIC_DEFINED
-#define _TEXTMETRIC_DEFINED
-  typedef struct tagTEXTMETRICA {
+#यदि_अपरिभाषितम् _TEXTMETRIC_DEFINED
+#परिभाषय _TEXTMETRIC_DEFINED
+  प्रकारनिर्देश संरचना चिह्नकम्_TEXTMETRICA {
     LONG tmHeight;
     LONG tmAscent;
     LONG tmDescent;
-    LONG tmInternalLeading;
+    LONG tm_आन्तरिकम्_Leading;
     LONG tmExternalLeading;
-    LONG tmAveCharWidth;
-    LONG tmMaxCharWidth;
+    LONG tm_Ave_Char_विस्तारः;
+    LONG tm_Max_Char_विस्तारः;
     LONG tmWeight;
     LONG tmOverhang;
     LONG tmDigitizedAspectX;
     LONG tmDigitizedAspectY;
     BYTE tmFirstChar;
-    BYTE tmLastChar;
+    BYTE tm_चरमः_Char;
     BYTE tmDefaultChar;
     BYTE tmBreakChar;
     BYTE tmItalic;
     BYTE tmUnderlined;
-    BYTE tmStruckOut;
+    BYTE tm_Struck_बहिर्गमनम्;
     BYTE tmPitchAndFamily;
-    BYTE tmCharSet;
+    BYTE tm_Char_समुच्चयः;
   } TEXTMETRICA,*PTEXTMETRICA,*NPTEXTMETRICA,*LPTEXTMETRICA;
 
-  typedef struct tagTEXTMETRICW {
+  प्रकारनिर्देश संरचना चिह्नकम्_TEXTMETRICW {
     LONG tmHeight;
     LONG tmAscent;
     LONG tmDescent;
-    LONG tmInternalLeading;
+    LONG tm_आन्तरिकम्_Leading;
     LONG tmExternalLeading;
-    LONG tmAveCharWidth;
-    LONG tmMaxCharWidth;
+    LONG tm_Ave_Char_विस्तारः;
+    LONG tm_Max_Char_विस्तारः;
     LONG tmWeight;
     LONG tmOverhang;
     LONG tmDigitizedAspectX;
     LONG tmDigitizedAspectY;
     WCHAR tmFirstChar;
-    WCHAR tmLastChar;
+    WCHAR tm_चरमः_Char;
     WCHAR tmDefaultChar;
     WCHAR tmBreakChar;
     BYTE tmItalic;
     BYTE tmUnderlined;
-    BYTE tmStruckOut;
+    BYTE tm_Struck_बहिर्गमनम्;
     BYTE tmPitchAndFamily;
-    BYTE tmCharSet;
+    BYTE tm_Char_समुच्चयः;
   } TEXTMETRICW,*PTEXTMETRICW,*NPTEXTMETRICW,*LPTEXTMETRICW;
-#ifdef UNICODE
-  typedef TEXTMETRICW TEXTMETRIC;
-  typedef PTEXTMETRICW PTEXTMETRIC;
-  typedef NPTEXTMETRICW NPTEXTMETRIC;
-  typedef LPTEXTMETRICW LPTEXTMETRIC;
-#else
-  typedef TEXTMETRICA TEXTMETRIC;
-  typedef PTEXTMETRICA PTEXTMETRIC;
-  typedef NPTEXTMETRICA NPTEXTMETRIC;
-  typedef LPTEXTMETRICA LPTEXTMETRIC;
-#endif
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश TEXTMETRICW TEXTMETRIC;
+  प्रकारनिर्देश PTEXTMETRICW PTEXTMETRIC;
+  प्रकारनिर्देश NPTEXTMETRICW NPTEXTMETRIC;
+  प्रकारनिर्देश LPTEXTMETRICW LPTEXTMETRIC;
+#अन्यथा
+  प्रकारनिर्देश TEXTMETRICA TEXTMETRIC;
+  प्रकारनिर्देश PTEXTMETRICA PTEXTMETRIC;
+  प्रकारनिर्देश NPTEXTMETRICA NPTEXTMETRIC;
+  प्रकारनिर्देश LPTEXTMETRICA LPTEXTMETRIC;
+#यदि_अन्तः
+#यदि_अन्तः
 
-#define NTM_REGULAR 0x00000040L
-#define NTM_BOLD 0x00000020L
-#define NTM_ITALIC 0x00000001L
+#परिभाषय NTM_REGULAR 0x00000040L
+#परिभाषय NTM_BOLD 0x00000020L
+#परिभाषय NTM_ITALIC 0x00000001L
 
-#define NTM_NONNEGATIVE_AC 0x00010000
-#define NTM_PS_OPENTYPE 0x00020000
-#define NTM_TT_OPENTYPE 0x00040000
-#define NTM_MULTIPLEMASTER 0x00080000
-#define NTM_TYPE1 0x00100000
-#define NTM_DSIG 0x00200000
+#परिभाषय NTM_NONNEGATIVE_AC 0x00010000
+#परिभाषय NTM_PS_OPENTYPE 0x00020000
+#परिभाषय NTM_TT_OPENTYPE 0x00040000
+#परिभाषय NTM_MULTIPLEMASTER 0x00080000
+#परिभाषय NTM_TYPE1 0x00100000
+#परिभाषय NTM_DSIG 0x00200000
 
-#include <pshpack4.h>
-  typedef struct tagNEWTEXTMETRICA {
+#अन्तर्भाव <pshpack4.h>
+  प्रकारनिर्देश संरचना चिह्नकम्_NEWTEXTMETRICA {
     LONG tmHeight;
     LONG tmAscent;
     LONG tmDescent;
-    LONG tmInternalLeading;
+    LONG tm_आन्तरिकम्_Leading;
     LONG tmExternalLeading;
-    LONG tmAveCharWidth;
-    LONG tmMaxCharWidth;
+    LONG tm_Ave_Char_विस्तारः;
+    LONG tm_Max_Char_विस्तारः;
     LONG tmWeight;
     LONG tmOverhang;
     LONG tmDigitizedAspectX;
     LONG tmDigitizedAspectY;
     BYTE tmFirstChar;
-    BYTE tmLastChar;
+    BYTE tm_चरमः_Char;
     BYTE tmDefaultChar;
     BYTE tmBreakChar;
     BYTE tmItalic;
     BYTE tmUnderlined;
-    BYTE tmStruckOut;
+    BYTE tm_Struck_बहिर्गमनम्;
     BYTE tmPitchAndFamily;
-    BYTE tmCharSet;
+    BYTE tm_Char_समुच्चयः;
     DWORD ntmFlags;
-    UINT ntmSizeEM;
+    UINT ntm_आकार_EM;
     UINT ntmCellHeight;
-    UINT ntmAvgWidth;
+    UINT ntm_Avg_विस्तारः;
   } NEWTEXTMETRICA,*PNEWTEXTMETRICA,*NPNEWTEXTMETRICA,*LPNEWTEXTMETRICA;
 
-  typedef struct tagNEWTEXTMETRICW {
+  प्रकारनिर्देश संरचना चिह्नकम्_NEWTEXTMETRICW {
     LONG tmHeight;
     LONG tmAscent;
     LONG tmDescent;
-    LONG tmInternalLeading;
+    LONG tm_आन्तरिकम्_Leading;
     LONG tmExternalLeading;
-    LONG tmAveCharWidth;
-    LONG tmMaxCharWidth;
+    LONG tm_Ave_Char_विस्तारः;
+    LONG tm_Max_Char_विस्तारः;
     LONG tmWeight;
     LONG tmOverhang;
     LONG tmDigitizedAspectX;
     LONG tmDigitizedAspectY;
     WCHAR tmFirstChar;
-    WCHAR tmLastChar;
+    WCHAR tm_चरमः_Char;
     WCHAR tmDefaultChar;
     WCHAR tmBreakChar;
     BYTE tmItalic;
     BYTE tmUnderlined;
-    BYTE tmStruckOut;
+    BYTE tm_Struck_बहिर्गमनम्;
     BYTE tmPitchAndFamily;
-    BYTE tmCharSet;
+    BYTE tm_Char_समुच्चयः;
     DWORD ntmFlags;
-    UINT ntmSizeEM;
+    UINT ntm_आकार_EM;
     UINT ntmCellHeight;
-    UINT ntmAvgWidth;
+    UINT ntm_Avg_विस्तारः;
   } NEWTEXTMETRICW,*PNEWTEXTMETRICW,*NPNEWTEXTMETRICW,*LPNEWTEXTMETRICW;
-#ifdef UNICODE
-  typedef NEWTEXTMETRICW NEWTEXTMETRIC;
-  typedef PNEWTEXTMETRICW PNEWTEXTMETRIC;
-  typedef NPNEWTEXTMETRICW NPNEWTEXTMETRIC;
-  typedef LPNEWTEXTMETRICW LPNEWTEXTMETRIC;
-#else
-  typedef NEWTEXTMETRICA NEWTEXTMETRIC;
-  typedef PNEWTEXTMETRICA PNEWTEXTMETRIC;
-  typedef NPNEWTEXTMETRICA NPNEWTEXTMETRIC;
-  typedef LPNEWTEXTMETRICA LPNEWTEXTMETRIC;
-#endif
-#include <poppack.h>
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश NEWTEXTMETRICW NEWTEXTMETRIC;
+  प्रकारनिर्देश PNEWTEXTMETRICW PNEWTEXTMETRIC;
+  प्रकारनिर्देश NPNEWTEXTMETRICW NPNEWTEXTMETRIC;
+  प्रकारनिर्देश LPNEWTEXTMETRICW LPNEWTEXTMETRIC;
+#अन्यथा
+  प्रकारनिर्देश NEWTEXTMETRICA NEWTEXTMETRIC;
+  प्रकारनिर्देश PNEWTEXTMETRICA PNEWTEXTMETRIC;
+  प्रकारनिर्देश NPNEWTEXTMETRICA NPNEWTEXTMETRIC;
+  प्रकारनिर्देश LPNEWTEXTMETRICA LPNEWTEXTMETRIC;
+#यदि_अन्तः
+#अन्तर्भाव <poppack.h>
 
-  typedef struct tagNEWTEXTMETRICEXA {
+  प्रकारनिर्देश संरचना चिह्नकम्_NEWTEXTMETRICEXA {
     NEWTEXTMETRICA ntmTm;
     FONTSIGNATURE ntmFontSig;
   } NEWTEXTMETRICEXA;
 
-  typedef struct tagNEWTEXTMETRICEXW {
+  प्रकारनिर्देश संरचना चिह्नकम्_NEWTEXTMETRICEXW {
     NEWTEXTMETRICW ntmTm;
     FONTSIGNATURE ntmFontSig;
   } NEWTEXTMETRICEXW;
-#ifdef UNICODE
-  typedef NEWTEXTMETRICEXW NEWTEXTMETRICEX;
-#else
-  typedef NEWTEXTMETRICEXA NEWTEXTMETRICEX;
-#endif
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश NEWTEXTMETRICEXW NEWTEXTMETRICEX;
+#अन्यथा
+  प्रकारनिर्देश NEWTEXTMETRICEXA NEWTEXTMETRICEX;
+#यदि_अन्तः
+#यदि_अन्तः
 
-  typedef struct tagPELARRAY {
+  प्रकारनिर्देश संरचना चिह्नकम्_PELARRAY {
     LONG paXCount;
     LONG paYCount;
     LONG paXExt;
@@ -904,264 +904,264 @@ extern "C" {
     BYTE paRGBs;
   } PELARRAY,*PPELARRAY,*NPPELARRAY,*LPPELARRAY;
 
-  typedef struct tagLOGBRUSH {
+  प्रकारनिर्देश संरचना चिह्नकम्_LOGBRUSH {
     UINT lbStyle;
     COLORREF lbColor;
     ULONG_PTR lbHatch;
   } LOGBRUSH,*PLOGBRUSH,*NPLOGBRUSH,*LPLOGBRUSH;
 
-  typedef struct tagLOGBRUSH32 {
+  प्रकारनिर्देश संरचना चिह्नकम्_LOGBRUSH32 {
     UINT lbStyle;
     COLORREF lbColor;
     ULONG lbHatch;
   } LOGBRUSH32,*PLOGBRUSH32,*NPLOGBRUSH32,*LPLOGBRUSH32;
 
-  typedef LOGBRUSH PATTERN;
-  typedef PATTERN *PPATTERN;
-  typedef PATTERN *NPPATTERN;
-  typedef PATTERN *LPPATTERN;
+  प्रकारनिर्देश LOGBRUSH आदर्शः_2;
+  प्रकारनिर्देश आदर्शः_2 *PPATTERN;
+  प्रकारनिर्देश आदर्शः_2 *NPPATTERN;
+  प्रकारनिर्देश आदर्शः_2 *LPPATTERN;
 
-  typedef struct tagLOGPEN {
+  प्रकारनिर्देश संरचना चिह्नकम्_LOGPEN {
     UINT lopnStyle;
-    POINT lopnWidth;
+    POINT lopn_विस्तारः;
     COLORREF lopnColor;
   } LOGPEN,*PLOGPEN,*NPLOGPEN,*LPLOGPEN;
 
-  typedef struct tagEXTLOGPEN {
+  प्रकारनिर्देश संरचना चिह्नकम्_EXTLOGPEN {
     DWORD elpPenStyle;
-    DWORD elpWidth;
+    DWORD elp_विस्तारः;
     UINT elpBrushStyle;
     COLORREF elpColor;
     ULONG_PTR elpHatch;
-    DWORD elpNumEntries;
-    DWORD elpStyleEntry[1];
+    DWORD elp_अङ्कः_Entries;
+    DWORD elp_Style_प्रविष्टिः[1];
   } EXTLOGPEN,*PEXTLOGPEN,*NPEXTLOGPEN,*LPEXTLOGPEN;
 
-#ifndef _PALETTEENTRY_DEFINED
-#define _PALETTEENTRY_DEFINED
-  typedef struct tagPALETTEENTRY {
+#यदि_अपरिभाषितम् _PALETTEENTRY_DEFINED
+#परिभाषय _PALETTEENTRY_DEFINED
+  प्रकारनिर्देश संरचना चिह्नकम्_PALETTEENTRY {
     BYTE peRed;
     BYTE peGreen;
     BYTE peBlue;
     BYTE peFlags;
   } PALETTEENTRY,*PPALETTEENTRY,*LPPALETTEENTRY;
-#endif
+#यदि_अन्तः
 
-#ifndef _LOGPALETTE_DEFINED
-#define _LOGPALETTE_DEFINED
+#यदि_अपरिभाषितम् _LOGPALETTE_DEFINED
+#परिभाषय _LOGPALETTE_DEFINED
 
-  typedef struct tagLOGPALETTE {
-    WORD palVersion;
-    WORD palNumEntries;
-    PALETTEENTRY palPalEntry[1];
+  प्रकारनिर्देश संरचना चिह्नकम्_LOGPALETTE {
+    WORD pal_संस्करणम्;
+    WORD pal_अङ्कः_Entries;
+    PALETTEENTRY pal_Pal_प्रविष्टिः[1];
   } LOGPALETTE,*PLOGPALETTE,*NPLOGPALETTE,*LPLOGPALETTE;
-#endif
+#यदि_अन्तः
 
-#define LF_FACESIZE 32
+#परिभाषय LF_FACESIZE 32
 
-  typedef struct tagLOGFONTA {
+  प्रकारनिर्देश संरचना चिह्नकम्_LOGFONTA {
     LONG lfHeight;
-    LONG lfWidth;
+    LONG lf_विस्तारः;
     LONG lfEscapement;
     LONG lfOrientation;
     LONG lfWeight;
     BYTE lfItalic;
     BYTE lfUnderline;
-    BYTE lfStrikeOut;
-    BYTE lfCharSet;
-    BYTE lfOutPrecision;
+    BYTE lf_Strike_बहिर्गमनम्;
+    BYTE lf_Char_समुच्चयः;
+    BYTE lf_बहिर्गमनम्_Precision;
     BYTE lfClipPrecision;
     BYTE lfQuality;
     BYTE lfPitchAndFamily;
     CHAR lfFaceName[LF_FACESIZE];
   } LOGFONTA,*PLOGFONTA,*NPLOGFONTA,*LPLOGFONTA;
 
-  typedef struct tagLOGFONTW {
+  प्रकारनिर्देश संरचना चिह्नकम्_LOGFONTW {
     LONG lfHeight;
-    LONG lfWidth;
+    LONG lf_विस्तारः;
     LONG lfEscapement;
     LONG lfOrientation;
     LONG lfWeight;
     BYTE lfItalic;
     BYTE lfUnderline;
-    BYTE lfStrikeOut;
-    BYTE lfCharSet;
-    BYTE lfOutPrecision;
+    BYTE lf_Strike_बहिर्गमनम्;
+    BYTE lf_Char_समुच्चयः;
+    BYTE lf_बहिर्गमनम्_Precision;
     BYTE lfClipPrecision;
     BYTE lfQuality;
     BYTE lfPitchAndFamily;
     WCHAR lfFaceName[LF_FACESIZE];
   } LOGFONTW,*PLOGFONTW,*NPLOGFONTW,*LPLOGFONTW;
-#ifdef UNICODE
-  typedef LOGFONTW LOGFONT;
-  typedef PLOGFONTW PLOGFONT;
-  typedef NPLOGFONTW NPLOGFONT;
-  typedef LPLOGFONTW LPLOGFONT;
-#else
-  typedef LOGFONTA LOGFONT;
-  typedef PLOGFONTA PLOGFONT;
-  typedef NPLOGFONTA NPLOGFONT;
-  typedef LPLOGFONTA LPLOGFONT;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश LOGFONTW LOGFONT;
+  प्रकारनिर्देश PLOGFONTW PLOGFONT;
+  प्रकारनिर्देश NPLOGFONTW NPLOGFONT;
+  प्रकारनिर्देश LPLOGFONTW LPLOGFONT;
+#अन्यथा
+  प्रकारनिर्देश LOGFONTA LOGFONT;
+  प्रकारनिर्देश PLOGFONTA PLOGFONT;
+  प्रकारनिर्देश NPLOGFONTA NPLOGFONT;
+  प्रकारनिर्देश LPLOGFONTA LPLOGFONT;
+#यदि_अन्तः
 
-#define LF_FULLFACESIZE 64
+#परिभाषय LF_FULLFACESIZE 64
 
-  typedef struct tagENUMLOGFONTA {
+  प्रकारनिर्देश संरचना चिह्नकम्_ENUMLOGFONTA {
     LOGFONTA elfLogFont;
-    BYTE elfFullName[LF_FULLFACESIZE];
+    BYTE elf_पूर्णम्_Name[LF_FULLFACESIZE];
     BYTE elfStyle[LF_FACESIZE];
   } ENUMLOGFONTA,*LPENUMLOGFONTA;
 
-  typedef struct tagENUMLOGFONTW {
+  प्रकारनिर्देश संरचना चिह्नकम्_ENUMLOGFONTW {
     LOGFONTW elfLogFont;
-    WCHAR elfFullName[LF_FULLFACESIZE];
+    WCHAR elf_पूर्णम्_Name[LF_FULLFACESIZE];
     WCHAR elfStyle[LF_FACESIZE];
   } ENUMLOGFONTW,*LPENUMLOGFONTW;
-#ifdef UNICODE
-  typedef ENUMLOGFONTW ENUMLOGFONT;
-  typedef LPENUMLOGFONTW LPENUMLOGFONT;
-#else
-  typedef ENUMLOGFONTA ENUMLOGFONT;
-  typedef LPENUMLOGFONTA LPENUMLOGFONT;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश ENUMLOGFONTW ENUMLOGFONT;
+  प्रकारनिर्देश LPENUMLOGFONTW LPENUMLOGFONT;
+#अन्यथा
+  प्रकारनिर्देश ENUMLOGFONTA ENUMLOGFONT;
+  प्रकारनिर्देश LPENUMLOGFONTA LPENUMLOGFONT;
+#यदि_अन्तः
 
-  typedef struct tagENUMLOGFONTEXA {
+  प्रकारनिर्देश संरचना चिह्नकम्_ENUMLOGFONTEXA {
     LOGFONTA elfLogFont;
-    BYTE elfFullName[LF_FULLFACESIZE];
+    BYTE elf_पूर्णम्_Name[LF_FULLFACESIZE];
     BYTE elfStyle[LF_FACESIZE];
     BYTE elfScript[LF_FACESIZE];
   } ENUMLOGFONTEXA,*LPENUMLOGFONTEXA;
 
-  typedef struct tagENUMLOGFONTEXW {
+  प्रकारनिर्देश संरचना चिह्नकम्_ENUMLOGFONTEXW {
     LOGFONTW elfLogFont;
-    WCHAR elfFullName[LF_FULLFACESIZE];
+    WCHAR elf_पूर्णम्_Name[LF_FULLFACESIZE];
     WCHAR elfStyle[LF_FACESIZE];
     WCHAR elfScript[LF_FACESIZE];
   } ENUMLOGFONTEXW,*LPENUMLOGFONTEXW;
-#ifdef UNICODE
-  typedef ENUMLOGFONTEXW ENUMLOGFONTEX;
-  typedef LPENUMLOGFONTEXW LPENUMLOGFONTEX;
-#else
-  typedef ENUMLOGFONTEXA ENUMLOGFONTEX;
-  typedef LPENUMLOGFONTEXA LPENUMLOGFONTEX;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश ENUMLOGFONTEXW ENUMLOGFONTEX;
+  प्रकारनिर्देश LPENUMLOGFONTEXW LPENUMLOGFONTEX;
+#अन्यथा
+  प्रकारनिर्देश ENUMLOGFONTEXA ENUMLOGFONTEX;
+  प्रकारनिर्देश LPENUMLOGFONTEXA LPENUMLOGFONTEX;
+#यदि_अन्तः
 
-#define OUT_DEFAULT_PRECIS 0
-#define OUT_STRING_PRECIS 1
-#define OUT_CHARACTER_PRECIS 2
-#define OUT_STROKE_PRECIS 3
-#define OUT_TT_PRECIS 4
-#define OUT_DEVICE_PRECIS 5
-#define OUT_RASTER_PRECIS 6
-#define OUT_TT_ONLY_PRECIS 7
-#define OUT_OUTLINE_PRECIS 8
-#define OUT_SCREEN_OUTLINE_PRECIS 9
-#define OUT_PS_ONLY_PRECIS 10
+#परिभाषय बहिर्गमनम्_DEFAULT_PRECIS 0
+#परिभाषय बहिर्गमनम्_STRING_PRECIS 1
+#परिभाषय बहिर्गमनम्_CHARACTER_PRECIS 2
+#परिभाषय बहिर्गमनम्_STROKE_PRECIS 3
+#परिभाषय बहिर्गमनम्_TT_PRECIS 4
+#परिभाषय बहिर्गमनम्_DEVICE_PRECIS 5
+#परिभाषय बहिर्गमनम्_RASTER_PRECIS 6
+#परिभाषय बहिर्गमनम्_TT_ONLY_PRECIS 7
+#परिभाषय बहिर्गमनम्_OUTLINE_PRECIS 8
+#परिभाषय बहिर्गमनम्_SCREEN_OUTLINE_PRECIS 9
+#परिभाषय बहिर्गमनम्_PS_ONLY_PRECIS 10
 
-#define CLIP_DEFAULT_PRECIS 0
-#define CLIP_CHARACTER_PRECIS 1
-#define CLIP_STROKE_PRECIS 2
-#define CLIP_MASK 0xf
-#define CLIP_LH_ANGLES (1<<4)
-#define CLIP_TT_ALWAYS (2<<4)
-#define CLIP_DFA_DISABLE (4<<4)
-#define CLIP_EMBEDDED (8<<4)
+#परिभाषय CLIP_DEFAULT_PRECIS 0
+#परिभाषय CLIP_CHARACTER_PRECIS 1
+#परिभाषय CLIP_STROKE_PRECIS 2
+#परिभाषय CLIP_आवरणम् 0xf
+#परिभाषय CLIP_LH_ANGLES (1<<4)
+#परिभाषय CLIP_TT_ALWAYS (2<<4)
+#परिभाषय CLIP_DFA_DISABLE (4<<4)
+#परिभाषय CLIP_EMBEDDED (8<<4)
 
-#define DEFAULT_QUALITY 0
-#define DRAFT_QUALITY 1
-#define PROOF_QUALITY 2
-#define NONANTIALIASED_QUALITY 3
-#define ANTIALIASED_QUALITY 4
+#परिभाषय DEFAULT_QUALITY 0
+#परिभाषय DRAFT_QUALITY 1
+#परिभाषय PROOF_QUALITY 2
+#परिभाषय NONANTIALIASED_QUALITY 3
+#परिभाषय ANTIALIASED_QUALITY 4
 
-#define CLEARTYPE_QUALITY 5
-#define CLEARTYPE_NATURAL_QUALITY 6
+#परिभाषय CLEARTYPE_QUALITY 5
+#परिभाषय CLEARTYPE_NATURAL_QUALITY 6
 
-#define DEFAULT_PITCH 0
-#define FIXED_PITCH 1
-#define VARIABLE_PITCH 2
-#define MONO_FONT 8
+#परिभाषय DEFAULT_PITCH 0
+#परिभाषय FIXED_PITCH 1
+#परिभाषय VARIABLE_PITCH 2
+#परिभाषय MONO_FONT 8
 
-#define ANSI_CHARSET 0
-#define DEFAULT_CHARSET 1
-#define SYMBOL_CHARSET 2
-#define SHIFTJIS_CHARSET 128
-#define HANGEUL_CHARSET 129
-#define HANGUL_CHARSET 129
-#define GB2312_CHARSET 134
-#define CHINESEBIG5_CHARSET 136
-#define OEM_CHARSET 255
-#define JOHAB_CHARSET 130
-#define HEBREW_CHARSET 177
-#define ARABIC_CHARSET 178
-#define GREEK_CHARSET 161
-#define TURKISH_CHARSET 162
-#define VIETNAMESE_CHARSET 163
-#define THAI_CHARSET 222
-#define EASTEUROPE_CHARSET 238
-#define RUSSIAN_CHARSET 204
+#परिभाषय ANSI_CHARSET 0
+#परिभाषय DEFAULT_CHARSET 1
+#परिभाषय चिह्नम्_CHARSET 2
+#परिभाषय SHIFTJIS_CHARSET 128
+#परिभाषय HANGEUL_CHARSET 129
+#परिभाषय HANGUL_CHARSET 129
+#परिभाषय GB2312_CHARSET 134
+#परिभाषय CHINESEBIG5_CHARSET 136
+#परिभाषय OEM_CHARSET 255
+#परिभाषय JOHAB_CHARSET 130
+#परिभाषय HEBREW_CHARSET 177
+#परिभाषय ARABIC_CHARSET 178
+#परिभाषय GREEK_CHARSET 161
+#परिभाषय TURKISH_CHARSET 162
+#परिभाषय VIETNAMESE_CHARSET 163
+#परिभाषय THAI_CHARSET 222
+#परिभाषय EASTEUROPE_CHARSET 238
+#परिभाषय RUSSIAN_CHARSET 204
 
-#define MAC_CHARSET 77
-#define BALTIC_CHARSET 186
+#परिभाषय MAC_CHARSET 77
+#परिभाषय BALTIC_CHARSET 186
 
-#define FS_LATIN1 0x00000001L
-#define FS_LATIN2 0x00000002L
-#define FS_CYRILLIC 0x00000004L
-#define FS_GREEK 0x00000008L
-#define FS_TURKISH 0x00000010L
-#define FS_HEBREW 0x00000020L
-#define FS_ARABIC 0x00000040L
-#define FS_BALTIC 0x00000080L
-#define FS_VIETNAMESE 0x00000100L
-#define FS_THAI 0x00010000L
-#define FS_JISJAPAN 0x00020000L
-#define FS_CHINESESIMP 0x00040000L
-#define FS_WANSUNG 0x00080000L
-#define FS_CHINESETRAD 0x00100000L
-#define FS_JOHAB 0x00200000L
-#define FS_SYMBOL 0x80000000L
+#परिभाषय FS_LATIN1 0x00000001L
+#परिभाषय FS_LATIN2 0x00000002L
+#परिभाषय FS_CYRILLIC 0x00000004L
+#परिभाषय FS_GREEK 0x00000008L
+#परिभाषय FS_TURKISH 0x00000010L
+#परिभाषय FS_HEBREW 0x00000020L
+#परिभाषय FS_ARABIC 0x00000040L
+#परिभाषय FS_BALTIC 0x00000080L
+#परिभाषय FS_VIETNAMESE 0x00000100L
+#परिभाषय FS_THAI 0x00010000L
+#परिभाषय FS_JISJAPAN 0x00020000L
+#परिभाषय FS_CHINESESIMP 0x00040000L
+#परिभाषय FS_WANSUNG 0x00080000L
+#परिभाषय FS_CHINESETRAD 0x00100000L
+#परिभाषय FS_JOHAB 0x00200000L
+#परिभाषय FS_चिह्नम् 0x80000000L
 
-#define FF_DONTCARE (0<<4)
-#define FF_ROMAN (1<<4)
+#परिभाषय FF_DONTCARE (0<<4)
+#परिभाषय FF_ROMAN (1<<4)
 
-#define FF_SWISS (2<<4)
+#परिभाषय FF_SWISS (2<<4)
 
-#define FF_MODERN (3<<4)
+#परिभाषय FF_MODERN (3<<4)
 
-#define FF_SCRIPT (4<<4)
-#define FF_DECORATIVE (5<<4)
+#परिभाषय FF_SCRIPT (4<<4)
+#परिभाषय FF_DECORATIVE (5<<4)
 
-#define FW_DONTCARE 0
-#define FW_THIN 100
-#define FW_EXTRALIGHT 200
-#define FW_LIGHT 300
-#define FW_NORMAL 400
-#define FW_MEDIUM 500
-#define FW_SEMIBOLD 600
-#define FW_BOLD 700
-#define FW_EXTRABOLD 800
-#define FW_HEAVY 900
+#परिभाषय FW_DONTCARE 0
+#परिभाषय FW_THIN 100
+#परिभाषय FW_EXTRALIGHT 200
+#परिभाषय FW_LIGHT 300
+#परिभाषय FW_प्रसामान्यम् 400
+#परिभाषय FW_MEDIUM 500
+#परिभाषय FW_SEMIBOLD 600
+#परिभाषय FW_BOLD 700
+#परिभाषय FW_EXTRABOLD 800
+#परिभाषय FW_HEAVY 900
 
-#define FW_ULTRALIGHT FW_EXTRALIGHT
-#define FW_REGULAR FW_NORMAL
-#define FW_DEMIBOLD FW_SEMIBOLD
-#define FW_ULTRABOLD FW_EXTRABOLD
-#define FW_BLACK FW_HEAVY
+#परिभाषय FW_ULTRALIGHT FW_EXTRALIGHT
+#परिभाषय FW_REGULAR FW_प्रसामान्यम्
+#परिभाषय FW_DEMIBOLD FW_SEMIBOLD
+#परिभाषय FW_ULTRABOLD FW_EXTRABOLD
+#परिभाषय FW_BLACK FW_HEAVY
 
-#define PANOSE_COUNT 10
-#define PAN_FAMILYTYPE_INDEX 0
-#define PAN_SERIFSTYLE_INDEX 1
-#define PAN_WEIGHT_INDEX 2
-#define PAN_PROPORTION_INDEX 3
-#define PAN_CONTRAST_INDEX 4
-#define PAN_STROKEVARIATION_INDEX 5
-#define PAN_ARMSTYLE_INDEX 6
-#define PAN_LETTERFORM_INDEX 7
-#define PAN_MIDLINE_INDEX 8
-#define PAN_XHEIGHT_INDEX 9
+#परिभाषय PANOSE_गणनम् 10
+#परिभाषय PAN_FAMILYTYPE_सूचकांक 0
+#परिभाषय PAN_SERIFSTYLE_सूचकांक 1
+#परिभाषय PAN_WEIGHT_सूचकांक 2
+#परिभाषय PAN_PROPORTION_सूचकांक 3
+#परिभाषय PAN_CONTRAST_सूचकांक 4
+#परिभाषय PAN_STROKEVARIATION_सूचकांक 5
+#परिभाषय PAN_ARMSTYLE_सूचकांक 6
+#परिभाषय PAN_LETTERFORM_सूचकांक 7
+#परिभाषय PAN_MIDLINE_सूचकांक 8
+#परिभाषय PAN_XHEIGHT_सूचकांक 9
 
-#define PAN_CULTURE_LATIN 0
+#परिभाषय PAN_CULTURE_LATIN 0
 
-  typedef struct tagPANOSE {
+  प्रकारनिर्देश संरचना चिह्नकम्_PANOSE {
     BYTE bFamilyType;
     BYTE bSerifStyle;
     BYTE bWeight;
@@ -1174,470 +1174,470 @@ extern "C" {
     BYTE bXHeight;
   } PANOSE,*LPPANOSE;
 
-#define PAN_ANY 0
-#define PAN_NO_FIT 1
+#परिभाषय PAN_ANY 0
+#परिभाषय PAN_NO_FIT 1
 
-#define PAN_FAMILY_TEXT_DISPLAY 2
-#define PAN_FAMILY_SCRIPT 3
-#define PAN_FAMILY_DECORATIVE 4
-#define PAN_FAMILY_PICTORIAL 5
+#परिभाषय PAN_FAMILY_TEXT_DISPLAY 2
+#परिभाषय PAN_FAMILY_SCRIPT 3
+#परिभाषय PAN_FAMILY_DECORATIVE 4
+#परिभाषय PAN_FAMILY_PICTORIAL 5
 
-#define PAN_SERIF_COVE 2
-#define PAN_SERIF_OBTUSE_COVE 3
-#define PAN_SERIF_SQUARE_COVE 4
-#define PAN_SERIF_OBTUSE_SQUARE_COVE 5
-#define PAN_SERIF_SQUARE 6
-#define PAN_SERIF_THIN 7
-#define PAN_SERIF_BONE 8
-#define PAN_SERIF_EXAGGERATED 9
-#define PAN_SERIF_TRIANGLE 10
-#define PAN_SERIF_NORMAL_SANS 11
-#define PAN_SERIF_OBTUSE_SANS 12
-#define PAN_SERIF_PERP_SANS 13
-#define PAN_SERIF_FLARED 14
-#define PAN_SERIF_ROUNDED 15
+#परिभाषय PAN_SERIF_COVE 2
+#परिभाषय PAN_SERIF_OBTUSE_COVE 3
+#परिभाषय PAN_SERIF_वर्गफलम्_COVE 4
+#परिभाषय PAN_SERIF_OBTUSE_वर्गफलम्_COVE 5
+#परिभाषय PAN_SERIF_वर्गफलम् 6
+#परिभाषय PAN_SERIF_THIN 7
+#परिभाषय PAN_SERIF_BONE 8
+#परिभाषय PAN_SERIF_EXAGGERATED 9
+#परिभाषय PAN_SERIF_TRIANGLE 10
+#परिभाषय PAN_SERIF_प्रसामान्यम्_SANS 11
+#परिभाषय PAN_SERIF_OBTUSE_SANS 12
+#परिभाषय PAN_SERIF_PERP_SANS 13
+#परिभाषय PAN_SERIF_FLARED 14
+#परिभाषय PAN_SERIF_ROUNDED 15
 
-#define PAN_WEIGHT_VERY_LIGHT 2
-#define PAN_WEIGHT_LIGHT 3
-#define PAN_WEIGHT_THIN 4
-#define PAN_WEIGHT_BOOK 5
-#define PAN_WEIGHT_MEDIUM 6
-#define PAN_WEIGHT_DEMI 7
-#define PAN_WEIGHT_BOLD 8
-#define PAN_WEIGHT_HEAVY 9
-#define PAN_WEIGHT_BLACK 10
-#define PAN_WEIGHT_NORD 11
+#परिभाषय PAN_WEIGHT_VERY_LIGHT 2
+#परिभाषय PAN_WEIGHT_LIGHT 3
+#परिभाषय PAN_WEIGHT_THIN 4
+#परिभाषय PAN_WEIGHT_BOOK 5
+#परिभाषय PAN_WEIGHT_MEDIUM 6
+#परिभाषय PAN_WEIGHT_DEMI 7
+#परिभाषय PAN_WEIGHT_BOLD 8
+#परिभाषय PAN_WEIGHT_HEAVY 9
+#परिभाषय PAN_WEIGHT_BLACK 10
+#परिभाषय PAN_WEIGHT_NORD 11
 
-#define PAN_PROP_OLD_STYLE 2
-#define PAN_PROP_MODERN 3
-#define PAN_PROP_EVEN_WIDTH 4
-#define PAN_PROP_EXPANDED 5
-#define PAN_PROP_CONDENSED 6
-#define PAN_PROP_VERY_EXPANDED 7
-#define PAN_PROP_VERY_CONDENSED 8
-#define PAN_PROP_MONOSPACED 9
+#परिभाषय PAN_PROP_OLD_STYLE 2
+#परिभाषय PAN_PROP_MODERN 3
+#परिभाषय PAN_PROP_EVEN_विस्तारः 4
+#परिभाषय PAN_PROP_EXPANDED 5
+#परिभाषय PAN_PROP_CONDENSED 6
+#परिभाषय PAN_PROP_VERY_EXPANDED 7
+#परिभाषय PAN_PROP_VERY_CONDENSED 8
+#परिभाषय PAN_PROP_MONOSPACED 9
 
-#define PAN_CONTRAST_NONE 2
-#define PAN_CONTRAST_VERY_LOW 3
-#define PAN_CONTRAST_LOW 4
-#define PAN_CONTRAST_MEDIUM_LOW 5
-#define PAN_CONTRAST_MEDIUM 6
-#define PAN_CONTRAST_MEDIUM_HIGH 7
-#define PAN_CONTRAST_HIGH 8
-#define PAN_CONTRAST_VERY_HIGH 9
+#परिभाषय PAN_CONTRAST_NONE 2
+#परिभाषय PAN_CONTRAST_VERY_नीचः 3
+#परिभाषय PAN_CONTRAST_नीचः 4
+#परिभाषय PAN_CONTRAST_MEDIUM_नीचः 5
+#परिभाषय PAN_CONTRAST_MEDIUM 6
+#परिभाषय PAN_CONTRAST_MEDIUM_उच्चः 7
+#परिभाषय PAN_CONTRAST_उच्चः 8
+#परिभाषय PAN_CONTRAST_VERY_उच्चः 9
 
-#define PAN_STROKE_GRADUAL_DIAG 2
-#define PAN_STROKE_GRADUAL_TRAN 3
-#define PAN_STROKE_GRADUAL_VERT 4
-#define PAN_STROKE_GRADUAL_HORZ 5
-#define PAN_STROKE_RAPID_VERT 6
-#define PAN_STROKE_RAPID_HORZ 7
-#define PAN_STROKE_INSTANT_VERT 8
+#परिभाषय PAN_STROKE_GRADUAL_DIAG 2
+#परिभाषय PAN_STROKE_GRADUAL_TRAN 3
+#परिभाषय PAN_STROKE_GRADUAL_VERT 4
+#परिभाषय PAN_STROKE_GRADUAL_HORZ 5
+#परिभाषय PAN_STROKE_RAPID_VERT 6
+#परिभाषय PAN_STROKE_RAPID_HORZ 7
+#परिभाषय PAN_STROKE_INSTANT_VERT 8
 
-#define PAN_STRAIGHT_ARMS_HORZ 2
-#define PAN_STRAIGHT_ARMS_WEDGE 3
-#define PAN_STRAIGHT_ARMS_VERT 4
-#define PAN_STRAIGHT_ARMS_SINGLE_SERIF 5
-#define PAN_STRAIGHT_ARMS_DOUBLE_SERIF 6
-#define PAN_BENT_ARMS_HORZ 7
-#define PAN_BENT_ARMS_WEDGE 8
-#define PAN_BENT_ARMS_VERT 9
-#define PAN_BENT_ARMS_SINGLE_SERIF 10
-#define PAN_BENT_ARMS_DOUBLE_SERIF 11
+#परिभाषय PAN_STRAIGHT_ARMS_HORZ 2
+#परिभाषय PAN_STRAIGHT_ARMS_WEDGE 3
+#परिभाषय PAN_STRAIGHT_ARMS_VERT 4
+#परिभाषय PAN_STRAIGHT_ARMS_SINGLE_SERIF 5
+#परिभाषय PAN_STRAIGHT_ARMS_DOUBLE_SERIF 6
+#परिभाषय PAN_BENT_ARMS_HORZ 7
+#परिभाषय PAN_BENT_ARMS_WEDGE 8
+#परिभाषय PAN_BENT_ARMS_VERT 9
+#परिभाषय PAN_BENT_ARMS_SINGLE_SERIF 10
+#परिभाषय PAN_BENT_ARMS_DOUBLE_SERIF 11
 
-#define PAN_LETT_NORMAL_CONTACT 2
-#define PAN_LETT_NORMAL_WEIGHTED 3
-#define PAN_LETT_NORMAL_BOXED 4
-#define PAN_LETT_NORMAL_FLATTENED 5
-#define PAN_LETT_NORMAL_ROUNDED 6
-#define PAN_LETT_NORMAL_OFF_CENTER 7
-#define PAN_LETT_NORMAL_SQUARE 8
-#define PAN_LETT_OBLIQUE_CONTACT 9
-#define PAN_LETT_OBLIQUE_WEIGHTED 10
-#define PAN_LETT_OBLIQUE_BOXED 11
-#define PAN_LETT_OBLIQUE_FLATTENED 12
-#define PAN_LETT_OBLIQUE_ROUNDED 13
-#define PAN_LETT_OBLIQUE_OFF_CENTER 14
-#define PAN_LETT_OBLIQUE_SQUARE 15
+#परिभाषय PAN_LETT_प्रसामान्यम्_CONTACT 2
+#परिभाषय PAN_LETT_प्रसामान्यम्_WEIGHTED 3
+#परिभाषय PAN_LETT_प्रसामान्यम्_BOXED 4
+#परिभाषय PAN_LETT_प्रसामान्यम्_FLATTENED 5
+#परिभाषय PAN_LETT_प्रसामान्यम्_ROUNDED 6
+#परिभाषय PAN_LETT_प्रसामान्यम्_OFF_CENTER 7
+#परिभाषय PAN_LETT_प्रसामान्यम्_वर्गफलम् 8
+#परिभाषय PAN_LETT_OBLIQUE_CONTACT 9
+#परिभाषय PAN_LETT_OBLIQUE_WEIGHTED 10
+#परिभाषय PAN_LETT_OBLIQUE_BOXED 11
+#परिभाषय PAN_LETT_OBLIQUE_FLATTENED 12
+#परिभाषय PAN_LETT_OBLIQUE_ROUNDED 13
+#परिभाषय PAN_LETT_OBLIQUE_OFF_CENTER 14
+#परिभाषय PAN_LETT_OBLIQUE_वर्गफलम् 15
 
-#define PAN_MIDLINE_STANDARD_TRIMMED 2
-#define PAN_MIDLINE_STANDARD_POINTED 3
-#define PAN_MIDLINE_STANDARD_SERIFED 4
-#define PAN_MIDLINE_HIGH_TRIMMED 5
-#define PAN_MIDLINE_HIGH_POINTED 6
-#define PAN_MIDLINE_HIGH_SERIFED 7
-#define PAN_MIDLINE_CONSTANT_TRIMMED 8
-#define PAN_MIDLINE_CONSTANT_POINTED 9
-#define PAN_MIDLINE_CONSTANT_SERIFED 10
-#define PAN_MIDLINE_LOW_TRIMMED 11
-#define PAN_MIDLINE_LOW_POINTED 12
-#define PAN_MIDLINE_LOW_SERIFED 13
+#परिभाषय PAN_MIDLINE_STANDARD_TRIMMED 2
+#परिभाषय PAN_MIDLINE_STANDARD_POINTED 3
+#परिभाषय PAN_MIDLINE_STANDARD_SERIFED 4
+#परिभाषय PAN_MIDLINE_उच्चः_TRIMMED 5
+#परिभाषय PAN_MIDLINE_उच्चः_POINTED 6
+#परिभाषय PAN_MIDLINE_उच्चः_SERIFED 7
+#परिभाषय PAN_MIDLINE_CONSTANT_TRIMMED 8
+#परिभाषय PAN_MIDLINE_CONSTANT_POINTED 9
+#परिभाषय PAN_MIDLINE_CONSTANT_SERIFED 10
+#परिभाषय PAN_MIDLINE_नीचः_TRIMMED 11
+#परिभाषय PAN_MIDLINE_नीचः_POINTED 12
+#परिभाषय PAN_MIDLINE_नीचः_SERIFED 13
 
-#define PAN_XHEIGHT_CONSTANT_SMALL 2
-#define PAN_XHEIGHT_CONSTANT_STD 3
-#define PAN_XHEIGHT_CONSTANT_LARGE 4
-#define PAN_XHEIGHT_DUCKING_SMALL 5
-#define PAN_XHEIGHT_DUCKING_STD 6
-#define PAN_XHEIGHT_DUCKING_LARGE 7
+#परिभाषय PAN_XHEIGHT_CONSTANT_SMALL 2
+#परिभाषय PAN_XHEIGHT_CONSTANT_STD 3
+#परिभाषय PAN_XHEIGHT_CONSTANT_LARGE 4
+#परिभाषय PAN_XHEIGHT_DUCKING_SMALL 5
+#परिभाषय PAN_XHEIGHT_DUCKING_STD 6
+#परिभाषय PAN_XHEIGHT_DUCKING_LARGE 7
 
-#define ELF_VENDOR_SIZE 4
+#परिभाषय ELF_VENDOR_आकार 4
 
-  typedef struct tagEXTLOGFONTA {
+  प्रकारनिर्देश संरचना चिह्नकम्_EXTLOGFONTA {
     LOGFONTA elfLogFont;
-    BYTE elfFullName[LF_FULLFACESIZE];
+    BYTE elf_पूर्णम्_Name[LF_FULLFACESIZE];
     BYTE elfStyle[LF_FACESIZE];
-    DWORD elfVersion;
-    DWORD elfStyleSize;
-    DWORD elfMatch;
+    DWORD elf_संस्करणम्;
+    DWORD elf_Style_आकार;
+    DWORD elf_मेलनम्;
     DWORD elfReserved;
-    BYTE elfVendorId[ELF_VENDOR_SIZE];
+    BYTE elfVendorId[ELF_VENDOR_आकार];
     DWORD elfCulture;
     PANOSE elfPanose;
   } EXTLOGFONTA,*PEXTLOGFONTA,*NPEXTLOGFONTA,*LPEXTLOGFONTA;
 
-  typedef struct tagEXTLOGFONTW {
+  प्रकारनिर्देश संरचना चिह्नकम्_EXTLOGFONTW {
     LOGFONTW elfLogFont;
-    WCHAR elfFullName[LF_FULLFACESIZE];
+    WCHAR elf_पूर्णम्_Name[LF_FULLFACESIZE];
     WCHAR elfStyle[LF_FACESIZE];
-    DWORD elfVersion;
-    DWORD elfStyleSize;
-    DWORD elfMatch;
+    DWORD elf_संस्करणम्;
+    DWORD elf_Style_आकार;
+    DWORD elf_मेलनम्;
     DWORD elfReserved;
-    BYTE elfVendorId[ELF_VENDOR_SIZE];
+    BYTE elfVendorId[ELF_VENDOR_आकार];
     DWORD elfCulture;
     PANOSE elfPanose;
   } EXTLOGFONTW,*PEXTLOGFONTW,*NPEXTLOGFONTW,*LPEXTLOGFONTW;
-#ifdef UNICODE
-  typedef EXTLOGFONTW EXTLOGFONT;
-  typedef PEXTLOGFONTW PEXTLOGFONT;
-  typedef NPEXTLOGFONTW NPEXTLOGFONT;
-  typedef LPEXTLOGFONTW LPEXTLOGFONT;
-#else
-  typedef EXTLOGFONTA EXTLOGFONT;
-  typedef PEXTLOGFONTA PEXTLOGFONT;
-  typedef NPEXTLOGFONTA NPEXTLOGFONT;
-  typedef LPEXTLOGFONTA LPEXTLOGFONT;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश EXTLOGFONTW EXTLOGFONT;
+  प्रकारनिर्देश PEXTLOGFONTW PEXTLOGFONT;
+  प्रकारनिर्देश NPEXTLOGFONTW NPEXTLOGFONT;
+  प्रकारनिर्देश LPEXTLOGFONTW LPEXTLOGFONT;
+#अन्यथा
+  प्रकारनिर्देश EXTLOGFONTA EXTLOGFONT;
+  प्रकारनिर्देश PEXTLOGFONTA PEXTLOGFONT;
+  प्रकारनिर्देश NPEXTLOGFONTA NPEXTLOGFONT;
+  प्रकारनिर्देश LPEXTLOGFONTA LPEXTLOGFONT;
+#यदि_अन्तः
 
-#define ELF_VERSION 0
-#define ELF_CULTURE_LATIN 0
+#परिभाषय ELF_संस्करणम् 0
+#परिभाषय ELF_CULTURE_LATIN 0
 
-#define RASTER_FONTTYPE 0x0001
-#define DEVICE_FONTTYPE 0x002
-#define TRUETYPE_FONTTYPE 0x004
+#परिभाषय RASTER_FONTTYPE 0x0001
+#परिभाषय DEVICE_FONTTYPE 0x002
+#परिभाषय TRUETYPE_FONTTYPE 0x004
 
-#define RGB(r,g,b) ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
-#define PALETTERGB(r,g,b) (0x02000000 | RGB(r,g,b))
-#define PALETTEINDEX(i) ((COLORREF)(0x01000000 | (DWORD)(WORD)(i)))
+#परिभाषय RGB(r,g,b) ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
+#परिभाषय PALETTERGB(r,g,b) (0x02000000 | RGB(r,g,b))
+#परिभाषय PALETTEINDEX(i) ((COLORREF)(0x01000000 | (DWORD)(WORD)(i)))
 
-#define PC_RESERVED 0x01
-#define PC_EXPLICIT 0x02
-#define PC_NOCOLLAPSE 0x04
+#परिभाषय PC_RESERVED 0x01
+#परिभाषय PC_EXPLICIT 0x02
+#परिभाषय PC_NOCOLLAPSE 0x04
 
-#define GetRValue(rgb) (LOBYTE(rgb))
-#define GetGValue(rgb) (LOBYTE(((WORD)(rgb)) >> 8))
-#define GetBValue(rgb) (LOBYTE((rgb)>>16))
+#परिभाषय GetRValue(rgb) (LOBYTE(rgb))
+#परिभाषय GetGValue(rgb) (LOBYTE(((WORD)(rgb)) >> 8))
+#परिभाषय GetBValue(rgb) (LOBYTE((rgb)>>16))
 
-#define TRANSPARENT 1
-#define OPAQUE 2
-#define BKMODE_LAST 2
+#परिभाषय TRANSPARENT 1
+#परिभाषय OPAQUE 2
+#परिभाषय BKMODE_चरमः 2
 
-#define GM_COMPATIBLE 1
-#define GM_ADVANCED 2
-#define GM_LAST 2
+#परिभाषय GM_COMPATIBLE 1
+#परिभाषय GM_ADVANCED 2
+#परिभाषय GM_चरमः 2
 
-#define PT_CLOSEFIGURE 0x01
-#define PT_LINETO 0x02
-#define PT_BEZIERTO 0x04
-#define PT_MOVETO 0x06
+#परिभाषय PT_CLOSEFIGURE 0x01
+#परिभाषय PT_LINETO 0x02
+#परिभाषय PT_BEZIERTO 0x04
+#परिभाषय PT_MOVETO 0x06
 
-#define MM_TEXT 1
-#define MM_LOMETRIC 2
-#define MM_HIMETRIC 3
-#define MM_LOENGLISH 4
-#define MM_HIENGLISH 5
-#define MM_TWIPS 6
-#define MM_ISOTROPIC 7
-#define MM_ANISOTROPIC 8
+#परिभाषय MM_TEXT 1
+#परिभाषय MM_LOMETRIC 2
+#परिभाषय MM_HIMETRIC 3
+#परिभाषय MM_LOENGLISH 4
+#परिभाषय MM_HIENGLISH 5
+#परिभाषय MM_TWIPS 6
+#परिभाषय MM_ISOTROPIC 7
+#परिभाषय MM_ANISOTROPIC 8
 
-#define MM_MIN MM_TEXT
-#define MM_MAX MM_ANISOTROPIC
-#define MM_MAX_FIXEDSCALE MM_TWIPS
+#परिभाषय MM_MIN MM_TEXT
+#परिभाषय MM_MAX MM_ANISOTROPIC
+#परिभाषय MM_MAX_FIXEDSCALE MM_TWIPS
 
-#define ABSOLUTE 1
-#define RELATIVE 2
+#परिभाषय ABSOLUTE 1
+#परिभाषय RELATIVE 2
 
-#define WHITE_BRUSH 0
-#define LTGRAY_BRUSH 1
-#define GRAY_BRUSH 2
-#define DKGRAY_BRUSH 3
-#define BLACK_BRUSH 4
-#define NULL_BRUSH 5
-#define HOLLOW_BRUSH NULL_BRUSH
-#define WHITE_PEN 6
-#define BLACK_PEN 7
-#define NULL_PEN 8
-#define OEM_FIXED_FONT 10
-#define ANSI_FIXED_FONT 11
-#define ANSI_VAR_FONT 12
-#define SYSTEM_FONT 13
-#define DEVICE_DEFAULT_FONT 14
-#define DEFAULT_PALETTE 15
-#define SYSTEM_FIXED_FONT 16
+#परिभाषय WHITE_BRUSH 0
+#परिभाषय LTGRAY_BRUSH 1
+#परिभाषय GRAY_BRUSH 2
+#परिभाषय DKGRAY_BRUSH 3
+#परिभाषय BLACK_BRUSH 4
+#परिभाषय NULL_BRUSH 5
+#परिभाषय HOLLOW_BRUSH NULL_BRUSH
+#परिभाषय WHITE_PEN 6
+#परिभाषय BLACK_PEN 7
+#परिभाषय NULL_PEN 8
+#परिभाषय OEM_FIXED_FONT 10
+#परिभाषय ANSI_FIXED_FONT 11
+#परिभाषय ANSI_VAR_FONT 12
+#परिभाषय SYSTEM_FONT 13
+#परिभाषय DEVICE_DEFAULT_FONT 14
+#परिभाषय DEFAULT_PALETTE 15
+#परिभाषय SYSTEM_FIXED_FONT 16
 
-#define DEFAULT_GUI_FONT 17
+#परिभाषय DEFAULT_GUI_FONT 17
 
-#define DC_BRUSH 18
-#define DC_PEN 19
+#परिभाषय DC_BRUSH 18
+#परिभाषय DC_PEN 19
 
-#define STOCK_LAST 19
+#परिभाषय STOCK_चरमः 19
 
-#define CLR_INVALID 0xFFFFFFFF
+#परिभाषय CLR_INVALID 0xFFFFFFFF
 
-#define BS_SOLID 0
-#define BS_NULL 1
-#define BS_HOLLOW BS_NULL
-#define BS_HATCHED 2
-#define BS_PATTERN 3
-#define BS_INDEXED 4
-#define BS_DIBPATTERN 5
-#define BS_DIBPATTERNPT 6
-#define BS_PATTERN8X8 7
-#define BS_DIBPATTERN8X8 8
-#define BS_MONOPATTERN 9
+#परिभाषय BS_SOLID 0
+#परिभाषय BS_NULL 1
+#परिभाषय BS_HOLLOW BS_NULL
+#परिभाषय BS_HATCHED 2
+#परिभाषय BS_आदर्शः 3
+#परिभाषय BS_अनुक्रमितम् 4
+#परिभाषय BS_DIBPATTERN 5
+#परिभाषय BS_DIBPATTERNPT 6
+#परिभाषय BS_PATTERN8X8 7
+#परिभाषय BS_DIBPATTERN8X8 8
+#परिभाषय BS_MONOPATTERN 9
 
-#define HS_HORIZONTAL 0
-#define HS_VERTICAL 1
-#define HS_FDIAGONAL 2
-#define HS_BDIAGONAL 3
-#define HS_CROSS 4
-#define HS_DIAGCROSS 5
+#परिभाषय HS_HORIZONTAL 0
+#परिभाषय HS_VERTICAL 1
+#परिभाषय HS_FDIAGONAL 2
+#परिभाषय HS_BDIAGONAL 3
+#परिभाषय HS_CROSS 4
+#परिभाषय HS_DIAGCROSS 5
 
-#define PS_SOLID 0
-#define PS_DASH 1
-#define PS_DOT 2
-#define PS_DASHDOT 3
-#define PS_DASHDOTDOT 4
-#define PS_NULL 5
-#define PS_INSIDEFRAME 6
-#define PS_USERSTYLE 7
-#define PS_ALTERNATE 8
-#define PS_STYLE_MASK 0x0000000F
+#परिभाषय PS_SOLID 0
+#परिभाषय PS_DASH 1
+#परिभाषय PS_DOT 2
+#परिभाषय PS_DASHDOT 3
+#परिभाषय PS_DASHDOTDOT 4
+#परिभाषय PS_NULL 5
+#परिभाषय PS_INSIDEFRAME 6
+#परिभाषय PS_USERSTYLE 7
+#परिभाषय PS_ALTERNATE 8
+#परिभाषय PS_STYLE_आवरणम् 0x0000000F
 
-#define PS_ENDCAP_ROUND 0x00000000
-#define PS_ENDCAP_SQUARE 0x00000100
-#define PS_ENDCAP_FLAT 0x00000200
-#define PS_ENDCAP_MASK 0x00000F00
+#परिभाषय PS_ENDCAP_आवर्तनम् 0x00000000
+#परिभाषय PS_ENDCAP_वर्गफलम् 0x00000100
+#परिभाषय PS_ENDCAP_FLAT 0x00000200
+#परिभाषय PS_ENDCAP_आवरणम् 0x00000F00
 
-#define PS_JOIN_ROUND 0x00000000
-#define PS_JOIN_BEVEL 0x00001000
-#define PS_JOIN_MITER 0x00002000
-#define PS_JOIN_MASK 0x0000F000
+#परिभाषय PS_JOIN_आवर्तनम् 0x00000000
+#परिभाषय PS_JOIN_BEVEL 0x00001000
+#परिभाषय PS_JOIN_MITER 0x00002000
+#परिभाषय PS_JOIN_आवरणम् 0x0000F000
 
-#define PS_COSMETIC 0x00000000
-#define PS_GEOMETRIC 0x00010000
-#define PS_TYPE_MASK 0x000F0000
+#परिभाषय PS_COSMETIC 0x00000000
+#परिभाषय PS_GEOMETRIC 0x00010000
+#परिभाषय PS_TYPE_आवरणम् 0x000F0000
 
-#define AD_COUNTERCLOCKWISE 1
-#define AD_CLOCKWISE 2
+#परिभाषय AD_COUNTERCLOCKWISE 1
+#परिभाषय AD_CLOCKWISE 2
 
-#define DRIVERVERSION 0
-#define TECHNOLOGY 2
-#define HORZSIZE 4
-#define VERTSIZE 6
-#define HORZRES 8
-#define VERTRES 10
-#define BITSPIXEL 12
-#define PLANES 14
-#define NUMBRUSHES 16
-#define NUMPENS 18
-#define NUMMARKERS 20
-#define NUMFONTS 22
-#define NUMCOLORS 24
-#define PDEVICESIZE 26
-#define CURVECAPS 28
-#define LINECAPS 30
-#define POLYGONALCAPS 32
-#define TEXTCAPS 34
-#define CLIPCAPS 36
-#define RASTERCAPS 38
-#define ASPECTX 40
-#define ASPECTY 42
-#define ASPECTXY 44
+#परिभाषय DRIVERVERSION 0
+#परिभाषय TECHNOLOGY 2
+#परिभाषय HORZSIZE 4
+#परिभाषय VERTSIZE 6
+#परिभाषय HORZRES 8
+#परिभाषय VERTRES 10
+#परिभाषय BITSPIXEL 12
+#परिभाषय PLANES 14
+#परिभाषय NUMBRUSHES 16
+#परिभाषय NUMPENS 18
+#परिभाषय NUMMARKERS 20
+#परिभाषय NUMFONTS 22
+#परिभाषय NUMCOLORS 24
+#परिभाषय PDEVICESIZE 26
+#परिभाषय CURVECAPS 28
+#परिभाषय LINECAPS 30
+#परिभाषय POLYGONALCAPS 32
+#परिभाषय TEXTCAPS 34
+#परिभाषय CLIPCAPS 36
+#परिभाषय RASTERCAPS 38
+#परिभाषय ASPECTX 40
+#परिभाषय ASPECTY 42
+#परिभाषय ASPECTXY 44
 
-#define LOGPIXELSX 88
-#define LOGPIXELSY 90
+#परिभाषय LOGPIXELSX 88
+#परिभाषय LOGPIXELSY 90
 
-#define SIZEPALETTE 104
-#define NUMRESERVED 106
-#define COLORRES 108
+#परिभाषय SIZEPALETTE 104
+#परिभाषय NUMRESERVED 106
+#परिभाषय COLORRES 108
 
-#define PHYSICALWIDTH 110
-#define PHYSICALHEIGHT 111
-#define PHYSICALOFFSETX 112
-#define PHYSICALOFFSETY 113
-#define SCALINGFACTORX 114
-#define SCALINGFACTORY 115
+#परिभाषय PHYSICALWIDTH 110
+#परिभाषय PHYSICALHEIGHT 111
+#परिभाषय PHYSICALOFFSETX 112
+#परिभाषय PHYSICALOFFSETY 113
+#परिभाषय SCALINGFACTORX 114
+#परिभाषय SCALINGFACTORY 115
 
-#define VREFRESH 116
+#परिभाषय VREFRESH 116
 
-#define DESKTOPVERTRES 117
+#परिभाषय DESKTOPVERTRES 117
 
-#define DESKTOPHORZRES 118
+#परिभाषय DESKTOPHORZRES 118
 
-#define BLTALIGNMENT 119
+#परिभाषय BLTALIGNMENT 119
 
-#define SHADEBLENDCAPS 120
-#define COLORMGMTCAPS 121
+#परिभाषय SHADEBLENDCAPS 120
+#परिभाषय COLORMGMTCAPS 121
 
-#ifndef NOGDICAPMASKS
-#define DT_PLOTTER 0
-#define DT_RASDISPLAY 1
-#define DT_RASPRINTER 2
-#define DT_RASCAMERA 3
-#define DT_CHARSTREAM 4
-#define DT_METAFILE 5
-#define DT_DISPFILE 6
+#यदि_अपरिभाषितम् NOGDICAPMASKS
+#परिभाषय DT_PLOTTER 0
+#परिभाषय DT_RASDISPLAY 1
+#परिभाषय DT_RASPRINTER 2
+#परिभाषय DT_RASCAMERA 3
+#परिभाषय DT_CHARSTREAM 4
+#परिभाषय DT_METAFILE 5
+#परिभाषय DT_DISPFILE 6
 
-#define CC_NONE 0
-#define CC_CIRCLES 1
-#define CC_PIE 2
-#define CC_CHORD 4
-#define CC_ELLIPSES 8
-#define CC_WIDE 16
-#define CC_STYLED 32
-#define CC_WIDESTYLED 64
-#define CC_INTERIORS 128
-#define CC_ROUNDRECT 256
+#परिभाषय CC_NONE 0
+#परिभाषय CC_CIRCLES 1
+#परिभाषय CC_PIE 2
+#परिभाषय CC_CHORD 4
+#परिभाषय CC_ELLIPSES 8
+#परिभाषय CC_WIDE 16
+#परिभाषय CC_STYLED 32
+#परिभाषय CC_WIDESTYLED 64
+#परिभाषय CC_INTERIORS 128
+#परिभाषय CC_ROUNDRECT 256
 
-#define LC_NONE 0
-#define LC_POLYLINE 2
-#define LC_MARKER 4
-#define LC_POLYMARKER 8
-#define LC_WIDE 16
-#define LC_STYLED 32
-#define LC_WIDESTYLED 64
-#define LC_INTERIORS 128
+#परिभाषय LC_NONE 0
+#परिभाषय LC_POLYLINE 2
+#परिभाषय LC_MARKER 4
+#परिभाषय LC_POLYMARKER 8
+#परिभाषय LC_WIDE 16
+#परिभाषय LC_STYLED 32
+#परिभाषय LC_WIDESTYLED 64
+#परिभाषय LC_INTERIORS 128
 
-#define PC_NONE 0
-#define PC_POLYGON 1
-#define PC_RECTANGLE 2
-#define PC_WINDPOLYGON 4
-#define PC_TRAPEZOID 4
-#define PC_SCANLINE 8
-#define PC_WIDE 16
-#define PC_STYLED 32
-#define PC_WIDESTYLED 64
-#define PC_INTERIORS 128
-#define PC_POLYPOLYGON 256
-#define PC_PATHS 512
+#परिभाषय PC_NONE 0
+#परिभाषय PC_POLYGON 1
+#परिभाषय PC_RECTANGLE 2
+#परिभाषय PC_WINDPOLYGON 4
+#परिभाषय PC_TRAPEZOID 4
+#परिभाषय PC_SCANLINE 8
+#परिभाषय PC_WIDE 16
+#परिभाषय PC_STYLED 32
+#परिभाषय PC_WIDESTYLED 64
+#परिभाषय PC_INTERIORS 128
+#परिभाषय PC_POLYPOLYGON 256
+#परिभाषय PC_PATHS 512
 
-#define CP_NONE 0
-#define CP_RECTANGLE 1
-#define CP_REGION 2
+#परिभाषय CP_NONE 0
+#परिभाषय CP_RECTANGLE 1
+#परिभाषय CP_REGION 2
 
-#define TC_OP_CHARACTER 0x00000001
-#define TC_OP_STROKE 0x00000002
-#define TC_CP_STROKE 0x00000004
-#define TC_CR_90 0x00000008
-#define TC_CR_ANY 0x00000010
-#define TC_SF_X_YINDEP 0x00000020
-#define TC_SA_DOUBLE 0x00000040
-#define TC_SA_INTEGER 0x00000080
-#define TC_SA_CONTIN 0x00000100
-#define TC_EA_DOUBLE 0x00000200
-#define TC_IA_ABLE 0x00000400
-#define TC_UA_ABLE 0x00000800
-#define TC_SO_ABLE 0x00001000
-#define TC_RA_ABLE 0x00002000
-#define TC_VA_ABLE 0x00004000
-#define TC_RESERVED 0x00008000
-#define TC_SCROLLBLT 0x00010000
-#endif
+#परिभाषय TC_OP_CHARACTER 0x00000001
+#परिभाषय TC_OP_STROKE 0x00000002
+#परिभाषय TC_CP_STROKE 0x00000004
+#परिभाषय TC_CR_90 0x00000008
+#परिभाषय TC_CR_ANY 0x00000010
+#परिभाषय TC_SF_X_YINDEP 0x00000020
+#परिभाषय TC_SA_DOUBLE 0x00000040
+#परिभाषय TC_SA_INTEGER 0x00000080
+#परिभाषय TC_SA_CONTIN 0x00000100
+#परिभाषय TC_EA_DOUBLE 0x00000200
+#परिभाषय TC_IA_ABLE 0x00000400
+#परिभाषय TC_UA_ABLE 0x00000800
+#परिभाषय TC_SO_ABLE 0x00001000
+#परिभाषय TC_RA_ABLE 0x00002000
+#परिभाषय TC_VA_ABLE 0x00004000
+#परिभाषय TC_RESERVED 0x00008000
+#परिभाषय TC_SCROLLBLT 0x00010000
+#यदि_अन्तः
 
-#define RC_NONE
-#define RC_BITBLT 1
-#define RC_BANDING 2
-#define RC_SCALING 4
-#define RC_BITMAP64 8
-#define RC_GDI20_OUTPUT 0x0010
-#define RC_GDI20_STATE 0x0020
-#define RC_SAVEBITMAP 0x0040
-#define RC_DI_BITMAP 0x0080
-#define RC_PALETTE 0x0100
-#define RC_DIBTODEV 0x0200
-#define RC_BIGFONT 0x0400
-#define RC_STRETCHBLT 0x0800
-#define RC_FLOODFILL 0x1000
-#define RC_STRETCHDIB 0x2000
-#define RC_OP_DX_OUTPUT 0x4000
-#define RC_DEVBITS 0x8000
+#परिभाषय RC_NONE
+#परिभाषय RC_BITBLT 1
+#परिभाषय RC_BANDING 2
+#परिभाषय RC_SCALING 4
+#परिभाषय RC_BITMAP64 8
+#परिभाषय RC_GDI20_OUTPUT 0x0010
+#परिभाषय RC_GDI20_STATE 0x0020
+#परिभाषय RC_SAVEBITMAP 0x0040
+#परिभाषय RC_DI_BITMAP 0x0080
+#परिभाषय RC_PALETTE 0x0100
+#परिभाषय RC_DIBTODEV 0x0200
+#परिभाषय RC_BIGFONT 0x0400
+#परिभाषय RC_STRETCHBLT 0x0800
+#परिभाषय RC_FLOODFILL 0x1000
+#परिभाषय RC_STRETCHDIB 0x2000
+#परिभाषय RC_OP_DX_OUTPUT 0x4000
+#परिभाषय RC_DEVBITS 0x8000
 
-#define SB_NONE 0x00000000
-#define SB_CONST_ALPHA 0x00000001
-#define SB_PIXEL_ALPHA 0x00000002
-#define SB_PREMULT_ALPHA 0x00000004
+#परिभाषय SB_NONE 0x00000000
+#परिभाषय SB_CONST_ALPHA 0x00000001
+#परिभाषय SB_PIXEL_ALPHA 0x00000002
+#परिभाषय SB_PREMULT_ALPHA 0x00000004
 
-#define SB_GRAD_RECT 0x00000010
-#define SB_GRAD_TRI 0x00000020
+#परिभाषय SB_GRAD_RECT 0x00000010
+#परिभाषय SB_GRAD_TRI 0x00000020
 
-#define CM_NONE 0x00000000
-#define CM_DEVICE_ICM 0x00000001
-#define CM_GAMMA_RAMP 0x00000002
-#define CM_CMYK_COLOR 0x00000004
+#परिभाषय CM_NONE 0x00000000
+#परिभाषय CM_DEVICE_ICM 0x00000001
+#परिभाषय CM_GAMMA_RAMP 0x00000002
+#परिभाषय CM_CMYK_COLOR 0x00000004
 
-#define DIB_RGB_COLORS 0
-#define DIB_PAL_COLORS 1
+#परिभाषय DIB_RGB_COLORS 0
+#परिभाषय DIB_PAL_COLORS 1
 
-#define SYSPAL_ERROR 0
-#define SYSPAL_STATIC 1
-#define SYSPAL_NOSTATIC 2
-#define SYSPAL_NOSTATIC256 3
+#परिभाषय SYSPAL_ERROR 0
+#परिभाषय SYSPAL_STATIC 1
+#परिभाषय SYSPAL_NOSTATIC 2
+#परिभाषय SYSPAL_NOSTATIC256 3
 
-#define CBM_INIT 0x04L
+#परिभाषय CBM_INIT 0x04L
 
-#define FLOODFILLBORDER 0
-#define FLOODFILLSURFACE 1
+#परिभाषय FLOODFILLBORDER 0
+#परिभाषय FLOODFILLSURFACE 1
 
-#define CCHDEVICENAME 32
+#परिभाषय CCHDEVICENAME 32
 
-#define CCHFORMNAME 32
+#परिभाषय CCHFORMNAME 32
 
-  typedef struct _devicemodeA {
+  प्रकारनिर्देश संरचना _devicemodeA {
     BYTE dmDeviceName[CCHDEVICENAME];
-    WORD dmSpecVersion;
-    WORD dmDriverVersion;
-    WORD dmSize;
+    WORD dm_Spec_संस्करणम्;
+    WORD dm_Driver_संस्करणम्;
+    WORD dm_आकार;
     WORD dmDriverExtra;
     DWORD dmFields;
-    union {
-      struct {
-        short dmOrientation;
-        short dmPaperSize;
-        short dmPaperLength;
-        short dmPaperWidth;
-        short dmScale;
-        short dmCopies;
-        short dmDefaultSource;
-        short dmPrintQuality;
+    सङ्घ {
+      संरचना {
+        ह्रस्व dmOrientation;
+        ह्रस्व dm_Paper_आकार;
+        ह्रस्व dm_Paper_दीर्घता;
+        ह्रस्व dm_Paper_विस्तारः;
+        ह्रस्व dmScale;
+        ह्रस्व dmCopies;
+        ह्रस्व dmDefaultSource;
+        ह्रस्व dmPrintQuality;
       };
-      struct {
+      संरचना {
         POINTL dmPosition;
         DWORD dmDisplayOrientation;
         DWORD dmDisplayFixedOutput;
       };
     };
-    short dmColor;
-    short dmDuplex;
-    short dmYResolution;
-    short dmTTOption;
-    short dmCollate;
+    ह्रस्व dmColor;
+    ह्रस्व dmDuplex;
+    ह्रस्व dmYResolution;
+    ह्रस्व dmTTOption;
+    ह्रस्व dmCollate;
     BYTE dmFormName[CCHFORMNAME];
     WORD dmLogPixels;
-    DWORD dmBitsPerPel;
-    DWORD dmPelsWidth;
+    DWORD dm_द्वयङ्काः_प्रत्येकम्_Pel;
+    DWORD dm_Pels_विस्तारः;
     DWORD dmPelsHeight;
-    union {
+    सङ्घ {
       DWORD dmDisplayFlags;
       DWORD dmNup;
     };
@@ -1648,45 +1648,45 @@ extern "C" {
     DWORD dmDitherType;
     DWORD dmReserved1;
     DWORD dmReserved2;
-    DWORD dmPanningWidth;
+    DWORD dm_Panning_विस्तारः;
     DWORD dmPanningHeight;
   } DEVMODEA,*PDEVMODEA,*NPDEVMODEA,*LPDEVMODEA;
 
-  typedef struct _devicemodeW {
+  प्रकारनिर्देश संरचना _devicemodeW {
     WCHAR dmDeviceName[CCHDEVICENAME];
-    WORD dmSpecVersion;
-    WORD dmDriverVersion;
-    WORD dmSize;
+    WORD dm_Spec_संस्करणम्;
+    WORD dm_Driver_संस्करणम्;
+    WORD dm_आकार;
     WORD dmDriverExtra;
     DWORD dmFields;
-    union {
-      struct {
-        short dmOrientation;
-        short dmPaperSize;
-        short dmPaperLength;
-        short dmPaperWidth;
-        short dmScale;
-        short dmCopies;
-        short dmDefaultSource;
-        short dmPrintQuality;
+    सङ्घ {
+      संरचना {
+        ह्रस्व dmOrientation;
+        ह्रस्व dm_Paper_आकार;
+        ह्रस्व dm_Paper_दीर्घता;
+        ह्रस्व dm_Paper_विस्तारः;
+        ह्रस्व dmScale;
+        ह्रस्व dmCopies;
+        ह्रस्व dmDefaultSource;
+        ह्रस्व dmPrintQuality;
       };
-      struct {
+      संरचना {
         POINTL dmPosition;
         DWORD dmDisplayOrientation;
         DWORD dmDisplayFixedOutput;
       };
     };
-    short dmColor;
-    short dmDuplex;
-    short dmYResolution;
-    short dmTTOption;
-    short dmCollate;
+    ह्रस्व dmColor;
+    ह्रस्व dmDuplex;
+    ह्रस्व dmYResolution;
+    ह्रस्व dmTTOption;
+    ह्रस्व dmCollate;
     WCHAR dmFormName[CCHFORMNAME];
     WORD dmLogPixels;
-    DWORD dmBitsPerPel;
-    DWORD dmPelsWidth;
+    DWORD dm_द्वयङ्काः_प्रत्येकम्_Pel;
+    DWORD dm_Pels_विस्तारः;
     DWORD dmPelsHeight;
-    union {
+    सङ्घ {
       DWORD dmDisplayFlags;
       DWORD dmNup;
     };
@@ -1697,947 +1697,947 @@ extern "C" {
     DWORD dmDitherType;
     DWORD dmReserved1;
     DWORD dmReserved2;
-    DWORD dmPanningWidth;
+    DWORD dm_Panning_विस्तारः;
     DWORD dmPanningHeight;
   } DEVMODEW,*PDEVMODEW,*NPDEVMODEW,*LPDEVMODEW;
-#ifdef UNICODE
-  typedef DEVMODEW DEVMODE;
-  typedef PDEVMODEW PDEVMODE;
-  typedef NPDEVMODEW NPDEVMODE;
-  typedef LPDEVMODEW LPDEVMODE;
-#else
-  typedef DEVMODEA DEVMODE;
-  typedef PDEVMODEA PDEVMODE;
-  typedef NPDEVMODEA NPDEVMODE;
-  typedef LPDEVMODEA LPDEVMODE;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश DEVMODEW DEVMODE;
+  प्रकारनिर्देश PDEVMODEW PDEVMODE;
+  प्रकारनिर्देश NPDEVMODEW NPDEVMODE;
+  प्रकारनिर्देश LPDEVMODEW LPDEVMODE;
+#अन्यथा
+  प्रकारनिर्देश DEVMODEA DEVMODE;
+  प्रकारनिर्देश PDEVMODEA PDEVMODE;
+  प्रकारनिर्देश NPDEVMODEA NPDEVMODE;
+  प्रकारनिर्देश LPDEVMODEA LPDEVMODE;
+#यदि_अन्तः
 
-#define DM_SPECVERSION 0x0401
+#परिभाषय DM_SPECVERSION 0x0401
 
-#define DM_ORIENTATION 0x00000001L
-#define DM_PAPERSIZE 0x00000002L
-#define DM_PAPERLENGTH 0x00000004L
-#define DM_PAPERWIDTH 0x00000008L
-#define DM_SCALE 0x00000010L
-#define DM_POSITION 0x00000020L
-#define DM_NUP 0x00000040L
-#define DM_DISPLAYORIENTATION 0x00000080L
-#define DM_COPIES 0x00000100L
-#define DM_DEFAULTSOURCE 0x00000200L
-#define DM_PRINTQUALITY 0x00000400L
-#define DM_COLOR 0x00000800L
-#define DM_DUPLEX 0x00001000L
-#define DM_YRESOLUTION 0x00002000L
-#define DM_TTOPTION 0x00004000L
-#define DM_COLLATE 0x00008000L
-#define DM_FORMNAME 0x00010000L
-#define DM_LOGPIXELS 0x00020000L
-#define DM_BITSPERPEL 0x00040000L
-#define DM_PELSWIDTH 0x00080000L
-#define DM_PELSHEIGHT 0x00100000L
-#define DM_DISPLAYFLAGS 0x00200000L
-#define DM_DISPLAYFREQUENCY 0x00400000L
-#define DM_ICMMETHOD 0x00800000L
-#define DM_ICMINTENT 0x01000000L
-#define DM_MEDIATYPE 0x02000000L
-#define DM_DITHERTYPE 0x04000000L
-#define DM_PANNINGWIDTH 0x08000000L
-#define DM_PANNINGHEIGHT 0x10000000L
-#define DM_DISPLAYFIXEDOUTPUT 0x20000000L
+#परिभाषय DM_ORIENTATION 0x00000001L
+#परिभाषय DM_PAPERSIZE 0x00000002L
+#परिभाषय DM_PAPERLENGTH 0x00000004L
+#परिभाषय DM_PAPERWIDTH 0x00000008L
+#परिभाषय DM_SCALE 0x00000010L
+#परिभाषय DM_POSITION 0x00000020L
+#परिभाषय DM_NUP 0x00000040L
+#परिभाषय DM_DISPLAYORIENTATION 0x00000080L
+#परिभाषय DM_COPIES 0x00000100L
+#परिभाषय DM_DEFAULTSOURCE 0x00000200L
+#परिभाषय DM_PRINTQUALITY 0x00000400L
+#परिभाषय DM_COLOR 0x00000800L
+#परिभाषय DM_DUPLEX 0x00001000L
+#परिभाषय DM_YRESOLUTION 0x00002000L
+#परिभाषय DM_TTOPTION 0x00004000L
+#परिभाषय DM_COLLATE 0x00008000L
+#परिभाषय DM_FORMNAME 0x00010000L
+#परिभाषय DM_LOGPIXELS 0x00020000L
+#परिभाषय DM_BITSPERPEL 0x00040000L
+#परिभाषय DM_PELSWIDTH 0x00080000L
+#परिभाषय DM_PELSHEIGHT 0x00100000L
+#परिभाषय DM_DISPLAYFLAGS 0x00200000L
+#परिभाषय DM_DISPLAYFREQUENCY 0x00400000L
+#परिभाषय DM_ICMMETHOD 0x00800000L
+#परिभाषय DM_ICMINTENT 0x01000000L
+#परिभाषय DM_MEDIATYPE 0x02000000L
+#परिभाषय DM_DITHERTYPE 0x04000000L
+#परिभाषय DM_PANNINGWIDTH 0x08000000L
+#परिभाषय DM_PANNINGHEIGHT 0x10000000L
+#परिभाषय DM_DISPLAYFIXEDOUTPUT 0x20000000L
 
-#define DMORIENT_PORTRAIT 1
-#define DMORIENT_LANDSCAPE 2
+#परिभाषय DMORIENT_PORTRAIT 1
+#परिभाषय DMORIENT_LANDSCAPE 2
 
-#define DMPAPER_FIRST DMPAPER_LETTER
-#define DMPAPER_LETTER 1
-#define DMPAPER_LETTERSMALL 2
-#define DMPAPER_TABLOID 3
-#define DMPAPER_LEDGER 4
-#define DMPAPER_LEGAL 5
-#define DMPAPER_STATEMENT 6
-#define DMPAPER_EXECUTIVE 7
-#define DMPAPER_A3 8
-#define DMPAPER_A4 9
-#define DMPAPER_A4SMALL 10
-#define DMPAPER_A5 11
-#define DMPAPER_B4 12
-#define DMPAPER_B5 13
-#define DMPAPER_FOLIO 14
-#define DMPAPER_QUARTO 15
-#define DMPAPER_10X14 16
-#define DMPAPER_11X17 17
-#define DMPAPER_NOTE 18
-#define DMPAPER_ENV_9 19
-#define DMPAPER_ENV_10 20
-#define DMPAPER_ENV_11 21
-#define DMPAPER_ENV_12 22
-#define DMPAPER_ENV_14 23
-#define DMPAPER_CSHEET 24
-#define DMPAPER_DSHEET 25
-#define DMPAPER_ESHEET 26
-#define DMPAPER_ENV_DL 27
-#define DMPAPER_ENV_C5 28
-#define DMPAPER_ENV_C3 29
-#define DMPAPER_ENV_C4 30
-#define DMPAPER_ENV_C6 31
-#define DMPAPER_ENV_C65 32
-#define DMPAPER_ENV_B4 33
-#define DMPAPER_ENV_B5 34
-#define DMPAPER_ENV_B6 35
-#define DMPAPER_ENV_ITALY 36
-#define DMPAPER_ENV_MONARCH 37
-#define DMPAPER_ENV_PERSONAL 38
-#define DMPAPER_FANFOLD_US 39
-#define DMPAPER_FANFOLD_STD_GERMAN 40
-#define DMPAPER_FANFOLD_LGL_GERMAN 41
-#define DMPAPER_ISO_B4 42
-#define DMPAPER_JAPANESE_POSTCARD 43
-#define DMPAPER_9X11 44
-#define DMPAPER_10X11 45
-#define DMPAPER_15X11 46
-#define DMPAPER_ENV_INVITE 47
-#define DMPAPER_RESERVED_48 48
-#define DMPAPER_RESERVED_49 49
-#define DMPAPER_LETTER_EXTRA 50
-#define DMPAPER_LEGAL_EXTRA 51
-#define DMPAPER_TABLOID_EXTRA 52
-#define DMPAPER_A4_EXTRA 53
-#define DMPAPER_LETTER_TRANSVERSE 54
-#define DMPAPER_A4_TRANSVERSE 55
-#define DMPAPER_LETTER_EXTRA_TRANSVERSE 56
-#define DMPAPER_A_PLUS 57
-#define DMPAPER_B_PLUS 58
-#define DMPAPER_LETTER_PLUS 59
-#define DMPAPER_A4_PLUS 60
-#define DMPAPER_A5_TRANSVERSE 61
-#define DMPAPER_B5_TRANSVERSE 62
-#define DMPAPER_A3_EXTRA 63
-#define DMPAPER_A5_EXTRA 64
-#define DMPAPER_B5_EXTRA 65
-#define DMPAPER_A2 66
-#define DMPAPER_A3_TRANSVERSE 67
-#define DMPAPER_A3_EXTRA_TRANSVERSE 68
-#define DMPAPER_DBL_JAPANESE_POSTCARD 69
-#define DMPAPER_A6 70
-#define DMPAPER_JENV_KAKU2 71
-#define DMPAPER_JENV_KAKU3 72
-#define DMPAPER_JENV_CHOU3 73
-#define DMPAPER_JENV_CHOU4 74
-#define DMPAPER_LETTER_ROTATED 75
-#define DMPAPER_A3_ROTATED 76
-#define DMPAPER_A4_ROTATED 77
-#define DMPAPER_A5_ROTATED 78
-#define DMPAPER_B4_JIS_ROTATED 79
-#define DMPAPER_B5_JIS_ROTATED 80
-#define DMPAPER_JAPANESE_POSTCARD_ROTATED 81
-#define DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED 82
-#define DMPAPER_A6_ROTATED 83
-#define DMPAPER_JENV_KAKU2_ROTATED 84
-#define DMPAPER_JENV_KAKU3_ROTATED 85
-#define DMPAPER_JENV_CHOU3_ROTATED 86
-#define DMPAPER_JENV_CHOU4_ROTATED 87
-#define DMPAPER_B6_JIS 88
-#define DMPAPER_B6_JIS_ROTATED 89
-#define DMPAPER_12X11 90
-#define DMPAPER_JENV_YOU4 91
-#define DMPAPER_JENV_YOU4_ROTATED 92
-#define DMPAPER_P16K 93
-#define DMPAPER_P32K 94
-#define DMPAPER_P32KBIG 95
-#define DMPAPER_PENV_1 96
-#define DMPAPER_PENV_2 97
-#define DMPAPER_PENV_3 98
-#define DMPAPER_PENV_4 99
-#define DMPAPER_PENV_5 100
-#define DMPAPER_PENV_6 101
-#define DMPAPER_PENV_7 102
-#define DMPAPER_PENV_8 103
-#define DMPAPER_PENV_9 104
-#define DMPAPER_PENV_10 105
-#define DMPAPER_P16K_ROTATED 106
-#define DMPAPER_P32K_ROTATED 107
-#define DMPAPER_P32KBIG_ROTATED 108
-#define DMPAPER_PENV_1_ROTATED 109
-#define DMPAPER_PENV_2_ROTATED 110
-#define DMPAPER_PENV_3_ROTATED 111
-#define DMPAPER_PENV_4_ROTATED 112
-#define DMPAPER_PENV_5_ROTATED 113
-#define DMPAPER_PENV_6_ROTATED 114
-#define DMPAPER_PENV_7_ROTATED 115
-#define DMPAPER_PENV_8_ROTATED 116
-#define DMPAPER_PENV_9_ROTATED 117
-#define DMPAPER_PENV_10_ROTATED 118
+#परिभाषय DMPAPER_FIRST DMPAPER_LETTER
+#परिभाषय DMPAPER_LETTER 1
+#परिभाषय DMPAPER_LETTERSMALL 2
+#परिभाषय DMPAPER_TABLOID 3
+#परिभाषय DMPAPER_LEDGER 4
+#परिभाषय DMPAPER_LEGAL 5
+#परिभाषय DMPAPER_STATEMENT 6
+#परिभाषय DMPAPER_EXECUTIVE 7
+#परिभाषय DMPAPER_A3 8
+#परिभाषय DMPAPER_A4 9
+#परिभाषय DMPAPER_A4SMALL 10
+#परिभाषय DMPAPER_A5 11
+#परिभाषय DMPAPER_B4 12
+#परिभाषय DMPAPER_B5 13
+#परिभाषय DMPAPER_FOLIO 14
+#परिभाषय DMPAPER_QUARTO 15
+#परिभाषय DMPAPER_10X14 16
+#परिभाषय DMPAPER_11X17 17
+#परिभाषय DMPAPER_NOTE 18
+#परिभाषय DMPAPER_ENV_9 19
+#परिभाषय DMPAPER_ENV_10 20
+#परिभाषय DMPAPER_ENV_11 21
+#परिभाषय DMPAPER_ENV_12 22
+#परिभाषय DMPAPER_ENV_14 23
+#परिभाषय DMPAPER_CSHEET 24
+#परिभाषय DMPAPER_DSHEET 25
+#परिभाषय DMPAPER_ESHEET 26
+#परिभाषय DMPAPER_ENV_DL 27
+#परिभाषय DMPAPER_ENV_C5 28
+#परिभाषय DMPAPER_ENV_C3 29
+#परिभाषय DMPAPER_ENV_C4 30
+#परिभाषय DMPAPER_ENV_C6 31
+#परिभाषय DMPAPER_ENV_C65 32
+#परिभाषय DMPAPER_ENV_B4 33
+#परिभाषय DMPAPER_ENV_B5 34
+#परिभाषय DMPAPER_ENV_B6 35
+#परिभाषय DMPAPER_ENV_ITALY 36
+#परिभाषय DMPAPER_ENV_MONARCH 37
+#परिभाषय DMPAPER_ENV_PERSONAL 38
+#परिभाषय DMPAPER_FANFOLD_US 39
+#परिभाषय DMPAPER_FANFOLD_STD_GERMAN 40
+#परिभाषय DMPAPER_FANFOLD_LGL_GERMAN 41
+#परिभाषय DMPAPER_ISO_B4 42
+#परिभाषय DMPAPER_JAPANESE_POSTCARD 43
+#परिभाषय DMPAPER_9X11 44
+#परिभाषय DMPAPER_10X11 45
+#परिभाषय DMPAPER_15X11 46
+#परिभाषय DMPAPER_ENV_INVITE 47
+#परिभाषय DMPAPER_RESERVED_48 48
+#परिभाषय DMPAPER_RESERVED_49 49
+#परिभाषय DMPAPER_LETTER_EXTRA 50
+#परिभाषय DMPAPER_LEGAL_EXTRA 51
+#परिभाषय DMPAPER_TABLOID_EXTRA 52
+#परिभाषय DMPAPER_A4_EXTRA 53
+#परिभाषय DMPAPER_LETTER_TRANSVERSE 54
+#परिभाषय DMPAPER_A4_TRANSVERSE 55
+#परिभाषय DMPAPER_LETTER_EXTRA_TRANSVERSE 56
+#परिभाषय DMPAPER_A_PLUS 57
+#परिभाषय DMPAPER_B_PLUS 58
+#परिभाषय DMPAPER_LETTER_PLUS 59
+#परिभाषय DMPAPER_A4_PLUS 60
+#परिभाषय DMPAPER_A5_TRANSVERSE 61
+#परिभाषय DMPAPER_B5_TRANSVERSE 62
+#परिभाषय DMPAPER_A3_EXTRA 63
+#परिभाषय DMPAPER_A5_EXTRA 64
+#परिभाषय DMPAPER_B5_EXTRA 65
+#परिभाषय DMPAPER_A2 66
+#परिभाषय DMPAPER_A3_TRANSVERSE 67
+#परिभाषय DMPAPER_A3_EXTRA_TRANSVERSE 68
+#परिभाषय DMPAPER_DBL_JAPANESE_POSTCARD 69
+#परिभाषय DMPAPER_A6 70
+#परिभाषय DMPAPER_JENV_KAKU2 71
+#परिभाषय DMPAPER_JENV_KAKU3 72
+#परिभाषय DMPAPER_JENV_CHOU3 73
+#परिभाषय DMPAPER_JENV_CHOU4 74
+#परिभाषय DMPAPER_LETTER_ROTATED 75
+#परिभाषय DMPAPER_A3_ROTATED 76
+#परिभाषय DMPAPER_A4_ROTATED 77
+#परिभाषय DMPAPER_A5_ROTATED 78
+#परिभाषय DMPAPER_B4_JIS_ROTATED 79
+#परिभाषय DMPAPER_B5_JIS_ROTATED 80
+#परिभाषय DMPAPER_JAPANESE_POSTCARD_ROTATED 81
+#परिभाषय DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED 82
+#परिभाषय DMPAPER_A6_ROTATED 83
+#परिभाषय DMPAPER_JENV_KAKU2_ROTATED 84
+#परिभाषय DMPAPER_JENV_KAKU3_ROTATED 85
+#परिभाषय DMPAPER_JENV_CHOU3_ROTATED 86
+#परिभाषय DMPAPER_JENV_CHOU4_ROTATED 87
+#परिभाषय DMPAPER_B6_JIS 88
+#परिभाषय DMPAPER_B6_JIS_ROTATED 89
+#परिभाषय DMPAPER_12X11 90
+#परिभाषय DMPAPER_JENV_YOU4 91
+#परिभाषय DMPAPER_JENV_YOU4_ROTATED 92
+#परिभाषय DMPAPER_P16K 93
+#परिभाषय DMPAPER_P32K 94
+#परिभाषय DMPAPER_P32KBIG 95
+#परिभाषय DMPAPER_PENV_1 96
+#परिभाषय DMPAPER_PENV_2 97
+#परिभाषय DMPAPER_PENV_3 98
+#परिभाषय DMPAPER_PENV_4 99
+#परिभाषय DMPAPER_PENV_5 100
+#परिभाषय DMPAPER_PENV_6 101
+#परिभाषय DMPAPER_PENV_7 102
+#परिभाषय DMPAPER_PENV_8 103
+#परिभाषय DMPAPER_PENV_9 104
+#परिभाषय DMPAPER_PENV_10 105
+#परिभाषय DMPAPER_P16K_ROTATED 106
+#परिभाषय DMPAPER_P32K_ROTATED 107
+#परिभाषय DMPAPER_P32KBIG_ROTATED 108
+#परिभाषय DMPAPER_PENV_1_ROTATED 109
+#परिभाषय DMPAPER_PENV_2_ROTATED 110
+#परिभाषय DMPAPER_PENV_3_ROTATED 111
+#परिभाषय DMPAPER_PENV_4_ROTATED 112
+#परिभाषय DMPAPER_PENV_5_ROTATED 113
+#परिभाषय DMPAPER_PENV_6_ROTATED 114
+#परिभाषय DMPAPER_PENV_7_ROTATED 115
+#परिभाषय DMPAPER_PENV_8_ROTATED 116
+#परिभाषय DMPAPER_PENV_9_ROTATED 117
+#परिभाषय DMPAPER_PENV_10_ROTATED 118
 
-#define DMPAPER_LAST DMPAPER_PENV_10_ROTATED
+#परिभाषय DMPAPER_चरमः DMPAPER_PENV_10_ROTATED
 
-#define DMPAPER_USER 256
+#परिभाषय DMPAPER_USER 256
 
-#define DMBIN_FIRST DMBIN_UPPER
-#define DMBIN_UPPER 1
-#define DMBIN_ONLYONE 1
-#define DMBIN_LOWER 2
-#define DMBIN_MIDDLE 3
-#define DMBIN_MANUAL 4
-#define DMBIN_ENVELOPE 5
-#define DMBIN_ENVMANUAL 6
-#define DMBIN_AUTO 7
-#define DMBIN_TRACTOR 8
-#define DMBIN_SMALLFMT 9
-#define DMBIN_LARGEFMT 10
-#define DMBIN_LARGECAPACITY 11
-#define DMBIN_CASSETTE 14
-#define DMBIN_FORMSOURCE 15
-#define DMBIN_LAST DMBIN_FORMSOURCE
+#परिभाषय DMBIN_FIRST DMBIN_ऊर्ध्वस्थम्
+#परिभाषय DMBIN_ऊर्ध्वस्थम् 1
+#परिभाषय DMBIN_ONLYONE 1
+#परिभाषय DMBIN_अधस्तनम् 2
+#परिभाषय DMBIN_मध्यः 3
+#परिभाषय DMBIN_MANUAL 4
+#परिभाषय DMBIN_ENVELOPE 5
+#परिभाषय DMBIN_ENVMANUAL 6
+#परिभाषय DMBIN_AUTO 7
+#परिभाषय DMBIN_TRACTOR 8
+#परिभाषय DMBIN_SMALLFMT 9
+#परिभाषय DMBIN_LARGEFMT 10
+#परिभाषय DMBIN_LARGECAPACITY 11
+#परिभाषय DMBIN_CASSETTE 14
+#परिभाषय DMBIN_FORMSOURCE 15
+#परिभाषय DMBIN_चरमः DMBIN_FORMSOURCE
 
-#define DMBIN_USER 256
+#परिभाषय DMBIN_USER 256
 
-#define DMRES_DRAFT (-1)
-#define DMRES_LOW (-2)
-#define DMRES_MEDIUM (-3)
-#define DMRES_HIGH (-4)
+#परिभाषय DMRES_DRAFT (-1)
+#परिभाषय DMRES_नीचः (-2)
+#परिभाषय DMRES_MEDIUM (-3)
+#परिभाषय DMRES_उच्चः (-4)
 
-#define DMCOLOR_MONOCHROME 1
-#define DMCOLOR_COLOR 2
+#परिभाषय DMCOLOR_MONOCHROME 1
+#परिभाषय DMCOLOR_COLOR 2
 
-#define DMDUP_SIMPLEX 1
-#define DMDUP_VERTICAL 2
-#define DMDUP_HORIZONTAL 3
+#परिभाषय DMDUP_SIMPLEX 1
+#परिभाषय DMDUP_VERTICAL 2
+#परिभाषय DMDUP_HORIZONTAL 3
 
-#define DMTT_BITMAP 1
-#define DMTT_DOWNLOAD 2
-#define DMTT_SUBDEV 3
-#define DMTT_DOWNLOAD_OUTLINE 4
+#परिभाषय DMTT_BITMAP 1
+#परिभाषय DMTT_DOWNLOAD 2
+#परिभाषय DMTT_SUBDEV 3
+#परिभाषय DMTT_DOWNLOAD_OUTLINE 4
 
-#define DMCOLLATE_FALSE 0
-#define DMCOLLATE_TRUE 1
+#परिभाषय DMCOLLATE_FALSE 0
+#परिभाषय DMCOLLATE_TRUE 1
 
-#define DMDO_DEFAULT 0
-#define DMDO_90 1
-#define DMDO_180 2
-#define DMDO_270 3
+#परिभाषय DMDO_DEFAULT 0
+#परिभाषय DMDO_90 1
+#परिभाषय DMDO_180 2
+#परिभाषय DMDO_270 3
 
-#define DMDFO_DEFAULT 0
-#define DMDFO_STRETCH 1
-#define DMDFO_CENTER 2
+#परिभाषय DMDFO_DEFAULT 0
+#परिभाषय DMDFO_STRETCH 1
+#परिभाषय DMDFO_CENTER 2
 
-#define DMDISPLAYFLAGS_TEXTMODE 0x00000004
+#परिभाषय DMDISPLAYFLAGS_TEXTMODE 0x00000004
 
-#define DMNUP_SYSTEM 1
-#define DMNUP_ONEUP 2
+#परिभाषय DMNUP_SYSTEM 1
+#परिभाषय DMNUP_ONEUP 2
 
-#define DMICMMETHOD_NONE 1
-#define DMICMMETHOD_SYSTEM 2
-#define DMICMMETHOD_DRIVER 3
-#define DMICMMETHOD_DEVICE 4
+#परिभाषय DMICMMETHOD_NONE 1
+#परिभाषय DMICMMETHOD_SYSTEM 2
+#परिभाषय DMICMMETHOD_DRIVER 3
+#परिभाषय DMICMMETHOD_DEVICE 4
 
-#define DMICMMETHOD_USER 256
+#परिभाषय DMICMMETHOD_USER 256
 
-#define DMICM_SATURATE 1
-#define DMICM_CONTRAST 2
-#define DMICM_COLORIMETRIC 3
-#define DMICM_ABS_COLORIMETRIC 4
+#परिभाषय DMICM_SATURATE 1
+#परिभाषय DMICM_CONTRAST 2
+#परिभाषय DMICM_COLORIMETRIC 3
+#परिभाषय DMICM_ABS_COLORIMETRIC 4
 
-#define DMICM_USER 256
+#परिभाषय DMICM_USER 256
 
-#define DMMEDIA_STANDARD 1
-#define DMMEDIA_TRANSPARENCY 2
-#define DMMEDIA_GLOSSY 3
+#परिभाषय DMMEDIA_STANDARD 1
+#परिभाषय DMMEDIA_TRANSPARENCY 2
+#परिभाषय DMMEDIA_GLOSSY 3
 
-#define DMMEDIA_USER 256
+#परिभाषय DMMEDIA_USER 256
 
-#define DMDITHER_NONE 1
-#define DMDITHER_COARSE 2
-#define DMDITHER_FINE 3
-#define DMDITHER_LINEART 4
-#define DMDITHER_ERRORDIFFUSION 5
-#define DMDITHER_RESERVED6 6
-#define DMDITHER_RESERVED7 7
-#define DMDITHER_RESERVED8 8
-#define DMDITHER_RESERVED9 9
-#define DMDITHER_GRAYSCALE 10
+#परिभाषय DMDITHER_NONE 1
+#परिभाषय DMDITHER_COARSE 2
+#परिभाषय DMDITHER_FINE 3
+#परिभाषय DMDITHER_LINEART 4
+#परिभाषय DMDITHER_ERRORDIFFUSION 5
+#परिभाषय DMDITHER_RESERVED6 6
+#परिभाषय DMDITHER_RESERVED7 7
+#परिभाषय DMDITHER_RESERVED8 8
+#परिभाषय DMDITHER_RESERVED9 9
+#परिभाषय DMDITHER_GRAYSCALE 10
 
-#define DMDITHER_USER 256
+#परिभाषय DMDITHER_USER 256
 
-  typedef struct _DISPLAY_DEVICEA {
+  प्रकारनिर्देश संरचना _DISPLAY_DEVICEA {
     DWORD cb;
     CHAR DeviceName[32];
     CHAR DeviceString[128];
     DWORD StateFlags;
     CHAR DeviceID[128];
-    CHAR DeviceKey[128];
+    CHAR Device_कुञ्चिका[128];
   } DISPLAY_DEVICEA,*PDISPLAY_DEVICEA,*LPDISPLAY_DEVICEA;
-  typedef struct _DISPLAY_DEVICEW {
+  प्रकारनिर्देश संरचना _DISPLAY_DEVICEW {
     DWORD cb;
     WCHAR DeviceName[32];
     WCHAR DeviceString[128];
     DWORD StateFlags;
     WCHAR DeviceID[128];
-    WCHAR DeviceKey[128];
+    WCHAR Device_कुञ्चिका[128];
   } DISPLAY_DEVICEW,*PDISPLAY_DEVICEW,*LPDISPLAY_DEVICEW;
-#ifdef UNICODE
-  typedef DISPLAY_DEVICEW DISPLAY_DEVICE;
-  typedef PDISPLAY_DEVICEW PDISPLAY_DEVICE;
-  typedef LPDISPLAY_DEVICEW LPDISPLAY_DEVICE;
-#else
-  typedef DISPLAY_DEVICEA DISPLAY_DEVICE;
-  typedef PDISPLAY_DEVICEA PDISPLAY_DEVICE;
-  typedef LPDISPLAY_DEVICEA LPDISPLAY_DEVICE;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश DISPLAY_DEVICEW DISPLAY_DEVICE;
+  प्रकारनिर्देश PDISPLAY_DEVICEW PDISPLAY_DEVICE;
+  प्रकारनिर्देश LPDISPLAY_DEVICEW LPDISPLAY_DEVICE;
+#अन्यथा
+  प्रकारनिर्देश DISPLAY_DEVICEA DISPLAY_DEVICE;
+  प्रकारनिर्देश PDISPLAY_DEVICEA PDISPLAY_DEVICE;
+  प्रकारनिर्देश LPDISPLAY_DEVICEA LPDISPLAY_DEVICE;
+#यदि_अन्तः
 
-#define DISPLAY_DEVICE_ATTACHED_TO_DESKTOP 0x00000001
-#define DISPLAY_DEVICE_MULTI_DRIVER 0x00000002
-#define DISPLAY_DEVICE_PRIMARY_DEVICE 0x00000004
-#define DISPLAY_DEVICE_MIRRORING_DRIVER 0x00000008
-#define DISPLAY_DEVICE_VGA_COMPATIBLE 0x00000010
-#define DISPLAY_DEVICE_REMOVABLE 0x00000020
-#define DISPLAY_DEVICE_MODESPRUNED 0x08000000
-#define DISPLAY_DEVICE_REMOTE 0x04000000
-#define DISPLAY_DEVICE_DISCONNECT 0x02000000
+#परिभाषय DISPLAY_DEVICE_ATTACHED_गन्तव्यम्_DESKTOP 0x00000001
+#परिभाषय DISPLAY_DEVICE_MULTI_DRIVER 0x00000002
+#परिभाषय DISPLAY_DEVICE_PRIMARY_DEVICE 0x00000004
+#परिभाषय DISPLAY_DEVICE_MIRRORING_DRIVER 0x00000008
+#परिभाषय DISPLAY_DEVICE_VGA_COMPATIBLE 0x00000010
+#परिभाषय DISPLAY_DEVICE_REMOVABLE 0x00000020
+#परिभाषय DISPLAY_DEVICE_MODESPRUNED 0x08000000
+#परिभाषय DISPLAY_DEVICE_REMOTE 0x04000000
+#परिभाषय DISPLAY_DEVICE_DISCONNECT 0x02000000
 
-#define DISPLAY_DEVICE_ACTIVE 0x00000001
-#define DISPLAY_DEVICE_ATTACHED 0x00000002
+#परिभाषय DISPLAY_DEVICE_सक्रिय 0x00000001
+#परिभाषय DISPLAY_DEVICE_ATTACHED 0x00000002
 
-#define RDH_RECTANGLES 1
+#परिभाषय RDH_RECTANGLES 1
 
-  typedef struct _RGNDATAHEADER {
-    DWORD dwSize;
+  प्रकारनिर्देश संरचना _RGNDATAHEADER {
+    DWORD dw_आकार;
     DWORD iType;
-    DWORD nCount;
-    DWORD nRgnSize;
+    DWORD n_गणनम्;
+    DWORD n_Rgn_आकार;
     RECT rcBound;
   } RGNDATAHEADER,*PRGNDATAHEADER;
 
-  typedef struct _RGNDATA {
+  प्रकारनिर्देश संरचना _RGNDATA {
     RGNDATAHEADER rdh;
-    char Buffer[1];
+    वर्ण बफर_3[1];
   } RGNDATA,*PRGNDATA,*NPRGNDATA,*LPRGNDATA;
 
-#define SYSRGN 4
+#परिभाषय SYSRGN 4
 
-  typedef struct _ABC {
-    int abcA;
+  प्रकारनिर्देश संरचना _ABC {
+    पूर्णाङ्क abcA;
     UINT abcB;
-    int abcC;
+    पूर्णाङ्क abcC;
   } ABC,*PABC,*NPABC,*LPABC;
 
-  typedef struct _ABCFLOAT {
+  प्रकारनिर्देश संरचना _ABCFLOAT {
     FLOAT abcfA;
     FLOAT abcfB;
     FLOAT abcfC;
   } ABCFLOAT,*PABCFLOAT,*NPABCFLOAT,*LPABCFLOAT;
 
-#ifndef NOTEXTMETRIC
+#यदि_अपरिभाषितम् NOTEXTMETRIC
 
-  typedef struct _OUTLINETEXTMETRICA {
-    UINT otmSize;
+  प्रकारनिर्देश संरचना _OUTLINETEXTMETRICA {
+    UINT otm_आकार;
     TEXTMETRICA otmTextMetrics;
     BYTE otmFiller;
-    PANOSE otmPanoseNumber;
+    PANOSE otm_Panose_सङ्ख्या;
     UINT otmfsSelection;
     UINT otmfsType;
-    int otmsCharSlopeRise;
-    int otmsCharSlopeRun;
-    int otmItalicAngle;
+    पूर्णाङ्क otms_Char_नतिः_Rise;
+    पूर्णाङ्क otms_Char_नतिः_सततम्;
+    पूर्णाङ्क otmItalicAngle;
     UINT otmEMSquare;
-    int otmAscent;
-    int otmDescent;
-    UINT otmLineGap;
+    पूर्णाङ्क otmAscent;
+    पूर्णाङ्क otmDescent;
+    UINT otm_पङ्क्तिः_Gap;
     UINT otmsCapEmHeight;
     UINT otmsXHeight;
     RECT otmrcFontBox;
-    int otmMacAscent;
-    int otmMacDescent;
-    UINT otmMacLineGap;
+    पूर्णाङ्क otmMacAscent;
+    पूर्णाङ्क otmMacDescent;
+    UINT otm_Mac_पङ्क्तिः_Gap;
     UINT otmusMinimumPPEM;
-    POINT otmptSubscriptSize;
-    POINT otmptSubscriptOffset;
-    POINT otmptSuperscriptSize;
-    POINT otmptSuperscriptOffset;
-    UINT otmsStrikeoutSize;
-    int otmsStrikeoutPosition;
-    int otmsUnderscoreSize;
-    int otmsUnderscorePosition;
+    POINT otmpt_Subscript_आकार;
+    POINT otmpt_Subscript_विस्थापनम्;
+    POINT otmpt_Superscript_आकार;
+    POINT otmpt_Superscript_विस्थापनम्;
+    UINT otms_Strikeout_आकार;
+    पूर्णाङ्क otmsStrikeoutPosition;
+    पूर्णाङ्क otms_Underscore_आकार;
+    पूर्णाङ्क otmsUnderscorePosition;
     PSTR otmpFamilyName;
     PSTR otmpFaceName;
     PSTR otmpStyleName;
-    PSTR otmpFullName;
+    PSTR otmp_पूर्णम्_Name;
   } OUTLINETEXTMETRICA,*POUTLINETEXTMETRICA,*NPOUTLINETEXTMETRICA,*LPOUTLINETEXTMETRICA;
 
-  typedef struct _OUTLINETEXTMETRICW {
-    UINT otmSize;
+  प्रकारनिर्देश संरचना _OUTLINETEXTMETRICW {
+    UINT otm_आकार;
     TEXTMETRICW otmTextMetrics;
     BYTE otmFiller;
-    PANOSE otmPanoseNumber;
+    PANOSE otm_Panose_सङ्ख्या;
     UINT otmfsSelection;
     UINT otmfsType;
-    int otmsCharSlopeRise;
-    int otmsCharSlopeRun;
-    int otmItalicAngle;
+    पूर्णाङ्क otms_Char_नतिः_Rise;
+    पूर्णाङ्क otms_Char_नतिः_सततम्;
+    पूर्णाङ्क otmItalicAngle;
     UINT otmEMSquare;
-    int otmAscent;
-    int otmDescent;
-    UINT otmLineGap;
+    पूर्णाङ्क otmAscent;
+    पूर्णाङ्क otmDescent;
+    UINT otm_पङ्क्तिः_Gap;
     UINT otmsCapEmHeight;
     UINT otmsXHeight;
     RECT otmrcFontBox;
-    int otmMacAscent;
-    int otmMacDescent;
-    UINT otmMacLineGap;
+    पूर्णाङ्क otmMacAscent;
+    पूर्णाङ्क otmMacDescent;
+    UINT otm_Mac_पङ्क्तिः_Gap;
     UINT otmusMinimumPPEM;
-    POINT otmptSubscriptSize;
-    POINT otmptSubscriptOffset;
-    POINT otmptSuperscriptSize;
-    POINT otmptSuperscriptOffset;
-    UINT otmsStrikeoutSize;
-    int otmsStrikeoutPosition;
-    int otmsUnderscoreSize;
-    int otmsUnderscorePosition;
+    POINT otmpt_Subscript_आकार;
+    POINT otmpt_Subscript_विस्थापनम्;
+    POINT otmpt_Superscript_आकार;
+    POINT otmpt_Superscript_विस्थापनम्;
+    UINT otms_Strikeout_आकार;
+    पूर्णाङ्क otmsStrikeoutPosition;
+    पूर्णाङ्क otms_Underscore_आकार;
+    पूर्णाङ्क otmsUnderscorePosition;
     PSTR otmpFamilyName;
     PSTR otmpFaceName;
     PSTR otmpStyleName;
-    PSTR otmpFullName;
+    PSTR otmp_पूर्णम्_Name;
   } OUTLINETEXTMETRICW,*POUTLINETEXTMETRICW,*NPOUTLINETEXTMETRICW,*LPOUTLINETEXTMETRICW;
-#ifdef UNICODE
-  typedef OUTLINETEXTMETRICW OUTLINETEXTMETRIC;
-  typedef POUTLINETEXTMETRICW POUTLINETEXTMETRIC;
-  typedef NPOUTLINETEXTMETRICW NPOUTLINETEXTMETRIC;
-  typedef LPOUTLINETEXTMETRICW LPOUTLINETEXTMETRIC;
-#else
-  typedef OUTLINETEXTMETRICA OUTLINETEXTMETRIC;
-  typedef POUTLINETEXTMETRICA POUTLINETEXTMETRIC;
-  typedef NPOUTLINETEXTMETRICA NPOUTLINETEXTMETRIC;
-  typedef LPOUTLINETEXTMETRICA LPOUTLINETEXTMETRIC;
-#endif
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश OUTLINETEXTMETRICW OUTLINETEXTMETRIC;
+  प्रकारनिर्देश POUTLINETEXTMETRICW POUTLINETEXTMETRIC;
+  प्रकारनिर्देश NPOUTLINETEXTMETRICW NPOUTLINETEXTMETRIC;
+  प्रकारनिर्देश LPOUTLINETEXTMETRICW LPOUTLINETEXTMETRIC;
+#अन्यथा
+  प्रकारनिर्देश OUTLINETEXTMETRICA OUTLINETEXTMETRIC;
+  प्रकारनिर्देश POUTLINETEXTMETRICA POUTLINETEXTMETRIC;
+  प्रकारनिर्देश NPOUTLINETEXTMETRICA NPOUTLINETEXTMETRIC;
+  प्रकारनिर्देश LPOUTLINETEXTMETRICA LPOUTLINETEXTMETRIC;
+#यदि_अन्तः
+#यदि_अन्तः
 
-  typedef struct tagPOLYTEXTA {
-    int x;
-    int y;
+  प्रकारनिर्देश संरचना चिह्नकम्_POLYTEXTA {
+    पूर्णाङ्क x;
+    पूर्णाङ्क y;
     UINT n;
     LPCSTR lpstr;
     UINT uiFlags;
     RECT rcl;
-    int *pdx;
+    पूर्णाङ्क *pdx;
   } POLYTEXTA,*PPOLYTEXTA,*NPPOLYTEXTA,*LPPOLYTEXTA;
 
-  typedef struct tagPOLYTEXTW {
-    int x;
-    int y;
+  प्रकारनिर्देश संरचना चिह्नकम्_POLYTEXTW {
+    पूर्णाङ्क x;
+    पूर्णाङ्क y;
     UINT n;
     LPCWSTR lpstr;
     UINT uiFlags;
     RECT rcl;
-    int *pdx;
+    पूर्णाङ्क *pdx;
   } POLYTEXTW,*PPOLYTEXTW,*NPPOLYTEXTW,*LPPOLYTEXTW;
-#ifdef UNICODE
-  typedef POLYTEXTW POLYTEXT;
-  typedef PPOLYTEXTW PPOLYTEXT;
-  typedef NPPOLYTEXTW NPPOLYTEXT;
-  typedef LPPOLYTEXTW LPPOLYTEXT;
-#else
-  typedef POLYTEXTA POLYTEXT;
-  typedef PPOLYTEXTA PPOLYTEXT;
-  typedef NPPOLYTEXTA NPPOLYTEXT;
-  typedef LPPOLYTEXTA LPPOLYTEXT;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश POLYTEXTW POLYTEXT;
+  प्रकारनिर्देश PPOLYTEXTW PPOLYTEXT;
+  प्रकारनिर्देश NPPOLYTEXTW NPPOLYTEXT;
+  प्रकारनिर्देश LPPOLYTEXTW LPPOLYTEXT;
+#अन्यथा
+  प्रकारनिर्देश POLYTEXTA POLYTEXT;
+  प्रकारनिर्देश PPOLYTEXTA PPOLYTEXT;
+  प्रकारनिर्देश NPPOLYTEXTA NPPOLYTEXT;
+  प्रकारनिर्देश LPPOLYTEXTA LPPOLYTEXT;
+#यदि_अन्तः
 
-  typedef struct _FIXED {
+  प्रकारनिर्देश संरचना _FIXED {
     WORD fract;
-    short value;
+    ह्रस्व मानम्;
   } FIXED;
 
-  typedef struct _MAT2 {
+  प्रकारनिर्देश संरचना _MAT2 {
     FIXED eM11;
     FIXED eM12;
     FIXED eM21;
     FIXED eM22;
   } MAT2,*LPMAT2;
 
-  typedef struct _GLYPHMETRICS {
+  प्रकारनिर्देश संरचना _GLYPHMETRICS {
     UINT gmBlackBoxX;
     UINT gmBlackBoxY;
     POINT gmptGlyphOrigin;
-    short gmCellIncX;
-    short gmCellIncY;
+    ह्रस्व gmCellIncX;
+    ह्रस्व gmCellIncY;
   } GLYPHMETRICS,*LPGLYPHMETRICS;
 
-#define GGO_METRICS 0
-#define GGO_BITMAP 1
-#define GGO_NATIVE 2
-#define GGO_BEZIER 3
+#परिभाषय GGO_METRICS 0
+#परिभाषय GGO_BITMAP 1
+#परिभाषय GGO_NATIVE 2
+#परिभाषय GGO_BEZIER 3
 
-#define GGO_GRAY2_BITMAP 4
-#define GGO_GRAY4_BITMAP 5
-#define GGO_GRAY8_BITMAP 6
-#define GGO_GLYPH_INDEX 0x0080
-#define GGO_UNHINTED 0x0100
+#परिभाषय GGO_GRAY2_BITMAP 4
+#परिभाषय GGO_GRAY4_BITMAP 5
+#परिभाषय GGO_GRAY8_BITMAP 6
+#परिभाषय GGO_GLYPH_सूचकांक 0x0080
+#परिभाषय GGO_UNHINTED 0x0100
 
-#define TT_POLYGON_TYPE 24
+#परिभाषय TT_POLYGON_TYPE 24
 
-#define TT_PRIM_LINE 1
-#define TT_PRIM_QSPLINE 2
-#define TT_PRIM_CSPLINE 3
+#परिभाषय TT_PRIM_पङ्क्तिः 1
+#परिभाषय TT_PRIM_QSPLINE 2
+#परिभाषय TT_PRIM_CSPLINE 3
 
-  typedef struct tagPOINTFX {
+  प्रकारनिर्देश संरचना चिह्नकम्_POINTFX {
     FIXED x;
     FIXED y;
   } POINTFX,*LPPOINTFX;
 
-  typedef struct tagTTPOLYCURVE {
+  प्रकारनिर्देश संरचना चिह्नकम्_TTPOLYCURVE {
     WORD wType;
     WORD cpfx;
     POINTFX apfx[1];
   } TTPOLYCURVE,*LPTTPOLYCURVE;
 
-  typedef struct tagTTPOLYGONHEADER {
+  प्रकारनिर्देश संरचना चिह्नकम्_TTPOLYGONHEADER {
     DWORD cb;
     DWORD dwType;
     POINTFX pfxStart;
   } TTPOLYGONHEADER,*LPTTPOLYGONHEADER;
 
-#define GCP_DBCS 0x0001
-#define GCP_REORDER 0x0002
-#define GCP_USEKERNING 0x0008
-#define GCP_GLYPHSHAPE 0x0010
-#define GCP_LIGATE 0x0020
+#परिभाषय GCP_DBCS 0x0001
+#परिभाषय GCP_REORDER 0x0002
+#परिभाषय GCP_USEKERNING 0x0008
+#परिभाषय GCP_GLYPHSHAPE 0x0010
+#परिभाषय GCP_LIGATE 0x0020
 
-#define GCP_DIACRITIC 0x0100
-#define GCP_KASHIDA 0x0400
-#define GCP_ERROR 0x8000
-#define FLI_MASK 0x103B
+#परिभाषय GCP_DIACRITIC 0x0100
+#परिभाषय GCP_KASHIDA 0x0400
+#परिभाषय GCP_ERROR 0x8000
+#परिभाषय FLI_आवरणम् 0x103B
 
-#define GCP_JUSTIFY 0x00010000L
+#परिभाषय GCP_JUSTIFY 0x00010000L
 
-#define FLI_GLYPHS 0x00040000L
-#define GCP_CLASSIN 0x00080000L
-#define GCP_MAXEXTENT 0x00100000L
-#define GCP_JUSTIFYIN 0x00200000L
-#define GCP_DISPLAYZWG 0x00400000L
-#define GCP_SYMSWAPOFF 0x00800000L
-#define GCP_NUMERICOVERRIDE 0x01000000L
-#define GCP_NEUTRALOVERRIDE 0x02000000L
-#define GCP_NUMERICSLATIN 0x04000000L
-#define GCP_NUMERICSLOCAL 0x08000000L
+#परिभाषय FLI_GLYPHS 0x00040000L
+#परिभाषय GCP_CLASSIN 0x00080000L
+#परिभाषय GCP_MAXEXTENT 0x00100000L
+#परिभाषय GCP_JUSTIFYIN 0x00200000L
+#परिभाषय GCP_DISPLAYZWG 0x00400000L
+#परिभाषय GCP_SYMSWAPOFF 0x00800000L
+#परिभाषय GCP_NUMERICOVERRIDE 0x01000000L
+#परिभाषय GCP_NEUTRALOVERRIDE 0x02000000L
+#परिभाषय GCP_NUMERICSLATIN 0x04000000L
+#परिभाषय GCP_NUMERICSLOCAL 0x08000000L
 
-#define GCPCLASS_LATIN 1
-#define GCPCLASS_HEBREW 2
-#define GCPCLASS_ARABIC 2
-#define GCPCLASS_NEUTRAL 3
-#define GCPCLASS_LOCALNUMBER 4
-#define GCPCLASS_LATINNUMBER 5
-#define GCPCLASS_LATINNUMERICTERMINATOR 6
-#define GCPCLASS_LATINNUMERICSEPARATOR 7
-#define GCPCLASS_NUMERICSEPARATOR 8
-#define GCPCLASS_PREBOUNDLTR 0x80
-#define GCPCLASS_PREBOUNDRTL 0x40
-#define GCPCLASS_POSTBOUNDLTR 0x20
-#define GCPCLASS_POSTBOUNDRTL 0x10
+#परिभाषय GCPCLASS_LATIN 1
+#परिभाषय GCPCLASS_HEBREW 2
+#परिभाषय GCPCLASS_ARABIC 2
+#परिभाषय GCPCLASS_NEUTRAL 3
+#परिभाषय GCPCLASS_LOCALNUMBER 4
+#परिभाषय GCPCLASS_LATINNUMBER 5
+#परिभाषय GCPCLASS_LATINNUMERICTERMINATOR 6
+#परिभाषय GCPCLASS_LATINNUMERICSEPARATOR 7
+#परिभाषय GCPCLASS_NUMERICSEPARATOR 8
+#परिभाषय GCPCLASS_PREBOUNDLTR 0x80
+#परिभाषय GCPCLASS_PREBOUNDRTL 0x40
+#परिभाषय GCPCLASS_POSTBOUNDLTR 0x20
+#परिभाषय GCPCLASS_POSTBOUNDRTL 0x10
 
-#define GCPGLYPH_LINKBEFORE 0x8000
-#define GCPGLYPH_LINKAFTER 0x4000
+#परिभाषय GCPGLYPH_LINKBEFORE 0x8000
+#परिभाषय GCPGLYPH_LINKAFTER 0x4000
 
-  typedef struct tagGCP_RESULTSA {
-    DWORD lStructSize;
-    LPSTR lpOutString;
-    UINT *lpOrder;
-    int *lpDx;
-    int *lpCaretPos;
+  प्रकारनिर्देश संरचना चिह्नकम्_GCP_RESULTSA {
+    DWORD l_Struct_आकार;
+    LPSTR lp_बहिर्गमनम्_String;
+    UINT *lp_क्रमः;
+    पूर्णाङ्क *lpDx;
+    पूर्णाङ्क *lpCaretPos;
     LPSTR lpClass;
     LPWSTR lpGlyphs;
     UINT nGlyphs;
-    int nMaxFit;
+    पूर्णाङ्क nMaxFit;
   } GCP_RESULTSA,*LPGCP_RESULTSA;
-  typedef struct tagGCP_RESULTSW {
-    DWORD lStructSize;
-    LPWSTR lpOutString;
-    UINT *lpOrder;
-    int *lpDx;
-    int *lpCaretPos;
+  प्रकारनिर्देश संरचना चिह्नकम्_GCP_RESULTSW {
+    DWORD l_Struct_आकार;
+    LPWSTR lp_बहिर्गमनम्_String;
+    UINT *lp_क्रमः;
+    पूर्णाङ्क *lpDx;
+    पूर्णाङ्क *lpCaretPos;
     LPSTR lpClass;
     LPWSTR lpGlyphs;
     UINT nGlyphs;
-    int nMaxFit;
+    पूर्णाङ्क nMaxFit;
   } GCP_RESULTSW,*LPGCP_RESULTSW;
-#ifdef UNICODE
-  typedef GCP_RESULTSW GCP_RESULTS;
-  typedef LPGCP_RESULTSW LPGCP_RESULTS;
-#else
-  typedef GCP_RESULTSA GCP_RESULTS;
-  typedef LPGCP_RESULTSA LPGCP_RESULTS;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश GCP_RESULTSW GCP_RESULTS;
+  प्रकारनिर्देश LPGCP_RESULTSW LPGCP_RESULTS;
+#अन्यथा
+  प्रकारनिर्देश GCP_RESULTSA GCP_RESULTS;
+  प्रकारनिर्देश LPGCP_RESULTSA LPGCP_RESULTS;
+#यदि_अन्तः
 
-  typedef struct _RASTERIZER_STATUS {
-    short nSize;
-    short wFlags;
-    short nLanguageID;
-  } RASTERIZER_STATUS,*LPRASTERIZER_STATUS;
+  प्रकारनिर्देश संरचना RASTERIZER_स्थितिः {
+    ह्रस्व n_आकार;
+    ह्रस्व wFlags;
+    ह्रस्व nLanguageID;
+  } RASTERIZER_स्थितिः_2,*LPRASTERIZER_स्थितिः;
 
-#define TT_AVAILABLE 0x0001
-#define TT_ENABLED 0x0002
+#परिभाषय TT_उपलब्धम् 0x0001
+#परिभाषय TT_ENABLED 0x0002
 
-  typedef struct tagPIXELFORMATDESCRIPTOR {
-    WORD nSize;
-    WORD nVersion;
+  प्रकारनिर्देश संरचना चिह्नकम्_PIXELFORMATDESCRIPTOR {
+    WORD n_आकार;
+    WORD n_संस्करणम्;
     DWORD dwFlags;
     BYTE iPixelType;
-    BYTE cColorBits;
-    BYTE cRedBits;
-    BYTE cRedShift;
-    BYTE cGreenBits;
-    BYTE cGreenShift;
-    BYTE cBlueBits;
-    BYTE cBlueShift;
-    BYTE cAlphaBits;
-    BYTE cAlphaShift;
-    BYTE cAccumBits;
-    BYTE cAccumRedBits;
-    BYTE cAccumGreenBits;
-    BYTE cAccumBlueBits;
-    BYTE cAccumAlphaBits;
-    BYTE cDepthBits;
-    BYTE cStencilBits;
+    BYTE c_Color_द्वयङ्काः;
+    BYTE c_Red_द्वयङ्काः;
+    BYTE c_Red_सरणम्;
+    BYTE c_Green_द्वयङ्काः;
+    BYTE c_Green_सरणम्;
+    BYTE c_Blue_द्वयङ्काः;
+    BYTE c_Blue_सरणम्;
+    BYTE c_Alpha_द्वयङ्काः;
+    BYTE c_Alpha_सरणम्;
+    BYTE c_Accum_द्वयङ्काः;
+    BYTE c_Accum_Red_द्वयङ्काः;
+    BYTE c_Accum_Green_द्वयङ्काः;
+    BYTE c_Accum_Blue_द्वयङ्काः;
+    BYTE c_Accum_Alpha_द्वयङ्काः;
+    BYTE c_गभीरता_द्वयङ्काः;
+    BYTE c_Stencil_द्वयङ्काः;
     BYTE cAuxBuffers;
     BYTE iLayerType;
     BYTE bReserved;
-    DWORD dwLayerMask;
-    DWORD dwVisibleMask;
-    DWORD dwDamageMask;
+    DWORD dw_Layer_आवरणम्;
+    DWORD dw_Visible_आवरणम्;
+    DWORD dw_Damage_आवरणम्;
   } PIXELFORMATDESCRIPTOR,*PPIXELFORMATDESCRIPTOR,*LPPIXELFORMATDESCRIPTOR;
 
-#define PFD_TYPE_RGBA 0
-#define PFD_TYPE_COLORINDEX 1
+#परिभाषय PFD_TYPE_RGBA 0
+#परिभाषय PFD_TYPE_COLORINDEX 1
 
-#define PFD_MAIN_PLANE 0
-#define PFD_OVERLAY_PLANE 1
-#define PFD_UNDERLAY_PLANE (-1)
+#परिभाषय PFD_MAIN_PLANE 0
+#परिभाषय PFD_OVERLAY_PLANE 1
+#परिभाषय PFD_UNDERLAY_PLANE (-1)
 
-#define PFD_DOUBLEBUFFER 0x00000001
-#define PFD_STEREO 0x00000002
-#define PFD_DRAW_TO_WINDOW 0x00000004
-#define PFD_DRAW_TO_BITMAP 0x00000008
-#define PFD_SUPPORT_GDI 0x00000010
-#define PFD_SUPPORT_OPENGL 0x00000020
-#define PFD_GENERIC_FORMAT 0x00000040
-#define PFD_NEED_PALETTE 0x00000080
-#define PFD_NEED_SYSTEM_PALETTE 0x00000100
-#define PFD_SWAP_EXCHANGE 0x00000200
-#define PFD_SWAP_COPY 0x00000400
-#define PFD_SWAP_LAYER_BUFFERS 0x00000800
-#define PFD_GENERIC_ACCELERATED 0x00001000
-#define PFD_SUPPORT_DIRECTDRAW 0x00002000
+#परिभाषय PFD_DOUBLEBUFFER 0x00000001
+#परिभाषय PFD_STEREO 0x00000002
+#परिभाषय PFD_DRAW_गन्तव्यम्_गवाक्षः 0x00000004
+#परिभाषय PFD_DRAW_गन्तव्यम्_BITMAP 0x00000008
+#परिभाषय PFD_SUPPORT_GDI 0x00000010
+#परिभाषय PFD_SUPPORT_OPENGL 0x00000020
+#परिभाषय PFD_GENERIC_FORMAT 0x00000040
+#परिभाषय PFD_NEED_PALETTE 0x00000080
+#परिभाषय PFD_NEED_SYSTEM_PALETTE 0x00000100
+#परिभाषय PFD_SWAP_EXCHANGE 0x00000200
+#परिभाषय PFD_SWAP_COPY 0x00000400
+#परिभाषय PFD_SWAP_LAYER_BUFFERS 0x00000800
+#परिभाषय PFD_GENERIC_ACCELERATED 0x00001000
+#परिभाषय PFD_SUPPORT_DIRECTDRAW 0x00002000
 
-#define PFD_DEPTH_DONTCARE 0x20000000
-#define PFD_DOUBLEBUFFER_DONTCARE 0x40000000
-#define PFD_STEREO_DONTCARE 0x80000000
+#परिभाषय PFD_गभीरता_DONTCARE 0x20000000
+#परिभाषय PFD_DOUBLEBUFFER_DONTCARE 0x40000000
+#परिभाषय PFD_STEREO_DONTCARE 0x80000000
 
-#ifndef NOTEXTMETRIC
-  typedef int (CALLBACK *OLDFONTENUMPROCA)(CONST LOGFONTA *,CONST TEXTMETRICA *,DWORD,LPARAM);
-  typedef int (CALLBACK *OLDFONTENUMPROCW)(CONST LOGFONTW *,CONST TEXTMETRICW *,DWORD,LPARAM);
-#ifdef UNICODE
-#define OLDFONTENUMPROC OLDFONTENUMPROCW
-#else
-#define OLDFONTENUMPROC OLDFONTENUMPROCA
-#endif
-#else
-  typedef int (CALLBACK *OLDFONTENUMPROCA)(CONST LOGFONTA *,CONST VOID *,DWORD,LPARAM);
-  typedef int (CALLBACK *OLDFONTENUMPROCW)(CONST LOGFONTW *,CONST VOID *,DWORD,LPARAM);
-#ifdef UNICODE
-#define OLDFONTENUMPROC OLDFONTENUMPROCW
-#else
-#define OLDFONTENUMPROC OLDFONTENUMPROCA
-#endif
-#endif
+#यदि_अपरिभाषितम् NOTEXTMETRIC
+  प्रकारनिर्देश पूर्णाङ्क (CALLBACK *OLDFONTENUMPROCA)(CONST LOGFONTA *,CONST TEXTMETRICA *,DWORD,LPARAM);
+  प्रकारनिर्देश पूर्णाङ्क (CALLBACK *OLDFONTENUMPROCW)(CONST LOGFONTW *,CONST TEXTMETRICW *,DWORD,LPARAM);
+#यदि_परिभाषितम् UNICODE
+#परिभाषय OLDFONTENUMPROC OLDFONTENUMPROCW
+#अन्यथा
+#परिभाषय OLDFONTENUMPROC OLDFONTENUMPROCA
+#यदि_अन्तः
+#अन्यथा
+  प्रकारनिर्देश पूर्णाङ्क (CALLBACK *OLDFONTENUMPROCA)(CONST LOGFONTA *,CONST VOID *,DWORD,LPARAM);
+  प्रकारनिर्देश पूर्णाङ्क (CALLBACK *OLDFONTENUMPROCW)(CONST LOGFONTW *,CONST VOID *,DWORD,LPARAM);
+#यदि_परिभाषितम् UNICODE
+#परिभाषय OLDFONTENUMPROC OLDFONTENUMPROCW
+#अन्यथा
+#परिभाषय OLDFONTENUMPROC OLDFONTENUMPROCA
+#यदि_अन्तः
+#यदि_अन्तः
 
-  typedef OLDFONTENUMPROCA FONTENUMPROCA;
-  typedef OLDFONTENUMPROCW FONTENUMPROCW;
-#ifdef UNICODE
-  typedef FONTENUMPROCW FONTENUMPROC;
-#else
-  typedef FONTENUMPROCA FONTENUMPROC;
-#endif
+  प्रकारनिर्देश OLDFONTENUMPROCA FONTENUMPROCA;
+  प्रकारनिर्देश OLDFONTENUMPROCW FONTENUMPROCW;
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश FONTENUMPROCW FONTENUMPROC;
+#अन्यथा
+  प्रकारनिर्देश FONTENUMPROCA FONTENUMPROC;
+#यदि_अन्तः
 
-  typedef int (CALLBACK *GOBJENUMPROC)(LPVOID,LPARAM);
-  typedef VOID (CALLBACK *LINEDDAPROC)(int,int,LPARAM);
+  प्रकारनिर्देश पूर्णाङ्क (CALLBACK *GOBJENUMPROC)(LPVOID,LPARAM);
+  प्रकारनिर्देश VOID (CALLBACK *LINEDDAPROC)(पूर्णाङ्क,पूर्णाङ्क,LPARAM);
 
-#ifdef UNICODE
-#define AddFontResource AddFontResourceW
-#define CopyMetaFile CopyMetaFileW
-#define CreateDC CreateDCW
-#define CreateFontIndirect CreateFontIndirectW
-#define CreateFont CreateFontW
-#define CreateIC CreateICW
-#define CreateMetaFile CreateMetaFileW
-#define CreateScalableFontResource CreateScalableFontResourceW
-#else
-#define AddFontResource AddFontResourceA
-#define CopyMetaFile CopyMetaFileA
-#define CreateDC CreateDCA
-#define CreateFontIndirect CreateFontIndirectA
-#define CreateFont CreateFontA
-#define CreateIC CreateICA
-#define CreateMetaFile CreateMetaFileA
-#define CreateScalableFontResource CreateScalableFontResourceA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय सङ्कलय_Font_Resource सङ्कलय_Font_Resource_W
+#परिभाषय CopyMetaFile CopyMetaFileW
+#परिभाषय CreateDC CreateDCW
+#परिभाषय Create_Font_परोक्षम् Create_Font_परोक्षम्_W
+#परिभाषय CreateFont CreateFontW
+#परिभाषय CreateIC CreateICW
+#परिभाषय CreateMetaFile CreateMetaFileW
+#परिभाषय CreateScalableFontResource CreateScalableFontResourceW
+#अन्यथा
+#परिभाषय सङ्कलय_Font_Resource सङ्कलय_Font_Resource_A
+#परिभाषय CopyMetaFile CopyMetaFileA
+#परिभाषय CreateDC CreateDCA
+#परिभाषय Create_Font_परोक्षम् Create_Font_परोक्षम्_A
+#परिभाषय CreateFont CreateFontA
+#परिभाषय CreateIC CreateICA
+#परिभाषय CreateMetaFile CreateMetaFileA
+#परिभाषय CreateScalableFontResource CreateScalableFontResourceA
+#यदि_अन्तः
 
-  WINGDIAPI int WINAPI AddFontResourceA(LPCSTR);
-  WINGDIAPI int WINAPI AddFontResourceW(LPCWSTR);
-  WINGDIAPI WINBOOL WINAPI AnimatePalette(HPALETTE hPal,UINT iStartIndex,UINT cEntries,CONST PALETTEENTRY *ppe);
-  WINGDIAPI WINBOOL WINAPI Arc(HDC hdc,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
-  WINGDIAPI WINBOOL WINAPI BitBlt(HDC hdc,int x,int y,int cx,int cy,HDC hdcSrc,int x1,int y1,DWORD rop);
+  WINGDIAPI पूर्णाङ्क WINAPI सङ्कलय_Font_Resource_A(LPCSTR);
+  WINGDIAPI पूर्णाङ्क WINAPI सङ्कलय_Font_Resource_W(LPCWSTR);
+  WINGDIAPI WINBOOL WINAPI AnimatePalette(HPALETTE hPal,UINT i_Start_सूचकांक,UINT cEntries,CONST PALETTEENTRY *ppe);
+  WINGDIAPI WINBOOL WINAPI Arc(HDC hdc,पूर्णाङ्क x1,पूर्णाङ्क y1,पूर्णाङ्क x2,पूर्णाङ्क y2,पूर्णाङ्क x3,पूर्णाङ्क y3,पूर्णाङ्क x4,पूर्णाङ्क y4);
+  WINGDIAPI WINBOOL WINAPI BitBlt(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,पूर्णाङ्क cx,पूर्णाङ्क cy,HDC hdcSrc,पूर्णाङ्क x1,पूर्णाङ्क y1,DWORD rop);
   WINGDIAPI WINBOOL WINAPI CancelDC(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI Chord(HDC hdc,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
-  WINGDIAPI int WINAPI ChoosePixelFormat(HDC hdc,CONST PIXELFORMATDESCRIPTOR *ppfd);
+  WINGDIAPI WINBOOL WINAPI Chord(HDC hdc,पूर्णाङ्क x1,पूर्णाङ्क y1,पूर्णाङ्क x2,पूर्णाङ्क y2,पूर्णाङ्क x3,पूर्णाङ्क y3,पूर्णाङ्क x4,पूर्णाङ्क y4);
+  WINGDIAPI पूर्णाङ्क WINAPI वृणु_Pixel_Format(HDC hdc,CONST PIXELFORMATDESCRIPTOR *ppfd);
   WINGDIAPI HMETAFILE WINAPI CloseMetaFile(HDC hdc);
-  WINGDIAPI int WINAPI CombineRgn(HRGN hrgnDst,HRGN hrgnSrc1,HRGN hrgnSrc2,int iMode);
+  WINGDIAPI पूर्णाङ्क WINAPI CombineRgn(HRGN hrgnDst,HRGN hrgnSrc1,HRGN hrgnSrc2,पूर्णाङ्क i_बहुलकम्);
   WINGDIAPI HMETAFILE WINAPI CopyMetaFileA(HMETAFILE,LPCSTR);
   WINGDIAPI HMETAFILE WINAPI CopyMetaFileW(HMETAFILE,LPCWSTR);
-  WINGDIAPI HBITMAP WINAPI CreateBitmap(int nWidth,int nHeight,UINT nPlanes,UINT nBitCount,CONST VOID *lpBits);
-  WINGDIAPI HBITMAP WINAPI CreateBitmapIndirect(CONST BITMAP *pbm);
-  WINGDIAPI HBRUSH WINAPI CreateBrushIndirect(CONST LOGBRUSH *plbrush);
-  WINGDIAPI HBITMAP WINAPI CreateCompatibleBitmap(HDC hdc,int cx,int cy);
-  WINGDIAPI HBITMAP WINAPI CreateDiscardableBitmap(HDC hdc,int cx,int cy);
+  WINGDIAPI HBITMAP WINAPI CreateBitmap(पूर्णाङ्क n_विस्तारः,पूर्णाङ्क nHeight,UINT nPlanes,UINT n_Bit_गणनम्,CONST VOID *lp_द्वयङ्काः);
+  WINGDIAPI HBITMAP WINAPI Create_Bitmap_परोक्षम्(CONST BITMAP *pbm);
+  WINGDIAPI HBRUSH WINAPI Create_Brush_परोक्षम्(CONST LOGBRUSH *plbrush);
+  WINGDIAPI HBITMAP WINAPI CreateCompatibleBitmap(HDC hdc,पूर्णाङ्क cx,पूर्णाङ्क cy);
+  WINGDIAPI HBITMAP WINAPI CreateDiscardableBitmap(HDC hdc,पूर्णाङ्क cx,पूर्णाङ्क cy);
   WINGDIAPI HDC WINAPI CreateCompatibleDC(HDC hdc);
-  WINGDIAPI HDC WINAPI CreateDCA(LPCSTR pwszDriver,LPCSTR pwszDevice,LPCSTR pszPort,CONST DEVMODEA *pdm);
-  WINGDIAPI HDC WINAPI CreateDCW(LPCWSTR pwszDriver,LPCWSTR pwszDevice,LPCWSTR pszPort,CONST DEVMODEW *pdm);
-  WINGDIAPI HBITMAP WINAPI CreateDIBitmap(HDC hdc,CONST BITMAPINFOHEADER *pbmih,DWORD flInit,CONST VOID *pjBits,CONST BITMAPINFO *pbmi,UINT iUsage);
+  WINGDIAPI HDC WINAPI CreateDCA(LPCSTR pwszDriver,LPCSTR pwszDevice,LPCSTR psz_पत्तनम्,CONST DEVMODEA *pdm);
+  WINGDIAPI HDC WINAPI CreateDCW(LPCWSTR pwszDriver,LPCWSTR pwszDevice,LPCWSTR psz_पत्तनम्,CONST DEVMODEW *pdm);
+  WINGDIAPI HBITMAP WINAPI CreateDIBitmap(HDC hdc,CONST BITMAPINFOHEADER *pbmih,DWORD flInit,CONST VOID *pj_द्वयङ्काः,CONST BITMAPINFO *pbmi,UINT iUsage);
   WINGDIAPI HBRUSH WINAPI CreateDIBPatternBrush(HGLOBAL h,UINT iUsage);
   WINGDIAPI HBRUSH WINAPI CreateDIBPatternBrushPt(CONST VOID *lpPackedDIB,UINT iUsage);
-  WINGDIAPI HRGN WINAPI CreateEllipticRgn(int x1,int y1,int x2,int y2);
-  WINGDIAPI HRGN WINAPI CreateEllipticRgnIndirect(CONST RECT *lprect);
-  WINGDIAPI HFONT WINAPI CreateFontIndirectA(CONST LOGFONTA *lplf);
-  WINGDIAPI HFONT WINAPI CreateFontIndirectW(CONST LOGFONTW *lplf);
-  WINGDIAPI HFONT WINAPI CreateFontA(int cHeight,int cWidth,int cEscapement,int cOrientation,int cWeight,DWORD bItalic,DWORD bUnderline,DWORD bStrikeOut,DWORD iCharSet,DWORD iOutPrecision,DWORD iClipPrecision,DWORD iQuality,DWORD iPitchAndFamily,LPCSTR pszFaceName);
-  WINGDIAPI HFONT WINAPI CreateFontW(int cHeight,int cWidth,int cEscapement,int cOrientation,int cWeight,DWORD bItalic,DWORD bUnderline,DWORD bStrikeOut,DWORD iCharSet,DWORD iOutPrecision,DWORD iClipPrecision,DWORD iQuality,DWORD iPitchAndFamily,LPCWSTR pszFaceName);
-  WINGDIAPI HBRUSH WINAPI CreateHatchBrush(int iHatch,COLORREF color);
-  WINGDIAPI HDC WINAPI CreateICA(LPCSTR pszDriver,LPCSTR pszDevice,LPCSTR pszPort,CONST DEVMODEA *pdm);
-  WINGDIAPI HDC WINAPI CreateICW(LPCWSTR pszDriver,LPCWSTR pszDevice,LPCWSTR pszPort,CONST DEVMODEW *pdm);
+  WINGDIAPI HRGN WINAPI CreateEllipticRgn(पूर्णाङ्क x1,पूर्णाङ्क y1,पूर्णाङ्क x2,पूर्णाङ्क y2);
+  WINGDIAPI HRGN WINAPI Create_Elliptic_Rgn_परोक्षम्(CONST RECT *lprect);
+  WINGDIAPI HFONT WINAPI Create_Font_परोक्षम्_A(CONST LOGFONTA *lplf);
+  WINGDIAPI HFONT WINAPI Create_Font_परोक्षम्_W(CONST LOGFONTW *lplf);
+  WINGDIAPI HFONT WINAPI CreateFontA(पूर्णाङ्क cHeight,पूर्णाङ्क c_विस्तारः,पूर्णाङ्क cEscapement,पूर्णाङ्क cOrientation,पूर्णाङ्क cWeight,DWORD bItalic,DWORD bUnderline,DWORD b_Strike_बहिर्गमनम्,DWORD i_Char_समुच्चयः,DWORD i_बहिर्गमनम्_Precision,DWORD iClipPrecision,DWORD iQuality,DWORD iPitchAndFamily,LPCSTR pszFaceName);
+  WINGDIAPI HFONT WINAPI CreateFontW(पूर्णाङ्क cHeight,पूर्णाङ्क c_विस्तारः,पूर्णाङ्क cEscapement,पूर्णाङ्क cOrientation,पूर्णाङ्क cWeight,DWORD bItalic,DWORD bUnderline,DWORD b_Strike_बहिर्गमनम्,DWORD i_Char_समुच्चयः,DWORD i_बहिर्गमनम्_Precision,DWORD iClipPrecision,DWORD iQuality,DWORD iPitchAndFamily,LPCWSTR pszFaceName);
+  WINGDIAPI HBRUSH WINAPI CreateHatchBrush(पूर्णाङ्क iHatch,COLORREF color);
+  WINGDIAPI HDC WINAPI CreateICA(LPCSTR pszDriver,LPCSTR pszDevice,LPCSTR psz_पत्तनम्,CONST DEVMODEA *pdm);
+  WINGDIAPI HDC WINAPI CreateICW(LPCWSTR pszDriver,LPCWSTR pszDevice,LPCWSTR psz_पत्तनम्,CONST DEVMODEW *pdm);
   WINGDIAPI HDC WINAPI CreateMetaFileA(LPCSTR pszFile);
   WINGDIAPI HDC WINAPI CreateMetaFileW(LPCWSTR pszFile);
   WINGDIAPI HPALETTE WINAPI CreatePalette(CONST LOGPALETTE *plpal);
-  WINGDIAPI HPEN WINAPI CreatePen(int iStyle,int cWidth,COLORREF color);
-  WINGDIAPI HPEN WINAPI CreatePenIndirect(CONST LOGPEN *plpen);
-  WINGDIAPI HRGN WINAPI CreatePolyPolygonRgn(CONST POINT *pptl,CONST INT *pc,int cPoly,int iMode);
-  WINGDIAPI HBRUSH WINAPI CreatePatternBrush(HBITMAP hbm);
-  WINGDIAPI HRGN WINAPI CreateRectRgn(int x1,int y1,int x2,int y2);
-  WINGDIAPI HRGN WINAPI CreateRectRgnIndirect(CONST RECT *lprect);
-  WINGDIAPI HRGN WINAPI CreateRoundRectRgn(int x1,int y1,int x2,int y2,int w,int h);
-  WINGDIAPI WINBOOL WINAPI CreateScalableFontResourceA(DWORD fdwHidden,LPCSTR lpszFont,LPCSTR lpszFile,LPCSTR lpszPath);
-  WINGDIAPI WINBOOL WINAPI CreateScalableFontResourceW(DWORD fdwHidden,LPCWSTR lpszFont,LPCWSTR lpszFile,LPCWSTR lpszPath);
+  WINGDIAPI HPEN WINAPI CreatePen(पूर्णाङ्क iStyle,पूर्णाङ्क c_विस्तारः,COLORREF color);
+  WINGDIAPI HPEN WINAPI Create_Pen_परोक्षम्(CONST LOGPEN *plpen);
+  WINGDIAPI HRGN WINAPI CreatePolyPolygonRgn(CONST POINT *pptl,CONST INT *pc,पूर्णाङ्क cPoly,पूर्णाङ्क i_बहुलकम्);
+  WINGDIAPI HBRUSH WINAPI Create_आदर्शः_Brush(HBITMAP hbm);
+  WINGDIAPI HRGN WINAPI CreateRectRgn(पूर्णाङ्क x1,पूर्णाङ्क y1,पूर्णाङ्क x2,पूर्णाङ्क y2);
+  WINGDIAPI HRGN WINAPI Create_Rect_Rgn_परोक्षम्(CONST RECT *lprect);
+  WINGDIAPI HRGN WINAPI Create_आवर्तनम्_Rect_Rgn(पूर्णाङ्क x1,पूर्णाङ्क y1,पूर्णाङ्क x2,पूर्णाङ्क y2,पूर्णाङ्क w,पूर्णाङ्क h);
+  WINGDIAPI WINBOOL WINAPI CreateScalableFontResourceA(DWORD fdwHidden,LPCSTR lpszFont,LPCSTR lpszFile,LPCSTR lpsz_मार्गः);
+  WINGDIAPI WINBOOL WINAPI CreateScalableFontResourceW(DWORD fdwHidden,LPCWSTR lpszFont,LPCWSTR lpszFile,LPCWSTR lpsz_मार्गः);
   WINGDIAPI HBRUSH WINAPI CreateSolidBrush(COLORREF color);
   WINGDIAPI WINBOOL WINAPI DeleteDC(HDC hdc);
   WINGDIAPI WINBOOL WINAPI DeleteMetaFile(HMETAFILE hmf);
   WINGDIAPI WINBOOL WINAPI DeleteObject(HGDIOBJ ho);
-  WINGDIAPI int WINAPI DescribePixelFormat(HDC hdc,int iPixelFormat,UINT nBytes,LPPIXELFORMATDESCRIPTOR ppfd);
+  WINGDIAPI पूर्णाङ्क WINAPI DescribePixelFormat(HDC hdc,पूर्णाङ्क iPixelFormat,UINT n_अष्टकानि,LPPIXELFORMATDESCRIPTOR ppfd);
 
-  typedef UINT (CALLBACK *LPFNDEVMODE)(HWND,HMODULE,LPDEVMODE,LPSTR,LPSTR,LPDEVMODE,LPSTR,UINT);
-  typedef DWORD (CALLBACK *LPFNDEVCAPS)(LPSTR,LPSTR,UINT,LPSTR,LPDEVMODE);
+  प्रकारनिर्देश UINT (CALLBACK *LPFNDEVMODE)(HWND,HMODULE,LPDEVMODE,LPSTR,LPSTR,LPDEVMODE,LPSTR,UINT);
+  प्रकारनिर्देश DWORD (CALLBACK *LPFNDEVCAPS)(LPSTR,LPSTR,UINT,LPSTR,LPDEVMODE);
 
-#define DM_UPDATE 1
-#define DM_COPY 2
-#define DM_PROMPT 4
-#define DM_MODIFY 8
+#परिभाषय DM_UPDATE 1
+#परिभाषय DM_COPY 2
+#परिभाषय DM_PROMPT 4
+#परिभाषय DM_MODIFY 8
 
-#define DM_IN_BUFFER DM_MODIFY
-#define DM_IN_PROMPT DM_PROMPT
-#define DM_OUT_BUFFER DM_COPY
-#define DM_OUT_DEFAULT DM_UPDATE
+#परिभाषय DM_अन्तर्_बफर DM_MODIFY
+#परिभाषय DM_अन्तर्_PROMPT DM_PROMPT
+#परिभाषय DM_बहिर्गमनम्_बफर DM_COPY
+#परिभाषय DM_बहिर्गमनम्_DEFAULT DM_UPDATE
 
-#define DC_FIELDS 1
-#define DC_PAPERS 2
-#define DC_PAPERSIZE 3
-#define DC_MINEXTENT 4
-#define DC_MAXEXTENT 5
-#define DC_BINS 6
-#define DC_DUPLEX 7
-#define DC_SIZE 8
-#define DC_EXTRA 9
-#define DC_VERSION 10
-#define DC_DRIVER 11
-#define DC_BINNAMES 12
-#define DC_ENUMRESOLUTIONS 13
-#define DC_FILEDEPENDENCIES 14
-#define DC_TRUETYPE 15
-#define DC_PAPERNAMES 16
-#define DC_ORIENTATION 17
-#define DC_COPIES 18
-#define DC_BINADJUST 19
-#define DC_EMF_COMPLIANT 20
-#define DC_DATATYPE_PRODUCED 21
-#define DC_COLLATE 22
-#define DC_MANUFACTURER 23
-#define DC_MODEL 24
-#define DC_PERSONALITY 25
-#define DC_PRINTRATE 26
-#define DC_PRINTRATEUNIT 27
-#define PRINTRATEUNIT_PPM 1
-#define PRINTRATEUNIT_CPS 2
-#define PRINTRATEUNIT_LPM 3
-#define PRINTRATEUNIT_IPM 4
-#define DC_PRINTERMEM 28
-#define DC_MEDIAREADY 29
-#define DC_STAPLE 30
-#define DC_PRINTRATEPPM 31
-#define DC_COLORDEVICE 32
-#define DC_NUP 33
-#define DC_MEDIATYPENAMES 34
-#define DC_MEDIATYPES 35
+#परिभाषय DC_FIELDS 1
+#परिभाषय DC_PAPERS 2
+#परिभाषय DC_PAPERSIZE 3
+#परिभाषय DC_MINEXTENT 4
+#परिभाषय DC_MAXEXTENT 5
+#परिभाषय DC_BINS 6
+#परिभाषय DC_DUPLEX 7
+#परिभाषय DC_आकार 8
+#परिभाषय DC_EXTRA 9
+#परिभाषय DC_संस्करणम् 10
+#परिभाषय DC_DRIVER 11
+#परिभाषय DC_BINNAMES 12
+#परिभाषय DC_ENUMRESOLUTIONS 13
+#परिभाषय DC_FILEDEPENDENCIES 14
+#परिभाषय DC_TRUETYPE 15
+#परिभाषय DC_PAPERNAMES 16
+#परिभाषय DC_ORIENTATION 17
+#परिभाषय DC_COPIES 18
+#परिभाषय DC_BINADJUST 19
+#परिभाषय DC_EMF_COMPLIANT 20
+#परिभाषय DC_DATATYPE_PRODUCED 21
+#परिभाषय DC_COLLATE 22
+#परिभाषय DC_MANUFACTURER 23
+#परिभाषय DC_MODEL 24
+#परिभाषय DC_PERSONALITY 25
+#परिभाषय DC_PRINTRATE 26
+#परिभाषय DC_PRINTRATEUNIT 27
+#परिभाषय PRINTRATEUNIT_PPM 1
+#परिभाषय PRINTRATEUNIT_CPS 2
+#परिभाषय PRINTRATEUNIT_LPM 3
+#परिभाषय PRINTRATEUNIT_IPM 4
+#परिभाषय DC_PRINTERMEM 28
+#परिभाषय DC_MEDIAREADY 29
+#परिभाषय DC_STAPLE 30
+#परिभाषय DC_PRINTRATEPPM 31
+#परिभाषय DC_COLORDEVICE 32
+#परिभाषय DC_NUP 33
+#परिभाषय DC_MEDIATYPENAMES 34
+#परिभाषय DC_MEDIATYPES 35
 
-#define DCTT_BITMAP 0x0000001L
-#define DCTT_DOWNLOAD 0x0000002L
-#define DCTT_SUBDEV 0x0000004L
-#define DCTT_DOWNLOAD_OUTLINE 0x0000008L
+#परिभाषय DCTT_BITMAP 0x0000001L
+#परिभाषय DCTT_DOWNLOAD 0x0000002L
+#परिभाषय DCTT_SUBDEV 0x0000004L
+#परिभाषय DCTT_DOWNLOAD_OUTLINE 0x0000008L
 
-#define DCBA_FACEUPNONE 0x0000
-#define DCBA_FACEUPCENTER 0x0001
-#define DCBA_FACEUPLEFT 0x0002
-#define DCBA_FACEUPRIGHT 0x0003
-#define DCBA_FACEDOWNNONE 0x0100
-#define DCBA_FACEDOWNCENTER 0x0101
-#define DCBA_FACEDOWNLEFT 0x0102
-#define DCBA_FACEDOWNRIGHT 0x0103
+#परिभाषय DCBA_FACEUPNONE 0x0000
+#परिभाषय DCBA_FACEUPCENTER 0x0001
+#परिभाषय DCBA_FACEUPLEFT 0x0002
+#परिभाषय DCBA_FACEUPRIGHT 0x0003
+#परिभाषय DCBA_FACEDOWNNONE 0x0100
+#परिभाषय DCBA_FACEDOWNCENTER 0x0101
+#परिभाषय DCBA_FACEDOWNLEFT 0x0102
+#परिभाषय DCBA_FACEDOWNRIGHT 0x0103
 
-#ifdef UNICODE
-#define DeviceCapabilities DeviceCapabilitiesW
-#define EnumFontFamiliesEx EnumFontFamiliesExW
-#define EnumFontFamilies EnumFontFamiliesW
-#define EnumFonts EnumFontsW
-#define GetCharWidth GetCharWidthW
-#define GetCharWidth32 GetCharWidth32W
-#define GetCharWidthFloat GetCharWidthFloatW
-#define GetCharABCWidths GetCharABCWidthsW
-#define GetCharABCWidthsFloat GetCharABCWidthsFloatW
-#define GetGlyphOutline GetGlyphOutlineW
-#define GetMetaFile GetMetaFileW
-#else
-#define DeviceCapabilities DeviceCapabilitiesA
-#define EnumFontFamiliesEx EnumFontFamiliesExA
-#define EnumFontFamilies EnumFontFamiliesA
-#define EnumFonts EnumFontsA
-#define GetCharWidth GetCharWidthA
-#define GetCharWidth32 GetCharWidth32A
-#define GetCharWidthFloat GetCharWidthFloatA
-#define GetCharABCWidths GetCharABCWidthsA
-#define GetCharABCWidthsFloat GetCharABCWidthsFloatA
-#define GetGlyphOutline GetGlyphOutlineA
-#define GetMetaFile GetMetaFileA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय DeviceCapabilities DeviceCapabilitiesW
+#परिभाषय EnumFontFamiliesEx EnumFontFamiliesExW
+#परिभाषय EnumFontFamilies EnumFontFamiliesW
+#परिभाषय EnumFonts EnumFontsW
+#परिभाषय Get_Char_विस्तारः Get_Char_विस्तारः_W
+#परिभाषय GetCharWidth32 GetCharWidth32W
+#परिभाषय Get_Char_विस्तारः_Float Get_Char_विस्तारः_Float_W
+#परिभाषय GetCharABCWidths GetCharABCWidthsW
+#परिभाषय GetCharABCWidthsFloat GetCharABCWidthsFloatW
+#परिभाषय GetGlyphOutline GetGlyphOutlineW
+#परिभाषय GetMetaFile GetMetaFileW
+#अन्यथा
+#परिभाषय DeviceCapabilities DeviceCapabilitiesA
+#परिभाषय EnumFontFamiliesEx EnumFontFamiliesExA
+#परिभाषय EnumFontFamilies EnumFontFamiliesA
+#परिभाषय EnumFonts EnumFontsA
+#परिभाषय Get_Char_विस्तारः Get_Char_विस्तारः_A
+#परिभाषय GetCharWidth32 GetCharWidth32A
+#परिभाषय Get_Char_विस्तारः_Float Get_Char_विस्तारः_Float_A
+#परिभाषय GetCharABCWidths GetCharABCWidthsA
+#परिभाषय GetCharABCWidthsFloat GetCharABCWidthsFloatA
+#परिभाषय GetGlyphOutline GetGlyphOutlineA
+#परिभाषय GetMetaFile GetMetaFileA
+#यदि_अन्तः
 
-  WINSPOOLAPI int WINAPI DeviceCapabilitiesA(LPCSTR pDevice,LPCSTR pPort,WORD fwCapability,LPSTR pOutput,CONST DEVMODEA *pDevMode);
-  WINSPOOLAPI int WINAPI DeviceCapabilitiesW(LPCWSTR pDevice,LPCWSTR pPort,WORD fwCapability,LPWSTR pOutput,CONST DEVMODEW *pDevMode);
-  WINGDIAPI int WINAPI DrawEscape(HDC hdc,int iEscape,int cjIn,LPCSTR lpIn);
-  WINGDIAPI WINBOOL WINAPI Ellipse(HDC hdc,int left,int top,int right,int bottom);
-  WINGDIAPI int WINAPI EnumFontFamiliesExA(HDC hdc,LPLOGFONTA lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam,DWORD dwFlags);
-  WINGDIAPI int WINAPI EnumFontFamiliesExW(HDC hdc,LPLOGFONTW lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam,DWORD dwFlags);
-  WINGDIAPI int WINAPI EnumFontFamiliesA(HDC hdc,LPCSTR lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam);
-  WINGDIAPI int WINAPI EnumFontFamiliesW(HDC hdc,LPCWSTR lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam);
-  WINGDIAPI int WINAPI EnumFontsA(HDC hdc,LPCSTR lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam);
-  WINGDIAPI int WINAPI EnumFontsW(HDC hdc,LPCWSTR lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam);
-  WINGDIAPI int WINAPI EnumObjects(HDC hdc,int nType,GOBJENUMPROC lpFunc,LPARAM lParam);
+  WINSPOOLAPI पूर्णाङ्क WINAPI DeviceCapabilitiesA(LPCSTR pDevice,LPCSTR p_पत्तनम्,WORD fwCapability,LPSTR pOutput,CONST DEVMODEA *p_Dev_बहुलकम्);
+  WINSPOOLAPI पूर्णाङ्क WINAPI DeviceCapabilitiesW(LPCWSTR pDevice,LPCWSTR p_पत्तनम्,WORD fwCapability,LPWSTR pOutput,CONST DEVMODEW *p_Dev_बहुलकम्);
+  WINGDIAPI पूर्णाङ्क WINAPI DrawEscape(HDC hdc,पूर्णाङ्क iEscape,पूर्णाङ्क cj_अन्तर्,LPCSTR lp_अन्तर्);
+  WINGDIAPI WINBOOL WINAPI Ellipse(HDC hdc,पूर्णाङ्क वामः,पूर्णाङ्क शिखरम्,पूर्णाङ्क दक्षिणः,पूर्णाङ्क bottom);
+  WINGDIAPI पूर्णाङ्क WINAPI EnumFontFamiliesExA(HDC hdc,LPLOGFONTA lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam,DWORD dwFlags);
+  WINGDIAPI पूर्णाङ्क WINAPI EnumFontFamiliesExW(HDC hdc,LPLOGFONTW lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam,DWORD dwFlags);
+  WINGDIAPI पूर्णाङ्क WINAPI EnumFontFamiliesA(HDC hdc,LPCSTR lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam);
+  WINGDIAPI पूर्णाङ्क WINAPI EnumFontFamiliesW(HDC hdc,LPCWSTR lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam);
+  WINGDIAPI पूर्णाङ्क WINAPI EnumFontsA(HDC hdc,LPCSTR lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam);
+  WINGDIAPI पूर्णाङ्क WINAPI EnumFontsW(HDC hdc,LPCWSTR lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam);
+  WINGDIAPI पूर्णाङ्क WINAPI EnumObjects(HDC hdc,पूर्णाङ्क nType,GOBJENUMPROC lpFunc,LPARAM lParam);
   WINGDIAPI WINBOOL WINAPI EqualRgn(HRGN hrgn1,HRGN hrgn2);
-  WINGDIAPI int WINAPI Escape(HDC hdc,int iEscape,int cjIn,LPCSTR pvIn,LPVOID pvOut);
-  WINGDIAPI int WINAPI ExtEscape(HDC hdc,int iEscape,int cjInput,LPCSTR lpInData,int cjOutput,LPSTR lpOutData);
-  WINGDIAPI int WINAPI ExcludeClipRect(HDC hdc,int left,int top,int right,int bottom);
-  WINGDIAPI HRGN WINAPI ExtCreateRegion(CONST XFORM *lpx,DWORD nCount,CONST RGNDATA *lpData);
-  WINGDIAPI WINBOOL WINAPI ExtFloodFill(HDC hdc,int x,int y,COLORREF color,UINT type);
+  WINGDIAPI पूर्णाङ्क WINAPI Escape(HDC hdc,पूर्णाङ्क iEscape,पूर्णाङ्क cj_अन्तर्,LPCSTR pv_अन्तर्,LPVOID pv_बहिर्गमनम्);
+  WINGDIAPI पूर्णाङ्क WINAPI ExtEscape(HDC hdc,पूर्णाङ्क iEscape,पूर्णाङ्क cj_निवेशः,LPCSTR lp_अन्तर्_दत्त,पूर्णाङ्क cjOutput,LPSTR lp_बहिर्गमनम्_दत्त);
+  WINGDIAPI पूर्णाङ्क WINAPI ExcludeClipRect(HDC hdc,पूर्णाङ्क वामः,पूर्णाङ्क शिखरम्,पूर्णाङ्क दक्षिणः,पूर्णाङ्क bottom);
+  WINGDIAPI HRGN WINAPI ExtCreateRegion(CONST XFORM *lpx,DWORD n_गणनम्,CONST RGNDATA *lp_दत्त);
+  WINGDIAPI WINBOOL WINAPI ExtFloodFill(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,COLORREF color,UINT type);
   WINGDIAPI WINBOOL WINAPI FillRgn(HDC hdc,HRGN hrgn,HBRUSH hbr);
-  WINGDIAPI WINBOOL WINAPI FloodFill(HDC hdc,int x,int y,COLORREF color);
-  WINGDIAPI WINBOOL WINAPI FrameRgn(HDC hdc,HRGN hrgn,HBRUSH hbr,int w,int h);
-  WINGDIAPI int WINAPI GetROP2(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI GetAspectRatioFilterEx(HDC hdc,LPSIZE lpsize);
+  WINGDIAPI WINBOOL WINAPI FloodFill(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,COLORREF color);
+  WINGDIAPI WINBOOL WINAPI FrameRgn(HDC hdc,HRGN hrgn,HBRUSH hbr,पूर्णाङ्क w,पूर्णाङ्क h);
+  WINGDIAPI पूर्णाङ्क WINAPI GetROP2(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Get_Aspect_अनुपातः_Filter_Ex(HDC hdc,LPSIZE lpsize);
   WINGDIAPI COLORREF WINAPI GetBkColor(HDC hdc);
   WINGDIAPI COLORREF WINAPI GetDCBrushColor(HDC hdc);
   WINGDIAPI COLORREF WINAPI GetDCPenColor(HDC hdc);
-  WINGDIAPI int WINAPI GetBkMode(HDC hdc);
-  WINGDIAPI LONG WINAPI GetBitmapBits(HBITMAP hbit,LONG cb,LPVOID lpvBits);
+  WINGDIAPI पूर्णाङ्क WINAPI Get_Bk_बहुलकम्(HDC hdc);
+  WINGDIAPI LONG WINAPI Get_Bitmap_द्वयङ्काः(HBITMAP hbit,LONG cb,LPVOID lpv_द्वयङ्काः);
   WINGDIAPI WINBOOL WINAPI GetBitmapDimensionEx(HBITMAP hbit,LPSIZE lpsize);
   WINGDIAPI UINT WINAPI GetBoundsRect(HDC hdc,LPRECT lprect,UINT flags);
   WINGDIAPI WINBOOL WINAPI GetBrushOrgEx(HDC hdc,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI GetCharWidthA(HDC hdc,UINT iFirst,UINT iLast,LPINT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharWidthW(HDC hdc,UINT iFirst,UINT iLast,LPINT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharWidth32A(HDC hdc,UINT iFirst,UINT iLast,LPINT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharWidth32W(HDC hdc,UINT iFirst,UINT iLast,LPINT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharWidthFloatA(HDC hdc,UINT iFirst,UINT iLast,PFLOAT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharWidthFloatW(HDC hdc,UINT iFirst,UINT iLast,PFLOAT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsA(HDC hdc,UINT wFirst,UINT wLast,LPABC lpABC);
-  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsW(HDC hdc,UINT wFirst,UINT wLast,LPABC lpABC);
-  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsFloatA(HDC hdc,UINT iFirst,UINT iLast,LPABCFLOAT lpABC);
-  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsFloatW(HDC hdc,UINT iFirst,UINT iLast,LPABCFLOAT lpABC);
-  WINGDIAPI int WINAPI GetClipBox(HDC hdc,LPRECT lprect);
-  WINGDIAPI int WINAPI GetClipRgn(HDC hdc,HRGN hrgn);
-  WINGDIAPI int WINAPI GetMetaRgn(HDC hdc,HRGN hrgn);
+  WINGDIAPI WINBOOL WINAPI Get_Char_विस्तारः_A(HDC hdc,UINT iFirst,UINT i_चरमः,LPINT lp_बफर);
+  WINGDIAPI WINBOOL WINAPI Get_Char_विस्तारः_W(HDC hdc,UINT iFirst,UINT i_चरमः,LPINT lp_बफर);
+  WINGDIAPI WINBOOL WINAPI GetCharWidth32A(HDC hdc,UINT iFirst,UINT i_चरमः,LPINT lp_बफर);
+  WINGDIAPI WINBOOL WINAPI GetCharWidth32W(HDC hdc,UINT iFirst,UINT i_चरमः,LPINT lp_बफर);
+  WINGDIAPI WINBOOL WINAPI Get_Char_विस्तारः_Float_A(HDC hdc,UINT iFirst,UINT i_चरमः,PFLOAT lp_बफर);
+  WINGDIAPI WINBOOL WINAPI Get_Char_विस्तारः_Float_W(HDC hdc,UINT iFirst,UINT i_चरमः,PFLOAT lp_बफर);
+  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsA(HDC hdc,UINT wFirst,UINT w_चरमः,LPABC lpABC);
+  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsW(HDC hdc,UINT wFirst,UINT w_चरमः,LPABC lpABC);
+  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsFloatA(HDC hdc,UINT iFirst,UINT i_चरमः,LPABCFLOAT lpABC);
+  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsFloatW(HDC hdc,UINT iFirst,UINT i_चरमः,LPABCFLOAT lpABC);
+  WINGDIAPI पूर्णाङ्क WINAPI GetClipBox(HDC hdc,LPRECT lprect);
+  WINGDIAPI पूर्णाङ्क WINAPI GetClipRgn(HDC hdc,HRGN hrgn);
+  WINGDIAPI पूर्णाङ्क WINAPI GetMetaRgn(HDC hdc,HRGN hrgn);
   WINGDIAPI HGDIOBJ WINAPI GetCurrentObject(HDC hdc,UINT type);
   WINGDIAPI WINBOOL WINAPI GetCurrentPositionEx(HDC hdc,LPPOINT lppt);
-  WINGDIAPI int WINAPI GetDeviceCaps(HDC hdc,int index);
-  WINGDIAPI int WINAPI GetDIBits(HDC hdc,HBITMAP hbm,UINT start,UINT cLines,LPVOID lpvBits,LPBITMAPINFO lpbmi,UINT usage);
-  WINGDIAPI DWORD WINAPI GetFontData (HDC hdc,DWORD dwTable,DWORD dwOffset,PVOID pvBuffer,DWORD cjBuffer);
-  WINGDIAPI DWORD WINAPI GetGlyphOutlineA(HDC hdc,UINT uChar,UINT fuFormat,LPGLYPHMETRICS lpgm,DWORD cjBuffer,LPVOID pvBuffer,CONST MAT2 *lpmat2);
-  WINGDIAPI DWORD WINAPI GetGlyphOutlineW(HDC hdc,UINT uChar,UINT fuFormat,LPGLYPHMETRICS lpgm,DWORD cjBuffer,LPVOID pvBuffer,CONST MAT2 *lpmat2);
-  WINGDIAPI int WINAPI GetGraphicsMode(HDC hdc);
-  WINGDIAPI int WINAPI GetMapMode(HDC hdc);
-  WINGDIAPI UINT WINAPI GetMetaFileBitsEx(HMETAFILE hMF,UINT cbBuffer,LPVOID lpData);
+  WINGDIAPI पूर्णाङ्क WINAPI GetDeviceCaps(HDC hdc,पूर्णाङ्क सूचकांक);
+  WINGDIAPI पूर्णाङ्क WINAPI GetDIBits(HDC hdc,HBITMAP hbm,UINT start,UINT c_पङ्क्तयः,LPVOID lpv_द्वयङ्काः,LPBITMAPINFO lpbmi,UINT usage);
+  WINGDIAPI DWORD WINAPI Get_Font_दत्त (HDC hdc,DWORD dw_सारणी,DWORD dw_विस्थापनम्,PVOID pv_बफर,DWORD cj_बफर);
+  WINGDIAPI DWORD WINAPI GetGlyphOutlineA(HDC hdc,UINT uChar,UINT fuFormat,LPGLYPHMETRICS lpgm,DWORD cj_बफर,LPVOID pv_बफर,CONST MAT2 *lpmat2);
+  WINGDIAPI DWORD WINAPI GetGlyphOutlineW(HDC hdc,UINT uChar,UINT fuFormat,LPGLYPHMETRICS lpgm,DWORD cj_बफर,LPVOID pv_बफर,CONST MAT2 *lpmat2);
+  WINGDIAPI पूर्णाङ्क WINAPI Get_Graphics_बहुलकम्(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI Get_Map_बहुलकम्(HDC hdc);
+  WINGDIAPI UINT WINAPI Get_Meta_File_द्वयङ्काः_Ex(HMETAFILE hMF,UINT cb_बफर,LPVOID lp_दत्त);
   WINGDIAPI HMETAFILE WINAPI GetMetaFileA(LPCSTR lpName);
   WINGDIAPI HMETAFILE WINAPI GetMetaFileW(LPCWSTR lpName);
-  WINGDIAPI COLORREF WINAPI GetNearestColor(HDC hdc,COLORREF color);
-  WINGDIAPI UINT WINAPI GetNearestPaletteIndex(HPALETTE h,COLORREF color);
+  WINGDIAPI COLORREF WINAPI Get_निकटतमः_Color(HDC hdc,COLORREF color);
+  WINGDIAPI UINT WINAPI Get_निकटतमः_Palette_सूचकांक(HPALETTE h,COLORREF color);
   WINGDIAPI DWORD WINAPI GetObjectType(HGDIOBJ h);
 
-#ifndef NOTEXTMETRIC
-#ifdef UNICODE
-#define GetOutlineTextMetrics GetOutlineTextMetricsW
-#else
-#define GetOutlineTextMetrics GetOutlineTextMetricsA
-#endif
+#यदि_अपरिभाषितम् NOTEXTMETRIC
+#यदि_परिभाषितम् UNICODE
+#परिभाषय GetOutlineTextMetrics GetOutlineTextMetricsW
+#अन्यथा
+#परिभाषय GetOutlineTextMetrics GetOutlineTextMetricsA
+#यदि_अन्तः
 
   WINGDIAPI UINT WINAPI GetOutlineTextMetricsA(HDC hdc,UINT cjCopy,LPOUTLINETEXTMETRICA potm);
   WINGDIAPI UINT WINAPI GetOutlineTextMetricsW(HDC hdc,UINT cjCopy,LPOUTLINETEXTMETRICW potm);
-#endif
+#यदि_अन्तः
 
-#ifdef UNICODE
-#define GetTextExtentPoint GetTextExtentPointW
-#define GetTextExtentPoint32 GetTextExtentPoint32W
-#define GetTextExtentExPoint GetTextExtentExPointW
-#define GetCharacterPlacement GetCharacterPlacementW
-#else
-#define GetTextExtentPoint GetTextExtentPointA
-#define GetTextExtentPoint32 GetTextExtentPoint32A
-#define GetTextExtentExPoint GetTextExtentExPointA
-#define GetCharacterPlacement GetCharacterPlacementA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय GetTextExtentPoint GetTextExtentPointW
+#परिभाषय GetTextExtentPoint32 GetTextExtentPoint32W
+#परिभाषय GetTextExtentExPoint GetTextExtentExPointW
+#परिभाषय GetCharacterPlacement GetCharacterPlacementW
+#अन्यथा
+#परिभाषय GetTextExtentPoint GetTextExtentPointA
+#परिभाषय GetTextExtentPoint32 GetTextExtentPoint32A
+#परिभाषय GetTextExtentExPoint GetTextExtentExPointA
+#परिभाषय GetCharacterPlacement GetCharacterPlacementA
+#यदि_अन्तः
 
   WINGDIAPI UINT WINAPI GetPaletteEntries(HPALETTE hpal,UINT iStart,UINT cEntries,LPPALETTEENTRY pPalEntries);
-  WINGDIAPI COLORREF WINAPI GetPixel(HDC hdc,int x,int y);
-  WINGDIAPI int WINAPI GetPixelFormat(HDC hdc);
-  WINGDIAPI int WINAPI GetPolyFillMode(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI GetRasterizerCaps(LPRASTERIZER_STATUS lpraststat,UINT cjBytes);
-  WINGDIAPI int WINAPI GetRandomRgn (HDC hdc,HRGN hrgn,INT i);
-  WINGDIAPI DWORD WINAPI GetRegionData(HRGN hrgn,DWORD nCount,LPRGNDATA lpRgnData);
-  WINGDIAPI int WINAPI GetRgnBox(HRGN hrgn,LPRECT lprc);
-  WINGDIAPI HGDIOBJ WINAPI GetStockObject(int i);
-  WINGDIAPI int WINAPI GetStretchBltMode(HDC hdc);
+  WINGDIAPI COLORREF WINAPI GetPixel(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y);
+  WINGDIAPI पूर्णाङ्क WINAPI GetPixelFormat(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI Get_Poly_Fill_बहुलकम्(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI GetRasterizerCaps(LPRASTERIZER_स्थितिः lpraststat,UINT cj_अष्टकानि);
+  WINGDIAPI पूर्णाङ्क WINAPI GetRandomRgn (HDC hdc,HRGN hrgn,INT i);
+  WINGDIAPI DWORD WINAPI Get_Region_दत्त(HRGN hrgn,DWORD n_गणनम्,LPRGNDATA lp_Rgn_दत्त);
+  WINGDIAPI पूर्णाङ्क WINAPI GetRgnBox(HRGN hrgn,LPRECT lprc);
+  WINGDIAPI HGDIOBJ WINAPI GetStockObject(पूर्णाङ्क i);
+  WINGDIAPI पूर्णाङ्क WINAPI Get_Stretch_Blt_बहुलकम्(HDC hdc);
   WINGDIAPI UINT WINAPI GetSystemPaletteEntries(HDC hdc,UINT iStart,UINT cEntries,LPPALETTEENTRY pPalEntries);
   WINGDIAPI UINT WINAPI GetSystemPaletteUse(HDC hdc);
-  WINGDIAPI int WINAPI GetTextCharacterExtra(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI GetTextCharacterExtra(HDC hdc);
   WINGDIAPI UINT WINAPI GetTextAlign(HDC hdc);
   WINGDIAPI COLORREF WINAPI GetTextColor(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentPointA(HDC hdc,LPCSTR lpString,int c,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentPointW(HDC hdc,LPCWSTR lpString,int c,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentPoint32A(HDC hdc,LPCSTR lpString,int c,LPSIZE psizl);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentPoint32W(HDC hdc,LPCWSTR lpString,int c,LPSIZE psizl);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentExPointA(HDC hdc,LPCSTR lpszString,int cchString,int nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lpSize);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentExPointW(HDC hdc,LPCWSTR lpszString,int cchString,int nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lpSize);
-  WINGDIAPI int WINAPI GetTextCharset(HDC hdc);
-  WINGDIAPI int WINAPI GetTextCharsetInfo(HDC hdc,LPFONTSIGNATURE lpSig,DWORD dwFlags);
+  WINGDIAPI WINBOOL WINAPI GetTextExtentPointA(HDC hdc,LPCSTR lpString,पूर्णाङ्क c,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI GetTextExtentPointW(HDC hdc,LPCWSTR lpString,पूर्णाङ्क c,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI GetTextExtentPoint32A(HDC hdc,LPCSTR lpString,पूर्णाङ्क c,LPSIZE psizl);
+  WINGDIAPI WINBOOL WINAPI GetTextExtentPoint32W(HDC hdc,LPCWSTR lpString,पूर्णाङ्क c,LPSIZE psizl);
+  WINGDIAPI WINBOOL WINAPI GetTextExtentExPointA(HDC hdc,LPCSTR lpszString,पूर्णाङ्क cchString,पूर्णाङ्क nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lp_आकार);
+  WINGDIAPI WINBOOL WINAPI GetTextExtentExPointW(HDC hdc,LPCWSTR lpszString,पूर्णाङ्क cchString,पूर्णाङ्क nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lp_आकार);
+  WINGDIAPI पूर्णाङ्क WINAPI GetTextCharset(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI GetTextCharsetInfo(HDC hdc,LPFONTSIGNATURE lpSig,DWORD dwFlags);
   WINGDIAPI WINBOOL WINAPI TranslateCharsetInfo(DWORD *lpSrc,LPCHARSETINFO lpCs,DWORD dwFlags);
   WINGDIAPI DWORD WINAPI GetFontLanguageInfo(HDC hdc);
-  WINGDIAPI DWORD WINAPI GetCharacterPlacementA(HDC hdc,LPCSTR lpString,int nCount,int nMexExtent,LPGCP_RESULTSA lpResults,DWORD dwFlags);
-  WINGDIAPI DWORD WINAPI GetCharacterPlacementW(HDC hdc,LPCWSTR lpString,int nCount,int nMexExtent,LPGCP_RESULTSW lpResults,DWORD dwFlags);
+  WINGDIAPI DWORD WINAPI GetCharacterPlacementA(HDC hdc,LPCSTR lpString,पूर्णाङ्क n_गणनम्,पूर्णाङ्क nMexExtent,LPGCP_RESULTSA lpResults,DWORD dwFlags);
+  WINGDIAPI DWORD WINAPI GetCharacterPlacementW(HDC hdc,LPCWSTR lpString,पूर्णाङ्क n_गणनम्,पूर्णाङ्क nMexExtent,LPGCP_RESULTSW lpResults,DWORD dwFlags);
 
-  typedef struct tagWCRANGE {
-    WCHAR wcLow;
+  प्रकारनिर्देश संरचना चिह्नकम्_WCRANGE {
+    WCHAR wc_नीचः;
     USHORT cGlyphs;
   } WCRANGE,*PWCRANGE,*LPWCRANGE;
 
-  typedef struct tagGLYPHSET {
+  प्रकारनिर्देश संरचना चिह्नकम्_GLYPHSET {
     DWORD cbThis;
     DWORD flAccel;
     DWORD cGlyphsSupported;
@@ -2645,223 +2645,223 @@ extern "C" {
     WCRANGE ranges[1];
   } GLYPHSET,*PGLYPHSET,*LPGLYPHSET;
 
-#define GS_8BIT_INDICES 0x00000001
+#परिभाषय GS_8BIT_INDICES 0x00000001
 
-#define GGI_MARK_NONEXISTING_GLYPHS 0X0001
+#परिभाषय GGI_MARK_NONEXISTING_GLYPHS 0X0001
 
-#ifdef UNICODE
-#define GetGlyphIndices GetGlyphIndicesW
-#else
-#define GetGlyphIndices GetGlyphIndicesA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय GetGlyphIndices GetGlyphIndicesW
+#अन्यथा
+#परिभाषय GetGlyphIndices GetGlyphIndicesA
+#यदि_अन्तः
 
   WINGDIAPI DWORD WINAPI GetFontUnicodeRanges(HDC hdc,LPGLYPHSET lpgs);
-  WINGDIAPI DWORD WINAPI GetGlyphIndicesA(HDC hdc,LPCSTR lpstr,int c,LPWORD pgi,DWORD fl);
-  WINGDIAPI DWORD WINAPI GetGlyphIndicesW(HDC hdc,LPCWSTR lpstr,int c,LPWORD pgi,DWORD fl);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentPointI(HDC hdc,LPWORD pgiIn,int cgi,LPSIZE psize);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentExPointI (HDC hdc,LPWORD lpwszString,int cwchString,int nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lpSize);
-  WINGDIAPI WINBOOL WINAPI GetCharWidthI(HDC hdc,UINT giFirst,UINT cgi,LPWORD pgi,LPINT piWidths);
+  WINGDIAPI DWORD WINAPI GetGlyphIndicesA(HDC hdc,LPCSTR lpstr,पूर्णाङ्क c,LPWORD pgi,DWORD fl);
+  WINGDIAPI DWORD WINAPI GetGlyphIndicesW(HDC hdc,LPCWSTR lpstr,पूर्णाङ्क c,LPWORD pgi,DWORD fl);
+  WINGDIAPI WINBOOL WINAPI GetTextExtentPointI(HDC hdc,LPWORD pgi_अन्तर्,पूर्णाङ्क cgi,LPSIZE psize);
+  WINGDIAPI WINBOOL WINAPI GetTextExtentExPointI (HDC hdc,LPWORD lpwszString,पूर्णाङ्क cwchString,पूर्णाङ्क nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lp_आकार);
+  WINGDIAPI WINBOOL WINAPI Get_Char_विस्तारः_I(HDC hdc,UINT giFirst,UINT cgi,LPWORD pgi,LPINT piWidths);
   WINGDIAPI WINBOOL WINAPI GetCharABCWidthsI(HDC hdc,UINT giFirst,UINT cgi,LPWORD pgi,LPABC pabc);
 
-#define STAMP_DESIGNVECTOR (0x8000000 + 'd' + ('v' << 8))
-#define STAMP_AXESLIST (0x8000000 + 'a' + ('l' << 8))
-#define MM_MAX_NUMAXES 16
+#परिभाषय STAMP_DESIGNVECTOR (0x8000000 + 'd' + ('v' << 8))
+#परिभाषय STAMP_AXESLIST (0x8000000 + 'a' + ('l' << 8))
+#परिभाषय MM_MAX_NUMAXES 16
 
-  typedef struct tagDESIGNVECTOR {
+  प्रकारनिर्देश संरचना चिह्नकम्_DESIGNVECTOR {
     DWORD dvReserved;
-    DWORD dvNumAxes;
-    LONG dvValues[MM_MAX_NUMAXES];
+    DWORD dv_अङ्कः_Axes;
+    LONG dv_मानानि[MM_MAX_NUMAXES];
   } DESIGNVECTOR,*PDESIGNVECTOR,*LPDESIGNVECTOR;
 
-#ifdef UNICODE
-#define AddFontResourceEx AddFontResourceExW
-#define RemoveFontResourceEx RemoveFontResourceExW
-#else
-#define AddFontResourceEx AddFontResourceExA
-#define RemoveFontResourceEx RemoveFontResourceExA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय सङ्कलय_Font_Resource_Ex सङ्कलय_Font_Resource_Ex_W
+#परिभाषय RemoveFontResourceEx RemoveFontResourceExW
+#अन्यथा
+#परिभाषय सङ्कलय_Font_Resource_Ex सङ्कलय_Font_Resource_Ex_A
+#परिभाषय RemoveFontResourceEx RemoveFontResourceExA
+#यदि_अन्तः
 
-  WINGDIAPI int WINAPI AddFontResourceExA(LPCSTR name,DWORD fl,PVOID res);
-  WINGDIAPI int WINAPI AddFontResourceExW(LPCWSTR name,DWORD fl,PVOID res);
+  WINGDIAPI पूर्णाङ्क WINAPI सङ्कलय_Font_Resource_Ex_A(LPCSTR name,DWORD fl,PVOID res);
+  WINGDIAPI पूर्णाङ्क WINAPI सङ्कलय_Font_Resource_Ex_W(LPCWSTR name,DWORD fl,PVOID res);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceExA(LPCSTR name,DWORD fl,PVOID pdv);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceExW(LPCWSTR name,DWORD fl,PVOID pdv);
-  WINGDIAPI HANDLE WINAPI AddFontMemResourceEx(PVOID pFileView,DWORD cjSize,PVOID pvResrved,DWORD *pNumFonts);
+  WINGDIAPI HANDLE WINAPI सङ्कलय_Font_Mem_Resource_Ex(PVOID pFileView,DWORD cj_आकार,PVOID pvResrved,DWORD *p_अङ्कः_Fonts);
   WINGDIAPI WINBOOL WINAPI RemoveFontMemResourceEx(HANDLE h);
 
-#define FR_PRIVATE 0x10
-#define FR_NOT_ENUM 0x20
+#परिभाषय FR_वैयक्तिकम् 0x10
+#परिभाषय FR_NOT_ENUM 0x20
 
-#define MM_MAX_AXES_NAMELEN 16
+#परिभाषय MM_MAX_AXES_NAMELEN 16
 
-  typedef struct tagAXISINFOA {
-    LONG axMinValue;
-    LONG axMaxValue;
+  प्रकारनिर्देश संरचना चिह्नकम्_AXISINFOA {
+    LONG ax_Min_मानम्;
+    LONG ax_Max_मानम्;
     BYTE axAxisName[MM_MAX_AXES_NAMELEN];
   } AXISINFOA,*PAXISINFOA,*LPAXISINFOA;
 
-  typedef struct tagAXISINFOW {
-    LONG axMinValue;
-    LONG axMaxValue;
+  प्रकारनिर्देश संरचना चिह्नकम्_AXISINFOW {
+    LONG ax_Min_मानम्;
+    LONG ax_Max_मानम्;
     WCHAR axAxisName[MM_MAX_AXES_NAMELEN];
   } AXISINFOW,*PAXISINFOW,*LPAXISINFOW;
-#ifdef UNICODE
-  typedef AXISINFOW AXISINFO;
-  typedef PAXISINFOW PAXISINFO;
-  typedef LPAXISINFOW LPAXISINFO;
-#else
-  typedef AXISINFOA AXISINFO;
-  typedef PAXISINFOA PAXISINFO;
-  typedef LPAXISINFOA LPAXISINFO;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश AXISINFOW AXISINFO;
+  प्रकारनिर्देश PAXISINFOW PAXISINFO;
+  प्रकारनिर्देश LPAXISINFOW LPAXISINFO;
+#अन्यथा
+  प्रकारनिर्देश AXISINFOA AXISINFO;
+  प्रकारनिर्देश PAXISINFOA PAXISINFO;
+  प्रकारनिर्देश LPAXISINFOA LPAXISINFO;
+#यदि_अन्तः
 
-  typedef struct tagAXESLISTA {
+  प्रकारनिर्देश संरचना चिह्नकम्_AXESLISTA {
     DWORD axlReserved;
-    DWORD axlNumAxes;
+    DWORD axl_अङ्कः_Axes;
     AXISINFOA axlAxisInfo[MM_MAX_NUMAXES];
   } AXESLISTA,*PAXESLISTA,*LPAXESLISTA;
 
-  typedef struct tagAXESLISTW {
+  प्रकारनिर्देश संरचना चिह्नकम्_AXESLISTW {
     DWORD axlReserved;
-    DWORD axlNumAxes;
+    DWORD axl_अङ्कः_Axes;
     AXISINFOW axlAxisInfo[MM_MAX_NUMAXES];
   } AXESLISTW,*PAXESLISTW,*LPAXESLISTW;
-#ifdef UNICODE
-  typedef AXESLISTW AXESLIST;
-  typedef PAXESLISTW PAXESLIST;
-  typedef LPAXESLISTW LPAXESLIST;
-#else
-  typedef AXESLISTA AXESLIST;
-  typedef PAXESLISTA PAXESLIST;
-  typedef LPAXESLISTA LPAXESLIST;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश AXESLISTW AXESLIST;
+  प्रकारनिर्देश PAXESLISTW PAXESLIST;
+  प्रकारनिर्देश LPAXESLISTW LPAXESLIST;
+#अन्यथा
+  प्रकारनिर्देश AXESLISTA AXESLIST;
+  प्रकारनिर्देश PAXESLISTA PAXESLIST;
+  प्रकारनिर्देश LPAXESLISTA LPAXESLIST;
+#यदि_अन्तः
 
-  typedef struct tagENUMLOGFONTEXDVA {
+  प्रकारनिर्देश संरचना चिह्नकम्_ENUMLOGFONTEXDVA {
     ENUMLOGFONTEXA elfEnumLogfontEx;
-    DESIGNVECTOR elfDesignVector;
+    DESIGNVECTOR elf_Design_सदिशम्;
   } ENUMLOGFONTEXDVA,*PENUMLOGFONTEXDVA,*LPENUMLOGFONTEXDVA;
 
-  typedef struct tagENUMLOGFONTEXDVW {
+  प्रकारनिर्देश संरचना चिह्नकम्_ENUMLOGFONTEXDVW {
     ENUMLOGFONTEXW elfEnumLogfontEx;
-    DESIGNVECTOR elfDesignVector;
+    DESIGNVECTOR elf_Design_सदिशम्;
   } ENUMLOGFONTEXDVW,*PENUMLOGFONTEXDVW,*LPENUMLOGFONTEXDVW;
-#ifdef UNICODE
-  typedef ENUMLOGFONTEXDVW ENUMLOGFONTEXDV;
-  typedef PENUMLOGFONTEXDVW PENUMLOGFONTEXDV;
-  typedef LPENUMLOGFONTEXDVW LPENUMLOGFONTEXDV;
-#else
-  typedef ENUMLOGFONTEXDVA ENUMLOGFONTEXDV;
-  typedef PENUMLOGFONTEXDVA PENUMLOGFONTEXDV;
-  typedef LPENUMLOGFONTEXDVA LPENUMLOGFONTEXDV;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश ENUMLOGFONTEXDVW ENUMLOGFONTEXDV;
+  प्रकारनिर्देश PENUMLOGFONTEXDVW PENUMLOGFONTEXDV;
+  प्रकारनिर्देश LPENUMLOGFONTEXDVW LPENUMLOGFONTEXDV;
+#अन्यथा
+  प्रकारनिर्देश ENUMLOGFONTEXDVA ENUMLOGFONTEXDV;
+  प्रकारनिर्देश PENUMLOGFONTEXDVA PENUMLOGFONTEXDV;
+  प्रकारनिर्देश LPENUMLOGFONTEXDVA LPENUMLOGFONTEXDV;
+#यदि_अन्तः
 
-#ifdef UNICODE
-#define CreateFontIndirectEx CreateFontIndirectExW
-#else
-#define CreateFontIndirectEx CreateFontIndirectExA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय Create_Font_परोक्षम्_Ex Create_Font_परोक्षम्_Ex_W
+#अन्यथा
+#परिभाषय Create_Font_परोक्षम्_Ex Create_Font_परोक्षम्_Ex_A
+#यदि_अन्तः
 
-  WINGDIAPI HFONT WINAPI CreateFontIndirectExA(CONST ENUMLOGFONTEXDVA *);
-  WINGDIAPI HFONT WINAPI CreateFontIndirectExW(CONST ENUMLOGFONTEXDVW *);
+  WINGDIAPI HFONT WINAPI Create_Font_परोक्षम्_Ex_A(CONST ENUMLOGFONTEXDVA *);
+  WINGDIAPI HFONT WINAPI Create_Font_परोक्षम्_Ex_W(CONST ENUMLOGFONTEXDVW *);
 
-#ifndef NOTEXTMETRIC
-  typedef struct tagENUMTEXTMETRICA {
+#यदि_अपरिभाषितम् NOTEXTMETRIC
+  प्रकारनिर्देश संरचना चिह्नकम्_ENUMTEXTMETRICA {
     NEWTEXTMETRICEXA etmNewTextMetricEx;
     AXESLISTA etmAxesList;
   } ENUMTEXTMETRICA,*PENUMTEXTMETRICA,*LPENUMTEXTMETRICA;
-  typedef struct tagENUMTEXTMETRICW
+  प्रकारनिर्देश संरचना चिह्नकम्_ENUMTEXTMETRICW
   {
     NEWTEXTMETRICEXW etmNewTextMetricEx;
     AXESLISTW etmAxesList;
   } ENUMTEXTMETRICW,*PENUMTEXTMETRICW,*LPENUMTEXTMETRICW;
-#ifdef UNICODE
-  typedef ENUMTEXTMETRICW ENUMTEXTMETRIC;
-  typedef PENUMTEXTMETRICW PENUMTEXTMETRIC;
-  typedef LPENUMTEXTMETRICW LPENUMTEXTMETRIC;
-#else
-  typedef ENUMTEXTMETRICA ENUMTEXTMETRIC;
-  typedef PENUMTEXTMETRICA PENUMTEXTMETRIC;
-  typedef LPENUMTEXTMETRICA LPENUMTEXTMETRIC;
-#endif
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश ENUMTEXTMETRICW ENUMTEXTMETRIC;
+  प्रकारनिर्देश PENUMTEXTMETRICW PENUMTEXTMETRIC;
+  प्रकारनिर्देश LPENUMTEXTMETRICW LPENUMTEXTMETRIC;
+#अन्यथा
+  प्रकारनिर्देश ENUMTEXTMETRICA ENUMTEXTMETRIC;
+  प्रकारनिर्देश PENUMTEXTMETRICA PENUMTEXTMETRIC;
+  प्रकारनिर्देश LPENUMTEXTMETRICA LPENUMTEXTMETRIC;
+#यदि_अन्तः
+#यदि_अन्तः
 
-#ifdef UNICODE
-#define ResetDC ResetDCW
-#define RemoveFontResource RemoveFontResourceW
-#else
-#define ResetDC ResetDCA
-#define RemoveFontResource RemoveFontResourceA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय ResetDC ResetDCW
+#परिभाषय RemoveFontResource RemoveFontResourceW
+#अन्यथा
+#परिभाषय ResetDC ResetDCA
+#परिभाषय RemoveFontResource RemoveFontResourceA
+#यदि_अन्तः
 
   WINGDIAPI WINBOOL WINAPI GetViewportExtEx(HDC hdc,LPSIZE lpsize);
   WINGDIAPI WINBOOL WINAPI GetViewportOrgEx(HDC hdc,LPPOINT lppoint);
-  WINGDIAPI WINBOOL WINAPI GetWindowExtEx(HDC hdc,LPSIZE lpsize);
-  WINGDIAPI WINBOOL WINAPI GetWindowOrgEx(HDC hdc,LPPOINT lppoint);
-  WINGDIAPI int WINAPI IntersectClipRect(HDC hdc,int left,int top,int right,int bottom);
+  WINGDIAPI WINBOOL WINAPI Get_गवाक्षः_Ext_Ex(HDC hdc,LPSIZE lpsize);
+  WINGDIAPI WINBOOL WINAPI Get_गवाक्षः_Org_Ex(HDC hdc,LPPOINT lppoint);
+  WINGDIAPI पूर्णाङ्क WINAPI IntersectClipRect(HDC hdc,पूर्णाङ्क वामः,पूर्णाङ्क शिखरम्,पूर्णाङ्क दक्षिणः,पूर्णाङ्क bottom);
   WINGDIAPI WINBOOL WINAPI InvertRgn(HDC hdc,HRGN hrgn);
-  WINGDIAPI WINBOOL WINAPI LineDDA(int xStart,int yStart,int xEnd,int yEnd,LINEDDAPROC lpProc,LPARAM data);
-  WINGDIAPI WINBOOL WINAPI LineTo(HDC hdc,int x,int y);
-  WINGDIAPI WINBOOL WINAPI MaskBlt(HDC hdcDest,int xDest,int yDest,int width,int height,HDC hdcSrc,int xSrc,int ySrc,HBITMAP hbmMask,int xMask,int yMask,DWORD rop);
-  WINGDIAPI WINBOOL WINAPI PlgBlt(HDC hdcDest,CONST POINT *lpPoint,HDC hdcSrc,int xSrc,int ySrc,int width,int height,HBITMAP hbmMask,int xMask,int yMask);
-  WINGDIAPI int WINAPI OffsetClipRgn(HDC hdc,int x,int y);
-  WINGDIAPI int WINAPI OffsetRgn(HRGN hrgn,int x,int y);
-  WINGDIAPI WINBOOL WINAPI PatBlt(HDC hdc,int x,int y,int w,int h,DWORD rop);
-  WINGDIAPI WINBOOL WINAPI Pie(HDC hdc,int left,int top,int right,int bottom,int xr1,int yr1,int xr2,int yr2);
+  WINGDIAPI WINBOOL WINAPI पङ्क्तिः_DDA(पूर्णाङ्क xStart,पूर्णाङ्क yStart,पूर्णाङ्क x_अन्तः,पूर्णाङ्क y_अन्तः,LINEDDAPROC lpProc,LPARAM दत्त);
+  WINGDIAPI WINBOOL WINAPI पङ्क्तिः_गन्तव्यम्(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y);
+  WINGDIAPI WINBOOL WINAPI आवरणम्_Blt(HDC hdcDest,पूर्णाङ्क xDest,पूर्णाङ्क yDest,पूर्णाङ्क विस्तारः,पूर्णाङ्क height,HDC hdcSrc,पूर्णाङ्क xSrc,पूर्णाङ्क ySrc,HBITMAP hbm_आवरणम्,पूर्णाङ्क x_आवरणम्,पूर्णाङ्क y_आवरणम्,DWORD rop);
+  WINGDIAPI WINBOOL WINAPI PlgBlt(HDC hdcDest,CONST POINT *lpPoint,HDC hdcSrc,पूर्णाङ्क xSrc,पूर्णाङ्क ySrc,पूर्णाङ्क विस्तारः,पूर्णाङ्क height,HBITMAP hbm_आवरणम्,पूर्णाङ्क x_आवरणम्,पूर्णाङ्क y_आवरणम्);
+  WINGDIAPI पूर्णाङ्क WINAPI विस्थापनम्_Clip_Rgn(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y);
+  WINGDIAPI पूर्णाङ्क WINAPI विस्थापनम्_Rgn(HRGN hrgn,पूर्णाङ्क x,पूर्णाङ्क y);
+  WINGDIAPI WINBOOL WINAPI PatBlt(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,पूर्णाङ्क w,पूर्णाङ्क h,DWORD rop);
+  WINGDIAPI WINBOOL WINAPI Pie(HDC hdc,पूर्णाङ्क वामः,पूर्णाङ्क शिखरम्,पूर्णाङ्क दक्षिणः,पूर्णाङ्क bottom,पूर्णाङ्क xr1,पूर्णाङ्क yr1,पूर्णाङ्क xr2,पूर्णाङ्क yr2);
   WINGDIAPI WINBOOL WINAPI PlayMetaFile(HDC hdc,HMETAFILE hmf);
   WINGDIAPI WINBOOL WINAPI PaintRgn(HDC hdc,HRGN hrgn);
-  WINGDIAPI WINBOOL WINAPI PolyPolygon(HDC hdc,CONST POINT *apt,CONST INT *asz,int csz);
-  WINGDIAPI WINBOOL WINAPI PtInRegion(HRGN hrgn,int x,int y);
-  WINGDIAPI WINBOOL WINAPI PtVisible(HDC hdc,int x,int y);
-  WINGDIAPI WINBOOL WINAPI RectInRegion(HRGN hrgn,CONST RECT *lprect);
+  WINGDIAPI WINBOOL WINAPI PolyPolygon(HDC hdc,CONST POINT *apt,CONST INT *asz,पूर्णाङ्क csz);
+  WINGDIAPI WINBOOL WINAPI Pt_अन्तर्_Region(HRGN hrgn,पूर्णाङ्क x,पूर्णाङ्क y);
+  WINGDIAPI WINBOOL WINAPI PtVisible(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y);
+  WINGDIAPI WINBOOL WINAPI Rect_अन्तर्_Region(HRGN hrgn,CONST RECT *lprect);
   WINGDIAPI WINBOOL WINAPI RectVisible(HDC hdc,CONST RECT *lprect);
-  WINGDIAPI WINBOOL WINAPI Rectangle(HDC hdc,int left,int top,int right,int bottom);
-  WINGDIAPI WINBOOL WINAPI RestoreDC(HDC hdc,int nSavedDC);
+  WINGDIAPI WINBOOL WINAPI Rectangle(HDC hdc,पूर्णाङ्क वामः,पूर्णाङ्क शिखरम्,पूर्णाङ्क दक्षिणः,पूर्णाङ्क bottom);
+  WINGDIAPI WINBOOL WINAPI RestoreDC(HDC hdc,पूर्णाङ्क nSavedDC);
   WINGDIAPI HDC WINAPI ResetDCA(HDC hdc,CONST DEVMODEA *lpdm);
   WINGDIAPI HDC WINAPI ResetDCW(HDC hdc,CONST DEVMODEW *lpdm);
   WINGDIAPI UINT WINAPI RealizePalette(HDC hdc);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceA(LPCSTR lpFileName);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceW(LPCWSTR lpFileName);
-  WINGDIAPI WINBOOL WINAPI RoundRect(HDC hdc,int left,int top,int right,int bottom,int width,int height);
+  WINGDIAPI WINBOOL WINAPI आवर्तनम्_Rect(HDC hdc,पूर्णाङ्क वामः,पूर्णाङ्क शिखरम्,पूर्णाङ्क दक्षिणः,पूर्णाङ्क bottom,पूर्णाङ्क विस्तारः,पूर्णाङ्क height);
   WINGDIAPI WINBOOL WINAPI ResizePalette(HPALETTE hpal,UINT n);
-  WINGDIAPI int WINAPI SaveDC(HDC hdc);
-  WINGDIAPI int WINAPI SelectClipRgn(HDC hdc,HRGN hrgn);
-  WINGDIAPI int WINAPI ExtSelectClipRgn(HDC hdc,HRGN hrgn,int mode);
-  WINGDIAPI int WINAPI SetMetaRgn(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI SaveDC(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI SelectClipRgn(HDC hdc,HRGN hrgn);
+  WINGDIAPI पूर्णाङ्क WINAPI ExtSelectClipRgn(HDC hdc,HRGN hrgn,पूर्णाङ्क बहुलकम्);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_Meta_Rgn(HDC hdc);
   WINGDIAPI HGDIOBJ WINAPI SelectObject(HDC hdc,HGDIOBJ h);
   WINGDIAPI HPALETTE WINAPI SelectPalette(HDC hdc,HPALETTE hPal,WINBOOL bForceBkgd);
-  WINGDIAPI COLORREF WINAPI SetBkColor(HDC hdc,COLORREF color);
-  WINGDIAPI COLORREF WINAPI SetDCBrushColor(HDC hdc,COLORREF color);
-  WINGDIAPI COLORREF WINAPI SetDCPenColor(HDC hdc,COLORREF color);
-  WINGDIAPI int WINAPI SetBkMode(HDC hdc,int mode);
-  WINGDIAPI LONG WINAPI SetBitmapBits(HBITMAP hbm,DWORD cb,CONST VOID *pvBits);
-  WINGDIAPI UINT WINAPI SetBoundsRect(HDC hdc,CONST RECT *lprect,UINT flags);
-  WINGDIAPI int WINAPI SetDIBits(HDC hdc,HBITMAP hbm,UINT start,UINT cLines,CONST VOID *lpBits,CONST BITMAPINFO *lpbmi,UINT ColorUse);
-  WINGDIAPI int WINAPI SetDIBitsToDevice(HDC hdc,int xDest,int yDest,DWORD w,DWORD h,int xSrc,int ySrc,UINT StartScan,UINT cLines,CONST VOID *lpvBits,CONST BITMAPINFO *lpbmi,UINT ColorUse);
-  WINGDIAPI DWORD WINAPI SetMapperFlags(HDC hdc,DWORD flags);
-  WINGDIAPI int WINAPI SetGraphicsMode(HDC hdc,int iMode);
-  WINGDIAPI int WINAPI SetMapMode(HDC hdc,int iMode);
-  WINGDIAPI DWORD WINAPI SetLayout(HDC hdc,DWORD l);
+  WINGDIAPI COLORREF WINAPI समुच्चयः_Bk_Color(HDC hdc,COLORREF color);
+  WINGDIAPI COLORREF WINAPI समुच्चयः_DCBrush_Color(HDC hdc,COLORREF color);
+  WINGDIAPI COLORREF WINAPI समुच्चयः_DCPen_Color(HDC hdc,COLORREF color);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_Bk_बहुलकम्(HDC hdc,पूर्णाङ्क बहुलकम्);
+  WINGDIAPI LONG WINAPI समुच्चयः_Bitmap_द्वयङ्काः(HBITMAP hbm,DWORD cb,CONST VOID *pv_द्वयङ्काः);
+  WINGDIAPI UINT WINAPI समुच्चयः_Bounds_Rect(HDC hdc,CONST RECT *lprect,UINT flags);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_DIBits(HDC hdc,HBITMAP hbm,UINT start,UINT c_पङ्क्तयः,CONST VOID *lp_द्वयङ्काः,CONST BITMAPINFO *lpbmi,UINT ColorUse);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_DIBits_गन्तव्यम्_Device(HDC hdc,पूर्णाङ्क xDest,पूर्णाङ्क yDest,DWORD w,DWORD h,पूर्णाङ्क xSrc,पूर्णाङ्क ySrc,UINT Start_अवलोकनम्,UINT c_पङ्क्तयः,CONST VOID *lpv_द्वयङ्काः,CONST BITMAPINFO *lpbmi,UINT ColorUse);
+  WINGDIAPI DWORD WINAPI समुच्चयः_Mapper_Flags(HDC hdc,DWORD flags);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_Graphics_बहुलकम्(HDC hdc,पूर्णाङ्क i_बहुलकम्);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_Map_बहुलकम्(HDC hdc,पूर्णाङ्क i_बहुलकम्);
+  WINGDIAPI DWORD WINAPI समुच्चयः_Layout(HDC hdc,DWORD l);
   WINGDIAPI DWORD WINAPI GetLayout(HDC hdc);
-  WINGDIAPI HMETAFILE WINAPI SetMetaFileBitsEx(UINT cbBuffer,CONST BYTE *lpData);
-  WINGDIAPI UINT WINAPI SetPaletteEntries(HPALETTE hpal,UINT iStart,UINT cEntries,CONST PALETTEENTRY *pPalEntries);
-  WINGDIAPI COLORREF WINAPI SetPixel(HDC hdc,int x,int y,COLORREF color);
-  WINGDIAPI WINBOOL WINAPI SetPixelV(HDC hdc,int x,int y,COLORREF color);
-  WINGDIAPI WINBOOL WINAPI SetPixelFormat(HDC hdc,int format,CONST PIXELFORMATDESCRIPTOR *ppfd);
-  WINGDIAPI int WINAPI SetPolyFillMode(HDC hdc,int mode);
-  WINGDIAPI WINBOOL WINAPI StretchBlt(HDC hdcDest,int xDest,int yDest,int wDest,int hDest,HDC hdcSrc,int xSrc,int ySrc,int wSrc,int hSrc,DWORD rop);
-  WINGDIAPI WINBOOL WINAPI SetRectRgn(HRGN hrgn,int left,int top,int right,int bottom);
-  WINGDIAPI int WINAPI StretchDIBits(HDC hdc,int xDest,int yDest,int DestWidth,int DestHeight,int xSrc,int ySrc,int SrcWidth,int SrcHeight,CONST VOID *lpBits,CONST BITMAPINFO *lpbmi,UINT iUsage,DWORD rop);
-  WINGDIAPI int WINAPI SetROP2(HDC hdc,int rop2);
-  WINGDIAPI int WINAPI SetStretchBltMode(HDC hdc,int mode);
-  WINGDIAPI UINT WINAPI SetSystemPaletteUse(HDC hdc,UINT use);
-  WINGDIAPI int WINAPI SetTextCharacterExtra(HDC hdc,int extra);
-  WINGDIAPI COLORREF WINAPI SetTextColor(HDC hdc,COLORREF color);
-  WINGDIAPI UINT WINAPI SetTextAlign(HDC hdc,UINT align);
-  WINGDIAPI WINBOOL WINAPI SetTextJustification(HDC hdc,int extra,int count);
+  WINGDIAPI HMETAFILE WINAPI समुच्चयः_Meta_File_द्वयङ्काः_Ex(UINT cb_बफर,CONST BYTE *lp_दत्त);
+  WINGDIAPI UINT WINAPI समुच्चयः_Palette_Entries(HPALETTE hpal,UINT iStart,UINT cEntries,CONST PALETTEENTRY *pPalEntries);
+  WINGDIAPI COLORREF WINAPI समुच्चयः_Pixel(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,COLORREF color);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_Pixel_V(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,COLORREF color);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_Pixel_Format(HDC hdc,पूर्णाङ्क format,CONST PIXELFORMATDESCRIPTOR *ppfd);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_Poly_Fill_बहुलकम्(HDC hdc,पूर्णाङ्क बहुलकम्);
+  WINGDIAPI WINBOOL WINAPI StretchBlt(HDC hdcDest,पूर्णाङ्क xDest,पूर्णाङ्क yDest,पूर्णाङ्क wDest,पूर्णाङ्क hDest,HDC hdcSrc,पूर्णाङ्क xSrc,पूर्णाङ्क ySrc,पूर्णाङ्क wSrc,पूर्णाङ्क hSrc,DWORD rop);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_Rect_Rgn(HRGN hrgn,पूर्णाङ्क वामः,पूर्णाङ्क शिखरम्,पूर्णाङ्क दक्षिणः,पूर्णाङ्क bottom);
+  WINGDIAPI पूर्णाङ्क WINAPI StretchDIBits(HDC hdc,पूर्णाङ्क xDest,पूर्णाङ्क yDest,पूर्णाङ्क Dest_विस्तारः,पूर्णाङ्क DestHeight,पूर्णाङ्क xSrc,पूर्णाङ्क ySrc,पूर्णाङ्क Src_विस्तारः,पूर्णाङ्क SrcHeight,CONST VOID *lp_द्वयङ्काः,CONST BITMAPINFO *lpbmi,UINT iUsage,DWORD rop);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_ROP2(HDC hdc,पूर्णाङ्क rop2);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_Stretch_Blt_बहुलकम्(HDC hdc,पूर्णाङ्क बहुलकम्);
+  WINGDIAPI UINT WINAPI समुच्चयः_System_Palette_Use(HDC hdc,UINT use);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_Text_Character_Extra(HDC hdc,पूर्णाङ्क extra);
+  WINGDIAPI COLORREF WINAPI समुच्चयः_Text_Color(HDC hdc,COLORREF color);
+  WINGDIAPI UINT WINAPI समुच्चयः_Text_Align(HDC hdc,UINT align);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_Text_Justification(HDC hdc,पूर्णाङ्क extra,पूर्णाङ्क गणनम्_2);
   WINGDIAPI WINBOOL WINAPI UpdateColors(HDC hdc);
 
-  typedef USHORT COLOR16;
+  प्रकारनिर्देश USHORT COLOR16;
 
-  typedef struct _TRIVERTEX {
+  प्रकारनिर्देश संरचना _TRIVERTEX {
     LONG x;
     LONG y;
     COLOR16 Red;
@@ -2870,58 +2870,58 @@ extern "C" {
     COLOR16 Alpha;
   } TRIVERTEX,*PTRIVERTEX,*LPTRIVERTEX;
 
-  typedef struct _GRADIENT_TRIANGLE {
+  प्रकारनिर्देश संरचना _GRADIENT_TRIANGLE {
     ULONG Vertex1;
     ULONG Vertex2;
     ULONG Vertex3;
   } GRADIENT_TRIANGLE,*PGRADIENT_TRIANGLE,*LPGRADIENT_TRIANGLE;
 
-  typedef struct _GRADIENT_RECT {
-    ULONG UpperLeft;
-    ULONG LowerRight;
+  प्रकारनिर्देश संरचना _GRADIENT_RECT {
+    ULONG ऊर्ध्वस्थम्_वामः;
+    ULONG अधस्तनम्_दक्षिणः;
   } GRADIENT_RECT,*PGRADIENT_RECT,*LPGRADIENT_RECT;
 
-  typedef struct _BLENDFUNCTION {
+  प्रकारनिर्देश संरचना _BLENDFUNCTION {
     BYTE BlendOp;
     BYTE BlendFlags;
     BYTE SourceConstantAlpha;
     BYTE AlphaFormat;
   } BLENDFUNCTION,*PBLENDFUNCTION;
 
-#define AC_SRC_OVER 0x00
-#define AC_SRC_ALPHA 0x01
+#परिभाषय AC_SRC_OVER 0x00
+#परिभाषय AC_SRC_ALPHA 0x01
 
-  WINGDIAPI WINBOOL WINAPI AlphaBlend(HDC hdcDest,int xoriginDest,int yoriginDest,int wDest,int hDest,HDC hdcSrc,int xoriginSrc,int yoriginSrc,int wSrc,int hSrc,BLENDFUNCTION ftn);
-  WINGDIAPI WINBOOL WINAPI TransparentBlt(HDC hdcDest,int xoriginDest,int yoriginDest,int wDest,int hDest,HDC hdcSrc,int xoriginSrc,int yoriginSrc,int wSrc,int hSrc,UINT crTransparent);
+  WINGDIAPI WINBOOL WINAPI AlphaBlend(HDC hdcDest,पूर्णाङ्क xoriginDest,पूर्णाङ्क yoriginDest,पूर्णाङ्क wDest,पूर्णाङ्क hDest,HDC hdcSrc,पूर्णाङ्क xoriginSrc,पूर्णाङ्क yoriginSrc,पूर्णाङ्क wSrc,पूर्णाङ्क hSrc,BLENDFUNCTION ftn);
+  WINGDIAPI WINBOOL WINAPI TransparentBlt(HDC hdcDest,पूर्णाङ्क xoriginDest,पूर्णाङ्क yoriginDest,पूर्णाङ्क wDest,पूर्णाङ्क hDest,HDC hdcSrc,पूर्णाङ्क xoriginSrc,पूर्णाङ्क yoriginSrc,पूर्णाङ्क wSrc,पूर्णाङ्क hSrc,UINT crTransparent);
 
-#define GRADIENT_FILL_RECT_H 0x00000000
-#define GRADIENT_FILL_RECT_V 0x00000001
-#define GRADIENT_FILL_TRIANGLE 0x00000002
-#define GRADIENT_FILL_OP_FLAG 0x000000ff
+#परिभाषय GRADIENT_FILL_RECT_H 0x00000000
+#परिभाषय GRADIENT_FILL_RECT_V 0x00000001
+#परिभाषय GRADIENT_FILL_TRIANGLE 0x00000002
+#परिभाषय GRADIENT_FILL_OP_FLAG 0x000000ff
 
-  WINGDIAPI WINBOOL WINAPI GradientFill(HDC hdc,PTRIVERTEX pVertex,ULONG nVertex,PVOID pMesh,ULONG nMesh,ULONG ulMode);
+  WINGDIAPI WINBOOL WINAPI GradientFill(HDC hdc,PTRIVERTEX pVertex,ULONG nVertex,PVOID pMesh,ULONG nMesh,ULONG ul_बहुलकम्);
 
-#ifndef NOMETAFILE
+#यदि_अपरिभाषितम् NOMETAFILE
 
-#ifdef UNICODE
-#define CopyEnhMetaFile CopyEnhMetaFileW
-#define CreateEnhMetaFile CreateEnhMetaFileW
-#define GetEnhMetaFile GetEnhMetaFileW
-#define GetEnhMetaFileDescription GetEnhMetaFileDescriptionW
-#else
-#define CopyEnhMetaFile CopyEnhMetaFileA
-#define CreateEnhMetaFile CreateEnhMetaFileA
-#define GetEnhMetaFile GetEnhMetaFileA
-#define GetEnhMetaFileDescription GetEnhMetaFileDescriptionA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय CopyEnhMetaFile CopyEnhMetaFileW
+#परिभाषय CreateEnhMetaFile CreateEnhMetaFileW
+#परिभाषय GetEnhMetaFile GetEnhMetaFileW
+#परिभाषय GetEnhMetaFileDescription GetEnhMetaFileDescriptionW
+#अन्यथा
+#परिभाषय CopyEnhMetaFile CopyEnhMetaFileA
+#परिभाषय CreateEnhMetaFile CreateEnhMetaFileA
+#परिभाषय GetEnhMetaFile GetEnhMetaFileA
+#परिभाषय GetEnhMetaFileDescription GetEnhMetaFileDescriptionA
+#यदि_अन्तः
 
-  WINGDIAPI WINBOOL WINAPI PlayMetaFileRecord(HDC hdc,LPHANDLETABLE lpHandleTable,LPMETARECORD lpMR,UINT noObjs);
+  WINGDIAPI WINBOOL WINAPI Play_Meta_File_लेखः(HDC hdc,LPHANDLETABLE lp_Handle_सारणी,LPMETARECORD lpMR,UINT noObjs);
 
-  typedef int (CALLBACK *MFENUMPROC)(HDC hdc,HANDLETABLE *lpht,METARECORD *lpMR,int nObj,LPARAM param);
+  प्रकारनिर्देश पूर्णाङ्क (CALLBACK *MFENUMPROC)(HDC hdc,HANDLETABLE *lpht,METARECORD *lpMR,पूर्णाङ्क nObj,LPARAM param);
 
   WINGDIAPI WINBOOL WINAPI EnumMetaFile(HDC hdc,HMETAFILE hmf,MFENUMPROC proc,LPARAM param);
 
-  typedef int (CALLBACK *ENHMFENUMPROC)(HDC hdc,HANDLETABLE *lpht,CONST ENHMETARECORD *lpmr,int hHandles,LPARAM data);
+  प्रकारनिर्देश पूर्णाङ्क (CALLBACK *ENHMFENUMPROC)(HDC hdc,HANDLETABLE *lpht,CONST ENHMETARECORD *lpmr,पूर्णाङ्क hHandles,LPARAM दत्त);
 
   WINGDIAPI HENHMETAFILE WINAPI CloseEnhMetaFile(HDC hdc);
   WINGDIAPI HENHMETAFILE WINAPI CopyEnhMetaFileA(HENHMETAFILE hEnh,LPCSTR lpFileName);
@@ -2932,83 +2932,83 @@ extern "C" {
   WINGDIAPI WINBOOL WINAPI EnumEnhMetaFile(HDC hdc,HENHMETAFILE hmf,ENHMFENUMPROC proc,LPVOID param,CONST RECT *lpRect);
   WINGDIAPI HENHMETAFILE WINAPI GetEnhMetaFileA(LPCSTR lpName);
   WINGDIAPI HENHMETAFILE WINAPI GetEnhMetaFileW(LPCWSTR lpName);
-  WINGDIAPI UINT WINAPI GetEnhMetaFileBits(HENHMETAFILE hEMF,UINT nSize,LPBYTE lpData);
-  WINGDIAPI UINT WINAPI GetEnhMetaFileDescriptionA(HENHMETAFILE hemf,UINT cchBuffer,LPSTR lpDescription);
-  WINGDIAPI UINT WINAPI GetEnhMetaFileDescriptionW(HENHMETAFILE hemf,UINT cchBuffer,LPWSTR lpDescription);
-  WINGDIAPI UINT WINAPI GetEnhMetaFileHeader(HENHMETAFILE hemf,UINT nSize,LPENHMETAHEADER lpEnhMetaHeader);
-  WINGDIAPI UINT WINAPI GetEnhMetaFilePaletteEntries(HENHMETAFILE hemf,UINT nNumEntries,LPPALETTEENTRY lpPaletteEntries);
-  WINGDIAPI UINT WINAPI GetEnhMetaFilePixelFormat(HENHMETAFILE hemf,UINT cbBuffer,PIXELFORMATDESCRIPTOR *ppfd);
-  WINGDIAPI UINT WINAPI GetWinMetaFileBits(HENHMETAFILE hemf,UINT cbData16,LPBYTE pData16,INT iMapMode,HDC hdcRef);
+  WINGDIAPI UINT WINAPI Get_Enh_Meta_File_द्वयङ्काः(HENHMETAFILE hEMF,UINT n_आकार,LPBYTE lp_दत्त);
+  WINGDIAPI UINT WINAPI GetEnhMetaFileDescriptionA(HENHMETAFILE hemf,UINT cch_बफर,LPSTR lpDescription);
+  WINGDIAPI UINT WINAPI GetEnhMetaFileDescriptionW(HENHMETAFILE hemf,UINT cch_बफर,LPWSTR lpDescription);
+  WINGDIAPI UINT WINAPI Get_Enh_Meta_File_शीर्षकम्(HENHMETAFILE hemf,UINT n_आकार,LPENHMETAHEADER lp_Enh_Meta_शीर्षकम्);
+  WINGDIAPI UINT WINAPI GetEnhMetaFilePaletteEntries(HENHMETAFILE hemf,UINT n_अङ्कः_Entries,LPPALETTEENTRY lpPaletteEntries);
+  WINGDIAPI UINT WINAPI GetEnhMetaFilePixelFormat(HENHMETAFILE hemf,UINT cb_बफर,PIXELFORMATDESCRIPTOR *ppfd);
+  WINGDIAPI UINT WINAPI Get_Win_Meta_File_द्वयङ्काः(HENHMETAFILE hemf,UINT cbData16,LPBYTE pData16,INT i_Map_बहुलकम्,HDC hdcRef);
   WINGDIAPI WINBOOL WINAPI PlayEnhMetaFile(HDC hdc,HENHMETAFILE hmf,CONST RECT *lprect);
-  WINGDIAPI WINBOOL WINAPI PlayEnhMetaFileRecord(HDC hdc,LPHANDLETABLE pht,CONST ENHMETARECORD *pmr,UINT cht);
-  WINGDIAPI HENHMETAFILE WINAPI SetEnhMetaFileBits(UINT nSize,CONST BYTE *pb);
-  WINGDIAPI HENHMETAFILE WINAPI SetWinMetaFileBits(UINT nSize,CONST BYTE *lpMeta16Data,HDC hdcRef,CONST METAFILEPICT *lpMFP);
-  WINGDIAPI WINBOOL WINAPI GdiComment(HDC hdc,UINT nSize,CONST BYTE *lpData);
-#endif
+  WINGDIAPI WINBOOL WINAPI Play_Enh_Meta_File_लेखः(HDC hdc,LPHANDLETABLE pht,CONST ENHMETARECORD *pmr,UINT cht);
+  WINGDIAPI HENHMETAFILE WINAPI समुच्चयः_Enh_Meta_File_द्वयङ्काः(UINT n_आकार,CONST BYTE *pb);
+  WINGDIAPI HENHMETAFILE WINAPI समुच्चयः_Win_Meta_File_द्वयङ्काः(UINT n_आकार,CONST BYTE *lp_Meta16_दत्त,HDC hdcRef,CONST METAFILEPICT *lpMFP);
+  WINGDIAPI WINBOOL WINAPI GdiComment(HDC hdc,UINT n_आकार,CONST BYTE *lp_दत्त);
+#यदि_अन्तः
 
-#ifndef NOTEXTMETRIC
-#ifdef UNICODE
-#define GetTextMetrics GetTextMetricsW
-#else
-#define GetTextMetrics GetTextMetricsA
-#endif
+#यदि_अपरिभाषितम् NOTEXTMETRIC
+#यदि_परिभाषितम् UNICODE
+#परिभाषय GetTextMetrics GetTextMetricsW
+#अन्यथा
+#परिभाषय GetTextMetrics GetTextMetricsA
+#यदि_अन्तः
 
   WINGDIAPI WINBOOL WINAPI GetTextMetricsA(HDC hdc,LPTEXTMETRICA lptm);
   WINGDIAPI WINBOOL WINAPI GetTextMetricsW(HDC hdc,LPTEXTMETRICW lptm);
-#endif
+#यदि_अन्तः
 
-  typedef struct tagDIBSECTION {
+  प्रकारनिर्देश संरचना चिह्नकम्_DIBSECTION {
     BITMAP dsBm;
     BITMAPINFOHEADER dsBmih;
     DWORD dsBitfields[3];
     HANDLE dshSection;
-    DWORD dsOffset;
+    DWORD ds_विस्थापनम्;
   } DIBSECTION,*LPDIBSECTION,*PDIBSECTION;
 
-  WINGDIAPI WINBOOL WINAPI AngleArc(HDC hdc,int x,int y,DWORD r,FLOAT StartAngle,FLOAT SweepAngle);
+  WINGDIAPI WINBOOL WINAPI AngleArc(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,DWORD r,FLOAT StartAngle,FLOAT SweepAngle);
   WINGDIAPI WINBOOL WINAPI PolyPolyline(HDC hdc,CONST POINT *apt,CONST DWORD *asz,DWORD csz);
   WINGDIAPI WINBOOL WINAPI GetWorldTransform(HDC hdc,LPXFORM lpxf);
-  WINGDIAPI WINBOOL WINAPI SetWorldTransform(HDC hdc,CONST XFORM *lpxf);
-  WINGDIAPI WINBOOL WINAPI ModifyWorldTransform(HDC hdc,CONST XFORM *lpxf,DWORD mode);
-  WINGDIAPI WINBOOL WINAPI CombineTransform(LPXFORM lpxfOut,CONST XFORM *lpxf1,CONST XFORM *lpxf2);
-  WINGDIAPI HBITMAP WINAPI CreateDIBSection(HDC hdc,CONST BITMAPINFO *lpbmi,UINT usage,VOID **ppvBits,HANDLE hSection,DWORD offset);
-  WINGDIAPI UINT WINAPI GetDIBColorTable(HDC hdc,UINT iStart,UINT cEntries,RGBQUAD *prgbq);
-  WINGDIAPI UINT WINAPI SetDIBColorTable(HDC hdc,UINT iStart,UINT cEntries,CONST RGBQUAD *prgbq);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_World_Transform(HDC hdc,CONST XFORM *lpxf);
+  WINGDIAPI WINBOOL WINAPI ModifyWorldTransform(HDC hdc,CONST XFORM *lpxf,DWORD बहुलकम्);
+  WINGDIAPI WINBOOL WINAPI CombineTransform(LPXFORM lpxf_बहिर्गमनम्,CONST XFORM *lpxf1,CONST XFORM *lpxf2);
+  WINGDIAPI HBITMAP WINAPI CreateDIBSection(HDC hdc,CONST BITMAPINFO *lpbmi,UINT usage,VOID **ppv_द्वयङ्काः,HANDLE hSection,DWORD विस्थापनम्);
+  WINGDIAPI UINT WINAPI Get_DIBColor_सारणी(HDC hdc,UINT iStart,UINT cEntries,RGBQUAD *prgbq);
+  WINGDIAPI UINT WINAPI समुच्चयः_DIBColor_सारणी(HDC hdc,UINT iStart,UINT cEntries,CONST RGBQUAD *prgbq);
 
-#define CA_NEGATIVE 0x0001
-#define CA_LOG_FILTER 0x0002
+#परिभाषय CA_NEGATIVE 0x0001
+#परिभाषय CA_LOG_FILTER 0x0002
 
-#define ILLUMINANT_DEVICE_DEFAULT 0
-#define ILLUMINANT_A 1
-#define ILLUMINANT_B 2
-#define ILLUMINANT_C 3
-#define ILLUMINANT_D50 4
-#define ILLUMINANT_D55 5
-#define ILLUMINANT_D65 6
-#define ILLUMINANT_D75 7
-#define ILLUMINANT_F2 8
-#define ILLUMINANT_MAX_INDEX ILLUMINANT_F2
+#परिभाषय ILLUMINANT_DEVICE_DEFAULT 0
+#परिभाषय ILLUMINANT_A 1
+#परिभाषय ILLUMINANT_B 2
+#परिभाषय ILLUMINANT_C 3
+#परिभाषय ILLUMINANT_D50 4
+#परिभाषय ILLUMINANT_D55 5
+#परिभाषय ILLUMINANT_D65 6
+#परिभाषय ILLUMINANT_D75 7
+#परिभाषय ILLUMINANT_F2 8
+#परिभाषय ILLUMINANT_MAX_सूचकांक ILLUMINANT_F2
 
-#define ILLUMINANT_TUNGSTEN ILLUMINANT_A
-#define ILLUMINANT_DAYLIGHT ILLUMINANT_C
-#define ILLUMINANT_FLUORESCENT ILLUMINANT_F2
-#define ILLUMINANT_NTSC ILLUMINANT_C
+#परिभाषय ILLUMINANT_TUNGSTEN ILLUMINANT_A
+#परिभाषय ILLUMINANT_DAYLIGHT ILLUMINANT_C
+#परिभाषय ILLUMINANT_FLUORESCENT ILLUMINANT_F2
+#परिभाषय ILLUMINANT_NTSC ILLUMINANT_C
 
-#define RGB_GAMMA_MIN (WORD)02500
-#define RGB_GAMMA_MAX (WORD)65000
+#परिभाषय RGB_GAMMA_MIN (WORD)02500
+#परिभाषय RGB_GAMMA_MAX (WORD)65000
 
-#define REFERENCE_WHITE_MIN (WORD)6000
-#define REFERENCE_WHITE_MAX (WORD)10000
-#define REFERENCE_BLACK_MIN (WORD)0
-#define REFERENCE_BLACK_MAX (WORD)4000
+#परिभाषय REFERENCE_WHITE_MIN (WORD)6000
+#परिभाषय REFERENCE_WHITE_MAX (WORD)10000
+#परिभाषय REFERENCE_BLACK_MIN (WORD)0
+#परिभाषय REFERENCE_BLACK_MAX (WORD)4000
 
-#define COLOR_ADJ_MIN (SHORT)-100
-#define COLOR_ADJ_MAX (SHORT)100
+#परिभाषय COLOR_ADJ_MIN (SHORT)-100
+#परिभाषय COLOR_ADJ_MAX (SHORT)100
 
-  typedef struct tagCOLORADJUSTMENT {
-    WORD caSize;
+  प्रकारनिर्देश संरचना चिह्नकम्_COLORADJUSTMENT {
+    WORD ca_आकार;
     WORD caFlags;
-    WORD caIlluminantIndex;
+    WORD ca_Illuminant_सूचकांक;
     WORD caRedGamma;
     WORD caGreenGamma;
     WORD caBlueGamma;
@@ -3020,321 +3020,321 @@ extern "C" {
     SHORT caRedGreenTint;
   } COLORADJUSTMENT,*PCOLORADJUSTMENT,*LPCOLORADJUSTMENT;
 
-  WINGDIAPI WINBOOL WINAPI SetColorAdjustment(HDC hdc,CONST COLORADJUSTMENT *lpca);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_Color_Adjustment(HDC hdc,CONST COLORADJUSTMENT *lpca);
   WINGDIAPI WINBOOL WINAPI GetColorAdjustment(HDC hdc,LPCOLORADJUSTMENT lpca);
   WINGDIAPI HPALETTE WINAPI CreateHalftonePalette(HDC hdc);
 
-  typedef WINBOOL (CALLBACK *ABORTPROC)(HDC,int);
+  प्रकारनिर्देश WINBOOL (CALLBACK *ABORTPROC)(HDC,पूर्णाङ्क);
 
-  typedef struct _DOCINFOA {
-    int cbSize;
+  प्रकारनिर्देश संरचना _DOCINFOA {
+    पूर्णाङ्क cb_आकार;
     LPCSTR lpszDocName;
     LPCSTR lpszOutput;
     LPCSTR lpszDatatype;
     DWORD fwType;
   } DOCINFOA,*LPDOCINFOA;
 
-  typedef struct _DOCINFOW {
-    int cbSize;
+  प्रकारनिर्देश संरचना _DOCINFOW {
+    पूर्णाङ्क cb_आकार;
     LPCWSTR lpszDocName;
     LPCWSTR lpszOutput;
     LPCWSTR lpszDatatype;
     DWORD fwType;
   } DOCINFOW,*LPDOCINFOW;
 
-#ifdef UNICODE
-  typedef DOCINFOW DOCINFO;
-  typedef LPDOCINFOW LPDOCINFO;
-#else
-  typedef DOCINFOA DOCINFO;
-  typedef LPDOCINFOA LPDOCINFO;
-#endif
+#यदि_परिभाषितम् UNICODE
+  प्रकारनिर्देश DOCINFOW DOCINFO;
+  प्रकारनिर्देश LPDOCINFOW LPDOCINFO;
+#अन्यथा
+  प्रकारनिर्देश DOCINFOA DOCINFO;
+  प्रकारनिर्देश LPDOCINFOA LPDOCINFO;
+#यदि_अन्तः
 
-#define DI_APPBANDING 0x00000001
-#define DI_ROPS_READ_DESTINATION 0x00000002
+#परिभाषय DI_APPBANDING 0x00000001
+#परिभाषय DI_ROPS_READ_DESTINATION 0x00000002
 
-#ifdef UNICODE
-#define StartDoc StartDocW
-#define GetObject GetObjectW
-#define TextOut TextOutW
-#define ExtTextOut ExtTextOutW
-#define PolyTextOut PolyTextOutW
-#define GetTextFace GetTextFaceW
-#else
-#define StartDoc StartDocA
-#define GetObject GetObjectA
-#define TextOut TextOutA
-#define ExtTextOut ExtTextOutA
-#define PolyTextOut PolyTextOutA
-#define GetTextFace GetTextFaceA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय StartDoc StartDocW
+#परिभाषय GetObject GetObjectW
+#परिभाषय Text_बहिर्गमनम् Text_बहिर्गमनम्_W
+#परिभाषय Ext_Text_बहिर्गमनम् Ext_Text_बहिर्गमनम्_W
+#परिभाषय Poly_Text_बहिर्गमनम् Poly_Text_बहिर्गमनम्_W
+#परिभाषय GetTextFace GetTextFaceW
+#अन्यथा
+#परिभाषय StartDoc StartDocA
+#परिभाषय GetObject GetObjectA
+#परिभाषय Text_बहिर्गमनम् Text_बहिर्गमनम्_A
+#परिभाषय Ext_Text_बहिर्गमनम् Ext_Text_बहिर्गमनम्_A
+#परिभाषय Poly_Text_बहिर्गमनम् Poly_Text_बहिर्गमनम्_A
+#परिभाषय GetTextFace GetTextFaceA
+#यदि_अन्तः
 
-  WINGDIAPI int WINAPI StartDocA(HDC hdc,CONST DOCINFOA *lpdi);
-  WINGDIAPI int WINAPI StartDocW(HDC hdc,CONST DOCINFOW *lpdi);
-  WINGDIAPI int WINAPI EndDoc(HDC hdc);
-  WINGDIAPI int WINAPI StartPage(HDC hdc);
-  WINGDIAPI int WINAPI EndPage(HDC hdc);
-  WINGDIAPI int WINAPI AbortDoc(HDC hdc);
-  WINGDIAPI int WINAPI SetAbortProc(HDC hdc,ABORTPROC proc);
-  WINGDIAPI WINBOOL WINAPI AbortPath(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI ArcTo(HDC hdc,int left,int top,int right,int bottom,int xr1,int yr1,int xr2,int yr2);
-  WINGDIAPI WINBOOL WINAPI BeginPath(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI StartDocA(HDC hdc,CONST DOCINFOA *lpdi);
+  WINGDIAPI पूर्णाङ्क WINAPI StartDocW(HDC hdc,CONST DOCINFOW *lpdi);
+  WINGDIAPI पूर्णाङ्क WINAPI अन्तः_Doc(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI StartPage(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI अन्तः_Page(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI AbortDoc(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_Abort_Proc(HDC hdc,ABORTPROC proc);
+  WINGDIAPI WINBOOL WINAPI Abort_मार्गः(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Arc_गन्तव्यम्(HDC hdc,पूर्णाङ्क वामः,पूर्णाङ्क शिखरम्,पूर्णाङ्क दक्षिणः,पूर्णाङ्क bottom,पूर्णाङ्क xr1,पूर्णाङ्क yr1,पूर्णाङ्क xr2,पूर्णाङ्क yr2);
+  WINGDIAPI WINBOOL WINAPI Begin_मार्गः(HDC hdc);
   WINGDIAPI WINBOOL WINAPI CloseFigure(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI EndPath(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI FillPath(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI FlattenPath(HDC hdc);
-  WINGDIAPI int WINAPI GetPath(HDC hdc,LPPOINT apt,LPBYTE aj,int cpt);
-  WINGDIAPI HRGN WINAPI PathToRegion(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI PolyDraw(HDC hdc,CONST POINT *apt,CONST BYTE *aj,int cpt);
-  WINGDIAPI WINBOOL WINAPI SelectClipPath(HDC hdc,int mode);
-  WINGDIAPI int WINAPI SetArcDirection(HDC hdc,int dir);
-  WINGDIAPI WINBOOL WINAPI SetMiterLimit(HDC hdc,FLOAT limit,PFLOAT old);
-  WINGDIAPI WINBOOL WINAPI StrokeAndFillPath(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI StrokePath(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI WidenPath(HDC hdc);
-  WINGDIAPI HPEN WINAPI ExtCreatePen(DWORD iPenStyle,DWORD cWidth,CONST LOGBRUSH *plbrush,DWORD cStyle,CONST DWORD *pstyle);
-  WINGDIAPI WINBOOL WINAPI GetMiterLimit(HDC hdc,PFLOAT plimit);
-  WINGDIAPI int WINAPI GetArcDirection(HDC hdc);
-  WINGDIAPI int WINAPI GetObjectA(HANDLE h,int c,LPVOID pv);
-  WINGDIAPI int WINAPI GetObjectW(HANDLE h,int c,LPVOID pv);
-  WINGDIAPI WINBOOL WINAPI MoveToEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI TextOutA(HDC hdc,int x,int y,LPCSTR lpString,int c);
-  WINGDIAPI WINBOOL WINAPI TextOutW(HDC hdc,int x,int y,LPCWSTR lpString,int c);
-  WINGDIAPI WINBOOL WINAPI ExtTextOutA(HDC hdc,int x,int y,UINT options,CONST RECT *lprect,LPCSTR lpString,UINT c,CONST INT *lpDx);
-  WINGDIAPI WINBOOL WINAPI ExtTextOutW(HDC hdc,int x,int y,UINT options,CONST RECT *lprect,LPCWSTR lpString,UINT c,CONST INT *lpDx);
-  WINGDIAPI WINBOOL WINAPI PolyTextOutA(HDC hdc,CONST POLYTEXTA *ppt,int nstrings);
-  WINGDIAPI WINBOOL WINAPI PolyTextOutW(HDC hdc,CONST POLYTEXTW *ppt,int nstrings);
-  WINGDIAPI HRGN WINAPI CreatePolygonRgn(CONST POINT *pptl,int cPoint,int iMode);
-  WINGDIAPI WINBOOL WINAPI DPtoLP(HDC hdc,LPPOINT lppt,int c);
-  WINGDIAPI WINBOOL WINAPI LPtoDP(HDC hdc,LPPOINT lppt,int c);
-  WINGDIAPI WINBOOL WINAPI Polygon(HDC hdc,CONST POINT *apt,int cpt);
-  WINGDIAPI WINBOOL WINAPI Polyline(HDC hdc,CONST POINT *apt,int cpt);
+  WINGDIAPI WINBOOL WINAPI अन्तः_मार्गः_2(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Fill_मार्गः(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Flatten_मार्गः(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI Get_मार्गः(HDC hdc,LPPOINT apt,LPBYTE aj,पूर्णाङ्क cpt);
+  WINGDIAPI HRGN WINAPI मार्गः_गन्तव्यम्_Region(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI PolyDraw(HDC hdc,CONST POINT *apt,CONST BYTE *aj,पूर्णाङ्क cpt);
+  WINGDIAPI WINBOOL WINAPI Select_Clip_मार्गः(HDC hdc,पूर्णाङ्क बहुलकम्);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_Arc_Direction(HDC hdc,पूर्णाङ्क dir);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_Miter_सीमा(HDC hdc,FLOAT सीमा,PFLOAT old);
+  WINGDIAPI WINBOOL WINAPI Stroke_And_Fill_मार्गः(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Stroke_मार्गः(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Widen_मार्गः(HDC hdc);
+  WINGDIAPI HPEN WINAPI ExtCreatePen(DWORD iPenStyle,DWORD c_विस्तारः,CONST LOGBRUSH *plbrush,DWORD cStyle,CONST DWORD *pstyle);
+  WINGDIAPI WINBOOL WINAPI Get_Miter_सीमा(HDC hdc,PFLOAT plimit);
+  WINGDIAPI पूर्णाङ्क WINAPI GetArcDirection(HDC hdc);
+  WINGDIAPI पूर्णाङ्क WINAPI GetObjectA(HANDLE h,पूर्णाङ्क c,LPVOID pv);
+  WINGDIAPI पूर्णाङ्क WINAPI GetObjectW(HANDLE h,पूर्णाङ्क c,LPVOID pv);
+  WINGDIAPI WINBOOL WINAPI Move_गन्तव्यम्_Ex(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPPOINT lppt);
+  WINGDIAPI WINBOOL WINAPI Text_बहिर्गमनम्_A(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPCSTR lpString,पूर्णाङ्क c);
+  WINGDIAPI WINBOOL WINAPI Text_बहिर्गमनम्_W(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPCWSTR lpString,पूर्णाङ्क c);
+  WINGDIAPI WINBOOL WINAPI Ext_Text_बहिर्गमनम्_A(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,UINT options,CONST RECT *lprect,LPCSTR lpString,UINT c,CONST INT *lpDx);
+  WINGDIAPI WINBOOL WINAPI Ext_Text_बहिर्गमनम्_W(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,UINT options,CONST RECT *lprect,LPCWSTR lpString,UINT c,CONST INT *lpDx);
+  WINGDIAPI WINBOOL WINAPI Poly_Text_बहिर्गमनम्_A(HDC hdc,CONST POLYTEXTA *ppt,पूर्णाङ्क nstrings);
+  WINGDIAPI WINBOOL WINAPI Poly_Text_बहिर्गमनम्_W(HDC hdc,CONST POLYTEXTW *ppt,पूर्णाङ्क nstrings);
+  WINGDIAPI HRGN WINAPI CreatePolygonRgn(CONST POINT *pptl,पूर्णाङ्क cPoint,पूर्णाङ्क i_बहुलकम्);
+  WINGDIAPI WINBOOL WINAPI DPtoLP(HDC hdc,LPPOINT lppt,पूर्णाङ्क c);
+  WINGDIAPI WINBOOL WINAPI LPtoDP(HDC hdc,LPPOINT lppt,पूर्णाङ्क c);
+  WINGDIAPI WINBOOL WINAPI Polygon(HDC hdc,CONST POINT *apt,पूर्णाङ्क cpt);
+  WINGDIAPI WINBOOL WINAPI Polyline(HDC hdc,CONST POINT *apt,पूर्णाङ्क cpt);
   WINGDIAPI WINBOOL WINAPI PolyBezier(HDC hdc,CONST POINT *apt,DWORD cpt);
-  WINGDIAPI WINBOOL WINAPI PolyBezierTo(HDC hdc,CONST POINT *apt,DWORD cpt);
-  WINGDIAPI WINBOOL WINAPI PolylineTo(HDC hdc,CONST POINT *apt,DWORD cpt);
-  WINGDIAPI WINBOOL WINAPI SetViewportExtEx(HDC hdc,int x,int y,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI SetViewportOrgEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI SetWindowExtEx(HDC hdc,int x,int y,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI SetWindowOrgEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI OffsetViewportOrgEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI OffsetWindowOrgEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI ScaleViewportExtEx(HDC hdc,int xn,int dx,int yn,int yd,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI ScaleWindowExtEx(HDC hdc,int xn,int xd,int yn,int yd,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI SetBitmapDimensionEx(HBITMAP hbm,int w,int h,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI SetBrushOrgEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI int WINAPI GetTextFaceA(HDC hdc,int c,LPSTR lpName);
-  WINGDIAPI int WINAPI GetTextFaceW(HDC hdc,int c,LPWSTR lpName);
+  WINGDIAPI WINBOOL WINAPI Poly_Bezier_गन्तव्यम्(HDC hdc,CONST POINT *apt,DWORD cpt);
+  WINGDIAPI WINBOOL WINAPI Polyline_गन्तव्यम्(HDC hdc,CONST POINT *apt,DWORD cpt);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_Viewport_Ext_Ex(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_Viewport_Org_Ex(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPPOINT lppt);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_गवाक्षः_Ext_Ex(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_गवाक्षः_Org_Ex(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPPOINT lppt);
+  WINGDIAPI WINBOOL WINAPI विस्थापनम्_Viewport_Org_Ex(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPPOINT lppt);
+  WINGDIAPI WINBOOL WINAPI विस्थापनम्_गवाक्षः_Org_Ex(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPPOINT lppt);
+  WINGDIAPI WINBOOL WINAPI ScaleViewportExtEx(HDC hdc,पूर्णाङ्क xn,पूर्णाङ्क dx,पूर्णाङ्क yn,पूर्णाङ्क yd,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI Scale_गवाक्षः_Ext_Ex(HDC hdc,पूर्णाङ्क xn,पूर्णाङ्क xd,पूर्णाङ्क yn,पूर्णाङ्क yd,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_Bitmap_Dimension_Ex(HBITMAP hbm,पूर्णाङ्क w,पूर्णाङ्क h,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_Brush_Org_Ex(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPPOINT lppt);
+  WINGDIAPI पूर्णाङ्क WINAPI GetTextFaceA(HDC hdc,पूर्णाङ्क c,LPSTR lpName);
+  WINGDIAPI पूर्णाङ्क WINAPI GetTextFaceW(HDC hdc,पूर्णाङ्क c,LPWSTR lpName);
 
-#define FONTMAPPER_MAX 10
+#परिभाषय FONTMAPPER_MAX 10
 
-  typedef struct tagKERNINGPAIR {
+  प्रकारनिर्देश संरचना चिह्नकम्_KERNINGPAIR {
     WORD wFirst;
     WORD wSecond;
-    int iKernAmount;
+    पूर्णाङ्क iKernAmount;
   } KERNINGPAIR,*LPKERNINGPAIR;
 
-#ifdef UNICODE
-#define GetKerningPairs GetKerningPairsW
-#else
-#define GetKerningPairs GetKerningPairsA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय Get_Kerning_युग्मानि Get_Kerning_युग्मानि_W
+#अन्यथा
+#परिभाषय Get_Kerning_युग्मानि Get_Kerning_युग्मानि_A
+#यदि_अन्तः
 
-  WINGDIAPI DWORD WINAPI GetKerningPairsA(HDC hdc,DWORD nPairs,LPKERNINGPAIR lpKernPair);
-  WINGDIAPI DWORD WINAPI GetKerningPairsW(HDC hdc,DWORD nPairs,LPKERNINGPAIR lpKernPair);
+  WINGDIAPI DWORD WINAPI Get_Kerning_युग्मानि_A(HDC hdc,DWORD n_युग्मानि,LPKERNINGPAIR lpKernPair);
+  WINGDIAPI DWORD WINAPI Get_Kerning_युग्मानि_W(HDC hdc,DWORD n_युग्मानि,LPKERNINGPAIR lpKernPair);
   WINGDIAPI WINBOOL WINAPI GetDCOrgEx(HDC hdc,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI FixBrushOrgEx(HDC hdc,int x,int y,LPPOINT ptl);
+  WINGDIAPI WINBOOL WINAPI FixBrushOrgEx(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPPOINT ptl);
   WINGDIAPI WINBOOL WINAPI UnrealizeObject(HGDIOBJ h);
   WINGDIAPI WINBOOL WINAPI GdiFlush();
-  WINGDIAPI DWORD WINAPI GdiSetBatchLimit(DWORD dw);
-  WINGDIAPI DWORD WINAPI GdiGetBatchLimit();
+  WINGDIAPI DWORD WINAPI Gdi_समुच्चयः_Batch_सीमा(DWORD dw);
+  WINGDIAPI DWORD WINAPI Gdi_Get_Batch_सीमा();
 
-#define ICM_OFF 1
-#define ICM_ON 2
-#define ICM_QUERY 3
-#define ICM_DONE_OUTSIDEDC 4
+#परिभाषय ICM_OFF 1
+#परिभाषय ICM_ON 2
+#परिभाषय ICM_QUERY 3
+#परिभाषय ICM_समाप्तम्_OUTSIDEDC 4
 
-  typedef int (CALLBACK *ICMENUMPROCA)(LPSTR,LPARAM);
-  typedef int (CALLBACK *ICMENUMPROCW)(LPWSTR,LPARAM);
+  प्रकारनिर्देश पूर्णाङ्क (CALLBACK *ICMENUMPROCA)(LPSTR,LPARAM);
+  प्रकारनिर्देश पूर्णाङ्क (CALLBACK *ICMENUMPROCW)(LPWSTR,LPARAM);
 
-#ifdef UNICODE
-#define ICMENUMPROC ICMENUMPROCW
-#define EnumICMProfiles EnumICMProfilesW
-#define UpdateICMRegKey UpdateICMRegKeyW
-#define GetLogColorSpace GetLogColorSpaceW
-#define CreateColorSpace CreateColorSpaceW
-#define GetICMProfile GetICMProfileW
-#define SetICMProfile SetICMProfileW
-#else
-#define ICMENUMPROC ICMENUMPROCA
-#define EnumICMProfiles EnumICMProfilesA
-#define UpdateICMRegKey UpdateICMRegKeyA
-#define GetLogColorSpace GetLogColorSpaceA
-#define CreateColorSpace CreateColorSpaceA
-#define GetICMProfile GetICMProfileA
-#define SetICMProfile SetICMProfileA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय ICMENUMPROC ICMENUMPROCW
+#परिभाषय EnumICMProfiles EnumICMProfilesW
+#परिभाषय Update_ICMReg_कुञ्चिका Update_ICMReg_कुञ्चिका_W
+#परिभाषय GetLogColorSpace GetLogColorSpaceW
+#परिभाषय CreateColorSpace CreateColorSpaceW
+#परिभाषय GetICMProfile GetICMProfileW
+#परिभाषय समुच्चयः_ICMProfile समुच्चयः_ICMProfile_W
+#अन्यथा
+#परिभाषय ICMENUMPROC ICMENUMPROCA
+#परिभाषय EnumICMProfiles EnumICMProfilesA
+#परिभाषय Update_ICMReg_कुञ्चिका Update_ICMReg_कुञ्चिका_A
+#परिभाषय GetLogColorSpace GetLogColorSpaceA
+#परिभाषय CreateColorSpace CreateColorSpaceA
+#परिभाषय GetICMProfile GetICMProfileA
+#परिभाषय समुच्चयः_ICMProfile समुच्चयः_ICMProfile_A
+#यदि_अन्तः
 
-  WINGDIAPI int WINAPI SetICMMode(HDC hdc,int mode);
-  WINGDIAPI WINBOOL WINAPI CheckColorsInGamut(HDC hdc,LPVOID lpRGBTriple,LPVOID dlpBuffer,DWORD nCount);
+  WINGDIAPI पूर्णाङ्क WINAPI समुच्चयः_ICMMode(HDC hdc,पूर्णाङ्क बहुलकम्);
+  WINGDIAPI WINBOOL WINAPI Check_Colors_अन्तर्_Gamut(HDC hdc,LPVOID lpRGBTriple,LPVOID dlp_बफर,DWORD n_गणनम्);
   WINGDIAPI HCOLORSPACE WINAPI GetColorSpace(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI GetLogColorSpaceA(HCOLORSPACE hColorSpace,LPLOGCOLORSPACEA lpBuffer,DWORD nSize);
-  WINGDIAPI WINBOOL WINAPI GetLogColorSpaceW(HCOLORSPACE hColorSpace,LPLOGCOLORSPACEW lpBuffer,DWORD nSize);
+  WINGDIAPI WINBOOL WINAPI GetLogColorSpaceA(HCOLORSPACE hColorSpace,LPLOGCOLORSPACEA lp_बफर,DWORD n_आकार);
+  WINGDIAPI WINBOOL WINAPI GetLogColorSpaceW(HCOLORSPACE hColorSpace,LPLOGCOLORSPACEW lp_बफर,DWORD n_आकार);
   WINGDIAPI HCOLORSPACE WINAPI CreateColorSpaceA(LPLOGCOLORSPACEA lplcs);
   WINGDIAPI HCOLORSPACE WINAPI CreateColorSpaceW(LPLOGCOLORSPACEW lplcs);
-  WINGDIAPI HCOLORSPACE WINAPI SetColorSpace(HDC hdc,HCOLORSPACE hcs);
+  WINGDIAPI HCOLORSPACE WINAPI समुच्चयः_Color_Space(HDC hdc,HCOLORSPACE hcs);
   WINGDIAPI WINBOOL WINAPI DeleteColorSpace(HCOLORSPACE hcs);
-  WINGDIAPI WINBOOL WINAPI GetICMProfileA(HDC hdc,LPDWORD pBufSize,LPSTR pszFilename);
-  WINGDIAPI WINBOOL WINAPI GetICMProfileW(HDC hdc,LPDWORD pBufSize,LPWSTR pszFilename);
-  WINGDIAPI WINBOOL WINAPI SetICMProfileA(HDC hdc,LPSTR lpFileName);
-  WINGDIAPI WINBOOL WINAPI SetICMProfileW(HDC hdc,LPWSTR lpFileName);
+  WINGDIAPI WINBOOL WINAPI GetICMProfileA(HDC hdc,LPDWORD p_Buf_आकार,LPSTR pszFilename);
+  WINGDIAPI WINBOOL WINAPI GetICMProfileW(HDC hdc,LPDWORD p_Buf_आकार,LPWSTR pszFilename);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_ICMProfile_A(HDC hdc,LPSTR lpFileName);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_ICMProfile_W(HDC hdc,LPWSTR lpFileName);
   WINGDIAPI WINBOOL WINAPI GetDeviceGammaRamp(HDC hdc,LPVOID lpRamp);
-  WINGDIAPI WINBOOL WINAPI SetDeviceGammaRamp(HDC hdc,LPVOID lpRamp);
-  WINGDIAPI WINBOOL WINAPI ColorMatchToTarget(HDC hdc,HDC hdcTarget,DWORD action);
-  WINGDIAPI int WINAPI EnumICMProfilesA(HDC hdc,ICMENUMPROCA proc,LPARAM param);
-  WINGDIAPI int WINAPI EnumICMProfilesW(HDC hdc,ICMENUMPROCW proc,LPARAM param);
-  WINGDIAPI WINBOOL WINAPI UpdateICMRegKeyA(DWORD reserved,LPSTR lpszCMID,LPSTR lpszFileName,UINT command);
-  WINGDIAPI WINBOOL WINAPI UpdateICMRegKeyW(DWORD reserved,LPWSTR lpszCMID,LPWSTR lpszFileName,UINT command);
-  WINGDIAPI WINBOOL WINAPI ColorCorrectPalette(HDC hdc,HPALETTE hPal,DWORD deFirst,DWORD num);
+  WINGDIAPI WINBOOL WINAPI समुच्चयः_Device_Gamma_Ramp(HDC hdc,LPVOID lpRamp);
+  WINGDIAPI WINBOOL WINAPI Color_मेलनम्_गन्तव्यम्_Target(HDC hdc,HDC hdcTarget,DWORD action);
+  WINGDIAPI पूर्णाङ्क WINAPI EnumICMProfilesA(HDC hdc,ICMENUMPROCA proc,LPARAM param);
+  WINGDIAPI पूर्णाङ्क WINAPI EnumICMProfilesW(HDC hdc,ICMENUMPROCW proc,LPARAM param);
+  WINGDIAPI WINBOOL WINAPI Update_ICMReg_कुञ्चिका_A(DWORD reserved,LPSTR lpszCMID,LPSTR lpszFileName,UINT command);
+  WINGDIAPI WINBOOL WINAPI Update_ICMReg_कुञ्चिका_W(DWORD reserved,LPWSTR lpszCMID,LPWSTR lpszFileName,UINT command);
+  WINGDIAPI WINBOOL WINAPI ColorCorrectPalette(HDC hdc,HPALETTE hPal,DWORD deFirst,DWORD अङ्कः);
 
-#ifndef NOMETAFILE
+#यदि_अपरिभाषितम् NOMETAFILE
 
-#define ENHMETA_SIGNATURE 0x464D4520
-#define ENHMETA_STOCK_OBJECT 0x80000000
+#परिभाषय ENHMETA_SIGNATURE 0x464D4520
+#परिभाषय ENHMETA_STOCK_OBJECT 0x80000000
 
-#define EMR_HEADER 1
-#define EMR_POLYBEZIER 2
-#define EMR_POLYGON 3
-#define EMR_POLYLINE 4
-#define EMR_POLYBEZIERTO 5
-#define EMR_POLYLINETO 6
-#define EMR_POLYPOLYLINE 7
-#define EMR_POLYPOLYGON 8
-#define EMR_SETWINDOWEXTEX 9
-#define EMR_SETWINDOWORGEX 10
-#define EMR_SETVIEWPORTEXTEX 11
-#define EMR_SETVIEWPORTORGEX 12
-#define EMR_SETBRUSHORGEX 13
-#define EMR_EOF 14
-#define EMR_SETPIXELV 15
-#define EMR_SETMAPPERFLAGS 16
-#define EMR_SETMAPMODE 17
-#define EMR_SETBKMODE 18
-#define EMR_SETPOLYFILLMODE 19
-#define EMR_SETROP2 20
-#define EMR_SETSTRETCHBLTMODE 21
-#define EMR_SETTEXTALIGN 22
-#define EMR_SETCOLORADJUSTMENT 23
-#define EMR_SETTEXTCOLOR 24
-#define EMR_SETBKCOLOR 25
-#define EMR_OFFSETCLIPRGN 26
-#define EMR_MOVETOEX 27
-#define EMR_SETMETARGN 28
-#define EMR_EXCLUDECLIPRECT 29
-#define EMR_INTERSECTCLIPRECT 30
-#define EMR_SCALEVIEWPORTEXTEX 31
-#define EMR_SCALEWINDOWEXTEX 32
-#define EMR_SAVEDC 33
-#define EMR_RESTOREDC 34
-#define EMR_SETWORLDTRANSFORM 35
-#define EMR_MODIFYWORLDTRANSFORM 36
-#define EMR_SELECTOBJECT 37
-#define EMR_CREATEPEN 38
-#define EMR_CREATEBRUSHINDIRECT 39
-#define EMR_DELETEOBJECT 40
-#define EMR_ANGLEARC 41
-#define EMR_ELLIPSE 42
-#define EMR_RECTANGLE 43
-#define EMR_ROUNDRECT 44
-#define EMR_ARC 45
-#define EMR_CHORD 46
-#define EMR_PIE 47
-#define EMR_SELECTPALETTE 48
-#define EMR_CREATEPALETTE 49
-#define EMR_SETPALETTEENTRIES 50
-#define EMR_RESIZEPALETTE 51
-#define EMR_REALIZEPALETTE 52
-#define EMR_EXTFLOODFILL 53
-#define EMR_LINETO 54
-#define EMR_ARCTO 55
-#define EMR_POLYDRAW 56
-#define EMR_SETARCDIRECTION 57
-#define EMR_SETMITERLIMIT 58
-#define EMR_BEGINPATH 59
-#define EMR_ENDPATH 60
-#define EMR_CLOSEFIGURE 61
-#define EMR_FILLPATH 62
-#define EMR_STROKEANDFILLPATH 63
-#define EMR_STROKEPATH 64
-#define EMR_FLATTENPATH 65
-#define EMR_WIDENPATH 66
-#define EMR_SELECTCLIPPATH 67
-#define EMR_ABORTPATH 68
+#परिभाषय EMR_शीर्षकम् 1
+#परिभाषय EMR_POLYBEZIER 2
+#परिभाषय EMR_POLYGON 3
+#परिभाषय EMR_POLYLINE 4
+#परिभाषय EMR_POLYBEZIERTO 5
+#परिभाषय EMR_POLYLINETO 6
+#परिभाषय EMR_POLYPOLYLINE 7
+#परिभाषय EMR_POLYPOLYGON 8
+#परिभाषय EMR_SETWINDOWEXTEX 9
+#परिभाषय EMR_SETWINDOWORGEX 10
+#परिभाषय EMR_SETVIEWPORTEXTEX 11
+#परिभाषय EMR_SETVIEWPORTORGEX 12
+#परिभाषय EMR_SETBRUSHORGEX 13
+#परिभाषय EMR_EOF 14
+#परिभाषय EMR_SETPIXELV 15
+#परिभाषय EMR_SETMAPPERFLAGS 16
+#परिभाषय EMR_SETMAPMODE 17
+#परिभाषय EMR_SETBKMODE 18
+#परिभाषय EMR_SETPOLYFILLMODE 19
+#परिभाषय EMR_SETROP2 20
+#परिभाषय EMR_SETSTRETCHBLTMODE 21
+#परिभाषय EMR_SETTEXTALIGN 22
+#परिभाषय EMR_SETCOLORADJUSTMENT 23
+#परिभाषय EMR_SETTEXTCOLOR 24
+#परिभाषय EMR_SETBKCOLOR 25
+#परिभाषय EMR_OFFSETCLIPRGN 26
+#परिभाषय EMR_MOVETOEX 27
+#परिभाषय EMR_SETMETARGN 28
+#परिभाषय EMR_EXCLUDECLIPRECT 29
+#परिभाषय EMR_INTERSECTCLIPRECT 30
+#परिभाषय EMR_SCALEVIEWPORTEXTEX 31
+#परिभाषय EMR_SCALEWINDOWEXTEX 32
+#परिभाषय EMR_SAVEDC 33
+#परिभाषय EMR_RESTOREDC 34
+#परिभाषय EMR_SETWORLDTRANSFORM 35
+#परिभाषय EMR_MODIFYWORLDTRANSFORM 36
+#परिभाषय EMR_SELECTOBJECT 37
+#परिभाषय EMR_CREATEPEN 38
+#परिभाषय EMR_CREATEBRUSHINDIRECT 39
+#परिभाषय EMR_DELETEOBJECT 40
+#परिभाषय EMR_ANGLEARC 41
+#परिभाषय EMR_ELLIPSE 42
+#परिभाषय EMR_RECTANGLE 43
+#परिभाषय EMR_ROUNDRECT 44
+#परिभाषय EMR_ARC 45
+#परिभाषय EMR_CHORD 46
+#परिभाषय EMR_PIE 47
+#परिभाषय EMR_SELECTPALETTE 48
+#परिभाषय EMR_CREATEPALETTE 49
+#परिभाषय EMR_SETPALETTEENTRIES 50
+#परिभाषय EMR_RESIZEPALETTE 51
+#परिभाषय EMR_REALIZEPALETTE 52
+#परिभाषय EMR_EXTFLOODFILL 53
+#परिभाषय EMR_LINETO 54
+#परिभाषय EMR_ARCTO 55
+#परिभाषय EMR_POLYDRAW 56
+#परिभाषय EMR_SETARCDIRECTION 57
+#परिभाषय EMR_SETMITERLIMIT 58
+#परिभाषय EMR_BEGINPATH 59
+#परिभाषय EMR_ENDPATH 60
+#परिभाषय EMR_CLOSEFIGURE 61
+#परिभाषय EMR_FILLPATH 62
+#परिभाषय EMR_STROKEANDFILLPATH 63
+#परिभाषय EMR_STROKEPATH 64
+#परिभाषय EMR_FLATTENPATH 65
+#परिभाषय EMR_WIDENPATH 66
+#परिभाषय EMR_SELECTCLIPPATH 67
+#परिभाषय EMR_ABORTPATH 68
 
-#define EMR_GDICOMMENT 70
-#define EMR_FILLRGN 71
-#define EMR_FRAMERGN 72
-#define EMR_INVERTRGN 73
-#define EMR_PAINTRGN 74
-#define EMR_EXTSELECTCLIPRGN 75
-#define EMR_BITBLT 76
-#define EMR_STRETCHBLT 77
-#define EMR_MASKBLT 78
-#define EMR_PLGBLT 79
-#define EMR_SETDIBITSTODEVICE 80
-#define EMR_STRETCHDIBITS 81
-#define EMR_EXTCREATEFONTINDIRECTW 82
-#define EMR_EXTTEXTOUTA 83
-#define EMR_EXTTEXTOUTW 84
-#define EMR_POLYBEZIER16 85
-#define EMR_POLYGON16 86
-#define EMR_POLYLINE16 87
-#define EMR_POLYBEZIERTO16 88
-#define EMR_POLYLINETO16 89
-#define EMR_POLYPOLYLINE16 90
-#define EMR_POLYPOLYGON16 91
-#define EMR_POLYDRAW16 92
-#define EMR_CREATEMONOBRUSH 93
-#define EMR_CREATEDIBPATTERNBRUSHPT 94
-#define EMR_EXTCREATEPEN 95
-#define EMR_POLYTEXTOUTA 96
-#define EMR_POLYTEXTOUTW 97
+#परिभाषय EMR_GDICOMMENT 70
+#परिभाषय EMR_FILLRGN 71
+#परिभाषय EMR_FRAMERGN 72
+#परिभाषय EMR_INVERTRGN 73
+#परिभाषय EMR_PAINTRGN 74
+#परिभाषय EMR_EXTSELECTCLIPRGN 75
+#परिभाषय EMR_BITBLT 76
+#परिभाषय EMR_STRETCHBLT 77
+#परिभाषय EMR_MASKBLT 78
+#परिभाषय EMR_PLGBLT 79
+#परिभाषय EMR_SETDIBITSTODEVICE 80
+#परिभाषय EMR_STRETCHDIBITS 81
+#परिभाषय EMR_EXTCREATEFONTINDIRECTW 82
+#परिभाषय EMR_EXTTEXTOUTA 83
+#परिभाषय EMR_EXTTEXTOUTW 84
+#परिभाषय EMR_POLYBEZIER16 85
+#परिभाषय EMR_POLYGON16 86
+#परिभाषय EMR_POLYLINE16 87
+#परिभाषय EMR_POLYBEZIERTO16 88
+#परिभाषय EMR_POLYLINETO16 89
+#परिभाषय EMR_POLYPOLYLINE16 90
+#परिभाषय EMR_POLYPOLYGON16 91
+#परिभाषय EMR_POLYDRAW16 92
+#परिभाषय EMR_CREATEMONOBRUSH 93
+#परिभाषय EMR_CREATEDIBPATTERNBRUSHPT 94
+#परिभाषय EMR_EXTCREATEPEN 95
+#परिभाषय EMR_POLYTEXTOUTA 96
+#परिभाषय EMR_POLYTEXTOUTW 97
 
-#define EMR_SETICMMODE 98
-#define EMR_CREATECOLORSPACE 99
-#define EMR_SETCOLORSPACE 100
-#define EMR_DELETECOLORSPACE 101
-#define EMR_GLSRECORD 102
-#define EMR_GLSBOUNDEDRECORD 103
-#define EMR_PIXELFORMAT 104
-#define EMR_RESERVED_105 105
-#define EMR_RESERVED_106 106
-#define EMR_RESERVED_107 107
-#define EMR_RESERVED_108 108
-#define EMR_RESERVED_109 109
-#define EMR_RESERVED_110 110
-#define EMR_COLORCORRECTPALETTE 111
-#define EMR_SETICMPROFILEA 112
-#define EMR_SETICMPROFILEW 113
-#define EMR_ALPHABLEND 114
-#define EMR_SETLAYOUT 115
-#define EMR_TRANSPARENTBLT 116
-#define EMR_RESERVED_117 117
-#define EMR_GRADIENTFILL 118
-#define EMR_RESERVED_119 119
-#define EMR_RESERVED_120 120
-#define EMR_COLORMATCHTOTARGETW 121
-#define EMR_CREATECOLORSPACEW 122
+#परिभाषय EMR_SETICMMODE 98
+#परिभाषय EMR_CREATECOLORSPACE 99
+#परिभाषय EMR_SETCOLORSPACE 100
+#परिभाषय EMR_DELETECOLORSPACE 101
+#परिभाषय EMR_GLSRECORD 102
+#परिभाषय EMR_GLSBOUNDEDRECORD 103
+#परिभाषय EMR_PIXELFORMAT 104
+#परिभाषय EMR_RESERVED_105 105
+#परिभाषय EMR_RESERVED_106 106
+#परिभाषय EMR_RESERVED_107 107
+#परिभाषय EMR_RESERVED_108 108
+#परिभाषय EMR_RESERVED_109 109
+#परिभाषय EMR_RESERVED_110 110
+#परिभाषय EMR_COLORCORRECTPALETTE 111
+#परिभाषय EMR_SETICMPROFILEA 112
+#परिभाषय EMR_SETICMPROFILEW 113
+#परिभाषय EMR_ALPHABLEND 114
+#परिभाषय EMR_SETLAYOUT 115
+#परिभाषय EMR_TRANSPARENTBLT 116
+#परिभाषय EMR_RESERVED_117 117
+#परिभाषय EMR_GRADIENTFILL 118
+#परिभाषय EMR_RESERVED_119 119
+#परिभाषय EMR_RESERVED_120 120
+#परिभाषय EMR_COLORMATCHTOTARGETW 121
+#परिभाषय EMR_CREATECOLORSPACEW 122
 
-#define EMR_MIN 1
+#परिभाषय EMR_MIN 1
 
-#define EMR_MAX 122
+#परिभाषय EMR_MAX 122
 
-  typedef struct tagEMR {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMR {
     DWORD iType;
-    DWORD nSize;
+    DWORD n_आकार;
   } EMR,*PEMR;
 
-  typedef struct tagEMRTEXT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRTEXT {
     POINTL ptlReference;
     DWORD nChars;
     DWORD offString;
@@ -3343,60 +3343,60 @@ extern "C" {
     DWORD offDx;
   } EMRTEXT,*PEMRTEXT;
 
-  typedef struct tagABORTPATH {
+  प्रकारनिर्देश संरचना चिह्नकम्_ABORTPATH {
     EMR emr;
   } EMRABORTPATH,*PEMRABORTPATH,EMRBEGINPATH,*PEMRBEGINPATH,EMRENDPATH,*PEMRENDPATH,EMRCLOSEFIGURE,*PEMRCLOSEFIGURE,EMRFLATTENPATH,*PEMRFLATTENPATH,EMRWIDENPATH,*PEMRWIDENPATH,EMRSETMETARGN,*PEMRSETMETARGN,EMRSAVEDC,*PEMRSAVEDC,EMRREALIZEPALETTE,*PEMRREALIZEPALETTE;
 
-  typedef struct tagEMRSELECTCLIPPATH {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSELECTCLIPPATH {
     EMR emr;
-    DWORD iMode;
+    DWORD i_बहुलकम्;
   } EMRSELECTCLIPPATH,*PEMRSELECTCLIPPATH,EMRSETBKMODE,*PEMRSETBKMODE,EMRSETMAPMODE,*PEMRSETMAPMODE,EMRSETLAYOUT,*PEMRSETLAYOUT,
     EMRSETPOLYFILLMODE,*PEMRSETPOLYFILLMODE,EMRSETROP2,*PEMRSETROP2,EMRSETSTRETCHBLTMODE,*PEMRSETSTRETCHBLTMODE,EMRSETICMMODE,
     *PEMRSETICMMODE,EMRSETTEXTALIGN,*PEMRSETTEXTALIGN;
 
-  typedef struct tagEMRSETMITERLIMIT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETMITERLIMIT {
     EMR emr;
-    FLOAT eMiterLimit;
+    FLOAT e_Miter_सीमा;
   } EMRSETMITERLIMIT,*PEMRSETMITERLIMIT;
 
-  typedef struct tagEMRRESTOREDC {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRRESTOREDC {
     EMR emr;
     LONG iRelative;
   } EMRRESTOREDC,*PEMRRESTOREDC;
 
-  typedef struct tagEMRSETARCDIRECTION {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETARCDIRECTION {
     EMR emr;
     DWORD iArcDirection;
 
   } EMRSETARCDIRECTION,*PEMRSETARCDIRECTION;
 
-  typedef struct tagEMRSETMAPPERFLAGS {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETMAPPERFLAGS {
     EMR emr;
     DWORD dwFlags;
   } EMRSETMAPPERFLAGS,*PEMRSETMAPPERFLAGS;
 
-  typedef struct tagEMRSETTEXTCOLOR {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETTEXTCOLOR {
     EMR emr;
     COLORREF crColor;
   } EMRSETBKCOLOR,*PEMRSETBKCOLOR,EMRSETTEXTCOLOR,*PEMRSETTEXTCOLOR;
 
-  typedef struct tagEMRSELECTOBJECT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSELECTOBJECT {
     EMR emr;
     DWORD ihObject;
   } EMRSELECTOBJECT,*PEMRSELECTOBJECT,EMRDELETEOBJECT,*PEMRDELETEOBJECT;
 
-  typedef struct tagEMRSELECTPALETTE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSELECTPALETTE {
     EMR emr;
     DWORD ihPal;
   } EMRSELECTPALETTE,*PEMRSELECTPALETTE;
 
-  typedef struct tagEMRRESIZEPALETTE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRRESIZEPALETTE {
     EMR emr;
     DWORD ihPal;
     DWORD cEntries;
   } EMRRESIZEPALETTE,*PEMRRESIZEPALETTE;
 
-  typedef struct tagEMRSETPALETTEENTRIES {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETPALETTEENTRIES {
     EMR emr;
     DWORD ihPal;
     DWORD iStart;
@@ -3404,105 +3404,105 @@ extern "C" {
     PALETTEENTRY aPalEntries[1];
   } EMRSETPALETTEENTRIES,*PEMRSETPALETTEENTRIES;
 
-  typedef struct tagEMRSETCOLORADJUSTMENT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETCOLORADJUSTMENT {
     EMR emr;
     COLORADJUSTMENT ColorAdjustment;
   } EMRSETCOLORADJUSTMENT,*PEMRSETCOLORADJUSTMENT;
 
-  typedef struct tagEMRGDICOMMENT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRGDICOMMENT {
     EMR emr;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_दत्त;
+    BYTE दत्त_3[1];
   } EMRGDICOMMENT,*PEMRGDICOMMENT;
 
-  typedef struct tagEMREOF {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMREOF {
     EMR emr;
     DWORD nPalEntries;
     DWORD offPalEntries;
-    DWORD nSizeLast;
+    DWORD n_आकार_चरमः;
   } EMREOF,*PEMREOF;
 
-  typedef struct tagEMRLINETO {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRLINETO {
     EMR emr;
     POINTL ptl;
   } EMRLINETO,*PEMRLINETO,EMRMOVETOEX,*PEMRMOVETOEX;
 
-  typedef struct tagEMROFFSETCLIPRGN {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMROFFSETCLIPRGN {
     EMR emr;
-    POINTL ptlOffset;
+    POINTL ptl_विस्थापनम्;
   } EMROFFSETCLIPRGN,*PEMROFFSETCLIPRGN;
 
-  typedef struct tagEMRFILLPATH {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRFILLPATH {
     EMR emr;
     RECTL rclBounds;
   } EMRFILLPATH,*PEMRFILLPATH,EMRSTROKEANDFILLPATH,*PEMRSTROKEANDFILLPATH,EMRSTROKEPATH,*PEMRSTROKEPATH;
 
-  typedef struct tagEMREXCLUDECLIPRECT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMREXCLUDECLIPRECT {
     EMR emr;
     RECTL rclClip;
   } EMREXCLUDECLIPRECT,*PEMREXCLUDECLIPRECT,EMRINTERSECTCLIPRECT,*PEMRINTERSECTCLIPRECT;
 
-  typedef struct tagEMRSETVIEWPORTORGEX {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETVIEWPORTORGEX {
     EMR emr;
     POINTL ptlOrigin;
   } EMRSETVIEWPORTORGEX,*PEMRSETVIEWPORTORGEX,EMRSETWINDOWORGEX,*PEMRSETWINDOWORGEX,EMRSETBRUSHORGEX,*PEMRSETBRUSHORGEX;
 
-  typedef struct tagEMRSETVIEWPORTEXTEX {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETVIEWPORTEXTEX {
     EMR emr;
     SIZEL szlExtent;
   } EMRSETVIEWPORTEXTEX,*PEMRSETVIEWPORTEXTEX,EMRSETWINDOWEXTEX,*PEMRSETWINDOWEXTEX;
 
-  typedef struct tagEMRSCALEVIEWPORTEXTEX {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSCALEVIEWPORTEXTEX {
     EMR emr;
-    LONG xNum;
+    LONG x_अङ्कः;
     LONG xDenom;
-    LONG yNum;
+    LONG y_अङ्कः;
     LONG yDenom;
   } EMRSCALEVIEWPORTEXTEX,*PEMRSCALEVIEWPORTEXTEX,EMRSCALEWINDOWEXTEX,*PEMRSCALEWINDOWEXTEX;
 
-  typedef struct tagEMRSETWORLDTRANSFORM {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETWORLDTRANSFORM {
     EMR emr;
     XFORM xform;
   } EMRSETWORLDTRANSFORM,*PEMRSETWORLDTRANSFORM;
 
-  typedef struct tagEMRMODIFYWORLDTRANSFORM {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRMODIFYWORLDTRANSFORM {
     EMR emr;
     XFORM xform;
-    DWORD iMode;
+    DWORD i_बहुलकम्;
   } EMRMODIFYWORLDTRANSFORM,*PEMRMODIFYWORLDTRANSFORM;
 
-  typedef struct tagEMRSETPIXELV {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETPIXELV {
     EMR emr;
     POINTL ptlPixel;
     COLORREF crColor;
   } EMRSETPIXELV,*PEMRSETPIXELV;
 
-  typedef struct tagEMREXTFLOODFILL {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMREXTFLOODFILL {
     EMR emr;
     POINTL ptlStart;
     COLORREF crColor;
-    DWORD iMode;
+    DWORD i_बहुलकम्;
   } EMREXTFLOODFILL,*PEMREXTFLOODFILL;
 
-  typedef struct tagEMRELLIPSE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRELLIPSE {
     EMR emr;
     RECTL rclBox;
   } EMRELLIPSE,*PEMRELLIPSE,EMRRECTANGLE,*PEMRRECTANGLE;
 
-  typedef struct tagEMRROUNDRECT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRROUNDRECT {
     EMR emr;
     RECTL rclBox;
     SIZEL szlCorner;
   } EMRROUNDRECT,*PEMRROUNDRECT;
 
-  typedef struct tagEMRARC {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRARC {
     EMR emr;
     RECTL rclBox;
     POINTL ptlStart;
-    POINTL ptlEnd;
+    POINTL ptl_अन्तः;
   } EMRARC,*PEMRARC,EMRARCTO,*PEMRARCTO,EMRCHORD,*PEMRCHORD,EMRPIE,*PEMRPIE;
 
-  typedef struct tagEMRANGLEARC {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRANGLEARC {
     EMR emr;
     POINTL ptlCenter;
     DWORD nRadius;
@@ -3510,21 +3510,21 @@ extern "C" {
     FLOAT eSweepAngle;
   } EMRANGLEARC,*PEMRANGLEARC;
 
-  typedef struct tagEMRPOLYLINE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRPOLYLINE {
     EMR emr;
     RECTL rclBounds;
     DWORD cptl;
     POINTL aptl[1];
   } EMRPOLYLINE,*PEMRPOLYLINE,EMRPOLYBEZIER,*PEMRPOLYBEZIER,EMRPOLYGON,*PEMRPOLYGON,EMRPOLYBEZIERTO,*PEMRPOLYBEZIERTO,EMRPOLYLINETO,*PEMRPOLYLINETO;
 
-  typedef struct tagEMRPOLYLINE16 {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRPOLYLINE16 {
     EMR emr;
     RECTL rclBounds;
     DWORD cpts;
     POINTS apts[1];
   } EMRPOLYLINE16,*PEMRPOLYLINE16,EMRPOLYBEZIER16,*PEMRPOLYBEZIER16,EMRPOLYGON16,*PEMRPOLYGON16,EMRPOLYBEZIERTO16,*PEMRPOLYBEZIERTO16,EMRPOLYLINETO16,*PEMRPOLYLINETO16;
 
-  typedef struct tagEMRPOLYDRAW {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRPOLYDRAW {
     EMR emr;
     RECTL rclBounds;
     DWORD cptl;
@@ -3532,7 +3532,7 @@ extern "C" {
     BYTE abTypes[1];
   } EMRPOLYDRAW,*PEMRPOLYDRAW;
 
-  typedef struct tagEMRPOLYDRAW16 {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRPOLYDRAW16 {
     EMR emr;
     RECTL rclBounds;
     DWORD cpts;
@@ -3540,7 +3540,7 @@ extern "C" {
     BYTE abTypes[1];
   } EMRPOLYDRAW16,*PEMRPOLYDRAW16;
 
-  typedef struct tagEMRPOLYPOLYLINE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRPOLYPOLYLINE {
     EMR emr;
     RECTL rclBounds;
     DWORD nPolys;
@@ -3549,7 +3549,7 @@ extern "C" {
     POINTL aptl[1];
   } EMRPOLYPOLYLINE,*PEMRPOLYPOLYLINE,EMRPOLYPOLYGON,*PEMRPOLYPOLYGON;
 
-  typedef struct tagEMRPOLYPOLYLINE16 {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRPOLYPOLYLINE16 {
     EMR emr;
     RECTL rclBounds;
     DWORD nPolys;
@@ -3558,57 +3558,57 @@ extern "C" {
     POINTS apts[1];
   } EMRPOLYPOLYLINE16,*PEMRPOLYPOLYLINE16,EMRPOLYPOLYGON16,*PEMRPOLYPOLYGON16;
 
-  typedef struct tagEMRINVERTRGN {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRINVERTRGN {
     EMR emr;
     RECTL rclBounds;
-    DWORD cbRgnData;
-    BYTE RgnData[1];
+    DWORD cb_Rgn_दत्त;
+    BYTE Rgn_दत्त[1];
   } EMRINVERTRGN,*PEMRINVERTRGN,EMRPAINTRGN,*PEMRPAINTRGN;
 
-  typedef struct tagEMRFILLRGN {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRFILLRGN {
     EMR emr;
     RECTL rclBounds;
-    DWORD cbRgnData;
+    DWORD cb_Rgn_दत्त;
     DWORD ihBrush;
-    BYTE RgnData[1];
+    BYTE Rgn_दत्त[1];
   } EMRFILLRGN,*PEMRFILLRGN;
 
-  typedef struct tagEMRFRAMERGN {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRFRAMERGN {
     EMR emr;
     RECTL rclBounds;
-    DWORD cbRgnData;
+    DWORD cb_Rgn_दत्त;
     DWORD ihBrush;
     SIZEL szlStroke;
-    BYTE RgnData[1];
+    BYTE Rgn_दत्त[1];
   } EMRFRAMERGN,*PEMRFRAMERGN;
 
-  typedef struct tagEMREXTSELECTCLIPRGN {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMREXTSELECTCLIPRGN {
     EMR emr;
-    DWORD cbRgnData;
-    DWORD iMode;
-    BYTE RgnData[1];
+    DWORD cb_Rgn_दत्त;
+    DWORD i_बहुलकम्;
+    BYTE Rgn_दत्त[1];
   } EMREXTSELECTCLIPRGN,*PEMREXTSELECTCLIPRGN;
 
-  typedef struct tagEMREXTTEXTOUTA {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMREXTTEXTOUTA {
     EMR emr;
     RECTL rclBounds;
-    DWORD iGraphicsMode;
+    DWORD i_Graphics_बहुलकम्;
     FLOAT exScale;
     FLOAT eyScale;
     EMRTEXT emrtext;
   } EMREXTTEXTOUTA,*PEMREXTTEXTOUTA,EMREXTTEXTOUTW,*PEMREXTTEXTOUTW;
 
-  typedef struct tagEMRPOLYTEXTOUTA {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRPOLYTEXTOUTA {
     EMR emr;
     RECTL rclBounds;
-    DWORD iGraphicsMode;
+    DWORD i_Graphics_बहुलकम्;
     FLOAT exScale;
     FLOAT eyScale;
-    LONG cStrings;
+    LONG c_वाक्यानि;
     EMRTEXT aemrtext[1];
   } EMRPOLYTEXTOUTA,*PEMRPOLYTEXTOUTA,EMRPOLYTEXTOUTW,*PEMRPOLYTEXTOUTW;
 
-  typedef struct tagEMRBITBLT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRBITBLT {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3623,11 +3623,11 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_द्वयङ्काः_Src;
+    DWORD cb_द्वयङ्काः_Src;
   } EMRBITBLT,*PEMRBITBLT;
 
-  typedef struct tagEMRSTRETCHBLT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSTRETCHBLT {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3642,13 +3642,13 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_द्वयङ्काः_Src;
+    DWORD cb_द्वयङ्काः_Src;
     LONG cxSrc;
     LONG cySrc;
   } EMRSTRETCHBLT,*PEMRSTRETCHBLT;
 
-  typedef struct tagEMRMASKBLT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRMASKBLT {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3663,18 +3663,18 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
-    LONG xMask;
-    LONG yMask;
-    DWORD iUsageMask;
-    DWORD offBmiMask;
-    DWORD cbBmiMask;
-    DWORD offBitsMask;
-    DWORD cbBitsMask;
+    DWORD off_द्वयङ्काः_Src;
+    DWORD cb_द्वयङ्काः_Src;
+    LONG x_आवरणम्;
+    LONG y_आवरणम्;
+    DWORD i_Usage_आवरणम्;
+    DWORD off_Bmi_आवरणम्;
+    DWORD cb_Bmi_आवरणम्;
+    DWORD off_द्वयङ्काः_आवरणम्;
+    DWORD cb_द्वयङ्काः_आवरणम्;
   } EMRMASKBLT,*PEMRMASKBLT;
 
-  typedef struct tagEMRPLGBLT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRPLGBLT {
     EMR emr;
     RECTL rclBounds;
     POINTL aptlDest[3];
@@ -3687,18 +3687,18 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
-    LONG xMask;
-    LONG yMask;
-    DWORD iUsageMask;
-    DWORD offBmiMask;
-    DWORD cbBmiMask;
-    DWORD offBitsMask;
-    DWORD cbBitsMask;
+    DWORD off_द्वयङ्काः_Src;
+    DWORD cb_द्वयङ्काः_Src;
+    LONG x_आवरणम्;
+    LONG y_आवरणम्;
+    DWORD i_Usage_आवरणम्;
+    DWORD off_Bmi_आवरणम्;
+    DWORD cb_Bmi_आवरणम्;
+    DWORD off_द्वयङ्काः_आवरणम्;
+    DWORD cb_द्वयङ्काः_आवरणम्;
   } EMRPLGBLT,*PEMRPLGBLT;
 
-  typedef struct tagEMRSETDIBITSTODEVICE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETDIBITSTODEVICE {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3709,14 +3709,14 @@ extern "C" {
     LONG cySrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_द्वयङ्काः_Src;
+    DWORD cb_द्वयङ्काः_Src;
     DWORD iUsageSrc;
-    DWORD iStartScan;
+    DWORD i_Start_अवलोकनम्;
     DWORD cScans;
   } EMRSETDIBITSTODEVICE,*PEMRSETDIBITSTODEVICE;
 
-  typedef struct tagEMRSTRETCHDIBITS {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSTRETCHDIBITS {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3727,160 +3727,160 @@ extern "C" {
     LONG cySrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_द्वयङ्काः_Src;
+    DWORD cb_द्वयङ्काः_Src;
     DWORD iUsageSrc;
     DWORD dwRop;
     LONG cxDest;
     LONG cyDest;
   } EMRSTRETCHDIBITS,*PEMRSTRETCHDIBITS;
 
-  typedef struct tagEMREXTCREATEFONTINDIRECTW {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMREXTCREATEFONTINDIRECTW {
     EMR emr;
     DWORD ihFont;
     EXTLOGFONTW elfw;
   } EMREXTCREATEFONTINDIRECTW,*PEMREXTCREATEFONTINDIRECTW;
 
-  typedef struct tagEMRCREATEPALETTE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRCREATEPALETTE {
     EMR emr;
     DWORD ihPal;
     LOGPALETTE lgpl;
   } EMRCREATEPALETTE,*PEMRCREATEPALETTE;
 
-  typedef struct tagEMRCREATEPEN {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRCREATEPEN {
     EMR emr;
     DWORD ihPen;
     LOGPEN lopn;
   } EMRCREATEPEN,*PEMRCREATEPEN;
 
-  typedef struct tagEMREXTCREATEPEN {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMREXTCREATEPEN {
     EMR emr;
     DWORD ihPen;
     DWORD offBmi;
     DWORD cbBmi;
-    DWORD offBits;
-    DWORD cbBits;
+    DWORD off_द्वयङ्काः;
+    DWORD cb_द्वयङ्काः;
     EXTLOGPEN elp;
   } EMREXTCREATEPEN,*PEMREXTCREATEPEN;
 
-  typedef struct tagEMRCREATEBRUSHINDIRECT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRCREATEBRUSHINDIRECT {
     EMR emr;
     DWORD ihBrush;
     LOGBRUSH32 lb;
   } EMRCREATEBRUSHINDIRECT,*PEMRCREATEBRUSHINDIRECT;
 
-  typedef struct tagEMRCREATEMONOBRUSH {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRCREATEMONOBRUSH {
     EMR emr;
     DWORD ihBrush;
     DWORD iUsage;
     DWORD offBmi;
     DWORD cbBmi;
-    DWORD offBits;
-    DWORD cbBits;
+    DWORD off_द्वयङ्काः;
+    DWORD cb_द्वयङ्काः;
   } EMRCREATEMONOBRUSH,*PEMRCREATEMONOBRUSH;
 
-  typedef struct tagEMRCREATEDIBPATTERNBRUSHPT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRCREATEDIBPATTERNBRUSHPT {
     EMR emr;
     DWORD ihBrush;
     DWORD iUsage;
     DWORD offBmi;
     DWORD cbBmi;
-    DWORD offBits;
-    DWORD cbBits;
+    DWORD off_द्वयङ्काः;
+    DWORD cb_द्वयङ्काः;
   } EMRCREATEDIBPATTERNBRUSHPT,*PEMRCREATEDIBPATTERNBRUSHPT;
 
-  typedef struct tagEMRFORMAT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRFORMAT {
     DWORD dSignature;
-    DWORD nVersion;
-    DWORD cbData;
-    DWORD offData;
+    DWORD n_संस्करणम्;
+    DWORD cb_दत्त;
+    DWORD off_दत्त;
   } EMRFORMAT,*PEMRFORMAT;
 
-  typedef struct tagEMRGLSRECORD {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRGLSRECORD {
     EMR emr;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_दत्त;
+    BYTE दत्त_3[1];
   } EMRGLSRECORD,*PEMRGLSRECORD;
 
-  typedef struct tagEMRGLSBOUNDEDRECORD {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRGLSBOUNDEDRECORD {
     EMR emr;
     RECTL rclBounds;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_दत्त;
+    BYTE दत्त_3[1];
   } EMRGLSBOUNDEDRECORD,*PEMRGLSBOUNDEDRECORD;
 
-  typedef struct tagEMRPIXELFORMAT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRPIXELFORMAT {
     EMR emr;
     PIXELFORMATDESCRIPTOR pfd;
   } EMRPIXELFORMAT,*PEMRPIXELFORMAT;
 
-  typedef struct tagEMRCREATECOLORSPACE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRCREATECOLORSPACE {
     EMR emr;
     DWORD ihCS;
     LOGCOLORSPACEA lcs;
   } EMRCREATECOLORSPACE,*PEMRCREATECOLORSPACE;
 
-  typedef struct tagEMRSETCOLORSPACE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETCOLORSPACE {
     EMR emr;
     DWORD ihCS;
   } EMRSETCOLORSPACE,*PEMRSETCOLORSPACE,EMRSELECTCOLORSPACE,*PEMRSELECTCOLORSPACE,EMRDELETECOLORSPACE,*PEMRDELETECOLORSPACE;
 
-  typedef struct tagEMREXTESCAPE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMREXTESCAPE {
     EMR emr;
     INT iEscape;
-    INT cbEscData;
-    BYTE EscData[1];
+    INT cb_Esc_दत्त;
+    BYTE Esc_दत्त[1];
   } EMREXTESCAPE,*PEMREXTESCAPE,EMRDRAWESCAPE,*PEMRDRAWESCAPE;
 
-  typedef struct tagEMRNAMEDESCAPE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRNAMEDESCAPE {
     EMR emr;
     INT iEscape;
     INT cbDriver;
-    INT cbEscData;
-    BYTE EscData[1];
+    INT cb_Esc_दत्त;
+    BYTE Esc_दत्त[1];
   } EMRNAMEDESCAPE,*PEMRNAMEDESCAPE;
 
-#define SETICMPROFILE_EMBEDED 0x00000001
+#परिभाषय SETICMPROFILE_EMBEDED 0x00000001
 
-  typedef struct tagEMRSETICMPROFILE {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRSETICMPROFILE {
     EMR emr;
     DWORD dwFlags;
     DWORD cbName;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_दत्त;
+    BYTE दत्त_3[1];
   } EMRSETICMPROFILE,*PEMRSETICMPROFILE,EMRSETICMPROFILEA,*PEMRSETICMPROFILEA,EMRSETICMPROFILEW,*PEMRSETICMPROFILEW;
 
-#define CREATECOLORSPACE_EMBEDED 0x00000001
+#परिभाषय CREATECOLORSPACE_EMBEDED 0x00000001
 
-  typedef struct tagEMRCREATECOLORSPACEW {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRCREATECOLORSPACEW {
     EMR emr;
     DWORD ihCS;
     LOGCOLORSPACEW lcs;
     DWORD dwFlags;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_दत्त;
+    BYTE दत्त_3[1];
   } EMRCREATECOLORSPACEW,*PEMRCREATECOLORSPACEW;
 
-#define COLORMATCHTOTARGET_EMBEDED 0x00000001
+#परिभाषय COLORMATCHTOTARGET_EMBEDED 0x00000001
 
-  typedef struct tagCOLORMATCHTOTARGET {
+  प्रकारनिर्देश संरचना चिह्नकम्_COLORMATCHTOTARGET {
     EMR emr;
     DWORD dwAction;
     DWORD dwFlags;
     DWORD cbName;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_दत्त;
+    BYTE दत्त_3[1];
   } EMRCOLORMATCHTOTARGET,*PEMRCOLORMATCHTOTARGET;
 
-  typedef struct tagCOLORCORRECTPALETTE {
+  प्रकारनिर्देश संरचना चिह्नकम्_COLORCORRECTPALETTE {
     EMR emr;
     DWORD ihPalette;
-    DWORD nFirstEntry;
+    DWORD n_First_प्रविष्टिः;
     DWORD nPalEntries;
     DWORD nReserved;
   } EMRCOLORCORRECTPALETTE,*PEMRCOLORCORRECTPALETTE;
 
-  typedef struct tagEMRALPHABLEND {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRALPHABLEND {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3895,22 +3895,22 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_द्वयङ्काः_Src;
+    DWORD cb_द्वयङ्काः_Src;
     LONG cxSrc;
     LONG cySrc;
   } EMRALPHABLEND,*PEMRALPHABLEND;
 
-  typedef struct tagEMRGRADIENTFILL {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRGRADIENTFILL {
     EMR emr;
     RECTL rclBounds;
     DWORD nVer;
     DWORD nTri;
-    ULONG ulMode;
+    ULONG ul_बहुलकम्;
     TRIVERTEX Ver[1];
   } EMRGRADIENTFILL,*PEMRGRADIENTFILL;
 
-  typedef struct tagEMRTRANSPARENTBLT {
+  प्रकारनिर्देश संरचना चिह्नकम्_EMRTRANSPARENTBLT {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3925,47 +3925,47 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_द्वयङ्काः_Src;
+    DWORD cb_द्वयङ्काः_Src;
     LONG cxSrc;
     LONG cySrc;
   } EMRTRANSPARENTBLT,*PEMRTRANSPARENTBLT;
 
-#define GDICOMMENT_IDENTIFIER 0x43494447
-#define GDICOMMENT_WINDOWS_METAFILE 0x80000001
-#define GDICOMMENT_BEGINGROUP 0x00000002
-#define GDICOMMENT_ENDGROUP 0x00000003
-#define GDICOMMENT_MULTIFORMATS 0x40000004
-#define EPS_SIGNATURE 0x46535045
-#define GDICOMMENT_UNICODE_STRING 0x00000040
-#define GDICOMMENT_UNICODE_END 0x00000080
-#endif
+#परिभाषय GDICOMMENT_IDENTIFIER 0x43494447
+#परिभाषय GDICOMMENT_WINDOWS_METAFILE 0x80000001
+#परिभाषय GDICOMMENT_BEGINGROUP 0x00000002
+#परिभाषय GDICOMMENT_ENDGROUP 0x00000003
+#परिभाषय GDICOMMENT_MULTIFORMATS 0x40000004
+#परिभाषय EPS_SIGNATURE 0x46535045
+#परिभाषय GDICOMMENT_UNICODE_STRING 0x00000040
+#परिभाषय GDICOMMENT_UNICODE_अन्तः 0x00000080
+#यदि_अन्तः
 
-#ifdef UNICODE
-#define wglUseFontBitmaps wglUseFontBitmapsW
-#else
-#define wglUseFontBitmaps wglUseFontBitmapsA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय wglUseFontBitmaps wglUseFontBitmapsW
+#अन्यथा
+#परिभाषय wglUseFontBitmaps wglUseFontBitmapsA
+#यदि_अन्तः
 
   WINGDIAPI WINBOOL WINAPI wglCopyContext(HGLRC,HGLRC,UINT);
   WINGDIAPI HGLRC WINAPI wglCreateContext(HDC);
-  WINGDIAPI HGLRC WINAPI wglCreateLayerContext(HDC,int);
+  WINGDIAPI HGLRC WINAPI wglCreateLayerContext(HDC,पूर्णाङ्क);
   WINGDIAPI WINBOOL WINAPI wglDeleteContext(HGLRC);
   WINGDIAPI HGLRC WINAPI wglGetCurrentContext(VOID);
   WINGDIAPI HDC WINAPI wglGetCurrentDC(VOID);
-  WINGDIAPI PROC WINAPI wglGetProcAddress(LPCSTR);
+  WINGDIAPI PROC WINAPI wgl_Get_Proc_स्थानाङ्कः(LPCSTR);
   WINGDIAPI WINBOOL WINAPI wglMakeCurrent(HDC,HGLRC);
   WINGDIAPI WINBOOL WINAPI wglShareLists(HGLRC,HGLRC);
   WINGDIAPI WINBOOL WINAPI wglUseFontBitmapsA(HDC,DWORD,DWORD,DWORD);
   WINGDIAPI WINBOOL WINAPI wglUseFontBitmapsW(HDC,DWORD,DWORD,DWORD);
   WINGDIAPI WINBOOL WINAPI SwapBuffers(HDC);
 
-  typedef struct _POINTFLOAT {
+  प्रकारनिर्देश संरचना _POINTFLOAT {
     FLOAT x;
     FLOAT y;
   } POINTFLOAT,*PPOINTFLOAT;
 
-  typedef struct _GLYPHMETRICSFLOAT {
+  प्रकारनिर्देश संरचना _GLYPHMETRICSFLOAT {
     FLOAT gmfBlackBoxX;
     FLOAT gmfBlackBoxY;
     POINTFLOAT gmfptGlyphOrigin;
@@ -3973,108 +3973,108 @@ extern "C" {
     FLOAT gmfCellIncY;
   } GLYPHMETRICSFLOAT,*PGLYPHMETRICSFLOAT,*LPGLYPHMETRICSFLOAT;
 
-#define WGL_FONT_LINES 0
-#define WGL_FONT_POLYGONS 1
+#परिभाषय WGL_FONT_पङ्क्तयः 0
+#परिभाषय WGL_FONT_POLYGONS 1
 
-#ifdef UNICODE
-#define wglUseFontOutlines wglUseFontOutlinesW
-#else
-#define wglUseFontOutlines wglUseFontOutlinesA
-#endif
+#यदि_परिभाषितम् UNICODE
+#परिभाषय wglUseFontOutlines wglUseFontOutlinesW
+#अन्यथा
+#परिभाषय wglUseFontOutlines wglUseFontOutlinesA
+#यदि_अन्तः
 
-  WINGDIAPI WINBOOL WINAPI wglUseFontOutlinesA(HDC,DWORD,DWORD,DWORD,FLOAT,FLOAT,int,LPGLYPHMETRICSFLOAT);
-  WINGDIAPI WINBOOL WINAPI wglUseFontOutlinesW(HDC,DWORD,DWORD,DWORD,FLOAT,FLOAT,int,LPGLYPHMETRICSFLOAT);
+  WINGDIAPI WINBOOL WINAPI wglUseFontOutlinesA(HDC,DWORD,DWORD,DWORD,FLOAT,FLOAT,पूर्णाङ्क,LPGLYPHMETRICSFLOAT);
+  WINGDIAPI WINBOOL WINAPI wglUseFontOutlinesW(HDC,DWORD,DWORD,DWORD,FLOAT,FLOAT,पूर्णाङ्क,LPGLYPHMETRICSFLOAT);
 
-  typedef struct tagLAYERPLANEDESCRIPTOR {
-    WORD nSize;
-    WORD nVersion;
+  प्रकारनिर्देश संरचना चिह्नकम्_LAYERPLANEDESCRIPTOR {
+    WORD n_आकार;
+    WORD n_संस्करणम्;
     DWORD dwFlags;
     BYTE iPixelType;
-    BYTE cColorBits;
-    BYTE cRedBits;
-    BYTE cRedShift;
-    BYTE cGreenBits;
-    BYTE cGreenShift;
-    BYTE cBlueBits;
-    BYTE cBlueShift;
-    BYTE cAlphaBits;
-    BYTE cAlphaShift;
-    BYTE cAccumBits;
-    BYTE cAccumRedBits;
-    BYTE cAccumGreenBits;
-    BYTE cAccumBlueBits;
-    BYTE cAccumAlphaBits;
-    BYTE cDepthBits;
-    BYTE cStencilBits;
+    BYTE c_Color_द्वयङ्काः;
+    BYTE c_Red_द्वयङ्काः;
+    BYTE c_Red_सरणम्;
+    BYTE c_Green_द्वयङ्काः;
+    BYTE c_Green_सरणम्;
+    BYTE c_Blue_द्वयङ्काः;
+    BYTE c_Blue_सरणम्;
+    BYTE c_Alpha_द्वयङ्काः;
+    BYTE c_Alpha_सरणम्;
+    BYTE c_Accum_द्वयङ्काः;
+    BYTE c_Accum_Red_द्वयङ्काः;
+    BYTE c_Accum_Green_द्वयङ्काः;
+    BYTE c_Accum_Blue_द्वयङ्काः;
+    BYTE c_Accum_Alpha_द्वयङ्काः;
+    BYTE c_गभीरता_द्वयङ्काः;
+    BYTE c_Stencil_द्वयङ्काः;
     BYTE cAuxBuffers;
     BYTE iLayerPlane;
     BYTE bReserved;
     COLORREF crTransparent;
   } LAYERPLANEDESCRIPTOR,*PLAYERPLANEDESCRIPTOR,*LPLAYERPLANEDESCRIPTOR;
 
-#define LPD_DOUBLEBUFFER 0x00000001
-#define LPD_STEREO 0x00000002
-#define LPD_SUPPORT_GDI 0x00000010
-#define LPD_SUPPORT_OPENGL 0x00000020
-#define LPD_SHARE_DEPTH 0x00000040
-#define LPD_SHARE_STENCIL 0x00000080
-#define LPD_SHARE_ACCUM 0x00000100
-#define LPD_SWAP_EXCHANGE 0x00000200
-#define LPD_SWAP_COPY 0x00000400
-#define LPD_TRANSPARENT 0x00001000
+#परिभाषय LPD_DOUBLEBUFFER 0x00000001
+#परिभाषय LPD_STEREO 0x00000002
+#परिभाषय LPD_SUPPORT_GDI 0x00000010
+#परिभाषय LPD_SUPPORT_OPENGL 0x00000020
+#परिभाषय LPD_SHARE_गभीरता 0x00000040
+#परिभाषय LPD_SHARE_STENCIL 0x00000080
+#परिभाषय LPD_SHARE_ACCUM 0x00000100
+#परिभाषय LPD_SWAP_EXCHANGE 0x00000200
+#परिभाषय LPD_SWAP_COPY 0x00000400
+#परिभाषय LPD_TRANSPARENT 0x00001000
 
-#define LPD_TYPE_RGBA 0
-#define LPD_TYPE_COLORINDEX 1
+#परिभाषय LPD_TYPE_RGBA 0
+#परिभाषय LPD_TYPE_COLORINDEX 1
 
-#define WGL_SWAP_MAIN_PLANE 0x00000001
-#define WGL_SWAP_OVERLAY1 0x00000002
-#define WGL_SWAP_OVERLAY2 0x00000004
-#define WGL_SWAP_OVERLAY3 0x00000008
-#define WGL_SWAP_OVERLAY4 0x00000010
-#define WGL_SWAP_OVERLAY5 0x00000020
-#define WGL_SWAP_OVERLAY6 0x00000040
-#define WGL_SWAP_OVERLAY7 0x00000080
-#define WGL_SWAP_OVERLAY8 0x00000100
-#define WGL_SWAP_OVERLAY9 0x00000200
-#define WGL_SWAP_OVERLAY10 0x00000400
-#define WGL_SWAP_OVERLAY11 0x00000800
-#define WGL_SWAP_OVERLAY12 0x00001000
-#define WGL_SWAP_OVERLAY13 0x00002000
-#define WGL_SWAP_OVERLAY14 0x00004000
-#define WGL_SWAP_OVERLAY15 0x00008000
-#define WGL_SWAP_UNDERLAY1 0x00010000
-#define WGL_SWAP_UNDERLAY2 0x00020000
-#define WGL_SWAP_UNDERLAY3 0x00040000
-#define WGL_SWAP_UNDERLAY4 0x00080000
-#define WGL_SWAP_UNDERLAY5 0x00100000
-#define WGL_SWAP_UNDERLAY6 0x00200000
-#define WGL_SWAP_UNDERLAY7 0x00400000
-#define WGL_SWAP_UNDERLAY8 0x00800000
-#define WGL_SWAP_UNDERLAY9 0x01000000
-#define WGL_SWAP_UNDERLAY10 0x02000000
-#define WGL_SWAP_UNDERLAY11 0x04000000
-#define WGL_SWAP_UNDERLAY12 0x08000000
-#define WGL_SWAP_UNDERLAY13 0x10000000
-#define WGL_SWAP_UNDERLAY14 0x20000000
-#define WGL_SWAP_UNDERLAY15 0x40000000
+#परिभाषय WGL_SWAP_MAIN_PLANE 0x00000001
+#परिभाषय WGL_SWAP_OVERLAY1 0x00000002
+#परिभाषय WGL_SWAP_OVERLAY2 0x00000004
+#परिभाषय WGL_SWAP_OVERLAY3 0x00000008
+#परिभाषय WGL_SWAP_OVERLAY4 0x00000010
+#परिभाषय WGL_SWAP_OVERLAY5 0x00000020
+#परिभाषय WGL_SWAP_OVERLAY6 0x00000040
+#परिभाषय WGL_SWAP_OVERLAY7 0x00000080
+#परिभाषय WGL_SWAP_OVERLAY8 0x00000100
+#परिभाषय WGL_SWAP_OVERLAY9 0x00000200
+#परिभाषय WGL_SWAP_OVERLAY10 0x00000400
+#परिभाषय WGL_SWAP_OVERLAY11 0x00000800
+#परिभाषय WGL_SWAP_OVERLAY12 0x00001000
+#परिभाषय WGL_SWAP_OVERLAY13 0x00002000
+#परिभाषय WGL_SWAP_OVERLAY14 0x00004000
+#परिभाषय WGL_SWAP_OVERLAY15 0x00008000
+#परिभाषय WGL_SWAP_UNDERLAY1 0x00010000
+#परिभाषय WGL_SWAP_UNDERLAY2 0x00020000
+#परिभाषय WGL_SWAP_UNDERLAY3 0x00040000
+#परिभाषय WGL_SWAP_UNDERLAY4 0x00080000
+#परिभाषय WGL_SWAP_UNDERLAY5 0x00100000
+#परिभाषय WGL_SWAP_UNDERLAY6 0x00200000
+#परिभाषय WGL_SWAP_UNDERLAY7 0x00400000
+#परिभाषय WGL_SWAP_UNDERLAY8 0x00800000
+#परिभाषय WGL_SWAP_UNDERLAY9 0x01000000
+#परिभाषय WGL_SWAP_UNDERLAY10 0x02000000
+#परिभाषय WGL_SWAP_UNDERLAY11 0x04000000
+#परिभाषय WGL_SWAP_UNDERLAY12 0x08000000
+#परिभाषय WGL_SWAP_UNDERLAY13 0x10000000
+#परिभाषय WGL_SWAP_UNDERLAY14 0x20000000
+#परिभाषय WGL_SWAP_UNDERLAY15 0x40000000
 
-  WINGDIAPI WINBOOL WINAPI wglDescribeLayerPlane(HDC,int,int,UINT,LPLAYERPLANEDESCRIPTOR);
-  WINGDIAPI int WINAPI wglSetLayerPaletteEntries(HDC,int,int,int,CONST COLORREF *);
-  WINGDIAPI int WINAPI wglGetLayerPaletteEntries(HDC,int,int,int,COLORREF *);
-  WINGDIAPI WINBOOL WINAPI wglRealizeLayerPalette(HDC,int,WINBOOL);
+  WINGDIAPI WINBOOL WINAPI wglDescribeLayerPlane(HDC,पूर्णाङ्क,पूर्णाङ्क,UINT,LPLAYERPLANEDESCRIPTOR);
+  WINGDIAPI पूर्णाङ्क WINAPI wgl_समुच्चयः_Layer_Palette_Entries(HDC,पूर्णाङ्क,पूर्णाङ्क,पूर्णाङ्क,CONST COLORREF *);
+  WINGDIAPI पूर्णाङ्क WINAPI wglGetLayerPaletteEntries(HDC,पूर्णाङ्क,पूर्णाङ्क,पूर्णाङ्क,COLORREF *);
+  WINGDIAPI WINBOOL WINAPI wglRealizeLayerPalette(HDC,पूर्णाङ्क,WINBOOL);
   WINGDIAPI WINBOOL WINAPI wglSwapLayerBuffers(HDC,UINT);
 
-  typedef struct _WGLSWAP {
+  प्रकारनिर्देश संरचना _WGLSWAP {
     HDC hdc;
     UINT uiFlags;
   } WGLSWAP,*PWGLSWAP,*LPWGLSWAP;
 
-#define WGL_SWAPMULTIPLE_MAX 16
+#परिभाषय WGL_SWAPMULTIPLE_MAX 16
 
-  WINGDIAPI DWORD WINAPI wglSwapMultipleBuffers(UINT,CONST WGLSWAP *);
-#endif
+  WINGDIAPI DWORD WINAPI wgl_Swap_गुणजः_Buffers(UINT,CONST WGLSWAP *);
+#यदि_अन्तः
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
-#endif
+#यदि_अन्तः
+#यदि_अन्तः

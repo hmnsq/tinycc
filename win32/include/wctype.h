@@ -3,170 +3,170 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_WCTYPE
-#define _INC_WCTYPE
+#यदि_अपरिभाषितम् _INC_WCTYPE
+#परिभाषय _INC_WCTYPE
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#यदि_अपरिभाषितम् _WIN32
+#दोषः Only Win32 target is supported!
+#यदि_अन्तः
 
-#include <_mingw.h>
+#अन्तर्भाव <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#निर्देशः pack(प्रक्षिप,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#यदि_अपरिभाषितम् _CRTIMP
+#परिभाषय _CRTIMP __declspec(dllimport)
+#यदि_अन्तः
 
-#ifndef _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
+#यदि_अपरिभाषितम् _WCHAR_T_DEFINED
+  प्रकारनिर्देश अचिह्नित ह्रस्व wchar_t;
+#परिभाषय _WCHAR_T_DEFINED
+#यदि_अन्तः
 
-#ifndef _WCTYPE_T_DEFINED
-  typedef unsigned short wint_t;
-  typedef unsigned short wctype_t;
-#define _WCTYPE_T_DEFINED
-#endif
+#यदि_अपरिभाषितम् _WCTYPE_T_DEFINED
+  प्रकारनिर्देश अचिह्नित ह्रस्व wint_t;
+  प्रकारनिर्देश अचिह्नित ह्रस्व wctype_t;
+#परिभाषय _WCTYPE_T_DEFINED
+#यदि_अन्तः
 
-#ifndef WEOF
-#define WEOF (wint_t)(0xFFFF)
-#endif
+#यदि_अपरिभाषितम् WEOF
+#परिभाषय WEOF (wint_t)(0xFFFF)
+#यदि_अन्तः
 
-#ifndef _CRT_CTYPEDATA_DEFINED
-#define _CRT_CTYPEDATA_DEFINED
-#ifndef _CTYPE_DISABLE_MACROS
+#यदि_अपरिभाषितम् _CRT_CTYPEDATA_DEFINED
+#परिभाषय _CRT_CTYPEDATA_DEFINED
+#यदि_अपरिभाषितम् _CTYPE_DISABLE_MACROS
 
-#ifndef __PCTYPE_FUNC
-#define __PCTYPE_FUNC __pctype_func()
-#ifdef _MSVCRT_
-#define __pctype_func() (_pctype)
-#else
-#define __pctype_func() (*_imp___pctype)
-#endif
-#endif
+#यदि_अपरिभाषितम् __PCTYPE_FUNC
+#परिभाषय __PCTYPE_FUNC __pctype_func()
+#यदि_परिभाषितम् _MSVCRT_
+#परिभाषय __pctype_func() (_pctype)
+#अन्यथा
+#परिभाषय __pctype_func() (*_imp___pctype)
+#यदि_अन्तः
+#यदि_अन्तः
 
-#ifndef _pctype
-#ifdef _MSVCRT_
-  extern unsigned short *_pctype;
-#else
-  extern unsigned short **_imp___pctype;
-#define _pctype (*_imp___pctype)
-#endif
-#endif
+#यदि_अपरिभाषितम् _pctype
+#यदि_परिभाषितम् _MSVCRT_
+  बाह्य अचिह्नित ह्रस्व *_pctype;
+#अन्यथा
+  बाह्य अचिह्नित ह्रस्व **_imp___pctype;
+#परिभाषय _pctype (*_imp___pctype)
+#यदि_अन्तः
+#यदि_अन्तः
 
-#endif
-#endif
+#यदि_अन्तः
+#यदि_अन्तः
 
-#ifndef _CRT_WCTYPEDATA_DEFINED
-#define _CRT_WCTYPEDATA_DEFINED
-#ifndef _CTYPE_DISABLE_MACROS
-#ifndef _wctype
-#ifdef _MSVCRT_
-  extern unsigned short *_wctype;
-#else
-  extern unsigned short **_imp___wctype;
-#define _wctype (*_imp___wctype)
-#endif
-#endif
+#यदि_अपरिभाषितम् _CRT_WCTYPEDATA_DEFINED
+#परिभाषय _CRT_WCTYPEDATA_DEFINED
+#यदि_अपरिभाषितम् _CTYPE_DISABLE_MACROS
+#यदि_अपरिभाषितम् _wctype
+#यदि_परिभाषितम् _MSVCRT_
+  बाह्य अचिह्नित ह्रस्व *_wctype;
+#अन्यथा
+  बाह्य अचिह्नित ह्रस्व **_imp___wctype;
+#परिभाषय _wctype (*_imp___wctype)
+#यदि_अन्तः
+#यदि_अन्तः
 
-#ifndef _pwctype
-#ifdef _MSVCRT_
-  extern unsigned short *_pwctype;
-#else
-  extern unsigned short **_imp___pwctype;
-#define _pwctype (*_imp___pwctype)
-#define __pwctype_func() (*_imp___pwctype)
-#endif
-#endif
-#endif
-#endif
+#यदि_अपरिभाषितम् _pwctype
+#यदि_परिभाषितम् _MSVCRT_
+  बाह्य अचिह्नित ह्रस्व *_pwctype;
+#अन्यथा
+  बाह्य अचिह्नित ह्रस्व **_imp___pwctype;
+#परिभाषय _pwctype (*_imp___pwctype)
+#परिभाषय __pwctype_func() (*_imp___pwctype)
+#यदि_अन्तः
+#यदि_अन्तः
+#यदि_अन्तः
+#यदि_अन्तः
 
-#define _UPPER 0x1
-#define _LOWER 0x2
-#define _DIGIT 0x4
-#define _SPACE 0x8
+#परिभाषय ऊर्ध्वस्थम्_3 0x1
+#परिभाषय अधस्तनम्_2 0x2
+#परिभाषय _DIGIT 0x4
+#परिभाषय _SPACE 0x8
 
-#define _PUNCT 0x10
-#define _CONTROL 0x20
-#define _BLANK 0x40
-#define _HEX 0x80
+#परिभाषय _PUNCT 0x10
+#परिभाषय _CONTROL 0x20
+#परिभाषय _BLANK 0x40
+#परिभाषय _HEX 0x80
 
-#define _LEADBYTE 0x8000
-#define _ALPHA (0x0100|_UPPER|_LOWER)
+#परिभाषय _LEADBYTE 0x8000
+#परिभाषय _ALPHA (0x0100|ऊर्ध्वस्थम्_3|अधस्तनम्_2)
 
-#ifndef _WCTYPE_DEFINED
-#define _WCTYPE_DEFINED
+#यदि_अपरिभाषितम् _WCTYPE_DEFINED
+#परिभाषय _WCTYPE_DEFINED
 
-  int __cdecl iswalpha(wint_t);
-  int __cdecl iswupper(wint_t);
-  int __cdecl iswlower(wint_t);
-  int __cdecl iswdigit(wint_t);
-  int __cdecl iswxdigit(wint_t);
-  int __cdecl iswspace(wint_t);
-  int __cdecl iswpunct(wint_t);
-  int __cdecl iswalnum(wint_t);
-  int __cdecl iswprint(wint_t);
-  int __cdecl iswgraph(wint_t);
-  int __cdecl iswcntrl(wint_t);
-  int __cdecl iswascii(wint_t);
-  int __cdecl isleadbyte(int);
+  पूर्णाङ्क __cdecl iswalpha(wint_t);
+  पूर्णाङ्क __cdecl iswupper(wint_t);
+  पूर्णाङ्क __cdecl iswlower(wint_t);
+  पूर्णाङ्क __cdecl iswdigit(wint_t);
+  पूर्णाङ्क __cdecl iswxdigit(wint_t);
+  पूर्णाङ्क __cdecl iswspace(wint_t);
+  पूर्णाङ्क __cdecl iswpunct(wint_t);
+  पूर्णाङ्क __cdecl iswalnum(wint_t);
+  पूर्णाङ्क __cdecl iswprint(wint_t);
+  पूर्णाङ्क __cdecl iswgraph(wint_t);
+  पूर्णाङ्क __cdecl iswcntrl(wint_t);
+  पूर्णाङ्क __cdecl iswascii(wint_t);
+  पूर्णाङ्क __cdecl isleadbyte(पूर्णाङ्क);
   wint_t __cdecl towupper(wint_t);
   wint_t __cdecl towlower(wint_t);
-  int __cdecl iswctype(wint_t,wctype_t);
-  _CRTIMP int __cdecl __iswcsymf(wint_t);
-  _CRTIMP int __cdecl __iswcsym(wint_t);
-  int __cdecl is_wctype(wint_t,wctype_t);
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl isblank(int _C);
-#endif
-#endif
+  पूर्णाङ्क __cdecl iswctype(wint_t,wctype_t);
+  _CRTIMP पूर्णाङ्क __cdecl __iswcsymf(wint_t);
+  _CRTIMP पूर्णाङ्क __cdecl __iswcsym(wint_t);
+  पूर्णाङ्क __cdecl is_wctype(wint_t,wctype_t);
+#यदि (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+पूर्णाङ्क __cdecl isblank(पूर्णाङ्क _C);
+#यदि_अन्तः
+#यदि_अन्तः
 
-#ifndef _WCTYPE_INLINE_DEFINED
-#define _WCTYPE_INLINE_DEFINED
-#ifndef __cplusplus
-#define iswalpha(_c) (iswctype(_c,_ALPHA))
-#define iswupper(_c) (iswctype(_c,_UPPER))
-#define iswlower(_c) (iswctype(_c,_LOWER))
-#define iswdigit(_c) (iswctype(_c,_DIGIT))
-#define iswxdigit(_c) (iswctype(_c,_HEX))
-#define iswspace(_c) (iswctype(_c,_SPACE))
-#define iswpunct(_c) (iswctype(_c,_PUNCT))
-#define iswalnum(_c) (iswctype(_c,_ALPHA|_DIGIT))
-#define iswprint(_c) (iswctype(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT))
-#define iswgraph(_c) (iswctype(_c,_PUNCT|_ALPHA|_DIGIT))
-#define iswcntrl(_c) (iswctype(_c,_CONTROL))
-#define iswascii(_c) ((unsigned)(_c) < 0x80)
-#define isleadbyte(c) (__pctype_func()[(unsigned char)(c)] & _LEADBYTE)
-#else
-  __CRT_INLINE int __cdecl iswalpha(wint_t _C) {return (iswctype(_C,_ALPHA)); }
-  __CRT_INLINE int __cdecl iswupper(wint_t _C) {return (iswctype(_C,_UPPER)); }
-  __CRT_INLINE int __cdecl iswlower(wint_t _C) {return (iswctype(_C,_LOWER)); }
-  __CRT_INLINE int __cdecl iswdigit(wint_t _C) {return (iswctype(_C,_DIGIT)); }
-  __CRT_INLINE int __cdecl iswxdigit(wint_t _C) {return (iswctype(_C,_HEX)); }
-  __CRT_INLINE int __cdecl iswspace(wint_t _C) {return (iswctype(_C,_SPACE)); }
-  __CRT_INLINE int __cdecl iswpunct(wint_t _C) {return (iswctype(_C,_PUNCT)); }
-  __CRT_INLINE int __cdecl iswalnum(wint_t _C) {return (iswctype(_C,_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswprint(wint_t _C) {return (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswgraph(wint_t _C) {return (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswcntrl(wint_t _C) {return (iswctype(_C,_CONTROL)); }
-  __CRT_INLINE int __cdecl iswascii(wint_t _C) {return ((unsigned)(_C) < 0x80); }
-  __CRT_INLINE int __cdecl isleadbyte(int _C) {return (__pctype_func()[(unsigned char)(_C)] & _LEADBYTE); }
-#endif
-#endif
+#यदि_अपरिभाषितम् _WCTYPE_INLINE_DEFINED
+#परिभाषय _WCTYPE_INLINE_DEFINED
+#यदि_अपरिभाषितम् __cplusplus
+#परिभाषय iswalpha(_c) (iswctype(_c,_ALPHA))
+#परिभाषय iswupper(_c) (iswctype(_c,ऊर्ध्वस्थम्_3))
+#परिभाषय iswlower(_c) (iswctype(_c,अधस्तनम्_2))
+#परिभाषय iswdigit(_c) (iswctype(_c,_DIGIT))
+#परिभाषय iswxdigit(_c) (iswctype(_c,_HEX))
+#परिभाषय iswspace(_c) (iswctype(_c,_SPACE))
+#परिभाषय iswpunct(_c) (iswctype(_c,_PUNCT))
+#परिभाषय iswalnum(_c) (iswctype(_c,_ALPHA|_DIGIT))
+#परिभाषय iswprint(_c) (iswctype(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT))
+#परिभाषय iswgraph(_c) (iswctype(_c,_PUNCT|_ALPHA|_DIGIT))
+#परिभाषय iswcntrl(_c) (iswctype(_c,_CONTROL))
+#परिभाषय iswascii(_c) ((अचिह्नित)(_c) < 0x80)
+#परिभाषय isleadbyte(c) (__pctype_func()[(अचिह्नित वर्ण)(c)] & _LEADBYTE)
+#अन्यथा
+  __CRT_INLINE पूर्णाङ्क __cdecl iswalpha(wint_t _C) {प्रत्यागम (iswctype(_C,_ALPHA)); }
+  __CRT_INLINE पूर्णाङ्क __cdecl iswupper(wint_t _C) {प्रत्यागम (iswctype(_C,ऊर्ध्वस्थम्_3)); }
+  __CRT_INLINE पूर्णाङ्क __cdecl iswlower(wint_t _C) {प्रत्यागम (iswctype(_C,अधस्तनम्_2)); }
+  __CRT_INLINE पूर्णाङ्क __cdecl iswdigit(wint_t _C) {प्रत्यागम (iswctype(_C,_DIGIT)); }
+  __CRT_INLINE पूर्णाङ्क __cdecl iswxdigit(wint_t _C) {प्रत्यागम (iswctype(_C,_HEX)); }
+  __CRT_INLINE पूर्णाङ्क __cdecl iswspace(wint_t _C) {प्रत्यागम (iswctype(_C,_SPACE)); }
+  __CRT_INLINE पूर्णाङ्क __cdecl iswpunct(wint_t _C) {प्रत्यागम (iswctype(_C,_PUNCT)); }
+  __CRT_INLINE पूर्णाङ्क __cdecl iswalnum(wint_t _C) {प्रत्यागम (iswctype(_C,_ALPHA|_DIGIT)); }
+  __CRT_INLINE पूर्णाङ्क __cdecl iswprint(wint_t _C) {प्रत्यागम (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE पूर्णाङ्क __cdecl iswgraph(wint_t _C) {प्रत्यागम (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE पूर्णाङ्क __cdecl iswcntrl(wint_t _C) {प्रत्यागम (iswctype(_C,_CONTROL)); }
+  __CRT_INLINE पूर्णाङ्क __cdecl iswascii(wint_t _C) {प्रत्यागम ((अचिह्नित)(_C) < 0x80); }
+  __CRT_INLINE पूर्णाङ्क __cdecl isleadbyte(पूर्णाङ्क _C) {प्रत्यागम (__pctype_func()[(अचिह्नित वर्ण)(_C)] & _LEADBYTE); }
+#यदि_अन्तः
+#यदि_अन्तः
 
-  typedef wchar_t wctrans_t;
+  प्रकारनिर्देश wchar_t wctrans_t;
   wint_t __cdecl towctrans(wint_t,wctrans_t);
-  wctrans_t __cdecl wctrans(const char *);
-  wctype_t __cdecl wctype(const char *);
+  wctrans_t __cdecl wctrans(ध्रुव वर्ण *);
+  wctype_t __cdecl wctype(ध्रुव वर्ण *);
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
+#यदि_अन्तः
 
-#pragma pack(pop)
-#endif
+#निर्देशः pack(निष्कासय)
+#यदि_अन्तः

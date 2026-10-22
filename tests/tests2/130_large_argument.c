@@ -1,41 +1,41 @@
-#include<stdio.h>
+#अन्तर्भाव<stdio.h>
 
-struct large1 {
-    int a[768];
+संरचना large1 {
+    पूर्णाङ्क a[768];
 };
 
-struct large2 {
-    int a[1920];
+संरचना large2 {
+    पूर्णाङ्क a[1920];
 };
 
-void pass_large_struct1(struct large1 in)
+शून्य pass_large_struct1(संरचना large1 अन्तर्)
 {
-    printf("%d %d\n", in.a[200], in.a[767]);
-    return;
+    प्रारूप_लिख("%d %d\n", अन्तर्.a[200], अन्तर्.a[767]);
+    प्रत्यागम;
 }
 
-void pass_large_struct2(struct large2 in)
+शून्य pass_large_struct2(संरचना large2 अन्तर्)
 {
-    printf("%d %d %d\n", in.a[200], in.a[1023], in.a[1919]);
-    return;
+    प्रारूप_लिख("%d %d %d\n", अन्तर्.a[200], अन्तर्.a[1023], अन्तर्.a[1919]);
+    प्रत्यागम;
 }
 
-void pass_many_args(int a, int b, int c, int d, int e, int f, int g, int h, int i,
-                    int j, int k, int l, int m)
+शून्य pass_many_तर्काः(पूर्णाङ्क a, पूर्णाङ्क b, पूर्णाङ्क c, पूर्णाङ्क d, पूर्णाङ्क e, पूर्णाङ्क f, पूर्णाङ्क g, पूर्णाङ्क h, पूर्णाङ्क i,
+                    पूर्णाङ्क j, पूर्णाङ्क k, पूर्णाङ्क l, पूर्णाङ्क m)
 {
-    printf("%d %d %d %d %d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i,
+    प्रारूप_लिख("%d %d %d %d %d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i,
            j, k, l, m);
-    return;
+    प्रत्यागम;
 }
 
-struct large1 l1 = { .a = { [200] = 1, [767] = 2 } };
-struct large2 l2 = { .a = { [200] = 3, [1023] = 4, [1919] = 5} };
+संरचना large1 l1 = { .a = { [200] = 1, [767] = 2 } };
+संरचना large2 l2 = { .a = { [200] = 3, [1023] = 4, [1919] = 5} };
 
-int main(void)
+पूर्णाङ्क मुख्यम्(शून्य)
 {
     pass_large_struct1(l1);
     pass_large_struct2(l2);
-    pass_many_args(13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+    pass_many_तर्काः(13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
 
-    return 0;
+    प्रत्यागम 0;
 }

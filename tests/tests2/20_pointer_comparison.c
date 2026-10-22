@@ -1,24 +1,24 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   पूर्णाङ्क a;
+   पूर्णाङ्क b;
+   पूर्णाङ्क *d;
+   पूर्णाङ्क *e;
    d = &a;
    e = &b;
    a = 12;
    b = 34;
-   printf("%d\n", *d);
-   printf("%d\n", *e);
-   printf("%d\n", d == e);
-   printf("%d\n", d != e);
+   प्रारूप_लिख("%d\n", *d);
+   प्रारूप_लिख("%d\n", *e);
+   प्रारूप_लिख("%d\n", d == e);
+   प्रारूप_लिख("%d\n", d != e);
    d = e;
-   printf("%d\n", d == e);
-   printf("%d\n", d != e);
+   प्रारूप_लिख("%d\n", d == e);
+   प्रारूप_लिख("%d\n", d != e);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,40 +1,40 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-struct ziggy
+संरचना ziggy
 {
-   int a;
-   int b;
-   int c;
+   पूर्णाङ्क a;
+   पूर्णाङ्क b;
+   पूर्णाङ्क c;
 } bolshevic;
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-   int a;
-   int *b;
-   int c;
+   पूर्णाङ्क a;
+   पूर्णाङ्क *b;
+   पूर्णाङ्क c;
 
    a = 42;
    b = &a;
-   printf("a = %d\n", *b);
+   प्रारूप_लिख("a = %d\n", *b);
 
    bolshevic.a = 12;
    bolshevic.b = 34;
    bolshevic.c = 56;
 
-   printf("bolshevic.a = %d\n", bolshevic.a);
-   printf("bolshevic.b = %d\n", bolshevic.b);
-   printf("bolshevic.c = %d\n", bolshevic.c);
+   प्रारूप_लिख("bolshevic.a = %d\n", bolshevic.a);
+   प्रारूप_लिख("bolshevic.b = %d\n", bolshevic.b);
+   प्रारूप_लिख("bolshevic.c = %d\n", bolshevic.c);
 
-   struct ziggy *tsar = &bolshevic;
+   संरचना ziggy *tsar = &bolshevic;
 
-   printf("tsar->a = %d\n", tsar->a);
-   printf("tsar->b = %d\n", tsar->b);
-   printf("tsar->c = %d\n", tsar->c);
+   प्रारूप_लिख("tsar->a = %d\n", tsar->a);
+   प्रारूप_लिख("tsar->b = %d\n", tsar->b);
+   प्रारूप_लिख("tsar->c = %d\n", tsar->c);
 
    b = &(bolshevic.b);
-   printf("bolshevic.b = %d\n", *b);
+   प्रारूप_लिख("bolshevic.b = %d\n", *b);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

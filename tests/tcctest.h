@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+स्थिर अन्तःस्थ ध्रुव वर्ण *get_basefile_from_शीर्षकम्(शून्य)
 {
-  return __BASE_FILE__;
+  प्रत्यागम __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+स्थिर अन्तःस्थ ध्रुव वर्ण *get_file_from_शीर्षकम्(शून्य)
 {
-  return __FILE__;
+  प्रत्यागम __FILE__;
 }

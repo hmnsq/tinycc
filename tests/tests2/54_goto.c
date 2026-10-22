@@ -1,56 +1,56 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-void fred()
+शून्य fred()
 {
-   printf("In fred()\n");
-   goto done;
-   printf("In middle\n");
-done:
-   printf("At end\n");
+   प्रारूप_लिख("In fred()\n");
+   गच्छ समाप्तम्;
+   प्रारूप_लिख("In middle\n");
+समाप्तम्:
+   प्रारूप_लिख("At end\n");
 }
 
-void joe()
+शून्य joe()
 {
-   int b = 5678;
+   पूर्णाङ्क b = 5678;
 
-   printf("In joe()\n");
+   प्रारूप_लिख("In joe()\n");
 
    {
-      int c = 1234;
-      printf("c = %d\n", c);
-      goto outer;
-      printf("uh-oh\n");
+      पूर्णाङ्क c = 1234;
+      प्रारूप_लिख("c = %d\n", c);
+      गच्छ outer;
+      प्रारूप_लिख("uh-oh\n");
    }
 
 outer:    
 
-   printf("done\n");
+   प्रारूप_लिख("done\n");
 }
 
-void henry()
+शून्य henry()
 {
-   int a;
+   पूर्णाङ्क a;
 
-   printf("In henry()\n");
-   goto inner;
+   प्रारूप_लिख("In henry()\n");
+   गच्छ inner;
 
    {
-      int b;
+      पूर्णाङ्क b;
 inner:    
       b = 1234;
-      printf("b = %d\n", b);
+      प्रारूप_लिख("b = %d\n", b);
    }
 
-   printf("done\n");
+   प्रारूप_लिख("done\n");
 }
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

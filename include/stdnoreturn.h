@@ -1,7 +1,7 @@
-#ifndef _STDNORETURN_H
-#define _STDNORETURN_H
+#यदि_अपरिभाषितम् _STDNORETURN_H
+#परिभाषय _STDNORETURN_H
 
 /* ISOC11 noreturn */
-#define noreturn _Noreturn
+#परिभाषय noreturn _Noreturn
 
-#endif /* _STDNORETURN_H */
+#यदि_अन्तः /* _STDNORETURN_H */

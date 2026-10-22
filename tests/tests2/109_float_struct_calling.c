@@ -1,24 +1,24 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
 /* This test used to fail on x86_64 on linux with sse registers */
 
-struct Point {
-   float x;
-   float y;
+संरचना Point {
+   भिन्न x;
+   भिन्न y;
 };
 
-struct Rect {
-   struct Point top_left;
-   struct Point size;
+संरचना Rect {
+   संरचना Point शिखरम्_वामः;
+   संरचना Point आकार;
 };
 
-float foo(struct Point p, struct Rect r) {
-   return r.size.x;
+भिन्न foo(संरचना Point p, संरचना Rect r) {
+   प्रत्यागम r.आकार.x;
 }
 
-int main(int argc, char **argv) {
-   struct Point p = {1, 2};
-   struct Rect r = {{3, 4}, {5, 6}};
-   printf("%f\n", foo(p, r));
-   return 0;
+पूर्णाङ्क मुख्यम्(पूर्णाङ्क argc, वर्ण **argv) {
+   संरचना Point p = {1, 2};
+   संरचना Rect r = {{3, 4}, {5, 6}};
+   प्रारूप_लिख("%f\n", foo(p, r));
+   प्रत्यागम 0;
 }

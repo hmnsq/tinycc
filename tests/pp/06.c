@@ -1,4 +1,4 @@
-#define X(a,b, \
+#परिभाषय X(a,b, \
 	c,d) \
 	foo
 

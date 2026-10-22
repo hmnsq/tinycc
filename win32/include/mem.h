@@ -8,6 +8,6 @@
  *
  * mem.h maps to string.h
  */
-#ifndef	__STRICT_ANSI__
-#include <string.h>
-#endif
+#यदि_अपरिभाषितम्	__STRICT_ANSI__
+#अन्तर्भाव <string.h>
+#यदि_अन्तः

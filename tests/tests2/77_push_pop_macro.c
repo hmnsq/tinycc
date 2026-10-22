@@ -1,30 +1,30 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
     /* must not affect how #pragma ppop_macro works */
-    #define pop_macro foobar1
+    #परिभाषय निष्कासय_macro foobar1
 
     /* must not affect how #pragma push_macro works */
-    #define push_macro foobar2
+    #परिभाषय प्रक्षिप_macro foobar2
 
-    #undef abort
-    #define abort "111"
-    printf("abort = %s\n", abort);
+    #अपरिभाषय abort
+    #परिभाषय abort "111"
+    प्रारूप_लिख("abort = %s\n", abort);
 
-    #pragma push_macro("abort")
-    #undef abort
-    #define abort "222"
-    printf("abort = %s\n", abort);
+    #निर्देशः प्रक्षिप_macro("abort")
+    #अपरिभाषय abort
+    #परिभाषय abort "222"
+    प्रारूप_लिख("abort = %s\n", abort);
 
-    #pragma push_macro("abort")
-    #undef abort
-    #define abort "333"
-    printf("abort = %s\n", abort);
+    #निर्देशः प्रक्षिप_macro("abort")
+    #अपरिभाषय abort
+    #परिभाषय abort "333"
+    प्रारूप_लिख("abort = %s\n", abort);
 
-    #pragma pop_macro("abort")
-    printf("abort = %s\n", abort);
+    #निर्देशः निष्कासय_macro("abort")
+    प्रारूप_लिख("abort = %s\n", abort);
 
-    #pragma pop_macro("abort")
-    printf("abort = %s\n", abort);
+    #निर्देशः निष्कासय_macro("abort")
+    प्रारूप_लिख("abort = %s\n", abort);
 }

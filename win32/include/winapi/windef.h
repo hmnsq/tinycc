@@ -3,180 +3,180 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINDEF_
-#define _WINDEF_
+#यदि_अपरिभाषितम् _WINDEF_
+#परिभाषय _WINDEF_
 
-#ifndef STRICT
-#define STRICT 1
-#endif
+#यदि_अपरिभाषितम् STRICT
+#परिभाषय STRICT 1
+#यदि_अन्तः
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#यदि_अपरिभाषितम् WINVER
+#परिभाषय WINVER 0x0502
+#यदि_अन्तः
 
-#ifndef BASETYPES
-#define BASETYPES
-  typedef unsigned long ULONG;
-  typedef ULONG *PULONG;
-  typedef unsigned short USHORT;
-  typedef USHORT *PUSHORT;
-  typedef unsigned char UCHAR;
-  typedef UCHAR *PUCHAR;
-  typedef char *PSZ;
-#endif
+#यदि_अपरिभाषितम् BASETYPES
+#परिभाषय BASETYPES
+  प्रकारनिर्देश अचिह्नित दीर्घ ULONG;
+  प्रकारनिर्देश ULONG *PULONG;
+  प्रकारनिर्देश अचिह्नित ह्रस्व USHORT;
+  प्रकारनिर्देश USHORT *PUSHORT;
+  प्रकारनिर्देश अचिह्नित वर्ण UCHAR;
+  प्रकारनिर्देश UCHAR *PUCHAR;
+  प्रकारनिर्देश वर्ण *PSZ;
+#यदि_अन्तः
 
-#define MAX_PATH 260
+#परिभाषय MAX_मार्गः 260
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#यदि_अपरिभाषितम् रिक्त
+#यदि_परिभाषितम् __cplusplus
+#परिभाषय रिक्त 0
+#अन्यथा
+#परिभाषय रिक्त ((शून्य *)0)
+#यदि_अन्तः
+#यदि_अन्तः
 
-#ifndef FALSE
-#define FALSE 0
-#endif
+#यदि_अपरिभाषितम् FALSE
+#परिभाषय FALSE 0
+#यदि_अन्तः
 
-#ifndef TRUE
-#define TRUE 1
-#endif
+#यदि_अपरिभाषितम् TRUE
+#परिभाषय TRUE 1
+#यदि_अन्तः
 
-#ifndef IN
-#define IN
-#endif
+#यदि_अपरिभाषितम् अन्तर्_2
+#परिभाषय अन्तर्_2
+#यदि_अन्तः
 
-#ifndef OUT
-#define OUT
-#endif
+#यदि_अपरिभाषितम् बहिर्गमनम्_2
+#परिभाषय बहिर्गमनम्_2
+#यदि_अन्तः
 
-#ifndef OPTIONAL
-#define OPTIONAL
-#endif
+#यदि_अपरिभाषितम् OPTIONAL
+#परिभाषय OPTIONAL
+#यदि_अन्तः
 
-#undef far
-#undef near
-#undef pascal
+#अपरिभाषय far
+#अपरिभाषय near
+#अपरिभाषय pascal
 
-#define far
-#define near
-#define pascal __stdcall
+#परिभाषय far
+#परिभाषय near
+#परिभाषय pascal __stdcall
 
-#define cdecl
-#ifndef CDECL
-#define CDECL
-#endif
-#ifndef CALLBACK
-#define CALLBACK __stdcall
-#endif
-#ifndef WINAPI
-#define WINAPI __stdcall
-#endif
-#define WINAPIV __cdecl
-#define APIENTRY WINAPI
-#define APIPRIVATE WINAPI
-#define PASCAL WINAPI
-#define WINAPI_INLINE WINAPI
+#परिभाषय cdecl
+#यदि_अपरिभाषितम् CDECL
+#परिभाषय CDECL
+#यदि_अन्तः
+#यदि_अपरिभाषितम् CALLBACK
+#परिभाषय CALLBACK __stdcall
+#यदि_अन्तः
+#यदि_अपरिभाषितम् WINAPI
+#परिभाषय WINAPI __stdcall
+#यदि_अन्तः
+#परिभाषय WINAPIV __cdecl
+#परिभाषय APIENTRY WINAPI
+#परिभाषय APIPRIVATE WINAPI
+#परिभाषय PASCAL WINAPI
+#परिभाषय WINAPI_INLINE WINAPI
 
-#undef FAR
-#undef NEAR
-#define FAR
-#define NEAR
-#ifndef CONST
-#define CONST const
-#endif
+#अपरिभाषय FAR
+#अपरिभाषय NEAR
+#परिभाषय FAR
+#परिभाषय NEAR
+#यदि_अपरिभाषितम् CONST
+#परिभाषय CONST ध्रुव
+#यदि_अन्तः
 
-  typedef unsigned long DWORD;
-  typedef int WINBOOL;
-#define BOOL WINBOOL
-  typedef unsigned char BYTE;
-  typedef unsigned short WORD;
-  typedef float FLOAT;
-  typedef FLOAT *PFLOAT;
-  typedef WINBOOL *PBOOL;
-  typedef WINBOOL *LPBOOL;
-  typedef BYTE *PBYTE;
-  typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
-  typedef WORD *PWORD;
-  typedef WORD *LPWORD;
-  typedef long *LPLONG;
-  typedef DWORD *PDWORD;
-  typedef DWORD *LPDWORD;
-  typedef void *LPVOID;
+  प्रकारनिर्देश अचिह्नित दीर्घ DWORD;
+  प्रकारनिर्देश पूर्णाङ्क WINBOOL;
+#परिभाषय BOOL WINBOOL
+  प्रकारनिर्देश अचिह्नित वर्ण BYTE;
+  प्रकारनिर्देश अचिह्नित ह्रस्व WORD;
+  प्रकारनिर्देश भिन्न FLOAT;
+  प्रकारनिर्देश FLOAT *PFLOAT;
+  प्रकारनिर्देश WINBOOL *PBOOL;
+  प्रकारनिर्देश WINBOOL *LPBOOL;
+  प्रकारनिर्देश BYTE *PBYTE;
+  प्रकारनिर्देश BYTE *LPBYTE;
+  प्रकारनिर्देश पूर्णाङ्क *PINT;
+  प्रकारनिर्देश पूर्णाङ्क *LPINT;
+  प्रकारनिर्देश WORD *PWORD;
+  प्रकारनिर्देश WORD *LPWORD;
+  प्रकारनिर्देश दीर्घ *LPLONG;
+  प्रकारनिर्देश DWORD *PDWORD;
+  प्रकारनिर्देश DWORD *LPDWORD;
+  प्रकारनिर्देश शून्य *LPVOID;
 # ifndef _LPCVOID_DEFINED
-#define _LPCVOID_DEFINED
-typedef CONST void *LPCVOID;
-#endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+#परिभाषय _LPCVOID_DEFINED
+प्रकारनिर्देश CONST शून्य *LPCVOID;
+#यदि_अन्तः
+  प्रकारनिर्देश पूर्णाङ्क INT;
+  प्रकारनिर्देश अचिह्नित पूर्णाङ्क UINT;
+  प्रकारनिर्देश अचिह्नित पूर्णाङ्क *PUINT;
 
-#ifndef NT_INCLUDED
-#include <winnt.h>
-#endif
+#यदि_अपरिभाषितम् NT_INCLUDED
+#अन्तर्भाव <winnt.h>
+#यदि_अन्तः
 
 //gr #include <specstrings.h>
 
-  typedef UINT_PTR WPARAM;
-  typedef LONG_PTR LPARAM;
-  typedef LONG_PTR LRESULT;
+  प्रकारनिर्देश UINT_PTR WPARAM;
+  प्रकारनिर्देश LONG_PTR LPARAM;
+  प्रकारनिर्देश LONG_PTR LRESULT;
 
-#ifndef __cplusplus
-#ifndef NOMINMAX
-#ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#endif
+#यदि_अपरिभाषितम् __cplusplus
+#यदि_अपरिभाषितम् NOMINMAX
+#यदि_अपरिभाषितम् max
+#परिभाषय max(a,b) (((a) > (b)) ? (a) : (b))
+#यदि_अन्तः
 
-#ifndef min
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#endif
-#endif
-#endif
+#यदि_अपरिभाषितम् min
+#परिभाषय min(a,b) (((a) < (b)) ? (a) : (b))
+#यदि_अन्तः
+#यदि_अन्तः
+#यदि_अन्तः
 
-#define MAKEWORD(a,b) ((WORD)(((BYTE)((DWORD_PTR)(a) & 0xff)) | ((WORD)((BYTE)((DWORD_PTR)(b) & 0xff))) << 8))
-#define MAKELONG(a,b) ((LONG)(((WORD)((DWORD_PTR)(a) & 0xffff)) | ((DWORD)((WORD)((DWORD_PTR)(b) & 0xffff))) << 16))
-#define LOWORD(l) ((WORD)((DWORD_PTR)(l) & 0xffff))
-#define HIWORD(l) ((WORD)((DWORD_PTR)(l) >> 16))
-#define LOBYTE(w) ((BYTE)((DWORD_PTR)(w) & 0xff))
-#define HIBYTE(w) ((BYTE)((DWORD_PTR)(w) >> 8))
+#परिभाषय MAKEWORD(a,b) ((WORD)(((BYTE)((DWORD_PTR)(a) & 0xff)) | ((WORD)((BYTE)((DWORD_PTR)(b) & 0xff))) << 8))
+#परिभाषय MAKELONG(a,b) ((LONG)(((WORD)((DWORD_PTR)(a) & 0xffff)) | ((DWORD)((WORD)((DWORD_PTR)(b) & 0xffff))) << 16))
+#परिभाषय LOWORD(l) ((WORD)((DWORD_PTR)(l) & 0xffff))
+#परिभाषय HIWORD(l) ((WORD)((DWORD_PTR)(l) >> 16))
+#परिभाषय LOBYTE(w) ((BYTE)((DWORD_PTR)(w) & 0xff))
+#परिभाषय HIBYTE(w) ((BYTE)((DWORD_PTR)(w) >> 8))
 
-#ifndef WIN_INTERNAL
+#यदि_अपरिभाषितम् WIN_आन्तरिकम्
   DECLARE_HANDLE (HWND);
   DECLARE_HANDLE (HHOOK);
-#ifdef WINABLE
+#यदि_परिभाषितम् WINABLE
   DECLARE_HANDLE (HEVENT);
-#endif
-#endif
+#यदि_अन्तः
+#यदि_अन्तः
 
-  typedef WORD ATOM;
+  प्रकारनिर्देश WORD ATOM;
 
-  typedef HANDLE *SPHANDLE;
-  typedef HANDLE *LPHANDLE;
-  typedef HANDLE HGLOBAL;
-  typedef HANDLE HLOCAL;
-  typedef HANDLE GLOBALHANDLE;
-  typedef HANDLE LOCALHANDLE;
-#ifdef _WIN64
-  typedef INT_PTR (WINAPI *FARPROC)();
-  typedef INT_PTR (WINAPI *NEARPROC)();
-  typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
-#endif
+  प्रकारनिर्देश HANDLE *SPHANDLE;
+  प्रकारनिर्देश HANDLE *LPHANDLE;
+  प्रकारनिर्देश HANDLE HGLOBAL;
+  प्रकारनिर्देश HANDLE HLOCAL;
+  प्रकारनिर्देश HANDLE GLOBALHANDLE;
+  प्रकारनिर्देश HANDLE LOCALHANDLE;
+#यदि_परिभाषितम् _WIN64
+  प्रकारनिर्देश INT_PTR (WINAPI *FARPROC)();
+  प्रकारनिर्देश INT_PTR (WINAPI *NEARPROC)();
+  प्रकारनिर्देश INT_PTR (WINAPI *PROC)();
+#अन्यथा
+  प्रकारनिर्देश पूर्णाङ्क (WINAPI *FARPROC)();
+  प्रकारनिर्देश पूर्णाङ्क (WINAPI *NEARPROC)();
+  प्रकारनिर्देश पूर्णाङ्क (WINAPI *PROC)();
+#यदि_अन्तः
 
-  typedef void *HGDIOBJ;
+  प्रकारनिर्देश शून्य *HGDIOBJ;
 
   DECLARE_HANDLE(HKEY);
-  typedef HKEY *PHKEY;
+  प्रकारनिर्देश HKEY *PHKEY;
 
   DECLARE_HANDLE(HACCEL);
   DECLARE_HANDLE(HBITMAP);
@@ -191,7 +191,7 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HMENU);
   DECLARE_HANDLE(HMETAFILE);
   DECLARE_HANDLE(HINSTANCE);
-  typedef HINSTANCE HMODULE;
+  प्रकारनिर्देश HINSTANCE HMODULE;
   DECLARE_HANDLE(HPALETTE);
   DECLARE_HANDLE(HPEN);
   DECLARE_HANDLE(HRGN);
@@ -204,90 +204,90 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
-  typedef HICON HCURSOR;
-  typedef DWORD COLORREF;
-  typedef DWORD *LPCOLORREF;
+  प्रकारनिर्देश पूर्णाङ्क HFILE;
+  प्रकारनिर्देश HICON HCURSOR;
+  प्रकारनिर्देश DWORD COLORREF;
+  प्रकारनिर्देश DWORD *LPCOLORREF;
 
-#define HFILE_ERROR ((HFILE)-1)
+#परिभाषय HFILE_ERROR ((HFILE)-1)
 
-  typedef struct tagRECT {
-    LONG left;
-    LONG top;
-    LONG right;
+  प्रकारनिर्देश संरचना चिह्नकम्_RECT {
+    LONG वामः;
+    LONG शिखरम्;
+    LONG दक्षिणः;
     LONG bottom;
   } RECT,*PRECT,*NPRECT,*LPRECT;
 
-  typedef const RECT *LPCRECT;
+  प्रकारनिर्देश ध्रुव RECT *LPCRECT;
 
-  typedef struct _RECTL {
-    LONG left;
-    LONG top;
-    LONG right;
+  प्रकारनिर्देश संरचना _RECTL {
+    LONG वामः;
+    LONG शिखरम्;
+    LONG दक्षिणः;
     LONG bottom;
   } RECTL,*PRECTL,*LPRECTL;
 
-  typedef const RECTL *LPCRECTL;
+  प्रकारनिर्देश ध्रुव RECTL *LPCRECTL;
 
-  typedef struct tagPOINT {
+  प्रकारनिर्देश संरचना चिह्नकम्_POINT {
     LONG x;
     LONG y;
   } POINT,*PPOINT,*NPPOINT,*LPPOINT;
 
-  typedef struct _POINTL {
+  प्रकारनिर्देश संरचना _POINTL {
     LONG x;
     LONG y;
   } POINTL,*PPOINTL;
 
-  typedef struct tagSIZE {
+  प्रकारनिर्देश संरचना चिह्नकम्_आकार {
     LONG cx;
     LONG cy;
-  } SIZE,*PSIZE,*LPSIZE;
+  } आकार_2,*PSIZE,*LPSIZE;
 
-  typedef SIZE SIZEL;
-  typedef SIZE *PSIZEL,*LPSIZEL;
+  प्रकारनिर्देश आकार_2 SIZEL;
+  प्रकारनिर्देश आकार_2 *PSIZEL,*LPSIZEL;
 
-  typedef struct tagPOINTS {
+  प्रकारनिर्देश संरचना चिह्नकम्_POINTS {
     SHORT x;
     SHORT y;
   } POINTS,*PPOINTS,*LPPOINTS;
 
-  typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+  प्रकारनिर्देश संरचना _FILETIME {
+    DWORD dw_नीचः_Date_Time;
+    DWORD dw_उच्चः_Date_Time;
   } FILETIME,*PFILETIME,*LPFILETIME;
-#define _FILETIME_
+#परिभाषय _FILETIME_
 
-#define DM_UPDATE 1
-#define DM_COPY 2
-#define DM_PROMPT 4
-#define DM_MODIFY 8
+#परिभाषय DM_UPDATE 1
+#परिभाषय DM_COPY 2
+#परिभाषय DM_PROMPT 4
+#परिभाषय DM_MODIFY 8
 
-#define DM_IN_BUFFER DM_MODIFY
-#define DM_IN_PROMPT DM_PROMPT
-#define DM_OUT_BUFFER DM_COPY
-#define DM_OUT_DEFAULT DM_UPDATE
+#परिभाषय DM_अन्तर्_बफर DM_MODIFY
+#परिभाषय DM_अन्तर्_PROMPT DM_PROMPT
+#परिभाषय DM_बहिर्गमनम्_बफर DM_COPY
+#परिभाषय DM_बहिर्गमनम्_DEFAULT DM_UPDATE
 
-#define DC_FIELDS 1
-#define DC_PAPERS 2
-#define DC_PAPERSIZE 3
-#define DC_MINEXTENT 4
-#define DC_MAXEXTENT 5
-#define DC_BINS 6
-#define DC_DUPLEX 7
-#define DC_SIZE 8
-#define DC_EXTRA 9
-#define DC_VERSION 10
-#define DC_DRIVER 11
-#define DC_BINNAMES 12
-#define DC_ENUMRESOLUTIONS 13
-#define DC_FILEDEPENDENCIES 14
-#define DC_TRUETYPE 15
-#define DC_PAPERNAMES 16
-#define DC_ORIENTATION 17
-#define DC_COPIES 18
+#परिभाषय DC_FIELDS 1
+#परिभाषय DC_PAPERS 2
+#परिभाषय DC_PAPERSIZE 3
+#परिभाषय DC_MINEXTENT 4
+#परिभाषय DC_MAXEXTENT 5
+#परिभाषय DC_BINS 6
+#परिभाषय DC_DUPLEX 7
+#परिभाषय DC_आकार 8
+#परिभाषय DC_EXTRA 9
+#परिभाषय DC_संस्करणम् 10
+#परिभाषय DC_DRIVER 11
+#परिभाषय DC_BINNAMES 12
+#परिभाषय DC_ENUMRESOLUTIONS 13
+#परिभाषय DC_FILEDEPENDENCIES 14
+#परिभाषय DC_TRUETYPE 15
+#परिभाषय DC_PAPERNAMES 16
+#परिभाषय DC_ORIENTATION 17
+#परिभाषय DC_COPIES 18
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
-#endif
+#यदि_अन्तः
+#यदि_अन्तः

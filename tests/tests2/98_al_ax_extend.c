@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <stdlib.h>
 asm (
     ".text;"
     ".globl _us;.globl _ss;.globl _uc;.globl _sc;"
@@ -8,34 +8,34 @@ asm (
 	"ret;"
 );
 
-#ifndef __leading_underscore
-#define us _us
-#define ss _ss
-#define uc _uc
-#define sc _sc
-#endif
+#यदि_अपरिभाषितम् __leading_underscore
+#परिभाषय us _us
+#परिभाषय ss _ss
+#परिभाषय uc _uc
+#परिभाषय sc _sc
+#यदि_अन्तः
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-    unsigned short us(void);
-    short ss(void);
-    unsigned char uc(void);
-    signed char sc(void);
+    अचिह्नित ह्रस्व us(शून्य);
+    ह्रस्व ss(शून्य);
+    अचिह्नित वर्ण uc(शून्य);
+    चिह्नित वर्ण sc(शून्य);
 
-    unsigned short (*fpus)(void) = us;
-    short (*fpss)(void) = ss;
-    unsigned char (*fpuc)(void) = uc;
-    signed char (*fpsc)(void) = sc;
+    अचिह्नित ह्रस्व (*fpus)(शून्य) = us;
+    ह्रस्व (*fpss)(शून्य) = ss;
+    अचिह्नित वर्ण (*fpuc)(शून्य) = uc;
+    चिह्नित वर्ण (*fpsc)(शून्य) = sc;
 
-    printf("%08X %08X\n", us() + 1, fpus() + 1);
-    printf("%08X %08X\n", ss() + 1, fpss() + 1);
-    printf("%08X %08X\n", uc() + 1, fpuc() + 1);
-    printf("%08X %08X\n", sc() + 1, fpsc() + 1);
-    printf("\n");
-    printf("%08X %08X\n", fpus() + 1, us() + 1);
-    printf("%08X %08X\n", fpss() + 1, ss() + 1);
-    printf("%08X %08X\n", fpuc() + 1, uc() + 1);
-    printf("%08X %08X\n", fpsc() + 1, sc() + 1);
+    प्रारूप_लिख("%08X %08X\n", us() + 1, fpus() + 1);
+    प्रारूप_लिख("%08X %08X\n", ss() + 1, fpss() + 1);
+    प्रारूप_लिख("%08X %08X\n", uc() + 1, fpuc() + 1);
+    प्रारूप_लिख("%08X %08X\n", sc() + 1, fpsc() + 1);
+    प्रारूप_लिख("\n");
+    प्रारूप_लिख("%08X %08X\n", fpus() + 1, us() + 1);
+    प्रारूप_लिख("%08X %08X\n", fpss() + 1, ss() + 1);
+    प्रारूप_लिख("%08X %08X\n", fpuc() + 1, uc() + 1);
+    प्रारूप_लिख("%08X %08X\n", fpsc() + 1, sc() + 1);
 
-    return 0;
+    प्रत्यागम 0;
 }

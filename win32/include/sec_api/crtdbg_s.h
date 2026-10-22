@@ -4,16 +4,16 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _INC_CRTDBG_S
-#define _INC_CRTDBG_S
+#यदि_अपरिभाषितम् _INC_CRTDBG_S
+#परिभाषय _INC_CRTDBG_S
 
-#include <crtdbg.h>
+#अन्तर्भाव <crtdbg.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#यदि defined(MINGW_HAS_SECURE_API)
 
-#define _dupenv_s_dbg(ps1,size,s2,t,f,l) _dupenv_s(ps1,size,s2)
-#define _wdupenv_s_dbg(ps1,size,s2,t,f,l) _wdupenv_s(ps1,size,s2)
+#परिभाषय _dupenv_s_dbg(ps1,आकार,s2,t,f,l) _dupenv_s(ps1,आकार,s2)
+#परिभाषय _wdupenv_s_dbg(ps1,आकार,s2,t,f,l) _wdupenv_s(ps1,आकार,s2)
 
-#endif
+#यदि_अन्तः
 
-#endif
+#यदि_अन्तः

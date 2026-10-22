@@ -1,4 +1,4 @@
-#define C(a,b,c) a##b##c
-#define N(x,y) C(x,_,y)
-#define A_O aaaaoooo
+#परिभाषय C(a,b,c) a##b##c
+#परिभाषय N(x,y) C(x,_,y)
+#परिभाषय A_O aaaaoooo
 N(A,O)

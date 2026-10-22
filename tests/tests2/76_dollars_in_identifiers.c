@@ -1,41 +1,41 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-#define $(x) x
-#define $fred 10
-#define joe$ 20
-#define hen$y 30
+#परिभाषय $(x) x
+#परिभाषय $fred 10
+#परिभाषय joe$ 20
+#परिभाषय hen$y 30
 
-#define $10(x) x*10
-#define _$10(x) x/10
+#परिभाषय $10(x) x*10
+#परिभाषय _$10(x) x/10
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-   printf("fred=%d\n", $fred);
-   printf("joe=%d\n", joe$);
-   printf("henry=%d\n", hen$y);
+   प्रारूप_लिख("fred=%d\n", $fred);
+   प्रारूप_लिख("joe=%d\n", joe$);
+   प्रारूप_लिख("henry=%d\n", hen$y);
 
-   printf("fred2=%d\n", $($fred));
-   printf("joe2=%d\n", $(joe$));
-   printf("henry2=%d\n", $(hen$y));
+   प्रारूप_लिख("fred2=%d\n", $($fred));
+   प्रारूप_लिख("joe2=%d\n", $(joe$));
+   प्रारूप_लिख("henry2=%d\n", $(hen$y));
 
-   printf("fred10=%d\n", $10($fred));
-   printf("joe_10=%d\n", _$10(joe$));
+   प्रारूप_लिख("fred10=%d\n", $10($fred));
+   प्रारूप_लिख("joe_10=%d\n", _$10(joe$));
 
-   int $ = 10;
-   int a100$ = 100;
-   int a$$ = 1000;
-   int a$c$b = 2121;
-   int $100 = 10000;
-   const char *$$$ = "money";
+   पूर्णाङ्क $ = 10;
+   पूर्णाङ्क a100$ = 100;
+   पूर्णाङ्क a$$ = 1000;
+   पूर्णाङ्क a$c$b = 2121;
+   पूर्णाङ्क $100 = 10000;
+   ध्रुव वर्ण *$$$ = "money";
 
-   printf("local=%d\n", $);
-   printf("a100$=%d\n", a100$);
-   printf("a$$=%d\n", a$$);
-   printf("a$c$b=%d\n", a$c$b);
-   printf("$100=%d\n", $100);
-   printf("$$$=%s", $$$);
+   प्रारूप_लिख("local=%d\n", $);
+   प्रारूप_लिख("a100$=%d\n", a100$);
+   प्रारूप_लिख("a$$=%d\n", a$$);
+   प्रारूप_लिख("a$c$b=%d\n", a$c$b);
+   प्रारूप_लिख("$100=%d\n", $100);
+   प्रारूप_लिख("$$$=%s", $$$);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

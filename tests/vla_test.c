@@ -3,82 +3,82 @@
  * does not use up a linear amount of memory
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#अन्तर्भाव <stdlib.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <string.h>
 
-#define LOOP_COUNT 1000
-#define ARRAY_SIZE 100
+#परिभाषय LOOP_गणनम् 1000
+#परिभाषय ARRAY_आकार 100
 
 /* Overwrite a VLA. This will overwrite the return address if SP is incorrect */
-void smash(char *p, int n) {
-  memset(p, 0, n);
+शून्य smash(वर्ण *p, पूर्णाङ्क n) {
+  स्मृतिं_पूरय(p, 0, n);
 }
 
-int test1(int n) {
-  int i;
-  char *array_ptrs[LOOP_COUNT];
+पूर्णाङ्क test1(पूर्णाङ्क n) {
+  पूर्णाङ्क i;
+  वर्ण *array_ptrs[LOOP_गणनम्];
   
-  for (i = 0; i < LOOP_COUNT; ++i) {
-    char test[n];
+  प्रति (i = 0; i < LOOP_गणनम्; ++i) {
+    वर्ण test[n];
     smash(test, n);
     array_ptrs[i] = test;
   }
   
-  return (array_ptrs[0]-array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  प्रत्यागम (array_ptrs[0]-array_ptrs[LOOP_गणनम्-1] < n) ? 0 : 1;
 }
 
 /* ensure goto does not circumvent array free */
-int test2(int n) {
-  char *array_ptrs[LOOP_COUNT];
+पूर्णाङ्क test2(पूर्णाङ्क n) {
+  वर्ण *array_ptrs[LOOP_गणनम्];
 
-  int i = 0;
+  पूर्णाङ्क i = 0;
 loop:;
-  char test[n];
+  वर्ण test[n];
   smash(test, n);
-  if (i >= LOOP_COUNT)
-    goto end;
+  यदि (i >= LOOP_गणनम्)
+    गच्छ अन्तः;
   array_ptrs[i] = test;
   ++i;
-  goto loop;
+  गच्छ loop;
 
-end:
+अन्तः:
   smash(test, n);
-  char test2[n];
+  वर्ण test2[n];
   smash(test2, n);
-  return (array_ptrs[0] - array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  प्रत्यागम (array_ptrs[0] - array_ptrs[LOOP_गणनम्-1] < n) ? 0 : 1;
 }
 
-int test3(int n) {
-  char test[n];
+पूर्णाङ्क test3(पूर्णाङ्क n) {
+  वर्ण test[n];
   smash(test, n);
-  goto label;
+  गच्छ label;
 label:
   smash(test, n);
-  char test2[n];
+  वर्ण test2[n];
   smash(test2, n);
-  return (test-test2 >= n) ? 0 : 1;
+  प्रत्यागम (test-test2 >= n) ? 0 : 1;
 }
 
-#define RUN_TEST(t) \
-  if (!testname || (strcmp(#t, testname) == 0)) { \
+#परिभाषय सततम्_TEST(t) \
+  यदि (!testname || (वाक्यं_तुलय(#t, testname) == 0)) { \
     fputs(#t "... ", stdout); \
     fflush(stdout); \
-    if (t(ARRAY_SIZE) == 0) { \
+    यदि (t(ARRAY_आकार) == 0) { \
       fputs("success\n", stdout); \
-    } else { \
+    } अन्यथा { \
       fputs("failure\n", stdout); \
       retval = EXIT_FAILURE; \
     } \
   }
 
-int main(int argc, char **argv) {
-  const char *testname = NULL;
-  int retval = EXIT_SUCCESS;
-  if (argc > 1)
+पूर्णाङ्क मुख्यम्(पूर्णाङ्क argc, वर्ण **argv) {
+  ध्रुव वर्ण *testname = रिक्त;
+  पूर्णाङ्क retval = EXIT_SUCCESS;
+  यदि (argc > 1)
     testname = argv[1];
-  RUN_TEST(test1)
-  RUN_TEST(test2)
-  RUN_TEST(test3)
-  return retval;
+  सततम्_TEST(test1)
+  सततम्_TEST(test2)
+  सततम्_TEST(test3)
+  प्रत्यागम retval;
 }

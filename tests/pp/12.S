@@ -1,6 +1,6 @@
 #define SRC(y...)                       \
         9999: y;                        \
-        .section __ex_table, "a";       \
+        .खण्डः __ex_table, "a";       \
         .long 9999b, 6001f      ;       \
         // .previous
 

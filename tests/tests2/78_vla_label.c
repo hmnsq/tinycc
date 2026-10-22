@@ -1,25 +1,25 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+शून्य f1(पूर्णाङ्क argc)
 {
-  char test[argc];
-  if(0)
+  वर्ण test[argc];
+  यदि(0)
   label:
-    printf("boom!\n");
-  if(argc-- == 0)
-    return;
-  goto label;
+    प्रारूप_लिख("boom!\n");
+  यदि(argc-- == 0)
+    प्रत्यागम;
+  गच्छ label;
 }
 
 /* This segfaulted on 2015-11-19. */
-void f2(void)
+शून्य f2(शून्य)
 {
-    goto start;
+    गच्छ start;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
+        पूर्णाङ्क a[1 && 1]; /* not a variable-length array */
+        पूर्णाङ्क b[1 || 1]; /* not a variable-length array */
+        पूर्णाङ्क c[1 ? 1 : 1]; /* not a variable-length array */
     start:
         a[0] = 0;
         b[0] = 0;
@@ -27,19 +27,19 @@ void f2(void)
     }
 }
 
-void f3(void)
+शून्य f3(शून्य)
 {
-    printf("%d\n", 0 ? printf("x1\n") : 11);
-    printf("%d\n", 1 ? 12 : printf("x2\n"));
-    printf("%d\n", 0 && printf("x3\n"));
-    printf("%d\n", 1 || printf("x4\n"));
+    प्रारूप_लिख("%d\n", 0 ? प्रारूप_लिख("x1\n") : 11);
+    प्रारूप_लिख("%d\n", 1 ? 12 : प्रारूप_लिख("x2\n"));
+    प्रारूप_लिख("%d\n", 0 && प्रारूप_लिख("x3\n"));
+    प्रारूप_लिख("%d\n", 1 || प्रारूप_लिख("x4\n"));
 }
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  प्रत्यागम 0;
 }

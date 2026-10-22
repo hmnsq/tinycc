@@ -4,15 +4,15 @@
 //
 //+---------------------------------------------------------------------------
 
-#include <windows.h>
+#अन्तर्भाव <windows.h>
 
-#define APPNAME "HELLO_WIN"
+#परिभाषय APPNAME "HELLO_WIN"
 
-char szAppName[] = APPNAME; // The name of this application
-char szTitle[]   = APPNAME; // The title bar text
-const char *pWindowText;
+वर्ण szAppName[] = APPNAME; // The name of this application
+वर्ण szTitle[]   = APPNAME; // The title bar text
+ध्रुव वर्ण *p_गवाक्षः_Text;
 
-void CenterWindow(HWND hWnd);
+शून्य Center_गवाक्षः(HWND hWnd);
 
 //+---------------------------------------------------------------------------
 //
@@ -24,31 +24,31 @@ void CenterWindow(HWND hWnd);
 //  Arguments:  same as always.
 //----------------------------------------------------------------------------
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT सन्देशः_2, WPARAM wParam, LPARAM lParam)
 {
-    switch (message) {
+    विकल्प (सन्देशः_2) {
 
         // ----------------------- first and last
-        case WM_CREATE:
-            CenterWindow(hwnd);
-            break;
+        पक्ष WM_CREATE:
+            Center_गवाक्षः(hwnd);
+            भङ्ग;
 
-        case WM_DESTROY:
-            PostQuitMessage(0);
-            break;
+        पक्ष WM_DESTROY:
+            Post_Quit_सन्देशः(0);
+            भङ्ग;
 
         // ----------------------- get out of it...
-        case WM_RBUTTONUP:
-            DestroyWindow(hwnd);
-            break;
+        पक्ष WM_RBUTTONUP:
+            Destroy_गवाक्षः(hwnd);
+            भङ्ग;
 
-        case WM_KEYDOWN:
-            if (VK_ESCAPE == wParam)
-                DestroyWindow(hwnd);
-            break;
+        पक्ष WM_KEYDOWN:
+            यदि (VK_ESCAPE == wParam)
+                Destroy_गवाक्षः(hwnd);
+            भङ्ग;
 
         // ----------------------- display our minimal info
-        case WM_PAINT:
+        पक्ष WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC         hdc;
@@ -56,19 +56,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
             hdc = BeginPaint(hwnd, &ps);
 
             GetClientRect(hwnd, &rc);
-            SetTextColor(hdc, RGB(240,240,96));
-            SetBkMode(hdc, TRANSPARENT);
-            DrawText(hdc, pWindowText, -1, &rc, DT_CENTER|DT_SINGLELINE|DT_VCENTER);
+            समुच्चयः_Text_Color(hdc, RGB(240,240,96));
+            समुच्चयः_Bk_बहुलकम्(hdc, TRANSPARENT);
+            DrawText(hdc, p_गवाक्षः_Text, -1, &rc, DT_CENTER|DT_SINGLELINE|DT_VCENTER);
 
-            EndPaint(hwnd, &ps);
-            break;
+            अन्तः_Paint(hwnd, &ps);
+            भङ्ग;
         }
 
         // ----------------------- let windows do all other stuff
-        default:
-            return DefWindowProc(hwnd, message, wParam, lParam);
+        स्वभाव:
+            प्रत्यागम Def_गवाक्षः_Proc(hwnd, सन्देशः_2, wParam, lParam);
     }
-    return 0;
+    प्रत्यागम 0;
 }
 
 //+---------------------------------------------------------------------------
@@ -78,36 +78,36 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 //  Synopsis:   standard entrypoint for GUI Win32 apps
 //
 //----------------------------------------------------------------------------
-int APIENTRY WinMain(
+पूर्णाङ्क APIENTRY WinMain(
         HINSTANCE hInstance,
-        HINSTANCE hPrevInstance,
-        LPSTR lpCmdLine,
-        int nCmdShow
+        HINSTANCE h_पूर्व_Instance,
+        LPSTR lp_Cmd_पङ्क्तिः,
+        पूर्णाङ्क nCmdShow
         )
 {
-    MSG msg;
+    सन्देशः_3 सन्देशः;
     WNDCLASS wc;
     HWND hwnd;
 
-    pWindowText = lpCmdLine[0] ? lpCmdLine : "Hello Windows!";
+    p_गवाक्षः_Text = lp_Cmd_पङ्क्तिः[0] ? lp_Cmd_पङ्क्तिः : "Hello Windows!";
 
     // Fill in window class structure with parameters that describe
     // the main window.
 
-    ZeroMemory(&wc, sizeof wc);
+    Zero_स्मृतिः(&wc, परिमाण wc);
     wc.hInstance     = hInstance;
     wc.lpszClassName = szAppName;
     wc.lpfnWndProc   = (WNDPROC)WndProc;
     wc.style         = CS_DBLCLKS|CS_VREDRAW|CS_HREDRAW;
     wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-    wc.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
-    wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
+    wc.hIcon         = आरोपय_Icon(रिक्त, IDI_APPLICATION);
+    wc.hCursor       = आरोपय_Cursor(रिक्त, IDC_ARROW);
 
-    if (FALSE == RegisterClass(&wc))
-        return 0;
+    यदि (FALSE == पञ्जिकाकोशः_Class(&wc))
+        प्रत्यागम 0;
 
     // create the browser
-    hwnd = CreateWindow(
+    hwnd = Create_गवाक्षः(
         szAppName,
         szTitle,
         WS_OVERLAPPEDWINDOW|WS_VISIBLE,
@@ -120,41 +120,41 @@ int APIENTRY WinMain(
         hInstance,
         0);
 
-    if (NULL == hwnd)
-        return 0;
+    यदि (रिक्त == hwnd)
+        प्रत्यागम 0;
 
     // Main message loop:
-    while (GetMessage(&msg, NULL, 0, 0) > 0) {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+    यावत् (Get_सन्देशः(&सन्देशः, रिक्त, 0, 0) > 0) {
+        Translate_सन्देशः(&सन्देशः);
+        Dispatch_सन्देशः(&सन्देशः);
     }
 
-    return msg.wParam;
+    प्रत्यागम सन्देशः.wParam;
 }
 
 //+---------------------------------------------------------------------------
 
 //+---------------------------------------------------------------------------
 
-void CenterWindow(HWND hwnd_self)
+शून्य Center_गवाक्षः(HWND hwnd_self)
 {
     HWND hwnd_parent;
     RECT rw_self, rc_parent, rw_parent;
-    int xpos, ypos;
+    पूर्णाङ्क xpos, ypos;
 
     hwnd_parent = GetParent(hwnd_self);
-    if (NULL == hwnd_parent)
-        hwnd_parent = GetDesktopWindow();
+    यदि (रिक्त == hwnd_parent)
+        hwnd_parent = Get_Desktop_गवाक्षः();
 
-    GetWindowRect(hwnd_parent, &rw_parent);
+    Get_गवाक्षः_Rect(hwnd_parent, &rw_parent);
     GetClientRect(hwnd_parent, &rc_parent);
-    GetWindowRect(hwnd_self, &rw_self);
+    Get_गवाक्षः_Rect(hwnd_self, &rw_self);
 
-    xpos = rw_parent.left + (rc_parent.right + rw_self.left - rw_self.right) / 2;
-    ypos = rw_parent.top + (rc_parent.bottom + rw_self.top - rw_self.bottom) / 2;
+    xpos = rw_parent.वामः + (rc_parent.दक्षिणः + rw_self.वामः - rw_self.दक्षिणः) / 2;
+    ypos = rw_parent.शिखरम् + (rc_parent.bottom + rw_self.शिखरम् - rw_self.bottom) / 2;
 
-    SetWindowPos(
-        hwnd_self, NULL,
+    समुच्चयः_गवाक्षः_Pos(
+        hwnd_self, रिक्त,
         xpos, ypos, 0, 0,
         SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE
         );

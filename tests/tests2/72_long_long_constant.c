@@ -1,19 +1,19 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-    long long int res = 0;
+    दीर्घ दीर्घ पूर्णाङ्क res = 0;
 
-    if (res < -2147483648LL) {
-        printf("Error: 0 < -2147483648\n");
-        return 1;
+    यदि (res < -2147483648LL) {
+        प्रारूप_लिख("Error: 0 < -2147483648\n");
+        प्रत्यागम 1;
     }
-    else
-    if (2147483647LL < res) {
-        printf("Error: 2147483647 < 0\n");
-        return 2;
+    अन्यथा
+    यदि (2147483647LL < res) {
+        प्रारूप_लिख("Error: 2147483647 < 0\n");
+        प्रत्यागम 2;
     }
-    else
-        printf("long long constant test ok.\n");
-    return 0;
+    अन्यथा
+        प्रारूप_लिख("long long constant test ok.\n");
+    प्रत्यागम 0;
 }

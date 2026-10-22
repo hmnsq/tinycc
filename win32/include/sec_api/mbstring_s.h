@@ -3,50 +3,50 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_MBSTRING_S
-#define _INC_MBSTRING_S
+#यदि_अपरिभाषितम् _INC_MBSTRING_S
+#परिभाषय _INC_MBSTRING_S
 
-#include <mbstring.h>
+#अन्तर्भाव <mbstring.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#यदि defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#ifndef _MBSTRING_S_DEFINED
-#define _MBSTRING_S_DEFINED
-  _CRTIMP errno_t __cdecl _mbscat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbscat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbscpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbscpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbslwr_s(unsigned char *_Str,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _mbslwr_s_l(unsigned char *_Str,size_t _SizeInBytes,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbcat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbcat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbcpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbcpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Ch,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Ch,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsncat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsncat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsncpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsncpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val);
-  _CRTIMP errno_t __cdecl _mbsset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP unsigned char *__cdecl _mbstok_s(unsigned char *_Str,const unsigned char *_Delim,unsigned char **_Context);
-  _CRTIMP unsigned char *__cdecl _mbstok_s_l(unsigned char *_Str,const unsigned char *_Delim,unsigned char **_Context,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsupr_s(unsigned char *_Str,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _mbsupr_s_l(unsigned char *_Str,size_t _SizeInBytes,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbccpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,int *_PCopied,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbccpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,int *_PCopied,const unsigned char *_Src,_locale_t _Locale);
-#endif
+#यदि_अपरिभाषितम् _MBSTRING_S_DEFINED
+#परिभाषय _MBSTRING_S_DEFINED
+  _CRTIMP errno_t __cdecl _mbscat_s(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src);
+  _CRTIMP errno_t __cdecl _mbscat_s_l(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbscpy_s(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src);
+  _CRTIMP errno_t __cdecl _mbscpy_s_l(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbslwr_s(अचिह्नित वर्ण *_Str,आकार_t आकार_अन्तर्_अष्टकानि);
+  _CRTIMP errno_t __cdecl _mbslwr_s_l(अचिह्नित वर्ण *_Str,आकार_t आकार_अन्तर्_अष्टकानि,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbcat_s(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src,आकार_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsnbcat_s_l(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbcpy_s(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src,आकार_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsnbcpy_s_l(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbset_s(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,अचिह्नित पूर्णाङ्क _Ch,आकार_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsnbset_s_l(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,अचिह्नित पूर्णाङ्क _Ch,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsncat_s(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src,आकार_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsncat_s_l(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsncpy_s(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src,आकार_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsncpy_s_l(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,ध्रुव अचिह्नित वर्ण *_Src,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnset_s(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,अचिह्नित पूर्णाङ्क _Val,आकार_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsnset_s_l(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,अचिह्नित पूर्णाङ्क _Val,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsset_s(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,अचिह्नित पूर्णाङ्क _Val);
+  _CRTIMP errno_t __cdecl _mbsset_s_l(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,अचिह्नित पूर्णाङ्क _Val,_locale_t _Locale);
+  _CRTIMP अचिह्नित वर्ण *__cdecl _mbstok_s(अचिह्नित वर्ण *_Str,ध्रुव अचिह्नित वर्ण *_Delim,अचिह्नित वर्ण **_Context);
+  _CRTIMP अचिह्नित वर्ण *__cdecl _mbstok_s_l(अचिह्नित वर्ण *_Str,ध्रुव अचिह्नित वर्ण *_Delim,अचिह्नित वर्ण **_Context,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsupr_s(अचिह्नित वर्ण *_Str,आकार_t आकार_अन्तर्_अष्टकानि);
+  _CRTIMP errno_t __cdecl _mbsupr_s_l(अचिह्नित वर्ण *_Str,आकार_t आकार_अन्तर्_अष्टकानि,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbccpy_s(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,पूर्णाङ्क *_PCopied,ध्रुव अचिह्नित वर्ण *_Src);
+  _CRTIMP errno_t __cdecl _mbccpy_s_l(अचिह्नित वर्ण *_Dst,आकार_t Dst_आकार_अन्तर्_अष्टकानि,पूर्णाङ्क *_PCopied,ध्रुव अचिह्नित वर्ण *_Src,_locale_t _Locale);
+#यदि_अन्तः
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
+#यदि_अन्तः
 
-#endif
-#endif
+#यदि_अन्तः
+#यदि_अन्तः

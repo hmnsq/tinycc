@@ -1,27 +1,27 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-typedef struct
+प्रकारनिर्देश संरचना
 {
-    double average;
-    int count;
+    द्विगुण मध्यमानम्;
+    पूर्णाङ्क गणनम्_2;
 }
 stats_type;
 
-static void
-testc (stats_type *s, long long data)
+स्थिर शून्य
+testc (stats_type *s, दीर्घ दीर्घ दत्त)
 {
-    s->average = (s->average * s->count + data) / (s->count + 1);
-    s->count++;
+    s->मध्यमानम् = (s->मध्यमानम् * s->गणनम्_2 + दत्त) / (s->गणनम्_2 + 1);
+    s->गणनम्_2++;
 }
 
-int main (void)
+पूर्णाङ्क मुख्यम् (शून्य)
 {
     stats_type s;
 
-    s.average = 0;
-    s.count = 0;
+    s.मध्यमानम् = 0;
+    s.गणनम्_2 = 0;
     testc (&s, 10);
     testc (&s, 20);
-    printf ("%g %d\n", s.average, s.count);
-    return 0;
+    प्रारूप_लिख ("%g %d\n", s.मध्यमानम्, s.गणनम्_2);
+    प्रत्यागम 0;
 }

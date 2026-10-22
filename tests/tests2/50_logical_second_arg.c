@@ -1,29 +1,29 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int fred()
+पूर्णाङ्क fred()
 {
-   printf("fred\n");
-   return 0;
+   प्रारूप_लिख("fred\n");
+   प्रत्यागम 0;
 }
 
-int joe()
+पूर्णाङ्क joe()
 {
-   printf("joe\n");
-   return 1;
+   प्रारूप_लिख("joe\n");
+   प्रत्यागम 1;
 }
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-   printf("%d\n", fred() && joe());
-   printf("%d\n", fred() || joe());
-   printf("%d\n", joe() && fred());
-   printf("%d\n", joe() || fred());
-   printf("%d\n", fred() && (1 + joe()));
-   printf("%d\n", fred() || (0 + joe()));
-   printf("%d\n", joe() && (0 + fred()));
-   printf("%d\n", joe() || (1 + fred()));
+   प्रारूप_लिख("%d\n", fred() && joe());
+   प्रारूप_लिख("%d\n", fred() || joe());
+   प्रारूप_लिख("%d\n", joe() && fred());
+   प्रारूप_लिख("%d\n", joe() || fred());
+   प्रारूप_लिख("%d\n", fred() && (1 + joe()));
+   प्रारूप_लिख("%d\n", fred() || (0 + joe()));
+   प्रारूप_लिख("%d\n", joe() && (0 + fred()));
+   प्रारूप_लिख("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

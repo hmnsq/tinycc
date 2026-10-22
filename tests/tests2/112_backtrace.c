@@ -1,175 +1,175 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
 /* ------------------------------------------------------- */
-#if defined test_backtrace_1
+#यदि defined test_backtrace_1
 
-void f3()
+शून्य f3()
 {
-    printf("* f3()\n"), fflush(stdout);
-    *(void**)0 = 0;
+    प्रारूप_लिख("* f3()\n"), fflush(stdout);
+    *(शून्य**)0 = 0;
 }
-void f2()
+शून्य f2()
 {
-    printf("* f2()\n"), fflush(stdout);
+    प्रारूप_लिख("* f2()\n"), fflush(stdout);
     f3();
 }
-void f1()
+शून्य f1()
 {
-    printf("* f1()\n"), fflush(stdout);
+    प्रारूप_लिख("* f1()\n"), fflush(stdout);
     f2();
 }
-int main(int argc, char **argv)
+पूर्णाङ्क मुख्यम्(पूर्णाङ्क argc, वर्ण **argv)
 {
-    printf("* main\n"), fflush(stdout);
+    प्रारूप_लिख("* main\n"), fflush(stdout);
     f1();
-    printf("* exit main\n"), fflush(stdout);
-    return 0;
+    प्रारूप_लिख("* exit main\n"), fflush(stdout);
+    प्रत्यागम 0;
 }
 
 /* ------------------------------------------------------- */
-#elif defined test_bcheck_1
+#नोचेद्यदि defined test_bcheck_1
 
-struct s { int a,b,c,d,e; };
-struct s s[3];
-struct s *ps = s;
-void f1()
+संरचना s { पूर्णाङ्क a,b,c,d,e; };
+संरचना s s[3];
+संरचना s *ps = s;
+शून्य f1()
 {
-    printf("* f1()\n"), fflush(stdout);
+    प्रारूप_लिख("* f1()\n"), fflush(stdout);
     ps[3] = ps[2];
 }
-int main(int argc, char **argv)
+पूर्णाङ्क मुख्यम्(पूर्णाङ्क argc, वर्ण **argv)
 {
-    printf("* main\n"), fflush(stdout);
+    प्रारूप_लिख("* main\n"), fflush(stdout);
     f1();
-    printf("* exit main\n"), fflush(stdout);
-    return 0;
+    प्रारूप_लिख("* exit main\n"), fflush(stdout);
+    प्रत्यागम 0;
 }
 
 /* ------------------------------------------------------- */
-#elif defined test_tcc_backtrace_2
+#नोचेद्यदि defined test_tcc_backtrace_2
 
 /* test custom backtrace and 'exit()' redirection */
-int tcc_backtrace(const char *fmt, ...);
-void exit(int);
+पूर्णाङ्क tcc_backtrace(ध्रुव वर्ण *fmt, ...);
+शून्य निर्गच्छ(पूर्णाङ्क);
 
-void f2()
+शून्य f2()
 {
-    printf("* f2()\n");
-    printf("* exit f2\n"), fflush(stdout);
-    exit(34);
+    प्रारूप_लिख("* f2()\n");
+    प्रारूप_लिख("* exit f2\n"), fflush(stdout);
+    निर्गच्छ(34);
 }
-void f1()
+शून्य f1()
 {
-    printf("* f1()\n"), fflush(stdout);
+    प्रारूप_लिख("* f1()\n"), fflush(stdout);
     tcc_backtrace("Hello from %s!", "f1");
     f2();
 }
-int main(int argc, char **argv)
+पूर्णाङ्क मुख्यम्(पूर्णाङ्क argc, वर्ण **argv)
 {
-    printf("* main\n"), fflush(stdout);
+    प्रारूप_लिख("* main\n"), fflush(stdout);
     f1();
-    printf("* exit main\n"), fflush(stdout);
-    return 0;
+    प्रारूप_लिख("* exit main\n"), fflush(stdout);
+    प्रत्यागम 0;
 }
 
 /* ------------------------------------------------------- */
-#elif defined test_tcc_backtrace_3
+#नोचेद्यदि defined test_tcc_backtrace_3
 
 /* this test should be run despite of the exit(34) above */
-int main(int argc, char **argv)
+पूर्णाङ्क मुख्यम्(पूर्णाङ्क argc, वर्ण **argv)
 {
-    printf("* main\n"), fflush(stdout);
-    return 1;
+    प्रारूप_लिख("* main\n"), fflush(stdout);
+    प्रत्यागम 1;
 }
 
 /* ------------------------------------------------------- */
-#else
-#include <stdlib.h>
-#include <string.h>
-char *strdup();
-int main()
+#अन्यथा
+#अन्तर्भाव <stdlib.h>
+#अन्तर्भाव <string.h>
+वर्ण *strdup();
+पूर्णाङ्क मुख्यम्()
 {
-    char pad1[10];
-    char a[10];
-    char pad2[10];
-    char b[10];
-    char pad3[10];
-    memset (pad1, 0, sizeof(pad1));
-    memset (pad2, 0, sizeof(pad2));
-    memset (pad3, 0, sizeof(pad3));
+    वर्ण pad1[10];
+    वर्ण a[10];
+    वर्ण pad2[10];
+    वर्ण b[10];
+    वर्ण pad3[10];
+    स्मृतिं_पूरय (pad1, 0, परिमाण(pad1));
+    स्मृतिं_पूरय (pad2, 0, परिमाण(pad2));
+    स्मृतिं_पूरय (pad3, 0, परिमाण(pad3));
 
-    memset (a, 'a', 10);
+    स्मृतिं_पूरय (a, 'a', 10);
     a[3] = 0;
     a[9] = 0;
-    memset (b, 'b', 10);
+    स्मृतिं_पूरय (b, 'b', 10);
 
-#if defined test_bcheck_100
-    memcpy(&a[1],&b[0],10);
-#elif defined test_bcheck_101
-    memcpy(&a[0],&b[1],10);
-#elif defined test_bcheck_102
-    memcpy(&a[0],&a[3],4);
-#elif defined test_bcheck_103
-    memcpy(&a[3],&a[0],4);
-#elif defined test_bcheck_104
+#यदि defined test_bcheck_100
+    स्मृतिं_प्रतिलिख(&a[1],&b[0],10);
+#नोचेद्यदि defined test_bcheck_101
+    स्मृतिं_प्रतिलिख(&a[0],&b[1],10);
+#नोचेद्यदि defined test_bcheck_102
+    स्मृतिं_प्रतिलिख(&a[0],&a[3],4);
+#नोचेद्यदि defined test_bcheck_103
+    स्मृतिं_प्रतिलिख(&a[3],&a[0],4);
+#नोचेद्यदि defined test_bcheck_104
     memcmp(&b[1],&b[0],10);
-#elif defined test_bcheck_105
+#नोचेद्यदि defined test_bcheck_105
     memcmp(&b[0],&b[1],10);
-#elif defined test_bcheck_106
+#नोचेद्यदि defined test_bcheck_106
     memmove(&b[1],&b[0],10);
-#elif defined test_bcheck_107
+#नोचेद्यदि defined test_bcheck_107
     memmove(&b[0],&b[1],10);
-#elif defined test_bcheck_108
-    memset(&b[1],'b',10);
-#elif defined test_bcheck_109
-    strlen(&b[0]);
-#elif defined test_bcheck_110
-    strcpy(&a[7], &a[0]);
-#elif defined test_bcheck_111
-    strcpy(&a[0], &b[7]);
-#elif defined test_bcheck_112
-    strcpy(&a[0], &a[1]);
-#elif defined test_bcheck_113
-    strcpy(&a[2], &a[0]);
-#elif defined test_bcheck_114
+#नोचेद्यदि defined test_bcheck_108
+    स्मृतिं_पूरय(&b[1],'b',10);
+#नोचेद्यदि defined test_bcheck_109
+    वाक्यदैर्घ्यम्(&b[0]);
+#नोचेद्यदि defined test_bcheck_110
+    वाक्यं_प्रतिलिख(&a[7], &a[0]);
+#नोचेद्यदि defined test_bcheck_111
+    वाक्यं_प्रतिलिख(&a[0], &b[7]);
+#नोचेद्यदि defined test_bcheck_112
+    वाक्यं_प्रतिलिख(&a[0], &a[1]);
+#नोचेद्यदि defined test_bcheck_113
+    वाक्यं_प्रतिलिख(&a[2], &a[0]);
+#नोचेद्यदि defined test_bcheck_114
     strncpy(&a[7], &a[0], 10);
-#elif defined test_bcheck_115
+#नोचेद्यदि defined test_bcheck_115
     strncpy(&a[0], &b[7], 10);
-#elif defined test_bcheck_116
+#नोचेद्यदि defined test_bcheck_116
     strncpy(&a[0], &a[1], 10);
-#elif defined test_bcheck_117
+#नोचेद्यदि defined test_bcheck_117
     strncpy(&a[2], &a[0], 10);
-#elif defined test_bcheck_118
-    strcmp(&b[2], &b[0]);
-#elif defined test_bcheck_119
-    strcmp(&b[0], &b[2]);
-#elif defined test_bcheck_120
-    strncmp(&b[5], &b[0], 10);
-#elif defined test_bcheck_121
-    strncmp(&b[0], &b[5], 10);
-#elif defined test_bcheck_122
-    strcat(&a[7], &a[0]);
-#elif defined test_bcheck_123
-    strcat(&a[0], &b[3]);
-#elif defined test_bcheck_124
-    strcat(&a[0], &a[4]);
-#elif defined test_bcheck_125
-    strcat(&a[3], &a[0]);
-#elif defined test_bcheck_126
+#नोचेद्यदि defined test_bcheck_118
+    वाक्यं_तुलय(&b[2], &b[0]);
+#नोचेद्यदि defined test_bcheck_119
+    वाक्यं_तुलय(&b[0], &b[2]);
+#नोचेद्यदि defined test_bcheck_120
+    वाक्ये_तुलय(&b[5], &b[0], 10);
+#नोचेद्यदि defined test_bcheck_121
+    वाक्ये_तुलय(&b[0], &b[5], 10);
+#नोचेद्यदि defined test_bcheck_122
+    वाक्यं_योजय(&a[7], &a[0]);
+#नोचेद्यदि defined test_bcheck_123
+    वाक्यं_योजय(&a[0], &b[3]);
+#नोचेद्यदि defined test_bcheck_124
+    वाक्यं_योजय(&a[0], &a[4]);
+#नोचेद्यदि defined test_bcheck_125
+    वाक्यं_योजय(&a[3], &a[0]);
+#नोचेद्यदि defined test_bcheck_126
     strncat(&a[7], &a[0], 3);
-#elif defined test_bcheck_127
+#नोचेद्यदि defined test_bcheck_127
     strncat(&a[0], &b[3], 8);
-#elif defined test_bcheck_128
+#नोचेद्यदि defined test_bcheck_128
     strncat(&a[0], &a[4], 3);
-#elif defined test_bcheck_129
+#नोचेद्यदि defined test_bcheck_129
     strncat(&a[3], &a[0], 10);
-#elif defined test_bcheck_130
+#नोचेद्यदि defined test_bcheck_130
     strchr(&b[0], 'a');
-#elif defined test_bcheck_131
+#नोचेद्यदि defined test_bcheck_131
     strrchr(&b[0], 'a');
-#elif defined test_bcheck_132
-    free(strdup(&b[0]));
-#endif
+#नोचेद्यदि defined test_bcheck_132
+    मुक्त(strdup(&b[0]));
+#यदि_अन्तः
 }
 /* ------------------------------------------------------- */
-#endif
+#यदि_अन्तः

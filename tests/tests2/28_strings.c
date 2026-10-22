@@ -1,45 +1,45 @@
-#include <stdio.h>
-#include <string.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <string.h>
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-   char a[10];
+   वर्ण a[10];
 
-   strcpy(a, "hello");
-   printf("%s\n", a);
+   वाक्यं_प्रतिलिख(a, "hello");
+   प्रारूप_लिख("%s\n", a);
 
    strncpy(a, "gosh", 2);
-   printf("%s\n", a);
+   प्रारूप_लिख("%s\n", a);
 
-   printf("%d\n", strcmp(a, "apple") > 0);
-   printf("%d\n", strcmp(a, "goere") > 0);
-   printf("%d\n", strcmp(a, "zebra") < 0);
+   प्रारूप_लिख("%d\n", वाक्यं_तुलय(a, "apple") > 0);
+   प्रारूप_लिख("%d\n", वाक्यं_तुलय(a, "goere") > 0);
+   प्रारूप_लिख("%d\n", वाक्यं_तुलय(a, "zebra") < 0);
 
-   printf("%d\n", strlen(a));
+   प्रारूप_लिख("%d\n", वाक्यदैर्घ्यम्(a));
 
-   strcat(a, "!");
-   printf("%s\n", a);
+   वाक्यं_योजय(a, "!");
+   प्रारूप_लिख("%s\n", a);
 
-   printf("%d\n", strncmp(a, "apple", 2) > 0);
-   printf("%d\n", strncmp(a, "goere", 2) == 0);
-   printf("%d\n", strncmp(a, "goerg", 2) == 0);
-   printf("%d\n", strncmp(a, "zebra", 2) < 0);
+   प्रारूप_लिख("%d\n", वाक्ये_तुलय(a, "apple", 2) > 0);
+   प्रारूप_लिख("%d\n", वाक्ये_तुलय(a, "goere", 2) == 0);
+   प्रारूप_लिख("%d\n", वाक्ये_तुलय(a, "goerg", 2) == 0);
+   प्रारूप_लिख("%d\n", वाक्ये_तुलय(a, "zebra", 2) < 0);
 
-   printf("%s\n", strchr(a, 'o'));
-   printf("%s\n", strrchr(a, 'l'));
-   printf("%d\n", strrchr(a, 'x') == NULL);
+   प्रारूप_लिख("%s\n", strchr(a, 'o'));
+   प्रारूप_लिख("%s\n", strrchr(a, 'l'));
+   प्रारूप_लिख("%d\n", strrchr(a, 'x') == रिक्त);
 
-   memset(&a[1], 'r', 4);
-   printf("%s\n", a);
+   स्मृतिं_पूरय(&a[1], 'r', 4);
+   प्रारूप_लिख("%s\n", a);
 
-   memcpy(&a[2], a, 2);
-   printf("%s\n", a);
+   स्मृतिं_प्रतिलिख(&a[2], a, 2);
+   प्रारूप_लिख("%s\n", a);
 
-   printf("%d\n", memcmp(a, "apple", 4) > 0);
-   printf("%d\n", memcmp(a, "grgr", 4) == 0);
-   printf("%d\n", memcmp(a, "zebra", 4) < 0);
+   प्रारूप_लिख("%d\n", memcmp(a, "apple", 4) > 0);
+   प्रारूप_लिख("%d\n", memcmp(a, "grgr", 4) == 0);
+   प्रारूप_लिख("%d\n", memcmp(a, "zebra", 4) < 0);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,52 +1,52 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int array[16];
+पूर्णाङ्क array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+शून्य swap(पूर्णाङ्क a, पूर्णाङ्क b)
 {
-   int tmp  = array[a];
+   पूर्णाङ्क tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+पूर्णाङ्क partition(पूर्णाङ्क वामः, पूर्णाङ्क दक्षिणः)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   पूर्णाङ्क pivot_सूचकांक = वामः;
+   पूर्णाङ्क pivot_मानम् = array[pivot_सूचकांक];
+   पूर्णाङ्क सूचकांक = वामः;
+   पूर्णाङ्क i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   swap(pivot_सूचकांक, दक्षिणः);
+   प्रति(i = वामः; i < दक्षिणः; i++)
    {
-      if(array[i] < pivotValue)
+      यदि(array[i] < pivot_मानम्)
       {
-         swap(i, index);
-         index += 1;
+         swap(i, सूचकांक);
+         सूचकांक += 1;
       }
    }
-   swap(right, index);
+   swap(दक्षिणः, सूचकांक);
 
-   return index;
+   प्रत्यागम सूचकांक;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+शून्य quicksort(पूर्णाङ्क वामः, पूर्णाङ्क दक्षिणः)
 {
-   if(left >= right)
-      return;
+   यदि(वामः >= दक्षिणः)
+      प्रत्यागम;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   पूर्णाङ्क सूचकांक = partition(वामः, दक्षिणः);
+   quicksort(वामः, सूचकांक - 1);
+   quicksort(सूचकांक + 1, दक्षिणः);
 }
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-   int i;
+   पूर्णाङ्क i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   प्रति (i = 0; i < 16; i++)
+      प्रारूप_लिख("%d ", array[i]);
 
-   printf("\n");
+   प्रारूप_लिख("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   प्रति (i = 0; i < 16; i++)
+      प्रारूप_लिख("%d ", array[i]);
 
-   printf("\n");
+   प्रारूप_लिख("\n");
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

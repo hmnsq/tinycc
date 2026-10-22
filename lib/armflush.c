@@ -5,12 +5,12 @@
    itself needs this function */
 
 /* ------------------------------------------------------------- */
-#if defined __arm__
+#यदि defined __arm__
 
-#ifdef __TINYC__
+#यदि_परिभाषितम् __TINYC__
 
 /* syscall wrapper */
-unsigned _tccsyscall(unsigned syscall_nr, ...);
+अचिह्नित _tccsyscall(अचिह्नित syscall_nr, ...);
 
 /* arm-tcc supports only fake asm currently */
 __asm__(
@@ -26,45 +26,45 @@ __asm__(
     );
 
 /* from unistd.h: */
-#if defined(__thumb__) || defined(__ARM_EABI__)
+#यदि defined(__thumb__) || defined(__ARM_EABI__)
 # define __NR_SYSCALL_BASE      0x0
-#else
+#अन्यथा
 # define __NR_SYSCALL_BASE      0x900000
-#endif
-#define __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
-#define __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
+#यदि_अन्तः
+#परिभाषय __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
+#परिभाषय __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
 
-#define syscall _tccsyscall
+#परिभाषय syscall _tccsyscall
 
-#else
+#अन्यथा
 
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <stdio.h>
+#परिभाषय _GNU_SOURCE
+#अन्तर्भाव <unistd.h>
+#अन्तर्भाव <sys/syscall.h>
+#अन्तर्भाव <stdio.h>
 
-#endif
+#यदि_अन्तः
 
 /* Flushing for tccrun */
-void __clear_cache(void *beginning, void *end)
+शून्य __clear_cache(शून्य *beginning, शून्य *अन्तः)
 {
 /* __ARM_NR_cacheflush is kernel private and should not be used in user space.
  * However, there is no ARM asm parser in tcc so we use it for now */
-    syscall(__ARM_NR_cacheflush, beginning, end, 0);
+    syscall(__ARM_NR_cacheflush, beginning, अन्तः, 0);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __aarch64__
-void __clear_cache(void *beg, void *end)
+#नोचेद्यदि defined __aarch64__
+शून्य __clear_cache(शून्य *beg, शून्य *अन्तः)
 {
-    __arm64_clear_cache(beg, end);
+    __arm64_clear_cache(beg, अन्तः);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __riscv
-void __clear_cache(void *beg, void *end)
+#नोचेद्यदि defined __riscv
+शून्य __clear_cache(शून्य *beg, शून्य *अन्तः)
 {
-    __riscv64_clear_cache(beg, end);
+    __riscv64_clear_cache(beg, अन्तः);
 }
 
-#endif
+#यदि_अन्तः

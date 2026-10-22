@@ -1,13 +1,13 @@
-#define W Z
-#define Z(X) W(X,2)
-#define Y(X) Z(X)
-#define X Y
-return X(X(1));
+#परिभाषय W Z
+#परिभाषय Z(X) W(X,2)
+#परिभाषय Y(X) Z(X)
+#परिभाषय X Y
+प्रत्यागम X(X(1));
 
-#define P Q
-#define Q(n) P(n,2)
-return P(1);
+#परिभाषय P Q
+#परिभाषय Q(n) P(n,2)
+प्रत्यागम P(1);
 
-#define A (B * B)
-#define B (A + A)
-return A + B;
+#परिभाषय A (B * B)
+#परिभाषय B (A + A)
+प्रत्यागम A + B;

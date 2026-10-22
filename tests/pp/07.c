@@ -1,4 +1,4 @@
-#define a() YES
-#define b() a
+#परिभाषय a() YES
+#परिभाषय b() a
 b()
 b()()

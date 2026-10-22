@@ -1,53 +1,53 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
-} Node;
+प्रकारनिर्देश संरचना {
+    पूर्णाङ्क दत्त[4];
+    द्विगुण d1;
+    द्विगुण d2;
+} ग्रन्थिः_2;
 
-typedef struct {
-    int a, b, c;
+प्रकारनिर्देश संरचना {
+    पूर्णाङ्क a, b, c;
 } A;
 
-Node init(Node self) {
-    self.data[0] = 0;
-    self.data[1] = 1;
-    self.data[2] = 2;
-    self.data[3] = 3;
+ग्रन्थिः_2 init(ग्रन्थिः_2 self) {
+    self.दत्त[0] = 0;
+    self.दत्त[1] = 1;
+    self.दत्त[2] = 2;
+    self.दत्त[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    प्रत्यागम self;
 }
 
-void dummy(Node self) {
+शून्य dummy(ग्रन्थिः_2 self) {
 }
 
-void print_data(Node data) {
-    printf ("%d %d %d %d %g %g\n",
-            data.data[0], data.data[1], data.data[2], data.data[3],
-            data.d1, data.d2);
+शून्य print_दत्त(ग्रन्थिः_2 दत्त) {
+    प्रारूप_लिख ("%d %d %d %d %g %g\n",
+            दत्त.दत्त[0], दत्त.दत्त[1], दत्त.दत्त[2], दत्त.दत्त[3],
+            दत्त.d1, दत्त.d2);
 }
 
-A test(void)
+A test(शून्य)
 {
-    int i;
+    पूर्णाङ्क i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    प्रति (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    प्रत्यागम arr[29];
 }
 
-int main(void) {
+पूर्णाङ्क मुख्यम्(शून्य) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    ग्रन्थिः_2 दत्त;
     A a;
-    dummy (data);
-    char val;
-    data = init (data);
-    print_data(data);
+    dummy (दत्त);
+    वर्ण val;
+    दत्त = init (दत्त);
+    print_दत्त(दत्त);
     a = test();
-    printf("%d\n", a.b);
-    return 0;
+    प्रारूप_लिख("%d\n", a.b);
+    प्रत्यागम 0;
 }

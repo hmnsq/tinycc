@@ -1,17 +1,17 @@
-#include <stdio.h>
-int main() {
-  printf("%d\n", (int)-1.0);
-  double d = -1.0;
-  printf("%d\n", (int)d);
+#अन्तर्भाव <stdio.h>
+पूर्णाङ्क मुख्यम्() {
+  प्रारूप_लिख("%d\n", (पूर्णाङ्क)-1.0);
+  द्विगुण d = -1.0;
+  प्रारूप_लिख("%d\n", (पूर्णाङ्क)d);
 
-  printf("%d\n", (int)-2147483648.0);
+  प्रारूप_लिख("%d\n", (पूर्णाङ्क)-2147483648.0);
   d = -2147483648.0;
-  printf("%d\n", (int)d);
+  प्रारूप_लिख("%d\n", (पूर्णाङ्क)d);
 
-#ifndef _WIN32
-  printf("%llu\n", (unsigned long long)1e19);
-#else
+#यदि_अपरिभाषितम् _WIN32
+  प्रारूप_लिख("%llu\n", (अचिह्नित दीर्घ दीर्घ)1e19);
+#अन्यथा
   /* some msvc compiler won't compile tcc correctly in this ragard */
-  printf("10000000000000000000\n");
-#endif
+  प्रारूप_लिख("10000000000000000000\n");
+#यदि_अन्तः
 }

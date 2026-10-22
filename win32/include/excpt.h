@@ -3,121 +3,121 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_EXCPT
-#define _INC_EXCPT
+#यदि_अपरिभाषितम् _INC_EXCPT
+#परिभाषय _INC_EXCPT
 
-#include <_mingw.h>
+#अन्तर्भाव <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#निर्देशः pack(प्रक्षिप,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-  struct _EXCEPTION_POINTERS;
+  संरचना EXCEPTION_सूचकाः_2;
 
-#ifndef EXCEPTION_DISPOSITION
-#define EXCEPTION_DISPOSITION   int
-#endif
-#define ExceptionContinueExecution 0
-#define ExceptionContinueSearch 1
-#define ExceptionNestedException 2
-#define ExceptionCollidedUnwind 3
+#यदि_अपरिभाषितम् EXCEPTION_DISPOSITION
+#परिभाषय EXCEPTION_DISPOSITION   पूर्णाङ्क
+#यदि_अन्तः
+#परिभाषय ExceptionContinueExecution 0
+#परिभाषय Exception_Continue_अन्वेषणम् 1
+#परिभाषय ExceptionNestedException 2
+#परिभाषय ExceptionCollidedUnwind 3
 
-#if (defined(_X86_) && !defined(__x86_64))
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
+#यदि (defined(_X86_) && !defined(__x86_64))
+  संरचना EXCEPTION_लेखः;
+  संरचना _CONTEXT;
 
-  EXCEPTION_DISPOSITION __cdecl _except_handler(struct _EXCEPTION_RECORD *_ExceptionRecord,void *_EstablisherFrame,struct _CONTEXT *_ContextRecord,void *_DispatcherContext);
-#elif defined(__ia64__)
+  EXCEPTION_DISPOSITION __cdecl _except_handler(संरचना EXCEPTION_लेखः *Exception_लेखः_2,शून्य *_EstablisherFrame,संरचना _CONTEXT *Context_लेखः_2,शून्य *_DispatcherContext);
+#नोचेद्यदि defined(__ia64__)
 
-  typedef struct _EXCEPTION_POINTERS *Exception_info_ptr;
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
-  struct _DISPATCHER_CONTEXT;
+  प्रकारनिर्देश संरचना EXCEPTION_सूचकाः_2 *Exception_info_ptr;
+  संरचना EXCEPTION_लेखः;
+  संरचना _CONTEXT;
+  संरचना _DISPATCHER_CONTEXT;
 
-  _CRTIMP EXCEPTION_DISPOSITION __cdecl __C_specific_handler (struct _EXCEPTION_RECORD *_ExceptionRecord,unsigned __int64 _MemoryStackFp,unsigned __int64 _BackingStoreFp,struct _CONTEXT *_ContextRecord,struct _DISPATCHER_CONTEXT *_DispatcherContext,unsigned __int64 _GlobalPointer);
-#elif defined(__x86_64)
+  _CRTIMP EXCEPTION_DISPOSITION __cdecl __C_specific_handler (संरचना EXCEPTION_लेखः *Exception_लेखः_2,अचिह्नित __int64 स्मृतिः_राशिः_Fp,अचिह्नित __int64 _BackingStoreFp,संरचना _CONTEXT *Context_लेखः_2,संरचना _DISPATCHER_CONTEXT *_DispatcherContext,अचिह्नित __int64 _GlobalPointer);
+#नोचेद्यदि defined(__x86_64)
 
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
-#endif
+  संरचना EXCEPTION_लेखः;
+  संरचना _CONTEXT;
+#यदि_अन्तः
 
-#define GetExceptionCode _exception_code
-#define exception_code _exception_code
-#define GetExceptionInformation (struct _EXCEPTION_POINTERS *)_exception_info
-#define exception_info (struct _EXCEPTION_POINTERS *)_exception_info
-#define AbnormalTermination _abnormal_termination
-#define abnormal_termination _abnormal_termination
+#परिभाषय Get_Exception_संहिता exception_संहिता
+#परिभाषय exception_संहिता_2 exception_संहिता
+#परिभाषय GetExceptionInformation (संरचना EXCEPTION_सूचकाः_2 *)_exception_info
+#परिभाषय exception_info (संरचना EXCEPTION_सूचकाः_2 *)_exception_info
+#परिभाषय AbnormalTermination _abnormal_termination
+#परिभाषय abnormal_termination _abnormal_termination
 
-  unsigned long __cdecl _exception_code(void);
-  void *__cdecl _exception_info(void);
-  int __cdecl _abnormal_termination(void);
+  अचिह्नित दीर्घ __cdecl exception_संहिता(शून्य);
+  शून्य *__cdecl _exception_info(शून्य);
+  पूर्णाङ्क __cdecl _abnormal_termination(शून्य);
 
-#define EXCEPTION_EXECUTE_HANDLER 1
-#define EXCEPTION_CONTINUE_SEARCH 0
-#define EXCEPTION_CONTINUE_EXECUTION -1
+#परिभाषय EXCEPTION_EXECUTE_HANDLER 1
+#परिभाषय EXCEPTION_CONTINUE_अन्वेषणम् 0
+#परिभाषय EXCEPTION_CONTINUE_EXECUTION -1
 
   /* CRT stuff */
-  typedef void (__cdecl * _PHNDLR)(int);
+  प्रकारनिर्देश शून्य (__cdecl * _PHNDLR)(पूर्णाङ्क);
 
-  struct _XCPT_ACTION {
-    unsigned long XcptNum;
-    int SigNum;
+  संरचना _XCPT_ACTION {
+    अचिह्नित दीर्घ Xcpt_अङ्कः;
+    पूर्णाङ्क Sig_अङ्कः;
     _PHNDLR XcptAction;
   };
 
-  extern struct _XCPT_ACTION _XcptActTab[];
-  extern int _XcptActTabCount;
-  extern int _XcptActTabSize;
-  extern int _First_FPE_Indx;
-  extern int _Num_FPE;
+  बाह्य संरचना _XCPT_ACTION _XcptActTab[];
+  बाह्य पूर्णाङ्क Xcpt_Act_Tab_गणनम्;
+  बाह्य पूर्णाङ्क Xcpt_Act_Tab_आकार;
+  बाह्य पूर्णाङ्क _First_FPE_Indx;
+  बाह्य पूर्णाङ्क अङ्कः_FPE;
 
-  int __cdecl __CppXcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
-  int __cdecl _XcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
+  पूर्णाङ्क __cdecl __CppXcptFilter(अचिह्नित दीर्घ Exception_अङ्कः,संरचना EXCEPTION_सूचकाः_2 * _ExceptionPtr);
+  पूर्णाङ्क __cdecl _XcptFilter(अचिह्नित दीर्घ Exception_अङ्कः,संरचना EXCEPTION_सूचकाः_2 * _ExceptionPtr);
 
   /*
   * The type of function that is expected as an exception handler to be
   * installed with _try1.
   */
-  typedef EXCEPTION_DISPOSITION (*PEXCEPTION_HANDLER)(struct _EXCEPTION_RECORD*, void*, struct _CONTEXT*, void*);
+  प्रकारनिर्देश EXCEPTION_DISPOSITION (*PEXCEPTION_HANDLER)(संरचना EXCEPTION_लेखः*, शून्य*, संरचना _CONTEXT*, शून्य*);
 
-#ifndef HAVE_NO_SEH
+#यदि_अपरिभाषितम् HAVE_NO_SEH
   /*
   * This is not entirely necessary, but it is the structure installed by
   * the _try1 primitive below.
   */
-  typedef struct _EXCEPTION_REGISTRATION {
-    struct _EXCEPTION_REGISTRATION *prev;
-    EXCEPTION_DISPOSITION (*handler)(struct _EXCEPTION_RECORD*, void*, struct _CONTEXT*, void*);
+  प्रकारनिर्देश संरचना _EXCEPTION_REGISTRATION {
+    संरचना _EXCEPTION_REGISTRATION *पूर्व;
+    EXCEPTION_DISPOSITION (*handler)(संरचना EXCEPTION_लेखः*, शून्य*, संरचना _CONTEXT*, शून्य*);
   } EXCEPTION_REGISTRATION, *PEXCEPTION_REGISTRATION;
 
-  typedef EXCEPTION_REGISTRATION EXCEPTION_REGISTRATION_RECORD;
-  typedef PEXCEPTION_REGISTRATION PEXCEPTION_REGISTRATION_RECORD;
-#endif
+  प्रकारनिर्देश EXCEPTION_REGISTRATION EXCEPTION_REGISTRATION_लेखः;
+  प्रकारनिर्देश PEXCEPTION_REGISTRATION PEXCEPTION_REGISTRATION_लेखः;
+#यदि_अन्तः
 
-#if (defined(_X86_) && !defined(__x86_64))
-#define __try1(pHandler) \
+#यदि (defined(_X86_) && !defined(__x86_64))
+#परिभाषय __try1(pHandler) \
   __asm__ ("pushl %0;pushl %%fs:0;movl %%esp,%%fs:0;" : : "g" (pHandler));
 
-#define	__except1	\
+#परिभाषय	__except1	\
   __asm__ ("movl (%%esp),%%eax;movl %%eax,%%fs:0;addl $8,%%esp;" \
   : : : "%eax");
-#elif defined(__x86_64)
-#define __try1(pHandler) \
+#नोचेद्यदि defined(__x86_64)
+#परिभाषय __try1(pHandler) \
   __asm__ ("pushq %0;pushq %%gs:0;movq %%rsp,%%gs:0;" : : "g" (pHandler));
 
-#define	__except1	\
+#परिभाषय	__except1	\
   __asm__ ("movq (%%rsp),%%rax;movq %%rax,%%gs:0;addq $16,%%rsp;" \
   : : : "%rax");
-#else
-#define __try1(pHandler)
-#define __except1
-#endif
+#अन्यथा
+#परिभाषय __try1(pHandler)
+#परिभाषय __except1
+#यदि_अन्तः
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
+#यदि_अन्तः
 
-#pragma pack(pop)
-#endif
+#निर्देशः pack(निष्कासय)
+#यदि_अन्तः

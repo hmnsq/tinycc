@@ -3,60 +3,60 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef __ASSERT_H_
-#define __ASSERT_H_
+#यदि_अपरिभाषितम् __ASSERT_H_
+#परिभाषय __ASSERT_H_
 
-#include <_mingw.h>
-#ifdef __cplusplus
-#include <stdlib.h>
-#endif
+#अन्तर्भाव <_mingw.h>
+#यदि_परिभाषितम् __cplusplus
+#अन्तर्भाव <stdlib.h>
+#यदि_अन्तः
 
-#ifdef NDEBUG
-#ifndef assert
-#define assert(_Expression) ((void)0)
-#endif
-#else
+#यदि_परिभाषितम् NDEBUG
+#यदि_अपरिभाषितम् प्रतिज्ञा
+#परिभाषय प्रतिज्ञा(_Expression) ((शून्य)0)
+#यदि_अन्तः
+#अन्यथा
 
-#ifndef _CRT_TERMINATE_DEFINED
-#define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
- _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+#यदि_अपरिभाषितम् _CRT_TERMINATE_DEFINED
+#परिभाषय _CRT_TERMINATE_DEFINED
+  शून्य __cdecl __MINGW_NOTHROW निर्गच्छ(पूर्णाङ्क संहिता_3) __MINGW_ATTRIB_NORETURN;
+ _CRTIMP शून्य __cdecl __MINGW_NOTHROW _exit(पूर्णाङ्क संहिता_3) __MINGW_ATTRIB_NORETURN;
+#यदि !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
 /* C99 function name */
-void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-__CRT_INLINE __MINGW_ATTRIB_NORETURN void __cdecl _Exit(int status)
-{  _exit(status); }
-#endif
+शून्य __cdecl _Exit(पूर्णाङ्क) __MINGW_ATTRIB_NORETURN;
+__CRT_INLINE __MINGW_ATTRIB_NORETURN शून्य __cdecl _Exit(पूर्णाङ्क स्थितिः)
+{  _exit(स्थितिः); }
+#यदि_अन्तः
 
-#pragma push_macro("abort")
-#undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#निर्देशः प्रक्षिप_macro("abort")
+#अपरिभाषय abort
+  शून्य __cdecl __declspec(noreturn) abort(शून्य);
+#निर्देशः निष्कासय_macro("abort")
 
-#endif
+#यदि_अन्तः
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
 
-extern void __cdecl _wassert(const wchar_t *_Message,const wchar_t *_File,unsigned _Line);
-extern void __cdecl _assert(const char *, const char *, unsigned);
+बाह्य शून्य __cdecl _wassert(ध्रुव wchar_t *सन्देशः_4,ध्रुव wchar_t *_File,अचिह्नित पङ्क्तिः_2);
+बाह्य शून्य __cdecl _assert(ध्रुव वर्ण *, ध्रुव वर्ण *, अचिह्नित);
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
+#यदि_अन्तः
 
-#ifndef assert
+#यदि_अपरिभाषितम् प्रतिज्ञा
 //#define assert(_Expression) (void)((!!(_Expression)) || (_wassert(_CRT_WIDE(#_Expression),_CRT_WIDE(__FILE__),__LINE__),0))
-#define assert(e) ((e) ? (void)0 : _assert(#e, __FILE__, __LINE__))
-#endif
+#परिभाषय प्रतिज्ञा(e) ((e) ? (शून्य)0 : _assert(#e, __FILE__, __LINE__))
+#यदि_अन्तः
 
-#endif
+#यदि_अन्तः
 
-#if (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
+#यदि (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
 /* C11, section 7.2: The macro static_assert expands to _Static_assert. */
-#define static_assert(exp, str) _Static_assert(exp, str) 
-#endif
+#परिभाषय static_assert(घातांकः, str) _Static_assert(घातांकः, str) 
+#यदि_अन्तः
 
-#endif
+#यदि_अन्तः

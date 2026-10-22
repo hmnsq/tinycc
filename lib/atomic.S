@@ -31,272 +31,272 @@
 
         .text
 
-        .global _(__atomic_load_1)
+        .वैश्विक _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
         endbr32
-        mov    0x4(%esp),%eax
+        चालय    0x4(%esp),%eax
         movzbl (%eax),%eax
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
-        .global _(__atomic_load_2)
+        .वैश्विक _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
         endbr32
-        mov    0x4(%esp),%eax
+        चालय    0x4(%esp),%eax
         movzwl (%eax),%eax
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
-        .global _(__atomic_load_4)
+        .वैश्विक _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
         endbr32
-        mov    0x4(%esp),%eax
-        mov    (%eax),%eax
-        ret
+        चालय    0x4(%esp),%eax
+        चालय    (%eax),%eax
+        प्रत्यागच्छ
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
-        .global _(__atomic_load_8)
+        .वैश्विक _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
         endbr32
-        sub    $0xc,%esp
-        mov    0x10(%esp),%eax
+        वियोजय    $0xc,%esp
+        चालय    0x10(%esp),%eax
         fildll (%eax)
         fistpll (%esp)
-        mov    (%esp),%eax
-        mov    0x4(%esp),%edx
-        add    $0xc,%esp
-        ret
+        चालय    (%esp),%eax
+        चालय    0x4(%esp),%edx
+        योजय    $0xc,%esp
+        प्रत्यागच्छ
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
-        .global _(__atomic_store_1)
+        .वैश्विक _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
         endbr32
-        mov    0x4(%esp),%edx
-        mov    0x8(%esp),%eax
+        चालय    0x4(%esp),%edx
+        चालय    0x8(%esp),%eax
         xchg   %al,(%edx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
-        .global _(__atomic_store_2)
+        .वैश्विक _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
         endbr32
-        mov    0x4(%esp),%edx
-        mov    0x8(%esp),%eax
+        चालय    0x4(%esp),%edx
+        चालय    0x8(%esp),%eax
         xchg   %ax,(%edx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
-        .global _(__atomic_store_4)
+        .वैश्विक _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
         endbr32
-        mov    0x4(%esp),%edx
-        mov    0x8(%esp),%eax
+        चालय    0x4(%esp),%edx
+        चालय    0x8(%esp),%eax
         xchg   %eax,(%edx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
-        .global _(__atomic_store_8)
+        .वैश्विक _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
         endbr32
-        push   %ebx
-        sub    $0x8,%esp
-        mov    0x18(%esp),%ebx
-        mov    0x14(%esp),%ecx
-        mov    %ecx,(%esp)
-        mov    %ebx,0x4(%esp)
+        निक्षिप   %ebx
+        वियोजय    $0x8,%esp
+        चालय    0x18(%esp),%ebx
+        चालय    0x14(%esp),%ecx
+        चालय    %ecx,(%esp)
+        चालय    %ebx,0x4(%esp)
         fildll (%esp)
-        mov    0x10(%esp),%eax
+        चालय    0x10(%esp),%eax
         fistpll (%eax)
         lock orl $0x0,(%esp)
-        add    $0x8,%esp
-        pop    %ebx
-        ret
+        योजय    $0x8,%esp
+        उद्धर    %ebx
+        प्रत्यागच्छ
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
-        .global _(__atomic_compare_exchange_1)
+        .वैश्विक _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
         endbr32
-        push   %ebx
-        mov    0xc(%esp),%ecx
-        mov    0x8(%esp),%edx
+        निक्षिप   %ebx
+        चालय    0xc(%esp),%ecx
+        चालय    0x8(%esp),%edx
         movzbl 0x10(%esp),%ebx
         movzbl (%ecx),%eax
         lock cmpxchg %bl,(%edx)
         sete   %dl
         je      .L___atomic_compare_exchange_1_020
-        mov    %al,(%ecx)
+        चालय    %al,(%ecx)
 .L___atomic_compare_exchange_1_020:
-        mov    %edx,%eax
-        pop    %ebx
-        ret
+        चालय    %edx,%eax
+        उद्धर    %ebx
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
-        .global _(__atomic_compare_exchange_2)
+        .वैश्विक _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
         endbr32
-        push   %ebx
-        mov    0xc(%esp),%ecx
-        mov    0x8(%esp),%edx
+        निक्षिप   %ebx
+        चालय    0xc(%esp),%ecx
+        चालय    0x8(%esp),%edx
         movzwl 0x10(%esp),%ebx
         movzwl (%ecx),%eax
         lock cmpxchg %bx,(%edx)
         sete   %dl
         je      .L___atomic_compare_exchange_2_022
-        mov    %ax,(%ecx)
+        चालय    %ax,(%ecx)
 .L___atomic_compare_exchange_2_022:
-        mov    %edx,%eax
-        pop    %ebx
-        ret
+        चालय    %edx,%eax
+        उद्धर    %ebx
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
-        .global _(__atomic_compare_exchange_4)
+        .वैश्विक _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
         endbr32
-        push   %ebx
-        mov    0xc(%esp),%ecx
-        mov    0x8(%esp),%edx
-        mov    0x10(%esp),%ebx
-        mov    (%ecx),%eax
+        निक्षिप   %ebx
+        चालय    0xc(%esp),%ecx
+        चालय    0x8(%esp),%edx
+        चालय    0x10(%esp),%ebx
+        चालय    (%ecx),%eax
         lock cmpxchg %ebx,(%edx)
         sete   %dl
         je      .L___atomic_compare_exchange_4_01e
-        mov    %eax,(%ecx)
+        चालय    %eax,(%ecx)
 .L___atomic_compare_exchange_4_01e:
-        mov    %edx,%eax
-        pop    %ebx
-        ret
+        चालय    %edx,%eax
+        उद्धर    %ebx
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
-        .global _(__atomic_compare_exchange_8)
+        .वैश्विक _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
         endbr32
-        push   %edi
-        push   %esi
-        push   %ebx
-        mov    0x14(%esp),%esi
-        mov    0x1c(%esp),%ecx
-        mov    0x10(%esp),%edi
-        mov    (%esi),%eax
-        mov    0x4(%esi),%edx
-        mov    0x18(%esp),%ebx
+        निक्षिप   %edi
+        निक्षिप   %esi
+        निक्षिप   %ebx
+        चालय    0x14(%esp),%esi
+        चालय    0x1c(%esp),%ecx
+        चालय    0x10(%esp),%edi
+        चालय    (%esi),%eax
+        चालय    0x4(%esi),%edx
+        चालय    0x18(%esp),%ebx
         lock cmpxchg8b (%edi)
         sete   %cl
         je      .L___atomic_compare_exchange_8_02a
-        mov    %eax,(%esi)
-        mov    %edx,0x4(%esi)
+        चालय    %eax,(%esi)
+        चालय    %edx,0x4(%esi)
 .L___atomic_compare_exchange_8_02a:
-        pop    %ebx
-        mov    %ecx,%eax
-        pop    %esi
-        pop    %edi
-        ret
+        उद्धर    %ebx
+        चालय    %ecx,%eax
+        उद्धर    %esi
+        उद्धर    %edi
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
-        .global _(__atomic_test_and_set_1)
+        .वैश्विक _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
         endbr32
-        mov    0x4(%esp),%edx
-        mov    $0x1,%eax
+        चालय    0x4(%esp),%edx
+        चालय    $0x1,%eax
         xchg   %al,(%edx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
-        .global _(__atomic_test_and_set_2)
+        .वैश्विक _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
         endbr32
-        mov    0x4(%esp),%edx
-        mov    $0x1,%eax
+        चालय    0x4(%esp),%edx
+        चालय    $0x1,%eax
         xchg   %al,(%edx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
-        .global _(__atomic_test_and_set_4)
+        .वैश्विक _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
         endbr32
-        mov    0x4(%esp),%edx
-        mov    $0x1,%eax
+        चालय    0x4(%esp),%edx
+        चालय    $0x1,%eax
         xchg   %al,(%edx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
-        .global _(__atomic_test_and_set_8)
+        .वैश्विक _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
         endbr32
-        mov    0x4(%esp),%edx
-        mov    $0x1,%eax
+        चालय    0x4(%esp),%edx
+        चालय    $0x1,%eax
         xchg   %al,(%edx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
-        .global _(atomic_thread_fence)
+        .वैश्विक _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
         endbr32
         lock orl $0x0,(%esp)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
-        .global _(atomic_signal_fence)
+        .वैश्विक _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
         endbr32
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
-        .global _(atomic_flag_test_and_set)
+        .वैश्विक _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
         endbr32
-        mov    0x4(%esp),%edx
-        mov    $0x1,%eax
+        चालय    0x4(%esp),%edx
+        चालय    $0x1,%eax
         xchg   %al,(%edx)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
-        .global _(atomic_flag_test_and_set_explicit)
+        .वैश्विक _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
         endbr32
-        mov    0x4(%esp),%edx
-        mov    $0x1,%eax
+        चालय    0x4(%esp),%edx
+        चालय    $0x1,%eax
         xchg   %al,(%edx)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
-        .global _(atomic_flag_clear)
+        .वैश्विक _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
         endbr32
-        mov    0x4(%esp),%edx
+        चालय    0x4(%esp),%edx
         xor    %eax,%eax
         xchg   %al,(%edx)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
-        .global _(atomic_flag_clear_explicit)
+        .वैश्विक _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
         endbr32
-        mov    0x4(%esp),%edx
+        चालय    0x4(%esp),%edx
         xor    %eax,%eax
         xchg   %al,(%edx)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_clear_explicit), .-_(atomic_flag_clear_explicit)
 
 #endif //__i386__
@@ -308,71 +308,71 @@ _(atomic_flag_clear_explicit):
 
         .text
 
-        .global _(__atomic_load_1)
+        .वैश्विक _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
         endbr64
         movzbl (%rdi),%eax
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
-        .global _(__atomic_load_2)
+        .वैश्विक _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
         endbr64
         movzwl (%rdi),%eax
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
-        .global _(__atomic_load_4)
+        .वैश्विक _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
         endbr64
-        mov    (%rdi),%eax
-        ret
+        चालय    (%rdi),%eax
+        प्रत्यागच्छ
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
-        .global _(__atomic_load_8)
+        .वैश्विक _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
         endbr64
-        mov    (%rdi),%rax
-        ret
+        चालय    (%rdi),%rax
+        प्रत्यागच्छ
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
-        .global _(__atomic_store_1)
+        .वैश्विक _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
         endbr64
         xchg   %sil,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
-        .global _(__atomic_store_2)
+        .वैश्विक _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
         endbr64
         xchg   %si,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
-        .global _(__atomic_store_4)
+        .वैश्विक _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
         endbr64
         xchg   %esi,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
-        .global _(__atomic_store_8)
+        .वैश्विक _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
         endbr64
         xchg   %rsi,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
-        .global _(__atomic_compare_exchange_1)
+        .वैश्विक _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
         endbr64
@@ -380,13 +380,13 @@ _(__atomic_compare_exchange_1):
         lock cmpxchg %dl,(%rdi)
         sete   %dl
         je      .L___atomic_compare_exchange_1_012
-        mov    %al,(%rsi)
+        चालय    %al,(%rsi)
 .L___atomic_compare_exchange_1_012:
-        mov    %edx,%eax
-        ret
+        चालय    %edx,%eax
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
-        .global _(__atomic_compare_exchange_2)
+        .वैश्विक _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
         endbr64
@@ -394,125 +394,125 @@ _(__atomic_compare_exchange_2):
         lock cmpxchg %dx,(%rdi)
         sete   %dl
         je      .L___atomic_compare_exchange_2_014
-        mov    %ax,(%rsi)
+        चालय    %ax,(%rsi)
 .L___atomic_compare_exchange_2_014:
-        mov    %edx,%eax
-        ret
+        चालय    %edx,%eax
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
-        .global _(__atomic_compare_exchange_4)
+        .वैश्विक _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
         endbr64
-        mov    (%rsi),%eax
+        चालय    (%rsi),%eax
         lock cmpxchg %edx,(%rdi)
         sete   %dl
         je      .L___atomic_compare_exchange_4_011
-        mov    %eax,(%rsi)
+        चालय    %eax,(%rsi)
 .L___atomic_compare_exchange_4_011:
-        mov    %edx,%eax
-        ret
+        चालय    %edx,%eax
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
-        .global _(__atomic_compare_exchange_8)
+        .वैश्विक _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
         endbr64
-        mov    (%rsi),%rax
+        चालय    (%rsi),%rax
         lock cmpxchg %rdx,(%rdi)
         sete   %dl
         je      .L___atomic_compare_exchange_8_014
-        mov    %rax,(%rsi)
+        चालय    %rax,(%rsi)
 .L___atomic_compare_exchange_8_014:
-        mov    %edx,%eax
-        ret
+        चालय    %edx,%eax
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
-        .global _(__atomic_test_and_set_1)
+        .वैश्विक _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
         endbr64
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
-        .global _(__atomic_test_and_set_2)
+        .वैश्विक _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
         endbr64
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
-        .global _(__atomic_test_and_set_4)
+        .वैश्विक _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
         endbr64
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
-        .global _(__atomic_test_and_set_8)
+        .वैश्विक _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
         endbr64
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
-        .global _(atomic_thread_fence)
+        .वैश्विक _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
         endbr64
         lock orq $0x0,(%rsp)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
-        .global _(atomic_signal_fence)
+        .वैश्विक _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
         endbr64
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
-        .global _(atomic_flag_test_and_set)
+        .वैश्विक _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
         endbr64
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
-        .global _(atomic_flag_test_and_set_explicit)
+        .वैश्विक _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
         endbr64
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
-        .global _(atomic_flag_clear)
+        .वैश्विक _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
         endbr64
         xor    %eax,%eax
         xchg   %al,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
-        .global _(atomic_flag_clear_explicit)
+        .वैश्विक _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
         endbr64
         xor    %eax,%eax
         xchg   %al,(%rdi)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_clear_explicit), .-_(atomic_flag_clear_explicit)
 
 #endif //__x86_64__ && !_WIN32
@@ -521,189 +521,189 @@ _(atomic_flag_clear_explicit):
 #if defined __x86_64__ && defined _WIN32
         .text
 
-        .global _(__atomic_load_1)
+        .वैश्विक _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
         movzbl (%rcx),%eax
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
-        .global _(__atomic_load_2)
+        .वैश्विक _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
         movzwl (%rcx),%eax
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
-        .global _(__atomic_load_4)
+        .वैश्विक _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
-        mov    (%rcx),%eax
-        ret
+        चालय    (%rcx),%eax
+        प्रत्यागच्छ
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
-        .global _(__atomic_load_8)
+        .वैश्विक _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
-        mov    (%rcx),%rax
-        ret
+        चालय    (%rcx),%rax
+        प्रत्यागच्छ
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
-        .global _(__atomic_store_1)
+        .वैश्विक _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
         xchg   %dl,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
-        .global _(__atomic_store_2)
+        .वैश्विक _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
         xchg   %dx,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
-        .global _(__atomic_store_4)
+        .वैश्विक _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
         xchg   %edx,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
-        .global _(__atomic_store_8)
+        .वैश्विक _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
         xchg   %rdx,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
-        .global _(__atomic_compare_exchange_1)
+        .वैश्विक _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
         movzbl (%rdx),%eax
         lock cmpxchg %r8b,(%rcx)
         sete   %cl
         je      .L___atomic_compare_exchange_1_00f
-        mov    %al,(%rdx)
+        चालय    %al,(%rdx)
 .L___atomic_compare_exchange_1_00f:
-        mov    %ecx,%eax
-        ret
+        चालय    %ecx,%eax
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
-        .global _(__atomic_compare_exchange_2)
+        .वैश्विक _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
         movzwl (%rdx),%eax
         lock cmpxchg %r8w,(%rcx)
         sete   %cl
         je      .L___atomic_compare_exchange_2_011
-        mov    %ax,(%rdx)
+        चालय    %ax,(%rdx)
 .L___atomic_compare_exchange_2_011:
-        mov    %ecx,%eax
-        ret
+        चालय    %ecx,%eax
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
-        .global _(__atomic_compare_exchange_4)
+        .वैश्विक _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
-        mov    (%rdx),%eax
+        चालय    (%rdx),%eax
         lock cmpxchg %r8d,(%rcx)
         sete   %cl
         je      .L___atomic_compare_exchange_4_00e
-        mov    %eax,(%rdx)
+        चालय    %eax,(%rdx)
 .L___atomic_compare_exchange_4_00e:
-        mov    %ecx,%eax
-        ret
+        चालय    %ecx,%eax
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
-        .global _(__atomic_compare_exchange_8)
+        .वैश्विक _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
-        mov    (%rdx),%rax
+        चालय    (%rdx),%rax
         lock cmpxchg %r8,(%rcx)
         sete   %cl
         je      .L___atomic_compare_exchange_8_010
-        mov    %rax,(%rdx)
+        चालय    %rax,(%rdx)
 .L___atomic_compare_exchange_8_010:
-        mov    %ecx,%eax
-        ret
+        चालय    %ecx,%eax
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
-        .global _(__atomic_test_and_set_1)
+        .वैश्विक _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
-        .global _(__atomic_test_and_set_2)
+        .वैश्विक _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
-        .global _(__atomic_test_and_set_4)
+        .वैश्विक _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
-        .global _(__atomic_test_and_set_8)
+        .वैश्विक _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
-        .global _(atomic_thread_fence)
+        .वैश्विक _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
         lock orq $0x0,(%rsp)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
-        .global _(atomic_signal_fence)
+        .वैश्विक _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
-        .global _(atomic_flag_test_and_set)
+        .वैश्विक _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
-        .global _(atomic_flag_test_and_set_explicit)
+        .वैश्विक _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
-        mov    $0x1,%eax
+        चालय    $0x1,%eax
         xchg   %al,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
-        .global _(atomic_flag_clear)
+        .वैश्विक _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
         xor    %eax,%eax
         xchg   %al,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
-        .global _(atomic_flag_clear_explicit)
+        .वैश्विक _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
         xor    %eax,%eax
         xchg   %al,(%rcx)
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_clear_explicit), .-_(atomic_flag_clear_explicit)
 
 #endif //__x86_64__ && _WIN32
@@ -716,7 +716,7 @@ _(atomic_flag_clear_explicit):
         .syntax unified
 #endif
 
-        .global _(__atomic_load_1)
+        .वैश्विक _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
 #ifdef __TINYC__
@@ -731,7 +731,7 @@ _(__atomic_load_1):
         .int 0xe6ef0070
         .int 0xe12fff1e
 #else
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_load_1_014
         ldrb    r0, [r0]
         uxtb    r0, r0
@@ -745,7 +745,7 @@ _(__atomic_load_1):
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
 #endif
-        .global _(__atomic_load_2)
+        .वैश्विक _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
 #ifdef __TINYC__
@@ -760,7 +760,7 @@ _(__atomic_load_2):
         .int 0xe6ff0070
         .int 0xe12fff1e
 #else
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_load_2_03c
         ldrh    r0, [r0]
         uxth    r0, r0
@@ -774,7 +774,7 @@ _(__atomic_load_2):
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
 #endif
-        .global _(__atomic_load_4)
+        .वैश्विक _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
 #ifdef __TINYC__
@@ -787,7 +787,7 @@ _(__atomic_load_4):
         .int 0xee070fba
         .int 0xe12fff1e
 #else
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_load_4_060
         ldr r0, [r0]
         bx  lr
@@ -799,7 +799,7 @@ _(__atomic_load_4):
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
 #endif
-        .global _(__atomic_load_8)
+        .वैश्विक _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
 #ifdef __TINYC__
@@ -812,7 +812,7 @@ _(__atomic_load_8):
         .int 0xee070fba
         .int 0xe12fff1e
 #else
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_load_8_080
         ldrexd  r0, [r0]
         bx  lr
@@ -824,7 +824,7 @@ _(__atomic_load_8):
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
 #endif
-        .global _(__atomic_store_1)
+        .वैश्विक _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
 #ifdef __TINYC__
@@ -837,7 +837,7 @@ _(__atomic_store_1):
         .int 0xee070fba
         .int 0xe12fff1e
 #else
-        cmp r2, #0
+        तुलय r2, #0
         bne  .L___atomic_store_1_0a0
         strb    r1, [r0]
         bx  lr
@@ -849,7 +849,7 @@ _(__atomic_store_1):
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
 #endif
-        .global _(__atomic_store_2)
+        .वैश्विक _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
 #ifdef __TINYC__
@@ -862,7 +862,7 @@ _(__atomic_store_2):
         .int 0xee070fba
         .int 0xe12fff1e
 #else
-        cmp r2, #0
+        तुलय r2, #0
         bne  .L___atomic_store_2_0c0
         strh    r1, [r0]
         bx  lr
@@ -874,7 +874,7 @@ _(__atomic_store_2):
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
 #endif
-        .global _(__atomic_store_4)
+        .वैश्विक _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
 #ifdef __TINYC__
@@ -887,7 +887,7 @@ _(__atomic_store_4):
         .int 0xee070fba
         .int 0xe12fff1e
 #else
-        cmp r2, #0
+        तुलय r2, #0
         bne  .L___atomic_store_4_0e0
         str r1, [r0]
         bx  lr
@@ -899,7 +899,7 @@ _(__atomic_store_4):
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
 #endif
-        .global _(__atomic_store_8)
+        .वैश्विक _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
 #ifdef __TINYC__
@@ -924,33 +924,33 @@ _(__atomic_store_8):
         .int 0xe8bd0030
         .int 0xe12fff1e
 #else
-        push    {r4, r5}
-        mov r4, r2
+        निक्षिप    {r4, r5}
+        चालय r4, r2
         ldr r1, [sp, #8]
-        mov r5, r3
-        cmp r1, #0
+        चालय r5, r3
+        तुलय r1, #0
         bne  .L___atomic_store_8_120
 .L___atomic_store_8_108:
         ldrexd  r2, [r0]
         strexd  r1, r4, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_store_8_108
-        pop {r4, r5}
+        उद्धर {r4, r5}
         bx  lr
 .L___atomic_store_8_120:
         mcr     p15, #0, r0, c7, c10, #5
 .L___atomic_store_8_124:
         ldrexd  r2, [r0]
         strexd  r1, r4, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_store_8_124
         mcr     p15, #0, r0, c7, c10, #5
-        pop {r4, r5}
+        उद्धर {r4, r5}
         bx  lr
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
 #endif
-        .global _(__atomic_compare_exchange_1)
+        .वैश्विक _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
 #ifdef __TINYC__
@@ -979,38 +979,38 @@ _(__atomic_compare_exchange_1):
         .int 0xee070fba
         .int 0xeafffff1
 #else
-        push    {lr}        @ (str lr, [sp, #-4]!)
-        cmp r3, #0
+        निक्षिप    {lr}        @ (str lr, [sp, #-4]!)
+        तुलय r3, #0
         bne  .L___atomic_compare_exchange_1_178
         ldrb    r3, [r1]
 .L___atomic_compare_exchange_1_150:
         ldrexb  ip, [r0]
-        cmp ip, r3
+        तुलय ip, r3
         bne  .L___atomic_compare_exchange_1_168
         strexb  lr, r2, [r0]
-        cmp lr, #0
+        तुलय lr, #0
         bne  .L___atomic_compare_exchange_1_150
 .L___atomic_compare_exchange_1_168:
         moveq   r0, #1
         movne   r0, #0
         strbne  ip, [r1]
-        pop {pc}        @ (ldr pc, [sp], #4)
+        उद्धर {pc}        @ (ldr pc, [sp], #4)
 .L___atomic_compare_exchange_1_178:
         ldrb    r3, [r1]
         mcr     p15, #0, r0, c7, c10, #5
 .L___atomic_compare_exchange_1_180:
         ldrexb  ip, [r0]
-        cmp ip, r3
+        तुलय ip, r3
         bne  .L___atomic_compare_exchange_1_168
         strexb  lr, r2, [r0]
-        cmp lr, #0
+        तुलय lr, #0
         bne  .L___atomic_compare_exchange_1_180
         mcr     p15, #0, r0, c7, c10, #5
         b    .L___atomic_compare_exchange_1_168
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
 #endif
-        .global _(__atomic_compare_exchange_2)
+        .वैश्विक _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
 #ifdef __TINYC__
@@ -1039,38 +1039,38 @@ _(__atomic_compare_exchange_2):
         .int 0xee070fba
         .int 0xeafffff1
 #else
-        push    {lr}        @ (str lr, [sp, #-4]!)
-        cmp r3, #0
+        निक्षिप    {lr}        @ (str lr, [sp, #-4]!)
+        तुलय r3, #0
         bne  .L___atomic_compare_exchange_2_1d8
         ldrh    r3, [r1]
 .L___atomic_compare_exchange_2_1b0:
         ldrexh  ip, [r0]
-        cmp ip, r3
+        तुलय ip, r3
         bne  .L___atomic_compare_exchange_2_1c8
         strexh  lr, r2, [r0]
-        cmp lr, #0
+        तुलय lr, #0
         bne  .L___atomic_compare_exchange_2_1b0
 .L___atomic_compare_exchange_2_1c8:
         moveq   r0, #1
         movne   r0, #0
         strhne  ip, [r1]
-        pop {pc}        @ (ldr pc, [sp], #4)
+        उद्धर {pc}        @ (ldr pc, [sp], #4)
 .L___atomic_compare_exchange_2_1d8:
         ldrh    r3, [r1]
         mcr     p15, #0, r0, c7, c10, #5
 .L___atomic_compare_exchange_2_1e0:
         ldrexh  ip, [r0]
-        cmp ip, r3
+        तुलय ip, r3
         bne  .L___atomic_compare_exchange_2_1c8
         strexh  lr, r2, [r0]
-        cmp lr, #0
+        तुलय lr, #0
         bne  .L___atomic_compare_exchange_2_1e0
         mcr     p15, #0, r0, c7, c10, #5
         b    .L___atomic_compare_exchange_2_1c8
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
 #endif
-        .global _(__atomic_compare_exchange_4)
+        .वैश्विक _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
 #ifdef __TINYC__
@@ -1100,39 +1100,39 @@ _(__atomic_compare_exchange_4):
         .int 0xee070fba
         .int 0xeafffff0
 #else
-        push    {r4}        @ (str r4, [sp, #-4]!)
-        cmp r3, #0
+        निक्षिप    {r4}        @ (str r4, [sp, #-4]!)
+        तुलय r3, #0
         bne  .L___atomic_compare_exchange_4_23c
         ldr r3, [r1]
 .L___atomic_compare_exchange_4_210:
         ldrex   r4, [r0]
-        cmp r4, r3
+        तुलय r4, r3
         bne  .L___atomic_compare_exchange_4_228
         strex   ip, r2, [r0]
-        cmp ip, #0
+        तुलय ip, #0
         bne  .L___atomic_compare_exchange_4_210
 .L___atomic_compare_exchange_4_228:
         moveq   r0, #1
         movne   r0, #0
         strne   r4, [r1]
-        pop {r4}        @ (ldr r4, [sp], #4)
+        उद्धर {r4}        @ (ldr r4, [sp], #4)
         bx  lr
 .L___atomic_compare_exchange_4_23c:
         ldr r3, [r1]
         mcr     p15, #0, r0, c7, c10, #5
 .L___atomic_compare_exchange_4_244:
         ldrex   r4, [r0]
-        cmp r4, r3
+        तुलय r4, r3
         bne  .L___atomic_compare_exchange_4_228
         strex   ip, r2, [r0]
-        cmp ip, #0
+        तुलय ip, #0
         bne  .L___atomic_compare_exchange_4_244
         mcr     p15, #0, r0, c7, c10, #5
         b    .L___atomic_compare_exchange_4_228
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
 #endif
-        .global _(__atomic_compare_exchange_8)
+        .वैश्विक _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
 #ifdef __TINYC__
@@ -1167,44 +1167,44 @@ _(__atomic_compare_exchange_8):
         .int 0xee070fba
         .int 0xeaffffef
 #else
-        push    {r4, r5, r6, r7}
-        mov r5, r3
+        निक्षिप    {r4, r5, r6, r7}
+        चालय r5, r3
         ldr r3, [sp, #16]
-        mov r4, r2
-        cmp r3, #0
+        चालय r4, r2
+        तुलय r3, #0
         bne  .L___atomic_compare_exchange_8_2b0
         ldrd    r2, [r1]
 .L___atomic_compare_exchange_8_280:
         ldrexd  r6, [r0]
-        cmp r7, r3
+        तुलय r7, r3
         cmpeq   r6, r2
         bne  .L___atomic_compare_exchange_8_29c
         strexd  ip, r4, [r0]
-        cmp ip, #0
+        तुलय ip, #0
         bne  .L___atomic_compare_exchange_8_280
 .L___atomic_compare_exchange_8_29c:
         moveq   r0, #1
         movne   r0, #0
         strdne  r6, [r1]
-        pop {r4, r5, r6, r7}
+        उद्धर {r4, r5, r6, r7}
         bx  lr
 .L___atomic_compare_exchange_8_2b0:
         ldrd    r2, [r1]
         mcr     p15, #0, r0, c7, c10, #5
 .L___atomic_compare_exchange_8_2b8:
         ldrexd  r6, [r0]
-        cmp r7, r3
+        तुलय r7, r3
         cmpeq   r6, r2
         bne  .L___atomic_compare_exchange_8_29c
         strexd  ip, r4, [r0]
-        cmp ip, #0
+        तुलय ip, #0
         bne  .L___atomic_compare_exchange_8_2b8
         mcr     p15, #0, r0, c7, c10, #5
         b    .L___atomic_compare_exchange_8_29c
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
 #endif
-        .global _(__atomic_test_and_set_1)
+        .वैश्विक _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
 #ifdef __TINYC__
@@ -1226,13 +1226,13 @@ _(__atomic_test_and_set_1):
         .int 0xee070fba
         .int 0xe12fff1e
 #else
-        mov r2, #1
-        cmp r1, #0
+        चालय r2, #1
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_1_300
 .L___atomic_test_and_set_1_2e8:
         ldrexb  r3, [r0]
         strexb  r1, r2, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_1_2e8
         uxtb    r0, r3
         bx  lr
@@ -1241,7 +1241,7 @@ _(__atomic_test_and_set_1):
 .L___atomic_test_and_set_1_304:
         ldrexb  r3, [r0]
         strexb  r1, r2, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_1_304
         uxtb    r0, r3
         mcr     p15, #0, r0, c7, c10, #5
@@ -1249,7 +1249,7 @@ _(__atomic_test_and_set_1):
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
 #endif
-        .global _(__atomic_test_and_set_2)
+        .वैश्विक _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
 #ifdef __TINYC__
@@ -1271,13 +1271,13 @@ _(__atomic_test_and_set_2):
         .int 0xee070fba
         .int 0xe12fff1e
 #else
-        mov r2, #1
-        cmp r1, #0
+        चालय r2, #1
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_2_344
 .L___atomic_test_and_set_2_32c:
         ldrexb  r3, [r0]
         strexb  r1, r2, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_2_32c
         uxtb    r0, r3
         bx  lr
@@ -1286,7 +1286,7 @@ _(__atomic_test_and_set_2):
 .L___atomic_test_and_set_2_348:
         ldrexb  r3, [r0]
         strexb  r1, r2, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_2_348
         uxtb    r0, r3
         mcr     p15, #0, r0, c7, c10, #5
@@ -1294,7 +1294,7 @@ _(__atomic_test_and_set_2):
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
 #endif
-        .global _(__atomic_test_and_set_4)
+        .वैश्विक _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
 #ifdef __TINYC__
@@ -1316,13 +1316,13 @@ _(__atomic_test_and_set_4):
         .int 0xee070fba
         .int 0xe12fff1e
 #else
-        mov r2, #1
-        cmp r1, #0
+        चालय r2, #1
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_4_388
 .L___atomic_test_and_set_4_370:
         ldrexb  r3, [r0]
         strexb  r1, r2, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_4_370
         uxtb    r0, r3
         bx  lr
@@ -1331,7 +1331,7 @@ _(__atomic_test_and_set_4):
 .L___atomic_test_and_set_4_38c:
         ldrexb  r3, [r0]
         strexb  r1, r2, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_4_38c
         uxtb    r0, r3
         mcr     p15, #0, r0, c7, c10, #5
@@ -1339,7 +1339,7 @@ _(__atomic_test_and_set_4):
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
 #endif
-        .global _(__atomic_test_and_set_8)
+        .वैश्विक _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
 #ifdef __TINYC__
@@ -1361,13 +1361,13 @@ _(__atomic_test_and_set_8):
         .int 0xee070fba
         .int 0xe12fff1e
 #else
-        mov r2, #1
-        cmp r1, #0
+        चालय r2, #1
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_8_3cc
 .L___atomic_test_and_set_8_3b4:
         ldrexb  r3, [r0]
         strexb  r1, r2, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_8_3b4
         uxtb    r0, r3
         bx  lr
@@ -1376,7 +1376,7 @@ _(__atomic_test_and_set_8):
 .L___atomic_test_and_set_8_3d0:
         ldrexb  r3, [r0]
         strexb  r1, r2, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L___atomic_test_and_set_8_3d0
         uxtb    r0, r3
         mcr     p15, #0, r0, c7, c10, #5
@@ -1384,7 +1384,7 @@ _(__atomic_test_and_set_8):
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
 #endif
-        .global _(atomic_thread_fence)
+        .वैश्विक _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
 #ifdef __TINYC__
@@ -1396,7 +1396,7 @@ _(atomic_thread_fence):
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
 #endif
-        .global _(atomic_signal_fence)
+        .वैश्विक _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
 #ifdef __TINYC__
@@ -1406,7 +1406,7 @@ _(atomic_signal_fence):
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
 #endif
-        .global _(atomic_flag_test_and_set)
+        .वैश्विक _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
 #ifdef __TINYC__
@@ -1420,12 +1420,12 @@ _(atomic_flag_test_and_set):
         .int 0xee070fba
         .int 0xe12fff1e
 #else
-        mov r2, #1
+        चालय r2, #1
         mcr     p15, #0, r0, c7, c10, #5
 .L_atomic_flag_test_and_set_400:
         ldrexb  r3, [r0]
         strexb  r1, r2, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L_atomic_flag_test_and_set_400
         uxtb    r0, r3
         mcr     p15, #0, r0, c7, c10, #5
@@ -1433,7 +1433,7 @@ _(atomic_flag_test_and_set):
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
 #endif
-        .global _(atomic_flag_test_and_set_explicit)
+        .वैश्विक _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
 #ifdef __TINYC__
@@ -1447,12 +1447,12 @@ _(atomic_flag_test_and_set_explicit):
         .int 0xee070fba
         .int 0xe12fff1e
 #else
-        mov r2, #1
+        चालय r2, #1
         mcr     p15, #0, r0, c7, c10, #5
 .L_atomic_flag_test_and_set_explicit_424:
         ldrexb  r3, [r0]
         strexb  r1, r2, [r0]
-        cmp r1, #0
+        तुलय r1, #0
         bne  .L_atomic_flag_test_and_set_explicit_424
         uxtb    r0, r3
         mcr     p15, #0, r0, c7, c10, #5
@@ -1460,7 +1460,7 @@ _(atomic_flag_test_and_set_explicit):
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
 #endif
-        .global _(atomic_flag_clear)
+        .वैश्विक _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
 #ifdef __TINYC__
@@ -1478,7 +1478,7 @@ _(atomic_flag_clear):
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
 #endif
-        .global _(atomic_flag_clear_explicit)
+        .वैश्विक _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
 #ifdef __TINYC__
@@ -1502,7 +1502,7 @@ _(atomic_flag_clear_explicit):
 #if defined __aarch64__
         .text
 
-        .global _(__atomic_load_1)
+        .वैश्विक _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
 #ifdef __TINYC__
@@ -1517,15 +1517,15 @@ _(__atomic_load_1):
         cbnz    w1,  .L___atomic_load_1_010
         ldrb    w0, [x0]
         and w0, w0, #0xff
-        ret
+        प्रत्यागच्छ
 .L___atomic_load_1_010:
         ldarb   w0, [x0]
         and w0, w0, #0xff
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
 #endif
-        .global _(__atomic_load_2)
+        .वैश्विक _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
 #ifdef __TINYC__
@@ -1540,15 +1540,15 @@ _(__atomic_load_2):
         cbnz    w1,  .L___atomic_load_2_010
         ldrh    w0, [x0]
         and w0, w0, #0xffff
-        ret
+        प्रत्यागच्छ
 .L___atomic_load_2_010:
         ldarh   w0, [x0]
         and w0, w0, #0xffff
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
 #endif
-        .global _(__atomic_load_4)
+        .वैश्विक _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
 #ifdef __TINYC__
@@ -1560,14 +1560,14 @@ _(__atomic_load_4):
 #else
         cbnz    w1,  .L___atomic_load_4_00c
         ldr w0, [x0]
-        ret
+        प्रत्यागच्छ
 .L___atomic_load_4_00c:
         ldar    w0, [x0]
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
 #endif
-        .global _(__atomic_load_8)
+        .वैश्विक _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
 #ifdef __TINYC__
@@ -1579,14 +1579,14 @@ _(__atomic_load_8):
 #else
         cbnz    w1,  .L___atomic_load_8_00c
         ldr x0, [x0]
-        ret
+        प्रत्यागच्छ
 .L___atomic_load_8_00c:
         ldar    x0, [x0]
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
 #endif
-        .global _(__atomic_store_1)
+        .वैश्विक _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
 #ifdef __TINYC__
@@ -1600,14 +1600,14 @@ _(__atomic_store_1):
         and w1, w1, #0xff
         cbnz    w2,  .L___atomic_store_1_010
         strb    w1, [x0]
-        ret
+        प्रत्यागच्छ
 .L___atomic_store_1_010:
         stlrb   w1, [x0]
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
 #endif
-        .global _(__atomic_store_2)
+        .वैश्विक _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
 #ifdef __TINYC__
@@ -1621,14 +1621,14 @@ _(__atomic_store_2):
         and w1, w1, #0xffff
         cbnz    w2,  .L___atomic_store_2_010
         strh    w1, [x0]
-        ret
+        प्रत्यागच्छ
 .L___atomic_store_2_010:
         stlrh   w1, [x0]
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
 #endif
-        .global _(__atomic_store_4)
+        .वैश्विक _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
 #ifdef __TINYC__
@@ -1640,14 +1640,14 @@ _(__atomic_store_4):
 #else
         cbnz    w2,  .L___atomic_store_4_00c
         str w1, [x0]
-        ret
+        प्रत्यागच्छ
 .L___atomic_store_4_00c:
         stlr    w1, [x0]
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
 #endif
-        .global _(__atomic_store_8)
+        .वैश्विक _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
 #ifdef __TINYC__
@@ -1659,14 +1659,14 @@ _(__atomic_store_8):
 #else
         cbnz    w2,  .L___atomic_store_8_00c
         str x1, [x0]
-        ret
+        प्रत्यागच्छ
 .L___atomic_store_8_00c:
         stlr    x1, [x0]
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
 #endif
-        .global _(__atomic_compare_exchange_1)
+        .वैश्विक _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
 #ifdef __TINYC__
@@ -1697,7 +1697,7 @@ _(__atomic_compare_exchange_1):
         ldrb    w3, [x1]
 .L___atomic_compare_exchange_1_00c:
         ldxrb   w4, [x0]
-        cmp w4, w3, uxtb
+        तुलय w4, w3, uxtb
         b.ne     .L___atomic_compare_exchange_1_020
         stxrb   w5, w2, [x0]
         cbnz    w5,  .L___atomic_compare_exchange_1_00c
@@ -1705,12 +1705,12 @@ _(__atomic_compare_exchange_1):
         cset    w0, eq  // eq = none
         b.ne     .L___atomic_compare_exchange_1_04c
 .L___atomic_compare_exchange_1_028:
-        ret
+        प्रत्यागच्छ
 .L___atomic_compare_exchange_1_02c:
         ldrb    w3, [x1]
 .L___atomic_compare_exchange_1_030:
         ldaxrb  w4, [x0]
-        cmp w4, w3, uxtb
+        तुलय w4, w3, uxtb
         b.ne     .L___atomic_compare_exchange_1_044
         stlxrb  w5, w2, [x0]
         cbnz    w5,  .L___atomic_compare_exchange_1_030
@@ -1719,11 +1719,11 @@ _(__atomic_compare_exchange_1):
         b.eq     .L___atomic_compare_exchange_1_028
 .L___atomic_compare_exchange_1_04c:
         strb    w4, [x1]
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
 #endif
-        .global _(__atomic_compare_exchange_2)
+        .वैश्विक _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
 #ifdef __TINYC__
@@ -1754,7 +1754,7 @@ _(__atomic_compare_exchange_2):
         ldrh    w3, [x1]
 .L___atomic_compare_exchange_2_00c:
         ldxrh   w4, [x0]
-        cmp w4, w3, uxth
+        तुलय w4, w3, uxth
         b.ne     .L___atomic_compare_exchange_2_020
         stxrh   w5, w2, [x0]
         cbnz    w5,  .L___atomic_compare_exchange_2_00c
@@ -1762,12 +1762,12 @@ _(__atomic_compare_exchange_2):
         cset    w0, eq  // eq = none
         b.ne     .L___atomic_compare_exchange_2_04c
 .L___atomic_compare_exchange_2_028:
-        ret
+        प्रत्यागच्छ
 .L___atomic_compare_exchange_2_02c:
         ldrh    w3, [x1]
 .L___atomic_compare_exchange_2_030:
         ldaxrh  w4, [x0]
-        cmp w4, w3, uxth
+        तुलय w4, w3, uxth
         b.ne     .L___atomic_compare_exchange_2_044
         stlxrh  w5, w2, [x0]
         cbnz    w5,  .L___atomic_compare_exchange_2_030
@@ -1776,11 +1776,11 @@ _(__atomic_compare_exchange_2):
         b.eq     .L___atomic_compare_exchange_2_028
 .L___atomic_compare_exchange_2_04c:
         strh    w4, [x1]
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
 #endif
-        .global _(__atomic_compare_exchange_4)
+        .वैश्विक _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
 #ifdef __TINYC__
@@ -1809,7 +1809,7 @@ _(__atomic_compare_exchange_4):
         ldr w3, [x1]
 .L___atomic_compare_exchange_4_008:
         ldxr    w4, [x0]
-        cmp w4, w3
+        तुलय w4, w3
         b.ne     .L___atomic_compare_exchange_4_01c
         stxr    w5, w2, [x0]
         cbnz    w5,  .L___atomic_compare_exchange_4_008
@@ -1817,12 +1817,12 @@ _(__atomic_compare_exchange_4):
         cset    w0, eq  // eq = none
         b.ne     .L___atomic_compare_exchange_4_048
 .L___atomic_compare_exchange_4_024:
-        ret
+        प्रत्यागच्छ
 .L___atomic_compare_exchange_4_028:
         ldr w3, [x1]
 .L___atomic_compare_exchange_4_02c:
         ldaxr   w4, [x0]
-        cmp w4, w3
+        तुलय w4, w3
         b.ne     .L___atomic_compare_exchange_4_040
         stlxr   w5, w2, [x0]
         cbnz    w5,  .L___atomic_compare_exchange_4_02c
@@ -1831,11 +1831,11 @@ _(__atomic_compare_exchange_4):
         b.eq     .L___atomic_compare_exchange_4_024
 .L___atomic_compare_exchange_4_048:
         str w4, [x1]
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
 #endif
-        .global _(__atomic_compare_exchange_8)
+        .वैश्विक _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
 #ifdef __TINYC__
@@ -1864,7 +1864,7 @@ _(__atomic_compare_exchange_8):
         ldr x3, [x1]
 .L___atomic_compare_exchange_8_008:
         ldxr    x4, [x0]
-        cmp x4, x3
+        तुलय x4, x3
         b.ne     .L___atomic_compare_exchange_8_01c
         stxr    w5, x2, [x0]
         cbnz    w5,  .L___atomic_compare_exchange_8_008
@@ -1872,12 +1872,12 @@ _(__atomic_compare_exchange_8):
         cset    w0, eq  // eq = none
         b.ne     .L___atomic_compare_exchange_8_048
 .L___atomic_compare_exchange_8_024:
-        ret
+        प्रत्यागच्छ
 .L___atomic_compare_exchange_8_028:
         ldr x3, [x1]
 .L___atomic_compare_exchange_8_02c:
         ldaxr   x4, [x0]
-        cmp x4, x3
+        तुलय x4, x3
         b.ne     .L___atomic_compare_exchange_8_040
         stlxr   w5, x2, [x0]
         cbnz    w5,  .L___atomic_compare_exchange_8_02c
@@ -1886,11 +1886,11 @@ _(__atomic_compare_exchange_8):
         b.eq     .L___atomic_compare_exchange_8_024
 .L___atomic_compare_exchange_8_048:
         str x4, [x1]
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
 #endif
-        .global _(__atomic_test_and_set_1)
+        .वैश्विक _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
 #ifdef __TINYC__
@@ -1907,24 +1907,24 @@ _(__atomic_test_and_set_1):
         .int 0x12001c20
         .int 0xd65f03c0
 #else
-        mov w2, #0x1                    // #1
+        चालय w2, #0x1                    // #1
         cbnz    w1,  .L___atomic_test_and_set_1_01c
 .L___atomic_test_and_set_1_008:
         ldxrb   w1, [x0]
         stxrb   w3, w2, [x0]
         cbnz    w3,  .L___atomic_test_and_set_1_008
         and w0, w1, #0xff
-        ret
+        प्रत्यागच्छ
 .L___atomic_test_and_set_1_01c:
         ldaxrb  w1, [x0]
         stlxrb  w3, w2, [x0]
         cbnz    w3,  .L___atomic_test_and_set_1_01c
         and w0, w1, #0xff
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
 #endif
-        .global _(__atomic_test_and_set_2)
+        .वैश्विक _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
 #ifdef __TINYC__
@@ -1941,24 +1941,24 @@ _(__atomic_test_and_set_2):
         .int 0x12001c20
         .int 0xd65f03c0
 #else
-        mov w2, #0x1                    // #1
+        चालय w2, #0x1                    // #1
         cbnz    w1,  .L___atomic_test_and_set_2_01c
 .L___atomic_test_and_set_2_008:
         ldxrb   w1, [x0]
         stxrb   w3, w2, [x0]
         cbnz    w3,  .L___atomic_test_and_set_2_008
         and w0, w1, #0xff
-        ret
+        प्रत्यागच्छ
 .L___atomic_test_and_set_2_01c:
         ldaxrb  w1, [x0]
         stlxrb  w3, w2, [x0]
         cbnz    w3,  .L___atomic_test_and_set_2_01c
         and w0, w1, #0xff
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
 #endif
-        .global _(__atomic_test_and_set_4)
+        .वैश्विक _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
 #ifdef __TINYC__
@@ -1975,24 +1975,24 @@ _(__atomic_test_and_set_4):
         .int 0x12001c20
         .int 0xd65f03c0
 #else
-        mov w2, #0x1                    // #1
+        चालय w2, #0x1                    // #1
         cbnz    w1,  .L___atomic_test_and_set_4_01c
 .L___atomic_test_and_set_4_008:
         ldxrb   w1, [x0]
         stxrb   w3, w2, [x0]
         cbnz    w3,  .L___atomic_test_and_set_4_008
         and w0, w1, #0xff
-        ret
+        प्रत्यागच्छ
 .L___atomic_test_and_set_4_01c:
         ldaxrb  w1, [x0]
         stlxrb  w3, w2, [x0]
         cbnz    w3,  .L___atomic_test_and_set_4_01c
         and w0, w1, #0xff
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
 #endif
-        .global _(__atomic_test_and_set_8)
+        .वैश्विक _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
 #ifdef __TINYC__
@@ -2009,24 +2009,24 @@ _(__atomic_test_and_set_8):
         .int 0x12001c20
         .int 0xd65f03c0
 #else
-        mov w2, #0x1                    // #1
+        चालय w2, #0x1                    // #1
         cbnz    w1,  .L___atomic_test_and_set_8_01c
 .L___atomic_test_and_set_8_008:
         ldxrb   w1, [x0]
         stxrb   w3, w2, [x0]
         cbnz    w3,  .L___atomic_test_and_set_8_008
         and w0, w1, #0xff
-        ret
+        प्रत्यागच्छ
 .L___atomic_test_and_set_8_01c:
         ldaxrb  w1, [x0]
         stlxrb  w3, w2, [x0]
         cbnz    w3,  .L___atomic_test_and_set_8_01c
         and w0, w1, #0xff
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
 #endif
-        .global _(atomic_thread_fence)
+        .वैश्विक _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
 #ifdef __TINYC__
@@ -2034,21 +2034,21 @@ _(atomic_thread_fence):
         .int 0xd65f03c0
 #else
         dmb ish
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
 #endif
-        .global _(atomic_signal_fence)
+        .वैश्विक _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
 #ifdef __TINYC__
         .int 0xd65f03c0
 #else
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
 #endif
-        .global _(atomic_flag_test_and_set)
+        .वैश्विक _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
 #ifdef __TINYC__
@@ -2059,17 +2059,17 @@ _(atomic_flag_test_and_set):
         .int 0x35ffffc3
         .int 0xd65f03c0
 #else
-        mov x1, x0
-        mov w2, #0x1                    // #1
+        चालय x1, x0
+        चालय w2, #0x1                    // #1
 .L_atomic_flag_test_and_set_008:
         ldaxrb  w0, [x1]
         stlxrb  w3, w2, [x1]
         cbnz    w3,  .L_atomic_flag_test_and_set_008
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
 #endif
-        .global _(atomic_flag_test_and_set_explicit)
+        .वैश्विक _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
 #ifdef __TINYC__
@@ -2080,17 +2080,17 @@ _(atomic_flag_test_and_set_explicit):
         .int 0x35ffffc3
         .int 0xd65f03c0
 #else
-        mov x1, x0
-        mov w2, #0x1                    // #1
+        चालय x1, x0
+        चालय w2, #0x1                    // #1
 .L_atomic_flag_test_and_set_explicit_020:
         ldaxrb  w0, [x1]
         stlxrb  w3, w2, [x1]
         cbnz    w3,  .L_atomic_flag_test_and_set_explicit_020
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
 #endif
-        .global _(atomic_flag_clear)
+        .वैश्विक _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
 #ifdef __TINYC__
@@ -2098,11 +2098,11 @@ _(atomic_flag_clear):
         .int 0xd65f03c0
 #else
         stlrb   wzr, [x0]
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
 #endif
-        .global _(atomic_flag_clear_explicit)
+        .वैश्विक _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
 #ifdef __TINYC__
@@ -2110,7 +2110,7 @@ _(atomic_flag_clear_explicit):
         .int 0xd65f03c0
 #else
         stlrb   wzr, [x0]
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_clear_explicit), .-_(atomic_flag_clear_explicit)
 
 #endif
@@ -2120,7 +2120,7 @@ _(atomic_flag_clear_explicit):
 #if defined __riscv
         .text
 
-        .global _(__atomic_load_1)
+        .वैश्विक _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
 #ifdef __TINYC__
@@ -2132,11 +2132,11 @@ _(__atomic_load_1):
         fence   rw,rw
         lbu a0,0(a0)
         fence   rw,rw
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
 #endif
-        .global _(__atomic_load_2)
+        .वैश्विक _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
 #ifdef __TINYC__
@@ -2148,11 +2148,11 @@ _(__atomic_load_2):
         fence   rw,rw
         lhu a0,0(a0)
         fence   rw,rw
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
 #endif
-        .global _(__atomic_load_4)
+        .वैश्विक _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
 #ifdef __TINYC__
@@ -2166,11 +2166,11 @@ _(__atomic_load_4):
         lw  a0,0(a0)
         fence   r,rw
         sext.w  a0,a0
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
 #endif
-        .global _(__atomic_load_8)
+        .वैश्विक _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
 #ifdef __TINYC__
@@ -2182,11 +2182,11 @@ _(__atomic_load_8):
         fence   rw,rw
         ld  a0,0(a0)
         fence   r,rw
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
 #endif
-        .global _(__atomic_store_1)
+        .वैश्विक _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
 #ifdef __TINYC__
@@ -2198,11 +2198,11 @@ _(__atomic_store_1):
         fence   rw,rw
         sb  a1,0(a0)
         fence   rw,rw
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
 #endif
-        .global _(__atomic_store_2)
+        .वैश्विक _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
 #ifdef __TINYC__
@@ -2214,11 +2214,11 @@ _(__atomic_store_2):
         fence   rw,rw
         sh  a1,0(a0)
         fence   rw,rw
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
 #endif
-        .global _(__atomic_store_4)
+        .वैश्विक _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
 #ifdef __TINYC__
@@ -2230,11 +2230,11 @@ _(__atomic_store_4):
         fence   rw,w
         sw  a1,0(a0)
         fence   rw,rw
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
 #endif
-        .global _(__atomic_store_8)
+        .वैश्विक _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
 #ifdef __TINYC__
@@ -2246,11 +2246,11 @@ _(__atomic_store_8):
         fence   rw,w
         sd  a1,0(a0)
         fence   rw,rw
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
 #endif
-        .global _(__atomic_compare_exchange_1)
+        .वैश्विक _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
 #ifdef __TINYC__
@@ -2315,11 +2315,11 @@ _(__atomic_compare_exchange_1):
         sb  a6,0(a1)
 .L___atomic_compare_exchange_1_064:
         andi    a0,a0,1
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
 #endif
-        .global _(__atomic_compare_exchange_2)
+        .वैश्विक _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
 #ifdef __TINYC__
@@ -2386,11 +2386,11 @@ _(__atomic_compare_exchange_2):
         sh  a6,0(a1)
 .L___atomic_compare_exchange_2_064:
         andi    a0,a0,1
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
 #endif
-        .global _(__atomic_compare_exchange_4)
+        .वैश्विक _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
 #ifdef __TINYC__
@@ -2419,11 +2419,11 @@ _(__atomic_compare_exchange_4):
         sw  a4,0(a1)
 .L___atomic_compare_exchange_4_01c:
         andi    a0,a0,1
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
 #endif
-        .global _(__atomic_compare_exchange_8)
+        .वैश्विक _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
 #ifdef __TINYC__
@@ -2446,17 +2446,17 @@ _(__atomic_compare_exchange_8):
         sc.d.rl a3,a2,(a0)
         bnez    a3, .L___atomic_compare_exchange_8_002
 .L___atomic_compare_exchange_8_010:
-        sub a5,a4,a5
+        वियोजय a5,a4,a5
         seqz    a0,a5
         beqz    a5, .L___atomic_compare_exchange_8_01c
         sd  a4,0(a1)
 .L___atomic_compare_exchange_8_01c:
         andi    a0,a0,1
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
 #endif
-        .global _(__atomic_test_and_set_1)
+        .वैश्विक _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
 #ifdef __TINYC__
@@ -2478,11 +2478,11 @@ _(__atomic_test_and_set_1):
         amoor.w.aqrl    a4,a3,(a0)
         srlw    a0,a4,a5
         zext.b  a0,a0
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
 #endif
-        .global _(__atomic_test_and_set_2)
+        .वैश्विक _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
 #ifdef __TINYC__
@@ -2504,11 +2504,11 @@ _(__atomic_test_and_set_2):
         amoor.w.aqrl    a4,a3,(a0)
         srlw    a0,a4,a5
         zext.b  a0,a0
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
 #endif
-        .global _(__atomic_test_and_set_4)
+        .वैश्विक _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
 #ifdef __TINYC__
@@ -2530,11 +2530,11 @@ _(__atomic_test_and_set_4):
         amoor.w.aqrl    a4,a3,(a0)
         srlw    a0,a4,a5
         zext.b  a0,a0
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
 #endif
-        .global _(__atomic_test_and_set_8)
+        .वैश्विक _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
 #ifdef __TINYC__
@@ -2556,11 +2556,11 @@ _(__atomic_test_and_set_8):
         amoor.w.aqrl    a4,a3,(a0)
         srlw    a0,a4,a5
         zext.b  a0,a0
-        ret
+        प्रत्यागच्छ
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
 #endif
-        .global _(atomic_thread_fence)
+        .वैश्विक _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
 #ifdef __TINYC__
@@ -2568,21 +2568,21 @@ _(atomic_thread_fence):
         .short 0x8082
 #else
         fence   rw,rw
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
 #endif
-        .global _(atomic_signal_fence)
+        .वैश्विक _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
 #ifdef __TINYC__
         .short 0x8082
 #else
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
 #endif
-        .global _(atomic_flag_test_and_set)
+        .वैश्विक _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
 #ifdef __TINYC__
@@ -2604,11 +2604,11 @@ _(atomic_flag_test_and_set):
         amoor.w.aqrl    a4,a3,(a0)
         srlw    a0,a4,a5
         zext.b  a0,a0
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
 #endif
-        .global _(atomic_flag_test_and_set_explicit)
+        .वैश्विक _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
 #ifdef __TINYC__
@@ -2630,11 +2630,11 @@ _(atomic_flag_test_and_set_explicit):
         amoor.w.aqrl    a4,a3,(a0)
         srlw    a0,a4,a5
         zext.b  a0,a0
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
 #endif
-        .global _(atomic_flag_clear)
+        .वैश्विक _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
 #ifdef __TINYC__
@@ -2646,11 +2646,11 @@ _(atomic_flag_clear):
         fence   rw,rw
         sb  zero,0(a0)
         fence   rw,rw
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
 #endif
-        .global _(atomic_flag_clear_explicit)
+        .वैश्विक _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
 #ifdef __TINYC__
@@ -2662,7 +2662,7 @@ _(atomic_flag_clear_explicit):
         fence   rw,rw
         sb  zero,0(a0)
         fence   rw,rw
-        ret
+        प्रत्यागच्छ
 	.size   _(atomic_flag_clear_explicit), .-_(atomic_flag_clear_explicit)
 
 #endif

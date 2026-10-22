@@ -3,131 +3,131 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _TIMEB_H_
-#define _TIMEB_H_
+#यदि_अपरिभाषितम् _TIMEB_H_
+#परिभाषय _TIMEB_H_
 
-#include <_mingw.h>
+#अन्तर्भाव <_mingw.h>
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#यदि_अपरिभाषितम् _WIN32
+#दोषः Only Win32 target is supported!
+#यदि_अन्तः
 
-#pragma pack(push,_CRT_PACKING)
+#निर्देशः pack(प्रक्षिप,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#यदि_अपरिभाषितम् _CRTIMP
+#परिभाषय _CRTIMP __declspec(dllimport)
+#यदि_अन्तः
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#यदि_अपरिभाषितम् __TINYC__ /* gr */
+#यदि_परिभाषितम् _USE_32BIT_TIME_T
+#यदि_परिभाषितम् _WIN64
+#अपरिभाषय _USE_32BIT_TIME_T
+#यदि_अन्तः
+#अन्यथा
+#यदि INTEGRAL_MAX_द्वयङ्काः < 64
+#परिभाषय _USE_32BIT_TIME_T
+#यदि_अन्तः
+#यदि_अन्तः
+#यदि_अन्तः
 
-#ifndef _TIME32_T_DEFINED
-  typedef long __time32_t;
-#define _TIME32_T_DEFINED
-#endif
+#यदि_अपरिभाषितम् _TIME32_T_DEFINED
+  प्रकारनिर्देश दीर्घ __time32_t;
+#परिभाषय _TIME32_T_DEFINED
+#यदि_अन्तः
 
-#ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
-#endif
-#define _TIME64_T_DEFINED
-#endif
+#यदि_अपरिभाषितम् _TIME64_T_DEFINED
+#यदि INTEGRAL_MAX_द्वयङ्काः >= 64
+  प्रकारनिर्देश __int64 __time64_t;
+#यदि_अन्तः
+#परिभाषय _TIME64_T_DEFINED
+#यदि_अन्तः
 
-#ifndef _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
-#endif
-#define _TIME_T_DEFINED
-#endif
+#यदि_अपरिभाषितम् _TIME_T_DEFINED
+#यदि_परिभाषितम् _USE_32BIT_TIME_T
+  प्रकारनिर्देश __time32_t time_t;
+#अन्यथा
+  प्रकारनिर्देश __time64_t time_t;
+#यदि_अन्तः
+#परिभाषय _TIME_T_DEFINED
+#यदि_अन्तः
 
-#ifndef _TIMEB_DEFINED
-#define _TIMEB_DEFINED
+#यदि_अपरिभाषितम् _TIMEB_DEFINED
+#परिभाषय _TIMEB_DEFINED
 
-  struct __timeb32 {
+  संरचना __timeb32 {
     __time32_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+    अचिह्नित ह्रस्व millitm;
+    ह्रस्व timezone;
+    ह्रस्व dstflag;
   };
 
-#ifndef	NO_OLDNAMES
-  struct timeb {
+#यदि_अपरिभाषितम्	NO_OLDNAMES
+  संरचना timeb {
     time_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+    अचिह्नित ह्रस्व millitm;
+    ह्रस्व timezone;
+    ह्रस्व dstflag;
   };
-#endif
+#यदि_अन्तः
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __timeb64 {
+#यदि INTEGRAL_MAX_द्वयङ्काः >= 64
+  संरचना __timeb64 {
     __time64_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+    अचिह्नित ह्रस्व millitm;
+    ह्रस्व timezone;
+    ह्रस्व dstflag;
   };
-#endif
+#यदि_अन्तः
 
-#ifdef _USE_32BIT_TIME_T
-#define _timeb __timeb32
+#यदि_परिभाषितम् _USE_32BIT_TIME_T
+#परिभाषय _timeb __timeb32
 //gr #define _ftime _ftime32
-#define _ftime32 _ftime
-#else
-#define _timeb __timeb64
-#define _ftime _ftime64
-#endif
-#endif
+#परिभाषय _ftime32 _ftime
+#अन्यथा
+#परिभाषय _timeb __timeb64
+#परिभाषय _ftime _ftime64
+#यदि_अन्तः
+#यदि_अन्तः
 
-  _CRTIMP void __cdecl _ftime32(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP void __cdecl _ftime64(struct __timeb64 *_Time);
-#endif
+  _CRTIMP शून्य __cdecl _ftime32(संरचना __timeb32 *_Time);
+#यदि INTEGRAL_MAX_द्वयङ्काः >= 64
+  _CRTIMP शून्य __cdecl _ftime64(संरचना __timeb64 *_Time);
+#यदि_अन्तः
 
-#ifndef _TIMESPEC_DEFINED
-#define _TIMESPEC_DEFINED
-struct timespec {
+#यदि_अपरिभाषितम् _TIMESPEC_DEFINED
+#परिभाषय _TIMESPEC_DEFINED
+संरचना timespec {
   time_t  tv_sec;   /* Seconds */
-  long    tv_nsec;  /* Nanoseconds */
+  दीर्घ    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+संरचना itimerspec {
+  संरचना timespec  it_interval;  /* Timer period */
+  संरचना timespec  it_value;     /* Timer expiration */
 };
-#endif
+#यदि_अन्तः
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime32((struct __timeb32 *)_Tmb);
+#यदि !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+#यदि_परिभाषितम् _USE_32BIT_TIME_T
+__CRT_INLINE शून्य __cdecl ftime(संरचना timeb *_Tmb) {
+  _ftime32((संरचना __timeb32 *)_Tmb);
 }
-#else
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime64((struct __timeb64 *)_Tmb);
+#अन्यथा
+__CRT_INLINE शून्य __cdecl ftime(संरचना timeb *_Tmb) {
+  _ftime64((संरचना __timeb64 *)_Tmb);
 }
-#endif
-#endif
+#यदि_अन्तः
+#यदि_अन्तः
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
+#यदि_अन्तः
 
-#pragma pack(pop)
+#निर्देशः pack(निष्कासय)
 
-#include <sec_api/sys/timeb_s.h>
-#endif
+#अन्तर्भाव <sec_api/sys/timeb_s.h>
+#यदि_अन्तः

@@ -1,41 +1,41 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+पूर्णाङ्क atexit(शून्य (*function)(शून्य));
+पूर्णाङ्क on_exit(शून्य (*function)(पूर्णाङ्क, शून्य *), शून्य *arg);
+शून्य निर्गच्छ(पूर्णाङ्क स्थितिः);
 
-void __attribute((constructor)) startup5(void)
+शून्य __attribute((constructor)) startup5(शून्य)
 {
-    printf ("startup5\n");
+    प्रारूप_लिख ("startup5\n");
 }
 
-void cleanup1(void)
+शून्य cleanup1(शून्य)
 {
-    printf ("cleanup1\n");
+    प्रारूप_लिख ("cleanup1\n");
     fflush(stdout);
 }
 
-void cleanup2(void)
+शून्य cleanup2(शून्य)
 {
-    printf ("cleanup2\n");
+    प्रारूप_लिख ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+शून्य cleanup3(पूर्णाङ्क ret, शून्य *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    प्रारूप_लिख ("%d %s\n", ret, (वर्ण *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+शून्य cleanup4(पूर्णाङ्क ret, शून्य *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    प्रारूप_लिख ("%d %s\n", ret, (वर्ण *) arg);
 }
 
-void __attribute((destructor)) cleanup5(void)
+शून्य __attribute((destructor)) cleanup5(शून्य)
 {
-    printf ("cleanup5\n");
+    प्रारूप_लिख ("cleanup5\n");
 }
 
-void test(void)
+शून्य test(शून्य)
 {
     atexit(cleanup1);
     atexit(cleanup2);
@@ -43,17 +43,17 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#यदि defined test_128_return
+पूर्णाङ्क मुख्यम्(पूर्णाङ्क argc, वर्ण **argv)
 {
     test();
-    return 1;
+    प्रत्यागम 1;
 } 
 
-#elif defined test_128_exit
-int main(int argc, char **argv)
+#नोचेद्यदि defined test_128_exit
+पूर्णाङ्क मुख्यम्(पूर्णाङ्क argc, वर्ण **argv)
 {
     test();
-    exit(2);
+    निर्गच्छ(2);
 } 
-#endif
+#यदि_अन्तः

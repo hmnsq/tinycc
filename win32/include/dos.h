@@ -3,53 +3,53 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_DOS
-#define _INC_DOS
+#यदि_अपरिभाषितम् _INC_DOS
+#परिभाषय _INC_DOS
 
-#include <_mingw.h>
-#include <io.h>
+#अन्तर्भाव <_mingw.h>
+#अन्तर्भाव <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#निर्देशः pack(प्रक्षिप,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#ifndef _DISKFREE_T_DEFINED
-#define _DISKFREE_T_DEFINED
+#यदि_अपरिभाषितम् _DISKFREE_T_DEFINED
+#परिभाषय _DISKFREE_T_DEFINED
 
-  struct _diskfree_t {
-    unsigned total_clusters;
-    unsigned avail_clusters;
-    unsigned sectors_per_cluster;
-    unsigned bytes_per_sector;
+  संरचना _diskfree_t {
+    अचिह्नित योग_clusters;
+    अचिह्नित avail_clusters;
+    अचिह्नित sectors_प्रत्येकम्_cluster;
+    अचिह्नित अष्टकानि_प्रत्येकम्_sector;
   };
-#endif
+#यदि_अन्तः
 
-#define _A_NORMAL 0x00
-#define _A_RDONLY 0x01
-#define _A_HIDDEN 0x02
-#define _A_SYSTEM 0x04
-#define _A_SUBDIR 0x10
-#define _A_ARCH 0x20
+#परिभाषय A_प्रसामान्यम् 0x00
+#परिभाषय _A_RDONLY 0x01
+#परिभाषय _A_HIDDEN 0x02
+#परिभाषय _A_SYSTEM 0x04
+#परिभाषय _A_SUBDIR 0x10
+#परिभाषय _A_ARCH 0x20
 
-#ifndef _GETDISKFREE_DEFINED
-#define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
-#endif
+#यदि_अपरिभाषितम् _GETDISKFREE_DEFINED
+#परिभाषय _GETDISKFREE_DEFINED
+  _CRTIMP अचिह्नित __cdecl _getdiskfree(अचिह्नित _Drive,संरचना _diskfree_t *_DiskFree);
+#यदि_अन्तः
 
-#if (defined(_X86_) && !defined(__x86_64))
-  void __cdecl _disable(void);
-  void __cdecl _enable(void);
-#endif
+#यदि (defined(_X86_) && !defined(__x86_64))
+  शून्य __cdecl _disable(शून्य);
+  शून्य __cdecl _enable(शून्य);
+#यदि_अन्तः
 
-#ifndef	NO_OLDNAMES
-#define diskfree_t _diskfree_t
-#endif
+#यदि_अपरिभाषितम्	NO_OLDNAMES
+#परिभाषय diskfree_t _diskfree_t
+#यदि_अन्तः
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
+#यदि_अन्तः
 
-#pragma pack(pop)
-#endif
+#निर्देशः pack(निष्कासय)
+#यदि_अन्तः

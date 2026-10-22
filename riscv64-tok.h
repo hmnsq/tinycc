@@ -5,16 +5,16 @@
  * The specifications are available under https://riscv.org/technical/specifications/
  */
 
-#define DEF_ASM_WITH_SUFFIX(x, y) \
+#परिभाषय DEF_ASM_WITH_SUFFIX(x, y) \
   DEF(TOK_ASM_ ## x ## _ ## y, #x "." #y)
 
-#define DEF_ASM_WITH_SUFFIXES(x, y, z) \
+#परिभाषय DEF_ASM_WITH_SUFFIXES(x, y, z) \
   DEF(TOK_ASM_ ## x ## _ ## y ## _ ## z, #x "." #y "." #z)
 
-#define DEF_ASM_FENCE(x) \
+#परिभाषय DEF_ASM_FENCE(x) \
   DEF(TOK_ASM_ ## x ## _fence, #x)
 
-/* register */
+/*पञ्जिकाकोशः*/
  /* integer */
  DEF_ASM(x0)
  DEF_ASM(x1)
@@ -189,7 +189,7 @@
 
 /* Arithmetic */
 
- DEF_ASM(add)
+ DEF_ASM(सङ्कलय)
  DEF_ASM(addi)
  DEF_ASM(sub)
  DEF_ASM(lui)
@@ -255,7 +255,7 @@
  DEF_ASM(mulh)
  DEF_ASM(mulhsu)
  DEF_ASM(mulhu)
- DEF_ASM(div)
+ DEF_ASM(भाजय)
  DEF_ASM(divu)
  DEF_ASM(rem)
  DEF_ASM(remu)
@@ -350,7 +350,7 @@
  DEF_ASM_WITH_SUFFIX(c, srai)
 
 /* Arithmetic */
- DEF_ASM_WITH_SUFFIX(c, add)
+ DEF_ASM_WITH_SUFFIX(c, सङ्कलय)
  DEF_ASM_WITH_SUFFIX(c, addi)
  DEF_ASM_WITH_SUFFIX(c, addi16sp)
  DEF_ASM_WITH_SUFFIX(c, addi4spn)
@@ -393,7 +393,7 @@
  DEF_ASM(csrrsi)
  DEF_ASM(csrrci)
  /* registers */
- DEF_ASM(cycle)
+ DEF_ASM(आवृत्तिः)
  DEF_ASM(fcsr)
  DEF_ASM(fflags)
  DEF_ASM(frm)
@@ -464,7 +464,7 @@
  DEF_ASM(sgtz)
  DEF_ASM(sltz)
  DEF_ASM(snez)
- DEF_ASM(tail)
+ DEF_ASM(पुच्छ_2)
 
 /* Possible values for .option directive */
  DEF_ASM(arch)
@@ -474,8 +474,8 @@
  DEF_ASM(nopic)
  DEF_ASM(relax)
  DEF_ASM(norelax)
- DEF_ASM(push)
- DEF_ASM(pop)
+ DEF_ASM(प्रक्षिप)
+ DEF_ASM(निष्कासय)
 
 /* “A” Standard Extension for Atomic Instructions, Version 2.1 */
  /* XXX: Atomic memory operations */
@@ -607,6 +607,6 @@
  DEF_ASM_FENCE(ior)
  DEF_ASM_FENCE(iorw)
 
-#undef DEF_ASM_FENCE
-#undef DEF_ASM_WITH_SUFFIX
-#undef DEF_ASM_WITH_SUFFIXES
+#अपरिभाषय DEF_ASM_FENCE
+#अपरिभाषय DEF_ASM_WITH_SUFFIX
+#अपरिभाषय DEF_ASM_WITH_SUFFIXES

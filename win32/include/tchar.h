@@ -3,1100 +3,1100 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#include <_mingw.h>
+#अन्तर्भाव <_mingw.h>
 
-#ifndef _INC_TCHAR
-#define _INC_TCHAR
+#यदि_अपरिभाषितम् _INC_TCHAR
+#परिभाषय _INC_TCHAR
 
-#ifdef _STRSAFE_H_INCLUDED_
-#error Need to include strsafe.h after tchar.h
-#endif
+#यदि_परिभाषितम् _STRSAFE_H_INCLUDED_
+#दोषः Need गन्तव्यम् include strsafe.h after tchar.h
+#यदि_अन्तः
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#define _ftcscat _tcscat
-#define _ftcschr _tcschr
-#define _ftcscpy _tcscpy
-#define _ftcscspn _tcscspn
-#define _ftcslen _tcslen
-#define _ftcsncat _tcsncat
-#define _ftcsncpy _tcsncpy
-#define _ftcspbrk _tcspbrk
-#define _ftcsrchr _tcsrchr
-#define _ftcsspn _tcsspn
-#define _ftcsstr _tcsstr
-#define _ftcstok _tcstok
+#परिभाषय _ftcscat _tcscat
+#परिभाषय _ftcschr _tcschr
+#परिभाषय _ftcscpy _tcscpy
+#परिभाषय _ftcscspn _tcscspn
+#परिभाषय _ftcslen _tcslen
+#परिभाषय _ftcsncat _tcsncat
+#परिभाषय _ftcsncpy _tcsncpy
+#परिभाषय _ftcspbrk _tcspbrk
+#परिभाषय _ftcsrchr _tcsrchr
+#परिभाषय _ftcsspn _tcsspn
+#परिभाषय _ftcsstr _tcsstr
+#परिभाषय _ftcstok _tcstok
 
-#define _ftcsdup _tcsdup
-#define _ftcsnset _tcsnset
-#define _ftcsrev _tcsrev
-#define _ftcsset _tcsset
+#परिभाषय _ftcsdup _tcsdup
+#परिभाषय _ftcsnset _tcsnset
+#परिभाषय _ftcsrev _tcsrev
+#परिभाषय _ftcsset _tcsset
 
-#define _ftcscmp _tcscmp
-#define _ftcsicmp _tcsicmp
-#define _ftcsnccmp _tcsnccmp
-#define _ftcsncmp _tcsncmp
-#define _ftcsncicmp _tcsncicmp
-#define _ftcsnicmp _tcsnicmp
+#परिभाषय _ftcscmp _tcscmp
+#परिभाषय _ftcsicmp _tcsicmp
+#परिभाषय _ftcsnccmp _tcsnccmp
+#परिभाषय _ftcsncmp _tcsncmp
+#परिभाषय _ftcsncicmp _tcsncicmp
+#परिभाषय _ftcsnicmp _tcsnicmp
 
-#define _ftcscoll _tcscoll
-#define _ftcsicoll _tcsicoll
-#define _ftcsnccoll _tcsnccoll
-#define _ftcsncoll _tcsncoll
-#define _ftcsncicoll _tcsncicoll
-#define _ftcsnicoll _tcsnicoll
+#परिभाषय _ftcscoll _tcscoll
+#परिभाषय _ftcsicoll _tcsicoll
+#परिभाषय _ftcsnccoll _tcsnccoll
+#परिभाषय _ftcsncoll _tcsncoll
+#परिभाषय _ftcsncicoll _tcsncicoll
+#परिभाषय _ftcsnicoll _tcsnicoll
 
-#define _ftcsclen _tcsclen
-#define _ftcsnccat _tcsnccat
-#define _ftcsnccpy _tcsnccpy
-#define _ftcsncset _tcsncset
+#परिभाषय _ftcsclen _tcsclen
+#परिभाषय _ftcsnccat _tcsnccat
+#परिभाषय _ftcsnccpy _tcsnccpy
+#परिभाषय _ftcsncset _tcsncset
 
-#define _ftcsdec _tcsdec
-#define _ftcsinc _tcsinc
-#define _ftcsnbcnt _tcsnbcnt
-#define _ftcsnccnt _tcsnccnt
-#define _ftcsnextc _tcsnextc
-#define _ftcsninc _tcsninc
-#define _ftcsspnp _tcsspnp
+#परिभाषय _ftcsdec _tcsdec
+#परिभाषय _ftcsinc _tcsinc
+#परिभाषय _ftcsnbcnt _tcsnbcnt
+#परिभाषय _ftcsnccnt _tcsnccnt
+#परिभाषय _ftcsnextc _tcsnextc
+#परिभाषय _ftcsninc _tcsninc
+#परिभाषय _ftcsspnp _tcsspnp
 
-#define _ftcslwr _tcslwr
-#define _ftcsupr _tcsupr
+#परिभाषय _ftcslwr _tcslwr
+#परिभाषय _ftcsupr _tcsupr
 
-#define _ftclen _tclen
-#define _ftccpy _tccpy
-#define _ftccmp _tccmp
+#परिभाषय _ftclen _tclen
+#परिभाषय _ftccpy _tccpy
+#परिभाषय _ftccmp _tccmp
 
-#ifndef _CONST_RETURN
-#ifdef __cplusplus
-#define _CONST_RETURN const
-#define _CRT_CONST_CORRECT_OVERLOADS
-#else
-#define _CONST_RETURN
-#endif
-#endif
+#यदि_अपरिभाषितम् _CONST_RETURN
+#यदि_परिभाषितम् __cplusplus
+#परिभाषय _CONST_RETURN ध्रुव
+#परिभाषय _CRT_CONST_CORRECT_OVERLOADS
+#अन्यथा
+#परिभाषय _CONST_RETURN
+#यदि_अन्तः
+#यदि_अन्तः
 
-#define _WConst_return _CONST_RETURN
+#परिभाषय _WConst_return _CONST_RETURN
 
-#ifdef _UNICODE
+#यदि_परिभाषितम् _UNICODE
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
+#यदि_अन्तः
 
-#include <wchar.h>
+#अन्तर्भाव <wchar.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#ifndef _WCTYPE_T_DEFINED
-#define _WCTYPE_T_DEFINED
-  typedef unsigned short wint_t;
-  typedef unsigned short wctype_t;
-#endif
+#यदि_अपरिभाषितम् _WCTYPE_T_DEFINED
+#परिभाषय _WCTYPE_T_DEFINED
+  प्रकारनिर्देश अचिह्नित ह्रस्व wint_t;
+  प्रकारनिर्देश अचिह्नित ह्रस्व wctype_t;
+#यदि_अन्तः
 
-#ifndef __TCHAR_DEFINED
-#define __TCHAR_DEFINED
-  typedef wchar_t _TCHAR;
-  typedef wchar_t _TSCHAR;
-  typedef wchar_t _TUCHAR;
-  typedef wchar_t _TXCHAR;
-  typedef wint_t _TINT;
-#endif
+#यदि_अपरिभाषितम् __TCHAR_DEFINED
+#परिभाषय __TCHAR_DEFINED
+  प्रकारनिर्देश wchar_t _TCHAR;
+  प्रकारनिर्देश wchar_t _TSCHAR;
+  प्रकारनिर्देश wchar_t _TUCHAR;
+  प्रकारनिर्देश wchar_t _TXCHAR;
+  प्रकारनिर्देश wint_t _TINT;
+#यदि_अन्तः
 
-#ifndef _TCHAR_DEFINED
-#define _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef wchar_t TCHAR;
-#endif
-#endif
+#यदि_अपरिभाषितम् _TCHAR_DEFINED
+#परिभाषय _TCHAR_DEFINED
+#यदि_अपरिभाषितम्	NO_OLDNAMES
+  प्रकारनिर्देश wchar_t TCHAR;
+#यदि_अन्तः
+#यदि_अन्तः
 
-#define _TEOF WEOF
+#परिभाषय _TEOF WEOF
 
-#define __T(x) L##x
+#परिभाषय __T(x) L##x
 
-#define _tmain wmain
-#define _tWinMain wWinMain
-#define _tenviron _wenviron
-#define __targv __wargv
+#परिभाषय _tmain wmain
+#परिभाषय _tWinMain wWinMain
+#परिभाषय _tenviron _wenviron
+#परिभाषय __targv __wargv
 
-#define _tprintf wprintf
-#define _tprintf_l _wprintf_l
-#define _tprintf_p _wprintf_p
-#define _tprintf_p_l _wprintf_p_l
-#define _tcprintf _cwprintf
-#define _tcprintf_l _cwprintf_l
-#define _tcprintf_p _cwprintf_p
-#define _tcprintf_p_l _cwprintf_p_l
-#define _vtcprintf _vcwprintf
-#define _vtcprintf_l _vcwprintf_l
-#define _vtcprintf_p _vcwprintf_p
-#define _vtcprintf_p_l _vcwprintf_p_l
-#define _ftprintf fwprintf
-#define _ftprintf_l _fwprintf_l
-#define _ftprintf_p _fwprintf_p
-#define _ftprintf_p_l _fwprintf_p_l
-#define _stprintf swprintf
-#define _stprintf_l __swprintf_l
-#define _stprintf_p _swprintf_p
-#define _stprintf_p_l _swprintf_p_l
-#define _sctprintf _scwprintf
-#define _sctprintf_l _scwprintf_l
-#define _sctprintf_p _scwprintf_p
-#define _sctprintf_p_l _scwprintf_p_l
-#define _sntprintf _snwprintf
-#define _sntprintf_l _snwprintf_l
-#define _vtprintf vwprintf
-#define _vtprintf_l _vwprintf_l
-#define _vtprintf_p _vwprintf_p
-#define _vtprintf_p_l _vwprintf_p_l
-#define _vftprintf vfwprintf
-#define _vftprintf_l _vfwprintf_l
-#define _vftprintf_p _vfwprintf_p
-#define _vftprintf_p_l _vfwprintf_p_l
-#define _vstprintf vswprintf
-#define _vstprintf_l _vswprintf_l
-#define _vstprintf_p _vswprintf_p
-#define _vstprintf_p_l _vswprintf_p_l
-#define _vsctprintf _vscwprintf
-#define _vsctprintf_l _vscwprintf_l
-#define _vsctprintf_p _vscwprintf_p
-#define _vsctprintf_p_l _vscwprintf_p_l
-#define _vsntprintf _vsnwprintf
-#define _vsntprintf_l _vsnwprintf_l
+#परिभाषय _tprintf wprintf
+#परिभाषय _tprintf_l _wprintf_l
+#परिभाषय _tprintf_p _wprintf_p
+#परिभाषय _tprintf_p_l _wprintf_p_l
+#परिभाषय _tcprintf _cwprintf
+#परिभाषय _tcprintf_l _cwprintf_l
+#परिभाषय _tcprintf_p _cwprintf_p
+#परिभाषय _tcprintf_p_l _cwprintf_p_l
+#परिभाषय _vtcprintf _vcwprintf
+#परिभाषय _vtcprintf_l _vcwprintf_l
+#परिभाषय _vtcprintf_p _vcwprintf_p
+#परिभाषय _vtcprintf_p_l _vcwprintf_p_l
+#परिभाषय _ftprintf fwprintf
+#परिभाषय _ftprintf_l _fwprintf_l
+#परिभाषय _ftprintf_p _fwprintf_p
+#परिभाषय _ftprintf_p_l _fwprintf_p_l
+#परिभाषय _stprintf swprintf
+#परिभाषय _stprintf_l __swprintf_l
+#परिभाषय _stprintf_p _swprintf_p
+#परिभाषय _stprintf_p_l _swprintf_p_l
+#परिभाषय _sctprintf _scwprintf
+#परिभाषय _sctprintf_l _scwprintf_l
+#परिभाषय _sctprintf_p _scwprintf_p
+#परिभाषय _sctprintf_p_l _scwprintf_p_l
+#परिभाषय _sntprintf _snwprintf
+#परिभाषय _sntprintf_l _snwprintf_l
+#परिभाषय _vtprintf vwprintf
+#परिभाषय _vtprintf_l _vwprintf_l
+#परिभाषय _vtprintf_p _vwprintf_p
+#परिभाषय _vtprintf_p_l _vwprintf_p_l
+#परिभाषय _vftprintf vfwprintf
+#परिभाषय _vftprintf_l _vfwprintf_l
+#परिभाषय _vftprintf_p _vfwprintf_p
+#परिभाषय _vftprintf_p_l _vfwprintf_p_l
+#परिभाषय _vstprintf vswprintf
+#परिभाषय _vstprintf_l _vswprintf_l
+#परिभाषय _vstprintf_p _vswprintf_p
+#परिभाषय _vstprintf_p_l _vswprintf_p_l
+#परिभाषय _vsctprintf _vscwprintf
+#परिभाषय _vsctprintf_l _vscwprintf_l
+#परिभाषय _vsctprintf_p _vscwprintf_p
+#परिभाषय _vsctprintf_p_l _vscwprintf_p_l
+#परिभाषय _vsntprintf _vsnwprintf
+#परिभाषय _vsntprintf_l _vsnwprintf_l
 
-#define _tscanf wscanf
-#define _tscanf_l _wscanf_l
-#define _tcscanf _cwscanf
-#define _tcscanf_l _cwscanf_l
-#define _ftscanf fwscanf
-#define _ftscanf_l _fwscanf_l
-#define _stscanf swscanf
-#define _stscanf_l _swscanf_l
-#define _sntscanf _snwscanf
-#define _sntscanf_l _snwscanf_l
+#परिभाषय _tscanf wscanf
+#परिभाषय _tscanf_l _wscanf_l
+#परिभाषय _tcscanf _cwscanf
+#परिभाषय _tcscanf_l _cwscanf_l
+#परिभाषय _ftscanf fwscanf
+#परिभाषय _ftscanf_l _fwscanf_l
+#परिभाषय _stscanf swscanf
+#परिभाषय _stscanf_l _swscanf_l
+#परिभाषय _sntscanf _snwscanf
+#परिभाषय _sntscanf_l _snwscanf_l
 
-#define _fgettc fgetwc
-#define _fgettc_nolock _fgetwc_nolock
-#define _fgettchar _fgetwchar
-#define _fgetts fgetws
-#define _fputtc fputwc
-#define _fputtc_nolock _fputwc_nolock
-#define _fputtchar _fputwchar
-#define _fputts fputws
-#define _cputts _cputws
-#define _cgetts _cgetws
-#define _gettc getwc
-#define _gettc_nolock _getwc_nolock
-#define _gettch _getwch
-#define _gettch_nolock _getwch_nolock
-#define _gettche _getwche
-#define _gettche_nolock _getwche_nolock
-#define _gettchar getwchar
-#define _gettchar_nolock _getwchar_nolock
-#define _getts _getws
-#define _puttc putwc
-#define _puttc_nolock _putwc_nolock
-#define _puttchar putwchar
-#define _puttchar_nolock _putwchar_nolock
-#define _puttch _putwch
-#define _puttch_nolock _putwch_nolock
-#define _putts _putws
-#define _ungettc ungetwc
-#define _ungettc_nolock _ungetwc_nolock
-#define _ungettch _ungetwch
-#define _ungettch_nolock _ungetwch_nolock
+#परिभाषय _fgettc fgetwc
+#परिभाषय _fgettc_nolock _fgetwc_nolock
+#परिभाषय _fgettchar _fgetwchar
+#परिभाषय _fgetts fgetws
+#परिभाषय _fputtc fputwc
+#परिभाषय _fputtc_nolock _fputwc_nolock
+#परिभाषय _fputtchar _fputwchar
+#परिभाषय _fputts fputws
+#परिभाषय _cputts _cputws
+#परिभाषय _cgetts _cgetws
+#परिभाषय _gettc getwc
+#परिभाषय _gettc_nolock _getwc_nolock
+#परिभाषय _gettch _getwch
+#परिभाषय _gettch_nolock _getwch_nolock
+#परिभाषय _gettche _getwche
+#परिभाषय _gettche_nolock _getwche_nolock
+#परिभाषय _gettchar getwchar
+#परिभाषय _gettchar_nolock _getwchar_nolock
+#परिभाषय _getts _getws
+#परिभाषय _puttc putwc
+#परिभाषय _puttc_nolock _putwc_nolock
+#परिभाषय _puttchar putwchar
+#परिभाषय _puttchar_nolock _putwchar_nolock
+#परिभाषय _puttch _putwch
+#परिभाषय _puttch_nolock _putwch_nolock
+#परिभाषय _putts _putws
+#परिभाषय _ungettc ungetwc
+#परिभाषय _ungettc_nolock _ungetwc_nolock
+#परिभाषय _ungettch _ungetwch
+#परिभाषय _ungettch_nolock _ungetwch_nolock
 
-#define _tcstod wcstod
-#define _tcstol wcstol
-#define _tcstoul wcstoul
-#define _tcstoi64 _wcstoi64
-#define _tcstoui64 _wcstoui64
-#define _tstof _wtof
-#define _tstol _wtol
-#define _tstoi _wtoi
-#define _tstoi64 _wtoi64
-#define _tcstod_l _wcstod_l
-#define _tcstol_l _wcstol_l
-#define _tcstoul_l _wcstoul_l
-#define _tcstoi64_l _wcstoi64_l
-#define _tcstoui64_l _wcstoui64_l
-#define _tstof_l _wtof_l
-#define _tstol_l _wtol_l
-#define _tstoi_l _wtoi_l
-#define _tstoi64_l _wtoi64_l
+#परिभाषय _tcstod wcstod
+#परिभाषय _tcstol wcstol
+#परिभाषय _tcstoul wcstoul
+#परिभाषय _tcstoi64 _wcstoi64
+#परिभाषय _tcstoui64 _wcstoui64
+#परिभाषय _tstof _wtof
+#परिभाषय _tstol _wtol
+#परिभाषय _tstoi _wtoi
+#परिभाषय _tstoi64 _wtoi64
+#परिभाषय _tcstod_l _wcstod_l
+#परिभाषय _tcstol_l _wcstol_l
+#परिभाषय _tcstoul_l _wcstoul_l
+#परिभाषय _tcstoi64_l _wcstoi64_l
+#परिभाषय _tcstoui64_l _wcstoui64_l
+#परिभाषय _tstof_l _wtof_l
+#परिभाषय _tstol_l _wtol_l
+#परिभाषय _tstoi_l _wtoi_l
+#परिभाषय _tstoi64_l _wtoi64_l
 
-#define _itot _itow
-#define _ltot _ltow
-#define _ultot _ultow
-#define _ttoi _wtoi
-#define _ttol _wtol
+#परिभाषय _itot _itow
+#परिभाषय _ltot _ltow
+#परिभाषय _ultot _ultow
+#परिभाषय _ttoi _wtoi
+#परिभाषय _ttol _wtol
 
-#define _ttoi64 _wtoi64
-#define _i64tot _i64tow
-#define _ui64tot _ui64tow
+#परिभाषय _ttoi64 _wtoi64
+#परिभाषय _i64tot _i64tow
+#परिभाषय _ui64tot _ui64tow
 
-#define _tcscat wcscat
-#define _tcschr wcschr
-#define _tcscpy wcscpy
-#define _tcscspn wcscspn
-#define _tcslen wcslen
-#define _tcsnlen wcsnlen
-#define _tcsncat wcsncat
-#define _tcsncat_l _wcsncat_l
-#define _tcsncpy wcsncpy
-#define _tcsncpy_l _wcsncpy_l
-#define _tcspbrk wcspbrk
-#define _tcsrchr wcsrchr
-#define _tcsspn wcsspn
-#define _tcsstr wcsstr
-#define _tcstok wcstok
-#define _tcstok_l _wcstok_l
-#define _tcserror _wcserror
-#define __tcserror __wcserror
+#परिभाषय _tcscat wcscat
+#परिभाषय _tcschr wcschr
+#परिभाषय _tcscpy wcscpy
+#परिभाषय _tcscspn wcscspn
+#परिभाषय _tcslen wcslen
+#परिभाषय _tcsnlen wcsnlen
+#परिभाषय _tcsncat wcsncat
+#परिभाषय _tcsncat_l _wcsncat_l
+#परिभाषय _tcsncpy wcsncpy
+#परिभाषय _tcsncpy_l _wcsncpy_l
+#परिभाषय _tcspbrk wcspbrk
+#परिभाषय _tcsrchr wcsrchr
+#परिभाषय _tcsspn wcsspn
+#परिभाषय _tcsstr wcsstr
+#परिभाषय _tcstok wcstok
+#परिभाषय _tcstok_l _wcstok_l
+#परिभाषय _tcserror _wcserror
+#परिभाषय __tcserror __wcserror
 
-#define _tcsdup _wcsdup
-#define _tcsnset _wcsnset
-#define _tcsnset_l _wcsnset_l
-#define _tcsrev _wcsrev
-#define _tcsset _wcsset
-#define _tcsset_l _wcsset_l
+#परिभाषय _tcsdup _wcsdup
+#परिभाषय _tcsnset _wcsnset
+#परिभाषय _tcsnset_l _wcsnset_l
+#परिभाषय _tcsrev _wcsrev
+#परिभाषय _tcsset _wcsset
+#परिभाषय _tcsset_l _wcsset_l
 
-#define _tcscmp wcscmp
-#define _tcsicmp _wcsicmp
-#define _tcsicmp_l _wcsicmp_l
-#define _tcsnccmp wcsncmp
-#define _tcsncmp wcsncmp
-#define _tcsncicmp _wcsnicmp
-#define _tcsncicmp_l _wcsnicmp_l
-#define _tcsnicmp _wcsnicmp
-#define _tcsnicmp_l _wcsnicmp_l
+#परिभाषय _tcscmp wcscmp
+#परिभाषय _tcsicmp _wcsicmp
+#परिभाषय _tcsicmp_l _wcsicmp_l
+#परिभाषय _tcsnccmp wcsncmp
+#परिभाषय _tcsncmp wcsncmp
+#परिभाषय _tcsncicmp _wcsnicmp
+#परिभाषय _tcsncicmp_l _wcsnicmp_l
+#परिभाषय _tcsnicmp _wcsnicmp
+#परिभाषय _tcsnicmp_l _wcsnicmp_l
 
-#define _tcscoll wcscoll
-#define _tcscoll_l _wcscoll_l
-#define _tcsicoll _wcsicoll
-#define _tcsicoll_l _wcsicoll_l
-#define _tcsnccoll _wcsncoll
-#define _tcsnccoll_l _wcsncoll_l
-#define _tcsncoll _wcsncoll
-#define _tcsncoll_l _wcsncoll_l
-#define _tcsncicoll _wcsnicoll
-#define _tcsncicoll_l _wcsnicoll_l
-#define _tcsnicoll _wcsnicoll
-#define _tcsnicoll_l _wcsnicoll_l
+#परिभाषय _tcscoll wcscoll
+#परिभाषय _tcscoll_l _wcscoll_l
+#परिभाषय _tcsicoll _wcsicoll
+#परिभाषय _tcsicoll_l _wcsicoll_l
+#परिभाषय _tcsnccoll _wcsncoll
+#परिभाषय _tcsnccoll_l _wcsncoll_l
+#परिभाषय _tcsncoll _wcsncoll
+#परिभाषय _tcsncoll_l _wcsncoll_l
+#परिभाषय _tcsncicoll _wcsnicoll
+#परिभाषय _tcsncicoll_l _wcsnicoll_l
+#परिभाषय _tcsnicoll _wcsnicoll
+#परिभाषय _tcsnicoll_l _wcsnicoll_l
 
-#define _texecl _wexecl
-#define _texecle _wexecle
-#define _texeclp _wexeclp
-#define _texeclpe _wexeclpe
-#define _texecv _wexecv
-#define _texecve _wexecve
-#define _texecvp _wexecvp
-#define _texecvpe _wexecvpe
+#परिभाषय _texecl _wexecl
+#परिभाषय _texecle _wexecle
+#परिभाषय _texeclp _wexeclp
+#परिभाषय _texeclpe _wexeclpe
+#परिभाषय _texecv _wexecv
+#परिभाषय _texecve _wexecve
+#परिभाषय _texecvp _wexecvp
+#परिभाषय _texecvpe _wexecvpe
 
-#define _tspawnl _wspawnl
-#define _tspawnle _wspawnle
-#define _tspawnlp _wspawnlp
-#define _tspawnlpe _wspawnlpe
-#define _tspawnv _wspawnv
-#define _tspawnve _wspawnve
-#define _tspawnvp _wspawnvp
-#define _tspawnvp _wspawnvp
-#define _tspawnvpe _wspawnvpe
+#परिभाषय _tspawnl _wspawnl
+#परिभाषय _tspawnle _wspawnle
+#परिभाषय _tspawnlp _wspawnlp
+#परिभाषय _tspawnlpe _wspawnlpe
+#परिभाषय _tspawnv _wspawnv
+#परिभाषय _tspawnve _wspawnve
+#परिभाषय _tspawnvp _wspawnvp
+#परिभाषय _tspawnvp _wspawnvp
+#परिभाषय _tspawnvpe _wspawnvpe
 
-#define _tsystem _wsystem
+#परिभाषय _tsystem _wsystem
 
-#define _tasctime _wasctime
-#define _tctime _wctime
-#define _tctime32 _wctime32
-#define _tctime64 _wctime64
-#define _tstrdate _wstrdate
-#define _tstrtime _wstrtime
-#define _tutime _wutime
-#define _tutime32 _wutime32
-#define _tutime64 _wutime64
-#define _tcsftime wcsftime
-#define _tcsftime_l _wcsftime_l
+#परिभाषय _tasctime _wasctime
+#परिभाषय _tctime _wctime
+#परिभाषय _tctime32 _wctime32
+#परिभाषय _tctime64 _wctime64
+#परिभाषय _tstrdate _wstrdate
+#परिभाषय _tstrtime _wstrtime
+#परिभाषय _tutime _wutime
+#परिभाषय _tutime32 _wutime32
+#परिभाषय _tutime64 _wutime64
+#परिभाषय _tcsftime wcsftime
+#परिभाषय _tcsftime_l _wcsftime_l
 
-#define _tchdir _wchdir
-#define _tgetcwd _wgetcwd
-#define _tgetdcwd _wgetdcwd
-#define _tgetdcwd_nolock _wgetdcwd_nolock
-#define _tmkdir _wmkdir
-#define _trmdir _wrmdir
+#परिभाषय _tchdir _wchdir
+#परिभाषय _tgetcwd _wgetcwd
+#परिभाषय _tgetdcwd _wgetdcwd
+#परिभाषय _tgetdcwd_nolock _wgetdcwd_nolock
+#परिभाषय _tmkdir _wmkdir
+#परिभाषय _trmdir _wrmdir
 
-#define _tfullpath _wfullpath
-#define _tgetenv _wgetenv
-#define _tmakepath _wmakepath
-#define _tpgmptr _wpgmptr
-#define _get_tpgmptr _get_wpgmptr
-#define _tputenv _wputenv
-#define _tsearchenv _wsearchenv
-#define _tsplitpath _wsplitpath
+#परिभाषय _tfullpath _wfullpath
+#परिभाषय _tgetenv _wgetenv
+#परिभाषय _tmakepath _wmakepath
+#परिभाषय _tpgmptr _wpgmptr
+#परिभाषय _get_tpgmptr _get_wpgmptr
+#परिभाषय _tputenv _wputenv
+#परिभाषय _tsearchenv _wsearchenv
+#परिभाषय _tsplitpath _wsplitpath
 
-#define _tfdopen _wfdopen
-#define _tfsopen _wfsopen
-#define _tfopen _wfopen
-#define _tfreopen _wfreopen
-#define _tperror _wperror
-#define _tpopen _wpopen
-#define _ttempnam _wtempnam
-#define _ttmpnam _wtmpnam
+#परिभाषय _tfdopen _wfdopen
+#परिभाषय _tfsopen _wfsopen
+#परिभाषय _tfopen _wfopen
+#परिभाषय _tfreopen _wfreopen
+#परिभाषय _tperror _wperror
+#परिभाषय _tpopen _wpopen
+#परिभाषय _ttempnam _wtempnam
+#परिभाषय _ttmpnam _wtmpnam
 
-#define _taccess _waccess
-#define _tchmod _wchmod
-#define _tcreat _wcreat
-#define _tfindfirst _wfindfirst
-#define _tfindfirst32 _wfindfirst32
-#define _tfindfirst64 _wfindfirst64
-#define _tfindfirsti64 _wfindfirsti64
-#define _tfindfirst32i64 _wfindfirst32i64
-#define _tfindfirst64i32 _wfindfirst64i32
-#define _tfindnext _wfindnext
-#define _tfindnext32 _wfindnext32
-#define _tfindnext64 _wfindnext64
-#define _tfindnexti64 _wfindnexti64
-#define _tfindnext32i64 _wfindnext32i64
-#define _tfindnext64i32 _wfindnext64i32
-#define _tmktemp _wmktemp
-#define _topen _wopen
-#define _tremove _wremove
-#define _trename _wrename
-#define _tsopen _wsopen
-#define _tunlink _wunlink
+#परिभाषय _taccess _waccess
+#परिभाषय _tchmod _wchmod
+#परिभाषय _tcreat _wcreat
+#परिभाषय _tfindfirst _wfindfirst
+#परिभाषय _tfindfirst32 _wfindfirst32
+#परिभाषय _tfindfirst64 _wfindfirst64
+#परिभाषय _tfindfirsti64 _wfindfirsti64
+#परिभाषय _tfindfirst32i64 _wfindfirst32i64
+#परिभाषय _tfindfirst64i32 _wfindfirst64i32
+#परिभाषय _tfindnext _wfindnext
+#परिभाषय _tfindnext32 _wfindnext32
+#परिभाषय _tfindnext64 _wfindnext64
+#परिभाषय _tfindnexti64 _wfindnexti64
+#परिभाषय _tfindnext32i64 _wfindnext32i64
+#परिभाषय _tfindnext64i32 _wfindnext64i32
+#परिभाषय _tmktemp _wmktemp
+#परिभाषय _topen _wopen
+#परिभाषय _tremove _wremove
+#परिभाषय _trename _wrename
+#परिभाषय _tsopen _wsopen
+#परिभाषय _tunlink _wunlink
 
-#define _tfinddata_t _wfinddata_t
-#define _tfinddata32_t _wfinddata32_t
-#define _tfinddata64_t _wfinddata64_t
-#define _tfinddatai64_t _wfinddatai64_t
-#define _tfinddata32i64_t _wfinddata32i64_t
-#define _tfinddata64i32_t _wfinddata64i32_t
+#परिभाषय _tfinddata_t _wfinddata_t
+#परिभाषय _tfinddata32_t _wfinddata32_t
+#परिभाषय _tfinddata64_t _wfinddata64_t
+#परिभाषय _tfinddatai64_t _wfinddatai64_t
+#परिभाषय _tfinddata32i64_t _wfinddata32i64_t
+#परिभाषय _tfinddata64i32_t _wfinddata64i32_t
 
-#define _tstat _wstat
-#define _tstat32 _wstat32
-#define _tstat32i64 _wstat32i64
-#define _tstat64 _wstat64
-#define _tstat64i32 _wstat64i32
-#define _tstati64 _wstati64
+#परिभाषय _tstat _wstat
+#परिभाषय _tstat32 _wstat32
+#परिभाषय _tstat32i64 _wstat32i64
+#परिभाषय _tstat64 _wstat64
+#परिभाषय _tstat64i32 _wstat64i32
+#परिभाषय _tstati64 _wstati64
 
-#define _tsetlocale _wsetlocale
+#परिभाषय _tsetlocale _wsetlocale
 
-#define _tcsclen wcslen
-#define _tcscnlen wcsnlen
-#define _tcsclen_l(_String,_Locale) wcslen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) wcsnlen_l((_String),(_Max_count))
-#define _tcsnccat wcsncat
-#define _tcsnccat_l _wcsncat_l
-#define _tcsnccpy wcsncpy
-#define _tcsnccpy_l _wcsncpy_l
-#define _tcsncset _wcsnset
+#परिभाषय _tcsclen wcslen
+#परिभाषय _tcscnlen wcsnlen
+#परिभाषय _tcsclen_l(_String,_Locale) wcslen(_String)
+#परिभाषय _tcscnlen_l(_String,Max_गणनम्_2,_Locale) wcsnlen_l((_String),(Max_गणनम्_2))
+#परिभाषय _tcsnccat wcsncat
+#परिभाषय _tcsnccat_l _wcsncat_l
+#परिभाषय _tcsnccpy wcsncpy
+#परिभाषय _tcsnccpy_l _wcsncpy_l
+#परिभाषय _tcsncset _wcsnset
 
-#define _tcsdec _wcsdec
-#define _tcsinc _wcsinc
-#define _tcsnbcnt _wcsncnt
-#define _tcsnccnt _wcsncnt
-#define _tcsnextc _wcsnextc
-#define _tcsninc _wcsninc
-#define _tcsspnp _wcsspnp
+#परिभाषय _tcsdec _wcsdec
+#परिभाषय _tcsinc _wcsinc
+#परिभाषय _tcsnbcnt _wcsncnt
+#परिभाषय _tcsnccnt _wcsncnt
+#परिभाषय _tcsnextc _wcsnextc
+#परिभाषय _tcsninc _wcsninc
+#परिभाषय _tcsspnp _wcsspnp
 
-#define _tcslwr _wcslwr
-#define _tcslwr_l _wcslwr_l
-#define _tcsupr _wcsupr
-#define _tcsupr_l _wcsupr_l
-#define _tcsxfrm wcsxfrm
-#define _tcsxfrm_l _wcsxfrm_l
+#परिभाषय _tcslwr _wcslwr
+#परिभाषय _tcslwr_l _wcslwr_l
+#परिभाषय _tcsupr _wcsupr
+#परिभाषय _tcsupr_l _wcsupr_l
+#परिभाषय _tcsxfrm wcsxfrm
+#परिभाषय _tcsxfrm_l _wcsxfrm_l
 
-#define _tclen(_pc) (1)
-#define _tccpy(_pc1,_cpc2) ((*(_pc1) = *(_cpc2)))
-#define _tccmp(_cpc1,_cpc2) ((*(_cpc1))-(*(_cpc2)))
+#परिभाषय _tclen(_pc) (1)
+#परिभाषय _tccpy(_pc1,_cpc2) ((*(_pc1) = *(_cpc2)))
+#परिभाषय _tccmp(_cpc1,_cpc2) ((*(_cpc1))-(*(_cpc2)))
 
-#define _istalnum iswalnum
-#define _istalnum_l _iswalnum_l
-#define _istalpha iswalpha
-#define _istalpha_l _iswalpha_l
-#define _istascii iswascii
-#define _istcntrl iswcntrl
-#define _istcntrl_l _iswcntrl_l
-#define _istdigit iswdigit
-#define _istdigit_l _iswdigit_l
-#define _istgraph iswgraph
-#define _istgraph_l _iswgraph_l
-#define _istlower iswlower
-#define _istlower_l _iswlower_l
-#define _istprint iswprint
-#define _istprint_l _iswprint_l
-#define _istpunct iswpunct
-#define _istpunct_l _iswpunct_l
-#define _istspace iswspace
-#define _istspace_l _iswspace_l
-#define _istupper iswupper
-#define _istupper_l _iswupper_l
-#define _istxdigit iswxdigit
-#define _istxdigit_l _iswxdigit_l
+#परिभाषय _istalnum iswalnum
+#परिभाषय _istalnum_l _iswalnum_l
+#परिभाषय _istalpha iswalpha
+#परिभाषय _istalpha_l _iswalpha_l
+#परिभाषय _istascii iswascii
+#परिभाषय _istcntrl iswcntrl
+#परिभाषय _istcntrl_l _iswcntrl_l
+#परिभाषय _istdigit iswdigit
+#परिभाषय _istdigit_l _iswdigit_l
+#परिभाषय _istgraph iswgraph
+#परिभाषय _istgraph_l _iswgraph_l
+#परिभाषय _istlower iswlower
+#परिभाषय _istlower_l _iswlower_l
+#परिभाषय _istprint iswprint
+#परिभाषय _istprint_l _iswprint_l
+#परिभाषय _istpunct iswpunct
+#परिभाषय _istpunct_l _iswpunct_l
+#परिभाषय _istspace iswspace
+#परिभाषय _istspace_l _iswspace_l
+#परिभाषय _istupper iswupper
+#परिभाषय _istupper_l _iswupper_l
+#परिभाषय _istxdigit iswxdigit
+#परिभाषय _istxdigit_l _iswxdigit_l
 
-#define _totupper towupper
-#define _totupper_l _towupper_l
-#define _totlower towlower
-#define _totlower_l _towlower_l
+#परिभाषय _totupper towupper
+#परिभाषय _totupper_l _towupper_l
+#परिभाषय _totlower towlower
+#परिभाषय _totlower_l _towlower_l
 
-#define _istlegal(_Char) (1)
-#define _istlead(_Char) (0)
-#define _istleadbyte(_Char) (0)
-#define _istleadbyte_l(_Char,_Locale) (0)
+#परिभाषय _istlegal(_Char) (1)
+#परिभाषय _istlead(_Char) (0)
+#परिभाषय _istleadbyte(_Char) (0)
+#परिभाषय _istleadbyte_l(_Char,_Locale) (0)
 
-#define _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
-#define _wcsinc(_pc) ((_pc)+1)
-#define _wcsnextc(_cpc) ((unsigned int) *(_cpc))
-#define _wcsninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __wcsncnt(const wchar_t *_Str,size_t _MaxCount);
-#define _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
-#define _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : NULL))
-#define _wcsncpy_l(_Destination,_Source,_Count,_Locale) (wcsncpy(_Destination,_Source,_Count))
-#define _wcsncat_l(_Destination,_Source,_Count,_Locale) (wcsncat(_Destination,_Source,_Count))
-#define _wcstok_l(_String,_Delimiters,_Locale) (wcstok(_String,_Delimiters))
-#define _wcsnset_l(_Destination,_Value,_Count,_Locale) (_wcsnset(_Destination,_Value,_Count))
-#define _wcsset_l(_Destination,_Value,_Locale) (_wcsset(_Destination,_Value))
+#परिभाषय _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? रिक्त : (_cpc2)-1)
+#परिभाषय _wcsinc(_pc) ((_pc)+1)
+#परिभाषय _wcsnextc(_cpc) ((अचिह्नित पूर्णाङ्क) *(_cpc))
+#परिभाषय _wcsninc(_pc,_sz) (((_pc)+(_sz)))
+  _CRTIMP आकार_t __cdecl __wcsncnt(ध्रुव wchar_t *_Str,आकार_t Max_गणनम्);
+#परिभाषय _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
+#परिभाषय _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? रिक्त : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : रिक्त))
+#परिभाषय _wcsncpy_l(_Destination,_Source,गणनम्_5,_Locale) (wcsncpy(_Destination,_Source,गणनम्_5))
+#परिभाषय _wcsncat_l(_Destination,_Source,गणनम्_5,_Locale) (wcsncat(_Destination,_Source,गणनम्_5))
+#परिभाषय _wcstok_l(_String,_Delimiters,_Locale) (wcstok(_String,_Delimiters))
+#परिभाषय _wcsnset_l(_Destination,मानम्_2,गणनम्_5,_Locale) (_wcsnset(_Destination,मानम्_2,गणनम्_5))
+#परिभाषय _wcsset_l(_Destination,मानम्_2,_Locale) (_wcsset(_Destination,मानम्_2))
 
   /* dirent structures and functions */
-#define _tdirent	_wdirent
-#define _TDIR 		_WDIR
-#define _topendir	_wopendir
-#define _tclosedir	_wclosedir
-#define _treaddir	_wreaddir
-#define _trewinddir	_wrewinddir
-#define _ttelldir	_wtelldir
-#define _tseekdir	_wseekdir
+#परिभाषय _tdirent	_wdirent
+#परिभाषय _TDIR 		_WDIR
+#परिभाषय _topendir	_wopendir
+#परिभाषय _tclosedir	_wclosedir
+#परिभाषय _treaddir	_wreaddir
+#परिभाषय _trewinddir	_wrewinddir
+#परिभाषय _ttelldir	_wtelldir
+#परिभाषय _tseekdir	_wseekdir
 
-#else
+#अन्यथा
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
+#यदि_अन्तः
 
-#include <string.h>
+#अन्तर्भाव <string.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#define _TEOF EOF
+#परिभाषय _TEOF EOF
 
-#define __T(x) x
+#परिभाषय __T(x) x
 
-#define _tmain main
-#define _tWinMain WinMain
-#ifdef _POSIX_
-#define _tenviron environ
-#else
-#define _tenviron _environ
-#endif
-#define __targv __argv
+#परिभाषय _tmain मुख्यम्
+#परिभाषय _tWinMain WinMain
+#यदि_परिभाषितम् _POSIX_
+#परिभाषय _tenviron environ
+#अन्यथा
+#परिभाषय _tenviron _environ
+#यदि_अन्तः
+#परिभाषय __targv __argv
 
-#define _tprintf printf
-#define _tprintf_l _printf_l
-#define _tprintf_p _printf_p
-#define _tprintf_p_l _printf_p_l
-#define _tcprintf _cprintf
-#define _tcprintf_l _cprintf_l
-#define _tcprintf_p _cprintf_p
-#define _tcprintf_p_l _cprintf_p_l
-#define _vtcprintf _vcprintf
-#define _vtcprintf_l _vcprintf_l
-#define _vtcprintf_p _vcprintf_p
-#define _vtcprintf_p_l _vcprintf_p_l
-#define _ftprintf fprintf
-#define _ftprintf_l _fprintf_l
-#define _ftprintf_p _fprintf_p
-#define _ftprintf_p_l _fprintf_p_l
-#define _stprintf sprintf
-#define _stprintf_l _sprintf_l
-#define _stprintf_p _sprintf_p
-#define _stprintf_p_l _sprintf_p_l
-#define _sctprintf _scprintf
-#define _sctprintf_l _scprintf_l
-#define _sctprintf_p _scprintf_p
-#define _sctprintf_p_l _scprintf_p_l
-#define _sntprintf _snprintf
-#define _sntprintf_l _snprintf_l
-#define _vtprintf vprintf
-#define _vtprintf_l _vprintf_l
-#define _vtprintf_p _vprintf_p
-#define _vtprintf_p_l _vprintf_p_l
-#define _vftprintf vfprintf
-#define _vftprintf_l _vfprintf_l
-#define _vftprintf_p _vfprintf_p
-#define _vftprintf_p_l _vfprintf_p_l
-#define _vstprintf vsprintf
-#define _vstprintf_l _vsprintf_l
-#define _vstprintf_p _vsprintf_p
-#define _vstprintf_p_l _vsprintf_p_l
-#define _vsctprintf _vscprintf
-#define _vsctprintf_l _vscprintf_l
-#define _vsctprintf_p _vscprintf_p
-#define _vsctprintf_p_l _vscprintf_p_l
-#define _vsntprintf _vsnprintf
-#define _vsntprintf_l _vsnprintf_l
+#परिभाषय _tprintf प्रारूप_लिख
+#परिभाषय _tprintf_l _printf_l
+#परिभाषय _tprintf_p _printf_p
+#परिभाषय _tprintf_p_l _printf_p_l
+#परिभाषय _tcprintf _cprintf
+#परिभाषय _tcprintf_l _cprintf_l
+#परिभाषय _tcprintf_p _cprintf_p
+#परिभाषय _tcprintf_p_l _cprintf_p_l
+#परिभाषय _vtcprintf _vcprintf
+#परिभाषय _vtcprintf_l _vcprintf_l
+#परिभाषय _vtcprintf_p _vcprintf_p
+#परिभाषय _vtcprintf_p_l _vcprintf_p_l
+#परिभाषय _ftprintf fprintf
+#परिभाषय _ftprintf_l _fprintf_l
+#परिभाषय _ftprintf_p _fprintf_p
+#परिभाषय _ftprintf_p_l _fprintf_p_l
+#परिभाषय _stprintf sprintf
+#परिभाषय _stprintf_l _sprintf_l
+#परिभाषय _stprintf_p _sprintf_p
+#परिभाषय _stprintf_p_l _sprintf_p_l
+#परिभाषय _sctprintf _scprintf
+#परिभाषय _sctprintf_l _scprintf_l
+#परिभाषय _sctprintf_p _scprintf_p
+#परिभाषय _sctprintf_p_l _scprintf_p_l
+#परिभाषय _sntprintf _snprintf
+#परिभाषय _sntprintf_l _snprintf_l
+#परिभाषय _vtprintf vprintf
+#परिभाषय _vtprintf_l _vprintf_l
+#परिभाषय _vtprintf_p _vprintf_p
+#परिभाषय _vtprintf_p_l _vprintf_p_l
+#परिभाषय _vftprintf vfprintf
+#परिभाषय _vftprintf_l _vfprintf_l
+#परिभाषय _vftprintf_p _vfprintf_p
+#परिभाषय _vftprintf_p_l _vfprintf_p_l
+#परिभाषय _vstprintf vsprintf
+#परिभाषय _vstprintf_l _vsprintf_l
+#परिभाषय _vstprintf_p _vsprintf_p
+#परिभाषय _vstprintf_p_l _vsprintf_p_l
+#परिभाषय _vsctprintf _vscprintf
+#परिभाषय _vsctprintf_l _vscprintf_l
+#परिभाषय _vsctprintf_p _vscprintf_p
+#परिभाषय _vsctprintf_p_l _vscprintf_p_l
+#परिभाषय _vsntprintf _vsnprintf
+#परिभाषय _vsntprintf_l _vsnprintf_l
 
-#define _tscanf scanf
-#define _tscanf_l _scanf_l
-#define _tcscanf _cscanf
-#define _tcscanf_l _cscanf_l
-#define _ftscanf fscanf
-#define _ftscanf_l _fscanf_l
-#define _stscanf sscanf
-#define _stscanf_l _sscanf_l
-#define _sntscanf _snscanf
-#define _sntscanf_l _snscanf_l
+#परिभाषय _tscanf प्रारूप_पठ
+#परिभाषय _tscanf_l _scanf_l
+#परिभाषय _tcscanf _cscanf
+#परिभाषय _tcscanf_l _cscanf_l
+#परिभाषय _ftscanf fscanf
+#परिभाषय _ftscanf_l _fscanf_l
+#परिभाषय _stscanf वाक्यात्_पठ
+#परिभाषय _stscanf_l _sscanf_l
+#परिभाषय _sntscanf _snscanf
+#परिभाषय _sntscanf_l _snscanf_l
 
-#define _fgettc fgetc
-#define _fgettc_nolock _fgetc_nolock
-#define _fgettchar _fgetchar
-#define _fgetts fgets
-#define _fputtc fputc
-#define _fputtc_nolock _fputc_nolock
-#define _fputtchar _fputchar
-#define _fputts fputs
-#define _cputts _cputs
-#define _gettc getc
-#define _gettc_nolock _getc_nolock
-#define _gettch _getch
-#define _gettch_nolock _getch_nolock
-#define _gettche _getche
-#define _gettche_nolock _getche_nolock
-#define _gettchar getchar
-#define _gettchar_nolock _getchar_nolock
-#define _getts gets
-#define _cgetts _cgets
-#define _puttc putc
-#define _puttc_nolock _putc_nolock
-#define _puttchar putchar
-#define _puttchar_nolock _putchar_nolock
-#define _puttch _putch
-#define _puttch_nolock _putch_nolock
-#define _putts puts
-#define _ungettc ungetc
-#define _ungettc_nolock _ungetc_nolock
-#define _ungettch _ungetch
-#define _ungettch_nolock _ungetch_nolock
+#परिभाषय _fgettc fgetc
+#परिभाषय _fgettc_nolock _fgetc_nolock
+#परिभाषय _fgettchar _fgetchar
+#परिभाषय _fgetts fgets
+#परिभाषय _fputtc fputc
+#परिभाषय _fputtc_nolock _fputc_nolock
+#परिभाषय _fputtchar _fputchar
+#परिभाषय _fputts fputs
+#परिभाषय _cputts _cputs
+#परिभाषय _gettc getc
+#परिभाषय _gettc_nolock _getc_nolock
+#परिभाषय _gettch _getch
+#परिभाषय _gettch_nolock _getch_nolock
+#परिभाषय _gettche _getche
+#परिभाषय _gettche_nolock _getche_nolock
+#परिभाषय _gettchar अक्षरं_पठ
+#परिभाषय _gettchar_nolock _getchar_nolock
+#परिभाषय _getts gets
+#परिभाषय _cgetts _cgets
+#परिभाषय _puttc putc
+#परिभाषय _puttc_nolock _putc_nolock
+#परिभाषय _puttchar अक्षरं_लिख
+#परिभाषय _puttchar_nolock _putchar_nolock
+#परिभाषय _puttch _putch
+#परिभाषय _puttch_nolock _putch_nolock
+#परिभाषय _putts पङ्क्तिं_लिख
+#परिभाषय _ungettc ungetc
+#परिभाषय _ungettc_nolock _ungetc_nolock
+#परिभाषय _ungettch _ungetch
+#परिभाषय _ungettch_nolock _ungetch_nolock
 
-#define _tcstod strtod
-#define _tcstol strtol
-#define _tcstoul strtoul
-#define _tstof atof
-#define _tstol atol
-#define _tstoi atoi
-#define _tstoi64 _atoi64
-#define _tcstod_l _strtod_l
-#define _tcstol_l _strtol_l
-#define _tcstoul_l _strtoul_l
-#define _tstof_l _atof_l
-#define _tstol_l _atol_l
-#define _tstoi_l _atoi_l
-#define _tstoi64_l _atoi64_l
+#परिभाषय _tcstod strtod
+#परिभाषय _tcstol strtol
+#परिभाषय _tcstoul strtoul
+#परिभाषय _tstof atof
+#परिभाषय _tstol atol
+#परिभाषय _tstoi atoi
+#परिभाषय _tstoi64 _atoi64
+#परिभाषय _tcstod_l _strtod_l
+#परिभाषय _tcstol_l _strtol_l
+#परिभाषय _tcstoul_l _strtoul_l
+#परिभाषय _tstof_l _atof_l
+#परिभाषय _tstol_l _atol_l
+#परिभाषय _tstoi_l _atoi_l
+#परिभाषय _tstoi64_l _atoi64_l
 
-#define _itot _itoa
-#define _ltot _ltoa
-#define _ultot _ultoa
-#define _ttoi atoi
-#define _ttol atol
+#परिभाषय _itot _itoa
+#परिभाषय _ltot _ltoa
+#परिभाषय _ultot _ultoa
+#परिभाषय _ttoi atoi
+#परिभाषय _ttol atol
 
-#define _ttoi64 _atoi64
-#define _tcstoi64 _strtoi64
-#define _tcstoi64_l _strtoi64_l
-#define _tcstoui64 _strtoui64
-#define _tcstoui64_l _strtoui64_l
-#define _i64tot _i64toa
-#define _ui64tot _ui64toa
+#परिभाषय _ttoi64 _atoi64
+#परिभाषय _tcstoi64 _strtoi64
+#परिभाषय _tcstoi64_l _strtoi64_l
+#परिभाषय _tcstoui64 _strtoui64
+#परिभाषय _tcstoui64_l _strtoui64_l
+#परिभाषय _i64tot _i64toa
+#परिभाषय _ui64tot _ui64toa
 
-#define _tcscat strcat
-#define _tcscpy strcpy
-#define _tcsdup _strdup
-#define _tcslen strlen
-#if 0
-#define _tcsnlen strnlen
-#endif
-#define _tcsxfrm strxfrm
-#define _tcsxfrm_l _strxfrm_l
-#define _tcserror strerror
-#define __tcserror _strerror
+#परिभाषय _tcscat वाक्यं_योजय
+#परिभाषय _tcscpy वाक्यं_प्रतिलिख
+#परिभाषय _tcsdup _strdup
+#परिभाषय _tcslen वाक्यदैर्घ्यम्
+#यदि 0
+#परिभाषय _tcsnlen strnlen
+#यदि_अन्तः
+#परिभाषय _tcsxfrm strxfrm
+#परिभाषय _tcsxfrm_l _strxfrm_l
+#परिभाषय _tcserror strerror
+#परिभाषय __tcserror _strerror
 
-#define _texecl _execl
-#define _texecle _execle
-#define _texeclp _execlp
-#define _texeclpe _execlpe
-#define _texecv _execv
-#define _texecve _execve
-#define _texecvp _execvp
-#define _texecvpe _execvpe
+#परिभाषय _texecl _execl
+#परिभाषय _texecle _execle
+#परिभाषय _texeclp _execlp
+#परिभाषय _texeclpe _execlpe
+#परिभाषय _texecv _execv
+#परिभाषय _texecve _execve
+#परिभाषय _texecvp _execvp
+#परिभाषय _texecvpe _execvpe
 
-#define _tspawnl _spawnl
-#define _tspawnle _spawnle
-#define _tspawnlp _spawnlp
-#define _tspawnlpe _spawnlpe
-#define _tspawnv _spawnv
-#define _tspawnve _spawnve
-#define _tspawnvp _spawnvp
-#define _tspawnvpe _spawnvpe
+#परिभाषय _tspawnl _spawnl
+#परिभाषय _tspawnle _spawnle
+#परिभाषय _tspawnlp _spawnlp
+#परिभाषय _tspawnlpe _spawnlpe
+#परिभाषय _tspawnv _spawnv
+#परिभाषय _tspawnve _spawnve
+#परिभाषय _tspawnvp _spawnvp
+#परिभाषय _tspawnvpe _spawnvpe
 
-#define _tsystem system
+#परिभाषय _tsystem system
 
-#define _tasctime asctime
-#define _tctime ctime
-#define _tctime32 _ctime32
-#define _tctime64 _ctime64
-#define _tstrdate _strdate
-#define _tstrtime _strtime
-#define _tutime _utime
-#define _tutime32 _utime32
-#define _tutime64 _utime64
-#define _tcsftime strftime
-#define _tcsftime_l _strftime_l
+#परिभाषय _tasctime asctime
+#परिभाषय _tctime ctime
+#परिभाषय _tctime32 _ctime32
+#परिभाषय _tctime64 _ctime64
+#परिभाषय _tstrdate _strdate
+#परिभाषय _tstrtime _strtime
+#परिभाषय _tutime _utime
+#परिभाषय _tutime32 _utime32
+#परिभाषय _tutime64 _utime64
+#परिभाषय _tcsftime strftime
+#परिभाषय _tcsftime_l _strftime_l
 
-#define _tchdir _chdir
-#define _tgetcwd _getcwd
-#define _tgetdcwd _getdcwd
-#define _tgetdcwd_nolock _getdcwd_nolock
-#define _tmkdir _mkdir
-#define _trmdir _rmdir
+#परिभाषय _tchdir _chdir
+#परिभाषय _tgetcwd _getcwd
+#परिभाषय _tgetdcwd _getdcwd
+#परिभाषय _tgetdcwd_nolock _getdcwd_nolock
+#परिभाषय _tmkdir _mkdir
+#परिभाषय _trmdir _rmdir
 
-#define _tfullpath _fullpath
-#define _tgetenv getenv
-#define _tmakepath _makepath
-#define _tpgmptr _pgmptr
-#define _get_tpgmptr _get_pgmptr
-#define _tputenv _putenv
-#define _tsearchenv _searchenv
-#define _tsplitpath _splitpath
+#परिभाषय _tfullpath _fullpath
+#परिभाषय _tgetenv getenv
+#परिभाषय _tmakepath _makepath
+#परिभाषय _tpgmptr _pgmptr
+#परिभाषय _get_tpgmptr _get_pgmptr
+#परिभाषय _tputenv _putenv
+#परिभाषय _tsearchenv _searchenv
+#परिभाषय _tsplitpath _splitpath
 
-#ifdef _POSIX_
-#define _tfdopen fdopen
-#else
-#define _tfdopen _fdopen
-#endif
-#define _tfsopen _fsopen
-#define _tfopen fopen
-#define _tfreopen freopen
-#define _tperror perror
-#define _tpopen _popen
-#define _ttempnam _tempnam
-#define _ttmpnam tmpnam
+#यदि_परिभाषितम् _POSIX_
+#परिभाषय _tfdopen fdopen
+#अन्यथा
+#परिभाषय _tfdopen _fdopen
+#यदि_अन्तः
+#परिभाषय _tfsopen _fsopen
+#परिभाषय _tfopen fopen
+#परिभाषय _tfreopen freopen
+#परिभाषय _tperror perror
+#परिभाषय _tpopen _popen
+#परिभाषय _ttempnam _tempnam
+#परिभाषय _ttmpnam tmpnam
 
-#define _tchmod _chmod
-#define _tcreat _creat
-#define _tfindfirst _findfirst
-#define _tfindfirst32 _findfirst32
-#define _tfindfirst64 _findfirst64
-#define _tfindfirsti64 _findfirsti64
-#define _tfindfirst32i64 _findfirst32i64
-#define _tfindfirst64i32 _findfirst64i32
-#define _tfindnext _findnext
-#define _tfindnext32 _findnext32
-#define _tfindnext64 _findnext64
-#define _tfindnexti64 _findnexti64
-#define _tfindnext32i64 _findnext32i64
-#define _tfindnext64i32 _findnext64i32
-#define _tmktemp _mktemp
+#परिभाषय _tchmod _chmod
+#परिभाषय _tcreat _creat
+#परिभाषय _tfindfirst _findfirst
+#परिभाषय _tfindfirst32 _findfirst32
+#परिभाषय _tfindfirst64 _findfirst64
+#परिभाषय _tfindfirsti64 _findfirsti64
+#परिभाषय _tfindfirst32i64 _findfirst32i64
+#परिभाषय _tfindfirst64i32 _findfirst64i32
+#परिभाषय _tfindnext _findnext
+#परिभाषय _tfindnext32 _findnext32
+#परिभाषय _tfindnext64 _findnext64
+#परिभाषय _tfindnexti64 _findnexti64
+#परिभाषय _tfindnext32i64 _findnext32i64
+#परिभाषय _tfindnext64i32 _findnext64i32
+#परिभाषय _tmktemp _mktemp
 
-#ifdef _POSIX_
-#define _topen open
-#define _taccess access
-#else
-#define _topen _open
-#define _taccess _access
-#endif
+#यदि_परिभाषितम् _POSIX_
+#परिभाषय _topen उद्घाटय
+#परिभाषय _taccess access
+#अन्यथा
+#परिभाषय _topen _open
+#परिभाषय _taccess _access
+#यदि_अन्तः
 
-#define _tremove remove
-#define _trename rename
-#define _tsopen _sopen
-#define _tunlink _unlink
+#परिभाषय _tremove remove
+#परिभाषय _trename rename
+#परिभाषय _tsopen _sopen
+#परिभाषय _tunlink _unlink
 
-#define _tfinddata_t _finddata_t
-#define _tfinddata32_t _finddata32_t
-#define _tfinddata64_t __finddata64_t
-#define _tfinddatai64_t _finddatai64_t
-#define _tfinddata32i64_t _finddata32i64_t
-#define _tfinddata64i32_t _finddata64i32_t
+#परिभाषय _tfinddata_t _finddata_t
+#परिभाषय _tfinddata32_t _finddata32_t
+#परिभाषय _tfinddata64_t __finddata64_t
+#परिभाषय _tfinddatai64_t _finddatai64_t
+#परिभाषय _tfinddata32i64_t _finddata32i64_t
+#परिभाषय _tfinddata64i32_t _finddata64i32_t
 
-#define _istascii __isascii
-#define _istcntrl iscntrl
-#define _istcntrl_l _iscntrl_l
-#define _istxdigit isxdigit
-#define _istxdigit_l _isxdigit_l
+#परिभाषय _istascii __isascii
+#परिभाषय _istcntrl iscntrl
+#परिभाषय _istcntrl_l _iscntrl_l
+#परिभाषय _istxdigit isxdigit
+#परिभाषय _istxdigit_l _isxdigit_l
 
-#define _tstat _stat
-#define _tstat32 _stat32
-#define _tstat32i64 _stat32i64
-#define _tstat64 _stat64
-#define _tstat64i32 _stat64i32
-#define _tstati64 _stati64
+#परिभाषय _tstat _stat
+#परिभाषय _tstat32 _stat32
+#परिभाषय _tstat32i64 _stat32i64
+#परिभाषय _tstat64 _stat64
+#परिभाषय _tstat64i32 _stat64i32
+#परिभाषय _tstati64 _stati64
 
-#define _tsetlocale setlocale
+#परिभाषय _tsetlocale setlocale
 
-#ifdef _MBCS
+#यदि_परिभाषितम् _MBCS
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
+#यदि_अन्तः
 
-#include <mbstring.h>
+#अन्तर्भाव <mbstring.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#ifndef __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef unsigned char _TXCHAR;
-  typedef unsigned int _TINT;
-#define __TCHAR_DEFINED
-#endif
+#यदि_अपरिभाषितम् __TCHAR_DEFINED
+  प्रकारनिर्देश वर्ण _TCHAR;
+  प्रकारनिर्देश चिह्नित वर्ण _TSCHAR;
+  प्रकारनिर्देश अचिह्नित वर्ण _TUCHAR;
+  प्रकारनिर्देश अचिह्नित वर्ण _TXCHAR;
+  प्रकारनिर्देश अचिह्नित पूर्णाङ्क _TINT;
+#परिभाषय __TCHAR_DEFINED
+#यदि_अन्तः
 
-#ifndef _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef char TCHAR;
-#endif
-#define _TCHAR_DEFINED
-#endif
+#यदि_अपरिभाषितम् _TCHAR_DEFINED
+#यदि_अपरिभाषितम्	NO_OLDNAMES
+  प्रकारनिर्देश वर्ण TCHAR;
+#यदि_अन्तः
+#परिभाषय _TCHAR_DEFINED
+#यदि_अन्तः
 
-#ifdef _MB_MAP_DIRECT
+#यदि_परिभाषितम् MB_MAP_प्रत्यक्षम्
 
-#define _tcschr _mbschr
-#define _tcscspn _mbscspn
-#define _tcsncat _mbsnbcat
-#define _tcsncat_l _mbsnbcat_l
-#define _tcsncpy _mbsnbcpy
-#define _tcsncpy_l _mbsnbcpy_l
-#define _tcspbrk _mbspbrk
-#define _tcsrchr _mbsrchr
-#define _tcsspn _mbsspn
-#define _tcsstr _mbsstr
-#define _tcstok _mbstok
-#define _tcstok_l _mbstok_l
+#परिभाषय _tcschr _mbschr
+#परिभाषय _tcscspn _mbscspn
+#परिभाषय _tcsncat _mbsnbcat
+#परिभाषय _tcsncat_l _mbsnbcat_l
+#परिभाषय _tcsncpy _mbsnbcpy
+#परिभाषय _tcsncpy_l _mbsnbcpy_l
+#परिभाषय _tcspbrk _mbspbrk
+#परिभाषय _tcsrchr _mbsrchr
+#परिभाषय _tcsspn _mbsspn
+#परिभाषय _tcsstr _mbsstr
+#परिभाषय _tcstok _mbstok
+#परिभाषय _tcstok_l _mbstok_l
 
-#define _tcsnset _mbsnbset
-#define _tcsnset_l _mbsnbset_l
-#define _tcsrev _mbsrev
-#define _tcsset _mbsset
-#define _tcsset_l _mbsset_l
+#परिभाषय _tcsnset _mbsnbset
+#परिभाषय _tcsnset_l _mbsnbset_l
+#परिभाषय _tcsrev _mbsrev
+#परिभाषय _tcsset _mbsset
+#परिभाषय _tcsset_l _mbsset_l
 
-#define _tcscmp _mbscmp
-#define _tcsicmp _mbsicmp
-#define _tcsicmp_l _mbsicmp_l
-#define _tcsnccmp _mbsncmp
-#define _tcsncmp _mbsnbcmp
-#define _tcsncicmp _mbsnicmp
-#define _tcsncicmp_l _mbsnicmp_l
-#define _tcsnicmp _mbsnbicmp
-#define _tcsnicmp_l _mbsnbicmp_l
+#परिभाषय _tcscmp _mbscmp
+#परिभाषय _tcsicmp _mbsicmp
+#परिभाषय _tcsicmp_l _mbsicmp_l
+#परिभाषय _tcsnccmp _mbsncmp
+#परिभाषय _tcsncmp _mbsnbcmp
+#परिभाषय _tcsncicmp _mbsnicmp
+#परिभाषय _tcsncicmp_l _mbsnicmp_l
+#परिभाषय _tcsnicmp _mbsnbicmp
+#परिभाषय _tcsnicmp_l _mbsnbicmp_l
 
-#define _tcscoll _mbscoll
-#define _tcscoll_l _mbscoll_l
-#define _tcsicoll _mbsicoll
-#define _tcsicoll_l _mbsicoll_l
-#define _tcsnccoll _mbsncoll
-#define _tcsnccoll_l _mbsncoll_l
-#define _tcsncoll _mbsnbcoll
-#define _tcsncoll_l _mbsnbcoll_l
-#define _tcsncicoll _mbsnicoll
-#define _tcsncicoll_l _mbsnicoll_l
-#define _tcsnicoll _mbsnbicoll
-#define _tcsnicoll_l _mbsnbicoll_l
+#परिभाषय _tcscoll _mbscoll
+#परिभाषय _tcscoll_l _mbscoll_l
+#परिभाषय _tcsicoll _mbsicoll
+#परिभाषय _tcsicoll_l _mbsicoll_l
+#परिभाषय _tcsnccoll _mbsncoll
+#परिभाषय _tcsnccoll_l _mbsncoll_l
+#परिभाषय _tcsncoll _mbsnbcoll
+#परिभाषय _tcsncoll_l _mbsnbcoll_l
+#परिभाषय _tcsncicoll _mbsnicoll
+#परिभाषय _tcsncicoll_l _mbsnicoll_l
+#परिभाषय _tcsnicoll _mbsnbicoll
+#परिभाषय _tcsnicoll_l _mbsnbicoll_l
 
-#define _tcsclen _mbslen
-#define _tcscnlen _mbsnlen
-#define _tcsclen_l _mbslen_l
-#define _tcscnlen_l _mbsnlen_l
-#define _tcsnccat _mbsncat
-#define _tcsnccat_l _mbsncat_l
-#define _tcsnccpy _mbsncpy
-#define _tcsnccpy_l _mbsncpy_l
-#define _tcsncset _mbsnset
-#define _tcsncset_l _mbsnset_l
+#परिभाषय _tcsclen _mbslen
+#परिभाषय _tcscnlen _mbsnlen
+#परिभाषय _tcsclen_l _mbslen_l
+#परिभाषय _tcscnlen_l _mbsnlen_l
+#परिभाषय _tcsnccat _mbsncat
+#परिभाषय _tcsnccat_l _mbsncat_l
+#परिभाषय _tcsnccpy _mbsncpy
+#परिभाषय _tcsnccpy_l _mbsncpy_l
+#परिभाषय _tcsncset _mbsnset
+#परिभाषय _tcsncset_l _mbsnset_l
 
-#define _tcsdec _mbsdec
-#define _tcsinc _mbsinc
-#define _tcsnbcnt _mbsnbcnt
-#define _tcsnccnt _mbsnccnt
-#define _tcsnextc _mbsnextc
-#define _tcsninc _mbsninc
-#define _tcsspnp _mbsspnp
+#परिभाषय _tcsdec _mbsdec
+#परिभाषय _tcsinc _mbsinc
+#परिभाषय _tcsnbcnt _mbsnbcnt
+#परिभाषय _tcsnccnt _mbsnccnt
+#परिभाषय _tcsnextc _mbsnextc
+#परिभाषय _tcsninc _mbsninc
+#परिभाषय _tcsspnp _mbsspnp
 
-#define _tcslwr _mbslwr
-#define _tcslwr_l _mbslwr_l
-#define _tcsupr _mbsupr
-#define _tcsupr_l _mbsupr_l
+#परिभाषय _tcslwr _mbslwr
+#परिभाषय _tcslwr_l _mbslwr_l
+#परिभाषय _tcsupr _mbsupr
+#परिभाषय _tcsupr_l _mbsupr_l
 
-#define _tclen _mbclen
-#define _tccpy _mbccpy
-#define _tccpy_l _mbccpy_l
-#else
+#परिभाषय _tclen _mbclen
+#परिभाषय _tccpy _mbccpy
+#परिभाषय _tccpy_l _mbccpy_l
+#अन्यथा
 
-  _CRTIMP _CONST_RETURN char *__cdecl _tcschr(const char *_Str,unsigned int _Val);
-  _CRTIMP size_t __cdecl _tcscspn(const char *_Str,const char *_Control);
-  _CRTIMP char *__cdecl _tcsncat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcspbrk(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsrchr(const char *_Str,unsigned int _Ch);
-  _CRTIMP size_t __cdecl _tcsspn(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsstr(const char *_Str,const char *_Substr);
-  _CRTIMP char *__cdecl _tcstok(char *_Str,const char *_Delim);
-  _CRTIMP char *__cdecl _tcstok_l(char *_Str,const char *_Delim,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsrev(char *_Str);
-  _CRTIMP char *__cdecl _tcsset(char *_Str,unsigned int _Val);
-  _CRTIMP char *__cdecl _tcsset_l(char *_Str,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscmp(const char *_Str1,const char *_Str);
-  _CRTIMP int __cdecl _tcsicmp(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicmp_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcscoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsicoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnccoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcsclen(const char *_Str);
-  _CRTIMP size_t __cdecl _tcscnlen(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsclen_l(const char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcscnlen_l(const char *_Str,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsdec(const char *_Start,const char *_Pos);
-  _CRTIMP char *__cdecl _tcsinc(const char *_Ptr);
-  _CRTIMP size_t __cdecl _tcsnbcnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsnccnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP unsigned int __cdecl _tcsnextc (const char *_Str);
-  _CRTIMP char *__cdecl _tcsninc(const char *_Ptr,size_t _Count);
-  _CRTIMP char *__cdecl _tcsspnp(const char *_Str1,const char *_Str2);
-  _CRTIMP char *__cdecl _tcslwr(char *_Str);
-  _CRTIMP char *__cdecl _tcslwr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsupr(char *_Str);
-  _CRTIMP char *__cdecl _tcsupr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tclen(const char *_Str);
-  _CRTIMP void __cdecl _tccpy(char *_DstCh,const char *_SrcCh);
+  _CRTIMP _CONST_RETURN वर्ण *__cdecl _tcschr(ध्रुव वर्ण *_Str,अचिह्नित पूर्णाङ्क _Val);
+  _CRTIMP आकार_t __cdecl _tcscspn(ध्रुव वर्ण *_Str,ध्रुव वर्ण *_Control);
+  _CRTIMP वर्ण *__cdecl _tcsncat(वर्ण *_Dst,ध्रुव वर्ण *_Src,आकार_t Max_गणनम्);
+  _CRTIMP वर्ण *__cdecl _tcsncat_l(वर्ण *_Dst,ध्रुव वर्ण *_Src,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsncpy(वर्ण *_Dst,ध्रुव वर्ण *_Src,आकार_t Max_गणनम्);
+  _CRTIMP वर्ण *__cdecl _tcsncpy_l(वर्ण *_Dst,ध्रुव वर्ण *_Src,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP _CONST_RETURN वर्ण *__cdecl _tcspbrk(ध्रुव वर्ण *_Str,ध्रुव वर्ण *_Control);
+  _CRTIMP _CONST_RETURN वर्ण *__cdecl _tcsrchr(ध्रुव वर्ण *_Str,अचिह्नित पूर्णाङ्क _Ch);
+  _CRTIMP आकार_t __cdecl _tcsspn(ध्रुव वर्ण *_Str,ध्रुव वर्ण *_Control);
+  _CRTIMP _CONST_RETURN वर्ण *__cdecl _tcsstr(ध्रुव वर्ण *_Str,ध्रुव वर्ण *_Substr);
+  _CRTIMP वर्ण *__cdecl _tcstok(वर्ण *_Str,ध्रुव वर्ण *_Delim);
+  _CRTIMP वर्ण *__cdecl _tcstok_l(वर्ण *_Str,ध्रुव वर्ण *_Delim,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsnset(वर्ण *_Str,अचिह्नित पूर्णाङ्क _Val,आकार_t Max_गणनम्);
+  _CRTIMP वर्ण *__cdecl _tcsrev(वर्ण *_Str);
+  _CRTIMP वर्ण *__cdecl _tcsset(वर्ण *_Str,अचिह्नित पूर्णाङ्क _Val);
+  _CRTIMP वर्ण *__cdecl _tcsset_l(वर्ण *_Str,अचिह्नित पूर्णाङ्क _Val,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcscmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsicmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsicmp_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnccmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncicmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncicmp_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnicmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnicmp_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcscoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2);
+  _CRTIMP पूर्णाङ्क __cdecl _tcscoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsicoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsicoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnccoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnccoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncicoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncicoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnicoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnicoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP आकार_t __cdecl _tcsclen(ध्रुव वर्ण *_Str);
+  _CRTIMP आकार_t __cdecl _tcscnlen(ध्रुव वर्ण *_Str,आकार_t Max_गणनम्);
+  _CRTIMP आकार_t __cdecl _tcsclen_l(ध्रुव वर्ण *_Str,_locale_t _Locale);
+  _CRTIMP आकार_t __cdecl _tcscnlen_l(ध्रुव वर्ण *_Str,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsnccat(वर्ण *_Dst,ध्रुव वर्ण *_Src,आकार_t Max_गणनम्);
+  _CRTIMP वर्ण *__cdecl _tcsnccat_l(वर्ण *_Dst,ध्रुव वर्ण *_Src,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsnccpy(वर्ण *_Dst,ध्रुव वर्ण *_Src,आकार_t Max_गणनम्);
+  _CRTIMP वर्ण *__cdecl _tcsnccpy_l(वर्ण *_Dst,ध्रुव वर्ण *_Src,आकार_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsncset(वर्ण *_Str,अचिह्नित पूर्णाङ्क _Val,आकार_t Max_गणनम्);
+  _CRTIMP वर्ण *__cdecl _tcsdec(ध्रुव वर्ण *_Start,ध्रुव वर्ण *_Pos);
+  _CRTIMP वर्ण *__cdecl _tcsinc(ध्रुव वर्ण *_Ptr);
+  _CRTIMP आकार_t __cdecl _tcsnbcnt(ध्रुव वर्ण *_Str,आकार_t Max_गणनम्);
+  _CRTIMP आकार_t __cdecl _tcsnccnt(ध्रुव वर्ण *_Str,आकार_t Max_गणनम्);
+  _CRTIMP अचिह्नित पूर्णाङ्क __cdecl _tcsnextc (ध्रुव वर्ण *_Str);
+  _CRTIMP वर्ण *__cdecl _tcsninc(ध्रुव वर्ण *_Ptr,आकार_t गणनम्_5);
+  _CRTIMP वर्ण *__cdecl _tcsspnp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2);
+  _CRTIMP वर्ण *__cdecl _tcslwr(वर्ण *_Str);
+  _CRTIMP वर्ण *__cdecl _tcslwr_l(वर्ण *_Str,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsupr(वर्ण *_Str);
+  _CRTIMP वर्ण *__cdecl _tcsupr_l(वर्ण *_Str,_locale_t _Locale);
+  _CRTIMP आकार_t __cdecl _tclen(ध्रुव वर्ण *_Str);
+  _CRTIMP शून्य __cdecl _tccpy(वर्ण *_DstCh,ध्रुव वर्ण *_SrcCh);
 
-#ifdef __cplusplus
-#ifndef _CPP_TCHAR_INLINES_DEFINED
-#define _CPP_TCHAR_INLINES_DEFINED
-  extern "C++" {
-    extern inline char *__cdecl _tcschr(char *_S,unsigned int _C) { return ((char *)_tcschr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcspbrk(char *_S,const char *_P) { return ((char *)_tcspbrk((const char *)_S,_P)); }
-    extern inline char *__cdecl _tcsrchr(char *_S,unsigned int _C) { return ((char *)_tcsrchr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcsstr(char *_S,const char *_P) { return ((char *)_tcsstr((const char *)_S,_P)); }
+#यदि_परिभाषितम् __cplusplus
+#यदि_अपरिभाषितम् _CPP_TCHAR_INLINES_DEFINED
+#परिभाषय _CPP_TCHAR_INLINES_DEFINED
+  बाह्य "C++" {
+    बाह्य अन्तःस्थ वर्ण *__cdecl _tcschr(वर्ण *_S,अचिह्नित पूर्णाङ्क _C) { प्रत्यागम ((वर्ण *)_tcschr((ध्रुव वर्ण *)_S,_C)); }
+    बाह्य अन्तःस्थ वर्ण *__cdecl _tcspbrk(वर्ण *_S,ध्रुव वर्ण *_P) { प्रत्यागम ((वर्ण *)_tcspbrk((ध्रुव वर्ण *)_S,_P)); }
+    बाह्य अन्तःस्थ वर्ण *__cdecl _tcsrchr(वर्ण *_S,अचिह्नित पूर्णाङ्क _C) { प्रत्यागम ((वर्ण *)_tcsrchr((ध्रुव वर्ण *)_S,_C)); }
+    बाह्य अन्तःस्थ वर्ण *__cdecl _tcsstr(वर्ण *_S,ध्रुव वर्ण *_P) { प्रत्यागम ((वर्ण *)_tcsstr((ध्रुव वर्ण *)_S,_P)); }
   }
-#endif
-#endif
-#endif
+#यदि_अन्तः
+#यदि_अन्तः
+#यदि_अन्तः
 
-#define _tccmp(_cp1,_cp2) _tcsnccmp(_cp1,_cp2,1)
+#परिभाषय _tccmp(_cp1,_cp2) _tcsnccmp(_cp1,_cp2,1)
 
-#define _istalnum _ismbcalnum
-#define _istalnum_l _ismbcalnum_l
-#define _istalpha _ismbcalpha
-#define _istalpha_l _ismbcalpha_l
-#define _istdigit _ismbcdigit
-#define _istdigit_l _ismbcdigit_l
-#define _istgraph _ismbcgraph
-#define _istgraph_l _ismbcgraph_l
-#define _istlegal _ismbclegal
-#define _istlegal_l _ismbclegal_l
-#define _istlower _ismbclower
-#define _istlower_l _ismbclower_l
-#define _istprint _ismbcprint
-#define _istprint_l _ismbcprint_l
-#define _istpunct _ismbcpunct
-#define _istpunct_l _ismbcpunct_l
-#define _istspace _ismbcspace
-#define _istspace_l _ismbcspace_l
-#define _istupper _ismbcupper
-#define _istupper_l _ismbcupper_l
+#परिभाषय _istalnum _ismbcalnum
+#परिभाषय _istalnum_l _ismbcalnum_l
+#परिभाषय _istalpha _ismbcalpha
+#परिभाषय _istalpha_l _ismbcalpha_l
+#परिभाषय _istdigit _ismbcdigit
+#परिभाषय _istdigit_l _ismbcdigit_l
+#परिभाषय _istgraph _ismbcgraph
+#परिभाषय _istgraph_l _ismbcgraph_l
+#परिभाषय _istlegal _ismbclegal
+#परिभाषय _istlegal_l _ismbclegal_l
+#परिभाषय _istlower _ismbclower
+#परिभाषय _istlower_l _ismbclower_l
+#परिभाषय _istprint _ismbcprint
+#परिभाषय _istprint_l _ismbcprint_l
+#परिभाषय _istpunct _ismbcpunct
+#परिभाषय _istpunct_l _ismbcpunct_l
+#परिभाषय _istspace _ismbcspace
+#परिभाषय _istspace_l _ismbcspace_l
+#परिभाषय _istupper _ismbcupper
+#परिभाषय _istupper_l _ismbcupper_l
 
-#define _totupper _mbctoupper
-#define _totupper_l _mbctoupper_l
-#define _totlower _mbctolower
-#define _totlower_l _mbctolower_l
+#परिभाषय _totupper _mbctoupper
+#परिभाषय _totupper_l _mbctoupper_l
+#परिभाषय _totlower _mbctolower
+#परिभाषय _totlower_l _mbctolower_l
 
-#define _istlead _ismbblead
-#define _istleadbyte isleadbyte
-#define _istleadbyte_l _isleadbyte_l
-#else
+#परिभाषय _istlead _ismbblead
+#परिभाषय _istleadbyte isleadbyte
+#परिभाषय _istleadbyte_l _isleadbyte_l
+#अन्यथा
 
-#ifndef __TCHAR_DEFINED
-#define __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef char _TXCHAR;
-  typedef int _TINT;
-#endif
+#यदि_अपरिभाषितम् __TCHAR_DEFINED
+#परिभाषय __TCHAR_DEFINED
+  प्रकारनिर्देश वर्ण _TCHAR;
+  प्रकारनिर्देश चिह्नित वर्ण _TSCHAR;
+  प्रकारनिर्देश अचिह्नित वर्ण _TUCHAR;
+  प्रकारनिर्देश वर्ण _TXCHAR;
+  प्रकारनिर्देश पूर्णाङ्क _TINT;
+#यदि_अन्तः
 
-#ifndef _TCHAR_DEFINED
-#define _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef char TCHAR;
-#endif
-#endif
+#यदि_अपरिभाषितम् _TCHAR_DEFINED
+#परिभाषय _TCHAR_DEFINED
+#यदि_अपरिभाषितम्	NO_OLDNAMES
+  प्रकारनिर्देश वर्ण TCHAR;
+#यदि_अन्तः
+#यदि_अन्तः
 
-#define _tcschr strchr
-#define _tcscspn strcspn
-#define _tcsncat strncat
-#define _tcsncat_l _strncat_l
-#define _tcsncpy strncpy
-#define _tcsncpy_l _strncpy_l
-#define _tcspbrk strpbrk
-#define _tcsrchr strrchr
-#define _tcsspn strspn
-#define _tcsstr strstr
-#define _tcstok strtok
-#define _tcstok_l _strtok_l
+#परिभाषय _tcschr strchr
+#परिभाषय _tcscspn strcspn
+#परिभाषय _tcsncat strncat
+#परिभाषय _tcsncat_l _strncat_l
+#परिभाषय _tcsncpy strncpy
+#परिभाषय _tcsncpy_l _strncpy_l
+#परिभाषय _tcspbrk strpbrk
+#परिभाषय _tcsrchr strrchr
+#परिभाषय _tcsspn strspn
+#परिभाषय _tcsstr वाक्ये_अन्विष
+#परिभाषय _tcstok strtok
+#परिभाषय _tcstok_l _strtok_l
 
-#define _tcsnset _strnset
-#define _tcsnset_l _strnset_l
-#define _tcsrev _strrev
-#define _tcsset _strset
+#परिभाषय _tcsnset _strnset
+#परिभाषय _tcsnset_l _strnset_l
+#परिभाषय _tcsrev _strrev
+#परिभाषय _tcsset _strset
 
-#define _tcscmp strcmp
-#define _tcsicmp _stricmp
-#define _tcsicmp_l _stricmp_l
-#define _tcsnccmp strncmp
-#define _tcsncmp strncmp
-#define _tcsncicmp _strnicmp
-#define _tcsncicmp_l _strnicmp_l
-#define _tcsnicmp _strnicmp
-#define _tcsnicmp_l _strnicmp_l
+#परिभाषय _tcscmp वाक्यं_तुलय
+#परिभाषय _tcsicmp _stricmp
+#परिभाषय _tcsicmp_l _stricmp_l
+#परिभाषय _tcsnccmp वाक्ये_तुलय
+#परिभाषय _tcsncmp वाक्ये_तुलय
+#परिभाषय _tcsncicmp _strnicmp
+#परिभाषय _tcsncicmp_l _strnicmp_l
+#परिभाषय _tcsnicmp _strnicmp
+#परिभाषय _tcsnicmp_l _strnicmp_l
 
-#define _tcscoll strcoll
-#define _tcscoll_l _strcoll_l
-#define _tcsicoll _stricoll
-#define _tcsicoll_l _stricoll_l
-#define _tcsnccoll _strncoll
-#define _tcsnccoll_l _strncoll_l
-#define _tcsncoll _strncoll
-#define _tcsncoll_l _strncoll_l
-#define _tcsncicoll _strnicoll
-#define _tcsncicoll_l _strnicoll_l
-#define _tcsnicoll _strnicoll
-#define _tcsnicoll_l _strnicoll_l
+#परिभाषय _tcscoll strcoll
+#परिभाषय _tcscoll_l _strcoll_l
+#परिभाषय _tcsicoll _stricoll
+#परिभाषय _tcsicoll_l _stricoll_l
+#परिभाषय _tcsnccoll _strncoll
+#परिभाषय _tcsnccoll_l _strncoll_l
+#परिभाषय _tcsncoll _strncoll
+#परिभाषय _tcsncoll_l _strncoll_l
+#परिभाषय _tcsncicoll _strnicoll
+#परिभाषय _tcsncicoll_l _strnicoll_l
+#परिभाषय _tcsnicoll _strnicoll
+#परिभाषय _tcsnicoll_l _strnicoll_l
 
-#define _tcsclen strlen
-#define _tcscnlen strnlen
-#define _tcsclen_l(_String,_Locale) strlen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) strnlen_l((_String),(_Max_count))
-#define _tcsnccat strncat
-#define _tcsnccat_l _strncat_l
-#define _tcsnccpy strncpy
-#define _tcsnccpy_l _strncpy_l
-#define _tcsncset _strnset
+#परिभाषय _tcsclen वाक्यदैर्घ्यम्
+#परिभाषय _tcscnlen strnlen
+#परिभाषय _tcsclen_l(_String,_Locale) वाक्यदैर्घ्यम्(_String)
+#परिभाषय _tcscnlen_l(_String,Max_गणनम्_2,_Locale) strnlen_l((_String),(Max_गणनम्_2))
+#परिभाषय _tcsnccat strncat
+#परिभाषय _tcsnccat_l _strncat_l
+#परिभाषय _tcsnccpy strncpy
+#परिभाषय _tcsnccpy_l _strncpy_l
+#परिभाषय _tcsncset _strnset
 
-#define _tcsdec _strdec
-#define _tcsinc _strinc
-#define _tcsnbcnt _strncnt
-#define _tcsnccnt _strncnt
-#define _tcsnextc _strnextc
-#define _tcsninc _strninc
-#define _tcsspnp _strspnp
+#परिभाषय _tcsdec _strdec
+#परिभाषय _tcsinc _strinc
+#परिभाषय _tcsnbcnt _strncnt
+#परिभाषय _tcsnccnt _strncnt
+#परिभाषय _tcsnextc _strnextc
+#परिभाषय _tcsninc _strninc
+#परिभाषय _tcsspnp _strspnp
 
-#define _tcslwr _strlwr
-#define _tcslwr_l _strlwr_l
-#define _tcsupr _strupr
-#define _tcsupr_l _strupr_l
-#define _tcsxfrm strxfrm
-#define _tcsxfrm_l _strxfrm_l
+#परिभाषय _tcslwr _strlwr
+#परिभाषय _tcslwr_l _strlwr_l
+#परिभाषय _tcsupr _strupr
+#परिभाषय _tcsupr_l _strupr_l
+#परिभाषय _tcsxfrm strxfrm
+#परिभाषय _tcsxfrm_l _strxfrm_l
 
-#define _istlead(_Char) (0)
-#define _istleadbyte(_Char) (0)
-#define _istleadbyte_l(_Char,_Locale) (0)
+#परिभाषय _istlead(_Char) (0)
+#परिभाषय _istleadbyte(_Char) (0)
+#परिभाषय _istleadbyte_l(_Char,_Locale) (0)
 
-#define _tclen(_pc) (1)
-#define _tccpy(_pc1,_cpc2) (*(_pc1) = *(_cpc2))
-#define _tccmp(_cpc1,_cpc2) (((unsigned char)*(_cpc1))-((unsigned char)*(_cpc2)))
+#परिभाषय _tclen(_pc) (1)
+#परिभाषय _tccpy(_pc1,_cpc2) (*(_pc1) = *(_cpc2))
+#परिभाषय _tccmp(_cpc1,_cpc2) (((अचिह्नित वर्ण)*(_cpc1))-((अचिह्नित वर्ण)*(_cpc2)))
 
   /* dirent structures and functions */
-#define _tdirent	dirent
-#define _TDIR 		DIR
-#define _topendir	opendir
-#define _tclosedir	closedir
-#define _treaddir	readdir
-#define _trewinddir	rewinddir
-#define _ttelldir	telldir
-#define _tseekdir	seekdir
+#परिभाषय _tdirent	dirent
+#परिभाषय _TDIR 		DIR
+#परिभाषय _topendir	opendir
+#परिभाषय _tclosedir	closedir
+#परिभाषय _treaddir	readdir
+#परिभाषय _trewinddir	rewinddir
+#परिभाषय _ttelldir	telldir
+#परिभाषय _tseekdir	seekdir
 
-#define _istalnum isalnum
-#define _istalnum_l _isalnum_l
-#define _istalpha isalpha
-#define _istalpha_l _isalpha_l
-#define _istdigit isdigit
-#define _istdigit_l _isdigit_l
-#define _istgraph isgraph
-#define _istgraph_l _isgraph_l
-#define _istlower islower
-#define _istlower_l _islower_l
-#define _istprint isprint
-#define _istprint_l _isprint_l
-#define _istpunct ispunct
-#define _istpunct_l _ispunct_l
-#define _istspace isspace
-#define _istspace_l _isspace_l
-#define _istupper isupper
-#define _istupper_l _isupper_l
+#परिभाषय _istalnum अक्षरम्_अङ्कः_वा
+#परिभाषय _istalnum_l _isalnum_l
+#परिभाषय _istalpha अक्षरम्_वा
+#परिभाषय _istalpha_l _isalpha_l
+#परिभाषय _istdigit अङ्कः_वा
+#परिभाषय _istdigit_l _isdigit_l
+#परिभाषय _istgraph isgraph
+#परिभाषय _istgraph_l _isgraph_l
+#परिभाषय _istlower islower
+#परिभाषय _istlower_l _islower_l
+#परिभाषय _istprint isprint
+#परिभाषय _istprint_l _isprint_l
+#परिभाषय _istpunct ispunct
+#परिभाषय _istpunct_l _ispunct_l
+#परिभाषय _istspace रिक्तम्_वा
+#परिभाषय _istspace_l _isspace_l
+#परिभाषय _istupper isupper
+#परिभाषय _istupper_l _isupper_l
 
-#define _totupper toupper
-#define _totupper_l _toupper_l
-#define _totlower tolower
-#define _totlower_l _tolower_l
+#परिभाषय _totupper महाक्षरम्
+#परिभाषय _totupper_l _toupper_l
+#परिभाषय _totlower tolower
+#परिभाषय _totlower_l _tolower_l
 
-#define _istlegal(_c) (1)
+#परिभाषय _istlegal(_c) (1)
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#यदि_अपरिभाषितम् रिक्त
+#यदि_परिभाषितम् __cplusplus
+#परिभाषय रिक्त 0
+#अन्यथा
+#परिभाषय रिक्त ((शून्य *)0)
+#यदि_अन्तः
+#यदि_अन्तः
 
-#define _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
-#define _strinc(_pc) ((_pc)+1)
-#define _strnextc(_cpc) ((unsigned int) *(const unsigned char *)(_cpc))
-#define _strninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __strncnt(const char *_Str,size_t _Cnt);
-#define _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))
-#define _strspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+strspn(_cpc1,_cpc2))) ? ((_cpc1)+strspn(_cpc1,_cpc2)) : NULL))
+#परिभाषय _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? रिक्त : (_cpc2)-1)
+#परिभाषय _strinc(_pc) ((_pc)+1)
+#परिभाषय _strnextc(_cpc) ((अचिह्नित पूर्णाङ्क) *(ध्रुव अचिह्नित वर्ण *)(_cpc))
+#परिभाषय _strninc(_pc,_sz) (((_pc)+(_sz)))
+  _CRTIMP आकार_t __cdecl __strncnt(ध्रुव वर्ण *_Str,आकार_t _Cnt);
+#परिभाषय _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))
+#परिभाषय _strspnp(_cpc1,_cpc2) (!_cpc1 ? रिक्त : ((*((_cpc1)+strspn(_cpc1,_cpc2))) ? ((_cpc1)+strspn(_cpc1,_cpc2)) : रिक्त))
 
-#define _strncpy_l(_Destination,_Source,_Count,_Locale) (strncpy(_Destination,_Source,_Count))
-#define _strncat_l(_Destination,_Source,_Count,_Locale) (strncat(_Destination,_Source,_Count))
-#define _strtok_l(_String,_Delimiters,_Locale) (strtok(_String,_Delimiters))
-#define _strnset_l(_Destination,_Value,_Count,_Locale) (_strnset(_Destination,_Value,_Count))
-#define _strset_l(_Destination,_Value,_Locale) (_strset(_Destination,_Value))
-#endif
-#endif
+#परिभाषय _strncpy_l(_Destination,_Source,गणनम्_5,_Locale) (strncpy(_Destination,_Source,गणनम्_5))
+#परिभाषय _strncat_l(_Destination,_Source,गणनम्_5,_Locale) (strncat(_Destination,_Source,गणनम्_5))
+#परिभाषय _strtok_l(_String,_Delimiters,_Locale) (strtok(_String,_Delimiters))
+#परिभाषय _strnset_l(_Destination,मानम्_2,गणनम्_5,_Locale) (_strnset(_Destination,मानम्_2,गणनम्_5))
+#परिभाषय _strset_l(_Destination,मानम्_2,_Locale) (_strset(_Destination,मानम्_2))
+#यदि_अन्तः
+#यदि_अन्तः
 
-#define _T(x) __T(x)
-#define _TEXT(x) __T(x)
+#परिभाषय _T(x) __T(x)
+#परिभाषय _TEXT(x) __T(x)
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
+#यदि_अन्तः
 
-#include <sec_api/tchar_s.h>
-#endif
+#अन्तर्भाव <sec_api/tchar_s.h>
+#यदि_अन्तः

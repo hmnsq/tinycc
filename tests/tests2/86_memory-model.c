@@ -1,38 +1,38 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int
-main()
+पूर्णाङ्क
+मुख्यम्()
 {
-#if defined(__LLP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LLP64__\n");
+#यदि defined(__LLP64__)
+	यदि (परिमाण(ह्रस्व) == 2
+	    && परिमाण(पूर्णाङ्क) == 4
+	    && परिमाण(दीर्घ पूर्णाङ्क) == 4
+	    && परिमाण(दीर्घ दीर्घ पूर्णाङ्क) == 8
+	    && परिमाण(शून्य*) == 8) {
+		(शून्य)प्रारूप_लिख("Ok\n");
+	} अन्यथा {
+		(शून्य)प्रारूप_लिख("KO __LLP64__\n");
 	}
-#elif defined(__LP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 8
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LP64__\n");
+#नोचेद्यदि defined(__LP64__)
+	यदि (परिमाण(ह्रस्व) == 2
+	    && परिमाण(पूर्णाङ्क) == 4
+	    && परिमाण(दीर्घ पूर्णाङ्क) == 8
+	    && परिमाण(दीर्घ दीर्घ पूर्णाङ्क) == 8
+	    && परिमाण(शून्य*) == 8) {
+		(शून्य)प्रारूप_लिख("Ok\n");
+	} अन्यथा {
+		(शून्य)प्रारूप_लिख("KO __LP64__\n");
 	}
-#elif defined(__ILP32__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(void*) == 4) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __ILP32__\n");
+#नोचेद्यदि defined(__ILP32__)
+	यदि (परिमाण(ह्रस्व) == 2
+	    && परिमाण(पूर्णाङ्क) == 4
+	    && परिमाण(दीर्घ पूर्णाङ्क) == 4
+	    && परिमाण(शून्य*) == 4) {
+		(शून्य)प्रारूप_लिख("Ok\n");
+	} अन्यथा {
+		(शून्य)प्रारूप_लिख("KO __ILP32__\n");
 	}
-#else
-	(void)printf("KO no __*LP*__ defined.\n");
-#endif
+#अन्यथा
+	(शून्य)प्रारूप_लिख("KO no __*LP*__ defined.\n");
+#यदि_अन्तः
 }

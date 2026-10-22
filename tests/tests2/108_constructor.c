@@ -1,20 +1,20 @@
-extern int write (int fd, void *buf, int len);
+बाह्य पूर्णाङ्क लिख (पूर्णाङ्क fd, शून्य *buf, पूर्णाङ्क len);
 
-static void __attribute__ ((constructor))
-testc (void)
+स्थिर शून्य __attribute__ ((constructor))
+testc (शून्य)
 {
-  write (1, "constructor\n", 12);
+  लिख (1, "constructor\n", 12);
 }
 
-static void __attribute__ ((destructor))
-testd (void)
+स्थिर शून्य __attribute__ ((destructor))
+testd (शून्य)
 {
-  write (1, "destructor\n", 11);
+  लिख (1, "destructor\n", 11);
 }
 
-int
-main (void)
+पूर्णाङ्क
+मुख्यम् (शून्य)
 {
-  write (1, "main\n", 5);
-  return 0;
+  लिख (1, "main\n", 5);
+  प्रत्यागम 0;
 }

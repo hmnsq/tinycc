@@ -1,17 +1,17 @@
-#ifndef __GNU_STAB__
+#यदि_अपरिभाषितम् __GNU_STAB__
 
 /* Indicate the GNU stab.h is in use.  */
 
-#define __GNU_STAB__
+#परिभाषय __GNU_STAB__
 
-#define __define_stab(NAME, CODE, STRING) NAME=CODE,
+#परिभाषय __define_stab(NAME, संहिता_2, STRING) NAME=संहिता_2,
 
-enum __stab_debug_code
+गणना __stab_debug_code
 {
-#include "stab.def"
-LAST_UNUSED_STAB_CODE
+#अन्तर्भाव "stab.def"
+चरमः_अप्रयुक्तम्_STAB_संहिता
 };
 
-#undef __define_stab
+#अपरिभाषय __define_stab
 
-#endif /* __GNU_STAB_ */
+#यदि_अन्तः /* __GNU_STAB_ */

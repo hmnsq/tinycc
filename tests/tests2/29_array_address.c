@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <string.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <string.h>
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-   char a[10];
-   strcpy(a, "abcdef");
-   printf("%s\n", &a[1]);
+   वर्ण a[10];
+   वाक्यं_प्रतिलिख(a, "abcdef");
+   प्रारूप_लिख("%s\n", &a[1]);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

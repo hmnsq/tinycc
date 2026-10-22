@@ -2,103 +2,103 @@
 // crt1.c
 
 // _UNICODE for tchar.h, UNICODE for API
-#include <tchar.h>
+#अन्तर्भाव <tchar.h>
 
-#include <windows.h>
-#include <stdio.h>
-#include <stdlib.h>
+#अन्तर्भाव <windows.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <stdlib.h>
 
-#define _UNKNOWN_APP    0
-#define _CONSOLE_APP    1
-#define _GUI_APP        2
+#परिभाषय _UNKNOWN_APP    0
+#परिभाषय _CONSOLE_APP    1
+#परिभाषय _GUI_APP        2
 
-#define _MCW_PC         0x00030000 // Precision Control
-#define _PC_24          0x00020000 // 24 bits
-#define _PC_53          0x00010000 // 53 bits
-#define _PC_64          0x00000000 // 64 bits
+#परिभाषय _MCW_PC         0x00030000 // Precision Control
+#परिभाषय _PC_24          0x00020000 // 24 bits
+#परिभाषय _PC_53          0x00010000 // 53 bits
+#परिभाषय _PC_64          0x00000000 // 64 bits
 
-#ifdef _UNICODE
-#define __tgetmainargs __wgetmainargs
-#define _tstart _wstart
-#define _tmain wmain
-#define _runtmain _runwmain
-#else
-#define __tgetmainargs __getmainargs
-#define _tstart _start
-#define _tmain main
-#define _runtmain _runmain
-#endif
+#यदि_परिभाषितम् _UNICODE
+#परिभाषय __tgetmainargs __wgetmainargs
+#परिभाषय _tstart _wstart
+#परिभाषय _tmain wmain
+#परिभाषय _runtmain _runwmain
+#अन्यथा
+#परिभाषय __tgetmainargs __getmainargs
+#परिभाषय _tstart _start
+#परिभाषय _tmain मुख्यम्
+#परिभाषय _runtmain _runmain
+#यदि_अन्तः
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
-void __cdecl __set_app_type(int apptype);
-unsigned int __cdecl _controlfp(unsigned int new_value, unsigned int mask);
-extern int _tmain(int argc, _TCHAR * argv[], _TCHAR * env[]);
+प्रकारनिर्देश संरचना { पूर्णाङ्क newmode; } _startupinfo;
+पूर्णाङ्क __cdecl __tgetmainargs(पूर्णाङ्क *pargc, _TCHAR ***pargv, _TCHAR ***penv, पूर्णाङ्क globb, _startupinfo*);
+शून्य __cdecl __set_app_type(पूर्णाङ्क apptype);
+अचिह्नित पूर्णाङ्क __cdecl _controlfp(अचिह्नित पूर्णाङ्क new_मानम्, अचिह्नित पूर्णाङ्क आवरणम्);
+बाह्य पूर्णाङ्क _tmain(पूर्णाङ्क argc, _TCHAR * argv[], _TCHAR * env[]);
 
-#include "crtinit.c"
+#अन्तर्भाव "crtinit.c"
 
 /* Allow command-line globbing with "int _dowildcard = 1;" in the user source */
-int _dowildcard;
+पूर्णाङ्क _dowildcard;
 
-static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
+स्थिर LONG WINAPI catch_sig(EXCEPTION_सूचकाः *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  प्रत्यागम _XcptFilter(ex->Exception_लेखः->Exception_संहिता, ex);
 }
 
-void _tstart(void)
+शून्य _tstart(शून्य)
 {
-    int ret;
+    पूर्णाङ्क ret;
 
     _startupinfo start_info = {0};
-    SetUnhandledExceptionFilter(catch_sig);
+    समुच्चयः_Unhandled_Exception_Filter(catch_sig);
     // Sets the current application type
     __set_app_type(_CONSOLE_APP);
 
     // Set default FP precision to 53 bits (8-byte double)
     // _MCW_PC (Precision control) is not supported on ARM
-#if defined __i386__ || defined __x86_64__
+#यदि defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
-#endif
+#यदि_अन्तः
 
     __tgetmainargs( &__argc, &__targv, &_tenviron, _dowildcard, &start_info);
-    run_ctors(__argc, __targv, _tenviron);
+    सततम्_ctors(__argc, __targv, _tenviron);
     ret = _tmain(__argc, __targv, _tenviron);
-    run_dtors();
-    exit(ret);
+    सततम्_dtors();
+    निर्गच्छ(ret);
 }
 
 // =============================================
 // for 'tcc -run ,,,'
 
-__attribute__((weak)) extern int __run_on_exit();
+__attribute__((weak)) बाह्य पूर्णाङ्क __run_on_exit();
 
-int _runtmain(int argc, /* as tcc passed in */ char **argv)
+पूर्णाङ्क _runtmain(पूर्णाङ्क argc, /* as tcc passed in */ वर्ण **argv)
 {
-    int ret;
-#if defined UNICODE || defined __aarch64__
+    पूर्णाङ्क ret;
+#यदि defined UNICODE || defined __aarch64__
     _startupinfo start_info = {0};
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
-#endif
-#ifdef UNICODE
+#यदि_अन्तः
+#यदि_परिभाषितम् UNICODE
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc) {
+    यदि (argc < __argc) {
         __targv += __argc - argc;
         __argc = argc;
     }
-#else
+#अन्यथा
     __argc = argc;
     __targv = argv;
-#endif
-#if defined __i386__ || defined __x86_64__
+#यदि_अन्तः
+#यदि defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
-#endif
-    run_ctors(__argc, __targv, _tenviron);
+#यदि_अन्तः
+    सततम्_ctors(__argc, __targv, _tenviron);
     ret = _tmain(__argc, __targv, _tenviron);
     fflush(stdout);
     fflush(stderr);
-    run_dtors();
+    सततम्_dtors();
     __run_on_exit(ret);
-    return ret;
+    प्रत्यागम ret;
 }
 
 // =============================================

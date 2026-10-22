@@ -1,42 +1,42 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#यदि (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#अन्यथा
 # define _
-#endif
+#यदि_अन्तः
 
-#ifdef __clang__
+#यदि_परिभाषितम् __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
-#define __USED __attribute__((__used__))
-#else
-#define __USED
-#endif
+#परिभाषय __USED __attribute__((__used__))
+#अन्यथा
+#परिभाषय __USED
+#यदि_अन्तः
 
-static int __USED x1_c (void)
+स्थिर पूर्णाङ्क __USED x1_c (शून्य)
 {
-    printf(" x1");
-    return 1;
+    प्रारूप_लिख(" x1");
+    प्रत्यागम 1;
 }
 
-#if __i386__
+#यदि __i386__
 asm(".text;"_"x1: call "_"x1_c; ret");
-#else
+#अन्यथा
 /* Keep stack aligned */
 asm(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
-#endif
+#यदि_अन्तः
 
-void callx4(void);
-void callx5_again(void);
+शून्य callx4(शून्य);
+शून्य callx5_again(शून्य);
 
-void x6()
+शून्य x6()
 {
-    printf(" x6-1");
+    प्रारूप_लिख(" x6-1");
 }
 
-int main(int argc, char *argv[])
+पूर्णाङ्क मुख्यम्(पूर्णाङ्क argc, वर्ण *argv[])
 {
-    printf("*");
+    प्रारूप_लिख("*");
     asm("call "_"x1");
     asm("call "_"x2");
     asm("call "_"x3");
@@ -44,26 +44,26 @@ int main(int argc, char *argv[])
     asm("call "_"x5");
     callx5_again();
     x6();
-    printf(" *\n");
-    return 0;
+    प्रारूप_लिख(" *\n");
+    प्रत्यागम 0;
 }
 
-static
-int __USED x2(void)
+स्थिर
+पूर्णाङ्क __USED x2(शून्य)
 {
-    printf(" x2");
-    return 2;
+    प्रारूप_लिख(" x2");
+    प्रत्यागम 2;
 }
 
-extern int x3(void);
+बाह्य पूर्णाङ्क x3(शून्य);
 
-void x4(void)
+शून्य x4(शून्य)
 {
-    printf(" x4");
+    प्रारूप_लिख(" x4");
 }
 
-void x5(void);
-void x5(void)
+शून्य x5(शून्य);
+शून्य x5(शून्य)
 {
-    printf(" x5");
+    प्रारूप_लिख(" x5");
 }

@@ -13,27 +13,27 @@
         .globl _(__x86.get_pc_thunk.ax)
         .hidden _(__x86.get_pc_thunk.ax)
 _(__x86.get_pc_thunk.ax):
-        mov (%esp),%eax
-        ret
+        चालय (%esp),%eax
+        प्रत्यागच्छ
         .size _(__x86.get_pc_thunk.ax), .-_(__x86.get_pc_thunk.ax)
 
         .globl _(__x86.get_pc_thunk.bx)
         .hidden _(__x86.get_pc_thunk.bx)
 _(__x86.get_pc_thunk.bx):
-        mov (%esp),%ebx
-        ret
+        चालय (%esp),%ebx
+        प्रत्यागच्छ
         .size _(__x86.get_pc_thunk.bx), .-_(__x86.get_pc_thunk.bx)
 
         .globl _(__x86.get_pc_thunk.cx)
         .hidden _(__x86.get_pc_thunk.cx)
 _(__x86.get_pc_thunk.cx):
-        mov (%esp),%ecx
-        ret
+        चालय (%esp),%ecx
+        प्रत्यागच्छ
         .size _(__x86.get_pc_thunk.cx), .-_(__x86.get_pc_thunk.cx)
 
         .globl _(__x86.get_pc_thunk.dx)
         .hidden _(__x86.get_pc_thunk.dx)
 _(__x86.get_pc_thunk.dx):
-        mov (%esp),%edx
-        ret
+        चालय (%esp),%edx
+        प्रत्यागच्छ
         .size _(__x86.get_pc_thunk.dx), .-_(__x86.get_pc_thunk.dx)

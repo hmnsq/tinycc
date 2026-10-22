@@ -1,113 +1,113 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int f(void)
+पूर्णाङ्क f(शून्य)
 {
-  return 5;
+  प्रत्यागम 5;
 }
 
-void test1()
+शून्य test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  पूर्णाङ्क गणनम्_2 = 10;
+  शून्य *addr[10];
+  प्रति(;गणनम्_2--;) {
+    पूर्णाङ्क a[f()];
 
-    addr[count] = a;
+    addr[गणनम्_2] = a;
 
-    continue;
+    अनुवर्त;
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
-  }
-}
-
-void test2()
-{
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
-
-    addr[count] = a;
-
-    continue;
-  }
-
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  यदि(addr[9] == addr[0]) {
+    प्रारूप_लिख("OK\n");
+  } अन्यथा {
+    प्रारूप_लिख("NOT OK\n");
   }
 }
 
-void test3()
+शून्य test2()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  पूर्णाङ्क गणनम्_2 = 10;
+  शून्य *addr[गणनम्_2];
+  प्रति(;गणनम्_2--;) {
+    पूर्णाङ्क a[f()];
 
-          addr[count] = a;
+    addr[गणनम्_2] = a;
 
-          continue;
+    अनुवर्त;
+  }
+
+  यदि(addr[9] == addr[0]) {
+    प्रारूप_लिख("OK\n");
+  } अन्यथा {
+    प्रारूप_लिख("NOT OK\n");
+  }
+}
+
+शून्य test3()
+{
+  पूर्णाङ्क गणनम्_2 = 10;
+  शून्य *addr[गणनम्_2];
+  यावत्(गणनम्_2--) {
+      पूर्णाङ्क b[f()];
+      यदि (गणनम्_2 >= 0) {
+          पूर्णाङ्क a[f()];
+
+          addr[गणनम्_2] = a;
+
+          अनुवर्त;
       }
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  यदि(addr[9] == addr[0]) {
+    प्रारूप_लिख("OK\n");
+  } अन्यथा {
+    प्रारूप_लिख("NOT OK\n");
   }
 }
 
-void test4()
+शून्य test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  पूर्णाङ्क गणनम्_2 = 10;
+  शून्य *addr[गणनम्_2];
+  कुरु {
+    पूर्णाङ्क a[f()];
 
-    addr[--count] = a;
+    addr[--गणनम्_2] = a;
 
-    continue;
-  } while (count);
+    अनुवर्त;
+  } यावत् (गणनम्_2);
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  यदि(addr[9] == addr[0]) {
+    प्रारूप_लिख("OK\n");
+  } अन्यथा {
+    प्रारूप_लिख("NOT OK\n");
   }
 }
 
-void test5()
+शून्य test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  पूर्णाङ्क गणनम्_2 = 10;
+  पूर्णाङ्क a[f()];
+  पूर्णाङ्क c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  प्रति(;गणनम्_2--;) {
+    पूर्णाङ्क b[f()];
+    पूर्णाङ्क i;
+    प्रति (i=0; i<f(); i++) {
+      b[i] = गणनम्_2;
     }
   }
 
-  if (c[0] == 42) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  यदि (c[0] == 42) {
+    प्रारूप_लिख("OK\n");
+  } अन्यथा {
+    प्रारूप_लिख("NOT OK\n");
   }
 }
 
-int main(void)
+पूर्णाङ्क मुख्यम्(शून्य)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  प्रत्यागम 0;
 }

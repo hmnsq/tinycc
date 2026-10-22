@@ -1,12 +1,12 @@
-#include <stdio.h>	// printf()
+#अन्तर्भाव <stdio.h>	// printf()
 
-#define CAT2(a,b) a##b
-#define CAT(a,b) CAT2(a,b)
-#define AB(x) CAT(x,y)
+#परिभाषय CAT2(a,b) a##b
+#परिभाषय CAT(a,b) CAT2(a,b)
+#परिभाषय AB(x) CAT(x,y)
 
-int main(void)
+पूर्णाङ्क मुख्यम्(शून्य)
 {
-  int xy = 42;
-  printf("%d\n", CAT(A,B)(x));
-  return 0;
+  पूर्णाङ्क xy = 42;
+  प्रारूप_लिख("%d\n", CAT(A,B)(x));
+  प्रत्यागम 0;
 }

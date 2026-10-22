@@ -18,30 +18,30 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifdef TARGET_DEFS_ONLY
+#यदि_परिभाषितम् TARGET_DEFS_ONLY
 
 /* number of available registers */
-#define NB_REGS         5
-#define NB_ASM_REGS     8
-#define CONFIG_TCC_ASM
+#परिभाषय NB_REGS         5
+#परिभाषय NB_ASM_REGS     8
+#परिभाषय CONFIG_TCC_ASM
 
 /* a register can belong to several classes. The classes must be
    sorted from more general to more precise (see gv2() code which does
    assumptions on it). */
-#define RC_INT     0x0001 /* generic integer register */
-#define RC_FLOAT   0x0002 /* generic float register */
-#define RC_EAX     0x0004
-#define RC_EDX     0x0008
-#define RC_ECX     0x0010
-#define RC_EBX     0x0020
-#define RC_ST0     0x0040
+#परिभाषय RC_INT     0x0001 /* generic integer register */
+#परिभाषय RC_FLOAT   0x0002 /* generic float register */
+#परिभाषय RC_EAX     0x0004
+#परिभाषय RC_EDX     0x0008
+#परिभाषय RC_ECX     0x0010
+#परिभाषय RC_EBX     0x0020
+#परिभाषय RC_ST0     0x0040
 
-#define RC_IRET    RC_EAX /* function return: integer register */
-#define RC_IRE2    RC_EDX /* function return: second integer register */
-#define RC_FRET    RC_ST0 /* function return: float register */
+#परिभाषय RC_IRET    RC_EAX /* function return: integer register */
+#परिभाषय RC_IRE2    RC_EDX /* function return: second integer register */
+#परिभाषय RC_FRET    RC_ST0 /* function return: float register */
 
 /* pretty names for the registers */
-enum {
+गणना {
     TREG_EAX = 0,
     TREG_ECX,
     TREG_EDX,
@@ -51,51 +51,51 @@ enum {
     TREG_MEM = 0x20
 };
 
-#define REG_VALUE(reg) ((reg) & 7)
+#परिभाषय REG_मानम्(reg) ((reg) & 7)
 
 /* return registers for function */
-#define REG_IRET TREG_EAX /* single word int return register */
-#define REG_IRE2 TREG_EDX /* second word return register (for long long) */
-#define REG_FRET TREG_ST0 /* float return register */
+#परिभाषय REG_IRET TREG_EAX /* single word int return register */
+#परिभाषय REG_IRE2 TREG_EDX /* second word return register (for long long) */
+#परिभाषय REG_FRET TREG_ST0 /* float return register */
 
 /* defined if function parameters must be evaluated in reverse order */
-#define INVERT_FUNC_PARAMS
+#परिभाषय INVERT_FUNC_PARAMS
 
 /* defined if structures are passed as pointers. Otherwise structures
    are directly pushed on stack. */
 /* #define FUNC_STRUCT_PARAM_AS_PTR */
 
 /* pointer size, in bytes */
-#define PTR_SIZE 4
+#परिभाषय PTR_आकार 4
 
 /* long double size and alignment, in bytes */
-#define LDOUBLE_SIZE  12
-#define LDOUBLE_ALIGN 4
+#परिभाषय LDOUBLE_आकार  12
+#परिभाषय LDOUBLE_ALIGN 4
 /* maximum alignment (for aligned attribute support) */
-#define MAX_ALIGN     8
+#परिभाषय MAX_ALIGN     8
 
 /* define if return values need to be extended explicitely
    at caller side (for interfacing with non-TCC compilers) */
-#define PROMOTE_RET
+#परिभाषय PROMOTE_RET
 
 /******************************************************/
-#else /* ! TARGET_DEFS_ONLY */
+#अन्यथा /* ! TARGET_DEFS_ONLY */
 /******************************************************/
-#define USING_GLOBALS
-#include "tcc.h"
+#परिभाषय USING_GLOBALS
+#अन्तर्भाव "tcc.h"
 
-ST_DATA const char * const target_machine_defs =
+ST_दत्त ध्रुव वर्ण * ध्रुव target_machine_defs =
     "__i386__\0"
     "__i386\0"
     ;
 
-#if defined CONFIG_TCC_PIC
+#यदि defined CONFIG_TCC_PIC
 # define USE_EBX 2
-#else
+#अन्यथा
 # define USE_EBX 0 /* define to 1 to have EBX as 4th register */
-#endif
+#यदि_अन्तः
 
-ST_DATA const int reg_classes[NB_REGS] = {
+ST_दत्त ध्रुव पूर्णाङ्क reg_classes[NB_REGS] = {
     /* eax */ RC_INT | RC_EAX,
     /* ecx */ RC_INT | RC_ECX,
     /* edx */ RC_INT | RC_EDX,
@@ -103,44 +103,44 @@ ST_DATA const int reg_classes[NB_REGS] = {
     /* st0 */ RC_FLOAT | RC_ST0,
 };
 
-static unsigned long func_sub_sp_offset;
-static int func_ret_sub;
-#ifdef CONFIG_TCC_BCHECK
-static addr_t func_bound_offset;
-static unsigned long func_bound_ind;
-ST_DATA int func_bound_add_epilog;
-static void gen_bounds_prolog(void);
-static void gen_bounds_epilog(void);
-#endif
+स्थिर अचिह्नित दीर्घ func_sub_sp_विस्थापनम्;
+स्थिर पूर्णाङ्क func_ret_sub;
+#यदि_परिभाषितम् CONFIG_TCC_BCHECK
+स्थिर addr_t func_bound_विस्थापनम्;
+स्थिर अचिह्नित दीर्घ func_bound_ind;
+ST_दत्त पूर्णाङ्क func_bound_सङ्कलय_epilog;
+स्थिर शून्य gen_bounds_prolog(शून्य);
+स्थिर शून्य gen_bounds_epilog(शून्य);
+#यदि_अन्तः
 
 /* XXX: make it faster ? */
-ST_FUNC void g(int c)
+ST_FUNC शून्य g(पूर्णाङ्क c)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    पूर्णाङ्क ind1;
+    यदि (nocode_wanted)
+        प्रत्यागम;
     ind1 = ind + 1;
-    if (ind1 > cur_text_section->data_allocated)
+    यदि (ind1 > cur_text_section->दत्त_allocated)
         section_realloc(cur_text_section, ind1);
-    cur_text_section->data[ind] = c;
+    cur_text_section->दत्त[ind] = c;
     ind = ind1;
 }
 
-ST_FUNC void o(unsigned int c)
+ST_FUNC शून्य o(अचिह्नित पूर्णाङ्क c)
 {
-    while (c) {
+    यावत् (c) {
         g(c);
         c = c >> 8;
     }
 }
 
-ST_FUNC void gen_le16(int v)
+ST_FUNC शून्य gen_le16(पूर्णाङ्क v)
 {
     g(v);
     g(v >> 8);
 }
 
-ST_FUNC void gen_le32(int c)
+ST_FUNC शून्य gen_le32(पूर्णाङ्क c)
 {
     g(c);
     g(c >> 8);
@@ -149,10 +149,10 @@ ST_FUNC void gen_le32(int c)
 }
 
 /* output a symbol and patch all calls to it */
-ST_FUNC void gsym_addr(int t, int a)
+ST_FUNC शून्य gsym_addr(पूर्णाङ्क t, पूर्णाङ्क a)
 {
-    while (t) {
-        unsigned char *ptr = cur_text_section->data + t;
+    यावत् (t) {
+        अचिह्नित वर्ण *ptr = cur_text_section->दत्त + t;
         uint32_t n = read32le(ptr); /* next value */
         write32le(ptr, a - t - 4);
         t = n;
@@ -160,148 +160,148 @@ ST_FUNC void gsym_addr(int t, int a)
 }
 
 /* instruction + 4 bytes data. Return the address of the data */
-static int oad(int c, int s)
+स्थिर पूर्णाङ्क oad(पूर्णाङ्क c, पूर्णाङ्क s)
 {
-    int t;
-    if (nocode_wanted)
-        return s;
+    पूर्णाङ्क t;
+    यदि (nocode_wanted)
+        प्रत्यागम s;
     o(c);
     t = ind;
     gen_le32(s);
-    return t;
+    प्रत्यागम t;
 }
 
-ST_FUNC void gen_fill_nops(int bytes)
+ST_FUNC शून्य gen_fill_nops(पूर्णाङ्क अष्टकानि)
 {
-    while (bytes--)
+    यावत् (अष्टकानि--)
       g(0x90);
 }
 
-#if defined CONFIG_TCC_PIC
-static void gen_static_call(int v);
-static void get_pc_thunk(int r, int add)
+#यदि defined CONFIG_TCC_PIC
+स्थिर शून्य gen_static_call(पूर्णाङ्क v);
+स्थिर शून्य get_pc_thunk(पूर्णाङ्क r, पूर्णाङ्क सङ्कलय)
 {
-    static const char * const pc_thunk_name[] = {
+    स्थिर ध्रुव वर्ण * ध्रुव pc_thunk_name[] = {
 	"__x86.get_pc_thunk.ax",
 	"__x86.get_pc_thunk.cx",
 	"__x86.get_pc_thunk.dx",
 	"__x86.get_pc_thunk.bx"
     };
-    if (nocode_wanted)
-        return;
+    यदि (nocode_wanted)
+        प्रत्यागम;
     gen_static_call(tok_alloc_const(pc_thunk_name[r]));
-    if (add) {
+    यदि (सङ्कलय) {
         Sym label = {0};
         label.type.t = VT_VOID|VT_STATIC;
         put_extern_sym(&label, cur_text_section, ind, 0);
-        r = REG_VALUE(r);
-	if (r == 0)
+        r = REG_मानम्(r);
+	यदि (r == 0)
 	    oad(0x05, 1); /* add _GLOBAL_OFFSET_TABLE_, %eax */
-	else
+	अन्यथा
             oad(0xc081 + r * 0x100, 2); /* add _GLOBAL_OFFSET_TABLE_, %erx */
         greloc(cur_text_section, &label, ind - 4, R_386_GOTPC);
     }
 }
 
-ST_FUNC void gen_gotpcrel(int r, Sym *sym, int c)
+ST_FUNC शून्य gen_gotpcrel(पूर्णाङ्क r, Sym *sym, पूर्णाङ्क c)
 {
     greloc(cur_text_section, sym, ind, R_386_GOT32X);
     gen_le32(0);
-    if (c) {
-	r = REG_VALUE(r);
-	if (r == 0)
+    यदि (c) {
+	r = REG_मानम्(r);
+	यदि (r == 0)
             oad(0x05, c);
-	else
+	अन्यथा
             oad(0xc081 + r * 0x100, c);
     }
 }
-#endif
+#यदि_अन्तः
 
 /* generate jmp to a label */
-#define gjmp2(instr,lbl) oad(instr,lbl)
+#परिभाषय gjmp2(instr,lbl) oad(instr,lbl)
 
 /* output constant with relocation if 'r & VT_SYM' is true */
-ST_FUNC void gen_addr32(int r, Sym *sym, int c)
+ST_FUNC शून्य gen_addr32(पूर्णाङ्क r, Sym *sym, पूर्णाङ्क c)
 {
-    if (r & VT_SYM)
+    यदि (r & VT_SYM)
         greloc(cur_text_section, sym, ind, R_386_32);
     gen_le32(c);
 }
 
-ST_FUNC void gen_addrpc32(int r, Sym *sym, int c)
+ST_FUNC शून्य gen_addrpc32(पूर्णाङ्क r, Sym *sym, पूर्णाङ्क c)
 {
-    if (r & VT_SYM)
+    यदि (r & VT_SYM)
         greloc(cur_text_section, sym, ind, R_386_PC32);
     gen_le32(c - 4);
 }
 
 /* generate a modrm reference. 'op_reg' contains the additional 3
    opcode bits */
-static void gen_modrm(int opc, int op_r2, int r, Sym *sym, int c)
+स्थिर शून्य gen_modrm(पूर्णाङ्क opc, पूर्णाङ्क op_r2, पूर्णाङ्क r, Sym *sym, पूर्णाङ्क c)
 {
-    int op_reg = REG_VALUE(op_r2) << 3;
+    पूर्णाङ्क op_reg = REG_मानम्(op_r2) << 3;
 
-    if ((r & VT_SYM) && (sym->type.t & VT_TLS)) {
-#ifdef TCC_TARGET_PE
-        Sym *s2 = external_global_sym(TOK___tls_index, &int_type);
+    यदि ((r & VT_SYM) && (sym->type.t & VT_TLS)) {
+#यदि_परिभाषितम् TCC_TARGET_PE
+        Sym *s2 = external_global_sym(TOK_tls_सूचकांक, &int_type);
         r = get_reg(RC_INT);
         gen_modrm(0x8b, r, VT_SYM|VT_CONST, s2, 0); /* mov __tls_index, r */
         o(0x02e0c1 | r << 8); /* shl 2,r */
-        oad(0x050364 | r << 19, 11*PTR_SIZE); /* add fs:0x2c,r */
+        oad(0x050364 | r << 19, 11*PTR_आकार); /* add fs:0x2c,r */
         gen_modrm(0x8b, r, r | VT_LVAL, 0, 0); /* mov (r),r */
         o(opc), oad(0x80 | op_reg | r, c); /* mov #c(r),op_reg */
         greloc(cur_text_section, sym, ind - 4, R_386_TLS_LE);
-#else
+#अन्यथा
         o(0x65); /* gs segment prefix */
         o(opc), oad(0x05 | op_reg, c);
         greloc(cur_text_section, sym, ind - 4, R_386_TLS_LE);
-#endif
-#if defined CONFIG_TCC_PIC
-    } else if ((r & (VT_VALMASK|VT_SYM)) == (VT_CONST|VT_SYM)) {
-        int is_got = (op_r2 & TREG_MEM) && !(sym->type.t & VT_STATIC);
-        int here = ind;
+#यदि_अन्तः
+#यदि defined CONFIG_TCC_PIC
+    } अन्यथा यदि ((r & (VT_VALMASK|VT_SYM)) == (VT_CONST|VT_SYM)) {
+        पूर्णाङ्क is_got = (op_r2 & TREG_MEM) && !(sym->type.t & VT_STATIC);
+        पूर्णाङ्क अत्र = ind;
         get_pc_thunk(TREG_EBX, is_got);
         o(opc);
         o(0x83 | op_reg);
-        if (is_got) {
+        यदि (is_got) {
             gen_gotpcrel(r, sym, c);
-        } else {
-            gen_addrpc32(r, sym, c + (ind - here - 1));
+        } अन्यथा {
+            gen_addrpc32(r, sym, c + (ind - अत्र - 1));
         }
-    } else if ((r & VT_VALMASK) < VT_CONST && (r & TREG_MEM)) {
+    } अन्यथा यदि ((r & VT_VALMASK) < VT_CONST && (r & TREG_MEM)) {
         o(opc);
-        if (c) {
-            g(0x80 | op_reg | REG_VALUE(r));
+        यदि (c) {
+            g(0x80 | op_reg | REG_मानम्(r));
             gen_le32(c);
-        } else {
-            g(0x00 | op_reg | REG_VALUE(r));
+        } अन्यथा {
+            g(0x00 | op_reg | REG_मानम्(r));
         }
-#endif
-    } else if ((r & VT_VALMASK) == VT_CONST) {
+#यदि_अन्तः
+    } अन्यथा यदि ((r & VT_VALMASK) == VT_CONST) {
         /* constant memory reference */
         o(opc);
         o(0x05 | op_reg);
         gen_addr32(r, sym, c);
-    } else if ((r & VT_VALMASK) == VT_LOCAL) {
+    } अन्यथा यदि ((r & VT_VALMASK) == VT_LOCAL) {
 	o(opc);
         /* currently, we use only ebp as base */
-        if (c == (signed char)c) {
+        यदि (c == (चिह्नित वर्ण)c) {
             /* short reference */
             o(0x45 | op_reg);
             g(c);
-        } else {
+        } अन्यथा {
             oad(0x85 | op_reg, c);
         }
-    } else {
+    } अन्यथा {
 	o(opc);
         g(0x00 | op_reg | (r & VT_VALMASK));
     }
 }
 
 /* load 'r' from value 'sv' */
-ST_FUNC void load(int r, SValue *sv)
+ST_FUNC शून्य आरोपय(पूर्णाङ्क r, SValue *sv)
 {
-    int v, t, ft, fc, fr, opc;
+    पूर्णाङ्क v, t, ft, fc, fr, opc;
     SValue v1;
 
     fr = sv->r;
@@ -310,13 +310,13 @@ ST_FUNC void load(int r, SValue *sv)
     ft &= ~VT_QUAL;
     v = fr & VT_VALMASK;
 
-#if defined CONFIG_TCC_PIC
+#यदि defined CONFIG_TCC_PIC
     /* we use indirect access via got */
-    if ((fr & (VT_VALMASK|VT_SYM|VT_LVAL)) == (VT_CONST|VT_SYM|VT_LVAL)
+    यदि ((fr & (VT_VALMASK|VT_SYM|VT_LVAL)) == (VT_CONST|VT_SYM|VT_LVAL)
         && !(sv->sym->type.t & (VT_STATIC|VT_TLS))) {
         /* use the result register as a temporal register */
-        int tr = r | TREG_MEM;
-        if (is_float(ft)) {
+        पूर्णाङ्क tr = r | TREG_MEM;
+        यदि (is_float(ft)) {
             /* we cannot use float registers as a temporal register */
             tr = get_reg(RC_INT) | TREG_MEM;
         }
@@ -324,85 +324,85 @@ ST_FUNC void load(int r, SValue *sv)
         /* load from the temporal register */
         fr = tr | VT_LVAL;
     }
-#endif
+#यदि_अन्तः
 
-    if (fr & VT_LVAL) {
-        if (v == VT_LLOCAL) {
+    यदि (fr & VT_LVAL) {
+        यदि (v == VT_LLOCAL) {
             v1.type.t = VT_INT;
             v1.r = VT_LOCAL | VT_LVAL;
             v1.c.i = fc;
-            v1.sym = NULL;
+            v1.sym = रिक्त;
             fr = r;
-            if (!(reg_classes[fr] & RC_INT))
+            यदि (!(reg_classes[fr] & RC_INT))
                 fr = get_reg(RC_INT);
-            load(fr, &v1);
+            आरोपय(fr, &v1);
         }
-        if ((ft & VT_BTYPE) == VT_FLOAT) {
+        यदि ((ft & VT_BTYPE) == VT_FLOAT) {
             opc = 0xd9; /* flds */
             r = 0;
-        } else if ((ft & VT_BTYPE) == VT_DOUBLE) {
+        } अन्यथा यदि ((ft & VT_BTYPE) == VT_DOUBLE) {
             opc = 0xdd; /* fldl */
             r = 0;
-        } else if ((ft & VT_BTYPE) == VT_LDOUBLE) {
+        } अन्यथा यदि ((ft & VT_BTYPE) == VT_LDOUBLE) {
             opc = 0xdb; /* fldt */
             r = 5;
-        } else if ((ft & VT_TYPE) == VT_BYTE || (ft & VT_TYPE) == VT_BOOL) {
+        } अन्यथा यदि ((ft & VT_TYPE) == VT_BYTE || (ft & VT_TYPE) == VT_BOOL) {
             opc = 0xbe0f;   /* movsbl */
-        } else if ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED) ||
+        } अन्यथा यदि ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED) ||
 		   (ft & VT_TYPE) == (VT_BOOL | VT_UNSIGNED)) {
             opc = 0xb60f;   /* movzbl */
-        } else if ((ft & VT_TYPE) == VT_SHORT) {
+        } अन्यथा यदि ((ft & VT_TYPE) == VT_SHORT) {
             opc = 0xbf0f;   /* movswl */
-        } else if ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED)) {
+        } अन्यथा यदि ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED)) {
             opc = 0xb70f;   /* movzwl */
-        } else {
+        } अन्यथा {
             opc = 0x8b;     /* movl */
         }
         gen_modrm(opc, r, fr, sv->sym, fc);
-    } else {
-        if ((fr & VT_SYM) && (sv->sym->type.t & VT_TLS)) {
-#ifdef TCC_TARGET_PE
+    } अन्यथा {
+        यदि ((fr & VT_SYM) && (sv->sym->type.t & VT_TLS)) {
+#यदि_परिभाषितम् TCC_TARGET_PE
             gen_modrm(0x8d, r, fr, sv->sym, fc);
-#else
-            oad(0x058b65 | REG_VALUE(r) << 19, 0); /* mov gs:0,r */
-            oad(0xC081 | REG_VALUE(r) << 8, fc); /* add tpoffs,r */
+#अन्यथा
+            oad(0x058b65 | REG_मानम्(r) << 19, 0); /* mov gs:0,r */
+            oad(0xC081 | REG_मानम्(r) << 8, fc); /* add tpoffs,r */
             greloc(cur_text_section, sv->sym, ind - 4, R_386_TLS_LE);
-#endif
-#if defined CONFIG_TCC_PIC
-        } else if ((fr & (VT_VALMASK|VT_SYM)) == (VT_CONST|VT_SYM)) {
-            if (sv->sym->type.t & VT_STATIC) {
+#यदि_अन्तः
+#यदि defined CONFIG_TCC_PIC
+        } अन्यथा यदि ((fr & (VT_VALMASK|VT_SYM)) == (VT_CONST|VT_SYM)) {
+            यदि (sv->sym->type.t & VT_STATIC) {
                 get_pc_thunk(r, 0);
-                o(0x808d | REG_VALUE(r) * 0x900); /* lea $xx(r), r */
+                o(0x808d | REG_मानम्(r) * 0x900); /* lea $xx(r), r */
                 gen_addrpc32(fr, sv->sym, fc + 6);
-            } else {
+            } अन्यथा {
                 get_pc_thunk(r, 1);
-                o(0x808b | REG_VALUE(r) * 0x900); /* mov $xx(r), r */
+                o(0x808b | REG_मानम्(r) * 0x900); /* mov $xx(r), r */
                 gen_gotpcrel(r, sv->sym, fc);
             }
-#endif
-        } else if (v == VT_CONST) {
+#यदि_अन्तः
+        } अन्यथा यदि (v == VT_CONST) {
             o(0xb8 + r); /* mov $xx, r */
             gen_addr32(fr, sv->sym, fc);
-        } else if (v == VT_LOCAL) {
-            if (fc) {
+        } अन्यथा यदि (v == VT_LOCAL) {
+            यदि (fc) {
                 /* lea xxx(%ebp), r */
                 gen_modrm(0x8d, r, VT_LOCAL, sv->sym, fc);
-            } else {
+            } अन्यथा {
                 o(0x89);
                 o(0xe8 + r); /* mov %ebp, r */
             }
-        } else if (v == VT_CMP) {
+        } अन्यथा यदि (v == VT_CMP) {
             o(0x0f); /* setxx %br */
             o(fc);
             o(0xc0 + r);
             o(0xc0b60f + r * 0x90000); /* movzbl %al, %eax */
-        } else if (v == VT_JMP || v == VT_JMPI) {
+        } अन्यथा यदि (v == VT_JMP || v == VT_JMPI) {
             t = v & 1;
             oad(0xb8 + r, t); /* mov $1, r */
             o(0x05eb); /* jmp after */
             gsym(fc);
             oad(0xb8 + r, t ^ 1); /* mov $0, r */
-        } else if (v != r) {
+        } अन्यथा यदि (v != r) {
             o(0x89);
             o(0xc0 + r + v * 8); /* mov v, r */
         }
@@ -410,66 +410,66 @@ ST_FUNC void load(int r, SValue *sv)
 }
 
 /* store register 'r' in lvalue 'v' */
-ST_FUNC void store(int r, SValue *v)
+ST_FUNC शून्य store(पूर्णाङ्क r, SValue *v)
 {
-    int fr, bt, fc, opc;
+    पूर्णाङ्क fr, bt, fc, opc;
 
     bt = v->type.t & VT_BTYPE;
 
     /* XXX: incorrect if float reg to reg */
-    if (bt == VT_FLOAT) {
+    यदि (bt == VT_FLOAT) {
         opc = 0xd9; /* fsts */
         r = 2;
-    } else if (bt == VT_DOUBLE) {
+    } अन्यथा यदि (bt == VT_DOUBLE) {
         opc = 0xdd; /* fstpl */
         r = 2;
-    } else if (bt == VT_LDOUBLE) {
+    } अन्यथा यदि (bt == VT_LDOUBLE) {
         o(0xc0d9); /* fld %st(0), fstpt */
         opc = 0xdb;
         r = 7;
-    } else if (bt == VT_SHORT) {
+    } अन्यथा यदि (bt == VT_SHORT) {
         opc = 0x8966;
-    } else if (bt == VT_BYTE || bt == VT_BOOL) {
+    } अन्यथा यदि (bt == VT_BYTE || bt == VT_BOOL) {
         opc = 0x88;
-    } else {
+    } अन्यथा {
         opc = 0x89;
     }
 
     fc = v->c.i;
     fr = v->r & VT_VALMASK;
 
-#if defined CONFIG_TCC_PIC
+#यदि defined CONFIG_TCC_PIC
     /* we need to access the variable via got */
-    if ((v->r & (VT_VALMASK|VT_SYM)) == (VT_CONST|VT_SYM)
+    यदि ((v->r & (VT_VALMASK|VT_SYM)) == (VT_CONST|VT_SYM)
         && !(v->sym->type.t & (VT_STATIC|VT_TLS))) {
 	get_pc_thunk(TREG_EBX, 1);
 	o(0x9b8b); /* mov xx(%ebx),%ebx */
 	gen_gotpcrel(TREG_EBX, v->sym, v->c.i);
 	o(opc);
 	o(3 + (r << 3));
-    } else
-#endif
+    } अन्यथा
+#यदि_अन्तः
 
-    if (fr == VT_CONST || fr == VT_LOCAL || (v->r & VT_LVAL)) {
+    यदि (fr == VT_CONST || fr == VT_LOCAL || (v->r & VT_LVAL)) {
         gen_modrm(opc, r, v->r, v->sym, fc);
-    } else if (fr != r) {
+    } अन्यथा यदि (fr != r) {
 	o(opc);
         o(0xc0 + fr + r * 8); /* mov r, fr */
     }
 }
 
-static void gadd_sp(int val)
+स्थिर शून्य gadd_sp(पूर्णाङ्क val)
 {
-    if (val == (signed char)val) {
+    यदि (val == (चिह्नित वर्ण)val) {
         o(0xc483);
         g(val);
-    } else {
+    } अन्यथा {
         oad(0xc481, val); /* add $xxx, %esp */
     }
 }
 
-#if defined TCC_TARGET_PE || defined CONFIG_TCC_PIC
-static void gen_static_call(int v)
+#यदि defined TCC_TARGET_PE || defined CONFIG_TCC_PIC
+स्थिर शून्य gen_static_call(पूर्णाङ्क v)
 {
     Sym *sym;
 
@@ -477,25 +477,25 @@ static void gen_static_call(int v)
     oad(0xe8, -4);
     greloc(cur_text_section, sym, ind - 4, R_386_PC32);
 }
-#endif
+#यदि_अन्तः
 
 /* 'is_jmp' is '1' if it is a jump */
-static void gcall_or_jmp(int is_jmp)
+स्थिर शून्य gcall_or_jmp(पूर्णाङ्क is_jmp)
 {
-    int r;
-    if ((vtop->r & (VT_VALMASK|VT_LVAL|VT_SYM)) == (VT_CONST|VT_SYM)) {
+    पूर्णाङ्क r;
+    यदि ((vtop->r & (VT_VALMASK|VT_LVAL|VT_SYM)) == (VT_CONST|VT_SYM)) {
         /* constant and relocation case */
-#if defined CONFIG_TCC_PIC
-	if (!(vtop->sym->type.t & VT_STATIC)) {
+#यदि defined CONFIG_TCC_PIC
+	यदि (!(vtop->sym->type.t & VT_STATIC)) {
 	    get_pc_thunk(TREG_EBX, 1);
             oad(0xe8 + is_jmp, vtop->c.i - 4); /* call/jmp im */
             greloc(cur_text_section, vtop->sym, ind - 4, R_386_PLT32);
-            return;
+            प्रत्यागम;
 	}
-#endif
+#यदि_अन्तः
         oad(0xe8 + is_jmp, vtop->c.i - 4); /* call/jmp im */
         greloc(cur_text_section, vtop->sym, ind - 4, R_386_PC32);
-    } else {
+    } अन्यथा {
         /* otherwise, indirect call */
         r = gv(RC_INT);
         o(0xff); /* call/jmp *r */
@@ -503,71 +503,71 @@ static void gcall_or_jmp(int is_jmp)
     }
 }
 
-static const uint8_t fastcall_regs[3] = { TREG_EAX, TREG_EDX, TREG_ECX };
-static const uint8_t fastcallw_regs[2] = { TREG_ECX, TREG_EDX };
+स्थिर ध्रुव uint8_t fastcall_regs[3] = { TREG_EAX, TREG_EDX, TREG_ECX };
+स्थिर ध्रुव uint8_t fastcallw_regs[2] = { TREG_ECX, TREG_EDX };
 
 /* Return the number of registers needed to return the struct, or 0 if
    returning via struct pointer. */
-ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *ret_align, int *regsize)
+ST_FUNC पूर्णाङ्क gfunc_sret(CType *vt, पूर्णाङ्क variadic, CType *ret, पूर्णाङ्क *ret_align, पूर्णाङ्क *regsize)
 {
-#if defined(TCC_TARGET_PE) || TARGETOS_FreeBSD || TARGETOS_OpenBSD
-    int size, align, nregs;
+#यदि defined(TCC_TARGET_PE) || TARGETOS_FreeBSD || TARGETOS_OpenBSD
+    पूर्णाङ्क आकार, align, nregs;
     *ret_align = 1; // Never have to re-align return values for x86
     *regsize = 4;
-    size = type_size(vt, &align);
-    if (size > 8 || (size & (size - 1)))
-        return 0;
+    आकार = type_आकार(vt, &align);
+    यदि (आकार > 8 || (आकार & (आकार - 1)))
+        प्रत्यागम 0;
     nregs = 1;
-    if (size == 8)
+    यदि (आकार == 8)
         ret->t = VT_INT, nregs = 2;
-    else if (size == 4)
+    अन्यथा यदि (आकार == 4)
         ret->t = VT_INT;
-    else if (size == 2)
+    अन्यथा यदि (आकार == 2)
         ret->t = VT_SHORT;
-    else
+    अन्यथा
         ret->t = VT_BYTE;
-    ret->ref = NULL;
-    return nregs;
-#else
+    ret->ref = रिक्त;
+    प्रत्यागम nregs;
+#अन्यथा
     *ret_align = 1; // Never have to re-align return values for x86
-    return 0;
-#endif
+    प्रत्यागम 0;
+#यदि_अन्तः
 }
 
 /* Generate function call. The function address is pushed first, then
    all the parameters in call order. This functions pops all the
    parameters and the function address. */
-ST_FUNC void gfunc_call(int nb_args)
+ST_FUNC शून्य gfunc_call(पूर्णाङ्क nb_तर्काः)
 {
-    int size, align, r, args_size, i, func_call;
+    पूर्णाङ्क आकार, align, r, तर्काः_आकार, i, func_call;
     Sym *func_sym;
 
-#ifdef CONFIG_TCC_BCHECK
-    if (tcc_state->do_bounds_check)
-        gbound_args(nb_args);
-#endif
+#यदि_परिभाषितम् CONFIG_TCC_BCHECK
+    यदि (tcc_state->do_bounds_check)
+        gbound_तर्काः(nb_तर्काः);
+#यदि_अन्तः
 
-    save_regs(nb_args + 1);
+    save_regs(nb_तर्काः + 1);
 
-    args_size = 0;
-    for(i = 0;i < nb_args; i++) {
-        if ((vtop->type.t & VT_BTYPE) == VT_STRUCT) {
-            size = type_size(&vtop->type, &align);
+    तर्काः_आकार = 0;
+    प्रति(i = 0;i < nb_तर्काः; i++) {
+        यदि ((vtop->type.t & VT_BTYPE) == VT_STRUCT) {
+            आकार = type_आकार(&vtop->type, &align);
             /* align to stack align size */
-            size = (size + 3) & ~3;
+            आकार = (आकार + 3) & ~3;
             /* allocate the necessary size on stack */
-#ifdef TCC_TARGET_PE
-            if (size >= 4096) {
+#यदि_परिभाषितम् TCC_TARGET_PE
+            यदि (आकार >= 4096) {
                 save_reg(TREG_EDX);
                 r = get_reg(RC_EAX);
-                oad(0x68, size); // push size
+                oad(0x68, आकार); // push size
                 /* cannot call normal 'alloca' with bound checking */
                 gen_static_call(tok_alloc_const("__alloca"));
                 gadd_sp(4);
-            } else
-#endif
+            } अन्यथा
+#यदि_अन्तः
             {
-                oad(0xec81, size); /* sub $xxx, %esp */
+                oad(0xec81, आकार); /* sub $xxx, %esp */
                 /* generate structure store */
                 r = get_reg(RC_INT);
                 o(0xe089 + (r << 8)); /* mov %esp, r */
@@ -575,35 +575,35 @@ ST_FUNC void gfunc_call(int nb_args)
             vset(&vtop->type, r | VT_LVAL, 0);
             vswap();
             vstore();
-            args_size += size;
-        } else if (is_float(vtop->type.t)) {
+            तर्काः_आकार += आकार;
+        } अन्यथा यदि (is_float(vtop->type.t)) {
             gv(RC_FLOAT); /* only one float register */
-            if ((vtop->type.t & VT_BTYPE) == VT_FLOAT)
-                size = 4;
-            else if ((vtop->type.t & VT_BTYPE) == VT_DOUBLE)
-                size = 8;
-            else
-                size = 12;
-            oad(0xec81, size); /* sub $xxx, %esp */
-            if (size == 12)
+            यदि ((vtop->type.t & VT_BTYPE) == VT_FLOAT)
+                आकार = 4;
+            अन्यथा यदि ((vtop->type.t & VT_BTYPE) == VT_DOUBLE)
+                आकार = 8;
+            अन्यथा
+                आकार = 12;
+            oad(0xec81, आकार); /* sub $xxx, %esp */
+            यदि (आकार == 12)
                 o(0x7cdb);
-            else
-                o(0x5cd9 + size - 4); /* fstp[s|l] 0(%esp) */
+            अन्यथा
+                o(0x5cd9 + आकार - 4); /* fstp[s|l] 0(%esp) */
             g(0x24);
             g(0x00);
-            args_size += size;
-        } else {
+            तर्काः_आकार += आकार;
+        } अन्यथा {
             /* simple type (currently always same size) */
             /* XXX: implicit cast ? */
             r = gv(RC_INT);
-            if ((vtop->type.t & VT_BTYPE) == VT_LLONG) {
-                size = 8;
+            यदि ((vtop->type.t & VT_BTYPE) == VT_LLONG) {
+                आकार = 8;
                 o(0x50 + vtop->r2); /* push r */
-            } else {
-                size = 4;
+            } अन्यथा {
+                आकार = 4;
             }
             o(0x50 + r); /* push r */
-            args_size += size;
+            तर्काः_आकार += आकार;
         }
         vtop--;
     }
@@ -611,53 +611,53 @@ ST_FUNC void gfunc_call(int nb_args)
     func_sym = vtop->type.ref;
     func_call = func_sym->f.func_call;
     /* fast call case */
-    if ((func_call >= FUNC_FASTCALL1 && func_call <= FUNC_FASTCALL3) ||
+    यदि ((func_call >= FUNC_FASTCALL1 && func_call <= FUNC_FASTCALL3) ||
         func_call == FUNC_FASTCALLW || func_call == FUNC_THISCALL) {
-        int fastcall_nb_regs;
-        const uint8_t *fastcall_regs_ptr;
-        if (func_call == FUNC_FASTCALLW) {
+        पूर्णाङ्क fastcall_nb_regs;
+        ध्रुव uint8_t *fastcall_regs_ptr;
+        यदि (func_call == FUNC_FASTCALLW) {
             fastcall_regs_ptr = fastcallw_regs;
             fastcall_nb_regs = 2;
-        } else if (func_call == FUNC_THISCALL) {
+        } अन्यथा यदि (func_call == FUNC_THISCALL) {
             fastcall_regs_ptr = fastcallw_regs;
             fastcall_nb_regs = 1;
-        } else {
+        } अन्यथा {
             fastcall_regs_ptr = fastcall_regs;
             fastcall_nb_regs = func_call - FUNC_FASTCALL1 + 1;
         }
-        for(i = 0;i < fastcall_nb_regs; i++) {
-            if (args_size <= 0)
-                break;
+        प्रति(i = 0;i < fastcall_nb_regs; i++) {
+            यदि (तर्काः_आकार <= 0)
+                भङ्ग;
             o(0x58 + fastcall_regs_ptr[i]); /* pop r */
             /* XXX: incorrect for struct/floats */
-            args_size -= 4;
+            तर्काः_आकार -= 4;
         }
     }
-#if !defined(TCC_TARGET_PE) && !TARGETOS_FreeBSD || TARGETOS_OpenBSD
-    else if ((vtop->type.ref->type.t & VT_BTYPE) == VT_STRUCT)
-        args_size -= 4;
-#endif
+#यदि !defined(TCC_TARGET_PE) && !TARGETOS_FreeBSD || TARGETOS_OpenBSD
+    अन्यथा यदि ((vtop->type.ref->type.t & VT_BTYPE) == VT_STRUCT)
+        तर्काः_आकार -= 4;
+#यदि_अन्तः
 
     gcall_or_jmp(0);
 
-    if (args_size && func_call != FUNC_STDCALL && func_call != FUNC_THISCALL && func_call != FUNC_FASTCALLW)
-        gadd_sp(args_size);
+    यदि (तर्काः_आकार && func_call != FUNC_STDCALL && func_call != FUNC_THISCALL && func_call != FUNC_FASTCALLW)
+        gadd_sp(तर्काः_आकार);
     vtop--;
 }
 
-#ifdef TCC_TARGET_PE
-#define FUNC_PROLOG_SIZE (10 + !!USE_EBX)
-#else
-#define FUNC_PROLOG_SIZE (9 + !!USE_EBX)
-#endif
+#यदि_परिभाषितम् TCC_TARGET_PE
+#परिभाषय FUNC_PROLOG_आकार (10 + !!USE_EBX)
+#अन्यथा
+#परिभाषय FUNC_PROLOG_आकार (9 + !!USE_EBX)
+#यदि_अन्तः
 
 /* generate function prolog of type 't' */
-ST_FUNC void gfunc_prolog(Sym *func_sym)
+ST_FUNC शून्य gfunc_prolog(Sym *func_sym)
 {
     CType *func_type = &func_sym->type;
-    int addr, align, size, func_call, fastcall_nb_regs;
-    int param_index, param_addr;
-    const uint8_t *fastcall_regs_ptr;
+    पूर्णाङ्क addr, align, आकार, func_call, fastcall_nb_regs;
+    पूर्णाङ्क param_सूचकांक, param_addr;
+    ध्रुव uint8_t *fastcall_regs_ptr;
     Sym *sym;
     CType *type;
 
@@ -667,205 +667,205 @@ ST_FUNC void gfunc_prolog(Sym *func_sym)
     loc = 0;
     func_vc = 0;
 
-    if (func_call >= FUNC_FASTCALL1 && func_call <= FUNC_FASTCALL3) {
+    यदि (func_call >= FUNC_FASTCALL1 && func_call <= FUNC_FASTCALL3) {
         fastcall_nb_regs = func_call - FUNC_FASTCALL1 + 1;
         fastcall_regs_ptr = fastcall_regs;
-    } else if (func_call == FUNC_FASTCALLW) {
+    } अन्यथा यदि (func_call == FUNC_FASTCALLW) {
         fastcall_nb_regs = 2;
         fastcall_regs_ptr = fastcallw_regs;
-    } else if (func_call == FUNC_THISCALL) {
+    } अन्यथा यदि (func_call == FUNC_THISCALL) {
         fastcall_nb_regs = 1;
         fastcall_regs_ptr = fastcallw_regs;
-    } else {
+    } अन्यथा {
         fastcall_nb_regs = 0;
-        fastcall_regs_ptr = NULL;
+        fastcall_regs_ptr = रिक्त;
     }
-    param_index = 0;
+    param_सूचकांक = 0;
 
-    ind += FUNC_PROLOG_SIZE;
-    func_sub_sp_offset = ind;
+    ind += FUNC_PROLOG_आकार;
+    func_sub_sp_विस्थापनम् = ind;
     /* if the function returns a structure, then add an
        implicit pointer parameter */
-#if defined(TCC_TARGET_PE) || TARGETOS_FreeBSD || TARGETOS_OpenBSD
-    size = type_size(&func_vt,&align);
-    if (((func_vt.t & VT_BTYPE) == VT_STRUCT)
-        && (size > 8 || (size & (size - 1)))) {
-#else
-    if ((func_vt.t & VT_BTYPE) == VT_STRUCT) {
-#endif
+#यदि defined(TCC_TARGET_PE) || TARGETOS_FreeBSD || TARGETOS_OpenBSD
+    आकार = type_आकार(&func_vt,&align);
+    यदि (((func_vt.t & VT_BTYPE) == VT_STRUCT)
+        && (आकार > 8 || (आकार & (आकार - 1)))) {
+#अन्यथा
+    यदि ((func_vt.t & VT_BTYPE) == VT_STRUCT) {
+#यदि_अन्तः
         /* XXX: fastcall case ? */
         func_vc = addr;
         addr += 4;
-        param_index++;
+        param_सूचकांक++;
     }
     /* define parameters */
-    while ((sym = sym->next) != NULL) {
+    यावत् ((sym = sym->अग्र) != रिक्त) {
         type = &sym->type;
-        size = type_size(type, &align);
-        size = (size + 3) & ~3;
-#ifdef FUNC_STRUCT_PARAM_AS_PTR
+        आकार = type_आकार(type, &align);
+        आकार = (आकार + 3) & ~3;
+#यदि_परिभाषितम् FUNC_STRUCT_PARAM_AS_PTR
         /* structs are passed as pointer */
-        if ((type->t & VT_BTYPE) == VT_STRUCT) {
-            size = 4;
+        यदि ((type->t & VT_BTYPE) == VT_STRUCT) {
+            आकार = 4;
         }
-#endif
-        if (param_index < fastcall_nb_regs) {
+#यदि_अन्तः
+        यदि (param_सूचकांक < fastcall_nb_regs) {
             /* save FASTCALL register */
             loc -= 4;
             /* movl */
-            gen_modrm(0x89, fastcall_regs_ptr[param_index], VT_LOCAL, NULL, loc);
+            gen_modrm(0x89, fastcall_regs_ptr[param_सूचकांक], VT_LOCAL, रिक्त, loc);
             param_addr = loc;
-        } else {
+        } अन्यथा {
             param_addr = addr;
-            addr += size;
+            addr += आकार;
         }
-        gfunc_set_param(sym, param_addr, 0);
-        param_index++;
+        gfunc_समुच्चयः_param(sym, param_addr, 0);
+        param_सूचकांक++;
     }
     func_ret_sub = 0;
     /* pascal type call or fastcall ? */
-    if (func_call == FUNC_STDCALL || func_call == FUNC_FASTCALLW || func_call == FUNC_THISCALL)
+    यदि (func_call == FUNC_STDCALL || func_call == FUNC_FASTCALLW || func_call == FUNC_THISCALL)
         func_ret_sub = addr - 8;
-#if !defined(TCC_TARGET_PE) && !TARGETOS_FreeBSD || TARGETOS_OpenBSD
-    else if (func_vc)
+#यदि !defined(TCC_TARGET_PE) && !TARGETOS_FreeBSD || TARGETOS_OpenBSD
+    अन्यथा यदि (func_vc)
         func_ret_sub = 4;
-#endif
+#यदि_अन्तः
 
-#ifdef CONFIG_TCC_BCHECK
-    if (tcc_state->do_bounds_check)
+#यदि_परिभाषितम् CONFIG_TCC_BCHECK
+    यदि (tcc_state->do_bounds_check)
         gen_bounds_prolog();
-#endif
+#यदि_अन्तः
 }
 
 /* generate function epilog */
-ST_FUNC void gfunc_epilog(void)
+ST_FUNC शून्य gfunc_epilog(शून्य)
 {
     addr_t v, saved_ind;
 
-#ifdef CONFIG_TCC_BCHECK
-    if (tcc_state->do_bounds_check)
+#यदि_परिभाषितम् CONFIG_TCC_BCHECK
+    यदि (tcc_state->do_bounds_check)
         gen_bounds_epilog();
-#endif
+#यदि_अन्तः
 
     /* align local size to word & save local variables */
     v = (-loc + 3) & -4;
 
-#if USE_EBX
-    gen_modrm(0x8b, TREG_EBX, VT_LOCAL, NULL, -(v+4));
-#endif
+#यदि USE_EBX
+    gen_modrm(0x8b, TREG_EBX, VT_LOCAL, रिक्त, -(v+4));
+#यदि_अन्तः
 
     o(0xc9); /* leave */
-    if (func_ret_sub == 0) {
+    यदि (func_ret_sub == 0) {
         o(0xc3); /* ret */
-    } else {
+    } अन्यथा {
         o(0xc2); /* ret n */
         g(func_ret_sub);
         g(func_ret_sub >> 8);
     }
     saved_ind = ind;
-    ind = func_sub_sp_offset - FUNC_PROLOG_SIZE;
-#ifdef TCC_TARGET_PE
-    if (v >= 4096) {
+    ind = func_sub_sp_विस्थापनम् - FUNC_PROLOG_आकार;
+#यदि_परिभाषितम् TCC_TARGET_PE
+    यदि (v >= 4096) {
         oad(0xb8, v); /* mov stacksize, %eax */
         gen_static_call(TOK___chkstk); /* call __chkstk, (does the stackframe too) */
-    } else
-#endif
+    } अन्यथा
+#यदि_अन्तः
     {
         o(0xe58955);  /* push %ebp, mov %esp, %ebp */
         o(0xec81);  /* sub esp, stacksize */
         gen_le32(v);
-#ifdef TCC_TARGET_PE
+#यदि_परिभाषितम् TCC_TARGET_PE
         o(0x90);  /* adjust to FUNC_PROLOG_SIZE */
-#endif
+#यदि_अन्तः
     }
-#if USE_EBX
+#यदि USE_EBX
     o(0x53); /* push ebx */
-#endif
+#यदि_अन्तः
     ind = saved_ind;
 }
 
 /* generate a jump to a label */
-ST_FUNC int gjmp(int t)
+ST_FUNC पूर्णाङ्क gjmp(पूर्णाङ्क t)
 {
-    return gjmp2(0xe9, t);
+    प्रत्यागम gjmp2(0xe9, t);
 }
 
 /* generate a jump to a fixed address */
-ST_FUNC void gjmp_addr(int a)
+ST_FUNC शून्य gjmp_addr(पूर्णाङ्क a)
 {
-    int r;
+    पूर्णाङ्क r;
     r = a - ind - 2;
-    if (r == (signed char)r) {
+    यदि (r == (चिह्नित वर्ण)r) {
         g(0xeb);
         g(r);
-    } else {
+    } अन्यथा {
         oad(0xe9, a - ind - 5);
     }
 }
 
-#if 0
+#यदि 0
 /* generate a jump to a fixed address */
-ST_FUNC void gjmp_cond_addr(int a, int op)
+ST_FUNC शून्य gjmp_cond_addr(पूर्णाङ्क a, पूर्णाङ्क op)
 {
-    int r = a - ind - 2;
-    if (r == (signed char)r)
+    पूर्णाङ्क r = a - ind - 2;
+    यदि (r == (चिह्नित वर्ण)r)
         g(op - 32), g(r);
-    else
+    अन्यथा
         g(0x0f), gjmp2(op - 16, r - 4);
 }
-#endif
+#यदि_अन्तः
 
-ST_FUNC int gjmp_append(int n, int t)
+ST_FUNC पूर्णाङ्क gjmp_append(पूर्णाङ्क n, पूर्णाङ्क t)
 {
-    void *p;
+    शून्य *p;
     /* insert vtop->c jump list in t */
-    if (n) {
+    यदि (n) {
         uint32_t n1 = n, n2;
-        while ((n2 = read32le(p = cur_text_section->data + n1)))
+        यावत् ((n2 = read32le(p = cur_text_section->दत्त + n1)))
             n1 = n2;
         write32le(p, t);
         t = n;
     }
-    return t;
+    प्रत्यागम t;
 }
 
-ST_FUNC int gjmp_cond(int op, int t)
+ST_FUNC पूर्णाङ्क gjmp_cond(पूर्णाङ्क op, पूर्णाङ्क t)
 {
     g(0x0f);
     t = gjmp2(op - 16, t);
-    return t;
+    प्रत्यागम t;
 }
 
-ST_FUNC void gen_opi(int op)
+ST_FUNC शून्य gen_opi(पूर्णाङ्क op)
 {
-    int r, fr, opc, c;
+    पूर्णाङ्क r, fr, opc, c;
 
-    switch(op) {
-    case '+':
-    case TOK_ADDC1: /* add with carry generation */
+    विकल्प(op) {
+    पक्ष '+':
+    पक्ष TOK_ADDC1: /* add with carry generation */
         opc = 0;
     gen_op8:
-        if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+        यदि ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
             /* constant case */
             vswap();
             r = gv(RC_INT);
             vswap();
             c = vtop->c.i;
-            if (c == (signed char)c) {
+            यदि (c == (चिह्नित वर्ण)c) {
                 /* generate inc and dec for smaller code */
-                if ((c == 1 || c == -1) && (op == '+' || op == '-')) {
+                यदि ((c == 1 || c == -1) && (op == '+' || op == '-')) {
                     opc = (c == 1) ^ (op == '+');
                     o (0x40 | (opc << 3) | r); // inc,dec
-                } else {
+                } अन्यथा {
                     o(0x83);
                     o(0xc0 | (opc << 3) | r);
                     g(c);
                 }
-            } else {
+            } अन्यथा {
                 o(0x81);
                 oad(0xc0 | (opc << 3) | r, c);
             }
-        } else {
+        } अन्यथा {
             gv2(RC_INT, RC_INT);
             r = vtop[-1].r;
             fr = vtop[0].r;
@@ -873,47 +873,47 @@ ST_FUNC void gen_opi(int op)
             o(0xc0 + r + fr * 8); 
         }
         vtop--;
-        if (op >= TOK_ULT && op <= TOK_GT)
+        यदि (op >= TOK_ULT && op <= TOK_GT)
             vset_VT_CMP(op);
-        break;
-    case '-':
-    case TOK_SUBC1: /* sub with carry generation */
+        भङ्ग;
+    पक्ष '-':
+    पक्ष TOK_SUBC1: /* sub with carry generation */
         opc = 5;
-        goto gen_op8;
-    case TOK_ADDC2: /* add with carry use */
+        गच्छ gen_op8;
+    पक्ष TOK_ADDC2: /* add with carry use */
         opc = 2;
-        goto gen_op8;
-    case TOK_SUBC2: /* sub with carry use */
+        गच्छ gen_op8;
+    पक्ष TOK_SUBC2: /* sub with carry use */
         opc = 3;
-        goto gen_op8;
-    case '&':
+        गच्छ gen_op8;
+    पक्ष '&':
         opc = 4;
-        goto gen_op8;
-    case '^':
+        गच्छ gen_op8;
+    पक्ष '^':
         opc = 6;
-        goto gen_op8;
-    case '|':
+        गच्छ gen_op8;
+    पक्ष '|':
         opc = 1;
-        goto gen_op8;
-    case '*':
+        गच्छ gen_op8;
+    पक्ष '*':
         gv2(RC_INT, RC_INT);
         r = vtop[-1].r;
         fr = vtop[0].r;
         vtop--;
         o(0xaf0f); /* imul fr, r */
         o(0xc0 + fr + r * 8);
-        break;
-    case TOK_SHL:
+        भङ्ग;
+    पक्ष TOK_SHL:
         opc = 4;
-        goto gen_shift;
-    case TOK_SHR:
+        गच्छ gen_सरणम्;
+    पक्ष TOK_SHR:
         opc = 5;
-        goto gen_shift;
-    case TOK_SAR:
+        गच्छ gen_सरणम्;
+    पक्ष TOK_SAR:
         opc = 7;
-    gen_shift:
+    gen_सरणम्:
         opc = 0xc0 | (opc << 3);
-        if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+        यदि ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
             /* constant case */
             vswap();
             r = gv(RC_INT);
@@ -922,7 +922,7 @@ ST_FUNC void gen_opi(int op)
             o(0xc1); /* shl/shr/sar $xxx, r */
             o(opc | r);
             g(c);
-        } else {
+        } अन्यथा {
             /* we generate the shift in ecx */
             gv2(RC_INT, RC_ECX);
             r = vtop[-1].r;
@@ -930,13 +930,13 @@ ST_FUNC void gen_opi(int op)
             o(opc | r);
         }
         vtop--;
-        break;
-    case '/':
-    case TOK_UDIV:
-    case TOK_PDIV:
-    case '%':
-    case TOK_UMOD:
-    case TOK_UMULL:
+        भङ्ग;
+    पक्ष '/':
+    पक्ष TOK_UDIV:
+    पक्ष TOK_PDIV:
+    पक्ष '%':
+    पक्ष TOK_UMOD:
+    पक्ष TOK_UMULL:
         /* first operand must be in eax */
         /* XXX: need better constraint for second operand */
         gv2(RC_EAX, RC_ECX);
@@ -946,56 +946,56 @@ ST_FUNC void gen_opi(int op)
         save_reg(TREG_EDX);
         /* save EAX too if used otherwise */
         save_reg_upstack(TREG_EAX, 1);
-        if (op == TOK_UMULL) {
+        यदि (op == TOK_UMULL) {
             o(0xf7); /* mul fr */
             o(0xe0 + fr);
             vtop->r2 = TREG_EDX;
             r = TREG_EAX;
-        } else {
-            if (op == TOK_UDIV || op == TOK_UMOD) {
+        } अन्यथा {
+            यदि (op == TOK_UDIV || op == TOK_UMOD) {
                 o(0xf7d231); /* xor %edx, %edx, div fr, %eax */
                 o(0xf0 + fr);
-            } else {
+            } अन्यथा {
                 o(0xf799); /* cltd, idiv fr, %eax */
                 o(0xf8 + fr);
             }
-            if (op == '%' || op == TOK_UMOD)
+            यदि (op == '%' || op == TOK_UMOD)
                 r = TREG_EDX;
-            else
+            अन्यथा
                 r = TREG_EAX;
         }
         vtop->r = r;
-        break;
-    default:
+        भङ्ग;
+    स्वभाव:
         opc = 7;
-        goto gen_op8;
+        गच्छ gen_op8;
     }
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
    two operands are guaranteed to have the same floating point type */
 /* XXX: need to use ST1 too */
-ST_FUNC void gen_opf(int op)
+ST_FUNC शून्य gen_opf(पूर्णाङ्क op)
 {
-    int a, ft, fc, swapped, r;
+    पूर्णाङ्क a, ft, fc, swapped, r;
 
-    if (op == TOK_NEG) { /* unary minus */
+    यदि (op == TOK_NEG) { /* unary minus */
         gv(RC_FLOAT);
         o(0xe0d9); /* fchs */
-        return;
+        प्रत्यागम;
     }
 
     /* convert constants to memory references */
-    if ((vtop[-1].r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+    यदि ((vtop[-1].r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
         vswap();
         gv(RC_FLOAT);
         vswap();
     }
-    if ((vtop[0].r & (VT_VALMASK | VT_LVAL)) == VT_CONST)
+    यदि ((vtop[0].r & (VT_VALMASK | VT_LVAL)) == VT_CONST)
         gv(RC_FLOAT);
 
     /* must put at least one value in the floating point register */
-    if ((vtop[-1].r & VT_LVAL) &&
+    यदि ((vtop[-1].r & VT_LVAL) &&
         (vtop[0].r & VT_LVAL)) {
         vswap();
         gv(RC_FLOAT);
@@ -1004,83 +1004,83 @@ ST_FUNC void gen_opf(int op)
     swapped = 0;
     /* swap the stack if needed so that t1 is the register and t2 is
        the memory reference */
-    if (vtop[-1].r & VT_LVAL) {
+    यदि (vtop[-1].r & VT_LVAL) {
         vswap();
         swapped = 1;
     }
-    if (op >= TOK_ULT && op <= TOK_GT) {
+    यदि (op >= TOK_ULT && op <= TOK_GT) {
         /* load on stack second operand */
-        load(TREG_ST0, vtop);
+        आरोपय(TREG_ST0, vtop);
         save_reg(TREG_EAX); /* eax is used by FP comparison code */
-        if (op == TOK_GE || op == TOK_GT)
+        यदि (op == TOK_GE || op == TOK_GT)
             swapped = !swapped;
-        else if (op == TOK_EQ || op == TOK_NE)
+        अन्यथा यदि (op == TOK_EQ || op == TOK_NE)
             swapped = 0;
-        if (swapped)
+        यदि (swapped)
             o(0xc9d9); /* fxch %st(1) */
-        if (op == TOK_EQ || op == TOK_NE)
+        यदि (op == TOK_EQ || op == TOK_NE)
             o(0xe9da); /* fucompp */
-        else
+        अन्यथा
             o(0xd9de); /* fcompp */
         o(0xe0df); /* fnstsw %ax */
-        if (op == TOK_EQ) {
+        यदि (op == TOK_EQ) {
             o(0x45e480); /* and $0x45, %ah */
             o(0x40fC80); /* cmp $0x40, %ah */
-        } else if (op == TOK_NE) {
+        } अन्यथा यदि (op == TOK_NE) {
             o(0x45e480); /* and $0x45, %ah */
             o(0x40f480); /* xor $0x40, %ah */
             op = TOK_NE;
-        } else if (op == TOK_GE || op == TOK_LE) {
+        } अन्यथा यदि (op == TOK_GE || op == TOK_LE) {
             o(0x05c4f6); /* test $0x05, %ah */
             op = TOK_EQ;
-        } else {
+        } अन्यथा {
             o(0x45c4f6); /* test $0x45, %ah */
             op = TOK_EQ;
         }
         vtop--;
         vset_VT_CMP(op);
-    } else {
+    } अन्यथा {
         /* no memory reference possible for long double operations */
-        if ((vtop->type.t & VT_BTYPE) == VT_LDOUBLE) {
-            load(TREG_ST0, vtop);
+        यदि ((vtop->type.t & VT_BTYPE) == VT_LDOUBLE) {
+            आरोपय(TREG_ST0, vtop);
             swapped = !swapped;
         }
         
-        switch(op) {
-        default:
-        case '+':
+        विकल्प(op) {
+        स्वभाव:
+        पक्ष '+':
             a = 0;
-            break;
-        case '-':
+            भङ्ग;
+        पक्ष '-':
             a = 4;
-            if (swapped)
+            यदि (swapped)
                 a++;
-            break;
-        case '*':
+            भङ्ग;
+        पक्ष '*':
             a = 1;
-            break;
-        case '/':
+            भङ्ग;
+        पक्ष '/':
             a = 6;
-            if (swapped)
+            यदि (swapped)
                 a++;
-            break;
+            भङ्ग;
         }
         ft = vtop->type.t;
         fc = vtop->c.i;
-        if ((ft & VT_BTYPE) == VT_LDOUBLE) {
+        यदि ((ft & VT_BTYPE) == VT_LDOUBLE) {
             o(0xde); /* fxxxp %st, %st(1) */
             o(0xc1 + (a << 3));
-        } else {
+        } अन्यथा {
             /* if saved lvalue, then we must reload it */
             r = vtop->r;
-            if ((r & VT_VALMASK) == VT_LLOCAL) {
+            यदि ((r & VT_VALMASK) == VT_LLOCAL) {
                 SValue v1;
                 r = get_reg(RC_INT);
                 v1.type.t = VT_INT;
                 v1.r = VT_LOCAL | VT_LVAL;
                 v1.c.i = fc;
-                v1.sym = NULL;
-                load(r, &v1);
+                v1.sym = रिक्त;
+                आरोपय(r, &v1);
                 fc = 0;
             }
 
@@ -1093,11 +1093,11 @@ ST_FUNC void gen_opf(int op)
 
 /* convert integers to fp 't' type. Must handle 'int', 'unsigned int'
    and 'long long' cases. */
-ST_FUNC void gen_cvt_itof(int t)
+ST_FUNC शून्य gen_cvt_itof(पूर्णाङ्क t)
 {
     save_reg(TREG_ST0);
     gv(RC_INT);
-    if ((vtop->type.t & VT_BTYPE) == VT_LLONG) {
+    यदि ((vtop->type.t & VT_BTYPE) == VT_LLONG) {
         /* signed long long to float/double/long double (unsigned case
            is handled generically) */
         o(0x50 + vtop->r2); /* push r2 */
@@ -1105,7 +1105,7 @@ ST_FUNC void gen_cvt_itof(int t)
         o(0x242cdf); /* fildll (%esp) */
         o(0x08c483); /* add $8, %esp */
         vtop->r2 = VT_CONST;
-    } else if ((vtop->type.t & (VT_BTYPE | VT_UNSIGNED)) == 
+    } अन्यथा यदि ((vtop->type.t & (VT_BTYPE | VT_UNSIGNED)) == 
                (VT_INT | VT_UNSIGNED)) {
         /* unsigned int to float/double/long double */
         o(0x6a); /* push $0 */
@@ -1113,7 +1113,7 @@ ST_FUNC void gen_cvt_itof(int t)
         o(0x50 + (vtop->r & VT_VALMASK)); /* push r */
         o(0x242cdf); /* fildll (%esp) */
         o(0x08c483); /* add $8, %esp */
-    } else {
+    } अन्यथा {
         /* int to float/double/long double */
         o(0x50 + (vtop->r & VT_VALMASK)); /* push r */
         o(0x2404db); /* fildl (%esp) */
@@ -1124,34 +1124,34 @@ ST_FUNC void gen_cvt_itof(int t)
 }
 
 /* convert fp to int 't' type */
-ST_FUNC void gen_cvt_ftoi(int t)
+ST_FUNC शून्य gen_cvt_ftoi(पूर्णाङ्क t)
 {
-    int bt = vtop->type.t & VT_BTYPE;
-    if (bt == VT_FLOAT)
+    पूर्णाङ्क bt = vtop->type.t & VT_BTYPE;
+    यदि (bt == VT_FLOAT)
         vpush_helper_func(TOK___fixsfdi);
-    else if (bt == VT_LDOUBLE)
+    अन्यथा यदि (bt == VT_LDOUBLE)
         vpush_helper_func(TOK___fixxfdi);
-    else
+    अन्यथा
         vpush_helper_func(TOK___fixdfdi);
     vswap();
     gfunc_call(1);
     vpushi(0);
     vtop->r = REG_IRET;
-    if ((t & VT_BTYPE) == VT_LLONG)
+    यदि ((t & VT_BTYPE) == VT_LLONG)
         vtop->r2 = REG_IRE2;
 }
 
 /* convert from one floating point type to another */
-ST_FUNC void gen_cvt_ftof(int t)
+ST_FUNC शून्य gen_cvt_ftof(पूर्णाङ्क t)
 {
     /* all we have to do on i386 is to put the float in a register */
     gv(RC_FLOAT);
 }
 
 /* char/short to int conversion */
-ST_FUNC void gen_cvt_csti(int t)
+ST_FUNC शून्य gen_cvt_csti(पूर्णाङ्क t)
 {
-    int r, sz, xl;
+    पूर्णाङ्क r, sz, xl;
     r = gv(RC_INT);
     sz = !(t & VT_UNSIGNED);
     xl = (t & VT_BTYPE) == VT_SHORT;
@@ -1162,21 +1162,21 @@ ST_FUNC void gen_cvt_csti(int t)
 }
 
 /* increment tcov counter */
-ST_FUNC void gen_increment_tcov (SValue *sv)
+ST_FUNC शून्य gen_increment_tcov (SValue *sv)
 {
-   int indir, rel, add1, add2;
-#if defined CONFIG_TCC_PIC
+   पूर्णाङ्क indir, rel, add1, add2;
+#यदि defined CONFIG_TCC_PIC
    get_pc_thunk(TREG_EBX, 0);
    indir = 0x8300;
    rel = R_386_PC32;
    add1 = 2;
    add2 = 13;
-#else
+#अन्यथा
    indir = 0x0500;
    rel = R_386_32;
    add1 = 0;
    add2 = 4;
-#endif
+#यदि_अन्तः
    o(0x0083 + indir); /* addl $1, xxx(%ebx) */
    greloc(cur_text_section, sv->sym, ind, rel);
    gen_le32(add1);
@@ -1188,128 +1188,128 @@ ST_FUNC void gen_increment_tcov (SValue *sv)
 }
 
 /* computed goto support */
-ST_FUNC void ggoto(void)
+ST_FUNC शून्य ggoto(शून्य)
 {
     gcall_or_jmp(1);
     vtop--;
 }
 
 /* bound check support functions */
-#ifdef CONFIG_TCC_BCHECK
+#यदि_परिभाषितम् CONFIG_TCC_BCHECK
 
 /* Need PIC for shared libraries */
-static void gen_bound_call(int v)
+स्थिर शून्य gen_bound_call(पूर्णाङ्क v)
 {
     Sym *sym;
 
     sym = external_helper_sym(v);
-#if defined CONFIG_TCC_PIC
+#यदि defined CONFIG_TCC_PIC
     get_pc_thunk(TREG_EBX, 1);
     oad(0xe8, -4);
     greloc(cur_text_section, sym, ind - 4, R_386_PLT32);
-#else
+#अन्यथा
     oad(0xe8, -4);
     greloc(cur_text_section, sym, ind - 4, R_386_PC32);
-#endif
+#यदि_अन्तः
 }
 
-static void gen_bounds_prolog(void)
+स्थिर शून्य gen_bounds_prolog(शून्य)
 {
     /* leave some room for bound checking code */
-    func_bound_offset = lbounds_section->data_offset;
+    func_bound_विस्थापनम् = lbounds_section->दत्त_विस्थापनम्;
     func_bound_ind = ind;
-    func_bound_add_epilog = 0;
-#if defined CONFIG_TCC_PIC
+    func_bound_सङ्कलय_epilog = 0;
+#यदि defined CONFIG_TCC_PIC
     oad(0xb8, 0); /* call to pc_thunk function */
     oad(0x808d, 0); /* lea lbound section pointer */
     oad(0xb8, 0); /* call to pc_thunk function */
     oad(0xc381, 0); /* add _GLOBAL_OFFSET_TABLE_ */
     oad(0xb8, 0); /* call to function */
-#else
+#अन्यथा
     oad(0xb8, 0); /* lbound section pointer */
     oad(0xb8, 0); /* call to function */
-#endif
+#यदि_अन्तः
 }
 
-static void gen_bounds_epilog(void)
+स्थिर शून्य gen_bounds_epilog(शून्य)
 {
     addr_t saved_ind;
     addr_t *bounds_ptr;
-    Sym *sym_data;
-    int offset_modified = func_bound_offset != lbounds_section->data_offset;
+    Sym *sym_दत्त;
+    पूर्णाङ्क विस्थापनम्_modified = func_bound_विस्थापनम् != lbounds_section->दत्त_विस्थापनम्;
 
-    if (!offset_modified && !func_bound_add_epilog)
-        return;
+    यदि (!विस्थापनम्_modified && !func_bound_सङ्कलय_epilog)
+        प्रत्यागम;
 
     /* add end of table info */
-    bounds_ptr = section_ptr_add(lbounds_section, sizeof(addr_t));
+    bounds_ptr = section_ptr_सङ्कलय(lbounds_section, परिमाण(addr_t));
     *bounds_ptr = 0;
 
-    sym_data = get_sym_ref(&char_pointer_type, lbounds_section,
-                           func_bound_offset, PTR_SIZE);
+    sym_दत्त = get_sym_ref(&char_pointer_type, lbounds_section,
+                           func_bound_विस्थापनम्, PTR_आकार);
 
     /* generate bound local allocation */
-    if (offset_modified) {
+    यदि (विस्थापनम्_modified) {
         saved_ind = ind;
         ind = func_bound_ind;
-#if defined CONFIG_TCC_PIC
+#यदि defined CONFIG_TCC_PIC
 	get_pc_thunk(TREG_EAX, 0);
 	o(0x808d | TREG_EAX * 0x900); /* lea $xx(r), r */
-	greloc(cur_text_section, sym_data, ind, R_386_PC32);
+	greloc(cur_text_section, sym_दत्त, ind, R_386_PC32);
 	gen_le32(2);
-#else
-        greloc(cur_text_section, sym_data, ind + 1, R_386_32);
+#अन्यथा
+        greloc(cur_text_section, sym_दत्त, ind + 1, R_386_32);
         ind = ind + 5;
-#endif
+#यदि_अन्तः
         gen_bound_call(TOK___bound_local_new);
         ind = saved_ind;
     }
 
     /* generate bound check local freeing */
     o(0x5250); /* save returned value, if any */
-#if defined CONFIG_TCC_PIC
+#यदि defined CONFIG_TCC_PIC
     get_pc_thunk(TREG_EAX, 0);
     o(0x808d | TREG_EAX * 0x900); /* lea $xx(r), r */
-    greloc(cur_text_section, sym_data, ind, R_386_PC32);
+    greloc(cur_text_section, sym_दत्त, ind, R_386_PC32);
     gen_le32(2);
-#else
-    greloc(cur_text_section, sym_data, ind + 1, R_386_32);
+#अन्यथा
+    greloc(cur_text_section, sym_दत्त, ind + 1, R_386_32);
     oad(0xb8, 0); /* mov %eax, xxx */
-#endif
+#यदि_अन्तः
     gen_bound_call(TOK___bound_local_delete);
     o(0x585a); /* restore returned value, if any */
 }
-#endif
+#यदि_अन्तः
 
 /* Save the stack pointer onto the stack */
-ST_FUNC void gen_vla_sp_save(int addr) {
+ST_FUNC शून्य gen_vla_sp_save(पूर्णाङ्क addr) {
     /* mov %esp,addr(%ebp)*/
-    gen_modrm(0x89, TREG_ESP, VT_LOCAL, NULL, addr);
+    gen_modrm(0x89, TREG_ESP, VT_LOCAL, रिक्त, addr);
 }
 
 /* Restore the SP from a location on the stack */
-ST_FUNC void gen_vla_sp_restore(int addr) {
-    gen_modrm(0x8b, TREG_ESP, VT_LOCAL, NULL, addr);
+ST_FUNC शून्य gen_vla_sp_restore(पूर्णाङ्क addr) {
+    gen_modrm(0x8b, TREG_ESP, VT_LOCAL, रिक्त, addr);
 }
 
 /* Subtract from the stack pointer, and push the resulting value onto the stack */
-ST_FUNC void gen_vla_alloc(CType *type, int align) {
-    int use_call = 0;
+ST_FUNC शून्य gen_vla_alloc(CType *type, पूर्णाङ्क align) {
+    पूर्णाङ्क use_call = 0;
 
-#if defined(CONFIG_TCC_BCHECK)
+#यदि defined(CONFIG_TCC_BCHECK)
     use_call = tcc_state->do_bounds_check;
-#endif
-#ifdef TCC_TARGET_PE    /* alloca does more than just adjust %rsp on Windows */
+#यदि_अन्तः
+#यदि_परिभाषितम् TCC_TARGET_PE    /* alloca does more than just adjust %rsp on Windows */
     use_call = 1;
-#endif
-    if (use_call)
+#यदि_अन्तः
+    यदि (use_call)
     {
         vpush_helper_func(TOK_alloca);
         vswap(); /* Move alloca ref past allocation size */
         gfunc_call(1);
     }
-    else {
-        int r;
+    अन्यथा {
+        पूर्णाङ्क r;
         r = gv(RC_INT); /* allocation size */
         /* sub r,%rsp */
         o(0x2b);
@@ -1323,5 +1323,5 @@ ST_FUNC void gen_vla_alloc(CType *type, int align) {
 
 /* end of X86 code generator */
 /*************************************************************/
-#endif
+#यदि_अन्तः
 /*************************************************************/

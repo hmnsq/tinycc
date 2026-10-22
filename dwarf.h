@@ -26,124 +26,124 @@
    the GNU Lesser General Public License along with this program.  If
    not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef _DWARF_H
-#define	_DWARF_H 1
+#यदि_अपरिभाषितम् _DWARF_H
+#परिभाषय	_DWARF_H 1
 
 /* DWARF Unit Header Types.  */
-enum
+गणना
   {
     DW_UT_compile = 0x01,
     DW_UT_type = 0x02,
     DW_UT_partial = 0x03,
     DW_UT_skeleton = 0x04,
-    DW_UT_split_compile = 0x05,
-    DW_UT_split_type = 0x06,
+    DW_UT_विभज_compile = 0x05,
+    DW_UT_विभज_type = 0x06,
 
     DW_UT_lo_user = 0x80,
     DW_UT_hi_user = 0xff
   };
 
 /* DWARF tags.  */
-enum
+गणना
   {
-    DW_TAG_array_type = 0x01,
-    DW_TAG_class_type = 0x02,
-    DW_TAG_entry_point = 0x03,
-    DW_TAG_enumeration_type = 0x04,
-    DW_TAG_formal_parameter = 0x05,
+    DW_चिह्नकम्_array_type = 0x01,
+    DW_चिह्नकम्_class_type = 0x02,
+    DW_चिह्नकम्_प्रविष्टिः_point = 0x03,
+    DW_चिह्नकम्_enumeration_type = 0x04,
+    DW_चिह्नकम्_formal_parameter = 0x05,
     /* 0x06 reserved.  */
     /* 0x07 reserved.  */
-    DW_TAG_imported_declaration = 0x08,
+    DW_चिह्नकम्_imported_declaration = 0x08,
     /* 0x09 reserved.  */
-    DW_TAG_label = 0x0a,
-    DW_TAG_lexical_block = 0x0b,
+    DW_चिह्नकम्_label = 0x0a,
+    DW_चिह्नकम्_lexical_खण्डम् = 0x0b,
     /* 0x0c reserved.  */
-    DW_TAG_member = 0x0d,
+    DW_चिह्नकम्_member = 0x0d,
     /* 0x0e reserved.  */
-    DW_TAG_pointer_type = 0x0f,
-    DW_TAG_reference_type = 0x10,
-    DW_TAG_compile_unit = 0x11,
-    DW_TAG_string_type = 0x12,
-    DW_TAG_structure_type = 0x13,
+    DW_चिह्नकम्_pointer_type = 0x0f,
+    DW_चिह्नकम्_reference_type = 0x10,
+    DW_चिह्नकम्_compile_unit = 0x11,
+    DW_चिह्नकम्_string_type = 0x12,
+    DW_चिह्नकम्_structure_type = 0x13,
     /* 0x14 reserved.  */
-    DW_TAG_subroutine_type = 0x15,
-    DW_TAG_typedef = 0x16,
-    DW_TAG_union_type = 0x17,
-    DW_TAG_unspecified_parameters = 0x18,
-    DW_TAG_variant = 0x19,
-    DW_TAG_common_block = 0x1a,
-    DW_TAG_common_inclusion = 0x1b,
-    DW_TAG_inheritance = 0x1c,
-    DW_TAG_inlined_subroutine = 0x1d,
-    DW_TAG_module = 0x1e,
-    DW_TAG_ptr_to_member_type = 0x1f,
-    DW_TAG_set_type = 0x20,
-    DW_TAG_subrange_type = 0x21,
-    DW_TAG_with_stmt = 0x22,
-    DW_TAG_access_declaration = 0x23,
-    DW_TAG_base_type = 0x24,
-    DW_TAG_catch_block = 0x25,
-    DW_TAG_const_type = 0x26,
-    DW_TAG_constant = 0x27,
-    DW_TAG_enumerator = 0x28,
-    DW_TAG_file_type = 0x29,
-    DW_TAG_friend = 0x2a,
-    DW_TAG_namelist = 0x2b,
-    DW_TAG_namelist_item = 0x2c,
-    DW_TAG_packed_type = 0x2d,
-    DW_TAG_subprogram = 0x2e,
-    DW_TAG_template_type_parameter = 0x2f,
-    DW_TAG_template_value_parameter = 0x30,
-    DW_TAG_thrown_type = 0x31,
-    DW_TAG_try_block = 0x32,
-    DW_TAG_variant_part = 0x33,
-    DW_TAG_variable = 0x34,
-    DW_TAG_volatile_type = 0x35,
-    DW_TAG_dwarf_procedure = 0x36,
-    DW_TAG_restrict_type = 0x37,
-    DW_TAG_interface_type = 0x38,
-    DW_TAG_namespace = 0x39,
-    DW_TAG_imported_module = 0x3a,
-    DW_TAG_unspecified_type = 0x3b,
-    DW_TAG_partial_unit = 0x3c,
-    DW_TAG_imported_unit = 0x3d,
+    DW_चिह्नकम्_subroutine_type = 0x15,
+    DW_चिह्नकम्_typedef = 0x16,
+    DW_चिह्नकम्_union_type = 0x17,
+    DW_चिह्नकम्_unspecified_parameters = 0x18,
+    DW_चिह्नकम्_variant = 0x19,
+    DW_चिह्नकम्_common_खण्डम् = 0x1a,
+    DW_चिह्नकम्_common_inclusion = 0x1b,
+    DW_चिह्नकम्_inheritance = 0x1c,
+    DW_चिह्नकम्_inlined_subroutine = 0x1d,
+    DW_चिह्नकम्_module = 0x1e,
+    DW_चिह्नकम्_ptr_गन्तव्यम्_member_type = 0x1f,
+    DW_चिह्नकम्_समुच्चयः_type = 0x20,
+    DW_चिह्नकम्_subrange_type = 0x21,
+    DW_चिह्नकम्_with_stmt = 0x22,
+    DW_चिह्नकम्_access_declaration = 0x23,
+    DW_चिह्नकम्_आधारः_type = 0x24,
+    DW_चिह्नकम्_catch_खण्डम् = 0x25,
+    DW_चिह्नकम्_const_type = 0x26,
+    DW_चिह्नकम्_constant = 0x27,
+    DW_चिह्नकम्_enumerator = 0x28,
+    DW_चिह्नकम्_file_type = 0x29,
+    DW_चिह्नकम्_friend = 0x2a,
+    DW_चिह्नकम्_namelist = 0x2b,
+    DW_चिह्नकम्_namelist_item = 0x2c,
+    DW_चिह्नकम्_packed_type = 0x2d,
+    DW_चिह्नकम्_subprogram = 0x2e,
+    DW_चिह्नकम्_template_type_parameter = 0x2f,
+    DW_चिह्नकम्_template_मानम्_parameter = 0x30,
+    DW_चिह्नकम्_thrown_type = 0x31,
+    DW_चिह्नकम्_try_खण्डम् = 0x32,
+    DW_चिह्नकम्_variant_part = 0x33,
+    DW_चिह्नकम्_variable = 0x34,
+    DW_चिह्नकम्_volatile_type = 0x35,
+    DW_चिह्नकम्_dwarf_procedure = 0x36,
+    DW_चिह्नकम्_restrict_type = 0x37,
+    DW_चिह्नकम्_interface_type = 0x38,
+    DW_चिह्नकम्_namespace = 0x39,
+    DW_चिह्नकम्_imported_module = 0x3a,
+    DW_चिह्नकम्_unspecified_type = 0x3b,
+    DW_चिह्नकम्_partial_unit = 0x3c,
+    DW_चिह्नकम्_imported_unit = 0x3d,
     /* 0x3e reserved.  Was DW_TAG_mutable_type.  */
-    DW_TAG_condition = 0x3f,
-    DW_TAG_shared_type = 0x40,
-    DW_TAG_type_unit = 0x41,
-    DW_TAG_rvalue_reference_type = 0x42,
-    DW_TAG_template_alias = 0x43,
-    DW_TAG_coarray_type = 0x44,
-    DW_TAG_generic_subrange = 0x45,
-    DW_TAG_dynamic_type = 0x46,
-    DW_TAG_atomic_type = 0x47,
-    DW_TAG_call_site = 0x48,
-    DW_TAG_call_site_parameter = 0x49,
-    DW_TAG_skeleton_unit = 0x4a,
-    DW_TAG_immutable_type = 0x4b,
+    DW_चिह्नकम्_condition = 0x3f,
+    DW_चिह्नकम्_shared_type = 0x40,
+    DW_चिह्नकम्_type_unit = 0x41,
+    DW_चिह्नकम्_rvalue_reference_type = 0x42,
+    DW_चिह्नकम्_template_alias = 0x43,
+    DW_चिह्नकम्_coarray_type = 0x44,
+    DW_चिह्नकम्_generic_subrange = 0x45,
+    DW_चिह्नकम्_dynamic_type = 0x46,
+    DW_चिह्नकम्_atomic_type = 0x47,
+    DW_चिह्नकम्_call_site = 0x48,
+    DW_चिह्नकम्_call_site_parameter = 0x49,
+    DW_चिह्नकम्_skeleton_unit = 0x4a,
+    DW_चिह्नकम्_immutable_type = 0x4b,
 
-    DW_TAG_lo_user = 0x4080,
+    DW_चिह्नकम्_lo_user = 0x4080,
 
-    DW_TAG_MIPS_loop = 0x4081,
-    DW_TAG_format_label = 0x4101,
-    DW_TAG_function_template = 0x4102,
-    DW_TAG_class_template = 0x4103,
+    DW_चिह्नकम्_MIPS_loop = 0x4081,
+    DW_चिह्नकम्_format_label = 0x4101,
+    DW_चिह्नकम्_function_template = 0x4102,
+    DW_चिह्नकम्_class_template = 0x4103,
 
-    DW_TAG_GNU_BINCL = 0x4104,
-    DW_TAG_GNU_EINCL = 0x4105,
+    DW_चिह्नकम्_GNU_BINCL = 0x4104,
+    DW_चिह्नकम्_GNU_EINCL = 0x4105,
 
-    DW_TAG_GNU_template_template_param = 0x4106,
-    DW_TAG_GNU_template_parameter_pack = 0x4107,
-    DW_TAG_GNU_formal_parameter_pack = 0x4108,
-    DW_TAG_GNU_call_site = 0x4109,
-    DW_TAG_GNU_call_site_parameter = 0x410a,
+    DW_चिह्नकम्_GNU_template_template_param = 0x4106,
+    DW_चिह्नकम्_GNU_template_parameter_pack = 0x4107,
+    DW_चिह्नकम्_GNU_formal_parameter_pack = 0x4108,
+    DW_चिह्नकम्_GNU_call_site = 0x4109,
+    DW_चिह्नकम्_GNU_call_site_parameter = 0x410a,
 
-    DW_TAG_hi_user = 0xffff
+    DW_चिह्नकम्_hi_user = 0xffff
   };
 
 
 /* Children determination encodings.  */
-enum
+गणना
   {
     DW_CHILDREN_no = 0,
     DW_CHILDREN_yes = 1
@@ -151,7 +151,7 @@ enum
 
 
 /* DWARF attributes encodings.  */
-enum
+गणना
   {
     DW_AT_sibling = 0x01,
     DW_AT_location = 0x02,
@@ -163,33 +163,33 @@ enum
     /* 0x08 reserved.  */
     DW_AT_ordering = 0x09,
     /* 0x0a reserved.  */
-    DW_AT_byte_size = 0x0b,
-    DW_AT_bit_offset = 0x0c,  /* Deprecated in DWARF4.  */
-    DW_AT_bit_size = 0x0d,
+    DW_AT_byte_आकार = 0x0b,
+    DW_AT_bit_विस्थापनम् = 0x0c,  /* Deprecated in DWARF4.  */
+    DW_AT_bit_आकार = 0x0d,
     /* 0x0e reserved.  */
     /* 0x0f reserved.  */
     DW_AT_stmt_list = 0x10,
-    DW_AT_low_pc = 0x11,
-    DW_AT_high_pc = 0x12,
+    DW_AT_नीचः_pc = 0x11,
+    DW_AT_उच्चः_pc = 0x12,
     DW_AT_language = 0x13,
     /* 0x14 reserved.  */
     DW_AT_discr = 0x15,
-    DW_AT_discr_value = 0x16,
+    DW_AT_discr_मानम् = 0x16,
     DW_AT_visibility = 0x17,
     DW_AT_import = 0x18,
-    DW_AT_string_length = 0x19,
+    DW_AT_string_दीर्घता = 0x19,
     DW_AT_common_reference = 0x1a,
     DW_AT_comp_dir = 0x1b,
-    DW_AT_const_value = 0x1c,
+    DW_AT_const_मानम् = 0x1c,
     DW_AT_containing_type = 0x1d,
-    DW_AT_default_value = 0x1e,
+    DW_AT_default_मानम् = 0x1e,
     /* 0x1f reserved.  */
     DW_AT_inline = 0x20,
     DW_AT_is_optional = 0x21,
-    DW_AT_lower_bound = 0x22,
+    DW_AT_अधस्तनम्_bound = 0x22,
     /* 0x23 reserved.  */
     /* 0x24 reserved.  */
-    DW_AT_producer = 0x25,
+    DW_AT_उत्पादकः = 0x25,
     /* 0x26 reserved.  */
     DW_AT_prototyped = 0x27,
     /* 0x28 reserved.  */
@@ -199,29 +199,29 @@ enum
     DW_AT_start_scope = 0x2c,
     /* 0x2d reserved.  */
     DW_AT_bit_stride = 0x2e,
-    DW_AT_upper_bound = 0x2f,
+    DW_AT_ऊर्ध्वस्थम्_bound = 0x2f,
     /* 0x30 reserved.  */
     DW_AT_abstract_origin = 0x31,
     DW_AT_accessibility = 0x32,
-    DW_AT_address_class = 0x33,
+    DW_AT_स्थानाङ्कः_class = 0x33,
     DW_AT_artificial = 0x34,
-    DW_AT_base_types = 0x35,
+    DW_AT_आधारः_types = 0x35,
     DW_AT_calling_convention = 0x36,
-    DW_AT_count = 0x37,
-    DW_AT_data_member_location = 0x38,
+    DW_AT_गणनम् = 0x37,
+    DW_AT_दत्त_member_location = 0x38,
     DW_AT_decl_column = 0x39,
     DW_AT_decl_file = 0x3a,
-    DW_AT_decl_line = 0x3b,
+    DW_AT_decl_पङ्क्तिः = 0x3b,
     DW_AT_declaration = 0x3c,
     DW_AT_discr_list = 0x3d,
     DW_AT_encoding = 0x3e,
     DW_AT_external = 0x3f,
-    DW_AT_frame_base = 0x40,
+    DW_AT_frame_आधारः = 0x40,
     DW_AT_friend = 0x41,
     DW_AT_identifier_case = 0x42,
     DW_AT_macro_info = 0x43, /* Deprecated in DWARF5.  */
     DW_AT_namelist_item = 0x44,
-    DW_AT_priority = 0x45,
+    DW_AT_प्राथमिकता = 0x45,
     DW_AT_segment = 0x46,
     DW_AT_specification = 0x47,
     DW_AT_static_link = 0x48,
@@ -232,43 +232,43 @@ enum
     DW_AT_vtable_elem_location = 0x4d,
     DW_AT_allocated = 0x4e,
     DW_AT_associated = 0x4f,
-    DW_AT_data_location = 0x50,
+    DW_AT_दत्त_location = 0x50,
     DW_AT_byte_stride = 0x51,
-    DW_AT_entry_pc = 0x52,
+    DW_AT_प्रविष्टिः_pc = 0x52,
     DW_AT_use_UTF8 = 0x53,
     DW_AT_extension = 0x54,
     DW_AT_ranges = 0x55,
     DW_AT_trampoline = 0x56,
     DW_AT_call_column = 0x57,
     DW_AT_call_file = 0x58,
-    DW_AT_call_line = 0x59,
+    DW_AT_call_पङ्क्तिः = 0x59,
     DW_AT_description = 0x5a,
-    DW_AT_binary_scale = 0x5b,
+    DW_AT_द्विमान_scale = 0x5b,
     DW_AT_decimal_scale = 0x5c,
     DW_AT_small = 0x5d,
     DW_AT_decimal_sign = 0x5e,
-    DW_AT_digit_count = 0x5f,
+    DW_AT_digit_गणनम् = 0x5f,
     DW_AT_picture_string = 0x60,
     DW_AT_mutable = 0x61,
-    DW_AT_threads_scaled = 0x62,
+    DW_AT_तन्तवः_scaled = 0x62,
     DW_AT_explicit = 0x63,
     DW_AT_object_pointer = 0x64,
     DW_AT_endianity = 0x65,
     DW_AT_elemental = 0x66,
-    DW_AT_pure = 0x67,
+    DW_AT_विशुद्धम् = 0x67,
     DW_AT_recursive = 0x68,
     DW_AT_signature = 0x69,
     DW_AT_main_subprogram = 0x6a,
-    DW_AT_data_bit_offset = 0x6b,
-    DW_AT_const_expr = 0x6c,
+    DW_AT_दत्त_bit_विस्थापनम् = 0x6b,
+    DW_AT_const_व्यञ्जकम् = 0x6c,
     DW_AT_enum_class = 0x6d,
     DW_AT_linkage_name = 0x6e,
-    DW_AT_string_length_bit_size = 0x6f,
-    DW_AT_string_length_byte_size = 0x70,
+    DW_AT_string_दीर्घता_bit_आकार = 0x6f,
+    DW_AT_string_दीर्घता_byte_आकार = 0x70,
     DW_AT_rank = 0x71,
-    DW_AT_str_offsets_base = 0x72,
-    DW_AT_addr_base = 0x73,
-    DW_AT_rnglists_base = 0x74,
+    DW_AT_str_offsets_आधारः = 0x72,
+    DW_AT_addr_आधारः = 0x73,
+    DW_AT_rnglists_आधारः = 0x74,
     /* 0x75 reserved.  */
     DW_AT_dwo_name = 0x76,
     DW_AT_reference = 0x77,
@@ -276,32 +276,32 @@ enum
     DW_AT_macros = 0x79,
     DW_AT_call_all_calls = 0x7a,
     DW_AT_call_all_source_calls = 0x7b,
-    DW_AT_call_all_tail_calls = 0x7c,
+    DW_AT_call_all_पुच्छ_calls = 0x7c,
     DW_AT_call_return_pc = 0x7d,
-    DW_AT_call_value = 0x7e,
+    DW_AT_call_मानम् = 0x7e,
     DW_AT_call_origin = 0x7f,
     DW_AT_call_parameter = 0x80,
     DW_AT_call_pc = 0x81,
-    DW_AT_call_tail_call = 0x82,
+    DW_AT_call_पुच्छ_call = 0x82,
     DW_AT_call_target = 0x83,
     DW_AT_call_target_clobbered = 0x84,
-    DW_AT_call_data_location = 0x85,
-    DW_AT_call_data_value = 0x86,
+    DW_AT_call_दत्त_location = 0x85,
+    DW_AT_call_दत्त_मानम् = 0x86,
     DW_AT_noreturn = 0x87,
     DW_AT_alignment = 0x88,
     DW_AT_export_symbols = 0x89,
     DW_AT_deleted = 0x8a,
     DW_AT_defaulted = 0x8b,
-    DW_AT_loclists_base = 0x8c,
+    DW_AT_loclists_आधारः = 0x8c,
 
     DW_AT_lo_user = 0x2000,
 
     DW_AT_MIPS_fde = 0x2001,
     DW_AT_MIPS_loop_begin = 0x2002,
-    DW_AT_MIPS_tail_loop_begin = 0x2003,
+    DW_AT_MIPS_पुच्छ_loop_begin = 0x2003,
     DW_AT_MIPS_epilog_begin = 0x2004,
-    DW_AT_MIPS_loop_unroll_factor = 0x2005,
-    DW_AT_MIPS_software_pipeline_depth = 0x2006,
+    DW_AT_MIPS_loop_unroll_गुणकः = 0x2005,
+    DW_AT_MIPS_software_pipeline_गभीरता = 0x2006,
     DW_AT_MIPS_linkage_name = 0x2007,
     DW_AT_MIPS_stride = 0x2008,
     DW_AT_MIPS_abstract_name = 0x2009,
@@ -312,16 +312,16 @@ enum
     DW_AT_MIPS_ptr_dopetype = 0x200e,
     DW_AT_MIPS_allocatable_dopetype = 0x200f,
     DW_AT_MIPS_assumed_shape_dopetype = 0x2010,
-    DW_AT_MIPS_assumed_size = 0x2011,
+    DW_AT_MIPS_assumed_आकार = 0x2011,
 
     /* GNU extensions.  */
-    DW_AT_sf_names = 0x2101,
+    DW_AT_sf_नामानि = 0x2101,
     DW_AT_src_info = 0x2102,
     DW_AT_mac_info = 0x2103,
     DW_AT_src_coords = 0x2104,
     DW_AT_body_begin = 0x2105,
-    DW_AT_body_end = 0x2106,
-    DW_AT_GNU_vector = 0x2107,
+    DW_AT_body_अन्तः = 0x2106,
+    DW_AT_GNU_सदिशम् = 0x2107,
     DW_AT_GNU_guarded_by = 0x2108,
     DW_AT_GNU_pt_guarded_by = 0x2109,
     DW_AT_GNU_guarded = 0x210a,
@@ -331,23 +331,23 @@ enum
     DW_AT_GNU_shared_locks_required = 0x210e,
     DW_AT_GNU_odr_signature = 0x210f,
     DW_AT_GNU_template_name = 0x2110,
-    DW_AT_GNU_call_site_value = 0x2111,
-    DW_AT_GNU_call_site_data_value = 0x2112,
+    DW_AT_GNU_call_site_मानम् = 0x2111,
+    DW_AT_GNU_call_site_दत्त_मानम् = 0x2112,
     DW_AT_GNU_call_site_target = 0x2113,
     DW_AT_GNU_call_site_target_clobbered = 0x2114,
-    DW_AT_GNU_tail_call = 0x2115,
-    DW_AT_GNU_all_tail_call_sites = 0x2116,
+    DW_AT_GNU_पुच्छ_call = 0x2115,
+    DW_AT_GNU_all_पुच्छ_call_sites = 0x2116,
     DW_AT_GNU_all_call_sites = 0x2117,
     DW_AT_GNU_all_source_call_sites = 0x2118,
     DW_AT_GNU_locviews = 0x2137,
-    DW_AT_GNU_entry_view = 0x2138,
+    DW_AT_GNU_प्रविष्टिः_view = 0x2138,
     DW_AT_GNU_macros = 0x2119,
     DW_AT_GNU_deleted = 0x211a,
     /* GNU Debug Fission extensions.  */
     DW_AT_GNU_dwo_name = 0x2130,
     DW_AT_GNU_dwo_id = 0x2131,
-    DW_AT_GNU_ranges_base = 0x2132,
-    DW_AT_GNU_addr_base = 0x2133,
+    DW_AT_GNU_ranges_आधारः = 0x2132,
+    DW_AT_GNU_addr_आधारः = 0x2133,
     DW_AT_GNU_pubnames = 0x2134,
     DW_AT_GNU_pubtypes = 0x2135,
 
@@ -364,14 +364,14 @@ enum
    Will not appear in known-dwarf.h  */
 
 /* DWARF1 array subscripts and element data types.  */
-#define DW_AT_subscr_data	0x0a
+#परिभाषय DW_AT_subscr_दत्त	0x0a
 /* DWARF1 enumeration literals.  */
-#define DW_AT_element_list	0x0f
+#परिभाषय DW_AT_element_list	0x0f
 /* DWARF1 reference for variable to member structure, class or union.  */
-#define DW_AT_member		0x14
+#परिभाषय DW_AT_member		0x14
 
 /* DWARF form encodings.  */
-enum
+गणना
   {
     DW_FORM_addr = 0x01,
     DW_FORM_block2 = 0x03,
@@ -380,7 +380,7 @@ enum
     DW_FORM_data4 = 0x06,
     DW_FORM_data8 = 0x07,
     DW_FORM_string = 0x08,
-    DW_FORM_block = 0x09,
+    DW_FORM_खण्डम् = 0x09,
     DW_FORM_block1 = 0x0a,
     DW_FORM_data1 = 0x0b,
     DW_FORM_flag = 0x0c,
@@ -393,8 +393,8 @@ enum
     DW_FORM_ref4 = 0x13,
     DW_FORM_ref8 = 0x14,
     DW_FORM_ref_udata = 0x15,
-    DW_FORM_indirect = 0x16,
-    DW_FORM_sec_offset = 0x17,
+    DW_FORM_परोक्षम् = 0x16,
+    DW_FORM_sec_विस्थापनम् = 0x17,
     DW_FORM_exprloc = 0x18,
     DW_FORM_flag_present = 0x19,
     DW_FORM_strx = 0x1a,
@@ -402,7 +402,7 @@ enum
     DW_FORM_ref_sup4 = 0x1c,
     DW_FORM_strp_sup = 0x1d,
     DW_FORM_data16 = 0x1e,
-    DW_FORM_line_strp = 0x1f,
+    DW_FORM_पङ्क्तिः_strp = 0x1f,
     DW_FORM_ref_sig8 = 0x20,
     DW_FORM_implicit_const = 0x21,
     DW_FORM_loclistx = 0x22,
@@ -418,8 +418,8 @@ enum
     DW_FORM_addrx4 = 0x2c,
 
     /* GNU Debug Fission extensions.  */
-    DW_FORM_GNU_addr_index = 0x1f01,
-    DW_FORM_GNU_str_index = 0x1f02,
+    DW_FORM_GNU_addr_सूचकांक = 0x1f01,
+    DW_FORM_GNU_str_सूचकांक = 0x1f02,
 
     DW_FORM_GNU_ref_alt = 0x1f20, /* offset in alternate .debuginfo.  */
     DW_FORM_GNU_strp_alt = 0x1f21 /* offset in alternate .debug_str. */
@@ -427,7 +427,7 @@ enum
 
 
 /* DWARF location operation encodings.  */
-enum
+गणना
   {
     DW_OP_addr = 0x03,		/* Constant address.  */
     DW_OP_deref = 0x06,
@@ -571,23 +571,23 @@ enum
     DW_OP_fbreg = 0x91,		/* Signed LEB128 offset.  */
     DW_OP_bregx = 0x92,		/* ULEB128 register followed by SLEB128 off. */
     DW_OP_piece = 0x93,		/* ULEB128 size of piece addressed. */
-    DW_OP_deref_size = 0x94,	/* 1-byte size of data retrieved.  */
-    DW_OP_xderef_size = 0x95,	/* 1-byte size of data retrieved.  */
+    DW_OP_deref_आकार = 0x94,	/* 1-byte size of data retrieved.  */
+    DW_OP_xderef_आकार = 0x95,	/* 1-byte size of data retrieved.  */
     DW_OP_nop = 0x96,
-    DW_OP_push_object_address = 0x97,
+    DW_OP_प्रक्षिप_object_स्थानाङ्कः = 0x97,
     DW_OP_call2 = 0x98,
     DW_OP_call4 = 0x99,
     DW_OP_call_ref = 0x9a,
-    DW_OP_form_tls_address = 0x9b,/* TLS offset to address in current thread */
+    DW_OP_form_tls_स्थानाङ्कः = 0x9b,/* TLS offset to address in current thread */
     DW_OP_call_frame_cfa = 0x9c,/* CFA as determined by CFI.  */
     DW_OP_bit_piece = 0x9d,	/* ULEB128 size and ULEB128 offset in bits.  */
-    DW_OP_implicit_value = 0x9e, /* DW_FORM_block follows opcode.  */
-    DW_OP_stack_value = 0x9f,	 /* No operands, special like DW_OP_piece.  */
+    DW_OP_implicit_मानम् = 0x9e, /* DW_FORM_block follows opcode.  */
+    DW_OP_राशिः_मानम् = 0x9f,	 /* No operands, special like DW_OP_piece.  */
 
     DW_OP_implicit_pointer = 0xa0,
     DW_OP_addrx = 0xa1,
     DW_OP_constx = 0xa2,
-    DW_OP_entry_value = 0xa3,
+    DW_OP_प्रविष्टिः_मानम् = 0xa3,
     DW_OP_const_type = 0xa4,
     DW_OP_regval_type = 0xa5,
     DW_OP_deref_type = 0xa6,
@@ -596,11 +596,11 @@ enum
     DW_OP_reinterpret = 0xa9,
 
     /* GNU extensions.  */
-    DW_OP_GNU_push_tls_address = 0xe0,
+    DW_OP_GNU_प्रक्षिप_tls_स्थानाङ्कः = 0xe0,
     DW_OP_GNU_uninit = 0xf0,
     DW_OP_GNU_encoded_addr = 0xf1,
     DW_OP_GNU_implicit_pointer = 0xf2,
-    DW_OP_GNU_entry_value = 0xf3,
+    DW_OP_GNU_प्रविष्टिः_मानम् = 0xf3,
     DW_OP_GNU_const_type = 0xf4,
     DW_OP_GNU_regval_type = 0xf5,
     DW_OP_GNU_deref_type = 0xf6,
@@ -609,10 +609,10 @@ enum
     DW_OP_GNU_parameter_ref = 0xfa,
 
     /* GNU Debug Fission extensions.  */
-    DW_OP_GNU_addr_index = 0xfb,
-    DW_OP_GNU_const_index = 0xfc,
+    DW_OP_GNU_addr_सूचकांक = 0xfb,
+    DW_OP_GNU_const_सूचकांक = 0xfc,
 
-    DW_OP_GNU_variable_value = 0xfd,
+    DW_OP_GNU_variable_मानम् = 0xfd,
 
     DW_OP_lo_user = 0xe0,	/* Implementation-defined range start.  */
     DW_OP_hi_user = 0xff	/* Implementation-defined range end.  */
@@ -620,10 +620,10 @@ enum
 
 
 /* DWARF base type encodings.  */
-enum
+गणना
   {
     DW_ATE_void = 0x0,
-    DW_ATE_address = 0x1,
+    DW_ATE_स्थानाङ्कः = 0x1,
     DW_ATE_boolean = 0x2,
     DW_ATE_complex_float = 0x3,
     DW_ATE_float = 0x4,
@@ -648,7 +648,7 @@ enum
 
 
 /* DWARF decimal sign encodings.  */
-enum
+गणना
   {
     DW_DS_unsigned = 1,
     DW_DS_leading_overpunch = 2,
@@ -659,28 +659,28 @@ enum
 
 
 /* DWARF endianity encodings.  */
-enum
+गणना
   {
-    DW_END_default = 0,
-    DW_END_big = 1,
-    DW_END_little = 2,
+    DW_अन्तः_default = 0,
+    DW_अन्तः_big = 1,
+    DW_अन्तः_little = 2,
 
-    DW_END_lo_user = 0x40,
-    DW_END_hi_user = 0xff
+    DW_अन्तः_lo_user = 0x40,
+    DW_अन्तः_hi_user = 0xff
   };
 
 
 /* DWARF accessibility encodings.  */
-enum
+गणना
   {
-    DW_ACCESS_public = 1,
+    DW_ACCESS_लौकिकम् = 1,
     DW_ACCESS_protected = 2,
-    DW_ACCESS_private = 3
+    DW_ACCESS_वैयक्तिकम् = 3
   };
 
 
 /* DWARF visibility encodings.  */
-enum
+गणना
   {
     DW_VIS_local = 1,
     DW_VIS_exported = 2,
@@ -689,16 +689,16 @@ enum
 
 
 /* DWARF virtuality encodings.  */
-enum
+गणना
   {
     DW_VIRTUALITY_none = 0,
     DW_VIRTUALITY_virtual = 1,
-    DW_VIRTUALITY_pure_virtual = 2
+    DW_VIRTUALITY_विशुद्धम्_virtual = 2
   };
 
 
 /* DWARF language encodings.  */
-enum
+गणना
   {
     DW_LANG_C89 = 0x0001,	     /* ISO C:1989 */
     DW_LANG_C = 0x0002,		     /* C */
@@ -744,14 +744,14 @@ enum
   };
 
 /* Old (typo) '1' != 'I'.  */
-#define DW_LANG_PL1 DW_LANG_PLI
+#परिभाषय DW_LANG_PL1 DW_LANG_PLI
 
 /* DWARF identifier case encodings.  */
-enum
+गणना
   {
     DW_ID_case_sensitive = 0,
-    DW_ID_up_case = 1,
-    DW_ID_down_case = 2,
+    DW_ID_ऊर्ध्वम्_case = 1,
+    DW_ID_अधस्तात्_case = 2,
     DW_ID_case_insensitive = 3
   };
 
@@ -760,20 +760,20 @@ enum
    Used as values of DW_AT_calling_convention for subroutines
    (normal, program or nocall) or structures, unions and class types
    (normal, reference or value).  */
-enum
+गणना
   {
-    DW_CC_normal = 0x1,
-    DW_CC_program = 0x2,
+    DW_CC_प्रसामान्यम् = 0x1,
+    DW_CC_क्रमादेशः = 0x2,
     DW_CC_nocall = 0x3,
     DW_CC_pass_by_reference = 0x4,
-    DW_CC_pass_by_value = 0x5,
+    DW_CC_pass_by_मानम् = 0x5,
     DW_CC_lo_user = 0x40,
     DW_CC_hi_user = 0xff
   };
 
 
 /* DWARF inline encodings.  */
-enum
+गणना
   {
     DW_INL_not_inlined = 0,
     DW_INL_inlined = 1,
@@ -783,7 +783,7 @@ enum
 
 
 /* DWARF ordering encodings.  */
-enum
+गणना
   {
     DW_ORD_row_major = 0,
     DW_ORD_col_major = 1
@@ -791,85 +791,85 @@ enum
 
 
 /* DWARF discriminant descriptor encodings.  */
-enum
+गणना
   {
     DW_DSC_label = 0,
     DW_DSC_range = 1
   };
 
 /* DWARF defaulted member function encodings.  */
-enum
+गणना
   {
     DW_DEFAULTED_no = 0,
-    DW_DEFAULTED_in_class = 1,
-    DW_DEFAULTED_out_of_class = 2
+    DW_DEFAULTED_अन्तर्_class = 1,
+    DW_DEFAULTED_बहिर्गमनम्_सम्बन्धि_class = 2
   };
 
 /* DWARF line content descriptions.  */
-enum
+गणना
   {
-    DW_LNCT_path = 0x1,
-    DW_LNCT_directory_index = 0x2,
+    DW_LNCT_मार्गः = 0x1,
+    DW_LNCT_directory_सूचकांक = 0x2,
     DW_LNCT_timestamp = 0x3,
-    DW_LNCT_size = 0x4,
+    DW_LNCT_आकार = 0x4,
     DW_LNCT_MD5 = 0x5,
     DW_LNCT_lo_user = 0x2000,
     DW_LNCT_hi_user = 0x3fff
   };
 
 /* DWARF standard opcode encodings.  */
-enum
+गणना
   {
     DW_LNS_copy = 1,
     DW_LNS_advance_pc = 2,
-    DW_LNS_advance_line = 3,
-    DW_LNS_set_file = 4,
-    DW_LNS_set_column = 5,
+    DW_LNS_advance_पङ्क्तिः = 3,
+    DW_LNS_समुच्चयः_file = 4,
+    DW_LNS_समुच्चयः_column = 5,
     DW_LNS_negate_stmt = 6,
-    DW_LNS_set_basic_block = 7,
-    DW_LNS_const_add_pc = 8,
+    DW_LNS_समुच्चयः_basic_खण्डम् = 7,
+    DW_LNS_const_सङ्कलय_pc = 8,
     DW_LNS_fixed_advance_pc = 9,
-    DW_LNS_set_prologue_end = 10,
-    DW_LNS_set_epilogue_begin = 11,
-    DW_LNS_set_isa = 12
+    DW_LNS_समुच्चयः_prologue_अन्तः = 10,
+    DW_LNS_समुच्चयः_epilogue_begin = 11,
+    DW_LNS_समुच्चयः_isa = 12
   };
 
 
 /* DWARF extended opcode encodings.  */
-enum
+गणना
   {
-    DW_LNE_end_sequence = 1,
-    DW_LNE_set_address = 2,
+    DW_LNE_अन्तः_sequence = 1,
+    DW_LNE_समुच्चयः_स्थानाङ्कः = 2,
     DW_LNE_define_file = 3,
-    DW_LNE_set_discriminator = 4,
+    DW_LNE_समुच्चयः_discriminator = 4,
 
     DW_LNE_lo_user = 128,
 
     DW_LNE_NVIDIA_inlined_call = 144,
-    DW_LNE_NVIDIA_set_function_name = 145,
+    DW_LNE_NVIDIA_समुच्चयः_function_name = 145,
 
     DW_LNE_hi_user = 255
   };
 
 
 /* DWARF macinfo type encodings.  */
-enum
+गणना
   {
     DW_MACINFO_define = 1,
     DW_MACINFO_undef = 2,
     DW_MACINFO_start_file = 3,
-    DW_MACINFO_end_file = 4,
+    DW_MACINFO_अन्तः_file = 4,
     DW_MACINFO_vendor_ext = 255
   };
 
 
 /* DWARF debug_macro type encodings.  */
-enum
+गणना
   {
     DW_MACRO_define = 0x01,
     DW_MACRO_undef = 0x02,
     DW_MACRO_start_file = 0x03,
-    DW_MACRO_end_file = 0x04,
+    DW_MACRO_अन्तः_file = 0x04,
     DW_MACRO_define_strp = 0x05,
     DW_MACRO_undef_strp = 0x06,
     DW_MACRO_import = 0x07,
@@ -885,62 +885,62 @@ enum
 /* Old GNU extension names for DWARF5 debug_macro type encodings.
    There are no equivalents for the supplementary object file (sup)
    and indirect string references (strx).  */
-#define DW_MACRO_GNU_define		 DW_MACRO_define
-#define DW_MACRO_GNU_undef		 DW_MACRO_undef
-#define DW_MACRO_GNU_start_file		 DW_MACRO_start_file
-#define DW_MACRO_GNU_end_file		 DW_MACRO_end_file
-#define DW_MACRO_GNU_define_indirect	 DW_MACRO_define_strp
-#define DW_MACRO_GNU_undef_indirect	 DW_MACRO_undef_strp
-#define DW_MACRO_GNU_transparent_include DW_MACRO_import
-#define DW_MACRO_GNU_lo_user		 DW_MACRO_lo_user
-#define DW_MACRO_GNU_hi_user		 DW_MACRO_hi_user
+#परिभाषय DW_MACRO_GNU_define		 DW_MACRO_define
+#परिभाषय DW_MACRO_GNU_undef		 DW_MACRO_undef
+#परिभाषय DW_MACRO_GNU_start_file		 DW_MACRO_start_file
+#परिभाषय DW_MACRO_GNU_अन्तः_file		 DW_MACRO_अन्तः_file
+#परिभाषय DW_MACRO_GNU_define_परोक्षम्	 DW_MACRO_define_strp
+#परिभाषय DW_MACRO_GNU_undef_परोक्षम्	 DW_MACRO_undef_strp
+#परिभाषय DW_MACRO_GNU_transparent_include DW_MACRO_import
+#परिभाषय DW_MACRO_GNU_lo_user		 DW_MACRO_lo_user
+#परिभाषय DW_MACRO_GNU_hi_user		 DW_MACRO_hi_user
 
 
 /* Range list entry encoding.  */
-enum
+गणना
   {
-    DW_RLE_end_of_list = 0x0,
-    DW_RLE_base_addressx = 0x1,
+    DW_RLE_अन्तः_सम्बन्धि_list = 0x0,
+    DW_RLE_आधारः_addressx = 0x1,
     DW_RLE_startx_endx = 0x2,
-    DW_RLE_startx_length = 0x3,
-    DW_RLE_offset_pair = 0x4,
-    DW_RLE_base_address = 0x5,
-    DW_RLE_start_end = 0x6,
-    DW_RLE_start_length = 0x7
+    DW_RLE_startx_दीर्घता = 0x3,
+    DW_RLE_विस्थापनम्_pair = 0x4,
+    DW_RLE_आधारः_स्थानाङ्कः = 0x5,
+    DW_RLE_start_अन्तः = 0x6,
+    DW_RLE_start_दीर्घता = 0x7
   };
 
 
 /* Location list entry encoding.  */
-enum
+गणना
   {
-    DW_LLE_end_of_list = 0x0,
-    DW_LLE_base_addressx = 0x1,
+    DW_LLE_अन्तः_सम्बन्धि_list = 0x0,
+    DW_LLE_आधारः_addressx = 0x1,
     DW_LLE_startx_endx = 0x2,
-    DW_LLE_startx_length = 0x3,
-    DW_LLE_offset_pair = 0x4,
+    DW_LLE_startx_दीर्घता = 0x3,
+    DW_LLE_विस्थापनम्_pair = 0x4,
     DW_LLE_default_location = 0x5,
-    DW_LLE_base_address = 0x6,
-    DW_LLE_start_end = 0x7,
-    DW_LLE_start_length = 0x8
+    DW_LLE_आधारः_स्थानाङ्कः = 0x6,
+    DW_LLE_start_अन्तः = 0x7,
+    DW_LLE_start_दीर्घता = 0x8
   };
 
 
 /* GNU DebugFission list entry encodings (.debug_loc.dwo).  */
-enum
+गणना
   {
-    DW_LLE_GNU_end_of_list_entry = 0x0,
-    DW_LLE_GNU_base_address_selection_entry = 0x1,
-    DW_LLE_GNU_start_end_entry = 0x2,
-    DW_LLE_GNU_start_length_entry = 0x3
+    DW_LLE_GNU_अन्तः_सम्बन्धि_list_प्रविष्टिः = 0x0,
+    DW_LLE_GNU_आधारः_स्थानाङ्कः_selection_प्रविष्टिः = 0x1,
+    DW_LLE_GNU_start_अन्तः_प्रविष्टिः = 0x2,
+    DW_LLE_GNU_start_दीर्घता_प्रविष्टिः = 0x3
   };
 
 /* DWARF5 package file section identifiers.  */
-enum
+गणना
   {
     DW_SECT_INFO = 1,
     /* Reserved = 2, */
     DW_SECT_ABBREV = 3,
-    DW_SECT_LINE = 4,
+    DW_SECT_पङ्क्तिः = 4,
     DW_SECT_LOCLISTS = 5,
     DW_SECT_STR_OFFSETS = 6,
     DW_SECT_MACRO = 7,
@@ -949,48 +949,48 @@ enum
 
 
 /* DWARF call frame instruction encodings.  */
-enum
+गणना
   {
     DW_CFA_advance_loc = 0x40,
-    DW_CFA_offset = 0x80,
+    DW_CFA_विस्थापनम् = 0x80,
     DW_CFA_restore = 0xc0,
     DW_CFA_extended = 0,
 
     DW_CFA_nop = 0x00,
-    DW_CFA_set_loc = 0x01,
+    DW_CFA_समुच्चयः_loc = 0x01,
     DW_CFA_advance_loc1 = 0x02,
     DW_CFA_advance_loc2 = 0x03,
     DW_CFA_advance_loc4 = 0x04,
-    DW_CFA_offset_extended = 0x05,
+    DW_CFA_विस्थापनम्_extended = 0x05,
     DW_CFA_restore_extended = 0x06,
     DW_CFA_undefined = 0x07,
-    DW_CFA_same_value = 0x08,
-    DW_CFA_register = 0x09,
+    DW_CFA_same_मानम् = 0x08,
+    DW_CFA_पञ्जिकाकोशः = 0x09,
     DW_CFA_remember_state = 0x0a,
     DW_CFA_restore_state = 0x0b,
     DW_CFA_def_cfa = 0x0c,
-    DW_CFA_def_cfa_register = 0x0d,
-    DW_CFA_def_cfa_offset = 0x0e,
+    DW_CFA_def_cfa_पञ्जिकाकोशः = 0x0d,
+    DW_CFA_def_cfa_विस्थापनम् = 0x0e,
     DW_CFA_def_cfa_expression = 0x0f,
     DW_CFA_expression = 0x10,
-    DW_CFA_offset_extended_sf = 0x11,
+    DW_CFA_विस्थापनम्_extended_sf = 0x11,
     DW_CFA_def_cfa_sf = 0x12,
-    DW_CFA_def_cfa_offset_sf = 0x13,
-    DW_CFA_val_offset = 0x14,
-    DW_CFA_val_offset_sf = 0x15,
+    DW_CFA_def_cfa_विस्थापनम्_sf = 0x13,
+    DW_CFA_val_विस्थापनम् = 0x14,
+    DW_CFA_val_विस्थापनम्_sf = 0x15,
     DW_CFA_val_expression = 0x16,
 
-    DW_CFA_low_user = 0x1c,
+    DW_CFA_नीचः_user = 0x1c,
     DW_CFA_MIPS_advance_loc8 = 0x1d,
-    DW_CFA_GNU_window_save = 0x2d,
+    DW_CFA_GNU_गवाक्षः_save = 0x2d,
     DW_CFA_AARCH64_negate_ra_state = 0x2d,
-    DW_CFA_GNU_args_size = 0x2e,
-    DW_CFA_GNU_negative_offset_extended = 0x2f,
-    DW_CFA_high_user = 0x3f
+    DW_CFA_GNU_तर्काः_आकार = 0x2e,
+    DW_CFA_GNU_negative_विस्थापनम्_extended = 0x2f,
+    DW_CFA_उच्चः_user = 0x3f
   };
 
 /* ID indicating CIE as opposed to FDE in .debug_frame.  */
-enum
+गणना
   {
     DW_CIE_ID_32 = 0xffffffffU,		 /* In 32-bit format CIE header.  */
     DW_CIE_ID_64 = 0xffffffffffffffffULL /* In 64-bit format CIE header.  */
@@ -998,7 +998,7 @@ enum
 
 
 /* Information for GNU unwind information.  */
-enum
+गणना
   {
     DW_EH_PE_absptr = 0x00,
     DW_EH_PE_omit = 0xff,
@@ -1021,12 +1021,12 @@ enum
     DW_EH_PE_funcrel = 0x40,
     DW_EH_PE_aligned = 0x50,
 
-    DW_EH_PE_indirect = 0x80
+    DW_EH_PE_परोक्षम् = 0x80
   };
 
 
 /* DWARF XXX.  */
-#define DW_ADDR_none	0
+#परिभाषय DW_ADDR_none	0
 
 /* Section 7.2.2 of the DWARF3 specification defines a range of escape
    codes that can appear in the length field of certain DWARF structures.
@@ -1039,8 +1039,8 @@ enum
    Note: There is a typo in DWARF3 spec (published Dec 20, 2005).  In
    sections 7.4, 7.5.1, 7.19, 7.20 the minimum escape code is referred to
    as 0xffffff00 whereas in fact it should be 0xfffffff0.  */
-#define DWARF3_LENGTH_MIN_ESCAPE_CODE 0xfffffff0u
-#define DWARF3_LENGTH_MAX_ESCAPE_CODE 0xffffffffu
-#define DWARF3_LENGTH_64_BIT          DWARF3_LENGTH_MAX_ESCAPE_CODE
+#परिभाषय DWARF3_दीर्घता_MIN_ESCAPE_संहिता 0xfffffff0u
+#परिभाषय DWARF3_दीर्घता_MAX_ESCAPE_संहिता 0xffffffffu
+#परिभाषय DWARF3_दीर्घता_64_BIT          DWARF3_दीर्घता_MAX_ESCAPE_संहिता
 
-#endif	/* dwarf.h */
+#यदि_अन्तः	/* dwarf.h */

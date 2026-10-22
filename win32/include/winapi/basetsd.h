@@ -3,147 +3,147 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _BASETSD_H_
-#define _BASETSD_H_
+#यदि_अपरिभाषितम् _BASETSD_H_
+#परिभाषय _BASETSD_H_
 
-#if (defined(__x86_64) || defined(__ia64__)) && !defined(RC_INVOKED)
-typedef unsigned __int64 POINTER_64_INT;
-#else
-typedef unsigned long POINTER_64_INT;
-#endif
+#यदि (defined(__x86_64) || defined(__ia64__)) && !defined(RC_INVOKED)
+प्रकारनिर्देश अचिह्नित __int64 POINTER_64_INT;
+#अन्यथा
+प्रकारनिर्देश अचिह्नित दीर्घ POINTER_64_INT;
+#यदि_अन्तः
 
-#define POINTER_32
-#define POINTER_64
-#define FIRMWARE_PTR
+#परिभाषय POINTER_32
+#परिभाषय POINTER_64
+#परिभाषय FIRMWARE_PTR
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-  typedef signed char INT8,*PINT8;
-  typedef signed short INT16,*PINT16;
-  typedef signed int INT32,*PINT32;
-  typedef signed __int64 INT64,*PINT64;
-  typedef unsigned char UINT8,*PUINT8;
-  typedef unsigned short UINT16,*PUINT16;
-  typedef unsigned int UINT32,*PUINT32;
-  typedef unsigned __int64 UINT64,*PUINT64;
-  typedef signed int LONG32,*PLONG32;
-  typedef unsigned int ULONG32,*PULONG32;
-  typedef unsigned int DWORD32,*PDWORD32;
+  प्रकारनिर्देश चिह्नित वर्ण INT8,*PINT8;
+  प्रकारनिर्देश चिह्नित ह्रस्व INT16,*PINT16;
+  प्रकारनिर्देश चिह्नित पूर्णाङ्क INT32,*PINT32;
+  प्रकारनिर्देश चिह्नित __int64 INT64,*PINT64;
+  प्रकारनिर्देश अचिह्नित वर्ण UINT8,*PUINT8;
+  प्रकारनिर्देश अचिह्नित ह्रस्व UINT16,*PUINT16;
+  प्रकारनिर्देश अचिह्नित पूर्णाङ्क UINT32,*PUINT32;
+  प्रकारनिर्देश अचिह्नित __int64 UINT64,*PUINT64;
+  प्रकारनिर्देश चिह्नित पूर्णाङ्क LONG32,*PLONG32;
+  प्रकारनिर्देश अचिह्नित पूर्णाङ्क ULONG32,*PULONG32;
+  प्रकारनिर्देश अचिह्नित पूर्णाङ्क DWORD32,*PDWORD32;
 
-#ifndef _W64
-#define _W64
-#endif
+#यदि_अपरिभाषितम् _W64
+#परिभाषय _W64
+#यदि_अन्तः
 
-#ifdef _WIN64
-  typedef __int64 INT_PTR,*PINT_PTR;
-  typedef unsigned __int64 UINT_PTR,*PUINT_PTR;
-  typedef __int64 LONG_PTR,*PLONG_PTR;
-  typedef unsigned __int64 ULONG_PTR,*PULONG_PTR;
-#define __int3264 __int64
-#else
-  typedef int INT_PTR,*PINT_PTR;
-  typedef unsigned int UINT_PTR,*PUINT_PTR;
-  typedef long LONG_PTR,*PLONG_PTR;
-  typedef unsigned long ULONG_PTR,*PULONG_PTR;
-#define __int3264 __int32
-#endif
+#यदि_परिभाषितम् _WIN64
+  प्रकारनिर्देश __int64 INT_PTR,*PINT_PTR;
+  प्रकारनिर्देश अचिह्नित __int64 UINT_PTR,*PUINT_PTR;
+  प्रकारनिर्देश __int64 LONG_PTR,*PLONG_PTR;
+  प्रकारनिर्देश अचिह्नित __int64 ULONG_PTR,*PULONG_PTR;
+#परिभाषय __int3264 __int64
+#अन्यथा
+  प्रकारनिर्देश पूर्णाङ्क INT_PTR,*PINT_PTR;
+  प्रकारनिर्देश अचिह्नित पूर्णाङ्क UINT_PTR,*PUINT_PTR;
+  प्रकारनिर्देश दीर्घ LONG_PTR,*PLONG_PTR;
+  प्रकारनिर्देश अचिह्नित दीर्घ ULONG_PTR,*PULONG_PTR;
+#परिभाषय __int3264 __int32
+#यदि_अन्तः
 
-#ifdef _WIN64
-#define ADDRESS_TAG_BIT 0x40000000000ULL
-  typedef __int64 SHANDLE_PTR;
-  typedef unsigned __int64 HANDLE_PTR;
-  typedef unsigned int UHALF_PTR,*PUHALF_PTR;
-  typedef int HALF_PTR,*PHALF_PTR;
+#यदि_परिभाषितम् _WIN64
+#परिभाषय स्थानाङ्कः_चिह्नकम्_BIT 0x40000000000ULL
+  प्रकारनिर्देश __int64 SHANDLE_PTR;
+  प्रकारनिर्देश अचिह्नित __int64 HANDLE_PTR;
+  प्रकारनिर्देश अचिह्नित पूर्णाङ्क UHALF_PTR,*PUHALF_PTR;
+  प्रकारनिर्देश पूर्णाङ्क HALF_PTR,*PHALF_PTR;
 
-  static __inline unsigned long HandleToULong(const void *h) { return((unsigned long) (ULONG_PTR) h); }
-  static __inline long HandleToLong(const void *h) { return((long) (LONG_PTR) h); }
-  static __inline void *ULongToHandle(const unsigned long h) { return((void *) (UINT_PTR) h); }
-  static __inline void *LongToHandle(const long h) { return((void *) (INT_PTR) h); }
-  static __inline unsigned long PtrToUlong(const void *p) { return((unsigned long) (ULONG_PTR) p); }
-  static __inline unsigned int PtrToUint(const void *p) { return((unsigned int) (UINT_PTR) p); }
-  static __inline unsigned short PtrToUshort(const void *p) { return((unsigned short) (unsigned long) (ULONG_PTR) p); }
-  static __inline long PtrToLong(const void *p) { return((long) (LONG_PTR) p); }
-  static __inline int PtrToInt(const void *p) { return((int) (INT_PTR) p); }
-  static __inline short PtrToShort(const void *p) { return((short) (long) (LONG_PTR) p); }
-  static __inline void *IntToPtr(const int i) { return((void *)(INT_PTR)i); }
-  static __inline void *UIntToPtr(const unsigned int ui) { return((void *)(UINT_PTR)ui); }
-  static __inline void *LongToPtr(const long l) { return((void *)(LONG_PTR)l); }
-  static __inline void *ULongToPtr(const unsigned long ul) { return((void *)(ULONG_PTR)ul); }
+  स्थिर __inline अचिह्नित दीर्घ Handle_गन्तव्यम्_ULong(ध्रुव शून्य *h) { प्रत्यागम((अचिह्नित दीर्घ) (ULONG_PTR) h); }
+  स्थिर __inline दीर्घ Handle_गन्तव्यम्_Long(ध्रुव शून्य *h) { प्रत्यागम((दीर्घ) (LONG_PTR) h); }
+  स्थिर __inline शून्य *ULong_गन्तव्यम्_Handle(ध्रुव अचिह्नित दीर्घ h) { प्रत्यागम((शून्य *) (UINT_PTR) h); }
+  स्थिर __inline शून्य *Long_गन्तव्यम्_Handle(ध्रुव दीर्घ h) { प्रत्यागम((शून्य *) (INT_PTR) h); }
+  स्थिर __inline अचिह्नित दीर्घ Ptr_गन्तव्यम्_Ulong(ध्रुव शून्य *p) { प्रत्यागम((अचिह्नित दीर्घ) (ULONG_PTR) p); }
+  स्थिर __inline अचिह्नित पूर्णाङ्क Ptr_गन्तव्यम्_Uint(ध्रुव शून्य *p) { प्रत्यागम((अचिह्नित पूर्णाङ्क) (UINT_PTR) p); }
+  स्थिर __inline अचिह्नित ह्रस्व Ptr_गन्तव्यम्_Ushort(ध्रुव शून्य *p) { प्रत्यागम((अचिह्नित ह्रस्व) (अचिह्नित दीर्घ) (ULONG_PTR) p); }
+  स्थिर __inline दीर्घ Ptr_गन्तव्यम्_Long(ध्रुव शून्य *p) { प्रत्यागम((दीर्घ) (LONG_PTR) p); }
+  स्थिर __inline पूर्णाङ्क Ptr_गन्तव्यम्_Int(ध्रुव शून्य *p) { प्रत्यागम((पूर्णाङ्क) (INT_PTR) p); }
+  स्थिर __inline ह्रस्व Ptr_गन्तव्यम्_Short(ध्रुव शून्य *p) { प्रत्यागम((ह्रस्व) (दीर्घ) (LONG_PTR) p); }
+  स्थिर __inline शून्य *Int_गन्तव्यम्_Ptr(ध्रुव पूर्णाङ्क i) { प्रत्यागम((शून्य *)(INT_PTR)i); }
+  स्थिर __inline शून्य *UInt_गन्तव्यम्_Ptr(ध्रुव अचिह्नित पूर्णाङ्क ui) { प्रत्यागम((शून्य *)(UINT_PTR)ui); }
+  स्थिर __inline शून्य *Long_गन्तव्यम्_Ptr(ध्रुव दीर्घ l) { प्रत्यागम((शून्य *)(LONG_PTR)l); }
+  स्थिर __inline शून्य *ULong_गन्तव्यम्_Ptr(ध्रुव अचिह्नित दीर्घ ul) { प्रत्यागम((शून्य *)(ULONG_PTR)ul); }
 
-#define PtrToPtr64(p) ((void *) p)
-#define Ptr64ToPtr(p) ((void *) p)
-#define HandleToHandle64(h) (PtrToPtr64(h))
-#define Handle64ToHandle(h) (Ptr64ToPtr(h))
+#परिभाषय Ptr_गन्तव्यम्_Ptr64(p) ((शून्य *) p)
+#परिभाषय Ptr64_गन्तव्यम्_Ptr(p) ((शून्य *) p)
+#परिभाषय Handle_गन्तव्यम्_Handle64(h) (Ptr_गन्तव्यम्_Ptr64(h))
+#परिभाषय Handle64_गन्तव्यम्_Handle(h) (Ptr64_गन्तव्यम्_Ptr(h))
 
-  static __inline void *Ptr32ToPtr(const void *p) { return (void *)p; }
-  static __inline void *Handle32ToHandle(const void *h) { return((void *) h); }
-  static __inline void *PtrToPtr32(const void *p) { return((void *) (ULONG_PTR) p); }
+  स्थिर __inline शून्य *Ptr32_गन्तव्यम्_Ptr(ध्रुव शून्य *p) { प्रत्यागम (शून्य *)p; }
+  स्थिर __inline शून्य *Handle32_गन्तव्यम्_Handle(ध्रुव शून्य *h) { प्रत्यागम((शून्य *) h); }
+  स्थिर __inline शून्य *Ptr_गन्तव्यम्_Ptr32(ध्रुव शून्य *p) { प्रत्यागम((शून्य *) (ULONG_PTR) p); }
 
-#define HandleToHandle32(h) (PtrToPtr32(h))
-#else
+#परिभाषय Handle_गन्तव्यम्_Handle32(h) (Ptr_गन्तव्यम्_Ptr32(h))
+#अन्यथा
 
-#define ADDRESS_TAG_BIT 0x80000000UL
+#परिभाषय स्थानाङ्कः_चिह्नकम्_BIT 0x80000000UL
 
-  typedef unsigned short UHALF_PTR,*PUHALF_PTR;
-  typedef short HALF_PTR,*PHALF_PTR;
-  typedef long SHANDLE_PTR;
-  typedef unsigned long HANDLE_PTR;
+  प्रकारनिर्देश अचिह्नित ह्रस्व UHALF_PTR,*PUHALF_PTR;
+  प्रकारनिर्देश ह्रस्व HALF_PTR,*PHALF_PTR;
+  प्रकारनिर्देश दीर्घ SHANDLE_PTR;
+  प्रकारनिर्देश अचिह्नित दीर्घ HANDLE_PTR;
 
-#define HandleToULong(h) ((ULONG)(ULONG_PTR)(h))
-#define HandleToLong(h) ((LONG)(LONG_PTR) (h))
-#define ULongToHandle(ul) ((HANDLE)(ULONG_PTR) (ul))
-#define LongToHandle(h) ((HANDLE)(LONG_PTR) (h))
-#define PtrToUlong(p) ((ULONG)(ULONG_PTR) (p))
-#define PtrToLong(p) ((LONG)(LONG_PTR) (p))
-#define PtrToUint(p) ((UINT)(UINT_PTR) (p))
-#define PtrToInt(p) ((INT)(INT_PTR) (p))
-#define PtrToUshort(p) ((unsigned short)(ULONG_PTR)(p))
-#define PtrToShort(p) ((short)(LONG_PTR)(p))
-#define IntToPtr(i) ((VOID *)(INT_PTR)((int)i))
-#define UIntToPtr(ui) ((VOID *)(UINT_PTR)((unsigned int)ui))
-#define LongToPtr(l) ((VOID *)(LONG_PTR)((long)l))
-#define ULongToPtr(ul) ((VOID *)(ULONG_PTR)((unsigned long)ul))
+#परिभाषय Handle_गन्तव्यम्_ULong(h) ((ULONG)(ULONG_PTR)(h))
+#परिभाषय Handle_गन्तव्यम्_Long(h) ((LONG)(LONG_PTR) (h))
+#परिभाषय ULong_गन्तव्यम्_Handle(ul) ((HANDLE)(ULONG_PTR) (ul))
+#परिभाषय Long_गन्तव्यम्_Handle(h) ((HANDLE)(LONG_PTR) (h))
+#परिभाषय Ptr_गन्तव्यम्_Ulong(p) ((ULONG)(ULONG_PTR) (p))
+#परिभाषय Ptr_गन्तव्यम्_Long(p) ((LONG)(LONG_PTR) (p))
+#परिभाषय Ptr_गन्तव्यम्_Uint(p) ((UINT)(UINT_PTR) (p))
+#परिभाषय Ptr_गन्तव्यम्_Int(p) ((INT)(INT_PTR) (p))
+#परिभाषय Ptr_गन्तव्यम्_Ushort(p) ((अचिह्नित ह्रस्व)(ULONG_PTR)(p))
+#परिभाषय Ptr_गन्तव्यम्_Short(p) ((ह्रस्व)(LONG_PTR)(p))
+#परिभाषय Int_गन्तव्यम्_Ptr(i) ((VOID *)(INT_PTR)((पूर्णाङ्क)i))
+#परिभाषय UInt_गन्तव्यम्_Ptr(ui) ((VOID *)(UINT_PTR)((अचिह्नित पूर्णाङ्क)ui))
+#परिभाषय Long_गन्तव्यम्_Ptr(l) ((VOID *)(LONG_PTR)((दीर्घ)l))
+#परिभाषय ULong_गन्तव्यम्_Ptr(ul) ((VOID *)(ULONG_PTR)((अचिह्नित दीर्घ)ul))
 
-  static __inline void *PtrToPtr64(const void *p) { return((void *) (ULONG_PTR)p); }
-  static __inline void *Ptr64ToPtr(const void *p) { return((void *) (ULONG_PTR) p); }
-  static __inline void *HandleToHandle64(const void *h) { return((void *) h); }
-  static __inline void *Handle64ToHandle(const void *h) { return((void *) (ULONG_PTR) h); }
+  स्थिर __inline शून्य *Ptr_गन्तव्यम्_Ptr64(ध्रुव शून्य *p) { प्रत्यागम((शून्य *) (ULONG_PTR)p); }
+  स्थिर __inline शून्य *Ptr64_गन्तव्यम्_Ptr(ध्रुव शून्य *p) { प्रत्यागम((शून्य *) (ULONG_PTR) p); }
+  स्थिर __inline शून्य *Handle_गन्तव्यम्_Handle64(ध्रुव शून्य *h) { प्रत्यागम((शून्य *) h); }
+  स्थिर __inline शून्य *Handle64_गन्तव्यम्_Handle(ध्रुव शून्य *h) { प्रत्यागम((शून्य *) (ULONG_PTR) h); }
 
-#define Ptr32ToPtr(p) ((void *) p)
-#define Handle32ToHandle(h) (Ptr32ToPtr(h))
-#define PtrToPtr32(p) ((void *) p)
-#define HandleToHandle32(h) (PtrToPtr32(h))
-#endif
+#परिभाषय Ptr32_गन्तव्यम्_Ptr(p) ((शून्य *) p)
+#परिभाषय Handle32_गन्तव्यम्_Handle(h) (Ptr32_गन्तव्यम्_Ptr(h))
+#परिभाषय Ptr_गन्तव्यम्_Ptr32(p) ((शून्य *) p)
+#परिभाषय Handle_गन्तव्यम्_Handle32(h) (Ptr_गन्तव्यम्_Ptr32(h))
+#यदि_अन्तः
 
-#define HandleToUlong(h) HandleToULong(h)
-#define UlongToHandle(ul) ULongToHandle(ul)
-#define UlongToPtr(ul) ULongToPtr(ul)
-#define UintToPtr(ui) UIntToPtr(ui)
+#परिभाषय Handle_गन्तव्यम्_Ulong(h) Handle_गन्तव्यम्_ULong(h)
+#परिभाषय Ulong_गन्तव्यम्_Handle(ul) ULong_गन्तव्यम्_Handle(ul)
+#परिभाषय Ulong_गन्तव्यम्_Ptr(ul) ULong_गन्तव्यम्_Ptr(ul)
+#परिभाषय Uint_गन्तव्यम्_Ptr(ui) UInt_गन्तव्यम्_Ptr(ui)
 
-#define MAXUINT_PTR (~((UINT_PTR)0))
-#define MAXINT_PTR ((INT_PTR)(MAXUINT_PTR >> 1))
-#define MININT_PTR (~MAXINT_PTR)
+#परिभाषय MAXUINT_PTR (~((UINT_PTR)0))
+#परिभाषय MAXINT_PTR ((INT_PTR)(MAXUINT_PTR >> 1))
+#परिभाषय MININT_PTR (~MAXINT_PTR)
 
-#define MAXULONG_PTR (~((ULONG_PTR)0))
-#define MAXLONG_PTR ((LONG_PTR)(MAXULONG_PTR >> 1))
-#define MINLONG_PTR (~MAXLONG_PTR)
+#परिभाषय MAXULONG_PTR (~((ULONG_PTR)0))
+#परिभाषय MAXLONG_PTR ((LONG_PTR)(MAXULONG_PTR >> 1))
+#परिभाषय MINLONG_PTR (~MAXLONG_PTR)
 
-#define MAXUHALF_PTR ((UHALF_PTR)~0)
-#define MAXHALF_PTR ((HALF_PTR)(MAXUHALF_PTR >> 1))
-#define MINHALF_PTR (~MAXHALF_PTR)
+#परिभाषय MAXUHALF_PTR ((UHALF_PTR)~0)
+#परिभाषय MAXHALF_PTR ((HALF_PTR)(MAXUHALF_PTR >> 1))
+#परिभाषय MINHALF_PTR (~MAXHALF_PTR)
 
-  typedef ULONG_PTR SIZE_T,*PSIZE_T;
-  typedef LONG_PTR SSIZE_T,*PSSIZE_T;
-  typedef ULONG_PTR DWORD_PTR,*PDWORD_PTR;
-  typedef __int64 LONG64,*PLONG64;
-  typedef unsigned __int64 ULONG64,*PULONG64;
-  typedef unsigned __int64 DWORD64,*PDWORD64;
-  typedef ULONG_PTR KAFFINITY;
-  typedef KAFFINITY *PKAFFINITY;
+  प्रकारनिर्देश ULONG_PTR आकार_T,*PSIZE_T;
+  प्रकारनिर्देश LONG_PTR SSIZE_T,*PSSIZE_T;
+  प्रकारनिर्देश ULONG_PTR DWORD_PTR,*PDWORD_PTR;
+  प्रकारनिर्देश __int64 LONG64,*PLONG64;
+  प्रकारनिर्देश अचिह्नित __int64 ULONG64,*PULONG64;
+  प्रकारनिर्देश अचिह्नित __int64 DWORD64,*PDWORD64;
+  प्रकारनिर्देश ULONG_PTR KAFFINITY;
+  प्रकारनिर्देश KAFFINITY *PKAFFINITY;
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
-#endif
+#यदि_अन्तः
+#यदि_अन्तः

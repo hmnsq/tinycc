@@ -1,21 +1,21 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int factorial(int i) 
+पूर्णाङ्क क्रमगुणितम्(पूर्णाङ्क i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   यदि (i < 2)
+      प्रत्यागम i;
+   अन्यथा
+      प्रत्यागम i * क्रमगुणितम्(i - 1);
 }
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-   int Count;
+   पूर्णाङ्क गणनम्_3;
 
-   for (Count = 1; Count <= 10; Count++)
-      printf("%d\n", factorial(Count));
+   प्रति (गणनम्_3 = 1; गणनम्_3 <= 10; गणनम्_3++)
+      प्रारूप_लिख("%d\n", क्रमगुणितम्(गणनम्_3));
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

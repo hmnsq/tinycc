@@ -1,11 +1,11 @@
-#ifndef _STDBOOL_H
-#define _STDBOOL_H
+#यदि_अपरिभाषितम् _STDBOOL_H
+#परिभाषय _STDBOOL_H
 
 /* ISOC99 boolean */
 
-#define bool	_Bool
-#define true	1
-#define false	0
-#define __bool_true_false_are_defined 1
+#परिभाषय bool	_Bool
+#परिभाषय true	1
+#परिभाषय false	0
+#परिभाषय __bool_true_false_are_defined 1
 
-#endif /* _STDBOOL_H */
+#यदि_अन्तः /* _STDBOOL_H */

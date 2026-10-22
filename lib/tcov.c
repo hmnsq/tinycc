@@ -1,14 +1,14 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#ifndef _WIN32
-#include <unistd.h>
-#include <errno.h>
-#else
-#include <windows.h>
-#include <io.h>
-#endif
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <string.h>
+#अन्तर्भाव <stdlib.h>
+#अन्तर्भाव <fcntl.h>
+#यदि_अपरिभाषितम् _WIN32
+#अन्तर्भाव <unistd.h>
+#अन्तर्भाव <errno.h>
+#अन्यथा
+#अन्तर्भाव <windows.h>
+#अन्तर्भाव <io.h>
+#यदि_अन्तः
 
 /* section layout (all little endian):
    32bit offset to executable/so file name
@@ -24,178 +24,178 @@
    executable/so file name \0
  */
 
-typedef struct tcov_line {
-    unsigned int fline;
-    unsigned int lline;
-    unsigned long long count;
-} tcov_line;
+प्रकारनिर्देश संरचना tcov_पङ्क्तिः {
+    अचिह्नित पूर्णाङ्क fline;
+    अचिह्नित पूर्णाङ्क lline;
+    अचिह्नित दीर्घ दीर्घ गणनम्_2;
+} tcov_पङ्क्तिः;
 
-typedef struct tcov_function {
-    char *function;
-    unsigned int first_line;
-    unsigned int n_line;
-    unsigned int m_line;
-    tcov_line *line;
+प्रकारनिर्देश संरचना tcov_function {
+    वर्ण *function;
+    अचिह्नित पूर्णाङ्क first_पङ्क्तिः;
+    अचिह्नित पूर्णाङ्क n_पङ्क्तिः;
+    अचिह्नित पूर्णाङ्क m_पङ्क्तिः;
+    tcov_पङ्क्तिः *पङ्क्तिः;
 } tcov_function;
 
-typedef struct tcov_file {
-    char *filename;
-    unsigned int n_func;
-    unsigned int m_func;
+प्रकारनिर्देश संरचना tcov_file {
+    वर्ण *filename;
+    अचिह्नित पूर्णाङ्क n_func;
+    अचिह्नित पूर्णाङ्क m_func;
     tcov_function *func;
-    struct tcov_file *next;
+    संरचना tcov_file *अग्र;
 } tcov_file;
 
-static FILE *open_tcov_file (char *cov_filename)
+स्थिर FILE *open_tcov_file (वर्ण *cov_filename)
 {
-    int fd;
-#ifndef _WIN32
-    struct flock lock;
+    पूर्णाङ्क fd;
+#यदि_अपरिभाषितम् _WIN32
+    संरचना flock तालकम्;
 
-    lock.l_type = F_WRLCK;
-    lock.l_whence = SEEK_SET;
-    lock.l_start = 0;
-    lock.l_len = 0; /* Until EOF.  */
-    lock.l_pid = getpid ();
-#endif
-    fd = open (cov_filename, O_RDWR | O_CREAT, 0666);
-    if (fd < 0)
-	return NULL;
+    तालकम्.l_type = F_WRLCK;
+    तालकम्.l_whence = SEEK_SET;
+    तालकम्.l_start = 0;
+    तालकम्.l_len = 0; /* Until EOF.  */
+    तालकम्.l_pid = getpid ();
+#यदि_अन्तः
+    fd = उद्घाटय (cov_filename, O_RDWR | O_CREAT, 0666);
+    यदि (fd < 0)
+	प्रत्यागम रिक्त;
   
-#ifndef _WIN32
-    while (fcntl (fd, F_SETLKW, &lock) && errno == EINTR)
-        continue;
-#else
+#यदि_अपरिभाषितम् _WIN32
+    यावत् (fcntl (fd, F_SETLKW, &तालकम्) && errno == EINTR)
+        अनुवर्त;
+#अन्यथा
     {
         OVERLAPPED overlapped = { 0 };
-        LockFileEx((HANDLE)_get_osfhandle(fd), LOCKFILE_EXCLUSIVE_LOCK,
+        तालकम्_File_Ex((HANDLE)_get_osfhandle(fd), LOCKFILE_EXCLUSIVE_तालकम्,
 		   0, 1, 0, &overlapped);
     }
-#endif
+#यदि_अन्तः
 
-    return fdopen (fd, "r+");
+    प्रत्यागम fdopen (fd, "r+");
 }
 
-static unsigned long long get_value(unsigned char *p, int size)
+स्थिर अचिह्नित दीर्घ दीर्घ get_मानम्(अचिह्नित वर्ण *p, पूर्णाङ्क आकार)
 {
-    unsigned long long value = 0;
+    अचिह्नित दीर्घ दीर्घ मानम् = 0;
 
-    p += size;
-    while (size--)
- 	value = (value << 8) | *--p;
-    return value;
+    p += आकार;
+    यावत् (आकार--)
+ 	मानम् = (मानम् << 8) | *--p;
+    प्रत्यागम मानम्;
 }
 
-static int sort_func (const void *p, const void *q)
+स्थिर पूर्णाङ्क क्रमय_func (ध्रुव शून्य *p, ध्रुव शून्य *q)
 {
-    const tcov_function *pp = (const tcov_function *) p;
-    const tcov_function *pq = (const tcov_function *) q;
+    ध्रुव tcov_function *pp = (ध्रुव tcov_function *) p;
+    ध्रुव tcov_function *pq = (ध्रुव tcov_function *) q;
 
-    return pp->first_line > pq->first_line ? 1 :
-	   pp->first_line < pq->first_line ? -1 : 0;
+    प्रत्यागम pp->first_पङ्क्तिः > pq->first_पङ्क्तिः ? 1 :
+	   pp->first_पङ्क्तिः < pq->first_पङ्क्तिः ? -1 : 0;
 }
 
-static int sort_line (const void *p, const void *q)
+स्थिर पूर्णाङ्क क्रमय_पङ्क्तिः (ध्रुव शून्य *p, ध्रुव शून्य *q)
 {
-    const tcov_line *pp = (const tcov_line *) p;
-    const tcov_line *pq = (const tcov_line *) q;
+    ध्रुव tcov_पङ्क्तिः *pp = (ध्रुव tcov_पङ्क्तिः *) p;
+    ध्रुव tcov_पङ्क्तिः *pq = (ध्रुव tcov_पङ्क्तिः *) q;
 
-    return pp->fline > pq->fline ? 1 :
+    प्रत्यागम pp->fline > pq->fline ? 1 :
 	   pp->fline < pq->fline ? -1 :
-           pp->count < pq->count ? 1 :
-	   pp->count > pq->count ? -1 : 0;
+           pp->गणनम्_2 < pq->गणनम्_2 ? 1 :
+	   pp->गणनम्_2 > pq->गणनम्_2 ? -1 : 0;
 }
 
 /* sort to let inline functions work */
-static tcov_file *sort_test_coverage (unsigned char *p)
+स्थिर tcov_file *क्रमय_test_coverage (अचिह्नित वर्ण *p)
 {
-    int i, j, k;
-    unsigned char *start = p;
-    tcov_file *file = NULL;
+    पूर्णाङ्क i, j, k;
+    अचिह्नित वर्ण *start = p;
+    tcov_file *file = रिक्त;
     tcov_file *nfile;
 
     p += 4;
-    while (*p) {
-        char *filename = (char *)p;
-	size_t len = strlen (filename);
+    यावत् (*p) {
+        वर्ण *filename = (वर्ण *)p;
+	आकार_t len = वाक्यदैर्घ्यम् (filename);
 
 	nfile = file;
-	while (nfile) {
-	    if (strcmp (nfile->filename, filename) == 0)
-		break;
-	    nfile = nfile->next;
+	यावत् (nfile) {
+	    यदि (वाक्यं_तुलय (nfile->filename, filename) == 0)
+		भङ्ग;
+	    nfile = nfile->अग्र;
 	}
-	if (nfile == NULL) {
-	    nfile = malloc (sizeof(tcov_file));
-	    if (nfile == NULL) {
+	यदि (nfile == रिक्त) {
+	    nfile = स्मृतिं_देहि (परिमाण(tcov_file));
+	    यदि (nfile == रिक्त) {
 	        fprintf (stderr, "Malloc error test_coverage\n");
-	        return file;
+	        प्रत्यागम file;
     	    }
 	    nfile->filename = filename;
 	    nfile->n_func = 0;
 	    nfile->m_func = 0;
-	    nfile->func = NULL;
-	    nfile->next = NULL;
-	    if (file == NULL)
+	    nfile->func = रिक्त;
+	    nfile->अग्र = रिक्त;
+	    यदि (file == रिक्त)
 	        file = nfile;
-	    else {
+	    अन्यथा {
 		tcov_file *lfile = file;
 
-	        while (lfile->next)
-		    lfile = lfile->next;
-		lfile->next = nfile;
+	        यावत् (lfile->अग्र)
+		    lfile = lfile->अग्र;
+		lfile->अग्र = nfile;
 	    }
 	}
 	p += len + 1;
-	while (*p) {
-	    int i;
-	    char *function = (char *)p;
+	यावत् (*p) {
+	    पूर्णाङ्क i;
+	    वर्ण *function = (वर्ण *)p;
 	    tcov_function *func;
 
-	    p += strlen (function) + 1;
+	    p += वाक्यदैर्घ्यम् (function) + 1;
 	    p += -(p - start) & 7;
-	    for (i = 0; i < nfile->n_func; i++) {
+	    प्रति (i = 0; i < nfile->n_func; i++) {
 		func = &nfile->func[i];
-		if (strcmp (func->function, function) == 0)
-		    break;
+		यदि (वाक्यं_तुलय (func->function, function) == 0)
+		    भङ्ग;
 	    }
-	    if (i == nfile->n_func) {
-	        if (nfile->n_func >= nfile->m_func) {
+	    यदि (i == nfile->n_func) {
+	        यदि (nfile->n_func >= nfile->m_func) {
 		    nfile->m_func = nfile->m_func == 0 ? 4 : nfile->m_func * 2;
 		    nfile->func = realloc (nfile->func,
 					   nfile->m_func *
-					   sizeof (tcov_function));
-		    if (nfile->func == NULL) {
+					   परिमाण (tcov_function));
+		    यदि (nfile->func == रिक्त) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        प्रत्यागम file;
 		    }
 	        }
 	        func = &nfile->func[nfile->n_func++];
 	        func->function = function;
-	        func->first_line = get_value (p, 8);
-	        func->n_line = 0;
-	        func->m_line = 0;
-	        func->line = NULL;
+	        func->first_पङ्क्तिः = get_मानम् (p, 8);
+	        func->n_पङ्क्तिः = 0;
+	        func->m_पङ्क्तिः = 0;
+	        func->पङ्क्तिः = रिक्त;
 	    }
 	    p += 8;
-	    while (*p) {
-		tcov_line *line;
-		unsigned long long val;
+	    यावत् (*p) {
+		tcov_पङ्क्तिः *पङ्क्तिः;
+		अचिह्नित दीर्घ दीर्घ val;
 
-		if (func->n_line >= func->m_line) {
-		    func->m_line = func->m_line == 0 ? 4 : func->m_line * 2;
-		    func->line = realloc (func->line,
-					  func->m_line * sizeof (tcov_line));
-		    if (func->line == NULL) {
+		यदि (func->n_पङ्क्तिः >= func->m_पङ्क्तिः) {
+		    func->m_पङ्क्तिः = func->m_पङ्क्तिः == 0 ? 4 : func->m_पङ्क्तिः * 2;
+		    func->पङ्क्तिः = realloc (func->पङ्क्तिः,
+					  func->m_पङ्क्तिः * परिमाण (tcov_पङ्क्तिः));
+		    यदि (func->पङ्क्तिः == रिक्त) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        प्रत्यागम file;
 		    }
 		}
-		line = &func->line[func->n_line++];
-		val = get_value (p, 8);
-	        line->fline = (val >> 8) & 0xfffffffULL;
-	        line->lline = val >> 36;
-	        line->count = get_value (p + 8, 8);
+		पङ्क्तिः = &func->पङ्क्तिः[func->n_पङ्क्तिः++];
+		val = get_मानम् (p, 8);
+	        पङ्क्तिः->fline = (val >> 8) & 0xfffffffULL;
+	        पङ्क्तिः->lline = val >> 36;
+	        पङ्क्तिः->गणनम्_2 = get_मानम् (p + 8, 8);
 	 	p += 16;
 	    }
 	    p++;
@@ -203,226 +203,226 @@ static tcov_file *sort_test_coverage (unsigned char *p)
 	p++;
     }
     nfile = file;
-    while (nfile) {
-	qsort (nfile->func, nfile->n_func, sizeof (tcov_function), sort_func);
-	for (i = 0; i < nfile->n_func; i++) {
+    यावत् (nfile) {
+	शीघ्रं_क्रमय (nfile->func, nfile->n_func, परिमाण (tcov_function), क्रमय_func);
+	प्रति (i = 0; i < nfile->n_func; i++) {
 	    tcov_function *func = &nfile->func[i];
-	    qsort (func->line, func->n_line, sizeof (tcov_line), sort_line);
+	    शीघ्रं_क्रमय (func->पङ्क्तिः, func->n_पङ्क्तिः, परिमाण (tcov_पङ्क्तिः), क्रमय_पङ्क्तिः);
         }
-	nfile = nfile->next;
+	nfile = nfile->अग्र;
     }
-    return file;
+    प्रत्यागम file;
 }
 
 /* merge with previous tcov file */
-static void merge_test_coverage (tcov_file *file, FILE *fp,
-				 unsigned int *pruns)
+स्थिर शून्य merge_test_coverage (tcov_file *file, FILE *fp,
+				 अचिह्नित पूर्णाङ्क *pruns)
 {
-    unsigned int runs;
-    char *p;
-    char str[10000];
+    अचिह्नित पूर्णाङ्क runs;
+    वर्ण *p;
+    वर्ण str[10000];
     
     *pruns = 1;
-    if (fp == NULL)
-        return;
-    if (fgets(str, sizeof(str), fp) &&
+    यदि (fp == रिक्त)
+        प्रत्यागम;
+    यदि (fgets(str, परिमाण(str), fp) &&
         (p = strrchr (str, ':')) &&
-        (sscanf (p + 1, "%u", &runs) == 1)) 
+        (वाक्यात्_पठ (p + 1, "%u", &runs) == 1)) 
         *pruns = runs + 1;
-    while (file) {
-	int i;
-	size_t len = strlen (file->filename);
+    यावत् (file) {
+	पूर्णाङ्क i;
+	आकार_t len = वाक्यदैर्घ्यम् (file->filename);
 
-	while (fgets(str, sizeof(str), fp) &&
-	       (p = strstr(str, "0:File:")) == NULL) {}
-        if ((p = strstr(str, "0:File:")) == NULL ||
-	    strncmp (p + strlen("0:File:"), file->filename, len) != 0 ||
-	    p[strlen("0:File:") + len] != ' ')
-	    break;
-	for (i = 0; i < file->n_func; i++) {
-	    int j;
+	यावत् (fgets(str, परिमाण(str), fp) &&
+	       (p = वाक्ये_अन्विष(str, "0:File:")) == रिक्त) {}
+        यदि ((p = वाक्ये_अन्विष(str, "0:File:")) == रिक्त ||
+	    वाक्ये_तुलय (p + वाक्यदैर्घ्यम्("0:File:"), file->filename, len) != 0 ||
+	    p[वाक्यदैर्घ्यम्("0:File:") + len] != ' ')
+	    भङ्ग;
+	प्रति (i = 0; i < file->n_func; i++) {
+	    पूर्णाङ्क j;
 	    tcov_function *func = &file->func[i];
-	    unsigned int next_zero = 0;
-	    unsigned int curline = 0;
+	    अचिह्नित पूर्णाङ्क अग्र_zero = 0;
+	    अचिह्नित पूर्णाङ्क curline = 0;
 
-	    for (j = 0; j < func->n_line; j++) {
-		tcov_line *line = &func->line[j];
-	        unsigned int fline = line->fline;
-	        unsigned long long count;
-		unsigned int tmp;
-		char c;
+	    प्रति (j = 0; j < func->n_पङ्क्तिः; j++) {
+		tcov_पङ्क्तिः *पङ्क्तिः = &func->पङ्क्तिः[j];
+	        अचिह्नित पूर्णाङ्क fline = पङ्क्तिः->fline;
+	        अचिह्नित दीर्घ दीर्घ गणनम्_2;
+		अचिह्नित पूर्णाङ्क tmp;
+		वर्ण c;
 
-		while (curline < fline &&
-		       fgets(str, sizeof(str), fp))
-		    if ((p = strchr(str, ':')) &&
-			sscanf (p + 1, "%u", &tmp) == 1)
+		यावत् (curline < fline &&
+		       fgets(str, परिमाण(str), fp))
+		    यदि ((p = strchr(str, ':')) &&
+			वाक्यात्_पठ (p + 1, "%u", &tmp) == 1)
 			curline = tmp;
-		if (sscanf (str, "%llu%c\n", &count, &c) == 2) {
-		    if (next_zero == 0)
-		        line->count += count;
-		    next_zero = c == '*';
+		यदि (वाक्यात्_पठ (str, "%llu%c\n", &गणनम्_2, &c) == 2) {
+		    यदि (अग्र_zero == 0)
+		        पङ्क्तिः->गणनम्_2 += गणनम्_2;
+		    अग्र_zero = c == '*';
 		}
 	    }
 	}
-	file = file->next;
+	file = file->अग्र;
     }
 }
 
 /* store tcov data in file */
-void __store_test_coverage (unsigned char * p)
+शून्य __store_test_coverage (अचिह्नित वर्ण * p)
 {
-    int i, j;
-    unsigned int files;
-    unsigned int funcs;
-    unsigned int blocks;
-    unsigned int blocks_run;
-    unsigned int runs;
-    char *cov_filename = (char *)p + get_value (p, 4);
+    पूर्णाङ्क i, j;
+    अचिह्नित पूर्णाङ्क files;
+    अचिह्नित पूर्णाङ्क funcs;
+    अचिह्नित पूर्णाङ्क खण्डानि;
+    अचिह्नित पूर्णाङ्क खण्डानि_सततम्;
+    अचिह्नित पूर्णाङ्क runs;
+    वर्ण *cov_filename = (वर्ण *)p + get_मानम् (p, 4);
     FILE *fp;
-    char *q;
+    वर्ण *q;
     tcov_file *file;
     tcov_file *nfile;
     tcov_function *func;
 
     fp = open_tcov_file (cov_filename);
-    if (fp == NULL) {
+    यदि (fp == रिक्त) {
 	fprintf (stderr, "Cannot create coverage file: %s\n", cov_filename);
-	return;
+	प्रत्यागम;
     }
-    file = sort_test_coverage (p);
+    file = क्रमय_test_coverage (p);
     merge_test_coverage (file, fp, &runs);
     fseek (fp, 0, SEEK_SET);
     fprintf (fp, "        -:    0:Runs:%u\n", runs);
     files = 0;
     funcs = 0;
-    blocks = 0;
-    blocks_run = 0;
+    खण्डानि = 0;
+    खण्डानि_सततम् = 0;
     nfile = file;
-    while (nfile) {
+    यावत् (nfile) {
 	files++;
-	for (i = 0; i < nfile->n_func; i++) {
+	प्रति (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
-		blocks++;
-		blocks_run += func->line[j].count != 0;
+	    प्रति (j = 0; j < func->n_पङ्क्तिः; j++) {
+		खण्डानि++;
+		खण्डानि_सततम् += func->पङ्क्तिः[j].गणनम्_2 != 0;
 	    }
 	}
-	nfile = nfile->next;
+	nfile = nfile->अग्र;
     }
-    if (blocks == 0)
-	blocks = 1;
+    यदि (खण्डानि == 0)
+	खण्डानि = 1;
     fprintf (fp, "        -:    0:All:%s Files:%u Functions:%u %.02f%%\n",
-	     cov_filename, files, funcs, 100.0 * (double) blocks_run / blocks);
+	     cov_filename, files, funcs, 100.0 * (द्विगुण) खण्डानि_सततम् / खण्डानि);
     nfile = file;
-    while (nfile) {
+    यावत् (nfile) {
 	FILE *src = fopen (nfile->filename, "r");
-	unsigned int curline = 1;
-	char str[10000];
+	अचिह्नित पूर्णाङ्क curline = 1;
+	वर्ण str[10000];
 
-        if (src == NULL)
-	     goto next;
+        यदि (src == रिक्त)
+	     गच्छ अग्र;
 	funcs = 0;
-	blocks = 0;
-	blocks_run = 0;
-	for (i = 0; i < nfile->n_func; i++) {
+	खण्डानि = 0;
+	खण्डानि_सततम् = 0;
+	प्रति (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
-		blocks++;
-		blocks_run += func->line[j].count != 0;
+	    प्रति (j = 0; j < func->n_पङ्क्तिः; j++) {
+		खण्डानि++;
+		खण्डानि_सततम् += func->पङ्क्तिः[j].गणनम्_2 != 0;
 	    }
 	}
-	if (blocks == 0)
-	    blocks = 1;
+	यदि (खण्डानि == 0)
+	    खण्डानि = 1;
         fprintf (fp, "        -:    0:File:%s Functions:%u %.02f%%\n",
-		 nfile->filename, funcs, 100.0 * (double) blocks_run / blocks);
-        for (i = 0; i < nfile->n_func; i++) {
+		 nfile->filename, funcs, 100.0 * (द्विगुण) खण्डानि_सततम् / खण्डानि);
+        प्रति (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	
-	    while (curline < func->first_line &&
-		   fgets(str, sizeof(str), src))
+	    यावत् (curline < func->first_पङ्क्तिः &&
+		   fgets(str, परिमाण(str), src))
 		fprintf (fp, "        -:%5u:%s", curline++, str);
-	    blocks = 0;
-	    blocks_run = 0;
-	    for (j = 0; j < func->n_line; j++) {
-		blocks++;
-		blocks_run += func->line[j].count != 0;
+	    खण्डानि = 0;
+	    खण्डानि_सततम् = 0;
+	    प्रति (j = 0; j < func->n_पङ्क्तिः; j++) {
+		खण्डानि++;
+		खण्डानि_सततम् += func->पङ्क्तिः[j].गणनम्_2 != 0;
 	    }
-	    if (blocks == 0)
-		blocks = 1;
+	    यदि (खण्डानि == 0)
+		खण्डानि = 1;
             fprintf (fp, "        -:    0:Function:%s %.02f%%\n",
-		     func->function, 100.0 * (double) blocks_run / blocks);
-#if 0
-	    for (j = 0; j < func->n_line; j++) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-		unsigned long long count = func->line[j].count;
+		     func->function, 100.0 * (द्विगुण) खण्डानि_सततम् / खण्डानि);
+#यदि 0
+	    प्रति (j = 0; j < func->n_पङ्क्तिः; j++) {
+	        अचिह्नित पूर्णाङ्क fline = func->पङ्क्तिः[j].fline;
+	        अचिह्नित पूर्णाङ्क lline = func->पङ्क्तिः[j].lline;
+		अचिह्नित दीर्घ दीर्घ गणनम्_2 = func->पङ्क्तिः[j].गणनम्_2;
 
-		fprintf (fp, "%u %u %llu\n", fline, lline, count);
+		fprintf (fp, "%u %u %llu\n", fline, lline, गणनम्_2);
 	    }
-#endif
-	    for (j = 0; j < func->n_line;) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-	        unsigned long long count = func->line[j].count;
-		unsigned int has_zero = 0;
-		unsigned int same_line = fline == lline;
+#यदि_अन्तः
+	    प्रति (j = 0; j < func->n_पङ्क्तिः;) {
+	        अचिह्नित पूर्णाङ्क fline = func->पङ्क्तिः[j].fline;
+	        अचिह्नित पूर्णाङ्क lline = func->पङ्क्तिः[j].lline;
+	        अचिह्नित दीर्घ दीर्घ गणनम्_2 = func->पङ्क्तिः[j].गणनम्_2;
+		अचिह्नित पूर्णाङ्क has_zero = 0;
+		अचिह्नित पूर्णाङ्क same_पङ्क्तिः = fline == lline;
 
 		j++;
-		while (j < func->n_line) {
-	            unsigned int nfline = func->line[j].fline;
-	            unsigned int nlline = func->line[j].lline;
-	            unsigned long long ncount = func->line[j].count;
+		यावत् (j < func->n_पङ्क्तिः) {
+	            अचिह्नित पूर्णाङ्क nfline = func->पङ्क्तिः[j].fline;
+	            अचिह्नित पूर्णाङ्क nlline = func->पङ्क्तिः[j].lline;
+	            अचिह्नित दीर्घ दीर्घ ncount = func->पङ्क्तिः[j].गणनम्_2;
 
-		    if (fline == nfline) {
-			if (ncount == 0)
+		    यदि (fline == nfline) {
+			यदि (ncount == 0)
 			    has_zero = 1;
-			else if (ncount > count)
-			    count =  ncount;
-			same_line = nfline == nlline;
+			अन्यथा यदि (ncount > गणनम्_2)
+			    गणनम्_2 =  ncount;
+			same_पङ्क्तिः = nfline == nlline;
 			lline = nlline;
 			j++;
 		    }
-		    else
-			break;
+		    अन्यथा
+			भङ्ग;
 		}
-		if (same_line)
+		यदि (same_पङ्क्तिः)
 		     lline++;
 
-	        while (curline < fline &&
-		       fgets(str, sizeof(str), src))
+	        यावत् (curline < fline &&
+		       fgets(str, परिमाण(str), src))
 		     fprintf (fp, "        -:%5u:%s", curline++, str);
-		while (curline < lline &&
-		       fgets(str, sizeof(str), src)) {
-		    if (count == 0)
+		यावत् (curline < lline &&
+		       fgets(str, परिमाण(str), src)) {
+		    यदि (गणनम्_2 == 0)
 		        fprintf (fp, "    #####:%5u:%s",
 				 curline, str);
-		    else if (has_zero)
+		    अन्यथा यदि (has_zero)
 		        fprintf (fp, "%8llu*:%5u:%s", 
-				 count, curline, str);
-		    else
+				 गणनम्_2, curline, str);
+		    अन्यथा
 		        fprintf (fp, "%9llu:%5u:%s",
-				 count, curline, str);
+				 गणनम्_2, curline, str);
 		    curline++;
 		}
 	    }
 	}
-	while (fgets(str, sizeof(str), src))
+	यावत् (fgets(str, परिमाण(str), src))
 	    fprintf (fp, "        -:%5u:%s", curline++, str);
 	fclose (src);
-next:
-	nfile = nfile->next;
+अग्र:
+	nfile = nfile->अग्र;
     }
-    while (file) {
-        for (i = 0; i < file->n_func; i++) {
+    यावत् (file) {
+        प्रति (i = 0; i < file->n_func; i++) {
 	    func = &file->func[i];
-	    free (func->line);
+	    मुक्त (func->पङ्क्तिः);
         }
-	free (file->func);
+	मुक्त (file->func);
 	nfile = file;
-	file = file->next;
-	free (nfile);
+	file = file->अग्र;
+	मुक्त (nfile);
     }
     fclose (fp);
 }

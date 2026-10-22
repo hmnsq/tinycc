@@ -4,31 +4,31 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _TIMEB_H_S
-#define _TIMEB_H_S
+#यदि_अपरिभाषितम् _TIMEB_H_S
+#परिभाषय _TIMEB_H_S
 
-#include <sys/timeb.h>
+#अन्तर्भाव <sys/timeb.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
-#if defined(MINGW_HAS_SECURE_API)
+#यदि defined(MINGW_HAS_SECURE_API)
 
-#ifdef _USE_32BIT_TIME_T
-#define _ftime_s _ftime32_s
-#else
-#define _ftime_s _ftime64_s
-#endif
+#यदि_परिभाषितम् _USE_32BIT_TIME_T
+#परिभाषय _ftime_s _ftime32_s
+#अन्यथा
+#परिभाषय _ftime_s _ftime64_s
+#यदि_अन्तः
 
-  _CRTIMP errno_t __cdecl _ftime32_s(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _ftime64_s(struct __timeb64 *_Time);
-#endif
-#endif
+  _CRTIMP errno_t __cdecl _ftime32_s(संरचना __timeb32 *_Time);
+#यदि INTEGRAL_MAX_द्वयङ्काः >= 64
+  _CRTIMP errno_t __cdecl _ftime64_s(संरचना __timeb64 *_Time);
+#यदि_अन्तः
+#यदि_अन्तः
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 }
-#endif
+#यदि_अन्तः
 
-#endif
+#यदि_अन्तः

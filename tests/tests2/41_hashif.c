@@ -1,85 +1,85 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-   printf("#include test\n");
+   प्रारूप_लिख("#include test\n");
 
-#if 1
-#if 0
-   printf("a\n");
-#else
-   printf("b\n");
-#endif
-#else
-#if 0
-   printf("c\n");
-#else
-   printf("d\n");
-#endif
-#endif
+#यदि 1
+#यदि 0
+   प्रारूप_लिख("a\n");
+#अन्यथा
+   प्रारूप_लिख("b\n");
+#यदि_अन्तः
+#अन्यथा
+#यदि 0
+   प्रारूप_लिख("c\n");
+#अन्यथा
+   प्रारूप_लिख("d\n");
+#यदि_अन्तः
+#यदि_अन्तः
 
-#if 0
-#if 1
-   printf("e\n");
-#else
-   printf("f\n");
-#endif
-#else
-#if 1
-   printf("g\n");
-#else
-   printf("h\n");
-#endif
-#endif
+#यदि 0
+#यदि 1
+   प्रारूप_लिख("e\n");
+#अन्यथा
+   प्रारूप_लिख("f\n");
+#यदि_अन्तः
+#अन्यथा
+#यदि 1
+   प्रारूप_लिख("g\n");
+#अन्यथा
+   प्रारूप_लिख("h\n");
+#यदि_अन्तः
+#यदि_अन्तः
 
-#define DEF
+#परिभाषय DEF
 
-#ifdef DEF
-#ifdef DEF
-   printf("i\n");
-#else
-   printf("j\n");
-#endif
-#else
-#ifdef DEF
-   printf("k\n");
-#else
-   printf("l\n");
-#endif
-#endif
+#यदि_परिभाषितम् DEF
+#यदि_परिभाषितम् DEF
+   प्रारूप_लिख("i\n");
+#अन्यथा
+   प्रारूप_लिख("j\n");
+#यदि_अन्तः
+#अन्यथा
+#यदि_परिभाषितम् DEF
+   प्रारूप_लिख("k\n");
+#अन्यथा
+   प्रारूप_लिख("l\n");
+#यदि_अन्तः
+#यदि_अन्तः
 
-#ifndef DEF
-#ifndef DEF
-   printf("m\n");
-#else
-   printf("n\n");
-#endif
-#else
-#ifndef DEF
-   printf("o\n");
-#else
-   printf("p\n");
-#endif
-#endif
+#यदि_अपरिभाषितम् DEF
+#यदि_अपरिभाषितम् DEF
+   प्रारूप_लिख("m\n");
+#अन्यथा
+   प्रारूप_लिख("n\n");
+#यदि_अन्तः
+#अन्यथा
+#यदि_अपरिभाषितम् DEF
+   प्रारूप_लिख("o\n");
+#अन्यथा
+   प्रारूप_लिख("p\n");
+#यदि_अन्तः
+#यदि_अन्तः
 
-#define ONE 1
-#define ZERO 0
+#परिभाषय ONE 1
+#परिभाषय ZERO 0
 
-#if ONE
-#if ZERO
-   printf("q\n");
-#else
-   printf("r\n");
-#endif
-#else
-#if ZERO
-   printf("s\n");
-#else
-   printf("t\n");
-#endif
-#endif
+#यदि ONE
+#यदि ZERO
+   प्रारूप_लिख("q\n");
+#अन्यथा
+   प्रारूप_लिख("r\n");
+#यदि_अन्तः
+#अन्यथा
+#यदि ZERO
+   प्रारूप_लिख("s\n");
+#अन्यथा
+   प्रारूप_लिख("t\n");
+#यदि_अन्तः
+#यदि_अन्तः
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

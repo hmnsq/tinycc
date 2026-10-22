@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#include "tcc.h"
+#अन्तर्भाव "tcc.h"
 
 /* In order to make life easy for us we are generating Mach-O files which
    don't make use of some modern features, but which aren't entirely classic
@@ -31,100 +31,100 @@
    to setup our own crt code.  We're not using lazy linking, so even function
    calls are resolved at startup.  */
 
-#if !defined TCC_TARGET_X86_64 && !defined TCC_TARGET_ARM64
-#error Platform not supported
-#endif
+#यदि !defined TCC_TARGET_X86_64 && !defined TCC_TARGET_ARM64
+#दोषः Platform not supported
+#यदि_अन्तः
 
 /* XXX: this file uses tcc_error() to the effect of exit(1) */
-#undef _tcc_error
+#अपरिभाषय _tcc_error
 
-#define DEBUG_MACHO 0
-#define dprintf if (DEBUG_MACHO) printf
+#परिभाषय DEBUG_MACHO 0
+#परिभाषय dprintf यदि (DEBUG_MACHO) प्रारूप_लिख
 
-#define MH_EXECUTE              (0x2)
-#define MH_DYLDLINK             (0x4)
-#define MH_DYLIB                (0x6)
-#define MH_PIE                  (0x200000)
+#परिभाषय MH_EXECUTE              (0x2)
+#परिभाषय MH_DYLDLINK             (0x4)
+#परिभाषय MH_DYLIB                (0x6)
+#परिभाषय MH_PIE                  (0x200000)
 
-#define CPU_SUBTYPE_LIB64       (0x80000000)
-#define CPU_SUBTYPE_X86_ALL     (3)
-#define CPU_SUBTYPE_ARM64_ALL   (0)
+#परिभाषय CPU_SUBTYPE_LIB64       (0x80000000)
+#परिभाषय CPU_SUBTYPE_X86_ALL     (3)
+#परिभाषय CPU_SUBTYPE_ARM64_ALL   (0)
 
-#define CPU_ARCH_ABI64          (0x01000000)
+#परिभाषय CPU_ARCH_ABI64          (0x01000000)
 
-#define CPU_TYPE_X86            (7)
-#define CPU_TYPE_X86_64         (CPU_TYPE_X86 | CPU_ARCH_ABI64)
-#define CPU_TYPE_ARM            (12)
-#define CPU_TYPE_ARM64          (CPU_TYPE_ARM | CPU_ARCH_ABI64)
+#परिभाषय CPU_TYPE_X86            (7)
+#परिभाषय CPU_TYPE_X86_64         (CPU_TYPE_X86 | CPU_ARCH_ABI64)
+#परिभाषय CPU_TYPE_ARM            (12)
+#परिभाषय CPU_TYPE_ARM64          (CPU_TYPE_ARM | CPU_ARCH_ABI64)
 
-struct fat_header {
+संरचना fat_शीर्षकम् {
     uint32_t        magic;          /* FAT_MAGIC or FAT_MAGIC_64 */
     uint32_t        nfat_arch;      /* number of structs that follow */
 };
 
-struct fat_arch {
-    int             cputype;        /* cpu specifier (int) */
-    int             cpusubtype;     /* machine specifier (int) */
-    uint32_t        offset;         /* file offset to this object file */
-    uint32_t        size;           /* size of this object file */
+संरचना fat_arch {
+    पूर्णाङ्क             cputype;        /* cpu specifier (int) */
+    पूर्णाङ्क             cpusubtype;     /* machine specifier (int) */
+    uint32_t        विस्थापनम्;         /* file offset to this object file */
+    uint32_t        आकार;           /* size of this object file */
     uint32_t        align;          /* alignment as a power of 2 */
 };
 
-#define FAT_MAGIC       0xcafebabe
-#define FAT_CIGAM       0xbebafeca
-#define FAT_MAGIC_64    0xcafebabf
-#define FAT_CIGAM_64    0xbfbafeca
+#परिभाषय FAT_MAGIC       0xcafebabe
+#परिभाषय FAT_CIGAM       0xbebafeca
+#परिभाषय FAT_MAGIC_64    0xcafebabf
+#परिभाषय FAT_CIGAM_64    0xbfbafeca
 
-struct mach_header {
+संरचना mach_शीर्षकम् {
     uint32_t        magic;          /* mach magic number identifier */
-    int             cputype;        /* cpu specifier */
-    int             cpusubtype;     /* machine specifier */
+    पूर्णाङ्क             cputype;        /* cpu specifier */
+    पूर्णाङ्क             cpusubtype;     /* machine specifier */
     uint32_t        filetype;       /* type of file */
     uint32_t        ncmds;          /* number of load commands */
     uint32_t        sizeofcmds;     /* the size of all the load commands */
     uint32_t        flags;          /* flags */
 };
 
-struct mach_header_64 {
-    struct mach_header  mh;
+संरचना mach_शीर्षकम्_64 {
+    संरचना mach_शीर्षकम्  mh;
     uint32_t            reserved;       /* reserved, pad to 64bit */
 };
 
 /* Constant for the magic field of the mach_header (32-bit architectures) */
-#define MH_MAGIC        0xfeedface      /* the mach magic number */
-#define MH_CIGAM        0xcefaedfe      /* NXSwapInt(MH_MAGIC) */
-#define MH_MAGIC_64     0xfeedfacf      /* the 64-bit mach magic number */
-#define MH_CIGAM_64     0xcffaedfe      /* NXSwapInt(MH_MAGIC_64) */
+#परिभाषय MH_MAGIC        0xfeedface      /* the mach magic number */
+#परिभाषय MH_CIGAM        0xcefaedfe      /* NXSwapInt(MH_MAGIC) */
+#परिभाषय MH_MAGIC_64     0xfeedfacf      /* the 64-bit mach magic number */
+#परिभाषय MH_CIGAM_64     0xcffaedfe      /* NXSwapInt(MH_MAGIC_64) */
 
-struct load_command {
+संरचना आरोपय_command {
     uint32_t        cmd;            /* type of load command */
     uint32_t        cmdsize;        /* total size of command in bytes */
 };
 
-#define LC_REQ_DYLD 0x80000000
-#define LC_SYMTAB        0x2
-#define LC_DYSYMTAB      0xb
-#define LC_LOAD_DYLIB    0xc
-#define LC_ID_DYLIB      0xd
-#define LC_LOAD_DYLINKER 0xe
-#define LC_SEGMENT_64    0x19
-#define LC_RPATH (0x1c | LC_REQ_DYLD)
-#define LC_REEXPORT_DYLIB (0x1f | LC_REQ_DYLD)
-#define LC_DYLD_INFO_ONLY (0x22|LC_REQ_DYLD)
-#define LC_MAIN (0x28|LC_REQ_DYLD)
-#define LC_SOURCE_VERSION 0x2A
-#define LC_BUILD_VERSION 0x32
-#define LC_DYLD_EXPORTS_TRIE (0x33 | LC_REQ_DYLD)
-#define LC_DYLD_CHAINED_FIXUPS (0x34 | LC_REQ_DYLD)
+#परिभाषय LC_REQ_DYLD 0x80000000
+#परिभाषय LC_SYMTAB        0x2
+#परिभाषय LC_DYSYMTAB      0xb
+#परिभाषय LC_आरोपय_DYLIB    0xc
+#परिभाषय LC_ID_DYLIB      0xd
+#परिभाषय LC_आरोपय_DYLINKER 0xe
+#परिभाषय LC_SEGMENT_64    0x19
+#परिभाषय LC_RPATH (0x1c | LC_REQ_DYLD)
+#परिभाषय LC_REEXPORT_DYLIB (0x1f | LC_REQ_DYLD)
+#परिभाषय LC_DYLD_INFO_ONLY (0x22|LC_REQ_DYLD)
+#परिभाषय LC_MAIN (0x28|LC_REQ_DYLD)
+#परिभाषय LC_SOURCE_संस्करणम् 0x2A
+#परिभाषय LC_BUILD_संस्करणम् 0x32
+#परिभाषय LC_DYLD_EXPORTS_TRIE (0x33 | LC_REQ_DYLD)
+#परिभाषय LC_DYLD_CHAINED_FIXUPS (0x34 | LC_REQ_DYLD)
 
-#define SG_READ_ONLY    0x10 /* This segment is made read-only after fixups */
+#परिभाषय SG_READ_ONLY    0x10 /* This segment is made read-only after fixups */
 
-typedef int vm_prot_t;
+प्रकारनिर्देश पूर्णाङ्क vm_prot_t;
 
-struct segment_command_64 { /* for 64-bit architectures */
+संरचना segment_command_64 { /* for 64-bit architectures */
     uint32_t        cmd;            /* LC_SEGMENT_64 */
     uint32_t        cmdsize;        /* includes sizeof section_64 structs */
-    char            segname[16];    /* segment name */
+    वर्ण            segname[16];    /* segment name */
     uint64_t        vmaddr;         /* memory address of this segment */
     uint64_t        vmsize;         /* memory size of this segment */
     uint64_t        fileoff;        /* file offset of this segment */
@@ -135,12 +135,12 @@ struct segment_command_64 { /* for 64-bit architectures */
     uint32_t        flags;          /* flags */
 };
 
-struct section_64 { /* for 64-bit architectures */
-    char            sectname[16];   /* name of this section */
-    char            segname[16];    /* segment this section goes in */
+संरचना section_64 { /* for 64-bit architectures */
+    वर्ण            sectname[16];   /* name of this section */
+    वर्ण            segname[16];    /* segment this section goes in */
     uint64_t        addr;           /* memory address of this section */
-    uint64_t        size;           /* size in bytes of this section */
-    uint32_t        offset;         /* file offset of this section */
+    uint64_t        आकार;           /* size in bytes of this section */
+    uint32_t        विस्थापनम्;         /* file offset of this section */
     uint32_t        align;          /* section alignment (power of 2) */
     uint32_t        reloff;         /* file offset of relocation entries */
     uint32_t        nreloc;         /* number of relocation entries */
@@ -150,118 +150,118 @@ struct section_64 { /* for 64-bit architectures */
     uint32_t        reserved3;      /* reserved */
 };
 
-enum {
+गणना {
     DYLD_CHAINED_IMPORT          = 1,
 };
 
-struct dyld_chained_fixups_header {
-    uint32_t    fixups_version; ///< 0
-    uint32_t    starts_offset;  ///< Offset of dyld_chained_starts_in_image.
-    uint32_t    imports_offset; ///< Offset of imports table in chain_data.
-    uint32_t    symbols_offset; ///< Offset of symbol strings in chain_data.
-    uint32_t    imports_count;  ///< Number of imported symbol names.
+संरचना dyld_chained_fixups_शीर्षकम् {
+    uint32_t    fixups_संस्करणम्; ///< 0
+    uint32_t    starts_विस्थापनम्;  ///< Offset of dyld_chained_starts_in_image.
+    uint32_t    imports_विस्थापनम्; ///< Offset of imports table in chain_data.
+    uint32_t    symbols_विस्थापनम्; ///< Offset of symbol strings in chain_data.
+    uint32_t    imports_गणनम्;  ///< Number of imported symbol names.
     uint32_t    imports_format; ///< DYLD_CHAINED_IMPORT*
     uint32_t    symbols_format; ///< 0 => uncompressed, 1 => zlib compressed
 };
 
-struct dyld_chained_starts_in_image
+संरचना dyld_chained_starts_अन्तर्_image
 {
-    uint32_t    seg_count;
-    uint32_t    seg_info_offset[1];  // each entry is offset into this struct for that segment
+    uint32_t    seg_गणनम्;
+    uint32_t    seg_info_विस्थापनम्[1];  // each entry is offset into this struct for that segment
     // followed by pool of dyld_chain_starts_in_segment data
 };
 
-enum {
+गणना {
     DYLD_CHAINED_PTR_64                     =  2,    // target is vmaddr
-    DYLD_CHAINED_PTR_64_OFFSET              =  6,    // target is vm offset
+    DYLD_CHAINED_PTR_64_विस्थापनम्              =  6,    // target is vm offset
 };
 
-enum {
+गणना {
     DYLD_CHAINED_PTR_START_NONE   = 0xFFFF, // used in page_start[] to denote a page with no fixups
 };
 
-#define SEG_PAGE_SIZE 16384
+#परिभाषय SEG_PAGE_आकार 16384
 
-struct dyld_chained_starts_in_segment
+संरचना dyld_chained_starts_अन्तर्_segment
 {
-    uint32_t    size;               // size of this (amount kernel needs to copy)
-    uint16_t    page_size;          // 0x1000 or 0x4000
+    uint32_t    आकार;               // size of this (amount kernel needs to copy)
+    uint16_t    page_आकार;          // 0x1000 or 0x4000
     uint16_t    pointer_format;     // DYLD_CHAINED_PTR_*
-    uint64_t    segment_offset;     // offset in memory to start of segment
+    uint64_t    segment_विस्थापनम्;     // offset in memory to start of segment
     uint32_t    max_valid_pointer;  // for 32-bit OS, any value beyond this is not a pointer
-    uint16_t    page_count;         // how many pages are in array
+    uint16_t    page_गणनम्;         // how many pages are in array
     uint16_t    page_start[1];      // each entry is offset in each page of first element in chain
                                     // or DYLD_CHAINED_PTR_START_NONE if no fixups on page
 };
 
-enum BindSpecialDylib {
+गणना BindSpecialDylib {
   BIND_SPECIAL_DYLIB_FLAT_LOOKUP = -2,
 };
 
-struct dyld_chained_import
+संरचना dyld_chained_import
 {
     uint32_t    lib_ordinal :  8,
                 weak_import :  1,
-                name_offset : 23;
+                name_विस्थापनम् : 23;
 };
 
-struct dyld_chained_ptr_64_rebase
+संरचना dyld_chained_ptr_64_rebase
 {
     uint64_t    target    : 36,    // vmaddr, 64GB max image size
                 high8     :  8,    // top 8 bits set to this after slide added
                 reserved  :  7,    // all zeros
-                next      : 12,    // 4-byte stride
+                अग्र      : 12,    // 4-byte stride
                 bind      :  1;    // == 0
 };
 
-struct dyld_chained_ptr_64_bind
+संरचना dyld_chained_ptr_64_bind
 {
     uint64_t    ordinal   : 24,
                 addend    :  8,   // 0 thru 255
                 reserved  : 19,   // all zeros
-                next      : 12,   // 4-byte stride
+                अग्र      : 12,   // 4-byte stride
                 bind      :  1;   // == 1
 };
 
-#define S_REGULAR                       0x0
-#define S_ZEROFILL                      0x1
-#define S_NON_LAZY_SYMBOL_POINTERS      0x6
-#define S_LAZY_SYMBOL_POINTERS          0x7
-#define S_SYMBOL_STUBS                  0x8
-#define S_MOD_INIT_FUNC_POINTERS        0x9
-#define S_MOD_TERM_FUNC_POINTERS        0xa
+#परिभाषय S_REGULAR                       0x0
+#परिभाषय S_ZEROFILL                      0x1
+#परिभाषय S_NON_LAZY_चिह्नम्_सूचकाः      0x6
+#परिभाषय S_LAZY_चिह्नम्_सूचकाः          0x7
+#परिभाषय S_चिह्नम्_STUBS                  0x8
+#परिभाषय S_MOD_INIT_FUNC_सूचकाः        0x9
+#परिभाषय S_MOD_पदांशः_FUNC_सूचकाः        0xa
 
-#define S_ATTR_PURE_INSTRUCTIONS        0x80000000
-#define S_ATTR_SOME_INSTRUCTIONS        0x00000400
-#define S_ATTR_DEBUG             	0x02000000
+#परिभाषय S_ATTR_विशुद्धम्_INSTRUCTIONS        0x80000000
+#परिभाषय S_ATTR_SOME_INSTRUCTIONS        0x00000400
+#परिभाषय S_ATTR_DEBUG             	0x02000000
 
 
-typedef uint32_t lc_str;
+प्रकारनिर्देश uint32_t lc_str;
 
-struct dylib_command {
+संरचना dylib_command {
     uint32_t cmd;                   /* LC_ID_DYLIB, LC_LOAD_{,WEAK_}DYLIB,
                                        LC_REEXPORT_DYLIB */
     uint32_t cmdsize;               /* includes pathname string */
     lc_str   name;                  /* library's path name */
     uint32_t timestamp;             /* library's build time stamp */
-    uint32_t current_version;       /* library's current version number */
-    uint32_t compatibility_version; /* library's compatibility vers number*/
+    uint32_t current_संस्करणम्;       /* library's current version number */
+    uint32_t compatibility_संस्करणम्; /* library's compatibility vers number*/
 };
 
-struct rpath_command {
+संरचना rpath_command {
     uint32_t     cmd;           /* LC_RPATH */
     uint32_t     cmdsize;       /* includes string */
-    lc_str       path;          /* path to add to run path */
+    lc_str       मार्गः;          /* path to add to run path */
 };
 
-struct dylinker_command {
+संरचना dylinker_command {
     uint32_t        cmd;            /* LC_ID_DYLINKER, LC_LOAD_DYLINKER or
                                        LC_DYLD_ENVIRONMENT */
     uint32_t        cmdsize;        /* includes pathname string */
     lc_str          name;           /* dynamic linker's path name */
 };
 
-struct linkedit_data_command {
+संरचना linkedit_दत्त_command {
     uint32_t    cmd;            /* LC_CODE_SIGNATURE, LC_SEGMENT_SPLIT_INFO,
                                    LC_FUNCTION_STARTS, LC_DATA_IN_CODE,
                                    LC_DYLIB_CODE_SIGN_DRS,
@@ -273,9 +273,9 @@ struct linkedit_data_command {
     uint32_t    datasize;       /* file size of data in __LINKEDIT segment  */
 };
 
-#define PLATFORM_MACOS 1
+#परिभाषय PLATFORM_MACOS 1
 
-struct build_version_command {
+संरचना build_संस्करणम्_command {
     uint32_t    cmd;            /* LC_BUILD_VERSION */
     uint32_t    cmdsize;        /* sizeof(struct build_version_command) plus */
                                 /* ntools * sizeof(struct build_tool_version) */
@@ -285,13 +285,13 @@ struct build_version_command {
     uint32_t    ntools;         /* number of tool entries following this */
 };
 
-struct source_version_command {
+संरचना source_संस्करणम्_command {
     uint32_t  cmd;      /* LC_SOURCE_VERSION */
     uint32_t  cmdsize;  /* 16 */
-    uint64_t  version;  /* A.B.C.D.E packed as a24.b10.c10.d10.e10 */
+    uint64_t  संस्करणम्;  /* A.B.C.D.E packed as a24.b10.c10.d10.e10 */
 };
 
-struct symtab_command {
+संरचना symtab_command {
     uint32_t        cmd;            /* LC_SYMTAB */
     uint32_t        cmdsize;        /* sizeof(struct symtab_command) */
     uint32_t        symoff;         /* symbol table offset */
@@ -300,7 +300,7 @@ struct symtab_command {
     uint32_t        strsize;        /* string table size in bytes */
 };
 
-struct dysymtab_command {
+संरचना dysymtab_command {
     uint32_t cmd;       /* LC_DYSYMTAB */
     uint32_t cmdsize;   /* sizeof(struct dysymtab_command) */
 
@@ -331,263 +331,263 @@ struct dysymtab_command {
     uint32_t nlocrel;   /* number of local relocation entries */
 };
 
-#define BIND_OPCODE_DONE                                        0x00
-#define BIND_OPCODE_SET_DYLIB_SPECIAL_IMM                       0x30
-#define BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM               0x40
-#define BIND_OPCODE_SET_TYPE_IMM                                0x50
-#define BIND_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB                 0x70
-#define BIND_OPCODE_DO_BIND                                     0x90
+#परिभाषय BIND_OPCODE_समाप्तम्                                        0x00
+#परिभाषय BIND_OPCODE_समुच्चयः_DYLIB_SPECIAL_IMM                       0x30
+#परिभाषय BIND_OPCODE_समुच्चयः_चिह्नम्_TRAILING_FLAGS_IMM               0x40
+#परिभाषय BIND_OPCODE_समुच्चयः_TYPE_IMM                                0x50
+#परिभाषय BIND_OPCODE_समुच्चयः_SEGMENT_AND_विस्थापनम्_ULEB                 0x70
+#परिभाषय BIND_OPCODE_DO_BIND                                     0x90
 
-#define BIND_SYMBOL_FLAGS_WEAK_IMPORT                           0x1
+#परिभाषय BIND_चिह्नम्_FLAGS_WEAK_IMPORT                           0x1
 
-#define BIND_TYPE_POINTER                                       1
-#define BIND_SPECIAL_DYLIB_FLAT_LOOKUP                          -2
+#परिभाषय BIND_TYPE_POINTER                                       1
+#परिभाषय BIND_SPECIAL_DYLIB_FLAT_LOOKUP                          -2
 
-#define REBASE_OPCODE_DONE                                      0x00
-#define REBASE_OPCODE_SET_TYPE_IMM                              0x10
-#define REBASE_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB               0x20
-#define REBASE_OPCODE_DO_REBASE_IMM_TIMES                       0x50
+#परिभाषय REBASE_OPCODE_समाप्तम्                                      0x00
+#परिभाषय REBASE_OPCODE_समुच्चयः_TYPE_IMM                              0x10
+#परिभाषय REBASE_OPCODE_समुच्चयः_SEGMENT_AND_विस्थापनम्_ULEB               0x20
+#परिभाषय REBASE_OPCODE_DO_REBASE_IMM_TIMES                       0x50
 
-#define REBASE_TYPE_POINTER                                     1
+#परिभाषय REBASE_TYPE_POINTER                                     1
 
-#define EXPORT_SYMBOL_FLAGS_KIND_REGULAR                        0x00
-#define EXPORT_SYMBOL_FLAGS_KIND_ABSOLUTE                       0x02
-#define EXPORT_SYMBOL_FLAGS_WEAK_DEFINITION                     0x04
+#परिभाषय EXPORT_चिह्नम्_FLAGS_विधा_REGULAR                        0x00
+#परिभाषय EXPORT_चिह्नम्_FLAGS_विधा_ABSOLUTE                       0x02
+#परिभाषय EXPORT_चिह्नम्_FLAGS_WEAK_DEFINITION                     0x04
 
-struct dyld_info_command {
+संरचना dyld_info_command {
     uint32_t cmd;             /* LC_DYLD_INFO or LC_DYLD_INFO_ONLY */
     uint32_t cmdsize;         /* sizeof(struct dyld_info_command) */
     uint32_t rebase_off;      /* file offset to rebase info  */
-    uint32_t rebase_size;     /* size of rebase info   */
+    uint32_t rebase_आकार;     /* size of rebase info   */
     uint32_t bind_off;        /* file offset to binding info   */
-    uint32_t bind_size;       /* size of binding info  */
+    uint32_t bind_आकार;       /* size of binding info  */
     uint32_t weak_bind_off;   /* file offset to weak binding info   */
-    uint32_t weak_bind_size;  /* size of weak binding info  */
+    uint32_t weak_bind_आकार;  /* size of weak binding info  */
     uint32_t lazy_bind_off;   /* file offset to lazy binding info */
-    uint32_t lazy_bind_size;  /* size of lazy binding infs */
+    uint32_t lazy_bind_आकार;  /* size of lazy binding infs */
     uint32_t export_off;      /* file offset to lazy binding info */
-    uint32_t export_size;     /* size of lazy binding infs */
+    uint32_t export_आकार;     /* size of lazy binding infs */
 };
 
-#define INDIRECT_SYMBOL_LOCAL   0x80000000
+#परिभाषय परोक्षम्_चिह्नम्_LOCAL   0x80000000
 
-struct entry_point_command {
+संरचना प्रविष्टिः_point_command {
     uint32_t  cmd;      /* LC_MAIN only used in MH_EXECUTE filetypes */
     uint32_t  cmdsize;  /* 24 */
     uint64_t  entryoff; /* file (__TEXT) offset of main() */
     uint64_t  stacksize;/* if not zero, initial stack size */
 };
 
-enum skind {
+गणना skind {
     sk_unknown = 0,
     sk_discard,
     sk_text,
     sk_stubs,
     sk_stub_helper,
-    sk_ro_data,
+    sk_ro_दत्त,
     sk_uw_info,
     sk_nl_ptr,  // non-lazy pointers, aka GOT
     sk_debug_info,
     sk_debug_abbrev,
-    sk_debug_line,
+    sk_debug_पङ्क्तिः,
     sk_debug_aranges,
     sk_debug_str,
-    sk_debug_line_str,
+    sk_debug_पङ्क्तिः_str,
     sk_stab,
     sk_stab_str,
     sk_la_ptr,  // lazy pointers
     sk_init,
     sk_fini,
-    sk_rw_data,
+    sk_rw_दत्त,
     sk_bss,
     sk_linkedit,
-    sk_last
+    sk_चरमः
 };
 
-struct nlist_64 {
+संरचना nlist_64 {
     uint32_t  n_strx;      /* index into the string table */
     uint8_t n_type;        /* type flag, see below */
     uint8_t n_sect;        /* section number or NO_SECT */
     uint16_t n_desc;       /* see <mach-o/stab.h> */
-    uint64_t n_value;      /* value of this symbol (or stab offset) */
+    uint64_t n_मानम्;      /* value of this symbol (or stab offset) */
 };
 
-#define N_UNDF  0x0
-#define N_ABS   0x2
-#define N_EXT   0x1
-#define N_SECT  0xe
+#परिभाषय N_UNDF  0x0
+#परिभाषय N_ABS   0x2
+#परिभाषय N_EXT   0x1
+#परिभाषय N_SECT  0xe
 
-#define N_WEAK_REF      0x0040
-#define N_WEAK_DEF      0x0080
+#परिभाषय N_WEAK_REF      0x0040
+#परिभाषय N_WEAK_DEF      0x0080
 
-struct macho {
-    struct mach_header_64 mh;
-    int *seg2lc, nseg;
-    struct load_command **lc;
-    struct entry_point_command *ep;
-    int nlc;
-    struct {
+संरचना macho {
+    संरचना mach_शीर्षकम्_64 mh;
+    पूर्णाङ्क *seg2lc, nseg;
+    संरचना आरोपय_command **lc;
+    संरचना प्रविष्टिः_point_command *ep;
+    पूर्णाङ्क nlc;
+    संरचना {
         Section *s;
-        int machosect;
-    } sk_to_sect[sk_last];
-    int *elfsectomacho;
-    int *e2msym;
+        पूर्णाङ्क machosect;
+    } sk_गन्तव्यम्_sect[sk_चरमः];
+    पूर्णाङ्क *elfsectomacho;
+    पूर्णाङ्क *e2msym;
     Section *symtab, *strtab, *indirsyms, *stubs, *exports;
     uint32_t ilocal, iextdef, iundef;
-    int stubsym, n_got, nr_plt;
-    int segment[sk_last];
-#ifdef CONFIG_NEW_MACHO
+    पूर्णाङ्क stubsym, n_got, nr_plt;
+    पूर्णाङ्क segment[sk_चरमः];
+#यदि_परिभाषितम् CONFIG_NEW_MACHO
     Section *chained_fixups;
-    int n_bind;
-    int n_bind_rebase;
-    struct bind_rebase {
-	int section;
-	int bind;
+    पूर्णाङ्क n_bind;
+    पूर्णाङ्क n_bind_rebase;
+    संरचना bind_rebase {
+	पूर्णाङ्क section;
+	पूर्णाङ्क bind;
 	ElfW_Rel rel;
     } *bind_rebase;
-#else
+#अन्यथा
     Section *rebase, *binding, *weak_binding, *lazy_binding;
-    Section *stub_helper, *la_symbol_ptr;
-    struct dyld_info_command *dyldinfo;
-    int helpsym, lasym, dyld_private, dyld_stub_binder;
-    int n_lazy_bind;    
-    struct s_lazy_bind {
-        int section;
-        int bind_offset;
-        int la_symbol_offset;
+    Section *stub_helper, *la_चिह्नम्_ptr;
+    संरचना dyld_info_command *dyldinfo;
+    पूर्णाङ्क helpsym, lasym, dyld_वैयक्तिकम्, dyld_stub_binder;
+    पूर्णाङ्क n_lazy_bind;    
+    संरचना s_lazy_bind {
+        पूर्णाङ्क section;
+        पूर्णाङ्क bind_विस्थापनम्;
+        पूर्णाङ्क la_चिह्नम्_विस्थापनम्;
         ElfW_Rel rel;
     } *s_lazy_bind;
-    int n_rebase;    
-    struct s_rebase {
-        int section;
+    पूर्णाङ्क n_rebase;    
+    संरचना s_rebase {
+        पूर्णाङ्क section;
         ElfW_Rel rel;
     } *s_rebase;
-    int n_bind; 
-    struct bind {
-        int section;
+    पूर्णाङ्क n_bind; 
+    संरचना bind {
+        पूर्णाङ्क section;
         ElfW_Rel rel;
     } *bind;
-#endif
+#यदि_अन्तः
 };
 
-#define SHT_LINKEDIT (SHT_LOOS + 42)
-#define SHN_FROMDLL  (SHN_LOOS + 2)  /* Symbol is undefined, comes from a DLL */
+#परिभाषय SHT_LINKEDIT (SHT_LOOS + 42)
+#परिभाषय SHN_FROMDLL  (SHN_LOOS + 2)  /* Symbol is undefined, comes from a DLL */
 
-static void * add_lc(struct macho *mo, uint32_t cmd, uint32_t cmdsize)
+स्थिर शून्य * सङ्कलय_lc(संरचना macho *mo, uint32_t cmd, uint32_t cmdsize)
 {
-    struct load_command *lc = tcc_mallocz(cmdsize);
+    संरचना आरोपय_command *lc = tcc_mallocz(cmdsize);
     lc->cmd = cmd;
     lc->cmdsize = cmdsize;
-    mo->lc = tcc_realloc(mo->lc, sizeof(mo->lc[0]) * (mo->nlc + 1));
+    mo->lc = tcc_realloc(mo->lc, परिमाण(mo->lc[0]) * (mo->nlc + 1));
     mo->lc[mo->nlc++] = lc;
-    return lc;
+    प्रत्यागम lc;
 }
 
-static struct segment_command_64 * add_segment(struct macho *mo, const char *name)
+स्थिर संरचना segment_command_64 * सङ्कलय_segment(संरचना macho *mo, ध्रुव वर्ण *name)
 {
-    struct segment_command_64 *sc = add_lc(mo, LC_SEGMENT_64, sizeof(*sc));
+    संरचना segment_command_64 *sc = सङ्कलय_lc(mo, LC_SEGMENT_64, परिमाण(*sc));
     strncpy(sc->segname, name, 16);
-    mo->seg2lc = tcc_realloc(mo->seg2lc, sizeof(*mo->seg2lc) * (mo->nseg + 1));
+    mo->seg2lc = tcc_realloc(mo->seg2lc, परिमाण(*mo->seg2lc) * (mo->nseg + 1));
     mo->seg2lc[mo->nseg++] = mo->nlc - 1;
-    return sc;
+    प्रत्यागम sc;
 }
 
-static struct segment_command_64 * get_segment(struct macho *mo, int i)
+स्थिर संरचना segment_command_64 * get_segment(संरचना macho *mo, पूर्णाङ्क i)
 {
-    return (struct segment_command_64 *) (mo->lc[mo->seg2lc[i]]);
+    प्रत्यागम (संरचना segment_command_64 *) (mo->lc[mo->seg2lc[i]]);
 }
 
-static int add_section(struct macho *mo, struct segment_command_64 **_seg, const char *name)
+स्थिर पूर्णाङ्क सङ्कलय_section(संरचना macho *mo, संरचना segment_command_64 **_seg, ध्रुव वर्ण *name)
 {
-    struct segment_command_64 *seg = *_seg;
-    int ret = seg->nsects;
-    struct section_64 *sec;
+    संरचना segment_command_64 *seg = *_seg;
+    पूर्णाङ्क ret = seg->nsects;
+    संरचना section_64 *sec;
     seg->nsects++;
-    seg->cmdsize += sizeof(*sec);
-    seg = tcc_realloc(seg, sizeof(*seg) + seg->nsects * sizeof(*sec));
-    sec = (struct section_64*)((char*)seg + sizeof(*seg)) + ret;
-    memset(sec, 0, sizeof(*sec));
+    seg->cmdsize += परिमाण(*sec);
+    seg = tcc_realloc(seg, परिमाण(*seg) + seg->nsects * परिमाण(*sec));
+    sec = (संरचना section_64*)((वर्ण*)seg + परिमाण(*seg)) + ret;
+    स्मृतिं_पूरय(sec, 0, परिमाण(*sec));
     strncpy(sec->sectname, name, 16);
     strncpy(sec->segname, seg->segname, 16);
     *_seg = seg;
-    return ret;
+    प्रत्यागम ret;
 }
 
-static struct section_64 *get_section(struct segment_command_64 *seg, int i)
+स्थिर संरचना section_64 *get_section(संरचना segment_command_64 *seg, पूर्णाङ्क i)
 {
-    return (struct section_64*)((char*)seg + sizeof(*seg)) + i;
+    प्रत्यागम (संरचना section_64*)((वर्ण*)seg + परिमाण(*seg)) + i;
 }
 
-static void * add_dylib(struct macho *mo, char *name)
+स्थिर शून्य * सङ्कलय_dylib(संरचना macho *mo, वर्ण *name)
 {
-    struct dylib_command *lc;
-    int sz = (sizeof(*lc) + strlen(name) + 1 + 7) & -8;
-    lc = add_lc(mo, LC_LOAD_DYLIB, sz);
-    lc->name = sizeof(*lc);
-    strcpy((char*)lc + lc->name, name);
+    संरचना dylib_command *lc;
+    पूर्णाङ्क sz = (परिमाण(*lc) + वाक्यदैर्घ्यम्(name) + 1 + 7) & -8;
+    lc = सङ्कलय_lc(mo, LC_आरोपय_DYLIB, sz);
+    lc->name = परिमाण(*lc);
+    वाक्यं_प्रतिलिख((वर्ण*)lc + lc->name, name);
     lc->timestamp = 2;
-    lc->current_version = 1 << 16;
-    lc->compatibility_version = 1 << 16;
-    return lc;
+    lc->current_संस्करणम् = 1 << 16;
+    lc->compatibility_संस्करणम् = 1 << 16;
+    प्रत्यागम lc;
 }
 
-static int uleb128_size (unsigned long long value)
+स्थिर पूर्णाङ्क uleb128_आकार (अचिह्नित दीर्घ दीर्घ मानम्)
 {
-    int size =  0;
+    पूर्णाङ्क आकार =  0;
 
-    do {
-        value >>= 7;
-        size++;
-    } while (value != 0);
-    return size;
+    कुरु {
+        मानम् >>= 7;
+        आकार++;
+    } यावत् (मानम् != 0);
+    प्रत्यागम आकार;
 }
 
-static void write_uleb128(Section *section, uint64_t value)
+स्थिर शून्य write_uleb128(Section *section, uint64_t मानम्)
 {
-    do {
-        unsigned char byte = value & 0x7f;
-	uint8_t *ptr = section_ptr_add(section, 1);
+    कुरु {
+        अचिह्नित वर्ण byte = मानम् & 0x7f;
+	uint8_t *ptr = section_ptr_सङ्कलय(section, 1);
 
-        value >>= 7;
-        *ptr = byte | (value ? 0x80 : 0);
-    } while (value != 0);
+        मानम् >>= 7;
+        *ptr = byte | (मानम् ? 0x80 : 0);
+    } यावत् (मानम् != 0);
 }
 
-static void tcc_macho_add_destructor(TCCState *s1)
+स्थिर शून्य tcc_macho_सङ्कलय_destructor(TCCState *s1)
 {
-    int init_sym, mh_execute_header, at_exit_sym;
+    पूर्णाङ्क init_sym, mh_execute_शीर्षकम्, at_exit_sym;
     Section *s;
     ElfW_Rel *rel;
     uint8_t *ptr;
 
-    mh_execute_header = put_elf_sym(s1->symtab, -4096, 0,
+    mh_execute_शीर्षकम् = put_elf_sym(s1->symtab, -4096, 0,
 				    ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT), 0,
-				    text_section->sh_num, "__mh_execute_header");
+				    text_section->sh_अङ्कः, "__mh_execute_header");
     s = find_section(s1, ".fini_array");
-    if (s->data_offset == 0)
-        return; 
-    init_sym = put_elf_sym(s1->symtab, text_section->data_offset, 0,
+    यदि (s->दत्त_विस्थापनम् == 0)
+        प्रत्यागम; 
+    init_sym = put_elf_sym(s1->symtab, text_section->दत्त_विस्थापनम्, 0,
                            ELFW(ST_INFO)(STB_LOCAL, STT_FUNC), 0,
-                           text_section->sh_num, "___GLOBAL_init_65535");
+                           text_section->sh_अङ्कः, "___GLOBAL_init_65535");
     at_exit_sym = put_elf_sym(s1->symtab, 0, 0,
                               ELFW(ST_INFO)(STB_GLOBAL, STT_FUNC), 0,
                               SHN_UNDEF, "___cxa_atexit");
-#ifdef TCC_TARGET_X86_64
-    ptr = section_ptr_add(text_section, 4);
+#यदि_परिभाषितम् TCC_TARGET_X86_64
+    ptr = section_ptr_सङ्कलय(text_section, 4);
     ptr[0] = 0x55;  // pushq   %rbp
     ptr[1] = 0x48;  // movq    %rsp, %rbp
     ptr[2] = 0x89;
     ptr[3] = 0xe5;
     for_each_elem(s->reloc, 0, rel, ElfW_Rel) {
-        int sym_index = ELFW(R_SYM)(rel->r_info);
+        पूर्णाङ्क sym_सूचकांक = ELFW(R_SYM)(rel->r_info);
 
-        ptr = section_ptr_add(text_section, 26);
+        ptr = section_ptr_सङ्कलय(text_section, 26);
         ptr[0] = 0x48;  // lea destructor(%rip),%rax
         ptr[1] = 0x8d;
         ptr[2] = 0x05;
         put_elf_reloca(s1->symtab, text_section, 
-		       text_section->data_offset - 23,
-		       R_X86_64_PC32, sym_index, -4);
+		       text_section->दत्त_विस्थापनम् - 23,
+		       R_X86_64_PC32, sym_सूचकांक, -4);
         ptr[7] = 0x48;  // mov %rax,%rdi
         ptr[8] = 0x89;
         ptr[9] = 0xc7;
@@ -599,211 +599,211 @@ static void tcc_macho_add_destructor(TCCState *s1)
         ptr[15] = 0x8d;
         ptr[16] = 0x15;
         put_elf_reloca(s1->symtab, text_section,
-		       text_section->data_offset - 9,
-		       R_X86_64_PC32, mh_execute_header, -4);
+		       text_section->दत्त_विस्थापनम् - 9,
+		       R_X86_64_PC32, mh_execute_शीर्षकम्, -4);
 	ptr[21] = 0xe8; // call __cxa_atexit
         put_elf_reloca(s1->symtab, text_section,
-		       text_section->data_offset - 4,
+		       text_section->दत्त_विस्थापनम् - 4,
 		       R_X86_64_PLT32, at_exit_sym, -4);
     }
-    ptr = section_ptr_add(text_section, 2);
+    ptr = section_ptr_सङ्कलय(text_section, 2);
     ptr[0] = 0x5d;  // pop   %rbp
     ptr[1] = 0xc3;  // ret
-#elif defined TCC_TARGET_ARM64
-    ptr = section_ptr_add(text_section, 8);
+#नोचेद्यदि defined TCC_TARGET_ARM64
+    ptr = section_ptr_सङ्कलय(text_section, 8);
     write32le(ptr, 0xa9bf7bfd);     // stp     x29, x30, [sp, #-16]!
     write32le(ptr + 4, 0x910003fd); // mov     x29, sp
     for_each_elem(s->reloc, 0, rel, ElfW_Rel) {
-        int sym_index = ELFW(R_SYM)(rel->r_info);
+        पूर्णाङ्क sym_सूचकांक = ELFW(R_SYM)(rel->r_info);
 
-        ptr = section_ptr_add(text_section, 24);
+        ptr = section_ptr_सङ्कलय(text_section, 24);
         put_elf_reloc(s1->symtab, text_section, 
-		      text_section->data_offset - 24,
-		      R_AARCH64_ADR_PREL_PG_HI21, sym_index);
+		      text_section->दत्त_विस्थापनम् - 24,
+		      R_AARCH64_ADR_PREL_PG_HI21, sym_सूचकांक);
         write32le(ptr, 0x90000000);      // adrp x0, destructor@page
         put_elf_reloc(s1->symtab, text_section,
-		      text_section->data_offset - 20,
-		      R_AARCH64_LDST8_ABS_LO12_NC, sym_index);
+		      text_section->दत्त_विस्थापनम् - 20,
+		      R_AARCH64_LDST8_ABS_LO12_NC, sym_सूचकांक);
         write32le(ptr + 4, 0x91000000);  // add x0,x0,destructor@pageoff
         write32le(ptr + 8, 0xd2800001);  // mov x1, #0
         put_elf_reloc(s1->symtab, text_section, 
-		      text_section->data_offset - 12,
-		      R_AARCH64_ADR_PREL_PG_HI21, mh_execute_header);
+		      text_section->दत्त_विस्थापनम् - 12,
+		      R_AARCH64_ADR_PREL_PG_HI21, mh_execute_शीर्षकम्);
         write32le(ptr + 12, 0x90000002);      // adrp x2, mh_execute_header@page
         put_elf_reloc(s1->symtab, text_section,
-		      text_section->data_offset - 8,
-		      R_AARCH64_LDST8_ABS_LO12_NC, mh_execute_header);
+		      text_section->दत्त_विस्थापनम् - 8,
+		      R_AARCH64_LDST8_ABS_LO12_NC, mh_execute_शीर्षकम्);
         write32le(ptr + 16, 0x91000042);  // add x2,x2,mh_execute_header@pageoff
         put_elf_reloc(s1->symtab, text_section,
-		      text_section->data_offset - 4,
+		      text_section->दत्त_विस्थापनम् - 4,
 		      R_AARCH64_CALL26, at_exit_sym);
 	write32le(ptr + 20, 0x94000000); // bl __cxa_atexit
     }
-    ptr = section_ptr_add(text_section, 8);
+    ptr = section_ptr_सङ्कलय(text_section, 8);
     write32le(ptr, 0xa8c17bfd);     // ldp     x29, x30, [sp], #16
     write32le(ptr + 4, 0xd65f03c0); // ret
-#endif
-    s->reloc->data_offset = s->data_offset = 0;
+#यदि_अन्तः
+    s->reloc->दत्त_विस्थापनम् = s->दत्त_विस्थापनम् = 0;
     s->sh_flags &= ~SHF_ALLOC;
-    add_array (s1, ".init_array", init_sym);
+    सङ्कलय_array (s1, ".init_array", init_sym);
 }
 
-#ifdef CONFIG_NEW_MACHO
-static void bind_rebase_add(struct macho *mo, int bind, int sh_info,
-			    ElfW_Rel *rel, struct sym_attr *attr)
+#यदि_परिभाषितम् CONFIG_NEW_MACHO
+स्थिर शून्य bind_rebase_सङ्कलय(संरचना macho *mo, पूर्णाङ्क bind, पूर्णाङ्क sh_info,
+			    ElfW_Rel *rel, संरचना sym_attr *attr)
 {
     mo->bind_rebase = tcc_realloc(mo->bind_rebase, (mo->n_bind_rebase + 1) *
-		                  sizeof(struct bind_rebase));
+		                  परिमाण(संरचना bind_rebase));
     mo->bind_rebase[mo->n_bind_rebase].section = sh_info;
     mo->bind_rebase[mo->n_bind_rebase].bind = bind;
     mo->bind_rebase[mo->n_bind_rebase].rel = *rel;
-    if (attr)
-        mo->bind_rebase[mo->n_bind_rebase].rel.r_offset = attr->got_offset;
+    यदि (attr)
+        mo->bind_rebase[mo->n_bind_rebase].rel.r_विस्थापनम् = attr->got_विस्थापनम्;
     mo->n_bind_rebase++;
     mo->n_bind += bind;
 }
 
-static void check_relocs(TCCState *s1, struct macho *mo)
+स्थिर शून्य check_relocs(TCCState *s1, संरचना macho *mo)
 {
     Section *s;
     ElfW_Rel *rel, save_rel;
     ElfW(Sym) *sym;
-    int i, j, type, gotplt_entry, sym_index, for_code;
+    पूर्णाङ्क i, j, type, gotplt_प्रविष्टिः, sym_सूचकांक, for_संहिता;
     uint32_t *pi, *goti;
-    struct sym_attr *attr;
+    संरचना sym_attr *attr;
 
-    goti = NULL;
+    goti = रिक्त;
     mo->nr_plt = mo->n_got = 0;
-    for (i = 1; i < s1->nb_sections; i++) {
+    प्रति (i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_RELX ||
-	    !strncmp(s1->sections[s->sh_info]->name, ".debug_", 7))
-            continue;
+        यदि (s->sh_type != SHT_RELX ||
+	    !वाक्ये_तुलय(s1->sections[s->sh_info]->name, ".debug_", 7))
+            अनुवर्त;
         for_each_elem(s, 0, rel, ElfW_Rel) {
 	    save_rel = *rel;
             type = ELFW(R_TYPE)(rel->r_info);
-            gotplt_entry = gotplt_entry_type(type);
-            for_code = code_reloc(type);
+            gotplt_प्रविष्टिः = gotplt_प्रविष्टिः_type(type);
+            for_संहिता = संहिता_reloc(type);
             /* We generate a non-lazy pointer for used undefined symbols
                and for defined symbols that must have a place for their
                address due to codegen (i.e. a reloc requiring a got slot).  */
-            sym_index = ELFW(R_SYM)(rel->r_info);
-            sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-            if (sym->st_shndx == SHN_UNDEF
-                || gotplt_entry == ALWAYS_GOTPLT_ENTRY) {
-                attr = get_sym_attr(s1, sym_index, 1);
-                if (!attr->dyn_index) {
-                    attr->got_offset = s1->got->data_offset;
-                    attr->plt_offset = -1;
-                    attr->dyn_index = 1; /* used as flag */
-                    section_ptr_add(s1->got, PTR_SIZE);
-                    put_elf_reloc(s1->symtab, s1->got, attr->got_offset,
-                                  R_JMP_SLOT, sym_index);
-	 	    goti = tcc_realloc(goti, (mo->n_got + 1) * sizeof(*goti));
-                    if (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
-                        if (sym->st_shndx == SHN_UNDEF)
+            sym_सूचकांक = ELFW(R_SYM)(rel->r_info);
+            sym = &((ElfW(Sym) *)symtab_section->दत्त)[sym_सूचकांक];
+            यदि (sym->st_shndx == SHN_UNDEF
+                || gotplt_प्रविष्टिः == ALWAYS_GOTPLT_प्रविष्टिः) {
+                attr = get_sym_attr(s1, sym_सूचकांक, 1);
+                यदि (!attr->dyn_सूचकांक) {
+                    attr->got_विस्थापनम् = s1->got->दत्त_विस्थापनम्;
+                    attr->plt_विस्थापनम् = -1;
+                    attr->dyn_सूचकांक = 1; /* used as flag */
+                    section_ptr_सङ्कलय(s1->got, PTR_आकार);
+                    put_elf_reloc(s1->symtab, s1->got, attr->got_विस्थापनम्,
+                                  R_JMP_SLOT, sym_सूचकांक);
+	 	    goti = tcc_realloc(goti, (mo->n_got + 1) * परिमाण(*goti));
+                    यदि (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
+                        यदि (sym->st_shndx == SHN_UNDEF)
                           tcc_error("unresolved local reference to '%s'",
-				    (char *) symtab_section->link->data + sym->st_name);
-			goti[mo->n_got++] = INDIRECT_SYMBOL_LOCAL;
-                    } else {
-                        goti[mo->n_got++] = mo->e2msym[sym_index];
-                        if (sym->st_shndx == SHN_UNDEF
-#ifdef TCC_TARGET_X86_64
+				    (वर्ण *) symtab_section->link->दत्त + sym->st_name);
+			goti[mo->n_got++] = परोक्षम्_चिह्नम्_LOCAL;
+                    } अन्यथा {
+                        goti[mo->n_got++] = mo->e2msym[sym_सूचकांक];
+                        यदि (sym->st_shndx == SHN_UNDEF
+#यदि_परिभाषितम् TCC_TARGET_X86_64
                             && type == R_X86_64_GOTPCREL
-#elif defined TCC_TARGET_ARM64
+#नोचेद्यदि defined TCC_TARGET_ARM64
                             && type == R_AARCH64_ADR_GOT_PAGE
-#endif
+#यदि_अन्तः
                             ) {
-			    attr->plt_offset = -mo->n_bind_rebase - 2;
-			    bind_rebase_add(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
-			    s1->got->reloc->data_offset -= sizeof (ElfW_Rel);
+			    attr->plt_विस्थापनम् = -mo->n_bind_rebase - 2;
+			    bind_rebase_सङ्कलय(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
+			    s1->got->reloc->दत्त_विस्थापनम् -= परिमाण (ElfW_Rel);
 			}
-		        if (for_code && sym->st_shndx == SHN_UNDEF)
-			    s1->got->reloc->data_offset -= sizeof (ElfW_Rel);
+		        यदि (for_संहिता && sym->st_shndx == SHN_UNDEF)
+			    s1->got->reloc->दत्त_विस्थापनम् -= परिमाण (ElfW_Rel);
 		    }
                 }
-                if (for_code && sym->st_shndx == SHN_UNDEF) {
-		    if ((int)attr->plt_offset < -1) {
+                यदि (for_संहिता && sym->st_shndx == SHN_UNDEF) {
+		    यदि ((पूर्णाङ्क)attr->plt_विस्थापनम् < -1) {
 			/* remove above bind and replace with plt */
-			mo->bind_rebase[-attr->plt_offset - 2].bind = 2;
-			attr->plt_offset = -1;
+			mo->bind_rebase[-attr->plt_विस्थापनम् - 2].bind = 2;
+			attr->plt_विस्थापनम् = -1;
 		    }
-                    if (attr->plt_offset == -1) {
+                    यदि (attr->plt_विस्थापनम् == -1) {
                         uint8_t *jmp;
 
-                        attr->plt_offset = mo->stubs->data_offset;
-#ifdef TCC_TARGET_X86_64
-                        if (type != R_X86_64_PLT32)
-                             continue;
-                        jmp = section_ptr_add(mo->stubs, 6);
+                        attr->plt_विस्थापनम् = mo->stubs->दत्त_विस्थापनम्;
+#यदि_परिभाषितम् TCC_TARGET_X86_64
+                        यदि (type != R_X86_64_PLT32)
+                             अनुवर्त;
+                        jmp = section_ptr_सङ्कलय(mo->stubs, 6);
                         jmp[0] = 0xff;  /* jmpq *ofs(%rip) */
                         jmp[1] = 0x25;
                         put_elf_reloc(s1->symtab, mo->stubs,
-                                      attr->plt_offset + 2,
-                                      R_X86_64_GOTPCREL, sym_index);
-#elif defined TCC_TARGET_ARM64
-                        if (type != R_AARCH64_CALL26)
-                             continue;
-                        jmp = section_ptr_add(mo->stubs, 12);
+                                      attr->plt_विस्थापनम् + 2,
+                                      R_X86_64_GOTPCREL, sym_सूचकांक);
+#नोचेद्यदि defined TCC_TARGET_ARM64
+                        यदि (type != R_AARCH64_CALL26)
+                             अनुवर्त;
+                        jmp = section_ptr_सङ्कलय(mo->stubs, 12);
                         put_elf_reloc(s1->symtab, mo->stubs,
-                                      attr->plt_offset,
-                                      R_AARCH64_ADR_GOT_PAGE, sym_index);
+                                      attr->plt_विस्थापनम्,
+                                      R_AARCH64_ADR_GOT_PAGE, sym_सूचकांक);
                         write32le(jmp, // adrp x16, #sym
                                   0x90000010);
                         put_elf_reloc(s1->symtab, mo->stubs,
-                                      attr->plt_offset + 4,
-                                      R_AARCH64_LD64_GOT_LO12_NC, sym_index);
+                                      attr->plt_विस्थापनम् + 4,
+                                      R_AARCH64_LD64_GOT_LO12_NC, sym_सूचकांक);
                         write32le(jmp + 4, // ld x16,[x16, #sym]
                                   0xf9400210);
                         write32le(jmp + 8, // br x16
                                   0xd61f0200);
-#endif
-			bind_rebase_add(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
-                        pi = section_ptr_add(mo->indirsyms, sizeof(*pi));
-                        *pi = mo->e2msym[sym_index];
+#यदि_अन्तः
+			bind_rebase_सङ्कलय(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
+                        pi = section_ptr_सङ्कलय(mo->indirsyms, परिमाण(*pi));
+                        *pi = mo->e2msym[sym_सूचकांक];
                         mo->nr_plt++;
                     }
                     rel->r_info = ELFW(R_INFO)(mo->stubsym, type);
-                    rel->r_addend += attr->plt_offset;
+                    rel->r_addend += attr->plt_विस्थापनम्;
                 }
             }
-	    if (type == R_DATA_PTR || type == R_JMP_SLOT)
-		bind_rebase_add(mo, sym->st_shndx == SHN_UNDEF ? 1 : 0,
-				s->sh_info, &save_rel, NULL);
+	    यदि (type == R_दत्त_PTR || type == R_JMP_SLOT)
+		bind_rebase_सङ्कलय(mo, sym->st_shndx == SHN_UNDEF ? 1 : 0,
+				s->sh_info, &save_rel, रिक्त);
         }
     }
     /* remove deleted binds */
-    for (i = 0, j = 0; i < mo->n_bind_rebase; i++)
-	if (mo->bind_rebase[i].bind == 2)
+    प्रति (i = 0, j = 0; i < mo->n_bind_rebase; i++)
+	यदि (mo->bind_rebase[i].bind == 2)
 	    mo->n_bind--;
-	else
+	अन्यथा
 	    mo->bind_rebase[j++] = mo->bind_rebase[i];
     mo->n_bind_rebase = j;
-    pi = section_ptr_add(mo->indirsyms, mo->n_got * sizeof(*pi));
-    memcpy(pi, goti, mo->n_got * sizeof(*pi));
+    pi = section_ptr_सङ्कलय(mo->indirsyms, mo->n_got * परिमाण(*pi));
+    स्मृतिं_प्रतिलिख(pi, goti, mo->n_got * परिमाण(*pi));
     tcc_free(goti);
 }
 
-#else
+#अन्यथा
 
-static void check_relocs(TCCState *s1, struct macho *mo)
+स्थिर शून्य check_relocs(TCCState *s1, संरचना macho *mo)
 {
     uint8_t *jmp;
     Section *s;
     ElfW_Rel *rel, save_rel;
     ElfW(Sym) *sym;
-    int i, type, gotplt_entry, sym_index, for_code;
-    int bind_offset, la_symbol_offset;
+    पूर्णाङ्क i, type, gotplt_प्रविष्टिः, sym_सूचकांक, for_संहिता;
+    पूर्णाङ्क bind_विस्थापनम्, la_चिह्नम्_विस्थापनम्;
     uint32_t *pi, *goti;
-    struct sym_attr *attr;
+    संरचना sym_attr *attr;
 
-#ifdef TCC_TARGET_X86_64
-    jmp = section_ptr_add(mo->stub_helper, 16);
+#यदि_परिभाषितम् TCC_TARGET_X86_64
+    jmp = section_ptr_सङ्कलय(mo->stub_helper, 16);
     jmp[0] = 0x4c;  /* leaq _dyld_private(%rip), %r11 */
     jmp[1] = 0x8d;
     jmp[2] = 0x1d;
     put_elf_reloca(s1->symtab, mo->stub_helper, 3,
-		   R_X86_64_PC32, mo->dyld_private, -4);
+		   R_X86_64_PC32, mo->dyld_वैयक्तिकम्, -4);
     jmp[7] = 0x41;  /* pushq %r11 */
     jmp[8] = 0x53;
     jmp[9] = 0xff;  /* jmpq    *dyld_stub_binder@GOT(%rip) */
@@ -811,13 +811,13 @@ static void check_relocs(TCCState *s1, struct macho *mo)
     put_elf_reloca(s1->symtab, mo->stub_helper, 11,
 		   R_X86_64_GOTPCREL, mo->dyld_stub_binder, -4);
     jmp[15] = 0x90; /* nop */
-#elif defined TCC_TARGET_ARM64
-    jmp = section_ptr_add(mo->stub_helper, 24);
+#नोचेद्यदि defined TCC_TARGET_ARM64
+    jmp = section_ptr_सङ्कलय(mo->stub_helper, 24);
     put_elf_reloc(s1->symtab, mo->stub_helper, 0,
-		  R_AARCH64_ADR_PREL_PG_HI21, mo->dyld_private);
+		  R_AARCH64_ADR_PREL_PG_HI21, mo->dyld_वैयक्तिकम्);
     write32le(jmp, 0x90000011); // adrp x17, _dyld_private@page
     put_elf_reloc(s1->symtab, mo->stub_helper, 4,
-		  R_AARCH64_LDST64_ABS_LO12_NC, mo->dyld_private);
+		  R_AARCH64_LDST64_ABS_LO12_NC, mo->dyld_वैयक्तिकम्);
     write32le(jmp + 4, 0x91000231); // add x17,x17,_dyld_private@pageoff
     write32le(jmp + 8, 0xa9bf47f0); // stp x16/x17, [sp, #-16]!
     put_elf_reloc(s1->symtab, mo->stub_helper, 12,
@@ -827,164 +827,164 @@ static void check_relocs(TCCState *s1, struct macho *mo)
 		  R_AARCH64_LD64_GOT_LO12_NC, mo->dyld_stub_binder);
     write32le(jmp + 16, 0xf9400210); // ldr x16,[x16,dyld_stub_binder@pageoff]
     write32le(jmp + 20, 0xd61f0200); // br x16
-#endif
+#यदि_अन्तः
     
-    goti = NULL;
+    goti = रिक्त;
     mo->nr_plt = mo->n_got = 0;
-    for (i = 1; i < s1->nb_sections; i++) {
+    प्रति (i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_RELX ||
-	    !strncmp(s1->sections[s->sh_info]->name, ".debug_", 7))
-            continue;
+        यदि (s->sh_type != SHT_RELX ||
+	    !वाक्ये_तुलय(s1->sections[s->sh_info]->name, ".debug_", 7))
+            अनुवर्त;
         for_each_elem(s, 0, rel, ElfW_Rel) {
 	    save_rel = *rel;
             type = ELFW(R_TYPE)(rel->r_info);
-            gotplt_entry = gotplt_entry_type(type);
-            for_code = code_reloc(type);
+            gotplt_प्रविष्टिः = gotplt_प्रविष्टिः_type(type);
+            for_संहिता = संहिता_reloc(type);
             /* We generate a non-lazy pointer for used undefined symbols
                and for defined symbols that must have a place for their
                address due to codegen (i.e. a reloc requiring a got slot).  */
-            sym_index = ELFW(R_SYM)(rel->r_info);
-            sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-            if (sym->st_shndx == SHN_UNDEF
-                || gotplt_entry == ALWAYS_GOTPLT_ENTRY) {
-                attr = get_sym_attr(s1, sym_index, 1);
-                if (!attr->dyn_index) {
-                    attr->got_offset = s1->got->data_offset;
-                    attr->plt_offset = -1;
-                    attr->dyn_index = 1; /* used as flag */
-		    section_ptr_add(s1->got, PTR_SIZE);
-                    put_elf_reloc(s1->symtab, s1->got, attr->got_offset,
-                                  R_JMP_SLOT, sym_index);
-		    goti = tcc_realloc(goti, (mo->n_got + 1) * sizeof(*goti));
-                    if (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
-                        if (sym->st_shndx == SHN_UNDEF)
+            sym_सूचकांक = ELFW(R_SYM)(rel->r_info);
+            sym = &((ElfW(Sym) *)symtab_section->दत्त)[sym_सूचकांक];
+            यदि (sym->st_shndx == SHN_UNDEF
+                || gotplt_प्रविष्टिः == ALWAYS_GOTPLT_प्रविष्टिः) {
+                attr = get_sym_attr(s1, sym_सूचकांक, 1);
+                यदि (!attr->dyn_सूचकांक) {
+                    attr->got_विस्थापनम् = s1->got->दत्त_विस्थापनम्;
+                    attr->plt_विस्थापनम् = -1;
+                    attr->dyn_सूचकांक = 1; /* used as flag */
+		    section_ptr_सङ्कलय(s1->got, PTR_आकार);
+                    put_elf_reloc(s1->symtab, s1->got, attr->got_विस्थापनम्,
+                                  R_JMP_SLOT, sym_सूचकांक);
+		    goti = tcc_realloc(goti, (mo->n_got + 1) * परिमाण(*goti));
+                    यदि (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
+                        यदि (sym->st_shndx == SHN_UNDEF)
                           tcc_error("unresolved local reference to '%s'",
-				    (char *) symtab_section->link->data + sym->st_name);
-			goti[mo->n_got++] = INDIRECT_SYMBOL_LOCAL;
-                    } else {
-			goti[mo->n_got++] = mo->e2msym[sym_index];
-			if (sym->st_shndx == SHN_UNDEF
-#ifdef TCC_TARGET_X86_64
+				    (वर्ण *) symtab_section->link->दत्त + sym->st_name);
+			goti[mo->n_got++] = परोक्षम्_चिह्नम्_LOCAL;
+                    } अन्यथा {
+			goti[mo->n_got++] = mo->e2msym[sym_सूचकांक];
+			यदि (sym->st_shndx == SHN_UNDEF
+#यदि_परिभाषितम् TCC_TARGET_X86_64
 			    && type == R_X86_64_GOTPCREL
-#elif defined TCC_TARGET_ARM64
+#नोचेद्यदि defined TCC_TARGET_ARM64
 			    && type == R_AARCH64_ADR_GOT_PAGE
-#endif
+#यदि_अन्तः
 			    ) {
 			    mo->bind =
 			        tcc_realloc(mo->bind,
 					    (mo->n_bind + 1) *
-					    sizeof(struct bind));
+					    परिमाण(संरचना bind));
 			    mo->bind[mo->n_bind].section = s1->got->reloc->sh_info;
 			    mo->bind[mo->n_bind].rel = save_rel;
-                            mo->bind[mo->n_bind].rel.r_offset = attr->got_offset;
+                            mo->bind[mo->n_bind].rel.r_विस्थापनम् = attr->got_विस्थापनम्;
 			    mo->n_bind++;
-			    s1->got->reloc->data_offset -= sizeof (ElfW_Rel);
+			    s1->got->reloc->दत्त_विस्थापनम् -= परिमाण (ElfW_Rel);
 			}
 		    }
                 }
-                if (for_code && sym->st_shndx == SHN_UNDEF) {
-                    if (attr->plt_offset == -1) {
-                        attr->plt_offset = mo->stubs->data_offset;
-#ifdef TCC_TARGET_X86_64
-			if (type != R_X86_64_PLT32)
-			     continue;
+                यदि (for_संहिता && sym->st_shndx == SHN_UNDEF) {
+                    यदि (attr->plt_विस्थापनम् == -1) {
+                        attr->plt_विस्थापनम् = mo->stubs->दत्त_विस्थापनम्;
+#यदि_परिभाषितम् TCC_TARGET_X86_64
+			यदि (type != R_X86_64_PLT32)
+			     अनुवर्त;
 			/* __stubs */
-                        jmp = section_ptr_add(mo->stubs, 6);
+                        jmp = section_ptr_सङ्कलय(mo->stubs, 6);
                         jmp[0] = 0xff;  /* jmpq *__la_symbol_ptr(%rip) */
                         jmp[1] = 0x25;
                         put_elf_reloca(s1->symtab, mo->stubs,
-                                       mo->stubs->data_offset - 4,
+                                       mo->stubs->दत्त_विस्थापनम् - 4,
                                        R_X86_64_PC32, mo->lasym,
-				       mo->la_symbol_ptr->data_offset - 4);
+				       mo->la_चिह्नम्_ptr->दत्त_विस्थापनम् - 4);
 
 			/* __stub_helper */
-			bind_offset = mo->stub_helper->data_offset + 1;
-                        jmp = section_ptr_add(mo->stub_helper, 10);
+			bind_विस्थापनम् = mo->stub_helper->दत्त_विस्थापनम् + 1;
+                        jmp = section_ptr_सङ्कलय(mo->stub_helper, 10);
                         jmp[0] = 0x68;  /* pushq $bind_offset */
                         jmp[5] = 0xe9;  /* jmpq __stub_helper */
-                        write32le(jmp + 6, -mo->stub_helper->data_offset);
+                        write32le(jmp + 6, -mo->stub_helper->दत्त_विस्थापनम्);
 
 			/* __la_symbol_ptr */
-			la_symbol_offset = mo->la_symbol_ptr->data_offset;
-                        put_elf_reloca(s1->symtab, mo->la_symbol_ptr,
-				       mo->la_symbol_ptr->data_offset,
-				       R_DATA_PTR, mo->helpsym,
-				       mo->stub_helper->data_offset - 10);
-			section_ptr_add(mo->la_symbol_ptr, PTR_SIZE);
-#elif defined TCC_TARGET_ARM64
-			if (type != R_AARCH64_CALL26)
-			     continue;
+			la_चिह्नम्_विस्थापनम् = mo->la_चिह्नम्_ptr->दत्त_विस्थापनम्;
+                        put_elf_reloca(s1->symtab, mo->la_चिह्नम्_ptr,
+				       mo->la_चिह्नम्_ptr->दत्त_विस्थापनम्,
+				       R_दत्त_PTR, mo->helpsym,
+				       mo->stub_helper->दत्त_विस्थापनम् - 10);
+			section_ptr_सङ्कलय(mo->la_चिह्नम्_ptr, PTR_आकार);
+#नोचेद्यदि defined TCC_TARGET_ARM64
+			यदि (type != R_AARCH64_CALL26)
+			     अनुवर्त;
 			/* __stubs */
-                        jmp = section_ptr_add(mo->stubs, 12);
+                        jmp = section_ptr_सङ्कलय(mo->stubs, 12);
                         put_elf_reloca(s1->symtab, mo->stubs,
-                                       mo->stubs->data_offset - 12,
+                                       mo->stubs->दत्त_विस्थापनम् - 12,
                                        R_AARCH64_ADR_PREL_PG_HI21, mo->lasym,
-				       mo->la_symbol_ptr->data_offset);
+				       mo->la_चिह्नम्_ptr->दत्त_विस्थापनम्);
                         write32le(jmp, // adrp x16, __la_symbol_ptr@page
                                   0x90000010);
                         put_elf_reloca(s1->symtab, mo->stubs,
-                                       mo->stubs->data_offset - 8,
+                                       mo->stubs->दत्त_विस्थापनम् - 8,
                                        R_AARCH64_LDST64_ABS_LO12_NC, mo->lasym,
-				       mo->la_symbol_ptr->data_offset);
+				       mo->la_चिह्नम्_ptr->दत्त_विस्थापनम्);
                         write32le(jmp + 4, // ldr x16,[x16, __la_symbol_ptr@pageoff]
                                   0xf9400210);
                         write32le(jmp + 8, // br x16
                                   0xd61f0200);
 
 			/* __stub_helper */
-			bind_offset = mo->stub_helper->data_offset + 8;
-                        jmp = section_ptr_add(mo->stub_helper, 12);
+			bind_विस्थापनम् = mo->stub_helper->दत्त_विस्थापनम् + 8;
+                        jmp = section_ptr_सङ्कलय(mo->stub_helper, 12);
                         write32le(jmp + 0, // ldr  w16, l0
                                   0x18000050);
                         write32le(jmp + 4, // b stubHelperHeader
                                   0x14000000 +
-				  ((-(mo->stub_helper->data_offset - 8) / 4) &
+				  ((-(mo->stub_helper->दत्त_विस्थापनम् - 8) / 4) &
 				   0x3ffffff));
                         write32le(jmp + 8, 0); // l0: .long bind_offset
 
 			/* __la_symbol_ptr */
-			la_symbol_offset = mo->la_symbol_ptr->data_offset;
-                        put_elf_reloca(s1->symtab, mo->la_symbol_ptr,
-				       mo->la_symbol_ptr->data_offset,
-				       R_DATA_PTR, mo->helpsym,
-				       mo->stub_helper->data_offset - 12);
-			section_ptr_add(mo->la_symbol_ptr, PTR_SIZE);
-#endif
+			la_चिह्नम्_विस्थापनम् = mo->la_चिह्नम्_ptr->दत्त_विस्थापनम्;
+                        put_elf_reloca(s1->symtab, mo->la_चिह्नम्_ptr,
+				       mo->la_चिह्नम्_ptr->दत्त_विस्थापनम्,
+				       R_दत्त_PTR, mo->helpsym,
+				       mo->stub_helper->दत्त_विस्थापनम् - 12);
+			section_ptr_सङ्कलय(mo->la_चिह्नम्_ptr, PTR_आकार);
+#यदि_अन्तः
                         mo->s_lazy_bind =
                             tcc_realloc(mo->s_lazy_bind, (mo->n_lazy_bind + 1) *
-                                        sizeof(struct s_lazy_bind));
+                                        परिमाण(संरचना s_lazy_bind));
                         mo->s_lazy_bind[mo->n_lazy_bind].section =
                             mo->stub_helper->reloc->sh_info;
-                        mo->s_lazy_bind[mo->n_lazy_bind].bind_offset =
-			    bind_offset;
-                        mo->s_lazy_bind[mo->n_lazy_bind].la_symbol_offset =
-			    la_symbol_offset;
+                        mo->s_lazy_bind[mo->n_lazy_bind].bind_विस्थापनम् =
+			    bind_विस्थापनम्;
+                        mo->s_lazy_bind[mo->n_lazy_bind].la_चिह्नम्_विस्थापनम् =
+			    la_चिह्नम्_विस्थापनम्;
                         mo->s_lazy_bind[mo->n_lazy_bind].rel = save_rel;
-                        mo->s_lazy_bind[mo->n_lazy_bind].rel.r_offset =
-                            attr->plt_offset;
+                        mo->s_lazy_bind[mo->n_lazy_bind].rel.r_विस्थापनम् =
+                            attr->plt_विस्थापनम्;
                         mo->n_lazy_bind++;
-			pi = section_ptr_add(mo->indirsyms, sizeof(*pi));
-			*pi = mo->e2msym[sym_index];
+			pi = section_ptr_सङ्कलय(mo->indirsyms, परिमाण(*pi));
+			*pi = mo->e2msym[sym_सूचकांक];
 			mo->nr_plt++;
                     }
                     rel->r_info = ELFW(R_INFO)(mo->stubsym, type);
-                    rel->r_addend += attr->plt_offset;
+                    rel->r_addend += attr->plt_विस्थापनम्;
                 }
             }
-            if (type == R_DATA_PTR || type == R_JMP_SLOT) {
-		if (sym->st_shndx == SHN_UNDEF) {
+            यदि (type == R_दत्त_PTR || type == R_JMP_SLOT) {
+		यदि (sym->st_shndx == SHN_UNDEF) {
 		    mo->bind = tcc_realloc(mo->bind,
 					   (mo->n_bind + 1) *
-					   sizeof(struct bind));
+					   परिमाण(संरचना bind));
 		    mo->bind[mo->n_bind].section = s->sh_info;
 		    mo->bind[mo->n_bind].rel = save_rel;
 		    mo->n_bind++;
 		}
-		else {
+		अन्यथा {
                     mo->s_rebase =
                         tcc_realloc(mo->s_rebase, (mo->n_rebase + 1) *
-				    sizeof(struct s_rebase));
+				    परिमाण(संरचना s_rebase));
                     mo->s_rebase[mo->n_rebase].section = s->sh_info;
                     mo->s_rebase[mo->n_rebase].rel = save_rel;
                     mo->n_rebase++;
@@ -992,46 +992,46 @@ static void check_relocs(TCCState *s1, struct macho *mo)
 	    }
         }
     }
-    pi = section_ptr_add(mo->indirsyms, mo->n_got * sizeof(*pi));
-    memcpy(pi, goti, mo->n_got * sizeof(*pi));
-    pi = section_ptr_add(mo->indirsyms, mo->nr_plt * sizeof(*pi));
-    memcpy(pi, mo->indirsyms->data, mo->nr_plt * sizeof(*pi));
+    pi = section_ptr_सङ्कलय(mo->indirsyms, mo->n_got * परिमाण(*pi));
+    स्मृतिं_प्रतिलिख(pi, goti, mo->n_got * परिमाण(*pi));
+    pi = section_ptr_सङ्कलय(mo->indirsyms, mo->nr_plt * परिमाण(*pi));
+    स्मृतिं_प्रतिलिख(pi, mo->indirsyms->दत्त, mo->nr_plt * परिमाण(*pi));
     tcc_free(goti);
 }
-#endif
+#यदि_अन्तः
 
-static int check_symbols(TCCState *s1, struct macho *mo)
+स्थिर पूर्णाङ्क check_symbols(TCCState *s1, संरचना macho *mo)
 {
-    int sym_index, sym_end;
-    int ret = 0;
+    पूर्णाङ्क sym_सूचकांक, sym_अन्तः;
+    पूर्णाङ्क ret = 0;
 
     mo->ilocal = mo->iextdef = mo->iundef = -1;
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        int elf_index = ((struct nlist_64 *)mo->symtab->data + sym_index - 1)->n_value;
-        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + elf_index;
-        const char *name = (char*)symtab_section->link->data + sym->st_name;
-        unsigned type = ELFW(ST_TYPE)(sym->st_info);
-        unsigned bind = ELFW(ST_BIND)(sym->st_info);
-        unsigned vis  = ELFW(ST_VISIBILITY)(sym->st_other);
+    sym_अन्तः = symtab_section->दत्त_विस्थापनम् / परिमाण(ElfW(Sym));
+    प्रति (sym_सूचकांक = 1; sym_सूचकांक < sym_अन्तः; ++sym_सूचकांक) {
+        पूर्णाङ्क elf_सूचकांक = ((संरचना nlist_64 *)mo->symtab->दत्त + sym_सूचकांक - 1)->n_मानम्;
+        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->दत्त + elf_सूचकांक;
+        ध्रुव वर्ण *name = (वर्ण*)symtab_section->link->दत्त + sym->st_name;
+        अचिह्नित type = ELFW(ST_TYPE)(sym->st_info);
+        अचिह्नित bind = ELFW(ST_BIND)(sym->st_info);
+        अचिह्नित vis  = ELFW(ST_VISIBILITY)(sym->st_other);
 
         dprintf("%4d (%4d): %09lx %4d %4d %4d %3d %s\n",
-                sym_index, elf_index, (long)sym->st_value,
+                sym_सूचकांक, elf_सूचकांक, (दीर्घ)sym->st_मानम्,
                 type, bind, vis, sym->st_shndx, name);
-        if (bind == STB_LOCAL) {
-            if (mo->ilocal == -1)
-              mo->ilocal = sym_index - 1;
-            if (mo->iextdef != -1 || mo->iundef != -1)
+        यदि (bind == STB_LOCAL) {
+            यदि (mo->ilocal == -1)
+              mo->ilocal = sym_सूचकांक - 1;
+            यदि (mo->iextdef != -1 || mo->iundef != -1)
               tcc_error("local syms after global ones");
-        } else if (sym->st_shndx != SHN_UNDEF) {
-            if (mo->iextdef == -1)
-              mo->iextdef = sym_index - 1;
-            if (mo->iundef != -1)
+        } अन्यथा यदि (sym->st_shndx != SHN_UNDEF) {
+            यदि (mo->iextdef == -1)
+              mo->iextdef = sym_सूचकांक - 1;
+            यदि (mo->iundef != -1)
               tcc_error("external defined symbol after undefined");
-        } else if (sym->st_shndx == SHN_UNDEF) {
-            if (mo->iundef == -1)
-              mo->iundef = sym_index - 1;
-            if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK
+        } अन्यथा यदि (sym->st_shndx == SHN_UNDEF) {
+            यदि (mo->iundef == -1)
+              mo->iundef = sym_सूचकांक - 1;
+            यदि (ELFW(ST_BIND)(sym->st_info) == STB_WEAK
 		|| s1->output_type != TCC_OUTPUT_EXE
                 || find_elf_sym(s1->dynsymtab_section, name)) {
                 /* Mark the symbol as coming from a dylib so that
@@ -1040,128 +1040,128 @@ static int check_symbols(TCCState *s1, struct macho *mo)
                    which is checked by relocate_syms.  But Mach-O doesn't use
                    bind_exe_dynsyms.  */
                 sym->st_shndx = SHN_FROMDLL;
-                continue;
+                अनुवर्त;
             }
             tcc_error_noabort("unresolved reference to '%s'", name);
             ret = -1;
         }
     }
-    return ret;
+    प्रत्यागम ret;
 }
 
-static void convert_symbol(TCCState *s1, struct macho *mo, struct nlist_64 *pn)
+स्थिर शून्य convert_चिह्नम्(TCCState *s1, संरचना macho *mo, संरचना nlist_64 *pn)
 {
-    struct nlist_64 n = *pn;
-    ElfSym *sym = (ElfW(Sym) *)symtab_section->data + pn->n_value;
-    const char *name = (char*)symtab_section->link->data + sym->st_name;
-    switch(ELFW(ST_TYPE)(sym->st_info)) {
-    case STT_NOTYPE:
-    case STT_OBJECT:
-    case STT_FUNC:
-    case STT_TLS:
-    case STT_SECTION:
+    संरचना nlist_64 n = *pn;
+    ElfSym *sym = (ElfW(Sym) *)symtab_section->दत्त + pn->n_मानम्;
+    ध्रुव वर्ण *name = (वर्ण*)symtab_section->link->दत्त + sym->st_name;
+    विकल्प(ELFW(ST_TYPE)(sym->st_info)) {
+    पक्ष STT_NOTYPE:
+    पक्ष STT_OBJECT:
+    पक्ष STT_FUNC:
+    पक्ष STT_TLS:
+    पक्ष STT_SECTION:
         n.n_type = N_SECT;
-        break;
-    case STT_FILE:
+        भङ्ग;
+    पक्ष STT_FILE:
         n.n_type = N_ABS;
-        break;
-    default:
+        भङ्ग;
+    स्वभाव:
         tcc_error("unhandled ELF symbol type %d %s",
                   ELFW(ST_TYPE)(sym->st_info), name);
     }
-    if (sym->st_shndx == SHN_UNDEF)
+    यदि (sym->st_shndx == SHN_UNDEF)
       tcc_error("should have been rewritten to SHN_FROMDLL: %s", name);
-    else if (sym->st_shndx == SHN_FROMDLL)
+    अन्यथा यदि (sym->st_shndx == SHN_FROMDLL)
       n.n_type = N_UNDF, n.n_sect = 0;
-    else if (sym->st_shndx == SHN_ABS)
+    अन्यथा यदि (sym->st_shndx == SHN_ABS)
       n.n_type = N_ABS, n.n_sect = 0;
-    else if (sym->st_shndx >= SHN_LORESERVE)
+    अन्यथा यदि (sym->st_shndx >= SHN_LORESERVE)
       tcc_error("unhandled ELF symbol section %d %s", sym->st_shndx, name);
-    else if (!mo->elfsectomacho[sym->st_shndx]) {
-      if (strncmp(s1->sections[sym->st_shndx]->name, ".debug_", 7))
+    अन्यथा यदि (!mo->elfsectomacho[sym->st_shndx]) {
+      यदि (वाक्ये_तुलय(s1->sections[sym->st_shndx]->name, ".debug_", 7))
         tcc_error("ELF section %d(%s) not mapped into Mach-O for symbol %s",
                   sym->st_shndx, s1->sections[sym->st_shndx]->name, name);
     }
-    else
+    अन्यथा
       n.n_sect = mo->elfsectomacho[sym->st_shndx];
-    if (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL)
+    यदि (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL)
       n.n_type |=  N_EXT;
-    else if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
+    अन्यथा यदि (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
       n.n_desc |= N_WEAK_REF | (n.n_type != N_UNDF ? N_WEAK_DEF : 0);
     n.n_strx = pn->n_strx;
-    n.n_value = sym->st_value;
+    n.n_मानम् = sym->st_मानम्;
     *pn = n;
 }
 
-static void convert_symbols(TCCState *s1, struct macho *mo)
+स्थिर शून्य convert_symbols(TCCState *s1, संरचना macho *mo)
 {
-    struct nlist_64 *pn;
-    for_each_elem(mo->symtab, 0, pn, struct nlist_64)
-        convert_symbol(s1, mo, pn);
+    संरचना nlist_64 *pn;
+    for_each_elem(mo->symtab, 0, pn, संरचना nlist_64)
+        convert_चिह्नम्(s1, mo, pn);
 }
 
-static int machosymcmp(const void *_a, const void *_b, void *arg)
+स्थिर पूर्णाङ्क machosymcmp(ध्रुव शून्य *_a, ध्रुव शून्य *_b, शून्य *arg)
 {
     TCCState *s1 = arg;
-    int ea = ((struct nlist_64 *)_a)->n_value;
-    int eb = ((struct nlist_64 *)_b)->n_value;
-    ElfSym *sa = (ElfSym *)symtab_section->data + ea;
-    ElfSym *sb = (ElfSym *)symtab_section->data + eb;
-    int r;
+    पूर्णाङ्क ea = ((संरचना nlist_64 *)_a)->n_मानम्;
+    पूर्णाङ्क eb = ((संरचना nlist_64 *)_b)->n_मानम्;
+    ElfSym *sa = (ElfSym *)symtab_section->दत्त + ea;
+    ElfSym *sb = (ElfSym *)symtab_section->दत्त + eb;
+    पूर्णाङ्क r;
     /* locals, then defined externals, then undefined externals, the
        last two sections also by name, otherwise stable sort */
     r = (ELFW(ST_BIND)(sb->st_info) == STB_LOCAL)
         - (ELFW(ST_BIND)(sa->st_info) == STB_LOCAL);
-    if (r)
-      return r;
+    यदि (r)
+      प्रत्यागम r;
     r = (sa->st_shndx == SHN_UNDEF) - (sb->st_shndx == SHN_UNDEF);
-    if (r)
-      return r;
-    if (ELFW(ST_BIND)(sa->st_info) != STB_LOCAL) {
-        const char * na = (char*)symtab_section->link->data + sa->st_name;
-        const char * nb = (char*)symtab_section->link->data + sb->st_name;
-        r = strcmp(na, nb);
-        if (r)
-          return r;
+    यदि (r)
+      प्रत्यागम r;
+    यदि (ELFW(ST_BIND)(sa->st_info) != STB_LOCAL) {
+        ध्रुव वर्ण * na = (वर्ण*)symtab_section->link->दत्त + sa->st_name;
+        ध्रुव वर्ण * nb = (वर्ण*)symtab_section->link->दत्त + sb->st_name;
+        r = वाक्यं_तुलय(na, nb);
+        यदि (r)
+          प्रत्यागम r;
     }
-    return ea - eb;
+    प्रत्यागम ea - eb;
 }
 
 /* cannot use qsort because code has to be reentrant */
-static void tcc_qsort (void  *base, size_t nel, size_t width,
-                       int (*comp)(const void *, const void *, void *), void *arg)
+स्थिर शून्य tcc_qsort (शून्य  *आधारः, आकार_t nel, आकार_t विस्तारः,
+                       पूर्णाङ्क (*comp)(ध्रुव शून्य *, ध्रुव शून्य *, शून्य *), शून्य *arg)
 {
-    size_t wnel, gap, wgap, i, j, k;
-    char *a, *b, tmp;
+    आकार_t wnel, gap, wgap, i, j, k;
+    वर्ण *a, *b, tmp;
 
-    wnel = width * nel;
-    for (gap = 0; ++gap < nel;)
+    wnel = विस्तारः * nel;
+    प्रति (gap = 0; ++gap < nel;)
         gap *= 3;
-    while ( gap /= 3 ) {
-        wgap = width * gap;
-        for (i = wgap; i < wnel; i += width) {
-            for (j = i - wgap; ;j -= wgap) {
-                a = j + (char *)base;
+    यावत् ( gap /= 3 ) {
+        wgap = विस्तारः * gap;
+        प्रति (i = wgap; i < wnel; i += विस्तारः) {
+            प्रति (j = i - wgap; ;j -= wgap) {
+                a = j + (वर्ण *)आधारः;
                 b = a + wgap;
-                if ( (*comp)(a, b, arg) <= 0 )
-                    break;
-                k = width;
-                do {
+                यदि ( (*comp)(a, b, arg) <= 0 )
+                    भङ्ग;
+                k = विस्तारः;
+                कुरु {
                     tmp = *a;
                     *a++ = *b;
                     *b++ = tmp;
-                } while ( --k );
-                if (j < wgap)
-                    break;
+                } यावत् ( --k );
+                यदि (j < wgap)
+                    भङ्ग;
             }
         }
     }
 }
 
-static void create_symtab(TCCState *s1, struct macho *mo)
+स्थिर शून्य create_symtab(TCCState *s1, संरचना macho *mo)
 {
-    int sym_index, sym_end;
-    struct nlist_64 *pn;
+    पूर्णाङ्क sym_सूचकांक, sym_अन्तः;
+    संरचना nlist_64 *pn;
 
     /* Stub creation belongs to check_relocs, but we need to create
        the symbol now, so its included in the sorting.  */
@@ -1169,24 +1169,24 @@ static void create_symtab(TCCState *s1, struct macho *mo)
     s1->got = new_section(s1, ".got", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
     mo->stubsym = put_elf_sym(s1->symtab, 0, 0,
                               ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
-                              mo->stubs->sh_num, ".__stubs");
-#ifdef CONFIG_NEW_MACHO
+                              mo->stubs->sh_अङ्कः, ".__stubs");
+#यदि_परिभाषितम् CONFIG_NEW_MACHO
     mo->chained_fixups = new_section(s1, "CHAINED_FIXUPS",
 				     SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
-#else
+#अन्यथा
     mo->stub_helper = new_section(s1, "__stub_helper", SHT_PROGBITS, SHF_ALLOC | SHF_EXECINSTR);
-    mo->la_symbol_ptr = new_section(s1, "__la_symbol_ptr", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
+    mo->la_चिह्नम्_ptr = new_section(s1, "__la_symbol_ptr", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
     mo->helpsym = put_elf_sym(s1->symtab, 0, 0,
                               ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
-                              mo->stub_helper->sh_num, ".__stub_helper");
+                              mo->stub_helper->sh_अङ्कः, ".__stub_helper");
     mo->lasym = put_elf_sym(s1->symtab, 0, 0,
                             ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
-                            mo->la_symbol_ptr->sh_num, ".__la_symbol_ptr");
-    section_ptr_add(data_section, -data_section->data_offset & (PTR_SIZE - 1));
-    mo->dyld_private = put_elf_sym(s1->symtab, data_section->data_offset, PTR_SIZE,
+                            mo->la_चिह्नम्_ptr->sh_अङ्कः, ".__la_symbol_ptr");
+    section_ptr_सङ्कलय(दत्त_section, -दत्त_section->दत्त_विस्थापनम् & (PTR_आकार - 1));
+    mo->dyld_वैयक्तिकम् = put_elf_sym(s1->symtab, दत्त_section->दत्त_विस्थापनम्, PTR_आकार,
                                    ELFW(ST_INFO)(STB_LOCAL, STT_OBJECT), 0,
-                                   data_section->sh_num, ".__dyld_private");
-    section_ptr_add(data_section, PTR_SIZE);
+                                   दत्त_section->sh_अङ्कः, ".__dyld_private");
+    section_ptr_सङ्कलय(दत्त_section, PTR_आकार);
     mo->dyld_stub_binder = put_elf_sym(s1->symtab, 0, 0,
                 		       ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT), 0,
 				       SHN_UNDEF, "dyld_stub_binder");
@@ -1194,46 +1194,46 @@ static void create_symtab(TCCState *s1, struct macho *mo)
     mo->binding = new_section(s1, "BINDING", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->weak_binding = new_section(s1, "WEAK_BINDING", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->lazy_binding = new_section(s1, "LAZY_BINDING", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
-#endif
+#यदि_अन्तः
     mo->exports = new_section(s1, "EXPORT", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->indirsyms = new_section(s1, "LEINDIR", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
 
     mo->symtab = new_section(s1, "LESYMTAB", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->strtab = new_section(s1, "LESTRTAB", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     put_elf_str(mo->strtab, " "); /* Mach-O starts strtab with a space */
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    pn = section_ptr_add(mo->symtab, sizeof(*pn) * (sym_end - 1));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + sym_index;
-        const char *name = (char*)symtab_section->link->data + sym->st_name;
-        pn[sym_index - 1].n_strx = put_elf_str(mo->strtab, name);
-        pn[sym_index - 1].n_value = sym_index;
+    sym_अन्तः = symtab_section->दत्त_विस्थापनम् / परिमाण(ElfW(Sym));
+    pn = section_ptr_सङ्कलय(mo->symtab, परिमाण(*pn) * (sym_अन्तः - 1));
+    प्रति (sym_सूचकांक = 1; sym_सूचकांक < sym_अन्तः; ++sym_सूचकांक) {
+        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->दत्त + sym_सूचकांक;
+        ध्रुव वर्ण *name = (वर्ण*)symtab_section->link->दत्त + sym->st_name;
+        pn[sym_सूचकांक - 1].n_strx = put_elf_str(mo->strtab, name);
+        pn[sym_सूचकांक - 1].n_मानम् = sym_सूचकांक;
     }
-    section_ptr_add(mo->strtab, -mo->strtab->data_offset & (PTR_SIZE - 1));
-    tcc_qsort(pn, sym_end - 1, sizeof(*pn), machosymcmp, s1);
-    mo->e2msym = tcc_malloc(sym_end * sizeof(*mo->e2msym));
+    section_ptr_सङ्कलय(mo->strtab, -mo->strtab->दत्त_विस्थापनम् & (PTR_आकार - 1));
+    tcc_qsort(pn, sym_अन्तः - 1, परिमाण(*pn), machosymcmp, s1);
+    mo->e2msym = tcc_malloc(sym_अन्तः * परिमाण(*mo->e2msym));
     mo->e2msym[0] = -1;
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        mo->e2msym[pn[sym_index - 1].n_value] = sym_index - 1;
+    प्रति (sym_सूचकांक = 1; sym_सूचकांक < sym_अन्तः; ++sym_सूचकांक) {
+        mo->e2msym[pn[sym_सूचकांक - 1].n_मानम्] = sym_सूचकांक - 1;
     }
 }
 
-const struct {
-    int seg_initial;
+ध्रुव संरचना {
+    पूर्णाङ्क seg_initial;
     uint32_t flags;
-    const char *name;
-} skinfo[sk_last] = {
+    ध्रुव वर्ण *name;
+} skinfo[sk_चरमः] = {
     /*[sk_unknown] =*/        { 0 },
     /*[sk_discard] =*/        { 0 },
-    /*[sk_text] =*/           { 1, S_REGULAR | S_ATTR_PURE_INSTRUCTIONS
+    /*[sk_text] =*/           { 1, S_REGULAR | S_ATTR_विशुद्धम्_INSTRUCTIONS
                                    | S_ATTR_SOME_INSTRUCTIONS, "__text" },
-    /*[sk_stubs] =*/          { 1, S_REGULAR | S_ATTR_PURE_INSTRUCTIONS | S_SYMBOL_STUBS
+    /*[sk_stubs] =*/          { 1, S_REGULAR | S_ATTR_विशुद्धम्_INSTRUCTIONS | S_चिह्नम्_STUBS
                                    | S_ATTR_SOME_INSTRUCTIONS , "__stubs" },
-    /*[sk_stub_helper] =*/    { 1, S_REGULAR | S_ATTR_PURE_INSTRUCTIONS
+    /*[sk_stub_helper] =*/    { 1, S_REGULAR | S_ATTR_विशुद्धम्_INSTRUCTIONS
                                    | S_ATTR_SOME_INSTRUCTIONS , "__stub_helper" },
     /*[sk_ro_data] =*/        { 2, S_REGULAR, "__rodata" },
     /*[sk_uw_info] =*/        { 0 },
-    /*[sk_nl_ptr] =*/         { 2, S_NON_LAZY_SYMBOL_POINTERS, "__got" },
+    /*[sk_nl_ptr] =*/         { 2, S_NON_LAZY_चिह्नम्_सूचकाः, "__got" },
     /*[sk_debug_info] =*/     { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_info" },
     /*[sk_debug_abbrev] =*/   { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_abbrev" },
     /*[sk_debug_line] =*/     { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_line" },
@@ -1242,19 +1242,19 @@ const struct {
     /*[sk_debug_line_str] =*/ { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_line_str" },
     /*[sk_stab] =*/           { 4, S_REGULAR, "__stab" },
     /*[sk_stab_str] =*/       { 4, S_REGULAR, "__stab_str" },
-    /*[sk_la_ptr] =*/         { 4, S_LAZY_SYMBOL_POINTERS, "__la_symbol_ptr" },
-    /*[sk_init] =*/           { 4, S_MOD_INIT_FUNC_POINTERS, "__mod_init_func" },
-    /*[sk_fini] =*/           { 4, S_MOD_TERM_FUNC_POINTERS, "__mod_term_func" },
+    /*[sk_la_ptr] =*/         { 4, S_LAZY_चिह्नम्_सूचकाः, "__la_symbol_ptr" },
+    /*[sk_init] =*/           { 4, S_MOD_INIT_FUNC_सूचकाः, "__mod_init_func" },
+    /*[sk_fini] =*/           { 4, S_MOD_पदांशः_FUNC_सूचकाः, "__mod_term_func" },
     /*[sk_rw_data] =*/        { 4, S_REGULAR, "__data" },
     /*[sk_bss] =*/            { 4, S_ZEROFILL, "__bss" },
-    /*[sk_linkedit] =*/       { 5, S_REGULAR, NULL },
+    /*[sk_linkedit] =*/       { 5, S_REGULAR, रिक्त },
 };
 
-#define	START	((uint64_t)1 << 32)
+#परिभाषय	START	((uint64_t)1 << 32)
 
-const struct {
-    int used;
-    const char *name;
+ध्रुव संरचना {
+    पूर्णाङ्क प्रयुक्तम्;
+    ध्रुव वर्ण *name;
     uint64_t vmaddr;
     uint64_t vmsize;
     vm_prot_t maxprot;
@@ -1269,623 +1269,623 @@ const struct {
     { 1, "__LINKEDIT",      -1,     0, 1, 1,            0 },
 };
 
-#define	N_SEGMENT	(sizeof(all_segment)/sizeof(all_segment[0]))
+#परिभाषय	N_SEGMENT	(परिमाण(all_segment)/परिमाण(all_segment[0]))
 
-#ifdef CONFIG_NEW_MACHO
-static void calc_fixup_size(TCCState *s1, struct macho *mo)
+#यदि_परिभाषितम् CONFIG_NEW_MACHO
+स्थिर शून्य calc_fixup_आकार(TCCState *s1, संरचना macho *mo)
 {
-    int i, size;
+    पूर्णाङ्क i, आकार;
 
-    size = (sizeof(struct dyld_chained_fixups_header) + 7) & -8;
-    size += (sizeof(struct dyld_chained_starts_in_image) + (mo->nseg - 1) * sizeof(uint32_t) + 7) & -8;
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
-	int page_count = (get_segment(mo, i)->vmsize + SEG_PAGE_SIZE - 1) / SEG_PAGE_SIZE;
-	size += (sizeof(struct dyld_chained_starts_in_segment) + (page_count - 1) * sizeof(uint16_t) + 7) & -8;
+    आकार = (परिमाण(संरचना dyld_chained_fixups_शीर्षकम्) + 7) & -8;
+    आकार += (परिमाण(संरचना dyld_chained_starts_अन्तर्_image) + (mo->nseg - 1) * परिमाण(uint32_t) + 7) & -8;
+    प्रति (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+	पूर्णाङ्क page_गणनम् = (get_segment(mo, i)->vmsize + SEG_PAGE_आकार - 1) / SEG_PAGE_आकार;
+	आकार += (परिमाण(संरचना dyld_chained_starts_अन्तर्_segment) + (page_गणनम् - 1) * परिमाण(uint16_t) + 7) & -8;
     }
-    size += mo->n_bind * sizeof (struct dyld_chained_import) + 1;
-    for (i = 0; i < mo->n_bind_rebase; i++) {
-	if (mo->bind_rebase[i].bind) {
-	    int sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
-	    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	    const char *name = (char *) symtab_section->link->data + sym->st_name;
-	    size += strlen(name) + 1;
+    आकार += mo->n_bind * परिमाण (संरचना dyld_chained_import) + 1;
+    प्रति (i = 0; i < mo->n_bind_rebase; i++) {
+	यदि (mo->bind_rebase[i].bind) {
+	    पूर्णाङ्क sym_सूचकांक = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
+	    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->दत्त)[sym_सूचकांक];
+	    ध्रुव वर्ण *name = (वर्ण *) symtab_section->link->दत्त + sym->st_name;
+	    आकार += वाक्यदैर्घ्यम्(name) + 1;
 	}
     }
-    size = (size + 7) & -8;
-    section_ptr_add(mo->chained_fixups, size);
+    आकार = (आकार + 7) & -8;
+    section_ptr_सङ्कलय(mo->chained_fixups, आकार);
 }
 
-#else
+#अन्यथा
 
-static void set_segment_and_offset(TCCState *s1, struct macho *mo, addr_t addr,
-				   uint8_t *ptr, int opcode,
-				   Section *sec, addr_t offset)
+स्थिर शून्य समुच्चयः_segment_and_विस्थापनम्(TCCState *s1, संरचना macho *mo, addr_t addr,
+				   uint8_t *ptr, पूर्णाङ्क opcode,
+				   Section *sec, addr_t विस्थापनम्)
 {
-    int i;
-    struct segment_command_64 *seg = NULL;
+    पूर्णाङ्क i;
+    संरचना segment_command_64 *seg = रिक्त;
 
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+    प्रति (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
 	seg = get_segment(mo, i);
-	if (addr >= seg->vmaddr && addr < (seg->vmaddr + seg->vmsize))
-	    break;
+	यदि (addr >= seg->vmaddr && addr < (seg->vmaddr + seg->vmsize))
+	    भङ्ग;
     }
     *ptr = opcode | i;
-    write_uleb128(sec, offset - seg->vmaddr);
+    write_uleb128(sec, विस्थापनम् - seg->vmaddr);
 }
 
-static void bind_rebase(TCCState *s1, struct macho *mo)
+स्थिर शून्य bind_rebase(TCCState *s1, संरचना macho *mo)
 {
-    int i;
+    पूर्णाङ्क i;
     uint8_t *ptr;
     ElfW(Sym) *sym;
-    const char *name;
+    ध्रुव वर्ण *name;
 
-    for (i = 0; i < mo->n_lazy_bind; i++) {
-	int sym_index = ELFW(R_SYM)(mo->s_lazy_bind[i].rel.r_info);
+    प्रति (i = 0; i < mo->n_lazy_bind; i++) {
+	पूर्णाङ्क sym_सूचकांक = ELFW(R_SYM)(mo->s_lazy_bind[i].rel.r_info);
 
-	sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	name = (char *) symtab_section->link->data + sym->st_name;
-	write32le(mo->stub_helper->data +
-		  mo->s_lazy_bind[i].bind_offset,
-		  mo->lazy_binding->data_offset);
-	ptr = section_ptr_add(mo->lazy_binding, 1);
-	set_segment_and_offset(s1, mo, mo->la_symbol_ptr->sh_addr, ptr,
-			       BIND_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB,
+	sym = &((ElfW(Sym) *)symtab_section->दत्त)[sym_सूचकांक];
+	name = (वर्ण *) symtab_section->link->दत्त + sym->st_name;
+	write32le(mo->stub_helper->दत्त +
+		  mo->s_lazy_bind[i].bind_विस्थापनम्,
+		  mo->lazy_binding->दत्त_विस्थापनम्);
+	ptr = section_ptr_सङ्कलय(mo->lazy_binding, 1);
+	समुच्चयः_segment_and_विस्थापनम्(s1, mo, mo->la_चिह्नम्_ptr->sh_addr, ptr,
+			       BIND_OPCODE_समुच्चयः_SEGMENT_AND_विस्थापनम्_ULEB,
 			       mo->lazy_binding,
-			       mo->s_lazy_bind[i].la_symbol_offset +
-			       mo->la_symbol_ptr->sh_addr);
-	ptr = section_ptr_add(mo->lazy_binding, 5 + strlen(name));
-	*ptr++ = BIND_OPCODE_SET_DYLIB_SPECIAL_IMM |
+			       mo->s_lazy_bind[i].la_चिह्नम्_विस्थापनम् +
+			       mo->la_चिह्नम्_ptr->sh_addr);
+	ptr = section_ptr_सङ्कलय(mo->lazy_binding, 5 + वाक्यदैर्घ्यम्(name));
+	*ptr++ = BIND_OPCODE_समुच्चयः_DYLIB_SPECIAL_IMM |
 		 (BIND_SPECIAL_DYLIB_FLAT_LOOKUP & 0xf);
-	*ptr++ = BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM | 0;
-	strcpy((char *)ptr, name);
-	ptr += strlen(name) + 1;
+	*ptr++ = BIND_OPCODE_समुच्चयः_चिह्नम्_TRAILING_FLAGS_IMM | 0;
+	वाक्यं_प्रतिलिख((वर्ण *)ptr, name);
+	ptr += वाक्यदैर्घ्यम्(name) + 1;
 	*ptr++ = BIND_OPCODE_DO_BIND;
-	*ptr = BIND_OPCODE_DONE;
+	*ptr = BIND_OPCODE_समाप्तम्;
     }
-    for (i = 0; i < mo->n_rebase; i++) {
+    प्रति (i = 0; i < mo->n_rebase; i++) {
 	Section *s = s1->sections[mo->s_rebase[i].section];
 
-	ptr = section_ptr_add(mo->rebase, 2);
-	*ptr++ = REBASE_OPCODE_SET_TYPE_IMM | REBASE_TYPE_POINTER;
-	set_segment_and_offset(s1, mo, s->sh_addr, ptr,
-			       REBASE_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB,
+	ptr = section_ptr_सङ्कलय(mo->rebase, 2);
+	*ptr++ = REBASE_OPCODE_समुच्चयः_TYPE_IMM | REBASE_TYPE_POINTER;
+	समुच्चयः_segment_and_विस्थापनम्(s1, mo, s->sh_addr, ptr,
+			       REBASE_OPCODE_समुच्चयः_SEGMENT_AND_विस्थापनम्_ULEB,
 			       mo->rebase,
-			       mo->s_rebase[i].rel.r_offset +
+			       mo->s_rebase[i].rel.r_विस्थापनम् +
 			       s->sh_addr);
-	ptr = section_ptr_add(mo->rebase, 1);
+	ptr = section_ptr_सङ्कलय(mo->rebase, 1);
 	*ptr = REBASE_OPCODE_DO_REBASE_IMM_TIMES | 1;
     }
-    for (i = 0; i < mo->n_bind; i++) {
-	int sym_index = ELFW(R_SYM)(mo->bind[i].rel.r_info);
+    प्रति (i = 0; i < mo->n_bind; i++) {
+	पूर्णाङ्क sym_सूचकांक = ELFW(R_SYM)(mo->bind[i].rel.r_info);
 	Section *s = s1->sections[mo->bind[i].section];
 	Section *binding;
 
-	sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	name = (char *) symtab_section->link->data + sym->st_name;
+	sym = &((ElfW(Sym) *)symtab_section->दत्त)[sym_सूचकांक];
+	name = (वर्ण *) symtab_section->link->दत्त + sym->st_name;
 	binding = ELFW(ST_BIND)(sym->st_info) == STB_WEAK
 	    ? mo->weak_binding : mo->binding;
-        ptr = section_ptr_add(binding, 4 + (binding == mo->binding) +
-			     	       strlen(name));
-	if (binding == mo->binding)
-            *ptr++ = BIND_OPCODE_SET_DYLIB_SPECIAL_IMM |
+        ptr = section_ptr_सङ्कलय(binding, 4 + (binding == mo->binding) +
+			     	       वाक्यदैर्घ्यम्(name));
+	यदि (binding == mo->binding)
+            *ptr++ = BIND_OPCODE_समुच्चयः_DYLIB_SPECIAL_IMM |
 	             (BIND_SPECIAL_DYLIB_FLAT_LOOKUP & 0xf);
-        *ptr++ = BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM |
+        *ptr++ = BIND_OPCODE_समुच्चयः_चिह्नम्_TRAILING_FLAGS_IMM |
 		 (binding == mo->weak_binding
-		  ? BIND_SYMBOL_FLAGS_WEAK_IMPORT : 0);
-        strcpy((char *)ptr, name);
-        ptr += strlen(name) + 1;
-        *ptr++ = BIND_OPCODE_SET_TYPE_IMM | BIND_TYPE_POINTER;
-	set_segment_and_offset(s1, mo, s->sh_addr, ptr,
-			       BIND_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB,
+		  ? BIND_चिह्नम्_FLAGS_WEAK_IMPORT : 0);
+        वाक्यं_प्रतिलिख((वर्ण *)ptr, name);
+        ptr += वाक्यदैर्घ्यम्(name) + 1;
+        *ptr++ = BIND_OPCODE_समुच्चयः_TYPE_IMM | BIND_TYPE_POINTER;
+	समुच्चयः_segment_and_विस्थापनम्(s1, mo, s->sh_addr, ptr,
+			       BIND_OPCODE_समुच्चयः_SEGMENT_AND_विस्थापनम्_ULEB,
 			       binding,
-			       mo->bind[i].rel.r_offset + s->sh_addr);
-        ptr = section_ptr_add(binding, 1);
+			       mo->bind[i].rel.r_विस्थापनम् + s->sh_addr);
+        ptr = section_ptr_सङ्कलय(binding, 1);
         *ptr++ = BIND_OPCODE_DO_BIND;
     }
-    if (mo->rebase->data_offset) {
-        ptr = section_ptr_add(mo->rebase, 1);
-        *ptr = REBASE_OPCODE_DONE;
+    यदि (mo->rebase->दत्त_विस्थापनम्) {
+        ptr = section_ptr_सङ्कलय(mo->rebase, 1);
+        *ptr = REBASE_OPCODE_समाप्तम्;
     }
-    if (mo->binding->data_offset) {
-        ptr = section_ptr_add(mo->binding, 1);
-        *ptr = BIND_OPCODE_DONE;
+    यदि (mo->binding->दत्त_विस्थापनम्) {
+        ptr = section_ptr_सङ्कलय(mo->binding, 1);
+        *ptr = BIND_OPCODE_समाप्तम्;
     }
-    if (mo->weak_binding->data_offset) {
-        ptr = section_ptr_add(mo->weak_binding, 1);
-        *ptr = BIND_OPCODE_DONE;
+    यदि (mo->weak_binding->दत्त_विस्थापनम्) {
+        ptr = section_ptr_सङ्कलय(mo->weak_binding, 1);
+        *ptr = BIND_OPCODE_समाप्तम्;
     }
     tcc_free(mo->s_lazy_bind);
     tcc_free(mo->s_rebase);
     tcc_free(mo->bind);
 }
-#endif
+#यदि_अन्तः
 
-struct trie_info {
-    const char *name;
-    int flag;
+संरचना trie_info {
+    ध्रुव वर्ण *name;
+    पूर्णाङ्क flag;
     addr_t addr;
-    int str_size;
-    int term_size;
+    पूर्णाङ्क str_आकार;
+    पूर्णाङ्क पदांशः_आकार;
 };
 
-struct trie_node {
-    int start;
-    int end;
-    int index_start;
-    int index_end;
-    int n_child;
-    struct trie_node *child;
+संरचना trie_ग्रन्थिः {
+    पूर्णाङ्क start;
+    पूर्णाङ्क अन्तः;
+    पूर्णाङ्क सूचकांक_start;
+    पूर्णाङ्क सूचकांक_अन्तः;
+    पूर्णाङ्क n_child;
+    संरचना trie_ग्रन्थिः *child;
 };
 
-struct trie_seq {
-    int n_child;
-    struct trie_node *node;
-    int offset;
-    int nest_offset;
+संरचना trie_seq {
+    पूर्णाङ्क n_child;
+    संरचना trie_ग्रन्थिः *ग्रन्थिः;
+    पूर्णाङ्क विस्थापनम्;
+    पूर्णाङ्क nest_विस्थापनम्;
 };
 
-static void create_trie(struct trie_node *node,
-                        int from, int to, int index_start,
-                        int n_trie, struct trie_info *trie)
+स्थिर शून्य create_trie(संरचना trie_ग्रन्थिः *ग्रन्थिः,
+                        पूर्णाङ्क from, पूर्णाङ्क गन्तव्यम्, पूर्णाङ्क सूचकांक_start,
+                        पूर्णाङ्क n_trie, संरचना trie_info *trie)
 {
-    int i;
-    int start, end, index_end;
-    char cur;
-    struct trie_node *child;
+    पूर्णाङ्क i;
+    पूर्णाङ्क start, अन्तः, सूचकांक_अन्तः;
+    वर्ण cur;
+    संरचना trie_ग्रन्थिः *child;
 
-    for (i = from; i < to; i = end) {
-        cur = trie[i].name[index_start];
+    प्रति (i = from; i < गन्तव्यम्; i = अन्तः) {
+        cur = trie[i].name[सूचकांक_start];
         start = i++;
-        for (; i < to; i++)
-            if (cur != trie[i].name[index_start])
-                break;
-        end = i;
-        if (start == end - 1 ||
-            (trie[start].name[index_start] &&
-             trie[start].name[index_start + 1] == 0))
-            index_end = trie[start].str_size - 1;
-        else {
-            index_end = index_start + 1;
-            for (;;) {
-                cur = trie[start].name[index_end];
-                for (i = start + 1; i < end; i++)
-                    if (cur != trie[i].name[index_end])
-                        break;
-                if (trie[start].name[index_end] &&
-                    trie[start].name[index_end + 1] == 0) {
-                    end = start + 1;
-                    index_end = trie[start].str_size - 1;
-                    break;
+        प्रति (; i < गन्तव्यम्; i++)
+            यदि (cur != trie[i].name[सूचकांक_start])
+                भङ्ग;
+        अन्तः = i;
+        यदि (start == अन्तः - 1 ||
+            (trie[start].name[सूचकांक_start] &&
+             trie[start].name[सूचकांक_start + 1] == 0))
+            सूचकांक_अन्तः = trie[start].str_आकार - 1;
+        अन्यथा {
+            सूचकांक_अन्तः = सूचकांक_start + 1;
+            प्रति (;;) {
+                cur = trie[start].name[सूचकांक_अन्तः];
+                प्रति (i = start + 1; i < अन्तः; i++)
+                    यदि (cur != trie[i].name[सूचकांक_अन्तः])
+                        भङ्ग;
+                यदि (trie[start].name[सूचकांक_अन्तः] &&
+                    trie[start].name[सूचकांक_अन्तः + 1] == 0) {
+                    अन्तः = start + 1;
+                    सूचकांक_अन्तः = trie[start].str_आकार - 1;
+                    भङ्ग;
                 }
-                if (i != end)
-                    break;
-                index_end++;
+                यदि (i != अन्तः)
+                    भङ्ग;
+                सूचकांक_अन्तः++;
             }
         }
-        node->child = tcc_realloc(node->child,
-                                  (node->n_child + 1) *
-                                  sizeof(struct trie_node));
-        child = &node->child[node->n_child];
+        ग्रन्थिः->child = tcc_realloc(ग्रन्थिः->child,
+                                  (ग्रन्थिः->n_child + 1) *
+                                  परिमाण(संरचना trie_ग्रन्थिः));
+        child = &ग्रन्थिः->child[ग्रन्थिः->n_child];
         child->start = start;
-        child->end = end;
-        child->index_start = index_start;
-        child->index_end = index_end;
+        child->अन्तः = अन्तः;
+        child->सूचकांक_start = सूचकांक_start;
+        child->सूचकांक_अन्तः = सूचकांक_अन्तः;
         child->n_child = 0;
-        child->child = NULL;
-        node->n_child++;
-        if (start != end - 1)
-            create_trie(child, start, end, index_end, n_trie, trie);
+        child->child = रिक्त;
+        ग्रन्थिः->n_child++;
+        यदि (start != अन्तः - 1)
+            create_trie(child, start, अन्तः, सूचकांक_अन्तः, n_trie, trie);
     }
 }
 
-static int create_seq(int *offset, int *n_seq, struct trie_seq **seq,
-                        struct trie_node *node,
-                        int n_trie, struct trie_info *trie)
+स्थिर पूर्णाङ्क create_seq(पूर्णाङ्क *विस्थापनम्, पूर्णाङ्क *n_seq, संरचना trie_seq **seq,
+                        संरचना trie_ग्रन्थिः *ग्रन्थिः,
+                        पूर्णाङ्क n_trie, संरचना trie_info *trie)
 {
-    int i, nest_offset, last_seq = *n_seq, retval = *offset;
-    struct trie_seq *p_seq;
-    struct trie_node *p_nest;
+    पूर्णाङ्क i, nest_विस्थापनम्, चरमः_seq = *n_seq, retval = *विस्थापनम्;
+    संरचना trie_seq *p_seq;
+    संरचना trie_ग्रन्थिः *p_nest;
 
-    for (i = 0; i < node->n_child; i++) {
-        p_nest = &node->child[i];
-        *seq = tcc_realloc(*seq, (*n_seq + 1) * sizeof(struct trie_seq));
+    प्रति (i = 0; i < ग्रन्थिः->n_child; i++) {
+        p_nest = &ग्रन्थिः->child[i];
+        *seq = tcc_realloc(*seq, (*n_seq + 1) * परिमाण(संरचना trie_seq));
         p_seq = &(*seq)[(*n_seq)++];
-        p_seq->n_child = i == 0 ? node->n_child : -1;
-        p_seq->node = p_nest;
-        p_seq->offset = *offset;
-        p_seq->nest_offset = 0;
-        *offset += (i == 0 ? 1 + 1 : 0) +
-                   p_nest->index_end - p_nest->index_start + 1 + 3;
+        p_seq->n_child = i == 0 ? ग्रन्थिः->n_child : -1;
+        p_seq->ग्रन्थिः = p_nest;
+        p_seq->विस्थापनम् = *विस्थापनम्;
+        p_seq->nest_विस्थापनम् = 0;
+        *विस्थापनम् += (i == 0 ? 1 + 1 : 0) +
+                   p_nest->सूचकांक_अन्तः - p_nest->सूचकांक_start + 1 + 3;
     }
-    for (i = 0; i < node->n_child; i++) {
-        nest_offset =
-            create_seq(offset, n_seq, seq, &node->child[i], n_trie, trie);
-        p_seq = &(*seq)[last_seq + i];
-        p_seq->nest_offset = nest_offset;
+    प्रति (i = 0; i < ग्रन्थिः->n_child; i++) {
+        nest_विस्थापनम् =
+            create_seq(विस्थापनम्, n_seq, seq, &ग्रन्थिः->child[i], n_trie, trie);
+        p_seq = &(*seq)[चरमः_seq + i];
+        p_seq->nest_विस्थापनम् = nest_विस्थापनम्;
     }
-    return retval;
+    प्रत्यागम retval;
 }
 
-static void node_free(struct trie_node *node)
+स्थिर शून्य ग्रन्थिः_free(संरचना trie_ग्रन्थिः *ग्रन्थिः)
 {
-    int i;
+    पूर्णाङ्क i;
 
-    for (i = 0; i < node->n_child; i++)
-	node_free(&node->child[i]);
-    tcc_free(node->child);
+    प्रति (i = 0; i < ग्रन्थिः->n_child; i++)
+	ग्रन्थिः_free(&ग्रन्थिः->child[i]);
+    tcc_free(ग्रन्थिः->child);
 }
 
-static int triecmp(const void *_a, const void *_b, void *arg)
+स्थिर पूर्णाङ्क triecmp(ध्रुव शून्य *_a, ध्रुव शून्य *_b, शून्य *arg)
 {
-    struct trie_info *a = (struct trie_info *) _a;
-    struct trie_info *b = (struct trie_info *) _b;
-    int len_a = strlen(a->name);
-    int len_b = strlen(b->name);
+    संरचना trie_info *a = (संरचना trie_info *) _a;
+    संरचना trie_info *b = (संरचना trie_info *) _b;
+    पूर्णाङ्क len_a = वाक्यदैर्घ्यम्(a->name);
+    पूर्णाङ्क len_b = वाक्यदैर्घ्यम्(b->name);
 
     /* strange sorting needed. Name 'xx' should be after 'xx1' */
-    if (!strncmp(a->name, b->name, len_a < len_b ? len_a : len_b))
-	return len_a < len_b ? 1 : (len_a > len_b ? -1 : 0);
-    return strcmp(a->name, b->name);
+    यदि (!वाक्ये_तुलय(a->name, b->name, len_a < len_b ? len_a : len_b))
+	प्रत्यागम len_a < len_b ? 1 : (len_a > len_b ? -1 : 0);
+    प्रत्यागम वाक्यं_तुलय(a->name, b->name);
 }
 
-static void export_trie(TCCState *s1, struct macho *mo)
+स्थिर शून्य export_trie(TCCState *s1, संरचना macho *mo)
 {
-    int i, size, offset = 0, save_offset;
+    पूर्णाङ्क i, आकार, विस्थापनम् = 0, save_विस्थापनम्;
     uint8_t *ptr;
-    int sym_index;
-    int sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    int n_trie = 0, n_seq = 0;
-    struct trie_info *trie = NULL, *p_trie;
-    struct trie_node node, *p_node;
-    struct trie_seq *seq = NULL;
+    पूर्णाङ्क sym_सूचकांक;
+    पूर्णाङ्क sym_अन्तः = symtab_section->दत्त_विस्थापनम् / परिमाण(ElfW(Sym));
+    पूर्णाङ्क n_trie = 0, n_seq = 0;
+    संरचना trie_info *trie = रिक्त, *p_trie;
+    संरचना trie_ग्रन्थिः ग्रन्थिः, *p_ग्रन्थिः;
+    संरचना trie_seq *seq = रिक्त;
     addr_t vm_addr = get_segment(mo, s1->output_type == TCC_OUTPUT_EXE)->vmaddr;
 
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-	ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + sym_index;
-	const char *name = (char*)symtab_section->link->data + sym->st_name;
+    प्रति (sym_सूचकांक = 1; sym_सूचकांक < sym_अन्तः; ++sym_सूचकांक) {
+	ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->दत्त + sym_सूचकांक;
+	ध्रुव वर्ण *name = (वर्ण*)symtab_section->link->दत्त + sym->st_name;
 
-	if (sym->st_shndx != SHN_UNDEF && sym->st_shndx < SHN_LORESERVE &&
+	यदि (sym->st_shndx != SHN_UNDEF && sym->st_shndx < SHN_LORESERVE &&
             (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL ||
 	     ELFW(ST_BIND)(sym->st_info) == STB_WEAK)) {
-	    int flag = EXPORT_SYMBOL_FLAGS_KIND_REGULAR;
+	    पूर्णाङ्क flag = EXPORT_चिह्नम्_FLAGS_विधा_REGULAR;
 	    addr_t addr =
-		sym->st_value + s1->sections[sym->st_shndx]->sh_addr - vm_addr;
+		sym->st_मानम् + s1->sections[sym->st_shndx]->sh_addr - vm_addr;
 
-	    if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
-		flag |= EXPORT_SYMBOL_FLAGS_WEAK_DEFINITION;
-	    dprintf ("%s %d %llx\n", name, flag, (long long)addr + vm_addr);
-	    trie = tcc_realloc(trie, (n_trie + 1) * sizeof(struct trie_info));
+	    यदि (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
+		flag |= EXPORT_चिह्नम्_FLAGS_WEAK_DEFINITION;
+	    dprintf ("%s %d %llx\n", name, flag, (दीर्घ दीर्घ)addr + vm_addr);
+	    trie = tcc_realloc(trie, (n_trie + 1) * परिमाण(संरचना trie_info));
 	    trie[n_trie].name = name;
 	    trie[n_trie].flag = flag;
 	    trie[n_trie].addr = addr;
-	    trie[n_trie].str_size = strlen(name) + 1;
-	    trie[n_trie].term_size = uleb128_size(flag) + uleb128_size(addr);
+	    trie[n_trie].str_आकार = वाक्यदैर्घ्यम्(name) + 1;
+	    trie[n_trie].पदांशः_आकार = uleb128_आकार(flag) + uleb128_आकार(addr);
 	    n_trie++;
 	}
     }
-    if (n_trie) {
-        tcc_qsort(trie, n_trie, sizeof(struct trie_info), triecmp, NULL);
-	memset(&node, 0, sizeof(node));
-        create_trie(&node, 0, n_trie, 0, n_trie, trie);
-	create_seq(&offset, &n_seq, &seq, &node, n_trie, trie);
-        save_offset = offset;
-        for (i = 0; i < n_seq; i++) {
-            p_node = seq[i].node;
-            if (p_node->n_child == 0) {
-                p_trie = &trie[p_node->start];
-                seq[i].nest_offset = offset;
-                offset += 1 + p_trie->term_size + 1;
+    यदि (n_trie) {
+        tcc_qsort(trie, n_trie, परिमाण(संरचना trie_info), triecmp, रिक्त);
+	स्मृतिं_पूरय(&ग्रन्थिः, 0, परिमाण(ग्रन्थिः));
+        create_trie(&ग्रन्थिः, 0, n_trie, 0, n_trie, trie);
+	create_seq(&विस्थापनम्, &n_seq, &seq, &ग्रन्थिः, n_trie, trie);
+        save_विस्थापनम् = विस्थापनम्;
+        प्रति (i = 0; i < n_seq; i++) {
+            p_ग्रन्थिः = seq[i].ग्रन्थिः;
+            यदि (p_ग्रन्थिः->n_child == 0) {
+                p_trie = &trie[p_ग्रन्थिः->start];
+                seq[i].nest_विस्थापनम् = विस्थापनम्;
+                विस्थापनम् += 1 + p_trie->पदांशः_आकार + 1;
             }
         }
-        for (i = 0; i < n_seq; i++) {
-            p_node = seq[i].node;
-            p_trie = &trie[p_node->start];
-            if (seq[i].n_child >= 0) {
-                section_ptr_add(mo->exports,
-				seq[i].offset - mo->exports->data_offset);
-                ptr = section_ptr_add(mo->exports, 2);
+        प्रति (i = 0; i < n_seq; i++) {
+            p_ग्रन्थिः = seq[i].ग्रन्थिः;
+            p_trie = &trie[p_ग्रन्थिः->start];
+            यदि (seq[i].n_child >= 0) {
+                section_ptr_सङ्कलय(mo->exports,
+				seq[i].विस्थापनम् - mo->exports->दत्त_विस्थापनम्);
+                ptr = section_ptr_सङ्कलय(mo->exports, 2);
                 *ptr++ = 0;
                 *ptr = seq[i].n_child;
             }
-            size = p_node->index_end - p_node->index_start;
-            ptr = section_ptr_add(mo->exports, size + 1);
-            memcpy(ptr, &p_trie->name[p_node->index_start], size);
-            ptr[size] = 0;
-            write_uleb128(mo->exports, seq[i].nest_offset);
+            आकार = p_ग्रन्थिः->सूचकांक_अन्तः - p_ग्रन्थिः->सूचकांक_start;
+            ptr = section_ptr_सङ्कलय(mo->exports, आकार + 1);
+            स्मृतिं_प्रतिलिख(ptr, &p_trie->name[p_ग्रन्थिः->सूचकांक_start], आकार);
+            ptr[आकार] = 0;
+            write_uleb128(mo->exports, seq[i].nest_विस्थापनम्);
         }
-        section_ptr_add(mo->exports, save_offset - mo->exports->data_offset);
-        for (i = 0; i < n_seq; i++) {
-            p_node = seq[i].node;
-            if (p_node->n_child == 0) {
-                p_trie = &trie[p_node->start];
-                write_uleb128(mo->exports, p_trie->term_size);
+        section_ptr_सङ्कलय(mo->exports, save_विस्थापनम् - mo->exports->दत्त_विस्थापनम्);
+        प्रति (i = 0; i < n_seq; i++) {
+            p_ग्रन्थिः = seq[i].ग्रन्थिः;
+            यदि (p_ग्रन्थिः->n_child == 0) {
+                p_trie = &trie[p_ग्रन्थिः->start];
+                write_uleb128(mo->exports, p_trie->पदांशः_आकार);
                 write_uleb128(mo->exports, p_trie->flag);
                 write_uleb128(mo->exports, p_trie->addr);
-                ptr = section_ptr_add(mo->exports, 1);
+                ptr = section_ptr_सङ्कलय(mo->exports, 1);
                 *ptr = 0;
             }
         }
-        section_ptr_add(mo->exports, -mo->exports->data_offset & 7);
-	node_free(&node);
+        section_ptr_सङ्कलय(mo->exports, -mo->exports->दत्त_विस्थापनम् & 7);
+	ग्रन्थिः_free(&ग्रन्थिः);
         tcc_free(seq);
     }
     tcc_free(trie);
 }
 
-static void collect_sections(TCCState *s1, struct macho *mo, const char *filename)
+स्थिर शून्य collect_sections(TCCState *s1, संरचना macho *mo, ध्रुव वर्ण *filename)
 {
-    int i, sk, numsec;
-    int used_segment[N_SEGMENT];
+    पूर्णाङ्क i, sk, numsec;
+    पूर्णाङ्क प्रयुक्तम्_segment[N_SEGMENT];
     uint64_t curaddr, fileofs;
     Section *s;
-    struct segment_command_64 *seg;
-    struct dylib_command *dylib;
-#ifdef CONFIG_NEW_MACHO
-    struct linkedit_data_command *chained_fixups_lc;
-    struct linkedit_data_command *export_trie_lc;
-#endif
-    struct build_version_command *dyldbv;
-    struct source_version_command *dyldsv;
-    struct rpath_command *rpath;
-    struct dylinker_command *dyldlc;
-    struct symtab_command *symlc;
-    struct dysymtab_command *dysymlc;
-    char *str;
+    संरचना segment_command_64 *seg;
+    संरचना dylib_command *dylib;
+#यदि_परिभाषितम् CONFIG_NEW_MACHO
+    संरचना linkedit_दत्त_command *chained_fixups_lc;
+    संरचना linkedit_दत्त_command *export_trie_lc;
+#यदि_अन्तः
+    संरचना build_संस्करणम्_command *dyldbv;
+    संरचना source_संस्करणम्_command *dyldsv;
+    संरचना rpath_command *rpath;
+    संरचना dylinker_command *dyldlc;
+    संरचना symtab_command *symlc;
+    संरचना dysymtab_command *dysymlc;
+    वर्ण *str;
 
-    for (i = 0; i < N_SEGMENT; i++)
-	used_segment[i] = all_segment[i].used;
+    प्रति (i = 0; i < N_SEGMENT; i++)
+	प्रयुक्तम्_segment[i] = all_segment[i].प्रयुक्तम्;
 
-    memset (mo->sk_to_sect, 0, sizeof(mo->sk_to_sect));
-    for (i = s1->nb_sections; i-- > 1;) {
-        int type, flags;
+    स्मृतिं_पूरय (mo->sk_गन्तव्यम्_sect, 0, परिमाण(mo->sk_गन्तव्यम्_sect));
+    प्रति (i = s1->nb_sections; i-- > 1;) {
+        पूर्णाङ्क type, flags;
         s = s1->sections[i];
         type = s->sh_type;
         flags = s->sh_flags;
         sk = sk_unknown;
 	/* debug sections have sometimes no SHF_ALLOC */
-        if ((flags & SHF_ALLOC) || !strncmp(s->name, ".debug_", 7)) {
-            switch (type) {
-            default:           sk = sk_unknown; break;
-            case SHT_INIT_ARRAY: sk = sk_init; break;
-            case SHT_FINI_ARRAY: sk = sk_fini; break;
-            case SHT_NOBITS:   sk = sk_bss; break;
-            case SHT_SYMTAB:   sk = sk_discard; break;
-            case SHT_STRTAB:
-		if (s == stabstr_section)
+        यदि ((flags & SHF_ALLOC) || !वाक्ये_तुलय(s->name, ".debug_", 7)) {
+            विकल्प (type) {
+            स्वभाव:           sk = sk_unknown; भङ्ग;
+            पक्ष SHT_INIT_ARRAY: sk = sk_init; भङ्ग;
+            पक्ष SHT_FINI_ARRAY: sk = sk_fini; भङ्ग;
+            पक्ष SHT_NOBITS:   sk = sk_bss; भङ्ग;
+            पक्ष SHT_SYMTAB:   sk = sk_discard; भङ्ग;
+            पक्ष SHT_STRTAB:
+		यदि (s == stabstr_section)
 		  sk = sk_stab_str;
-		else
+		अन्यथा
 		  sk = sk_discard;
-		break;
-            case SHT_RELX:     sk = sk_discard; break;
-            case SHT_LINKEDIT: sk = sk_linkedit; break;
-            case SHT_PROGBITS:
-                if (s == mo->stubs)
+		भङ्ग;
+            पक्ष SHT_RELX:     sk = sk_discard; भङ्ग;
+            पक्ष SHT_LINKEDIT: sk = sk_linkedit; भङ्ग;
+            पक्ष SHT_PROGBITS:
+                यदि (s == mo->stubs)
                   sk = sk_stubs;
-#ifndef CONFIG_NEW_MACHO
-                else if (s == mo->stub_helper)
+#यदि_अपरिभाषितम् CONFIG_NEW_MACHO
+                अन्यथा यदि (s == mo->stub_helper)
                   sk = sk_stub_helper;
-                else if (s == mo->la_symbol_ptr)
+                अन्यथा यदि (s == mo->la_चिह्नम्_ptr)
                   sk = sk_la_ptr;
-#endif
-                else if (s == rodata_section)
-                  sk = sk_ro_data;
-                else if (s == s1->got)
+#यदि_अन्तः
+                अन्यथा यदि (s == rodata_section)
+                  sk = sk_ro_दत्त;
+                अन्यथा यदि (s == s1->got)
                   sk = sk_nl_ptr;
-                else if (s == stab_section)
+                अन्यथा यदि (s == stab_section)
                   sk = sk_stab;
-                else if (s == dwarf_info_section)
+                अन्यथा यदि (s == dwarf_info_section)
                   sk = sk_debug_info;
-                else if (s == dwarf_abbrev_section)
+                अन्यथा यदि (s == dwarf_abbrev_section)
                   sk = sk_debug_abbrev;
-                else if (s == dwarf_line_section)
-                  sk = sk_debug_line;
-                else if (s == dwarf_aranges_section)
+                अन्यथा यदि (s == dwarf_पङ्क्तिः_section)
+                  sk = sk_debug_पङ्क्तिः;
+                अन्यथा यदि (s == dwarf_aranges_section)
                   sk = sk_debug_aranges;
-                else if (s == dwarf_str_section)
+                अन्यथा यदि (s == dwarf_str_section)
                   sk = sk_debug_str;
-                else if (s == dwarf_line_str_section)
-                  sk = sk_debug_line_str;
-                else if (flags & SHF_EXECINSTR)
+                अन्यथा यदि (s == dwarf_पङ्क्तिः_str_section)
+                  sk = sk_debug_पङ्क्तिः_str;
+                अन्यथा यदि (flags & SHF_EXECINSTR)
                   sk = sk_text;
-                else if (flags & SHF_WRITE)
-                  sk = sk_rw_data;
-                else
-                  sk = sk_ro_data;
-                break;
+                अन्यथा यदि (flags & SHF_WRITE)
+                  sk = sk_rw_दत्त;
+                अन्यथा
+                  sk = sk_ro_दत्त;
+                भङ्ग;
             }
-        } else
+        } अन्यथा
           sk = sk_discard;
-        s->prev = mo->sk_to_sect[sk].s;
-        mo->sk_to_sect[sk].s = s;
-	used_segment[skinfo[sk].seg_initial] = 1;
+        s->पूर्व = mo->sk_गन्तव्यम्_sect[sk].s;
+        mo->sk_गन्तव्यम्_sect[sk].s = s;
+	प्रयुक्तम्_segment[skinfo[sk].seg_initial] = 1;
     }
 
-    if (s1->output_type != TCC_OUTPUT_EXE)
-	used_segment[0] = 0;
+    यदि (s1->output_type != TCC_OUTPUT_EXE)
+	प्रयुक्तम्_segment[0] = 0;
 
-    for (i = 0; i < N_SEGMENT; i++)
-	if (used_segment[i]) {
-	    seg = add_segment(mo, all_segment[i].name);
-	    if (i == 1 && s1->output_type != TCC_OUTPUT_EXE)
+    प्रति (i = 0; i < N_SEGMENT; i++)
+	यदि (प्रयुक्तम्_segment[i]) {
+	    seg = सङ्कलय_segment(mo, all_segment[i].name);
+	    यदि (i == 1 && s1->output_type != TCC_OUTPUT_EXE)
 	        seg->vmaddr = 0;
-	    else
+	    अन्यथा
 	        seg->vmaddr = all_segment[i].vmaddr;
 	    seg->vmsize = all_segment[i].vmsize;
 	    seg->maxprot = all_segment[i].maxprot;
 	    seg->initprot = all_segment[i].initprot;
 	    seg->flags = all_segment[i].flags;
-            for (sk = sk_unknown; sk < sk_last; sk++)
-		if (skinfo[sk].seg_initial == i)
+            प्रति (sk = sk_unknown; sk < sk_चरमः; sk++)
+		यदि (skinfo[sk].seg_initial == i)
 	            mo->segment[sk] = mo->nseg - 1;
 	}
 
-    if (s1->output_type != TCC_OUTPUT_EXE) {
-	const char *name = s1->install_name ? s1->install_name : filename;
-        i = (sizeof(*dylib) + strlen(name) + 1 + 7) &-8;
-        dylib = add_lc(mo, LC_ID_DYLIB, i);
-	dylib->name = sizeof(*dylib);
+    यदि (s1->output_type != TCC_OUTPUT_EXE) {
+	ध्रुव वर्ण *name = s1->install_name ? s1->install_name : filename;
+        i = (परिमाण(*dylib) + वाक्यदैर्घ्यम्(name) + 1 + 7) &-8;
+        dylib = सङ्कलय_lc(mo, LC_ID_DYLIB, i);
+	dylib->name = परिमाण(*dylib);
 	dylib->timestamp = 1;
-	dylib->current_version =
-	    s1->current_version ? s1->current_version : 1 << 16;
-	dylib->compatibility_version =
-	    s1->compatibility_version ? s1->compatibility_version : 1 << 16;
-        str = (char*)dylib + dylib->name;
-        strcpy(str, name);
+	dylib->current_संस्करणम् =
+	    s1->current_संस्करणम् ? s1->current_संस्करणम् : 1 << 16;
+	dylib->compatibility_संस्करणम् =
+	    s1->compatibility_संस्करणम् ? s1->compatibility_संस्करणम् : 1 << 16;
+        str = (वर्ण*)dylib + dylib->name;
+        वाक्यं_प्रतिलिख(str, name);
     }
 
-#ifdef CONFIG_NEW_MACHO
-    chained_fixups_lc = add_lc(mo, LC_DYLD_CHAINED_FIXUPS,
-			       sizeof(struct linkedit_data_command));
-    export_trie_lc = add_lc(mo, LC_DYLD_EXPORTS_TRIE,
-			    sizeof(struct linkedit_data_command));
-#else
-    mo->dyldinfo = add_lc(mo, LC_DYLD_INFO_ONLY, sizeof(*mo->dyldinfo));
-#endif
+#यदि_परिभाषितम् CONFIG_NEW_MACHO
+    chained_fixups_lc = सङ्कलय_lc(mo, LC_DYLD_CHAINED_FIXUPS,
+			       परिमाण(संरचना linkedit_दत्त_command));
+    export_trie_lc = सङ्कलय_lc(mo, LC_DYLD_EXPORTS_TRIE,
+			    परिमाण(संरचना linkedit_दत्त_command));
+#अन्यथा
+    mo->dyldinfo = सङ्कलय_lc(mo, LC_DYLD_INFO_ONLY, परिमाण(*mo->dyldinfo));
+#यदि_अन्तः
 
-    symlc = add_lc(mo, LC_SYMTAB, sizeof(*symlc));
-    dysymlc = add_lc(mo, LC_DYSYMTAB, sizeof(*dysymlc));
+    symlc = सङ्कलय_lc(mo, LC_SYMTAB, परिमाण(*symlc));
+    dysymlc = सङ्कलय_lc(mo, LC_DYSYMTAB, परिमाण(*dysymlc));
 
-    if (s1->output_type == TCC_OUTPUT_EXE) {
-        i = (sizeof(*dyldlc) + strlen("/usr/lib/dyld") + 1 + 7) &-8;
-        dyldlc = add_lc(mo, LC_LOAD_DYLINKER, i);
-        dyldlc->name = sizeof(*dyldlc);
-        str = (char*)dyldlc + dyldlc->name;
-        strcpy(str, "/usr/lib/dyld");
+    यदि (s1->output_type == TCC_OUTPUT_EXE) {
+        i = (परिमाण(*dyldlc) + वाक्यदैर्घ्यम्("/usr/lib/dyld") + 1 + 7) &-8;
+        dyldlc = सङ्कलय_lc(mo, LC_आरोपय_DYLINKER, i);
+        dyldlc->name = परिमाण(*dyldlc);
+        str = (वर्ण*)dyldlc + dyldlc->name;
+        वाक्यं_प्रतिलिख(str, "/usr/lib/dyld");
     }
 
-    dyldbv = add_lc(mo, LC_BUILD_VERSION, sizeof(*dyldbv));
+    dyldbv = सङ्कलय_lc(mo, LC_BUILD_संस्करणम्, परिमाण(*dyldbv));
     dyldbv->platform = PLATFORM_MACOS;
     dyldbv->minos = (10 << 16) + (6 << 8);
     dyldbv->sdk = (10 << 16) + (6 << 8);
     dyldbv->ntools = 0;
 
-    dyldsv = add_lc(mo, LC_SOURCE_VERSION, sizeof(*dyldsv));
-    dyldsv->version = 0;
+    dyldsv = सङ्कलय_lc(mo, LC_SOURCE_संस्करणम्, परिमाण(*dyldsv));
+    dyldsv->संस्करणम् = 0;
 
-    if (s1->output_type == TCC_OUTPUT_EXE) {
-        mo->ep = add_lc(mo, LC_MAIN, sizeof(*mo->ep));
+    यदि (s1->output_type == TCC_OUTPUT_EXE) {
+        mo->ep = सङ्कलय_lc(mo, LC_MAIN, परिमाण(*mo->ep));
         mo->ep->entryoff = 4096;
     }
 
-    for(i = 0; i < s1->nb_loaded_dlls; i++) {
+    प्रति(i = 0; i < s1->nb_loaded_dlls; i++) {
         DLLReference *dllref = s1->loaded_dlls[i];
-        if (dllref->level == 0)
-          add_dylib(mo, dllref->name);
+        यदि (dllref->level == 0)
+          सङ्कलय_dylib(mo, dllref->name);
     }
 
-    if (s1->rpath) {
-	char *path = s1->rpath, *end;
-	do {
-	    end = strchr(path, ':');
-	    if (!end)
-		end = strchr(path, 0);
-            i = (sizeof(*rpath) + (end - path) + 1 + 7) &-8;
-            rpath = add_lc(mo, LC_RPATH, i);
-            rpath->path = sizeof(*rpath);
-            str = (char*)rpath + rpath->path;
-            memcpy(str, path, end - path);
-	    str[end - path] = 0;
-	    path = end + 1;
-	} while (*end);
+    यदि (s1->rpath) {
+	वर्ण *मार्गः = s1->rpath, *अन्तः;
+	कुरु {
+	    अन्तः = strchr(मार्गः, ':');
+	    यदि (!अन्तः)
+		अन्तः = strchr(मार्गः, 0);
+            i = (परिमाण(*rpath) + (अन्तः - मार्गः) + 1 + 7) &-8;
+            rpath = सङ्कलय_lc(mo, LC_RPATH, i);
+            rpath->मार्गः = परिमाण(*rpath);
+            str = (वर्ण*)rpath + rpath->मार्गः;
+            स्मृतिं_प्रतिलिख(str, मार्गः, अन्तः - मार्गः);
+	    str[अन्तः - मार्गः] = 0;
+	    मार्गः = अन्तः + 1;
+	} यावत् (*अन्तः);
     }
 
     fileofs = 4096;  /* leave space for mach-o headers */
     curaddr = get_segment(mo, s1->output_type == TCC_OUTPUT_EXE)->vmaddr;
     curaddr += 4096;
-    seg = NULL;
+    seg = रिक्त;
     numsec = 0;
-    mo->elfsectomacho = tcc_mallocz(sizeof(*mo->elfsectomacho) * s1->nb_sections);
-    for (sk = sk_unknown; sk < sk_last; sk++) {
-        struct section_64 *sec = NULL;
-        if (seg) {
+    mo->elfsectomacho = tcc_mallocz(परिमाण(*mo->elfsectomacho) * s1->nb_sections);
+    प्रति (sk = sk_unknown; sk < sk_चरमः; sk++) {
+        संरचना section_64 *sec = रिक्त;
+        यदि (seg) {
             seg->vmsize = curaddr - seg->vmaddr;
             seg->filesize = fileofs - seg->fileoff;
         }
-#ifdef CONFIG_NEW_MACHO
-	if (sk == sk_linkedit) {
-	    calc_fixup_size(s1, mo);
+#यदि_परिभाषितम् CONFIG_NEW_MACHO
+	यदि (sk == sk_linkedit) {
+	    calc_fixup_आकार(s1, mo);
 	    export_trie(s1, mo);
 	}
-#else
-	if (sk == sk_linkedit) {
+#अन्यथा
+	यदि (sk == sk_linkedit) {
 	    bind_rebase(s1, mo);
 	    export_trie(s1, mo);
 	}
-#endif
-        if (skinfo[sk].seg_initial &&
+#यदि_अन्तः
+        यदि (skinfo[sk].seg_initial &&
 	    (s1->output_type != TCC_OUTPUT_EXE || mo->segment[sk]) &&
-	    mo->sk_to_sect[sk].s) {
+	    mo->sk_गन्तव्यम्_sect[sk].s) {
             uint64_t al = 0;
-            int si;
+            पूर्णाङ्क si;
             seg = get_segment(mo, mo->segment[sk]);
-            if (skinfo[sk].name) {
-                si = add_section(mo, &seg, skinfo[sk].name);
+            यदि (skinfo[sk].name) {
+                si = सङ्कलय_section(mo, &seg, skinfo[sk].name);
                 numsec++;
-                mo->lc[mo->seg2lc[mo->segment[sk]]] = (struct load_command*)seg;
-                mo->sk_to_sect[sk].machosect = si;
+                mo->lc[mo->seg2lc[mo->segment[sk]]] = (संरचना आरोपय_command*)seg;
+                mo->sk_गन्तव्यम्_sect[sk].machosect = si;
                 sec = get_section(seg, si);
                 sec->flags = skinfo[sk].flags;
-		if (sk == sk_stubs)
-#ifdef TCC_TARGET_X86_64
+		यदि (sk == sk_stubs)
+#यदि_परिभाषितम् TCC_TARGET_X86_64
 	    	    sec->reserved2 = 6;
-#elif defined TCC_TARGET_ARM64
+#नोचेद्यदि defined TCC_TARGET_ARM64
 	    	    sec->reserved2 = 12;
-#endif
-		if (sk == sk_nl_ptr)
+#यदि_अन्तः
+		यदि (sk == sk_nl_ptr)
 	    	    sec->reserved1 = mo->nr_plt;
-#ifndef CONFIG_NEW_MACHO
-		if (sk == sk_la_ptr)
+#यदि_अपरिभाषितम् CONFIG_NEW_MACHO
+		यदि (sk == sk_la_ptr)
 	    	    sec->reserved1 = mo->nr_plt + mo->n_got;
-#endif
+#यदि_अन्तः
             }
-            if (seg->vmaddr == -1) {
-                curaddr = (curaddr + SEG_PAGE_SIZE - 1) & -SEG_PAGE_SIZE;
+            यदि (seg->vmaddr == -1) {
+                curaddr = (curaddr + SEG_PAGE_आकार - 1) & -SEG_PAGE_आकार;
                 seg->vmaddr = curaddr;
-                fileofs = (fileofs + SEG_PAGE_SIZE - 1) & -SEG_PAGE_SIZE;
+                fileofs = (fileofs + SEG_PAGE_आकार - 1) & -SEG_PAGE_आकार;
                 seg->fileoff = fileofs;
             }
 
-            for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-                int a = exact_log2p1(s->sh_addralign);
-                if (a && al < (a - 1))
+            प्रति (s = mo->sk_गन्तव्यम्_sect[sk].s; s; s = s->पूर्व) {
+                पूर्णाङ्क a = exact_log2p1(s->sh_addralign);
+                यदि (a && al < (a - 1))
                   al = a - 1;
-                s->sh_size = s->data_offset;
+                s->sh_आकार = s->दत्त_विस्थापनम्;
             }
-            if (sec)
+            यदि (sec)
               sec->align = al;
             al = 1ULL << al;
-            if (al > 4096)
+            यदि (al > 4096)
               tcc_warning("alignment > 4096"), sec->align = 12, al = 4096;
             curaddr = (curaddr + al - 1) & -al;
             fileofs = (fileofs + al - 1) & -al;
-            if (sec) {
+            यदि (sec) {
                 sec->addr = curaddr;
-                sec->offset = fileofs;
+                sec->विस्थापनम् = fileofs;
             }
-            for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
+            प्रति (s = mo->sk_गन्तव्यम्_sect[sk].s; s; s = s->पूर्व) {
                 al = s->sh_addralign;
                 curaddr = (curaddr + al - 1) & -al;
-                dprintf("%s: curaddr now 0x%lx\n", s->name, (long)curaddr);
+                dprintf("%s: curaddr now 0x%lx\n", s->name, (दीर्घ)curaddr);
                 s->sh_addr = curaddr;
-                curaddr += s->sh_size;
-                if (s->sh_type != SHT_NOBITS) {
+                curaddr += s->sh_आकार;
+                यदि (s->sh_type != SHT_NOBITS) {
                     fileofs = (fileofs + al - 1) & -al;
-                    s->sh_offset = fileofs;
-                    fileofs += s->sh_size;
-                    dprintf("%s: fileofs now %ld\n", s->name, (long)fileofs);
+                    s->sh_विस्थापनम् = fileofs;
+                    fileofs += s->sh_आकार;
+                    dprintf("%s: fileofs now %ld\n", s->name, (दीर्घ)fileofs);
                 }
-                if (sec)
-                  mo->elfsectomacho[s->sh_num] = numsec;
+                यदि (sec)
+                  mo->elfsectomacho[s->sh_अङ्कः] = numsec;
             }
-            if (sec)
-              sec->size = curaddr - sec->addr;
+            यदि (sec)
+              sec->आकार = curaddr - sec->addr;
         }
-        if (DEBUG_MACHO)
-          for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-              int type = s->sh_type;
-              int flags = s->sh_flags;
-              printf("%d section %-16s %-10s %09lx %04x %02d %s,%s,%s\n",
+        यदि (DEBUG_MACHO)
+          प्रति (s = mo->sk_गन्तव्यम्_sect[sk].s; s; s = s->पूर्व) {
+              पूर्णाङ्क type = s->sh_type;
+              पूर्णाङ्क flags = s->sh_flags;
+              प्रारूप_लिख("%d section %-16s %-10s %09lx %04x %02d %s,%s,%s\n",
                      sk,
                      s->name,
                      type == SHT_PROGBITS ? "progbits" :
@@ -1895,8 +1895,8 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
                      type == SHT_INIT_ARRAY ? "init" :
                      type == SHT_FINI_ARRAY ? "fini" :
                      type == SHT_RELX ? "rel" : "???",
-                     (long)s->sh_addr,
-                     (unsigned)s->data_offset,
+                     (दीर्घ)s->sh_addr,
+                     (अचिह्नित)s->दत्त_विस्थापनम्,
                      s->sh_addralign,
                      flags & SHF_ALLOC ? "alloc" : "",
                      flags & SHF_WRITE ? "write" : "",
@@ -1904,16 +1904,16 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
                     );
           }
     }
-    if (seg) {
+    यदि (seg) {
         seg->vmsize = curaddr - seg->vmaddr;
         seg->filesize = fileofs - seg->fileoff;
     }
 
     /* Fill symtab info */
-    symlc->symoff = mo->symtab->sh_offset;
-    symlc->nsyms = mo->symtab->data_offset / sizeof(struct nlist_64);
-    symlc->stroff = mo->strtab->sh_offset;
-    symlc->strsize = mo->strtab->data_offset;
+    symlc->symoff = mo->symtab->sh_विस्थापनम्;
+    symlc->nsyms = mo->symtab->दत्त_विस्थापनम् / परिमाण(संरचना nlist_64);
+    symlc->stroff = mo->strtab->sh_विस्थापनम्;
+    symlc->strsize = mo->strtab->दत्त_विस्थापनम्;
 
     dysymlc->iundefsym = mo->iundef == -1 ? symlc->nsyms : mo->iundef;
     dysymlc->iextdefsym = mo->iextdef == -1 ? dysymlc->iundefsym : mo->iextdef;
@@ -1921,312 +1921,312 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
     dysymlc->nlocalsym = dysymlc->iextdefsym - dysymlc->ilocalsym;
     dysymlc->nextdefsym = dysymlc->iundefsym - dysymlc->iextdefsym;
     dysymlc->nundefsym = symlc->nsyms - dysymlc->iundefsym;
-    dysymlc->indirectsymoff = mo->indirsyms->sh_offset;
-    dysymlc->nindirectsyms = mo->indirsyms->data_offset / sizeof(uint32_t);
+    dysymlc->indirectsymoff = mo->indirsyms->sh_विस्थापनम्;
+    dysymlc->nindirectsyms = mo->indirsyms->दत्त_विस्थापनम् / परिमाण(uint32_t);
 
-#ifdef CONFIG_NEW_MACHO
-    if (mo->chained_fixups->data_offset) {
-        chained_fixups_lc->dataoff = mo->chained_fixups->sh_offset;
-        chained_fixups_lc->datasize = mo->chained_fixups->data_offset;
+#यदि_परिभाषितम् CONFIG_NEW_MACHO
+    यदि (mo->chained_fixups->दत्त_विस्थापनम्) {
+        chained_fixups_lc->dataoff = mo->chained_fixups->sh_विस्थापनम्;
+        chained_fixups_lc->datasize = mo->chained_fixups->दत्त_विस्थापनम्;
     }
-    if (mo->exports->data_offset) {
-        export_trie_lc->dataoff = mo->exports->sh_offset;
-        export_trie_lc->datasize = mo->exports->data_offset;
+    यदि (mo->exports->दत्त_विस्थापनम्) {
+        export_trie_lc->dataoff = mo->exports->sh_विस्थापनम्;
+        export_trie_lc->datasize = mo->exports->दत्त_विस्थापनम्;
     }
-#else
-    if (mo->rebase->data_offset) {
-        mo->dyldinfo->rebase_off = mo->rebase->sh_offset;
-        mo->dyldinfo->rebase_size = mo->rebase->data_offset;
+#अन्यथा
+    यदि (mo->rebase->दत्त_विस्थापनम्) {
+        mo->dyldinfo->rebase_off = mo->rebase->sh_विस्थापनम्;
+        mo->dyldinfo->rebase_आकार = mo->rebase->दत्त_विस्थापनम्;
     }
-    if (mo->binding->data_offset) {
-        mo->dyldinfo->bind_off = mo->binding->sh_offset;
-        mo->dyldinfo->bind_size = mo->binding->data_offset;
+    यदि (mo->binding->दत्त_विस्थापनम्) {
+        mo->dyldinfo->bind_off = mo->binding->sh_विस्थापनम्;
+        mo->dyldinfo->bind_आकार = mo->binding->दत्त_विस्थापनम्;
     }
-    if (mo->weak_binding->data_offset) {
-        mo->dyldinfo->weak_bind_off = mo->weak_binding->sh_offset;
-        mo->dyldinfo->weak_bind_size = mo->weak_binding->data_offset;
+    यदि (mo->weak_binding->दत्त_विस्थापनम्) {
+        mo->dyldinfo->weak_bind_off = mo->weak_binding->sh_विस्थापनम्;
+        mo->dyldinfo->weak_bind_आकार = mo->weak_binding->दत्त_विस्थापनम्;
     }
-    if (mo->lazy_binding->data_offset) {
-        mo->dyldinfo->lazy_bind_off = mo->lazy_binding->sh_offset;
-        mo->dyldinfo->lazy_bind_size = mo->lazy_binding->data_offset;
+    यदि (mo->lazy_binding->दत्त_विस्थापनम्) {
+        mo->dyldinfo->lazy_bind_off = mo->lazy_binding->sh_विस्थापनम्;
+        mo->dyldinfo->lazy_bind_आकार = mo->lazy_binding->दत्त_विस्थापनम्;
     }
-    if (mo->exports->data_offset) {
-        mo->dyldinfo->export_off = mo->exports->sh_offset;
-        mo->dyldinfo->export_size = mo->exports->data_offset;
+    यदि (mo->exports->दत्त_विस्थापनम्) {
+        mo->dyldinfo->export_off = mo->exports->sh_विस्थापनम्;
+        mo->dyldinfo->export_आकार = mo->exports->दत्त_विस्थापनम्;
     }
-#endif
+#यदि_अन्तः
 }
 
-static void macho_write(TCCState *s1, struct macho *mo, FILE *fp)
+स्थिर शून्य macho_write(TCCState *s1, संरचना macho *mo, FILE *fp)
 {
-    int i, sk;
+    पूर्णाङ्क i, sk;
     uint64_t fileofs = 0;
     Section *s;
     mo->mh.mh.magic = MH_MAGIC_64;
-#ifdef TCC_TARGET_X86_64
+#यदि_परिभाषितम् TCC_TARGET_X86_64
     mo->mh.mh.cputype = CPU_TYPE_X86_64;
     mo->mh.mh.cpusubtype = CPU_SUBTYPE_LIB64 | CPU_SUBTYPE_X86_ALL;
-#elif defined TCC_TARGET_ARM64
+#नोचेद्यदि defined TCC_TARGET_ARM64
     mo->mh.mh.cputype = CPU_TYPE_ARM64;
     mo->mh.mh.cpusubtype = CPU_SUBTYPE_ARM64_ALL;
-#endif
-    if (s1->output_type == TCC_OUTPUT_EXE) {
+#यदि_अन्तः
+    यदि (s1->output_type == TCC_OUTPUT_EXE) {
         mo->mh.mh.filetype = MH_EXECUTE;
         mo->mh.mh.flags = MH_DYLDLINK | MH_PIE;
     }
-    else {
+    अन्यथा {
         mo->mh.mh.filetype = MH_DYLIB;
         mo->mh.mh.flags = MH_DYLDLINK;
     }
     mo->mh.mh.ncmds = mo->nlc;
     mo->mh.mh.sizeofcmds = 0;
-    for (i = 0; i < mo->nlc; i++)
+    प्रति (i = 0; i < mo->nlc; i++)
       mo->mh.mh.sizeofcmds += mo->lc[i]->cmdsize;
 
-    fwrite(&mo->mh, 1, sizeof(mo->mh), fp);
-    fileofs += sizeof(mo->mh);
-    for (i = 0; i < mo->nlc; i++) {
+    fwrite(&mo->mh, 1, परिमाण(mo->mh), fp);
+    fileofs += परिमाण(mo->mh);
+    प्रति (i = 0; i < mo->nlc; i++) {
         fwrite(mo->lc[i], 1, mo->lc[i]->cmdsize, fp);
         fileofs += mo->lc[i]->cmdsize;
     }
 
-    for (sk = sk_unknown; sk < sk_last; sk++) {
+    प्रति (sk = sk_unknown; sk < sk_चरमः; sk++) {
         //struct segment_command_64 *seg;
-        if (skinfo[sk].seg_initial == 0 ||
+        यदि (skinfo[sk].seg_initial == 0 ||
 	    (s1->output_type == TCC_OUTPUT_EXE && !mo->segment[sk]) ||
-	    !mo->sk_to_sect[sk].s)
-          continue;
+	    !mo->sk_गन्तव्यम्_sect[sk].s)
+          अनुवर्त;
         /*seg =*/ get_segment(mo, mo->segment[sk]);
-        for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-            if (s->sh_type != SHT_NOBITS) {
-                while (fileofs < s->sh_offset)
+        प्रति (s = mo->sk_गन्तव्यम्_sect[sk].s; s; s = s->पूर्व) {
+            यदि (s->sh_type != SHT_NOBITS) {
+                यावत् (fileofs < s->sh_विस्थापनम्)
                   fputc(0, fp), fileofs++;
-                if (s->sh_size) {
-                    fwrite(s->data, 1, s->sh_size, fp);
-                    fileofs += s->sh_size;
+                यदि (s->sh_आकार) {
+                    fwrite(s->दत्त, 1, s->sh_आकार, fp);
+                    fileofs += s->sh_आकार;
                 }
             }
         }
     }
 }
 
-#ifdef CONFIG_NEW_MACHO
-static int bind_rebase_cmp(const void *_a, const void *_b, void *arg)
+#यदि_परिभाषितम् CONFIG_NEW_MACHO
+स्थिर पूर्णाङ्क bind_rebase_cmp(ध्रुव शून्य *_a, ध्रुव शून्य *_b, शून्य *arg)
 {
     TCCState *s1 = arg;
-    struct bind_rebase *a = (struct bind_rebase *) _a;
-    struct bind_rebase *b = (struct bind_rebase *) _b;
-    addr_t aa = s1->sections[a->section]->sh_addr + a->rel.r_offset;
-    addr_t ab = s1->sections[b->section]->sh_addr + b->rel.r_offset;
+    संरचना bind_rebase *a = (संरचना bind_rebase *) _a;
+    संरचना bind_rebase *b = (संरचना bind_rebase *) _b;
+    addr_t aa = s1->sections[a->section]->sh_addr + a->rel.r_विस्थापनम्;
+    addr_t ab = s1->sections[b->section]->sh_addr + b->rel.r_विस्थापनम्;
 
-    return aa > ab ? 1 : aa < ab ? -1 : 0;
+    प्रत्यागम aa > ab ? 1 : aa < ab ? -1 : 0;
 }
 
-ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
+ST_FUNC शून्य bind_rebase_import(TCCState *s1, संरचना macho *mo)
 {
-    int i, j, k, bind_index, size, page_count, sym_index;
-    const char *name;
+    पूर्णाङ्क i, j, k, bind_सूचकांक, आकार, page_गणनम्, sym_सूचकांक;
+    ध्रुव वर्ण *name;
     ElfW(Sym) *sym;
-    unsigned char *data = mo->chained_fixups->data;
-    struct segment_command_64 *seg;
-    struct dyld_chained_fixups_header *header;
-    struct dyld_chained_starts_in_image *image;
-    struct dyld_chained_starts_in_segment *segment;
-    struct dyld_chained_import *import;
+    अचिह्नित वर्ण *दत्त = mo->chained_fixups->दत्त;
+    संरचना segment_command_64 *seg;
+    संरचना dyld_chained_fixups_शीर्षकम् *शीर्षकम्;
+    संरचना dyld_chained_starts_अन्तर्_image *image;
+    संरचना dyld_chained_starts_अन्तर्_segment *segment;
+    संरचना dyld_chained_import *import;
 
-    tcc_qsort(mo->bind_rebase, mo->n_bind_rebase, sizeof(struct bind_rebase),
+    tcc_qsort(mo->bind_rebase, mo->n_bind_rebase, परिमाण(संरचना bind_rebase),
 	      bind_rebase_cmp, s1);
-    for (i = 0; i < mo->n_bind_rebase - 1; i++)
-	if (mo->bind_rebase[i].section == mo->bind_rebase[i + 1].section &&
-	    mo->bind_rebase[i].rel.r_offset == mo->bind_rebase[i + 1].rel.r_offset) {
-	    sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
-            sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	    name = (char *) symtab_section->link->data + sym->st_name;
+    प्रति (i = 0; i < mo->n_bind_rebase - 1; i++)
+	यदि (mo->bind_rebase[i].section == mo->bind_rebase[i + 1].section &&
+	    mo->bind_rebase[i].rel.r_विस्थापनम् == mo->bind_rebase[i + 1].rel.r_विस्थापनम्) {
+	    sym_सूचकांक = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
+            sym = &((ElfW(Sym) *)symtab_section->दत्त)[sym_सूचकांक];
+	    name = (वर्ण *) symtab_section->link->दत्त + sym->st_name;
 	    tcc_error("Overlap %s/%s %s:%s",
 		      mo->bind_rebase[i].bind ? "bind" : "rebase",
 		      mo->bind_rebase[i + 1].bind ? "bind" : "rebase",
 		      s1->sections[mo->bind_rebase[i].section]->name, name);
 	}
-    header = (struct dyld_chained_fixups_header *) data;
-    data += (sizeof(struct dyld_chained_fixups_header) + 7) & -8;
-    header->starts_offset = data - mo->chained_fixups->data;
-    header->imports_count = mo->n_bind;
-    header->imports_format = DYLD_CHAINED_IMPORT;
-    header->symbols_format = 0;
-    size = sizeof(struct dyld_chained_starts_in_image) +
-	   (mo->nseg - 1) * sizeof(uint32_t);
-    image = (struct dyld_chained_starts_in_image *) data;
-    data += (size + 7) & -8;
-    image->seg_count = mo->nseg;
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
-        image->seg_info_offset[i] = (data - mo->chained_fixups->data) -
-				    header->starts_offset;
+    शीर्षकम् = (संरचना dyld_chained_fixups_शीर्षकम् *) दत्त;
+    दत्त += (परिमाण(संरचना dyld_chained_fixups_शीर्षकम्) + 7) & -8;
+    शीर्षकम्->starts_विस्थापनम् = दत्त - mo->chained_fixups->दत्त;
+    शीर्षकम्->imports_गणनम् = mo->n_bind;
+    शीर्षकम्->imports_format = DYLD_CHAINED_IMPORT;
+    शीर्षकम्->symbols_format = 0;
+    आकार = परिमाण(संरचना dyld_chained_starts_अन्तर्_image) +
+	   (mo->nseg - 1) * परिमाण(uint32_t);
+    image = (संरचना dyld_chained_starts_अन्तर्_image *) दत्त;
+    दत्त += (आकार + 7) & -8;
+    image->seg_गणनम् = mo->nseg;
+    प्रति (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+        image->seg_info_विस्थापनम्[i] = (दत्त - mo->chained_fixups->दत्त) -
+				    शीर्षकम्->starts_विस्थापनम्;
 	seg = get_segment(mo, i);
-	page_count = (seg->vmsize + SEG_PAGE_SIZE - 1) / SEG_PAGE_SIZE;
-	size = sizeof(struct dyld_chained_starts_in_segment) +
-		      (page_count - 1) * sizeof(uint16_t);
-        segment = (struct dyld_chained_starts_in_segment *) data;
-        data += (size + 7) & -8;
-        segment->size = size;
-        segment->page_size = SEG_PAGE_SIZE;
-#if 1
-#define	PTR_64_OFFSET 0
-#define	PTR_64_MASK   0x7FFFFFFFFFFULL
+	page_गणनम् = (seg->vmsize + SEG_PAGE_आकार - 1) / SEG_PAGE_आकार;
+	आकार = परिमाण(संरचना dyld_chained_starts_अन्तर्_segment) +
+		      (page_गणनम् - 1) * परिमाण(uint16_t);
+        segment = (संरचना dyld_chained_starts_अन्तर्_segment *) दत्त;
+        दत्त += (आकार + 7) & -8;
+        segment->आकार = आकार;
+        segment->page_आकार = SEG_PAGE_आकार;
+#यदि 1
+#परिभाषय	PTR_64_विस्थापनम् 0
+#परिभाषय	PTR_64_आवरणम्   0x7FFFFFFFFFFULL
         segment->pointer_format = DYLD_CHAINED_PTR_64;
-#else
-#define	PTR_64_OFFSET 0x100000000ULL
-#define	PTR_64_MASK   0xFFFFFFFFFFFFFFULL
-        segment->pointer_format = DYLD_CHAINED_PTR_64_OFFSET;
-#endif
-        segment->segment_offset = seg->fileoff;
+#अन्यथा
+#परिभाषय	PTR_64_विस्थापनम् 0x100000000ULL
+#परिभाषय	PTR_64_आवरणम्   0xFFFFFFFFFFFFFFULL
+        segment->pointer_format = DYLD_CHAINED_PTR_64_विस्थापनम्;
+#यदि_अन्तः
+        segment->segment_विस्थापनम् = seg->fileoff;
         segment->max_valid_pointer = 0;
-        segment->page_count = page_count;
+        segment->page_गणनम् = page_गणनम्;
 	// add bind/rebase
-	bind_index = 0;
+	bind_सूचकांक = 0;
 	k = 0;
-	for (j = 0; j < page_count; j++) {
-	    addr_t start = seg->vmaddr + j * SEG_PAGE_SIZE;
-	    addr_t end = start + SEG_PAGE_SIZE;
-	    void *last = NULL;
-	    addr_t last_o = 0;
+	प्रति (j = 0; j < page_गणनम्; j++) {
+	    addr_t start = seg->vmaddr + j * SEG_PAGE_आकार;
+	    addr_t अन्तः = start + SEG_PAGE_आकार;
+	    शून्य *चरमः = रिक्त;
+	    addr_t चरमः_o = 0;
 	    addr_t cur_o, cur;
-	    struct dyld_chained_ptr_64_rebase *rebase;
-	    struct dyld_chained_ptr_64_bind *bind;
+	    संरचना dyld_chained_ptr_64_rebase *rebase;
+	    संरचना dyld_chained_ptr_64_bind *bind;
 
 	    segment->page_start[j] = DYLD_CHAINED_PTR_START_NONE;
-	    for (; k < mo->n_bind_rebase; k++) {
+	    प्रति (; k < mo->n_bind_rebase; k++) {
 	        Section *s = s1->sections[mo->bind_rebase[k].section];
-		addr_t r_offset = mo->bind_rebase[k].rel.r_offset;
-		addr_t addr = s->sh_addr + r_offset;
+		addr_t r_विस्थापनम् = mo->bind_rebase[k].rel.r_विस्थापनम्;
+		addr_t addr = s->sh_addr + r_विस्थापनम्;
 
-		if ((addr & 3) ||
-		    (addr & (SEG_PAGE_SIZE - 1)) > SEG_PAGE_SIZE - PTR_SIZE)
+		यदि ((addr & 3) ||
+		    (addr & (SEG_PAGE_आकार - 1)) > SEG_PAGE_आकार - PTR_आकार)
 		    tcc_error("Illegal rel_offset %s %lld",
-			      s->name, (long long)r_offset);
-		if (addr >= end)
-		    break;
-		if (addr >= start) {
+			      s->name, (दीर्घ दीर्घ)r_विस्थापनम्);
+		यदि (addr >= अन्तः)
+		    भङ्ग;
+		यदि (addr >= start) {
 		    cur_o = addr - start;
-	            if (mo->bind_rebase[k].bind) {
-		        if (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
+	            यदि (mo->bind_rebase[k].bind) {
+		        यदि (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
 			    segment->page_start[j] = cur_o;
-		        else {
-			    bind = (struct dyld_chained_ptr_64_bind *) last;
-			    bind->next = (cur_o - last_o) / 4;
+		        अन्यथा {
+			    bind = (संरचना dyld_chained_ptr_64_bind *) चरमः;
+			    bind->अग्र = (cur_o - चरमः_o) / 4;
 		        }
-		        bind = (struct dyld_chained_ptr_64_bind *)
-				    (s->data + r_offset);
-		        last = bind;
-		        last_o = cur_o;
-		        bind->ordinal = bind_index;
+		        bind = (संरचना dyld_chained_ptr_64_bind *)
+				    (s->दत्त + r_विस्थापनम्);
+		        चरमः = bind;
+		        चरमः_o = cur_o;
+		        bind->ordinal = bind_सूचकांक;
 		        bind->addend = 0;
 		        bind->reserved = 0;
-		        bind->next = 0;
+		        bind->अग्र = 0;
 		        bind->bind = 1;
 		    }
-		    else {
-		        if (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
+		    अन्यथा {
+		        यदि (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
 			    segment->page_start[j] = cur_o;
-		        else {
-			    rebase = (struct dyld_chained_ptr_64_rebase *) last;
-			    rebase->next = (cur_o - last_o) / 4;
+		        अन्यथा {
+			    rebase = (संरचना dyld_chained_ptr_64_rebase *) चरमः;
+			    rebase->अग्र = (cur_o - चरमः_o) / 4;
 		        }
-		        rebase = (struct dyld_chained_ptr_64_rebase *)
-				    (s->data + r_offset);
-		        last = rebase;
-		        last_o = cur_o;
-		        cur = (*(uint64_t *) (s->data + r_offset)) -
-			      PTR_64_OFFSET;
-		        rebase->target = cur & PTR_64_MASK;
+		        rebase = (संरचना dyld_chained_ptr_64_rebase *)
+				    (s->दत्त + r_विस्थापनम्);
+		        चरमः = rebase;
+		        चरमः_o = cur_o;
+		        cur = (*(uint64_t *) (s->दत्त + r_विस्थापनम्)) -
+			      PTR_64_विस्थापनम्;
+		        rebase->target = cur & PTR_64_आवरणम्;
 		        rebase->high8 = cur >> (64 - 8);
-			if (cur != ((uint64_t)rebase->high8 << (64 - 8)) + rebase->target)
+			यदि (cur != ((uint64_t)rebase->high8 << (64 - 8)) + rebase->target)
 			    tcc_error("rebase error");
 		        rebase->reserved = 0;
-		        rebase->next = 0;
+		        rebase->अग्र = 0;
 		        rebase->bind = 0;
 		    }
 		}
-		bind_index += mo->bind_rebase[k].bind;
+		bind_सूचकांक += mo->bind_rebase[k].bind;
 	    }
 	}
     }
     // add imports
-    header->imports_offset = data - mo->chained_fixups->data;
-    import = (struct dyld_chained_import *) data;
-    data += mo->n_bind * sizeof (struct dyld_chained_import);
-    header->symbols_offset = data - mo->chained_fixups->data;
-    data++;
-    for (i = 0, bind_index = 0; i < mo->n_bind_rebase; i++) {
-	if (mo->bind_rebase[i].bind) {
-	    import[bind_index].lib_ordinal =
+    शीर्षकम्->imports_विस्थापनम् = दत्त - mo->chained_fixups->दत्त;
+    import = (संरचना dyld_chained_import *) दत्त;
+    दत्त += mo->n_bind * परिमाण (संरचना dyld_chained_import);
+    शीर्षकम्->symbols_विस्थापनम् = दत्त - mo->chained_fixups->दत्त;
+    दत्त++;
+    प्रति (i = 0, bind_सूचकांक = 0; i < mo->n_bind_rebase; i++) {
+	यदि (mo->bind_rebase[i].bind) {
+	    import[bind_सूचकांक].lib_ordinal =
 		BIND_SPECIAL_DYLIB_FLAT_LOOKUP & 0xffu;
-	    import[bind_index].name_offset =
-		(data - mo->chained_fixups->data) - header->symbols_offset;
-	    sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
-	    sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	    import[bind_index].weak_import =
+	    import[bind_सूचकांक].name_विस्थापनम् =
+		(दत्त - mo->chained_fixups->दत्त) - शीर्षकम्->symbols_विस्थापनम्;
+	    sym_सूचकांक = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
+	    sym = &((ElfW(Sym) *)symtab_section->दत्त)[sym_सूचकांक];
+	    import[bind_सूचकांक].weak_import =
 		ELFW(ST_BIND)(sym->st_info) == STB_WEAK;
-	    name = (char *) symtab_section->link->data + sym->st_name;
-            strcpy((char *) data, name);
-	    data += strlen(name) + 1;
-	    bind_index++;
+	    name = (वर्ण *) symtab_section->link->दत्त + sym->st_name;
+            वाक्यं_प्रतिलिख((वर्ण *) दत्त, name);
+	    दत्त += वाक्यदैर्घ्यम्(name) + 1;
+	    bind_सूचकांक++;
 	}
     }
     tcc_free(mo->bind_rebase);
 }
-#endif
+#यदि_अन्तः
 
-ST_FUNC int macho_output_file(TCCState *s1, const char *filename)
+ST_FUNC पूर्णाङ्क macho_output_file(TCCState *s1, ध्रुव वर्ण *filename)
 {
-    int fd, mode, file_type;
+    पूर्णाङ्क fd, बहुलकम्, file_type;
     FILE *fp;
-    int i, ret = -1;
-    struct macho mo;
+    पूर्णाङ्क i, ret = -1;
+    संरचना macho mo;
 
-    (void)memset(&mo, 0, sizeof(mo));
+    (शून्य)स्मृतिं_पूरय(&mo, 0, परिमाण(mo));
 
     file_type = s1->output_type;
-    if (file_type == TCC_OUTPUT_OBJ)
-        mode = 0666;
-    else
-        mode = 0777;
+    यदि (file_type == TCC_OUTPUT_OBJ)
+        बहुलकम् = 0666;
+    अन्यथा
+        बहुलकम् = 0777;
     unlink(filename);
-    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, mode);
-    if (fd < 0 || (fp = fdopen(fd, "wb")) == NULL) {
+    fd = उद्घाटय(filename, O_WRONLY | O_CREAT | O_TRUNC | O_द्विमान_2, बहुलकम्);
+    यदि (fd < 0 || (fp = fdopen(fd, "wb")) == रिक्त) {
         tcc_error_noabort("could not write '%s: %s'", filename, strerror(errno));
-        return -1;
+        प्रत्यागम -1;
     }
-    tcc_add_runtime(s1);
-    tcc_macho_add_destructor(s1);
+    tcc_सङ्कलय_runtime(s1);
+    tcc_macho_सङ्कलय_destructor(s1);
     resolve_common_syms(s1);
     create_symtab(s1, &mo);
     check_relocs(s1, &mo);
     ret = check_symbols(s1, &mo);
-    if (!ret) {
-	int save_output = s1->output_type;
+    यदि (!ret) {
+	पूर्णाङ्क save_output = s1->output_type;
 
         collect_sections(s1, &mo, filename);
         relocate_syms(s1, s1->symtab, 0);
-	if (s1->output_type == TCC_OUTPUT_EXE)
+	यदि (s1->output_type == TCC_OUTPUT_EXE)
             mo.ep->entryoff = get_sym_addr(s1, "main", 1, 1)
                             -     get_segment(&mo, 1)->vmaddr;
-        if (s1->nb_errors)
-          goto do_ret;
+        यदि (s1->nb_errors)
+          गच्छ do_ret;
 	// Macho uses bind/rebase instead of dynsym
 	s1->output_type = TCC_OUTPUT_EXE;
         relocate_sections(s1);
 	s1->output_type = save_output;
-#ifdef CONFIG_NEW_MACHO
+#यदि_परिभाषितम् CONFIG_NEW_MACHO
 	bind_rebase_import(s1, &mo);
-#endif
+#यदि_अन्तः
         convert_symbols(s1, &mo);
-        if (s1->verbose)
-            printf("<- %s\n", filename);
+        यदि (s1->verbose)
+            प्रारूप_लिख("<- %s\n", filename);
         macho_write(s1, &mo, fp);
     }
 
  do_ret:
-    for (i = 0; i < mo.nlc; i++)
+    प्रति (i = 0; i < mo.nlc; i++)
       tcc_free(mo.lc[i]);
     tcc_free(mo.seg2lc);
     tcc_free(mo.lc);
@@ -2234,244 +2234,244 @@ ST_FUNC int macho_output_file(TCCState *s1, const char *filename)
     tcc_free(mo.e2msym);
 
     fclose(fp);
-#ifdef CONFIG_CODESIGN
-    if (!ret) {
-	char command[1024];
-	int retval;
+#यदि_परिभाषितम् CONFIG_CODESIGN
+    यदि (!ret) {
+	वर्ण command[1024];
+	पूर्णाङ्क retval;
 
-	snprintf(command, sizeof(command), "codesign -f -s - %s", filename);
+	snprintf(command, परिमाण(command), "codesign -f -s - %s", filename);
 	retval = system (command);
-	if (retval == -1 || !(WIFEXITED(retval) && WEXITSTATUS(retval) == 0))
+	यदि (retval == -1 || !(WIFEXITED(retval) && WEXITSTATUS(retval) == 0))
 	    tcc_error ("command failed '%s'", command);
     }
-#endif
-    return ret;
+#यदि_अन्तः
+    प्रत्यागम ret;
 }
 
-static uint32_t macho_swap32(uint32_t x)
+स्थिर uint32_t macho_swap32(uint32_t x)
 {
-  return (x >> 24) | (x << 24) | ((x >> 8) & 0xff00) | ((x & 0xff00) << 8);
+  प्रत्यागम (x >> 24) | (x << 24) | ((x >> 8) & 0xff00) | ((x & 0xff00) << 8);
 }
-#define SWAP(x) (swap ? macho_swap32(x) : (x))
-#define tbd_parse_movepast(s) \
-    (pos = (pos = strstr(pos, s)) ? pos + strlen(s) : NULL)
-#define tbd_parse_movetoany(cs) (pos = strpbrk(pos, cs))
-#define tbd_parse_skipws while (*pos && (*pos==' '||*pos=='\n')) ++pos
-#define tbd_parse_tramplequote if(*pos=='\''||*pos=='"') tbd_parse_trample
-#define tbd_parse_tramplespace if(*pos==' ') tbd_parse_trample
-#define tbd_parse_trample *pos++=0
+#परिभाषय SWAP(x) (swap ? macho_swap32(x) : (x))
+#परिभाषय tbd_parse_movepast(s) \
+    (pos = (pos = वाक्ये_अन्विष(pos, s)) ? pos + वाक्यदैर्घ्यम्(s) : रिक्त)
+#परिभाषय tbd_parse_movetoany(cs) (pos = strpbrk(pos, cs))
+#परिभाषय tbd_parse_skipws यावत् (*pos && (*pos==' '||*pos=='\n')) ++pos
+#परिभाषय tbd_parse_tramplequote यदि(*pos=='\''||*pos=='"') tbd_parse_trample
+#परिभाषय tbd_parse_tramplespace यदि(*pos==' ') tbd_parse_trample
+#परिभाषय tbd_parse_trample *pos++=0
 
-#ifdef TCC_IS_NATIVE
+#यदि_परिभाषितम् TCC_IS_NATIVE
 /* Looks for the active developer SDK set by xcode-select (or the default
    one set during installation.) */
-ST_FUNC void tcc_add_macos_sdkpath(TCCState* s)
+ST_FUNC शून्य tcc_सङ्कलय_macos_sdkpath(TCCState* s)
 {
-    char *sdkroot = NULL, *pos = NULL;
-    void* xcs = dlopen("libxcselect.dylib", RTLD_GLOBAL | RTLD_LAZY);
-    CString path;
-    int (*f)(unsigned int, char**) = dlsym(xcs, "xcselect_host_sdk_path");
-    cstr_new(&path);
-    if (f) f(1, &sdkroot);
-    if (sdkroot)
-        pos = strstr(sdkroot,"SDKs/MacOSX");
-    if (pos)
-        cstr_printf(&path, "%.*s.sdk/usr/lib", (int)(pos - sdkroot + 11), sdkroot);
+    वर्ण *sdkroot = रिक्त, *pos = रिक्त;
+    शून्य* xcs = dlopen("libxcselect.dylib", RTLD_GLOBAL | RTLD_LAZY);
+    CString मार्गः;
+    पूर्णाङ्क (*f)(अचिह्नित पूर्णाङ्क, वर्ण**) = dlsym(xcs, "xcselect_host_sdk_path");
+    cstr_new(&मार्गः);
+    यदि (f) f(1, &sdkroot);
+    यदि (sdkroot)
+        pos = वाक्ये_अन्विष(sdkroot,"SDKs/MacOSX");
+    यदि (pos)
+        cstr_printf(&मार्गः, "%.*s.sdk/usr/lib", (पूर्णाङ्क)(pos - sdkroot + 11), sdkroot);
     /* must use free from libc directly */
-#pragma push_macro("free")
-#undef free
-    free(sdkroot);
-#pragma pop_macro("free")
-    if (path.size)
-        tcc_add_library_path(s, (char*)path.data);
-    else
-        tcc_add_library_path(s,
+#निर्देशः प्रक्षिप_macro("free")
+#अपरिभाषय मुक्त
+    मुक्त(sdkroot);
+#निर्देशः निष्कासय_macro("free")
+    यदि (मार्गः.आकार)
+        tcc_सङ्कलय_library_मार्गः(s, (वर्ण*)मार्गः.दत्त);
+    अन्यथा
+        tcc_सङ्कलय_library_मार्गः(s,
             "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"
             ":" "/Applications/Xcode.app/Developer/SDKs/MacOSX.sdk/usr/lib"
             );
-    cstr_free(&path);
+    cstr_free(&मार्गः);
 }
 
-ST_FUNC char* macho_tbd_soname(int fd) {
-    char *soname, *data, *pos;
-    char *ret = 0;
-    pos = data = tcc_load_text(fd);
-    if (!tbd_parse_movepast("install-name: ")) goto the_end;
+ST_FUNC वर्ण* macho_tbd_soname(पूर्णाङ्क fd) {
+    वर्ण *soname, *दत्त, *pos;
+    वर्ण *ret = 0;
+    pos = दत्त = tcc_आरोपय_text(fd);
+    यदि (!tbd_parse_movepast("install-name: ")) गच्छ the_अन्तः;
     tbd_parse_skipws;
     tbd_parse_tramplequote;
     soname = pos;
-    if (!tbd_parse_movetoany("\n \"'")) goto the_end;
+    यदि (!tbd_parse_movetoany("\n \"'")) गच्छ the_अन्तः;
     tbd_parse_trample;
     ret = tcc_strdup(soname);
-the_end:
-    tcc_free(data);
-    return ret;
+the_अन्तः:
+    tcc_free(दत्त);
+    प्रत्यागम ret;
 }
-#endif /* TCC_IS_NATIVE */
+#यदि_अन्तः /* TCC_IS_NATIVE */
 
-ST_FUNC int macho_load_tbd(TCCState* s1, int fd, const char* filename, int lev)
+ST_FUNC पूर्णाङ्क macho_आरोपय_tbd(TCCState* s1, पूर्णाङ्क fd, ध्रुव वर्ण* filename, पूर्णाङ्क lev)
 {
-    char *soname, *data, *pos;
-    int ret = -1;
+    वर्ण *soname, *दत्त, *pos;
+    पूर्णाङ्क ret = -1;
 
-    pos = data = tcc_load_text(fd);
-    if (!tbd_parse_movepast("install-name: ")) goto the_end;
+    pos = दत्त = tcc_आरोपय_text(fd);
+    यदि (!tbd_parse_movepast("install-name: ")) गच्छ the_अन्तः;
     tbd_parse_skipws;
     tbd_parse_tramplequote;
     soname = pos;
-    if (!tbd_parse_movetoany("\n \"'")) goto the_end;
+    यदि (!tbd_parse_movetoany("\n \"'")) गच्छ the_अन्तः;
     tbd_parse_trample;
     ret = 0;
-    if (tcc_add_dllref(s1, soname, lev)->found)
-        goto the_end;
-    while(pos) {
-        char* sym = NULL;
-        int cont = 1;
-        if (!tbd_parse_movepast("symbols: ")) break;
-        if (!tbd_parse_movepast("[")) break;
-        while (cont) {
+    यदि (tcc_सङ्कलय_dllref(s1, soname, lev)->प्राप्तम्)
+        गच्छ the_अन्तः;
+    यावत्(pos) {
+        वर्ण* sym = रिक्त;
+        पूर्णाङ्क cont = 1;
+        यदि (!tbd_parse_movepast("symbols: ")) भङ्ग;
+        यदि (!tbd_parse_movepast("[")) भङ्ग;
+        यावत् (cont) {
             tbd_parse_skipws;
             tbd_parse_tramplequote;
             sym = pos;
-            if (!tbd_parse_movetoany(",] \"'")) break;
+            यदि (!tbd_parse_movetoany(",] \"'")) भङ्ग;
             tbd_parse_tramplequote;
             tbd_parse_tramplespace;
             tbd_parse_skipws;
-            if (*pos==0||*pos==']') cont=0;
+            यदि (*pos==0||*pos==']') cont=0;
             tbd_parse_trample;
-            set_elf_sym(s1->dynsymtab_section, 0, 0,
+            समुच्चयः_elf_sym(s1->dynsymtab_section, 0, 0,
                 ELFW(ST_INFO)(STB_GLOBAL, STT_NOTYPE), 0, SHN_UNDEF, sym);
         }
     }
 
-the_end:
-    tcc_free(data);
-    return ret;
+the_अन्तः:
+    tcc_free(दत्त);
+    प्रत्यागम ret;
 }
 
-ST_FUNC int macho_load_dll(TCCState * s1, int fd, const char* filename, int lev)
+ST_FUNC पूर्णाङ्क macho_आरोपय_dll(TCCState * s1, पूर्णाङ्क fd, ध्रुव वर्ण* filename, पूर्णाङ्क lev)
 {
-    unsigned char buf[sizeof(struct mach_header_64)];
-    void *buf2;
+    अचिह्नित वर्ण buf[परिमाण(संरचना mach_शीर्षकम्_64)];
+    शून्य *buf2;
     uint32_t machofs = 0;
-    struct fat_header fh;
-    struct mach_header mh;
-    struct load_command *lc;
-    int i, swap = 0;
-    const char *soname = filename;
-    struct nlist_64 *symtab = 0;
+    संरचना fat_शीर्षकम् fh;
+    संरचना mach_शीर्षकम् mh;
+    संरचना आरोपय_command *lc;
+    पूर्णाङ्क i, swap = 0;
+    ध्रुव वर्ण *soname = filename;
+    संरचना nlist_64 *symtab = 0;
     uint32_t nsyms = 0;
-    char *strtab = 0;
+    वर्ण *strtab = 0;
     uint32_t strsize = 0;
     uint32_t iextdef = 0;
     uint32_t nextdef = 0;
 
   again:
-    if (full_read(fd, buf, sizeof(buf)) != sizeof(buf))
-      return -1;
-    memcpy(&fh, buf, sizeof(fh));
-    if (fh.magic == FAT_MAGIC || fh.magic == FAT_CIGAM) {
-        struct fat_arch *fa = load_data(fd, sizeof(fh),
-                                        fh.nfat_arch * sizeof(*fa));
+    यदि (पूर्णम्_read(fd, buf, परिमाण(buf)) != परिमाण(buf))
+      प्रत्यागम -1;
+    स्मृतिं_प्रतिलिख(&fh, buf, परिमाण(fh));
+    यदि (fh.magic == FAT_MAGIC || fh.magic == FAT_CIGAM) {
+        संरचना fat_arch *fa = आरोपय_दत्त(fd, परिमाण(fh),
+                                        fh.nfat_arch * परिमाण(*fa));
         swap = fh.magic == FAT_CIGAM;
-        for (i = 0; i < SWAP(fh.nfat_arch); i++)
-#ifdef TCC_TARGET_X86_64
-          if (SWAP(fa[i].cputype) == CPU_TYPE_X86_64
+        प्रति (i = 0; i < SWAP(fh.nfat_arch); i++)
+#यदि_परिभाषितम् TCC_TARGET_X86_64
+          यदि (SWAP(fa[i].cputype) == CPU_TYPE_X86_64
               && SWAP(fa[i].cpusubtype) == CPU_SUBTYPE_X86_ALL)
-#elif defined TCC_TARGET_ARM64
-          if (SWAP(fa[i].cputype) == CPU_TYPE_ARM64
+#नोचेद्यदि defined TCC_TARGET_ARM64
+          यदि (SWAP(fa[i].cputype) == CPU_TYPE_ARM64
               && SWAP(fa[i].cpusubtype) == CPU_SUBTYPE_ARM64_ALL)
-#endif
-            break;
-        if (i == SWAP(fh.nfat_arch)) {
+#यदि_अन्तः
+            भङ्ग;
+        यदि (i == SWAP(fh.nfat_arch)) {
             tcc_free(fa);
-            return -1;
+            प्रत्यागम -1;
         }
-        machofs = SWAP(fa[i].offset);
+        machofs = SWAP(fa[i].विस्थापनम्);
         tcc_free(fa);
         lseek(fd, machofs, SEEK_SET);
-        goto again;
-    } else if (fh.magic == FAT_MAGIC_64 || fh.magic == FAT_CIGAM_64) {
+        गच्छ again;
+    } अन्यथा यदि (fh.magic == FAT_MAGIC_64 || fh.magic == FAT_CIGAM_64) {
         tcc_warning("%s: Mach-O fat 64bit files of type 0x%x not handled",
                     filename, fh.magic);
-        return -1;
+        प्रत्यागम -1;
     }
 
-    memcpy(&mh, buf, sizeof(mh));
-    if (mh.magic != MH_MAGIC_64)
-      return -1;
+    स्मृतिं_प्रतिलिख(&mh, buf, परिमाण(mh));
+    यदि (mh.magic != MH_MAGIC_64)
+      प्रत्यागम -1;
     dprintf("found Mach-O at %d\n", machofs);
-    buf2 = load_data(fd, machofs + sizeof(struct mach_header_64), mh.sizeofcmds);
-    for (i = 0, lc = buf2; i < mh.ncmds; i++) {
+    buf2 = आरोपय_दत्त(fd, machofs + परिमाण(संरचना mach_शीर्षकम्_64), mh.sizeofcmds);
+    प्रति (i = 0, lc = buf2; i < mh.ncmds; i++) {
         dprintf("lc %2d: 0x%08x\n", i, lc->cmd);
-        switch (lc->cmd) {
-        case LC_SYMTAB:
+        विकल्प (lc->cmd) {
+        पक्ष LC_SYMTAB:
         {
-            struct symtab_command *sc = (struct symtab_command*)lc;
+            संरचना symtab_command *sc = (संरचना symtab_command*)lc;
             nsyms = sc->nsyms;
-            symtab = load_data(fd, machofs + sc->symoff, nsyms * sizeof(*symtab));
+            symtab = आरोपय_दत्त(fd, machofs + sc->symoff, nsyms * परिमाण(*symtab));
             strsize = sc->strsize;
-            strtab = load_data(fd, machofs + sc->stroff, strsize);
-            break;
+            strtab = आरोपय_दत्त(fd, machofs + sc->stroff, strsize);
+            भङ्ग;
         }
-        case LC_ID_DYLIB:
+        पक्ष LC_ID_DYLIB:
         {
-            struct dylib_command *dc = (struct dylib_command*)lc;
-            soname = (char*)lc + dc->name;
+            संरचना dylib_command *dc = (संरचना dylib_command*)lc;
+            soname = (वर्ण*)lc + dc->name;
             dprintf(" ID_DYLIB %d 0x%x 0x%x %s\n",
-                    dc->timestamp, dc->current_version,
-                    dc->compatibility_version, soname);
-            break;
+                    dc->timestamp, dc->current_संस्करणम्,
+                    dc->compatibility_संस्करणम्, soname);
+            भङ्ग;
         }
-        case LC_REEXPORT_DYLIB:
+        पक्ष LC_REEXPORT_DYLIB:
         {
-            struct dylib_command *dc = (struct dylib_command*)lc;
-            char *name = (char*)lc + dc->name;
-            int subfd = open(name, O_RDONLY | O_BINARY);
+            संरचना dylib_command *dc = (संरचना dylib_command*)lc;
+            वर्ण *name = (वर्ण*)lc + dc->name;
+            पूर्णाङ्क subfd = उद्घाटय(name, O_RDONLY | O_द्विमान_2);
             dprintf(" REEXPORT %s\n", name);
-            if (subfd < 0)
+            यदि (subfd < 0)
               tcc_warning("can't open %s (reexported from %s)", name, filename);
-            else {
+            अन्यथा {
                 /* Hopefully the REEXPORTs never form a cycle, we don't check
                    for that!  */
-                macho_load_dll(s1, subfd, name, lev + 1);
+                macho_आरोपय_dll(s1, subfd, name, lev + 1);
                 close(subfd);
             }
-            break;
+            भङ्ग;
         }
-        case LC_DYSYMTAB:
+        पक्ष LC_DYSYMTAB:
         {
-            struct dysymtab_command *dc = (struct dysymtab_command*)lc;
+            संरचना dysymtab_command *dc = (संरचना dysymtab_command*)lc;
             iextdef = dc->iextdefsym;
             nextdef = dc->nextdefsym;
-            break;
+            भङ्ग;
         }
         }
-        lc = (struct load_command*) ((char*)lc + lc->cmdsize);
+        lc = (संरचना आरोपय_command*) ((वर्ण*)lc + lc->cmdsize);
     }
 
-    if (tcc_add_dllref(s1, soname, lev)->found)
-        goto the_end;
+    यदि (tcc_सङ्कलय_dllref(s1, soname, lev)->प्राप्तम्)
+        गच्छ the_अन्तः;
 
-    if (!nsyms || !nextdef)
+    यदि (!nsyms || !nextdef)
       tcc_warning("%s doesn't export any symbols?", filename);
 
     //dprintf("symbols (all):\n");
     dprintf("symbols (exported):\n");
     dprintf("    n: typ sec   desc              value name\n");
     //for (i = 0; i < nsyms; i++) {
-    for (i = iextdef; i < iextdef + nextdef; i++) {
-        struct nlist_64 *sym = symtab + i;
+    प्रति (i = iextdef; i < iextdef + nextdef; i++) {
+        संरचना nlist_64 *sym = symtab + i;
         dprintf("%5d: %3d %3d 0x%04x 0x%016lx %s\n",
-                i, sym->n_type, sym->n_sect, sym->n_desc, (long)sym->n_value,
+                i, sym->n_type, sym->n_sect, sym->n_desc, (दीर्घ)sym->n_मानम्,
                 strtab + sym->n_strx);
-        set_elf_sym(s1->dynsymtab_section, 0, 0,
+        समुच्चयः_elf_sym(s1->dynsymtab_section, 0, 0,
                     ELFW(ST_INFO)(STB_GLOBAL, STT_NOTYPE),
                     0, SHN_UNDEF, strtab + sym->n_strx);
     }
 
-  the_end:
+  the_अन्तः:
     tcc_free(strtab);
     tcc_free(symtab);
     tcc_free(buf2);
-    return 0;
+    प्रत्यागम 0;
 }

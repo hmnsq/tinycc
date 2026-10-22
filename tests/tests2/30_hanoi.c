@@ -26,97 +26,97 @@
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <stdlib.h>
 
-#define TRUE 1
-#define FALSE 0
+#परिभाषय TRUE 1
+#परिभाषय FALSE 0
 
 /* This is the number of "disks" on tower A initially. Taken to be 64 in the
  * legend. The number of moves required, in general, is 2^N - 1. For N = 64,
  * this is 18,446,744,073,709,551,615 */
-#define N 4
+#परिभाषय N 4
 
 /* These are the three towers. For example if the state of A is 0,1,3,4, that
  * means that there are three discs on A of sizes 1, 3, and 4. (Think of right
  * as being the "down" direction.) */
-int A[N], B[N], C[N]; 
+पूर्णाङ्क A[N], B[N], C[N]; 
 
-void Hanoi(int,int*,int*,int*);
+शून्य हनोई(पूर्णाङ्क,पूर्णाङ्क*,पूर्णाङ्क*,पूर्णाङ्क*);
 
 /* Print the current configuration of A, B, and C to the screen */
-void PrintAll()
+शून्य PrintAll()
 {
-   int i;
+   पूर्णाङ्क i;
 
-   printf("A: ");
-   for(i=0;i<N;i++)printf(" %d ",A[i]);
-   printf("\n");
+   प्रारूप_लिख("A: ");
+   प्रति(i=0;i<N;i++)प्रारूप_लिख(" %d ",A[i]);
+   प्रारूप_लिख("\n");
 
-   printf("B: ");
-   for(i=0;i<N;i++)printf(" %d ",B[i]);
-   printf("\n");
+   प्रारूप_लिख("B: ");
+   प्रति(i=0;i<N;i++)प्रारूप_लिख(" %d ",B[i]);
+   प्रारूप_लिख("\n");
 
-   printf("C: ");
-   for(i=0;i<N;i++)printf(" %d ",C[i]);
-   printf("\n");
-   printf("------------------------------------------\n");
-   return;
+   प्रारूप_लिख("C: ");
+   प्रति(i=0;i<N;i++)प्रारूप_लिख(" %d ",C[i]);
+   प्रारूप_लिख("\n");
+   प्रारूप_लिख("------------------------------------------\n");
+   प्रत्यागम;
 }
 
 /* Move the leftmost nonzero element of source to dest, leave behind 0. */
 /* Returns the value moved (not used.) */
-int Move(int *source, int *dest)
+पूर्णाङ्क Move(पूर्णाङ्क *source, पूर्णाङ्क *dest)
 {
-   int i = 0, j = 0;
+   पूर्णाङ्क i = 0, j = 0;
 
-   while (i<N && (source[i])==0) i++;
-   while (j<N && (dest[j])==0) j++;
+   यावत् (i<N && (source[i])==0) i++;
+   यावत् (j<N && (dest[j])==0) j++;
 
    dest[j-1] = source[i];
    source[i] = 0;
    PrintAll();       /* Print configuration after each move. */
-   return dest[j-1];
+   प्रत्यागम dest[j-1];
 }
 
 
 /* Moves first n nonzero numbers from source to dest using the rules of Hanoi.
    Calls itself recursively.
    */
-void Hanoi(int n,int *source, int *dest, int *spare)
+शून्य हनोई(पूर्णाङ्क n,पूर्णाङ्क *source, पूर्णाङ्क *dest, पूर्णाङ्क *अतिरिक्तः)
 {
-   int i;
-   if(n==1){
+   पूर्णाङ्क i;
+   यदि(n==1){
       Move(source,dest);
-      return;
+      प्रत्यागम;
    }
 
-   Hanoi(n-1,source,spare,dest);
+   हनोई(n-1,source,अतिरिक्तः,dest);
    Move(source,dest);
-   Hanoi(n-1,spare,dest,source);	
-   return;
+   हनोई(n-1,अतिरिक्तः,dest,source);	
+   प्रत्यागम;
 }
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-   int i;
+   पूर्णाङ्क i;
 
    /* initialize the towers */
-   for(i=0;i<N;i++)A[i]=i+1;
-   for(i=0;i<N;i++)B[i]=0;
-   for(i=0;i<N;i++)C[i]=0;
+   प्रति(i=0;i<N;i++)A[i]=i+1;
+   प्रति(i=0;i<N;i++)B[i]=0;
+   प्रति(i=0;i<N;i++)C[i]=0;
 
-   printf("Solution of Tower of Hanoi Problem with %d Disks\n\n",N);
+   प्रारूप_लिख("Solution of Tower of Hanoi Problem with %d Disks\n\n",N);
 
    /* Print the starting state */
-   printf("Starting state:\n");
+   प्रारूप_लिख("Starting state:\n");
    PrintAll();
-   printf("\n\nSubsequent states:\n\n");
+   प्रारूप_लिख("\n\nSubsequent states:\n\n");
 
    /* Do it! Use A = Source, B = Destination, C = Spare */
-   Hanoi(N,A,B,C);
+   हनोई(N,A,B,C);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

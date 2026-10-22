@@ -1,17 +1,17 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-static void f(int x)
+स्थिर शून्य f(पूर्णाङ्क x)
 {
-     printf("f(%d)\n", x);
+     प्रारूप_लिख("f(%d)\n", x);
 }
 
-int main(void)
+पूर्णाङ्क मुख्यम्(शून्य)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
-         printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+     पूर्णाङ्क गणनम्_2 = 0, i = 0;
+     प्रति (; i < 3; ++i) {
+         प्रारूप_लिख("%d\n", i);
+         (शून्य)(i || (f(i), ++गणनम्_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     प्रारूप_लिख("count %d\n", गणनम्_2);
+     प्रत्यागम गणनम्_2 == 1 ? 0 : 1;
 }

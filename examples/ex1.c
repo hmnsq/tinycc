@@ -1,8 +1,8 @@
-#!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#!/usr/local/bin/tcc -सततम्
+#अन्तर्भाव <tcclib.h>
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-    printf("Hello World\n");
-    return 0;
+    प्रारूप_लिख("Hello World\n");
+    प्रत्यागम 0;
 }

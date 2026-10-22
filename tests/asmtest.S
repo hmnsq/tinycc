@@ -29,24 +29,24 @@
 /* some label tests */
 L1:
         movl %eax, %ebx
-        mov 0x10000, %eax
+        चालय 0x10000, %eax
 L2:
         movl $L2 - L1, %ecx
 var1:
         nop ; nop ; nop ; nop
 
-        mov var1, %eax
+        चालय var1, %eax
 
 /* instruction tests */
 movl %eax, %ebx
-mov 0x10000, %eax
-mov 0x10000, %ax
-mov 0x10000, %al
-mov %al, 0x10000
+चालय 0x10000, %eax
+चालय 0x10000, %ax
+चालय 0x10000, %al
+चालय %al, 0x10000
                 
-mov $1, %edx
-mov $1, %dx
-mov $1, %cl
+चालय $1, %edx
+चालय $1, %dx
+चालय $1, %cl
 movb $2, 0x100(%ebx,%edx,2)
 movw $2, 0x100(%ebx,%edx,2)
 movl $2, 0x100(%ebx,%edx,2)
@@ -59,30 +59,30 @@ movl $0x112233,%edx
 movl $0x80000000, %esi
 movl $-0x7fffffff, %edi
 #ifdef __x86_64__
-mov $0x11223344,%rbx
+चालय $0x11223344,%rbx
 movq $0x11223344,%rbx
-mov $0x1122334455,%rbx
+चालय $0x1122334455,%rbx
 movq $0x1122334455,%rbx
 movl $0x11334455,(%rbx)
 #endif
 
-mov %eax, 0x12(,%edx,2)
+चालय %eax, 0x12(,%edx,2)
         
 #ifdef __i386__
-mov %cr3, %edx
-mov %ecx, %cr3
+चालय %cr3, %edx
+चालय %ecx, %cr3
 movl %cr3, %eax
 movl %tr3, %eax
 movl %db3, %ebx
 movl %dr6, %eax
 #else
-mov %cr3, %rdx
-mov %rcx, %cr3
+चालय %cr3, %rdx
+चालय %rcx, %cr3
 movq %cr3, %rax
 movq %db3, %rbx
 movq %dr6, %rax
-mov %cr8, %rsi
-mov %rdi, %cr8
+चालय %cr8, %rsi
+चालय %rdi, %cr8
 #endif
 movl %fs, %ecx
 movl %ebx, %fs
@@ -114,7 +114,7 @@ notl %r15d
      movzb 0x1000, %eax
      movzb 0x1000, %ax
                 
-     mov $0x12345678,%eax
+     चालय $0x12345678,%eax
 
 #ifdef __x86_64__
      movzb 0x1000, %rax
@@ -123,39 +123,39 @@ notl %r15d
      movzwq 0x1000, %rdi
      movswq 0x1000, %rdx
      movslq %eax, %rcx
-     mov $0x12345678,%rax
-     mov $0x12345678,%rdx
-     mov $0x12345678,%r10
-     mov $0x123456789abcdef0,%rax
-     mov $0x123456789abcdef0,%rcx
-     mov $0x123456789abcdef0,%r11
+     चालय $0x12345678,%rax
+     चालय $0x12345678,%rdx
+     चालय $0x12345678,%r10
+     चालय $0x123456789abcdef0,%rax
+     चालय $0x123456789abcdef0,%rcx
+     चालय $0x123456789abcdef0,%r11
 #endif
         
 #ifdef __i386__
   pushl %eax
-  push %eax
-  push %cs
+  निक्षिप %eax
+  निक्षिप %cs
 #else
   pushq %rax
-  push %rax
+  निक्षिप %rax
 #endif
   pushw %ax
-  push %gs
-  push $1
-  push $100
-  push 0x42(%eax)
-  pop 0x43(%esi)
+  निक्षिप %gs
+  निक्षिप $1
+  निक्षिप $100
+  निक्षिप 0x42(%eax)
+  उद्धर 0x43(%esi)
                                                 
 #ifdef __i386__
   popl %eax
-  pop %eax
-  pop %ds
+  उद्धर %eax
+  उद्धर %ds
 #else
   popq %rax
-  pop %rax
+  उद्धर %rax
 #endif
   popw %ax
-  pop %fs
+  उद्धर %fs
           
   xchg %eax, %ecx
   xchg %edx, %eax
@@ -194,14 +194,14 @@ notl %r15d
   lgs 0x2000, %edx
 
 addl $0x123, %eax
-add $0x123, %ebx
-add $-16, %ecx
-add $-0x123, %esi
-add $1, %bx
-add $1, %ebx
-add $-1, %bx
-add $-1, %ebx
-add $127, %bx
+योजय $0x123, %ebx
+योजय $-16, %ecx
+योजय $-0x123, %esi
+योजय $1, %bx
+योजय $1, %ebx
+योजय $-1, %bx
+योजय $-1, %ebx
+योजय $127, %bx
 addl $127, %ebx
 addl $-128, %ebx
 addl $-128, %ebx
@@ -227,27 +227,27 @@ xor %bl,%ah
 xor %bl,%r8b
 xor %r9b,%bl
 xor %sil,%cl
-add %eax,(%r8d)
-add %ebx,(%r9)
-add %edx,(%r10d,%r11d)
-add %ecx,(%r12,%r13)
-add %esi,(%r14,%r15,4)
-add %edi,0x1000(%rbx,%r12,8)
-add %r11,0x1000(%ebp,%r9d,8)
+योजय %eax,(%r8d)
+योजय %ebx,(%r9)
+योजय %edx,(%r10d,%r11d)
+योजय %ecx,(%r12,%r13)
+योजय %esi,(%r14,%r15,4)
+योजय %edi,0x1000(%rbx,%r12,8)
+योजय %r11,0x1000(%ebp,%r9d,8)
 movb $12, %ah
 movb $13, %bpl
 movb $14, %dil
 movb $15, %r12b
 #endif
 
-add %eax, (%ebx)
-add (%ebx), %eax
+योजय %eax, (%ebx)
+योजय (%ebx), %eax
                 
 or %dx, (%ebx)
 or (%ebx), %si
         
-add %cl, (%ebx)
-add (%ebx), %dl
+योजय %cl, (%ebx)
+योजय (%ebx), %dl
 
     inc %edx
     incl 0x10000
@@ -275,7 +275,7 @@ add (%ebx), %dl
     negb 0x10000
 
     imul %ecx
-    mul %edx
+    गुणय %edx
     mulb %cl
 
     imul %eax, %ecx
@@ -287,9 +287,9 @@ add (%ebx), %dl
     imul $1, %eax
     
     idivw 0x1000
-    div %ecx
-    div %bl
-    div %ecx, %eax
+    भाजय %ecx
+    भाजय %bl
+    भाजय %ecx, %eax
 
 and $15,%bx
 and $-20,%edx
@@ -307,17 +307,17 @@ shrd %cl, %eax, %edx
 shrd %eax, %edx
 
 L4:
-call 0x1000
-call L4
+आह्वान 0x1000
+आह्वान L4
 #ifdef __i386__
-call *%eax
+आह्वान *%eax
 #else
-call *%rax
+आह्वान *%rax
 #endif
-call *0x1000
-call func1
+आह्वान *0x1000
+आह्वान func1
 
-.global L5,L6
+.वैश्विक L5,L6
 
 L5:
 L6:
@@ -329,14 +329,14 @@ lcall *0x100
 lcall *(%rax)
 #endif
 
-jmp 0x1000
-jmp *(%edi)
+कूर्द 0x1000
+कूर्द *(%edi)
 #ifdef __i386__
-jmp *%eax
+कूर्द *%eax
 #else
-jmp *%rax
+कूर्द *%rax
 #endif
-jmp *0x1000
+कूर्द *0x1000
 
 #ifdef __i386__
 ljmp $0x100, $0x1000
@@ -347,8 +347,8 @@ ljmpl *(%esi)
 ljmpw *(%esi)
 #endif
 
-ret
-ret $10
+प्रत्यागच्छ
+प्रत्यागच्छ $10
 #ifdef __i386__
 retl
 retl $10
@@ -832,10 +832,10 @@ int $0x10
     verw 0x1000
   
 #ifdef __i386__
-    push %ds
+    निक्षिप %ds
     pushw %ds
     pushl %ds
-    pop %ds
+    उद्धर %ds
     popw %ds
     popl %ds
 #endif
@@ -847,7 +847,7 @@ int $0x10
     pushq $1
 #endif
     pushw $1
-    push $1
+    निक्षिप $1
 
 #ifdef __ASSEMBLER__ // should be defined, for S files
     inc %eax
@@ -856,7 +856,7 @@ int $0x10
 #ifndef _WIN32
 ft1: ft2: ft3: ft4: ft5: ft6: ft7: ft8: ft9:
     xor %eax, %eax
-    ret
+    प्रत्यागच्छ
 
 .type ft1,STT_FUNC
 .type ft2,@STT_FUNC
@@ -874,7 +874,7 @@ ft1: ft2: ft3: ft4: ft5: ft6: ft7: ft8: ft9:
 .endr
 .fill 4,1,0x90
 
-.section .text.one,"ax"
+.खण्डः .text.one,"ax"
 nop
 .previous
 .pushsection .text.one,"ax"
@@ -901,7 +901,7 @@ nop
    .long 1b
 #endif
 .popsection
-3: mov %eax,%ecx
+3: चालय %eax,%ecx
 4:
 .pushsection .text.three, "ax"
 nop
@@ -913,11 +913,11 @@ nop
   nop
 .globl notimplemented
 notimplemented:
-  ret
+  प्रत्यागच्छ
 .set overrideme, notimplemented
 overrideme = notimplemented
 overrideme:
-  ret
+  प्रत्यागच्छ
 
     movd %esi, %mm1
     movd %edi, %xmm2

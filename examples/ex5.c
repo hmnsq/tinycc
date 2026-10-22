@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#अन्तर्भाव <stdlib.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क मुख्यम्()
 {
-    printf("Hello World\n");
-    return 0;
+    प्रारूप_लिख("Hello World\n");
+    प्रत्यागम 0;
 }

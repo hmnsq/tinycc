@@ -1,45 +1,45 @@
-#include <stdatomic.h>
-#include <stdio.h>
+#अन्तर्भाव <stdatomic.h>
+#अन्तर्भाव <stdio.h>
 
-static int value_calls;
-static int order_calls;
+स्थिर पूर्णाङ्क मानम्_calls;
+स्थिर पूर्णाङ्क क्रमः_calls;
 
-static int next_value(void)
+स्थिर पूर्णाङ्क अग्र_मानम्(शून्य)
 {
-    ++value_calls;
-    return 42;
+    ++मानम्_calls;
+    प्रत्यागम 42;
 }
 
-static int next_order(void)
+स्थिर पूर्णाङ्क अग्र_क्रमः(शून्य)
 {
-    ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    ++क्रमः_calls;
+    प्रत्यागम __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+पूर्णाङ्क मुख्यम्(शून्य)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
-    void (*signal_fence)(memory_order) = &atomic_signal_fence;
+    पूर्णाङ्क मानानि[2] = {7, 8};
+    पूर्णाङ्क सूचकांक = 0;
+    पूर्णाङ्क मानम् = 1;
+    चञ्चल पूर्णाङ्क vol = 0;
+    पूर्णाङ्क *pointer = &मानम्;
+    शून्य (*signal_fence)(memory_order) = &atomic_signal_fence;
 
-    __atomic_store_n(&values[index++], next_value(), next_order());
-    printf("%d %d %d %d %d\n", index, value_calls, order_calls,
-           values[0], values[1]);
-    __atomic_store_n(&value, value + 1, __ATOMIC_RELAXED);
-    printf("%d\n", value);
+    __atomic_store_n(&मानानि[सूचकांक++], अग्र_मानम्(), अग्र_क्रमः());
+    प्रारूप_लिख("%d %d %d %d %d\n", सूचकांक, मानम्_calls, क्रमः_calls,
+           मानानि[0], मानानि[1]);
+    __atomic_store_n(&मानम्, मानम् + 1, __ATOMIC_RELAXED);
+    प्रारूप_लिख("%d\n", मानम्);
     __atomic_store_n(&vol, 13, __ATOMIC_RELEASE);
-    printf("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
-    __atomic_store_n(&pointer, &values[0], __ATOMIC_RELEASE);
-    printf("%d\n", *__atomic_load_n(&pointer, __ATOMIC_ACQUIRE));
+    प्रारूप_लिख("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
+    __atomic_store_n(&pointer, &मानानि[0], __ATOMIC_RELEASE);
+    प्रारूप_लिख("%d\n", *__atomic_load_n(&pointer, __ATOMIC_ACQUIRE));
 
-    atomic_signal_fence(memory_order_acquire);
+    atomic_signal_fence(स्मृतिः_क्रमः_acquire);
     __atomic_signal_fence(__ATOMIC_RELEASE);
-    signal_fence(memory_order_seq_cst);
-    atomic_thread_fence(memory_order_seq_cst);
+    signal_fence(स्मृतिः_क्रमः_seq_cst);
+    atomic_thread_fence(स्मृतिः_क्रमः_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
-    puts("ok");
-    return 0;
+    पङ्क्तिं_लिख("ok");
+    प्रत्यागम 0;
 }

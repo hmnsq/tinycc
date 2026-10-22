@@ -1,71 +1,71 @@
-void pointer_parameters(int *const cp, int *volatile vp, int *restrict rp)
+शून्य pointer_parameters(पूर्णाङ्क *ध्रुव cp, पूर्णाङ्क *चञ्चल vp, पूर्णाङ्क *सीमित rp)
 {
-    _Static_assert(_Generic(&cp, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&cp, पूर्णाङ्क *ध्रुव *: 1, स्वभाव: 0),
                    "const pointer parameter remains qualified");
-    _Static_assert(_Generic(&vp, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&vp, पूर्णाङ्क *चञ्चल *: 1, स्वभाव: 0),
                    "volatile pointer parameter remains qualified");
-   _Static_assert(_Generic(&rp, int *restrict *: 1, default: 0),
+   _Static_assert(_Generic(&rp, पूर्णाङ्क *सीमित *: 1, स्वभाव: 0),
                   "restrict pointer parameter remains qualified");
 }
 
-void array_parameters(int ca[const 2], int va[volatile 2], int ra[restrict 2])
+शून्य array_parameters(पूर्णाङ्क ca[ध्रुव 2], पूर्णाङ्क va[चञ्चल 2], पूर्णाङ्क ra[सीमित 2])
 {
-    _Static_assert(_Generic(&ca, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&ca, पूर्णाङ्क *ध्रुव *: 1, स्वभाव: 0),
                    "const array parameter adjusts to qualified pointer");
-    _Static_assert(_Generic(&va, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&va, पूर्णाङ्क *चञ्चल *: 1, स्वभाव: 0),
                    "volatile array parameter adjusts to qualified pointer");
-    _Static_assert(_Generic(&ra, int *restrict *: 1, default: 0),
+    _Static_assert(_Generic(&ra, पूर्णाङ्क *सीमित *: 1, स्वभाव: 0),
                    "restrict array parameter adjusts to qualified pointer");
 }
 
-void declared_const(int *const pointer);
-void declared_const(int *pointer)
+शून्य declared_const(पूर्णाङ्क *ध्रुव pointer);
+शून्य declared_const(पूर्णाङ्क *pointer)
 {
-    _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+    _Static_assert(_Generic(&pointer, पूर्णाङ्क **: 1, स्वभाव: 0),
                    "declaration qualifier does not affect definition");
     pointer = 0;
 }
 
-void defined_const(int *pointer);
-void defined_const(int *const pointer)
+शून्य defined_const(पूर्णाङ्क *pointer);
+शून्य defined_const(पूर्णाङ्क *ध्रुव pointer)
 {
-    _Static_assert(_Generic(&pointer, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&pointer, पूर्णाङ्क *ध्रुव *: 1, स्वभाव: 0),
                    "definition retains const");
 }
 
-void declared_volatile(int *volatile pointer);
-void declared_volatile(int *pointer)
+शून्य declared_volatile(पूर्णाङ्क *चञ्चल pointer);
+शून्य declared_volatile(पूर्णाङ्क *pointer)
 {
-    _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+    _Static_assert(_Generic(&pointer, पूर्णाङ्क **: 1, स्वभाव: 0),
                    "declaration qualifier does not affect definition");
     pointer = 0;
 }
 
-void defined_volatile(int *pointer);
-void defined_volatile(int *volatile pointer)
+शून्य defined_volatile(पूर्णाङ्क *pointer);
+शून्य defined_volatile(पूर्णाङ्क *चञ्चल pointer)
 {
-    _Static_assert(_Generic(&pointer, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&pointer, पूर्णाङ्क *चञ्चल *: 1, स्वभाव: 0),
                    "definition retains volatile");
     pointer = 0;
 }
 
-void declared_restrict(int *restrict pointer);
-void declared_restrict(int *pointer)
+शून्य declared_restrict(पूर्णाङ्क *सीमित pointer);
+शून्य declared_restrict(पूर्णाङ्क *pointer)
 {
-  _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+  _Static_assert(_Generic(&pointer, पूर्णाङ्क **: 1, स्वभाव: 0),
                  "declaration qualifier does not affect definition");
   pointer = 0;
 }
 
-void defined_restrict(int *pointer);
-void defined_restrict(int *restrict pointer)
+शून्य defined_restrict(पूर्णाङ्क *pointer);
+शून्य defined_restrict(पूर्णाङ्क *सीमित pointer)
 {
-  _Static_assert(_Generic(&pointer, int *restrict *: 1, default: 0),
+  _Static_assert(_Generic(&pointer, पूर्णाङ्क *सीमित *: 1, स्वभाव: 0),
                  "definition retains restrict");
   pointer = 0;
 }
 
-int main(void)
+पूर्णाङ्क मुख्यम्(शून्य)
 {
-    return 0;
+    प्रत्यागम 0;
 }
