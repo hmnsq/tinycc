@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-union u {
+اتحاد u {
     unsigned long ul;
-    long double ld;
+    long مزدوج ld;
 };
 
-void
-conv (union u *p)
+فراغ
+conv (اتحاد u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (unsigned صحيح) p->ld;
 }
 
-int main (void)
+صحيح main (فراغ)
 {
-    union u v;
-    double d = 1234567890.0;
+    اتحاد u v;
+    مزدوج d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
     printf ("%lu\n", v.ul);
     printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    החזר 0;
 }

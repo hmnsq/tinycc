@@ -7,7 +7,7 @@
 #define _WINREG_
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
 #ifndef WINVER
@@ -29,7 +29,7 @@ extern "C" {
 #define RRF_NOEXPAND 0x10000000
 #define RRF_ZEROONFAILURE 0x20000000
 
-  typedef ACCESS_MASK REGSAM;
+  تعريفنوع ACCESS_MASK REGSAM;
 
 #define HKEY_CLASSES_ROOT ((HKEY) (ULONG_PTR)((LONG)0x80000000))
 #define HKEY_CURRENT_USER ((HKEY) (ULONG_PTR)((LONG)0x80000001))
@@ -47,41 +47,41 @@ extern "C" {
 #define _PROVIDER_STRUCTS_DEFINED
 
 #define PROVIDER_KEEPS_VALUE_LENGTH 0x1
-  struct val_context {
-    int valuelen;
+  بنية val_context {
+    صحيح valuelen;
     LPVOID value_context;
     LPVOID val_buff_ptr;
   };
 
-  typedef struct val_context *PVALCONTEXT;
+  تعريفنوع بنية val_context *PVALCONTEXT;
 
-  typedef struct pvalueA {
+  تعريفنوع بنية pvalueA {
     LPSTR pv_valuename;
-    int pv_valuelen;
+    صحيح pv_valuelen;
     LPVOID pv_value_context;
     DWORD pv_type;
   }PVALUEA,*PPVALUEA;
 
-  typedef struct pvalueW {
+  تعريفنوع بنية pvalueW {
     LPWSTR pv_valuename;
-    int pv_valuelen;
+    صحيح pv_valuelen;
     LPVOID pv_value_context;
     DWORD pv_type;
   }PVALUEW,*PPVALUEW;
 
 #ifdef UNICODE
-  typedef PVALUEW PVALUE;
-  typedef PPVALUEW PPVALUE;
-#else
-  typedef PVALUEA PVALUE;
-  typedef PPVALUEA PPVALUE;
+  تعريفنوع PVALUEW PVALUE;
+  تعريفنوع PPVALUEW PPVALUE;
+#אחרת
+  تعريفنوع PVALUEA PVALUE;
+  تعريفنوع PPVALUEA PPVALUE;
 #endif
 
-  typedef DWORD __cdecl QUERYHANDLER(LPVOID keycontext,PVALCONTEXT val_list,DWORD num_vals,LPVOID outputbuffer,DWORD *total_outlen,DWORD input_blen);
+  تعريفنوع DWORD __cdecl QUERYHANDLER(LPVOID keycontext,PVALCONTEXT val_list,DWORD num_vals,LPVOID outputbuffer,DWORD *total_outlen,DWORD input_blen);
 
-  typedef QUERYHANDLER *PQUERYHANDLER;
+  تعريفنوع QUERYHANDLER *PQUERYHANDLER;
 
-  typedef struct provider_info {
+  تعريفنوع بنية provider_info {
     PQUERYHANDLER pi_R0_1val;
     PQUERYHANDLER pi_R0_allvals;
     PQUERYHANDLER pi_R3_1val;
@@ -90,16 +90,16 @@ extern "C" {
     LPVOID pi_key_context;
   } REG_PROVIDER;
 
-  typedef struct provider_info *PPROVIDER;
+  تعريفنوع بنية provider_info *PPROVIDER;
 
-  typedef struct value_entA {
+  تعريفنوع بنية value_entA {
     LPSTR ve_valuename;
     DWORD ve_valuelen;
     DWORD_PTR ve_valueptr;
     DWORD ve_type;
   } VALENTA,*PVALENTA;
 
-  typedef struct value_entW {
+  تعريفنوع بنية value_entW {
     LPWSTR ve_valuename;
     DWORD ve_valuelen;
     DWORD_PTR ve_valueptr;
@@ -107,15 +107,15 @@ extern "C" {
   } VALENTW,*PVALENTW;
 
 #ifdef UNICODE
-  typedef VALENTW VALENT;
-  typedef PVALENTW PVALENT;
-#else
-  typedef VALENTA VALENT;
-  typedef PVALENTA PVALENT;
+  تعريفنوع VALENTW VALENT;
+  تعريفنوع PVALENTW PVALENT;
+#אחרת
+  تعريفنوع VALENTA VALENT;
+  تعريفنوع PVALENTA PVALENT;
 #endif
 #endif
 
-#define WIN31_CLASS NULL
+#define WIN31_CLASS عدم
 
 #ifdef UNICODE
 #define RegConnectRegistry RegConnectRegistryW
@@ -144,7 +144,7 @@ extern "C" {
 #define RegGetValue RegGetValueW
 #define InitiateSystemShutdown InitiateSystemShutdownW
 #define AbortSystemShutdown AbortSystemShutdownW
-#else
+#אחרת
 #define RegConnectRegistry RegConnectRegistryA
 #define RegConnectRegistryEx RegConnectRegistryExA
 #define RegCreateKey RegCreateKeyA
@@ -255,7 +255,7 @@ extern "C" {
 #ifdef UNICODE
 #define InitiateSystemShutdownEx InitiateSystemShutdownExW
 #define RegSaveKeyEx RegSaveKeyExW
-#else
+#אחרת
 #define InitiateSystemShutdownEx InitiateSystemShutdownExA
 #define RegSaveKeyEx RegSaveKeyExA
 #endif

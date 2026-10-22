@@ -30,7 +30,7 @@
 #define	_DWARF_H 1
 
 /* DWARF Unit Header Types.  */
-enum
+تعداد
   {
     DW_UT_compile = 0x01,
     DW_UT_type = 0x02,
@@ -44,7 +44,7 @@ enum
   };
 
 /* DWARF tags.  */
-enum
+تعداد
   {
     DW_TAG_array_type = 0x01,
     DW_TAG_class_type = 0x02,
@@ -143,7 +143,7 @@ enum
 
 
 /* Children determination encodings.  */
-enum
+تعداد
   {
     DW_CHILDREN_no = 0,
     DW_CHILDREN_yes = 1
@@ -151,7 +151,7 @@ enum
 
 
 /* DWARF attributes encodings.  */
-enum
+تعداد
   {
     DW_AT_sibling = 0x01,
     DW_AT_location = 0x02,
@@ -371,7 +371,7 @@ enum
 #define DW_AT_member		0x14
 
 /* DWARF form encodings.  */
-enum
+تعداد
   {
     DW_FORM_addr = 0x01,
     DW_FORM_block2 = 0x03,
@@ -427,7 +427,7 @@ enum
 
 
 /* DWARF location operation encodings.  */
-enum
+تعداد
   {
     DW_OP_addr = 0x03,		/* Constant address.  */
     DW_OP_deref = 0x06,
@@ -620,7 +620,7 @@ enum
 
 
 /* DWARF base type encodings.  */
-enum
+تعداد
   {
     DW_ATE_void = 0x0,
     DW_ATE_address = 0x1,
@@ -648,7 +648,7 @@ enum
 
 
 /* DWARF decimal sign encodings.  */
-enum
+تعداد
   {
     DW_DS_unsigned = 1,
     DW_DS_leading_overpunch = 2,
@@ -659,7 +659,7 @@ enum
 
 
 /* DWARF endianity encodings.  */
-enum
+تعداد
   {
     DW_END_default = 0,
     DW_END_big = 1,
@@ -671,7 +671,7 @@ enum
 
 
 /* DWARF accessibility encodings.  */
-enum
+تعداد
   {
     DW_ACCESS_public = 1,
     DW_ACCESS_protected = 2,
@@ -680,7 +680,7 @@ enum
 
 
 /* DWARF visibility encodings.  */
-enum
+تعداد
   {
     DW_VIS_local = 1,
     DW_VIS_exported = 2,
@@ -689,7 +689,7 @@ enum
 
 
 /* DWARF virtuality encodings.  */
-enum
+تعداد
   {
     DW_VIRTUALITY_none = 0,
     DW_VIRTUALITY_virtual = 1,
@@ -698,7 +698,7 @@ enum
 
 
 /* DWARF language encodings.  */
-enum
+تعداد
   {
     DW_LANG_C89 = 0x0001,	     /* ISO C:1989 */
     DW_LANG_C = 0x0002,		     /* C */
@@ -747,7 +747,7 @@ enum
 #define DW_LANG_PL1 DW_LANG_PLI
 
 /* DWARF identifier case encodings.  */
-enum
+تعداد
   {
     DW_ID_case_sensitive = 0,
     DW_ID_up_case = 1,
@@ -760,7 +760,7 @@ enum
    Used as values of DW_AT_calling_convention for subroutines
    (normal, program or nocall) or structures, unions and class types
    (normal, reference or value).  */
-enum
+تعداد
   {
     DW_CC_normal = 0x1,
     DW_CC_program = 0x2,
@@ -773,7 +773,7 @@ enum
 
 
 /* DWARF inline encodings.  */
-enum
+تعداد
   {
     DW_INL_not_inlined = 0,
     DW_INL_inlined = 1,
@@ -783,7 +783,7 @@ enum
 
 
 /* DWARF ordering encodings.  */
-enum
+تعداد
   {
     DW_ORD_row_major = 0,
     DW_ORD_col_major = 1
@@ -791,14 +791,14 @@ enum
 
 
 /* DWARF discriminant descriptor encodings.  */
-enum
+تعداد
   {
     DW_DSC_label = 0,
     DW_DSC_range = 1
   };
 
 /* DWARF defaulted member function encodings.  */
-enum
+تعداد
   {
     DW_DEFAULTED_no = 0,
     DW_DEFAULTED_in_class = 1,
@@ -806,7 +806,7 @@ enum
   };
 
 /* DWARF line content descriptions.  */
-enum
+تعداد
   {
     DW_LNCT_path = 0x1,
     DW_LNCT_directory_index = 0x2,
@@ -818,7 +818,7 @@ enum
   };
 
 /* DWARF standard opcode encodings.  */
-enum
+تعداد
   {
     DW_LNS_copy = 1,
     DW_LNS_advance_pc = 2,
@@ -836,7 +836,7 @@ enum
 
 
 /* DWARF extended opcode encodings.  */
-enum
+تعداد
   {
     DW_LNE_end_sequence = 1,
     DW_LNE_set_address = 2,
@@ -853,7 +853,7 @@ enum
 
 
 /* DWARF macinfo type encodings.  */
-enum
+تعداد
   {
     DW_MACINFO_define = 1,
     DW_MACINFO_undef = 2,
@@ -864,7 +864,7 @@ enum
 
 
 /* DWARF debug_macro type encodings.  */
-enum
+تعداد
   {
     DW_MACRO_define = 0x01,
     DW_MACRO_undef = 0x02,
@@ -897,7 +897,7 @@ enum
 
 
 /* Range list entry encoding.  */
-enum
+تعداد
   {
     DW_RLE_end_of_list = 0x0,
     DW_RLE_base_addressx = 0x1,
@@ -911,7 +911,7 @@ enum
 
 
 /* Location list entry encoding.  */
-enum
+تعداد
   {
     DW_LLE_end_of_list = 0x0,
     DW_LLE_base_addressx = 0x1,
@@ -926,7 +926,7 @@ enum
 
 
 /* GNU DebugFission list entry encodings (.debug_loc.dwo).  */
-enum
+تعداد
   {
     DW_LLE_GNU_end_of_list_entry = 0x0,
     DW_LLE_GNU_base_address_selection_entry = 0x1,
@@ -935,7 +935,7 @@ enum
   };
 
 /* DWARF5 package file section identifiers.  */
-enum
+تعداد
   {
     DW_SECT_INFO = 1,
     /* Reserved = 2, */
@@ -949,7 +949,7 @@ enum
 
 
 /* DWARF call frame instruction encodings.  */
-enum
+تعداد
   {
     DW_CFA_advance_loc = 0x40,
     DW_CFA_offset = 0x80,
@@ -990,7 +990,7 @@ enum
   };
 
 /* ID indicating CIE as opposed to FDE in .debug_frame.  */
-enum
+تعداد
   {
     DW_CIE_ID_32 = 0xffffffffU,		 /* In 32-bit format CIE header.  */
     DW_CIE_ID_64 = 0xffffffffffffffffULL /* In 64-bit format CIE header.  */
@@ -998,7 +998,7 @@ enum
 
 
 /* Information for GNU unwind information.  */
-enum
+تعداد
   {
     DW_EH_PE_absptr = 0x00,
     DW_EH_PE_omit = 0xff,

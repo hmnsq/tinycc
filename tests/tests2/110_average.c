@@ -1,20 +1,20 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-typedef struct
+تعريفنوع بنية
 {
-    double average;
-    int count;
+    مزدوج average;
+    صحيح count;
 }
 stats_type;
 
-static void
+ساكن فراغ
 testc (stats_type *s, long long data)
 {
     s->average = (s->average * s->count + data) / (s->count + 1);
     s->count++;
 }
 
-int main (void)
+صحيح main (فراغ)
 {
     stats_type s;
 
@@ -23,5 +23,5 @@ int main (void)
     testc (&s, 10);
     testc (&s, 20);
     printf ("%g %d\n", s.average, s.count);
-    return 0;
+    החזר 0;
 }

@@ -3,9 +3,9 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#include <io.h>
+#ضمن <io.h>
 
 #ifndef _INC_FCNTL
 #define _INC_FCNTL
@@ -32,7 +32,7 @@
 #define _O_SEQUENTIAL 0x0020
 #define _O_RANDOM 0x0010
 
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
+#אם !defined(NO_OLDNAMES) || defined(_POSIX)
 #define O_RDONLY _O_RDONLY
 #define O_WRONLY _O_WRONLY
 #define O_RDWR _O_RDWR

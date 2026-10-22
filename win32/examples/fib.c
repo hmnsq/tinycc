@@ -1,24 +1,24 @@
-#include <stdio.h>
-#include <stdlib.h>	// atoi()
+#ضمن <stdio.h>
+#ضمن <stdlib.h>	// atoi()
 
-int fib(n)
+صحيح fib(n)
 {
-	if (n <= 2)
-		return 1;
-	else
-		return fib(n-1) + fib(n-2);
+	אם (n <= 2)
+		החזר 1;
+	אחרת
+		החזר fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv) 
+صحيح main(صحيح argc, حرف **argv) 
 {
-	int n;
-	if (argc < 2) {
+	صحيح n;
+	אם (argc < 2) {
 		printf("usage: fib n\n"
 			   "Compute nth Fibonacci number\n");
-		return 1;
+		החזר 1;
 	}
 		
 	n = atoi(argv[1]);
 	printf("fib(%d) = %d\n", n, fib(n));
-	return 0;
+	החזר 0;
 }

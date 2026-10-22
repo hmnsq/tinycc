@@ -6,19 +6,19 @@
 #ifndef __STRALIGN_H_S_
 #define __STRALIGN_H_S_
 
-#include <stralign.h>
+#ضمن <stralign.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#אם defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
-#if !defined(I_X86_) && defined(_WSTRING_S_DEFINED)
-#if defined(__cplusplus) && defined(_WConst_Return)
-  static __inline PUWSTR ua_wcscpy_s(PUWSTR Destination,size_t DestinationSize,PCUWSTR Source) {
-    if(WSTR_ALIGNED(Source) && WSTR_ALIGNED(Destination)) return (wcscpy_s((PWSTR)Destination,DestinationSize,(PCWSTR)Source)==0 ? Destination : NULL);
-    return uaw_wcscpy((PCUWSTR)String,Character);
+#אם !defined(I_X86_) && defined(_WSTRING_S_DEFINED)
+#אם defined(__cplusplus) && defined(_WConst_Return)
+  ساكن __inline PUWSTR ua_wcscpy_s(PUWSTR Destination,size_t DestinationSize,PCUWSTR Source) {
+    אם(WSTR_ALIGNED(Source) && WSTR_ALIGNED(Destination)) החזר (wcscpy_s((PWSTR)Destination,DestinationSize,(PCWSTR)Source)==0 ? Destination : عدم);
+    החזר uaw_wcscpy((PCUWSTR)String,Character);
   }
 #endif
 #endif

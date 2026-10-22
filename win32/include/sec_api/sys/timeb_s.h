@@ -7,23 +7,23 @@
 #ifndef _TIMEB_H_S
 #define _TIMEB_H_S
 
-#include <sys/timeb.h>
+#ضمن <sys/timeb.h>
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
-#if defined(MINGW_HAS_SECURE_API)
+#אם defined(MINGW_HAS_SECURE_API)
 
 #ifdef _USE_32BIT_TIME_T
 #define _ftime_s _ftime32_s
-#else
+#אחרת
 #define _ftime_s _ftime64_s
 #endif
 
-  _CRTIMP errno_t __cdecl _ftime32_s(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _ftime64_s(struct __timeb64 *_Time);
+  _CRTIMP errno_t __cdecl _ftime32_s(بنية __timeb32 *_Time);
+#אם _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP errno_t __cdecl _ftime64_s(بنية __timeb64 *_Time);
 #endif
 #endif
 

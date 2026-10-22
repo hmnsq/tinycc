@@ -1,15 +1,15 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-void fred(void)
+فراغ fred(فراغ)
 {
    printf("yo\n");
 }
 
-int main()
+صحيح main()
 {
    fred();
 
-   return 0;
+   החזר 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

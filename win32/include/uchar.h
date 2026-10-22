@@ -15,7 +15,7 @@
  * header.
  */
 
-#if __STDC_VERSION__ >= 201112L
+#אם __STDC_VERSION__ >= 201112L
 /**
  * __STDC_UTF_16__ The integer constant 1, intended to indicate that
  * values of type char16_t are UTF-16 encoded.
@@ -27,7 +27,7 @@
  */
 #define __STDC_UTF_32__ 1
 
-typedef unsigned short char16_t;
-typedef unsigned int char32_t;
+تعريفنوع unsigned short char16_t;
+تعريفنوع unsigned صحيح char32_t;
 #endif /* __STDC_VERSION__ >= 201112L */
 #endif /* _INC_UCHAR */
