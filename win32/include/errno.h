@@ -14,11 +14,11 @@ extern "C" {
 
 #ifndef _CRT_ERRNO_DEFINED
 #define _CRT_ERRNO_DEFINED
-  _CRTIMP int *__cdecl _errno(void);
+  _CRTIMP ціле *__cdecl _errno(void);
 #define errno (*_errno())
 
-  errno_t __cdecl _set_errno(int _Value);
-  errno_t __cdecl _get_errno(int *_Value);
+  errno_t __cdecl _set_errno(ціле _Value);
+  errno_t __cdecl _get_errno(ціле *_Value);
 #endif
 
 #define EPERM 1
@@ -58,7 +58,7 @@ extern "C" {
 #define ENOTEMPTY 41
 
 #ifndef RC_INVOKED
-#if !defined(_SECURECRT_ERRCODE_VALUES_DEFINED)
+#якщо !defined(_SECURECRT_ERRCODE_VALUES_DEFINED)
 #define _SECURECRT_ERRCODE_VALUES_DEFINED
 #define EINVAL 22
 #define ERANGE 34

@@ -2,16 +2,16 @@
 
 struct ziggy
 {
-   int a;
-   int b;
-   int c;
+   ціле a;
+   ціле b;
+   ціле c;
 } bolshevic;
 
-int main()
+ціле main()
 {
-   int a;
-   int *b;
-   int c;
+   ціле a;
+   ціле *b;
+   ціле c;
 
    a = 42;
    b = &a;
@@ -34,7 +34,7 @@ int main()
    b = &(bolshevic.b);
    printf("bolshevic.b = %d\n", *b);
 
-   return 0;
+   повернути 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -17,7 +17,7 @@ extern "C" {
 #ifndef NULL
 #ifdef __cplusplus
 #define NULL 0
-#else
+#інакше
 #define NULL ((void *)0)
 #endif
 #endif
@@ -68,19 +68,19 @@ extern "C" {
 
 #endif
 
-  int __cdecl _configthreadlocale(int _Flag);
-  char *__cdecl setlocale(int _Category,const char *_Locale);
+  ціле __cdecl _configthreadlocale(ціле _Flag);
+  char *__cdecl setlocale(ціле _Category,const char *_Locale);
   _CRTIMP struct lconv *__cdecl localeconv(void);
   _locale_t __cdecl _get_current_locale(void);
-  _locale_t __cdecl _create_locale(int _Category,const char *_Locale);
+  _locale_t __cdecl _create_locale(ціле _Category,const char *_Locale);
   void __cdecl _free_locale(_locale_t _Locale);
   _locale_t __cdecl __get_current_locale(void);
-  _locale_t __cdecl __create_locale(int _Category,const char *_Locale);
+  _locale_t __cdecl __create_locale(ціле _Category,const char *_Locale);
   void __cdecl __free_locale(_locale_t _Locale);
 
 #ifndef _WLOCALE_DEFINED
 #define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
+  _CRTIMP wchar_t *__cdecl _wsetlocale(ціле _Category,const wchar_t *_Locale);
 #endif
 
 #ifdef __cplusplus

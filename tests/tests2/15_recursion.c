@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int factorial(int i) 
+ціле factorial(ціле i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   якщо (i < 2)
+      повернути i;
+   інакше
+      повернути i * factorial(i - 1);
 }
 
-int main()
+ціле main()
 {
-   int Count;
+   ціле Count;
 
-   for (Count = 1; Count <= 10; Count++)
+   для (Count = 1; Count <= 10; Count++)
       printf("%d\n", factorial(Count));
 
-   return 0;
+   повернути 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

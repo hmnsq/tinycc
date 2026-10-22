@@ -43,7 +43,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
             break;
 
         case WM_KEYDOWN:
-            if (VK_ESCAPE == wParam)
+            якщо (VK_ESCAPE == wParam)
                 DestroyWindow(hwnd);
             break;
 
@@ -66,9 +66,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 
         // ----------------------- let windows do all other stuff
         default:
-            return DefWindowProc(hwnd, message, wParam, lParam);
+            повернути DefWindowProc(hwnd, message, wParam, lParam);
     }
-    return 0;
+    повернути 0;
 }
 
 //+---------------------------------------------------------------------------
@@ -78,11 +78,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 //  Synopsis:   standard entrypoint for GUI Win32 apps
 //
 //----------------------------------------------------------------------------
-int APIENTRY WinMain(
+ціле APIENTRY WinMain(
         HINSTANCE hInstance,
         HINSTANCE hPrevInstance,
         LPSTR lpCmdLine,
-        int nCmdShow
+        ціле nCmdShow
         )
 {
     MSG msg;
@@ -103,8 +103,8 @@ int APIENTRY WinMain(
     wc.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
     wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
 
-    if (FALSE == RegisterClass(&wc))
-        return 0;
+    якщо (FALSE == RegisterClass(&wc))
+        повернути 0;
 
     // create the browser
     hwnd = CreateWindow(
@@ -120,16 +120,16 @@ int APIENTRY WinMain(
         hInstance,
         0);
 
-    if (NULL == hwnd)
-        return 0;
+    якщо (NULL == hwnd)
+        повернути 0;
 
     // Main message loop:
-    while (GetMessage(&msg, NULL, 0, 0) > 0) {
+    поки (GetMessage(&msg, NULL, 0, 0) > 0) {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
 
-    return msg.wParam;
+    повернути msg.wParam;
 }
 
 //+---------------------------------------------------------------------------
@@ -140,10 +140,10 @@ void CenterWindow(HWND hwnd_self)
 {
     HWND hwnd_parent;
     RECT rw_self, rc_parent, rw_parent;
-    int xpos, ypos;
+    ціле xpos, ypos;
 
     hwnd_parent = GetParent(hwnd_self);
-    if (NULL == hwnd_parent)
+    якщо (NULL == hwnd_parent)
         hwnd_parent = GetDesktopWindow();
 
     GetWindowRect(hwnd_parent, &rw_parent);

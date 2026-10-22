@@ -23,17 +23,17 @@
 #ifdef CONFIG_TCC_ASM
 
 static Section *last_text_section; /* to handle .previous asm directive */
-static int asmgoto_n;
+static ціле asmgoto_n;
 
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global);
-static Sym* asm_new_label(TCCState *s1, int label, int is_local);
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local, int sh_num, int value);
+static ціле tcc_assemble_internal(TCCState *s1, ціле do_preprocess, ціле global);
+static Sym* asm_new_label(TCCState *s1, ціле label, ціле is_local);
+static Sym* asm_new_label1(TCCState *s1, ціле label, ціле is_local, ціле sh_num, ціле value);
 
-#if PTR_SIZE == 8
+#якщо PTR_SIZE == 8
 /* output constant with relocation if 'r & VT_SYM' is true */
-ST_FUNC void gen_addr64(int r, Sym *sym, int64_t c)
+ST_FUNC void gen_addr64(ціле r, Sym *sym, int64_t c)
 {
-    if (r & VT_SYM)
+    якщо (r & VT_SYM)
         greloca(cur_text_section, sym, ind, R_DATA_PTR, c), c=0;
     gen_le32(c);
     gen_le32(c>>32);
@@ -45,16 +45,16 @@ ST_FUNC void gen_expr64(ExprValue *pe)
 }
 #endif
 
-static int asm_get_prefix_name(TCCState *s1, const char *prefix, unsigned int n)
+static ціле asm_get_prefix_name(TCCState *s1, const char *prefix, unsigned ціле n)
 {
     char buf[64];
     snprintf(buf, sizeof(buf), "%s%u", prefix, n);
-    return tok_alloc_const(buf);
+    повернути tok_alloc_const(buf);
 }
 
-ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
+ST_FUNC ціле asm_get_local_label_name(TCCState *s1, unsigned ціле n)
 {
-    return asm_get_prefix_name(s1, "L..", n);
+    повернути asm_get_prefix_name(s1, "L..", n);
 }
 
 /* If a C name has an _ prepended then only asm labels that start
@@ -63,47 +63,47 @@ ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
    the global C symbol table to track ASM names as well, so we need to
    transform those into ones that don't conflict with a C name,
    so prepend a '.' for them, but force the ELF asm name to be set.  */
-static int asm2cname(int v, int *addeddot)
+static ціле asm2cname(ціле v, ціле *addeddot)
 {
     const char *name;
     *addeddot = 0;
-    if (!tcc_state->leading_underscore)
-      return v;
+    якщо (!tcc_state->leading_underscore)
+      повернути v;
     name = get_tok_str(v, NULL);
-    if (!name)
-      return v;
-    if (name[0] == '_') {
+    якщо (!name)
+      повернути v;
+    якщо (name[0] == '_') {
         v = tok_alloc_const(name + 1);
-    } else if (!strchr(name, '.')) {
+    } інакше якщо (!strchr(name, '.')) {
         char newname[256];
         snprintf(newname, sizeof newname, ".%s", name);
         v = tok_alloc_const(newname);
         *addeddot = 1;
     }
-    return v;
+    повернути v;
 }
 
-static Sym *asm_label_find(int v)
+static Sym *asm_label_find(ціле v)
 {
     Sym *sym;
-    int addeddot;
+    ціле addeddot;
     v = asm2cname(v, &addeddot);
     sym = sym_find(v);
-    while (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
+    поки (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
         sym = sym->prev_tok;
-    return sym;
+    повернути sym;
 }
 
-static Sym *asm_label_push(int v)
+static Sym *asm_label_push(ціле v)
 {
-    int addeddot, v2 = asm2cname(v, &addeddot);
+    ціле addeddot, v2 = asm2cname(v, &addeddot);
     /* We always add VT_EXTERN, for sym definition that's tentative
        (for .set, removed for real defs), for mere references it's correct
        as is.  */
     Sym *sym = global_identifier_push(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
-    if (addeddot)
+    якщо (addeddot)
         sym->asm_label = v;
-    return sym;
+    повернути sym;
 }
 
 /* Return a symbol we can use inside the assembler, having name NAME.
@@ -116,24 +116,24 @@ static Sym *asm_label_push(int v)
    are anonymous in C, in this case CSYM can be used to transfer
    all information from that symbol to the (possibly newly created)
    asm symbol.  */
-ST_FUNC Sym* get_asm_sym(int name, Sym *csym)
+ST_FUNC Sym* get_asm_sym(ціле name, Sym *csym)
 {
     Sym *sym = asm_label_find(name);
-    if (!sym) {
+    якщо (!sym) {
 	sym = asm_label_push(name);
-	if (csym)
+	якщо (csym)
 	  sym->c = csym->c;
     }
-    return sym;
+    повернути sym;
 }
 
 static Sym* asm_section_sym(TCCState *s1, Section *sec)
 {
-    char buf[100]; int label; Sym *sym;
+    char buf[100]; ціле label; Sym *sym;
     snprintf(buf, sizeof buf, "L.%s", sec->name);
     label = tok_alloc_const(buf);
     sym = asm_label_find(label);
-    return sym ? sym : asm_new_label1(s1, label, 1, sec->sh_num, 0);
+    повернути sym ? sym : asm_new_label1(s1, label, 1, sec->sh_num, 0);
 }
 
 /* We do not use the C expression parser to handle symbols. Maybe the
@@ -142,7 +142,7 @@ static Sym* asm_section_sym(TCCState *s1, Section *sec)
 static void asm_expr_unary(TCCState *s1, ExprValue *pe)
 {
     Sym *sym;
-    int op, label;
+    ціле op, label;
     uint64_t n;
     const char *p;
 
@@ -150,19 +150,19 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
     case TOK_PPNUM:
         p = tokc.str.data;
         n = strtoull(p, (char **)&p, 0);
-        if (*p == 'b' || *p == 'f') {
+        якщо (*p == 'b' || *p == 'f') {
             /* backward or forward label */
             label = asm_get_local_label_name(s1, n);
             sym = asm_label_find(label);
-            if (*p == 'b') {
+            якщо (*p == 'b') {
                 /* backward : find the last corresponding defined label */
-                if (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
+                якщо (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
                     sym = sym->prev_tok;
-                if (!sym)
-                    tcc_error("local label '%d' not found backward", (int)n);
-            } else {
+                якщо (!sym)
+                    tcc_error("local label '%d' not found backward", (ціле)n);
+            } інакше {
                 /* forward */
-                if (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
+                якщо (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
                     /* if the last label is defined, then define a new one */
 		    sym = asm_label_push(label);
                 }
@@ -170,11 +170,11 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
 	    pe->v = 0;
 	    pe->sym = sym;
 	    pe->pcrel = 0;
-        } else if (*p == '\0') {
+        } інакше якщо (*p == '\0') {
             pe->v = n;
             pe->sym = NULL;
 	    pe->pcrel = 0;
-        } else {
+        } інакше {
             tcc_error("invalid number syntax");
         }
         next();
@@ -188,11 +188,11 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
         op = tok;
         next();
         asm_expr_unary(s1, pe);
-        if (pe->sym)
+        якщо (pe->sym)
             tcc_error("invalid operation with label");
-        if (op == '-')
+        якщо (op == '-')
             pe->v = -pe->v;
-        else
+        інакше
             pe->v = ~pe->v;
         break;
     case TOK_CCHAR:
@@ -214,23 +214,23 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
         next();
         break;
     default:
-        if (tok >= TOK_IDENT) {
+        якщо (tok >= TOK_IDENT) {
 	    ElfSym *esym;
             /* label case : if the label was not found, add one */
 	    sym = get_asm_sym(tok, NULL);
 	    esym = elfsym(sym);
-            if (esym && esym->st_shndx == SHN_ABS) {
+            якщо (esym && esym->st_shndx == SHN_ABS) {
                 /* if absolute symbol, no need to put a symbol value */
                 pe->v = esym->st_value;
                 pe->sym = NULL;
 		pe->pcrel = 0;
-            } else {
+            } інакше {
                 pe->v = 0;
                 pe->sym = sym;
 		pe->pcrel = 0;
             }
             next();
-        } else {
+        } інакше {
             tcc_error("bad expression syntax [%s]", get_tok_str(tok, &tokc));
         }
         break;
@@ -239,32 +239,32 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
     
 static void asm_expr_prod(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    ціле op;
     ExprValue e2;
 
     asm_expr_unary(s1, pe);
-    for(;;) {
+    для(;;) {
         op = tok;
-        if (op != '*' && op != '/' && op != '%' && 
+        якщо (op != '*' && op != '/' && op != '%' && 
             op != TOK_SHL && op != TOK_SAR)
             break;
         next();
         asm_expr_unary(s1, &e2);
-        if (pe->sym || e2.sym)
+        якщо (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
         case '*':
             pe->v *= e2.v;
             break;
         case '/':  
-            if (e2.v == 0) {
+            якщо (e2.v == 0) {
             div_error:
                 tcc_error("division by zero");
             }
             pe->v /= e2.v;
             break;
         case '%':  
-            if (e2.v == 0)
+            якщо (e2.v == 0)
                 goto div_error;
             pe->v %= e2.v;
             break;
@@ -281,17 +281,17 @@ static void asm_expr_prod(TCCState *s1, ExprValue *pe)
 
 static void asm_expr_logic(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    ціле op;
     ExprValue e2;
 
     asm_expr_prod(s1, pe);
-    for(;;) {
+    для(;;) {
         op = tok;
-        if (op != '&' && op != '|' && op != '^')
+        якщо (op != '&' && op != '|' && op != '^')
             break;
         next();
         asm_expr_prod(s1, &e2);
-        if (pe->sym || e2.sym)
+        якщо (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
         case '&':
@@ -310,49 +310,49 @@ static void asm_expr_logic(TCCState *s1, ExprValue *pe)
 
 static inline void asm_expr_sum(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    ціле op;
     ExprValue e2;
 
     asm_expr_logic(s1, pe);
-    for(;;) {
+    для(;;) {
         op = tok;
-        if (op != '+' && op != '-')
+        якщо (op != '+' && op != '-')
             break;
         next();
         asm_expr_logic(s1, &e2);
-        if (op == '+') {
-            if (pe->sym != NULL && e2.sym != NULL)
+        якщо (op == '+') {
+            якщо (pe->sym != NULL && e2.sym != NULL)
                 goto cannot_relocate;
             pe->v += e2.v;
-            if (pe->sym == NULL && e2.sym != NULL)
+            якщо (pe->sym == NULL && e2.sym != NULL)
                 pe->sym = e2.sym;
-        } else {
+        } інакше {
             pe->v -= e2.v;
             /* NOTE: we are less powerful than gas in that case
                because we store only one symbol in the expression */
-	    if (!e2.sym) {
+	    якщо (!e2.sym) {
 		/* OK */
-	    } else if (pe->sym == e2.sym) { 
+	    } інакше якщо (pe->sym == e2.sym) { 
 		/* OK */
 		pe->sym = NULL; /* same symbols can be subtracted to NULL */
-	    } else {
+	    } інакше {
 		ElfSym *esym1, *esym2;
 		esym1 = elfsym(pe->sym);
 		esym2 = elfsym(e2.sym);
-		if (!esym2)
+		якщо (!esym2)
 		    goto cannot_relocate;
-		if (esym1 && esym1->st_shndx == esym2->st_shndx
+		якщо (esym1 && esym1->st_shndx == esym2->st_shndx
 		    && esym1->st_shndx != SHN_UNDEF) {
 		    /* we also accept defined symbols in the same section */
-		    pe->v += (int)(esym1->st_value - esym2->st_value);
+		    pe->v += (ціле)(esym1->st_value - esym2->st_value);
 		    pe->sym = NULL;
-		} else if (esym2->st_shndx == cur_text_section->sh_num) {
+		} інакше якщо (esym2->st_shndx == cur_text_section->sh_num) {
 		    /* When subtracting a defined symbol in current section
 		       this actually makes the value PC-relative.  */
-		    pe->v += (int)(0 - esym2->st_value);
+		    pe->v += (ціле)(0 - esym2->st_value);
 		    pe->pcrel = 1;
 		    e2.sym = NULL;
-		} else {
+		} інакше {
 cannot_relocate:
 		    tcc_error("invalid operation with label");
 		}
@@ -363,18 +363,18 @@ cannot_relocate:
 
 static inline void asm_expr_cmp(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    ціле op;
     ExprValue e2;
 
     asm_expr_sum(s1, pe);
-    for(;;) {
+    для(;;) {
         op = tok;
-	if (op != TOK_EQ && op != TOK_NE
+	якщо (op != TOK_EQ && op != TOK_NE
 	    && (op > TOK_GT || op < TOK_ULE))
             break;
         next();
         asm_expr_sum(s1, &e2);
-        if (pe->sym || e2.sym)
+        якщо (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
 	case TOK_EQ:
@@ -408,60 +408,60 @@ ST_FUNC void asm_expr(TCCState *s1, ExprValue *pe)
     asm_expr_cmp(s1, pe);
 }
 
-ST_FUNC int asm_int_expr(TCCState *s1)
+ST_FUNC ціле asm_int_expr(TCCState *s1)
 {
     ExprValue e;
     asm_expr(s1, &e);
-    if (e.sym)
+    якщо (e.sym)
         expect("constant");
-    if ((int)e.v != e.v)
+    якщо ((ціле)e.v != e.v)
 	tcc_error("integer out of range %lld", (long long)e.v);
-    return e.v;
+    повернути e.v;
 }
 
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local,
-                           int sh_num, int value)
+static Sym* asm_new_label1(TCCState *s1, ціле label, ціле is_local,
+                           ціле sh_num, ціле value)
 {
     Sym *sym;
     ElfSym *esym;
 
     sym = asm_label_find(label);
-    if (sym) {
+    якщо (sym) {
 	esym = elfsym(sym);
 	/* A VT_EXTERN symbol, even if it has a section is considered
 	   overridable.  This is how we "define" .set targets.  Real
 	   definitions won't have VT_EXTERN set.  */
-        if (esym && esym->st_shndx != SHN_UNDEF) {
+        якщо (esym && esym->st_shndx != SHN_UNDEF) {
             /* the label is already defined */
-            if (IS_ASM_SYM(sym)
+            якщо (IS_ASM_SYM(sym)
                 && (is_local == 1 || (sym->type.t & VT_EXTERN)))
                 goto new_label;
-            if (!(sym->type.t & VT_EXTERN))
+            якщо (!(sym->type.t & VT_EXTERN))
                 tcc_error("assembler label '%s' already defined",
                           get_tok_str(label, NULL));
         }
-    } else {
+    } інакше {
     new_label:
         sym = asm_label_push(label);
     }
-    if (!sym->c)
+    якщо (!sym->c)
       put_extern_sym2(sym, SHN_UNDEF, 0, 0, 1);
     esym = elfsym(sym);
     esym->st_shndx = sh_num;
     esym->st_value = value;
-    if (is_local != 2)
+    якщо (is_local != 2)
         sym->type.t &= ~VT_EXTERN;
-    return sym;
+    повернути sym;
 }
 
-static Sym* asm_new_label(TCCState *s1, int label, int is_local)
+static Sym* asm_new_label(TCCState *s1, ціле label, ціле is_local)
 {
-    return asm_new_label1(s1, label, is_local, cur_text_section->sh_num, ind);
+    повернути asm_new_label1(s1, label, is_local, cur_text_section->sh_num, ind);
 }
 
 /* Set the value of LABEL to that of some expression (possibly
    involving other symbols).  LABEL can be overwritten later still.  */
-static Sym* set_symbol(TCCState *s1, int label)
+static Sym* set_symbol(TCCState *s1, ціле label)
 {
     long n;
     ExprValue e;
@@ -471,11 +471,11 @@ static Sym* set_symbol(TCCState *s1, int label)
     asm_expr(s1, &e);
     n = e.v;
     esym = elfsym(e.sym);
-    if (esym)
+    якщо (esym)
 	n += esym->st_value;
     sym = asm_new_label1(s1, label, 2, esym ? esym->st_shndx : SHN_ABS, n);
     elfsym(sym)->st_other |= ST_ASM_SET;
-    return sym;
+    повернути sym;
 }
 
 static void use_section1(TCCState *s1, Section *sec)
@@ -502,15 +502,15 @@ static void push_section(TCCState *s1, const char *name)
 static void pop_section(TCCState *s1)
 {
     Section *prev = cur_text_section->prev;
-    if (!prev)
+    якщо (!prev)
         tcc_error(".popsection without .pushsection");
     cur_text_section->prev = NULL;
     use_section1(s1, prev);
 }
 
-static void asm_parse_directive(TCCState *s1, int global)
+static void asm_parse_directive(TCCState *s1, ціле global)
 {
-    int n, offset, v, size, tok1, c;
+    ціле n, offset, v, size, tok1, c;
     Section *sec;
     uint8_t *ptr;
 
@@ -525,37 +525,37 @@ static void asm_parse_directive(TCCState *s1, int global)
         tok1 = tok;
         next();
         n = asm_int_expr(s1);
-        if (tok1 == TOK_ASMDIR_p2align)
+        якщо (tok1 == TOK_ASMDIR_p2align)
         {
-            if (n < 0 || n > 30)
+            якщо (n < 0 || n > 30)
                 tcc_error("invalid p2align, must be between 0 and 30");
             n = 1 << n;
             tok1 = TOK_ASMDIR_align;
         }
-        if (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
-            if (n <= 0 || (n & (n-1)) != 0)
+        якщо (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
+            якщо (n <= 0 || (n & (n-1)) != 0)
                 tcc_error("alignment must be a positive power of two");
             offset = (ind + n - 1) & -n;
             size = offset - ind;
             /* the section must have a compatible alignment */
-            if (sec->sh_addralign < n)
+            якщо (sec->sh_addralign < n)
                 sec->sh_addralign = n;
             c = sec->sh_flags & SHF_EXECINSTR;
-        } else {
-	    if (n < 0)
+        } інакше {
+	    якщо (n < 0)
 	        n = 0;
             size = n, c = 0;
         }
         v = 0;
-        if (tok == ',') {
+        якщо (tok == ',') {
             next();
             v = asm_int_expr(s1), c = 0;
         }
     zero_pad:
-	if ((uint64_t)ind + size >= 1<<30)
+	якщо ((uint64_t)ind + size >= 1<<30)
 	    tcc_error("too much data");
-        if (sec->sh_type != SHT_NOBITS) {
-            if (c) {
+        якщо (sec->sh_type != SHT_NOBITS) {
+            якщо (c) {
                 gen_fill_nops(size);
                 break;
             }
@@ -566,32 +566,32 @@ static void asm_parse_directive(TCCState *s1, int global)
         ind += size;
         break;
     case TOK_ASMDIR_quad:
-#if PTR_SIZE == 8
+#якщо PTR_SIZE == 8
 	size = 8;
 	goto asm_data;
-#else
+#інакше
         next();
-        for(;;) {
+        для(;;) {
             uint64_t vl;
             const char *p;
 
             p = tokc.str.data;
-            if (tok != TOK_PPNUM) {
+            якщо (tok != TOK_PPNUM) {
             error_constant:
                 tcc_error("64 bit constant");
             }
             vl = strtoll(p, (char **)&p, 0);
-            if (*p != '\0')
+            якщо (*p != '\0')
                 goto error_constant;
             next();
-            if (sec->sh_type != SHT_NOBITS) {
+            якщо (sec->sh_type != SHT_NOBITS) {
                 /* XXX: endianness */
                 gen_le32(vl);
                 gen_le32(vl >> 32);
-            } else {
+            } інакше {
                 ind += 8;
             }
-            if (tok != ',')
+            якщо (tok != ',')
                 break;
             next();
         }
@@ -609,54 +609,54 @@ static void asm_parse_directive(TCCState *s1, int global)
         size = 4;
     asm_data:
         next();
-        for(;;) {
+        для(;;) {
             ExprValue e;
             asm_expr(s1, &e);
-            if (sec->sh_type != SHT_NOBITS) {
-                if (size == 4) {
+            якщо (sec->sh_type != SHT_NOBITS) {
+                якщо (size == 4) {
                     gen_expr32(&e);
-#if PTR_SIZE == 8
-		} else if (size == 8) {
+#якщо PTR_SIZE == 8
+		} інакше якщо (size == 8) {
 		    gen_expr64(&e);
 #endif
-                } else {
-                    if (e.sym)
+                } інакше {
+                    якщо (e.sym)
                         expect("constant");
-                    if (size == 1)
+                    якщо (size == 1)
                         g(e.v);
-                    else
+                    інакше
                         gen_le16(e.v);
                 }
-            } else {
+            } інакше {
                 ind += size;
             }
-            if (tok != ',')
+            якщо (tok != ',')
                 break;
             next();
         }
         break;
     case TOK_ASMDIR_fill:
         {
-            int repeat, size, val, i, j;
+            ціле repeat, size, val, i, j;
             uint8_t repeat_buf[8];
             next();
             repeat = asm_int_expr(s1);
-            if (repeat < 0) {
+            якщо (repeat < 0) {
                 tcc_error("repeat < 0; .fill ignored");
                 break;
             }
             size = 1;
             val = 0;
-            if (tok == ',') {
+            якщо (tok == ',') {
                 next();
                 size = asm_int_expr(s1);
-                if (size < 0) {
+                якщо (size < 0) {
                     tcc_error("size < 0; .fill ignored");
                     break;
                 }
-                if (size > 8)
+                якщо (size > 8)
                     size = 8;
-                if (tok == ',') {
+                якщо (tok == ',') {
                     next();
                     val = asm_int_expr(s1);
                 }
@@ -670,8 +670,8 @@ static void asm_parse_directive(TCCState *s1, int global)
             repeat_buf[5] = 0;
             repeat_buf[6] = 0;
             repeat_buf[7] = 0;
-            for(i = 0; i < repeat; i++) {
-                for(j = 0; j < size; j++) {
+            для(i = 0; i < repeat; i++) {
+                для(j = 0; j < size; j++) {
                     g(repeat_buf[j]);
                 }
             }
@@ -679,19 +679,19 @@ static void asm_parse_directive(TCCState *s1, int global)
         break;
     case TOK_ASMDIR_rept:
         {
-            int repeat;
+            ціле repeat;
             TokenString *init_str;
             next();
             repeat = asm_int_expr(s1);
             init_str = tok_str_alloc();
-            while (next(), tok != TOK_ASMDIR_endr) {
-                if (tok == CH_EOF)
+            поки (next(), tok != TOK_ASMDIR_endr) {
+                якщо (tok == CH_EOF)
                     tcc_error("we at end of file, .endr not found");
                 tok_str_add_tok(init_str);
             }
             tok_str_add(init_str, TOK_EOF);
             begin_macro(init_str, 1);
-            while (repeat-- > 0) {
+            поки (repeat-- > 0) {
                 tcc_assemble_internal(s1, (parse_flags & PARSE_FLAG_PREPROCESS),
 				      global);
                 macro_ptr = init_str->str;
@@ -708,12 +708,12 @@ static void asm_parse_directive(TCCState *s1, int global)
 	    asm_expr(s1, &e);
 	    n = e.v;
 	    esym = elfsym(e.sym);
-	    if (esym) {
-		if (esym->st_shndx != cur_text_section->sh_num)
+	    якщо (esym) {
+		якщо (esym->st_shndx != cur_text_section->sh_num)
 		  expect("constant or same-section symbol");
 		n += esym->st_value;
 	    }
-            if (n < ind)
+            якщо (n < ind)
                 tcc_error("attempt to .org backwards");
             v = c = 0;
             size = n - ind;
@@ -726,7 +726,7 @@ static void asm_parse_directive(TCCState *s1, int global)
 	next();
 	/* Also accept '.set stuff', but don't do anything with this.
 	   It's used in GAS to set various features like '.set mips16'.  */
-	if (tok == ',')
+	якщо (tok == ',')
 	    set_symbol(s1, tok1);
 	break;
     case TOK_ASMDIR_globl:
@@ -737,41 +737,41 @@ static void asm_parse_directive(TCCState *s1, int global)
 	do { 
             Sym *sym;
             next();
-	    if (tok < TOK_IDENT)
+	    якщо (tok < TOK_IDENT)
 		expect("identifier");
             sym = get_asm_sym(tok, NULL);
-	    if (tok1 != TOK_ASMDIR_hidden)
+	    якщо (tok1 != TOK_ASMDIR_hidden)
                 sym->type.t &= ~VT_STATIC;
-            if (tok1 == TOK_ASMDIR_weak)
+            якщо (tok1 == TOK_ASMDIR_weak)
                 sym->a.weak = 1;
-	    else if (tok1 == TOK_ASMDIR_hidden)
+	    інакше якщо (tok1 == TOK_ASMDIR_hidden)
 	        sym->a.visibility = STV_HIDDEN;
             update_storage(sym);
             next();
-	} while (tok == ',');
+	} поки (tok == ',');
 	break;
     case TOK_ASMDIR_string:
     case TOK_ASMDIR_ascii:
     case TOK_ASMDIR_asciz:
         {
             const char *p;
-            int i, size, t;
+            ціле i, size, t;
 
             t = tok;
             next();
-            for(;;) {
-                if (tok != TOK_STR)
+            для(;;) {
+                якщо (tok != TOK_STR)
                     expect("string constant");
                 p = tokc.str.data;
                 size = tokc.str.size;
-                if (t == TOK_ASMDIR_ascii && size > 0)
+                якщо (t == TOK_ASMDIR_ascii && size > 0)
                     size--;
-                for(i = 0; i < size; i++)
+                для(i = 0; i < size; i++)
                     g(p[i]);
                 next();
-                if (tok == ',') {
+                якщо (tok == ',') {
                     next();
-                } else if (tok != TOK_STR) {
+                } інакше якщо (tok != TOK_STR) {
                     break;
                 }
             }
@@ -785,13 +785,13 @@ static void asm_parse_directive(TCCState *s1, int global)
             tok1 = tok;
             n = 0;
             next();
-            if (tok != ';' && tok != TOK_LINEFEED) {
+            якщо (tok != ';' && tok != TOK_LINEFEED) {
 		n = asm_int_expr(s1);
 		next();
             }
-            if (n)
+            якщо (n)
                 sprintf(sname, "%s%d", get_tok_str(tok1, NULL), n);
-            else
+            інакше
                 sprintf(sname, "%s", get_tok_str(tok1, NULL));
             use_section(s1, sname);
 	}
@@ -801,14 +801,14 @@ static void asm_parse_directive(TCCState *s1, int global)
             const char *p;
             parse_flags &= ~PARSE_FLAG_TOK_STR;
             next();
-            if (tok == TOK_PPNUM)
+            якщо (tok == TOK_PPNUM)
                 next();
-            if (tok == TOK_PPSTR && tokc.str.data[0] == '"') {
+            якщо (tok == TOK_PPSTR && tokc.str.data[0] == '"') {
                 tokc.str.data[tokc.str.size - 2] = 0;
                 p = tokc.str.data + 1;
-            } else if (tok >= TOK_IDENT) {
+            } інакше якщо (tok >= TOK_IDENT) {
                 p = get_tok_str(tok, &tokc);
-            } else {
+            } інакше {
                 skip_to_eol(0);
                 break;
             }
@@ -822,9 +822,9 @@ static void asm_parse_directive(TCCState *s1, int global)
 
             ident[0] = '\0';
             next();
-            if (tok == TOK_STR)
+            якщо (tok == TOK_STR)
                 pstrcat(ident, sizeof(ident), tokc.str.data);
-            else
+            інакше
                 pstrcat(ident, sizeof(ident), get_tok_str(tok, &tokc));
             tcc_warning_c(warn_unsupported)("ignoring .ident %s", ident);
             next();
@@ -836,10 +836,10 @@ static void asm_parse_directive(TCCState *s1, int global)
             ElfSym *esym;
 
             next();
-	    if (tok < TOK_IDENT)
+	    якщо (tok < TOK_IDENT)
 		expect("identifier");
             sym = asm_label_find(tok);
-            if (!sym)
+            якщо (!sym)
                 tcc_error("label not found: %s", get_tok_str(tok, NULL));
             /* XXX .size name,label2-label1 */
             tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, NULL));
@@ -847,7 +847,7 @@ static void asm_parse_directive(TCCState *s1, int global)
             skip(',');
             n = asm_int_expr(s1);
             esym = elfsym(sym);
-            if (esym) {
+            якщо (esym) {
                 esym->st_size = n;
             }
         }
@@ -856,35 +856,35 @@ static void asm_parse_directive(TCCState *s1, int global)
         { 
             Sym *sym;
             const char *newtype;
-            int st_type;
+            ціле st_type;
 
             next();
-	    if (tok < TOK_IDENT)
+	    якщо (tok < TOK_IDENT)
 		expect("identifier");
             sym = get_asm_sym(tok, NULL);
             next();
             skip(',');
-            if (tok == TOK_STR) {
+            якщо (tok == TOK_STR) {
                 newtype = tokc.str.data;
-            } else {
-                if (tok == '@' || tok == '%')
+            } інакше {
+                якщо (tok == '@' || tok == '%')
                     next();
                 newtype = get_tok_str(tok, NULL);
             }
 
-            if (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
-                if (IS_ASM_SYM(sym))
+            якщо (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
+                якщо (IS_ASM_SYM(sym))
                     sym->type.t |= VT_ASM_FUNC;
                 st_type = STT_FUNC;
             set_st_type:
-                if (sym->c) {
+                якщо (sym->c) {
                     ElfSym *esym = elfsym(sym);
                     esym->st_info = ELFW(ST_INFO)(ELFW(ST_BIND)(esym->st_info), st_type);
                 }
-            } else if (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
+            } інакше якщо (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
                 st_type = STT_OBJECT;
                 goto set_st_type;
-            } else
+            } інакше
                 tcc_warning_c(warn_unsupported)("change type of '%s' from 0x%x to '%s' ignored",
                     get_tok_str(sym->v, NULL), sym->type.t, newtype);
 
@@ -895,53 +895,53 @@ static void asm_parse_directive(TCCState *s1, int global)
     case TOK_ASMDIR_section:
         {
             char sname[256];
-	    int old_nb_section = s1->nb_sections;
-            int flags = SHF_ALLOC;
+	    ціле old_nb_section = s1->nb_sections;
+            ціле flags = SHF_ALLOC;
 
 	    tok1 = tok;
             /* XXX: support more options */
             next();
             sname[0] = '\0';
-            while (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
-                if (tok == TOK_STR)
+            поки (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
+                якщо (tok == TOK_STR)
                     pstrcat(sname, sizeof(sname), tokc.str.data);
-                else
+                інакше
                     pstrcat(sname, sizeof(sname), get_tok_str(tok, NULL));
                 next();
             }
-            if (tok == ',') {
+            якщо (tok == ',') {
                 const char *p;
                 /* skip section options */
                 next();
-                if (tok != TOK_STR)
+                якщо (tok != TOK_STR)
                     expect("string constant");
-                for (p = tokc.str.data; *p; ++p) {
-                    if (*p == 'w')
+                для (p = tokc.str.data; *p; ++p) {
+                    якщо (*p == 'w')
                         flags |= SHF_WRITE;
-                    if (*p == 'x')
+                    якщо (*p == 'x')
                         flags |= SHF_EXECINSTR;
                 }
                 next();
-                if (tok == ',') {
+                якщо (tok == ',') {
                     next();
-                    if (tok == '@' || tok == '%')
+                    якщо (tok == '@' || tok == '%')
                         next();
                     next();
                 }
             }
             last_text_section = cur_text_section;
-	    if (tok1 == TOK_ASMDIR_section)
+	    якщо (tok1 == TOK_ASMDIR_section)
 	        use_section(s1, sname);
-	    else
+	    інакше
 	        push_section(s1, sname);
 	    /* If we just allocated a new section reset its alignment to
 	       1.  new_section normally acts for GCC compatibility and
 	       sets alignment to PTR_SIZE.  The assembler behaves different. */
-	    if (old_nb_section != s1->nb_sections) {
+	    якщо (old_nb_section != s1->nb_sections) {
 	        cur_text_section->sh_addralign = 1;
                 /* Make .init and .fini sections executable by default.
                    GAS does so, too, and musl relies on it. */
-                if (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
+                якщо (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
                     flags |= SHF_EXECINSTR;
 	        cur_text_section->sh_flags = flags;
             }
@@ -951,7 +951,7 @@ static void asm_parse_directive(TCCState *s1, int global)
         { 
             Section *sec;
             next();
-            if (!last_text_section)
+            якщо (!last_text_section)
                 tcc_error("no previous section referenced");
             sec = cur_text_section;
             use_section1(s1, last_text_section);
@@ -976,7 +976,7 @@ static void asm_parse_directive(TCCState *s1, int global)
         }
         break;
 #endif
-#if PTR_SIZE == 8
+#якщо PTR_SIZE == 8
     /* added for compatibility with GAS */
     case TOK_ASMDIR_code64:
         next();
@@ -1020,36 +1020,36 @@ static void asm_parse_directive(TCCState *s1, int global)
 	{
 	    ExprValue e;
 	    const char *reloc_name;
-	    int reloc_type = -1;
+	    ціле reloc_type = -1;
 
 	    next();
 	    asm_expr(s1, &e);
 	    skip(',');
 	    reloc_name = get_tok_str(tok, NULL);
-#if defined(TCC_TARGET_ARM64)
-	    if (!strcmp(reloc_name, "R_AARCH64_CALL26"))
+#якщо defined(TCC_TARGET_ARM64)
+	    якщо (!strcmp(reloc_name, "R_AARCH64_CALL26"))
 	        reloc_type = R_AARCH64_CALL26;
 #elif defined(TCC_TARGET_RISCV64)
-	    if (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
+	    якщо (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
 	        reloc_type = R_RISCV_CALL;
-	    else if (!strcmp(reloc_name, "R_RISCV_BRANCH"))
+	    інакше якщо (!strcmp(reloc_name, "R_RISCV_BRANCH"))
 	        reloc_type = R_RISCV_BRANCH;
-	    else if (!strcmp(reloc_name, "R_RISCV_JAL"))
+	    інакше якщо (!strcmp(reloc_name, "R_RISCV_JAL"))
 	        reloc_type = R_RISCV_JAL;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
+	    інакше якщо (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
 	        reloc_type = R_RISCV_PCREL_HI20;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
+	    інакше якщо (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
 	        reloc_type = R_RISCV_PCREL_LO12_I;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
+	    інакше якщо (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
 	        reloc_type = R_RISCV_PCREL_LO12_S;
-	    else if (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
+	    інакше якщо (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
 	        reloc_type = R_RISCV_32_PCREL;
-	    else if (!strcmp(reloc_name, "R_RISCV_32"))
+	    інакше якщо (!strcmp(reloc_name, "R_RISCV_32"))
 	        reloc_type = R_RISCV_32;
-	    else if (!strcmp(reloc_name, "R_RISCV_64"))
+	    інакше якщо (!strcmp(reloc_name, "R_RISCV_64"))
 	        reloc_type = R_RISCV_64;
 #endif
-	    if (reloc_type < 0)
+	    якщо (reloc_type < 0)
 	        tcc_error("unimp: reloc '%s' unknown", reloc_name);
 	    next();
 	    skip(',');
@@ -1065,72 +1065,72 @@ static void asm_parse_directive(TCCState *s1, int global)
 
 
 /* assemble a file */
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global)
+static ціле tcc_assemble_internal(TCCState *s1, ціле do_preprocess, ціле global)
 {
-    int opcode;
-    int saved_parse_flags = parse_flags;
+    ціле opcode;
+    ціле saved_parse_flags = parse_flags;
 
     parse_flags = PARSE_FLAG_ASM_FILE | PARSE_FLAG_TOK_STR;
-    if (do_preprocess)
+    якщо (do_preprocess)
         parse_flags |= PARSE_FLAG_PREPROCESS;
-    for(;;) {
+    для(;;) {
         next();
-        if (tok == TOK_EOF)
+        якщо (tok == TOK_EOF)
             break;
         tcc_debug_line(s1);
         parse_flags |= PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     redo:
-#if !defined(TCC_TARGET_ARM64)
-        if (tok == '#') {
+#якщо !defined(TCC_TARGET_ARM64)
+        якщо (tok == '#') {
             /* horrible gas comment */
-            while (tok != TOK_LINEFEED)
+            поки (tok != TOK_LINEFEED)
                 next();
-        } else
+        } інакше
 #endif
-        if (tok >= TOK_ASMDIR_FIRST && tok <= TOK_ASMDIR_LAST) {
+        якщо (tok >= TOK_ASMDIR_FIRST && tok <= TOK_ASMDIR_LAST) {
             asm_parse_directive(s1, global);
-        } else if (tok == TOK_PPNUM) {
+        } інакше якщо (tok == TOK_PPNUM) {
             const char *p;
-            int n;
+            ціле n;
             p = tokc.str.data;
             n = strtoul(p, (char **)&p, 10);
-            if (*p != '\0')
+            якщо (*p != '\0')
                 expect("':'");
             /* new local label */
             asm_new_label(s1, asm_get_local_label_name(s1, n), 1);
             next();
             skip(':');
             goto redo;
-        } else if (tok >= TOK_IDENT) {
+        } інакше якщо (tok >= TOK_IDENT) {
             /* instruction or label */
             opcode = tok;
             next();
-            if (tok == ':') {
+            якщо (tok == ':') {
                 /* new label */
                 asm_new_label(s1, opcode, 0);
                 next();
                 goto redo;
-            } else if (tok == '=') {
+            } інакше якщо (tok == '=') {
 		set_symbol(s1, opcode);
                 goto redo;
-            } else {
+            } інакше {
                 asm_opcode(s1, opcode);
             }
         }
         /* end of line */
-        if (tok != ';' && tok != TOK_LINEFEED)
+        якщо (tok != ';' && tok != TOK_LINEFEED)
             expect("end of line");
         parse_flags &= ~PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     }
 
     parse_flags = saved_parse_flags;
-    return 0;
+    повернути 0;
 }
 
 /* Assemble the current file */
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+ST_FUNC ціле tcc_assemble(TCCState *s1, ціле do_preprocess)
 {
-    int ret;
+    ціле ret;
     tcc_debug_start(s1);
     /* default section is text */
     cur_text_section = text_section;
@@ -1139,7 +1139,7 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
     ret = tcc_assemble_internal(s1, do_preprocess, 1);
     cur_text_section->data_offset = ind;
     tcc_debug_end(s1);
-    return ret;
+    повернути ret;
 }
 
 /********************************************************************/
@@ -1147,12 +1147,12 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
 
 /* assemble the string 'str' in the current C compilation unit without
    C preprocessing. */
-static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int global)
+static void tcc_assemble_inline(TCCState *s1, const char *str, ціле len, ціле global)
 {
-    const int *saved_macro_ptr = macro_ptr;
-    int dotid = set_idnum('.', IS_ID);
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
-    int dolid = set_idnum('$', 0);
+    const ціле *saved_macro_ptr = macro_ptr;
+    ціле dotid = set_idnum('.', IS_ID);
+#якщо !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
+    ціле dolid = set_idnum('$', 0);
 #endif
 
     tcc_open_bf(s1, ":asm:", len);
@@ -1161,7 +1161,7 @@ static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int glob
     tcc_assemble_internal(s1, 0, global);
     tcc_close();
 
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
+#якщо !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
     set_idnum('$', dolid);
 #endif
     set_idnum('.', dotid);
@@ -1171,60 +1171,60 @@ static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int glob
 /* find a constraint by its number or id (gcc 3 extended
    syntax). return -1 if not found. Return in *pp in char after the
    constraint */
-ST_FUNC int find_constraint(ASMOperand *operands, int nb_operands, 
+ST_FUNC ціле find_constraint(ASMOperand *operands, ціле nb_operands, 
                            const char *name, const char **pp)
 {
-    int index;
+    ціле index;
     TokenSym *ts;
     const char *p;
 
-    if (isnum(*name)) {
+    якщо (isnum(*name)) {
         index = 0;
-        while (isnum(*name)) {
+        поки (isnum(*name)) {
             index = (index * 10) + (*name) - '0';
             name++;
         }
-        if ((unsigned)index >= nb_operands)
+        якщо ((unsigned)index >= nb_operands)
             index = -1;
-    } else if (*name == '[') {
+    } інакше якщо (*name == '[') {
         name++;
         p = strchr(name, ']');
-        if (p) {
+        якщо (p) {
             ts = tok_alloc(name, p - name);
-            for(index = 0; index < nb_operands; index++) {
-                if (operands[index].id == ts->tok)
+            для(index = 0; index < nb_operands; index++) {
+                якщо (operands[index].id == ts->tok)
                     goto found;
             }
             index = -1;
         found:
             name = p + 1;
-        } else {
+        } інакше {
             index = -1;
         }
-    } else {
+    } інакше {
         index = -1;
     }
-    if (pp)
+    якщо (pp)
         *pp = name;
-    return index;
+    повернути index;
 }
 
-static void subst_asm_operands(ASMOperand *operands, int nb_operands, 
+static void subst_asm_operands(ASMOperand *operands, ціле nb_operands, 
                                CString *out_str, const char *str)
 {
-    int c, index, modifier;
+    ціле c, index, modifier;
     ASMOperand *op;
     SValue sv;
 
-    for(;;) {
+    для(;;) {
         c = *str++;
-        if (c == '%') {
-            if (*str == '%') {
+        якщо (c == '%') {
+            якщо (*str == '%') {
                 str++;
                 goto add_char;
             }
             modifier = 0;
-            if (*str == 'c' || *str == 'n' ||
+            якщо (*str == 'c' || *str == 'n' ||
                 *str == 'b' || *str == 'w' || *str == 'h' || *str == 'k' ||
 		*str == 'q' || *str == 'l' ||
 #ifdef TCC_TARGET_ARM64
@@ -1238,50 +1238,50 @@ static void subst_asm_operands(ASMOperand *operands, int nb_operands,
 		*str == 'P')
                 modifier = *str++;
             index = find_constraint(operands, nb_operands, str, &str);
-            if (index < 0)
+            якщо (index < 0)
         error:
                 tcc_error("invalid operand reference after %%");
             op = &operands[index];
-            if (modifier == 'l') {
+            якщо (modifier == 'l') {
                 cstr_cat(out_str, get_tok_str(op->is_label, NULL), -1);
-            } else {
-		if (op->vt == NULL)
+            } інакше {
+		якщо (op->vt == NULL)
 		    goto error;
                 sv = *op->vt;
-                if (op->reg >= 0) {
+                якщо (op->reg >= 0) {
                     sv.r = op->reg;
-                    if (op->is_memory)
+                    якщо (op->is_memory)
                       sv.r |= VT_LVAL;
                 }
                 subst_asm_operand(out_str, &sv, modifier);
             }
-        } else {
+        } інакше {
         add_char:
             cstr_ccat(out_str, c);
-            if (c == '\0')
+            якщо (c == '\0')
                 break;
         }
     }
 }
 
 
-static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
-                               int is_output)
+static void parse_asm_operands(ASMOperand *operands, ціле *nb_operands_ptr,
+                               ціле is_output)
 {
     ASMOperand *op;
-    int nb_operands;
+    ціле nb_operands;
     char* astr;
 
-    if (tok != ':') {
+    якщо (tok != ':') {
         nb_operands = *nb_operands_ptr;
-        for(;;) {
-            if (nb_operands >= MAX_ASM_OPERANDS)
+        для(;;) {
+            якщо (nb_operands >= MAX_ASM_OPERANDS)
                 tcc_error("too many asm operands");
             op = &operands[nb_operands++];
             op->id = 0;
-            if (tok == '[') {
+            якщо (tok == '[') {
                 next();
-                if (tok < TOK_IDENT)
+                якщо (tok < TOK_IDENT)
                     expect("identifier");
                 op->id = tok;
                 next();
@@ -1291,15 +1291,15 @@ static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
             pstrcpy(op->constraint, sizeof op->constraint, astr);
             skip('(');
             gexpr();
-            if (is_output) {
-                if (!(vtop->type.t & VT_ARRAY))
+            якщо (is_output) {
+                якщо (!(vtop->type.t & VT_ARRAY))
                     test_lvalue();
-            } else {
+            } інакше {
                 /* we want to avoid LLOCAL case, except when the 'm'
                    constraint is used. Note that it may come from
                    register storage, so we need to convert (reg)
                    case */
-                if ((vtop->r & VT_LVAL) &&
+                якщо ((vtop->r & VT_LVAL) &&
                     ((vtop->r & VT_VALMASK) == VT_LLOCAL ||
                      (vtop->r & VT_VALMASK) < VT_CONST) &&
                     !strchr(op->constraint, 'm')
@@ -1313,9 +1313,9 @@ static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
             }
             op->vt = vtop;
             skip(')');
-            if (tok == ',') {
+            якщо (tok == ',') {
                 next();
-            } else {
+            } інакше {
                 break;
             }
         }
@@ -1329,13 +1329,13 @@ ST_FUNC void asm_instr(void)
     CString astr, *astr1;
 
     ASMOperand operands[MAX_ASM_OPERANDS];
-    int nb_outputs, nb_operands, i, must_subst, out_reg, nb_labels;
+    ціле nb_outputs, nb_operands, i, must_subst, out_reg, nb_labels;
     uint8_t clobber_regs[NB_ASM_REGS];
     Section *sec;
 
     /* since we always generate the asm() instruction, we can ignore
        volatile */
-    while (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
+    поки (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
            || tok == TOK_GOTO) {
         next();
     }
@@ -1349,66 +1349,66 @@ ST_FUNC void asm_instr(void)
     nb_labels = 0;
     must_subst = 0;
     memset(clobber_regs, 0, sizeof(clobber_regs));
-    if (tok == ':') {
+    якщо (tok == ':') {
         next();
         must_subst = 1;
         /* output args */
         parse_asm_operands(operands, &nb_operands, 1);
         nb_outputs = nb_operands;
-        if (tok == ':') {
+        якщо (tok == ':') {
             next();
-            if (tok != ')') {
+            якщо (tok != ')') {
                 /* input args */
                 parse_asm_operands(operands, &nb_operands, 0);
-                if (tok == ':') {
+                якщо (tok == ':') {
                     /* clobber list */
                     /* XXX: handle registers */
                     next();
-                    for(;;) {
-                        if (tok == ':')
+                    для(;;) {
+                        якщо (tok == ':')
                           break;
-                        if (tok != TOK_STR)
+                        якщо (tok != TOK_STR)
                             expect("string constant");
                         asm_clobber(clobber_regs, tokc.str.data);
                         next();
-                        if (tok == ',') {
+                        якщо (tok == ',') {
                             next();
-                        } else {
+                        } інакше {
                             break;
                         }
                     }
                 }
-                if (tok == ':') {
+                якщо (tok == ':') {
                     /* goto labels */
                     next();
-                    for (;;) {
+                    для (;;) {
                         Sym *csym;
-                        int asmname;
-                        if (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
+                        ціле asmname;
+                        якщо (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
                           tcc_error("too many asm operands");
-                        if (tok < TOK_UIDENT)
+                        якщо (tok < TOK_UIDENT)
                           expect("label identifier");
 			memset(operands + nb_operands + nb_labels, 0,
 			       sizeof(operands[0]));
                         operands[nb_operands + nb_labels++].id = tok;
 
                         csym = label_find(tok);
-                        if (!csym) {
+                        якщо (!csym) {
                             csym = label_push(&global_label_stack, tok,
                                               LABEL_FORWARD);
-                        } else {
-                            if (csym->r == LABEL_DECLARED)
+                        } інакше {
+                            якщо (csym->r == LABEL_DECLARED)
                               csym->r = LABEL_FORWARD;
                         }
                         next();
                         asmname = asm_get_prefix_name(tcc_state, "LG.",
                                                       ++asmgoto_n);
-                        if (!csym->c)
+                        якщо (!csym->c)
                           put_extern_sym2(csym, SHN_UNDEF, 0, 0, 1);
                         get_asm_sym(asmname, csym);
                         operands[nb_operands + nb_labels - 1].is_label = asmname;
 
-                        if (tok != ',')
+                        якщо (tok != ',')
                           break;
                         next();
                     }
@@ -1419,7 +1419,7 @@ ST_FUNC void asm_instr(void)
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    якщо (tok != ';')
         expect("';'");
     
     /* save all values in the memory */
@@ -1434,7 +1434,7 @@ ST_FUNC void asm_instr(void)
 #ifdef ASM_DEBUG
     printf("asm: \"%s\"\n", (char *)astr.data);
 #endif
-    if (must_subst) {
+    якщо (must_subst) {
         cstr_reset(astr1);
         cstr_cat(astr1, astr.data, astr.size);
         cstr_reset(&astr);
@@ -1455,7 +1455,7 @@ ST_FUNC void asm_instr(void)
     /* assemble the string with tcc internal assembler */
     tcc_assemble_inline(tcc_state, astr.data, astr.size - 1, 0);
     cstr_free_s(&astr);
-    if (sec != cur_text_section) {
+    якщо (sec != cur_text_section) {
         tcc_warning("inline asm tries to change current section");
         use_section1(tcc_state, sec);
     }
@@ -1468,7 +1468,7 @@ ST_FUNC void asm_instr(void)
                  clobber_regs, out_reg);
     
     /* free everything */
-    for(i=0;i<nb_operands;i++) {
+    для(i=0;i<nb_operands;i++) {
         vpop();
     }
 
@@ -1477,7 +1477,7 @@ ST_FUNC void asm_instr(void)
 ST_FUNC void asm_global_instr(void)
 {
     CString *astr;
-    int saved_nocode_wanted = nocode_wanted;
+    ціле saved_nocode_wanted = nocode_wanted;
 
     /* Global asm blocks are always emitted.  */
     nocode_wanted = 0;
@@ -1486,7 +1486,7 @@ ST_FUNC void asm_global_instr(void)
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    якщо (tok != ';')
         expect("';'");
     
 #ifdef ASM_DEBUG
@@ -1507,8 +1507,8 @@ ST_FUNC void asm_global_instr(void)
 }
 
 /********************************************************/
-#else
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+#інакше
+ST_FUNC ціле tcc_assemble(TCCState *s1, ціле do_preprocess)
 {
     tcc_error("asm not supported");
 }

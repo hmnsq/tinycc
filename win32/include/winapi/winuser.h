@@ -28,7 +28,7 @@ extern "C" {
 #ifdef UNICODE
   typedef MENUTEMPLATEW MENUTEMPLATE;
   typedef LPMENUTEMPLATEW LPMENUTEMPLATE;
-#else
+#інакше
   typedef MENUTEMPLATEA MENUTEMPLATE;
   typedef LPMENUTEMPLATEA LPMENUTEMPLATE;
 #endif
@@ -36,23 +36,23 @@ extern "C" {
   typedef LRESULT (CALLBACK *WNDPROC)(HWND,UINT,WPARAM,LPARAM);
   typedef INT_PTR (CALLBACK *DLGPROC)(HWND,UINT,WPARAM,LPARAM);
   typedef VOID (CALLBACK *TIMERPROC)(HWND,UINT,UINT_PTR,DWORD);
-  typedef WINBOOL (CALLBACK *GRAYSTRINGPROC)(HDC,LPARAM,int);
+  typedef WINBOOL (CALLBACK *GRAYSTRINGPROC)(HDC,LPARAM,ціле);
   typedef WINBOOL (CALLBACK *WNDENUMPROC)(HWND,LPARAM);
-  typedef LRESULT (CALLBACK *HOOKPROC)(int code,WPARAM wParam,LPARAM lParam);
+  typedef LRESULT (CALLBACK *HOOKPROC)(ціле code,WPARAM wParam,LPARAM lParam);
   typedef VOID (CALLBACK *SENDASYNCPROC)(HWND,UINT,ULONG_PTR,LRESULT);
   typedef WINBOOL (CALLBACK *PROPENUMPROCA)(HWND,LPCSTR,HANDLE);
   typedef WINBOOL (CALLBACK *PROPENUMPROCW)(HWND,LPCWSTR,HANDLE);
   typedef WINBOOL (CALLBACK *PROPENUMPROCEXA)(HWND,LPSTR,HANDLE,ULONG_PTR);
   typedef WINBOOL (CALLBACK *PROPENUMPROCEXW)(HWND,LPWSTR,HANDLE,ULONG_PTR);
-  typedef int (CALLBACK *EDITWORDBREAKPROCA)(LPSTR lpch,int ichCurrent,int cch,int code);
-  typedef int (CALLBACK *EDITWORDBREAKPROCW)(LPWSTR lpch,int ichCurrent,int cch,int code);
-  typedef WINBOOL (CALLBACK *DRAWSTATEPROC)(HDC hdc,LPARAM lData,WPARAM wData,int cx,int cy);
+  typedef ціле (CALLBACK *EDITWORDBREAKPROCA)(LPSTR lpch,ціле ichCurrent,ціле cch,ціле code);
+  typedef ціле (CALLBACK *EDITWORDBREAKPROCW)(LPWSTR lpch,ціле ichCurrent,ціле cch,ціле code);
+  typedef WINBOOL (CALLBACK *DRAWSTATEPROC)(HDC hdc,LPARAM lData,WPARAM wData,ціле cx,ціле cy);
 
 #ifdef UNICODE
   typedef PROPENUMPROCW PROPENUMPROC;
   typedef PROPENUMPROCEXW PROPENUMPROCEX;
   typedef EDITWORDBREAKPROCW EDITWORDBREAKPROC;
-#else
+#інакше
   typedef PROPENUMPROCA PROPENUMPROC;
   typedef PROPENUMPROCEXA PROPENUMPROCEX;
   typedef EDITWORDBREAKPROCA EDITWORDBREAKPROC;
@@ -68,7 +68,7 @@ extern "C" {
 #ifdef UNICODE
   typedef WINSTAENUMPROCW WINSTAENUMPROC;
   typedef DESKTOPENUMPROCW DESKTOPENUMPROC;
-#else
+#інакше
   typedef WINSTAENUMPROCA WINSTAENUMPROC;
   typedef DESKTOPENUMPROCA DESKTOPENUMPROC;
 #endif
@@ -78,7 +78,7 @@ extern "C" {
 #define MAKEINTRESOURCEW(i) ((LPWSTR)((ULONG_PTR)((WORD)(i))))
 #ifdef UNICODE
 #define MAKEINTRESOURCE MAKEINTRESOURCEW
-#else
+#інакше
 #define MAKEINTRESOURCE MAKEINTRESOURCEA
 #endif
 
@@ -113,7 +113,7 @@ extern "C" {
 #define ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID 3
 #define MINIMUM_RESERVED_MANIFEST_RESOURCE_ID 1
 #define MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID 16
-#else
+#інакше
 #define RT_MANIFEST MAKEINTRESOURCE(24)
 #define CREATEPROCESS_MANIFEST_RESOURCE_ID MAKEINTRESOURCE(1)
 #define ISOLATIONAWARE_MANIFEST_RESOURCE_ID MAKEINTRESOURCE(2)
@@ -126,15 +126,15 @@ extern "C" {
 #ifdef UNICODE
 #define wvsprintf wvsprintfW
 #define wsprintf wsprintfW
-#else
+#інакше
 #define wvsprintf wvsprintfA
 #define wsprintf wsprintfA
 #endif
 
-  WINUSERAPI int WINAPI wvsprintfA(LPSTR,LPCSTR,va_list arglist);
-  WINUSERAPI int WINAPI wvsprintfW(LPWSTR,LPCWSTR,va_list arglist);
-  WINUSERAPI int WINAPIV wsprintfA(LPSTR,LPCSTR,...);
-  WINUSERAPI int WINAPIV wsprintfW(LPWSTR,LPCWSTR,...);
+  WINUSERAPI ціле WINAPI wvsprintfA(LPSTR,LPCSTR,va_list arglist);
+  WINUSERAPI ціле WINAPI wvsprintfW(LPWSTR,LPCWSTR,va_list arglist);
+  WINUSERAPI ціле WINAPIV wsprintfA(LPSTR,LPCSTR,...);
+  WINUSERAPI ціле WINAPIV wsprintfW(LPWSTR,LPCWSTR,...);
 
 #define SETWALLPAPER_DEFAULT ((LPWSTR)-1)
 
@@ -429,7 +429,7 @@ extern "C" {
 #ifdef UNICODE
   typedef CBT_CREATEWNDW CBT_CREATEWND;
   typedef LPCBT_CREATEWNDW LPCBT_CREATEWND;
-#else
+#інакше
   typedef CBT_CREATEWNDA CBT_CREATEWND;
   typedef LPCBT_CREATEWNDA LPCBT_CREATEWND;
 #endif
@@ -609,7 +609,7 @@ extern "C" {
     DWORD idThreadInstaller;
     LPARAM lParam;
     WPARAM wParam;
-    int code;
+    ціле code;
   } DEBUGHOOKINFO,*PDEBUGHOOKINFO,*NPDEBUGHOOKINFO,*LPDEBUGHOOKINFO;
 
   typedef struct tagMOUSEHOOKSTRUCT {
@@ -623,7 +623,7 @@ extern "C" {
   typedef struct tagMOUSEHOOKSTRUCTEX : public tagMOUSEHOOKSTRUCT {
     DWORD mouseData;
   } MOUSEHOOKSTRUCTEX,*LPMOUSEHOOKSTRUCTEX,*PMOUSEHOOKSTRUCTEX;
-#else
+#інакше
   typedef struct tagMOUSEHOOKSTRUCTEX {
     MOUSEHOOKSTRUCT _unnamed;
     DWORD mouseData;
@@ -659,7 +659,7 @@ extern "C" {
 #ifdef UNICODE
 #define LoadKeyboardLayout LoadKeyboardLayoutW
 #define GetKeyboardLayoutName GetKeyboardLayoutNameW
-#else
+#інакше
 #define LoadKeyboardLayout LoadKeyboardLayoutA
 #define GetKeyboardLayoutName GetKeyboardLayoutNameA
 #endif
@@ -667,16 +667,16 @@ extern "C" {
   WINUSERAPI HKL WINAPI LoadKeyboardLayoutA(LPCSTR pwszKLID,UINT Flags);
   WINUSERAPI HKL WINAPI LoadKeyboardLayoutW(LPCWSTR pwszKLID,UINT Flags);
   WINUSERAPI HKL WINAPI ActivateKeyboardLayout(HKL hkl,UINT Flags);
-  WINUSERAPI int WINAPI ToUnicodeEx(UINT wVirtKey,UINT wScanCode,CONST BYTE *lpKeyState,LPWSTR pwszBuff,int cchBuff,UINT wFlags,HKL dwhkl);
+  WINUSERAPI ціле WINAPI ToUnicodeEx(UINT wVirtKey,UINT wScanCode,CONST BYTE *lpKeyState,LPWSTR pwszBuff,ціле cchBuff,UINT wFlags,HKL dwhkl);
   WINUSERAPI WINBOOL WINAPI UnloadKeyboardLayout(HKL hkl);
   WINUSERAPI WINBOOL WINAPI GetKeyboardLayoutNameA(LPSTR pwszKLID);
   WINUSERAPI WINBOOL WINAPI GetKeyboardLayoutNameW(LPWSTR pwszKLID);
-  WINUSERAPI int WINAPI GetKeyboardLayoutList(int nBuff,HKL *lpList);
+  WINUSERAPI ціле WINAPI GetKeyboardLayoutList(ціле nBuff,HKL *lpList);
   WINUSERAPI HKL WINAPI GetKeyboardLayout(DWORD idThread);
 
   typedef struct tagMOUSEMOVEPOINT {
-    int x;
-    int y;
+    ціле x;
+    ціле y;
     DWORD time;
     ULONG_PTR dwExtraInfo;
   } MOUSEMOVEPOINT,*PMOUSEMOVEPOINT,*LPMOUSEMOVEPOINT;
@@ -684,7 +684,7 @@ extern "C" {
 #define GMMP_USE_DISPLAY_POINTS 1
 #define GMMP_USE_HIGH_RESOLUTION_POINTS 2
 
-  WINUSERAPI int WINAPI GetMouseMovePointsEx(UINT cbSize,LPMOUSEMOVEPOINT lppt,LPMOUSEMOVEPOINT lpptBuf,int nBufPoints,DWORD resolution);
+  WINUSERAPI ціле WINAPI GetMouseMovePointsEx(UINT cbSize,LPMOUSEMOVEPOINT lppt,LPMOUSEMOVEPOINT lpptBuf,ціле nBufPoints,DWORD resolution);
 
 #ifndef NODESKTOP
 
@@ -704,7 +704,7 @@ extern "C" {
 #ifndef NOGDI
 #ifdef UNICODE
 #define CreateDesktop CreateDesktopW
-#else
+#інакше
 #define CreateDesktop CreateDesktopA
 #endif
 
@@ -716,7 +716,7 @@ extern "C" {
 #ifdef UNICODE
 #define OpenDesktop OpenDesktopW
 #define EnumDesktops EnumDesktopsW
-#else
+#інакше
 #define OpenDesktop OpenDesktopA
 #define EnumDesktops EnumDesktopsA
 #endif
@@ -753,7 +753,7 @@ extern "C" {
 #define CreateWindowStation CreateWindowStationW
 #define OpenWindowStation OpenWindowStationW
 #define EnumWindowStations EnumWindowStationsW
-#else
+#інакше
 #define CreateWindowStation CreateWindowStationA
 #define OpenWindowStation OpenWindowStationA
 #define EnumWindowStations EnumWindowStationsA
@@ -788,23 +788,23 @@ extern "C" {
 #ifdef UNICODE
 #define GetUserObjectInformation GetUserObjectInformationW
 #define SetUserObjectInformation SetUserObjectInformationW
-#else
+#інакше
 #define GetUserObjectInformation GetUserObjectInformationA
 #define SetUserObjectInformation SetUserObjectInformationA
 #endif
 
-  WINUSERAPI WINBOOL WINAPI GetUserObjectInformationA(HANDLE hObj,int nIndex,PVOID pvInfo,DWORD nLength,LPDWORD lpnLengthNeeded);
-  WINUSERAPI WINBOOL WINAPI GetUserObjectInformationW(HANDLE hObj,int nIndex,PVOID pvInfo,DWORD nLength,LPDWORD lpnLengthNeeded);
-  WINUSERAPI WINBOOL WINAPI SetUserObjectInformationA(HANDLE hObj,int nIndex,PVOID pvInfo,DWORD nLength);
-  WINUSERAPI WINBOOL WINAPI SetUserObjectInformationW(HANDLE hObj,int nIndex,PVOID pvInfo,DWORD nLength);
+  WINUSERAPI WINBOOL WINAPI GetUserObjectInformationA(HANDLE hObj,ціле nIndex,PVOID pvInfo,DWORD nLength,LPDWORD lpnLengthNeeded);
+  WINUSERAPI WINBOOL WINAPI GetUserObjectInformationW(HANDLE hObj,ціле nIndex,PVOID pvInfo,DWORD nLength,LPDWORD lpnLengthNeeded);
+  WINUSERAPI WINBOOL WINAPI SetUserObjectInformationA(HANDLE hObj,ціле nIndex,PVOID pvInfo,DWORD nLength);
+  WINUSERAPI WINBOOL WINAPI SetUserObjectInformationW(HANDLE hObj,ціле nIndex,PVOID pvInfo,DWORD nLength);
 #endif
 
   typedef struct tagWNDCLASSEXA {
     UINT cbSize;
     UINT style;
     WNDPROC lpfnWndProc;
-    int cbClsExtra;
-    int cbWndExtra;
+    ціле cbClsExtra;
+    ціле cbWndExtra;
     HINSTANCE hInstance;
     HICON hIcon;
     HCURSOR hCursor;
@@ -818,8 +818,8 @@ extern "C" {
     UINT cbSize;
     UINT style;
     WNDPROC lpfnWndProc;
-    int cbClsExtra;
-    int cbWndExtra;
+    ціле cbClsExtra;
+    ціле cbWndExtra;
     HINSTANCE hInstance;
     HICON hIcon;
     HCURSOR hCursor;
@@ -835,7 +835,7 @@ extern "C" {
   typedef PWNDCLASSEXW PWNDCLASSEX;
   typedef NPWNDCLASSEXW NPWNDCLASSEX;
   typedef LPWNDCLASSEXW LPWNDCLASSEX;
-#else
+#інакше
   typedef WNDCLASSEXA WNDCLASSEX;
   typedef PWNDCLASSEXA PWNDCLASSEX;
   typedef NPWNDCLASSEXA NPWNDCLASSEX;
@@ -845,8 +845,8 @@ extern "C" {
   typedef struct tagWNDCLASSA {
     UINT style;
     WNDPROC lpfnWndProc;
-    int cbClsExtra;
-    int cbWndExtra;
+    ціле cbClsExtra;
+    ціле cbWndExtra;
     HINSTANCE hInstance;
     HICON hIcon;
     HCURSOR hCursor;
@@ -858,8 +858,8 @@ extern "C" {
   typedef struct tagWNDCLASSW {
     UINT style;
     WNDPROC lpfnWndProc;
-    int cbClsExtra;
-    int cbWndExtra;
+    ціле cbClsExtra;
+    ціле cbWndExtra;
     HINSTANCE hInstance;
     HICON hIcon;
     HCURSOR hCursor;
@@ -873,7 +873,7 @@ extern "C" {
   typedef PWNDCLASSW PWNDCLASS;
   typedef NPWNDCLASSW NPWNDCLASS;
   typedef LPWNDCLASSW LPWNDCLASS;
-#else
+#інакше
   typedef WNDCLASSA WNDCLASS;
   typedef PWNDCLASSA PWNDCLASS;
   typedef NPWNDCLASSA NPWNDCLASS;
@@ -1348,7 +1348,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define RegisterWindowMessage RegisterWindowMessageW
-#else
+#інакше
 #define RegisterWindowMessage RegisterWindowMessageA
 #endif
 
@@ -1370,10 +1370,10 @@ extern "C" {
   typedef struct tagWINDOWPOS {
     HWND hwnd;
     HWND hwndInsertAfter;
-    int x;
-    int y;
-    int cx;
-    int cy;
+    ціле x;
+    ціле y;
+    ціле cx;
+    ціле cy;
     UINT flags;
   } WINDOWPOS,*LPWINDOWPOS,*PWINDOWPOS;
 
@@ -1599,7 +1599,7 @@ extern "C" {
 #define IDANI_OPEN 1
 #define IDANI_CAPTION 3
 
-  WINUSERAPI WINBOOL WINAPI DrawAnimatedRects(HWND hwnd,int idAni,CONST RECT *lprcFrom,CONST RECT *lprcTo);
+  WINUSERAPI WINBOOL WINAPI DrawAnimatedRects(HWND hwnd,ціле idAni,CONST RECT *lprcFrom,CONST RECT *lprcTo);
 
 #ifndef NOCLIPBOARD
 
@@ -1661,10 +1661,10 @@ extern "C" {
     HINSTANCE hInstance;
     HMENU hMenu;
     HWND hwndParent;
-    int cy;
-    int cx;
-    int y;
-    int x;
+    ціле cy;
+    ціле cx;
+    ціле y;
+    ціле x;
     LONG style;
     LPCSTR lpszName;
     LPCSTR lpszClass;
@@ -1676,10 +1676,10 @@ extern "C" {
     HINSTANCE hInstance;
     HMENU hMenu;
     HWND hwndParent;
-    int cy;
-    int cx;
-    int y;
-    int x;
+    ціле cy;
+    ціле cx;
+    ціле y;
+    ціле x;
     LONG style;
     LPCWSTR lpszName;
     LPCWSTR lpszClass;
@@ -1689,7 +1689,7 @@ extern "C" {
 #ifdef UNICODE
   typedef CREATESTRUCTW CREATESTRUCT;
   typedef LPCREATESTRUCTW LPCREATESTRUCT;
-#else
+#інакше
   typedef CREATESTRUCTA CREATESTRUCT;
   typedef LPCREATESTRUCTA LPCREATESTRUCT;
 #endif
@@ -1788,7 +1788,7 @@ extern "C" {
 #define GetMessage GetMessageW
 #define DispatchMessage DispatchMessageW
 #define PeekMessage PeekMessageW
-#else
+#інакше
 #define GetMessage GetMessageA
 #define DispatchMessage DispatchMessageA
 #define PeekMessage PeekMessageA
@@ -1799,7 +1799,7 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI TranslateMessage(CONST MSG *lpMsg);
   WINUSERAPI LRESULT WINAPI DispatchMessageA(CONST MSG *lpMsg);
   WINUSERAPI LRESULT WINAPI DispatchMessageW(CONST MSG *lpMsg);
-  WINUSERAPI WINBOOL WINAPI SetMessageQueue(int cMessagesMax);
+  WINUSERAPI WINBOOL WINAPI SetMessageQueue(ціле cMessagesMax);
   WINUSERAPI WINBOOL WINAPI PeekMessageA(LPMSG lpMsg,HWND hWnd,UINT wMsgFilterMin,UINT wMsgFilterMax,UINT wRemoveMsg);
   WINUSERAPI WINBOOL WINAPI PeekMessageW(LPMSG lpMsg,HWND hWnd,UINT wMsgFilterMin,UINT wMsgFilterMax,UINT wRemoveMsg);
 
@@ -1812,8 +1812,8 @@ extern "C" {
 #define PM_QS_SENDMESSAGE (QS_SENDMESSAGE << 16)
 #endif
 
-  WINUSERAPI WINBOOL WINAPI RegisterHotKey(HWND hWnd,int id,UINT fsModifiers,UINT vk);
-  WINUSERAPI WINBOOL WINAPI UnregisterHotKey(HWND hWnd,int id);
+  WINUSERAPI WINBOOL WINAPI RegisterHotKey(HWND hWnd,ціле id,UINT fsModifiers,UINT vk);
+  WINUSERAPI WINBOOL WINAPI UnregisterHotKey(HWND hWnd,ціле id);
 
 #define MOD_ALT 0x0001
 #define MOD_CONTROL 0x0002
@@ -1848,7 +1848,7 @@ extern "C" {
 #define SendMessageTimeout SendMessageTimeoutW
 #define SendNotifyMessage SendNotifyMessageW
 #define SendMessageCallback SendMessageCallbackW
-#else
+#інакше
 #define SendMessage SendMessageA
 #define SendMessageTimeout SendMessageTimeoutA
 #define SendNotifyMessage SendNotifyMessageA
@@ -1881,7 +1881,7 @@ extern "C" {
 #ifdef UNICODE
 #define BroadcastSystemMessageEx BroadcastSystemMessageExW
 #define BroadcastSystemMessage BroadcastSystemMessageW
-#else
+#інакше
 #define BroadcastSystemMessageEx BroadcastSystemMessageExA
 #define BroadcastSystemMessage BroadcastSystemMessageA
 #endif
@@ -1931,7 +1931,7 @@ extern "C" {
 #define GetClassInfo GetClassInfoW
 #define RegisterClassEx RegisterClassExW
 #define GetClassInfoEx GetClassInfoExW
-#else
+#інакше
 #define RegisterDeviceNotification RegisterDeviceNotificationA
 #define PostMessage PostMessageA
 #define PostThreadMessage PostThreadMessageA
@@ -1964,7 +1964,7 @@ extern "C" {
   WINUSERAPI DWORD WINAPI WaitForInputIdle(HANDLE hProcess,DWORD dwMilliseconds);
   WINUSERAPI LRESULT WINAPI DefWindowProcA(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
   WINUSERAPI LRESULT WINAPI DefWindowProcW(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI VOID WINAPI PostQuitMessage(int nExitCode);
+  WINUSERAPI VOID WINAPI PostQuitMessage(ціле nExitCode);
   WINUSERAPI LRESULT WINAPI CallWindowProcA(WNDPROC lpPrevWndFunc,HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
   WINUSERAPI LRESULT WINAPI CallWindowProcW(WNDPROC lpPrevWndFunc,HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
   WINUSERAPI WINBOOL WINAPI InSendMessage(VOID);
@@ -1989,7 +1989,7 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI GetClassInfoExA(HINSTANCE hInstance,LPCSTR lpszClass,LPWNDCLASSEXA lpwcx);
   WINUSERAPI WINBOOL WINAPI GetClassInfoExW(HINSTANCE hInstance,LPCWSTR lpszClass,LPWNDCLASSEXW lpwcx);
 
-#define CW_USEDEFAULT ((int)0x80000000)
+#define CW_USEDEFAULT ((ціле)0x80000000)
 
 #define HWND_DESKTOP ((HWND)0)
 
@@ -1998,23 +1998,23 @@ extern "C" {
 #ifdef UNICODE
 #define CreateWindowEx CreateWindowExW
 #define CreateWindow CreateWindowW
-#else
+#інакше
 #define CreateWindowEx CreateWindowExA
 #define CreateWindow CreateWindowA
 #endif
 
-  WINUSERAPI HWND WINAPI CreateWindowExA(DWORD dwExStyle,LPCSTR lpClassName,LPCSTR lpWindowName,DWORD dwStyle,int X,int Y,int nWidth,int nHeight,HWND hWndParent,HMENU hMenu,HINSTANCE hInstance,LPVOID lpParam);
-  WINUSERAPI HWND WINAPI CreateWindowExW(DWORD dwExStyle,LPCWSTR lpClassName,LPCWSTR lpWindowName,DWORD dwStyle,int X,int Y,int nWidth,int nHeight,HWND hWndParent,HMENU hMenu,HINSTANCE hInstance,LPVOID lpParam);
+  WINUSERAPI HWND WINAPI CreateWindowExA(DWORD dwExStyle,LPCSTR lpClassName,LPCSTR lpWindowName,DWORD dwStyle,ціле X,ціле Y,ціле nWidth,ціле nHeight,HWND hWndParent,HMENU hMenu,HINSTANCE hInstance,LPVOID lpParam);
+  WINUSERAPI HWND WINAPI CreateWindowExW(DWORD dwExStyle,LPCWSTR lpClassName,LPCWSTR lpWindowName,DWORD dwStyle,ціле X,ціле Y,ціле nWidth,ціле nHeight,HWND hWndParent,HMENU hMenu,HINSTANCE hInstance,LPVOID lpParam);
 #define CreateWindowA(lpClassName,lpWindowName,dwStyle,x,y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam) CreateWindowExA(0L,lpClassName,lpWindowName,dwStyle,x,y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam)
 #define CreateWindowW(lpClassName,lpWindowName,dwStyle,x,y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam) CreateWindowExW(0L,lpClassName,lpWindowName,dwStyle,x,y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam)
   WINUSERAPI WINBOOL WINAPI IsWindow(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI IsMenu(HMENU hMenu);
   WINUSERAPI WINBOOL WINAPI IsChild(HWND hWndParent,HWND hWnd);
   WINUSERAPI WINBOOL WINAPI DestroyWindow(HWND hWnd);
-  WINUSERAPI WINBOOL WINAPI ShowWindow(HWND hWnd,int nCmdShow);
+  WINUSERAPI WINBOOL WINAPI ShowWindow(HWND hWnd,ціле nCmdShow);
   WINUSERAPI WINBOOL WINAPI AnimateWindow(HWND hWnd,DWORD dwTime,DWORD dwFlags);
 
-#if defined(_WINGDI_) && !defined(NOGDI)
+#якщо defined(_WINGDI_) && !defined(NOGDI)
   WINUSERAPI WINBOOL WINAPI UpdateLayeredWindow(HWND hWnd,HDC hdcDst,POINT *pptDst,SIZE *psize,HDC hdcSrc,POINT *pptSrc,COLORREF crKey,BLENDFUNCTION *pblend,DWORD dwFlags);
 
   typedef struct tagUPDATELAYEREDWINDOWINFO {
@@ -2047,7 +2047,7 @@ extern "C" {
 
 #define ULW_EX_NORESIZE 0x00000008
 
-  WINUSERAPI WINBOOL WINAPI ShowWindowAsync(HWND hWnd,int nCmdShow);
+  WINUSERAPI WINBOOL WINAPI ShowWindowAsync(HWND hWnd,ціле nCmdShow);
   WINUSERAPI WINBOOL WINAPI FlashWindow(HWND hWnd,WINBOOL bInvert);
 
   typedef struct {
@@ -2070,14 +2070,14 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI ShowOwnedPopups(HWND hWnd,WINBOOL fShow);
   WINUSERAPI WINBOOL WINAPI OpenIcon(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI CloseWindow(HWND hWnd);
-  WINUSERAPI WINBOOL WINAPI MoveWindow(HWND hWnd,int X,int Y,int nWidth,int nHeight,WINBOOL bRepaint);
-  WINUSERAPI WINBOOL WINAPI SetWindowPos(HWND hWnd,HWND hWndInsertAfter,int X,int Y,int cx,int cy,UINT uFlags);
+  WINUSERAPI WINBOOL WINAPI MoveWindow(HWND hWnd,ціле X,ціле Y,ціле nWidth,ціле nHeight,WINBOOL bRepaint);
+  WINUSERAPI WINBOOL WINAPI SetWindowPos(HWND hWnd,HWND hWndInsertAfter,ціле X,ціле Y,ціле cx,ціле cy,UINT uFlags);
   WINUSERAPI WINBOOL WINAPI GetWindowPlacement(HWND hWnd,WINDOWPLACEMENT *lpwndpl);
   WINUSERAPI WINBOOL WINAPI SetWindowPlacement(HWND hWnd,CONST WINDOWPLACEMENT *lpwndpl);
 
 #ifndef NODEFERWINDOWPOS
-  WINUSERAPI HDWP WINAPI BeginDeferWindowPos(int nNumWindows);
-  WINUSERAPI HDWP WINAPI DeferWindowPos(HDWP hWinPosInfo,HWND hWnd,HWND hWndInsertAfter,int x,int y,int cx,int cy,UINT uFlags);
+  WINUSERAPI HDWP WINAPI BeginDeferWindowPos(ціле nNumWindows);
+  WINUSERAPI HDWP WINAPI DeferWindowPos(HDWP hWinPosInfo,HWND hWnd,HWND hWndInsertAfter,ціле x,ціле y,ціле cx,ціле cy,UINT uFlags);
   WINUSERAPI WINBOOL WINAPI EndDeferWindowPos(HDWP hWinPosInfo);
 #endif
 
@@ -2128,7 +2128,7 @@ extern "C" {
 
 #ifdef UNICODE
   typedef LPDLGTEMPLATEW LPDLGTEMPLATE;
-#else
+#інакше
   typedef LPDLGTEMPLATEA LPDLGTEMPLATE;
 #endif
 
@@ -2137,7 +2137,7 @@ extern "C" {
 
 #ifdef UNICODE
   typedef LPCDLGTEMPLATEW LPCDLGTEMPLATE;
-#else
+#інакше
   typedef LPCDLGTEMPLATEA LPCDLGTEMPLATE;
 #endif
 
@@ -2156,7 +2156,7 @@ extern "C" {
 
 #ifdef UNICODE
   typedef PDLGITEMTEMPLATEW PDLGITEMTEMPLATE;
-#else
+#інакше
   typedef PDLGITEMTEMPLATEA PDLGITEMTEMPLATE;
 #endif
 
@@ -2165,7 +2165,7 @@ extern "C" {
 
 #ifdef UNICODE
   typedef LPDLGITEMTEMPLATEW LPDLGITEMTEMPLATE;
-#else
+#інакше
   typedef LPDLGITEMTEMPLATEA LPDLGITEMTEMPLATE;
 #endif
 
@@ -2184,7 +2184,7 @@ extern "C" {
 #define GetDlgItemText GetDlgItemTextW
 #define SendDlgItemMessage SendDlgItemMessageW
 #define DefDlgProc DefDlgProcW
-#else
+#інакше
 #define CreateDialogParam CreateDialogParamA
 #define CreateDialogIndirectParam CreateDialogIndirectParamA
 #define CreateDialog CreateDialogA
@@ -2216,21 +2216,21 @@ extern "C" {
 #define DialogBoxIndirectA(hInstance,lpTemplate,hWndParent,lpDialogFunc) DialogBoxIndirectParamA(hInstance,lpTemplate,hWndParent,lpDialogFunc,0L)
 #define DialogBoxIndirectW(hInstance,lpTemplate,hWndParent,lpDialogFunc) DialogBoxIndirectParamW(hInstance,lpTemplate,hWndParent,lpDialogFunc,0L)
   WINUSERAPI WINBOOL WINAPI EndDialog(HWND hDlg,INT_PTR nResult);
-  WINUSERAPI HWND WINAPI GetDlgItem(HWND hDlg,int nIDDlgItem);
-  WINUSERAPI WINBOOL WINAPI SetDlgItemInt(HWND hDlg,int nIDDlgItem,UINT uValue,WINBOOL bSigned);
-  WINUSERAPI UINT WINAPI GetDlgItemInt(HWND hDlg,int nIDDlgItem,WINBOOL *lpTranslated,WINBOOL bSigned);
-  WINUSERAPI WINBOOL WINAPI SetDlgItemTextA(HWND hDlg,int nIDDlgItem,LPCSTR lpString);
-  WINUSERAPI WINBOOL WINAPI SetDlgItemTextW(HWND hDlg,int nIDDlgItem,LPCWSTR lpString);
-  WINUSERAPI UINT WINAPI GetDlgItemTextA(HWND hDlg,int nIDDlgItem,LPSTR lpString,int cchMax);
-  WINUSERAPI UINT WINAPI GetDlgItemTextW(HWND hDlg,int nIDDlgItem,LPWSTR lpString,int cchMax);
-  WINUSERAPI WINBOOL WINAPI CheckDlgButton(HWND hDlg,int nIDButton,UINT uCheck);
-  WINUSERAPI WINBOOL WINAPI CheckRadioButton(HWND hDlg,int nIDFirstButton,int nIDLastButton,int nIDCheckButton);
-  WINUSERAPI UINT WINAPI IsDlgButtonChecked(HWND hDlg,int nIDButton);
-  WINUSERAPI LRESULT WINAPI SendDlgItemMessageA(HWND hDlg,int nIDDlgItem,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI LRESULT WINAPI SendDlgItemMessageW(HWND hDlg,int nIDDlgItem,UINT Msg,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI HWND WINAPI GetDlgItem(HWND hDlg,ціле nIDDlgItem);
+  WINUSERAPI WINBOOL WINAPI SetDlgItemInt(HWND hDlg,ціле nIDDlgItem,UINT uValue,WINBOOL bSigned);
+  WINUSERAPI UINT WINAPI GetDlgItemInt(HWND hDlg,ціле nIDDlgItem,WINBOOL *lpTranslated,WINBOOL bSigned);
+  WINUSERAPI WINBOOL WINAPI SetDlgItemTextA(HWND hDlg,ціле nIDDlgItem,LPCSTR lpString);
+  WINUSERAPI WINBOOL WINAPI SetDlgItemTextW(HWND hDlg,ціле nIDDlgItem,LPCWSTR lpString);
+  WINUSERAPI UINT WINAPI GetDlgItemTextA(HWND hDlg,ціле nIDDlgItem,LPSTR lpString,ціле cchMax);
+  WINUSERAPI UINT WINAPI GetDlgItemTextW(HWND hDlg,ціле nIDDlgItem,LPWSTR lpString,ціле cchMax);
+  WINUSERAPI WINBOOL WINAPI CheckDlgButton(HWND hDlg,ціле nIDButton,UINT uCheck);
+  WINUSERAPI WINBOOL WINAPI CheckRadioButton(HWND hDlg,ціле nIDFirstButton,ціле nIDLastButton,ціле nIDCheckButton);
+  WINUSERAPI UINT WINAPI IsDlgButtonChecked(HWND hDlg,ціле nIDButton);
+  WINUSERAPI LRESULT WINAPI SendDlgItemMessageA(HWND hDlg,ціле nIDDlgItem,UINT Msg,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI SendDlgItemMessageW(HWND hDlg,ціле nIDDlgItem,UINT Msg,WPARAM wParam,LPARAM lParam);
   WINUSERAPI HWND WINAPI GetNextDlgGroupItem(HWND hDlg,HWND hCtl,WINBOOL bPrevious);
   WINUSERAPI HWND WINAPI GetNextDlgTabItem(HWND hDlg,HWND hCtl,WINBOOL bPrevious);
-  WINUSERAPI int WINAPI GetDlgCtrlID(HWND hWnd);
+  WINUSERAPI ціле WINAPI GetDlgCtrlID(HWND hWnd);
   WINUSERAPI long WINAPI GetDialogBaseUnits(VOID);
   WINUSERAPI LRESULT WINAPI DefDlgProcA(HWND hDlg,UINT Msg,WPARAM wParam,LPARAM lParam);
   WINUSERAPI LRESULT WINAPI DefDlgProcW(HWND hDlg,UINT Msg,WPARAM wParam,LPARAM lParam);
@@ -2242,12 +2242,12 @@ extern "C" {
 
 #ifdef UNICODE
 #define CallMsgFilter CallMsgFilterW
-#else
+#інакше
 #define CallMsgFilter CallMsgFilterA
 #endif
 
-  WINUSERAPI WINBOOL WINAPI CallMsgFilterA(LPMSG lpMsg,int nCode);
-  WINUSERAPI WINBOOL WINAPI CallMsgFilterW(LPMSG lpMsg,int nCode);
+  WINUSERAPI WINBOOL WINAPI CallMsgFilterA(LPMSG lpMsg,ціле nCode);
+  WINUSERAPI WINBOOL WINAPI CallMsgFilterW(LPMSG lpMsg,ціле nCode);
 #endif
 
 #ifndef NOCLIPBOARD
@@ -2255,7 +2255,7 @@ extern "C" {
 #ifdef UNICODE
 #define RegisterClipboardFormat RegisterClipboardFormatW
 #define GetClipboardFormatName GetClipboardFormatNameW
-#else
+#інакше
 #define RegisterClipboardFormat RegisterClipboardFormatA
 #define GetClipboardFormatName GetClipboardFormatNameA
 #endif
@@ -2271,13 +2271,13 @@ extern "C" {
   WINUSERAPI HANDLE WINAPI GetClipboardData(UINT uFormat);
   WINUSERAPI UINT WINAPI RegisterClipboardFormatA(LPCSTR lpszFormat);
   WINUSERAPI UINT WINAPI RegisterClipboardFormatW(LPCWSTR lpszFormat);
-  WINUSERAPI int WINAPI CountClipboardFormats(VOID);
+  WINUSERAPI ціле WINAPI CountClipboardFormats(VOID);
   WINUSERAPI UINT WINAPI EnumClipboardFormats(UINT format);
-  WINUSERAPI int WINAPI GetClipboardFormatNameA(UINT format,LPSTR lpszFormatName,int cchMaxCount);
-  WINUSERAPI int WINAPI GetClipboardFormatNameW(UINT format,LPWSTR lpszFormatName,int cchMaxCount);
+  WINUSERAPI ціле WINAPI GetClipboardFormatNameA(UINT format,LPSTR lpszFormatName,ціле cchMaxCount);
+  WINUSERAPI ціле WINAPI GetClipboardFormatNameW(UINT format,LPWSTR lpszFormatName,ціле cchMaxCount);
   WINUSERAPI WINBOOL WINAPI EmptyClipboard(VOID);
   WINUSERAPI WINBOOL WINAPI IsClipboardFormatAvailable(UINT format);
-  WINUSERAPI int WINAPI GetPriorityClipboardFormat(UINT *paFormatPriorityList,int cFormats);
+  WINUSERAPI ціле WINAPI GetPriorityClipboardFormat(UINT *paFormatPriorityList,ціле cFormats);
   WINUSERAPI HWND WINAPI GetOpenClipboardWindow(VOID);
 #endif
 
@@ -2292,7 +2292,7 @@ extern "C" {
 #define CharLowerBuff CharLowerBuffW
 #define CharNext CharNextW
 #define CharPrev CharPrevW
-#else
+#інакше
 #define CharToOem CharToOemA
 #define OemToChar OemToCharA
 #define CharToOemBuff CharToOemBuffA
@@ -2346,7 +2346,7 @@ extern "C" {
 #define IsCharAlphaNumeric IsCharAlphaNumericW
 #define IsCharUpper IsCharUpperW
 #define IsCharLower IsCharLowerW
-#else
+#інакше
 #define IsCharAlpha IsCharAlphaA
 #define IsCharAlphaNumeric IsCharAlphaNumericA
 #define IsCharUpper IsCharUpperA
@@ -2367,7 +2367,7 @@ extern "C" {
 #define GetKeyNameText GetKeyNameTextW
 #define VkKeyScan VkKeyScanW
 #define VkKeyScanEx VkKeyScanExW
-#else
+#інакше
 #define GetKeyNameText GetKeyNameTextA
 #define VkKeyScan VkKeyScanA
 #define VkKeyScanEx VkKeyScanExA
@@ -2377,16 +2377,16 @@ extern "C" {
   WINUSERAPI HWND WINAPI GetActiveWindow(VOID);
   WINUSERAPI HWND WINAPI GetFocus(VOID);
   WINUSERAPI UINT WINAPI GetKBCodePage(VOID);
-  WINUSERAPI SHORT WINAPI GetKeyState(int nVirtKey);
-  WINUSERAPI SHORT WINAPI GetAsyncKeyState(int vKey);
+  WINUSERAPI SHORT WINAPI GetKeyState(ціле nVirtKey);
+  WINUSERAPI SHORT WINAPI GetAsyncKeyState(ціле vKey);
   WINUSERAPI WINBOOL WINAPI GetKeyboardState(PBYTE lpKeyState);
   WINUSERAPI WINBOOL WINAPI SetKeyboardState(LPBYTE lpKeyState);
-  WINUSERAPI int WINAPI GetKeyNameTextA(LONG lParam,LPSTR lpString,int cchSize);
-  WINUSERAPI int WINAPI GetKeyNameTextW(LONG lParam,LPWSTR lpString,int cchSize);
-  WINUSERAPI int WINAPI GetKeyboardType(int nTypeFlag);
-  WINUSERAPI int WINAPI ToAscii(UINT uVirtKey,UINT uScanCode,CONST BYTE *lpKeyState,LPWORD lpChar,UINT uFlags);
-  WINUSERAPI int WINAPI ToAsciiEx(UINT uVirtKey,UINT uScanCode,CONST BYTE *lpKeyState,LPWORD lpChar,UINT uFlags,HKL dwhkl);
-  WINUSERAPI int WINAPI ToUnicode(UINT wVirtKey,UINT wScanCode,CONST BYTE *lpKeyState,LPWSTR pwszBuff,int cchBuff,UINT wFlags);
+  WINUSERAPI ціле WINAPI GetKeyNameTextA(LONG lParam,LPSTR lpString,ціле cchSize);
+  WINUSERAPI ціле WINAPI GetKeyNameTextW(LONG lParam,LPWSTR lpString,ціле cchSize);
+  WINUSERAPI ціле WINAPI GetKeyboardType(ціле nTypeFlag);
+  WINUSERAPI ціле WINAPI ToAscii(UINT uVirtKey,UINT uScanCode,CONST BYTE *lpKeyState,LPWORD lpChar,UINT uFlags);
+  WINUSERAPI ціле WINAPI ToAsciiEx(UINT uVirtKey,UINT uScanCode,CONST BYTE *lpKeyState,LPWORD lpChar,UINT uFlags,HKL dwhkl);
+  WINUSERAPI ціле WINAPI ToUnicode(UINT wVirtKey,UINT wScanCode,CONST BYTE *lpKeyState,LPWSTR pwszBuff,ціле cchBuff,UINT wFlags);
   WINUSERAPI DWORD WINAPI OemKeyScan(WORD wOemChar);
   WINUSERAPI SHORT WINAPI VkKeyScanA(CHAR ch);
   WINUSERAPI SHORT WINAPI VkKeyScanW(WCHAR ch);
@@ -2451,7 +2451,7 @@ extern "C" {
     };
   } INPUT,*PINPUT,*LPINPUT;
 
-  WINUSERAPI UINT WINAPI SendInput(UINT cInputs,LPINPUT pInputs,int cbSize);
+  WINUSERAPI UINT WINAPI SendInput(UINT cInputs,LPINPUT pInputs,ціле cbSize);
 
   typedef struct tagLASTINPUTINFO {
     UINT cbSize;
@@ -2461,7 +2461,7 @@ extern "C" {
 #ifdef UNICODE
 #define MapVirtualKey MapVirtualKeyW
 #define MapVirtualKeyEx MapVirtualKeyExW
-#else
+#інакше
 #define MapVirtualKey MapVirtualKeyA
 #define MapVirtualKeyEx MapVirtualKeyExA
 #endif
@@ -2505,7 +2505,7 @@ extern "C" {
 #define LoadAccelerators LoadAcceleratorsW
 #define CreateAcceleratorTable CreateAcceleratorTableW
 #define CopyAcceleratorTable CopyAcceleratorTableW
-#else
+#інакше
 #define LoadAccelerators LoadAcceleratorsA
 #define CreateAcceleratorTable CreateAcceleratorTableA
 #define CopyAcceleratorTable CopyAcceleratorTableA
@@ -2518,22 +2518,22 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI IsWindowEnabled(HWND hWnd);
   WINUSERAPI HACCEL WINAPI LoadAcceleratorsA(HINSTANCE hInstance,LPCSTR lpTableName);
   WINUSERAPI HACCEL WINAPI LoadAcceleratorsW(HINSTANCE hInstance,LPCWSTR lpTableName);
-  WINUSERAPI HACCEL WINAPI CreateAcceleratorTableA(LPACCEL paccel,int cAccel);
-  WINUSERAPI HACCEL WINAPI CreateAcceleratorTableW(LPACCEL paccel,int cAccel);
+  WINUSERAPI HACCEL WINAPI CreateAcceleratorTableA(LPACCEL paccel,ціле cAccel);
+  WINUSERAPI HACCEL WINAPI CreateAcceleratorTableW(LPACCEL paccel,ціле cAccel);
   WINUSERAPI WINBOOL WINAPI DestroyAcceleratorTable(HACCEL hAccel);
-  WINUSERAPI int WINAPI CopyAcceleratorTableA(HACCEL hAccelSrc,LPACCEL lpAccelDst,int cAccelEntries);
-  WINUSERAPI int WINAPI CopyAcceleratorTableW(HACCEL hAccelSrc,LPACCEL lpAccelDst,int cAccelEntries);
+  WINUSERAPI ціле WINAPI CopyAcceleratorTableA(HACCEL hAccelSrc,LPACCEL lpAccelDst,ціле cAccelEntries);
+  WINUSERAPI ціле WINAPI CopyAcceleratorTableW(HACCEL hAccelSrc,LPACCEL lpAccelDst,ціле cAccelEntries);
 
 #ifndef NOMSG
 
 #ifdef UNICODE
 #define TranslateAccelerator TranslateAcceleratorW
-#else
+#інакше
 #define TranslateAccelerator TranslateAcceleratorA
 #endif
 
-  WINUSERAPI int WINAPI TranslateAcceleratorA(HWND hWnd,HACCEL hAccTable,LPMSG lpMsg);
-  WINUSERAPI int WINAPI TranslateAcceleratorW(HWND hWnd,HACCEL hAccTable,LPMSG lpMsg);
+  WINUSERAPI ціле WINAPI TranslateAcceleratorA(HWND hWnd,HACCEL hAccTable,LPMSG lpMsg);
+  WINUSERAPI ціле WINAPI TranslateAcceleratorW(HWND hWnd,HACCEL hAccTable,LPMSG lpMsg);
 #endif
 
 #ifndef NOSYSMETRICS
@@ -2636,7 +2636,7 @@ extern "C" {
 #define SM_REMOTECONTROL 0x2001
 #define SM_CARETBLINKINGENABLED 0x2002
 
-  WINUSERAPI int WINAPI GetSystemMetrics(int nIndex);
+  WINUSERAPI ціле WINAPI GetSystemMetrics(ціле nIndex);
 #endif
 
 #ifndef NOMENUS
@@ -2649,7 +2649,7 @@ extern "C" {
 #define InsertMenu InsertMenuW
 #define AppendMenu AppendMenuW
 #define ModifyMenu ModifyMenuW
-#else
+#інакше
 #define LoadMenu LoadMenuA
 #define LoadMenuIndirect LoadMenuIndirectA
 #define ChangeMenu ChangeMenuA
@@ -2668,8 +2668,8 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI ChangeMenuA(HMENU hMenu,UINT cmd,LPCSTR lpszNewItem,UINT cmdInsert,UINT flags);
   WINUSERAPI WINBOOL WINAPI ChangeMenuW(HMENU hMenu,UINT cmd,LPCWSTR lpszNewItem,UINT cmdInsert,UINT flags);
   WINUSERAPI WINBOOL WINAPI HiliteMenuItem(HWND hWnd,HMENU hMenu,UINT uIDHiliteItem,UINT uHilite);
-  WINUSERAPI int WINAPI GetMenuStringA(HMENU hMenu,UINT uIDItem,LPSTR lpString,int cchMax,UINT flags);
-  WINUSERAPI int WINAPI GetMenuStringW(HMENU hMenu,UINT uIDItem,LPWSTR lpString,int cchMax,UINT flags);
+  WINUSERAPI ціле WINAPI GetMenuStringA(HMENU hMenu,UINT uIDItem,LPSTR lpString,ціле cchMax,UINT flags);
+  WINUSERAPI ціле WINAPI GetMenuStringW(HMENU hMenu,UINT uIDItem,LPWSTR lpString,ціле cchMax,UINT flags);
   WINUSERAPI UINT WINAPI GetMenuState(HMENU hMenu,UINT uId,UINT uFlags);
   WINUSERAPI WINBOOL WINAPI DrawMenuBar(HWND hWnd);
 
@@ -2681,9 +2681,9 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI DestroyMenu(HMENU hMenu);
   WINUSERAPI DWORD WINAPI CheckMenuItem(HMENU hMenu,UINT uIDCheckItem,UINT uCheck);
   WINUSERAPI WINBOOL WINAPI EnableMenuItem(HMENU hMenu,UINT uIDEnableItem,UINT uEnable);
-  WINUSERAPI HMENU WINAPI GetSubMenu(HMENU hMenu,int nPos);
-  WINUSERAPI UINT WINAPI GetMenuItemID(HMENU hMenu,int nPos);
-  WINUSERAPI int WINAPI GetMenuItemCount(HMENU hMenu);
+  WINUSERAPI HMENU WINAPI GetSubMenu(HMENU hMenu,ціле nPos);
+  WINUSERAPI UINT WINAPI GetMenuItemID(HMENU hMenu,ціле nPos);
+  WINUSERAPI ціле WINAPI GetMenuItemCount(HMENU hMenu);
   WINUSERAPI WINBOOL WINAPI InsertMenuA(HMENU hMenu,UINT uPosition,UINT uFlags,UINT_PTR uIDNewItem,LPCSTR lpNewItem);
   WINUSERAPI WINBOOL WINAPI InsertMenuW(HMENU hMenu,UINT uPosition,UINT uFlags,UINT_PTR uIDNewItem,LPCWSTR lpNewItem);
   WINUSERAPI WINBOOL WINAPI AppendMenuA(HMENU hMenu,UINT uFlags,UINT_PTR uIDNewItem,LPCSTR lpNewItem);
@@ -2694,7 +2694,7 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI DeleteMenu(HMENU hMenu,UINT uPosition,UINT uFlags);
   WINUSERAPI WINBOOL WINAPI SetMenuItemBitmaps(HMENU hMenu,UINT uPosition,UINT uFlags,HBITMAP hBitmapUnchecked,HBITMAP hBitmapChecked);
   WINUSERAPI LONG WINAPI GetMenuCheckMarkDimensions(VOID);
-  WINUSERAPI WINBOOL WINAPI TrackPopupMenu(HMENU hMenu,UINT uFlags,int x,int y,int nReserved,HWND hWnd,CONST RECT *prcRect);
+  WINUSERAPI WINBOOL WINAPI TrackPopupMenu(HMENU hMenu,UINT uFlags,ціле x,ціле y,ціле nReserved,HWND hWnd,CONST RECT *prcRect);
 
 #define MNC_IGNORE 0
 #define MNC_CLOSE 1
@@ -2708,7 +2708,7 @@ extern "C" {
 
   typedef TPMPARAMS *LPTPMPARAMS;
 
-  WINUSERAPI WINBOOL WINAPI TrackPopupMenuEx(HMENU,UINT,int,int,HWND,LPTPMPARAMS);
+  WINUSERAPI WINBOOL WINAPI TrackPopupMenuEx(HMENU,UINT,ціле,ціле,HWND,LPTPMPARAMS);
 
 #define MNS_NOCHECK 0x80000000
 #define MNS_MODELESS 0x40000000
@@ -2813,7 +2813,7 @@ extern "C" {
 #ifdef UNICODE
   typedef MENUITEMINFOW MENUITEMINFO;
   typedef LPMENUITEMINFOW LPMENUITEMINFO;
-#else
+#інакше
   typedef MENUITEMINFOA MENUITEMINFO;
   typedef LPMENUITEMINFOA LPMENUITEMINFO;
 #endif
@@ -2821,7 +2821,7 @@ extern "C" {
   typedef MENUITEMINFOW CONST *LPCMENUITEMINFOW;
 #ifdef UNICODE
   typedef LPCMENUITEMINFOW LPCMENUITEMINFO;
-#else
+#інакше
   typedef LPCMENUITEMINFOA LPCMENUITEMINFO;
 #endif
 
@@ -2829,7 +2829,7 @@ extern "C" {
 #define InsertMenuItem InsertMenuItemW
 #define GetMenuItemInfo GetMenuItemInfoW
 #define SetMenuItemInfo SetMenuItemInfoW
-#else
+#інакше
 #define InsertMenuItem InsertMenuItemA
 #define GetMenuItemInfo GetMenuItemInfoA
 #define SetMenuItemInfo SetMenuItemInfoA
@@ -2848,7 +2848,7 @@ extern "C" {
   WINUSERAPI UINT WINAPI GetMenuDefaultItem(HMENU hMenu,UINT fByPos,UINT gmdiFlags);
   WINUSERAPI WINBOOL WINAPI SetMenuDefaultItem(HMENU hMenu,UINT uItem,UINT fByPos);
   WINUSERAPI WINBOOL WINAPI GetMenuItemRect(HWND hWnd,HMENU hMenu,UINT uItem,LPRECT lprcItem);
-  WINUSERAPI int WINAPI MenuItemFromPoint(HWND hWnd,HMENU hMenu,POINT ptScreen);
+  WINUSERAPI ціле WINAPI MenuItemFromPoint(HWND hWnd,HMENU hMenu,POINT ptScreen);
 
 #define TPM_LEFTBUTTON 0x0000L
 #define TPM_RIGHTBUTTON 0x0002L
@@ -2893,7 +2893,7 @@ extern "C" {
 
   WINUSERAPI DWORD WINAPI DragObject(HWND hwndParent,HWND hwndFrom,UINT fmt,ULONG_PTR data,HCURSOR hcur);
   WINUSERAPI WINBOOL WINAPI DragDetect(HWND hwnd,POINT pt);
-  WINUSERAPI WINBOOL WINAPI DrawIcon(HDC hDC,int X,int Y,HICON hIcon);
+  WINUSERAPI WINBOOL WINAPI DrawIcon(HDC hDC,ціле X,ціле Y,HICON hIcon);
 
 #ifndef NODRAWTEXT
 
@@ -2925,24 +2925,24 @@ extern "C" {
 
   typedef struct tagDRAWTEXTPARAMS {
     UINT cbSize;
-    int iTabLength;
-    int iLeftMargin;
-    int iRightMargin;
+    ціле iTabLength;
+    ціле iLeftMargin;
+    ціле iRightMargin;
     UINT uiLengthDrawn;
   } DRAWTEXTPARAMS,*LPDRAWTEXTPARAMS;
 
 #ifdef UNICODE
 #define DrawText DrawTextW
 #define DrawTextEx DrawTextExW
-#else
+#інакше
 #define DrawText DrawTextA
 #define DrawTextEx DrawTextExA
 #endif
 
-  WINUSERAPI int WINAPI DrawTextA(HDC hdc,LPCSTR lpchText,int cchText,LPRECT lprc,UINT format);
-  WINUSERAPI int WINAPI DrawTextW(HDC hdc,LPCWSTR lpchText,int cchText,LPRECT lprc,UINT format);
-  WINUSERAPI int WINAPI DrawTextExA(HDC hdc,LPSTR lpchText,int cchText,LPRECT lprc,UINT format,LPDRAWTEXTPARAMS lpdtp);
-  WINUSERAPI int WINAPI DrawTextExW(HDC hdc,LPWSTR lpchText,int cchText,LPRECT lprc,UINT format,LPDRAWTEXTPARAMS lpdtp);
+  WINUSERAPI ціле WINAPI DrawTextA(HDC hdc,LPCSTR lpchText,ціле cchText,LPRECT lprc,UINT format);
+  WINUSERAPI ціле WINAPI DrawTextW(HDC hdc,LPCWSTR lpchText,ціле cchText,LPRECT lprc,UINT format);
+  WINUSERAPI ціле WINAPI DrawTextExA(HDC hdc,LPSTR lpchText,ціле cchText,LPRECT lprc,UINT format,LPDRAWTEXTPARAMS lpdtp);
+  WINUSERAPI ціле WINAPI DrawTextExW(HDC hdc,LPWSTR lpchText,ціле cchText,LPRECT lprc,UINT format,LPDRAWTEXTPARAMS lpdtp);
 #endif
 
 #ifdef UNICODE
@@ -2950,15 +2950,15 @@ extern "C" {
 #define DrawState DrawStateW
 #define TabbedTextOut TabbedTextOutW
 #define GetTabbedTextExtent GetTabbedTextExtentW
-#else
+#інакше
 #define GrayString GrayStringA
 #define DrawState DrawStateA
 #define TabbedTextOut TabbedTextOutA
 #define GetTabbedTextExtent GetTabbedTextExtentA
 #endif
 
-  WINUSERAPI WINBOOL WINAPI GrayStringA(HDC hDC,HBRUSH hBrush,GRAYSTRINGPROC lpOutputFunc,LPARAM lpData,int nCount,int X,int Y,int nWidth,int nHeight);
-  WINUSERAPI WINBOOL WINAPI GrayStringW(HDC hDC,HBRUSH hBrush,GRAYSTRINGPROC lpOutputFunc,LPARAM lpData,int nCount,int X,int Y,int nWidth,int nHeight);
+  WINUSERAPI WINBOOL WINAPI GrayStringA(HDC hDC,HBRUSH hBrush,GRAYSTRINGPROC lpOutputFunc,LPARAM lpData,ціле nCount,ціле X,ціле Y,ціле nWidth,ціле nHeight);
+  WINUSERAPI WINBOOL WINAPI GrayStringW(HDC hDC,HBRUSH hBrush,GRAYSTRINGPROC lpOutputFunc,LPARAM lpData,ціле nCount,ціле X,ціле Y,ціле nWidth,ціле nHeight);
 
 #define DST_COMPLEX 0x0000
 #define DST_TEXT 0x0001
@@ -2974,12 +2974,12 @@ extern "C" {
 #define DSS_PREFIXONLY 0x0400
 #define DSS_RIGHT 0x8000
 
-  WINUSERAPI WINBOOL WINAPI DrawStateA(HDC hdc,HBRUSH hbrFore,DRAWSTATEPROC qfnCallBack,LPARAM lData,WPARAM wData,int x,int y,int cx,int cy,UINT uFlags);
-  WINUSERAPI WINBOOL WINAPI DrawStateW(HDC hdc,HBRUSH hbrFore,DRAWSTATEPROC qfnCallBack,LPARAM lData,WPARAM wData,int x,int y,int cx,int cy,UINT uFlags);
-  WINUSERAPI LONG WINAPI TabbedTextOutA(HDC hdc,int x,int y,LPCSTR lpString,int chCount,int nTabPositions,CONST INT *lpnTabStopPositions,int nTabOrigin);
-  WINUSERAPI LONG WINAPI TabbedTextOutW(HDC hdc,int x,int y,LPCWSTR lpString,int chCount,int nTabPositions,CONST INT *lpnTabStopPositions,int nTabOrigin);
-  WINUSERAPI DWORD WINAPI GetTabbedTextExtentA(HDC hdc,LPCSTR lpString,int chCount,int nTabPositions,CONST INT *lpnTabStopPositions);
-  WINUSERAPI DWORD WINAPI GetTabbedTextExtentW(HDC hdc,LPCWSTR lpString,int chCount,int nTabPositions,CONST INT *lpnTabStopPositions);
+  WINUSERAPI WINBOOL WINAPI DrawStateA(HDC hdc,HBRUSH hbrFore,DRAWSTATEPROC qfnCallBack,LPARAM lData,WPARAM wData,ціле x,ціле y,ціле cx,ціле cy,UINT uFlags);
+  WINUSERAPI WINBOOL WINAPI DrawStateW(HDC hdc,HBRUSH hbrFore,DRAWSTATEPROC qfnCallBack,LPARAM lData,WPARAM wData,ціле x,ціле y,ціле cx,ціле cy,UINT uFlags);
+  WINUSERAPI LONG WINAPI TabbedTextOutA(HDC hdc,ціле x,ціле y,LPCSTR lpString,ціле chCount,ціле nTabPositions,CONST INT *lpnTabStopPositions,ціле nTabOrigin);
+  WINUSERAPI LONG WINAPI TabbedTextOutW(HDC hdc,ціле x,ціле y,LPCWSTR lpString,ціле chCount,ціле nTabPositions,CONST INT *lpnTabStopPositions,ціле nTabOrigin);
+  WINUSERAPI DWORD WINAPI GetTabbedTextExtentA(HDC hdc,LPCSTR lpString,ціле chCount,ціле nTabPositions,CONST INT *lpnTabStopPositions);
+  WINUSERAPI DWORD WINAPI GetTabbedTextExtentW(HDC hdc,LPCWSTR lpString,ціле chCount,ціле nTabPositions,CONST INT *lpnTabStopPositions);
   WINUSERAPI WINBOOL WINAPI UpdateWindow(HWND hWnd);
   WINUSERAPI HWND WINAPI SetActiveWindow(HWND hWnd);
   WINUSERAPI HWND WINAPI GetForegroundWindow(VOID);
@@ -3014,15 +3014,15 @@ extern "C" {
 #define DCX_VALIDATE 0x00200000L
 
   WINUSERAPI HDC WINAPI GetWindowDC(HWND hWnd);
-  WINUSERAPI int WINAPI ReleaseDC(HWND hWnd,HDC hDC);
+  WINUSERAPI ціле WINAPI ReleaseDC(HWND hWnd,HDC hDC);
   WINUSERAPI HDC WINAPI BeginPaint(HWND hWnd,LPPAINTSTRUCT lpPaint);
   WINUSERAPI WINBOOL WINAPI EndPaint(HWND hWnd,CONST PAINTSTRUCT *lpPaint);
   WINUSERAPI WINBOOL WINAPI GetUpdateRect(HWND hWnd,LPRECT lpRect,WINBOOL bErase);
-  WINUSERAPI int WINAPI GetUpdateRgn(HWND hWnd,HRGN hRgn,WINBOOL bErase);
-  WINUSERAPI int WINAPI SetWindowRgn(HWND hWnd,HRGN hRgn,WINBOOL bRedraw);
-  WINUSERAPI int WINAPI GetWindowRgn(HWND hWnd,HRGN hRgn);
-  WINUSERAPI int WINAPI GetWindowRgnBox(HWND hWnd,LPRECT lprc);
-  WINUSERAPI int WINAPI ExcludeUpdateRgn(HDC hDC,HWND hWnd);
+  WINUSERAPI ціле WINAPI GetUpdateRgn(HWND hWnd,HRGN hRgn,WINBOOL bErase);
+  WINUSERAPI ціле WINAPI SetWindowRgn(HWND hWnd,HRGN hRgn,WINBOOL bRedraw);
+  WINUSERAPI ціле WINAPI GetWindowRgn(HWND hWnd,HRGN hRgn);
+  WINUSERAPI ціле WINAPI GetWindowRgnBox(HWND hWnd,LPRECT lprc);
+  WINUSERAPI ціле WINAPI ExcludeUpdateRgn(HDC hDC,HWND hWnd);
   WINUSERAPI WINBOOL WINAPI InvalidateRect(HWND hWnd,CONST RECT *lpRect,WINBOOL bErase);
   WINUSERAPI WINBOOL WINAPI ValidateRect(HWND hWnd,CONST RECT *lpRect);
   WINUSERAPI WINBOOL WINAPI InvalidateRgn(HWND hWnd,HRGN hRgn,WINBOOL bErase);
@@ -3047,9 +3047,9 @@ extern "C" {
 #define RDW_NOFRAME 0x0800
 
   WINUSERAPI WINBOOL WINAPI LockWindowUpdate(HWND hWndLock);
-  WINUSERAPI WINBOOL WINAPI ScrollWindow(HWND hWnd,int XAmount,int YAmount,CONST RECT *lpRect,CONST RECT *lpClipRect);
-  WINUSERAPI WINBOOL WINAPI ScrollDC(HDC hDC,int dx,int dy,CONST RECT *lprcScroll,CONST RECT *lprcClip,HRGN hrgnUpdate,LPRECT lprcUpdate);
-  WINUSERAPI int WINAPI ScrollWindowEx(HWND hWnd,int dx,int dy,CONST RECT *prcScroll,CONST RECT *prcClip,HRGN hrgnUpdate,LPRECT prcUpdate,UINT flags);
+  WINUSERAPI WINBOOL WINAPI ScrollWindow(HWND hWnd,ціле XAmount,ціле YAmount,CONST RECT *lpRect,CONST RECT *lpClipRect);
+  WINUSERAPI WINBOOL WINAPI ScrollDC(HDC hDC,ціле dx,ціле dy,CONST RECT *lprcScroll,CONST RECT *lprcClip,HRGN hrgnUpdate,LPRECT lprcUpdate);
+  WINUSERAPI ціле WINAPI ScrollWindowEx(HWND hWnd,ціле dx,ціле dy,CONST RECT *prcScroll,CONST RECT *prcClip,HRGN hrgnUpdate,LPRECT prcUpdate,UINT flags);
 
 #define SW_SCROLLCHILDREN 0x0001
 #define SW_INVALIDATE 0x0002
@@ -3057,11 +3057,11 @@ extern "C" {
 #define SW_SMOOTHSCROLL 0x0010
 
 #ifndef NOSCROLL
-  WINUSERAPI int WINAPI SetScrollPos(HWND hWnd,int nBar,int nPos,WINBOOL bRedraw);
-  WINUSERAPI int WINAPI GetScrollPos(HWND hWnd,int nBar);
-  WINUSERAPI WINBOOL WINAPI SetScrollRange(HWND hWnd,int nBar,int nMinPos,int nMaxPos,WINBOOL bRedraw);
-  WINUSERAPI WINBOOL WINAPI GetScrollRange(HWND hWnd,int nBar,LPINT lpMinPos,LPINT lpMaxPos);
-  WINUSERAPI WINBOOL WINAPI ShowScrollBar(HWND hWnd,int wBar,WINBOOL bShow);
+  WINUSERAPI ціле WINAPI SetScrollPos(HWND hWnd,ціле nBar,ціле nPos,WINBOOL bRedraw);
+  WINUSERAPI ціле WINAPI GetScrollPos(HWND hWnd,ціле nBar);
+  WINUSERAPI WINBOOL WINAPI SetScrollRange(HWND hWnd,ціле nBar,ціле nMinPos,ціле nMaxPos,WINBOOL bRedraw);
+  WINUSERAPI WINBOOL WINAPI GetScrollRange(HWND hWnd,ціле nBar,LPINT lpMinPos,LPINT lpMaxPos);
+  WINUSERAPI WINBOOL WINAPI ShowScrollBar(HWND hWnd,ціле wBar,WINBOOL bShow);
   WINUSERAPI WINBOOL WINAPI EnableScrollBar(HWND hWnd,UINT wSBflags,UINT wArrows);
 
 #define ESB_ENABLE_BOTH 0x0000
@@ -3086,7 +3086,7 @@ extern "C" {
 #define SetWindowText SetWindowTextW
 #define GetWindowText GetWindowTextW
 #define GetWindowTextLength GetWindowTextLengthW
-#else
+#інакше
 #define SetProp SetPropA
 #define GetProp GetPropA
 #define RemoveProp RemovePropA
@@ -3103,16 +3103,16 @@ extern "C" {
   WINUSERAPI HANDLE WINAPI GetPropW(HWND hWnd,LPCWSTR lpString);
   WINUSERAPI HANDLE WINAPI RemovePropA(HWND hWnd,LPCSTR lpString);
   WINUSERAPI HANDLE WINAPI RemovePropW(HWND hWnd,LPCWSTR lpString);
-  WINUSERAPI int WINAPI EnumPropsExA(HWND hWnd,PROPENUMPROCEXA lpEnumFunc,LPARAM lParam);
-  WINUSERAPI int WINAPI EnumPropsExW(HWND hWnd,PROPENUMPROCEXW lpEnumFunc,LPARAM lParam);
-  WINUSERAPI int WINAPI EnumPropsA(HWND hWnd,PROPENUMPROCA lpEnumFunc);
-  WINUSERAPI int WINAPI EnumPropsW(HWND hWnd,PROPENUMPROCW lpEnumFunc);
+  WINUSERAPI ціле WINAPI EnumPropsExA(HWND hWnd,PROPENUMPROCEXA lpEnumFunc,LPARAM lParam);
+  WINUSERAPI ціле WINAPI EnumPropsExW(HWND hWnd,PROPENUMPROCEXW lpEnumFunc,LPARAM lParam);
+  WINUSERAPI ціле WINAPI EnumPropsA(HWND hWnd,PROPENUMPROCA lpEnumFunc);
+  WINUSERAPI ціле WINAPI EnumPropsW(HWND hWnd,PROPENUMPROCW lpEnumFunc);
   WINUSERAPI WINBOOL WINAPI SetWindowTextA(HWND hWnd,LPCSTR lpString);
   WINUSERAPI WINBOOL WINAPI SetWindowTextW(HWND hWnd,LPCWSTR lpString);
-  WINUSERAPI int WINAPI GetWindowTextA(HWND hWnd,LPSTR lpString,int nMaxCount);
-  WINUSERAPI int WINAPI GetWindowTextW(HWND hWnd,LPWSTR lpString,int nMaxCount);
-  WINUSERAPI int WINAPI GetWindowTextLengthA(HWND hWnd);
-  WINUSERAPI int WINAPI GetWindowTextLengthW(HWND hWnd);
+  WINUSERAPI ціле WINAPI GetWindowTextA(HWND hWnd,LPSTR lpString,ціле nMaxCount);
+  WINUSERAPI ціле WINAPI GetWindowTextW(HWND hWnd,LPWSTR lpString,ціле nMaxCount);
+  WINUSERAPI ціле WINAPI GetWindowTextLengthA(HWND hWnd);
+  WINUSERAPI ціле WINAPI GetWindowTextLengthW(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI GetClientRect(HWND hWnd,LPRECT lpRect);
   WINUSERAPI WINBOOL WINAPI GetWindowRect(HWND hWnd,LPRECT lpRect);
   WINUSERAPI WINBOOL WINAPI AdjustWindowRect(LPRECT lpRect,DWORD dwStyle,WINBOOL bMenu);
@@ -3123,8 +3123,8 @@ extern "C" {
 
   typedef struct tagHELPINFO {
     UINT cbSize;
-    int iContextType;
-    int iCtrlId;
+    ціле iContextType;
+    ціле iCtrlId;
     HANDLE hItemHandle;
     DWORD_PTR dwContextId;
     POINT MousePos;
@@ -3178,15 +3178,15 @@ extern "C" {
 #ifdef UNICODE
 #define MessageBox MessageBoxW
 #define MessageBoxEx MessageBoxExW
-#else
+#інакше
 #define MessageBox MessageBoxA
 #define MessageBoxEx MessageBoxExA
 #endif
 
-  WINUSERAPI int WINAPI MessageBoxA(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType);
-  WINUSERAPI int WINAPI MessageBoxW(HWND hWnd,LPCWSTR lpText,LPCWSTR lpCaption,UINT uType);
-  WINUSERAPI int WINAPI MessageBoxExA(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType,WORD wLanguageId);
-  WINUSERAPI int WINAPI MessageBoxExW(HWND hWnd,LPCWSTR lpText,LPCWSTR lpCaption,UINT uType,WORD wLanguageId);
+  WINUSERAPI ціле WINAPI MessageBoxA(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType);
+  WINUSERAPI ціле WINAPI MessageBoxW(HWND hWnd,LPCWSTR lpText,LPCWSTR lpCaption,UINT uType);
+  WINUSERAPI ціле WINAPI MessageBoxExA(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType,WORD wLanguageId);
+  WINUSERAPI ціле WINAPI MessageBoxExW(HWND hWnd,LPCWSTR lpText,LPCWSTR lpCaption,UINT uType,WORD wLanguageId);
 
   typedef VOID (CALLBACK *MSGBOXCALLBACK)(LPHELPINFO lpHelpInfo);
 
@@ -3220,7 +3220,7 @@ extern "C" {
   typedef MSGBOXPARAMSW MSGBOXPARAMS;
   typedef PMSGBOXPARAMSW PMSGBOXPARAMS;
   typedef LPMSGBOXPARAMSW LPMSGBOXPARAMS;
-#else
+#інакше
   typedef MSGBOXPARAMSA MSGBOXPARAMS;
   typedef PMSGBOXPARAMSA PMSGBOXPARAMS;
   typedef LPMSGBOXPARAMSA LPMSGBOXPARAMS;
@@ -3228,33 +3228,33 @@ extern "C" {
 
 #ifdef UNICODE
 #define MessageBoxIndirect MessageBoxIndirectW
-#else
+#інакше
 #define MessageBoxIndirect MessageBoxIndirectA
 #endif
 
-  WINUSERAPI int WINAPI MessageBoxIndirectA(CONST MSGBOXPARAMSA *lpmbp);
-  WINUSERAPI int WINAPI MessageBoxIndirectW(CONST MSGBOXPARAMSW *lpmbp);
+  WINUSERAPI ціле WINAPI MessageBoxIndirectA(CONST MSGBOXPARAMSA *lpmbp);
+  WINUSERAPI ціле WINAPI MessageBoxIndirectW(CONST MSGBOXPARAMSW *lpmbp);
   WINUSERAPI WINBOOL WINAPI MessageBeep(UINT uType);
 #endif
 
-  WINUSERAPI int WINAPI ShowCursor(WINBOOL bShow);
-  WINUSERAPI WINBOOL WINAPI SetCursorPos(int X,int Y);
+  WINUSERAPI ціле WINAPI ShowCursor(WINBOOL bShow);
+  WINUSERAPI WINBOOL WINAPI SetCursorPos(ціле X,ціле Y);
   WINUSERAPI HCURSOR WINAPI SetCursor(HCURSOR hCursor);
   WINUSERAPI WINBOOL WINAPI GetCursorPos(LPPOINT lpPoint);
   WINUSERAPI WINBOOL WINAPI ClipCursor(CONST RECT *lpRect);
   WINUSERAPI WINBOOL WINAPI GetClipCursor(LPRECT lpRect);
   WINUSERAPI HCURSOR WINAPI GetCursor(VOID);
-  WINUSERAPI WINBOOL WINAPI CreateCaret(HWND hWnd,HBITMAP hBitmap,int nWidth,int nHeight);
+  WINUSERAPI WINBOOL WINAPI CreateCaret(HWND hWnd,HBITMAP hBitmap,ціле nWidth,ціле nHeight);
   WINUSERAPI UINT WINAPI GetCaretBlinkTime(VOID);
   WINUSERAPI WINBOOL WINAPI SetCaretBlinkTime(UINT uMSeconds);
   WINUSERAPI WINBOOL WINAPI DestroyCaret(VOID);
   WINUSERAPI WINBOOL WINAPI HideCaret(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI ShowCaret(HWND hWnd);
-  WINUSERAPI WINBOOL WINAPI SetCaretPos(int X,int Y);
+  WINUSERAPI WINBOOL WINAPI SetCaretPos(ціле X,ціле Y);
   WINUSERAPI WINBOOL WINAPI GetCaretPos(LPPOINT lpPoint);
   WINUSERAPI WINBOOL WINAPI ClientToScreen(HWND hWnd,LPPOINT lpPoint);
   WINUSERAPI WINBOOL WINAPI ScreenToClient(HWND hWnd,LPPOINT lpPoint);
-  WINUSERAPI int WINAPI MapWindowPoints(HWND hWndFrom,HWND hWndTo,LPPOINT lpPoints,UINT cPoints);
+  WINUSERAPI ціле WINAPI MapWindowPoints(HWND hWndFrom,HWND hWndTo,LPPOINT lpPoints,UINT cPoints);
   WINUSERAPI HWND WINAPI WindowFromPoint(POINT Point);
   WINUSERAPI HWND WINAPI ChildWindowFromPoint(HWND hWndParent,POINT Point);
 
@@ -3316,23 +3316,23 @@ extern "C" {
 #define COLOR_3DHILIGHT COLOR_BTNHIGHLIGHT
 #define COLOR_BTNHILIGHT COLOR_BTNHIGHLIGHT
 
-  WINUSERAPI DWORD WINAPI GetSysColor(int nIndex);
-  WINUSERAPI HBRUSH WINAPI GetSysColorBrush(int nIndex);
-  WINUSERAPI WINBOOL WINAPI SetSysColors(int cElements,CONST INT *lpaElements,CONST COLORREF *lpaRgbValues);
+  WINUSERAPI DWORD WINAPI GetSysColor(ціле nIndex);
+  WINUSERAPI HBRUSH WINAPI GetSysColorBrush(ціле nIndex);
+  WINUSERAPI WINBOOL WINAPI SetSysColors(ціле cElements,CONST INT *lpaElements,CONST COLORREF *lpaRgbValues);
 #endif
 
   WINUSERAPI WINBOOL WINAPI DrawFocusRect(HDC hDC,CONST RECT *lprc);
-  WINUSERAPI int WINAPI FillRect(HDC hDC,CONST RECT *lprc,HBRUSH hbr);
-  WINUSERAPI int WINAPI FrameRect(HDC hDC,CONST RECT *lprc,HBRUSH hbr);
+  WINUSERAPI ціле WINAPI FillRect(HDC hDC,CONST RECT *lprc,HBRUSH hbr);
+  WINUSERAPI ціле WINAPI FrameRect(HDC hDC,CONST RECT *lprc,HBRUSH hbr);
   WINUSERAPI WINBOOL WINAPI InvertRect(HDC hDC,CONST RECT *lprc);
-  WINUSERAPI WINBOOL WINAPI SetRect(LPRECT lprc,int xLeft,int yTop,int xRight,int yBottom);
+  WINUSERAPI WINBOOL WINAPI SetRect(LPRECT lprc,ціле xLeft,ціле yTop,ціле xRight,ціле yBottom);
   WINUSERAPI WINBOOL WINAPI SetRectEmpty(LPRECT lprc);
   WINUSERAPI WINBOOL WINAPI CopyRect(LPRECT lprcDst,CONST RECT *lprcSrc);
-  WINUSERAPI WINBOOL WINAPI InflateRect(LPRECT lprc,int dx,int dy);
+  WINUSERAPI WINBOOL WINAPI InflateRect(LPRECT lprc,ціле dx,ціле dy);
   WINUSERAPI WINBOOL WINAPI IntersectRect(LPRECT lprcDst,CONST RECT *lprcSrc1,CONST RECT *lprcSrc2);
   WINUSERAPI WINBOOL WINAPI UnionRect(LPRECT lprcDst,CONST RECT *lprcSrc1,CONST RECT *lprcSrc2);
   WINUSERAPI WINBOOL WINAPI SubtractRect(LPRECT lprcDst,CONST RECT *lprcSrc1,CONST RECT *lprcSrc2);
-  WINUSERAPI WINBOOL WINAPI OffsetRect(LPRECT lprc,int dx,int dy);
+  WINUSERAPI WINBOOL WINAPI OffsetRect(LPRECT lprc,ціле dx,ціле dy);
   WINUSERAPI WINBOOL WINAPI IsRectEmpty(CONST RECT *lprc);
   WINUSERAPI WINBOOL WINAPI EqualRect(CONST RECT *lprc1,CONST RECT *lprc2);
   WINUSERAPI WINBOOL WINAPI PtInRect(CONST RECT *lprc,POINT pt);
@@ -3342,38 +3342,38 @@ extern "C" {
 #ifdef UNICODE
 #define GetWindowLong GetWindowLongW
 #define SetWindowLong SetWindowLongW
-#else
+#інакше
 #define GetWindowLong GetWindowLongA
 #define SetWindowLong SetWindowLongA
 #endif
 
-  WINUSERAPI WORD WINAPI GetWindowWord(HWND hWnd,int nIndex);
-  WINUSERAPI WORD WINAPI SetWindowWord(HWND hWnd,int nIndex,WORD wNewWord);
-  WINUSERAPI LONG WINAPI GetWindowLongA(HWND hWnd,int nIndex);
-  WINUSERAPI LONG WINAPI GetWindowLongW(HWND hWnd,int nIndex);
-  WINUSERAPI LONG WINAPI SetWindowLongA(HWND hWnd,int nIndex,LONG dwNewLong);
-  WINUSERAPI LONG WINAPI SetWindowLongW(HWND hWnd,int nIndex,LONG dwNewLong);
+  WINUSERAPI WORD WINAPI GetWindowWord(HWND hWnd,ціле nIndex);
+  WINUSERAPI WORD WINAPI SetWindowWord(HWND hWnd,ціле nIndex,WORD wNewWord);
+  WINUSERAPI LONG WINAPI GetWindowLongA(HWND hWnd,ціле nIndex);
+  WINUSERAPI LONG WINAPI GetWindowLongW(HWND hWnd,ціле nIndex);
+  WINUSERAPI LONG WINAPI SetWindowLongA(HWND hWnd,ціле nIndex,LONG dwNewLong);
+  WINUSERAPI LONG WINAPI SetWindowLongW(HWND hWnd,ціле nIndex,LONG dwNewLong);
 
 #ifdef _WIN64
 
 #ifdef UNICODE
 #define GetWindowLongPtr GetWindowLongPtrW
 #define SetWindowLongPtr SetWindowLongPtrW
-#else
+#інакше
 #define GetWindowLongPtr GetWindowLongPtrA
 #define SetWindowLongPtr SetWindowLongPtrA
 #endif
 
-  WINUSERAPI LONG_PTR WINAPI GetWindowLongPtrA(HWND hWnd,int nIndex);
-  WINUSERAPI LONG_PTR WINAPI GetWindowLongPtrW(HWND hWnd,int nIndex);
-  WINUSERAPI LONG_PTR WINAPI SetWindowLongPtrA(HWND hWnd,int nIndex,LONG_PTR dwNewLong);
-  WINUSERAPI LONG_PTR WINAPI SetWindowLongPtrW(HWND hWnd,int nIndex,LONG_PTR dwNewLong);
-#else
+  WINUSERAPI LONG_PTR WINAPI GetWindowLongPtrA(HWND hWnd,ціле nIndex);
+  WINUSERAPI LONG_PTR WINAPI GetWindowLongPtrW(HWND hWnd,ціле nIndex);
+  WINUSERAPI LONG_PTR WINAPI SetWindowLongPtrA(HWND hWnd,ціле nIndex,LONG_PTR dwNewLong);
+  WINUSERAPI LONG_PTR WINAPI SetWindowLongPtrW(HWND hWnd,ціле nIndex,LONG_PTR dwNewLong);
+#інакше
 
 #ifdef UNICODE
 #define GetWindowLongPtr GetWindowLongPtrW
 #define SetWindowLongPtr SetWindowLongPtrW
-#else
+#інакше
 #define GetWindowLongPtr GetWindowLongPtrA
 #define SetWindowLongPtr SetWindowLongPtrA
 #endif
@@ -3387,37 +3387,37 @@ extern "C" {
 #ifdef UNICODE
 #define GetClassLong GetClassLongW
 #define SetClassLong SetClassLongW
-#else
+#інакше
 #define GetClassLong GetClassLongA
 #define SetClassLong SetClassLongA
 #endif
 
-  WINUSERAPI WORD WINAPI GetClassWord(HWND hWnd,int nIndex);
-  WINUSERAPI WORD WINAPI SetClassWord(HWND hWnd,int nIndex,WORD wNewWord);
-  WINUSERAPI DWORD WINAPI GetClassLongA(HWND hWnd,int nIndex);
-  WINUSERAPI DWORD WINAPI GetClassLongW(HWND hWnd,int nIndex);
-  WINUSERAPI DWORD WINAPI SetClassLongA(HWND hWnd,int nIndex,LONG dwNewLong);
-  WINUSERAPI DWORD WINAPI SetClassLongW(HWND hWnd,int nIndex,LONG dwNewLong);
+  WINUSERAPI WORD WINAPI GetClassWord(HWND hWnd,ціле nIndex);
+  WINUSERAPI WORD WINAPI SetClassWord(HWND hWnd,ціле nIndex,WORD wNewWord);
+  WINUSERAPI DWORD WINAPI GetClassLongA(HWND hWnd,ціле nIndex);
+  WINUSERAPI DWORD WINAPI GetClassLongW(HWND hWnd,ціле nIndex);
+  WINUSERAPI DWORD WINAPI SetClassLongA(HWND hWnd,ціле nIndex,LONG dwNewLong);
+  WINUSERAPI DWORD WINAPI SetClassLongW(HWND hWnd,ціле nIndex,LONG dwNewLong);
 
 #ifdef _WIN64
 
 #ifdef UNICODE
 #define GetClassLongPtr GetClassLongPtrW
 #define SetClassLongPtr SetClassLongPtrW
-#else
+#інакше
 #define GetClassLongPtr GetClassLongPtrA
 #define SetClassLongPtr SetClassLongPtrA
 #endif
 
-  WINUSERAPI ULONG_PTR WINAPI GetClassLongPtrA(HWND hWnd,int nIndex);
-  WINUSERAPI ULONG_PTR WINAPI GetClassLongPtrW(HWND hWnd,int nIndex);
-  WINUSERAPI ULONG_PTR WINAPI SetClassLongPtrA(HWND hWnd,int nIndex,LONG_PTR dwNewLong);
-  WINUSERAPI ULONG_PTR WINAPI SetClassLongPtrW(HWND hWnd,int nIndex,LONG_PTR dwNewLong);
-#else
+  WINUSERAPI ULONG_PTR WINAPI GetClassLongPtrA(HWND hWnd,ціле nIndex);
+  WINUSERAPI ULONG_PTR WINAPI GetClassLongPtrW(HWND hWnd,ціле nIndex);
+  WINUSERAPI ULONG_PTR WINAPI SetClassLongPtrA(HWND hWnd,ціле nIndex,LONG_PTR dwNewLong);
+  WINUSERAPI ULONG_PTR WINAPI SetClassLongPtrW(HWND hWnd,ціле nIndex,LONG_PTR dwNewLong);
+#інакше
 #ifdef UNICODE
 #define GetClassLongPtr GetClassLongPtrW
 #define SetClassLongPtr SetClassLongPtrW
-#else
+#інакше
 #define GetClassLongPtr GetClassLongPtrA
 #define SetClassLongPtr SetClassLongPtrA
 #endif
@@ -3433,7 +3433,7 @@ extern "C" {
 #define FindWindow FindWindowW
 #define FindWindowEx FindWindowExW
 #define GetClassName GetClassNameW
-#else
+#інакше
 #define FindWindow FindWindowA
 #define FindWindowEx FindWindowExA
 #define GetClassName GetClassNameA
@@ -3457,8 +3457,8 @@ extern "C" {
 
 #define EnumTaskWindows(hTask,lpfn,lParam) EnumThreadWindows(HandleToUlong(hTask),lpfn,lParam)
 
-  WINUSERAPI int WINAPI GetClassNameA(HWND hWnd,LPSTR lpClassName,int nMaxCount);
-  WINUSERAPI int WINAPI GetClassNameW(HWND hWnd,LPWSTR lpClassName,int nMaxCount);
+  WINUSERAPI ціле WINAPI GetClassNameA(HWND hWnd,LPSTR lpClassName,ціле nMaxCount);
+  WINUSERAPI ціле WINAPI GetClassNameW(HWND hWnd,LPWSTR lpClassName,ціле nMaxCount);
   WINUSERAPI HWND WINAPI GetTopWindow(HWND hWnd);
 
 #define GetNextWindow(hWnd,wCmd) GetWindow(hWnd,wCmd)
@@ -3488,18 +3488,18 @@ extern "C" {
 #ifdef UNICODE
 #define SetWindowsHook SetWindowsHookW
 #define SetWindowsHookEx SetWindowsHookExW
-#else
+#інакше
 #define SetWindowsHook SetWindowsHookA
 #define SetWindowsHookEx SetWindowsHookExA
 #endif
 
-  WINUSERAPI HHOOK WINAPI SetWindowsHookA(int nFilterType,HOOKPROC pfnFilterProc);
-  WINUSERAPI HHOOK WINAPI SetWindowsHookW(int nFilterType,HOOKPROC pfnFilterProc);
-  WINUSERAPI WINBOOL WINAPI UnhookWindowsHook(int nCode,HOOKPROC pfnFilterProc);
-  WINUSERAPI HHOOK WINAPI SetWindowsHookExA(int idHook,HOOKPROC lpfn,HINSTANCE hmod,DWORD dwThreadId);
-  WINUSERAPI HHOOK WINAPI SetWindowsHookExW(int idHook,HOOKPROC lpfn,HINSTANCE hmod,DWORD dwThreadId);
+  WINUSERAPI HHOOK WINAPI SetWindowsHookA(ціле nFilterType,HOOKPROC pfnFilterProc);
+  WINUSERAPI HHOOK WINAPI SetWindowsHookW(ціле nFilterType,HOOKPROC pfnFilterProc);
+  WINUSERAPI WINBOOL WINAPI UnhookWindowsHook(ціле nCode,HOOKPROC pfnFilterProc);
+  WINUSERAPI HHOOK WINAPI SetWindowsHookExA(ціле idHook,HOOKPROC lpfn,HINSTANCE hmod,DWORD dwThreadId);
+  WINUSERAPI HHOOK WINAPI SetWindowsHookExW(ціле idHook,HOOKPROC lpfn,HINSTANCE hmod,DWORD dwThreadId);
   WINUSERAPI WINBOOL WINAPI UnhookWindowsHookEx(HHOOK hhk);
-  WINUSERAPI LRESULT WINAPI CallNextHookEx(HHOOK hhk,int nCode,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI CallNextHookEx(HHOOK hhk,ціле nCode,WPARAM wParam,LPARAM lParam);
 #define DefHookProc(nCode,wParam,lParam,phhk) CallNextHookEx(*phhk,nCode,wParam,lParam)
 #endif
 
@@ -3598,7 +3598,7 @@ extern "C" {
 #define LoadBitmap LoadBitmapW
 #define LoadCursor LoadCursorW
 #define LoadCursorFromFile LoadCursorFromFileW
-#else
+#інакше
 #define LoadBitmap LoadBitmapA
 #define LoadCursor LoadCursorA
 #define LoadCursorFromFile LoadCursorFromFileA
@@ -3610,7 +3610,7 @@ extern "C" {
   WINUSERAPI HCURSOR WINAPI LoadCursorW(HINSTANCE hInstance,LPCWSTR lpCursorName);
   WINUSERAPI HCURSOR WINAPI LoadCursorFromFileA(LPCSTR lpFileName);
   WINUSERAPI HCURSOR WINAPI LoadCursorFromFileW(LPCWSTR lpFileName);
-  WINUSERAPI HCURSOR WINAPI CreateCursor(HINSTANCE hInst,int xHotSpot,int yHotSpot,int nWidth,int nHeight,CONST VOID *pvANDPlane,CONST VOID *pvXORPlane);
+  WINUSERAPI HCURSOR WINAPI CreateCursor(HINSTANCE hInst,ціле xHotSpot,ціле yHotSpot,ціле nWidth,ціле nHeight,CONST VOID *pvANDPlane,CONST VOID *pvXORPlane);
   WINUSERAPI WINBOOL WINAPI DestroyCursor(HCURSOR hCursor);
 
 #define CopyCursor(pcur) ((HCURSOR)CopyIcon((HICON)(pcur)))
@@ -3646,28 +3646,28 @@ extern "C" {
 #ifdef UNICODE
 #define LoadIcon LoadIconW
 #define PrivateExtractIcons PrivateExtractIconsW
-#else
+#інакше
 #define LoadIcon LoadIconA
 #define PrivateExtractIcons PrivateExtractIconsA
 #endif
 
   WINUSERAPI HICON WINAPI LoadIconA(HINSTANCE hInstance,LPCSTR lpIconName);
   WINUSERAPI HICON WINAPI LoadIconW(HINSTANCE hInstance,LPCWSTR lpIconName);
-  WINUSERAPI UINT WINAPI PrivateExtractIconsA(LPCSTR szFileName,int nIconIndex,int cxIcon,int cyIcon,HICON *phicon,UINT *piconid,UINT nIcons,UINT flags);
-  WINUSERAPI UINT WINAPI PrivateExtractIconsW(LPCWSTR szFileName,int nIconIndex,int cxIcon,int cyIcon,HICON *phicon,UINT *piconid,UINT nIcons,UINT flags);
-  WINUSERAPI HICON WINAPI CreateIcon(HINSTANCE hInstance,int nWidth,int nHeight,BYTE cPlanes,BYTE cBitsPixel,CONST BYTE *lpbANDbits,CONST BYTE *lpbXORbits);
+  WINUSERAPI UINT WINAPI PrivateExtractIconsA(LPCSTR szFileName,ціле nIconIndex,ціле cxIcon,ціле cyIcon,HICON *phicon,UINT *piconid,UINT nIcons,UINT flags);
+  WINUSERAPI UINT WINAPI PrivateExtractIconsW(LPCWSTR szFileName,ціле nIconIndex,ціле cxIcon,ціле cyIcon,HICON *phicon,UINT *piconid,UINT nIcons,UINT flags);
+  WINUSERAPI HICON WINAPI CreateIcon(HINSTANCE hInstance,ціле nWidth,ціле nHeight,BYTE cPlanes,BYTE cBitsPixel,CONST BYTE *lpbANDbits,CONST BYTE *lpbXORbits);
   WINUSERAPI WINBOOL WINAPI DestroyIcon(HICON hIcon);
-  WINUSERAPI int WINAPI LookupIconIdFromDirectory(PBYTE presbits,WINBOOL fIcon);
-  WINUSERAPI int WINAPI LookupIconIdFromDirectoryEx(PBYTE presbits,WINBOOL fIcon,int cxDesired,int cyDesired,UINT Flags);
+  WINUSERAPI ціле WINAPI LookupIconIdFromDirectory(PBYTE presbits,WINBOOL fIcon);
+  WINUSERAPI ціле WINAPI LookupIconIdFromDirectoryEx(PBYTE presbits,WINBOOL fIcon,ціле cxDesired,ціле cyDesired,UINT Flags);
   WINUSERAPI HICON WINAPI CreateIconFromResource(PBYTE presbits,DWORD dwResSize,WINBOOL fIcon,DWORD dwVer);
-  WINUSERAPI HICON WINAPI CreateIconFromResourceEx(PBYTE presbits,DWORD dwResSize,WINBOOL fIcon,DWORD dwVer,int cxDesired,int cyDesired,UINT Flags);
+  WINUSERAPI HICON WINAPI CreateIconFromResourceEx(PBYTE presbits,DWORD dwResSize,WINBOOL fIcon,DWORD dwVer,ціле cxDesired,ціле cyDesired,UINT Flags);
 
   typedef struct tagCURSORSHAPE {
-    int xHotSpot;
-    int yHotSpot;
-    int cx;
-    int cy;
-    int cbWidth;
+    ціле xHotSpot;
+    ціле yHotSpot;
+    ціле cx;
+    ціле cy;
+    ціле cbWidth;
     BYTE Planes;
     BYTE BitsPixel;
   } CURSORSHAPE,*LPCURSORSHAPE;
@@ -3693,13 +3693,13 @@ extern "C" {
 
 #ifdef UNICODE
 #define LoadImage LoadImageW
-#else
+#інакше
 #define LoadImage LoadImageA
 #endif
 
-  WINUSERAPI HANDLE WINAPI LoadImageA(HINSTANCE hInst,LPCSTR name,UINT type,int cx,int cy,UINT fuLoad);
-  WINUSERAPI HANDLE WINAPI LoadImageW(HINSTANCE hInst,LPCWSTR name,UINT type,int cx,int cy,UINT fuLoad);
-  WINUSERAPI HANDLE WINAPI CopyImage(HANDLE h,UINT type,int cx,int cy,UINT flags);
+  WINUSERAPI HANDLE WINAPI LoadImageA(HINSTANCE hInst,LPCSTR name,UINT type,ціле cx,ціле cy,UINT fuLoad);
+  WINUSERAPI HANDLE WINAPI LoadImageW(HINSTANCE hInst,LPCWSTR name,UINT type,ціле cx,ціле cy,UINT fuLoad);
+  WINUSERAPI HANDLE WINAPI CopyImage(HANDLE h,UINT type,ціле cx,ціле cy,UINT flags);
 
 #define DI_MASK 0x0001
 #define DI_IMAGE 0x0002
@@ -3708,7 +3708,7 @@ extern "C" {
 #define DI_DEFAULTSIZE 0x0008
 #define DI_NOMIRROR 0x0010
 
-  WINUSERAPI WINBOOL WINAPI DrawIconEx(HDC hdc,int xLeft,int yTop,HICON hIcon,int cxWidth,int cyWidth,UINT istepIfAniCur,HBRUSH hbrFlickerFreeDraw,UINT diFlags);
+  WINUSERAPI WINBOOL WINAPI DrawIconEx(HDC hdc,ціле xLeft,ціле yTop,HICON hIcon,ціле cxWidth,ціле cyWidth,UINT istepIfAniCur,HBRUSH hbrFlickerFreeDraw,UINT diFlags);
   WINUSERAPI HICON WINAPI CreateIconIndirect(PICONINFO piconinfo);
   WINUSERAPI HICON WINAPI CopyIcon(HICON hIcon);
   WINUSERAPI WINBOOL WINAPI GetIconInfo(HICON hIcon,PICONINFO piconinfo);
@@ -3793,7 +3793,7 @@ extern "C" {
 #define IDI_EXCLAMATION 32515
 #define IDI_ASTERISK 32516
 #define IDI_WINLOGO 32517
-#else
+#інакше
 #define IDI_APPLICATION MAKEINTRESOURCE(32512)
 #define IDI_HAND MAKEINTRESOURCE(32513)
 #define IDI_QUESTION MAKEINTRESOURCE(32514)
@@ -3809,12 +3809,12 @@ extern "C" {
 
 #ifdef UNICODE
 #define LoadString LoadStringW
-#else
+#інакше
 #define LoadString LoadStringA
 #endif
 
-  WINUSERAPI int WINAPI LoadStringA(HINSTANCE hInstance,UINT uID,LPSTR lpBuffer,int cchBufferMax);
-  WINUSERAPI int WINAPI LoadStringW(HINSTANCE hInstance,UINT uID,LPWSTR lpBuffer,int cchBufferMax);
+  WINUSERAPI ціле WINAPI LoadStringA(HINSTANCE hInstance,UINT uID,LPSTR lpBuffer,ціле cchBufferMax);
+  WINUSERAPI ціле WINAPI LoadStringW(HINSTANCE hInstance,UINT uID,LPWSTR lpBuffer,ціле cchBufferMax);
 
 #define IDOK 1
 #define IDCANCEL 2
@@ -4042,7 +4042,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define IsDialogMessage IsDialogMessageW
-#else
+#інакше
 #define IsDialogMessage IsDialogMessageA
 #endif
 
@@ -4055,7 +4055,7 @@ extern "C" {
 #define DlgDirSelectEx DlgDirSelectExW
 #define DlgDirListComboBox DlgDirListComboBoxW
 #define DlgDirSelectComboBoxEx DlgDirSelectComboBoxExW
-#else
+#інакше
 #define DlgDirList DlgDirListA
 #define DlgDirSelectEx DlgDirSelectExA
 #define DlgDirListComboBox DlgDirListComboBoxA
@@ -4063,8 +4063,8 @@ extern "C" {
 #endif
 
   WINUSERAPI WINBOOL WINAPI MapDialogRect(HWND hDlg,LPRECT lpRect);
-  WINUSERAPI int WINAPI DlgDirListA(HWND hDlg,LPSTR lpPathSpec,int nIDListBox,int nIDStaticPath,UINT uFileType);
-  WINUSERAPI int WINAPI DlgDirListW(HWND hDlg,LPWSTR lpPathSpec,int nIDListBox,int nIDStaticPath,UINT uFileType);
+  WINUSERAPI ціле WINAPI DlgDirListA(HWND hDlg,LPSTR lpPathSpec,ціле nIDListBox,ціле nIDStaticPath,UINT uFileType);
+  WINUSERAPI ціле WINAPI DlgDirListW(HWND hDlg,LPWSTR lpPathSpec,ціле nIDListBox,ціле nIDStaticPath,UINT uFileType);
 
 #define DDL_READWRITE 0x0000
 #define DDL_READONLY 0x0001
@@ -4077,12 +4077,12 @@ extern "C" {
 #define DDL_DRIVES 0x4000
 #define DDL_EXCLUSIVE 0x8000
 
-  WINUSERAPI WINBOOL WINAPI DlgDirSelectExA(HWND hwndDlg,LPSTR lpString,int chCount,int idListBox);
-  WINUSERAPI WINBOOL WINAPI DlgDirSelectExW(HWND hwndDlg,LPWSTR lpString,int chCount,int idListBox);
-  WINUSERAPI int WINAPI DlgDirListComboBoxA(HWND hDlg,LPSTR lpPathSpec,int nIDComboBox,int nIDStaticPath,UINT uFiletype);
-  WINUSERAPI int WINAPI DlgDirListComboBoxW(HWND hDlg,LPWSTR lpPathSpec,int nIDComboBox,int nIDStaticPath,UINT uFiletype);
-  WINUSERAPI WINBOOL WINAPI DlgDirSelectComboBoxExA(HWND hwndDlg,LPSTR lpString,int cchOut,int idComboBox);
-  WINUSERAPI WINBOOL WINAPI DlgDirSelectComboBoxExW(HWND hwndDlg,LPWSTR lpString,int cchOut,int idComboBox);
+  WINUSERAPI WINBOOL WINAPI DlgDirSelectExA(HWND hwndDlg,LPSTR lpString,ціле chCount,ціле idListBox);
+  WINUSERAPI WINBOOL WINAPI DlgDirSelectExW(HWND hwndDlg,LPWSTR lpString,ціле chCount,ціле idListBox);
+  WINUSERAPI ціле WINAPI DlgDirListComboBoxA(HWND hDlg,LPSTR lpPathSpec,ціле nIDComboBox,ціле nIDStaticPath,UINT uFiletype);
+  WINUSERAPI ціле WINAPI DlgDirListComboBoxW(HWND hDlg,LPWSTR lpPathSpec,ціле nIDComboBox,ціле nIDStaticPath,UINT uFiletype);
+  WINUSERAPI WINBOOL WINAPI DlgDirSelectComboBoxExA(HWND hwndDlg,LPSTR lpString,ціле cchOut,ціле idComboBox);
+  WINUSERAPI WINBOOL WINAPI DlgDirSelectComboBoxExW(HWND hwndDlg,LPWSTR lpString,ціле cchOut,ціле idComboBox);
 
 #define DS_ABSALIGN 0x01L
 #define DS_SYSMODAL 0x02L
@@ -4102,7 +4102,7 @@ extern "C" {
 
 #define DS_SHELLFONT (DS_SETFONT | DS_FIXEDSYS)
 
-#if(_WIN32_WCE >= 0x0500)
+#якщо(_WIN32_WCE >= 0x0500)
 #define DS_USEPIXELS 0x8000L
 #endif
 
@@ -4179,7 +4179,7 @@ extern "C" {
 #define LB_SETCOUNT 0x01A7
 #define LB_INITSTORAGE 0x01A8
 #define LB_ITEMFROMPOINT 0x01A9
-#if(_WIN32_WCE >= 0x0400)
+#якщо(_WIN32_WCE >= 0x0400)
 #define LB_MULTIPLEADDSTRING 0x01B1
 #endif
 #define LB_GETLISTBOXINFO 0x01B2
@@ -4276,7 +4276,7 @@ extern "C" {
 #define CB_GETDROPPEDWIDTH 0x015f
 #define CB_SETDROPPEDWIDTH 0x0160
 #define CB_INITSTORAGE 0x0161
-#if(_WIN32_WCE >= 0x0400)
+#якщо(_WIN32_WCE >= 0x0400)
 #define CB_MULTIPLEADDSTRING 0x0163
 #endif
 #define CB_GETCOMBOBOXINFO 0x0164
@@ -4318,16 +4318,16 @@ extern "C" {
   typedef struct tagSCROLLINFO {
     UINT cbSize;
     UINT fMask;
-    int nMin;
-    int nMax;
+    ціле nMin;
+    ціле nMax;
     UINT nPage;
-    int nPos;
-    int nTrackPos;
+    ціле nPos;
+    ціле nTrackPos;
   } SCROLLINFO,*LPSCROLLINFO;
   typedef SCROLLINFO CONST *LPCSCROLLINFO;
 
-  WINUSERAPI int WINAPI SetScrollInfo(HWND hwnd,int nBar,LPCSCROLLINFO lpsi,WINBOOL redraw);
-  WINUSERAPI WINBOOL WINAPI GetScrollInfo(HWND hwnd,int nBar,LPSCROLLINFO lpsi);
+  WINUSERAPI ціле WINAPI SetScrollInfo(HWND hwnd,ціле nBar,LPCSCROLLINFO lpsi,WINBOOL redraw);
+  WINUSERAPI WINBOOL WINAPI GetScrollInfo(HWND hwnd,ціле nBar,LPSCROLLINFO lpsi);
 #endif
 #endif
 
@@ -4344,10 +4344,10 @@ extern "C" {
     LPCSTR szClass;
     LPCSTR szTitle;
     HANDLE hOwner;
-    int x;
-    int y;
-    int cx;
-    int cy;
+    ціле x;
+    ціле y;
+    ціле cx;
+    ціле cy;
     DWORD style;
     LPARAM lParam;
   } MDICREATESTRUCTA,*LPMDICREATESTRUCTA;
@@ -4356,10 +4356,10 @@ extern "C" {
     LPCWSTR szClass;
     LPCWSTR szTitle;
     HANDLE hOwner;
-    int x;
-    int y;
-    int cx;
-    int cy;
+    ціле x;
+    ціле y;
+    ціле cx;
+    ціле cy;
     DWORD style;
     LPARAM lParam;
   } MDICREATESTRUCTW,*LPMDICREATESTRUCTW;
@@ -4367,7 +4367,7 @@ extern "C" {
 #ifdef UNICODE
   typedef MDICREATESTRUCTW MDICREATESTRUCT;
   typedef LPMDICREATESTRUCTW LPMDICREATESTRUCT;
-#else
+#інакше
   typedef MDICREATESTRUCTA MDICREATESTRUCT;
   typedef LPMDICREATESTRUCTA LPMDICREATESTRUCT;
 #endif
@@ -4381,7 +4381,7 @@ extern "C" {
 #define DefFrameProc DefFrameProcW
 #define DefMDIChildProc DefMDIChildProcW
 #define CreateMDIWindow CreateMDIWindowW
-#else
+#інакше
 #define DefFrameProc DefFrameProcA
 #define DefMDIChildProc DefMDIChildProcA
 #define CreateMDIWindow CreateMDIWindowA
@@ -4397,8 +4397,8 @@ extern "C" {
 #endif
 
   WINUSERAPI UINT WINAPI ArrangeIconicWindows(HWND hWnd);
-  WINUSERAPI HWND WINAPI CreateMDIWindowA(LPCSTR lpClassName,LPCSTR lpWindowName,DWORD dwStyle,int X,int Y,int nWidth,int nHeight,HWND hWndParent,HINSTANCE hInstance,LPARAM lParam);
-  WINUSERAPI HWND WINAPI CreateMDIWindowW(LPCWSTR lpClassName,LPCWSTR lpWindowName,DWORD dwStyle,int X,int Y,int nWidth,int nHeight,HWND hWndParent,HINSTANCE hInstance,LPARAM lParam);
+  WINUSERAPI HWND WINAPI CreateMDIWindowA(LPCSTR lpClassName,LPCSTR lpWindowName,DWORD dwStyle,ціле X,ціле Y,ціле nWidth,ціле nHeight,HWND hWndParent,HINSTANCE hInstance,LPARAM lParam);
+  WINUSERAPI HWND WINAPI CreateMDIWindowW(LPCWSTR lpClassName,LPCWSTR lpWindowName,DWORD dwStyle,ціле X,ціле Y,ціле nWidth,ціле nHeight,HWND hWndParent,HINSTANCE hInstance,LPARAM lParam);
   WINUSERAPI WORD WINAPI TileWindows(HWND hwndParent,UINT wHow,CONST RECT *lpRect,UINT cKids,const HWND *lpKids);
   WINUSERAPI WORD WINAPI CascadeWindows(HWND hwndParent,UINT wHow,CONST RECT *lpRect,UINT cKids,const HWND *lpKids);
 #endif
@@ -4423,29 +4423,29 @@ extern "C" {
   typedef MULTIKEYHELPW MULTIKEYHELP;
   typedef PMULTIKEYHELPW PMULTIKEYHELP;
   typedef LPMULTIKEYHELPW LPMULTIKEYHELP;
-#else
+#інакше
   typedef MULTIKEYHELPA MULTIKEYHELP;
   typedef PMULTIKEYHELPA PMULTIKEYHELP;
   typedef LPMULTIKEYHELPA LPMULTIKEYHELP;
 #endif
 
   typedef struct tagHELPWININFOA {
-    int wStructSize;
-    int x;
-    int y;
-    int dx;
-    int dy;
-    int wMax;
+    ціле wStructSize;
+    ціле x;
+    ціле y;
+    ціле dx;
+    ціле dy;
+    ціле wMax;
     CHAR rgchMember[2];
   } HELPWININFOA,*PHELPWININFOA,*LPHELPWININFOA;
 
   typedef struct tagHELPWININFOW {
-    int wStructSize;
-    int x;
-    int y;
-    int dx;
-    int dy;
-    int wMax;
+    ціле wStructSize;
+    ціле x;
+    ціле y;
+    ціле dx;
+    ціле dy;
+    ціле wMax;
     WCHAR rgchMember[2];
   } HELPWININFOW,*PHELPWININFOW,*LPHELPWININFOW;
 
@@ -4453,7 +4453,7 @@ extern "C" {
   typedef HELPWININFOW HELPWININFO;
   typedef PHELPWININFOW PHELPWININFO;
   typedef LPHELPWININFOW LPHELPWININFO;
-#else
+#інакше
   typedef HELPWININFOA HELPWININFO;
   typedef PHELPWININFOA PHELPWININFO;
   typedef LPHELPWININFOA LPHELPWININFO;
@@ -4491,7 +4491,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define WinHelp WinHelpW
-#else
+#інакше
 #define WinHelp WinHelpA
 #endif
 
@@ -4697,17 +4697,17 @@ extern "C" {
 #ifndef NOGDI
   typedef struct tagNONCLIENTMETRICSA {
     UINT cbSize;
-    int iBorderWidth;
-    int iScrollWidth;
-    int iScrollHeight;
-    int iCaptionWidth;
-    int iCaptionHeight;
+    ціле iBorderWidth;
+    ціле iScrollWidth;
+    ціле iScrollHeight;
+    ціле iCaptionWidth;
+    ціле iCaptionHeight;
     LOGFONTA lfCaptionFont;
-    int iSmCaptionWidth;
-    int iSmCaptionHeight;
+    ціле iSmCaptionWidth;
+    ціле iSmCaptionHeight;
     LOGFONTA lfSmCaptionFont;
-    int iMenuWidth;
-    int iMenuHeight;
+    ціле iMenuWidth;
+    ціле iMenuHeight;
     LOGFONTA lfMenuFont;
     LOGFONTA lfStatusFont;
     LOGFONTA lfMessageFont;
@@ -4715,17 +4715,17 @@ extern "C" {
 
   typedef struct tagNONCLIENTMETRICSW {
     UINT cbSize;
-    int iBorderWidth;
-    int iScrollWidth;
-    int iScrollHeight;
-    int iCaptionWidth;
-    int iCaptionHeight;
+    ціле iBorderWidth;
+    ціле iScrollWidth;
+    ціле iScrollHeight;
+    ціле iCaptionWidth;
+    ціле iCaptionHeight;
     LOGFONTW lfCaptionFont;
-    int iSmCaptionWidth;
-    int iSmCaptionHeight;
+    ціле iSmCaptionWidth;
+    ціле iSmCaptionHeight;
     LOGFONTW lfSmCaptionFont;
-    int iMenuWidth;
-    int iMenuHeight;
+    ціле iMenuWidth;
+    ціле iMenuHeight;
     LOGFONTW lfMenuFont;
     LOGFONTW lfStatusFont;
     LOGFONTW lfMessageFont;
@@ -4735,7 +4735,7 @@ extern "C" {
   typedef NONCLIENTMETRICSW NONCLIENTMETRICS;
   typedef PNONCLIENTMETRICSW PNONCLIENTMETRICS;
   typedef LPNONCLIENTMETRICSW LPNONCLIENTMETRICS;
-#else
+#інакше
   typedef NONCLIENTMETRICSA NONCLIENTMETRICS;
   typedef PNONCLIENTMETRICSA PNONCLIENTMETRICS;
   typedef LPNONCLIENTMETRICSA LPNONCLIENTMETRICS;
@@ -4759,27 +4759,27 @@ extern "C" {
 
   typedef struct tagMINIMIZEDMETRICS {
     UINT cbSize;
-    int iWidth;
-    int iHorzGap;
-    int iVertGap;
-    int iArrange;
+    ціле iWidth;
+    ціле iHorzGap;
+    ціле iVertGap;
+    ціле iArrange;
   } MINIMIZEDMETRICS,*PMINIMIZEDMETRICS,*LPMINIMIZEDMETRICS;
 
 #ifdef _WINGDI_
 #ifndef NOGDI
   typedef struct tagICONMETRICSA {
     UINT cbSize;
-    int iHorzSpacing;
-    int iVertSpacing;
-    int iTitleWrap;
+    ціле iHorzSpacing;
+    ціле iVertSpacing;
+    ціле iTitleWrap;
     LOGFONTA lfFont;
   } ICONMETRICSA,*PICONMETRICSA,*LPICONMETRICSA;
 
   typedef struct tagICONMETRICSW {
     UINT cbSize;
-    int iHorzSpacing;
-    int iVertSpacing;
-    int iTitleWrap;
+    ціле iHorzSpacing;
+    ціле iVertSpacing;
+    ціле iTitleWrap;
     LOGFONTW lfFont;
   } ICONMETRICSW,*PICONMETRICSW,*LPICONMETRICSW;
 
@@ -4787,7 +4787,7 @@ extern "C" {
   typedef ICONMETRICSW ICONMETRICS;
   typedef PICONMETRICSW PICONMETRICS;
   typedef LPICONMETRICSW LPICONMETRICS;
-#else
+#інакше
   typedef ICONMETRICSA ICONMETRICS;
   typedef PICONMETRICSA PICONMETRICS;
   typedef LPICONMETRICSA LPICONMETRICS;
@@ -4797,7 +4797,7 @@ extern "C" {
 
   typedef struct tagANIMATIONINFO {
     UINT cbSize;
-    int iMinAnimate;
+    ціле iMinAnimate;
   } ANIMATIONINFO,*LPANIMATIONINFO;
 
   typedef struct tagSERIALKEYSA {
@@ -4823,7 +4823,7 @@ extern "C" {
 #ifdef UNICODE
   typedef SERIALKEYSW SERIALKEYS;
   typedef LPSERIALKEYSW LPSERIALKEYS;
-#else
+#інакше
   typedef SERIALKEYSA SERIALKEYS;
   typedef LPSERIALKEYSA LPSERIALKEYS;
 #endif
@@ -4847,7 +4847,7 @@ extern "C" {
 #ifdef UNICODE
   typedef HIGHCONTRASTW HIGHCONTRAST;
   typedef LPHIGHCONTRASTW LPHIGHCONTRAST;
-#else
+#інакше
   typedef HIGHCONTRASTA HIGHCONTRAST;
   typedef LPHIGHCONTRASTA LPHIGHCONTRAST;
 #endif
@@ -4891,7 +4891,7 @@ extern "C" {
 #define EnumDisplaySettings EnumDisplaySettingsW
 #define EnumDisplaySettingsEx EnumDisplaySettingsExW
 #define EnumDisplayDevices EnumDisplayDevicesW
-#else
+#інакше
 #define ChangeDisplaySettings ChangeDisplaySettingsA
 #define ChangeDisplaySettingsEx ChangeDisplaySettingsExA
 #define EnumDisplaySettings EnumDisplaySettingsA
@@ -4921,7 +4921,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define SystemParametersInfo SystemParametersInfoW
-#else
+#інакше
 #define SystemParametersInfo SystemParametersInfoA
 #endif
 
@@ -5057,7 +5057,7 @@ extern "C" {
 #ifdef UNICODE
   typedef SOUNDSENTRYW SOUNDSENTRY;
   typedef LPSOUNDSENTRYW LPSOUNDSENTRY;
-#else
+#інакше
   typedef SOUNDSENTRYA SOUNDSENTRY;
   typedef LPSOUNDSENTRYA LPSOUNDSENTRY;
 #endif
@@ -5085,7 +5085,7 @@ extern "C" {
 #define SLE_WARNING 0x00000003
 
   WINUSERAPI VOID WINAPI SetLastErrorEx(DWORD dwErrCode,DWORD dwType);
-  WINUSERAPI int WINAPI InternalGetWindowText(HWND hWnd,LPWSTR pString,int cchMaxCount);
+  WINUSERAPI ціле WINAPI InternalGetWindowText(HWND hWnd,LPWSTR pString,ціле cchMaxCount);
 
 #ifdef WINNT
   WINUSERAPI WINBOOL WINAPI EndTask(HWND hWnd,WINBOOL fShutDown,WINBOOL fForce);
@@ -5124,11 +5124,11 @@ extern "C" {
 #ifdef UNICODE
   typedef MONITORINFOEXW MONITORINFOEX;
   typedef LPMONITORINFOEXW LPMONITORINFOEX;
-#else
+#інакше
   typedef MONITORINFOEXA MONITORINFOEX;
   typedef LPMONITORINFOEXA LPMONITORINFOEX;
 #endif
-#else
+#інакше
   typedef struct tagMONITORINFOEXA {
     MONITORINFO mi;
     CHAR szDevice[CCHDEVICENAME];
@@ -5141,7 +5141,7 @@ extern "C" {
 #ifdef UNICODE
   typedef MONITORINFOEXW MONITORINFOEX;
   typedef LPMONITORINFOEXW LPMONITORINFOEX;
-#else
+#інакше
   typedef MONITORINFOEXA MONITORINFOEX;
   typedef LPMONITORINFOEXA LPMONITORINFOEX;
 #endif
@@ -5149,7 +5149,7 @@ extern "C" {
 
 #ifdef UNICODE 
 #define GetMonitorInfo GetMonitorInfoW
-#else
+#інакше
 #define GetMonitorInfo GetMonitorInfoA
 #endif
 
@@ -5304,7 +5304,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define GetWindowModuleFileName GetWindowModuleFileNameW
-#else
+#інакше
 #define GetWindowModuleFileName GetWindowModuleFileNameA
 #endif
 
@@ -5400,10 +5400,10 @@ extern "C" {
   typedef struct tagSCROLLBARINFO {
     DWORD cbSize;
     RECT rcScrollBar;
-    int dxyLineButton;
-    int xyThumbTop;
-    int xyThumbBottom;
-    int reserved;
+    ціле dxyLineButton;
+    ціле xyThumbTop;
+    ціле xyThumbBottom;
+    ціле reserved;
     DWORD rgstate[CCHILDREN_SCROLLBAR + 1];
   } SCROLLBARINFO,*PSCROLLBARINFO,*LPSCROLLBARINFO;
 
@@ -5431,30 +5431,30 @@ extern "C" {
   WINUSERAPI UINT WINAPI RealGetWindowClassW(HWND hwnd,LPWSTR ptszClassName,UINT cchClassNameMax);
 #ifdef UNICODE
 #define RealGetWindowClass RealGetWindowClassW
-#else
+#інакше
 #define RealGetWindowClass RealGetWindowClassA
 #endif
 
   typedef struct tagALTTABINFO {
     DWORD cbSize;
-    int cItems;
-    int cColumns;
-    int cRows;
-    int iColFocus;
-    int iRowFocus;
-    int cxItem;
-    int cyItem;
+    ціле cItems;
+    ціле cColumns;
+    ціле cRows;
+    ціле iColFocus;
+    ціле iRowFocus;
+    ціле cxItem;
+    ціле cyItem;
     POINT ptStart;
   } ALTTABINFO,*PALTTABINFO,*LPALTTABINFO;
 
 #ifdef UNICODE
 #define GetAltTabInfo GetAltTabInfoW
-#else
+#інакше
 #define GetAltTabInfo GetAltTabInfoA
 #endif
 
-  WINUSERAPI WINBOOL WINAPI GetAltTabInfoA(HWND hwnd,int iItem,PALTTABINFO pati,LPSTR pszItemText,UINT cchItemText);
-  WINUSERAPI WINBOOL WINAPI GetAltTabInfoW(HWND hwnd,int iItem,PALTTABINFO pati,LPWSTR pszItemText,UINT cchItemText);
+  WINUSERAPI WINBOOL WINAPI GetAltTabInfoA(HWND hwnd,ціле iItem,PALTTABINFO pati,LPSTR pszItemText,UINT cchItemText);
+  WINUSERAPI WINBOOL WINAPI GetAltTabInfoW(HWND hwnd,ціле iItem,PALTTABINFO pati,LPWSTR pszItemText,UINT cchItemText);
   WINUSERAPI DWORD WINAPI GetListBoxInfo(HWND hwnd);
 #endif
 
@@ -5555,7 +5555,7 @@ extern "C" {
 
 #ifdef _WIN64
 #define RAWINPUT_ALIGN(x) (((x) + sizeof(QWORD) - 1) & ~(sizeof(QWORD) - 1))
-#else
+#інакше
 #define RAWINPUT_ALIGN(x) (((x) + sizeof(DWORD) - 1) & ~(sizeof(DWORD) - 1))
 #endif
 
@@ -5605,7 +5605,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define GetRawInputDeviceInfo GetRawInputDeviceInfoW
-#else
+#інакше
 #define GetRawInputDeviceInfo GetRawInputDeviceInfoA
 #endif
 

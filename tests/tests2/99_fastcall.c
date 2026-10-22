@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <assert.h>
 
-#if !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
+#якщо !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
 #define __fastcall __attribute((fastcall))
 #endif
 
 #ifndef __leading_underscore
 #define SYMBOL(x) _##x
-#else
+#інакше
 #define SYMBOL(x) x
 #endif
 
@@ -62,7 +62,7 @@ struct trapframe {
 #define RETN(x) do { \
     M_DWORD(R_ESP + (x)) = M_DWORD(R_ESP); \
     R_ESP += (x); \
-} while (0)
+} поки (0)
 
 #define DUMP() do { \
     unsigned i; \
@@ -76,10 +76,10 @@ struct trapframe {
     printf("EDI: %08X\n", R_EDI); \
     printf("\n"); \
     printf("[RETADDR]: %08X\n", M_DWORD(R_ESP)); \
-    for (i = 1; i <= 8; i++) { \
+    для (i = 1; i <= 8; i++) { \
         printf("[ARG%4d]: %08X\n", i, ARG(i)); \
     } \
-} while (0)
+} поки (0)
 
 #define SET_TRAP_HANDLER(x) ((SYMBOL(trap_handler)) = (x))
 #define TRAP ((void *) &SYMBOL(trap))
@@ -194,39 +194,39 @@ void test_fastcall_invoke()
 //////////                TEST FUNCTION CODE GENERATION
 /////////////////////////////////////////////////////////////////////////
 
-int __fastcall check_fastcall_espdiff_0(void)
+ціле __fastcall check_fastcall_espdiff_0(void)
 {
-    return 0;
+    повернути 0;
 }
 
-int __fastcall check_fastcall_espdiff_1(int a)
+ціле __fastcall check_fastcall_espdiff_1(ціле a)
 {
-    return a;
+    повернути a;
 }
 
-int __fastcall check_fastcall_espdiff_2(int a, int b)
+ціле __fastcall check_fastcall_espdiff_2(ціле a, ціле b)
 {
-    return a + b;
+    повернути a + b;
 }
 
-int __fastcall check_fastcall_espdiff_3(int a, int b, int c)
+ціле __fastcall check_fastcall_espdiff_3(ціле a, ціле b, ціле c)
 {
-    return a + b + c;
+    повернути a + b + c;
 }
 
-int __fastcall check_fastcall_espdiff_4(int a, int b, int c, int d)
+ціле __fastcall check_fastcall_espdiff_4(ціле a, ціле b, ціле c, ціле d)
 {
-    return a + b + c + d;
+    повернути a + b + c + d;
 }
 
-int __fastcall check_fastcall_espdiff_5(int a, int b, int c, int d, int e)
+ціле __fastcall check_fastcall_espdiff_5(ціле a, ціле b, ціле c, ціле d, ціле e)
 {
-    return a + b + c + d + e;
+    повернути a + b + c + d + e;
 }
 
 void test_fastcall_espdiff()
 {
-    int x;
+    ціле x;
     SET_SAFECALL_TARGET(check_fastcall_espdiff_0);
     x = ((typeof(&check_fastcall_espdiff_0))SAFECALL)();
     assert(x == 0);
@@ -258,19 +258,19 @@ void test_fastcall_espdiff()
     assert(ESPDIFF == 3*4);
 }
 
-int main()
+ціле main()
 {
 #define N 10000
-    int i;
+    ціле i;
 
-    for (i = 1; i <= N; i++) {
+    для (i = 1; i <= N; i++) {
         test_fastcall_espdiff();
     }
 
-    for (i = 1; i <= N; i++) {
+    для (i = 1; i <= N; i++) {
         test_fastcall_invoke();
     }
 
     puts("TEST OK");
-    return 0;
+    повернути 0;
 }

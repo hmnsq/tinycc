@@ -1,4 +1,4 @@
-extern int write (int fd, void *buf, int len);
+extern ціле write (ціле fd, void *buf, ціле len);
 
 static void __attribute__ ((constructor))
 testc (void)
@@ -12,9 +12,9 @@ testd (void)
   write (1, "destructor\n", 11);
 }
 
-int
+ціле
 main (void)
 {
   write (1, "main\n", 5);
-  return 0;
+  повернути 0;
 }

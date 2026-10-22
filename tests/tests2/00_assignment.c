@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main() 
+ціле main() 
 {
-   int a;
+   ціле a;
    a = 42;
    printf("%d\n", a);
 
-   int b = 64;
+   ціле b = 64;
    printf("%d\n", b);
 
-   int c = 12, d = 34;
+   ціле c = 12, d = 34;
    printf("%d, %d\n", c, d);
 
-   return 0;
+   повернути 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

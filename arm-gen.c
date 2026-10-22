@@ -23,14 +23,14 @@
 
 #ifdef TARGET_DEFS_ONLY
 
-#if defined(TCC_ARM_EABI) && !defined(TCC_ARM_VFP)
+#якщо defined(TCC_ARM_EABI) && !defined(TCC_ARM_VFP)
 #error "Currently TinyCC only supports float computation with VFP instructions"
 #endif
 
 /* number of available registers */
 #ifdef TCC_ARM_VFP
 #define NB_REGS            13
-#else
+#інакше
 #define NB_REGS             9
 #endif
 
@@ -120,11 +120,11 @@ enum {
 
 #ifdef TCC_ARM_EABI
 #define LDOUBLE_ALIGN 8
-#else
+#інакше
 #define LDOUBLE_ALIGN 4
 #endif
 
-#if LDOUBLE_SIZE == 8
+#якщо LDOUBLE_SIZE == 8
 # define TCC_USING_DOUBLE_FOR_LDOUBLE 1
 #endif
 
@@ -137,7 +137,7 @@ enum {
 #define ARM_HARD_FLOAT 1
 
 /******************************************************/
-#else /* ! TARGET_DEFS_ONLY */
+#інакше /* ! TARGET_DEFS_ONLY */
 /******************************************************/
 #define USING_GLOBALS
 #include "tcc.h"
@@ -152,12 +152,12 @@ ST_DATA const char * const target_machine_defs =
     "__ARM_ARCH_4__\0"
     "__ARMEL__\0"
     "__APCS_32__\0"
-#if defined TCC_ARM_EABI
+#якщо defined TCC_ARM_EABI
     "__ARM_EABI__\0"
 #endif
     ;
 
-ST_DATA const int reg_classes[NB_REGS] = {
+ST_DATA const ціле reg_classes[NB_REGS] = {
     /* r0 */ RC_INT | RC_R0,
     /* r1 */ RC_INT | RC_R1,
     /* r2 */ RC_INT | RC_R2,
@@ -175,17 +175,17 @@ ST_DATA const int reg_classes[NB_REGS] = {
 #endif
 };
 
-static int float_abi;
-static int func_sub_sp_offset, last_itod_magic;
-static int leaffunc;
+static ціле float_abi;
+static ціле func_sub_sp_offset, last_itod_magic;
+static ціле leaffunc;
 
-#if defined(CONFIG_TCC_BCHECK)
+#якщо defined(CONFIG_TCC_BCHECK)
 static addr_t func_bound_offset;
 static unsigned long func_bound_ind;
-ST_DATA int func_bound_add_epilog;
+ST_DATA ціле func_bound_add_epilog;
 #endif
 
-#if defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
+#якщо defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
 static CType float_type, double_type, func_float_type, func_double_type;
 ST_FUNC void arm_init(struct TCCState *s)
 {
@@ -202,18 +202,18 @@ ST_FUNC void arm_init(struct TCCState *s)
 // # warning "soft float ABI currently not supported: default to softfp"
 #endif
 }
-#else
+#інакше
 #define func_float_type func_old_type
 #define func_double_type func_old_type
 #define func_ldouble_type func_old_type
 ST_FUNC void arm_init(struct TCCState *s)
 {
-#if 0
-#if !defined (TCC_ARM_VFP)
+#якщо 0
+#якщо !defined (TCC_ARM_VFP)
     tcc_warning("Support for FPA is deprecated and will be removed in next"
                 " release");
 #endif
-#if !defined (TCC_ARM_EABI)
+#якщо !defined (TCC_ARM_EABI)
     tcc_warning("Support for OABI is deprecated and will be removed in next"
                 " release");
 #endif
@@ -223,16 +223,16 @@ ST_FUNC void arm_init(struct TCCState *s)
 
 #define CHECK_R(r) ((r) >= TREG_R0 && (r) <= TREG_LR)
 
-static int two2mask(int a,int b) {
-  if (!CHECK_R(a) || !CHECK_R(b))
+static ціле two2mask(ціле a,ціле b) {
+  якщо (!CHECK_R(a) || !CHECK_R(b))
     tcc_error("compiler error! registers %i,%i is not valid",a,b);
-  return (reg_classes[a]|reg_classes[b])&~(RC_INT|RC_FLOAT);
+  повернути (reg_classes[a]|reg_classes[b])&~(RC_INT|RC_FLOAT);
 }
 
-static int regmask(int r) {
-  if (!CHECK_R(r))
+static ціле regmask(ціле r) {
+  якщо (!CHECK_R(r))
     tcc_error("compiler error! register %i is not valid",r);
-  return reg_classes[r]&~(RC_INT|RC_FLOAT);
+  повернути reg_classes[r]&~(RC_INT|RC_FLOAT);
 }
 
 /******************************************************/
@@ -240,14 +240,14 @@ static int regmask(int r) {
 void o(uint32_t i)
 {
   /* this is a good place to start adding big-endian support*/
-  int ind1;
-  if (nocode_wanted)
-    return;
+  ціле ind1;
+  якщо (nocode_wanted)
+    повернути;
   ind1 = ind + 4;
-  if (!cur_text_section)
+  якщо (!cur_text_section)
     tcc_error("compiler error! This happens f.ex. if the compiler\n"
          "can't evaluate constant expressions outside of a function.");
-  if (ind1 > cur_text_section->data_allocated)
+  якщо (ind1 > cur_text_section->data_allocated)
     section_realloc(cur_text_section, ind1);
   cur_text_section->data[ind++] = i&255;
   i>>=8;
@@ -260,7 +260,7 @@ void o(uint32_t i)
 
 static uint32_t stuff_const(uint32_t op, uint32_t c)
 {
-  int try_neg=0;
+  ціле try_neg=0;
   uint32_t nc = 0, negop = 0;
 
   switch(op&0x1F00000)
@@ -278,36 +278,36 @@ static uint32_t stuff_const(uint32_t op, uint32_t c)
       nc=~c;
       break;
     case 0x200000: //xor
-      if(c==~0)
-	return (op&0xF010F000)|((op>>16)&0xF)|0x1E00000;
+      якщо(c==~0)
+	повернути (op&0xF010F000)|((op>>16)&0xF)|0x1E00000;
       break;
     case 0x0: //and
-      if(c==~0)
-	return (op&0xF010F000)|((op>>16)&0xF)|0x1A00000;
+      якщо(c==~0)
+	повернути (op&0xF010F000)|((op>>16)&0xF)|0x1A00000;
     case 0x1C00000: //bic
       try_neg=1;
       negop=op^0x1C00000;
       nc=~c;
       break;
     case 0x1800000: //orr
-      if(c==~0)
-	return (op&0xFFF0FFFF)|0x1E00000;
+      якщо(c==~0)
+	повернути (op&0xFFF0FFFF)|0x1E00000;
       break;
   }
   do {
     uint32_t m;
-    int i;
-    if(c<256) /* catch undefined <<32 */
-      return op|c;
-    for(i=2;i<32;i+=2) {
+    ціле i;
+    якщо(c<256) /* catch undefined <<32 */
+      повернути op|c;
+    для(i=2;i<32;i+=2) {
       m=(0xffu>>i)|(0xffu<<(32-i));
-      if(!(c&~m))
-	return op|(i<<7)|(c<<i)|(c>>(32-i));
+      якщо(!(c&~m))
+	повернути op|(i<<7)|(c<<i)|(c>>(32-i));
     }
     op=negop;
     c=nc;
-  } while(try_neg--);
-  return 0;
+  } поки(try_neg--);
+  повернути 0;
 }
 
 
@@ -315,51 +315,51 @@ static uint32_t stuff_const(uint32_t op, uint32_t c)
 void stuff_const_harder(uint32_t op, uint32_t v) {
   uint32_t x;
   x=stuff_const(op,v);
-  if(x)
+  якщо(x)
     o(x);
-  else {
+  інакше {
     uint32_t a[16], nv, no, o2, n2;
-    int i,j,k;
+    ціле i,j,k;
     a[0]=0xff;
     o2=(op&0xfff0ffff)|((op&0xf000)<<4);;
-    for(i=1;i<16;i++)
+    для(i=1;i<16;i++)
       a[i]=(a[i-1]>>2)|(a[i-1]<<30);
-    for(i=0;i<12;i++)
-      for(j=i<4?i+12:15;j>=i+4;j--)
-	if((v&(a[i]|a[j]))==v) {
+    для(i=0;i<12;i++)
+      для(j=i<4?i+12:15;j>=i+4;j--)
+	якщо((v&(a[i]|a[j]))==v) {
 	  o(stuff_const(op,v&a[i]));
 	  o(stuff_const(o2,v&a[j]));
-	  return;
+	  повернути;
 	}
     no=op^0xC00000;
     n2=o2^0xC00000;
     nv=-v;
-    for(i=0;i<12;i++)
-      for(j=i<4?i+12:15;j>=i+4;j--)
-	if((nv&(a[i]|a[j]))==nv) {
+    для(i=0;i<12;i++)
+      для(j=i<4?i+12:15;j>=i+4;j--)
+	якщо((nv&(a[i]|a[j]))==nv) {
 	  o(stuff_const(no,nv&a[i]));
 	  o(stuff_const(n2,nv&a[j]));
-	  return;
+	  повернути;
 	}
-    for(i=0;i<8;i++)
-      for(j=i+4;j<12;j++)
-	for(k=i<4?i+12:15;k>=j+4;k--)
-	  if((v&(a[i]|a[j]|a[k]))==v) {
+    для(i=0;i<8;i++)
+      для(j=i+4;j<12;j++)
+	для(k=i<4?i+12:15;k>=j+4;k--)
+	  якщо((v&(a[i]|a[j]|a[k]))==v) {
 	    o(stuff_const(op,v&a[i]));
 	    o(stuff_const(o2,v&a[j]));
 	    o(stuff_const(o2,v&a[k]));
-	    return;
+	    повернути;
 	  }
     no=op^0xC00000;
     nv=-v;
-    for(i=0;i<8;i++)
-      for(j=i+4;j<12;j++)
-	for(k=i<4?i+12:15;k>=j+4;k--)
-	  if((nv&(a[i]|a[j]|a[k]))==nv) {
+    для(i=0;i<8;i++)
+      для(j=i+4;j<12;j++)
+	для(k=i<4?i+12:15;k>=j+4;k--)
+	  якщо((nv&(a[i]|a[j]|a[k]))==nv) {
 	    o(stuff_const(no,nv&a[i]));
 	    o(stuff_const(n2,nv&a[j]));
 	    o(stuff_const(n2,nv&a[k]));
-	    return;
+	    повернути;
 	  }
     o(stuff_const(op,v&a[0]));
     o(stuff_const(o2,v&a[4]));
@@ -368,39 +368,39 @@ void stuff_const_harder(uint32_t op, uint32_t v) {
   }
 }
 
-uint32_t encbranch(int pos, int addr, int fail)
+uint32_t encbranch(ціле pos, ціле addr, ціле fail)
 {
   addr-=pos+8;
   addr/=4;
-  if(addr>=0x1000000 || addr<-0x1000000) {
-    if(fail)
+  якщо(addr>=0x1000000 || addr<-0x1000000) {
+    якщо(fail)
       tcc_error("FIXME: function bigger than 32MB");
-    return 0;
+    повернути 0;
   }
-  return 0x0A000000|(addr&0xffffff);
+  повернути 0x0A000000|(addr&0xffffff);
 }
 
-int decbranch(int pos)
+ціле decbranch(ціле pos)
 {
-  int x;
+  ціле x;
   x=*(uint32_t *)(cur_text_section->data + pos);
   x&=0x00ffffff;
-  if(x&0x800000)
+  якщо(x&0x800000)
     x-=0x1000000;
-  return x*4+pos+8;
+  повернути x*4+pos+8;
 }
 
 /* output a symbol and patch all calls to it */
-void gsym_addr(int t, int a)
+void gsym_addr(ціле t, ціле a)
 {
   uint32_t *x;
-  int lt;
-  while(t) {
+  ціле lt;
+  поки(t) {
     x=(uint32_t *)(cur_text_section->data + t);
     t=decbranch(lt=t);
-    if(a==lt+4)
+    якщо(a==lt+4)
       *x=0xE1A00000; // nop
-    else {
+    інакше {
       *x &= 0xff000000;
       *x |= encbranch(lt,a,1);
     }
@@ -408,170 +408,170 @@ void gsym_addr(int t, int a)
 }
 
 #ifdef TCC_ARM_VFP
-static uint32_t vfpr(int r)
+static uint32_t vfpr(ціле r)
 {
-  if(r<TREG_F0 || r>TREG_F7)
+  якщо(r<TREG_F0 || r>TREG_F7)
     tcc_error("compiler error! register %i is no vfp register",r);
-  return r - TREG_F0;
+  повернути r - TREG_F0;
 }
-#else
-static uint32_t fpr(int r)
+#інакше
+static uint32_t fpr(ціле r)
 {
-  if(r<TREG_F0 || r>TREG_F3)
+  якщо(r<TREG_F0 || r>TREG_F3)
     tcc_error("compiler error! register %i is no fpa register",r);
-  return r - TREG_F0;
+  повернути r - TREG_F0;
 }
 #endif
 
-static uint32_t intr(int r)
+static uint32_t intr(ціле r)
 {
-  if(r == TREG_R12)
-    return 12;
-  if(r >= TREG_R0 && r <= TREG_R3)
-    return r - TREG_R0;
-  if (!(r >= TREG_SP && r <= TREG_LR))
+  якщо(r == TREG_R12)
+    повернути 12;
+  якщо(r >= TREG_R0 && r <= TREG_R3)
+    повернути r - TREG_R0;
+  якщо (!(r >= TREG_SP && r <= TREG_LR))
     tcc_error("compiler error! register %i is no int register",r);
-  return r + (13 - TREG_SP);
+  повернути r + (13 - TREG_SP);
 }
 
-static void calcaddr(uint32_t *base, int *off, int *sgn, int maxoff, unsigned shift)
+static void calcaddr(uint32_t *base, ціле *off, ціле *sgn, ціле maxoff, unsigned shift)
 {
-  if(*off>maxoff || *off&((1<<shift)-1)) {
+  якщо(*off>maxoff || *off&((1<<shift)-1)) {
     uint32_t x, y;
     x=0xE280E000;
-    if(*sgn)
+    якщо(*sgn)
       x=0xE240E000;
     x|=(*base)<<16;
     *base=14; // lr
     y=stuff_const(x,*off&~maxoff);
-    if(y) {
+    якщо(y) {
       o(y);
       *off&=maxoff;
-      return;
+      повернути;
     }
     y=stuff_const(x,(*off+maxoff)&~maxoff);
-    if(y) {
+    якщо(y) {
       o(y);
       *sgn=!*sgn;
       *off=((*off+maxoff)&~maxoff)-*off;
-      return;
+      повернути;
     }
     stuff_const_harder(x,*off&~maxoff);
     *off&=maxoff;
   }
 }
 
-static uint32_t mapcc(int cc)
+static uint32_t mapcc(ціле cc)
 {
   switch(cc)
   {
     case TOK_ULT:
-      return 0x30000000; /* CC/LO */
+      повернути 0x30000000; /* CC/LO */
     case TOK_UGE:
-      return 0x20000000; /* CS/HS */
+      повернути 0x20000000; /* CS/HS */
     case TOK_EQ:
-      return 0x00000000; /* EQ */
+      повернути 0x00000000; /* EQ */
     case TOK_NE:
-      return 0x10000000; /* NE */
+      повернути 0x10000000; /* NE */
     case TOK_ULE:
-      return 0x90000000; /* LS */
+      повернути 0x90000000; /* LS */
     case TOK_UGT:
-      return 0x80000000; /* HI */
+      повернути 0x80000000; /* HI */
     case TOK_Nset:
-      return 0x40000000; /* MI */
+      повернути 0x40000000; /* MI */
     case TOK_Nclear:
-      return 0x50000000; /* PL */
+      повернути 0x50000000; /* PL */
     case TOK_LT:
-      return 0xB0000000; /* LT */
+      повернути 0xB0000000; /* LT */
     case TOK_GE:
-      return 0xA0000000; /* GE */
+      повернути 0xA0000000; /* GE */
     case TOK_LE:
-      return 0xD0000000; /* LE */
+      повернути 0xD0000000; /* LE */
     case TOK_GT:
-      return 0xC0000000; /* GT */
+      повернути 0xC0000000; /* GT */
   }
   tcc_error("unexpected condition code");
-  return 0xE0000000; /* AL */
+  повернути 0xE0000000; /* AL */
 }
 
-static int negcc(int cc)
+static ціле negcc(ціле cc)
 {
   switch(cc)
   {
     case TOK_ULT:
-      return TOK_UGE;
+      повернути TOK_UGE;
     case TOK_UGE:
-      return TOK_ULT;
+      повернути TOK_ULT;
     case TOK_EQ:
-      return TOK_NE;
+      повернути TOK_NE;
     case TOK_NE:
-      return TOK_EQ;
+      повернути TOK_EQ;
     case TOK_ULE:
-      return TOK_UGT;
+      повернути TOK_UGT;
     case TOK_UGT:
-      return TOK_ULE;
+      повернути TOK_ULE;
     case TOK_Nset:
-      return TOK_Nclear;
+      повернути TOK_Nclear;
     case TOK_Nclear:
-      return TOK_Nset;
+      повернути TOK_Nset;
     case TOK_LT:
-      return TOK_GE;
+      повернути TOK_GE;
     case TOK_GE:
-      return TOK_LT;
+      повернути TOK_LT;
     case TOK_LE:
-      return TOK_GT;
+      повернути TOK_GT;
     case TOK_GT:
-      return TOK_LE;
+      повернути TOK_LE;
   }
   tcc_error("unexpected condition code");
-  return TOK_NE;
+  повернути TOK_NE;
 }
 
 /* Load value into register r.
    Use relative/got addressing to avoid setting DT_TEXTREL */
-static void load_value(SValue *sv, int r)
+static void load_value(SValue *sv, ціле r)
 {
-#if CONFIG_TCC_CPUVER >= 7
-    if (!(sv->r & VT_SYM)) {
+#якщо CONFIG_TCC_CPUVER >= 7
+    якщо (!(sv->r & VT_SYM)) {
         unsigned x=sv->c.i;
         o(0xE3000000|intr(r)<<12|(x&0xFFF)|(x<<4&0xF0000)); /* movw rx,#x(lo) */
-        if (x&0xFFFF0000)
+        якщо (x&0xFFFF0000)
           o(0xE3400000|intr(r)<<12|(x>>16&0xFFF)|(x>>12&0xF0000)); /* movt rx,#x(hi) */
-        return;
+        повернути;
     }
 #endif
     o(0xE59F0000|(intr(r)<<12)); /* ldr r, [pc] */
     o(0xEA000000); /* b $+4 */
 #ifndef CONFIG_TCC_PIC
-    if(sv->r & VT_SYM)
+    якщо(sv->r & VT_SYM)
         greloc(cur_text_section, sv->sym, ind, R_ARM_ABS32);
     o(sv->c.i);
-#else
-    if(sv->r & VT_SYM) {
-	if (sv->sym->type.t & VT_STATIC) {
+#інакше
+    якщо(sv->r & VT_SYM) {
+	якщо (sv->sym->type.t & VT_STATIC) {
             greloc(cur_text_section, sv->sym, ind, R_ARM_REL32);
             o(sv->c.i - 12);
             o(0xe080000f | (intr(r)<<12) | (intr(r)<<16));  // add rx,rx,pc
         }
-        else {
+        інакше {
             greloc(cur_text_section, sv->sym, ind, R_ARM_GOT_PREL);
             o(-12);
             o(0xe080000f | (intr(r)<<12) | (intr(r)<<16));  // add rx,rx,pc
             o(0xe5900000 | (intr(r)<<12) | (intr(r)<<16));  // ldr rx,[rx]
-            if (sv->c.i)
+            якщо (sv->c.i)
               stuff_const_harder(0xe2800000 | (intr(r)<<12) | (intr(r)<<16),
                                  sv->c.i);
         }
     }
-    else
+    інакше
         o(sv->c.i);
 #endif
 }
 
 /* load 'r' from value 'sv' */
-void load(int r, SValue *sv)
+void load(ціле r, SValue *sv)
 {
-  int v, ft, fc, fr, sign;
+  ціле v, ft, fc, fr, sign;
   uint32_t op, base;
   SValue v1;
 
@@ -579,28 +579,28 @@ void load(int r, SValue *sv)
   ft = sv->type.t;
   fc = sv->c.i;
 
-  if(fc>=0)
+  якщо(fc>=0)
     sign=0;
-  else {
+  інакше {
     sign=1;
     fc=-(unsigned)fc;
   }
 
   v = fr & VT_VALMASK;
-  if (fr & VT_LVAL) {
+  якщо (fr & VT_LVAL) {
 
-    if ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
+    якщо ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
         /* XXX: this does not work */
         uint32_t op;
         o(0xee1d0fe0); /* mrc p15, 0, lr, c13, c0, 3 */
         op = 0xe510e000; /* ldr r, [lr, #0] */
         greloca(cur_text_section, sv->sym, ind, R_ARM_TLS_LE32, 0);
         o(op | (intr(r) << 12));
-        return;
+        повернути;
     }
 
     base = 0xB; // fp
-    if(v == VT_LLOCAL) {
+    якщо(v == VT_LLOCAL) {
       v1.type.t = VT_PTR;
       v1.r = VT_LOCAL | VT_LVAL;
       v1.c.i = sv->c.i;
@@ -608,7 +608,7 @@ void load(int r, SValue *sv)
       base = 14; /* lr */
       fc=sign=0;
       v=VT_LOCAL;
-    } else if(v == VT_CONST) {
+    } інакше якщо(v == VT_CONST) {
       v1.type.t = VT_PTR;
       v1.r = fr&~VT_LVAL;
       v1.c.i = sv->c.i;
@@ -617,135 +617,135 @@ void load(int r, SValue *sv)
       base = 14; /* lr */
       fc=sign=0;
       v=VT_LOCAL;
-    } else if(v < VT_CONST) {
+    } інакше якщо(v < VT_CONST) {
       base=intr(v);
       fc=sign=0;
       v=VT_LOCAL;
     }
-    if(v == VT_LOCAL) {
-      if(is_float(ft)) {
+    якщо(v == VT_LOCAL) {
+      якщо(is_float(ft)) {
 	calcaddr(&base,&fc,&sign,1020,2);
 #ifdef TCC_ARM_VFP
         op=0xED100A00; /* flds */
-        if(!sign)
+        якщо(!sign)
           op|=0x800000;
-        if ((ft & VT_BTYPE) != VT_FLOAT)
+        якщо ((ft & VT_BTYPE) != VT_FLOAT)
           op|=0x100;   /* flds -> fldd */
         o(op|(vfpr(r)<<12)|(fc>>2)|(base<<16));
-#else
+#інакше
 	op=0xED100100;
-	if(!sign)
+	якщо(!sign)
 	  op|=0x800000;
-	if ((ft & VT_BTYPE) == VT_DOUBLE)
+	якщо ((ft & VT_BTYPE) == VT_DOUBLE)
 	  op|=0x8000;
-#if LDOUBLE_SIZE != 8
-	else if ((ft & VT_BTYPE) == VT_LDOUBLE)
+#якщо LDOUBLE_SIZE != 8
+	інакше якщо ((ft & VT_BTYPE) == VT_LDOUBLE)
 	  op|=0x400000;
 #endif
 	o(op|(fpr(r)<<12)|(fc>>2)|(base<<16));
 #endif
-      } else if((ft & (VT_BTYPE|VT_UNSIGNED)) == VT_BYTE
+      } інакше якщо((ft & (VT_BTYPE|VT_UNSIGNED)) == VT_BYTE
                 || (ft & VT_BTYPE) == VT_SHORT) {
 	calcaddr(&base,&fc,&sign,255,0);
 	op=0xE1500090;
-	if ((ft & VT_BTYPE) == VT_SHORT)
+	якщо ((ft & VT_BTYPE) == VT_SHORT)
 	  op|=0x20;
-	if ((ft & VT_UNSIGNED) == 0)
+	якщо ((ft & VT_UNSIGNED) == 0)
 	  op|=0x40;
-	if(!sign)
+	якщо(!sign)
 	  op|=0x800000;
 	o(op|(intr(r)<<12)|(base<<16)|((fc&0xf0)<<4)|(fc&0xf));
-      } else {
+      } інакше {
 	calcaddr(&base,&fc,&sign,4095,0);
 	op=0xE5100000;
-	if(!sign)
+	якщо(!sign)
 	  op|=0x800000;
-        if ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
+        якщо ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
           op|=0x400000;
         o(op|(intr(r)<<12)|fc|(base<<16));
       }
-      return;
+      повернути;
     }
-  } else {
-    if (v == VT_CONST) {
+  } інакше {
+    якщо (v == VT_CONST) {
       op=stuff_const(0xE3A00000|(intr(r)<<12),sv->c.i);
-      if (fr & VT_SYM || !op)
+      якщо (fr & VT_SYM || !op)
 	load_value(sv, r);
-      else
+      інакше
         o(op);
-      return;
-    } else if (v == VT_LOCAL) {
+      повернути;
+    } інакше якщо (v == VT_LOCAL) {
       op=stuff_const(0xE28B0000|(intr(r)<<12),sv->c.i);
-      if (fr & VT_SYM || !op) {
+      якщо (fr & VT_SYM || !op) {
 	load_value(sv, r);
 	o(0xE08B0000|(intr(r)<<12)|intr(r));
-      } else
+      } інакше
 	o(op);
-      return;
-    } else if(v == VT_CMP) {
+      повернути;
+    } інакше якщо(v == VT_CMP) {
       o(mapcc(sv->c.i)|0x3A00001|(intr(r)<<12));
       o(mapcc(negcc(sv->c.i))|0x3A00000|(intr(r)<<12));
-      return;
-    } else if (v == VT_JMP || v == VT_JMPI) {
-      int t;
+      повернути;
+    } інакше якщо (v == VT_JMP || v == VT_JMPI) {
+      ціле t;
       t = v & 1;
       o(0xE3A00000|(intr(r)<<12)|t);
       o(0xEA000000);
       gsym(sv->c.i);
       o(0xE3A00000|(intr(r)<<12)|(t^1));
-      return;
-    } else if (v < VT_CONST) {
-      if(is_float(ft))
+      повернути;
+    } інакше якщо (v < VT_CONST) {
+      якщо(is_float(ft))
 #ifdef TCC_ARM_VFP
         o(0xEEB00A40|(vfpr(r)<<12)|vfpr(v)|T2CPR(ft)); /* fcpyX */
-#else
+#інакше
 	o(0xEE008180|(fpr(r)<<12)|fpr(v));
 #endif
-      else
+      інакше
 	o(0xE1A00000|(intr(r)<<12)|intr(v));
-      return;
+      повернути;
     }
   }
   tcc_error("load unimplemented!");
 }
 
 /* store register 'r' in lvalue 'v' */
-void store(int r, SValue *sv)
+void store(ціле r, SValue *sv)
 {
   SValue v1;
-  int v, ft, fc, fr, sign;
+  ціле v, ft, fc, fr, sign;
   uint32_t op, base;
 
   fr = sv->r;
   ft = sv->type.t;
   fc = sv->c.i;
 
-  if(fc>=0)
+  якщо(fc>=0)
     sign=0;
-  else {
+  інакше {
     sign=1;
     fc=-fc;
   }
 
   v = fr & VT_VALMASK;
-  if (fr & VT_LVAL || fr == VT_LOCAL) {
+  якщо (fr & VT_LVAL || fr == VT_LOCAL) {
 
-    if ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
+    якщо ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
         /* XXX: this does not work */
         uint32_t op;
         o(0xee1d0fe0); /* mrc p15, 0, lr, c13, c0, 3 */
         op = 0xe500e000; /* str r, [lr, #0] */
         greloca(cur_text_section, sv->sym, ind, R_ARM_TLS_LE32, 0);
         o(op | (intr(r) << 12));
-        return;
+        повернути;
     }
 
     base = 0xb; /* fp */
-    if(v < VT_CONST) {
+    якщо(v < VT_CONST) {
       base=intr(v);
       v=VT_LOCAL;
       fc=sign=0;
-    } else if(v == VT_CONST) {
+    } інакше якщо(v == VT_CONST) {
       v1.type.t = ft;
       v1.r = fr&~VT_LVAL;
       v1.c.i = sv->c.i;
@@ -755,97 +755,97 @@ void store(int r, SValue *sv)
       fc=sign=0;
       v=VT_LOCAL;
     }
-    if(v == VT_LOCAL) {
-       if(is_float(ft)) {
+    якщо(v == VT_LOCAL) {
+       якщо(is_float(ft)) {
 	calcaddr(&base,&fc,&sign,1020,2);
 #ifdef TCC_ARM_VFP
         op=0xED000A00; /* fsts */
-        if(!sign)
+        якщо(!sign)
           op|=0x800000;
-        if ((ft & VT_BTYPE) != VT_FLOAT)
+        якщо ((ft & VT_BTYPE) != VT_FLOAT)
           op|=0x100;   /* fsts -> fstd */
         o(op|(vfpr(r)<<12)|(fc>>2)|(base<<16));
-#else
+#інакше
 	op=0xED000100;
-	if(!sign)
+	якщо(!sign)
 	  op|=0x800000;
-	if ((ft & VT_BTYPE) == VT_DOUBLE)
+	якщо ((ft & VT_BTYPE) == VT_DOUBLE)
 	  op|=0x8000;
-#if LDOUBLE_SIZE != 8
-	else if ((ft & VT_BTYPE) == VT_LDOUBLE)
+#якщо LDOUBLE_SIZE != 8
+	інакше якщо ((ft & VT_BTYPE) == VT_LDOUBLE)
 	  op|=0x400000;
 #endif
 	o(op|(fpr(r)<<12)|(fc>>2)|(base<<16));
 #endif
-	return;
-      } else if((ft & VT_BTYPE) == VT_SHORT) {
+	повернути;
+      } інакше якщо((ft & VT_BTYPE) == VT_SHORT) {
 	calcaddr(&base,&fc,&sign,255,0);
 	op=0xE14000B0;
-	if(!sign)
+	якщо(!sign)
 	  op|=0x800000;
 	o(op|(intr(r)<<12)|(base<<16)|((fc&0xf0)<<4)|(fc&0xf));
-      } else {
+      } інакше {
 	calcaddr(&base,&fc,&sign,4095,0);
 	op=0xE5000000;
-	if(!sign)
+	якщо(!sign)
 	  op|=0x800000;
-        if ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
+        якщо ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
           op|=0x400000;
         o(op|(intr(r)<<12)|fc|(base<<16));
       }
-      return;
+      повернути;
     }
   }
   tcc_error("store unimplemented");
 }
 
-static void gadd_sp(int val)
+static void gadd_sp(ціле val)
 {
   stuff_const_harder(0xE28DD000,val);
 }
 
 /* 'is_jmp' is '1' if it is a jump */
-static void gcall_or_jmp(int is_jmp)
+static void gcall_or_jmp(ціле is_jmp)
 {
-  int r;
+  ціле r;
   uint32_t x;
-  if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+  якщо ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
     /* constant case */
-    if(vtop->r & VT_SYM){
+    якщо(vtop->r & VT_SYM){
 	x=encbranch(ind,ind+vtop->c.i,0);
-	if(x) {
+	якщо(x) {
 	    /* relocation case */
 	    greloc(cur_text_section, vtop->sym, ind, R_ARM_PC24);
 	    o(x|(is_jmp?0xE0000000:0xE1000000));
-	} else {
+	} інакше {
 	    r = TREG_LR;
 	    load_value(vtop, r);
-	    if(is_jmp)
+	    якщо(is_jmp)
 	        o(0xE1A0F000 | intr(r)); // mov pc, r
-	    else
+	    інакше
 		o(0xe12fff30 | intr(r)); // blx r
 	}
-     }else{
-	if(!is_jmp)
+     }інакше{
+	якщо(!is_jmp)
 	    o(0xE28FE004); // add lr,pc,#4
 	o(0xE51FF004);   // ldr pc,[pc,#-4]
 	o(vtop->c.i);
      }
-  } else {
+  } інакше {
     /* otherwise, indirect call */
 #ifdef CONFIG_TCC_BCHECK
     vtop->r &= ~VT_MUSTBOUND;
 #endif
     r = gv(RC_INT);
-    if(!is_jmp)
+    якщо(!is_jmp)
       o(0xE1A0E00F);       // mov lr,pc
     o(0xE1A0F000|intr(r)); // mov pc,r
   }
 }
 
-#if defined(CONFIG_TCC_BCHECK)
+#якщо defined(CONFIG_TCC_BCHECK)
 
-static void gen_bounds_call(int v)
+static void gen_bounds_call(ціле v)
 {
     Sym *sym = external_helper_sym(v);
 
@@ -871,10 +871,10 @@ static void gen_bounds_epilog(void)
     addr_t saved_ind;
     addr_t *bounds_ptr;
     Sym *sym_data;
-    int offset_modified = func_bound_offset != lbounds_section->data_offset;
+    ціле offset_modified = func_bound_offset != lbounds_section->data_offset;
 
-    if (!offset_modified && !func_bound_add_epilog)
-        return;
+    якщо (!offset_modified && !func_bound_add_epilog)
+        повернути;
 
     /* add end of table info */
     bounds_ptr = section_ptr_add(lbounds_section, sizeof(addr_t));
@@ -884,7 +884,7 @@ static void gen_bounds_epilog(void)
                            func_bound_offset, PTR_SIZE);
 
     /* generate bound local allocation */
-    if (offset_modified) {
+    якщо (offset_modified) {
         saved_ind = ind;
         ind = func_bound_ind;
         o(0xe59f0000);  /* ldr r0, [pc] */
@@ -915,30 +915,30 @@ static void gen_bounds_epilog(void)
    primitive float type and there is less than 4 elements.
 
    type: the type corresponding to the structure to be tested */
-static int is_hgen_float_aggr(CType *type)
+static ціле is_hgen_float_aggr(CType *type)
 {
-  if ((type->t & VT_BTYPE) == VT_STRUCT) {
+  якщо ((type->t & VT_BTYPE) == VT_STRUCT) {
     struct Sym *ref;
-    int btype, nb_fields = 0;
+    ціле btype, nb_fields = 0;
 
     ref = type->ref->next;
-    if (ref) {
+    якщо (ref) {
       btype = ref->type.t & VT_BTYPE;
-      if (btype == VT_FLOAT || btype == VT_DOUBLE) {
-        for(; ref && btype == (ref->type.t & VT_BTYPE); ref = ref->next, nb_fields++)
+      якщо (btype == VT_FLOAT || btype == VT_DOUBLE) {
+        для(; ref && btype == (ref->type.t & VT_BTYPE); ref = ref->next, nb_fields++)
             ;
-        return !ref && nb_fields <= 4;
+        повернути !ref && nb_fields <= 4;
       }
     }
   }
-  return 0;
+  повернути 0;
 }
 
 struct avail_regs {
   signed char avail[3]; /* 3 holes max with only float and double alignments */
-  int first_hole; /* first available hole */
-  int last_hole; /* last available hole (none if equal to first_hole) */
-  int first_free_reg; /* next free register in the sequence, hole excluded */
+  ціле first_hole; /* first available hole */
+  ціле last_hole; /* last available hole (none if equal to first_hole) */
+  ціле first_free_reg; /* next free register in the sequence, hole excluded */
 };
 
 /* Find suitable registers for a VFP Co-Processor Register Candidate (VFP CPRC
@@ -950,38 +950,38 @@ struct avail_regs {
    avregs: opaque structure to keep track of available VFP co-processor regs
    align: alignment constraints for the param, as returned by type_size()
    size: size of the parameter, as returned by type_size() */
-int assign_vfpreg(struct avail_regs *avregs, int align, int size)
+ціле assign_vfpreg(struct avail_regs *avregs, ціле align, ціле size)
 {
-  int first_reg = 0;
+  ціле first_reg = 0;
 
-  if (avregs->first_free_reg == -1)
-    return -1;
-  if (align >> 3) { /* double alignment */
+  якщо (avregs->first_free_reg == -1)
+    повернути -1;
+  якщо (align >> 3) { /* double alignment */
     first_reg = avregs->first_free_reg;
     /* alignment constraint not respected so use next reg and record hole */
-    if (first_reg & 1)
+    якщо (first_reg & 1)
       avregs->avail[avregs->last_hole++] = first_reg++;
-  } else { /* no special alignment (float or array of float) */
+  } інакше { /* no special alignment (float or array of float) */
     /* if single float and a hole is available, assign the param to it */
-    if (size == 4 && avregs->first_hole != avregs->last_hole)
-      return avregs->avail[avregs->first_hole++];
-    else
+    якщо (size == 4 && avregs->first_hole != avregs->last_hole)
+      повернути avregs->avail[avregs->first_hole++];
+    інакше
       first_reg = avregs->first_free_reg;
   }
-  if (first_reg + size / 4 <= 16) {
+  якщо (first_reg + size / 4 <= 16) {
     avregs->first_free_reg = first_reg + size / 4;
-    return first_reg;
+    повернути first_reg;
   }
   avregs->first_free_reg = -1;
-  return -1;
+  повернути -1;
 }
 
 /* Returns whether all params need to be passed in core registers or not.
    This is the case for function part of the runtime ABI. */
-int floats_in_core_regs(SValue *sval)
+ціле floats_in_core_regs(SValue *sval)
 {
-  if (!sval->sym)
-    return 0;
+  якщо (!sval->sym)
+    повернути 0;
 
   switch (sval->sym->v) {
     case TOK___floatundisf:
@@ -995,36 +995,36 @@ int floats_in_core_regs(SValue *sval)
     case TOK___floatdidf:
     case TOK___fixsfdi:
     case TOK___fixdfdi:
-      return 1;
+      повернути 1;
 
     default:
-      return 0;
+      повернути 0;
   }
 }
 
 /* Return the number of registers needed to return the struct, or 0 if
    returning via struct pointer. */
-ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *ret_align, int *regsize) {
+ST_FUNC ціле gfunc_sret(CType *vt, ціле variadic, CType *ret, ціле *ret_align, ціле *regsize) {
 #ifdef TCC_ARM_EABI
-    int size, align;
+    ціле size, align;
     size = type_size(vt, &align);
-    if (float_abi == ARM_HARD_FLOAT && !variadic &&
+    якщо (float_abi == ARM_HARD_FLOAT && !variadic &&
         (is_float(vt->t) || is_hgen_float_aggr(vt))) {
         *ret_align = 8;
 	*regsize = 8;
         ret->ref = NULL;
         ret->t = VT_DOUBLE;
-        return (size + 7) >> 3;
-    } else if (size > 0 && size <= 4) {
+        повернути (size + 7) >> 3;
+    } інакше якщо (size > 0 && size <= 4) {
         *ret_align = 4;
 	*regsize = 4;
         ret->ref = NULL;
         ret->t = VT_INT;
-        return 1;
-    } else
-        return 0;
-#else
-    return 0;
+        повернути 1;
+    } інакше
+        повернути 0;
+#інакше
+    повернути 0;
 #endif
 }
 
@@ -1047,8 +1047,8 @@ enum reg_class {
 };
 
 struct param_plan {
-    int start; /* first reg or addr used depending on the class */
-    int end; /* last reg used or next free addr depending on the class */
+    ціле start; /* first reg or addr used depending on the class */
+    ціле end; /* last reg used or next free addr depending on the class */
     SValue *sval; /* pointer to SValue on the value stack */
     struct param_plan *prev; /*  previous element in this class */
 };
@@ -1056,10 +1056,10 @@ struct param_plan {
 struct plan {
     struct param_plan *pplans; /* array of all the param plans */
     struct param_plan *clsplans[NB_CLASSES]; /* per class lists of param plans */
-    int nb_plans;
+    ціле nb_plans;
 };
 
-static void add_param_plan(struct plan* plan, int cls, int start, int end, SValue *v)
+static void add_param_plan(struct plan* plan, ціле cls, ціле start, ціле end, SValue *v)
 {
     struct param_plan *p = &plan->pplans[plan->nb_plans++];
     p->prev = plan->clsplans[cls];
@@ -1084,17 +1084,17 @@ static void add_param_plan(struct plan* plan, int cls, int start, int end, SValu
    Note: this function allocated an array in plan->pplans with tcc_malloc. It
    is the responsibility of the caller to free this array once used (ie not
    before copy_params). */
-static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
+static ціле assign_regs(ціле nb_args, ціле float_abi, struct plan *plan, ціле *todo)
 {
-  int i, size, align;
-  int ncrn /* next core register number */, nsaa /* next stacked argument address*/;
+  ціле i, size, align;
+  ціле ncrn /* next core register number */, nsaa /* next stacked argument address*/;
   struct avail_regs avregs = {{0}};
 
   ncrn = nsaa = 0;
   *todo = 0;
 
-  for(i = nb_args; i-- ;) {
-    int j, start_vfpreg = 0;
+  для(i = nb_args; i-- ;) {
+    ціле j, start_vfpreg = 0;
     CType type = vtop[-i].type;
     type.t &= ~VT_ARRAY;
     size = type_size(&type, &align);
@@ -1105,46 +1105,46 @@ static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
       case VT_FLOAT:
       case VT_DOUBLE:
       case VT_LDOUBLE:
-      if (float_abi == ARM_HARD_FLOAT) {
-        int is_hfa = 0; /* Homogeneous float aggregate */
+      якщо (float_abi == ARM_HARD_FLOAT) {
+        ціле is_hfa = 0; /* Homogeneous float aggregate */
 
-        if (is_float(vtop[-i].type.t)
+        якщо (is_float(vtop[-i].type.t)
             || (is_hfa = is_hgen_float_aggr(&vtop[-i].type))) {
-          int end_vfpreg;
+          ціле end_vfpreg;
 
           start_vfpreg = assign_vfpreg(&avregs, align, size);
           end_vfpreg = start_vfpreg + ((size - 1) >> 2);
-          if (start_vfpreg >= 0) {
+          якщо (start_vfpreg >= 0) {
             add_param_plan(plan, is_hfa ? VFP_STRUCT_CLASS : VFP_CLASS,
                 start_vfpreg, end_vfpreg, &vtop[-i]);
             continue;
-          } else
+          } інакше
             break;
         }
       }
       ncrn = (ncrn + (align-1)/4) & ~((align/4) - 1);
-      if (ncrn + size/4 <= 4 || (ncrn < 4 && start_vfpreg != -1)) {
+      якщо (ncrn + size/4 <= 4 || (ncrn < 4 && start_vfpreg != -1)) {
         /* The parameter is allocated both in core register and on stack. As
 	 * such, it can be of either class: it would either be the last of
 	 * CORE_STRUCT_CLASS or the first of STACK_CLASS. */
-        for (j = ncrn; j < 4 && j < ncrn + size / 4; j++)
+        для (j = ncrn; j < 4 && j < ncrn + size / 4; j++)
           *todo|=(1<<j);
         add_param_plan(plan, CORE_STRUCT_CLASS, ncrn, j, &vtop[-i]);
         ncrn += size/4;
-        if (ncrn > 4)
+        якщо (ncrn > 4)
           nsaa = (ncrn - 4) * 4;
-      } else {
+      } інакше {
         ncrn = 4;
         break;
       }
       continue;
       default:
-      if (ncrn < 4) {
-        int is_long = (vtop[-i].type.t & VT_BTYPE) == VT_LLONG;
+      якщо (ncrn < 4) {
+        ціле is_long = (vtop[-i].type.t & VT_BTYPE) == VT_LLONG;
 
-        if (is_long) {
+        якщо (is_long) {
           ncrn = (ncrn + 1) & -2;
-          if (ncrn == 4)
+          якщо (ncrn == 4)
             break;
         }
         add_param_plan(plan, CORE_CLASS, ncrn, ncrn + is_long, &vtop[-i]);
@@ -1156,7 +1156,7 @@ static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
     add_param_plan(plan, STACK_CLASS, nsaa, nsaa + size, &vtop[-i]);
     nsaa += size; /* size already rounded up before */
   }
-  return nsaa;
+  повернути nsaa;
 }
 
 /* Copy parameters to their final destination (core reg, VFP reg or stack) for
@@ -1167,11 +1167,11 @@ static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
    todo: a bitmap indicating what core reg will hold a parameter
 
    Returns the number of SValue added by this function on the value stack */
-static int copy_params(int nb_args, struct plan *plan, int todo)
+static ціле copy_params(ціле nb_args, struct plan *plan, ціле todo)
 {
-  int size, align, r, i, nb_extra_sval = 0;
+  ціле size, align, r, i, nb_extra_sval = 0;
   struct param_plan *pplan;
-  int pass = 0;
+  ціле pass = 0;
 
    /* Several constraints require parameters to be copied in a specific order:
       - structures are copied to the stack before being loaded in a reg;
@@ -1189,10 +1189,10 @@ static int copy_params(int nb_args, struct plan *plan, int todo)
         VFP regs as the copy might use an even numbered VFP reg that already
         holds part of a structure. */
 again:
-  for(i = 0; i < NB_CLASSES; i++) {
-    for(pplan = plan->clsplans[i]; pplan; pplan = pplan->prev) {
+  для(i = 0; i < NB_CLASSES; i++) {
+    для(pplan = plan->clsplans[i]; pplan; pplan = pplan->prev) {
 
-      if (pass
+      якщо (pass
           && (i != CORE_CLASS || pplan->sval->r < VT_CONST))
         continue;
 
@@ -1202,12 +1202,12 @@ again:
         case STACK_CLASS:
         case CORE_STRUCT_CLASS:
         case VFP_STRUCT_CLASS:
-          if ((pplan->sval->type.t & VT_BTYPE) == VT_STRUCT) {
-            int padding = 0;
+          якщо ((pplan->sval->type.t & VT_BTYPE) == VT_STRUCT) {
+            ціле padding = 0;
             size = type_size(&pplan->sval->type, &align);
             /* align to stack align size */
             size = (size + 3) & ~3;
-            if (i == STACK_CLASS && pplan->prev)
+            якщо (i == STACK_CLASS && pplan->prev)
               padding = pplan->start - pplan->prev->end;
             size += padding; /* Add padding if any */
             /* allocate the necessary size on stack */
@@ -1226,44 +1226,44 @@ again:
                immediately since there is no way of loading data in multiple
                non consecutive VFP registers as what is done for other
                structures (see the use of todo). */
-            if (i == VFP_STRUCT_CLASS) {
-              int first = pplan->start, nb = pplan->end - first + 1;
+            якщо (i == VFP_STRUCT_CLASS) {
+              ціле first = pplan->start, nb = pplan->end - first + 1;
               /* vpop.32 {pplan->start, ..., pplan->end} */
               o(0xECBD0A00|(first&1)<<22|(first>>1)<<12|nb);
               /* No need to write the register used to a SValue since VFP regs
                  cannot be used for gcall_or_jmp */
             }
-          } else {
-            if (is_float(pplan->sval->type.t)) {
+          } інакше {
+            якщо (is_float(pplan->sval->type.t)) {
 #ifdef TCC_ARM_VFP
               r = vfpr(gv(RC_FLOAT)) << 12;
-              if ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
+              якщо ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
                 size = 4;
-              else {
+              інакше {
                 size = 8;
                 r |= 0x101; /* vpush.32 -> vpush.64 */
               }
               o(0xED2D0A01 + r); /* vpush */
-#else
+#інакше
               r = fpr(gv(RC_FLOAT)) << 12;
-              if ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
+              якщо ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
                 size = 4;
-              else if ((pplan->sval->type.t & VT_BTYPE) == VT_DOUBLE)
+              інакше якщо ((pplan->sval->type.t & VT_BTYPE) == VT_DOUBLE)
                 size = 8;
-              else
+              інакше
                 size = LDOUBLE_SIZE;
-              if (size == 12)
+              якщо (size == 12)
                 r |= 0x400000;
-              else if(size == 8)
+              інакше якщо(size == 8)
                 r|=0x8000;
 
               o(0xED2D0100|r|(size>>2)); /* some kind of vpush for FPA */
 #endif
-            } else {
+            } інакше {
               /* simple type (currently always same size) */
               /* XXX: implicit cast ? */
               size=4;
-              if ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
+              якщо ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
                 lexpand();
                 size = 8;
                 r = gv(RC_INT);
@@ -1273,21 +1273,21 @@ again:
               r = gv(RC_INT);
               o(0xE52D0004|(intr(r)<<12)); /* push r */
             }
-            if (i == STACK_CLASS && pplan->prev)
+            якщо (i == STACK_CLASS && pplan->prev)
               gadd_sp(pplan->prev->end - pplan->start); /* Add padding if any */
           }
           break;
 
         case VFP_CLASS:
           gv(regmask(TREG_F0 + (pplan->start >> 1)));
-          if (pplan->start & 1) { /* Must be in upper part of double register */
+          якщо (pplan->start & 1) { /* Must be in upper part of double register */
             o(0xEEF00A40|((pplan->start>>1)<<12)|(pplan->start>>1)); /* vmov.f32 s(n+1), sn */
             vtop->r = VT_CONST; /* avoid being saved on stack by gv for next float */
           }
           break;
 
         case CORE_CLASS:
-          if ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
+          якщо ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
             lexpand();
             gv(regmask(pplan->end));
             pplan->sval->r2 = vtop->r;
@@ -1305,20 +1305,20 @@ again:
 
   /* second pass to restore registers that were saved on stack by accident.
      Maybe redundant after the "lvalue_save" patch in tccgen.c:gv() */
-  if (++pass < 2)
+  якщо (++pass < 2)
     goto again;
 
-  if(todo) {
+  якщо(todo) {
     o(0xE8BD0000|todo); /* pop {todo} */
-    for(pplan = plan->clsplans[CORE_STRUCT_CLASS]; pplan; pplan = pplan->prev) {
-      int r;
+    для(pplan = plan->clsplans[CORE_STRUCT_CLASS]; pplan; pplan = pplan->prev) {
+      ціле r;
       pplan->sval->r = pplan->start;
       /* An SValue can only pin 2 registers at best (r and r2) but a structure
          can occupy more than 2 registers. Thus, we need to push on the value
          stack some fake parameter to have on SValue for each registers used
          by a structure (r2 is not used). */
-      for (r = pplan->start + 1; r <= pplan->end; r++) {
-        if (todo & (1 << r)) {
+      для (r = pplan->start + 1; r <= pplan->end; r++) {
+        якщо (todo & (1 << r)) {
           nb_extra_sval++;
           vpushi(0);
           vtop->r = r;
@@ -1326,45 +1326,45 @@ again:
       }
     }
   }
-  return nb_extra_sval;
+  повернути nb_extra_sval;
 }
 
 /* Generate function call. The function address is pushed first, then
    all the parameters in call order. This functions pops all the
    parameters and the function address. */
-void gfunc_call(int nb_args)
+void gfunc_call(ціле nb_args)
 {
-  int args_size;
-  int def_float_abi = float_abi;
-  int todo;
+  ціле args_size;
+  ціле def_float_abi = float_abi;
+  ціле todo;
   struct plan plan;
 #ifdef TCC_ARM_EABI
-  int variadic;
+  ціле variadic;
 #endif
 
 #ifdef CONFIG_TCC_BCHECK
-  if (tcc_state->do_bounds_check)
+  якщо (tcc_state->do_bounds_check)
     gbound_args(nb_args);
 #endif
 
   save_regs(nb_args + 1);
 
 #ifdef TCC_ARM_EABI
-  if (float_abi == ARM_HARD_FLOAT) {
+  якщо (float_abi == ARM_HARD_FLOAT) {
     variadic = (vtop[-nb_args].type.ref->f.func_type == FUNC_ELLIPSIS);
-    if (variadic || floats_in_core_regs(&vtop[-nb_args]))
+    якщо (variadic || floats_in_core_regs(&vtop[-nb_args]))
       float_abi = ARM_SOFTFP_FLOAT;
   }
 #endif
 
   memset(&plan, 0, sizeof plan);
-  if (nb_args)
+  якщо (nb_args)
     plan.pplans = tcc_malloc(nb_args * sizeof(*plan.pplans));
 
   args_size = assign_regs(nb_args, float_abi, &plan, &todo);
 
 #ifdef TCC_ARM_EABI
-  if (args_size & 7) { /* Stack must be 8 byte aligned at fct call for EABI */
+  якщо (args_size & 7) { /* Stack must be 8 byte aligned at fct call for EABI */
     args_size = (args_size + 7) & ~7;
     o(0xE24DD004); /* sub sp, sp, #4 */
   }
@@ -1376,13 +1376,13 @@ void gfunc_call(int nb_args)
   /* Move fct SValue on top as required by gcall_or_jmp */
   vrotb(nb_args + 1);
   gcall_or_jmp(0);
-  if (args_size)
+  якщо (args_size)
       gadd_sp(args_size); /* pop all parameters passed on the stack */
-#if defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
-  if(float_abi == ARM_SOFTFP_FLOAT && is_float(vtop->type.ref->type.t)) {
-    if((vtop->type.ref->type.t & VT_BTYPE) == VT_FLOAT) {
+#якщо defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
+  якщо(float_abi == ARM_SOFTFP_FLOAT && is_float(vtop->type.ref->type.t)) {
+    якщо((vtop->type.ref->type.t & VT_BTYPE) == VT_FLOAT) {
       o(0xEE000A10); /*vmov s0, r0 */
-    } else {
+    } інакше {
       o(0xEE000B10); /* vmov.32 d0[0], r0 */
       o(0xEE201B10); /* vmov.32 d0[1], r1 */
     }
@@ -1398,8 +1398,8 @@ void gfunc_prolog(Sym *func_sym)
 {
   CType *func_type = &func_sym->type;
   Sym *sym,*sym2;
-  int n, nf, size, align, rs, struct_ret = 0;
-  int addr, pn, sn; /* pn=core, sn=stack */
+  ціле n, nf, size, align, rs, struct_ret = 0;
+  ціле addr, pn, sn; /* pn=core, sn=stack */
   CType ret_type;
 
 #ifdef TCC_ARM_EABI
@@ -1409,39 +1409,39 @@ void gfunc_prolog(Sym *func_sym)
   sym = func_type->ref;
 
   n = nf = 0;
-  if ((func_vt.t & VT_BTYPE) == VT_STRUCT &&
+  якщо ((func_vt.t & VT_BTYPE) == VT_STRUCT &&
       !gfunc_sret(&func_vt, func_var, &ret_type, &align, &rs))
   {
     n++;
     struct_ret = 1;
     func_vc = 12; /* Offset from fp of the place to store the result */
   }
-  for(sym2 = sym->next; sym2 && (n < 4 || nf < 16); sym2 = sym2->next) {
+  для(sym2 = sym->next; sym2 && (n < 4 || nf < 16); sym2 = sym2->next) {
     size = type_size(&sym2->type, &align);
 #ifdef TCC_ARM_EABI
-    if (float_abi == ARM_HARD_FLOAT && !func_var &&
+    якщо (float_abi == ARM_HARD_FLOAT && !func_var &&
         (is_float(sym2->type.t) || is_hgen_float_aggr(&sym2->type))) {
-      int tmpnf = assign_vfpreg(&avregs, align, size);
+      ціле tmpnf = assign_vfpreg(&avregs, align, size);
       tmpnf += (size + 3) / 4;
       nf = (tmpnf > nf) ? tmpnf : nf;
-    } else
+    } інакше
 #endif
-    if (n < 4)
+    якщо (n < 4)
       n += (size + 3) / 4;
   }
   o(0xE1A0C00D); /* mov ip,sp */
-  if (func_var)
+  якщо (func_var)
     n=4;
-  if (n) {
-    if(n>4)
+  якщо (n) {
+    якщо(n>4)
       n=4;
 #ifdef TCC_ARM_EABI
     n=(n+1)&-2;
 #endif
     o(0xE92D0000|((1<<n)-1)); /* save r0-r4 on stack if needed */
   }
-  if (nf) {
-    if (nf>16)
+  якщо (nf) {
+    якщо (nf>16)
       nf=16;
     nf=(nf+1)&-2; /* nf => HARDFLOAT => EABI */
     o(0xED2D0A00|nf); /* save s0-s15 on stack if needed */
@@ -1452,37 +1452,37 @@ void gfunc_prolog(Sym *func_sym)
   o(0xE1A00000); /* nop, leave space for stack adjustment in epilog */
 
 #ifdef TCC_ARM_EABI
-  if (float_abi == ARM_HARD_FLOAT) {
+  якщо (float_abi == ARM_HARD_FLOAT) {
     func_vc += nf * 4;
     memset(&avregs, 0, sizeof avregs);
   }
 #endif
   pn = struct_ret, sn = 0;
-  while ((sym = sym->next)) {
+  поки ((sym = sym->next)) {
     CType *type;
     type = &sym->type;
     size = type_size(type, &align);
     size = (size + 3) >> 2;
     align = (align + 3) & ~3;
 #ifdef TCC_ARM_EABI
-    if (float_abi == ARM_HARD_FLOAT && !func_var && (is_float(sym->type.t)
+    якщо (float_abi == ARM_HARD_FLOAT && !func_var && (is_float(sym->type.t)
         || is_hgen_float_aggr(&sym->type))) {
-      int fpn = assign_vfpreg(&avregs, align, size << 2);
-      if (fpn >= 0)
+      ціле fpn = assign_vfpreg(&avregs, align, size << 2);
+      якщо (fpn >= 0)
         addr = fpn * 4;
-      else
+      інакше
         goto from_stack;
-    } else
+    } інакше
 #endif
-    if (pn < 4) {
+    якщо (pn < 4) {
 #ifdef TCC_ARM_EABI
         pn = (pn + (align-1)/4) & -(align/4);
 #endif
       addr = (nf + pn) * 4;
       pn += size;
-      if (!sn && pn > 4)
+      якщо (!sn && pn > 4)
         sn = (pn - 4);
-    } else {
+    } інакше {
 #ifdef TCC_ARM_EABI
 from_stack:
         sn = (sn + (align-1)/4) & -(align/4);
@@ -1496,7 +1496,7 @@ from_stack:
   leaffunc = 1;
   loc = 0;
 #ifdef CONFIG_TCC_BCHECK
-  if (tcc_state->do_bounds_check)
+  якщо (tcc_state->do_bounds_check)
     gen_bounds_prolog();
 #endif
 }
@@ -1505,19 +1505,19 @@ from_stack:
 void gfunc_epilog(void)
 {
   uint32_t x;
-  int diff;
+  ціле diff;
 
 #ifdef CONFIG_TCC_BCHECK
-  if (tcc_state->do_bounds_check)
+  якщо (tcc_state->do_bounds_check)
     gen_bounds_epilog();
 #endif
   /* Copy float return value to core register if base standard is used and
      float computation is made with VFP */
-#if defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
-  if ((float_abi == ARM_SOFTFP_FLOAT || func_var) && is_float(func_vt.t)) {
-    if((func_vt.t & VT_BTYPE) == VT_FLOAT)
+#якщо defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
+  якщо ((float_abi == ARM_SOFTFP_FLOAT || func_var) && is_float(func_vt.t)) {
+    якщо((func_vt.t & VT_BTYPE) == VT_FLOAT)
       o(0xEE100A10); /* fmrs r0, s0 */
-    else {
+    інакше {
       o(0xEE100B10); /* fmrdl r0, d0 */
       o(0xEE301B10); /* fmrdh r1, d0 */
     }
@@ -1526,15 +1526,15 @@ void gfunc_epilog(void)
   o(0xE89BA800); /* restore fp, sp, pc */
   diff = (-loc + 3) & -4;
 #ifdef TCC_ARM_EABI
-  if(!leaffunc)
+  якщо(!leaffunc)
     diff = ((diff + 11) & -8) - 4;
 #endif
-  if(diff > 0) {
+  якщо(diff > 0) {
     x=stuff_const(0xE24BD000, diff); /* sub sp,fp,# */
-    if(x)
+    якщо(x)
       *(uint32_t *)(cur_text_section->data + func_sub_sp_offset) = x;
-    else {
-      int addr;
+    інакше {
+      ціле addr;
       addr=ind;
       o(0xE59FC004); /* ldr ip,[pc+4] */
       o(0xE04BD00C); /* sub sp,fp,ip  */
@@ -1545,66 +1545,66 @@ void gfunc_epilog(void)
   }
 }
 
-ST_FUNC void gen_fill_nops(int bytes)
+ST_FUNC void gen_fill_nops(ціле bytes)
 {
-    if ((bytes & 3))
+    якщо ((bytes & 3))
       tcc_error("alignment of code section not multiple of 4");
-    while (bytes > 0) {
+    поки (bytes > 0) {
 	o(0xE1A00000);
 	bytes -= 4;
     }
 }
 
 /* generate a jump to a label */
-ST_FUNC int gjmp(int t)
+ST_FUNC ціле gjmp(ціле t)
 {
-  int r;
-  if (nocode_wanted)
-    return t;
+  ціле r;
+  якщо (nocode_wanted)
+    повернути t;
   r=ind;
   o(0xE0000000|encbranch(r,t,1));
-  return r;
+  повернути r;
 }
 
 /* generate a jump to a fixed address */
-ST_FUNC void gjmp_addr(int a)
+ST_FUNC void gjmp_addr(ціле a)
 {
   gjmp(a);
 }
 
-ST_FUNC int gjmp_cond(int op, int t)
+ST_FUNC ціле gjmp_cond(ціле op, ціле t)
 {
-  int r;
-  if (nocode_wanted)
-    return t;
+  ціле r;
+  якщо (nocode_wanted)
+    повернути t;
   r=ind;
   op=mapcc(op);
   op|=encbranch(r,t,1);
   o(op);
-  return r;
+  повернути r;
 }
 
-ST_FUNC int gjmp_append(int n, int t)
+ST_FUNC ціле gjmp_append(ціле n, ціле t)
 {
   uint32_t *x;
-  int p,lp;
-  if(n) {
+  ціле p,lp;
+  якщо(n) {
     p = n;
     do {
       p = decbranch(lp=p);
-    } while(p);
+    } поки(p);
     x = (uint32_t *)(cur_text_section->data + lp);
     *x &= 0xff000000;
     *x |= encbranch(lp,t,1);
     t = n;
   }
-  return t;
+  повернути t;
 }
 
 /* generate an integer binary operation */
-void gen_opi(int op)
+void gen_opi(ціле op)
 {
-  int c, func = 0;
+  ціле c, func = 0;
   uint32_t opc = 0, r, fr;
   unsigned short retreg = REG_IRET;
 
@@ -1652,7 +1652,7 @@ void gen_opi(int op)
       fr = vtop[0].r;
       vtop--;
       o(0xE0000090|(intr(r)<<16)|(intr(r)<<8)|intr(fr));
-      return;
+      повернути;
     case TOK_SHL:
       opc = 0;
       c=2;
@@ -1678,7 +1678,7 @@ void gen_opi(int op)
 #ifdef TCC_ARM_EABI
       func=TOK___aeabi_idivmod;
       retreg=REG_IRE2;
-#else
+#інакше
       func=TOK___modsi3;
 #endif
       c=3;
@@ -1687,7 +1687,7 @@ void gen_opi(int op)
 #ifdef TCC_ARM_EABI
       func=TOK___aeabi_uidivmod;
       retreg=REG_IRE2;
-#else
+#інакше
       func=TOK___umodsi3;
 #endif
       c=3;
@@ -1699,7 +1699,7 @@ void gen_opi(int op)
       vtop[-1].r=get_reg_ex(RC_INT,regmask(c));
       vtop--;
       o(0xE0800090|(r<<16)|(intr(vtop->r)<<12)|(intr(c)<<8)|intr(vtop[1].r));
-      return;
+      повернути;
     default:
       opc = 0x15;
       c=1;
@@ -1707,8 +1707,8 @@ void gen_opi(int op)
   }
   switch(c) {
     case 1:
-      if((vtop[-1].r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
-	if(opc == 4 || opc == 5 || opc == 0xc) {
+      якщо((vtop[-1].r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+	якщо(opc == 4 || opc == 5 || opc == 0xc) {
 	  vswap();
 	  opc|=2; // sub -> rsb
 	}
@@ -1717,13 +1717,13 @@ void gen_opi(int op)
       c=intr(gv(RC_INT));
       vswap();
       opc=0xE0000000|(opc<<20);
-      if((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+      якщо((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
 	uint32_t x;
 	x=stuff_const(opc|0x2000000|(c<<16),vtop->c.i);
-	if(x) {
-	  if ((x & 0xfff00000) == 0xe3500000)   // cmp rx,#c
+	якщо(x) {
+	  якщо ((x & 0xfff00000) == 0xe3500000)   // cmp rx,#c
 	    o(x);
-	  else {
+	  інакше {
 	    r=intr(vtop[-1].r=get_reg_ex(RC_INT,regmask(vtop[-1].r)));
 	    o(x|(r<<12));
 	  }
@@ -1732,21 +1732,21 @@ void gen_opi(int op)
       }
       fr=intr(gv(RC_INT));
 #ifdef CONFIG_TCC_BCHECK
-      if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+      якщо ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
         vswap();
         c=intr(gv(RC_INT));
         vswap();
       }
 #endif
-      if ((opc & 0xfff00000) == 0xe1500000) // cmp rx,ry
+      якщо ((opc & 0xfff00000) == 0xe1500000) // cmp rx,ry
 	o(opc|(c<<16)|fr);
-      else {
+      інакше {
         r=intr(vtop[-1].r=get_reg_ex(RC_INT,two2mask(vtop->r,vtop[-1].r)));
         o(opc|(c<<16)|(r<<12)|fr);
       }
 done:
       vtop--;
-      if (op >= TOK_ULT && op <= TOK_GT)
+      якщо (op >= TOK_ULT && op <= TOK_GT)
         vset_VT_CMP(op);
       break;
     case 2:
@@ -1754,14 +1754,14 @@ done:
       vswap();
       r=intr(gv(RC_INT));
       vswap();
-      if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+      якщо ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
 	fr=intr(vtop[-1].r=get_reg_ex(RC_INT,regmask(vtop[-1].r)));
 	c = vtop->c.i & 0x1f;
 	o(opc|r|(c<<7)|(fr<<12));
-      } else {
+      } інакше {
         fr=intr(gv(RC_INT));
 #ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        якщо ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=intr(gv(RC_INT));
           vswap();
@@ -1785,41 +1785,41 @@ done:
 }
 
 #ifdef TCC_ARM_VFP
-static int is_zero(int i)
+static ціле is_zero(ціле i)
 {
-  if((vtop[i].r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
-    return 0;
-  if (vtop[i].type.t == VT_FLOAT)
-    return (vtop[i].c.f == 0.f);
-  else if (vtop[i].type.t == VT_DOUBLE)
-    return (vtop[i].c.d == 0.0);
-  return (vtop[i].c.ld == 0.l);
+  якщо((vtop[i].r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
+    повернути 0;
+  якщо (vtop[i].type.t == VT_FLOAT)
+    повернути (vtop[i].c.f == 0.f);
+  інакше якщо (vtop[i].type.t == VT_DOUBLE)
+    повернути (vtop[i].c.d == 0.0);
+  повернути (vtop[i].c.ld == 0.l);
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
  *    two operands are guaranteed to have the same floating point type */
-void gen_opf(int op)
+void gen_opf(ціле op)
 {
   uint32_t x;
-  int fneg=0,r;
+  ціле fneg=0,r;
   x=0xEE000A00|T2CPR(vtop->type.t);
   switch(op) {
     case '+':
-      if(is_zero(-1))
+      якщо(is_zero(-1))
         vswap();
-      if(is_zero(0)) {
+      якщо(is_zero(0)) {
         vtop--;
-        return;
+        повернути;
       }
       x|=0x300000;
       break;
     case '-':
       x|=0x300040;
-      if(is_zero(0)) {
+      якщо(is_zero(0)) {
         vtop--;
-        return;
+        повернути;
       }
-      if(is_zero(-1)) {
+      якщо(is_zero(-1)) {
         x|=0x810000; /* fsubX -> fnegX */
         vswap();
         vtop--;
@@ -1833,11 +1833,11 @@ void gen_opf(int op)
       x|=0x800000;
       break;
     default:
-      if(op < TOK_ULT || op > TOK_GT) {
+      якщо(op < TOK_ULT || op > TOK_GT) {
         tcc_error("unknown fp op %x!",op);
-        return;
+        повернути;
       }
-      if(is_zero(-1)) {
+      якщо(is_zero(-1)) {
         vswap();
         switch(op) {
           case TOK_LT: op=TOK_GT; break;
@@ -1847,12 +1847,12 @@ void gen_opf(int op)
         }
       }
       x|=0xB40040; /* fcmpX */
-      if(op!=TOK_EQ && op!=TOK_NE)
+      якщо(op!=TOK_EQ && op!=TOK_NE)
         x|=0x80; /* fcmpX -> fcmpeX */
-      if(is_zero(0)) {
+      якщо(is_zero(0)) {
         vtop--;
         o(x|0x10000|(vfpr(gv(RC_FLOAT))<<12)); /* fcmp(e)X -> fcmp(e)zX */
-      } else {
+      } інакше {
         gv2(RC_FLOAT,RC_FLOAT);
         x|=vfpr(vtop[0].r);
         o(x|(vfpr(vtop[-1].r) << 12));
@@ -1867,19 +1867,19 @@ void gen_opf(int op)
         case TOK_UGT: op=TOK_GT; break;
       }
       vset_VT_CMP(op);
-      return;
+      повернути;
   }
   r=gv(RC_FLOAT);
   x|=vfpr(r);
   r=regmask(r);
-  if(!fneg) {
-    int r2;
+  якщо(!fneg) {
+    ціле r2;
     vswap();
     r2=gv(RC_FLOAT);
     x|=vfpr(r2)<<16;
     r|=regmask(r2);
 #ifdef CONFIG_TCC_BCHECK
-    if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+    якщо ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
       vswap();
       r=gv(RC_FLOAT);
       vswap();
@@ -1888,53 +1888,53 @@ void gen_opf(int op)
 #endif
   }
   vtop->r=get_reg_ex(RC_FLOAT,r);
-  if(!fneg)
+  якщо(!fneg)
     vtop--;
   o(x|(vfpr(vtop->r)<<12));
 }
 
-#else
+#інакше
 static uint32_t is_fconst()
 {
   long double f;
   uint32_t r;
-  if((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
-    return 0;
-  if (vtop->type.t == VT_FLOAT)
+  якщо((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
+    повернути 0;
+  якщо (vtop->type.t == VT_FLOAT)
     f = vtop->c.f;
-  else if (vtop->type.t == VT_DOUBLE)
+  інакше якщо (vtop->type.t == VT_DOUBLE)
     f = vtop->c.d;
-  else
+  інакше
     f = vtop->c.ld;
-  if(!ieee_finite(f))
-    return 0;
+  якщо(!ieee_finite(f))
+    повернути 0;
   r=0x8;
-  if(f<0.0) {
+  якщо(f<0.0) {
     r=0x18;
     f=-f;
   }
-  if(f==0.0)
-    return r;
-  if(f==1.0)
-    return r|1;
-  if(f==2.0)
-    return r|2;
-  if(f==3.0)
-    return r|3;
-  if(f==4.0)
-    return r|4;
-  if(f==5.0)
-    return r|5;
-  if(f==0.5)
-    return r|6;
-  if(f==10.0)
-    return r|7;
-  return 0;
+  якщо(f==0.0)
+    повернути r;
+  якщо(f==1.0)
+    повернути r|1;
+  якщо(f==2.0)
+    повернути r|2;
+  якщо(f==3.0)
+    повернути r|3;
+  якщо(f==4.0)
+    повернути r|4;
+  якщо(f==5.0)
+    повернути r|5;
+  якщо(f==0.5)
+    повернути r|6;
+  якщо(f==10.0)
+    повернути r|7;
+  повернути 0;
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
    two operands are guaranteed to have the same floating point type */
-void gen_opf(int op)
+void gen_opf(ціле op)
 {
   uint32_t x, r, r2, c1, c2;
   //fputs("gen_opf\n",stderr);
@@ -1943,31 +1943,31 @@ void gen_opf(int op)
   vswap();
   c2 = is_fconst();
   x=0xEE000100;
-  if ((vtop->type.t & VT_BTYPE) == VT_DOUBLE)
+  якщо ((vtop->type.t & VT_BTYPE) == VT_DOUBLE)
     x|=0x80;
-#if LDOUBLE_SIZE != 8
-  else if ((vtop->type.t & VT_BTYPE) == VT_LDOUBLE)
+#якщо LDOUBLE_SIZE != 8
+  інакше якщо ((vtop->type.t & VT_BTYPE) == VT_LDOUBLE)
     x|=0x80000;
 #endif
 
   switch(op)
   {
     case '+':
-      if(!c2) {
+      якщо(!c2) {
 	vswap();
 	c2=c1;
       }
       vswap();
       r=fpr(gv(RC_FLOAT));
       vswap();
-      if(c2) {
-	if(c2>0xf)
+      якщо(c2) {
+	якщо(c2>0xf)
 	  x|=0x200000; // suf
 	r2=c2&0xf;
-      } else {
+      } інакше {
 	r2=fpr(gv(RC_FLOAT));
 #ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        якщо ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
@@ -1976,26 +1976,26 @@ void gen_opf(int op)
       }
       break;
     case '-':
-      if(c2) {
-	if(c2<=0xf)
+      якщо(c2) {
+	якщо(c2<=0xf)
 	  x|=0x200000; // suf
 	r2=c2&0xf;
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else if(c1 && c1<=0xf) {
+      } інакше якщо(c1 && c1<=0xf) {
 	x|=0x300000; // rsf
 	r2=c1;
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else {
+      } інакше {
 	x|=0x200000; // suf
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
 	r2=fpr(gv(RC_FLOAT));
 #ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        якщо ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
@@ -2004,19 +2004,19 @@ void gen_opf(int op)
       }
       break;
     case '*':
-      if(!c2 || c2>0xf) {
+      якщо(!c2 || c2>0xf) {
 	vswap();
 	c2=c1;
       }
       vswap();
       r=fpr(gv(RC_FLOAT));
       vswap();
-      if(c2 && c2<=0xf)
+      якщо(c2 && c2<=0xf)
 	r2=c2;
-      else {
+      інакше {
 	r2=fpr(gv(RC_FLOAT));
 #ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        якщо ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
@@ -2026,25 +2026,25 @@ void gen_opf(int op)
       x|=0x100000; // muf
       break;
     case '/':
-      if(c2 && c2<=0xf) {
+      якщо(c2 && c2<=0xf) {
 	x|=0x400000; // dvf
 	r2=c2;
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else if(c1 && c1<=0xf) {
+      } інакше якщо(c1 && c1<=0xf) {
 	x|=0x500000; // rdf
 	r2=c1;
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else {
+      } інакше {
 	x|=0x400000; // dvf
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
 	r2=fpr(gv(RC_FLOAT));
 #ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        якщо ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
@@ -2053,7 +2053,7 @@ void gen_opf(int op)
       }
       break;
     default:
-      if(op >= TOK_ULT && op <= TOK_GT) {
+      якщо(op >= TOK_ULT && op <= TOK_GT) {
 	x|=0xd0f110; // cmfe
 /* bug (intention?) in Linux FPU emulator
    doesn't set carry if equal */
@@ -2075,7 +2075,7 @@ void gen_opf(int op)
 	    x&=~0x400000; // cmfe -> cmf
 	    break;
 	}
-	if(c1 && !c2) {
+	якщо(c1 && !c2) {
 	  c2=c1;
 	  vswap();
 	  switch(op) {
@@ -2096,14 +2096,14 @@ void gen_opf(int op)
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-	if(c2) {
-	  if(c2>0xf)
+	якщо(c2) {
+	  якщо(c2>0xf)
 	    x|=0x200000;
 	  r2=c2&0xf;
-	} else {
+	} інакше {
 	  r2=fpr(gv(RC_FLOAT));
 #ifdef CONFIG_TCC_BCHECK
-          if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+          якщо ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
             vswap();
             r=fpr(gv(RC_FLOAT));
             vswap();
@@ -2113,16 +2113,16 @@ void gen_opf(int op)
         --vtop;
         vset_VT_CMP(op);
         ++vtop;
-      } else {
+      } інакше {
         tcc_error("unknown fp op %x!",op);
-	return;
+	повернути;
       }
   }
-  if(vtop[-1].r == VT_CMP)
+  якщо(vtop[-1].r == VT_CMP)
     c1=15;
-  else {
+  інакше {
     c1=vtop->r;
-    if(r2&0x8)
+    якщо(r2&0x8)
       c1=vtop[-1].r;
     vtop[-1].r=get_reg_ex(RC_FLOAT,two2mask(vtop[-1].r,c1));
     c1=fpr(vtop[-1].r);
@@ -2134,12 +2134,12 @@ void gen_opf(int op)
 
 /* convert integers to fp 't' type. Must handle 'int', 'unsigned int'
    and 'long long' cases. */
-ST_FUNC void gen_cvt_itof(int t)
+ST_FUNC void gen_cvt_itof(ціле t)
 {
   uint32_t r, r2;
-  int bt;
+  ціле bt;
   bt=vtop->type.t & VT_BTYPE;
-  if(bt == VT_INT || bt == VT_SHORT || bt == VT_BYTE) {
+  якщо(bt == VT_INT || bt == VT_SHORT || bt == VT_BYTE) {
 #ifndef TCC_ARM_VFP
     uint32_t dsize = 0;
 #endif
@@ -2148,26 +2148,26 @@ ST_FUNC void gen_cvt_itof(int t)
     r2=vfpr(vtop->r=get_reg(RC_FLOAT));
     o(0xEE000A10|(r<<12)|(r2<<16)); /* fmsr */
     r2|=r2<<12;
-    if(!(vtop->type.t & VT_UNSIGNED))
+    якщо(!(vtop->type.t & VT_UNSIGNED))
       r2|=0x80;                /* fuitoX -> fsituX */
     o(0xEEB80A40|r2|T2CPR(t)); /* fYitoX*/
-#else
+#інакше
     r2=fpr(vtop->r=get_reg(RC_FLOAT));
-    if((t & VT_BTYPE) != VT_FLOAT)
+    якщо((t & VT_BTYPE) != VT_FLOAT)
       dsize=0x80;    /* flts -> fltd */
     o(0xEE000110|dsize|(r2<<16)|(r<<12)); /* flts */
-    if((vtop->type.t & (VT_UNSIGNED|VT_BTYPE)) == (VT_UNSIGNED|VT_INT)) {
+    якщо((vtop->type.t & (VT_UNSIGNED|VT_BTYPE)) == (VT_UNSIGNED|VT_INT)) {
       uint32_t off = 0;
       o(0xE3500000|(r<<12));        /* cmp */
       r=fpr(get_reg(RC_FLOAT));
-      if(last_itod_magic) {
+      якщо(last_itod_magic) {
 	off=ind+8-last_itod_magic;
 	off/=4;
-	if(off>255)
+	якщо(off>255)
 	  off=0;
       }
       o(0xBD1F0100|(r<<12)|off);    /* ldflts */
-      if(!off) {
+      якщо(!off) {
         o(0xEA000000);              /* b */
         last_itod_magic=ind;
         o(0x4F800000);              /* 4294967296.0f */
@@ -2175,109 +2175,109 @@ ST_FUNC void gen_cvt_itof(int t)
       o(0xBE000100|dsize|(r2<<16)|(r2<<12)|r); /* adflt */
     }
 #endif
-    return;
-  } else if(bt == VT_LLONG) {
-    int func;
+    повернути;
+  } інакше якщо(bt == VT_LLONG) {
+    ціле func;
     CType *func_type = 0;
-    if((t & VT_BTYPE) == VT_FLOAT) {
+    якщо((t & VT_BTYPE) == VT_FLOAT) {
       func_type = &func_float_type;
-      if(vtop->type.t & VT_UNSIGNED)
+      якщо(vtop->type.t & VT_UNSIGNED)
         func=TOK___floatundisf;
-      else
+      інакше
         func=TOK___floatdisf;
-    } else if((t & VT_BTYPE) == VT_DOUBLE) {
+    } інакше якщо((t & VT_BTYPE) == VT_DOUBLE) {
       func_type = &func_double_type;
-      if(vtop->type.t & VT_UNSIGNED)
+      якщо(vtop->type.t & VT_UNSIGNED)
         func=TOK___floatundidf;
-      else
+      інакше
         func=TOK___floatdidf;
-#if LDOUBLE_SIZE != 8
-    } else if((t & VT_BTYPE) == VT_LDOUBLE) {
+#якщо LDOUBLE_SIZE != 8
+    } інакше якщо((t & VT_BTYPE) == VT_LDOUBLE) {
       func_type = &func_ldouble_type;
-      if(vtop->type.t & VT_UNSIGNED)
+      якщо(vtop->type.t & VT_UNSIGNED)
         func=TOK___floatundixf;
-      else
+      інакше
         func=TOK___floatdixf;
 #endif
     }
-    if(func_type) {
+    якщо(func_type) {
       vpushsym(func_type, external_helper_sym(func));
       vswap();
       gfunc_call(1);
       vpushi(0);
       vtop->r=TREG_F0;
-      return;
+      повернути;
     }
   }
   tcc_error("unimplemented gen_cvt_itof %x!",vtop->type.t);
 }
 
 /* convert fp to int 't' type */
-void gen_cvt_ftoi(int t)
+void gen_cvt_ftoi(ціле t)
 {
   uint32_t r, r2;
-  int u, func = 0;
+  ціле u, func = 0;
   u=t&VT_UNSIGNED;
   t&=VT_BTYPE;
   r2=vtop->type.t & VT_BTYPE;
-  if(t==VT_INT) {
+  якщо(t==VT_INT) {
 #ifdef TCC_ARM_VFP
     r=vfpr(gv(RC_FLOAT));
     u=u?0:0x10000;
     o(0xEEBC0AC0|(r<<12)|r|T2CPR(r2)|u); /* ftoXizY */
     r2=intr(vtop->r=get_reg(RC_INT));
     o(0xEE100A10|(r<<16)|(r2<<12));
-    return;
-#else
-    if(u) {
-      if(r2 == VT_FLOAT)
+    повернути;
+#інакше
+    якщо(u) {
+      якщо(r2 == VT_FLOAT)
         func=TOK___fixunssfsi;
-      else if(r2 == VT_DOUBLE)
+      інакше якщо(r2 == VT_DOUBLE)
 	func=TOK___fixunsdfsi;
-#if LDOUBLE_SIZE != 8
-      else if(r2 == VT_LDOUBLE)
+#якщо LDOUBLE_SIZE != 8
+      інакше якщо(r2 == VT_LDOUBLE)
 	func=TOK___fixunsxfsi;
 #endif
-    } else {
+    } інакше {
       r=fpr(gv(RC_FLOAT));
       r2=intr(vtop->r=get_reg(RC_INT));
       o(0xEE100170|(r2<<12)|r);
-      return;
+      повернути;
     }
 #endif
-  } else if(t == VT_LLONG) { // unsigned handled in gen_cvt_ftoi1
-    if(r2 == VT_FLOAT)
+  } інакше якщо(t == VT_LLONG) { // unsigned handled in gen_cvt_ftoi1
+    якщо(r2 == VT_FLOAT)
       func=TOK___fixsfdi;
-    else if(r2 == VT_DOUBLE)
+    інакше якщо(r2 == VT_DOUBLE)
       func=TOK___fixdfdi;
-#if LDOUBLE_SIZE != 8
-    else if(r2 == VT_LDOUBLE)
+#якщо LDOUBLE_SIZE != 8
+    інакше якщо(r2 == VT_LDOUBLE)
       func=TOK___fixxfdi;
 #endif
   }
-  if(func) {
+  якщо(func) {
     vpush_helper_func(func);
     vswap();
     gfunc_call(1);
     vpushi(0);
-    if(t == VT_LLONG)
+    якщо(t == VT_LLONG)
       vtop->r2 = REG_IRE2;
     vtop->r = REG_IRET;
-    return;
+    повернути;
   }
   tcc_error("unimplemented gen_cvt_ftoi!");
 }
 
 /* convert from one floating point type to another */
-void gen_cvt_ftof(int t)
+void gen_cvt_ftof(ціле t)
 {
 #ifdef TCC_ARM_VFP
   uint32_t r = gv(RC_FLOAT);
-  if(((vtop->type.t & VT_BTYPE) == VT_FLOAT) != ((t & VT_BTYPE) == VT_FLOAT)) {
+  якщо(((vtop->type.t & VT_BTYPE) == VT_FLOAT) != ((t & VT_BTYPE) == VT_FLOAT)) {
     r = vfpr(r);
     o(0xEEB70AC0|(r<<12)|r|T2CPR(vtop->type.t));
   }
-#else
+#інакше
   /* all we have to do on i386 and FPA ARM is to put the float in a register */
   gv(RC_FLOAT);
 #endif
@@ -2286,7 +2286,7 @@ void gen_cvt_ftof(int t)
 /* increment tcov counter */
 ST_FUNC void gen_increment_tcov (SValue *sv)
 {
-  int r1, r2;
+  ціле r1, r2;
 
   vpushv(sv);
   vtop->r = r1 = get_reg(RC_INT);
@@ -2314,7 +2314,7 @@ void ggoto(void)
 }
 
 /* Save the stack pointer onto the stack and return the location of its address */
-ST_FUNC void gen_vla_sp_save(int addr) {
+ST_FUNC void gen_vla_sp_save(ціле addr) {
     SValue v;
     v.type.t = VT_PTR;
     v.r = VT_LOCAL | VT_LVAL;
@@ -2323,7 +2323,7 @@ ST_FUNC void gen_vla_sp_save(int addr) {
 }
 
 /* Restore the SP from a location on the stack */
-ST_FUNC void gen_vla_sp_restore(int addr) {
+ST_FUNC void gen_vla_sp_restore(ціле addr) {
     SValue v;
     v.type.t = VT_PTR;
     v.r = VT_LOCAL | VT_LVAL;
@@ -2332,31 +2332,31 @@ ST_FUNC void gen_vla_sp_restore(int addr) {
 }
 
 /* Subtract from the stack pointer, and push the resulting value onto the stack */
-ST_FUNC void gen_vla_alloc(CType *type, int align) {
-    int r;
-#if defined(CONFIG_TCC_BCHECK)
-    if (tcc_state->do_bounds_check)
+ST_FUNC void gen_vla_alloc(CType *type, ціле align) {
+    ціле r;
+#якщо defined(CONFIG_TCC_BCHECK)
+    якщо (tcc_state->do_bounds_check)
         vpushv(vtop);
 #endif
     r = intr(gv(RC_INT));
-#if defined(CONFIG_TCC_BCHECK)
-    if (tcc_state->do_bounds_check)
+#якщо defined(CONFIG_TCC_BCHECK)
+    якщо (tcc_state->do_bounds_check)
         o(0xe2800001 | (r<<16)|(r<<12)); /* add r,r,#1 */
 #endif
     o(0xE04D0000|(r<<12)|r); /* sub r, sp, r */
 #ifdef TCC_ARM_EABI
-    if (align < 8)
+    якщо (align < 8)
         align = 8;
-#else
-    if (align < 4)
+#інакше
+    якщо (align < 4)
         align = 4;
 #endif
-    if (align & (align - 1))
+    якщо (align & (align - 1))
         tcc_error("alignment is not a power of 2: %i", align);
     o(stuff_const(0xE3C0D000|(r<<16), align - 1)); /* bic sp, r, #align-1 */
     vpop();
-#if defined(CONFIG_TCC_BCHECK)
-    if (tcc_state->do_bounds_check) {
+#якщо defined(CONFIG_TCC_BCHECK)
+    якщо (tcc_state->do_bounds_check) {
         vpushi(0);
         vtop->r = TREG_R0;
         o(0xe1a0000d | (vtop->r << 12)); // mov r0,sp

@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+const ціле const_return(void);
+volatile ціле volatile_return(void);
+ціле *restrict restrict_return(void);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, ціле *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, ціле *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, ціле **),
                "restrict is removed from a return type");
 
-int const_return(void)
+ціле const_return(void)
 {
-   return 0;
+   повернути 0;
 }
 
-int volatile_return(void)
+ціле volatile_return(void)
 {
-   return 0;
+   повернути 0;
 }
 
-int *restrict_return(void)
+ціле *restrict_return(void)
 {
-   return 0;
+   повернути 0;
 }
 
-int main(void)
+ціле main(void)
 {
-   return 0;
+   повернути 0;
 }

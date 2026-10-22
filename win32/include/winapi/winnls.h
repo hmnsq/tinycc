@@ -496,7 +496,7 @@ extern "C" {
 #ifdef UNICODE
   typedef CPINFOEXW CPINFOEX;
   typedef LPCPINFOEXW LPCPINFOEX;
-#else
+#інакше
   typedef CPINFOEXA CPINFOEX;
   typedef LPCPINFOEXA LPCPINFOEX;
 #endif
@@ -522,7 +522,7 @@ extern "C" {
 #ifdef UNICODE
   typedef NUMBERFMTW NUMBERFMT;
   typedef LPNUMBERFMTW LPNUMBERFMT;
-#else
+#інакше
   typedef NUMBERFMTA NUMBERFMT;
   typedef LPNUMBERFMTA LPNUMBERFMT;
 #endif
@@ -552,7 +552,7 @@ extern "C" {
 #ifdef UNICODE
   typedef CURRENCYFMTW CURRENCYFMT;
   typedef LPCURRENCYFMTW LPCURRENCYFMT;
-#else
+#інакше
   typedef CURRENCYFMTA CURRENCYFMT;
   typedef LPCURRENCYFMTA LPCURRENCYFMT;
 #endif
@@ -625,7 +625,7 @@ extern "C" {
 #define TIMEFMT_ENUMPROC TIMEFMT_ENUMPROCW
 #define CALINFO_ENUMPROC CALINFO_ENUMPROCW
 #define CALINFO_ENUMPROCEX CALINFO_ENUMPROCEXW
-#else
+#інакше
 #define LANGUAGEGROUP_ENUMPROC LANGUAGEGROUP_ENUMPROCA
 #define LANGGROUPLOCALE_ENUMPROC LANGGROUPLOCALE_ENUMPROCA
 #define UILANGUAGE_ENUMPROC UILANGUAGE_ENUMPROCA
@@ -663,7 +663,7 @@ extern "C" {
 #define EnumUILanguages EnumUILanguagesW
 #define EnumSystemLocales EnumSystemLocalesW
 #define EnumSystemCodePages EnumSystemCodePagesW
-#else
+#інакше
 #define GetCPInfoEx GetCPInfoExA
 #define CompareString CompareStringA
 #define LCMapString LCMapStringA
@@ -698,28 +698,28 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI GetCPInfoExW(UINT CodePage,DWORD dwFlags,LPCPINFOEXW lpCPInfoEx);
   WINBASEAPI WINBOOL WINAPI IsDBCSLeadByte(BYTE TestChar);
   WINBASEAPI WINBOOL WINAPI IsDBCSLeadByteEx(UINT CodePage,BYTE TestChar);
-  WINBASEAPI int WINAPI MultiByteToWideChar(UINT CodePage,DWORD dwFlags,LPCSTR lpMultiByteStr,int cbMultiByte,LPWSTR lpWideCharStr,int cchWideChar);
-  WINBASEAPI int WINAPI WideCharToMultiByte(UINT CodePage,DWORD dwFlags,LPCWSTR lpWideCharStr,int cchWideChar,LPSTR lpMultiByteStr,int cbMultiByte,LPCSTR lpDefaultChar,LPBOOL lpUsedDefaultChar);
-  WINBASEAPI int WINAPI CompareStringA(LCID Locale,DWORD dwCmpFlags,LPCSTR lpString1,int cchCount1,LPCSTR lpString2,int cchCount2);
-  WINBASEAPI int WINAPI CompareStringW(LCID Locale,DWORD dwCmpFlags,LPCWSTR lpString1,int cchCount1,LPCWSTR lpString2,int cchCount2);
-  WINBASEAPI int WINAPI LCMapStringA(LCID Locale,DWORD dwMapFlags,LPCSTR lpSrcStr,int cchSrc,LPSTR lpDestStr,int cchDest);
-  WINBASEAPI int WINAPI LCMapStringW(LCID Locale,DWORD dwMapFlags,LPCWSTR lpSrcStr,int cchSrc,LPWSTR lpDestStr,int cchDest);
-  WINBASEAPI int WINAPI GetLocaleInfoA(LCID Locale,LCTYPE LCType,LPSTR lpLCData,int cchData);
-  WINBASEAPI int WINAPI GetLocaleInfoW(LCID Locale,LCTYPE LCType,LPWSTR lpLCData,int cchData);
+  WINBASEAPI ціле WINAPI MultiByteToWideChar(UINT CodePage,DWORD dwFlags,LPCSTR lpMultiByteStr,ціле cbMultiByte,LPWSTR lpWideCharStr,ціле cchWideChar);
+  WINBASEAPI ціле WINAPI WideCharToMultiByte(UINT CodePage,DWORD dwFlags,LPCWSTR lpWideCharStr,ціле cchWideChar,LPSTR lpMultiByteStr,ціле cbMultiByte,LPCSTR lpDefaultChar,LPBOOL lpUsedDefaultChar);
+  WINBASEAPI ціле WINAPI CompareStringA(LCID Locale,DWORD dwCmpFlags,LPCSTR lpString1,ціле cchCount1,LPCSTR lpString2,ціле cchCount2);
+  WINBASEAPI ціле WINAPI CompareStringW(LCID Locale,DWORD dwCmpFlags,LPCWSTR lpString1,ціле cchCount1,LPCWSTR lpString2,ціле cchCount2);
+  WINBASEAPI ціле WINAPI LCMapStringA(LCID Locale,DWORD dwMapFlags,LPCSTR lpSrcStr,ціле cchSrc,LPSTR lpDestStr,ціле cchDest);
+  WINBASEAPI ціле WINAPI LCMapStringW(LCID Locale,DWORD dwMapFlags,LPCWSTR lpSrcStr,ціле cchSrc,LPWSTR lpDestStr,ціле cchDest);
+  WINBASEAPI ціле WINAPI GetLocaleInfoA(LCID Locale,LCTYPE LCType,LPSTR lpLCData,ціле cchData);
+  WINBASEAPI ціле WINAPI GetLocaleInfoW(LCID Locale,LCTYPE LCType,LPWSTR lpLCData,ціле cchData);
   WINBASEAPI WINBOOL WINAPI SetLocaleInfoA(LCID Locale,LCTYPE LCType,LPCSTR lpLCData);
   WINBASEAPI WINBOOL WINAPI SetLocaleInfoW(LCID Locale,LCTYPE LCType,LPCWSTR lpLCData);
-  WINBASEAPI int WINAPI GetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPSTR lpCalData,int cchData,LPDWORD lpValue);
-  WINBASEAPI int WINAPI GetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPWSTR lpCalData,int cchData,LPDWORD lpValue);
+  WINBASEAPI ціле WINAPI GetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPSTR lpCalData,ціле cchData,LPDWORD lpValue);
+  WINBASEAPI ціле WINAPI GetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPWSTR lpCalData,ціле cchData,LPDWORD lpValue);
   WINBASEAPI WINBOOL WINAPI SetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPCSTR lpCalData);
   WINBASEAPI WINBOOL WINAPI SetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPCWSTR lpCalData);
-  WINBASEAPI int WINAPI GetTimeFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCSTR lpFormat,LPSTR lpTimeStr,int cchTime);
-  WINBASEAPI int WINAPI GetTimeFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCWSTR lpFormat,LPWSTR lpTimeStr,int cchTime);
-  WINBASEAPI int WINAPI GetDateFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCSTR lpFormat,LPSTR lpDateStr,int cchDate);
-  WINBASEAPI int WINAPI GetDateFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCWSTR lpFormat,LPWSTR lpDateStr,int cchDate);
-  WINBASEAPI int WINAPI GetNumberFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST NUMBERFMTA *lpFormat,LPSTR lpNumberStr,int cchNumber);
-  WINBASEAPI int WINAPI GetNumberFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST NUMBERFMTW *lpFormat,LPWSTR lpNumberStr,int cchNumber);
-  WINBASEAPI int WINAPI GetCurrencyFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST CURRENCYFMTA *lpFormat,LPSTR lpCurrencyStr,int cchCurrency);
-  WINBASEAPI int WINAPI GetCurrencyFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST CURRENCYFMTW *lpFormat,LPWSTR lpCurrencyStr,int cchCurrency);
+  WINBASEAPI ціле WINAPI GetTimeFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCSTR lpFormat,LPSTR lpTimeStr,ціле cchTime);
+  WINBASEAPI ціле WINAPI GetTimeFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCWSTR lpFormat,LPWSTR lpTimeStr,ціле cchTime);
+  WINBASEAPI ціле WINAPI GetDateFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCSTR lpFormat,LPSTR lpDateStr,ціле cchDate);
+  WINBASEAPI ціле WINAPI GetDateFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCWSTR lpFormat,LPWSTR lpDateStr,ціле cchDate);
+  WINBASEAPI ціле WINAPI GetNumberFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST NUMBERFMTA *lpFormat,LPSTR lpNumberStr,ціле cchNumber);
+  WINBASEAPI ціле WINAPI GetNumberFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST NUMBERFMTW *lpFormat,LPWSTR lpNumberStr,ціле cchNumber);
+  WINBASEAPI ціле WINAPI GetCurrencyFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST CURRENCYFMTA *lpFormat,LPSTR lpCurrencyStr,ціле cchCurrency);
+  WINBASEAPI ціле WINAPI GetCurrencyFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST CURRENCYFMTW *lpFormat,LPWSTR lpCurrencyStr,ціле cchCurrency);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoA(CALINFO_ENUMPROCA lpCalInfoEnumProc,LCID Locale,CALID Calendar,CALTYPE CalType);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoW(CALINFO_ENUMPROCW lpCalInfoEnumProc,LCID Locale,CALID Calendar,CALTYPE CalType);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoExA(CALINFO_ENUMPROCEXA lpCalInfoEnumProcEx,LCID Locale,CALID Calendar,CALTYPE CalType);
@@ -734,8 +734,8 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI GetNLSVersion(NLS_FUNCTION Function,LCID Locale,LPNLSVERSIONINFO lpVersionInformation);
   WINBASEAPI WINBOOL WINAPI IsNLSDefinedString(NLS_FUNCTION Function,DWORD dwFlags,LPNLSVERSIONINFO lpVersionInformation,LPCWSTR lpString,INT cchStr);
   WINBASEAPI WINBOOL WINAPI IsValidLocale(LCID Locale,DWORD dwFlags);
-  WINBASEAPI int WINAPI GetGeoInfoA(GEOID Location,GEOTYPE GeoType,LPSTR lpGeoData,int cchData,LANGID LangId);
-  WINBASEAPI int WINAPI GetGeoInfoW(GEOID Location,GEOTYPE GeoType,LPWSTR lpGeoData,int cchData,LANGID LangId);
+  WINBASEAPI ціле WINAPI GetGeoInfoA(GEOID Location,GEOTYPE GeoType,LPSTR lpGeoData,ціле cchData,LANGID LangId);
+  WINBASEAPI ціле WINAPI GetGeoInfoW(GEOID Location,GEOTYPE GeoType,LPWSTR lpGeoData,ціле cchData,LANGID LangId);
   WINBASEAPI WINBOOL WINAPI EnumSystemGeoID(GEOCLASS GeoClass,GEOID ParentGeoId,GEO_ENUMPROC lpGeoEnumProc);
   WINBASEAPI GEOID WINAPI GetUserGeoID(GEOCLASS GeoClass);
   WINBASEAPI WINBOOL WINAPI SetUserGeoID(GEOID GeoId);
@@ -748,12 +748,12 @@ extern "C" {
   WINBASEAPI LANGID WINAPI GetUserDefaultLangID(void);
   WINBASEAPI LCID WINAPI GetSystemDefaultLCID(void);
   WINBASEAPI LCID WINAPI GetUserDefaultLCID(void);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeExA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeExW(LCID Locale,DWORD dwInfoType,LPCWSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeW(DWORD dwInfoType,LPCWSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI int WINAPI FoldStringA(DWORD dwMapFlags,LPCSTR lpSrcStr,int cchSrc,LPSTR lpDestStr,int cchDest);
-  WINBASEAPI int WINAPI FoldStringW(DWORD dwMapFlags,LPCWSTR lpSrcStr,int cchSrc,LPWSTR lpDestStr,int cchDest);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeExA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,ціле cchSrc,LPWORD lpCharType);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeExW(LCID Locale,DWORD dwInfoType,LPCWSTR lpSrcStr,ціле cchSrc,LPWORD lpCharType);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,ціле cchSrc,LPWORD lpCharType);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeW(DWORD dwInfoType,LPCWSTR lpSrcStr,ціле cchSrc,LPWORD lpCharType);
+  WINBASEAPI ціле WINAPI FoldStringA(DWORD dwMapFlags,LPCSTR lpSrcStr,ціле cchSrc,LPSTR lpDestStr,ціле cchDest);
+  WINBASEAPI ціле WINAPI FoldStringW(DWORD dwMapFlags,LPCWSTR lpSrcStr,ціле cchSrc,LPWSTR lpDestStr,ціле cchDest);
   WINBASEAPI WINBOOL WINAPI EnumSystemLanguageGroupsA(LANGUAGEGROUP_ENUMPROCA lpLanguageGroupEnumProc,DWORD dwFlags,LONG_PTR lParam);
   WINBASEAPI WINBOOL WINAPI EnumSystemLanguageGroupsW(LANGUAGEGROUP_ENUMPROCW lpLanguageGroupEnumProc,DWORD dwFlags,LONG_PTR lParam);
   WINBASEAPI WINBOOL WINAPI EnumLanguageGroupLocalesA(LANGGROUPLOCALE_ENUMPROCA lpLangGroupLocaleEnumProc,LGRPID LanguageGroup,DWORD dwFlags,LONG_PTR lParam);
@@ -764,11 +764,11 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI EnumSystemLocalesW(LOCALE_ENUMPROCW lpLocaleEnumProc,DWORD dwFlags);
   WINBASEAPI WINBOOL WINAPI EnumSystemCodePagesA(CODEPAGE_ENUMPROCA lpCodePageEnumProc,DWORD dwFlags);
   WINBASEAPI WINBOOL WINAPI EnumSystemCodePagesW(CODEPAGE_ENUMPROCW lpCodePageEnumProc,DWORD dwFlags);
-  WINBASEAPI WINBOOL WINAPI IsNormalizedString(NORM_FORM NormForm,LPCWSTR lpString,int cwLength);
-  WINBASEAPI int WINAPI NormalizeString(NORM_FORM NormForm,LPCWSTR lpSrcString,int cwSrcLength,LPWSTR lpDstString,int cwDstLength);
-  WINBASEAPI int WINAPI IdnToAscii(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,int cchUnicodeChar,LPWSTR lpASCIICharStr,int cchASCIIChar);
-  WINBASEAPI int WINAPI IdnToNameprepUnicode(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,int cchUnicodeChar,LPWSTR lpNameprepCharStr,int cchNameprepChar);
-  WINBASEAPI int WINAPI IdnToUnicode(DWORD dwFlags,LPCWSTR lpASCIICharStr,int cchASCIIChar,LPWSTR lpUnicodeCharStr,int cchUnicodeChar);
+  WINBASEAPI WINBOOL WINAPI IsNormalizedString(NORM_FORM NormForm,LPCWSTR lpString,ціле cwLength);
+  WINBASEAPI ціле WINAPI NormalizeString(NORM_FORM NormForm,LPCWSTR lpSrcString,ціле cwSrcLength,LPWSTR lpDstString,ціле cwDstLength);
+  WINBASEAPI ціле WINAPI IdnToAscii(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,ціле cchUnicodeChar,LPWSTR lpASCIICharStr,ціле cchASCIIChar);
+  WINBASEAPI ціле WINAPI IdnToNameprepUnicode(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,ціле cchUnicodeChar,LPWSTR lpNameprepCharStr,ціле cchNameprepChar);
+  WINBASEAPI ціле WINAPI IdnToUnicode(DWORD dwFlags,LPCWSTR lpASCIICharStr,ціле cchASCIIChar,LPWSTR lpUnicodeCharStr,ціле cchUnicodeChar);
 
 #endif
 

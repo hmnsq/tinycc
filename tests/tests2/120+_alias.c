@@ -1,8 +1,8 @@
-extern int printf (const char *, ...);
+extern ціле printf (const char *, ...);
 extern void target(void);
 extern void alias_for_target(void);
 extern void asm_for_target(void);
-extern int g_int, alias_int;
+extern ціле g_int, alias_int;
 
 void inunit2(void);
 

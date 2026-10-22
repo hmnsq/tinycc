@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------- */
-#if TEST == 1
+#якщо TEST == 1
 {
     struct M P A __s
     {
@@ -17,7 +17,7 @@
 {
     struct M P __s
     {
-        int x: 12;
+        ціле x: 12;
         char y: 6;
         long long z:63;
         A char a:4;
@@ -41,13 +41,13 @@
 #elif TEST == 4
 {
     struct M P __s {
-        int x : 3;
-        int : 2;
-        int y : 1;
-        int : 0;
-        int z : 5;
-        int a : 7;
-        unsigned int b : 7;
+        ціле x : 3;
+        ціле : 2;
+        ціле y : 1;
+        ціле : 0;
+        ціле z : 5;
+        ціле a : 7;
+        unsigned ціле b : 7;
     };
     TEST_STRUCT(3,1,15,120,120);
 }
@@ -69,9 +69,9 @@
 #elif TEST == 6
 {
     struct M P __s {
-	int a;
+	ціле a;
 	signed char b;
-	int x : 12, y : 4, : 0, : 4, z : 3;
+	ціле x : 12, y : 4, : 0, : 4, z : 3;
 	char d;
     };
     TEST_STRUCT(1,2,3,4,-3);
@@ -81,9 +81,9 @@
 #elif TEST == 7
 {
 #ifdef _WIN32
-    typedef long long int ll;
-#else
-    typedef long int ll;
+    typedef long long ціле ll;
+#інакше
+    typedef long ціле ll;
 #endif
     struct M P __s {
         ll d : 16;
@@ -101,10 +101,10 @@
 /* ----------------------------------------------------------------------- */
 #elif defined PACK
 
-#if PACK
+#якщо PACK
 # pragma pack(push,1)
 # define P //_P
-#else
+#інакше
 # define P
 #endif
 
@@ -125,7 +125,7 @@ top = 0;
 #define TEST 7
 #include SELF
 
-#if PACK
+#якщо PACK
 # pragma pack(pop)
 #endif
 
@@ -135,9 +135,9 @@ top = 0;
 /* ----------------------------------------------------------------------- */
 #elif defined ALIGN
 
-#if ALIGN
+#якщо ALIGN
 # define A _A(16)
-#else
+#інакше
 # define A
 #endif
 
@@ -152,13 +152,13 @@ top = 0;
 /* ----------------------------------------------------------------------- */
 #elif defined MS_BF
 
-#if MS_BF
+#якщо MS_BF
 # ifdef __TINYC__
 #  pragma comment(option, "-mms-bitfields")
 # elif defined __GNUC__
 #  define M __attribute__((ms_struct))
 # endif
-#else
+#інакше
 # ifdef __TINYC__
 #  pragma comment(option, "-mno-ms-bitfields")
 # elif defined __GNUC__
@@ -178,17 +178,17 @@ top = 0;
 #undef MS_BF
 
 /* ----------------------------------------------------------------------- */
-#else
+#інакше
 
 #include <stdio.h>
 #include <string.h>
 /* some gcc headers #define __attribute__ to empty if it's not gcc */
 #undef __attribute__
 
-void dump(void *p, int s)
+void dump(void *p, ціле s)
 {
-    int i;
-    for (i = s; --i >= 0;)
+    ціле i;
+    для (i = s; --i >= 0;)
         printf("%02X", ((unsigned char*)p)[i]);
     printf("\n");
 }
@@ -215,7 +215,7 @@ void dump(void *p, int s)
 # define _A(n) __declspec(align(n))
 # define _P
 # define alignof(x) __alignof(x)
-#else
+#інакше
 # define _A(n) __attribute__((aligned(n)))
 # define _P __attribute__((packed))
 # define alignof(x) __alignof__(x)
@@ -227,13 +227,13 @@ void dump(void *p, int s)
 
 #define SELF "95_bitfields.c"
 
-int top = 1;
+ціле top = 1;
 
-int main()
+ціле main()
 {
 #define MS_BF MS_BITFIELDS
 #include SELF
-    return 0;
+    повернути 0;
 }
 
 /* ----------------------------------------------------------------------- */

@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#інакше
 # define _
 #endif
 
-extern int printf (const char *, ...);
+extern ціле printf (const char *, ...);
 extern void vide(void);
 __asm__(_"vide: ret");
 
-int main() {
+ціле main() {
     vide();
     printf ("okay\n");
-    return 0;
+    повернути 0;
 }

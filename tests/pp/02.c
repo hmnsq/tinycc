@@ -8,7 +8,7 @@
 #define m(a) a(w)
 #define w 0,1
 #define t(a) a
-#define p() int
+#define p() ціле
 #define q(x) x
 #define r(x,y) x ## y
 #define str(x) # x

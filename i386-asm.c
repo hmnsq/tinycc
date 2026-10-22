@@ -51,7 +51,7 @@
 # define OPC_BWLQ    (OPC_B | OPC_WLQ) /* accepts b, w, l, q or no suffix */
 # define OPC_WLX     OPC_WLQ
 # define OPC_BWLX    OPC_BWLQ
-#else
+#інакше
 # define OPC_WLX     OPC_WL
 # define OPC_BWLX    OPC_BWL
 #endif
@@ -129,7 +129,7 @@ enum {
 # define OP_REG8_LOW (1 << OPT_REG8_LOW)
 # define OP_IM64  (1 << OPT_IM64)
 # define OP_EA32  (OP_EA << 1)
-#else
+#інакше
 # define OP_REG64 0
 # define OP_REG8_LOW 0
 # define OP_IM64  0
@@ -144,7 +144,7 @@ enum {
 # define TREG_XCX   TREG_RCX
 # define TREG_XDX   TREG_RDX
 # define TOK_ASM_xax TOK_ASM_rax
-#else
+#інакше
 # define TREG_XAX   TREG_EAX
 # define TREG_XCX   TREG_ECX
 # define TREG_XDX   TREG_EDX
@@ -236,7 +236,7 @@ static const ASMInstr asm_instrs[] = {
 #define DEF_ASM_OP3(name, opcode, group, instr_type, op0, op1, op2) { TOK_ASM_ ## name, O(opcode), T(opcode, instr_type, group), 3, { op0, op1, op2 }},
 #ifdef TCC_TARGET_X86_64
 # include "x86_64-asm.h"
-#else
+#інакше
 # include "i386-asm.h"
 #endif
     /* last operation */
@@ -252,14 +252,14 @@ static const uint16_t op0_codes[] = {
 #define DEF_ASM_OP3(name, opcode, group, instr_type, op0, op1, op2)
 #ifdef TCC_TARGET_X86_64
 # include "x86_64-asm.h"
-#else
+#інакше
 # include "i386-asm.h"
 #endif
 };
 
-static inline int get_reg_shift(TCCState *s1)
+static inline ціле get_reg_shift(TCCState *s1)
 {
-    int shift, v;
+    ціле shift, v;
     v = asm_int_expr(s1);
     switch(v) {
     case 1:
@@ -279,177 +279,177 @@ static inline int get_reg_shift(TCCState *s1)
         shift = 0;
         break;
     }
-    return shift;
+    повернути shift;
 }
 
 #ifdef TCC_TARGET_X86_64
-static int asm_parse_numeric_reg(int t, unsigned int *type)
+static ціле asm_parse_numeric_reg(ціле t, unsigned ціле *type)
 {
-    int reg = -1;
-    if (t >= TOK_IDENT && t < tok_ident) {
+    ціле reg = -1;
+    якщо (t >= TOK_IDENT && t < tok_ident) {
 	const char *s = table_ident[t - TOK_IDENT]->str;
 	char c;
 	*type = OP_REG64;
-	if (*s == 'c') {
+	якщо (*s == 'c') {
 	    s++;
 	    *type = OP_CR;
 	}
-	if (*s++ != 'r')
-	  return -1;
+	якщо (*s++ != 'r')
+	  повернути -1;
 	/* Don't allow leading '0'.  */
-	if ((c = *s++) >= '1' && c <= '9')
+	якщо ((c = *s++) >= '1' && c <= '9')
 	  reg = c - '0';
-	else
-	  return -1;
-	if ((c = *s) >= '0' && c <= '5')
+	інакше
+	  повернути -1;
+	якщо ((c = *s) >= '0' && c <= '5')
 	  s++, reg = reg * 10 + c - '0';
-	if (reg > 15)
-	  return -1;
-	if ((c = *s) == 0)
+	якщо (reg > 15)
+	  повернути -1;
+	якщо ((c = *s) == 0)
 	  ;
-	else if (*type != OP_REG64)
-	  return -1;
-	else if (c == 'b' && !s[1])
+	інакше якщо (*type != OP_REG64)
+	  повернути -1;
+	інакше якщо (c == 'b' && !s[1])
 	  *type = OP_REG8;
-	else if (c == 'w' && !s[1])
+	інакше якщо (c == 'w' && !s[1])
 	  *type = OP_REG16;
-	else if (c == 'd' && !s[1])
+	інакше якщо (c == 'd' && !s[1])
 	  *type = OP_REG32;
-	else
-	  return -1;
+	інакше
+	  повернути -1;
     }
-    return reg;
+    повернути reg;
 }
 #endif
 
-static int asm_parse_reg(unsigned int *type)
+static ціле asm_parse_reg(unsigned ціле *type)
 {
-    int reg = 0;
+    ціле reg = 0;
     *type = 0;
-    if (tok != '%')
+    якщо (tok != '%')
         goto error_32;
     next();
-    if (tok >= TOK_ASM_eax && tok <= TOK_ASM_edi) {
+    якщо (tok >= TOK_ASM_eax && tok <= TOK_ASM_edi) {
         reg = tok - TOK_ASM_eax;
 	*type = OP_REG32;
 #ifdef TCC_TARGET_X86_64
-    } else if (tok >= TOK_ASM_rax && tok <= TOK_ASM_rdi) {
+    } інакше якщо (tok >= TOK_ASM_rax && tok <= TOK_ASM_rdi) {
         reg = tok - TOK_ASM_rax;
 	*type = OP_REG64;
-    } else if (tok == TOK_ASM_rip) {
+    } інакше якщо (tok == TOK_ASM_rip) {
         reg = -2; /* Probably should use different escape code. */
 	*type = OP_REG64;
-    } else if ((reg = asm_parse_numeric_reg(tok, type)) >= 0
+    } інакше якщо ((reg = asm_parse_numeric_reg(tok, type)) >= 0
 	       && (*type == OP_REG32 || *type == OP_REG64)) {
 	;
 #endif
-    } else {
+    } інакше {
     error_32:
         expect("register");
     }
     next();
-    return reg;
+    повернути reg;
 }
 
 static void parse_operand(TCCState *s1, Operand *op)
 {
     ExprValue e;
-    int reg, indir;
+    ціле reg, indir;
     const char *p;
 
     indir = 0;
-    if (tok == '*') {
+    якщо (tok == '*') {
         next();
         indir = OP_INDIR;
     }
 
-    if (tok == '%') {
+    якщо (tok == '%') {
         next();
-        if (tok >= TOK_ASM_al && tok <= TOK_ASM_db7) {
+        якщо (tok >= TOK_ASM_al && tok <= TOK_ASM_db7) {
             reg = tok - TOK_ASM_al;
             op->type = 1 << (reg >> 3); /* WARNING: do not change constant order */
             op->reg = reg & 7;
-            if ((op->type & OP_REG) && op->reg == TREG_XAX)
+            якщо ((op->type & OP_REG) && op->reg == TREG_XAX)
                 op->type |= OP_EAX;
-            else if (op->type == OP_REG8 && op->reg == TREG_XCX)
+            інакше якщо (op->type == OP_REG8 && op->reg == TREG_XCX)
                 op->type |= OP_CL;
-            else if (op->type == OP_REG16 && op->reg == TREG_XDX)
+            інакше якщо (op->type == OP_REG16 && op->reg == TREG_XDX)
                 op->type |= OP_DX;
-        } else if (tok >= TOK_ASM_dr0 && tok <= TOK_ASM_dr7) {
+        } інакше якщо (tok >= TOK_ASM_dr0 && tok <= TOK_ASM_dr7) {
             op->type = OP_DB;
             op->reg = tok - TOK_ASM_dr0;
-        } else if (tok >= TOK_ASM_es && tok <= TOK_ASM_gs) {
+        } інакше якщо (tok >= TOK_ASM_es && tok <= TOK_ASM_gs) {
             op->type = OP_SEG;
             op->reg = tok - TOK_ASM_es;
-        } else if (tok == TOK_ASM_st) {
+        } інакше якщо (tok == TOK_ASM_st) {
             op->type = OP_ST;
             op->reg = 0;
             next();
-            if (tok == '(') {
+            якщо (tok == '(') {
                 next();
-                if (tok != TOK_PPNUM)
+                якщо (tok != TOK_PPNUM)
                     goto reg_error;
                 p = tokc.str.data;
                 reg = p[0] - '0';
-                if ((unsigned)reg >= 8 || p[1] != '\0')
+                якщо ((unsigned)reg >= 8 || p[1] != '\0')
                     goto reg_error;
                 op->reg = reg;
                 next();
                 skip(')');
             }
-            if (op->reg == 0)
+            якщо (op->reg == 0)
                 op->type |= OP_ST0;
             goto no_skip;
 #ifdef TCC_TARGET_X86_64
-	} else if (tok >= TOK_ASM_spl && tok <= TOK_ASM_dil) {
+	} інакше якщо (tok >= TOK_ASM_spl && tok <= TOK_ASM_dil) {
 	    op->type = OP_REG8 | OP_REG8_LOW;
 	    op->reg = 4 + tok - TOK_ASM_spl;
-        } else if ((op->reg = asm_parse_numeric_reg(tok, &op->type)) >= 0) {
+        } інакше якщо ((op->reg = asm_parse_numeric_reg(tok, &op->type)) >= 0) {
 	    ;
 #endif
-        } else {
+        } інакше {
         reg_error:
             tcc_error("unknown register %%%s", get_tok_str(tok, &tokc));
         }
         next();
     no_skip: ;
-    } else if (tok == '$') {
+    } інакше якщо (tok == '$') {
         /* constant value */
         next();
         asm_expr(s1, &e);
         op->type = OP_IM32;
         op->e = e;
-        if (!op->e.sym) {
-            if (op->e.v == (uint8_t)op->e.v)
+        якщо (!op->e.sym) {
+            якщо (op->e.v == (uint8_t)op->e.v)
                 op->type |= OP_IM8;
-            if (op->e.v == (int8_t)op->e.v)
+            якщо (op->e.v == (int8_t)op->e.v)
                 op->type |= OP_IM8S;
-            if (op->e.v == (uint16_t)op->e.v)
+            якщо (op->e.v == (uint16_t)op->e.v)
                 op->type |= OP_IM16;
 #ifdef TCC_TARGET_X86_64
-            if (op->e.v != (int32_t)op->e.v && op->e.v != (uint32_t)op->e.v)
+            якщо (op->e.v != (int32_t)op->e.v && op->e.v != (uint32_t)op->e.v)
                 op->type = OP_IM64;
 #endif
         }
-    } else {
+    } інакше {
         /* address(reg,reg2,shift) with all variants */
         op->type = OP_EA;
         op->reg = -1;
         op->reg2 = -1;
         op->shift = 0;
-        if (tok != '(') {
+        якщо (tok != '(') {
             asm_expr(s1, &e);
             op->e = e;
-        } else {
+        } інакше {
             next();
-            if (tok == '%') {
+            якщо (tok == '%') {
                 unget_tok('(');
                 op->e.v = 0;
                 op->e.sym = NULL;
-            } else {
+            } інакше {
                 /* bracketed offset expression */
                 asm_expr(s1, &e);
-                if (tok != ')')
+                якщо (tok != ')')
                     expect(")");
                 next();
                 op->e.v = e.v;
@@ -457,27 +457,27 @@ static void parse_operand(TCCState *s1, Operand *op)
             }
 	    op->e.pcrel = 0;
         }
-        if (tok == '(') {
-	    unsigned int type = 0;
+        якщо (tok == '(') {
+	    unsigned ціле type = 0;
             next();
-            if (tok != ',') {
+            якщо (tok != ',') {
                 op->reg = asm_parse_reg(&type);
             }
-            if (tok == ',') {
+            якщо (tok == ',') {
                 next();
-                if (tok != ',') {
+                якщо (tok != ',') {
                     op->reg2 = asm_parse_reg(&type);
                 }
-                if (tok == ',') {
+                якщо (tok == ',') {
                     next();
                     op->shift = get_reg_shift(s1);
                 }
             }
-	    if (type & OP_REG32)
+	    якщо (type & OP_REG32)
 	        op->type |= OP_EA32;
             skip(')');
         }
-        if (op->reg == -1 && op->reg2 == -1)
+        якщо (op->reg == -1 && op->reg2 == -1)
             op->type |= OP_ADDR;
     }
     op->type |= indir;
@@ -486,11 +486,11 @@ static void parse_operand(TCCState *s1, Operand *op)
 /* XXX: unify with C code output ? */
 ST_FUNC void gen_expr32(ExprValue *pe)
 {
-    if (pe->pcrel)
+    якщо (pe->pcrel)
         /* If PC-relative, always set VT_SYM, even without symbol,
 	   so as to force a relocation to be emitted.  */
 	gen_addrpc32(VT_SYM, pe->sym, pe->v + (ind + 4));
-    else
+    інакше
 	gen_addr32(pe->sym ? VT_SYM : 0, pe->sym, pe->v);
 }
 
@@ -499,21 +499,21 @@ static void gen_disp32(ExprValue *pe)
 {
     Sym *sym = pe->sym;
     ElfSym *esym = elfsym(sym);
-    if (esym && esym->st_shndx == cur_text_section->sh_num) {
+    якщо (esym && esym->st_shndx == cur_text_section->sh_num) {
         /* same section: we can output an absolute value. Note
            that the TCC compiler behaves differently here because
            it always outputs a relocation to ease (future) code
            elimination in the linker */
         gen_le32(pe->v + esym->st_value - ind - 4);
-    } else {
-        if (sym && sym->type.t == VT_VOID) {
+    } інакше {
+        якщо (sym && sym->type.t == VT_VOID) {
             sym->type.t = VT_FUNC;
             sym->type.ref = NULL;
         }
 #ifdef TCC_TARGET_X86_64
         greloca(cur_text_section, sym, ind, R_X86_64_PLT32, pe->v - 4);
         gen_le32(0);
-#else
+#інакше
         gen_addrpc32(VT_SYM, sym, pe->v);
 #endif
 
@@ -521,61 +521,61 @@ static void gen_disp32(ExprValue *pe)
 }
 
 /* generate the modrm operand */
-static inline int asm_modrm(int reg, Operand *op)
+static inline ціле asm_modrm(ціле reg, Operand *op)
 {
-    int mod, reg1, reg2, sib_reg1;
+    ціле mod, reg1, reg2, sib_reg1;
 
-    if (op->type & (OP_REG | OP_MMX | OP_SSE)) {
+    якщо (op->type & (OP_REG | OP_MMX | OP_SSE)) {
         g(0xc0 + (reg << 3) + op->reg);
-    } else if (op->reg == -1 && op->reg2 == -1) {
+    } інакше якщо (op->reg == -1 && op->reg2 == -1) {
         /* displacement only */
 #ifdef TCC_TARGET_X86_64
 	g(0x04 + (reg << 3));
 	g(0x25);
-#else
+#інакше
 	g(0x05 + (reg << 3));
 #endif
 	gen_expr32(&op->e);
 #ifdef TCC_TARGET_X86_64
-    } else if (op->reg == -2) {
+    } інакше якщо (op->reg == -2) {
         ExprValue *pe = &op->e;
         g(0x05 + (reg << 3));
         gen_addrpc32(pe->sym ? VT_SYM : 0, pe->sym, pe->v);
-        return ind;
+        повернути ind;
 #endif
-    } else {
+    } інакше {
         sib_reg1 = op->reg;
         /* fist compute displacement encoding */
-        if (sib_reg1 == -1) {
+        якщо (sib_reg1 == -1) {
             sib_reg1 = 5;
             mod = 0x00;
-        } else if (op->e.v == 0 && !op->e.sym && op->reg != 5) {
+        } інакше якщо (op->e.v == 0 && !op->e.sym && op->reg != 5) {
             mod = 0x00;
-        } else if (op->e.v == (int8_t)op->e.v && !op->e.sym) {
+        } інакше якщо (op->e.v == (int8_t)op->e.v && !op->e.sym) {
             mod = 0x40;
-        } else {
+        } інакше {
             mod = 0x80;
         }
         /* compute if sib byte needed */
         reg1 = op->reg;
-        if (op->reg2 != -1)
+        якщо (op->reg2 != -1)
             reg1 = 4;
         g(mod + (reg << 3) + reg1);
-        if (reg1 == 4) {
+        якщо (reg1 == 4) {
             /* add sib byte */
             reg2 = op->reg2;
-            if (reg2 == -1)
+            якщо (reg2 == -1)
                 reg2 = 4; /* indicate no index */
             g((op->shift << 6) + (reg2 << 3) + sib_reg1);
         }
         /* add offset */
-        if (mod == 0x40) {
+        якщо (mod == 0x40) {
             g(op->e.v);
-        } else if (mod == 0x80 || op->reg == -1) {
+        } інакше якщо (mod == 0x80 || op->reg == -1) {
 	    gen_expr32(&op->e);
         }
     }
-    return 0;
+    повернути 0;
 }
 
 #ifdef TCC_TARGET_X86_64
@@ -584,56 +584,56 @@ static inline int asm_modrm(int reg, Operand *op)
 #define REX_X 0x42
 #define REX_B 0x41
 
-static void asm_rex(int width64, Operand *ops, int nb_ops, int *op_type,
-		    int regi, int rmi)
+static void asm_rex(ціле width64, Operand *ops, ціле nb_ops, ціле *op_type,
+		    ціле regi, ціле rmi)
 {
   unsigned char rex = width64 ? 0x48 : 0;
-  int saw_high_8bit = 0;
-  int i;
-  if (rmi == -1) {
+  ціле saw_high_8bit = 0;
+  ціле i;
+  якщо (rmi == -1) {
       /* No mod/rm byte, but we might have a register op nevertheless
          (we will add it to the opcode later).  */
-      for(i = 0; i < nb_ops; i++) {
-	  if (op_type[i] & (OP_REG | OP_ST)) {
-	      if (ops[i].reg >= 8) {
+      для(i = 0; i < nb_ops; i++) {
+	  якщо (op_type[i] & (OP_REG | OP_ST)) {
+	      якщо (ops[i].reg >= 8) {
 		  rex |= REX_B;
 		  ops[i].reg -= 8;
-	      } else if (ops[i].type & OP_REG8_LOW)
+	      } інакше якщо (ops[i].type & OP_REG8_LOW)
 		  rex |= 0x40;
-	      else if (ops[i].type & OP_REG8 && ops[i].reg >= 4)
+	      інакше якщо (ops[i].type & OP_REG8 && ops[i].reg >= 4)
 		  /* An 8 bit reg >= 4 without REG8 is ah/ch/dh/bh */
 		  saw_high_8bit = ops[i].reg;
 	      break;
 	  }
       }
-  } else {
-      if (regi != -1) {
-	  if (ops[regi].reg >= 8) {
+  } інакше {
+      якщо (regi != -1) {
+	  якщо (ops[regi].reg >= 8) {
 	      rex |= REX_R;
 	      ops[regi].reg -= 8;
-	  } else if (ops[regi].type & OP_REG8_LOW)
+	  } інакше якщо (ops[regi].type & OP_REG8_LOW)
 	      rex |= 0x40;
-	  else if (ops[regi].type & OP_REG8 && ops[regi].reg >= 4)
+	  інакше якщо (ops[regi].type & OP_REG8 && ops[regi].reg >= 4)
 	      /* An 8 bit reg >= 4 without REG8 is ah/ch/dh/bh */
 	      saw_high_8bit = ops[regi].reg;
       }
-      if (ops[rmi].type & (OP_REG | OP_MMX | OP_SSE | OP_CR | OP_EA)) {
-	  if (ops[rmi].reg >= 8) {
+      якщо (ops[rmi].type & (OP_REG | OP_MMX | OP_SSE | OP_CR | OP_EA)) {
+	  якщо (ops[rmi].reg >= 8) {
 	      rex |= REX_B;
 	      ops[rmi].reg -= 8;
-	  } else if (ops[rmi].type & OP_REG8_LOW)
+	  } інакше якщо (ops[rmi].type & OP_REG8_LOW)
 	      rex |= 0x40;
-	  else if (ops[rmi].type & OP_REG8 && ops[rmi].reg >= 4)
+	  інакше якщо (ops[rmi].type & OP_REG8 && ops[rmi].reg >= 4)
 	      /* An 8 bit reg >= 4 without REG8 is ah/ch/dh/bh */
 	      saw_high_8bit = ops[rmi].reg;
       }
-      if (ops[rmi].type & OP_EA && ops[rmi].reg2 >= 8) {
+      якщо (ops[rmi].type & OP_EA && ops[rmi].reg2 >= 8) {
 	  rex |= REX_X;
 	  ops[rmi].reg2 -= 8;
       }
   }
-  if (rex) {
-      if (saw_high_8bit)
+  якщо (rex) {
+      якщо (saw_high_8bit)
 	  tcc_error("can't encode register %%%ch when REX prefix is required",
 		    "acdb"[saw_high_8bit-4]);
       g(rex);
@@ -644,25 +644,25 @@ static void asm_rex(int width64, Operand *ops, int nb_ops, int *op_type,
 
 static void maybe_print_stats (void)
 {
-    static int already;
+    static ціле already;
 
-    if (0 && !already)
+    якщо (0 && !already)
     /* print stats about opcodes */
     {
         const struct ASMInstr *pa;
-        int freq[4];
-        int op_vals[500];
-        int nb_op_vals, i, j;
+        ціле freq[4];
+        ціле op_vals[500];
+        ціле nb_op_vals, i, j;
 
 	already = 1;
         nb_op_vals = 0;
         memset(freq, 0, sizeof(freq));
-        for(pa = asm_instrs; pa->sym != 0; pa++) {
+        для(pa = asm_instrs; pa->sym != 0; pa++) {
             freq[pa->nb_ops]++;
             //for(i=0;i<pa->nb_ops;i++) {
-                for(j=0;j<nb_op_vals;j++) {
+                для(j=0;j<nb_op_vals;j++) {
                     //if (pa->op_type[i] == op_vals[j])
-                    if (pa->instr_type == op_vals[j])
+                    якщо (pa->instr_type == op_vals[j])
                         goto found;
                 }
                 //op_vals[nb_op_vals++] = pa->op_type[i];
@@ -670,36 +670,36 @@ static void maybe_print_stats (void)
             found: ;
             //}
         }
-        for(i=0;i<nb_op_vals;i++) {
-            int v = op_vals[i];
+        для(i=0;i<nb_op_vals;i++) {
+            ціле v = op_vals[i];
             //if ((v & (v - 1)) != 0)
                 printf("%3d: %08x\n", i, v);
         }
         printf("size=%d nb=%d f0=%d f1=%d f2=%d f3=%d\n",
-               (int)sizeof(asm_instrs),
-	       (int)sizeof(asm_instrs) / (int)sizeof(ASMInstr),
+               (ціле)sizeof(asm_instrs),
+	       (ціле)sizeof(asm_instrs) / (ціле)sizeof(ASMInstr),
                freq[0], freq[1], freq[2], freq[3]);
     }
 }
 
-ST_FUNC void asm_opcode(TCCState *s1, int opcode)
+ST_FUNC void asm_opcode(TCCState *s1, ціле opcode)
 {
     const ASMInstr *pa;
-    int i, modrm_index, modreg_index, reg, v, op1, seg_prefix, pc, p;
-    int nb_ops, s;
+    ціле i, modrm_index, modreg_index, reg, v, op1, seg_prefix, pc, p;
+    ціле nb_ops, s;
     Operand ops[MAX_OPERANDS], *pop;
-    int op_type[3]; /* decoded op type */
-    int alltypes;   /* OR of all operand types */
-    int autosize;
-    int p66;
+    ціле op_type[3]; /* decoded op type */
+    ціле alltypes;   /* OR of all operand types */
+    ціле autosize;
+    ціле p66;
 #ifdef TCC_TARGET_X86_64
-    int rex64;
+    ціле rex64;
 #endif
 
     maybe_print_stats();
     /* force synthetic ';' after prefix instruction, so we can handle */
     /* one-line things like "rep stosb" instead of only "rep\nstosb" */
-    if (opcode >= TOK_ASM_wait && opcode <= TOK_ASM_repnz)
+    якщо (opcode >= TOK_ASM_wait && opcode <= TOK_ASM_repnz)
         unget_tok(';');
 
     /* get operands */
@@ -707,26 +707,26 @@ ST_FUNC void asm_opcode(TCCState *s1, int opcode)
     nb_ops = 0;
     seg_prefix = 0;
     alltypes = 0;
-    for(;;) {
-        if (tok == ';' || tok == TOK_LINEFEED)
+    для(;;) {
+        якщо (tok == ';' || tok == TOK_LINEFEED)
             break;
-        if (nb_ops >= MAX_OPERANDS) {
+        якщо (nb_ops >= MAX_OPERANDS) {
             tcc_error("incorrect number of operands");
         }
         parse_operand(s1, pop);
-        if (tok == ':') {
-           if (!(pop->type & OP_SEG) || seg_prefix)
+        якщо (tok == ':') {
+           якщо (!(pop->type & OP_SEG) || seg_prefix)
                tcc_error("incorrect prefix");
            seg_prefix = segment_prefixes[pop->reg];
            next();
            parse_operand(s1, pop);
-           if (!(pop->type & OP_EA)) {
+           якщо (!(pop->type & OP_EA)) {
                tcc_error("segment prefix must be followed by memory reference");
            }
         }
         pop++;
         nb_ops++;
-        if (tok != ',')
+        якщо (tok != ',')
             break;
         next();
     }
@@ -736,73 +736,73 @@ ST_FUNC void asm_opcode(TCCState *s1, int opcode)
 again:
     /* optimize matching by using a lookup table (no hashing is needed
        !) */
-    for(pa = asm_instrs; pa->sym != 0; pa++) {
-	int it = pa->instr_type & OPCT_MASK;
+    для(pa = asm_instrs; pa->sym != 0; pa++) {
+	ціле it = pa->instr_type & OPCT_MASK;
         s = 0;
-        if (it == OPC_FARITH) {
+        якщо (it == OPC_FARITH) {
             v = opcode - pa->sym;
-            if (!((unsigned)v < 8 * 6 && (v % 6) == 0))
+            якщо (!((unsigned)v < 8 * 6 && (v % 6) == 0))
                 continue;
-        } else if (it == OPC_ARITH) {
-            if (!(opcode >= pa->sym && opcode < pa->sym + 8*NBWLX))
+        } інакше якщо (it == OPC_ARITH) {
+            якщо (!(opcode >= pa->sym && opcode < pa->sym + 8*NBWLX))
                 continue;
             s = (opcode - pa->sym) % NBWLX;
-	    if ((pa->instr_type & OPC_BWLX) == OPC_WLX)
+	    якщо ((pa->instr_type & OPC_BWLX) == OPC_WLX)
 	      {
 		/* We need to reject the xxxb opcodes that we accepted above.
 		   Note that pa->sym for WLX opcodes is the 'w' token,
 		   to get the 'b' token subtract one.  */
-		if (((opcode - pa->sym + 1) % NBWLX) == 0)
+		якщо (((opcode - pa->sym + 1) % NBWLX) == 0)
 		    continue;
 	        s++;
 	      }
-        } else if (it == OPC_SHIFT) {
-            if (!(opcode >= pa->sym && opcode < pa->sym + 7*NBWLX))
+        } інакше якщо (it == OPC_SHIFT) {
+            якщо (!(opcode >= pa->sym && opcode < pa->sym + 7*NBWLX))
                 continue;
             s = (opcode - pa->sym) % NBWLX;
-        } else if (it == OPC_TEST) {
-            if (!(opcode >= pa->sym && opcode < pa->sym + NB_TEST_OPCODES))
+        } інакше якщо (it == OPC_TEST) {
+            якщо (!(opcode >= pa->sym && opcode < pa->sym + NB_TEST_OPCODES))
                 continue;
 	    /* cmovxx is a test opcode but accepts multiple sizes.
 	       The suffixes aren't encoded in the table, instead we
 	       simply force size autodetection always and deal with suffixed
 	       variants below when we don't find e.g. "cmovzl".  */
-	    if (pa->instr_type & OPC_WLX)
+	    якщо (pa->instr_type & OPC_WLX)
 	        s = NBWLX - 1;
-        } else if (pa->instr_type & OPC_B) {
+        } інакше якщо (pa->instr_type & OPC_B) {
 #ifdef TCC_TARGET_X86_64
 	    /* Some instructions don't have the full size but only
 	       bwl form.  insb e.g. */
-	    if ((pa->instr_type & OPC_WLQ) != OPC_WLQ
+	    якщо ((pa->instr_type & OPC_WLQ) != OPC_WLQ
 		&& !(opcode >= pa->sym && opcode < pa->sym + NBWLX-1))
 	        continue;
 #endif
-            if (!(opcode >= pa->sym && opcode < pa->sym + NBWLX))
+            якщо (!(opcode >= pa->sym && opcode < pa->sym + NBWLX))
                 continue;
             s = opcode - pa->sym;
-        } else if (pa->instr_type & OPC_WLX) {
-            if (!(opcode >= pa->sym && opcode < pa->sym + NBWLX-1))
+        } інакше якщо (pa->instr_type & OPC_WLX) {
+            якщо (!(opcode >= pa->sym && opcode < pa->sym + NBWLX-1))
                 continue;
             s = opcode - pa->sym + 1;
-        } else {
-            if (pa->sym != opcode)
+        } інакше {
+            якщо (pa->sym != opcode)
                 continue;
         }
-        if (pa->nb_ops != nb_ops)
+        якщо (pa->nb_ops != nb_ops)
             continue;
 #ifdef TCC_TARGET_X86_64
 	/* Special case for moves.  Selecting the IM64->REG64 form
 	   should only be done if we really have an >32bit imm64, and that
 	   is hardcoded.  Ignore it here.  */
-	if (pa->opcode == 0xb0 && ops[0].type != OP_IM64
+	якщо (pa->opcode == 0xb0 && ops[0].type != OP_IM64
 	    && (ops[1].type & OP_REG) == OP_REG64
 	    && !(pa->instr_type & OPC_0F))
 	    continue;
 #endif
         /* now decode and check each operand */
 	alltypes = 0;
-        for(i = 0; i < nb_ops; i++) {
-            int op1, op2;
+        для(i = 0; i < nb_ops; i++) {
+            ціле op1, op2;
             op1 = pa->op_type[i];
             op2 = op1 & 0x1f;
             switch(op2) {
@@ -829,10 +829,10 @@ again:
                 v = 1 << op2;
                 break;
             }
-            if (op1 & OPT_EA)
+            якщо (op1 & OPT_EA)
                 v |= OP_EA;
 	    op_type[i] = v;
-            if ((ops[i].type & v) == 0)
+            якщо ((ops[i].type & v) == 0)
                 goto next;
 	    alltypes |= ops[i].type;
         }
@@ -841,22 +841,22 @@ again:
         break;
     next: ;
     }
-    if (pa->sym == 0) {
-        if (opcode >= TOK_ASM_first && opcode <= TOK_ASM_last) {
-            int b;
+    якщо (pa->sym == 0) {
+        якщо (opcode >= TOK_ASM_first && opcode <= TOK_ASM_last) {
+            ціле b;
             b = op0_codes[opcode - TOK_ASM_first];
-            if (b & 0xff00)
+            якщо (b & 0xff00)
                 g(b >> 8);
             g(b);
-            return;
-        } else if (opcode <= TOK_ASM_alllast) {
+            повернути;
+        } інакше якщо (opcode <= TOK_ASM_alllast) {
             tcc_error("bad operand with opcode '%s'",
                   get_tok_str(opcode, NULL));
-        } else {
+        } інакше {
 	    /* Special case for cmovcc, we accept size suffixes but ignore
 	       them, but we don't want them to blow up our tables.  */
 	    TokenSym *ts = table_ident[opcode - TOK_IDENT];
-	    if (ts->len >= 6
+	    якщо (ts->len >= 6
 		&& strchr("wlq", ts->str[ts->len-1])
 		&& !memcmp(ts->str, "cmov", 4)) {
 		opcode = tok_alloc(ts->str, ts->len-1)->tok;
@@ -870,39 +870,39 @@ again:
 #ifdef TCC_TARGET_X86_64
     /* XXX the autosize should rather be zero, to not have to adjust this
        all the time.  */
-    if ((pa->instr_type & OPC_BWLQ) == OPC_B)
+    якщо ((pa->instr_type & OPC_BWLQ) == OPC_B)
         autosize = NBWLX-2;
 #endif
-    if (s == autosize) {
+    якщо (s == autosize) {
 	/* Check for register operands providing hints about the size.
 	   Start from the end, i.e. destination operands.  This matters
 	   only for opcodes accepting different sized registers, lar and lsl
 	   are such opcodes.  */
-        for(i = nb_ops - 1; s == autosize && i >= 0; i--) {
-            if ((ops[i].type & OP_REG) && !(op_type[i] & (OP_CL | OP_DX)))
+        для(i = nb_ops - 1; s == autosize && i >= 0; i--) {
+            якщо ((ops[i].type & OP_REG) && !(op_type[i] & (OP_CL | OP_DX)))
                 s = reg_to_size[ops[i].type & OP_REG];
         }
-        if (s == autosize) {
-            if ((opcode == TOK_ASM_push || opcode == TOK_ASM_pop) &&
+        якщо (s == autosize) {
+            якщо ((opcode == TOK_ASM_push || opcode == TOK_ASM_pop) &&
                 (ops[0].type & (OP_SEG | OP_IM8S | OP_IM32)))
                 s = 2;
-	    else if ((opcode == TOK_ASM_push || opcode == TOK_ASM_pop) &&
+	    інакше якщо ((opcode == TOK_ASM_push || opcode == TOK_ASM_pop) &&
 		     (ops[0].type & OP_EA))
 	        s = NBWLX - 2;
-            else
+            інакше
                 tcc_error("cannot infer opcode suffix");
         }
     }
 
 #ifdef TCC_TARGET_X86_64
     rex64 = 0;
-    if (pa->instr_type & OPC_48)
+    якщо (pa->instr_type & OPC_48)
         rex64 = 1;
-    else if (s == 3 || (alltypes & OP_REG64)) {
+    інакше якщо (s == 3 || (alltypes & OP_REG64)) {
         /* generate REX prefix */
-	int default64 = 0;
-	for(i = 0; i < nb_ops; i++) {
-	    if (op_type[i] == OP_REG64 && pa->opcode != 0xb8) {
+	ціле default64 = 0;
+	для(i = 0; i < nb_ops; i++) {
+	    якщо (op_type[i] == OP_REG64 && pa->opcode != 0xb8) {
 		/* If only 64bit regs are accepted in one operand
 		   this is a default64 instruction without need for
 		   REX prefixes, except for movabs(0xb8).  */
@@ -911,7 +911,7 @@ again:
 	    }
 	}
 	/* XXX find better encoding for the default64 instructions.  */
-        if (((opcode != TOK_ASM_push && opcode != TOK_ASM_pop
+        якщо (((opcode != TOK_ASM_push && opcode != TOK_ASM_pop
 	      && opcode != TOK_ASM_pushw && opcode != TOK_ASM_pushl
 	      && opcode != TOK_ASM_pushq && opcode != TOK_ASM_popw
 	      && opcode != TOK_ASM_popl && opcode != TOK_ASM_popq
@@ -922,14 +922,14 @@ again:
 #endif
 
     /* now generates the operation */
-    if (OPCT_IS(pa->instr_type, OPC_FWAIT))
+    якщо (OPCT_IS(pa->instr_type, OPC_FWAIT))
         g(0x9b);
-    if (seg_prefix)
+    якщо (seg_prefix)
         g(seg_prefix);
 #ifdef TCC_TARGET_X86_64
     /* Generate addr32 prefix if needed */
-    for(i = 0; i < nb_ops; i++) {
-        if (ops[i].type & OP_EA32) {
+    для(i = 0; i < nb_ops; i++) {
+        якщо (ops[i].type & OP_EA32) {
 	    g(0x67);
 	    break;
         }
@@ -937,18 +937,18 @@ again:
 #endif
     /* generate data16 prefix if needed */
     p66 = 0;
-    if (s == 1)
+    якщо (s == 1)
         p66 = 1;
-    else {
+    інакше {
 	/* accepting mmx+sse in all operands --> needs 0x66 to
 	   switch to sse mode.  Accepting only sse in an operand --> is
 	   already SSE insn and needs 0x66/f2/f3 handling.  */
-        for (i = 0; i < nb_ops; i++)
-            if ((op_type[i] & (OP_MMX | OP_SSE)) == (OP_MMX | OP_SSE)
+        для (i = 0; i < nb_ops; i++)
+            якщо ((op_type[i] & (OP_MMX | OP_SSE)) == (OP_MMX | OP_SSE)
 	        && ops[i].type & OP_SSE)
 	        p66 = 1;
     }
-    if (p66)
+    якщо (p66)
         g(0x66);
 
     v = pa->opcode;
@@ -965,28 +965,28 @@ again:
         case 0xdc: case 0xdd: case 0xde: case 0xdf: break;
         default: tcc_error("bad prefix 0x%2x in opcode table", p); break;
     }
-    if (pa->instr_type & OPC_0F)
+    якщо (pa->instr_type & OPC_0F)
         v = ((v & ~0xff) << 8) | 0x0f00 | (v & 0xff);
-    if ((v == 0x69 || v == 0x6b) && nb_ops == 2) {
+    якщо ((v == 0x69 || v == 0x6b) && nb_ops == 2) {
         /* kludge for imul $im, %reg */
         nb_ops = 3;
         ops[2] = ops[1];
         op_type[2] = op_type[1];
-    } else if (v == 0xcd && ops[0].e.v == 3 && !ops[0].e.sym) {
+    } інакше якщо (v == 0xcd && ops[0].e.v == 3 && !ops[0].e.sym) {
         v--; /* int $3 case */
         nb_ops = 0;
-    } else if ((v == 0x06 || v == 0x07)) {
-        if (ops[0].reg >= 4) {
+    } інакше якщо ((v == 0x06 || v == 0x07)) {
+        якщо (ops[0].reg >= 4) {
             /* push/pop %fs or %gs */
             v = 0x0fa0 + (v - 0x06) + ((ops[0].reg - 4) << 3);
-        } else {
+        } інакше {
             v += ops[0].reg << 3;
         }
         nb_ops = 0;
-    } else if (v <= 0x05) {
+    } інакше якщо (v <= 0x05) {
         /* arith case */
         v += ((opcode - TOK_ASM_addb) / NBWLX) << 3;
-    } else if ((pa->instr_type & (OPCT_MASK | OPC_MODRM)) == OPC_FARITH) {
+    } інакше якщо ((pa->instr_type & (OPCT_MASK | OPC_MODRM)) == OPC_FARITH) {
         /* fpu arith case */
         v += ((opcode - pa->sym) / 6) << 3;
     }
@@ -994,33 +994,33 @@ again:
     /* search which operand will be used for modrm */
     modrm_index = -1;
     modreg_index = -1;
-    if (pa->instr_type & OPC_MODRM) {
-	if (!nb_ops) {
+    якщо (pa->instr_type & OPC_MODRM) {
+	якщо (!nb_ops) {
 	    /* A modrm opcode without operands is a special case (e.g. mfence).
 	       It has a group and acts as if there's an register operand 0 */
 	    i = 0;
 	    ops[i].type = OP_REG;
 #ifdef TCC_TARGET_X86_64
-	    if (pa->sym == TOK_ASM_endbr64)
+	    якщо (pa->sym == TOK_ASM_endbr64)
 	      ops[i].reg = 2; // dx
-	    else if (pa->sym >= TOK_ASM_lfence && pa->sym <= TOK_ASM_sfence)
+	    інакше якщо (pa->sym >= TOK_ASM_lfence && pa->sym <= TOK_ASM_sfence)
   	      ops[i].reg = 0; // ax
-#else
-	    if (pa->sym == TOK_ASM_endbr32)
+#інакше
+	    якщо (pa->sym == TOK_ASM_endbr32)
 	      ops[i].reg = 3; // bx
 #endif
-	    else
+	    інакше
 	      tcc_error("bad MODR/M opcode without operands");
 	    goto modrm_found;
 	}
         /* first look for an ea operand */
-        for(i = 0;i < nb_ops; i++) {
-            if (op_type[i] & OP_EA)
+        для(i = 0;i < nb_ops; i++) {
+            якщо (op_type[i] & OP_EA)
                 goto modrm_found;
         }
         /* then if not found, a register or indirection (shift instructions) */
-        for(i = 0;i < nb_ops; i++) {
-            if (op_type[i] & (OP_REG | OP_MMX | OP_SSE | OP_INDIR))
+        для(i = 0;i < nb_ops; i++) {
+            якщо (op_type[i] & (OP_REG | OP_MMX | OP_SSE | OP_INDIR))
                 goto modrm_found;
         }
 #ifdef ASM_DEBUG
@@ -1030,9 +1030,9 @@ again:
         modrm_index = i;
         /* if a register is used in another operand then it is
            used instead of group */
-        for(i = 0;i < nb_ops; i++) {
-            int t = op_type[i];
-            if (i != modrm_index &&
+        для(i = 0;i < nb_ops; i++) {
+            ціле t = op_type[i];
+            якщо (i != modrm_index &&
                 (t & (OP_REG | OP_MMX | OP_SSE | OP_CR | OP_TR | OP_DB | OP_SEG))) {
                 modreg_index = i;
                 break;
@@ -1043,141 +1043,141 @@ again:
     asm_rex (rex64, ops, nb_ops, op_type, modreg_index, modrm_index);
 #endif
 
-    if (pa->instr_type & OPC_REG) {
+    якщо (pa->instr_type & OPC_REG) {
         /* mov $im, %reg case */
-        if (v == 0xb0 && s >= 1)
+        якщо (v == 0xb0 && s >= 1)
             v += 7;
-        for(i = 0; i < nb_ops; i++) {
-            if (op_type[i] & (OP_REG | OP_ST)) {
+        для(i = 0; i < nb_ops; i++) {
+            якщо (op_type[i] & (OP_REG | OP_ST)) {
                 v += ops[i].reg;
                 break;
             }
         }
     }
-    if (pa->instr_type & OPC_B)
+    якщо (pa->instr_type & OPC_B)
         v += s >= 1;
-    if (nb_ops == 1 && pa->op_type[0] == OPT_DISP8) {
+    якщо (nb_ops == 1 && pa->op_type[0] == OPT_DISP8) {
 	ElfSym *esym;
-        int jmp_disp;
+        ціле jmp_disp;
 
         /* see if we can really generate the jump with a byte offset */
 	esym = elfsym(ops[0].e.sym);
-        if (!esym || esym->st_shndx != cur_text_section->sh_num)
+        якщо (!esym || esym->st_shndx != cur_text_section->sh_num)
             goto no_short_jump;
         jmp_disp = ops[0].e.v + esym->st_value - ind - 2 - (v >= 0xff);
-        if (jmp_disp == (int8_t)jmp_disp) {
+        якщо (jmp_disp == (int8_t)jmp_disp) {
             /* OK to generate jump */
 	    ops[0].e.sym = 0;
             ops[0].e.v = jmp_disp;
 	    op_type[0] = OP_IM8S;
-        } else {
+        } інакше {
         no_short_jump:
 	    /* long jump will be allowed. need to modify the
 	       opcode slightly */
-	    if (v == 0xeb) /* jmp */
+	    якщо (v == 0xeb) /* jmp */
 	        v = 0xe9;
-	    else if (v == 0x70) /* jcc */
+	    інакше якщо (v == 0x70) /* jcc */
 	        v += 0x0f10;
-	    else
+	    інакше
 	        tcc_error("invalid displacement");
         }
     }
-    if (OPCT_IS(pa->instr_type, OPC_TEST))
+    якщо (OPCT_IS(pa->instr_type, OPC_TEST))
         v += test_bits[opcode - pa->sym];
-    else if (OPCT_IS(pa->instr_type, OPC_0F01))
+    інакше якщо (OPCT_IS(pa->instr_type, OPC_0F01))
         v |= 0x0f0100;
     op1 = v >> 16;
-    if (op1)
+    якщо (op1)
         g(op1);
     op1 = (v >> 8) & 0xff;
-    if (op1)
+    якщо (op1)
         g(op1);
     g(v);
 
-    if (OPCT_IS(pa->instr_type, OPC_SHIFT)) {
+    якщо (OPCT_IS(pa->instr_type, OPC_SHIFT)) {
         reg = (opcode - pa->sym) / NBWLX;
-        if (reg == 6)
+        якщо (reg == 6)
             reg = 7;
-    } else if (OPCT_IS(pa->instr_type, OPC_ARITH)) {
+    } інакше якщо (OPCT_IS(pa->instr_type, OPC_ARITH)) {
         reg = (opcode - pa->sym) / NBWLX;
-    } else if (OPCT_IS(pa->instr_type, OPC_FARITH)) {
+    } інакше якщо (OPCT_IS(pa->instr_type, OPC_FARITH)) {
         reg = (opcode - pa->sym) / 6;
-    } else {
+    } інакше {
         reg = (pa->instr_type >> OPC_GROUP_SHIFT) & 7;
     }
 
     pc = 0;
-    if (pa->instr_type & OPC_MODRM) {
+    якщо (pa->instr_type & OPC_MODRM) {
         /* if a register is used in another operand then it is
            used instead of group */
-	if (modreg_index >= 0)
+	якщо (modreg_index >= 0)
 	    reg = ops[modreg_index].reg;
         pc = asm_modrm(reg, &ops[modrm_index]);
     }
 
     /* emit constants */
 #ifndef TCC_TARGET_X86_64
-    if (!(pa->instr_type & OPC_0F)
+    якщо (!(pa->instr_type & OPC_0F)
 	&& (pa->opcode == 0x9a || pa->opcode == 0xea)) {
         /* ljmp or lcall kludge */
 	gen_expr32(&ops[1].e);
-        if (ops[0].e.sym)
+        якщо (ops[0].e.sym)
             tcc_error("cannot relocate");
         gen_le16(ops[0].e.v);
-        return;
+        повернути;
     }
 #endif
-    for(i = 0;i < nb_ops; i++) {
+    для(i = 0;i < nb_ops; i++) {
         v = op_type[i];
-        if (v & (OP_IM8 | OP_IM16 | OP_IM32 | OP_IM64 | OP_IM8S | OP_ADDR)) {
+        якщо (v & (OP_IM8 | OP_IM16 | OP_IM32 | OP_IM64 | OP_IM8S | OP_ADDR)) {
             /* if multiple sizes are given it means we must look
                at the op size */
-            if ((v | OP_IM8 | OP_IM64) == (OP_IM8 | OP_IM16 | OP_IM32 | OP_IM64)) {
-                if (s == 0)
+            якщо ((v | OP_IM8 | OP_IM64) == (OP_IM8 | OP_IM16 | OP_IM32 | OP_IM64)) {
+                якщо (s == 0)
                     v = OP_IM8;
-                else if (s == 1)
+                інакше якщо (s == 1)
                     v = OP_IM16;
-                else if (s == 2 || (v & OP_IM64) == 0)
+                інакше якщо (s == 2 || (v & OP_IM64) == 0)
                     v = OP_IM32;
-                else
+                інакше
                     v = OP_IM64;
             }
 
-            if ((v & (OP_IM8 | OP_IM8S | OP_IM16)) && ops[i].e.sym)
+            якщо ((v & (OP_IM8 | OP_IM8S | OP_IM16)) && ops[i].e.sym)
                 tcc_error("cannot relocate");
 
-            if (v & (OP_IM8 | OP_IM8S)) {
+            якщо (v & (OP_IM8 | OP_IM8S)) {
                 g(ops[i].e.v);
-            } else if (v & OP_IM16) {
+            } інакше якщо (v & OP_IM16) {
                 gen_le16(ops[i].e.v);
 #ifdef TCC_TARGET_X86_64
-            } else if (v & OP_IM64) {
+            } інакше якщо (v & OP_IM64) {
                 gen_expr64(&ops[i].e);
 #endif
-	    } else if (pa->op_type[i] == OPT_DISP || pa->op_type[i] == OPT_DISP8) {
+	    } інакше якщо (pa->op_type[i] == OPT_DISP || pa->op_type[i] == OPT_DISP8) {
                 gen_disp32(&ops[i].e);
-            } else {
+            } інакше {
                 gen_expr32(&ops[i].e);
             }
         }
     }
 
     /* after immediate operands, adjust pc-relative address */
-    if (pc)
+    якщо (pc)
         add32le(cur_text_section->data + pc - 4, pc - ind);
 }
 
 /* return the constraint priority (we allocate first the lowest
    numbered constraints) */
-static inline int constraint_priority(const char *str)
+static inline ціле constraint_priority(const char *str)
 {
-    int priority, c, pr;
+    ціле priority, c, pr;
 
     /* we take the lowest priority */
     priority = 0;
-    for(;;) {
+    для(;;) {
         c = *str;
-        if (c == '\0')
+        якщо (c == '\0')
             break;
         str++;
         switch(c) {
@@ -1213,29 +1213,29 @@ static inline int constraint_priority(const char *str)
             tcc_error("unknown constraint '%c'", c);
             pr = 0;
         }
-        if (pr > priority)
+        якщо (pr > priority)
             priority = pr;
     }
-    return priority;
+    повернути priority;
 }
 
 static const char *skip_constraint_modifiers(const char *p)
 {
-    while (*p == '=' || *p == '&' || *p == '+' || *p == '%')
+    поки (*p == '=' || *p == '&' || *p == '+' || *p == '%')
         p++;
-    return p;
+    повернути p;
 }
 
 /* If t (a token) is of the form "%reg" or "reg" return the register number and
    type, otherwise return -1. With GCC the % is optional, too. */
-ST_FUNC int asm_parse_regvar (int t)
+ST_FUNC ціле asm_parse_regvar (ціле t)
 {
     const char *s;
     Operand op;
-    if (t < TOK_IDENT || (t & SYM_FIELD))
-        return -1;
+    якщо (t < TOK_IDENT || (t & SYM_FIELD))
+        повернути -1;
     s = table_ident[t - TOK_IDENT]->str;
-    if (s[0] == '%')
+    якщо (s[0] == '%')
         ++s;
     t = tok_alloc_const(s);
     unget_tok(t);
@@ -1243,10 +1243,10 @@ ST_FUNC int asm_parse_regvar (int t)
     unget_tok('%');
     parse_operand(tcc_state, &op);
     /* Accept only integer regs for now. */
-    if (op.type & OP_REG)
-        return op.reg;
-    else
-        return -1;
+    якщо (op.type & OP_REG)
+        повернути op.reg;
+    інакше
+        повернути -1;
 }
 
 #define REG_OUT_MASK 0x01
@@ -1255,18 +1255,18 @@ ST_FUNC int asm_parse_regvar (int t)
 #define is_reg_allocated(reg) (regs_allocated[reg] & reg_mask)
 
 ST_FUNC void asm_compute_constraints(ASMOperand *operands,
-                                    int nb_operands, int nb_outputs,
+                                    ціле nb_operands, ціле nb_outputs,
                                     const uint8_t *clobber_regs,
-                                    int *pout_reg)
+                                    ціле *pout_reg)
 {
     ASMOperand *op;
-    int sorted_op[MAX_ASM_OPERANDS];
-    int i, j, k, p1, p2, tmp, reg, c, reg_mask;
+    ціле sorted_op[MAX_ASM_OPERANDS];
+    ціле i, j, k, p1, p2, tmp, reg, c, reg_mask;
     const char *str;
     uint8_t regs_allocated[NB_ASM_REGS];
 
     /* init fields */
-    for(i=0;i<nb_operands;i++) {
+    для(i=0;i<nb_operands;i++) {
         op = &operands[i];
         op->input_index = -1;
         op->ref_index = -1;
@@ -1276,39 +1276,39 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
     }
     /* compute constraint priority and evaluate references to output
        constraints if input constraints */
-    for(i=0;i<nb_operands;i++) {
+    для(i=0;i<nb_operands;i++) {
         op = &operands[i];
         str = op->constraint;
         str = skip_constraint_modifiers(str);
-        if (isnum(*str) || *str == '[') {
+        якщо (isnum(*str) || *str == '[') {
             /* this is a reference to another constraint */
             k = find_constraint(operands, nb_operands, str, NULL);
-            if ((unsigned)k >= i || i < nb_outputs)
+            якщо ((unsigned)k >= i || i < nb_outputs)
                 tcc_error("invalid reference in constraint %d ('%s')",
                       i, str);
             op->ref_index = k;
-            if (operands[k].input_index >= 0)
+            якщо (operands[k].input_index >= 0)
                 tcc_error("cannot reference twice the same operand");
             operands[k].input_index = i;
             op->priority = 5;
-	} else if ((op->vt->r & VT_VALMASK) == VT_LOCAL
+	} інакше якщо ((op->vt->r & VT_VALMASK) == VT_LOCAL
 		   && op->vt->sym
 		   && (reg = op->vt->sym->r & VT_VALMASK) < VT_CONST) {
 	    op->priority = 1;
 	    op->reg = reg;
-        } else {
+        } інакше {
             op->priority = constraint_priority(str);
         }
     }
 
     /* sort operands according to their priority */
-    for(i=0;i<nb_operands;i++)
+    для(i=0;i<nb_operands;i++)
         sorted_op[i] = i;
-    for(i=0;i<nb_operands - 1;i++) {
-        for(j=i+1;j<nb_operands;j++) {
+    для(i=0;i<nb_operands - 1;i++) {
+        для(j=i+1;j<nb_operands;j++) {
             p1 = operands[sorted_op[i]].priority;
             p2 = operands[sorted_op[j]].priority;
-            if (p2 < p1) {
+            якщо (p2 < p1) {
                 tmp = sorted_op[i];
                 sorted_op[i] = sorted_op[j];
                 sorted_op[j] = tmp;
@@ -1316,10 +1316,10 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         }
     }
 
-    for(i = 0;i < NB_ASM_REGS; i++) {
-        if (clobber_regs[i])
+    для(i = 0;i < NB_ASM_REGS; i++) {
+        якщо (clobber_regs[i])
             regs_allocated[i] = REG_IN_MASK | REG_OUT_MASK;
-        else
+        інакше
             regs_allocated[i] = 0;
     }
     /* esp cannot be used */
@@ -1328,23 +1328,23 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
     regs_allocated[5] = REG_IN_MASK | REG_OUT_MASK;
 
     /* allocate registers and generate corresponding asm moves */
-    for(i=0;i<nb_operands;i++) {
+    для(i=0;i<nb_operands;i++) {
         j = sorted_op[i];
         op = &operands[j];
         str = op->constraint;
         /* no need to allocate references */
-        if (op->ref_index >= 0)
+        якщо (op->ref_index >= 0)
             continue;
         /* select if register is used for output, input or both */
-        if (op->input_index >= 0) {
+        якщо (op->input_index >= 0) {
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
-        } else if (j < nb_outputs) {
+        } інакше якщо (j < nb_outputs) {
             reg_mask = REG_OUT_MASK;
-        } else {
+        } інакше {
             reg_mask = REG_IN_MASK;
         }
-	if (op->reg >= 0) {
-	    if (is_reg_allocated(op->reg))
+	якщо (op->reg >= 0) {
+	    якщо (is_reg_allocated(op->reg))
 	        tcc_error("asm regvar requests register that's taken already");
 	    reg = op->reg;
 	}
@@ -1357,13 +1357,13 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
             op->is_rw = 1;
             /* FALL THRU */
         case '&':
-            if (j >= nb_outputs)
+            якщо (j >= nb_outputs)
                 tcc_error("'%c' modifier can only be applied to outputs", c);
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
             goto try_next;
         case 'A':
             /* allocate both eax and edx */
-            if (is_reg_allocated(TREG_XAX) ||
+            якщо (is_reg_allocated(TREG_XAX) ||
                 is_reg_allocated(TREG_XDX))
                 goto try_next;
             op->is_llong = 1;
@@ -1389,18 +1389,18 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         case 'D':
             reg = 7;
         alloc_reg:
-            if (op->reg >= 0 && reg != op->reg)
+            якщо (op->reg >= 0 && reg != op->reg)
                 goto try_next;
-            if (is_reg_allocated(reg))
+            якщо (is_reg_allocated(reg))
                 goto try_next;
             goto reg_found;
         case 'q':
             /* eax, ebx, ecx or edx */
-            if (op->reg >= 0) {
-                if ((reg = op->reg) < 4)
+            якщо (op->reg >= 0) {
+                якщо ((reg = op->reg) < 4)
                     goto reg_found;
-            } else for(reg = 0; reg < 4; reg++) {
-                if (!is_reg_allocated(reg))
+            } інакше для(reg = 0; reg < 4; reg++) {
+                якщо (!is_reg_allocated(reg))
                     goto reg_found;
             }
             goto try_next;
@@ -1408,10 +1408,10 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
 	case 'R':
 	case 'p': /* A general address, for x86(64) any register is acceptable*/
             /* any general register */
-            if ((reg = op->reg) >= 0)
+            якщо ((reg = op->reg) >= 0)
                 goto reg_found;
-            else for(reg = 0; reg < NB_ASM_REGS; reg++) {
-                if (!is_reg_allocated(reg))
+            інакше для(reg = 0; reg < NB_ASM_REGS; reg++) {
+                якщо (!is_reg_allocated(reg))
                     goto reg_found;
             }
             goto try_next;
@@ -1423,13 +1423,13 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
             break;
 	case 'e':
         case 'i':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
+            якщо (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
                 goto try_next;
             break;
         case 'I':
         case 'N':
         case 'M':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+            якщо (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
                 goto try_next;
             break;
         case 'm':
@@ -1442,11 +1442,11 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                in a register, so we reserve the register in the
                input registers and a load will be generated
                later */
-            if (j < nb_outputs || c == 'm') {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+            якщо (j < nb_outputs || c == 'm') {
+                якщо ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
                     /* any general register */
-                    for(reg = 0; reg < NB_ASM_REGS; reg++) {
-                        if (!(regs_allocated[reg] & REG_IN_MASK))
+                    для(reg = 0; reg < NB_ASM_REGS; reg++) {
+                        якщо (!(regs_allocated[reg] & REG_IN_MASK))
                             goto reg_found1;
                     }
                     goto try_next;
@@ -1464,7 +1464,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
             break;
         }
         /* if a reference is present for that operand, we assign it too */
-        if (op->input_index >= 0) {
+        якщо (op->input_index >= 0) {
             operands[op->input_index].reg = op->reg;
             operands[op->input_index].is_llong = op->is_llong;
         }
@@ -1473,13 +1473,13 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
     /* compute out_reg. It is used to store outputs registers to memory
        locations references by pointers (VT_LLOCAL case) */
     *pout_reg = -1;
-    for(i=0;i<nb_operands;i++) {
+    для(i=0;i<nb_operands;i++) {
         op = &operands[i];
-        if (op->reg >= 0 &&
+        якщо (op->reg >= 0 &&
             (op->vt->r & VT_VALMASK) == VT_LLOCAL  &&
             !op->is_memory) {
-            for(reg = 0; reg < NB_ASM_REGS; reg++) {
-                if (!(regs_allocated[reg] & REG_OUT_MASK))
+            для(reg = 0; reg < NB_ASM_REGS; reg++) {
+                якщо (!(regs_allocated[reg] & REG_OUT_MASK))
                     goto reg_found2;
             }
             tcc_error("could not find free output register for reloading");
@@ -1491,7 +1491,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
 
     /* print sorted constraints */
 #ifdef ASM_DEBUG
-    for(i=0;i<nb_operands;i++) {
+    для(i=0;i<nb_operands;i++) {
         j = sorted_op[i];
         op = &operands[j];
         printf("%%%d [%s]: \"%s\" r=0x%04x reg=%d\n",
@@ -1501,24 +1501,24 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                op->vt->r,
                op->reg);
     }
-    if (*pout_reg >= 0)
+    якщо (*pout_reg >= 0)
         printf("out_reg=%d\n", *pout_reg);
 #endif
 }
 
 ST_FUNC void subst_asm_operand(CString *add_str,
-                              SValue *sv, int modifier)
+                              SValue *sv, ціле modifier)
 {
-    int r, reg, size, val;
+    ціле r, reg, size, val;
 
     r = sv->r;
-    if ((r & VT_VALMASK) == VT_CONST) {
-        if (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
+    якщо ((r & VT_VALMASK) == VT_CONST) {
+        якщо (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
 	    modifier != 'P')
             cstr_ccat(add_str, '$');
-        if (r & VT_SYM) {
+        якщо (r & VT_SYM) {
 	    const char *name = get_tok_str(sv->sym->v, NULL);
-	    if (sv->sym->v >= SYM_FIRST_ANOM) {
+	    якщо (sv->sym->v >= SYM_FIRST_ANOM) {
 		/* In case of anonymous symbols ("L.42", used
 		   for static data labels) we can't find them
 		   in the C symbol table when later looking up
@@ -1526,72 +1526,72 @@ ST_FUNC void subst_asm_operand(CString *add_str,
 		   list when we still know the symbol.  */
 		get_asm_sym(tok_alloc_const(name), sv->sym);
 	    }
-            if (tcc_state->leading_underscore)
+            якщо (tcc_state->leading_underscore)
               cstr_ccat(add_str, '_');
             cstr_cat(add_str, name, -1);
-            if ((uint32_t)sv->c.i == 0)
+            якщо ((uint32_t)sv->c.i == 0)
                 goto no_offset;
 	    cstr_ccat(add_str, '+');
         }
         val = sv->c.i;
-        if (modifier == 'n')
+        якщо (modifier == 'n')
             val = -val;
         cstr_printf(add_str, "%d", val);
     no_offset:;
 #ifdef TCC_TARGET_X86_64
-        if (r & VT_LVAL)
+        якщо (r & VT_LVAL)
             cstr_cat(add_str, "(%rip)", -1);
 #endif
-    } else if ((r & VT_VALMASK) == VT_LOCAL) {
-        cstr_printf(add_str, "%d(%%%s)", (int)sv->c.i, get_tok_str(TOK_ASM_xax + 5, NULL));
-    } else if (r & VT_LVAL) {
+    } інакше якщо ((r & VT_VALMASK) == VT_LOCAL) {
+        cstr_printf(add_str, "%d(%%%s)", (ціле)sv->c.i, get_tok_str(TOK_ASM_xax + 5, NULL));
+    } інакше якщо (r & VT_LVAL) {
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
+        якщо (reg >= VT_CONST)
             tcc_internal_error("");
         cstr_printf(add_str, "(%%%s)", get_tok_str(TOK_ASM_xax + reg, NULL));
-    } else {
+    } інакше {
         /* register case */
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
+        якщо (reg >= VT_CONST)
             tcc_internal_error("");
 
         /* choose register operand size */
-        if ((sv->type.t & VT_BTYPE) == VT_BYTE ||
+        якщо ((sv->type.t & VT_BTYPE) == VT_BYTE ||
 	    (sv->type.t & VT_BTYPE) == VT_BOOL)
             size = 1;
-        else if ((sv->type.t & VT_BTYPE) == VT_SHORT)
+        інакше якщо ((sv->type.t & VT_BTYPE) == VT_SHORT)
             size = 2;
 #ifdef TCC_TARGET_X86_64
-        else if ((sv->type.t & VT_BTYPE) == VT_LLONG ||
+        інакше якщо ((sv->type.t & VT_BTYPE) == VT_LLONG ||
 		 (sv->type.t & VT_BTYPE) == VT_PTR)
             size = 8;
 #endif
-        else
+        інакше
             size = 4;
-        if (size == 1 && reg >= 4)
+        якщо (size == 1 && reg >= 4)
             size = 4;
 
-        if (modifier == 'b') {
-            if (reg >= 4)
+        якщо (modifier == 'b') {
+            якщо (reg >= 4)
                 tcc_error("cannot use byte register");
             size = 1;
-        } else if (modifier == 'h') {
-            if (reg >= 4)
+        } інакше якщо (modifier == 'h') {
+            якщо (reg >= 4)
                 tcc_error("cannot use byte register");
             size = -1;
-        } else if (modifier == 'w') {
+        } інакше якщо (modifier == 'w') {
             size = 2;
-        } else if (modifier == 'k') {
+        } інакше якщо (modifier == 'k') {
             size = 4;
 #ifdef TCC_TARGET_X86_64
-        } else if (modifier == 'q') {
+        } інакше якщо (modifier == 'q') {
             size = 8;
 #endif
         }
 
-        if (reg >= 8) {
+        якщо (reg >= 8) {
             cstr_printf(add_str, "%%r%d%c", reg, (size == 1) ? 'b' : ((size == 2) ? 'w' : ((size == 4) ? 'd' : ' ')));
-            return;
+            повернути;
         }
         switch(size) {
         case -1:
@@ -1617,50 +1617,50 @@ ST_FUNC void subst_asm_operand(CString *add_str,
 }
 
 /* generate prolog and epilog code for asm statement */
-ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
-                         int nb_outputs, int is_output,
+ST_FUNC void asm_gen_code(ASMOperand *operands, ціле nb_operands,
+                         ціле nb_outputs, ціле is_output,
                          uint8_t *clobber_regs,
-                         int out_reg)
+                         ціле out_reg)
 {
     uint8_t regs_allocated[NB_ASM_REGS];
     ASMOperand *op;
-    int i, reg;
+    ціле i, reg;
 
     /* Strictly speaking %Xbp and %Xsp should be included in the
        call-preserved registers, but currently it doesn't matter.  */
 #ifdef TCC_TARGET_X86_64
 #ifdef TCC_TARGET_PE
     static const uint8_t reg_saved[] = { 3, 6, 7, 12, 13, 14, 15 };
-#else
+#інакше
     static const uint8_t reg_saved[] = { 3, 12, 13, 14, 15 };
 #endif
-#else
+#інакше
     static const uint8_t reg_saved[] = { 3, 6, 7 };
 #endif
 
     /* mark all used registers */
     memcpy(regs_allocated, clobber_regs, sizeof(regs_allocated));
-    for(i = 0; i < nb_operands;i++) {
+    для(i = 0; i < nb_operands;i++) {
         op = &operands[i];
-        if (op->reg >= 0)
+        якщо (op->reg >= 0)
             regs_allocated[op->reg] = 1;
     }
-    if (!is_output) {
+    якщо (!is_output) {
         /* generate reg save code */
-        for(i = 0; i < sizeof(reg_saved)/sizeof(reg_saved[0]); i++) {
+        для(i = 0; i < sizeof(reg_saved)/sizeof(reg_saved[0]); i++) {
             reg = reg_saved[i];
-            if (regs_allocated[reg]) {
-		if (reg >= 8)
+            якщо (regs_allocated[reg]) {
+		якщо (reg >= 8)
 		  g(0x41), reg-=8;
                 g(0x50 + reg);
             }
         }
 
         /* generate load code */
-        for(i = 0; i < nb_operands; i++) {
+        для(i = 0; i < nb_operands; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL &&
+            якщо (op->reg >= 0) {
+                якщо ((op->vt->r & VT_VALMASK) == VT_LLOCAL &&
                     op->is_memory) {
                     /* memory reference case (for both input and
                        output cases) */
@@ -1669,10 +1669,10 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                     sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL | VT_LVAL;
                     sv.type.t = VT_PTR;
                     load(op->reg, &sv);
-                } else if (i >= nb_outputs || op->is_rw) {
+                } інакше якщо (i >= nb_outputs || op->is_rw) {
                     /* load value in register */
                     load(op->reg, op->vt);
-                    if (op->is_llong) {
+                    якщо (op->is_llong) {
                         SValue sv;
                         sv = *op->vt;
                         sv.c.i += 4;
@@ -1681,13 +1681,13 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                 }
             }
         }
-    } else {
+    } інакше {
         /* generate save code */
-        for(i = 0 ; i < nb_outputs; i++) {
+        для(i = 0 ; i < nb_outputs; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
-                    if (!op->is_memory) {
+            якщо (op->reg >= 0) {
+                якщо ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+                    якщо (!op->is_memory) {
                         SValue sv;
                         sv = *op->vt;
                         sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL;
@@ -1698,9 +1698,9 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                         sv.r = (sv.r & ~VT_VALMASK) | out_reg;
                         store(op->reg, &sv);
                     }
-                } else {
+                } інакше {
                     store(op->reg, op->vt);
-                    if (op->is_llong) {
+                    якщо (op->is_llong) {
                         SValue sv;
                         sv = *op->vt;
                         sv.c.i += 4;
@@ -1710,10 +1710,10 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
             }
         }
         /* generate reg restore code */
-        for(i = sizeof(reg_saved)/sizeof(reg_saved[0]) - 1; i >= 0; i--) {
+        для(i = sizeof(reg_saved)/sizeof(reg_saved[0]) - 1; i >= 0; i--) {
             reg = reg_saved[i];
-            if (regs_allocated[reg]) {
-		if (reg >= 8)
+            якщо (regs_allocated[reg]) {
+		якщо (reg >= 8)
 		  g(0x41), reg-=8;
                 g(0x58 + reg);
             }
@@ -1723,27 +1723,27 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
 
 ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str)
 {
-    int reg;
+    ціле reg;
 #ifdef TCC_TARGET_X86_64
-    unsigned int type;
+    unsigned ціле type;
 #endif
 
-    if (!strcmp(str, "memory") ||
+    якщо (!strcmp(str, "memory") ||
         !strcmp(str, "cc") ||
 	!strcmp(str, "flags"))
-        return;
+        повернути;
     reg = tok_alloc_const(str);
-    if (reg >= TOK_ASM_eax && reg <= TOK_ASM_edi) {
+    якщо (reg >= TOK_ASM_eax && reg <= TOK_ASM_edi) {
         reg -= TOK_ASM_eax;
-    } else if (reg >= TOK_ASM_ax && reg <= TOK_ASM_di) {
+    } інакше якщо (reg >= TOK_ASM_ax && reg <= TOK_ASM_di) {
         reg -= TOK_ASM_ax;
 #ifdef TCC_TARGET_X86_64
-    } else if (reg >= TOK_ASM_rax && reg <= TOK_ASM_rdi) {
+    } інакше якщо (reg >= TOK_ASM_rax && reg <= TOK_ASM_rdi) {
         reg -= TOK_ASM_rax;
-    } else if ((reg = asm_parse_numeric_reg(reg, &type)) >= 0) {
+    } інакше якщо ((reg = asm_parse_numeric_reg(reg, &type)) >= 0) {
 	;
 #endif
-    } else {
+    } інакше {
         tcc_error("invalid clobber register '%s'", str);
     }
     clobber_regs[reg] = 1;

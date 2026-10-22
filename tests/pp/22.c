@@ -3,9 +3,9 @@
 A rettrue(bla) B
 TRACE(
       ARG_1,
-#if rettrue(bla)
+#якщо rettrue(bla)
       ARG_2,
-#else
+#інакше
       ARG_2_wrong,
 #endif
       ARG_3

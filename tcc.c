@@ -23,7 +23,7 @@
 #endif
 
 #include "tcc.h"
-#if ONE_SOURCE
+#якщо ONE_SOURCE
 # include "libtcc.c"
 #endif
 #include "tcctools.c"
@@ -79,7 +79,7 @@ static const char help[] =
     "  -M[M]D       generate make dependency file [ignore system files]\n"
     "  -M[M]        as above but no other output\n"
     "  -MF file     specify dependency file name\n"
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
+#якщо defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
     "  -m32/64      defer to i386/x86_64 cross compiler\n"
 #endif
     "Tools:\n"
@@ -150,13 +150,13 @@ static const char help2[] =
     "  -oformat=[pe-* binary]        set executable output format\n"
     "Predefined macros:\n"
     "  tcc -E -dM - < nul\n"
-#else
+#інакше
     "  -rpath=                       set dynamic library search path\n"
     "  -enable-new-dtags             set DT_RUNPATH instead of DT_RPATH\n"
     "  -soname=                      set DT_SONAME elf tag\n"
-#if defined(TCC_TARGET_MACHO)
+#якщо defined(TCC_TARGET_MACHO)
     "  -install_name=                set DT_SONAME elf tag (soname macOS alias)\n"
-#else
+#інакше
     "  -Ipath, -dynamic-linker=path  set ELF interpreter to path\n"
 #endif
     "  -Bsymbolic                    set DT_SYMBOLIC elf tag\n"
@@ -203,17 +203,17 @@ static const char version[] =
         " OpenBSD"
 #elif TARGETOS_NetBSD
         " NetBSD"
-#else
+#інакше
         " Linux"
 #endif
     ")\n"
     ;
 
-static void print_dirs(const char *msg, char **paths, int nb_paths)
+static void print_dirs(const char *msg, char **paths, ціле nb_paths)
 {
-    int i;
+    ціле i;
     printf("%s:\n%s", msg, nb_paths ? "" : "  -\n");
-    for(i = 0; i < nb_paths; i++)
+    для(i = 0; i < nb_paths; i++)
         printf("  %s\n", paths[i]);
 }
 
@@ -235,15 +235,15 @@ static void set_environment(TCCState *s)
     char * path;
 
     path = getenv("C_INCLUDE_PATH");
-    if(path != NULL) {
+    якщо(path != NULL) {
         tcc_add_sysinclude_path(s, path);
     }
     path = getenv("CPATH");
-    if(path != NULL) {
+    якщо(path != NULL) {
         tcc_add_include_path(s, path);
     }
     path = getenv("LIBRARY_PATH");
-    if(path != NULL) {
+    якщо(path != NULL) {
         tcc_add_library_path(s, path);
     }
 }
@@ -254,45 +254,45 @@ static char *default_outputfile(TCCState *s, const char *first_file)
     char *ext;
     const char *name = "a";
 
-    if (first_file && strcmp(first_file, "-"))
+    якщо (first_file && strcmp(first_file, "-"))
         name = tcc_basename(first_file);
-    if (strlen(name) + 4 >= sizeof buf)
+    якщо (strlen(name) + 4 >= sizeof buf)
         name = "a";
     strcpy(buf, name);
     ext = tcc_fileextension(buf);
 #ifdef TCC_TARGET_PE
-    if (s->output_type == TCC_OUTPUT_DLL)
+    якщо (s->output_type == TCC_OUTPUT_DLL)
         strcpy(ext, ".dll");
-    else
-    if (s->output_type == TCC_OUTPUT_EXE)
+    інакше
+    якщо (s->output_type == TCC_OUTPUT_EXE)
         strcpy(ext, ".exe");
-    else
+    інакше
 #endif
-    if ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
+    якщо ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
         strcpy(ext, ".o");
-    else
+    інакше
         strcpy(buf, "a.out");
-    return tcc_strdup(buf);
+    повернути tcc_strdup(buf);
 }
 
 static unsigned getclock_ms(void)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
+    повернути GetTickCount();
+#інакше
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    повернути tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int main(int argc, char **argv)
+ціле main(ціле argc, char **argv)
 {
     TCCState *s, *s1;
-    int ret, opt, n = 0, t = 0, done;
+    ціле ret, opt, n = 0, t = 0, done;
     unsigned start_time = 0, end_time = 0;
     const char *first_file;
-    int argc0 = argc;
+    ціле argc0 = argc;
     char **argv0 = argv;
     FILE *ppfp = NULL;
 
@@ -301,132 +301,132 @@ redo:
     s = s1 = tcc_new();
     opt = tcc_parse_args(s, &argc, &argv);
 
-    if (n == 0) {
+    якщо (n == 0) {
         ret = 0;
-        if (opt == OPT_HELP) {
+        якщо (opt == OPT_HELP) {
             fputs(help, stdout);
-            if (s->verbose)
+            якщо (s->verbose)
                 goto help2;
-        } else if (opt == OPT_HELP2) {
+        } інакше якщо (opt == OPT_HELP2) {
             help2: fputs(help2, stdout);
-        } else if (opt == OPT_M32 || opt == OPT_M64) {
+        } інакше якщо (opt == OPT_M32 || opt == OPT_M64) {
             ret = tcc_tool_cross(argv, opt);
-        } else if (s->verbose)
+        } інакше якщо (s->verbose)
             printf("%s", version);
 
-        if (opt == OPT_AR)
+        якщо (opt == OPT_AR)
             ret = tcc_tool_ar(argc, argv);
 #ifdef TCC_TARGET_PE
-        if (opt == OPT_IMPDEF)
+        якщо (opt == OPT_IMPDEF)
             ret = tcc_tool_impdef(argc, argv);
 #endif
-        if (opt == OPT_PRINT_DIRS) {
+        якщо (opt == OPT_PRINT_DIRS) {
             /* initialize search dirs */
             set_environment(s);
             tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
             print_search_dirs(s);
         }
-        if (opt) {
-            if (opt < 0) err:
+        якщо (opt) {
+            якщо (opt < 0) err:
                 ret = 1;
             tcc_delete(s);
-            return ret;
+            повернути ret;
         }
-        if (s->nb_files == 0) {
+        якщо (s->nb_files == 0) {
             tcc_error_noabort("no input files");
-        } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
-            if (s->outfile && 0!=strcmp("-",s->outfile)) {
+        } інакше якщо (s->output_type == TCC_OUTPUT_PREPROCESS) {
+            якщо (s->outfile && 0!=strcmp("-",s->outfile)) {
                 ppfp = tcc_fopen(s->outfile, "wb");
-                if (!ppfp)
+                якщо (!ppfp)
                     tcc_error_noabort("could not write '%s'", s->outfile);
             }
-        } else if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
-            if (s->nb_libraries)
+        } інакше якщо (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
+            якщо (s->nb_libraries)
                 tcc_error_noabort("cannot specify libraries with -c");
-            else if (s->nb_files > 1 && s->outfile)
+            інакше якщо (s->nb_files > 1 && s->outfile)
                 tcc_error_noabort("cannot specify output file with -c many files");
         }
-        if (s->nb_errors)
+        якщо (s->nb_errors)
             goto err;
-        if (s->do_bench)
+        якщо (s->do_bench)
             start_time = getclock_ms();
     }
 
     set_environment(s);
-    if (s->output_type == 0)
+    якщо (s->output_type == 0)
         s->output_type = TCC_OUTPUT_EXE;
     ret = tcc_set_output_type(s, s->output_type);
-    if (ppfp)
+    якщо (ppfp)
         s->ppfp = ppfp;
 
-    if ((s->output_type == TCC_OUTPUT_MEMORY
+    якщо ((s->output_type == TCC_OUTPUT_MEMORY
       || s->output_type == TCC_OUTPUT_PREPROCESS)
         && (s->dflag & 16)) { /* -dt option */
-        if (t)
+        якщо (t)
             s->dflag |= 32;
         s->run_test = ++t;
-        if (n)
+        якщо (n)
             --n;
     }
 
     /* compile or add each files or library */
     first_file = NULL;
-    while (0 == ret) {
+    поки (0 == ret) {
         struct filespec *f = s->files[n];
         s->filetype = f->type;
-        if (f->type & AFF_TYPE_LIB) {
+        якщо (f->type & AFF_TYPE_LIB) {
             ret = tcc_add_library(s, f->name);
-        } else {
-            if (1 == s->verbose)
+        } інакше {
+            якщо (1 == s->verbose)
                 printf("-> %s\n", f->name);
-            if (!first_file)
+            якщо (!first_file)
                 first_file = f->name;
             ret = tcc_add_file(s, f->name);
         }
-        if (++n == s->nb_files)
+        якщо (++n == s->nb_files)
             break;
-        if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
+        якщо (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
             break;
     }
 
-    if (s->do_bench)
+    якщо (s->do_bench)
         end_time = getclock_ms();
 
-    if (s->run_test) {
+    якщо (s->run_test) {
         t = 0;
-    } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
+    } інакше якщо (s->output_type == TCC_OUTPUT_PREPROCESS) {
         ;
-    } else if (0 == ret) {
-        if (s->output_type == TCC_OUTPUT_MEMORY) {
+    } інакше якщо (0 == ret) {
+        якщо (s->output_type == TCC_OUTPUT_MEMORY) {
 #ifdef TCC_IS_NATIVE
             ret = tcc_run(s, argc, argv);
 #endif
-        } else {
-            if (!s->outfile)
+        } інакше {
+            якщо (!s->outfile)
                 s->outfile = default_outputfile(s, first_file);
-            if (!s->just_deps)
+            якщо (!s->just_deps)
                 ret = tcc_output_file(s, s->outfile);
-            if (!ret && s->gen_deps)
+            якщо (!ret && s->gen_deps)
                 gen_makedeps(s, s->outfile, s->deps_outfile);
         }
     }
 
     done = 1;
-    if (t)
+    якщо (t)
         done = 0; /* run more tests with -dt -run */
-    else if (ret) {
-        if (s->nb_errors)
+    інакше якщо (ret) {
+        якщо (s->nb_errors)
             ret = 1;
         /* else keep the original exit code from tcc_run() */
-    } else if (n < s->nb_files)
+    } інакше якщо (n < s->nb_files)
         done = 0; /* compile more files with -c */
-    else if (s->do_bench)
+    інакше якщо (s->do_bench)
         tcc_print_stats(s, end_time - start_time);
 
     tcc_delete(s);
-    if (!done)
+    якщо (!done)
         goto redo;
-    if (ppfp)
+    якщо (ppfp)
         tcc_fclose(ppfp);
-    return ret;
+    повернути ret;
 }

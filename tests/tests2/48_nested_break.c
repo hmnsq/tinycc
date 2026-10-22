@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+ціле main()
 {
-   int a;
+   ціле a;
    char b;
 
    a = 0;
-   while (a < 2)
+   поки (a < 2)
    {
       printf("%d", a++);
       break;
 
       b = 'A';
-      while (b < 'C')
+      поки (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   повернути 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

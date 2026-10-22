@@ -137,9 +137,9 @@ struct scnhdr {
         long            s_scnptr;       /* file ptr to raw data for section */
         long            s_relptr;       /* file ptr to relocation */
         long            s_lnnoptr;      /* file ptr to line numbers */
-        unsigned int	s_nreloc;       /* number of relocation entries */
-        unsigned int	s_nlnno;        /* number of line number entries */
-        unsigned int	s_flags;        /* flags */
+        unsigned ціле	s_nreloc;       /* number of relocation entries */
+        unsigned ціле	s_nlnno;        /* number of line number entries */
+        unsigned ціле	s_flags;        /* flags */
 		unsigned short	s_reserved;     /* reserved byte */
 		unsigned short  s_page;         /* memory page id */
         };

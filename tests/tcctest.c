@@ -17,7 +17,7 @@
 /* __VA_ARGS__ and __func__ support */
 #define C99_MACROS
 
-#if defined(_WIN32) \
+#якщо defined(_WIN32) \
     || (defined(__arm__) \
         && (defined(__FreeBSD__) \
          || defined(__OpenBSD__) \
@@ -26,7 +26,7 @@
 #define LONG_LONG_FORMAT "%lld"
 #define ULONG_LONG_FORMAT "%llu"
 #define XLONG_LONG_FORMAT "%llx"
-#else
+#інакше
 #define LONG_LONG_FORMAT "%Ld"
 #define ULONG_LONG_FORMAT "%Lu"
 #define XLONG_LONG_FORMAT "%Lx"
@@ -34,10 +34,10 @@
 
 /* MinGW has 80-bit rather than 64-bit long double which isn't
    compatible with printf in msvcrt */
-#if defined(_WIN32)
+#якщо defined(_WIN32)
 #define LONG_DOUBLE double
 #define LONG_DOUBLE_LITERAL(x) x
-#else
+#інакше
 #define LONG_DOUBLE long double
 #define LONG_DOUBLE_LITERAL(x) x ## L
 #endif
@@ -73,7 +73,7 @@ typedef __SIZE_TYPE__ uintptr_t;
 /* clang's preprocessor is broken in this regard and adds spaces
    to the tokens 'incdir' and 'funnyname' when expanding */
 #define incname <tests/42test.h>
-#else
+#інакше
 #define incname < incdir funnyname >
 #endif
 #define __stringify(x) #x
@@ -82,14 +82,14 @@ typedef __SIZE_TYPE__ uintptr_t;
 #include incname
 #include stringify(funnyname)
 
-int fib(int n);
-void num(int n);
+ціле fib(ціле n);
+void num(ціле n);
 void forward_ref(void);
-int isid(int c);
+ціле isid(ціле c);
 
 /* Line joining happens before tokenization, so the following
    must be parsed as ellipsis.  */
-void funny_line_continuation (int, ..\
+void funny_line_continuation (ціле, ..\
 . );
 
 #define A 2
@@ -104,7 +104,7 @@ void funny_line_continuation (int, ..\
 #define HIGHLOW "hello"
 #define LOW LOW ", world"
 
-static int onetwothree = 123;
+static ціле onetwothree = 123;
 #define onetwothree4 onetwothree
 #define onetwothree xglue(onetwothree,4)
 
@@ -126,26 +126,26 @@ static int onetwothree = 123;
 #undef AAA
 #define AAA 4
 
-#if 1
+#якщо 1
 #define B3 1
 #elif 1
 #define B3 2
 #elif 0
 #define B3 3
-#else
+#інакше
 #define B3 4
 #endif
 
 #define __INT64_C(c)	c ## LL
 #define INT64_MIN	(-__INT64_C(9223372036854775807)-1)
 
-int qq(int x)
+ціле qq(ціле x)
 {
-    return x + 40;
+    повернути x + 40;
 }
 #define qq(x) x
 
-#define spin_lock(lock) do { } while (0)
+#define spin_lock(lock) do { } поки (0)
 #define wq_spin_lock spin_lock
 #define TEST2() wq_spin_lock(a)
 
@@ -172,12 +172,12 @@ void macro_test(void)
 #endif
 #ifdef A
     printf("A defined\n");
-#else
+#інакше
     printf("A not defined\n");
 #endif
 #ifdef B
     printf("B defined\n");
-#else
+#інакше
     printf("B not defined\n");
 #endif
 
@@ -185,41 +185,41 @@ void macro_test(void)
     printf("A defined\n");
 #ifdef B
     printf("B1 defined\n");
-#else
+#інакше
     printf("B1 not defined\n");
 #endif
-#else
+#інакше
     printf("A not defined\n");
 #ifdef B
     printf("B2 defined\n");
-#else
+#інакше
     printf("B2 not defined\n");
 #endif
 #endif
 
-#if 1+1
+#якщо 1+1
     printf("test true1\n");
 #endif
-#if 0
+#якщо 0
     printf("test true2\n");
 #endif
-#if 1-1
+#якщо 1-1
     printf("test true3\n");
 #endif
-#if defined(A)
+#якщо defined(A)
     printf("test trueA\n");
 #endif
-#if defined(B)
+#якщо defined(B)
     printf("test trueB\n");
 #endif
 
-#if 0
+#якщо 0
     printf("test 0\n");
 #elif 0
     printf("test 1\n");
 #elif 2
     printf("test 2\n");
-#else
+#інакше
     printf("test 3\n");
 #endif
 
@@ -242,7 +242,7 @@ void macro_test(void)
     /* complicated macros in glibc */
     printf("INT64_MIN=" LONG_LONG_FORMAT "\n", INT64_MIN);
     {
-        int a;
+        ціле a;
         a = 1;
         glue(a+, +);
         printf("a=%d\n", a);
@@ -285,12 +285,12 @@ comment
 
     printf("basefromheader %s\n", get_basefile_from_header());
     printf("base %s\n", __BASE_FILE__);
-#if !(defined _WIN32 && CC_NAME == CC_clang)
+#якщо !(defined _WIN32 && CC_NAME == CC_clang)
     {
       /* Some compilers (clang) prepend './' to __FILE__ from included
          files.  */
       const char *fn = get_file_from_header();
-      if (fn[0] == '.' && fn[1] == '/')
+      якщо (fn[0] == '.' && fn[1] == '/')
         fn += 2;
       printf("filefromheader %s\n", fn);
     }
@@ -308,7 +308,7 @@ comment
 }
 
 
-static void print_num(char *fn, int line, int num) {
+static void print_num(char *fn, ціле line, ціле num) {
     printf("fn %s, line %d, num %d\n", fn, line, num);
 }
 
@@ -328,30 +328,30 @@ void recursive_macro_test(void)
     WRAP(print_num(123));
     WRAP(WRAP(print_num(123)));
 
-static struct recursive_macro { int rm_field; } G;
+static struct recursive_macro { ціле rm_field; } G;
 #define rm_field (G.rm_field)
     printf("rm_field = %d\n", rm_field);
     printf("rm_field = %d\n", WRAP(rm_field));
     WRAP((printf("rm_field = %d %d\n", rm_field, WRAP(rm_field))));
 }
 
-#if __TINYC__
-int op(a, b)
+#якщо __TINYC__
+ціле op(a, b)
 {
-    return a / b;
+    повернути a / b;
 }
 
-int ret(a)
+ціле ret(a)
 {
-    if (a == 2)
-        return 1;
-    if (a == 3)
-        return 2;
-    return 0;
+    якщо (a == 2)
+        повернути 1;
+    якщо (a == 3)
+        повернути 2;
+    повернути 0;
 }
 #endif
 
-#if !defined(__TINYC__) && (__GNUC__ >= 8)
+#якщо !defined(__TINYC__) && (__GNUC__ >= 8)
 /* Old GCCs don't regard "foo"[1] as constant, even in GNU dialect. */
 #define CONSTANTINDEXEDSTRLIT
 #endif
@@ -374,7 +374,7 @@ static void string_test2()
     char a4[2] = { "ab" "c"[2], 0 };
     char *pa1 = "def" + 1;
     char *pa2 = { "xyz" + 1 };
-    int i = 0;
+    ціле i = 0;
     struct str_SS ss = { { [0 ... 1] = 'a' }, 0 };
 #ifndef CONSTANTINDEXEDSTRLIT
     char str_ag3[] = { "ab"[1], 0 };
@@ -403,10 +403,10 @@ static void string_test2()
 
 void ps(const char *s)
 {
-    int c;
-    while (1) {
+    ціле c;
+    поки (1) {
         c = *s;
-        if (c == 0)
+        якщо (c == 0)
             break;
         printf("%c", c);
         s++;
@@ -420,14 +420,14 @@ test\14\
 
 void string_test()
 {
-    unsigned int b;
+    unsigned ціле b;
     printf("string:\n");
     printf("\141\1423\143\n");/* dezdez test */
     printf("\x41\x42\x43\x3a\n");
     printf("c=%c\n", 'r');
     printf("wc=%C 0x%lx %C\n", L'a', L'\x1234', L'c');
     printf("foo1_string='%s'\n", foo1_string);
-#if 0
+#якщо 0
     printf("wstring=%S\n", L"abc");
     printf("wstring=%S\n", L"abc" L"def" "ghi");
     printf("'\\377'=%d '\\xff'=%d\n", '\377', '\xff');
@@ -435,13 +435,13 @@ void string_test()
 #endif
     ps("test\n");
     b = 32;
-    while ((b = b + 1) < 96) {
+    поки ((b = b + 1) < 96) {
         printf("%c", b);
     }
     printf("\n");
     printf("fib=%d\n", fib(33));
     b = 262144;
-    while (b != 0x80000000) {
+    поки (b != 0x80000000) {
         num(b);
         b = b * 2;
     }
@@ -449,27 +449,27 @@ void string_test()
 }
 
 
-void if1t(int n, int a, int b, int c)
+void if1t(ціле n, ціле a, ціле b, ціле c)
 {
-    if (a && b) printf("if1t: %d 1 %d %d\n", n, a, b);
-    if (a && !b) printf("if1t: %d 2 %d %d\n", n, a, b);
-    if (!a && b) printf("if1t: %d 3 %d %d\n", n, a, b);
-    if (!a && !b) printf("if1t: %d 4 %d %d\n", n, a, b);
-    if (a || b) printf("if1t: %d 5 %d %d\n", n, a, b);
-    if (a || !b) printf("if1t: %d 6 %d %d\n", n, a, b);
-    if (!a || b) printf("if1t: %d 7 %d %d\n", n, a, b);
-    if (!a || !b) printf("if1t: %d 8 %d %d\n", n, a, b);
-    if (a && b || c) printf("if1t: %d 9 %d %d %d\n", n, a, b, c);
-    if (a || b && c) printf("if1t: %d 10 %d %d %d\n", n, a, b, c);
-    if (a > b - 1 && c) printf("if1t: %d 11 %d %d %d\n", n, a, b, c);
-    if (a > b - 1 || c) printf("if1t: %d 12 %d %d %d\n", n, a, b, c);
-    if (a > 0 && 1) printf("if1t: %d 13 %d %d %d\n", n, a, b, c);
-    if (a > 0 || 0) printf("if1t: %d 14 %d %d %d\n", n, a, b, c);
+    якщо (a && b) printf("if1t: %d 1 %d %d\n", n, a, b);
+    якщо (a && !b) printf("if1t: %d 2 %d %d\n", n, a, b);
+    якщо (!a && b) printf("if1t: %d 3 %d %d\n", n, a, b);
+    якщо (!a && !b) printf("if1t: %d 4 %d %d\n", n, a, b);
+    якщо (a || b) printf("if1t: %d 5 %d %d\n", n, a, b);
+    якщо (a || !b) printf("if1t: %d 6 %d %d\n", n, a, b);
+    якщо (!a || b) printf("if1t: %d 7 %d %d\n", n, a, b);
+    якщо (!a || !b) printf("if1t: %d 8 %d %d\n", n, a, b);
+    якщо (a && b || c) printf("if1t: %d 9 %d %d %d\n", n, a, b, c);
+    якщо (a || b && c) printf("if1t: %d 10 %d %d %d\n", n, a, b, c);
+    якщо (a > b - 1 && c) printf("if1t: %d 11 %d %d %d\n", n, a, b, c);
+    якщо (a > b - 1 || c) printf("if1t: %d 12 %d %d %d\n", n, a, b, c);
+    якщо (a > 0 && 1) printf("if1t: %d 13 %d %d %d\n", n, a, b, c);
+    якщо (a > 0 || 0) printf("if1t: %d 14 %d %d %d\n", n, a, b, c);
 }
 
 void if2t(void)
 {
-    if (0 && 1 || printf("if2t:ok\n") || 1)
+    якщо (0 && 1 || printf("if2t:ok\n") || 1)
       printf("if2t:ok2\n");
     printf("if2t:ok3\n");
 }
@@ -477,9 +477,9 @@ void if2t(void)
 void if3t(void)
 {
     volatile long long i = 1;
-    if (i <= 18446744073709551615ULL)
+    якщо (i <= 18446744073709551615ULL)
       ;
-    else
+    інакше
       printf ("if3t:wrong 1\n");
 }
 
@@ -495,33 +495,33 @@ void if_test(void)
 
 void loop_test()
 {
-    int i;
+    ціле i;
     i = 0;
-    while (i < 10)
+    поки (i < 10)
         printf("%d", i++);
     printf("\n");
-    for(i = 0; i < 10;i++)
+    для(i = 0; i < 10;i++)
         printf("%d", i);
     printf("\n");
     i = 0;
     do {
         printf("%d", i++);
-    } while (i < 10);
+    } поки (i < 10);
     printf("\n");
 
     char count = 123;
     /* c99 for loop init test */
-    for (size_t count = 1; count < 3; count++)
+    для (size_t count = 1; count < 3; count++)
         printf("count=%d\n", count);
     printf("count = %d\n", count);
 
     /* break/continue tests */
     i = 0;
-    while (1) {
-        if (i == 6)
+    поки (1) {
+        якщо (i == 6)
             break;
         i++;
-        if (i == 3)
+        якщо (i == 3)
             continue;
         printf("%d", i);
     }
@@ -530,31 +530,31 @@ void loop_test()
     /* break/continue tests */
     i = 0;
     do {
-        if (i == 6)
+        якщо (i == 6)
             break;
         i++;
-        if (i == 3)
+        якщо (i == 3)
             continue;
         printf("%d", i);
-    } while(1);
+    } поки(1);
     printf("\n");
 
-    for(i = 0;i < 10;i++) {
-        if (i == 3)
+    для(i = 0;i < 10;i++) {
+        якщо (i == 3)
             continue;
         printf("%d", i);
     }
     printf("\n");
 }
 
-typedef int typedef_and_label;
+typedef ціле typedef_and_label;
 
 void goto_test()
 {
-    int i;
+    ціле i;
     static void *label_table[3] = { &&label1, &&label2, &&label3 };
     struct {
-        int bla;
+        ціле bla;
         /* This needs to parse as typedef, not as label.  */
         typedef_and_label : 32;
     } y = {1};
@@ -566,7 +566,7 @@ void goto_test()
     /* This needs to parse as label, not as start of decl.  */
  typedef_and_label:
  s_loop:
-    if (i >= 10) 
+    якщо (i >= 10) 
         goto s_end;
     printf("%d", i);
     i++;
@@ -575,7 +575,7 @@ void goto_test()
     printf("\n");
 
     /* we also test computed gotos (GCC extension) */
-    for(i=0;i<3;i++) {
+    для(i=0;i<3;i++) {
         goto *label_table[i];
     label1:
         printf("label1\n");
@@ -614,12 +614,12 @@ enum ELong {
 enum { BIASU = -1U<<31 };
 enum { BIASS = -1 << 31 };
 
-static int getint(int i)
+static ціле getint(ціле i)
 {
-  if (i)
-    return 0;
-  else
-    return (int)(-1U << 31);
+  якщо (i)
+    повернути 0;
+  інакше
+    повернути (ціле)(-1U << 31);
 }
 
 void enum_test()
@@ -634,26 +634,26 @@ void enum_test()
     printf("b1=%d\n", b1);
     printf("enum large: %ld\n", EL_large);
 
-    if (getint(0) == BIASU)
+    якщо (getint(0) == BIASU)
       printf("enum unsigned: ok\n");
-    else
+    інакше
       printf("enum unsigned: wrong\n");
-    if (getint(0) == BIASS)
+    якщо (getint(0) == BIASS)
       printf("enum unsigned: ok\n");
-    else
+    інакше
       printf("enum unsigned: wrong\n");
 }
 
-typedef int *my_ptr;
+typedef ціле *my_ptr;
 
-typedef int mytype1;
-typedef int mytype2;
+typedef ціле mytype1;
+typedef ціле mytype2;
 
 void typedef_test()
 {
     my_ptr a;
     mytype1 mytype2;
-    int b;
+    ціле b;
 
     a = &b;
     *a = 1234;
@@ -675,38 +675,38 @@ void forward_ref(void)
 }
 
 typedef struct struct1 {
-    int f1;
-    int f2, f3;
+    ціле f1;
+    ціле f2, f3;
     union union1 {
-        int v1;
-        int v2;
+        ціле v1;
+        ціле v2;
     } u;
     char str[3];
 } struct1;
 
 struct struct2 {
-    int a;
+    ціле a;
     char b;
 };
 
 union union2 {
-    int w1;
-    int w2;
+    ціле w1;
+    ціле w2;
 };
 
 struct struct1 st1, st2;
 
 struct empty_mem {
     /* nothing */ ;
-    int x;
+    ціле x;
 };
 
-int tab[3];
-int tab2[3][2];
+ціле tab[3];
+ціле tab2[3][2];
 
-int g;
+ціле g;
 
-void f1(int g)
+void f1(ціле g)
 {
     printf("g1=%d\n", g);
 }
@@ -717,11 +717,11 @@ void scope_test()
     f1(1);
     printf("g2=%d\n", g);
     {
-        int g;
+        ціле g;
         g = 3;
         printf("g3=%d\n", g);
         {
-            int g;
+            ціле g;
             g = 4;
             printf("g4=%d\n", g);
         }
@@ -729,14 +729,14 @@ void scope_test()
     printf("g5=%d\n", g);
 }
 
-int st2_i;
-int *st2_p = &st2_i;
+ціле st2_i;
+ціле *st2_p = &st2_i;
 void scope2_test()
 {
     char a[50];
     st2_i = 42;
-    for (int st2_i = 1; st2_i < 10; st2_i++) {
-        extern int st2_i;
+    для (ціле st2_i = 1; st2_i < 10; st2_i++) {
+        extern ціле st2_i;
         st2_i++;
         printf("exloc: %d\n", st2_i);
     }
@@ -744,18 +744,18 @@ void scope2_test()
 }
 
 /* C has tentative definition, and they may be repeated.  */
-extern int st_global1;
-int st_global1=42;
-extern int st_global1;
-int st_global1;
-extern int st_global2;
-int st_global2;
-extern int st_global2;
-int st_global2;
+extern ціле st_global1;
+ціле st_global1=42;
+extern ціле st_global1;
+ціле st_global1;
+extern ціле st_global2;
+ціле st_global2;
+extern ціле st_global2;
+ціле st_global2;
 
 void array_test()
 {
-    int i, j, a[4];
+    ціле i, j, a[4];
 
     printf("sizeof(a) = %d\n", sizeof(a));
     printf("sizeof(\"a\") = %d\n", sizeof("a"));
@@ -768,11 +768,11 @@ void array_test()
     tab[1] = 2;
     tab[2] = 3;
     printf("%d %d %d\n", tab[0], tab[1], tab[2]);
-    for(i=0;i<3;i++)
-        for(j=0;j<2;j++)
+    для(i=0;i<3;i++)
+        для(j=0;j<2;j++)
             tab2[i][j] = 10 * i + j;
-    for(i=0;i<3*2;i++) {
-        printf(" %3d", ((int *)tab2)[i]);
+    для(i=0;i<3*2;i++) {
+        printf(" %3d", ((ціле *)tab2)[i]);
     }
     printf("\n");
     printf("sizeof(size_t)=%d\n", sizeof(size_t));
@@ -781,7 +781,7 @@ void array_test()
 
 void expr_test()
 {
-    int a, b;
+    ціле a, b;
     a = 0;
     printf("%d\n", a += 1);
     printf("%d\n", a -= 2);
@@ -836,22 +836,22 @@ void expr_test()
            isid('('));
 }
 
-int isid(int c)
+ціле isid(ціле c)
 {
-    return (c >= 'a' & c <= 'z') | (c >= 'A' & c <= 'Z') | c == '_';
+    повернути (c >= 'a' & c <= 'z') | (c >= 'A' & c <= 'Z') | c == '_';
 }
 
 /**********************/
 
-int vstack[10], *vstack_ptr;
+ціле vstack[10], *vstack_ptr;
 
-void vpush(int vt, int vc)
+void vpush(ціле vt, ціле vc)
 {
     *vstack_ptr++ = vt;
     *vstack_ptr++ = vc;
 }
 
-void vpop(int *ft, int *fc)
+void vpop(ціле *ft, ціле *fc)
 {
     *fc = *--vstack_ptr;
     *ft = *--vstack_ptr;
@@ -859,7 +859,7 @@ void vpop(int *ft, int *fc)
 
 void expr2_test()
 {
-    int a, b;
+    ціле a, b;
 
     vstack_ptr = vstack;
     vpush(1432432, 2);
@@ -868,11 +868,11 @@ void expr2_test()
     printf("res= %d %d\n", a, b);
 }
 
-int const_len_ar[sizeof(1/0)]; /* div-by-zero, but in unevaluated context */
+ціле const_len_ar[sizeof(1/0)]; /* div-by-zero, but in unevaluated context */
 
 void constant_expr_test()
 {
-    int a;
+    ціле a;
     a = 3;
     printf("%d\n", a * 16);
     printf("%d\n", a * 1);
@@ -880,12 +880,12 @@ void constant_expr_test()
     printf("%d\n", sizeof(const_len_ar));
 }
 
-int tab4[10];
+ціле tab4[10];
 
 void expr_ptr_test()
 {
-    int arr[10], *p, *q;
-    int i = -1;
+    ціле arr[10], *p, *q;
+    ціле i = -1;
 
     p = tab4;
     q = tab4 + 10;
@@ -912,7 +912,7 @@ void expr_ptr_test()
     printf("%p %p %ld\n", q, p, p-q);
     printf("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
-    p = (int *)((char *)p + 0xf0000000);
+    p = (ціле *)((char *)p + 0xf0000000);
     printf("%p %p %ld\n", q, p, p-q);
     printf("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
@@ -922,10 +922,10 @@ void expr_ptr_test()
            p == q, p != q, p < q, p <= q, p >= q, p > q);
     {
         struct size12 {
-            int i, j, k;
+            ціле i, j, k;
         };
         struct size12 s[2], *sp = s;
-        int i, j;
+        ціле i, j;
         sp->i = 42;
         sp++;
         j = -1;
@@ -933,18 +933,18 @@ void expr_ptr_test()
     }
 #ifdef __LP64__
     i = 1;
-    p = (int*)0x100000000UL + i;
+    p = (ціле*)0x100000000UL + i;
     i = ((long)p) >> 32;
     printf("largeptr: %p %d\n", p, i);
 #endif
     p = &arr[0];
     q = p + 3;
-    printf ("%d\n", (int)((p - q) / 3));
+    printf ("%d\n", (ціле)((p - q) / 3));
 }
 
 void expr_cmp_test()
 {
-    int a, b;
+    ціле a, b;
     a = -1;
     b = 1;
     printf("%d\n", a == a);
@@ -973,7 +973,7 @@ struct aligntest1 {
 };
 
 struct aligntest2 {
-    int a;
+    ціле a;
     char b[10];
 };
 
@@ -987,19 +987,19 @@ struct aligntest4 {
 
 struct __attribute__((aligned(16))) aligntest5
 {
-    int i;
+    ціле i;
 };
 struct aligntest6
 {
-    int i;
+    ціле i;
 } __attribute__((aligned(16)));
 struct aligntest7
 {
-    int i;
+    ціле i;
 };
 struct aligntest5 altest5[2];
 struct aligntest6 altest6[2];
-int pad1;
+ціле pad1;
 /* altest7 is correctly aligned to 16 bytes also with TCC,
    but __alignof__ returns the wrong result (4) because we
    can't store the alignment yet when specified on symbols
@@ -1009,14 +1009,14 @@ struct aligntest7 altest7[2] __attribute__((aligned(16)));
 
 struct aligntest8
 {
-  int i;
+  ціле i;
 } __attribute__((aligned(4096)));
 
 struct Large {
     unsigned long flags;
     union {
 	void *u1;
-	int *u2;
+	ціле *u2;
     };
 
     struct {
@@ -1027,7 +1027,7 @@ struct Large {
 	union {
 	    unsigned long counters;
 	    struct {
-		int bla;
+		ціле bla;
 	    };
 	};
     };
@@ -1040,8 +1040,8 @@ struct Large {
 	void *u5;
 	struct {
 	    unsigned long compound_head;
-	    unsigned int compound_dtor;
-	    unsigned int compound_order;
+	    unsigned ціле compound_dtor;
+	    unsigned ціле compound_order;
 	};
     };
 } __attribute__((aligned(2 * sizeof(long))));
@@ -1049,12 +1049,12 @@ struct Large {
 typedef unsigned long long __attribute__((aligned(4))) unaligned_u64;
 
 struct aligntest9 {
-    unsigned int buf_nr;
+    unsigned ціле buf_nr;
     unaligned_u64 start_lba;
 };
 
 struct aligntest10 {
-    unsigned int buf_nr;
+    unsigned ціле buf_nr;
     unsigned long long start_lba;
 };
 
@@ -1069,7 +1069,7 @@ void struct_test()
            sizeof(struct struct2),
            sizeof(union union1),
            sizeof(union union2));
-    printf("offsets: %d\n", (int)((char*)&st1.u.v1 - (char*)&st1));
+    printf("offsets: %d\n", (ціле)((char*)&st1.u.v1 - (char*)&st1));
     st1.f1 = 1;
     st1.f2 = 2;
     st1.f3 = 3;
@@ -1087,7 +1087,7 @@ void struct_test()
     s->f3 = 1;
     printf("st2: %d %d %d\n",
            s->f1, s->f2, s->f3);
-    printf("str_addr=%x\n", (int)(uintptr_t)st1.str - (int)(uintptr_t)&st1.f1);
+    printf("str_addr=%x\n", (ціле)(uintptr_t)st1.str - (ціле)(uintptr_t)&st1.f1);
 
     /* align / size tests */
     printf("aligntest1 sizeof=%d alignof=%d\n",
@@ -1096,7 +1096,7 @@ void struct_test()
            sizeof(struct aligntest2), __alignof__(struct aligntest2));
     printf("aligntest3 sizeof=%d alignof=%d\n",
            sizeof(struct aligntest3), __alignof__(struct aligntest3));
-#if !(defined _WIN32 && CC_NAME == CC_clang)
+#якщо !(defined _WIN32 && CC_NAME == CC_clang)
     printf("aligntest4 sizeof=%d alignof=%d\n",
            sizeof(struct aligntest4), __alignof__(struct aligntest4));
 #endif
@@ -1108,7 +1108,7 @@ void struct_test()
            sizeof(struct aligntest7), __alignof__(struct aligntest7));
     printf("aligntest8 sizeof=%d alignof=%d\n",
            sizeof(struct aligntest8), __alignof__(struct aligntest8));
-#if !(defined _WIN32 && CC_NAME == CC_clang)
+#якщо !(defined _WIN32 && CC_NAME == CC_clang)
     printf("aligntest9 sizeof=%d alignof=%d\n",
            sizeof(struct aligntest9), __alignof__(struct aligntest9));
 #endif
@@ -1122,7 +1122,7 @@ void struct_test()
            sizeof(altest7), __alignof__(altest7));
            
     /* empty structures (GCC extension) */
-#if !(defined _WIN32 && CC_NAME == CC_clang)
+#якщо !(defined _WIN32 && CC_NAME == CC_clang)
     printf("sizeof(struct empty) = %d\n", sizeof(struct empty));
 #endif
     printf("alignof(struct empty) = %d\n", __alignof__(struct empty));
@@ -1130,18 +1130,18 @@ void struct_test()
     printf("Large: sizeof=%d\n", sizeof(ls));
     memset(&ls, 0, sizeof(ls));
     ls.compound_head = 42;
-    printf("Large: offsetof(compound_head)=%d\n", (int)((char*)&ls.compound_head - (char*)&ls));
+    printf("Large: offsetof(compound_head)=%d\n", (ціле)((char*)&ls.compound_head - (char*)&ls));
 }
 
 /* simulate char/short return value with undefined upper bits */
-static int __csf(int x) { return x; }
+static ціле __csf(ціле x) { повернути x; }
 static void *_csf = __csf;
-#define csf(t,n) ((t(*)(int))_csf)(n)
+#define csf(t,n) ((t(*)(ціле))_csf)(n)
 
 /* XXX: depend on endianness */
 void char_short_test()
 {
-    int var1, var2;
+    ціле var1, var2;
     signed char var3;
     long long var4;
 
@@ -1156,14 +1156,14 @@ void char_short_test()
     printf("u16=%d %d\n", 
            *(unsigned short *)&var1, *(unsigned short *)&var2);
     printf("s32=%d %d\n", 
-           *(int *)&var1, *(int *)&var2);
+           *(ціле *)&var1, *(ціле *)&var2);
     printf("u32=%d %d\n", 
-           *(unsigned int *)&var1, *(unsigned int *)&var2);
+           *(unsigned ціле *)&var1, *(unsigned ціле *)&var2);
     *(signed char *)&var1 = 0x08;
     printf("var1=%x\n", var1);
     *(short *)&var1 = 0x0809;
     printf("var1=%x\n", var1);
-    *(int *)&var1 = 0x08090a0b;
+    *(ціле *)&var1 = 0x08090a0b;
     printf("var1=%x\n", var1);
 
     var1 = 0x778899aa;
@@ -1175,7 +1175,7 @@ void char_short_test()
     var4 = 0x11223344aa998877ULL;
     printf("promote char/short assign VA %d %d\n", var3 = var1 + 1, var3 = var4 + 1);
     printf("promote char/short cast VA %d %d\n", (signed char)(var1 + 1), (signed char)(var4 + 1));
-#if !defined __arm__ && !defined __riscv
+#якщо !defined __arm__ && !defined __riscv
     /* We can't really express GCC behaviour of return type promotion in
        the presence of undefined behaviour (like __csf is).  */
     var1 = csf(unsigned char,0x89898989);
@@ -1196,7 +1196,7 @@ void char_short_test()
     var4 = (signed char)(unsigned char)(var3 + 1);
     printf("promote multicast (char)(unsigned char) %d "LONG_LONG_FORMAT"\n", var1, var4);
     var4 = 0x11223344aa998877ULL;
-    var4 = (unsigned)(int)(var4 + 1);
+    var4 = (unsigned)(ціле)(var4 + 1);
     printf("promote multicast (unsigned)(int) "LONG_LONG_FORMAT"\n", var4);
     var4 = 0x11223344bbaa9988ULL;
     var4 = (unsigned)(signed char)(var4 + 1);
@@ -1206,9 +1206,9 @@ void char_short_test()
 /******************/
 
 typedef struct Sym {
-    int v;
-    int t;
-    int c;
+    ціле v;
+    ціле t;
+    ціле c;
     struct Sym *next;
     struct Sym *prev;
 } Sym;
@@ -1216,17 +1216,17 @@ typedef struct Sym {
 #define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
 #define TOUPPER(c) (ISLOWER(c) ? 'A' + ((c) - 'a') : (c))
 
-static int toupper1(int a)
+static ціле toupper1(ціле a)
 {
-    return TOUPPER(a);
+    повернути TOUPPER(a);
 }
 
-static unsigned int calc_vm_flags(unsigned int prot)
+static unsigned ціле calc_vm_flags(unsigned ціле prot)
 {
-  unsigned int prot_bits;
+  unsigned ціле prot_bits;
   /* This used to segfault in some revisions: */
   prot_bits = ((0x1==0x00000001)?(prot&0x1):(prot&0x1)?0x00000001:0);
-  return prot_bits;
+  повернути prot_bits;
 }
 
 enum cast_enum { FIRST, LAST };
@@ -1238,29 +1238,29 @@ static void tst_cast(enum cast_enum ce)
 
 void bool_test()
 {
-    int *s, a, b, t, f, i;
+    ціле *s, a, b, t, f, i;
 
     a = 0;
     s = (void*)0;
     printf("!s=%d\n", !s);
 
-    if (!s || !s[0])
+    якщо (!s || !s[0])
         a = 1;
     printf("a=%d\n", a);
 
     printf("a=%d %d %d\n", 0 || 0, 0 || 1, 1 || 1);
     printf("a=%d %d %d\n", 0 && 0, 0 && 1, 1 && 1);
     printf("a=%d %d\n", 1 ? 1 : 0, 0 ? 1 : 0);
-#if 1 && 1
+#якщо 1 && 1
     printf("a1\n");
 #endif
-#if 1 || 0
+#якщо 1 || 0
     printf("a2\n");
 #endif
-#if 1 ? 0 : 1
+#якщо 1 ? 0 : 1
     printf("a3\n");
 #endif
-#if 0 ? 0 : 1
+#якщо 0 ? 0 : 1
     printf("a4\n");
 #endif
 
@@ -1283,17 +1283,17 @@ void bool_test()
 
     /* check that types of casted &&/|| are preserved (here the unsignedness) */
     t = 1;
-    printf("type of bool: %d\n", (int) ( (~ ((unsigned int) (t && 1))) / 2) );
+    printf("type of bool: %d\n", (ціле) ( (~ ((unsigned ціле) (t && 1))) / 2) );
     tst_cast(t >= 0 ? FIRST : LAST);
 
-    printf("type of cond: %d\n", (~(t ? 0U : (unsigned int)0)) / 2 );
+    printf("type of cond: %d\n", (~(t ? 0U : (unsigned ціле)0)) / 2 );
     /* test ? : cast */
     {
-        int aspect_on;
-        int aspect_native = 65536;
+        ціле aspect_on;
+        ціле aspect_native = 65536;
         double bfu_aspect = 1.0;
-        int aspect;
-        for(aspect_on = 0; aspect_on < 2; aspect_on++) {
+        ціле aspect;
+        для(aspect_on = 0; aspect_on < 2; aspect_on++) {
             aspect=aspect_on?(aspect_native*bfu_aspect+0.5):65535UL;
             printf("aspect=%d\n", aspect);
         }
@@ -1301,27 +1301,27 @@ void bool_test()
 
     /* test ? : GCC extension */
     {
-        static int v1 = 34 ? : -1; /* constant case */
-        static int v2 = 0 ? : -1; /* constant case */
-        int a = 30;
+        static ціле v1 = 34 ? : -1; /* constant case */
+        static ціле v2 = 0 ? : -1; /* constant case */
+        ціле a = 30;
         
         printf("%d %d\n", v1, v2);
         printf("%d %d\n", a - 30 ? : a * 2, a + 1 ? : a * 2);
     }
 
     /* again complex expression */
-    for(i=0;i<256;i++) {
-        if (toupper1 (i) != TOUPPER (i))
+    для(i=0;i<256;i++) {
+        якщо (toupper1 (i) != TOUPPER (i))
             printf("error %d\n", i);
     }
     printf ("bits = 0x%x\n", calc_vm_flags (0x1));
 }
 
-extern int undefined_function(void);
-extern int defined_function(void);
+extern ціле undefined_function(void);
+extern ціле defined_function(void);
 
 #ifdef __clang__
-int undefined_function(void) {}
+ціле undefined_function(void) {}
 #endif
 
 static inline void refer_to_undefined(void)
@@ -1331,19 +1331,19 @@ static inline void refer_to_undefined(void)
 
 void optimize_out_test(void)
 {
-  int i = 0 ? undefined_function() : defined_function();
+  ціле i = 0 ? undefined_function() : defined_function();
   printf ("oo:%d\n", i);
-  int j = 1 ? defined_function() : undefined_function();
+  ціле j = 1 ? defined_function() : undefined_function();
   printf ("oo:%d\n", j);
-  if (0)
+  якщо (0)
     printf("oo:%d\n", undefined_function());
-  else
+  інакше
     printf("oo:%d\n", defined_function());
-  if (1)
+  якщо (1)
     printf("oo:%d\n", defined_function());
-  else
+  інакше
     printf("oo:%d\n", undefined_function());
-  while (1) {
+  поки (1) {
       printf("oow:%d\n", defined_function());
       break;
       printf("oow:%d\n", undefined_function());
@@ -1355,44 +1355,44 @@ void optimize_out_test(void)
   printf ("oos:%d\n", defined_function());
   /* The following break shouldn't lead to disabled code after
      the while.  */
-  while (1)
+  поки (1)
     break;
   printf ("ool1:%d\n", defined_function());
   /* Same for the other types of loops.  */
   do
     break;
-  while (1);
+  поки (1);
   printf ("ool2:%d\n", defined_function());
-  for (;;)
+  для (;;)
     break;
   printf ("ool3:%d\n", defined_function());
   /* Normal {} blocks without controlling statements
      shouldn't reactivate code emission */
-  while (1) {
+  поки (1) {
 	{
 	  break;
 	}
       printf ("ool4:%d\n", undefined_function());
   }
   j = 1;
-  while (j) {
-      if (j == 0)
+  поки (j) {
+      якщо (j == 0)
 	break; /* this break shouldn't disable code outside the if. */
       printf("ool5:%d\n", defined_function());
       j--;
   }
 
   j = 1;
-  while (j) {
-      if (1)
+  поки (j) {
+      якщо (1)
 	j--;
-      else
+      інакше
 	breakhere: break;
       printf("ool6:%d\n", defined_function());
       goto breakhere;
   }
   j = 1;
-  while (j) {
+  поки (j) {
       j--;
       continue;
       printf("ool7:%d\n", undefined_function());
@@ -1401,46 +1401,46 @@ void optimize_out_test(void)
   /* Test that constants in logical && are optimized: */
   i = 0 && undefined_function();
   i = defined_function() && 0 && undefined_function();
-  if (0 && undefined_function())
+  якщо (0 && undefined_function())
     undefined_function();
-  if (defined_function() && 0)
+  якщо (defined_function() && 0)
     undefined_function();
-  if (0 && 0)
+  якщо (0 && 0)
     undefined_function();
-  if (defined_function() && 0 && undefined_function())
+  якщо (defined_function() && 0 && undefined_function())
     undefined_function();
   /* The same for || : */
   i = 1 || undefined_function();
   i = defined_function() || 1 || undefined_function();
-  if (1 || undefined_function())
+  якщо (1 || undefined_function())
     ;
-  else
+  інакше
     undefined_function();
-  if (defined_function() || 1)
+  якщо (defined_function() || 1)
     ;
-  else
+  інакше
     undefined_function();
-  if (1 || 1)
+  якщо (1 || 1)
     ;
-  else
+  інакше
     undefined_function();
-  if (defined_function() || 1 || undefined_function())
+  якщо (defined_function() || 1 || undefined_function())
     ;
-  else
+  інакше
     undefined_function();
 
-  if (defined_function() && 0)
+  якщо (defined_function() && 0)
     refer_to_undefined();
 
-  if (0) {
+  якщо (0) {
       (void)sizeof( ({
-		     do { } while (0);
+		     do { } поки (0);
 		     0;
 		     }) );
       undefined_function();
   }
 
-  if (0) {
+  якщо (0) {
       switch (defined_function()) {
           case 0: undefined_function(); break;
           default: undefined_function(); break;
@@ -1448,61 +1448,61 @@ void optimize_out_test(void)
   }
 
   /* Leave the "if(1)return; printf()" in this order and last in the function */
-  if (1)
-    return;
+  якщо (1)
+    повернути;
   printf ("oor:%d\n", undefined_function());
 }
 
-int defined_function(void)
+ціле defined_function(void)
 {
-  static int i = 40;
-  return i++;
+  static ціле i = 40;
+  повернути i++;
 }
 
 /* GCC accepts that */
-static int tab_reinit[];
-static int tab_reinit[10];
+static ціле tab_reinit[];
+static ціле tab_reinit[10];
 
-static int tentative_ar[];
-static int tentative_ar[] = {1,2,3};
+static ціле tentative_ar[];
+static ціле tentative_ar[] = {1,2,3};
 
-int cinit1; /* a global variable can be defined several times without error ! */
-int cinit1; 
-int cinit1 = 0;
-int *cinit2 = (int []){3, 2, 1};
+ціле cinit1; /* a global variable can be defined several times without error ! */
+ціле cinit1; 
+ціле cinit1 = 0;
+ціле *cinit2 = (ціле []){3, 2, 1};
 uintptr_t cinit3 = (uintptr_t)"AA";
 char const * const cinit8[] = { [0 ... 1] = "BB", [2 ... 4] = "CC" };
 void *cinit52 = &(void*){ (void*) 52 };
 
-#if __TINYC__ || __GNUC__ >= 6
-int cinit4 = (int){44};
+#якщо __TINYC__ || __GNUC__ >= 6
+ціле cinit4 = (ціле){44};
 void *cinit51 = (void*){ (void*) 51 };
-struct _c6 { int a,b; } cinit6 = (struct _c6){61,62}, *cinit7 = &(struct _c6){71,72};
-#else
-int cinit4 = 44;
+struct _c6 { ціле a,b; } cinit6 = (struct _c6){61,62}, *cinit7 = &(struct _c6){71,72};
+#інакше
+ціле cinit4 = 44;
 void *cinit51 = (void*)51;
-struct _c6 { int a,b; } cinit6 = { 61,62 }, cinit70 = {71,72}, *cinit7 = &cinit70;
+struct _c6 { ціле a,b; } cinit6 = { 61,62 }, cinit70 = {71,72}, *cinit7 = &cinit70;
 #endif
 
 void compound_literal_test(void)
 {
-    int *p, i;
+    ціле *p, i;
     char *q, *q3;
 
     printf("cinit3 : %s\n", cinit3);
     printf("cinit4 : %d\n", cinit4);
-    printf("cinit51 : %d\n", (int)cinit51);
-    printf("cinit52 : %d\n", *(int*)cinit52);
+    printf("cinit51 : %d\n", (ціле)cinit51);
+    printf("cinit52 : %d\n", *(ціле*)cinit52);
     printf("cinit6 : %d %d\n", cinit6.a, cinit6.b);
     printf("cinit7 : %d %d\n", cinit7->a, cinit7->b);
     printf("cinit8 : %s %s %s %s %s\n", cinit8[0], cinit8[1], cinit8[2], cinit8[3], cinit8[4]);
 
-    p = (int []){1, 2, 3};
-    for(i=0;i<3;i++)
+    p = (ціле []){1, 2, 3};
+    для(i=0;i<3;i++)
         printf(" %d", p[i]);
     printf("\n");
 
-    for(i=0;i<3;i++)
+    для(i=0;i<3;i++)
         printf("%d", cinit2[i]);
     printf("\n");
 
@@ -1519,13 +1519,13 @@ void compound_literal_test(void)
     printf("q4=%s\n", q);
 
 #ifdef ALL_ISOC99
-    p = (int []){1, 2, cinit1 + 3};
-    for(i=0;i<3;i++)
+    p = (ціле []){1, 2, cinit1 + 3};
+    для(i=0;i<3;i++)
         printf(" %d", p[i]);
     printf("\n");
 
-    for(i=0;i<3;i++) {
-        p = (int []){1, 2, 4 + i};
+    для(i=0;i<3;i++) {
+        p = (ціле []){1, 2, 4 + i};
         printf("%d %d %d\n", 
                p[0],
                p[1],
@@ -1535,47 +1535,47 @@ void compound_literal_test(void)
 }
 
 
-#if __TINYC__
+#якщо __TINYC__
 
 /* K & R protos */
 
 kr_func1(a, b)
 {
-    return a + b;
+    повернути a + b;
 }
 
-int kr_func2(a, b)
+ціле kr_func2(a, b)
 {
-    return a + b;
+    повернути a + b;
 }
 
 kr_test()
 {
     printf("func1=%d\n", kr_func1(3, 4));
     printf("func2=%d\n", kr_func2(3, 4));
-    return 0;
+    повернути 0;
 }
 
 /* We try to handle this syntax.  Make at least sure it doesn't segfault.  */
-char invalid_function_def()[] {return 0;}
+char invalid_function_def()[] {повернути 0;}
 
-#else
+#інакше
 # define kr_test() printf("func1=7\nfunc2=7\n")
 #endif
 
-void num(int n)
+void num(ціле n)
 {
     char *tab, *p;
     tab = (char*)malloc(20); 
     p = tab;
-    while (1) {
+    поки (1) {
         *p = 48 + (n % 10);
         p++;
         n = n / 10;
-        if (n == 0)
+        якщо (n == 0)
             break;
     }
-    while (p != tab) {
+    поки (p != tab) {
         p--;
         printf("%c", *p);
     }
@@ -1585,27 +1585,27 @@ void num(int n)
 
 /* structure assignment tests */
 struct structa1 {
-    int f1;
+    ціле f1;
     char f2;
 };
 
-void struct_assign_test1(struct structa1 s1, int t, float f)
+void struct_assign_test1(struct structa1 s1, ціле t, float f)
 {
     printf("%d %d %d %f\n", s1.f1, s1.f2, t, f);
 }
 
-struct structa1 struct_assign_test2(struct structa1 s1, int t)
+struct structa1 struct_assign_test2(struct structa1 s1, ціле t)
 {
     s1.f1 += t;
     s1.f2 -= t;
-    return s1;
+    повернути s1;
 }
 
 void struct_assign_test(void)
 {
     struct S {
       struct structa1 lsta1, lsta2;
-      int i;
+      ціле i;
     } s = {{1,2}, {3,4}}, *ps;
     
     ps = &s;
@@ -1640,7 +1640,7 @@ short scast;
 
 void cast_test()
 {
-    int a;
+    ціле a;
     char c;
     char tab[10];
     unsigned b,d;
@@ -1668,7 +1668,7 @@ void cast_test()
     a = (scast = 65536) + 1;
     printf("%d\n", a);
     
-    printf("sizeof(c) = %d, sizeof((int)c) = %d\n", sizeof(c), sizeof((int)c));
+    printf("sizeof(c) = %d, sizeof((int)c) = %d\n", sizeof(c), sizeof((ціле)c));
     
     /* test cast from unsigned to signed short to int */
     b = 0xf000;
@@ -1689,10 +1689,10 @@ void cast_test()
     printf("sizeof(-(char)'a') = %d\n", sizeof(-(char)'a'));
     printf("sizeof(~(char)'a') = %d\n", sizeof(-(char)'a'));
 
-#if CC_NAME != CC_clang /* clang doesn't support non-portable conversions */
+#якщо CC_NAME != CC_clang /* clang doesn't support non-portable conversions */
     /* from pointer to integer types */
     printf("%d %d %ld %ld %lld %lld\n",
-           (int)p, (unsigned int)p,
+           (ціле)p, (unsigned ціле)p,
            (long)p, (unsigned long)p,
            (long long)p, (unsigned long long)p);
 #endif
@@ -1702,24 +1702,24 @@ void cast_test()
            (void *)a, (void *)b, (void *)c, (void *)d);
 
     /* int to int with sign set */
-    printf("0x%lx\n", (unsigned long)(int)ul);
+    printf("0x%lx\n", (unsigned long)(ціле)ul);
 }
 
 /* initializers tests */
 struct structinit1 {
-    int f1;
+    ціле f1;
     char f2;
     short f3;
-    int farray[3];
+    ціле farray[3];
 };
 
-int sinit1 = 2;
-int sinit2 = { 3 };
-int sinit3[3] = { 1, 2, {3}, };
-int sinit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
-int sinit5[3][2] = { 1, 2, 3, 4, 5, 6 };
-int sinit6[] = { 1, 2, 3 };
-int sinit7[] = { [2] = 3, [0] = 1, 2 };
+ціле sinit1 = 2;
+ціле sinit2 = { 3 };
+ціле sinit3[3] = { 1, 2, {3}, };
+ціле sinit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
+ціле sinit5[3][2] = { 1, 2, 3, 4, 5, 6 };
+ціле sinit6[] = { 1, 2, 3 };
+ціле sinit7[] = { [2] = 3, [0] = 1, 2 };
 char sinit8[] = "hello" "trala";
 
 struct structinit1 sinit9 = { 1, 2, 3 };
@@ -1739,31 +1739,31 @@ char *sinit13[] = {
     "test3",
 };
 char sinit14[10] = { "abc" };
-int sinit15[3] = { sizeof(sinit15), 1, 2 };
+ціле sinit15[3] = { sizeof(sinit15), 1, 2 };
 
-struct { int a[3], b; } sinit16[] = { { 1 }, 2 };
+struct { ціле a[3], b; } sinit16[] = { { 1 }, 2 };
 
 struct bar {
         char *s;
-        int len;
+        ціле len;
 } sinit17[] = {
         "a1", 4,
         "a2", 1
 };
 
-int sinit18[10] = {
+ціле sinit18[10] = {
     [2 ... 5] = 20,
     2,
     [8] = 10,
 };
 
 struct complexinit0 {
-    int a;
-    int b;
+    ціле a;
+    ціле b;
 };
 
 struct complexinit {
-    int a;
+    ціле a;
     const struct complexinit0 *b;
 };
 
@@ -1779,8 +1779,8 @@ const static struct complexinit cix[] = {
 };
 
 struct complexinit2 {
-	int a;
-	int b[];
+	ціле a;
+	ціле b[];
 };
 
 struct complexinit2 cix20;
@@ -1795,54 +1795,54 @@ struct complexinit2 cix22 = {
 	.b = { 4001, 4002, 4003, 4004, 4005, 4006 }
 };
 
-typedef int arrtype1[];
+typedef ціле arrtype1[];
 arrtype1 sinit19;
 arrtype1 sinit20;
 arrtype1 sinit19 = {1};
 arrtype1 sinit20 = {2,3};
-typedef int arrtype2[3];
+typedef ціле arrtype2[3];
 arrtype2 sinit21;
 arrtype2 sinit22;
 arrtype2 sinit21 = {4};
 arrtype2 sinit22 = {5,6,7};
 
 /* Address comparisons of non-weak symbols with zero can be const-folded */
-int sinit23[2] = { "astring" ? sizeof("astring") : -1,
+ціле sinit23[2] = { "astring" ? sizeof("astring") : -1,
 		   &sinit23 ? 42 : -1 };
 
-int sinit24 = 2 || 1 / 0; /* exception in constant but unevaluated context */
+ціле sinit24 = 2 || 1 / 0; /* exception in constant but unevaluated context */
 
 /* bitfield init */
-struct bf_SS {unsigned int bit:1,bits31:31; };
+struct bf_SS {unsigned ціле bit:1,bits31:31; };
 struct bf_SS bf_init = { .bit = 1 };
-struct bfn_SS {int a,b; struct bf_SS c; int d,e; };
+struct bfn_SS {ціле a,b; struct bf_SS c; ціле d,e; };
 struct bfn_SS bfn_init = { .c.bit = 1 };
-struct bfa_SS {int a,b; struct bf_SS c[3]; int d,e; };
+struct bfa_SS {ціле a,b; struct bf_SS c[3]; ціле d,e; };
 struct bfa_SS bfa_init = { .c[1].bit = 1 };
 struct bf_SS bfaa_init[3] = { [1].bit = 1 };
 struct bf_SS bfaa_vinit[] = { [2].bit = 1 };
-struct b2_SS {long long int field : 52; long long int pad : 12; };
+struct b2_SS {long long ціле field : 52; long long ціле pad : 12; };
 struct b2_SS bf_init2 = {0xFFF000FFF000FLL, 0x123};
 
-extern int external_inited = 42;
+extern ціле external_inited = 42;
 
 void init_test(void)
 {
-    int linit1 = 2;
-    int linit2 = { 3 };
-    int linit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
-    int linit6[] = { 1, 2, 3 };
-    int i, j;
+    ціле linit1 = 2;
+    ціле linit2 = { 3 };
+    ціле linit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
+    ціле linit6[] = { 1, 2, 3 };
+    ціле i, j;
     char linit8[] = "hello" "trala";
-    int linit12[10] = { 1, 2 };
-    int linit13[10] = { 1, 2, [7] = 3, [3] = 4, };
+    ціле linit12[10] = { 1, 2 };
+    ціле linit13[10] = { 1, 2, [7] = 3, [3] = 4, };
     char linit14[10] = "abc";
-    int linit15[10] = { linit1, linit1 + 1, [6] = linit1 + 2, };
-    struct linit16 { int a1, a2, a3, a4; } linit16 = { 1, .a3 = 2 };
-    int linit17 = sizeof(linit17);
-    int zero = 0;
+    ціле linit15[10] = { linit1, linit1 + 1, [6] = linit1 + 2, };
+    struct linit16 { ціле a1, a2, a3, a4; } linit16 = { 1, .a3 = 2 };
+    ціле linit17 = sizeof(linit17);
+    ціле zero = 0;
     /* Addresses on non-weak symbols are non-zero, but not the access itself */
-    int linit18[2] = {&zero ? 1 : -1, zero ? -1 : 1 };
+    ціле linit18[2] = {&zero ? 1 : -1, zero ? -1 : 1 };
     struct bf_SS bf_finit = { .bit = 1 };
     struct bfn_SS bfn_finit = { .c.bit = 1 };
     struct bfa_SS bfa_finit = { .c[1].bit = 1 };
@@ -1885,8 +1885,8 @@ void init_test(void)
            sinit11.farray[2]
            );
 
-    for(i=0;i<3;i++)
-        for(j=0;j<2;j++)
+    для(i=0;i<3;i++)
+        для(j=0;j<2;j++)
             printf("[%d][%d] = %d %d %d\n", 
                    i, j, sinit4[i][j], sinit5[i][j], linit4[i][j]);
     printf("linit1=%d\n", linit1);
@@ -1902,13 +1902,13 @@ void init_test(void)
            sinit13[2]);
     printf("sinit14=%s\n", sinit14);
 
-    for(i=0;i<10;i++) printf(" %d", linit12[i]);
+    для(i=0;i<10;i++) printf(" %d", linit12[i]);
     printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit13[i]);
+    для(i=0;i<10;i++) printf(" %d", linit13[i]);
     printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit14[i]);
+    для(i=0;i<10;i++) printf(" %d", linit14[i]);
     printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit15[i]);
+    для(i=0;i<10;i++) printf(" %d", linit15[i]);
     printf("\n");
     printf("%d %d %d %d\n", 
            linit16.a1,
@@ -1922,7 +1922,7 @@ void init_test(void)
     printf("sinit17=%s %d %s %d\n",
            sinit17[0].s, sinit17[0].len,
            sinit17[1].s, sinit17[1].len);
-    for(i=0;i<10;i++)
+    для(i=0;i<10;i++)
         printf("%x ", sinit18[i]);
     printf("\n");
     /* complex init check */
@@ -1948,17 +1948,17 @@ void init_test(void)
     printf ("bf2: %u %u\n", bf_finit.bit, bf_finit.bits31);
     printf ("bf3: %u %u\n", bfn_init.c.bit, bfn_init.c.bits31);
     printf ("bf4: %u %u\n", bfn_finit.c.bit, bfn_finit.c.bits31);
-    for (i = 0; i < 3; i++)
+    для (i = 0; i < 3; i++)
         printf ("bf5[%d]: %u %u\n", i, bfa_init.c[i].bit, bfa_init.c[i].bits31);
-    for (i = 0; i < 3; i++)
+    для (i = 0; i < 3; i++)
         printf ("bf6[%d]: %u %u\n", i, bfa_finit.c[i].bit, bfa_finit.c[i].bits31);
-    for (i = 0; i < 3; i++)
+    для (i = 0; i < 3; i++)
         printf ("bf7[%d]: %u %u\n", i, bfaa_init[i].bit, bfaa_init[i].bits31);
-    for (i = 0; i < 3; i++)
+    для (i = 0; i < 3; i++)
         printf ("bf8[%d]: %u %u\n", i, bfaa_finit[i].bit, bfaa_finit[i].bits31);
-    for (i = 0; i < 3; i++)
+    для (i = 0; i < 3; i++)
         printf ("bf9[%d]: %u %u\n", i, bfaa_vinit[i].bit, bfaa_vinit[i].bits31);
-    for (i = 0; i < 3; i++)
+    для (i = 0; i < 3; i++)
         printf ("bf10[%d]: %u %u\n", i, bfaa_fvinit[i].bit, bfaa_fvinit[i].bits31);
 }
 
@@ -1998,11 +1998,11 @@ void switch_sc(signed char sc)
 
 void switch_test()
 {
-    int i;
+    ціле i;
     unsigned long long ull;
     long long ll;
 
-    for(i=0;i<15;i++) {
+    для(i=0;i<15;i++) {
         switch(i) {
         case 0:
         case 1:
@@ -2024,7 +2024,7 @@ void switch_test()
     }
     printf("\n");
 
-    for (i = 1; i <= 5; i++) {
+    для (i = 1; i <= 5; i++) {
 	ull = (unsigned long long)i << 61;
 	switch (ull) {
 	    case 1ULL << 61:
@@ -2047,7 +2047,7 @@ void switch_test()
 	}
     }
 
-    for (i = 1; i <= 5; i++) {
+    для (i = 1; i <= 5; i++) {
 	ll = (long long)i << 61;
 	switch (ll) {
 	    case 1LL << 61:
@@ -2070,11 +2070,11 @@ void switch_test()
 	}
     }
 
-    for (i = -5; i <= 5; i++) {
+    для (i = -5; i <= 5; i++) {
 	switch_uc((unsigned char)i);
     }
 
-    for (i = -5; i <= 5; i++) {
+    для (i = -5; i <= 5; i++) {
 	switch_sc ((signed char)i);
     }
 }
@@ -2083,7 +2083,7 @@ void switch_test()
 void c99_bool_test(void)
 {
 #ifdef BOOL_ISOC99
-    int a;
+    ціле a;
     _Bool b, b2;
 
     printf("sizeof(_Bool) = %d\n", sizeof(_Bool));
@@ -2095,23 +2095,23 @@ void c99_bool_test(void)
     printf("b = %d\n", b);
     b2 = 0;
     printf("sizeof(x ? _Bool : _Bool) = %d (should be sizeof int)\n",
-           sizeof ((volatile int)a ? b : b2));
+           sizeof ((volatile ціле)a ? b : b2));
 #endif
 }
 
 void bitfield_test(void)
 {
-    int a;
+    ціле a;
     short sa;
     unsigned char ca;
     struct sbf1 {
-        int f1 : 3;
-        int : 2;
-        int f2 : 1;
-        int : 0;
-        int f3 : 5;
-        int f4 : 7;
-        unsigned int f5 : 7;
+        ціле f1 : 3;
+        ціле : 2;
+        ціле f2 : 1;
+        ціле : 0;
+        ціле f3 : 5;
+        ціле f4 : 7;
+        unsigned ціле f5 : 7;
     } st1;
     printf("sizeof(st1) = %d\n", sizeof(st1));
 
@@ -2129,13 +2129,13 @@ void bitfield_test(void)
     printf("%d %d\n", sa, ca);
 
     st1.f1 = 7;
-    if (st1.f1 == -1) 
+    якщо (st1.f1 == -1) 
         printf("st1.f1 == -1\n");
-    else 
+    інакше 
         printf("st1.f1 != -1\n");
-    if (st1.f2 == -1) 
+    якщо (st1.f2 == -1) 
         printf("st1.f2 == -1\n");
-    else 
+    інакше 
         printf("st1.f2 != -1\n");
 
     struct sbf2 {
@@ -2151,29 +2151,29 @@ void bitfield_test(void)
     st2.f2++;
     printf("%lld %lld %lld\n", st2.f1, st2.f2, st2.f3);
 
-#if 0
-    Disabled for now until further clarification re GCC compatibility
+#якщо 0
+    Disabled для now until further clarification re GCC compatibility
     struct sbf3 {
-        int f1 : 7;
-        int f2 : 1;
+        ціле f1 : 7;
+        ціле f2 : 1;
         char f3;
-        int f4 : 8;
-        int f5 : 1;
-        int f6 : 16;
+        ціле f4 : 8;
+        ціле f5 : 1;
+        ціле f6 : 16;
     } st3;
     printf("sizeof(st3) = %d\n", sizeof(st3));
 #endif
 
     struct sbf4 {
-	int x : 31;
+	ціле x : 31;
 	char y : 2;
     } st4;
     st4.y = 1;
     printf("st4.y == %d\n", st4.y);
     struct sbf5 {
-	int a;
+	ціле a;
 	char b;
-	int x : 12, y : 4, : 0, : 4, z : 3;
+	ціле x : 12, y : 4, : 0, : 4, z : 3;
 	char c;
     } st5 = { 1, 2, 3, 4, -3, 6 };
     printf("st5 = %d %d %d %d %d %d\n", st5.a, st5.b, st5.x, st5.y, st5.z, st5.c);
@@ -2187,7 +2187,7 @@ void bitfield_test(void)
 
 #ifdef __x86_64__
 #define FLOAT_FMT "%f\n"
-#else
+#інакше
 /* x86's float isn't compatible with GCC */
 #define FLOAT_FMT "%.5f\n"
 #endif
@@ -2195,10 +2195,10 @@ void bitfield_test(void)
 /* declare strto* functions as they are C99 */
 double strtod(const char *nptr, char **endptr);
 
-#if defined(_WIN32)
-float strtof(const char *nptr, char **endptr) {return (float)strtod(nptr, endptr);}
-LONG_DOUBLE strtold(const char *nptr, char **endptr) {return (LONG_DOUBLE)strtod(nptr, endptr);}
-#else
+#якщо defined(_WIN32)
+float strtof(const char *nptr, char **endptr) {повернути (float)strtod(nptr, endptr);}
+LONG_DOUBLE strtold(const char *nptr, char **endptr) {повернути (LONG_DOUBLE)strtod(nptr, endptr);}
+#інакше
 float strtof(const char *nptr, char **endptr);
 LONG_DOUBLE strtold(const char *nptr, char **endptr);
 #endif
@@ -2232,19 +2232,19 @@ void prefix ## fcast(type a)\
     float fa;\
     double da;\
     LONG_DOUBLE la;\
-    int ia;\
+    ціле ia;\
     long long llia;\
-    unsigned int ua;\
+    unsigned ціле ua;\
     unsigned long long llua;\
     type b;\
     fa = a;\
     da = a;\
     la = a;\
     printf("ftof: %f %f %Lf\n", fa, da, la);\
-    ia = (int)a;\
+    ia = (ціле)a;\
     llia = (long long)a;\
     a = (a >= 0) ? a : -a;\
-    ua = (unsigned int)a;\
+    ua = (unsigned ціле)a;\
     llua = (unsigned long long)a;\
     printf("ftoi: %d %u %lld %llu\n", ia, ua, llia, llua);\
     ia = -1234;\
@@ -2258,12 +2258,12 @@ void prefix ## fcast(type a)\
     b = llia;\
     printf("lltof: " fmt "\n", b);\
     b = llua;\
-    if (CC_NAME != CC_clang) printf("ulltof: " fmt "\n", b);\
+    якщо (CC_NAME != CC_clang) printf("ulltof: " fmt "\n", b);\
 }\
 \
-float prefix ## retf(type a) { return a; }\
-double prefix ## retd(type a) { return a; }\
-LONG_DOUBLE prefix ## retld(type a) { return a; }\
+float prefix ## retf(type a) { повернути a; }\
+double prefix ## retd(type a) { повернути a; }\
+LONG_DOUBLE prefix ## retld(type a) { повернути a; }\
 \
 void prefix ## call(void)\
 {\
@@ -2276,30 +2276,30 @@ void prefix ## call(void)\
 void prefix ## signed_zeros(void) \
 {\
   type x = 0.0, y = -0.0, n, p;\
-  if (x == y)\
+  якщо (x == y)\
     printf ("Test 1.0 / x != 1.0 / y  returns %d (should be 1).\n",\
             1.0 / x != 1.0 / y);\
-  else\
+  інакше\
     printf ("x != y; this is wrong!\n");\
 \
   n = -x;\
-  if (x == n)\
+  якщо (x == n)\
     printf ("Test 1.0 / x != 1.0 / -x returns %d (should be 1).\n",\
             1.0 / x != 1.0 / n);\
-  else\
+  інакше\
     printf ("x != -x; this is wrong!\n");\
 \
   p = +y;\
-  if (x == p)\
+  якщо (x == p)\
     printf ("Test 1.0 / x != 1.0 / +y returns %d (should be 1).\n",\
             1.0 / x != 1.0 / p);\
-  else\
+  інакше\
     printf ("x != +y; this is wrong!\n");\
   p = -y;\
-  if (x == p)\
+  якщо (x == p)\
     printf ("Test 1.0 / x != 1.0 / -y returns %d (should be 0).\n",\
             1.0 / x != 1.0 / p);\
-  else\
+  інакше\
     printf ("x != -y; this is wrong!\n");\
 }\
 void prefix ## nan(void)\
@@ -2318,7 +2318,7 @@ void prefix ## test(void)\
     prefix ## fcast(-2334.6);\
     prefix ## call();\
     prefix ## signed_zeros();\
-    if (CC_NAME != CC_clang) prefix ## nan();\
+    якщо (CC_NAME != CC_clang) prefix ## nan();\
 }
 
 FTEST(f, float, float, "%f")
@@ -2330,11 +2330,11 @@ double ftab1[3] = { 1.2, 3.4, -5.6 };
 
 void float_test(void)
 {
-#if !defined(__arm__) || defined(__ARM_PCS_VFP) || defined __ANDROID__
+#якщо !defined(__arm__) || defined(__ARM_PCS_VFP) || defined __ANDROID__
     volatile float fa, fb;
     volatile double da, db;
-    int a;
-    unsigned int b;
+    ціле a;
+    unsigned ціле b;
     static double nan2 = 0.0/0.0;
     static double inf1 = 1.0/0.0;
     static double inf2 = 1e5000;
@@ -2387,27 +2387,27 @@ void float_test(void)
 #endif
 }
 
-int fib(int n)
+ціле fib(ціле n)
 {
-    if (n <= 2)
-        return 1;
-    else
-        return fib(n-1) + fib(n-2);
+    якщо (n <= 2)
+        повернути 1;
+    інакше
+        повернути fib(n-1) + fib(n-2);
 }
 
-#if __GNUC__ == 3 || __GNUC__ == 4
+#якщо __GNUC__ == 3 || __GNUC__ == 4
 # define aligned_function 0
-#else
-void __attribute__((aligned(16))) aligned_function(int i) {}
+#інакше
+void __attribute__((aligned(16))) aligned_function(ціле i) {}
 #endif
 
 void funcptr_test()
 {
-    void (*func)(int);
-    int a;
+    void (*func)(ціле);
+    ціле a;
     struct {
-        int dummy;
-        void (*func)(int);
+        ціле dummy;
+        void (*func)(ціле);
     } st1;
     long diff;
 
@@ -2433,7 +2433,7 @@ void funcptr_test()
 
     /* Check that we can align functions */
     func = aligned_function;
-    printf("aligned_function (should be zero): %d\n", ((int)(uintptr_t)func) & 15);
+    printf("aligned_function (should be zero): %d\n", ((ціле)(uintptr_t)func) & 15);
 }
 
 void lloptest(long long a, long long b)
@@ -2448,7 +2448,7 @@ void lloptest(long long a, long long b)
            a - b,
            a * b);
     
-    if (b != 0) {
+    якщо (b != 0) {
         printf("arith1: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            a / b,
            a % b);
@@ -2488,7 +2488,7 @@ void lloptest(long long a, long long b)
     printf("not: %d %d %d %d\n", !a, !ua, !b, !ub);
 }
 
-void llshift(long long a, int b)
+void llshift(long long a, ціле b)
 {
     printf("shift: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            (unsigned long long)a >> b,
@@ -2538,27 +2538,27 @@ void llfloat(void)
     printf("ftoull: " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT "\n", ula, ulb, ulc);
 }
 
-long long llfunc1(int a)
+long long llfunc1(ціле a)
 {
-    return a * 2;
+    повернути a * 2;
 }
 
 struct S {
-    int id; 
+    ціле id; 
     char item;
 };
 
-long long int value(struct S *v)
+long long ціле value(struct S *v)
 {
-    return ((long long int)v->item);
+    повернути ((long long ціле)v->item);
 }
 
-long long llfunc2(long long x, long long y, int z)
+long long llfunc2(long long x, long long y, ціле z)
 {
-    return x * y * z;
+    повернути x * y * z;
 }
 
-void check_opl_save_regs(char *a, long long b, int c)
+void check_opl_save_regs(char *a, long long b, ціле c)
 {
     *a = b < 0 && !c;
 }
@@ -2566,8 +2566,8 @@ void check_opl_save_regs(char *a, long long b, int c)
 void longlong_test(void)
 {
     long long a, b, c;
-    int ia;
-    unsigned int ua;
+    ціле ia;
+    unsigned ціле ua;
     printf("sizeof(long long) = %d\n", sizeof(long long));
     ia = -1;
     ua = -2;
@@ -2592,7 +2592,7 @@ void longlong_test(void)
     llshift(b, 47);
 
     llfloat();
-#if 1
+#якщо 1
     b = 0x12345678;
     a = -1;
     c = a + b;
@@ -2635,7 +2635,7 @@ void longlong_test(void)
     u = (unsigned)(u + 1);
     printf("long long u=" ULONG_LONG_FORMAT "\n", u);
     u = 0x11223344aa998877ULL;
-    u = (unsigned)(int)(u + 1);
+    u = (unsigned)(ціле)(u + 1);
     printf("long long u=" ULONG_LONG_FORMAT "\n", u);
 
     /* was a problem with missing save_regs in gen_opl on 32-bit platforms */
@@ -2685,16 +2685,16 @@ va_arg_with_struct_ptr(va_list ap) {
          * The test case only checks it compiles on all supported
          * architectures. This function is not currently called.
          */
-        struct X { int _x; };
+        struct X { ціле _x; };
         struct X *x = va_arg(ap, struct X *);
-        return x;
+        повернути x;
 }
 
 void vprintf1(const char *fmt, ...)
 {
     va_list ap, aq;
     const char *p;
-    int c, i;
+    ціле c, i;
     double d;
     long long ll;
     LONG_DOUBLE ld;
@@ -2703,18 +2703,18 @@ void vprintf1(const char *fmt, ...)
     va_copy(ap, aq);
     
     p = fmt;
-    for(;;) {
+    для(;;) {
         c = *p;
-        if (c == '\0')
+        якщо (c == '\0')
             break;
         p++;
-        if (c == '%') {
+        якщо (c == '%') {
             c = *p;
             switch(c) {
             case '\0':
                 goto the_end;
             case 'd':
-                i = va_arg(ap, int);
+                i = va_arg(ap, ціле);
                 printf("%d", i);
                 break;
             case 'f':
@@ -2731,7 +2731,7 @@ void vprintf1(const char *fmt, ...)
                 break;
             }
             p++;
-        } else {
+        } інакше {
             putchar(c);
         }
     }
@@ -2741,12 +2741,12 @@ void vprintf1(const char *fmt, ...)
 }
 
 struct myspace {
-    short int profile;
+    short ціле profile;
 };
 struct myspace2 {
-#if CC_NAME == CC_clang /* clang7 doesn't support zero sized structs */
+#якщо CC_NAME == CC_clang /* clang7 doesn't support zero sized structs */
     char a[1];
-#else
+#інакше
     char a[0];
 #endif
 };
@@ -2767,7 +2767,7 @@ struct mytest stdarg_for_struct(struct myspace bob, ...)
     struct myspace3 alex2;
     struct myspace4 alex3;
     va_list ap;
-    short int validate;
+    short ціле validate;
 
     va_start(ap, bob);
     alex1    = va_arg(ap, struct myspace2);
@@ -2775,12 +2775,12 @@ struct mytest stdarg_for_struct(struct myspace bob, ...)
     alex3    = va_arg(ap, struct myspace4);
     bill     = va_arg(ap, struct myspace);
     george   = va_arg(ap, struct myspace);
-    validate = va_arg(ap, int);
+    validate = va_arg(ap, ціле);
     printf("stdarg_for_struct: %d %d %d %d %d %d %d\n",
            alex2.a[0], alex3.a[0], alex3.a[1],
            bob.profile, bill.profile, george.profile, validate);
     va_end(ap);
-    return (struct mytest) {};
+    повернути (struct mytest) {};
 }
 
 void stdarg_for_libc(const char *fmt, ...)
@@ -2791,15 +2791,15 @@ void stdarg_for_libc(const char *fmt, ...)
     va_end(args);
 }
 
-void stdarg_syntax(int n, ...)
+void stdarg_syntax(ціле n, ...)
 {
-    int i;
+    ціле i;
     va_list ap;
-    if (1)
+    якщо (1)
       va_start(ap, n);
-    else
+    інакше
       ;
-    i = va_arg(ap, int);
+    i = va_arg(ap, ціле);
     printf("stdarg_void_expr: %d\n", i);
     (va_end(ap));
 }
@@ -2809,21 +2809,21 @@ typedef struct{
 } point;
 point pts[]={{1.0,2.0},{3.0,4.0},{5.0,6.0},{7.0,8.0},{9.0,10.0},{11.0,12.0}};
 
-static void stdarg_double_struct(int nargs, int posd,...)
+static void stdarg_double_struct(ціле nargs, ціле posd,...)
 {
-    int i;
+    ціле i;
     double d;
     point pi;
     va_list args;
 
     printf ("stdarg_double_struct: %d\n", posd);
     va_start(args,posd);
-    for(i = 0; i < nargs; i++) {
-        if (i == posd) {
+    для(i = 0; i < nargs; i++) {
+        якщо (i == posd) {
             d = va_arg (args, double);
             printf ("d %d = %g\n", i, d);
         }
-        else {
+        інакше {
             pi = va_arg (args, point);
             printf ("pts[%d] = %g %g\n", i, pi.x, pi.y);
         }
@@ -2885,7 +2885,7 @@ void stdarg_test(void)
     stdarg_for_struct(bob, bob2, bob3, bob4, bob, bob, bob.profile);
     stdarg_for_libc("stdarg_for_libc: %s %.2f %d\n", "string", 1.23, 456);
     stdarg_syntax(1, 17);
-#if !(defined _WIN32 && CC_NAME == CC_clang) /* broken clang */
+#якщо !(defined _WIN32 && CC_NAME == CC_clang) /* broken clang */
     stdarg_double_struct(6,-1,pts[0],pts[1],pts[2],pts[3],pts[4],pts[5]);
     stdarg_double_struct(7,1,pts[0],-1.0,pts[1],pts[2],pts[3],pts[4],pts[5]);
     stdarg_double_struct(7,2,pts[0],pts[1],-1.0,pts[2],pts[3],pts[4],pts[5]);
@@ -2895,10 +2895,10 @@ void stdarg_test(void)
 #endif
 }
 
-int reltab[3] = { 1, 2, 3 };
+ціле reltab[3] = { 1, 2, 3 };
 
-int *rel1 = &reltab[1];
-int *rel2 = &reltab[2];
+ціле *rel1 = &reltab[1];
+ціле *rel2 = &reltab[2];
 
 void getmyaddress(void)
 {
@@ -2913,7 +2913,7 @@ long __pa_symbol(void)
        and TCC generates wrong code for that (displacements are 32bit only).
        This effectively is "+ 0x80000000", and if addresses of globals
        are below 2GB the result should be a number without high 32 bits set.  */
-       return ((long)(((unsigned long)(&rel1))) - (0xffffffff80000000UL));
+       повернути ((long)(((unsigned long)(&rel1))) - (0xffffffff80000000UL));
 }
 #endif
 
@@ -2931,32 +2931,32 @@ void relocation_test(void)
 }
 
 void old_style_f(a,b,c)
-     int a, b;
+     ціле a, b;
      double c;
 {
     printf("a=%d b=%d b=%f\n", a, b, c);
 }
 
-void decl_func1(int cmpfn())
+void decl_func1(ціле cmpfn())
 {
     printf("cmpfn=%lx\n", (long)cmpfn);
 }
 
 void decl_func2(cmpfn)
-int cmpfn();
+ціле cmpfn();
 {
     printf("cmpfn=%lx\n", (long)cmpfn);
 }
 
 void old_style_function_test(void)
 {
-#if CC_NAME == CC_clang
+#якщо CC_NAME == CC_clang
     /* recent clang versions (at least 15.0) raise an error:
        incompatible pointer to integer conversion passing 'void *'
        For the purpose of this test, pass 1 instead.
      */
     old_style_f(1, 2, 3.0);
-#else
+#інакше
     old_style_f((void *)1, 2, 3.0);
 #endif
     decl_func1(NULL);
@@ -2976,15 +2976,15 @@ void alloca_test()
 void *bounds_checking_is_enabled()
 {
     char ca[10], *cp = ca-1;
-    return (ca != cp + 1) ? cp : NULL;
+    повернути (ca != cp + 1) ? cp : NULL;
 }
 
-typedef int constant_negative_array_size_as_compile_time_assertion_idiom[(1 ? 2 : 0) - 1];
+typedef ціле constant_negative_array_size_as_compile_time_assertion_idiom[(1 ? 2 : 0) - 1];
 
-void c99_vla_test_1(int size1, int size2)
+void c99_vla_test_1(ціле size1, ціле size2)
 {
-    int size = size1 * size2;
-    int tab1[size][2], tab2[10][2];
+    ціле size = size1 * size2;
+    ціле tab1[size][2], tab2[10][2];
     void *tab1_ptr, *tab2_ptr, *bad_ptr;
 
     /* "size" should have been 'captured' at tab1 declaration, 
@@ -2992,21 +2992,21 @@ void c99_vla_test_1(int size1, int size2)
     size = size-1;
     
     printf("Test C99 VLA 1 (sizeof): ");
-    printf("%s\n", (sizeof tab1 == size1 * size2 * 2 * sizeof(int)) ? "PASSED" : "FAILED");
+    printf("%s\n", (sizeof tab1 == size1 * size2 * 2 * sizeof(ціле)) ? "PASSED" : "FAILED");
     tab1_ptr = tab1;
     tab2_ptr = tab2;
     printf("Test C99 VLA 2 (ptrs subtract): ");
-    printf("%s\n", (tab2 - tab1 == (tab2_ptr - tab1_ptr) / (sizeof(int) * 2)) ? "PASSED" : "FAILED");
+    printf("%s\n", (tab2 - tab1 == (tab2_ptr - tab1_ptr) / (sizeof(ціле) * 2)) ? "PASSED" : "FAILED");
     printf("Test C99 VLA 3 (ptr add): ");
-    printf("%s\n", &tab1[5][1] == (tab1_ptr + (5 * 2 + 1) * sizeof(int)) ? "PASSED" : "FAILED");
+    printf("%s\n", &tab1[5][1] == (tab1_ptr + (5 * 2 + 1) * sizeof(ціле)) ? "PASSED" : "FAILED");
     printf("Test C99 VLA 4 (ptr access): ");
     tab1[size1][1] = 42;
-    printf("%s\n", (*((int *) (tab1_ptr + (size1 * 2 + 1) * sizeof(int))) == 42) ? "PASSED" : "FAILED");
+    printf("%s\n", (*((ціле *) (tab1_ptr + (size1 * 2 + 1) * sizeof(ціле))) == 42) ? "PASSED" : "FAILED");
 
     printf("Test C99 VLA 5 (bounds checking (might be disabled)): ");
-    if (bad_ptr = bounds_checking_is_enabled()) {
-        int *t1 = &tab1[size1 * size2 - 1][3];
-        int *t2 = &tab2[9][3];
+    якщо (bad_ptr = bounds_checking_is_enabled()) {
+        ціле *t1 = &tab1[size1 * size2 - 1][3];
+        ціле *t2 = &tab2[9][3];
         printf("%s ", bad_ptr == t1 ? "PASSED" : "FAILED");
         printf("%s ", bad_ptr == t2 ? "PASSED" : "FAILED");
 
@@ -3015,40 +3015,40 @@ void c99_vla_test_1(int size1, int size2)
         printf("%s ", bad_ptr == c1 ? "PASSED" : "FAILED");
         printf("%s ", bad_ptr == c2 ? "PASSED" : "FAILED");
 
-        int *i1 = tab1[-1];
-        int *i2 = tab2[-1];
+        ціле *i1 = tab1[-1];
+        ціле *i2 = tab2[-1];
         printf("%s ", bad_ptr == i1 ? "PASSED" : "FAILED");
         printf("%s ", bad_ptr == i2 ? "PASSED" : "FAILED");
 
-        int *x1 = tab1[size1 * size2 + 1];
-        int *x2 = tab2[10 + 1];
+        ціле *x1 = tab1[size1 * size2 + 1];
+        ціле *x2 = tab2[10 + 1];
         printf("%s ", bad_ptr == x1 ? "PASSED" : "FAILED");
         printf("%s ", bad_ptr == x2 ? "PASSED" : "FAILED");
-    } else {
+    } інакше {
         printf("PASSED PASSED PASSED PASSED PASSED PASSED PASSED PASSED ");
     }
     printf("\n");
 }
 
-void c99_vla_test_2(int d, int h, int w)
+void c99_vla_test_2(ціле d, ціле h, ціле w)
 {
-    int x, y, z;
-    int (*arr)[h][w] = malloc(sizeof(int) * d*h*w);
-    int c = 1;
-    static int (*starr)[h][w];
+    ціле x, y, z;
+    ціле (*arr)[h][w] = malloc(sizeof(ціле) * d*h*w);
+    ціле c = 1;
+    static ціле (*starr)[h][w];
 
     printf("Test C99 VLA 6 (pointer)\n");
 
-    for (z=0; z<d; z++) {
-        for (y=0; y<h; y++) {
-            for (x=0; x<w; x++) {
+    для (z=0; z<d; z++) {
+        для (y=0; y<h; y++) {
+            для (x=0; x<w; x++) {
                 arr[z][y][x] = c++;
             }
         }
     }
-    for (z=0; z<d; z++) {
-        for (y=0; y<h; y++) {
-            for (x=0; x<w; x++) {
+    для (z=0; z<d; z++) {
+        для (y=0; y<h; y++) {
+            для (x=0; x<w; x++) {
                 printf(" %2d", arr[z][y][x]);
             }
             puts("");
@@ -3068,34 +3068,34 @@ void c99_vla_test_2(int d, int h, int w)
     free (arr);
 }
 
-void c99_vla_test_3a (int arr[2][3][4])
+void c99_vla_test_3a (ціле arr[2][3][4])
 {
     printf ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3b(int s, int arr[s][3][4])
+void c99_vla_test_3b(ціле s, ціле arr[s][3][4])
 {
     printf ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3c(int s, int arr[2][s][4])
+void c99_vla_test_3c(ціле s, ціле arr[2][s][4])
 {
     printf ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3d(int s, int arr[2][3][s])
+void c99_vla_test_3d(ціле s, ціле arr[2][3][s])
 {
     printf ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3e(int s, int arr[][3][--s])
+void c99_vla_test_3e(ціле s, ціле arr[][3][--s])
 {
     printf ("%d %d %d\n", sizeof arr, s, arr[1][2][3]);
 }
 
 void c99_vla_test_3(void)
 {
-    int a[2][3][4];
+    ціле a[2][3][4];
 
     memset (a, 0, sizeof(a));
     a[1][2][3] = 123;
@@ -3116,11 +3116,11 @@ void c99_vla_test(void)
 
 void sizeof_test(void)
 {
-    int a;
-    int **ptr;
+    ціле a;
+    ціле **ptr;
 
-    printf("sizeof(int) = %d\n", sizeof(int));
-    printf("sizeof(unsigned int) = %d\n", sizeof(unsigned int));
+    printf("sizeof(int) = %d\n", sizeof(ціле));
+    printf("sizeof(unsigned int) = %d\n", sizeof(unsigned ціле));
     printf("sizeof(long) = %d\n", sizeof(long));
     printf("sizeof(unsigned long) = %d\n", sizeof(unsigned long));
     printf("sizeof(short) = %d\n", sizeof(short));
@@ -3136,7 +3136,7 @@ void sizeof_test(void)
 
     /* The type of sizeof should be as large as a pointer, actually
        it should be size_t.  */
-    printf("sizeof(sizeof(int) = %d\n", sizeof(sizeof(int)));
+    printf("sizeof(sizeof(int) = %d\n", sizeof(sizeof(ціле)));
     uintptr_t t = 1;
     uintptr_t t2;
     /* Effectively <<32, but defined also on 32bit machines.  */
@@ -3149,8 +3149,8 @@ void sizeof_test(void)
     printf ("%lu %lu\n", t, t2);
 
     /* some alignof tests */
-    printf("__alignof__(int) = %d\n", __alignof__(int));
-    printf("__alignof__(unsigned int) = %d\n", __alignof__(unsigned int));
+    printf("__alignof__(int) = %d\n", __alignof__(ціле));
+    printf("__alignof__(unsigned int) = %d\n", __alignof__(unsigned ціле));
     printf("__alignof__(short) = %d\n", __alignof__(short));
     printf("__alignof__(unsigned short) = %d\n", __alignof__(unsigned short));
     printf("__alignof__(char) = %d\n", __alignof__(char));
@@ -3162,7 +3162,7 @@ void sizeof_test(void)
     printf("sizeof(char[1+2*a]) = %d\n", sizeof(char[1+2*a]));
     /* And checking if sizeof compound literal works.  Parenthesized: */
     printf("sizeof( (struct {int i; int j;}){4,5} ) = %d\n",
-	   sizeof( (struct {int i; int j;}){4,5} ));
+	   sizeof( (struct {ціле i; ціле j;}){4,5} ));
     /* And as direct sizeof argument (as unary expression): */
     printf("sizeof (struct {short i; short j;}){4,5} = %d\n",
 	   sizeof (struct {short i; short j;}){4,5} );
@@ -3174,7 +3174,7 @@ void sizeof_test(void)
     printf("sizeof(t || 1) = %d\n", sizeof(t || 1));
     printf("sizeof(0 || 0) = %d\n", sizeof(0 || 0));
 
-    int arr[4], fn();
+    ціле arr[4], fn();
     printf("sizeof(0, arr) = %d\n", sizeof(0, arr));
     printf("sizeof(0, fn) = %d\n", sizeof(0, fn));
 }
@@ -3204,15 +3204,15 @@ void consume_ulong (unsigned long i)
 
 void statement_expr_test(void)
 {
-    int a, i;
+    ціле a, i;
 
     /* Basic stmt expr test */
     a = 0;
-    for(i=0;i<10;i++) {
+    для(i=0;i<10;i++) {
         a += 1 + 
-            ( { int b, j; 
+            ( { ціле b, j; 
                 b = 0; 
-                for(j=0;j<5;j++) 
+                для(j=0;j<5;j++) 
                     b += j; b; 
             } );
     }
@@ -3242,9 +3242,9 @@ void statement_expr_test(void)
 	    tps("anotherlongstring"));
 
     /* Test that the three decls of 't' don't interact.  */
-    int t = 40;
-    int b = ({ int t = 41; t; });
-    int c = ({ int t = 42; t; });
+    ціле t = 40;
+    ціле b = ({ ціле t = 41; t; });
+    ціле c = ({ ціле t = 42; t; });
 
     /* Test that aggregate return values work.  */
     struct hlist_head h
@@ -3268,7 +3268,7 @@ void statement_expr_test(void)
     ({
       {
         __label__ LBL;
-       LBL: if (i++ == 0) goto LBL;
+       LBL: якщо (i++ == 0) goto LBL;
       }
       /* jump to a classical label out of an expr-stmt that had previously
          overshadowed that classical label */
@@ -3280,7 +3280,7 @@ void statement_expr_test(void)
 
 void local_label_test(void)
 {
-    int a;
+    ціле a;
     goto l1;
  l2:
     a = 1 + ({
@@ -3299,7 +3299,7 @@ void local_label_test(void)
         1;
     });
     printf("a=%d\n", a);
-    return;
+    повернути;
  l4:
     printf("bb1\n");
     goto l2;
@@ -3309,7 +3309,7 @@ void local_label_test(void)
 }
 
 /* inline assembler test */
-#if (defined(__i386__) || defined(__x86_64__)) && !(defined _WIN32 && CC_NAME == CC_clang)
+#якщо (defined(__i386__) || defined(__x86_64__)) && !(defined _WIN32 && CC_NAME == CC_clang)
 
 typedef __SIZE_TYPE__ word;
 
@@ -3333,7 +3333,7 @@ __asm__ __volatile__(
 	: "=&S" (d0), "=&D" (d1), "=&a" (d2), "=&c" (d3)
 	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (count)
 	: "memory");
-return dest;
+повернути dest;
 }
 
 static char * strncat2(char * dest,const char * src,size_t count)
@@ -3354,7 +3354,7 @@ __asm__ __volatile__(
 	: "=&S" (d0), "=&D" (d1), "=&a" (d2), "=&c" (d3)
 	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (count)
 	: "memory");
-return dest;
+повернути dest;
 }
 
 static inline void * memcpy1(void * to, const void * from, size_t n)
@@ -3372,7 +3372,7 @@ __asm__ __volatile__(
 	: "=&c" (d0), "=&D" (d1), "=&S" (d2)
 	:"0" (n/4), "q" (n),"1" ((word) to),"2" ((word) from)
 	: "memory");
-return (to);
+повернути (to);
 }
 
 static inline void * memcpy2(void * to, const void * from, size_t n)
@@ -3390,53 +3390,53 @@ __asm__ __volatile__(
 	: "=&c" (d0), "=&D" (d1), "=&S" (d2)
 	:"0" (n/4), "q" (n),"1" ((word) to),"2" ((word) from)
 	: "memory");
-return (to);
+повернути (to);
 }
 
-static __inline__ void sigaddset1(unsigned int *set, int _sig)
+static __inline__ void sigaddset1(unsigned ціле *set, ціле _sig)
 {
 	__asm__("btsl %1,%0" : "=m"(*set) : "Ir"(_sig - 1) : "cc");
 }
 
-static __inline__ void sigdelset1(unsigned int *set, int _sig)
+static __inline__ void sigdelset1(unsigned ціле *set, ціле _sig)
 {
 	asm("btrl %1,%0" : "=m"(*set) : "Ir"(_sig - 1) : "cc", "flags");
 }
 
 #ifdef __clang__
 /* clang's inline asm is uncapable of 'xchgb %b0,%h0' */
-static __inline__ __const__ unsigned int swab32(unsigned int x)
+static __inline__ __const__ unsigned ціле swab32(unsigned ціле x)
 {
-        return ((x >> 24) & 0xff) |
+        повернути ((x >> 24) & 0xff) |
                ((x >> 8) & 0xff00) |
                ((x << 8) & 0xff0000) |
                ((x << 24) & 0xff000000);
 }
-#else
-static __inline__ __const__ unsigned int swab32(unsigned int x)
+#інакше
+static __inline__ __const__ unsigned ціле swab32(unsigned ціле x)
 {
 	__asm__("xchgb %b0,%h0\n\t"	/* swap lower bytes	*/
 		"rorl $16,%0\n\t"	/* swap words		*/
 		"xchgb %b0,%h0"		/* swap higher bytes	*/
 		:"=" "q" (x)
 		: "0" (x));
-	return x;
+	повернути x;
 }
 #endif
 
-static __inline__ unsigned long long mul64(unsigned int a, unsigned int b)
+static __inline__ unsigned long long mul64(unsigned ціле a, unsigned ціле b)
 {
     unsigned long long res;
 #ifdef __x86_64__
     /* Using the A constraint is wrong (it means rdx:rax, which is too large)
        but still test the 32bit->64bit mull.  */
-    unsigned int resh, resl;
+    unsigned ціле resh, resl;
     __asm__("mull %2" : "=a" (resl), "=d" (resh) : "a" (a), "r" (b));
     res = ((unsigned long long)resh << 32) | resl;
-#else
+#інакше
     __asm__("mull %2" : "=A" (res) : "a" (a), "r" (b));
 #endif
-    return res;
+    повернути res;
 }
 
 static __inline__ unsigned long long inc64(unsigned long long a)
@@ -3446,15 +3446,15 @@ static __inline__ unsigned long long inc64(unsigned long long a)
     /* Using the A constraint is wrong, and increments are tested
        elsewhere.  */
     res = a + 1;
-#else
+#інакше
     __asm__("addl $1, %%eax ; adcl $0, %%edx" : "=A" (res) : "A" (a));
 #endif
-    return res;
+    повернути res;
 }
 
 struct struct123 {
-    int a;
-    int b;
+    ціле a;
+    ціле b;
 };
 struct struct1231 {
     word addr;
@@ -3463,30 +3463,30 @@ struct struct1231 {
 word mconstraint_test(struct struct1231 *r)
 {
     word ret;
-    unsigned int a[2];
+    unsigned ціле a[2];
     a[0] = 0;
     __asm__ volatile ("lea %2,%0; movl 4(%0),%k0; addl %2,%k0; movl $51,%2; movl $52,4%2; movl $63,%1"
 	             : "=&r" (ret), "=m" (a)
 	             : "m" (*(struct struct123 *)r->addr));
-    return ret + a[0];
+    повернути ret + a[0];
 }
 
 #ifdef __x86_64__
-int fls64(unsigned long long x)
+ціле fls64(unsigned long long x)
 {
-  int bitpos = -1;
+  ціле bitpos = -1;
   asm("bsrq %1,%q0"
       : "+r" (bitpos)
       : "rm" (x));
-  return bitpos + 1;
+  повернути bitpos + 1;
 }
 #endif
 
 void other_constraints_test(void)
 {
     word ret;
-    int var;
-#if CC_NAME != CC_clang
+    ціле var;
+#якщо CC_NAME != CC_clang
     __asm__ volatile ("mov %P1,%0" : "=r" (ret) : "p" (&var));
     printf ("oc1: %d\n", ret == (word)&var);
 #endif
@@ -3514,7 +3514,7 @@ void override_func2 (void)
 
 /* This checks a construct used by the linux kernel to encode
    references to strings by PC relative references.  */
-extern int bug_table[] __attribute__((section("__bug_table")));
+extern ціле bug_table[] __attribute__((section("__bug_table")));
 char * get_asm_string (void)
 {
   /* On i386 when -fPIC is enabled this would cause a compile error with GCC,
@@ -3532,7 +3532,7 @@ char * get_asm_string (void)
      bare operand ".LC0").  But the code below is what the linux kernel
      happens to use and as such is the one we want to test.  */
 #ifndef __clang__
-  extern int some_symbol;
+  extern ціле some_symbol;
   asm volatile (".globl some_symbol\n"
 		"jmp .+6\n"
 		"1:\n"
@@ -3546,9 +3546,9 @@ char * get_asm_string (void)
 		"2:\t.long 1b - 2b, %c0 - 2b\n"
 		".popsection\n" : : "i" ("A string"));
   char * str = ((char*)bug_table) + bug_table[1];
-  return str;
-#else
-  return (char *) "A string";
+  повернути str;
+#інакше
+  повернути (char *) "A string";
 #endif
 }
 
@@ -3577,13 +3577,13 @@ void asm_local_label_diff (void)
 /* This checks that static local variables are available from assembler.  */
 void asm_local_statics (void)
 {
-  static int localint = 41;
+  static ціле localint = 41;
   asm("incl %0" : "+m" (localint));
   printf ("asm_local_statics: %d\n", localint);
 }
 
 static
-unsigned int set;
+unsigned ціле set;
 
 void fancy_copy (unsigned *in, unsigned *out)
 {
@@ -3595,7 +3595,7 @@ void fancy_copy2 (unsigned *in, unsigned *out)
   asm volatile ("mov %0,(%1)" : : "r" (*in), "r" (out) : "memory");
 }
 
-#if defined __x86_64__
+#якщо defined __x86_64__
 void clobber_r12(void)
 {
     asm volatile("mov $1, %%r12" ::: "r12");
@@ -3604,7 +3604,7 @@ void clobber_r12(void)
 
 void test_high_clobbers_really(void)
 {
-#if defined __x86_64__
+#якщо defined __x86_64__
     register word val asm("r12");
     word val2;
     /* This tests if asm clobbers correctly save/restore callee saved
@@ -3620,7 +3620,7 @@ void test_high_clobbers_really(void)
 
 void test_high_clobbers(void)
 {
-#if defined __x86_64__
+#якщо defined __x86_64__
     word x1, x2;
     asm volatile("mov %%r12,%0" :: "m" (x1)); /* save r12 */
     test_high_clobbers_really();
@@ -3649,7 +3649,7 @@ void trace_console(long len, long len2)
        It also is necessary that the switches are in a statement expression
        (which has the property of not being enterable from outside. no
        matter what).  */
-    if (0
+    якщо (0
         &&
             ({
               long pscr_ret__;
@@ -3693,7 +3693,7 @@ void test_asm_dead_code(void)
      arguments being set up.  */
   asm volatile ("" : "=D" (rdi) : "0" (0));
   (void)sizeof (({
-      int var;
+      ціле var;
       /* This shouldn't trigger a segfault, either the argument
          registers need to be set up and the asm emitted despite
 	 this being in an unevaluated context, or both the argument
@@ -3708,7 +3708,7 @@ void test_asm_dead_code(void)
 
 void test_asm_call(void)
 {
-#if defined __x86_64__ && !defined _WIN64  && !defined(__APPLE__)
+#якщо defined __x86_64__ && !defined _WIN64  && !defined(__APPLE__)
   static char str[] = "PATH";
   char *s;
   /* This tests if a reference to an undefined symbol from an asm
@@ -3720,9 +3720,9 @@ void test_asm_call(void)
      tested here).  */
   /* two pushes so stack remains aligned */
   asm volatile ("push %%rdi; push %%rdi; mov %0, %%rdi;"
-#if 1 && !defined(__TINYC__) && (defined(__PIC__) || defined(__PIE__))
+#якщо 1 && !defined(__TINYC__) && (defined(__PIC__) || defined(__PIE__))
 		"call getenv@plt;"
-#else
+#інакше
 		"call getenv;"
 #endif
 		"pop %%rdi; pop %%rdi"
@@ -3731,18 +3731,18 @@ void test_asm_call(void)
 #endif
 }
 
-#if defined __x86_64__
+#якщо defined __x86_64__
 # define RX "(%rip)"
-#else
+#інакше
 # define RX
 #endif
 
 void asm_dot_test(void)
 {
 #ifndef __APPLE__
-    int x;
-    for (x = 1;; ++x) {
-        int r = x;
+    ціле x;
+    для (x = 1;; ++x) {
+        ціле r = x;
         switch (x) {
         case 1:
             asm(".text; lea S"RX",%eax; lea ."RX",%ecx; sub %ecx,%eax; S=.; jmp p0");
@@ -3750,13 +3750,13 @@ void asm_dot_test(void)
 #ifndef __clang__
             /* clangs internal assembler is broken */
             asm(".text; jmp .+6; .int 123; mov .-4"RX",%eax; jmp p0");
-#else
+#інакше
             asm(".text; mov $123, %eax; jmp p0");
 #endif
 	case 3:
-#if !defined(_WIN32) && !defined(__clang__)
+#якщо !defined(_WIN32) && !defined(__clang__)
             asm(".pushsection \".data\"; Y=.; .int 999; X=Y; .int 456; X=.-4; .popsection");
-#else
+#інакше
             asm(".data; Y=.; .int 999; X=Y; .int 456; X=.-4; .text");
 #endif
             asm(".text; mov X"RX",%eax; jmp p0");
@@ -3764,10 +3764,10 @@ void asm_dot_test(void)
 #ifdef __clang__
             /* Bah!  Clang!  Doesn't want to redefine 'X'  */
             asm(".text; mov $789,%eax; jmp p0");
-#else
+#інакше
 #ifndef _WIN32
             asm(".data; X=.; .int 789; Y=.; .int 999; .previous");
-#else
+#інакше
             asm(".data; X=.; .int 789; Y=.; .int 999; .text");
 #endif
             asm(".text; mov X"RX",%eax; X=Y; jmp p0");
@@ -3775,7 +3775,7 @@ void asm_dot_test(void)
         case 0:
 	    asm(".text; p0=.; mov %%eax,%0;" : "=m"(r)); break;
 	}
-        if (r == x)
+        якщо (r == x)
             break;
         printf("asm_dot_test %d: %d\n", x, r);
     }
@@ -3796,18 +3796,18 @@ void asm_pcrel_test(void)
 void asm_test(void)
 {
     char buf[128];
-    unsigned int val, val2;
+    unsigned ціле val, val2;
     struct struct123 s1;
     struct struct1231 s2 = { (word)&s1 };
     /* Hide the outer base_func, but check later that the inline
        asm block gets the outer one.  */
-    int base_func = 42;
+    ціле base_func = 42;
     void override_func3 (void);
     word asmret;
 #ifdef BOOL_ISOC99
     _Bool somebool;
 #endif
-    register int regvar asm("%esi");
+    register ціле regvar asm("%esi");
 
     // parse 0x1E-1 as 3 tokens in asm mode
     asm volatile ("mov $0x1E-1,%eax");
@@ -3861,14 +3861,14 @@ void asm_test(void)
     /* Check that we can also load structs of appropriate layout
        into registers.  */
     asm volatile("" : "=r" (asmret) : "0"(s2));
-    if (asmret != s2.addr)
+    якщо (asmret != s2.addr)
       printf("asmstr: failed\n");
 #endif
 #ifdef BOOL_ISOC99
     /* Check that the typesize correctly sets the register size to
        8 bit.  */
     asm volatile("cmp %1,%2; sete %0" : "=a"(somebool) : "r"(1), "r"(2));
-    if (!somebool)
+    якщо (!somebool)
       printf("asmbool: failed\n");
 #endif
     val = 43;
@@ -3885,12 +3885,12 @@ void asm_test(void)
     test_asm_call();
     asm_dot_test();
     asm_pcrel_test();
-    return;
+    повернути;
  label1:
     goto label2;
 }
 
-#else
+#інакше
 
 void asm_test(void)
 {
@@ -3904,28 +3904,28 @@ void asm_test(void)
            __builtin_types_compatible_p (type1, type2));\
 }
 
-int constant_p_var;
+ціле constant_p_var;
 
-int func(void);
+ціле func(void);
 
 
 /* __builtin_clz and __builtin_ctz return random values for 0 */
-static void builtin_test_bits(unsigned long long x, int cnt[])
+static void builtin_test_bits(unsigned long long x, ціле cnt[])
 {
-#if GCC_MAJOR >= 4
+#якщо GCC_MAJOR >= 4
     cnt[0] += __builtin_ffs(x);
     cnt[1] += __builtin_ffsl(x);
     cnt[2] += __builtin_ffsll(x);
 
-    if ((unsigned int) x) cnt[3] += __builtin_clz(x);
-    if ((unsigned long) x) cnt[4] += __builtin_clzl(x);
-    if ((unsigned long long) x) cnt[5] += __builtin_clzll(x);
+    якщо ((unsigned ціле) x) cnt[3] += __builtin_clz(x);
+    якщо ((unsigned long) x) cnt[4] += __builtin_clzl(x);
+    якщо ((unsigned long long) x) cnt[5] += __builtin_clzll(x);
 
-    if ((unsigned int) x) cnt[6] += __builtin_ctz(x);
-    if ((unsigned long) x) cnt[7] += __builtin_ctzl(x);
-    if ((unsigned long long) x) cnt[8] += __builtin_ctzll(x);
+    якщо ((unsigned ціле) x) cnt[6] += __builtin_ctz(x);
+    якщо ((unsigned long) x) cnt[7] += __builtin_ctzl(x);
+    якщо ((unsigned long long) x) cnt[8] += __builtin_ctzll(x);
 
-#if GCC_MAJOR >= 6 && (CC_NAME != CC_clang || GCC_MAJOR >= 11)
+#якщо GCC_MAJOR >= 6 && (CC_NAME != CC_clang || GCC_MAJOR >= 11)
 /* Apple clang 10 does not have __builtin_clrsb[l[l]] */
     cnt[9] += __builtin_clrsb(x);
     cnt[10] += __builtin_clrsbl(x);
@@ -3945,35 +3945,35 @@ static void builtin_test_bits(unsigned long long x, int cnt[])
 void builtin_test(void)
 {
     short s;
-    int i;
+    ціле i;
     long long ll;
-#if GCC_MAJOR >= 3
-    COMPAT_TYPE(int, int);
-    COMPAT_TYPE(int, unsigned int);
-    COMPAT_TYPE(int, char);
-    COMPAT_TYPE(int, const int);
-    COMPAT_TYPE(int, volatile int);
-    COMPAT_TYPE(int[2], const int[2]);
-    COMPAT_TYPE(int[2][3], volatile int[][3]);
-    COMPAT_TYPE(int (*)[], const int (*)[]);
+#якщо GCC_MAJOR >= 3
+    COMPAT_TYPE(ціле, ціле);
+    COMPAT_TYPE(ціле, unsigned ціле);
+    COMPAT_TYPE(ціле, char);
+    COMPAT_TYPE(ціле, const ціле);
+    COMPAT_TYPE(ціле, volatile ціле);
+    COMPAT_TYPE(ціле[2], const ціле[2]);
+    COMPAT_TYPE(ціле[2][3], volatile ціле[][3]);
+    COMPAT_TYPE(ціле (*)[], const ціле (*)[]);
 #ifndef __clang__
-    COMPAT_TYPE(__typeof__(1 ? (const int (*)[2])0 : (int (*)[2])0),
-                const int (*)[2]);
-    COMPAT_TYPE(__typeof__(1 ? (const int (*)[2][3])0 :
-                              (volatile int (*)[2][3])0),
-                const volatile int (*)[2][3]);
-    COMPAT_TYPE(__typeof__(1 ? (volatile int (*)[2][3])0 :
-                              (const int (*)[2][3])0),
-                const volatile int (*)[2][3]);
-#else
+    COMPAT_TYPE(__typeof__(1 ? (const ціле (*)[2])0 : (ціле (*)[2])0),
+                const ціле (*)[2]);
+    COMPAT_TYPE(__typeof__(1 ? (const ціле (*)[2][3])0 :
+                              (volatile ціле (*)[2][3])0),
+                const volatile ціле (*)[2][3]);
+    COMPAT_TYPE(__typeof__(1 ? (volatile ціле (*)[2][3])0 :
+                              (const ціле (*)[2][3])0),
+                const volatile ціле (*)[2][3]);
+#інакше
     /* clang doesn't combine qualifiers through array types */
     printf("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2])0 : (int (*)[2])0), const int (*)[2]) = 1\n");
     printf("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2][3])0 : (volatile int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
     printf("__builtin_types_compatible_p(__typeof__(1 ? (volatile int (*)[2][3])0 : (const int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
 #endif
-    COMPAT_TYPE(int *, int *);
-    COMPAT_TYPE(int *, void *);
-    COMPAT_TYPE(int *, const int *);
+    COMPAT_TYPE(ціле *, ціле *);
+    COMPAT_TYPE(ціле *, void *);
+    COMPAT_TYPE(ціле *, const ціле *);
     COMPAT_TYPE(char *, unsigned char *);
     COMPAT_TYPE(char *, signed char *);
     COMPAT_TYPE(char *, char *);
@@ -3992,7 +3992,7 @@ void builtin_test(void)
     printf("res11 = %d\n", __builtin_constant_p(i * 0));
     printf("res12 = %d\n", __builtin_constant_p(i && 0 ? i : 34));
     printf("res13 = %d\n", __builtin_constant_p((1,7)));
-#else
+#інакше
     /* clang doesn't regard these as constant expression */
     printf("res10 = 1\n");
     printf("res11 = 1\n");
@@ -4014,43 +4014,43 @@ void builtin_test(void)
     //printf("bera: %p\n", __builtin_extract_return_addr((void*)43));
 
     {
-	int cnt[18];
+	ціле cnt[18];
 	unsigned long long r = 0;
 
 	memset(cnt, 0, sizeof(cnt));
 	builtin_test_bits(0, cnt);
 	builtin_test_bits(0xffffffffffffffffull, cnt);
-        for (i = 0; i < 64; i++)
+        для (i = 0; i < 64; i++)
 	    builtin_test_bits(1ull << i, cnt);
-        for (i = 0; i < 1000; i++) {
+        для (i = 0; i < 1000; i++) {
 	    r = 0x5851f42d4c957f2dull * r + 0x14057b7ef767814full;
 	    builtin_test_bits(r, cnt);
 	}
-	for (i = 0; i < 18; i++)
+	для (i = 0; i < 18; i++)
 	    printf ("%d %d\n", i, cnt[i]);
     }
 }
 
-#if defined _WIN32 || (defined __APPLE__ && GCC_MAJOR >= 15)
+#якщо defined _WIN32 || (defined __APPLE__ && GCC_MAJOR >= 15)
 void weak_test(void) {}
-#else
-extern int __attribute__((weak)) weak_f1(void);
-extern int __attribute__((weak)) weak_f2(void);
-extern int                       weak_f3(void);
-extern int __attribute__((weak)) weak_v1;
-extern int __attribute__((weak)) weak_v2;
-extern int                       weak_v3;
+#інакше
+extern ціле __attribute__((weak)) weak_f1(void);
+extern ціле __attribute__((weak)) weak_f2(void);
+extern ціле                       weak_f3(void);
+extern ціле __attribute__((weak)) weak_v1;
+extern ціле __attribute__((weak)) weak_v2;
+extern ціле                       weak_v3;
 
-extern int                           (*weak_fpa)() __attribute__((weak));
-extern int __attribute__((weak))     (*weak_fpb)();
-extern     __attribute__((weak)) int (*weak_fpc)();
+extern ціле                           (*weak_fpa)() __attribute__((weak));
+extern ціле __attribute__((weak))     (*weak_fpb)();
+extern     __attribute__((weak)) ціле (*weak_fpc)();
 
-extern int                     weak_asm_f1(void) asm("weak_asm_f1x") __attribute((weak));
-extern int __attribute((weak)) weak_asm_f2(void) asm("weak_asm_f2x")                    ;
-extern int __attribute((weak)) weak_asm_f3(void) asm("weak_asm_f3x") __attribute((weak));
-extern int                     weak_asm_v1       asm("weak_asm_v1x") __attribute((weak));
-extern int __attribute((weak)) weak_asm_v2       asm("weak_asm_v2x")                    ;
-extern int __attribute((weak)) weak_asm_v3(void) asm("weak_asm_v3x") __attribute((weak));
+extern ціле                     weak_asm_f1(void) asm("weak_asm_f1x") __attribute((weak));
+extern ціле __attribute((weak)) weak_asm_f2(void) asm("weak_asm_f2x")                    ;
+extern ціле __attribute((weak)) weak_asm_f3(void) asm("weak_asm_f3x") __attribute((weak));
+extern ціле                     weak_asm_v1       asm("weak_asm_v1x") __attribute((weak));
+extern ціле __attribute((weak)) weak_asm_v2       asm("weak_asm_v2x")                    ;
+extern ціле __attribute((weak)) weak_asm_v3(void) asm("weak_asm_v3x") __attribute((weak));
 
 #ifndef __clang__
 static const size_t dummy = 0;
@@ -4059,14 +4059,14 @@ extern __typeof(dummy) __attribute__((weak, alias("dummy"))) weak_dummy2;
 extern __attribute__((weak, alias("dummy"))) __typeof(dummy) weak_dummy3;
 #endif
 
-int some_lib_func(void);
-int dummy_impl_of_slf(void) { return 444; }
+ціле some_lib_func(void);
+ціле dummy_impl_of_slf(void) { повернути 444; }
 #ifndef __clang__
-int some_lib_func(void) __attribute__((weak, alias("dummy_impl_of_slf")));
+ціле some_lib_func(void) __attribute__((weak, alias("dummy_impl_of_slf")));
 #endif
 
-int weak_toolate() __attribute__((weak));
-int weak_toolate() { return 0; }
+ціле weak_toolate() __attribute__((weak));
+ціле weak_toolate() { повернути 0; }
 
 void __attribute__((weak)) weak_test(void)
 {
@@ -4089,18 +4089,18 @@ void __attribute__((weak)) weak_test(void)
 	printf("weak_asm_v3=%d\n",&weak_asm_v3 != NULL);
 #ifdef __clang__
 	printf("some_lib_func=444\n");
-#else
+#інакше
 	printf("some_lib_func=%d\n", &some_lib_func ? some_lib_func() : 0);
 #endif
 }
 
-int __attribute__((weak)) weak_f2() { return 222; }
-int __attribute__((weak)) weak_f3() { return 333; }
-int __attribute__((weak)) weak_v2 = 222;
-int __attribute__((weak)) weak_v3 = 333;
+ціле __attribute__((weak)) weak_f2() { повернути 222; }
+ціле __attribute__((weak)) weak_f3() { повернути 333; }
+ціле __attribute__((weak)) weak_v2 = 222;
+ціле __attribute__((weak)) weak_v3 = 333;
 #endif
 
-void const_func(const int a)
+void const_func(const ціле a)
 {
 }
 
@@ -4110,36 +4110,36 @@ void const_warn_test(void)
 }
 
 struct condstruct {
-  int i;
+  ціле i;
 };
 
-int getme (struct condstruct *s, int i)
+ціле getme (struct condstruct *s, ціле i)
 {
-  int i1 = (i == 0 ? 0 : s)->i;
-  int i2 = (i == 0 ? s : 0)->i;
-  int i3 = (i == 0 ? (void*)0 : s)->i;
-  int i4 = (i == 0 ? s : (void*)0)->i;
-  return i1 + i2 + i3 + i4;
+  ціле i1 = (i == 0 ? 0 : s)->i;
+  ціле i2 = (i == 0 ? s : 0)->i;
+  ціле i3 = (i == 0 ? (void*)0 : s)->i;
+  ціле i4 = (i == 0 ? s : (void*)0)->i;
+  повернути i1 + i2 + i3 + i4;
 }
 
 struct global_data
 {
-  int a[40];
-  int *b[40];
+  ціле a[40];
+  ціле *b[40];
 };
 
 struct global_data global_data;
 
-int global_data_getstuff (int *, int);
+ціле global_data_getstuff (ціле *, ціле);
 
-void global_data_callit (int i)
+void global_data_callit (ціле i)
 {
   *global_data.b[i] = global_data_getstuff (global_data.b[i], 1);
 }
 
-int global_data_getstuff (int *p, int i)
+ціле global_data_getstuff (ціле *p, ціле i)
 {
-  return *p + i;
+  повернути *p + i;
 }
 
 void global_data_test (void)
@@ -4158,11 +4158,11 @@ struct cmpcmpS
   unsigned char fill2 : 3;
 };
 
-int glob1, glob2, glob3;
+ціле glob1, glob2, glob3;
 
 void compare_comparisons (struct cmpcmpS *s)
 {
-  if (s->b1 != (glob1 == glob2)
+  якщо (s->b1 != (glob1 == glob2)
       || (s->b2 != (glob1 == glob3)))
     printf ("comparing comparisons broken\n");
 }
@@ -4177,17 +4177,17 @@ void cmp_comparison_test(void)
   compare_comparisons (&s);
 }
 
-int fcompare (double a, double b, int code)
+ціле fcompare (double a, double b, ціле code)
 {
   switch (code) {
-    case 0: return a == b;
-    case 1: return a != b;
-    case 2: return a < b;
-    case 3: return a >= b;
-    case 4: return a > b;
-    case 5: return a <= b;
+    case 0: повернути a == b;
+    case 1: повернути a != b;
+    case 2: повернути a < b;
+    case 3: повернути a >= b;
+    case 4: повернути a > b;
+    case 5: повернути a <= b;
   }
-  return 0;
+  повернути 0;
 }
 
 void math_cmp_test(void)
@@ -4195,8 +4195,8 @@ void math_cmp_test(void)
   double nan = 0.0/0.0;
   double one = 1.0;
   double two = 2.0;
-  int comp = 0;
-  int v;
+  ціле comp = 0;
+  ціле v;
 #define bug(a,b,op,iop,part) printf("Test broken: %s %s %s %s %d\n", #a, #b, #op, #iop, part)
 
   /* This asserts that "a op b" is _not_ true, but "a iop b" is true.
@@ -4205,28 +4205,28 @@ void math_cmp_test(void)
      producing a 0/1 value without jumps (that's done in the fcompare
      function).  */
 #define FCMP(a,b,op,iop,code) \
-  if (fcompare (a,b,code))    \
+  якщо (fcompare (a,b,code))    \
     bug (a,b,op,iop,1); \
-  if (a op b) \
+  якщо (a op b) \
     bug (a,b,op,iop,2); \
-  if (a iop b) \
+  якщо (a iop b) \
     ; \
-  else \
+  інакше \
     bug (a,b,op,iop,3); \
-  if ((a op b) || comp) \
+  якщо ((a op b) || comp) \
     bug (a,b,op,iop,4); \
-  if ((a iop b) || comp) \
+  якщо ((a iop b) || comp) \
     ; \
-  else \
+  інакше \
     bug (a,b,op,iop,5); \
-  if (v = !(a op b), !v) bug(a,b,op,iop,7);
+  якщо (v = !(a op b), !v) bug(a,b,op,iop,7);
 
   /* Equality tests.  */
   FCMP(nan, nan, ==, !=, 0);
   FCMP(one, two, ==, !=, 0);
   FCMP(one, one, !=, ==, 1);
   /* Non-equality is a bit special.  */
-  if (!fcompare (nan, nan, 1))
+  якщо (!fcompare (nan, nan, 1))
     bug (nan, nan, !=, ==, 6);
 
   /* Relational tests on numbers.  */
@@ -4244,11 +4244,11 @@ void math_cmp_test(void)
   FCMP(nan, nan, <=, !=, 5);
 }
 
-double get100 () { return 100.0; }
+double get100 () { повернути 100.0; }
 
 void callsave_test(void)
 {
-  int i, s; double *d; double t;
+  ціле i, s; double *d; double t;
   s = sizeof (double);
   printf ("callsavetest: %d\n", s);
   d = alloca (sizeof(double));
@@ -4296,33 +4296,33 @@ char via_volatile (char i)
 {
   char volatile vi;
   vi = i;
-  return vi;
+  повернути vi;
 }
 
 void volatile_test(void)
 {
-    if (via_volatile (42) != 42)
+    якщо (via_volatile (42) != 42)
       printf (" broken\n");
-    else
+    інакше
       printf (" ok\n");
 }
 
 struct __attribute__((__packed__)) Spacked {
     char a;
     short b;
-    int c;
+    ціле c;
 };
 struct Spacked spacked;
 typedef struct __attribute__((__packed__)) {
     char a;
     short b;
-    int c;
+    ціле c;
 } Spacked2;
 Spacked2 spacked2;
 typedef struct Spacked3_s {
     char a;
     short b;
-    int c;
+    ціле c;
 } __attribute__((__packed__)) Spacked3;
 Spacked3 spacked3;
 struct gate_struct64 {
@@ -4349,28 +4349,28 @@ strange_attrib_placement (void);
 
 void * __attribute__((__unused__)) get_void_ptr (void *a)
 {
-  return a;
+  повернути a;
 }
 
 /* This part checks for a bug in TOK_GET (used for inline expansion),
    where the large long long constant left the the high bits set for
    the integer constant token.  */
 static inline
-int __get_order(unsigned long long size)
+ціле __get_order(unsigned long long size)
 {
-  int order;
+  ціле order;
   size -= 0xffff880000000000ULL; // this const left high bits set in the token
     {
-      struct S { int i : 1; } s; // constructed for this '1'
+      struct S { ціле i : 1; } s; // constructed for this '1'
     }
   order = size;
-  return order;
+  повернути order;
 }
 
 /* This just forces the above inline function to be actually emitted.  */
-int force_get_order(unsigned long s)
+ціле force_get_order(unsigned long s)
 {
-    return __get_order(s);
+    повернути __get_order(s);
 }
 
 #define pv(m) printf(sizeof (s->m + 0) == 8 ? "%016llx\n" : "%02x\n", s->m)
@@ -4379,7 +4379,7 @@ int force_get_order(unsigned long s)
 void bounds_check1_test (void)
 {
     struct s {
-        int x;
+        ціле x;
         long long y;
     } _s, *s = &_s;
     s->x = 10;
@@ -4389,15 +4389,15 @@ void bounds_check1_test (void)
 }
 
 /* This failed on arm64/riscv64 */
-void map_add(int a, int b, int c, int d, int e, int f, int g, int h, int i)
+void map_add(ціле a, ціле b, ціле c, ціле d, ціле e, ціле f, ціле g, ціле h, ціле i)
 {
   printf ("%d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i);
 }
 
 void func_arg_test(void)
 {
-    int a = 0;
-    int b = 1;
+    ціле a = 0;
+    ціле b = 1;
     map_add(0, 1, 2, 3, 4, 5, 6, 7, a && b);
 }
 
@@ -4417,9 +4417,9 @@ void func_arg_test(void)
 void whitespace_test(void)
 {
     char *str;
-    int tcc_test = 1;
+    ціле tcc_test = 1;
 
-#if 1
+#якщо 1
     pri\
 ntf("whitspace:\n");
 #endif
@@ -4444,7 +4444,7 @@ ntf("min=%d\n", 4);
 #endif
     printf("len1=%d\n", strlen("a
 "));
-#else
+#інакше
     printf("len1=1\nlen1=1 str[0]=10\nlen1=3\n");
 #endif /* ACCEPT_LF_IN_STRINGS */
 
@@ -4452,7 +4452,7 @@ ntf("min=%d\n", 4);
     printf("__LINE__ defined\n");
 #endif
 
-#if 0
+#якщо 0
     /* wrong with GCC */
     printf("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
 #line 1111
@@ -4467,7 +4467,7 @@ ntf("min=%d\n", 4);
 n 456\"\n");
 
     printf ("%d\n",
-#if 1
+#якщо 1
 	    tcc_test
 #endif
             );
@@ -4476,7 +4476,7 @@ n 456\"\n");
 
 #define RUN(test) puts("---- " #test " ----"), test(), puts("")
 
-int main(int argc, char **argv)
+ціле main(ціле argc, char **argv)
 {
     RUN(whitespace_test);
     RUN(macro_test);
@@ -4534,5 +4534,5 @@ int main(int argc, char **argv)
     RUN(bounds_check1_test);
     RUN(func_arg_test);
 
-    return 0;
+    повернути 0;
 }

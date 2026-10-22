@@ -15,16 +15,16 @@
 #ifndef assert
 #define assert(_Expression) ((void)0)
 #endif
-#else
+#інакше
 
 #ifndef _CRT_TERMINATE_DEFINED
 #define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
- _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+  void __cdecl __MINGW_NOTHROW exit(ціле _Code) __MINGW_ATTRIB_NORETURN;
+ _CRTIMP void __cdecl __MINGW_NOTHROW _exit(ціле _Code) __MINGW_ATTRIB_NORETURN;
+#якщо !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
 /* C99 function name */
-void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-__CRT_INLINE __MINGW_ATTRIB_NORETURN void __cdecl _Exit(int status)
+void __cdecl _Exit(ціле) __MINGW_ATTRIB_NORETURN;
+__CRT_INLINE __MINGW_ATTRIB_NORETURN void __cdecl _Exit(ціле status)
 {  _exit(status); }
 #endif
 
@@ -54,7 +54,7 @@ extern void __cdecl _assert(const char *, const char *, unsigned);
 
 #endif
 
-#if (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
+#якщо (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
 /* C11, section 7.2: The macro static_assert expands to _Static_assert. */
 #define static_assert(exp, str) _Static_assert(exp, str) 
 #endif

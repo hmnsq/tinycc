@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+ціле main()
 {
-   int Count = 0;
+   ціле Count = 0;
 
-   for (;;)
+   для (;;)
    {
       Count++;
       printf("%d\n", Count);
-      if (Count >= 10)
+      якщо (Count >= 10)
          break;
    }
 
-   return 0;
+   повернути 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

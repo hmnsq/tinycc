@@ -1,56 +1,56 @@
 #include <stdio.h>
 
-int f(void)
+ціле f(void)
 {
-  return 5;
+  повернути 5;
 }
 
 void test1()
 {
-  int count = 10;
+  ціле count = 10;
   void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  для(;count--;) {
+    ціле a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  якщо(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } інакше {
     printf("NOT OK\n");
   }
 }
 
 void test2()
 {
-  int count = 10;
+  ціле count = 10;
   void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  для(;count--;) {
+    ціле a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  якщо(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } інакше {
     printf("NOT OK\n");
   }
 }
 
 void test3()
 {
-  int count = 10;
+  ціле count = 10;
   void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  поки(count--) {
+      ціле b[f()];
+      якщо (count >= 0) {
+          ціле a[f()];
 
           addr[count] = a;
 
@@ -58,56 +58,56 @@ void test3()
       }
   }
 
-  if(addr[9] == addr[0]) {
+  якщо(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } інакше {
     printf("NOT OK\n");
   }
 }
 
 void test4()
 {
-  int count = 10;
+  ціле count = 10;
   void *addr[count];
   do {
-    int a[f()];
+    ціле a[f()];
 
     addr[--count] = a;
 
     continue;
-  } while (count);
+  } поки (count);
 
-  if(addr[9] == addr[0]) {
+  якщо(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } інакше {
     printf("NOT OK\n");
   }
 }
 
 void test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  ціле count = 10;
+  ціле a[f()];
+  ціле c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
+  для(;count--;) {
+    ціле b[f()];
+    ціле i;
+    для (i=0; i<f(); i++) {
       b[i] = count;
     }
   }
 
-  if (c[0] == 42) {
+  якщо (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } інакше {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+ціле main(void)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  повернути 0;
 }

@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-int main(int argc, char **argv)
+ціле main(ціле argc, char **argv)
 {
-   int Count;
+   ціле Count;
 
    printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
+   для (Count = 1; Count < argc; Count++)
       printf("arg %d: %s\n", Count, argv[Count]);
 
-   return 0;
+   повернути 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -9,47 +9,47 @@ struct S const *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+typedef ціле (*fptr1)();
+ціле f1 (ціле (), ціле);
+typedef ціле (*fptr2)(ціле x);
+ціле f2 (ціле (ціле x), ціле);
+typedef ціле (*fptr3)(ціле);
+ціле f3 (ціле (ціле), ціле);
+typedef ціле (*fptr4[4])(ціле);
+ціле f4 (ціле (*[4])(ціле), ціле);
+typedef ціле (*fptr5)(fptr1);
+ціле f5 (ціле (ціле()), fptr1);
+ціле f1 (fptr1 fp, ціле i)
 {
-  return (*fp)(i);
+  повернути (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+ціле f2 (fptr2 fp, ціле i)
 {
-  return (*fp)(i);
+  повернути (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+ціле f3 (fptr3 fp, ціле i)
 {
-  return (*fp)(i);
+  повернути (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+ціле f4 (fptr4 fp, ціле i)
 {
-  return (*fp[i])(i);
+  повернути (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+ціле f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  повернути fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+typedef ціле intx4[4];
+ціле f8 (intx4, ціле);
+ціле f8 (ціле ([4]), ціле);
+ціле f8 (ціле y[4], ціле i)
 {
-  return y[i];
+  повернути y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+ціле f9 (ціле (*)(ціле), ціле);
+ціле f9 (ціле ((ціле)), ціле);
+ціле f9 (ціле f(ціле), ціле i)
 {
-  return f(i);
+  повернути f(i);
 }
-int main () { return 0; }
+ціле main () { повернути 0; }

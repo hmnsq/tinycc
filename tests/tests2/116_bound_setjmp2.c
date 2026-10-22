@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <setjmp.h>
-#if !defined(_WIN32)
+#якщо !defined(_WIN32)
 #include <pthread.h>
-#else
+#інакше
 #include <windows.h>
 #endif
 
 #define	SIZE	10
 #define	COUNT	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   ціле i, a[2], b[2];                \
+              для (i = 0; i < 2; i++) a[i] = 0; \
+              для (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+static ціле count[SIZE];
 
 static void tst1 (jmp_buf loc)
 {
@@ -34,51 +34,51 @@ static void tst2(jmp_buf loc)
 static void *tst (void * index)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    ціле i = *(ціле *) index;
+    static ціле v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    для (v[i] = 0; v[i] < COUNT; v[i]++) {
+        якщо (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
+        інакше {
             count[i]++;
         }
-        i = *(int *) index;
+        i = *(ціле *) index;
     }
-    return NULL;
+    повернути NULL;
 }
 
-int
+ціле
 main (void)
 {
-    int i;
-#if !defined(_WIN32)
+    ціле i;
+#якщо !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#інакше
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    ціле index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    для (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
+#якщо !defined(_WIN32)
         pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
+#інакше
         id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
+    для (i = 0; i < SIZE; i++) {
+#якщо !defined(_WIN32)
         pthread_join (id[i], NULL);
-#else
+#інакше
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
+    для (i = 0; i < SIZE; i++) {
+        якщо (count[i] != COUNT)
             printf ("error: %d %d\n", i, count[i]);
     }
-    return 0;
+    повернути 0;
 }

@@ -6,7 +6,7 @@
 #ifndef _MATH_H_
 #define _MATH_H_
 
-#if __GNUC__ >= 3
+#якщо __GNUC__ >= 3
 #pragma GCC system_header
 #endif
 
@@ -74,7 +74,7 @@ extern "C" {
 #ifndef _EXCEPTION_DEFINED
 #define _EXCEPTION_DEFINED
   struct _exception {
-    int type;
+    ціле type;
     char *name;
     double arg1;
     double arg2;
@@ -95,7 +95,7 @@ extern "C" {
 #ifndef _HUGE
 #ifdef _MSVCRT_
   extern double *_HUGE;
-#else
+#інакше
   extern double *_imp___HUGE;
 #define _HUGE	(*_imp___HUGE)
 #endif
@@ -105,7 +105,7 @@ extern "C" {
 
 #ifndef _CRT_ABS_DEFINED
 #define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
+  ціле __cdecl abs(ціле _X);
   long __cdecl labs(long _X);
 #endif
   double __cdecl acos(double _X);
@@ -140,30 +140,30 @@ extern "C" {
   _CRTIMP double __cdecl _cabs(struct _complex _ComplexA);
   double __cdecl ceil(double _X);
   double __cdecl floor(double _X);
-  double __cdecl frexp(double _X,int *_Y);
+  double __cdecl frexp(double _X,ціле *_Y);
   double __cdecl _hypot(double _X,double _Y);
   _CRTIMP double __cdecl _j0(double _X);
   _CRTIMP double __cdecl _j1(double _X);
-  _CRTIMP double __cdecl _jn(int _X,double _Y);
-  double __cdecl ldexp(double _X,int _Y);
+  _CRTIMP double __cdecl _jn(ціле _X,double _Y);
+  double __cdecl ldexp(double _X,ціле _Y);
 #ifndef _CRT_MATHERR_DEFINED
 #define _CRT_MATHERR_DEFINED
-  int __cdecl _matherr(struct _exception *_Except);
+  ціле __cdecl _matherr(struct _exception *_Except);
 #endif
   double __cdecl modf(double _X,double *_Y);
   _CRTIMP double __cdecl _y0(double _X);
   _CRTIMP double __cdecl _y1(double _X);
-  _CRTIMP double __cdecl _yn(int _X,double _Y);
+  _CRTIMP double __cdecl _yn(ціле _X,double _Y);
 
-#if(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _set_SSE2_enable(int _Flag);
+#якщо(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP ціле __cdecl _set_SSE2_enable(ціле _Flag);
   /* from libmingwex */
   float __cdecl _hypotf(float _X,float _Y);
 #endif
 
-  float frexpf(float _X,int *_Y);
-  float __cdecl ldexpf(float _X,int _Y);
-  long double __cdecl ldexpl(long double _X,int _Y);
+  float frexpf(float _X,ціле *_Y);
+  float __cdecl ldexpf(float _X,ціле _Y);
+  long double __cdecl ldexpl(long double _X,ціле _Y);
   float __cdecl acosf(float _X);
   float __cdecl asinf(float _X);
    float __cdecl atanf(float _X);
@@ -186,15 +186,15 @@ extern "C" {
   float __cdecl fmodf(float _X,float _Y);
    float __cdecl _hypotf(float _X,float _Y);
   float __cdecl fabsf(float _X);
-#if !defined(__ia64__)
+#якщо !defined(__ia64__)
    /* from libmingwex */
    float __cdecl _copysignf (float _Number,float _Sign);
    float __cdecl _chgsignf (float _X);
    float __cdecl _logbf(float _X);
    float __cdecl _nextafterf(float _X,float _Y);
-   int __cdecl _finitef(float _X);
-   int __cdecl _isnanf(float _X);
-   int __cdecl _fpclassf(float _X);
+   ціле __cdecl _finitef(float _X);
+   ціле __cdecl _isnanf(float _X);
+   ціле __cdecl _fpclassf(float _X);
 #endif
 
 #ifndef	NO_OLDNAMES
@@ -205,14 +205,14 @@ extern "C" {
   double __cdecl hypot(double _X,double _Y);
   _CRTIMP double __cdecl j0(double _X);
   _CRTIMP double __cdecl j1(double _X);
-  _CRTIMP double __cdecl jn(int _X,double _Y);
+  _CRTIMP double __cdecl jn(ціле _X,double _Y);
   _CRTIMP double __cdecl y0(double _X);
   _CRTIMP double __cdecl y1(double _X);
-  _CRTIMP double __cdecl yn(int _X,double _Y);
+  _CRTIMP double __cdecl yn(ціле _X,double _Y);
 #endif
 
 #ifndef __NO_ISOCEXT
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
+#якщо (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
   || !defined __STRICT_ANSI__ || defined __GLIBCPP__
 
 #define NAN (0.0F/0.0F)
@@ -236,9 +236,9 @@ extern "C" {
   converted to double, and zero when converted to float.)
   */
 
-  extern int __cdecl __fpclassifyf (float);
-  extern int __cdecl __fpclassify (double);
-  extern int __cdecl __fpclassifyl (long double);
+  extern ціле __cdecl __fpclassifyf (float);
+  extern ціле __cdecl __fpclassify (double);
+  extern ціле __cdecl __fpclassifyl (long double);
 
 /* Implemented at tcc/tcc_libm.h
 #define fpclassify(x) (sizeof (x) == sizeof (float) ? __fpclassifyf (x)	  \
@@ -264,9 +264,9 @@ extern "C" {
 
   /* 7.12.3.6 The signbit macro */
 
-  extern int __cdecl __signbitf (float);
-  extern int __cdecl __signbit (double);
-  extern int __cdecl __signbitl (long double);
+  extern ціле __cdecl __signbitf (float);
+  extern ціле __cdecl __signbit (double);
+  extern ціле __cdecl __signbitl (long double);
 
 /* Implemented at tcc/tcc_libm.h
 #define signbit(x) (sizeof (x) == sizeof (float) ? __signbitf (x)	\
@@ -280,11 +280,11 @@ extern "C" {
   extern float __cdecl exp2f(float);
   extern long double __cdecl exp2l(long double);
 
-#define FP_ILOGB0 ((int)0x80000000)
-#define FP_ILOGBNAN ((int)0x80000000)
-  extern int __cdecl ilogb (double);
-  extern int __cdecl ilogbf (float);
-  extern int __cdecl ilogbl (long double);
+#define FP_ILOGB0 ((ціле)0x80000000)
+#define FP_ILOGBNAN ((ціле)0x80000000)
+  extern ціле __cdecl ilogb (double);
+  extern ціле __cdecl ilogbf (float);
+  extern ціле __cdecl ilogbl (long double);
 
   extern double __cdecl log1p(double);
   extern float __cdecl log1pf(float);
@@ -301,9 +301,9 @@ extern "C" {
   extern long double __cdecl modfl (long double, long double*);
 
   /* 7.12.6.13 */
-  extern double __cdecl scalbn (double, int);
-  extern float __cdecl scalbnf (float, int);
-  extern long double __cdecl scalbnl (long double, int);
+  extern double __cdecl scalbn (double, ціле);
+  extern float __cdecl scalbnf (float, ціле);
+  extern long double __cdecl scalbnl (long double, ціле);
 
   extern double __cdecl scalbln (double, long);
   extern float __cdecl scalblnf (float, long);
@@ -357,7 +357,7 @@ extern "C" {
 
   extern long double __cdecl ceill (long double);
   extern long double __cdecl floorl (long double);
-  extern long double __cdecl frexpl(long double,int *);
+  extern long double __cdecl frexpl(long double,ціле *);
   extern long double __cdecl log10l(long double);
   extern long double __cdecl logl(long double);
   extern long double __cdecl cosl(long double);
@@ -418,9 +418,9 @@ extern "C" {
   extern long double __cdecl remainderl (long double, long double);
 
   /* 7.12.10.3 */
-  extern double __cdecl remquo(double, double, int *);
-  extern float __cdecl remquof(float, float, int *);
-  extern long double __cdecl remquol(long double, long double, int *);
+  extern double __cdecl remquo(double, double, ціле *);
+  extern float __cdecl remquof(float, float, ціле *);
+  extern long double __cdecl remquol(long double, long double, ціле *);
 
   /* 7.12.11.1 */
   extern double __cdecl copysign (double, double); /* in libmoldname.a */

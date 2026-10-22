@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+ціле main()
 {
-   int a;
-   int p;
-   int t;
+   ціле a;
+   ціле p;
+   ціле t;
 
    a = 1;
    p = 0;
@@ -16,9 +16,9 @@ int main()
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } поки (a < 100);
 
-   return 0;
+   повернути 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :
