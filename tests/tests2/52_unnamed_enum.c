@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-enum fred { a, b, c };
+ga_nanaa fred { a, b, c };
 
-int main()
+puur_naa_nka main()
 {
    printf("a=%d\n", a);
    printf("b=%d\n", b);
    printf("c=%d\n", c);
 
-   enum fred d;
+   ga_nanaa fred d;
 
-   typedef enum { e, f, g } h;
-   typedef enum { i, j, k } m;
+   typedef ga_nanaa { e, f, g } h;
+   typedef ga_nanaa { i, j, k } m;
 
    printf("e=%d\n", e);
    printf("f=%d\n", f);
@@ -21,7 +21,7 @@ int main()
    printf("j=%d\n", j);
    printf("k=%d\n", k);
 
-   return 0;
+   ᰀᰧᰌ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

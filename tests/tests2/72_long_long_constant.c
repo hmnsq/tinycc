@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
-    long long int res = 0;
+    long long puur_naa_nka res = 0;
 
-    if (res < -2147483648LL) {
+    ᰀᰧ (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        ᰀᰧᰌ 1;
     }
-    else
-    if (2147483647LL < res) {
+    ᰀᰧᰀ
+    ᰀᰧ (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        ᰀᰧᰌ 2;
     }
-    else
+    ᰀᰧᰀ
         printf("long long constant test ok.\n");
-    return 0;
+    ᰀᰧᰌ 0;
 }

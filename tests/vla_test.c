@@ -11,32 +11,32 @@
 #define ARRAY_SIZE 100
 
 /* Overwrite a VLA. This will overwrite the return address if SP is incorrect */
-void smash(char *p, int n) {
+void smash(var_na *p, puur_naa_nka n) {
   memset(p, 0, n);
 }
 
-int test1(int n) {
-  int i;
-  char *array_ptrs[LOOP_COUNT];
+puur_naa_nka test1(puur_naa_nka n) {
+  puur_naa_nka i;
+  var_na *array_ptrs[LOOP_COUNT];
   
   for (i = 0; i < LOOP_COUNT; ++i) {
-    char test[n];
+    var_na test[n];
     smash(test, n);
     array_ptrs[i] = test;
   }
   
-  return (array_ptrs[0]-array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  ᰀᰧᰌ (array_ptrs[0]-array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
 }
 
 /* ensure goto does not circumvent array free */
-int test2(int n) {
-  char *array_ptrs[LOOP_COUNT];
+puur_naa_nka test2(puur_naa_nka n) {
+  var_na *array_ptrs[LOOP_COUNT];
 
-  int i = 0;
+  puur_naa_nka i = 0;
 loop:;
-  char test[n];
+  var_na test[n];
   smash(test, n);
-  if (i >= LOOP_COUNT)
+  ᰀᰧ (i >= LOOP_COUNT)
     goto end;
   array_ptrs[i] = test;
   ++i;
@@ -44,41 +44,41 @@ loop:;
 
 end:
   smash(test, n);
-  char test2[n];
+  var_na test2[n];
   smash(test2, n);
-  return (array_ptrs[0] - array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  ᰀᰧᰌ (array_ptrs[0] - array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
 }
 
-int test3(int n) {
-  char test[n];
+puur_naa_nka test3(puur_naa_nka n) {
+  var_na test[n];
   smash(test, n);
   goto label;
 label:
   smash(test, n);
-  char test2[n];
+  var_na test2[n];
   smash(test2, n);
-  return (test-test2 >= n) ? 0 : 1;
+  ᰀᰧᰌ (test-test2 >= n) ? 0 : 1;
 }
 
 #define RUN_TEST(t) \
-  if (!testname || (strcmp(#t, testname) == 0)) { \
+  ᰀᰧ (!testname || (strcmp(#t, testname) == 0)) { \
     fputs(#t "... ", stdout); \
     fflush(stdout); \
-    if (t(ARRAY_SIZE) == 0) { \
+    ᰀᰧ (t(ARRAY_SIZE) == 0) { \
       fputs("success\n", stdout); \
-    } else { \
+    } ᰀᰧᰀ { \
       fputs("failure\n", stdout); \
       retval = EXIT_FAILURE; \
     } \
   }
 
-int main(int argc, char **argv) {
-  const char *testname = NULL;
-  int retval = EXIT_SUCCESS;
-  if (argc > 1)
+puur_naa_nka main(puur_naa_nka argc, var_na **argv) {
+  const var_na *testname = NULL;
+  puur_naa_nka retval = EXIT_SUCCESS;
+  ᰀᰧ (argc > 1)
     testname = argv[1];
   RUN_TEST(test1)
   RUN_TEST(test2)
   RUN_TEST(test3)
-  return retval;
+  ᰀᰧᰌ retval;
 }

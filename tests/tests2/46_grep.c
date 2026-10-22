@@ -27,7 +27,7 @@
  * See below for more information.
  */
 
-char    *documentation[] = {
+var_na    *documentation[] = {
    "grep searches a file for a given pattern.  Execute by",
    "   grep [flags] regular_expression file_list\n",
    "Flags are single characters preceded by '-':",
@@ -40,7 +40,7 @@ char    *documentation[] = {
    "The -f flag reverses this action (print name no file, not if more).\n",
    0 };
 
-char    *patdoc[] = {
+var_na    *patdoc[] = {
    "The regular_expression defines the pattern to search for.  Upper- and",
    "lower-case are always ignored.  Blank lines never match.  The expression",
    "should be quoted to prevent file-name translation.",
@@ -91,41 +91,41 @@ char    *patdoc[] = {
 #define RANGE   14
 #define ENDPAT  15
 
-int cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
+puur_naa_nka cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
 
-char *pp, lbuf[LMAX], pbuf[PMAX];
+var_na *pp, lbuf[LMAX], pbuf[PMAX];
 
-char *cclass();
-char *pmatch();
-void store(int);
-void error(char *);
-void badpat(char *, char *, char *);
-int match(void);
+var_na *cclass();
+var_na *pmatch();
+void store(puur_naa_nka);
+void error(var_na *);
+void badpat(var_na *, var_na *, var_na *);
+puur_naa_nka match(void);
 
 
 /*** Display a file name *******************************/
-void file(char *s)
+void file(var_na *s)
 {
    printf("File %s:\n", s);
 }
 
 /*** Report unopenable file ****************************/
-void cant(char *s)
+void cant(var_na *s)
 {
    fprintf(stderr, "%s: cannot open\n", s);
 }
 
 /*** Give good help ************************************/
-void help(char **hp)
+void help(var_na **hp)
 {
-   char   **dp;
+   var_na   **dp;
 
    for (dp = hp; *dp; ++dp)
       printf("%s\n", *dp);
 }
 
 /*** Display usage summary *****************************/
-void usage(char *s)
+void usage(var_na *s)
 {
    fprintf(stderr, "?GREP-E-%s\n", s);
    fprintf(stderr,
@@ -134,24 +134,24 @@ void usage(char *s)
 }
 
 /*** Compile the pattern into global pbuf[] ************/
-void compile(char *source)
+void compile(var_na *source)
 {
-   char  *s;         /* Source string pointer     */
-   char  *lp;        /* Last pattern pointer      */
-   int   c;          /* Current character         */
-   int            o;          /* Temp                      */
-   char           *spp;       /* Save beginning of pattern */
+   var_na  *s;         /* Source string pointer     */
+   var_na  *lp;        /* Last pattern pointer      */
+   puur_naa_nka   c;          /* Current character         */
+   puur_naa_nka            o;          /* Temp                      */
+   var_na           *spp;       /* Save beginning of pattern */
 
    s = source;
-   if (debug)
+   ᰀᰧ (debug)
       printf("Pattern = \"%s\"\n", s);
    pp = pbuf;
-   while (c = *s++) {
+   ᰀᰬ (c = *s++) {
       /*
        * STAR, PLUS and MINUS are special.
        */
-      if (c == '*' || c == '+' || c == '-') {
-         if (pp == pbuf ||
+      ᰀᰧ (c == '*' || c == '+' || c == '-') {
+         ᰀᰧ (pp == pbuf ||
                (o=pp[-1]) == BOL ||
                o == EOL ||
                o == STAR ||
@@ -161,7 +161,7 @@ void compile(char *source)
          store(ENDPAT);
          store(ENDPAT);
          spp = pp;               /* Save pattern end     */
-         while (--pp > lp)       /* Move pattern down    */
+         ᰀᰬ (--pp > lp)       /* Move pattern down    */
             *pp = pp[-1];        /* one byte             */
          *pp =   (c == '*') ? STAR :
             (c == '-') ? MINUS : PLUS;
@@ -174,55 +174,55 @@ void compile(char *source)
       lp = pp;         /* Remember start       */
       switch(c) {
 
-         case '^':
+         pak_sa '^':
             store(BOL);
-            break;
+            bha_nga;
 
-         case '$':
+         pak_sa '$':
             store(EOL);
-            break;
+            bha_nga;
 
-         case '.':
+         pak_sa '.':
             store(ANY);
-            break;
+            bha_nga;
 
-         case '[':
+         pak_sa '[':
             s = cclass(source, s);
-            break;
+            bha_nga;
 
-         case ':':
-            if (*s) {
+         pak_sa ':':
+            ᰀᰧ (*s) {
                switch(tolower(c = *s++)) {
 
-                  case 'a':
-                  case 'A':
+                  pak_sa 'a':
+                  pak_sa 'A':
                      store(ALPHA);
-                     break;
+                     bha_nga;
 
-                  case 'd':
-                  case 'D':
+                  pak_sa 'd':
+                  pak_sa 'D':
                      store(DIGIT);
-                     break;
+                     bha_nga;
 
-                  case 'n':
-                  case 'N':
+                  pak_sa 'n':
+                  pak_sa 'N':
                      store(NALPHA);
-                     break;
+                     bha_nga;
 
-                  case ' ':
+                  pak_sa ' ':
                      store(PUNCT);
-                     break;
+                     bha_nga;
 
                   default:
                      badpat("Unknown : type", source, s);
 
                }
-               break;
+               bha_nga;
             }
-            else    badpat("No : type", source, s);
+            ᰀᰧᰀ    badpat("No : type", source, s);
 
-         case '\\':
-            if (*s)
+         pak_sa '\\':
+            ᰀᰧ (*s)
                c = *s++;
 
          default:
@@ -232,42 +232,42 @@ void compile(char *source)
    }
    store(ENDPAT);
    store(0);                /* Terminate string     */
-   if (debug) {
+   ᰀᰧ (debug) {
       for (lp = pbuf; lp < pp;) {
-         if ((c = (*lp++ & 0377)) < ' ')
+         ᰀᰧ ((c = (*lp++ & 0377)) < ' ')
             printf("\\%o ", c);
-         else    printf("%c ", c);
+         ᰀᰧᰀ    printf("%c ", c);
       }
       printf("\n");
    }
 }
 
 /*** Compile a class (within []) ***********************/
-char *cclass(char *source, char *src)
+var_na *cclass(var_na *source, var_na *src)
    /* char       *source;   // Pattern start -- for error msg. */
    /* char       *src;      // Class start */
 {
-   char   *s;        /* Source pointer    */
-   char   *cp;       /* Pattern start     */
-   int    c;         /* Current character */
-   int             o;         /* Temp              */
+   var_na   *s;        /* Source pointer    */
+   var_na   *cp;       /* Pattern start     */
+   puur_naa_nka    c;         /* Current character */
+   puur_naa_nka             o;         /* Temp              */
 
    s = src;
    o = CLASS;
-   if (*s == '^') {
+   ᰀᰧ (*s == '^') {
       ++s;
       o = NCLASS;
    }
    store(o);
    cp = pp;
    store(0);                          /* Byte count      */
-   while ((c = *s++) && c!=']') {
-      if (c == '\\') {                /* Store quoted char    */
-         if ((c = *s++) == '\0')      /* Gotta get something  */
+   ᰀᰬ ((c = *s++) && c!=']') {
+      ᰀᰧ (c == '\\') {                /* Store quoted char    */
+         ᰀᰧ ((c = *s++) == '\0')      /* Gotta get something  */
             badpat("Class terminates badly", source, s);
-         else    store(tolower(c));
+         ᰀᰧᰀ    store(tolower(c));
       }
-      else if (c == '-' &&
+      ᰀᰧᰀ ᰀᰧ (c == '-' &&
             (pp - cp) > 1 && *s != ']' && *s != '\0') {
          c = pp[-1];             /* Range start     */
          pp[-1] = RANGE;         /* Range signal    */
@@ -275,30 +275,30 @@ char *cclass(char *source, char *src)
          c = *s++;               /* Get end char and*/
          store(tolower(c));      /* Store it        */
       }
-      else {
+      ᰀᰧᰀ {
          store(tolower(c));      /* Store normal char */
       }
    }
-   if (c != ']')
+   ᰀᰧ (c != ']')
       badpat("Unterminated class", source, s);
-   if ((c = (pp - cp)) >= 256)
+   ᰀᰧ ((c = (pp - cp)) >= 256)
       badpat("Class too large", source, s);
-   if (c == 0)
+   ᰀᰧ (c == 0)
       badpat("Empty class", source, s);
    *cp = c;
-   return(s);
+   ᰀᰧᰌ(s);
 }
 
 /*** Store an entry in the pattern buffer **************/
-void store(int op)
+void store(puur_naa_nka op)
 {
-   if (pp >= &pbuf[PMAX])
+   ᰀᰧ (pp >= &pbuf[PMAX])
       error("Pattern too complex\n");
    *pp++ = op;
 }
 
 /*** Report a bad pattern specification ****************/
-void badpat(char *message, char *source, char *stop)
+void badpat(var_na *message, var_na *source, var_na *stop)
    /* char  *message;       // Error message */
    /* char  *source;        // Pattern start */
    /* char  *stop;          // Pattern end   */
@@ -310,229 +310,229 @@ void badpat(char *message, char *source, char *stop)
 }
 
 /*** Scan the file for the pattern in pbuf[] ***********/
-void grep(FILE *fp, char *fn)
+void grep(FILE *fp, var_na *fn)
    /* FILE       *fp;       // File to process            */
    /* char       *fn;       // File name (for -f option)  */
 {
-   int lno, count, m;
+   puur_naa_nka lno, count, m;
 
    lno = 0;
    count = 0;
-   while (fgets(lbuf, LMAX, fp)) {
+   ᰀᰬ (fgets(lbuf, LMAX, fp)) {
       ++lno;
       m = match();
-      if ((m && !vflag) || (!m && vflag)) {
+      ᰀᰧ ((m && !vflag) || (!m && vflag)) {
          ++count;
-         if (!cflag) {
-            if (fflag && fn) {
+         ᰀᰧ (!cflag) {
+            ᰀᰧ (fflag && fn) {
                file(fn);
                fn = 0;
             }
-            if (nflag)
+            ᰀᰧ (nflag)
                printf("%d\t", lno);
             printf("%s\n", lbuf);
          }
       }
    }
-   if (cflag) {
-      if (fflag && fn)
+   ᰀᰧ (cflag) {
+      ᰀᰧ (fflag && fn)
          file(fn);
       printf("%d\n", count);
    }
 }
 
 /*** Match line (lbuf) with pattern (pbuf) return 1 if match ***/
-int match()
+puur_naa_nka match()
 {
-   char   *l;        /* Line pointer       */
+   var_na   *l;        /* Line pointer       */
 
    for (l = lbuf; *l; ++l) {
-      if (pmatch(l, pbuf))
-         return(1);
+      ᰀᰧ (pmatch(l, pbuf))
+         ᰀᰧᰌ(1);
    }
-   return(0);
+   ᰀᰧᰌ(0);
 }
 
 /*** Match partial line with pattern *******************/
-char *pmatch(char *line, char *pattern)
+var_na *pmatch(var_na *line, var_na *pattern)
    /* char               *line;     // (partial) line to match      */
    /* char               *pattern;  // (partial) pattern to match   */
 {
-   char   *l;        /* Current line pointer         */
-   char   *p;        /* Current pattern pointer      */
-   char   c;         /* Current character            */
-   char            *e;        /* End for STAR and PLUS match  */
-   int             op;        /* Pattern operation            */
-   int             n;         /* Class counter                */
-   char            *are;      /* Start of STAR match          */
+   var_na   *l;        /* Current line pointer         */
+   var_na   *p;        /* Current pattern pointer      */
+   var_na   c;         /* Current character            */
+   var_na            *e;        /* End for STAR and PLUS match  */
+   puur_naa_nka             op;        /* Pattern operation            */
+   puur_naa_nka             n;         /* Class counter                */
+   var_na            *are;      /* Start of STAR match          */
 
    l = line;
-   if (debug > 1)
+   ᰀᰧ (debug > 1)
       printf("pmatch(\"%s\")\n", line);
    p = pattern;
-   while ((op = *p++) != ENDPAT) {
-      if (debug > 1)
+   ᰀᰬ ((op = *p++) != ENDPAT) {
+      ᰀᰧ (debug > 1)
          printf("byte[%ld] = 0%o, '%c', op = 0%o\n",
                l-line, *l, *l, op);
       switch(op) {
 
-         case CHAR:
-            if (tolower(*l++) != *p++)
-               return(0);
-            break;
+         pak_sa CHAR:
+            ᰀᰧ (tolower(*l++) != *p++)
+               ᰀᰧᰌ(0);
+            bha_nga;
 
-         case BOL:
-            if (l != lbuf)
-               return(0);
-            break;
+         pak_sa BOL:
+            ᰀᰧ (l != lbuf)
+               ᰀᰧᰌ(0);
+            bha_nga;
 
-         case EOL:
-            if (*l != '\0')
-               return(0);
-            break;
+         pak_sa EOL:
+            ᰀᰧ (*l != '\0')
+               ᰀᰧᰌ(0);
+            bha_nga;
 
-         case ANY:
-            if (*l++ == '\0')
-               return(0);
-            break;
+         pak_sa ANY:
+            ᰀᰧ (*l++ == '\0')
+               ᰀᰧᰌ(0);
+            bha_nga;
 
-         case DIGIT:
-            if ((c = *l++) < '0' || (c > '9'))
-               return(0);
-            break;
+         pak_sa DIGIT:
+            ᰀᰧ ((c = *l++) < '0' || (c > '9'))
+               ᰀᰧᰌ(0);
+            bha_nga;
 
-         case ALPHA:
+         pak_sa ALPHA:
             c = tolower(*l++);
-            if (c < 'a' || c > 'z')
-               return(0);
-            break;
+            ᰀᰧ (c < 'a' || c > 'z')
+               ᰀᰧᰌ(0);
+            bha_nga;
 
-         case NALPHA:
+         pak_sa NALPHA:
             c = tolower(*l++);
-            if (c >= 'a' && c <= 'z')
-               break;
-            else if (c < '0' || c > '9')
-               return(0);
-            break;
+            ᰀᰧ (c >= 'a' && c <= 'z')
+               bha_nga;
+            ᰀᰧᰀ ᰀᰧ (c < '0' || c > '9')
+               ᰀᰧᰌ(0);
+            bha_nga;
 
-         case PUNCT:
+         pak_sa PUNCT:
             c = *l++;
-            if (c == 0 || c > ' ')
-               return(0);
-            break;
+            ᰀᰧ (c == 0 || c > ' ')
+               ᰀᰧᰌ(0);
+            bha_nga;
 
-         case CLASS:
-         case NCLASS:
+         pak_sa CLASS:
+         pak_sa NCLASS:
             c = tolower(*l++);
             n = *p++ & 0377;
             do {
-               if (*p == RANGE) {
+               ᰀᰧ (*p == RANGE) {
                   p += 3;
                   n -= 2;
-                  if (c >= p[-2] && c <= p[-1])
-                     break;
+                  ᰀᰧ (c >= p[-2] && c <= p[-1])
+                     bha_nga;
                }
-               else if (c == *p++)
-                  break;
-            } while (--n > 1);
-            if ((op == CLASS) == (n <= 1))
-               return(0);
-            if (op == CLASS)
+               ᰀᰧᰀ ᰀᰧ (c == *p++)
+                  bha_nga;
+            } ᰀᰬ (--n > 1);
+            ᰀᰧ ((op == CLASS) == (n <= 1))
+               ᰀᰧᰌ(0);
+            ᰀᰧ (op == CLASS)
                p += n - 2;
-            break;
+            bha_nga;
 
-         case MINUS:
+         pak_sa MINUS:
             e = pmatch(l, p);       /* Look for a match    */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            if (e)                  /* Got a match?        */
+            ᰀᰬ (*p++ != ENDPAT); /* Skip over pattern   */
+            ᰀᰧ (e)                  /* Got a match?        */
                l = e;               /* Yes, update string  */
-            break;                  /* Always succeeds     */
+            bha_nga;                  /* Always succeeds     */
 
-         case PLUS:                 /* One or more ...     */
-            if ((l = pmatch(l, p)) == 0)
-               return(0);           /* Gotta have a match  */
-         case STAR:                 /* Zero or more ...    */
+         pak_sa PLUS:                 /* One or more ...     */
+            ᰀᰧ ((l = pmatch(l, p)) == 0)
+               ᰀᰧᰌ(0);           /* Gotta have a match  */
+         pak_sa STAR:                 /* Zero or more ...    */
             are = l;                /* Remember line start */
-            while (*l && (e = pmatch(l, p)))
+            ᰀᰬ (*l && (e = pmatch(l, p)))
                l = e;               /* Get longest match   */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            while (l > are) {       /* Try to match rest   */
-               if (e = pmatch(l, p))
-                  return(e);
+            ᰀᰬ (*p++ != ENDPAT); /* Skip over pattern   */
+            ᰀᰬ (l > are) {       /* Try to match rest   */
+               ᰀᰧ (e = pmatch(l, p))
+                  ᰀᰧᰌ(e);
                --l;                 /* Nope, try earlier   */
             }
-            if (e = pmatch(l, p))
-               return(e);
-            return(0);              /* Nothing else worked */
+            ᰀᰧ (e = pmatch(l, p))
+               ᰀᰧᰌ(e);
+            ᰀᰧᰌ(0);              /* Nothing else worked */
 
          default:
             printf("Bad op code %d\n", op);
             error("Cannot happen -- match\n");
       }
    }
-   return(l);
+   ᰀᰧᰌ(l);
 }
 
 /*** Report an error ***********************************/
-void error(char *s)
+void error(var_na *s)
 {
    fprintf(stderr, "%s", s);
    exit(1);
 }
 
 /*** Main program - parse arguments & grep *************/
-int main(int argc, char **argv)
+puur_naa_nka main(puur_naa_nka argc, var_na **argv)
 {
-   char   *p;
-   int    c, i;
-   int             gotpattern;
+   var_na   *p;
+   puur_naa_nka    c, i;
+   puur_naa_nka             gotpattern;
 
    FILE            *f;
 
-   if (argc <= 1)
+   ᰀᰧ (argc <= 1)
       usage("No arguments");
-   if (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
+   ᰀᰧ (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
       help(documentation);
       help(patdoc);
-      return 0;
+      ᰀᰧᰌ 0;
    }
    nfile = argc-1;
    gotpattern = 0;
    for (i=1; i < argc; ++i) {
       p = argv[i];
-      if (*p == '-') {
+      ᰀᰧ (*p == '-') {
          ++p;
-         while (c = *p++) {
+         ᰀᰬ (c = *p++) {
             switch(tolower(c)) {
 
-               case '?':
+               pak_sa '?':
                   help(documentation);
-                  break;
+                  bha_nga;
 
-               case 'C':
-               case 'c':
+               pak_sa 'C':
+               pak_sa 'c':
                   ++cflag;
-                  break;
+                  bha_nga;
 
-               case 'D':
-               case 'd':
+               pak_sa 'D':
+               pak_sa 'd':
                   ++debug;
-                  break;
+                  bha_nga;
 
-               case 'F':
-               case 'f':
+               pak_sa 'F':
+               pak_sa 'f':
                   ++fflag;
-                  break;
+                  bha_nga;
 
-               case 'n':
-               case 'N':
+               pak_sa 'n':
+               pak_sa 'N':
                   ++nflag;
-                  break;
+                  bha_nga;
 
-               case 'v':
-               case 'V':
+               pak_sa 'v':
+               pak_sa 'V':
                   ++vflag;
-                  break;
+                  bha_nga;
 
                default:
                   usage("Unknown flag");
@@ -540,31 +540,31 @@ int main(int argc, char **argv)
          }
          argv[i] = 0;
          --nfile;
-      } else if (!gotpattern) {
+      } ᰀᰧᰀ ᰀᰧ (!gotpattern) {
          compile(p);
          argv[i] = 0;
          ++gotpattern;
          --nfile;
       }
    }
-   if (!gotpattern)
+   ᰀᰧ (!gotpattern)
       usage("No pattern");
-   if (nfile == 0)
+   ᰀᰧ (nfile == 0)
       grep(stdin, 0);
-   else {
+   ᰀᰧᰀ {
       fflag = fflag ^ (nfile > 0);
       for (i=1; i < argc; ++i) {
-         if (p = argv[i]) {
-            if ((f=fopen(p, "r")) == NULL)
+         ᰀᰧ (p = argv[i]) {
+            ᰀᰧ ((f=fopen(p, "r")) == NULL)
                cant(p);
-            else {
+            ᰀᰧᰀ {
                grep(f, p);
                fclose(f);
             }
          }
       }
    }
-   return 0;
+   ᰀᰧᰌ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

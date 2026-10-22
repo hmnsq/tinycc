@@ -1,31 +1,31 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+void foo(puur_naa_nka [5]);
+void fooc(puur_naa_nka x[const 5]);
+void foos(puur_naa_nka x[static 5]);
+void foov(puur_naa_nka x[ca_ncala 5]);
+void foor(puur_naa_nka x[restrict 5]);
+void fooc(puur_naa_nka [const 5]);
+void foos(puur_naa_nka [static 5]);
+void foov(puur_naa_nka [ca_ncala 5]);
+void foor(puur_naa_nka [restrict 5]);
+void fooc(puur_naa_nka (* const x));
+void foos(puur_naa_nka *x);
+void foov(puur_naa_nka * ca_ncala x);
+void foor(puur_naa_nka * restrict x);
+void fooc(puur_naa_nka x[ca_ncala 5])
 {
   x[3] = 42;
 #ifdef INVALID
   x = 0;
 #endif
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+void foovm(puur_naa_nka x[const *]);
+void foovm(puur_naa_nka * const x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
+typedef puur_naa_nka *pointer_array[2];
+typedef puur_naa_nka *restrict restricted_pointer;
 typedef restrict pointer_array restricted_pointer_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
+_Static_assert(!__builtin_types_compatible_p(puur_naa_nka **,
                                              restricted_pointer *),
                "nested restrict qualifier is retained");
 _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
@@ -33,7 +33,7 @@ _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
                "restrict can qualify an array of pointer types");
 
 restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+puur_naa_nka **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
@@ -41,14 +41,14 @@ _Static_assert(__builtin_types_compatible_p(
                "conditional expression combines restrict qualifiers");
 
 #ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+void wrongc(puur_naa_nka x[3][const 4]);
+void wrongvm(puur_naa_nka x[static *]);
+void foovm(puur_naa_nka x[const *])
 {
   x[2] = 1;
 }
 #endif
-int main()
+puur_naa_nka main()
 {
-  return 0;
+  ᰀᰧᰌ 0;
 }

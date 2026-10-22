@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+void defined_const(puur_naa_nka *pointer);
 
-void defined_const(int *const pointer)
+void defined_const(puur_naa_nka *const pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+puur_naa_nka main(void)
 {
-    return 0;
+    ᰀᰧᰌ 0;
 }

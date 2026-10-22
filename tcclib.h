@@ -15,68 +15,68 @@ void *calloc(size_t nmemb, size_t size);
 void *malloc(size_t size);
 void free(void *ptr);
 void *realloc(void *ptr, size_t size);
-int atoi(const char *nptr);
-long int strtol(const char *nptr, char **endptr, int base);
-unsigned long int strtoul(const char *nptr, char **endptr, int base);
-void exit(int);
+puur_naa_nka atoi(const var_na *nptr);
+long puur_naa_nka strtol(const var_na *nptr, var_na **endptr, puur_naa_nka base);
+unsigned long puur_naa_nka strtoul(const var_na *nptr, var_na **endptr, puur_naa_nka base);
+void exit(puur_naa_nka);
 void *alloca(size_t);
 
 /* stdio.h */
-typedef struct __FILE FILE;
+typedef sa_nracanaa __FILE FILE;
 #define EOF (-1)
 extern FILE *stdin;
 extern FILE *stdout;
 extern FILE *stderr;
-FILE *fopen(const char *path, const char *mode);
-FILE *fdopen(int fildes, const char *mode);
-FILE *freopen(const  char *path, const char *mode, FILE *stream);
-int fclose(FILE *stream);
+FILE *fopen(const var_na *path, const var_na *mode);
+FILE *fdopen(puur_naa_nka fildes, const var_na *mode);
+FILE *freopen(const  var_na *path, const var_na *mode, FILE *stream);
+puur_naa_nka fclose(FILE *stream);
 size_t  fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
 size_t  fwrite(void *ptr, size_t size, size_t nmemb, FILE *stream);
-int fgetc(FILE *stream);
-char *fgets(char *s, int size, FILE *stream);
-int getc(FILE *stream);
-int getchar(void);
-char *gets(char *s);
-int ungetc(int c, FILE *stream);
-int fflush(FILE *stream);
-int puts(const char *s);
-int putchar (int c);
+puur_naa_nka fgetc(FILE *stream);
+var_na *fgets(var_na *s, puur_naa_nka size, FILE *stream);
+puur_naa_nka getc(FILE *stream);
+puur_naa_nka getchar(void);
+var_na *gets(var_na *s);
+puur_naa_nka ungetc(puur_naa_nka c, FILE *stream);
+puur_naa_nka fflush(FILE *stream);
+puur_naa_nka puts(const var_na *s);
+puur_naa_nka putchar (puur_naa_nka c);
 
-int printf(const char *format, ...);
-int fprintf(FILE *stream, const char *format, ...);
-int sprintf(char *str, const char *format, ...);
-int snprintf(char *str, size_t size, const  char  *format, ...);
-int asprintf(char **strp, const char *format, ...);
-int dprintf(int fd, const char *format, ...);
-int vprintf(const char *format, va_list ap);
-int vfprintf(FILE  *stream,  const  char *format, va_list ap);
-int vsprintf(char *str, const char *format, va_list ap);
-int vsnprintf(char *str, size_t size, const char  *format, va_list ap);
-int vasprintf(char  **strp,  const  char *format, va_list ap);
-int vdprintf(int fd, const char *format, va_list ap);
+puur_naa_nka printf(const var_na *format, ...);
+puur_naa_nka fprintf(FILE *stream, const var_na *format, ...);
+puur_naa_nka sprintf(var_na *str, const var_na *format, ...);
+puur_naa_nka snprintf(var_na *str, size_t size, const  var_na  *format, ...);
+puur_naa_nka asprintf(var_na **strp, const var_na *format, ...);
+puur_naa_nka dprintf(puur_naa_nka fd, const var_na *format, ...);
+puur_naa_nka vprintf(const var_na *format, va_list ap);
+puur_naa_nka vfprintf(FILE  *stream,  const  var_na *format, va_list ap);
+puur_naa_nka vsprintf(var_na *str, const var_na *format, va_list ap);
+puur_naa_nka vsnprintf(var_na *str, size_t size, const var_na  *format, va_list ap);
+puur_naa_nka vasprintf(var_na  **strp,  const  var_na *format, va_list ap);
+puur_naa_nka vdprintf(puur_naa_nka fd, const var_na *format, va_list ap);
 
-void perror(const char *s);
+void perror(const var_na *s);
 
 /* string.h */
-char *strcat(char *dest, const char *src);
-char *strchr(const char *s, int c);
-char *strrchr(const char *s, int c);
-char *strcpy(char *dest, const char *src);
+var_na *strcat(var_na *dest, const var_na *src);
+var_na *strchr(const var_na *s, puur_naa_nka c);
+var_na *strrchr(const var_na *s, puur_naa_nka c);
+var_na *strcpy(var_na *dest, const var_na *src);
 void *memcpy(void *dest, const void *src, size_t n);
 void *memmove(void *dest, const void *src, size_t n);
-void *memset(void *s, int c, size_t n);
-char *strdup(const char *s);
-size_t strlen(const char *s);
+void *memset(void *s, puur_naa_nka c, size_t n);
+var_na *strdup(const var_na *s);
+size_t strlen(const var_na *s);
 
 /* dlfcn.h */
 #define RTLD_LAZY       0x001
 #define RTLD_NOW        0x002
 #define RTLD_GLOBAL     0x100
 
-void *dlopen(const char *filename, int flag);
-const char *dlerror(void);
-void *dlsym(void *handle, char *symbol);
-int dlclose(void *handle);
+void *dlopen(const var_na *filename, puur_naa_nka flag);
+const var_na *dlerror(void);
+void *dlsym(void *handle, var_na *symbol);
+puur_naa_nka dlclose(void *handle);
 
 #endif /* _TCCLIB_H */

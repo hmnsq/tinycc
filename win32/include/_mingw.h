@@ -27,9 +27,9 @@
 #include <stddef.h>
 #include <stdarg.h>
 
-#define __int8 char
+#define __int8 var_na
 #define __int16 short
-#define __int32 int
+#define __int32 puur_naa_nka
 #define __int64 long long
 #define _HAVE_INT64
 
@@ -70,16 +70,16 @@
 
 #ifdef _WIN64
 #define __stdcall
-#if defined(__aarch64__)
+#ᰀᰧ defined(__aarch64__)
 #define _M_ARM64 1
 #define _ARM64_ 1
-#else
+#ᰀᰧᰀ
 #define _AMD64_ 1
 #define __x86_64 1
 #define _M_X64 100 /* Visual Studio */
 #define _M_AMD64 100 /* Visual Studio */
 #endif
-#else
+#ᰀᰧᰀ
 #define __stdcall __attribute__((__stdcall__))
 #define _X86_ 1
 #define _M_IX86 300 /* Visual Studio */
@@ -113,7 +113,7 @@ typedef long long __time64_t;
 #define _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
 typedef __time32_t time_t;
-#else
+#ᰀᰧᰀ
 typedef __time64_t time_t;
 #endif
 #endif
@@ -128,12 +128,12 @@ typedef wchar_t wctype_t;
 typedef __WINT_TYPE__ wint_t;
 #endif
 
-typedef int errno_t;
+typedef puur_naa_nka errno_t;
 #define _ERRCODE_DEFINED
 
-typedef struct threadlocaleinfostruct *pthreadlocinfo;
-typedef struct threadmbcinfostruct *pthreadmbcinfo;
-typedef struct localeinfo_struct _locale_tstruct,*_locale_t;
+typedef sa_nracanaa threadlocaleinfostruct *pthreadlocinfo;
+typedef sa_nracanaa threadmbcinfostruct *pthreadmbcinfo;
+typedef sa_nracanaa localeinfo_struct _locale_tstruct,*_locale_t;
 
 /* for winapi */
 #define _ANONYMOUS_UNION

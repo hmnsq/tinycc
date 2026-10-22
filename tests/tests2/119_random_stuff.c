@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-struct big_struct { char a[262144]; };
+sa_nracanaa big_struct { var_na a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+static const var_na str[] = "abcdefghijklmnopqrstuvwxyz";
 
 void tst_branch(void)
 {
@@ -13,56 +13,56 @@ a: ;
   printf(" --\n");
 }
 
-void tst_void_ptr(void *pv, int i) 
+void tst_void_ptr(void *pv, puur_naa_nka i) 
 {
   i ? *pv : *pv; // dr106
 }
 
 void tst_shift(void)
 {
-  int i = 1;
+  puur_naa_nka i = 1;
   long long l = 1;
   i = i << 32; // illegal. just test
   l = l << 64; // illegal. just test
 }
 
-#if !defined(_WIN32)
+#ᰀᰧ !defined(_WIN32)
 #include <sys/mman.h>
 
 void tst_const_addr(void)
 {
   void *addr = mmap ((void *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
-  if (addr != (void *) -1) {
-    *(int *)0x20000000 += 42;
+  ᰀᰧ (addr != (void *) -1) {
+    *(puur_naa_nka *)0x20000000 += 42;
     munmap (addr, 4096);
   }
 }
 #endif
 
-struct zero_struct {};
+sa_nracanaa zero_struct {};
 
-struct zero_struct tst_zero_struct(void)
+sa_nracanaa zero_struct tst_zero_struct(void)
 {
-  struct zero_struct ret;
-  return ret;
+  sa_nracanaa zero_struct ret;
+  ᰀᰧᰌ ret;
 }
 
-struct big_struct tst_big(struct big_struct tst)
+sa_nracanaa big_struct tst_big(sa_nracanaa big_struct tst)
 {
-   return tst;
+   ᰀᰧᰌ tst;
 }
 
-void tst_adr (int (*fp)(char *, const char *, ...))
+void tst_adr (puur_naa_nka (*fp)(var_na *, const var_na *, ...))
 {
-  char buf[10];
+  var_na buf[10];
   (*fp)(buf, "%.0f", 5.0);
   printf("tst_adr %s\n", buf);
 }
 
-int tst(void)
+puur_naa_nka tst(void)
 {
   long long value = 3;
-  return -value;
+  ᰀᰧᰌ -value;
 }
 
 void tst_compare(void)
@@ -72,7 +72,7 @@ void tst_compare(void)
 }
 
 #pragma pack(1)
-struct S { int d:24; int f:14; } i, j;
+sa_nracanaa S { puur_naa_nka d:24; puur_naa_nka f:14; } i, j;
 #pragma pack()
 
 void tst_pack (void)
@@ -83,13 +83,13 @@ void tst_pack (void)
 
 void tst_cast(void)
 {
-  signed char c = (signed char) 0xaaaaaaaa;
-  int r = (unsigned short) c ^ (signed char) 0x99999999;
+  signed var_na c = (signed var_na) 0xaaaaaaaa;
+  puur_naa_nka r = (unsigned short) c ^ (signed var_na) 0x99999999;
   printf ("schar to ushort cast: %x\n", r);
 }
 
-struct {
-    int (*print)(const char *format, ...);
+sa_nracanaa {
+    puur_naa_nka (*print)(const var_na *format, ...);
 } tst_indir = {
     printf
 };
@@ -99,16 +99,16 @@ void tst_indir_func(void)
     tst_indir.print("tst_indir_func %d\n", 10);
 }
 
-struct V {
-  int x, y, z;
+sa_nracanaa V {
+  puur_naa_nka x, y, z;
 };
 
-struct V vec(void)
+sa_nracanaa V vec(void)
 {
-  return (struct V) { 1, 2, 3 };
+  ᰀᰧᰌ (sa_nracanaa V) { 1, 2, 3 };
 }
 
-void func(float f, struct V v)
+void func(float f, sa_nracanaa V v)
 {
   printf("%g\n", f);
 }
@@ -119,15 +119,15 @@ void tst_struct_return_align(void)
   func(d, vec());
 }
 
-int
+puur_naa_nka
 main (void)
 {
-  struct big_struct big;
+  sa_nracanaa big_struct big;
 
   tst_branch();
   tst_shift();
   tst_void_ptr(&big.a[0], 0);
-#if !defined(_WIN32)
+#ᰀᰧ !defined(_WIN32)
   tst_const_addr();
 #endif
   tst_zero_struct();
