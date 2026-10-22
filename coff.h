@@ -6,7 +6,7 @@
 /*------------------------------------------------------------------------*/
 /*  COFF FILE HEADER                                                      */
 /*------------------------------------------------------------------------*/
-struct filehdr {
+கட்டமைப்பு filehdr {
         unsigned short  f_magic;        /* magic number */
         unsigned short  f_nscns;        /* number of sections */
         long            f_timdat;       /* time & date stamp */
@@ -35,7 +35,7 @@ struct filehdr {
 
 #define F_VERSION    (F_GSP10  | F_GSP20)   
 #define F_BYTE_ORDER (F_LITTLE | F_BIG)
-#define FILHDR  struct filehdr
+#define FILHDR  கட்டமைப்பு filehdr
 
 /* #define FILHSZ  sizeof(FILHDR)  */
 #define FILHSZ  22                /* above rounds to align on 4 bytes which causes problems */
@@ -53,7 +53,7 @@ struct filehdr {
 /*------------------------------------------------------------------------*/
 /*  OPTIONAL FILE HEADER                                                  */
 /*------------------------------------------------------------------------*/
-typedef struct aouthdr {
+வகைவரை கட்டமைப்பு aouthdr {
         short   magic;          /* see magic.h                          */
         short   vstamp;         /* version stamp                        */
         long    tsize;          /* text size in bytes, padded to FW bdry*/
@@ -64,7 +64,7 @@ typedef struct aouthdr {
         long    data_start;     /* base of data used for this file      */
 } AOUTHDR;
 
-#define AOUTSZ  sizeof(AOUTHDR)
+#define AOUTSZ  அளவு(AOUTHDR)
 
 /*----------------------------------------------------------------------*/
 /*      When a UNIX aout header is to be built in the optional header,  */
@@ -114,38 +114,38 @@ typedef struct aouthdr {
 #define SARMAG  8
 #define ARFMAG  "`\n"
 
-struct ar_hdr           /* archive file member header - printable ascii */
+கட்டமைப்பு ar_hdr           /* archive file member header - printable ascii */
 {
-        char    ar_name[16];    /* file member name - `/' terminated */
-        char    ar_date[12];    /* file member date - decimal */
-        char    ar_uid[6];      /* file member user id - decimal */
-        char    ar_gid[6];      /* file member group id - decimal */
-        char    ar_mode[8];     /* file member mode - octal */
-        char    ar_size[10];    /* file member size - decimal */
-        char    ar_fmag[2];     /* ARFMAG - string to end header */
+        எழுத்து    ar_name[16];    /* file member name - `/' terminated */
+        எழுத்து    ar_date[12];    /* file member date - decimal */
+        எழுத்து    ar_uid[6];      /* file member user id - decimal */
+        எழுத்து    ar_gid[6];      /* file member group id - decimal */
+        எழுத்து    ar_mode[8];     /* file member mode - octal */
+        எழுத்து    ar_size[10];    /* file member size - decimal */
+        எழுத்து    ar_fmag[2];     /* ARFMAG - string to end header */
 };
 
 
 /*------------------------------------------------------------------------*/
 /*  SECTION HEADER                                                        */
 /*------------------------------------------------------------------------*/
-struct scnhdr {
-        char            s_name[8];      /* section name */
+கட்டமைப்பு scnhdr {
+        எழுத்து            s_name[8];      /* section name */
         long            s_paddr;        /* physical address */
         long            s_vaddr;        /* virtual address */
         long            s_size;         /* section size */
         long            s_scnptr;       /* file ptr to raw data for section */
         long            s_relptr;       /* file ptr to relocation */
         long            s_lnnoptr;      /* file ptr to line numbers */
-        unsigned int	s_nreloc;       /* number of relocation entries */
-        unsigned int	s_nlnno;        /* number of line number entries */
-        unsigned int	s_flags;        /* flags */
+        unsigned முழு	s_nreloc;       /* number of relocation entries */
+        unsigned முழு	s_nlnno;        /* number of line number entries */
+        unsigned முழு	s_flags;        /* flags */
 		unsigned short	s_reserved;     /* reserved byte */
 		unsigned short  s_page;         /* memory page id */
         };
 
-#define SCNHDR  struct scnhdr
-#define SCNHSZ  sizeof(SCNHDR)
+#define SCNHDR  கட்டமைப்பு scnhdr
+#define SCNHSZ  அளவு(SCNHDR)
 
 /*------------------------------------------------------------------------*/
 /* Define constants for names of "special" sections                       */
@@ -180,7 +180,7 @@ struct scnhdr {
 /*------------------------------------------------------------------------*/
 /*  RELOCATION ENTRIES                                                    */
 /*------------------------------------------------------------------------*/
-struct reloc
+கட்டமைப்பு reloc
 {
    long            r_vaddr;        /* (virtual) address of reference */
    short           r_symndx;       /* index into symbol table */
@@ -188,7 +188,7 @@ struct reloc
    unsigned short  r_type;         /* relocation type */
 };
 
-#define RELOC   struct reloc
+#define RELOC   கட்டமைப்பு reloc
 #define RELSZ   10                 /* sizeof(RELOC) */
 
 /*--------------------------------------------------------------------------*/
@@ -220,9 +220,9 @@ struct reloc
 /*------------------------------------------------------------------------*/
 /*  LINE NUMBER ENTRIES                                                   */
 /*------------------------------------------------------------------------*/
-struct lineno
+கட்டமைப்பு lineno
 {
-        union
+        ஒன்றிப்பு
         {
                 long    l_symndx ;      /* sym. table index of function name
                                                 iff l_lnno == 0      */
@@ -231,7 +231,7 @@ struct lineno
         unsigned short  l_lnno ;        /* line number */
 };
 
-#define LINENO  struct lineno
+#define LINENO  கட்டமைப்பு lineno
 #define LINESZ  6       /* sizeof(LINENO) */
 
 
@@ -263,7 +263,7 @@ struct lineno
 #define  C_FCN           101   /* ".bf" or ".ef" */
 #define  C_EOS           102   /* end of structure */
 #define  C_FILE          103   /* file name */
-#define  C_LINE          104   /* dummy sclass for line number entry */
+#define  C_வரி          104   /* dummy sclass for line number entry */
 #define  C_ALIAS         105   /* duplicate tag */
 #define  C_HIDDEN        106   /* special storage class for external */
                                /* symbols in dmert public libraries  */
@@ -277,23 +277,23 @@ struct lineno
 #define  DIMNUM     4      /*  Number of array dimensions in auxiliary entry */
 
 
-struct syment
+கட்டமைப்பு syment
 {
-        union
+        ஒன்றிப்பு
         {
-                char            _n_name[SYMNMLEN];      /* old COFF version */
-                struct
+                எழுத்து            _n_name[SYMNMLEN];      /* old COFF version */
+                கட்டமைப்பு
                 {
                         long    _n_zeroes;      /* new == 0 */
                         long    _n_offset;      /* offset into string table */
                 } _n_n;
-                char            *_n_nptr[2];    /* allows for overlaying */
+                எழுத்து            *_n_nptr[2];    /* allows for overlaying */
         } _n;
-        long                    n_value;        /* value of symbol */
+        long                    n_மதிப்பு;        /* value of symbol */
         short                   n_scnum;        /* section number */
         unsigned short          n_type;         /* type and derived type */
-        char                    n_sclass;       /* storage class */
-        char                    n_numaux;       /* number of aux. entries */
+        எழுத்து                    n_sclass;       /* storage class */
+        எழுத்து                    n_numaux;       /* number of aux. entries */
 };
 
 #define n_name          _n._n_name
@@ -374,39 +374,39 @@ struct syment
 /*------------------------------------------------------------------------*/
 /*  AUXILIARY SYMBOL ENTRY                                                */
 /*------------------------------------------------------------------------*/
-union auxent
+ஒன்றிப்பு auxent
 {
-	struct
+	கட்டமைப்பு
 	{
 		long            x_tagndx;       /* str, un, or enum tag indx */
-		union
+		ஒன்றிப்பு
 		{
-			struct
+			கட்டமைப்பு
 			{
 				unsigned short  x_lnno; /* declaration line number */
 				unsigned short  x_size; /* str, union, array size */
 			} x_lnsz;
 			long    x_fsize;        /* size of function */
 		} x_misc;
-		union
+		ஒன்றிப்பு
 		{
-			struct                  /* if ISFCN, tag, or .bb */
+			கட்டமைப்பு                  /* if ISFCN, tag, or .bb */
 			{
 				long    x_lnnoptr;      /* ptr to fcn line # */
 				long    x_endndx;       /* entry ndx past block end */
 			}       x_fcn;
-			struct                  /* if ISARY, up to 4 dimen. */
+			கட்டமைப்பு                  /* if ISARY, up to 4 dimen. */
 			{
 				unsigned short  x_dimen[DIMNUM];
 			}       x_ary;
 		}               x_fcnary;
 		unsigned short  x_regcount;   /* number of registers used by func */
 	}       x_sym;
-	struct
+	கட்டமைப்பு
 	{
-		char    x_fname[FILNMLEN];
+		எழுத்து    x_fname[FILNMLEN];
 	}       x_file;
-	struct
+	கட்டமைப்பு
 	{
 		long    x_scnlen;          /* section length */
 		unsigned short  x_nreloc;  /* number of relocation entries */
@@ -414,10 +414,10 @@ union auxent
 	}       x_scn;
 };
 
-#define SYMENT  struct syment
+#define SYMENT  கட்டமைப்பு syment
 #define SYMESZ  18      /* sizeof(SYMENT) */
 
-#define AUXENT  union auxent
+#define AUXENT  ஒன்றிப்பு auxent
 #define AUXESZ  18      /* sizeof(AUXENT) */
 
 /*------------------------------------------------------------------------*/

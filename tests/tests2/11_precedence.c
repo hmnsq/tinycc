@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+வெளி முழு printf(மாறிலி எழுத்து *, ...);
 
-int main()
+முழு முதன்மை()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   முழு a;
+   முழு b;
+   முழு c;
+   முழு d;
+   முழு e;
+   முழு f;
+   முழு x;
+   முழு y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   திரும்பு 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -1,37 +1,37 @@
-#include <stdio.h>
-#include <float.h>
+#அந்தர்பாவ <stdio.h>
+#அந்தர்பாவ <float.h>
 
-union ieee_double_extract
+ஒன்றிப்பு ieee_double_extract
 {
-    struct {
-        unsigned int manl:32;
-        unsigned int manh:20;
-        unsigned int exp:11;
-        unsigned int sig:1;
+    கட்டமைப்பு {
+        unsigned முழு manl:32;
+        unsigned முழு manh:20;
+        unsigned முழு exp:11;
+        unsigned முழு sig:1;
     } s;
-    double d;
+    இரட்டை d;
 };
 
-double scale(double d)
+இரட்டை scale(இரட்டை d)
 {
-    union ieee_double_extract x;
+    ஒன்றிப்பு ieee_double_extract x;
 
     x.d = d;
     x.d *= 1000;
-    return x.d;
+    திரும்பு x.d;
 }
 
-void mul(double *p)
+வெறுமை mul(இரட்டை *p)
 {
     *p *= 2.0;
 }
 
-int
-main(void)
+முழு
+முதன்மை(வெறுமை)
 {
-    double d = 4.0;
+    இரட்டை d = 4.0;
     printf("%g\n", scale(42));
     mul(&d);
     printf("%g\n", d);
-    return 0;
+    திரும்பு 0;
 }

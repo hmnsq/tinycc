@@ -1,24 +1,24 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-void fred(int x)
+வெறுமை fred(முழு x)
 {
-   switch (x)
+   தேர்வு (x)
    {
-      case 1: printf("1\n"); return;
-      case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      நிலை 1: printf("1\n"); திரும்பு;
+      நிலை 2: printf("2\n"); நிறுத்து;
+      நிலை 3: printf("3\n"); திரும்பு;
    }
 
    printf("out\n");
 }
 
-int main()
+முழு முதன்மை()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   திரும்பு 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

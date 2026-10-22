@@ -11,7 +11,7 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
 #ifndef WINVER
@@ -20,22 +20,22 @@ extern "C" {
 
 #ifndef BASETYPES
 #define BASETYPES
-  typedef unsigned long ULONG;
-  typedef ULONG *PULONG;
-  typedef unsigned short USHORT;
-  typedef USHORT *PUSHORT;
-  typedef unsigned char UCHAR;
-  typedef UCHAR *PUCHAR;
-  typedef char *PSZ;
+  வகைவரை unsigned long ULONG;
+  வகைவரை ULONG *PULONG;
+  வகைவரை unsigned short USHORT;
+  வகைவரை USHORT *PUSHORT;
+  வகைவரை unsigned எழுத்து UCHAR;
+  வகைவரை UCHAR *PUCHAR;
+  வகைவரை எழுத்து *PSZ;
 #endif
 
 #define MAX_PATH 260
 
-#ifndef NULL
+#ifndef வெற்று
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define வெற்று 0
+#இல்லையெனில்
+#define வெற்று ((வெறுமை *)0)
 #endif
 #endif
 
@@ -88,45 +88,45 @@ extern "C" {
 #define FAR
 #define NEAR
 #ifndef CONST
-#define CONST const
+#define CONST மாறிலி
 #endif
 
-  typedef unsigned long DWORD;
-  typedef int WINBOOL;
+  வகைவரை unsigned long DWORD;
+  வகைவரை முழு WINBOOL;
 #define BOOL WINBOOL
-  typedef unsigned char BYTE;
-  typedef unsigned short WORD;
-  typedef float FLOAT;
-  typedef FLOAT *PFLOAT;
-  typedef WINBOOL *PBOOL;
-  typedef WINBOOL *LPBOOL;
-  typedef BYTE *PBYTE;
-  typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
-  typedef WORD *PWORD;
-  typedef WORD *LPWORD;
-  typedef long *LPLONG;
-  typedef DWORD *PDWORD;
-  typedef DWORD *LPDWORD;
-  typedef void *LPVOID;
+  வகைவரை unsigned எழுத்து BYTE;
+  வகைவரை unsigned short WORD;
+  வகைவரை தசம FLOAT;
+  வகைவரை FLOAT *PFLOAT;
+  வகைவரை WINBOOL *PBOOL;
+  வகைவரை WINBOOL *LPBOOL;
+  வகைவரை BYTE *PBYTE;
+  வகைவரை BYTE *LPBYTE;
+  வகைவரை முழு *PINT;
+  வகைவரை முழு *LPINT;
+  வகைவரை WORD *PWORD;
+  வகைவரை WORD *LPWORD;
+  வகைவரை long *LPLONG;
+  வகைவரை DWORD *PDWORD;
+  வகைவரை DWORD *LPDWORD;
+  வகைவரை வெறுமை *LPVOID;
 # ifndef _LPCVOID_DEFINED
 #define _LPCVOID_DEFINED
-typedef CONST void *LPCVOID;
+வகைவரை CONST வெறுமை *LPCVOID;
 #endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+  வகைவரை முழு INT;
+  வகைவரை unsigned முழு UINT;
+  வகைவரை unsigned முழு *PUINT;
 
 #ifndef NT_INCLUDED
-#include <winnt.h>
+#அந்தர்பாவ <winnt.h>
 #endif
 
 //gr #include <specstrings.h>
 
-  typedef UINT_PTR WPARAM;
-  typedef LONG_PTR LPARAM;
-  typedef LONG_PTR LRESULT;
+  வகைவரை UINT_PTR WPARAM;
+  வகைவரை LONG_PTR LPARAM;
+  வகைவரை LONG_PTR LRESULT;
 
 #ifndef __cplusplus
 #ifndef NOMINMAX
@@ -155,28 +155,28 @@ typedef CONST void *LPCVOID;
 #endif
 #endif
 
-  typedef WORD ATOM;
+  வகைவரை WORD ATOM;
 
-  typedef HANDLE *SPHANDLE;
-  typedef HANDLE *LPHANDLE;
-  typedef HANDLE HGLOBAL;
-  typedef HANDLE HLOCAL;
-  typedef HANDLE GLOBALHANDLE;
-  typedef HANDLE LOCALHANDLE;
+  வகைவரை HANDLE *SPHANDLE;
+  வகைவரை HANDLE *LPHANDLE;
+  வகைவரை HANDLE HGLOBAL;
+  வகைவரை HANDLE HLOCAL;
+  வகைவரை HANDLE GLOBALHANDLE;
+  வகைவரை HANDLE LOCALHANDLE;
 #ifdef _WIN64
-  typedef INT_PTR (WINAPI *FARPROC)();
-  typedef INT_PTR (WINAPI *NEARPROC)();
-  typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
+  வகைவரை INT_PTR (WINAPI *FARPROC)();
+  வகைவரை INT_PTR (WINAPI *NEARPROC)();
+  வகைவரை INT_PTR (WINAPI *PROC)();
+#இல்லையெனில்
+  வகைவரை முழு (WINAPI *FARPROC)();
+  வகைவரை முழு (WINAPI *NEARPROC)();
+  வகைவரை முழு (WINAPI *PROC)();
 #endif
 
-  typedef void *HGDIOBJ;
+  வகைவரை வெறுமை *HGDIOBJ;
 
   DECLARE_HANDLE(HKEY);
-  typedef HKEY *PHKEY;
+  வகைவரை HKEY *PHKEY;
 
   DECLARE_HANDLE(HACCEL);
   DECLARE_HANDLE(HBITMAP);
@@ -191,7 +191,7 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HMENU);
   DECLARE_HANDLE(HMETAFILE);
   DECLARE_HANDLE(HINSTANCE);
-  typedef HINSTANCE HMODULE;
+  வகைவரை HINSTANCE HMODULE;
   DECLARE_HANDLE(HPALETTE);
   DECLARE_HANDLE(HPEN);
   DECLARE_HANDLE(HRGN);
@@ -204,57 +204,57 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
-  typedef HICON HCURSOR;
-  typedef DWORD COLORREF;
-  typedef DWORD *LPCOLORREF;
+  வகைவரை முழு HFILE;
+  வகைவரை HICON HCURSOR;
+  வகைவரை DWORD COLORREF;
+  வகைவரை DWORD *LPCOLORREF;
 
 #define HFILE_ERROR ((HFILE)-1)
 
-  typedef struct tagRECT {
-    LONG left;
-    LONG top;
-    LONG right;
+  வகைவரை கட்டமைப்பு tagRECT {
+    LONG இடது;
+    LONG உச்சி;
+    LONG வலது;
     LONG bottom;
   } RECT,*PRECT,*NPRECT,*LPRECT;
 
-  typedef const RECT *LPCRECT;
+  வகைவரை மாறிலி RECT *LPCRECT;
 
-  typedef struct _RECTL {
-    LONG left;
-    LONG top;
-    LONG right;
+  வகைவரை கட்டமைப்பு _RECTL {
+    LONG இடது;
+    LONG உச்சி;
+    LONG வலது;
     LONG bottom;
   } RECTL,*PRECTL,*LPRECTL;
 
-  typedef const RECTL *LPCRECTL;
+  வகைவரை மாறிலி RECTL *LPCRECTL;
 
-  typedef struct tagPOINT {
+  வகைவரை கட்டமைப்பு tagPOINT {
     LONG x;
     LONG y;
   } POINT,*PPOINT,*NPPOINT,*LPPOINT;
 
-  typedef struct _POINTL {
+  வகைவரை கட்டமைப்பு _POINTL {
     LONG x;
     LONG y;
   } POINTL,*PPOINTL;
 
-  typedef struct tagSIZE {
+  வகைவரை கட்டமைப்பு tagSIZE {
     LONG cx;
     LONG cy;
   } SIZE,*PSIZE,*LPSIZE;
 
-  typedef SIZE SIZEL;
-  typedef SIZE *PSIZEL,*LPSIZEL;
+  வகைவரை SIZE SIZEL;
+  வகைவரை SIZE *PSIZEL,*LPSIZEL;
 
-  typedef struct tagPOINTS {
+  வகைவரை கட்டமைப்பு tagPOINTS {
     SHORT x;
     SHORT y;
   } POINTS,*PPOINTS,*LPPOINTS;
 
-  typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+  வகைவரை கட்டமைப்பு _FILETIME {
+    DWORD dw_கீழ்_Date_Time;
+    DWORD dw_உயர்வு_Date_Time;
   } FILETIME,*PFILETIME,*LPFILETIME;
 #define _FILETIME_
 

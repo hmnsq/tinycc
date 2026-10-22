@@ -1,104 +1,104 @@
-extern int printf(const char *format, ...);
-static void kb_wait_1(void)
+வெளி முழு printf(மாறிலி எழுத்து *format, ...);
+நிலையான வெறுமை kb_wait_1(வெறுமை)
 {
     unsigned long timeout = 2;
-    do {
+    செய் {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                while (1)
+                போது (1)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } போது (timeout);
 }
-static void kb_wait_2(void)
+நிலையான வெறுமை kb_wait_2(வெறுமை)
 {
     unsigned long timeout = 2;
-    do {
+    செய் {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                for (;;)
+                க்கு (;;)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } போது (timeout);
 }
-static void kb_wait_2_1(void)
+நிலையான வெறுமை kb_wait_2_1(வெறுமை)
 {
     unsigned long timeout = 2;
-    do {
+    செய் {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                do {
+                செய் {
                     printf("error\n");
-		} while (1);
+		} போது (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } போது (timeout);
 }
-static void kb_wait_2_2(void)
+நிலையான வெறுமை kb_wait_2_2(வெறுமை)
 {
     unsigned long timeout = 2;
-    do {
+    செய் {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
                 label:
                     printf("error\n");
-		goto label;
+		செல் label;
             })
         );
         timeout--;
-    } while (timeout);
+    } போது (timeout);
 }
-static void kb_wait_3(void)
+நிலையான வெறுமை kb_wait_3(வெறுமை)
 {
     unsigned long timeout = 2;
-    do {
+    செய் {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
-                goto label;
+                முழு i = 1;
+                செல் label;
                 i = i + 2;
             label:
                 i = i + 3;
             })
         );
         timeout--;
-    } while (timeout);
+    } போது (timeout);
 }
-static void kb_wait_4(void)
+நிலையான வெறுமை kb_wait_4(வெறுமை)
 {
     unsigned long timeout = 2;
-    do {
+    செய் {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                switch(timeout) {
-                    case 2:
+                தேர்வு(timeout) {
+                    நிலை 2:
                         printf("timeout is 2");
-                        break;
-                    case 1:
+                        நிறுத்து;
+                    நிலை 1:
                         printf("timeout is 1");
-                        break;
-                    default:
+                        நிறுத்து;
+                    இயல்பு:
                         printf("timeout is 0?");
-                        break;
+                        நிறுத்து;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } போது (timeout);
 }
-int main()
+முழு முதன்மை()
 {
     printf("begin\n");
     kb_wait_1();
@@ -108,5 +108,5 @@ int main()
     kb_wait_3();
     kb_wait_4();
     printf("end\n");
-    return 0;
+    திரும்பு 0;
 }

@@ -1,8 +1,8 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main()
+முழு முதன்மை()
 {
-   int a[4];
+   முழு a[4];
 
    a[0] = 12;
    a[1] = 23;
@@ -11,13 +11,13 @@ int main()
 
    printf("%d %d %d %d\n", a[0], a[1], a[2], a[3]);
 
-   int b[4];
+   முழு b[4];
 
    b = a;
 
    printf("%d %d %d %d\n", b[0], b[1], b[2], b[3]);
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

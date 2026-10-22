@@ -1,20 +1,20 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
+#அந்தர்பாவ <stdio.h>
+#அந்தர்பாவ <string.h>
+#அந்தர்பாவ <setjmp.h>
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   முழு i, a[2], b[2];                \
+              க்கு (i = 0; i < 2; i++) a[i] = 0; \
+              க்கு (i = 0; i < 2; i++) b[i] = 0
 
-static jmp_buf jmp;
+நிலையான jmp_buf jmp;
 
-static void tst1 (void)
+நிலையான வெறுமை tst1 (வெறுமை)
 {
     TST;
     longjmp(jmp, 1);
 }
 
-static void tst2(void)
+நிலையான வெறுமை tst2(வெறுமை)
 {
     jmp_buf jmp;
 
@@ -23,13 +23,13 @@ static void tst2(void)
     tst1();
 }
 
-static void tst3 (jmp_buf loc)
+நிலையான வெறுமை tst3 (jmp_buf loc)
 {
     TST;
     longjmp(loc, 1);
 }
 
-static void tst4(jmp_buf loc)
+நிலையான வெறுமை tst4(jmp_buf loc)
 {
     jmp_buf jmp;
 
@@ -38,55 +38,55 @@ static void tst4(jmp_buf loc)
     tst3(loc);
 }
 
-static void tst (void)
+நிலையான வெறுமை tst (வெறுமை)
 {
     jmp_buf loc;
-    static int cnt;
+    நிலையான முழு cnt;
 
     cnt = 0;
-    if (setjmp (jmp) == 0) {
+    எனில் (setjmp (jmp) == 0) {
         TST;
         tst2();
     }
-    else {
+    இல்லையெனில் {
         cnt++;
     }
-    if (setjmp (loc) == 0) {
+    எனில் (setjmp (loc) == 0) {
         TST;
         tst4(loc);
     }
-    else {
+    இல்லையெனில் {
         cnt++;
     }
-    if (cnt != 2)
+    எனில் (cnt != 2)
         printf ("incorrect cnt %d\n", cnt);
 }
 
-static jmp_buf buf1;
-static jmp_buf buf2;
-static int *p;
-static int n_x = 6;
-static int g_counter;
+நிலையான jmp_buf buf1;
+நிலையான jmp_buf buf2;
+நிலையான முழு *p;
+நிலையான முழு n_x = 6;
+நிலையான முழு g_counter;
 
-static void stack (void)
+நிலையான வெறுமை அடுக்கு (வெறுமை)
 {
-    static int counter;
-    static int way_point1;
-    static int way_point2;
+    நிலையான முழு counter;
+    நிலையான முழு way_point1;
+    நிலையான முழு way_point2;
 
     counter = 0;
     way_point1 = 3;
     way_point2 = 2;
     g_counter = 0;
-    if (setjmp (buf1) != 101) {
-        int a[n_x];
+    எனில் (setjmp (buf1) != 101) {
+        முழு a[n_x];
         g_counter++;
         p = &a[0];
-        if (g_counter < 5)
+        எனில் (g_counter < 5)
             longjmp (buf1, 2);
-        else if (g_counter == 5)
+        இல்லையெனில் எனில் (g_counter == 5)
             longjmp (buf1, 101);
-        else {
+        இல்லையெனில் {
             setjmp (buf2); 
             longjmp (buf1, 101);
         }
@@ -94,17 +94,17 @@ static void stack (void)
     
     way_point1--;
 
-    if (counter == 0) {
+    எனில் (counter == 0) {
         counter++;
         {
-            int a[n_x];
+            முழு a[n_x];
             g_counter++;
             p = &a[0];
-            if (g_counter < 5)
+            எனில் (g_counter < 5)
                 longjmp (buf1, 2);
-            else if (g_counter == 5)
+            இல்லையெனில் எனில் (g_counter == 5)
                 longjmp (buf1, 101);
-            else {
+            இல்லையெனில் {
                 setjmp (buf2);
                 longjmp (buf1, 101);
             }
@@ -113,60 +113,60 @@ static void stack (void)
 
     way_point2--;
 
-    if (counter == 1) {
+    எனில் (counter == 1) {
         counter++;
         longjmp (buf2, 2);
     }
 
-    if (!(way_point1 == 0 && way_point2 == 0 &&
+    எனில் (!(way_point1 == 0 && way_point2 == 0 &&
           g_counter == 6 && counter == 2))
         printf ("Failed %d %d %d %d\n",
                 way_point1, way_point2, g_counter, counter);
 }
 
-static jmp_buf env;
-static int last_value;
+நிலையான jmp_buf env;
+நிலையான முழு last_மதிப்பு;
 
-static void jump (int val)
+நிலையான வெறுமை jump (முழு val)
 {
     longjmp (env, val);
 }
 
-static void check (void)
+நிலையான வெறுமை check (வெறுமை)
 {
-    int value;
+    முழு மதிப்பு;
 
-    last_value = -1;
-    value = setjmp (env);
-    if (value != last_value + 1) {
+    last_மதிப்பு = -1;
+    மதிப்பு = setjmp (env);
+    எனில் (மதிப்பு != last_மதிப்பு + 1) {
         printf ("incorrect value %d %d\n",
-                value, last_value + 1);
-        return;
+                மதிப்பு, last_மதிப்பு + 1);
+        திரும்பு;
     }
-    last_value = value;
-    switch (value) {
-#if !(defined(__FreeBSD__) || defined(__NetBSD__))
+    last_மதிப்பு = மதிப்பு;
+    தேர்வு (மதிப்பு) {
+#எனில் !(defined(__FreeBSD__) || defined(__NetBSD__))
     /* longjmp(jmp_buf, 0) not supported */
-    case 0:
+    நிலை 0:
         jump (0);
 #endif
-    default:
-        if (value < 10)
-          jump (value + 1);
+    இயல்பு:
+        எனில் (மதிப்பு < 10)
+          jump (மதிப்பு + 1);
     }
 }
 
-int
-main (void)
+முழு
+முதன்மை (வெறுமை)
 {
-    int i;
+    முழு i;
 
-    for (i = 0; i < 10;  i++) {
+    க்கு (i = 0; i < 10;  i++) {
         tst();
-        stack();
+        அடுக்கு();
         check();
     }
-    return 0;
+    திரும்பு 0;
 }
 
 

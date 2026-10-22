@@ -14,9 +14,9 @@
  * included and reference made to  the  fact  that  reproduction
  * privileges were granted by DECUS.
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>	// tolower()
+#அந்தர்பாவ <stdio.h>
+#அந்தர்பாவ <stdlib.h>
+#அந்தர்பாவ <ctype.h>	// tolower()
 
 /*
  * grep
@@ -27,7 +27,7 @@
  * See below for more information.
  */
 
-char    *documentation[] = {
+எழுத்து    *documentation[] = {
    "grep searches a file for a given pattern.  Execute by",
    "   grep [flags] regular_expression file_list\n",
    "Flags are single characters preceded by '-':",
@@ -40,7 +40,7 @@ char    *documentation[] = {
    "The -f flag reverses this action (print name no file, not if more).\n",
    0 };
 
-char    *patdoc[] = {
+எழுத்து    *patdoc[] = {
    "The regular_expression defines the pattern to search for.  Upper- and",
    "lower-case are always ignored.  Blank lines never match.  The expression",
    "should be quoted to prevent file-name translation.",
@@ -91,41 +91,41 @@ char    *patdoc[] = {
 #define RANGE   14
 #define ENDPAT  15
 
-int cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
+முழு cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
 
-char *pp, lbuf[LMAX], pbuf[PMAX];
+எழுத்து *pp, lbuf[LMAX], pbuf[PMAX];
 
-char *cclass();
-char *pmatch();
-void store(int);
-void error(char *);
-void badpat(char *, char *, char *);
-int match(void);
+எழுத்து *cclass();
+எழுத்து *pmatch();
+வெறுமை store(முழு);
+வெறுமை error(எழுத்து *);
+வெறுமை badpat(எழுத்து *, எழுத்து *, எழுத்து *);
+முழு match(வெறுமை);
 
 
 /*** Display a file name *******************************/
-void file(char *s)
+வெறுமை file(எழுத்து *s)
 {
    printf("File %s:\n", s);
 }
 
 /*** Report unopenable file ****************************/
-void cant(char *s)
+வெறுமை cant(எழுத்து *s)
 {
    fprintf(stderr, "%s: cannot open\n", s);
 }
 
 /*** Give good help ************************************/
-void help(char **hp)
+வெறுமை help(எழுத்து **hp)
 {
-   char   **dp;
+   எழுத்து   **dp;
 
-   for (dp = hp; *dp; ++dp)
+   க்கு (dp = hp; *dp; ++dp)
       printf("%s\n", *dp);
 }
 
 /*** Display usage summary *****************************/
-void usage(char *s)
+வெறுமை usage(எழுத்து *s)
 {
    fprintf(stderr, "?GREP-E-%s\n", s);
    fprintf(stderr,
@@ -134,24 +134,24 @@ void usage(char *s)
 }
 
 /*** Compile the pattern into global pbuf[] ************/
-void compile(char *source)
+வெறுமை compile(எழுத்து *source)
 {
-   char  *s;         /* Source string pointer     */
-   char  *lp;        /* Last pattern pointer      */
-   int   c;          /* Current character         */
-   int            o;          /* Temp                      */
-   char           *spp;       /* Save beginning of pattern */
+   எழுத்து  *s;         /* Source string pointer     */
+   எழுத்து  *lp;        /* Last pattern pointer      */
+   முழு   c;          /* Current character         */
+   முழு            o;          /* Temp                      */
+   எழுத்து           *spp;       /* Save beginning of pattern */
 
    s = source;
-   if (debug)
+   எனில் (debug)
       printf("Pattern = \"%s\"\n", s);
    pp = pbuf;
-   while (c = *s++) {
+   போது (c = *s++) {
       /*
        * STAR, PLUS and MINUS are special.
        */
-      if (c == '*' || c == '+' || c == '-') {
-         if (pp == pbuf ||
+      எனில் (c == '*' || c == '+' || c == '-') {
+         எனில் (pp == pbuf ||
                (o=pp[-1]) == BOL ||
                o == EOL ||
                o == STAR ||
@@ -161,113 +161,113 @@ void compile(char *source)
          store(ENDPAT);
          store(ENDPAT);
          spp = pp;               /* Save pattern end     */
-         while (--pp > lp)       /* Move pattern down    */
+         போது (--pp > lp)       /* Move pattern down    */
             *pp = pp[-1];        /* one byte             */
          *pp =   (c == '*') ? STAR :
             (c == '-') ? MINUS : PLUS;
          pp = spp;               /* Restore pattern end  */
-         continue;
+         தொடர்;
       }
       /*
        * All the rest.
        */
       lp = pp;         /* Remember start       */
-      switch(c) {
+      தேர்வு(c) {
 
-         case '^':
+         நிலை '^':
             store(BOL);
-            break;
+            நிறுத்து;
 
-         case '$':
+         நிலை '$':
             store(EOL);
-            break;
+            நிறுத்து;
 
-         case '.':
+         நிலை '.':
             store(ANY);
-            break;
+            நிறுத்து;
 
-         case '[':
+         நிலை '[':
             s = cclass(source, s);
-            break;
+            நிறுத்து;
 
-         case ':':
-            if (*s) {
-               switch(tolower(c = *s++)) {
+         நிலை ':':
+            எனில் (*s) {
+               தேர்வு(tolower(c = *s++)) {
 
-                  case 'a':
-                  case 'A':
+                  நிலை 'a':
+                  நிலை 'A':
                      store(ALPHA);
-                     break;
+                     நிறுத்து;
 
-                  case 'd':
-                  case 'D':
+                  நிலை 'd':
+                  நிலை 'D':
                      store(DIGIT);
-                     break;
+                     நிறுத்து;
 
-                  case 'n':
-                  case 'N':
+                  நிலை 'n':
+                  நிலை 'N':
                      store(NALPHA);
-                     break;
+                     நிறுத்து;
 
-                  case ' ':
+                  நிலை ' ':
                      store(PUNCT);
-                     break;
+                     நிறுத்து;
 
-                  default:
+                  இயல்பு:
                      badpat("Unknown : type", source, s);
 
                }
-               break;
+               நிறுத்து;
             }
-            else    badpat("No : type", source, s);
+            இல்லையெனில்    badpat("No : type", source, s);
 
-         case '\\':
-            if (*s)
+         நிலை '\\':
+            எனில் (*s)
                c = *s++;
 
-         default:
+         இயல்பு:
             store(CHAR);
             store(tolower(c));
       }
    }
    store(ENDPAT);
    store(0);                /* Terminate string     */
-   if (debug) {
-      for (lp = pbuf; lp < pp;) {
-         if ((c = (*lp++ & 0377)) < ' ')
+   எனில் (debug) {
+      க்கு (lp = pbuf; lp < pp;) {
+         எனில் ((c = (*lp++ & 0377)) < ' ')
             printf("\\%o ", c);
-         else    printf("%c ", c);
+         இல்லையெனில்    printf("%c ", c);
       }
       printf("\n");
    }
 }
 
 /*** Compile a class (within []) ***********************/
-char *cclass(char *source, char *src)
+எழுத்து *cclass(எழுத்து *source, எழுத்து *src)
    /* char       *source;   // Pattern start -- for error msg. */
    /* char       *src;      // Class start */
 {
-   char   *s;        /* Source pointer    */
-   char   *cp;       /* Pattern start     */
-   int    c;         /* Current character */
-   int             o;         /* Temp              */
+   எழுத்து   *s;        /* Source pointer    */
+   எழுத்து   *cp;       /* Pattern start     */
+   முழு    c;         /* Current character */
+   முழு             o;         /* Temp              */
 
    s = src;
    o = CLASS;
-   if (*s == '^') {
+   எனில் (*s == '^') {
       ++s;
       o = NCLASS;
    }
    store(o);
    cp = pp;
    store(0);                          /* Byte count      */
-   while ((c = *s++) && c!=']') {
-      if (c == '\\') {                /* Store quoted char    */
-         if ((c = *s++) == '\0')      /* Gotta get something  */
+   போது ((c = *s++) && c!=']') {
+      எனில் (c == '\\') {                /* Store quoted char    */
+         எனில் ((c = *s++) == '\0')      /* Gotta get something  */
             badpat("Class terminates badly", source, s);
-         else    store(tolower(c));
+         இல்லையெனில்    store(tolower(c));
       }
-      else if (c == '-' &&
+      இல்லையெனில் எனில் (c == '-' &&
             (pp - cp) > 1 && *s != ']' && *s != '\0') {
          c = pp[-1];             /* Range start     */
          pp[-1] = RANGE;         /* Range signal    */
@@ -275,30 +275,30 @@ char *cclass(char *source, char *src)
          c = *s++;               /* Get end char and*/
          store(tolower(c));      /* Store it        */
       }
-      else {
+      இல்லையெனில் {
          store(tolower(c));      /* Store normal char */
       }
    }
-   if (c != ']')
+   எனில் (c != ']')
       badpat("Unterminated class", source, s);
-   if ((c = (pp - cp)) >= 256)
+   எனில் ((c = (pp - cp)) >= 256)
       badpat("Class too large", source, s);
-   if (c == 0)
+   எனில் (c == 0)
       badpat("Empty class", source, s);
    *cp = c;
-   return(s);
+   திரும்பு(s);
 }
 
 /*** Store an entry in the pattern buffer **************/
-void store(int op)
+வெறுமை store(முழு op)
 {
-   if (pp >= &pbuf[PMAX])
+   எனில் (pp >= &pbuf[PMAX])
       error("Pattern too complex\n");
    *pp++ = op;
 }
 
 /*** Report a bad pattern specification ****************/
-void badpat(char *message, char *source, char *stop)
+வெறுமை badpat(எழுத்து *message, எழுத்து *source, எழுத்து *stop)
    /* char  *message;       // Error message */
    /* char  *source;        // Pattern start */
    /* char  *stop;          // Pattern end   */
@@ -310,261 +310,261 @@ void badpat(char *message, char *source, char *stop)
 }
 
 /*** Scan the file for the pattern in pbuf[] ***********/
-void grep(FILE *fp, char *fn)
+வெறுமை grep(FILE *fp, எழுத்து *fn)
    /* FILE       *fp;       // File to process            */
    /* char       *fn;       // File name (for -f option)  */
 {
-   int lno, count, m;
+   முழு lno, மொத்தம்_2, m;
 
    lno = 0;
-   count = 0;
-   while (fgets(lbuf, LMAX, fp)) {
+   மொத்தம்_2 = 0;
+   போது (fgets(lbuf, LMAX, fp)) {
       ++lno;
       m = match();
-      if ((m && !vflag) || (!m && vflag)) {
-         ++count;
-         if (!cflag) {
-            if (fflag && fn) {
+      எனில் ((m && !vflag) || (!m && vflag)) {
+         ++மொத்தம்_2;
+         எனில் (!cflag) {
+            எனில் (fflag && fn) {
                file(fn);
                fn = 0;
             }
-            if (nflag)
+            எனில் (nflag)
                printf("%d\t", lno);
             printf("%s\n", lbuf);
          }
       }
    }
-   if (cflag) {
-      if (fflag && fn)
+   எனில் (cflag) {
+      எனில் (fflag && fn)
          file(fn);
-      printf("%d\n", count);
+      printf("%d\n", மொத்தம்_2);
    }
 }
 
 /*** Match line (lbuf) with pattern (pbuf) return 1 if match ***/
-int match()
+முழு match()
 {
-   char   *l;        /* Line pointer       */
+   எழுத்து   *l;        /* Line pointer       */
 
-   for (l = lbuf; *l; ++l) {
-      if (pmatch(l, pbuf))
-         return(1);
+   க்கு (l = lbuf; *l; ++l) {
+      எனில் (pmatch(l, pbuf))
+         திரும்பு(1);
    }
-   return(0);
+   திரும்பு(0);
 }
 
 /*** Match partial line with pattern *******************/
-char *pmatch(char *line, char *pattern)
+எழுத்து *pmatch(எழுத்து *வரி, எழுத்து *pattern)
    /* char               *line;     // (partial) line to match      */
    /* char               *pattern;  // (partial) pattern to match   */
 {
-   char   *l;        /* Current line pointer         */
-   char   *p;        /* Current pattern pointer      */
-   char   c;         /* Current character            */
-   char            *e;        /* End for STAR and PLUS match  */
-   int             op;        /* Pattern operation            */
-   int             n;         /* Class counter                */
-   char            *are;      /* Start of STAR match          */
+   எழுத்து   *l;        /* Current line pointer         */
+   எழுத்து   *p;        /* Current pattern pointer      */
+   எழுத்து   c;         /* Current character            */
+   எழுத்து            *e;        /* End for STAR and PLUS match  */
+   முழு             op;        /* Pattern operation            */
+   முழு             n;         /* Class counter                */
+   எழுத்து            *are;      /* Start of STAR match          */
 
-   l = line;
-   if (debug > 1)
-      printf("pmatch(\"%s\")\n", line);
+   l = வரி;
+   எனில் (debug > 1)
+      printf("pmatch(\"%s\")\n", வரி);
    p = pattern;
-   while ((op = *p++) != ENDPAT) {
-      if (debug > 1)
+   போது ((op = *p++) != ENDPAT) {
+      எனில் (debug > 1)
          printf("byte[%ld] = 0%o, '%c', op = 0%o\n",
-               l-line, *l, *l, op);
-      switch(op) {
+               l-வரி, *l, *l, op);
+      தேர்வு(op) {
 
-         case CHAR:
-            if (tolower(*l++) != *p++)
-               return(0);
-            break;
+         நிலை CHAR:
+            எனில் (tolower(*l++) != *p++)
+               திரும்பு(0);
+            நிறுத்து;
 
-         case BOL:
-            if (l != lbuf)
-               return(0);
-            break;
+         நிலை BOL:
+            எனில் (l != lbuf)
+               திரும்பு(0);
+            நிறுத்து;
 
-         case EOL:
-            if (*l != '\0')
-               return(0);
-            break;
+         நிலை EOL:
+            எனில் (*l != '\0')
+               திரும்பு(0);
+            நிறுத்து;
 
-         case ANY:
-            if (*l++ == '\0')
-               return(0);
-            break;
+         நிலை ANY:
+            எனில் (*l++ == '\0')
+               திரும்பு(0);
+            நிறுத்து;
 
-         case DIGIT:
-            if ((c = *l++) < '0' || (c > '9'))
-               return(0);
-            break;
+         நிலை DIGIT:
+            எனில் ((c = *l++) < '0' || (c > '9'))
+               திரும்பு(0);
+            நிறுத்து;
 
-         case ALPHA:
+         நிலை ALPHA:
             c = tolower(*l++);
-            if (c < 'a' || c > 'z')
-               return(0);
-            break;
+            எனில் (c < 'a' || c > 'z')
+               திரும்பு(0);
+            நிறுத்து;
 
-         case NALPHA:
+         நிலை NALPHA:
             c = tolower(*l++);
-            if (c >= 'a' && c <= 'z')
-               break;
-            else if (c < '0' || c > '9')
-               return(0);
-            break;
+            எனில் (c >= 'a' && c <= 'z')
+               நிறுத்து;
+            இல்லையெனில் எனில் (c < '0' || c > '9')
+               திரும்பு(0);
+            நிறுத்து;
 
-         case PUNCT:
+         நிலை PUNCT:
             c = *l++;
-            if (c == 0 || c > ' ')
-               return(0);
-            break;
+            எனில் (c == 0 || c > ' ')
+               திரும்பு(0);
+            நிறுத்து;
 
-         case CLASS:
-         case NCLASS:
+         நிலை CLASS:
+         நிலை NCLASS:
             c = tolower(*l++);
             n = *p++ & 0377;
-            do {
-               if (*p == RANGE) {
+            செய் {
+               எனில் (*p == RANGE) {
                   p += 3;
                   n -= 2;
-                  if (c >= p[-2] && c <= p[-1])
-                     break;
+                  எனில் (c >= p[-2] && c <= p[-1])
+                     நிறுத்து;
                }
-               else if (c == *p++)
-                  break;
-            } while (--n > 1);
-            if ((op == CLASS) == (n <= 1))
-               return(0);
-            if (op == CLASS)
+               இல்லையெனில் எனில் (c == *p++)
+                  நிறுத்து;
+            } போது (--n > 1);
+            எனில் ((op == CLASS) == (n <= 1))
+               திரும்பு(0);
+            எனில் (op == CLASS)
                p += n - 2;
-            break;
+            நிறுத்து;
 
-         case MINUS:
+         நிலை MINUS:
             e = pmatch(l, p);       /* Look for a match    */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            if (e)                  /* Got a match?        */
+            போது (*p++ != ENDPAT); /* Skip over pattern   */
+            எனில் (e)                  /* Got a match?        */
                l = e;               /* Yes, update string  */
-            break;                  /* Always succeeds     */
+            நிறுத்து;                  /* Always succeeds     */
 
-         case PLUS:                 /* One or more ...     */
-            if ((l = pmatch(l, p)) == 0)
-               return(0);           /* Gotta have a match  */
-         case STAR:                 /* Zero or more ...    */
+         நிலை PLUS:                 /* One or more ...     */
+            எனில் ((l = pmatch(l, p)) == 0)
+               திரும்பு(0);           /* Gotta have a match  */
+         நிலை STAR:                 /* Zero or more ...    */
             are = l;                /* Remember line start */
-            while (*l && (e = pmatch(l, p)))
+            போது (*l && (e = pmatch(l, p)))
                l = e;               /* Get longest match   */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            while (l > are) {       /* Try to match rest   */
-               if (e = pmatch(l, p))
-                  return(e);
+            போது (*p++ != ENDPAT); /* Skip over pattern   */
+            போது (l > are) {       /* Try to match rest   */
+               எனில் (e = pmatch(l, p))
+                  திரும்பு(e);
                --l;                 /* Nope, try earlier   */
             }
-            if (e = pmatch(l, p))
-               return(e);
-            return(0);              /* Nothing else worked */
+            எனில் (e = pmatch(l, p))
+               திரும்பு(e);
+            திரும்பு(0);              /* Nothing else worked */
 
-         default:
+         இயல்பு:
             printf("Bad op code %d\n", op);
             error("Cannot happen -- match\n");
       }
    }
-   return(l);
+   திரும்பு(l);
 }
 
 /*** Report an error ***********************************/
-void error(char *s)
+வெறுமை error(எழுத்து *s)
 {
    fprintf(stderr, "%s", s);
    exit(1);
 }
 
 /*** Main program - parse arguments & grep *************/
-int main(int argc, char **argv)
+முழு முதன்மை(முழு argc, எழுத்து **argv)
 {
-   char   *p;
-   int    c, i;
-   int             gotpattern;
+   எழுத்து   *p;
+   முழு    c, i;
+   முழு             gotpattern;
 
    FILE            *f;
 
-   if (argc <= 1)
+   எனில் (argc <= 1)
       usage("No arguments");
-   if (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
+   எனில் (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
       help(documentation);
       help(patdoc);
-      return 0;
+      திரும்பு 0;
    }
    nfile = argc-1;
    gotpattern = 0;
-   for (i=1; i < argc; ++i) {
+   க்கு (i=1; i < argc; ++i) {
       p = argv[i];
-      if (*p == '-') {
+      எனில் (*p == '-') {
          ++p;
-         while (c = *p++) {
-            switch(tolower(c)) {
+         போது (c = *p++) {
+            தேர்வு(tolower(c)) {
 
-               case '?':
+               நிலை '?':
                   help(documentation);
-                  break;
+                  நிறுத்து;
 
-               case 'C':
-               case 'c':
+               நிலை 'C':
+               நிலை 'c':
                   ++cflag;
-                  break;
+                  நிறுத்து;
 
-               case 'D':
-               case 'd':
+               நிலை 'D':
+               நிலை 'd':
                   ++debug;
-                  break;
+                  நிறுத்து;
 
-               case 'F':
-               case 'f':
+               நிலை 'F':
+               நிலை 'f':
                   ++fflag;
-                  break;
+                  நிறுத்து;
 
-               case 'n':
-               case 'N':
+               நிலை 'n':
+               நிலை 'N':
                   ++nflag;
-                  break;
+                  நிறுத்து;
 
-               case 'v':
-               case 'V':
+               நிலை 'v':
+               நிலை 'V':
                   ++vflag;
-                  break;
+                  நிறுத்து;
 
-               default:
+               இயல்பு:
                   usage("Unknown flag");
             }
          }
          argv[i] = 0;
          --nfile;
-      } else if (!gotpattern) {
+      } இல்லையெனில் எனில் (!gotpattern) {
          compile(p);
          argv[i] = 0;
          ++gotpattern;
          --nfile;
       }
    }
-   if (!gotpattern)
+   எனில் (!gotpattern)
       usage("No pattern");
-   if (nfile == 0)
+   எனில் (nfile == 0)
       grep(stdin, 0);
-   else {
+   இல்லையெனில் {
       fflag = fflag ^ (nfile > 0);
-      for (i=1; i < argc; ++i) {
-         if (p = argv[i]) {
-            if ((f=fopen(p, "r")) == NULL)
+      க்கு (i=1; i < argc; ++i) {
+         எனில் (p = argv[i]) {
+            எனில் ((f=fopen(p, "r")) == வெற்று)
                cant(p);
-            else {
+            இல்லையெனில் {
                grep(f, p);
                fclose(f);
             }
          }
       }
    }
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

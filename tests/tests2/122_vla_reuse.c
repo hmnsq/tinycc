@@ -1,31 +1,31 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int
-main (void)
+முழு
+முதன்மை (வெறுமை)
 {
-    int n = 0;
-    int  first=1;
-    int *p[101];
-    if (0) {
+    முழு n = 0;
+    முழு  first=1;
+    முழு *p[101];
+    எனில் (0) {
         lab:;
     }
-    int x[n % 100 + 1];
-    if (first == 0) {
-        if (&x[0] != p[n % 100 + 1]) {
+    முழு x[n % 100 + 1];
+    எனில் (first == 0) {
+        எனில் (&x[0] != p[n % 100 + 1]) {
             printf ("ERROR: %p %p\n", &x[0], p[n % 100 + 1]);
-            return(1);
+            திரும்பு(1);
         }
     }
-    else {
+    இல்லையெனில் {
         p[n % 100 + 1] = &x[0];
         first = n < 100;
     }
     x[0] = 1;
     x[n % 100] = 2;
     n++;
-    if (n < 100000)
-        goto lab;
+    எனில் (n < 100000)
+        செல் lab;
     printf ("OK\n");
-    return 0;
+    திரும்பு 0;
 }
 

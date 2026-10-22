@@ -1,131 +1,131 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-const int a = 0;
+மாறிலி முழு a = 0;
 
-struct a {
-	int a;
+கட்டமைப்பு a {
+	முழு a;
 };
 
-struct b {
-	int a;
+கட்டமைப்பு b {
+	முழு a;
 };
 
-int a_f()
+முழு a_f()
 {
-	return 20;
+	திரும்பு 20;
 }
 
-int b_f()
+முழு b_f()
 {
-	return 10;
+	திரும்பு 10;
 }
 
-typedef int (*fptr)(int);
-typedef void (*vfptr)(int);
-int foo(int i)
+வகைவரை முழு (*fptr)(முழு);
+வகைவரை வெறுமை (*vfptr)(முழு);
+முழு foo(முழு i)
 {
-  return i;
+  திரும்பு i;
 }
-void void_foo(int i) {}
+வெறுமை void_foo(முழு i) {}
 
-typedef int int_type1;
+வகைவரை முழு int_type1;
 
-typedef int T[4];
-int f(T t)
+வகைவரை முழு T[4];
+முழு f(T t)
 {
-	return _Generic(t, __typeof__( ((void)0, (T){0}) ) : 1 );
+	திரும்பு _Generic(t, __typeof__( ((வெறுமை)0, (T){0}) ) : 1 );
 }
 
-#define gen_sw(a) _Generic(a, const char *: 1, default: 8, int: 123);
+#define gen_sw(a) _Generic(a, மாறிலி எழுத்து *: 1, இயல்பு: 8, முழு: 123);
 
-int main()
+முழு முதன்மை()
 {
-	int i = 0;
-	signed long int l = 2;
-	struct b titi;
-	const int * const ptr;
-	const char *ti;
+	முழு i = 0;
+	signed long முழு l = 2;
+	கட்டமைப்பு b titi;
+	மாறிலி முழு * மாறிலி ptr;
+	மாறிலி எழுத்து *ti;
 	int_type1 i2;
 	T t;
 
-	i = _Generic(a, int: a_f, const int: b_f)();
+	i = _Generic(a, முழு: a_f, மாறிலி முழு: b_f)();
 	printf("%d\n", i);
-	i = _Generic(a, int: a_f() / 2, const int: b_f() / 2);
+	i = _Generic(a, முழு: a_f() / 2, மாறிலி முழு: b_f() / 2);
 	printf("%d\n", i);
-	i = _Generic(ptr, int *:1, int * const:2, default:20);
+	i = _Generic(ptr, முழு *:1, முழு * மாறிலி:2, இயல்பு:20);
 	printf("%d\n", i);
 	i = gen_sw(a);
 	printf("%d\n", i);
-	i = _Generic(titi, struct a:1, struct b:2, default:20);
+	i = _Generic(titi, கட்டமைப்பு a:1, கட்டமைப்பு b:2, இயல்பு:20);
 	printf("%d\n", i);
-	i = _Generic(i2, char: 1, int : 0);
+	i = _Generic(i2, எழுத்து: 1, முழு : 0);
 	printf("%d\n", i);
-	i = _Generic(a, char:1, int[4]:2, default:5);
+	i = _Generic(a, எழுத்து:1, முழு[4]:2, இயல்பு:5);
 	printf("%d\n", i);
-	i = _Generic(17, int :1, int **:2);
+	i = _Generic(17, முழு :1, முழு **:2);
 	printf("%d\n", i);
-	i = _Generic(17L, int :1, long :2, long long : 3);
+	i = _Generic(17L, முழு :1, long :2, long long : 3);
 	printf("%d\n", i);
-	i = _Generic("17, io", char *: 3, const char *: 1);
+	i = _Generic("17, io", எழுத்து *: 3, மாறிலி எழுத்து *: 1);
 	printf("%d\n", i);
-	i = _Generic(ti, const unsigned char *:1, const char *:4, char *:3,
-		     const signed char *:2);
+	i = _Generic(ti, மாறிலி unsigned எழுத்து *:1, மாறிலி எழுத்து *:4, எழுத்து *:3,
+		     மாறிலி signed எழுத்து *:2);
 	printf("%d\n", i);
-	printf("%s\n", _Generic(i + 2L, long: "long", int: "int",
+	printf("%s\n", _Generic(i + 2L, long: "long", முழு: "int",
 				long long: "long long"));
-	i = _Generic(l, long: 1, int: 2);
+	i = _Generic(l, long: 1, முழு: 2);
 	printf("%d\n", i);
-	i = _Generic(foo, fptr: 3, int: 4, vfptr: 5);
+	i = _Generic(foo, fptr: 3, முழு: 4, vfptr: 5);
 	printf("%d\n", i);
-	i = _Generic(void_foo, fptr: 3, int: 4, vfptr: 5);
+	i = _Generic(void_foo, fptr: 3, முழு: 4, vfptr: 5);
 	printf("%d\n", i);
 
-	(void)_Generic((int(*)[2]){0}, int(*)[2]:0, int(*)[4]:0); //shouldn't match twice
+	(வெறுமை)_Generic((முழு(*)[2]){0}, முழு(*)[2]:0, முழு(*)[4]:0); //shouldn't match twice
 
 	//should accept ({ }) in the controlling expr of _Generic even in const_wanted contexts
-	struct { _Bool x_0: _Generic(({0;}),default:1); } my_x;
+	கட்டமைப்பு { _Bool x_0: _Generic(({0;}),இயல்பு:1); } my_x;
 
-	_Generic((__typeof((float const)((float const){42}))*){0}, float*: 0); //casts lose top-level qualifiers
-	int const x = 42; __typeof((__typeof(x))x) *xp = 0; (void)_Generic(xp, int*: 0); //casts lose top-level qualifiers
+	_Generic((__typeof((தசம மாறிலி)((தசம மாறிலி){42}))*){0}, தசம*: 0); //casts lose top-level qualifiers
+	முழு மாறிலி x = 42; __typeof((__typeof(x))x) *xp = 0; (வெறுமை)_Generic(xp, முழு*: 0); //casts lose top-level qualifiers
 
 	//TEST TERNARY:
 	//Same type
-	_Generic( 0?(long*)0:(long*)0,  long*: (void)0);
+	_Generic( 0?(long*)0:(long*)0,  long*: (வெறுமை)0);
 	//combining of qualifiers
-	_Generic( 0?(long volatile*)0:(long const*)0,  long const volatile*: (void)0);
+	_Generic( 0?(long நிலையற்ற*)0:(long மாறிலி*)0,  long மாறிலி நிலையற்ற*: (வெறுமை)0);
 	//nul-ptr constant selects other type
-	_Generic( 0?(long*)0:0,			long*: (void)0);
-	_Generic( 0?(long*)0:(void*)0, long*: (void)0);
+	_Generic( 0?(long*)0:0,			long*: (வெறுமை)0);
+	_Generic( 0?(long*)0:(வெறுமை*)0, long*: (வெறுமை)0);
 
 	//void ptrs get chosen preferentially; qualifs still combine
-	_Generic( 0?(int volatile*)0: (void const*)1, void volatile const*: (void)0);
+	_Generic( 0?(முழு நிலையற்ற*)0: (வெறுமை மாறிலி*)1, வெறுமை நிலையற்ற மாறிலி*: (வெறுமை)0);
         //but this is no null-ptr constant, so fallback to void-choice
         i = 0;
-        _Generic( 1?(void*)(i*0LL):&i, void*:0);
+        _Generic( 1?(வெறுமை*)(i*0LL):&i, வெறுமை*:0);
 	//like gcc but not clang, don't treat (void* const as the null-ptr constant)
-	_Generic( 0?(int volatile*)0: (void const*)0, void volatile const*: (void)0);
+	_Generic( 0?(முழு நிலையற்ற*)0: (வெறுமை மாறிலி*)0, வெறுமை நிலையற்ற மாறிலி*: (வெறுமை)0);
 
 	//ptrs to incomplete types get completed
-	(void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : (int (*)[])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	(void)(sizeof(struct { int x:_Generic( 0?(int (*)[])0 : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
+	(வெறுமை)(அளவு(கட்டமைப்பு { முழு x:_Generic( 0?(முழு (*)[4])0 : (முழு (*)[])0, முழு (*)[4]:+1, முழு (*)[5]:(வெறுமை)0); }));
+	(வெறுமை)(அளவு(கட்டமைப்பு { முழு x:_Generic( 0?(முழு (*)[])0 : (முழு (*)[4])0, முழு (*)[4]:+1, முழு (*)[5]:(வெறுமை)0); }));
 
 	{
 	  /* completion shouldn't affect the type of decl */
-		char **argv;
-		_Generic(argv, char**: (void)0);
-		_Generic(0?(char const*)0:argv[0], char const*: (void)0);
-		_Generic(argv, char**: (void)0);
+		எழுத்து **argv;
+		_Generic(argv, எழுத்து**: (வெறுமை)0);
+		_Generic(0?(எழுத்து மாறிலி*)0:argv[0], எழுத்து மாறிலி*: (வெறுமை)0);
+		_Generic(argv, எழுத்து**: (வெறுமை)0);
 	}
 	{
-	  extern int (*ar)[];
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : (int (*)[])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[])0 : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?ar : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : ar, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[5])0 : ar, int (*)[5]:+1, int (*)[4]:(void)0); }));
+	  வெளி முழு (*ar)[];
+	  (வெறுமை)(அளவு(கட்டமைப்பு { முழு x:_Generic( 0?(முழு (*)[4])0 : (முழு (*)[])0, முழு (*)[4]:+1, முழு (*)[5]:(வெறுமை)0); }));
+	  (வெறுமை)(அளவு(கட்டமைப்பு { முழு x:_Generic( 0?(முழு (*)[])0 : (முழு (*)[4])0, முழு (*)[4]:+1, முழு (*)[5]:(வெறுமை)0); }));
+	  (வெறுமை)(அளவு(கட்டமைப்பு { முழு x:_Generic( 0?ar : (முழு (*)[4])0, முழு (*)[4]:+1, முழு (*)[5]:(வெறுமை)0); }));
+	  (வெறுமை)(அளவு(கட்டமைப்பு { முழு x:_Generic( 0?(முழு (*)[4])0 : ar, முழு (*)[4]:+1, முழு (*)[5]:(வெறுமை)0); }));
+	  (வெறுமை)(அளவு(கட்டமைப்பு { முழு x:_Generic( 0?(முழு (*)[5])0 : ar, முழு (*)[5]:+1, முழு (*)[4]:(வெறுமை)0); }));
 	}
 
 	printf ("%d\n", f(t));
 
-	return 0;
+	திரும்பு 0;
 }

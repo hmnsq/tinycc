@@ -1,16 +1,16 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main()
+முழு முதன்மை()
 {
-   int a;
-   int p;
-   int t;
+   முழு a;
+   முழு p;
+   முழு t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   while (a < 100)
+   போது (a < 100)
    {
       printf("%d\n", a);
       t = a;
@@ -18,7 +18,7 @@ int main()
       p = t;
    }
 
-   return 0;
+   திரும்பு 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

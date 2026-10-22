@@ -1,17 +1,17 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main()
+முழு முதன்மை()
 {
-   int a;
+   முழு a;
 
-   for (a = 0; a < 2; a++)
+   க்கு (a = 0; a < 2; a++)
    {
-      int b = a;
+      முழு b = a;
    }
 
    printf("it's all good\n");
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

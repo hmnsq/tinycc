@@ -1,11 +1,11 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <errno.h>
+#அந்தர்பாவ <stdio.h>
+#அந்தர்பாவ <pthread.h>
+#அந்தர்பாவ <errno.h>
 
-int
-main(void)
+முழு
+முதன்மை(வெறுமை)
 {
-  int ret;
+  முழு ret;
   pthread_condattr_t attr;
   pthread_cond_t condition;
 
@@ -14,5 +14,5 @@ main(void)
   pthread_condattr_setpshared (&attr, PTHREAD_PROCESS_SHARED);
   printf ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
   pthread_condattr_destroy (&attr);
-  return 0;
+  திரும்பு 0;
 }

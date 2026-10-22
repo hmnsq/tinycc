@@ -1,9 +1,9 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+முழு printf(மாறிலி எழுத்து *, ...);
+எழுத்து t[] = "012345678";
 
-int main(void)
+முழு முதன்மை(வெறுமை)
 {
-    char *data = t;
+    எழுத்து *data = t;
     unsigned long long r = 4;
     unsigned a = 5;
     unsigned long long b = 12;
@@ -11,5 +11,5 @@ int main(void)
     *(unsigned*)(data + r) += a - b;
 
     printf("data = \"%s\"\n", data);
-    return 0;
+    திரும்பு 0;
 }

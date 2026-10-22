@@ -6,10 +6,10 @@
 #ifndef _INC_MEMORY
 #define _INC_MEMORY
 
-#include <_mingw.h>
+#அந்தர்பாவ <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
 #ifndef _CONST_RETURN
@@ -20,17 +20,17 @@ extern "C" {
 
 #ifndef _CRT_MEMORY_DEFINED
 #define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+  _CRTIMP வெறுமை *__cdecl _memccpy(வெறுமை *_Dst,மாறிலி வெறுமை *_Src,முழு _Val,size_t Max_மொத்தம்);
+  _CONST_RETURN வெறுமை *__cdecl memchr(மாறிலி வெறுமை *_Buf ,முழு _Val,size_t Max_மொத்தம்);
+  _CRTIMP முழு __cdecl _memicmp(மாறிலி வெறுமை *_Buf1,மாறிலி வெறுமை *_Buf2,size_t _Size);
+  _CRTIMP முழு __cdecl _memicmp_l(மாறிலி வெறுமை *_Buf1,மாறிலி வெறுமை *_Buf2,size_t _Size,_locale_t _Locale);
+  முழு __cdecl memcmp(மாறிலி வெறுமை *_Buf1,மாறிலி வெறுமை *_Buf2,size_t _Size);
+  வெறுமை *__cdecl memcpy(வெறுமை *_Dst,மாறிலி வெறுமை *_Src,size_t _Size);
+  வெறுமை *__cdecl memset(வெறுமை *_Dst,முழு _Val,size_t _Size);
 
 #ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
+  வெறுமை *__cdecl memccpy(வெறுமை *_Dst,மாறிலி வெறுமை *_Src,முழு _Val,size_t _Size);
+  முழு __cdecl memicmp(மாறிலி வெறுமை *_Buf1,மாறிலி வெறுமை *_Buf2,size_t _Size);
 #endif
 #endif
 

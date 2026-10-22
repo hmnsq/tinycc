@@ -1,41 +1,41 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+முழு atexit(வெறுமை (*function)(வெறுமை));
+முழு on_exit(வெறுமை (*function)(முழு, வெறுமை *), வெறுமை *arg);
+வெறுமை exit(முழு status);
 
-void __attribute((constructor)) startup5(void)
+வெறுமை __attribute((constructor)) startup5(வெறுமை)
 {
     printf ("startup5\n");
 }
 
-void cleanup1(void)
+வெறுமை cleanup1(வெறுமை)
 {
     printf ("cleanup1\n");
     fflush(stdout);
 }
 
-void cleanup2(void)
+வெறுமை cleanup2(வெறுமை)
 {
     printf ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+வெறுமை cleanup3(முழு ret, வெறுமை *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (எழுத்து *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+வெறுமை cleanup4(முழு ret, வெறுமை *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (எழுத்து *) arg);
 }
 
-void __attribute((destructor)) cleanup5(void)
+வெறுமை __attribute((destructor)) cleanup5(வெறுமை)
 {
     printf ("cleanup5\n");
 }
 
-void test(void)
+வெறுமை test(வெறுமை)
 {
     atexit(cleanup1);
     atexit(cleanup2);
@@ -43,15 +43,15 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#எனில் defined test_128_return
+முழு முதன்மை(முழு argc, எழுத்து **argv)
 {
     test();
-    return 1;
+    திரும்பு 1;
 } 
 
-#elif defined test_128_exit
-int main(int argc, char **argv)
+#அல்லதெனில் defined test_128_exit
+முழு முதன்மை(முழு argc, எழுத்து **argv)
 {
     test();
     exit(2);

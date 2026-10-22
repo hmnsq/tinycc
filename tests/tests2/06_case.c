@@ -1,29 +1,29 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main()
+முழு முதன்மை()
 {
-   int Count;
+   முழு மொத்தம்_3;
 
-   for (Count = 0; Count < 4; Count++)
+   க்கு (மொத்தம்_3 = 0; மொத்தம்_3 < 4; மொத்தம்_3++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      printf("%d\n", மொத்தம்_3);
+      தேர்வு (மொத்தம்_3)
       {
-         case 1:
+         நிலை 1:
             printf("%d\n", 1);
-            break;
+            நிறுத்து;
 
-         case 2:
+         நிலை 2:
             printf("%d\n", 2);
-            break;
+            நிறுத்து;
 
-         default:
+         இயல்பு:
             printf("%d\n", 0);
-            break;
+            நிறுத்து;
       }
    }
 
-   return 0;
+   திரும்பு 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

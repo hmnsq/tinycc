@@ -1,133 +1,133 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-struct big_struct { char a[262144]; };
+கட்டமைப்பு big_struct { எழுத்து a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+நிலையான மாறிலி எழுத்து str[] = "abcdefghijklmnopqrstuvwxyz";
 
-void tst_branch(void)
+வெறுமை tst_branch(வெறுமை)
 {
   printf("tst_branch --");
-  goto *&&a; 
+  செல் *&&a; 
   printf (" dummy");
 a: ;
   printf(" --\n");
 }
 
-void tst_void_ptr(void *pv, int i) 
+வெறுமை tst_void_ptr(வெறுமை *pv, முழு i) 
 {
   i ? *pv : *pv; // dr106
 }
 
-void tst_shift(void)
+வெறுமை tst_shift(வெறுமை)
 {
-  int i = 1;
+  முழு i = 1;
   long long l = 1;
   i = i << 32; // illegal. just test
   l = l << 64; // illegal. just test
 }
 
-#if !defined(_WIN32)
-#include <sys/mman.h>
+#எனில் !defined(_WIN32)
+#அந்தர்பாவ <sys/mman.h>
 
-void tst_const_addr(void)
+வெறுமை tst_const_addr(வெறுமை)
 {
-  void *addr = mmap ((void *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
-  if (addr != (void *) -1) {
-    *(int *)0x20000000 += 42;
+  வெறுமை *addr = mmap ((வெறுமை *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
+  எனில் (addr != (வெறுமை *) -1) {
+    *(முழு *)0x20000000 += 42;
     munmap (addr, 4096);
   }
 }
 #endif
 
-struct zero_struct {};
+கட்டமைப்பு zero_struct {};
 
-struct zero_struct tst_zero_struct(void)
+கட்டமைப்பு zero_struct tst_zero_struct(வெறுமை)
 {
-  struct zero_struct ret;
-  return ret;
+  கட்டமைப்பு zero_struct ret;
+  திரும்பு ret;
 }
 
-struct big_struct tst_big(struct big_struct tst)
+கட்டமைப்பு big_struct tst_big(கட்டமைப்பு big_struct tst)
 {
-   return tst;
+   திரும்பு tst;
 }
 
-void tst_adr (int (*fp)(char *, const char *, ...))
+வெறுமை tst_adr (முழு (*fp)(எழுத்து *, மாறிலி எழுத்து *, ...))
 {
-  char buf[10];
+  எழுத்து buf[10];
   (*fp)(buf, "%.0f", 5.0);
   printf("tst_adr %s\n", buf);
 }
 
-int tst(void)
+முழு tst(வெறுமை)
 {
-  long long value = 3;
-  return -value;
+  long long மதிப்பு = 3;
+  திரும்பு -மதிப்பு;
 }
 
-void tst_compare(void)
+வெறுமை tst_compare(வெறுமை)
 {
   /* This failed on risc64 */
   printf ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
 }
 
 #pragma pack(1)
-struct S { int d:24; int f:14; } i, j;
+கட்டமைப்பு S { முழு d:24; முழு f:14; } i, j;
 #pragma pack()
 
-void tst_pack (void)
+வெறுமை tst_pack (வெறுமை)
 {
   i.f = 5; j.f = 5;
   printf("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
 }
 
-void tst_cast(void)
+வெறுமை tst_cast(வெறுமை)
 {
-  signed char c = (signed char) 0xaaaaaaaa;
-  int r = (unsigned short) c ^ (signed char) 0x99999999;
+  signed எழுத்து c = (signed எழுத்து) 0xaaaaaaaa;
+  முழு r = (unsigned short) c ^ (signed எழுத்து) 0x99999999;
   printf ("schar to ushort cast: %x\n", r);
 }
 
-struct {
-    int (*print)(const char *format, ...);
+கட்டமைப்பு {
+    முழு (*print)(மாறிலி எழுத்து *format, ...);
 } tst_indir = {
     printf
 };
 
-void tst_indir_func(void)
+வெறுமை tst_indir_func(வெறுமை)
 {
     tst_indir.print("tst_indir_func %d\n", 10);
 }
 
-struct V {
-  int x, y, z;
+கட்டமைப்பு V {
+  முழு x, y, z;
 };
 
-struct V vec(void)
+கட்டமைப்பு V vec(வெறுமை)
 {
-  return (struct V) { 1, 2, 3 };
+  திரும்பு (கட்டமைப்பு V) { 1, 2, 3 };
 }
 
-void func(float f, struct V v)
+வெறுமை func(தசம f, கட்டமைப்பு V v)
 {
   printf("%g\n", f);
 }
 
-void tst_struct_return_align(void)
+வெறுமை tst_struct_return_align(வெறுமை)
 {
-  float d = 5.0f;
+  தசம d = 5.0f;
   func(d, vec());
 }
 
-int
-main (void)
+முழு
+முதன்மை (வெறுமை)
 {
-  struct big_struct big;
+  கட்டமைப்பு big_struct big;
 
   tst_branch();
   tst_shift();
   tst_void_ptr(&big.a[0], 0);
-#if !defined(_WIN32)
+#எனில் !defined(_WIN32)
   tst_const_addr();
 #endif
   tst_zero_struct();

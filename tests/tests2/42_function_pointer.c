@@ -1,22 +1,22 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int fred(int p)
+முழு fred(முழு p)
 {
    printf("yo %d\n", p);
-   return 42;
+   திரும்பு 42;
 }
 
-int (*f)(int) = &fred;
+முழு (*f)(முழு) = &fred;
 
 /* To test what this is supposed to test the destination function
    (fprint here) must not be called directly anywhere in the test.  */
-int (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
+முழு (*fprintfptr)(FILE *, மாறிலி எழுத்து *, ...) = &fprintf;
 
-int main()
+முழு முதன்மை()
 {
    fprintfptr(stdout, "%d\n", (*f)(24));
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

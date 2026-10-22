@@ -1,25 +1,25 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-extern int Array3[10];
-int Array3[] = { 12, 34, };
-int main()
+வெளி முழு Array3[10];
+முழு Array3[] = { 12, 34, };
+முழு முதன்மை()
 {
-   int Count;
+   முழு மொத்தம்_3;
 
-   int Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
+   முழு Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array[Count]);
+   க்கு (மொத்தம்_3 = 0; மொத்தம்_3 < 10; மொத்தம்_3++)
+      printf("%d: %d\n", மொத்தம்_3, Array[மொத்தம்_3]);
 
-   int Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
+   முழு Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array2[Count]);
+   க்கு (மொத்தம்_3 = 0; மொத்தம்_3 < 10; மொத்தம்_3++)
+      printf("%d: %d\n", மொத்தம்_3, Array2[மொத்தம்_3]);
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array3[Count]);
+   க்கு (மொத்தம்_3 = 0; மொத்தம்_3 < 10; மொத்தம்_3++)
+      printf("%d: %d\n", மொத்தம்_3, Array3[மொத்தம்_3]);
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

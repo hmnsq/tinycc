@@ -1,26 +1,26 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int myfunc(int x)
+முழு myfunc(முழு x)
 {
-   return x * x;
+   திரும்பு x * x;
 }
 
-void vfunc(int a)
+வெறுமை vfunc(முழு a)
 {
    printf("a=%d\n", a);
 }
 
-void qfunc()
+வெறுமை qfunc()
 {
    printf("qfunc()\n");
 }
 
-void zfunc()
+வெறுமை zfunc()
 {
-	((void (*)(void))0) ();
+	((வெறுமை (*)(வெறுமை))0) ();
 }
 
-int main()
+முழு முதன்மை()
 {
    printf("%d\n", myfunc(3));
    printf("%d\n", myfunc(4));
@@ -29,7 +29,7 @@ int main()
 
    qfunc();
 
-   return 0;
+   திரும்பு 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -10,17 +10,17 @@
 /* 32 general purpose + 32 floating point registers */
 #define NB_ASM_REGS 64
 
-ST_FUNC void g(int c);
-ST_FUNC void gen_le16(int c);
-ST_FUNC void gen_le32(int c);
+ST_FUNC வெறுமை g(முழு c);
+ST_FUNC வெறுமை gen_le16(முழு c);
+ST_FUNC வெறுமை gen_le32(முழு c);
 
 /*************************************************************/
-#else
+#இல்லையெனில்
 /*************************************************************/
 #define USING_GLOBALS
-#include "tcc.h"
+#அந்தர்பாவ "tcc.h"
 
-enum {
+எண்ணிக்கை {
     OPT_REG,
     OPT_IM12S,
     OPT_IM32,
@@ -28,95 +28,95 @@ enum {
 // Registers go from 0 to 31. We use next bit to choose general/float
 #define REG_FLOAT_MASK 0x20
 #define REG_IS_FLOAT(register_index) ((register_index) & REG_FLOAT_MASK)
-#define REG_VALUE(register_index)    ((register_index) & (REG_FLOAT_MASK-1))
-#define C_ENCODE_RS1(register_index) (REG_VALUE(register_index) << 7)
-#define C_ENCODE_RS2(register_index) (REG_VALUE(register_index) << 2)
-#define ENCODE_RD(register_index)  (REG_VALUE(register_index) << 7)
-#define ENCODE_RS1(register_index) (REG_VALUE(register_index) << 15)
-#define ENCODE_RS2(register_index) (REG_VALUE(register_index) << 20)
+#define REG_மதிப்பு(register_index)    ((register_index) & (REG_FLOAT_MASK-1))
+#define C_ENCODE_RS1(register_index) (REG_மதிப்பு(register_index) << 7)
+#define C_ENCODE_RS2(register_index) (REG_மதிப்பு(register_index) << 2)
+#define ENCODE_RD(register_index)  (REG_மதிப்பு(register_index) << 7)
+#define ENCODE_RS1(register_index) (REG_மதிப்பு(register_index) << 15)
+#define ENCODE_RS2(register_index) (REG_மதிப்பு(register_index) << 20)
 #define NTH_BIT(b, n) ((b >> n) & 1)
 #define OP_IM12S (1 << OPT_IM12S)
 #define OP_IM32 (1 << OPT_IM32)
 #define OP_REG (1 << OPT_REG)
 
-typedef struct Operand {
+வகைவரை கட்டமைப்பு Operand {
     uint32_t type;
-    union {
+    ஒன்றிப்பு {
         uint8_t reg;
         uint16_t regset;
-        ExprValue e;
+        கோவை_மதிப்பு e;
     };
 } Operand;
 
-static const Operand zero = { OP_REG, { 0 }};
-static const Operand ra = { OP_REG, { 1 }};
-static const Operand zimm = { OP_IM12S };
+நிலையான மாறிலி Operand zero = { OP_REG, { 0 }};
+நிலையான மாறிலி Operand ra = { OP_REG, { 1 }};
+நிலையான மாறிலி Operand zimm = { OP_IM12S };
 
-static void asm_binary_opcode(TCCState* s1, int token);
-ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str);
-ST_FUNC void asm_compute_constraints(ASMOperand *operands, int nb_operands, int nb_outputs, const uint8_t *clobber_regs, int *pout_reg);
-static void asm_emit_a(int token, uint32_t opcode, const Operand *rs1, const Operand *rs2, const Operand *rd1, int aq, int rl);
-static void asm_emit_b(int token, uint32_t opcode, const Operand *rs1, const Operand *rs2, const Operand *imm);
-static void asm_emit_i(int token, uint32_t opcode, const Operand *rd, const Operand *rs1, const Operand *rs2);
-static void asm_emit_j(int token, uint32_t opcode, const Operand *rd, const Operand *rs2);
-static void asm_emit_opcode(uint32_t opcode);
-static void asm_emit_r(int token, uint32_t opcode, const Operand *rd, const Operand *rs1, const Operand *rs2);
-static void asm_emit_s(int token, uint32_t opcode, const Operand *rs1, const Operand *rs2, const Operand *imm);
-static void asm_emit_u(int token, uint32_t opcode, const Operand *rd, const Operand *rs2);
-static void asm_emit_f(int token, uint32_t opcode, const Operand *rd, const Operand *rs1, const Operand *rs2);
-static void asm_emit_fb(int token, uint32_t opcode, const Operand *rd, const Operand *rs);
-static void asm_emit_fq(int token, uint32_t opcode, const Operand *rd, const Operand *rs1, const Operand *rs2, const Operand *rs3);
-ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands, int nb_outputs, int is_output, uint8_t *clobber_regs, int out_reg);
-static void asm_nullary_opcode(TCCState *s1, int token);
-ST_FUNC void asm_opcode(TCCState *s1, int token);
-static int asm_parse_csrvar(int t);
-ST_FUNC int asm_parse_regvar(int t);
-static void asm_ternary_opcode(TCCState *s1, int token);
-static void asm_unary_opcode(TCCState *s1, int token);
-static void asm_branch_opcode(TCCState *s1, int token, int argc);
-ST_FUNC void gen_expr32(ExprValue *pe);
-static void parse_operand(TCCState *s1, Operand *op);
-static void parse_branch_offset_operand(TCCState *s1, Operand *op);
-static void parse_operands(TCCState *s1, Operand *ops, int count);
-static void parse_mem_access_operands(TCCState *s1, Operand* ops);
-ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier);
+நிலையான வெறுமை asm_இருமம்_opcode(TCCState* s1, முழு token);
+ST_FUNC வெறுமை asm_clobber(uint8_t *clobber_regs, மாறிலி எழுத்து *str);
+ST_FUNC வெறுமை asm_compute_constraints(ASMOperand *operands, முழு nb_operands, முழு nb_outputs, மாறிலி uint8_t *clobber_regs, முழு *pout_reg);
+நிலையான வெறுமை asm_emit_a(முழு token, uint32_t opcode, மாறிலி Operand *rs1, மாறிலி Operand *rs2, மாறிலி Operand *rd1, முழு aq, முழு rl);
+நிலையான வெறுமை asm_emit_b(முழு token, uint32_t opcode, மாறிலி Operand *rs1, மாறிலி Operand *rs2, மாறிலி Operand *imm);
+நிலையான வெறுமை asm_emit_i(முழு token, uint32_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs1, மாறிலி Operand *rs2);
+நிலையான வெறுமை asm_emit_j(முழு token, uint32_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs2);
+நிலையான வெறுமை asm_emit_opcode(uint32_t opcode);
+நிலையான வெறுமை asm_emit_r(முழு token, uint32_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs1, மாறிலி Operand *rs2);
+நிலையான வெறுமை asm_emit_s(முழு token, uint32_t opcode, மாறிலி Operand *rs1, மாறிலி Operand *rs2, மாறிலி Operand *imm);
+நிலையான வெறுமை asm_emit_u(முழு token, uint32_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs2);
+நிலையான வெறுமை asm_emit_f(முழு token, uint32_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs1, மாறிலி Operand *rs2);
+நிலையான வெறுமை asm_emit_fb(முழு token, uint32_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs);
+நிலையான வெறுமை asm_emit_fq(முழு token, uint32_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs1, மாறிலி Operand *rs2, மாறிலி Operand *rs3);
+ST_FUNC வெறுமை asm_gen_code(ASMOperand *operands, முழு nb_operands, முழு nb_outputs, முழு is_output, uint8_t *clobber_regs, முழு out_reg);
+நிலையான வெறுமை asm_nullary_opcode(TCCState *s1, முழு token);
+ST_FUNC வெறுமை asm_opcode(TCCState *s1, முழு token);
+நிலையான முழு asm_parse_csrvar(முழு t);
+ST_FUNC முழு asm_parse_regvar(முழு t);
+நிலையான வெறுமை asm_ternary_opcode(TCCState *s1, முழு token);
+நிலையான வெறுமை asm_unary_opcode(TCCState *s1, முழு token);
+நிலையான வெறுமை asm_branch_opcode(TCCState *s1, முழு token, முழு argc);
+ST_FUNC வெறுமை gen_expr32(கோவை_மதிப்பு *pe);
+நிலையான வெறுமை parse_operand(TCCState *s1, Operand *op);
+நிலையான வெறுமை parse_branch_offset_operand(TCCState *s1, Operand *op);
+நிலையான வெறுமை parse_operands(TCCState *s1, Operand *ops, முழு மொத்தம்_2);
+நிலையான வெறுமை parse_mem_access_operands(TCCState *s1, Operand* ops);
+ST_FUNC வெறுமை subst_asm_operand(CString *add_str, SValue *sv, முழு modifier);
 /* C extension */
-static void asm_emit_ca(int token, uint16_t opcode, const Operand *rd, const Operand *rs2);
-static void asm_emit_cb(int token, uint16_t opcode, const Operand *rs1, const Operand *imm);
-static void asm_emit_ci(int token, uint16_t opcode, const Operand *rd, const Operand *imm);
-static void asm_emit_ciw(int token, uint16_t opcode, const Operand *rd, const Operand *imm);
-static void asm_emit_cj(int token, uint16_t opcode, const Operand *imm);
-static void asm_emit_cl(int token, uint16_t opcode, const Operand *rd, const Operand *rs1, const Operand *imm);
-static void asm_emit_cr(int token, uint16_t opcode, const Operand *rd, const Operand *rs2);
-static void asm_emit_cs(int token, uint16_t opcode, const Operand *rs2, const Operand *rs1, const Operand *imm);
-static void asm_emit_css(int token, uint16_t opcode, const Operand *rs2, const Operand *imm);
+நிலையான வெறுமை asm_emit_ca(முழு token, uint16_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs2);
+நிலையான வெறுமை asm_emit_cb(முழு token, uint16_t opcode, மாறிலி Operand *rs1, மாறிலி Operand *imm);
+நிலையான வெறுமை asm_emit_ci(முழு token, uint16_t opcode, மாறிலி Operand *rd, மாறிலி Operand *imm);
+நிலையான வெறுமை asm_emit_ciw(முழு token, uint16_t opcode, மாறிலி Operand *rd, மாறிலி Operand *imm);
+நிலையான வெறுமை asm_emit_cj(முழு token, uint16_t opcode, மாறிலி Operand *imm);
+நிலையான வெறுமை asm_emit_cl(முழு token, uint16_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs1, மாறிலி Operand *imm);
+நிலையான வெறுமை asm_emit_cr(முழு token, uint16_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs2);
+நிலையான வெறுமை asm_emit_cs(முழு token, uint16_t opcode, மாறிலி Operand *rs2, மாறிலி Operand *rs1, மாறிலி Operand *imm);
+நிலையான வெறுமை asm_emit_css(முழு token, uint16_t opcode, மாறிலி Operand *rs2, மாறிலி Operand *imm);
 
 /* XXX: make it faster ? */
-ST_FUNC void g(int c)
+ST_FUNC வெறுமை g(முழு c)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    முழு ind1;
+    எனில் (nocode_wanted)
+        திரும்பு;
     ind1 = ind + 1;
-    if (ind1 > cur_text_section->data_allocated)
+    எனில் (ind1 > cur_text_section->data_allocated)
         section_realloc(cur_text_section, ind1);
     cur_text_section->data[ind] = c;
     ind = ind1;
 }
 
-ST_FUNC void gen_le16 (int i)
+ST_FUNC வெறுமை gen_le16 (முழு i)
 {
     g(i);
     g(i>>8);
 }
 
-ST_FUNC void gen_le32 (int i)
+ST_FUNC வெறுமை gen_le32 (முழு i)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    முழு ind1;
+    எனில் (nocode_wanted)
+        திரும்பு;
     ind1 = ind + 4;
-    if (ind1 > cur_text_section->data_allocated)
+    எனில் (ind1 > cur_text_section->data_allocated)
         section_realloc(cur_text_section, ind1);
     cur_text_section->data[ind++] = i & 0xFF;
     cur_text_section->data[ind++] = (i >> 8) & 0xFF;
@@ -124,91 +124,91 @@ ST_FUNC void gen_le32 (int i)
     cur_text_section->data[ind++] = (i >> 24) & 0xFF;
 }
 
-ST_FUNC void gen_expr32(ExprValue *pe)
+ST_FUNC வெறுமை gen_expr32(கோவை_மதிப்பு *pe)
 {
     gen_le32(pe->v);
 }
 
-static void asm_emit_opcode(uint32_t opcode) {
+நிலையான வெறுமை asm_emit_opcode(uint32_t opcode) {
     gen_le32(opcode);
 }
 
-static void asm_nullary_opcode(TCCState *s1, int token)
+நிலையான வெறுமை asm_nullary_opcode(TCCState *s1, முழு token)
 {
-    switch (token) {
+    தேர்வு (token) {
     // Sync instructions
 
-    case TOK_ASM_fence_i: // I
+    நிலை TOK_ASM_fence_i: // I
         asm_emit_opcode((0x3 << 2) | 3| (1 << 12));
-        return;
+        திரும்பு;
 
     // System calls
 
-    case TOK_ASM_ecall: // I (pseudo)
+    நிலை TOK_ASM_ecall: // I (pseudo)
         asm_emit_opcode((0x1C << 2) | 3 | (0 << 12));
-        return;
-    case TOK_ASM_ebreak: // I (pseudo)
+        திரும்பு;
+    நிலை TOK_ASM_ebreak: // I (pseudo)
         asm_emit_opcode((0x1C << 2) | 3 | (0 << 12) | (1 << 20));
-        return;
+        திரும்பு;
 
     // Other
 
-    case TOK_ASM_nop:
+    நிலை TOK_ASM_nop:
         asm_emit_i(token, (4 << 2) | 3, &zero, &zero, &zimm);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_wfi:
+    நிலை TOK_ASM_wfi:
         asm_emit_opcode((0x1C << 2) | 3 | (0x105 << 20));
-        return;
+        திரும்பு;
 
     /* Pseudoinstructions */
-    case TOK_ASM_ret:
+    நிலை TOK_ASM_ret:
         /* jalr zero, x1, 0 */
         asm_emit_opcode( 0x67 | (0 << 12) | ENCODE_RS1(1) );
-        return;
+        திரும்பு;
 
     /* C extension */
-    case TOK_ASM_c_ebreak:
+    நிலை TOK_ASM_c_ebreak:
         asm_emit_cr(token, 2 | (9 << 12), &zero, &zero);
-        return;
-    case TOK_ASM_c_nop:
+        திரும்பு;
+    நிலை TOK_ASM_c_nop:
         asm_emit_ci(token, 1, &zero, &zimm);
-        return;
+        திரும்பு;
 
-    default:
+    இயல்பு:
         expect("nullary instruction");
     }
 }
 
 /* Parse a text containing operand and store the result in OP */
-static void parse_operand(TCCState *s1, Operand *op)
+நிலையான வெறுமை parse_operand(TCCState *s1, Operand *op)
 {
-    ExprValue e = {0};
+    கோவை_மதிப்பு e = {0};
     Sym label = {0};
     int8_t reg;
 
     op->type = 0;
 
-    if ((reg = asm_parse_regvar(tok)) != -1) {
+    எனில் ((reg = asm_parse_regvar(tok)) != -1) {
         next(); // skip register name
         op->type = OP_REG;
         op->reg = (uint8_t) reg;
-        return;
-    } else if (tok == '$') {
+        திரும்பு;
+    } இல்லையெனில் எனில் (tok == '$') {
         /* constant value */
         next(); // skip '#' or '$'
-    } else if ((e.v = asm_parse_csrvar(tok)) != -1) {
+    } இல்லையெனில் எனில் ((e.v = asm_parse_csrvar(tok)) != -1) {
         next();
-    } else {
-        asm_expr(s1, &e);
+    } இல்லையெனில் {
+        asm_கோவை(s1, &e);
     }
     op->type = OP_IM32;
     op->e = e;
     /* compare against unsigned 12-bit maximum */
-    if (!op->e.sym) {
-        if ((int) op->e.v >= -0x1000 && (int) op->e.v < 0x1000)
+    எனில் (!op->e.sym) {
+        எனில் ((முழு) op->e.v >= -0x1000 && (முழு) op->e.v < 0x1000)
             op->type = OP_IM12S;
-    } else if (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
+    } இல்லையெனில் எனில் (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
         /* see also: "RISC-V ABIs Specification" V1.0
 
            section 5.2 recommends using a GOT for
@@ -222,89 +222,89 @@ static void parse_operand(TCCState *s1, Operand *op)
         label.type.t = VT_VOID | VT_STATIC;
 
         /* use the medium PIC model: GOT, auipc, lw */
-        if (op->e.sym->type.t & VT_STATIC)
+        எனில் (op->e.sym->type.t & VT_STATIC)
             greloca(cur_text_section, op->e.sym, ind, R_RISCV_PCREL_HI20, 0);
-        else
+        இல்லையெனில்
             greloca(cur_text_section, op->e.sym, ind, R_RISCV_GOT_HI20, 0);
         put_extern_sym(&label, cur_text_section, ind, 0);
         greloca(cur_text_section, &label, ind+4, R_RISCV_PCREL_LO12_I, 0);
 
         op->type = OP_IM12S;
         op->e.v = 0;
-    } else {
+    } இல்லையெனில் {
         expect("operand");
     }
 }
 
-static void parse_branch_offset_operand(TCCState *s1, Operand *op){
-    ExprValue e = {0};
+நிலையான வெறுமை parse_branch_offset_operand(TCCState *s1, Operand *op){
+    கோவை_மதிப்பு e = {0};
 
-    asm_expr(s1, &e);
+    asm_கோவை(s1, &e);
     op->type = OP_IM32;
     op->e = e;
     /* compare against unsigned 12-bit maximum */
-    if (!op->e.sym) {
-        if ((int) op->e.v >= -0x1000 && (int) op->e.v < 0x1000)
+    எனில் (!op->e.sym) {
+        எனில் ((முழு) op->e.v >= -0x1000 && (முழு) op->e.v < 0x1000)
             op->type = OP_IM12S;
-    } else if (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
+    } இல்லையெனில் எனில் (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
         /* For extern/static symbols, always use far-branch expansion
            since linker relaxation (R_RISCV_RELAX) is not implemented. */
         op->type = OP_IM32;
         op->e.v = 0;
-    } else {
+    } இல்லையெனில் {
         expect("operand");
     }
 }
 
-static void parse_jump_offset_operand(TCCState *s1, Operand *op){
-    ExprValue e = {0};
+நிலையான வெறுமை parse_jump_offset_operand(TCCState *s1, Operand *op){
+    கோவை_மதிப்பு e = {0};
 
-    asm_expr(s1, &e);
+    asm_கோவை(s1, &e);
     op->type = OP_IM32;
     op->e = e;
     /* compare against unsigned 12-bit maximum */
-    if (!op->e.sym) {
-        if ((int) op->e.v >= -0x1000 && (int) op->e.v < 0x1000)
+    எனில் (!op->e.sym) {
+        எனில் ((முழு) op->e.v >= -0x1000 && (முழு) op->e.v < 0x1000)
             op->type = OP_IM12S;
-    } else if (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
+    } இல்லையெனில் எனில் (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
         greloca(cur_text_section, op->e.sym, ind, R_RISCV_JAL, 0);
         op->type = OP_IM12S;
         op->e.v = 0;
-    } else {
+    } இல்லையெனில் {
         expect("operand");
     }
 }
 
-static void parse_operands(TCCState *s1, Operand* ops, int count){
-    int i;
-    for (i = 0; i < count; i++) {
-        if ( i != 0 )
+நிலையான வெறுமை parse_operands(TCCState *s1, Operand* ops, முழு மொத்தம்_2){
+    முழு i;
+    க்கு (i = 0; i < மொத்தம்_2; i++) {
+        எனில் ( i != 0 )
             skip(',');
         parse_operand(s1, &ops[i]);
     }
 }
 
 /* parse `X, imm(Y)` to {X, Y, imm} operands */
-static void parse_mem_access_operands(TCCState *s1, Operand* ops){
+நிலையான வெறுமை parse_mem_access_operands(TCCState *s1, Operand* ops){
 
     Operand op;
 
     parse_operand(s1, &ops[0]);
     skip(',');
-    if ( tok == '(') {
+    எனில் ( tok == '(') {
         /* `X, (Y)` case*/
         next();
         parse_operand(s1, &ops[1]);
         skip(')');
         ops[2] = zimm;
-    } else {
+    } இல்லையெனில் {
         parse_operand(s1, &ops[2]);
-        if ( tok == '('){
+        எனில் ( tok == '('){
             /* `X, imm(Y)` case*/
             next();
             parse_operand(s1, &ops[1]);
             skip(')');
-        } else {
+        } இல்லையெனில் {
             /* `X, Y` case*/
             /* we parsed Y thinking it was imm, swap and default imm to zero */
             op = ops[2];
@@ -316,54 +316,54 @@ static void parse_mem_access_operands(TCCState *s1, Operand* ops){
 }
 
 /* This is special: First operand is optional */
-static void asm_jal_opcode(TCCState *s1, int token){
+நிலையான வெறுமை asm_jal_opcode(TCCState *s1, முழு token){
     Operand ops[2];
 
-    if (token == TOK_ASM_j ){
+    எனில் (token == TOK_ASM_j ){
         ops[0] = zero; // j offset
-    } else if (asm_parse_regvar(tok) == -1) {
+    } இல்லையெனில் எனில் (asm_parse_regvar(tok) == -1) {
         ops[0] = ra;   // jal offset
-    } else {
+    } இல்லையெனில் {
         // jal reg, offset
         parse_operand(s1, &ops[0]);
-        if ( tok == ',') next(); else expect("','");
+        எனில் ( tok == ',') next(); இல்லையெனில் expect("','");
     }
     parse_jump_offset_operand(s1, &ops[1]);
     asm_emit_j(token, 0x6f, &ops[0], &ops[1]);
 }
 
 /* This is special: It can be a pseudointruction or a instruction */
-static void asm_jalr_opcode(TCCState *s1, int token){
+நிலையான வெறுமை asm_jalr_opcode(TCCState *s1, முழு token){
     Operand ops[3];
     Operand op;
 
     parse_operand(s1, &ops[0]);
-    if ( tok == ',')
+    எனில் ( tok == ',')
         next();
-    else {
+    இல்லையெனில் {
         /* no more operands, it's the pseudoinstruction:
          *  jalr rs
          * Expand to:
          *  jalr ra, 0(rs)
          */
         asm_emit_i(token, 0x67 | (0 << 12), &ra, &ops[0], &zimm);
-        return;
+        திரும்பு;
     }
 
-    if ( tok == '(') {
+    எனில் ( tok == '(') {
         /* `X, (Y)` case*/
         next();
         parse_operand(s1, &ops[1]);
         skip(')');
         ops[2] = zimm;
-    } else {
+    } இல்லையெனில் {
         parse_operand(s1, &ops[2]);
-        if ( tok == '('){
+        எனில் ( tok == '('){
             /* `X, imm(Y)` case*/
             next();
             parse_operand(s1, &ops[1]);
             skip(')');
-        } else {
+        } இல்லையெனில் {
             /* `X, Y` case*/
             /* we parsed Y thinking it was imm, swap and default imm to zero */
             op = ops[2];
@@ -377,7 +377,7 @@ static void asm_jalr_opcode(TCCState *s1, int token){
 }
 
 
-static void asm_unary_opcode(TCCState *s1, int token)
+நிலையான வெறுமை asm_unary_opcode(TCCState *s1, முழு token)
 {
     uint32_t opcode = (0x1C << 2) | 3 | (2 << 12);
     Operand op;
@@ -386,83 +386,83 @@ static void asm_unary_opcode(TCCState *s1, int token)
     /* Note: Those all map to CSR--so they are pseudo-instructions. */
     opcode |= ENCODE_RD(op.reg);
 
-    switch (token) {
+    தேர்வு (token) {
     /* pseudoinstructions */
-    case TOK_ASM_rdcycle:
+    நிலை TOK_ASM_rdcycle:
         asm_emit_opcode(opcode | (0xC00 << 20));
-        return;
-    case TOK_ASM_rdcycleh:
+        திரும்பு;
+    நிலை TOK_ASM_rdcycleh:
         asm_emit_opcode(opcode | (0xC80 << 20));
-        return;
-    case TOK_ASM_rdtime:
+        திரும்பு;
+    நிலை TOK_ASM_rdtime:
         asm_emit_opcode(opcode | (0xC01 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_rdtimeh:
+        திரும்பு;
+    நிலை TOK_ASM_rdtimeh:
         asm_emit_opcode(opcode | (0xC81 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_rdinstret:
+        திரும்பு;
+    நிலை TOK_ASM_rdinstret:
         asm_emit_opcode(opcode | (0xC02 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_rdinstreth:
+        திரும்பு;
+    நிலை TOK_ASM_rdinstreth:
         asm_emit_opcode(opcode | (0xC82 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_frflags:
+        திரும்பு;
+    நிலை TOK_ASM_frflags:
         asm_emit_opcode(opcode | (0x001 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_frrm:
+        திரும்பு;
+    நிலை TOK_ASM_frrm:
         asm_emit_opcode(opcode | (0x002 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_frcsr:
+        திரும்பு;
+    நிலை TOK_ASM_frcsr:
         asm_emit_opcode(opcode | (0x003 << 20) | ENCODE_RD(op.reg));
-        return;
+        திரும்பு;
 
-    case TOK_ASM_jr:
+    நிலை TOK_ASM_jr:
         /* jalr zero, 0(rs)*/
         asm_emit_i(token, 0x67 | (0 << 12), &zero, &op, &zimm);
-        return;
-    case TOK_ASM_call:
+        திரும்பு;
+    நிலை TOK_ASM_call:
         /* auipc ra, 0 */
         greloca(cur_text_section, op.e.sym, ind, R_RISCV_CALL, 0);
         asm_emit_opcode(3 | (5 << 2) | ENCODE_RD(1));
         /* jalr zero, 0(ra) */
         asm_emit_opcode(0x67 | (0 << 12) | ENCODE_RS1(1));
-        return;
-    case TOK_ASM_tail:
+        திரும்பு;
+    நிலை TOK_ASM_tail:
         /* auipc x6, 0 */
         greloca(cur_text_section, op.e.sym, ind, R_RISCV_CALL, 0);
         asm_emit_opcode(3 | (5 << 2) | ENCODE_RD(6));
         /* jalr zero, 0(x6) */
         asm_emit_opcode(0x67 | (0 << 12) | ENCODE_RS1(6));
-        return;
+        திரும்பு;
 
     /* C extension */
-    case TOK_ASM_c_j:
+    நிலை TOK_ASM_c_j:
         asm_emit_cj(token, 1 | (5 << 13), &op);
-        return;
-    case TOK_ASM_c_jal: /* RV32C-only */
+        திரும்பு;
+    நிலை TOK_ASM_c_jal: /* RV32C-only */
         asm_emit_cj(token, 1 | (1 << 13), &op);
-        return;
-    case TOK_ASM_c_jalr:
+        திரும்பு;
+    நிலை TOK_ASM_c_jalr:
         asm_emit_cr(token, 2 | (9 << 12), &op, &zero);
-        return;
-    case TOK_ASM_c_jr:
+        திரும்பு;
+    நிலை TOK_ASM_c_jr:
         asm_emit_cr(token, 2 | (8 << 12), &op, &zero);
-        return;
+        திரும்பு;
 
-    default:
+    இயல்பு:
         expect("unary instruction");
     }
 }
 
-static void asm_emit_u(int token, uint32_t opcode, const Operand* rd, const Operand* rs2)
+நிலையான வெறுமை asm_emit_u(முழு token, uint32_t opcode, மாறிலி Operand* rd, மாறிலி Operand* rs2)
 {
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
-    if (rs2->type != OP_IM12S && rs2->type != OP_IM32) {
-        tcc_error("'%s': Expected second source operand that is an immediate value", get_tok_str(token, NULL));
-    } else if (rs2->e.v >= 0x100000) {
-        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 0xfffff", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_IM12S && rs2->type != OP_IM32) {
+        tcc_error("'%s': Expected second source operand that is an immediate value", get_tok_str(token, வெற்று));
+    } இல்லையெனில் எனில் (rs2->e.v >= 0x100000) {
+        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 0xfffff", get_tok_str(token, வெற்று));
     }
     /* U-type instruction:
 	      31...12 imm[31:12]
@@ -471,35 +471,35 @@ static void asm_emit_u(int token, uint32_t opcode, const Operand* rd, const Oper
     gen_le32(opcode | ENCODE_RD(rd->reg) | (rs2->e.v << 12));
 }
 
-static int parse_fence_operand(){
-    int t = tok;
-    if ( tok == TOK_ASM_or ){
+நிலையான முழு parse_fence_operand(){
+    முழு t = tok;
+    எனில் ( tok == TOK_ASM_or ){
         // we are in a fence instruction, parse as output read
         t = TOK_ASM_or_fence;
     }
     next();
-    return t - (TOK_ASM_w_fence - 1);
+    திரும்பு t - (TOK_ASM_w_fence - 1);
 }
 
-static void asm_fence_opcode(TCCState *s1, int token){
+நிலையான வெறுமை asm_fence_opcode(TCCState *s1, முழு token){
     // `fence` is both an instruction and a pseudoinstruction:
     // `fence` expands to `fence iorw, iorw`
-    int succ = 0xF, pred = 0xF;
-    if (tok != TOK_LINEFEED && tok != ';' && tok != CH_EOF){
+    முழு succ = 0xF, pred = 0xF;
+    எனில் (tok != TOK_LINEFEED && tok != ';' && tok != CH_EOF){
         pred = parse_fence_operand();
-        if ( pred > 0xF || pred < 0) {
-            tcc_error("'%s': Expected first operand that is a valid predecessor operand", get_tok_str(token, NULL));
+        எனில் ( pred > 0xF || pred < 0) {
+            tcc_error("'%s': Expected first operand that is a valid predecessor operand", get_tok_str(token, வெற்று));
         }
         skip(',');
         succ = parse_fence_operand();
-        if ( succ > 0xF || succ < 0) {
-            tcc_error("'%s': Expected second operand that is a valid successor operand", get_tok_str(token, NULL));
+        எனில் ( succ > 0xF || succ < 0) {
+            tcc_error("'%s': Expected second operand that is a valid successor operand", get_tok_str(token, வெற்று));
         }
     }
     asm_emit_opcode((0x3 << 2) | 3 | (0 << 12) | succ<<20 | pred<<24);
 }
 
-static void asm_binary_opcode(TCCState* s1, int token)
+நிலையான வெறுமை asm_இருமம்_opcode(TCCState* s1, முழு token)
 {
     Operand imm = { OP_IM12S };
     Operand ops[2];
@@ -507,136 +507,136 @@ static void asm_binary_opcode(TCCState* s1, int token)
     uint32_t hi;
 
     parse_operands(s1, &ops[0], 2);
-    switch (token) {
-    case TOK_ASM_lui:
+    தேர்வு (token) {
+    நிலை TOK_ASM_lui:
         asm_emit_u(token, (0xD << 2) | 3, &ops[0], &ops[1]);
-        return;
-    case TOK_ASM_auipc:
+        திரும்பு;
+    நிலை TOK_ASM_auipc:
         asm_emit_u(token, (0x05 << 2) | 3, &ops[0], &ops[1]);
-        return;
+        திரும்பு;
 
     /* C extension */
-    case TOK_ASM_c_add:
+    நிலை TOK_ASM_c_add:
         asm_emit_cr(token, 2 | (9 << 12), ops, ops + 1);
-        return;
-    case TOK_ASM_c_mv:
+        திரும்பு;
+    நிலை TOK_ASM_c_mv:
         asm_emit_cr(token, 2 | (8 << 12), ops, ops + 1);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_c_addi16sp:
+    நிலை TOK_ASM_c_addi16sp:
         asm_emit_ci(token, 1 | (3 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_addi:
+        திரும்பு;
+    நிலை TOK_ASM_c_addi:
         asm_emit_ci(token, 1, ops, ops + 1);
-        return;
-    case TOK_ASM_c_addiw:
+        திரும்பு;
+    நிலை TOK_ASM_c_addiw:
         asm_emit_ci(token, 1 | (1 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_fldsp:
+        திரும்பு;
+    நிலை TOK_ASM_c_fldsp:
         asm_emit_ci(token, 2 | (1 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_flwsp: /* RV32FC-only */
+        திரும்பு;
+    நிலை TOK_ASM_c_flwsp: /* RV32FC-only */
         asm_emit_ci(token, 2 | (3 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_ldsp:
+        திரும்பு;
+    நிலை TOK_ASM_c_ldsp:
         asm_emit_ci(token, 2 | (3 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_li:
+        திரும்பு;
+    நிலை TOK_ASM_c_li:
         asm_emit_ci(token, 1 | (2 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_lui:
+        திரும்பு;
+    நிலை TOK_ASM_c_lui:
         asm_emit_ci(token, 1 | (3 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_lwsp:
+        திரும்பு;
+    நிலை TOK_ASM_c_lwsp:
         asm_emit_ci(token, 2 | (2 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_slli:
+        திரும்பு;
+    நிலை TOK_ASM_c_slli:
         asm_emit_ci(token, 2, ops, ops + 1);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_c_addi4spn:
+    நிலை TOK_ASM_c_addi4spn:
         asm_emit_ciw(token, 0, ops, ops + 1);
-        return;
+        திரும்பு;
 
 #define CA (1 | (3 << 10) | (4 << 13))
-    case TOK_ASM_c_addw:
+    நிலை TOK_ASM_c_addw:
         asm_emit_ca(token, CA | (1 << 5) | (1 << 12), ops, ops + 1);
-        return;
-    case TOK_ASM_c_and:
+        திரும்பு;
+    நிலை TOK_ASM_c_and:
         asm_emit_ca(token, CA | (3 << 5), ops, ops + 1);
-        return;
-    case TOK_ASM_c_or:
+        திரும்பு;
+    நிலை TOK_ASM_c_or:
         asm_emit_ca(token, CA | (2 << 5), ops, ops + 1);
-        return;
-    case TOK_ASM_c_sub:
+        திரும்பு;
+    நிலை TOK_ASM_c_sub:
         asm_emit_ca(token, CA, ops, ops + 1);
-        return;
-    case TOK_ASM_c_subw:
+        திரும்பு;
+    நிலை TOK_ASM_c_subw:
         asm_emit_ca(token, CA | (1 << 12), ops, ops + 1);
-        return;
-    case TOK_ASM_c_xor:
+        திரும்பு;
+    நிலை TOK_ASM_c_xor:
         asm_emit_ca(token, CA | (1 << 5), ops, ops + 1);
-        return;
+        திரும்பு;
 #undef CA
 
-    case TOK_ASM_c_andi:
+    நிலை TOK_ASM_c_andi:
         asm_emit_cb(token, 1 | (2 << 10) | (4 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_beqz:
+        திரும்பு;
+    நிலை TOK_ASM_c_beqz:
         asm_emit_cb(token, 1 | (6 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_bnez:
+        திரும்பு;
+    நிலை TOK_ASM_c_bnez:
         asm_emit_cb(token, 1 | (7 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_srai:
+        திரும்பு;
+    நிலை TOK_ASM_c_srai:
         asm_emit_cb(token, 1 | (1 << 10) | (4 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_srli:
+        திரும்பு;
+    நிலை TOK_ASM_c_srli:
         asm_emit_cb(token, 1 | (4 << 13), ops, ops + 1);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_c_sdsp:
+    நிலை TOK_ASM_c_sdsp:
         asm_emit_css(token, 2 | (7 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_swsp:
+        திரும்பு;
+    நிலை TOK_ASM_c_swsp:
         asm_emit_css(token, 2 | (6 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_fswsp: /* RV32FC-only */
+        திரும்பு;
+    நிலை TOK_ASM_c_fswsp: /* RV32FC-only */
         asm_emit_css(token, 2 | (7 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_fsdsp:
+        திரும்பு;
+    நிலை TOK_ASM_c_fsdsp:
         asm_emit_css(token, 2 | (5 << 13), ops, ops + 1);
-        return;
+        திரும்பு;
 
     /* F/D extension */
-    case TOK_ASM_fsqrt_d:
+    நிலை TOK_ASM_fsqrt_d:
         asm_emit_fb(token, 0x53 | (11 << 27) | (1 << 25) | (7 << 12), ops, ops + 1);
-        return;
-    case TOK_ASM_fsqrt_s:
+        திரும்பு;
+    நிலை TOK_ASM_fsqrt_s:
         asm_emit_fb(token, 0x53 | (11 << 27) | (0 << 25) | (7 << 12), ops, ops + 1);
-        return;
+        திரும்பு;
 
     /* pseudoinstructions */
     /* rd, sym */
-    case TOK_ASM_la:
+    நிலை TOK_ASM_la:
         /* auipc rd, 0 */
         asm_emit_u(token, 3 | (5 << 2), ops, ops + 1);
         /* lw rd, rd, 0 */
         asm_emit_i(token, 3 | (2 << 12), ops, ops, ops + 1);
-        return;
-    case TOK_ASM_lla:
+        திரும்பு;
+    நிலை TOK_ASM_lla:
         /* auipc rd, 0 */
         asm_emit_u(token, 3 | (5 << 2), ops, ops + 1);
         /* addi rd, rd, 0 */
         asm_emit_i(token, 3 | (4 << 2), ops, ops, ops + 1);
-        return;
-    case TOK_ASM_li:
-        if(ops[1].type != OP_IM32 && ops[1].type != OP_IM12S){
-            tcc_error("'%s': Expected first source operand that is an immediate value between 0 and 0xFFFFFFFFFFFFFFFF", get_tok_str(token, NULL));
+        திரும்பு;
+    நிலை TOK_ASM_li:
+        எனில்(ops[1].type != OP_IM32 && ops[1].type != OP_IM12S){
+            tcc_error("'%s': Expected first source operand that is an immediate value between 0 and 0xFFFFFFFFFFFFFFFF", get_tok_str(token, வெற்று));
         }
         lo = ops[1].e.v;
         hi = (int64_t)ops[1].e.v >> 32;
-        if(lo < 0){
+        எனில்(lo < 0){
             hi += 1;
         }
         imm.e.v = ((hi + 0x800) & 0xfffff000) >> 12;
@@ -665,136 +665,136 @@ static void asm_binary_opcode(TCCState* s1, int token)
         lo &= 0xff;
         imm.e.v = lo << 20 >> 20;
         asm_emit_i(token, 3 | (4 << 2), &ops[0], &ops[0], &imm);
-        return;
-    case TOK_ASM_mv:
+        திரும்பு;
+    நிலை TOK_ASM_mv:
         /* addi rd, rs, 0 */
         asm_emit_i(token, 3 | (4 << 2), &ops[0], &ops[1], &imm);
-        return;
-    case TOK_ASM_not:
+        திரும்பு;
+    நிலை TOK_ASM_not:
         /* xori rd, rs, -1 */
         imm.e.v = -1;
         asm_emit_i(token, (0x4 << 2) | 3 | (4 << 12), &ops[0], &ops[1], &imm);
-        return;
-    case TOK_ASM_neg:
+        திரும்பு;
+    நிலை TOK_ASM_neg:
         /* sub rd, x0, rs2 */
         asm_emit_r(token, (0xC << 2) | 3 | (32 << 25), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_negw:
+        திரும்பு;
+    நிலை TOK_ASM_negw:
         /* subw rd, x0, rs2 */
         asm_emit_r(token, (0xE << 2) | 3 | (32 << 25), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_sext_w:
+        திரும்பு;
+    நிலை TOK_ASM_sext_w:
         /* addiw rd, rs, 0 */
         asm_emit_i(token, 0x1b, &ops[0], &ops[1], &zimm);
-        return;
-    case TOK_ASM_fneg_s:
+        திரும்பு;
+    நிலை TOK_ASM_fneg_s:
         /* fsgnjn.s rd, rs, rs */
         asm_emit_f(token, 0x53 | (1 << 12) | (0 << 25) | (4 << 27), &ops[0], &ops[1], &ops[1]);
-        return;
-    case TOK_ASM_fneg_d:
+        திரும்பு;
+    நிலை TOK_ASM_fneg_d:
         /* fsgnjn.d rd, rs, rs */
         asm_emit_f(token, 0x53 | (1 << 12) | (1 << 25) | (4 << 27), &ops[0], &ops[1], &ops[1]);
-        return;
-    case TOK_ASM_fmv_s:
+        திரும்பு;
+    நிலை TOK_ASM_fmv_s:
         /* fsgnj.s rd, rs, rs */
         asm_emit_f(token, 0x53 | (0 << 12) | (0 << 25) | (4 << 27), &ops[0], &ops[1], &ops[1]);
-        return;
-    case TOK_ASM_fmv_d:
+        திரும்பு;
+    நிலை TOK_ASM_fmv_d:
         /* fsgnj.d rd, rs, rs */
         asm_emit_f(token, 0x53 | (0 << 12) | (1 << 25) | (4 << 27), &ops[0], &ops[1], &ops[1]);
-        return;
+        திரும்பு;
     /* FCVT instructions now handled by asm_fcvt_opcode() with
        optional rounding mode operand (GNU as syntax:
        fcvt.w.s rd, rs1 [, rtz/rne/...) */
 
-    case TOK_ASM_jump:
+    நிலை TOK_ASM_jump:
         /* auipc x5, 0 */
         asm_emit_opcode(3 | (5 << 2) | ENCODE_RD(5));
         greloca(cur_text_section, ops->e.sym, ind, R_RISCV_CALL, 0);
         /* jalr zero, 0(x5) */
         asm_emit_opcode(0x67 | (0 << 12) | ENCODE_RS1(5));
-        return;
-    case TOK_ASM_seqz:
+        திரும்பு;
+    நிலை TOK_ASM_seqz:
         /* sltiu rd, rs, 1 */
         imm.e.v = 1;
         asm_emit_i(token, (0x4 << 2) | 3 | (3 << 12), &ops[0], &ops[1], &imm);
-        return;
-    case TOK_ASM_snez:
+        திரும்பு;
+    நிலை TOK_ASM_snez:
         /* sltu rd, zero, rs */
         imm.e.v = 1;
         asm_emit_r(token, (0xC << 2) | 3 | (3 << 12), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_sltz:
+        திரும்பு;
+    நிலை TOK_ASM_sltz:
         /* slt rd, rs, zero */
         asm_emit_r(token, (0xC << 2) | 3 | (2 << 12), &ops[0], &ops[1], &zero);
-        return;
-    case TOK_ASM_sgtz:
+        திரும்பு;
+    நிலை TOK_ASM_sgtz:
         /* slt rd, zero, rs */
         asm_emit_r(token, (0xC << 2) | 3 | (2 << 12), &ops[0], &zero, &ops[1]);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_fabs_d:
+    நிலை TOK_ASM_fabs_d:
         /* fsgnjx.d rd, rs, rs */
         asm_emit_f(token, 0x53 | (4 << 27) | (1 << 25) | (2 << 12), &ops[0], &ops[1], &ops[1]);
-        return;
-    case TOK_ASM_fabs_s:
+        திரும்பு;
+    நிலை TOK_ASM_fabs_s:
         /* fsgnjx.s rd, rs, rs */
         asm_emit_f(token, 0x53 | (4 << 27) | (0 << 25) | (2 << 12), &ops[0], &ops[1], &ops[1]);
-        return;
+        திரும்பு;
 
     /* CSR pseudo-instructions */
-    case TOK_ASM_csrr:
+    நிலை TOK_ASM_csrr:
         /* csrrs rd, csr, x0 */
         asm_emit_opcode(0x73 | (2 << 12) | (ops[1].e.v << 20) | ENCODE_RD(ops[0].reg));
-        return;
-    case TOK_ASM_csrw:
+        திரும்பு;
+    நிலை TOK_ASM_csrw:
         /* csrrw x0, csr, rs */
         asm_emit_opcode(0x73 | (1 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].reg));
-        return;
-    case TOK_ASM_csrs:
+        திரும்பு;
+    நிலை TOK_ASM_csrs:
         /* csrrs x0, csr, rs */
         asm_emit_opcode(0x73 | (2 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].reg));
-        return;
-    case TOK_ASM_csrc:
+        திரும்பு;
+    நிலை TOK_ASM_csrc:
         /* csrrc x0, csr, rs */
         asm_emit_opcode(0x73 | (3 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].reg));
-        return;
-    case TOK_ASM_fsrm:
+        திரும்பு;
+    நிலை TOK_ASM_fsrm:
         /* csrrw rd, frm, rs */
         asm_emit_opcode(0x73 | (1 << 12) | (2 << 20) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg));
-        return;
-    case TOK_ASM_fscsr:
+        திரும்பு;
+    நிலை TOK_ASM_fscsr:
         /* csrrw rd, fcsr, rs */
         asm_emit_opcode(0x73 | (1 << 12) | (3 << 20) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg));
-        return;
-    case TOK_ASM_csrwi:
+        திரும்பு;
+    நிலை TOK_ASM_csrwi:
         /* csrrwi x0, csr, uimm */
         asm_emit_opcode(0x73 | (5 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].e.v));
-        return;
-    case TOK_ASM_csrsi:
+        திரும்பு;
+    நிலை TOK_ASM_csrsi:
         /* csrrsi x0, csr, uimm */
         asm_emit_opcode(0x73 | (6 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].e.v));
-        return;
-    case TOK_ASM_csrci:
+        திரும்பு;
+    நிலை TOK_ASM_csrci:
         /* csrrci x0, csr, uimm */
         asm_emit_opcode(0x73 | (7 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].e.v));
-        return;
-    default:
+        திரும்பு;
+    இயல்பு:
         expect("binary instruction");
     }
 }
 
 /* caller: Add funct3, funct7 into opcode */
-static void asm_emit_r(int token, uint32_t opcode, const Operand* rd, const Operand* rs1, const Operand* rs2)
+நிலையான வெறுமை asm_emit_r(முழு token, uint32_t opcode, மாறிலி Operand* rd, மாறிலி Operand* rs1, மாறிலி Operand* rs2)
 {
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, வெற்று));
     }
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected second source operand that is a register or immediate", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected second source operand that is a register or immediate", get_tok_str(token, வெற்று));
     }
     /* R-type instruction:
 	     31...25 funct7
@@ -807,16 +807,16 @@ static void asm_emit_r(int token, uint32_t opcode, const Operand* rd, const Oper
 }
 
 /* caller: Add rounding mode, fmt, funct5 to opcode */
-static void asm_emit_f(int token, uint32_t opcode, const Operand* rd, const Operand* rs1, const Operand* rs2)
+நிலையான வெறுமை asm_emit_f(முழு token, uint32_t opcode, மாறிலி Operand* rd, மாறிலி Operand* rs1, மாறிலி Operand* rs2)
 {
-    if (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
-        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
+        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, வெற்று));
     }
-    if (rs1->type != OP_REG || !REG_IS_FLOAT(rs1->reg)) {
-        tcc_error("'%s': Expected first source operand that is a floating-point register", get_tok_str(token, NULL));
+    எனில் (rs1->type != OP_REG || !REG_IS_FLOAT(rs1->reg)) {
+        tcc_error("'%s': Expected first source operand that is a floating-point register", get_tok_str(token, வெற்று));
     }
-    if (rs2->type != OP_REG || !REG_IS_FLOAT(rs2->reg)) {
-        tcc_error("'%s': Expected second source operand that is a floating-point register", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_REG || !REG_IS_FLOAT(rs2->reg)) {
+        tcc_error("'%s': Expected second source operand that is a floating-point register", get_tok_str(token, வெற்று));
     }
     /* F-type instruction:
 	     31...27 funct5
@@ -829,13 +829,13 @@ static void asm_emit_f(int token, uint32_t opcode, const Operand* rd, const Oper
     gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs1->reg) | ENCODE_RS2(rs2->reg));
 }
 /* caller: Add rounding mode, fmt, funct5 to opcode */
-static void asm_emit_fb(int token, uint32_t opcode, const Operand* rd, const Operand* rs)
+நிலையான வெறுமை asm_emit_fb(முழு token, uint32_t opcode, மாறிலி Operand* rd, மாறிலி Operand* rs)
 {
-    if (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
-        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
+        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, வெற்று));
     }
-    if (rs->type != OP_REG || !REG_IS_FLOAT(rs->reg)) {
-        tcc_error("'%s': Expected source operand that is a floating-point register", get_tok_str(token, NULL));
+    எனில் (rs->type != OP_REG || !REG_IS_FLOAT(rs->reg)) {
+        tcc_error("'%s': Expected source operand that is a floating-point register", get_tok_str(token, வெற்று));
     }
     /* F-type instruction:
 	     31...27 funct5
@@ -848,19 +848,19 @@ static void asm_emit_fb(int token, uint32_t opcode, const Operand* rd, const Ope
     gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs->reg) | ENCODE_RS2(0));
 }
 /* caller: Add rounding mode, fmt to opcode */
-static void asm_emit_fq(int token, uint32_t opcode, const Operand* rd, const Operand* rs1, const Operand* rs2, const Operand* rs3)
+நிலையான வெறுமை asm_emit_fq(முழு token, uint32_t opcode, மாறிலி Operand* rd, மாறிலி Operand* rs1, மாறிலி Operand* rs2, மாறிலி Operand* rs3)
 {
-    if (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
-        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
+        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, வெற்று));
     }
-    if (rs1->type != OP_REG || !REG_IS_FLOAT(rs1->reg)) {
-        tcc_error("'%s': Expected first source operand that is a floating-point register", get_tok_str(token, NULL));
+    எனில் (rs1->type != OP_REG || !REG_IS_FLOAT(rs1->reg)) {
+        tcc_error("'%s': Expected first source operand that is a floating-point register", get_tok_str(token, வெற்று));
     }
-    if (rs2->type != OP_REG || !REG_IS_FLOAT(rs2->reg)) {
-        tcc_error("'%s': Expected second source operand that is a floating-point register", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_REG || !REG_IS_FLOAT(rs2->reg)) {
+        tcc_error("'%s': Expected second source operand that is a floating-point register", get_tok_str(token, வெற்று));
     }
-    if (rs3->type != OP_REG || !REG_IS_FLOAT(rs3->reg)) {
-        tcc_error("'%s': Expected third source operand that is a floating-point register", get_tok_str(token, NULL));
+    எனில் (rs3->type != OP_REG || !REG_IS_FLOAT(rs3->reg)) {
+        tcc_error("'%s': Expected third source operand that is a floating-point register", get_tok_str(token, வெற்று));
     }
     /* F-type instruction:
 	     31...27 rs3
@@ -870,20 +870,20 @@ static void asm_emit_fq(int token, uint32_t opcode, const Operand* rd, const Ope
 	     14...12 rm
 	     11...7 rd
 	     6...0 opcode */
-    gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs1->reg) | ENCODE_RS2(rs2->reg) | (REG_VALUE(rs3->reg) << 27));
+    gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs1->reg) | ENCODE_RS2(rs2->reg) | (REG_மதிப்பு(rs3->reg) << 27));
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_i(int token, uint32_t opcode, const Operand* rd, const Operand* rs1, const Operand* rs2)
+நிலையான வெறுமை asm_emit_i(முழு token, uint32_t opcode, மாறிலி Operand* rd, மாறிலி Operand* rs1, மாறிலி Operand* rs2)
 {
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, வெற்று));
     }
-    if (rs2->type != OP_IM12S) {
-        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 8191", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_IM12S) {
+        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 8191", get_tok_str(token, வெற்று));
     }
     /* I-type instruction:
 	     31...20 imm[11:0]
@@ -895,26 +895,26 @@ static void asm_emit_i(int token, uint32_t opcode, const Operand* rd, const Oper
     gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs1->reg) | (rs2->e.v << 20));
 }
 
-static void asm_emit_j(int token, uint32_t opcode, const Operand* rd, const Operand* rs2)
+நிலையான வெறுமை asm_emit_j(முழு token, uint32_t opcode, மாறிலி Operand* rd, மாறிலி Operand* rs2)
 {
     uint32_t imm;
 
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
-    if (rs2->type != OP_IM12S && rs2->type != OP_IM32) {
-        tcc_error("'%s': Expected second source operand that is an immediate value", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_IM12S && rs2->type != OP_IM32) {
+        tcc_error("'%s': Expected second source operand that is an immediate value", get_tok_str(token, வெற்று));
     }
 
     imm = rs2->e.v;
 
     /* even offsets in a +- 1 MiB range */
-    if ((int)imm > (1 << 20) -1 || (int)imm <= -1 * ((1 << 20) -1)) {
-        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 0x1fffff", get_tok_str(token, NULL));
+    எனில் ((முழு)imm > (1 << 20) -1 || (முழு)imm <= -1 * ((1 << 20) -1)) {
+        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 0x1fffff", get_tok_str(token, வெற்று));
     }
 
-    if (imm & 1) {
-        tcc_error("'%s': Expected second source operand that is an even immediate value", get_tok_str(token, NULL));
+    எனில் (imm & 1) {
+        tcc_error("'%s': Expected second source operand that is an even immediate value", get_tok_str(token, வெற்று));
     }
     /* J-type instruction:
     31      imm[20]
@@ -926,7 +926,7 @@ static void asm_emit_j(int token, uint32_t opcode, const Operand* rd, const Oper
     gen_le32(opcode | ENCODE_RD(rd->reg) | (((imm >> 20) & 1) << 31) | (((imm >> 1) & 0x3ff) << 21) | (((imm >> 11) & 1) << 20) | (((imm >> 12) & 0xff) << 12));
 }
 
-static void asm_mem_access_opcode(TCCState *s1, int token)
+நிலையான வெறுமை asm_mem_access_opcode(TCCState *s1, முழு token)
 {
 
     Operand ops[3];
@@ -938,7 +938,7 @@ static void asm_mem_access_opcode(TCCState *s1, int token)
      *   inst reg, 0(reg)
      * And with the proper relocation to label
      */
-    if (ops[1].type == OP_IM32 && ops[1].e.sym && ops[1].e.sym->type.t & VT_STATIC){
+    எனில் (ops[1].type == OP_IM32 && ops[1].e.sym && ops[1].e.sym->type.t & VT_STATIC){
         ops[1] = ops[0];
         /* set the offset to zero */
         ops[2].type = OP_IM12S;
@@ -947,409 +947,409 @@ static void asm_mem_access_opcode(TCCState *s1, int token)
         asm_emit_u(token, (0x05 << 2) | 3, &ops[0], &ops[2]);
     }
 
-    switch (token) {
+    தேர்வு (token) {
     // l{b|h|w|d}[u] rd, imm(rs1); I-format
-    case TOK_ASM_lb:
+    நிலை TOK_ASM_lb:
          asm_emit_i(token, (0x0 << 2) | 3, &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_lh:
+         திரும்பு;
+    நிலை TOK_ASM_lh:
          asm_emit_i(token, (0x0 << 2) | 3 | (1 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_lw:
+         திரும்பு;
+    நிலை TOK_ASM_lw:
          asm_emit_i(token, (0x0 << 2) | 3 | (2 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_ld:
+         திரும்பு;
+    நிலை TOK_ASM_ld:
          asm_emit_i(token, (0x0 << 2) | 3 | (3 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_lbu:
+         திரும்பு;
+    நிலை TOK_ASM_lbu:
          asm_emit_i(token, (0x0 << 2) | 3 | (4 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_lhu:
+         திரும்பு;
+    நிலை TOK_ASM_lhu:
          asm_emit_i(token, (0x0 << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_lwu:
+         திரும்பு;
+    நிலை TOK_ASM_lwu:
          asm_emit_i(token, (0x0 << 2) | 3 | (6 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_fld:
+         திரும்பு;
+    நிலை TOK_ASM_fld:
          asm_emit_i(token, (0x1 << 2) | 3 | (3 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
+         திரும்பு;
 
     // s{b|h|w|d} rs2, imm(rs1); S-format (with rsX swapped)
-    case TOK_ASM_sb:
+    நிலை TOK_ASM_sb:
          asm_emit_s(token, (0x8 << 2) | 3 | (0 << 12), &ops[1], &ops[0], &ops[2]);
-         return;
-    case TOK_ASM_sh:
+         திரும்பு;
+    நிலை TOK_ASM_sh:
          asm_emit_s(token, (0x8 << 2) | 3 | (1 << 12), &ops[1], &ops[0], &ops[2]);
-         return;
-    case TOK_ASM_sw:
+         திரும்பு;
+    நிலை TOK_ASM_sw:
          asm_emit_s(token, (0x8 << 2) | 3 | (2 << 12), &ops[1], &ops[0], &ops[2]);
-         return;
-    case TOK_ASM_sd:
+         திரும்பு;
+    நிலை TOK_ASM_sd:
          asm_emit_s(token, (0x8 << 2) | 3 | (3 << 12), &ops[1], &ops[0], &ops[2]);
-         return;
-    case TOK_ASM_fsd:
+         திரும்பு;
+    நிலை TOK_ASM_fsd:
          asm_emit_s(token, (0x9 << 2) | 3 | (3 << 12), &ops[1], &ops[0], &ops[2]);
-         return;
+         திரும்பு;
     }
 }
 
-static void asm_branch_opcode(TCCState *s1, int token, int argc)
+நிலையான வெறுமை asm_branch_opcode(TCCState *s1, முழு token, முழு argc)
 {
     Operand ops[3];
     parse_operands(s1, &ops[0], argc-1);
     skip(',');
     parse_branch_offset_operand(s1, &ops[argc-1]);
 
-    switch(token){
+    தேர்வு(token){
     /* branch (RS1, RS2, IMM); B-format */
-    case TOK_ASM_beq:
+    நிலை TOK_ASM_beq:
         asm_emit_b(token, 0x63 | (0 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_bne:
+        திரும்பு;
+    நிலை TOK_ASM_bne:
         asm_emit_b(token, 0x63 | (1 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_blt:
+        திரும்பு;
+    நிலை TOK_ASM_blt:
         asm_emit_b(token, 0x63 | (4 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_bge:
+        திரும்பு;
+    நிலை TOK_ASM_bge:
         asm_emit_b(token, 0x63 | (5 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_bltu:
+        திரும்பு;
+    நிலை TOK_ASM_bltu:
         asm_emit_b(token, 0x63 | (6 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_bgeu:
+        திரும்பு;
+    நிலை TOK_ASM_bgeu:
         asm_emit_b(token, 0x63 | (7 << 12), ops, ops + 1, ops + 2);
-        return;
+        திரும்பு;
     /* related pseudoinstructions */
-    case TOK_ASM_bgt:
+    நிலை TOK_ASM_bgt:
         asm_emit_b(token, 0x63 | (4 << 12), ops + 1, ops, ops + 2);
-        return;
-    case TOK_ASM_ble:
+        திரும்பு;
+    நிலை TOK_ASM_ble:
         asm_emit_b(token, 0x63 | (5 << 12), ops + 1, ops, ops + 2);
-        return;
-    case TOK_ASM_bgtu:
+        திரும்பு;
+    நிலை TOK_ASM_bgtu:
         asm_emit_b(token, 0x63 | (6 << 12), ops + 1, ops, ops + 2);
-        return;
-    case TOK_ASM_bleu:
+        திரும்பு;
+    நிலை TOK_ASM_bleu:
         asm_emit_b(token, 0x63 | (7 << 12), ops + 1, ops, ops + 2);
-        return;
+        திரும்பு;
     /* shorter pseudoinstructions */
-    case TOK_ASM_bnez:
+    நிலை TOK_ASM_bnez:
         /* bne rs, zero, offset */
         asm_emit_b(token, 0x63 | (1 << 12), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_beqz:
+        திரும்பு;
+    நிலை TOK_ASM_beqz:
         /* bne rs, zero, offset */
         asm_emit_b(token, 0x63 | (0 << 12), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_blez:
+        திரும்பு;
+    நிலை TOK_ASM_blez:
         /* bge rs, zero, offset */
         asm_emit_b(token, 0x63 | (5 << 12), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_bgez:
+        திரும்பு;
+    நிலை TOK_ASM_bgez:
         /* bge zero, rs, offset */
         asm_emit_b(token, 0x63 | (5 << 12), &zero, &ops[0], &ops[1]);
-        return;
-    case TOK_ASM_bltz:
+        திரும்பு;
+    நிலை TOK_ASM_bltz:
         /* blt rs, zero, offset */
         asm_emit_b(token, 0x63 | (4 << 12), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_bgtz:
+        திரும்பு;
+    நிலை TOK_ASM_bgtz:
         /* blt zero, rs, offset */
         asm_emit_b(token, 0x63 | (4 << 12), &zero, &ops[0], &ops[1]);
-        return;
+        திரும்பு;
     }
 }
 
-static void asm_ternary_opcode(TCCState *s1, int token)
+நிலையான வெறுமை asm_ternary_opcode(TCCState *s1, முழு token)
 {
     Operand ops[3];
     parse_operands(s1, &ops[0], 3);
 
-    switch (token) {
-    case TOK_ASM_sll:
+    தேர்வு (token) {
+    நிலை TOK_ASM_sll:
         asm_emit_r(token, (0xC << 2) | 3 | (1 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_slli:
+        திரும்பு;
+    நிலை TOK_ASM_slli:
         asm_emit_i(token, (4 << 2) | 3 | (1 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_srl:
+        திரும்பு;
+    நிலை TOK_ASM_srl:
         asm_emit_r(token, (0xC << 2) | 3 | (4 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_srli:
+        திரும்பு;
+    நிலை TOK_ASM_srli:
         asm_emit_i(token, (0x4 << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_sra:
+        திரும்பு;
+    நிலை TOK_ASM_sra:
         asm_emit_r(token, (0xC << 2) | 3 | (5 << 12) | (32 << 25), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_srai:
+        திரும்பு;
+    நிலை TOK_ASM_srai:
         asm_emit_i(token, (0x4 << 2) | 3 | (5 << 12) | (16 << 26), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_sllw:
+        திரும்பு;
+    நிலை TOK_ASM_sllw:
         asm_emit_r(token, (0xE << 2) | 3 | (1 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_slliw:
+        திரும்பு;
+    நிலை TOK_ASM_slliw:
         asm_emit_i(token, (6 << 2) | 3 | (1 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_srlw:
+        திரும்பு;
+    நிலை TOK_ASM_srlw:
         asm_emit_r(token, (0xE << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_srliw:
+        திரும்பு;
+    நிலை TOK_ASM_srliw:
         asm_emit_i(token, (0x6 << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_sraw:
+        திரும்பு;
+    நிலை TOK_ASM_sraw:
         asm_emit_r(token, (0xE << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_sraiw:
+        திரும்பு;
+    நிலை TOK_ASM_sraiw:
         asm_emit_i(token, (0x6 << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
+        திரும்பு;
 
     // Arithmetic (RD,RS1,(RS2|IMM)); R-format, I-format or U-format
 
-    case TOK_ASM_add:
+    நிலை TOK_ASM_add:
          asm_emit_r(token, (0xC << 2) | 3, &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_addi:
+         திரும்பு;
+    நிலை TOK_ASM_addi:
          asm_emit_i(token, (4 << 2) | 3, &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_sub:
+         திரும்பு;
+    நிலை TOK_ASM_sub:
          asm_emit_r(token, (0xC << 2) | 3 | (32 << 25), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_addw:
+         திரும்பு;
+    நிலை TOK_ASM_addw:
          asm_emit_r(token, (0xE << 2) | 3 | (0 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_addiw: // 64 bit
+         திரும்பு;
+    நிலை TOK_ASM_addiw: // 64 bit
          asm_emit_i(token, (0x6 << 2) | 3 | (0 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_subw:
+         திரும்பு;
+    நிலை TOK_ASM_subw:
          asm_emit_r(token, (0xE << 2) | 3 | (0 << 12) | (32 << 25), &ops[0], &ops[1], &ops[2]);
-         return;
+         திரும்பு;
 
     // Logical (RD,RS1,(RS2|IMM)); R-format or I-format
 
-    case TOK_ASM_xor:
+    நிலை TOK_ASM_xor:
          asm_emit_r(token, (0xC << 2) | 3 | (4 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_xori:
+         திரும்பு;
+    நிலை TOK_ASM_xori:
          asm_emit_i(token, (0x4 << 2) | 3 | (4 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_or:
+         திரும்பு;
+    நிலை TOK_ASM_or:
          asm_emit_r(token, (0xC << 2) | 3 | (6 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_ori:
+         திரும்பு;
+    நிலை TOK_ASM_ori:
          asm_emit_i(token, (0x4 << 2) | 3 | (6 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_and:
+         திரும்பு;
+    நிலை TOK_ASM_and:
          asm_emit_r(token, (0xC << 2) | 3 | (7 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_andi:
+         திரும்பு;
+    நிலை TOK_ASM_andi:
          asm_emit_i(token, (0x4 << 2) | 3 | (7 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
+         திரும்பு;
 
     // Compare (RD,RS1,(RS2|IMM)); R-format or I-format
 
-    case TOK_ASM_slt:
+    நிலை TOK_ASM_slt:
          asm_emit_r(token, (0xC << 2) | 3 | (2 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_slti:
+         திரும்பு;
+    நிலை TOK_ASM_slti:
          asm_emit_i(token, (0x4 << 2) | 3 | (2 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_sltu:
+         திரும்பு;
+    நிலை TOK_ASM_sltu:
          asm_emit_r(token, (0xC << 2) | 3 | (3 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_sltiu:
+         திரும்பு;
+    நிலை TOK_ASM_sltiu:
          asm_emit_i(token, (0x4 << 2) | 3 | (3 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
+         திரும்பு;
 
     /* M extension */
-    case TOK_ASM_div:
+    நிலை TOK_ASM_div:
         asm_emit_r(token, 0x33 | (4 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_divu:
+        திரும்பு;
+    நிலை TOK_ASM_divu:
         asm_emit_r(token, 0x33 | (5 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_divuw:
+        திரும்பு;
+    நிலை TOK_ASM_divuw:
         asm_emit_r(token, 0x3b | (5 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_divw:
+        திரும்பு;
+    நிலை TOK_ASM_divw:
         asm_emit_r(token, 0x3b | (4 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_mul:
+        திரும்பு;
+    நிலை TOK_ASM_mul:
         asm_emit_r(token, 0x33 | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_mulh:
+        திரும்பு;
+    நிலை TOK_ASM_mulh:
         asm_emit_r(token, 0x33 | (1 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_mulhsu:
+        திரும்பு;
+    நிலை TOK_ASM_mulhsu:
         asm_emit_r(token, 0x33 | (2 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_mulhu:
+        திரும்பு;
+    நிலை TOK_ASM_mulhu:
         asm_emit_r(token, 0x33 | (3 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_mulw:
+        திரும்பு;
+    நிலை TOK_ASM_mulw:
         asm_emit_r(token, 0x3b | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_rem:
+        திரும்பு;
+    நிலை TOK_ASM_rem:
         asm_emit_r(token, 0x33 | (6 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_remu:
+        திரும்பு;
+    நிலை TOK_ASM_remu:
         asm_emit_r(token, 0x33 | (7 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_remuw:
+        திரும்பு;
+    நிலை TOK_ASM_remuw:
         asm_emit_r(token, 0x3b | (7 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_remw:
+        திரும்பு;
+    நிலை TOK_ASM_remw:
         asm_emit_r(token, 0x3b | (6 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
+        திரும்பு;
 
     /* Zicsr extension; (rd, csr, rs/uimm) */
-    case TOK_ASM_csrrc:
+    நிலை TOK_ASM_csrrc:
         asm_emit_i(token, 0x73 | (3 << 12), ops, ops + 2, ops + 1);
-        return;
-    case TOK_ASM_csrrci:
+        திரும்பு;
+    நிலை TOK_ASM_csrrci:
         /* using rs1 field for uimmm */
         ops[2].type = OP_REG;
         asm_emit_i(token, 0x73 | (7 << 12), ops, ops + 2, ops + 1);
-        return;
-    case TOK_ASM_csrrs:
+        திரும்பு;
+    நிலை TOK_ASM_csrrs:
         asm_emit_i(token, 0x73 | (2 << 12), ops, ops + 2, ops + 1);
-        return;
-    case TOK_ASM_csrrsi:
+        திரும்பு;
+    நிலை TOK_ASM_csrrsi:
         ops[2].type = OP_REG;
         asm_emit_i(token, 0x73 | (6 << 12), ops, ops + 2, ops + 1);
-        return;
-    case TOK_ASM_csrrw:
+        திரும்பு;
+    நிலை TOK_ASM_csrrw:
         asm_emit_i(token, 0x73 | (1 << 12), ops, ops + 2, ops + 1);
-        return;
-    case TOK_ASM_csrrwi:
+        திரும்பு;
+    நிலை TOK_ASM_csrrwi:
         ops[2].type = OP_REG;
         asm_emit_i(token, 0x73 | (5 << 12), ops, ops + 2, ops + 1);
-        return;
+        திரும்பு;
 
     /* C extension */
     /* register-based loads and stores (RD, RS1, IMM); CL-format */
-    case TOK_ASM_c_fld:
+    நிலை TOK_ASM_c_fld:
         asm_emit_cl(token, 1 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_flw: /* RV32FC-only */
+        திரும்பு;
+    நிலை TOK_ASM_c_flw: /* RV32FC-only */
         asm_emit_cl(token, 3 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_fsd:
+        திரும்பு;
+    நிலை TOK_ASM_c_fsd:
         asm_emit_cs(token, 5 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_fsw: /* RV32FC-only */
+        திரும்பு;
+    நிலை TOK_ASM_c_fsw: /* RV32FC-only */
         asm_emit_cs(token, 7 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_ld:
+        திரும்பு;
+    நிலை TOK_ASM_c_ld:
         asm_emit_cl(token, 3 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_lw:
+        திரும்பு;
+    நிலை TOK_ASM_c_lw:
         asm_emit_cl(token, 2 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_sd:
+        திரும்பு;
+    நிலை TOK_ASM_c_sd:
         asm_emit_cs(token, 7 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_sw:
+        திரும்பு;
+    நிலை TOK_ASM_c_sw:
         asm_emit_cs(token, 6 << 13, ops, ops + 1, ops + 2);
-        return;
+        திரும்பு;
 
     /* F/D extension */
-    case TOK_ASM_fadd_d:
+    நிலை TOK_ASM_fadd_d:
         asm_emit_f(token, 0x53 | (0 << 27) | (1 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fadd_s:
+        திரும்பு;
+    நிலை TOK_ASM_fadd_s:
         asm_emit_f(token, 0x53 | (0 << 27) | (0 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fsub_d:
+        திரும்பு;
+    நிலை TOK_ASM_fsub_d:
         asm_emit_f(token, 0x53 | (1 << 27) | (1 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fsub_s:
+        திரும்பு;
+    நிலை TOK_ASM_fsub_s:
         asm_emit_f(token, 0x53 | (1 << 27) | (0 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmul_d:
+        திரும்பு;
+    நிலை TOK_ASM_fmul_d:
         asm_emit_f(token, 0x53 | (2 << 27) | (1 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmul_s:
+        திரும்பு;
+    நிலை TOK_ASM_fmul_s:
         asm_emit_f(token, 0x53 | (2 << 27) | (0 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fdiv_d:
+        திரும்பு;
+    நிலை TOK_ASM_fdiv_d:
         asm_emit_f(token, 0x53 | (3 << 27) | (1 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fdiv_s:
+        திரும்பு;
+    நிலை TOK_ASM_fdiv_s:
         asm_emit_f(token, 0x53 | (3 << 27) | (0 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fsgnj_d:
+        திரும்பு;
+    நிலை TOK_ASM_fsgnj_d:
         asm_emit_f(token, 0x53 | (4 << 27) | (1 << 25) | (0 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fsgnj_s:
+        திரும்பு;
+    நிலை TOK_ASM_fsgnj_s:
         asm_emit_f(token, 0x53 | (4 << 27) | (0 << 25) | (0 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmax_d:
+        திரும்பு;
+    நிலை TOK_ASM_fmax_d:
         asm_emit_f(token, 0x53 | (5 << 27) | (1 << 25) | (1 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmax_s:
+        திரும்பு;
+    நிலை TOK_ASM_fmax_s:
         asm_emit_f(token, 0x53 | (5 << 27) | (0 << 25) | (1 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmin_d:
+        திரும்பு;
+    நிலை TOK_ASM_fmin_d:
         asm_emit_f(token, 0x53 | (5 << 27) | (1 << 25) | (0 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmin_s:
+        திரும்பு;
+    நிலை TOK_ASM_fmin_s:
         asm_emit_f(token, 0x53 | (5 << 27) | (0 << 25) | (0 << 12), ops, ops + 1, ops + 2);
-        return;
+        திரும்பு;
 
     /* F/D comparison: produce integer result, encode manually */
-    case TOK_ASM_feq_s:
+    நிலை TOK_ASM_feq_s:
         asm_emit_opcode(0x53 | (0x14 << 27) | (0 << 25) | (2 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
-    case TOK_ASM_feq_d:
+        திரும்பு;
+    நிலை TOK_ASM_feq_d:
         asm_emit_opcode(0x53 | (0x14 << 27) | (1 << 25) | (2 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
-    case TOK_ASM_flt_s:
+        திரும்பு;
+    நிலை TOK_ASM_flt_s:
         asm_emit_opcode(0x53 | (0x14 << 27) | (0 << 25) | (1 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
-    case TOK_ASM_flt_d:
+        திரும்பு;
+    நிலை TOK_ASM_flt_d:
         asm_emit_opcode(0x53 | (0x14 << 27) | (1 << 25) | (1 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
-    case TOK_ASM_fle_s:
+        திரும்பு;
+    நிலை TOK_ASM_fle_s:
         asm_emit_opcode(0x53 | (0x14 << 27) | (0 << 25) | (0 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
-    case TOK_ASM_fle_d:
+        திரும்பு;
+    நிலை TOK_ASM_fle_d:
         asm_emit_opcode(0x53 | (0x14 << 27) | (1 << 25) | (0 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
+        திரும்பு;
 
-    default:
+    இயல்பு:
         expect("ternary instruction");
     }
 }
 
-static void asm_quaternary_opcode(TCCState *s1, int token)
+நிலையான வெறுமை asm_quaternary_opcode(TCCState *s1, முழு token)
 {
     Operand ops[4];
     parse_operands(s1, &ops[0], 4);
 
-    switch (token) {
-    case TOK_ASM_fmadd_d:
+    தேர்வு (token) {
+    நிலை TOK_ASM_fmadd_d:
         asm_emit_fq(token, 0x43 | (1 << 25) | (7 << 12), ops, ops + 1, ops + 2, ops + 3);
-        return;
-    case TOK_ASM_fmadd_s:
+        திரும்பு;
+    நிலை TOK_ASM_fmadd_s:
         asm_emit_fq(token, 0x43 | (0 << 25) | (7 << 12), ops, ops + 1, ops + 2, ops + 3);
-        return;
+        திரும்பு;
 
-    default:
+    இயல்பு:
         expect("quaternary instruction");
     }
 }
 
-static void asm_atomic_opcode(TCCState *s1, int token)
+நிலையான வெறுமை asm_atomic_opcode(TCCState *s1, முழு token)
 {
     Operand ops[3];
 
     parse_operand(s1, &ops[0]);
     skip(',');
 
-    if ( token <= TOK_ASM_lr_d_aqrl && token >= TOK_ASM_lr_w ) {
+    எனில் ( token <= TOK_ASM_lr_d_aqrl && token >= TOK_ASM_lr_w ) {
         ops[1] = zero;
-    } else {
+    } இல்லையெனில் {
         parse_operand(s1, &ops[1]);
         skip(',');
     }
@@ -1358,219 +1358,219 @@ static void asm_atomic_opcode(TCCState *s1, int token)
     parse_operand(s1, &ops[2]);
     skip(')');
 
-    switch(token){
-        case TOK_ASM_lr_w:
+    தேர்வு(token){
+        நிலை TOK_ASM_lr_w:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0);
-            break;
-        case TOK_ASM_lr_w_aq:
+            நிறுத்து;
+        நிலை TOK_ASM_lr_w_aq:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 1, 0);
-            break;
-        case TOK_ASM_lr_w_rl:
+            நிறுத்து;
+        நிலை TOK_ASM_lr_w_rl:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 1);
-            break;
-        case TOK_ASM_lr_w_aqrl:
+            நிறுத்து;
+        நிலை TOK_ASM_lr_w_aqrl:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 1, 1);
-            break;
+            நிறுத்து;
 
-        case TOK_ASM_lr_d:
+        நிலை TOK_ASM_lr_d:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0);
-            break;
-        case TOK_ASM_lr_d_aq:
+            நிறுத்து;
+        நிலை TOK_ASM_lr_d_aq:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 1, 0);
-            break;
-        case TOK_ASM_lr_d_rl:
+            நிறுத்து;
+        நிலை TOK_ASM_lr_d_rl:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 1);
-            break;
-        case TOK_ASM_lr_d_aqrl:
+            நிறுத்து;
+        நிலை TOK_ASM_lr_d_aqrl:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 1, 1);
-            break;
+            நிறுத்து;
 
-        case TOK_ASM_sc_w:
+        நிலை TOK_ASM_sc_w:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0);
-            break;
-        case TOK_ASM_sc_w_aq:
+            நிறுத்து;
+        நிலை TOK_ASM_sc_w_aq:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0);
-            break;
-        case TOK_ASM_sc_w_rl:
+            நிறுத்து;
+        நிலை TOK_ASM_sc_w_rl:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1);
-            break;
-        case TOK_ASM_sc_w_aqrl:
+            நிறுத்து;
+        நிலை TOK_ASM_sc_w_aqrl:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1);
-            break;
+            நிறுத்து;
 
-        case TOK_ASM_sc_d:
+        நிலை TOK_ASM_sc_d:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0);
-            break;
-        case TOK_ASM_sc_d_aq:
+            நிறுத்து;
+        நிலை TOK_ASM_sc_d_aq:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0);
-            break;
-        case TOK_ASM_sc_d_rl:
+            நிறுத்து;
+        நிலை TOK_ASM_sc_d_rl:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1);
-            break;
-        case TOK_ASM_sc_d_aqrl:
+            நிறுத்து;
+        நிலை TOK_ASM_sc_d_aqrl:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1);
-            break;
+            நிறுத்து;
 
         /* AMO instructions (base, aq=0 rl=0) */
-        case TOK_ASM_amoadd_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoadd_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoswap_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoswap_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoand_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoand_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoor_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoor_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoxor_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoxor_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomax_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomax_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomaxu_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x1C<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomaxu_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x1C<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomin_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomin_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amominu_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amominu_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
+        நிலை TOK_ASM_amoadd_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amoadd_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amoswap_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amoswap_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amoand_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amoand_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amoor_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amoor_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amoxor_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amoxor_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amomax_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amomax_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amomaxu_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x1C<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amomaxu_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x1C<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amomin_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amomin_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amominu_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
+        நிலை TOK_ASM_amominu_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); நிறுத்து;
 
         /* AMO aq/rl variants */
-        case TOK_ASM_amoadd_w_aq:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoadd_w_rl:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoadd_w_aqrl:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoadd_d_aq:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoadd_d_rl:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoadd_d_aqrl:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
+        நிலை TOK_ASM_amoadd_w_aq:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amoadd_w_rl:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amoadd_w_aqrl:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amoadd_d_aq:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amoadd_d_rl:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amoadd_d_aqrl:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
 
-        case TOK_ASM_amoswap_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoswap_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoswap_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoswap_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoswap_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoswap_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoand_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoand_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoand_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoand_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoand_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoand_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoor_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoor_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoor_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoor_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoor_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoor_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoxor_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoxor_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoxor_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoxor_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoxor_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoxor_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomax_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomax_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomax_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomax_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomax_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomax_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomaxu_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomaxu_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomaxu_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomaxu_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomaxu_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomaxu_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomin_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomin_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomin_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomin_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomin_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomin_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amominu_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amominu_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amominu_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amominu_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amominu_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amominu_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
+        நிலை TOK_ASM_amoswap_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amoswap_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amoswap_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amoswap_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amoswap_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amoswap_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amoand_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amoand_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amoand_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amoand_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amoand_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amoand_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amoor_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amoor_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amoor_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amoor_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amoor_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amoor_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amoxor_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amoxor_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amoxor_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amoxor_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amoxor_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amoxor_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amomax_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amomax_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amomax_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amomax_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amomax_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amomax_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amomaxu_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amomaxu_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amomaxu_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amomaxu_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amomaxu_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amomaxu_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amomin_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amomin_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amomin_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amomin_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amomin_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amomin_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amominu_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amominu_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amominu_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
+        நிலை TOK_ASM_amominu_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0); நிறுத்து;
+        நிலை TOK_ASM_amominu_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1); நிறுத்து;
+        நிலை TOK_ASM_amominu_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1); நிறுத்து;
     }
 }
 
 /* caller: Add funct3 and func5 to opcode */
-static void asm_emit_a(int token, uint32_t opcode, const Operand *rd1, const Operand *rs2, const Operand *rs1, int aq, int rl)
+நிலையான வெறுமை asm_emit_a(முழு token, uint32_t opcode, மாறிலி Operand *rd1, மாறிலி Operand *rs2, மாறிலி Operand *rs1, முழு aq, முழு rl)
 {
-    if (rd1->type != OP_REG)
-        tcc_error("'%s': Expected first destination operand that is a register", get_tok_str(token, NULL));
-    if (rs2->type != OP_REG)
-        tcc_error("'%s': Expected second source operand that is a register", get_tok_str(token, NULL));
-    if (rs1->type != OP_REG)
-        tcc_error("'%s': Expected third source operand that is a register", get_tok_str(token, NULL));
+    எனில் (rd1->type != OP_REG)
+        tcc_error("'%s': Expected first destination operand that is a register", get_tok_str(token, வெற்று));
+    எனில் (rs2->type != OP_REG)
+        tcc_error("'%s': Expected second source operand that is a register", get_tok_str(token, வெற்று));
+    எனில் (rs1->type != OP_REG)
+        tcc_error("'%s': Expected third source operand that is a register", get_tok_str(token, வெற்று));
         /* A-type instruction:
 	        31...27 funct5
 	        26      aq
@@ -1585,16 +1585,16 @@ static void asm_emit_a(int token, uint32_t opcode, const Operand *rd1, const Ope
 }
 
 /* caller: Add funct3 to opcode */
-static void asm_emit_s(int token, uint32_t opcode, const Operand* rs1, const Operand* rs2, const Operand* imm)
+நிலையான வெறுமை asm_emit_s(முழு token, uint32_t opcode, மாறிலி Operand* rs1, மாறிலி Operand* rs2, மாறிலி Operand* imm)
 {
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, வெற்று));
     }
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected second source operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected second source operand that is a register", get_tok_str(token, வெற்று));
     }
-    if (imm->type != OP_IM12S) {
-        tcc_error("'%s': Expected third operand that is an immediate value between 0 and 8191", get_tok_str(token, NULL));
+    எனில் (imm->type != OP_IM12S) {
+        tcc_error("'%s': Expected third operand that is an immediate value between 0 and 8191", get_tok_str(token, வெற்று));
     }
     {
         uint16_t v = imm->e.v;
@@ -1610,19 +1610,19 @@ static void asm_emit_s(int token, uint32_t opcode, const Operand* rs1, const Ope
     }
 }
 
-static void asm_emit_b(int token, uint32_t opcode, const Operand *rs1, const Operand *rs2, const Operand *imm)
+நிலையான வெறுமை asm_emit_b(முழு token, uint32_t opcode, மாறிலி Operand *rs1, மாறிலி Operand *rs2, மாறிலி Operand *imm)
 {
     uint32_t offset;
 
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, வெற்று));
     }
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
-    if (imm->type == OP_IM32 && imm->e.sym) {
+    எனில் (imm->type == OP_IM32 && imm->e.sym) {
         /* far branch: expand to inverted short branch + auipc + jalr */
-        int b_ofs = ind;
+        முழு b_ofs = ind;
         uint32_t inv_func3 = ((opcode >> 12) & 7) ^ 1;
         uint32_t inv_opcode = (opcode & ~(7 << 12)) | (inv_func3 << 12);
         /* b<inverse> .+8 */
@@ -1638,10 +1638,10 @@ static void asm_emit_b(int token, uint32_t opcode, const Operand *rs1, const Ope
                   | (((ind - b_ofs) >> 5) & 0x3f) << 25
                   | (((ind - b_ofs) >> 11) & 1) << 7
                   | (((ind - b_ofs) >> 12) & 1) << 31);
-        return;
+        திரும்பு;
     }
-    if (imm->type != OP_IM12S) {
-        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 8191", get_tok_str(token, NULL));
+    எனில் (imm->type != OP_IM12S) {
+        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 8191", get_tok_str(token, வெற்று));
     }
 
     offset = imm->e.v;
@@ -1660,487 +1660,487 @@ static void asm_emit_b(int token, uint32_t opcode, const Operand *rs1, const Ope
 
 /* FCVT helper: parse optional rounding mode operand (GNU as syntax:
    fcvt.w.s rd, rs1 [, rtz/rne/rdn/rup/rmm]) */
-static int asm_fcvt_rm(TCCState *s1)
+நிலையான முழு asm_fcvt_rm(TCCState *s1)
 {
-    int rm = 7; /* dynamic */
-    if (tok == ',') {
+    முழு rm = 7; /* dynamic */
+    எனில் (tok == ',') {
         next();
-        switch (tok) {
-            case TOK_ASM_rne: rm = 0; next(); break;
-            case TOK_ASM_rtz: rm = 1; next(); break;
-            case TOK_ASM_rdn: rm = 2; next(); break;
-            case TOK_ASM_rup: rm = 3; next(); break;
-            case TOK_ASM_rmm: rm = 4; next(); break;
-            default: expect("rounding mode"); break;
+        தேர்வு (tok) {
+            நிலை TOK_ASM_rne: rm = 0; next(); நிறுத்து;
+            நிலை TOK_ASM_rtz: rm = 1; next(); நிறுத்து;
+            நிலை TOK_ASM_rdn: rm = 2; next(); நிறுத்து;
+            நிலை TOK_ASM_rup: rm = 3; next(); நிறுத்து;
+            நிலை TOK_ASM_rmm: rm = 4; next(); நிறுத்து;
+            இயல்பு: expect("rounding mode"); நிறுத்து;
         }
     }
-    return rm;
+    திரும்பு rm;
 }
 
 /* fcvt + fclass handler (all are binary with optional rounding operand) */
-static void asm_fcvt_opcode(TCCState *s1, int token)
+நிலையான வெறுமை asm_fcvt_opcode(TCCState *s1, முழு token)
 {
     Operand ops[2];
-    int rm;
+    முழு rm;
     uint32_t enc = 0;
 
     parse_operand(s1, &ops[0]);
     skip(',');
     parse_operand(s1, &ops[1]);
 
-    switch (token) {
-        case TOK_ASM_fcvt_w_s:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12); break;
-        case TOK_ASM_fcvt_wu_s: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (1 << 20); break;
-        case TOK_ASM_fcvt_l_s:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (2 << 20); break;
-        case TOK_ASM_fcvt_lu_s: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (3 << 20); break;
-        case TOK_ASM_fcvt_s_w:  enc = 0x53 | (0x68 << 25) | (7 << 12); break;
-        case TOK_ASM_fcvt_s_wu: enc = 0x53 | (0x68 << 25) | (7 << 12) | (1 << 20); break;
-        case TOK_ASM_fcvt_s_l:  enc = 0x53 | (0x68 << 25) | (7 << 12) | (2 << 20); break;
-        case TOK_ASM_fcvt_s_lu: enc = 0x53 | (0x68 << 25) | (7 << 12) | (3 << 20); break;
-        case TOK_ASM_fcvt_w_d:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12); break;
-        case TOK_ASM_fcvt_wu_d: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (1 << 20); break;
-        case TOK_ASM_fcvt_l_d:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (2 << 20); break;
-        case TOK_ASM_fcvt_lu_d: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (3 << 20); break;
-        case TOK_ASM_fcvt_d_w:  enc = 0x53 | (0x69 << 25) | (7 << 12); break;
-        case TOK_ASM_fcvt_d_wu: enc = 0x53 | (0x69 << 25) | (7 << 12) | (1 << 20); break;
-        case TOK_ASM_fcvt_d_l:  enc = 0x53 | (0x69 << 25) | (7 << 12) | (2 << 20); break;
-        case TOK_ASM_fcvt_d_lu: enc = 0x53 | (0x69 << 25) | (7 << 12) | (3 << 20); break;
-        case TOK_ASM_fcvt_s_d:  enc = 0x53 | (0x20 << 25) | (7 << 12) | (1 << 20); break;
-        case TOK_ASM_fcvt_d_s:  enc = 0x53 | (0x21 << 25) | (7 << 12); break;
-        case TOK_ASM_fclass_s:  enc = 0x53 | (0x70 << 25) | (1 << 12); break;
-        case TOK_ASM_fclass_d:  enc = 0x53 | (0x71 << 25) | (1 << 12); break;
-        default: expect("fcvt/fclass instruction"); return;
+    தேர்வு (token) {
+        நிலை TOK_ASM_fcvt_w_s:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12); நிறுத்து;
+        நிலை TOK_ASM_fcvt_wu_s: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (1 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_l_s:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (2 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_lu_s: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (3 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_s_w:  enc = 0x53 | (0x68 << 25) | (7 << 12); நிறுத்து;
+        நிலை TOK_ASM_fcvt_s_wu: enc = 0x53 | (0x68 << 25) | (7 << 12) | (1 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_s_l:  enc = 0x53 | (0x68 << 25) | (7 << 12) | (2 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_s_lu: enc = 0x53 | (0x68 << 25) | (7 << 12) | (3 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_w_d:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12); நிறுத்து;
+        நிலை TOK_ASM_fcvt_wu_d: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (1 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_l_d:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (2 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_lu_d: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (3 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_d_w:  enc = 0x53 | (0x69 << 25) | (7 << 12); நிறுத்து;
+        நிலை TOK_ASM_fcvt_d_wu: enc = 0x53 | (0x69 << 25) | (7 << 12) | (1 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_d_l:  enc = 0x53 | (0x69 << 25) | (7 << 12) | (2 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_d_lu: enc = 0x53 | (0x69 << 25) | (7 << 12) | (3 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_s_d:  enc = 0x53 | (0x20 << 25) | (7 << 12) | (1 << 20); நிறுத்து;
+        நிலை TOK_ASM_fcvt_d_s:  enc = 0x53 | (0x21 << 25) | (7 << 12); நிறுத்து;
+        நிலை TOK_ASM_fclass_s:  enc = 0x53 | (0x70 << 25) | (1 << 12); நிறுத்து;
+        நிலை TOK_ASM_fclass_d:  enc = 0x53 | (0x71 << 25) | (1 << 12); நிறுத்து;
+        இயல்பு: expect("fcvt/fclass instruction"); திரும்பு;
     }
     asm_emit_opcode(enc | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg));
 }
 
-ST_FUNC void asm_opcode(TCCState *s1, int token)
+ST_FUNC வெறுமை asm_opcode(TCCState *s1, முழு token)
 {
-    switch (token) {
-    case TOK_ASM_ebreak:
-    case TOK_ASM_ecall:
-    case TOK_ASM_fence_i:
-    case TOK_ASM_hrts:
-    case TOK_ASM_mrth:
-    case TOK_ASM_mrts:
-    case TOK_ASM_wfi:
+    தேர்வு (token) {
+    நிலை TOK_ASM_ebreak:
+    நிலை TOK_ASM_ecall:
+    நிலை TOK_ASM_fence_i:
+    நிலை TOK_ASM_hrts:
+    நிலை TOK_ASM_mrth:
+    நிலை TOK_ASM_mrts:
+    நிலை TOK_ASM_wfi:
         asm_nullary_opcode(s1, token);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_fence:
+    நிலை TOK_ASM_fence:
         asm_fence_opcode(s1, token);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_rdcycle:
-    case TOK_ASM_rdcycleh:
-    case TOK_ASM_rdtime:
-    case TOK_ASM_rdtimeh:
-    case TOK_ASM_rdinstret:
-    case TOK_ASM_rdinstreth:
+    நிலை TOK_ASM_rdcycle:
+    நிலை TOK_ASM_rdcycleh:
+    நிலை TOK_ASM_rdtime:
+    நிலை TOK_ASM_rdtimeh:
+    நிலை TOK_ASM_rdinstret:
+    நிலை TOK_ASM_rdinstreth:
         asm_unary_opcode(s1, token);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_lui:
-    case TOK_ASM_auipc:
-    case TOK_ASM_fsqrt_s:
-    case TOK_ASM_fsqrt_d:
-        asm_binary_opcode(s1, token);
-        return;
+    நிலை TOK_ASM_lui:
+    நிலை TOK_ASM_auipc:
+    நிலை TOK_ASM_fsqrt_s:
+    நிலை TOK_ASM_fsqrt_d:
+        asm_இருமம்_opcode(s1, token);
+        திரும்பு;
 
     /* fcvt/fclass — separate handler for optional rounding operand */
-    case TOK_ASM_fcvt_w_s:
-    case TOK_ASM_fcvt_wu_s:
-    case TOK_ASM_fcvt_l_s:
-    case TOK_ASM_fcvt_lu_s:
-    case TOK_ASM_fcvt_s_w:
-    case TOK_ASM_fcvt_s_wu:
-    case TOK_ASM_fcvt_s_l:
-    case TOK_ASM_fcvt_s_lu:
-    case TOK_ASM_fcvt_w_d:
-    case TOK_ASM_fcvt_wu_d:
-    case TOK_ASM_fcvt_l_d:
-    case TOK_ASM_fcvt_lu_d:
-    case TOK_ASM_fcvt_d_w:
-    case TOK_ASM_fcvt_d_wu:
-    case TOK_ASM_fcvt_d_l:
-    case TOK_ASM_fcvt_d_lu:
-    case TOK_ASM_fcvt_s_d:
-    case TOK_ASM_fcvt_d_s:
-    case TOK_ASM_fclass_s:
-    case TOK_ASM_fclass_d:
+    நிலை TOK_ASM_fcvt_w_s:
+    நிலை TOK_ASM_fcvt_wu_s:
+    நிலை TOK_ASM_fcvt_l_s:
+    நிலை TOK_ASM_fcvt_lu_s:
+    நிலை TOK_ASM_fcvt_s_w:
+    நிலை TOK_ASM_fcvt_s_wu:
+    நிலை TOK_ASM_fcvt_s_l:
+    நிலை TOK_ASM_fcvt_s_lu:
+    நிலை TOK_ASM_fcvt_w_d:
+    நிலை TOK_ASM_fcvt_wu_d:
+    நிலை TOK_ASM_fcvt_l_d:
+    நிலை TOK_ASM_fcvt_lu_d:
+    நிலை TOK_ASM_fcvt_d_w:
+    நிலை TOK_ASM_fcvt_d_wu:
+    நிலை TOK_ASM_fcvt_d_l:
+    நிலை TOK_ASM_fcvt_d_lu:
+    நிலை TOK_ASM_fcvt_s_d:
+    நிலை TOK_ASM_fcvt_d_s:
+    நிலை TOK_ASM_fclass_s:
+    நிலை TOK_ASM_fclass_d:
         asm_fcvt_opcode(s1, token);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_lb:
-    case TOK_ASM_lh:
-    case TOK_ASM_lw:
-    case TOK_ASM_ld:
-    case TOK_ASM_fld:
-    case TOK_ASM_lbu:
-    case TOK_ASM_lhu:
-    case TOK_ASM_lwu:
-    case TOK_ASM_sb:
-    case TOK_ASM_sh:
-    case TOK_ASM_sw:
-    case TOK_ASM_sd:
-    case TOK_ASM_fsd:
+    நிலை TOK_ASM_lb:
+    நிலை TOK_ASM_lh:
+    நிலை TOK_ASM_lw:
+    நிலை TOK_ASM_ld:
+    நிலை TOK_ASM_fld:
+    நிலை TOK_ASM_lbu:
+    நிலை TOK_ASM_lhu:
+    நிலை TOK_ASM_lwu:
+    நிலை TOK_ASM_sb:
+    நிலை TOK_ASM_sh:
+    நிலை TOK_ASM_sw:
+    நிலை TOK_ASM_sd:
+    நிலை TOK_ASM_fsd:
         asm_mem_access_opcode(s1, token);
-        break;
+        நிறுத்து;
 
-    case TOK_ASM_jalr:
+    நிலை TOK_ASM_jalr:
         asm_jalr_opcode(s1, token); /* it can be a pseudo instruction too*/
-        break;
-    case TOK_ASM_j:
+        நிறுத்து;
+    நிலை TOK_ASM_j:
         asm_jal_opcode(s1, token); /* jal zero, offset*/
-        return;
-    case TOK_ASM_jal:
+        திரும்பு;
+    நிலை TOK_ASM_jal:
         asm_jal_opcode(s1, token); /* it can be a pseudo instruction too*/
-        break;
+        நிறுத்து;
 
-    case TOK_ASM_add:
-    case TOK_ASM_addi:
-    case TOK_ASM_addiw:
-    case TOK_ASM_addw:
-    case TOK_ASM_and:
-    case TOK_ASM_andi:
-    case TOK_ASM_or:
-    case TOK_ASM_ori:
-    case TOK_ASM_sll:
-    case TOK_ASM_slli:
-    case TOK_ASM_slliw:
-    case TOK_ASM_sllw:
-    case TOK_ASM_slt:
-    case TOK_ASM_slti:
-    case TOK_ASM_sltiu:
-    case TOK_ASM_sltu:
-    case TOK_ASM_sra:
-    case TOK_ASM_srai:
-    case TOK_ASM_sraiw:
-    case TOK_ASM_sraw:
-    case TOK_ASM_srl:
-    case TOK_ASM_srli:
-    case TOK_ASM_srliw:
-    case TOK_ASM_srlw:
-    case TOK_ASM_sub:
-    case TOK_ASM_subw:
-    case TOK_ASM_xor:
-    case TOK_ASM_xori:
+    நிலை TOK_ASM_add:
+    நிலை TOK_ASM_addi:
+    நிலை TOK_ASM_addiw:
+    நிலை TOK_ASM_addw:
+    நிலை TOK_ASM_and:
+    நிலை TOK_ASM_andi:
+    நிலை TOK_ASM_or:
+    நிலை TOK_ASM_ori:
+    நிலை TOK_ASM_sll:
+    நிலை TOK_ASM_slli:
+    நிலை TOK_ASM_slliw:
+    நிலை TOK_ASM_sllw:
+    நிலை TOK_ASM_slt:
+    நிலை TOK_ASM_slti:
+    நிலை TOK_ASM_sltiu:
+    நிலை TOK_ASM_sltu:
+    நிலை TOK_ASM_sra:
+    நிலை TOK_ASM_srai:
+    நிலை TOK_ASM_sraiw:
+    நிலை TOK_ASM_sraw:
+    நிலை TOK_ASM_srl:
+    நிலை TOK_ASM_srli:
+    நிலை TOK_ASM_srliw:
+    நிலை TOK_ASM_srlw:
+    நிலை TOK_ASM_sub:
+    நிலை TOK_ASM_subw:
+    நிலை TOK_ASM_xor:
+    நிலை TOK_ASM_xori:
     /* M extension */
-    case TOK_ASM_div:
-    case TOK_ASM_divu:
-    case TOK_ASM_divuw:
-    case TOK_ASM_divw:
-    case TOK_ASM_mul:
-    case TOK_ASM_mulh:
-    case TOK_ASM_mulhsu:
-    case TOK_ASM_mulhu:
-    case TOK_ASM_mulw:
-    case TOK_ASM_rem:
-    case TOK_ASM_remu:
-    case TOK_ASM_remuw:
-    case TOK_ASM_remw:
+    நிலை TOK_ASM_div:
+    நிலை TOK_ASM_divu:
+    நிலை TOK_ASM_divuw:
+    நிலை TOK_ASM_divw:
+    நிலை TOK_ASM_mul:
+    நிலை TOK_ASM_mulh:
+    நிலை TOK_ASM_mulhsu:
+    நிலை TOK_ASM_mulhu:
+    நிலை TOK_ASM_mulw:
+    நிலை TOK_ASM_rem:
+    நிலை TOK_ASM_remu:
+    நிலை TOK_ASM_remuw:
+    நிலை TOK_ASM_remw:
     /* Zicsr extension */
-    case TOK_ASM_csrrc:
-    case TOK_ASM_csrrci:
-    case TOK_ASM_csrrs:
-    case TOK_ASM_csrrsi:
-    case TOK_ASM_csrrw:
-    case TOK_ASM_csrrwi:
+    நிலை TOK_ASM_csrrc:
+    நிலை TOK_ASM_csrrci:
+    நிலை TOK_ASM_csrrs:
+    நிலை TOK_ASM_csrrsi:
+    நிலை TOK_ASM_csrrw:
+    நிலை TOK_ASM_csrrwi:
     /* F/D extension */
-    case TOK_ASM_fadd_s:
-    case TOK_ASM_fadd_d:
-    case TOK_ASM_fsub_s:
-    case TOK_ASM_fsub_d:
-    case TOK_ASM_fmul_s:
-    case TOK_ASM_fmul_d:
-    case TOK_ASM_fdiv_s:
-    case TOK_ASM_fdiv_d:
-    case TOK_ASM_fsgnj_d:
-    case TOK_ASM_fsgnj_s:
-    case TOK_ASM_fmax_s:
-    case TOK_ASM_fmax_d:
-    case TOK_ASM_fmin_s:
-    case TOK_ASM_fmin_d:
-    case TOK_ASM_feq_s:
-    case TOK_ASM_feq_d:
-    case TOK_ASM_flt_s:
-    case TOK_ASM_flt_d:
-    case TOK_ASM_fle_s:
-    case TOK_ASM_fle_d:
+    நிலை TOK_ASM_fadd_s:
+    நிலை TOK_ASM_fadd_d:
+    நிலை TOK_ASM_fsub_s:
+    நிலை TOK_ASM_fsub_d:
+    நிலை TOK_ASM_fmul_s:
+    நிலை TOK_ASM_fmul_d:
+    நிலை TOK_ASM_fdiv_s:
+    நிலை TOK_ASM_fdiv_d:
+    நிலை TOK_ASM_fsgnj_d:
+    நிலை TOK_ASM_fsgnj_s:
+    நிலை TOK_ASM_fmax_s:
+    நிலை TOK_ASM_fmax_d:
+    நிலை TOK_ASM_fmin_s:
+    நிலை TOK_ASM_fmin_d:
+    நிலை TOK_ASM_feq_s:
+    நிலை TOK_ASM_feq_d:
+    நிலை TOK_ASM_flt_s:
+    நிலை TOK_ASM_flt_d:
+    நிலை TOK_ASM_fle_s:
+    நிலை TOK_ASM_fle_d:
         asm_ternary_opcode(s1, token);
-        return;
-    case TOK_ASM_fmadd_d:
-    case TOK_ASM_fmadd_s:
+        திரும்பு;
+    நிலை TOK_ASM_fmadd_d:
+    நிலை TOK_ASM_fmadd_s:
         asm_quaternary_opcode(s1, token);
-        return;
+        திரும்பு;
 
     /* Branches */
-    case TOK_ASM_beq:
-    case TOK_ASM_bge:
-    case TOK_ASM_bgeu:
-    case TOK_ASM_blt:
-    case TOK_ASM_bltu:
-    case TOK_ASM_bne:
+    நிலை TOK_ASM_beq:
+    நிலை TOK_ASM_bge:
+    நிலை TOK_ASM_bgeu:
+    நிலை TOK_ASM_blt:
+    நிலை TOK_ASM_bltu:
+    நிலை TOK_ASM_bne:
         asm_branch_opcode(s1, token, 3);
-        break;
+        நிறுத்து;
 
     /* C extension */
-    case TOK_ASM_c_ebreak:
-    case TOK_ASM_c_nop:
+    நிலை TOK_ASM_c_ebreak:
+    நிலை TOK_ASM_c_nop:
         asm_nullary_opcode(s1, token);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_c_j:
-    case TOK_ASM_c_jal:
-    case TOK_ASM_c_jalr:
-    case TOK_ASM_c_jr:
+    நிலை TOK_ASM_c_j:
+    நிலை TOK_ASM_c_jal:
+    நிலை TOK_ASM_c_jalr:
+    நிலை TOK_ASM_c_jr:
         asm_unary_opcode(s1, token);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_c_add:
-    case TOK_ASM_c_addi16sp:
-    case TOK_ASM_c_addi4spn:
-    case TOK_ASM_c_addi:
-    case TOK_ASM_c_addiw:
-    case TOK_ASM_c_addw:
-    case TOK_ASM_c_and:
-    case TOK_ASM_c_andi:
-    case TOK_ASM_c_beqz:
-    case TOK_ASM_c_bnez:
-    case TOK_ASM_c_fldsp:
-    case TOK_ASM_c_flwsp:
-    case TOK_ASM_c_fsdsp:
-    case TOK_ASM_c_fswsp:
-    case TOK_ASM_c_ldsp:
-    case TOK_ASM_c_li:
-    case TOK_ASM_c_lui:
-    case TOK_ASM_c_lwsp:
-    case TOK_ASM_c_mv:
-    case TOK_ASM_c_or:
-    case TOK_ASM_c_sdsp:
-    case TOK_ASM_c_slli:
-    case TOK_ASM_c_srai:
-    case TOK_ASM_c_srli:
-    case TOK_ASM_c_sub:
-    case TOK_ASM_c_subw:
-    case TOK_ASM_c_swsp:
-    case TOK_ASM_c_xor:
-        asm_binary_opcode(s1, token);
-        return;
+    நிலை TOK_ASM_c_add:
+    நிலை TOK_ASM_c_addi16sp:
+    நிலை TOK_ASM_c_addi4spn:
+    நிலை TOK_ASM_c_addi:
+    நிலை TOK_ASM_c_addiw:
+    நிலை TOK_ASM_c_addw:
+    நிலை TOK_ASM_c_and:
+    நிலை TOK_ASM_c_andi:
+    நிலை TOK_ASM_c_beqz:
+    நிலை TOK_ASM_c_bnez:
+    நிலை TOK_ASM_c_fldsp:
+    நிலை TOK_ASM_c_flwsp:
+    நிலை TOK_ASM_c_fsdsp:
+    நிலை TOK_ASM_c_fswsp:
+    நிலை TOK_ASM_c_ldsp:
+    நிலை TOK_ASM_c_li:
+    நிலை TOK_ASM_c_lui:
+    நிலை TOK_ASM_c_lwsp:
+    நிலை TOK_ASM_c_mv:
+    நிலை TOK_ASM_c_or:
+    நிலை TOK_ASM_c_sdsp:
+    நிலை TOK_ASM_c_slli:
+    நிலை TOK_ASM_c_srai:
+    நிலை TOK_ASM_c_srli:
+    நிலை TOK_ASM_c_sub:
+    நிலை TOK_ASM_c_subw:
+    நிலை TOK_ASM_c_swsp:
+    நிலை TOK_ASM_c_xor:
+        asm_இருமம்_opcode(s1, token);
+        திரும்பு;
 
-    case TOK_ASM_c_fld:
-    case TOK_ASM_c_flw:
-    case TOK_ASM_c_fsd:
-    case TOK_ASM_c_fsw:
-    case TOK_ASM_c_ld:
-    case TOK_ASM_c_lw:
-    case TOK_ASM_c_sd:
-    case TOK_ASM_c_sw:
+    நிலை TOK_ASM_c_fld:
+    நிலை TOK_ASM_c_flw:
+    நிலை TOK_ASM_c_fsd:
+    நிலை TOK_ASM_c_fsw:
+    நிலை TOK_ASM_c_ld:
+    நிலை TOK_ASM_c_lw:
+    நிலை TOK_ASM_c_sd:
+    நிலை TOK_ASM_c_sw:
         asm_ternary_opcode(s1, token);
-        return;
+        திரும்பு;
 
     /* pseudoinstructions */
-    case TOK_ASM_nop:
-    case TOK_ASM_ret:
+    நிலை TOK_ASM_nop:
+    நிலை TOK_ASM_ret:
         asm_nullary_opcode(s1, token);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_jr:
-    case TOK_ASM_call:
-    case TOK_ASM_tail:
-    case TOK_ASM_frflags:
-    case TOK_ASM_frrm:
-    case TOK_ASM_frcsr:
+    நிலை TOK_ASM_jr:
+    நிலை TOK_ASM_call:
+    நிலை TOK_ASM_tail:
+    நிலை TOK_ASM_frflags:
+    நிலை TOK_ASM_frrm:
+    நிலை TOK_ASM_frcsr:
         asm_unary_opcode(s1, token);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_la:
-    case TOK_ASM_lla:
-    case TOK_ASM_li:
-    case TOK_ASM_jump:
-    case TOK_ASM_seqz:
-    case TOK_ASM_snez:
-    case TOK_ASM_sltz:
-    case TOK_ASM_sgtz:
-    case TOK_ASM_mv:
-    case TOK_ASM_not:
-    case TOK_ASM_neg:
-    case TOK_ASM_negw:
-    case TOK_ASM_sext_w:
-    case TOK_ASM_fabs_s:
-    case TOK_ASM_fabs_d:
-    case TOK_ASM_fmv_s:
-    case TOK_ASM_fmv_d:
-    case TOK_ASM_fneg_s:
-    case TOK_ASM_fneg_d:
-    case TOK_ASM_csrc:
-    case TOK_ASM_csrs:
-    case TOK_ASM_csrr:
-    case TOK_ASM_csrw:
-    case TOK_ASM_csrwi:
-    case TOK_ASM_csrsi:
-    case TOK_ASM_csrci:
-    case TOK_ASM_fsrm:
-    case TOK_ASM_fscsr:
-        asm_binary_opcode(s1, token);
-        return;
+    நிலை TOK_ASM_la:
+    நிலை TOK_ASM_lla:
+    நிலை TOK_ASM_li:
+    நிலை TOK_ASM_jump:
+    நிலை TOK_ASM_seqz:
+    நிலை TOK_ASM_snez:
+    நிலை TOK_ASM_sltz:
+    நிலை TOK_ASM_sgtz:
+    நிலை TOK_ASM_mv:
+    நிலை TOK_ASM_not:
+    நிலை TOK_ASM_neg:
+    நிலை TOK_ASM_negw:
+    நிலை TOK_ASM_sext_w:
+    நிலை TOK_ASM_fabs_s:
+    நிலை TOK_ASM_fabs_d:
+    நிலை TOK_ASM_fmv_s:
+    நிலை TOK_ASM_fmv_d:
+    நிலை TOK_ASM_fneg_s:
+    நிலை TOK_ASM_fneg_d:
+    நிலை TOK_ASM_csrc:
+    நிலை TOK_ASM_csrs:
+    நிலை TOK_ASM_csrr:
+    நிலை TOK_ASM_csrw:
+    நிலை TOK_ASM_csrwi:
+    நிலை TOK_ASM_csrsi:
+    நிலை TOK_ASM_csrci:
+    நிலை TOK_ASM_fsrm:
+    நிலை TOK_ASM_fscsr:
+        asm_இருமம்_opcode(s1, token);
+        திரும்பு;
 
-    case TOK_ASM_bnez:
-    case TOK_ASM_beqz:
-    case TOK_ASM_blez:
-    case TOK_ASM_bgez:
-    case TOK_ASM_bltz:
-    case TOK_ASM_bgtz:
+    நிலை TOK_ASM_bnez:
+    நிலை TOK_ASM_beqz:
+    நிலை TOK_ASM_blez:
+    நிலை TOK_ASM_bgez:
+    நிலை TOK_ASM_bltz:
+    நிலை TOK_ASM_bgtz:
         asm_branch_opcode(s1, token, 2);
-        return;
+        திரும்பு;
 
-    case TOK_ASM_bgt:
-    case TOK_ASM_bgtu:
-    case TOK_ASM_ble:
-    case TOK_ASM_bleu:
+    நிலை TOK_ASM_bgt:
+    நிலை TOK_ASM_bgtu:
+    நிலை TOK_ASM_ble:
+    நிலை TOK_ASM_bleu:
         asm_branch_opcode(s1, token, 3);
-        return;
+        திரும்பு;
 
     /* Atomic operations */
-    case TOK_ASM_lr_w:
-    case TOK_ASM_lr_w_aq:
-    case TOK_ASM_lr_w_rl:
-    case TOK_ASM_lr_w_aqrl:
-    case TOK_ASM_lr_d:
-    case TOK_ASM_lr_d_aq:
-    case TOK_ASM_lr_d_rl:
-    case TOK_ASM_lr_d_aqrl:
-    case TOK_ASM_sc_w:
-    case TOK_ASM_sc_w_aq:
-    case TOK_ASM_sc_w_rl:
-    case TOK_ASM_sc_w_aqrl:
-    case TOK_ASM_sc_d:
-    case TOK_ASM_sc_d_aq:
-    case TOK_ASM_sc_d_rl:
-    case TOK_ASM_sc_d_aqrl:
+    நிலை TOK_ASM_lr_w:
+    நிலை TOK_ASM_lr_w_aq:
+    நிலை TOK_ASM_lr_w_rl:
+    நிலை TOK_ASM_lr_w_aqrl:
+    நிலை TOK_ASM_lr_d:
+    நிலை TOK_ASM_lr_d_aq:
+    நிலை TOK_ASM_lr_d_rl:
+    நிலை TOK_ASM_lr_d_aqrl:
+    நிலை TOK_ASM_sc_w:
+    நிலை TOK_ASM_sc_w_aq:
+    நிலை TOK_ASM_sc_w_rl:
+    நிலை TOK_ASM_sc_w_aqrl:
+    நிலை TOK_ASM_sc_d:
+    நிலை TOK_ASM_sc_d_aq:
+    நிலை TOK_ASM_sc_d_rl:
+    நிலை TOK_ASM_sc_d_aqrl:
     /* AMO instructions */
-    case TOK_ASM_amoadd_w:
-    case TOK_ASM_amoadd_d:
-    case TOK_ASM_amoswap_w:
-    case TOK_ASM_amoswap_d:
-    case TOK_ASM_amoand_w:
-    case TOK_ASM_amoand_d:
-    case TOK_ASM_amoor_w:
-    case TOK_ASM_amoor_d:
-    case TOK_ASM_amoxor_w:
-    case TOK_ASM_amoxor_d:
-    case TOK_ASM_amomax_w:
-    case TOK_ASM_amomax_d:
-    case TOK_ASM_amomaxu_w:
-    case TOK_ASM_amomaxu_d:
-    case TOK_ASM_amomin_w:
-    case TOK_ASM_amomin_d:
-    case TOK_ASM_amominu_w:
-    case TOK_ASM_amominu_d:
+    நிலை TOK_ASM_amoadd_w:
+    நிலை TOK_ASM_amoadd_d:
+    நிலை TOK_ASM_amoswap_w:
+    நிலை TOK_ASM_amoswap_d:
+    நிலை TOK_ASM_amoand_w:
+    நிலை TOK_ASM_amoand_d:
+    நிலை TOK_ASM_amoor_w:
+    நிலை TOK_ASM_amoor_d:
+    நிலை TOK_ASM_amoxor_w:
+    நிலை TOK_ASM_amoxor_d:
+    நிலை TOK_ASM_amomax_w:
+    நிலை TOK_ASM_amomax_d:
+    நிலை TOK_ASM_amomaxu_w:
+    நிலை TOK_ASM_amomaxu_d:
+    நிலை TOK_ASM_amomin_w:
+    நிலை TOK_ASM_amomin_d:
+    நிலை TOK_ASM_amominu_w:
+    நிலை TOK_ASM_amominu_d:
         
     /* AMO aq/rl */
-    case TOK_ASM_amoadd_w_aq:
-    case TOK_ASM_amoadd_w_rl:
-    case TOK_ASM_amoadd_w_aqrl:
-    case TOK_ASM_amoadd_d_aq:
-    case TOK_ASM_amoadd_d_rl:
-    case TOK_ASM_amoadd_d_aqrl:
+    நிலை TOK_ASM_amoadd_w_aq:
+    நிலை TOK_ASM_amoadd_w_rl:
+    நிலை TOK_ASM_amoadd_w_aqrl:
+    நிலை TOK_ASM_amoadd_d_aq:
+    நிலை TOK_ASM_amoadd_d_rl:
+    நிலை TOK_ASM_amoadd_d_aqrl:
     /* AMO aq/rl (all ops) */
-    case TOK_ASM_amoswap_w_aq:
-    case TOK_ASM_amoswap_w_rl:
-    case TOK_ASM_amoswap_w_aqrl:
-    case TOK_ASM_amoswap_d_aq:
-    case TOK_ASM_amoswap_d_rl:
-    case TOK_ASM_amoswap_d_aqrl:
-    case TOK_ASM_amoand_w_aq:
-    case TOK_ASM_amoand_w_rl:
-    case TOK_ASM_amoand_w_aqrl:
-    case TOK_ASM_amoand_d_aq:
-    case TOK_ASM_amoand_d_rl:
-    case TOK_ASM_amoand_d_aqrl:
-    case TOK_ASM_amoor_w_aq:
-    case TOK_ASM_amoor_w_rl:
-    case TOK_ASM_amoor_w_aqrl:
-    case TOK_ASM_amoor_d_aq:
-    case TOK_ASM_amoor_d_rl:
-    case TOK_ASM_amoor_d_aqrl:
-    case TOK_ASM_amoxor_w_aq:
-    case TOK_ASM_amoxor_w_rl:
-    case TOK_ASM_amoxor_w_aqrl:
-    case TOK_ASM_amoxor_d_aq:
-    case TOK_ASM_amoxor_d_rl:
-    case TOK_ASM_amoxor_d_aqrl:
-    case TOK_ASM_amomax_w_aq:
-    case TOK_ASM_amomax_w_rl:
-    case TOK_ASM_amomax_w_aqrl:
-    case TOK_ASM_amomax_d_aq:
-    case TOK_ASM_amomax_d_rl:
-    case TOK_ASM_amomax_d_aqrl:
-    case TOK_ASM_amomaxu_w_aq:
-    case TOK_ASM_amomaxu_w_rl:
-    case TOK_ASM_amomaxu_w_aqrl:
-    case TOK_ASM_amomaxu_d_aq:
-    case TOK_ASM_amomaxu_d_rl:
-    case TOK_ASM_amomaxu_d_aqrl:
-    case TOK_ASM_amomin_w_aq:
-    case TOK_ASM_amomin_w_rl:
-    case TOK_ASM_amomin_w_aqrl:
-    case TOK_ASM_amomin_d_aq:
-    case TOK_ASM_amomin_d_rl:
-    case TOK_ASM_amomin_d_aqrl:
-    case TOK_ASM_amominu_w_aq:
-    case TOK_ASM_amominu_w_rl:
-    case TOK_ASM_amominu_w_aqrl:
-    case TOK_ASM_amominu_d_aq:
-    case TOK_ASM_amominu_d_rl:
-    case TOK_ASM_amominu_d_aqrl:
+    நிலை TOK_ASM_amoswap_w_aq:
+    நிலை TOK_ASM_amoswap_w_rl:
+    நிலை TOK_ASM_amoswap_w_aqrl:
+    நிலை TOK_ASM_amoswap_d_aq:
+    நிலை TOK_ASM_amoswap_d_rl:
+    நிலை TOK_ASM_amoswap_d_aqrl:
+    நிலை TOK_ASM_amoand_w_aq:
+    நிலை TOK_ASM_amoand_w_rl:
+    நிலை TOK_ASM_amoand_w_aqrl:
+    நிலை TOK_ASM_amoand_d_aq:
+    நிலை TOK_ASM_amoand_d_rl:
+    நிலை TOK_ASM_amoand_d_aqrl:
+    நிலை TOK_ASM_amoor_w_aq:
+    நிலை TOK_ASM_amoor_w_rl:
+    நிலை TOK_ASM_amoor_w_aqrl:
+    நிலை TOK_ASM_amoor_d_aq:
+    நிலை TOK_ASM_amoor_d_rl:
+    நிலை TOK_ASM_amoor_d_aqrl:
+    நிலை TOK_ASM_amoxor_w_aq:
+    நிலை TOK_ASM_amoxor_w_rl:
+    நிலை TOK_ASM_amoxor_w_aqrl:
+    நிலை TOK_ASM_amoxor_d_aq:
+    நிலை TOK_ASM_amoxor_d_rl:
+    நிலை TOK_ASM_amoxor_d_aqrl:
+    நிலை TOK_ASM_amomax_w_aq:
+    நிலை TOK_ASM_amomax_w_rl:
+    நிலை TOK_ASM_amomax_w_aqrl:
+    நிலை TOK_ASM_amomax_d_aq:
+    நிலை TOK_ASM_amomax_d_rl:
+    நிலை TOK_ASM_amomax_d_aqrl:
+    நிலை TOK_ASM_amomaxu_w_aq:
+    நிலை TOK_ASM_amomaxu_w_rl:
+    நிலை TOK_ASM_amomaxu_w_aqrl:
+    நிலை TOK_ASM_amomaxu_d_aq:
+    நிலை TOK_ASM_amomaxu_d_rl:
+    நிலை TOK_ASM_amomaxu_d_aqrl:
+    நிலை TOK_ASM_amomin_w_aq:
+    நிலை TOK_ASM_amomin_w_rl:
+    நிலை TOK_ASM_amomin_w_aqrl:
+    நிலை TOK_ASM_amomin_d_aq:
+    நிலை TOK_ASM_amomin_d_rl:
+    நிலை TOK_ASM_amomin_d_aqrl:
+    நிலை TOK_ASM_amominu_w_aq:
+    நிலை TOK_ASM_amominu_w_rl:
+    நிலை TOK_ASM_amominu_w_aqrl:
+    நிலை TOK_ASM_amominu_d_aq:
+    நிலை TOK_ASM_amominu_d_rl:
+    நிலை TOK_ASM_amominu_d_aqrl:
 asm_atomic_opcode(s1, token);
-        break;
+        நிறுத்து;
 
-    default:
+    இயல்பு:
         expect("known instruction");
     }
 }
 
-static int asm_parse_csrvar(int t)
+நிலையான முழு asm_parse_csrvar(முழு t)
 {
-    switch (t) {
-    case TOK_ASM_cycle:
-        return 0xc00;
-    case TOK_ASM_fcsr:
-        return 3;
-    case TOK_ASM_fflags:
-        return 1;
-    case TOK_ASM_frm:
-        return 2;
-    case TOK_ASM_instret:
-        return 0xc02;
-    case TOK_ASM_time:
-        return 0xc01;
-    case TOK_ASM_cycleh:
-        return 0xc80;
-    case TOK_ASM_instreth:
-        return 0xc82;
-    case TOK_ASM_timeh:
-        return 0xc81;
-    default:
-        return -1;
+    தேர்வு (t) {
+    நிலை TOK_ASM_cycle:
+        திரும்பு 0xc00;
+    நிலை TOK_ASM_fcsr:
+        திரும்பு 3;
+    நிலை TOK_ASM_fflags:
+        திரும்பு 1;
+    நிலை TOK_ASM_frm:
+        திரும்பு 2;
+    நிலை TOK_ASM_instret:
+        திரும்பு 0xc02;
+    நிலை TOK_ASM_time:
+        திரும்பு 0xc01;
+    நிலை TOK_ASM_cycleh:
+        திரும்பு 0xc80;
+    நிலை TOK_ASM_instreth:
+        திரும்பு 0xc82;
+    நிலை TOK_ASM_timeh:
+        திரும்பு 0xc81;
+    இயல்பு:
+        திரும்பு -1;
     }
 }
 
-ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
+ST_FUNC வெறுமை subst_asm_operand(CString *add_str, SValue *sv, முழு modifier)
 {
-    int r, reg, val;
+    முழு r, reg, val;
 
     r = sv->r;
-    if ((r & VT_VALMASK) == VT_CONST) {
-        if (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
+    எனில் ((r & VT_VALMASK) == VT_CONST) {
+        எனில் (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
             modifier != 'P') {
             //cstr_ccat(add_str, '#');
         }
-        if (r & VT_SYM) {
-            const char *name = get_tok_str(sv->sym->v, NULL);
-            if (sv->sym->v >= SYM_FIRST_ANOM) {
+        எனில் (r & VT_SYM) {
+            மாறிலி எழுத்து *name = get_tok_str(sv->sym->v, வெற்று);
+            எனில் (sv->sym->v >= SYM_FIRST_ANOM) {
                 /* In case of anonymous symbols ("L.42", used
                    for static data labels) we can't find them
                    in the C symbol table when later looking up
@@ -2148,74 +2148,74 @@ ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
                    list when we still know the symbol.  */
                 get_asm_sym(tok_alloc(name, strlen(name))->tok, sv->sym);
             }
-            if (tcc_state->leading_underscore)
+            எனில் (tcc_state->leading_underscore)
                 cstr_ccat(add_str, '_');
             cstr_cat(add_str, name, -1);
-            if ((uint32_t) sv->c.i == 0)
-                goto no_offset;
+            எனில் ((uint32_t) sv->c.i == 0)
+                செல் no_offset;
             cstr_ccat(add_str, '+');
         }
         val = sv->c.i;
-        if (modifier == 'n')
+        எனில் (modifier == 'n')
             val = -val;
-        if (modifier == 'z' && val == 0) {
+        எனில் (modifier == 'z' && val == 0) {
             cstr_cat(add_str, "zero", -1);
-        } else {
+        } இல்லையெனில் {
             cstr_printf(add_str, "%d", val);
         }
       no_offset:;
-    } else if ((r & VT_VALMASK) == VT_LOCAL) {
-        cstr_printf(add_str, "%d", (int) sv->c.i);
-    } else if (r & VT_LVAL) {
+    } இல்லையெனில் எனில் ((r & VT_VALMASK) == VT_LOCAL) {
+        cstr_printf(add_str, "%d", (முழு) sv->c.i);
+    } இல்லையெனில் எனில் (r & VT_LVAL) {
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
+        எனில் (reg >= VT_CONST)
             tcc_internal_error("");
-        if ((sv->type.t & VT_BTYPE) == VT_FLOAT ||
+        எனில் ((sv->type.t & VT_BTYPE) == VT_FLOAT ||
             (sv->type.t & VT_BTYPE) == VT_DOUBLE) {
             /* floating point register */
-            reg = TOK_ASM_f0 + REG_VALUE(reg);
-        } else {
+            reg = TOK_ASM_f0 + REG_மதிப்பு(reg);
+        } இல்லையெனில் {
             /* general purpose register */
             reg = TOK_ASM_x0 + reg;
         }
-        cstr_cat(add_str, get_tok_str(reg, NULL), -1);
-    } else {
+        cstr_cat(add_str, get_tok_str(reg, வெற்று), -1);
+    } இல்லையெனில் {
         /* register case */
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
+        எனில் (reg >= VT_CONST)
             tcc_internal_error("");
-        if ((sv->type.t & VT_BTYPE) == VT_FLOAT ||
+        எனில் ((sv->type.t & VT_BTYPE) == VT_FLOAT ||
             (sv->type.t & VT_BTYPE) == VT_DOUBLE) {
             /* floating point register */
-            reg = TOK_ASM_f0 + REG_VALUE(reg);
-        } else {
+            reg = TOK_ASM_f0 + REG_மதிப்பு(reg);
+        } இல்லையெனில் {
             /* general purpose register */
             reg = TOK_ASM_x0 + reg;
         }
-        cstr_cat(add_str, get_tok_str(reg, NULL), -1);
+        cstr_cat(add_str, get_tok_str(reg, வெற்று), -1);
     }
 }
 
 /* TCC does not use RISC-V register numbers internally, it uses 0-8 for
  * integers and 8-16 for floats instead */
-static int tcc_ireg(int r){
-    return REG_VALUE(r) - 10;
+நிலையான முழு tcc_ireg(முழு r){
+    திரும்பு REG_மதிப்பு(r) - 10;
 }
-static int tcc_freg(int r){
-    return REG_VALUE(r) - 10 + 8;
+நிலையான முழு tcc_freg(முழு r){
+    திரும்பு REG_மதிப்பு(r) - 10 + 8;
 }
 
 /* generate prolog and epilog code for asm statement */
-ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
-                         int nb_outputs, int is_output,
+ST_FUNC வெறுமை asm_gen_code(ASMOperand *operands, முழு nb_operands,
+                         முழு nb_outputs, முழு is_output,
                          uint8_t *clobber_regs,
-                         int out_reg)
+                         முழு out_reg)
 {
     uint8_t regs_allocated[NB_ASM_REGS];
     ASMOperand *op;
-    int i, reg;
+    முழு i, reg;
 
-    static const uint8_t reg_saved[] = {
+    நிலையான மாறிலி uint8_t reg_saved[] = {
         // General purpose regs
         8, 9, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
         // Float regs
@@ -2223,28 +2223,28 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
     };
 
     /* mark all used registers */
-    memcpy(regs_allocated, clobber_regs, sizeof(regs_allocated));
-    for(i = 0; i < nb_operands; i++) {
+    memcpy(regs_allocated, clobber_regs, அளவு(regs_allocated));
+    க்கு(i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        if (op->reg >= 0) {
+        எனில் (op->reg >= 0) {
             regs_allocated[op->reg] = 1;
         }
     }
 
-    if(!is_output) {
+    எனில்(!is_output) {
         /* generate reg save code */
-        for(i = 0; i < sizeof(reg_saved)/sizeof(reg_saved[0]); i++) {
+        க்கு(i = 0; i < அளவு(reg_saved)/அளவு(reg_saved[0]); i++) {
             reg = reg_saved[i];
-            if (regs_allocated[reg]) {
-                /* push */
+            எனில் (regs_allocated[reg]) {
+                /*தள்ளு*/
                 /* addi sp, sp, -offset */
                 gen_le32((4 << 2) | 3 |
                         ENCODE_RD(2) | ENCODE_RS1(2) | (unsigned)-8 << 20);
-                if (REG_IS_FLOAT(reg)){
+                எனில் (REG_IS_FLOAT(reg)){
                     /* fsd reg, offset(sp) */
                     gen_le32( 0x27 | (3 << 12) |
                             ENCODE_RS2(reg) | ENCODE_RS1(2) );
-                } else {
+                } இல்லையெனில் {
                     /* sd reg, offset(sp) */
                     gen_le32((0x8 << 2) | 3 | (3 << 12) |
                             ENCODE_RS2(reg) | ENCODE_RS1(2) );
@@ -2253,10 +2253,10 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
         }
 
         /* generate load code */
-        for(i = 0; i < nb_operands; i++) {
+        க்கு(i = 0; i < nb_operands; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL &&
+            எனில் (op->reg >= 0) {
+                எனில் ((op->vt->r & VT_VALMASK) == VT_LLOCAL &&
                     op->is_memory) {
                     /* memory reference case (for both input and
                        output cases) */
@@ -2265,12 +2265,12 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                     sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL | VT_LVAL;
                     sv.type.t = VT_PTR;
                     load(tcc_ireg(op->reg), &sv);
-                } else if (i >= nb_outputs || op->is_rw) {
+                } இல்லையெனில் எனில் (i >= nb_outputs || op->is_rw) {
                     /* load value in register */
-                    if ((op->vt->type.t & VT_BTYPE) == VT_FLOAT ||
+                    எனில் ((op->vt->type.t & VT_BTYPE) == VT_FLOAT ||
                         (op->vt->type.t & VT_BTYPE) == VT_DOUBLE) {
                         load(tcc_freg(op->reg), op->vt);
-                    } else {
+                    } இல்லையெனில் {
                         load(tcc_ireg(op->reg), op->vt);
                     }
                     /* RV64: long long fits in a single 64-bit register;
@@ -2278,13 +2278,13 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                 }
             }
         }
-    } else {
+    } இல்லையெனில் {
         /* generate save code */
-        for(i = 0 ; i < nb_outputs; i++) {
+        க்கு(i = 0 ; i < nb_outputs; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
-                    if (!op->is_memory) {
+            எனில் (op->reg >= 0) {
+                எனில் ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+                    எனில் (!op->is_memory) {
                         SValue sv;
                         sv = *op->vt;
                         sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL;
@@ -2295,11 +2295,11 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                         sv.r = (sv.r & ~VT_VALMASK) | out_reg;
                         store(tcc_ireg(op->reg), &sv);
                     }
-                } else {
-                    if ((op->vt->type.t & VT_BTYPE) == VT_FLOAT ||
+                } இல்லையெனில் {
+                    எனில் ((op->vt->type.t & VT_BTYPE) == VT_FLOAT ||
                         (op->vt->type.t & VT_BTYPE) == VT_DOUBLE) {
                         store(tcc_freg(op->reg), op->vt);
-                    } else {
+                    } இல்லையெனில் {
                         store(tcc_ireg(op->reg), op->vt);
                     }
                     /* RV64: long long fits in a single 64-bit register */
@@ -2307,15 +2307,15 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
             }
         }
         /* generate reg restore code for floating point registers */
-        for(i = sizeof(reg_saved)/sizeof(reg_saved[0]) - 1; i >= 0; i--) {
+        க்கு(i = அளவு(reg_saved)/அளவு(reg_saved[0]) - 1; i >= 0; i--) {
             reg = reg_saved[i];
-            if (regs_allocated[reg]) {
-                /* pop */
-                if (REG_IS_FLOAT(reg)){
+            எனில் (regs_allocated[reg]) {
+                /*எடு*/
+                எனில் (REG_IS_FLOAT(reg)){
                     /* fld reg, offset(sp) */
                     gen_le32(7 | (3 << 12) |
                             ENCODE_RD(reg) | ENCODE_RS1(2) | 0);
-                } else {
+                } இல்லையெனில் {
                     /* ld reg, offset(sp) */
                     gen_le32(3 | (3 << 12) |
                             ENCODE_RD(reg) | ENCODE_RS1(2) | 0);
@@ -2330,44 +2330,44 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
 
 /* return the constraint priority (we allocate first the lowest
    numbered constraints) */
-static inline int constraint_priority(const char *str)
+நிலையான உள்வரி முழு constraint_priority(மாறிலி எழுத்து *str)
 {
     // TODO: How is this chosen??
-    int priority, c, pr;
+    முழு priority, c, pr;
 
     /* we take the lowest priority */
     priority = 0;
-    for(;;) {
+    க்கு(;;) {
         c = *str;
-        if (c == '\0')
-            break;
+        எனில் (c == '\0')
+            நிறுத்து;
         str++;
-        switch(c) {
-        case 'A': // address that is held in a general-purpose register.
-        case 'S': // constraint that matches an absolute symbolic address.
-        case 'f': // register [float]
-        case 'r': // register [general]
-        case 'p': // valid memory address for load,store [general]
+        தேர்வு(c) {
+        நிலை 'A': // address that is held in a general-purpose register.
+        நிலை 'S': // constraint that matches an absolute symbolic address.
+        நிலை 'f': // register [float]
+        நிலை 'r': // register [general]
+        நிலை 'p': // valid memory address for load,store [general]
             pr = 3;
-            break;
-        case 'I': // 12 bit signed immedate
-        case 'i': // immediate integer operand, including symbolic constants [general]
-        case 'm': // memory operand [general]
-        case 'g': // general-purpose-register, memory, immediate integer [general]
+            நிறுத்து;
+        நிலை 'I': // 12 bit signed immedate
+        நிலை 'i': // immediate integer operand, including symbolic constants [general]
+        நிலை 'm': // memory operand [general]
+        நிலை 'g': // general-purpose-register, memory, immediate integer [general]
             pr = 4;
-            break;
-        case 'v':
+            நிறுத்து;
+        நிலை 'v':
             tcc_error("unimp: constraint '%c'", c);
-        default:
+        இயல்பு:
             tcc_error("unknown constraint '%d'", c);
         }
-        if (pr > priority)
+        எனில் (pr > priority)
             priority = pr;
     }
-    return priority;
+    திரும்பு priority;
 }
 
-static const char *skip_constraint_modifiers(const char *p)
+நிலையான மாறிலி எழுத்து *skip_constraint_modifiers(மாறிலி எழுத்து *p)
 {
     /* Constraint modifier:
         =   Operand is written to by this instruction
@@ -2377,9 +2377,9 @@ static const char *skip_constraint_modifiers(const char *p)
        Per-alternative constraint modifier:
         &   Operand is clobbered before the instruction is done using the input operands
     */
-    while (*p == '=' || *p == '&' || *p == '+' || *p == '%')
+    போது (*p == '=' || *p == '&' || *p == '+' || *p == '%')
         p++;
-    return p;
+    திரும்பு p;
 }
 
 #define REG_OUT_MASK 0x01
@@ -2387,10 +2387,10 @@ static const char *skip_constraint_modifiers(const char *p)
 
 #define is_reg_allocated(reg) (regs_allocated[reg] & reg_mask)
 
-ST_FUNC void asm_compute_constraints(ASMOperand *operands,
-                                    int nb_operands, int nb_outputs,
-                                    const uint8_t *clobber_regs,
-                                    int *pout_reg)
+ST_FUNC வெறுமை asm_compute_constraints(ASMOperand *operands,
+                                    முழு nb_operands, முழு nb_outputs,
+                                    மாறிலி uint8_t *clobber_regs,
+                                    முழு *pout_reg)
 {
     /* TODO: Simple constraints
         whitespace  ignored
@@ -2416,15 +2416,15 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         vm  A vector register, only v0 (if available).
     */
     ASMOperand *op;
-    int sorted_op[MAX_ASM_OPERANDS];
-    int i, j, k, p1, p2, tmp, reg, c, reg_mask;
-    const char *str;
+    முழு sorted_op[MAX_ASM_OPERANDS];
+    முழு i, j, k, p1, p2, tmp, reg, c, reg_mask;
+    மாறிலி எழுத்து *str;
     uint8_t regs_allocated[NB_ASM_REGS];
 
     /* init fields */
-    for (i = 0; i < nb_operands; i++) {
+    க்கு (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        op->input_index = -1;
+        op->உள்ளீடு_index = -1;
         op->ref_index = -1;
         op->reg = -1;
         op->is_memory = 0;
@@ -2432,39 +2432,39 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
     }
     /* compute constraint priority and evaluate references to output
        constraints if input constraints */
-    for (i = 0; i < nb_operands; i++) {
+    க்கு (i = 0; i < nb_operands; i++) {
         op = &operands[i];
         str = op->constraint;
         str = skip_constraint_modifiers(str);
-        if (isnum(*str) || *str == '[') {
+        எனில் (isnum(*str) || *str == '[') {
             /* this is a reference to another constraint */
-            k = find_constraint(operands, nb_operands, str, NULL);
-            if ((unsigned) k >= i || i < nb_outputs)
+            k = find_constraint(operands, nb_operands, str, வெற்று);
+            எனில் ((unsigned) k >= i || i < nb_outputs)
                 tcc_error("invalid reference in constraint %d ('%s')",
                           i, str);
             op->ref_index = k;
-            if (operands[k].input_index >= 0)
+            எனில் (operands[k].உள்ளீடு_index >= 0)
                 tcc_error("cannot reference twice the same operand");
-            operands[k].input_index = i;
+            operands[k].உள்ளீடு_index = i;
             op->priority = 5;
-        } else if ((op->vt->r & VT_VALMASK) == VT_LOCAL
+        } இல்லையெனில் எனில் ((op->vt->r & VT_VALMASK) == VT_LOCAL
                    && op->vt->sym
                    && (reg = op->vt->sym->r & VT_VALMASK) < VT_CONST) {
             op->priority = 1;
             op->reg = reg;
-        } else {
+        } இல்லையெனில் {
             op->priority = constraint_priority(str);
         }
     }
 
     /* sort operands according to their priority */
-    for (i = 0; i < nb_operands; i++)
+    க்கு (i = 0; i < nb_operands; i++)
         sorted_op[i] = i;
-    for (i = 0; i < nb_operands - 1; i++) {
-        for (j = i + 1; j < nb_operands; j++) {
+    க்கு (i = 0; i < nb_operands - 1; i++) {
+        க்கு (j = i + 1; j < nb_operands; j++) {
             p1 = operands[sorted_op[i]].priority;
             p2 = operands[sorted_op[j]].priority;
-            if (p2 < p1) {
+            எனில் (p2 < p1) {
                 tmp = sorted_op[i];
                 sorted_op[i] = sorted_op[j];
                 sorted_op[j] = tmp;
@@ -2472,82 +2472,82 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         }
     }
 
-    for (i = 0; i < NB_ASM_REGS; i++) {
-        if (clobber_regs[i])
+    க்கு (i = 0; i < NB_ASM_REGS; i++) {
+        எனில் (clobber_regs[i])
             regs_allocated[i] = REG_IN_MASK | REG_OUT_MASK;
-        else
+        இல்லையெனில்
             regs_allocated[i] = 0;
     }
 
     /* allocate registers and generate corresponding asm moves */
-    for (i = 0; i < nb_operands; i++) {
+    க்கு (i = 0; i < nb_operands; i++) {
         j = sorted_op[i];
         op = &operands[j];
         str = op->constraint;
         /* no need to allocate references */
-        if (op->ref_index >= 0)
-            continue;
+        எனில் (op->ref_index >= 0)
+            தொடர்;
         /* select if register is used for output, input or both */
-        if (op->input_index >= 0) {
+        எனில் (op->உள்ளீடு_index >= 0) {
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
-        } else if (j < nb_outputs) {
+        } இல்லையெனில் எனில் (j < nb_outputs) {
             reg_mask = REG_OUT_MASK;
-        } else {
+        } இல்லையெனில் {
             reg_mask = REG_IN_MASK;
         }
-        if (op->reg >= 0) {
-            if (is_reg_allocated(op->reg))
+        எனில் (op->reg >= 0) {
+            எனில் (is_reg_allocated(op->reg))
                 tcc_error
                     ("asm regvar requests register that's taken already");
             reg = op->reg;
         }
       try_next:
         c = *str++;
-        switch (c) {
-        case '=': // Operand is written-to
-            goto try_next;
-        case '+': // Operand is both READ and written-to
+        தேர்வு (c) {
+        நிலை '=': // Operand is written-to
+            செல் try_next;
+        நிலை '+': // Operand is both READ and written-to
             op->is_rw = 1;
             /* FALL THRU */
-        case '&': // Operand is clobbered before the instruction is done using the input operands
-            if (j >= nb_outputs)
+        நிலை '&': // Operand is clobbered before the instruction is done using the input operands
+            எனில் (j >= nb_outputs)
                 tcc_error("'%c' modifier can only be applied to outputs", c);
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
-            goto try_next;
-        case 'r': // general-purpose register
-        case 'p': // loadable/storable address
+            செல் try_next;
+        நிலை 'r': // general-purpose register
+        நிலை 'p': // loadable/storable address
             /* any general register */
             /* From a0 to a7 */
-            if ((reg = op->reg) >= 0)
-                goto reg_found;
-            else for (reg = 10; reg <= 18; reg++) {
-                if (!is_reg_allocated(reg))
-                    goto reg_found;
+            எனில் ((reg = op->reg) >= 0)
+                செல் reg_found;
+            இல்லையெனில் க்கு (reg = 10; reg <= 18; reg++) {
+                எனில் (!is_reg_allocated(reg))
+                    செல் reg_found;
             }
-            goto try_next;
+            செல் try_next;
           reg_found:
             /* now we can reload in the register */
             op->is_llong = 0;
             op->reg = reg;
             regs_allocated[reg] |= reg_mask;
-            break;
-        case 'f': // floating pont register
+            நிறுத்து;
+        நிலை 'f': // floating pont register
             /* floating point register */
             /* From fa0 to fa7 */
-            if ((reg = op->reg) >= 0)
-                goto reg_found;
-            else for (reg = 42; reg <= 50; reg++) {
-                if (!is_reg_allocated(reg))
-                    goto reg_found;
+            எனில் ((reg = op->reg) >= 0)
+                செல் reg_found;
+            இல்லையெனில் க்கு (reg = 42; reg <= 50; reg++) {
+                எனில் (!is_reg_allocated(reg))
+                    செல் reg_found;
             }
-            goto try_next;
-        case 'I': // I-Type 12 bit signed immediate
-        case 'i': // immediate integer operand, including symbolic constants
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
-                goto try_next;
-            break;
-        case 'm': // memory operand
-        case 'g': // any register
+            செல் try_next;
+        நிலை 'I': // I-Type 12 bit signed immediate
+        நிலை 'i': // immediate integer operand, including symbolic constants
+            எனில் (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
+                செல் try_next;
+            நிறுத்து;
+        நிலை 'm': // memory operand
+        நிலை 'g': // any register
             /* nothing special to do because the operand is already in
                memory, except if the pointer itself is stored in a
                memory variable (VT_LLOCAL case) */
@@ -2556,14 +2556,14 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                in a register, so we reserve the register in the
                input registers and a load will be generated
                later */
-            if (j < nb_outputs || c == 'm') {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+            எனில் (j < nb_outputs || c == 'm') {
+                எனில் ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
                     /* any general register: from a0 to a7 */
-                    for (reg = 10; reg <= 18; reg++) {
-                        if (!(regs_allocated[reg] & REG_IN_MASK))
-                            goto reg_found1;
+                    க்கு (reg = 10; reg <= 18; reg++) {
+                        எனில் (!(regs_allocated[reg] & REG_IN_MASK))
+                            செல் reg_found1;
                     }
-                    goto try_next;
+                    செல் try_next;
                   reg_found1:
                     /* now we can reload in the register */
                     regs_allocated[reg] |= REG_IN_MASK;
@@ -2571,111 +2571,111 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                     op->is_memory = 1;
                 }
             }
-            break;
-        default:
+            நிறுத்து;
+        இயல்பு:
             tcc_error("asm constraint %d ('%s') could not be satisfied",
                       j, op->constraint);
-            break;
+            நிறுத்து;
         }
         /* if a reference is present for that operand, we assign it too */
-        if (op->input_index >= 0) {
-            operands[op->input_index].reg = op->reg;
-            operands[op->input_index].is_llong = op->is_llong;
+        எனில் (op->உள்ளீடு_index >= 0) {
+            operands[op->உள்ளீடு_index].reg = op->reg;
+            operands[op->உள்ளீடு_index].is_llong = op->is_llong;
         }
     }
 
     /* compute out_reg. It is used to store outputs registers to memory
        locations references by pointers (VT_LLOCAL case) */
     *pout_reg = -1;
-    for (i = 0; i < nb_operands; i++) {
+    க்கு (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        if (op->reg >= 0 &&
+        எனில் (op->reg >= 0 &&
             (op->vt->r & VT_VALMASK) == VT_LLOCAL && !op->is_memory) {
-            if (REG_IS_FLOAT(op->reg)){
+            எனில் (REG_IS_FLOAT(op->reg)){
                 /* From fa0 to fa7 */
-                for (reg = 42; reg <= 50; reg++) {
-                    if (!(regs_allocated[reg] & REG_OUT_MASK))
-                        goto reg_found2;
+                க்கு (reg = 42; reg <= 50; reg++) {
+                    எனில் (!(regs_allocated[reg] & REG_OUT_MASK))
+                        செல் reg_found2;
                 }
-            } else {
+            } இல்லையெனில் {
                 /* From a0 to a7 */
-                for (reg = 10; reg <= 18; reg++) {
-                    if (!(regs_allocated[reg] & REG_OUT_MASK))
-                        goto reg_found2;
+                க்கு (reg = 10; reg <= 18; reg++) {
+                    எனில் (!(regs_allocated[reg] & REG_OUT_MASK))
+                        செல் reg_found2;
                 }
             }
             tcc_error("could not find free output register for reloading");
           reg_found2:
             *pout_reg = reg;
-            break;
+            நிறுத்து;
         }
     }
 
     /* print sorted constraints */
 #ifdef ASM_DEBUG
-    for (i = 0; i < nb_operands; i++) {
+    க்கு (i = 0; i < nb_operands; i++) {
         j = sorted_op[i];
         op = &operands[j];
         printf("%%%d [%s]: \"%s\" r=0x%04x reg=%d\n",
                j,
-               op->id ? get_tok_str(op->id, NULL) : "",
+               op->id ? get_tok_str(op->id, வெற்று) : "",
                op->constraint, op->vt->r, op->reg);
     }
-    if (*pout_reg >= 0)
+    எனில் (*pout_reg >= 0)
         printf("out_reg=%d\n", *pout_reg);
 #endif
 }
 
-ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str)
+ST_FUNC வெறுமை asm_clobber(uint8_t *clobber_regs, மாறிலி எழுத்து *str)
 {
-    int reg;
+    முழு reg;
     TokenSym *ts;
 
-    if (!strcmp(str, "memory") ||
+    எனில் (!strcmp(str, "memory") ||
         !strcmp(str, "cc") ||
         !strcmp(str, "flags"))
-        return;
+        திரும்பு;
     ts = tok_alloc(str, strlen(str));
     reg = asm_parse_regvar(ts->tok);
-    if (reg == -1) {
+    எனில் (reg == -1) {
         tcc_error("invalid clobber register '%s'", str);
     }
     clobber_regs[reg] = 1;
 }
 
-ST_FUNC int asm_parse_regvar (int t)
+ST_FUNC முழு asm_parse_regvar (முழு t)
 {
     /* PC register not implemented */
-    if (t >= TOK_ASM_pc || t < TOK_ASM_x0)
-        return -1;
+    எனில் (t >= TOK_ASM_pc || t < TOK_ASM_x0)
+        திரும்பு -1;
 
-    if (t < TOK_ASM_f0)
-        return t - TOK_ASM_x0;
+    எனில் (t < TOK_ASM_f0)
+        திரும்பு t - TOK_ASM_x0;
 
-    if (t < TOK_ASM_zero)
-        return t - TOK_ASM_f0 + 32; // Use higher 32 for floating point
+    எனில் (t < TOK_ASM_zero)
+        திரும்பு t - TOK_ASM_f0 + 32; // Use higher 32 for floating point
 
     /* ABI mnemonic */
-    if (t < TOK_ASM_ft0)
-        return t - TOK_ASM_zero;
+    எனில் (t < TOK_ASM_ft0)
+        திரும்பு t - TOK_ASM_zero;
 
-    return t - TOK_ASM_ft0 + 32; // Use higher 32 for floating point
+    திரும்பு t - TOK_ASM_ft0 + 32; // Use higher 32 for floating point
 }
 
 /*************************************************************/
 /* C extension */
 
 /* caller: Add funct6, funct2 into opcode */
-static void asm_emit_ca(int token, uint16_t opcode, const Operand *rd, const Operand *rs2)
+நிலையான வெறுமை asm_emit_ca(முழு token, uint16_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs2)
 {
     uint8_t dst, src;
 
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
 
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, வெற்று));
     }
 
     /* subtract index of x8 */
@@ -2683,12 +2683,12 @@ static void asm_emit_ca(int token, uint16_t opcode, const Operand *rd, const Ope
     src = rs2->reg - 8;
 
     /* only registers {x,f}8 to {x,f}15 are valid (3-bit) */
-    if (dst > 7) {
-        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, NULL));
+    எனில் (dst > 7) {
+        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, வெற்று));
     }
 
-    if (src > 7) {
-        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, NULL));
+    எனில் (src > 7) {
+        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, வெற்று));
     }
 
     /* CA-type instruction:
@@ -2701,29 +2701,29 @@ static void asm_emit_ca(int token, uint16_t opcode, const Operand *rd, const Ope
     gen_le16(opcode | C_ENCODE_RS2(src) | C_ENCODE_RS1(dst));
 }
 
-static void asm_emit_cb(int token, uint16_t opcode, const Operand *rs1, const Operand *imm)
+நிலையான வெறுமை asm_emit_cb(முழு token, uint16_t opcode, மாறிலி Operand *rs1, மாறிலி Operand *imm)
 {
     uint32_t offset;
     uint8_t src;
 
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, வெற்று));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    எனில் (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, வெற்று));
     }
 
     offset = imm->e.v;
 
-    if (offset & 1) {
-        tcc_error("'%s': Expected source operand that is an even immediate value", get_tok_str(token, NULL));
+    எனில் (offset & 1) {
+        tcc_error("'%s': Expected source operand that is an even immediate value", get_tok_str(token, வெற்று));
     }
 
     src = rs1->reg - 8;
 
-    if (src > 7) {
-        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, NULL));
+    எனில் (src > 7) {
+        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, வெற்று));
     }
 
     /* CB-type instruction:
@@ -2741,27 +2741,27 @@ static void asm_emit_cb(int token, uint16_t opcode, const Operand *rs1, const Op
     6..2    imm
     1...0   opcode */
 
-    switch (token) {
-    case TOK_ASM_c_beqz:
-    case TOK_ASM_c_bnez:
+    தேர்வு (token) {
+    நிலை TOK_ASM_c_beqz:
+    நிலை TOK_ASM_c_bnez:
         gen_le16(opcode | C_ENCODE_RS1(src) | ((NTH_BIT(offset, 5) | (((offset >> 1) & 3) << 1) | (((offset >> 6) & 3) << 3)) << 2) | ((((offset >> 3) & 3) | NTH_BIT(offset, 8)) << 10));
-        return;
-    default:
+        திரும்பு;
+    இயல்பு:
         gen_le16(opcode | C_ENCODE_RS1(src) | ((offset & 0x1f) << 2) | (NTH_BIT(offset, 5) << 12));
-        return;
+        திரும்பு;
     }
 }
 
-static void asm_emit_ci(int token, uint16_t opcode, const Operand *rd, const Operand *imm)
+நிலையான வெறுமை asm_emit_ci(முழு token, uint16_t opcode, மாறிலி Operand *rd, மாறிலி Operand *imm)
 {
     uint32_t immediate;
 
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    எனில் (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, வெற்று));
     }
 
     immediate = imm->e.v;
@@ -2773,63 +2773,63 @@ static void asm_emit_ci(int token, uint16_t opcode, const Operand *rd, const Ope
     6...2   imm
     1...0   opcode */
 
-    switch (token) {
-    case TOK_ASM_c_addi:
-    case TOK_ASM_c_addiw:
-    case TOK_ASM_c_li:
-    case TOK_ASM_c_slli:
+    தேர்வு (token) {
+    நிலை TOK_ASM_c_addi:
+    நிலை TOK_ASM_c_addiw:
+    நிலை TOK_ASM_c_li:
+    நிலை TOK_ASM_c_slli:
         gen_le16(opcode | ((immediate & 0x1f) << 2) | ENCODE_RD(rd->reg) | (NTH_BIT(immediate, 5) << 12));
-        return;
-    case TOK_ASM_c_addi16sp:
+        திரும்பு;
+    நிலை TOK_ASM_c_addi16sp:
         gen_le16(opcode | NTH_BIT(immediate, 5) << 2 | (((immediate >> 7) & 3) << 3) | NTH_BIT(immediate, 6) << 5 | NTH_BIT(immediate, 4) << 6 | ENCODE_RD(rd->reg) | (NTH_BIT(immediate, 9) << 12));
-        return;
-    case TOK_ASM_c_lui:
+        திரும்பு;
+    நிலை TOK_ASM_c_lui:
         gen_le16(opcode | (((immediate >> 12) & 0x1f) << 2) | ENCODE_RD(rd->reg) | (NTH_BIT(immediate, 17) << 12));
-        return;
-    case TOK_ASM_c_fldsp:
-    case TOK_ASM_c_ldsp:
+        திரும்பு;
+    நிலை TOK_ASM_c_fldsp:
+    நிலை TOK_ASM_c_ldsp:
         gen_le16(opcode | (((immediate >> 6) & 7) << 2) | (((immediate >> 3) & 2) << 5) | ENCODE_RD(rd->reg) | (NTH_BIT(immediate, 5) << 12));
-        return;
-    case TOK_ASM_c_flwsp:
-    case TOK_ASM_c_lwsp:
+        திரும்பு;
+    நிலை TOK_ASM_c_flwsp:
+    நிலை TOK_ASM_c_lwsp:
         gen_le16(opcode | (((immediate >> 6) & 3) << 2) | (((immediate >> 2) & 7) << 4) | ENCODE_RD(rd->reg) | (NTH_BIT(immediate, 5) << 12));
-        return;
-    case TOK_ASM_c_nop:
+        திரும்பு;
+    நிலை TOK_ASM_c_nop:
         gen_le16(opcode);
-        return;
-    default:
+        திரும்பு;
+    இயல்பு:
         expect("known instruction");
     }
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_ciw(int token, uint16_t opcode, const Operand *rd, const Operand *imm)
+நிலையான வெறுமை asm_emit_ciw(முழு token, uint16_t opcode, மாறிலி Operand *rd, மாறிலி Operand *imm)
 {
     uint32_t nzuimm;
     uint8_t dst;
 
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    எனில் (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, வெற்று));
     }
 
     dst = rd->reg - 8;
 
-    if (dst > 7) {
-        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, NULL));
+    எனில் (dst > 7) {
+        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, வெற்று));
     }
 
     nzuimm = imm->e.v;
 
-    if (nzuimm > 0x3fc) {
-        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0x3ff", get_tok_str(token, NULL));
+    எனில் (nzuimm > 0x3fc) {
+        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0x3ff", get_tok_str(token, வெற்று));
     }
 
-    if (nzuimm & 3) {
-        tcc_error("'%s': Expected source operand that is a non-zero immediate value divisible by 4", get_tok_str(token, NULL));
+    எனில் (nzuimm & 3) {
+        tcc_error("'%s': Expected source operand that is a non-zero immediate value divisible by 4", get_tok_str(token, வெற்று));
     }
 
     /* CIW-type instruction:
@@ -2842,19 +2842,19 @@ static void asm_emit_ciw(int token, uint16_t opcode, const Operand *rd, const Op
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_cj(int token, uint16_t opcode, const Operand *imm)
+நிலையான வெறுமை asm_emit_cj(முழு token, uint16_t opcode, மாறிலி Operand *imm)
 {
     uint32_t offset;
 
     /* +-2 KiB range */
-    if (imm->type != OP_IM12S) {
-        tcc_error("'%s': Expected source operand that is a 12-bit immediate value", get_tok_str(token, NULL));
+    எனில் (imm->type != OP_IM12S) {
+        tcc_error("'%s': Expected source operand that is a 12-bit immediate value", get_tok_str(token, வெற்று));
     }
 
     offset = imm->e.v;
 
-    if (offset & 1) {
-        tcc_error("'%s': Expected source operand that is an even immediate value", get_tok_str(token, NULL));
+    எனில் (offset & 1) {
+        tcc_error("'%s': Expected source operand that is an even immediate value", get_tok_str(token, வெற்று));
     }
 
     /* CJ-type instruction:
@@ -2866,42 +2866,42 @@ static void asm_emit_cj(int token, uint16_t opcode, const Operand *imm)
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_cl(int token, uint16_t opcode, const Operand *rd, const Operand *rs1, const Operand *imm)
+நிலையான வெறுமை asm_emit_cl(முழு token, uint16_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs1, மாறிலி Operand *imm)
 {
     uint32_t offset;
     uint8_t dst, src;
 
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
 
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, வெற்று));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    எனில் (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, வெற்று));
     }
 
     dst = rd->reg - 8;
     src = rs1->reg - 8;
 
-    if (dst > 7) {
-        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, NULL));
+    எனில் (dst > 7) {
+        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, வெற்று));
     }
 
-    if (src > 7) {
-        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, NULL));
+    எனில் (src > 7) {
+        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, வெற்று));
     }
 
     offset = imm->e.v;
 
-    if (offset > 0xff) {
-        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, NULL));
+    எனில் (offset > 0xff) {
+        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, வெற்று));
     }
 
-    if (offset & 3) {
-        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, NULL));
+    எனில் (offset & 3) {
+        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, வெற்று));
     }
 
     /* CL-type instruction:
@@ -2912,31 +2912,31 @@ static void asm_emit_cl(int token, uint16_t opcode, const Operand *rd, const Ope
     4...2   rd'
     1...0   opcode */
 
-    switch (token) {
+    தேர்வு (token) {
     /* imm variant 1 */
-    case TOK_ASM_c_flw:
-    case TOK_ASM_c_lw:
+    நிலை TOK_ASM_c_flw:
+    நிலை TOK_ASM_c_lw:
         gen_le16(opcode | C_ENCODE_RS2(dst) | C_ENCODE_RS1(src) | (NTH_BIT(offset, 6) << 5) | (NTH_BIT(offset, 2) << 6) | (((offset >> 3) & 7) << 10));
-        return;
+        திரும்பு;
     /* imm variant 2 */
-    case TOK_ASM_c_fld:
-    case TOK_ASM_c_ld:
+    நிலை TOK_ASM_c_fld:
+    நிலை TOK_ASM_c_ld:
         gen_le16(opcode | C_ENCODE_RS2(dst) | C_ENCODE_RS1(src) | (((offset >> 6) & 3) << 5) | (((offset >> 3) & 7) << 10));
-        return;
-    default:
+        திரும்பு;
+    இயல்பு:
         expect("known instruction");
     }
 }
 
 /* caller: Add funct4 into opcode */
-static void asm_emit_cr(int token, uint16_t opcode, const Operand *rd, const Operand *rs2)
+நிலையான வெறுமை asm_emit_cr(முழு token, uint16_t opcode, மாறிலி Operand *rd, மாறிலி Operand *rs2)
 {
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
 
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, வெற்று));
     }
 
     /* CR-type instruction:
@@ -2949,42 +2949,42 @@ static void asm_emit_cr(int token, uint16_t opcode, const Operand *rd, const Ope
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_cs(int token, uint16_t opcode, const Operand *rs2, const Operand *rs1, const Operand *imm)
+நிலையான வெறுமை asm_emit_cs(முழு token, uint16_t opcode, மாறிலி Operand *rs2, மாறிலி Operand *rs1, மாறிலி Operand *imm)
 {
     uint32_t offset;
     uint8_t base, src;
 
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
 
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, வெற்று));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    எனில் (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, வெற்று));
     }
 
     base = rs1->reg - 8;
     src = rs2->reg - 8;
 
-    if (base > 7) {
-        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, NULL));
+    எனில் (base > 7) {
+        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, வெற்று));
     }
 
-    if (src > 7) {
-        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, NULL));
+    எனில் (src > 7) {
+        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, வெற்று));
     }
 
     offset = imm->e.v;
 
-    if (offset > 0xff) {
-        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, NULL));
+    எனில் (offset > 0xff) {
+        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, வெற்று));
     }
 
-    if (offset & 3) {
-        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, NULL));
+    எனில் (offset & 3) {
+        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, வெற்று));
     }
 
     /* CS-type instruction:
@@ -2994,43 +2994,43 @@ static void asm_emit_cs(int token, uint16_t opcode, const Operand *rs2, const Op
     6...5   imm
     4...2   rs2'
     1...0   opcode */
-    switch (token) {
+    தேர்வு (token) {
     /* imm variant 1 */
-    case TOK_ASM_c_fsw:
-    case TOK_ASM_c_sw:
+    நிலை TOK_ASM_c_fsw:
+    நிலை TOK_ASM_c_sw:
         gen_le16(opcode | C_ENCODE_RS2(base) | C_ENCODE_RS1(src) | (NTH_BIT(offset, 6) << 5) | (NTH_BIT(offset, 2) << 6) | (((offset >> 3) & 7) << 10));
-        return;
+        திரும்பு;
     /* imm variant 2 */
-    case TOK_ASM_c_fsd:
-    case TOK_ASM_c_sd:
+    நிலை TOK_ASM_c_fsd:
+    நிலை TOK_ASM_c_sd:
         gen_le16(opcode | C_ENCODE_RS2(base) | C_ENCODE_RS1(src) | (((offset >> 6) & 3) << 5) | (((offset >> 3) & 7) << 10));
-        return;
-    default:
+        திரும்பு;
+    இயல்பு:
         expect("known instruction");
     }
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_css(int token, uint16_t opcode, const Operand *rs2, const Operand *imm)
+நிலையான வெறுமை asm_emit_css(முழு token, uint16_t opcode, மாறிலி Operand *rs2, மாறிலி Operand *imm)
 {
     uint32_t offset;
 
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    எனில் (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, வெற்று));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    எனில் (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, வெற்று));
     }
 
     offset = imm->e.v;
 
-    if (offset > 0xff) {
-        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, NULL));
+    எனில் (offset > 0xff) {
+        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, வெற்று));
     }
 
-    if (offset & 3) {
-        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, NULL));
+    எனில் (offset & 3) {
+        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, வெற்று));
     }
 
     /* CSS-type instruction:
@@ -3039,18 +3039,18 @@ static void asm_emit_css(int token, uint16_t opcode, const Operand *rs2, const O
     6...2   rs2
     1...0   opcode */
 
-    switch (token) {
+    தேர்வு (token) {
     /* imm variant 1 */
-    case TOK_ASM_c_fswsp:
-    case TOK_ASM_c_swsp:
+    நிலை TOK_ASM_c_fswsp:
+    நிலை TOK_ASM_c_swsp:
         gen_le16(opcode | ENCODE_RS2(rs2->reg) | (((offset >> 6) & 3) << 7) | (((offset >> 2) & 0xf) << 9));
-        return;
+        திரும்பு;
     /* imm variant 2 */
-    case TOK_ASM_c_fsdsp:
-    case TOK_ASM_c_sdsp:
+    நிலை TOK_ASM_c_fsdsp:
+    நிலை TOK_ASM_c_sdsp:
         gen_le16(opcode | ENCODE_RS2(rs2->reg) | (((offset >> 6) & 7) << 7) | (((offset >> 3) & 7) << 10));
-        return;
-    default:
+        திரும்பு;
+    இயல்பு:
         expect("known instruction");
     }
 }

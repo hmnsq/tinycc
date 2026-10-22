@@ -1,6 +1,6 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main() 
+முழு முதன்மை() 
 {
    printf("Hello\n");
    printf("Hello\n"); /* this is a comment */ printf("Hello\n");
@@ -8,7 +8,7 @@ int main()
    // this is also a comment sayhello();
    printf("Hello\n");
 
-   return 0;
+   திரும்பு 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

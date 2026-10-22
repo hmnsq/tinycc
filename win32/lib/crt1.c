@@ -2,11 +2,11 @@
 // crt1.c
 
 // _UNICODE for tchar.h, UNICODE for API
-#include <tchar.h>
+#அந்தர்பாவ <tchar.h>
 
-#include <windows.h>
-#include <stdio.h>
-#include <stdlib.h>
+#அந்தர்பாவ <windows.h>
+#அந்தர்பாவ <stdio.h>
+#அந்தர்பாவ <stdlib.h>
 
 #define _UNKNOWN_APP    0
 #define _CONSOLE_APP    1
@@ -22,32 +22,32 @@
 #define _tstart _wstart
 #define _tmain wmain
 #define _runtmain _runwmain
-#else
+#இல்லையெனில்
 #define __tgetmainargs __getmainargs
 #define _tstart _start
-#define _tmain main
+#define _tmain முதன்மை
 #define _runtmain _runmain
 #endif
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
-void __cdecl __set_app_type(int apptype);
-unsigned int __cdecl _controlfp(unsigned int new_value, unsigned int mask);
-extern int _tmain(int argc, _TCHAR * argv[], _TCHAR * env[]);
+வகைவரை கட்டமைப்பு { முழு newmode; } _startupinfo;
+முழு __cdecl __tgetmainargs(முழு *pargc, _TCHAR ***pargv, _TCHAR ***penv, முழு globb, _startupinfo*);
+வெறுமை __cdecl __set_app_type(முழு apptype);
+unsigned முழு __cdecl _controlfp(unsigned முழு new_மதிப்பு, unsigned முழு mask);
+வெளி முழு _tmain(முழு argc, _TCHAR * argv[], _TCHAR * env[]);
 
-#include "crtinit.c"
+#அந்தர்பாவ "crtinit.c"
 
 /* Allow command-line globbing with "int _dowildcard = 1;" in the user source */
-int _dowildcard;
+முழு _dowildcard;
 
-static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
+நிலையான LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  திரும்பு _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
 }
 
-void _tstart(void)
+வெறுமை _tstart(வெறுமை)
 {
-    int ret;
+    முழு ret;
 
     _startupinfo start_info = {0};
     SetUnhandledExceptionFilter(catch_sig);
@@ -56,7 +56,7 @@ void _tstart(void)
 
     // Set default FP precision to 53 bits (8-byte double)
     // _MCW_PC (Precision control) is not supported on ARM
-#if defined __i386__ || defined __x86_64__
+#எனில் defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
 #endif
 
@@ -70,26 +70,26 @@ void _tstart(void)
 // =============================================
 // for 'tcc -run ,,,'
 
-__attribute__((weak)) extern int __run_on_exit();
+__attribute__((weak)) வெளி முழு __run_on_exit();
 
-int _runtmain(int argc, /* as tcc passed in */ char **argv)
+முழு _runtmain(முழு argc, /* as tcc passed in */ எழுத்து **argv)
 {
-    int ret;
-#if defined UNICODE || defined __aarch64__
+    முழு ret;
+#எனில் defined UNICODE || defined __aarch64__
     _startupinfo start_info = {0};
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
 #endif
 #ifdef UNICODE
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc) {
+    எனில் (argc < __argc) {
         __targv += __argc - argc;
         __argc = argc;
     }
-#else
+#இல்லையெனில்
     __argc = argc;
     __targv = argv;
 #endif
-#if defined __i386__ || defined __x86_64__
+#எனில் defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
 #endif
     run_ctors(__argc, __targv, _tenviron);
@@ -98,7 +98,7 @@ int _runtmain(int argc, /* as tcc passed in */ char **argv)
     fflush(stderr);
     run_dtors();
     __run_on_exit(ret);
-    return ret;
+    திரும்பு ret;
 }
 
 // =============================================

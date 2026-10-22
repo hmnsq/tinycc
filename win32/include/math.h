@@ -6,15 +6,15 @@
 #ifndef _MATH_H_
 #define _MATH_H_
 
-#if __GNUC__ >= 3
+#எனில் __GNUC__ >= 3
 #pragma GCC system_header
 #endif
 
-#include <_mingw.h>
+#அந்தர்பாவ <_mingw.h>
 
-struct exception;
+கட்டமைப்பு exception;
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(தள்ளு,_CRT_PACKING)
 
 #define _DOMAIN 1
 #define _SING 2
@@ -68,24 +68,24 @@ struct exception;
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
 #ifndef _EXCEPTION_DEFINED
 #define _EXCEPTION_DEFINED
-  struct _exception {
-    int type;
-    char *name;
-    double arg1;
-    double arg2;
-    double retval;
+  கட்டமைப்பு _exception {
+    முழு type;
+    எழுத்து *name;
+    இரட்டை arg1;
+    இரட்டை arg2;
+    இரட்டை retval;
   };
 #endif
 
 #ifndef _COMPLEX_DEFINED
 #define _COMPLEX_DEFINED
-  struct _complex {
-    double x,y;
+  கட்டமைப்பு _complex {
+    இரட்டை x,y;
   };
 #endif
 
@@ -94,9 +94,9 @@ extern "C" {
 
 #ifndef _HUGE
 #ifdef _MSVCRT_
-  extern double *_HUGE;
-#else
-  extern double *_imp___HUGE;
+  வெளி இரட்டை *_HUGE;
+#இல்லையெனில்
+  வெளி இரட்டை *_imp___HUGE;
 #define _HUGE	(*_imp___HUGE)
 #endif
 #endif
@@ -105,96 +105,96 @@ extern "C" {
 
 #ifndef _CRT_ABS_DEFINED
 #define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
+  முழு __cdecl abs(முழு _X);
   long __cdecl labs(long _X);
 #endif
-  double __cdecl acos(double _X);
-  double __cdecl asin(double _X);
-  double __cdecl atan(double _X);
-  double __cdecl atan2(double _Y,double _X);
+  இரட்டை __cdecl acos(இரட்டை _X);
+  இரட்டை __cdecl asin(இரட்டை _X);
+  இரட்டை __cdecl atan(இரட்டை _X);
+  இரட்டை __cdecl atan2(இரட்டை _Y,இரட்டை _X);
 #ifndef _SIGN_DEFINED
 #define _SIGN_DEFINED
-  _CRTIMP double __cdecl _copysign (double _Number,double _Sign);
-  _CRTIMP double __cdecl _chgsign (double _X);
+  _CRTIMP இரட்டை __cdecl _copysign (இரட்டை எண்,இரட்டை _Sign);
+  _CRTIMP இரட்டை __cdecl _chgsign (இரட்டை _X);
 #endif
-  double __cdecl cos(double _X);
-  double __cdecl cosh(double _X);
-  double __cdecl exp(double _X);
-  double __cdecl expm1(double _X);
-  double __cdecl fabs(double _X);
-  double __cdecl fmod(double _X,double _Y);
-  double __cdecl log(double _X);
-  double __cdecl log10(double _X);
-  double __cdecl pow(double _X,double _Y);
-  double __cdecl sin(double _X);
-  double __cdecl sinh(double _X);
-  double __cdecl tan(double _X);
-  double __cdecl tanh(double _X);
-  double __cdecl sqrt(double _X);
+  இரட்டை __cdecl cos(இரட்டை _X);
+  இரட்டை __cdecl cosh(இரட்டை _X);
+  இரட்டை __cdecl exp(இரட்டை _X);
+  இரட்டை __cdecl expm1(இரட்டை _X);
+  இரட்டை __cdecl fabs(இரட்டை _X);
+  இரட்டை __cdecl fmod(இரட்டை _X,இரட்டை _Y);
+  இரட்டை __cdecl log(இரட்டை _X);
+  இரட்டை __cdecl log10(இரட்டை _X);
+  இரட்டை __cdecl pow(இரட்டை _X,இரட்டை _Y);
+  இரட்டை __cdecl sin(இரட்டை _X);
+  இரட்டை __cdecl sinh(இரட்டை _X);
+  இரட்டை __cdecl tan(இரட்டை _X);
+  இரட்டை __cdecl tanh(இரட்டை _X);
+  இரட்டை __cdecl sqrt(இரட்டை _X);
 #ifndef _CRT_ATOF_DEFINED
 #define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
+  இரட்டை __cdecl atof(மாறிலி எழுத்து *_String);
+  இரட்டை __cdecl _atof_l(மாறிலி எழுத்து *_String,_locale_t _Locale);
 #endif
 
-  _CRTIMP double __cdecl _cabs(struct _complex _ComplexA);
-  double __cdecl ceil(double _X);
-  double __cdecl floor(double _X);
-  double __cdecl frexp(double _X,int *_Y);
-  double __cdecl _hypot(double _X,double _Y);
-  _CRTIMP double __cdecl _j0(double _X);
-  _CRTIMP double __cdecl _j1(double _X);
-  _CRTIMP double __cdecl _jn(int _X,double _Y);
-  double __cdecl ldexp(double _X,int _Y);
+  _CRTIMP இரட்டை __cdecl _cabs(கட்டமைப்பு _complex _ComplexA);
+  இரட்டை __cdecl ceil(இரட்டை _X);
+  இரட்டை __cdecl floor(இரட்டை _X);
+  இரட்டை __cdecl frexp(இரட்டை _X,முழு *_Y);
+  இரட்டை __cdecl _hypot(இரட்டை _X,இரட்டை _Y);
+  _CRTIMP இரட்டை __cdecl _j0(இரட்டை _X);
+  _CRTIMP இரட்டை __cdecl _j1(இரட்டை _X);
+  _CRTIMP இரட்டை __cdecl _jn(முழு _X,இரட்டை _Y);
+  இரட்டை __cdecl ldexp(இரட்டை _X,முழு _Y);
 #ifndef _CRT_MATHERR_DEFINED
 #define _CRT_MATHERR_DEFINED
-  int __cdecl _matherr(struct _exception *_Except);
+  முழு __cdecl _matherr(கட்டமைப்பு _exception *_Except);
 #endif
-  double __cdecl modf(double _X,double *_Y);
-  _CRTIMP double __cdecl _y0(double _X);
-  _CRTIMP double __cdecl _y1(double _X);
-  _CRTIMP double __cdecl _yn(int _X,double _Y);
+  இரட்டை __cdecl modf(இரட்டை _X,இரட்டை *_Y);
+  _CRTIMP இரட்டை __cdecl _y0(இரட்டை _X);
+  _CRTIMP இரட்டை __cdecl _y1(இரட்டை _X);
+  _CRTIMP இரட்டை __cdecl _yn(முழு _X,இரட்டை _Y);
 
-#if(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _set_SSE2_enable(int _Flag);
+#எனில்(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP முழு __cdecl _set_SSE2_enable(முழு _Flag);
   /* from libmingwex */
-  float __cdecl _hypotf(float _X,float _Y);
+  தசம __cdecl _hypotf(தசம _X,தசம _Y);
 #endif
 
-  float frexpf(float _X,int *_Y);
-  float __cdecl ldexpf(float _X,int _Y);
-  long double __cdecl ldexpl(long double _X,int _Y);
-  float __cdecl acosf(float _X);
-  float __cdecl asinf(float _X);
-   float __cdecl atanf(float _X);
-   float __cdecl atan2f(float _X,float _Y);
-   float __cdecl cosf(float _X);
-   float __cdecl sinf(float _X);
-   float __cdecl tanf(float _X);
-   float __cdecl coshf(float _X);
-   float __cdecl sinhf(float _X);
-   float __cdecl tanhf(float _X);
-   float __cdecl expf(float _X);
-   float __cdecl expm1f(float _X);
-   float __cdecl logf(float _X);
-   float __cdecl log10f(float _X);
-   float __cdecl modff(float _X,float *_Y);
-   float __cdecl powf(float _X,float _Y);
-   float __cdecl sqrtf(float _X);
-   float __cdecl ceilf(float _X);
-   float __cdecl floorf(float _X);
-  float __cdecl fmodf(float _X,float _Y);
-   float __cdecl _hypotf(float _X,float _Y);
-  float __cdecl fabsf(float _X);
-#if !defined(__ia64__)
+  தசம frexpf(தசம _X,முழு *_Y);
+  தசம __cdecl ldexpf(தசம _X,முழு _Y);
+  long இரட்டை __cdecl ldexpl(long இரட்டை _X,முழு _Y);
+  தசம __cdecl acosf(தசம _X);
+  தசம __cdecl asinf(தசம _X);
+   தசம __cdecl atanf(தசம _X);
+   தசம __cdecl atan2f(தசம _X,தசம _Y);
+   தசம __cdecl cosf(தசம _X);
+   தசம __cdecl sinf(தசம _X);
+   தசம __cdecl tanf(தசம _X);
+   தசம __cdecl coshf(தசம _X);
+   தசம __cdecl sinhf(தசம _X);
+   தசம __cdecl tanhf(தசம _X);
+   தசம __cdecl expf(தசம _X);
+   தசம __cdecl expm1f(தசம _X);
+   தசம __cdecl logf(தசம _X);
+   தசம __cdecl log10f(தசம _X);
+   தசம __cdecl modff(தசம _X,தசம *_Y);
+   தசம __cdecl powf(தசம _X,தசம _Y);
+   தசம __cdecl sqrtf(தசம _X);
+   தசம __cdecl ceilf(தசம _X);
+   தசம __cdecl floorf(தசம _X);
+  தசம __cdecl fmodf(தசம _X,தசம _Y);
+   தசம __cdecl _hypotf(தசம _X,தசம _Y);
+  தசம __cdecl fabsf(தசம _X);
+#எனில் !defined(__ia64__)
    /* from libmingwex */
-   float __cdecl _copysignf (float _Number,float _Sign);
-   float __cdecl _chgsignf (float _X);
-   float __cdecl _logbf(float _X);
-   float __cdecl _nextafterf(float _X,float _Y);
-   int __cdecl _finitef(float _X);
-   int __cdecl _isnanf(float _X);
-   int __cdecl _fpclassf(float _X);
+   தசம __cdecl _copysignf (தசம எண்,தசம _Sign);
+   தசம __cdecl _chgsignf (தசம _X);
+   தசம __cdecl _logbf(தசம _X);
+   தசம __cdecl _nextafterf(தசம _X,தசம _Y);
+   முழு __cdecl _finitef(தசம _X);
+   முழு __cdecl _isnanf(தசம _X);
+   முழு __cdecl _fpclassf(தசம _X);
 #endif
 
 #ifndef	NO_OLDNAMES
@@ -202,17 +202,17 @@ extern "C" {
 
 #define HUGE	_HUGE
   /*	double __cdecl cabs(struct _complex _X); */
-  double __cdecl hypot(double _X,double _Y);
-  _CRTIMP double __cdecl j0(double _X);
-  _CRTIMP double __cdecl j1(double _X);
-  _CRTIMP double __cdecl jn(int _X,double _Y);
-  _CRTIMP double __cdecl y0(double _X);
-  _CRTIMP double __cdecl y1(double _X);
-  _CRTIMP double __cdecl yn(int _X,double _Y);
+  இரட்டை __cdecl hypot(இரட்டை _X,இரட்டை _Y);
+  _CRTIMP இரட்டை __cdecl j0(இரட்டை _X);
+  _CRTIMP இரட்டை __cdecl j1(இரட்டை _X);
+  _CRTIMP இரட்டை __cdecl jn(முழு _X,இரட்டை _Y);
+  _CRTIMP இரட்டை __cdecl y0(இரட்டை _X);
+  _CRTIMP இரட்டை __cdecl y1(இரட்டை _X);
+  _CRTIMP இரட்டை __cdecl yn(முழு _X,இரட்டை _Y);
 #endif
 
 #ifndef __NO_ISOCEXT
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
+#எனில் (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
   || !defined __STRICT_ANSI__ || defined __GLIBCPP__
 
 #define NAN (0.0F/0.0F)
@@ -236,9 +236,9 @@ extern "C" {
   converted to double, and zero when converted to float.)
   */
 
-  extern int __cdecl __fpclassifyf (float);
-  extern int __cdecl __fpclassify (double);
-  extern int __cdecl __fpclassifyl (long double);
+  வெளி முழு __cdecl __fpclassifyf (தசம);
+  வெளி முழு __cdecl __fpclassify (இரட்டை);
+  வெளி முழு __cdecl __fpclassifyl (long இரட்டை);
 
 /* Implemented at tcc/tcc_libm.h
 #define fpclassify(x) (sizeof (x) == sizeof (float) ? __fpclassifyf (x)	  \
@@ -246,7 +246,7 @@ extern "C" {
   : __fpclassifyl (x))
 */
 #define fpclassify(x) \
-  _Generic(x, float: __fpclassifyf, double: __fpclassify, long double: __fpclassifyl)(x)
+  _Generic(x, தசம: __fpclassifyf, இரட்டை: __fpclassify, long இரட்டை: __fpclassifyl)(x)
 
   /* 7.12.3.2 */
 #define isfinite(x) ((fpclassify(x) & FP_NAN) == 0)
@@ -264,9 +264,9 @@ extern "C" {
 
   /* 7.12.3.6 The signbit macro */
 
-  extern int __cdecl __signbitf (float);
-  extern int __cdecl __signbit (double);
-  extern int __cdecl __signbitl (long double);
+  வெளி முழு __cdecl __signbitf (தசம);
+  வெளி முழு __cdecl __signbit (இரட்டை);
+  வெளி முழு __cdecl __signbitl (long இரட்டை);
 
 /* Implemented at tcc/tcc_libm.h
 #define signbit(x) (sizeof (x) == sizeof (float) ? __signbitf (x)	\
@@ -274,115 +274,115 @@ extern "C" {
   : __signbitl (x))
 */
 #define signbit(x) \
-  _Generic(x, float: __signbitf, double: __signbit, long double: __signbitl)(x)
+  _Generic(x, தசம: __signbitf, இரட்டை: __signbit, long இரட்டை: __signbitl)(x)
 
-  extern double __cdecl exp2(double);
-  extern float __cdecl exp2f(float);
-  extern long double __cdecl exp2l(long double);
+  வெளி இரட்டை __cdecl exp2(இரட்டை);
+  வெளி தசம __cdecl exp2f(தசம);
+  வெளி long இரட்டை __cdecl exp2l(long இரட்டை);
 
-#define FP_ILOGB0 ((int)0x80000000)
-#define FP_ILOGBNAN ((int)0x80000000)
-  extern int __cdecl ilogb (double);
-  extern int __cdecl ilogbf (float);
-  extern int __cdecl ilogbl (long double);
+#define FP_ILOGB0 ((முழு)0x80000000)
+#define FP_ILOGBNAN ((முழு)0x80000000)
+  வெளி முழு __cdecl ilogb (இரட்டை);
+  வெளி முழு __cdecl ilogbf (தசம);
+  வெளி முழு __cdecl ilogbl (long இரட்டை);
 
-  extern double __cdecl log1p(double);
-  extern float __cdecl log1pf(float);
-  extern long double __cdecl log1pl(long double);
+  வெளி இரட்டை __cdecl log1p(இரட்டை);
+  வெளி தசம __cdecl log1pf(தசம);
+  வெளி long இரட்டை __cdecl log1pl(long இரட்டை);
 
-  extern double __cdecl log2 (double);
-  extern float __cdecl log2f (float);
-  extern long double __cdecl log2l (long double);
+  வெளி இரட்டை __cdecl log2 (இரட்டை);
+  வெளி தசம __cdecl log2f (தசம);
+  வெளி long இரட்டை __cdecl log2l (long இரட்டை);
 
-  extern double __cdecl logb (double);
-  extern float __cdecl logbf (float);
-  extern long double __cdecl logbl (long double);
+  வெளி இரட்டை __cdecl logb (இரட்டை);
+  வெளி தசம __cdecl logbf (தசம);
+  வெளி long இரட்டை __cdecl logbl (long இரட்டை);
 
-  extern long double __cdecl modfl (long double, long double*);
+  வெளி long இரட்டை __cdecl modfl (long இரட்டை, long இரட்டை*);
 
   /* 7.12.6.13 */
-  extern double __cdecl scalbn (double, int);
-  extern float __cdecl scalbnf (float, int);
-  extern long double __cdecl scalbnl (long double, int);
+  வெளி இரட்டை __cdecl scalbn (இரட்டை, முழு);
+  வெளி தசம __cdecl scalbnf (தசம, முழு);
+  வெளி long இரட்டை __cdecl scalbnl (long இரட்டை, முழு);
 
-  extern double __cdecl scalbln (double, long);
-  extern float __cdecl scalblnf (float, long);
-  extern long double __cdecl scalblnl (long double, long);
+  வெளி இரட்டை __cdecl scalbln (இரட்டை, long);
+  வெளி தசம __cdecl scalblnf (தசம, long);
+  வெளி long இரட்டை __cdecl scalblnl (long இரட்டை, long);
 
   /* 7.12.7.1 */
   /* Implementations adapted from Cephes versions */ 
-  extern double __cdecl cbrt (double);
-  extern float __cdecl cbrtf (float);
-  extern long double __cdecl cbrtl (long double);
+  வெளி இரட்டை __cdecl cbrt (இரட்டை);
+  வெளி தசம __cdecl cbrtf (தசம);
+  வெளி long இரட்டை __cdecl cbrtl (long இரட்டை);
 
-  extern double __cdecl hypot (double, double);
-  extern float __cdecl hypotf (float, float);
-  extern long double __cdecl hypotl (long double, long double);
+  வெளி இரட்டை __cdecl hypot (இரட்டை, இரட்டை);
+  வெளி தசம __cdecl hypotf (தசம, தசம);
+  வெளி long இரட்டை __cdecl hypotl (long இரட்டை, long இரட்டை);
 
-  extern long double __cdecl powl (long double, long double);
-  extern long double __cdecl expl(long double);
-  extern long double __cdecl expm1l(long double);
-  extern long double __cdecl coshl(long double);
-  extern long double __cdecl fabsl (long double);
-  extern long double __cdecl acosl(long double);
-  extern long double __cdecl asinl(long double);
-  extern long double __cdecl atanl(long double);
-  extern long double __cdecl atan2l(long double,long double);
-  extern long double __cdecl sinhl(long double);
-  extern long double __cdecl tanhl(long double);
+  வெளி long இரட்டை __cdecl powl (long இரட்டை, long இரட்டை);
+  வெளி long இரட்டை __cdecl expl(long இரட்டை);
+  வெளி long இரட்டை __cdecl expm1l(long இரட்டை);
+  வெளி long இரட்டை __cdecl coshl(long இரட்டை);
+  வெளி long இரட்டை __cdecl fabsl (long இரட்டை);
+  வெளி long இரட்டை __cdecl acosl(long இரட்டை);
+  வெளி long இரட்டை __cdecl asinl(long இரட்டை);
+  வெளி long இரட்டை __cdecl atanl(long இரட்டை);
+  வெளி long இரட்டை __cdecl atan2l(long இரட்டை,long இரட்டை);
+  வெளி long இரட்டை __cdecl sinhl(long இரட்டை);
+  வெளி long இரட்டை __cdecl tanhl(long இரட்டை);
 
   /* 7.12.8.1 The erf functions  */
-  extern double __cdecl erf (double);
-  extern float __cdecl erff (float);
+  வெளி இரட்டை __cdecl erf (இரட்டை);
+  வெளி தசம __cdecl erff (தசம);
   /* TODO
   extern long double __cdecl erfl (long double);
   */ 
 
   /* 7.12.8.2 The erfc functions  */
-  extern double __cdecl erfc (double);
-  extern float __cdecl erfcf (float);
+  வெளி இரட்டை __cdecl erfc (இரட்டை);
+  வெளி தசம __cdecl erfcf (தசம);
   /* TODO
   extern long double __cdecl erfcl (long double);
   */ 
 
   /* 7.12.8.3 The lgamma functions */
-  extern double __cdecl lgamma (double);
-  extern float __cdecl lgammaf (float);
-  extern long double __cdecl lgammal (long double);
+  வெளி இரட்டை __cdecl lgamma (இரட்டை);
+  வெளி தசம __cdecl lgammaf (தசம);
+  வெளி long இரட்டை __cdecl lgammal (long இரட்டை);
 
   /* 7.12.8.4 The tgamma functions */
-  extern double __cdecl tgamma (double);
-  extern float __cdecl tgammaf (float);
-  extern long double __cdecl tgammal (long double);
+  வெளி இரட்டை __cdecl tgamma (இரட்டை);
+  வெளி தசம __cdecl tgammaf (தசம);
+  வெளி long இரட்டை __cdecl tgammal (long இரட்டை);
 
-  extern long double __cdecl ceill (long double);
-  extern long double __cdecl floorl (long double);
-  extern long double __cdecl frexpl(long double,int *);
-  extern long double __cdecl log10l(long double);
-  extern long double __cdecl logl(long double);
-  extern long double __cdecl cosl(long double);
-  extern long double __cdecl sinl(long double);
-  extern long double __cdecl tanl(long double);
-  extern long double sqrtl(long double);
+  வெளி long இரட்டை __cdecl ceill (long இரட்டை);
+  வெளி long இரட்டை __cdecl floorl (long இரட்டை);
+  வெளி long இரட்டை __cdecl frexpl(long இரட்டை,முழு *);
+  வெளி long இரட்டை __cdecl log10l(long இரட்டை);
+  வெளி long இரட்டை __cdecl logl(long இரட்டை);
+  வெளி long இரட்டை __cdecl cosl(long இரட்டை);
+  வெளி long இரட்டை __cdecl sinl(long இரட்டை);
+  வெளி long இரட்டை __cdecl tanl(long இரட்டை);
+  வெளி long இரட்டை sqrtl(long இரட்டை);
 
   /* 7.12.9.3 */
-  extern double __cdecl nearbyint ( double);
-  extern float __cdecl nearbyintf (float);
-  extern long double __cdecl nearbyintl (long double);
+  வெளி இரட்டை __cdecl nearbyint ( இரட்டை);
+  வெளி தசம __cdecl nearbyintf (தசம);
+  வெளி long இரட்டை __cdecl nearbyintl (long இரட்டை);
 
   /* 7.12.9.4 */
   /* round, using fpu control word settings */
-  extern double __cdecl rint (double);
-  extern float __cdecl rintf (float);
-  extern long double __cdecl rintl (long double);
+  வெளி இரட்டை __cdecl rint (இரட்டை);
+  வெளி தசம __cdecl rintf (தசம);
+  வெளி long இரட்டை __cdecl rintl (long இரட்டை);
 
-  extern long __cdecl lrint (double);
-  extern long __cdecl lrintf (float);
-  extern long __cdecl lrintl (long double);
+  வெளி long __cdecl lrint (இரட்டை);
+  வெளி long __cdecl lrintf (தசம);
+  வெளி long __cdecl lrintl (long இரட்டை);
 
-  extern long long __cdecl llrint (double);
-  extern long long __cdecl llrintf (float);
-  extern long long __cdecl llrintl (long double);
+  வெளி long long __cdecl llrint (இரட்டை);
+  வெளி long long __cdecl llrintf (தசம);
+  வெளி long long __cdecl llrintl (long இரட்டை);
 
   #define FE_TONEAREST	0x0000
   #define FE_DOWNWARD	0x0400
@@ -391,46 +391,46 @@ extern "C" {
 
   /* 7.12.9.6 */
   /* round away from zero, regardless of fpu control word settings */
-  extern double __cdecl round (double);
-  extern float __cdecl roundf (float);
-  extern long double __cdecl roundl (long double);
+  வெளி இரட்டை __cdecl round (இரட்டை);
+  வெளி தசம __cdecl roundf (தசம);
+  வெளி long இரட்டை __cdecl roundl (long இரட்டை);
 
   /* 7.12.9.7  */
-  extern long __cdecl lround (double);
-  extern long __cdecl lroundf (float);
-  extern long __cdecl lroundl (long double);
+  வெளி long __cdecl lround (இரட்டை);
+  வெளி long __cdecl lroundf (தசம);
+  வெளி long __cdecl lroundl (long இரட்டை);
 
-  extern long long __cdecl llround (double);
-  extern long long __cdecl llroundf (float);
-  extern long long __cdecl llroundl (long double);
+  வெளி long long __cdecl llround (இரட்டை);
+  வெளி long long __cdecl llroundf (தசம);
+  வெளி long long __cdecl llroundl (long இரட்டை);
 
   /* 7.12.9.8 */
   /* round towards zero, regardless of fpu control word settings */
-  extern double __cdecl trunc (double);
-  extern float __cdecl truncf (float);
-  extern long double __cdecl truncl (long double);
+  வெளி இரட்டை __cdecl trunc (இரட்டை);
+  வெளி தசம __cdecl truncf (தசம);
+  வெளி long இரட்டை __cdecl truncl (long இரட்டை);
 
-  extern long double __cdecl fmodl (long double, long double);
+  வெளி long இரட்டை __cdecl fmodl (long இரட்டை, long இரட்டை);
 
   /* 7.12.10.2 */ 
-  extern double __cdecl remainder (double, double);
-  extern float __cdecl remainderf (float, float);
-  extern long double __cdecl remainderl (long double, long double);
+  வெளி இரட்டை __cdecl remainder (இரட்டை, இரட்டை);
+  வெளி தசம __cdecl remainderf (தசம, தசம);
+  வெளி long இரட்டை __cdecl remainderl (long இரட்டை, long இரட்டை);
 
   /* 7.12.10.3 */
-  extern double __cdecl remquo(double, double, int *);
-  extern float __cdecl remquof(float, float, int *);
-  extern long double __cdecl remquol(long double, long double, int *);
+  வெளி இரட்டை __cdecl remquo(இரட்டை, இரட்டை, முழு *);
+  வெளி தசம __cdecl remquof(தசம, தசம, முழு *);
+  வெளி long இரட்டை __cdecl remquol(long இரட்டை, long இரட்டை, முழு *);
 
   /* 7.12.11.1 */
-  extern double __cdecl copysign (double, double); /* in libmoldname.a */
-  extern float __cdecl copysignf (float, float);
-  extern long double __cdecl copysignl (long double, long double);
+  வெளி இரட்டை __cdecl copysign (இரட்டை, இரட்டை); /* in libmoldname.a */
+  வெளி தசம __cdecl copysignf (தசம, தசம);
+  வெளி long இரட்டை __cdecl copysignl (long இரட்டை, long இரட்டை);
 
   /* 7.12.11.2 Return a NaN */
-  extern double __cdecl nan(const char *tagp);
-  extern float __cdecl nanf(const char *tagp);
-  extern long double __cdecl nanl(const char *tagp);
+  வெளி இரட்டை __cdecl nan(மாறிலி எழுத்து *tagp);
+  வெளி தசம __cdecl nanf(மாறிலி எழுத்து *tagp);
+  வெளி long இரட்டை __cdecl nanl(மாறிலி எழுத்து *tagp);
 
 #ifndef __STRICT_ANSI__
 #define _nan() nan("")
@@ -439,17 +439,17 @@ extern "C" {
 #endif
 
   /* 7.12.11.3 */
-  extern double __cdecl nextafter (double, double); /* in libmoldname.a */
-  extern float __cdecl nextafterf (float, float);
-  extern long double __cdecl nextafterl (long double, long double);
+  வெளி இரட்டை __cdecl nextafter (இரட்டை, இரட்டை); /* in libmoldname.a */
+  வெளி தசம __cdecl nextafterf (தசம, தசம);
+  வெளி long இரட்டை __cdecl nextafterl (long இரட்டை, long இரட்டை);
 
   /* 7.12.11.4 The nexttoward functions: TODO */
 
   /* 7.12.12.1 */
   /*  x > y ? (x - y) : 0.0  */
-  extern double __cdecl fdim (double x, double y);
-  extern float __cdecl fdimf (float x, float y);
-  extern long double __cdecl fdiml (long double x, long double y);
+  வெளி இரட்டை __cdecl fdim (இரட்டை x, இரட்டை y);
+  வெளி தசம __cdecl fdimf (தசம x, தசம y);
+  வெளி long இரட்டை __cdecl fdiml (long இரட்டை x, long இரட்டை y);
 
   /* fmax and fmin.
   NaN arguments are treated as missing data: if one argument is a NaN
@@ -457,20 +457,20 @@ extern "C" {
   value. */
 
   /* 7.12.12.2 */
-  extern double __cdecl fmax  (double, double);
-  extern float __cdecl fmaxf (float, float);
-  extern long double __cdecl fmaxl (long double, long double);
+  வெளி இரட்டை __cdecl fmax  (இரட்டை, இரட்டை);
+  வெளி தசம __cdecl fmaxf (தசம, தசம);
+  வெளி long இரட்டை __cdecl fmaxl (long இரட்டை, long இரட்டை);
 
   /* 7.12.12.3 */
-  extern double __cdecl fmin (double, double);
-  extern float __cdecl fminf (float, float);
-  extern long double __cdecl fminl (long double, long double);
+  வெளி இரட்டை __cdecl fmin (இரட்டை, இரட்டை);
+  வெளி தசம __cdecl fminf (தசம, தசம);
+  வெளி long இரட்டை __cdecl fminl (long இரட்டை, long இரட்டை);
 
   /* 7.12.13.1 */
   /* return x * y + z as a ternary op */ 
-  extern double __cdecl fma (double, double, double);
-  extern float __cdecl fmaf (float, float, float);
-  extern long double __cdecl fmal (long double, long double, long double);
+  வெளி இரட்டை __cdecl fma (இரட்டை, இரட்டை, இரட்டை);
+  வெளி தசம __cdecl fmaf (தசம, தசம, தசம);
+  வெளி long இரட்டை __cdecl fmal (long இரட்டை, long இரட்டை, long இரட்டை);
 
 
 #endif /* __STDC_VERSION__ >= 199901L */
@@ -479,7 +479,7 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#pragma pack(pop)
+#pragma pack(எடு)
 
 /* 7.12.14 */
 /* 
@@ -491,7 +491,7 @@ extern "C" {
  */
 
 /* Mini libm (inline __fpclassify*, __signbit* and variants) */
-#include "tcc/tcc_libm.h"
+#அந்தர்பாவ "tcc/tcc_libm.h"
 
 #endif /* End _MATH_H_ */
 

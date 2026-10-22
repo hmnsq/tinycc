@@ -3,19 +3,19 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SEARCH_S
-#define _INC_SEARCH_S
+#ifndef INC_தேடல்_S
+#define INC_தேடல்_S
 
-#include <search.h>
+#அந்தர்பாவ <search.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#எனில் defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
-  _CRTIMP void *__cdecl _lfind_s(const void *_Key,const void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
-  _CRTIMP void *__cdecl _lsearch_s(const void *_Key,void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
+  _CRTIMP வெறுமை *__cdecl _lfind_s(மாறிலி வெறுமை *சாவி_2,மாறிலி வெறுமை *_Base,unsigned முழு *இலக்கம்_Of_Elements,size_t _SizeOfElements,முழு (__cdecl *_PtFuncCompare)(வெறுமை *,மாறிலி வெறுமை *,மாறிலி வெறுமை *),வெறுமை *_Context);
+  _CRTIMP வெறுமை *__cdecl _lsearch_s(மாறிலி வெறுமை *சாவி_2,வெறுமை *_Base,unsigned முழு *இலக்கம்_Of_Elements,size_t _SizeOfElements,முழு (__cdecl *_PtFuncCompare)(வெறுமை *,மாறிலி வெறுமை *,மாறிலி வெறுமை *),வெறுமை *_Context);
 
 #ifdef __cplusplus
 }

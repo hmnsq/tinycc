@@ -1,113 +1,113 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int f(void)
+முழு f(வெறுமை)
 {
-  return 5;
+  திரும்பு 5;
 }
 
-void test1()
+வெறுமை test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  முழு மொத்தம்_2 = 10;
+  வெறுமை *addr[10];
+  க்கு(;மொத்தம்_2--;) {
+    முழு a[f()];
 
-    addr[count] = a;
+    addr[மொத்தம்_2] = a;
 
-    continue;
+    தொடர்;
   }
 
-  if(addr[9] == addr[0]) {
+  எனில்(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } இல்லையெனில் {
     printf("NOT OK\n");
   }
 }
 
-void test2()
+வெறுமை test2()
 {
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  முழு மொத்தம்_2 = 10;
+  வெறுமை *addr[மொத்தம்_2];
+  க்கு(;மொத்தம்_2--;) {
+    முழு a[f()];
 
-    addr[count] = a;
+    addr[மொத்தம்_2] = a;
 
-    continue;
+    தொடர்;
   }
 
-  if(addr[9] == addr[0]) {
+  எனில்(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } இல்லையெனில் {
     printf("NOT OK\n");
   }
 }
 
-void test3()
+வெறுமை test3()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  முழு மொத்தம்_2 = 10;
+  வெறுமை *addr[மொத்தம்_2];
+  போது(மொத்தம்_2--) {
+      முழு b[f()];
+      எனில் (மொத்தம்_2 >= 0) {
+          முழு a[f()];
 
-          addr[count] = a;
+          addr[மொத்தம்_2] = a;
 
-          continue;
+          தொடர்;
       }
   }
 
-  if(addr[9] == addr[0]) {
+  எனில்(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } இல்லையெனில் {
     printf("NOT OK\n");
   }
 }
 
-void test4()
+வெறுமை test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  முழு மொத்தம்_2 = 10;
+  வெறுமை *addr[மொத்தம்_2];
+  செய் {
+    முழு a[f()];
 
-    addr[--count] = a;
+    addr[--மொத்தம்_2] = a;
 
-    continue;
-  } while (count);
+    தொடர்;
+  } போது (மொத்தம்_2);
 
-  if(addr[9] == addr[0]) {
+  எனில்(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } இல்லையெனில் {
     printf("NOT OK\n");
   }
 }
 
-void test5()
+வெறுமை test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  முழு மொத்தம்_2 = 10;
+  முழு a[f()];
+  முழு c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  க்கு(;மொத்தம்_2--;) {
+    முழு b[f()];
+    முழு i;
+    க்கு (i=0; i<f(); i++) {
+      b[i] = மொத்தம்_2;
     }
   }
 
-  if (c[0] == 42) {
+  எனில் (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } இல்லையெனில் {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+முழு முதன்மை(வெறுமை)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  திரும்பு 0;
 }

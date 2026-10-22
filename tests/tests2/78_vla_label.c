@@ -1,25 +1,25 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+வெறுமை f1(முழு argc)
 {
-  char test[argc];
-  if(0)
+  எழுத்து test[argc];
+  எனில்(0)
   label:
     printf("boom!\n");
-  if(argc-- == 0)
-    return;
-  goto label;
+  எனில்(argc-- == 0)
+    திரும்பு;
+  செல் label;
 }
 
 /* This segfaulted on 2015-11-19. */
-void f2(void)
+வெறுமை f2(வெறுமை)
 {
-    goto start;
+    செல் start;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
+        முழு a[1 && 1]; /* not a variable-length array */
+        முழு b[1 || 1]; /* not a variable-length array */
+        முழு c[1 ? 1 : 1]; /* not a variable-length array */
     start:
         a[0] = 0;
         b[0] = 0;
@@ -27,7 +27,7 @@ void f2(void)
     }
 }
 
-void f3(void)
+வெறுமை f3(வெறுமை)
 {
     printf("%d\n", 0 ? printf("x1\n") : 11);
     printf("%d\n", 1 ? 12 : printf("x2\n"));
@@ -35,11 +35,11 @@ void f3(void)
     printf("%d\n", 1 || printf("x4\n"));
 }
 
-int main()
+முழு முதன்மை()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  திரும்பு 0;
 }

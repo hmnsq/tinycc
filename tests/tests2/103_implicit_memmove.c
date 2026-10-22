@@ -1,20 +1,20 @@
 /* Test that the memmove TCC is emitting for the struct copy
    and hence implicitely declares can be declared properly also
    later.  */
-struct S { int a,b,c,d, e[1024];};
-int foo (struct S *a, struct S *b)
+கட்டமைப்பு S { முழு a,b,c,d, e[1024];};
+முழு foo (கட்டமைப்பு S *a, கட்டமைப்பு S *b)
 {
   *a = *b;
-  return 0;
+  திரும்பு 0;
 }
 
-void *memmove(void*,const void*,__SIZE_TYPE__);
-void foo2 (struct S *a, struct S *b)
+வெறுமை *memmove(வெறுமை*,மாறிலி வெறுமை*,__SIZE_TYPE__);
+வெறுமை foo2 (கட்டமைப்பு S *a, கட்டமைப்பு S *b)
 {
-  memmove(a, b, sizeof *a);
+  memmove(a, b, அளவு *a);
 }
 
-int main()
+முழு முதன்மை()
 {
-  return 0;
+  திரும்பு 0;
 }

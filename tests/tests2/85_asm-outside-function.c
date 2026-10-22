@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#இல்லையெனில்
 # define _
 #endif
 
-extern int printf (const char *, ...);
-extern void vide(void);
+வெளி முழு printf (மாறிலி எழுத்து *, ...);
+வெளி வெறுமை vide(வெறுமை);
 __asm__(_"vide: ret");
 
-int main() {
+முழு முதன்மை() {
     vide();
     printf ("okay\n");
-    return 0;
+    திரும்பு 0;
 }

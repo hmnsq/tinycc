@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#அந்தர்பாவ <tcclib.h>
 
-int main()
+முழு முதன்மை()
 {
     printf("Hello World\n");
-    return 0;
+    திரும்பு 0;
 }

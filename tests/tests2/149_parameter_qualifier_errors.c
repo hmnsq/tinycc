@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+வெறுமை defined_const(முழு *pointer);
 
-void defined_const(int *const pointer)
+வெறுமை defined_const(முழு *மாறிலி pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+முழு முதன்மை(வெறுமை)
 {
-    return 0;
+    திரும்பு 0;
 }

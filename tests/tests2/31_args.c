@@ -1,14 +1,14 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main(int argc, char **argv)
+முழு முதன்மை(முழு argc, எழுத்து **argv)
 {
-   int Count;
+   முழு மொத்தம்_3;
 
    printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   க்கு (மொத்தம்_3 = 1; மொத்தம்_3 < argc; மொத்தம்_3++)
+      printf("arg %d: %s\n", மொத்தம்_3, argv[மொத்தம்_3]);
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

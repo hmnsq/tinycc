@@ -37,13 +37,13 @@
 #define RC_FRET    RC_ST0 /* function return: float register */
 
 /* pretty names for the registers */
-enum {
+எண்ணிக்கை {
     REG_ST0 = 0,
     REG_ST1,
     REG_ST2,
 };
 
-const int reg_classes[NB_REGS] = {
+மாறிலி முழு reg_classes[NB_REGS] = {
     /* ST0 */ RC_ST | RC_ST0,
     /* ST1 */ RC_ST | RC_ST1,
     /* ST2 */ RC_ST,
@@ -69,8 +69,8 @@ const int reg_classes[NB_REGS] = {
 #define LDOUBLE_ALIGN 8
 
 /* function call context */
-typedef struct GFuncContext {
-    int func_call; /* func call type (FUNC_STDCALL or FUNC_CDECL) */
+வகைவரை கட்டமைப்பு GFuncContext {
+    முழு func_call; /* func call type (FUNC_STDCALL or FUNC_CDECL) */
 } GFuncContext;
 
 /******************************************************/
@@ -78,15 +78,15 @@ typedef struct GFuncContext {
 
 #define IL_OP_PREFIX 0xFE
 
-enum ILOPCodes {
+எண்ணிக்கை ILOPCodes {
 #define OP(name, str, n) IL_OP_ ## name = n,
-#include "il-opcodes.h"
+#அந்தர்பாவ "il-opcodes.h"
 #undef OP
 };
 
-char *il_opcodes_str[] = {
+எழுத்து *il_opcodes_str[] = {
 #define OP(name, str, n) [n] = str,
-#include "il-opcodes.h"
+#அந்தர்பாவ "il-opcodes.h"
 #undef OP
 };
 
@@ -95,14 +95,14 @@ char *il_opcodes_str[] = {
 /* arguments variable numbers start from there */
 #define ARG_BASE 0x70000000
 
-static FILE *il_outfile;
+நிலையான FILE *il_outfile;
 
-static void out_byte(int c)
+நிலையான வெறுமை out_byte(முழு c)
 {
-    *(char *)ind++ = c;
+    *(எழுத்து *)ind++ = c;
 }
 
-static void out_le32(int c)
+நிலையான வெறுமை out_le32(முழு c)
 {
     out_byte(c);
     out_byte(c >> 8);
@@ -110,9 +110,9 @@ static void out_le32(int c)
     out_byte(c >> 24);
 }
 
-static void init_outfile(void)
+நிலையான வெறுமை init_outfile(வெறுமை)
 {
-    if (!il_outfile) {
+    எனில் (!il_outfile) {
         il_outfile = stdout;
         fprintf(il_outfile, 
                 ".assembly extern mscorlib\n"
@@ -122,28 +122,28 @@ static void init_outfile(void)
     }
 }
 
-static void out_op1(int op)
+நிலையான வெறுமை out_op1(முழு op)
 {
-    if (op & 0x100)
+    எனில் (op & 0x100)
         out_byte(IL_OP_PREFIX);
     out_byte(op & 0xff);
 }
 
 /* output an opcode with prefix */
-static void out_op(int op)
+நிலையான வெறுமை out_op(முழு op)
 {
     out_op1(op);
     fprintf(il_outfile, " %s\n", il_opcodes_str[op]);
 }
 
-static void out_opb(int op, int c)
+நிலையான வெறுமை out_opb(முழு op, முழு c)
 {
     out_op1(op);
     out_byte(c);
     fprintf(il_outfile, " %s %d\n", il_opcodes_str[op], c);
 }
 
-static void out_opi(int op, int c)
+நிலையான வெறுமை out_opi(முழு op, முழு c)
 {
     out_op1(op);
     out_le32(c);
@@ -151,75 +151,75 @@ static void out_opi(int op, int c)
 }
 
 /* XXX: not complete */
-static void il_type_to_str(char *buf, int buf_size, 
-                           int t, const char *varstr)
+நிலையான வெறுமை il_type_to_str(எழுத்து *buf, முழு buf_size, 
+                           முழு t, மாறிலி எழுத்து *varstr)
 {
-    int bt;
+    முழு bt;
     Sym *s, *sa;
-    char buf1[256];
-    const char *tstr;
+    எழுத்து buf1[256];
+    மாறிலி எழுத்து *tstr;
 
     t = t & VT_TYPE;
     bt = t & VT_BTYPE;
     buf[0] = '\0';
-    if (t & VT_UNSIGNED)
+    எனில் (t & VT_UNSIGNED)
         pstrcat(buf, buf_size, "unsigned ");
-    switch(bt) {
-    case VT_VOID:
+    தேர்வு(bt) {
+    நிலை VT_VOID:
         tstr = "void";
-        goto add_tstr;
-    case VT_BOOL:
+        செல் add_tstr;
+    நிலை VT_BOOL:
         tstr = "bool";
-        goto add_tstr;
-    case VT_BYTE:
+        செல் add_tstr;
+    நிலை VT_BYTE:
         tstr = "int8";
-        goto add_tstr;
-    case VT_SHORT:
+        செல் add_tstr;
+    நிலை VT_SHORT:
         tstr = "int16";
-        goto add_tstr;
-    case VT_ENUM:
-    case VT_INT:
-    case VT_LONG:
+        செல் add_tstr;
+    நிலை VT_ENUM:
+    நிலை VT_INT:
+    நிலை VT_LONG:
         tstr = "int32";
-        goto add_tstr;
-    case VT_LLONG:
+        செல் add_tstr;
+    நிலை VT_LLONG:
         tstr = "int64";
-        goto add_tstr;
-    case VT_FLOAT:
+        செல் add_tstr;
+    நிலை VT_FLOAT:
         tstr = "float32";
-        goto add_tstr;
-    case VT_DOUBLE:
-    case VT_LDOUBLE:
+        செல் add_tstr;
+    நிலை VT_DOUBLE:
+    நிலை VT_LDOUBLE:
         tstr = "float64";
     add_tstr:
         pstrcat(buf, buf_size, tstr);
-        break;
-    case VT_STRUCT:
+        நிறுத்து;
+    நிலை VT_STRUCT:
         tcc_error("structures not handled yet");
-        break;
-    case VT_FUNC:
+        நிறுத்து;
+    நிலை VT_FUNC:
         s = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
         il_type_to_str(buf, buf_size, s->t, varstr);
         pstrcat(buf, buf_size, "(");
         sa = s->next;
-        while (sa != NULL) {
-            il_type_to_str(buf1, sizeof(buf1), sa->t, NULL);
+        போது (sa != வெற்று) {
+            il_type_to_str(buf1, அளவு(buf1), sa->t, வெற்று);
             pstrcat(buf, buf_size, buf1);
             sa = sa->next;
-            if (sa)
+            எனில் (sa)
                 pstrcat(buf, buf_size, ", ");
         }
         pstrcat(buf, buf_size, ")");
-        goto no_var;
-    case VT_PTR:
+        செல் no_var;
+    நிலை VT_PTR:
         s = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
-        pstrcpy(buf1, sizeof(buf1), "*");
-        if (varstr)
-            pstrcat(buf1, sizeof(buf1), varstr);
+        pstrcpy(buf1, அளவு(buf1), "*");
+        எனில் (varstr)
+            pstrcat(buf1, அளவு(buf1), varstr);
         il_type_to_str(buf, buf_size, s->t, buf1);
-        goto no_var;
+        செல் no_var;
     }
-    if (varstr) {
+    எனில் (varstr) {
         pstrcat(buf, buf_size, " ");
         pstrcat(buf, buf_size, varstr);
     }
@@ -228,169 +228,169 @@ static void il_type_to_str(char *buf, int buf_size,
 
 
 /* patch relocation entry with value 'val' */
-void greloc_patch1(Reloc *p, int val)
+வெறுமை greloc_patch1(Reloc *p, முழு val)
 {
 }
 
 /* output a symbol and patch all calls to it */
-void gsym_addr(t, a)
+வெறுமை gsym_addr(t, a)
 {
 }
 
 /* output jump and return symbol */
-static int out_opj(int op, int c)
+நிலையான முழு out_opj(முழு op, முழு c)
 {
     out_op1(op);
     out_le32(0);
-    if (c == 0) {
-        c = ind - (int)cur_text_section->data;
+    எனில் (c == 0) {
+        c = ind - (முழு)cur_text_section->data;
     }
     fprintf(il_outfile, " %s L%d\n", il_opcodes_str[op], c);
-    return c;
+    திரும்பு c;
 }
 
-void gsym(int t)
+வெறுமை gsym(முழு t)
 {
     fprintf(il_outfile, "L%d:\n", t);
 }
 
 /* load 'r' from value 'sv' */
-void load(int r, SValue *sv)
+வெறுமை load(முழு r, SValue *sv)
 {
-    int v, fc, ft;
+    முழு v, fc, ft;
 
     v = sv->r & VT_VALMASK;
     fc = sv->c.i;
     ft = sv->t;
 
-    if (sv->r & VT_LVAL) {
-        if (v == VT_LOCAL) {
-            if (fc >= ARG_BASE) {
+    எனில் (sv->r & VT_LVAL) {
+        எனில் (v == VT_LOCAL) {
+            எனில் (fc >= ARG_BASE) {
                 fc -= ARG_BASE;
-                if (fc >= 0 && fc <= 4) {
+                எனில் (fc >= 0 && fc <= 4) {
                     out_op(IL_OP_LDARG_0 + fc);
-                } else if (fc <= 0xff) {
+                } இல்லையெனில் எனில் (fc <= 0xff) {
                     out_opb(IL_OP_LDARG_S, fc);
-                } else {
+                } இல்லையெனில் {
                     out_opi(IL_OP_LDARG, fc);
                 }
-            } else {
-                if (fc >= 0 && fc <= 4) {
+            } இல்லையெனில் {
+                எனில் (fc >= 0 && fc <= 4) {
                     out_op(IL_OP_LDLOC_0 + fc);
-                } else if (fc <= 0xff) {
+                } இல்லையெனில் எனில் (fc <= 0xff) {
                     out_opb(IL_OP_LDLOC_S, fc);
-                } else {
+                } இல்லையெனில் {
                     out_opi(IL_OP_LDLOC, fc);
                 }
             }
-        } else if (v == VT_CONST) {
+        } இல்லையெனில் எனில் (v == VT_CONST) {
                 /* XXX: handle globals */
                 out_opi(IL_OP_LDSFLD, 0);
-        } else {
-            if ((ft & VT_BTYPE) == VT_FLOAT) {
+        } இல்லையெனில் {
+            எனில் ((ft & VT_BTYPE) == VT_FLOAT) {
                 out_op(IL_OP_LDIND_R4);
-            } else if ((ft & VT_BTYPE) == VT_DOUBLE) {
+            } இல்லையெனில் எனில் ((ft & VT_BTYPE) == VT_DOUBLE) {
                 out_op(IL_OP_LDIND_R8);
-            } else if ((ft & VT_BTYPE) == VT_LDOUBLE) {
+            } இல்லையெனில் எனில் ((ft & VT_BTYPE) == VT_LDOUBLE) {
                 out_op(IL_OP_LDIND_R8);
-            } else if ((ft & VT_TYPE) == VT_BYTE)
+            } இல்லையெனில் எனில் ((ft & VT_TYPE) == VT_BYTE)
                 out_op(IL_OP_LDIND_I1);
-            else if ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED))
+            இல்லையெனில் எனில் ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED))
                 out_op(IL_OP_LDIND_U1);
-            else if ((ft & VT_TYPE) == VT_SHORT)
+            இல்லையெனில் எனில் ((ft & VT_TYPE) == VT_SHORT)
                 out_op(IL_OP_LDIND_I2);
-            else if ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED))
+            இல்லையெனில் எனில் ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED))
                 out_op(IL_OP_LDIND_U2);
-            else
+            இல்லையெனில்
                 out_op(IL_OP_LDIND_I4);
         } 
-    } else {
-        if (v == VT_CONST) {
+    } இல்லையெனில் {
+        எனில் (v == VT_CONST) {
             /* XXX: handle globals */
-            if (fc >= -1 && fc <= 8) {
+            எனில் (fc >= -1 && fc <= 8) {
                 out_op(IL_OP_LDC_I4_M1 + fc + 1); 
-            } else {
+            } இல்லையெனில் {
                 out_opi(IL_OP_LDC_I4, fc);
             }
-        } else if (v == VT_LOCAL) {
-            if (fc >= ARG_BASE) {
+        } இல்லையெனில் எனில் (v == VT_LOCAL) {
+            எனில் (fc >= ARG_BASE) {
                 fc -= ARG_BASE;
-                if (fc <= 0xff) {
+                எனில் (fc <= 0xff) {
                     out_opb(IL_OP_LDARGA_S, fc);
-                } else {
+                } இல்லையெனில் {
                     out_opi(IL_OP_LDARGA, fc);
                 }
-            } else {
-                if (fc <= 0xff) {
+            } இல்லையெனில் {
+                எனில் (fc <= 0xff) {
                     out_opb(IL_OP_LDLOCA_S, fc);
-                } else {
+                } இல்லையெனில் {
                     out_opi(IL_OP_LDLOCA, fc);
                 }
             }
-        } else {
+        } இல்லையெனில் {
             /* XXX: do it */
         }
     }
 }
 
 /* store register 'r' in lvalue 'v' */
-void store(int r, SValue *sv)
+வெறுமை store(முழு r, SValue *sv)
 {
-    int v, fc, ft;
+    முழு v, fc, ft;
 
     v = sv->r & VT_VALMASK;
     fc = sv->c.i;
     ft = sv->t;
-    if (v == VT_LOCAL) {
-        if (fc >= ARG_BASE) {
+    எனில் (v == VT_LOCAL) {
+        எனில் (fc >= ARG_BASE) {
             fc -= ARG_BASE;
             /* XXX: check IL arg store semantics */
-            if (fc <= 0xff) {
+            எனில் (fc <= 0xff) {
                 out_opb(IL_OP_STARG_S, fc);
-            } else {
+            } இல்லையெனில் {
                 out_opi(IL_OP_STARG, fc);
             }
-        } else {
-            if (fc >= 0 && fc <= 4) {
+        } இல்லையெனில் {
+            எனில் (fc >= 0 && fc <= 4) {
                 out_op(IL_OP_STLOC_0 + fc);
-            } else if (fc <= 0xff) {
+            } இல்லையெனில் எனில் (fc <= 0xff) {
                 out_opb(IL_OP_STLOC_S, fc);
-            } else {
+            } இல்லையெனில் {
                 out_opi(IL_OP_STLOC, fc);
             }
         }
-    } else if (v == VT_CONST) {
+    } இல்லையெனில் எனில் (v == VT_CONST) {
         /* XXX: handle globals */
         out_opi(IL_OP_STSFLD, 0);
-    } else {
-        if ((ft & VT_BTYPE) == VT_FLOAT)
+    } இல்லையெனில் {
+        எனில் ((ft & VT_BTYPE) == VT_FLOAT)
             out_op(IL_OP_STIND_R4);
-        else if ((ft & VT_BTYPE) == VT_DOUBLE)
+        இல்லையெனில் எனில் ((ft & VT_BTYPE) == VT_DOUBLE)
             out_op(IL_OP_STIND_R8);
-        else if ((ft & VT_BTYPE) == VT_LDOUBLE)
+        இல்லையெனில் எனில் ((ft & VT_BTYPE) == VT_LDOUBLE)
             out_op(IL_OP_STIND_R8);
-        else if ((ft & VT_BTYPE) == VT_BYTE)
+        இல்லையெனில் எனில் ((ft & VT_BTYPE) == VT_BYTE)
             out_op(IL_OP_STIND_I1);
-        else if ((ft & VT_BTYPE) == VT_SHORT)
+        இல்லையெனில் எனில் ((ft & VT_BTYPE) == VT_SHORT)
             out_op(IL_OP_STIND_I2);
-        else
+        இல்லையெனில்
             out_op(IL_OP_STIND_I4);
     }
 }
 
 /* start function call and return function call context */
-void gfunc_start(GFuncContext *c, int func_call)
+வெறுமை gfunc_start(GFuncContext *c, முழு func_call)
 {
     c->func_call = func_call;
 }
 
 /* push function parameter which is in (vtop->t, vtop->c). Stack entry
    is then popped. */
-void gfunc_param(GFuncContext *c)
+வெறுமை gfunc_param(GFuncContext *c)
 {
-    if ((vtop->t & VT_BTYPE) == VT_STRUCT) {
+    எனில் ((vtop->t & VT_BTYPE) == VT_STRUCT) {
         tcc_error("structures passed as value not handled yet");
-    } else {
+    } இல்லையெனில் {
         /* simply push on stack */
         gv(RC_ST0);
     }
@@ -399,41 +399,41 @@ void gfunc_param(GFuncContext *c)
 
 /* generate function call with address in (vtop->t, vtop->c) and free function
    context. Stack entry is popped */
-void gfunc_call(GFuncContext *c)
+வெறுமை gfunc_call(GFuncContext *c)
 {
-    char buf[1024];
+    எழுத்து buf[1024];
 
-    if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+    எனில் ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
         /* XXX: more info needed from tcc */
-        il_type_to_str(buf, sizeof(buf), vtop->t, "xxx");
+        il_type_to_str(buf, அளவு(buf), vtop->t, "xxx");
         fprintf(il_outfile, " call %s\n", buf);
-    } else {
+    } இல்லையெனில் {
         /* indirect call */
         gv(RC_INT);
-        il_type_to_str(buf, sizeof(buf), vtop->t, NULL);
+        il_type_to_str(buf, அளவு(buf), vtop->t, வெற்று);
         fprintf(il_outfile, " calli %s\n", buf);
     }
     vtop--;
 }
 
 /* generate function prolog of type 't' */
-void gfunc_prolog(int t)
+வெறுமை gfunc_prolog(முழு t)
 {
-    int addr, u, func_call;
+    முழு addr, u, func_call;
     Sym *sym;
-    char buf[1024];
+    எழுத்து buf[1024];
 
     init_outfile();
 
     /* XXX: pass function name to gfunc_prolog */
-    il_type_to_str(buf, sizeof(buf), t, funcname);
+    il_type_to_str(buf, அளவு(buf), t, funcname);
     fprintf(il_outfile, ".method static %s il managed\n", buf);
     fprintf(il_outfile, "{\n");
     /* XXX: cannot do better now */
     fprintf(il_outfile, " .maxstack %d\n", NB_REGS);
     fprintf(il_outfile, " .locals (int32, int32, int32, int32, int32, int32, int32, int32)\n");
     
-    if (!strcmp(funcname, "main"))
+    எனில் (!strcmp(funcname, "main"))
         fprintf(il_outfile, " .entrypoint\n");
         
     sym = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
@@ -444,166 +444,166 @@ void gfunc_prolog(int t)
        implicit pointer parameter */
     func_vt = sym->t;
     func_var = (sym->c == FUNC_ELLIPSIS);
-    if ((func_vt & VT_BTYPE) == VT_STRUCT) {
+    எனில் ((func_vt & VT_BTYPE) == VT_STRUCT) {
         func_vc = addr;
         addr++;
     }
     /* define parameters */
-    while ((sym = sym->next) != NULL) {
+    போது ((sym = sym->next) != வெற்று) {
         u = sym->t;
-        sym_push(sym->v & ~SYM_FIELD, u,
+        sym_தள்ளு(sym->v & ~SYM_FIELD, u,
                  VT_LOCAL | lvalue_type(sym->type.t), addr);
         addr++;
     }
 }
 
 /* generate function epilog */
-void gfunc_epilog(void)
+வெறுமை gfunc_epilog(வெறுமை)
 {
     out_op(IL_OP_RET);
     fprintf(il_outfile, "}\n\n");
 }
 
 /* generate a jump to a label */
-int gjmp(int t)
+முழு gjmp(முழு t)
 {
-    return out_opj(IL_OP_BR, t);
+    திரும்பு out_opj(IL_OP_BR, t);
 }
 
 /* generate a jump to a fixed address */
-void gjmp_addr(int a)
+வெறுமை gjmp_addr(முழு a)
 {
     /* XXX: handle syms */
     out_opi(IL_OP_BR, a);
 }
 
 /* generate a test. set 'inv' to invert test. Stack entry is popped */
-int gtst(int inv, int t)
+முழு gtst(முழு inv, முழு t)
 {
-    int v, *p, c;
+    முழு v, *p, c;
 
     v = vtop->r & VT_VALMASK;
-    if (v == VT_CMP) {
+    எனில் (v == VT_CMP) {
         c = vtop->c.i ^ inv;
-        switch(c) {
-        case TOK_EQ:
+        தேர்வு(c) {
+        நிலை TOK_EQ:
             c = IL_OP_BEQ;
-            break;
-        case TOK_NE:
+            நிறுத்து;
+        நிலை TOK_NE:
             c = IL_OP_BNE_UN;
-            break;
-        case TOK_LT:
+            நிறுத்து;
+        நிலை TOK_LT:
             c = IL_OP_BLT;
-            break;
-        case TOK_LE:
+            நிறுத்து;
+        நிலை TOK_LE:
             c = IL_OP_BLE;
-            break;
-        case TOK_GT:
+            நிறுத்து;
+        நிலை TOK_GT:
             c = IL_OP_BGT;
-            break;
-        case TOK_GE:
+            நிறுத்து;
+        நிலை TOK_GE:
             c = IL_OP_BGE;
-            break;
-        case TOK_ULT:
+            நிறுத்து;
+        நிலை TOK_ULT:
             c = IL_OP_BLT_UN;
-            break;
-        case TOK_ULE:
+            நிறுத்து;
+        நிலை TOK_ULE:
             c = IL_OP_BLE_UN;
-            break;
-        case TOK_UGT:
+            நிறுத்து;
+        நிலை TOK_UGT:
             c = IL_OP_BGT_UN;
-            break;
-        case TOK_UGE:
+            நிறுத்து;
+        நிலை TOK_UGE:
             c = IL_OP_BGE_UN;
-            break;
+            நிறுத்து;
         }
         t = out_opj(c, t);
-    } else if (v == VT_JMP || v == VT_JMPI) {
+    } இல்லையெனில் எனில் (v == VT_JMP || v == VT_JMPI) {
         /* && or || optimization */
-        if ((v & 1) == inv) {
+        எனில் ((v & 1) == inv) {
             /* insert vtop->c jump list in t */
             p = &vtop->c.i;
-            while (*p != 0)
-                p = (int *)*p;
+            போது (*p != 0)
+                p = (முழு *)*p;
             *p = t;
             t = vtop->c.i;
-        } else {
+        } இல்லையெனில் {
             t = gjmp(t);
             gsym(vtop->c.i);
         }
     }
     vtop--;
-    return t;
+    திரும்பு t;
 }
 
 /* generate an integer binary operation */
-void gen_opi(int op)
+வெறுமை gen_opi(முழு op)
 {
     gv2(RC_ST1, RC_ST0);
-    switch(op) {
-    case '+':
+    தேர்வு(op) {
+    நிலை '+':
         out_op(IL_OP_ADD);
-        goto std_op;
-    case '-':
+        செல் std_op;
+    நிலை '-':
         out_op(IL_OP_SUB);
-        goto std_op;
-    case '&':
+        செல் std_op;
+    நிலை '&':
         out_op(IL_OP_AND);
-        goto std_op;
-    case '^':
+        செல் std_op;
+    நிலை '^':
         out_op(IL_OP_XOR);
-        goto std_op;
-    case '|':
+        செல் std_op;
+    நிலை '|':
         out_op(IL_OP_OR);
-        goto std_op;
-    case '*':
+        செல் std_op;
+    நிலை '*':
         out_op(IL_OP_MUL);
-        goto std_op;
-    case TOK_SHL:
+        செல் std_op;
+    நிலை TOK_SHL:
         out_op(IL_OP_SHL);
-        goto std_op;
-    case TOK_SHR:
+        செல் std_op;
+    நிலை TOK_SHR:
         out_op(IL_OP_SHR_UN);
-        goto std_op;
-    case TOK_SAR:
+        செல் std_op;
+    நிலை TOK_SAR:
         out_op(IL_OP_SHR);
-        goto std_op;
-    case '/':
-    case TOK_PDIV:
+        செல் std_op;
+    நிலை '/':
+    நிலை TOK_PDIV:
         out_op(IL_OP_DIV);
-        goto std_op;
-    case TOK_UDIV:
+        செல் std_op;
+    நிலை TOK_UDIV:
         out_op(IL_OP_DIV_UN);
-        goto std_op;
-    case '%':
+        செல் std_op;
+    நிலை '%':
         out_op(IL_OP_REM);
-        goto std_op;
-    case TOK_UMOD:
+        செல் std_op;
+    நிலை TOK_UMOD:
         out_op(IL_OP_REM_UN);
     std_op:
         vtop--;
         vtop[0].r = REG_ST0;
-        break;
-    case TOK_EQ:
-    case TOK_NE:
-    case TOK_LT:
-    case TOK_LE:
-    case TOK_GT:
-    case TOK_GE:
-    case TOK_ULT:
-    case TOK_ULE:
-    case TOK_UGT:
-    case TOK_UGE:
+        நிறுத்து;
+    நிலை TOK_EQ:
+    நிலை TOK_NE:
+    நிலை TOK_LT:
+    நிலை TOK_LE:
+    நிலை TOK_GT:
+    நிலை TOK_GE:
+    நிலை TOK_ULT:
+    நிலை TOK_ULE:
+    நிலை TOK_UGT:
+    நிலை TOK_UGE:
         vtop--;
         vtop[0].r = VT_CMP;
         vtop[0].c.i = op;
-        break;
+        நிறுத்து;
     }
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
    two operands are guaranteed to have the same floating point type */
-void gen_opf(int op)
+வெறுமை gen_opf(முழு op)
 {
     /* same as integer */
     gen_opi(op);
@@ -611,43 +611,43 @@ void gen_opf(int op)
 
 /* convert integers to fp 't' type. Must handle 'int', 'unsigned int'
    and 'long long' cases. */
-void gen_cvt_itof(int t)
+வெறுமை gen_cvt_itof(முழு t)
 {
     gv(RC_ST0);
-    if (t == VT_FLOAT)
+    எனில் (t == VT_FLOAT)
         out_op(IL_OP_CONV_R4);
-    else
+    இல்லையெனில்
         out_op(IL_OP_CONV_R8);
 }
 
 /* convert fp to int 't' type */
 /* XXX: handle long long case */
-void gen_cvt_ftoi(int t)
+வெறுமை gen_cvt_ftoi(முழு t)
 {
     gv(RC_ST0);
-    switch(t) {
-    case VT_INT | VT_UNSIGNED:
+    தேர்வு(t) {
+    நிலை VT_INT | VT_UNSIGNED:
         out_op(IL_OP_CONV_U4);
-        break;
-    case VT_LLONG:
+        நிறுத்து;
+    நிலை VT_LLONG:
         out_op(IL_OP_CONV_I8);
-        break;
-    case VT_LLONG | VT_UNSIGNED:
+        நிறுத்து;
+    நிலை VT_LLONG | VT_UNSIGNED:
         out_op(IL_OP_CONV_U8);
-        break;
-    default:
+        நிறுத்து;
+    இயல்பு:
         out_op(IL_OP_CONV_I4);
-        break;
+        நிறுத்து;
     }
 }
 
 /* convert from one floating point type to another */
-void gen_cvt_ftof(int t)
+வெறுமை gen_cvt_ftof(முழு t)
 {
     gv(RC_ST0);
-    if (t == VT_FLOAT) {
+    எனில் (t == VT_FLOAT) {
         out_op(IL_OP_CONV_R4);
-    } else {
+    } இல்லையெனில் {
         out_op(IL_OP_CONV_R8);
     }
 }

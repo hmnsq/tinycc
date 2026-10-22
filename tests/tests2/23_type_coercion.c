@@ -1,21 +1,21 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-void charfunc(char a)
+வெறுமை charfunc(எழுத்து a)
 {
    printf("char: %c\n", a);
 }
 
-void intfunc(int a)
+வெறுமை intfunc(முழு a)
 {
    printf("int: %d\n", a);
 }
 
-void floatfunc(float a)
+வெறுமை floatfunc(தசம a)
 {
    printf("float: %f\n", a);
 }
 
-int main()
+முழு முதன்மை()
 {
    charfunc('a');
    charfunc(98);
@@ -33,22 +33,22 @@ int main()
    /* printf("%c %d %f\n", 97, 98, 99); */
    /* printf("%c %d %f\n", 97.0, 98.0, 99.0); */
 
-   char b = 97;
-   char c = 97.0;
+   எழுத்து b = 97;
+   எழுத்து c = 97.0;
 
    printf("%d %d\n", b, c);
 
-   int d = 'a';
-   int e = 97.0;
+   முழு d = 'a';
+   முழு e = 97.0;
 
    printf("%d %d\n", d, e);
 
-   float f = 'a';
-   float g = 97;
+   தசம f = 'a';
+   தசம g = 97;
 
    printf("%f %f\n", f, g);
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

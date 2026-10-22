@@ -1,32 +1,32 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main()
+முழு முதன்மை()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   முழு a[4][4];
+   முழு b = 0;
+   முழு x;
+   முழு y;
 
-   for (x = 0; x < 4; x++)
+   க்கு (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      க்கு (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   க்கு (x = 0; x < 4; x++)
    {
       printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      க்கு (y = 0; y < 4; y++)
       {
          printf("%d ", a[x][y]);
       }
       printf("\n");
    }
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -3,9 +3,9 @@
 A rettrue(bla) B
 TRACE(
       ARG_1,
-#if rettrue(bla)
+#எனில் rettrue(bla)
       ARG_2,
-#else
+#இல்லையெனில்
       ARG_2_wrong,
 #endif
       ARG_3

@@ -1,23 +1,23 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-typedef int MyInt;
+வகைவரை முழு MyInt;
 
-struct FunStruct
+கட்டமைப்பு FunStruct
 {
-   int i;
-   int j;
+   முழு i;
+   முழு j;
 };
 
-typedef struct FunStruct MyFunStruct;
+வகைவரை கட்டமைப்பு FunStruct MyFunStruct;
 
-typedef MyFunStruct *MoreFunThanEver;
+வகைவரை MyFunStruct *MoreFunThanEver;
 
-typedef int t[];
-int tints[];
+வகைவரை முழு t[];
+முழு tints[];
 
-int main()
+முழு முதன்மை()
 {
-   int i, *p;
+   முழு i, *p;
    MyInt a = 1;
    printf("%d\n", a);
 
@@ -30,56 +30,56 @@ int main()
    printf("%d,%d\n", c->i, c->j);
 
    p = (t){1,2,3};
-   for (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
+   க்கு (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
    p = (t){1,2,3,4};
-   for (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   க்கு (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
 
-   printf("%d\n", (int)sizeof((t){1,2,3}));
-   printf("%d\n", (int)sizeof((t){1,2,3,4}));
+   printf("%d\n", (முழு)அளவு((t){1,2,3}));
+   printf("%d\n", (முழு)அளவு((t){1,2,3,4}));
 
    /* two arrays derived from same base type */
    t t3 = { 1,2,3 }, t4 = { 4,5,6,7 };
-   for (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   க்கு (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
+   க்கு (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
    typeof(tints) t5 = { 1,2,3 }, t6 = { 4,5,6,7 };
-   for (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   க்கு (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
+   க்கு (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* "If the specification of an array type includes any type qualifiers,
    the element type is so-qualified, not the array type." */
 
-typedef int A[3];
-extern A const ca;
-extern const A ca;
-extern const int ca[3];
+வகைவரை முழு A[3];
+வெளி A மாறிலி ca;
+வெளி மாறிலி A ca;
+வெளி மாறிலி முழு ca[3];
 
-typedef A B[1][2];
-extern B const cb;
-extern const B cb;
-extern const int cb[1][2][3];
+வகைவரை A B[1][2];
+வெளி B மாறிலி cb;
+வெளி மாறிலி B cb;
+வெளி மாறிலி முழு cb[1][2][3];
 
-extern B b;
-extern int b[1][2][3];
+வெளி B b;
+வெளி முழு b[1][2][3];
 
 /* Funny but valid function declaration.  */
-typedef int functype (int);
-extern functype func;
-int func(int i)
+வகைவரை முழு functype (முழு);
+வெளி functype func;
+முழு func(முழு i)
 {
-   return i + 1;
+   திரும்பு i + 1;
 }
 
 /* Even funnier function decl and definition using typeof.  */
-int set_anon_super(void);
-int set_anon_super(void)
+முழு set_anon_super(வெறுமை);
+முழு set_anon_super(வெறுமை)
 {
-   return 42;
+   திரும்பு 42;
 }
-typedef int sas_type (void);
-extern typeof(set_anon_super) set_anon_super;
-extern sas_type set_anon_super;
+வகைவரை முழு sas_type (வெறுமை);
+வெளி typeof(set_anon_super) set_anon_super;
+வெளி sas_type set_anon_super;
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

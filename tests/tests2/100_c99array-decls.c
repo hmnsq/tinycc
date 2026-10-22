@@ -1,31 +1,31 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+வெறுமை foo(முழு [5]);
+வெறுமை fooc(முழு x[மாறிலி 5]);
+வெறுமை foos(முழு x[நிலையான 5]);
+வெறுமை foov(முழு x[நிலையற்ற 5]);
+வெறுமை foor(முழு x[restrict 5]);
+வெறுமை fooc(முழு [மாறிலி 5]);
+வெறுமை foos(முழு [நிலையான 5]);
+வெறுமை foov(முழு [நிலையற்ற 5]);
+வெறுமை foor(முழு [restrict 5]);
+வெறுமை fooc(முழு (* மாறிலி x));
+வெறுமை foos(முழு *x);
+வெறுமை foov(முழு * நிலையற்ற x);
+வெறுமை foor(முழு * restrict x);
+வெறுமை fooc(முழு x[நிலையற்ற 5])
 {
   x[3] = 42;
 #ifdef INVALID
   x = 0;
 #endif
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+வெறுமை foovm(முழு x[மாறிலி *]);
+வெறுமை foovm(முழு * மாறிலி x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
-typedef restrict pointer_array restricted_pointer_array;
+வகைவரை முழு *pointer_array[2];
+வகைவரை முழு *restrict restricted_pointer;
+வகைவரை restrict pointer_array restricted_pointer_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
+_Static_assert(!__builtin_types_compatible_p(முழு **,
                                              restricted_pointer *),
                "nested restrict qualifier is retained");
 _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
@@ -33,7 +33,7 @@ _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
                "restrict can qualify an array of pointer types");
 
 restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+முழு **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
@@ -41,14 +41,14 @@ _Static_assert(__builtin_types_compatible_p(
                "conditional expression combines restrict qualifiers");
 
 #ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+வெறுமை wrongc(முழு x[3][மாறிலி 4]);
+வெறுமை wrongvm(முழு x[நிலையான *]);
+வெறுமை foovm(முழு x[மாறிலி *])
 {
   x[2] = 1;
 }
 #endif
-int main()
+முழு முதன்மை()
 {
-  return 0;
+  திரும்பு 0;
 }

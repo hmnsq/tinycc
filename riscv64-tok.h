@@ -474,8 +474,8 @@
  DEF_ASM(nopic)
  DEF_ASM(relax)
  DEF_ASM(norelax)
- DEF_ASM(push)
- DEF_ASM(pop)
+ DEF_ASM(தள்ளு)
+ DEF_ASM(எடு)
 
 /* “A” Standard Extension for Atomic Instructions, Version 2.1 */
  /* XXX: Atomic memory operations */

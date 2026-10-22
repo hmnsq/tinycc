@@ -1,21 +1,21 @@
-extern int printf(const char*, ...);
-static int glob_i = 0;
+வெளி முழு printf(மாறிலி எழுத்து*, ...);
+நிலையான முழு glob_i = 0;
 
-typedef struct { int a; int b; int c; int d; int e; int f; int g; int h; } tstl;
-typedef struct { int a; int b; int c; int d; } tsti;
-typedef struct { double a; double b; } tstd;
-typedef struct { long double a; } tstld;
-typedef struct { int a; double b; } tstm;
-typedef struct { float a; float b; float c; float d; } tstf;
+வகைவரை கட்டமைப்பு { முழு a; முழு b; முழு c; முழு d; முழு e; முழு f; முழு g; முழு h; } tstl;
+வகைவரை கட்டமைப்பு { முழு a; முழு b; முழு c; முழு d; } tsti;
+வகைவரை கட்டமைப்பு { இரட்டை a; இரட்டை b; } tstd;
+வகைவரை கட்டமைப்பு { long இரட்டை a; } tstld;
+வகைவரை கட்டமைப்பு { முழு a; இரட்டை b; } tstm;
+வகைவரை கட்டமைப்பு { தசம a; தசம b; தசம c; தசம d; } tstf;
 
-void incr_glob_i(int *i)
+வெறுமை incr_glob_i(முழு *i)
 {
   glob_i += *i;
   *i = -1;
 }
 
 #define INCR_GI {						\
-    int i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
+    முழு i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
   }
 
 #define INCR_GI0 INCR_GI INCR_GI INCR_GI INCR_GI
@@ -28,281 +28,281 @@ void incr_glob_i(int *i)
 #define INCR_GI7 INCR_GI6 INCR_GI6 INCR_GI6 INCR_GI6
 
 
-void check2(char **hum);
+வெறுமை check2(எழுத்து **hum);
 
-void check(int *j)
+வெறுமை check(முழு *j)
 {
-    char * __attribute__ ((cleanup(check2))) stop_that = "wololo";
-    int chk = 0;
+    எழுத்து * __attribute__ ((cleanup(check2))) stop_that = "wololo";
+    முழு chk = 0;
 
     {
-	char * __attribute__ ((cleanup(check2))) stop_that = "plop";
+	எழுத்து * __attribute__ ((cleanup(check2))) stop_that = "plop";
 
 	{
 	  non_plopage:
 	    printf("---- %d\n", chk);
 	}
-	if (!chk) {
+	எனில் (!chk) {
 	    chk = 1;
-	    goto non_plopage;
+	    செல் non_plopage;
 	}
     }
 
     {
-	char * __attribute__ ((cleanup(check2))) stop_that = "tata !";
+	எழுத்து * __attribute__ ((cleanup(check2))) stop_that = "tata !";
 
-	goto out;
+	செல் out;
 	stop_that = "titi";
     }
   again:
     chk = 2;
     {
-	char * __attribute__ ((cleanup(check2))) cascade1 = "1";
+	எழுத்து * __attribute__ ((cleanup(check2))) cascade1 = "1";
 	{
-	    char * __attribute__ ((cleanup(check2))) cascade2 = "2";
+	    எழுத்து * __attribute__ ((cleanup(check2))) cascade2 = "2";
 	    {
-		char * __attribute__ ((cleanup(check2))) cascade3 = "3";
+		எழுத்து * __attribute__ ((cleanup(check2))) cascade3 = "3";
 
-		goto out;
+		செல் out;
 		cascade3 = "nope";
 	    }
 	}
     }
   out:
-    if (chk != 2)
-	goto again;
+    எனில் (chk != 2)
+	செல் again;
     {
 	{
-	    char * __attribute__ ((cleanup(check2))) out = "last goto out";
+	    எழுத்து * __attribute__ ((cleanup(check2))) out = "last goto out";
 	    ++chk;
-	    if (chk != 3)
-		goto out;
+	    எனில் (chk != 3)
+		செல் out;
 	}
     }
     *j = -1;
-    return;
+    திரும்பு;
 }
 
-void check_oh_i(char *oh_i)
+வெறுமை check_oh_i(எழுத்து *oh_i)
 {
     printf("c: %c\n", *oh_i);
     *oh_i = '0';
 }
 
-void goto_hell(double *f)
+வெறுமை goto_hell(இரட்டை *f)
 {
     printf("oo: %f\n", *f);
     *f = -1.0;
 }
 
-char *test()
+எழுத்து *test()
 {
-    char *__attribute__ ((cleanup(check2))) str = "I don't think this should be print(but gcc got it wrong too)";
+    எழுத்து *__attribute__ ((cleanup(check2))) str = "I don't think this should be print(but gcc got it wrong too)";
 
-    return str;
+    திரும்பு str;
 }
 
-void test_ret_subcall(char *that)
+வெறுமை test_ret_subcall(எழுத்து *that)
 {
     printf("should be print before\n");
 }
 
-void test_ret()
+வெறுமை test_ret()
 {
-    char *__attribute__ ((cleanup(check2))) that = "that";
-    return test_ret_subcall(that);
+    எழுத்து *__attribute__ ((cleanup(check2))) that = "that";
+    திரும்பு test_ret_subcall(that);
 }
 
-void test_ret2()
+வெறுமை test_ret2()
 {
-  char *__attribute__ ((cleanup(check2))) that = "-that";
+  எழுத்து *__attribute__ ((cleanup(check2))) that = "-that";
   {
-    char *__attribute__ ((cleanup(check2))) that = "this should appear only once";
+    எழுத்து *__attribute__ ((cleanup(check2))) that = "this should appear only once";
   }
   {
-    char *__attribute__ ((cleanup(check2))) that = "-that2";
-    return;
+    எழுத்து *__attribute__ ((cleanup(check2))) that = "-that2";
+    திரும்பு;
   }
 }
 
-void test2(void) {
-    int chk = 0;
+வெறுமை test2(வெறுமை) {
+    முழு chk = 0;
 again:
-    if (!chk) {
-        char * __attribute__ ((cleanup(check2))) stop_that = "test2";
+    எனில் (!chk) {
+        எழுத்து * __attribute__ ((cleanup(check2))) stop_that = "test2";
         chk++;
-        goto again;
+        செல் again;
     }
 }
 
-int test3(void) {
-    char * __attribute__ ((cleanup(check2))) stop_that = "three";
-    int chk = 0;
+முழு test3(வெறுமை) {
+    எழுத்து * __attribute__ ((cleanup(check2))) stop_that = "three";
+    முழு chk = 0;
 
-    if (chk) {
+    எனில் (chk) {
         {
           outside:
 	    {
-            char * __attribute__ ((cleanup(check2))) stop_that = "two";
+            எழுத்து * __attribute__ ((cleanup(check2))) stop_that = "two";
             printf("---- %d\n", chk);
 	    }
         }
     }
-    if (!chk)
+    எனில் (!chk)
     {
-        char * __attribute__ ((cleanup(check2))) stop_that = "one";
+        எழுத்து * __attribute__ ((cleanup(check2))) stop_that = "one";
 
-        if (!chk) {
+        எனில் (!chk) {
             chk = 1;
-            goto outside;
+            செல் outside;
         }
     }
-    return 0;
+    திரும்பு 0;
 }
 
-void cl(int *ip)
+வெறுமை cl(முழு *ip)
 {
     printf("%d\n", *ip);
     *ip = -1;
 }
 
-void loop_cleanups(void)
+வெறுமை loop_cleanups(வெறுமை)
 {
-    __attribute__((cleanup(cl))) int l = 1000;
+    __attribute__((cleanup(cl))) முழு l = 1000;
 
     printf("-- loop 0 --\n");
-    for ( __attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 100;
+    க்கு ( __attribute__((cleanup(cl))) முழு i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) முழு j = 100;
     }
 
     printf("-- loop 1 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl)))  int j = 200;
-        continue;
+    க்கு (__attribute__((cleanup(cl))) முழு i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl)))  முழு j = 200;
+        தொடர்;
     }
 
     printf("-- loop 2 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 300;
-        break;
+    க்கு (__attribute__((cleanup(cl))) முழு i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) முழு j = 300;
+        நிறுத்து;
     }
 
     printf("-- loop 3 --\n");
-    for (int i = 0; i < 2; ++i) {
-	__attribute__((cleanup(cl))) int j = 400;
-	switch (i) {
-	case 0:
-	    continue;
-	default:
+    க்கு (முழு i = 0; i < 2; ++i) {
+	__attribute__((cleanup(cl))) முழு j = 400;
+	தேர்வு (i) {
+	நிலை 0:
+	    தொடர்;
+	இயல்பு:
 	{
-	    __attribute__((cleanup(cl))) int jj = 500;
-	    break;
+	    __attribute__((cleanup(cl))) முழு jj = 500;
+	    நிறுத்து;
 	}
 	}
     }
     printf("after break\n");
 }
 
-void my_cleanup1(int *p) {
+வெறுமை my_cleanup1(முழு *p) {
     printf("%d\n", *p);
     *p = 0x90;
 }
 
-int test_cleanup1(void) {
-    int __attribute__((cleanup(my_cleanup1))) n = 42;
-    return n;
+முழு test_cleanup1(வெறுமை) {
+    முழு __attribute__((cleanup(my_cleanup1))) n = 42;
+    திரும்பு n;
 }
 
-void my_cleanup2(tstl *p) {
+வெறுமை my_cleanup2(tstl *p) {
     printf("%d %d %d %d %d %d %d %d\n", p->a, p->b, p->c, p->d,
 			                p->e, p->f, p->g, p->h);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
     p->e = 0x94; p->f = 0x95; p->g = 0x96; p->h = 0x97;
 }
 
-tstl test_cleanup2(void) {
+tstl test_cleanup2(வெறுமை) {
     tstl __attribute__((cleanup(my_cleanup2))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
     n.e = 46; n.f = 47; n.g = 48; n.h = 49;
-    return n;
+    திரும்பு n;
 }
 
-void my_cleanup3(tsti *p) {
+வெறுமை my_cleanup3(tsti *p) {
     printf("%d %d %d %d\n", p->a, p->b, p->c, p->d);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
 }
 
-tsti test_cleanup3(void) {
+tsti test_cleanup3(வெறுமை) {
     tsti __attribute__((cleanup(my_cleanup3))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    திரும்பு n;
 }
 
-void my_cleanup4(tstd *p) {
+வெறுமை my_cleanup4(tstd *p) {
     printf("%g %g\n", p->a, p->b);
     p->a = 90.0; p->b = 91.0;
 }
 
-tstd test_cleanup4(void) {
+tstd test_cleanup4(வெறுமை) {
     tstd __attribute__((cleanup(my_cleanup4))) n;
     n.a = 42.0; n.b = 43.0;
-    return n;
+    திரும்பு n;
 }
 
-void my_cleanup5(tstld *p) {
+வெறுமை my_cleanup5(tstld *p) {
     printf("%Lf\n", p->a);
     p->a = 90.0;
 }
 
-tstld test_cleanup5(void) {
+tstld test_cleanup5(வெறுமை) {
     tstld __attribute__((cleanup(my_cleanup5))) n;
     n.a = 42.0;
-    return n;
+    திரும்பு n;
 }
 
-void my_cleanup6(tstm *p) {
+வெறுமை my_cleanup6(tstm *p) {
     printf("%d %g\n", p->a, p->b);
     p->a = 90;
     p->b = 91.0;
 }
 
-tstm test_cleanup6(void) {
+tstm test_cleanup6(வெறுமை) {
     tstm __attribute__((cleanup(my_cleanup6))) n;
     n.a = 42;
     n.b = 43.0;
-    return n;
+    திரும்பு n;
 }
 
-void my_cleanup7(tstf *p) {
+வெறுமை my_cleanup7(tstf *p) {
     printf("%f %f %f %f\n", p->a, p->b, p->c, p->d);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
 }
 
-tstf test_cleanup7(void) {
+tstf test_cleanup7(வெறுமை) {
     tstf __attribute__((cleanup(my_cleanup7))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    திரும்பு n;
 }
 
-void my_cleanup8(int **p) {
+வெறுமை my_cleanup8(முழு **p) {
     **p = 0x90;
 }
 
-int test_cleanup8(void) {
-    int n = 42;
-    int __attribute__((cleanup(my_cleanup8))) *p = &n;
-    return n;
+முழு test_cleanup8(வெறுமை) {
+    முழு n = 42;
+    முழு __attribute__((cleanup(my_cleanup8))) *p = &n;
+    திரும்பு n;
 }
 
-static void my_cleanupe(int *p) {
+நிலையான வெறுமை my_cleanupe(முழு *p) {
     *p = 0x90;
 }
 
-int main()
+முழு முதன்மை()
 {
-    int i __attribute__ ((__cleanup__(check))) = 0, not_i;
-    int chk = 0;
-    (void)not_i;
+    முழு i __attribute__ ((__cleanup__(check))) = 0, not_i;
+    முழு chk = 0;
+    (வெறுமை)not_i;
     tstl tl;
     tsti ti;
     tstd td;
@@ -311,18 +311,18 @@ int main()
     tstf tf;
 
     {
-	__attribute__ ((__cleanup__(check_oh_i))) char oh_i = 'o', o = 'a';
+	__attribute__ ((__cleanup__(check_oh_i))) எழுத்து oh_i = 'o', o = 'a';
     }
 
     INCR_GI7;
     printf("glob_i: %d\n", glob_i);
  naaaaaaaa:
-    if (!chk) {
-	__attribute__ ((__cleanup__(check_oh_i))) char oh_i = 'f';
-	double __attribute__ ((__cleanup__(goto_hell))) f = 2.6;
+    எனில் (!chk) {
+	__attribute__ ((__cleanup__(check_oh_i))) எழுத்து oh_i = 'f';
+	இரட்டை __attribute__ ((__cleanup__(goto_hell))) f = 2.6;
 
 	chk = 1;
-	goto naaaaaaaa;
+	செல் naaaaaaaa;
     }
     i = 105;
     printf("because what if free was call inside cleanup function %s\n", test());
@@ -347,12 +347,12 @@ int main()
     printf("%f %f %f %f\n", tf.a, tf.b, tf.c, tf.d);
     printf("%d\n", test_cleanup8());
     printf("%d\n", ({
-            int __attribute__ ((cleanup(my_cleanupe))) n = 42;
+            முழு __attribute__ ((cleanup(my_cleanupe))) n = 42;
             n; }));
-    return i;
+    திரும்பு i;
 }
 
-void check2(char **hum)
+வெறுமை check2(எழுத்து **hum)
 {
     printf("str: %s\n", *hum);
     *hum = "fail";

@@ -295,8 +295,8 @@
 
  /* instruction macros */
 
- DEF_ASM_CONDED(push)
- DEF_ASM_CONDED(pop)
+ DEF_ASM_CONDED(தள்ளு)
+ DEF_ASM_CONDED(எடு)
 
  /* branches */
 

@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
+எண்ணிக்கை மரம்_code {
   SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+  LAST_AND_UNUSED_மரம்_CODE
 };
-typedef union tree_node *tree;
-struct tree_common
+வகைவரை ஒன்றிப்பு மர_முனை *மரம்_2;
+கட்டமைப்பு மரம்_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
+  ஒன்றிப்பு மர_முனை *chain;
+  ஒன்றிப்பு மர_முனை *type;
+  எண்ணிக்கை மரம்_code code : 8;
   unsigned side_effects_flag : 1;
 };
-union tree_node
+ஒன்றிப்பு மர_முனை
 {
-  struct tree_common common;
+  கட்டமைப்பு மரம்_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+எண்ணிக்கை c_மரம்_code {
+  C_DUMMY_மரம்_CODE = LAST_AND_UNUSED_மரம்_CODE,
+  STMT_கோவை,
+  LAST_C_மரம்_CODE
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+எண்ணிக்கை cplus_மரம்_code {
+  CP_DUMMY_மரம்_CODE = LAST_C_மரம்_CODE,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  LAST_CPLUS_மரம்_CODE
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+வெளி முழு printf(மாறிலி எழுத்து *, ...);
+முழு blah(){திரும்பு 0;}
 
-int convert_like_real (tree convs)
+முழு convert_like_real (மரம்_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  தேர்வு (((எண்ணிக்கை மரம்_code) (convs)->common.code))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    நிலை AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      திரும்பு blah();
+    இயல்பு:
+      நிறுத்து;
     };
    printf("unsigned enum bit-fields broken\n");
-   return 0;
+   திரும்பு 0;
 }
 
-int main()
+முழு முதன்மை()
 {
-  union tree_node convs;
+  ஒன்றிப்பு மர_முனை convs;
 
   convs.common.code = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  திரும்பு 0;
 }

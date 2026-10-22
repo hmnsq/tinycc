@@ -1,6 +1,6 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-enum fred
+எண்ணிக்கை fred
 {
    a,
    b,
@@ -19,42 +19,42 @@ enum fred
 /* Strict ISO C doesn't allow this kind of forward declaration of
    enums, but GCC accepts it (and gives only pedantic warning), and
    it occurs in the wild.  */
-enum efoo;
-struct Sforward_use {
-    int (*fmember) (enum efoo x);
+எண்ணிக்கை efoo;
+கட்டமைப்பு Sforward_use {
+    முழு (*fmember) (எண்ணிக்கை efoo x);
 };
 
-extern enum efoo it_real_fn(void);
-enum efoo {
+வெளி எண்ணிக்கை efoo it_real_fn(வெறுமை);
+எண்ணிக்கை efoo {
   ONE,
   TWO,
 };
-struct S2 {
-  enum efoo (*f2) (void);
+கட்டமைப்பு S2 {
+  எண்ணிக்கை efoo (*f2) (வெறுமை);
 };
-void should_compile(struct S2 *s)
+வெறுமை should_compile(கட்டமைப்பு S2 *s)
 {
   s->f2 = it_real_fn;
 }
 
-enum efoo it_real_fn(void)
+எண்ணிக்கை efoo it_real_fn(வெறுமை)
 {
-  return TWO;
+  திரும்பு TWO;
 }
 
-static unsigned int deref_uintptr(unsigned int *p)
+நிலையான unsigned முழு deref_uintptr(unsigned முழு *p)
 {
-  return *p;
+  திரும்பு *p;
 }
 
-enum Epositive {
+எண்ணிக்கை Epositive {
     epos_one, epos_two
 };
 
-int main()
+முழு முதன்மை()
 {
-   enum fred frod;
-   enum Epositive epos = epos_two;
+   எண்ணிக்கை fred frod;
+   எண்ணிக்கை Epositive epos = epos_two;
 
    printf("%d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h);
    /* printf("%d\n", frod); */
@@ -66,7 +66,7 @@ int main()
    /* Following should compile without warning.  */
    printf ("enum to int: %u\n", deref_uintptr(&epos));
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

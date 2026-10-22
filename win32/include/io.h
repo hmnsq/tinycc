@@ -7,61 +7,61 @@
 #ifndef _IO_H_
 #define _IO_H_
 
-#include <_mingw.h>
-#include <string.h>
+#அந்தர்பாவ <_mingw.h>
+#அந்தர்பாவ <string.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(தள்ளு,_CRT_PACKING)
 
 #ifndef _POSIX_
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
-_CRTIMP char* __cdecl _getcwd (char*, int);
+_CRTIMP எழுத்து* __cdecl _getcwd (எழுத்து*, முழு);
 #ifndef _FSIZE_T_DEFINED
-  typedef unsigned long _fsize_t;
+  வகைவரை unsigned long _fsize_t;
 #define _FSIZE_T_DEFINED
 #endif
 
 #ifndef _FINDDATA_T_DEFINED
 
-  struct _finddata32_t {
+  கட்டமைப்பு _finddata32_t {
     unsigned attrib;
     __time32_t time_create;
     __time32_t time_access;
     __time32_t time_write;
     _fsize_t size;
-    char name[260];
+    எழுத்து name[260];
   };
 
 /*#if _INTEGRAL_MAX_BITS >= 64*/
 
-  struct _finddata32i64_t {
+  கட்டமைப்பு _finddata32i64_t {
     unsigned attrib;
     __time32_t time_create;
     __time32_t time_access;
     __time32_t time_write;
     __int64 size;
-    char name[260];
+    எழுத்து name[260];
   };
 
-  struct _finddata64i32_t {
+  கட்டமைப்பு _finddata64i32_t {
     unsigned attrib;
     __time64_t time_create;
     __time64_t time_access;
     __time64_t time_write;
     _fsize_t size;
-    char name[260];
+    எழுத்து name[260];
   };
 
-  struct __finddata64_t {
+  கட்டமைப்பு __finddata64_t {
     unsigned attrib;
     __time64_t time_create;
     __time64_t time_access;
     __time64_t time_write;
     __int64 size;
-    char name[260];
+    எழுத்து name[260];
   };
 /* #endif */
 
@@ -72,13 +72,13 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #ifdef _WIN64
 #define _findfirst _findfirst32
 #define _findnext _findnext32
-#else
+#இல்லையெனில்
 #define _findfirst32 _findfirst
 #define _findnext32 _findnext
 #endif
 #define _findfirsti64 _findfirst32i64
 #define _findnexti64 _findnext32i64
-#else
+#இல்லையெனில்
 #define _finddata_t _finddata64i32_t
 #define _finddatai64_t __finddata64_t
 
@@ -93,7 +93,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 
 #ifndef _WFINDDATA_T_DEFINED
 
-  struct _wfinddata32_t {
+  கட்டமைப்பு _wfinddata32_t {
     unsigned attrib;
     __time32_t time_create;
     __time32_t time_access;
@@ -104,7 +104,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 
 /* #if _INTEGRAL_MAX_BITS >= 64 */
 
-  struct _wfinddata32i64_t {
+  கட்டமைப்பு _wfinddata32i64_t {
     unsigned attrib;
     __time32_t time_create;
     __time32_t time_access;
@@ -113,7 +113,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
     wchar_t name[260];
   };
 
-  struct _wfinddata64i32_t {
+  கட்டமைப்பு _wfinddata64i32_t {
     unsigned attrib;
     __time64_t time_create;
     __time64_t time_access;
@@ -122,7 +122,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
     wchar_t name[260];
   };
 
-  struct _wfinddata64_t {
+  கட்டமைப்பு _wfinddata64_t {
     unsigned attrib;
     __time64_t time_create;
     __time64_t time_access;
@@ -140,7 +140,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define _wfindnext _wfindnext32
 #define _wfindfirsti64 _wfindfirst32i64
 #define _wfindnexti64 _wfindnext32i64
-#else
+#இல்லையெனில்
 #define _wfinddata_t _wfinddata64i32_t
 #define _wfinddatai64_t _wfinddata64_t
 
@@ -164,13 +164,13 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define _SIZE_T_DEFINED
 #undef size_t
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
-  typedef unsigned __int64 size_t;
+#எனில் defined(__GNUC__) && defined(__STRICT_ANSI__)
+  வகைவரை unsigned முழு size_t __attribute__ ((mode (DI)));
+#இல்லையெனில்
+  வகைவரை unsigned __int64 size_t;
 #endif
-#else
-  typedef unsigned int size_t;
+#இல்லையெனில்
+  வகைவரை unsigned முழு size_t;
 #endif
 #endif
 
@@ -178,13 +178,13 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define _SSIZE_T_DEFINED
 #undef ssize_t
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
-  typedef __int64 ssize_t;
+#எனில் defined(__GNUC__) && defined(__STRICT_ANSI__)
+  வகைவரை முழு ssize_t __attribute__ ((mode (DI)));
+#இல்லையெனில்
+  வகைவரை __int64 ssize_t;
 #endif
-#else
-  typedef int ssize_t;
+#இல்லையெனில்
+  வகைவரை முழு ssize_t;
 #endif
 #endif
 
@@ -192,24 +192,24 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define _OFF_T_DEFINED
 #ifndef _OFF_T_
 #define _OFF_T_
-  typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long off_t;
+  வகைவரை long _off_t;
+#எனில் !defined(NO_OLDNAMES) || defined(_POSIX)
+  வகைவரை long off_t;
 #endif
 #endif
 #endif
 
 #ifndef _OFF64_T_DEFINED
 #define _OFF64_T_DEFINED
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int _off64_t __attribute__ ((mode (DI)));
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef int off64_t __attribute__ ((mode (DI)));
+#எனில் defined(__GNUC__) && defined(__STRICT_ANSI__)
+  வகைவரை முழு _off64_t __attribute__ ((mode (DI)));
+#எனில் !defined(NO_OLDNAMES) || defined(_POSIX)
+  வகைவரை முழு off64_t __attribute__ ((mode (DI)));
 #endif
-#else
-  typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long long off64_t;
+#இல்லையெனில்
+  வகைவரை long long _off64_t;
+#எனில் !defined(NO_OLDNAMES) || defined(_POSIX)
+  வகைவரை long long off64_t;
 #endif
 #endif
 #endif
@@ -221,53 +221,53 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define	W_OK	2	/* Check for write permission */
 #define	R_OK	4	/* Check for read permission */
 
-  _CRTIMP int __cdecl _access(const char *_Filename,int _AccessMode);
-  _CRTIMP int __cdecl _chmod(const char *_Filename,int _Mode);
-  _CRTIMP int __cdecl _chsize(int _FileHandle,long _Size);
-  _CRTIMP int __cdecl _close(int _FileHandle);
-  _CRTIMP int __cdecl _commit(int _FileHandle);
-  _CRTIMP int __cdecl _creat(const char *_Filename,int _PermissionMode);
-  _CRTIMP int __cdecl _dup(int _FileHandle);
-  _CRTIMP int __cdecl _dup2(int _FileHandleSrc,int _FileHandleDst);
-  _CRTIMP int __cdecl _eof(int _FileHandle);
-  _CRTIMP long __cdecl _filelength(int _FileHandle);
-  _CRTIMP intptr_t __cdecl _findfirst32(const char *_Filename,struct _finddata32_t *_FindData);
-  _CRTIMP int __cdecl _findnext32(intptr_t _FindHandle,struct _finddata32_t *_FindData);
-  _CRTIMP int __cdecl _findclose(intptr_t _FindHandle);
-  _CRTIMP int __cdecl _isatty(int _FileHandle);
-  _CRTIMP int __cdecl _locking(int _FileHandle,int _LockMode,long _NumOfBytes);
-  _CRTIMP long __cdecl _lseek(int _FileHandle,long _Offset,int _Origin);
-  _off64_t lseek64(int fd,_off64_t offset, int whence);
-  _CRTIMP char *__cdecl _mktemp(char *_TemplateName);
-  _CRTIMP int __cdecl _pipe(int *_PtHandles,unsigned int _PipeSize,int _TextMode);
-  _CRTIMP int __cdecl _read(int _FileHandle,void *_DstBuf,unsigned int _MaxCharCount);
+  _CRTIMP முழு __cdecl _access(மாறிலி எழுத்து *_Filename,முழு _AccessMode);
+  _CRTIMP முழு __cdecl _chmod(மாறிலி எழுத்து *_Filename,முழு _Mode);
+  _CRTIMP முழு __cdecl _chsize(முழு _FileHandle,long _Size);
+  _CRTIMP முழு __cdecl _close(முழு _FileHandle);
+  _CRTIMP முழு __cdecl _commit(முழு _FileHandle);
+  _CRTIMP முழு __cdecl _creat(மாறிலி எழுத்து *_Filename,முழு _PermissionMode);
+  _CRTIMP முழு __cdecl _dup(முழு _FileHandle);
+  _CRTIMP முழு __cdecl _dup2(முழு _FileHandleSrc,முழு _FileHandleDst);
+  _CRTIMP முழு __cdecl _eof(முழு _FileHandle);
+  _CRTIMP long __cdecl _filelength(முழு _FileHandle);
+  _CRTIMP intptr_t __cdecl _findfirst32(மாறிலி எழுத்து *_Filename,கட்டமைப்பு _finddata32_t *_FindData);
+  _CRTIMP முழு __cdecl _findnext32(intptr_t _FindHandle,கட்டமைப்பு _finddata32_t *_FindData);
+  _CRTIMP முழு __cdecl _findclose(intptr_t _FindHandle);
+  _CRTIMP முழு __cdecl _isatty(முழு _FileHandle);
+  _CRTIMP முழு __cdecl _locking(முழு _FileHandle,முழு _LockMode,long இலக்கம்_Of_Bytes);
+  _CRTIMP long __cdecl _lseek(முழு _FileHandle,long _Offset,முழு _Origin);
+  _off64_t lseek64(முழு fd,_off64_t offset, முழு whence);
+  _CRTIMP எழுத்து *__cdecl _mktemp(எழுத்து *_TemplateName);
+  _CRTIMP முழு __cdecl _pipe(முழு *_PtHandles,unsigned முழு _PipeSize,முழு _TextMode);
+  _CRTIMP முழு __cdecl _read(முழு _FileHandle,வெறுமை *_DstBuf,unsigned முழு Max_Char_மொத்தம்);
 
 #ifndef _CRT_DIRECTORY_DEFINED
 #define _CRT_DIRECTORY_DEFINED
-  int __cdecl remove(const char *_Filename);
-  int __cdecl rename(const char *_OldFilename,const char *_NewFilename);
-  _CRTIMP int __cdecl _unlink(const char *_Filename);
+  முழு __cdecl remove(மாறிலி எழுத்து *_Filename);
+  முழு __cdecl rename(மாறிலி எழுத்து *_OldFilename,மாறிலி எழுத்து *_NewFilename);
+  _CRTIMP முழு __cdecl _unlink(மாறிலி எழுத்து *_Filename);
 #ifndef	NO_OLDNAMES
-  int __cdecl unlink(const char *_Filename);
+  முழு __cdecl unlink(மாறிலி எழுத்து *_Filename);
 #endif
 #endif
 
-  _CRTIMP int __cdecl _setmode(int _FileHandle,int _Mode);
-  _CRTIMP long __cdecl _tell(int _FileHandle);
-  _CRTIMP int __cdecl _umask(int _Mode);
-  _CRTIMP int __cdecl _write(int _FileHandle,const void *_Buf,unsigned int _MaxCharCount);
+  _CRTIMP முழு __cdecl _setmode(முழு _FileHandle,முழு _Mode);
+  _CRTIMP long __cdecl _tell(முழு _FileHandle);
+  _CRTIMP முழு __cdecl _umask(முழு _Mode);
+  _CRTIMP முழு __cdecl _write(முழு _FileHandle,மாறிலி வெறுமை *_Buf,unsigned முழு Max_Char_மொத்தம்);
 
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP __int64 __cdecl _filelengthi64(int _FileHandle);
-  _CRTIMP intptr_t __cdecl _findfirst32i64(const char *_Filename,struct _finddata32i64_t *_FindData);
-  _CRTIMP intptr_t __cdecl _findfirst64(const char *_Filename,struct __finddata64_t *_FindData);
+#எனில் _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP __int64 __cdecl _filelengthi64(முழு _FileHandle);
+  _CRTIMP intptr_t __cdecl _findfirst32i64(மாறிலி எழுத்து *_Filename,கட்டமைப்பு _finddata32i64_t *_FindData);
+  _CRTIMP intptr_t __cdecl _findfirst64(மாறிலி எழுத்து *_Filename,கட்டமைப்பு __finddata64_t *_FindData);
 #ifdef __cplusplus
-#include <string.h>
+#அந்தர்பாவ <string.h>
 #endif
-  intptr_t __cdecl _findfirst64i32(const char *_Filename,struct _finddata64i32_t *_FindData);
-  __CRT_INLINE intptr_t __cdecl _findfirst64i32(const char *_Filename,struct _finddata64i32_t *_FindData)
+  intptr_t __cdecl _findfirst64i32(மாறிலி எழுத்து *_Filename,கட்டமைப்பு _finddata64i32_t *_FindData);
+  __CRT_INLINE intptr_t __cdecl _findfirst64i32(மாறிலி எழுத்து *_Filename,கட்டமைப்பு _finddata64i32_t *_FindData)
   {
-    struct __finddata64_t fd;
+    கட்டமைப்பு __finddata64_t fd;
     intptr_t ret = _findfirst64(_Filename,&fd);
     _FindData->attrib=fd.attrib;
     _FindData->time_create=fd.time_create;
@@ -275,107 +275,107 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
     _FindData->time_write=fd.time_write;
     _FindData->size=(_fsize_t) fd.size;
     strncpy(_FindData->name,fd.name,260);
-    return ret;
+    திரும்பு ret;
   }
-  _CRTIMP int __cdecl _findnext32i64(intptr_t _FindHandle,struct _finddata32i64_t *_FindData);
-  _CRTIMP int __cdecl _findnext64(intptr_t _FindHandle,struct __finddata64_t *_FindData);
-  int __cdecl _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t *_FindData);
-  __CRT_INLINE int __cdecl _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t *_FindData)
+  _CRTIMP முழு __cdecl _findnext32i64(intptr_t _FindHandle,கட்டமைப்பு _finddata32i64_t *_FindData);
+  _CRTIMP முழு __cdecl _findnext64(intptr_t _FindHandle,கட்டமைப்பு __finddata64_t *_FindData);
+  முழு __cdecl _findnext64i32(intptr_t _FindHandle,கட்டமைப்பு _finddata64i32_t *_FindData);
+  __CRT_INLINE முழு __cdecl _findnext64i32(intptr_t _FindHandle,கட்டமைப்பு _finddata64i32_t *_FindData)
   {
-    struct __finddata64_t fd;
-    int ret = _findnext64(_FindHandle,&fd);
+    கட்டமைப்பு __finddata64_t fd;
+    முழு ret = _findnext64(_FindHandle,&fd);
     _FindData->attrib=fd.attrib;
     _FindData->time_create=fd.time_create;
     _FindData->time_access=fd.time_access;
     _FindData->time_write=fd.time_write;
     _FindData->size=(_fsize_t) fd.size;
     strncpy(_FindData->name,fd.name,260);
-    return ret;
+    திரும்பு ret;
   }
-  __int64 __cdecl _lseeki64(int _FileHandle,__int64 _Offset,int _Origin);
-  __int64 __cdecl _telli64(int _FileHandle);
+  __int64 __cdecl _lseeki64(முழு _FileHandle,__int64 _Offset,முழு _Origin);
+  __int64 __cdecl _telli64(முழு _FileHandle);
 #endif
 #ifndef NO_OLDNAMES
 
 #ifndef _UWIN
-  int __cdecl chdir (const char *);
-  char *__cdecl getcwd (char *, int);
-  int __cdecl mkdir (const char *);
-  char *__cdecl mktemp(char *);
-  int __cdecl rmdir (const char*);
-  int __cdecl chmod (const char *, int);
+  முழு __cdecl chdir (மாறிலி எழுத்து *);
+  எழுத்து *__cdecl getcwd (எழுத்து *, முழு);
+  முழு __cdecl mkdir (மாறிலி எழுத்து *);
+  எழுத்து *__cdecl mktemp(எழுத்து *);
+  முழு __cdecl rmdir (மாறிலி எழுத்து*);
+  முழு __cdecl chmod (மாறிலி எழுத்து *, முழு);
 #endif /* _UWIN */
 
 #endif /* Not NO_OLDNAMES */
 
-  _CRTIMP errno_t __cdecl _sopen_s(int *_FileHandle,const char *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionMode);
+  _CRTIMP errno_t __cdecl _sopen_s(முழு *_FileHandle,மாறிலி எழுத்து *_Filename,முழு _OpenFlag,முழு _ShareFlag,முழு _PermissionMode);
 
 #ifndef __cplusplus
-  _CRTIMP int __cdecl _open(const char *_Filename,int _OpenFlag,...);
-  _CRTIMP int __cdecl _sopen(const char *_Filename,int _OpenFlag,int _ShareFlag,...);
-#else
-  extern "C++" _CRTIMP int __cdecl _open(const char *_Filename,int _Openflag,int _PermissionMode = 0);
-  extern "C++" _CRTIMP int __cdecl _sopen(const char *_Filename,int _Openflag,int _ShareFlag,int _PermissionMode = 0);
+  _CRTIMP முழு __cdecl _open(மாறிலி எழுத்து *_Filename,முழு _OpenFlag,...);
+  _CRTIMP முழு __cdecl _sopen(மாறிலி எழுத்து *_Filename,முழு _OpenFlag,முழு _ShareFlag,...);
+#இல்லையெனில்
+  வெளி "C++" _CRTIMP முழு __cdecl _open(மாறிலி எழுத்து *_Filename,முழு _Openflag,முழு _PermissionMode = 0);
+  வெளி "C++" _CRTIMP முழு __cdecl _sopen(மாறிலி எழுத்து *_Filename,முழு _Openflag,முழு _ShareFlag,முழு _PermissionMode = 0);
 #endif
 
 #ifndef _WIO_DEFINED
 #define _WIO_DEFINED
-  _CRTIMP int __cdecl _waccess(const wchar_t *_Filename,int _AccessMode);
-  _CRTIMP int __cdecl _wchmod(const wchar_t *_Filename,int _Mode);
-  _CRTIMP int __cdecl _wcreat(const wchar_t *_Filename,int _PermissionMode);
-  _CRTIMP intptr_t __cdecl _wfindfirst32(const wchar_t *_Filename,struct _wfinddata32_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext32(intptr_t _FindHandle,struct _wfinddata32_t *_FindData);
-  _CRTIMP int __cdecl _wunlink(const wchar_t *_Filename);
-  _CRTIMP int __cdecl _wrename(const wchar_t *_NewFilename,const wchar_t *_OldFilename);
+  _CRTIMP முழு __cdecl _waccess(மாறிலி wchar_t *_Filename,முழு _AccessMode);
+  _CRTIMP முழு __cdecl _wchmod(மாறிலி wchar_t *_Filename,முழு _Mode);
+  _CRTIMP முழு __cdecl _wcreat(மாறிலி wchar_t *_Filename,முழு _PermissionMode);
+  _CRTIMP intptr_t __cdecl _wfindfirst32(மாறிலி wchar_t *_Filename,கட்டமைப்பு _wfinddata32_t *_FindData);
+  _CRTIMP முழு __cdecl _wfindnext32(intptr_t _FindHandle,கட்டமைப்பு _wfinddata32_t *_FindData);
+  _CRTIMP முழு __cdecl _wunlink(மாறிலி wchar_t *_Filename);
+  _CRTIMP முழு __cdecl _wrename(மாறிலி wchar_t *_NewFilename,மாறிலி wchar_t *_OldFilename);
   _CRTIMP wchar_t *__cdecl _wmktemp(wchar_t *_TemplateName);
 
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP intptr_t __cdecl _wfindfirst32i64(const wchar_t *_Filename,struct _wfinddata32i64_t *_FindData);
-  intptr_t __cdecl _wfindfirst64i32(const wchar_t *_Filename,struct _wfinddata64i32_t *_FindData);
-  _CRTIMP intptr_t __cdecl _wfindfirst64(const wchar_t *_Filename,struct _wfinddata64_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext32i64(intptr_t _FindHandle,struct _wfinddata32i64_t *_FindData);
-  int __cdecl _wfindnext64i32(intptr_t _FindHandle,struct _wfinddata64i32_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext64(intptr_t _FindHandle,struct _wfinddata64_t *_FindData);
+#எனில் _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP intptr_t __cdecl _wfindfirst32i64(மாறிலி wchar_t *_Filename,கட்டமைப்பு _wfinddata32i64_t *_FindData);
+  intptr_t __cdecl _wfindfirst64i32(மாறிலி wchar_t *_Filename,கட்டமைப்பு _wfinddata64i32_t *_FindData);
+  _CRTIMP intptr_t __cdecl _wfindfirst64(மாறிலி wchar_t *_Filename,கட்டமைப்பு _wfinddata64_t *_FindData);
+  _CRTIMP முழு __cdecl _wfindnext32i64(intptr_t _FindHandle,கட்டமைப்பு _wfinddata32i64_t *_FindData);
+  முழு __cdecl _wfindnext64i32(intptr_t _FindHandle,கட்டமைப்பு _wfinddata64i32_t *_FindData);
+  _CRTIMP முழு __cdecl _wfindnext64(intptr_t _FindHandle,கட்டமைப்பு _wfinddata64_t *_FindData);
 #endif
 
-  _CRTIMP errno_t __cdecl _wsopen_s(int *_FileHandle,const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionFlag);
+  _CRTIMP errno_t __cdecl _wsopen_s(முழு *_FileHandle,மாறிலி wchar_t *_Filename,முழு _OpenFlag,முழு _ShareFlag,முழு _PermissionFlag);
 
-#if !defined(__cplusplus) || !(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _wopen(const wchar_t *_Filename,int _OpenFlag,...);
-  _CRTIMP int __cdecl _wsopen(const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,...);
-#else
-  extern "C++" _CRTIMP int __cdecl _wopen(const wchar_t *_Filename,int _OpenFlag,int _PermissionMode = 0);
-  extern "C++" _CRTIMP int __cdecl _wsopen(const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionMode = 0);
+#எனில் !defined(__cplusplus) || !(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP முழு __cdecl _wopen(மாறிலி wchar_t *_Filename,முழு _OpenFlag,...);
+  _CRTIMP முழு __cdecl _wsopen(மாறிலி wchar_t *_Filename,முழு _OpenFlag,முழு _ShareFlag,...);
+#இல்லையெனில்
+  வெளி "C++" _CRTIMP முழு __cdecl _wopen(மாறிலி wchar_t *_Filename,முழு _OpenFlag,முழு _PermissionMode = 0);
+  வெளி "C++" _CRTIMP முழு __cdecl _wsopen(மாறிலி wchar_t *_Filename,முழு _OpenFlag,முழு _ShareFlag,முழு _PermissionMode = 0);
 #endif
 
 #endif
 
-  int __cdecl __lock_fhandle(int _Filehandle);
-  void __cdecl _unlock_fhandle(int _Filehandle);
-  _CRTIMP intptr_t __cdecl _get_osfhandle(int _FileHandle);
-  _CRTIMP int __cdecl _open_osfhandle(intptr_t _OSFileHandle,int _Flags);
+  முழு __cdecl __lock_fhandle(முழு _Filehandle);
+  வெறுமை __cdecl _unlock_fhandle(முழு _Filehandle);
+  _CRTIMP intptr_t __cdecl _get_osfhandle(முழு _FileHandle);
+  _CRTIMP முழு __cdecl _open_osfhandle(intptr_t _OSFileHandle,முழு _Flags);
 
 #ifndef	NO_OLDNAMES
-  int __cdecl access(const char *_Filename,int _AccessMode);
-  int __cdecl chmod(const char *_Filename,int _AccessMode);
-  int __cdecl chsize(int _FileHandle,long _Size);
-  int __cdecl close(int _FileHandle);
-  int __cdecl creat(const char *_Filename,int _PermissionMode);
-  int __cdecl dup(int _FileHandle);
-  int __cdecl dup2(int _FileHandleSrc,int _FileHandleDst);
-  int __cdecl eof(int _FileHandle);
-  long __cdecl filelength(int _FileHandle);
-  int __cdecl isatty(int _FileHandle);
-  int __cdecl locking(int _FileHandle,int _LockMode,long _NumOfBytes);
-  long __cdecl lseek(int _FileHandle,long _Offset,int _Origin);
-  char *__cdecl mktemp(char *_TemplateName);
-  int __cdecl open(const char *_Filename,int _OpenFlag,...);
-  int __cdecl read(int _FileHandle,void *_DstBuf,unsigned int _MaxCharCount);
-  int __cdecl setmode(int _FileHandle,int _Mode);
-  int __cdecl sopen(const char *_Filename,int _OpenFlag,int _ShareFlag,...);
-  long __cdecl tell(int _FileHandle);
-  int __cdecl umask(int _Mode);
-  int __cdecl write(int _Filehandle,const void *_Buf,unsigned int _MaxCharCount);
+  முழு __cdecl access(மாறிலி எழுத்து *_Filename,முழு _AccessMode);
+  முழு __cdecl chmod(மாறிலி எழுத்து *_Filename,முழு _AccessMode);
+  முழு __cdecl chsize(முழு _FileHandle,long _Size);
+  முழு __cdecl close(முழு _FileHandle);
+  முழு __cdecl creat(மாறிலி எழுத்து *_Filename,முழு _PermissionMode);
+  முழு __cdecl dup(முழு _FileHandle);
+  முழு __cdecl dup2(முழு _FileHandleSrc,முழு _FileHandleDst);
+  முழு __cdecl eof(முழு _FileHandle);
+  long __cdecl filelength(முழு _FileHandle);
+  முழு __cdecl isatty(முழு _FileHandle);
+  முழு __cdecl locking(முழு _FileHandle,முழு _LockMode,long இலக்கம்_Of_Bytes);
+  long __cdecl lseek(முழு _FileHandle,long _Offset,முழு _Origin);
+  எழுத்து *__cdecl mktemp(எழுத்து *_TemplateName);
+  முழு __cdecl open(மாறிலி எழுத்து *_Filename,முழு _OpenFlag,...);
+  முழு __cdecl பட(முழு _FileHandle,வெறுமை *_DstBuf,unsigned முழு Max_Char_மொத்தம்);
+  முழு __cdecl setmode(முழு _FileHandle,முழு _Mode);
+  முழு __cdecl sopen(மாறிலி எழுத்து *_Filename,முழு _OpenFlag,முழு _ShareFlag,...);
+  long __cdecl tell(முழு _FileHandle);
+  முழு __cdecl umask(முழு _Mode);
+  முழு __cdecl லிக(முழு _Filehandle,மாறிலி வெறுமை *_Buf,unsigned முழு Max_Char_மொத்தம்);
 #endif
 
 #ifdef __cplusplus
@@ -384,21 +384,21 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
 /* Misc stuff */
-char *getlogin(void);
+எழுத்து *getlogin(வெறுமை);
 #ifdef __USE_MINGW_ALARM
-unsigned int alarm(unsigned int seconds);
+unsigned முழு alarm(unsigned முழு seconds);
 #endif
 
 #ifdef __USE_MINGW_ACCESS
 /*  Old versions of MSVCRT access() just ignored X_OK, while the version
     shipped with Vista, returns an error code.  This will restore the
     old behaviour  */
-static inline int __mingw_access (const char *__fname, int __mode) {
-  return  _access (__fname, __mode & ~X_OK);
+நிலையான உள்வரி முழு __mingw_access (மாறிலி எழுத்து *__fname, முழு __mode) {
+  திரும்பு  _access (__fname, __mode & ~X_OK);
 }
 
 #define access(__f,__m)  __mingw_access (__f, __m)
@@ -410,9 +410,9 @@ static inline int __mingw_access (const char *__fname, int __mode) {
 #endif
 
 
-#pragma pack(pop)
+#pragma pack(எடு)
 
-#include <sec_api/io_s.h>
+#அந்தர்பாவ <sec_api/io_s.h>
 
 #endif /* End _IO_H_ */
 

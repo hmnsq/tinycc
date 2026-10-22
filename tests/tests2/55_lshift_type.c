@@ -7,46 +7,46 @@ each of the operands. The type of the result is that of the promoted
 left operand."
 */
 
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (int) sizeof((M)+0)
+#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (முழு) அளவு((M)+0)
 #define CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
-#define TEST1(X,T) do { CHECK(X,T); CHECK(X,unsigned T); } while (0)
+#define TEST1(X,T) செய் { CHECK(X,T); CHECK(X,unsigned T); } போது (0)
 #define TEST2(X)                 \
-  do                             \
+  செய்                             \
     {                            \
       TEST1((X),short);          \
-      TEST1((X),int);            \
+      TEST1((X),முழு);            \
       TEST1((X),long);           \
       TEST1((X),long long);      \
     }                            \
-  while (0)
-#define TEST3(X,T) do { TEST2((T)(X)); TEST2((unsigned T)(X)); } while (0)
+  போது (0)
+#define TEST3(X,T) செய் { TEST2((T)(X)); TEST2((unsigned T)(X)); } போது (0)
 #define TEST4(X)                 \
-  do                             \
+  செய்                             \
     {                            \
       TEST3((X),short);          \
-      TEST3((X),int);            \
+      TEST3((X),முழு);            \
       TEST3((X),long);           \
       TEST3((X),long long);      \
     }                            \
- while (0)
+ போது (0)
 
-static int debug, nfailed = 0;
+நிலையான முழு debug, nfailed = 0;
 
-static void check (const char *s, int arg1, int shift)
+நிலையான வெறுமை check (மாறிலி எழுத்து *s, முழு arg1, முழு shift)
 {
-  int failed = arg1 != shift;
-  if (debug || failed)
+  முழு failed = arg1 != shift;
+  எனில் (debug || failed)
     printf ("%s %d %d\n", s, arg1, shift);
   nfailed += failed;
 }
 
-int main (int argc, char **argv)
+முழு முதன்மை (முழு argc, எழுத்து **argv)
 {
   debug = argc > 1;
   TEST4(1);
   TEST4(-1);
   printf ("%d test(s) failed\n", nfailed);
-  return nfailed != 0;
+  திரும்பு nfailed != 0;
 }

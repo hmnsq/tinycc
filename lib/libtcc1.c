@@ -31,25 +31,25 @@ Boston, MA 02111-1307, USA.
 #define W_TYPE_SIZE   32
 #define BITS_PER_UNIT 8
 
-typedef int Wtype;
-typedef unsigned int UWtype;
-typedef unsigned int USItype;
-typedef long long DWtype;
-typedef unsigned long long UDWtype;
+வகைவரை முழு Wtype;
+வகைவரை unsigned முழு UWtype;
+வகைவரை unsigned முழு USItype;
+வகைவரை long long DWtype;
+வகைவரை unsigned long long UDWtype;
 
-struct DWstruct {
-    Wtype low, high;
+கட்டமைப்பு DWstruct {
+    Wtype கீழ், உயர்வு;
 };
 
-typedef union
+வகைவரை ஒன்றிப்பு
 {
-  struct DWstruct s;
+  கட்டமைப்பு DWstruct s;
   DWtype ll;
 } DWunion;
 
-typedef long double XFtype;
-#define WORD_SIZE (sizeof (Wtype) * BITS_PER_UNIT)
-#define HIGH_WORD_COEFF (((UDWtype) 1) << WORD_SIZE)
+வகைவரை long இரட்டை XFtype;
+#define WORD_SIZE (அளவு (Wtype) * BITS_PER_UNIT)
+#define உயர்வு_WORD_COEFF (((UDWtype) 1) << WORD_SIZE)
 
 /* the following deal with IEEE single-precision numbers */
 #define EXCESS		126
@@ -77,37 +77,37 @@ typedef long double XFtype;
 #define SIGNLD(fp)	((fp.l.upper) & 0x8000)
 
 /* only for x86 */
-union ldouble_long {
-    long double ld;
-    struct {
+ஒன்றிப்பு ldouble_long {
+    long இரட்டை ld;
+    கட்டமைப்பு {
         unsigned long long lower;
         unsigned short upper;
     } l;
 };
 
-union double_long {
-    double d;
-#if 1
-    struct {
-        unsigned int lower;
-        int upper;
+ஒன்றிப்பு double_long {
+    இரட்டை d;
+#எனில் 1
+    கட்டமைப்பு {
+        unsigned முழு lower;
+        முழு upper;
     } l;
-#else
-    struct {
-        int upper;
-        unsigned int lower;
+#இல்லையெனில்
+    கட்டமைப்பு {
+        முழு upper;
+        unsigned முழு lower;
     } l;
 #endif
     long long ll;
 };
 
-union float_long {
-    float f;
-    unsigned int l;
+ஒன்றிப்பு float_long {
+    தசம f;
+    unsigned முழு l;
 };
 
 /* XXX: we don't support several builtin supports for now */
-#if defined __i386__
+#எனில் defined __i386__
 
 /* XXX: use gcc/tcc intrinsic ? */
 #define sub_ddmmss(sh, sl, ah, al, bh, bl) \
@@ -131,17 +131,17 @@ union float_long {
 	   : "0" ((USItype) (n0)),					\
 	     "1" ((USItype) (n1)),					\
 	     "rm" ((USItype) (dv)))
-#define count_leading_zeros(count, x) \
-  do {									\
+#define மொத்தம்_leading_zeros(மொத்தம்_2, x) \
+  செய் {									\
     USItype __cbtmp;							\
     __asm__ ("bsrl %1,%0"						\
 	     : "=r" (__cbtmp) : "rm" ((USItype) (x)));			\
-    (count) = __cbtmp ^ 31;						\
-  } while (0)
+    (மொத்தம்_2) = __cbtmp ^ 31;						\
+  } போது (0)
 
 /* most of this code is taken from libgcc2.c from gcc */
 
-static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
+நிலையான UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 {
   DWunion ww;
   DWunion nn, dd;
@@ -153,15 +153,15 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
   nn.ll = n;
   dd.ll = d;
 
-  d0 = dd.s.low;
-  d1 = dd.s.high;
-  n0 = nn.s.low;
-  n1 = nn.s.high;
+  d0 = dd.s.கீழ்;
+  d1 = dd.s.உயர்வு;
+  n0 = nn.s.கீழ்;
+  n1 = nn.s.உயர்வு;
 
-#if !defined(UDIV_NEEDS_NORMALIZATION)
-  if (d1 == 0)
+#எனில் !defined(UDIV_NEEDS_NORMALIZATION)
+  எனில் (d1 == 0)
     {
-      if (d0 > n1)
+      எனில் (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
@@ -170,11 +170,11 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0.  */
 	}
-      else
+      இல்லையெனில்
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  எனில் (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
 	  udiv_qrnnd (q1, n1, 0, n1, d0);
@@ -183,25 +183,25 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0.  */
 	}
 
-      if (rp != 0)
+      எனில் (rp != 0)
 	{
-	  rr.s.low = n0;
-	  rr.s.high = 0;
+	  rr.s.கீழ் = n0;
+	  rr.s.உயர்வு = 0;
 	  *rp = rr.ll;
 	}
     }
 
-#else /* UDIV_NEEDS_NORMALIZATION */
+#இல்லையெனில் /* UDIV_NEEDS_NORMALIZATION */
 
-  if (d1 == 0)
+  எனில் (d1 == 0)
     {
-      if (d0 > n1)
+      எனில் (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
-	  count_leading_zeros (bm, d0);
+	  மொத்தம்_leading_zeros (bm, d0);
 
-	  if (bm != 0)
+	  எனில் (bm != 0)
 	    {
 	      /* Normalize, i.e. make the most significant bit of the
 		 denominator set.  */
@@ -216,16 +216,16 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0 >> bm.  */
 	}
-      else
+      இல்லையெனில்
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  எனில் (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
-	  count_leading_zeros (bm, d0);
+	  மொத்தம்_leading_zeros (bm, d0);
 
-	  if (bm == 0)
+	  எனில் (bm == 0)
 	    {
 	      /* From (n1 >= d0) /\ (the most significant bit of d0 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -237,7 +237,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      n1 -= d0;
 	      q1 = 1;
 	    }
-	  else
+	  இல்லையெனில்
 	    {
 	      /* Normalize.  */
 
@@ -258,18 +258,18 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0 >> bm.  */
 	}
 
-      if (rp != 0)
+      எனில் (rp != 0)
 	{
-	  rr.s.low = n0 >> bm;
-	  rr.s.high = 0;
+	  rr.s.கீழ் = n0 >> bm;
+	  rr.s.உயர்வு = 0;
 	  *rp = rr.ll;
 	}
     }
 #endif /* UDIV_NEEDS_NORMALIZATION */
 
-  else
+  இல்லையெனில்
     {
-      if (d1 > n1)
+      எனில் (d1 > n1)
 	{
 	  /* 00 = nn / DD */
 
@@ -277,19 +277,19 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  q1 = 0;
 
 	  /* Remainder in n1n0.  */
-	  if (rp != 0)
+	  எனில் (rp != 0)
 	    {
-	      rr.s.low = n0;
-	      rr.s.high = n1;
+	      rr.s.கீழ் = n0;
+	      rr.s.உயர்வு = n1;
 	      *rp = rr.ll;
 	    }
 	}
-      else
+      இல்லையெனில்
 	{
 	  /* 0q = NN / dd */
 
-	  count_leading_zeros (bm, d1);
-	  if (bm == 0)
+	  மொத்தம்_leading_zeros (bm, d1);
+	  எனில் (bm == 0)
 	    {
 	      /* From (n1 >= d1) /\ (the most significant bit of d1 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -299,24 +299,24 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	      /* The condition on the next line takes advantage of that
 		 n1 >= d1 (true due to program flow).  */
-	      if (n1 > d1 || n0 >= d0)
+	      எனில் (n1 > d1 || n0 >= d0)
 		{
 		  q0 = 1;
 		  sub_ddmmss (n1, n0, n1, n0, d1, d0);
 		}
-	      else
+	      இல்லையெனில்
 		q0 = 0;
 
 	      q1 = 0;
 
-	      if (rp != 0)
+	      எனில் (rp != 0)
 		{
-		  rr.s.low = n0;
-		  rr.s.high = n1;
+		  rr.s.கீழ் = n0;
+		  rr.s.உயர்வு = n1;
 		  *rp = rr.ll;
 		}
 	    }
-	  else
+	  இல்லையெனில்
 	    {
 	      UWtype m1, m0;
 	      /* Normalize.  */
@@ -332,7 +332,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      udiv_qrnnd (q0, n1, n2, n1, d1);
 	      umul_ppmm (m1, m0, q0, d0);
 
-	      if (m1 > n1 || (m1 == n1 && m0 > n0))
+	      எனில் (m1 > n1 || (m1 == n1 && m0 > n0))
 		{
 		  q0--;
 		  sub_ddmmss (m1, m0, m1, m0, d1, d0);
@@ -341,72 +341,72 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      q1 = 0;
 
 	      /* Remainder in (n1n0 - m1m0) >> bm.  */
-	      if (rp != 0)
+	      எனில் (rp != 0)
 		{
 		  sub_ddmmss (n1, n0, n1, n0, m1, m0);
-		  rr.s.low = (n1 << b) | (n0 >> bm);
-		  rr.s.high = n1 >> bm;
+		  rr.s.கீழ் = (n1 << b) | (n0 >> bm);
+		  rr.s.உயர்வு = n1 >> bm;
 		  *rp = rr.ll;
 		}
 	    }
 	}
     }
 
-  ww.s.low = q0;
-  ww.s.high = q1;
-  return ww.ll;
+  ww.s.கீழ் = q0;
+  ww.s.உயர்வு = q1;
+  திரும்பு ww.ll;
 }
 
 #define __negdi2(a) (-(a))
 
 long long __divdi3(long long u, long long v)
 {
-    int c = 0;
+    முழு c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    எனில் (uu.s.உயர்வு < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0) {
+    எனில் (vv.s.உயர்வு < 0) {
         c = ~c;
         vv.ll = __negdi2 (vv.ll);
     }
     w = __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) 0);
-    if (c)
+    எனில் (c)
         w = __negdi2 (w);
-    return w;
+    திரும்பு w;
 }
 
 long long __moddi3(long long u, long long v)
 {
-    int c = 0;
+    முழு c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    எனில் (uu.s.உயர்வு < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0)
+    எனில் (vv.s.உயர்வு < 0)
         vv.ll = __negdi2 (vv.ll);
     
     __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) &w);
-    if (c)
+    எனில் (c)
         w = __negdi2 (w);
-    return w;
+    திரும்பு w;
 }
 
 unsigned long long __udivdi3(unsigned long long u, unsigned long long v)
 {
-    return __udivmoddi4 (u, v, (UDWtype *) 0);
+    திரும்பு __udivmoddi4 (u, v, (UDWtype *) 0);
 }
 
 unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
@@ -414,210 +414,210 @@ unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
     UDWtype w;
     
     __udivmoddi4 (u, v, &w);
-    return w;
+    திரும்பு w;
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashrdi3(long long a, int b)
+long long __ashrdi3(long long a, முழு b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.low = u.s.high >> (b - 32);
-        u.s.high = u.s.high >> 31;
-    } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = u.s.high >> b;
+    எனில் (b >= 32) {
+        u.s.கீழ் = u.s.உயர்வு >> (b - 32);
+        u.s.உயர்வு = u.s.உயர்வு >> 31;
+    } இல்லையெனில் எனில் (b != 0) {
+        u.s.கீழ் = ((unsigned)u.s.கீழ் >> b) | (u.s.உயர்வு << (32 - b));
+        u.s.உயர்வு = u.s.உயர்வு >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
+    திரும்பு u.ll;
+#இல்லையெனில்
+    திரும்பு a >> b;
 #endif
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-unsigned long long __lshrdi3(unsigned long long a, int b)
+unsigned long long __lshrdi3(unsigned long long a, முழு b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.low = (unsigned)u.s.high >> (b - 32);
-        u.s.high = 0;
-    } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = (unsigned)u.s.high >> b;
+    எனில் (b >= 32) {
+        u.s.கீழ் = (unsigned)u.s.உயர்வு >> (b - 32);
+        u.s.உயர்வு = 0;
+    } இல்லையெனில் எனில் (b != 0) {
+        u.s.கீழ் = ((unsigned)u.s.கீழ் >> b) | (u.s.உயர்வு << (32 - b));
+        u.s.உயர்வு = (unsigned)u.s.உயர்வு >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
+    திரும்பு u.ll;
+#இல்லையெனில்
+    திரும்பு a >> b;
 #endif
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashldi3(long long a, int b)
+long long __ashldi3(long long a, முழு b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.high = (unsigned)u.s.low << (b - 32);
-        u.s.low = 0;
-    } else if (b != 0) {
-        u.s.high = ((unsigned)u.s.high << b) | ((unsigned)u.s.low >> (32 - b));
-        u.s.low = (unsigned)u.s.low << b;
+    எனில் (b >= 32) {
+        u.s.உயர்வு = (unsigned)u.s.கீழ் << (b - 32);
+        u.s.கீழ் = 0;
+    } இல்லையெனில் எனில் (b != 0) {
+        u.s.உயர்வு = ((unsigned)u.s.உயர்வு << b) | ((unsigned)u.s.கீழ் >> (32 - b));
+        u.s.கீழ் = (unsigned)u.s.கீழ் << b;
     }
-    return u.ll;
-#else
-    return a << b;
+    திரும்பு u.ll;
+#இல்லையெனில்
+    திரும்பு a << b;
 #endif
 }
 
 #endif /* __i386__ */
 
 /* XXX: fix tcc's code generator to do this instead */
-float __floatundisf(unsigned long long a)
+தசம __floatundisf(unsigned long long a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (float)uu.ll;
-    } else {
+    எனில் (uu.s.உயர்வு >= 0) {
+        திரும்பு (தசம)uu.ll;
+    } இல்லையெனில் {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (float)r;
+        திரும்பு (தசம)r;
     }
 }
 
-double __floatundidf(unsigned long long a)
+இரட்டை __floatundidf(unsigned long long a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (double)uu.ll;
-    } else {
+    எனில் (uu.s.உயர்வு >= 0) {
+        திரும்பு (இரட்டை)uu.ll;
+    } இல்லையெனில் {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (double)r;
+        திரும்பு (இரட்டை)r;
     }
 }
 
-long double __floatundixf(unsigned long long a)
+long இரட்டை __floatundixf(unsigned long long a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (long double)uu.ll;
-    } else {
+    எனில் (uu.s.உயர்வு >= 0) {
+        திரும்பு (long இரட்டை)uu.ll;
+    } இல்லையெனில் {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (long double)r;
+        திரும்பு (long இரட்டை)r;
     }
 }
 
-unsigned long long __fixunssfdi (float a1)
+unsigned long long __fixunssfdi (தசம a1)
 {
-    register union float_long fl1;
-    register int exp;
-    register unsigned long long l;
+    பதிவு ஒன்றிப்பு float_long fl1;
+    பதிவு முழு exp;
+    பதிவு unsigned long long l;
 
     fl1.f = a1;
 
-    if (fl1.l == 0)
-	return (0);
+    எனில் (fl1.l == 0)
+	திரும்பு (0);
 
     exp = EXP (fl1.l) - EXCESS - 24;
     l = MANT(fl1.l);
 
-    if (exp >= 41)
-        return 1ULL << 63;
-    else if (exp >= 0)
+    எனில் (exp >= 41)
+        திரும்பு 1ULL << 63;
+    இல்லையெனில் எனில் (exp >= 0)
         l <<= exp;
-    else if (exp >= -23)
+    இல்லையெனில் எனில் (exp >= -23)
         l >>= -exp;
-    else
-	return 0;
-    if (SIGN(fl1.l))
+    இல்லையெனில்
+	திரும்பு 0;
+    எனில் (SIGN(fl1.l))
         l = (unsigned long long)-l;
-    return l;
+    திரும்பு l;
 }
 
-long long __fixsfdi (float a1)
+long long __fixsfdi (தசம a1)
 {
-    long long ret; int s;
+    long long ret; முழு s;
     ret = __fixunssfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    திரும்பு s ? ret : -ret;
 }
 
-unsigned long long __fixunsdfdi (double a1)
+unsigned long long __fixunsdfdi (இரட்டை a1)
 {
-    register union double_long dl1;
-    register int exp;
-    register unsigned long long l;
+    பதிவு ஒன்றிப்பு double_long dl1;
+    பதிவு முழு exp;
+    பதிவு unsigned long long l;
 
     dl1.d = a1;
 
-    if (dl1.ll == 0)
-	return (0);
+    எனில் (dl1.ll == 0)
+	திரும்பு (0);
 
     exp = EXPD (dl1) - EXCESSD - 53;
     l = MANTD_LL(dl1);
 
-    if (exp >= 12)
-        return 1ULL << 63; /* overflow result (like gcc, somewhat) */
-    else if (exp >= 0)
+    எனில் (exp >= 12)
+        திரும்பு 1ULL << 63; /* overflow result (like gcc, somewhat) */
+    இல்லையெனில் எனில் (exp >= 0)
         l <<= exp;
-    else if (exp >= -52)
+    இல்லையெனில் எனில் (exp >= -52)
         l >>= -exp;
-    else
-        return 0;
-    if (SIGND(dl1))
+    இல்லையெனில்
+        திரும்பு 0;
+    எனில் (SIGND(dl1))
         l = (unsigned long long)-l;
-    return l;
+    திரும்பு l;
 }
 
-long long __fixdfdi (double a1)
+long long __fixdfdi (இரட்டை a1)
 {
-    long long ret; int s;
+    long long ret; முழு s;
     ret = __fixunsdfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    திரும்பு s ? ret : -ret;
 }
 
 #ifndef __arm__
-unsigned long long __fixunsxfdi (long double a1)
+unsigned long long __fixunsxfdi (long இரட்டை a1)
 {
-    register union ldouble_long dl1;
-    register int exp;
-    register unsigned long long l;
+    பதிவு ஒன்றிப்பு ldouble_long dl1;
+    பதிவு முழு exp;
+    பதிவு unsigned long long l;
 
     dl1.ld = a1;
 
-    if (dl1.l.lower == 0 && dl1.l.upper == 0)
-	return (0);
+    எனில் (dl1.l.lower == 0 && dl1.l.upper == 0)
+	திரும்பு (0);
 
     exp = EXPLD (dl1) - EXCESSLD - 64;
     l = dl1.l.lower;
-    if (exp > 0)
-	return 1ULL << 63;
-    if (exp < -63)
-        return 0;
+    எனில் (exp > 0)
+	திரும்பு 1ULL << 63;
+    எனில் (exp < -63)
+        திரும்பு 0;
     l >>= -exp;
-    if (SIGNLD(dl1))
+    எனில் (SIGNLD(dl1))
         l = (unsigned long long)-l;
-    return l;
+    திரும்பு l;
 }
 
-long long __fixxfdi (long double a1)
+long long __fixxfdi (long இரட்டை a1)
 {
-    long long ret; int s;
+    long long ret; முழு s;
     ret = __fixunsxfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    திரும்பு s ? ret : -ret;
 }
 #endif /* !ARM */

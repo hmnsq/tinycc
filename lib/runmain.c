@@ -3,65 +3,65 @@
 
 #ifdef __leading_underscore
 # define _(s) s
-#else
+#இல்லையெனில்
 # define _(s) _##s
 #endif
 
 #ifndef _WIN32
-extern void (*_(_init_array_start)[]) (int argc, char **argv, char **envp);
-extern void (*_(_init_array_end)[]) (int argc, char **argv, char **envp);
-static void run_ctors(int argc, char **argv, char **env)
+வெளி வெறுமை (*_(_init_array_start)[]) (முழு argc, எழுத்து **argv, எழுத்து **envp);
+வெளி வெறுமை (*_(_init_array_end)[]) (முழு argc, எழுத்து **argv, எழுத்து **envp);
+நிலையான வெறுமை run_ctors(முழு argc, எழுத்து **argv, எழுத்து **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
+    முழு i = 0;
+    போது (&_(_init_array_start)[i] != _(_init_array_end))
         (*_(_init_array_start)[i++])(argc, argv, env);
 }
 #endif
 
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
-static void run_dtors(void)
+வெளி வெறுமை (*_(_fini_array_start)[]) (வெறுமை);
+வெளி வெறுமை (*_(_fini_array_end)[]) (வெறுமை);
+நிலையான வெறுமை run_dtors(வெறுமை)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
+    முழு i = 0;
+    போது (&_(_fini_array_end)[i] != _(_fini_array_start))
         (*_(_fini_array_end)[--i])();
 }
 
-static void *rt_exitfunc[32];
-static void *rt_exitarg[32];
-static int __rt_nr_exit;
+நிலையான வெறுமை *rt_exitfunc[32];
+நிலையான வெறுமை *rt_exitarg[32];
+நிலையான முழு __rt_nr_exit;
 
-void __run_on_exit(int ret)
+வெறுமை __run_on_exit(முழு ret)
 {
-    int n = __rt_nr_exit;
-    while (n)
-	--n, ((void(*)(int,void*))rt_exitfunc[n])(ret, rt_exitarg[n]);
+    முழு n = __rt_nr_exit;
+    போது (n)
+	--n, ((வெறுமை(*)(முழு,வெறுமை*))rt_exitfunc[n])(ret, rt_exitarg[n]);
 }
 
-int on_exit(void *function, void *arg)
+முழு on_exit(வெறுமை *function, வெறுமை *arg)
 {
-    int n = __rt_nr_exit;
-    if (n < 32) {
+    முழு n = __rt_nr_exit;
+    எனில் (n < 32) {
 	rt_exitfunc[n] = function;
 	rt_exitarg[n] = arg;
         __rt_nr_exit = n + 1;
-        return 0;
+        திரும்பு 0;
     }
-    return 1;
+    திரும்பு 1;
 }
 
-int atexit(void (*function)(void))
+முழு atexit(வெறுமை (*function)(வெறுமை))
 {
-    return on_exit(function, 0);
+    திரும்பு on_exit(function, 0);
 }
 
-typedef struct rt_frame {
-    void *ip, *fp, *sp;
+வகைவரை கட்டமைப்பு rt_frame {
+    வெறுமை *ip, *fp, *sp;
 } rt_frame;
 
-__attribute__((noreturn)) void __rt_exit(rt_frame *, int);
+__attribute__((noreturn)) வெறுமை __rt_exit(rt_frame *, முழு);
 
-void exit(int code)
+வெறுமை exit(முழு code)
 {
     rt_frame f;
     run_dtors();
@@ -72,15 +72,15 @@ void exit(int code)
 }
 
 #ifndef _WIN32
-int main(int, char**, char**);
+முழு முதன்மை(முழு, எழுத்து**, எழுத்து**);
 
-int _runmain(int argc, char **argv, char **envp)
+முழு _runmain(முழு argc, எழுத்து **argv, எழுத்து **envp)
 {
-    int ret;
+    முழு ret;
     run_ctors(argc, argv, envp);
-    ret = main(argc, argv, envp);
+    ret = முதன்மை(argc, argv, envp);
     run_dtors();
     __run_on_exit(ret);
-    return ret;
+    திரும்பு ret;
 }
 #endif

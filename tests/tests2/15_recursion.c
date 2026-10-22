@@ -1,21 +1,21 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int factorial(int i) 
+முழு factorial(முழு i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   எனில் (i < 2)
+      திரும்பு i;
+   இல்லையெனில்
+      திரும்பு i * factorial(i - 1);
 }
 
-int main()
+முழு முதன்மை()
 {
-   int Count;
+   முழு மொத்தம்_3;
 
-   for (Count = 1; Count <= 10; Count++)
-      printf("%d\n", factorial(Count));
+   க்கு (மொத்தம்_3 = 1; மொத்தம்_3 <= 10; மொத்தம்_3++)
+      printf("%d\n", factorial(மொத்தம்_3));
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

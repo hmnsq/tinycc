@@ -1,81 +1,81 @@
 /*****************************************************************************/
 /* test 'nodata_wanted' data output suppression */
 
-#if defined test_static_data_error
-void foo() {
-    if (1) {
-	static short w = (int)&foo; /* initializer not computable */
+#எனில் defined test_static_data_error
+வெறுமை foo() {
+    எனில் (1) {
+	நிலையான short w = (முழு)&foo; /* initializer not computable */
     }
 }
 
-#elif defined test_static_nodata_error
-void foo() {
-    if (0) {
-	static short w = (int)&foo; /* initializer not computable */
+#அல்லதெனில் defined test_static_nodata_error
+வெறுமை foo() {
+    எனில் (0) {
+	நிலையான short w = (முழு)&foo; /* initializer not computable */
     }
 }
 
-#elif defined test_global_data_error
-void foo();
-static short w = (int)&foo; /* initializer not computable */
+#அல்லதெனில் defined test_global_data_error
+வெறுமை foo();
+நிலையான short w = (முழு)&foo; /* initializer not computable */
 
 
-#elif defined test_local_data_noerror
-void foo() {
+#அல்லதெனில் defined test_local_data_noerror
+வெறுமை foo() {
     short w = &foo; /* 2 cast warnings */
 }
 
-#elif defined test_data_suppression_off || defined test_data_suppression_on
+#அல்லதெனில் defined test_data_suppression_off || defined test_data_suppression_on
 
-#if defined test_data_suppression_on
+#எனில் defined test_data_suppression_on
 # define SKIP 1
-#else
+#இல்லையெனில்
 # define SKIP 0
 #endif
 
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 /* some gcc headers #define __attribute__ to empty if it's not gcc */
 #undef __attribute__
 
-int main()
+முழு முதன்மை()
 {
     __label__ ts0, te0, ts1, te1;
-    int tl, dl;
+    முழு tl, dl;
 
-    static const char ds0 = 0;
-    static const char de0 = 0;
+    நிலையான மாறிலி எழுத்து ds0 = 0;
+    நிலையான மாறிலி எழுத்து de0 = 0;
     /* get reference size of empty jmp */
 ts0:;
-    if (!SKIP) {}
+    எனில் (!SKIP) {}
 te0:;
     dl = -(&de0 - &ds0);
     tl = -(&&te0 - &&ts0);
 
     /* test data and code suppression */
-    static const char ds1 = 0;
+    நிலையான மாறிலி எழுத்து ds1 = 0;
 ts1:;
-    if (!SKIP) {
-        void *p = (void*)&main;
-        char cc[] = "static string";
-        double d = 8.0;
-        struct
+    எனில் (!SKIP) {
+        வெறுமை *p = (வெறுமை*)&முதன்மை;
+        எழுத்து cc[] = "static string";
+        இரட்டை d = 8.0;
+        கட்டமைப்பு
 #ifndef __arm__
         __attribute__((packed))
 #endif
         {
             unsigned x : 12;
-            unsigned char y : 7;
+            unsigned எழுத்து y : 7;
             unsigned z : 28, a: 4, b: 5;
         } s = { 0x333,0x44,0x555555,6,7 };
 
         printf("data:\n");
         printf("  %d - %.1f - %.1f - %s - %s\n",
-            sizeof 8.0, 8.0, d, __FUNCTION__, cc);
+            அளவு 8.0, 8.0, d, __FUNCTION__, cc);
         printf("  %x %x %x %x %x\n",
             s.x, s.y, s.z, s.a, s.b);
     }
 te1:;
-    static const char de1 = 0;
+    நிலையான மாறிலி எழுத்து de1 = 0;
 
     dl += &de1 - &ds1;
     tl += &&te1 - &&ts1;
@@ -84,19 +84,19 @@ te1:;
     /*printf("# %d/%d\n", dl, tl);*/
 }
 
-#elif defined test_static_data
+#அல்லதெனில் defined test_static_data
 
-#include <stdio.h>
-int main(int argc, char **argv)
+#அந்தர்பாவ <stdio.h>
+முழு முதன்மை(முழு argc, எழுத்து **argv)
 {
-    goto there;
-    if (0) {
-        static int a = 1;
+    செல் there;
+    எனில் (0) {
+        நிலையான முழு a = 1;
         printf("hello\n"); /* the "hello\n" string is still suppressed */
 there:
         printf("a = %d\n", a);
     }
-    return 0;
+    திரும்பு 0;
 }
 
 #endif

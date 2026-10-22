@@ -1,21 +1,21 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main()
+முழு முதன்மை()
 {
-   int a = 1;
+   முழு a = 1;
 
-   if (a)
+   எனில் (a)
       printf("a is true\n");
-   else
+   இல்லையெனில்
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   முழு b = 0;
+   எனில் (b)
       printf("b is true\n");
-   else
+   இல்லையெனில்
       printf("b is false\n");
 
-   return 0;
+   திரும்பு 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

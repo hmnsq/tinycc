@@ -1,74 +1,74 @@
-#include <stdlib.h>
-#include <stdio.h>
+#அந்தர்பாவ <stdlib.h>
+#அந்தர்பாவ <stdio.h>
 
 #define N 20
 
-int nb_num;
-int tab[N];
-int stack_ptr;
-int stack_op[N];
-int stack_res[60];
-int result;
+முழு nb_இலக்கம்;
+முழு tab[N];
+முழு அடுக்கு_ptr;
+முழு அடுக்கு_op[N];
+முழு அடுக்கு_res[60];
+முழு result;
 
-int find(int n, int i1, int a, int b, int op)
+முழு find(முழு n, முழு i1, முழு a, முழு b, முழு op)
 {
-    int i, j;
-    int c;
+    முழு i, j;
+    முழு c;
 
-    if (stack_ptr >= 0) {
-        stack_res[3*stack_ptr] = a;
-        stack_op[stack_ptr] = op;
-        stack_res[3*stack_ptr+1] = b;
-        stack_res[3*stack_ptr+2] = n;
-        if (n == result)
-            return 1;
+    எனில் (அடுக்கு_ptr >= 0) {
+        அடுக்கு_res[3*அடுக்கு_ptr] = a;
+        அடுக்கு_op[அடுக்கு_ptr] = op;
+        அடுக்கு_res[3*அடுக்கு_ptr+1] = b;
+        அடுக்கு_res[3*அடுக்கு_ptr+2] = n;
+        எனில் (n == result)
+            திரும்பு 1;
         tab[i1] = n;
     }
 
-    for(i=0;i<nb_num;i++) {
-        for(j=i+1;j<nb_num;j++) {
+    க்கு(i=0;i<nb_இலக்கம்;i++) {
+        க்கு(j=i+1;j<nb_இலக்கம்;j++) {
             a = tab[i];
             b = tab[j];
-            if (a != 0 && b != 0) {
+            எனில் (a != 0 && b != 0) {
 
                 tab[j] = 0;
-                stack_ptr++;
+                அடுக்கு_ptr++;
 
-                if (find(a + b, i, a, b, '+'))
-                    return 1;
-                if (find(a - b, i, a, b, '-'))
-                    return 1;
-                if (find(b - a, i, b, a, '-'))
-                    return 1;
-                if (find(a * b, i, a, b, '*'))
-                    return 1;
-                if (b != 0) {
+                எனில் (find(a + b, i, a, b, '+'))
+                    திரும்பு 1;
+                எனில் (find(a - b, i, a, b, '-'))
+                    திரும்பு 1;
+                எனில் (find(b - a, i, b, a, '-'))
+                    திரும்பு 1;
+                எனில் (find(a * b, i, a, b, '*'))
+                    திரும்பு 1;
+                எனில் (b != 0) {
                     c = a / b;
-                    if (find(c, i, a, b, '/'))
-                        return 1;
+                    எனில் (find(c, i, a, b, '/'))
+                        திரும்பு 1;
                 }
 
-                if (a != 0) {
+                எனில் (a != 0) {
                     c = b / a;
-                    if (find(c, i, b, a, '/'))
-                        return 1;
+                    எனில் (find(c, i, b, a, '/'))
+                        திரும்பு 1;
                 }
 
-                stack_ptr--;
+                அடுக்கு_ptr--;
                 tab[i] = a;
                 tab[j] = b;
             }
         }
     }
 
-    return 0;
+    திரும்பு 0;
 }
 
-int main(int argc, char **argv)
+முழு முதன்மை(முழு argc, எழுத்து **argv)
 {
-    int i, res, p;
+    முழு i, res, p;
 
-    if (argc < 3) {
+    எனில் (argc < 3) {
         printf("usage: %s: result numbers...\n"
                "Try to find result from numbers with the 4 basic operations.\n", argv[0]);
         exit(1);
@@ -77,22 +77,22 @@ int main(int argc, char **argv)
     p = 1;
     result = atoi(argv[p]);
     printf("result=%d\n", result);
-    nb_num = 0;
-    for(i=p+1;i<argc;i++) {
-        tab[nb_num++] = atoi(argv[i]);
+    nb_இலக்கம் = 0;
+    க்கு(i=p+1;i<argc;i++) {
+        tab[nb_இலக்கம்++] = atoi(argv[i]);
     }
 
-    stack_ptr = -1;
+    அடுக்கு_ptr = -1;
     res = find(0, 0, 0, 0, ' ');
-    if (res) {
-        for(i=0;i<=stack_ptr;i++) {
+    எனில் (res) {
+        க்கு(i=0;i<=அடுக்கு_ptr;i++) {
             printf("%d %c %d = %d\n",
-                   stack_res[3*i], stack_op[i],
-                   stack_res[3*i+1], stack_res[3*i+2]);
+                   அடுக்கு_res[3*i], அடுக்கு_op[i],
+                   அடுக்கு_res[3*i+1], அடுக்கு_res[3*i+2]);
         }
-        return 0;
-    } else {
+        திரும்பு 0;
+    } இல்லையெனில் {
         printf("Impossible\n");
-        return 1;
+        திரும்பு 1;
     }
 }

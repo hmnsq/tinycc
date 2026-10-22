@@ -2,19 +2,19 @@
    Exercises shift-by-immediate, load/store addressing modes,
    conditional branches, and system register access. */
 
-#include <stdio.h>
-#include <stdint.h>
+#அந்தர்பாவ <stdio.h>
+#அந்தர்பாவ <stdint.h>
 
 /* ---- shift-by-immediate helpers ---- */
 
-static uint32_t lsl32(uint32_t x, int n) { return x << n; }
-static uint32_t lsr32(uint32_t x, int n) { return x >> n; }
-static int32_t  asr32(int32_t  x, int n) { return x >> n; }
-static uint64_t lsl64(uint64_t x, int n) { return x << n; }
-static uint64_t lsr64(uint64_t x, int n) { return x >> n; }
-static int64_t  asr64(int64_t  x, int n) { return x >> n; }
+நிலையான uint32_t lsl32(uint32_t x, முழு n) { திரும்பு x << n; }
+நிலையான uint32_t lsr32(uint32_t x, முழு n) { திரும்பு x >> n; }
+நிலையான int32_t  asr32(int32_t  x, முழு n) { திரும்பு x >> n; }
+நிலையான uint64_t lsl64(uint64_t x, முழு n) { திரும்பு x << n; }
+நிலையான uint64_t lsr64(uint64_t x, முழு n) { திரும்பு x >> n; }
+நிலையான int64_t  asr64(int64_t  x, முழு n) { திரும்பு x >> n; }
 
-static void test_shifts(void)
+நிலையான வெறுமை test_shifts(வெறுமை)
 {
     printf("shift-imm:\n");
     printf("%x\n", lsl32(1, 0));
@@ -34,7 +34,7 @@ static void test_shifts(void)
 
 /* ---- load/store with various addressing modes ---- */
 
-static void test_ldr_str(void)
+நிலையான வெறுமை test_ldr_str(வெறுமை)
 {
     int64_t buf[4] = { 0x1122334455667788LL, 0x99AABBCCDDEEFF00LL,
                        0x0F1E2D3C4B5A6978LL, 0x0000000000000001LL };
@@ -69,7 +69,7 @@ static void test_ldr_str(void)
 
 /* ---- STP/LDP (store/load pair) ---- */
 
-static void test_ldp_stp(void)
+நிலையான வெறுமை test_ldp_stp(வெறுமை)
 {
     int64_t src[2] = { 0xAAAABBBBCCCCDDDDLL, 0x1111222233334444LL };
     int64_t dst[2];
@@ -86,21 +86,21 @@ static void test_ldp_stp(void)
 
 /* ---- CBZ / CBNZ via C patterns ---- */
 
-static const char *cbz_test(int x)
+நிலையான மாறிலி எழுத்து *cbz_test(முழு x)
 {
-    if (x == 0)
-        return "zero";
-    return "nonzero";
+    எனில் (x == 0)
+        திரும்பு "zero";
+    திரும்பு "nonzero";
 }
 
-static const char *cbnz_test(int x)
+நிலையான மாறிலி எழுத்து *cbnz_test(முழு x)
 {
-    if (x != 0)
-        return "nonzero";
-    return "zero";
+    எனில் (x != 0)
+        திரும்பு "nonzero";
+    திரும்பு "zero";
 }
 
-static void test_cond_branches(void)
+நிலையான வெறுமை test_cond_branches(வெறுமை)
 {
     printf("cbz-cbnz:\n");
     printf("%s\n", cbz_test(0));
@@ -111,13 +111,13 @@ static void test_cond_branches(void)
 
 /* ---- conditional compare patterns (CCMP/CCMN) ---- */
 
-static int cond_select(int a, int b)
+நிலையான முழு cond_select(முழு a, முழு b)
 {
     /* TCC should generate csel or equivalent */
-    return a > b ? a : b;
+    திரும்பு a > b ? a : b;
 }
 
-static void test_cond_select(void)
+நிலையான வெறுமை test_cond_select(வெறுமை)
 {
     printf("csel:\n");
     printf("%d\n", cond_select(5, 10));
@@ -128,63 +128,63 @@ static void test_cond_select(void)
 
 /* ---- MRS/MSR system registers (FPCR/FPSR) ---- */
 
-static void test_sysregs(void)
+நிலையான வெறுமை test_sysregs(வெறுமை)
 {
-    unsigned int fpcr, fpsr;
+    unsigned முழு fpcr, fpsr;
 
     printf("sysregs:\n");
 
     /* Read FPCR */
-    __asm__ volatile ("mrs %0, fpcr" : "=r"(fpcr));
+    __asm__ நிலையற்ற ("mrs %0, fpcr" : "=r"(fpcr));
     printf("%u\n", fpcr & 0x0F);
 
     /* Read FPSR */
-    __asm__ volatile ("mrs %0, fpsr" : "=r"(fpsr));
+    __asm__ நிலையற்ற ("mrs %0, fpsr" : "=r"(fpsr));
     printf("%u\n", fpsr);
 
     /* Write/restore FPCR (should be same value) */
-    __asm__ volatile ("msr fpcr, %0" : : "r"(fpcr));
+    __asm__ நிலையற்ற ("msr fpcr, %0" : : "r"(fpcr));
 
     /* Read back and verify */
     {
-        unsigned int check;
-        __asm__ volatile ("mrs %0, fpcr" : "=r"(check));
+        unsigned முழு check;
+        __asm__ நிலையற்ற ("mrs %0, fpcr" : "=r"(check));
         printf("%s\n", check == fpcr ? "ok" : "fail");
     }
 }
 
 /* ---- NOP encoding (should not crash) ---- */
 
-static void test_nop(void)
+நிலையான வெறுமை test_nop(வெறுமை)
 {
     printf("nop:\n");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
+    __asm__ நிலையற்ற ("nop");
+    __asm__ நிலையற்ற ("nop");
+    __asm__ நிலையற்ற ("nop");
     printf("ok\n");
 }
 
 /* ---- barrier instructions ---- */
 
-static void test_barriers(void)
+நிலையான வெறுமை test_barriers(வெறுமை)
 {
     printf("barriers:\n");
-    __asm__ volatile ("dmb sy");
-    __asm__ volatile ("dsb sy");
-    __asm__ volatile ("isb");
+    __asm__ நிலையற்ற ("dmb sy");
+    __asm__ நிலையற்ற ("dsb sy");
+    __asm__ நிலையற்ற ("isb");
     printf("ok\n");
 }
 
 /* ---- MOV (register) patterns ---- */
 
-static int64_t mov_x0_x1(int64_t x)
+நிலையான int64_t mov_x0_x1(int64_t x)
 {
-    register int64_t r __asm__("x0") = x;
-    __asm__ volatile ("" : "=r"(r) : "0"(r));
-    return r;
+    பதிவு int64_t r __asm__("x0") = x;
+    __asm__ நிலையற்ற ("" : "=r"(r) : "0"(r));
+    திரும்பு r;
 }
 
-static void test_mov_reg(void)
+நிலையான வெறுமை test_mov_reg(வெறுமை)
 {
     printf("mov-reg:\n");
     printf("%lld\n", (long long)mov_x0_x1(42));
@@ -193,23 +193,23 @@ static void test_mov_reg(void)
 
 /* ---- large struct passing (reference semantics) ---- */
 
-struct large { int64_t a, b, c, d; };
+கட்டமைப்பு large { int64_t a, b, c, d; };
 
-static int64_t sum_large(struct large s)
+நிலையான int64_t sum_large(கட்டமைப்பு large s)
 {
-    return s.a + s.b + s.c + s.d;
+    திரும்பு s.a + s.b + s.c + s.d;
 }
 
-static struct large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
+நிலையான கட்டமைப்பு large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
 {
-    struct large s = { a, b, c, d };
-    return s;
+    கட்டமைப்பு large s = { a, b, c, d };
+    திரும்பு s;
 }
 
-static void test_large_structs(void)
+நிலையான வெறுமை test_large_structs(வெறுமை)
 {
-    struct large s = { 1, 2, 3, 4 };
-    struct large t;
+    கட்டமைப்பு large s = { 1, 2, 3, 4 };
+    கட்டமைப்பு large t;
 
     printf("large-struct:\n");
     printf("%lld\n", (long long)sum_large(s));
@@ -222,37 +222,37 @@ static void test_large_structs(void)
 
 /* ---- boundary-sized structs ---- */
 
-struct s18 { char x[18]; };
-struct s24 { char x[24]; };
-struct s32 { char x[32]; };
+கட்டமைப்பு s18 { எழுத்து x[18]; };
+கட்டமைப்பு s24 { எழுத்து x[24]; };
+கட்டமைப்பு s32 { எழுத்து x[32]; };
 
-static void print_s18(struct s18 s) { printf("%.18s\n", s.x); }
-static void print_s24(struct s24 s) { printf("%.24s\n", s.x); }
-static void print_s32(struct s32 s) { printf("%.32s\n", s.x); }
+நிலையான வெறுமை print_s18(கட்டமைப்பு s18 s) { printf("%.18s\n", s.x); }
+நிலையான வெறுமை print_s24(கட்டமைப்பு s24 s) { printf("%.24s\n", s.x); }
+நிலையான வெறுமை print_s32(கட்டமைப்பு s32 s) { printf("%.32s\n", s.x); }
 
-static struct s18 ret_s18(void)
+நிலையான கட்டமைப்பு s18 ret_s18(வெறுமை)
 {
-    struct s18 s = { "123456789012345678" };
-    return s;
+    கட்டமைப்பு s18 s = { "123456789012345678" };
+    திரும்பு s;
 }
 
-static struct s24 ret_s24(void)
+நிலையான கட்டமைப்பு s24 ret_s24(வெறுமை)
 {
-    struct s24 s = { "123456789012345678901234" };
-    return s;
+    கட்டமைப்பு s24 s = { "123456789012345678901234" };
+    திரும்பு s;
 }
 
-static struct s32 ret_s32(void)
+நிலையான கட்டமைப்பு s32 ret_s32(வெறுமை)
 {
-    struct s32 s = { "12345678901234567890123456789012" };
-    return s;
+    கட்டமைப்பு s32 s = { "12345678901234567890123456789012" };
+    திரும்பு s;
 }
 
-static void test_boundary_structs(void)
+நிலையான வெறுமை test_boundary_structs(வெறுமை)
 {
-    struct s18 a;
-    struct s24 b;
-    struct s32 c;
+    கட்டமைப்பு s18 a;
+    கட்டமைப்பு s24 b;
+    கட்டமைப்பு s32 c;
 
     printf("boundary-structs:\n");
     a = ret_s18();
@@ -263,7 +263,7 @@ static void test_boundary_structs(void)
     printf("%.32s\n", c.x);
 }
 
-int main(void)
+முழு முதன்மை(வெறுமை)
 {
     test_shifts();
     test_ldr_str();
@@ -276,5 +276,5 @@ int main(void)
     test_mov_reg();
     test_large_structs();
     test_boundary_structs();
-    return 0;
+    திரும்பு 0;
 }

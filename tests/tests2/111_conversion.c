@@ -1,24 +1,24 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-union u {
+ஒன்றிப்பு u {
     unsigned long ul;
-    long double ld;
+    long இரட்டை ld;
 };
 
-void
-conv (union u *p)
+வெறுமை
+conv (ஒன்றிப்பு u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (unsigned முழு) p->ld;
 }
 
-int main (void)
+முழு முதன்மை (வெறுமை)
 {
-    union u v;
-    double d = 1234567890.0;
+    ஒன்றிப்பு u v;
+    இரட்டை d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
     printf ("%lu\n", v.ul);
     printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    திரும்பு 0;
 }

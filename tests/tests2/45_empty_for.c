@@ -1,18 +1,18 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main()
+முழு முதன்மை()
 {
-   int Count = 0;
+   முழு மொத்தம்_3 = 0;
 
-   for (;;)
+   க்கு (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      மொத்தம்_3++;
+      printf("%d\n", மொத்தம்_3);
+      எனில் (மொத்தம்_3 >= 10)
+         நிறுத்து;
    }
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

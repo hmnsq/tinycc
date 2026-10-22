@@ -1,18 +1,18 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int fred()
+முழு fred()
 {
    printf("fred\n");
-   return 0;
+   திரும்பு 0;
 }
 
-int joe()
+முழு joe()
 {
    printf("joe\n");
-   return 1;
+   திரும்பு 1;
 }
 
-int main()
+முழு முதன்மை()
 {
    printf("%d\n", fred() && joe());
    printf("%d\n", fred() || joe());
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", joe() && (0 + fred()));
    printf("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

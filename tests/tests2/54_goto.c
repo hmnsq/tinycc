@@ -1,24 +1,24 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-void fred()
+வெறுமை fred()
 {
    printf("In fred()\n");
-   goto done;
+   செல் done;
    printf("In middle\n");
 done:
    printf("At end\n");
 }
 
-void joe()
+வெறுமை joe()
 {
-   int b = 5678;
+   முழு b = 5678;
 
    printf("In joe()\n");
 
    {
-      int c = 1234;
+      முழு c = 1234;
       printf("c = %d\n", c);
-      goto outer;
+      செல் outer;
       printf("uh-oh\n");
    }
 
@@ -27,15 +27,15 @@ outer:
    printf("done\n");
 }
 
-void henry()
+வெறுமை henry()
 {
-   int a;
+   முழு a;
 
    printf("In henry()\n");
-   goto inner;
+   செல் inner;
 
    {
-      int b;
+      முழு b;
 inner:    
       b = 1234;
       printf("b = %d\n", b);
@@ -44,13 +44,13 @@ inner:
    printf("done\n");
 }
 
-int main()
+முழு முதன்மை()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -6,16 +6,16 @@
 #ifndef _TIMEB_H_
 #define _TIMEB_H_
 
-#include <_mingw.h>
+#அந்தர்பாவ <_mingw.h>
 
 #ifndef _WIN32
 #error Only Win32 target is supported!
 #endif
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(தள்ளு,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
 #ifndef _CRTIMP
@@ -27,30 +27,30 @@ extern "C" {
 #ifdef _WIN64
 #undef _USE_32BIT_TIME_T
 #endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
+#இல்லையெனில்
+#எனில் _INTEGRAL_MAX_BITS < 64
 #define _USE_32BIT_TIME_T
 #endif
 #endif
 #endif
 
 #ifndef _TIME32_T_DEFINED
-  typedef long __time32_t;
+  வகைவரை long __time32_t;
 #define _TIME32_T_DEFINED
 #endif
 
 #ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
+#எனில் _INTEGRAL_MAX_BITS >= 64
+  வகைவரை __int64 __time64_t;
 #endif
 #define _TIME64_T_DEFINED
 #endif
 
 #ifndef _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
+  வகைவரை __time32_t time_t;
+#இல்லையெனில்
+  வகைவரை __time64_t time_t;
 #endif
 #define _TIME_T_DEFINED
 #endif
@@ -58,7 +58,7 @@ extern "C" {
 #ifndef _TIMEB_DEFINED
 #define _TIMEB_DEFINED
 
-  struct __timeb32 {
+  கட்டமைப்பு __timeb32 {
     __time32_t time;
     unsigned short millitm;
     short timezone;
@@ -66,7 +66,7 @@ extern "C" {
   };
 
 #ifndef	NO_OLDNAMES
-  struct timeb {
+  கட்டமைப்பு timeb {
     time_t time;
     unsigned short millitm;
     short timezone;
@@ -74,8 +74,8 @@ extern "C" {
   };
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __timeb64 {
+#எனில் _INTEGRAL_MAX_BITS >= 64
+  கட்டமைப்பு __timeb64 {
     __time64_t time;
     unsigned short millitm;
     short timezone;
@@ -87,38 +87,38 @@ extern "C" {
 #define _timeb __timeb32
 //gr #define _ftime _ftime32
 #define _ftime32 _ftime
-#else
+#இல்லையெனில்
 #define _timeb __timeb64
 #define _ftime _ftime64
 #endif
 #endif
 
-  _CRTIMP void __cdecl _ftime32(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP void __cdecl _ftime64(struct __timeb64 *_Time);
+  _CRTIMP வெறுமை __cdecl _ftime32(கட்டமைப்பு __timeb32 *_Time);
+#எனில் _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP வெறுமை __cdecl _ftime64(கட்டமைப்பு __timeb64 *_Time);
 #endif
 
 #ifndef _TIMESPEC_DEFINED
 #define _TIMESPEC_DEFINED
-struct timespec {
+கட்டமைப்பு timespec {
   time_t  tv_sec;   /* Seconds */
   long    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+கட்டமைப்பு itimerspec {
+  கட்டமைப்பு timespec  it_interval;  /* Timer period */
+  கட்டமைப்பு timespec  it_value;     /* Timer expiration */
 };
 #endif
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+#எனில் !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime32((struct __timeb32 *)_Tmb);
+__CRT_INLINE வெறுமை __cdecl ftime(கட்டமைப்பு timeb *_Tmb) {
+  _ftime32((கட்டமைப்பு __timeb32 *)_Tmb);
 }
-#else
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime64((struct __timeb64 *)_Tmb);
+#இல்லையெனில்
+__CRT_INLINE வெறுமை __cdecl ftime(கட்டமைப்பு timeb *_Tmb) {
+  _ftime64((கட்டமைப்பு __timeb64 *)_Tmb);
 }
 #endif
 #endif
@@ -127,7 +127,7 @@ __CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(எடு)
 
-#include <sec_api/sys/timeb_s.h>
+#அந்தர்பாவ <sec_api/sys/timeb_s.h>
 #endif

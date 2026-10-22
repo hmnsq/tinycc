@@ -6,55 +6,55 @@
 #ifndef __ASSERT_H_
 #define __ASSERT_H_
 
-#include <_mingw.h>
+#அந்தர்பாவ <_mingw.h>
 #ifdef __cplusplus
-#include <stdlib.h>
+#அந்தர்பாவ <stdlib.h>
 #endif
 
 #ifdef NDEBUG
-#ifndef assert
-#define assert(_Expression) ((void)0)
+#ifndef ப்ரதிஜ்ஞா
+#define ப்ரதிஜ்ஞா(_Expression) ((வெறுமை)0)
 #endif
-#else
+#இல்லையெனில்
 
 #ifndef _CRT_TERMINATE_DEFINED
 #define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
- _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+  வெறுமை __cdecl __MINGW_NOTHROW exit(முழு _Code) __MINGW_ATTRIB_NORETURN;
+ _CRTIMP வெறுமை __cdecl __MINGW_NOTHROW _exit(முழு _Code) __MINGW_ATTRIB_NORETURN;
+#எனில் !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
 /* C99 function name */
-void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-__CRT_INLINE __MINGW_ATTRIB_NORETURN void __cdecl _Exit(int status)
+வெறுமை __cdecl _Exit(முழு) __MINGW_ATTRIB_NORETURN;
+__CRT_INLINE __MINGW_ATTRIB_NORETURN வெறுமை __cdecl _Exit(முழு status)
 {  _exit(status); }
 #endif
 
-#pragma push_macro("abort")
+#pragma தள்ளு_macro("abort")
 #undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+  வெறுமை __cdecl __declspec(noreturn) abort(வெறுமை);
+#pragma எடு_macro("abort")
 
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
 
-extern void __cdecl _wassert(const wchar_t *_Message,const wchar_t *_File,unsigned _Line);
-extern void __cdecl _assert(const char *, const char *, unsigned);
+வெளி வெறுமை __cdecl _wassert(மாறிலி wchar_t *_Message,மாறிலி wchar_t *_File,unsigned வரி_2);
+வெளி வெறுமை __cdecl _assert(மாறிலி எழுத்து *, மாறிலி எழுத்து *, unsigned);
 
 #ifdef __cplusplus
 }
 #endif
 
-#ifndef assert
+#ifndef ப்ரதிஜ்ஞா
 //#define assert(_Expression) (void)((!!(_Expression)) || (_wassert(_CRT_WIDE(#_Expression),_CRT_WIDE(__FILE__),__LINE__),0))
-#define assert(e) ((e) ? (void)0 : _assert(#e, __FILE__, __LINE__))
+#define ப்ரதிஜ்ஞா(e) ((e) ? (வெறுமை)0 : _assert(#e, __FILE__, __LINE__))
 #endif
 
 #endif
 
-#if (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
+#எனில் (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
 /* C11, section 7.2: The macro static_assert expands to _Static_assert. */
 #define static_assert(exp, str) _Static_assert(exp, str) 
 #endif

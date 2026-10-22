@@ -1,15 +1,15 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main() 
+முழு முதன்மை() 
 {
-   int Count;
+   முழு மொத்தம்_3;
 
-   for (Count = 1; Count <= 10; Count++)
+   க்கு (மொத்தம்_3 = 1; மொத்தம்_3 <= 10; மொத்தம்_3++)
    {
-      printf("%d\n", Count);
+      printf("%d\n", மொத்தம்_3);
    }
 
-   return 0;
+   திரும்பு 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

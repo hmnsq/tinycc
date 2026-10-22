@@ -1,200 +1,200 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#அந்தர்பாவ <stdlib.h>
+#அந்தர்பாவ <stdio.h>
+#அந்தர்பாவ <string.h>
 
 #define NB_ITS 1000000
 //#define NB_ITS 1
 #define TAB_SIZE 100
 
-int tab[TAB_SIZE];
-int ret_sum;
-char tab3[256];
+முழு tab[TAB_SIZE];
+முழு ret_sum;
+எழுத்து tab3[256];
 
-int test1(void)
+முழு test1(வெறுமை)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE;i++) {
+    முழு i, sum = 0;
+    க்கு(i=0;i<TAB_SIZE;i++) {
         sum += tab[i];
     }
-    return sum;
+    திரும்பு sum;
 }
 
 /* error */
-int test2(void)
+முழு test2(வெறுமை)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    முழு i, sum = 0;
+    க்கு(i=0;i<TAB_SIZE + 1;i++) {
         sum += tab[i];
     }
-    return sum;
+    திரும்பு sum;
 }
 
 /* actually, profiling test */
-int test3(void)
+முழு test3(வெறுமை)
 {
-    int sum;
-    int i, it;
+    முழு sum;
+    முழு i, it;
 
     sum = 0;
-    for(it=0;it<NB_ITS;it++) {
-        for(i=0;i<TAB_SIZE;i++) {
+    க்கு(it=0;it<NB_ITS;it++) {
+        க்கு(i=0;i<TAB_SIZE;i++) {
             sum += tab[i];
         }
     }
-    return sum;
+    திரும்பு sum;
 }
 
 /* ok */
-int test4(void)
+முழு test4(வெறுமை)
 {
-    int i, sum = 0;
-    int *tab4;
+    முழு i, sum = 0;
+    முழு *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<20;i++) {
+    tab4 = malloc(20 * அளவு(முழு));
+    க்கு(i=0;i<20;i++) {
         sum += tab4[i];
     }
-    free(tab4);
+    விடுவி(tab4);
 
-    return sum;
+    திரும்பு sum;
 }
 
 /* error */
-int test5(void)
+முழு test5(வெறுமை)
 {
-    int i, sum = 0;
-    int *tab4;
+    முழு i, sum = 0;
+    முழு *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<21;i++) {
+    tab4 = malloc(20 * அளவு(முழு));
+    க்கு(i=0;i<21;i++) {
         sum += tab4[i];
     }
-    free(tab4);
+    விடுவி(tab4);
 
-    return sum;
+    திரும்பு sum;
 }
 
 /* error */
-int test6(void)
+முழு test6(வெறுமை)
 {
-    int i, sum = 0;
-    int *tab4;
+    முழு i, sum = 0;
+    முழு *tab4;
     
-    tab4 = malloc(20 * sizeof(int));
-    free(tab4);
-    for(i=0;i<21;i++) {
+    tab4 = malloc(20 * அளவு(முழு));
+    விடுவி(tab4);
+    க்கு(i=0;i<21;i++) {
         sum += tab4[i];
     }
 
-    return sum;
+    திரும்பு sum;
 }
 
 /* error */
-int test7(void)
+முழு test7(வெறுமை)
 {
-    int i, sum = 0;
-    int *p;
+    முழு i, sum = 0;
+    முழு *p;
 
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    க்கு(i=0;i<TAB_SIZE + 1;i++) {
         p = &tab[i];
-        if (i == TAB_SIZE)
+        எனில் (i == TAB_SIZE)
             printf("i=%d %x\n", i, p);
         sum += *p;
     }
-    return sum;
+    திரும்பு sum;
 }
 
 /* ok */
-int test8(void)
+முழு test8(வெறுமை)
 {
-    int i, sum = 0;
-    int tab[10];
+    முழு i, sum = 0;
+    முழு tab[10];
 
-    for(i=0;i<10;i++) {
+    க்கு(i=0;i<10;i++) {
         sum += tab[i];
     }
-    return sum;
+    திரும்பு sum;
 }
 
 /* error */
-int test9(void)
+முழு test9(வெறுமை)
 {
-    int i, sum = 0;
-    char tab[10];
+    முழு i, sum = 0;
+    எழுத்து tab[10];
 
-    for(i=0;i<11;i++) {
+    க்கு(i=0;i<11;i++) {
         sum += tab[i];
     }
-    return sum;
+    திரும்பு sum;
 }
 
 /* ok */
-int test10(void)
+முழு test10(வெறுமை)
 {
-    char tab[10];
-    char tab1[10];
+    எழுத்து tab[10];
+    எழுத்து tab1[10];
 
     memset(tab, 0, 10);
     memcpy(tab, tab1, 10);
     memmove(tab, tab1, 10);
-    return 0;
+    திரும்பு 0;
 }
 
 /* error */
-int test11(void)
+முழு test11(வெறுமை)
 {
-    char tab[10];
+    எழுத்து tab[10];
 
     memset(tab, 0, 11);
-    return 0;
+    திரும்பு 0;
 }
 
 /* error */
-int test12(void)
+முழு test12(வெறுமை)
 {
-    void *ptr;
+    வெறுமை *ptr;
     ptr = malloc(10);
-    free(ptr);
-    free(ptr);
-    return 0;
+    விடுவி(ptr);
+    விடுவி(ptr);
+    திரும்பு 0;
 }
 
 /* error */
-int test13(void)
+முழு test13(வெறுமை)
 {
-    char pad1 = 0;
-    char tab[10];
-    char pad2 = 0;
-    memset(tab, 'a', sizeof(tab));
-    return strlen(tab);
+    எழுத்து pad1 = 0;
+    எழுத்து tab[10];
+    எழுத்து pad2 = 0;
+    memset(tab, 'a', அளவு(tab));
+    திரும்பு strlen(tab);
 }
 
-int test14(void)
+முழு test14(வெறுமை)
 {
-    char *p = alloca(TAB_SIZE);
+    எழுத்து *p = alloca(TAB_SIZE);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    திரும்பு ret;
 }
 
 /* error */
-int test15(void)
+முழு test15(வெறுமை)
 {
-    char *p = alloca(TAB_SIZE-1);
+    எழுத்து *p = alloca(TAB_SIZE-1);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    திரும்பு ret;
 }
 
 /* ok */
-int test16()
+முழு test16()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    எழுத்து *demo = "This is only a test.";
+    எழுத்து *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
@@ -202,14 +202,14 @@ int test16()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)+1),demo) );
 
-    return 0;
+    திரும்பு 0;
 }
 
 /* error */
-int test17()
+முழு test17()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    எழுத்து *demo = "This is only a test.";
+    எழுத்து *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
@@ -217,20 +217,20 @@ int test17()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)),demo) );
 
-    return 0;
+    திரும்பு 0;
 }
 
-int test18(void)
+முழு test18(வெறுமை)
 {
-    int i, sum = 0, n = TAB_SIZE;
-    int tab[n];
-    for(i=0;i<TAB_SIZE+1;i++) {
+    முழு i, sum = 0, n = TAB_SIZE;
+    முழு tab[n];
+    க்கு(i=0;i<TAB_SIZE+1;i++) {
         sum += tab[i];
     }
-    return sum;
+    திரும்பு sum;
 }
 
-int (*table_test[])(void) = {
+முழு (*table_test[])(வெறுமை) = {
     test1,
     test2,
     test3,
@@ -251,23 +251,23 @@ int (*table_test[])(void) = {
     test18
 };
 
-int main(int argc, char **argv)
+முழு முதன்மை(முழு argc, எழுத்து **argv)
 {
-    int i;
-    char *cp;
-    int index;
-    int (*ftest)(void);
-    int index_max = sizeof(table_test)/sizeof(table_test[0]);
+    முழு i;
+    எழுத்து *cp;
+    முழு index;
+    முழு (*ftest)(வெறுமை);
+    முழு index_max = அளவு(table_test)/அளவு(table_test[0]);
 
     /* check bounds checking main arg */
-    for (i = 0; i < argc; i++) {
+    க்கு (i = 0; i < argc; i++) {
         cp = argv[i];
-        while (*cp) {
+        போது (*cp) {
             cp++;
         }
     }
 
-    if (argc < 2) {
+    எனில் (argc < 2) {
         printf(
     	    "test TCC bound checking system\n"
 	    "usage: boundtest N\n"
@@ -276,10 +276,10 @@ int main(int argc, char **argv)
     }
 
     index = 0;
-    if (argc >= 2)
+    எனில் (argc >= 2)
         index = atoi(argv[1]) - 1;
 
-    if ((index < 0) || (index >= index_max)) {
+    எனில் ((index < 0) || (index >= index_max)) {
         printf("N is outside of the valid range (%d)\n", index);
         exit(2);
     }
@@ -288,7 +288,7 @@ int main(int argc, char **argv)
     ftest = table_test[index];
     ftest();
 
-    return 0;
+    திரும்பு 0;
 }
 
 /*

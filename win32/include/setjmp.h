@@ -6,20 +6,20 @@
 #ifndef _INC_SETJMP
 #define _INC_SETJMP
 
-#include <_mingw.h>
+#அந்தர்பாவ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(தள்ளு,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
-#if (defined(_X86_) && !defined(__x86_64))
+#எனில் (defined(_X86_) && !defined(__x86_64))
 
 #define _JBLEN 16
-#define _JBTYPE int
+#define _JBTYPE முழு
 
-  typedef struct __JUMP_BUFFER {
+  வகைவரை கட்டமைப்பு __JUMP_BUFFER {
     unsigned long Ebp;
     unsigned long Ebx;
     unsigned long Edi;
@@ -32,16 +32,16 @@ extern "C" {
     unsigned long UnwindFunc;
     unsigned long UnwindData[6];
   } _JUMP_BUFFER;
-#elif defined(__ia64__)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    __int64 LowPart;
-    __int64 HighPart;
+#அல்லதெனில் defined(__ia64__)
+  வகைவரை _CRT_ALIGN(16) கட்டமைப்பு _SETJMP_FLOAT128 {
+    __int64 கீழ்_Part;
+    __int64 உயர்வு_Part;
   } SETJMP_FLOAT128;
 
 #define _JBLEN 33
-  typedef SETJMP_FLOAT128 _JBTYPE;
+  வகைவரை SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct __JUMP_BUFFER {
+  வகைவரை கட்டமைப்பு __JUMP_BUFFER {
 
     unsigned long iAReserved[6];
 
@@ -92,15 +92,15 @@ extern "C" {
     __int64 Preds;
 
   } _JUMP_BUFFER;
-#elif defined(__x86_64)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
+#அல்லதெனில் defined(__x86_64)
+  வகைவரை _CRT_ALIGN(16) கட்டமைப்பு _SETJMP_FLOAT128 {
     unsigned __int64 Part[2];
   } SETJMP_FLOAT128;
 
 #define _JBLEN 16
-  typedef SETJMP_FLOAT128 _JBTYPE;
+  வகைவரை SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct _JUMP_BUFFER {
+  வகைவரை கட்டமைப்பு _JUMP_BUFFER {
     unsigned __int64 Frame;
     unsigned __int64 Rbx;
     unsigned __int64 Rsp;
@@ -124,12 +124,12 @@ extern "C" {
     SETJMP_FLOAT128 Xmm14;
     SETJMP_FLOAT128 Xmm15;
   } _JUMP_BUFFER;
-#elif defined(_ARM_)
+#அல்லதெனில் defined(_ARM_)
 
 #define _JBLEN 28
-#define _JBTYPE int
+#define _JBTYPE முழு
 
-  typedef struct __JUMP_BUFFER {
+  வகைவரை கட்டமைப்பு __JUMP_BUFFER {
     unsigned long Frame;
     unsigned long R4;
     unsigned long R5;
@@ -144,12 +144,12 @@ extern "C" {
     unsigned long Fpscr;
     unsigned long long D[8];
   } _JUMP_BUFFER;
-#elif defined(_ARM64_)
+#அல்லதெனில் defined(_ARM64_)
 
 #define _JBLEN 24
 #define _JBTYPE unsigned __int64
 
-  typedef struct __JUMP_BUFFER {
+  வகைவரை கட்டமைப்பு __JUMP_BUFFER {
     unsigned __int64 Frame;
     unsigned __int64 Reserved;
     unsigned __int64 X19;
@@ -167,31 +167,31 @@ extern "C" {
     unsigned __int64 Sp;
     unsigned long Fpcr;
     unsigned long Fpsr;
-    double D[8];
+    இரட்டை D[8];
   } _JUMP_BUFFER;
-#else
+#இல்லையெனில்
 #define _JBLEN 1
-#define _JBTYPE int
+#define _JBTYPE முழு
 #endif
 #ifndef _JMP_BUF_DEFINED
-  typedef _JBTYPE jmp_buf[_JBLEN];
+  வகைவரை _JBTYPE jmp_buf[_JBLEN];
 #define _JMP_BUF_DEFINED
 #endif
 
-#pragma pack(pop)
+#pragma pack(எடு)
 
-#if defined __aarch64__
-  int _setjmpex(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmpex((BUF), (char*)__builtin_frame_address(0) + 224)
-#elif defined __x86_64__
-  int _setjmp(jmp_buf _Buf, void *frame);
+#எனில் defined __aarch64__
+  முழு _setjmpex(jmp_buf _Buf, வெறுமை *frame);
+  #define setjmp(BUF) _setjmpex((BUF), (எழுத்து*)__builtin_frame_address(0) + 224)
+#அல்லதெனில் defined __x86_64__
+  முழு _setjmp(jmp_buf _Buf, வெறுமை *frame);
   #define setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
-#else /* __i386__ */
-  int _setjmp(jmp_buf _Buf);
+#இல்லையெனில் /* __i386__ */
+  முழு _setjmp(jmp_buf _Buf);
   #define setjmp _setjmp
 #endif
 
-__declspec(noreturn) void longjmp(jmp_buf _Buf,int _Value);
+__declspec(noreturn) வெறுமை longjmp(jmp_buf _Buf,முழு மதிப்பு_2);
 
 #ifdef __cplusplus
 }

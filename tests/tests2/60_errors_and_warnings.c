@@ -1,77 +1,77 @@
-int printf(const char*, ...);
+முழு printf(மாறிலி எழுத்து*, ...);
 
-#if defined test_56_btype_excess_1
-struct A {} int i;
-#elif defined test_57_btype_excess_2
-char int i;
-#elif defined test_58_function_redefinition
-int f(void) { return 0; }
-int f(void) { return 1; }
+#எனில் defined test_56_btype_excess_1
+கட்டமைப்பு A {} முழு i;
+#அல்லதெனில் defined test_57_btype_excess_2
+எழுத்து முழு i;
+#அல்லதெனில் defined test_58_function_redefinition
+முழு f(வெறுமை) { திரும்பு 0; }
+முழு f(வெறுமை) { திரும்பு 1; }
 
-#elif defined test_global_redefinition
-int xxx = 1;
-int xxx;
-int xxx = 2;
+#அல்லதெனில் defined test_global_redefinition
+முழு xxx = 1;
+முழு xxx;
+முழு xxx = 2;
 
-#elif defined test_59_function_array
-int (*fct)[42](int x);
+#அல்லதெனில் defined test_59_function_array
+முழு (*fct)[42](முழு x);
 
-#elif defined test_60_enum_redefinition
-enum color { RED, GREEN, BLUE };
-enum color { R, G, B };
-enum color c;
+#அல்லதெனில் defined test_60_enum_redefinition
+எண்ணிக்கை color { RED, GREEN, BLUE };
+எண்ணிக்கை color { R, G, B };
+எண்ணிக்கை color c;
 
-#elif defined test_62_enumerator_redefinition
-enum color { RED, GREEN, BLUE };
-enum rgb { RED, G, B};
-enum color c = RED;
+#அல்லதெனில் defined test_62_enumerator_redefinition
+எண்ணிக்கை color { RED, GREEN, BLUE };
+எண்ணிக்கை rgb { RED, G, B};
+எண்ணிக்கை color c = RED;
 
-#elif defined test_63_local_enumerator_redefinition
-enum {
+#அல்லதெனில் defined test_63_local_enumerator_redefinition
+எண்ணிக்கை {
     FOO,
     BAR
 };
 
-int main(void)
+முழு முதன்மை(வெறுமை)
 {
-    enum {
+    எண்ணிக்கை {
         FOO = 2,
         BAR
     };
 
-    return BAR - FOO;
+    திரும்பு BAR - FOO;
 }
 
-#elif defined test_61_undefined_enum
-enum rgb3 c = 42;
+#அல்லதெனில் defined test_61_undefined_enum
+எண்ணிக்கை rgb3 c = 42;
 
-#elif defined test_74_non_const_init
-int i = i++;
+#அல்லதெனில் defined test_74_non_const_init
+முழு i = i++;
 
-#elif defined test_pointer_assignment
+#அல்லதெனில் defined test_pointer_assignment
 
-void (*f1)(void);
-void f2(void) {}
+வெறுமை (*f1)(வெறுமை);
+வெறுமை f2(வெறுமை) {}
 
-struct s1 *ps1;
-struct s2 *ps2;
+கட்டமைப்பு s1 *ps1;
+கட்டமைப்பு s2 *ps2;
 
-void *v1, **v2, ***v3;
+வெறுமை *v1, **v2, ***v3;
 
-enum e1 { a = 4 } e10, *e11, *e12;
-enum e2 { b = -4 } e20, *e21;
-enum e3 { c = 5000000000LL } e30;
+எண்ணிக்கை e1 { a = 4 } e10, *e11, *e12;
+எண்ணிக்கை e2 { b = -4 } e20, *e21;
+எண்ணிக்கை e3 { c = 5000000000LL } e30;
 
-int *ip;
-unsigned int *up;
+முழு *ip;
+unsigned முழு *up;
 long *lp;
 long long *llp;
 
-char **c1;
-char const **c2;
-unsigned char **u1;
+எழுத்து **c1;
+எழுத்து மாறிலி **c2;
+unsigned எழுத்து **u1;
 
-int no_main ()
+முழு no_main ()
 {
     // function
     f1 = f2;
@@ -108,233 +108,233 @@ int no_main ()
     *c2 = *c1;
     **c2 = **c1;
 
-    return 0;
+    திரும்பு 0;
 }
 
 
-#elif defined test_enum_compat
-enum e4;
-enum e5;
-void f3(enum e4 e);
-void f3(enum e5 e);
+#அல்லதெனில் defined test_enum_compat
+எண்ணிக்கை e4;
+எண்ணிக்கை e5;
+வெறுமை f3(எண்ணிக்கை e4 e);
+வெறுமை f3(எண்ணிக்கை e5 e);
 
-#elif defined test_enum_compat_2
-enum e6 { E1 = -1, E0 };
-void f3(enum e6);
-void f3(int);        // should work as int and e6 are compatible
-void f4(enum e6 e);
-void f4(unsigned e); // should error as unsigned and e6 are incompatible
+#அல்லதெனில் defined test_enum_compat_2
+எண்ணிக்கை e6 { E1 = -1, E0 };
+வெறுமை f3(எண்ணிக்கை e6);
+வெறுமை f3(முழு);        // should work as int and e6 are compatible
+வெறுமை f4(எண்ணிக்கை e6 e);
+வெறுமை f4(unsigned e); // should error as unsigned and e6 are incompatible
 
-#elif defined test_ptr_to_str
-void f() { _Generic((int const *[]){0}, int:0); }
-#elif defined test_fnptr_to_str
-void f() { _Generic((int (*(*)(float,char))(double,int)){0}, int:0); }
-#elif defined test_array_to_str
-void f() { _Generic((int(*)[3]){0}, int:0); }
-#elif defined test_duplicate_def_1
-static enum myenum { L = -1 } L;                                                
-#elif defined test_duplicate_def_2
-void foo(void) {
-static enum myenum { L = -1 } L;                                                
+#அல்லதெனில் defined test_ptr_to_str
+வெறுமை f() { _Generic((முழு மாறிலி *[]){0}, முழு:0); }
+#அல்லதெனில் defined test_fnptr_to_str
+வெறுமை f() { _Generic((முழு (*(*)(தசம,எழுத்து))(இரட்டை,முழு)){0}, முழு:0); }
+#அல்லதெனில் defined test_array_to_str
+வெறுமை f() { _Generic((முழு(*)[3]){0}, முழு:0); }
+#அல்லதெனில் defined test_duplicate_def_1
+நிலையான எண்ணிக்கை myenum { L = -1 } L;                                                
+#அல்லதெனில் defined test_duplicate_def_2
+வெறுமை foo(வெறுமை) {
+நிலையான எண்ணிக்கை myenum { L = -1 } L;                                                
 }
-#elif defined test_abstract_decls
-int bar(const char *());     // abstract declarator here is okay
-int bar (const char *(*g)()) // should match this 'g' argument
+#அல்லதெனில் defined test_abstract_decls
+முழு bar(மாறிலி எழுத்து *());     // abstract declarator here is okay
+முழு bar (மாறிலி எழுத்து *(*g)()) // should match this 'g' argument
 {
   g();
-  return 42;
+  திரும்பு 42;
 }
-int foo(int ())              // abstract decl is wrong in definitions
+முழு foo(முழு ())              // abstract decl is wrong in definitions
 {
-  return 0;
-#elif defined test_invalid_1
-void f(char*);
-void g(void) {
-  f((char[]){1, ,});
+  திரும்பு 0;
+#அல்லதெனில் defined test_invalid_1
+வெறுமை f(எழுத்து*);
+வெறுமை g(வெறுமை) {
+  f((எழுத்து[]){1, ,});
 }
-#elif defined test_invalid_2
-int ga = 0.42 { 2 };
-#elif defined test_invalid_3
-struct S { int a, b; };
-struct T { struct S x; };
-struct T gt = { 42 a: 1, 43 };
-#elif defined test_invalid_4
-enum E {
+#அல்லதெனில் defined test_invalid_2
+முழு ga = 0.42 { 2 };
+#அல்லதெனில் defined test_invalid_3
+கட்டமைப்பு S { முழு a, b; };
+கட்டமைப்பு T { கட்டமைப்பு S x; };
+கட்டமைப்பு T gt = { 42 a: 1, 43 };
+#அல்லதெனில் defined test_invalid_4
+எண்ணிக்கை E {
     x = 1 / 0
 };
-#elif defined test_conflicting_types
-int i;
-void foo(void) {
-    int i;
+#அல்லதெனில் defined test_conflicting_types
+முழு i;
+வெறுமை foo(வெறுமை) {
+    முழு i;
       {
-        extern double i;
+        வெளி இரட்டை i;
         i = 42.2;
       }
 }
-#elif defined test_nested_types
-union u {
-    union u {
-        int i;
+#அல்லதெனில் defined test_nested_types
+ஒன்றிப்பு u {
+    ஒன்றிப்பு u {
+        முழு i;
     } m;
 };
-#elif defined test_vla_1
-int X=1;
+#அல்லதெனில் defined test_vla_1
+முழு X=1;
 
-int main(void) {
-  int t[][][X];
+முழு முதன்மை(வெறுமை) {
+  முழு t[][][X];
 }
-#elif defined test_invalid_alignas
+#அல்லதெனில் defined test_invalid_alignas
 /* _Alignas is no type qualifier */
-void * _Alignas(16) p1;
+வெறுமை * _Alignas(16) p1;
 
-#elif defined test_static_assert
+#அல்லதெனில் defined test_static_assert
 
 #define ONE 0
  _Static_assert(ONE == 0, "don't show me this");
- struct x{ _Static_assert(ONE == 1, "ONE is not 1"); };
+ கட்டமைப்பு x{ _Static_assert(ONE == 1, "ONE is not 1"); };
 
-#elif defined test_static_assert_2
+#அல்லதெனில் defined test_static_assert_2
  _Static_assert(1, "1"" is 1");
-struct y {  _Static_assert(0, "0"" is 0"); };
+கட்டமைப்பு y {  _Static_assert(0, "0"" is 0"); };
 
-#elif defined test_static_assert_c2x
+#அல்லதெனில் defined test_static_assert_c2x
  _Static_assert(1);
-struct z {  _Static_assert(0); }
+கட்டமைப்பு z {  _Static_assert(0); }
 
-#elif defined test_static_assert_empty_string
+#அல்லதெனில் defined test_static_assert_empty_string
  _Static_assert(0,"");
 
-#elif defined test_void_array
- void t[3];
+#அல்லதெனில் defined test_void_array
+ வெறுமை t[3];
 
-#elif defined test_incomplete_enum_array
-  enum e t[3];
+#அல்லதெனில் defined test_incomplete_enum_array
+  எண்ணிக்கை e t[3];
 
-#elif defined test_incomplete_struct_array
-  struct s t[3];
+#அல்லதெனில் defined test_incomplete_struct_array
+  கட்டமைப்பு s t[3];
 
-#elif defined test_const_fun_array
-  typedef void f(void);
-  const f t[3];
+#அல்லதெனில் defined test_const_fun_array
+  வகைவரை வெறுமை f(வெறுமை);
+  மாறிலி f t[3];
 
-#elif defined test_incomplete_array_array
-  int t[][3]; // gr: not an error, see below
-
-/******************************************************************/
-#elif defined test_extern_array
-int iii[] = { 1,2,3 };
-extern int iii[];
-int x[];
-int x[2];
-int x[];
-int x[2];
-int x[];
-extern int x[2];
-extern int x[];
-int x[3];
+#அல்லதெனில் defined test_incomplete_array_array
+  முழு t[][3]; // gr: not an error, see below
 
 /******************************************************************/
-#elif defined test_func_1 \
+#அல்லதெனில் defined test_extern_array
+முழு iii[] = { 1,2,3 };
+வெளி முழு iii[];
+முழு x[];
+முழு x[2];
+முழு x[];
+முழு x[2];
+முழு x[];
+வெளி முழு x[2];
+வெளி முழு x[];
+முழு x[3];
+
+/******************************************************************/
+#அல்லதெனில் defined test_func_1 \
  || defined test_func_2 \
  || defined test_func_3 \
  || defined test_func_4 \
  || defined test_func_5 \
  || defined test_func_6
-#if defined test_func_1
-int hello(int);
-#elif defined test_func_4
-static int hello(int);
+#எனில் defined test_func_1
+முழு hello(முழு);
+#அல்லதெனில் defined test_func_4
+நிலையான முழு hello(முழு);
 #endif
-int main () {
-#if defined test_func_6
-    static
+முழு முதன்மை () {
+#எனில் defined test_func_6
+    நிலையான
 #endif
-    int hello(int);
+    முழு hello(முழு);
     hello(123);
-    return 0;
+    திரும்பு 0;
 }
 
-#if defined test_func_3
-static int hello(int a)
-#elif defined test_func_5
-int hello(int a, int b)
-#else
-int hello(int a)
+#எனில் defined test_func_3
+நிலையான முழு hello(முழு a)
+#அல்லதெனில் defined test_func_5
+முழு hello(முழு a, முழு b)
+#இல்லையெனில்
+முழு hello(முழு a)
 #endif
-{ printf("%s: a = %d\n", __FUNCTION__, a); return 0; }
+{ printf("%s: a = %d\n", __FUNCTION__, a); திரும்பு 0; }
 
 /******************************************************************/
-#elif defined test_var_1 \
+#அல்லதெனில் defined test_var_1 \
    || defined test_var_2 \
    || defined test_var_3
 #define P(n,v) printf("%-5s: %d ; %d\n", __FUNCTION__, n, v)
-#if defined test_var_1
-int xxx[];
+#எனில் defined test_var_1
+முழு xxx[];
 #endif
-int bar();
+முழு bar();
 
-int main ()
+முழு முதன்மை ()
 {
-#if !defined test_var_3
-    int xxx = 2;
+#எனில் !defined test_var_3
+    முழு xxx = 2;
 #endif
     {
-        extern int xxx[
-#if defined test_var_3
+        வெளி முழு xxx[
+#எனில் defined test_var_3
         2
 #endif
         ];
         P(1, xxx[0]);
         xxx[0] += 2;
     }
-#if !defined test_var_3
+#எனில் !defined test_var_3
     P(2, xxx);
 #endif
     bar(123);
-    return 0;
+    திரும்பு 0;
 }
-int xxx[1] = {1};
-int bar() { P(3, xxx[0]); return 0; }
+முழு xxx[1] = {1};
+முழு bar() { P(3, xxx[0]); திரும்பு 0; }
 
-#elif defined test_var_4
-struct yyy { int y; };
-struct zzz;
-void f1() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+#அல்லதெனில் defined test_var_4
+கட்டமைப்பு yyy { முழு y; };
+கட்டமைப்பு zzz;
+வெறுமை f1() {
+    வெளி எழுத்து *x;
+    வெளி எழுத்து **xx;
+    வெளி கட்டமைப்பு yyy y;
+    வெளி கட்டமைப்பு yyy *yy;
+    வெளி கட்டமைப்பு zzz z;
+    வெளி கட்டமைப்பு zzz *zz;
 }
-void f2() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+வெறுமை f2() {
+    வெளி எழுத்து *x;
+    வெளி எழுத்து **xx;
+    வெளி கட்டமைப்பு yyy y;
+    வெளி கட்டமைப்பு yyy *yy;
+    வெளி கட்டமைப்பு zzz z;
+    வெளி கட்டமைப்பு zzz *zz;
 }
-struct yyy y, *yy;
-struct zzz { int z; } z, *zz;
+கட்டமைப்பு yyy y, *yy;
+கட்டமைப்பு zzz { முழு z; } z, *zz;
 
 /******************************************************************/
-#elif defined test_long_double_type_for_win32
+#அல்லதெனில் defined test_long_double_type_for_win32
 
-int main()
+முழு முதன்மை()
 {
-    double *a = 0;
-    long double *b = a;
-    int n = _Generic(*a, double:0, long double:1);
+    இரட்டை *a = 0;
+    long இரட்டை *b = a;
+    முழு n = _Generic(*a, இரட்டை:0, long இரட்டை:1);
 }
 
-#elif defined test_stray_backslash
+#அல்லதெனில் defined test_stray_backslash
 #define x \a
 x
 
-#elif defined test_stray_backslash2
+#அல்லதெனில் defined test_stray_backslash2
 
-int main()
+முழு முதன்மை()
 {
 #define _S(x) #x
 #define S(x) _S(x)
@@ -342,336 +342,336 @@ int main()
 }
 
 /******************************************************************/
-#elif defined test_var_array
+#அல்லதெனில் defined test_var_array
 
-static struct var_len { int i; const char str[]; } var_array[] =
+நிலையான கட்டமைப்பு var_len { முழு i; மாறிலி எழுத்து str[]; } var_array[] =
 { { 1, "abcdefghijklmnopqrstuvwxyz" },
   { 2, "longlonglonglonglong" },
   { 3, "tst3" } };
 
-#elif defined test_var_array2
+#அல்லதெனில் defined test_var_array2
 
-struct c1 { int a; int b[]; };
-struct c1 c1 = { 1, { 2, 3, 4 } };
+கட்டமைப்பு c1 { முழு a; முழு b[]; };
+கட்டமைப்பு c1 c1 = { 1, { 2, 3, 4 } };
 
-struct c2 { int c; struct c1 c1; };
-struct c2 c2 = { 1, { 2, { 3, 4, 5 }}};
+கட்டமைப்பு c2 { முழு c; கட்டமைப்பு c1 c1; };
+கட்டமைப்பு c2 c2 = { 1, { 2, { 3, 4, 5 }}};
 
-#elif defined test_var_array3
+#அல்லதெனில் defined test_var_array3
 /* similar to test_var_array2 but with string initializers */
-struct A { int a; char b[]; };
-struct A a = { 1, "1" };
-struct B { struct A a; };
-struct B b = { { 1, "1" } };
+கட்டமைப்பு A { முழு a; எழுத்து b[]; };
+கட்டமைப்பு A a = { 1, "1" };
+கட்டமைப்பு B { கட்டமைப்பு A a; };
+கட்டமைப்பு B b = { { 1, "1" } };
 /******************************************************************/
-#elif defined test_default_int_type
+#அல்லதெனில் defined test_default_int_type
 n; // warn
 f(); // don't warn
 
-#elif defined test_invalid_global_stmtexpr
-n[sizeof({3;})]; // crashed in block() due to missing local scope
+#அல்லதெனில் defined test_invalid_global_stmtexpr
+n[அளவு({3;})]; // crashed in block() due to missing local scope
 
-#elif defined test_invalid_tokckill
+#அல்லதெனில் defined test_invalid_tokckill
 f(){"12"3;} // second const token killed the value of the first
 
 /******************************************************************/
-#elif defined test_duplicate_member
-struct S {
-  int a, a;
+#அல்லதெனில் defined test_duplicate_member
+கட்டமைப்பு S {
+  முழு a, a;
 };
-#elif defined test_duplicate_member_anon
-struct S1 {
-  int b;
-  struct {
-    int b;
+#அல்லதெனில் defined test_duplicate_member_anon
+கட்டமைப்பு S1 {
+  முழு b;
+  கட்டமைப்பு {
+    முழு b;
   } c;
 };
-struct S2 {
-  int d;
-  struct {
-    int d;
+கட்டமைப்பு S2 {
+  முழு d;
+  கட்டமைப்பு {
+    முழு d;
   };
 };
 
 /******************************************************************/
-#elif defined test_conflicting_array_definition
-extern int array[2];
-int array[] = { 1, 2, 3 };
+#அல்லதெனில் defined test_conflicting_array_definition
+வெளி முழு array[2];
+முழு array[] = { 1, 2, 3 };
 
-#elif defined test_incompatible_local_redef
-void foo (void)
+#அல்லதெனில் defined test_incompatible_local_redef
+வெறுமை foo (வெறுமை)
 {
-  typedef int localfunctype (int);
-  extern localfunctype func2;
-  typedef void localfunctype (int, int);
+  வகைவரை முழு localfunctype (முழு);
+  வெளி localfunctype func2;
+  வகைவரை வெறுமை localfunctype (முழு, முழு);
 }
 
-#elif defined test_cast_from_void
-void v() {}
-int f() { return v(); }
+#அல்லதெனில் defined test_cast_from_void
+வெறுமை v() {}
+முழு f() { திரும்பு v(); }
 
-#elif defined test_switch_W1 || defined test_switch_W2 \
+#அல்லதெனில் defined test_switch_W1 || defined test_switch_W2 \
    || defined test_switch_W3 || defined test_switch_W4
-#if defined test_switch_W1
+#எனில் defined test_switch_W1
 #pragma comment(option, "-Wall")
-#elif defined test_switch_W2
+#அல்லதெனில் defined test_switch_W2
 #pragma comment(option, "-Wunsupported -Wno-implicit-function-declaration -Wstuff")
-#elif defined test_switch_W3
+#அல்லதெனில் defined test_switch_W3
 #pragma comment(option, "-Wwrite-strings -Werror=discarded-qualifiers")
-#elif defined test_switch_W4
+#அல்லதெனில் defined test_switch_W4
 #pragma comment(option, "-Wunsupported -Wno-error=implicit-function-declaration -Werror")
 #endif
-void func(void)
+வெறுமை func(வெறுமை)
 {
-    char *ccp = "123";
+    எழுத்து *ccp = "123";
     fink();
 }
-__attribute__((stuff)) int fink() {return 0;}
+__attribute__((stuff)) முழு fink() {திரும்பு 0;}
 
-#elif defined test_invalid_funcparam_1
-void func(int a, int b, int a);
+#அல்லதெனில் defined test_invalid_funcparam_1
+வெறுமை func(முழு a, முழு b, முழு a);
 
-#elif defined test_invalid_funcparam_2
-void func(int a, int if);
+#அல்லதெனில் defined test_invalid_funcparam_2
+வெறுமை func(முழு a, முழு எனில்);
 
-#elif defined test_array_funcparam
-int amain(int argc, char *argv[static argc + 1])
+#அல்லதெனில் defined test_array_funcparam
+முழு amain(முழு argc, எழுத்து *argv[நிலையான argc + 1])
 {
-    int i;
+    முழு i;
 
-    for (i = 0; i < argc; ++i)
+    க்கு (i = 0; i < argc; ++i)
         printf("arg[%d] = \"%s\"\n", i, argv[i]);
-    return 0;
+    திரும்பு 0;
 }
-int main()
+முழு முதன்மை()
 {
-    return amain(2, (char *[]){ "X", "Y", 0 });
+    திரும்பு amain(2, (எழுத்து *[]){ "X", "Y", 0 });
 }
 
-#elif defined test_return_from_statement_expr
-int f() { ({ return 78; }); }
-int main() { return f(); }
+#அல்லதெனில் defined test_return_from_statement_கோவை
+முழு f() { ({ திரும்பு 78; }); }
+முழு முதன்மை() { திரும்பு f(); }
 
 /******************************************************************/
 
-#elif defined test_illegal_unicode
-int main() {
-    char *str = "\Uffffffff";
+#அல்லதெனில் defined test_illegal_unicode
+முழு முதன்மை() {
+    எழுத்து *str = "\Uffffffff";
 }
 
-#elif defined test_error_string
+#அல்லதெனில் defined test_error_string
 #error \123\\
 456
 
-#elif defined test_error_incomplete_type
-struct A;
-void f(struct A *);
+#அல்லதெனில் defined test_error_incomplete_type
+கட்டமைப்பு A;
+வெறுமை f(கட்டமைப்பு A *);
 
-int main()
+முழு முதன்மை()
 {
-    f(&(struct A){});
+    f(&(கட்டமைப்பு A){});
 }
 
-struct A {
-    int x;
+கட்டமைப்பு A {
+    முழு x;
 };
 
-#elif defined test_pp_error_1
-# if //no expression
+#அல்லதெனில் defined test_pp_error_1
+# எனில் //no expression
 # endif
-#elif defined test_pp_error_2
-# if X(1,2) //undefined function macro
+#அல்லதெனில் defined test_pp_error_2
+# எனில் X(1,2) //undefined function macro
 # endif
 
-#elif defined test_pointer_plus_double
+#அல்லதெனில் defined test_pointer_plus_double
 
-int *invalid_operation(int *p, double d)
+முழு *invalid_operation(முழு *p, இரட்டை d)
 {
-    return p + d;
+    திரும்பு p + d;
 }
 
-#elif defined test_duplicate_case
+#அல்லதெனில் defined test_duplicate_case
 
-int main()
+முழு முதன்மை()
 {
-    unsigned int x;
-    switch (x) {
-        case -1 ... 0: /* empty case range with unsigned */
-        case 3:
-        case 1:
-        case 2:
-        case 3: /* show this line number in error */
-        case 4:
-        case 5:
+    unsigned முழு x;
+    தேர்வு (x) {
+        நிலை -1 ... 0: /* empty case range with unsigned */
+        நிலை 3:
+        நிலை 1:
+        நிலை 2:
+        நிலை 3: /* show this line number in error */
+        நிலை 4:
+        நிலை 5:
     }
 }
-#elif defined test_normal_funcargs || defined test_reverse_funcargs
+#அல்லதெனில் defined test_normal_funcargs || defined test_reverse_funcargs
 
 #ifdef test_reverse_funcargs
 # pragma comment(option, "-freverse-funcargs")
 #endif
 
-int main()
+முழு முதன்மை()
 {
     printf(" %d %d %d\n", printf("1"), printf("22"), printf("333"));
 }
 
-#elif defined test_scope_1 \
+#அல்லதெனில் defined test_scope_1 \
    || defined test_scope_2 \
    || defined test_scope_3
 
-struct xxx {int x[4];};
+கட்டமைப்பு xxx {முழு x[4];};
 
 /* 'ee' not defined outside of function, 'i' not redefined */
-int bar(enum ee { a = 12, b = 34 } i, int(*f)(int i))
+முழு bar(எண்ணிக்கை ee { a = 12, b = 34 } i, முழு(*f)(முழு i))
 {
     printf("bar %d %d %d\n", i, a, b);
-    return 0;
+    திரும்பு 0;
 }
 /* 'xxx' not defined outside of function */
-int foo(struct xxx {int x[3];}*p)
+முழு foo(கட்டமைப்பு xxx {முழு x[3];}*p)
 {
-    printf("foo %d", sizeof *p);
-    return p->x[3];
+    printf("foo %d", அளவு *p);
+    திரும்பு p->x[3];
 }
 #ifdef test_scope_2
 /* incompatible redefinition */
-int foo(struct xxx {int x[2];}*p);
+முழு foo(கட்டமைப்பு xxx {முழு x[2];}*p);
 #endif
 #ifndef test_scope_3
-enum ee { a = 1, b };
+எண்ணிக்கை ee { a = 1, b };
 #endif
 
-struct xxx x = { 11,22,33,44 };
-int main(int argc, char **argv)
+கட்டமைப்பு xxx x = { 11,22,33,44 };
+முழு முதன்மை(முழு argc, எழுத்து **argv)
 {
-    printf(" %d %d\n", foo(&x), sizeof (struct xxx));
-    enum ee e = b;
+    printf(" %d %d\n", foo(&x), அளவு (கட்டமைப்பு xxx));
+    எண்ணிக்கை ee e = b;
     bar(13 + e, 0);
 
 }
 
-#elif defined test_const_array_member_addr_ok
+#அல்லதெனில் defined test_const_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+வகைவரை முழு int_array[1];
+வகைவரை கட்டமைப்பு { int_array arr; } my_struct;
 
-int_array const *get_array(const my_struct *s)
+int_array மாறிலி *get_array(மாறிலி my_struct *s)
 {
-    return &(s->arr);
+    திரும்பு &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_ok
+#அல்லதெனில் defined test_const_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+வகைவரை முழு int_array[1];
+வகைவரை கட்டமைப்பு { int_array arr; } my_struct;
 
-const int *good_decay(const my_struct *s)
+மாறிலி முழு *good_decay(மாறிலி my_struct *s)
 {
-    return s->arr;
+    திரும்பு s->arr;
 }
 
-#elif defined test_const_array_member_addr_bad
+#அல்லதெனில் defined test_const_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+வகைவரை முழு int_array[1];
+வகைவரை கட்டமைப்பு { int_array arr; } my_struct;
 
-int_array *bad_array_addr(const my_struct *s)
+int_array *bad_array_addr(மாறிலி my_struct *s)
 {
-    return &(s->arr);
+    திரும்பு &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_bad
+#அல்லதெனில் defined test_const_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+வகைவரை முழு int_array[1];
+வகைவரை கட்டமைப்பு { int_array arr; } my_struct;
 
-int *bad_decay(const my_struct *s)
+முழு *bad_decay(மாறிலி my_struct *s)
 {
-    return s->arr;
+    திரும்பு s->arr;
 }
 
-#elif defined test_const_array_member_write_bad
+#அல்லதெனில் defined test_const_array_member_write_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+வகைவரை முழு int_array[1];
+வகைவரை கட்டமைப்பு { int_array arr; } my_struct;
 
-void bad_write(const my_struct *s)
+வெறுமை bad_write(மாறிலி my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_const_struct_array_member_write_bad
+#அல்லதெனில் defined test_const_struct_array_member_write_bad
 
-typedef struct { int x; } inner;
-typedef struct { inner arr[1]; } outer;
+வகைவரை கட்டமைப்பு { முழு x; } inner;
+வகைவரை கட்டமைப்பு { inner arr[1]; } outer;
 
-void bad_inner_write(const outer *s)
+வெறுமை bad_inner_write(மாறிலி outer *s)
 {
     s->arr[0].x = 1;
 }
 
-#elif defined test_volatile_array_member_addr_ok
+#அல்லதெனில் defined test_volatile_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+வகைவரை முழு int_array[1];
+வகைவரை கட்டமைப்பு { int_array arr; } my_struct;
 
-int_array volatile *get_volatile_array(volatile my_struct *s)
+int_array நிலையற்ற *get_volatile_array(நிலையற்ற my_struct *s)
 {
-    return &(s->arr);
+    திரும்பு &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_ok
+#அல்லதெனில் defined test_volatile_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+வகைவரை முழு int_array[1];
+வகைவரை கட்டமைப்பு { int_array arr; } my_struct;
 
-volatile int *good_volatile_decay(volatile my_struct *s)
+நிலையற்ற முழு *good_volatile_decay(நிலையற்ற my_struct *s)
 {
-    return s->arr;
+    திரும்பு s->arr;
 }
 
-#elif defined test_volatile_array_member_addr_bad
+#அல்லதெனில் defined test_volatile_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+வகைவரை முழு int_array[1];
+வகைவரை கட்டமைப்பு { int_array arr; } my_struct;
 
-int_array *bad_volatile_array_addr(volatile my_struct *s)
+int_array *bad_volatile_array_addr(நிலையற்ற my_struct *s)
 {
-    return &(s->arr);
+    திரும்பு &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_bad
+#அல்லதெனில் defined test_volatile_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+வகைவரை முழு int_array[1];
+வகைவரை கட்டமைப்பு { int_array arr; } my_struct;
 
-int *bad_volatile_decay(volatile my_struct *s)
+முழு *bad_volatile_decay(நிலையற்ற my_struct *s)
 {
-    return s->arr;
+    திரும்பு s->arr;
 }
 
-#elif defined test_volatile_array_member_write_ok
+#அல்லதெனில் defined test_volatile_array_member_write_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+வகைவரை முழு int_array[1];
+வகைவரை கட்டமைப்பு { int_array arr; } my_struct;
 
-void good_volatile_write(volatile my_struct *s)
+வெறுமை good_volatile_write(நிலையற்ற my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_conditional_array_qualifiers
+#அல்லதெனில் defined test_conditional_array_qualifiers
 
-typedef int Array2[2];
-typedef int Array2x3[2][3];
+வகைவரை முழு Array2[2];
+வகைவரை முழு Array2x3[2][3];
 
 Array2 *p;
-const Array2 *cp;
-const Array2x3 *cap;
-volatile Array2x3 *vap;
+மாறிலி Array2 *cp;
+மாறிலி Array2x3 *cap;
+நிலையற்ற Array2x3 *vap;
 
-void test(void)
+வெறுமை test(வெறுமை)
 {
     (1 ? p : cp)[0][0] = 1;
     (1 ? cp : p)[0][0] = 2;
@@ -679,22 +679,22 @@ void test(void)
     (1 ? vap : cap)[0][0][0] = 4;
 }
 
-#elif defined test_restrict_scalar
+#அல்லதெனில் defined test_restrict_scalar
 
-restrict int object;
+restrict முழு object;
 
-#elif defined test_restrict_function_pointer
+#அல்லதெனில் defined test_restrict_function_pointer
 
-int (*restrict function_pointer)(void);
+முழு (*restrict function_pointer)(வெறுமை);
 
-#elif defined test_discarded_restrict
+#அல்லதெனில் defined test_discarded_restrict
 
-typedef int *restrict restricted_pointer;
+வகைவரை முழு *restrict restricted_pointer;
 
 restricted_pointer *source;
-int **destination;
+முழு **destination;
 
-void test(void)
+வெறுமை test(வெறுமை)
 {
     destination = source;
 }

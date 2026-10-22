@@ -6,9 +6,9 @@
 
 #define __define_stab(NAME, CODE, STRING) NAME=CODE,
 
-enum __stab_debug_code
+எண்ணிக்கை __stab_debug_code
 {
-#include "stab.def"
+#அந்தர்பாவ "stab.def"
 LAST_UNUSED_STAB_CODE
 };
 

@@ -1,17 +1,17 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-static void f(int x)
+நிலையான வெறுமை f(முழு x)
 {
      printf("f(%d)\n", x);
 }
 
-int main(void)
+முழு முதன்மை(வெறுமை)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
+     முழு மொத்தம்_2 = 0, i = 0;
+     க்கு (; i < 3; ++i) {
          printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+         (வெறுமை)(i || (f(i), ++மொத்தம்_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     printf("count %d\n", மொத்தம்_2);
+     திரும்பு மொத்தம்_2 == 1 ? 0 : 1;
 }

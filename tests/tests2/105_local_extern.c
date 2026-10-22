@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+வெளி முழு printf(மாறிலி எழுத்து *, ...);
+வெறுமை f(வெறுமை);
+வெறுமை bar(வெறுமை) { வெறுமை f(வெறுமை); f(); }
+வெறுமை foo(வெறுமை) { வெளி வெறுமை f(வெறுமை); f(); }
+வெறுமை f(வெறுமை) { printf("f\n"); }
 
-int main()
+முழு முதன்மை()
 {
   bar();
   foo();
-  return 0;
+  திரும்பு 0;
 }

@@ -1,40 +1,40 @@
-typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
-extern size_t strlen(const char*);
-char str[] = "blabla";
-int g;
-int main()
+வகைவரை __SIZE_TYPE__ size_t;
+வெளி முழு printf(மாறிலி எழுத்து*, ...);
+வெளி size_t strlen(மாறிலி எழுத்து*);
+எழுத்து str[] = "blabla";
+முழு g;
+முழு முதன்மை()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
-      char buf[strlen(str) + 10];
+  முழு i = 0;
+#எனில் 0
+  எனில் (g) {
+      எழுத்து buf[strlen(str) + 10];
       buf[0] = 0;
   }
 alabel:
   printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
-      switch (i) {
-      case 10:
-          if (g) {
-              char buf[strlen(str) + 10];
+#இல்லையெனில்
+  க்கு (i = 0; i < 5; i++) {
+      தேர்வு (i) {
+      நிலை 10:
+          எனில் (g) {
+              எழுத்து buf[strlen(str) + 10];
               buf[0] = 0;
-              goto do_cmd;
+              செல் do_cmd;
           }
-          break;
-      case 1:
+          நிறுத்து;
+      நிலை 1:
           printf("reached 3\n");
     do_cmd:
           printf("after do_cmd");
-          break;
-      default:
+          நிறுத்து;
+      இயல்பு:
           g++;
           printf("default: i = %d\n", i);
-          break;
+          நிறுத்து;
       }
   }
 #endif
-  return 0;
+  திரும்பு 0;
 }

@@ -1,33 +1,33 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main()
+முழு முதன்மை()
 {
-   int x = 'a';
-   char y = x;
+   முழு x = 'a';
+   எழுத்து y = x;
 
-   char *a = "hello";
+   எழுத்து *a = "hello";
 
    printf("%s\n", a);
 
-   int c;
+   முழு c;
    c = *a;
 
-   char *b;
-   for (b = a; *b != 0; b++)
+   எழுத்து *b;
+   க்கு (b = a; *b != 0; b++)
       printf("%c: %d\n", *b, *b);
 
-   char destarray[10];
-   char *dest = &destarray[0];
-   char *src = a;
+   எழுத்து destarray[10];
+   எழுத்து *dest = &destarray[0];
+   எழுத்து *src = a;
 
-   while (*src != 0)
+   போது (*src != 0)
       *dest++ = *src++;
 
    *dest = 0;
 
    printf("copied string is %s\n", destarray);
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

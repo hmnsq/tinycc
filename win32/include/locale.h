@@ -6,19 +6,19 @@
 #ifndef _INC_LOCALE
 #define _INC_LOCALE
 
-#include <_mingw.h>
+#அந்தர்பாவ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(தள்ளு,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
-#ifndef NULL
+#ifndef வெற்று
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define வெற்று 0
+#இல்லையெனில்
+#define வெற்று ((வெறுமை *)0)
 #endif
 #endif
 
@@ -34,25 +34,25 @@ extern "C" {
 
 #ifndef _LCONV_DEFINED
 #define _LCONV_DEFINED
-  struct lconv {
-    char *decimal_point;
-    char *thousands_sep;
-    char *grouping;
-    char *int_curr_symbol;
-    char *currency_symbol;
-    char *mon_decimal_point;
-    char *mon_thousands_sep;
-    char *mon_grouping;
-    char *positive_sign;
-    char *negative_sign;
-    char int_frac_digits;
-    char frac_digits;
-    char p_cs_precedes;
-    char p_sep_by_space;
-    char n_cs_precedes;
-    char n_sep_by_space;
-    char p_sign_posn;
-    char n_sign_posn;
+  கட்டமைப்பு lconv {
+    எழுத்து *decimal_point;
+    எழுத்து *thousands_sep;
+    எழுத்து *grouping;
+    எழுத்து *int_curr_குறியீடு;
+    எழுத்து *currency_குறியீடு;
+    எழுத்து *mon_decimal_point;
+    எழுத்து *mon_thousands_sep;
+    எழுத்து *mon_grouping;
+    எழுத்து *positive_sign;
+    எழுத்து *negative_sign;
+    எழுத்து int_frac_digits;
+    எழுத்து frac_digits;
+    எழுத்து p_cs_precedes;
+    எழுத்து p_sep_by_space;
+    எழுத்து n_cs_precedes;
+    எழுத்து n_sep_by_space;
+    எழுத்து p_sign_posn;
+    எழுத்து n_sign_posn;
   };
 #endif
 
@@ -68,24 +68,24 @@ extern "C" {
 
 #endif
 
-  int __cdecl _configthreadlocale(int _Flag);
-  char *__cdecl setlocale(int _Category,const char *_Locale);
-  _CRTIMP struct lconv *__cdecl localeconv(void);
-  _locale_t __cdecl _get_current_locale(void);
-  _locale_t __cdecl _create_locale(int _Category,const char *_Locale);
-  void __cdecl _free_locale(_locale_t _Locale);
-  _locale_t __cdecl __get_current_locale(void);
-  _locale_t __cdecl __create_locale(int _Category,const char *_Locale);
-  void __cdecl __free_locale(_locale_t _Locale);
+  முழு __cdecl _configthreadlocale(முழு _Flag);
+  எழுத்து *__cdecl setlocale(முழு _Category,மாறிலி எழுத்து *_Locale);
+  _CRTIMP கட்டமைப்பு lconv *__cdecl localeconv(வெறுமை);
+  _locale_t __cdecl _get_current_locale(வெறுமை);
+  _locale_t __cdecl _create_locale(முழு _Category,மாறிலி எழுத்து *_Locale);
+  வெறுமை __cdecl _free_locale(_locale_t _Locale);
+  _locale_t __cdecl __get_current_locale(வெறுமை);
+  _locale_t __cdecl __create_locale(முழு _Category,மாறிலி எழுத்து *_Locale);
+  வெறுமை __cdecl __free_locale(_locale_t _Locale);
 
 #ifndef _WLOCALE_DEFINED
 #define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
+  _CRTIMP wchar_t *__cdecl _wsetlocale(முழு _Category,மாறிலி wchar_t *_Locale);
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(எடு)
 #endif

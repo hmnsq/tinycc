@@ -23,21 +23,21 @@
 
 #define _GNU_SOURCE
 #define _DARWIN_C_SOURCE
-#include "config.h"
+#அந்தர்பாவ "config.h"
 
-#include <stdarg.h>
-#include <stdlib.h>
-#include <stdio.h>
+#அந்தர்பாவ <stdarg.h>
+#அந்தர்பாவ <stdlib.h>
+#அந்தர்பாவ <stdio.h>
 /* gnu headers use to #define __attribute__ to empty for non-gcc compilers */
 #ifdef __TINYC__
 # undef __attribute__
 #endif
-#include <string.h>
-#include <errno.h>
-#include <math.h>
-#include <fcntl.h>
-#include <setjmp.h>
-#include <time.h>
+#அந்தர்பாவ <string.h>
+#அந்தர்பாவ <errno.h>
+#அந்தர்பாவ <math.h>
+#அந்தர்பாவ <fcntl.h>
+#அந்தர்பாவ <setjmp.h>
+#அந்தர்பாவ <time.h>
 
 #ifndef _WIN32
 # include <unistd.h>
@@ -46,8 +46,8 @@
 #  include <dlfcn.h>
 # endif
 /* XXX: need to define this to use them in non ISOC99 context */
-extern float strtof (const char *__nptr, char **__endptr);
-extern long double strtold (const char *__nptr, char **__endptr);
+வெளி தசம strtof (மாறிலி எழுத்து *__nptr, எழுத்து **__endptr);
+வெளி long இரட்டை strtold (மாறிலி எழுத்து *__nptr, எழுத்து **__endptr);
 #endif
 
 #ifdef _WIN32
@@ -62,12 +62,12 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # ifndef _MSC_VER
 #  include <stdint.h>
 # endif
-# define inline __inline
+# define உள்வரி __inline
 # define snprintf _snprintf
 # define vsnprintf _vsnprintf
 # ifndef __GNUC__
-#  define strtold (long double)strtod
-#  define strtof (float)strtod
+#  define strtold (long இரட்டை)strtod
+#  define strtof (தசம)strtod
 #  define strtoll _strtoi64
 #  define strtoull _strtoui64
 # endif
@@ -92,7 +92,7 @@ extern long double strtold (const char *__nptr, char **__endptr);
 #   define __x86_64__ 1
 #  endif
 # endif
-# if defined(_M_ARM64) && !defined(__aarch64__)
+# எனில் defined(_M_ARM64) && !defined(__aarch64__)
 #  define __aarch64__ 1
 # endif
 # ifndef va_copy
@@ -100,27 +100,27 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # endif
 #endif
 
-#ifndef O_BINARY
-# define O_BINARY 0
+#ifndef O_இருமம்_2
+# define O_இருமம்_2 0
 #endif
 
 #ifndef offsetof
 #ifdef __clang__ // clang -fsanitize compains about: NULL+value
 #define offsetof(type, field) __builtin_offsetof(type, field)
-#else
+#இல்லையெனில்
 #define offsetof(type, field) ((size_t) &((type *)0)->field)
 #endif
 #endif
 
 #ifndef countof
-#define countof(tab) (sizeof(tab) / sizeof((tab)[0]))
+#define countof(tab) (அளவு(tab) / அளவு((tab)[0]))
 #endif
 
 #ifdef _MSC_VER
 # define NORETURN __declspec(noreturn)
 # define ALIGNED(x) __declspec(align(x))
 # define PRINTF_LIKE(x,y)
-#else
+#இல்லையெனில்
 # define NORETURN __attribute__((noreturn))
 # define ALIGNED(x) __attribute__((aligned(x)))
 # define PRINTF_LIKE(x,y) __attribute__ ((format (printf, (x), (y))))
@@ -131,7 +131,7 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # define IS_ABSPATH(p) (IS_DIRSEP(p[0]) || (p[0] && p[1] == ':' && IS_DIRSEP(p[2])))
 # define PATHCMP stricmp
 # define PATHSEP ";"
-#else
+#இல்லையெனில்
 # define IS_DIRSEP(c) (c == '/')
 # define IS_ABSPATH(p) IS_DIRSEP(p[0])
 # define PATHCMP strcmp
@@ -160,10 +160,10 @@ extern long double strtold (const char *__nptr, char **__endptr);
 /* #define TCC_TARGET_RISCV64 *//* risc-v code generator */
 
 /* default target is I386 */
-#if !defined(TCC_TARGET_I386) && !defined(TCC_TARGET_ARM) && \
+#எனில் !defined(TCC_TARGET_I386) && !defined(TCC_TARGET_ARM) && \
     !defined(TCC_TARGET_ARM64) && !defined(TCC_TARGET_C67) && \
     !defined(TCC_TARGET_X86_64) && !defined(TCC_TARGET_RISCV64)
-# if defined __x86_64__
+# எனில் defined __x86_64__
 #  define TCC_TARGET_X86_64
 # elif defined __arm__
 #  define TCC_TARGET_ARM
@@ -174,7 +174,7 @@ extern long double strtold (const char *__nptr, char **__endptr);
 #  define TCC_TARGET_ARM64
 # elif defined __riscv
 #  define TCC_TARGET_RISCV64
-# else
+# இல்லையெனில்
 #  define TCC_TARGET_I386
 # endif
 # ifdef _WIN32
@@ -186,9 +186,9 @@ extern long double strtold (const char *__nptr, char **__endptr);
 #endif
 
 /* only native compiler supports -run */
-#if defined _WIN32 == defined TCC_TARGET_PE \
+#எனில் defined _WIN32 == defined TCC_TARGET_PE \
     && defined __APPLE__ == defined TCC_TARGET_MACHO
-# if defined __i386__ && defined TCC_TARGET_I386
+# எனில் defined __i386__ && defined TCC_TARGET_I386
 #  define TCC_IS_NATIVE
 # elif defined __x86_64__ && defined TCC_TARGET_X86_64
 #  define TCC_IS_NATIVE
@@ -201,42 +201,42 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # endif
 #endif
 
-#if defined CONFIG_TCC_BACKTRACE && CONFIG_TCC_BACKTRACE==0
+#எனில் defined CONFIG_TCC_BACKTRACE && CONFIG_TCC_BACKTRACE==0
 # undef CONFIG_TCC_BACKTRACE
-#else
+#இல்லையெனில்
 # define CONFIG_TCC_BACKTRACE 1 /* enable builtin stack backtraces */
 #endif
 
-#if defined CONFIG_TCC_BCHECK && CONFIG_TCC_BCHECK==0
+#எனில் defined CONFIG_TCC_BCHECK && CONFIG_TCC_BCHECK==0
 #  undef CONFIG_TCC_BCHECK
-#else
+#இல்லையெனில்
 #  define CONFIG_TCC_BCHECK 1 /* enable bound checking code */
 #endif
 
-#if defined CONFIG_NEW_MACHO && CONFIG_NEW_MACHO==0
+#எனில் defined CONFIG_NEW_MACHO && CONFIG_NEW_MACHO==0
 #  undef CONFIG_NEW_MACHO
-#else
+#இல்லையெனில்
 #  define CONFIG_NEW_MACHO 1 /* enable new macho code */
 #endif
 
-#if defined TARGETOS_OpenBSD \
+#எனில் defined TARGETOS_OpenBSD \
     || defined TARGETOS_FreeBSD \
     || defined TARGETOS_NetBSD \
     || defined TARGETOS_FreeBSD_kernel
 # define TARGETOS_BSD 1
-#elif !(defined TCC_TARGET_PE || defined TCC_TARGET_MACHO)
+#அல்லதெனில் !(defined TCC_TARGET_PE || defined TCC_TARGET_MACHO)
 # define TARGETOS_Linux 1 /* for tccdefs_.h */
 #endif
 
-#if defined TCC_TARGET_PE || defined TCC_TARGET_MACHO
+#எனில் defined TCC_TARGET_PE || defined TCC_TARGET_MACHO
 # define ELF_OBJ_ONLY /* create elf .o but native executables */
-#else
+#இல்லையெனில்
 # define TCC_TARGET_UNIX 1
 #endif
 
 /* No ten-byte long doubles on window and macos except in
    cross-compilers made by a mingw-GCC */
-#if defined TCC_TARGET_PE \
+#எனில் defined TCC_TARGET_PE \
     || (defined TCC_TARGET_MACHO && defined TCC_TARGET_ARM64)
 # define TCC_USING_DOUBLE_FOR_LDOUBLE 1
 #endif
@@ -256,14 +256,14 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # define CONFIG_SYSROOT ""
 #endif
 
-#if !defined CONFIG_TCCDIR && !defined _WIN32
+#எனில் !defined CONFIG_TCCDIR && !defined _WIN32
 # define CONFIG_TCCDIR "/usr/local/lib/tcc"
 #endif
 
 #ifdef CONFIG_TRIPLET
 # define USE_TRIPLET(s) s "/" CONFIG_TRIPLET
 # define ALSO_TRIPLET(s) USE_TRIPLET(s) PATHSEP s
-#else
+#இல்லையெனில்
 # define USE_TRIPLET(s) s
 # define ALSO_TRIPLET(s) s
 #endif
@@ -278,10 +278,10 @@ extern long double strtold (const char *__nptr, char **__endptr);
 
 /* system include paths */
 #ifndef CONFIG_TCC_SYSINCLUDEPATHS
-# if defined TCC_TARGET_PE || defined _WIN32
+# எனில் defined TCC_TARGET_PE || defined _WIN32
 #  define CONFIG_TCC_SYSINCLUDEPATHS \
     "{B}/include" PATHSEP "{B}/include/winapi"
-# else
+# இல்லையெனில்
 #  define CONFIG_TCC_SYSINCLUDEPATHS \
     "{B}/include" PATHSEP ALSO_TRIPLET(CONFIG_SYSROOT "/usr/include")
 # endif
@@ -289,10 +289,10 @@ extern long double strtold (const char *__nptr, char **__endptr);
 
 /* library search paths */
 #ifndef CONFIG_TCC_LIBPATHS
-# if defined TCC_TARGET_PE || defined _WIN32
+# எனில் defined TCC_TARGET_PE || defined _WIN32
 #  define CONFIG_TCC_LIBPATHS \
     "{B}/lib"
-# else
+# இல்லையெனில்
 #  define CONFIG_TCC_LIBPATHS \
     "{B}" PATHSEP ALSO_TRIPLET(CONFIG_SYSROOT "/usr/lib")
 # endif
@@ -300,7 +300,7 @@ extern long double strtold (const char *__nptr, char **__endptr);
 
 /* name of ELF interpreter */
 #ifndef CONFIG_TCC_ELFINTERP
-# if defined __GNU__
+# எனில் defined __GNU__
 #  define CONFIG_TCC_ELFINTERP "/lib/ld.so"
 # elif defined(TCC_TARGET_PE)
 #  define CONFIG_TCC_ELFINTERP "-"
@@ -313,7 +313,7 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # elif defined(TCC_TARGET_ARM)
 #  define CONFIG_TCC_ELFINTERP "/lib/ld-linux.so.3"
 #  define CONFIG_TCC_ELFINTERP_ARMHF "/lib/ld-linux-armhf.so.3"
-# else
+# இல்லையெனில்
 #  define CONFIG_TCC_ELFINTERP "/lib/ld-linux.so.2"
 # endif
 #endif
@@ -330,10 +330,10 @@ extern long double strtold (const char *__nptr, char **__endptr);
 
 /* -------------------------------------------- */
 
-#include "libtcc.h"
-#include "elf.h"
-#include "stab.h"
-#include "dwarf.h"
+#அந்தர்பாவ "libtcc.h"
+#அந்தர்பாவ "elf.h"
+#அந்தர்பாவ "stab.h"
+#அந்தர்பாவ "dwarf.h"
 
 /* -------------------------------------------- */
 
@@ -345,19 +345,19 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # define ONE_SOURCE 0
 #endif
 
-#if ONE_SOURCE
-#define ST_INLN static inline
-#define ST_FUNC static
-#define ST_DATA static
-#else
+#எனில் ONE_SOURCE
+#define ST_INLN நிலையான உள்வரி
+#define ST_FUNC நிலையான
+#define ST_DATA நிலையான
+#இல்லையெனில்
 #define ST_INLN
 #define ST_FUNC
-#define ST_DATA extern
+#define ST_DATA வெளி
 #endif
 
 #ifdef TCC_PROFILE /* profile all functions */
-# define static
-# define inline
+# define நிலையான
+# define உள்வரி
 #endif
 
 /* -------------------------------------------- */
@@ -367,41 +367,41 @@ extern long double strtold (const char *__nptr, char **__endptr);
 #ifdef TCC_TARGET_I386
 # include "i386-gen.c"
 # include "i386-link.c"
-#elif defined TCC_TARGET_X86_64
+#அல்லதெனில் defined TCC_TARGET_X86_64
 # include "x86_64-gen.c"
 # include "x86_64-link.c"
-#elif defined TCC_TARGET_ARM
+#அல்லதெனில் defined TCC_TARGET_ARM
 # include "arm-gen.c"
 # include "arm-link.c"
 # include "arm-asm.c"
-#elif defined TCC_TARGET_ARM64
+#அல்லதெனில் defined TCC_TARGET_ARM64
 # include "arm64-gen.c"
 # include "arm64-link.c"
 # include "arm64-asm.c"
-#elif defined TCC_TARGET_C67
+#அல்லதெனில் defined TCC_TARGET_C67
 # define TCC_TARGET_COFF
 # include "coff.h"
 # include "c67-gen.c"
 # include "c67-link.c"
-#elif defined(TCC_TARGET_RISCV64)
+#அல்லதெனில் defined(TCC_TARGET_RISCV64)
 # include "riscv64-gen.c"
 # include "riscv64-link.c"
 # include "riscv64-asm.c"
-#else
+#இல்லையெனில்
 #error unknown target
 #endif
 #undef TARGET_DEFS_ONLY
 
 /* -------------------------------------------- */
 
-#if PTR_SIZE == 8
+#எனில் PTR_SIZE == 8
 # define ELFCLASSW ELFCLASS64
 # define ElfW(type) Elf##64##_##type
 # define ELFW(type) ELF##64##_##type
 # define ElfW_Rel ElfW(Rela)
 # define SHT_RELX SHT_RELA
 # define REL_SECTION_FMT ".rela%s"
-#else
+#இல்லையெனில்
 # define ELFCLASSW ELFCLASS32
 # define ElfW(type) Elf##32##_##type
 # define ELFW(type) ELF##32##_##type
@@ -413,90 +413,90 @@ extern long double strtold (const char *__nptr, char **__endptr);
 #define addr_t ElfW(Addr)
 #define ElfSym ElfW(Sym)
 
-#if PTR_SIZE == 8 && !defined TCC_TARGET_PE
+#எனில் PTR_SIZE == 8 && !defined TCC_TARGET_PE
 # define LONG_SIZE 8
-#else
+#இல்லையெனில்
 # define LONG_SIZE 4
 #endif
 
 /* -------------------------------------------- */
 
-#define INCLUDE_STACK_SIZE  32
-#define IFDEF_STACK_SIZE    64
+#define INCLUDE_அடுக்கு_SIZE  32
+#define IFDEF_அடுக்கு_SIZE    64
 #define VSTACK_SIZE         512
 #define STRING_MAX_SIZE     1024
 #define TOKSTR_MAX_SIZE     256
-#define PACK_STACK_SIZE     8
+#define PACK_அடுக்கு_SIZE     8
 
 #define TOK_HASH_SIZE       16384 /* must be a power of two */
 #define TOK_ALLOC_INCR      512  /* must be a power of two */
 #define TOK_MAX_SIZE        4 /* token max size in int unit when stored in string */
 
 /* token symbol management */
-typedef struct TokenSym {
-    struct TokenSym *hash_next;
-    struct Sym *sym_define; /* direct pointer to define */
-    struct Sym *sym_label; /* direct pointer to label */
-    struct Sym *sym_struct; /* direct pointer to structure */
-    struct Sym *sym_identifier; /* direct pointer to identifier */
-    int tok; /* token number */
-    int len;
-    char str[1];
+வகைவரை கட்டமைப்பு TokenSym {
+    கட்டமைப்பு TokenSym *hash_next;
+    கட்டமைப்பு Sym *sym_define; /* direct pointer to define */
+    கட்டமைப்பு Sym *sym_label; /* direct pointer to label */
+    கட்டமைப்பு Sym *sym_struct; /* direct pointer to structure */
+    கட்டமைப்பு Sym *sym_identifier; /* direct pointer to identifier */
+    முழு tok; /* token number */
+    முழு len;
+    எழுத்து str[1];
 } TokenSym;
 
 #ifdef TCC_TARGET_PE
-typedef unsigned short nwchar_t;
-#else
-typedef int nwchar_t;
+வகைவரை unsigned short nwchar_t;
+#இல்லையெனில்
+வகைவரை முழு nwchar_t;
 #endif
 
-typedef struct CString {
-    int size; /* size in bytes */
-    int size_allocated;
-    char *data; /* nwchar_t* in cases */
+வகைவரை கட்டமைப்பு CString {
+    முழு size; /* size in bytes */
+    முழு size_allocated;
+    எழுத்து *data; /* nwchar_t* in cases */
 } CString;
 
 /* type definition */
-typedef struct CType {
-    int t;
-    struct Sym *ref;
+வகைவரை கட்டமைப்பு CType {
+    முழு t;
+    கட்டமைப்பு Sym *ref;
 } CType;
 
 /* long double words on host(!) platform */
-#define LDOUBLE_WORDS ((sizeof(long double)+3)/4)
+#define LDOUBLE_சொற்கள் ((அளவு(long இரட்டை)+3)/4)
 
 /* constant value */
-typedef union CValue {
-    long double ld;
-    double d;
-    float f;
+வகைவரை ஒன்றிப்பு CValue {
+    long இரட்டை ld;
+    இரட்டை d;
+    தசம f;
     uint64_t i;
-    struct {
-        char *data;
-        int size;
+    கட்டமைப்பு {
+        எழுத்து *data;
+        முழு size;
     } str;
-    int tab[LDOUBLE_WORDS];
+    முழு tab[LDOUBLE_சொற்கள்];
 } CValue;
 
 /* value on stack */
-typedef struct SValue {
+வகைவரை கட்டமைப்பு SValue {
     CType type;      /* type */
     unsigned short r;      /* register + flags */
     unsigned short r2;     /* second register, used for 'long long'
                               type. If not used, set to VT_CONST */
-    union {
-      struct { int jtrue, jfalse; }; /* forward jmps */
+    ஒன்றிப்பு {
+      கட்டமைப்பு { முழு jtrue, jfalse; }; /* forward jmps */
       CValue c;         /* constant, if VT_CONST */
     };
-    union {
-      struct { unsigned short cmp_op, cmp_r; }; /* VT_CMP operation */
-      struct Sym *sym;  /* symbol, if (VT_SYM | VT_CONST), or if */
+    ஒன்றிப்பு {
+      கட்டமைப்பு { unsigned short cmp_op, cmp_r; }; /* VT_CMP operation */
+      கட்டமைப்பு Sym *sym;  /* symbol, if (VT_SYM | VT_CONST), or if */
     };                  /* result of unary() for an identifier. */
 
 } SValue;
 
 /* symbol attributes */
-struct SymAttr {
+கட்டமைப்பு SymAttr {
     unsigned short
     aligned     : 5, /* alignment as log2+1 (0 == unspecified) */
     packed      : 1,
@@ -511,7 +511,7 @@ struct SymAttr {
 };
 
 /* function attributes or temporary attributes for parsing */
-struct FuncAttr {
+கட்டமைப்பு FuncAttr {
     unsigned
     func_call   : 3, /* calling convention (0..5), see below */
     func_type   : 2, /* FUNC_OLD/NEW/ELLIPSIS */
@@ -524,71 +524,71 @@ struct FuncAttr {
 };
 
 /* symbol management */
-typedef struct Sym {
-    int v; /* symbol token */
+வகைவரை கட்டமைப்பு Sym {
+    முழு v; /* symbol token */
     unsigned short r; /* associated register or VT_CONST/VT_LOCAL and LVAL type */
-    struct SymAttr a; /* symbol attributes */
-    union {
-        struct {
-            int c; /* associated number or Elf symbol index */
-            union {
-                int sym_scope; /* scope level for locals */
-                int jnext; /* next jump label */
-                int jind; /* label position */
-                struct FuncAttr f; /* function attributes */
-                int auxtype; /* bitfield access type */
+    கட்டமைப்பு SymAttr a; /* symbol attributes */
+    ஒன்றிப்பு {
+        கட்டமைப்பு {
+            முழு c; /* associated number or Elf symbol index */
+            ஒன்றிப்பு {
+                முழு sym_scope; /* scope level for locals */
+                முழு jnext; /* next jump label */
+                முழு jind; /* label position */
+                கட்டமைப்பு FuncAttr f; /* function attributes */
+                முழு auxtype; /* bitfield access type */
             };
         };
         long long enum_val; /* enum constant if IS_ENUM_VAL */
-        int *d; /* define token stream */
-        struct Sym *cleanup_func;
+        முழு *d; /* define token stream */
+        கட்டமைப்பு Sym *cleanup_func;
     };
 
     CType type; /* associated type */
-    union {
-        struct Sym *next; /* next related symbol (for fields and anoms) */
-        int *e; /* expanded token stream with preprocessor macros */
-        int asm_label; /* associated asm label */
-        struct Sym *cleanupstate; /* in defined labels */
-        int *vla_array_str; /* vla array code */
+    ஒன்றிப்பு {
+        கட்டமைப்பு Sym *next; /* next related symbol (for fields and anoms) */
+        முழு *e; /* expanded token stream with preprocessor macros */
+        முழு asm_label; /* associated asm label */
+        கட்டமைப்பு Sym *cleanupstate; /* in defined labels */
+        முழு *vla_array_str; /* vla array code */
     };
-    struct Sym *prev; /* prev symbol in stack */
-    union {
-        struct Sym *prev_tok; /* previous symbol for this token */
-        struct Sym *cleanup_sym; /* symbol from __attribute__((cleanup())) */
-        struct Sym *cleanup_label; /* label in 'pending_gotos' chain */
+    கட்டமைப்பு Sym *prev; /* prev symbol in stack */
+    ஒன்றிப்பு {
+        கட்டமைப்பு Sym *prev_tok; /* previous symbol for this token */
+        கட்டமைப்பு Sym *cleanup_sym; /* symbol from __attribute__((cleanup())) */
+        கட்டமைப்பு Sym *cleanup_label; /* label in 'pending_gotos' chain */
     };
 } Sym;
 
 /* section definition */
-typedef struct Section {
+வகைவரை கட்டமைப்பு Section {
     unsigned long data_offset; /* current data offset */
-    unsigned char *data;       /* section data */
+    unsigned எழுத்து *data;       /* section data */
     unsigned long data_allocated; /* used for realloc() handling */
     TCCState *s1;
-    int sh_name;             /* elf section name (only used during output) */
-    int sh_num;              /* elf section number */
-    int sh_type;             /* elf section type */
-    int sh_flags;            /* elf section flags */
-    int sh_info;             /* elf section info */
-    int sh_addralign;        /* elf section alignment */
-    int sh_entsize;          /* elf entry size */
+    முழு sh_name;             /* elf section name (only used during output) */
+    முழு sh_இலக்கம்;              /* elf section number */
+    முழு sh_type;             /* elf section type */
+    முழு sh_flags;            /* elf section flags */
+    முழு sh_info;             /* elf section info */
+    முழு sh_addralign;        /* elf section alignment */
+    முழு sh_entsize;          /* elf entry size */
     unsigned long sh_size;   /* section size (only used during output) */
     addr_t sh_addr;          /* address at which the section is relocated */
     unsigned long sh_offset; /* file offset */
-    int nb_hashed_syms;      /* used to resize the hash table */
-    struct Section *link;    /* link to another section */
-    struct Section *reloc;   /* corresponding section for relocation, if any */
-    struct Section *hash;    /* hash table for symbols */
-    struct Section *prev;    /* previous section on section stack */
-    char name[1];           /* section name */
+    முழு nb_hashed_syms;      /* used to resize the hash table */
+    கட்டமைப்பு Section *link;    /* link to another section */
+    கட்டமைப்பு Section *reloc;   /* corresponding section for relocation, if any */
+    கட்டமைப்பு Section *hash;    /* hash table for symbols */
+    கட்டமைப்பு Section *prev;    /* previous section on section stack */
+    எழுத்து name[1];           /* section name */
 } Section;
 
-typedef struct DLLReference {
-    int level;
-    void *handle;
-    unsigned char found, index;
-    char name[1];
+வகைவரை கட்டமைப்பு DLLReference {
+    முழு level;
+    வெறுமை *handle;
+    unsigned எழுத்து found, index;
+    எழுத்து name[1];
 } DLLReference;
 
 /* -------------------------------------------------- */
@@ -631,217 +631,217 @@ typedef struct DLLReference {
 
 #define IO_BUF_SIZE 8192
 
-typedef struct BufferedFile {
+வகைவரை கட்டமைப்பு BufferedFile {
     uint8_t *buf_ptr;
     uint8_t *buf_end;
-    int fd;
-    struct BufferedFile *prev;
-    int line_num;    /* current line number - here to simplify code */
-    int line_ref;    /* tcc -E: last printed line */
-    int ifndef_macro;  /* #ifndef macro / #endif search */
-    int ifndef_macro_saved; /* saved ifndef_macro */
-    int *ifdef_stack_ptr; /* ifdef_stack value at the start of the file */
-    int include_next_index; /* next search path */
-    int prev_tok_flags; /* saved tok_flags */
-    char filename[1024];    /* filename */
-    char *true_filename; /* filename not modified by # line directive */
-    unsigned char unget[4];
-    unsigned char buffer[1]; /* extra size for CH_EOB char */
+    முழு fd;
+    கட்டமைப்பு BufferedFile *prev;
+    முழு வரி_இலக்கம்;    /* current line number - here to simplify code */
+    முழு வரி_ref;    /* tcc -E: last printed line */
+    முழு ifndef_macro;  /* #ifndef macro / #endif search */
+    முழு ifndef_macro_saved; /* saved ifndef_macro */
+    முழு *ifdef_அடுக்கு_ptr; /* ifdef_stack value at the start of the file */
+    முழு include_next_index; /* next search path */
+    முழு prev_tok_flags; /* saved tok_flags */
+    எழுத்து filename[1024];    /* filename */
+    எழுத்து *true_filename; /* filename not modified by # line directive */
+    unsigned எழுத்து unget[4];
+    unsigned எழுத்து buffer[1]; /* extra size for CH_EOB char */
 } BufferedFile;
 
 #define CH_EOB   '\\'       /* end of buffer or '\0' char in file */
 #define CH_EOF   (-1)   /* end of file */
 
 /* used to record tokens */
-typedef struct TokenString {
-    int *str;
-    int len;
-    int need_spc;
-    int allocated_len;
-    int last_line_num;
-    int save_line_num;
+வகைவரை கட்டமைப்பு TokenString {
+    முழு *str;
+    முழு len;
+    முழு need_spc;
+    முழு allocated_len;
+    முழு last_வரி_இலக்கம்;
+    முழு save_வரி_இலக்கம்;
     /* used to chain token-strings with begin/end_macro() */
-    struct TokenString *prev;
-    const int *prev_ptr;
-    char alloc;
+    கட்டமைப்பு TokenString *prev;
+    மாறிலி முழு *prev_ptr;
+    எழுத்து alloc;
 } TokenString;
 
 /* GNUC attribute definition */
-typedef struct AttributeDef {
-    struct SymAttr a;
-    struct FuncAttr f;
-    struct Section *section;
+வகைவரை கட்டமைப்பு AttributeDef {
+    கட்டமைப்பு SymAttr a;
+    கட்டமைப்பு FuncAttr f;
+    கட்டமைப்பு Section *section;
     Sym *cleanup_func;
-    int alias_target; /* token */
-    int asm_label; /* associated asm label */
-    char attr_mode; /* __attribute__((__mode__(...))) */
-    char new_section; /* section is new */
+    முழு alias_target; /* token */
+    முழு asm_label; /* associated asm label */
+    எழுத்து attr_mode; /* __attribute__((__mode__(...))) */
+    எழுத்து new_section; /* section is new */
 } AttributeDef;
 
 /* inline functions */
-typedef struct InlineFunc {
+வகைவரை கட்டமைப்பு InlineFunc {
     TokenString *func_str;
     Sym *sym;
-    char filename[1];
+    எழுத்து filename[1];
 } InlineFunc;
 
 /* include file cache, used to find files faster and also to eliminate
    inclusion if the include file is protected by #ifndef ... #endif */
-typedef struct CachedInclude {
-    int ifndef_macro;
-    int once;
-    int hash_next; /* -1 if none */
-    char filename[1]; /* path specified in #include */
+வகைவரை கட்டமைப்பு CachedInclude {
+    முழு ifndef_macro;
+    முழு once;
+    முழு hash_next; /* -1 if none */
+    எழுத்து filename[1]; /* path specified in #include */
 } CachedInclude;
 
 #define CACHED_INCLUDES_HASH_SIZE 32
 
 #ifdef CONFIG_TCC_ASM
-typedef struct ExprValue {
+வகைவரை கட்டமைப்பு கோவை_மதிப்பு {
     uint64_t v;
     Sym *sym;
-    int pcrel;
-} ExprValue;
+    முழு pcrel;
+} கோவை_மதிப்பு;
 
 #define MAX_ASM_OPERANDS 30
-typedef struct ASMOperand {
-    int id; /* GCC 3 optional identifier (0 if number only supported) */
-    char constraint[16];
-    char asm_str[16]; /* computed asm string for operand */
+வகைவரை கட்டமைப்பு ASMOperand {
+    முழு id; /* GCC 3 optional identifier (0 if number only supported) */
+    எழுத்து constraint[16];
+    எழுத்து asm_str[16]; /* computed asm string for operand */
     SValue *vt; /* C value of the expression */
-    int ref_index; /* if >= 0, gives reference to a output constraint */
-    int input_index; /* if >= 0, gives reference to an input constraint */
-    int priority; /* priority, used to assign registers */
-    int reg; /* if >= 0, register number used for this operand */
-    int is_llong; /* true if double register value */
-    int is_memory; /* true if memory operand */
-    int is_rw;     /* for '+' modifier */
-    int is_label;  /* for asm goto */
+    முழு ref_index; /* if >= 0, gives reference to a output constraint */
+    முழு உள்ளீடு_index; /* if >= 0, gives reference to an input constraint */
+    முழு priority; /* priority, used to assign registers */
+    முழு reg; /* if >= 0, register number used for this operand */
+    முழு is_llong; /* true if double register value */
+    முழு is_memory; /* true if memory operand */
+    முழு is_rw;     /* for '+' modifier */
+    முழு is_label;  /* for asm goto */
 } ASMOperand;
 #endif
 
 /* extra symbol attributes (not in symbol table) */
-struct sym_attr {
+கட்டமைப்பு sym_attr {
     unsigned got_offset;
     unsigned plt_offset;
-    int plt_sym;
-    int dyn_index;
-    unsigned char linker_sym:1;
+    முழு plt_sym;
+    முழு dyn_index;
+    unsigned எழுத்து linker_sym:1;
 #ifdef TCC_TARGET_ARM
-    unsigned char plt_thumb_stub:1;
+    unsigned எழுத்து plt_thumb_stub:1;
 #endif
 };
 
-struct TCCState {
-    unsigned char verbose; /* if true, display some information during compilation */
-    unsigned char nostdinc; /* if true, no standard headers are added */
-    unsigned char nostdlib; /* if true, no standard libraries are added */
-    unsigned char nostdlib_paths; /* if true, the default paths are not searched for libraries */
-    unsigned char nocommon; /* if true, do not use common symbols for .bss data */
-    unsigned char static_link; /* if true, static linking is performed */
-    unsigned char rdynamic; /* if true, all symbols are exported */
-    unsigned char symbolic; /* if true, resolve symbols in the current module first */
-    unsigned char znodelete; /* Set DF_1_NODELETE in dynamic section */
-    unsigned char filetype; /* file type for compilation (NONE,C,ASM) */
-    unsigned char optimize; /* only to #define __OPTIMIZE__ */
-    unsigned char option_pthread; /* -pthread option */
-    unsigned char enable_new_dtags; /* -Wl,--enable-new-dtags */
-    unsigned int  cversion; /* supported C ISO version, 199901 (the default), 201112, ... */
+கட்டமைப்பு TCCState {
+    unsigned எழுத்து verbose; /* if true, display some information during compilation */
+    unsigned எழுத்து nostdinc; /* if true, no standard headers are added */
+    unsigned எழுத்து nostdlib; /* if true, no standard libraries are added */
+    unsigned எழுத்து nostdlib_paths; /* if true, the default paths are not searched for libraries */
+    unsigned எழுத்து nocommon; /* if true, do not use common symbols for .bss data */
+    unsigned எழுத்து static_link; /* if true, static linking is performed */
+    unsigned எழுத்து rdynamic; /* if true, all symbols are exported */
+    unsigned எழுத்து symbolic; /* if true, resolve symbols in the current module first */
+    unsigned எழுத்து znodelete; /* Set DF_1_NODELETE in dynamic section */
+    unsigned எழுத்து filetype; /* file type for compilation (NONE,C,ASM) */
+    unsigned எழுத்து optimize; /* only to #define __OPTIMIZE__ */
+    unsigned எழுத்து option_pthread; /* -pthread option */
+    unsigned எழுத்து enable_new_dtags; /* -Wl,--enable-new-dtags */
+    unsigned முழு  cversion; /* supported C ISO version, 199901 (the default), 201112, ... */
 
     /* C language options */
-    unsigned char char_is_unsigned;
-    unsigned char leading_underscore;
-    unsigned char ms_extensions; /* allow nested named struct w/o identifier behave like unnamed */
-    unsigned char dollars_in_identifiers;  /* allows '$' char in identifiers */
-    unsigned char ms_bitfields; /* if true, emulate MS algorithm for aligning bitfields */
-    unsigned char reverse_funcargs; /* if true, evaluate last function arg first */
-    unsigned char gnu89_inline; /* treat 'extern inline' like 'static inline' */
-    unsigned char unwind_tables; /* create eh_frame section */
+    unsigned எழுத்து char_is_unsigned;
+    unsigned எழுத்து leading_underscore;
+    unsigned எழுத்து ms_extensions; /* allow nested named struct w/o identifier behave like unnamed */
+    unsigned எழுத்து dollars_in_identifiers;  /* allows '$' char in identifiers */
+    unsigned எழுத்து ms_bitfields; /* if true, emulate MS algorithm for aligning bitfields */
+    unsigned எழுத்து reverse_funcargs; /* if true, evaluate last function arg first */
+    unsigned எழுத்து gnu89_inline; /* treat 'extern inline' like 'static inline' */
+    unsigned எழுத்து unwind_tables; /* create eh_frame section */
 
     /* warning switches */
-    unsigned char warn_none;
-    unsigned char warn_all;
-    unsigned char warn_error;
-    unsigned char warn_write_strings;
-    unsigned char warn_unsupported;
-    unsigned char warn_implicit_function_declaration;
-    unsigned char warn_discarded_qualifiers;
+    unsigned எழுத்து warn_none;
+    unsigned எழுத்து warn_all;
+    unsigned எழுத்து warn_error;
+    unsigned எழுத்து warn_write_strings;
+    unsigned எழுத்து warn_unsupported;
+    unsigned எழுத்து warn_implicit_function_declaration;
+    unsigned எழுத்து warn_discarded_qualifiers;
     #define WARN_ON  1 /* warning is on (-Woption) */
-    unsigned char warn_num; /* temp var for tcc_warning_c() */
+    unsigned எழுத்து warn_இலக்கம்; /* temp var for tcc_warning_c() */
 
-    unsigned char option_r; /* option -r */
-    unsigned char do_bench; /* option -bench */
-    unsigned char just_deps; /* option -M  */
-    unsigned char gen_deps; /* option -MD  */
-    unsigned char include_sys_deps; /* option -MD  */
-    unsigned char gen_phony_deps; /* option -MP */
+    unsigned எழுத்து option_r; /* option -r */
+    unsigned எழுத்து do_bench; /* option -bench */
+    unsigned எழுத்து just_deps; /* option -M  */
+    unsigned எழுத்து gen_deps; /* option -MD  */
+    unsigned எழுத்து include_sys_deps; /* option -MD  */
+    unsigned எழுத்து gen_phony_deps; /* option -MP */
 
     /* compile with debug symbol (and use them if error during execution) */
-    unsigned char do_debug;
-    unsigned char dwarf;
-    unsigned char do_backtrace;
+    unsigned எழுத்து do_debug;
+    unsigned எழுத்து dwarf;
+    unsigned எழுத்து do_backtrace;
 #ifdef CONFIG_TCC_BCHECK
     /* compile with built-in memory and bounds checker */
-    unsigned char do_bounds_check;
+    unsigned எழுத்து do_bounds_check;
 #endif
-    unsigned char test_coverage;  /* generate test coverage code */
+    unsigned எழுத்து test_coverage;  /* generate test coverage code */
 
     /* use GNU C extensions */
-    unsigned char gnu_ext;
+    unsigned எழுத்து gnu_ext;
     /* use TinyCC extensions */
-    unsigned char tcc_ext;
+    unsigned எழுத்து tcc_ext;
 
-    unsigned char dflag; /* -dX value */
-    unsigned char Pflag; /* -P switch (LINE_MACRO_OUTPUT_FORMAT) */
+    unsigned எழுத்து dflag; /* -dX value */
+    unsigned எழுத்து Pflag; /* -P switch (LINE_MACRO_OUTPUT_FORMAT) */
 
 #ifdef TCC_TARGET_X86_64
-    unsigned char nosse; /* For -mno-sse support. */
+    unsigned எழுத்து nosse; /* For -mno-sse support. */
 #endif
 #ifdef TCC_TARGET_ARM
-    unsigned char float_abi; /* float ABI of the generated code*/
+    unsigned எழுத்து float_abi; /* float ABI of the generated code*/
 #endif
 
-    unsigned char has_text_addr;
+    unsigned எழுத்து has_text_addr;
     addr_t text_addr; /* address of text section */
     unsigned section_align; /* section alignment */
 #ifdef TCC_TARGET_I386
-    int seg_size; /* 32. Can be 16 with i386 assembler (.code16) */
+    முழு seg_size; /* 32. Can be 16 with i386 assembler (.code16) */
 #endif
 
-    char *tcc_lib_path; /* CONFIG_TCCDIR or -B option */
-    char *soname; /* as specified on the command line (-soname) */
-    char *rpath; /* as specified on the command line (-Wl,-rpath=) */
-    char *elfint; /* -Wl,-I... on command line */
-    char *elf_entryname; /* "_start" unless set */
-    char *init_symbol; /* symbols to call at load-time (not used currently) */
-    char *fini_symbol; /* symbols to call at unload-time (not used currently) */
-    char *mapfile; /* create a mapfile (not used currently) */
+    எழுத்து *tcc_lib_path; /* CONFIG_TCCDIR or -B option */
+    எழுத்து *soname; /* as specified on the command line (-soname) */
+    எழுத்து *rpath; /* as specified on the command line (-Wl,-rpath=) */
+    எழுத்து *elfint; /* -Wl,-I... on command line */
+    எழுத்து *elf_entryname; /* "_start" unless set */
+    எழுத்து *init_குறியீடு; /* symbols to call at load-time (not used currently) */
+    எழுத்து *fini_குறியீடு; /* symbols to call at unload-time (not used currently) */
+    எழுத்து *mapfile; /* create a mapfile (not used currently) */
 
     /* output type, see TCC_OUTPUT_XXX */
-    int output_type;
+    முழு output_type;
     /* output format, see TCC_OUTPUT_FORMAT_xxx */
-    int output_format;
+    முழு output_format;
     /* nth test to run with -dt -run */
-    int run_test;
+    முழு run_test;
 
     /* array of all loaded dlls (including those referenced by loaded dlls) */
     DLLReference **loaded_dlls;
-    int nb_loaded_dlls;
+    முழு nb_loaded_dlls;
 
     /* include paths */
-    char **include_paths;
-    int nb_include_paths;
+    எழுத்து **include_paths;
+    முழு nb_include_paths;
 
-    char **sysinclude_paths;
-    int nb_sysinclude_paths;
+    எழுத்து **sysinclude_paths;
+    முழு nb_sysinclude_paths;
 
     /* library paths */
-    char **library_paths;
-    int nb_library_paths;
+    எழுத்து **library_paths;
+    முழு nb_library_paths;
 
     /* crt?.o object path */
-    char **crt_paths;
-    int nb_crt_paths;
+    எழுத்து **crt_paths;
+    முழு nb_crt_paths;
 
     /* -D / -U options */
     CString cmdline_defs;
@@ -849,48 +849,48 @@ struct TCCState {
     CString cmdline_incl;
 
     /* error handling */
-    void *error_opaque;
-    void (*error_func)(void *opaque, const char *msg);
-    int error_set_jmp_enabled;
+    வெறுமை *error_opaque;
+    வெறுமை (*error_func)(வெறுமை *opaque, மாறிலி எழுத்து *செய்தி);
+    முழு error_set_jmp_enabled;
     jmp_buf error_jmp_buf;
-    int nb_errors;
+    முழு nb_errors;
 
     /* output file for preprocessing (-E) */
     FILE *ppfp;
 
     /* for -MD/-MF: collected dependencies for this compilation */
-    char **target_deps;
-    int nb_target_deps;
+    எழுத்து **target_deps;
+    முழு nb_target_deps;
 
     /* compilation */
-    BufferedFile *include_stack[INCLUDE_STACK_SIZE];
-    BufferedFile **include_stack_ptr;
+    BufferedFile *include_அடுக்கு[INCLUDE_அடுக்கு_SIZE];
+    BufferedFile **include_அடுக்கு_ptr;
 
-    int ifdef_stack[IFDEF_STACK_SIZE];
-    int *ifdef_stack_ptr;
+    முழு ifdef_அடுக்கு[IFDEF_அடுக்கு_SIZE];
+    முழு *ifdef_அடுக்கு_ptr;
 
     /* included files enclosed with #ifndef MACRO */
-    int cached_includes_hash[CACHED_INCLUDES_HASH_SIZE];
+    முழு cached_includes_hash[CACHED_INCLUDES_HASH_SIZE];
     CachedInclude **cached_includes;
-    int nb_cached_includes;
+    முழு nb_cached_includes;
 
     /* #pragma pack stack */
-    int pack_stack[PACK_STACK_SIZE];
-    int *pack_stack_ptr;
-    char **pragma_libs;
-    int nb_pragma_libs;
+    முழு pack_அடுக்கு[PACK_அடுக்கு_SIZE];
+    முழு *pack_அடுக்கு_ptr;
+    எழுத்து **pragma_libs;
+    முழு nb_pragma_libs;
 
     /* inline functions are stored as token lists and compiled last
        only if referenced */
-    struct InlineFunc **inline_fns;
-    int nb_inline_fns;
+    கட்டமைப்பு InlineFunc **inline_fns;
+    முழு nb_inline_fns;
 
     /* sections */
     Section **sections;
-    int nb_sections; /* number of sections, including first dummy section */
+    முழு nb_sections; /* number of sections, including first dummy section */
 
     Section **priv_sections;
-    int nb_priv_sections; /* number of private sections */
+    முழு nb_priv_sections; /* number of private sections */
 
     /* predefined sections */
     Section *text_section, *data_section, *rodata_section, *bss_section;
@@ -902,7 +902,7 @@ struct TCCState {
     Section *lbounds_section; /* contains local data bound description */
 #endif
     /* symbol section */
-    union { Section *symtab_section, *symtab; }; /* historical alias */
+    ஒன்றிப்பு { Section *symtab_section, *symtab; }; /* historical alias */
     /* temporary dynamic symbol sections (for dll loading) */
     Section *dynsymtab_section;
     /* exported dynamic symbol section */
@@ -917,19 +917,19 @@ struct TCCState {
     Section *stab_section;
     Section *dwarf_info_section;
     Section *dwarf_abbrev_section;
-    Section *dwarf_line_section;
+    Section *dwarf_வரி_section;
     Section *dwarf_aranges_section;
     Section *dwarf_str_section;
-    Section *dwarf_line_str_section;
-    int dwlo, dwhi; /* dwarf section range */
+    Section *dwarf_வரி_str_section;
+    முழு dwlo, dwhi; /* dwarf section range */
     /* test coverage */
     Section *tcov_section;
     /* debug state */
-    struct _tccdbg *dState;
+    கட்டமைப்பு _tccdbg *dState;
 
     /* extra attributes (eg. GOT/PLT value) for symtab symbols */
-    struct sym_attr *sym_attrs;
-    int nb_sym_attrs;
+    கட்டமைப்பு sym_attr *sym_attrs;
+    முழு nb_sym_attrs;
     /* ptr to next reloc entry reused */
     ElfW_Rel *qrel;
     #define qrel s1->qrel
@@ -937,89 +937,89 @@ struct TCCState {
     addr_t tls_start, tls_end;
 
 #ifdef TCC_TARGET_RISCV64
-    struct pcrel_hi { addr_t addr, val; } **pcrel_hi_entries;
-    int nb_pcrel_hi_entries;
+    கட்டமைப்பு pcrel_hi { addr_t addr, val; } **pcrel_hi_entries;
+    முழு nb_pcrel_hi_entries;
 #endif
 
 #ifdef TCC_TARGET_PE
     /* PE info */
-    int pe_subsystem;
+    முழு pe_subsystem;
     unsigned pe_characteristics;
     unsigned pe_dll_characteristics;
     unsigned pe_file_align;
-    unsigned pe_stack_size;
+    unsigned pe_அடுக்கு_size;
     addr_t pe_imagebase;
-# if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
+# எனில் defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
     Section *uw_pdata;
-    int uw_sym;
-    int uw_xsym;
+    முழு uw_sym;
+    முழு uw_xsym;
     unsigned uw_offs;
 # endif
 #endif
 
-#if defined TCC_TARGET_MACHO
-    char *install_name;
+#எனில் defined TCC_TARGET_MACHO
+    எழுத்து *install_name;
     uint32_t compatibility_version;
     uint32_t current_version;
 #endif
 
 #ifndef ELF_OBJ_ONLY
-    int nb_sym_versions;
-    struct sym_version *sym_versions;
-    int nb_sym_to_version;
-    int *sym_to_version;
-    int dt_verneednum;
+    முழு nb_sym_versions;
+    கட்டமைப்பு sym_version *sym_versions;
+    முழு nb_sym_to_version;
+    முழு *sym_to_version;
+    முழு dt_verneednum;
     Section *versym_section;
     Section *verneed_section;
 #endif
 
 #ifdef TCC_IS_NATIVE
-    const char *run_main; /* entry for tcc_run() */
-    void *run_ptr; /* runtime_memory */
+    மாறிலி எழுத்து *run_main; /* entry for tcc_run() */
+    வெறுமை *run_ptr; /* runtime_memory */
     unsigned run_size; /* size of runtime_memory  */
-    const char *run_stdin; /* custom stdin file for run_main */
+    மாறிலி எழுத்து *run_stdin; /* custom stdin file for run_main */
 #ifdef _WIN64
-    void *run_function_table; /* unwind data */
+    வெறுமை *run_function_table; /* unwind data */
 #endif
-    struct TCCState *next;
-    struct rt_context *rc; /* pointer to backtrace info block */
-    void *run_lj, *run_jb; /* sj/lj for tcc_setjmp()/tcc_run() */
+    கட்டமைப்பு TCCState *next;
+    கட்டமைப்பு rt_context *rc; /* pointer to backtrace info block */
+    வெறுமை *run_lj, *run_jb; /* sj/lj for tcc_setjmp()/tcc_run() */
     TCCBtFunc *bt_func;
-    void *bt_data;
+    வெறுமை *bt_data;
 #endif
 
 #ifdef CONFIG_TCC_BACKTRACE
-    int rt_num_callers;
+    முழு rt_இலக்கம்_callers;
 #endif
 
     /* benchmark info */
-    int total_idents;
-    int total_lines;
-    unsigned int total_bytes;
-    unsigned int total_output[4];
+    முழு total_idents;
+    முழு total_வரிகள்;
+    unsigned முழு total_bytes;
+    unsigned முழு total_output[4];
 
     /* used by tcc_load_ldscript */
-    unsigned char *ld_p; /* text pointer */
+    unsigned எழுத்து *ld_p; /* text pointer */
 
     /* for warnings/errors for object files */
-    const char *current_filename;
+    மாறிலி எழுத்து *current_filename;
 
     /* used by main and tcc_parse_args only */
-    struct filespec **files; /* files seen on command line */
-    int nb_files; /* number thereof */
-    int nb_libraries; /* number of libs thereof */
-    char *outfile; /* output filename */
-    char *deps_outfile; /* option -MF */
-    int argc;
-    char **argv;
+    கட்டமைப்பு filespec **files; /* files seen on command line */
+    முழு nb_files; /* number thereof */
+    முழு nb_libraries; /* number of libs thereof */
+    எழுத்து *outfile; /* output filename */
+    எழுத்து *deps_outfile; /* option -MF */
+    முழு argc;
+    எழுத்து **argv;
     /* -Wl options */
-    char **link_argv;
-    int link_argc, link_optind;
+    எழுத்து **link_argv;
+    முழு link_argc, link_optind;
 };
 
-struct filespec {
-    char type;
-    char name[1];
+கட்டமைப்பு filespec {
+    எழுத்து type;
+    எழுத்து name[1];
 };
 
 /* The current value can be: */
@@ -1188,7 +1188,7 @@ struct filespec {
 #define TOK_PPSTR   0xce /* preprocessor string */
 #define TOK_LINENUM 0xcf /* line number info */
 
-#define TOK_HAS_VALUE(t) (t >= TOK_CCHAR && t <= TOK_LINENUM)
+#define TOK_HAS_மதிப்பு(t) (t >= TOK_CCHAR && t <= TOK_LINENUM)
 
 #define TOK_EOF       (-1)  /* end of file */
 #define TOK_LINEFEED  10    /* line feed */
@@ -1196,10 +1196,10 @@ struct filespec {
 /* all identifiers and strings have token above that */
 #define TOK_IDENT 256
 
-enum tcc_token {
+எண்ணிக்கை tcc_token {
     TOK_LAST = TOK_IDENT - 1
 #define DEF(id, str) ,id
-#include "tcctok.h"
+#அந்தர்பாவ "tcctok.h"
 #undef DEF
 };
 
@@ -1208,24 +1208,24 @@ enum tcc_token {
 
 /* ------------ libtcc.c ------------ */
 
-ST_DATA struct TCCState *tcc_state;
-ST_DATA void** stk_data;
-ST_DATA int nb_stk_data;
-ST_DATA int g_debug;
+ST_DATA கட்டமைப்பு TCCState *tcc_state;
+ST_DATA வெறுமை** stk_data;
+ST_DATA முழு nb_stk_data;
+ST_DATA முழு g_debug;
 
 /* public functions currently used by the tcc main function */
-ST_FUNC char *pstrcpy(char *buf, size_t buf_size, const char *s);
-ST_FUNC char *pstrcat(char *buf, size_t buf_size, const char *s);
-ST_FUNC char *pstrncpy(char *out, size_t buf_size, const char *s, size_t num);
-PUB_FUNC char *tcc_basename(const char *name);
-PUB_FUNC char *tcc_fileextension (const char *name);
+ST_FUNC எழுத்து *pstrcpy(எழுத்து *buf, size_t buf_size, மாறிலி எழுத்து *s);
+ST_FUNC எழுத்து *pstrcat(எழுத்து *buf, size_t buf_size, மாறிலி எழுத்து *s);
+ST_FUNC எழுத்து *pstrncpy(எழுத்து *out, size_t buf_size, மாறிலி எழுத்து *s, size_t இலக்கம்);
+PUB_FUNC எழுத்து *tcc_basename(மாறிலி எழுத்து *name);
+PUB_FUNC எழுத்து *tcc_fileextension (மாறிலி எழுத்து *name);
 
 /* all allocations - even MEM_DEBUG - use these */
-PUB_FUNC void tcc_free(void *ptr);
-PUB_FUNC void *tcc_malloc(unsigned long size);
-PUB_FUNC void *tcc_mallocz(unsigned long size);
-PUB_FUNC void *tcc_realloc(void *ptr, unsigned long size);
-PUB_FUNC char *tcc_strdup(const char *str);
+PUB_FUNC வெறுமை tcc_free(வெறுமை *ptr);
+PUB_FUNC வெறுமை *tcc_malloc(unsigned long size);
+PUB_FUNC வெறுமை *tcc_mallocz(unsigned long size);
+PUB_FUNC வெறுமை *tcc_realloc(வெறுமை *ptr, unsigned long size);
+PUB_FUNC எழுத்து *tcc_strdup(மாறிலி எழுத்து *str);
 
 #ifdef MEM_DEBUG
 #define tcc_free(ptr)           tcc_free_debug(ptr)
@@ -1233,49 +1233,49 @@ PUB_FUNC char *tcc_strdup(const char *str);
 #define tcc_mallocz(size)       tcc_mallocz_debug(size, __FILE__, __LINE__)
 #define tcc_realloc(ptr,size)   tcc_realloc_debug(ptr, size, __FILE__, __LINE__)
 #define tcc_strdup(str)         tcc_strdup_debug(str, __FILE__, __LINE__)
-PUB_FUNC void tcc_free_debug(void *ptr);
-PUB_FUNC void *tcc_malloc_debug(unsigned long size, const char *file, int line);
-PUB_FUNC void *tcc_mallocz_debug(unsigned long size, const char *file, int line);
-PUB_FUNC void *tcc_realloc_debug(void *ptr, unsigned long size, const char *file, int line);
-PUB_FUNC char *tcc_strdup_debug(const char *str, const char *file, int line);
+PUB_FUNC வெறுமை tcc_free_debug(வெறுமை *ptr);
+PUB_FUNC வெறுமை *tcc_malloc_debug(unsigned long size, மாறிலி எழுத்து *file, முழு வரி);
+PUB_FUNC வெறுமை *tcc_mallocz_debug(unsigned long size, மாறிலி எழுத்து *file, முழு வரி);
+PUB_FUNC வெறுமை *tcc_realloc_debug(வெறுமை *ptr, unsigned long size, மாறிலி எழுத்து *file, முழு வரி);
+PUB_FUNC எழுத்து *tcc_strdup_debug(மாறிலி எழுத்து *str, மாறிலி எழுத்து *file, முழு வரி);
 #endif
 
-ST_FUNC void libc_free(void *ptr);
+ST_FUNC வெறுமை libc_free(வெறுமை *ptr);
 /* defined to be not used */
-#define free(p) use_tcc_free(p)
+#define விடுவி(p) use_tcc_free(p)
 #define malloc(s) use_tcc_malloc(s)
 #define realloc(p, s) use_tcc_realloc(p, s)
 #undef strdup
 #define strdup(s) use_tcc_strdup(s)
-PUB_FUNC int _tcc_error_noabort(const char *fmt, ...) PRINTF_LIKE(1,2);
-PUB_FUNC NORETURN void _tcc_error(const char *fmt, ...) PRINTF_LIKE(1,2);
-PUB_FUNC void _tcc_warning(const char *fmt, ...) PRINTF_LIKE(1,2);
-#define tcc_internal_error(msg) \
-    tcc_error("internal compiler error in %s:%d: %s", __FUNCTION__,__LINE__,msg)
+PUB_FUNC முழு _tcc_error_noabort(மாறிலி எழுத்து *fmt, ...) PRINTF_LIKE(1,2);
+PUB_FUNC NORETURN வெறுமை _tcc_error(மாறிலி எழுத்து *fmt, ...) PRINTF_LIKE(1,2);
+PUB_FUNC வெறுமை _tcc_warning(மாறிலி எழுத்து *fmt, ...) PRINTF_LIKE(1,2);
+#define tcc_internal_error(செய்தி) \
+    tcc_error("internal compiler error in %s:%d: %s", __FUNCTION__,__LINE__,செய்தி)
 
 /* other utilities */
-ST_FUNC void dynarray_add(void *ptab, int *nb_ptr, void *data);
-ST_FUNC void dynarray_reset(void *pp, int *n);
-ST_INLN void cstr_ccat(CString *cstr, int ch);
-ST_FUNC void cstr_cat(CString *cstr, const char *str, int len);
-ST_FUNC void cstr_wccat(CString *cstr, int ch);
-ST_FUNC void cstr_new(CString *cstr);
-ST_FUNC void cstr_free(CString *cstr);
-ST_FUNC int cstr_printf(CString *cs, const char *fmt, ...) PRINTF_LIKE(2,3);
-ST_FUNC int cstr_vprintf(CString *cstr, const char *fmt, va_list ap);
-ST_FUNC void cstr_reset(CString *cstr);
-ST_FUNC void tcc_open_bf(TCCState *s1, const char *filename, int initlen);
-ST_FUNC int tcc_open(TCCState *s1, const char *filename);
-ST_FUNC void tcc_close(void);
+ST_FUNC வெறுமை dynarray_add(வெறுமை *ptab, முழு *nb_ptr, வெறுமை *data);
+ST_FUNC வெறுமை dynarray_reset(வெறுமை *pp, முழு *n);
+ST_INLN வெறுமை cstr_ccat(CString *cstr, முழு ch);
+ST_FUNC வெறுமை cstr_cat(CString *cstr, மாறிலி எழுத்து *str, முழு len);
+ST_FUNC வெறுமை cstr_wccat(CString *cstr, முழு ch);
+ST_FUNC வெறுமை cstr_new(CString *cstr);
+ST_FUNC வெறுமை cstr_free(CString *cstr);
+ST_FUNC முழு cstr_printf(CString *cs, மாறிலி எழுத்து *fmt, ...) PRINTF_LIKE(2,3);
+ST_FUNC முழு cstr_vprintf(CString *cstr, மாறிலி எழுத்து *fmt, va_list ap);
+ST_FUNC வெறுமை cstr_reset(CString *cstr);
+ST_FUNC வெறுமை tcc_open_bf(TCCState *s1, மாறிலி எழுத்து *filename, முழு initlen);
+ST_FUNC முழு tcc_open(TCCState *s1, மாறிலி எழுத்து *filename);
+ST_FUNC வெறுமை tcc_close(வெறுமை);
 
 /* mark a memory pointer on stack for cleanup after errors */
-#define stk_push(p) dynarray_add(&stk_data, &nb_stk_data, p)
-#define stk_pop() (--nb_stk_data)
+#define stk_தள்ளு(p) dynarray_add(&stk_data, &nb_stk_data, p)
+#define stk_எடு() (--nb_stk_data)
 /* mark CString on stack for cleanup errors */
-#define cstr_new_s(cstr) (cstr_new(cstr), stk_push(&(cstr)->data))
-#define cstr_free_s(cstr) (cstr_free(cstr), stk_pop())
+#define cstr_new_s(cstr) (cstr_new(cstr), stk_தள்ளு(&(cstr)->data))
+#define cstr_free_s(cstr) (cstr_free(cstr), stk_எடு())
 
-ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags);
+ST_FUNC முழு tcc_add_file_internal(TCCState *s1, மாறிலி எழுத்து *filename, முழு flags);
 /* flags: */
 #define AFF_PRINT_ERROR     0x10 /* print error if file not found */
 #define AFF_REFERENCED_DLL  0x20 /* load a referenced dll from another dll */
@@ -1299,32 +1299,32 @@ ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags)
 #define FILE_NOT_RECOGNIZED -3 /* unrecognized file type */
 
 #ifndef ELF_OBJ_ONLY
-ST_FUNC int tcc_add_crt(TCCState *s, const char *filename);
+ST_FUNC முழு tcc_add_crt(TCCState *s, மாறிலி எழுத்து *filename);
 #endif
-ST_FUNC int tcc_add_dll(TCCState *s, const char *filename, int flags);
-ST_FUNC int tcc_add_support(TCCState *s1, const char *filename);
+ST_FUNC முழு tcc_add_dll(TCCState *s, மாறிலி எழுத்து *filename, முழு flags);
+ST_FUNC முழு tcc_add_support(TCCState *s1, மாறிலி எழுத்து *filename);
 #ifdef CONFIG_TCC_BCHECK
-ST_FUNC void tcc_add_bcheck(TCCState *s1);
+ST_FUNC வெறுமை tcc_add_bcheck(TCCState *s1);
 #endif
 #ifdef CONFIG_TCC_BACKTRACE
-ST_FUNC void tcc_add_btstub(TCCState *s1);
+ST_FUNC வெறுமை tcc_add_btstub(TCCState *s1);
 #endif
-ST_FUNC void tcc_add_pragma_libs(TCCState *s1);
-PUB_FUNC int tcc_add_library_err(TCCState *s, const char *f);
-PUB_FUNC void tcc_print_stats(TCCState *s, unsigned total_time);
-PUB_FUNC int tcc_parse_args(TCCState *s, int *argc, char ***argv);
+ST_FUNC வெறுமை tcc_add_pragma_libs(TCCState *s1);
+PUB_FUNC முழு tcc_add_library_err(TCCState *s, மாறிலி எழுத்து *f);
+PUB_FUNC வெறுமை tcc_print_stats(TCCState *s, unsigned total_time);
+PUB_FUNC முழு tcc_parse_args(TCCState *s, முழு *argc, எழுத்து ***argv);
 #ifdef _WIN32
-ST_FUNC char *normalize_slashes(char *path);
-PUB_FUNC FILE *tcc_fopen(const char *f, const char *m);
-PUB_FUNC int tcc_fclose(FILE *f);
-#else
+ST_FUNC எழுத்து *normalize_slashes(எழுத்து *path);
+PUB_FUNC FILE *tcc_fopen(மாறிலி எழுத்து *f, மாறிலி எழுத்து *m);
+PUB_FUNC முழு tcc_fclose(FILE *f);
+#இல்லையெனில்
 # define tcc_fopen fopen
 # define tcc_fclose fclose
 #endif
-ST_FUNC DLLReference *tcc_add_dllref(TCCState *s1, const char *dllname, int level);
-ST_FUNC char *tcc_load_text(int fd);
+ST_FUNC DLLReference *tcc_add_dllref(TCCState *s1, மாறிலி எழுத்து *dllname, முழு level);
+ST_FUNC எழுத்து *tcc_load_text(முழு fd);
 /* for #pragma once */
-ST_FUNC int normalized_PATHCMP(const char *f1, const char *f2);
+ST_FUNC முழு normalized_PATHCMP(மாறிலி எழுத்து *f1, மாறிலி எழுத்து *f2);
 
 /* tcc_parse_args return codes: */
 #define OPT_HELP 1
@@ -1338,25 +1338,25 @@ ST_FUNC int normalized_PATHCMP(const char *f1, const char *f2);
 
 /* ------------ tccpp.c ------------ */
 
-ST_DATA struct BufferedFile *file;
-ST_DATA int tok;
+ST_DATA கட்டமைப்பு BufferedFile *file;
+ST_DATA முழு tok;
 ST_DATA CValue tokc;
-ST_DATA const int *macro_ptr;
-ST_DATA int parse_flags;
-ST_DATA int tok_flags;
+ST_DATA மாறிலி முழு *macro_ptr;
+ST_DATA முழு parse_flags;
+ST_DATA முழு tok_flags;
 ST_DATA CString tokcstr; /* current parsed string, if any */
 
 /* display benchmark infos */
-ST_DATA int tok_ident;
+ST_DATA முழு tok_ident;
 ST_DATA TokenSym **table_ident;
-ST_DATA int pp_expr;
+ST_DATA முழு pp_கோவை;
 
 #define TOK_FLAG_BOL   0x0001 /* beginning of line before */
 #define TOK_FLAG_BOF   0x0002 /* beginning of file before */
 #define TOK_FLAG_ENDIF 0x0004 /* a endif was found matching starting #ifdef */
 
 #define PARSE_FLAG_PREPROCESS 0x0001 /* activate preprocessing */
-#define PARSE_FLAG_TOK_NUM    0x0002 /* return numbers instead of TOK_PPNUM */
+#define PARSE_FLAG_TOK_இலக்கம்    0x0002 /* return numbers instead of TOK_PPNUM */
 #define PARSE_FLAG_LINEFEED   0x0004 /* line feed is returned as a
                                         token. line feed is also
                                         returned at eof */
@@ -1368,367 +1368,367 @@ ST_DATA int pp_expr;
 /* isidnum_table flags: */
 #define IS_SPC 1
 #define IS_ID  2
-#define IS_NUM 4
+#define IS_இலக்கம் 4
 
-enum line_macro_output_format {
-    LINE_MACRO_OUTPUT_FORMAT_GCC,
-    LINE_MACRO_OUTPUT_FORMAT_NONE,
-    LINE_MACRO_OUTPUT_FORMAT_STD,
-    LINE_MACRO_OUTPUT_FORMAT_P10 = 11
+எண்ணிக்கை வரி_macro_output_format {
+    வரி_MACRO_OUTPUT_FORMAT_GCC,
+    வரி_MACRO_OUTPUT_FORMAT_NONE,
+    வரி_MACRO_OUTPUT_FORMAT_STD,
+    வரி_MACRO_OUTPUT_FORMAT_P10 = 11
 };
 
-ST_FUNC TokenSym *tok_alloc(const char *str, int len);
-ST_FUNC int tok_alloc_const(const char *str);
-ST_FUNC const char *get_tok_str(int v, CValue *cv);
-ST_FUNC void begin_macro(TokenString *str, int alloc);
-ST_FUNC void end_macro(void);
-ST_FUNC int set_idnum(int c, int val);
-ST_INLN void tok_str_new(TokenString *s);
-ST_FUNC TokenString *tok_str_alloc(void);
-ST_FUNC void tok_str_free(TokenString *s);
-ST_FUNC void tok_str_free_str(int *str);
-ST_FUNC void tok_str_add(TokenString *s, int t);
-ST_FUNC void tok_str_add_tok(TokenString *s);
-ST_INLN void define_push(int v, int macro_type, int *str, Sym *first_arg);
-ST_FUNC void define_undef(Sym *s);
-ST_INLN Sym *define_find(int v);
-ST_FUNC void free_defines(Sym *b);
-ST_FUNC void parse_define(void);
-ST_FUNC void skip_to_eol(int warn);
-ST_FUNC void preprocess(int is_bof);
-ST_FUNC void next(void);
-ST_INLN void unget_tok(int last_tok);
-ST_FUNC void preprocess_start(TCCState *s1, int filetype);
-ST_FUNC void preprocess_end(TCCState *s1);
-ST_FUNC void tccpp_new(TCCState *s);
-ST_FUNC void tccpp_delete(TCCState *s);
-ST_FUNC void tccpp_putfile(const char *filename);
-ST_FUNC int tcc_preprocess(TCCState *s1);
-ST_FUNC void skip(int c);
-ST_FUNC NORETURN void expect(const char *msg);
-ST_FUNC void pp_error(CString *cs);
+ST_FUNC TokenSym *tok_alloc(மாறிலி எழுத்து *str, முழு len);
+ST_FUNC முழு tok_alloc_const(மாறிலி எழுத்து *str);
+ST_FUNC மாறிலி எழுத்து *get_tok_str(முழு v, CValue *cv);
+ST_FUNC வெறுமை begin_macro(TokenString *str, முழு alloc);
+ST_FUNC வெறுமை end_macro(வெறுமை);
+ST_FUNC முழு set_idnum(முழு c, முழு val);
+ST_INLN வெறுமை tok_str_new(TokenString *s);
+ST_FUNC TokenString *tok_str_alloc(வெறுமை);
+ST_FUNC வெறுமை tok_str_free(TokenString *s);
+ST_FUNC வெறுமை tok_str_free_str(முழு *str);
+ST_FUNC வெறுமை tok_str_add(TokenString *s, முழு t);
+ST_FUNC வெறுமை tok_str_add_tok(TokenString *s);
+ST_INLN வெறுமை define_தள்ளு(முழு v, முழு macro_type, முழு *str, Sym *first_arg);
+ST_FUNC வெறுமை define_undef(Sym *s);
+ST_INLN Sym *define_find(முழு v);
+ST_FUNC வெறுமை free_defines(Sym *b);
+ST_FUNC வெறுமை parse_define(வெறுமை);
+ST_FUNC வெறுமை skip_to_eol(முழு warn);
+ST_FUNC வெறுமை preprocess(முழு is_bof);
+ST_FUNC வெறுமை next(வெறுமை);
+ST_INLN வெறுமை unget_tok(முழு last_tok);
+ST_FUNC வெறுமை preprocess_start(TCCState *s1, முழு filetype);
+ST_FUNC வெறுமை preprocess_end(TCCState *s1);
+ST_FUNC வெறுமை tccpp_new(TCCState *s);
+ST_FUNC வெறுமை tccpp_delete(TCCState *s);
+ST_FUNC வெறுமை tccpp_putfile(மாறிலி எழுத்து *filename);
+ST_FUNC முழு tcc_preprocess(TCCState *s1);
+ST_FUNC வெறுமை skip(முழு c);
+ST_FUNC NORETURN வெறுமை expect(மாறிலி எழுத்து *செய்தி);
+ST_FUNC வெறுமை pp_error(CString *cs);
 
 
 /* space excluding newline */
-static inline int is_space(int ch) {
-    return ch == ' ' || ch == '\t' || ch == '\v' || ch == '\f' || ch == '\r';
+நிலையான உள்வரி முழு is_space(முழு ch) {
+    திரும்பு ch == ' ' || ch == '\t' || ch == '\v' || ch == '\f' || ch == '\r';
 }
-static inline int isid(int c) {
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+நிலையான உள்வரி முழு isid(முழு c) {
+    திரும்பு (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
 }
-static inline int isnum(int c) {
-    return c >= '0' && c <= '9';
+நிலையான உள்வரி முழு isnum(முழு c) {
+    திரும்பு c >= '0' && c <= '9';
 }
-static inline int isoct(int c) {
-    return c >= '0' && c <= '7';
+நிலையான உள்வரி முழு isoct(முழு c) {
+    திரும்பு c >= '0' && c <= '7';
 }
-static inline int toup(int c) {
-    return (c >= 'a' && c <= 'z') ? c - 'a' + 'A' : c;
+நிலையான உள்வரி முழு toup(முழு c) {
+    திரும்பு (c >= 'a' && c <= 'z') ? c - 'a' + 'A' : c;
 }
 
 /* ------------ tccgen.c ------------ */
 
-#define SYM_POOL_NB (8192 / sizeof(Sym))
+#define SYM_POOL_NB (8192 / அளவு(Sym))
 
-ST_DATA Sym *global_stack;
-ST_DATA Sym *local_stack;
-ST_DATA Sym *local_label_stack;
-ST_DATA Sym *global_label_stack;
-ST_DATA Sym *define_stack;
+ST_DATA Sym *global_அடுக்கு;
+ST_DATA Sym *local_அடுக்கு;
+ST_DATA Sym *local_label_அடுக்கு;
+ST_DATA Sym *global_label_அடுக்கு;
+ST_DATA Sym *define_அடுக்கு;
 ST_DATA CType int_type, func_old_type, char_pointer_type;
 ST_DATA SValue *vtop;
-ST_DATA int rsym, anon_sym, ind, loc;
-ST_DATA char debug_modes;
+ST_DATA முழு rsym, anon_sym, ind, loc;
+ST_DATA எழுத்து debug_modes;
 
-ST_DATA int nocode_wanted; /* true if no code generation wanted for an expression */
-ST_DATA int global_expr;  /* true if compound literals must be allocated globally (used during initializers parsing */
+ST_DATA முழு nocode_wanted; /* true if no code generation wanted for an expression */
+ST_DATA முழு global_கோவை;  /* true if compound literals must be allocated globally (used during initializers parsing */
 ST_DATA CType func_vt; /* current function return type (used by return instruction) */
-ST_DATA int func_var; /* true if current function is variadic */
-ST_DATA int func_vc; /* stack address for implicit struct return storage */
-ST_DATA int func_ind; /* function start address */
-ST_DATA const char *funcname;
+ST_DATA முழு func_var; /* true if current function is variadic */
+ST_DATA முழு func_vc; /* stack address for implicit struct return storage */
+ST_DATA முழு func_ind; /* function start address */
+ST_DATA மாறிலி எழுத்து *funcname;
 
-ST_FUNC void tccgen_init(TCCState *s1);
-ST_FUNC int tccgen_compile(TCCState *s1);
-ST_FUNC void tccgen_finish(TCCState *s1);
-ST_FUNC void check_vstack(void);
+ST_FUNC வெறுமை tccgen_init(TCCState *s1);
+ST_FUNC முழு tccgen_compile(TCCState *s1);
+ST_FUNC வெறுமை tccgen_finish(TCCState *s1);
+ST_FUNC வெறுமை check_vstack(வெறுமை);
 
-ST_INLN int is_float(int t);
-ST_FUNC int ieee_finite(double d);
-ST_FUNC int exact_log2p1(int i);
-ST_FUNC void test_lvalue(void);
+ST_INLN முழு is_float(முழு t);
+ST_FUNC முழு ieee_finite(இரட்டை d);
+ST_FUNC முழு exact_log2p1(முழு i);
+ST_FUNC வெறுமை test_lvalue(வெறுமை);
 
 ST_FUNC ElfSym *elfsym(Sym *);
-ST_FUNC void update_storage(Sym *sym);
-ST_FUNC void put_extern_sym2(Sym *sym, int sh_num, addr_t value, unsigned long size, int can_add_underscore);
-ST_FUNC void put_extern_sym(Sym *sym, Section *section, addr_t value, unsigned long size);
-#if PTR_SIZE == 4
-ST_FUNC void greloc(Section *s, Sym *sym, unsigned long offset, int type);
+ST_FUNC வெறுமை update_storage(Sym *sym);
+ST_FUNC வெறுமை put_extern_sym2(Sym *sym, முழு sh_இலக்கம், addr_t மதிப்பு, unsigned long size, முழு can_add_underscore);
+ST_FUNC வெறுமை put_extern_sym(Sym *sym, Section *section, addr_t மதிப்பு, unsigned long size);
+#எனில் PTR_SIZE == 4
+ST_FUNC வெறுமை greloc(Section *s, Sym *sym, unsigned long offset, முழு type);
 #endif
-ST_FUNC void greloca(Section *s, Sym *sym, unsigned long offset, int type, addr_t addend);
+ST_FUNC வெறுமை greloca(Section *s, Sym *sym, unsigned long offset, முழு type, addr_t addend);
 
-ST_INLN void sym_free(Sym *sym);
-ST_FUNC Sym *sym_push(int v, CType *type, int r, int c);
-ST_FUNC void sym_pop(Sym **ptop, Sym *b, int keep);
-ST_FUNC Sym *sym_push2(Sym **ps, int v, int t, int c);
-ST_FUNC Sym *sym_find2(Sym *s, int v);
-ST_INLN Sym *sym_find(int v);
-ST_FUNC Sym *label_find(int v);
-ST_FUNC Sym *label_push(Sym **ptop, int v, int flags);
-ST_FUNC void label_pop(Sym **ptop, Sym *slast, int keep);
-ST_INLN Sym *struct_find(int v);
+ST_INLN வெறுமை sym_free(Sym *sym);
+ST_FUNC Sym *sym_தள்ளு(முழு v, CType *type, முழு r, முழு c);
+ST_FUNC வெறுமை sym_எடு(Sym **ptop, Sym *b, முழு keep);
+ST_FUNC Sym *sym_push2(Sym **ps, முழு v, முழு t, முழு c);
+ST_FUNC Sym *sym_find2(Sym *s, முழு v);
+ST_INLN Sym *sym_find(முழு v);
+ST_FUNC Sym *label_find(முழு v);
+ST_FUNC Sym *label_தள்ளு(Sym **ptop, முழு v, முழு flags);
+ST_FUNC வெறுமை label_எடு(Sym **ptop, Sym *slast, முழு keep);
+ST_INLN Sym *struct_find(முழு v);
 
-ST_FUNC Sym *global_identifier_push(int v, int t, int c);
-ST_FUNC Sym *external_global_sym(int v, CType *type);
-ST_FUNC Sym *external_helper_sym(int v);
-ST_FUNC void vpush_helper_func(int v);
-ST_FUNC void vset(CType *type, int r, int v);
-ST_FUNC void vset_VT_CMP(int op);
-ST_FUNC void vpushi(int v);
-ST_FUNC void vpushv(SValue *v);
-ST_FUNC void vpushsym(CType *type, Sym *sym);
-ST_FUNC void vswap(void);
-ST_FUNC void vrott(int n);
-ST_FUNC void vrotb(int n);
-ST_FUNC void vrev(int n);
-ST_FUNC void vpop(void);
-#if PTR_SIZE == 4
-ST_FUNC void lexpand(void);
+ST_FUNC Sym *global_identifier_தள்ளு(முழு v, முழு t, முழு c);
+ST_FUNC Sym *external_global_sym(முழு v, CType *type);
+ST_FUNC Sym *external_helper_sym(முழு v);
+ST_FUNC வெறுமை vpush_helper_func(முழு v);
+ST_FUNC வெறுமை vset(CType *type, முழு r, முழு v);
+ST_FUNC வெறுமை vset_VT_CMP(முழு op);
+ST_FUNC வெறுமை vpushi(முழு v);
+ST_FUNC வெறுமை vpushv(SValue *v);
+ST_FUNC வெறுமை vpushsym(CType *type, Sym *sym);
+ST_FUNC வெறுமை vswap(வெறுமை);
+ST_FUNC வெறுமை vrott(முழு n);
+ST_FUNC வெறுமை vrotb(முழு n);
+ST_FUNC வெறுமை vrev(முழு n);
+ST_FUNC வெறுமை vpop(வெறுமை);
+#எனில் PTR_SIZE == 4
+ST_FUNC வெறுமை lexpand(வெறுமை);
 #endif
 #ifdef TCC_TARGET_ARM
-ST_FUNC int get_reg_ex(int rc, int rc2);
+ST_FUNC முழு get_reg_ex(முழு rc, முழு rc2);
 #endif
-ST_FUNC void save_reg(int r);
-ST_FUNC void save_reg_upstack(int r, int n);
-ST_FUNC int get_reg(int rc);
-ST_FUNC void save_regs(int n);
-ST_FUNC void gaddrof(void);
-ST_FUNC int gv(int rc);
-ST_FUNC void gv2(int rc1, int rc2);
-ST_FUNC void gen_op(int op);
-ST_FUNC int type_size(CType *type, int *a);
-ST_FUNC void mk_pointer(CType *type);
-ST_FUNC void vstore(void);
-ST_FUNC void inc(int post, int c);
-ST_FUNC CString* parse_mult_str(const char *msg);
-ST_FUNC CString* parse_asm_str(void);
-ST_FUNC void indir(void);
-ST_FUNC void unary(void);
-ST_FUNC void gexpr(void);
-ST_FUNC int expr_const(void);
-#if defined CONFIG_TCC_BCHECK || defined TCC_TARGET_C67
+ST_FUNC வெறுமை save_reg(முழு r);
+ST_FUNC வெறுமை save_reg_upstack(முழு r, முழு n);
+ST_FUNC முழு get_reg(முழு rc);
+ST_FUNC வெறுமை save_regs(முழு n);
+ST_FUNC வெறுமை gaddrof(வெறுமை);
+ST_FUNC முழு gv(முழு rc);
+ST_FUNC வெறுமை gv2(முழு rc1, முழு rc2);
+ST_FUNC வெறுமை gen_op(முழு op);
+ST_FUNC முழு type_size(CType *type, முழு *a);
+ST_FUNC வெறுமை mk_pointer(CType *type);
+ST_FUNC வெறுமை vstore(வெறுமை);
+ST_FUNC வெறுமை inc(முழு post, முழு c);
+ST_FUNC CString* parse_mult_str(மாறிலி எழுத்து *செய்தி);
+ST_FUNC CString* parse_asm_str(வெறுமை);
+ST_FUNC வெறுமை indir(வெறுமை);
+ST_FUNC வெறுமை unary(வெறுமை);
+ST_FUNC வெறுமை gexpr(வெறுமை);
+ST_FUNC முழு கோவை_const(வெறுமை);
+#எனில் defined CONFIG_TCC_BCHECK || defined TCC_TARGET_C67
 ST_FUNC Sym *get_sym_ref(CType *type, Section *sec, unsigned long offset, unsigned long size);
 #endif
-#if defined TCC_TARGET_X86_64 && !defined TCC_TARGET_PE
-ST_FUNC int classify_x86_64_va_arg(CType *ty);
+#எனில் defined TCC_TARGET_X86_64 && !defined TCC_TARGET_PE
+ST_FUNC முழு classify_x86_64_va_arg(CType *ty);
 #endif
 #ifdef CONFIG_TCC_BCHECK
-ST_FUNC void gbound_args(int nb_args);
-ST_DATA int func_bound_add_epilog;
+ST_FUNC வெறுமை gbound_args(முழு nb_args);
+ST_DATA முழு func_bound_add_epilog;
 #endif
-ST_FUNC Sym *gfunc_set_param(Sym *s, int c, int byref);
+ST_FUNC Sym *gfunc_set_param(Sym *s, முழு c, முழு byref);
 
 /* ------------ tccelf.c ------------ */
 
 #define TCC_OUTPUT_FORMAT_ELF    0 /* default output format: ELF */
-#define TCC_OUTPUT_FORMAT_BINARY 1 /* binary image output */
+#define TCC_OUTPUT_FORMAT_இருமம் 1 /* binary image output */
 #define TCC_OUTPUT_FORMAT_COFF   2 /* COFF */
 #define TCC_OUTPUT_DYN           TCC_OUTPUT_DLL
 
 #define ARMAG  "!<arch>\n"    /* For COFF and a.out archives */
 
-typedef struct {
-    unsigned int n_strx;         /* index into string table of name */
-    unsigned char n_type;         /* type of symbol */
-    unsigned char n_other;        /* misc info (usually empty) */
+வகைவரை கட்டமைப்பு {
+    unsigned முழு n_strx;         /* index into string table of name */
+    unsigned எழுத்து n_type;         /* type of symbol */
+    unsigned எழுத்து n_other;        /* misc info (usually empty) */
     unsigned short n_desc;        /* description field */
-    unsigned int n_value;        /* value of symbol */
+    unsigned முழு n_மதிப்பு;        /* value of symbol */
 } Stab_Sym;
 
-ST_FUNC void tccelf_new(TCCState *s);
-ST_FUNC void tccelf_delete(TCCState *s);
-ST_FUNC void tccelf_begin_file(TCCState *s1);
-ST_FUNC void tccelf_end_file(TCCState *s1);
-ST_FUNC Section *new_section(TCCState *s1, const char *name, int sh_type, int sh_flags);
-ST_FUNC void section_realloc(Section *sec, unsigned long new_size);
-ST_FUNC size_t section_add(Section *sec, addr_t size, int align);
-ST_FUNC void *section_ptr_add(Section *sec, addr_t size);
-ST_FUNC Section *find_section(TCCState *s1, const char *name);
-ST_FUNC void free_section(Section *s);
-ST_FUNC Section *new_symtab(TCCState *s1, const char *symtab_name, int sh_type, int sh_flags, const char *strtab_name, const char *hash_name, int hash_sh_flags);
-ST_FUNC void init_symtab(Section *s);
+ST_FUNC வெறுமை tccelf_new(TCCState *s);
+ST_FUNC வெறுமை tccelf_delete(TCCState *s);
+ST_FUNC வெறுமை tccelf_begin_file(TCCState *s1);
+ST_FUNC வெறுமை tccelf_end_file(TCCState *s1);
+ST_FUNC Section *new_section(TCCState *s1, மாறிலி எழுத்து *name, முழு sh_type, முழு sh_flags);
+ST_FUNC வெறுமை section_realloc(Section *sec, unsigned long new_size);
+ST_FUNC size_t section_add(Section *sec, addr_t size, முழு align);
+ST_FUNC வெறுமை *section_ptr_add(Section *sec, addr_t size);
+ST_FUNC Section *find_section(TCCState *s1, மாறிலி எழுத்து *name);
+ST_FUNC வெறுமை free_section(Section *s);
+ST_FUNC Section *new_symtab(TCCState *s1, மாறிலி எழுத்து *symtab_name, முழு sh_type, முழு sh_flags, மாறிலி எழுத்து *strtab_name, மாறிலி எழுத்து *hash_name, முழு hash_sh_flags);
+ST_FUNC வெறுமை init_symtab(Section *s);
 
-ST_FUNC int put_elf_str(Section *s, const char *sym);
-ST_FUNC int put_elf_sym(Section *s, addr_t value, unsigned long size, int info, int other, int shndx, const char *name);
-ST_FUNC int set_elf_sym(Section *s, addr_t value, unsigned long size, int info, int other, int shndx, const char *name);
-ST_FUNC int find_elf_sym(Section *s, const char *name);
-ST_FUNC void put_elf_reloc(Section *symtab, Section *s, unsigned long offset, int type, int symbol);
-ST_FUNC void put_elf_reloca(Section *symtab, Section *s, unsigned long offset, int type, int symbol, addr_t addend);
+ST_FUNC முழு put_elf_str(Section *s, மாறிலி எழுத்து *sym);
+ST_FUNC முழு put_elf_sym(Section *s, addr_t மதிப்பு, unsigned long size, முழு info, முழு other, முழு shndx, மாறிலி எழுத்து *name);
+ST_FUNC முழு set_elf_sym(Section *s, addr_t மதிப்பு, unsigned long size, முழு info, முழு other, முழு shndx, மாறிலி எழுத்து *name);
+ST_FUNC முழு find_elf_sym(Section *s, மாறிலி எழுத்து *name);
+ST_FUNC வெறுமை put_elf_reloc(Section *symtab, Section *s, unsigned long offset, முழு type, முழு குறியீடு);
+ST_FUNC வெறுமை put_elf_reloca(Section *symtab, Section *s, unsigned long offset, முழு type, முழு குறியீடு, addr_t addend);
 
-ST_FUNC void resolve_common_syms(TCCState *s1);
-ST_FUNC void relocate_syms(TCCState *s1, Section *symtab, int do_resolve);
-ST_FUNC void relocate_sections(TCCState *s1);
+ST_FUNC வெறுமை resolve_common_syms(TCCState *s1);
+ST_FUNC வெறுமை relocate_syms(TCCState *s1, Section *symtab, முழு do_resolve);
+ST_FUNC வெறுமை relocate_sections(TCCState *s1);
 
-ST_FUNC ssize_t full_read(int fd, void *buf, size_t count);
-ST_FUNC void *load_data(int fd, unsigned long file_offset, unsigned long size);
-ST_FUNC int tcc_object_type(int fd, ElfW(Ehdr) *h);
-ST_FUNC int tcc_load_object_file(TCCState *s1, int fd, unsigned long file_offset);
-ST_FUNC int tcc_load_archive(TCCState *s1, int fd, int alacarte);
-ST_FUNC void add_array(TCCState *s1, const char *sec, int c);
+ST_FUNC ssize_t full_read(முழு fd, வெறுமை *buf, size_t மொத்தம்_2);
+ST_FUNC வெறுமை *load_data(முழு fd, unsigned long file_offset, unsigned long size);
+ST_FUNC முழு tcc_object_type(முழு fd, ElfW(Ehdr) *h);
+ST_FUNC முழு tcc_load_object_file(TCCState *s1, முழு fd, unsigned long file_offset);
+ST_FUNC முழு tcc_load_archive(TCCState *s1, முழு fd, முழு alacarte);
+ST_FUNC வெறுமை add_array(TCCState *s1, மாறிலி எழுத்து *sec, முழு c);
 
-ST_FUNC struct sym_attr *get_sym_attr(TCCState *s1, int index, int alloc);
-ST_FUNC addr_t get_sym_addr(TCCState *s, const char *name, int err, int forc);
-ST_FUNC void list_elf_symbols(TCCState *s, void *ctx,
-    void (*symbol_cb)(void *ctx, const char *name, const void *val));
-ST_FUNC int set_global_sym(TCCState *s1, const char *name, Section *sec, addr_t offs);
+ST_FUNC கட்டமைப்பு sym_attr *get_sym_attr(TCCState *s1, முழு index, முழு alloc);
+ST_FUNC addr_t get_sym_addr(TCCState *s, மாறிலி எழுத்து *name, முழு err, முழு forc);
+ST_FUNC வெறுமை list_elf_symbols(TCCState *s, வெறுமை *ctx,
+    வெறுமை (*குறியீடு_cb)(வெறுமை *ctx, மாறிலி எழுத்து *name, மாறிலி வெறுமை *val));
+ST_FUNC முழு set_global_sym(TCCState *s1, மாறிலி எழுத்து *name, Section *sec, addr_t offs);
 
 /* Browse each elem of type <type> in section <sec> starting at elem <startoff>
    using variable <elem> */
 #define for_each_elem(sec, startoff, elem, type) \
-    for (elem = (type *) sec->data + startoff; \
+    க்கு (elem = (type *) sec->data + startoff; \
          elem < (type *) (sec->data + sec->data_offset); elem++)
 
 #ifndef ELF_OBJ_ONLY
-ST_FUNC int tcc_load_dll(TCCState *s1, int fd, const char *filename, int level);
-ST_FUNC int tcc_load_ldscript(TCCState *s1, int fd);
-ST_FUNC void tccelf_add_crtbegin(TCCState *s1);
-ST_FUNC void tccelf_add_crtend(TCCState *s1);
+ST_FUNC முழு tcc_load_dll(TCCState *s1, முழு fd, மாறிலி எழுத்து *filename, முழு level);
+ST_FUNC முழு tcc_load_ldscript(TCCState *s1, முழு fd);
+ST_FUNC வெறுமை tccelf_add_crtbegin(TCCState *s1);
+ST_FUNC வெறுமை tccelf_add_crtend(TCCState *s1);
 #endif
 #ifndef TCC_TARGET_PE
-ST_FUNC void tcc_add_runtime(TCCState *s1);
+ST_FUNC வெறுமை tcc_add_runtime(TCCState *s1);
 #endif
 
 /* ------------ xxx-link.c ------------ */
 
 #ifndef TCC_TARGET_PE
-ST_FUNC int code_reloc (int reloc_type);
-ST_FUNC int gotplt_entry_type (int reloc_type);
+ST_FUNC முழு code_reloc (முழு reloc_type);
+ST_FUNC முழு gotplt_entry_type (முழு reloc_type);
 /* Whether to generate a GOT/PLT entry and when. NO_GOTPLT_ENTRY is first so
    that unknown relocation don't create a GOT or PLT entry */
-enum gotplt_entry {
+எண்ணிக்கை gotplt_entry {
     NO_GOTPLT_ENTRY,	/* never generate (eg. GLOB_DAT & JMP_SLOT relocs) */
     BUILD_GOT_ONLY,	/* only build GOT (eg. TPOFF relocs) */
     AUTO_GOTPLT_ENTRY,	/* generate if sym is UNDEF */
     ALWAYS_GOTPLT_ENTRY	/* always generate (eg. PLTOFF relocs) */
 };
 #define NEED_RELOC_TYPE
-#if !defined TCC_TARGET_MACHO || defined TCC_IS_NATIVE
-ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr);
-ST_FUNC void relocate_plt(TCCState *s1);
-ST_FUNC void build_got_entries(TCCState *s1, int got_sym); /* in tccelf.c */
+#எனில் !defined TCC_TARGET_MACHO || defined TCC_IS_NATIVE
+ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, கட்டமைப்பு sym_attr *attr);
+ST_FUNC வெறுமை relocate_plt(TCCState *s1);
+ST_FUNC வெறுமை build_got_entries(TCCState *s1, முழு got_sym); /* in tccelf.c */
 #define NEED_BUILD_GOT
 #endif
 #endif
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr, addr_t addr, addr_t val);
+ST_FUNC வெறுமை relocate(TCCState *s1, ElfW_Rel *rel, முழு type, unsigned எழுத்து *ptr, addr_t addr, addr_t val);
 
 /* ------------ xxx-gen.c ------------ */
-ST_DATA const char * const target_machine_defs;
-ST_DATA const int reg_classes[NB_REGS];
+ST_DATA மாறிலி எழுத்து * மாறிலி target_machine_defs;
+ST_DATA மாறிலி முழு reg_classes[NB_REGS];
 
-ST_FUNC void gsym_addr(int t, int a);
-ST_FUNC void gsym(int t);
-ST_FUNC void load(int r, SValue *sv);
-ST_FUNC void store(int r, SValue *v);
-ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *align, int *regsize);
-ST_FUNC void gfunc_call(int nb_args);
-ST_FUNC void gfunc_prolog(Sym *func_sym);
-ST_FUNC void gfunc_epilog(void);
-ST_FUNC void gen_fill_nops(int);
-ST_FUNC int gjmp(int t);
-ST_FUNC void gjmp_addr(int a);
-ST_FUNC int gjmp_cond(int op, int t);
-ST_FUNC int gjmp_append(int n, int t);
-ST_FUNC void gen_opi(int op);
-ST_FUNC void gen_opf(int op);
-ST_FUNC void gen_cvt_ftoi(int t);
-ST_FUNC void gen_cvt_itof(int t);
-ST_FUNC void gen_cvt_ftof(int t);
-ST_FUNC void ggoto(void);
+ST_FUNC வெறுமை gsym_addr(முழு t, முழு a);
+ST_FUNC வெறுமை gsym(முழு t);
+ST_FUNC வெறுமை load(முழு r, SValue *sv);
+ST_FUNC வெறுமை store(முழு r, SValue *v);
+ST_FUNC முழு gfunc_sret(CType *vt, முழு variadic, CType *ret, முழு *align, முழு *regsize);
+ST_FUNC வெறுமை gfunc_call(முழு nb_args);
+ST_FUNC வெறுமை gfunc_prolog(Sym *func_sym);
+ST_FUNC வெறுமை gfunc_epilog(வெறுமை);
+ST_FUNC வெறுமை gen_fill_nops(முழு);
+ST_FUNC முழு gjmp(முழு t);
+ST_FUNC வெறுமை gjmp_addr(முழு a);
+ST_FUNC முழு gjmp_cond(முழு op, முழு t);
+ST_FUNC முழு gjmp_append(முழு n, முழு t);
+ST_FUNC வெறுமை gen_opi(முழு op);
+ST_FUNC வெறுமை gen_opf(முழு op);
+ST_FUNC வெறுமை gen_cvt_ftoi(முழு t);
+ST_FUNC வெறுமை gen_cvt_itof(முழு t);
+ST_FUNC வெறுமை gen_cvt_ftof(முழு t);
+ST_FUNC வெறுமை ggoto(வெறுமை);
 #ifndef TCC_TARGET_C67
-ST_FUNC void o(unsigned int c);
+ST_FUNC வெறுமை o(unsigned முழு c);
 #endif
-ST_FUNC void gen_vla_sp_save(int addr);
-ST_FUNC void gen_vla_sp_restore(int addr);
-ST_FUNC void gen_vla_alloc(CType *type, int align);
+ST_FUNC வெறுமை gen_vla_sp_save(முழு addr);
+ST_FUNC வெறுமை gen_vla_sp_restore(முழு addr);
+ST_FUNC வெறுமை gen_vla_alloc(CType *type, முழு align);
 
-static inline uint16_t read16le(unsigned char *p) {
-    return p[0] | (uint16_t)p[1] << 8;
+நிலையான உள்வரி uint16_t read16le(unsigned எழுத்து *p) {
+    திரும்பு p[0] | (uint16_t)p[1] << 8;
 }
-static inline void write16le(unsigned char *p, uint16_t x) {
+நிலையான உள்வரி வெறுமை write16le(unsigned எழுத்து *p, uint16_t x) {
     p[0] = x & 255;  p[1] = x >> 8 & 255;
 }
-static inline uint32_t read32le(unsigned char *p) {
-  return read16le(p) | (uint32_t)read16le(p + 2) << 16;
+நிலையான உள்வரி uint32_t read32le(unsigned எழுத்து *p) {
+  திரும்பு read16le(p) | (uint32_t)read16le(p + 2) << 16;
 }
-static inline void write32le(unsigned char *p, uint32_t x) {
+நிலையான உள்வரி வெறுமை write32le(unsigned எழுத்து *p, uint32_t x) {
     write16le(p, x);  write16le(p + 2, x >> 16);
 }
-static inline void add32le(unsigned char *p, int32_t x) {
+நிலையான உள்வரி வெறுமை add32le(unsigned எழுத்து *p, int32_t x) {
     write32le(p, read32le(p) + x);
 }
-static inline uint64_t read64le(unsigned char *p) {
-  return read32le(p) | (uint64_t)read32le(p + 4) << 32;
+நிலையான உள்வரி uint64_t read64le(unsigned எழுத்து *p) {
+  திரும்பு read32le(p) | (uint64_t)read32le(p + 4) << 32;
 }
-static inline void write64le(unsigned char *p, uint64_t x) {
+நிலையான உள்வரி வெறுமை write64le(unsigned எழுத்து *p, uint64_t x) {
     write32le(p, x);  write32le(p + 4, x >> 32);
 }
-static inline void add64le(unsigned char *p, int64_t x) {
+நிலையான உள்வரி வெறுமை add64le(unsigned எழுத்து *p, int64_t x) {
     write64le(p, read64le(p) + x);
 }
 /* ------------ i386-gen.c ------------ */
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64 || defined TCC_TARGET_ARM
-ST_FUNC void g(int c);
-ST_FUNC void gen_le16(int c);
-ST_FUNC void gen_le32(int c);
+#எனில் defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64 || defined TCC_TARGET_ARM
+ST_FUNC வெறுமை g(முழு c);
+ST_FUNC வெறுமை gen_le16(முழு c);
+ST_FUNC வெறுமை gen_le32(முழு c);
 #endif
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
-ST_FUNC void gen_addr32(int r, Sym *sym, int c);
-ST_FUNC void gen_addrpc32(int r, Sym *sym, int c);
-ST_FUNC void gen_cvt_csti(int t);
-ST_FUNC void gen_increment_tcov (SValue *sv);
+#எனில் defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
+ST_FUNC வெறுமை gen_addr32(முழு r, Sym *sym, முழு c);
+ST_FUNC வெறுமை gen_addrpc32(முழு r, Sym *sym, முழு c);
+ST_FUNC வெறுமை gen_cvt_csti(முழு t);
+ST_FUNC வெறுமை gen_increment_tcov (SValue *sv);
 #endif
 
 /* ------------ x86_64-gen.c ------------ */
 #ifdef TCC_TARGET_X86_64
-ST_FUNC void gen_opl(int op);
+ST_FUNC வெறுமை gen_opl(முழு op);
 #ifdef TCC_TARGET_PE
-ST_FUNC void gen_vla_result(int addr);
+ST_FUNC வெறுமை gen_vla_result(முழு addr);
 #endif
-ST_FUNC void gen_cvt_sxtw(void);
-ST_FUNC void gen_cvt_csti(int t);
+ST_FUNC வெறுமை gen_cvt_sxtw(வெறுமை);
+ST_FUNC வெறுமை gen_cvt_csti(முழு t);
 #endif
 
 /* ------------ arm-gen.c ------------ */
 #ifdef TCC_TARGET_ARM
-#if defined(TCC_ARM_EABI) && !defined(CONFIG_TCC_ELFINTERP)
-PUB_FUNC const char *default_elfinterp(struct TCCState *s);
+#எனில் defined(TCC_ARM_EABI) && !defined(CONFIG_TCC_ELFINTERP)
+PUB_FUNC மாறிலி எழுத்து *default_elfinterp(கட்டமைப்பு TCCState *s);
 #endif
-ST_FUNC void arm_init(struct TCCState *s);
-ST_FUNC void gen_increment_tcov (SValue *sv);
+ST_FUNC வெறுமை arm_init(கட்டமைப்பு TCCState *s);
+ST_FUNC வெறுமை gen_increment_tcov (SValue *sv);
 #endif
 
 /* ------------ arm64-gen.c ------------ */
 #ifdef TCC_TARGET_ARM64
-ST_FUNC void gen_opl(int op);
-ST_FUNC void gfunc_return(CType *func_type);
-ST_FUNC void gen_va_start(void);
-ST_FUNC void gen_va_arg(CType *t);
-ST_FUNC void gen_clear_cache(void);
-ST_FUNC void gen_cvt_sxtw(void);
-ST_FUNC void gen_cvt_csti(int t);
-ST_FUNC void gen_increment_tcov (SValue *sv);
+ST_FUNC வெறுமை gen_opl(முழு op);
+ST_FUNC வெறுமை gfunc_return(CType *func_type);
+ST_FUNC வெறுமை gen_va_start(வெறுமை);
+ST_FUNC வெறுமை gen_va_arg(CType *t);
+ST_FUNC வெறுமை gen_clear_cache(வெறுமை);
+ST_FUNC வெறுமை gen_cvt_sxtw(வெறுமை);
+ST_FUNC வெறுமை gen_cvt_csti(முழு t);
+ST_FUNC வெறுமை gen_increment_tcov (SValue *sv);
 #endif
 
 /* ------------ riscv64-gen.c ------------ */
 #ifdef TCC_TARGET_RISCV64
-ST_FUNC void gen_opl(int op);
-ST_FUNC void gen_va_start(void);
-ST_FUNC void arch_transfer_ret_regs(int);
-ST_FUNC void gen_cvt_sxtw(void);
-ST_FUNC void gen_cvt_csti(int t);
-ST_FUNC void gen_increment_tcov (SValue *sv);
-ST_FUNC void gen_clear_cache(void);
+ST_FUNC வெறுமை gen_opl(முழு op);
+ST_FUNC வெறுமை gen_va_start(வெறுமை);
+ST_FUNC வெறுமை arch_transfer_ret_regs(முழு);
+ST_FUNC வெறுமை gen_cvt_sxtw(வெறுமை);
+ST_FUNC வெறுமை gen_cvt_csti(முழு t);
+ST_FUNC வெறுமை gen_increment_tcov (SValue *sv);
+ST_FUNC வெறுமை gen_clear_cache(வெறுமை);
 #endif
 
 /* ------------ c67-gen.c ------------ */
@@ -1737,44 +1737,44 @@ ST_FUNC void gen_clear_cache(void);
 
 /* ------------ tcccoff.c ------------ */
 #ifdef TCC_TARGET_COFF
-ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f);
-ST_FUNC int tcc_load_coff(TCCState * s1, int fd);
+ST_FUNC முழு tcc_output_coff(TCCState *s1, FILE *f);
+ST_FUNC முழு tcc_load_coff(TCCState * s1, முழு fd);
 #endif
 
 /* ------------ tccasm.c ------------ */
-ST_FUNC void asm_instr(void);
-ST_FUNC void asm_global_instr(void);
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess);
+ST_FUNC வெறுமை asm_instr(வெறுமை);
+ST_FUNC வெறுமை asm_global_instr(வெறுமை);
+ST_FUNC முழு tcc_assemble(TCCState *s1, முழு do_preprocess);
 #ifdef CONFIG_TCC_ASM
-ST_FUNC int find_constraint(ASMOperand *operands, int nb_operands, const char *name, const char **pp);
-ST_FUNC Sym* get_asm_sym(int name, Sym *csym);
-ST_FUNC void asm_expr(TCCState *s1, ExprValue *pe);
-ST_FUNC int asm_int_expr(TCCState *s1);
-#if PTR_SIZE == 8
-ST_FUNC void gen_expr64(ExprValue *pe);
+ST_FUNC முழு find_constraint(ASMOperand *operands, முழு nb_operands, மாறிலி எழுத்து *name, மாறிலி எழுத்து **pp);
+ST_FUNC Sym* get_asm_sym(முழு name, Sym *csym);
+ST_FUNC வெறுமை asm_கோவை(TCCState *s1, கோவை_மதிப்பு *pe);
+ST_FUNC முழு asm_int_கோவை(TCCState *s1);
+#எனில் PTR_SIZE == 8
+ST_FUNC வெறுமை gen_expr64(கோவை_மதிப்பு *pe);
 #endif
 /* ------------ i386-asm.c ------------ */
-ST_FUNC void gen_expr32(ExprValue *pe);
-ST_FUNC void asm_opcode(TCCState *s1, int opcode);
-ST_FUNC int asm_parse_regvar(int t);
-ST_FUNC void asm_compute_constraints(ASMOperand *operands, int nb_operands, int nb_outputs, const uint8_t *clobber_regs, int *pout_reg);
-ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier);
-ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands, int nb_outputs, int is_output, uint8_t *clobber_regs, int out_reg);
-ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str);
+ST_FUNC வெறுமை gen_expr32(கோவை_மதிப்பு *pe);
+ST_FUNC வெறுமை asm_opcode(TCCState *s1, முழு opcode);
+ST_FUNC முழு asm_parse_regvar(முழு t);
+ST_FUNC வெறுமை asm_compute_constraints(ASMOperand *operands, முழு nb_operands, முழு nb_outputs, மாறிலி uint8_t *clobber_regs, முழு *pout_reg);
+ST_FUNC வெறுமை subst_asm_operand(CString *add_str, SValue *sv, முழு modifier);
+ST_FUNC வெறுமை asm_gen_code(ASMOperand *operands, முழு nb_operands, முழு nb_outputs, முழு is_output, uint8_t *clobber_regs, முழு out_reg);
+ST_FUNC வெறுமை asm_clobber(uint8_t *clobber_regs, மாறிலி எழுத்து *str);
 #endif
 
 /* ------------ tccpe.c -------------- */
 #ifdef TCC_TARGET_PE
-ST_FUNC int pe_load_file(struct TCCState *s1, int fd, const char *filename);
-ST_FUNC int pe_output_file(TCCState * s1, const char *filename);
-ST_FUNC int pe_putimport(TCCState *s1, int dllindex, const char *name, addr_t value);
-ST_FUNC int pe_setsubsy(TCCState *s1, const char *arg);
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
+ST_FUNC முழு pe_load_file(கட்டமைப்பு TCCState *s1, முழு fd, மாறிலி எழுத்து *filename);
+ST_FUNC முழு pe_output_file(TCCState * s1, மாறிலி எழுத்து *filename);
+ST_FUNC முழு pe_putimport(TCCState *s1, முழு dllindex, மாறிலி எழுத்து *name, addr_t மதிப்பு);
+ST_FUNC முழு pe_setsubsy(TCCState *s1, மாறிலி எழுத்து *arg);
+#எனில் defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
 #endif
-#if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
-ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack);
+#எனில் defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
+ST_FUNC வெறுமை pe_add_unwind_data(unsigned start, unsigned end, unsigned அடுக்கு);
 #endif
-PUB_FUNC int tcc_get_dllexports(const char *filename, char **pp);
+PUB_FUNC முழு tcc_get_dllexports(மாறிலி எழுத்து *filename, எழுத்து **pp);
 /* symbol properties stored in Elf32_Sym->st_other */
 # define ST_PE_EXPORT 0x10
 # define ST_PE_IMPORT 0x20
@@ -1784,12 +1784,12 @@ PUB_FUNC int tcc_get_dllexports(const char *filename, char **pp);
 
 /* ------------ tccmacho.c ----------------- */
 #ifdef TCC_TARGET_MACHO
-ST_FUNC int macho_output_file(TCCState * s1, const char *filename);
-ST_FUNC int macho_load_dll(TCCState *s1, int fd, const char *filename, int lev);
-ST_FUNC int macho_load_tbd(TCCState *s1, int fd, const char *filename, int lev);
+ST_FUNC முழு macho_output_file(TCCState * s1, மாறிலி எழுத்து *filename);
+ST_FUNC முழு macho_load_dll(TCCState *s1, முழு fd, மாறிலி எழுத்து *filename, முழு lev);
+ST_FUNC முழு macho_load_tbd(TCCState *s1, முழு fd, மாறிலி எழுத்து *filename, முழு lev);
 #ifdef TCC_IS_NATIVE
-ST_FUNC void tcc_add_macos_sdkpath(TCCState* s);
-ST_FUNC char* macho_tbd_soname(int fd);
+ST_FUNC வெறுமை tcc_add_macos_sdkpath(TCCState* s);
+ST_FUNC எழுத்து* macho_tbd_soname(முழு fd);
 #endif
 #endif
 /* ------------ tccrun.c ----------------- */
@@ -1798,59 +1798,59 @@ ST_FUNC char* macho_tbd_soname(int fd);
 #define RTLD_LAZY       0x001
 #define RTLD_NOW        0x002
 #define RTLD_GLOBAL     0x100
-#define RTLD_DEFAULT    NULL
+#define RTLD_DEFAULT    வெற்று
 /* dummy function for profiling */
-ST_FUNC void *dlopen(const char *filename, int flag);
-ST_FUNC void dlclose(void *p);
-ST_FUNC const char *dlerror(void);
-ST_FUNC void *dlsym(void *handle, const char *symbol);
+ST_FUNC வெறுமை *dlopen(மாறிலி எழுத்து *filename, முழு flag);
+ST_FUNC வெறுமை dlclose(வெறுமை *p);
+ST_FUNC மாறிலி எழுத்து *dlerror(வெறுமை);
+ST_FUNC வெறுமை *dlsym(வெறுமை *handle, மாறிலி எழுத்து *குறியீடு);
 #endif
-ST_FUNC void tcc_run_free(TCCState *s1);
+ST_FUNC வெறுமை tcc_run_free(TCCState *s1);
 #endif
 
 /* ------------ tcctools.c ----------------- */
-#if 0 /* included in tcc.c */
-ST_FUNC int tcc_tool_ar(TCCState *s, int argc, char **argv);
+#எனில் 0 /* included in tcc.c */
+ST_FUNC முழு tcc_tool_ar(TCCState *s, முழு argc, எழுத்து **argv);
 #ifdef TCC_TARGET_PE
-ST_FUNC int tcc_tool_impdef(TCCState *s, int argc, char **argv);
+ST_FUNC முழு tcc_tool_impdef(TCCState *s, முழு argc, எழுத்து **argv);
 #endif
-ST_FUNC int tcc_tool_cross(TCCState *s, char **argv, int option);
-ST_FUNC int gen_makedeps(TCCState *s, const char *target, const char *filename);
+ST_FUNC முழு tcc_tool_cross(TCCState *s, எழுத்து **argv, முழு option);
+ST_FUNC முழு gen_makedeps(TCCState *s, மாறிலி எழுத்து *target, மாறிலி எழுத்து *filename);
 #endif
 
 /* ------------ tccdbg.c ------------ */
 
-ST_FUNC void tcc_debug_new(TCCState *s);
+ST_FUNC வெறுமை tcc_debug_new(TCCState *s);
 
-ST_FUNC void tcc_debug_start(TCCState *s1);
-ST_FUNC void tcc_debug_end(TCCState *s1);
-ST_FUNC void tcc_debug_bincl(TCCState *s1);
-ST_FUNC void tcc_debug_eincl(TCCState *s1);
-ST_FUNC void tcc_debug_newfile(TCCState *s1);
+ST_FUNC வெறுமை tcc_debug_start(TCCState *s1);
+ST_FUNC வெறுமை tcc_debug_end(TCCState *s1);
+ST_FUNC வெறுமை tcc_debug_bincl(TCCState *s1);
+ST_FUNC வெறுமை tcc_debug_eincl(TCCState *s1);
+ST_FUNC வெறுமை tcc_debug_newfile(TCCState *s1);
 
-ST_FUNC void tcc_debug_line(TCCState *s1);
-ST_FUNC void tcc_add_debug_info(TCCState *s1, Sym *s, Sym *e);
-ST_FUNC void tcc_debug_funcstart(TCCState *s1, Sym *sym);
-ST_FUNC void tcc_debug_prolog_epilog(TCCState *s1, int value);
-ST_FUNC void tcc_debug_funcend(TCCState *s1, int size);
-ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_num, int sym_bind, int sym_type);
-ST_FUNC void tcc_debug_typedef(TCCState *s1, Sym *sym);
-ST_FUNC void tcc_debug_stabn(TCCState *s1, int type, int value);
-ST_FUNC void tcc_debug_fix_forw(TCCState *s1, CType *t);
+ST_FUNC வெறுமை tcc_debug_வரி(TCCState *s1);
+ST_FUNC வெறுமை tcc_add_debug_info(TCCState *s1, Sym *s, Sym *e);
+ST_FUNC வெறுமை tcc_debug_funcstart(TCCState *s1, Sym *sym);
+ST_FUNC வெறுமை tcc_debug_prolog_epilog(TCCState *s1, முழு மதிப்பு);
+ST_FUNC வெறுமை tcc_debug_funcend(TCCState *s1, முழு size);
+ST_FUNC வெறுமை tcc_debug_extern_sym(TCCState *s1, Sym *sym, முழு sh_இலக்கம், முழு sym_bind, முழு sym_type);
+ST_FUNC வெறுமை tcc_debug_typedef(TCCState *s1, Sym *sym);
+ST_FUNC வெறுமை tcc_debug_stabn(TCCState *s1, முழு type, முழு மதிப்பு);
+ST_FUNC வெறுமை tcc_debug_fix_forw(TCCState *s1, CType *t);
 
-#if !(defined ELF_OBJ_ONLY || defined TCC_TARGET_ARM || defined TARGETOS_BSD)
-ST_FUNC void tcc_eh_frame_start(TCCState *s1);
-ST_FUNC void tcc_eh_frame_end(TCCState *s1);
-ST_FUNC void tcc_eh_frame_hdr(TCCState *s1, int final);
+#எனில் !(defined ELF_OBJ_ONLY || defined TCC_TARGET_ARM || defined TARGETOS_BSD)
+ST_FUNC வெறுமை tcc_eh_frame_start(TCCState *s1);
+ST_FUNC வெறுமை tcc_eh_frame_end(TCCState *s1);
+ST_FUNC வெறுமை tcc_eh_frame_hdr(TCCState *s1, முழு final);
 #define TCC_EH_FRAME 1
 #endif
 
-ST_FUNC void tcc_tcov_start(TCCState *s1);
-ST_FUNC void tcc_tcov_end(TCCState *s1);
-ST_FUNC void tcc_tcov_check_line(TCCState *s1, int start);
-ST_FUNC void tcc_tcov_block_end(TCCState *s1, int line);
-ST_FUNC void tcc_tcov_block_begin(TCCState *s1);
-ST_FUNC void tcc_tcov_reset_ind(TCCState *s1);
+ST_FUNC வெறுமை tcc_tcov_start(TCCState *s1);
+ST_FUNC வெறுமை tcc_tcov_end(TCCState *s1);
+ST_FUNC வெறுமை tcc_tcov_check_வரி(TCCState *s1, முழு start);
+ST_FUNC வெறுமை tcc_tcov_block_end(TCCState *s1, முழு வரி);
+ST_FUNC வெறுமை tcc_tcov_block_begin(TCCState *s1);
+ST_FUNC வெறுமை tcc_tcov_reset_ind(TCCState *s1);
 
 #define stab_section            s1->stab_section
 #define stabstr_section         stab_section->link
@@ -1859,12 +1859,12 @@ ST_FUNC void tcc_tcov_reset_ind(TCCState *s1);
 #define eh_frame_hdr_section    s1->eh_frame_hdr_section
 #define dwarf_info_section      s1->dwarf_info_section
 #define dwarf_abbrev_section    s1->dwarf_abbrev_section
-#define dwarf_line_section      s1->dwarf_line_section
+#define dwarf_வரி_section      s1->dwarf_வரி_section
 #define dwarf_aranges_section   s1->dwarf_aranges_section
 #define dwarf_str_section       s1->dwarf_str_section
-#define dwarf_line_str_section  s1->dwarf_line_str_section
+#define dwarf_வரி_str_section  s1->dwarf_வரி_str_section
 
-#define DWARF_MAX_128	((8 * sizeof (int64_t) + 6) / 7)
+#define DWARF_MAX_128	((8 * அளவு (int64_t) + 6) / 7)
 #define	dwarf_read_1(ln,end) \
 	((ln) < (end) ? *(ln)++ : 0)
 #define	dwarf_read_2(ln,end) \
@@ -1873,44 +1873,44 @@ ST_FUNC void tcc_tcov_reset_ind(TCCState *s1);
 	((ln) + 3 < (end) ? read32le(((ln)+=4) - 4) : 0)
 #define	dwarf_read_8(ln,end) \
 	((ln) + 7 < (end) ? read64le(((ln)+=8) - 8) : 0)
-static inline uint64_t
-dwarf_read_uleb128(unsigned char **ln, unsigned char *end)
+நிலையான உள்வரி uint64_t
+dwarf_read_uleb128(unsigned எழுத்து **ln, unsigned எழுத்து *end)
 {
-    unsigned char *cp = *ln;
+    unsigned எழுத்து *cp = *ln;
     uint64_t retval = 0;
-    int i;
-    for (i = 0; i < DWARF_MAX_128; i++) {
+    முழு i;
+    க்கு (i = 0; i < DWARF_MAX_128; i++) {
 	uint64_t byte = dwarf_read_1(cp, end);
         retval |= (byte & 0x7f) << (i * 7);
-	if ((byte & 0x80) == 0)
-	    break;
+	எனில் ((byte & 0x80) == 0)
+	    நிறுத்து;
     }
     *ln = cp;
-    return retval;
+    திரும்பு retval;
 }
-static inline int64_t
-dwarf_read_sleb128(unsigned char **ln, unsigned char *end)
+நிலையான உள்வரி int64_t
+dwarf_read_sleb128(unsigned எழுத்து **ln, unsigned எழுத்து *end)
 {
-    unsigned char *cp = *ln;
+    unsigned எழுத்து *cp = *ln;
     int64_t retval = 0;
-    int i;
-    for (i = 0; i < DWARF_MAX_128; i++) {
+    முழு i;
+    க்கு (i = 0; i < DWARF_MAX_128; i++) {
 	uint64_t byte = dwarf_read_1(cp, end);
         retval |= (byte & 0x7f) << (i * 7);
-	if ((byte & 0x80) == 0) {
-	    if ((byte & 0x40) && (i + 1) * 7 < 64)
+	எனில் ((byte & 0x80) == 0) {
+	    எனில் ((byte & 0x40) && (i + 1) * 7 < 64)
 		retval |= (uint64_t)-1LL << ((i + 1) * 7);
-	    break;
+	    நிறுத்து;
 	}
     }
     *ln = cp;
-    return retval;
+    திரும்பு retval;
 }
 
 /* default dwarf version for "-gdwarf" */
 #ifdef TCC_TARGET_MACHO
 # define DEFAULT_DWARF_VERSION 2
-#else
+#இல்லையெனில்
 # define DEFAULT_DWARF_VERSION 5
 #endif
 
@@ -1919,56 +1919,56 @@ dwarf_read_sleb128(unsigned char **ln, unsigned char *end)
 # define CONFIG_DWARF_VERSION 0
 #endif
 
-#if defined TCC_TARGET_X86_64
+#எனில் defined TCC_TARGET_X86_64
 # define R_DATA_32DW R_X86_64_32
-#else
+#இல்லையெனில்
 # define R_DATA_32DW R_DATA_32
 #endif
 
 /********************************************************/
-#if CONFIG_TCC_SEMLOCK
-#if defined _WIN32
-typedef struct { volatile LONG init; CRITICAL_SECTION cs; } TCCSem;
-static inline void wait_sem(TCCSem *p) {
-    if (InterlockedCompareExchange(&p->init, 1, 0) == 0) {
+#எனில் CONFIG_TCC_SEMLOCK
+#எனில் defined _WIN32
+வகைவரை கட்டமைப்பு { நிலையற்ற LONG init; CRITICAL_SECTION cs; } TCCSem;
+நிலையான உள்வரி வெறுமை wait_sem(TCCSem *p) {
+    எனில் (InterlockedCompareExchange(&p->init, 1, 0) == 0) {
         InitializeCriticalSection(&p->cs);
         InterlockedExchange(&p->init, 2);
-    } else {
-        while (InterlockedCompareExchange(&p->init, 2, 2) != 2)
+    } இல்லையெனில் {
+        போது (InterlockedCompareExchange(&p->init, 2, 2) != 2)
             Sleep(0);
     }
     EnterCriticalSection(&p->cs);
 }
-static inline void post_sem(TCCSem *p) {
+நிலையான உள்வரி வெறுமை post_sem(TCCSem *p) {
     LeaveCriticalSection(&p->cs);
 }
-#elif defined __APPLE__
-#include <dispatch/dispatch.h>
-typedef struct { int init; dispatch_semaphore_t sem; } TCCSem;
-static inline void wait_sem(TCCSem *p) {
-    if (!p->init)
+#அல்லதெனில் defined __APPLE__
+#அந்தர்பாவ <dispatch/dispatch.h>
+வகைவரை கட்டமைப்பு { முழு init; dispatch_semaphore_t sem; } TCCSem;
+நிலையான உள்வரி வெறுமை wait_sem(TCCSem *p) {
+    எனில் (!p->init)
         p->sem = dispatch_semaphore_create(1), p->init = 1;
     dispatch_semaphore_wait(p->sem, DISPATCH_TIME_FOREVER);
 }
-static inline void post_sem(TCCSem *p) {
+நிலையான உள்வரி வெறுமை post_sem(TCCSem *p) {
     dispatch_semaphore_signal(p->sem);
 }
-#else
-#include <semaphore.h>
-typedef struct { int init; sem_t sem; } TCCSem;
-static inline void wait_sem(TCCSem *p) {
-    if (!p->init)
+#இல்லையெனில்
+#அந்தர்பாவ <semaphore.h>
+வகைவரை கட்டமைப்பு { முழு init; sem_t sem; } TCCSem;
+நிலையான உள்வரி வெறுமை wait_sem(TCCSem *p) {
+    எனில் (!p->init)
         sem_init(&p->sem, 0, 1), p->init = 1;
-    while (sem_wait(&p->sem) < 0 && errno == EINTR);
+    போது (sem_wait(&p->sem) < 0 && errno == EINTR);
 }
-static inline void post_sem(TCCSem *p) {
+நிலையான உள்வரி வெறுமை post_sem(TCCSem *p) {
     sem_post(&p->sem);
 }
 #endif
 #define TCC_SEM(s) TCCSem s
 #define WAIT_SEM wait_sem
 #define POST_SEM post_sem
-#else
+#இல்லையெனில்
 #define TCC_SEM(s)
 #define WAIT_SEM(p)
 #define POST_SEM(p)
@@ -1976,9 +1976,9 @@ static inline void post_sem(TCCSem *p) {
 
 /********************************************************/
 #undef ST_DATA
-#if ONE_SOURCE
-#define ST_DATA static
-#else
+#எனில் ONE_SOURCE
+#define ST_DATA நிலையான
+#இல்லையெனில்
 #define ST_DATA
 #endif
 /********************************************************/
@@ -1998,15 +1998,15 @@ static inline void post_sem(TCCSem *p) {
 #define tcc_warning         TCC_SET_STATE(_tcc_warning)
 
 #define total_idents        TCC_STATE_VAR(total_idents)
-#define total_lines         TCC_STATE_VAR(total_lines)
+#define total_வரிகள்         TCC_STATE_VAR(total_வரிகள்)
 #define total_bytes         TCC_STATE_VAR(total_bytes)
 
-PUB_FUNC void tcc_enter_state(TCCState *s1);
-PUB_FUNC void tcc_exit_state(TCCState *s1);
+PUB_FUNC வெறுமை tcc_enter_state(TCCState *s1);
+PUB_FUNC வெறுமை tcc_exit_state(TCCState *s1);
 
 /* conditional warning depending on switch */
 #define tcc_warning_c(sw) TCC_SET_STATE((\
-    tcc_state->warn_num = offsetof(TCCState, sw) \
+    tcc_state->warn_இலக்கம் = offsetof(TCCState, sw) \
     - offsetof(TCCState, warn_none), _tcc_warning))
 
 /********************************************************/
@@ -2020,7 +2020,7 @@ PUB_FUNC void tcc_exit_state(TCCState *s1);
 # define TCC_SET_STATE(fn) fn
 # undef USING_GLOBALS
 # undef _tcc_error
-#else
+#இல்லையெனில்
 # define TCC_STATE_VAR(sym) s1->sym
 # define TCC_SET_STATE(fn) (tcc_enter_state(s1),fn)
 # define _tcc_error use_tcc_error_noabort

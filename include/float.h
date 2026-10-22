@@ -27,7 +27,7 @@
 #define DBL_MAX_10_EXP 308
 
 /* horrible intel long double */
-#if defined __i386__ || defined __x86_64__
+#எனில் defined __i386__ || defined __x86_64__
 
 #define LDBL_MANT_DIG 64
 #define LDBL_DIG 18
@@ -40,7 +40,7 @@
 #define LDBL_MAX_10_EXP 4932
 #define DECIMAL_DIG 21
 
-#elif defined __aarch64__ || defined __riscv
+#அல்லதெனில் defined __aarch64__ || defined __riscv
 /*
  * Use values from:
  * gcc -dM -E -xc /dev/null | grep LDBL | sed -e "s/__//g"
@@ -56,7 +56,7 @@
 #define LDBL_MAX_10_EXP 4932
 #define DECIMAL_DIG 36
 
-#else
+#இல்லையெனில்
 
 /* same as IEEE double */
 #define LDBL_MANT_DIG 53

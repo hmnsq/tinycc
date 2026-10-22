@@ -1,179 +1,179 @@
-int printf(const char*, ...);
+முழு printf(மாறிலி எழுத்து*, ...);
 
 #define myassert(x) \
     printf("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
 
-enum{ in = 0};
+எண்ணிக்கை{ in = 0};
 
-int main_1(){
+முழு main_1(){
     {
         myassert(!in);
-        if(sizeof(enum{in=1})) myassert(in);
+        எனில்(அளவு(எண்ணிக்கை{in=1})) myassert(in);
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        switch(sizeof(enum{in=1})) { default: myassert(in); }
+        தேர்வு(அளவு(எண்ணிக்கை{in=1})) { இயல்பு: myassert(in); }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        while(sizeof(enum{in=1})) { myassert(in); break; }
+        போது(அளவு(எண்ணிக்கை{in=1})) { myassert(in); நிறுத்து; }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        do{ myassert(!in);}while(0*sizeof(enum{in=1}));
+        செய்{ myassert(!in);}போது(0*அளவு(எண்ணிக்கை{in=1}));
         myassert(!in); //OOPS
     }
 
     {
         myassert(!in);
-        for(sizeof(enum{in=1});;){ myassert(in); break; }
+        க்கு(அளவு(எண்ணிக்கை{in=1});;){ myassert(in); நிறுத்து; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;;sizeof(enum{in=1})){ myassert(in); break; }
+        க்கு(;;அளவு(எண்ணிக்கை{in=1})){ myassert(in); நிறுத்து; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;sizeof(enum{in=1});){ myassert(in); break; }
+        க்கு(;அளவு(எண்ணிக்கை{in=1});){ myassert(in); நிறுத்து; }
         myassert(!in); //OK
     }
-    return 0;
+    திரும்பு 0;
 }
 
 /* --------------------------------------------- */
-int main_2()
+முழு main_2()
 {
-  char c = 'a';
-  void func1(char c); /* param 'c' must not shadow local 'c' */
+  எழுத்து c = 'a';
+  வெறுமை func1(எழுத்து c); /* param 'c' must not shadow local 'c' */
   func1(c);
-  return 0;
+  திரும்பு 0;
 }
 
-void func1(char c)
+வெறுமை func1(எழுத்து c)
 {
     myassert(c == 'a');
 }
 
-struct st { int a; };
+கட்டமைப்பு st { முழு a; };
 
 /* --------------------------------------------- */
-int main_3()
+முழு main_3()
 {
-  struct st func(void);
-  struct st st = func(); /* not an 'incompatible redefinition' */
+  கட்டமைப்பு st func(வெறுமை);
+  கட்டமைப்பு st st = func(); /* not an 'incompatible redefinition' */
   myassert(st.a == 10);
-  return 0;
+  திரும்பு 0;
 }
 
-struct st func(void)
+கட்டமைப்பு st func(வெறுமை)
 {
-  struct st st = { 10 };
-  return st;
+  கட்டமைப்பு st st = { 10 };
+  திரும்பு st;
 }
 
 /* --------------------------------------------- */
 /* func* 'md' must not be shadowed by param 'md' */
-static void f4(char *(*md)(char *md))
+நிலையான வெறுமை f4(எழுத்து *(*md)(எழுத்து *md))
 {
    (*md)("test");
 }
-static char *a4(char *a)
+நிலையான எழுத்து *a4(எழுத்து *a)
 {
-    int strcmp();
+    முழு strcmp();
     myassert(!strcmp(a, "test"));
-    return a;
+    திரும்பு a;
 }
 
-int main_4()
+முழு main_4()
 {
     f4(a4);
-    return 0;
+    திரும்பு 0;
 }
 
 /* --------------------------------------------- */
-int a5[3], b5[];
-int f5(void);
-int main_5()
+முழு a5[3], b5[];
+முழு f5(வெறுமை);
+முழு main_5()
 {
-    extern int a5[3], b5[3];
+    வெளி முழு a5[3], b5[3];
     a5[2]=10, b5[2]=4;
     myassert(f5() == 10 + 4);
-    return 0;
+    திரும்பு 0;
 }
-int f5(void)
+முழு f5(வெறுமை)
 {
-    return a5[2]+b5[2];
+    திரும்பு a5[2]+b5[2];
 }
-int b5[3];
+முழு b5[3];
 
 /* --------------------------------------------- */
-static int f6(int);
-int i6 = 11;
+நிலையான முழு f6(முழு);
+முழு i6 = 11;
 
-int main_6()
+முழு main_6()
 {
     {
-        int i6 = 33, f6 = 44;
+        முழு i6 = 33, f6 = 44;
         myassert(i6 == 33 && f6 == 44);
         {
-            int f6(int);
-            extern int i6;
+            முழு f6(முழு);
+            வெளி முழு i6;
             myassert(i6 == 11 && f6(22) == 22);
         }
         myassert(i6 == 33 && f6 == 44);
     }
     myassert(i6 == 11 && f6(22) == 22);
-    return 0;
+    திரும்பு 0;
 }
 
-int f6(int x)
+முழு f6(முழு x)
 {
-    return x;
+    திரும்பு x;
 }
 
 /* --------------------------------------------- */
 
-#if defined __TINYC__ \
+#எனில் defined __TINYC__ \
     ? !defined __leading_underscore \
     : !(defined __APPLE__ || defined _WIN32)
 # define _
-#else
+#இல்லையெனில்
 # define _ "_"
 #endif
 
-struct xx7 { int a, b; };
+கட்டமைப்பு xx7 { முழு a, b; };
 
-void f7()
+வெறுமை f7()
 {
-    struct xx7 { int c; } x;
+    கட்டமைப்பு xx7 { முழு c; } x;
     {
-        extern struct xx7 { int a, b; } x __asm__(_"z7");
+        வெளி கட்டமைப்பு xx7 { முழு a, b; } x __asm__(_"z7");
         x.a = 12;
-        struct xx7 y = { 0,0 };
+        கட்டமைப்பு xx7 y = { 0,0 };
     }
-    struct xx7 y = { 90 };
+    கட்டமைப்பு xx7 y = { 90 };
     x.c = 78;
     printf("xx7 (1) : %d %d\n", x.c, y.c);
 }
 
-int main_7()
+முழு main_7()
 {
     f7();
-    extern struct xx7 y __asm__(_"z7");
+    வெளி கட்டமைப்பு xx7 y __asm__(_"z7");
     printf("xx7 (2) : %d %d\n", y.a, y.b);
-    return 0;
+    திரும்பு 0;
 }
 
 
-struct xx7 z7 = { 0, 34 };
+கட்டமைப்பு xx7 z7 = { 0, 34 };
 
 /* --------------------------------------------- */
-int main()
+முழு முதன்மை()
 {
     main_1();
     main_2();
@@ -182,5 +182,5 @@ int main()
     main_5();
     main_6();
     main_7();
-    return 0;
+    திரும்பு 0;
 }

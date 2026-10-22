@@ -1,17 +1,17 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main()
+முழு முதன்மை()
 {
-   char Buf[100];
-   int Count;
+   எழுத்து Buf[100];
+   முழு மொத்தம்_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   க்கு (மொத்தம்_3 = 1; மொத்தம்_3 <= 20; மொத்தம்_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
+      sprintf(Buf, "->%02d<-\n", மொத்தம்_3);
       printf("%s", Buf);
    }
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -6,15 +6,15 @@
 #ifndef _INC_SIGNAL
 #define _INC_SIGNAL
 
-#include <_mingw.h>
+#அந்தர்பாவ <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
 #ifndef _SIG_ATOMIC_T_DEFINED
 #define _SIG_ATOMIC_T_DEFINED
-  typedef int sig_atomic_t;
+  வகைவரை முழு sig_atomic_t;
 #endif
 
 #define NSIG 23
@@ -42,7 +42,7 @@ extern "C" {
 
 #define SIGABRT_COMPAT 6
 
-  typedef	void (*__p_sig_fn_t)(int);
+  வகைவரை	வெறுமை (*__p_sig_fn_t)(முழு);
 
 #define SIG_DFL (__p_sig_fn_t)0
 #define SIG_IGN (__p_sig_fn_t)1
@@ -51,11 +51,11 @@ extern "C" {
 #define SIG_ACK (__p_sig_fn_t)4
 #define SIG_ERR (__p_sig_fn_t)-1
 
-  extern void **__cdecl __pxcptinfoptrs(void);
+  வெளி வெறுமை **__cdecl __pxcptinfoptrs(வெறுமை);
 #define _pxcptinfoptrs (*__pxcptinfoptrs())
 
-  __p_sig_fn_t __cdecl signal(int _SigNum,__p_sig_fn_t _Func);
-  int __cdecl raise(int _SigNum);
+  __p_sig_fn_t __cdecl சமிக்ஞை(முழு Sig_இலக்கம்_2,__p_sig_fn_t _Func);
+  முழு __cdecl எழுப்பு(முழு Sig_இலக்கம்_2);
 
 #ifdef __cplusplus
 }

@@ -17,35 +17,35 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include <setjmp.h>
-#include <stdatomic.h>
+#அந்தர்பாவ <stdlib.h>
+#அந்தர்பாவ <stdio.h>
+#அந்தர்பாவ <stdarg.h>
+#அந்தர்பாவ <string.h>
+#அந்தர்பாவ <setjmp.h>
+#அந்தர்பாவ <stdatomic.h>
 
-#if !defined(__FreeBSD__) \
+#எனில் !defined(__FreeBSD__) \
  && !defined(__FreeBSD_kernel__) \
  && !defined(__DragonFly__) \
  && !defined(__OpenBSD__) \
  && !defined(__APPLE__) \
  && !defined(__NetBSD__)
-#include <malloc.h>
+#அந்தர்பாவ <malloc.h>
 #endif
 
-#if !defined(_WIN32)
-#include <unistd.h>
-#include <sys/syscall.h>
+#எனில் !defined(_WIN32)
+#அந்தர்பாவ <unistd.h>
+#அந்தர்பாவ <sys/syscall.h>
 #endif
 
-#include "config.h"
+#அந்தர்பாவ "config.h"
 
 #define BOUND_DEBUG             (1)
 #define BOUND_STATISTIC         (1)
 
-#if BOUND_DEBUG
- #define dprintf(a...)         if (print_calls) { bounds_loc(a); }
-#else
+#எனில் BOUND_DEBUG
+ #define dprintf(a...)         எனில் (print_calls) { bounds_loc(a); }
+#இல்லையெனில்
  #define dprintf(a...)
 #endif
 
@@ -55,24 +55,24 @@
 #endif
 #ifdef __i386__
 #define FASTCALL __attribute__((regparm(3)))
-#else
+#இல்லையெனில்
 #define FASTCALL
 #endif
 
 #ifdef _WIN32
 # define DLL_EXPORT __declspec(dllexport)
-#else
+#இல்லையெனில்
 # define DLL_EXPORT
 #endif
 
-#if defined(__FreeBSD__) \
+#எனில் defined(__FreeBSD__) \
  || defined(__FreeBSD_kernel__) \
  || defined(__DragonFly__) \
  || defined(__OpenBSD__) \
  || defined(__NetBSD__) \
  || defined(__dietlibc__)
 
-#include <sys/mman.h>
+#அந்தர்பாவ <sys/mman.h>
 #define INIT_SEM()
 #define EXIT_SEM()
 #define WAIT_SEM()
@@ -89,11 +89,11 @@
 #define HAVE_TLS_FUNC          (0)
 #define HAVE_TLS_VAR           (0)
 
-#elif defined(_WIN32)
+#அல்லதெனில் defined(_WIN32)
 
-#include <windows.h>
-#include <signal.h>
-static CRITICAL_SECTION bounds_sem;
+#அந்தர்பாவ <windows.h>
+#அந்தர்பாவ <signal.h>
+நிலையான CRITICAL_SECTION bounds_sem;
 #define INIT_SEM()             InitializeCriticalSection(&bounds_sem)
 #define EXIT_SEM()             DeleteCriticalSection(&bounds_sem)
 #define WAIT_SEM()             EnterCriticalSection(&bounds_sem)
@@ -110,48 +110,48 @@ static CRITICAL_SECTION bounds_sem;
 #define HAVE_TLS_FUNC          (1)
 #define HAVE_TLS_VAR           (0)
 
-#else
+#இல்லையெனில்
 
 #define __USE_GNU              /* get RTLD_NEXT */
-#include <sys/mman.h>
-#include <ctype.h>
-#include <pthread.h>
-#include <dlfcn.h>
-#include <errno.h>
-#include <signal.h>
+#அந்தர்பாவ <sys/mman.h>
+#அந்தர்பாவ <ctype.h>
+#அந்தர்பாவ <pthread.h>
+#அந்தர்பாவ <dlfcn.h>
+#அந்தர்பாவ <errno.h>
+#அந்தர்பாவ <signal.h>
 #ifdef __APPLE__
-#include <dispatch/dispatch.h>
-static dispatch_semaphore_t bounds_sem;
+#அந்தர்பாவ <dispatch/dispatch.h>
+நிலையான dispatch_semaphore_t bounds_sem;
 #define INIT_SEM()             bounds_sem = dispatch_semaphore_create(1)
 #define EXIT_SEM()             dispatch_release(*(dispatch_object_t*)&bounds_sem)
-#define WAIT_SEM()             if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_FOREVER)
-#define POST_SEM()             if (use_sem) dispatch_semaphore_signal(bounds_sem)
-#define TRY_SEM()              if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_NOW)
-#elif 0
-#include <semaphore.h>
-static sem_t bounds_sem;
+#define WAIT_SEM()             எனில் (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_FOREVER)
+#define POST_SEM()             எனில் (use_sem) dispatch_semaphore_signal(bounds_sem)
+#define TRY_SEM()              எனில் (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_NOW)
+#அல்லதெனில் 0
+#அந்தர்பாவ <semaphore.h>
+நிலையான sem_t bounds_sem;
 #define INIT_SEM()             sem_init (&bounds_sem, 0, 1)
 #define EXIT_SEM()             sem_destroy (&bounds_sem)
-#define WAIT_SEM()             if (use_sem) while (sem_wait (&bounds_sem) < 0 \
+#define WAIT_SEM()             எனில் (use_sem) போது (sem_wait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
-#define POST_SEM()             if (use_sem) sem_post (&bounds_sem)
-#define TRY_SEM()              if (use_sem) while (sem_trywait (&bounds_sem) < 0 \
+#define POST_SEM()             எனில் (use_sem) sem_post (&bounds_sem)
+#define TRY_SEM()              எனில் (use_sem) போது (sem_trywait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
-#elif 0
-static pthread_mutex_t bounds_mtx;
-#define INIT_SEM()             pthread_mutex_init (&bounds_mtx, NULL)
+#அல்லதெனில் 0
+நிலையான pthread_mutex_t bounds_mtx;
+#define INIT_SEM()             pthread_mutex_init (&bounds_mtx, வெற்று)
 #define EXIT_SEM()             pthread_mutex_destroy (&bounds_mtx)
-#define WAIT_SEM()             if (use_sem) pthread_mutex_lock (&bounds_mtx)
-#define POST_SEM()             if (use_sem) pthread_mutex_unlock (&bounds_mtx)
-#define TRY_SEM()              if (use_sem) pthread_mutex_trylock (&bounds_mtx)
-#else
-static pthread_spinlock_t bounds_spin;
+#define WAIT_SEM()             எனில் (use_sem) pthread_mutex_lock (&bounds_mtx)
+#define POST_SEM()             எனில் (use_sem) pthread_mutex_unlock (&bounds_mtx)
+#define TRY_SEM()              எனில் (use_sem) pthread_mutex_trylock (&bounds_mtx)
+#இல்லையெனில்
+நிலையான pthread_spinlock_t bounds_spin;
 /* about 25% faster then semaphore. */
 #define INIT_SEM()             pthread_spin_init (&bounds_spin, 0)
 #define EXIT_SEM()             pthread_spin_destroy (&bounds_spin)
-#define WAIT_SEM()             if (use_sem) pthread_spin_lock (&bounds_spin)
-#define POST_SEM()             if (use_sem) pthread_spin_unlock (&bounds_spin)
-#define TRY_SEM()              if (use_sem) pthread_spin_trylock (&bounds_spin)
+#define WAIT_SEM()             எனில் (use_sem) pthread_spin_lock (&bounds_spin)
+#define POST_SEM()             எனில் (use_sem) pthread_spin_unlock (&bounds_spin)
+#define TRY_SEM()              எனில் (use_sem) pthread_spin_trylock (&bounds_spin)
 #endif
 #define HAVE_MEMALIGN          (1)
 #define MALLOC_REDIR           (1)
@@ -161,44 +161,44 @@ static pthread_spinlock_t bounds_spin;
 #define HAVE_SIGNAL            (1)
 #define HAVE_SIGACTION         (1)
 #define HAVE_FORK              (1)
-#if defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_RUN)
+#எனில் defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_RUN)
 #define HAVE_TLS_FUNC          (1)
 #define HAVE_TLS_VAR           (0)
-#else
+#இல்லையெனில்
 #define HAVE_TLS_FUNC          (0)
 #define HAVE_TLS_VAR           (1)
 #endif
-#if defined CONFIG_TCC_MUSL || defined __ANDROID__
+#எனில் defined CONFIG_TCC_MUSL || defined __ANDROID__
 # undef HAVE_CTYPE
 #endif
 #endif
 
-#if MALLOC_REDIR
-static void *(*malloc_redir) (size_t);
-static void *(*calloc_redir) (size_t, size_t);
-static void (*free_redir) (void *);
-static void *(*realloc_redir) (void *, size_t);
-static unsigned int pool_index;
-static unsigned char __attribute__((aligned(16))) initial_pool[256];
+#எனில் MALLOC_REDIR
+நிலையான வெறுமை *(*malloc_redir) (size_t);
+நிலையான வெறுமை *(*calloc_redir) (size_t, size_t);
+நிலையான வெறுமை (*free_redir) (வெறுமை *);
+நிலையான வெறுமை *(*realloc_redir) (வெறுமை *, size_t);
+நிலையான unsigned முழு pool_index;
+நிலையான unsigned எழுத்து __attribute__((aligned(16))) initial_pool[256];
 #endif
-#if HAVE_MEMALIGN
-static void *(*memalign_redir) (size_t, size_t);
+#எனில் HAVE_MEMALIGN
+நிலையான வெறுமை *(*memalign_redir) (size_t, size_t);
 #endif
-#if HAVE_PTHREAD_CREATE
-static int (*pthread_create_redir) (pthread_t *thread,
-                                    const pthread_attr_t *attr,
-                                    void *(*start_routine)(void *), void *arg);
+#எனில் HAVE_PTHREAD_CREATE
+நிலையான முழு (*pthread_create_redir) (pthread_t *thread,
+                                    மாறிலி pthread_attr_t *attr,
+                                    வெறுமை *(*start_routine)(வெறுமை *), வெறுமை *arg);
 #endif
-#if HAVE_SIGNAL
-typedef void (*bound_sig)(int);
-static bound_sig (*signal_redir) (int signum, bound_sig handler);
+#எனில் HAVE_SIGNAL
+வகைவரை வெறுமை (*bound_sig)(முழு);
+நிலையான bound_sig (*signal_redir) (முழு signum, bound_sig handler);
 #endif
-#if HAVE_SIGACTION
-static int (*sigaction_redir) (int signum, const struct sigaction *act,
-                               struct sigaction *oldact);
+#எனில் HAVE_SIGACTION
+நிலையான முழு (*sigaction_redir) (முழு signum, மாறிலி கட்டமைப்பு sigaction *act,
+                               கட்டமைப்பு sigaction *oldact);
 #endif
-#if HAVE_FORK
-static int (*fork_redir) (void);
+#எனில் HAVE_FORK
+நிலையான முழு (*fork_redir) (வெறுமை);
 #endif
 
 #define TCC_TYPE_NONE           (0)
@@ -209,407 +209,407 @@ static int (*fork_redir) (void);
 #define TCC_TYPE_STRDUP         (5)
 
 /* this pointer is generated when bound check is incorrect */
-#define INVALID_POINTER ((void *)(-2))
+#define INVALID_POINTER ((வெறுமை *)(-2))
 
-typedef struct tree_node Tree;
-struct tree_node {
-    Tree * left, * right;
+வகைவரை கட்டமைப்பு மர_முனை மரம்;
+கட்டமைப்பு மர_முனை {
+    மரம் * இடது, * வலது;
     size_t start;
     size_t size;
-    unsigned char type;
-    unsigned char is_invalid; /* true if pointers outside region are invalid */
+    unsigned எழுத்து type;
+    unsigned எழுத்து is_invalid; /* true if pointers outside region are invalid */
 };
 
-typedef struct alloca_list_struct {
+வகைவரை கட்டமைப்பு alloca_list_struct {
     size_t fp;
-    void *p;
+    வெறுமை *p;
     size_t size;
-    struct alloca_list_struct *next;
+    கட்டமைப்பு alloca_list_struct *next;
 } alloca_list_type;
 
-#if defined(_WIN32)
+#எனில் defined(_WIN32)
 #define BOUND_TID_TYPE		DWORD
 #define BOUND_GET_TID(id)	id = GetCurrentThreadId()
-#elif defined(__OpenBSD__)
+#அல்லதெனில் defined(__OpenBSD__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	id = getthrid()
-#elif defined(__FreeBSD__)
+#அல்லதெனில் defined(__FreeBSD__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	syscall (SYS_thr_self, &id)
-#elif  defined(__NetBSD__)
+#அல்லதெனில்  defined(__NetBSD__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	id = syscall (SYS__lwp_self)
-#elif defined(__linux__)
+#அல்லதெனில் defined(__linux__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	id = syscall (SYS_gettid)
-#else
-#define BOUND_TID_TYPE		int
+#இல்லையெனில்
+#define BOUND_TID_TYPE		முழு
 #define BOUND_GET_TID(id)	id = 0
 #endif
 
-typedef struct jmp_list_struct {
-    void *penv;
+வகைவரை கட்டமைப்பு jmp_list_struct {
+    வெறுமை *penv;
     size_t fp;
     size_t end_fp;
     BOUND_TID_TYPE tid;
-    struct jmp_list_struct *next;
+    கட்டமைப்பு jmp_list_struct *next;
 } jmp_list_type;
 
 #define BOUND_STATISTIC_SPLAY   (0)
-static Tree * splay (size_t addr, Tree *t);
-static Tree * splay_end (size_t addr, Tree *t);
-static Tree * splay_insert(size_t addr, size_t size, Tree * t);
-static Tree * splay_delete(size_t addr, Tree *t);
-void splay_printtree(Tree * t, int d);
+நிலையான மரம் * splay (size_t addr, மரம் *t);
+நிலையான மரம் * splay_end (size_t addr, மரம் *t);
+நிலையான மரம் * splay_செருகு(size_t addr, size_t size, மரம் * t);
+நிலையான மரம் * splay_delete(size_t addr, மரம் *t);
+வெறுமை splay_printtree(மரம் * t, முழு d);
 
 /* external interface */
-void __bounds_checking (int no_check);
-void __bound_checking_lock (void);
-void __bound_checking_unlock (void);
-void __bound_never_fatal (int no_check);
-DLL_EXPORT void * __bound_ptr_add(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir1(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir2(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir4(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir8(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir12(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir16(void *p, size_t offset);
-DLL_EXPORT void FASTCALL __bound_local_new(void *p1);
-DLL_EXPORT void FASTCALL __bound_local_delete(void *p1);
-void __bound_init(size_t *, int);
-void __bound_main_arg(int argc, char **argv, char **envp);
-void __bound_exit(void);
-void __bound_exit_dll(size_t *);
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot, int flags, int fd,
+வெறுமை __bounds_checking (முழு no_check);
+வெறுமை __bound_checking_lock (வெறுமை);
+வெறுமை __bound_checking_unlock (வெறுமை);
+வெறுமை __bound_never_fatal (முழு no_check);
+DLL_EXPORT வெறுமை * __bound_ptr_add(வெறுமை *p, size_t offset);
+DLL_EXPORT வெறுமை * __bound_ptr_indir1(வெறுமை *p, size_t offset);
+DLL_EXPORT வெறுமை * __bound_ptr_indir2(வெறுமை *p, size_t offset);
+DLL_EXPORT வெறுமை * __bound_ptr_indir4(வெறுமை *p, size_t offset);
+DLL_EXPORT வெறுமை * __bound_ptr_indir8(வெறுமை *p, size_t offset);
+DLL_EXPORT வெறுமை * __bound_ptr_indir12(வெறுமை *p, size_t offset);
+DLL_EXPORT வெறுமை * __bound_ptr_indir16(வெறுமை *p, size_t offset);
+DLL_EXPORT வெறுமை FASTCALL __bound_local_new(வெறுமை *p1);
+DLL_EXPORT வெறுமை FASTCALL __bound_local_delete(வெறுமை *p1);
+வெறுமை __bound_init(size_t *, முழு);
+வெறுமை __bound_main_arg(முழு argc, எழுத்து **argv, எழுத்து **envp);
+வெறுமை __bound_exit(வெறுமை);
+வெறுமை __bound_exit_dll(size_t *);
+#எனில் !defined(_WIN32)
+வெறுமை *__bound_mmap (வெறுமை *start, size_t size, முழு prot, முழு flags, முழு fd,
                     off_t offset);
-int __bound_munmap (void *start, size_t size);
-DLL_EXPORT void __bound_siglongjmp(jmp_buf env, int val);
+முழு __bound_munmap (வெறுமை *start, size_t size);
+DLL_EXPORT வெறுமை __bound_siglongjmp(jmp_buf env, முழு val);
 #endif
-DLL_EXPORT void __bound_new_region(void *p, size_t size);
-DLL_EXPORT void __bound_setjmp(jmp_buf env);
-DLL_EXPORT void __bound_longjmp(jmp_buf env, int val);
-DLL_EXPORT void *__bound_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT int __bound_memcmp(const void *s1, const void *s2, size_t size);
-DLL_EXPORT void *__bound_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound_memset(void *dst, int c, size_t size);
-DLL_EXPORT int __bound_strlen(const char *s);
-DLL_EXPORT char *__bound_strcpy(char *dst, const char *src);
-DLL_EXPORT char *__bound_strncpy(char *dst, const char *src, size_t n);
-DLL_EXPORT int __bound_strcmp(const char *s1, const char *s2);
-DLL_EXPORT int __bound_strncmp(const char *s1, const char *s2, size_t n);
-DLL_EXPORT char *__bound_strcat(char *dest, const char *src);
-DLL_EXPORT char *__bound_strncat(char *dest, const char *src, size_t n);
-DLL_EXPORT char *__bound_strchr(const char *string, int ch);
-DLL_EXPORT char *__bound_strrchr(const char *string, int ch);
-DLL_EXPORT char *__bound_strdup(const char *s);
+DLL_EXPORT வெறுமை __bound_new_region(வெறுமை *p, size_t size);
+DLL_EXPORT வெறுமை __bound_setjmp(jmp_buf env);
+DLL_EXPORT வெறுமை __bound_longjmp(jmp_buf env, முழு val);
+DLL_EXPORT வெறுமை *__bound_memcpy(வெறுமை *dst, மாறிலி வெறுமை *src, size_t size);
+DLL_EXPORT முழு __bound_memcmp(மாறிலி வெறுமை *s1, மாறிலி வெறுமை *s2, size_t size);
+DLL_EXPORT வெறுமை *__bound_memmove(வெறுமை *dst, மாறிலி வெறுமை *src, size_t size);
+DLL_EXPORT வெறுமை *__bound_memset(வெறுமை *dst, முழு c, size_t size);
+DLL_EXPORT முழு __bound_strlen(மாறிலி எழுத்து *s);
+DLL_EXPORT எழுத்து *__bound_strcpy(எழுத்து *dst, மாறிலி எழுத்து *src);
+DLL_EXPORT எழுத்து *__bound_strncpy(எழுத்து *dst, மாறிலி எழுத்து *src, size_t n);
+DLL_EXPORT முழு __bound_strcmp(மாறிலி எழுத்து *s1, மாறிலி எழுத்து *s2);
+DLL_EXPORT முழு __bound_strncmp(மாறிலி எழுத்து *s1, மாறிலி எழுத்து *s2, size_t n);
+DLL_EXPORT எழுத்து *__bound_strcat(எழுத்து *dest, மாறிலி எழுத்து *src);
+DLL_EXPORT எழுத்து *__bound_strncat(எழுத்து *dest, மாறிலி எழுத்து *src, size_t n);
+DLL_EXPORT எழுத்து *__bound_strchr(மாறிலி எழுத்து *string, முழு ch);
+DLL_EXPORT எழுத்து *__bound_strrchr(மாறிலி எழுத்து *string, முழு ch);
+DLL_EXPORT எழுத்து *__bound_strdup(மாறிலி எழுத்து *s);
 
-#if defined(__arm__) && defined(__ARM_EABI__)
-DLL_EXPORT void *__bound___aeabi_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove4(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memset(void *dst, int c, size_t size);
-DLL_EXPORT void *__aeabi_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove4(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memset(void *dst, int c, size_t size);
+#எனில் defined(__arm__) && defined(__ARM_EABI__)
+DLL_EXPORT வெறுமை *__bound___aeabi_memcpy(வெறுமை *dst, மாறிலி வெறுமை *src, size_t size);
+DLL_EXPORT வெறுமை *__bound___aeabi_memmove(வெறுமை *dst, மாறிலி வெறுமை *src, size_t size);
+DLL_EXPORT வெறுமை *__bound___aeabi_memmove4(வெறுமை *dst, மாறிலி வெறுமை *src, size_t size);
+DLL_EXPORT வெறுமை *__bound___aeabi_memmove8(வெறுமை *dst, மாறிலி வெறுமை *src, size_t size);
+DLL_EXPORT வெறுமை *__bound___aeabi_memset(வெறுமை *dst, முழு c, size_t size);
+DLL_EXPORT வெறுமை *__aeabi_memcpy(வெறுமை *dst, மாறிலி வெறுமை *src, size_t size);
+DLL_EXPORT வெறுமை *__aeabi_memmove(வெறுமை *dst, மாறிலி வெறுமை *src, size_t size);
+DLL_EXPORT வெறுமை *__aeabi_memmove4(வெறுமை *dst, மாறிலி வெறுமை *src, size_t size);
+DLL_EXPORT வெறுமை *__aeabi_memmove8(வெறுமை *dst, மாறிலி வெறுமை *src, size_t size);
+DLL_EXPORT வெறுமை *__aeabi_memset(வெறுமை *dst, முழு c, size_t size);
 #endif
 
-#if MALLOC_REDIR
+#எனில் MALLOC_REDIR
 #define BOUND_MALLOC(a)          malloc_redir(a)
 #define BOUND_MEMALIGN(a,b)      memalign_redir(a,b)
 #define BOUND_FREE(a)            free_redir(a)
 #define BOUND_REALLOC(a,b)       realloc_redir(a,b)
 #define BOUND_CALLOC(a,b)        calloc_redir(a,b)
-#else
+#இல்லையெனில்
 #define BOUND_MALLOC(a)          malloc(a)
 #define BOUND_MEMALIGN(a,b)      memalign(a,b)
-#define BOUND_FREE(a)            free(a)
+#define BOUND_FREE(a)            விடுவி(a)
 #define BOUND_REALLOC(a,b)       realloc(a,b)
 #define BOUND_CALLOC(a,b)        calloc(a,b)
-DLL_EXPORT void *__bound_malloc(size_t size, const void *caller);
-DLL_EXPORT void *__bound_memalign(size_t align, size_t size, const void *caller);
-DLL_EXPORT void __bound_free(void *ptr, const void *caller);
-DLL_EXPORT void *__bound_realloc(void *ptr, size_t size, const void *caller);
-DLL_EXPORT void *__bound_calloc(size_t nmemb, size_t size);
+DLL_EXPORT வெறுமை *__bound_malloc(size_t size, மாறிலி வெறுமை *caller);
+DLL_EXPORT வெறுமை *__bound_memalign(size_t align, size_t size, மாறிலி வெறுமை *caller);
+DLL_EXPORT வெறுமை __bound_free(வெறுமை *ptr, மாறிலி வெறுமை *caller);
+DLL_EXPORT வெறுமை *__bound_realloc(வெறுமை *ptr, size_t size, மாறிலி வெறுமை *caller);
+DLL_EXPORT வெறுமை *__bound_calloc(size_t nmemb, size_t size);
 #endif
 
 #define FREE_REUSE_SIZE (100)
-static unsigned int free_reuse_index;
-static void *free_reuse_list[FREE_REUSE_SIZE];
+நிலையான unsigned முழு free_reuse_index;
+நிலையான வெறுமை *free_reuse_list[FREE_REUSE_SIZE];
 
-static Tree *tree = NULL;
-#define TREE_REUSE      (1)
-#if TREE_REUSE
-static Tree *tree_free_list;
+நிலையான மரம் *மரம்_2 = வெற்று;
+#define மரம்_REUSE      (1)
+#எனில் மரம்_REUSE
+நிலையான மரம் *மரம்_free_list;
 #endif
-static alloca_list_type *alloca_list;
-static jmp_list_type *jmp_list;
+நிலையான alloca_list_type *alloca_list;
+நிலையான jmp_list_type *jmp_list;
 
-static unsigned char inited;
-static unsigned char print_warn_ptr_add;
-static unsigned char print_calls;
-static unsigned char print_heap;
-static unsigned char print_statistic;
-static unsigned char no_strdup;
-static unsigned char use_sem;
-static _Atomic int never_fatal;
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-static int no_checking = 0;
-static DWORD no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) LocalAlloc(LPTR, sizeof(int));  \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+நிலையான unsigned எழுத்து inited;
+நிலையான unsigned எழுத்து print_warn_ptr_add;
+நிலையான unsigned எழுத்து print_calls;
+நிலையான unsigned எழுத்து print_heap;
+நிலையான unsigned எழுத்து print_statistic;
+நிலையான unsigned எழுத்து no_strdup;
+நிலையான unsigned எழுத்து use_sem;
+நிலையான _Atomic முழு never_fatal;
+#எனில் HAVE_TLS_FUNC
+#எனில் defined(_WIN32)
+நிலையான முழு no_checking = 0;
+நிலையான DWORD no_checking_சாவி;
+#define NO_CHECKING_CHECK() எனில் (!p) {                                         \
+                                  p = (முழு *) LocalAlloc(LPTR, அளவு(முழு));  \
+                                  எனில் (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  TlsSetValue(no_checking_key, p);            \
+                                  Tls_Set_மதிப்பு(no_checking_சாவி, p);            \
                             }
-#define NO_CHECKING_GET()   ({ int *p = TlsGetValue(no_checking_key);         \
+#define NO_CHECKING_GET()   ({ முழு *p = Tls_Get_மதிப்பு(no_checking_சாவி);         \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = TlsGetValue(no_checking_key);          \
+#define NO_CHECKING_SET(v)  { முழு *p = Tls_Get_மதிப்பு(no_checking_சாவி);          \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
-#else
-static int no_checking = 0;
-static pthread_key_t no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) BOUND_MALLOC(sizeof(int));      \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+#இல்லையெனில்
+நிலையான முழு no_checking = 0;
+நிலையான pthread_key_t no_checking_சாவி;
+#define NO_CHECKING_CHECK() எனில் (!p) {                                         \
+                                  p = (முழு *) BOUND_MALLOC(அளவு(முழு));      \
+                                  எனில் (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  pthread_setspecific(no_checking_key, p);    \
+                                  pthread_setspecific(no_checking_சாவி, p);    \
                             }
-#define NO_CHECKING_GET()   ({ int *p = pthread_getspecific(no_checking_key); \
+#define NO_CHECKING_GET()   ({ முழு *p = pthread_getspecific(no_checking_சாவி); \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = pthread_getspecific(no_checking_key);  \
+#define NO_CHECKING_SET(v)  { முழு *p = pthread_getspecific(no_checking_சாவி);  \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
 #endif
-#elif HAVE_TLS_VAR
-static __thread int no_checking = 0;
+#அல்லதெனில் HAVE_TLS_VAR
+நிலையான __thread முழு no_checking = 0;
 #define NO_CHECKING_GET()  no_checking
 #define NO_CHECKING_SET(v) no_checking = v 
-#else
-static _Atomic int no_checking = 0;
+#இல்லையெனில்
+நிலையான _Atomic முழு no_checking = 0;
 #define NO_CHECKING_GET()  no_checking
 #define NO_CHECKING_SET(v) no_checking = v 
 #endif
-static char exec[100];
+நிலையான எழுத்து exec[100];
 
-#if BOUND_STATISTIC
-static unsigned long long bound_ptr_add_count;
-static unsigned long long bound_ptr_indir1_count;
-static unsigned long long bound_ptr_indir2_count;
-static unsigned long long bound_ptr_indir4_count;
-static unsigned long long bound_ptr_indir8_count;
-static unsigned long long bound_ptr_indir12_count;
-static unsigned long long bound_ptr_indir16_count;
-static unsigned long long bound_local_new_count;
-static unsigned long long bound_local_delete_count;
-static unsigned long long bound_malloc_count;
-static unsigned long long bound_calloc_count;
-static unsigned long long bound_realloc_count;
-static unsigned long long bound_free_count;
-static unsigned long long bound_memalign_count;
-static unsigned long long bound_mmap_count;
-static unsigned long long bound_munmap_count;
-static unsigned long long bound_alloca_count;
-static unsigned long long bound_setjmp_count;
-static unsigned long long bound_longjmp_count;
-static unsigned long long bound_mempcy_count;
-static unsigned long long bound_memcmp_count;
-static unsigned long long bound_memmove_count;
-static unsigned long long bound_memset_count;
-static unsigned long long bound_strlen_count;
-static unsigned long long bound_strcpy_count;
-static unsigned long long bound_strncpy_count;
-static unsigned long long bound_strcmp_count;
-static unsigned long long bound_strncmp_count;
-static unsigned long long bound_strcat_count;
-static unsigned long long bound_strncat_count;
-static unsigned long long bound_strchr_count;
-static unsigned long long bound_strrchr_count;
-static unsigned long long bound_strdup_count;
-static unsigned long long bound_not_found;
-#define INCR_COUNT(x)          ++x
-#else
-#define INCR_COUNT(x)
+#எனில் BOUND_STATISTIC
+நிலையான unsigned long long bound_ptr_add_மொத்தம்;
+நிலையான unsigned long long bound_ptr_indir1_மொத்தம்;
+நிலையான unsigned long long bound_ptr_indir2_மொத்தம்;
+நிலையான unsigned long long bound_ptr_indir4_மொத்தம்;
+நிலையான unsigned long long bound_ptr_indir8_மொத்தம்;
+நிலையான unsigned long long bound_ptr_indir12_மொத்தம்;
+நிலையான unsigned long long bound_ptr_indir16_மொத்தம்;
+நிலையான unsigned long long bound_local_new_மொத்தம்;
+நிலையான unsigned long long bound_local_delete_மொத்தம்;
+நிலையான unsigned long long bound_malloc_மொத்தம்;
+நிலையான unsigned long long bound_calloc_மொத்தம்;
+நிலையான unsigned long long bound_realloc_மொத்தம்;
+நிலையான unsigned long long bound_free_மொத்தம்;
+நிலையான unsigned long long bound_memalign_மொத்தம்;
+நிலையான unsigned long long bound_mmap_மொத்தம்;
+நிலையான unsigned long long bound_munmap_மொத்தம்;
+நிலையான unsigned long long bound_alloca_மொத்தம்;
+நிலையான unsigned long long bound_setjmp_மொத்தம்;
+நிலையான unsigned long long bound_longjmp_மொத்தம்;
+நிலையான unsigned long long bound_mempcy_மொத்தம்;
+நிலையான unsigned long long bound_memcmp_மொத்தம்;
+நிலையான unsigned long long bound_memmove_மொத்தம்;
+நிலையான unsigned long long bound_memset_மொத்தம்;
+நிலையான unsigned long long bound_strlen_மொத்தம்;
+நிலையான unsigned long long bound_strcpy_மொத்தம்;
+நிலையான unsigned long long bound_strncpy_மொத்தம்;
+நிலையான unsigned long long bound_strcmp_மொத்தம்;
+நிலையான unsigned long long bound_strncmp_மொத்தம்;
+நிலையான unsigned long long bound_strcat_மொத்தம்;
+நிலையான unsigned long long bound_strncat_மொத்தம்;
+நிலையான unsigned long long bound_strchr_மொத்தம்;
+நிலையான unsigned long long bound_strrchr_மொத்தம்;
+நிலையான unsigned long long bound_strdup_மொத்தம்;
+நிலையான unsigned long long bound_not_found;
+#define INCR_மொத்தம்(x)          ++x
+#இல்லையெனில்
+#define INCR_மொத்தம்(x)
 #endif
-#if BOUND_STATISTIC_SPLAY
-static unsigned long long bound_splay;
-static unsigned long long bound_splay_end;
-static unsigned long long bound_splay_insert;
-static unsigned long long bound_splay_delete;
-#define INCR_COUNT_SPLAY(x)    ++x
-#else
-#define INCR_COUNT_SPLAY(x)
+#எனில் BOUND_STATISTIC_SPLAY
+நிலையான unsigned long long bound_splay;
+நிலையான unsigned long long bound_splay_end;
+நிலையான unsigned long long bound_splay_செருகு;
+நிலையான unsigned long long bound_splay_delete;
+#define INCR_மொத்தம்_SPLAY(x)    ++x
+#இல்லையெனில்
+#define INCR_மொத்தம்_SPLAY(x)
 #endif
 
-int tcc_backtrace(const char *fmt, ...);
+முழு tcc_backtrace(மாறிலி எழுத்து *fmt, ...);
 
 /* print a bound error message */
 #define bound_warning(...) \
-    do {                                                 \
+    செய் {                                                 \
         WAIT_SEM ();                                     \
         tcc_backtrace("^bcheck.c^BCHECK: " __VA_ARGS__); \
         POST_SEM ();                                     \
-    } while (0)
+    } போது (0)
 
 #define bound_error(...)            \
-    do {                            \
+    செய் {                            \
         bound_warning(__VA_ARGS__); \
-        if (never_fatal == 0)       \
+        எனில் (never_fatal == 0)       \
             exit(255);              \
-    } while (0)
+    } போது (0)
 
 #define bounds_loc(fp, ...) \
-    do {                            \
+    செய் {                            \
         WAIT_SEM (); \
         tcc_backtrace("^bcheck.c^\001" __VA_ARGS__); \
         POST_SEM (); \
-    } while (0)
+    } போது (0)
 
-static void bound_alloc_error(const char *s)
+நிலையான வெறுமை bound_alloc_error(மாறிலி எழுத்து *s)
 {
     fprintf(stderr,"FATAL: %s\n",s);
     exit (1);
 }
 
-static void bound_not_found_warning(const char *file, const char *function,
-                                    void *ptr)
+நிலையான வெறுமை bound_not_found_warning(மாறிலி எழுத்து *file, மாறிலி எழுத்து *function,
+                                    வெறுமை *ptr)
 {
     dprintf(stderr, "%s%s, %s(): Not found %p\n", exec, file, function, ptr);
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bounds_checking (int no_check)
+வெறுமை __bounds_checking (முழு no_check)
 {
-#if HAVE_TLS_FUNC || HAVE_TLS_VAR
+#எனில் HAVE_TLS_FUNC || HAVE_TLS_VAR
     NO_CHECKING_SET(NO_CHECKING_GET() + no_check);
-#else
+#இல்லையெனில்
     atomic_fetch_add (&no_checking, no_check);
 #endif
 }
 
-void __bound_checking_lock(void)
+வெறுமை __bound_checking_lock(வெறுமை)
 {
     WAIT_SEM ();
 }
 
-void __bound_checking_unlock(void)
+வெறுமை __bound_checking_unlock(வெறுமை)
 {
     POST_SEM ();
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bound_never_fatal (int neverfatal)
+வெறுமை __bound_never_fatal (முழு neverfatal)
 {
     atomic_fetch_add (&never_fatal, neverfatal);
 }
 
 /* return '(p + offset)' for pointer arithmetic (a pointer can reach
    the end of a region in this case */
-void * __bound_ptr_add(void *p, size_t offset)
+வெறுமை * __bound_ptr_add(வெறுமை *p, size_t offset)
 {
     size_t addr = (size_t)p;
 
-    if (NO_CHECKING_GET())
-        return p + offset;
+    எனில் (NO_CHECKING_GET())
+        திரும்பு p + offset;
 
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",
             __FILE__, __FUNCTION__, p, (unsigned long)offset);
 
     WAIT_SEM ();
-    INCR_COUNT(bound_ptr_add_count);
-    if (tree) {
-        addr -= tree->start;
-        if (addr >= tree->size) {
+    INCR_மொத்தம்(bound_ptr_add_மொத்தம்);
+    எனில் (மரம்_2) {
+        addr -= மரம்_2->start;
+        எனில் (addr >= மரம்_2->size) {
             addr = (size_t)p;
-            tree = splay (addr, tree);
-            addr -= tree->start;
+            மரம்_2 = splay (addr, மரம்_2);
+            addr -= மரம்_2->start;
         }
-        if (addr >= tree->size) {
+        எனில் (addr >= மரம்_2->size) {
             addr = (size_t)p;
-            tree = splay_end (addr, tree);
-            addr -= tree->start;
+            மரம்_2 = splay_end (addr, மரம்_2);
+            addr -= மரம்_2->start;
         }
-        if (addr <= tree->size) {
-            if (tree->is_invalid || addr + offset > tree->size) {
+        எனில் (addr <= மரம்_2->size) {
+            எனில் (மரம்_2->is_invalid || addr + offset > மரம்_2->size) {
                 POST_SEM ();
-                if (print_warn_ptr_add)
+                எனில் (print_warn_ptr_add)
                     bound_warning("%p is outside of the region (0x%lx..0x%lx)",
-                                  p + offset, (long)tree->start,
-                                  (long)(tree->start + tree->size - 1));
-                if (never_fatal <= 0)
-                    return INVALID_POINTER; /* return an invalid pointer */
-                return p + offset;
+                                  p + offset, (long)மரம்_2->start,
+                                  (long)(மரம்_2->start + மரம்_2->size - 1));
+                எனில் (never_fatal <= 0)
+                    திரும்பு INVALID_POINTER; /* return an invalid pointer */
+                திரும்பு p + offset;
             }
         }
-        else if (p) { /* Allow NULL + offset. offsetoff is using it. */
-            INCR_COUNT(bound_not_found);
+        இல்லையெனில் எனில் (p) { /* Allow NULL + offset. offsetoff is using it. */
+            INCR_மொத்தம்(bound_not_found);
             POST_SEM ();
             bound_not_found_warning (__FILE__, __FUNCTION__, p);
-            return p + offset;
+            திரும்பு p + offset;
         }
     }
     POST_SEM ();
-    return p + offset;
+    திரும்பு p + offset;
 }
 
 /* return '(p + offset)' for pointer indirection (the resulting must
    be strictly inside the region */
 #define BOUND_PTR_INDIR(dsize)                                                 \
-void * __bound_ptr_indir ## dsize (void *p, size_t offset)                     \
+வெறுமை * __bound_ptr_indir ## dsize (வெறுமை *p, size_t offset)                     \
 {                                                                              \
     size_t addr = (size_t)p;                                                   \
                                                                                \
-    if (NO_CHECKING_GET())                                                     \
-        return p + offset;                                                     \
+    எனில் (NO_CHECKING_GET())                                                     \
+        திரும்பு p + offset;                                                     \
                                                                                \
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",                                    \
             __FILE__, __FUNCTION__, p, (unsigned long)offset);                 \
     WAIT_SEM ();                                                               \
-    INCR_COUNT(bound_ptr_indir ## dsize ## _count);                            \
-    if (tree) {                                                                \
-        addr -= tree->start;                                                   \
-        if (addr >= tree->size) {                                              \
+    INCR_மொத்தம்(bound_ptr_indir ## dsize ## மொத்தம்);                            \
+    எனில் (மரம்_2) {                                                                \
+        addr -= மரம்_2->start;                                                   \
+        எனில் (addr >= மரம்_2->size) {                                              \
             addr = (size_t)p;                                                  \
-            tree = splay (addr, tree);                                         \
-            addr -= tree->start;                                               \
+            மரம்_2 = splay (addr, மரம்_2);                                         \
+            addr -= மரம்_2->start;                                               \
         }                                                                      \
-        if (addr >= tree->size) {                                              \
+        எனில் (addr >= மரம்_2->size) {                                              \
             addr = (size_t)p;                                                  \
-            tree = splay_end (addr, tree);                                     \
-            addr -= tree->start;                                               \
+            மரம்_2 = splay_end (addr, மரம்_2);                                     \
+            addr -= மரம்_2->start;                                               \
         }                                                                      \
-        if (addr <= tree->size) {                                              \
-            if (tree->is_invalid || addr + offset + dsize > tree->size) {      \
+        எனில் (addr <= மரம்_2->size) {                                              \
+            எனில் (மரம்_2->is_invalid || addr + offset + dsize > மரம்_2->size) {      \
                 POST_SEM ();                                                   \
                 bound_warning("%p (size %d) is outside of the region "         \
                               "(0x%lx..0x%lx)",                                \
-                              p + offset, dsize, (long)tree->start,            \
-                              (long)(tree->start + tree->size - 1));           \
-                if (never_fatal <= 0)                                          \
-                    return INVALID_POINTER; /* return an invalid pointer */    \
-                return p + offset;                                             \
+                              p + offset, dsize, (long)மரம்_2->start,            \
+                              (long)(மரம்_2->start + மரம்_2->size - 1));           \
+                எனில் (never_fatal <= 0)                                          \
+                    திரும்பு INVALID_POINTER; /* return an invalid pointer */    \
+                திரும்பு p + offset;                                             \
             }                                                                  \
         }                                                                      \
-        else {                                                                 \
-            INCR_COUNT(bound_not_found);                                       \
+        இல்லையெனில் {                                                                 \
+            INCR_மொத்தம்(bound_not_found);                                       \
             POST_SEM ();                                                       \
             bound_not_found_warning (__FILE__, __FUNCTION__, p);               \
-            return p + offset;                                                 \
+            திரும்பு p + offset;                                                 \
         }                                                                      \
     }                                                                          \
     POST_SEM ();                                                               \
-    return p + offset;                                                         \
+    திரும்பு p + offset;                                                         \
 }
 
 BOUND_PTR_INDIR(1)
@@ -620,12 +620,12 @@ BOUND_PTR_INDIR(12)
 BOUND_PTR_INDIR(16)
 
 /* Needed when using ...libtcc1-usegcc=yes in lib/Makefile */
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#எனில் (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
 /*
  * At least gcc 6.2 complains when __builtin_frame_address is used with
  * nonzero argument.
  */
-#pragma GCC diagnostic push
+#pragma GCC diagnostic தள்ளு
 #pragma GCC diagnostic ignored "-Wframe-address"
 #endif
 
@@ -636,29 +636,29 @@ BOUND_PTR_INDIR(16)
 }
 
 /* called when entering a function to add all the local regions */
-void FASTCALL __bound_local_new(void *p1) 
+வெறுமை FASTCALL __bound_local_new(வெறுமை *p1) 
 {
     size_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    எனில் (NO_CHECKING_GET())
+         திரும்பு;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
-            __FILE__, __FUNCTION__, p, (void *)fp);
+            __FILE__, __FUNCTION__, p, (வெறுமை *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
-        INCR_COUNT(bound_local_new_count);
-        tree = splay_insert(addr + fp, p[1], tree);
+    போது ((addr = p[0])) {
+        INCR_மொத்தம்(bound_local_new_மொத்தம்);
+        மரம்_2 = splay_செருகு(addr + fp, p[1], மரம்_2);
         p += 2;
     }
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#எனில் BOUND_DEBUG
+    எனில் (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
+        போது ((addr = p[0])) {
             dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                     __FILE__, __FUNCTION__,
-                    (void *) (addr + fp), (unsigned long) p[1]);
+                    (வெறுமை *) (addr + fp), (unsigned long) p[1]);
             p += 2;
         }
     }
@@ -666,74 +666,74 @@ void FASTCALL __bound_local_new(void *p1)
 }
 
 /* called when leaving a function to delete all the local regions */
-void FASTCALL __bound_local_delete(void *p1) 
+வெறுமை FASTCALL __bound_local_delete(வெறுமை *p1) 
 {
     size_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    எனில் (NO_CHECKING_GET())
+         திரும்பு;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
-            __FILE__, __FUNCTION__, p, (void *)fp);
+            __FILE__, __FUNCTION__, p, (வெறுமை *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
-        INCR_COUNT(bound_local_delete_count);
-        tree = splay_delete(addr + fp, tree);
+    போது ((addr = p[0])) {
+        INCR_மொத்தம்(bound_local_delete_மொத்தம்);
+        மரம்_2 = splay_delete(addr + fp, மரம்_2);
         p += 2;
     }
-    if (alloca_list) {
-        alloca_list_type *last = NULL;
+    எனில் (alloca_list) {
+        alloca_list_type *last = வெற்று;
         alloca_list_type *cur = alloca_list;
 
-        do {
-            if (cur->fp == fp) {
-                if (last)
+        செய் {
+            எனில் (cur->fp == fp) {
+                எனில் (last)
                     last->next = cur->next;
-                else
+                இல்லையெனில்
                     alloca_list = cur->next;
-                tree = splay_delete ((size_t) cur->p, tree);
+                மரம்_2 = splay_delete ((size_t) cur->p, மரம்_2);
                 dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                         __FILE__, __FUNCTION__, cur->p);
                 BOUND_FREE (cur);
                 cur = last ? last->next : alloca_list;
              }
-             else {
+             இல்லையெனில் {
                  last = cur;
                  cur = cur->next;
              }
-        } while (cur);
+        } போது (cur);
     }
-    if (jmp_list) {
-        jmp_list_type *last = NULL;
+    எனில் (jmp_list) {
+        jmp_list_type *last = வெற்று;
         jmp_list_type *cur = jmp_list;
 
-        do {
-            if (cur->fp == fp) {
-                if (last)
+        செய் {
+            எனில் (cur->fp == fp) {
+                எனில் (last)
                     last->next = cur->next;
-                else
+                இல்லையெனில்
                     jmp_list = cur->next;
                 dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                        __FILE__, __FUNCTION__, cur->penv);
                 BOUND_FREE (cur);
                 cur = last ? last->next : jmp_list;
             }
-            else {
+            இல்லையெனில் {
                 last = cur;
                 cur = cur->next;
             }
-        } while (cur);
+        } போது (cur);
     }
 
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#எனில் BOUND_DEBUG
+    எனில் (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
-            if (addr != 1) {
+        போது ((addr = p[0])) {
+            எனில் (addr != 1) {
                 dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        (void *) (addr + fp), (unsigned long) p[1]);
+                        (வெறுமை *) (addr + fp), (unsigned long) p[1]);
             }
             p+= 2;
         }
@@ -742,48 +742,48 @@ void FASTCALL __bound_local_delete(void *p1)
 }
 
 /* used by alloca */
-void __bound_new_region(void *p, size_t size)
+வெறுமை __bound_new_region(வெறுமை *p, size_t size)
 {
     size_t fp;
     alloca_list_type *last;
     alloca_list_type *cur;
     alloca_list_type *new;
 
-    if (NO_CHECKING_GET())
-        return;
+    எனில் (NO_CHECKING_GET())
+        திரும்பு;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, p, (unsigned long)size);
     GET_CALLER_FP (fp);
-    new = BOUND_MALLOC (sizeof (alloca_list_type));
+    new = BOUND_MALLOC (அளவு (alloca_list_type));
     WAIT_SEM ();
-    INCR_COUNT(bound_alloca_count);
-    last = NULL;
+    INCR_மொத்தம்(bound_alloca_மொத்தம்);
+    last = வெற்று;
     cur = alloca_list;
-    while (cur) {
-#if defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
-        int align = 4;
-#elif defined(__arm__)
-        int align = 8;
-#else
-        int align = 16;
+    போது (cur) {
+#எனில் defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
+        முழு align = 4;
+#அல்லதெனில் defined(__arm__)
+        முழு align = 8;
+#இல்லையெனில்
+        முழு align = 16;
 #endif
-        void *cure = (void *)((char *)cur->p + ((cur->size + align) & -align));
-        void *pe = (void *)((char *)p + ((size + align) & -align));
-        if (cur->fp == fp && ((cur->p <= p && cure > p) ||
+        வெறுமை *cure = (வெறுமை *)((எழுத்து *)cur->p + ((cur->size + align) & -align));
+        வெறுமை *pe = (வெறுமை *)((எழுத்து *)p + ((size + align) & -align));
+        எனில் (cur->fp == fp && ((cur->p <= p && cure > p) ||
                               (p <= cur->p && pe > cur->p))) {
-            if (last)
+            எனில் (last)
                 last->next = cur->next;
-            else
+            இல்லையெனில்
                 alloca_list = cur->next;
-            tree = splay_delete((size_t)cur->p, tree);
-            break;
+            மரம்_2 = splay_delete((size_t)cur->p, மரம்_2);
+            நிறுத்து;
         }
         last = cur;
         cur = cur->next;
     }
-    tree = splay_insert((size_t)p, size, tree);
-    if (new) {
+    மரம்_2 = splay_செருகு((size_t)p, size, மரம்_2);
+    எனில் (new) {
         new->fp = fp;
         new->p = p;
         new->size = size;
@@ -791,37 +791,37 @@ void __bound_new_region(void *p, size_t size)
         alloca_list = new;
     }
     POST_SEM ();
-    if (cur) {
+    எனில் (cur) {
         dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                 __FILE__, __FUNCTION__, cur->p);
         BOUND_FREE (cur);
     }
 }
 
-void __bound_setjmp(jmp_buf env)
+வெறுமை __bound_setjmp(jmp_buf env)
 {
     jmp_list_type *jl;
-    void *e = (void *) env;
+    வெறுமை *e = (வெறுமை *) env;
 
-    if (NO_CHECKING_GET() == 0) {
+    எனில் (NO_CHECKING_GET() == 0) {
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, e);
         WAIT_SEM ();
-        INCR_COUNT(bound_setjmp_count);
+        INCR_மொத்தம்(bound_setjmp_மொத்தம்);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e)
-                break;
+        போது (jl) {
+            எனில் (jl->penv == e)
+                நிறுத்து;
             jl = jl->next;
         }
-        if (jl == NULL) {
-            jl = BOUND_MALLOC (sizeof (jmp_list_type));
-            if (jl) {
+        எனில் (jl == வெற்று) {
+            jl = BOUND_MALLOC (அளவு (jmp_list_type));
+            எனில் (jl) {
                 jl->penv = e;
                 jl->next = jmp_list;
                 jmp_list = jl;
             }
         }
-        if (jl) {
+        எனில் (jl) {
             size_t fp;
 
             GET_CALLER_FP (fp);
@@ -833,151 +833,151 @@ void __bound_setjmp(jmp_buf env)
     }
 }
 
-static void __bound_long_jump(jmp_buf env, int val, int sig, const char *func)
+நிலையான வெறுமை __bound_long_jump(jmp_buf env, முழு val, முழு sig, மாறிலி எழுத்து *func)
 {
     jmp_list_type *jl;
-    void *e;
+    வெறுமை *e;
     BOUND_TID_TYPE tid;
 
-    if (NO_CHECKING_GET() == 0) {
-        e = (void *)env;
+    எனில் (NO_CHECKING_GET() == 0) {
+        e = (வெறுமை *)env;
         BOUND_GET_TID(tid);
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, func, e);
         WAIT_SEM();
-        INCR_COUNT(bound_longjmp_count);
+        INCR_மொத்தம்(bound_longjmp_மொத்தம்);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e && jl->tid == tid) {
+        போது (jl) {
+            எனில் (jl->penv == e && jl->tid == tid) {
                 size_t start_fp = (size_t)__builtin_frame_address(0);
                 size_t end_fp = jl->end_fp;
                 jmp_list_type *cur = jmp_list;
-                jmp_list_type *last = NULL;
+                jmp_list_type *last = வெற்று;
 
-                while (cur->penv != e || cur->tid != tid) {
-                    if (cur->tid == tid) {
+                போது (cur->penv != e || cur->tid != tid) {
+                    எனில் (cur->tid == tid) {
                         dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                                 __FILE__, func, cur->penv);
-                        if (last)
+                        எனில் (last)
                             last->next = cur->next;
-                        else
+                        இல்லையெனில்
                             jmp_list = cur->next;
                         BOUND_FREE (cur);
                         cur = last ? last->next : jmp_list;
                     }
-                    else {
+                    இல்லையெனில் {
                         last = cur;
                         cur = cur->next;
                     }
                 }
-                for (;;) {
-                    Tree *t = tree;
+                க்கு (;;) {
+                    மரம் *t = மரம்_2;
                     alloca_list_type *last;
                     alloca_list_type *cur;
 
-                    while (t && (t->start < start_fp || t->start > end_fp))
-                        if (t->start < start_fp)
-                            t = t->right;
-                        else
-                            t = t->left;
-                    if (t == NULL)
-                        break;
-                    last = NULL;
+                    போது (t && (t->start < start_fp || t->start > end_fp))
+                        எனில் (t->start < start_fp)
+                            t = t->வலது;
+                        இல்லையெனில்
+                            t = t->இடது;
+                    எனில் (t == வெற்று)
+                        நிறுத்து;
+                    last = வெற்று;
                     cur = alloca_list;
-                    while (cur) {
-                         if ((size_t) cur->p == t->start) {
+                    போது (cur) {
+                         எனில் ((size_t) cur->p == t->start) {
                              dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                                      __FILE__, func, cur->p);
-                             if (last)
+                             எனில் (last)
                                  last->next = cur->next;
-                             else
+                             இல்லையெனில்
                                  alloca_list = cur->next;
                              BOUND_FREE (cur);
-                             break;
+                             நிறுத்து;
                          }
                          last = cur;
                          cur = cur->next;
                     }
                     dprintf(stderr, "%s, %s(): delete %p\n",
-                            __FILE__, func, (void *) t->start);
-                    tree = splay_delete(t->start, tree);
+                            __FILE__, func, (வெறுமை *) t->start);
+                    மரம்_2 = splay_delete(t->start, மரம்_2);
                 }
-                break;
+                நிறுத்து;
             }
             jl = jl->next;
         }
         POST_SEM();
     }
-#if !defined(_WIN32)
+#எனில் !defined(_WIN32)
     sig ? siglongjmp(env, val) :
 #endif
     longjmp (env, val);
 }
 
-void __bound_longjmp(jmp_buf env, int val)
+வெறுமை __bound_longjmp(jmp_buf env, முழு val)
 {
     __bound_long_jump(env,val, 0, __FUNCTION__);
 }
 
-#if !defined(_WIN32)
-void __bound_siglongjmp(jmp_buf env, int val)
+#எனில் !defined(_WIN32)
+வெறுமை __bound_siglongjmp(jmp_buf env, முழு val)
 {
     __bound_long_jump(env,val, 1, __FUNCTION__);
 }
 #endif
 
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic pop
+#எனில் (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#pragma GCC diagnostic எடு
 #endif
 
-void __bound_init(size_t *p, int mode)
+வெறுமை __bound_init(size_t *p, முழு mode)
 {
     dprintf(stderr, "%s, %s(): start %s\n", __FILE__, __FUNCTION__,
             mode < 0 ? "lazy" : mode == 0 ? "normal use" : "for -run");
 
-    if (inited) {
+    எனில் (inited) {
         WAIT_SEM();
-        goto add_bounds;
+        செல் add_bounds;
     }
     inited = 1;
 
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-    no_checking_key = TlsAlloc();
-    TlsSetValue(no_checking_key, &no_checking);
-#else
-    pthread_key_create(&no_checking_key, NULL);
-    pthread_setspecific(no_checking_key, &no_checking);
+#எனில் HAVE_TLS_FUNC
+#எனில் defined(_WIN32)
+    no_checking_சாவி = TlsAlloc();
+    Tls_Set_மதிப்பு(no_checking_சாவி, &no_checking);
+#இல்லையெனில்
+    pthread_key_create(&no_checking_சாவி, வெற்று);
+    pthread_setspecific(no_checking_சாவி, &no_checking);
 #endif
 #endif
     NO_CHECKING_SET(1);
 
-    print_warn_ptr_add = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != NULL;
-    print_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != NULL;
-    print_heap = getenv ("TCC_BOUNDS_PRINT_HEAP") != NULL;
-    print_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != NULL;
-    never_fatal = getenv ("TCC_BOUNDS_NEVER_FATAL") != NULL;
+    print_warn_ptr_add = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != வெற்று;
+    print_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != வெற்று;
+    print_heap = getenv ("TCC_BOUNDS_PRINT_HEAP") != வெற்று;
+    print_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != வெற்று;
+    never_fatal = getenv ("TCC_BOUNDS_NEVER_FATAL") != வெற்று;
 
     INIT_SEM ();
 
-#if MALLOC_REDIR
+#எனில் MALLOC_REDIR
     {
-        void *addr = mode > 0 ? RTLD_DEFAULT : RTLD_NEXT;
+        வெறுமை *addr = mode > 0 ? RTLD_DEFAULT : RTLD_NEXT;
 
         /* tcc -run required RTLD_DEFAULT. Normal usage requires RTLD_NEXT,
            but using RTLD_NEXT with -run segfaults on MacOS in dyld as the
            generated code segment isn't registered with dyld and hence the
            caller image of dlsym isn't known to it */
-        *(void **) (&malloc_redir) = dlsym (addr, "malloc");
-        if (malloc_redir == NULL) {
+        *(வெறுமை **) (&malloc_redir) = dlsym (addr, "malloc");
+        எனில் (malloc_redir == வெற்று) {
             dprintf(stderr, "%s, %s(): use RTLD_DEFAULT\n",
                     __FILE__, __FUNCTION__);
             addr = RTLD_DEFAULT;
-            *(void **) (&malloc_redir) = dlsym (addr, "malloc");
+            *(வெறுமை **) (&malloc_redir) = dlsym (addr, "malloc");
         }
-        *(void **) (&calloc_redir) = dlsym (addr, "calloc");
-        *(void **) (&free_redir) = dlsym (addr, "free");
-        *(void **) (&realloc_redir) = dlsym (addr, "realloc");
-        *(void **) (&memalign_redir) = dlsym (addr, "memalign");
+        *(வெறுமை **) (&calloc_redir) = dlsym (addr, "calloc");
+        *(வெறுமை **) (&free_redir) = dlsym (addr, "free");
+        *(வெறுமை **) (&realloc_redir) = dlsym (addr, "realloc");
+        *(வெறுமை **) (&memalign_redir) = dlsym (addr, "memalign");
         dprintf(stderr, "%s, %s(): malloc_redir %p\n",
                 __FILE__, __FUNCTION__, malloc_redir);
         dprintf(stderr, "%s, %s(): free_redir %p\n",
@@ -986,34 +986,34 @@ void __bound_init(size_t *p, int mode)
                 __FILE__, __FUNCTION__, realloc_redir);
         dprintf(stderr, "%s, %s(): memalign_redir %p\n",
                 __FILE__, __FUNCTION__, memalign_redir);
-        if (malloc_redir == NULL || free_redir == NULL)
+        எனில் (malloc_redir == வெற்று || free_redir == வெற்று)
             bound_alloc_error ("Cannot redirect malloc/free");
-#if HAVE_PTHREAD_CREATE
-        *(void **) (&pthread_create_redir) = dlsym (addr, "pthread_create");
+#எனில் HAVE_PTHREAD_CREATE
+        *(வெறுமை **) (&pthread_create_redir) = dlsym (addr, "pthread_create");
         dprintf(stderr, "%s, %s(): pthread_create_redir %p\n",
                 __FILE__, __FUNCTION__, pthread_create_redir);
-        if (pthread_create_redir == NULL)
+        எனில் (pthread_create_redir == வெற்று)
             bound_alloc_error ("Cannot redirect pthread_create");
 #endif
-#if HAVE_SIGNAL
-        *(void **) (&signal_redir) = dlsym (addr, "signal");
+#எனில் HAVE_SIGNAL
+        *(வெறுமை **) (&signal_redir) = dlsym (addr, "signal");
         dprintf(stderr, "%s, %s(): signal_redir %p\n",
                 __FILE__, __FUNCTION__, signal_redir);
-        if (signal_redir == NULL)
+        எனில் (signal_redir == வெற்று)
             bound_alloc_error ("Cannot redirect signal");
 #endif
-#if HAVE_SIGACTION
-        *(void **) (&sigaction_redir) = dlsym (addr, "sigaction");
+#எனில் HAVE_SIGACTION
+        *(வெறுமை **) (&sigaction_redir) = dlsym (addr, "sigaction");
         dprintf(stderr, "%s, %s(): sigaction_redir %p\n",
                 __FILE__, __FUNCTION__, sigaction_redir);
-        if (sigaction_redir == NULL)
+        எனில் (sigaction_redir == வெற்று)
             bound_alloc_error ("Cannot redirect sigaction");
 #endif
-#if HAVE_FORK
-        *(void **) (&fork_redir) = dlsym (addr, "fork");
+#எனில் HAVE_FORK
+        *(வெறுமை **) (&fork_redir) = dlsym (addr, "fork");
         dprintf(stderr, "%s, %s(): fork_redir %p\n",
                 __FILE__, __FUNCTION__, fork_redir);
-        if (fork_redir == NULL)
+        எனில் (fork_redir == வெற்று)
             bound_alloc_error ("Cannot redirect fork");
 #endif
     }
@@ -1022,19 +1022,19 @@ void __bound_init(size_t *p, int mode)
 #ifdef __linux__
     {
         FILE *fp;
-        unsigned char found;
+        unsigned எழுத்து found;
         unsigned long start;
         unsigned long end;
         unsigned long ad =
             (unsigned long) __builtin_return_address(0);
-        char line[1000];
+        எழுத்து வரி[1000];
 
         /* Display exec name. Usefull when a lot of code is compiled with tcc */
         fp = fopen ("/proc/self/comm", "r");
-        if (fp) {
-            memset (exec, 0, sizeof(exec));
-            fread (exec, 1, sizeof(exec) - 2, fp);
-            if (strchr(exec,'\n'))
+        எனில் (fp) {
+            memset (exec, 0, அளவு(exec));
+            fread (exec, 1, அளவு(exec) - 2, fp);
+            எனில் (strchr(exec,'\n'))
                 *strchr(exec,'\n') = '\0';
             strcat (exec, ":");
             fclose (fp);
@@ -1042,19 +1042,19 @@ void __bound_init(size_t *p, int mode)
         /* check if dlopen is used (is threre a better way?) */ 
         found = 0;
         fp = fopen ("/proc/self/maps", "r");
-        if (fp) {
-            while (fgets (line, sizeof(line), fp)) {
-                if (sscanf (line, "%lx-%lx", &start, &end) == 2 &&
+        எனில் (fp) {
+            போது (fgets (வரி, அளவு(வரி), fp)) {
+                எனில் (sscanf (வரி, "%lx-%lx", &start, &end) == 2 &&
                             ad >= start && ad < end) {
                     found = 1;
-                    break;
+                    நிறுத்து;
                 }
-                if (strstr (line,"[heap]"))
-                    break;
+                எனில் (strstr (வரி,"[heap]"))
+                    நிறுத்து;
             }
             fclose (fp);
         }
-        if (found == 0) {
+        எனில் (found == 0) {
             use_sem = 1;
             no_strdup = 1;
         }
@@ -1063,41 +1063,41 @@ void __bound_init(size_t *p, int mode)
 
     WAIT_SEM ();
 
-#if HAVE_CTYPE
+#எனில் HAVE_CTYPE
 #ifdef __APPLE__
-    tree = splay_insert((size_t) &_DefaultRuneLocale,
-                        sizeof (_DefaultRuneLocale), tree);
-#else
+    மரம்_2 = splay_செருகு((size_t) &_DefaultRuneLocale,
+                        அளவு (_DefaultRuneLocale), மரம்_2);
+#இல்லையெனில்
     /* XXX: Does not work if locale is changed */
-    tree = splay_insert((size_t) __ctype_b_loc(),
-                        sizeof (unsigned short *), tree);
-    tree = splay_insert((size_t) (*__ctype_b_loc() - 128),
-                        384 * sizeof (unsigned short), tree);
-    tree = splay_insert((size_t) __ctype_tolower_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_tolower_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
-    tree = splay_insert((size_t) __ctype_toupper_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_toupper_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
+    மரம்_2 = splay_செருகு((size_t) __ctype_b_loc(),
+                        அளவு (unsigned short *), மரம்_2);
+    மரம்_2 = splay_செருகு((size_t) (*__ctype_b_loc() - 128),
+                        384 * அளவு (unsigned short), மரம்_2);
+    மரம்_2 = splay_செருகு((size_t) __ctype_tolower_loc(),
+                        அளவு (__int32_t *), மரம்_2);
+    மரம்_2 = splay_செருகு((size_t) (*__ctype_tolower_loc() - 128),
+                        384 * அளவு (__int32_t), மரம்_2);
+    மரம்_2 = splay_செருகு((size_t) __ctype_toupper_loc(),
+                        அளவு (__int32_t *), மரம்_2);
+    மரம்_2 = splay_செருகு((size_t) (*__ctype_toupper_loc() - 128),
+                        384 * அளவு (__int32_t), மரம்_2);
 #endif
 #endif
-#if HAVE_ERRNO
-    tree = splay_insert((size_t) (&errno), sizeof (int), tree);
+#எனில் HAVE_ERRNO
+    மரம்_2 = splay_செருகு((size_t) (&errno), அளவு (முழு), மரம்_2);
 #endif
 
 add_bounds:
-    if (!p)
-        goto no_bounds;
+    எனில் (!p)
+        செல் no_bounds;
 
     /* add all static bound check values */
-    while (p[0] != 0) {
-        tree = splay_insert(p[0], p[1], tree);
-#if BOUND_DEBUG
+    போது (p[0] != 0) {
+        மரம்_2 = splay_செருகு(p[0], p[1], மரம்_2);
+#எனில் BOUND_DEBUG
         dprintf(stderr, "%s, %s(): static var %p 0x%lx\n",
                 __FILE__, __FUNCTION__,
-                (void *) p[0], (unsigned long) p[1]);
+                (வெறுமை *) p[0], (unsigned long) p[1]);
 #endif
         p += 2;
     }
@@ -1108,48 +1108,48 @@ no_bounds:
     dprintf(stderr, "%s, %s(): end\n\n", __FILE__, __FUNCTION__);
 }
 
-void
-#if (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
+வெறுமை
+#எனில் (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
 __attribute__((constructor))
 #endif
-__bound_main_arg(int argc, char **argv, char **envp)
+__bound_main_arg(முழு argc, எழுத்து **argv, எழுத்து **envp)
 {
     __bound_init (0, -1);
-    if (argc && argv) {
-        int i;
+    எனில் (argc && argv) {
+        முழு i;
 
         WAIT_SEM ();
-        for (i = 0; i < argc; i++)
-            tree = splay_insert((size_t) argv[i], strlen (argv[i]) + 1, tree);
-        tree = splay_insert((size_t) argv, (argc + 1) * sizeof(char *), tree);
+        க்கு (i = 0; i < argc; i++)
+            மரம்_2 = splay_செருகு((size_t) argv[i], strlen (argv[i]) + 1, மரம்_2);
+        மரம்_2 = splay_செருகு((size_t) argv, (argc + 1) * அளவு(எழுத்து *), மரம்_2);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
-            for (i = 0; i < argc; i++)
+#எனில் BOUND_DEBUG
+        எனில் (print_calls) {
+            க்கு (i = 0; i < argc; i++)
                 dprintf(stderr, "%s, %s(): arg %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
                         argv[i], (unsigned long)(strlen (argv[i]) + 1));
             dprintf(stderr, "%s, %s(): argv %p %d\n",
                     __FILE__, __FUNCTION__, argv,
-                    (int)((argc + 1) * sizeof(char *)));
+                    (முழு)((argc + 1) * அளவு(எழுத்து *)));
         }
 #endif
     }
 
-    if (envp && *envp) {
-        char **p = envp;
+    எனில் (envp && *envp) {
+        எழுத்து **p = envp;
 
         WAIT_SEM ();
-        while (*p) {
-            tree = splay_insert((size_t) *p, strlen (*p) + 1, tree);
+        போது (*p) {
+            மரம்_2 = splay_செருகு((size_t) *p, strlen (*p) + 1, மரம்_2);
             ++p;
         }
-        tree = splay_insert((size_t) envp, (++p - envp) * sizeof(char *), tree);
+        மரம்_2 = splay_செருகு((size_t) envp, (++p - envp) * அளவு(எழுத்து *), மரம்_2);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
+#எனில் BOUND_DEBUG
+        எனில் (print_calls) {
             p = envp;
-            while (*p) {
+            போது (*p) {
                 dprintf(stderr, "%s, %s(): env %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
                         *p, (unsigned long)(strlen (*p) + 1));
@@ -1157,27 +1157,27 @@ __bound_main_arg(int argc, char **argv, char **envp)
             }
             dprintf(stderr, "%s, %s(): environ %p %d\n",
                     __FILE__, __FUNCTION__, envp,
-                    (int)((++p - envp) * sizeof(char *)));
+                    (முழு)((++p - envp) * அளவு(எழுத்து *)));
         }
 #endif
     }
 }
 
-void __attribute__((destructor)) __bound_exit(void)
+வெறுமை __attribute__((destructor)) __bound_exit(வெறுமை)
 {
-    int i;
-    static const char * const alloc_type[] = {
+    முழு i;
+    நிலையான மாறிலி எழுத்து * மாறிலி alloc_type[] = {
         "", "malloc", "calloc", "realloc", "memalign", "strdup"
     };
 
     dprintf(stderr, "%s, %s():\n", __FILE__, __FUNCTION__);
 
-    if (inited) {
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
+    எனில் (inited) {
+#எனில் !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
     !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__NetBSD__) && \
     !defined(__ANDROID__)
-        if (print_heap) {
-            extern void __libc_freeres (void);
+        எனில் (print_heap) {
+            வெளி வெறுமை __libc_freeres (வெறுமை);
             __libc_freeres ();
         }
 #endif
@@ -1185,109 +1185,109 @@ void __attribute__((destructor)) __bound_exit(void)
         NO_CHECKING_SET(1);
 
         TRY_SEM ();
-        while (alloca_list) {
+        போது (alloca_list) {
             alloca_list_type *next = alloca_list->next;
 
-            tree = splay_delete ((size_t) alloca_list->p, tree);
+            மரம்_2 = splay_delete ((size_t) alloca_list->p, மரம்_2);
             BOUND_FREE (alloca_list);
             alloca_list = next;
         }
-        while (jmp_list) {
+        போது (jmp_list) {
            jmp_list_type *next  = jmp_list->next;
 
            BOUND_FREE (jmp_list);
            jmp_list = next;
         }
-        for (i = 0; i < FREE_REUSE_SIZE; i++) {
-            if (free_reuse_list[i]) {
-                tree = splay_delete ((size_t) free_reuse_list[i], tree);
+        க்கு (i = 0; i < FREE_REUSE_SIZE; i++) {
+            எனில் (free_reuse_list[i]) {
+                மரம்_2 = splay_delete ((size_t) free_reuse_list[i], மரம்_2);
                 BOUND_FREE (free_reuse_list[i]);
              }
         }
-        while (tree) {
-            if (print_heap && tree->type != 0)
+        போது (மரம்_2) {
+            எனில் (print_heap && மரம்_2->type != 0)
                 fprintf (stderr, "%s, %s(): %s found size %lu\n",
-                         __FILE__, __FUNCTION__, alloc_type[tree->type],
-                         (unsigned long) tree->size);
-            tree = splay_delete (tree->start, tree);
+                         __FILE__, __FUNCTION__, alloc_type[மரம்_2->type],
+                         (unsigned long) மரம்_2->size);
+            மரம்_2 = splay_delete (மரம்_2->start, மரம்_2);
         }
-#if TREE_REUSE
-        while (tree_free_list) {
-            Tree *next = tree_free_list->left;
-            BOUND_FREE (tree_free_list);
-            tree_free_list = next;
+#எனில் மரம்_REUSE
+        போது (மரம்_free_list) {
+            மரம் *next = மரம்_free_list->இடது;
+            BOUND_FREE (மரம்_free_list);
+            மரம்_free_list = next;
         }
 #endif
         POST_SEM ();
         EXIT_SEM ();
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-        TlsFree(no_checking_key);
-#else
-        pthread_key_delete(no_checking_key);
+#எனில் HAVE_TLS_FUNC
+#எனில் defined(_WIN32)
+        TlsFree(no_checking_சாவி);
+#இல்லையெனில்
+        pthread_key_delete(no_checking_சாவி);
 #endif
 #endif
         inited = 0;
-        if (print_statistic) {
-#if BOUND_STATISTIC
-            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_add_count);
-            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_count);
-            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_count);
-            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_count);
-            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_count);
-            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_count);
-            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_count);
-            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_count);
-            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_count);
-            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_count);
-            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_count);
-            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_count);
-            fprintf (stderr, "bound_free_count         %llu\n", bound_free_count);
-            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_count);
-            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_count);
-            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_count);
-            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_count);
-            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_count);
-            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_count);
-            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_count);
-            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_count);
-            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_count);
-            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_count);
-            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_count);
-            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_count);
-            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_count);
-            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_count);
-            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_count);
-            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_count);
-            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_count);
-            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_count);
-            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_count);
-            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_count);
+        எனில் (print_statistic) {
+#எனில் BOUND_STATISTIC
+            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_add_மொத்தம்);
+            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_மொத்தம்);
+            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_மொத்தம்);
+            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_மொத்தம்);
+            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_மொத்தம்);
+            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_மொத்தம்);
+            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_மொத்தம்);
+            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_மொத்தம்);
+            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_மொத்தம்);
+            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_மொத்தம்);
+            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_மொத்தம்);
+            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_மொத்தம்);
+            fprintf (stderr, "bound_free_count         %llu\n", bound_free_மொத்தம்);
+            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_மொத்தம்);
+            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_மொத்தம்);
+            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_மொத்தம்);
+            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_மொத்தம்);
+            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_மொத்தம்);
+            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_மொத்தம்);
+            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_மொத்தம்);
+            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_மொத்தம்);
+            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_மொத்தம்);
+            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_மொத்தம்);
+            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_மொத்தம்);
+            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_மொத்தம்);
+            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_மொத்தம்);
+            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_மொத்தம்);
+            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_மொத்தம்);
+            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_மொத்தம்);
+            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_மொத்தம்);
+            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_மொத்தம்);
+            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_மொத்தம்);
+            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_மொத்தம்);
             fprintf (stderr, "bound_not_found          %llu\n", bound_not_found);
 #endif
-#if BOUND_STATISTIC_SPLAY
+#எனில் BOUND_STATISTIC_SPLAY
             fprintf (stderr, "bound_splay              %llu\n", bound_splay);
             fprintf (stderr, "bound_splay_end          %llu\n", bound_splay_end);
-            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_insert);
+            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_செருகு);
             fprintf (stderr, "bound_splay_delete       %llu\n", bound_splay_delete);
 #endif
         }
     }
 }
 
-void __bound_exit_dll(size_t *p)
+வெறுமை __bound_exit_dll(size_t *p)
 {
     dprintf(stderr, "%s, %s()\n", __FILE__, __FUNCTION__);
 
-    if (p) {
+    எனில் (p) {
         WAIT_SEM ();
-	while (p[0] != 0) {
-	    tree = splay_delete(p[0], tree);
-#if BOUND_DEBUG
-            if (print_calls) {
+	போது (p[0] != 0) {
+	    மரம்_2 = splay_delete(p[0], மரம்_2);
+#எனில் BOUND_DEBUG
+            எனில் (print_calls) {
                 dprintf(stderr, "%s, %s(): remove static var %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        (void *) p[0], (unsigned long) p[1]);
+                        (வெறுமை *) p[0], (unsigned long) p[1]);
             }
 #endif
 	    p += 2;
@@ -1296,38 +1296,38 @@ void __bound_exit_dll(size_t *p)
     }
 }
 
-#if HAVE_PTHREAD_CREATE
-typedef struct {
-    void *(*start_routine) (void *);
-    void *arg;
+#எனில் HAVE_PTHREAD_CREATE
+வகைவரை கட்டமைப்பு {
+    வெறுமை *(*start_routine) (வெறுமை *);
+    வெறுமை *arg;
     sigset_t old_mask;
 } bound_thread_create_type;
 
-static void *bound_thread_create(void *bdata)
+நிலையான வெறுமை *bound_thread_create(வெறுமை *bdata)
 {
     bound_thread_create_type *data = (bound_thread_create_type *) bdata;
-    void *retval;
-#if HAVE_TLS_FUNC
-    int *p = (int *) BOUND_MALLOC(sizeof(int));
+    வெறுமை *retval;
+#எனில் HAVE_TLS_FUNC
+    முழு *p = (முழு *) BOUND_MALLOC(அளவு(முழு));
   
-    if (!p) bound_alloc_error("bound_thread_create malloc");
+    எனில் (!p) bound_alloc_error("bound_thread_create malloc");
     *p = 0;
-    pthread_setspecific(no_checking_key, p);
+    pthread_setspecific(no_checking_சாவி, p);
 #endif
-    pthread_sigmask(SIG_SETMASK, &data->old_mask, NULL);
+    pthread_sigmask(SIG_SETMASK, &data->old_mask, வெற்று);
     retval = data->start_routine(data->arg);
-#if HAVE_TLS_FUNC
-    pthread_setspecific(no_checking_key, NULL);
+#எனில் HAVE_TLS_FUNC
+    pthread_setspecific(no_checking_சாவி, வெற்று);
     BOUND_FREE (p);
 #endif
     BOUND_FREE (data);
-    return retval;
+    திரும்பு retval;
 }
 
-int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
-                   void *(*start_routine) (void *), void *arg)
+முழு pthread_create(pthread_t *thread, மாறிலி pthread_attr_t *attr,
+                   வெறுமை *(*start_routine) (வெறுமை *), வெறுமை *arg)
 {
-    int retval;
+    முழு retval;
     bound_thread_create_type *data;
     sigset_t mask;
     sigset_t old_mask;
@@ -1336,152 +1336,152 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
     dprintf (stderr, "%s, %s()\n", __FILE__, __FUNCTION__);
     sigfillset(&mask);
     pthread_sigmask(SIG_SETMASK, &mask, &old_mask);
-    data = (bound_thread_create_type *) BOUND_MALLOC(sizeof(bound_thread_create_type));
-    if (!data) bound_alloc_error("bound_thread_create malloc");
+    data = (bound_thread_create_type *) BOUND_MALLOC(அளவு(bound_thread_create_type));
+    எனில் (!data) bound_alloc_error("bound_thread_create malloc");
     data->start_routine = start_routine;
     data->arg = arg;
     data->old_mask = old_mask;
     retval = pthread_create_redir(thread, attr, bound_thread_create, data);
-    pthread_sigmask(SIG_SETMASK, &old_mask, NULL);
-    return retval;
+    pthread_sigmask(SIG_SETMASK, &old_mask, வெற்று);
+    திரும்பு retval;
 }
 #endif
 
-#if HAVE_SIGNAL || HAVE_SIGACTION
-typedef union {
-#if HAVE_SIGNAL
+#எனில் HAVE_SIGNAL || HAVE_SIGACTION
+வகைவரை ஒன்றிப்பு {
+#எனில் HAVE_SIGNAL
     bound_sig signal_handler;
 #endif
-#if HAVE_SIGACTION
-    void (*sig_handler)(int);
-    void (*sig_sigaction)(int, siginfo_t *, void *);
+#எனில் HAVE_SIGACTION
+    வெறுமை (*sig_handler)(முழு);
+    வெறுமை (*sig_sigaction)(முழு, siginfo_t *, வெறுமை *);
 #endif
 } bound_sig_type;
 
-static unsigned char bound_sig_used[NSIG];
-static bound_sig_type bound_sig_data[NSIG];
+நிலையான unsigned எழுத்து bound_sig_used[NSIG];
+நிலையான bound_sig_type bound_sig_data[NSIG];
 #endif
 
-#if HAVE_SIGNAL
-static void signal_handler(int sig)
+#எனில் HAVE_SIGNAL
+நிலையான வெறுமை signal_handler(முழு sig)
 {
    __bounds_checking(1);
    bound_sig_data[sig].signal_handler(sig);
    __bounds_checking(-1);
 }
 
-bound_sig signal(int signum, bound_sig handler)
+bound_sig சமிக்ஞை(முழு signum, bound_sig handler)
 {
     bound_sig retval;
 
     dprintf (stderr, "%s, %s() %d %p\n", __FILE__, __FUNCTION__,
              signum, handler);
     retval = signal_redir(signum, handler ? signal_handler : handler);
-    if (retval != SIG_ERR) {
-        if (bound_sig_used[signum])
+    எனில் (retval != SIG_ERR) {
+        எனில் (bound_sig_used[signum])
             retval = bound_sig_data[signum].signal_handler;
-        if (handler) {
+        எனில் (handler) {
             bound_sig_used[signum] = 1;
             bound_sig_data[signum].signal_handler = handler;
         }
     }
-    return retval;
+    திரும்பு retval;
 }
 #endif
 
-#if HAVE_SIGACTION
-static void sig_handler(int sig)
+#எனில் HAVE_SIGACTION
+நிலையான வெறுமை sig_handler(முழு sig)
 {
    __bounds_checking(1);
    bound_sig_data[sig].sig_handler(sig);
    __bounds_checking(-1);
 }
 
-static void sig_sigaction(int sig, siginfo_t *info, void *ucontext)
+நிலையான வெறுமை sig_sigaction(முழு sig, siginfo_t *info, வெறுமை *ucontext)
 {
    __bounds_checking(1);
    bound_sig_data[sig].sig_sigaction(sig, info, ucontext);
    __bounds_checking(-1);
 }
 
-int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)
+முழு sigaction(முழு signum, மாறிலி கட்டமைப்பு sigaction *act, கட்டமைப்பு sigaction *oldact)
 {
-    int retval;
-    struct sigaction nact, oact;
+    முழு retval;
+    கட்டமைப்பு sigaction nact, oact;
 
     dprintf (stderr, "%s, %s() %d %p %p\n", __FILE__, __FUNCTION__,
              signum, act, oldact);
 
-    if (sigaction_redir == NULL)
+    எனில் (sigaction_redir == வெற்று)
         __bound_init(0,-1);
 
-    if (act) {
+    எனில் (act) {
         nact = *act;
-        if (nact.sa_flags & SA_SIGINFO)
+        எனில் (nact.sa_flags & SA_SIGINFO)
             nact.sa_sigaction = sig_sigaction;
-        else
+        இல்லையெனில்
             nact.sa_handler = sig_handler;
         retval = sigaction_redir(signum, &nact, &oact);
     }
-    else
+    இல்லையெனில்
         retval = sigaction_redir(signum, act, &oact);
-    if (retval >= 0) {
-        if (bound_sig_used[signum]) {
-            if (oact.sa_flags & SA_SIGINFO)
+    எனில் (retval >= 0) {
+        எனில் (bound_sig_used[signum]) {
+            எனில் (oact.sa_flags & SA_SIGINFO)
                 oact.sa_sigaction = bound_sig_data[signum].sig_sigaction;
-            else
+            இல்லையெனில்
                 oact.sa_handler = bound_sig_data[signum].sig_handler;
         }
-        if (oldact) {
+        எனில் (oldact) {
             *oldact = oact;
         }
-        if (act) {
+        எனில் (act) {
             bound_sig_used[signum] = 1;
-            if (act->sa_flags & SA_SIGINFO)
+            எனில் (act->sa_flags & SA_SIGINFO)
                 bound_sig_data[signum].sig_sigaction = act->sa_sigaction;
-            else
+            இல்லையெனில்
                 bound_sig_data[signum].sig_handler = act->sa_handler;
         }
     }
-    return retval;
+    திரும்பு retval;
 }
 #endif
 
-#if HAVE_FORK
-pid_t fork(void)
+#எனில் HAVE_FORK
+pid_t fork(வெறுமை)
 {
     pid_t retval;
 
     WAIT_SEM();
     retval = (*fork_redir)();
-    if (retval == 0)
+    எனில் (retval == 0)
         INIT_SEM();
-    else
+    இல்லையெனில்
         POST_SEM();
-    return retval;
+    திரும்பு retval;
 }
 #endif
 
-#if MALLOC_REDIR
-void *malloc(size_t size)
-#else
-void *__bound_malloc(size_t size, const void *caller)
+#எனில் MALLOC_REDIR
+வெறுமை *malloc(size_t size)
+#இல்லையெனில்
+வெறுமை *__bound_malloc(size_t size, மாறிலி வெறுமை *caller)
 #endif
 {
-    void *ptr;
+    வெறுமை *ptr;
     
-#if MALLOC_REDIR
+#எனில் MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    எனில் (malloc_redir == வெற்று) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
+        எனில் (malloc_redir == வெற்று) {
             ptr = &initial_pool[pool_index];
             pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+            எனில் (pool_index >= அளவு (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
                      __FILE__, __FUNCTION__, ptr, (unsigned long)size);
-            return ptr;
+            திரும்பு ptr;
         }
     }
 #endif
@@ -1492,38 +1492,38 @@ void *__bound_malloc(size_t size, const void *caller)
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, ptr, (unsigned long)size);
     
-    if (inited && NO_CHECKING_GET() == 0) {
+    எனில் (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_malloc_count);
+        INCR_மொத்தம்(bound_malloc_மொத்தம்);
 
-        if (ptr) {
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MALLOC;
+        எனில் (ptr) {
+            மரம்_2 = splay_செருகு ((size_t) ptr, size ? size : size + 1, மரம்_2);
+            எனில் (மரம்_2 && மரம்_2->start == (size_t) ptr)
+                மரம்_2->type = TCC_TYPE_MALLOC;
         }
         POST_SEM ();
     }
-    return ptr;
+    திரும்பு ptr;
 }
 
-#if MALLOC_REDIR
-void *memalign(size_t align, size_t size)
-#else
-void *__bound_memalign(size_t align, size_t size, const void *caller)
+#எனில் MALLOC_REDIR
+வெறுமை *memalign(size_t align, size_t size)
+#இல்லையெனில்
+வெறுமை *__bound_memalign(size_t align, size_t size, மாறிலி வெறுமை *caller)
 #endif
 {
-    void *ptr;
+    வெறுமை *ptr;
 
-#if HAVE_MEMALIGN
+#எனில் HAVE_MEMALIGN
     /* we allocate one more byte to ensure the regions will be
        separated by at least one byte. With the glibc malloc, it may
        be in fact not necessary */
     ptr = BOUND_MEMALIGN(align, size + 1);
-#else
-    if (align > 4) {
+#இல்லையெனில்
+    எனில் (align > 4) {
         /* XXX: handle it ? */
-        ptr = NULL;
-    } else {
+        ptr = வெற்று;
+    } இல்லையெனில் {
         /* we suppose that malloc aligns to at least four bytes */
         ptr = BOUND_MALLOC(size + 1);
     }
@@ -1531,56 +1531,56 @@ void *__bound_memalign(size_t align, size_t size, const void *caller)
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, ptr, (unsigned long)size);
 
-    if (NO_CHECKING_GET() == 0) {
+    எனில் (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_memalign_count);
+        INCR_மொத்தம்(bound_memalign_மொத்தம்);
 
-        if (ptr) {
-            tree = splay_insert((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MEMALIGN;
+        எனில் (ptr) {
+            மரம்_2 = splay_செருகு((size_t) ptr, size ? size : size + 1, மரம்_2);
+            எனில் (மரம்_2 && மரம்_2->start == (size_t) ptr)
+                மரம்_2->type = TCC_TYPE_MEMALIGN;
         }
         POST_SEM ();
     }
-    return ptr;
+    திரும்பு ptr;
 }
 
-#if MALLOC_REDIR
-void free(void *ptr)
-#else
-void __bound_free(void *ptr, const void *caller)
+#எனில் MALLOC_REDIR
+வெறுமை விடுவி(வெறுமை *ptr)
+#இல்லையெனில்
+வெறுமை __bound_free(வெறுமை *ptr, மாறிலி வெறுமை *caller)
 #endif
 {
     size_t addr = (size_t) ptr;
-    void *p;
+    வெறுமை *p;
 
-    if (ptr == NULL || tree == NULL
-#if MALLOC_REDIR
-        || ((unsigned char *) ptr >= &initial_pool[0] &&
-            (unsigned char *) ptr < &initial_pool[sizeof(initial_pool)])
+    எனில் (ptr == வெற்று || மரம்_2 == வெற்று
+#எனில் MALLOC_REDIR
+        || ((unsigned எழுத்து *) ptr >= &initial_pool[0] &&
+            (unsigned எழுத்து *) ptr < &initial_pool[அளவு(initial_pool)])
 #endif
         )
-        return;
+        திரும்பு;
 
     dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, ptr);
 
-    if (inited && NO_CHECKING_GET() == 0) {
+    எனில் (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_free_count);
-        tree = splay (addr, tree);
-        if (tree->start == addr) {
-            if (tree->is_invalid) {
+        INCR_மொத்தம்(bound_free_மொத்தம்);
+        மரம்_2 = splay (addr, மரம்_2);
+        எனில் (மரம்_2->start == addr) {
+            எனில் (மரம்_2->is_invalid) {
                 POST_SEM ();
                 bound_error("freeing invalid region");
-                return;
+                திரும்பு;
             }
-            tree->is_invalid = 1;
-            memset (ptr, 0x5a, tree->size);
+            மரம்_2->is_invalid = 1;
+            memset (ptr, 0x5a, மரம்_2->size);
             p = free_reuse_list[free_reuse_index];
             free_reuse_list[free_reuse_index] = ptr;
             free_reuse_index = (free_reuse_index + 1) % FREE_REUSE_SIZE;
-            if (p)
-                tree = splay_delete((size_t)p, tree);
+            எனில் (p)
+                மரம்_2 = splay_delete((size_t)p, மரம்_2);
             ptr = p;
         }
         POST_SEM ();
@@ -1588,65 +1588,65 @@ void __bound_free(void *ptr, const void *caller)
     BOUND_FREE (ptr);
 }
 
-#if MALLOC_REDIR
-void *realloc(void *ptr, size_t size)
-#else
-void *__bound_realloc(void *ptr, size_t size, const void *caller)
+#எனில் MALLOC_REDIR
+வெறுமை *realloc(வெறுமை *ptr, size_t size)
+#இல்லையெனில்
+வெறுமை *__bound_realloc(வெறுமை *ptr, size_t size, மாறிலி வெறுமை *caller)
 #endif
 {
-    void *new_ptr;
+    வெறுமை *new_ptr;
 
-    if (size == 0) {
-#if MALLOC_REDIR
-        free(ptr);
-#else
+    எனில் (size == 0) {
+#எனில் MALLOC_REDIR
+        விடுவி(ptr);
+#இல்லையெனில்
         __bound_free(ptr, caller);
 #endif
-        return NULL;
+        திரும்பு வெற்று;
     }
 
     new_ptr = BOUND_REALLOC (ptr, size + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, new_ptr, (unsigned long)size);
 
-    if (NO_CHECKING_GET() == 0) {
+    எனில் (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_realloc_count);
+        INCR_மொத்தம்(bound_realloc_மொத்தம்);
 
-        if (ptr)
-            tree = splay_delete ((size_t) ptr, tree);
-        if (new_ptr) {
-            tree = splay_insert ((size_t) new_ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) new_ptr)
-                tree->type = TCC_TYPE_REALLOC;
+        எனில் (ptr)
+            மரம்_2 = splay_delete ((size_t) ptr, மரம்_2);
+        எனில் (new_ptr) {
+            மரம்_2 = splay_செருகு ((size_t) new_ptr, size ? size : size + 1, மரம்_2);
+            எனில் (மரம்_2 && மரம்_2->start == (size_t) new_ptr)
+                மரம்_2->type = TCC_TYPE_REALLOC;
         }
         POST_SEM ();
     }
-    return new_ptr;
+    திரும்பு new_ptr;
 }
 
-#if MALLOC_REDIR
-void *calloc(size_t nmemb, size_t size)
-#else
-void *__bound_calloc(size_t nmemb, size_t size)
+#எனில் MALLOC_REDIR
+வெறுமை *calloc(size_t nmemb, size_t size)
+#இல்லையெனில்
+வெறுமை *__bound_calloc(size_t nmemb, size_t size)
 #endif
 {
-    void *ptr;
+    வெறுமை *ptr;
 
     size *= nmemb;
-#if MALLOC_REDIR
+#எனில் MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    எனில் (malloc_redir == வெற்று) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
+        எனில் (malloc_redir == வெற்று) {
             ptr = &initial_pool[pool_index];
             pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+            எனில் (pool_index >= அளவு (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
                      __FILE__, __FUNCTION__, ptr, (unsigned long)size);
             memset (ptr, 0, size);
-            return ptr;
+            திரும்பு ptr;
         }
     }
 #endif
@@ -1654,369 +1654,369 @@ void *__bound_calloc(size_t nmemb, size_t size)
     dprintf (stderr, "%s, %s(): %p, 0x%lx\n",
              __FILE__, __FUNCTION__, ptr, (unsigned long)size);
 
-    if (ptr) {
+    எனில் (ptr) {
         memset (ptr, 0, size);
-        if (NO_CHECKING_GET() == 0) {
+        எனில் (NO_CHECKING_GET() == 0) {
             WAIT_SEM ();
-            INCR_COUNT(bound_calloc_count);
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_CALLOC;
+            INCR_மொத்தம்(bound_calloc_மொத்தம்);
+            மரம்_2 = splay_செருகு ((size_t) ptr, size ? size : size + 1, மரம்_2);
+            எனில் (மரம்_2 && மரம்_2->start == (size_t) ptr)
+                மரம்_2->type = TCC_TYPE_CALLOC;
             POST_SEM ();
         }
     }
-    return ptr;
+    திரும்பு ptr;
 }
 
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot,
-                    int flags, int fd, off_t offset)
+#எனில் !defined(_WIN32)
+வெறுமை *__bound_mmap (வெறுமை *start, size_t size, முழு prot,
+                    முழு flags, முழு fd, off_t offset)
 {
-    void *result;
+    வெறுமை *result;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, start, (unsigned long)size);
     result = mmap (start, size, prot, flags, fd, offset);
-    if (result && NO_CHECKING_GET() == 0) {
+    எனில் (result && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_mmap_count);
-        tree = splay_insert((size_t)result, size, tree);
+        INCR_மொத்தம்(bound_mmap_மொத்தம்);
+        மரம்_2 = splay_செருகு((size_t)result, size, மரம்_2);
         POST_SEM ();
     }
-    return result;
+    திரும்பு result;
 }
 
-int __bound_munmap (void *start, size_t size)
+முழு __bound_munmap (வெறுமை *start, size_t size)
 {
-    int result;
+    முழு result;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, start, (unsigned long)size);
-    if (start && NO_CHECKING_GET() == 0) {
+    எனில் (start && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_munmap_count);
-        tree = splay_delete ((size_t) start, tree);
+        INCR_மொத்தம்(bound_munmap_மொத்தம்);
+        மரம்_2 = splay_delete ((size_t) start, மரம்_2);
         POST_SEM ();
     }
     result = munmap (start, size);
-    return result;
+    திரும்பு result;
 }
 #endif
 
 /* some useful checked functions */
 
 /* check that (p ... p + size - 1) lies inside 'p' region, if any */
-static void __bound_check(const void *p, size_t size, const char *function)
+நிலையான வெறுமை __bound_check(மாறிலி வெறுமை *p, size_t size, மாறிலி எழுத்து *function)
 {
-    if (size != 0 && __bound_ptr_add((void *)p, size) == INVALID_POINTER) {
+    எனில் (size != 0 && __bound_ptr_add((வெறுமை *)p, size) == INVALID_POINTER) {
         bound_error("invalid pointer %p, size 0x%lx in %s",
                 p, (unsigned long)size, function);
     }
 }
 
-static int check_overlap (const void *p1, size_t n1,
-                          const void *p2, size_t n2,
-                          const char *function)
+நிலையான முழு check_overlap (மாறிலி வெறுமை *p1, size_t n1,
+                          மாறிலி வெறுமை *p2, size_t n2,
+                          மாறிலி எழுத்து *function)
 {
-    const void *p1e = (const void *) ((const char *) p1 + n1);
-    const void *p2e = (const void *) ((const char *) p2 + n2);
+    மாறிலி வெறுமை *p1e = (மாறிலி வெறுமை *) ((மாறிலி எழுத்து *) p1 + n1);
+    மாறிலி வெறுமை *p2e = (மாறிலி வெறுமை *) ((மாறிலி எழுத்து *) p2 + n2);
 
-    if (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
+    எனில் (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
         ((p1 <= p2 && p1e > p2) ||     /* p1----p2====p1e----p2e */
          (p2 <= p1 && p2e > p1))) {    /* p2----p1====p2e----p1e */
         bound_error("overlapping regions %p(0x%lx), %p(0x%lx) in %s",
                 p1, (unsigned long)n1, p2, (unsigned long)n2, function);
-        return never_fatal < 0;
+        திரும்பு never_fatal < 0;
     }
-    return 0;
+    திரும்பு 0;
 }
 
-void *__bound_memcpy(void *dest, const void *src, size_t n)
+வெறுமை *__bound_memcpy(வெறுமை *dest, மாறிலி வெறுமை *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+    INCR_மொத்தம்(bound_mempcy_மொத்தம்);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return memcpy(dest, src, n);
+    எனில் (check_overlap(dest, n, src, n, "memcpy"))
+        திரும்பு dest;
+    திரும்பு memcpy(dest, src, n);
 }
 
-int __bound_memcmp(const void *s1, const void *s2, size_t n)
+முழு __bound_memcmp(மாறிலி வெறுமை *s1, மாறிலி வெறுமை *s2, size_t n)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    மாறிலி unsigned எழுத்து *u1 = (மாறிலி unsigned எழுத்து *) s1;
+    மாறிலி unsigned எழுத்து *u2 = (மாறிலி unsigned எழுத்து *) s2;
+    முழு retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_memcmp_count);
-    for (;;) {
-        if ((ssize_t) --n == -1)
-            break;
-        else if (*u1 != *u2) {
+    INCR_மொத்தம்(bound_memcmp_மொத்தம்);
+    க்கு (;;) {
+        எனில் ((ssize_t) --n == -1)
+            நிறுத்து;
+        இல்லையெனில் எனில் (*u1 != *u2) {
             retval = *u1++ - *u2++;
-            break;
+            நிறுத்து;
         }
         ++u1;
         ++u2;
     }
-    __bound_check(s1, (const void *)u1 - s1, "memcmp s1");
-    __bound_check(s2, (const void *)u2 - s2, "memcmp s2");
-    return retval;
+    __bound_check(s1, (மாறிலி வெறுமை *)u1 - s1, "memcmp s1");
+    __bound_check(s2, (மாறிலி வெறுமை *)u2 - s2, "memcmp s2");
+    திரும்பு retval;
 }
 
-void *__bound_memmove(void *dest, const void *src, size_t n)
+வெறுமை *__bound_memmove(வெறுமை *dest, மாறிலி வெறுமை *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_மொத்தம்(bound_memmove_மொத்தம்);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return memmove(dest, src, n);
+    திரும்பு memmove(dest, src, n);
 }
 
-void *__bound_memset(void *s, int c, size_t n)
+வெறுமை *__bound_memset(வெறுமை *s, முழு c, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
             __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+    INCR_மொத்தம்(bound_memset_மொத்தம்);
     __bound_check(s, n, "memset");
-    return memset(s, c, n);
+    திரும்பு memset(s, c, n);
 }
 
-#if defined(__arm__) && defined(__ARM_EABI__)
-void *__bound___aeabi_memcpy(void *dest, const void *src, size_t n)
+#எனில் defined(__arm__) && defined(__ARM_EABI__)
+வெறுமை *__bound___aeabi_memcpy(வெறுமை *dest, மாறிலி வெறுமை *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+    INCR_மொத்தம்(bound_mempcy_மொத்தம்);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return __aeabi_memcpy(dest, src, n);
+    எனில் (check_overlap(dest, n, src, n, "memcpy"))
+        திரும்பு dest;
+    திரும்பு __aeabi_memcpy(dest, src, n);
 }
 
-void *__bound___aeabi_memmove(void *dest, const void *src, size_t n)
+வெறுமை *__bound___aeabi_memmove(வெறுமை *dest, மாறிலி வெறுமை *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_மொத்தம்(bound_memmove_மொத்தம்);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove(dest, src, n);
+    திரும்பு __aeabi_memmove(dest, src, n);
 }
 
-void *__bound___aeabi_memmove4(void *dest, const void *src, size_t n)
+வெறுமை *__bound___aeabi_memmove4(வெறுமை *dest, மாறிலி வெறுமை *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_மொத்தம்(bound_memmove_மொத்தம்);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove4(dest, src, n);
+    திரும்பு __aeabi_memmove4(dest, src, n);
 }
 
-void *__bound___aeabi_memmove8(void *dest, const void *src, size_t n)
+வெறுமை *__bound___aeabi_memmove8(வெறுமை *dest, மாறிலி வெறுமை *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_மொத்தம்(bound_memmove_மொத்தம்);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove8(dest, src, n);
+    திரும்பு __aeabi_memmove8(dest, src, n);
 }
 
-void *__bound___aeabi_memset(void *s, int c, size_t n)
+வெறுமை *__bound___aeabi_memset(வெறுமை *s, முழு c, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
             __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+    INCR_மொத்தம்(bound_memset_மொத்தம்);
     __bound_check(s, n, "memset");
-    return __aeabi_memset(s, c, n);
+    திரும்பு __aeabi_memset(s, c, n);
 }
 #endif
 
-int __bound_strlen(const char *s)
+முழு __bound_strlen(மாறிலி எழுத்து *s)
 {
-    const char *p = s;
+    மாறிலி எழுத்து *p = s;
 
     dprintf(stderr, "%s, %s(): %p\n",
             __FILE__, __FUNCTION__, s);
-    INCR_COUNT(bound_strlen_count);
-    while (*p++);
+    INCR_மொத்தம்(bound_strlen_மொத்தம்);
+    போது (*p++);
     __bound_check(s, p - s, "strlen");
-    return (p - s) - 1;
+    திரும்பு (p - s) - 1;
 }
 
-char *__bound_strcpy(char *dest, const char *src)
+எழுத்து *__bound_strcpy(எழுத்து *dest, மாறிலி எழுத்து *src)
 {
     size_t len;
-    const char *p = src;
+    மாறிலி எழுத்து *p = src;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcpy_count);
-    while (*p++);
+    INCR_மொத்தம்(bound_strcpy_மொத்தம்);
+    போது (*p++);
     len = p - src;
     __bound_check(dest, len, "strcpy dest");
     __bound_check(src, len, "strcpy src");
-    if (check_overlap(dest, len, src, len, "strcpy"))
-        return dest;
-    return strcpy (dest, src);
+    எனில் (check_overlap(dest, len, src, len, "strcpy"))
+        திரும்பு dest;
+    திரும்பு strcpy (dest, src);
 }
 
-char *__bound_strncpy(char *dest, const char *src, size_t n)
+எழுத்து *__bound_strncpy(எழுத்து *dest, மாறிலி எழுத்து *src, size_t n)
 {
     size_t len = n;
-    const char *p = src;
+    மாறிலி எழுத்து *p = src;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncpy_count);
-    while (len-- && *p++);
+    INCR_மொத்தம்(bound_strncpy_மொத்தம்);
+    போது (len-- && *p++);
     len = p - src;
     __bound_check(dest, len, "strncpy dest");
     __bound_check(src, len, "strncpy src");
-    if (check_overlap(dest, len, src, len, "strncpy"))
-        return dest;
-    return strncpy(dest, src, n);
+    எனில் (check_overlap(dest, len, src, len, "strncpy"))
+        திரும்பு dest;
+    திரும்பு strncpy(dest, src, n);
 }
 
-int __bound_strcmp(const char *s1, const char *s2)
+முழு __bound_strcmp(மாறிலி எழுத்து *s1, மாறிலி எழுத்து *s2)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
+    மாறிலி unsigned எழுத்து *u1 = (மாறிலி unsigned எழுத்து *) s1;
+    மாறிலி unsigned எழுத்து *u2 = (மாறிலி unsigned எழுத்து *) s2;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, s1, s2);
-    INCR_COUNT(bound_strcmp_count);
-    while (*u1 && *u1 == *u2) {
+    INCR_மொத்தம்(bound_strcmp_மொத்தம்);
+    போது (*u1 && *u1 == *u2) {
         ++u1;
         ++u2;
     }
-    __bound_check(s1, ((const char *)u1 - s1) + 1, "strcmp s1");
-    __bound_check(s2, ((const char *)u2 - s2) + 1, "strcmp s2");
-    return *u1 - *u2;
+    __bound_check(s1, ((மாறிலி எழுத்து *)u1 - s1) + 1, "strcmp s1");
+    __bound_check(s2, ((மாறிலி எழுத்து *)u2 - s2) + 1, "strcmp s2");
+    திரும்பு *u1 - *u2;
 }
 
-int __bound_strncmp(const char *s1, const char *s2, size_t n)
+முழு __bound_strncmp(மாறிலி எழுத்து *s1, மாறிலி எழுத்து *s2, size_t n)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    மாறிலி unsigned எழுத்து *u1 = (மாறிலி unsigned எழுத்து *) s1;
+    மாறிலி unsigned எழுத்து *u2 = (மாறிலி unsigned எழுத்து *) s2;
+    முழு retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_strncmp_count);
-    do {
-        if ((ssize_t) --n == -1)
-            break;
-        else if (*u1 != *u2) {
+    INCR_மொத்தம்(bound_strncmp_மொத்தம்);
+    செய் {
+        எனில் ((ssize_t) --n == -1)
+            நிறுத்து;
+        இல்லையெனில் எனில் (*u1 != *u2) {
             retval = *u1++ - *u2++;
-            break;
+            நிறுத்து;
         }
         ++u2;
-    } while (*u1++);
-    __bound_check(s1, (const char *)u1 - s1, "strncmp s1");
-    __bound_check(s2, (const char *)u2 - s2, "strncmp s2");
-    return retval;
+    } போது (*u1++);
+    __bound_check(s1, (மாறிலி எழுத்து *)u1 - s1, "strncmp s1");
+    __bound_check(s2, (மாறிலி எழுத்து *)u2 - s2, "strncmp s2");
+    திரும்பு retval;
 }
 
-char *__bound_strcat(char *dest, const char *src)
+எழுத்து *__bound_strcat(எழுத்து *dest, மாறிலி எழுத்து *src)
 {
-    char *r = dest;
-    const char *s = src;
+    எழுத்து *r = dest;
+    மாறிலி எழுத்து *s = src;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcat_count);
-    while (*dest++);
-    while (*src++);
+    INCR_மொத்தம்(bound_strcat_மொத்தம்);
+    போது (*dest++);
+    போது (*src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strcat dest");
     __bound_check(s, src - s, "strcat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
-        return dest;
-    return strcat(r, s);
+    எனில் (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
+        திரும்பு dest;
+    திரும்பு strcat(r, s);
 }
 
-char *__bound_strncat(char *dest, const char *src, size_t n)
+எழுத்து *__bound_strncat(எழுத்து *dest, மாறிலி எழுத்து *src, size_t n)
 {
-    char *r = dest;
-    const char *s = src;
+    எழுத்து *r = dest;
+    மாறிலி எழுத்து *s = src;
     size_t len = n;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncat_count);
-    while (*dest++);
-    while (len-- && *src++);
+    INCR_மொத்தம்(bound_strncat_மொத்தம்);
+    போது (*dest++);
+    போது (len-- && *src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strncat dest");
     __bound_check(s, src - s, "strncat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
-        return dest;
-    return strncat(r, s, n);
+    எனில் (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
+        திரும்பு dest;
+    திரும்பு strncat(r, s, n);
 }
 
-char *__bound_strchr(const char *s, int c)
+எழுத்து *__bound_strchr(மாறிலி எழுத்து *s, முழு c)
 {
-    const unsigned char *str = (const unsigned char *) s;
-    unsigned char ch = c;
+    மாறிலி unsigned எழுத்து *str = (மாறிலி unsigned எழுத்து *) s;
+    unsigned எழுத்து ch = c;
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strchr_count);
-    while (*str) {
-        if (*str == ch)
-            break;
+    INCR_மொத்தம்(bound_strchr_மொத்தம்);
+    போது (*str) {
+        எனில் (*str == ch)
+            நிறுத்து;
         ++str;
     }
-    __bound_check(s, ((const char *)str - s) + 1, "strchr");
-    return *str == ch ? (char *) str : NULL;
+    __bound_check(s, ((மாறிலி எழுத்து *)str - s) + 1, "strchr");
+    திரும்பு *str == ch ? (எழுத்து *) str : வெற்று;
 }
 
-char *__bound_strrchr(const char *s, int c)
+எழுத்து *__bound_strrchr(மாறிலி எழுத்து *s, முழு c)
 {
-    const unsigned char *str = (const unsigned char *) s;
-    unsigned char ch = c;
+    மாறிலி unsigned எழுத்து *str = (மாறிலி unsigned எழுத்து *) s;
+    unsigned எழுத்து ch = c;
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strrchr_count);
-    while (*str++);
-    __bound_check(s, (const char *)str - s, "strrchr");
-    while (str != (const unsigned char *)s) {
-        if (*--str == ch)
-            break;
+    INCR_மொத்தம்(bound_strrchr_மொத்தம்);
+    போது (*str++);
+    __bound_check(s, (மாறிலி எழுத்து *)str - s, "strrchr");
+    போது (str != (மாறிலி unsigned எழுத்து *)s) {
+        எனில் (*--str == ch)
+            நிறுத்து;
     }
-    __bound_check(s, (const char *)str - s, "strrchr");
-    return *str == ch ? (char *) str : NULL;
+    __bound_check(s, (மாறிலி எழுத்து *)str - s, "strrchr");
+    திரும்பு *str == ch ? (எழுத்து *) str : வெற்று;
 }
 
-char *__bound_strdup(const char *s)
+எழுத்து *__bound_strdup(மாறிலி எழுத்து *s)
 {
-    const char *p = s;
-    char *new;
+    மாறிலி எழுத்து *p = s;
+    எழுத்து *new;
 
-    INCR_COUNT(bound_strdup_count);
-    while (*p++);
+    INCR_மொத்தம்(bound_strdup_மொத்தம்);
+    போது (*p++);
     __bound_check(s, p - s, "strdup");
     new = BOUND_MALLOC ((p - s) + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, new, (unsigned long)(p -s));
-    if (new) {
-        if (NO_CHECKING_GET() == 0 && no_strdup == 0) {
+    எனில் (new) {
+        எனில் (NO_CHECKING_GET() == 0 && no_strdup == 0) {
             WAIT_SEM ();
-            tree = splay_insert((size_t)new, p - s, tree);
-            if (tree && tree->start == (size_t) new)
-                tree->type = TCC_TYPE_STRDUP;
+            மரம்_2 = splay_செருகு((size_t)new, p - s, மரம்_2);
+            எனில் (மரம்_2 && மரம்_2->start == (size_t) new)
+                மரம்_2->type = TCC_TYPE_STRDUP;
             POST_SEM ();
         }
         memcpy (new, s, p - s);
     }
-    return new;
+    திரும்பு new;
 }
 
 /*
@@ -2072,194 +2072,194 @@ char *__bound_strdup(const char *s)
 #define compare(start,tstart,tsize) (start < tstart ? -1 : \
                                      start >= tstart+tsize  ? 1 : 0)
 
-static Tree * splay (size_t addr, Tree *t)
+நிலையான மரம் * splay (size_t addr, மரம் *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat      */
 {
-    Tree N, *l, *r, *y;
-    int comp;
+    மரம் N, *l, *r, *y;
+    முழு comp;
     
-    INCR_COUNT_SPLAY(bound_splay);
-    if (t == NULL) return t;
-    N.left = N.right = NULL;
+    INCR_மொத்தம்_SPLAY(bound_splay);
+    எனில் (t == வெற்று) திரும்பு t;
+    N.இடது = N.வலது = வெற்று;
     l = r = &N;
  
-    for (;;) {
+    க்கு (;;) {
         comp = compare(addr, t->start, t->size);
-        if (comp < 0) {
-            y = t->left;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+        எனில் (comp < 0) {
+            y = t->இடது;
+            எனில் (y == வெற்று) நிறுத்து;
+            எனில் (compare(addr, y->start, y->size) < 0) {
+                t->இடது = y->வலது;                    /* rotate right */
+                y->வலது = t;
                 t = y;
-                if (t->left == NULL) break;
+                எனில் (t->இடது == வெற்று) நிறுத்து;
             }
-            r->left = t;                               /* link right */
+            r->இடது = t;                               /* link right */
             r = t;
-            t = t->left;
-        } else if (comp > 0) {
-            y = t->right;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+            t = t->இடது;
+        } இல்லையெனில் எனில் (comp > 0) {
+            y = t->வலது;
+            எனில் (y == வெற்று) நிறுத்து;
+            எனில் (compare(addr, y->start, y->size) > 0) {
+                t->வலது = y->இடது;                    /* rotate left */
+                y->இடது = t;
                 t = y;
-                if (t->right == NULL) break;
+                எனில் (t->வலது == வெற்று) நிறுத்து;
             }
-            l->right = t;                              /* link left */
+            l->வலது = t;                              /* link left */
             l = t;
-            t = t->right;
-        } else {
-            break;
+            t = t->வலது;
+        } இல்லையெனில் {
+            நிறுத்து;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->வலது = t->இடது;                                /* assemble */
+    r->இடது = t->வலது;
+    t->இடது = N.வலது;
+    t->வலது = N.இடது;
 
-    return t;
+    திரும்பு t;
 }
 
 #define compare_end(start,tend) (start < tend ? -1 : \
                                  start > tend  ? 1 : 0)
 
-static Tree * splay_end (size_t addr, Tree *t)
+நிலையான மரம் * splay_end (size_t addr, மரம் *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat  */
 {
-    Tree N, *l, *r, *y;
-    int comp;
+    மரம் N, *l, *r, *y;
+    முழு comp;
     
-    INCR_COUNT_SPLAY(bound_splay_end);
-    if (t == NULL) return t;
-    N.left = N.right = NULL;
+    INCR_மொத்தம்_SPLAY(bound_splay_end);
+    எனில் (t == வெற்று) திரும்பு t;
+    N.இடது = N.வலது = வெற்று;
     l = r = &N;
  
-    for (;;) {
+    க்கு (;;) {
         comp = compare_end(addr, t->start + t->size);
-        if (comp < 0) {
-            y = t->left;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+        எனில் (comp < 0) {
+            y = t->இடது;
+            எனில் (y == வெற்று) நிறுத்து;
+            எனில் (compare_end(addr, y->start + y->size) < 0) {
+                t->இடது = y->வலது;                    /* rotate right */
+                y->வலது = t;
                 t = y;
-                if (t->left == NULL) break;
+                எனில் (t->இடது == வெற்று) நிறுத்து;
             }
-            r->left = t;                               /* link right */
+            r->இடது = t;                               /* link right */
             r = t;
-            t = t->left;
-        } else if (comp > 0) {
-            y = t->right;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+            t = t->இடது;
+        } இல்லையெனில் எனில் (comp > 0) {
+            y = t->வலது;
+            எனில் (y == வெற்று) நிறுத்து;
+            எனில் (compare_end(addr, y->start + y->size) > 0) {
+                t->வலது = y->இடது;                    /* rotate left */
+                y->இடது = t;
                 t = y;
-                if (t->right == NULL) break;
+                எனில் (t->வலது == வெற்று) நிறுத்து;
             }
-            l->right = t;                              /* link left */
+            l->வலது = t;                              /* link left */
             l = t;
-            t = t->right;
-        } else {
-            break;
+            t = t->வலது;
+        } இல்லையெனில் {
+            நிறுத்து;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->வலது = t->இடது;                                /* assemble */
+    r->இடது = t->வலது;
+    t->இடது = N.வலது;
+    t->வலது = N.இடது;
 
-    return t;
+    திரும்பு t;
 }
 
-static Tree * splay_insert(size_t addr, size_t size, Tree * t)
+நிலையான மரம் * splay_செருகு(size_t addr, size_t size, மரம் * t)
 /* Insert key start into the tree t, if it is not already there. */
 /* Return a pointer to the resulting tree.                       */
 {
-    Tree * new;
+    மரம் * new;
 
-    INCR_COUNT_SPLAY(bound_splay_insert);
-    if (t != NULL) {
+    INCR_மொத்தம்_SPLAY(bound_splay_செருகு);
+    எனில் (t != வெற்று) {
         t = splay(addr,t);
-        if (compare(addr, t->start, t->size)==0) {
-            return t;  /* it's already there */
+        எனில் (compare(addr, t->start, t->size)==0) {
+            திரும்பு t;  /* it's already there */
         }
     }
-#if TREE_REUSE
-    if (tree_free_list) {
-          new = tree_free_list;
-          tree_free_list = new->left;
+#எனில் மரம்_REUSE
+    எனில் (மரம்_free_list) {
+          new = மரம்_free_list;
+          மரம்_free_list = new->இடது;
     }
-    else
+    இல்லையெனில்
 #endif
     {
-        new = (Tree *) BOUND_MALLOC (sizeof (Tree));
+        new = (மரம் *) BOUND_MALLOC (அளவு (மரம்));
     }
-    if (new == NULL) {
+    எனில் (new == வெற்று) {
         bound_alloc_error("not enough memory for bound checking code");
     }
-    else {
-        if (t == NULL) {
-            new->left = new->right = NULL;
-        } else if (compare(addr, t->start, t->size) < 0) {
-            new->left = t->left;
-            new->right = t;
-            t->left = NULL;
-        } else {
-            new->right = t->right;
-            new->left = t;
-            t->right = NULL;
+    இல்லையெனில் {
+        எனில் (t == வெற்று) {
+            new->இடது = new->வலது = வெற்று;
+        } இல்லையெனில் எனில் (compare(addr, t->start, t->size) < 0) {
+            new->இடது = t->இடது;
+            new->வலது = t;
+            t->இடது = வெற்று;
+        } இல்லையெனில் {
+            new->வலது = t->வலது;
+            new->இடது = t;
+            t->வலது = வெற்று;
         }
         new->start = addr;
         new->size = size;
         new->type = TCC_TYPE_NONE;
         new->is_invalid = 0;
     }
-    return new;
+    திரும்பு new;
 }
 
 #define compare_destroy(start,tstart) (start < tstart ? -1 : \
                                        start > tstart  ? 1 : 0)
 
-static Tree * splay_delete(size_t addr, Tree *t)
+நிலையான மரம் * splay_delete(size_t addr, மரம் *t)
 /* Deletes addr from the tree if it's there.               */
 /* Return a pointer to the resulting tree.                 */
 {
-    Tree * x;
+    மரம் * x;
 
-    INCR_COUNT_SPLAY(bound_splay_delete);
-    if (t==NULL) return NULL;
+    INCR_மொத்தம்_SPLAY(bound_splay_delete);
+    எனில் (t==வெற்று) திரும்பு வெற்று;
     t = splay(addr,t);
-    if (compare_destroy(addr, t->start) == 0) {        /* found it */
-        if (t->left == NULL) {
-            x = t->right;
-        } else {
-            x = splay(addr, t->left);
-            x->right = t->right;
+    எனில் (compare_destroy(addr, t->start) == 0) {        /* found it */
+        எனில் (t->இடது == வெற்று) {
+            x = t->வலது;
+        } இல்லையெனில் {
+            x = splay(addr, t->இடது);
+            x->வலது = t->வலது;
         }
-#if TREE_REUSE
-        t->left = tree_free_list;
-        tree_free_list = t;
-#else
+#எனில் மரம்_REUSE
+        t->இடது = மரம்_free_list;
+        மரம்_free_list = t;
+#இல்லையெனில்
         BOUND_FREE(t);
 #endif
-        return x;
-    } else {
-        return t;                                      /* It wasn't there */
+        திரும்பு x;
+    } இல்லையெனில் {
+        திரும்பு t;                                      /* It wasn't there */
     }
 }
 
-void splay_printtree(Tree * t, int d)
+வெறுமை splay_printtree(மரம் * t, முழு d)
 {
-    int i;
-    if (t == NULL) return;
-    splay_printtree(t->right, d+1);
-    for (i=0; i<d; i++) fprintf(stderr," ");
+    முழு i;
+    எனில் (t == வெற்று) திரும்பு;
+    splay_printtree(t->வலது, d+1);
+    க்கு (i=0; i<d; i++) fprintf(stderr," ");
     fprintf(stderr,"%p(0x%lx:%u:%u)\n",
-            (void *) t->start, (unsigned long) t->size,
+            (வெறுமை *) t->start, (unsigned long) t->size,
             (unsigned)t->type, (unsigned)t->is_invalid);
-    splay_printtree(t->left, d+1);
+    splay_printtree(t->இடது, d+1);
 }

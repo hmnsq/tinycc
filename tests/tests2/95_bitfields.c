@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------- */
-#if TEST == 1
+#எனில் TEST == 1
 {
-    struct M P A __s
+    கட்டமைப்பு M P A __s
     {
         unsigned x : 12;
-        unsigned char y : 7;
+        unsigned எழுத்து y : 7;
         unsigned z : 28;
         unsigned a: 4;
         unsigned b: 5;
@@ -13,14 +13,14 @@
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 2
+#அல்லதெனில் TEST == 2
 {
-    struct M P __s
+    கட்டமைப்பு M P __s
     {
-        int x: 12;
-        char y: 6;
+        முழு x: 12;
+        எழுத்து y: 6;
         long long z:63;
-        A char a:4;
+        A எழுத்து a:4;
         long long b:2;
 
     };
@@ -28,64 +28,64 @@
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 3
+#அல்லதெனில் TEST == 3
 {
-    struct M P __s
+    கட்டமைப்பு M P __s
     {
-        unsigned x:5, y:5, :0, z:5; char a:5; A short b:5;
+        unsigned x:5, y:5, :0, z:5; எழுத்து a:5; A short b:5;
     };
     TEST_STRUCT(21,23,25,6,14);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 4
+#அல்லதெனில் TEST == 4
 {
-    struct M P __s {
-        int x : 3;
-        int : 2;
-        int y : 1;
-        int : 0;
-        int z : 5;
-        int a : 7;
-        unsigned int b : 7;
+    கட்டமைப்பு M P __s {
+        முழு x : 3;
+        முழு : 2;
+        முழு y : 1;
+        முழு : 0;
+        முழு z : 5;
+        முழு a : 7;
+        unsigned முழு b : 7;
     };
     TEST_STRUCT(3,1,15,120,120);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 5
+#அல்லதெனில் TEST == 5
 {
-    struct M P __s {
+    கட்டமைப்பு M P __s {
         long long x : 45;
         long long : 2;
         long long y : 30;
         unsigned long long z : 38;
-        char a; short b;
+        எழுத்து a; short b;
     };
     TEST_STRUCT(0x123456789ULL, 120<<25, 120, 0x44, 0x77);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 6
+#அல்லதெனில் TEST == 6
 {
-    struct M P __s {
-	int a;
-	signed char b;
-	int x : 12, y : 4, : 0, : 4, z : 3;
-	char d;
+    கட்டமைப்பு M P __s {
+	முழு a;
+	signed எழுத்து b;
+	முழு x : 12, y : 4, : 0, : 4, z : 3;
+	எழுத்து d;
     };
     TEST_STRUCT(1,2,3,4,-3);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 7
+#அல்லதெனில் TEST == 7
 {
 #ifdef _WIN32
-    typedef long long int ll;
-#else
-    typedef long int ll;
+    வகைவரை long long முழு ll;
+#இல்லையெனில்
+    வகைவரை long முழு ll;
 #endif
-    struct M P __s {
+    கட்டமைப்பு M P __s {
         ll d : 16;
         ll b : 16;
         ll x : 16;
@@ -99,66 +99,66 @@
 }
 
 /* ----------------------------------------------------------------------- */
-#elif defined PACK
+#அல்லதெனில் defined PACK
 
-#if PACK
-# pragma pack(push,1)
+#எனில் PACK
+# pragma pack(தள்ளு,1)
 # define P //_P
-#else
+#இல்லையெனில்
 # define P
 #endif
 
-printf("\n\n" + 2*top);
+printf("\n\n" + 2*உச்சி);
 #define TEST 1
-#include SELF
-top = 0;
+#அந்தர்பாவ SELF
+உச்சி = 0;
 #define TEST 2
-#include SELF
+#அந்தர்பாவ SELF
 #define TEST 3
-#include SELF
+#அந்தர்பாவ SELF
 #define TEST 4
-#include SELF
+#அந்தர்பாவ SELF
 #define TEST 5
-#include SELF
+#அந்தர்பாவ SELF
 #define TEST 6
-#include SELF
+#அந்தர்பாவ SELF
 #define TEST 7
-#include SELF
+#அந்தர்பாவ SELF
 
-#if PACK
-# pragma pack(pop)
+#எனில் PACK
+# pragma pack(எடு)
 #endif
 
 #undef P
 #undef PACK
 
 /* ----------------------------------------------------------------------- */
-#elif defined ALIGN
+#அல்லதெனில் defined ALIGN
 
-#if ALIGN
+#எனில் ALIGN
 # define A _A(16)
-#else
+#இல்லையெனில்
 # define A
 #endif
 
 #define PACK 0
-#include SELF
+#அந்தர்பாவ SELF
 #define PACK 1
-#include SELF
+#அந்தர்பாவ SELF
 
 #undef A
 #undef ALIGN
 
 /* ----------------------------------------------------------------------- */
-#elif defined MS_BF
+#அல்லதெனில் defined MS_BF
 
-#if MS_BF
+#எனில் MS_BF
 # ifdef __TINYC__
 #  pragma comment(option, "-mms-bitfields")
 # elif defined __GNUC__
 #  define M __attribute__((ms_struct))
 # endif
-#else
+#இல்லையெனில்
 # ifdef __TINYC__
 #  pragma comment(option, "-mno-ms-bitfields")
 # elif defined __GNUC__
@@ -170,52 +170,52 @@ top = 0;
 #endif
 
 #define ALIGN 0
-#include SELF
+#அந்தர்பாவ SELF
 #define ALIGN 1
-#include SELF
+#அந்தர்பாவ SELF
 
 #undef M
 #undef MS_BF
 
 /* ----------------------------------------------------------------------- */
-#else
+#இல்லையெனில்
 
-#include <stdio.h>
-#include <string.h>
+#அந்தர்பாவ <stdio.h>
+#அந்தர்பாவ <string.h>
 /* some gcc headers #define __attribute__ to empty if it's not gcc */
 #undef __attribute__
 
-void dump(void *p, int s)
+வெறுமை dump(வெறுமை *p, முழு s)
 {
-    int i;
-    for (i = s; --i >= 0;)
-        printf("%02X", ((unsigned char*)p)[i]);
+    முழு i;
+    க்கு (i = s; --i >= 0;)
+        printf("%02X", ((unsigned எழுத்து*)p)[i]);
     printf("\n");
 }
 
 #define pv(m) \
-    printf(sizeof (s->m + 0) == 8 ? " %016llx" : " %02x", s->m)
+    printf(அளவு (s->m + 0) == 8 ? " %016llx" : " %02x", s->m)
 
 #define TEST_STRUCT(v1,v2,v3,v4,v5) { \
-        struct __s _s, *s = & _s; \
-        printf("\n---- TEST %d%s%s%s ----\n" + top, \
+        கட்டமைப்பு __s _s, *s = & _s; \
+        printf("\n---- TEST %d%s%s%s ----\n" + உச்சி, \
             TEST, MS_BF?" - MS-BITFIELDS":"", \
             PACK?" - PACKED":"", \
             ALIGN?" - WITH ALIGN":""); \
-        memset(s, 0, sizeof *s); \
+        memset(s, 0, அளவு *s); \
         s->x = -1, s->y = -1, s->z = -1, s->a = -1, s->b = -1; \
-        printf("bits in use : "), dump(s, sizeof *s); \
+        printf("bits in use : "), dump(s, அளவு *s); \
         s->x = v1, s->y = v2, s->z = v3, s->a += v4, ++s->a, s->b = v5; \
-        printf("bits as set : "), dump(s, sizeof *s); \
+        printf("bits as set : "), dump(s, அளவு *s); \
         printf("values      :"), pv(x), pv(y), pv(z), pv(a), pv(b), printf("\n"); \
-        printf("align/size  : %d %d\n", alignof(struct __s),sizeof(struct __s)); \
+        printf("align/size  : %d %d\n", alignof(கட்டமைப்பு __s),அளவு(கட்டமைப்பு __s)); \
     }
 
 #ifdef _MSC_VER
 # define _A(n) __declspec(align(n))
 # define _P
 # define alignof(x) __alignof(x)
-#else
+#இல்லையெனில்
 # define _A(n) __attribute__((aligned(n)))
 # define _P __attribute__((packed))
 # define alignof(x) __alignof__(x)
@@ -227,13 +227,13 @@ void dump(void *p, int s)
 
 #define SELF "95_bitfields.c"
 
-int top = 1;
+முழு உச்சி = 1;
 
-int main()
+முழு முதன்மை()
 {
 #define MS_BF MS_BITFIELDS
-#include SELF
-    return 0;
+#அந்தர்பாவ SELF
+    திரும்பு 0;
 }
 
 /* ----------------------------------------------------------------------- */

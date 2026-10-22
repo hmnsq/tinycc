@@ -1,12 +1,12 @@
-extern int printf (const char *, ...);
-extern void target(void);
-extern void alias_for_target(void);
-extern void asm_for_target(void);
-extern int g_int, alias_int;
+வெளி முழு printf (மாறிலி எழுத்து *, ...);
+வெளி வெறுமை target(வெறுமை);
+வெளி வெறுமை alias_for_target(வெறுமை);
+வெளி வெறுமை asm_for_target(வெறுமை);
+வெளி முழு g_int, alias_int;
 
-void inunit2(void);
+வெறுமை inunit2(வெறுமை);
 
-void inunit2(void)
+வெறுமை inunit2(வெறுமை)
 {
   printf("in unit2:\n");
   target();

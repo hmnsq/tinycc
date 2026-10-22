@@ -3,82 +3,82 @@
  * does not use up a linear amount of memory
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#அந்தர்பாவ <stdlib.h>
+#அந்தர்பாவ <stdio.h>
+#அந்தர்பாவ <string.h>
 
-#define LOOP_COUNT 1000
+#define LOOP_மொத்தம் 1000
 #define ARRAY_SIZE 100
 
 /* Overwrite a VLA. This will overwrite the return address if SP is incorrect */
-void smash(char *p, int n) {
+வெறுமை smash(எழுத்து *p, முழு n) {
   memset(p, 0, n);
 }
 
-int test1(int n) {
-  int i;
-  char *array_ptrs[LOOP_COUNT];
+முழு test1(முழு n) {
+  முழு i;
+  எழுத்து *array_ptrs[LOOP_மொத்தம்];
   
-  for (i = 0; i < LOOP_COUNT; ++i) {
-    char test[n];
+  க்கு (i = 0; i < LOOP_மொத்தம்; ++i) {
+    எழுத்து test[n];
     smash(test, n);
     array_ptrs[i] = test;
   }
   
-  return (array_ptrs[0]-array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  திரும்பு (array_ptrs[0]-array_ptrs[LOOP_மொத்தம்-1] < n) ? 0 : 1;
 }
 
 /* ensure goto does not circumvent array free */
-int test2(int n) {
-  char *array_ptrs[LOOP_COUNT];
+முழு test2(முழு n) {
+  எழுத்து *array_ptrs[LOOP_மொத்தம்];
 
-  int i = 0;
+  முழு i = 0;
 loop:;
-  char test[n];
+  எழுத்து test[n];
   smash(test, n);
-  if (i >= LOOP_COUNT)
-    goto end;
+  எனில் (i >= LOOP_மொத்தம்)
+    செல் end;
   array_ptrs[i] = test;
   ++i;
-  goto loop;
+  செல் loop;
 
 end:
   smash(test, n);
-  char test2[n];
+  எழுத்து test2[n];
   smash(test2, n);
-  return (array_ptrs[0] - array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  திரும்பு (array_ptrs[0] - array_ptrs[LOOP_மொத்தம்-1] < n) ? 0 : 1;
 }
 
-int test3(int n) {
-  char test[n];
+முழு test3(முழு n) {
+  எழுத்து test[n];
   smash(test, n);
-  goto label;
+  செல் label;
 label:
   smash(test, n);
-  char test2[n];
+  எழுத்து test2[n];
   smash(test2, n);
-  return (test-test2 >= n) ? 0 : 1;
+  திரும்பு (test-test2 >= n) ? 0 : 1;
 }
 
 #define RUN_TEST(t) \
-  if (!testname || (strcmp(#t, testname) == 0)) { \
+  எனில் (!testname || (strcmp(#t, testname) == 0)) { \
     fputs(#t "... ", stdout); \
     fflush(stdout); \
-    if (t(ARRAY_SIZE) == 0) { \
+    எனில் (t(ARRAY_SIZE) == 0) { \
       fputs("success\n", stdout); \
-    } else { \
+    } இல்லையெனில் { \
       fputs("failure\n", stdout); \
       retval = EXIT_FAILURE; \
     } \
   }
 
-int main(int argc, char **argv) {
-  const char *testname = NULL;
-  int retval = EXIT_SUCCESS;
-  if (argc > 1)
+முழு முதன்மை(முழு argc, எழுத்து **argv) {
+  மாறிலி எழுத்து *testname = வெற்று;
+  முழு retval = EXIT_SUCCESS;
+  எனில் (argc > 1)
     testname = argv[1];
   RUN_TEST(test1)
   RUN_TEST(test2)
   RUN_TEST(test3)
-  return retval;
+  திரும்பு retval;
 }

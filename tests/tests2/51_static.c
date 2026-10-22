@@ -1,17 +1,17 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-static int fred = 1234;
-static int joe;
+நிலையான முழு fred = 1234;
+நிலையான முழு joe;
 
-void henry()
+வெறுமை henry()
 {
-   static int fred = 4567;
+   நிலையான முழு fred = 4567;
 
    printf("%d\n", fred);
    fred++;
 }
 
-int main()
+முழு முதன்மை()
 {
    printf("%d\n", fred);
    henry();
@@ -24,7 +24,7 @@ int main()
    printf("%d\n", fred);
    printf("%d\n", joe);
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

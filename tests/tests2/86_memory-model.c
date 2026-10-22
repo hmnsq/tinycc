@@ -1,38 +1,38 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int
-main()
+முழு
+முதன்மை()
 {
-#if defined(__LLP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LLP64__\n");
+#எனில் defined(__LLP64__)
+	எனில் (அளவு(short) == 2
+	    && அளவு(முழு) == 4
+	    && அளவு(long முழு) == 4
+	    && அளவு(long long முழு) == 8
+	    && அளவு(வெறுமை*) == 8) {
+		(வெறுமை)printf("Ok\n");
+	} இல்லையெனில் {
+		(வெறுமை)printf("KO __LLP64__\n");
 	}
-#elif defined(__LP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 8
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LP64__\n");
+#அல்லதெனில் defined(__LP64__)
+	எனில் (அளவு(short) == 2
+	    && அளவு(முழு) == 4
+	    && அளவு(long முழு) == 8
+	    && அளவு(long long முழு) == 8
+	    && அளவு(வெறுமை*) == 8) {
+		(வெறுமை)printf("Ok\n");
+	} இல்லையெனில் {
+		(வெறுமை)printf("KO __LP64__\n");
 	}
-#elif defined(__ILP32__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(void*) == 4) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __ILP32__\n");
+#அல்லதெனில் defined(__ILP32__)
+	எனில் (அளவு(short) == 2
+	    && அளவு(முழு) == 4
+	    && அளவு(long முழு) == 4
+	    && அளவு(வெறுமை*) == 4) {
+		(வெறுமை)printf("Ok\n");
+	} இல்லையெனில் {
+		(வெறுமை)printf("KO __ILP32__\n");
 	}
-#else
-	(void)printf("KO no __*LP*__ defined.\n");
+#இல்லையெனில்
+	(வெறுமை)printf("KO no __*LP*__ defined.\n");
 #endif
 }

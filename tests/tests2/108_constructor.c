@@ -1,20 +1,20 @@
-extern int write (int fd, void *buf, int len);
+வெளி முழு லிக (முழு fd, வெறுமை *buf, முழு len);
 
-static void __attribute__ ((constructor))
-testc (void)
+நிலையான வெறுமை __attribute__ ((constructor))
+testc (வெறுமை)
 {
-  write (1, "constructor\n", 12);
+  லிக (1, "constructor\n", 12);
 }
 
-static void __attribute__ ((destructor))
-testd (void)
+நிலையான வெறுமை __attribute__ ((destructor))
+testd (வெறுமை)
 {
-  write (1, "destructor\n", 11);
+  லிக (1, "destructor\n", 11);
 }
 
-int
-main (void)
+முழு
+முதன்மை (வெறுமை)
 {
-  write (1, "main\n", 5);
-  return 0;
+  லிக (1, "main\n", 5);
+  திரும்பு 0;
 }

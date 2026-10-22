@@ -1,21 +1,21 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main() 
+முழு முதன்மை() 
 {
-   int Count;
-   int Array[10];
+   முழு மொத்தம்_3;
+   முழு Array[10];
 
-   for (Count = 1; Count <= 10; Count++)
+   க்கு (மொத்தம்_3 = 1; மொத்தம்_3 <= 10; மொத்தம்_3++)
    {
-      Array[Count-1] = Count * Count;
+      Array[மொத்தம்_3-1] = மொத்தம்_3 * மொத்தம்_3;
    }
 
-   for (Count = 0; Count < 10; Count++)
+   க்கு (மொத்தம்_3 = 0; மொத்தம்_3 < 10; மொத்தம்_3++)
    {
-      printf("%d\n", Array[Count]);
+      printf("%d\n", Array[மொத்தம்_3]);
    }
 
-   return 0;
+   திரும்பு 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

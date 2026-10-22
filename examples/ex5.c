@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#அந்தர்பாவ <stdlib.h>
+#அந்தர்பாவ <stdio.h>
 
-int main()
+முழு முதன்மை()
 {
     printf("Hello World\n");
-    return 0;
+    திரும்பு 0;
 }

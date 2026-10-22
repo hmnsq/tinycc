@@ -1,21 +1,21 @@
-extern int printf(const char*, ...);
+வெளி முழு printf(மாறிலி எழுத்து*, ...);
 
-struct fred;
+கட்டமைப்பு fred;
 
-void fred$(struct fred* this)
+வெறுமை fred$(கட்டமைப்பு fred* this)
 {
     printf("~fred()\n");
 }
 
-struct __attribute__((__cleanup__(fred$))) fred
+கட்டமைப்பு __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   முழு boris;
+   முழு natasha;
 };
 
-int main()
+முழு முதன்மை()
 {
-    struct fred  __attribute__((__cleanup__(fred$))) bloggs;
+    கட்டமைப்பு fred  __attribute__((__cleanup__(fred$))) bloggs;
 
    bloggs.boris = 12;
    bloggs.natasha = 34;
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", bloggs.boris);
    printf("%d\n", bloggs.natasha);
 
-   struct fred jones[2];
+   கட்டமைப்பு fred jones[2];
    jones[0].boris = 12;
    jones[0].natasha = 34;
    jones[1].boris = 56;
@@ -34,5 +34,5 @@ int main()
    printf("%d\n", jones[1].boris);
    printf("%d\n", jones[1].natasha);
 
-   return 0;
+   திரும்பு 0;
 }

@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+நிலையான உள்வரி மாறிலி எழுத்து *get_basefile_from_header(வெறுமை)
 {
-  return __BASE_FILE__;
+  திரும்பு __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+நிலையான உள்வரி மாறிலி எழுத்து *get_file_from_header(வெறுமை)
 {
-  return __FILE__;
+  திரும்பு __FILE__;
 }

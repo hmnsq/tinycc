@@ -1,38 +1,38 @@
-#include <stdatomic.h>
-#include <stdio.h>
+#அந்தர்பாவ <stdatomic.h>
+#அந்தர்பாவ <stdio.h>
 
-static int value_calls;
-static int order_calls;
+நிலையான முழு மதிப்பு_calls;
+நிலையான முழு order_calls;
 
-static int next_value(void)
+நிலையான முழு next_மதிப்பு(வெறுமை)
 {
-    ++value_calls;
-    return 42;
+    ++மதிப்பு_calls;
+    திரும்பு 42;
 }
 
-static int next_order(void)
+நிலையான முழு next_order(வெறுமை)
 {
     ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    திரும்பு __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+முழு முதன்மை(வெறுமை)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
-    void (*signal_fence)(memory_order) = &atomic_signal_fence;
+    முழு மதிப்புகள்[2] = {7, 8};
+    முழு index = 0;
+    முழு மதிப்பு = 1;
+    நிலையற்ற முழு vol = 0;
+    முழு *pointer = &மதிப்பு;
+    வெறுமை (*signal_fence)(memory_order) = &atomic_signal_fence;
 
-    __atomic_store_n(&values[index++], next_value(), next_order());
-    printf("%d %d %d %d %d\n", index, value_calls, order_calls,
-           values[0], values[1]);
-    __atomic_store_n(&value, value + 1, __ATOMIC_RELAXED);
-    printf("%d\n", value);
+    __atomic_store_n(&மதிப்புகள்[index++], next_மதிப்பு(), next_order());
+    printf("%d %d %d %d %d\n", index, மதிப்பு_calls, order_calls,
+           மதிப்புகள்[0], மதிப்புகள்[1]);
+    __atomic_store_n(&மதிப்பு, மதிப்பு + 1, __ATOMIC_RELAXED);
+    printf("%d\n", மதிப்பு);
     __atomic_store_n(&vol, 13, __ATOMIC_RELEASE);
     printf("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
-    __atomic_store_n(&pointer, &values[0], __ATOMIC_RELEASE);
+    __atomic_store_n(&pointer, &மதிப்புகள்[0], __ATOMIC_RELEASE);
     printf("%d\n", *__atomic_load_n(&pointer, __ATOMIC_ACQUIRE));
 
     atomic_signal_fence(memory_order_acquire);
@@ -41,5 +41,5 @@ int main(void)
     atomic_thread_fence(memory_order_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
     puts("ok");
-    return 0;
+    திரும்பு 0;
 }

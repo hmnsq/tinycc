@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+முழு printf(மாறிலி எழுத்து *s, ...);
 
-float fx(x)
-float x;
+தசம fx(x)
+தசம x;
 {
-    return 2.0 * x;
+    திரும்பு 2.0 * x;
 }
 
-void func(float a);
+வெறுமை func(தசம a);
 
-void func3(struct p { int a; int b; } *q) {
+வெறுமை func3(கட்டமைப்பு p { முழு a; முழு b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+வெறுமை func4(q)
+ கட்டமைப்பு p { முழு a; முழு b; முழு c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+கட்டமைப்பு p { முழு a; முழு b; முழு c; முழு d; };
 
-int
-main(void)
+முழு
+முதன்மை(வெறுமை)
 {
-    float fy();
+    தசம fy();
 
     printf("%g %g\n", fx(2.0), fy(10.0));
     printf("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+தசம fy(x)
+தசம x;
 {
-    return 3.0 * x;
+    திரும்பு 3.0 * x;
 }
 
-void func(a)
-float a;
+வெறுமை func(a)
+தசம a;
 {
     printf("%g\n", a);
 }

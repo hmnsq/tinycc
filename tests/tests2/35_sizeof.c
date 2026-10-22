@@ -1,30 +1,30 @@
-int printf(const char*, ...);
+முழு printf(மாறிலி எழுத்து*, ...);
 
-int main()
+முழு முதன்மை()
 {
-    char a;
+    எழுத்து a;
     short b;
 
-    printf("sizeof a : %d %d\n", sizeof(char), sizeof(a));
-    printf("sizeof b : %d %d\n", sizeof(short), sizeof(b));
+    printf("sizeof a : %d %d\n", அளவு(எழுத்து), அளவு(a));
+    printf("sizeof b : %d %d\n", அளவு(short), அளவு(b));
 
-    int ii[] = {}; /* gnu extension, size = 0 */
-    printf("sizeof ii : %d\n", sizeof ii);
+    முழு ii[] = {}; /* gnu extension, size = 0 */
+    printf("sizeof ii : %d\n", அளவு ii);
 
-    int kk[] = { 1 };
-    printf("sizeof kk : %d\n", sizeof kk);
+    முழு kk[] = { 1 };
+    printf("sizeof kk : %d\n", அளவு kk);
 
-    char cc[] = "12";
-    printf("sizeof cc : %d\n", sizeof cc);
+    எழுத்து cc[] = "12";
+    printf("sizeof cc : %d\n", அளவு cc);
 
     __WCHAR_TYPE__ ll[] = L"12345";
-    printf("len-of ll : %d\n", sizeof ll / sizeof ll[0]);
+    printf("len-of ll : %d\n", அளவு ll / அளவு ll[0]);
 
-    static struct {
-        int a,b,c;
-        int d[];
+    நிலையான கட்டமைப்பு {
+        முழு a,b,c;
+        முழு d[];
     } ss[] = {{ 1, 2, 3, {} }};
-    printf("sizeof ss : %d\n", sizeof ss);
+    printf("sizeof ss : %d\n", அளவு ss);
 
-    return 0;
+    திரும்பு 0;
 }

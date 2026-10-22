@@ -307,17 +307,17 @@ shrd %cl, %eax, %edx
 shrd %eax, %edx
 
 L4:
-call 0x1000
-call L4
+அழை 0x1000
+அழை L4
 #ifdef __i386__
-call *%eax
+அழை *%eax
 #else
-call *%rax
+அழை *%rax
 #endif
-call *0x1000
-call func1
+அழை *0x1000
+அழை func1
 
-.global L5,L6
+.வைஶ்விக L5,L6
 
 L5:
 L6:

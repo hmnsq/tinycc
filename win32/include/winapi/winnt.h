@@ -7,10 +7,10 @@
 #define _WINNT_
 
 #ifdef __cplusplus
-extern "C" {
+வெளி "C" {
 #endif
 
-#include <ctype.h>
+#அந்தர்பாவ <ctype.h>
 #define ANYSIZE_ARRAY 1
 
 //gr #include <specstrings.h>
@@ -21,67 +21,67 @@ extern "C" {
 #define __CRT_UNALIGNED
 #endif
 
-#if defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
+#எனில் defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
 #define UNALIGNED __CRT_UNALIGNED
 #ifdef _WIN64
 #define UNALIGNED64 __CRT_UNALIGNED
-#else
+#இல்லையெனில்
 #define UNALIGNED64
 #endif
-#else
+#இல்லையெனில்
 #define UNALIGNED
 #define UNALIGNED64
 #endif
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
+#எனில் !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
 #define I_X86_
 #endif
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
+#எனில் !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
 #define _AMD64_
 #endif
 
-#if !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
-#if !defined(_IA64_)
+#எனில் !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
+#எனில் !defined(_IA64_)
 #define _IA64_
 #endif
 #endif
 
 
 #ifdef _WIN64
-#define MAX_NATURAL_ALIGNMENT sizeof(ULONGLONG)
+#define MAX_NATURAL_ALIGNMENT அளவு(ULONGLONG)
 #define MEMORY_ALLOCATION_ALIGNMENT 16
-#else
-#define MAX_NATURAL_ALIGNMENT sizeof(DWORD)
+#இல்லையெனில்
+#define MAX_NATURAL_ALIGNMENT அளவு(DWORD)
 #define MEMORY_ALLOCATION_ALIGNMENT 8
 #endif
 
 #ifdef __cplusplus
 #define TYPE_ALIGNMENT(t) __alignof__ (t)
-#else
-#define TYPE_ALIGNMENT(t) FIELD_OFFSET(struct { char x; t test; },test)
+#இல்லையெனில்
+#define TYPE_ALIGNMENT(t) FIELD_OFFSET(கட்டமைப்பு { எழுத்து x; t test; },test)
 #endif
 
 #ifdef _WIN64
 #ifdef _AMD64_
 #define PROBE_ALIGNMENT(_s) TYPE_ALIGNMENT(DWORD)
-#elif defined(_IA64_) || defined(_ARM64_)
+#அல்லதெனில் defined(_IA64_) || defined(_ARM64_)
 #define PROBE_ALIGNMENT(_s) (TYPE_ALIGNMENT(_s) > TYPE_ALIGNMENT(DWORD) ? TYPE_ALIGNMENT(_s) : TYPE_ALIGNMENT(DWORD))
-#else
+#இல்லையெனில்
 #error No Target Architecture
 #endif
 #define PROBE_ALIGNMENT32(_s) TYPE_ALIGNMENT(DWORD)
-#else
+#இல்லையெனில்
 #define PROBE_ALIGNMENT(_s) TYPE_ALIGNMENT(DWORD)
 #endif
 
-#define C_ASSERT(e) typedef char __C_ASSERT__[(e)?1:-1]
+#define C_ASSERT(e) வகைவரை எழுத்து __C_ASSERT__[(e)?1:-1]
 
-#include <basetsd.h>
+#அந்தர்பாவ <basetsd.h>
 
-#if defined(_X86_) || defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
+#எனில் defined(_X86_) || defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
 #define DECLSPEC_IMPORT __declspec(dllimport)
-#else
+#இல்லையெனில்
 #define DECLSPEC_IMPORT
 #endif
 
@@ -94,9 +94,9 @@ extern "C" {
 #endif
 
 #ifndef SYSTEM_CACHE_ALIGNMENT_SIZE
-#if defined(_AMD64_) || defined(I_X86_)
+#எனில் defined(_AMD64_) || defined(I_X86_)
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 64
-#else
+#இல்லையெனில்
 #define SYSTEM_CACHE_ALIGNMENT_SIZE 128
 #endif
 #endif
@@ -118,7 +118,7 @@ extern "C" {
 #endif
 
 #ifndef NOP_FUNCTION
-#define NOP_FUNCTION (void)0
+#define NOP_FUNCTION (வெறுமை)0
 #endif
 
 #ifndef DECLSPEC_NOINLINE
@@ -126,7 +126,7 @@ extern "C" {
 #endif
 
 #ifndef FORCEINLINE
-#define FORCEINLINE static __inline__
+#define FORCEINLINE நிலையான __inline__
 #endif
 
 #ifndef DECLSPEC_DEPRECATED
@@ -137,87 +137,87 @@ extern "C" {
 #define DECLSPEC_DEPRECATED_DDK
 #define PRAGMA_DEPRECATED_DDK 0
 
-  typedef void *PVOID;
-  typedef void *PVOID64;
+  வகைவரை வெறுமை *PVOID;
+  வகைவரை வெறுமை *PVOID64;
 
 #define NTAPI __stdcall
 #define NTSYSAPI DECLSPEC_IMPORT
 #define NTSYSCALLAPI DECLSPEC_IMPORT
 
 #ifndef VOID
-#define VOID void
-  typedef char CHAR;
-  typedef short SHORT;
-  typedef long LONG;
+#define VOID வெறுமை
+  வகைவரை எழுத்து CHAR;
+  வகைவரை short SHORT;
+  வகைவரை long LONG;
 #endif
 
-  typedef wchar_t WCHAR;
-  typedef WCHAR *PWCHAR,*LPWCH,*PWCH;
-  typedef CONST WCHAR *LPCWCH,*PCWCH;
-  typedef WCHAR *NWPSTR,*LPWSTR,*PWSTR;
-  typedef PWSTR *PZPWSTR;
-  typedef CONST PWSTR *PCZPWSTR;
-  typedef WCHAR UNALIGNED *LPUWSTR,*PUWSTR;
-  typedef CONST WCHAR *LPCWSTR,*PCWSTR;
-  typedef PCWSTR *PZPCWSTR;
-  typedef CONST WCHAR UNALIGNED *LPCUWSTR,*PCUWSTR;
-  typedef CHAR *PCHAR,*LPCH,*PCH;
-  typedef CONST CHAR *LPCCH,*PCCH;
-  typedef CHAR *NPSTR,*LPSTR,*PSTR;
-  typedef PSTR *PZPSTR;
-  typedef CONST PSTR *PCZPSTR;
-  typedef CONST CHAR *LPCSTR,*PCSTR;
-  typedef PCSTR *PZPCSTR;
+  வகைவரை wchar_t WCHAR;
+  வகைவரை WCHAR *PWCHAR,*LPWCH,*PWCH;
+  வகைவரை CONST WCHAR *LPCWCH,*PCWCH;
+  வகைவரை WCHAR *NWPSTR,*LPWSTR,*PWSTR;
+  வகைவரை PWSTR *PZPWSTR;
+  வகைவரை CONST PWSTR *PCZPWSTR;
+  வகைவரை WCHAR UNALIGNED *LPUWSTR,*PUWSTR;
+  வகைவரை CONST WCHAR *LPCWSTR,*PCWSTR;
+  வகைவரை PCWSTR *PZPCWSTR;
+  வகைவரை CONST WCHAR UNALIGNED *LPCUWSTR,*PCUWSTR;
+  வகைவரை CHAR *PCHAR,*LPCH,*PCH;
+  வகைவரை CONST CHAR *LPCCH,*PCCH;
+  வகைவரை CHAR *NPSTR,*LPSTR,*PSTR;
+  வகைவரை PSTR *PZPSTR;
+  வகைவரை CONST PSTR *PCZPSTR;
+  வகைவரை CONST CHAR *LPCSTR,*PCSTR;
+  வகைவரை PCSTR *PZPCSTR;
 
 #ifdef UNICODE
 #ifndef _TCHAR_DEFINED
 #define _TCHAR_DEFINED
-  typedef WCHAR TCHAR,*PTCHAR;
-  typedef WCHAR TBYTE ,*PTBYTE;
+  வகைவரை WCHAR TCHAR,*PTCHAR;
+  வகைவரை WCHAR TBYTE ,*PTBYTE;
 #endif
 
-  typedef LPWSTR LPTCH,PTCH;
-  typedef LPWSTR PTSTR,LPTSTR;
-  typedef LPCWSTR PCTSTR,LPCTSTR;
-  typedef LPUWSTR PUTSTR,LPUTSTR;
-  typedef LPCUWSTR PCUTSTR,LPCUTSTR;
-  typedef LPWSTR LP;
+  வகைவரை LPWSTR LPTCH,PTCH;
+  வகைவரை LPWSTR PTSTR,LPTSTR;
+  வகைவரை LPCWSTR PCTSTR,LPCTSTR;
+  வகைவரை LPUWSTR PUTSTR,LPUTSTR;
+  வகைவரை LPCUWSTR PCUTSTR,LPCUTSTR;
+  வகைவரை LPWSTR LP;
 #define __TEXT(quote) L##quote
-#else
+#இல்லையெனில்
 #ifndef _TCHAR_DEFINED
 #define _TCHAR_DEFINED
-  typedef char TCHAR,*PTCHAR;
-  typedef unsigned char TBYTE ,*PTBYTE;
+  வகைவரை எழுத்து TCHAR,*PTCHAR;
+  வகைவரை unsigned எழுத்து TBYTE ,*PTBYTE;
 #endif
 
-  typedef LPSTR LPTCH,PTCH;
-  typedef LPSTR PTSTR,LPTSTR,PUTSTR,LPUTSTR;
-  typedef LPCSTR PCTSTR,LPCTSTR,PCUTSTR,LPCUTSTR;
+  வகைவரை LPSTR LPTCH,PTCH;
+  வகைவரை LPSTR PTSTR,LPTSTR,PUTSTR,LPUTSTR;
+  வகைவரை LPCSTR PCTSTR,LPCTSTR,PCUTSTR,LPCUTSTR;
 #define __TEXT(quote) quote
 #endif
 
 #define TEXT(quote) __TEXT(quote)
 
-  typedef SHORT *PSHORT;
-  typedef LONG *PLONG;
+  வகைவரை SHORT *PSHORT;
+  வகைவரை LONG *PLONG;
 
-  typedef void *HANDLE;
-#define DECLARE_HANDLE(name) struct name##__ { int unused; }; typedef struct name##__ *name
-  typedef HANDLE *PHANDLE;
+  வகைவரை வெறுமை *HANDLE;
+#define DECLARE_HANDLE(name) கட்டமைப்பு name##__ { முழு unused; }; வகைவரை கட்டமைப்பு name##__ *name
+  வகைவரை HANDLE *PHANDLE;
 
-  typedef BYTE FCHAR;
-  typedef WORD FSHORT;
-  typedef DWORD FLONG;
+  வகைவரை BYTE FCHAR;
+  வகைவரை WORD FSHORT;
+  வகைவரை DWORD FLONG;
 
 #ifndef _HRESULT_DEFINED
 #define _HRESULT_DEFINED
-  typedef LONG HRESULT;
+  வகைவரை LONG HRESULT;
 #endif
 
 #ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
+#define EXTERN_C வெளி "C"
+#இல்லையெனில்
+#define EXTERN_C வெளி
 #endif
 
 #define STDMETHODCALLTYPE WINAPI
@@ -233,15 +233,15 @@ extern "C" {
 #define STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
 #define STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
 
-  typedef char CCHAR;
+  வகைவரை எழுத்து CCHAR;
 #ifndef _LCID_DEFINED
 #define _LCID_DEFINED
-typedef DWORD LCID;
+வகைவரை DWORD LCID;
 #endif
-  typedef PDWORD PLCID;
+  வகைவரை PDWORD PLCID;
 #ifndef _LANGID_DEFINED
 #define _LANGID_DEFINED
-  typedef WORD LANGID;
+  வகைவரை WORD LANGID;
 #endif
 #define APPLICATION_ERROR_MASK 0x20000000
 #define ERROR_SEVERITY_SUCCESS 0x00000000
@@ -252,80 +252,80 @@ typedef DWORD LCID;
 #ifdef __ia64__
   __declspec(align(16))
 #endif
-    typedef struct _FLOAT128 {
-      __int64 LowPart;
-      __int64 HighPart;
+    வகைவரை கட்டமைப்பு _FLOAT128 {
+      __int64 கீழ்_Part;
+      __int64 உயர்வு_Part;
   } FLOAT128;
 
-  typedef FLOAT128 *PFLOAT128;
+  வகைவரை FLOAT128 *PFLOAT128;
 
 #define _ULONGLONG_
-#if((!(defined(_X86_) && !defined(__x86_64)) || (defined(_INTEGRAL_MAX_BITS) && _INTEGRAL_MAX_BITS >= 64)))
-  typedef __int64 LONGLONG;
-  typedef unsigned __int64 ULONGLONG;
+#எனில்((!(defined(_X86_) && !defined(__x86_64)) || (defined(_INTEGRAL_MAX_BITS) && _INTEGRAL_MAX_BITS >= 64)))
+  வகைவரை __int64 LONGLONG;
+  வகைவரை unsigned __int64 ULONGLONG;
 
 #define MAXLONGLONG (0x7fffffffffffffff)
-#else
+#இல்லையெனில்
 
-  typedef double LONGLONG;
-  typedef double ULONGLONG;
+  வகைவரை இரட்டை LONGLONG;
+  வகைவரை இரட்டை ULONGLONG;
 #endif
 
-  typedef LONGLONG *PLONGLONG;
-  typedef ULONGLONG *PULONGLONG;
+  வகைவரை LONGLONG *PLONGLONG;
+  வகைவரை ULONGLONG *PULONGLONG;
 
-  typedef LONGLONG USN;
+  வகைவரை LONGLONG USN;
 
-  typedef union _LARGE_INTEGER {
-    struct {
-      DWORD LowPart;
-      LONG HighPart;
+  வகைவரை ஒன்றிப்பு _LARGE_INTEGER {
+    கட்டமைப்பு {
+      DWORD கீழ்_Part;
+      LONG உயர்வு_Part;
     };
-    struct {
-      DWORD LowPart;
-      LONG HighPart;
+    கட்டமைப்பு {
+      DWORD கீழ்_Part;
+      LONG உயர்வு_Part;
     } u;
     LONGLONG QuadPart;
   } LARGE_INTEGER;
 
-  typedef LARGE_INTEGER *PLARGE_INTEGER;
+  வகைவரை LARGE_INTEGER *PLARGE_INTEGER;
 
-  typedef union _ULARGE_INTEGER {
-    struct {
-      DWORD LowPart;
-      DWORD HighPart;
+  வகைவரை ஒன்றிப்பு _ULARGE_INTEGER {
+    கட்டமைப்பு {
+      DWORD கீழ்_Part;
+      DWORD உயர்வு_Part;
     };
-    struct {
-      DWORD LowPart;
-      DWORD HighPart;
+    கட்டமைப்பு {
+      DWORD கீழ்_Part;
+      DWORD உயர்வு_Part;
     } u;
     ULONGLONG QuadPart;
   } ULARGE_INTEGER;
 
-  typedef ULARGE_INTEGER *PULARGE_INTEGER;
+  வகைவரை ULARGE_INTEGER *PULARGE_INTEGER;
 
-  typedef struct _LUID {
-    DWORD LowPart;
-    LONG HighPart;
+  வகைவரை கட்டமைப்பு _LUID {
+    DWORD கீழ்_Part;
+    LONG உயர்வு_Part;
   } LUID,*PLUID;
 
 #define _DWORDLONG_
-  typedef ULONGLONG DWORDLONG;
-  typedef DWORDLONG *PDWORDLONG;
+  வகைவரை ULONGLONG DWORDLONG;
+  வகைவரை DWORDLONG *PDWORDLONG;
 
 #ifdef RC_INVOKED
 #define Int32x32To64(a,b) ((LONGLONG)((LONG)(a)) *(LONGLONG)((LONG)(b)))
 #define UInt32x32To64(a,b) ((ULONGLONG)((DWORD)(a)) *(ULONGLONG)((DWORD)(b)))
 #define Int64ShrlMod32(a,b) ((ULONGLONG)(a) >> (b))
-#elif (defined(_X86_) && !defined(__x86_64))
+#அல்லதெனில் (defined(_X86_) && !defined(__x86_64))
 #define Int32x32To64(a,b) (LONGLONG)((LONGLONG)(LONG)(a) *(LONG)(b))
 #define UInt32x32To64(a,b) (ULONGLONG)((ULONGLONG)(DWORD)(a) *(DWORD)(b))
 #define Int64ShrlMod32(a,b) ((DWORDLONG)(a)>>(b))
-#elif defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
+#அல்லதெனில் defined(__ia64__) || defined(__x86_64) || defined(__aarch64__)
 #define Int32x32To64(a,b) ((LONGLONG)((LONG)(a)) *(LONGLONG)((LONG)(b)))
 #define UInt32x32To64(a,b) ((ULONGLONG)((DWORD)(a)) *(ULONGLONG)((DWORD)(b)))
 #define Int64ShrlMod32(a,b) ((ULONGLONG)(a) >> (b))
-#else
+#இல்லையெனில்
 #error Must define a target architecture.
 #endif
 
@@ -333,7 +333,7 @@ typedef DWORD LCID;
 #define Int64ShllMod32(a,b) ((ULONGLONG)(a) << (b))
 
 #ifdef __cplusplus
-  extern "C" {
+  வெளி "C" {
 #endif
 
 #ifdef __x86_64
@@ -343,10 +343,10 @@ typedef DWORD LCID;
 #define RotateRight8 _rotr8
 #define RotateRight16 _rotr16
 
-    unsigned char __cdecl _rotl8(unsigned char Value,unsigned char Shift);
-    unsigned short __cdecl _rotl16(unsigned short Value,unsigned char Shift);
-    unsigned char __cdecl _rotr8(unsigned char Value,unsigned char Shift);
-    unsigned short __cdecl _rotr16(unsigned short Value,unsigned char Shift);
+    unsigned எழுத்து __cdecl _rotl8(unsigned எழுத்து மதிப்பு_3,unsigned எழுத்து Shift);
+    unsigned short __cdecl _rotl16(unsigned short மதிப்பு_3,unsigned எழுத்து Shift);
+    unsigned எழுத்து __cdecl _rotr8(unsigned எழுத்து மதிப்பு_3,unsigned எழுத்து Shift);
+    unsigned short __cdecl _rotr16(unsigned short மதிப்பு_3,unsigned எழுத்து Shift);
 #endif
 
 #define RotateLeft32 _rotl
@@ -354,10 +354,10 @@ typedef DWORD LCID;
 #define RotateRight32 _rotr
 #define RotateRight64 _rotr64
 
-    unsigned int __cdecl _rotl(unsigned int Value,int Shift);
-    unsigned __int64 __cdecl _rotl64(unsigned __int64 Value,int Shift);
-    unsigned int __cdecl _rotr(unsigned int Value,int Shift);
-    unsigned __int64 __cdecl _rotr64(unsigned __int64 Value,int Shift);
+    unsigned முழு __cdecl _rotl(unsigned முழு மதிப்பு_3,முழு Shift);
+    unsigned __int64 __cdecl _rotl64(unsigned __int64 மதிப்பு_3,முழு Shift);
+    unsigned முழு __cdecl _rotr(unsigned முழு மதிப்பு_3,முழு Shift);
+    unsigned __int64 __cdecl _rotr64(unsigned __int64 மதிப்பு_3,முழு Shift);
 #ifdef __cplusplus
   }
 #endif
@@ -369,36 +369,36 @@ typedef DWORD LCID;
 
 #ifndef _BOOLEAN_
 #define _BOOLEAN_
-  typedef BYTE BOOLEAN;
+  வகைவரை BYTE BOOLEAN;
 #endif
-  typedef BOOLEAN *PBOOLEAN;
+  வகைவரை BOOLEAN *PBOOLEAN;
 
-  typedef struct _LIST_ENTRY {
-    struct _LIST_ENTRY *Flink;
-    struct _LIST_ENTRY *Blink;
+  வகைவரை கட்டமைப்பு _LIST_ENTRY {
+    கட்டமைப்பு _LIST_ENTRY *Flink;
+    கட்டமைப்பு _LIST_ENTRY *Blink;
   } LIST_ENTRY,*PLIST_ENTRY,*RESTRICTED_POINTER PRLIST_ENTRY;
 
-  typedef struct _SINGLE_LIST_ENTRY {
-    struct _SINGLE_LIST_ENTRY *Next;
+  வகைவரை கட்டமைப்பு _SINGLE_LIST_ENTRY {
+    கட்டமைப்பு _SINGLE_LIST_ENTRY *Next;
   } SINGLE_LIST_ENTRY,*PSINGLE_LIST_ENTRY;
 
-  typedef struct LIST_ENTRY32 {
+  வகைவரை கட்டமைப்பு LIST_ENTRY32 {
     DWORD Flink;
     DWORD Blink;
   } LIST_ENTRY32;
-  typedef LIST_ENTRY32 *PLIST_ENTRY32;
+  வகைவரை LIST_ENTRY32 *PLIST_ENTRY32;
 
-  typedef struct LIST_ENTRY64 {
+  வகைவரை கட்டமைப்பு LIST_ENTRY64 {
     ULONGLONG Flink;
     ULONGLONG Blink;
   } LIST_ENTRY64;
-  typedef LIST_ENTRY64 *PLIST_ENTRY64;
+  வகைவரை LIST_ENTRY64 *PLIST_ENTRY64;
 
-#include <guiddef.h>
+#அந்தர்பாவ <guiddef.h>
 
 #ifndef __OBJECTID_DEFINED
 #define __OBJECTID_DEFINED
-  typedef struct _OBJECTID {
+  வகைவரை கட்டமைப்பு _OBJECTID {
     GUID Lineage;
     DWORD Uniquifier;
   } OBJECTID;
@@ -415,32 +415,32 @@ typedef DWORD LCID;
 #define MAXDWORD 0xffffffff
 
 #define FIELD_OFFSET(type,field) ((LONG)(LONG_PTR)&(((type *)0)->field))
-#define RTL_FIELD_SIZE(type,field) (sizeof(((type *)0)->field))
+#define RTL_FIELD_SIZE(type,field) (அளவு(((type *)0)->field))
 #define RTL_SIZEOF_THROUGH_FIELD(type,field) (FIELD_OFFSET(type,field) + RTL_FIELD_SIZE(type,field))
-#define RTL_CONTAINS_FIELD(Struct,Size,Field) ((((PCHAR)(&(Struct)->Field)) + sizeof((Struct)->Field)) <= (((PCHAR)(Struct))+(Size)))
-#define RTL_NUMBER_OF_V1(A) (sizeof(A)/sizeof((A)[0]))
-#define RTL_NUMBER_OF_V2(A) RTL_NUMBER_OF_V1(A)
+#define RTL_CONTAINS_FIELD(Struct,Size,Field) ((((PCHAR)(&(Struct)->Field)) + அளவு((Struct)->Field)) <= (((PCHAR)(Struct))+(Size)))
+#define RTL_எண்_OF_V1(A) (அளவு(A)/அளவு((A)[0]))
+#define RTL_எண்_OF_V2(A) RTL_எண்_OF_V1(A)
 
-#ifdef ENABLE_RTL_NUMBER_OF_V2
-#define RTL_NUMBER_OF(A) RTL_NUMBER_OF_V2(A)
-#else
-#define RTL_NUMBER_OF(A) RTL_NUMBER_OF_V1(A)
+#ifdef ENABLE_RTL_எண்_OF_V2
+#define RTL_எண்_OF(A) RTL_எண்_OF_V2(A)
+#இல்லையெனில்
+#define RTL_எண்_OF(A) RTL_எண்_OF_V1(A)
 #endif
 
-#define ARRAYSIZE(A) RTL_NUMBER_OF_V2(A)
-#define _ARRAYSIZE(A) RTL_NUMBER_OF_V1(A)
+#define ARRAYSIZE(A) RTL_எண்_OF_V2(A)
+#define _ARRAYSIZE(A) RTL_எண்_OF_V1(A)
 
 #define RTL_FIELD_TYPE(type,field) (((type*)0)->field)
-#define RTL_NUMBER_OF_FIELD(type,field) (RTL_NUMBER_OF(RTL_FIELD_TYPE(type,field)))
+#define RTL_எண்_OF_FIELD(type,field) (RTL_எண்_OF(RTL_FIELD_TYPE(type,field)))
 #define RTL_PADDING_BETWEEN_FIELDS(T,F1,F2) ((FIELD_OFFSET(T,F2) > FIELD_OFFSET(T,F1)) ? (FIELD_OFFSET(T,F2) - FIELD_OFFSET(T,F1) - RTL_FIELD_SIZE(T,F1)) : (FIELD_OFFSET(T,F1) - FIELD_OFFSET(T,F2) - RTL_FIELD_SIZE(T,F2)))
 
 #ifdef __cplusplus
 #define RTL_CONST_CAST(type) const_cast<type>
-#else
+#இல்லையெனில்
 #define RTL_CONST_CAST(type) (type)
 #endif
 
-#define RTL_BITS_OF(sizeOfArg) (sizeof(sizeOfArg) *8)
+#define RTL_BITS_OF(sizeOfArg) (அளவு(sizeOfArg) *8)
 #define RTL_BITS_OF_FIELD(type,field) (RTL_BITS_OF(RTL_FIELD_TYPE(type,field)))
 #define CONTAINING_RECORD(address,type,field) ((type *)((PCHAR)(address) - (ULONG_PTR)(&((type *)0)->field)))
 
@@ -809,12 +809,12 @@ typedef DWORD LCID;
 #define STATUS_FLOAT_INEXACT_RESULT ((DWORD)0xC000008FL)
 #define STATUS_FLOAT_INVALID_OPERATION ((DWORD)0xC0000090L)
 #define STATUS_FLOAT_OVERFLOW ((DWORD)0xC0000091L)
-#define STATUS_FLOAT_STACK_CHECK ((DWORD)0xC0000092L)
+#define STATUS_FLOAT_அடுக்கு_CHECK ((DWORD)0xC0000092L)
 #define STATUS_FLOAT_UNDERFLOW ((DWORD)0xC0000093L)
 #define STATUS_INTEGER_DIVIDE_BY_ZERO ((DWORD)0xC0000094L)
 #define STATUS_INTEGER_OVERFLOW ((DWORD)0xC0000095L)
 #define STATUS_PRIVILEGED_INSTRUCTION ((DWORD)0xC0000096L)
-#define STATUS_STACK_OVERFLOW ((DWORD)0xC00000FDL)
+#define STATUS_அடுக்கு_OVERFLOW ((DWORD)0xC00000FDL)
 #define STATUS_CONTROL_C_EXIT ((DWORD)0xC000013AL)
 #define STATUS_FLOAT_MULTIPLE_FAULTS ((DWORD)0xC00002B4L)
 #define STATUS_FLOAT_MULTIPLE_TRAPS ((DWORD)0xC00002B5L)
@@ -824,15 +824,15 @@ typedef DWORD LCID;
 #endif
 
 #define MAXIMUM_WAIT_OBJECTS 64
-#define MAXIMUM_SUSPEND_COUNT MAXCHAR
+#define MAXIMUM_SUSPEND_மொத்தம் MAXCHAR
 
-  typedef ULONG_PTR KSPIN_LOCK;
-  typedef KSPIN_LOCK *PKSPIN_LOCK;
+  வகைவரை ULONG_PTR KSPIN_LOCK;
+  வகைவரை KSPIN_LOCK *PKSPIN_LOCK;
 
-#if defined(__x86_64) && !defined(RC_INVOKED)
+#எனில் defined(__x86_64) && !defined(RC_INVOKED)
 
 #ifdef __cplusplus
-  extern "C" {
+  வெளி "C" {
 #endif
 
 #define BitTest _bittest
@@ -848,96 +848,96 @@ typedef DWORD LCID;
 #define InterlockedBitTestAndSet64 _interlockedbittestandset64
 #define InterlockedBitTestAndReset64 _interlockedbittestandreset64
 
-    __CRT_INLINE BOOLEAN _bittest(LONG const *Base,LONG Offset) {
-      int old = 0;
+    __CRT_INLINE BOOLEAN _bittest(LONG மாறிலி *Base,LONG Offset) {
+      முழு old = 0;
       __asm__ __volatile__("btl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandcomplement(LONG *Base,LONG Offset) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("btcl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN InterlockedBitTestAndComplement(LONG *Base,LONG Bit) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("lock ; btcl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandset(LONG *Base,LONG Offset) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("btsl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandreset(LONG *Base,LONG Offset) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("btrl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandset(LONG *Base,LONG Offset) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("lock ; btsl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandreset(LONG *Base,LONG Offset) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("lock ; btrl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
-    __CRT_INLINE BOOLEAN _bittest64(LONG64 const *Base,LONG64 Offset) {
-      int old = 0;
+    __CRT_INLINE BOOLEAN _bittest64(LONG64 மாறிலி *Base,LONG64 Offset) {
+      முழு old = 0;
       __asm__ __volatile__("btq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandcomplement64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("btcq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("btsq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _bittestandreset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("btrq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("lock ; btsq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
     __CRT_INLINE BOOLEAN _interlockedbittestandreset64(LONG64 *Base,LONG64 Offset) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("lock ; btrq %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long long *) Base))
 	:"Ir" (Offset));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
 #define BitScanForward _BitScanForward
 #define BitScanReverse _BitScanReverse
@@ -945,20 +945,20 @@ typedef DWORD LCID;
 #define BitScanReverse64 _BitScanReverse64
 
     __CRT_INLINE BOOLEAN _BitScanForward(DWORD *Index,DWORD Mask) {
-      __asm__ __volatile__("bsfl %1,%0" : "=r" (Mask),"=m" ((*(volatile long *)Index)));
-      return Mask!=0;
+      __asm__ __volatile__("bsfl %1,%0" : "=r" (Mask),"=m" ((*(நிலையற்ற long *)Index)));
+      திரும்பு Mask!=0;
     }
     __CRT_INLINE BOOLEAN _BitScanReverse(DWORD *Index,DWORD Mask) {
-      __asm__ __volatile__("bsrl %1,%0" : "=r" (Mask),"=m" ((*(volatile long *)Index)));
-      return Mask!=0;
+      __asm__ __volatile__("bsrl %1,%0" : "=r" (Mask),"=m" ((*(நிலையற்ற long *)Index)));
+      திரும்பு Mask!=0;
     }
     __CRT_INLINE BOOLEAN _BitScanForward64(DWORD *Index,DWORD64 Mask) {
-      __asm__ __volatile__("bsfq %1,%0" : "=r" (Mask),"=m" ((*(volatile long long *)Index)));
-      return Mask!=0;
+      __asm__ __volatile__("bsfq %1,%0" : "=r" (Mask),"=m" ((*(நிலையற்ற long long *)Index)));
+      திரும்பு Mask!=0;
     }
     __CRT_INLINE BOOLEAN _BitScanReverse64(DWORD *Index,DWORD64 Mask) {
-      __asm__ __volatile__("bsrq %1,%0" : "=r" (Mask),"=m" ((*(volatile long long *)Index)));
-      return Mask!=0;
+      __asm__ __volatile__("bsrq %1,%0" : "=r" (Mask),"=m" ((*(நிலையற்ற long long *)Index)));
+      திரும்பு Mask!=0;
     }
 
 #define InterlockedIncrement16 _InterlockedIncrement16
@@ -1005,149 +1005,149 @@ typedef DWORD LCID;
 #define InterlockedIncrementSizeT(a) InterlockedIncrement64((LONG64 *)a)
 #define InterlockedDecrementSizeT(a) InterlockedDecrement64((LONG64 *)a)
 
-    __CRT_INLINE SHORT InterlockedIncrement16(SHORT volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE SHORT InterlockedIncrement16(SHORT நிலையற்ற *Addend) {
+      unsigned எழுத்து c;
+      unsigned எழுத்து s;
       __asm__ __volatile__(
 	"lock ; addw $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      திரும்பு (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE SHORT InterlockedDecrement16(SHORT volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE SHORT InterlockedDecrement16(SHORT நிலையற்ற *Addend) {
+      unsigned எழுத்து c;
+      unsigned எழுத்து s;
       __asm__ __volatile__(
 	"lock ; subw $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      திரும்பு (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE SHORT InterlockedCompareExchange16(SHORT volatile *Destination,SHORT ExChange,SHORT Comperand) {
+    __CRT_INLINE SHORT InterlockedCompareExchange16(SHORT நிலையற்ற *Destination,SHORT ExChange,SHORT Comperand) {
       SHORT prev;
       __asm__ __volatile__("lock ; cmpxchgw %w1,%2"
 	:"=a"(prev)
 	:"q"(ExChange), "m"(*Destination), "0"(Comperand)
 	: "memory");
-      return prev;
+      திரும்பு prev;
     }
-    __CRT_INLINE LONG InterlockedAnd(LONG volatile *Destination,LONG Value) {
+    __CRT_INLINE LONG InterlockedAnd(LONG நிலையற்ற *Destination,LONG மதிப்பு_3) {
       __asm__ __volatile__("lock ; andl %0,%1"
-	: :"r"(Value),"m"(*Destination)
+	: :"r"(மதிப்பு_3),"m"(*Destination)
 	: "memory");
-      return *Destination;
+      திரும்பு *Destination;
     }
-    __CRT_INLINE LONG InterlockedOr(LONG volatile *Destination,LONG Value) {
+    __CRT_INLINE LONG InterlockedOr(LONG நிலையற்ற *Destination,LONG மதிப்பு_3) {
       __asm__ __volatile__("lock ; orl %0,%1"
-	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+	: : "r"(மதிப்பு_3),"m"(*Destination) : "memory");
+      திரும்பு *Destination;
     }
-    __CRT_INLINE LONG InterlockedXor(LONG volatile *Destination,LONG Value) {
+    __CRT_INLINE LONG InterlockedXor(LONG நிலையற்ற *Destination,LONG மதிப்பு_3) {
       __asm__ __volatile__("lock ; xorl %0,%1"
-	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+	: : "r"(மதிப்பு_3),"m"(*Destination) : "memory");
+      திரும்பு *Destination;
     }
     //		$$$$
-    __CRT_INLINE LONG64 InterlockedAnd64(LONG64 volatile *Destination,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedAnd64(LONG64 நிலையற்ற *Destination,LONG64 மதிப்பு_3) {
       __asm__ __volatile__("lock ; andq %0,%1"
-	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+	: : "r"(மதிப்பு_3),"m"(*Destination) : "memory");
+      திரும்பு *Destination;
     }
-    __CRT_INLINE LONG64 InterlockedOr64(LONG64 volatile *Destination,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedOr64(LONG64 நிலையற்ற *Destination,LONG64 மதிப்பு_3) {
       __asm__ __volatile__("lock ; orq %0,%1"
-	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+	: : "r"(மதிப்பு_3),"m"(*Destination) : "memory");
+      திரும்பு *Destination;
     }
-    __CRT_INLINE LONG64 InterlockedXor64(LONG64 volatile *Destination,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedXor64(LONG64 நிலையற்ற *Destination,LONG64 மதிப்பு_3) {
       __asm__ __volatile__("lock ; xorq %0,%1"
-	: : "r"(Value),"m"(*Destination) : "memory");
-      return *Destination;
+	: : "r"(மதிப்பு_3),"m"(*Destination) : "memory");
+      திரும்பு *Destination;
     }
-    __CRT_INLINE LONG InterlockedIncrement(LONG volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE LONG InterlockedIncrement(LONG நிலையற்ற *Addend) {
+      unsigned எழுத்து c;
+      unsigned எழுத்து s;
       __asm__ __volatile__(
 	"lock ; addl $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      திரும்பு (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE LONG InterlockedDecrement(LONG volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE LONG InterlockedDecrement(LONG நிலையற்ற *Addend) {
+      unsigned எழுத்து c;
+      unsigned எழுத்து s;
       __asm__ __volatile__(
 	"lock ; subl $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      திரும்பு (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE LONG InterlockedExchange(LONG volatile *Target,LONG Value) {
+    __CRT_INLINE LONG InterlockedExchange(LONG நிலையற்ற *Target,LONG மதிப்பு_3) {
       __asm__ __volatile("lock ; xchgl %0,%1"
-	: "=r"(Value)
-	: "m"(*Target),"0"(Value)
+	: "=r"(மதிப்பு_3)
+	: "m"(*Target),"0"(மதிப்பு_3)
 	: "memory");
-      return Value;
+      திரும்பு மதிப்பு_3;
     }
-    LONG InterlockedExchangeAdd(LONG volatile *Addend,LONG Value);
+    LONG InterlockedExchangeAdd(LONG நிலையற்ற *Addend,LONG மதிப்பு_3);
 
 #ifndef _X86AMD64_
-    __CRT_INLINE LONG InterlockedAdd(LONG volatile *Addend,LONG Value) { return InterlockedExchangeAdd(Addend,Value) + Value; }
+    __CRT_INLINE LONG InterlockedAdd(LONG நிலையற்ற *Addend,LONG மதிப்பு_3) { திரும்பு InterlockedExchangeAdd(Addend,மதிப்பு_3) + மதிப்பு_3; }
 #endif
-    __CRT_INLINE LONG InterlockedCompareExchange(LONG volatile *Destination,LONG ExChange,LONG Comperand) {
+    __CRT_INLINE LONG InterlockedCompareExchange(LONG நிலையற்ற *Destination,LONG ExChange,LONG Comperand) {
       LONG prev;
       __asm__ __volatile__("lock ; cmpxchgl %1,%2" : "=a" (prev) : "q" (ExChange),"m" (*Destination), "0" (Comperand) : "memory");
-      return prev;
+      திரும்பு prev;
     }
-    __CRT_INLINE LONG64 InterlockedIncrement64(LONG64 volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE LONG64 InterlockedIncrement64(LONG64 நிலையற்ற *Addend) {
+      unsigned எழுத்து c;
+      unsigned எழுத்து s;
       __asm__ __volatile__(
 	"lock ; addq $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      திரும்பு (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE LONG64 InterlockedDecrement64(LONG64 volatile *Addend) {
-      unsigned char c;
-      unsigned char s;
+    __CRT_INLINE LONG64 InterlockedDecrement64(LONG64 நிலையற்ற *Addend) {
+      unsigned எழுத்து c;
+      unsigned எழுத்து s;
       __asm__ __volatile__(
 	"lock ; subq $1,%0; sete %1 ; sets %2"
 	:"=m" (*Addend), "=qm" (c), "=qm" (s)
 	:"m" (*Addend) : "memory");
-      return (c != 0 ? 0 : (s != 0 ? -1 : 1));
+      திரும்பு (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE LONG64 InterlockedExchange64(LONG64 volatile *Target,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedExchange64(LONG64 நிலையற்ற *Target,LONG64 மதிப்பு_3) {
       __asm__ __volatile("lock ; xchgq %0,%1"
-	: "=r"(Value)
-	: "m"(*Target),"0"(Value)
+	: "=r"(மதிப்பு_3)
+	: "m"(*Target),"0"(மதிப்பு_3)
 	: "memory");
-      return Value;
+      திரும்பு மதிப்பு_3;
     }
-    LONG64 InterlockedExchangeAdd64(LONG64 volatile *Addend,LONG64 Value);
+    LONG64 InterlockedExchangeAdd64(LONG64 நிலையற்ற *Addend,LONG64 மதிப்பு_3);
 
 #ifndef _X86AMD64_
-    __CRT_INLINE LONG64 InterlockedAdd64(LONG64 volatile *Addend,LONG64 Value) { return InterlockedExchangeAdd64(Addend,Value) + Value; }
+    __CRT_INLINE LONG64 InterlockedAdd64(LONG64 நிலையற்ற *Addend,LONG64 மதிப்பு_3) { திரும்பு InterlockedExchangeAdd64(Addend,மதிப்பு_3) + மதிப்பு_3; }
 #endif
 
-    __CRT_INLINE LONG64 InterlockedCompareExchange64(LONG64 volatile *Destination,LONG64 ExChange,LONG64 Comperand) {
+    __CRT_INLINE LONG64 InterlockedCompareExchange64(LONG64 நிலையற்ற *Destination,LONG64 ExChange,LONG64 Comperand) {
       LONG64 prev;
       __asm__ __volatile__("lock ; cmpxchgq %1,%2" : "=a" (prev) : "q" (ExChange),"m" (*Destination), "0" (Comperand) : "memory");
-      return prev;
+      திரும்பு prev;
     }
-    __CRT_INLINE PVOID InterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID ExChange,PVOID Comperand) {
+    __CRT_INLINE PVOID InterlockedCompareExchangePointer(PVOID நிலையற்ற *Destination,PVOID ExChange,PVOID Comperand) {
       PVOID prev;
       __asm__ __volatile__("lock ; cmpxchgq %1,%2" : "=a" (prev) : "q" (ExChange),"m" (*Destination), "0" (Comperand) : "memory");
-      return prev;
+      திரும்பு prev;
     }
-    __CRT_INLINE PVOID InterlockedExchangePointer(PVOID volatile *Target,PVOID Value) {
+    __CRT_INLINE PVOID InterlockedExchangePointer(PVOID நிலையற்ற *Target,PVOID மதிப்பு_3) {
       __asm__ __volatile("lock ; xchgq %0,%1"
-	: "=r"(Value)
-	: "m"(*Target),"0"(Value)
+	: "=r"(மதிப்பு_3)
+	: "m"(*Target),"0"(மதிப்பு_3)
 	: "memory");
-      return Value;
+      திரும்பு மதிப்பு_3;
     }
 
-#define CacheLineFlush(Address) _mm_clflush(Address)
+#define Cache_வரி_Flush(Address) _mm_clflush(Address)
 
     VOID _ReadWriteBarrier(VOID);
 
@@ -1157,13 +1157,13 @@ typedef DWORD LCID;
 #define StoreFence _mm_sfence
 
     VOID __faststorefence(VOID);
-    VOID _m_prefetchw(volatile CONST VOID *Source);
+    VOID _m_prefetchw(நிலையற்ற CONST VOID *Source);
 
 //!__TINYC__: #include <intrin.h>
 
 #define YieldProcessor _mm_pause
 #define MemoryBarrier __faststorefence
-#define PreFetchCacheLine(l,a) _mm_prefetch((CHAR CONST *) a,l)
+#define Pre_Fetch_Cache_வரி(l,a) _mm_prefetch((CHAR CONST *) a,l)
 #define PrefetchForWrite(p) _m_prefetchw(p)
 #define ReadForWriteAccess(p) (_m_prefetchw(p),*(p))
 
@@ -1189,92 +1189,92 @@ typedef DWORD LCID;
 #define ReadTimeStampCounter() __rdtsc()
 
     DWORD64 __rdtsc(VOID);
-    VOID __movsb(PBYTE Destination,BYTE const *Source,SIZE_T Count);
-    VOID __movsw(PWORD Destination,WORD const *Source,SIZE_T Count);
-    VOID __movsd(PDWORD Destination,DWORD const *Source,SIZE_T Count);
-    VOID __movsq(PDWORD64 Destination,DWORD64 const *Source,SIZE_T Count);
-    VOID __stosb(PBYTE Destination,BYTE Value,SIZE_T Count);
-    VOID __stosw(PWORD Destination,WORD Value,SIZE_T Count);
-    VOID __stosd(PDWORD Destination,DWORD Value,SIZE_T Count);
-    VOID __stosq(PDWORD64 Destination,DWORD64 Value,SIZE_T Count);
+    VOID __movsb(PBYTE Destination,BYTE மாறிலி *Source,SIZE_T மொத்தம்_3);
+    VOID __movsw(PWORD Destination,WORD மாறிலி *Source,SIZE_T மொத்தம்_3);
+    VOID __movsd(PDWORD Destination,DWORD மாறிலி *Source,SIZE_T மொத்தம்_3);
+    VOID __movsq(PDWORD64 Destination,DWORD64 மாறிலி *Source,SIZE_T மொத்தம்_3);
+    VOID __stosb(PBYTE Destination,BYTE மதிப்பு_3,SIZE_T மொத்தம்_3);
+    VOID __stosw(PWORD Destination,WORD மதிப்பு_3,SIZE_T மொத்தம்_3);
+    VOID __stosd(PDWORD Destination,DWORD மதிப்பு_3,SIZE_T மொத்தம்_3);
+    VOID __stosq(PDWORD64 Destination,DWORD64 மதிப்பு_3,SIZE_T மொத்தம்_3);
 
-#define MultiplyHigh __mulh
-#define UnsignedMultiplyHigh __umulh
+#define Multiply_உயர்வு __mulh
+#define Unsigned_Multiply_உயர்வு __umulh
 
-    LONGLONG MultiplyHigh(LONGLONG Multiplier,LONGLONG Multiplicand);
-    ULONGLONG UnsignedMultiplyHigh(ULONGLONG Multiplier,ULONGLONG Multiplicand);
+    LONGLONG Multiply_உயர்வு(LONGLONG Multiplier,LONGLONG Multiplicand);
+    ULONGLONG Unsigned_Multiply_உயர்வு(ULONGLONG Multiplier,ULONGLONG Multiplicand);
 
 #define ShiftLeft128 __shiftleft128
 #define ShiftRight128 __shiftright128
 
-    DWORD64 ShiftLeft128(DWORD64 LowPart,DWORD64 HighPart,BYTE Shift);
-    DWORD64 ShiftRight128(DWORD64 LowPart,DWORD64 HighPart,BYTE Shift);
+    DWORD64 ShiftLeft128(DWORD64 கீழ்_Part,DWORD64 உயர்வு_Part,BYTE Shift);
+    DWORD64 ShiftRight128(DWORD64 கீழ்_Part,DWORD64 உயர்வு_Part,BYTE Shift);
 
 #define Multiply128 _mul128
 
-    LONG64 Multiply128(LONG64 Multiplier,LONG64 Multiplicand,LONG64 *HighProduct);
+    LONG64 Multiply128(LONG64 Multiplier,LONG64 Multiplicand,LONG64 *உயர்வு_Product);
 
 #define UnsignedMultiply128 _umul128
 
-    DWORD64 UnsignedMultiply128(DWORD64 Multiplier,DWORD64 Multiplicand,DWORD64 *HighProduct);
+    DWORD64 UnsignedMultiply128(DWORD64 Multiplier,DWORD64 Multiplicand,DWORD64 *உயர்வு_Product);
 
     __CRT_INLINE LONG64 MultiplyExtract128(LONG64 Multiplier,LONG64 Multiplicand,BYTE Shift) {
       LONG64 extractedProduct;
-      LONG64 highProduct;
-      LONG64 lowProduct;
-      lowProduct = Multiply128(Multiplier,Multiplicand,&highProduct);
-      extractedProduct = (LONG64)ShiftRight128((LONG64)lowProduct,(LONG64)highProduct,Shift);
-      return extractedProduct;
+      LONG64 உயர்வு_Product_2;
+      LONG64 கீழ்_Product;
+      கீழ்_Product = Multiply128(Multiplier,Multiplicand,&உயர்வு_Product_2);
+      extractedProduct = (LONG64)ShiftRight128((LONG64)கீழ்_Product,(LONG64)உயர்வு_Product_2,Shift);
+      திரும்பு extractedProduct;
     }
 
     __CRT_INLINE DWORD64 UnsignedMultiplyExtract128(DWORD64 Multiplier,DWORD64 Multiplicand,BYTE Shift) {
       DWORD64 extractedProduct;
-      DWORD64 highProduct;
-      DWORD64 lowProduct;
-      lowProduct = UnsignedMultiply128(Multiplier,Multiplicand,&highProduct);
-      extractedProduct = ShiftRight128(lowProduct,highProduct,Shift);
-      return extractedProduct;
+      DWORD64 உயர்வு_Product_2;
+      DWORD64 கீழ்_Product;
+      கீழ்_Product = UnsignedMultiply128(Multiplier,Multiplicand,&உயர்வு_Product_2);
+      extractedProduct = ShiftRight128(கீழ்_Product,உயர்வு_Product_2,Shift);
+      திரும்பு extractedProduct;
     }
 
     __CRT_INLINE BYTE __readgsbyte(DWORD Offset) {
       BYTE ret;
-      __asm__ volatile ("movb	%%gs:%1,%0"
-	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return ret;
+      __asm__ நிலையற்ற ("movb	%%gs:%1,%0"
+	: "=r" (ret) ,"=m" ((*(நிலையற்ற long *) (DWORD64) Offset)));
+      திரும்பு ret;
     }
     __CRT_INLINE WORD __readgsword(DWORD Offset) {
       WORD ret;
-      __asm__ volatile ("movw	%%gs:%1,%0"
-	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return ret;
+      __asm__ நிலையற்ற ("movw	%%gs:%1,%0"
+	: "=r" (ret) ,"=m" ((*(நிலையற்ற long *) (DWORD64) Offset)));
+      திரும்பு ret;
     }
     __CRT_INLINE DWORD __readgsdword(DWORD Offset) {
       DWORD ret;
-      __asm__ volatile ("movl	%%gs:%1,%0"
-	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return ret;
+      __asm__ நிலையற்ற ("movl	%%gs:%1,%0"
+	: "=r" (ret) ,"=m" ((*(நிலையற்ற long *) (DWORD64) Offset)));
+      திரும்பு ret;
     }
     __CRT_INLINE DWORD64 __readgsqword(DWORD Offset) {
-      void *ret;
-      __asm__ volatile ("movq	%%gs:%1,%0"
-	: "=r" (ret) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
-      return (DWORD64) ret;
+      வெறுமை *ret;
+      __asm__ நிலையற்ற ("movq	%%gs:%1,%0"
+	: "=r" (ret) ,"=m" ((*(நிலையற்ற long *) (DWORD64) Offset)));
+      திரும்பு (DWORD64) ret;
     }
     __CRT_INLINE VOID __writegsbyte(DWORD Offset,BYTE Data) {
-      __asm__ volatile ("movb	%0,%%gs:%1"
-	: "=r" (Data) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
+      __asm__ நிலையற்ற ("movb	%0,%%gs:%1"
+	: "=r" (Data) ,"=m" ((*(நிலையற்ற long *) (DWORD64) Offset)));
     }
     __CRT_INLINE VOID __writegsword(DWORD Offset,WORD Data) {
-      __asm__ volatile ("movw	%0,%%gs:%1"
-	: "=r" (Data) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
+      __asm__ நிலையற்ற ("movw	%0,%%gs:%1"
+	: "=r" (Data) ,"=m" ((*(நிலையற்ற long *) (DWORD64) Offset)));
     }
     __CRT_INLINE VOID __writegsdword(DWORD Offset,DWORD Data) {
-      __asm__ volatile ("movl	%0,%%gs:%1"
-	: "=r" (Data) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
+      __asm__ நிலையற்ற ("movl	%0,%%gs:%1"
+	: "=r" (Data) ,"=m" ((*(நிலையற்ற long *) (DWORD64) Offset)));
     }
     __CRT_INLINE VOID __writegsqword(DWORD Offset,DWORD64 Data) {
-      __asm__ volatile ("movq	%0,%%gs:%1"
-	: "=r" (Data) ,"=m" ((*(volatile long *) (DWORD64) Offset)));
+      __asm__ நிலையற்ற ("movq	%0,%%gs:%1"
+	: "=r" (Data) ,"=m" ((*(நிலையற்ற long *) (DWORD64) Offset)));
     }
 
 #ifdef __cplusplus
@@ -1285,7 +1285,7 @@ typedef DWORD LCID;
 #define EXCEPTION_WRITE_FAULT 1
 #define EXCEPTION_EXECUTE_FAULT 8
 
-#if !defined(RC_INVOKED)
+#எனில் !defined(RC_INVOKED)
 
 #define CONTEXT_AMD64 0x100000
 
@@ -1307,12 +1307,12 @@ typedef DWORD LCID;
 #define INITIAL_MXCSR 0x1f80
 #define INITIAL_FPCSR 0x027f
 
-  typedef struct DECLSPEC_ALIGN(16) _M128A {
-    ULONGLONG Low;
-    LONGLONG High;
+  வகைவரை கட்டமைப்பு DECLSPEC_ALIGN(16) _M128A {
+    ULONGLONG கீழ்_3;
+    LONGLONG உயர்வு_3;
   } M128A,*PM128A;
 
-  typedef struct _XMM_SAVE_AREA32 {
+  வகைவரை கட்டமைப்பு _XMM_SAVE_AREA32 {
     WORD ControlWord;
     WORD StatusWord;
     BYTE TagWord;
@@ -1331,9 +1331,9 @@ typedef DWORD LCID;
     BYTE Reserved4[96];
   } XMM_SAVE_AREA32,*PXMM_SAVE_AREA32;
 
-#define LEGACY_SAVE_AREA_LENGTH sizeof(XMM_SAVE_AREA32)
+#define LEGACY_SAVE_AREA_LENGTH அளவு(XMM_SAVE_AREA32)
 
-  typedef struct DECLSPEC_ALIGN(16) _CONTEXT {
+  வகைவரை கட்டமைப்பு DECLSPEC_ALIGN(16) _CONTEXT {
     DWORD64 P1Home;
     DWORD64 P2Home;
     DWORD64 P3Home;
@@ -1372,10 +1372,10 @@ typedef DWORD LCID;
     DWORD64 R14;
     DWORD64 R15;
     DWORD64 Rip;
-    union {
+    ஒன்றிப்பு {
       XMM_SAVE_AREA32 FltSave;
       XMM_SAVE_AREA32 FloatSave;
-      struct {
+      கட்டமைப்பு {
 	M128A Header[2];
 	M128A Legacy[8];
 	M128A Xmm0;
@@ -1407,19 +1407,19 @@ typedef DWORD LCID;
 
 #define RUNTIME_FUNCTION_INDIRECT 0x1
 
-  typedef struct _RUNTIME_FUNCTION {
+  வகைவரை கட்டமைப்பு _RUNTIME_FUNCTION {
     DWORD BeginAddress;
     DWORD EndAddress;
     DWORD UnwindData;
   } RUNTIME_FUNCTION,*PRUNTIME_FUNCTION;
 
-  typedef PRUNTIME_FUNCTION (*PGET_RUNTIME_FUNCTION_CALLBACK)(DWORD64 ControlPc,PVOID Context);
-  typedef DWORD (*POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK)(HANDLE Process,PVOID TableAddress,PDWORD Entries,PRUNTIME_FUNCTION *Functions);
+  வகைவரை PRUNTIME_FUNCTION (*PGET_RUNTIME_FUNCTION_CALLBACK)(DWORD64 ControlPc,PVOID Context);
+  வகைவரை DWORD (*POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK)(HANDLE Process,PVOID TableAddress,PDWORD Entries,PRUNTIME_FUNCTION *Functions);
 
 #define OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK_EXPORT_NAME "OutOfProcessFunctionTableCallback"
 #endif /* defined(__x86_64) && !defined(RC_INVOKED) */
 
-#if defined(__TINYC__) && (defined(__aarch64__) || defined(__arm64__)) && !defined(RC_INVOKED)
+#எனில் defined(__TINYC__) && (defined(__aarch64__) || defined(__arm64__)) && !defined(RC_INVOKED)
 
 #define __TCC_WINNT_ATOMIC_SEQ_CST 5
 /* TCC lowers __atomic_compare_exchange's fourth argument as weak, but the
@@ -1432,41 +1432,41 @@ typedef DWORD LCID;
    Add local helpers before relying on increment/decrement, add/exchange-add,
    bitwise, or 64-bit Interlocked forms on Windows ARM64 with TCC. */
 
-    __CRT_INLINE LONG InterlockedExchange(LONG volatile *Target,LONG Value) {
+    __CRT_INLINE LONG InterlockedExchange(LONG நிலையற்ற *Target,LONG மதிப்பு_3) {
       LONG Old;
       __atomic_load(Target,&Old,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      while (!__atomic_compare_exchange(Target,&Old,&Value,0,
+      போது (!__atomic_compare_exchange(Target,&Old,&மதிப்பு_3,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST))
 	;
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      திரும்பு Old;
     }
-    __CRT_INLINE LONG InterlockedCompareExchange(LONG volatile *Destination,LONG ExChange,LONG Comperand) {
+    __CRT_INLINE LONG InterlockedCompareExchange(LONG நிலையற்ற *Destination,LONG ExChange,LONG Comperand) {
       LONG Old = Comperand;
       __TCC_WINNT_MEMORY_BARRIER();
       __atomic_compare_exchange(Destination,&Old,&ExChange,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      திரும்பு Old;
     }
-    __CRT_INLINE PVOID __TCC_WINNT_InterlockedExchangePointer(PVOID volatile *Target,PVOID Value) {
+    __CRT_INLINE PVOID __TCC_WINNT_InterlockedExchangePointer(PVOID நிலையற்ற *Target,PVOID மதிப்பு_3) {
       PVOID Old;
       __atomic_load(Target,&Old,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      while (!__atomic_compare_exchange(Target,&Old,&Value,0,
+      போது (!__atomic_compare_exchange(Target,&Old,&மதிப்பு_3,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST))
 	;
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      திரும்பு Old;
     }
-    __CRT_INLINE PVOID __TCC_WINNT_InterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID ExChange,PVOID Comperand) {
+    __CRT_INLINE PVOID __TCC_WINNT_InterlockedCompareExchangePointer(PVOID நிலையற்ற *Destination,PVOID ExChange,PVOID Comperand) {
       PVOID Old = Comperand;
       __TCC_WINNT_MEMORY_BARRIER();
       __atomic_compare_exchange(Destination,&Old,&ExChange,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      return Old;
+      திரும்பு Old;
     }
 
 #define InterlockedExchangePointer __TCC_WINNT_InterlockedExchangePointer
@@ -1482,7 +1482,7 @@ typedef DWORD LCID;
 
 #endif /* defined(__TINYC__) && (defined(__aarch64__) || defined(__arm64__)) && !defined(RC_INVOKED) */
 
-#if defined(_ARM64_)
+#எனில் defined(_ARM64_)
 
 /* ARM64 Context Definition */
 #define CONTEXT_ARM64 0x00400000
@@ -1495,22 +1495,22 @@ typedef DWORD LCID;
 #define ARM64_MAX_BREAKPOINTS 8
 #define ARM64_MAX_WATCHPOINTS 2
 
-  typedef union _ARM64_NT_NEON128 {
-    struct {
-      ULONGLONG Low;
-      LONGLONG High;
+  வகைவரை ஒன்றிப்பு _ARM64_NT_NEON128 {
+    கட்டமைப்பு {
+      ULONGLONG கீழ்_3;
+      LONGLONG உயர்வு_3;
     } DUMMYSTRUCTNAME;
-    double D[2];
-    float S[4];
+    இரட்டை D[2];
+    தசம S[4];
     WORD H[8];
     BYTE B[16];
   } ARM64_NT_NEON128,*PARM64_NT_NEON128;
 
-  typedef struct DECLSPEC_ALIGN(16) _ARM64_NT_CONTEXT {
+  வகைவரை கட்டமைப்பு DECLSPEC_ALIGN(16) _ARM64_NT_CONTEXT {
     ULONG ContextFlags;
     ULONG Cpsr;
-    union {
-      struct {
+    ஒன்றிப்பு {
+      கட்டமைப்பு {
         DWORD64 X0;
         DWORD64 X1;
         DWORD64 X2;
@@ -1556,55 +1556,55 @@ typedef DWORD LCID;
     DWORD64 Wvr[ARM64_MAX_WATCHPOINTS];
   } ARM64_NT_CONTEXT,*PARM64_NT_CONTEXT;
 
-  C_ASSERT(sizeof(ARM64_NT_CONTEXT) == 0x390);
+  C_ASSERT(அளவு(ARM64_NT_CONTEXT) == 0x390);
 
-  typedef ARM64_NT_CONTEXT CONTEXT,*PCONTEXT;
+  வகைவரை ARM64_NT_CONTEXT CONTEXT,*PCONTEXT;
 
-  typedef struct _RUNTIME_FUNCTION {
+  வகைவரை கட்டமைப்பு _RUNTIME_FUNCTION {
     DWORD BeginAddress;
     DWORD UnwindData;
   } RUNTIME_FUNCTION,*PRUNTIME_FUNCTION;
 
-  typedef PRUNTIME_FUNCTION (*PGET_RUNTIME_FUNCTION_CALLBACK)(DWORD64 ControlPc,PVOID Context);
-  typedef DWORD (*POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK)(HANDLE Process,PVOID TableAddress,PDWORD Entries,PRUNTIME_FUNCTION *Functions);
+  வகைவரை PRUNTIME_FUNCTION (*PGET_RUNTIME_FUNCTION_CALLBACK)(DWORD64 ControlPc,PVOID Context);
+  வகைவரை DWORD (*POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK)(HANDLE Process,PVOID TableAddress,PDWORD Entries,PRUNTIME_FUNCTION *Functions);
 
 #endif /* _ARM64_ */
 
-#if (defined _ARM64_ || defined _AMD64_) && !defined RC_INVOKED
-  NTSYSAPI VOID __cdecl RtlRestoreContext (PCONTEXT ContextRecord,struct _EXCEPTION_RECORD *ExceptionRecord);
-  NTSYSAPI BOOLEAN __cdecl RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable,DWORD EntryCount,DWORD64 BaseAddress);
+#எனில் (defined _ARM64_ || defined _AMD64_) && !defined RC_INVOKED
+  NTSYSAPI VOID __cdecl RtlRestoreContext (PCONTEXT ContextRecord,கட்டமைப்பு _EXCEPTION_RECORD *ExceptionRecord);
+  NTSYSAPI BOOLEAN __cdecl RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable,DWORD Entry_மொத்தம்,DWORD64 BaseAddress);
   NTSYSAPI BOOLEAN __cdecl RtlInstallFunctionTableCallback(DWORD64 TableIdentifier,DWORD64 BaseAddress,DWORD Length,PGET_RUNTIME_FUNCTION_CALLBACK Callback,PVOID Context,PCWSTR OutOfProcessCallbackDll);
   NTSYSAPI BOOLEAN __cdecl RtlDeleteFunctionTable(PRUNTIME_FUNCTION FunctionTable);
 #endif
 
 #ifdef I_X86_
-#if(defined(_X86_) && !defined(__x86_64)) && !defined(RC_INVOKED)
+#எனில்(defined(_X86_) && !defined(__x86_64)) && !defined(RC_INVOKED)
 #ifdef __cplusplus
-  extern "C" {
+  வெளி "C" {
 #endif
 
     __CRT_INLINE BOOLEAN InterlockedBitTestAndSet(LONG *Base,LONG Bit) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("lock ; btsl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
 
     __CRT_INLINE BOOLEAN InterlockedBitTestAndReset(LONG *Base,LONG Bit) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("lock ; btrl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
 
     __CRT_INLINE BOOLEAN InterlockedBitTestAndComplement(LONG *Base,LONG Bit) {
-      int old = 0;
+      முழு old = 0;
       __asm__ __volatile__("lock ; btcl %2,%1\n\tsbbl %0,%0 "
-	:"=r" (old),"=m" ((*(volatile long *) Base))
+	:"=r" (old),"=m" ((*(நிலையற்ற long *) Base))
 	:"Ir" (Bit));
-      return (BOOLEAN) (old!=0);
+      திரும்பு (BOOLEAN) (old!=0);
     }
 
 #ifdef _PREFIX_
@@ -1621,7 +1621,7 @@ typedef DWORD LCID;
 #endif
 #endif
 
-#if(defined(_X86_) && !defined(__x86_64))
+#எனில்(defined(_X86_) && !defined(__x86_64))
   __CRT_INLINE VOID MemoryBarrier(VOID) {
     LONG Barrier;
     __asm__ __volatile__("xchgl %%eax,%0 "
@@ -1629,31 +1629,31 @@ typedef DWORD LCID;
   }
 #define YieldProcessor() __asm__ __volatile__("rep nop ");
 
-#define PreFetchCacheLine(l,a)
+#define Pre_Fetch_Cache_வரி(l,a)
 #define ReadForWriteAccess(p) (*(p))
 
 #define PF_TEMPORAL_LEVEL_1
 #define PF_NON_TEMPORAL_LEVEL_ALL
 
-  __CRT_INLINE VOID DbgRaiseAssertionFailure(void) {
+  __CRT_INLINE VOID DbgRaiseAssertionFailure(வெறுமை) {
     __asm__ __volatile__("int $0x2c ");
   }
-  PVOID GetCurrentFiber(void);
-  __CRT_INLINE PVOID GetCurrentFiber(void)
+  PVOID GetCurrentFiber(வெறுமை);
+  __CRT_INLINE PVOID GetCurrentFiber(வெறுமை)
   {
-    void *ret;
-    __asm__ volatile ("movl	%%fs:0x10,%0"
+    வெறுமை *ret;
+    __asm__ நிலையற்ற ("movl	%%fs:0x10,%0"
 	: "=r" (ret));
-    return ret;
+    திரும்பு ret;
   }
-  PVOID GetFiberData(void);
-  __CRT_INLINE PVOID GetFiberData(void)
+  PVOID GetFiberData(வெறுமை);
+  __CRT_INLINE PVOID GetFiberData(வெறுமை)
   {
-    void *ret;
-    __asm__ volatile ("movl	%%fs:0x10,%0\n"
+    வெறுமை *ret;
+    __asm__ நிலையற்ற ("movl	%%fs:0x10,%0\n"
 	"movl	(%0),%0"
 	: "=r" (ret));
-    return ret;
+    திரும்பு ret;
   }
 #endif
 
@@ -1663,7 +1663,7 @@ typedef DWORD LCID;
 
 #define SIZE_OF_80387_REGISTERS 80
 
-#if !defined(RC_INVOKED)
+#எனில் !defined(RC_INVOKED)
 
 #define CONTEXT_i386 0x00010000
 #define CONTEXT_i486 0x00010000
@@ -1682,7 +1682,7 @@ typedef DWORD LCID;
 
 #define MAXIMUM_SUPPORTED_EXTENSION 512
 
-    typedef struct _FLOATING_SAVE_AREA {
+    வகைவரை கட்டமைப்பு _FLOATING_SAVE_AREA {
       DWORD ControlWord;
       DWORD StatusWord;
       DWORD TagWord;
@@ -1694,9 +1694,9 @@ typedef DWORD LCID;
       DWORD Cr0NpxState;
     } FLOATING_SAVE_AREA;
 
-    typedef FLOATING_SAVE_AREA *PFLOATING_SAVE_AREA;
+    வகைவரை FLOATING_SAVE_AREA *PFLOATING_SAVE_AREA;
 
-    typedef struct _CONTEXT {
+    வகைவரை கட்டமைப்பு _CONTEXT {
       DWORD ContextFlags;
       DWORD Dr0;
       DWORD Dr1;
@@ -1725,23 +1725,23 @@ typedef DWORD LCID;
       BYTE ExtendedRegisters[MAXIMUM_SUPPORTED_EXTENSION];
     } CONTEXT;
 
-    typedef CONTEXT *PCONTEXT;
+    வகைவரை CONTEXT *PCONTEXT;
 #endif
 
 #ifndef _LDT_ENTRY_DEFINED
 #define _LDT_ENTRY_DEFINED
 
-    typedef struct _LDT_ENTRY {
-      WORD LimitLow;
-      WORD BaseLow;
-      union {
-	struct {
+    வகைவரை கட்டமைப்பு _LDT_ENTRY {
+      WORD Limit_கீழ்;
+      WORD Base_கீழ்;
+      ஒன்றிப்பு {
+	கட்டமைப்பு {
 	  BYTE BaseMid;
 	  BYTE Flags1;
 	  BYTE Flags2;
 	  BYTE BaseHi;
 	} Bytes;
-	struct {
+	கட்டமைப்பு {
 	  DWORD BaseMid : 8;
 	  DWORD Type : 5;
 	  DWORD Dpl : 2;
@@ -1753,14 +1753,14 @@ typedef DWORD LCID;
 	  DWORD Granularity : 1;
 	  DWORD BaseHi : 8;
 	} Bits;
-      } HighWord;
+      } உயர்வு_Word;
     } LDT_ENTRY,*PLDT_ENTRY;
 #endif
 
-#if defined(__ia64__) && !defined(RC_INVOKED)
+#எனில் defined(__ia64__) && !defined(RC_INVOKED)
 
 #ifdef __cplusplus
-    extern "C" {
+    வெளி "C" {
 #endif
 
       BOOLEAN BitScanForward64(DWORD *Index,DWORD64 Mask);
@@ -1771,26 +1771,26 @@ typedef DWORD LCID;
 #endif
 #endif
 
-#if !defined(GENUTIL) && !defined(_GENIA64_) && defined(_IA64_)
+#எனில் !defined(GENUTIL) && !defined(_GENIA64_) && defined(_IA64_)
 
-    void *_cdecl _rdteb(void);
+    வெறுமை *_cdecl _rdteb(வெறுமை);
 #ifdef __ia64__
 
-#define NtCurrentTeb() ((struct _TEB *)_rdteb())
+#define NtCurrentTeb() ((கட்டமைப்பு _TEB *)_rdteb())
 #define GetCurrentFiber() (((PNT_TIB)NtCurrentTeb())->FiberData)
 #define GetFiberData() (*(PVOID *)(GetCurrentFiber()))
 
 #ifdef __cplusplus
-    extern "C" {
+    வெளி "C" {
 #endif
 
-      void __break(int);
-      void __yield(void);
-      void __mf(void);
-      void __lfetch(int Level,VOID CONST *Address);
-      void __lfetchfault(int Level,VOID CONST *Address);
-      void __lfetch_excl(int Level,VOID CONST *Address);
-      void __lfetchfault_excl(int Level,VOID CONST *Address);
+      வெறுமை __break(முழு);
+      வெறுமை __yield(வெறுமை);
+      வெறுமை __mf(வெறுமை);
+      வெறுமை __lfetch(முழு Level,VOID CONST *Address);
+      வெறுமை __lfetchfault(முழு Level,VOID CONST *Address);
+      வெறுமை __lfetch_excl(முழு Level,VOID CONST *Address);
+      வெறுமை __lfetchfault_excl(முழு Level,VOID CONST *Address);
 
 #define MD_LFHINT_NONE 0x00
 #define MD_LFHINT_NT1 0x01
@@ -1803,18 +1803,18 @@ typedef DWORD LCID;
 
 #define YieldProcessor __yield
 #define MemoryBarrier __mf
-#define PreFetchCacheLine __lfetch
+#define Pre_Fetch_Cache_வரி __lfetch
 #define ReadForWriteAccess(p) (*(p))
 #define DbgRaiseAssertionFailure() __break(ASSERT_BREAKPOINT)
 
 #define PF_TEMPORAL_LEVEL_1 MD_LFHINT_NONE
 #define PF_NON_TEMPORAL_LEVEL_ALL MD_LFHINT_NTA
 
-#define UnsignedMultiplyHigh __UMULH
+#define Unsigned_Multiply_உயர்வு __UMULH
 
-    ULONGLONG UnsignedMultiplyHigh(ULONGLONG Multiplier,ULONGLONG Multiplicand);
-#else
-    struct _TEB *NtCurrentTeb(void);
+    ULONGLONG Unsigned_Multiply_உயர்வு(ULONGLONG Multiplier,ULONGLONG Multiplicand);
+#இல்லையெனில்
+    கட்டமைப்பு _TEB *NtCurrentTeb(வெறுமை);
 #endif
 #endif
 
@@ -1824,7 +1824,7 @@ typedef DWORD LCID;
 #define EXCEPTION_WRITE_FAULT 1
 #define EXCEPTION_EXECUTE_FAULT 2
 
-#if !defined(RC_INVOKED)
+#எனில் !defined(RC_INVOKED)
 
 #define CONTEXT_IA64 0x00080000
 
@@ -1845,7 +1845,7 @@ typedef DWORD LCID;
 #define CONTEXT_EXCEPTION_REPORTING 0x80000000
 #endif
 
-    typedef struct _CONTEXT {
+    வகைவரை கட்டமைப்பு _CONTEXT {
       DWORD ContextFlags;
       DWORD Fill1[3];
       ULONGLONG DbI0;
@@ -2056,80 +2056,80 @@ typedef DWORD LCID;
       ULONGLONG UNUSEDPACK;
     } CONTEXT,*PCONTEXT;
 
-    typedef struct _PLABEL_DESCRIPTOR {
+    வகைவரை கட்டமைப்பு _PLABEL_DESCRIPTOR {
       ULONGLONG EntryPoint;
       ULONGLONG GlobalPointer;
     } PLABEL_DESCRIPTOR,*PPLABEL_DESCRIPTOR;
 
-    typedef struct _RUNTIME_FUNCTION {
+    வகைவரை கட்டமைப்பு _RUNTIME_FUNCTION {
       DWORD BeginAddress;
       DWORD EndAddress;
       DWORD UnwindInfoAddress;
     } RUNTIME_FUNCTION,*PRUNTIME_FUNCTION;
 
-    typedef PRUNTIME_FUNCTION (*PGET_RUNTIME_FUNCTION_CALLBACK)(DWORD64 ControlPc,PVOID Context);
-    typedef DWORD (*POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK)(HANDLE Process,PVOID TableAddress,PDWORD Entries,PRUNTIME_FUNCTION *Functions);
+    வகைவரை PRUNTIME_FUNCTION (*PGET_RUNTIME_FUNCTION_CALLBACK)(DWORD64 ControlPc,PVOID Context);
+    வகைவரை DWORD (*POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK)(HANDLE Process,PVOID TableAddress,PDWORD Entries,PRUNTIME_FUNCTION *Functions);
 
 #define OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK_EXPORT_NAME "OutOfProcessFunctionTableCallback"
 
-    BOOLEAN RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable,DWORD EntryCount,ULONGLONG BaseAddress,ULONGLONG TargetGp);
+    BOOLEAN RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable,DWORD Entry_மொத்தம்,ULONGLONG BaseAddress,ULONGLONG TargetGp);
     BOOLEAN RtlInstallFunctionTableCallback(DWORD64 TableIdentifier,DWORD64 BaseAddress,DWORD Length,DWORD64 TargetGp,PGET_RUNTIME_FUNCTION_CALLBACK Callback,PVOID Context,PCWSTR OutOfProcessCallbackDll);
     BOOLEAN RtlDeleteFunctionTable(PRUNTIME_FUNCTION FunctionTable);
-    VOID RtlRestoreContext (PCONTEXT ContextRecord,struct _EXCEPTION_RECORD *ExceptionRecord);
+    VOID RtlRestoreContext (PCONTEXT ContextRecord,கட்டமைப்பு _EXCEPTION_RECORD *ExceptionRecord);
     VOID __jump_unwind(ULONGLONG TargetMsFrame,ULONGLONG TargetBsFrame,ULONGLONG TargetPc);
 #endif
 
 #define EXCEPTION_NONCONTINUABLE 0x1
 #define EXCEPTION_MAXIMUM_PARAMETERS 15
 
-    typedef struct _EXCEPTION_RECORD {
+    வகைவரை கட்டமைப்பு _EXCEPTION_RECORD {
       DWORD ExceptionCode;
       DWORD ExceptionFlags;
-      struct _EXCEPTION_RECORD *ExceptionRecord;
+      கட்டமைப்பு _EXCEPTION_RECORD *ExceptionRecord;
       PVOID ExceptionAddress;
-      DWORD NumberParameters;
+      DWORD எண்_Parameters;
       ULONG_PTR ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
     } EXCEPTION_RECORD;
 
-    typedef EXCEPTION_RECORD *PEXCEPTION_RECORD;
+    வகைவரை EXCEPTION_RECORD *PEXCEPTION_RECORD;
 
-    typedef struct _EXCEPTION_RECORD32 {
+    வகைவரை கட்டமைப்பு _EXCEPTION_RECORD32 {
       DWORD ExceptionCode;
       DWORD ExceptionFlags;
       DWORD ExceptionRecord;
       DWORD ExceptionAddress;
-      DWORD NumberParameters;
+      DWORD எண்_Parameters;
       DWORD ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
     } EXCEPTION_RECORD32,*PEXCEPTION_RECORD32;
 
-    typedef struct _EXCEPTION_RECORD64 {
+    வகைவரை கட்டமைப்பு _EXCEPTION_RECORD64 {
       DWORD ExceptionCode;
       DWORD ExceptionFlags;
       DWORD64 ExceptionRecord;
       DWORD64 ExceptionAddress;
-      DWORD NumberParameters;
+      DWORD எண்_Parameters;
       DWORD __unusedAlignment;
       DWORD64 ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
     } EXCEPTION_RECORD64,*PEXCEPTION_RECORD64;
 
-    typedef struct _EXCEPTION_POINTERS {
+    வகைவரை கட்டமைப்பு _EXCEPTION_POINTERS {
       PEXCEPTION_RECORD ExceptionRecord;
       PCONTEXT ContextRecord;
     } EXCEPTION_POINTERS,*PEXCEPTION_POINTERS;
 
 #ifdef __x86_64
 
-    typedef EXCEPTION_DISPOSITION NTAPI EXCEPTION_ROUTINE (struct _EXCEPTION_RECORD *ExceptionRecord, PVOID EstablisherFrame, struct _CONTEXT *ContextRecord, PVOID DispatcherContext);
+    வகைவரை EXCEPTION_DISPOSITION NTAPI EXCEPTION_ROUTINE (கட்டமைப்பு _EXCEPTION_RECORD *ExceptionRecord, PVOID EstablisherFrame, கட்டமைப்பு _CONTEXT *ContextRecord, PVOID DispatcherContext);
 #ifndef __PEXCEPTION_ROUTINE_DEFINED
 #define __PEXCEPTION_ROUTINE_DEFINED
-    typedef EXCEPTION_ROUTINE *PEXCEPTION_ROUTINE;
+    வகைவரை EXCEPTION_ROUTINE *PEXCEPTION_ROUTINE;
 #endif
 
     /* http://msdn.microsoft.com/en-us/library/ms680597(VS.85).aspx */
 
 #define UNWIND_HISTORY_TABLE_SIZE 12
 
-  typedef struct _UNWIND_HISTORY_TABLE_ENTRY {
+  வகைவரை கட்டமைப்பு _UNWIND_HISTORY_TABLE_ENTRY {
     ULONG64 ImageBase;
     PRUNTIME_FUNCTION FunctionEntry;
   } UNWIND_HISTORY_TABLE_ENTRY, *PUNWIND_HISTORY_TABLE_ENTRY;
@@ -2138,21 +2138,21 @@ typedef DWORD LCID;
 #define UNWIND_HISTORY_TABLE_GLOBAL  1
 #define UNWIND_HISTORY_TABLE_LOCAL   2
 
-  typedef struct _UNWIND_HISTORY_TABLE {
-    ULONG Count;
-    UCHAR Search;
-    ULONG64 LowAddress;
-    ULONG64 HighAddress;
+  வகைவரை கட்டமைப்பு _UNWIND_HISTORY_TABLE {
+    ULONG மொத்தம்_3;
+    UCHAR தேடல்;
+    ULONG64 கீழ்_Address;
+    ULONG64 உயர்வு_Address;
     UNWIND_HISTORY_TABLE_ENTRY Entry[UNWIND_HISTORY_TABLE_SIZE];
   } UNWIND_HISTORY_TABLE, *PUNWIND_HISTORY_TABLE;
 
   /* http://msdn.microsoft.com/en-us/library/b6sf5kbd(VS.80).aspx */
 
-  struct _DISPATCHER_CONTEXT;
-  typedef struct _DISPATCHER_CONTEXT DISPATCHER_CONTEXT;
-  typedef struct _DISPATCHER_CONTEXT *PDISPATCHER_CONTEXT;
+  கட்டமைப்பு _DISPATCHER_CONTEXT;
+  வகைவரை கட்டமைப்பு _DISPATCHER_CONTEXT DISPATCHER_CONTEXT;
+  வகைவரை கட்டமைப்பு _DISPATCHER_CONTEXT *PDISPATCHER_CONTEXT;
 
-  struct _DISPATCHER_CONTEXT {
+  கட்டமைப்பு _DISPATCHER_CONTEXT {
     ULONG64 ControlPc;
     ULONG64 ImageBase;
     PRUNTIME_FUNCTION FunctionEntry;
@@ -2169,19 +2169,19 @@ typedef DWORD LCID;
 
   /* http://msdn.microsoft.com/en-us/library/ms680617(VS.85).aspx */
 
-  typedef struct _KNONVOLATILE_CONTEXT_POINTERS
+  வகைவரை கட்டமைப்பு _KNONVOLATILE_CONTEXT_POINTERS
   {
     PM128A FloatingContext[16];
     PULONG64 IntegerContext[16];
   } KNONVOLATILE_CONTEXT_POINTERS, *PKNONVOLATILE_CONTEXT_POINTERS;
 #endif /* defined(__x86_64) */
 
-    typedef PVOID PACCESS_TOKEN;
-    typedef PVOID PSECURITY_DESCRIPTOR;
-    typedef PVOID PSID;
+    வகைவரை PVOID PACCESS_TOKEN;
+    வகைவரை PVOID PSECURITY_DESCRIPTOR;
+    வகைவரை PVOID PSID;
 
-    typedef DWORD ACCESS_MASK;
-    typedef ACCESS_MASK *PACCESS_MASK;
+    வகைவரை DWORD ACCESS_MASK;
+    வகைவரை ACCESS_MASK *PACCESS_MASK;
 
 #define DELETE (0x00010000L)
 #define READ_CONTROL (0x00020000L)
@@ -2206,37 +2206,37 @@ typedef DWORD LCID;
 #define GENERIC_EXECUTE (0x20000000L)
 #define GENERIC_ALL (0x10000000L)
 
-    typedef struct _GENERIC_MAPPING {
+    வகைவரை கட்டமைப்பு _GENERIC_MAPPING {
       ACCESS_MASK GenericRead;
       ACCESS_MASK GenericWrite;
       ACCESS_MASK GenericExecute;
       ACCESS_MASK GenericAll;
     } GENERIC_MAPPING;
-    typedef GENERIC_MAPPING *PGENERIC_MAPPING;
+    வகைவரை GENERIC_MAPPING *PGENERIC_MAPPING;
 
-#include <pshpack4.h>
+#அந்தர்பாவ <pshpack4.h>
 
-    typedef struct _LUID_AND_ATTRIBUTES {
+    வகைவரை கட்டமைப்பு _LUID_AND_ATTRIBUTES {
       LUID Luid;
       DWORD Attributes;
     } LUID_AND_ATTRIBUTES,*PLUID_AND_ATTRIBUTES;
-    typedef LUID_AND_ATTRIBUTES LUID_AND_ATTRIBUTES_ARRAY[ANYSIZE_ARRAY];
-    typedef LUID_AND_ATTRIBUTES_ARRAY *PLUID_AND_ATTRIBUTES_ARRAY;
+    வகைவரை LUID_AND_ATTRIBUTES LUID_AND_ATTRIBUTES_ARRAY[ANYSIZE_ARRAY];
+    வகைவரை LUID_AND_ATTRIBUTES_ARRAY *PLUID_AND_ATTRIBUTES_ARRAY;
 
-#include <poppack.h>
+#அந்தர்பாவ <poppack.h>
 
 #ifndef SID_IDENTIFIER_AUTHORITY_DEFINED
 #define SID_IDENTIFIER_AUTHORITY_DEFINED
-    typedef struct _SID_IDENTIFIER_AUTHORITY {
-      BYTE Value[6];
+    வகைவரை கட்டமைப்பு _SID_IDENTIFIER_AUTHORITY {
+      BYTE மதிப்பு_3[6];
     } SID_IDENTIFIER_AUTHORITY,*PSID_IDENTIFIER_AUTHORITY;
 #endif
 
 #ifndef SID_DEFINED
 #define SID_DEFINED
-    typedef struct _SID {
+    வகைவரை கட்டமைப்பு _SID {
       BYTE Revision;
-      BYTE SubAuthorityCount;
+      BYTE Sub_Authority_மொத்தம்;
       SID_IDENTIFIER_AUTHORITY IdentifierAuthority;
       DWORD SubAuthority[ANYSIZE_ARRAY];
     } SID,*PISID;
@@ -2246,19 +2246,19 @@ typedef DWORD LCID;
 #define SID_MAX_SUB_AUTHORITIES (15)
 #define SID_RECOMMENDED_SUB_AUTHORITIES (1)
 
-#define SECURITY_MAX_SID_SIZE (sizeof(SID) - sizeof(DWORD) + (SID_MAX_SUB_AUTHORITIES *sizeof(DWORD)))
+#define SECURITY_MAX_SID_SIZE (அளவு(SID) - அளவு(DWORD) + (SID_MAX_SUB_AUTHORITIES *அளவு(DWORD)))
 
-    typedef enum _SID_NAME_USE {
+    வகைவரை எண்ணிக்கை _SID_NAME_USE {
       SidTypeUser = 1,SidTypeGroup,SidTypeDomain,SidTypeAlias,SidTypeWellKnownGroup,SidTypeDeletedAccount,SidTypeInvalid,SidTypeUnknown,SidTypeComputer
     } SID_NAME_USE,*PSID_NAME_USE;
 
-    typedef struct _SID_AND_ATTRIBUTES {
+    வகைவரை கட்டமைப்பு _SID_AND_ATTRIBUTES {
       PSID Sid;
       DWORD Attributes;
     } SID_AND_ATTRIBUTES,*PSID_AND_ATTRIBUTES;
 
-    typedef SID_AND_ATTRIBUTES SID_AND_ATTRIBUTES_ARRAY[ANYSIZE_ARRAY];
-    typedef SID_AND_ATTRIBUTES_ARRAY *PSID_AND_ATTRIBUTES_ARRAY;
+    வகைவரை SID_AND_ATTRIBUTES SID_AND_ATTRIBUTES_ARRAY[ANYSIZE_ARRAY];
+    வகைவரை SID_AND_ATTRIBUTES_ARRAY *PSID_AND_ATTRIBUTES_ARRAY;
 
 #define SECURITY_NULL_SID_AUTHORITY {0,0,0,0,0,0}
 #define SECURITY_WORLD_SID_AUTHORITY {0,0,0,0,0,1}
@@ -2284,7 +2284,7 @@ typedef DWORD LCID;
 #define SECURITY_BATCH_RID (0x00000003L)
 #define SECURITY_INTERACTIVE_RID (0x00000004L)
 #define SECURITY_LOGON_IDS_RID (0x00000005L)
-#define SECURITY_LOGON_IDS_RID_COUNT (3L)
+#define SECURITY_LOGON_IDS_RID_மொத்தம் (3L)
 #define SECURITY_SERVICE_RID (0x00000006L)
 #define SECURITY_ANONYMOUS_LOGON_RID (0x00000007L)
 #define SECURITY_PROXY_RID (0x00000008L)
@@ -2303,7 +2303,7 @@ typedef DWORD LCID;
 #define SECURITY_NETWORK_SERVICE_RID (0x00000014L)
 
 #define SECURITY_NT_NON_UNIQUE (0x00000015L)
-#define SECURITY_NT_NON_UNIQUE_SUB_AUTH_COUNT (3L)
+#define SECURITY_NT_NON_UNIQUE_SUB_AUTH_மொத்தம் (3L)
 
 #define SECURITY_ENTERPRISE_READONLY_CONTROLLERS_RID (0x00000016L)
 
@@ -2311,13 +2311,13 @@ typedef DWORD LCID;
 #define SECURITY_WRITE_RESTRICTED_CODE_RID (0x00000021L)
 
 #define SECURITY_PACKAGE_BASE_RID (0x00000040L)
-#define SECURITY_PACKAGE_RID_COUNT (2L)
+#define SECURITY_PACKAGE_RID_மொத்தம் (2L)
 #define SECURITY_PACKAGE_NTLM_RID (0x0000000AL)
 #define SECURITY_PACKAGE_SCHANNEL_RID (0x0000000EL)
 #define SECURITY_PACKAGE_DIGEST_RID (0x00000015L)
 
 #define SECURITY_SERVICE_ID_BASE_RID (0x00000050L)
-#define SECURITY_SERVICE_ID_RID_COUNT (6L)
+#define SECURITY_SERVICE_ID_RID_மொத்தம் (6L)
 
 #define SECURITY_RESERVED_ID_BASE_RID (0x00000051L)
 
@@ -2376,9 +2376,9 @@ typedef DWORD LCID;
 
 #define SECURITY_MANDATORY_LABEL_AUTHORITY {0,0,0,0,0,16}
 #define SECURITY_MANDATORY_UNTRUSTED_RID (0x00000000L)
-#define SECURITY_MANDATORY_LOW_RID (0x00001000L)
+#define SECURITY_MANDATORY_கீழ்_RID (0x00001000L)
 #define SECURITY_MANDATORY_MEDIUM_RID (0x00002000L)
-#define SECURITY_MANDATORY_HIGH_RID (0x00003000L)
+#define SECURITY_MANDATORY_உயர்வு_RID (0x00003000L)
 #define SECURITY_MANDATORY_SYSTEM_RID (0x00004000L)
 #define SECURITY_MANDATORY_PROTECTED_PROCESS_RID (0x00005000L)
 
@@ -2386,7 +2386,7 @@ typedef DWORD LCID;
 
 #define MANDATORY_LEVEL_TO_MANDATORY_RID(IL) (IL * 0x1000)
 
-    typedef enum {
+    வகைவரை எண்ணிக்கை {
       WinNullSid = 0,WinWorldSid = 1,WinLocalSid = 2,WinCreatorOwnerSid = 3,WinCreatorGroupSid = 4,WinCreatorOwnerServerSid = 5,WinCreatorGroupServerSid = 6,WinNtAuthoritySid = 7,WinDialupSid = 8,WinNetworkSid = 9,WinBatchSid = 10,WinInteractiveSid = 11,WinServiceSid = 12,WinAnonymousSid = 13,WinProxySid = 14,WinEnterpriseControllersSid = 15,WinSelfSid = 16,WinAuthenticatedUserSid = 17,WinRestrictedCodeSid = 18,WinTerminalServerSid = 19,WinRemoteLogonIdSid = 20,WinLogonIdsSid = 21,WinLocalSystemSid = 22,WinLocalServiceSid = 23,WinNetworkServiceSid = 24,WinBuiltinDomainSid = 25,WinBuiltinAdministratorsSid = 26,WinBuiltinUsersSid = 27,WinBuiltinGuestsSid = 28,WinBuiltinPowerUsersSid = 29,WinBuiltinAccountOperatorsSid = 30,WinBuiltinSystemOperatorsSid = 31,WinBuiltinPrintOperatorsSid = 32,WinBuiltinBackupOperatorsSid = 33,WinBuiltinReplicatorSid = 34,WinBuiltinPreWindows2000CompatibleAccessSid = 35,WinBuiltinRemoteDesktopUsersSid = 36,WinBuiltinNetworkConfigurationOperatorsSid = 37,WinAccountAdministratorSid = 38,WinAccountGuestSid = 39,WinAccountKrbtgtSid = 40,WinAccountDomainAdminsSid = 41,WinAccountDomainUsersSid = 42,WinAccountDomainGuestsSid = 43,WinAccountComputersSid = 44,WinAccountControllersSid = 45,WinAccountCertAdminsSid = 46,WinAccountSchemaAdminsSid = 47,WinAccountEnterpriseAdminsSid = 48,WinAccountPolicyAdminsSid = 49,WinAccountRasAndIasServersSid = 50,WinNTLMAuthenticationSid = 51,WinDigestAuthenticationSid = 52,WinSChannelAuthenticationSid = 53,WinThisOrganizationSid = 54,WinOtherOrganizationSid = 55,WinBuiltinIncomingForestTrustBuildersSid = 56,WinBuiltinPerfMonitoringUsersSid = 57,WinBuiltinPerfLoggingUsersSid = 58,WinBuiltinAuthorizationAccessSid = 59,WinBuiltinTerminalServerLicenseServersSid = 60,WinBuiltinDCOMUsersSid = 61
     } WELL_KNOWN_SID_TYPE;
 
@@ -2416,21 +2416,21 @@ typedef DWORD LCID;
 #define ACL_REVISION4 (4)
 #define MAX_ACL_REVISION ACL_REVISION4
 
-    typedef struct _ACL {
+    வகைவரை கட்டமைப்பு _ACL {
       BYTE AclRevision;
       BYTE Sbz1;
       WORD AclSize;
-      WORD AceCount;
+      WORD Ace_மொத்தம்;
       WORD Sbz2;
     } ACL;
-    typedef ACL *PACL;
+    வகைவரை ACL *PACL;
 
-    typedef struct _ACE_HEADER {
+    வகைவரை கட்டமைப்பு _ACE_HEADER {
       BYTE AceType;
       BYTE AceFlags;
       WORD AceSize;
     } ACE_HEADER;
-    typedef ACE_HEADER *PACE_HEADER;
+    வகைவரை ACE_HEADER *PACE_HEADER;
 
 #define ACCESS_MIN_MS_ACE_TYPE (0x0)
 #define ACCESS_ALLOWED_ACE_TYPE (0x0)
@@ -2474,36 +2474,36 @@ typedef DWORD LCID;
 #define SUCCESSFUL_ACCESS_ACE_FLAG (0x40)
 #define FAILED_ACCESS_ACE_FLAG (0x80)
 
-    typedef struct _ACCESS_ALLOWED_ACE {
+    வகைவரை கட்டமைப்பு _ACCESS_ALLOWED_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
     } ACCESS_ALLOWED_ACE;
 
-    typedef ACCESS_ALLOWED_ACE *PACCESS_ALLOWED_ACE;
+    வகைவரை ACCESS_ALLOWED_ACE *PACCESS_ALLOWED_ACE;
 
-    typedef struct _ACCESS_DENIED_ACE {
+    வகைவரை கட்டமைப்பு _ACCESS_DENIED_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
     } ACCESS_DENIED_ACE;
-    typedef ACCESS_DENIED_ACE *PACCESS_DENIED_ACE;
+    வகைவரை ACCESS_DENIED_ACE *PACCESS_DENIED_ACE;
 
-    typedef struct _SYSTEM_AUDIT_ACE {
+    வகைவரை கட்டமைப்பு _SYSTEM_AUDIT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
     } SYSTEM_AUDIT_ACE;
-    typedef SYSTEM_AUDIT_ACE *PSYSTEM_AUDIT_ACE;
+    வகைவரை SYSTEM_AUDIT_ACE *PSYSTEM_AUDIT_ACE;
 
-    typedef struct _SYSTEM_ALARM_ACE {
+    வகைவரை கட்டமைப்பு _SYSTEM_ALARM_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
     } SYSTEM_ALARM_ACE;
-    typedef SYSTEM_ALARM_ACE *PSYSTEM_ALARM_ACE;
+    வகைவரை SYSTEM_ALARM_ACE *PSYSTEM_ALARM_ACE;
 
-    typedef struct _ACCESS_ALLOWED_OBJECT_ACE {
+    வகைவரை கட்டமைப்பு _ACCESS_ALLOWED_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2512,7 +2512,7 @@ typedef DWORD LCID;
       DWORD SidStart;
     } ACCESS_ALLOWED_OBJECT_ACE,*PACCESS_ALLOWED_OBJECT_ACE;
 
-    typedef struct _ACCESS_DENIED_OBJECT_ACE {
+    வகைவரை கட்டமைப்பு _ACCESS_DENIED_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2521,7 +2521,7 @@ typedef DWORD LCID;
       DWORD SidStart;
     } ACCESS_DENIED_OBJECT_ACE,*PACCESS_DENIED_OBJECT_ACE;
 
-    typedef struct _SYSTEM_AUDIT_OBJECT_ACE {
+    வகைவரை கட்டமைப்பு _SYSTEM_AUDIT_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2530,7 +2530,7 @@ typedef DWORD LCID;
       DWORD SidStart;
     } SYSTEM_AUDIT_OBJECT_ACE,*PSYSTEM_AUDIT_OBJECT_ACE;
 
-    typedef struct _SYSTEM_ALARM_OBJECT_ACE {
+    வகைவரை கட்டமைப்பு _SYSTEM_ALARM_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2539,35 +2539,35 @@ typedef DWORD LCID;
       DWORD SidStart;
     } SYSTEM_ALARM_OBJECT_ACE,*PSYSTEM_ALARM_OBJECT_ACE;
 
-    typedef struct _ACCESS_ALLOWED_CALLBACK_ACE {
+    வகைவரை கட்டமைப்பு _ACCESS_ALLOWED_CALLBACK_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
 
     } ACCESS_ALLOWED_CALLBACK_ACE,*PACCESS_ALLOWED_CALLBACK_ACE;
 
-    typedef struct _ACCESS_DENIED_CALLBACK_ACE {
+    வகைவரை கட்டமைப்பு _ACCESS_DENIED_CALLBACK_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
 
     } ACCESS_DENIED_CALLBACK_ACE,*PACCESS_DENIED_CALLBACK_ACE;
 
-    typedef struct _SYSTEM_AUDIT_CALLBACK_ACE {
+    வகைவரை கட்டமைப்பு _SYSTEM_AUDIT_CALLBACK_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
 
     } SYSTEM_AUDIT_CALLBACK_ACE,*PSYSTEM_AUDIT_CALLBACK_ACE;
 
-    typedef struct _SYSTEM_ALARM_CALLBACK_ACE {
+    வகைவரை கட்டமைப்பு _SYSTEM_ALARM_CALLBACK_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD SidStart;
 
     } SYSTEM_ALARM_CALLBACK_ACE,*PSYSTEM_ALARM_CALLBACK_ACE;
 
-    typedef struct _ACCESS_ALLOWED_CALLBACK_OBJECT_ACE {
+    வகைவரை கட்டமைப்பு _ACCESS_ALLOWED_CALLBACK_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2577,7 +2577,7 @@ typedef DWORD LCID;
 
     } ACCESS_ALLOWED_CALLBACK_OBJECT_ACE,*PACCESS_ALLOWED_CALLBACK_OBJECT_ACE;
 
-    typedef struct _ACCESS_DENIED_CALLBACK_OBJECT_ACE {
+    வகைவரை கட்டமைப்பு _ACCESS_DENIED_CALLBACK_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2587,7 +2587,7 @@ typedef DWORD LCID;
 
     } ACCESS_DENIED_CALLBACK_OBJECT_ACE,*PACCESS_DENIED_CALLBACK_OBJECT_ACE;
 
-    typedef struct _SYSTEM_AUDIT_CALLBACK_OBJECT_ACE {
+    வகைவரை கட்டமைப்பு _SYSTEM_AUDIT_CALLBACK_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2597,7 +2597,7 @@ typedef DWORD LCID;
 
     } SYSTEM_AUDIT_CALLBACK_OBJECT_ACE,*PSYSTEM_AUDIT_CALLBACK_OBJECT_ACE;
 
-    typedef struct _SYSTEM_ALARM_CALLBACK_OBJECT_ACE {
+    வகைவரை கட்டமைப்பு _SYSTEM_ALARM_CALLBACK_OBJECT_ACE {
       ACE_HEADER Header;
       ACCESS_MASK Mask;
       DWORD Flags;
@@ -2610,28 +2610,28 @@ typedef DWORD LCID;
 #define ACE_OBJECT_TYPE_PRESENT 0x1
 #define ACE_INHERITED_OBJECT_TYPE_PRESENT 0x2
 
-    typedef enum _ACL_INFORMATION_CLASS {
+    வகைவரை எண்ணிக்கை _ACL_INFORMATION_CLASS {
       AclRevisionInformation = 1,AclSizeInformation
     } ACL_INFORMATION_CLASS;
 
-    typedef struct _ACL_REVISION_INFORMATION {
+    வகைவரை கட்டமைப்பு _ACL_REVISION_INFORMATION {
       DWORD AclRevision;
     } ACL_REVISION_INFORMATION;
-    typedef ACL_REVISION_INFORMATION *PACL_REVISION_INFORMATION;
+    வகைவரை ACL_REVISION_INFORMATION *PACL_REVISION_INFORMATION;
 
-    typedef struct _ACL_SIZE_INFORMATION {
-      DWORD AceCount;
+    வகைவரை கட்டமைப்பு _ACL_SIZE_INFORMATION {
+      DWORD Ace_மொத்தம்;
       DWORD AclBytesInUse;
       DWORD AclBytesFree;
     } ACL_SIZE_INFORMATION;
-    typedef ACL_SIZE_INFORMATION *PACL_SIZE_INFORMATION;
+    வகைவரை ACL_SIZE_INFORMATION *PACL_SIZE_INFORMATION;
 
 #define SECURITY_DESCRIPTOR_REVISION (1)
 #define SECURITY_DESCRIPTOR_REVISION1 (1)
 
-#define SECURITY_DESCRIPTOR_MIN_LENGTH (sizeof(SECURITY_DESCRIPTOR))
+#define SECURITY_DESCRIPTOR_MIN_LENGTH (அளவு(SECURITY_DESCRIPTOR))
 
-    typedef WORD SECURITY_DESCRIPTOR_CONTROL,*PSECURITY_DESCRIPTOR_CONTROL;
+    வகைவரை WORD SECURITY_DESCRIPTOR_CONTROL,*PSECURITY_DESCRIPTOR_CONTROL;
 
 #define SE_OWNER_DEFAULTED (0x0001)
 #define SE_GROUP_DEFAULTED (0x0002)
@@ -2648,7 +2648,7 @@ typedef DWORD LCID;
 #define SE_RM_CONTROL_VALID (0x4000)
 #define SE_SELF_RELATIVE (0x8000)
 
-    typedef struct _SECURITY_DESCRIPTOR_RELATIVE {
+    வகைவரை கட்டமைப்பு _SECURITY_DESCRIPTOR_RELATIVE {
       BYTE Revision;
       BYTE Sbz1;
       SECURITY_DESCRIPTOR_CONTROL Control;
@@ -2658,7 +2658,7 @@ typedef DWORD LCID;
       DWORD Dacl;
     } SECURITY_DESCRIPTOR_RELATIVE,*PISECURITY_DESCRIPTOR_RELATIVE;
 
-    typedef struct _SECURITY_DESCRIPTOR {
+    வகைவரை கட்டமைப்பு _SECURITY_DESCRIPTOR {
       BYTE Revision;
       BYTE Sbz1;
       SECURITY_DESCRIPTOR_CONTROL Control;
@@ -2669,7 +2669,7 @@ typedef DWORD LCID;
 
     } SECURITY_DESCRIPTOR,*PISECURITY_DESCRIPTOR;
 
-    typedef struct _OBJECT_TYPE_LIST {
+    வகைவரை கட்டமைப்பு _OBJECT_TYPE_LIST {
       WORD Level;
       WORD Sbz;
       GUID *ObjectType;
@@ -2681,7 +2681,7 @@ typedef DWORD LCID;
 
 #define ACCESS_MAX_LEVEL 4
 
-    typedef enum _AUDIT_EVENT_TYPE {
+    வகைவரை எண்ணிக்கை _AUDIT_EVENT_TYPE {
       AuditEventObjectAccess,AuditEventDirectoryServiceAccess
     } AUDIT_EVENT_TYPE,*PAUDIT_EVENT_TYPE;
 
@@ -2699,8 +2699,8 @@ typedef DWORD LCID;
 
 #define PRIVILEGE_SET_ALL_NECESSARY (1)
 
-    typedef struct _PRIVILEGE_SET {
-      DWORD PrivilegeCount;
+    வகைவரை கட்டமைப்பு _PRIVILEGE_SET {
+      DWORD Privilege_மொத்தம்;
       DWORD Control;
       LUID_AND_ATTRIBUTES Privilege[ANYSIZE_ARRAY];
     } PRIVILEGE_SET,*PPRIVILEGE_SET;
@@ -2709,7 +2709,7 @@ typedef DWORD LCID;
 #define SE_ASSIGNPRIMARYTOKEN_NAME TEXT("SeAssignPrimaryTokenPrivilege")
 #define SE_LOCK_MEMORY_NAME TEXT("SeLockMemoryPrivilege")
 #define SE_INCREASE_QUOTA_NAME TEXT("SeIncreaseQuotaPrivilege")
-#define SE_UNSOLICITED_INPUT_NAME TEXT("SeUnsolicitedInputPrivilege")
+#define SE_UNSOLICITED_உள்ளீடு_NAME TEXT("SeUnsolicitedInputPrivilege")
 #define SE_MACHINE_ACCOUNT_NAME TEXT("SeMachineAccountPrivilege")
 #define SE_TCB_NAME TEXT("SeTcbPrivilege")
 #define SE_SECURITY_NAME TEXT("SeSecurityPrivilege")
@@ -2736,7 +2736,7 @@ typedef DWORD LCID;
 #define SE_IMPERSONATE_NAME TEXT("SeImpersonatePrivilege")
 #define SE_CREATE_GLOBAL_NAME TEXT("SeCreateGlobalPrivilege")
 
-    typedef enum _SECURITY_IMPERSONATION_LEVEL {
+    வகைவரை எண்ணிக்கை _SECURITY_IMPERSONATION_LEVEL {
       SecurityAnonymous,SecurityIdentification,SecurityImpersonation,SecurityDelegation
     } SECURITY_IMPERSONATION_LEVEL,*PSECURITY_IMPERSONATION_LEVEL;
 
@@ -2763,51 +2763,51 @@ typedef DWORD LCID;
 
 #define TOKEN_EXECUTE (STANDARD_RIGHTS_EXECUTE)
 
-    typedef enum _TOKEN_TYPE {
+    வகைவரை எண்ணிக்கை _TOKEN_TYPE {
       TokenPrimary = 1,TokenImpersonation
     } TOKEN_TYPE;
-    typedef TOKEN_TYPE *PTOKEN_TYPE;
+    வகைவரை TOKEN_TYPE *PTOKEN_TYPE;
 
-    typedef enum _TOKEN_INFORMATION_CLASS {
+    வகைவரை எண்ணிக்கை _TOKEN_INFORMATION_CLASS {
       TokenUser = 1,TokenGroups,TokenPrivileges,TokenOwner,TokenPrimaryGroup,TokenDefaultDacl,TokenSource,TokenType,TokenImpersonationLevel,
       TokenStatistics,TokenRestrictedSids,TokenSessionId,TokenGroupsAndPrivileges,TokenSessionReference,TokenSandBoxInert,TokenAuditPolicy,
       TokenOrigin,MaxTokenInfoClass
     } TOKEN_INFORMATION_CLASS,*PTOKEN_INFORMATION_CLASS;
 
-    typedef struct _TOKEN_USER {
+    வகைவரை கட்டமைப்பு _TOKEN_USER {
       SID_AND_ATTRIBUTES User;
     } TOKEN_USER,*PTOKEN_USER;
 
-    typedef struct _TOKEN_GROUPS {
-      DWORD GroupCount;
+    வகைவரை கட்டமைப்பு _TOKEN_GROUPS {
+      DWORD Group_மொத்தம்;
       SID_AND_ATTRIBUTES Groups[ANYSIZE_ARRAY];
     } TOKEN_GROUPS,*PTOKEN_GROUPS;
 
-    typedef struct _TOKEN_PRIVILEGES {
-      DWORD PrivilegeCount;
+    வகைவரை கட்டமைப்பு _TOKEN_PRIVILEGES {
+      DWORD Privilege_மொத்தம்;
       LUID_AND_ATTRIBUTES Privileges[ANYSIZE_ARRAY];
     } TOKEN_PRIVILEGES,*PTOKEN_PRIVILEGES;
 
-    typedef struct _TOKEN_OWNER {
+    வகைவரை கட்டமைப்பு _TOKEN_OWNER {
       PSID Owner;
     } TOKEN_OWNER,*PTOKEN_OWNER;
 
-    typedef struct _TOKEN_PRIMARY_GROUP {
+    வகைவரை கட்டமைப்பு _TOKEN_PRIMARY_GROUP {
       PSID PrimaryGroup;
     } TOKEN_PRIMARY_GROUP,*PTOKEN_PRIMARY_GROUP;
 
-    typedef struct _TOKEN_DEFAULT_DACL {
+    வகைவரை கட்டமைப்பு _TOKEN_DEFAULT_DACL {
       PACL DefaultDacl;
     } TOKEN_DEFAULT_DACL,*PTOKEN_DEFAULT_DACL;
 
-    typedef struct _TOKEN_GROUPS_AND_PRIVILEGES {
-      DWORD SidCount;
+    வகைவரை கட்டமைப்பு _TOKEN_GROUPS_AND_PRIVILEGES {
+      DWORD Sid_மொத்தம்;
       DWORD SidLength;
       PSID_AND_ATTRIBUTES Sids;
-      DWORD RestrictedSidCount;
+      DWORD Restricted_Sid_மொத்தம்;
       DWORD RestrictedSidLength;
       PSID_AND_ATTRIBUTES RestrictedSids;
-      DWORD PrivilegeCount;
+      DWORD Privilege_மொத்தம்;
       DWORD PrivilegeLength;
       PLUID_AND_ATTRIBUTES Privileges;
       LUID AuthenticationId;
@@ -2821,27 +2821,27 @@ typedef DWORD LCID;
 #define VALID_AUDIT_POLICY_BITS (TOKEN_AUDIT_SUCCESS_INCLUDE | TOKEN_AUDIT_SUCCESS_EXCLUDE | TOKEN_AUDIT_FAILURE_INCLUDE | TOKEN_AUDIT_FAILURE_EXCLUDE)
 #define VALID_TOKEN_AUDIT_POLICY_ELEMENT(P) ((((P).PolicyMask & ~VALID_AUDIT_POLICY_BITS)==0) && ((P).Category <= AuditEventMaxType))
 
-    typedef struct _TOKEN_AUDIT_POLICY_ELEMENT {
+    வகைவரை கட்டமைப்பு _TOKEN_AUDIT_POLICY_ELEMENT {
       DWORD Category;
       DWORD PolicyMask;
     } TOKEN_AUDIT_POLICY_ELEMENT,*PTOKEN_AUDIT_POLICY_ELEMENT;
 
-    typedef struct _TOKEN_AUDIT_POLICY {
-      DWORD PolicyCount;
+    வகைவரை கட்டமைப்பு _TOKEN_AUDIT_POLICY {
+      DWORD Policy_மொத்தம்;
       TOKEN_AUDIT_POLICY_ELEMENT Policy[ANYSIZE_ARRAY];
     } TOKEN_AUDIT_POLICY,*PTOKEN_AUDIT_POLICY;
 
-#define PER_USER_AUDITING_POLICY_SIZE(p) (sizeof(TOKEN_AUDIT_POLICY) + (((p)->PolicyCount > ANYSIZE_ARRAY) ? (sizeof(TOKEN_AUDIT_POLICY_ELEMENT) *((p)->PolicyCount - ANYSIZE_ARRAY)) : 0))
-#define PER_USER_AUDITING_POLICY_SIZE_BY_COUNT(C) (sizeof(TOKEN_AUDIT_POLICY) + (((C) > ANYSIZE_ARRAY) ? (sizeof(TOKEN_AUDIT_POLICY_ELEMENT) *((C) - ANYSIZE_ARRAY)) : 0))
+#define PER_USER_AUDITING_POLICY_SIZE(p) (அளவு(TOKEN_AUDIT_POLICY) + (((p)->Policy_மொத்தம் > ANYSIZE_ARRAY) ? (அளவு(TOKEN_AUDIT_POLICY_ELEMENT) *((p)->Policy_மொத்தம் - ANYSIZE_ARRAY)) : 0))
+#define PER_USER_AUDITING_POLICY_SIZE_BY_மொத்தம்(C) (அளவு(TOKEN_AUDIT_POLICY) + (((C) > ANYSIZE_ARRAY) ? (அளவு(TOKEN_AUDIT_POLICY_ELEMENT) *((C) - ANYSIZE_ARRAY)) : 0))
 
 #define TOKEN_SOURCE_LENGTH 8
 
-    typedef struct _TOKEN_SOURCE {
+    வகைவரை கட்டமைப்பு _TOKEN_SOURCE {
       CHAR SourceName[TOKEN_SOURCE_LENGTH];
       LUID SourceIdentifier;
     } TOKEN_SOURCE,*PTOKEN_SOURCE;
 
-    typedef struct _TOKEN_STATISTICS {
+    வகைவரை கட்டமைப்பு _TOKEN_STATISTICS {
       LUID TokenId;
       LUID AuthenticationId;
       LARGE_INTEGER ExpirationTime;
@@ -2849,35 +2849,35 @@ typedef DWORD LCID;
       SECURITY_IMPERSONATION_LEVEL ImpersonationLevel;
       DWORD DynamicCharged;
       DWORD DynamicAvailable;
-      DWORD GroupCount;
-      DWORD PrivilegeCount;
+      DWORD Group_மொத்தம்;
+      DWORD Privilege_மொத்தம்;
       LUID ModifiedId;
     } TOKEN_STATISTICS,*PTOKEN_STATISTICS;
 
-    typedef struct _TOKEN_CONTROL {
+    வகைவரை கட்டமைப்பு _TOKEN_CONTROL {
       LUID TokenId;
       LUID AuthenticationId;
       LUID ModifiedId;
       TOKEN_SOURCE TokenSource;
     } TOKEN_CONTROL,*PTOKEN_CONTROL;
 
-    typedef struct _TOKEN_ORIGIN {
+    வகைவரை கட்டமைப்பு _TOKEN_ORIGIN {
       LUID OriginatingLogonSession;
     } TOKEN_ORIGIN,*PTOKEN_ORIGIN;
 
 #define SECURITY_DYNAMIC_TRACKING (TRUE)
 #define SECURITY_STATIC_TRACKING (FALSE)
 
-    typedef BOOLEAN SECURITY_CONTEXT_TRACKING_MODE,*PSECURITY_CONTEXT_TRACKING_MODE;
+    வகைவரை BOOLEAN SECURITY_CONTEXT_TRACKING_MODE,*PSECURITY_CONTEXT_TRACKING_MODE;
 
-    typedef struct _SECURITY_QUALITY_OF_SERVICE {
+    வகைவரை கட்டமைப்பு _SECURITY_QUALITY_OF_SERVICE {
       DWORD Length;
       SECURITY_IMPERSONATION_LEVEL ImpersonationLevel;
       SECURITY_CONTEXT_TRACKING_MODE ContextTrackingMode;
       BOOLEAN EffectiveOnly;
     } SECURITY_QUALITY_OF_SERVICE,*PSECURITY_QUALITY_OF_SERVICE;
 
-    typedef struct _SE_IMPERSONATION_STATE {
+    வகைவரை கட்டமைப்பு _SE_IMPERSONATION_STATE {
       PACCESS_TOKEN Token;
       BOOLEAN CopyOnOpen;
       BOOLEAN EffectiveOnly;
@@ -2887,7 +2887,7 @@ typedef DWORD LCID;
 #define DISABLE_MAX_PRIVILEGE 0x1
 #define SANDBOX_INERT 0x2
 
-    typedef DWORD SECURITY_INFORMATION,*PSECURITY_INFORMATION;
+    வகைவரை DWORD SECURITY_INFORMATION,*PSECURITY_INFORMATION;
 
 #define OWNER_SECURITY_INFORMATION (0x00000001L)
 #define GROUP_SECURITY_INFORMATION (0x00000002L)
@@ -2917,7 +2917,7 @@ typedef DWORD LCID;
 
 #ifdef _WIN64
 #define MAXIMUM_PROCESSORS 64
-#else
+#இல்லையெனில்
 #define MAXIMUM_PROCESSORS 32
 #endif
 
@@ -2940,7 +2940,7 @@ typedef DWORD LCID;
 #define JOB_OBJECT_SET_SECURITY_ATTRIBUTES (0x0010)
 #define JOB_OBJECT_ALL_ACCESS (STANDARD_RIGHTS_REQUIRED | SYNCHRONIZE | 0x1F)
 
-    typedef struct _JOB_SET_ARRAY {
+    வகைவரை கட்டமைப்பு _JOB_SET_ARRAY {
       HANDLE JobHandle;
       DWORD MemberLevel;
       DWORD Flags;
@@ -2951,27 +2951,27 @@ typedef DWORD LCID;
 
 #ifndef _NT_TIB_DEFINED
 #define _NT_TIB_DEFINED
-    typedef struct _NT_TIB {
-      struct _EXCEPTION_REGISTRATION_RECORD *ExceptionList;
-      PVOID StackBase;
-      PVOID StackLimit;
+    வகைவரை கட்டமைப்பு _NT_TIB {
+      கட்டமைப்பு _EXCEPTION_REGISTRATION_RECORD *ExceptionList;
+      PVOID அடுக்கு_Base;
+      PVOID அடுக்கு_Limit;
       PVOID SubSystemTib;
-      union {
+      ஒன்றிப்பு {
 	PVOID FiberData;
 	DWORD Version;
       };
       PVOID ArbitraryUserPointer;
-      struct _NT_TIB *Self;
+      கட்டமைப்பு _NT_TIB *Self;
     } NT_TIB;
-    typedef NT_TIB *PNT_TIB;
+    வகைவரை NT_TIB *PNT_TIB;
 #endif
 
-    typedef struct _NT_TIB32 {
+    வகைவரை கட்டமைப்பு _NT_TIB32 {
       DWORD ExceptionList;
-      DWORD StackBase;
-      DWORD StackLimit;
+      DWORD அடுக்கு_Base;
+      DWORD அடுக்கு_Limit;
       DWORD SubSystemTib;
-      union {
+      ஒன்றிப்பு {
 	DWORD FiberData;
 	DWORD Version;
       };
@@ -2979,12 +2979,12 @@ typedef DWORD LCID;
       DWORD Self;
     } NT_TIB32,*PNT_TIB32;
 
-    typedef struct _NT_TIB64 {
+    வகைவரை கட்டமைப்பு _NT_TIB64 {
       DWORD64 ExceptionList;
-      DWORD64 StackBase;
-      DWORD64 StackLimit;
+      DWORD64 அடுக்கு_Base;
+      DWORD64 அடுக்கு_Limit;
       DWORD64 SubSystemTib;
-      union {
+      ஒன்றிப்பு {
 	DWORD64 FiberData;
 	DWORD Version;
       };
@@ -2992,7 +2992,7 @@ typedef DWORD LCID;
       DWORD64 Self;
     } NT_TIB64,*PNT_TIB64;
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_)
+#எனில் !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_)
 #define WX86
 #endif
 
@@ -3001,7 +3001,7 @@ typedef DWORD LCID;
 #define THREAD_BASE_PRIORITY_MIN (-2)
 #define THREAD_BASE_PRIORITY_IDLE (-15)
 
-    typedef struct _QUOTA_LIMITS {
+    வகைவரை கட்டமைப்பு _QUOTA_LIMITS {
       SIZE_T PagedPoolLimit;
       SIZE_T NonPagedPoolLimit;
       SIZE_T MinimumWorkingSetSize;
@@ -3015,7 +3015,7 @@ typedef DWORD LCID;
 #define QUOTA_LIMITS_HARDWS_MAX_ENABLE 0x00000004
 #define QUOTA_LIMITS_HARDWS_MAX_DISABLE 0x00000008
 
-    typedef struct _QUOTA_LIMITS_EX {
+    வகைவரை கட்டமைப்பு _QUOTA_LIMITS_EX {
       SIZE_T PagedPoolLimit;
       SIZE_T NonPagedPoolLimit;
       SIZE_T MinimumWorkingSetSize;
@@ -3030,28 +3030,28 @@ typedef DWORD LCID;
       DWORD Reserved5;
     } QUOTA_LIMITS_EX,*PQUOTA_LIMITS_EX;
 
-    typedef struct _IO_COUNTERS {
-      ULONGLONG ReadOperationCount;
-      ULONGLONG WriteOperationCount;
-      ULONGLONG OtherOperationCount;
-      ULONGLONG ReadTransferCount;
-      ULONGLONG WriteTransferCount;
-      ULONGLONG OtherTransferCount;
+    வகைவரை கட்டமைப்பு _IO_COUNTERS {
+      ULONGLONG Read_Operation_மொத்தம்;
+      ULONGLONG Write_Operation_மொத்தம்;
+      ULONGLONG Other_Operation_மொத்தம்;
+      ULONGLONG Read_Transfer_மொத்தம்;
+      ULONGLONG Write_Transfer_மொத்தம்;
+      ULONGLONG Other_Transfer_மொத்தம்;
     } IO_COUNTERS;
-    typedef IO_COUNTERS *PIO_COUNTERS;
+    வகைவரை IO_COUNTERS *PIO_COUNTERS;
 
-    typedef struct _JOBOBJECT_BASIC_ACCOUNTING_INFORMATION {
+    வகைவரை கட்டமைப்பு _JOBOBJECT_BASIC_ACCOUNTING_INFORMATION {
       LARGE_INTEGER TotalUserTime;
       LARGE_INTEGER TotalKernelTime;
       LARGE_INTEGER ThisPeriodTotalUserTime;
       LARGE_INTEGER ThisPeriodTotalKernelTime;
-      DWORD TotalPageFaultCount;
+      DWORD Total_Page_Fault_மொத்தம்;
       DWORD TotalProcesses;
       DWORD ActiveProcesses;
       DWORD TotalTerminatedProcesses;
     } JOBOBJECT_BASIC_ACCOUNTING_INFORMATION,*PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION;
 
-    typedef struct _JOBOBJECT_BASIC_LIMIT_INFORMATION {
+    வகைவரை கட்டமைப்பு _JOBOBJECT_BASIC_LIMIT_INFORMATION {
       LARGE_INTEGER PerProcessUserTimeLimit;
       LARGE_INTEGER PerJobUserTimeLimit;
       DWORD LimitFlags;
@@ -3063,7 +3063,7 @@ typedef DWORD LCID;
       DWORD SchedulingClass;
     } JOBOBJECT_BASIC_LIMIT_INFORMATION,*PJOBOBJECT_BASIC_LIMIT_INFORMATION;
 
-    typedef struct _JOBOBJECT_EXTENDED_LIMIT_INFORMATION {
+    வகைவரை கட்டமைப்பு _JOBOBJECT_EXTENDED_LIMIT_INFORMATION {
       JOBOBJECT_BASIC_LIMIT_INFORMATION BasicLimitInformation;
       IO_COUNTERS IoInfo;
       SIZE_T ProcessMemoryLimit;
@@ -3072,17 +3072,17 @@ typedef DWORD LCID;
       SIZE_T PeakJobMemoryUsed;
     } JOBOBJECT_EXTENDED_LIMIT_INFORMATION,*PJOBOBJECT_EXTENDED_LIMIT_INFORMATION;
 
-    typedef struct _JOBOBJECT_BASIC_PROCESS_ID_LIST {
-      DWORD NumberOfAssignedProcesses;
-      DWORD NumberOfProcessIdsInList;
+    வகைவரை கட்டமைப்பு _JOBOBJECT_BASIC_PROCESS_ID_LIST {
+      DWORD எண்_Of_Assigned_Processes;
+      DWORD எண்_Of_Process_Ids_In_List;
       ULONG_PTR ProcessIdList[1];
     } JOBOBJECT_BASIC_PROCESS_ID_LIST,*PJOBOBJECT_BASIC_PROCESS_ID_LIST;
 
-    typedef struct _JOBOBJECT_BASIC_UI_RESTRICTIONS {
+    வகைவரை கட்டமைப்பு _JOBOBJECT_BASIC_UI_RESTRICTIONS {
       DWORD UIRestrictionsClass;
     } JOBOBJECT_BASIC_UI_RESTRICTIONS,*PJOBOBJECT_BASIC_UI_RESTRICTIONS;
 
-    typedef struct _JOBOBJECT_SECURITY_LIMIT_INFORMATION {
+    வகைவரை கட்டமைப்பு _JOBOBJECT_SECURITY_LIMIT_INFORMATION {
       DWORD SecurityLimitFlags;
       HANDLE JobToken;
       PTOKEN_GROUPS SidsToDisable;
@@ -3090,36 +3090,36 @@ typedef DWORD LCID;
       PTOKEN_GROUPS RestrictedSids;
     } JOBOBJECT_SECURITY_LIMIT_INFORMATION,*PJOBOBJECT_SECURITY_LIMIT_INFORMATION;
 
-    typedef struct _JOBOBJECT_END_OF_JOB_TIME_INFORMATION {
+    வகைவரை கட்டமைப்பு _JOBOBJECT_END_OF_JOB_TIME_INFORMATION {
       DWORD EndOfJobTimeAction;
     } JOBOBJECT_END_OF_JOB_TIME_INFORMATION,*PJOBOBJECT_END_OF_JOB_TIME_INFORMATION;
 
-    typedef struct _JOBOBJECT_ASSOCIATE_COMPLETION_PORT {
-      PVOID CompletionKey;
+    வகைவரை கட்டமைப்பு _JOBOBJECT_ASSOCIATE_COMPLETION_PORT {
+      PVOID Completion_சாவி;
       HANDLE CompletionPort;
     } JOBOBJECT_ASSOCIATE_COMPLETION_PORT,*PJOBOBJECT_ASSOCIATE_COMPLETION_PORT;
 
-    typedef struct _JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION {
+    வகைவரை கட்டமைப்பு _JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION {
       JOBOBJECT_BASIC_ACCOUNTING_INFORMATION BasicInfo;
       IO_COUNTERS IoInfo;
     } JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION,*PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION;
 
-    typedef struct _JOBOBJECT_JOBSET_INFORMATION {
+    வகைவரை கட்டமைப்பு _JOBOBJECT_JOBSET_INFORMATION {
       DWORD MemberLevel;
     } JOBOBJECT_JOBSET_INFORMATION,*PJOBOBJECT_JOBSET_INFORMATION;
 
 #define JOB_OBJECT_TERMINATE_AT_END_OF_JOB 0
 #define JOB_OBJECT_POST_AT_END_OF_JOB 1
 
-#define JOB_OBJECT_MSG_END_OF_JOB_TIME 1
-#define JOB_OBJECT_MSG_END_OF_PROCESS_TIME 2
-#define JOB_OBJECT_MSG_ACTIVE_PROCESS_LIMIT 3
-#define JOB_OBJECT_MSG_ACTIVE_PROCESS_ZERO 4
-#define JOB_OBJECT_MSG_NEW_PROCESS 6
-#define JOB_OBJECT_MSG_EXIT_PROCESS 7
-#define JOB_OBJECT_MSG_ABNORMAL_EXIT_PROCESS 8
-#define JOB_OBJECT_MSG_PROCESS_MEMORY_LIMIT 9
-#define JOB_OBJECT_MSG_JOB_MEMORY_LIMIT 10
+#define JOB_OBJECT_செய்தி_END_OF_JOB_TIME 1
+#define JOB_OBJECT_செய்தி_END_OF_PROCESS_TIME 2
+#define JOB_OBJECT_செய்தி_ACTIVE_PROCESS_LIMIT 3
+#define JOB_OBJECT_செய்தி_ACTIVE_PROCESS_ZERO 4
+#define JOB_OBJECT_செய்தி_NEW_PROCESS 6
+#define JOB_OBJECT_செய்தி_EXIT_PROCESS 7
+#define JOB_OBJECT_செய்தி_ABNORMAL_EXIT_PROCESS 8
+#define JOB_OBJECT_செய்தி_PROCESS_MEMORY_LIMIT 9
+#define JOB_OBJECT_செய்தி_JOB_MEMORY_LIMIT 10
 
 #define JOB_OBJECT_LIMIT_WORKINGSET 0x00000001
 #define JOB_OBJECT_LIMIT_PROCESS_TIME 0x00000002
@@ -3171,7 +3171,7 @@ typedef DWORD LCID;
 
 #define JOB_OBJECT_SECURITY_VALID_FLAGS 0x0000000f
 
-    typedef enum _JOBOBJECTINFOCLASS {
+    வகைவரை எண்ணிக்கை _JOBOBJECTINFOCLASS {
       JobObjectBasicAccountingInformation = 1,JobObjectBasicLimitInformation,JobObjectBasicProcessIdList,JobObjectBasicUIRestrictions,
       JobObjectSecurityLimitInformation,JobObjectEndOfJobTimeInformation,JobObjectAssociateCompletionPortInformation,
       JobObjectBasicAndIoAccountingInformation,JobObjectExtendedLimitInformation,JobObjectJobSetInformation,MaxJobObjectInfoClass
@@ -3195,36 +3195,36 @@ typedef DWORD LCID;
 #define TIME_ZONE_ID_STANDARD 1
 #define TIME_ZONE_ID_DAYLIGHT 2
 
-    typedef enum _LOGICAL_PROCESSOR_RELATIONSHIP {
-      RelationProcessorCore,RelationNumaNode,RelationCache
+    வகைவரை எண்ணிக்கை _LOGICAL_PROCESSOR_RELATIONSHIP {
+      RelationProcessorCore,Relation_Numa_முனை,RelationCache
     } LOGICAL_PROCESSOR_RELATIONSHIP;
 
 #define LTP_PC_SMT 0x1
 
-    typedef enum _PROCESSOR_CACHE_TYPE {
+    வகைவரை எண்ணிக்கை _PROCESSOR_CACHE_TYPE {
       CacheUnified,CacheInstruction,CacheData,CacheTrace
     } PROCESSOR_CACHE_TYPE;
 
 #define CACHE_FULLY_ASSOCIATIVE 0xFF
 
-    typedef struct _CACHE_DESCRIPTOR {
+    வகைவரை கட்டமைப்பு _CACHE_DESCRIPTOR {
       BYTE Level;
       BYTE Associativity;
-      WORD LineSize;
+      WORD வரி_Size;
       DWORD Size;
       PROCESSOR_CACHE_TYPE Type;
     } CACHE_DESCRIPTOR,*PCACHE_DESCRIPTOR;
 
-    typedef struct _SYSTEM_LOGICAL_PROCESSOR_INFORMATION {
+    வகைவரை கட்டமைப்பு _SYSTEM_LOGICAL_PROCESSOR_INFORMATION {
       ULONG_PTR ProcessorMask;
       LOGICAL_PROCESSOR_RELATIONSHIP Relationship;
-      union {
-	struct {
+      ஒன்றிப்பு {
+	கட்டமைப்பு {
 	  BYTE Flags;
 	} ProcessorCore;
-	struct {
-	  DWORD NodeNumber;
-	} NumaNode;
+	கட்டமைப்பு {
+	  DWORD முனை_எண்;
+	} Numa_முனை;
 	CACHE_DESCRIPTOR Cache;
 	ULONGLONG Reserved[2];
       };
@@ -3282,7 +3282,7 @@ typedef DWORD LCID;
 #define PF_SSE_DAZ_MODE_AVAILABLE 11
 #define PF_NX_ENABLED 12
 
-    typedef struct _MEMORY_BASIC_INFORMATION {
+    வகைவரை கட்டமைப்பு _MEMORY_BASIC_INFORMATION {
       PVOID BaseAddress;
       PVOID AllocationBase;
       DWORD AllocationProtect;
@@ -3292,7 +3292,7 @@ typedef DWORD LCID;
       DWORD Type;
     } MEMORY_BASIC_INFORMATION,*PMEMORY_BASIC_INFORMATION;
 
-    typedef struct _MEMORY_BASIC_INFORMATION32 {
+    வகைவரை கட்டமைப்பு _MEMORY_BASIC_INFORMATION32 {
       DWORD BaseAddress;
       DWORD AllocationBase;
       DWORD AllocationProtect;
@@ -3302,7 +3302,7 @@ typedef DWORD LCID;
       DWORD Type;
     } MEMORY_BASIC_INFORMATION32,*PMEMORY_BASIC_INFORMATION32;
 
-    typedef struct DECLSPEC_ALIGN(16) _MEMORY_BASIC_INFORMATION64 {
+    வகைவரை கட்டமைப்பு DECLSPEC_ALIGN(16) _MEMORY_BASIC_INFORMATION64 {
       ULONGLONG BaseAddress;
       ULONGLONG AllocationBase;
       DWORD AllocationProtect;
@@ -3341,7 +3341,7 @@ typedef DWORD LCID;
 #define MEM_PRIVATE 0x20000
 #define MEM_MAPPED 0x40000
 #define MEM_RESET 0x80000
-#define MEM_TOP_DOWN 0x100000
+#define MEM_உச்சி_DOWN 0x100000
 #define MEM_WRITE_WATCH 0x200000
 #define MEM_PHYSICAL 0x400000
 #define MEM_LARGE_PAGES 0x20000000
@@ -3415,7 +3415,7 @@ typedef DWORD LCID;
 #define FILE_ACTION_RENAMED_NEW_NAME 0x00000005
 #define MAILSLOT_NO_MESSAGE ((DWORD)-1)
 #define MAILSLOT_WAIT_FOREVER ((DWORD)-1)
-#define FILE_CASE_SENSITIVE_SEARCH 0x00000001
+#define FILE_CASE_SENSITIVE_தேடல் 0x00000001
 #define FILE_CASE_PRESERVED_NAMES 0x00000002
 #define FILE_UNICODE_ON_DISK 0x00000004
 #define FILE_PERSISTENT_ACLS 0x00000008
@@ -3430,24 +3430,24 @@ typedef DWORD LCID;
 #define FILE_NAMED_STREAMS 0x00040000
 #define FILE_READ_ONLY_VOLUME 0x00080000
 
-    typedef struct _FILE_NOTIFY_INFORMATION {
+    வகைவரை கட்டமைப்பு _FILE_NOTIFY_INFORMATION {
       DWORD NextEntryOffset;
       DWORD Action;
       DWORD FileNameLength;
       WCHAR FileName[1];
     } FILE_NOTIFY_INFORMATION,*PFILE_NOTIFY_INFORMATION;
 
-    typedef union _FILE_SEGMENT_ELEMENT {
+    வகைவரை ஒன்றிப்பு _FILE_SEGMENT_ELEMENT {
       PVOID64 Buffer;
       ULONGLONG Alignment;
     }FILE_SEGMENT_ELEMENT,*PFILE_SEGMENT_ELEMENT;
 
-    typedef struct _REPARSE_GUID_DATA_BUFFER {
+    வகைவரை கட்டமைப்பு _REPARSE_GUID_DATA_BUFFER {
       DWORD ReparseTag;
       WORD ReparseDataLength;
       WORD Reserved;
       GUID ReparseGuid;
-      struct {
+      கட்டமைப்பு {
 	BYTE DataBuffer[1];
       } GenericReparseBuffer;
     } REPARSE_GUID_DATA_BUFFER,*PREPARSE_GUID_DATA_BUFFER;
@@ -3474,17 +3474,17 @@ typedef DWORD LCID;
 #define DUPLICATE_CLOSE_SOURCE 0x00000001
 #define DUPLICATE_SAME_ACCESS 0x00000002
 
-    typedef enum _SYSTEM_POWER_STATE {
+    வகைவரை எண்ணிக்கை _SYSTEM_POWER_STATE {
       PowerSystemUnspecified = 0,PowerSystemWorking = 1,PowerSystemSleeping1 = 2,PowerSystemSleeping2 = 3,PowerSystemSleeping3 = 4,PowerSystemHibernate = 5,PowerSystemShutdown = 6,PowerSystemMaximum = 7
     } SYSTEM_POWER_STATE,*PSYSTEM_POWER_STATE;
 
 #define POWER_SYSTEM_MAXIMUM 7
 
-    typedef enum {
+    வகைவரை எண்ணிக்கை {
       PowerActionNone = 0,PowerActionReserved,PowerActionSleep,PowerActionHibernate,PowerActionShutdown,PowerActionShutdownReset,PowerActionShutdownOff,PowerActionWarmEject
     } POWER_ACTION,*PPOWER_ACTION;
 
-    typedef enum _DEVICE_POWER_STATE {
+    வகைவரை எண்ணிக்கை _DEVICE_POWER_STATE {
       PowerDeviceUnspecified = 0,PowerDeviceD0,PowerDeviceD1,PowerDeviceD2,PowerDeviceD3,PowerDeviceMaximum
     } DEVICE_POWER_STATE,*PDEVICE_POWER_STATE;
 
@@ -3493,9 +3493,9 @@ typedef DWORD LCID;
 #define ES_USER_PRESENT ((DWORD)0x00000004)
 #define ES_CONTINUOUS ((DWORD)0x80000000)
 
-    typedef DWORD EXECUTION_STATE;
+    வகைவரை DWORD EXECUTION_STATE;
 
-    typedef enum {
+    வகைவரை எண்ணிக்கை {
       LT_DONT_CARE,LT_LOWEST_LATENCY
     } LATENCY_TIME;
 
@@ -3509,7 +3509,7 @@ typedef DWORD LCID;
 #define PDCAP_WAKE_FROM_D3_SUPPORTED 0x00000080
 #define PDCAP_WARM_EJECT_SUPPORTED 0x00000100
 
-    typedef struct CM_Power_Data_s {
+    வகைவரை கட்டமைப்பு CM_Power_Data_s {
       DWORD PD_Size;
       DEVICE_POWER_STATE PD_MostRecentPowerState;
       DWORD PD_Capabilities;
@@ -3520,16 +3520,16 @@ typedef DWORD LCID;
       SYSTEM_POWER_STATE PD_DeepestSystemWake;
     } CM_POWER_DATA,*PCM_POWER_DATA;
 
-    typedef enum {
+    வகைவரை எண்ணிக்கை {
       SystemPowerPolicyAc,SystemPowerPolicyDc,VerifySystemPolicyAc,VerifySystemPolicyDc,SystemPowerCapabilities,SystemBatteryState,SystemPowerStateHandler,ProcessorStateHandler,SystemPowerPolicyCurrent,AdministratorPowerPolicy,SystemReserveHiberFile,ProcessorInformation,SystemPowerInformation,ProcessorStateHandler2,LastWakeTime,LastSleepTime,SystemExecutionState,SystemPowerStateNotifyHandler,ProcessorPowerPolicyAc,ProcessorPowerPolicyDc,VerifyProcessorPowerPolicyAc,VerifyProcessorPowerPolicyDc,ProcessorPowerPolicyCurrent,SystemPowerStateLogging,SystemPowerLoggingEntry
     } POWER_INFORMATION_LEVEL;
 
-    typedef struct {
+    வகைவரை கட்டமைப்பு {
       DWORD Granularity;
       DWORD Capacity;
     } BATTERY_REPORTING_SCALE,*PBATTERY_REPORTING_SCALE;
 
-    typedef struct {
+    வகைவரை கட்டமைப்பு {
       POWER_ACTION Action;
       DWORD Flags;
       DWORD EventCode;
@@ -3550,7 +3550,7 @@ typedef DWORD LCID;
 #define POWER_USER_NOTIFY_SHUTDOWN 0x00000010
 #define POWER_FORCE_TRIGGER_RESET 0x80000000
 
-    typedef struct {
+    வகைவரை கட்டமைப்பு {
       BOOLEAN Enable;
       BYTE Spare[3];
       DWORD BatteryLevel;
@@ -3558,9 +3558,9 @@ typedef DWORD LCID;
       SYSTEM_POWER_STATE MinSystemState;
     } SYSTEM_POWER_LEVEL,*PSYSTEM_POWER_LEVEL;
 
-#define NUM_DISCHARGE_POLICIES 4
+#define இலக்கம்_DISCHARGE_POLICIES 4
 #define DISCHARGE_POLICY_CRITICAL 0
-#define DISCHARGE_POLICY_LOW 1
+#define DISCHARGE_POLICY_கீழ் 1
 
 #define PO_THROTTLE_NONE 0
 #define PO_THROTTLE_CONSTANT 1
@@ -3568,7 +3568,7 @@ typedef DWORD LCID;
 #define PO_THROTTLE_ADAPTIVE 3
 #define PO_THROTTLE_MAXIMUM 4
 
-    typedef struct _SYSTEM_POWER_POLICY {
+    வகைவரை கட்டமைப்பு _SYSTEM_POWER_POLICY {
       DWORD Revision;
       POWER_ACTION_POLICY PowerButton;
       POWER_ACTION_POLICY SleepButton;
@@ -3587,7 +3587,7 @@ typedef DWORD LCID;
       DWORD Spare3;
       DWORD DozeS4Timeout;
       DWORD BroadcastCapacityResolution;
-      SYSTEM_POWER_LEVEL DischargePolicy[NUM_DISCHARGE_POLICIES];
+      SYSTEM_POWER_LEVEL DischargePolicy[இலக்கம்_DISCHARGE_POLICIES];
       DWORD VideoTimeout;
       BOOLEAN VideoDimDisplay;
       DWORD VideoReserved[3];
@@ -3599,7 +3599,7 @@ typedef DWORD LCID;
       POWER_ACTION_POLICY OverThrottled;
     } SYSTEM_POWER_POLICY,*PSYSTEM_POWER_POLICY;
 
-    typedef struct _PROCESSOR_POWER_POLICY_INFO {
+    வகைவரை கட்டமைப்பு _PROCESSOR_POWER_POLICY_INFO {
       DWORD TimeCheck;
       DWORD DemoteLimit;
       DWORD PromoteLimit;
@@ -3611,17 +3611,17 @@ typedef DWORD LCID;
       DWORD Reserved:30;
     } PROCESSOR_POWER_POLICY_INFO,*PPROCESSOR_POWER_POLICY_INFO;
 
-    typedef struct _PROCESSOR_POWER_POLICY {
+    வகைவரை கட்டமைப்பு _PROCESSOR_POWER_POLICY {
       DWORD Revision;
       BYTE DynamicThrottle;
       BYTE Spare[3];
       DWORD DisableCStates:1;
       DWORD Reserved:31;
-      DWORD PolicyCount;
+      DWORD Policy_மொத்தம்;
       PROCESSOR_POWER_POLICY_INFO Policy[3];
     } PROCESSOR_POWER_POLICY,*PPROCESSOR_POWER_POLICY;
 
-    typedef struct _ADMINISTRATOR_POWER_POLICY {
+    வகைவரை கட்டமைப்பு _ADMINISTRATOR_POWER_POLICY {
       SYSTEM_POWER_STATE MinSleep;
       SYSTEM_POWER_STATE MaxSleep;
       DWORD MinVideoTimeout;
@@ -3630,7 +3630,7 @@ typedef DWORD LCID;
       DWORD MaxSpindownTimeout;
     } ADMINISTRATOR_POWER_POLICY,*PADMINISTRATOR_POWER_POLICY;
 
-    typedef struct {
+    வகைவரை கட்டமைப்பு {
       BOOLEAN PowerButtonPresent;
       BOOLEAN SleepButtonPresent;
       BOOLEAN LidPresent;
@@ -3654,15 +3654,15 @@ typedef DWORD LCID;
       BOOLEAN SystemBatteriesPresent;
       BOOLEAN BatteriesAreShortTerm;
       BATTERY_REPORTING_SCALE BatteryScale[3];
-      SYSTEM_POWER_STATE AcOnLineWake;
+      SYSTEM_POWER_STATE Ac_On_வரி_Wake;
       SYSTEM_POWER_STATE SoftLidWake;
       SYSTEM_POWER_STATE RtcWake;
       SYSTEM_POWER_STATE MinDeviceWakeState;
-      SYSTEM_POWER_STATE DefaultLowLatencyWake;
+      SYSTEM_POWER_STATE Default_கீழ்_Latency_Wake;
     } SYSTEM_POWER_CAPABILITIES,*PSYSTEM_POWER_CAPABILITIES;
 
-    typedef struct {
-      BOOLEAN AcOnLine;
+    வகைவரை கட்டமைப்பு {
+      BOOLEAN Ac_On_வரி;
       BOOLEAN BatteryPresent;
       BOOLEAN Charging;
       BOOLEAN Discharging;
@@ -3675,7 +3675,7 @@ typedef DWORD LCID;
       DWORD DefaultAlert2;
     } SYSTEM_BATTERY_STATE,*PSYSTEM_BATTERY_STATE;
 
-#include "pshpack4.h"
+#அந்தர்பாவ "pshpack4.h"
 
 #define IMAGE_DOS_SIGNATURE 0x5A4D
 #define IMAGE_OS2_SIGNATURE 0x454E
@@ -3683,9 +3683,9 @@ typedef DWORD LCID;
 #define IMAGE_VXD_SIGNATURE 0x454C
 #define IMAGE_NT_SIGNATURE 0x00004550
 
-#include "pshpack2.h"
+#அந்தர்பாவ "pshpack2.h"
 
-    typedef struct _IMAGE_DOS_HEADER {
+    வகைவரை கட்டமைப்பு _IMAGE_DOS_HEADER {
       WORD e_magic;
       WORD e_cblp;
       WORD e_cp;
@@ -3707,7 +3707,7 @@ typedef DWORD LCID;
       LONG e_lfanew;
     } IMAGE_DOS_HEADER,*PIMAGE_DOS_HEADER;
 
-    typedef struct _IMAGE_OS2_HEADER {
+    வகைவரை கட்டமைப்பு _IMAGE_OS2_HEADER {
       WORD ne_magic;
       CHAR ne_ver;
       CHAR ne_rev;
@@ -3717,7 +3717,7 @@ typedef DWORD LCID;
       WORD ne_flags;
       WORD ne_autodata;
       WORD ne_heap;
-      WORD ne_stack;
+      WORD ne_அடுக்கு;
       LONG ne_csip;
       LONG ne_sssp;
       WORD ne_cseg;
@@ -3740,7 +3740,7 @@ typedef DWORD LCID;
       WORD ne_expver;
     } IMAGE_OS2_HEADER,*PIMAGE_OS2_HEADER;
 
-    typedef struct _IMAGE_VXD_HEADER {
+    வகைவரை கட்டமைப்பு _IMAGE_VXD_HEADER {
       WORD e32_magic;
       BYTE e32_border;
       BYTE e32_worder;
@@ -3794,14 +3794,14 @@ typedef DWORD LCID;
       WORD e32_ddkver;
     } IMAGE_VXD_HEADER,*PIMAGE_VXD_HEADER;
 
-#include "poppack.h"
+#அந்தர்பாவ "poppack.h"
 
-    typedef struct _IMAGE_FILE_HEADER {
+    வகைவரை கட்டமைப்பு _IMAGE_FILE_HEADER {
       WORD Machine;
-      WORD NumberOfSections;
+      WORD எண்_Of_Sections;
       DWORD TimeDateStamp;
-      DWORD PointerToSymbolTable;
-      DWORD NumberOfSymbols;
+      DWORD Pointer_To_குறியீடு_Table;
+      DWORD எண்_Of_Symbols;
       WORD SizeOfOptionalHeader;
       WORD Characteristics;
     } IMAGE_FILE_HEADER,*PIMAGE_FILE_HEADER;
@@ -3810,7 +3810,7 @@ typedef DWORD LCID;
 
 #define IMAGE_FILE_RELOCS_STRIPPED 0x0001
 #define IMAGE_FILE_EXECUTABLE_IMAGE 0x0002
-#define IMAGE_FILE_LINE_NUMS_STRIPPED 0x0004
+#define IMAGE_FILE_வரி_NUMS_STRIPPED 0x0004
 #define IMAGE_FILE_LOCAL_SYMS_STRIPPED 0x0008
 #define IMAGE_FILE_AGGRESIVE_WS_TRIM 0x0010
 #define IMAGE_FILE_LARGE_ADDRESS_AWARE 0x0020
@@ -3855,14 +3855,14 @@ typedef DWORD LCID;
 #define IMAGE_FILE_MACHINE_M32R 0x9041
 #define IMAGE_FILE_MACHINE_CEE 0xC0EE
 
-    typedef struct _IMAGE_DATA_DIRECTORY {
+    வகைவரை கட்டமைப்பு _IMAGE_DATA_DIRECTORY {
       DWORD VirtualAddress;
       DWORD Size;
     } IMAGE_DATA_DIRECTORY,*PIMAGE_DATA_DIRECTORY;
 
 #define IMAGE_NUMBEROF_DIRECTORY_ENTRIES 16
 
-    typedef struct _IMAGE_OPTIONAL_HEADER {
+    வகைவரை கட்டமைப்பு _IMAGE_OPTIONAL_HEADER {
 
       WORD Magic;
       BYTE MajorLinkerVersion;
@@ -3882,22 +3882,22 @@ typedef DWORD LCID;
       WORD MinorImageVersion;
       WORD MajorSubsystemVersion;
       WORD MinorSubsystemVersion;
-      DWORD Win32VersionValue;
+      DWORD Win32_Version_மதிப்பு;
       DWORD SizeOfImage;
       DWORD SizeOfHeaders;
       DWORD CheckSum;
       WORD Subsystem;
       WORD DllCharacteristics;
-      DWORD SizeOfStackReserve;
-      DWORD SizeOfStackCommit;
+      DWORD Size_Of_அடுக்கு_Reserve;
+      DWORD Size_Of_அடுக்கு_Commit;
       DWORD SizeOfHeapReserve;
       DWORD SizeOfHeapCommit;
       DWORD LoaderFlags;
-      DWORD NumberOfRvaAndSizes;
+      DWORD எண்_Of_Rva_And_Sizes;
       IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
     } IMAGE_OPTIONAL_HEADER32,*PIMAGE_OPTIONAL_HEADER32;
 
-    typedef struct _IMAGE_ROM_OPTIONAL_HEADER {
+    வகைவரை கட்டமைப்பு _IMAGE_ROM_OPTIONAL_HEADER {
       WORD Magic;
       BYTE MajorLinkerVersion;
       BYTE MinorLinkerVersion;
@@ -3910,10 +3910,10 @@ typedef DWORD LCID;
       DWORD BaseOfBss;
       DWORD GprMask;
       DWORD CprMask[4];
-      DWORD GpValue;
+      DWORD Gp_மதிப்பு;
     } IMAGE_ROM_OPTIONAL_HEADER,*PIMAGE_ROM_OPTIONAL_HEADER;
 
-    typedef struct _IMAGE_OPTIONAL_HEADER64 {
+    வகைவரை கட்டமைப்பு _IMAGE_OPTIONAL_HEADER64 {
       WORD Magic;
       BYTE MajorLinkerVersion;
       BYTE MinorLinkerVersion;
@@ -3931,18 +3931,18 @@ typedef DWORD LCID;
       WORD MinorImageVersion;
       WORD MajorSubsystemVersion;
       WORD MinorSubsystemVersion;
-      DWORD Win32VersionValue;
+      DWORD Win32_Version_மதிப்பு;
       DWORD SizeOfImage;
       DWORD SizeOfHeaders;
       DWORD CheckSum;
       WORD Subsystem;
       WORD DllCharacteristics;
-      ULONGLONG SizeOfStackReserve;
-      ULONGLONG SizeOfStackCommit;
+      ULONGLONG Size_Of_அடுக்கு_Reserve;
+      ULONGLONG Size_Of_அடுக்கு_Commit;
       ULONGLONG SizeOfHeapReserve;
       ULONGLONG SizeOfHeapCommit;
       DWORD LoaderFlags;
-      DWORD NumberOfRvaAndSizes;
+      DWORD எண்_Of_Rva_And_Sizes;
       IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
     } IMAGE_OPTIONAL_HEADER64,*PIMAGE_OPTIONAL_HEADER64;
 
@@ -3956,40 +3956,40 @@ typedef DWORD LCID;
 #define IMAGE_ROM_OPTIONAL_HDR_MAGIC 0x107
 
 #ifdef _WIN64
-    typedef IMAGE_OPTIONAL_HEADER64 IMAGE_OPTIONAL_HEADER;
-    typedef PIMAGE_OPTIONAL_HEADER64 PIMAGE_OPTIONAL_HEADER;
+    வகைவரை IMAGE_OPTIONAL_HEADER64 IMAGE_OPTIONAL_HEADER;
+    வகைவரை PIMAGE_OPTIONAL_HEADER64 PIMAGE_OPTIONAL_HEADER;
 #define IMAGE_SIZEOF_NT_OPTIONAL_HEADER IMAGE_SIZEOF_NT_OPTIONAL64_HEADER
 #define IMAGE_NT_OPTIONAL_HDR_MAGIC IMAGE_NT_OPTIONAL_HDR64_MAGIC
-#else
-    typedef IMAGE_OPTIONAL_HEADER32 IMAGE_OPTIONAL_HEADER;
-    typedef PIMAGE_OPTIONAL_HEADER32 PIMAGE_OPTIONAL_HEADER;
+#இல்லையெனில்
+    வகைவரை IMAGE_OPTIONAL_HEADER32 IMAGE_OPTIONAL_HEADER;
+    வகைவரை PIMAGE_OPTIONAL_HEADER32 PIMAGE_OPTIONAL_HEADER;
 #define IMAGE_SIZEOF_NT_OPTIONAL_HEADER IMAGE_SIZEOF_NT_OPTIONAL32_HEADER
 #define IMAGE_NT_OPTIONAL_HDR_MAGIC IMAGE_NT_OPTIONAL_HDR32_MAGIC
 #endif
 
-    typedef struct _IMAGE_NT_HEADERS64 {
+    வகைவரை கட்டமைப்பு _IMAGE_NT_HEADERS64 {
       DWORD Signature;
       IMAGE_FILE_HEADER FileHeader;
       IMAGE_OPTIONAL_HEADER64 OptionalHeader;
     } IMAGE_NT_HEADERS64,*PIMAGE_NT_HEADERS64;
 
-    typedef struct _IMAGE_NT_HEADERS {
+    வகைவரை கட்டமைப்பு _IMAGE_NT_HEADERS {
       DWORD Signature;
       IMAGE_FILE_HEADER FileHeader;
       IMAGE_OPTIONAL_HEADER32 OptionalHeader;
     } IMAGE_NT_HEADERS32,*PIMAGE_NT_HEADERS32;
 
-    typedef struct _IMAGE_ROM_HEADERS {
+    வகைவரை கட்டமைப்பு _IMAGE_ROM_HEADERS {
       IMAGE_FILE_HEADER FileHeader;
       IMAGE_ROM_OPTIONAL_HEADER OptionalHeader;
     } IMAGE_ROM_HEADERS,*PIMAGE_ROM_HEADERS;
 
 #ifdef _WIN64
-    typedef IMAGE_NT_HEADERS64 IMAGE_NT_HEADERS;
-    typedef PIMAGE_NT_HEADERS64 PIMAGE_NT_HEADERS;
-#else
-    typedef IMAGE_NT_HEADERS32 IMAGE_NT_HEADERS;
-    typedef PIMAGE_NT_HEADERS32 PIMAGE_NT_HEADERS;
+    வகைவரை IMAGE_NT_HEADERS64 IMAGE_NT_HEADERS;
+    வகைவரை PIMAGE_NT_HEADERS64 PIMAGE_NT_HEADERS;
+#இல்லையெனில்
+    வகைவரை IMAGE_NT_HEADERS32 IMAGE_NT_HEADERS;
+    வகைவரை PIMAGE_NT_HEADERS32 PIMAGE_NT_HEADERS;
 #endif
 
 #define IMAGE_FIRST_SECTION(ntheader) ((PIMAGE_SECTION_HEADER) ((ULONG_PTR)ntheader + FIELD_OFFSET(IMAGE_NT_HEADERS,OptionalHeader) + ((PIMAGE_NT_HEADERS)(ntheader))->FileHeader.SizeOfOptionalHeader))
@@ -4008,7 +4008,7 @@ typedef DWORD LCID;
 #define IMAGE_SUBSYSTEM_EFI_ROM 13
 #define IMAGE_SUBSYSTEM_XBOX 14
 
-#define IMAGE_DLLCHARACTERISTICS_HIGH_ENTROPY_VA 0x0020
+#define IMAGE_DLLCHARACTERISTICS_உயர்வு_ENTROPY_VA 0x0020
 #define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 0x0040
 #define IMAGE_DLLCHARACTERISTICS_FORCE_INTEGRITY 0x0080
 #define IMAGE_DLLCHARACTERISTICS_NX_COMPAT 0x0100
@@ -4037,7 +4037,7 @@ typedef DWORD LCID;
 #define IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT 13
 #define IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR 14
 
-    typedef struct ANON_OBJECT_HEADER {
+    வகைவரை கட்டமைப்பு ANON_OBJECT_HEADER {
       WORD Sig1;
       WORD Sig2;
       WORD Version;
@@ -4049,9 +4049,9 @@ typedef DWORD LCID;
 
 #define IMAGE_SIZEOF_SHORT_NAME 8
 
-    typedef struct _IMAGE_SECTION_HEADER {
+    வகைவரை கட்டமைப்பு _IMAGE_SECTION_HEADER {
       BYTE Name[IMAGE_SIZEOF_SHORT_NAME];
-      union {
+      ஒன்றிப்பு {
 	DWORD PhysicalAddress;
 	DWORD VirtualSize;
       } Misc;
@@ -4060,8 +4060,8 @@ typedef DWORD LCID;
       DWORD PointerToRawData;
       DWORD PointerToRelocations;
       DWORD PointerToLinenumbers;
-      WORD NumberOfRelocations;
-      WORD NumberOfLinenumbers;
+      WORD எண்_Of_Relocations;
+      WORD எண்_Of_Linenumbers;
       DWORD Characteristics;
     } IMAGE_SECTION_HEADER,*PIMAGE_SECTION_HEADER;
 
@@ -4112,26 +4112,26 @@ typedef DWORD LCID;
 
 #define IMAGE_SCN_SCALE_INDEX 0x00000001
 
-#include "pshpack2.h"
+#அந்தர்பாவ "pshpack2.h"
 
-    typedef struct _IMAGE_SYMBOL {
-      union {
+    வகைவரை கட்டமைப்பு IMAGE_குறியீடு {
+      ஒன்றிப்பு {
 	BYTE ShortName[8];
-	struct {
+	கட்டமைப்பு {
 	  DWORD Short;
 	  DWORD Long;
 	} Name;
 	DWORD LongName[2];
       } N;
-      DWORD Value;
-      SHORT SectionNumber;
+      DWORD மதிப்பு_3;
+      SHORT Section_எண்;
       WORD Type;
       BYTE StorageClass;
-      BYTE NumberOfAuxSymbols;
-    } IMAGE_SYMBOL;
-    typedef IMAGE_SYMBOL UNALIGNED *PIMAGE_SYMBOL;
+      BYTE எண்_Of_Aux_Symbols;
+    } IMAGE_குறியீடு_2;
+    வகைவரை IMAGE_குறியீடு_2 UNALIGNED *PIMAGE_குறியீடு;
 
-#define IMAGE_SIZEOF_SYMBOL 18
+#define IMAGE_SIZEOF_குறியீடு 18
 
 #define IMAGE_SYM_UNDEFINED (SHORT)0
 #define IMAGE_SYM_ABSOLUTE (SHORT)-1
@@ -4222,59 +4222,59 @@ typedef DWORD LCID;
 #define DECREF(x) ((((x)>>N_TSHIFT)&~N_BTMASK)|((x)&N_BTMASK))
 #endif
 
-    typedef union _IMAGE_AUX_SYMBOL {
-      struct {
+    வகைவரை ஒன்றிப்பு IMAGE_AUX_குறியீடு {
+      கட்டமைப்பு {
 	DWORD TagIndex;
-	union {
-	  struct {
+	ஒன்றிப்பு {
+	  கட்டமைப்பு {
 	    WORD Linenumber;
 	    WORD Size;
 	  } LnSz;
 	  DWORD TotalSize;
 	} Misc;
-	union {
-	  struct {
+	ஒன்றிப்பு {
+	  கட்டமைப்பு {
 	    DWORD PointerToLinenumber;
 	    DWORD PointerToNextFunction;
 	  } Function;
-	  struct {
+	  கட்டமைப்பு {
 	    WORD Dimension[4];
 	  } Array;
 	} FcnAry;
 	WORD TvIndex;
       } Sym;
-      struct {
-	BYTE Name[IMAGE_SIZEOF_SYMBOL];
+      கட்டமைப்பு {
+	BYTE Name[IMAGE_SIZEOF_குறியீடு];
       } File;
-      struct {
+      கட்டமைப்பு {
 	DWORD Length;
-	WORD NumberOfRelocations;
-	WORD NumberOfLinenumbers;
+	WORD எண்_Of_Relocations;
+	WORD எண்_Of_Linenumbers;
 	DWORD CheckSum;
-	SHORT Number;
+	SHORT எண்_2;
 	BYTE Selection;
       } Section;
-    } IMAGE_AUX_SYMBOL;
-    typedef IMAGE_AUX_SYMBOL UNALIGNED *PIMAGE_AUX_SYMBOL;
+    } IMAGE_AUX_குறியீடு_2;
+    வகைவரை IMAGE_AUX_குறியீடு_2 UNALIGNED *PIMAGE_AUX_குறியீடு;
 
-#define IMAGE_SIZEOF_AUX_SYMBOL 18
+#define IMAGE_SIZEOF_AUX_குறியீடு 18
 
-    typedef enum IMAGE_AUX_SYMBOL_TYPE {
-      IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF = 1
-    } IMAGE_AUX_SYMBOL_TYPE;
+    வகைவரை எண்ணிக்கை IMAGE_AUX_குறியீடு_TYPE {
+      IMAGE_AUX_குறியீடு_TYPE_TOKEN_DEF = 1
+    } IMAGE_AUX_குறியீடு_TYPE;
 
-#include <pshpack2.h>
+#அந்தர்பாவ <pshpack2.h>
 
-    typedef struct IMAGE_AUX_SYMBOL_TOKEN_DEF {
+    வகைவரை கட்டமைப்பு IMAGE_AUX_குறியீடு_TOKEN_DEF {
       BYTE bAuxType;
       BYTE bReserved;
-      DWORD SymbolTableIndex;
+      DWORD குறியீடு_Table_Index;
       BYTE rgbReserved[12];
-    } IMAGE_AUX_SYMBOL_TOKEN_DEF;
+    } IMAGE_AUX_குறியீடு_TOKEN_DEF;
 
-    typedef IMAGE_AUX_SYMBOL_TOKEN_DEF UNALIGNED *PIMAGE_AUX_SYMBOL_TOKEN_DEF;
+    வகைவரை IMAGE_AUX_குறியீடு_TOKEN_DEF UNALIGNED *PIMAGE_AUX_குறியீடு_TOKEN_DEF;
 
-#include <poppack.h>
+#அந்தர்பாவ <poppack.h>
 
 #define IMAGE_COMDAT_SELECT_NODUPLICATES 1
 #define IMAGE_COMDAT_SELECT_ANY 2
@@ -4284,19 +4284,19 @@ typedef DWORD LCID;
 #define IMAGE_COMDAT_SELECT_LARGEST 6
 #define IMAGE_COMDAT_SELECT_NEWEST 7
 
-#define IMAGE_WEAK_EXTERN_SEARCH_NOLIBRARY 1
-#define IMAGE_WEAK_EXTERN_SEARCH_LIBRARY 2
-#define IMAGE_WEAK_EXTERN_SEARCH_ALIAS 3
+#define IMAGE_WEAK_EXTERN_தேடல்_NOLIBRARY 1
+#define IMAGE_WEAK_EXTERN_தேடல்_LIBRARY 2
+#define IMAGE_WEAK_EXTERN_தேடல்_ALIAS 3
 
-    typedef struct _IMAGE_RELOCATION {
-      union {
+    வகைவரை கட்டமைப்பு _IMAGE_RELOCATION {
+      ஒன்றிப்பு {
 	DWORD VirtualAddress;
-	DWORD RelocCount;
+	DWORD Reloc_மொத்தம்;
       };
-      DWORD SymbolTableIndex;
+      DWORD குறியீடு_Table_Index;
       WORD Type;
     } IMAGE_RELOCATION;
-    typedef IMAGE_RELOCATION UNALIGNED *PIMAGE_RELOCATION;
+    வகைவரை IMAGE_RELOCATION UNALIGNED *PIMAGE_RELOCATION;
 
 #define IMAGE_SIZEOF_RELOCATION 10
 
@@ -4517,8 +4517,8 @@ typedef DWORD LCID;
 #define IMAGE_REL_M32R_SECREL32 0x000D
 #define IMAGE_REL_M32R_TOKEN 0x000E
 
-#define EXT_IMM64(Value,Address,Size,InstPos,ValPos) Value |= (((ULONGLONG)((*(Address) >> InstPos) & (((ULONGLONG)1 << Size) - 1))) << ValPos)
-#define INS_IMM64(Value,Address,Size,InstPos,ValPos) *(PDWORD)Address = (*(PDWORD)Address & ~(((1 << Size) - 1) << InstPos)) | ((DWORD)((((ULONGLONG)Value >> ValPos) & (((ULONGLONG)1 << Size) - 1))) << InstPos)
+#define EXT_IMM64(மதிப்பு_3,Address,Size,InstPos,ValPos) மதிப்பு_3 |= (((ULONGLONG)((*(Address) >> InstPos) & (((ULONGLONG)1 << Size) - 1))) << ValPos)
+#define INS_IMM64(மதிப்பு_3,Address,Size,InstPos,ValPos) *(PDWORD)Address = (*(PDWORD)Address & ~(((1 << Size) - 1) << InstPos)) | ((DWORD)((((ULONGLONG)மதிப்பு_3 >> ValPos) & (((ULONGLONG)1 << Size) - 1))) << InstPos)
 
 #define EMARCH_ENC_I17_IMM7B_INST_WORD_X 3
 #define EMARCH_ENC_I17_IMM7B_SIZE_X 7
@@ -4610,31 +4610,31 @@ typedef DWORD LCID;
 #define X3_EMPTY_INST_WORD_POS_X 14
 #define X3_EMPTY_INST_VAL_POS_X 0
 
-    typedef struct _IMAGE_LINENUMBER {
-      union {
-	DWORD SymbolTableIndex;
+    வகைவரை கட்டமைப்பு _IMAGE_LINENUMBER {
+      ஒன்றிப்பு {
+	DWORD குறியீடு_Table_Index;
 	DWORD VirtualAddress;
       } Type;
       WORD Linenumber;
     } IMAGE_LINENUMBER;
-    typedef IMAGE_LINENUMBER UNALIGNED *PIMAGE_LINENUMBER;
+    வகைவரை IMAGE_LINENUMBER UNALIGNED *PIMAGE_LINENUMBER;
 
 #define IMAGE_SIZEOF_LINENUMBER 6
 
-#include "poppack.h"
+#அந்தர்பாவ "poppack.h"
 
-    typedef struct _IMAGE_BASE_RELOCATION {
+    வகைவரை கட்டமைப்பு _IMAGE_BASE_RELOCATION {
       DWORD VirtualAddress;
       DWORD SizeOfBlock;
 
     } IMAGE_BASE_RELOCATION;
-    typedef IMAGE_BASE_RELOCATION UNALIGNED *PIMAGE_BASE_RELOCATION;
+    வகைவரை IMAGE_BASE_RELOCATION UNALIGNED *PIMAGE_BASE_RELOCATION;
 
 #define IMAGE_SIZEOF_BASE_RELOCATION 8
 
 #define IMAGE_REL_BASED_ABSOLUTE 0
-#define IMAGE_REL_BASED_HIGH 1
-#define IMAGE_REL_BASED_LOW 2
+#define IMAGE_REL_BASED_உயர்வு 1
+#define IMAGE_REL_BASED_கீழ் 2
 #define IMAGE_REL_BASED_HIGHLOW 3
 #define IMAGE_REL_BASED_HIGHADJ 4
 #define IMAGE_REL_BASED_MIPS_JMPADDR 5
@@ -4649,7 +4649,7 @@ typedef DWORD LCID;
 #define IMAGE_ARCHIVE_LINKER_MEMBER "/               "
 #define IMAGE_ARCHIVE_LONGNAMES_MEMBER "//              "
 
-    typedef struct _IMAGE_ARCHIVE_MEMBER_HEADER {
+    வகைவரை கட்டமைப்பு _IMAGE_ARCHIVE_MEMBER_HEADER {
       BYTE Name[16];
       BYTE Date[12];
       BYTE UserID[6];
@@ -4661,48 +4661,48 @@ typedef DWORD LCID;
 
 #define IMAGE_SIZEOF_ARCHIVE_MEMBER_HDR 60
 
-    typedef struct _IMAGE_EXPORT_DIRECTORY {
+    வகைவரை கட்டமைப்பு _IMAGE_EXPORT_DIRECTORY {
       DWORD Characteristics;
       DWORD TimeDateStamp;
       WORD MajorVersion;
       WORD MinorVersion;
       DWORD Name;
       DWORD Base;
-      DWORD NumberOfFunctions;
-      DWORD NumberOfNames;
+      DWORD எண்_Of_Functions;
+      DWORD எண்_Of_Names;
       DWORD AddressOfFunctions;
       DWORD AddressOfNames;
       DWORD AddressOfNameOrdinals;
     } IMAGE_EXPORT_DIRECTORY,*PIMAGE_EXPORT_DIRECTORY;
 
-    typedef struct _IMAGE_IMPORT_BY_NAME {
+    வகைவரை கட்டமைப்பு _IMAGE_IMPORT_BY_NAME {
       WORD Hint;
       BYTE Name[1];
     } IMAGE_IMPORT_BY_NAME,*PIMAGE_IMPORT_BY_NAME;
 
-#include "pshpack8.h"
+#அந்தர்பாவ "pshpack8.h"
 
-    typedef struct _IMAGE_THUNK_DATA64 {
-      union {
+    வகைவரை கட்டமைப்பு _IMAGE_THUNK_DATA64 {
+      ஒன்றிப்பு {
 	ULONGLONG ForwarderString;
 	ULONGLONG Function;
 	ULONGLONG Ordinal;
 	ULONGLONG AddressOfData;
       } u1;
     } IMAGE_THUNK_DATA64;
-    typedef IMAGE_THUNK_DATA64 *PIMAGE_THUNK_DATA64;
+    வகைவரை IMAGE_THUNK_DATA64 *PIMAGE_THUNK_DATA64;
 
-#include "poppack.h"
+#அந்தர்பாவ "poppack.h"
 
-    typedef struct _IMAGE_THUNK_DATA32 {
-      union {
+    வகைவரை கட்டமைப்பு _IMAGE_THUNK_DATA32 {
+      ஒன்றிப்பு {
 	DWORD ForwarderString;
 	DWORD Function;
 	DWORD Ordinal;
 	DWORD AddressOfData;
       } u1;
     } IMAGE_THUNK_DATA32;
-    typedef IMAGE_THUNK_DATA32 *PIMAGE_THUNK_DATA32;
+    வகைவரை IMAGE_THUNK_DATA32 *PIMAGE_THUNK_DATA32;
 
 #define IMAGE_ORDINAL_FLAG64 0x8000000000000000ull
 #define IMAGE_ORDINAL_FLAG32 0x80000000
@@ -4711,10 +4711,10 @@ typedef DWORD LCID;
 #define IMAGE_SNAP_BY_ORDINAL64(Ordinal) ((Ordinal & IMAGE_ORDINAL_FLAG64)!=0)
 #define IMAGE_SNAP_BY_ORDINAL32(Ordinal) ((Ordinal & IMAGE_ORDINAL_FLAG32)!=0)
 
-    typedef VOID
+    வகைவரை VOID
       (NTAPI *PIMAGE_TLS_CALLBACK)(PVOID DllHandle,DWORD Reason,PVOID Reserved);
 
-    typedef struct _IMAGE_TLS_DIRECTORY64 {
+    வகைவரை கட்டமைப்பு _IMAGE_TLS_DIRECTORY64 {
       ULONGLONG StartAddressOfRawData;
       ULONGLONG EndAddressOfRawData;
       ULONGLONG AddressOfIndex;
@@ -4722,9 +4722,9 @@ typedef DWORD LCID;
       DWORD SizeOfZeroFill;
       DWORD Characteristics;
     } IMAGE_TLS_DIRECTORY64;
-    typedef IMAGE_TLS_DIRECTORY64 *PIMAGE_TLS_DIRECTORY64;
+    வகைவரை IMAGE_TLS_DIRECTORY64 *PIMAGE_TLS_DIRECTORY64;
 
-    typedef struct _IMAGE_TLS_DIRECTORY32 {
+    வகைவரை கட்டமைப்பு _IMAGE_TLS_DIRECTORY32 {
       DWORD StartAddressOfRawData;
       DWORD EndAddressOfRawData;
       DWORD AddressOfIndex;
@@ -4732,28 +4732,28 @@ typedef DWORD LCID;
       DWORD SizeOfZeroFill;
       DWORD Characteristics;
     } IMAGE_TLS_DIRECTORY32;
-    typedef IMAGE_TLS_DIRECTORY32 *PIMAGE_TLS_DIRECTORY32;
+    வகைவரை IMAGE_TLS_DIRECTORY32 *PIMAGE_TLS_DIRECTORY32;
 
 #ifdef _WIN64
 #define IMAGE_ORDINAL_FLAG IMAGE_ORDINAL_FLAG64
 #define IMAGE_ORDINAL(Ordinal) IMAGE_ORDINAL64(Ordinal)
-    typedef IMAGE_THUNK_DATA64 IMAGE_THUNK_DATA;
-    typedef PIMAGE_THUNK_DATA64 PIMAGE_THUNK_DATA;
+    வகைவரை IMAGE_THUNK_DATA64 IMAGE_THUNK_DATA;
+    வகைவரை PIMAGE_THUNK_DATA64 PIMAGE_THUNK_DATA;
 #define IMAGE_SNAP_BY_ORDINAL(Ordinal) IMAGE_SNAP_BY_ORDINAL64(Ordinal)
-    typedef IMAGE_TLS_DIRECTORY64 IMAGE_TLS_DIRECTORY;
-    typedef PIMAGE_TLS_DIRECTORY64 PIMAGE_TLS_DIRECTORY;
-#else
+    வகைவரை IMAGE_TLS_DIRECTORY64 IMAGE_TLS_DIRECTORY;
+    வகைவரை PIMAGE_TLS_DIRECTORY64 PIMAGE_TLS_DIRECTORY;
+#இல்லையெனில்
 #define IMAGE_ORDINAL_FLAG IMAGE_ORDINAL_FLAG32
 #define IMAGE_ORDINAL(Ordinal) IMAGE_ORDINAL32(Ordinal)
-    typedef IMAGE_THUNK_DATA32 IMAGE_THUNK_DATA;
-    typedef PIMAGE_THUNK_DATA32 PIMAGE_THUNK_DATA;
+    வகைவரை IMAGE_THUNK_DATA32 IMAGE_THUNK_DATA;
+    வகைவரை PIMAGE_THUNK_DATA32 PIMAGE_THUNK_DATA;
 #define IMAGE_SNAP_BY_ORDINAL(Ordinal) IMAGE_SNAP_BY_ORDINAL32(Ordinal)
-    typedef IMAGE_TLS_DIRECTORY32 IMAGE_TLS_DIRECTORY;
-    typedef PIMAGE_TLS_DIRECTORY32 PIMAGE_TLS_DIRECTORY;
+    வகைவரை IMAGE_TLS_DIRECTORY32 IMAGE_TLS_DIRECTORY;
+    வகைவரை PIMAGE_TLS_DIRECTORY32 PIMAGE_TLS_DIRECTORY;
 #endif
 
-    typedef struct _IMAGE_IMPORT_DESCRIPTOR {
-      union {
+    வகைவரை கட்டமைப்பு _IMAGE_IMPORT_DESCRIPTOR {
+      ஒன்றிப்பு {
 	DWORD Characteristics;
 	DWORD OriginalFirstThunk;
       };
@@ -4763,68 +4763,68 @@ typedef DWORD LCID;
       DWORD Name;
       DWORD FirstThunk;
     } IMAGE_IMPORT_DESCRIPTOR;
-    typedef IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;
+    வகைவரை IMAGE_IMPORT_DESCRIPTOR UNALIGNED *PIMAGE_IMPORT_DESCRIPTOR;
 
-    typedef struct _IMAGE_BOUND_IMPORT_DESCRIPTOR {
+    வகைவரை கட்டமைப்பு _IMAGE_BOUND_IMPORT_DESCRIPTOR {
       DWORD TimeDateStamp;
       WORD OffsetModuleName;
-      WORD NumberOfModuleForwarderRefs;
+      WORD எண்_Of_Module_Forwarder_Refs;
     } IMAGE_BOUND_IMPORT_DESCRIPTOR,*PIMAGE_BOUND_IMPORT_DESCRIPTOR;
 
-    typedef struct _IMAGE_BOUND_FORWARDER_REF {
+    வகைவரை கட்டமைப்பு _IMAGE_BOUND_FORWARDER_REF {
       DWORD TimeDateStamp;
       WORD OffsetModuleName;
       WORD Reserved;
     } IMAGE_BOUND_FORWARDER_REF,*PIMAGE_BOUND_FORWARDER_REF;
 
-    typedef struct _IMAGE_RESOURCE_DIRECTORY {
+    வகைவரை கட்டமைப்பு _IMAGE_RESOURCE_DIRECTORY {
       DWORD Characteristics;
       DWORD TimeDateStamp;
       WORD MajorVersion;
       WORD MinorVersion;
-      WORD NumberOfNamedEntries;
-      WORD NumberOfIdEntries;
+      WORD எண்_Of_Named_Entries;
+      WORD எண்_Of_Id_Entries;
     } IMAGE_RESOURCE_DIRECTORY,*PIMAGE_RESOURCE_DIRECTORY;
 
 #define IMAGE_RESOURCE_NAME_IS_STRING 0x80000000
 #define IMAGE_RESOURCE_DATA_IS_DIRECTORY 0x80000000
 
-    typedef struct _IMAGE_RESOURCE_DIRECTORY_ENTRY {
-      union {
-	struct {
+    வகைவரை கட்டமைப்பு _IMAGE_RESOURCE_DIRECTORY_ENTRY {
+      ஒன்றிப்பு {
+	கட்டமைப்பு {
 	  DWORD NameOffset:31;
 	  DWORD NameIsString:1;
 	};
 	DWORD Name;
 	WORD Id;
       };
-      union {
+      ஒன்றிப்பு {
 	DWORD OffsetToData;
-	struct {
+	கட்டமைப்பு {
 	  DWORD OffsetToDirectory:31;
 	  DWORD DataIsDirectory:1;
 	};
       };
     } IMAGE_RESOURCE_DIRECTORY_ENTRY,*PIMAGE_RESOURCE_DIRECTORY_ENTRY;
 
-    typedef struct _IMAGE_RESOURCE_DIRECTORY_STRING {
+    வகைவரை கட்டமைப்பு _IMAGE_RESOURCE_DIRECTORY_STRING {
       WORD Length;
       CHAR NameString[1];
     } IMAGE_RESOURCE_DIRECTORY_STRING,*PIMAGE_RESOURCE_DIRECTORY_STRING;
 
-    typedef struct _IMAGE_RESOURCE_DIR_STRING_U {
+    வகைவரை கட்டமைப்பு _IMAGE_RESOURCE_DIR_STRING_U {
       WORD Length;
       WCHAR NameString[1];
     } IMAGE_RESOURCE_DIR_STRING_U,*PIMAGE_RESOURCE_DIR_STRING_U;
 
-    typedef struct _IMAGE_RESOURCE_DATA_ENTRY {
+    வகைவரை கட்டமைப்பு _IMAGE_RESOURCE_DATA_ENTRY {
       DWORD OffsetToData;
       DWORD Size;
       DWORD CodePage;
       DWORD Reserved;
     } IMAGE_RESOURCE_DATA_ENTRY,*PIMAGE_RESOURCE_DATA_ENTRY;
 
-    typedef struct {
+    வகைவரை கட்டமைப்பு {
       DWORD Size;
       DWORD TimeDateStamp;
       WORD MajorVersion;
@@ -4844,10 +4844,10 @@ typedef DWORD LCID;
       DWORD EditList;
       DWORD SecurityCookie;
       DWORD SEHandlerTable;
-      DWORD SEHandlerCount;
+      DWORD SEHandler_மொத்தம்;
     } IMAGE_LOAD_CONFIG_DIRECTORY32,*PIMAGE_LOAD_CONFIG_DIRECTORY32;
 
-    typedef struct {
+    வகைவரை கட்டமைப்பு {
       DWORD Size;
       DWORD TimeDateStamp;
       WORD MajorVersion;
@@ -4867,18 +4867,18 @@ typedef DWORD LCID;
       ULONGLONG EditList;
       ULONGLONG SecurityCookie;
       ULONGLONG SEHandlerTable;
-      ULONGLONG SEHandlerCount;
+      ULONGLONG SEHandler_மொத்தம்;
     } IMAGE_LOAD_CONFIG_DIRECTORY64,*PIMAGE_LOAD_CONFIG_DIRECTORY64;
 
 #ifdef _WIN64
-    typedef IMAGE_LOAD_CONFIG_DIRECTORY64 IMAGE_LOAD_CONFIG_DIRECTORY;
-    typedef PIMAGE_LOAD_CONFIG_DIRECTORY64 PIMAGE_LOAD_CONFIG_DIRECTORY;
-#else
-    typedef IMAGE_LOAD_CONFIG_DIRECTORY32 IMAGE_LOAD_CONFIG_DIRECTORY;
-    typedef PIMAGE_LOAD_CONFIG_DIRECTORY32 PIMAGE_LOAD_CONFIG_DIRECTORY;
+    வகைவரை IMAGE_LOAD_CONFIG_DIRECTORY64 IMAGE_LOAD_CONFIG_DIRECTORY;
+    வகைவரை PIMAGE_LOAD_CONFIG_DIRECTORY64 PIMAGE_LOAD_CONFIG_DIRECTORY;
+#இல்லையெனில்
+    வகைவரை IMAGE_LOAD_CONFIG_DIRECTORY32 IMAGE_LOAD_CONFIG_DIRECTORY;
+    வகைவரை PIMAGE_LOAD_CONFIG_DIRECTORY32 PIMAGE_LOAD_CONFIG_DIRECTORY;
 #endif
 
-    typedef struct _IMAGE_CE_RUNTIME_FUNCTION_ENTRY {
+    வகைவரை கட்டமைப்பு _IMAGE_CE_RUNTIME_FUNCTION_ENTRY {
       DWORD FuncStart;
       DWORD PrologLen : 8;
       DWORD FuncLen : 22;
@@ -4886,7 +4886,7 @@ typedef DWORD LCID;
       DWORD ExceptionFlag : 1;
     } IMAGE_CE_RUNTIME_FUNCTION_ENTRY,*PIMAGE_CE_RUNTIME_FUNCTION_ENTRY;
 
-    typedef struct _IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY {
+    வகைவரை கட்டமைப்பு _IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY {
       ULONGLONG BeginAddress;
       ULONGLONG EndAddress;
       ULONGLONG ExceptionHandler;
@@ -4894,7 +4894,7 @@ typedef DWORD LCID;
       ULONGLONG PrologEndAddress;
     } IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY,*PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY;
 
-    typedef struct _IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY {
+    வகைவரை கட்டமைப்பு _IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY {
       DWORD BeginAddress;
       DWORD EndAddress;
       DWORD ExceptionHandler;
@@ -4902,19 +4902,19 @@ typedef DWORD LCID;
       DWORD PrologEndAddress;
     } IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY,*PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY;
 
-    typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY {
+    வகைவரை கட்டமைப்பு _IMAGE_RUNTIME_FUNCTION_ENTRY {
       DWORD BeginAddress;
       DWORD EndAddress;
       DWORD UnwindInfoAddress;
     } _IMAGE_RUNTIME_FUNCTION_ENTRY,*_PIMAGE_RUNTIME_FUNCTION_ENTRY;
 
-    typedef _IMAGE_RUNTIME_FUNCTION_ENTRY IMAGE_IA64_RUNTIME_FUNCTION_ENTRY;
-    typedef _PIMAGE_RUNTIME_FUNCTION_ENTRY PIMAGE_IA64_RUNTIME_FUNCTION_ENTRY;
+    வகைவரை _IMAGE_RUNTIME_FUNCTION_ENTRY IMAGE_IA64_RUNTIME_FUNCTION_ENTRY;
+    வகைவரை _PIMAGE_RUNTIME_FUNCTION_ENTRY PIMAGE_IA64_RUNTIME_FUNCTION_ENTRY;
 
-    typedef _IMAGE_RUNTIME_FUNCTION_ENTRY IMAGE_RUNTIME_FUNCTION_ENTRY;
-    typedef _PIMAGE_RUNTIME_FUNCTION_ENTRY PIMAGE_RUNTIME_FUNCTION_ENTRY;
+    வகைவரை _IMAGE_RUNTIME_FUNCTION_ENTRY IMAGE_RUNTIME_FUNCTION_ENTRY;
+    வகைவரை _PIMAGE_RUNTIME_FUNCTION_ENTRY PIMAGE_RUNTIME_FUNCTION_ENTRY;
 
-    typedef struct _IMAGE_DEBUG_DIRECTORY {
+    வகைவரை கட்டமைப்பு _IMAGE_DEBUG_DIRECTORY {
       DWORD Characteristics;
       DWORD TimeDateStamp;
       WORD MajorVersion;
@@ -4938,10 +4938,10 @@ typedef DWORD LCID;
 #define IMAGE_DEBUG_TYPE_RESERVED10 10
 #define IMAGE_DEBUG_TYPE_CLSID 11
 
-    typedef struct _IMAGE_COFF_SYMBOLS_HEADER {
-      DWORD NumberOfSymbols;
-      DWORD LvaToFirstSymbol;
-      DWORD NumberOfLinenumbers;
+    வகைவரை கட்டமைப்பு _IMAGE_COFF_SYMBOLS_HEADER {
+      DWORD எண்_Of_Symbols;
+      DWORD Lva_To_First_குறியீடு;
+      DWORD எண்_Of_Linenumbers;
       DWORD LvaToFirstLinenumber;
       DWORD RvaToFirstByteOfCode;
       DWORD RvaToLastByteOfCode;
@@ -4954,7 +4954,7 @@ typedef DWORD LCID;
 #define FRAME_TSS 2
 #define FRAME_NONFPO 3
 
-    typedef struct _FPO_DATA {
+    வகைவரை கட்டமைப்பு _FPO_DATA {
       DWORD ulOffStart;
       DWORD cbProcSize;
       DWORD cdwLocals;
@@ -4970,7 +4970,7 @@ typedef DWORD LCID;
 
 #define IMAGE_DEBUG_MISC_EXENAME 1
 
-    typedef struct _IMAGE_DEBUG_MISC {
+    வகைவரை கட்டமைப்பு _IMAGE_DEBUG_MISC {
       DWORD DataType;
       DWORD Length;
       BOOLEAN Unicode;
@@ -4978,22 +4978,22 @@ typedef DWORD LCID;
       BYTE Data[1];
     } IMAGE_DEBUG_MISC,*PIMAGE_DEBUG_MISC;
 
-    typedef struct _IMAGE_FUNCTION_ENTRY {
+    வகைவரை கட்டமைப்பு _IMAGE_FUNCTION_ENTRY {
       DWORD StartingAddress;
       DWORD EndingAddress;
       DWORD EndOfPrologue;
     } IMAGE_FUNCTION_ENTRY,*PIMAGE_FUNCTION_ENTRY;
 
-    typedef struct _IMAGE_FUNCTION_ENTRY64 {
+    வகைவரை கட்டமைப்பு _IMAGE_FUNCTION_ENTRY64 {
       ULONGLONG StartingAddress;
       ULONGLONG EndingAddress;
-      union {
+      ஒன்றிப்பு {
 	ULONGLONG EndOfPrologue;
 	ULONGLONG UnwindInfoAddress;
       };
     } IMAGE_FUNCTION_ENTRY64,*PIMAGE_FUNCTION_ENTRY64;
 
-    typedef struct _IMAGE_SEPARATE_DEBUG_HEADER {
+    வகைவரை கட்டமைப்பு _IMAGE_SEPARATE_DEBUG_HEADER {
       WORD Signature;
       WORD Flags;
       WORD Machine;
@@ -5002,14 +5002,14 @@ typedef DWORD LCID;
       DWORD CheckSum;
       DWORD ImageBase;
       DWORD SizeOfImage;
-      DWORD NumberOfSections;
+      DWORD எண்_Of_Sections;
       DWORD ExportedNamesSize;
       DWORD DebugDirectorySize;
       DWORD SectionAlignment;
       DWORD Reserved[2];
     } IMAGE_SEPARATE_DEBUG_HEADER,*PIMAGE_SEPARATE_DEBUG_HEADER;
 
-    typedef struct _NON_PAGED_DEBUG_INFO {
+    வகைவரை கட்டமைப்பு _NON_PAGED_DEBUG_INFO {
       WORD Signature;
       WORD Flags;
       DWORD Size;
@@ -5028,31 +5028,31 @@ typedef DWORD LCID;
 #define IMAGE_SEPARATE_DEBUG_FLAGS_MASK 0x8000
 #define IMAGE_SEPARATE_DEBUG_MISMATCH 0x8000
 
-    typedef struct _ImageArchitectureHeader {
-      unsigned int AmaskValue: 1;
-      int Adummy1 :7;
-      unsigned int AmaskShift: 8;
-      int Adummy2 :16;
+    வகைவரை கட்டமைப்பு _ImageArchitectureHeader {
+      unsigned முழு Amask_மதிப்பு: 1;
+      முழு Adummy1 :7;
+      unsigned முழு AmaskShift: 8;
+      முழு Adummy2 :16;
       DWORD FirstEntryRVA;
     } IMAGE_ARCHITECTURE_HEADER,*PIMAGE_ARCHITECTURE_HEADER;
 
-    typedef struct _ImageArchitectureEntry {
+    வகைவரை கட்டமைப்பு _ImageArchitectureEntry {
       DWORD FixupInstRVA;
       DWORD NewInst;
     } IMAGE_ARCHITECTURE_ENTRY,*PIMAGE_ARCHITECTURE_ENTRY;
 
-#include "poppack.h"
+#அந்தர்பாவ "poppack.h"
 
 #define IMPORT_OBJECT_HDR_SIG2 0xffff
 
-    typedef struct IMPORT_OBJECT_HEADER {
+    வகைவரை கட்டமைப்பு IMPORT_OBJECT_HEADER {
       WORD Sig1;
       WORD Sig2;
       WORD Version;
       WORD Machine;
       DWORD TimeDateStamp;
       DWORD SizeOfData;
-      union {
+      ஒன்றிப்பு {
 	WORD Ordinal;
 	WORD Hint;
       };
@@ -5061,17 +5061,17 @@ typedef DWORD LCID;
       WORD Reserved : 11;
     } IMPORT_OBJECT_HEADER;
 
-    typedef enum IMPORT_OBJECT_TYPE {
+    வகைவரை எண்ணிக்கை IMPORT_OBJECT_TYPE {
       IMPORT_OBJECT_CODE = 0,IMPORT_OBJECT_DATA = 1,IMPORT_OBJECT_CONST = 2
     } IMPORT_OBJECT_TYPE;
 
-    typedef enum IMPORT_OBJECT_NAME_TYPE {
+    வகைவரை எண்ணிக்கை IMPORT_OBJECT_NAME_TYPE {
       IMPORT_OBJECT_ORDINAL = 0,IMPORT_OBJECT_NAME = 1,IMPORT_OBJECT_NAME_NO_PREFIX = 2,IMPORT_OBJECT_NAME_UNDECORATE = 3
     } IMPORT_OBJECT_NAME_TYPE;
 
 #ifndef __IMAGE_COR20_HEADER_DEFINED__
 #define __IMAGE_COR20_HEADER_DEFINED__
-    typedef enum ReplacesCorHdrNumericDefines {
+    வகைவரை எண்ணிக்கை ReplacesCorHdrNumericDefines {
       COMIMAGE_FLAGS_ILONLY =0x00000001,COMIMAGE_FLAGS_32BITREQUIRED =0x00000002,COMIMAGE_FLAGS_IL_LIBRARY =0x00000004,
       COMIMAGE_FLAGS_STRONGNAMESIGNED =0x00000008,COMIMAGE_FLAGS_TRACKDEBUGDATA =0x00010000,COR_VERSION_MAJOR_V2 =2,
       COR_VERSION_MAJOR =COR_VERSION_MAJOR_V2,COR_VERSION_MINOR =0,COR_DELETED_NAME_LENGTH =8,COR_VTABLEGAP_NAME_LENGTH =8,
@@ -5080,7 +5080,7 @@ typedef DWORD LCID;
       COR_VTABLE_CALL_MOST_DERIVED =0x10,IMAGE_COR_EATJ_THUNK_SIZE =32,MAX_CLASS_NAME =1024,MAX_PACKAGE_NAME =1024
     } ReplacesCorHdrNumericDefines;
 
-    typedef struct IMAGE_COR20_HEADER {
+    வகைவரை கட்டமைப்பு IMAGE_COR20_HEADER {
       DWORD cb;
       WORD MajorRuntimeVersion;
       WORD MinorRuntimeVersion;
@@ -5096,41 +5096,41 @@ typedef DWORD LCID;
     } IMAGE_COR20_HEADER,*PIMAGE_COR20_HEADER;
 #endif
 
-#if defined (__x86_64)
+#எனில் defined (__x86_64)
     NTSYSAPI PRUNTIME_FUNCTION NTAPI RtlLookupFunctionEntry (DWORD64 ControlPc, PDWORD64 ImageBase, PUNWIND_HISTORY_TABLE HistoryTable);
-    NTSYSAPI VOID NTAPI RtlUnwindEx (PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue, PCONTEXT ContextRecord, PUNWIND_HISTORY_TABLE HistoryTable);
+    NTSYSAPI VOID NTAPI RtlUnwindEx (PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID Return_மதிப்பு_2, PCONTEXT ContextRecord, PUNWIND_HISTORY_TABLE HistoryTable);
 #endif
 
-#include <string.h>
+#அந்தர்பாவ <string.h>
 
 #ifndef _SLIST_HEADER_
 #define _SLIST_HEADER_
 
 #ifdef _WIN64
-    typedef struct _SLIST_ENTRY *PSLIST_ENTRY;
-    typedef struct DECLSPEC_ALIGN(16) _SLIST_ENTRY {
+    வகைவரை கட்டமைப்பு _SLIST_ENTRY *PSLIST_ENTRY;
+    வகைவரை கட்டமைப்பு DECLSPEC_ALIGN(16) _SLIST_ENTRY {
       PSLIST_ENTRY Next;
     } SLIST_ENTRY;
-#else
+#இல்லையெனில்
 
 #define SLIST_ENTRY SINGLE_LIST_ENTRY
 #define _SLIST_ENTRY _SINGLE_LIST_ENTRY
 #define PSLIST_ENTRY PSINGLE_LIST_ENTRY
 #endif
 
-#if defined(_WIN64)
+#எனில் defined(_WIN64)
 
-    typedef struct DECLSPEC_ALIGN(16) _SLIST_HEADER {
+    வகைவரை கட்டமைப்பு DECLSPEC_ALIGN(16) _SLIST_HEADER {
       ULONGLONG Alignment;
       ULONGLONG Region;
     } SLIST_HEADER;
 
-    typedef struct _SLIST_HEADER *PSLIST_HEADER;
-#else
+    வகைவரை கட்டமைப்பு _SLIST_HEADER *PSLIST_HEADER;
+#இல்லையெனில்
 
-    typedef union _SLIST_HEADER {
+    வகைவரை ஒன்றிப்பு _SLIST_HEADER {
       ULONGLONG Alignment;
-      struct {
+      கட்டமைப்பு {
 	SLIST_ENTRY Next;
 	WORD Depth;
 	WORD Sequence;
@@ -5140,9 +5140,9 @@ typedef DWORD LCID;
 #endif
 
     NTSYSAPI VOID NTAPI RtlInitializeSListHead(PSLIST_HEADER ListHead);
-    NTSYSAPI PSLIST_ENTRY NTAPI RtlFirstEntrySList(const SLIST_HEADER *ListHead);
-    NTSYSAPI PSLIST_ENTRY NTAPI RtlInterlockedPopEntrySList(PSLIST_HEADER ListHead);
-    NTSYSAPI PSLIST_ENTRY NTAPI RtlInterlockedPushEntrySList(PSLIST_HEADER ListHead,PSLIST_ENTRY ListEntry);
+    NTSYSAPI PSLIST_ENTRY NTAPI RtlFirstEntrySList(மாறிலி SLIST_HEADER *ListHead);
+    NTSYSAPI PSLIST_ENTRY NTAPI Rtl_Interlocked_எடு_Entry_SList(PSLIST_HEADER ListHead);
+    NTSYSAPI PSLIST_ENTRY NTAPI Rtl_Interlocked_தள்ளு_Entry_SList(PSLIST_HEADER ListHead,PSLIST_ENTRY ListEntry);
     NTSYSAPI PSLIST_ENTRY NTAPI RtlInterlockedFlushSList(PSLIST_HEADER ListHead);
     NTSYSAPI WORD NTAPI RtlQueryDepthSList(PSLIST_HEADER ListHead);
 
@@ -5193,18 +5193,18 @@ typedef DWORD LCID;
 #define COMPRESSION_ENGINE_MAXIMUM (0x0100)
 #define COMPRESSION_ENGINE_HIBER (0x0200)
 
-#if _DBG_MEMCPY_INLINE_ && !defined(_MEMCPY_INLINE_) && !defined(_CRTBLD)
+#எனில் _DBG_MEMCPY_INLINE_ && !defined(_MEMCPY_INLINE_) && !defined(_CRTBLD)
 #define _MEMCPY_INLINE_
-    __CRT_INLINE PVOID __cdecl memcpy_inline(void *dst,const void *src,size_t size) {
-      if(((char *)dst > (char *)src) && ((char *)dst < ((char *)src + size))) {
+    __CRT_INLINE PVOID __cdecl memcpy_inline(வெறுமை *dst,மாறிலி வெறுமை *src,size_t size) {
+      எனில்(((எழுத்து *)dst > (எழுத்து *)src) && ((எழுத்து *)dst < ((எழுத்து *)src + size))) {
 	__debugbreak();
       }
-      return memcpy(dst,src,size);
+      திரும்பு memcpy(dst,src,size);
     }
 #define memcpy memcpy_inline
 #endif
 
-    NTSYSAPI SIZE_T NTAPI RtlCompareMemory(const VOID *Source1,const VOID *Source2,SIZE_T Length);
+    NTSYSAPI SIZE_T NTAPI RtlCompareMemory(மாறிலி VOID *Source1,மாறிலி VOID *Source2,SIZE_T Length);
 
 #define RtlEqualMemory(Destination,Source,Length) (!memcmp((Destination),(Source),(Length)))
 #define RtlMoveMemory(Destination,Source,Length) memmove((Destination),(Source),(Length))
@@ -5213,20 +5213,20 @@ typedef DWORD LCID;
 #define RtlZeroMemory(Destination,Length) memset((Destination),0,(Length))
 
     __CRT_INLINE PVOID RtlSecureZeroMemory(PVOID ptr,SIZE_T cnt) {
-      volatile char *vptr =(volatile char *)ptr;
+      நிலையற்ற எழுத்து *vptr =(நிலையற்ற எழுத்து *)ptr;
 #ifdef __x86_64
       __stosb((PBYTE)((DWORD64)vptr),0,cnt);
-#else
-      while(cnt) {
+#இல்லையெனில்
+      போது(cnt) {
 	*vptr = 0;
 	vptr++;
 	cnt--;
       }
 #endif
-      return ptr;
+      திரும்பு ptr;
     }
 
-    typedef struct _MESSAGE_RESOURCE_ENTRY {
+    வகைவரை கட்டமைப்பு _MESSAGE_RESOURCE_ENTRY {
       WORD Length;
       WORD Flags;
       BYTE Text[1];
@@ -5234,50 +5234,50 @@ typedef DWORD LCID;
 
 #define MESSAGE_RESOURCE_UNICODE 0x0001
 
-    typedef struct _MESSAGE_RESOURCE_BLOCK {
-      DWORD LowId;
-      DWORD HighId;
+    வகைவரை கட்டமைப்பு _MESSAGE_RESOURCE_BLOCK {
+      DWORD கீழ்_Id;
+      DWORD உயர்வு_Id;
       DWORD OffsetToEntries;
     } MESSAGE_RESOURCE_BLOCK,*PMESSAGE_RESOURCE_BLOCK;
 
-    typedef struct _MESSAGE_RESOURCE_DATA {
-      DWORD NumberOfBlocks;
+    வகைவரை கட்டமைப்பு _MESSAGE_RESOURCE_DATA {
+      DWORD எண்_Of_Blocks;
       MESSAGE_RESOURCE_BLOCK Blocks[1];
     } MESSAGE_RESOURCE_DATA,*PMESSAGE_RESOURCE_DATA;
 
-    typedef struct _OSVERSIONINFOA {
+    வகைவரை கட்டமைப்பு _OSVERSIONINFOA {
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
-      DWORD dwBuildNumber;
+      DWORD dw_Build_எண்;
       DWORD dwPlatformId;
       CHAR szCSDVersion[128];
     } OSVERSIONINFOA,*POSVERSIONINFOA,*LPOSVERSIONINFOA;
 
-    typedef struct _OSVERSIONINFOW {
+    வகைவரை கட்டமைப்பு _OSVERSIONINFOW {
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
-      DWORD dwBuildNumber;
+      DWORD dw_Build_எண்;
       DWORD dwPlatformId;
       WCHAR szCSDVersion[128];
     } OSVERSIONINFOW,*POSVERSIONINFOW,*LPOSVERSIONINFOW,RTL_OSVERSIONINFOW,*PRTL_OSVERSIONINFOW;
 
 #ifdef UNICODE
-    typedef OSVERSIONINFOW OSVERSIONINFO;
-    typedef POSVERSIONINFOW POSVERSIONINFO;
-    typedef LPOSVERSIONINFOW LPOSVERSIONINFO;
-#else
-    typedef OSVERSIONINFOA OSVERSIONINFO;
-    typedef POSVERSIONINFOA POSVERSIONINFO;
-    typedef LPOSVERSIONINFOA LPOSVERSIONINFO;
+    வகைவரை OSVERSIONINFOW OSVERSIONINFO;
+    வகைவரை POSVERSIONINFOW POSVERSIONINFO;
+    வகைவரை LPOSVERSIONINFOW LPOSVERSIONINFO;
+#இல்லையெனில்
+    வகைவரை OSVERSIONINFOA OSVERSIONINFO;
+    வகைவரை POSVERSIONINFOA POSVERSIONINFO;
+    வகைவரை LPOSVERSIONINFOA LPOSVERSIONINFO;
 #endif
 
-    typedef struct _OSVERSIONINFOEXA {
+    வகைவரை கட்டமைப்பு _OSVERSIONINFOEXA {
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
-      DWORD dwBuildNumber;
+      DWORD dw_Build_எண்;
       DWORD dwPlatformId;
       CHAR szCSDVersion[128];
       WORD wServicePackMajor;
@@ -5287,11 +5287,11 @@ typedef DWORD LCID;
       BYTE wReserved;
     } OSVERSIONINFOEXA,*POSVERSIONINFOEXA,*LPOSVERSIONINFOEXA;
 
-    typedef struct _OSVERSIONINFOEXW {
+    வகைவரை கட்டமைப்பு _OSVERSIONINFOEXW {
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
-      DWORD dwBuildNumber;
+      DWORD dw_Build_எண்;
       DWORD dwPlatformId;
       WCHAR szCSDVersion[128];
       WORD wServicePackMajor;
@@ -5301,13 +5301,13 @@ typedef DWORD LCID;
       BYTE wReserved;
     } OSVERSIONINFOEXW,*POSVERSIONINFOEXW,*LPOSVERSIONINFOEXW,RTL_OSVERSIONINFOEXW,*PRTL_OSVERSIONINFOEXW;
 #ifdef UNICODE
-    typedef OSVERSIONINFOEXW OSVERSIONINFOEX;
-    typedef POSVERSIONINFOEXW POSVERSIONINFOEX;
-    typedef LPOSVERSIONINFOEXW LPOSVERSIONINFOEX;
-#else
-    typedef OSVERSIONINFOEXA OSVERSIONINFOEX;
-    typedef POSVERSIONINFOEXA POSVERSIONINFOEX;
-    typedef LPOSVERSIONINFOEXA LPOSVERSIONINFOEX;
+    வகைவரை OSVERSIONINFOEXW OSVERSIONINFOEX;
+    வகைவரை POSVERSIONINFOEXW POSVERSIONINFOEX;
+    வகைவரை LPOSVERSIONINFOEXW LPOSVERSIONINFOEX;
+#இல்லையெனில்
+    வகைவரை OSVERSIONINFOEXA OSVERSIONINFOEX;
+    வகைவரை POSVERSIONINFOEXA POSVERSIONINFOEX;
+    வகைவரை LPOSVERSIONINFOEXA LPOSVERSIONINFOEX;
 #endif
 
 #define VER_EQUAL 1
@@ -5319,7 +5319,7 @@ typedef DWORD LCID;
 #define VER_OR 7
 
 #define VER_CONDITION_MASK 7
-#define VER_NUM_BITS_PER_CONDITION_MASK 3
+#define VER_இலக்கம்_BITS_PER_CONDITION_MASK 3
 
 #define VER_MINORVERSION 0x0000001
 #define VER_MAJORVERSION 0x0000002
@@ -5342,46 +5342,46 @@ typedef DWORD LCID;
 
     NTSYSAPI ULONGLONG NTAPI VerSetConditionMask(ULONGLONG ConditionMask,DWORD TypeMask,BYTE Condition);
 
-    typedef struct _RTL_CRITICAL_SECTION_DEBUG {
+    வகைவரை கட்டமைப்பு _RTL_CRITICAL_SECTION_DEBUG {
       WORD Type;
       WORD CreatorBackTraceIndex;
-      struct _RTL_CRITICAL_SECTION *CriticalSection;
+      கட்டமைப்பு _RTL_CRITICAL_SECTION *CriticalSection;
       LIST_ENTRY ProcessLocksList;
-      DWORD EntryCount;
-      DWORD ContentionCount;
+      DWORD Entry_மொத்தம்;
+      DWORD Contention_மொத்தம்;
       DWORD Spare[2];
     } RTL_CRITICAL_SECTION_DEBUG,*PRTL_CRITICAL_SECTION_DEBUG,RTL_RESOURCE_DEBUG,*PRTL_RESOURCE_DEBUG;
 
 #define RTL_CRITSECT_TYPE 0
 #define RTL_RESOURCE_TYPE 1
 
-    typedef struct _RTL_CRITICAL_SECTION {
+    வகைவரை கட்டமைப்பு _RTL_CRITICAL_SECTION {
       PRTL_CRITICAL_SECTION_DEBUG DebugInfo;
-      LONG LockCount;
-      LONG RecursionCount;
+      LONG Lock_மொத்தம்;
+      LONG Recursion_மொத்தம்;
       HANDLE OwningThread;
       HANDLE LockSemaphore;
-      ULONG_PTR SpinCount;
+      ULONG_PTR Spin_மொத்தம்;
     } RTL_CRITICAL_SECTION,*PRTL_CRITICAL_SECTION;
 
-    typedef VOID (NTAPI *RTL_VERIFIER_DLL_LOAD_CALLBACK) (PWSTR DllName,PVOID DllBase,SIZE_T DllSize,PVOID Reserved);
-    typedef VOID (NTAPI *RTL_VERIFIER_DLL_UNLOAD_CALLBACK) (PWSTR DllName,PVOID DllBase,SIZE_T DllSize,PVOID Reserved);
-    typedef VOID (NTAPI *RTL_VERIFIER_NTDLLHEAPFREE_CALLBACK)(PVOID AllocationBase,SIZE_T AllocationSize);
+    வகைவரை VOID (NTAPI *RTL_VERIFIER_DLL_LOAD_CALLBACK) (PWSTR DllName,PVOID DllBase,SIZE_T DllSize,PVOID Reserved);
+    வகைவரை VOID (NTAPI *RTL_VERIFIER_DLL_UNLOAD_CALLBACK) (PWSTR DllName,PVOID DllBase,SIZE_T DllSize,PVOID Reserved);
+    வகைவரை VOID (NTAPI *RTL_VERIFIER_NTDLLHEAPFREE_CALLBACK)(PVOID AllocationBase,SIZE_T AllocationSize);
 
-    typedef struct _RTL_VERIFIER_THUNK_DESCRIPTOR {
+    வகைவரை கட்டமைப்பு _RTL_VERIFIER_THUNK_DESCRIPTOR {
       PCHAR ThunkName;
       PVOID ThunkOldAddress;
       PVOID ThunkNewAddress;
     } RTL_VERIFIER_THUNK_DESCRIPTOR,*PRTL_VERIFIER_THUNK_DESCRIPTOR;
 
-    typedef struct _RTL_VERIFIER_DLL_DESCRIPTOR {
+    வகைவரை கட்டமைப்பு _RTL_VERIFIER_DLL_DESCRIPTOR {
       PWCHAR DllName;
       DWORD DllFlags;
       PVOID DllAddress;
       PRTL_VERIFIER_THUNK_DESCRIPTOR DllThunks;
     } RTL_VERIFIER_DLL_DESCRIPTOR,*PRTL_VERIFIER_DLL_DESCRIPTOR;
 
-    typedef struct _RTL_VERIFIER_PROVIDER_DESCRIPTOR {
+    வகைவரை கட்டமைப்பு _RTL_VERIFIER_PROVIDER_DESCRIPTOR {
       DWORD Length;
       PRTL_VERIFIER_DLL_DESCRIPTOR ProviderDlls;
       RTL_VERIFIER_DLL_LOAD_CALLBACK ProviderDllLoadCallback;
@@ -5389,7 +5389,7 @@ typedef DWORD LCID;
       PWSTR VerifierImage;
       DWORD VerifierFlags;
       DWORD VerifierDebug;
-      PVOID RtlpGetStackTraceAddress;
+      PVOID Rtlp_Get_அடுக்கு_Trace_Address;
       PVOID RtlpDebugPageHeapCreate;
       PVOID RtlpDebugPageHeapDestroy;
       RTL_VERIFIER_NTDLLHEAPFREE_CALLBACK ProviderNtdllHeapFreeCallback;
@@ -5398,7 +5398,7 @@ typedef DWORD LCID;
 #define RTL_VRF_FLG_FULL_PAGE_HEAP 0x00000001
 #define RTL_VRF_FLG_RESERVED_DONOTUSE 0x00000002
 #define RTL_VRF_FLG_HANDLE_CHECKS 0x00000004
-#define RTL_VRF_FLG_STACK_CHECKS 0x00000008
+#define RTL_VRF_FLG_அடுக்கு_CHECKS 0x00000008
 #define RTL_VRF_FLG_APPCOMPAT_CHECKS 0x00000010
 #define RTL_VRF_FLG_TLS_CHECKS 0x00000020
 #define RTL_VRF_FLG_DIRTY_STACKS 0x00000040
@@ -5443,7 +5443,7 @@ typedef DWORD LCID;
 #define APPLICATION_VERIFIER_CORRUPTED_HEAP_LIST 0x0014
 
 #define APPLICATION_VERIFIER_TERMINATE_THREAD_CALL 0x0100
-#define APPLICATION_VERIFIER_STACK_OVERFLOW 0x0101
+#define APPLICATION_VERIFIER_அடுக்கு_OVERFLOW 0x0101
 #define APPLICATION_VERIFIER_INVALID_EXIT_PROCESS_CALL 0x0102
 
 #define APPLICATION_VERIFIER_EXIT_THREAD_OWNS_LOCK 0x0200
@@ -5453,8 +5453,8 @@ typedef DWORD LCID;
 #define APPLICATION_VERIFIER_LOCK_IN_FREED_MEMORY 0x0204
 #define APPLICATION_VERIFIER_LOCK_CORRUPTED 0x0205
 #define APPLICATION_VERIFIER_LOCK_INVALID_OWNER 0x0206
-#define APPLICATION_VERIFIER_LOCK_INVALID_RECURSION_COUNT 0x0207
-#define APPLICATION_VERIFIER_LOCK_INVALID_LOCK_COUNT 0x0208
+#define APPLICATION_VERIFIER_LOCK_INVALID_RECURSION_மொத்தம் 0x0207
+#define APPLICATION_VERIFIER_LOCK_INVALID_LOCK_மொத்தம் 0x0208
 #define APPLICATION_VERIFIER_LOCK_OVER_RELEASED 0x0209
 #define APPLICATION_VERIFIER_LOCK_NOT_INITIALIZED 0x0210
 #define APPLICATION_VERIFIER_LOCK_ALREADY_INITIALIZED 0x0211
@@ -5463,7 +5463,7 @@ typedef DWORD LCID;
 #define APPLICATION_VERIFIER_THREAD_NOT_LOCK_OWNER 0x0214
 
 #define APPLICATION_VERIFIER_INVALID_HANDLE 0x0300
-#define APPLICATION_VERIFIER_INVALID_TLS_VALUE 0x0301
+#define APPLICATION_VERIFIER_INVALID_TLS_மதிப்பு 0x0301
 #define APPLICATION_VERIFIER_INCORRECT_WAIT_CALL 0x0302
 #define APPLICATION_VERIFIER_NULL_HANDLE 0x0303
 #define APPLICATION_VERIFIER_WAIT_IN_DLLMAIN 0x0304
@@ -5498,11 +5498,11 @@ typedef DWORD LCID;
 #define APPLICATION_VERIFIER_PROBE_INVALID_START_OR_SIZE 0x0607
 #define APPLICATION_VERIFIER_SIZE_HEAP_UNEXPECTED_EXCEPTION 0x0618
 
-#define VERIFIER_STOP(Code,Msg,P1,S1,P2,S2,P3,S3,P4,S4) { RtlApplicationVerifierStop ((Code),(Msg),(ULONG_PTR)(P1),(S1),(ULONG_PTR)(P2),(S2),(ULONG_PTR)(P3),(S3),(ULONG_PTR)(P4),(S4)); }
+#define VERIFIER_STOP(Code,செய்தி_3,P1,S1,P2,S2,P3,S3,P4,S4) { RtlApplicationVerifierStop ((Code),(செய்தி_3),(ULONG_PTR)(P1),(S1),(ULONG_PTR)(P2),(S2),(ULONG_PTR)(P3),(S3),(ULONG_PTR)(P4),(S4)); }
 
     VOID NTAPI RtlApplicationVerifierStop(ULONG_PTR Code,PSTR Message,ULONG_PTR Param1,PSTR Description1,ULONG_PTR Param2,PSTR Description2,ULONG_PTR Param3,PSTR Description3,ULONG_PTR Param4,PSTR Description4);
 
-    typedef LONG (NTAPI *PVECTORED_EXCEPTION_HANDLER)(struct _EXCEPTION_POINTERS *ExceptionInfo);
+    வகைவரை LONG (NTAPI *PVECTORED_EXCEPTION_HANDLER)(கட்டமைப்பு _EXCEPTION_POINTERS *ExceptionInfo);
 #define SEF_DACL_AUTO_INHERIT 0x01
 #define SEF_SACL_AUTO_INHERIT 0x02
 #define SEF_DEFAULT_DESCRIPTOR_FOR_OBJECT 0x04
@@ -5511,14 +5511,14 @@ typedef DWORD LCID;
 #define SEF_DEFAULT_OWNER_FROM_PARENT 0x20
 #define SEF_DEFAULT_GROUP_FROM_PARENT 0x40
 
-    typedef enum _HEAP_INFORMATION_CLASS {
+    வகைவரை எண்ணிக்கை _HEAP_INFORMATION_CLASS {
       HeapCompatibilityInformation
     } HEAP_INFORMATION_CLASS;
 
     NTSYSAPI DWORD NTAPI RtlSetHeapInformation(PVOID HeapHandle,HEAP_INFORMATION_CLASS HeapInformationClass,PVOID HeapInformation,SIZE_T HeapInformationLength);
     NTSYSAPI DWORD NTAPI RtlQueryHeapInformation(PVOID HeapHandle,HEAP_INFORMATION_CLASS HeapInformationClass,PVOID HeapInformation,SIZE_T HeapInformationLength,PSIZE_T ReturnLength);
-    DWORD NTAPI RtlMultipleAllocateHeap(PVOID HeapHandle,DWORD Flags,SIZE_T Size,DWORD Count,PVOID *Array);
-    DWORD NTAPI RtlMultipleFreeHeap(PVOID HeapHandle,DWORD Flags,DWORD Count,PVOID *Array);
+    DWORD NTAPI RtlMultipleAllocateHeap(PVOID HeapHandle,DWORD Flags,SIZE_T Size,DWORD மொத்தம்_3,PVOID *Array);
+    DWORD NTAPI RtlMultipleFreeHeap(PVOID HeapHandle,DWORD Flags,DWORD மொத்தம்_3,PVOID *Array);
 
 #define WT_EXECUTEDEFAULT 0x00000000
 #define WT_EXECUTEINIOTHREAD 0x00000001
@@ -5531,34 +5531,34 @@ typedef DWORD LCID;
 #define WT_EXECUTEINPERSISTENTTHREAD 0x00000080
 #define WT_TRANSFER_IMPERSONATION 0x00000100
 #define WT_SET_MAX_THREADPOOL_THREADS(Flags,Limit) ((Flags) |= (Limit)<<16)
-    typedef VOID (NTAPI *WAITORTIMERCALLBACKFUNC)(PVOID,BOOLEAN);
-    typedef VOID (NTAPI *WORKERCALLBACKFUNC)(PVOID);
-    typedef VOID (NTAPI *APC_CALLBACK_FUNCTION)(DWORD ,PVOID,PVOID);
-    typedef
+    வகைவரை VOID (NTAPI *WAITORTIMERCALLBACKFUNC)(PVOID,BOOLEAN);
+    வகைவரை VOID (NTAPI *WORKERCALLBACKFUNC)(PVOID);
+    வகைவரை VOID (NTAPI *APC_CALLBACK_FUNCTION)(DWORD ,PVOID,PVOID);
+    வகைவரை
       VOID
       (NTAPI *PFLS_CALLBACK_FUNCTION)(PVOID lpFlsData);
 #define WT_EXECUTEINLONGTHREAD 0x00000010
 #define WT_EXECUTEDELETEWAIT 0x00000008
 
-    typedef enum _ACTIVATION_CONTEXT_INFO_CLASS {
+    வகைவரை எண்ணிக்கை _ACTIVATION_CONTEXT_INFO_CLASS {
       ActivationContextBasicInformation = 1,ActivationContextDetailedInformation = 2,AssemblyDetailedInformationInActivationContext = 3,FileInformationInAssemblyOfAssemblyInActivationContext = 4,MaxActivationContextInfoClass,AssemblyDetailedInformationInActivationContxt = 3,FileInformationInAssemblyOfAssemblyInActivationContxt = 4
     } ACTIVATION_CONTEXT_INFO_CLASS;
 
 #define ACTIVATIONCONTEXTINFOCLASS ACTIVATION_CONTEXT_INFO_CLASS
 
-    typedef struct _ACTIVATION_CONTEXT_QUERY_INDEX {
+    வகைவரை கட்டமைப்பு _ACTIVATION_CONTEXT_QUERY_INDEX {
       DWORD ulAssemblyIndex;
       DWORD ulFileIndexInAssembly;
     } ACTIVATION_CONTEXT_QUERY_INDEX,*PACTIVATION_CONTEXT_QUERY_INDEX;
 
-    typedef const struct _ACTIVATION_CONTEXT_QUERY_INDEX *PCACTIVATION_CONTEXT_QUERY_INDEX;
+    வகைவரை மாறிலி கட்டமைப்பு _ACTIVATION_CONTEXT_QUERY_INDEX *PCACTIVATION_CONTEXT_QUERY_INDEX;
 
 #define ACTIVATION_CONTEXT_PATH_TYPE_NONE (1)
 #define ACTIVATION_CONTEXT_PATH_TYPE_WIN32_FILE (2)
 #define ACTIVATION_CONTEXT_PATH_TYPE_URL (3)
 #define ACTIVATION_CONTEXT_PATH_TYPE_ASSEMBLYREF (4)
 
-    typedef struct _ASSEMBLY_FILE_DETAILED_INFORMATION {
+    வகைவரை கட்டமைப்பு _ASSEMBLY_FILE_DETAILED_INFORMATION {
       DWORD ulFlags;
       DWORD ulFilenameLength;
       DWORD ulPathLength;
@@ -5566,14 +5566,14 @@ typedef DWORD LCID;
       PCWSTR lpFileName;
       PCWSTR lpFilePath;
     } ASSEMBLY_FILE_DETAILED_INFORMATION,*PASSEMBLY_FILE_DETAILED_INFORMATION;
-    typedef const ASSEMBLY_FILE_DETAILED_INFORMATION *PCASSEMBLY_FILE_DETAILED_INFORMATION;
+    வகைவரை மாறிலி ASSEMBLY_FILE_DETAILED_INFORMATION *PCASSEMBLY_FILE_DETAILED_INFORMATION;
 
 #define _ASSEMBLY_DLL_REDIRECTION_DETAILED_INFORMATION _ASSEMBLY_FILE_DETAILED_INFORMATION
 #define ASSEMBLY_DLL_REDIRECTION_DETAILED_INFORMATION ASSEMBLY_FILE_DETAILED_INFORMATION
 #define PASSEMBLY_DLL_REDIRECTION_DETAILED_INFORMATION PASSEMBLY_FILE_DETAILED_INFORMATION
 #define PCASSEMBLY_DLL_REDIRECTION_DETAILED_INFORMATION PCASSEMBLY_FILE_DETAILED_INFORMATION
 
-    typedef struct _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION {
+    வகைவரை கட்டமைப்பு _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION {
       DWORD ulFlags;
       DWORD ulEncodedAssemblyIdentityLength;
       DWORD ulManifestPathType;
@@ -5592,27 +5592,27 @@ typedef DWORD LCID;
       PCWSTR lpAssemblyManifestPath;
       PCWSTR lpAssemblyPolicyPath;
       PCWSTR lpAssemblyDirectoryName;
-      DWORD ulFileCount;
+      DWORD ul_File_மொத்தம்;
     } ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION,*PACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION;
 
-    typedef const struct _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION *PCACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION;
+    வகைவரை மாறிலி கட்டமைப்பு _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION *PCACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION;
 
-    typedef struct _ACTIVATION_CONTEXT_DETAILED_INFORMATION {
+    வகைவரை கட்டமைப்பு _ACTIVATION_CONTEXT_DETAILED_INFORMATION {
       DWORD dwFlags;
       DWORD ulFormatVersion;
-      DWORD ulAssemblyCount;
-      DWORD ulRootManifestPathType;
-      DWORD ulRootManifestPathChars;
-      DWORD ulRootConfigurationPathType;
-      DWORD ulRootConfigurationPathChars;
+      DWORD ul_Assembly_மொத்தம்;
+      DWORD ul_வேர்_Manifest_Path_Type;
+      DWORD ul_வேர்_Manifest_Path_Chars;
+      DWORD ul_வேர்_Configuration_Path_Type;
+      DWORD ul_வேர்_Configuration_Path_Chars;
       DWORD ulAppDirPathType;
       DWORD ulAppDirPathChars;
-      PCWSTR lpRootManifestPath;
-      PCWSTR lpRootConfigurationPath;
+      PCWSTR lp_வேர்_Manifest_Path;
+      PCWSTR lp_வேர்_Configuration_Path;
       PCWSTR lpAppDirPath;
     } ACTIVATION_CONTEXT_DETAILED_INFORMATION,*PACTIVATION_CONTEXT_DETAILED_INFORMATION;
 
-    typedef const struct _ACTIVATION_CONTEXT_DETAILED_INFORMATION *PCACTIVATION_CONTEXT_DETAILED_INFORMATION;
+    வகைவரை மாறிலி கட்டமைப்பு _ACTIVATION_CONTEXT_DETAILED_INFORMATION *PCACTIVATION_CONTEXT_DETAILED_INFORMATION;
 
 #define DLL_PROCESS_ATTACH 1
 #define DLL_THREAD_ATTACH 2
@@ -5638,18 +5638,18 @@ typedef DWORD LCID;
 #define EVENTLOG_PAIRED_EVENT_ACTIVE 0x0008
 #define EVENTLOG_PAIRED_EVENT_INACTIVE 0x0010
 
-    typedef struct _EVENTLOGRECORD {
+    வகைவரை கட்டமைப்பு _EVENTLOGRECORD {
       DWORD Length;
       DWORD Reserved;
-      DWORD RecordNumber;
+      DWORD Record_எண்;
       DWORD TimeGenerated;
       DWORD TimeWritten;
       DWORD EventID;
       WORD EventType;
-      WORD NumStrings;
+      WORD இலக்கம்_Strings;
       WORD EventCategory;
       WORD ReservedFlags;
-      DWORD ClosingRecordNumber;
+      DWORD Closing_Record_எண்;
       DWORD StringOffset;
       DWORD UserSidLength;
       DWORD UserSidOffset;
@@ -5659,33 +5659,33 @@ typedef DWORD LCID;
 
 #define MAXLOGICALLOGNAMESIZE 256
 
-    typedef struct _EVENTSFORLOGFILE{
+    வகைவரை கட்டமைப்பு _EVENTSFORLOGFILE{
       DWORD ulSize;
       WCHAR szLogicalLogFile[MAXLOGICALLOGNAMESIZE];
-      DWORD ulNumRecords;
+      DWORD ul_இலக்கம்_Records;
       EVENTLOGRECORD pEventLogRecords[];
     } EVENTSFORLOGFILE,*PEVENTSFORLOGFILE;
 
-    typedef struct _PACKEDEVENTINFO{
+    வகைவரை கட்டமைப்பு _PACKEDEVENTINFO{
       DWORD ulSize;
-      DWORD ulNumEventsForLogFile;
+      DWORD ul_இலக்கம்_Events_For_Log_File;
       DWORD ulOffsets[];
     } PACKEDEVENTINFO,*PPACKEDEVENTINFO;
 
-#define KEY_QUERY_VALUE (0x0001)
-#define KEY_SET_VALUE (0x0002)
-#define KEY_CREATE_SUB_KEY (0x0004)
-#define KEY_ENUMERATE_SUB_KEYS (0x0008)
-#define KEY_NOTIFY (0x0010)
-#define KEY_CREATE_LINK (0x0020)
-#define KEY_WOW64_32KEY (0x0200)
-#define KEY_WOW64_64KEY (0x0100)
-#define KEY_WOW64_RES (0x0300)
+#define சாவி_QUERY_மதிப்பு (0x0001)
+#define சாவி_SET_மதிப்பு (0x0002)
+#define சாவி_CREATE_SUB_சாவி (0x0004)
+#define சாவி_ENUMERATE_SUB_சாவிகள் (0x0008)
+#define சாவி_NOTIFY (0x0010)
+#define சாவி_CREATE_LINK (0x0020)
+#define சாவி_WOW64_32_சாவி (0x0200)
+#define சாவி_WOW64_64_சாவி (0x0100)
+#define சாவி_WOW64_RES (0x0300)
 
-#define KEY_READ ((STANDARD_RIGHTS_READ | KEY_QUERY_VALUE | KEY_ENUMERATE_SUB_KEYS | KEY_NOTIFY) & (~SYNCHRONIZE))
-#define KEY_WRITE ((STANDARD_RIGHTS_WRITE | KEY_SET_VALUE | KEY_CREATE_SUB_KEY) & (~SYNCHRONIZE))
-#define KEY_EXECUTE ((KEY_READ) & (~SYNCHRONIZE))
-#define KEY_ALL_ACCESS ((STANDARD_RIGHTS_ALL | KEY_QUERY_VALUE | KEY_SET_VALUE | KEY_CREATE_SUB_KEY | KEY_ENUMERATE_SUB_KEYS | KEY_NOTIFY | KEY_CREATE_LINK) & (~SYNCHRONIZE))
+#define சாவி_READ ((STANDARD_RIGHTS_READ | சாவி_QUERY_மதிப்பு | சாவி_ENUMERATE_SUB_சாவிகள் | சாவி_NOTIFY) & (~SYNCHRONIZE))
+#define சாவி_WRITE ((STANDARD_RIGHTS_WRITE | சாவி_SET_மதிப்பு | சாவி_CREATE_SUB_சாவி) & (~SYNCHRONIZE))
+#define சாவி_EXECUTE ((சாவி_READ) & (~SYNCHRONIZE))
+#define சாவி_ALL_ACCESS ((STANDARD_RIGHTS_ALL | சாவி_QUERY_மதிப்பு | சாவி_SET_மதிப்பு | சாவி_CREATE_SUB_சாவி | சாவி_ENUMERATE_SUB_சாவிகள் | சாவி_NOTIFY | சாவி_CREATE_LINK) & (~SYNCHRONIZE))
 #define REG_OPTION_RESERVED (0x00000000L)
 
 #define REG_OPTION_NON_VOLATILE (0x00000000L)
@@ -5694,8 +5694,8 @@ typedef DWORD LCID;
 #define REG_OPTION_BACKUP_RESTORE (0x00000004L)
 #define REG_OPTION_OPEN_LINK (0x00000008L)
 #define REG_LEGAL_OPTION (REG_OPTION_RESERVED | REG_OPTION_NON_VOLATILE | REG_OPTION_VOLATILE | REG_OPTION_CREATE_LINK | REG_OPTION_BACKUP_RESTORE | REG_OPTION_OPEN_LINK)
-#define REG_CREATED_NEW_KEY (0x00000001L)
-#define REG_OPENED_EXISTING_KEY (0x00000002L)
+#define REG_CREATED_NEW_சாவி (0x00000001L)
+#define REG_OPENED_EXISTING_சாவி (0x00000002L)
 #define REG_STANDARD_FORMAT 1
 #define REG_LATEST_FORMAT 2
 #define REG_NO_COMPRESSION 4
@@ -5716,7 +5716,7 @@ typedef DWORD LCID;
 #define REG_SZ (1)
 #define REG_EXPAND_SZ (2)
 
-#define REG_BINARY (3)
+#define REG_இருமம் (3)
 #define REG_DWORD (4)
 #define REG_DWORD_LITTLE_ENDIAN (4)
 #define REG_DWORD_BIG_ENDIAN (5)
@@ -5754,24 +5754,24 @@ typedef DWORD LCID;
 #define SERVICE_ERROR_SEVERE 0x00000002
 #define SERVICE_ERROR_CRITICAL 0x00000003
 
-    typedef enum _CM_SERVICE_NODE_TYPE {
+    வகைவரை எண்ணிக்கை CM_SERVICE_முனை_TYPE {
       DriverType = SERVICE_KERNEL_DRIVER,FileSystemType = SERVICE_FILE_SYSTEM_DRIVER,Win32ServiceOwnProcess = SERVICE_WIN32_OWN_PROCESS,
       Win32ServiceShareProcess = SERVICE_WIN32_SHARE_PROCESS,AdapterType = SERVICE_ADAPTER,RecognizerType = SERVICE_RECOGNIZER_DRIVER
-    } SERVICE_NODE_TYPE;
+    } SERVICE_முனை_TYPE;
 
-    typedef enum _CM_SERVICE_LOAD_TYPE {
+    வகைவரை எண்ணிக்கை _CM_SERVICE_LOAD_TYPE {
       BootLoad = SERVICE_BOOT_START,SystemLoad = SERVICE_SYSTEM_START,AutoLoad = SERVICE_AUTO_START,DemandLoad = SERVICE_DEMAND_START,
       DisableLoad = SERVICE_DISABLED
     } SERVICE_LOAD_TYPE;
 
-    typedef enum _CM_ERROR_CONTROL_TYPE {
+    வகைவரை எண்ணிக்கை _CM_ERROR_CONTROL_TYPE {
       IgnoreError = SERVICE_ERROR_IGNORE,NormalError = SERVICE_ERROR_NORMAL,SevereError = SERVICE_ERROR_SEVERE,CriticalError = SERVICE_ERROR_CRITICAL
     } SERVICE_ERROR_TYPE;
 
 #define TAPE_ERASE_SHORT 0L
 #define TAPE_ERASE_LONG 1L
 
-    typedef struct _TAPE_ERASE {
+    வகைவரை கட்டமைப்பு _TAPE_ERASE {
       DWORD Type;
       BOOLEAN Immediate;
     } TAPE_ERASE,*PTAPE_ERASE;
@@ -5783,7 +5783,7 @@ typedef DWORD LCID;
 #define TAPE_UNLOCK 4L
 #define TAPE_FORMAT 5L
 
-    typedef struct _TAPE_PREPARE {
+    வகைவரை கட்டமைப்பு _TAPE_PREPARE {
       DWORD Operation;
       BOOLEAN Immediate;
     } TAPE_PREPARE,*PTAPE_PREPARE;
@@ -5793,9 +5793,9 @@ typedef DWORD LCID;
 #define TAPE_SHORT_FILEMARKS 2L
 #define TAPE_LONG_FILEMARKS 3L
 
-    typedef struct _TAPE_WRITE_MARKS {
+    வகைவரை கட்டமைப்பு _TAPE_WRITE_MARKS {
       DWORD Type;
-      DWORD Count;
+      DWORD மொத்தம்_3;
       BOOLEAN Immediate;
     } TAPE_WRITE_MARKS,*PTAPE_WRITE_MARKS;
 
@@ -5803,7 +5803,7 @@ typedef DWORD LCID;
 #define TAPE_LOGICAL_POSITION 1L
 #define TAPE_PSEUDO_LOGICAL_POSITION 2L
 
-    typedef struct _TAPE_GET_POSITION {
+    வகைவரை கட்டமைப்பு _TAPE_GET_POSITION {
       DWORD Type;
       DWORD Partition;
       LARGE_INTEGER Offset;
@@ -5820,7 +5820,7 @@ typedef DWORD LCID;
 #define TAPE_SPACE_SETMARKS 8L
 #define TAPE_SPACE_SEQUENTIAL_SMKS 9L
 
-    typedef struct _TAPE_SET_POSITION {
+    வகைவரை கட்டமைப்பு _TAPE_SET_POSITION {
       DWORD Method;
       DWORD Partition;
       LARGE_INTEGER Offset;
@@ -5897,9 +5897,9 @@ typedef DWORD LCID;
 #define TAPE_DRIVE_WRITE_MARK_IMMED 0x90000000
 #define TAPE_DRIVE_FORMAT 0xA0000000
 #define TAPE_DRIVE_FORMAT_IMMEDIATE 0xC0000000
-#define TAPE_DRIVE_HIGH_FEATURES 0x80000000
+#define TAPE_DRIVE_உயர்வு_FEATURES 0x80000000
 
-    typedef struct _TAPE_GET_DRIVE_PARAMETERS {
+    வகைவரை கட்டமைப்பு _TAPE_GET_DRIVE_PARAMETERS {
       BOOLEAN ECC;
       BOOLEAN Compression;
       BOOLEAN DataPadding;
@@ -5907,13 +5907,13 @@ typedef DWORD LCID;
       DWORD DefaultBlockSize;
       DWORD MaximumBlockSize;
       DWORD MinimumBlockSize;
-      DWORD MaximumPartitionCount;
-      DWORD FeaturesLow;
-      DWORD FeaturesHigh;
+      DWORD Maximum_Partition_மொத்தம்;
+      DWORD Features_கீழ்;
+      DWORD Features_உயர்வு;
       DWORD EOTWarningZoneSize;
     } TAPE_GET_DRIVE_PARAMETERS,*PTAPE_GET_DRIVE_PARAMETERS;
 
-    typedef struct _TAPE_SET_DRIVE_PARAMETERS {
+    வகைவரை கட்டமைப்பு _TAPE_SET_DRIVE_PARAMETERS {
       BOOLEAN ECC;
       BOOLEAN Compression;
       BOOLEAN DataPadding;
@@ -5921,15 +5921,15 @@ typedef DWORD LCID;
       DWORD EOTWarningZoneSize;
     } TAPE_SET_DRIVE_PARAMETERS,*PTAPE_SET_DRIVE_PARAMETERS;
 
-    typedef struct _TAPE_GET_MEDIA_PARAMETERS {
+    வகைவரை கட்டமைப்பு _TAPE_GET_MEDIA_PARAMETERS {
       LARGE_INTEGER Capacity;
       LARGE_INTEGER Remaining;
       DWORD BlockSize;
-      DWORD PartitionCount;
+      DWORD Partition_மொத்தம்;
       BOOLEAN WriteProtected;
     } TAPE_GET_MEDIA_PARAMETERS,*PTAPE_GET_MEDIA_PARAMETERS;
 
-    typedef struct _TAPE_SET_MEDIA_PARAMETERS {
+    வகைவரை கட்டமைப்பு _TAPE_SET_MEDIA_PARAMETERS {
       DWORD BlockSize;
     } TAPE_SET_MEDIA_PARAMETERS,*PTAPE_SET_MEDIA_PARAMETERS;
 
@@ -5937,9 +5937,9 @@ typedef DWORD LCID;
 #define TAPE_SELECT_PARTITIONS 1L
 #define TAPE_INITIATOR_PARTITIONS 2L
 
-    typedef struct _TAPE_CREATE_PARTITION {
+    வகைவரை கட்டமைப்பு _TAPE_CREATE_PARTITION {
       DWORD Method;
-      DWORD Count;
+      DWORD மொத்தம்_3;
       DWORD Size;
     } TAPE_CREATE_PARTITION,*PTAPE_CREATE_PARTITION;
 
@@ -5949,31 +5949,31 @@ typedef DWORD LCID;
 #define TAPE_QUERY_IO_ERROR_DATA 3L
 #define TAPE_QUERY_DEVICE_ERROR_DATA 4L
 
-    typedef struct _TAPE_WMI_OPERATIONS {
+    வகைவரை கட்டமைப்பு _TAPE_WMI_OPERATIONS {
       DWORD Method;
       DWORD DataBufferSize;
       PVOID DataBuffer;
     } TAPE_WMI_OPERATIONS,*PTAPE_WMI_OPERATIONS;
 
-    typedef enum _TAPE_DRIVE_PROBLEM_TYPE {
+    வகைவரை எண்ணிக்கை _TAPE_DRIVE_PROBLEM_TYPE {
       TapeDriveProblemNone,TapeDriveReadWriteWarning,TapeDriveReadWriteError,TapeDriveReadWarning,TapeDriveWriteWarning,TapeDriveReadError,TapeDriveWriteError,TapeDriveHardwareError,TapeDriveUnsupportedMedia,TapeDriveScsiConnectionError,TapeDriveTimetoClean,TapeDriveCleanDriveNow,TapeDriveMediaLifeExpired,TapeDriveSnappedTape
     } TAPE_DRIVE_PROBLEM_TYPE;
 
-#if defined(__x86_64)
-    __CRT_INLINE struct _TEB *NtCurrentTeb(VOID) { return (struct _TEB *)__readgsqword(FIELD_OFFSET(NT_TIB,Self)); }
-    __CRT_INLINE PVOID GetCurrentFiber(VOID) { return(PVOID)__readgsqword(FIELD_OFFSET(NT_TIB,FiberData)); }
+#எனில் defined(__x86_64)
+    __CRT_INLINE கட்டமைப்பு _TEB *NtCurrentTeb(VOID) { திரும்பு (கட்டமைப்பு _TEB *)__readgsqword(FIELD_OFFSET(NT_TIB,Self)); }
+    __CRT_INLINE PVOID GetCurrentFiber(VOID) { திரும்பு(PVOID)__readgsqword(FIELD_OFFSET(NT_TIB,FiberData)); }
     __CRT_INLINE PVOID GetFiberData(VOID) {
-      return *(PVOID *)GetCurrentFiber();
+      திரும்பு *(PVOID *)GetCurrentFiber();
     }
 #endif
 
-#if(defined(_X86_) && !defined(__x86_64))
+#எனில்(defined(_X86_) && !defined(__x86_64))
 #define PcTeb 0x18
-    __CRT_INLINE struct _TEB *NtCurrentTeb(void) {
-      struct _TEB *ret;
-      __asm__ volatile ("movl	%%fs:0x18,%0"
+    __CRT_INLINE கட்டமைப்பு _TEB *NtCurrentTeb(வெறுமை) {
+      கட்டமைப்பு _TEB *ret;
+      __asm__ நிலையற்ற ("movl	%%fs:0x18,%0"
 	: "=r" (ret));
-      return ret;
+      திரும்பு ret;
     }
 #endif
 

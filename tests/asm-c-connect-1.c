@@ -1,40 +1,40 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#எனில் (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#இல்லையெனில்
 # define _
 #endif
 
 #ifdef __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
 #define __USED __attribute__((__used__))
-#else
+#இல்லையெனில்
 #define __USED
 #endif
 
-static int __USED x1_c (void)
+நிலையான முழு __USED x1_c (வெறுமை)
 {
     printf(" x1");
-    return 1;
+    திரும்பு 1;
 }
 
-#if __i386__
+#எனில் __i386__
 asm(".text;"_"x1: call "_"x1_c; ret");
-#else
+#இல்லையெனில்
 /* Keep stack aligned */
 asm(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
 #endif
 
-void callx4(void);
-void callx5_again(void);
+வெறுமை callx4(வெறுமை);
+வெறுமை callx5_again(வெறுமை);
 
-void x6()
+வெறுமை x6()
 {
     printf(" x6-1");
 }
 
-int main(int argc, char *argv[])
+முழு முதன்மை(முழு argc, எழுத்து *argv[])
 {
     printf("*");
     asm("call "_"x1");
@@ -45,25 +45,25 @@ int main(int argc, char *argv[])
     callx5_again();
     x6();
     printf(" *\n");
-    return 0;
+    திரும்பு 0;
 }
 
-static
-int __USED x2(void)
+நிலையான
+முழு __USED x2(வெறுமை)
 {
     printf(" x2");
-    return 2;
+    திரும்பு 2;
 }
 
-extern int x3(void);
+வெளி முழு x3(வெறுமை);
 
-void x4(void)
+வெறுமை x4(வெறுமை)
 {
     printf(" x4");
 }
 
-void x5(void);
-void x5(void)
+வெறுமை x5(வெறுமை);
+வெறுமை x5(வெறுமை)
 {
     printf(" x5");
 }

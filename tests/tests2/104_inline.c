@@ -1,123 +1,123 @@
-inline void inline_inline_2decl_only(void);
-inline void inline_inline_2decl_only(void);
+உள்வரி வெறுமை inline_inline_2decl_only(வெறுமை);
+உள்வரி வெறுமை inline_inline_2decl_only(வெறுமை);
 
-inline void inline_inline_undeclared(void){}
+உள்வரி வெறுமை inline_inline_undeclared(வெறுமை){}
 
-inline void inline_inline_predeclared(void);
-inline void inline_inline_predeclared(void){}
+உள்வரி வெறுமை inline_inline_predeclared(வெறுமை);
+உள்வரி வெறுமை inline_inline_predeclared(வெறுமை){}
 
-inline void inline_inline_postdeclared(void){}
-inline void inline_inline_postdeclared(void);
+உள்வரி வெறுமை inline_inline_postdeclared(வெறுமை){}
+உள்வரி வெறுமை inline_inline_postdeclared(வெறுமை);
 
-inline void inline_inline_prepostdeclared(void);
-inline void inline_inline_prepostdeclared(void){}
-inline void inline_inline_prepostdeclared(void);
+உள்வரி வெறுமை inline_inline_prepostdeclared(வெறுமை);
+உள்வரி வெறுமை inline_inline_prepostdeclared(வெறுமை){}
+உள்வரி வெறுமை inline_inline_prepostdeclared(வெறுமை);
 
-inline void inline_inline_undeclared2(void){}
+உள்வரி வெறுமை inline_inline_undeclared2(வெறுமை){}
 
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void){}
+உள்வரி வெறுமை inline_inline_predeclared2(வெறுமை);
+உள்வரி வெறுமை inline_inline_predeclared2(வெறுமை);
+உள்வரி வெறுமை inline_inline_predeclared2(வெறுமை){}
 
-inline void inline_inline_postdeclared2(void){}
-inline void inline_inline_postdeclared2(void);
-inline void inline_inline_postdeclared2(void);
+உள்வரி வெறுமை inline_inline_postdeclared2(வெறுமை){}
+உள்வரி வெறுமை inline_inline_postdeclared2(வெறுமை);
+உள்வரி வெறுமை inline_inline_postdeclared2(வெறுமை);
 
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void){}
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
+உள்வரி வெறுமை inline_inline_prepostdeclared2(வெறுமை);
+உள்வரி வெறுமை inline_inline_prepostdeclared2(வெறுமை);
+உள்வரி வெறுமை inline_inline_prepostdeclared2(வெறுமை){}
+உள்வரி வெறுமை inline_inline_prepostdeclared2(வெறுமை);
+உள்வரி வெறுமை inline_inline_prepostdeclared2(வெறுமை);
 
-extern void extern_extern_undeclared(void){}
+வெளி வெறுமை extern_extern_undeclared(வெறுமை){}
 
-extern void extern_extern_predeclared(void);
-extern void extern_extern_predeclared(void){}
+வெளி வெறுமை extern_extern_predeclared(வெறுமை);
+வெளி வெறுமை extern_extern_predeclared(வெறுமை){}
 
-extern void extern_extern_postdeclared(void){}
-extern void extern_extern_postdeclared(void);
+வெளி வெறுமை extern_extern_postdeclared(வெறுமை){}
+வெளி வெறுமை extern_extern_postdeclared(வெறுமை);
 
-extern void extern_extern_prepostdeclared(void);
-extern void extern_extern_prepostdeclared(void){}
-extern void extern_extern_prepostdeclared(void);
+வெளி வெறுமை extern_extern_prepostdeclared(வெறுமை);
+வெளி வெறுமை extern_extern_prepostdeclared(வெறுமை){}
+வெளி வெறுமை extern_extern_prepostdeclared(வெறுமை);
 
-extern void extern_extern_undeclared2(void){}
+வெளி வெறுமை extern_extern_undeclared2(வெறுமை){}
 
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void){}
+வெளி வெறுமை extern_extern_predeclared2(வெறுமை);
+வெளி வெறுமை extern_extern_predeclared2(வெறுமை);
+வெளி வெறுமை extern_extern_predeclared2(வெறுமை){}
 
-extern void extern_extern_postdeclared2(void){}
-extern void extern_extern_postdeclared2(void);
-extern void extern_extern_postdeclared2(void);
+வெளி வெறுமை extern_extern_postdeclared2(வெறுமை){}
+வெளி வெறுமை extern_extern_postdeclared2(வெறுமை);
+வெளி வெறுமை extern_extern_postdeclared2(வெறுமை);
 
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void){}
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
+வெளி வெறுமை extern_extern_prepostdeclared2(வெறுமை);
+வெளி வெறுமை extern_extern_prepostdeclared2(வெறுமை);
+வெளி வெறுமை extern_extern_prepostdeclared2(வெறுமை){}
+வெளி வெறுமை extern_extern_prepostdeclared2(வெறுமை);
+வெளி வெறுமை extern_extern_prepostdeclared2(வெறுமை);
 
-void extern_undeclared(void){}
+வெறுமை extern_undeclared(வெறுமை){}
 
-void extern_predeclared(void);
-void extern_predeclared(void){}
+வெறுமை extern_predeclared(வெறுமை);
+வெறுமை extern_predeclared(வெறுமை){}
 
-void extern_postdeclared(void){}
-void extern_postdeclared(void);
+வெறுமை extern_postdeclared(வெறுமை){}
+வெறுமை extern_postdeclared(வெறுமை);
 
-void extern_prepostdeclared(void);
-void extern_prepostdeclared(void){}
-void extern_prepostdeclared(void);
+வெறுமை extern_prepostdeclared(வெறுமை);
+வெறுமை extern_prepostdeclared(வெறுமை){}
+வெறுமை extern_prepostdeclared(வெறுமை);
 
-void extern_undeclared2(void){}
+வெறுமை extern_undeclared2(வெறுமை){}
 
-void extern_predeclared2(void);
-void extern_predeclared2(void);
-void extern_predeclared2(void){}
+வெறுமை extern_predeclared2(வெறுமை);
+வெறுமை extern_predeclared2(வெறுமை);
+வெறுமை extern_predeclared2(வெறுமை){}
 
-void extern_postdeclared2(void){}
-void extern_postdeclared2(void);
-void extern_postdeclared2(void);
+வெறுமை extern_postdeclared2(வெறுமை){}
+வெறுமை extern_postdeclared2(வெறுமை);
+வெறுமை extern_postdeclared2(வெறுமை);
 
 
-extern inline void noinst_extern_inline_undeclared(void){}
+வெளி உள்வரி வெறுமை noinst_extern_inline_undeclared(வெறுமை){}
 
-extern inline void noinst_extern_inline_postdeclared(void){}
-inline void noinst_extern_inline_postdeclared(void);
+வெளி உள்வரி வெறுமை noinst_extern_inline_postdeclared(வெறுமை){}
+உள்வரி வெறுமை noinst_extern_inline_postdeclared(வெறுமை);
 
-extern inline void noinst_extern_inline_postdeclared2(void){}
-inline void noinst_extern_inline_postdeclared2(void);
-inline void noinst_extern_inline_postdeclared2(void);
+வெளி உள்வரி வெறுமை noinst_extern_inline_postdeclared2(வெறுமை){}
+உள்வரி வெறுமை noinst_extern_inline_postdeclared2(வெறுமை);
+உள்வரி வெறுமை noinst_extern_inline_postdeclared2(வெறுமை);
 
-extern inline void inst_extern_inline_postdeclared(void){}
-extern inline void inst_extern_inline_postdeclared(void);
-inline void inst2_extern_inline_postdeclared(void){}
-void inst2_extern_inline_postdeclared(void);
+வெளி உள்வரி வெறுமை inst_extern_inline_postdeclared(வெறுமை){}
+வெளி உள்வரி வெறுமை inst_extern_inline_postdeclared(வெறுமை);
+உள்வரி வெறுமை inst2_extern_inline_postdeclared(வெறுமை){}
+வெறுமை inst2_extern_inline_postdeclared(வெறுமை);
 
-void inst_extern_inline_predeclared(void);
-extern inline void inst_extern_inline_predeclared(void){}
-void inst2_extern_inline_predeclared(void);
-inline void inst2_extern_inline_predeclared(void){}
-extern inline void inst3_extern_inline_predeclared(void);
-inline void inst3_extern_inline_predeclared(void){}
+வெறுமை inst_extern_inline_predeclared(வெறுமை);
+வெளி உள்வரி வெறுமை inst_extern_inline_predeclared(வெறுமை){}
+வெறுமை inst2_extern_inline_predeclared(வெறுமை);
+உள்வரி வெறுமை inst2_extern_inline_predeclared(வெறுமை){}
+வெளி உள்வரி வெறுமை inst3_extern_inline_predeclared(வெறுமை);
+உள்வரி வெறுமை inst3_extern_inline_predeclared(வெறுமை){}
 
-static inline void noinst_static_inline_postdeclared(void){}
-static inline void noinst_static_inline_postdeclared(void);
-static inline void noinst2_static_inline_postdeclared(void){}
-static void noinst2_static_inline_postdeclared(void);
+நிலையான உள்வரி வெறுமை noinst_static_inline_postdeclared(வெறுமை){}
+நிலையான உள்வரி வெறுமை noinst_static_inline_postdeclared(வெறுமை);
+நிலையான உள்வரி வெறுமை noinst2_static_inline_postdeclared(வெறுமை){}
+நிலையான வெறுமை noinst2_static_inline_postdeclared(வெறுமை);
 
-static void noinst_static_inline_predeclared(void);
-static inline void noinst_static_inline_predeclared(void){}
-static void noinst2_static_inline_predeclared(void);
-static inline void noinst2_static_inline_predeclared(void){}
+நிலையான வெறுமை noinst_static_inline_predeclared(வெறுமை);
+நிலையான உள்வரி வெறுமை noinst_static_inline_predeclared(வெறுமை){}
+நிலையான வெறுமை noinst2_static_inline_predeclared(வெறுமை);
+நிலையான உள்வரி வெறுமை noinst2_static_inline_predeclared(வெறுமை){}
 
-static void static_func(void);
-void static_func(void) { }
+நிலையான வெறுமை static_func(வெறுமை);
+வெறுமை static_func(வெறுமை) { }
 
-inline void noinst_extern_inline_func(void);
-void noinst_extern_inline_func(void) { }
+உள்வரி வெறுமை noinst_extern_inline_func(வெறுமை);
+வெறுமை noinst_extern_inline_func(வெறுமை) { }
 
-int main()
+முழு முதன்மை()
 {
         inline_inline_undeclared(); inline_inline_predeclared(); inline_inline_postdeclared();
         inline_inline_undeclared2(); inline_inline_predeclared2(); inline_inline_postdeclared2();
@@ -126,7 +126,7 @@ int main()
 	noinst_static_inline_predeclared();
 	noinst2_static_inline_predeclared();
 
-        void check_exports();
+        வெறுமை check_exports();
         check_exports();
-        return 0;
+        திரும்பு 0;
 }

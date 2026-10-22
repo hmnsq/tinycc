@@ -1,18 +1,18 @@
-#include <stdio.h>
+#அந்தர்பாவ <stdio.h>
 
-int main()
+முழு முதன்மை()
 {
-   int a;
-   char b;
+   முழு a;
+   எழுத்து b;
 
    a = 0;
-   while (a < 2)
+   போது (a < 2)
    {
       printf("%d", a++);
-      break;
+      நிறுத்து;
 
       b = 'A';
-      while (b < 'C')
+      போது (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   திரும்பு 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
