@@ -6,10 +6,10 @@
 #ifndef _INC_MEMORY
 #define _INC_MEMORY
 
-#include <_mingw.h>
+#अन्तर्भाव <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
 #ifndef _CONST_RETURN
@@ -20,17 +20,17 @@ extern "C" {
 
 #ifndef _CRT_MEMORY_DEFINED
 #define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+  _CRTIMP शून्य *__cdecl _memccpy(शून्य *_Dst,ध्रुव शून्य *_Src,पूर्णाङ्क _Val,size_t Max_गिनती);
+  _CONST_RETURN शून्य *__cdecl memchr(ध्रुव शून्य *_Buf ,पूर्णाङ्क _Val,size_t Max_गिनती);
+  _CRTIMP पूर्णाङ्क __cdecl _memicmp(ध्रुव शून्य *_Buf1,ध्रुव शून्य *_Buf2,size_t _Size);
+  _CRTIMP पूर्णाङ्क __cdecl _memicmp_l(ध्रुव शून्य *_Buf1,ध्रुव शून्य *_Buf2,size_t _Size,_locale_t _Locale);
+  पूर्णाङ्क __cdecl memcmp(ध्रुव शून्य *_Buf1,ध्रुव शून्य *_Buf2,size_t _Size);
+  शून्य *__cdecl memcpy(शून्य *_Dst,ध्रुव शून्य *_Src,size_t _Size);
+  शून्य *__cdecl memset(शून्य *_Dst,पूर्णाङ्क _Val,size_t _Size);
 
 #ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
+  शून्य *__cdecl memccpy(शून्य *_Dst,ध्रुव शून्य *_Src,पूर्णाङ्क _Val,size_t _Size);
+  पूर्णाङ्क __cdecl memicmp(ध्रुव शून्य *_Buf1,ध्रुव शून्य *_Buf2,size_t _Size);
 #endif
 #endif
 
