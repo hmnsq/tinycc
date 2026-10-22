@@ -1,0 +1,621 @@
+# What is still missing
+
+76 languages. Each line says in how many languages it is missing.
+
+## Files in languages BURP cannot read yet
+
+- `.sh`: 2 files
+- `.pl`: 1 files
+
+## Keywords with no word in a language's table
+
+- guru:__FILE__: 75
+- guru:_exit: 75
+- yantra:SP: 75
+- yantra:AAA: 75
+- guru:wchar_t: 71
+- guru:size_t: 71
+- guru:FILE: 71
+- guru:fprintf: 71
+- guru:stderr: 71
+- guru:asm: 71
+- guru:va_list: 71
+- guru:time_t: 71
+- guru:tm: 71
+- guru:stdout: 71
+- guru:strchr: 71
+- guru:fflush: 71
+- guru:fwrite: 71
+- guru:memcmp: 71
+- guru:va_arg: 71
+- guru:fclose: 71
+- guru:offsetof: 71
+- guru:jmp_buf: 71
+- guru:fopen: 71
+- guru:memmove: 71
+- guru:abort: 71
+- guru:sprintf: 71
+- guru:errno: 71
+- guru:longjmp: 71
+- guru:atoi: 71
+- guru:va_start: 71
+- guru:va_end: 71
+- guru:strncpy: 71
+- guru:UINT_MAX: 71
+- guru:SEEK_SET: 71
+- guru:time: 71
+- guru:fread: 71
+- guru:setjmp: 71
+- guru:fgets: 71
+- guru:fputs: 71
+- guru:strrchr: 71
+- guru:realloc: 71
+- guru:tolower: 71
+- guru:strtoul: 71
+- guru:getenv: 71
+- guru:strtod: 71
+- guru:stdin: 71
+- guru:fabs: 71
+- guru:strncat: 71
+- guru:fseek: 71
+- guru:floor: 71
+- guru:DIR: 71
+- guru:NAN: 71
+- guru:close: 71
+- guru:fputc: 71
+- guru:ptrdiff_t: 71
+- guru:ceil: 71
+- guru:vfprintf: 71
+- guru:strerror: 71
+- guru:fmod: 71
+- guru:atexit: 71
+- guru:strtol: 71
+- guru:EOF: 71
+- guru:fgetc: 71
+- guru:vprintf: 71
+- guru:system: 71
+- guru:localtime: 71
+- guru:remove: 71
+- guru:ctime: 71
+- guru:INT_MIN: 71
+- guru:SEEK_END: 71
+- guru:freopen: 71
+- guru:getc: 71
+- guru:perror: 71
+- guru:atol: 71
+- guru:fpos_t: 71
+- guru:strspn: 71
+- guru:difftime: 71
+- guru:gmtime: 71
+- guru:mktime: 71
+- guru:LDBL_MANT_DIG: 71
+- guru:LDBL_DIG: 71
+- guru:LDBL_EPSILON: 71
+- guru:LDBL_MIN: 71
+- guru:LDBL_MAX: 71
+- guru:gets: 71
+- guru:ungetc: 71
+- guru:vsprintf: 71
+- guru:SIGFPE: 71
+- guru:SIGSEGV: 71
+- guru:SIGILL: 71
+- guru:ftell: 71
+- guru:EXIT_FAILURE: 71
+- guru:EXIT_SUCCESS: 71
+- guru:rename: 71
+- guru:atof: 71
+- guru:INFINITY: 71
+- guru:strtok: 71
+- guru:fstat: 71
+- guru:pause: 71
+- guru:LONG_MIN: 71
+- guru:LONG_MAX: 71
+- guru:ULONG_MAX: 71
+- guru:SIG_ERR: 71
+- guru:fork: 71
+- guru:isupper: 71
+- guru:islower: 71
+- guru:isxdigit: 71
+- guru:ispunct: 71
+- guru:isprint: 71
+- guru:isgraph: 71
+- guru:iscntrl: 71
+- guru:chdir: 71
+- guru:mkdir: 71
+- guru:rmdir: 71
+- guru:opendir: 71
+- guru:readdir: 71
+- guru:closedir: 71
+- guru:rewinddir: 71
+- guru:EDOM: 71
+- guru:ERANGE: 71
+- guru:SCHAR_MIN: 71
+- guru:SCHAR_MAX: 71
+- guru:UCHAR_MAX: 71
+- guru:CHAR_MIN: 71
+- guru:CHAR_MAX: 71
+- guru:lconv: 71
+- guru:setlocale: 71
+- guru:labs: 71
+- guru:memchr: 71
+- guru:fscanf: 71
+- guru:putc: 71
+- guru:tmpnam: 71
+- guru:div_t: 71
+- guru:ldiv_t: 71
+- guru:strcspn: 71
+- guru:asctime: 71
+- guru:strftime: 71
+- guru:clock_t: 71
+- guru:FLT_RADIX: 71
+- guru:FLT_MANT_DIG: 71
+- guru:FLT_DIG: 71
+- guru:FLT_EPSILON: 71
+- guru:FLT_MIN: 71
+- guru:FLT_MAX: 71
+- guru:DBL_MANT_DIG: 71
+- guru:DBL_DIG: 71
+- guru:DBL_EPSILON: 71
+- guru:DBL_MIN: 71
+- guru:DBL_MAX: 71
+- guru:kill: 71
+- guru:NDEBUG: 71
+- guru:CHAR_BIT: 71
+- guru:SHRT_MIN: 71
+- guru:SHRT_MAX: 71
+- guru:USHRT_MAX: 71
+- guru:localeconv: 71
+- guru:HUGE_VAL: 71
+- guru:isfinite: 71
+- guru:sig_atomic_t: 71
+- guru:SIGINT: 71
+- guru:SIGTERM: 71
+- guru:SIG_DFL: 71
+- guru:SIG_IGN: 71
+- guru:BUFSIZ: 71
+- guru:L_tmpnam: 71
+- guru:SEEK_CUR: 71
+- guru:FILENAME_MAX: 71
+- guru:FOPEN_MAX: 71
+- guru:TMP_MAX: 71
+- guru:clearerr: 71
+- guru:feof: 71
+- guru:ferror: 71
+- guru:fgetpos: 71
+- guru:fsetpos: 71
+- guru:rewind: 71
+- guru:setbuf: 71
+- guru:setvbuf: 71
+- guru:tmpfile: 71
+- guru:RAND_MAX: 71
+- guru:bsearch: 71
+- guru:ldiv: 71
+- guru:clock: 71
+- guru:CLK_TCK: 71
+- guru:strcmp: 70
+- guru:strcpy: 70
+- guru:memset: 70
+- guru:puts: 70
+- guru:strcat: 70
+- guru:open: 70
+- guru:qsort: 70
+- guru:div: 70
+- guru:wait: 70
+- guru:getchar: 70
+- guru:scanf: 70
+- guru:rand: 70
+- guru:srand: 70
+- guru:exp: 67
+- guru:log: 67
+- guru:restrict: 67
+- guru:sin: 67
+
+## Names with no dictionary entry (the most common first)
+
+- `i`: 76
+- `s`: 76
+- `DWORD`: 76
+- `x`: 76
+- `s1`: 76
+- `a`: 76
+- `t`: 76
+- `WINAPI`: 76
+- `r`: 76
+- `type`: 76
+- `p`: 76
+- `c`: 76
+- `b`: 76
+- `WINBOOL`: 76
+- `v`: 76
+- `op`: 76
+- `ops`: 76
+- `sym`: 76
+- `defined`: 76
+- `_HRESULT_TYPEDEF_`: 76
+- `vtop`: 76
+- `_CRTIMP`: 76
+- `DEF_ASM`: 76
+- `n`: 76
+- `o`: 76
+- `WINBASEAPI`: 76
+- `f`: 76
+- `reg`: 76
+- `ST_FUNC`: 76
+- `tok`: 76
+- `str`: 76
+- `ptr`: 76
+- `token`: 76
+- `UINT`: 76
+- `name`: 76
+- `WINUSERAPI`: 76
+- `TCCState`: 76
+- `e`: 76
+- `uint32_t`: 76
+- `ret`: 76
+- `HANDLE`: 76
+- `Sym`: 76
+- `LONG`: 76
+- `tcc_error`: 76
+- `y`: 76
+- `OPC_MODRM`: 76
+- `val`: 76
+- `mo`: 76
+- `d`: 76
+- `OPT_EA`: 76
+- `addr`: 76
+- `j`: 76
+- `sv`: 76
+- `I`: 76
+- `LPCSTR`: 76
+- `LPCWSTR`: 76
+- `opcode`: 76
+- `VT_BTYPE`: 76
+- `HWND`: 76
+- `DEF_ASM_OP2`: 76
+- `DEF`: 76
+- `WINGDIAPI`: 76
+- `_Locale`: 76
+- `pe`: 76
+- `ALT`: 76
+- `define`: 76
+- `uint64_t`: 76
+- `buf`: 76
+- `align`: 76
+- `HDC`: 76
+- `ind`: 76
+- `_locale_t`: 76
+- `BYTE`: 76
+- `l`: 76
+- `len`: 76
+- `ref`: 76
+- `func`: 76
+- `_Format`: 76
+- `LPDWORD`: 76
+- `hdc`: 76
+- `OP`: 76
+- `ElfW`: 76
+- `DEF_ASM_OP1`: 76
+- `filename`: 76
+- `Section`: 76
+- `WINADVAPI`: 76
+- `CONST`: 76
+- `fc`: 76
+- `get_tok_str`: 76
+- `bt`: 76
+- `file`: 76
+- `g`: 76
+- `OPT_MMXSSE`: 76
+- `rel`: 76
+- `LPSTR`: 76
+- `sec`: 76
+- `r2`: 76
+- `WSAAPI`: 76
+- `LPWSTR`: 76
+- `u`: 76
+- `fp`: 76
+- `VT_CONST`: 76
+- `LPVOID`: 76
+- `q`: 76
+- `VOID`: 76
+- `C67_map_regs`: 76
+- `DEF_ASM_OP0`: 76
+- `CType`: 76
+- `PVOID`: 76
+- `RC_INT`: 76
+- `fd`: 76
+- `VT_VALMASK`: 76
+- `k`: 76
+- `expect`: 76
+- `VT_LVAL`: 76
+- `_Filename`: 76
+- `h`: 76
+- `_Str`: 76
+- `rc`: 76
+- `dwarf_info_section`: 76
+- `write32le`: 76
+- `wint_t`: 76
+- `ad`: 76
+- `src`: 76
+- `UNICODE`: 76
+- `ELFW`: 76
+- `_c`: 76
+- `x1`: 76
+- `hWnd`: 76
+- `_ArgList`: 76
+- `uint8_t`: 76
+- `ULONGLONG`: 76
+- `fr`: 76
+- `argv`: 76
+- `errno_t`: 76
+- `addr_t`: 76
+- `gv`: 76
+- `skip`: 76
+- `ch`: 76
+- `_C`: 76
+- `dwFlags`: 76
+- `flags`: 76
+- `rd`: 76
+- `vswap`: 76
+- `argc`: 76
+- `esym`: 76
+- `operands`: 76
+- `symtab_section`: 76
+- `ap`: 76
+- `tcc_free`: 76
+- `ll`: 76
+- `C67_map_regn`: 76
+- `RC_FLOAT`: 76
+- `intr`: 76
+- `dwarf_data1`: 76
+- `imm`: 76
+- `m`: 76
+- `ft`: 76
+- `VT_UNSIGNED`: 76
+- `FLOAT128`: 76
+- `DWORD64`: 76
+- `_`: 76
+- `x0`: 76
+- `instr`: 76
+- `st_shndx`: 76
+- `sh_addr`: 76
+- `VT_SYM`: 76
+- `opc`: 76
+- `DEF_ASM_CONDED`: 76
+- `tcc_state`: 76
+- `z`: 76
+- `_WIN32`: 76
+- `al`: 76
+- `_File`: 76
+- `plt`: 76
+- `arg`: 76
+- `VT_LOCAL`: 76
+- `OPT_REG`: 76
+- `w`: 76
+- `output_type`: 76
+- `symtab`: 76
+- `tmp`: 76
+- `VT_LLONG`: 76
+- `f1`: 76
+- `cur`: 76
+- `WINSOCK_API_LINKAGE`: 76
+- `v1`: 76
+- `off`: 76
+- `sh`: 76
+- `lParam`: 76
+- `SValue`: 76
+- `_DstBuf`: 76
+- `vt`: 76
+- `VT_DOUBLE`: 76
+- `OPC_WLX`: 76
+- `OPT_REGW`: 76
+- `BOOLEAN`: 76
+- `loc`: 76
+- `DEF_ASM_WITH_SUFFIX`: 76
+- `rr`: 76
+- `cstr`: 76
+- `ln`: 76
+- `make`: 76
+- `ULONG_PTR`: 76
+- `sh_type`: 76
+- `LPARAM`: 76
+- `vpushi`: 76
+- `dest`: 76
+- `VT_INT`: 76
+- `CONFIG_TCC_BCHECK`: 76
+- `op1`: 76
+- `csym`: 76
+- `WSABASEERR`: 76
+- `fmt`: 76
+- `f2`: 76
+- `VT_PTR`: 76
+- `s2`: 76
+- `dwarf_uleb128`: 76
+- `Destination`: 76
+- `nocode_wanted`: 76
+- `nb_ops`: 76
+- `sz`: 76
+- `asm_emit_a`: 76
+- `SOCKET`: 76
+- `type1`: 76
+- `sa`: 76
+- `VT_STRUCT`: 76
+- `st_info`: 76
+- `INT`: 76
+- `pp`: 76
+- `DEF_ASM_WITH_SUFFIXES`: 76
+- `ULONG`: 76
+- `VT_FLOAT`: 76
+- `LONGLONG`: 76
+- `VT_LDOUBLE`: 76
+- `OPT_SSE`: 76
+- `tokc`: 76
+- `r1`: 76
+- `OPC_BWLX`: 76
+- `link`: 76
+- `tcc_error_noabort`: 76
+- `arr`: 76
+- `nb_operands`: 76
+- `got`: 76
+- `l2`: 76
+- `OPC_REG`: 76
+- `retval`: 76
+- `LONG64`: 76
+- `asm_emit_opcode`: 76
+- `r_info`: 76
+- `TOK_ASM_`: 76
+- `int64_t`: 76
+- `gen_op`: 76
+- `attr`: 76
+- `st`: 76
+- `X`: 76
+- `ElfW_Rel`: 76
+- `uc`: 76
+- `func_type`: 76
+- `pa`: 76
+- `promote`: 76
+- `dst`: 76
+- `pll`: 76
+- `_X`: 76
+- `_Val`: 76
+- `_Str1`: 76
+- `reloc`: 76
+- `sections`: 76
+- `is_64bit`: 76
+- `xpath`: 76
+- `_Src`: 76
+- `Old`: 76
+- `pos`: 76
+- `old`: 76
+- `_Str2`: 76
+- `level`: 76
+- `rs2`: 76
+- `dynamic`: 76
+- `l1`: 76
+- `WCHAR`: 76
+- `HKEY`: 76
+- `OP_REG`: 76
+- `ehdr`: 76
+- `A`: 76
+- `ps`: 76
+- `_Dst`: 76
+- `EMR`: 76
+- `gen_le32`: 76
+- `qrel`: 76
+- `C67_g`: 76
+- `t1`: 76
+- `RECT`: 76
+- `emr`: 76
+- `get_reg`: 76
+- `buf1`: 76
+- `ok`: 76
+- `cstr_printf`: 76
+- `C67_asm`: 76
+- `tab`: 76
+- `e2`: 76
+
+## Comments with no translation
+
+- parallel: 76
+- opcode: 76
+- dst: 76
+- vim: set expandtab ts=4 sw=3 sts=3 tw=80 :: 76
+- opcode fixed: 76
+- creg: 76
+- inv: 76
+- ldst 3=STB, 5=STH 5, 7=STW, 6=LDW 4=LDH 2=LDB 0=LDHU 1=LDBU: 76
+- src1: 76
+- x cross path if opposite sides: 76
+- side of dest: 76
+- r (LDDW bit 0): 76
+- src2: 76
+- fallthrough: 76
+- base reg A15: 76
+- side of dst: 76
+- skip ',': 76
+- nop: 76
+- normal tcc regs: 76
+- push r: 76
+- cmp: 76
+- !TARGET_DEFS_ONLY: 76
+- offset reg A0: 76
+- mode 5 = pos offset, base reg + off reg: 76
+- cst5: 76
+- mode 1 = pos cst offset: 76
+- x use cross path for src2: 76
+- side for reg c: 76
+- src2 (possible x path): 76
+- r=reg to load, constant: 76
+- Keep this the last entry.: 76
+- src: 76
+- side of src: 76
+- r=reg to load,  constant: 76
+- Create GOT entry: 76
+- Create PLT entry: 76
+- Adjust by program base: 76
+- error: 76
+- No reloc: 76
+- Likewise for MOVK; no check.: 76
+- Likewise; no check.: 76
+- warning: value is hardcoded from TOK_ASM_xxx: 76
+- gcc keyword: 76
+- operands:: 76
+- constant case: 76
+- src1 NA: 76
+- Direct 32 bit: 76
+- PC relative 32 bit: 76
+- PC relative 16 bit: 76
+- Copy symbol at runtime: 76
+- add offset before transfer: 76
+- fcmp: 76
+- y D1/D2  src side: 76
+- C extension: 76
+- "Other" instruction: 76
+- fall through: 76
+- now we can reload in the register: 76
+- ! TARGET_DEFS_ONLY: 76
+- generate function prolog of type 't': 76
+- generate function epilog: 76
+- generate a jump to a fixed address: 76
+- add with carry generation: 76
+- add with carry use: 76
+- Returns 1 for a code relocation, 0 for a data relocation. For unknown
+   relocations, returns -1.: 76
+- Returns an enumerator to describe whether and when the relocation needs a
+   GOT and/or PLT entry to: 76
+- relocate the PLT: compute addresses and offsets in the PLT now that final
+   address for PLT and GOT: 76
+- use x30 for offset: 76
+- ret: 76
+- Use sign extension!: 76
+- y D1/D2  A side: 76
+- rem the inst need to be patched: 76
+- define parameters: 76
+- Start of processor-specific: 76
+- End of processor-specific: 76
+- Direct 16 bit: 76
+- caller: Add funct3 into opcode: 76
+- now put aux info: 76
+- code_alignment_factor: 76
+- data_alignment_factor: 76
+- return address column: 76
+- DUMP();: 76
+- skip register name: 76
+- XXX: make it faster ?: 76
+- skip '!': 76
+- any general register: 76
+- number of available registers: 76
+- a register can belong to several classes. The classes must be
+   sorted from more general to more pr: 76
+- function return: integer register: 76
+- function return: second integer register: 76
+- function return: float register: 76
+- pretty names for the registers: 76
+- return registers for function: 76
+- single word int return register: 76
+- second word return register (for long long): 76
+- float return register: 76
+- defined if function parameters must be evaluated in reverse order: 76
+- pointer size, in bytes: 76
+- long double size and alignment, in bytes: 76
+- output a symbol and patch all calls to it: 76
+- load 'r' from value 'sv': 76
