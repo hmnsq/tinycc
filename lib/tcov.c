@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <fcntl.h>
+#অন্তর্ভাব <stdio.h>
+#অন্তর্ভাব <string.h>
+#অন্তর্ভাব <stdlib.h>
+#অন্তর্ভাব <fcntl.h>
 #ifndef _WIN32
-#include <unistd.h>
-#include <errno.h>
-#else
-#include <windows.h>
-#include <io.h>
+#অন্তর্ভাব <unistd.h>
+#অন্তর্ভাব <errno.h>
+#অন্যথা
+#অন্তর্ভাব <windows.h>
+#অন্তর্ভাব <io.h>
 #endif
 
 /* section layout (all little endian):
@@ -24,33 +24,33 @@
    executable/so file name \0
  */
 
-typedef struct tcov_line {
-    unsigned int fline;
-    unsigned int lline;
-    unsigned long long count;
-} tcov_line;
+প্রকারলেখ কাঠামো tcov_সারি {
+    unsigned পূর্ণসংখ্যা fline;
+    unsigned পূর্ণসংখ্যা lline;
+    unsigned long long গুনতি_2;
+} tcov_সারি;
 
-typedef struct tcov_function {
-    char *function;
-    unsigned int first_line;
-    unsigned int n_line;
-    unsigned int m_line;
-    tcov_line *line;
+প্রকারলেখ কাঠামো tcov_function {
+    অক্ষর *function;
+    unsigned পূর্ণসংখ্যা first_সারি;
+    unsigned পূর্ণসংখ্যা n_সারি;
+    unsigned পূর্ণসংখ্যা m_সারি;
+    tcov_সারি *সারি;
 } tcov_function;
 
-typedef struct tcov_file {
-    char *filename;
-    unsigned int n_func;
-    unsigned int m_func;
+প্রকারলেখ কাঠামো tcov_file {
+    অক্ষর *filename;
+    unsigned পূর্ণসংখ্যা n_func;
+    unsigned পূর্ণসংখ্যা m_func;
     tcov_function *func;
-    struct tcov_file *next;
+    কাঠামো tcov_file *পরবর্তী;
 } tcov_file;
 
-static FILE *open_tcov_file (char *cov_filename)
+স্থির FILE *open_tcov_file (অক্ষর *cov_filename)
 {
-    int fd;
+    পূর্ণসংখ্যা fd;
 #ifndef _WIN32
-    struct flock lock;
+    কাঠামো flock lock;
 
     lock.l_type = F_WRLCK;
     lock.l_whence = SEEK_SET;
@@ -59,13 +59,13 @@ static FILE *open_tcov_file (char *cov_filename)
     lock.l_pid = getpid ();
 #endif
     fd = open (cov_filename, O_RDWR | O_CREAT, 0666);
-    if (fd < 0)
-	return NULL;
+    যদি (fd < 0)
+	ফেরত ফাঁকা;
   
 #ifndef _WIN32
-    while (fcntl (fd, F_SETLKW, &lock) && errno == EINTR)
-        continue;
-#else
+    যখন (fcntl (fd, F_SETLKW, &lock) && errno == EINTR)
+        চালু;
+#অন্যথা
     {
         OVERLAPPED overlapped = { 0 };
         LockFileEx((HANDLE)_get_osfhandle(fd), LOCKFILE_EXCLUSIVE_LOCK,
@@ -73,129 +73,129 @@ static FILE *open_tcov_file (char *cov_filename)
     }
 #endif
 
-    return fdopen (fd, "r+");
+    ফেরত fdopen (fd, "r+");
 }
 
-static unsigned long long get_value(unsigned char *p, int size)
+স্থির unsigned long long get_মান(unsigned অক্ষর *p, পূর্ণসংখ্যা আকার_2)
 {
-    unsigned long long value = 0;
+    unsigned long long মান = 0;
 
-    p += size;
-    while (size--)
- 	value = (value << 8) | *--p;
-    return value;
+    p += আকার_2;
+    যখন (আকার_2--)
+ 	মান = (মান << 8) | *--p;
+    ফেরত মান;
 }
 
-static int sort_func (const void *p, const void *q)
+স্থির পূর্ণসংখ্যা sort_func (ধ্রুবক শূন্য *p, ধ্রুবক শূন্য *q)
 {
-    const tcov_function *pp = (const tcov_function *) p;
-    const tcov_function *pq = (const tcov_function *) q;
+    ধ্রুবক tcov_function *pp = (ধ্রুবক tcov_function *) p;
+    ধ্রুবক tcov_function *pq = (ধ্রুবক tcov_function *) q;
 
-    return pp->first_line > pq->first_line ? 1 :
-	   pp->first_line < pq->first_line ? -1 : 0;
+    ফেরত pp->first_সারি > pq->first_সারি ? 1 :
+	   pp->first_সারি < pq->first_সারি ? -1 : 0;
 }
 
-static int sort_line (const void *p, const void *q)
+স্থির পূর্ণসংখ্যা sort_সারি (ধ্রুবক শূন্য *p, ধ্রুবক শূন্য *q)
 {
-    const tcov_line *pp = (const tcov_line *) p;
-    const tcov_line *pq = (const tcov_line *) q;
+    ধ্রুবক tcov_সারি *pp = (ধ্রুবক tcov_সারি *) p;
+    ধ্রুবক tcov_সারি *pq = (ধ্রুবক tcov_সারি *) q;
 
-    return pp->fline > pq->fline ? 1 :
+    ফেরত pp->fline > pq->fline ? 1 :
 	   pp->fline < pq->fline ? -1 :
-           pp->count < pq->count ? 1 :
-	   pp->count > pq->count ? -1 : 0;
+           pp->গুনতি_2 < pq->গুনতি_2 ? 1 :
+	   pp->গুনতি_2 > pq->গুনতি_2 ? -1 : 0;
 }
 
 /* sort to let inline functions work */
-static tcov_file *sort_test_coverage (unsigned char *p)
+স্থির tcov_file *sort_test_coverage (unsigned অক্ষর *p)
 {
-    int i, j, k;
-    unsigned char *start = p;
-    tcov_file *file = NULL;
+    পূর্ণসংখ্যা i, j, k;
+    unsigned অক্ষর *start = p;
+    tcov_file *file = ফাঁকা;
     tcov_file *nfile;
 
     p += 4;
-    while (*p) {
-        char *filename = (char *)p;
-	size_t len = strlen (filename);
+    যখন (*p) {
+        অক্ষর *filename = (অক্ষর *)p;
+	আকার_t len = strlen (filename);
 
 	nfile = file;
-	while (nfile) {
-	    if (strcmp (nfile->filename, filename) == 0)
-		break;
-	    nfile = nfile->next;
+	যখন (nfile) {
+	    যদি (strcmp (nfile->filename, filename) == 0)
+		বিরতি;
+	    nfile = nfile->পরবর্তী;
 	}
-	if (nfile == NULL) {
-	    nfile = malloc (sizeof(tcov_file));
-	    if (nfile == NULL) {
+	যদি (nfile == ফাঁকা) {
+	    nfile = malloc (আকার(tcov_file));
+	    যদি (nfile == ফাঁকা) {
 	        fprintf (stderr, "Malloc error test_coverage\n");
-	        return file;
+	        ফেরত file;
     	    }
 	    nfile->filename = filename;
 	    nfile->n_func = 0;
 	    nfile->m_func = 0;
-	    nfile->func = NULL;
-	    nfile->next = NULL;
-	    if (file == NULL)
+	    nfile->func = ফাঁকা;
+	    nfile->পরবর্তী = ফাঁকা;
+	    যদি (file == ফাঁকা)
 	        file = nfile;
-	    else {
+	    অন্যথা {
 		tcov_file *lfile = file;
 
-	        while (lfile->next)
-		    lfile = lfile->next;
-		lfile->next = nfile;
+	        যখন (lfile->পরবর্তী)
+		    lfile = lfile->পরবর্তী;
+		lfile->পরবর্তী = nfile;
 	    }
 	}
 	p += len + 1;
-	while (*p) {
-	    int i;
-	    char *function = (char *)p;
+	যখন (*p) {
+	    পূর্ণসংখ্যা i;
+	    অক্ষর *function = (অক্ষর *)p;
 	    tcov_function *func;
 
 	    p += strlen (function) + 1;
 	    p += -(p - start) & 7;
-	    for (i = 0; i < nfile->n_func; i++) {
+	    জন্য (i = 0; i < nfile->n_func; i++) {
 		func = &nfile->func[i];
-		if (strcmp (func->function, function) == 0)
-		    break;
+		যদি (strcmp (func->function, function) == 0)
+		    বিরতি;
 	    }
-	    if (i == nfile->n_func) {
-	        if (nfile->n_func >= nfile->m_func) {
+	    যদি (i == nfile->n_func) {
+	        যদি (nfile->n_func >= nfile->m_func) {
 		    nfile->m_func = nfile->m_func == 0 ? 4 : nfile->m_func * 2;
 		    nfile->func = realloc (nfile->func,
 					   nfile->m_func *
-					   sizeof (tcov_function));
-		    if (nfile->func == NULL) {
+					   আকার (tcov_function));
+		    যদি (nfile->func == ফাঁকা) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        ফেরত file;
 		    }
 	        }
 	        func = &nfile->func[nfile->n_func++];
 	        func->function = function;
-	        func->first_line = get_value (p, 8);
-	        func->n_line = 0;
-	        func->m_line = 0;
-	        func->line = NULL;
+	        func->first_সারি = get_মান (p, 8);
+	        func->n_সারি = 0;
+	        func->m_সারি = 0;
+	        func->সারি = ফাঁকা;
 	    }
 	    p += 8;
-	    while (*p) {
-		tcov_line *line;
+	    যখন (*p) {
+		tcov_সারি *সারি;
 		unsigned long long val;
 
-		if (func->n_line >= func->m_line) {
-		    func->m_line = func->m_line == 0 ? 4 : func->m_line * 2;
-		    func->line = realloc (func->line,
-					  func->m_line * sizeof (tcov_line));
-		    if (func->line == NULL) {
+		যদি (func->n_সারি >= func->m_সারি) {
+		    func->m_সারি = func->m_সারি == 0 ? 4 : func->m_সারি * 2;
+		    func->সারি = realloc (func->সারি,
+					  func->m_সারি * আকার (tcov_সারি));
+		    যদি (func->সারি == ফাঁকা) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        ফেরত file;
 		    }
 		}
-		line = &func->line[func->n_line++];
-		val = get_value (p, 8);
-	        line->fline = (val >> 8) & 0xfffffffULL;
-	        line->lline = val >> 36;
-	        line->count = get_value (p + 8, 8);
+		সারি = &func->সারি[func->n_সারি++];
+		val = get_মান (p, 8);
+	        সারি->fline = (val >> 8) & 0xfffffffULL;
+	        সারি->lline = val >> 36;
+	        সারি->গুনতি_2 = get_মান (p + 8, 8);
 	 	p += 16;
 	    }
 	    p++;
@@ -203,91 +203,91 @@ static tcov_file *sort_test_coverage (unsigned char *p)
 	p++;
     }
     nfile = file;
-    while (nfile) {
-	qsort (nfile->func, nfile->n_func, sizeof (tcov_function), sort_func);
-	for (i = 0; i < nfile->n_func; i++) {
+    যখন (nfile) {
+	qsort (nfile->func, nfile->n_func, আকার (tcov_function), sort_func);
+	জন্য (i = 0; i < nfile->n_func; i++) {
 	    tcov_function *func = &nfile->func[i];
-	    qsort (func->line, func->n_line, sizeof (tcov_line), sort_line);
+	    qsort (func->সারি, func->n_সারি, আকার (tcov_সারি), sort_সারি);
         }
-	nfile = nfile->next;
+	nfile = nfile->পরবর্তী;
     }
-    return file;
+    ফেরত file;
 }
 
 /* merge with previous tcov file */
-static void merge_test_coverage (tcov_file *file, FILE *fp,
-				 unsigned int *pruns)
+স্থির শূন্য merge_test_coverage (tcov_file *file, FILE *fp,
+				 unsigned পূর্ণসংখ্যা *pruns)
 {
-    unsigned int runs;
-    char *p;
-    char str[10000];
+    unsigned পূর্ণসংখ্যা runs;
+    অক্ষর *p;
+    অক্ষর str[10000];
     
     *pruns = 1;
-    if (fp == NULL)
-        return;
-    if (fgets(str, sizeof(str), fp) &&
+    যদি (fp == ফাঁকা)
+        ফেরত;
+    যদি (fgets(str, আকার(str), fp) &&
         (p = strrchr (str, ':')) &&
         (sscanf (p + 1, "%u", &runs) == 1)) 
         *pruns = runs + 1;
-    while (file) {
-	int i;
-	size_t len = strlen (file->filename);
+    যখন (file) {
+	পূর্ণসংখ্যা i;
+	আকার_t len = strlen (file->filename);
 
-	while (fgets(str, sizeof(str), fp) &&
-	       (p = strstr(str, "0:File:")) == NULL) {}
-        if ((p = strstr(str, "0:File:")) == NULL ||
+	যখন (fgets(str, আকার(str), fp) &&
+	       (p = strstr(str, "0:File:")) == ফাঁকা) {}
+        যদি ((p = strstr(str, "0:File:")) == ফাঁকা ||
 	    strncmp (p + strlen("0:File:"), file->filename, len) != 0 ||
 	    p[strlen("0:File:") + len] != ' ')
-	    break;
-	for (i = 0; i < file->n_func; i++) {
-	    int j;
+	    বিরতি;
+	জন্য (i = 0; i < file->n_func; i++) {
+	    পূর্ণসংখ্যা j;
 	    tcov_function *func = &file->func[i];
-	    unsigned int next_zero = 0;
-	    unsigned int curline = 0;
+	    unsigned পূর্ণসংখ্যা পরবর্তী_zero = 0;
+	    unsigned পূর্ণসংখ্যা curline = 0;
 
-	    for (j = 0; j < func->n_line; j++) {
-		tcov_line *line = &func->line[j];
-	        unsigned int fline = line->fline;
-	        unsigned long long count;
-		unsigned int tmp;
-		char c;
+	    জন্য (j = 0; j < func->n_সারি; j++) {
+		tcov_সারি *সারি = &func->সারি[j];
+	        unsigned পূর্ণসংখ্যা fline = সারি->fline;
+	        unsigned long long গুনতি_2;
+		unsigned পূর্ণসংখ্যা tmp;
+		অক্ষর c;
 
-		while (curline < fline &&
-		       fgets(str, sizeof(str), fp))
-		    if ((p = strchr(str, ':')) &&
+		যখন (curline < fline &&
+		       fgets(str, আকার(str), fp))
+		    যদি ((p = strchr(str, ':')) &&
 			sscanf (p + 1, "%u", &tmp) == 1)
 			curline = tmp;
-		if (sscanf (str, "%llu%c\n", &count, &c) == 2) {
-		    if (next_zero == 0)
-		        line->count += count;
-		    next_zero = c == '*';
+		যদি (sscanf (str, "%llu%c\n", &গুনতি_2, &c) == 2) {
+		    যদি (পরবর্তী_zero == 0)
+		        সারি->গুনতি_2 += গুনতি_2;
+		    পরবর্তী_zero = c == '*';
 		}
 	    }
 	}
-	file = file->next;
+	file = file->পরবর্তী;
     }
 }
 
 /* store tcov data in file */
-void __store_test_coverage (unsigned char * p)
+শূন্য __store_test_coverage (unsigned অক্ষর * p)
 {
-    int i, j;
-    unsigned int files;
-    unsigned int funcs;
-    unsigned int blocks;
-    unsigned int blocks_run;
-    unsigned int runs;
-    char *cov_filename = (char *)p + get_value (p, 4);
+    পূর্ণসংখ্যা i, j;
+    unsigned পূর্ণসংখ্যা files;
+    unsigned পূর্ণসংখ্যা funcs;
+    unsigned পূর্ণসংখ্যা blocks;
+    unsigned পূর্ণসংখ্যা blocks_run;
+    unsigned পূর্ণসংখ্যা runs;
+    অক্ষর *cov_filename = (অক্ষর *)p + get_মান (p, 4);
     FILE *fp;
-    char *q;
+    অক্ষর *q;
     tcov_file *file;
     tcov_file *nfile;
     tcov_function *func;
 
     fp = open_tcov_file (cov_filename);
-    if (fp == NULL) {
+    যদি (fp == ফাঁকা) {
 	fprintf (stderr, "Cannot create coverage file: %s\n", cov_filename);
-	return;
+	ফেরত;
     }
     file = sort_test_coverage (p);
     merge_test_coverage (file, fp, &runs);
@@ -298,131 +298,131 @@ void __store_test_coverage (unsigned char * p)
     blocks = 0;
     blocks_run = 0;
     nfile = file;
-    while (nfile) {
+    যখন (nfile) {
 	files++;
-	for (i = 0; i < nfile->n_func; i++) {
+	জন্য (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
+	    জন্য (j = 0; j < func->n_সারি; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->সারি[j].গুনতি_2 != 0;
 	    }
 	}
-	nfile = nfile->next;
+	nfile = nfile->পরবর্তী;
     }
-    if (blocks == 0)
+    যদি (blocks == 0)
 	blocks = 1;
     fprintf (fp, "        -:    0:All:%s Files:%u Functions:%u %.02f%%\n",
-	     cov_filename, files, funcs, 100.0 * (double) blocks_run / blocks);
+	     cov_filename, files, funcs, 100.0 * (দ্বিগুণ) blocks_run / blocks);
     nfile = file;
-    while (nfile) {
+    যখন (nfile) {
 	FILE *src = fopen (nfile->filename, "r");
-	unsigned int curline = 1;
-	char str[10000];
+	unsigned পূর্ণসংখ্যা curline = 1;
+	অক্ষর str[10000];
 
-        if (src == NULL)
-	     goto next;
+        যদি (src == ফাঁকা)
+	     যাও পরবর্তী;
 	funcs = 0;
 	blocks = 0;
 	blocks_run = 0;
-	for (i = 0; i < nfile->n_func; i++) {
+	জন্য (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
+	    জন্য (j = 0; j < func->n_সারি; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->সারি[j].গুনতি_2 != 0;
 	    }
 	}
-	if (blocks == 0)
+	যদি (blocks == 0)
 	    blocks = 1;
         fprintf (fp, "        -:    0:File:%s Functions:%u %.02f%%\n",
-		 nfile->filename, funcs, 100.0 * (double) blocks_run / blocks);
-        for (i = 0; i < nfile->n_func; i++) {
+		 nfile->filename, funcs, 100.0 * (দ্বিগুণ) blocks_run / blocks);
+        জন্য (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	
-	    while (curline < func->first_line &&
-		   fgets(str, sizeof(str), src))
+	    যখন (curline < func->first_সারি &&
+		   fgets(str, আকার(str), src))
 		fprintf (fp, "        -:%5u:%s", curline++, str);
 	    blocks = 0;
 	    blocks_run = 0;
-	    for (j = 0; j < func->n_line; j++) {
+	    জন্য (j = 0; j < func->n_সারি; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->সারি[j].গুনতি_2 != 0;
 	    }
-	    if (blocks == 0)
+	    যদি (blocks == 0)
 		blocks = 1;
             fprintf (fp, "        -:    0:Function:%s %.02f%%\n",
-		     func->function, 100.0 * (double) blocks_run / blocks);
-#if 0
-	    for (j = 0; j < func->n_line; j++) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-		unsigned long long count = func->line[j].count;
+		     func->function, 100.0 * (দ্বিগুণ) blocks_run / blocks);
+#যদি 0
+	    জন্য (j = 0; j < func->n_সারি; j++) {
+	        unsigned পূর্ণসংখ্যা fline = func->সারি[j].fline;
+	        unsigned পূর্ণসংখ্যা lline = func->সারি[j].lline;
+		unsigned long long গুনতি_2 = func->সারি[j].গুনতি_2;
 
-		fprintf (fp, "%u %u %llu\n", fline, lline, count);
+		fprintf (fp, "%u %u %llu\n", fline, lline, গুনতি_2);
 	    }
 #endif
-	    for (j = 0; j < func->n_line;) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-	        unsigned long long count = func->line[j].count;
-		unsigned int has_zero = 0;
-		unsigned int same_line = fline == lline;
+	    জন্য (j = 0; j < func->n_সারি;) {
+	        unsigned পূর্ণসংখ্যা fline = func->সারি[j].fline;
+	        unsigned পূর্ণসংখ্যা lline = func->সারি[j].lline;
+	        unsigned long long গুনতি_2 = func->সারি[j].গুনতি_2;
+		unsigned পূর্ণসংখ্যা has_zero = 0;
+		unsigned পূর্ণসংখ্যা same_সারি = fline == lline;
 
 		j++;
-		while (j < func->n_line) {
-	            unsigned int nfline = func->line[j].fline;
-	            unsigned int nlline = func->line[j].lline;
-	            unsigned long long ncount = func->line[j].count;
+		যখন (j < func->n_সারি) {
+	            unsigned পূর্ণসংখ্যা nfline = func->সারি[j].fline;
+	            unsigned পূর্ণসংখ্যা nlline = func->সারি[j].lline;
+	            unsigned long long ncount = func->সারি[j].গুনতি_2;
 
-		    if (fline == nfline) {
-			if (ncount == 0)
+		    যদি (fline == nfline) {
+			যদি (ncount == 0)
 			    has_zero = 1;
-			else if (ncount > count)
-			    count =  ncount;
-			same_line = nfline == nlline;
+			অন্যথা যদি (ncount > গুনতি_2)
+			    গুনতি_2 =  ncount;
+			same_সারি = nfline == nlline;
 			lline = nlline;
 			j++;
 		    }
-		    else
-			break;
+		    অন্যথা
+			বিরতি;
 		}
-		if (same_line)
+		যদি (same_সারি)
 		     lline++;
 
-	        while (curline < fline &&
-		       fgets(str, sizeof(str), src))
+	        যখন (curline < fline &&
+		       fgets(str, আকার(str), src))
 		     fprintf (fp, "        -:%5u:%s", curline++, str);
-		while (curline < lline &&
-		       fgets(str, sizeof(str), src)) {
-		    if (count == 0)
+		যখন (curline < lline &&
+		       fgets(str, আকার(str), src)) {
+		    যদি (গুনতি_2 == 0)
 		        fprintf (fp, "    #####:%5u:%s",
 				 curline, str);
-		    else if (has_zero)
+		    অন্যথা যদি (has_zero)
 		        fprintf (fp, "%8llu*:%5u:%s", 
-				 count, curline, str);
-		    else
+				 গুনতি_2, curline, str);
+		    অন্যথা
 		        fprintf (fp, "%9llu:%5u:%s",
-				 count, curline, str);
+				 গুনতি_2, curline, str);
 		    curline++;
 		}
 	    }
 	}
-	while (fgets(str, sizeof(str), src))
+	যখন (fgets(str, আকার(str), src))
 	    fprintf (fp, "        -:%5u:%s", curline++, str);
 	fclose (src);
-next:
-	nfile = nfile->next;
+পরবর্তী:
+	nfile = nfile->পরবর্তী;
     }
-    while (file) {
-        for (i = 0; i < file->n_func; i++) {
+    যখন (file) {
+        জন্য (i = 0; i < file->n_func; i++) {
 	    func = &file->func[i];
-	    free (func->line);
+	    মুক্ত (func->সারি);
         }
-	free (file->func);
+	মুক্ত (file->func);
 	nfile = file;
-	file = file->next;
-	free (nfile);
+	file = file->পরবর্তী;
+	মুক্ত (nfile);
     }
     fclose (fp);
 }

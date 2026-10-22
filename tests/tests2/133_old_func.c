@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+পূর্ণসংখ্যা printf(ধ্রুবক অক্ষর *s, ...);
 
-float fx(x)
-float x;
+দশমিক fx(x)
+দশমিক x;
 {
-    return 2.0 * x;
+    ফেরত 2.0 * x;
 }
 
-void func(float a);
+শূন্য func(দশমিক a);
 
-void func3(struct p { int a; int b; } *q) {
+শূন্য func3(কাঠামো p { পূর্ণসংখ্যা a; পূর্ণসংখ্যা b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+শূন্য func4(q)
+ কাঠামো p { পূর্ণসংখ্যা a; পূর্ণসংখ্যা b; পূর্ণসংখ্যা c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+কাঠামো p { পূর্ণসংখ্যা a; পূর্ণসংখ্যা b; পূর্ণসংখ্যা c; পূর্ণসংখ্যা d; };
 
-int
-main(void)
+পূর্ণসংখ্যা
+প্রধান(শূন্য)
 {
-    float fy();
+    দশমিক fy();
 
     printf("%g %g\n", fx(2.0), fy(10.0));
     printf("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+দশমিক fy(x)
+দশমিক x;
 {
-    return 3.0 * x;
+    ফেরত 3.0 * x;
 }
 
-void func(a)
-float a;
+শূন্য func(a)
+দশমিক a;
 {
     printf("%g\n", a);
 }

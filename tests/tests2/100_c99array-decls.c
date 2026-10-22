@@ -1,31 +1,31 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+শূন্য foo(পূর্ণসংখ্যা [5]);
+শূন্য fooc(পূর্ণসংখ্যা x[ধ্রুবক 5]);
+শূন্য foos(পূর্ণসংখ্যা x[স্থির 5]);
+শূন্য foov(পূর্ণসংখ্যা x[অস্থির 5]);
+শূন্য foor(পূর্ণসংখ্যা x[restrict 5]);
+শূন্য fooc(পূর্ণসংখ্যা [ধ্রুবক 5]);
+শূন্য foos(পূর্ণসংখ্যা [স্থির 5]);
+শূন্য foov(পূর্ণসংখ্যা [অস্থির 5]);
+শূন্য foor(পূর্ণসংখ্যা [restrict 5]);
+শূন্য fooc(পূর্ণসংখ্যা (* ধ্রুবক x));
+শূন্য foos(পূর্ণসংখ্যা *x);
+শূন্য foov(পূর্ণসংখ্যা * অস্থির x);
+শূন্য foor(পূর্ণসংখ্যা * restrict x);
+শূন্য fooc(পূর্ণসংখ্যা x[অস্থির 5])
 {
   x[3] = 42;
 #ifdef INVALID
   x = 0;
 #endif
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+শূন্য foovm(পূর্ণসংখ্যা x[ধ্রুবক *]);
+শূন্য foovm(পূর্ণসংখ্যা * ধ্রুবক x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
-typedef restrict pointer_array restricted_pointer_array;
+প্রকারলেখ পূর্ণসংখ্যা *pointer_array[2];
+প্রকারলেখ পূর্ণসংখ্যা *restrict restricted_pointer;
+প্রকারলেখ restrict pointer_array restricted_pointer_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
+_Static_assert(!__builtin_types_compatible_p(পূর্ণসংখ্যা **,
                                              restricted_pointer *),
                "nested restrict qualifier is retained");
 _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
@@ -33,7 +33,7 @@ _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
                "restrict can qualify an array of pointer types");
 
 restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+পূর্ণসংখ্যা **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
@@ -41,14 +41,14 @@ _Static_assert(__builtin_types_compatible_p(
                "conditional expression combines restrict qualifiers");
 
 #ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+শূন্য wrongc(পূর্ণসংখ্যা x[3][ধ্রুবক 4]);
+শূন্য wrongvm(পূর্ণসংখ্যা x[স্থির *]);
+শূন্য foovm(পূর্ণসংখ্যা x[ধ্রুবক *])
 {
   x[2] = 1;
 }
 #endif
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-  return 0;
+  ফেরত 0;
 }

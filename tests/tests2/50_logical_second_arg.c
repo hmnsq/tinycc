@@ -1,18 +1,18 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int fred()
+পূর্ণসংখ্যা fred()
 {
    printf("fred\n");
-   return 0;
+   ফেরত 0;
 }
 
-int joe()
+পূর্ণসংখ্যা joe()
 {
    printf("joe\n");
-   return 1;
+   ফেরত 1;
 }
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
    printf("%d\n", fred() && joe());
    printf("%d\n", fred() || joe());
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", joe() && (0 + fred()));
    printf("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

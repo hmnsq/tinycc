@@ -11,7 +11,7 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্যিক "C" {
 #endif
 
 #ifndef WINVER
@@ -20,22 +20,22 @@ extern "C" {
 
 #ifndef BASETYPES
 #define BASETYPES
-  typedef unsigned long ULONG;
-  typedef ULONG *PULONG;
-  typedef unsigned short USHORT;
-  typedef USHORT *PUSHORT;
-  typedef unsigned char UCHAR;
-  typedef UCHAR *PUCHAR;
-  typedef char *PSZ;
+  প্রকারলেখ unsigned long ULONG;
+  প্রকারলেখ ULONG *PULONG;
+  প্রকারলেখ unsigned short USHORT;
+  প্রকারলেখ USHORT *PUSHORT;
+  প্রকারলেখ unsigned অক্ষর UCHAR;
+  প্রকারলেখ UCHAR *PUCHAR;
+  প্রকারলেখ অক্ষর *PSZ;
 #endif
 
 #define MAX_PATH 260
 
-#ifndef NULL
+#ifndef ফাঁকা
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define ফাঁকা 0
+#অন্যথা
+#define ফাঁকা ((শূন্য *)0)
 #endif
 #endif
 
@@ -88,45 +88,45 @@ extern "C" {
 #define FAR
 #define NEAR
 #ifndef CONST
-#define CONST const
+#define CONST ধ্রুবক
 #endif
 
-  typedef unsigned long DWORD;
-  typedef int WINBOOL;
+  প্রকারলেখ unsigned long DWORD;
+  প্রকারলেখ পূর্ণসংখ্যা WINBOOL;
 #define BOOL WINBOOL
-  typedef unsigned char BYTE;
-  typedef unsigned short WORD;
-  typedef float FLOAT;
-  typedef FLOAT *PFLOAT;
-  typedef WINBOOL *PBOOL;
-  typedef WINBOOL *LPBOOL;
-  typedef BYTE *PBYTE;
-  typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
-  typedef WORD *PWORD;
-  typedef WORD *LPWORD;
-  typedef long *LPLONG;
-  typedef DWORD *PDWORD;
-  typedef DWORD *LPDWORD;
-  typedef void *LPVOID;
+  প্রকারলেখ unsigned অক্ষর BYTE;
+  প্রকারলেখ unsigned short WORD;
+  প্রকারলেখ দশমিক FLOAT;
+  প্রকারলেখ FLOAT *PFLOAT;
+  প্রকারলেখ WINBOOL *PBOOL;
+  প্রকারলেখ WINBOOL *LPBOOL;
+  প্রকারলেখ BYTE *PBYTE;
+  প্রকারলেখ BYTE *LPBYTE;
+  প্রকারলেখ পূর্ণসংখ্যা *PINT;
+  প্রকারলেখ পূর্ণসংখ্যা *LPINT;
+  প্রকারলেখ WORD *PWORD;
+  প্রকারলেখ WORD *LPWORD;
+  প্রকারলেখ long *LPLONG;
+  প্রকারলেখ DWORD *PDWORD;
+  প্রকারলেখ DWORD *LPDWORD;
+  প্রকারলেখ শূন্য *LPVOID;
 # ifndef _LPCVOID_DEFINED
 #define _LPCVOID_DEFINED
-typedef CONST void *LPCVOID;
+প্রকারলেখ CONST শূন্য *LPCVOID;
 #endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+  প্রকারলেখ পূর্ণসংখ্যা INT;
+  প্রকারলেখ unsigned পূর্ণসংখ্যা UINT;
+  প্রকারলেখ unsigned পূর্ণসংখ্যা *PUINT;
 
 #ifndef NT_INCLUDED
-#include <winnt.h>
+#অন্তর্ভাব <winnt.h>
 #endif
 
 //gr #include <specstrings.h>
 
-  typedef UINT_PTR WPARAM;
-  typedef LONG_PTR LPARAM;
-  typedef LONG_PTR LRESULT;
+  প্রকারলেখ UINT_PTR WPARAM;
+  প্রকারলেখ LONG_PTR LPARAM;
+  প্রকারলেখ LONG_PTR LRESULT;
 
 #ifndef __cplusplus
 #ifndef NOMINMAX
@@ -155,28 +155,28 @@ typedef CONST void *LPCVOID;
 #endif
 #endif
 
-  typedef WORD ATOM;
+  প্রকারলেখ WORD ATOM;
 
-  typedef HANDLE *SPHANDLE;
-  typedef HANDLE *LPHANDLE;
-  typedef HANDLE HGLOBAL;
-  typedef HANDLE HLOCAL;
-  typedef HANDLE GLOBALHANDLE;
-  typedef HANDLE LOCALHANDLE;
+  প্রকারলেখ HANDLE *SPHANDLE;
+  প্রকারলেখ HANDLE *LPHANDLE;
+  প্রকারলেখ HANDLE HGLOBAL;
+  প্রকারলেখ HANDLE HLOCAL;
+  প্রকারলেখ HANDLE GLOBALHANDLE;
+  প্রকারলেখ HANDLE LOCALHANDLE;
 #ifdef _WIN64
-  typedef INT_PTR (WINAPI *FARPROC)();
-  typedef INT_PTR (WINAPI *NEARPROC)();
-  typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
+  প্রকারলেখ INT_PTR (WINAPI *FARPROC)();
+  প্রকারলেখ INT_PTR (WINAPI *NEARPROC)();
+  প্রকারলেখ INT_PTR (WINAPI *PROC)();
+#অন্যথা
+  প্রকারলেখ পূর্ণসংখ্যা (WINAPI *FARPROC)();
+  প্রকারলেখ পূর্ণসংখ্যা (WINAPI *NEARPROC)();
+  প্রকারলেখ পূর্ণসংখ্যা (WINAPI *PROC)();
 #endif
 
-  typedef void *HGDIOBJ;
+  প্রকারলেখ শূন্য *HGDIOBJ;
 
   DECLARE_HANDLE(HKEY);
-  typedef HKEY *PHKEY;
+  প্রকারলেখ HKEY *PHKEY;
 
   DECLARE_HANDLE(HACCEL);
   DECLARE_HANDLE(HBITMAP);
@@ -191,7 +191,7 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HMENU);
   DECLARE_HANDLE(HMETAFILE);
   DECLARE_HANDLE(HINSTANCE);
-  typedef HINSTANCE HMODULE;
+  প্রকারলেখ HINSTANCE HMODULE;
   DECLARE_HANDLE(HPALETTE);
   DECLARE_HANDLE(HPEN);
   DECLARE_HANDLE(HRGN);
@@ -204,57 +204,57 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
-  typedef HICON HCURSOR;
-  typedef DWORD COLORREF;
-  typedef DWORD *LPCOLORREF;
+  প্রকারলেখ পূর্ণসংখ্যা HFILE;
+  প্রকারলেখ HICON HCURSOR;
+  প্রকারলেখ DWORD COLORREF;
+  প্রকারলেখ DWORD *LPCOLORREF;
 
 #define HFILE_ERROR ((HFILE)-1)
 
-  typedef struct tagRECT {
-    LONG left;
-    LONG top;
-    LONG right;
+  প্রকারলেখ কাঠামো tagRECT {
+    LONG বাম;
+    LONG শীর্ষ;
+    LONG ডান;
     LONG bottom;
   } RECT,*PRECT,*NPRECT,*LPRECT;
 
-  typedef const RECT *LPCRECT;
+  প্রকারলেখ ধ্রুবক RECT *LPCRECT;
 
-  typedef struct _RECTL {
-    LONG left;
-    LONG top;
-    LONG right;
+  প্রকারলেখ কাঠামো _RECTL {
+    LONG বাম;
+    LONG শীর্ষ;
+    LONG ডান;
     LONG bottom;
   } RECTL,*PRECTL,*LPRECTL;
 
-  typedef const RECTL *LPCRECTL;
+  প্রকারলেখ ধ্রুবক RECTL *LPCRECTL;
 
-  typedef struct tagPOINT {
+  প্রকারলেখ কাঠামো tagPOINT {
     LONG x;
     LONG y;
   } POINT,*PPOINT,*NPPOINT,*LPPOINT;
 
-  typedef struct _POINTL {
+  প্রকারলেখ কাঠামো _POINTL {
     LONG x;
     LONG y;
   } POINTL,*PPOINTL;
 
-  typedef struct tagSIZE {
+  প্রকারলেখ কাঠামো tag_আকার {
     LONG cx;
     LONG cy;
-  } SIZE,*PSIZE,*LPSIZE;
+  } আকার_3,*PSIZE,*LPSIZE;
 
-  typedef SIZE SIZEL;
-  typedef SIZE *PSIZEL,*LPSIZEL;
+  প্রকারলেখ আকার_3 SIZEL;
+  প্রকারলেখ আকার_3 *PSIZEL,*LPSIZEL;
 
-  typedef struct tagPOINTS {
+  প্রকারলেখ কাঠামো tagPOINTS {
     SHORT x;
     SHORT y;
   } POINTS,*PPOINTS,*LPPOINTS;
 
-  typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+  প্রকারলেখ কাঠামো _FILETIME {
+    DWORD dw_নিচের_Date_Time;
+    DWORD dw_উপরের_Date_Time;
   } FILETIME,*PFILETIME,*LPFILETIME;
 #define _FILETIME_
 
@@ -263,9 +263,9 @@ typedef CONST void *LPCVOID;
 #define DM_PROMPT 4
 #define DM_MODIFY 8
 
-#define DM_IN_BUFFER DM_MODIFY
+#define DM_IN_বাফার DM_MODIFY
 #define DM_IN_PROMPT DM_PROMPT
-#define DM_OUT_BUFFER DM_COPY
+#define DM_OUT_বাফার DM_COPY
 #define DM_OUT_DEFAULT DM_UPDATE
 
 #define DC_FIELDS 1
@@ -275,7 +275,7 @@ typedef CONST void *LPCVOID;
 #define DC_MAXEXTENT 5
 #define DC_BINS 6
 #define DC_DUPLEX 7
-#define DC_SIZE 8
+#define DC_আকার 8
 #define DC_EXTRA 9
 #define DC_VERSION 10
 #define DC_DRIVER 11

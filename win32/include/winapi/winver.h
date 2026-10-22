@@ -7,7 +7,7 @@
 #define VER_H
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্যিক "C" {
 #endif
 
 #define VS_FILE_INFO RT_VERSION
@@ -107,7 +107,7 @@ extern "C" {
 
 #ifndef RC_INVOKED
 
-  typedef struct tagVS_FIXEDFILEINFO
+  প্রকারলেখ কাঠামো tagVS_FIXEDFILEINFO
   {
     DWORD dwSignature;
     DWORD dwStrucVersion;
@@ -127,31 +127,31 @@ extern "C" {
 #ifdef UNICODE
 #define VerFindFile VerFindFileW
 #define VerInstallFile VerInstallFileW
-#define GetFileVersionInfoSize GetFileVersionInfoSizeW
+#define Get_File_Version_Info_আকার Get_File_Version_Info_আকার_W
 #define GetFileVersionInfo GetFileVersionInfoW
 #define VerLanguageName VerLanguageNameW
-#define VerQueryValue VerQueryValueW
-#else
+#define Ver_Query_মান Ver_Query_মান_W
+#অন্যথা
 #define VerFindFile VerFindFileA
 #define VerInstallFile VerInstallFileA
-#define GetFileVersionInfoSize GetFileVersionInfoSizeA
+#define Get_File_Version_Info_আকার Get_File_Version_Info_আকার_A
 #define GetFileVersionInfo GetFileVersionInfoA
 #define VerLanguageName VerLanguageNameA
-#define VerQueryValue VerQueryValueA
+#define Ver_Query_মান Ver_Query_মান_A
 #endif
 
   DWORD WINAPI VerFindFileA(DWORD uFlags,LPSTR szFileName,LPSTR szWinDir,LPSTR szAppDir,LPSTR szCurDir,PUINT lpuCurDirLen,LPSTR szDestDir,PUINT lpuDestDirLen);
   DWORD WINAPI VerFindFileW(DWORD uFlags,LPWSTR szFileName,LPWSTR szWinDir,LPWSTR szAppDir,LPWSTR szCurDir,PUINT lpuCurDirLen,LPWSTR szDestDir,PUINT lpuDestDirLen);
   DWORD WINAPI VerInstallFileA(DWORD uFlags,LPSTR szSrcFileName,LPSTR szDestFileName,LPSTR szSrcDir,LPSTR szDestDir,LPSTR szCurDir,LPSTR szTmpFile,PUINT lpuTmpFileLen);
   DWORD WINAPI VerInstallFileW(DWORD uFlags,LPWSTR szSrcFileName,LPWSTR szDestFileName,LPWSTR szSrcDir,LPWSTR szDestDir,LPWSTR szCurDir,LPWSTR szTmpFile,PUINT lpuTmpFileLen);
-  DWORD WINAPI GetFileVersionInfoSizeA(LPCSTR lptstrFilename,LPDWORD lpdwHandle);
-  DWORD WINAPI GetFileVersionInfoSizeW(LPCWSTR lptstrFilename,LPDWORD lpdwHandle);
-  WINBOOL WINAPI GetFileVersionInfoA(LPCSTR lptstrFilename,DWORD dwHandle,DWORD dwLen,LPVOID lpData);
-  WINBOOL WINAPI GetFileVersionInfoW(LPCWSTR lptstrFilename,DWORD dwHandle,DWORD dwLen,LPVOID lpData);
-  DWORD WINAPI VerLanguageNameA(DWORD wLang,LPSTR szLang,DWORD nSize);
-  DWORD WINAPI VerLanguageNameW(DWORD wLang,LPWSTR szLang,DWORD nSize);
-  WINBOOL WINAPI VerQueryValueA(const LPVOID pBlock,LPSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
-  WINBOOL WINAPI VerQueryValueW(const LPVOID pBlock,LPWSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
+  DWORD WINAPI Get_File_Version_Info_আকার_A(LPCSTR lptstrFilename,LPDWORD lpdwHandle);
+  DWORD WINAPI Get_File_Version_Info_আকার_W(LPCWSTR lptstrFilename,LPDWORD lpdwHandle);
+  WINBOOL WINAPI GetFileVersionInfoA(LPCSTR lptstrFilename,DWORD dwHandle,DWORD dwLen,LPVOID lp_তথ্য);
+  WINBOOL WINAPI GetFileVersionInfoW(LPCWSTR lptstrFilename,DWORD dwHandle,DWORD dwLen,LPVOID lp_তথ্য);
+  DWORD WINAPI VerLanguageNameA(DWORD wLang,LPSTR szLang,DWORD n_আকার);
+  DWORD WINAPI VerLanguageNameW(DWORD wLang,LPWSTR szLang,DWORD n_আকার);
+  WINBOOL WINAPI Ver_Query_মান_A(ধ্রুবক LPVOID pBlock,LPSTR lpSubBlock,LPVOID *lplp_বাফার,PUINT puLen);
+  WINBOOL WINAPI Ver_Query_মান_W(ধ্রুবক LPVOID pBlock,LPWSTR lpSubBlock,LPVOID *lplp_বাফার,PUINT puLen);
 #endif
 
 #ifdef __cplusplus

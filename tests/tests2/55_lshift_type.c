@@ -7,46 +7,46 @@ each of the operands. The type of the result is that of the promoted
 left operand."
 */
 
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (int) sizeof((M)+0)
+#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (পূর্ণসংখ্যা) আকার((M)+0)
 #define CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
-#define TEST1(X,T) do { CHECK(X,T); CHECK(X,unsigned T); } while (0)
+#define TEST1(X,T) করো { CHECK(X,T); CHECK(X,unsigned T); } যখন (0)
 #define TEST2(X)                 \
-  do                             \
+  করো                             \
     {                            \
       TEST1((X),short);          \
-      TEST1((X),int);            \
+      TEST1((X),পূর্ণসংখ্যা);            \
       TEST1((X),long);           \
       TEST1((X),long long);      \
     }                            \
-  while (0)
-#define TEST3(X,T) do { TEST2((T)(X)); TEST2((unsigned T)(X)); } while (0)
+  যখন (0)
+#define TEST3(X,T) করো { TEST2((T)(X)); TEST2((unsigned T)(X)); } যখন (0)
 #define TEST4(X)                 \
-  do                             \
+  করো                             \
     {                            \
       TEST3((X),short);          \
-      TEST3((X),int);            \
+      TEST3((X),পূর্ণসংখ্যা);            \
       TEST3((X),long);           \
       TEST3((X),long long);      \
     }                            \
- while (0)
+ যখন (0)
 
-static int debug, nfailed = 0;
+স্থির পূর্ণসংখ্যা debug, nfailed = 0;
 
-static void check (const char *s, int arg1, int shift)
+স্থির শূন্য check (ধ্রুবক অক্ষর *s, পূর্ণসংখ্যা arg1, পূর্ণসংখ্যা shift)
 {
-  int failed = arg1 != shift;
-  if (debug || failed)
+  পূর্ণসংখ্যা failed = arg1 != shift;
+  যদি (debug || failed)
     printf ("%s %d %d\n", s, arg1, shift);
   nfailed += failed;
 }
 
-int main (int argc, char **argv)
+পূর্ণসংখ্যা প্রধান (পূর্ণসংখ্যা argc, অক্ষর **argv)
 {
   debug = argc > 1;
   TEST4(1);
   TEST4(-1);
   printf ("%d test(s) failed\n", nfailed);
-  return nfailed != 0;
+  ফেরত nfailed != 0;
 }

@@ -1,18 +1,18 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-   char a;
-   int b;
-   double c;
+   অক্ষর a;
+   পূর্ণসংখ্যা b;
+   দ্বিগুণ c;
 
-   printf("%d\n", sizeof(a));
-   printf("%d\n", sizeof(b));
-   printf("%d\n", sizeof(c));
+   printf("%d\n", আকার(a));
+   printf("%d\n", আকার(b));
+   printf("%d\n", আকার(c));
 
-   printf("%d\n", sizeof(!a));
+   printf("%d\n", আকার(!a));
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

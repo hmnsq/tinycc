@@ -1,20 +1,20 @@
-extern int write (int fd, void *buf, int len);
+বাহ্যিক পূর্ণসংখ্যা লিখ (পূর্ণসংখ্যা fd, শূন্য *buf, পূর্ণসংখ্যা len);
 
-static void __attribute__ ((constructor))
-testc (void)
+স্থির শূন্য __attribute__ ((constructor))
+testc (শূন্য)
 {
-  write (1, "constructor\n", 12);
+  লিখ (1, "constructor\n", 12);
 }
 
-static void __attribute__ ((destructor))
-testd (void)
+স্থির শূন্য __attribute__ ((destructor))
+testd (শূন্য)
 {
-  write (1, "destructor\n", 11);
+  লিখ (1, "destructor\n", 11);
 }
 
-int
-main (void)
+পূর্ণসংখ্যা
+প্রধান (শূন্য)
 {
-  write (1, "main\n", 5);
-  return 0;
+  লিখ (1, "main\n", 5);
+  ফেরত 0;
 }

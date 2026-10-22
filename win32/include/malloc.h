@@ -6,26 +6,26 @@
 #ifndef _MALLOC_H_
 #define _MALLOC_H_
 
-#include <_mingw.h>
+#অন্তর্ভাব <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ঠেলো,_CRT_PACKING)
 
 #ifndef _MM_MALLOC_H_INCLUDED
 #define _MM_MALLOC_H_INCLUDED
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্যিক "C" {
 #endif
 
 #ifdef _WIN64
 #define _HEAP_MAXREQ 0xFFFFFFFFFFFFFFE0
-#else
+#অন্যথা
 #define _HEAP_MAXREQ 0xFFFFFFE0
 #endif
 
 #ifndef _STATIC_ASSERT
-#define _STATIC_ASSERT(expr) extern void __static_assert_t(int [(expr)?1:-1])
+#define _STATIC_ASSERT(রাশিমালা) বাহ্যিক শূন্য __static_assert_t(পূর্ণসংখ্যা [(রাশিমালা)?1:-1])
 #endif
 
 /* Return codes for _heapwalk()  */
@@ -43,45 +43,45 @@ extern "C" {
 #ifndef _HEAPINFO_DEFINED
 #define _HEAPINFO_DEFINED
  /* The structure used to walk through the heap with _heapwalk.  */
-  typedef struct _heapinfo {
-    int *_pentry;
-    size_t _size;
-    int _useflag;
+  প্রকারলেখ কাঠামো _heapinfo {
+    পূর্ণসংখ্যা *_pentry;
+    আকার_t আকার_6;
+    পূর্ণসংখ্যা _useflag;
   } _HEAPINFO;
 #endif
 
-  extern unsigned int _amblksiz;
+  বাহ্যিক unsigned পূর্ণসংখ্যা _amblksiz;
 
 #define _mm_free(a) _aligned_free(a)
 #define _mm_malloc(a,b) _aligned_malloc(a,b)
 
 #ifndef _CRT_ALLOCATION_DEFINED
 #define _CRT_ALLOCATION_DEFINED
-  void *__cdecl calloc(size_t _NumOfElements,size_t _SizeOfElements);
-  void __cdecl free(void *_Memory);
-  void *__cdecl malloc(size_t _Size);
-  void *__cdecl realloc(void *_Memory,size_t _NewSize);
-  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t _Count,size_t _Size);
-  _CRTIMP void __cdecl _aligned_free(void *_Memory);
-  _CRTIMP void *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_realloc(void *_Memory,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_realloc(void *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment,size_t _Offset);
+  শূন্য *__cdecl calloc(আকার_t অঙ্ক_Of_Elements,আকার_t আকার_Of_Elements);
+  শূন্য __cdecl মুক্ত(শূন্য *_Memory);
+  শূন্য *__cdecl malloc(আকার_t আকার_5);
+  শূন্য *__cdecl realloc(শূন্য *_Memory,আকার_t New_আকার);
+  _CRTIMP শূন্য *__cdecl _recalloc(শূন্য *_Memory,আকার_t গুনতি_5,আকার_t আকার_5);
+  _CRTIMP শূন্য __cdecl _aligned_free(শূন্য *_Memory);
+  _CRTIMP শূন্য *__cdecl _aligned_malloc(আকার_t আকার_5,আকার_t _Alignment);
+  _CRTIMP শূন্য *__cdecl _aligned_offset_malloc(আকার_t আকার_5,আকার_t _Alignment,আকার_t _Offset);
+  _CRTIMP শূন্য *__cdecl _aligned_realloc(শূন্য *_Memory,আকার_t আকার_5,আকার_t _Alignment);
+  _CRTIMP শূন্য *__cdecl _aligned_recalloc(শূন্য *_Memory,আকার_t গুনতি_5,আকার_t আকার_5,আকার_t _Alignment);
+  _CRTIMP শূন্য *__cdecl _aligned_offset_realloc(শূন্য *_Memory,আকার_t আকার_5,আকার_t _Alignment,আকার_t _Offset);
+  _CRTIMP শূন্য *__cdecl _aligned_offset_recalloc(শূন্য *_Memory,আকার_t গুনতি_5,আকার_t আকার_5,আকার_t _Alignment,আকার_t _Offset);
 #endif
 
 #define _MAX_WAIT_MALLOC_CRT 60000
 
-  _CRTIMP int __cdecl _resetstkoflw (void);
-  _CRTIMP unsigned long __cdecl _set_malloc_crt_max_wait(unsigned long _NewValue);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _resetstkoflw (শূন্য);
+  _CRTIMP unsigned long __cdecl _set_malloc_crt_max_wait(unsigned long New_মান);
 
-  _CRTIMP void *__cdecl _expand(void *_Memory,size_t _NewSize);
-  _CRTIMP size_t __cdecl _msize(void *_Memory);
+  _CRTIMP শূন্য *__cdecl _expand(শূন্য *_Memory,আকার_t New_আকার);
+  _CRTIMP আকার_t __cdecl _msize(শূন্য *_Memory);
 #ifdef __GNUC__
 #undef _alloca
 #define _alloca(x) __builtin_alloca((x))
-#else
+#অন্যথা
   /* tcc implements alloca internally and exposes it (since commit d778bde7).
   /* alloca is declared at include/stddef.h (which is distributed with tcc).
    */
@@ -90,58 +90,58 @@ extern "C" {
 #endif
 #define _alloca(x) alloca((x))
 #endif
-  _CRTIMP size_t __cdecl _get_sbh_threshold(void);
-  _CRTIMP int __cdecl _set_sbh_threshold(size_t _NewValue);
-  _CRTIMP errno_t __cdecl _set_amblksiz(size_t _Value);
-  _CRTIMP errno_t __cdecl _get_amblksiz(size_t *_Value);
-  _CRTIMP int __cdecl _heapadd(void *_Memory,size_t _Size);
-  _CRTIMP int __cdecl _heapchk(void);
-  _CRTIMP int __cdecl _heapmin(void);
-  _CRTIMP int __cdecl _heapset(unsigned int _Fill);
-  _CRTIMP int __cdecl _heapwalk(_HEAPINFO *_EntryInfo);
-  _CRTIMP size_t __cdecl _heapused(size_t *_Used,size_t *_Commit);
-  _CRTIMP intptr_t __cdecl _get_heap_handle(void);
+  _CRTIMP আকার_t __cdecl _get_sbh_threshold(শূন্য);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _set_sbh_threshold(আকার_t New_মান);
+  _CRTIMP errno_t __cdecl _set_amblksiz(আকার_t মান_2);
+  _CRTIMP errno_t __cdecl _get_amblksiz(আকার_t *মান_2);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _heapadd(শূন্য *_Memory,আকার_t আকার_5);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _heapchk(শূন্য);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _heapmin(শূন্য);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _heapset(unsigned পূর্ণসংখ্যা _Fill);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _heapwalk(_HEAPINFO *_EntryInfo);
+  _CRTIMP আকার_t __cdecl _heapused(আকার_t *_Used,আকার_t *_Commit);
+  _CRTIMP intptr_t __cdecl _get_heap_handle(শূন্য);
 
 #define _ALLOCA_S_THRESHOLD 1024
-#define _ALLOCA_S_STACK_MARKER 0xCCCC
+#define ALLOCA_S_স্তূপ_MARKER 0xCCCC
 #define _ALLOCA_S_HEAP_MARKER 0xDDDD
 
-#if(defined(_X86_) && !defined(__x86_64))
-#define _ALLOCA_S_MARKER_SIZE 8
-#elif defined(__ia64__) || defined(__x86_64)
-#define _ALLOCA_S_MARKER_SIZE 16
+#যদি(defined(_X86_) && !defined(__x86_64))
+#define ALLOCA_S_MARKER_আকার 8
+#নতুবা_যদি defined(__ia64__) || defined(__x86_64)
+#define ALLOCA_S_MARKER_আকার 16
 #endif
 
-#if !defined(RC_INVOKED)
-  static __inline void *_MarkAllocaS(void *_Ptr,unsigned int _Marker) {
-    if(_Ptr) {
-      *((unsigned int*)_Ptr) = _Marker;
-      _Ptr = (char*)_Ptr + _ALLOCA_S_MARKER_SIZE;
+#যদি !defined(RC_INVOKED)
+  স্থির __inline শূন্য *_MarkAllocaS(শূন্য *_Ptr,unsigned পূর্ণসংখ্যা _Marker) {
+    যদি(_Ptr) {
+      *((unsigned পূর্ণসংখ্যা*)_Ptr) = _Marker;
+      _Ptr = (অক্ষর*)_Ptr + ALLOCA_S_MARKER_আকার;
     }
-    return _Ptr;
+    ফেরত _Ptr;
   }
 #endif
 
 #undef _malloca
-#define _malloca(size) \
-  ((((size) + _ALLOCA_S_MARKER_SIZE) <= _ALLOCA_S_THRESHOLD) ? \
-    _MarkAllocaS(_alloca((size) + _ALLOCA_S_MARKER_SIZE),_ALLOCA_S_STACK_MARKER) : \
-    _MarkAllocaS(malloc((size) + _ALLOCA_S_MARKER_SIZE),_ALLOCA_S_HEAP_MARKER))
+#define _malloca(আকার_2) \
+  ((((আকার_2) + ALLOCA_S_MARKER_আকার) <= _ALLOCA_S_THRESHOLD) ? \
+    _MarkAllocaS(_alloca((আকার_2) + ALLOCA_S_MARKER_আকার),ALLOCA_S_স্তূপ_MARKER) : \
+    _MarkAllocaS(malloc((আকার_2) + ALLOCA_S_MARKER_আকার),_ALLOCA_S_HEAP_MARKER))
 #undef _FREEA_INLINE
 #define _FREEA_INLINE
 
 #ifndef RC_INVOKED
 #undef _freea
-  static __inline void __cdecl _freea(void *_Memory) {
-    unsigned int _Marker;
-    if(_Memory) {
-      _Memory = (char*)_Memory - _ALLOCA_S_MARKER_SIZE;
-      _Marker = *(unsigned int *)_Memory;
-      if(_Marker==_ALLOCA_S_HEAP_MARKER) {
-	free(_Memory);
+  স্থির __inline শূন্য __cdecl _freea(শূন্য *_Memory) {
+    unsigned পূর্ণসংখ্যা _Marker;
+    যদি(_Memory) {
+      _Memory = (অক্ষর*)_Memory - ALLOCA_S_MARKER_আকার;
+      _Marker = *(unsigned পূর্ণসংখ্যা *)_Memory;
+      যদি(_Marker==_ALLOCA_S_HEAP_MARKER) {
+	মুক্ত(_Memory);
       }
 #ifdef _ASSERTE
-      else if(_Marker!=_ALLOCA_S_STACK_MARKER) {
+      অন্যথা যদি(_Marker!=ALLOCA_S_স্তূপ_MARKER) {
 	_ASSERTE(("Corrupted pointer passed to _freea",0));
       }
 #endif
@@ -159,7 +159,7 @@ extern "C" {
 #ifdef HEAPHOOK
 #ifndef _HEAPHOOK_DEFINED
 #define _HEAPHOOK_DEFINED
-  typedef int (__cdecl *_HEAPHOOK)(int,size_t,void *,void **);
+  প্রকারলেখ পূর্ণসংখ্যা (__cdecl *_HEAPHOOK)(পূর্ণসংখ্যা,আকার_t,শূন্য *,শূন্য **);
 #endif
 
   _CRTIMP _HEAPHOOK __cdecl _setheaphook(_HEAPHOOK _NewHook);
@@ -176,6 +176,6 @@ extern "C" {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(বের_করো)
 
 #endif /* _MALLOC_H_ */

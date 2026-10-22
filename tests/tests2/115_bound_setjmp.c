@@ -1,20 +1,20 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
+#অন্তর্ভাব <stdio.h>
+#অন্তর্ভাব <string.h>
+#অন্তর্ভাব <setjmp.h>
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   পূর্ণসংখ্যা i, a[2], b[2];                \
+              জন্য (i = 0; i < 2; i++) a[i] = 0; \
+              জন্য (i = 0; i < 2; i++) b[i] = 0
 
-static jmp_buf jmp;
+স্থির jmp_buf jmp;
 
-static void tst1 (void)
+স্থির শূন্য tst1 (শূন্য)
 {
     TST;
     longjmp(jmp, 1);
 }
 
-static void tst2(void)
+স্থির শূন্য tst2(শূন্য)
 {
     jmp_buf jmp;
 
@@ -23,13 +23,13 @@ static void tst2(void)
     tst1();
 }
 
-static void tst3 (jmp_buf loc)
+স্থির শূন্য tst3 (jmp_buf loc)
 {
     TST;
     longjmp(loc, 1);
 }
 
-static void tst4(jmp_buf loc)
+স্থির শূন্য tst4(jmp_buf loc)
 {
     jmp_buf jmp;
 
@@ -38,55 +38,55 @@ static void tst4(jmp_buf loc)
     tst3(loc);
 }
 
-static void tst (void)
+স্থির শূন্য tst (শূন্য)
 {
     jmp_buf loc;
-    static int cnt;
+    স্থির পূর্ণসংখ্যা cnt;
 
     cnt = 0;
-    if (setjmp (jmp) == 0) {
+    যদি (setjmp (jmp) == 0) {
         TST;
         tst2();
     }
-    else {
+    অন্যথা {
         cnt++;
     }
-    if (setjmp (loc) == 0) {
+    যদি (setjmp (loc) == 0) {
         TST;
         tst4(loc);
     }
-    else {
+    অন্যথা {
         cnt++;
     }
-    if (cnt != 2)
+    যদি (cnt != 2)
         printf ("incorrect cnt %d\n", cnt);
 }
 
-static jmp_buf buf1;
-static jmp_buf buf2;
-static int *p;
-static int n_x = 6;
-static int g_counter;
+স্থির jmp_buf buf1;
+স্থির jmp_buf buf2;
+স্থির পূর্ণসংখ্যা *p;
+স্থির পূর্ণসংখ্যা n_x = 6;
+স্থির পূর্ণসংখ্যা g_গণক;
 
-static void stack (void)
+স্থির শূন্য স্তূপ (শূন্য)
 {
-    static int counter;
-    static int way_point1;
-    static int way_point2;
+    স্থির পূর্ণসংখ্যা গণক;
+    স্থির পূর্ণসংখ্যা way_point1;
+    স্থির পূর্ণসংখ্যা way_point2;
 
-    counter = 0;
+    গণক = 0;
     way_point1 = 3;
     way_point2 = 2;
-    g_counter = 0;
-    if (setjmp (buf1) != 101) {
-        int a[n_x];
-        g_counter++;
+    g_গণক = 0;
+    যদি (setjmp (buf1) != 101) {
+        পূর্ণসংখ্যা a[n_x];
+        g_গণক++;
         p = &a[0];
-        if (g_counter < 5)
+        যদি (g_গণক < 5)
             longjmp (buf1, 2);
-        else if (g_counter == 5)
+        অন্যথা যদি (g_গণক == 5)
             longjmp (buf1, 101);
-        else {
+        অন্যথা {
             setjmp (buf2); 
             longjmp (buf1, 101);
         }
@@ -94,17 +94,17 @@ static void stack (void)
     
     way_point1--;
 
-    if (counter == 0) {
-        counter++;
+    যদি (গণক == 0) {
+        গণক++;
         {
-            int a[n_x];
-            g_counter++;
+            পূর্ণসংখ্যা a[n_x];
+            g_গণক++;
             p = &a[0];
-            if (g_counter < 5)
+            যদি (g_গণক < 5)
                 longjmp (buf1, 2);
-            else if (g_counter == 5)
+            অন্যথা যদি (g_গণক == 5)
                 longjmp (buf1, 101);
-            else {
+            অন্যথা {
                 setjmp (buf2);
                 longjmp (buf1, 101);
             }
@@ -113,60 +113,60 @@ static void stack (void)
 
     way_point2--;
 
-    if (counter == 1) {
-        counter++;
+    যদি (গণক == 1) {
+        গণক++;
         longjmp (buf2, 2);
     }
 
-    if (!(way_point1 == 0 && way_point2 == 0 &&
-          g_counter == 6 && counter == 2))
+    যদি (!(way_point1 == 0 && way_point2 == 0 &&
+          g_গণক == 6 && গণক == 2))
         printf ("Failed %d %d %d %d\n",
-                way_point1, way_point2, g_counter, counter);
+                way_point1, way_point2, g_গণক, গণক);
 }
 
-static jmp_buf env;
-static int last_value;
+স্থির jmp_buf env;
+স্থির পূর্ণসংখ্যা last_মান;
 
-static void jump (int val)
+স্থির শূন্য jump (পূর্ণসংখ্যা val)
 {
     longjmp (env, val);
 }
 
-static void check (void)
+স্থির শূন্য check (শূন্য)
 {
-    int value;
+    পূর্ণসংখ্যা মান;
 
-    last_value = -1;
-    value = setjmp (env);
-    if (value != last_value + 1) {
+    last_মান = -1;
+    মান = setjmp (env);
+    যদি (মান != last_মান + 1) {
         printf ("incorrect value %d %d\n",
-                value, last_value + 1);
-        return;
+                মান, last_মান + 1);
+        ফেরত;
     }
-    last_value = value;
-    switch (value) {
-#if !(defined(__FreeBSD__) || defined(__NetBSD__))
+    last_মান = মান;
+    নির্বাচন (মান) {
+#যদি !(defined(__FreeBSD__) || defined(__NetBSD__))
     /* longjmp(jmp_buf, 0) not supported */
-    case 0:
+    ক্ষেত্র 0:
         jump (0);
 #endif
-    default:
-        if (value < 10)
-          jump (value + 1);
+    পূর্বনির্ধারিত:
+        যদি (মান < 10)
+          jump (মান + 1);
     }
 }
 
-int
-main (void)
+পূর্ণসংখ্যা
+প্রধান (শূন্য)
 {
-    int i;
+    পূর্ণসংখ্যা i;
 
-    for (i = 0; i < 10;  i++) {
+    জন্য (i = 0; i < 10;  i++) {
         tst();
-        stack();
+        স্তূপ();
         check();
     }
-    return 0;
+    ফেরত 0;
 }
 
 

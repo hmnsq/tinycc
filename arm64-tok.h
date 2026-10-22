@@ -389,8 +389,8 @@
  DEF_ASM(clrex)
 
 /* Push/pop */
- DEF_ASM(push)
- DEF_ASM(pop)
+ DEF_ASM(ঠেলো)
+ DEF_ASM(বের_করো)
 
 /* Floating point */
  DEF_ASM(fmov)
@@ -753,7 +753,7 @@
 #define ARM64_IMM_HW(v, hw) (((uint32_t)(v) & 0xFFFFU) << 5 | (((hw) & 3) << 21))
 
 /* Shift and size encodings */
-#define ARM64_SIZE(s)   (((uint32_t)(s) & 3) << 30)
+#define ARM64_আকার(s)   (((uint32_t)(s) & 3) << 30)
 #define ARM64_SF(s)     (((uint32_t)(s) & 1) << 31)
 #define ARM64_S(v)      (((uint32_t)(v) & 1) << 29)
 #define ARM64_N(v)      (((uint32_t)(v) & 1) << 22)

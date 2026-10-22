@@ -1,53 +1,53 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
-} Node;
+প্রকারলেখ কাঠামো {
+    পূর্ণসংখ্যা তথ্য[4];
+    দ্বিগুণ d1;
+    দ্বিগুণ d2;
+} গ্রন্থি_2;
 
-typedef struct {
-    int a, b, c;
+প্রকারলেখ কাঠামো {
+    পূর্ণসংখ্যা a, b, c;
 } A;
 
-Node init(Node self) {
-    self.data[0] = 0;
-    self.data[1] = 1;
-    self.data[2] = 2;
-    self.data[3] = 3;
+গ্রন্থি_2 init(গ্রন্থি_2 self) {
+    self.তথ্য[0] = 0;
+    self.তথ্য[1] = 1;
+    self.তথ্য[2] = 2;
+    self.তথ্য[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    ফেরত self;
 }
 
-void dummy(Node self) {
+শূন্য dummy(গ্রন্থি_2 self) {
 }
 
-void print_data(Node data) {
+শূন্য print_তথ্য(গ্রন্থি_2 তথ্য) {
     printf ("%d %d %d %d %g %g\n",
-            data.data[0], data.data[1], data.data[2], data.data[3],
-            data.d1, data.d2);
+            তথ্য.তথ্য[0], তথ্য.তথ্য[1], তথ্য.তথ্য[2], তথ্য.তথ্য[3],
+            তথ্য.d1, তথ্য.d2);
 }
 
-A test(void)
+A test(শূন্য)
 {
-    int i;
+    পূর্ণসংখ্যা i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    জন্য (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    ফেরত arr[29];
 }
 
-int main(void) {
+পূর্ণসংখ্যা প্রধান(শূন্য) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    গ্রন্থি_2 তথ্য;
     A a;
-    dummy (data);
-    char val;
-    data = init (data);
-    print_data(data);
+    dummy (তথ্য);
+    অক্ষর val;
+    তথ্য = init (তথ্য);
+    print_তথ্য(তথ্য);
     a = test();
     printf("%d\n", a.b);
-    return 0;
+    ফেরত 0;
 }

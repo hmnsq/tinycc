@@ -6,15 +6,15 @@
 #ifndef _INC_SIGNAL
 #define _INC_SIGNAL
 
-#include <_mingw.h>
+#অন্তর্ভাব <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্যিক "C" {
 #endif
 
 #ifndef _SIG_ATOMIC_T_DEFINED
 #define _SIG_ATOMIC_T_DEFINED
-  typedef int sig_atomic_t;
+  প্রকারলেখ পূর্ণসংখ্যা sig_atomic_t;
 #endif
 
 #define NSIG 23
@@ -42,7 +42,7 @@ extern "C" {
 
 #define SIGABRT_COMPAT 6
 
-  typedef	void (*__p_sig_fn_t)(int);
+  প্রকারলেখ	শূন্য (*__p_sig_fn_t)(পূর্ণসংখ্যা);
 
 #define SIG_DFL (__p_sig_fn_t)0
 #define SIG_IGN (__p_sig_fn_t)1
@@ -51,11 +51,11 @@ extern "C" {
 #define SIG_ACK (__p_sig_fn_t)4
 #define SIG_ERR (__p_sig_fn_t)-1
 
-  extern void **__cdecl __pxcptinfoptrs(void);
+  বাহ্যিক শূন্য **__cdecl __pxcptinfoptrs(শূন্য);
 #define _pxcptinfoptrs (*__pxcptinfoptrs())
 
-  __p_sig_fn_t __cdecl signal(int _SigNum,__p_sig_fn_t _Func);
-  int __cdecl raise(int _SigNum);
+  __p_sig_fn_t __cdecl সংকেত(পূর্ণসংখ্যা Sig_অঙ্ক_2,__p_sig_fn_t _Func);
+  পূর্ণসংখ্যা __cdecl তোলো(পূর্ণসংখ্যা Sig_অঙ্ক_2);
 
 #ifdef __cplusplus
 }

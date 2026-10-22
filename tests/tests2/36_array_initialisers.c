@@ -1,25 +1,25 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-extern int Array3[10];
-int Array3[] = { 12, 34, };
-int main()
+বাহ্যিক পূর্ণসংখ্যা Array3[10];
+পূর্ণসংখ্যা Array3[] = { 12, 34, };
+পূর্ণসংখ্যা প্রধান()
 {
-   int Count;
+   পূর্ণসংখ্যা গুনতি_3;
 
-   int Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
+   পূর্ণসংখ্যা Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array[Count]);
+   জন্য (গুনতি_3 = 0; গুনতি_3 < 10; গুনতি_3++)
+      printf("%d: %d\n", গুনতি_3, Array[গুনতি_3]);
 
-   int Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
+   পূর্ণসংখ্যা Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array2[Count]);
+   জন্য (গুনতি_3 = 0; গুনতি_3 < 10; গুনতি_3++)
+      printf("%d: %d\n", গুনতি_3, Array2[গুনতি_3]);
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array3[Count]);
+   জন্য (গুনতি_3 = 0; গুনতি_3 < 10; গুনতি_3++)
+      printf("%d: %d\n", গুনতি_3, Array3[গুনতি_3]);
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

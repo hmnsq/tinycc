@@ -7,76 +7,76 @@
 #ifndef _TCCLIB_H
 #define _TCCLIB_H
 
-#include <stddef.h>
-#include <stdarg.h>
+#অন্তর্ভাব <stddef.h>
+#অন্তর্ভাব <stdarg.h>
 
 /* stdlib.h */
-void *calloc(size_t nmemb, size_t size);
-void *malloc(size_t size);
-void free(void *ptr);
-void *realloc(void *ptr, size_t size);
-int atoi(const char *nptr);
-long int strtol(const char *nptr, char **endptr, int base);
-unsigned long int strtoul(const char *nptr, char **endptr, int base);
-void exit(int);
-void *alloca(size_t);
+শূন্য *calloc(আকার_t nmemb, আকার_t আকার_2);
+শূন্য *malloc(আকার_t আকার_2);
+শূন্য মুক্ত(শূন্য *ptr);
+শূন্য *realloc(শূন্য *ptr, আকার_t আকার_2);
+পূর্ণসংখ্যা atoi(ধ্রুবক অক্ষর *nptr);
+long পূর্ণসংখ্যা strtol(ধ্রুবক অক্ষর *nptr, অক্ষর **endptr, পূর্ণসংখ্যা base);
+unsigned long পূর্ণসংখ্যা strtoul(ধ্রুবক অক্ষর *nptr, অক্ষর **endptr, পূর্ণসংখ্যা base);
+শূন্য exit(পূর্ণসংখ্যা);
+শূন্য *alloca(আকার_t);
 
 /* stdio.h */
-typedef struct __FILE FILE;
+প্রকারলেখ কাঠামো __FILE FILE;
 #define EOF (-1)
-extern FILE *stdin;
-extern FILE *stdout;
-extern FILE *stderr;
-FILE *fopen(const char *path, const char *mode);
-FILE *fdopen(int fildes, const char *mode);
-FILE *freopen(const  char *path, const char *mode, FILE *stream);
-int fclose(FILE *stream);
-size_t  fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
-size_t  fwrite(void *ptr, size_t size, size_t nmemb, FILE *stream);
-int fgetc(FILE *stream);
-char *fgets(char *s, int size, FILE *stream);
-int getc(FILE *stream);
-int getchar(void);
-char *gets(char *s);
-int ungetc(int c, FILE *stream);
-int fflush(FILE *stream);
-int puts(const char *s);
-int putchar (int c);
+বাহ্যিক FILE *stdin;
+বাহ্যিক FILE *stdout;
+বাহ্যিক FILE *stderr;
+FILE *fopen(ধ্রুবক অক্ষর *path, ধ্রুবক অক্ষর *mode);
+FILE *fdopen(পূর্ণসংখ্যা fildes, ধ্রুবক অক্ষর *mode);
+FILE *freopen(ধ্রুবক  অক্ষর *path, ধ্রুবক অক্ষর *mode, FILE *stream);
+পূর্ণসংখ্যা fclose(FILE *stream);
+আকার_t  fread(শূন্য *ptr, আকার_t আকার_2, আকার_t nmemb, FILE *stream);
+আকার_t  fwrite(শূন্য *ptr, আকার_t আকার_2, আকার_t nmemb, FILE *stream);
+পূর্ণসংখ্যা fgetc(FILE *stream);
+অক্ষর *fgets(অক্ষর *s, পূর্ণসংখ্যা আকার_2, FILE *stream);
+পূর্ণসংখ্যা getc(FILE *stream);
+পূর্ণসংখ্যা getchar(শূন্য);
+অক্ষর *gets(অক্ষর *s);
+পূর্ণসংখ্যা ungetc(পূর্ণসংখ্যা c, FILE *stream);
+পূর্ণসংখ্যা fflush(FILE *stream);
+পূর্ণসংখ্যা puts(ধ্রুবক অক্ষর *s);
+পূর্ণসংখ্যা putchar (পূর্ণসংখ্যা c);
 
-int printf(const char *format, ...);
-int fprintf(FILE *stream, const char *format, ...);
-int sprintf(char *str, const char *format, ...);
-int snprintf(char *str, size_t size, const  char  *format, ...);
-int asprintf(char **strp, const char *format, ...);
-int dprintf(int fd, const char *format, ...);
-int vprintf(const char *format, va_list ap);
-int vfprintf(FILE  *stream,  const  char *format, va_list ap);
-int vsprintf(char *str, const char *format, va_list ap);
-int vsnprintf(char *str, size_t size, const char  *format, va_list ap);
-int vasprintf(char  **strp,  const  char *format, va_list ap);
-int vdprintf(int fd, const char *format, va_list ap);
+পূর্ণসংখ্যা printf(ধ্রুবক অক্ষর *format, ...);
+পূর্ণসংখ্যা fprintf(FILE *stream, ধ্রুবক অক্ষর *format, ...);
+পূর্ণসংখ্যা sprintf(অক্ষর *str, ধ্রুবক অক্ষর *format, ...);
+পূর্ণসংখ্যা snprintf(অক্ষর *str, আকার_t আকার_2, ধ্রুবক  অক্ষর  *format, ...);
+পূর্ণসংখ্যা asprintf(অক্ষর **strp, ধ্রুবক অক্ষর *format, ...);
+পূর্ণসংখ্যা dprintf(পূর্ণসংখ্যা fd, ধ্রুবক অক্ষর *format, ...);
+পূর্ণসংখ্যা vprintf(ধ্রুবক অক্ষর *format, va_list ap);
+পূর্ণসংখ্যা vfprintf(FILE  *stream,  ধ্রুবক  অক্ষর *format, va_list ap);
+পূর্ণসংখ্যা vsprintf(অক্ষর *str, ধ্রুবক অক্ষর *format, va_list ap);
+পূর্ণসংখ্যা vsnprintf(অক্ষর *str, আকার_t আকার_2, ধ্রুবক অক্ষর  *format, va_list ap);
+পূর্ণসংখ্যা vasprintf(অক্ষর  **strp,  ধ্রুবক  অক্ষর *format, va_list ap);
+পূর্ণসংখ্যা vdprintf(পূর্ণসংখ্যা fd, ধ্রুবক অক্ষর *format, va_list ap);
 
-void perror(const char *s);
+শূন্য perror(ধ্রুবক অক্ষর *s);
 
 /* string.h */
-char *strcat(char *dest, const char *src);
-char *strchr(const char *s, int c);
-char *strrchr(const char *s, int c);
-char *strcpy(char *dest, const char *src);
-void *memcpy(void *dest, const void *src, size_t n);
-void *memmove(void *dest, const void *src, size_t n);
-void *memset(void *s, int c, size_t n);
-char *strdup(const char *s);
-size_t strlen(const char *s);
+অক্ষর *strcat(অক্ষর *dest, ধ্রুবক অক্ষর *src);
+অক্ষর *strchr(ধ্রুবক অক্ষর *s, পূর্ণসংখ্যা c);
+অক্ষর *strrchr(ধ্রুবক অক্ষর *s, পূর্ণসংখ্যা c);
+অক্ষর *strcpy(অক্ষর *dest, ধ্রুবক অক্ষর *src);
+শূন্য *memcpy(শূন্য *dest, ধ্রুবক শূন্য *src, আকার_t n);
+শূন্য *memmove(শূন্য *dest, ধ্রুবক শূন্য *src, আকার_t n);
+শূন্য *memset(শূন্য *s, পূর্ণসংখ্যা c, আকার_t n);
+অক্ষর *strdup(ধ্রুবক অক্ষর *s);
+আকার_t strlen(ধ্রুবক অক্ষর *s);
 
 /* dlfcn.h */
 #define RTLD_LAZY       0x001
 #define RTLD_NOW        0x002
 #define RTLD_GLOBAL     0x100
 
-void *dlopen(const char *filename, int flag);
-const char *dlerror(void);
-void *dlsym(void *handle, char *symbol);
-int dlclose(void *handle);
+শূন্য *dlopen(ধ্রুবক অক্ষর *filename, পূর্ণসংখ্যা flag);
+ধ্রুবক অক্ষর *dlerror(শূন্য);
+শূন্য *dlsym(শূন্য *handle, অক্ষর *প্রতীক);
+পূর্ণসংখ্যা dlclose(শূন্য *handle);
 
 #endif /* _TCCLIB_H */

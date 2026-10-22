@@ -1,18 +1,18 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-   int Count = 0;
+   পূর্ণসংখ্যা গুনতি_3 = 0;
 
-   for (;;)
+   জন্য (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      গুনতি_3++;
+      printf("%d\n", গুনতি_3);
+      যদি (গুনতি_3 >= 10)
+         বিরতি;
    }
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

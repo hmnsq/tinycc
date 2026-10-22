@@ -1,137 +1,137 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <semaphore.h>
-#include <signal.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <setjmp.h>
+#অন্তর্ভাব <stdio.h>
+#অন্তর্ভাব <pthread.h>
+#অন্তর্ভাব <semaphore.h>
+#অন্তর্ভাব <signal.h>
+#অন্তর্ভাব <string.h>
+#অন্তর্ভাব <sys/types.h>
+#অন্তর্ভাব <sys/wait.h>
+#অন্তর্ভাব <sys/time.h>
+#অন্তর্ভাব <unistd.h>
+#অন্তর্ভাব <stdlib.h>
+#অন্তর্ভাব <errno.h>
+#অন্তর্ভাব <setjmp.h>
 
-static volatile int run = 1;
-static sem_t sem;
-static sem_t sem_child;
+স্থির অস্থির পূর্ণসংখ্যা run = 1;
+স্থির sem_t sem;
+স্থির sem_t sem_child;
 
-static void
-add (int n)
+স্থির শূন্য
+add (পূর্ণসংখ্যা n)
 {
-    int i;
-    int arr[n];
+    পূর্ণসংখ্যা i;
+    পূর্ণসংখ্যা arr[n];
 
-    for (i = 0; i < n; i++) {
+    জন্য (i = 0; i < n; i++) {
         arr[i]++;
     }
-    memset (&arr[0], 0, n * sizeof(int));
+    memset (&arr[0], 0, n * আকার(পূর্ণসংখ্যা));
 }
 
-static void *
-high_load (void *unused)
+স্থির শূন্য *
+উপরের_load (শূন্য *unused)
 {
-    while (run) {
+    যখন (run) {
         add(10);
         add(20);
     }
-    return NULL;
+    ফেরত ফাঁকা;
 }
 
-static void *
-do_signal (void *unused)
+স্থির শূন্য *
+do_signal (শূন্য *unused)
 {
-    while (run) {
+    যখন (run) {
         kill (getpid(), SIGUSR1);
-        while (sem_wait(&sem) < 0 && errno == EINTR);
+        যখন (sem_wait(&sem) < 0 && errno == EINTR);
     }
-    return NULL;
+    ফেরত ফাঁকা;
 }
 
-static void *
-do_fork (void *unused)
+স্থির শূন্য *
+do_fork (শূন্য *unused)
 {
     pid_t pid;
 
-    while (run) {
-        switch ((pid = fork())) {
-        case 0:
+    যখন (run) {
+        নির্বাচন ((pid = fork())) {
+        ক্ষেত্র 0:
             add(1000);
             add(2000);
             exit(0);
-            break;
-        case -1:
-            return NULL;
-        default:
-            while (sem_wait(&sem_child) < 0 && errno == EINTR);
-            wait(NULL);
-            break;
+            বিরতি;
+        ক্ষেত্র -1:
+            ফেরত ফাঁকা;
+        পূর্বনির্ধারিত:
+            যখন (sem_wait(&sem_child) < 0 && errno == EINTR);
+            wait(ফাঁকা);
+            বিরতি;
         }
     }
-    return NULL;
+    ফেরত ফাঁকা;
 }
 
-static void signal_handler(int sig)
+স্থির শূন্য signal_handler(পূর্ণসংখ্যা sig)
 {
     add(10);
     add(20);
     sem_post (&sem);
 }
 
-static void child_handler(int sig)
+স্থির শূন্য child_handler(পূর্ণসংখ্যা sig)
 {
     add(10);
     add(20);
     sem_post (&sem_child);
 }
 
-static unsigned getclock_ms(void)
+স্থির unsigned getclock_ms(শূন্য)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    ফেরত Get_Tick_গুনতি();
+#অন্যথা
+    কাঠামো timeval tv;
+    gettimeofday(&tv, ফাঁকা);
+    ফেরত tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int
-main (void)
+পূর্ণসংখ্যা
+প্রধান (শূন্য)
 {
-    int i;
+    পূর্ণসংখ্যা i;
     pthread_t id1, id2, id3;
-    struct sigaction act;
+    কাঠামো sigaction act;
     sigjmp_buf sj;
     sigset_t m;
     time_t end;
 
-    memset (&act, 0, sizeof (act));
+    memset (&act, 0, আকার (act));
     act.sa_handler = signal_handler;
     act.sa_flags = 0;
     sigemptyset (&act.sa_mask);
-    sigaction (SIGUSR1, &act, NULL);
+    sigaction (SIGUSR1, &act, ফাঁকা);
     act.sa_handler = child_handler;
-    sigaction (SIGCHLD, &act, NULL);
+    sigaction (SIGCHLD, &act, ফাঁকা);
 
     printf ("start\n"); fflush(stdout);
 
     sem_init (&sem, 0, 0);
     sem_init (&sem_child, 0, 0);
-    pthread_create(&id1, NULL, high_load, NULL);
-    pthread_create(&id2, NULL, do_signal, NULL);
-#if !defined(__APPLE__)
-    pthread_create(&id3, NULL, do_fork, NULL);
+    pthread_create(&id1, ফাঁকা, উপরের_load, ফাঁকা);
+    pthread_create(&id2, ফাঁকা, do_signal, ফাঁকা);
+#যদি !defined(__APPLE__)
+    pthread_create(&id3, ফাঁকা, do_fork, ফাঁকা);
 #endif
 
     /* sleep does not work !!! */
     end = getclock_ms() + 200;
-    while (getclock_ms() < end) ;
+    যখন (getclock_ms() < end) ;
     run = 0;
 
-    pthread_join(id1, NULL);
-    pthread_join(id2, NULL);
-#if !defined(__APPLE__)
-    pthread_join(id3, NULL);
+    pthread_join(id1, ফাঁকা);
+    pthread_join(id2, ফাঁকা);
+#যদি !defined(__APPLE__)
+    pthread_join(id3, ফাঁকা);
 #endif
     sem_destroy (&sem);
     sem_destroy (&sem_child);
@@ -139,17 +139,17 @@ main (void)
     printf ("end\n"); fflush(stdout);
 
     sigemptyset (&m);
-    sigprocmask (SIG_SETMASK, &m, NULL);
-    if (sigsetjmp (sj, 0) == 0)
+    sigprocmask (SIG_SETMASK, &m, ফাঁকা);
+    যদি (sigsetjmp (sj, 0) == 0)
     {
         sigaddset (&m, SIGUSR1);
-        sigprocmask (SIG_SETMASK, &m, NULL);
+        sigprocmask (SIG_SETMASK, &m, ফাঁকা);
         siglongjmp (sj, 1);
         printf ("failed");
-        return 1;
+        ফেরত 1;
     }
-    sigprocmask (SIG_SETMASK, NULL, &m);
-    if (!sigismember (&m, SIGUSR1))
+    sigprocmask (SIG_SETMASK, ফাঁকা, &m);
+    যদি (!sigismember (&m, SIGUSR1))
         printf ("failed");
-    return 0;
+    ফেরত 0;
 }

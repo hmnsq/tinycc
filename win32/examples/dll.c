@@ -3,11 +3,11 @@
 //  dll.c - Windows DLL example - dynamically linked part
 //
 
-#include <windows.h>
+#অন্তর্ভাব <windows.h>
 
-__declspec(dllexport) const char *hello_data = "(not set)";
+__declspec(dllexport) ধ্রুবক অক্ষর *hello_তথ্য = "(not set)";
 
-__declspec(dllexport) void hello_func (void)
+__declspec(dllexport) শূন্য hello_func (শূন্য)
 {
-    MessageBox (0, hello_data, "From DLL", MB_ICONINFORMATION);
+    MessageBox (0, hello_তথ্য, "From DLL", MB_ICONINFORMATION);
 }

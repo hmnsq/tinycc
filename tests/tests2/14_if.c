@@ -1,21 +1,21 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-   int a = 1;
+   পূর্ণসংখ্যা a = 1;
 
-   if (a)
+   যদি (a)
       printf("a is true\n");
-   else
+   অন্যথা
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   পূর্ণসংখ্যা b = 0;
+   যদি (b)
       printf("b is true\n");
-   else
+   অন্যথা
       printf("b is false\n");
 
-   return 0;
+   ফেরত 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

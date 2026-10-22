@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
+গণনা বৃক্ষ_code {
   SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+  LAST_AND_UNUSED_বৃক্ষ_CODE
 };
-typedef union tree_node *tree;
-struct tree_common
+প্রকারলেখ সংঘ বৃক্ষ_গ্রন্থি *বৃক্ষ_2;
+কাঠামো বৃক্ষ_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
+  সংঘ বৃক্ষ_গ্রন্থি *chain;
+  সংঘ বৃক্ষ_গ্রন্থি *type;
+  গণনা বৃক্ষ_code code : 8;
   unsigned side_effects_flag : 1;
 };
-union tree_node
+সংঘ বৃক্ষ_গ্রন্থি
 {
-  struct tree_common common;
+  কাঠামো বৃক্ষ_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+গণনা c_বৃক্ষ_code {
+  C_DUMMY_বৃক্ষ_CODE = LAST_AND_UNUSED_বৃক্ষ_CODE,
+  STMT_রাশিমালা,
+  LAST_C_বৃক্ষ_CODE
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+গণনা cplus_বৃক্ষ_code {
+  CP_DUMMY_বৃক্ষ_CODE = LAST_C_বৃক্ষ_CODE,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  LAST_CPLUS_বৃক্ষ_CODE
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+বাহ্যিক পূর্ণসংখ্যা printf(ধ্রুবক অক্ষর *, ...);
+পূর্ণসংখ্যা blah(){ফেরত 0;}
 
-int convert_like_real (tree convs)
+পূর্ণসংখ্যা convert_like_real (বৃক্ষ_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  নির্বাচন (((গণনা বৃক্ষ_code) (convs)->common.code))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    ক্ষেত্র AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      ফেরত blah();
+    পূর্বনির্ধারিত:
+      বিরতি;
     };
    printf("unsigned enum bit-fields broken\n");
-   return 0;
+   ফেরত 0;
 }
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-  union tree_node convs;
+  সংঘ বৃক্ষ_গ্রন্থি convs;
 
   convs.common.code = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  ফেরত 0;
 }

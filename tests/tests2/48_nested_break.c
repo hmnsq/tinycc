@@ -1,18 +1,18 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-   int a;
-   char b;
+   পূর্ণসংখ্যা a;
+   অক্ষর b;
 
    a = 0;
-   while (a < 2)
+   যখন (a < 2)
    {
       printf("%d", a++);
-      break;
+      বিরতি;
 
       b = 'A';
-      while (b < 'C')
+      যখন (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -6,7 +6,7 @@
 #ifndef __QOS_H_
 #define __QOS_H_
 
-typedef ULONG SERVICETYPE;
+প্রকারলেখ ULONG SERVICETYPE;
 
 #define SERVICETYPE_NOTRAFFIC 0x00000000
 #define SERVICETYPE_BESTEFFORT 0x00000001
@@ -29,23 +29,23 @@ typedef ULONG SERVICETYPE;
 
 #define SERVICE_NO_QOS_SIGNALING 0x40000000
 
-typedef struct _flowspec {
+প্রকারলেখ কাঠামো _flowspec {
   ULONG TokenRate;
-  ULONG TokenBucketSize;
+  ULONG Token_Bucket_আকার;
   ULONG PeakBandwidth;
   ULONG Latency;
   ULONG DelayVariation;
   SERVICETYPE ServiceType;
-  ULONG MaxSduSize;
-  ULONG MinimumPolicedSize;
+  ULONG Max_Sdu_আকার;
+  ULONG Minimum_Policed_আকার;
 } FLOWSPEC,*PFLOWSPEC,*LPFLOWSPEC;
 
 #define QOS_NOT_SPECIFIED 0xFFFFFFFF
 #define POSITIVE_INFINITY_RATE 0xFFFFFFFE
 
-typedef struct {
+প্রকারলেখ কাঠামো {
   ULONG ObjectType;
-  ULONG ObjectLength;
+  ULONG Object_দৈর্ঘ্য;
 } QOS_OBJECT_HDR,*LPQOS_OBJECT_HDR;
 
 #define QOS_GENERAL_ID_BASE 2000
@@ -54,7 +54,7 @@ typedef struct {
 #define QOS_OBJECT_SHAPING_RATE (0x00000003 + QOS_GENERAL_ID_BASE)
 #define QOS_OBJECT_DESTADDR (0x00000004 + QOS_GENERAL_ID_BASE)
 
-typedef struct _QOS_SD_MODE {
+প্রকারলেখ কাঠামো _QOS_SD_MODE {
   QOS_OBJECT_HDR ObjectHdr;
   ULONG ShapeDiscardMode;
 } QOS_SD_MODE,*LPQOS_SD_MODE;
@@ -64,7 +64,7 @@ typedef struct _QOS_SD_MODE {
 #define TC_NONCONF_DISCARD 2
 #define TC_NONCONF_BORROW_PLUS 3
 
-typedef struct _QOS_SHAPING_RATE {
+প্রকারলেখ কাঠামো _QOS_SHAPING_RATE {
   QOS_OBJECT_HDR ObjectHdr;
   ULONG ShapingRate;
 } QOS_SHAPING_RATE,*LPQOS_SHAPING_RATE;

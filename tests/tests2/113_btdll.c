@@ -1,4 +1,4 @@
-int tcc_backtrace(const char*, ...);
+পূর্ণসংখ্যা tcc_backtrace(ধ্রুবক অক্ষর*, ...);
 #define hello() \
     tcc_backtrace("hello from %s() / %s:%d",__FUNCTION__,__FILE__,__LINE__)
 
@@ -6,38 +6,38 @@ int tcc_backtrace(const char*, ...);
 # define __declspec(n)
 #endif
 
-#if DLL==1
-__declspec(dllexport) int f_1()
+#যদি DLL==1
+__declspec(dllexport) পূর্ণসংখ্যা f_1()
 {
     hello();
-    return 0;
+    ফেরত 0;
 }
 
 
-#elif DLL==2
-__declspec(dllexport) int f_2()
+#নতুবা_যদি DLL==2
+__declspec(dllexport) পূর্ণসংখ্যা f_2()
 {
     hello();
-    return 0;
+    ফেরত 0;
 }
 
 
-#else
+#অন্যথা
 
-int f_1();
-int f_2();
-int f_main()
+পূর্ণসংখ্যা f_1();
+পূর্ণসংখ্যা f_2();
+পূর্ণসংখ্যা f_main()
 {
     hello();
-    return 0;
+    ফেরত 0;
 }
 
-int main ()
+পূর্ণসংখ্যা প্রধান ()
 {
     f_1();
     f_2();
     f_main();
-    return 0;
+    ফেরত 0;
 }
 
 #endif

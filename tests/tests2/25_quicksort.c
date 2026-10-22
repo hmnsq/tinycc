@@ -1,52 +1,52 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int array[16];
+পূর্ণসংখ্যা array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+শূন্য swap(পূর্ণসংখ্যা a, পূর্ণসংখ্যা b)
 {
-   int tmp  = array[a];
+   পূর্ণসংখ্যা tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+পূর্ণসংখ্যা partition(পূর্ণসংখ্যা বাম, পূর্ণসংখ্যা ডান)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   পূর্ণসংখ্যা pivot_সূচক = বাম;
+   পূর্ণসংখ্যা pivot_মান = array[pivot_সূচক];
+   পূর্ণসংখ্যা সূচক = বাম;
+   পূর্ণসংখ্যা i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   swap(pivot_সূচক, ডান);
+   জন্য(i = বাম; i < ডান; i++)
    {
-      if(array[i] < pivotValue)
+      যদি(array[i] < pivot_মান)
       {
-         swap(i, index);
-         index += 1;
+         swap(i, সূচক);
+         সূচক += 1;
       }
    }
-   swap(right, index);
+   swap(ডান, সূচক);
 
-   return index;
+   ফেরত সূচক;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+শূন্য quicksort(পূর্ণসংখ্যা বাম, পূর্ণসংখ্যা ডান)
 {
-   if(left >= right)
-      return;
+   যদি(বাম >= ডান)
+      ফেরত;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   পূর্ণসংখ্যা সূচক = partition(বাম, ডান);
+   quicksort(বাম, সূচক - 1);
+   quicksort(সূচক + 1, ডান);
 }
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-   int i;
+   পূর্ণসংখ্যা i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
+   জন্য (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
+   জন্য (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

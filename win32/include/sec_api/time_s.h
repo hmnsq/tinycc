@@ -6,50 +6,50 @@
 #ifndef _TIME_H__S
 #define _TIME_H__S
 
-#include <time.h>
+#অন্তর্ভাব <time.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#যদি defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্যিক "C" {
 #endif
 
-  _CRTIMP errno_t __cdecl _ctime32_s(char *_Buf,size_t _SizeInBytes,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _gmtime32_s(struct tm *_Tm,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _localtime32_s(struct tm *_Tm,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _strdate_s(char *_Buf,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _strtime_s(char *_Buf ,size_t _SizeInBytes);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _ctime64_s(char *_Buf,size_t _SizeInBytes,const __time64_t *_Time);
-  _CRTIMP errno_t __cdecl _gmtime64_s(struct tm *_Tm,const __time64_t *_Time);
-  _CRTIMP errno_t __cdecl _localtime64_s(struct tm *_Tm,const __time64_t *_Time);
+  _CRTIMP errno_t __cdecl _ctime32_s(অক্ষর *_Buf,আকার_t আকার_In_Bytes,ধ্রুবক __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _gmtime32_s(কাঠামো tm *_Tm,ধ্রুবক __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _localtime32_s(কাঠামো tm *_Tm,ধ্রুবক __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _strdate_s(অক্ষর *_Buf,আকার_t আকার_In_Bytes);
+  _CRTIMP errno_t __cdecl _strtime_s(অক্ষর *_Buf ,আকার_t আকার_In_Bytes);
+#যদি _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP errno_t __cdecl _ctime64_s(অক্ষর *_Buf,আকার_t আকার_In_Bytes,ধ্রুবক __time64_t *_Time);
+  _CRTIMP errno_t __cdecl _gmtime64_s(কাঠামো tm *_Tm,ধ্রুবক __time64_t *_Time);
+  _CRTIMP errno_t __cdecl _localtime64_s(কাঠামো tm *_Tm,ধ্রুবক __time64_t *_Time);
 #endif
 
 #ifndef _WTIME_S_DEFINED
 #define _WTIME_S_DEFINED
-  _CRTIMP errno_t __cdecl _wasctime_s(wchar_t *_Buf,size_t _SizeInWords,const struct tm *_Tm);
-  _CRTIMP errno_t __cdecl _wctime32_s(wchar_t *_Buf,size_t _SizeInWords,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _wstrdate_s(wchar_t *_Buf,size_t _SizeInWords);
-  _CRTIMP errno_t __cdecl _wstrtime_s(wchar_t *_Buf,size_t _SizeInWords);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _wctime64_s(wchar_t *_Buf,size_t _SizeInWords,const __time64_t *_Time);
+  _CRTIMP errno_t __cdecl _wasctime_s(wchar_t *_Buf,আকার_t আকার_In_শব্দগুলি,ধ্রুবক কাঠামো tm *_Tm);
+  _CRTIMP errno_t __cdecl _wctime32_s(wchar_t *_Buf,আকার_t আকার_In_শব্দগুলি,ধ্রুবক __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _wstrdate_s(wchar_t *_Buf,আকার_t আকার_In_শব্দগুলি);
+  _CRTIMP errno_t __cdecl _wstrtime_s(wchar_t *_Buf,আকার_t আকার_In_শব্দগুলি);
+#যদি _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP errno_t __cdecl _wctime64_s(wchar_t *_Buf,আকার_t আকার_In_শব্দগুলি,ধ্রুবক __time64_t *_Time);
 #endif
 
-#if !defined (RC_INVOKED) && !defined (_INC_WTIME_S_INL)
+#যদি !defined (RC_INVOKED) && !defined (_INC_WTIME_S_INL)
 #define _INC_WTIME_S_INL
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *_Buffer,size_t _SizeInWords,const time_t *_Time) { return _wctime32_s(_Buffer,_SizeInWords,_Time); }
-#else
-__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *_Buffer,size_t _SizeInWords,const time_t *_Time) { return _wctime64_s(_Buffer,_SizeInWords,_Time); }
+__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *বাফার_2,আকার_t আকার_In_শব্দগুলি,ধ্রুবক time_t *_Time) { ফেরত _wctime32_s(বাফার_2,আকার_In_শব্দগুলি,_Time); }
+#অন্যথা
+__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *বাফার_2,আকার_t আকার_In_শব্দগুলি,ধ্রুবক time_t *_Time) { ফেরত _wctime64_s(বাফার_2,আকার_In_শব্দগুলি,_Time); }
 #endif
 #endif
 #endif
 
 #ifndef RC_INVOKED
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE errno_t __cdecl localtime_s(struct tm *_Tm,const time_t *_Time) { return _localtime32_s(_Tm,_Time); }
-#else
-__CRT_INLINE errno_t __cdecl localtime_s(struct tm *_Tm,const time_t *_Time) { return _localtime64_s(_Tm,_Time); }
+__CRT_INLINE errno_t __cdecl localtime_s(কাঠামো tm *_Tm,ধ্রুবক time_t *_Time) { ফেরত _localtime32_s(_Tm,_Time); }
+#অন্যথা
+__CRT_INLINE errno_t __cdecl localtime_s(কাঠামো tm *_Tm,ধ্রুবক time_t *_Time) { ফেরত _localtime64_s(_Tm,_Time); }
 #endif
 #endif
 

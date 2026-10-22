@@ -1,35 +1,35 @@
-#include <stdio.h>
-#include <stdarg.h>
+#অন্তর্ভাব <stdio.h>
+#অন্তর্ভাব <stdarg.h>
 
-int compile_errors(void)
+পূর্ণসংখ্যা compile_errors(শূন্য)
 {
-#if TEST == 1
+#যদি TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    স্থির পূর্ণসংখ্যা i = (&"Foobar"[1] - &"Foobar"[0]);
   }
 #endif
-#if TEST == 2
+#যদি TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
-    static long i=((char*)&(v.c)-(char*)&v);
+    কাঠামো{পূর্ণসংখ্যা c;}v;
+    স্থির long i=((অক্ষর*)&(v.c)-(অক্ষর*)&v);
   }
 #endif
-#if TEST == 3
+#যদি TEST == 3
   {
     /* Not constant */
-    static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
-    void *p = &&l1 + ar[0];
-    goto *p;
-   l1: return 1;
-   l2: return 2;
+    স্থির ধ্রুবক short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
+    শূন্য *p = &&l1 + ar[0];
+    যাও *p;
+   l1: ফেরত 1;
+   l2: ফেরত 2;
   }
 #endif
-  return 0;
+  ফেরত 0;
 }
 
-int
-main(void)
+পূর্ণসংখ্যা
+প্রধান(শূন্য)
 {
 }

@@ -6,55 +6,55 @@
 #ifndef __ASSERT_H_
 #define __ASSERT_H_
 
-#include <_mingw.h>
+#অন্তর্ভাব <_mingw.h>
 #ifdef __cplusplus
-#include <stdlib.h>
+#অন্তর্ভাব <stdlib.h>
 #endif
 
 #ifdef NDEBUG
-#ifndef assert
-#define assert(_Expression) ((void)0)
+#ifndef প্রতিজ্ঞা
+#define প্রতিজ্ঞা(_Expression) ((শূন্য)0)
 #endif
-#else
+#অন্যথা
 
 #ifndef _CRT_TERMINATE_DEFINED
 #define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
- _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+  শূন্য __cdecl __MINGW_NOTHROW exit(পূর্ণসংখ্যা _Code) __MINGW_ATTRIB_NORETURN;
+ _CRTIMP শূন্য __cdecl __MINGW_NOTHROW _exit(পূর্ণসংখ্যা _Code) __MINGW_ATTRIB_NORETURN;
+#যদি !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
 /* C99 function name */
-void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-__CRT_INLINE __MINGW_ATTRIB_NORETURN void __cdecl _Exit(int status)
+শূন্য __cdecl _Exit(পূর্ণসংখ্যা) __MINGW_ATTRIB_NORETURN;
+__CRT_INLINE __MINGW_ATTRIB_NORETURN শূন্য __cdecl _Exit(পূর্ণসংখ্যা status)
 {  _exit(status); }
 #endif
 
-#pragma push_macro("abort")
+#pragma ঠেলো_macro("abort")
 #undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+  শূন্য __cdecl __declspec(noreturn) abort(শূন্য);
+#pragma বের_করো_macro("abort")
 
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্যিক "C" {
 #endif
 
 
-extern void __cdecl _wassert(const wchar_t *_Message,const wchar_t *_File,unsigned _Line);
-extern void __cdecl _assert(const char *, const char *, unsigned);
+বাহ্যিক শূন্য __cdecl _wassert(ধ্রুবক wchar_t *_Message,ধ্রুবক wchar_t *_File,unsigned সারি_2);
+বাহ্যিক শূন্য __cdecl _assert(ধ্রুবক অক্ষর *, ধ্রুবক অক্ষর *, unsigned);
 
 #ifdef __cplusplus
 }
 #endif
 
-#ifndef assert
+#ifndef প্রতিজ্ঞা
 //#define assert(_Expression) (void)((!!(_Expression)) || (_wassert(_CRT_WIDE(#_Expression),_CRT_WIDE(__FILE__),__LINE__),0))
-#define assert(e) ((e) ? (void)0 : _assert(#e, __FILE__, __LINE__))
+#define প্রতিজ্ঞা(e) ((e) ? (শূন্য)0 : _assert(#e, __FILE__, __LINE__))
 #endif
 
 #endif
 
-#if (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
+#যদি (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
 /* C11, section 7.2: The macro static_assert expands to _Static_assert. */
 #define static_assert(exp, str) _Static_assert(exp, str) 
 #endif

@@ -1,11 +1,11 @@
 
 #define GOT(f) \
-    __attribute__((weak)) void f(void); \
+    __attribute__((weak)) শূন্য f(শূন্য); \
     printf("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
 
-int printf(const char*, ...);
+পূর্ণসংখ্যা printf(ধ্রুবক অক্ষর*, ...);
 
-void check_exports()
+শূন্য check_exports()
 {
     // 0
     GOT(inline_inline_2decl_only)
@@ -39,7 +39,7 @@ void check_exports()
     GOT(inst3_extern_inline_predeclared)
     GOT(inst_extern_inline_postdeclared)
     GOT(inst_extern_inline_predeclared)
-    GOT(main)
+    GOT(প্রধান)
     GOT(noinst_extern_inline_func)
     GOT(noinst_extern_inline_postdeclared)
     GOT(noinst_extern_inline_postdeclared2)

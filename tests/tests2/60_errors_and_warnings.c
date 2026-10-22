@@ -1,77 +1,77 @@
-int printf(const char*, ...);
+পূর্ণসংখ্যা printf(ধ্রুবক অক্ষর*, ...);
 
-#if defined test_56_btype_excess_1
-struct A {} int i;
-#elif defined test_57_btype_excess_2
-char int i;
-#elif defined test_58_function_redefinition
-int f(void) { return 0; }
-int f(void) { return 1; }
+#যদি defined test_56_btype_excess_1
+কাঠামো A {} পূর্ণসংখ্যা i;
+#নতুবা_যদি defined test_57_btype_excess_2
+অক্ষর পূর্ণসংখ্যা i;
+#নতুবা_যদি defined test_58_function_redefinition
+পূর্ণসংখ্যা f(শূন্য) { ফেরত 0; }
+পূর্ণসংখ্যা f(শূন্য) { ফেরত 1; }
 
-#elif defined test_global_redefinition
-int xxx = 1;
-int xxx;
-int xxx = 2;
+#নতুবা_যদি defined test_global_redefinition
+পূর্ণসংখ্যা xxx = 1;
+পূর্ণসংখ্যা xxx;
+পূর্ণসংখ্যা xxx = 2;
 
-#elif defined test_59_function_array
-int (*fct)[42](int x);
+#নতুবা_যদি defined test_59_function_array
+পূর্ণসংখ্যা (*fct)[42](পূর্ণসংখ্যা x);
 
-#elif defined test_60_enum_redefinition
-enum color { RED, GREEN, BLUE };
-enum color { R, G, B };
-enum color c;
+#নতুবা_যদি defined test_60_enum_redefinition
+গণনা color { RED, GREEN, BLUE };
+গণনা color { R, G, B };
+গণনা color c;
 
-#elif defined test_62_enumerator_redefinition
-enum color { RED, GREEN, BLUE };
-enum rgb { RED, G, B};
-enum color c = RED;
+#নতুবা_যদি defined test_62_enumerator_redefinition
+গণনা color { RED, GREEN, BLUE };
+গণনা rgb { RED, G, B};
+গণনা color c = RED;
 
-#elif defined test_63_local_enumerator_redefinition
-enum {
+#নতুবা_যদি defined test_63_local_enumerator_redefinition
+গণনা {
     FOO,
     BAR
 };
 
-int main(void)
+পূর্ণসংখ্যা প্রধান(শূন্য)
 {
-    enum {
+    গণনা {
         FOO = 2,
         BAR
     };
 
-    return BAR - FOO;
+    ফেরত BAR - FOO;
 }
 
-#elif defined test_61_undefined_enum
-enum rgb3 c = 42;
+#নতুবা_যদি defined test_61_undefined_enum
+গণনা rgb3 c = 42;
 
-#elif defined test_74_non_const_init
-int i = i++;
+#নতুবা_যদি defined test_74_non_const_init
+পূর্ণসংখ্যা i = i++;
 
-#elif defined test_pointer_assignment
+#নতুবা_যদি defined test_pointer_assignment
 
-void (*f1)(void);
-void f2(void) {}
+শূন্য (*f1)(শূন্য);
+শূন্য f2(শূন্য) {}
 
-struct s1 *ps1;
-struct s2 *ps2;
+কাঠামো s1 *ps1;
+কাঠামো s2 *ps2;
 
-void *v1, **v2, ***v3;
+শূন্য *v1, **v2, ***v3;
 
-enum e1 { a = 4 } e10, *e11, *e12;
-enum e2 { b = -4 } e20, *e21;
-enum e3 { c = 5000000000LL } e30;
+গণনা e1 { a = 4 } e10, *e11, *e12;
+গণনা e2 { b = -4 } e20, *e21;
+গণনা e3 { c = 5000000000LL } e30;
 
-int *ip;
-unsigned int *up;
+পূর্ণসংখ্যা *ip;
+unsigned পূর্ণসংখ্যা *up;
 long *lp;
 long long *llp;
 
-char **c1;
-char const **c2;
-unsigned char **u1;
+অক্ষর **c1;
+অক্ষর ধ্রুবক **c2;
+unsigned অক্ষর **u1;
 
-int no_main ()
+পূর্ণসংখ্যা no_main ()
 {
     // function
     f1 = f2;
@@ -108,233 +108,233 @@ int no_main ()
     *c2 = *c1;
     **c2 = **c1;
 
-    return 0;
+    ফেরত 0;
 }
 
 
-#elif defined test_enum_compat
-enum e4;
-enum e5;
-void f3(enum e4 e);
-void f3(enum e5 e);
+#নতুবা_যদি defined test_enum_compat
+গণনা e4;
+গণনা e5;
+শূন্য f3(গণনা e4 e);
+শূন্য f3(গণনা e5 e);
 
-#elif defined test_enum_compat_2
-enum e6 { E1 = -1, E0 };
-void f3(enum e6);
-void f3(int);        // should work as int and e6 are compatible
-void f4(enum e6 e);
-void f4(unsigned e); // should error as unsigned and e6 are incompatible
+#নতুবা_যদি defined test_enum_compat_2
+গণনা e6 { E1 = -1, E0 };
+শূন্য f3(গণনা e6);
+শূন্য f3(পূর্ণসংখ্যা);        // should work as int and e6 are compatible
+শূন্য f4(গণনা e6 e);
+শূন্য f4(unsigned e); // should error as unsigned and e6 are incompatible
 
-#elif defined test_ptr_to_str
-void f() { _Generic((int const *[]){0}, int:0); }
-#elif defined test_fnptr_to_str
-void f() { _Generic((int (*(*)(float,char))(double,int)){0}, int:0); }
-#elif defined test_array_to_str
-void f() { _Generic((int(*)[3]){0}, int:0); }
-#elif defined test_duplicate_def_1
-static enum myenum { L = -1 } L;                                                
-#elif defined test_duplicate_def_2
-void foo(void) {
-static enum myenum { L = -1 } L;                                                
+#নতুবা_যদি defined test_ptr_to_str
+শূন্য f() { _Generic((পূর্ণসংখ্যা ধ্রুবক *[]){0}, পূর্ণসংখ্যা:0); }
+#নতুবা_যদি defined test_fnptr_to_str
+শূন্য f() { _Generic((পূর্ণসংখ্যা (*(*)(দশমিক,অক্ষর))(দ্বিগুণ,পূর্ণসংখ্যা)){0}, পূর্ণসংখ্যা:0); }
+#নতুবা_যদি defined test_array_to_str
+শূন্য f() { _Generic((পূর্ণসংখ্যা(*)[3]){0}, পূর্ণসংখ্যা:0); }
+#নতুবা_যদি defined test_duplicate_def_1
+স্থির গণনা myenum { L = -1 } L;                                                
+#নতুবা_যদি defined test_duplicate_def_2
+শূন্য foo(শূন্য) {
+স্থির গণনা myenum { L = -1 } L;                                                
 }
-#elif defined test_abstract_decls
-int bar(const char *());     // abstract declarator here is okay
-int bar (const char *(*g)()) // should match this 'g' argument
+#নতুবা_যদি defined test_abstract_decls
+পূর্ণসংখ্যা bar(ধ্রুবক অক্ষর *());     // abstract declarator here is okay
+পূর্ণসংখ্যা bar (ধ্রুবক অক্ষর *(*g)()) // should match this 'g' argument
 {
   g();
-  return 42;
+  ফেরত 42;
 }
-int foo(int ())              // abstract decl is wrong in definitions
+পূর্ণসংখ্যা foo(পূর্ণসংখ্যা ())              // abstract decl is wrong in definitions
 {
-  return 0;
-#elif defined test_invalid_1
-void f(char*);
-void g(void) {
-  f((char[]){1, ,});
+  ফেরত 0;
+#নতুবা_যদি defined test_invalid_1
+শূন্য f(অক্ষর*);
+শূন্য g(শূন্য) {
+  f((অক্ষর[]){1, ,});
 }
-#elif defined test_invalid_2
-int ga = 0.42 { 2 };
-#elif defined test_invalid_3
-struct S { int a, b; };
-struct T { struct S x; };
-struct T gt = { 42 a: 1, 43 };
-#elif defined test_invalid_4
-enum E {
+#নতুবা_যদি defined test_invalid_2
+পূর্ণসংখ্যা ga = 0.42 { 2 };
+#নতুবা_যদি defined test_invalid_3
+কাঠামো S { পূর্ণসংখ্যা a, b; };
+কাঠামো T { কাঠামো S x; };
+কাঠামো T gt = { 42 a: 1, 43 };
+#নতুবা_যদি defined test_invalid_4
+গণনা E {
     x = 1 / 0
 };
-#elif defined test_conflicting_types
-int i;
-void foo(void) {
-    int i;
+#নতুবা_যদি defined test_conflicting_types
+পূর্ণসংখ্যা i;
+শূন্য foo(শূন্য) {
+    পূর্ণসংখ্যা i;
       {
-        extern double i;
+        বাহ্যিক দ্বিগুণ i;
         i = 42.2;
       }
 }
-#elif defined test_nested_types
-union u {
-    union u {
-        int i;
+#নতুবা_যদি defined test_nested_types
+সংঘ u {
+    সংঘ u {
+        পূর্ণসংখ্যা i;
     } m;
 };
-#elif defined test_vla_1
-int X=1;
+#নতুবা_যদি defined test_vla_1
+পূর্ণসংখ্যা X=1;
 
-int main(void) {
-  int t[][][X];
+পূর্ণসংখ্যা প্রধান(শূন্য) {
+  পূর্ণসংখ্যা t[][][X];
 }
-#elif defined test_invalid_alignas
+#নতুবা_যদি defined test_invalid_alignas
 /* _Alignas is no type qualifier */
-void * _Alignas(16) p1;
+শূন্য * _Alignas(16) p1;
 
-#elif defined test_static_assert
+#নতুবা_যদি defined test_static_assert
 
 #define ONE 0
  _Static_assert(ONE == 0, "don't show me this");
- struct x{ _Static_assert(ONE == 1, "ONE is not 1"); };
+ কাঠামো x{ _Static_assert(ONE == 1, "ONE is not 1"); };
 
-#elif defined test_static_assert_2
+#নতুবা_যদি defined test_static_assert_2
  _Static_assert(1, "1"" is 1");
-struct y {  _Static_assert(0, "0"" is 0"); };
+কাঠামো y {  _Static_assert(0, "0"" is 0"); };
 
-#elif defined test_static_assert_c2x
+#নতুবা_যদি defined test_static_assert_c2x
  _Static_assert(1);
-struct z {  _Static_assert(0); }
+কাঠামো z {  _Static_assert(0); }
 
-#elif defined test_static_assert_empty_string
+#নতুবা_যদি defined test_static_assert_empty_string
  _Static_assert(0,"");
 
-#elif defined test_void_array
- void t[3];
+#নতুবা_যদি defined test_void_array
+ শূন্য t[3];
 
-#elif defined test_incomplete_enum_array
-  enum e t[3];
+#নতুবা_যদি defined test_incomplete_enum_array
+  গণনা e t[3];
 
-#elif defined test_incomplete_struct_array
-  struct s t[3];
+#নতুবা_যদি defined test_incomplete_struct_array
+  কাঠামো s t[3];
 
-#elif defined test_const_fun_array
-  typedef void f(void);
-  const f t[3];
+#নতুবা_যদি defined test_const_fun_array
+  প্রকারলেখ শূন্য f(শূন্য);
+  ধ্রুবক f t[3];
 
-#elif defined test_incomplete_array_array
-  int t[][3]; // gr: not an error, see below
-
-/******************************************************************/
-#elif defined test_extern_array
-int iii[] = { 1,2,3 };
-extern int iii[];
-int x[];
-int x[2];
-int x[];
-int x[2];
-int x[];
-extern int x[2];
-extern int x[];
-int x[3];
+#নতুবা_যদি defined test_incomplete_array_array
+  পূর্ণসংখ্যা t[][3]; // gr: not an error, see below
 
 /******************************************************************/
-#elif defined test_func_1 \
+#নতুবা_যদি defined test_extern_array
+পূর্ণসংখ্যা iii[] = { 1,2,3 };
+বাহ্যিক পূর্ণসংখ্যা iii[];
+পূর্ণসংখ্যা x[];
+পূর্ণসংখ্যা x[2];
+পূর্ণসংখ্যা x[];
+পূর্ণসংখ্যা x[2];
+পূর্ণসংখ্যা x[];
+বাহ্যিক পূর্ণসংখ্যা x[2];
+বাহ্যিক পূর্ণসংখ্যা x[];
+পূর্ণসংখ্যা x[3];
+
+/******************************************************************/
+#নতুবা_যদি defined test_func_1 \
  || defined test_func_2 \
  || defined test_func_3 \
  || defined test_func_4 \
  || defined test_func_5 \
  || defined test_func_6
-#if defined test_func_1
-int hello(int);
-#elif defined test_func_4
-static int hello(int);
+#যদি defined test_func_1
+পূর্ণসংখ্যা hello(পূর্ণসংখ্যা);
+#নতুবা_যদি defined test_func_4
+স্থির পূর্ণসংখ্যা hello(পূর্ণসংখ্যা);
 #endif
-int main () {
-#if defined test_func_6
-    static
+পূর্ণসংখ্যা প্রধান () {
+#যদি defined test_func_6
+    স্থির
 #endif
-    int hello(int);
+    পূর্ণসংখ্যা hello(পূর্ণসংখ্যা);
     hello(123);
-    return 0;
+    ফেরত 0;
 }
 
-#if defined test_func_3
-static int hello(int a)
-#elif defined test_func_5
-int hello(int a, int b)
-#else
-int hello(int a)
+#যদি defined test_func_3
+স্থির পূর্ণসংখ্যা hello(পূর্ণসংখ্যা a)
+#নতুবা_যদি defined test_func_5
+পূর্ণসংখ্যা hello(পূর্ণসংখ্যা a, পূর্ণসংখ্যা b)
+#অন্যথা
+পূর্ণসংখ্যা hello(পূর্ণসংখ্যা a)
 #endif
-{ printf("%s: a = %d\n", __FUNCTION__, a); return 0; }
+{ printf("%s: a = %d\n", __FUNCTION__, a); ফেরত 0; }
 
 /******************************************************************/
-#elif defined test_var_1 \
+#নতুবা_যদি defined test_var_1 \
    || defined test_var_2 \
    || defined test_var_3
 #define P(n,v) printf("%-5s: %d ; %d\n", __FUNCTION__, n, v)
-#if defined test_var_1
-int xxx[];
+#যদি defined test_var_1
+পূর্ণসংখ্যা xxx[];
 #endif
-int bar();
+পূর্ণসংখ্যা bar();
 
-int main ()
+পূর্ণসংখ্যা প্রধান ()
 {
-#if !defined test_var_3
-    int xxx = 2;
+#যদি !defined test_var_3
+    পূর্ণসংখ্যা xxx = 2;
 #endif
     {
-        extern int xxx[
-#if defined test_var_3
+        বাহ্যিক পূর্ণসংখ্যা xxx[
+#যদি defined test_var_3
         2
 #endif
         ];
         P(1, xxx[0]);
         xxx[0] += 2;
     }
-#if !defined test_var_3
+#যদি !defined test_var_3
     P(2, xxx);
 #endif
     bar(123);
-    return 0;
+    ফেরত 0;
 }
-int xxx[1] = {1};
-int bar() { P(3, xxx[0]); return 0; }
+পূর্ণসংখ্যা xxx[1] = {1};
+পূর্ণসংখ্যা bar() { P(3, xxx[0]); ফেরত 0; }
 
-#elif defined test_var_4
-struct yyy { int y; };
-struct zzz;
-void f1() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+#নতুবা_যদি defined test_var_4
+কাঠামো yyy { পূর্ণসংখ্যা y; };
+কাঠামো zzz;
+শূন্য f1() {
+    বাহ্যিক অক্ষর *x;
+    বাহ্যিক অক্ষর **xx;
+    বাহ্যিক কাঠামো yyy y;
+    বাহ্যিক কাঠামো yyy *yy;
+    বাহ্যিক কাঠামো zzz z;
+    বাহ্যিক কাঠামো zzz *zz;
 }
-void f2() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+শূন্য f2() {
+    বাহ্যিক অক্ষর *x;
+    বাহ্যিক অক্ষর **xx;
+    বাহ্যিক কাঠামো yyy y;
+    বাহ্যিক কাঠামো yyy *yy;
+    বাহ্যিক কাঠামো zzz z;
+    বাহ্যিক কাঠামো zzz *zz;
 }
-struct yyy y, *yy;
-struct zzz { int z; } z, *zz;
+কাঠামো yyy y, *yy;
+কাঠামো zzz { পূর্ণসংখ্যা z; } z, *zz;
 
 /******************************************************************/
-#elif defined test_long_double_type_for_win32
+#নতুবা_যদি defined test_long_double_type_for_win32
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-    double *a = 0;
-    long double *b = a;
-    int n = _Generic(*a, double:0, long double:1);
+    দ্বিগুণ *a = 0;
+    long দ্বিগুণ *b = a;
+    পূর্ণসংখ্যা n = _Generic(*a, দ্বিগুণ:0, long দ্বিগুণ:1);
 }
 
-#elif defined test_stray_backslash
+#নতুবা_যদি defined test_stray_backslash
 #define x \a
 x
 
-#elif defined test_stray_backslash2
+#নতুবা_যদি defined test_stray_backslash2
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
 #define _S(x) #x
 #define S(x) _S(x)
@@ -342,336 +342,336 @@ int main()
 }
 
 /******************************************************************/
-#elif defined test_var_array
+#নতুবা_যদি defined test_var_array
 
-static struct var_len { int i; const char str[]; } var_array[] =
+স্থির কাঠামো var_len { পূর্ণসংখ্যা i; ধ্রুবক অক্ষর str[]; } var_array[] =
 { { 1, "abcdefghijklmnopqrstuvwxyz" },
   { 2, "longlonglonglonglong" },
   { 3, "tst3" } };
 
-#elif defined test_var_array2
+#নতুবা_যদি defined test_var_array2
 
-struct c1 { int a; int b[]; };
-struct c1 c1 = { 1, { 2, 3, 4 } };
+কাঠামো c1 { পূর্ণসংখ্যা a; পূর্ণসংখ্যা b[]; };
+কাঠামো c1 c1 = { 1, { 2, 3, 4 } };
 
-struct c2 { int c; struct c1 c1; };
-struct c2 c2 = { 1, { 2, { 3, 4, 5 }}};
+কাঠামো c2 { পূর্ণসংখ্যা c; কাঠামো c1 c1; };
+কাঠামো c2 c2 = { 1, { 2, { 3, 4, 5 }}};
 
-#elif defined test_var_array3
+#নতুবা_যদি defined test_var_array3
 /* similar to test_var_array2 but with string initializers */
-struct A { int a; char b[]; };
-struct A a = { 1, "1" };
-struct B { struct A a; };
-struct B b = { { 1, "1" } };
+কাঠামো A { পূর্ণসংখ্যা a; অক্ষর b[]; };
+কাঠামো A a = { 1, "1" };
+কাঠামো B { কাঠামো A a; };
+কাঠামো B b = { { 1, "1" } };
 /******************************************************************/
-#elif defined test_default_int_type
+#নতুবা_যদি defined test_default_int_type
 n; // warn
 f(); // don't warn
 
-#elif defined test_invalid_global_stmtexpr
-n[sizeof({3;})]; // crashed in block() due to missing local scope
+#নতুবা_যদি defined test_invalid_global_stmtexpr
+n[আকার({3;})]; // crashed in block() due to missing local scope
 
-#elif defined test_invalid_tokckill
+#নতুবা_যদি defined test_invalid_tokckill
 f(){"12"3;} // second const token killed the value of the first
 
 /******************************************************************/
-#elif defined test_duplicate_member
-struct S {
-  int a, a;
+#নতুবা_যদি defined test_duplicate_member
+কাঠামো S {
+  পূর্ণসংখ্যা a, a;
 };
-#elif defined test_duplicate_member_anon
-struct S1 {
-  int b;
-  struct {
-    int b;
+#নতুবা_যদি defined test_duplicate_member_anon
+কাঠামো S1 {
+  পূর্ণসংখ্যা b;
+  কাঠামো {
+    পূর্ণসংখ্যা b;
   } c;
 };
-struct S2 {
-  int d;
-  struct {
-    int d;
+কাঠামো S2 {
+  পূর্ণসংখ্যা d;
+  কাঠামো {
+    পূর্ণসংখ্যা d;
   };
 };
 
 /******************************************************************/
-#elif defined test_conflicting_array_definition
-extern int array[2];
-int array[] = { 1, 2, 3 };
+#নতুবা_যদি defined test_conflicting_array_definition
+বাহ্যিক পূর্ণসংখ্যা array[2];
+পূর্ণসংখ্যা array[] = { 1, 2, 3 };
 
-#elif defined test_incompatible_local_redef
-void foo (void)
+#নতুবা_যদি defined test_incompatible_local_redef
+শূন্য foo (শূন্য)
 {
-  typedef int localfunctype (int);
-  extern localfunctype func2;
-  typedef void localfunctype (int, int);
+  প্রকারলেখ পূর্ণসংখ্যা localfunctype (পূর্ণসংখ্যা);
+  বাহ্যিক localfunctype func2;
+  প্রকারলেখ শূন্য localfunctype (পূর্ণসংখ্যা, পূর্ণসংখ্যা);
 }
 
-#elif defined test_cast_from_void
-void v() {}
-int f() { return v(); }
+#নতুবা_যদি defined test_cast_from_void
+শূন্য v() {}
+পূর্ণসংখ্যা f() { ফেরত v(); }
 
-#elif defined test_switch_W1 || defined test_switch_W2 \
+#নতুবা_যদি defined test_switch_W1 || defined test_switch_W2 \
    || defined test_switch_W3 || defined test_switch_W4
-#if defined test_switch_W1
+#যদি defined test_switch_W1
 #pragma comment(option, "-Wall")
-#elif defined test_switch_W2
+#নতুবা_যদি defined test_switch_W2
 #pragma comment(option, "-Wunsupported -Wno-implicit-function-declaration -Wstuff")
-#elif defined test_switch_W3
+#নতুবা_যদি defined test_switch_W3
 #pragma comment(option, "-Wwrite-strings -Werror=discarded-qualifiers")
-#elif defined test_switch_W4
+#নতুবা_যদি defined test_switch_W4
 #pragma comment(option, "-Wunsupported -Wno-error=implicit-function-declaration -Werror")
 #endif
-void func(void)
+শূন্য func(শূন্য)
 {
-    char *ccp = "123";
+    অক্ষর *ccp = "123";
     fink();
 }
-__attribute__((stuff)) int fink() {return 0;}
+__attribute__((stuff)) পূর্ণসংখ্যা fink() {ফেরত 0;}
 
-#elif defined test_invalid_funcparam_1
-void func(int a, int b, int a);
+#নতুবা_যদি defined test_invalid_funcparam_1
+শূন্য func(পূর্ণসংখ্যা a, পূর্ণসংখ্যা b, পূর্ণসংখ্যা a);
 
-#elif defined test_invalid_funcparam_2
-void func(int a, int if);
+#নতুবা_যদি defined test_invalid_funcparam_2
+শূন্য func(পূর্ণসংখ্যা a, পূর্ণসংখ্যা যদি);
 
-#elif defined test_array_funcparam
-int amain(int argc, char *argv[static argc + 1])
+#নতুবা_যদি defined test_array_funcparam
+পূর্ণসংখ্যা amain(পূর্ণসংখ্যা argc, অক্ষর *argv[স্থির argc + 1])
 {
-    int i;
+    পূর্ণসংখ্যা i;
 
-    for (i = 0; i < argc; ++i)
+    জন্য (i = 0; i < argc; ++i)
         printf("arg[%d] = \"%s\"\n", i, argv[i]);
-    return 0;
+    ফেরত 0;
 }
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-    return amain(2, (char *[]){ "X", "Y", 0 });
+    ফেরত amain(2, (অক্ষর *[]){ "X", "Y", 0 });
 }
 
-#elif defined test_return_from_statement_expr
-int f() { ({ return 78; }); }
-int main() { return f(); }
+#নতুবা_যদি defined test_return_from_statement_রাশিমালা
+পূর্ণসংখ্যা f() { ({ ফেরত 78; }); }
+পূর্ণসংখ্যা প্রধান() { ফেরত f(); }
 
 /******************************************************************/
 
-#elif defined test_illegal_unicode
-int main() {
-    char *str = "\Uffffffff";
+#নতুবা_যদি defined test_illegal_unicode
+পূর্ণসংখ্যা প্রধান() {
+    অক্ষর *str = "\Uffffffff";
 }
 
-#elif defined test_error_string
+#নতুবা_যদি defined test_error_string
 #error \123\\
 456
 
-#elif defined test_error_incomplete_type
-struct A;
-void f(struct A *);
+#নতুবা_যদি defined test_error_incomplete_type
+কাঠামো A;
+শূন্য f(কাঠামো A *);
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-    f(&(struct A){});
+    f(&(কাঠামো A){});
 }
 
-struct A {
-    int x;
+কাঠামো A {
+    পূর্ণসংখ্যা x;
 };
 
-#elif defined test_pp_error_1
-# if //no expression
+#নতুবা_যদি defined test_pp_error_1
+# যদি //no expression
 # endif
-#elif defined test_pp_error_2
-# if X(1,2) //undefined function macro
+#নতুবা_যদি defined test_pp_error_2
+# যদি X(1,2) //undefined function macro
 # endif
 
-#elif defined test_pointer_plus_double
+#নতুবা_যদি defined test_pointer_plus_double
 
-int *invalid_operation(int *p, double d)
+পূর্ণসংখ্যা *invalid_operation(পূর্ণসংখ্যা *p, দ্বিগুণ d)
 {
-    return p + d;
+    ফেরত p + d;
 }
 
-#elif defined test_duplicate_case
+#নতুবা_যদি defined test_duplicate_case
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-    unsigned int x;
-    switch (x) {
-        case -1 ... 0: /* empty case range with unsigned */
-        case 3:
-        case 1:
-        case 2:
-        case 3: /* show this line number in error */
-        case 4:
-        case 5:
+    unsigned পূর্ণসংখ্যা x;
+    নির্বাচন (x) {
+        ক্ষেত্র -1 ... 0: /* empty case range with unsigned */
+        ক্ষেত্র 3:
+        ক্ষেত্র 1:
+        ক্ষেত্র 2:
+        ক্ষেত্র 3: /* show this line number in error */
+        ক্ষেত্র 4:
+        ক্ষেত্র 5:
     }
 }
-#elif defined test_normal_funcargs || defined test_reverse_funcargs
+#নতুবা_যদি defined test_normal_funcargs || defined test_reverse_funcargs
 
 #ifdef test_reverse_funcargs
 # pragma comment(option, "-freverse-funcargs")
 #endif
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
     printf(" %d %d %d\n", printf("1"), printf("22"), printf("333"));
 }
 
-#elif defined test_scope_1 \
+#নতুবা_যদি defined test_scope_1 \
    || defined test_scope_2 \
    || defined test_scope_3
 
-struct xxx {int x[4];};
+কাঠামো xxx {পূর্ণসংখ্যা x[4];};
 
 /* 'ee' not defined outside of function, 'i' not redefined */
-int bar(enum ee { a = 12, b = 34 } i, int(*f)(int i))
+পূর্ণসংখ্যা bar(গণনা ee { a = 12, b = 34 } i, পূর্ণসংখ্যা(*f)(পূর্ণসংখ্যা i))
 {
     printf("bar %d %d %d\n", i, a, b);
-    return 0;
+    ফেরত 0;
 }
 /* 'xxx' not defined outside of function */
-int foo(struct xxx {int x[3];}*p)
+পূর্ণসংখ্যা foo(কাঠামো xxx {পূর্ণসংখ্যা x[3];}*p)
 {
-    printf("foo %d", sizeof *p);
-    return p->x[3];
+    printf("foo %d", আকার *p);
+    ফেরত p->x[3];
 }
 #ifdef test_scope_2
 /* incompatible redefinition */
-int foo(struct xxx {int x[2];}*p);
+পূর্ণসংখ্যা foo(কাঠামো xxx {পূর্ণসংখ্যা x[2];}*p);
 #endif
 #ifndef test_scope_3
-enum ee { a = 1, b };
+গণনা ee { a = 1, b };
 #endif
 
-struct xxx x = { 11,22,33,44 };
-int main(int argc, char **argv)
+কাঠামো xxx x = { 11,22,33,44 };
+পূর্ণসংখ্যা প্রধান(পূর্ণসংখ্যা argc, অক্ষর **argv)
 {
-    printf(" %d %d\n", foo(&x), sizeof (struct xxx));
-    enum ee e = b;
+    printf(" %d %d\n", foo(&x), আকার (কাঠামো xxx));
+    গণনা ee e = b;
     bar(13 + e, 0);
 
 }
 
-#elif defined test_const_array_member_addr_ok
+#নতুবা_যদি defined test_const_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+প্রকারলেখ পূর্ণসংখ্যা int_array[1];
+প্রকারলেখ কাঠামো { int_array arr; } my_struct;
 
-int_array const *get_array(const my_struct *s)
+int_array ধ্রুবক *get_array(ধ্রুবক my_struct *s)
 {
-    return &(s->arr);
+    ফেরত &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_ok
+#নতুবা_যদি defined test_const_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+প্রকারলেখ পূর্ণসংখ্যা int_array[1];
+প্রকারলেখ কাঠামো { int_array arr; } my_struct;
 
-const int *good_decay(const my_struct *s)
+ধ্রুবক পূর্ণসংখ্যা *good_decay(ধ্রুবক my_struct *s)
 {
-    return s->arr;
+    ফেরত s->arr;
 }
 
-#elif defined test_const_array_member_addr_bad
+#নতুবা_যদি defined test_const_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+প্রকারলেখ পূর্ণসংখ্যা int_array[1];
+প্রকারলেখ কাঠামো { int_array arr; } my_struct;
 
-int_array *bad_array_addr(const my_struct *s)
+int_array *bad_array_addr(ধ্রুবক my_struct *s)
 {
-    return &(s->arr);
+    ফেরত &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_bad
+#নতুবা_যদি defined test_const_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+প্রকারলেখ পূর্ণসংখ্যা int_array[1];
+প্রকারলেখ কাঠামো { int_array arr; } my_struct;
 
-int *bad_decay(const my_struct *s)
+পূর্ণসংখ্যা *bad_decay(ধ্রুবক my_struct *s)
 {
-    return s->arr;
+    ফেরত s->arr;
 }
 
-#elif defined test_const_array_member_write_bad
+#নতুবা_যদি defined test_const_array_member_write_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+প্রকারলেখ পূর্ণসংখ্যা int_array[1];
+প্রকারলেখ কাঠামো { int_array arr; } my_struct;
 
-void bad_write(const my_struct *s)
+শূন্য bad_write(ধ্রুবক my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_const_struct_array_member_write_bad
+#নতুবা_যদি defined test_const_struct_array_member_write_bad
 
-typedef struct { int x; } inner;
-typedef struct { inner arr[1]; } outer;
+প্রকারলেখ কাঠামো { পূর্ণসংখ্যা x; } inner;
+প্রকারলেখ কাঠামো { inner arr[1]; } outer;
 
-void bad_inner_write(const outer *s)
+শূন্য bad_inner_write(ধ্রুবক outer *s)
 {
     s->arr[0].x = 1;
 }
 
-#elif defined test_volatile_array_member_addr_ok
+#নতুবা_যদি defined test_volatile_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+প্রকারলেখ পূর্ণসংখ্যা int_array[1];
+প্রকারলেখ কাঠামো { int_array arr; } my_struct;
 
-int_array volatile *get_volatile_array(volatile my_struct *s)
+int_array অস্থির *get_volatile_array(অস্থির my_struct *s)
 {
-    return &(s->arr);
+    ফেরত &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_ok
+#নতুবা_যদি defined test_volatile_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+প্রকারলেখ পূর্ণসংখ্যা int_array[1];
+প্রকারলেখ কাঠামো { int_array arr; } my_struct;
 
-volatile int *good_volatile_decay(volatile my_struct *s)
+অস্থির পূর্ণসংখ্যা *good_volatile_decay(অস্থির my_struct *s)
 {
-    return s->arr;
+    ফেরত s->arr;
 }
 
-#elif defined test_volatile_array_member_addr_bad
+#নতুবা_যদি defined test_volatile_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+প্রকারলেখ পূর্ণসংখ্যা int_array[1];
+প্রকারলেখ কাঠামো { int_array arr; } my_struct;
 
-int_array *bad_volatile_array_addr(volatile my_struct *s)
+int_array *bad_volatile_array_addr(অস্থির my_struct *s)
 {
-    return &(s->arr);
+    ফেরত &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_bad
+#নতুবা_যদি defined test_volatile_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+প্রকারলেখ পূর্ণসংখ্যা int_array[1];
+প্রকারলেখ কাঠামো { int_array arr; } my_struct;
 
-int *bad_volatile_decay(volatile my_struct *s)
+পূর্ণসংখ্যা *bad_volatile_decay(অস্থির my_struct *s)
 {
-    return s->arr;
+    ফেরত s->arr;
 }
 
-#elif defined test_volatile_array_member_write_ok
+#নতুবা_যদি defined test_volatile_array_member_write_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+প্রকারলেখ পূর্ণসংখ্যা int_array[1];
+প্রকারলেখ কাঠামো { int_array arr; } my_struct;
 
-void good_volatile_write(volatile my_struct *s)
+শূন্য good_volatile_write(অস্থির my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_conditional_array_qualifiers
+#নতুবা_যদি defined test_conditional_array_qualifiers
 
-typedef int Array2[2];
-typedef int Array2x3[2][3];
+প্রকারলেখ পূর্ণসংখ্যা Array2[2];
+প্রকারলেখ পূর্ণসংখ্যা Array2x3[2][3];
 
 Array2 *p;
-const Array2 *cp;
-const Array2x3 *cap;
-volatile Array2x3 *vap;
+ধ্রুবক Array2 *cp;
+ধ্রুবক Array2x3 *cap;
+অস্থির Array2x3 *vap;
 
-void test(void)
+শূন্য test(শূন্য)
 {
     (1 ? p : cp)[0][0] = 1;
     (1 ? cp : p)[0][0] = 2;
@@ -679,22 +679,22 @@ void test(void)
     (1 ? vap : cap)[0][0][0] = 4;
 }
 
-#elif defined test_restrict_scalar
+#নতুবা_যদি defined test_restrict_scalar
 
-restrict int object;
+restrict পূর্ণসংখ্যা object;
 
-#elif defined test_restrict_function_pointer
+#নতুবা_যদি defined test_restrict_function_pointer
 
-int (*restrict function_pointer)(void);
+পূর্ণসংখ্যা (*restrict function_pointer)(শূন্য);
 
-#elif defined test_discarded_restrict
+#নতুবা_যদি defined test_discarded_restrict
 
-typedef int *restrict restricted_pointer;
+প্রকারলেখ পূর্ণসংখ্যা *restrict restricted_pointer;
 
 restricted_pointer *source;
-int **destination;
+পূর্ণসংখ্যা **destination;
 
-void test(void)
+শূন্য test(শূন্য)
 {
     destination = source;
 }

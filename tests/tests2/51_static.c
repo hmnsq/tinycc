@@ -1,17 +1,17 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-static int fred = 1234;
-static int joe;
+স্থির পূর্ণসংখ্যা fred = 1234;
+স্থির পূর্ণসংখ্যা joe;
 
-void henry()
+শূন্য henry()
 {
-   static int fred = 4567;
+   স্থির পূর্ণসংখ্যা fred = 4567;
 
    printf("%d\n", fred);
    fred++;
 }
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
    printf("%d\n", fred);
    henry();
@@ -24,7 +24,7 @@ int main()
    printf("%d\n", fred);
    printf("%d\n", joe);
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

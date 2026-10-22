@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#অন্তর্ভাব <tcclib.h>
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
     printf("Hello World\n");
-    return 0;
+    ফেরত 0;
 }

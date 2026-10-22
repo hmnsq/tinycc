@@ -9,6 +9,6 @@
  * unistd.h maps (roughly) to io.h
  */
 #ifndef __STRICT_ANSI__
-#include <io.h>
+#অন্তর্ভাব <io.h>
 #endif
 

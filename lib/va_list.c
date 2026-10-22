@@ -1,12 +1,12 @@
 /* va_list.c - tinycc support for va_list on X86_64 */
 
-#if defined __x86_64__
+#যদি defined __x86_64__
 
 /* Avoid include files, they may not be available when cross compiling */
-extern void abort(void);
+বাহ্যিক শূন্য abort(শূন্য);
 
 /* This should be in sync with our include/stdarg.h */
-enum __va_arg_type {
+গণনা __va_arg_type {
     __va_gen_reg, __va_float_reg, __va_stack
 };
 
@@ -23,45 +23,45 @@ typedef struct {
 } __builtin_va_list[1];
 */
 
-extern void *memcpy(void *dest, const void *src, unsigned long n);
+বাহ্যিক শূন্য *memcpy(শূন্য *dest, ধ্রুবক শূন্য *src, unsigned long n);
 
-void *__va_arg(__builtin_va_list ap,
-               int arg_type,
-               int size, int align)
+শূন্য *__va_arg(__builtin_va_list ap,
+               পূর্ণসংখ্যা arg_type,
+               পূর্ণসংখ্যা আকার_2, পূর্ণসংখ্যা align)
 {
-    size = (size + 7) & ~7;
+    আকার_2 = (আকার_2 + 7) & ~7;
     align = (align + 7) & ~7;
-    switch ((enum __va_arg_type)arg_type) {
-    case __va_gen_reg:
-        if (ap->gp_offset + size <= 48) {
-            ap->gp_offset += size;
-            return ap->reg_save_area + ap->gp_offset - size;
+    নির্বাচন ((গণনা __va_arg_type)arg_type) {
+    ক্ষেত্র __va_gen_reg:
+        যদি (ap->gp_offset + আকার_2 <= 48) {
+            ap->gp_offset += আকার_2;
+            ফেরত ap->reg_save_area + ap->gp_offset - আকার_2;
         }
-        goto use_overflow_area;
+        যাও use_overflow_area;
 
-    case __va_float_reg:
-        if (ap->fp_offset < 128 + 48) {
+    ক্ষেত্র __va_float_reg:
+        যদি (ap->fp_offset < 128 + 48) {
             ap->fp_offset += 16;
-            if (size == 8)
-                return ap->reg_save_area + ap->fp_offset - 16;
-            if (ap->fp_offset < 128 + 48) {
+            যদি (আকার_2 == 8)
+                ফেরত ap->reg_save_area + ap->fp_offset - 16;
+            যদি (ap->fp_offset < 128 + 48) {
                 memcpy(ap->reg_save_area + ap->fp_offset - 8,
                        ap->reg_save_area + ap->fp_offset, 8);
                 ap->fp_offset += 16;
-                return ap->reg_save_area + ap->fp_offset - 32;
+                ফেরত ap->reg_save_area + ap->fp_offset - 32;
             }
         }
-        goto use_overflow_area;
+        যাও use_overflow_area;
 
-    case __va_stack:
+    ক্ষেত্র __va_stack:
     use_overflow_area:
-        ap->overflow_arg_area += size;
-        ap->overflow_arg_area = (char*)((long long)(ap->overflow_arg_area + align - 1) & -align);
-        return ap->overflow_arg_area - size;
+        ap->overflow_arg_area += আকার_2;
+        ap->overflow_arg_area = (অক্ষর*)((long long)(ap->overflow_arg_area + align - 1) & -align);
+        ফেরত ap->overflow_arg_area - আকার_2;
 
-    default: /* should never happen */
+    পূর্বনির্ধারিত: /* should never happen */
         abort();
-        return 0;
+        ফেরত 0;
     }
 }
 #endif

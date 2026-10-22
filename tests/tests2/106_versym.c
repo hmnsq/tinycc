@@ -1,11 +1,11 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <errno.h>
+#অন্তর্ভাব <stdio.h>
+#অন্তর্ভাব <pthread.h>
+#অন্তর্ভাব <errno.h>
 
-int
-main(void)
+পূর্ণসংখ্যা
+প্রধান(শূন্য)
 {
-  int ret;
+  পূর্ণসংখ্যা ret;
   pthread_condattr_t attr;
   pthread_cond_t condition;
 
@@ -14,5 +14,5 @@ main(void)
   pthread_condattr_setpshared (&attr, PTHREAD_PROCESS_SHARED);
   printf ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
   pthread_condattr_destroy (&attr);
-  return 0;
+  ফেরত 0;
 }

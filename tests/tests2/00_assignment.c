@@ -1,18 +1,18 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main() 
+পূর্ণসংখ্যা প্রধান() 
 {
-   int a;
+   পূর্ণসংখ্যা a;
    a = 42;
    printf("%d\n", a);
 
-   int b = 64;
+   পূর্ণসংখ্যা b = 64;
    printf("%d\n", b);
 
-   int c = 12, d = 34;
+   পূর্ণসংখ্যা c = 12, d = 34;
    printf("%d, %d\n", c, d);
 
-   return 0;
+   ফেরত 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

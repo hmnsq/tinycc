@@ -1,131 +1,131 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-const int a = 0;
+ধ্রুবক পূর্ণসংখ্যা a = 0;
 
-struct a {
-	int a;
+কাঠামো a {
+	পূর্ণসংখ্যা a;
 };
 
-struct b {
-	int a;
+কাঠামো b {
+	পূর্ণসংখ্যা a;
 };
 
-int a_f()
+পূর্ণসংখ্যা a_f()
 {
-	return 20;
+	ফেরত 20;
 }
 
-int b_f()
+পূর্ণসংখ্যা b_f()
 {
-	return 10;
+	ফেরত 10;
 }
 
-typedef int (*fptr)(int);
-typedef void (*vfptr)(int);
-int foo(int i)
+প্রকারলেখ পূর্ণসংখ্যা (*fptr)(পূর্ণসংখ্যা);
+প্রকারলেখ শূন্য (*vfptr)(পূর্ণসংখ্যা);
+পূর্ণসংখ্যা foo(পূর্ণসংখ্যা i)
 {
-  return i;
+  ফেরত i;
 }
-void void_foo(int i) {}
+শূন্য void_foo(পূর্ণসংখ্যা i) {}
 
-typedef int int_type1;
+প্রকারলেখ পূর্ণসংখ্যা int_type1;
 
-typedef int T[4];
-int f(T t)
+প্রকারলেখ পূর্ণসংখ্যা T[4];
+পূর্ণসংখ্যা f(T t)
 {
-	return _Generic(t, __typeof__( ((void)0, (T){0}) ) : 1 );
+	ফেরত _Generic(t, __typeof__( ((শূন্য)0, (T){0}) ) : 1 );
 }
 
-#define gen_sw(a) _Generic(a, const char *: 1, default: 8, int: 123);
+#define gen_sw(a) _Generic(a, ধ্রুবক অক্ষর *: 1, পূর্বনির্ধারিত: 8, পূর্ণসংখ্যা: 123);
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-	int i = 0;
-	signed long int l = 2;
-	struct b titi;
-	const int * const ptr;
-	const char *ti;
+	পূর্ণসংখ্যা i = 0;
+	signed long পূর্ণসংখ্যা l = 2;
+	কাঠামো b titi;
+	ধ্রুবক পূর্ণসংখ্যা * ধ্রুবক ptr;
+	ধ্রুবক অক্ষর *ti;
 	int_type1 i2;
 	T t;
 
-	i = _Generic(a, int: a_f, const int: b_f)();
+	i = _Generic(a, পূর্ণসংখ্যা: a_f, ধ্রুবক পূর্ণসংখ্যা: b_f)();
 	printf("%d\n", i);
-	i = _Generic(a, int: a_f() / 2, const int: b_f() / 2);
+	i = _Generic(a, পূর্ণসংখ্যা: a_f() / 2, ধ্রুবক পূর্ণসংখ্যা: b_f() / 2);
 	printf("%d\n", i);
-	i = _Generic(ptr, int *:1, int * const:2, default:20);
+	i = _Generic(ptr, পূর্ণসংখ্যা *:1, পূর্ণসংখ্যা * ধ্রুবক:2, পূর্বনির্ধারিত:20);
 	printf("%d\n", i);
 	i = gen_sw(a);
 	printf("%d\n", i);
-	i = _Generic(titi, struct a:1, struct b:2, default:20);
+	i = _Generic(titi, কাঠামো a:1, কাঠামো b:2, পূর্বনির্ধারিত:20);
 	printf("%d\n", i);
-	i = _Generic(i2, char: 1, int : 0);
+	i = _Generic(i2, অক্ষর: 1, পূর্ণসংখ্যা : 0);
 	printf("%d\n", i);
-	i = _Generic(a, char:1, int[4]:2, default:5);
+	i = _Generic(a, অক্ষর:1, পূর্ণসংখ্যা[4]:2, পূর্বনির্ধারিত:5);
 	printf("%d\n", i);
-	i = _Generic(17, int :1, int **:2);
+	i = _Generic(17, পূর্ণসংখ্যা :1, পূর্ণসংখ্যা **:2);
 	printf("%d\n", i);
-	i = _Generic(17L, int :1, long :2, long long : 3);
+	i = _Generic(17L, পূর্ণসংখ্যা :1, long :2, long long : 3);
 	printf("%d\n", i);
-	i = _Generic("17, io", char *: 3, const char *: 1);
+	i = _Generic("17, io", অক্ষর *: 3, ধ্রুবক অক্ষর *: 1);
 	printf("%d\n", i);
-	i = _Generic(ti, const unsigned char *:1, const char *:4, char *:3,
-		     const signed char *:2);
+	i = _Generic(ti, ধ্রুবক unsigned অক্ষর *:1, ধ্রুবক অক্ষর *:4, অক্ষর *:3,
+		     ধ্রুবক signed অক্ষর *:2);
 	printf("%d\n", i);
-	printf("%s\n", _Generic(i + 2L, long: "long", int: "int",
+	printf("%s\n", _Generic(i + 2L, long: "long", পূর্ণসংখ্যা: "int",
 				long long: "long long"));
-	i = _Generic(l, long: 1, int: 2);
+	i = _Generic(l, long: 1, পূর্ণসংখ্যা: 2);
 	printf("%d\n", i);
-	i = _Generic(foo, fptr: 3, int: 4, vfptr: 5);
+	i = _Generic(foo, fptr: 3, পূর্ণসংখ্যা: 4, vfptr: 5);
 	printf("%d\n", i);
-	i = _Generic(void_foo, fptr: 3, int: 4, vfptr: 5);
+	i = _Generic(void_foo, fptr: 3, পূর্ণসংখ্যা: 4, vfptr: 5);
 	printf("%d\n", i);
 
-	(void)_Generic((int(*)[2]){0}, int(*)[2]:0, int(*)[4]:0); //shouldn't match twice
+	(শূন্য)_Generic((পূর্ণসংখ্যা(*)[2]){0}, পূর্ণসংখ্যা(*)[2]:0, পূর্ণসংখ্যা(*)[4]:0); //shouldn't match twice
 
 	//should accept ({ }) in the controlling expr of _Generic even in const_wanted contexts
-	struct { _Bool x_0: _Generic(({0;}),default:1); } my_x;
+	কাঠামো { _Bool x_0: _Generic(({0;}),পূর্বনির্ধারিত:1); } my_x;
 
-	_Generic((__typeof((float const)((float const){42}))*){0}, float*: 0); //casts lose top-level qualifiers
-	int const x = 42; __typeof((__typeof(x))x) *xp = 0; (void)_Generic(xp, int*: 0); //casts lose top-level qualifiers
+	_Generic((__typeof((দশমিক ধ্রুবক)((দশমিক ধ্রুবক){42}))*){0}, দশমিক*: 0); //casts lose top-level qualifiers
+	পূর্ণসংখ্যা ধ্রুবক x = 42; __typeof((__typeof(x))x) *xp = 0; (শূন্য)_Generic(xp, পূর্ণসংখ্যা*: 0); //casts lose top-level qualifiers
 
 	//TEST TERNARY:
 	//Same type
-	_Generic( 0?(long*)0:(long*)0,  long*: (void)0);
+	_Generic( 0?(long*)0:(long*)0,  long*: (শূন্য)0);
 	//combining of qualifiers
-	_Generic( 0?(long volatile*)0:(long const*)0,  long const volatile*: (void)0);
+	_Generic( 0?(long অস্থির*)0:(long ধ্রুবক*)0,  long ধ্রুবক অস্থির*: (শূন্য)0);
 	//nul-ptr constant selects other type
-	_Generic( 0?(long*)0:0,			long*: (void)0);
-	_Generic( 0?(long*)0:(void*)0, long*: (void)0);
+	_Generic( 0?(long*)0:0,			long*: (শূন্য)0);
+	_Generic( 0?(long*)0:(শূন্য*)0, long*: (শূন্য)0);
 
 	//void ptrs get chosen preferentially; qualifs still combine
-	_Generic( 0?(int volatile*)0: (void const*)1, void volatile const*: (void)0);
+	_Generic( 0?(পূর্ণসংখ্যা অস্থির*)0: (শূন্য ধ্রুবক*)1, শূন্য অস্থির ধ্রুবক*: (শূন্য)0);
         //but this is no null-ptr constant, so fallback to void-choice
         i = 0;
-        _Generic( 1?(void*)(i*0LL):&i, void*:0);
+        _Generic( 1?(শূন্য*)(i*0LL):&i, শূন্য*:0);
 	//like gcc but not clang, don't treat (void* const as the null-ptr constant)
-	_Generic( 0?(int volatile*)0: (void const*)0, void volatile const*: (void)0);
+	_Generic( 0?(পূর্ণসংখ্যা অস্থির*)0: (শূন্য ধ্রুবক*)0, শূন্য অস্থির ধ্রুবক*: (শূন্য)0);
 
 	//ptrs to incomplete types get completed
-	(void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : (int (*)[])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	(void)(sizeof(struct { int x:_Generic( 0?(int (*)[])0 : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
+	(শূন্য)(আকার(কাঠামো { পূর্ণসংখ্যা x:_Generic( 0?(পূর্ণসংখ্যা (*)[4])0 : (পূর্ণসংখ্যা (*)[])0, পূর্ণসংখ্যা (*)[4]:+1, পূর্ণসংখ্যা (*)[5]:(শূন্য)0); }));
+	(শূন্য)(আকার(কাঠামো { পূর্ণসংখ্যা x:_Generic( 0?(পূর্ণসংখ্যা (*)[])0 : (পূর্ণসংখ্যা (*)[4])0, পূর্ণসংখ্যা (*)[4]:+1, পূর্ণসংখ্যা (*)[5]:(শূন্য)0); }));
 
 	{
 	  /* completion shouldn't affect the type of decl */
-		char **argv;
-		_Generic(argv, char**: (void)0);
-		_Generic(0?(char const*)0:argv[0], char const*: (void)0);
-		_Generic(argv, char**: (void)0);
+		অক্ষর **argv;
+		_Generic(argv, অক্ষর**: (শূন্য)0);
+		_Generic(0?(অক্ষর ধ্রুবক*)0:argv[0], অক্ষর ধ্রুবক*: (শূন্য)0);
+		_Generic(argv, অক্ষর**: (শূন্য)0);
 	}
 	{
-	  extern int (*ar)[];
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : (int (*)[])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[])0 : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?ar : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : ar, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[5])0 : ar, int (*)[5]:+1, int (*)[4]:(void)0); }));
+	  বাহ্যিক পূর্ণসংখ্যা (*ar)[];
+	  (শূন্য)(আকার(কাঠামো { পূর্ণসংখ্যা x:_Generic( 0?(পূর্ণসংখ্যা (*)[4])0 : (পূর্ণসংখ্যা (*)[])0, পূর্ণসংখ্যা (*)[4]:+1, পূর্ণসংখ্যা (*)[5]:(শূন্য)0); }));
+	  (শূন্য)(আকার(কাঠামো { পূর্ণসংখ্যা x:_Generic( 0?(পূর্ণসংখ্যা (*)[])0 : (পূর্ণসংখ্যা (*)[4])0, পূর্ণসংখ্যা (*)[4]:+1, পূর্ণসংখ্যা (*)[5]:(শূন্য)0); }));
+	  (শূন্য)(আকার(কাঠামো { পূর্ণসংখ্যা x:_Generic( 0?ar : (পূর্ণসংখ্যা (*)[4])0, পূর্ণসংখ্যা (*)[4]:+1, পূর্ণসংখ্যা (*)[5]:(শূন্য)0); }));
+	  (শূন্য)(আকার(কাঠামো { পূর্ণসংখ্যা x:_Generic( 0?(পূর্ণসংখ্যা (*)[4])0 : ar, পূর্ণসংখ্যা (*)[4]:+1, পূর্ণসংখ্যা (*)[5]:(শূন্য)0); }));
+	  (শূন্য)(আকার(কাঠামো { পূর্ণসংখ্যা x:_Generic( 0?(পূর্ণসংখ্যা (*)[5])0 : ar, পূর্ণসংখ্যা (*)[5]:+1, পূর্ণসংখ্যা (*)[4]:(শূন্য)0); }));
 	}
 
 	printf ("%d\n", f(t));
 
-	return 0;
+	ফেরত 0;
 }

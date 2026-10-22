@@ -22,13 +22,13 @@
 # define ONE_SOURCE 1
 #endif
 
-#include "tcc.h"
-#if ONE_SOURCE
+#অন্তর্ভাব "tcc.h"
+#যদি ONE_SOURCE
 # include "libtcc.c"
 #endif
-#include "tcctools.c"
+#অন্তর্ভাব "tcctools.c"
 
-static const char help[] =
+স্থির ধ্রুবক অক্ষর help[] =
     "Tiny C Compiler "TCC_VERSION" - Copyright (C) 2001-2006 Fabrice Bellard\n"
     "Usage: tcc [options...] [-o outfile] [-c] infile(s)...\n"
     "       tcc [options...] -run infile (or --) [arguments...]\n"
@@ -79,7 +79,7 @@ static const char help[] =
     "  -M[M]D       generate make dependency file [ignore system files]\n"
     "  -M[M]        as above but no other output\n"
     "  -MF file     specify dependency file name\n"
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
+#যদি defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
     "  -m32/64      defer to i386/x86_64 cross compiler\n"
 #endif
     "Tools:\n"
@@ -91,7 +91,7 @@ static const char help[] =
     "  https://lists.nongnu.org/mailman/listinfo/tinycc-devel\n"
     ;
 
-static const char help2[] =
+স্থির ধ্রুবক অক্ষর help2[] =
     "Tiny C Compiler "TCC_VERSION" - More Options\n"
     "Special options:\n"
     "  -P -P1                        with -E: no/alternative #line output\n"
@@ -150,13 +150,13 @@ static const char help2[] =
     "  -oformat=[pe-* binary]        set executable output format\n"
     "Predefined macros:\n"
     "  tcc -E -dM - < nul\n"
-#else
+#অন্যথা
     "  -rpath=                       set dynamic library search path\n"
     "  -enable-new-dtags             set DT_RUNPATH instead of DT_RPATH\n"
     "  -soname=                      set DT_SONAME elf tag\n"
-#if defined(TCC_TARGET_MACHO)
+#যদি defined(TCC_TARGET_MACHO)
     "  -install_name=                set DT_SONAME elf tag (soname macOS alias)\n"
-#else
+#অন্যথা
     "  -Ipath, -dynamic-linker=path  set ELF interpreter to path\n"
 #endif
     "  -Bsymbolic                    set DT_SYMBOLIC elf tag\n"
@@ -168,7 +168,7 @@ static const char help2[] =
     "See also the manual for more details.\n"
     ;
 
-static const char version[] =
+স্থির ধ্রুবক অক্ষর version[] =
     "tcc version "TCC_VERSION
 #ifdef TCC_GITHASH
     " "TCC_GITHASH
@@ -176,11 +176,11 @@ static const char version[] =
     " ("
 #ifdef TCC_TARGET_I386
         "i386"
-#elif defined TCC_TARGET_X86_64
+#নতুবা_যদি defined TCC_TARGET_X86_64
         "x86_64"
-#elif defined TCC_TARGET_C67
+#নতুবা_যদি defined TCC_TARGET_C67
         "C67"
-#elif defined TCC_TARGET_ARM
+#নতুবা_যদি defined TCC_TARGET_ARM
         "ARM"
 # ifdef TCC_ARM_EABI
         " eabi"
@@ -188,36 +188,36 @@ static const char version[] =
         "hf"
 #  endif
 # endif
-#elif defined TCC_TARGET_ARM64
+#নতুবা_যদি defined TCC_TARGET_ARM64
         "AArch64"
-#elif defined TCC_TARGET_RISCV64
+#নতুবা_যদি defined TCC_TARGET_RISCV64
         "riscv64"
 #endif
 #ifdef TCC_TARGET_PE
         " Windows"
-#elif defined(TCC_TARGET_MACHO)
+#নতুবা_যদি defined(TCC_TARGET_MACHO)
         " Darwin"
-#elif TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
+#নতুবা_যদি TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
         " FreeBSD"
-#elif TARGETOS_OpenBSD
+#নতুবা_যদি TARGETOS_OpenBSD
         " OpenBSD"
-#elif TARGETOS_NetBSD
+#নতুবা_যদি TARGETOS_NetBSD
         " NetBSD"
-#else
+#অন্যথা
         " Linux"
 #endif
     ")\n"
     ;
 
-static void print_dirs(const char *msg, char **paths, int nb_paths)
+স্থির শূন্য print_dirs(ধ্রুবক অক্ষর *বার্তা, অক্ষর **paths, পূর্ণসংখ্যা nb_paths)
 {
-    int i;
-    printf("%s:\n%s", msg, nb_paths ? "" : "  -\n");
-    for(i = 0; i < nb_paths; i++)
+    পূর্ণসংখ্যা i;
+    printf("%s:\n%s", বার্তা, nb_paths ? "" : "  -\n");
+    জন্য(i = 0; i < nb_paths; i++)
         printf("  %s\n", paths[i]);
 }
 
-static void print_search_dirs(TCCState *s)
+স্থির শূন্য print_অনুসন্ধান_dirs(TCCState *s)
 {
     printf("install: %s\n", s->tcc_lib_path);
     /* print_dirs("programs", NULL, 0); */
@@ -230,203 +230,203 @@ static void print_search_dirs(TCCState *s)
 #endif
 }
 
-static void set_environment(TCCState *s)
+স্থির শূন্য set_environment(TCCState *s)
 {
-    char * path;
+    অক্ষর * path;
 
     path = getenv("C_INCLUDE_PATH");
-    if(path != NULL) {
+    যদি(path != ফাঁকা) {
         tcc_add_sysinclude_path(s, path);
     }
     path = getenv("CPATH");
-    if(path != NULL) {
+    যদি(path != ফাঁকা) {
         tcc_add_include_path(s, path);
     }
     path = getenv("LIBRARY_PATH");
-    if(path != NULL) {
+    যদি(path != ফাঁকা) {
         tcc_add_library_path(s, path);
     }
 }
 
-static char *default_outputfile(TCCState *s, const char *first_file)
+স্থির অক্ষর *default_outputfile(TCCState *s, ধ্রুবক অক্ষর *first_file)
 {
-    char buf[1024];
-    char *ext;
-    const char *name = "a";
+    অক্ষর buf[1024];
+    অক্ষর *ext;
+    ধ্রুবক অক্ষর *name = "a";
 
-    if (first_file && strcmp(first_file, "-"))
+    যদি (first_file && strcmp(first_file, "-"))
         name = tcc_basename(first_file);
-    if (strlen(name) + 4 >= sizeof buf)
+    যদি (strlen(name) + 4 >= আকার buf)
         name = "a";
     strcpy(buf, name);
     ext = tcc_fileextension(buf);
 #ifdef TCC_TARGET_PE
-    if (s->output_type == TCC_OUTPUT_DLL)
+    যদি (s->output_type == TCC_OUTPUT_DLL)
         strcpy(ext, ".dll");
-    else
-    if (s->output_type == TCC_OUTPUT_EXE)
+    অন্যথা
+    যদি (s->output_type == TCC_OUTPUT_EXE)
         strcpy(ext, ".exe");
-    else
+    অন্যথা
 #endif
-    if ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
+    যদি ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
         strcpy(ext, ".o");
-    else
+    অন্যথা
         strcpy(buf, "a.out");
-    return tcc_strdup(buf);
+    ফেরত tcc_strdup(buf);
 }
 
-static unsigned getclock_ms(void)
+স্থির unsigned getclock_ms(শূন্য)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    ফেরত Get_Tick_গুনতি();
+#অন্যথা
+    কাঠামো timeval tv;
+    gettimeofday(&tv, ফাঁকা);
+    ফেরত tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int main(int argc, char **argv)
+পূর্ণসংখ্যা প্রধান(পূর্ণসংখ্যা argc, অক্ষর **argv)
 {
     TCCState *s, *s1;
-    int ret, opt, n = 0, t = 0, done;
+    পূর্ণসংখ্যা ret, opt, n = 0, t = 0, done;
     unsigned start_time = 0, end_time = 0;
-    const char *first_file;
-    int argc0 = argc;
-    char **argv0 = argv;
-    FILE *ppfp = NULL;
+    ধ্রুবক অক্ষর *first_file;
+    পূর্ণসংখ্যা argc0 = argc;
+    অক্ষর **argv0 = argv;
+    FILE *ppfp = ফাঁকা;
 
 redo:
     argc = argc0, argv = argv0;
     s = s1 = tcc_new();
     opt = tcc_parse_args(s, &argc, &argv);
 
-    if (n == 0) {
+    যদি (n == 0) {
         ret = 0;
-        if (opt == OPT_HELP) {
+        যদি (opt == OPT_HELP) {
             fputs(help, stdout);
-            if (s->verbose)
-                goto help2;
-        } else if (opt == OPT_HELP2) {
+            যদি (s->verbose)
+                যাও help2;
+        } অন্যথা যদি (opt == OPT_HELP2) {
             help2: fputs(help2, stdout);
-        } else if (opt == OPT_M32 || opt == OPT_M64) {
+        } অন্যথা যদি (opt == OPT_M32 || opt == OPT_M64) {
             ret = tcc_tool_cross(argv, opt);
-        } else if (s->verbose)
+        } অন্যথা যদি (s->verbose)
             printf("%s", version);
 
-        if (opt == OPT_AR)
+        যদি (opt == OPT_AR)
             ret = tcc_tool_ar(argc, argv);
 #ifdef TCC_TARGET_PE
-        if (opt == OPT_IMPDEF)
+        যদি (opt == OPT_IMPDEF)
             ret = tcc_tool_impdef(argc, argv);
 #endif
-        if (opt == OPT_PRINT_DIRS) {
+        যদি (opt == OPT_PRINT_DIRS) {
             /* initialize search dirs */
             set_environment(s);
             tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
-            print_search_dirs(s);
+            print_অনুসন্ধান_dirs(s);
         }
-        if (opt) {
-            if (opt < 0) err:
+        যদি (opt) {
+            যদি (opt < 0) err:
                 ret = 1;
             tcc_delete(s);
-            return ret;
+            ফেরত ret;
         }
-        if (s->nb_files == 0) {
+        যদি (s->nb_files == 0) {
             tcc_error_noabort("no input files");
-        } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
-            if (s->outfile && 0!=strcmp("-",s->outfile)) {
+        } অন্যথা যদি (s->output_type == TCC_OUTPUT_PREPROCESS) {
+            যদি (s->outfile && 0!=strcmp("-",s->outfile)) {
                 ppfp = tcc_fopen(s->outfile, "wb");
-                if (!ppfp)
+                যদি (!ppfp)
                     tcc_error_noabort("could not write '%s'", s->outfile);
             }
-        } else if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
-            if (s->nb_libraries)
+        } অন্যথা যদি (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
+            যদি (s->nb_libraries)
                 tcc_error_noabort("cannot specify libraries with -c");
-            else if (s->nb_files > 1 && s->outfile)
+            অন্যথা যদি (s->nb_files > 1 && s->outfile)
                 tcc_error_noabort("cannot specify output file with -c many files");
         }
-        if (s->nb_errors)
-            goto err;
-        if (s->do_bench)
+        যদি (s->nb_errors)
+            যাও err;
+        যদি (s->do_bench)
             start_time = getclock_ms();
     }
 
     set_environment(s);
-    if (s->output_type == 0)
+    যদি (s->output_type == 0)
         s->output_type = TCC_OUTPUT_EXE;
     ret = tcc_set_output_type(s, s->output_type);
-    if (ppfp)
+    যদি (ppfp)
         s->ppfp = ppfp;
 
-    if ((s->output_type == TCC_OUTPUT_MEMORY
+    যদি ((s->output_type == TCC_OUTPUT_MEMORY
       || s->output_type == TCC_OUTPUT_PREPROCESS)
         && (s->dflag & 16)) { /* -dt option */
-        if (t)
+        যদি (t)
             s->dflag |= 32;
         s->run_test = ++t;
-        if (n)
+        যদি (n)
             --n;
     }
 
     /* compile or add each files or library */
-    first_file = NULL;
-    while (0 == ret) {
-        struct filespec *f = s->files[n];
+    first_file = ফাঁকা;
+    যখন (0 == ret) {
+        কাঠামো filespec *f = s->files[n];
         s->filetype = f->type;
-        if (f->type & AFF_TYPE_LIB) {
+        যদি (f->type & AFF_TYPE_LIB) {
             ret = tcc_add_library(s, f->name);
-        } else {
-            if (1 == s->verbose)
+        } অন্যথা {
+            যদি (1 == s->verbose)
                 printf("-> %s\n", f->name);
-            if (!first_file)
+            যদি (!first_file)
                 first_file = f->name;
             ret = tcc_add_file(s, f->name);
         }
-        if (++n == s->nb_files)
-            break;
-        if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
-            break;
+        যদি (++n == s->nb_files)
+            বিরতি;
+        যদি (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
+            বিরতি;
     }
 
-    if (s->do_bench)
+    যদি (s->do_bench)
         end_time = getclock_ms();
 
-    if (s->run_test) {
+    যদি (s->run_test) {
         t = 0;
-    } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
+    } অন্যথা যদি (s->output_type == TCC_OUTPUT_PREPROCESS) {
         ;
-    } else if (0 == ret) {
-        if (s->output_type == TCC_OUTPUT_MEMORY) {
+    } অন্যথা যদি (0 == ret) {
+        যদি (s->output_type == TCC_OUTPUT_MEMORY) {
 #ifdef TCC_IS_NATIVE
             ret = tcc_run(s, argc, argv);
 #endif
-        } else {
-            if (!s->outfile)
+        } অন্যথা {
+            যদি (!s->outfile)
                 s->outfile = default_outputfile(s, first_file);
-            if (!s->just_deps)
+            যদি (!s->just_deps)
                 ret = tcc_output_file(s, s->outfile);
-            if (!ret && s->gen_deps)
+            যদি (!ret && s->gen_deps)
                 gen_makedeps(s, s->outfile, s->deps_outfile);
         }
     }
 
     done = 1;
-    if (t)
+    যদি (t)
         done = 0; /* run more tests with -dt -run */
-    else if (ret) {
-        if (s->nb_errors)
+    অন্যথা যদি (ret) {
+        যদি (s->nb_errors)
             ret = 1;
         /* else keep the original exit code from tcc_run() */
-    } else if (n < s->nb_files)
+    } অন্যথা যদি (n < s->nb_files)
         done = 0; /* compile more files with -c */
-    else if (s->do_bench)
+    অন্যথা যদি (s->do_bench)
         tcc_print_stats(s, end_time - start_time);
 
     tcc_delete(s);
-    if (!done)
-        goto redo;
-    if (ppfp)
+    যদি (!done)
+        যাও redo;
+    যদি (ppfp)
         tcc_fclose(ppfp);
-    return ret;
+    ফেরত ret;
 }

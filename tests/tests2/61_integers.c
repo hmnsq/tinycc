@@ -1,10 +1,10 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
 /* This was first introduced to test the ARM port */
 
 #define UINT_MAX ((unsigned) -1)
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
     printf("18/21=%u\n", 18/21);
     printf("18%%21=%u\n", 18%21);
@@ -66,5 +66,5 @@ int main()
     printf("-(UINT_MAX/2+3)/-2=%u\n", (0-(UINT_MAX/2+3))/-2);
     printf("-(UINT_MAX/2+3)%%-2=%u\n", (0-(UINT_MAX/2+3))%-2);
 
-    return 0;
+    ফেরত 0;
 }

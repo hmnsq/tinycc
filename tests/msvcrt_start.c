@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------- */
 /* minimal startup with runtime linker to msvcrt */
 
-#if 0
+#যদি 0
 
 #define REDIR_ALL \
  REDIR(__set_app_type)\
@@ -18,30 +18,30 @@
  REDIR(strcpy)\
  REDIR(strlen)\
  REDIR(malloc)\
- REDIR(free)\
+ REDIR(মুক্ত)\
 
-#if defined __i386__ && !defined __TINYC__
+#যদি defined __i386__ && !defined __TINYC__
 # define __leading_underscore 1
 #endif
 
 #ifdef __leading_underscore
 # define _(s) "_"#s
-#else
+#অন্যথা
 # define _(s) #s
 #endif
 
-#define REDIR(s) void *s;
-static struct { REDIR_ALL } all_ptrs;
+#define REDIR(s) শূন্য *s;
+স্থির কাঠামো { REDIR_ALL } all_ptrs;
 #undef REDIR
 
 #define REDIR(s) #s"\0"
-static const char all_names[] = REDIR_ALL;
+স্থির ধ্রুবক অক্ষর all_names[] = REDIR_ALL;
 #undef REDIR
 
-#if __aarch64__
-  #if defined __TINYC__
+#যদি __aarch64__
+  #যদি defined __TINYC__
   # define ALIGN ".align 8"
-  #else
+  #অন্যথা
   # define ALIGN ".align 3" /* .align is power of 2 on non-ELF platforms */
   #endif
 # define REDIR(s) \
@@ -55,110 +55,110 @@ static const char all_names[] = REDIR_ALL;
 
     __asm__("\t.text\n\t"ALIGN"\nall_jmps:");
     REDIR_ALL
-#else
+#অন্যথা
 # define REDIR(s) \
     __asm__("\n"_(s)":");\
     __asm__("jmp *%0"::"m"(all_ptrs.s));\
     __asm__(".global "_(s));
 
-    static void all_jmps() { REDIR_ALL }
+    স্থির শূন্য all_jmps() { REDIR_ALL }
 #endif
 #undef REDIR
 
-#if 0
+#যদি 0
 # include <windows.h>
-#else
-# if __i386__
+#অন্যথা
+# যদি __i386__
 #  define STDCALL __declspec(stdcall)
-# else
+# অন্যথা
 #  define STDCALL
 # endif
 # define DWORD long unsigned
-# define HMODULE void*
-# define HANDLE void*
-S TDCALL HMODULE LoadLibraryA(const char *);
-S TDCALL HMODULE GetProcAddress(HMODULE , char*);
-S TDCALL void ExitProcess(int);
-S TDCALL int WriteFile(HANDLE, const void*, DWORD, DWORD*, void*);
+# define HMODULE শূন্য*
+# define HANDLE শূন্য*
+S TDCALL HMODULE LoadLibraryA(ধ্রুবক অক্ষর *);
+S TDCALL HMODULE GetProcAddress(HMODULE , অক্ষর*);
+S TDCALL শূন্য ExitProcess(পূর্ণসংখ্যা);
+S TDCALL পূর্ণসংখ্যা WriteFile(HANDLE, ধ্রুবক শূন্য*, DWORD, DWORD*, শূন্য*);
 S TDCALL HANDLE GetStdHandle(DWORD);
-S TDCALL int FlushFileBuffers(HANDLE);
+S TDCALL পূর্ণসংখ্যা FlushFileBuffers(HANDLE);
 # define STD_ERROR_HANDLE -12
 #endif
 
-static void eput(const char *s)
+স্থির শূন্য eput(ধ্রুবক অক্ষর *s)
 {
     DWORD n_out;
-    int n = 0;
-    while (s[n])
+    পূর্ণসংখ্যা n = 0;
+    যখন (s[n])
         ++n;
     WriteFile(GetStdHandle(STD_ERROR_HANDLE), s, n, &n_out, 0);
 }
 
-static void rt_reloc()
+স্থির শূন্য rt_reloc()
 {
-    const char *s = all_names;
-    void **p = (void**)&all_ptrs;
-    void *dll = LoadLibraryA("msvcrt.dll");
-    do {
-        char buf[100], *d = buf;
-        *p = (void*)GetProcAddress(dll, (char*)s);
-        *d++ = '_'; do *d++ = *s; while (*s++);
-        if (0 == *p)
-            *p = (void*)GetProcAddress(dll, buf);
-        if (0 == *p) {
+    ধ্রুবক অক্ষর *s = all_names;
+    শূন্য **p = (শূন্য**)&all_ptrs;
+    শূন্য *dll = LoadLibraryA("msvcrt.dll");
+    করো {
+        অক্ষর buf[100], *d = buf;
+        *p = (শূন্য*)GetProcAddress(dll, (অক্ষর*)s);
+        *d++ = '_'; করো *d++ = *s; যখন (*s++);
+        যদি (0 == *p)
+            *p = (শূন্য*)GetProcAddress(dll, buf);
+        যদি (0 == *p) {
             eput("MSVCRT_START.C: RUNTIME RELOCATION ERROR: '");
             eput(buf+1);
             eput("'\n");
             ExitProcess(-1);
         }
         ++p;
-    } while (*s);
+    } যখন (*s);
 }
 
-#else
+#অন্যথা
 # define rt_reloc()
 #endif
 
-int main(int argc, char **argv, char **env);
-void exit(int);
-void __set_app_type(int apptype);
+পূর্ণসংখ্যা প্রধান(পূর্ণসংখ্যা argc, অক্ষর **argv, অক্ষর **env);
+শূন্য exit(পূর্ণসংখ্যা);
+শূন্য __set_app_type(পূর্ণসংখ্যা apptype);
 
-typedef struct { int newmode; } _startupinfo;
-int __getmainargs(int *pargc, char ***pargv, char ***penv, int globb, _startupinfo*);
+প্রকারলেখ কাঠামো { পূর্ণসংখ্যা newmode; } _startupinfo;
+পূর্ণসংখ্যা __getmainargs(পূর্ণসংখ্যা *pargc, অক্ষর ***pargv, অক্ষর ***penv, পূর্ণসংখ্যা globb, _startupinfo*);
 
-void _controlfp(unsigned a, unsigned b);
+শূন্য _controlfp(unsigned a, unsigned b);
 #define _MCW_PC 0x00030000 // Precision Control
 #define _PC_53 0x00010000 // 53 bits
 
-int __argc;
-char **__argv;
-char **environ;
+পূর্ণসংখ্যা __argc;
+অক্ষর **__argv;
+অক্ষর **environ;
 _startupinfo start_info = {0};
 
-void mainCRTStartup(void)
+শূন্য mainCRTStartup(শূন্য)
 {
     rt_reloc();
-#if defined __i386__ || defined __x86_64__
+#যদি defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
 #endif
     __set_app_type(1);
     __getmainargs(&__argc, &__argv, &environ, 0, &start_info);
-    exit(main(__argc, __argv, environ));
+    exit(প্রধান(__argc, __argv, environ));
 }
 
-#include <stdarg.h>
-#define size_t __SIZE_TYPE__
-int printf(const char *, ...);
-int _vsnprintf(char *, size_t, const char *, va_list);
+#অন্তর্ভাব <stdarg.h>
+#define আকার_t __SIZE_TYPE__
+পূর্ণসংখ্যা printf(ধ্রুবক অক্ষর *, ...);
+পূর্ণসংখ্যা _vsnprintf(অক্ষর *, আকার_t, ধ্রুবক অক্ষর *, va_list);
 
 /* undefined on windows-11-arm64 */
-int vprintf(const char *format, va_list ap)
+পূর্ণসংখ্যা vprintf(ধ্রুবক অক্ষর *format, va_list ap)
 {
-    char buf[1000];
-    _vsnprintf(buf, sizeof buf, format, ap);
-    return printf("%s", buf);
+    অক্ষর buf[1000];
+    _vsnprintf(buf, আকার buf, format, ap);
+    ফেরত printf("%s", buf);
 }
 
-void __main() {} /* for gcc */
-void _pei386_runtime_relocator(void) {} /* for gcc */
-void __chkstk(unsigned n) {} /* for clang */
+শূন্য __main() {} /* for gcc */
+শূন্য _pei386_runtime_relocator(শূন্য) {} /* for gcc */
+শূন্য __chkstk(unsigned n) {} /* for clang */

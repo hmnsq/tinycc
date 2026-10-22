@@ -1,17 +1,17 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-static void f(int x)
+স্থির শূন্য f(পূর্ণসংখ্যা x)
 {
      printf("f(%d)\n", x);
 }
 
-int main(void)
+পূর্ণসংখ্যা প্রধান(শূন্য)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
+     পূর্ণসংখ্যা গুনতি_2 = 0, i = 0;
+     জন্য (; i < 3; ++i) {
          printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+         (শূন্য)(i || (f(i), ++গুনতি_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     printf("count %d\n", গুনতি_2);
+     ফেরত গুনতি_2 == 1 ? 0 : 1;
 }

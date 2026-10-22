@@ -1,15 +1,15 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-void fred(void)
+শূন্য fred(শূন্য)
 {
    printf("yo\n");
 }
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
    fred();
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

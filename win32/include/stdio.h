@@ -6,12 +6,12 @@
 #ifndef _INC_STDIO
 #define _INC_STDIO
 
-#include <_mingw.h>
+#অন্তর্ভাব <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ঠেলো,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্যিক "C" {
 #endif
 
 #define BUFSIZ 512
@@ -21,29 +21,29 @@ extern "C" {
 #define EOF (-1)
 
 #ifndef _FILE_DEFINED
-  struct _iobuf {
-    char *_ptr;
-    int _cnt;
-    char *_base;
-    int _flag;
-    int _file;
-    int _charbuf;
-    int _bufsiz;
-    char *_tmpfname;
+  কাঠামো _iobuf {
+    অক্ষর *_ptr;
+    পূর্ণসংখ্যা _cnt;
+    অক্ষর *_base;
+    পূর্ণসংখ্যা _flag;
+    পূর্ণসংখ্যা _file;
+    পূর্ণসংখ্যা _charbuf;
+    পূর্ণসংখ্যা _bufsiz;
+    অক্ষর *_tmpfname;
   };
-  typedef struct _iobuf FILE;
+  প্রকারলেখ কাঠামো _iobuf FILE;
 #define _FILE_DEFINED
 #endif
 
 #ifdef _POSIX_
 #define _P_tmpdir "/"
 #define _wP_tmpdir L"/"
-#else
+#অন্যথা
 #define _P_tmpdir "\\"
 #define _wP_tmpdir L"\\"
 #endif
 
-#define L_tmpnam (sizeof(_P_tmpdir) + 12)
+#define L_tmpnam (আকার(_P_tmpdir) + 12)
 
 #ifdef _POSIX_
 #define L_ctermid 9
@@ -63,11 +63,11 @@ extern "C" {
 #define _SYS_OPEN 20
 #define TMP_MAX 32767
 
-#ifndef NULL
+#ifndef ফাঁকা
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define ফাঁকা 0
+#অন্যথা
+#define ফাঁকা ((শূন্য *)0)
 #endif
 #endif
 
@@ -75,30 +75,30 @@ extern "C" {
 #define _OFF_T_DEFINED
 #ifndef _OFF_T_
 #define _OFF_T_
-  typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long off_t;
+  প্রকারলেখ long _off_t;
+#যদি !defined(NO_OLDNAMES) || defined(_POSIX)
+  প্রকারলেখ long off_t;
 #endif
 #endif
 #endif
 
 #ifndef _OFF64_T_DEFINED
 #define _OFF64_T_DEFINED
-  typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long long off64_t;
+  প্রকারলেখ long long _off64_t;
+#যদি !defined(NO_OLDNAMES) || defined(_POSIX)
+  প্রকারলেখ long long off64_t;
 #endif
 #endif
 
 #ifndef _STDIO_DEFINED
 #ifdef _WIN64
-  _CRTIMP FILE *__cdecl __iob_func(void);
-#else
+  _CRTIMP FILE *__cdecl __iob_func(শূন্য);
+#অন্যথা
 #ifdef _MSVCRT_
-extern FILE _iob[];     /* A pointer to an array of FILE */
+বাহ্যিক FILE _iob[];     /* A pointer to an array of FILE */
 #define __iob_func()    (_iob)
-#else
-extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
+#অন্যথা
+বাহ্যিক FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 #define __iob_func()    (*_imp___iob)
 #define _iob __iob_func()
 #endif
@@ -109,11 +109,11 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 #define _FPOS_T_DEFINED
 #undef _FPOSOFF
 
-#if (!defined(NO_OLDNAMES) || defined(__GNUC__)) && _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 fpos_t;
+#যদি (!defined(NO_OLDNAMES) || defined(__GNUC__)) && _INTEGRAL_MAX_BITS >= 64
+  প্রকারলেখ __int64 fpos_t;
 #define _FPOSOFF(fp) ((long)(fp))
-#else
-  typedef long long fpos_t;
+#অন্যথা
+  প্রকারলেখ long long fpos_t;
 #define _FPOSOFF(fp) ((long)(fp))
 #endif
 
@@ -147,127 +147,127 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 
 #ifndef _STDIO_DEFINED
 
-  _CRTIMP int __cdecl _filbuf(FILE *_File);
-  _CRTIMP int __cdecl _flsbuf(int _Ch,FILE *_File);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _filbuf(FILE *_File);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _flsbuf(পূর্ণসংখ্যা _Ch,FILE *_File);
 #ifdef _POSIX_
-  _CRTIMP FILE *__cdecl _fsopen(const char *_Filename,const char *_Mode);
-#else
-  _CRTIMP FILE *__cdecl _fsopen(const char *_Filename,const char *_Mode,int _ShFlag);
+  _CRTIMP FILE *__cdecl _fsopen(ধ্রুবক অক্ষর *_Filename,ধ্রুবক অক্ষর *_Mode);
+#অন্যথা
+  _CRTIMP FILE *__cdecl _fsopen(ধ্রুবক অক্ষর *_Filename,ধ্রুবক অক্ষর *_Mode,পূর্ণসংখ্যা _ShFlag);
 #endif
-  void __cdecl clearerr(FILE *_File);
-  int __cdecl fclose(FILE *_File);
-  _CRTIMP int __cdecl _fcloseall(void);
+  শূন্য __cdecl clearerr(FILE *_File);
+  পূর্ণসংখ্যা __cdecl fclose(FILE *_File);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _fcloseall(শূন্য);
 #ifdef _POSIX_
-  FILE *__cdecl fdopen(int _FileHandle,const char *_Mode);
-#else
-  _CRTIMP FILE *__cdecl _fdopen(int _FileHandle,const char *_Mode);
+  FILE *__cdecl fdopen(পূর্ণসংখ্যা _FileHandle,ধ্রুবক অক্ষর *_Mode);
+#অন্যথা
+  _CRTIMP FILE *__cdecl _fdopen(পূর্ণসংখ্যা _FileHandle,ধ্রুবক অক্ষর *_Mode);
 #endif
-  int __cdecl feof(FILE *_File);
-  int __cdecl ferror(FILE *_File);
-  int __cdecl fflush(FILE *_File);
-  int __cdecl fgetc(FILE *_File);
-  _CRTIMP int __cdecl _fgetchar(void);
-  int __cdecl fgetpos(FILE *_File ,fpos_t *_Pos);
-  char *__cdecl fgets(char *_Buf,int _MaxCount,FILE *_File);
+  পূর্ণসংখ্যা __cdecl feof(FILE *_File);
+  পূর্ণসংখ্যা __cdecl ferror(FILE *_File);
+  পূর্ণসংখ্যা __cdecl fflush(FILE *_File);
+  পূর্ণসংখ্যা __cdecl fgetc(FILE *_File);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _fgetchar(শূন্য);
+  পূর্ণসংখ্যা __cdecl fgetpos(FILE *_File ,fpos_t *_Pos);
+  অক্ষর *__cdecl fgets(অক্ষর *_Buf,পূর্ণসংখ্যা Max_গুনতি,FILE *_File);
 #ifdef _POSIX_
-  int __cdecl fileno(FILE *_File);
-#else
-  _CRTIMP int __cdecl _fileno(FILE *_File);
+  পূর্ণসংখ্যা __cdecl fileno(FILE *_File);
+#অন্যথা
+  _CRTIMP পূর্ণসংখ্যা __cdecl _fileno(FILE *_File);
 #endif
-  _CRTIMP char *__cdecl _tempnam(const char *_DirName,const char *_FilePrefix);
-  _CRTIMP int __cdecl _flushall(void);
-  FILE *__cdecl fopen(const char *_Filename,const char *_Mode);
-  FILE *fopen64(const char *filename,const char *mode);
-  int __cdecl fprintf(FILE *_File,const char *_Format,...);
-  int __cdecl fputc(int _Ch,FILE *_File);
-  _CRTIMP int __cdecl _fputchar(int _Ch);
-  int __cdecl fputs(const char *_Str,FILE *_File);
-  size_t __cdecl fread(void *_DstBuf,size_t _ElementSize,size_t _Count,FILE *_File);
-  FILE *__cdecl freopen(const char *_Filename,const char *_Mode,FILE *_File);
-  int __cdecl fscanf(FILE *_File,const char *_Format,...);
-  int __cdecl fsetpos(FILE *_File,const fpos_t *_Pos);
-  int __cdecl fseek(FILE *_File,long _Offset,int _Origin);
-   int fseeko64(FILE* stream, _off64_t offset, int whence);
+  _CRTIMP অক্ষর *__cdecl _tempnam(ধ্রুবক অক্ষর *_DirName,ধ্রুবক অক্ষর *_FilePrefix);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _flushall(শূন্য);
+  FILE *__cdecl fopen(ধ্রুবক অক্ষর *_Filename,ধ্রুবক অক্ষর *_Mode);
+  FILE *fopen64(ধ্রুবক অক্ষর *filename,ধ্রুবক অক্ষর *mode);
+  পূর্ণসংখ্যা __cdecl fprintf(FILE *_File,ধ্রুবক অক্ষর *_Format,...);
+  পূর্ণসংখ্যা __cdecl fputc(পূর্ণসংখ্যা _Ch,FILE *_File);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _fputchar(পূর্ণসংখ্যা _Ch);
+  পূর্ণসংখ্যা __cdecl fputs(ধ্রুবক অক্ষর *_Str,FILE *_File);
+  আকার_t __cdecl fread(শূন্য *_DstBuf,আকার_t Element_আকার,আকার_t গুনতি_5,FILE *_File);
+  FILE *__cdecl freopen(ধ্রুবক অক্ষর *_Filename,ধ্রুবক অক্ষর *_Mode,FILE *_File);
+  পূর্ণসংখ্যা __cdecl fscanf(FILE *_File,ধ্রুবক অক্ষর *_Format,...);
+  পূর্ণসংখ্যা __cdecl fsetpos(FILE *_File,ধ্রুবক fpos_t *_Pos);
+  পূর্ণসংখ্যা __cdecl fseek(FILE *_File,long _Offset,পূর্ণসংখ্যা _Origin);
+   পূর্ণসংখ্যা fseeko64(FILE* stream, _off64_t offset, পূর্ণসংখ্যা whence);
   long __cdecl ftell(FILE *_File);
   _off64_t ftello64(FILE * stream);
-  int __cdecl _fseeki64(FILE *_File,__int64 _Offset,int _Origin);
+  পূর্ণসংখ্যা __cdecl _fseeki64(FILE *_File,__int64 _Offset,পূর্ণসংখ্যা _Origin);
   __int64 __cdecl _ftelli64(FILE *_File);
-  size_t __cdecl fwrite(const void *_Str,size_t _Size,size_t _Count,FILE *_File);
-  int __cdecl getc(FILE *_File);
-  int __cdecl getchar(void);
-  _CRTIMP int __cdecl _getmaxstdio(void);
-  char *__cdecl gets(char *_Buffer);
-  int __cdecl _getw(FILE *_File);
+  আকার_t __cdecl fwrite(ধ্রুবক শূন্য *_Str,আকার_t আকার_5,আকার_t গুনতি_5,FILE *_File);
+  পূর্ণসংখ্যা __cdecl getc(FILE *_File);
+  পূর্ণসংখ্যা __cdecl getchar(শূন্য);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _getmaxstdio(শূন্য);
+  অক্ষর *__cdecl gets(অক্ষর *বাফার_2);
+  পূর্ণসংখ্যা __cdecl _getw(FILE *_File);
 #ifndef _CRT_PERROR_DEFINED
 #define _CRT_PERROR_DEFINED
-  void __cdecl perror(const char *_ErrMsg);
+  শূন্য __cdecl perror(ধ্রুবক অক্ষর *Err_বার্তা);
 #endif
-  _CRTIMP int __cdecl _pclose(FILE *_File);
-  _CRTIMP FILE *__cdecl _popen(const char *_Command,const char *_Mode);
-#if !defined(NO_OLDNAMES) && !defined(popen)
+  _CRTIMP পূর্ণসংখ্যা __cdecl _pclose(FILE *_File);
+  _CRTIMP FILE *__cdecl _popen(ধ্রুবক অক্ষর *_Command,ধ্রুবক অক্ষর *_Mode);
+#যদি !defined(NO_OLDNAMES) && !defined(popen)
 #define popen   _popen
 #define pclose  _pclose
 #endif
-  int __cdecl printf(const char *_Format,...);
-  int __cdecl putc(int _Ch,FILE *_File);
-  int __cdecl putchar(int _Ch);
-  int __cdecl puts(const char *_Str);
-  _CRTIMP int __cdecl _putw(int _Word,FILE *_File);
+  পূর্ণসংখ্যা __cdecl printf(ধ্রুবক অক্ষর *_Format,...);
+  পূর্ণসংখ্যা __cdecl putc(পূর্ণসংখ্যা _Ch,FILE *_File);
+  পূর্ণসংখ্যা __cdecl putchar(পূর্ণসংখ্যা _Ch);
+  পূর্ণসংখ্যা __cdecl puts(ধ্রুবক অক্ষর *_Str);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _putw(পূর্ণসংখ্যা _Word,FILE *_File);
 #ifndef _CRT_DIRECTORY_DEFINED
 #define _CRT_DIRECTORY_DEFINED
-  int __cdecl remove(const char *_Filename);
-  int __cdecl rename(const char *_OldFilename,const char *_NewFilename);
-  _CRTIMP int __cdecl _unlink(const char *_Filename);
+  পূর্ণসংখ্যা __cdecl remove(ধ্রুবক অক্ষর *_Filename);
+  পূর্ণসংখ্যা __cdecl rename(ধ্রুবক অক্ষর *_OldFilename,ধ্রুবক অক্ষর *_NewFilename);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _unlink(ধ্রুবক অক্ষর *_Filename);
 #ifndef NO_OLDNAMES
-  int __cdecl unlink(const char *_Filename);
+  পূর্ণসংখ্যা __cdecl unlink(ধ্রুবক অক্ষর *_Filename);
 #endif
 #endif
-  void __cdecl rewind(FILE *_File);
-  _CRTIMP int __cdecl _rmtmp(void);
-  int __cdecl scanf(const char *_Format,...);
-  void __cdecl setbuf(FILE *_File,char *_Buffer);
-  _CRTIMP int __cdecl _setmaxstdio(int _Max);
-  _CRTIMP unsigned int __cdecl _set_output_format(unsigned int _Format);
-  _CRTIMP unsigned int __cdecl _get_output_format(void);
-  int __cdecl setvbuf(FILE *_File,char *_Buf,int _Mode,size_t _Size);
-  _CRTIMP int __cdecl _scprintf(const char *_Format,...);
-  int __cdecl sscanf(const char *_Src,const char *_Format,...);
-  _CRTIMP int __cdecl _snscanf(const char *_Src,size_t _MaxCount,const char *_Format,...);
-  FILE *__cdecl tmpfile(void);
-  char *__cdecl tmpnam(char *_Buffer);
-  int __cdecl ungetc(int _Ch,FILE *_File);
-  int __cdecl vfprintf(FILE *_File,const char *_Format,va_list _ArgList);
-  int __cdecl vprintf(const char *_Format,va_list _ArgList);
+  শূন্য __cdecl rewind(FILE *_File);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _rmtmp(শূন্য);
+  পূর্ণসংখ্যা __cdecl scanf(ধ্রুবক অক্ষর *_Format,...);
+  শূন্য __cdecl setbuf(FILE *_File,অক্ষর *বাফার_2);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _setmaxstdio(পূর্ণসংখ্যা _Max);
+  _CRTIMP unsigned পূর্ণসংখ্যা __cdecl _set_output_format(unsigned পূর্ণসংখ্যা _Format);
+  _CRTIMP unsigned পূর্ণসংখ্যা __cdecl _get_output_format(শূন্য);
+  পূর্ণসংখ্যা __cdecl setvbuf(FILE *_File,অক্ষর *_Buf,পূর্ণসংখ্যা _Mode,আকার_t আকার_5);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _scprintf(ধ্রুবক অক্ষর *_Format,...);
+  পূর্ণসংখ্যা __cdecl sscanf(ধ্রুবক অক্ষর *_Src,ধ্রুবক অক্ষর *_Format,...);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _snscanf(ধ্রুবক অক্ষর *_Src,আকার_t Max_গুনতি,ধ্রুবক অক্ষর *_Format,...);
+  FILE *__cdecl tmpfile(শূন্য);
+  অক্ষর *__cdecl tmpnam(অক্ষর *বাফার_2);
+  পূর্ণসংখ্যা __cdecl ungetc(পূর্ণসংখ্যা _Ch,FILE *_File);
+  পূর্ণসংখ্যা __cdecl vfprintf(FILE *_File,ধ্রুবক অক্ষর *_Format,va_list _ArgList);
+  পূর্ণসংখ্যা __cdecl vprintf(ধ্রুবক অক্ষর *_Format,va_list _ArgList);
   /* Make sure macros are not defined.  */
-#pragma push_macro("vsnprintf")
-#pragma push_macro("snprintf")
+#pragma ঠেলো_macro("vsnprintf")
+#pragma ঠেলো_macro("snprintf")
 # undef vsnprintf
 # undef snprintf
-  extern
+  বাহ্যিক
   __attribute__((format(gnu_printf, 3, 0))) __attribute__((nonnull (3)))
-  int __mingw_vsnprintf(char *_DstBuf,size_t _MaxCount,const char *_Format,va_list _ArgList);
-  extern
+  পূর্ণসংখ্যা __mingw_vsnprintf(অক্ষর *_DstBuf,আকার_t Max_গুনতি,ধ্রুবক অক্ষর *_Format,va_list _ArgList);
+  বাহ্যিক
   __attribute__((format(gnu_printf, 3, 4))) __attribute__((nonnull (3)))
-  int __mingw_snprintf(char* s, size_t n, const char*  format, ...);
-  int __cdecl vsnprintf(char *_DstBuf,size_t _MaxCount,const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _snprintf(char *_Dest,size_t _Count,const char *_Format,...);
-  _CRTIMP int __cdecl _vsnprintf(char *_Dest,size_t _Count,const char *_Format,va_list _Args);
-  int __cdecl sprintf(char *_Dest,const char *_Format,...);
-  int __cdecl vsprintf(char *_Dest,const char *_Format,va_list _Args);
+  পূর্ণসংখ্যা __mingw_snprintf(অক্ষর* s, আকার_t n, ধ্রুবক অক্ষর*  format, ...);
+  পূর্ণসংখ্যা __cdecl vsnprintf(অক্ষর *_DstBuf,আকার_t Max_গুনতি,ধ্রুবক অক্ষর *_Format,va_list _ArgList);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _snprintf(অক্ষর *_Dest,আকার_t গুনতি_5,ধ্রুবক অক্ষর *_Format,...);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _vsnprintf(অক্ষর *_Dest,আকার_t গুনতি_5,ধ্রুবক অক্ষর *_Format,va_list _Args);
+  পূর্ণসংখ্যা __cdecl sprintf(অক্ষর *_Dest,ধ্রুবক অক্ষর *_Format,...);
+  পূর্ণসংখ্যা __cdecl vsprintf(অক্ষর *_Dest,ধ্রুবক অক্ষর *_Format,va_list _Args);
 #ifndef __NO_ISOCEXT  /* externs in libmingwex.a */
-  int __cdecl snprintf(char* s, size_t n, const char*  format, ...);
-  __CRT_INLINE int __cdecl vsnprintf (char* s, size_t n, const char* format,va_list arg) {
-    return _vsnprintf ( s, n, format, arg);
+  পূর্ণসংখ্যা __cdecl snprintf(অক্ষর* s, আকার_t n, ধ্রুবক অক্ষর*  format, ...);
+  __CRT_INLINE পূর্ণসংখ্যা __cdecl vsnprintf (অক্ষর* s, আকার_t n, ধ্রুবক অক্ষর* format,va_list arg) {
+    ফেরত _vsnprintf ( s, n, format, arg);
   }
-  int __cdecl vscanf(const char * Format, va_list argp);
-  int __cdecl vfscanf (FILE * fp, const char * Format,va_list argp);
-  int __cdecl vsscanf (const char * _Str,const char * Format,va_list argp);
+  পূর্ণসংখ্যা __cdecl vscanf(ধ্রুবক অক্ষর * Format, va_list argp);
+  পূর্ণসংখ্যা __cdecl vfscanf (FILE * fp, ধ্রুবক অক্ষর * Format,va_list argp);
+  পূর্ণসংখ্যা __cdecl vsscanf (ধ্রুবক অক্ষর * _Str,ধ্রুবক অক্ষর * Format,va_list argp);
 #endif
 /* Restore may prior defined macros snprintf/vsnprintf.  */
-#pragma pop_macro("snprintf")
-#pragma pop_macro("vsnprintf")
+#pragma বের_করো_macro("snprintf")
+#pragma বের_করো_macro("vsnprintf")
 /* Check if vsnprintf and snprintf are defaulting to gnu-style.  */
-# if defined(USE_MINGW_GNU_SNPRINTF) && USE_MINGW_GNU_SNPRINTF
+# যদি defined(USE_MINGW_GNU_SNPRINTF) && USE_MINGW_GNU_SNPRINTF
 # ifndef vsnprint
 # define vsnprintf __mingw_vsnprintf
 # endif
@@ -275,9 +275,9 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 # define snprintf __mingw_snprintf
 # endif
 # endif
-  _CRTIMP int __cdecl _vscprintf(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _set_printf_count_output(int _Value);
-  _CRTIMP int __cdecl _get_printf_count_output(void);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _vscprintf(ধ্রুবক অক্ষর *_Format,va_list _ArgList);
+  _CRTIMP পূর্ণসংখ্যা __cdecl set_printf_গুনতি_output(পূর্ণসংখ্যা মান_2);
+  _CRTIMP পূর্ণসংখ্যা __cdecl get_printf_গুনতি_output(শূন্য);
 
 #ifndef _WSTDIO_DEFINED
 
@@ -286,46 +286,46 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 #endif
 
 #ifdef _POSIX_
-  _CRTIMP FILE *__cdecl _wfsopen(const wchar_t *_Filename,const wchar_t *_Mode);
-#else
-  _CRTIMP FILE *__cdecl _wfsopen(const wchar_t *_Filename,const wchar_t *_Mode,int _ShFlag);
+  _CRTIMP FILE *__cdecl _wfsopen(ধ্রুবক wchar_t *_Filename,ধ্রুবক wchar_t *_Mode);
+#অন্যথা
+  _CRTIMP FILE *__cdecl _wfsopen(ধ্রুবক wchar_t *_Filename,ধ্রুবক wchar_t *_Mode,পূর্ণসংখ্যা _ShFlag);
 #endif
   wint_t __cdecl fgetwc(FILE *_File);
-  _CRTIMP wint_t __cdecl _fgetwchar(void);
+  _CRTIMP wint_t __cdecl _fgetwchar(শূন্য);
   wint_t __cdecl fputwc(wchar_t _Ch,FILE *_File);
   _CRTIMP wint_t __cdecl _fputwchar(wchar_t _Ch);
   wint_t __cdecl getwc(FILE *_File);
-  wint_t __cdecl getwchar(void);
+  wint_t __cdecl getwchar(শূন্য);
   wint_t __cdecl putwc(wchar_t _Ch,FILE *_File);
   wint_t __cdecl putwchar(wchar_t _Ch);
   wint_t __cdecl ungetwc(wint_t _Ch,FILE *_File);
-  wchar_t *__cdecl fgetws(wchar_t *_Dst,int _SizeInWords,FILE *_File);
-  int __cdecl fputws(const wchar_t *_Str,FILE *_File);
+  wchar_t *__cdecl fgetws(wchar_t *_Dst,পূর্ণসংখ্যা আকার_In_শব্দগুলি,FILE *_File);
+  পূর্ণসংখ্যা __cdecl fputws(ধ্রুবক wchar_t *_Str,FILE *_File);
   _CRTIMP wchar_t *__cdecl _getws(wchar_t *_String);
-  _CRTIMP int __cdecl _putws(const wchar_t *_Str);
-  int __cdecl fwprintf(FILE *_File,const wchar_t *_Format,...);
-  int __cdecl wprintf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _scwprintf(const wchar_t *_Format,...);
-  int __cdecl vfwprintf(FILE *_File,const wchar_t *_Format,va_list _ArgList);
-  int __cdecl vwprintf(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl swprintf(wchar_t*, const wchar_t*, ...);
-  _CRTIMP int __cdecl vswprintf(wchar_t*, const wchar_t*,va_list);
-  _CRTIMP int __cdecl _swprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _snwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vsnwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,va_list _Args);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _putws(ধ্রুবক wchar_t *_Str);
+  পূর্ণসংখ্যা __cdecl fwprintf(FILE *_File,ধ্রুবক wchar_t *_Format,...);
+  পূর্ণসংখ্যা __cdecl wprintf(ধ্রুবক wchar_t *_Format,...);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _scwprintf(ধ্রুবক wchar_t *_Format,...);
+  পূর্ণসংখ্যা __cdecl vfwprintf(FILE *_File,ধ্রুবক wchar_t *_Format,va_list _ArgList);
+  পূর্ণসংখ্যা __cdecl vwprintf(ধ্রুবক wchar_t *_Format,va_list _ArgList);
+  _CRTIMP পূর্ণসংখ্যা __cdecl swprintf(wchar_t*, ধ্রুবক wchar_t*, ...);
+  _CRTIMP পূর্ণসংখ্যা __cdecl vswprintf(wchar_t*, ধ্রুবক wchar_t*,va_list);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _swprintf_c(wchar_t *_DstBuf,আকার_t আকার_In_শব্দগুলি,ধ্রুবক wchar_t *_Format,...);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _vswprintf_c(wchar_t *_DstBuf,আকার_t আকার_In_শব্দগুলি,ধ্রুবক wchar_t *_Format,va_list _ArgList);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _snwprintf(wchar_t *_Dest,আকার_t গুনতি_5,ধ্রুবক wchar_t *_Format,...);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _vsnwprintf(wchar_t *_Dest,আকার_t গুনতি_5,ধ্রুবক wchar_t *_Format,va_list _Args);
 #ifndef __NO_ISOCEXT  /* externs in libmingwex.a */
-  int __cdecl snwprintf (wchar_t* s, size_t n, const wchar_t*  format, ...);
-  __CRT_INLINE int __cdecl vsnwprintf (wchar_t* s, size_t n, const wchar_t* format, va_list arg) { return _vsnwprintf(s,n,format,arg); }
-  int __cdecl vwscanf (const wchar_t *, va_list);
-  int __cdecl vfwscanf (FILE *,const wchar_t *,va_list);
-  int __cdecl vswscanf (const wchar_t *,const wchar_t *,va_list);
+  পূর্ণসংখ্যা __cdecl snwprintf (wchar_t* s, আকার_t n, ধ্রুবক wchar_t*  format, ...);
+  __CRT_INLINE পূর্ণসংখ্যা __cdecl vsnwprintf (wchar_t* s, আকার_t n, ধ্রুবক wchar_t* format, va_list arg) { ফেরত _vsnwprintf(s,n,format,arg); }
+  পূর্ণসংখ্যা __cdecl vwscanf (ধ্রুবক wchar_t *, va_list);
+  পূর্ণসংখ্যা __cdecl vfwscanf (FILE *,ধ্রুবক wchar_t *,va_list);
+  পূর্ণসংখ্যা __cdecl vswscanf (ধ্রুবক wchar_t *,ধ্রুবক wchar_t *,va_list);
 #endif
-  _CRTIMP int __cdecl _swprintf(wchar_t *_Dest,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf(wchar_t *_Dest,const wchar_t *_Format,va_list _Args);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _swprintf(wchar_t *_Dest,ধ্রুবক wchar_t *_Format,...);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _vswprintf(wchar_t *_Dest,ধ্রুবক wchar_t *_Format,va_list _Args);
 
 #ifndef RC_INVOKED
-#include <vadefs.h>
+#অন্তর্ভাব <vadefs.h>
 #endif
 
 #ifdef _CRT_NON_CONFORMING_SWPRINTFS
@@ -337,37 +337,37 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 #endif
 #endif
 
-  _CRTIMP wchar_t *__cdecl _wtempnam(const wchar_t *_Directory,const wchar_t *_FilePrefix);
-  _CRTIMP int __cdecl _vscwprintf(const wchar_t *_Format,va_list _ArgList);
-  int __cdecl fwscanf(FILE *_File,const wchar_t *_Format,...);
-  int __cdecl swscanf(const wchar_t *_Src,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _snwscanf(const wchar_t *_Src,size_t _MaxCount,const wchar_t *_Format,...);
-  int __cdecl wscanf(const wchar_t *_Format,...);
-  _CRTIMP FILE *__cdecl _wfdopen(int _FileHandle ,const wchar_t *_Mode);
-  _CRTIMP FILE *__cdecl _wfopen(const wchar_t *_Filename,const wchar_t *_Mode);
-  _CRTIMP FILE *__cdecl _wfreopen(const wchar_t *_Filename,const wchar_t *_Mode,FILE *_OldFile);
+  _CRTIMP wchar_t *__cdecl _wtempnam(ধ্রুবক wchar_t *_Directory,ধ্রুবক wchar_t *_FilePrefix);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _vscwprintf(ধ্রুবক wchar_t *_Format,va_list _ArgList);
+  পূর্ণসংখ্যা __cdecl fwscanf(FILE *_File,ধ্রুবক wchar_t *_Format,...);
+  পূর্ণসংখ্যা __cdecl swscanf(ধ্রুবক wchar_t *_Src,ধ্রুবক wchar_t *_Format,...);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _snwscanf(ধ্রুবক wchar_t *_Src,আকার_t Max_গুনতি,ধ্রুবক wchar_t *_Format,...);
+  পূর্ণসংখ্যা __cdecl wscanf(ধ্রুবক wchar_t *_Format,...);
+  _CRTIMP FILE *__cdecl _wfdopen(পূর্ণসংখ্যা _FileHandle ,ধ্রুবক wchar_t *_Mode);
+  _CRTIMP FILE *__cdecl _wfopen(ধ্রুবক wchar_t *_Filename,ধ্রুবক wchar_t *_Mode);
+  _CRTIMP FILE *__cdecl _wfreopen(ধ্রুবক wchar_t *_Filename,ধ্রুবক wchar_t *_Mode,FILE *_OldFile);
 #ifndef _CRT_WPERROR_DEFINED
 #define _CRT_WPERROR_DEFINED
-  _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
+  _CRTIMP শূন্য __cdecl _wperror(ধ্রুবক wchar_t *Err_বার্তা);
 #endif
-  _CRTIMP FILE *__cdecl _wpopen(const wchar_t *_Command,const wchar_t *_Mode);
-#if !defined(NO_OLDNAMES) && !defined(wpopen)
+  _CRTIMP FILE *__cdecl _wpopen(ধ্রুবক wchar_t *_Command,ধ্রুবক wchar_t *_Mode);
+#যদি !defined(NO_OLDNAMES) && !defined(wpopen)
 #define wpopen  _wpopen
 #endif
-  _CRTIMP int __cdecl _wremove(const wchar_t *_Filename);
-  _CRTIMP wchar_t *__cdecl _wtmpnam(wchar_t *_Buffer);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _wremove(ধ্রুবক wchar_t *_Filename);
+  _CRTIMP wchar_t *__cdecl _wtmpnam(wchar_t *বাফার_2);
   _CRTIMP wint_t __cdecl _fgetwc_nolock(FILE *_File);
   _CRTIMP wint_t __cdecl _fputwc_nolock(wchar_t _Ch,FILE *_File);
   _CRTIMP wint_t __cdecl _ungetwc_nolock(wint_t _Ch,FILE *_File);
 
 #undef _CRT_GETPUTWCHAR_NOINLINE
 
-#if !defined(__cplusplus) || defined(_CRT_GETPUTWCHAR_NOINLINE)
+#যদি !defined(__cplusplus) || defined(_CRT_GETPUTWCHAR_NOINLINE)
 #define getwchar() fgetwc(stdin)
 #define putwchar(_c) fputwc((_c),stdout)
-#else
-  __CRT_INLINE wint_t __cdecl getwchar() { return (fgetwc(stdin)); }
-  __CRT_INLINE wint_t __cdecl putwchar(wchar_t _C) { return (fputwc(_C,stdout)); }
+#অন্যথা
+  __CRT_INLINE wint_t __cdecl getwchar() { ফেরত (fgetwc(stdin)); }
+  __CRT_INLINE wint_t __cdecl putwchar(wchar_t _C) { ফেরত (fputwc(_C,stdout)); }
 #endif
 
 #define getwc(_stm) fgetwc(_stm)
@@ -382,7 +382,7 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 #endif
 
 #define _fgetc_nolock(_stream) (--(_stream)->_cnt >= 0 ? 0xff & *(_stream)->_ptr++ : _filbuf(_stream))
-#define _fputc_nolock(_c,_stream) (--(_stream)->_cnt >= 0 ? 0xff & (*(_stream)->_ptr++ = (char)(_c)) : _flsbuf((_c),(_stream)))
+#define _fputc_nolock(_c,_stream) (--(_stream)->_cnt >= 0 ? 0xff & (*(_stream)->_ptr++ = (অক্ষর)(_c)) : _flsbuf((_c),(_stream)))
 #define _getc_nolock(_stream) _fgetc_nolock(_stream)
 #define _putc_nolock(_c,_stream) _fputc_nolock(_c,_stream)
 #define _getchar_nolock() _getc_nolock(stdin)
@@ -390,40 +390,40 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 #define _getwchar_nolock() _getwc_nolock(stdin)
 #define _putwchar_nolock(_c) _putwc_nolock((_c),stdout)
 
-  _CRTIMP void __cdecl _lock_file(FILE *_File);
-  _CRTIMP void __cdecl _unlock_file(FILE *_File);
-  _CRTIMP int __cdecl _fclose_nolock(FILE *_File);
-  _CRTIMP int __cdecl _fflush_nolock(FILE *_File);
-  _CRTIMP size_t __cdecl _fread_nolock(void *_DstBuf,size_t _ElementSize,size_t _Count,FILE *_File);
-  _CRTIMP int __cdecl _fseek_nolock(FILE *_File,long _Offset,int _Origin);
+  _CRTIMP শূন্য __cdecl _lock_file(FILE *_File);
+  _CRTIMP শূন্য __cdecl _unlock_file(FILE *_File);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _fclose_nolock(FILE *_File);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _fflush_nolock(FILE *_File);
+  _CRTIMP আকার_t __cdecl _fread_nolock(শূন্য *_DstBuf,আকার_t Element_আকার,আকার_t গুনতি_5,FILE *_File);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _fseek_nolock(FILE *_File,long _Offset,পূর্ণসংখ্যা _Origin);
   _CRTIMP long __cdecl _ftell_nolock(FILE *_File);
-  _CRTIMP int __cdecl _fseeki64_nolock(FILE *_File,__int64 _Offset,int _Origin);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _fseeki64_nolock(FILE *_File,__int64 _Offset,পূর্ণসংখ্যা _Origin);
   _CRTIMP __int64 __cdecl _ftelli64_nolock(FILE *_File);
-  _CRTIMP size_t __cdecl _fwrite_nolock(const void *_DstBuf,size_t _Size,size_t _Count,FILE *_File);
-  _CRTIMP int __cdecl _ungetc_nolock(int _Ch,FILE *_File);
+  _CRTIMP আকার_t __cdecl _fwrite_nolock(ধ্রুবক শূন্য *_DstBuf,আকার_t আকার_5,আকার_t গুনতি_5,FILE *_File);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _ungetc_nolock(পূর্ণসংখ্যা _Ch,FILE *_File);
 
-#if !defined(NO_OLDNAMES) || !defined(_POSIX)
+#যদি !defined(NO_OLDNAMES) || !defined(_POSIX)
 #define P_tmpdir _P_tmpdir
 #define SYS_OPEN _SYS_OPEN
 
-  char *__cdecl tempnam(const char *_Directory,const char *_FilePrefix);
-  int __cdecl fcloseall(void);
-  FILE *__cdecl fdopen(int _FileHandle,const char *_Format);
-  int __cdecl fgetchar(void);
-  int __cdecl fileno(FILE *_File);
-  int __cdecl flushall(void);
-  int __cdecl fputchar(int _Ch);
-  int __cdecl getw(FILE *_File);
-  int __cdecl putw(int _Ch,FILE *_File);
-  int __cdecl rmtmp(void);
+  অক্ষর *__cdecl tempnam(ধ্রুবক অক্ষর *_Directory,ধ্রুবক অক্ষর *_FilePrefix);
+  পূর্ণসংখ্যা __cdecl fcloseall(শূন্য);
+  FILE *__cdecl fdopen(পূর্ণসংখ্যা _FileHandle,ধ্রুবক অক্ষর *_Format);
+  পূর্ণসংখ্যা __cdecl fgetchar(শূন্য);
+  পূর্ণসংখ্যা __cdecl fileno(FILE *_File);
+  পূর্ণসংখ্যা __cdecl flushall(শূন্য);
+  পূর্ণসংখ্যা __cdecl fputchar(পূর্ণসংখ্যা _Ch);
+  পূর্ণসংখ্যা __cdecl getw(FILE *_File);
+  পূর্ণসংখ্যা __cdecl putw(পূর্ণসংখ্যা _Ch,FILE *_File);
+  পূর্ণসংখ্যা __cdecl rmtmp(শূন্য);
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(বের_করো)
 
-#include <sec_api/stdio_s.h>
+#অন্তর্ভাব <sec_api/stdio_s.h>
 
 #endif

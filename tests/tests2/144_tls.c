@@ -1,72 +1,72 @@
-#include <stdio.h>
-#include "threads.h"
+#অন্তর্ভাব <stdio.h>
+#অন্তর্ভাব "threads.h"
 
-#if __SIZEOF_POINTER__ == 8
+#যদি __SIZEOF_POINTER__ == 8
 # define pFMT "0x%llx"
-#else
+#অন্যথা
 # define pFMT "0x%x"
 #endif
 
-#define	CHECK(var,fmt,val)	printf(fmt "\n",var); if (var != val) errors = 1
+#define	CHECK(var,fmt,val)	printf(fmt "\n",var); যদি (var != val) errors = 1
 
-typedef enum { tls_a, tls_b, tls_c } tls_enum_type;
-typedef struct { int tls_d, tls_e, tls_f; } tls_struct_type;
+প্রকারলেখ গণনা { tls_a, tls_b, tls_c } tls_enum_type;
+প্রকারলেখ কাঠামো { পূর্ণসংখ্যা tls_d, tls_e, tls_f; } tls_struct_type;
 
-typedef struct {
-    int *init;
+প্রকারলেখ কাঠামো {
+    পূর্ণসংখ্যা *init;
     signed short *element;
 } tls_address_type;
 
-__thread char tls_char = 42;
+__thread অক্ষর tls_char = 42;
 __thread short tls_short = 43;
-__thread int tls_init = 44;
+__thread পূর্ণসংখ্যা tls_init = 44;
 __thread long long tls_long_long = 45;
-__thread int tls_zero;
-__thread float tls_float = 46.0;
-__thread double tls_double = 47.0;
-__thread long double tls_long_double = 48.0;
-__thread int *tls_ptr = (int *)49;
+__thread পূর্ণসংখ্যা tls_zero;
+__thread দশমিক tls_float = 46.0;
+__thread দ্বিগুণ tls_double = 47.0;
+__thread long দ্বিগুণ tls_long_double = 48.0;
+__thread পূর্ণসংখ্যা *tls_ptr = (পূর্ণসংখ্যা *)49;
 __thread tls_enum_type tls_enum = tls_b;
 __thread tls_struct_type tls_struct = { 50, 51, 52 };
-__thread signed char tls_signed_char = -5;
-__thread unsigned char tls_unsigned_char = 250;
+__thread signed অক্ষর tls_signed_char = -5;
+__thread unsigned অক্ষর tls_unsigned_char = 250;
 __thread signed short tls_signed_short = -1234;
 __thread unsigned short tls_unsigned_short = 60000;
 __thread signed short tls_array[4] = { -1000, 2000, -3000, 4000 };
 
-#if defined __riscv && __riscv_xlen == 64
-typedef struct {
-    char padding[4096];
-    int value;
+#যদি defined __riscv && __riscv_xlen == 64
+প্রকারলেখ কাঠামো {
+    অক্ষর padding[4096];
+    পূর্ণসংখ্যা মান;
 } tls_large_type;
 
 __thread tls_large_type tls_large = { { 0 }, 123456 };
 #endif
 
-static int check_extra(int changed)
+স্থির পূর্ণসংখ্যা check_extra(পূর্ণসংখ্যা changed)
 {
-    volatile int index = 2;
+    অস্থির পূর্ণসংখ্যা সূচক = 2;
 
-    if (changed)
-        return tls_signed_char != -7 || tls_unsigned_char != 42
+    যদি (changed)
+        ফেরত tls_signed_char != -7 || tls_unsigned_char != 42
             || tls_signed_short != -2222 || tls_unsigned_short != 12345
-            || tls_array[1] != 2222 || tls_array[index] != -3333;
+            || tls_array[1] != 2222 || tls_array[সূচক] != -3333;
 
-    if (tls_signed_char != -5 || tls_unsigned_char != 250
+    যদি (tls_signed_char != -5 || tls_unsigned_char != 250
         || tls_signed_short != -1234 || tls_unsigned_short != 60000
-        || tls_array[1] != 2000 || tls_array[index] != -3000)
-        return 1;
+        || tls_array[1] != 2000 || tls_array[সূচক] != -3000)
+        ফেরত 1;
 
-#if defined __riscv && __riscv_xlen == 64
-    if (tls_large.value != 123456)
-        return 1;
+#যদি defined __riscv && __riscv_xlen == 64
+    যদি (tls_large.মান != 123456)
+        ফেরত 1;
 #endif
-    return 0;
+    ফেরত 0;
 }
 
-static int check(void)
+স্থির পূর্ণসংখ্যা check(শূন্য)
 {
-    int errors = 0;
+    পূর্ণসংখ্যা errors = 0;
 
     CHECK(tls_char, "%d", 42);
     CHECK(tls_short, "%d", 43);
@@ -76,26 +76,26 @@ static int check(void)
     CHECK(tls_float, "%g", 46.0);
     CHECK(tls_double, "%g", 47.0);
     CHECK(tls_long_double, "%Lg", 48.0);
-    CHECK(tls_ptr, pFMT, (int *)49);
+    CHECK(tls_ptr, pFMT, (পূর্ণসংখ্যা *)49);
     CHECK(tls_enum, "%d", tls_b);
     CHECK(tls_struct.tls_d, "%d", 50);
     CHECK(tls_struct.tls_e, "%d", 51);
     CHECK(tls_struct.tls_f, "%d", 52);
-    return errors;
+    ফেরত errors;
 }
 
-static void *thread_func(void *arg)
+স্থির শূন্য *thread_func(শূন্য *arg)
 {
     tls_address_type *main_addresses = arg;
-    int *init_address = &tls_init;
+    পূর্ণসংখ্যা *init_address = &tls_init;
     signed short *element_address = &tls_array[1];
-    volatile int index = 2;
+    অস্থির পূর্ণসংখ্যা সূচক = 2;
     long errors = check();
 
-    if (init_address == main_addresses->init
+    যদি (init_address == main_addresses->init
         || element_address == main_addresses->element
         || *init_address != 44 || *element_address != 2000
-        || tls_array[index] != -3000 || check_extra(0))
+        || tls_array[সূচক] != -3000 || check_extra(0))
         errors = 1;
 
     tls_char = 10;
@@ -106,13 +106,13 @@ static void *thread_func(void *arg)
     tls_float = 60.0;
     tls_double = 70.0;
     tls_long_double = 80.0;
-    tls_ptr = (int *)90;
+    tls_ptr = (পূর্ণসংখ্যা *)90;
     tls_enum = tls_c;
     tls_struct.tls_d = 100;
     tls_struct.tls_e = 110;
     tls_struct.tls_f = 120;
     *element_address = 2222;
-    tls_array[index] = -3333;
+    tls_array[সূচক] = -3333;
     tls_signed_char = -7;
     tls_unsigned_char = 42;
     tls_signed_short = -2222;
@@ -127,37 +127,37 @@ static void *thread_func(void *arg)
     CHECK(tls_double, "%g", 70.0);
     CHECK(tls_long_double, "%Lg", 80.0);
     CHECK(tls_enum, "%d", tls_c);
-    CHECK(tls_ptr, pFMT, (int *)90);
+    CHECK(tls_ptr, pFMT, (পূর্ণসংখ্যা *)90);
     CHECK(tls_struct.tls_d, "%d", 100);
     CHECK(tls_struct.tls_e, "%d", 110);
     CHECK(tls_struct.tls_f, "%d", 120);
 
-    if (*init_address != 30 || *element_address != 2222
-        || tls_array[index] != -3333 || check_extra(1))
+    যদি (*init_address != 30 || *element_address != 2222
+        || tls_array[সূচক] != -3333 || check_extra(1))
         errors = 1;
 
-    return (void *)(size_t)errors;
+    ফেরত (শূন্য *)(আকার_t)errors;
 }
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
     pthread_t t;
-    void *ret;
-    int errors = check();
+    শূন্য *ret;
+    পূর্ণসংখ্যা errors = check();
     tls_address_type addresses = { &tls_init, &tls_array[1] };
 
-    if (*addresses.init != 44 || *addresses.element != 2000
+    যদি (*addresses.init != 44 || *addresses.element != 2000
         || check_extra(0))
         errors = 1;
 
-    pthread_create(&t, NULL, thread_func, &addresses);
+    pthread_create(&t, ফাঁকা, thread_func, &addresses);
     pthread_join(t, &ret);
 
     errors |= (ret ? 1 : 0) | check();
-    if (*addresses.init != 44 || *addresses.element != 2000
+    যদি (*addresses.init != 44 || *addresses.element != 2000
         || check_extra(0))
         errors = 1;
 
     printf("errors: %d\n", errors);
-    return errors;
+    ফেরত errors;
 }

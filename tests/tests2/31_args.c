@@ -1,14 +1,14 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main(int argc, char **argv)
+পূর্ণসংখ্যা প্রধান(পূর্ণসংখ্যা argc, অক্ষর **argv)
 {
-   int Count;
+   পূর্ণসংখ্যা গুনতি_3;
 
    printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   জন্য (গুনতি_3 = 1; গুনতি_3 < argc; গুনতি_3++)
+      printf("arg %d: %s\n", গুনতি_3, argv[গুনতি_3]);
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

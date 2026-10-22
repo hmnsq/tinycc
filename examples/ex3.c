@@ -1,23 +1,23 @@
-#include <tcclib.h>
+#অন্তর্ভাব <tcclib.h>
 
-int fib(int n)
+পূর্ণসংখ্যা fib(পূর্ণসংখ্যা n)
 {
-    if (n <= 2)
-        return 1;
-    else
-        return fib(n-1) + fib(n-2);
+    যদি (n <= 2)
+        ফেরত 1;
+    অন্যথা
+        ফেরত fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+পূর্ণসংখ্যা প্রধান(পূর্ণসংখ্যা argc, অক্ষর **argv)
 {
-    int n;
-    if (argc < 2) {
+    পূর্ণসংখ্যা n;
+    যদি (argc < 2) {
         printf("usage: fib n\n"
                "Compute nth Fibonacci number\n");
-        return 1;
+        ফেরত 1;
     }
 
     n = atoi(argv[1]);
     printf("fib(%d) = %d\n", n, fib(n));
-    return 0;
+    ফেরত 0;
 }

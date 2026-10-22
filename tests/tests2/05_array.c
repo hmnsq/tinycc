@@ -1,21 +1,21 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main() 
+পূর্ণসংখ্যা প্রধান() 
 {
-   int Count;
-   int Array[10];
+   পূর্ণসংখ্যা গুনতি_3;
+   পূর্ণসংখ্যা Array[10];
 
-   for (Count = 1; Count <= 10; Count++)
+   জন্য (গুনতি_3 = 1; গুনতি_3 <= 10; গুনতি_3++)
    {
-      Array[Count-1] = Count * Count;
+      Array[গুনতি_3-1] = গুনতি_3 * গুনতি_3;
    }
 
-   for (Count = 0; Count < 10; Count++)
+   জন্য (গুনতি_3 = 0; গুনতি_3 < 10; গুনতি_3++)
    {
-      printf("%d\n", Array[Count]);
+      printf("%d\n", Array[গুনতি_3]);
    }
 
-   return 0;
+   ফেরত 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

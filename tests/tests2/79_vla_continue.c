@@ -1,113 +1,113 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int f(void)
+পূর্ণসংখ্যা f(শূন্য)
 {
-  return 5;
+  ফেরত 5;
 }
 
-void test1()
+শূন্য test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  পূর্ণসংখ্যা গুনতি_2 = 10;
+  শূন্য *addr[10];
+  জন্য(;গুনতি_2--;) {
+    পূর্ণসংখ্যা a[f()];
 
-    addr[count] = a;
+    addr[গুনতি_2] = a;
 
-    continue;
+    চালু;
   }
 
-  if(addr[9] == addr[0]) {
+  যদি(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } অন্যথা {
     printf("NOT OK\n");
   }
 }
 
-void test2()
+শূন্য test2()
 {
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  পূর্ণসংখ্যা গুনতি_2 = 10;
+  শূন্য *addr[গুনতি_2];
+  জন্য(;গুনতি_2--;) {
+    পূর্ণসংখ্যা a[f()];
 
-    addr[count] = a;
+    addr[গুনতি_2] = a;
 
-    continue;
+    চালু;
   }
 
-  if(addr[9] == addr[0]) {
+  যদি(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } অন্যথা {
     printf("NOT OK\n");
   }
 }
 
-void test3()
+শূন্য test3()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  পূর্ণসংখ্যা গুনতি_2 = 10;
+  শূন্য *addr[গুনতি_2];
+  যখন(গুনতি_2--) {
+      পূর্ণসংখ্যা b[f()];
+      যদি (গুনতি_2 >= 0) {
+          পূর্ণসংখ্যা a[f()];
 
-          addr[count] = a;
+          addr[গুনতি_2] = a;
 
-          continue;
+          চালু;
       }
   }
 
-  if(addr[9] == addr[0]) {
+  যদি(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } অন্যথা {
     printf("NOT OK\n");
   }
 }
 
-void test4()
+শূন্য test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  পূর্ণসংখ্যা গুনতি_2 = 10;
+  শূন্য *addr[গুনতি_2];
+  করো {
+    পূর্ণসংখ্যা a[f()];
 
-    addr[--count] = a;
+    addr[--গুনতি_2] = a;
 
-    continue;
-  } while (count);
+    চালু;
+  } যখন (গুনতি_2);
 
-  if(addr[9] == addr[0]) {
+  যদি(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } অন্যথা {
     printf("NOT OK\n");
   }
 }
 
-void test5()
+শূন্য test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  পূর্ণসংখ্যা গুনতি_2 = 10;
+  পূর্ণসংখ্যা a[f()];
+  পূর্ণসংখ্যা c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  জন্য(;গুনতি_2--;) {
+    পূর্ণসংখ্যা b[f()];
+    পূর্ণসংখ্যা i;
+    জন্য (i=0; i<f(); i++) {
+      b[i] = গুনতি_2;
     }
   }
 
-  if (c[0] == 42) {
+  যদি (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } অন্যথা {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+পূর্ণসংখ্যা প্রধান(শূন্য)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  ফেরত 0;
 }

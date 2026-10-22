@@ -1,28 +1,28 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-   int a;
-   int *b;
-   int *c;
+   পূর্ণসংখ্যা a;
+   পূর্ণসংখ্যা *b;
+   পূর্ণসংখ্যা *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = ফাঁকা;
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   যদি (b == ফাঁকা)
       printf("b is NULL\n");
-   else
+   অন্যথা
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   যদি (c == ফাঁকা)
       printf("c is NULL\n");
-   else
+   অন্যথা
       printf("c is not NULL\n");
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

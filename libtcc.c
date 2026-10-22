@@ -22,216 +22,216 @@
 # define ONE_SOURCE 1
 #endif
 
-#if ONE_SOURCE
-#include "tccpp.c"
-#include "tccgen.c"
-#include "tccdbg.c"
-#include "tccasm.c"
-#include "tccelf.c"
-#include "tccrun.c"
+#যদি ONE_SOURCE
+#অন্তর্ভাব "tccpp.c"
+#অন্তর্ভাব "tccgen.c"
+#অন্তর্ভাব "tccdbg.c"
+#অন্তর্ভাব "tccasm.c"
+#অন্তর্ভাব "tccelf.c"
+#অন্তর্ভাব "tccrun.c"
 #ifdef TCC_TARGET_I386
-#include "i386-gen.c"
-#include "i386-link.c"
-#include "i386-asm.c"
-#elif defined(TCC_TARGET_ARM)
-#include "arm-gen.c"
-#include "arm-link.c"
-#include "arm-asm.c"
-#elif defined(TCC_TARGET_ARM64)
-#include "arm64-gen.c"
-#include "arm64-link.c"
-#include "arm64-asm.c"
-#elif defined(TCC_TARGET_C67)
-#include "c67-gen.c"
-#include "c67-link.c"
-#include "tcccoff.c"
-#elif defined(TCC_TARGET_X86_64)
-#include "x86_64-gen.c"
-#include "x86_64-link.c"
-#include "i386-asm.c"
-#elif defined(TCC_TARGET_RISCV64)
-#include "riscv64-gen.c"
-#include "riscv64-link.c"
-#include "riscv64-asm.c"
-#else
+#অন্তর্ভাব "i386-gen.c"
+#অন্তর্ভাব "i386-link.c"
+#অন্তর্ভাব "i386-asm.c"
+#নতুবা_যদি defined(TCC_TARGET_ARM)
+#অন্তর্ভাব "arm-gen.c"
+#অন্তর্ভাব "arm-link.c"
+#অন্তর্ভাব "arm-asm.c"
+#নতুবা_যদি defined(TCC_TARGET_ARM64)
+#অন্তর্ভাব "arm64-gen.c"
+#অন্তর্ভাব "arm64-link.c"
+#অন্তর্ভাব "arm64-asm.c"
+#নতুবা_যদি defined(TCC_TARGET_C67)
+#অন্তর্ভাব "c67-gen.c"
+#অন্তর্ভাব "c67-link.c"
+#অন্তর্ভাব "tcccoff.c"
+#নতুবা_যদি defined(TCC_TARGET_X86_64)
+#অন্তর্ভাব "x86_64-gen.c"
+#অন্তর্ভাব "x86_64-link.c"
+#অন্তর্ভাব "i386-asm.c"
+#নতুবা_যদি defined(TCC_TARGET_RISCV64)
+#অন্তর্ভাব "riscv64-gen.c"
+#অন্তর্ভাব "riscv64-link.c"
+#অন্তর্ভাব "riscv64-asm.c"
+#অন্যথা
 #error unknown target
 #endif
 #ifdef TCC_TARGET_PE
-#include "tccpe.c"
+#অন্তর্ভাব "tccpe.c"
 #endif
 #ifdef TCC_TARGET_MACHO
-#include "tccmacho.c"
+#অন্তর্ভাব "tccmacho.c"
 #endif
 #endif /* ONE_SOURCE */
 
-#include "tcc.h"
+#অন্তর্ভাব "tcc.h"
 
 /********************************************************/
 /* global variables */
 
 /* XXX: get rid of this ASAP (or maybe not) */
-ST_DATA struct TCCState *tcc_state;
-TCC_SEM(static tcc_compile_sem);
+ST_তথ্য কাঠামো TCCState *tcc_state;
+TCC_SEM(স্থির tcc_compile_sem);
 /* an array of pointers to memory to be free'd after errors */
-ST_DATA void** stk_data;
-ST_DATA int nb_stk_data;
+ST_তথ্য শূন্য** stk_তথ্য;
+ST_তথ্য পূর্ণসংখ্যা nb_stk_তথ্য;
 /* option -d<num> (for general development purposes) */
-ST_DATA int g_debug;
+ST_তথ্য পূর্ণসংখ্যা g_debug;
 
 /********************************************************/
 #ifdef _WIN32
-ST_FUNC char *normalize_slashes(char *path)
+ST_FUNC অক্ষর *normalize_slashes(অক্ষর *path)
 {
-    char *p;
-    for (p = path; *p; ++p)
-        if (*p == '\\')
+    অক্ষর *p;
+    জন্য (p = path; *p; ++p)
+        যদি (*p == '\\')
             *p = '/';
-    return path;
+    ফেরত path;
 }
 
-#if defined LIBTCC_AS_DLL && !defined CONFIG_TCCDIR
-static HMODULE tcc_module;
+#যদি defined LIBTCC_AS_DLL && !defined CONFIG_TCCDIR
+স্থির HMODULE tcc_module;
 BOOL WINAPI DllMain (HINSTANCE hDll, DWORD dwReason, LPVOID lpReserved)
 {
-    if (DLL_PROCESS_ATTACH == dwReason)
+    যদি (DLL_PROCESS_ATTACH == dwReason)
         tcc_module = hDll;
-    return TRUE;
+    ফেরত TRUE;
 }
-#else
-#define tcc_module NULL /* NULL means executable itself */
+#অন্যথা
+#define tcc_module ফাঁকা /* NULL means executable itself */
 #endif
 
 #ifndef CONFIG_TCCDIR
 /* on win32, we suppose the lib and includes are at the location of 'tcc.exe' */
-static inline char *config_tccdir_w32(char *path)
+স্থির অন্তঃরেখ অক্ষর *config_tccdir_w32(অক্ষর *path)
 {
-    char *p;
+    অক্ষর *p;
     GetModuleFileNameA(tcc_module, path, MAX_PATH);
     p = tcc_basename(normalize_slashes(strlwr(path)));
-    if (p > path)
+    যদি (p > path)
         --p;
     *p = 0;
-    return path;
+    ফেরত path;
 }
 #define CONFIG_TCCDIR config_tccdir_w32(alloca(MAX_PATH))
 #endif
 
 #ifdef TCC_IS_NATIVE
-static void tcc_add_systemdir(TCCState *s)
+স্থির শূন্য tcc_add_systemdir(TCCState *s)
 {
-    char buf[1000];
-    GetSystemDirectoryA(buf, sizeof buf);
+    অক্ষর buf[1000];
+    GetSystemDirectoryA(buf, আকার buf);
     tcc_add_library_path(s, normalize_slashes(buf));
 }
 #endif
 /* for tcc -E : On windows (depending on compiler) a FILE*
    must be created by the same module where it is used. */
-PUB_FUNC FILE *tcc_fopen(const char *f, const char *m) {
-    return fopen(f, m);
+PUB_FUNC FILE *tcc_fopen(ধ্রুবক অক্ষর *f, ধ্রুবক অক্ষর *m) {
+    ফেরত fopen(f, m);
 }
-PUB_FUNC int tcc_fclose(FILE *f) {
-    return fclose(f);
+PUB_FUNC পূর্ণসংখ্যা tcc_fclose(FILE *f) {
+    ফেরত fclose(f);
 }
 #endif
 /********************************************************/
 
-PUB_FUNC void tcc_enter_state(TCCState *s1)
+PUB_FUNC শূন্য tcc_enter_state(TCCState *s1)
 {
-    if (s1->error_set_jmp_enabled)
-        return;
+    যদি (s1->error_set_jmp_enabled)
+        ফেরত;
     WAIT_SEM(&tcc_compile_sem);
     tcc_state = s1;
 }
 
-PUB_FUNC void tcc_exit_state(TCCState *s1)
+PUB_FUNC শূন্য tcc_exit_state(TCCState *s1)
 {
-    if (s1->error_set_jmp_enabled)
-        return;
-    tcc_state = NULL;
+    যদি (s1->error_set_jmp_enabled)
+        ফেরত;
+    tcc_state = ফাঁকা;
     POST_SEM(&tcc_compile_sem);
 }
 
 /********************************************************/
 /* copy a string and truncate it. */
-ST_FUNC char *pstrcpy(char *buf, size_t buf_size, const char *s)
+ST_FUNC অক্ষর *pstrcpy(অক্ষর *buf, আকার_t buf_আকার, ধ্রুবক অক্ষর *s)
 {
-    char *q, *q_end;
-    int c;
+    অক্ষর *q, *q_end;
+    পূর্ণসংখ্যা c;
 
-    if (buf_size > 0) {
+    যদি (buf_আকার > 0) {
         q = buf;
-        q_end = buf + buf_size - 1;
-        while (q < q_end) {
+        q_end = buf + buf_আকার - 1;
+        যখন (q < q_end) {
             c = *s++;
-            if (c == '\0')
-                break;
+            যদি (c == '\0')
+                বিরতি;
             *q++ = c;
         }
         *q = '\0';
     }
-    return buf;
+    ফেরত buf;
 }
 
 /* strcat and truncate. */
-ST_FUNC char *pstrcat(char *buf, size_t buf_size, const char *s)
+ST_FUNC অক্ষর *pstrcat(অক্ষর *buf, আকার_t buf_আকার, ধ্রুবক অক্ষর *s)
 {
-    size_t len;
+    আকার_t len;
     len = strlen(buf);
-    if (len < buf_size)
-        pstrcpy(buf + len, buf_size - len, s);
-    return buf;
+    যদি (len < buf_আকার)
+        pstrcpy(buf + len, buf_আকার - len, s);
+    ফেরত buf;
 }
 
-ST_FUNC char *pstrncpy(char *out, size_t buf_size, const char *s, size_t num)
+ST_FUNC অক্ষর *pstrncpy(অক্ষর *out, আকার_t buf_আকার, ধ্রুবক অক্ষর *s, আকার_t অঙ্ক)
 {
-    if (num >= buf_size)
-        num = buf_size - 1;
-    memcpy(out, s, num);
-    out[num] = '\0';
-    return out;
+    যদি (অঙ্ক >= buf_আকার)
+        অঙ্ক = buf_আকার - 1;
+    memcpy(out, s, অঙ্ক);
+    out[অঙ্ক] = '\0';
+    ফেরত out;
 }
 
 /* extract the basename of a file */
-PUB_FUNC char *tcc_basename(const char *name)
+PUB_FUNC অক্ষর *tcc_basename(ধ্রুবক অক্ষর *name)
 {
-    char *p = (char *)strchr(name, 0);
-    while (p > name && !IS_DIRSEP(p[-1]))
+    অক্ষর *p = (অক্ষর *)strchr(name, 0);
+    যখন (p > name && !IS_DIRSEP(p[-1]))
         --p;
-    return p;
+    ফেরত p;
 }
 
 /* extract extension part of a file
  *
  * (if no extension, return pointer to end-of-string)
  */
-PUB_FUNC char *tcc_fileextension (const char *name)
+PUB_FUNC অক্ষর *tcc_fileextension (ধ্রুবক অক্ষর *name)
 {
-    char *b = tcc_basename(name);
-    char *e = strrchr(b, '.');
-    return e ? e : strchr(b, 0);
+    অক্ষর *b = tcc_basename(name);
+    অক্ষর *e = strrchr(b, '.');
+    ফেরত e ? e : strchr(b, 0);
 }
 
-ST_FUNC char *tcc_load_text(int fd)
+ST_FUNC অক্ষর *tcc_load_text(পূর্ণসংখ্যা fd)
 {
-    int len = lseek(fd, 0, SEEK_END);
-    char *buf = load_data(fd, 0, len + 1);
+    পূর্ণসংখ্যা len = lseek(fd, 0, SEEK_END);
+    অক্ষর *buf = load_তথ্য(fd, 0, len + 1);
     buf[len] = 0;
-    return buf;
+    ফেরত buf;
 }
 
 /* replace *pp by copy of 'str' or NULL */
-static void tcc_set_str(char **pp, const char *str)
+স্থির শূন্য tcc_set_str(অক্ষর **pp, ধ্রুবক অক্ষর *str)
 {
     tcc_free(*pp);
-    *pp = str ? tcc_strdup(str) : NULL;
+    *pp = str ? tcc_strdup(str) : ফাঁকা;
 }
 
 /* set/append 'str' to *pp (separated by 'sep' unless 0) */
-static void tcc_concat_str(char **pp, const char *str, int sep)
+স্থির শূন্য tcc_concat_str(অক্ষর **pp, ধ্রুবক অক্ষর *str, পূর্ণসংখ্যা sep)
 {
-    int l = *pp ? strlen(*pp) + !!sep : 0;
+    পূর্ণসংখ্যা l = *pp ? strlen(*pp) + !!sep : 0;
     *pp = tcc_realloc(*pp, l + strlen(str) + 1);
-    if (l && sep) ((*pp)[l - 1] = sep);
+    যদি (l && sep) ((*pp)[l - 1] = sep);
     strcpy(*pp + l, str);
 }
 
@@ -239,39 +239,39 @@ static void tcc_concat_str(char **pp, const char *str, int sep)
 /* memory management */
 
 /* we'll need the actual versions for a minute */
-#undef free
+#undef মুক্ত
 #undef realloc
 
-static void *default_reallocator(void *ptr, unsigned long size)
+স্থির শূন্য *default_reallocator(শূন্য *ptr, unsigned long আকার_2)
 {
-    void *ptr1;
-    if (size == 0) {
-        free(ptr);
-        ptr1 = NULL;
+    শূন্য *ptr1;
+    যদি (আকার_2 == 0) {
+        মুক্ত(ptr);
+        ptr1 = ফাঁকা;
     }
-    else {
-        ptr1 = realloc(ptr, size);
-        if (!ptr1) {
+    অন্যথা {
+        ptr1 = realloc(ptr, আকার_2);
+        যদি (!ptr1) {
             fprintf(stderr, "tcc: memory full\n");
             exit (1);
         }
     }
-    return ptr1;
+    ফেরত ptr1;
 }
 
-ST_FUNC void libc_free(void *ptr)
+ST_FUNC শূন্য libc_free(শূন্য *ptr)
 {
-    free(ptr);
+    মুক্ত(ptr);
 }
 
 /* defined to be not used */
-#define free(p) use_tcc_free(p)
+#define মুক্ত(p) use_tcc_free(p)
 #define realloc(p, s) use_tcc_realloc(p, s)
 
 /* global so that every tcc_alloc()/tcc_free() call doesn't need to be changed */
-static void *(*reallocator)(void*, unsigned long) = default_reallocator;
+স্থির শূন্য *(*reallocator)(শূন্য*, unsigned long) = default_reallocator;
 
-LIBTCCAPI void tcc_set_realloc(TCCReallocFunc *my_realloc)
+LIBTCCAPI শূন্য tcc_set_realloc(TCCReallocFunc *my_realloc)
 {
     reallocator = my_realloc ? my_realloc : default_reallocator;
 }
@@ -283,36 +283,36 @@ LIBTCCAPI void tcc_set_realloc(TCCReallocFunc *my_realloc)
 #undef tcc_mallocz
 #undef tcc_strdup
 
-PUB_FUNC void tcc_free(void *ptr)
+PUB_FUNC শূন্য tcc_free(শূন্য *ptr)
 {
     reallocator(ptr, 0);
 }
 
-PUB_FUNC void *tcc_malloc(unsigned long size)
+PUB_FUNC শূন্য *tcc_malloc(unsigned long আকার_2)
 {
-    return reallocator(0, size);
+    ফেরত reallocator(0, আকার_2);
 }
 
-PUB_FUNC void *tcc_realloc(void *ptr, unsigned long size)
+PUB_FUNC শূন্য *tcc_realloc(শূন্য *ptr, unsigned long আকার_2)
 {
-    return reallocator(ptr, size);
+    ফেরত reallocator(ptr, আকার_2);
 }
 
-PUB_FUNC void *tcc_mallocz(unsigned long size)
+PUB_FUNC শূন্য *tcc_mallocz(unsigned long আকার_2)
 {
-    void *ptr;
-    ptr = tcc_malloc(size);
-    if (size)
-        memset(ptr, 0, size);
-    return ptr;
+    শূন্য *ptr;
+    ptr = tcc_malloc(আকার_2);
+    যদি (আকার_2)
+        memset(ptr, 0, আকার_2);
+    ফেরত ptr;
 }
 
-PUB_FUNC char *tcc_strdup(const char *str)
+PUB_FUNC অক্ষর *tcc_strdup(ধ্রুবক অক্ষর *str)
 {
-    char *ptr;
+    অক্ষর *ptr;
     ptr = tcc_malloc(strlen(str) + 1);
     strcpy(ptr, str);
-    return ptr;
+    ফেরত ptr;
 }
 
 #ifdef MEM_DEBUG
@@ -322,160 +322,160 @@ PUB_FUNC char *tcc_strdup(const char *str)
 #define MEM_DEBUG_MAGIC3 0xFEEDDEB3
 #define MEM_DEBUG_FILE_LEN 40
 #define MEM_DEBUG_CHECK3(header) \
-    (((unsigned char *) header->magic3) + header->size)
+    (((unsigned অক্ষর *) header->magic3) + header->আকার_2)
 #define MEM_USER_PTR(header) \
-    ((char *)header + offsetof(mem_debug_header_t, magic3))
+    ((অক্ষর *)header + offsetof(mem_debug_header_t, magic3))
 #define MEM_HEADER_PTR(ptr) \
-    (mem_debug_header_t *)((char*)ptr - offsetof(mem_debug_header_t, magic3))
+    (mem_debug_header_t *)((অক্ষর*)ptr - offsetof(mem_debug_header_t, magic3))
 
-struct mem_debug_header {
+কাঠামো mem_debug_header {
     unsigned magic1;
-    unsigned size;
-    struct mem_debug_header *prev;
-    struct mem_debug_header *next;
-    int line_num;
-    char file_name[MEM_DEBUG_FILE_LEN];
+    unsigned আকার_2;
+    কাঠামো mem_debug_header *পূর্ব;
+    কাঠামো mem_debug_header *পরবর্তী;
+    পূর্ণসংখ্যা সারি_অঙ্ক;
+    অক্ষর file_name[MEM_DEBUG_FILE_LEN];
     unsigned magic2;
-    ALIGNED(16) unsigned char magic3[4];
+    ALIGNED(16) unsigned অক্ষর magic3[4];
 };
 
-typedef struct mem_debug_header mem_debug_header_t;
+প্রকারলেখ কাঠামো mem_debug_header mem_debug_header_t;
 
-TCC_SEM(static mem_sem);
-static mem_debug_header_t *mem_debug_chain;
-static unsigned mem_cur_size;
-static unsigned mem_max_size;
-static int nb_states;
+TCC_SEM(স্থির mem_sem);
+স্থির mem_debug_header_t *mem_debug_chain;
+স্থির unsigned mem_cur_আকার;
+স্থির unsigned mem_max_আকার;
+স্থির পূর্ণসংখ্যা nb_states;
 
-static mem_debug_header_t *malloc_check(void *ptr, const char *msg)
+স্থির mem_debug_header_t *malloc_check(শূন্য *ptr, ধ্রুবক অক্ষর *বার্তা)
 {
     mem_debug_header_t * header = MEM_HEADER_PTR(ptr);
-    if (header->magic1 != MEM_DEBUG_MAGIC1 ||
+    যদি (header->magic1 != MEM_DEBUG_MAGIC1 ||
         header->magic2 != MEM_DEBUG_MAGIC2 ||
         read32le(MEM_DEBUG_CHECK3(header)) != MEM_DEBUG_MAGIC3 ||
-        header->size == (unsigned)-1) {
-        fprintf(stderr, "%s check failed\n", msg);
-        if (header->magic1 == MEM_DEBUG_MAGIC1)
+        header->আকার_2 == (unsigned)-1) {
+        fprintf(stderr, "%s check failed\n", বার্তা);
+        যদি (header->magic1 == MEM_DEBUG_MAGIC1)
             fprintf(stderr, "%s:%u: block allocated here.\n",
-                header->file_name, header->line_num);
+                header->file_name, header->সারি_অঙ্ক);
         exit(1);
     }
-    return header;
+    ফেরত header;
 }
 
-PUB_FUNC void *tcc_malloc_debug(unsigned long size, const char *file, int line)
+PUB_FUNC শূন্য *tcc_malloc_debug(unsigned long আকার_2, ধ্রুবক অক্ষর *file, পূর্ণসংখ্যা সারি)
 {
-    int ofs;
+    পূর্ণসংখ্যা ofs;
     mem_debug_header_t *header;
-    if (!size)
-        return NULL;
-    header = tcc_malloc(sizeof(mem_debug_header_t) + size);
+    যদি (!আকার_2)
+        ফেরত ফাঁকা;
+    header = tcc_malloc(আকার(mem_debug_header_t) + আকার_2);
     header->magic1 = MEM_DEBUG_MAGIC1;
     header->magic2 = MEM_DEBUG_MAGIC2;
-    header->size = size;
+    header->আকার_2 = আকার_2;
     write32le(MEM_DEBUG_CHECK3(header), MEM_DEBUG_MAGIC3);
-    header->line_num = line;
+    header->সারি_অঙ্ক = সারি;
     ofs = strlen(file) + 1 - MEM_DEBUG_FILE_LEN;
     strcpy(header->file_name, file + (ofs > 0 ? ofs : 0));
     WAIT_SEM(&mem_sem);
-    header->next = mem_debug_chain;
-    header->prev = NULL;
-    if (header->next)
-        header->next->prev = header;
+    header->পরবর্তী = mem_debug_chain;
+    header->পূর্ব = ফাঁকা;
+    যদি (header->পরবর্তী)
+        header->পরবর্তী->পূর্ব = header;
     mem_debug_chain = header;
-    mem_cur_size += size;
-    if (mem_cur_size > mem_max_size)
-        mem_max_size = mem_cur_size;
+    mem_cur_আকার += আকার_2;
+    যদি (mem_cur_আকার > mem_max_আকার)
+        mem_max_আকার = mem_cur_আকার;
     POST_SEM(&mem_sem);
-    return MEM_USER_PTR(header);
+    ফেরত MEM_USER_PTR(header);
 }
 
-PUB_FUNC void tcc_free_debug(void *ptr)
+PUB_FUNC শূন্য tcc_free_debug(শূন্য *ptr)
 {
     mem_debug_header_t *header;
-    if (!ptr)
-        return;
+    যদি (!ptr)
+        ফেরত;
     header = malloc_check(ptr, "tcc_free");
     WAIT_SEM(&mem_sem);
-    mem_cur_size -= header->size;
-    header->size = (unsigned)-1;
-    if (header->next)
-        header->next->prev = header->prev;
-    if (header->prev)
-        header->prev->next = header->next;
-    if (header == mem_debug_chain)
-        mem_debug_chain = header->next;
+    mem_cur_আকার -= header->আকার_2;
+    header->আকার_2 = (unsigned)-1;
+    যদি (header->পরবর্তী)
+        header->পরবর্তী->পূর্ব = header->পূর্ব;
+    যদি (header->পূর্ব)
+        header->পূর্ব->পরবর্তী = header->পরবর্তী;
+    যদি (header == mem_debug_chain)
+        mem_debug_chain = header->পরবর্তী;
     POST_SEM(&mem_sem);
     tcc_free(header);
 }
 
-PUB_FUNC void *tcc_mallocz_debug(unsigned long size, const char *file, int line)
+PUB_FUNC শূন্য *tcc_mallocz_debug(unsigned long আকার_2, ধ্রুবক অক্ষর *file, পূর্ণসংখ্যা সারি)
 {
-    void *ptr;
-    ptr = tcc_malloc_debug(size,file,line);
-    if (size)
-        memset(ptr, 0, size);
-    return ptr;
+    শূন্য *ptr;
+    ptr = tcc_malloc_debug(আকার_2,file,সারি);
+    যদি (আকার_2)
+        memset(ptr, 0, আকার_2);
+    ফেরত ptr;
 }
 
-PUB_FUNC void *tcc_realloc_debug(void *ptr, unsigned long size, const char *file, int line)
+PUB_FUNC শূন্য *tcc_realloc_debug(শূন্য *ptr, unsigned long আকার_2, ধ্রুবক অক্ষর *file, পূর্ণসংখ্যা সারি)
 {
     mem_debug_header_t *header;
-    int mem_debug_chain_update = 0;
+    পূর্ণসংখ্যা mem_debug_chain_update = 0;
 
-    if (!ptr)
-        return tcc_malloc_debug(size, file, line);
-    if (!size) {
+    যদি (!ptr)
+        ফেরত tcc_malloc_debug(আকার_2, file, সারি);
+    যদি (!আকার_2) {
         tcc_free_debug(ptr);
-        return NULL;
+        ফেরত ফাঁকা;
     }
     header = malloc_check(ptr, "tcc_realloc");
     WAIT_SEM(&mem_sem);
-    mem_cur_size -= header->size;
+    mem_cur_আকার -= header->আকার_2;
     mem_debug_chain_update = (header == mem_debug_chain);
-    header = tcc_realloc(header, sizeof(mem_debug_header_t) + size);
-    header->size = size;
+    header = tcc_realloc(header, আকার(mem_debug_header_t) + আকার_2);
+    header->আকার_2 = আকার_2;
     write32le(MEM_DEBUG_CHECK3(header), MEM_DEBUG_MAGIC3);
-    if (header->next)
-        header->next->prev = header;
-    if (header->prev)
-        header->prev->next = header;
-    if (mem_debug_chain_update)
+    যদি (header->পরবর্তী)
+        header->পরবর্তী->পূর্ব = header;
+    যদি (header->পূর্ব)
+        header->পূর্ব->পরবর্তী = header;
+    যদি (mem_debug_chain_update)
         mem_debug_chain = header;
-    mem_cur_size += size;
-    if (mem_cur_size > mem_max_size)
-        mem_max_size = mem_cur_size;
+    mem_cur_আকার += আকার_2;
+    যদি (mem_cur_আকার > mem_max_আকার)
+        mem_max_আকার = mem_cur_আকার;
     POST_SEM(&mem_sem);
-    return MEM_USER_PTR(header);
+    ফেরত MEM_USER_PTR(header);
 }
 
-PUB_FUNC char *tcc_strdup_debug(const char *str, const char *file, int line)
+PUB_FUNC অক্ষর *tcc_strdup_debug(ধ্রুবক অক্ষর *str, ধ্রুবক অক্ষর *file, পূর্ণসংখ্যা সারি)
 {
-    char *ptr;
-    ptr = tcc_malloc_debug(strlen(str) + 1, file, line);
+    অক্ষর *ptr;
+    ptr = tcc_malloc_debug(strlen(str) + 1, file, সারি);
     strcpy(ptr, str);
-    return ptr;
+    ফেরত ptr;
 }
 
-PUB_FUNC void tcc_memcheck(int d)
+PUB_FUNC শূন্য tcc_memcheck(পূর্ণসংখ্যা d)
 {
     WAIT_SEM(&mem_sem);
     nb_states += d;
-    if (0 == nb_states && mem_cur_size) {
+    যদি (0 == nb_states && mem_cur_আকার) {
         mem_debug_header_t *header = mem_debug_chain;
         fflush(stdout);
         fprintf(stderr, "MEM_DEBUG: mem_leak= %d bytes, mem_max_size= %d bytes\n",
-            mem_cur_size, mem_max_size);
-        while (header) {
+            mem_cur_আকার, mem_max_আকার);
+        যখন (header) {
             fprintf(stderr, "%s:%u: error: %u bytes leaked\n",
-                header->file_name, header->line_num, header->size);
-            header = header->next;
+                header->file_name, header->সারি_অঙ্ক, header->আকার_2);
+            header = header->পরবর্তী;
         }
         fflush(stderr);
-        mem_cur_size = 0;
-        mem_max_size = 0;
-        mem_debug_chain = NULL;
-#if MEM_DEBUG-0 == 2
+        mem_cur_আকার = 0;
+        mem_max_আকার = 0;
+        mem_debug_chain = ফাঁকা;
+#যদি MEM_DEBUG-0 == 2
         exit(2);
 #endif
     }
@@ -484,9 +484,9 @@ PUB_FUNC void tcc_memcheck(int d)
 
 /* restore the debug versions */
 #define tcc_free(ptr)           tcc_free_debug(ptr)
-#define tcc_malloc(size)        tcc_malloc_debug(size, __FILE__, __LINE__)
-#define tcc_mallocz(size)       tcc_mallocz_debug(size, __FILE__, __LINE__)
-#define tcc_realloc(ptr,size)   tcc_realloc_debug(ptr, size, __FILE__, __LINE__)
+#define tcc_malloc(আকার_2)        tcc_malloc_debug(আকার_2, __FILE__, __LINE__)
+#define tcc_mallocz(আকার_2)       tcc_mallocz_debug(আকার_2, __FILE__, __LINE__)
+#define tcc_realloc(ptr,আকার_2)   tcc_realloc_debug(ptr, আকার_2, __FILE__, __LINE__)
 #define tcc_strdup(str)         tcc_strdup_debug(str, __FILE__, __LINE__)
 
 #endif /* MEM_DEBUG */
@@ -496,122 +496,122 @@ PUB_FUNC void tcc_memcheck(int d)
 #endif
 
 /* for #pragma once */
-ST_FUNC int normalized_PATHCMP(const char *f1, const char *f2)
+ST_FUNC পূর্ণসংখ্যা normalized_PATHCMP(ধ্রুবক অক্ষর *f1, ধ্রুবক অক্ষর *f2)
 {
-    char *p1, *p2;
-    int ret = 1;
-    if (!!(p1 = realpath(f1, NULL))) {
-        if (!!(p2 = realpath(f2, NULL))) {
+    অক্ষর *p1, *p2;
+    পূর্ণসংখ্যা ret = 1;
+    যদি (!!(p1 = realpath(f1, ফাঁকা))) {
+        যদি (!!(p2 = realpath(f2, ফাঁকা))) {
             ret = PATHCMP(p1, p2);
             libc_free(p2); /* realpath() requirement */
         }
         libc_free(p1);
     }
-    return ret;
+    ফেরত ret;
 }
 
 /********************************************************/
 /* dynarrays */
 
-ST_FUNC void dynarray_add(void *ptab, int *nb_ptr, void *data)
+ST_FUNC শূন্য dynarray_add(শূন্য *ptab, পূর্ণসংখ্যা *nb_ptr, শূন্য *তথ্য)
 {
-    int nb, nb_alloc;
-    void **pp;
+    পূর্ণসংখ্যা nb, nb_alloc;
+    শূন্য **pp;
 
     nb = *nb_ptr;
-    pp = *(void ***)ptab;
+    pp = *(শূন্য ***)ptab;
     /* every power of two we double array size */
-    if ((nb & (nb - 1)) == 0) {
-        if (!nb)
+    যদি ((nb & (nb - 1)) == 0) {
+        যদি (!nb)
             nb_alloc = 1;
-        else
+        অন্যথা
             nb_alloc = nb * 2;
-        pp = tcc_realloc(pp, nb_alloc * sizeof(void *));
-        *(void***)ptab = pp;
+        pp = tcc_realloc(pp, nb_alloc * আকার(শূন্য *));
+        *(শূন্য***)ptab = pp;
     }
-    pp[nb++] = data;
+    pp[nb++] = তথ্য;
     *nb_ptr = nb;
 }
 
-ST_FUNC void dynarray_reset(void *pp, int *n)
+ST_FUNC শূন্য dynarray_reset(শূন্য *pp, পূর্ণসংখ্যা *n)
 {
-    void **p;
-    for (p = *(void***)pp; *n; ++p, --*n)
-        if (*p)
+    শূন্য **p;
+    জন্য (p = *(শূন্য***)pp; *n; ++p, --*n)
+        যদি (*p)
             tcc_free(*p);
-    tcc_free(*(void**)pp);
-    *(void**)pp = NULL;
+    tcc_free(*(শূন্য**)pp);
+    *(শূন্য**)pp = ফাঁকা;
 }
 
-static void dynarray_split(char ***argv, int *argc, const char *p, int sep)
+স্থির শূন্য dynarray_split(অক্ষর ***argv, পূর্ণসংখ্যা *argc, ধ্রুবক অক্ষর *p, পূর্ণসংখ্যা sep)
 {
-    int qot, c;
+    পূর্ণসংখ্যা qot, c;
     CString str;
-    for(;;) {
-        while (c = (unsigned char)*p, c <= ' ' && c != '\0')
+    জন্য(;;) {
+        যখন (c = (unsigned অক্ষর)*p, c <= ' ' && c != '\0')
             ++p;
-        if (c == '\0')
-            break;
+        যদি (c == '\0')
+            বিরতি;
         cstr_new(&str);
         qot = 0;
-        do {
+        করো {
             ++p;
-            if (sep) { /* e.g. to split -Wl,-opt,arg */
-                if (c == sep)
-                    break;
-            } else {
+            যদি (sep) { /* e.g. to split -Wl,-opt,arg */
+                যদি (c == sep)
+                    বিরতি;
+            } অন্যথা {
                 /* e.g. for tcc_set_options() or "tcc @listfile" */
-                if (c == '\\' && (*p == '"' || *p == '\\')) {
+                যদি (c == '\\' && (*p == '"' || *p == '\\')) {
                     c = *p++;
-                } else if (c == '"') {
+                } অন্যথা যদি (c == '"') {
                     qot ^= 1;
-                    continue;
-                } else if (c <= ' ' && !qot) {
-                    break;
+                    চালু;
+                } অন্যথা যদি (c <= ' ' && !qot) {
+                    বিরতি;
                 }
             }
             cstr_ccat(&str, c);
-        } while (c = (unsigned char)*p, c != '\0');
+        } যখন (c = (unsigned অক্ষর)*p, c != '\0');
         cstr_ccat(&str, '\0');
         //printf("<%s>\n", str.data);
-        dynarray_add(argv, argc, str.data);
+        dynarray_add(argv, argc, str.তথ্য);
     }
 }
 
-static void tcc_split_path(TCCState *s, void *p_ary, int *p_nb_ary, const char *in)
+স্থির শূন্য tcc_split_path(TCCState *s, শূন্য *p_ary, পূর্ণসংখ্যা *p_nb_ary, ধ্রুবক অক্ষর *in)
 {
-    const char *p;
-    do {
-        int c;
+    ধ্রুবক অক্ষর *p;
+    করো {
+        পূর্ণসংখ্যা c;
         CString str;
 
         cstr_new(&str);
-        for (p = in; c = *p, c != '\0' && c != PATHSEP[0]; ++p) {
-            if (c == '{' && p[1] && p[2] == '}') {
+        জন্য (p = in; c = *p, c != '\0' && c != PATHSEP[0]; ++p) {
+            যদি (c == '{' && p[1] && p[2] == '}') {
                 c = p[1], p += 2;
-                if (c == 'B')
+                যদি (c == 'B')
                     cstr_cat(&str, s->tcc_lib_path, -1);
-                if (c == 'R')
+                যদি (c == 'R')
                     cstr_cat(&str, CONFIG_SYSROOT, -1);
-                if (c == 'f' && file) {
+                যদি (c == 'f' && file) {
                     /* substitute current file's dir */
-                    const char *f = file->true_filename;
-                    const char *b = tcc_basename(f);
-                    if (b > f)
+                    ধ্রুবক অক্ষর *f = file->true_filename;
+                    ধ্রুবক অক্ষর *b = tcc_basename(f);
+                    যদি (b > f)
                         cstr_cat(&str, f, b - f - 1);
-                    else
+                    অন্যথা
                         cstr_cat(&str, ".", 1);
                 }
-            } else {
+            } অন্যথা {
                 cstr_ccat(&str, c);
             }
         }
-        if (str.size) {
+        যদি (str.আকার_2) {
             cstr_ccat(&str, '\0');
-            dynarray_add(p_ary, p_nb_ary, str.data);
+            dynarray_add(p_ary, p_nb_ary, str.তথ্য);
         }
         in = p+1;
-    } while (*p);
+    } যখন (*p);
 }
 
 /********************************************************/
@@ -623,99 +623,99 @@ static void tcc_split_path(TCCState *s, void *p_ary, int *p_nb_ary, const char *
 #define WARN_NOE 4 /* warning is not an error (-Wno-error=option) */
 
 /* error1() modes */
-enum { ERROR_WARN, ERROR_NOABORT, ERROR_ERROR };
+গণনা { ERROR_WARN, ERROR_NOABORT, ERROR_ERROR };
 
-static void error1(int mode, const char *fmt, va_list ap)
+স্থির শূন্য error1(পূর্ণসংখ্যা mode, ধ্রুবক অক্ষর *fmt, va_list ap)
 {
     BufferedFile **pf, *f;
     TCCState *s1 = tcc_state;
     CString cs;
-    int line = 0;
+    পূর্ণসংখ্যা সারি = 0;
 
     tcc_exit_state(s1);
 
-    if (mode == ERROR_WARN) {
-        if (s1->warn_error)
+    যদি (mode == ERROR_WARN) {
+        যদি (s1->warn_error)
             mode = ERROR_ERROR;
-        if (s1->warn_num) {
+        যদি (s1->warn_অঙ্ক) {
             /* handle tcc_warning_c(warn_option)(fmt, ...) */
-            int wopt = *(&s1->warn_none + s1->warn_num);
-            s1->warn_num = 0;
-            if (0 == (wopt & WARN_ON))
-                return;
-            if (wopt & WARN_ERR)
+            পূর্ণসংখ্যা wopt = *(&s1->warn_none + s1->warn_অঙ্ক);
+            s1->warn_অঙ্ক = 0;
+            যদি (0 == (wopt & WARN_ON))
+                ফেরত;
+            যদি (wopt & WARN_ERR)
                 mode = ERROR_ERROR;
-            if (wopt & WARN_NOE)
+            যদি (wopt & WARN_NOE)
                 mode = ERROR_WARN;
         }
-        if (s1->warn_none)
-            return;
+        যদি (s1->warn_none)
+            ফেরত;
     }
 
     cstr_new(&cs);
-    if (fmt[0] == '%' && fmt[1] == 'i' && fmt[2] == ':')
-        line = va_arg(ap, int), fmt += 3;
-    f = NULL;
-    if (s1->error_set_jmp_enabled) { /* we're called while parsing a file */
+    যদি (fmt[0] == '%' && fmt[1] == 'i' && fmt[2] == ':')
+        সারি = va_arg(ap, পূর্ণসংখ্যা), fmt += 3;
+    f = ফাঁকা;
+    যদি (s1->error_set_jmp_enabled) { /* we're called while parsing a file */
         /* use upper file if inline ":asm:" or token ":paste:" */
-        for (f = file; f && f->filename[0] == ':'; f = f->prev)
+        জন্য (f = file; f && f->filename[0] == ':'; f = f->পূর্ব)
             ;
     }
-    if (f) {
-        for(pf = s1->include_stack; pf < s1->include_stack_ptr; pf++)
+    যদি (f) {
+        জন্য(pf = s1->include_স্তূপ; pf < s1->include_স্তূপ_ptr; pf++)
             cstr_printf(&cs, "In file included from %s:%d:\n",
-                (*pf)->filename, (*pf)->line_num - 1);
-        if (0 == line)
-            line = f->line_num - ((tok_flags & TOK_FLAG_BOL) && !macro_ptr);
-        cstr_printf(&cs, "%s:%d: ", f->filename, line);
-    } else if (s1->current_filename) {
+                (*pf)->filename, (*pf)->সারি_অঙ্ক - 1);
+        যদি (0 == সারি)
+            সারি = f->সারি_অঙ্ক - ((tok_flags & TOK_FLAG_BOL) && !macro_ptr);
+        cstr_printf(&cs, "%s:%d: ", f->filename, সারি);
+    } অন্যথা যদি (s1->current_filename) {
         cstr_printf(&cs, "%s: ", s1->current_filename);
-    } else {
+    } অন্যথা {
         cstr_printf(&cs, "tcc: ");
     }
     cstr_printf(&cs, mode == ERROR_WARN ? "warning: " : "error: ");
-    if (pp_expr > 1)
+    যদি (pp_রাশিমালা > 1)
         pp_error(&cs); /* special handler for preprocessor expression errors */
-    else
+    অন্যথা
         cstr_vprintf(&cs, fmt, ap);
-    if (!s1->error_func) {
+    যদি (!s1->error_func) {
         /* default case: stderr */
-        if (s1 && s1->output_type == TCC_OUTPUT_PREPROCESS && s1->ppfp == stdout)
+        যদি (s1 && s1->output_type == TCC_OUTPUT_PREPROCESS && s1->ppfp == stdout)
             printf("\n"); /* print a newline during tcc -E */
         fflush(stdout); /* flush -v output */
-        fprintf(stderr, "%s\n", (char*)cs.data);
+        fprintf(stderr, "%s\n", (অক্ষর*)cs.তথ্য);
         fflush(stderr); /* print error/warning now (win32) */
-    } else {
-        s1->error_func(s1->error_opaque, (char*)cs.data);
+    } অন্যথা {
+        s1->error_func(s1->error_opaque, (অক্ষর*)cs.তথ্য);
     }
     cstr_free(&cs);
-    if (mode != ERROR_WARN)
+    যদি (mode != ERROR_WARN)
         s1->nb_errors++;
-    if (mode == ERROR_ERROR && s1->error_set_jmp_enabled) {
-        while (nb_stk_data)
-            tcc_free(*(void**)stk_data[--nb_stk_data]);
+    যদি (mode == ERROR_ERROR && s1->error_set_jmp_enabled) {
+        যখন (nb_stk_তথ্য)
+            tcc_free(*(শূন্য**)stk_তথ্য[--nb_stk_তথ্য]);
         longjmp(s1->error_jmp_buf, 1);
     }
 }
 
-LIBTCCAPI void tcc_set_error_func(TCCState *s, void *error_opaque, TCCErrorFunc *error_func)
+LIBTCCAPI শূন্য tcc_set_error_func(TCCState *s, শূন্য *error_opaque, TCCErrorFunc *error_func)
 {
     s->error_opaque = error_opaque;
     s->error_func = error_func;
 }
 
 /* error without aborting current compilation */
-PUB_FUNC int _tcc_error_noabort(const char *fmt, ...)
+PUB_FUNC পূর্ণসংখ্যা _tcc_error_noabort(ধ্রুবক অক্ষর *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
     error1(ERROR_NOABORT, fmt, ap);
     va_end(ap);
-    return -1;
+    ফেরত -1;
 }
 
 #undef _tcc_error
-PUB_FUNC void _tcc_error(const char *fmt, ...)
+PUB_FUNC শূন্য _tcc_error(ধ্রুবক অক্ষর *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
@@ -724,7 +724,7 @@ PUB_FUNC void _tcc_error(const char *fmt, ...)
 }
 #define _tcc_error use_tcc_error_noabort
 
-PUB_FUNC void _tcc_warning(const char *fmt, ...)
+PUB_FUNC শূন্য _tcc_warning(ধ্রুবক অক্ষর *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);
@@ -736,69 +736,69 @@ PUB_FUNC void _tcc_warning(const char *fmt, ...)
 /********************************************************/
 /* I/O layer */
 
-ST_FUNC void tcc_open_bf(TCCState *s1, const char *filename, int initlen)
+ST_FUNC শূন্য tcc_open_bf(TCCState *s1, ধ্রুবক অক্ষর *filename, পূর্ণসংখ্যা initlen)
 {
     BufferedFile *bf;
-    int buflen = initlen ? initlen : IO_BUF_SIZE;
+    পূর্ণসংখ্যা buflen = initlen ? initlen : IO_BUF_আকার;
 
-    bf = tcc_mallocz(sizeof(BufferedFile) + buflen);
-    bf->buf_ptr = bf->buffer;
-    bf->buf_end = bf->buffer + initlen;
+    bf = tcc_mallocz(আকার(BufferedFile) + buflen);
+    bf->buf_ptr = bf->বাফার;
+    bf->buf_end = bf->বাফার + initlen;
     bf->buf_end[0] = CH_EOB; /* put eob symbol */
-    pstrcpy(bf->filename, sizeof(bf->filename), filename);
+    pstrcpy(bf->filename, আকার(bf->filename), filename);
 #ifdef _WIN32
     normalize_slashes(bf->filename);
 #endif
     bf->true_filename = bf->filename;
-    bf->line_num = 1;
-    bf->ifdef_stack_ptr = s1->ifdef_stack_ptr;
+    bf->সারি_অঙ্ক = 1;
+    bf->ifdef_স্তূপ_ptr = s1->ifdef_স্তূপ_ptr;
     bf->fd = -1;
-    bf->prev = file;
-    bf->prev_tok_flags = tok_flags;
+    bf->পূর্ব = file;
+    bf->পূর্ব_tok_flags = tok_flags;
     file = bf;
     tok_flags = TOK_FLAG_BOL | TOK_FLAG_BOF;
 }
 
-ST_FUNC void tcc_close(void)
+ST_FUNC শূন্য tcc_close(শূন্য)
 {
     TCCState *s1 = tcc_state;
     BufferedFile *bf = file;
-    if (bf->fd > 0) {
+    যদি (bf->fd > 0) {
         close(bf->fd);
-        total_lines += bf->line_num - 1;
+        যোগ_সারিগুলি += bf->সারি_অঙ্ক - 1;
     }
-    if (bf->true_filename != bf->filename)
+    যদি (bf->true_filename != bf->filename)
         tcc_free(bf->true_filename);
-    file = bf->prev;
-    tok_flags = bf->prev_tok_flags;
+    file = bf->পূর্ব;
+    tok_flags = bf->পূর্ব_tok_flags;
     tcc_free(bf);
 }
 
-static int _tcc_open(TCCState *s1, const char *filename)
+স্থির পূর্ণসংখ্যা _tcc_open(TCCState *s1, ধ্রুবক অক্ষর *filename)
 {
-    int fd;
-    if (strcmp(filename, "-") == 0)
+    পূর্ণসংখ্যা fd;
+    যদি (strcmp(filename, "-") == 0)
         fd = 0, filename = "<stdin>";
-    else
-        fd = open(filename, O_RDONLY | O_BINARY);
-    if ((s1->verbose == 2 && fd >= 0) || s1->verbose == 3)
+    অন্যথা
+        fd = open(filename, O_RDONLY | O_দ্বিমিক_2);
+    যদি ((s1->verbose == 2 && fd >= 0) || s1->verbose == 3)
         printf("%s %*s%s\n", fd < 0 ? "nf":"->",
-               (int)(s1->include_stack_ptr - s1->include_stack), "", filename);
-    return fd;
+               (পূর্ণসংখ্যা)(s1->include_স্তূপ_ptr - s1->include_স্তূপ), "", filename);
+    ফেরত fd;
 }
 
-ST_FUNC int tcc_open(TCCState *s1, const char *filename)
+ST_FUNC পূর্ণসংখ্যা tcc_open(TCCState *s1, ধ্রুবক অক্ষর *filename)
 {
-    int fd = _tcc_open(s1, filename);
-    if (fd < 0)
-        return -1;
+    পূর্ণসংখ্যা fd = _tcc_open(s1, filename);
+    যদি (fd < 0)
+        ফেরত -1;
     tcc_open_bf(s1, filename, 0);
     file->fd = fd;
-    return 0;
+    ফেরত 0;
 }
 
 /* compile the file opened in 'file'. Return non zero if errors. */
-static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
+স্থির পূর্ণসংখ্যা tcc_compile(TCCState *s1, পূর্ণসংখ্যা filetype, ধ্রুবক অক্ষর *str, পূর্ণসংখ্যা fd)
 {
     /* Here we enter the code section where we use the global variables for
        parsing and code generation (tccpp.c, tccgen.c, <target>-gen.c).
@@ -810,13 +810,13 @@ static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
     tcc_enter_state(s1);
     s1->error_set_jmp_enabled = 1;
 
-    if (setjmp(s1->error_jmp_buf) == 0) {
+    যদি (setjmp(s1->error_jmp_buf) == 0) {
 
-        if (fd == -1) {
-            int len = strlen(str);
+        যদি (fd == -1) {
+            পূর্ণসংখ্যা len = strlen(str);
             tcc_open_bf(s1, "<string>", len);
-            memcpy(file->buffer, str, len);
-        } else {
+            memcpy(file->বাফার, str, len);
+        } অন্যথা {
             tcc_open_bf(s1, str, 0);
             file->fd = fd;
         }
@@ -824,13 +824,13 @@ static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
         preprocess_start(s1, filetype);
         tccgen_init(s1);
 
-        if (s1->output_type == TCC_OUTPUT_PREPROCESS) {
+        যদি (s1->output_type == TCC_OUTPUT_PREPROCESS) {
             tcc_preprocess(s1);
-        } else {
+        } অন্যথা {
             tccelf_begin_file(s1);
-            if (filetype & (AFF_TYPE_ASM | AFF_TYPE_ASMPP)) {
+            যদি (filetype & (AFF_TYPE_ASM | AFF_TYPE_ASMPP)) {
                 tcc_assemble(s1, !!(filetype & AFF_TYPE_ASMPP));
-            } else {
+            } অন্যথা {
                 tccgen_compile(s1);
             }
             tccelf_end_file(s1);
@@ -840,37 +840,37 @@ static int tcc_compile(TCCState *s1, int filetype, const char *str, int fd)
     preprocess_end(s1);
     s1->error_set_jmp_enabled = 0;
     tcc_exit_state(s1);
-    return s1->nb_errors != 0 ? -1 : 0;
+    ফেরত s1->nb_errors != 0 ? -1 : 0;
 }
 
-LIBTCCAPI int tcc_compile_string(TCCState *s, const char *str)
+LIBTCCAPI পূর্ণসংখ্যা tcc_compile_string(TCCState *s, ধ্রুবক অক্ষর *str)
 {
-    return tcc_compile(s, s->filetype, str, -1);
+    ফেরত tcc_compile(s, s->filetype, str, -1);
 }
 
 /* define a preprocessor symbol. value can be NULL, sym can be "sym=val" */
-LIBTCCAPI void tcc_define_symbol(TCCState *s1, const char *sym, const char *value)
+LIBTCCAPI শূন্য tcc_define_প্রতীক(TCCState *s1, ধ্রুবক অক্ষর *sym, ধ্রুবক অক্ষর *মান)
 {
-    const char *eq;
-    if (NULL == (eq = strchr(sym, '=')))
+    ধ্রুবক অক্ষর *eq;
+    যদি (ফাঁকা == (eq = strchr(sym, '=')))
         eq = strchr(sym, 0);
-    if (NULL == value)
-        value = *eq ? eq + 1 : "1";
-    cstr_printf(&s1->cmdline_defs, "#define %.*s %s\n", (int)(eq-sym), sym, value);
+    যদি (ফাঁকা == মান)
+        মান = *eq ? eq + 1 : "1";
+    cstr_printf(&s1->cmdline_defs, "#define %.*s %s\n", (পূর্ণসংখ্যা)(eq-sym), sym, মান);
 }
 
 /* undefine a preprocessor symbol */
-LIBTCCAPI void tcc_undefine_symbol(TCCState *s1, const char *sym)
+LIBTCCAPI শূন্য tcc_undefine_প্রতীক(TCCState *s1, ধ্রুবক অক্ষর *sym)
 {
     cstr_printf(&s1->cmdline_defs, "#undef %s\n", sym);
 }
 
 
-LIBTCCAPI TCCState *tcc_new(void)
+LIBTCCAPI TCCState *tcc_new(শূন্য)
 {
     TCCState *s;
 
-    s = tcc_mallocz(sizeof(TCCState));
+    s = tcc_mallocz(আকার(TCCState));
 #ifdef MEM_DEBUG
     tcc_memcheck(1);
 #endif
@@ -890,16 +890,16 @@ LIBTCCAPI TCCState *tcc_new(void)
     s->char_is_unsigned = 1;
 #endif
 #ifdef TCC_TARGET_I386
-    s->seg_size = 32;
+    s->seg_আকার = 32;
 #endif
     /* enable this if you want symbols with leading underscore on windows: */
-#if defined TCC_TARGET_MACHO /* || defined TCC_TARGET_PE */
+#যদি defined TCC_TARGET_MACHO /* || defined TCC_TARGET_PE */
     s->leading_underscore = 1;
 #endif
 #ifdef TCC_ARM_HARDFLOAT
     s->float_abi = ARM_HARD_FLOAT;
 #endif
-#if defined TCC_TARGET_ARM64 && defined TCC_TARGET_PE
+#যদি defined TCC_TARGET_ARM64 && defined TCC_TARGET_PE
     s->pe_dll_characteristics = 0x8160;
 #endif
 #ifdef CONFIG_NEW_DTAGS
@@ -907,16 +907,16 @@ LIBTCCAPI TCCState *tcc_new(void)
 #endif
     s->ppfp = stdout;
     /* might be used in error() before preprocess_start() */
-    s->include_stack_ptr = s->include_stack;
+    s->include_স্তূপ_ptr = s->include_স্তূপ;
 
     tcc_set_lib_path(s, CONFIG_TCCDIR);
 #ifdef CONFIG_TCC_SWITCHES /* predefined options */
     tcc_set_options(s, CONFIG_TCC_SWITCHES);
 #endif
-    return s;
+    ফেরত s;
 }
 
-LIBTCCAPI void tcc_delete(TCCState *s1)
+LIBTCCAPI শূন্য tcc_delete(TCCState *s1)
 {
     /* free sections */
     tccelf_delete(s1);
@@ -934,12 +934,12 @@ LIBTCCAPI void tcc_delete(TCCState *s1)
     tcc_free(s1->rpath);
     tcc_free(s1->elfint);
     tcc_free(s1->elf_entryname);
-    tcc_free(s1->init_symbol);
-    tcc_free(s1->fini_symbol);
+    tcc_free(s1->init_প্রতীক);
+    tcc_free(s1->fini_প্রতীক);
     tcc_free(s1->mapfile);
     tcc_free(s1->outfile);
     tcc_free(s1->deps_outfile);
-#if defined TCC_TARGET_MACHO
+#যদি defined TCC_TARGET_MACHO
     tcc_free(s1->install_name);
 #endif
     dynarray_reset(&s1->files, &s1->nb_files);
@@ -962,35 +962,35 @@ LIBTCCAPI void tcc_delete(TCCState *s1)
 #endif
 }
 
-LIBTCCAPI int tcc_set_output_type(TCCState *s, int output_type)
+LIBTCCAPI পূর্ণসংখ্যা tcc_set_output_type(TCCState *s, পূর্ণসংখ্যা output_type)
 {
 #ifdef CONFIG_TCC_PIE
-    if (output_type == TCC_OUTPUT_EXE)
+    যদি (output_type == TCC_OUTPUT_EXE)
         output_type |= TCC_OUTPUT_DYN;
 #endif
     s->output_type = output_type;
 
-    if (!s->nostdinc) {
+    যদি (!s->nostdinc) {
         /* default include paths */
         /* -isystem paths have already been handled */
         tcc_add_sysinclude_path(s, CONFIG_TCC_SYSINCLUDEPATHS);
     }
 
-    if (output_type == TCC_OUTPUT_PREPROCESS) {
+    যদি (output_type == TCC_OUTPUT_PREPROCESS) {
         s->do_debug = 0;
-        return 0;
+        ফেরত 0;
     }
 
     /* add sections */
     tccelf_new(s);
 
-    if (output_type == TCC_OUTPUT_OBJ) {
+    যদি (output_type == TCC_OUTPUT_OBJ) {
         /* always elf for objects */
         s->output_format = TCC_OUTPUT_FORMAT_ELF;
-        return 0;
+        ফেরত 0;
     }
 
-    if (!s->nostdlib_paths)
+    যদি (!s->nostdlib_paths)
         tcc_add_library_path(s, CONFIG_TCC_LIBPATHS);
 
 #ifdef TCC_TARGET_PE
@@ -999,551 +999,551 @@ LIBTCCAPI int tcc_set_output_type(TCCState *s, int output_type)
     tcc_add_systemdir(s);
 # endif
 
-#elif defined TCC_TARGET_MACHO
+#নতুবা_যদি defined TCC_TARGET_MACHO
 # ifdef TCC_IS_NATIVE
     tcc_add_macos_sdkpath(s);
 # endif
 
-#else
+#অন্যথা
     /* paths for crt objects */
     tcc_split_path(s, &s->crt_paths, &s->nb_crt_paths, CONFIG_TCC_CRTPREFIX);
-    if (output_type != TCC_OUTPUT_MEMORY && !s->nostdlib)
+    যদি (output_type != TCC_OUTPUT_MEMORY && !s->nostdlib)
         tccelf_add_crtbegin(s); /* may produce errors */
 #endif
-    return s->nb_errors ? -1 : 0;
+    ফেরত s->nb_errors ? -1 : 0;
 }
 
-LIBTCCAPI int tcc_add_include_path(TCCState *s, const char *pathname)
+LIBTCCAPI পূর্ণসংখ্যা tcc_add_include_path(TCCState *s, ধ্রুবক অক্ষর *pathname)
 {
     tcc_split_path(s, &s->include_paths, &s->nb_include_paths, pathname);
-    return 0;
+    ফেরত 0;
 }
 
-LIBTCCAPI int tcc_add_sysinclude_path(TCCState *s, const char *pathname)
+LIBTCCAPI পূর্ণসংখ্যা tcc_add_sysinclude_path(TCCState *s, ধ্রুবক অক্ষর *pathname)
 {
     tcc_split_path(s, &s->sysinclude_paths, &s->nb_sysinclude_paths, pathname);
-    return 0;
+    ফেরত 0;
 }
 
-LIBTCCAPI int tcc_add_library_path(TCCState *s, const char *pathname)
+LIBTCCAPI পূর্ণসংখ্যা tcc_add_library_path(TCCState *s, ধ্রুবক অক্ষর *pathname)
 {
     tcc_split_path(s, &s->library_paths, &s->nb_library_paths, pathname);
-    return 0;
+    ফেরত 0;
 }
 
-LIBTCCAPI void tcc_set_lib_path(TCCState *s, const char *path)
+LIBTCCAPI শূন্য tcc_set_lib_path(TCCState *s, ধ্রুবক অক্ষর *path)
 {
     tcc_set_str(&s->tcc_lib_path, path);
 }
 
 /* add/update a 'DLLReference', Just find if level == -1  */
-ST_FUNC DLLReference *tcc_add_dllref(TCCState *s1, const char *dllname, int level)
+ST_FUNC DLLReference *tcc_add_dllref(TCCState *s1, ধ্রুবক অক্ষর *dllname, পূর্ণসংখ্যা level)
 {
-    DLLReference *ref = NULL;
-    int i;
-    for (i = 0; i < s1->nb_loaded_dlls; i++)
-        if (0 == strcmp(s1->loaded_dlls[i]->name, dllname)) {
+    DLLReference *ref = ফাঁকা;
+    পূর্ণসংখ্যা i;
+    জন্য (i = 0; i < s1->nb_loaded_dlls; i++)
+        যদি (0 == strcmp(s1->loaded_dlls[i]->name, dllname)) {
             ref = s1->loaded_dlls[i];
-            break;
+            বিরতি;
         }
-    if (level == -1)
-        return ref;
-    if (ref) {
-        if (level < ref->level)
+    যদি (level == -1)
+        ফেরত ref;
+    যদি (ref) {
+        যদি (level < ref->level)
             ref->level = level;
         ref->found = 1;
-        return ref;
+        ফেরত ref;
     }
-    ref = tcc_mallocz(sizeof(DLLReference) + strlen(dllname));
+    ref = tcc_mallocz(আকার(DLLReference) + strlen(dllname));
     strcpy(ref->name, dllname);
     dynarray_add(&s1->loaded_dlls, &s1->nb_loaded_dlls, ref);
     ref->level = level;
-    ref->index = s1->nb_loaded_dlls;
-    return ref;
+    ref->সূচক = s1->nb_loaded_dlls;
+    ফেরত ref;
 }
 
-static int tcc_add_binary(TCCState *s1, int flags, const char *filename, int fd)
+স্থির পূর্ণসংখ্যা tcc_add_দ্বিমিক(TCCState *s1, পূর্ণসংখ্যা flags, ধ্রুবক অক্ষর *filename, পূর্ণসংখ্যা fd)
 {
     ElfW(Ehdr) ehdr;
-    int obj_type;
-    const char *saved_filename = s1->current_filename;
-    int ret = 0;
+    পূর্ণসংখ্যা obj_type;
+    ধ্রুবক অক্ষর *saved_filename = s1->current_filename;
+    পূর্ণসংখ্যা ret = 0;
 
     s1->current_filename = filename;
     obj_type = tcc_object_type(fd, &ehdr);
     lseek(fd, 0, SEEK_SET);
 
-    switch (obj_type) {
+    নির্বাচন (obj_type) {
 
-    case AFF_BINTYPE_REL:
+    ক্ষেত্র AFF_BINTYPE_REL:
         ret = tcc_load_object_file(s1, fd, 0);
-        break;
+        বিরতি;
 
-    case AFF_BINTYPE_AR:
+    ক্ষেত্র AFF_BINTYPE_AR:
         ret = tcc_load_archive(s1, fd, !(flags & AFF_WHOLE_ARCHIVE));
-        break;
+        বিরতি;
 
-#if defined TCC_TARGET_UNIX
-    case AFF_BINTYPE_DYN:
-        if (s1->output_type == TCC_OUTPUT_MEMORY) {
+#যদি defined TCC_TARGET_UNIX
+    ক্ষেত্র AFF_BINTYPE_DYN:
+        যদি (s1->output_type == TCC_OUTPUT_MEMORY) {
 #ifdef TCC_IS_NATIVE
-            void* dl = dlopen(filename, RTLD_GLOBAL | RTLD_LAZY);
-            if (dl)
+            শূন্য* dl = dlopen(filename, RTLD_GLOBAL | RTLD_LAZY);
+            যদি (dl)
                 tcc_add_dllref(s1, filename, 0)->handle = dl;
-            else
+            অন্যথা
                 ret = FILE_NOT_RECOGNIZED;
 #endif
-        } else
+        } অন্যথা
             ret = tcc_load_dll(s1, fd, filename, (flags & AFF_REFERENCED_DLL) != 0);
-        break;
+        বিরতি;
 
-    default:
+    পূর্বনির্ধারিত:
         /* as GNU ld, consider it is an ld script if not recognized */
         ret = tcc_load_ldscript(s1, fd);
-        break;
+        বিরতি;
 
-#elif defined TCC_TARGET_MACHO
-    case AFF_BINTYPE_DYN:
+#নতুবা_যদি defined TCC_TARGET_MACHO
+    ক্ষেত্র AFF_BINTYPE_DYN:
     case_dyn_or_tbd:
-        if (s1->output_type == TCC_OUTPUT_MEMORY) {
+        যদি (s1->output_type == TCC_OUTPUT_MEMORY) {
 #ifdef TCC_IS_NATIVE
-            void* dl;
-            const char* soname = filename;
-            char *tmp = 0;
-            if (obj_type != AFF_BINTYPE_DYN) {
+            শূন্য* dl;
+            ধ্রুবক অক্ষর* soname = filename;
+            অক্ষর *tmp = 0;
+            যদি (obj_type != AFF_BINTYPE_DYN) {
                 tmp = macho_tbd_soname(fd);
-                if (tmp)
+                যদি (tmp)
                     soname = tmp;
             }
             dl = dlopen(soname, RTLD_GLOBAL | RTLD_LAZY);
-            if (dl)
+            যদি (dl)
                 tcc_add_dllref(s1, soname, 0)->handle = dl;
-            else
+            অন্যথা
                 ret = FILE_NOT_RECOGNIZED;
 	    tcc_free(tmp);
 #endif
-        } else if (obj_type == AFF_BINTYPE_DYN) {
+        } অন্যথা যদি (obj_type == AFF_BINTYPE_DYN) {
             ret = macho_load_dll(s1, fd, filename, (flags & AFF_REFERENCED_DLL) != 0);
-        } else {
+        } অন্যথা {
             ret = macho_load_tbd(s1, fd, filename, (flags & AFF_REFERENCED_DLL) != 0);
         }
-        if (ret)
+        যদি (ret)
             ret = FILE_NOT_RECOGNIZED;
-        break;
+        বিরতি;
 
-    default:
+    পূর্বনির্ধারিত:
     {
-        const char *ext = tcc_fileextension(filename);
-        if (!strcmp(ext, ".tbd"))
-            goto case_dyn_or_tbd;
-        if (!strcmp(ext, ".dylib")) {
+        ধ্রুবক অক্ষর *ext = tcc_fileextension(filename);
+        যদি (!strcmp(ext, ".tbd"))
+            যাও case_dyn_or_tbd;
+        যদি (!strcmp(ext, ".dylib")) {
             obj_type = AFF_BINTYPE_DYN;
-            goto case_dyn_or_tbd;
+            যাও case_dyn_or_tbd;
         }
         ret = FILE_NOT_RECOGNIZED;
-        break;
+        বিরতি;
     }
 
-#elif defined TCC_TARGET_PE
-    default:
-        if (pe_load_file(s1, fd, filename))
+#নতুবা_যদি defined TCC_TARGET_PE
+    পূর্বনির্ধারিত:
+        যদি (pe_load_file(s1, fd, filename))
             ret = FILE_NOT_RECOGNIZED;
-        break;
+        বিরতি;
 #endif
 
 #ifdef TCC_TARGET_COFF
-    case AFF_BINTYPE_C67:
+    ক্ষেত্র AFF_BINTYPE_C67:
         ret = tcc_load_coff(s1, fd);
-        break;
+        বিরতি;
 #endif
     }
 
     close(fd);
     s1->current_filename = saved_filename;
-    if (ret == FILE_NOT_RECOGNIZED)
-        return tcc_error_noabort("%s: unrecognized file type", filename);
-    return ret;
+    যদি (ret == FILE_NOT_RECOGNIZED)
+        ফেরত tcc_error_noabort("%s: unrecognized file type", filename);
+    ফেরত ret;
 }
 
 /* OpenBSD: choose latest from libxxx.so.x.y versions */
-#if defined TARGETOS_OpenBSD && !defined _WIN32
-#include <glob.h>
-static int tcc_glob_so(TCCState *s1, const char *pattern, char *buf, int size)
+#যদি defined TARGETOS_OpenBSD && !defined _WIN32
+#অন্তর্ভাব <glob.h>
+স্থির পূর্ণসংখ্যা tcc_glob_so(TCCState *s1, ধ্রুবক অক্ষর *pattern, অক্ষর *buf, পূর্ণসংখ্যা আকার_2)
 {
-    const char *star;
+    ধ্রুবক অক্ষর *star;
     glob_t g;
-    char *p;
-    int i, v, v1, v2, v3;
+    অক্ষর *p;
+    পূর্ণসংখ্যা i, v, v1, v2, v3;
 
     star = strchr(pattern, '*');
-    if (!star || glob(pattern, 0, NULL, &g))
-        return -1;
-    for (v = -1, i = 0; i < g.gl_pathc; ++i) {
+    যদি (!star || glob(pattern, 0, ফাঁকা, &g))
+        ফেরত -1;
+    জন্য (v = -1, i = 0; i < g.gl_pathc; ++i) {
         p = g.gl_pathv[i];
-        if (2 != sscanf(p + (star - pattern), "%d.%d.%d", &v1, &v2, &v3))
-            continue;
-        if ((v1 = v1 * 1000 + v2) > v)
-            v = v1, pstrcpy(buf, size, p);
+        যদি (2 != sscanf(p + (star - pattern), "%d.%d.%d", &v1, &v2, &v3))
+            চালু;
+        যদি ((v1 = v1 * 1000 + v2) > v)
+            v = v1, pstrcpy(buf, আকার_2, p);
     }
     globfree(&g);
-    return v;
+    ফেরত v;
 }
 #endif
 
-static int guess_filetype(const char *filename)
+স্থির পূর্ণসংখ্যা guess_filetype(ধ্রুবক অক্ষর *filename)
 {
-    int filetype = 0;
-    if (1) {
+    পূর্ণসংখ্যা filetype = 0;
+    যদি (1) {
         /* use a file extension to detect a filetype */
-        const char *ext = tcc_fileextension(filename);
-        if (ext[0]) {
+        ধ্রুবক অক্ষর *ext = tcc_fileextension(filename);
+        যদি (ext[0]) {
             ext++;
-            if (!strcmp(ext, "S"))
+            যদি (!strcmp(ext, "S"))
                 filetype = AFF_TYPE_ASMPP;
-            else if (!strcmp(ext, "s"))
+            অন্যথা যদি (!strcmp(ext, "s"))
                 filetype = AFF_TYPE_ASM;
-            else if (!PATHCMP(ext, "c")
+            অন্যথা যদি (!PATHCMP(ext, "c")
                      || !PATHCMP(ext, "h")
                      || !PATHCMP(ext, "i"))
                 filetype = AFF_TYPE_C;
-            else
+            অন্যথা
                 filetype |= AFF_TYPE_BIN;
-        } else {
+        } অন্যথা {
             filetype = AFF_TYPE_C;
         }
     }
-    return filetype;
+    ফেরত filetype;
 }
 
-ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags)
+ST_FUNC পূর্ণসংখ্যা tcc_add_file_internal(TCCState *s1, ধ্রুবক অক্ষর *filename, পূর্ণসংখ্যা flags)
 {
-    int fd;
+    পূর্ণসংখ্যা fd;
 
-#if defined TARGETOS_OpenBSD && !defined _WIN32
-    char buf[1024];
-    if (tcc_glob_so(s1, filename, buf, sizeof buf) >= 0)
+#যদি defined TARGETOS_OpenBSD && !defined _WIN32
+    অক্ষর buf[1024];
+    যদি (tcc_glob_so(s1, filename, buf, আকার buf) >= 0)
         filename = buf;
 #endif
 
-    if (0 == (flags & AFF_TYPE_MASK))
+    যদি (0 == (flags & AFF_TYPE_MASK))
         flags |= guess_filetype(filename);
 
     /* ignore binary files with -E */
-    if (s1->output_type == TCC_OUTPUT_PREPROCESS
+    যদি (s1->output_type == TCC_OUTPUT_PREPROCESS
         && (flags & AFF_TYPE_BIN))
-        return 0;
+        ফেরত 0;
 
     /* open the file */
     fd = _tcc_open(s1, filename);
-    if (fd < 0) {
-        if (flags & AFF_PRINT_ERROR)
+    যদি (fd < 0) {
+        যদি (flags & AFF_PRINT_ERROR)
             tcc_error_noabort("file '%s' not found", filename);
-        return FILE_NOT_FOUND;
+        ফেরত FILE_NOT_FOUND;
     }
 
-    if (flags & AFF_TYPE_BIN)
-        return tcc_add_binary(s1, flags, filename, fd);
+    যদি (flags & AFF_TYPE_BIN)
+        ফেরত tcc_add_দ্বিমিক(s1, flags, filename, fd);
 
     dynarray_add(&s1->target_deps, &s1->nb_target_deps, tcc_strdup(filename));
-    return tcc_compile(s1, flags, filename, fd);
+    ফেরত tcc_compile(s1, flags, filename, fd);
 }
 
-LIBTCCAPI int tcc_add_file(TCCState *s, const char *filename)
+LIBTCCAPI পূর্ণসংখ্যা tcc_add_file(TCCState *s, ধ্রুবক অক্ষর *filename)
 {
-    return tcc_add_file_internal(s, filename, s->filetype | AFF_PRINT_ERROR);
+    ফেরত tcc_add_file_internal(s, filename, s->filetype | AFF_PRINT_ERROR);
 }
 
-static int tcc_add_library_internal(TCCState *s1, const char *fmt,
-    const char *filename, int flags, char **paths, int nb_paths)
+স্থির পূর্ণসংখ্যা tcc_add_library_internal(TCCState *s1, ধ্রুবক অক্ষর *fmt,
+    ধ্রুবক অক্ষর *filename, পূর্ণসংখ্যা flags, অক্ষর **paths, পূর্ণসংখ্যা nb_paths)
 {
-    char buf[1024];
-    int i, ret;
+    অক্ষর buf[1024];
+    পূর্ণসংখ্যা i, ret;
 
-    for(i = 0; i < nb_paths; i++) {
-        snprintf(buf, sizeof(buf), fmt, paths[i], filename);
+    জন্য(i = 0; i < nb_paths; i++) {
+        snprintf(buf, আকার(buf), fmt, paths[i], filename);
         ret = tcc_add_file_internal(s1, buf, flags & ~AFF_PRINT_ERROR);
-        if (ret != FILE_NOT_FOUND)
-            return ret;
+        যদি (ret != FILE_NOT_FOUND)
+            ফেরত ret;
     }
-    if (flags & AFF_PRINT_ERROR)
+    যদি (flags & AFF_PRINT_ERROR)
         tcc_error_noabort("%s '%s' not found",
             flags & AFF_TYPE_LIB ? "library" : "file", filename);
-    return FILE_NOT_FOUND;
+    ফেরত FILE_NOT_FOUND;
 }
 
 /* find and load a dll. Return non zero if not found */
-ST_FUNC int tcc_add_dll(TCCState *s, const char *filename, int flags)
+ST_FUNC পূর্ণসংখ্যা tcc_add_dll(TCCState *s, ধ্রুবক অক্ষর *filename, পূর্ণসংখ্যা flags)
 {
-    return tcc_add_library_internal(s, "%s/%s", filename, flags,
+    ফেরত tcc_add_library_internal(s, "%s/%s", filename, flags,
         s->library_paths, s->nb_library_paths);
 }
 
 /* find [cross-]libtcc1.a and tcc helper objects in library path */
-ST_FUNC int tcc_add_support(TCCState *s1, const char *filename)
+ST_FUNC পূর্ণসংখ্যা tcc_add_support(TCCState *s1, ধ্রুবক অক্ষর *filename)
 {
-    char buf[100];
-    if (CONFIG_TCC_CROSSPREFIX[0])
+    অক্ষর buf[100];
+    যদি (CONFIG_TCC_CROSSPREFIX[0])
         filename = strcat(strcpy(buf, CONFIG_TCC_CROSSPREFIX), filename);
-    return tcc_add_dll(s1, filename, AFF_PRINT_ERROR);
+    ফেরত tcc_add_dll(s1, filename, AFF_PRINT_ERROR);
 }
 
 #ifdef TCC_TARGET_UNIX
-ST_FUNC int tcc_add_crt(TCCState *s1, const char *filename)
+ST_FUNC পূর্ণসংখ্যা tcc_add_crt(TCCState *s1, ধ্রুবক অক্ষর *filename)
 {
-    return tcc_add_library_internal(s1, "%s/%s",
+    ফেরত tcc_add_library_internal(s1, "%s/%s",
         filename, AFF_PRINT_ERROR, s1->crt_paths, s1->nb_crt_paths);
 }
 #endif
 
 /* the library name is the same as the argument of the '-l' option */
-LIBTCCAPI int tcc_add_library(TCCState *s, const char *libraryname)
+LIBTCCAPI পূর্ণসংখ্যা tcc_add_library(TCCState *s, ধ্রুবক অক্ষর *libraryname)
 {
-    static const char * const libs[] = {
-#if defined TCC_TARGET_PE
+    স্থির ধ্রুবক অক্ষর * ধ্রুবক libs[] = {
+#যদি defined TCC_TARGET_PE
         "%s/%s.def", "%s/lib%s.def", "%s/%s.dll", "%s/lib%s.dll",
-#elif defined TCC_TARGET_MACHO
+#নতুবা_যদি defined TCC_TARGET_MACHO
         "%s/lib%s.dylib", "%s/lib%s.tbd",
-#elif defined TARGETOS_OpenBSD
+#নতুবা_যদি defined TARGETOS_OpenBSD
         "%s/lib%s.so.*",
-#else
+#অন্যথা
         "%s/lib%s.so",
 #endif
         "%s/lib%s.a",
-        NULL
+        ফাঁকা
     };
-    int flags = AFF_TYPE_LIB | (s->filetype & AFF_WHOLE_ARCHIVE);
+    পূর্ণসংখ্যা flags = AFF_TYPE_LIB | (s->filetype & AFF_WHOLE_ARCHIVE);
     /* if libraryname begins with a colon, it means search lib paths for
        exactly the following file, without lib prefix or anything */
-    if (*libraryname == ':') {
+    যদি (*libraryname == ':') {
         libraryname++;
-    } else {
-        const char * const *pp = libs;
-        if (s->static_link)
-            pp += sizeof(libs) / sizeof(*libs) - 2; /* only "%s/lib%s.a" */
-        while (*pp) {
-            int ret = tcc_add_library_internal(s, *pp,
+    } অন্যথা {
+        ধ্রুবক অক্ষর * ধ্রুবক *pp = libs;
+        যদি (s->static_link)
+            pp += আকার(libs) / আকার(*libs) - 2; /* only "%s/lib%s.a" */
+        যখন (*pp) {
+            পূর্ণসংখ্যা ret = tcc_add_library_internal(s, *pp,
                 libraryname, flags, s->library_paths, s->nb_library_paths);
-            if (ret != FILE_NOT_FOUND)
-                return ret;
+            যদি (ret != FILE_NOT_FOUND)
+                ফেরত ret;
             ++pp;
         }
     }
     /* fallback to try file without pre- or sufffix */
-    return tcc_add_dll(s, libraryname, flags | AFF_PRINT_ERROR);
+    ফেরত tcc_add_dll(s, libraryname, flags | AFF_PRINT_ERROR);
 }
 
 /* handle #pragma comment(lib,) */
-ST_FUNC void tcc_add_pragma_libs(TCCState *s1)
+ST_FUNC শূন্য tcc_add_pragma_libs(TCCState *s1)
 {
-    int i;
-    for (i = 0; i < s1->nb_pragma_libs; i++)
+    পূর্ণসংখ্যা i;
+    জন্য (i = 0; i < s1->nb_pragma_libs; i++)
         tcc_add_library(s1, s1->pragma_libs[i]);
 }
 
 /********************************************************/
 /* options parser */
 
-static int strstart(const char *val, const char **str)
+স্থির পূর্ণসংখ্যা strstart(ধ্রুবক অক্ষর *val, ধ্রুবক অক্ষর **str)
 {
-    const char *p, *q;
+    ধ্রুবক অক্ষর *p, *q;
     p = *str;
     q = val;
-    while (*q) {
-        if (*p != *q)
-            return 0;
+    যখন (*q) {
+        যদি (*p != *q)
+            ফেরত 0;
         p++;
         q++;
     }
     *str = p;
-    return 1;
+    ফেরত 1;
 }
 
-struct lopt {
+কাঠামো lopt {
     TCCState *s;
-    const char *opt, *arg;
-    int match;
+    ধ্রুবক অক্ষর *opt, *arg;
+    পূর্ণসংখ্যা match;
 };
 
 /* match linker option */
-static int link_option(struct lopt *o, const char *q)
+স্থির পূর্ণসংখ্যা link_option(কাঠামো lopt *o, ধ্রুবক অক্ষর *q)
 {
-    const char *p;
-    int c, r;
+    ধ্রুবক অক্ষর *p;
+    পূর্ণসংখ্যা c, r;
 redo:
     /* there should be 1 or 2 dashes */
     p = o->opt;
-    if (*p++ != '-')
-        return 0;
-    if (*p == '-')
+    যদি (*p++ != '-')
+        ফেরত 0;
+    যদি (*p == '-')
         p++;
     r = 1;
-    if (q[0] == '?') { /* check for no-/disable- prefix */
+    যদি (q[0] == '?') { /* check for no-/disable- prefix */
         ++q;
-        if (p[0] == 'n' && p[1] == 'o' && p[2] == '-')
+        যদি (p[0] == 'n' && p[1] == 'o' && p[2] == '-')
             p += 3, r = -1;
 #ifdef TCC_TARGET_PE
-        else if (0 == memcmp(p, "disable-", 8))
+        অন্যথা যদি (0 == memcmp(p, "disable-", 8))
             p += 8, r = -1;
 #endif
     }
-    while ((c = *q) == *p) {
-        if (c == '\0')
-            goto succ; /* -Wl,-opt */
+    যখন ((c = *q) == *p) {
+        যদি (c == '\0')
+            যাও succ; /* -Wl,-opt */
         ++p;
-        if (c == '=')
-            goto succ; /* -Wl,-opt=arg */
+        যদি (c == '=')
+            যাও succ; /* -Wl,-opt=arg */
         ++q;
     }
-    if (*p == '\0') {
-        if (c == '|')
-            goto succ;
-        if (c == '=' || c == ':') {
-            if (o->s->link_optind + 1 < o->s->link_argc) {
+    যদি (*p == '\0') {
+        যদি (c == '|')
+            যাও succ;
+        যদি (c == '=' || c == ':') {
+            যদি (o->s->link_optind + 1 < o->s->link_argc) {
                 p = o->s->link_argv[++o->s->link_optind];
-                goto succ; /* -Wl,-opt,arg */
+                যাও succ; /* -Wl,-opt,arg */
             }
             o->match = 1; /* -Wl,-opt -Wl,arg */
-            return 0;
+            ফেরত 0;
         }
-    } else if (c == ':')
-        goto succ; /* -Wl,-Iarg */
-    while (*q)
-        if (*q++ == '|')
-            goto redo;
-    return 0;
+    } অন্যথা যদি (c == ':')
+        যাও succ; /* -Wl,-Iarg */
+    যখন (*q)
+        যদি (*q++ == '|')
+            যাও redo;
+    ফেরত 0;
 succ:
     o->arg = p;
     //printf("set %s '%s'\n", o->opt, o->arg);
-    return r;
+    ফেরত r;
 }
 
-static void args_parser_add_file(TCCState *s, const char* filename, int filetype);
+স্থির শূন্য args_parser_add_file(TCCState *s, ধ্রুবক অক্ষর* filename, পূর্ণসংখ্যা filetype);
 
 #define SET_OR_CLEAR(v,f) (v = r > 0 ? v | f : v & ~f)
 #define SET_OR_CLEAR_2(v,f1,f2) (v = r > 0 ? v | f1 : v & ~f2)
 
 /* set linker options */
-static int tcc_set_linker(TCCState *s, const char *optarg)
+স্থির পূর্ণসংখ্যা tcc_set_linker(TCCState *s, ধ্রুবক অক্ষর *optarg)
 {
     TCCState *s1 = s;
 
     dynarray_split(&s1->link_argv, &s1->link_argc, optarg, ',');
 
-    while (s->link_optind < s->link_argc) {
-        char *end = NULL;
-        int ignoring = 0;
-        struct lopt o = {0};
-        int r;
+    যখন (s->link_optind < s->link_argc) {
+        অক্ষর *end = ফাঁকা;
+        পূর্ণসংখ্যা ignoring = 0;
+        কাঠামো lopt o = {0};
+        পূর্ণসংখ্যা r;
         o.s = s;
         o.opt = s->link_argv[s->link_optind];
 
-        if (link_option(&o, "Bsymbolic")) {
+        যদি (link_option(&o, "Bsymbolic")) {
             s->symbolic = 1;
-        } else if (link_option(&o, "nostdlib")) {
+        } অন্যথা যদি (link_option(&o, "nostdlib")) {
             s->nostdlib_paths = 1;
-        } else if (link_option(&o, "e=|entry=")) {
+        } অন্যথা যদি (link_option(&o, "e=|entry=")) {
             tcc_set_str(&s->elf_entryname, o.arg);
-        } else if (link_option(&o, "image-base=|Ttext=")) {
+        } অন্যথা যদি (link_option(&o, "image-base=|Ttext=")) {
             s->text_addr = strtoull(o.arg, &end, 16);
             s->has_text_addr = 1;
-        } else if (link_option(&o, "init=")) {
-            tcc_set_str(&s->init_symbol, o.arg);
+        } অন্যথা যদি (link_option(&o, "init=")) {
+            tcc_set_str(&s->init_প্রতীক, o.arg);
             ignoring = 1;
-        } else if (link_option(&o, "fini=")) {
-            tcc_set_str(&s->fini_symbol, o.arg);
+        } অন্যথা যদি (link_option(&o, "fini=")) {
+            tcc_set_str(&s->fini_প্রতীক, o.arg);
             ignoring = 1;
-        } else if (link_option(&o, "Map=")) {
+        } অন্যথা যদি (link_option(&o, "Map=")) {
             tcc_set_str(&s->mapfile, o.arg);
             ignoring = 1;
-        } else if (link_option(&o, "oformat=")) {
-#if defined TCC_TARGET_PE
-            if (0 == strncmp("pe-", o.arg, 3))
-#elif PTR_SIZE == 8
-            if (0 == strncmp("elf64-", o.arg, 6))
-#else
-            if (0 == strncmp("elf32-", o.arg, 6))
+        } অন্যথা যদি (link_option(&o, "oformat=")) {
+#যদি defined TCC_TARGET_PE
+            যদি (0 == strncmp("pe-", o.arg, 3))
+#নতুবা_যদি PTR_আকার == 8
+            যদি (0 == strncmp("elf64-", o.arg, 6))
+#অন্যথা
+            যদি (0 == strncmp("elf32-", o.arg, 6))
 #endif
                 s->output_format = TCC_OUTPUT_FORMAT_ELF;
-            else if (0==strcmp("binary", o.arg))
-                s->output_format = TCC_OUTPUT_FORMAT_BINARY;
-#if defined TCC_TARGET_COFF
-            else if (0==strcmp("coff", o.arg))
+            অন্যথা যদি (0==strcmp("binary", o.arg))
+                s->output_format = TCC_OUTPUT_FORMAT_দ্বিমিক;
+#যদি defined TCC_TARGET_COFF
+            অন্যথা যদি (0==strcmp("coff", o.arg))
                 s->output_format = TCC_OUTPUT_FORMAT_COFF;
 #endif
-            else
-                goto err;
-        } else if (link_option(&o, "export-all-symbols|export-dynamic|E")) {
+            অন্যথা
+                যাও err;
+        } অন্যথা যদি (link_option(&o, "export-all-symbols|export-dynamic|E")) {
             s->rdynamic = 1;
-        } else if (link_option(&o, "rpath=")) {
+        } অন্যথা যদি (link_option(&o, "rpath=")) {
             tcc_concat_str(&s->rpath, o.arg, ':');
-        } else if (link_option(&o, "dynamic-linker=|I:")) {
+        } অন্যথা যদি (link_option(&o, "dynamic-linker=|I:")) {
             tcc_set_str(&s->elfint, o.arg);
-        } else if (link_option(&o, "enable-new-dtags")) {
+        } অন্যথা যদি (link_option(&o, "enable-new-dtags")) {
             s->enable_new_dtags = 1;
-        } else if (link_option(&o, "section-alignment=")) {
+        } অন্যথা যদি (link_option(&o, "section-alignment=")) {
             s->section_align = strtoul(o.arg, &end, 16);
-        } else if (link_option(&o, "soname=|install_name=")) {
+        } অন্যথা যদি (link_option(&o, "soname=|install_name=")) {
             tcc_set_str(&s->soname, o.arg);
-        } else if (!!(r = link_option(&o, "?whole-archive"))) {
+        } অন্যথা যদি (!!(r = link_option(&o, "?whole-archive"))) {
             SET_OR_CLEAR(s->filetype, AFF_WHOLE_ARCHIVE);
-        } else if (link_option(&o, "znodelete")) {
+        } অন্যথা যদি (link_option(&o, "znodelete")) {
             s->znodelete = 1;
 #ifdef TCC_TARGET_PE
-        } else if (link_option(&o, "large-address-aware")) {
+        } অন্যথা যদি (link_option(&o, "large-address-aware")) {
             s->pe_characteristics |= 0x20;
-        } else if (!!(r = link_option(&o, "?dynamicbase"))) {
+        } অন্যথা যদি (!!(r = link_option(&o, "?dynamicbase"))) {
             SET_OR_CLEAR_2(s1->pe_dll_characteristics, 0x40, 0x60);
-        } else if (!!(r = link_option(&o, "?high-entropy-va"))) {
+        } অন্যথা যদি (!!(r = link_option(&o, "?high-entropy-va"))) {
             SET_OR_CLEAR_2(s1->pe_dll_characteristics, 0x60, 0x20);
-        } else if (!!(r = link_option(&o, "?nxcompat"))) {
+        } অন্যথা যদি (!!(r = link_option(&o, "?nxcompat"))) {
             SET_OR_CLEAR(s1->pe_dll_characteristics, 0x100);
-        } else if (!!(r = link_option(&o, "?tsaware"))) {
+        } অন্যথা যদি (!!(r = link_option(&o, "?tsaware"))) {
             SET_OR_CLEAR(s1->pe_dll_characteristics, 0x8000);
-        } else if (link_option(&o, "file-alignment=")) {
+        } অন্যথা যদি (link_option(&o, "file-alignment=")) {
             s->pe_file_align = strtoul(o.arg, &end, 16);
-        } else if (link_option(&o, "stack=")) {
-            s->pe_stack_size = strtoul(o.arg, &end, 10);
-        } else if (link_option(&o, "subsystem=")) {
-            if (pe_setsubsy(s, o.arg) < 0)
-                goto err;
-#elif defined TCC_TARGET_MACHO
-        } else if (link_option(&o, "all_load")) {
+        } অন্যথা যদি (link_option(&o, "stack=")) {
+            s->pe_স্তূপ_আকার = strtoul(o.arg, &end, 10);
+        } অন্যথা যদি (link_option(&o, "subsystem=")) {
+            যদি (pe_setsubsy(s, o.arg) < 0)
+                যাও err;
+#নতুবা_যদি defined TCC_TARGET_MACHO
+        } অন্যথা যদি (link_option(&o, "all_load")) {
 	    s->filetype |= AFF_WHOLE_ARCHIVE;
-        } else if (link_option(&o, "force_load=")) {
+        } অন্যথা যদি (link_option(&o, "force_load=")) {
             args_parser_add_file(s, o.arg, AFF_TYPE_LIB | AFF_WHOLE_ARCHIVE);
-        } else if (link_option(&o, "single_module")) {
+        } অন্যথা যদি (link_option(&o, "single_module")) {
             ignoring = 1;
 #endif
-        } else if (link_option(&o, "as-needed")) {
+        } অন্যথা যদি (link_option(&o, "as-needed")) {
             ignoring = 1;
-        } else if (link_option(&o, "O")) {
+        } অন্যথা যদি (link_option(&o, "O")) {
             ignoring = 1;
-        } else if (link_option(&o, "z=")) {
+        } অন্যথা যদি (link_option(&o, "z=")) {
             ignoring = 1;
-        } else if (link_option(&o, "L:")) {
+        } অন্যথা যদি (link_option(&o, "L:")) {
             tcc_add_library_path(s, o.arg);
-        } else if (link_option(&o, "l:")) {
+        } অন্যথা যদি (link_option(&o, "l:")) {
             args_parser_add_file(s, o.arg, AFF_TYPE_LIB | (s->filetype & ~AFF_TYPE_MASK));
-        } else if (o.match) {
-            return 0; /* expecting argument with next '-Wl,' */
-        } else {
+        } অন্যথা যদি (o.match) {
+            ফেরত 0; /* expecting argument with next '-Wl,' */
+        } অন্যথা {
     err:
-            return tcc_error_noabort("unsupported linker option '%s'", o.opt);
+            ফেরত tcc_error_noabort("unsupported linker option '%s'", o.opt);
         }
-        if (ignoring)
+        যদি (ignoring)
             tcc_warning_c(warn_unsupported)("unsupported linker option '%s'", o.opt);
         ++s->link_optind;
     }
-    return 0;
+    ফেরত 0;
 }
 
-typedef struct TCCOption {
-    const char *name;
-    uint16_t index;
+প্রকারলেখ কাঠামো TCCOption {
+    ধ্রুবক অক্ষর *name;
+    uint16_t সূচক;
     uint16_t flags;
 } TCCOption;
 
-enum {
+গণনা {
     TCC_OPTION_ignored = 0,
     TCC_OPTION_HELP,
     TCC_OPTION_HELP2,
@@ -1581,7 +1581,7 @@ enum {
     TCC_OPTION_include,
     TCC_OPTION_nostdinc,
     TCC_OPTION_nostdlib,
-    TCC_OPTION_print_search_dirs,
+    TCC_OPTION_print_অনুসন্ধান_dirs,
     TCC_OPTION_rdynamic,
     TCC_OPTION_pthread,
     TCC_OPTION_run,
@@ -1610,7 +1610,7 @@ enum {
 #define TCC_OPTION_HAS_ARG 0x0001
 #define TCC_OPTION_NOSEP   0x0002 /* cannot have space before option and arg */
 
-static const TCCOption tcc_options[] = {
+স্থির ধ্রুবক TCCOption tcc_options[] = {
     { "h", TCC_OPTION_HELP, 0 },
     { "-help", TCC_OPTION_HELP, 0 },
     { "?", TCC_OPTION_HELP, 0 },
@@ -1668,7 +1668,7 @@ static const TCCOption tcc_options[] = {
     { "include", TCC_OPTION_include, TCC_OPTION_HAS_ARG },
     { "nostdinc", TCC_OPTION_nostdinc, 0 },
     { "nostdlib", TCC_OPTION_nostdlib, 0 },
-    { "print-search-dirs", TCC_OPTION_print_search_dirs, 0 },
+    { "print-search-dirs", TCC_OPTION_print_অনুসন্ধান_dirs, 0 },
     { "w", TCC_OPTION_w, 0 },
     { "E", TCC_OPTION_E, 0},
     { "M", TCC_OPTION_M, 0},
@@ -1693,29 +1693,29 @@ static const TCCOption tcc_options[] = {
     { "pipe", 0, 0 },
     { "s", 0, 0 },
     { "traditional", 0, 0 },
-    { NULL, 0, 0 },
+    { ফাঁকা, 0, 0 },
 };
 
-typedef struct FlagDef {
+প্রকারলেখ কাঠামো FlagDef {
     uint16_t offset;
     uint16_t flags;
-    const char *name;
+    ধ্রুবক অক্ষর *name;
 } FlagDef;
 
 #define WD_ALL    0x0001 /* warning is activated when using -Wall */
 #define FD_INVERT 0x0002 /* invert value before storing */
 
-static const FlagDef options_W[] = {
+স্থির ধ্রুবক FlagDef options_W[] = {
     { offsetof(TCCState, warn_all), WD_ALL, "all" },
     { offsetof(TCCState, warn_error), 0, "error" },
     { offsetof(TCCState, warn_write_strings), 0, "write-strings" },
     { offsetof(TCCState, warn_unsupported), 0, "unsupported" },
     { offsetof(TCCState, warn_implicit_function_declaration), WD_ALL, "implicit-function-declaration" },
     { offsetof(TCCState, warn_discarded_qualifiers), WD_ALL, "discarded-qualifiers" },
-    { 0, 0, NULL }
+    { 0, 0, ফাঁকা }
 };
 
-static const FlagDef options_f[] = {
+স্থির ধ্রুবক FlagDef options_f[] = {
     { offsetof(TCCState, char_is_unsigned), 0, "unsigned-char" },
     { offsetof(TCCState, char_is_unsigned), FD_INVERT, "signed-char" },
     { offsetof(TCCState, nocommon), FD_INVERT, "common" },
@@ -1726,528 +1726,528 @@ static const FlagDef options_f[] = {
     { offsetof(TCCState, reverse_funcargs), 0, "reverse-funcargs" },
     { offsetof(TCCState, gnu89_inline), 0, "gnu89-inline" },
     { offsetof(TCCState, unwind_tables), 0, "asynchronous-unwind-tables" },
-    { 0, 0, NULL }
+    { 0, 0, ফাঁকা }
 };
 
-static const FlagDef options_m[] = {
+স্থির ধ্রুবক FlagDef options_m[] = {
     { offsetof(TCCState, ms_bitfields), 0, "ms-bitfields" },
 #ifdef TCC_TARGET_X86_64
     { offsetof(TCCState, nosse), FD_INVERT, "sse" },
 #endif
-    { 0, 0, NULL }
+    { 0, 0, ফাঁকা }
 };
 
-static int set_flag(TCCState *s, const FlagDef *flags, const char *name)
+স্থির পূর্ণসংখ্যা set_flag(TCCState *s, ধ্রুবক FlagDef *flags, ধ্রুবক অক্ষর *name)
 {
-    int value, mask, ret;
-    const FlagDef *p;
-    const char *r;
-    unsigned char *f;
+    পূর্ণসংখ্যা মান, mask, ret;
+    ধ্রুবক FlagDef *p;
+    ধ্রুবক অক্ষর *r;
+    unsigned অক্ষর *f;
 
-    r = name, value = !strstart("no-", &r), mask = 0;
+    r = name, মান = !strstart("no-", &r), mask = 0;
 
     /* when called with options_W, look for -W[no-]error=<option> */
-    if ((flags->flags & WD_ALL) && strstart("error=", &r))
-        value = value ? WARN_ON|WARN_ERR : WARN_NOE, mask = WARN_ON;
+    যদি ((flags->flags & WD_ALL) && strstart("error=", &r))
+        মান = মান ? WARN_ON|WARN_ERR : WARN_NOE, mask = WARN_ON;
 
-    for (ret = -1, p = flags; p->name; ++p) {
-        if (ret) {
-            if (strcmp(r, p->name))
-                continue;
-        } else {
-            if (0 == (p->flags & WD_ALL))
-                continue;
+    জন্য (ret = -1, p = flags; p->name; ++p) {
+        যদি (ret) {
+            যদি (strcmp(r, p->name))
+                চালু;
+        } অন্যথা {
+            যদি (0 == (p->flags & WD_ALL))
+                চালু;
         }
 
-        f = (unsigned char *)s + p->offset;
-        *f = (*f & mask) | (value ^ !!(p->flags & FD_INVERT));
+        f = (unsigned অক্ষর *)s + p->offset;
+        *f = (*f & mask) | (মান ^ !!(p->flags & FD_INVERT));
 
-        if (ret) {
+        যদি (ret) {
             ret = 0;
-            if (strcmp(r, "all"))
-                break;
+            যদি (strcmp(r, "all"))
+                বিরতি;
         }
     }
-    return ret;
+    ফেরত ret;
 }
 
-static const char dumpmachine_str[] =
+স্থির ধ্রুবক অক্ষর dumpmachine_str[] =
 /* this is a best guess, please refine as necessary */
 #ifdef TCC_TARGET_I386
     "i386-pc"
-#elif defined TCC_TARGET_X86_64
+#নতুবা_যদি defined TCC_TARGET_X86_64
     "x86_64-pc"
-#elif defined TCC_TARGET_C67
+#নতুবা_যদি defined TCC_TARGET_C67
     "c67"
-#elif defined TCC_TARGET_ARM
+#নতুবা_যদি defined TCC_TARGET_ARM
     "arm"
-#elif defined TCC_TARGET_ARM64
+#নতুবা_যদি defined TCC_TARGET_ARM64
     "aarch64"
-#elif defined TCC_TARGET_RISCV64
+#নতুবা_যদি defined TCC_TARGET_RISCV64
     "riscv64"
 #endif
     "-"
 #ifdef TCC_TARGET_PE
     "mingw32"
-#elif defined(TCC_TARGET_MACHO)
+#নতুবা_যদি defined(TCC_TARGET_MACHO)
     "apple-darwin"
-#elif TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
+#নতুবা_যদি TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
     "freebsd"
-#elif TARGETOS_OpenBSD
+#নতুবা_যদি TARGETOS_OpenBSD
     "openbsd"
-#elif TARGETOS_NetBSD
+#নতুবা_যদি TARGETOS_NetBSD
     "netbsd"
-#elif CONFIG_TCC_MUSL
+#নতুবা_যদি CONFIG_TCC_MUSL
     "linux-musl"
-#else
+#অন্যথা
     "linux-gnu"
 #endif
 ;
 
-#if defined TCC_TARGET_MACHO
-static uint32_t parse_version(TCCState *s1, const char *version)
+#যদি defined TCC_TARGET_MACHO
+স্থির uint32_t parse_version(TCCState *s1, ধ্রুবক অক্ষর *version)
 {
     uint32_t a = 0;
     uint32_t b = 0;
     uint32_t c = 0;
-    char* last;
+    অক্ষর* last;
 
     a = strtoul(version, &last, 10);
-    if (*last == '.') {
+    যদি (*last == '.') {
         b = strtoul(&last[1], &last, 10);
-        if (*last == '.')
+        যদি (*last == '.')
              c = strtoul(&last[1], &last, 10);
     }
-    if (*last || a > 0xffff || b > 0xff || c > 0xff)
+    যদি (*last || a > 0xffff || b > 0xff || c > 0xff)
         tcc_error_noabort("version a.b.c not correct: %s", version);
-    return (a << 16) | (b << 8) | c;
+    ফেরত (a << 16) | (b << 8) | c;
 }
 #endif
 
 /* insert args from 'p' (separated by sep or ' ') into argv at position 'optind' */
-static void insert_args(TCCState *s1, char ***pargv, int *pargc, int optind, const char *p, int sep)
+স্থির শূন্য ঢোকাও_args(TCCState *s1, অক্ষর ***pargv, পূর্ণসংখ্যা *pargc, পূর্ণসংখ্যা optind, ধ্রুবক অক্ষর *p, পূর্ণসংখ্যা sep)
 {
-    int argc = 0;
-    char **argv = NULL;
-    int i;
-    for (i = 0; i < *pargc; ++i)
-        if (i == optind)
+    পূর্ণসংখ্যা argc = 0;
+    অক্ষর **argv = ফাঁকা;
+    পূর্ণসংখ্যা i;
+    জন্য (i = 0; i < *pargc; ++i)
+        যদি (i == optind)
             dynarray_split(&argv, &argc, p, sep);
-        else
+        অন্যথা
             dynarray_add(&argv, &argc, tcc_strdup((*pargv)[i]));
     dynarray_reset(&s1->argv, &s1->argc);
     *pargc = s1->argc = argc;
     *pargv = s1->argv = argv;
 }
 
-static void args_parser_add_file(TCCState *s, const char* filename, int filetype)
+স্থির শূন্য args_parser_add_file(TCCState *s, ধ্রুবক অক্ষর* filename, পূর্ণসংখ্যা filetype)
 {
-    struct filespec *f = tcc_malloc(sizeof *f + strlen(filename));
+    কাঠামো filespec *f = tcc_malloc(আকার *f + strlen(filename));
     f->type = filetype;
     strcpy(f->name, filename);
     dynarray_add(&s->files, &s->nb_files, f);
-    if (filetype & AFF_TYPE_LIB)
+    যদি (filetype & AFF_TYPE_LIB)
         ++s->nb_libraries;
 }
 
 /* using * to argc/argv to let "tcc -ar" benefit from @listfile expansion */
-PUB_FUNC int tcc_parse_args(TCCState *s, int *pargc, char ***pargv)
+PUB_FUNC পূর্ণসংখ্যা tcc_parse_args(TCCState *s, পূর্ণসংখ্যা *pargc, অক্ষর ***pargv)
 {
     TCCState *s1 = s;
-    const TCCOption *popt;
-    const char *optarg, *r;
-    const char *run = NULL;
-    int optind = 1, empty = 1, x;
-    char **argv = *pargv;
-    int argc = *pargc;
+    ধ্রুবক TCCOption *popt;
+    ধ্রুবক অক্ষর *optarg, *r;
+    ধ্রুবক অক্ষর *run = ফাঁকা;
+    পূর্ণসংখ্যা optind = 1, empty = 1, x;
+    অক্ষর **argv = *pargv;
+    পূর্ণসংখ্যা argc = *pargc;
 
     s->link_optind = s->link_argc;
 
-    while (optind < argc) {
+    যখন (optind < argc) {
         r = argv[optind];
-        if (r[0] == '@' && r[1] != '\0') { /* read @listfile */
-            int fd; char *p;
-            fd = open(++r, O_RDONLY | O_BINARY);
-            if (fd < 0)
-                return tcc_error_noabort("listfile '%s' not found", r);
+        যদি (r[0] == '@' && r[1] != '\0') { /* read @listfile */
+            পূর্ণসংখ্যা fd; অক্ষর *p;
+            fd = open(++r, O_RDONLY | O_দ্বিমিক_2);
+            যদি (fd < 0)
+                ফেরত tcc_error_noabort("listfile '%s' not found", r);
             p = tcc_load_text(fd);
-            insert_args(s1, &argv, &argc, optind, p, 0);
+            ঢোকাও_args(s1, &argv, &argc, optind, p, 0);
             close(fd), tcc_free(p);
-            continue;
+            চালু;
         }
         optind++;
-        if (r[0] != '-' || r[1] == '\0') { /* file or '-' (stdin) */
+        যদি (r[0] != '-' || r[1] == '\0') { /* file or '-' (stdin) */
             args_parser_add_file(s, r, s->filetype);
             empty = 0;
         dorun:
-            if (run)
-                break;
-            continue;
+            যদি (run)
+                বিরতি;
+            চালু;
         }
         /* Also allow "tcc <files...> -run -- <args...>" */
-        if (r[1] == '-' && r[2] == '\0')
-            goto dorun;
+        যদি (r[1] == '-' && r[2] == '\0')
+            যাও dorun;
 
         /* find option in table */
-        for(popt = tcc_options; ; ++popt) {
-            const char *p1 = popt->name;
-            const char *r1 = r + 1;
-            if (p1 == NULL)
-                return tcc_error_noabort("invalid option -- '%s'", r);
-            if (!strstart(p1, &r1))
-                continue;
+        জন্য(popt = tcc_options; ; ++popt) {
+            ধ্রুবক অক্ষর *p1 = popt->name;
+            ধ্রুবক অক্ষর *r1 = r + 1;
+            যদি (p1 == ফাঁকা)
+                ফেরত tcc_error_noabort("invalid option -- '%s'", r);
+            যদি (!strstart(p1, &r1))
+                চালু;
             optarg = r1;
-            if (popt->flags & TCC_OPTION_HAS_ARG) {
-                if (*r1 == '\0' && !(popt->flags & TCC_OPTION_NOSEP)) {
-                    if (optind >= argc)
-                        return tcc_error_noabort("argument to '%s' is missing", r);
+            যদি (popt->flags & TCC_OPTION_HAS_ARG) {
+                যদি (*r1 == '\0' && !(popt->flags & TCC_OPTION_NOSEP)) {
+                    যদি (optind >= argc)
+                        ফেরত tcc_error_noabort("argument to '%s' is missing", r);
                     optarg = argv[optind++];
                 }
-            } else if (*r1 != '\0')
-                continue;
-            break;
+            } অন্যথা যদি (*r1 != '\0')
+                চালু;
+            বিরতি;
         }
 
-        switch(popt->index) {
-        case TCC_OPTION_I:
+        নির্বাচন(popt->সূচক) {
+        ক্ষেত্র TCC_OPTION_I:
             tcc_add_include_path(s, optarg);
-            break;
-        case TCC_OPTION_D:
-            tcc_define_symbol(s, optarg, NULL);
-            break;
-        case TCC_OPTION_U:
-            tcc_undefine_symbol(s, optarg);
-            break;
-        case TCC_OPTION_L:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_D:
+            tcc_define_প্রতীক(s, optarg, ফাঁকা);
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_U:
+            tcc_undefine_প্রতীক(s, optarg);
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_L:
             tcc_add_library_path(s, optarg);
-            break;
-        case TCC_OPTION_B:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_B:
             /* set tcc utilities path (mainly for tcc development) */
             tcc_set_lib_path(s, optarg);
-            continue;
-        case TCC_OPTION_l:
+            চালু;
+        ক্ষেত্র TCC_OPTION_l:
             args_parser_add_file(s, optarg, AFF_TYPE_LIB | (s->filetype & ~AFF_TYPE_MASK));
-            break;
-        case TCC_OPTION_pthread:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_pthread:
             s->option_pthread = 1;
-            break;
-        case TCC_OPTION_bench:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_bench:
             s->do_bench = 1;
-            break;
+            বিরতি;
 #ifdef CONFIG_TCC_BACKTRACE
-        case TCC_OPTION_bt:
-            s->rt_num_callers = atoi(optarg); /* zero = default (6) */
-            goto enable_backtrace;
+        ক্ষেত্র TCC_OPTION_bt:
+            s->rt_অঙ্ক_callers = atoi(optarg); /* zero = default (6) */
+            যাও enable_backtrace;
         enable_backtrace:
             s->do_backtrace = 1;
-            if (0 == s->do_debug)
+            যদি (0 == s->do_debug)
                 s->do_debug = 1;
 	    s->dwarf = CONFIG_DWARF_VERSION;
-            break;
+            বিরতি;
 #ifdef CONFIG_TCC_BCHECK
-        case TCC_OPTION_b:
+        ক্ষেত্র TCC_OPTION_b:
             s->do_bounds_check = 1;
-            goto enable_backtrace;
+            যাও enable_backtrace;
 #endif
 #endif
-        case TCC_OPTION_g:
+        ক্ষেত্র TCC_OPTION_g:
             s->do_debug = 2;
             s->dwarf = CONFIG_DWARF_VERSION;
         g_redo:
-            if (strstart("dwarf", &optarg)) {
+            যদি (strstart("dwarf", &optarg)) {
                 s->dwarf = (*optarg) ? (0 - atoi(optarg)) : DEFAULT_DWARF_VERSION;
-            } else if (0 == strcmp("stabs", optarg)) {
+            } অন্যথা যদি (0 == strcmp("stabs", optarg)) {
                 s->dwarf = 0;
-            } else if (isnum(*optarg)) {
+            } অন্যথা যদি (isnum(*optarg)) {
                 x = *optarg++ - '0';
                 /* -g0 = no info, -g1 = lines/functions only, -g2 = full info */
                 s->do_debug = x > 2 ? 2 : x == 0 && s->do_backtrace ? 1 : x;
-                goto g_redo;
+                যাও g_redo;
 #ifdef TCC_TARGET_PE
-            } else if (0 == strcmp(".pdb", optarg)) {
+            } অন্যথা যদি (0 == strcmp(".pdb", optarg)) {
                 s->dwarf = 5, s->do_debug |= 16;
 #endif
             }
-            break;
-        case TCC_OPTION_c:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_c:
             x = TCC_OUTPUT_OBJ;
         set_output_type:
-            if (s->output_type)
+            যদি (s->output_type)
                 tcc_warning("-%s: overriding compiler action already specified", popt->name);
             s->output_type = x;
-            break;
-        case TCC_OPTION_d:
-            if (*optarg == 'D')
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_d:
+            যদি (*optarg == 'D')
                 s->dflag = 3;
-            else if (*optarg == 'M')
+            অন্যথা যদি (*optarg == 'M')
                 s->dflag = 7;
-            else if (*optarg == 't')
+            অন্যথা যদি (*optarg == 't')
                 s->dflag = 16;
-            else if (isnum(*optarg))
+            অন্যথা যদি (isnum(*optarg))
                 g_debug |= atoi(optarg);
-            else
-                goto unsupported_option;
-            break;
-        case TCC_OPTION_static:
+            অন্যথা
+                যাও unsupported_option;
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_static:
             s->static_link = 1;
-            break;
-        case TCC_OPTION_std:
-            if (strcmp(optarg, "=c11") == 0 || strcmp(optarg, "=gnu11") == 0)
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_std:
+            যদি (strcmp(optarg, "=c11") == 0 || strcmp(optarg, "=gnu11") == 0)
                 s->cversion = 201112;
-            break;
-        case TCC_OPTION_shared:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_shared:
             x = TCC_OUTPUT_DLL;
-            goto set_output_type;
-        case TCC_OPTION_soname:
+            যাও set_output_type;
+        ক্ষেত্র TCC_OPTION_soname:
             tcc_set_str(&s->soname, optarg);
-            break;
-        case TCC_OPTION_o:
-            if (s->outfile) {
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_o:
+            যদি (s->outfile) {
                 tcc_warning("multiple -o option");
             }
             tcc_set_str(&s->outfile, optarg);
-            break;
-        case TCC_OPTION_r:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_r:
             /* generate a .o merging several output files */
             s->option_r = 1;
             x = TCC_OUTPUT_OBJ;
-            goto set_output_type;
-        case TCC_OPTION_isystem:
+            যাও set_output_type;
+        ক্ষেত্র TCC_OPTION_isystem:
             tcc_add_sysinclude_path(s, optarg);
-            break;
-        case TCC_OPTION_include:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_include:
             cstr_printf(&s->cmdline_incl, "#include \"%s\"\n", optarg);
-            break;
-        case TCC_OPTION_nostdinc:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_nostdinc:
             s->nostdinc = 1;
-            break;
-        case TCC_OPTION_nostdlib:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_nostdlib:
             s->nostdlib = 1;
-            break;
-        case TCC_OPTION_run:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_run:
 #ifdef TCC_IS_NATIVE
             /* When from script "#!/usr/bin/tcc -run <options>",
                argv[1] is "-run <options>" and argv[2] is <script-name> */
             run = optarg;
             x = TCC_OUTPUT_MEMORY;
-            goto set_output_type;
-#else
-            return tcc_error_noabort("-run is not available in a cross compiler");
+            যাও set_output_type;
+#অন্যথা
+            ফেরত tcc_error_noabort("-run is not available in a cross compiler");
 #endif
 #ifdef TCC_IS_NATIVE
-        case TCC_OPTION_rstdin:
+        ক্ষেত্র TCC_OPTION_rstdin:
             /* custom stdin for run_main */
             s->run_stdin = optarg;
-            break;
+            বিরতি;
 #endif
-        case TCC_OPTION_v:
-            do ++s->verbose; while (*optarg++ == 'v');
-            continue;
-        case TCC_OPTION_f:
-            if (set_flag(s, options_f, optarg) < 0)
-                goto unsupported_option;
-            break;
+        ক্ষেত্র TCC_OPTION_v:
+            করো ++s->verbose; যখন (*optarg++ == 'v');
+            চালু;
+        ক্ষেত্র TCC_OPTION_f:
+            যদি (set_flag(s, options_f, optarg) < 0)
+                যাও unsupported_option;
+            বিরতি;
 #ifdef TCC_TARGET_ARM
-        case TCC_OPTION_mfloat_abi:
+        ক্ষেত্র TCC_OPTION_mfloat_abi:
             /* tcc doesn't support soft float yet */
-            if (!strcmp(optarg, "softfp")) {
+            যদি (!strcmp(optarg, "softfp")) {
                 s->float_abi = ARM_SOFTFP_FLOAT;
-            } else if (!strcmp(optarg, "hard"))
+            } অন্যথা যদি (!strcmp(optarg, "hard"))
                 s->float_abi = ARM_HARD_FLOAT;
-            else
-                return tcc_error_noabort("unsupported float abi '%s'", optarg);
-            continue;
+            অন্যথা
+                ফেরত tcc_error_noabort("unsupported float abi '%s'", optarg);
+            চালু;
 #endif
-        case TCC_OPTION_m:
-            if (set_flag(s, options_m, optarg) < 0) {
-                if (x = atoi(optarg), x != 32 && x != 64)
-                    goto unsupported_option;
-                if (PTR_SIZE != x/8)
-                    return x;
-                continue;
+        ক্ষেত্র TCC_OPTION_m:
+            যদি (set_flag(s, options_m, optarg) < 0) {
+                যদি (x = atoi(optarg), x != 32 && x != 64)
+                    যাও unsupported_option;
+                যদি (PTR_আকার != x/8)
+                    ফেরত x;
+                চালু;
             }
-            break;
-        case TCC_OPTION_W:
-            if (optarg[0] && set_flag(s, options_W, optarg) < 0)
-                goto unsupported_option;
-            break;
-        case TCC_OPTION_w:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_W:
+            যদি (optarg[0] && set_flag(s, options_W, optarg) < 0)
+                যাও unsupported_option;
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_w:
             s->warn_none = 1;
-            break;
-        case TCC_OPTION_rdynamic:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_rdynamic:
             s->rdynamic = 1;
-            break;
-        case TCC_OPTION_Wl:
-            if (tcc_set_linker(s, optarg) < 0)
-                return -1;
-            break;
-        case TCC_OPTION_Wp:
-            if (argv[0]) /* not with tcc_set_options() */
-                insert_args(s, &argv, &argc, --optind, optarg, ',');
-            break;
-        case TCC_OPTION_E:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_Wl:
+            যদি (tcc_set_linker(s, optarg) < 0)
+                ফেরত -1;
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_Wp:
+            যদি (argv[0]) /* not with tcc_set_options() */
+                ঢোকাও_args(s, &argv, &argc, --optind, optarg, ',');
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_E:
             x = TCC_OUTPUT_PREPROCESS;
-            goto set_output_type;
-        case TCC_OPTION_P:
+            যাও set_output_type;
+        ক্ষেত্র TCC_OPTION_P:
             s->Pflag = atoi(optarg) + 1;
-            break;
+            বিরতি;
 
-        case TCC_OPTION_M:
+        ক্ষেত্র TCC_OPTION_M:
             s->include_sys_deps = 1;
             // fall through
-        case TCC_OPTION_MM:
+        ক্ষেত্র TCC_OPTION_MM:
             s->just_deps = 1;
             s->gen_deps = 1;
-            if (!s->deps_outfile)
+            যদি (!s->deps_outfile)
                 tcc_set_str(&s->deps_outfile, "-");
-            break;
-        case TCC_OPTION_MD:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_MD:
             s->include_sys_deps = 1;
             // fall through
-        case TCC_OPTION_MMD:
+        ক্ষেত্র TCC_OPTION_MMD:
             s->gen_deps = 1;
             /* usually, only "-MMD" is used */
             /* but the Linux Kernel uses "-MMD,depfile" */
-            if (*optarg != ',')
-                break;
+            যদি (*optarg != ',')
+                বিরতি;
             ++optarg;
             // fall through
-        case TCC_OPTION_MF:
+        ক্ষেত্র TCC_OPTION_MF:
             tcc_set_str(&s->deps_outfile, optarg);
-            break;
-        case TCC_OPTION_MP:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_MP:
             s->gen_phony_deps = 1;
-            break;
+            বিরতি;
 
-        case TCC_OPTION_dumpmachine:
+        ক্ষেত্র TCC_OPTION_dumpmachine:
             printf("%s\n", dumpmachine_str);
             exit(0);
-        case TCC_OPTION_dumpversion:
+        ক্ষেত্র TCC_OPTION_dumpversion:
             printf ("%s\n", TCC_VERSION);
             exit(0);
 
-        case TCC_OPTION_x:
+        ক্ষেত্র TCC_OPTION_x:
             x = 0;
-            if (*optarg == 'c')
+            যদি (*optarg == 'c')
                 x = AFF_TYPE_C;
-            else if (*optarg == 'a')
+            অন্যথা যদি (*optarg == 'a')
                 x = AFF_TYPE_ASMPP;
-            else if (*optarg == 'b')
+            অন্যথা যদি (*optarg == 'b')
                 x = AFF_TYPE_BIN;
-            else if (*optarg == 'n')
+            অন্যথা যদি (*optarg == 'n')
                 x = AFF_TYPE_NONE;
-            else
+            অন্যথা
                 tcc_warning("unsupported language '%s'", optarg);
             s->filetype = x | (s->filetype & ~AFF_TYPE_MASK);
-            break;
-        case TCC_OPTION_O:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_O:
             s->optimize = isnum(optarg[0]) ? optarg[0]-'0' : 1 /* -O -Os */;
-            break;
-#if defined TCC_TARGET_MACHO
-        case TCC_OPTION_dynamiclib:
+            বিরতি;
+#যদি defined TCC_TARGET_MACHO
+        ক্ষেত্র TCC_OPTION_dynamiclib:
             x = TCC_OUTPUT_DLL;
-            goto set_output_type;
-        case TCC_OPTION_flat_namespace:
-	     break;
-        case TCC_OPTION_two_levelnamespace:
-	     break;
-        case TCC_OPTION_undefined:
-	     break;
-        case TCC_OPTION_install_name:
+            যাও set_output_type;
+        ক্ষেত্র TCC_OPTION_flat_namespace:
+	     বিরতি;
+        ক্ষেত্র TCC_OPTION_two_levelnamespace:
+	     বিরতি;
+        ক্ষেত্র TCC_OPTION_undefined:
+	     বিরতি;
+        ক্ষেত্র TCC_OPTION_install_name:
 	    tcc_set_str(&s->install_name, optarg);
-            break;
-        case TCC_OPTION_compatibility_version:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_compatibility_version:
 	    s->compatibility_version = parse_version(s, optarg);
-            break;
-        case TCC_OPTION_current_version:
+            বিরতি;
+        ক্ষেত্র TCC_OPTION_current_version:
 	    s->current_version = parse_version(s, optarg);;
-            break;
+            বিরতি;
 #endif
-        case TCC_OPTION_HELP:
+        ক্ষেত্র TCC_OPTION_HELP:
             x = OPT_HELP;
-            goto extra_action;
-        case TCC_OPTION_HELP2:
+            যাও extra_action;
+        ক্ষেত্র TCC_OPTION_HELP2:
             x = OPT_HELP2;
-            goto extra_action;
-        case TCC_OPTION_print_search_dirs:
+            যাও extra_action;
+        ক্ষেত্র TCC_OPTION_print_অনুসন্ধান_dirs:
             x = OPT_PRINT_DIRS;
-            goto extra_action;
-        case TCC_OPTION_impdef:
+            যাও extra_action;
+        ক্ষেত্র TCC_OPTION_impdef:
             x = OPT_IMPDEF;
-            goto extra_action;
-        case TCC_OPTION_ar:
+            যাও extra_action;
+        ক্ষেত্র TCC_OPTION_ar:
             x = OPT_AR;
         extra_action:
-            if (NULL == argv[0]) /* from tcc_set_options() */
-                return -1;
-            if (!empty && x)
-                return tcc_error_noabort("cannot parse %s here", r);
+            যদি (ফাঁকা == argv[0]) /* from tcc_set_options() */
+                ফেরত -1;
+            যদি (!empty && x)
+                ফেরত tcc_error_noabort("cannot parse %s here", r);
             --optind;
             *pargc = argc - optind;
             *pargv = argv + optind;
-            return x;
-        default:
+            ফেরত x;
+        পূর্বনির্ধারিত:
 unsupported_option:
             tcc_warning_c(warn_unsupported)("unsupported option '%s'", r);
-            break;
+            বিরতি;
         }
         empty = 0;
     }
-    if (s->link_optind < s->link_argc)
-        return tcc_error_noabort("argument to '-Wl,%s' is missing", s->link_argv[s->link_optind]);
-    if (run) {
-        if (*run && tcc_set_options(s, run) < 0)
-            return -1;
+    যদি (s->link_optind < s->link_argc)
+        ফেরত tcc_error_noabort("argument to '-Wl,%s' is missing", s->link_argv[s->link_optind]);
+    যদি (run) {
+        যদি (*run && tcc_set_options(s, run) < 0)
+            ফেরত -1;
         x = 0, r = 0;
-        goto extra_action;
+        যাও extra_action;
     }
-    if (!empty)
-        return 0;
-    if (s->verbose == 2)
-        return OPT_PRINT_DIRS;
-    if (s->verbose)
-        return OPT_V;
-    return OPT_HELP;
+    যদি (!empty)
+        ফেরত 0;
+    যদি (s->verbose == 2)
+        ফেরত OPT_PRINT_DIRS;
+    যদি (s->verbose)
+        ফেরত OPT_V;
+    ফেরত OPT_HELP;
 }
 
-LIBTCCAPI int tcc_set_options(TCCState *s, const char *r)
+LIBTCCAPI পূর্ণসংখ্যা tcc_set_options(TCCState *s, ধ্রুবক অক্ষর *r)
 {
-    char **argv = NULL;
-    int argc = 0, ret;
+    অক্ষর **argv = ফাঁকা;
+    পূর্ণসংখ্যা argc = 0, ret;
     dynarray_add(&argv, &argc, 0);
     dynarray_split(&argv, &argc, r, 0);
     ret = tcc_parse_args(s, &argc, &argv);
     dynarray_reset(&argv, &argc);
-    return ret;
+    ফেরত ret;
 }
 
-PUB_FUNC void tcc_print_stats(TCCState *s1, unsigned total_time)
+PUB_FUNC শূন্য tcc_print_stats(TCCState *s1, unsigned যোগ_time)
 {
-    if (!total_time)
-        total_time = 1;
+    যদি (!যোগ_time)
+        যোগ_time = 1;
     fprintf(stderr, "# %d idents, %d lines, %u bytes\n"
                     "# %0.3f s, %u lines/s, %0.1f MB/s\n",
-           total_idents, total_lines, total_bytes,
-           (double)total_time/1000,
-           (unsigned)total_lines*1000/total_time,
-           (double)total_bytes/1000/total_time);
+           যোগ_idents, যোগ_সারিগুলি, যোগ_bytes,
+           (দ্বিগুণ)যোগ_time/1000,
+           (unsigned)যোগ_সারিগুলি*1000/যোগ_time,
+           (দ্বিগুণ)যোগ_bytes/1000/যোগ_time);
     fprintf(stderr, "# text %u, data.rw %u, data.ro %u, bss %u bytes\n",
-           s1->total_output[0],
-           s1->total_output[1],
-           s1->total_output[2],
-           s1->total_output[3]
+           s1->যোগ_output[0],
+           s1->যোগ_output[1],
+           s1->যোগ_output[2],
+           s1->যোগ_output[3]
            );
 #ifdef MEM_DEBUG
     fprintf(stderr, "# memory usage");
 #ifdef TCC_IS_NATIVE
-    if (s1->run_size) {
+    যদি (s1->run_আকার) {
         Section *s = s1->symtab;
-        unsigned ms = s->data_offset + s->link->data_offset + s->hash->data_offset;
-        unsigned rs = s1->run_size;
+        unsigned ms = s->তথ্য_offset + s->link->তথ্য_offset + s->hash->তথ্য_offset;
+        unsigned rs = s1->run_আকার;
         fprintf(stderr, ": %d to run, %d symbols, %d other,",
-            rs, ms, mem_cur_size - rs - ms);
+            rs, ms, mem_cur_আকার - rs - ms);
     }
 #endif
-    fprintf(stderr, " %d max (bytes)\n", mem_max_size);
+    fprintf(stderr, " %d max (bytes)\n", mem_max_আকার);
 #endif
 }

@@ -6,10 +6,10 @@
 #ifndef _INC_MEMORY
 #define _INC_MEMORY
 
-#include <_mingw.h>
+#অন্তর্ভাব <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্যিক "C" {
 #endif
 
 #ifndef _CONST_RETURN
@@ -20,17 +20,17 @@ extern "C" {
 
 #ifndef _CRT_MEMORY_DEFINED
 #define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+  _CRTIMP শূন্য *__cdecl _memccpy(শূন্য *_Dst,ধ্রুবক শূন্য *_Src,পূর্ণসংখ্যা _Val,আকার_t Max_গুনতি);
+  _CONST_RETURN শূন্য *__cdecl memchr(ধ্রুবক শূন্য *_Buf ,পূর্ণসংখ্যা _Val,আকার_t Max_গুনতি);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _memicmp(ধ্রুবক শূন্য *_Buf1,ধ্রুবক শূন্য *_Buf2,আকার_t আকার_5);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _memicmp_l(ধ্রুবক শূন্য *_Buf1,ধ্রুবক শূন্য *_Buf2,আকার_t আকার_5,_locale_t _Locale);
+  পূর্ণসংখ্যা __cdecl memcmp(ধ্রুবক শূন্য *_Buf1,ধ্রুবক শূন্য *_Buf2,আকার_t আকার_5);
+  শূন্য *__cdecl memcpy(শূন্য *_Dst,ধ্রুবক শূন্য *_Src,আকার_t আকার_5);
+  শূন্য *__cdecl memset(শূন্য *_Dst,পূর্ণসংখ্যা _Val,আকার_t আকার_5);
 
 #ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
+  শূন্য *__cdecl memccpy(শূন্য *_Dst,ধ্রুবক শূন্য *_Src,পূর্ণসংখ্যা _Val,আকার_t আকার_5);
+  পূর্ণসংখ্যা __cdecl memicmp(ধ্রুবক শূন্য *_Buf1,ধ্রুবক শূন্য *_Buf2,আকার_t আকার_5);
 #endif
 #endif
 

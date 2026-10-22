@@ -1,24 +1,24 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
 /* This test used to fail on x86_64 on linux with sse registers */
 
-struct Point {
-   float x;
-   float y;
+কাঠামো Point {
+   দশমিক x;
+   দশমিক y;
 };
 
-struct Rect {
-   struct Point top_left;
-   struct Point size;
+কাঠামো Rect {
+   কাঠামো Point শীর্ষ_বাম;
+   কাঠামো Point আকার_2;
 };
 
-float foo(struct Point p, struct Rect r) {
-   return r.size.x;
+দশমিক foo(কাঠামো Point p, কাঠামো Rect r) {
+   ফেরত r.আকার_2.x;
 }
 
-int main(int argc, char **argv) {
-   struct Point p = {1, 2};
-   struct Rect r = {{3, 4}, {5, 6}};
+পূর্ণসংখ্যা প্রধান(পূর্ণসংখ্যা argc, অক্ষর **argv) {
+   কাঠামো Point p = {1, 2};
+   কাঠামো Rect r = {{3, 4}, {5, 6}};
    printf("%f\n", foo(p, r));
-   return 0;
+   ফেরত 0;
 }

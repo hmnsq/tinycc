@@ -1,52 +1,52 @@
 /* Check some way in where code suppression caused various
    miscompilations.  */
-extern int printf (const char *, ...);
-typedef __SIZE_TYPE__ size_t;
+বাহ্যিক পূর্ণসংখ্যা printf (ধ্রুবক অক্ষর *, ...);
+প্রকারলেখ __SIZE_TYPE__ আকার_t;
 
-size_t _brk_start, _brk_end;
-void * extend_brk(size_t size, size_t align)
+আকার_t _brk_start, _brk_end;
+শূন্য * extend_brk(আকার_t আকার_2, আকার_t align)
 {
-    size_t mask = align - 1;
-    void *ret = 0;
+    আকার_t mask = align - 1;
+    শূন্য *ret = 0;
 
-     do {
-	 if (__builtin_expect(!!(_brk_start == 0), 0))
-	   do {
+     করো {
+	 যদি (__builtin_expect(!!(_brk_start == 0), 0))
+	   করো {
 	       printf("wrong1\n");
-	   } while (0);
-     } while (0);
+	   } যখন (0);
+     } যখন (0);
      _brk_end = (_brk_end + mask) & ~mask;
-     ret = (void *)_brk_end;
-     _brk_end += size;
+     ret = (শূন্য *)_brk_end;
+     _brk_end += আকার_2;
 
-     return ret;
+     ফেরত ret;
 }
 
-static void get_args (int a, int b)
+স্থির শূন্য get_args (পূর্ণসংখ্যা a, পূর্ণসংখ্যা b)
 {
-  if (a != 1)
+  যদি (a != 1)
     printf("wrong2\n");
-  else
+  অন্যথা
     printf("okay\n");
 }
 
-void bla(void)
+শূন্য bla(শূন্য)
 {
-  int __ret = 42;
+  পূর্ণসংখ্যা __ret = 42;
   ({
-    if (__builtin_expect(!!(0), 0)) {
-      if (__builtin_expect(!!__ret, 0))
+    যদি (__builtin_expect(!!(0), 0)) {
+      যদি (__builtin_expect(!!__ret, 0))
         printf("wrong3\n");
-      int x = !!(__ret);
+      পূর্ণসংখ্যা x = !!(__ret);
     }
     __ret;
   });
-  get_args(!!__ret, sizeof(__ret));
+  get_args(!!__ret, আকার(__ret));
 }
 
-int ext;
+পূর্ণসংখ্যা ext;
 
-void broken_jumpopt (int xxx)
+শূন্য broken_jumpopt (পূর্ণসংখ্যা xxx)
 {
   /* This was broken in 8227db3a2 by code suppression during suppressed
      code :) */
@@ -54,27 +54,27 @@ void broken_jumpopt (int xxx)
   printf("okay: %d %d\n", xxx, ext);
 }
 
-_Bool chk(unsigned long addr, unsigned long limit, unsigned long size)
+_Bool chk(unsigned long addr, unsigned long limit, unsigned long আকার_2)
 {
   _Bool ret;
   /* This just needs to compile, no runtime test.  (And it doesn't compile
      only with certain internal checking added that's not committed).  */
-  if (0)
-    ret = 0 != (!!(addr > limit - size));
-  return 0;
+  যদি (0)
+    ret = 0 != (!!(addr > limit - আকার_2));
+  ফেরত 0;
 }
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-  void *r;
+  শূন্য *r;
   _brk_start = 1024;
   _brk_end = 1024;
   r = extend_brk (4096, 16);
-  if (!r)
+  যদি (!r)
     printf("wrong4\n");
-  else
+  অন্যথা
     printf("okay\n");
   bla();
   broken_jumpopt(42);
-  return 0;
+  ফেরত 0;
 }

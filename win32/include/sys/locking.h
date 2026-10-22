@@ -11,7 +11,7 @@
 #endif
 
 /* All the headers include this file. */
-#include <_mingw.h>
+#অন্তর্ভাব <_mingw.h>
 
 #define _LK_UNLCK 0
 #define _LK_LOCK 1

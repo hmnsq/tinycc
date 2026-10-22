@@ -7,18 +7,18 @@
 #define _INC_SHELLAPI
 
 #ifndef WINSHELLAPI
-#if !defined(_SHELL32_)
+#যদি !defined(_SHELL32_)
 #define WINSHELLAPI DECLSPEC_IMPORT
-#else
+#অন্যথা
 #define WINSHELLAPI
 #endif
 #endif
 
 #ifndef SHSTDAPI
-#if !defined(_SHELL32_)
+#যদি !defined(_SHELL32_)
 #define SHSTDAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
 #define SHSTDAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
-#else
+#অন্যথা
 #define SHSTDAPI STDAPI
 #define SHSTDAPI_(type) STDAPI_(type)
 #endif
@@ -26,18 +26,18 @@
 
 /* SHDOCAPI[_] definitions not required in this TinyCC minimal header */
 
-#if !defined(_WIN64)
-#include <pshpack1.h>
+#যদি !defined(_WIN64)
+#অন্তর্ভাব <pshpack1.h>
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্যিক "C" {
 #endif
 
 #ifdef UNICODE
 #define ShellExecute ShellExecuteW
 #define FindExecutable FindExecutableW
-#else
+#অন্যথা
 #define ShellExecute ShellExecuteA
 #define FindExecutable FindExecutableA
 #endif
@@ -45,15 +45,15 @@ extern "C" {
   /* minimal subset distributed with TinyCC. nShowCmd is at winuser.h */
   SHSTDAPI_(HINSTANCE) ShellExecuteA(HWND hwnd,LPCSTR lpOperation,LPCSTR lpFile,LPCSTR lpParameters,LPCSTR lpDirectory,INT nShowCmd);
   SHSTDAPI_(HINSTANCE) ShellExecuteW(HWND hwnd,LPCWSTR lpOperation,LPCWSTR lpFile,LPCWSTR lpParameters,LPCWSTR lpDirectory,INT nShowCmd);
-  SHSTDAPI_(HINSTANCE) FindExecutableA(LPCSTR lpFile,LPCSTR lpDirectory,LPSTR lpResult);
-  SHSTDAPI_(HINSTANCE) FindExecutableW(LPCWSTR lpFile,LPCWSTR lpDirectory,LPWSTR lpResult);
-  SHSTDAPI_(LPWSTR *) CommandLineToArgvW(LPCWSTR lpCmdLine,int*pNumArgs);
+  SHSTDAPI_(HINSTANCE) FindExecutableA(LPCSTR lpFile,LPCSTR lpDirectory,LPSTR lp_ফলাফল);
+  SHSTDAPI_(HINSTANCE) FindExecutableW(LPCWSTR lpFile,LPCWSTR lpDirectory,LPWSTR lp_ফলাফল);
+  SHSTDAPI_(LPWSTR *) Command_সারি_To_Argv_W(LPCWSTR lp_Cmd_সারি,পূর্ণসংখ্যা*p_অঙ্ক_Args);
 
 #ifdef __cplusplus
 }
 #endif
 
-#if !defined(_WIN64)
-#include <poppack.h>
+#যদি !defined(_WIN64)
+#অন্তর্ভাব <poppack.h>
 #endif
 #endif

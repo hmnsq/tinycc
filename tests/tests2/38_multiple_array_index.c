@@ -1,32 +1,32 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   পূর্ণসংখ্যা a[4][4];
+   পূর্ণসংখ্যা b = 0;
+   পূর্ণসংখ্যা x;
+   পূর্ণসংখ্যা y;
 
-   for (x = 0; x < 4; x++)
+   জন্য (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      জন্য (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   জন্য (x = 0; x < 4; x++)
    {
       printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      জন্য (y = 0; y < 4; y++)
       {
          printf("%d ", a[x][y]);
       }
       printf("\n");
    }
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

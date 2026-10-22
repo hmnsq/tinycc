@@ -1,6 +1,6 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
    printf("%d\n", '\1');
    printf("%d\n", '\10');
@@ -11,7 +11,7 @@ int main()
    printf("%d\n", '\x40');
    printf("test \x40\n");
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

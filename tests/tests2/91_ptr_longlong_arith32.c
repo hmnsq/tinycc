@@ -1,15 +1,15 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+পূর্ণসংখ্যা printf(ধ্রুবক অক্ষর *, ...);
+অক্ষর t[] = "012345678";
 
-int main(void)
+পূর্ণসংখ্যা প্রধান(শূন্য)
 {
-    char *data = t;
+    অক্ষর *তথ্য = t;
     unsigned long long r = 4;
     unsigned a = 5;
     unsigned long long b = 12;
 
-    *(unsigned*)(data + r) += a - b;
+    *(unsigned*)(তথ্য + r) += a - b;
 
-    printf("data = \"%s\"\n", data);
-    return 0;
+    printf("data = \"%s\"\n", তথ্য);
+    ফেরত 0;
 }

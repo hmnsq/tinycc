@@ -1,71 +1,71 @@
-void pointer_parameters(int *const cp, int *volatile vp, int *restrict rp)
+শূন্য pointer_parameters(পূর্ণসংখ্যা *ধ্রুবক cp, পূর্ণসংখ্যা *অস্থির vp, পূর্ণসংখ্যা *restrict rp)
 {
-    _Static_assert(_Generic(&cp, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&cp, পূর্ণসংখ্যা *ধ্রুবক *: 1, পূর্বনির্ধারিত: 0),
                    "const pointer parameter remains qualified");
-    _Static_assert(_Generic(&vp, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&vp, পূর্ণসংখ্যা *অস্থির *: 1, পূর্বনির্ধারিত: 0),
                    "volatile pointer parameter remains qualified");
-   _Static_assert(_Generic(&rp, int *restrict *: 1, default: 0),
+   _Static_assert(_Generic(&rp, পূর্ণসংখ্যা *restrict *: 1, পূর্বনির্ধারিত: 0),
                   "restrict pointer parameter remains qualified");
 }
 
-void array_parameters(int ca[const 2], int va[volatile 2], int ra[restrict 2])
+শূন্য array_parameters(পূর্ণসংখ্যা ca[ধ্রুবক 2], পূর্ণসংখ্যা va[অস্থির 2], পূর্ণসংখ্যা ra[restrict 2])
 {
-    _Static_assert(_Generic(&ca, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&ca, পূর্ণসংখ্যা *ধ্রুবক *: 1, পূর্বনির্ধারিত: 0),
                    "const array parameter adjusts to qualified pointer");
-    _Static_assert(_Generic(&va, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&va, পূর্ণসংখ্যা *অস্থির *: 1, পূর্বনির্ধারিত: 0),
                    "volatile array parameter adjusts to qualified pointer");
-    _Static_assert(_Generic(&ra, int *restrict *: 1, default: 0),
+    _Static_assert(_Generic(&ra, পূর্ণসংখ্যা *restrict *: 1, পূর্বনির্ধারিত: 0),
                    "restrict array parameter adjusts to qualified pointer");
 }
 
-void declared_const(int *const pointer);
-void declared_const(int *pointer)
+শূন্য declared_const(পূর্ণসংখ্যা *ধ্রুবক pointer);
+শূন্য declared_const(পূর্ণসংখ্যা *pointer)
 {
-    _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+    _Static_assert(_Generic(&pointer, পূর্ণসংখ্যা **: 1, পূর্বনির্ধারিত: 0),
                    "declaration qualifier does not affect definition");
     pointer = 0;
 }
 
-void defined_const(int *pointer);
-void defined_const(int *const pointer)
+শূন্য defined_const(পূর্ণসংখ্যা *pointer);
+শূন্য defined_const(পূর্ণসংখ্যা *ধ্রুবক pointer)
 {
-    _Static_assert(_Generic(&pointer, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&pointer, পূর্ণসংখ্যা *ধ্রুবক *: 1, পূর্বনির্ধারিত: 0),
                    "definition retains const");
 }
 
-void declared_volatile(int *volatile pointer);
-void declared_volatile(int *pointer)
+শূন্য declared_volatile(পূর্ণসংখ্যা *অস্থির pointer);
+শূন্য declared_volatile(পূর্ণসংখ্যা *pointer)
 {
-    _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+    _Static_assert(_Generic(&pointer, পূর্ণসংখ্যা **: 1, পূর্বনির্ধারিত: 0),
                    "declaration qualifier does not affect definition");
     pointer = 0;
 }
 
-void defined_volatile(int *pointer);
-void defined_volatile(int *volatile pointer)
+শূন্য defined_volatile(পূর্ণসংখ্যা *pointer);
+শূন্য defined_volatile(পূর্ণসংখ্যা *অস্থির pointer)
 {
-    _Static_assert(_Generic(&pointer, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&pointer, পূর্ণসংখ্যা *অস্থির *: 1, পূর্বনির্ধারিত: 0),
                    "definition retains volatile");
     pointer = 0;
 }
 
-void declared_restrict(int *restrict pointer);
-void declared_restrict(int *pointer)
+শূন্য declared_restrict(পূর্ণসংখ্যা *restrict pointer);
+শূন্য declared_restrict(পূর্ণসংখ্যা *pointer)
 {
-  _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+  _Static_assert(_Generic(&pointer, পূর্ণসংখ্যা **: 1, পূর্বনির্ধারিত: 0),
                  "declaration qualifier does not affect definition");
   pointer = 0;
 }
 
-void defined_restrict(int *pointer);
-void defined_restrict(int *restrict pointer)
+শূন্য defined_restrict(পূর্ণসংখ্যা *pointer);
+শূন্য defined_restrict(পূর্ণসংখ্যা *restrict pointer)
 {
-  _Static_assert(_Generic(&pointer, int *restrict *: 1, default: 0),
+  _Static_assert(_Generic(&pointer, পূর্ণসংখ্যা *restrict *: 1, পূর্বনির্ধারিত: 0),
                  "definition retains restrict");
   pointer = 0;
 }
 
-int main(void)
+পূর্ণসংখ্যা প্রধান(শূন্য)
 {
-    return 0;
+    ফেরত 0;
 }

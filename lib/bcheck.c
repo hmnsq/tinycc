@@ -17,35 +17,35 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include <setjmp.h>
-#include <stdatomic.h>
+#অন্তর্ভাব <stdlib.h>
+#অন্তর্ভাব <stdio.h>
+#অন্তর্ভাব <stdarg.h>
+#অন্তর্ভাব <string.h>
+#অন্তর্ভাব <setjmp.h>
+#অন্তর্ভাব <stdatomic.h>
 
-#if !defined(__FreeBSD__) \
+#যদি !defined(__FreeBSD__) \
  && !defined(__FreeBSD_kernel__) \
  && !defined(__DragonFly__) \
  && !defined(__OpenBSD__) \
  && !defined(__APPLE__) \
  && !defined(__NetBSD__)
-#include <malloc.h>
+#অন্তর্ভাব <malloc.h>
 #endif
 
-#if !defined(_WIN32)
-#include <unistd.h>
-#include <sys/syscall.h>
+#যদি !defined(_WIN32)
+#অন্তর্ভাব <unistd.h>
+#অন্তর্ভাব <sys/syscall.h>
 #endif
 
-#include "config.h"
+#অন্তর্ভাব "config.h"
 
 #define BOUND_DEBUG             (1)
 #define BOUND_STATISTIC         (1)
 
-#if BOUND_DEBUG
- #define dprintf(a...)         if (print_calls) { bounds_loc(a); }
-#else
+#যদি BOUND_DEBUG
+ #define dprintf(a...)         যদি (print_calls) { bounds_loc(a); }
+#অন্যথা
  #define dprintf(a...)
 #endif
 
@@ -55,24 +55,24 @@
 #endif
 #ifdef __i386__
 #define FASTCALL __attribute__((regparm(3)))
-#else
+#অন্যথা
 #define FASTCALL
 #endif
 
 #ifdef _WIN32
 # define DLL_EXPORT __declspec(dllexport)
-#else
+#অন্যথা
 # define DLL_EXPORT
 #endif
 
-#if defined(__FreeBSD__) \
+#যদি defined(__FreeBSD__) \
  || defined(__FreeBSD_kernel__) \
  || defined(__DragonFly__) \
  || defined(__OpenBSD__) \
  || defined(__NetBSD__) \
  || defined(__dietlibc__)
 
-#include <sys/mman.h>
+#অন্তর্ভাব <sys/mman.h>
 #define INIT_SEM()
 #define EXIT_SEM()
 #define WAIT_SEM()
@@ -89,11 +89,11 @@
 #define HAVE_TLS_FUNC          (0)
 #define HAVE_TLS_VAR           (0)
 
-#elif defined(_WIN32)
+#নতুবা_যদি defined(_WIN32)
 
-#include <windows.h>
-#include <signal.h>
-static CRITICAL_SECTION bounds_sem;
+#অন্তর্ভাব <windows.h>
+#অন্তর্ভাব <signal.h>
+স্থির CRITICAL_SECTION bounds_sem;
 #define INIT_SEM()             InitializeCriticalSection(&bounds_sem)
 #define EXIT_SEM()             DeleteCriticalSection(&bounds_sem)
 #define WAIT_SEM()             EnterCriticalSection(&bounds_sem)
@@ -110,48 +110,48 @@ static CRITICAL_SECTION bounds_sem;
 #define HAVE_TLS_FUNC          (1)
 #define HAVE_TLS_VAR           (0)
 
-#else
+#অন্যথা
 
 #define __USE_GNU              /* get RTLD_NEXT */
-#include <sys/mman.h>
-#include <ctype.h>
-#include <pthread.h>
-#include <dlfcn.h>
-#include <errno.h>
-#include <signal.h>
+#অন্তর্ভাব <sys/mman.h>
+#অন্তর্ভাব <ctype.h>
+#অন্তর্ভাব <pthread.h>
+#অন্তর্ভাব <dlfcn.h>
+#অন্তর্ভাব <errno.h>
+#অন্তর্ভাব <signal.h>
 #ifdef __APPLE__
-#include <dispatch/dispatch.h>
-static dispatch_semaphore_t bounds_sem;
+#অন্তর্ভাব <dispatch/dispatch.h>
+স্থির dispatch_semaphore_t bounds_sem;
 #define INIT_SEM()             bounds_sem = dispatch_semaphore_create(1)
 #define EXIT_SEM()             dispatch_release(*(dispatch_object_t*)&bounds_sem)
-#define WAIT_SEM()             if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_FOREVER)
-#define POST_SEM()             if (use_sem) dispatch_semaphore_signal(bounds_sem)
-#define TRY_SEM()              if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_NOW)
-#elif 0
-#include <semaphore.h>
-static sem_t bounds_sem;
+#define WAIT_SEM()             যদি (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_FOREVER)
+#define POST_SEM()             যদি (use_sem) dispatch_semaphore_signal(bounds_sem)
+#define TRY_SEM()              যদি (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_NOW)
+#নতুবা_যদি 0
+#অন্তর্ভাব <semaphore.h>
+স্থির sem_t bounds_sem;
 #define INIT_SEM()             sem_init (&bounds_sem, 0, 1)
 #define EXIT_SEM()             sem_destroy (&bounds_sem)
-#define WAIT_SEM()             if (use_sem) while (sem_wait (&bounds_sem) < 0 \
+#define WAIT_SEM()             যদি (use_sem) যখন (sem_wait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
-#define POST_SEM()             if (use_sem) sem_post (&bounds_sem)
-#define TRY_SEM()              if (use_sem) while (sem_trywait (&bounds_sem) < 0 \
+#define POST_SEM()             যদি (use_sem) sem_post (&bounds_sem)
+#define TRY_SEM()              যদি (use_sem) যখন (sem_trywait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
-#elif 0
-static pthread_mutex_t bounds_mtx;
-#define INIT_SEM()             pthread_mutex_init (&bounds_mtx, NULL)
+#নতুবা_যদি 0
+স্থির pthread_mutex_t bounds_mtx;
+#define INIT_SEM()             pthread_mutex_init (&bounds_mtx, ফাঁকা)
 #define EXIT_SEM()             pthread_mutex_destroy (&bounds_mtx)
-#define WAIT_SEM()             if (use_sem) pthread_mutex_lock (&bounds_mtx)
-#define POST_SEM()             if (use_sem) pthread_mutex_unlock (&bounds_mtx)
-#define TRY_SEM()              if (use_sem) pthread_mutex_trylock (&bounds_mtx)
-#else
-static pthread_spinlock_t bounds_spin;
+#define WAIT_SEM()             যদি (use_sem) pthread_mutex_lock (&bounds_mtx)
+#define POST_SEM()             যদি (use_sem) pthread_mutex_unlock (&bounds_mtx)
+#define TRY_SEM()              যদি (use_sem) pthread_mutex_trylock (&bounds_mtx)
+#অন্যথা
+স্থির pthread_spinlock_t bounds_spin;
 /* about 25% faster then semaphore. */
 #define INIT_SEM()             pthread_spin_init (&bounds_spin, 0)
 #define EXIT_SEM()             pthread_spin_destroy (&bounds_spin)
-#define WAIT_SEM()             if (use_sem) pthread_spin_lock (&bounds_spin)
-#define POST_SEM()             if (use_sem) pthread_spin_unlock (&bounds_spin)
-#define TRY_SEM()              if (use_sem) pthread_spin_trylock (&bounds_spin)
+#define WAIT_SEM()             যদি (use_sem) pthread_spin_lock (&bounds_spin)
+#define POST_SEM()             যদি (use_sem) pthread_spin_unlock (&bounds_spin)
+#define TRY_SEM()              যদি (use_sem) pthread_spin_trylock (&bounds_spin)
 #endif
 #define HAVE_MEMALIGN          (1)
 #define MALLOC_REDIR           (1)
@@ -161,44 +161,44 @@ static pthread_spinlock_t bounds_spin;
 #define HAVE_SIGNAL            (1)
 #define HAVE_SIGACTION         (1)
 #define HAVE_FORK              (1)
-#if defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_RUN)
+#যদি defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_RUN)
 #define HAVE_TLS_FUNC          (1)
 #define HAVE_TLS_VAR           (0)
-#else
+#অন্যথা
 #define HAVE_TLS_FUNC          (0)
 #define HAVE_TLS_VAR           (1)
 #endif
-#if defined CONFIG_TCC_MUSL || defined __ANDROID__
+#যদি defined CONFIG_TCC_MUSL || defined __ANDROID__
 # undef HAVE_CTYPE
 #endif
 #endif
 
-#if MALLOC_REDIR
-static void *(*malloc_redir) (size_t);
-static void *(*calloc_redir) (size_t, size_t);
-static void (*free_redir) (void *);
-static void *(*realloc_redir) (void *, size_t);
-static unsigned int pool_index;
-static unsigned char __attribute__((aligned(16))) initial_pool[256];
+#যদি MALLOC_REDIR
+স্থির শূন্য *(*malloc_redir) (আকার_t);
+স্থির শূন্য *(*calloc_redir) (আকার_t, আকার_t);
+স্থির শূন্য (*free_redir) (শূন্য *);
+স্থির শূন্য *(*realloc_redir) (শূন্য *, আকার_t);
+স্থির unsigned পূর্ণসংখ্যা pool_সূচক;
+স্থির unsigned অক্ষর __attribute__((aligned(16))) initial_pool[256];
 #endif
-#if HAVE_MEMALIGN
-static void *(*memalign_redir) (size_t, size_t);
+#যদি HAVE_MEMALIGN
+স্থির শূন্য *(*memalign_redir) (আকার_t, আকার_t);
 #endif
-#if HAVE_PTHREAD_CREATE
-static int (*pthread_create_redir) (pthread_t *thread,
-                                    const pthread_attr_t *attr,
-                                    void *(*start_routine)(void *), void *arg);
+#যদি HAVE_PTHREAD_CREATE
+স্থির পূর্ণসংখ্যা (*pthread_create_redir) (pthread_t *thread,
+                                    ধ্রুবক pthread_attr_t *attr,
+                                    শূন্য *(*start_routine)(শূন্য *), শূন্য *arg);
 #endif
-#if HAVE_SIGNAL
-typedef void (*bound_sig)(int);
-static bound_sig (*signal_redir) (int signum, bound_sig handler);
+#যদি HAVE_SIGNAL
+প্রকারলেখ শূন্য (*bound_sig)(পূর্ণসংখ্যা);
+স্থির bound_sig (*signal_redir) (পূর্ণসংখ্যা signum, bound_sig handler);
 #endif
-#if HAVE_SIGACTION
-static int (*sigaction_redir) (int signum, const struct sigaction *act,
-                               struct sigaction *oldact);
+#যদি HAVE_SIGACTION
+স্থির পূর্ণসংখ্যা (*sigaction_redir) (পূর্ণসংখ্যা signum, ধ্রুবক কাঠামো sigaction *act,
+                               কাঠামো sigaction *oldact);
 #endif
-#if HAVE_FORK
-static int (*fork_redir) (void);
+#যদি HAVE_FORK
+স্থির পূর্ণসংখ্যা (*fork_redir) (শূন্য);
 #endif
 
 #define TCC_TYPE_NONE           (0)
@@ -209,407 +209,407 @@ static int (*fork_redir) (void);
 #define TCC_TYPE_STRDUP         (5)
 
 /* this pointer is generated when bound check is incorrect */
-#define INVALID_POINTER ((void *)(-2))
+#define INVALID_POINTER ((শূন্য *)(-2))
 
-typedef struct tree_node Tree;
-struct tree_node {
-    Tree * left, * right;
-    size_t start;
-    size_t size;
-    unsigned char type;
-    unsigned char is_invalid; /* true if pointers outside region are invalid */
+প্রকারলেখ কাঠামো বৃক্ষ_গ্রন্থি বৃক্ষ;
+কাঠামো বৃক্ষ_গ্রন্থি {
+    বৃক্ষ * বাম, * ডান;
+    আকার_t start;
+    আকার_t আকার_2;
+    unsigned অক্ষর type;
+    unsigned অক্ষর is_invalid; /* true if pointers outside region are invalid */
 };
 
-typedef struct alloca_list_struct {
-    size_t fp;
-    void *p;
-    size_t size;
-    struct alloca_list_struct *next;
+প্রকারলেখ কাঠামো alloca_list_struct {
+    আকার_t fp;
+    শূন্য *p;
+    আকার_t আকার_2;
+    কাঠামো alloca_list_struct *পরবর্তী;
 } alloca_list_type;
 
-#if defined(_WIN32)
+#যদি defined(_WIN32)
 #define BOUND_TID_TYPE		DWORD
 #define BOUND_GET_TID(id)	id = GetCurrentThreadId()
-#elif defined(__OpenBSD__)
+#নতুবা_যদি defined(__OpenBSD__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	id = getthrid()
-#elif defined(__FreeBSD__)
+#নতুবা_যদি defined(__FreeBSD__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	syscall (SYS_thr_self, &id)
-#elif  defined(__NetBSD__)
+#নতুবা_যদি  defined(__NetBSD__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	id = syscall (SYS__lwp_self)
-#elif defined(__linux__)
+#নতুবা_যদি defined(__linux__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	id = syscall (SYS_gettid)
-#else
-#define BOUND_TID_TYPE		int
+#অন্যথা
+#define BOUND_TID_TYPE		পূর্ণসংখ্যা
 #define BOUND_GET_TID(id)	id = 0
 #endif
 
-typedef struct jmp_list_struct {
-    void *penv;
-    size_t fp;
-    size_t end_fp;
+প্রকারলেখ কাঠামো jmp_list_struct {
+    শূন্য *penv;
+    আকার_t fp;
+    আকার_t end_fp;
     BOUND_TID_TYPE tid;
-    struct jmp_list_struct *next;
+    কাঠামো jmp_list_struct *পরবর্তী;
 } jmp_list_type;
 
 #define BOUND_STATISTIC_SPLAY   (0)
-static Tree * splay (size_t addr, Tree *t);
-static Tree * splay_end (size_t addr, Tree *t);
-static Tree * splay_insert(size_t addr, size_t size, Tree * t);
-static Tree * splay_delete(size_t addr, Tree *t);
-void splay_printtree(Tree * t, int d);
+স্থির বৃক্ষ * splay (আকার_t addr, বৃক্ষ *t);
+স্থির বৃক্ষ * splay_end (আকার_t addr, বৃক্ষ *t);
+স্থির বৃক্ষ * splay_ঢোকাও(আকার_t addr, আকার_t আকার_2, বৃক্ষ * t);
+স্থির বৃক্ষ * splay_delete(আকার_t addr, বৃক্ষ *t);
+শূন্য splay_printtree(বৃক্ষ * t, পূর্ণসংখ্যা d);
 
 /* external interface */
-void __bounds_checking (int no_check);
-void __bound_checking_lock (void);
-void __bound_checking_unlock (void);
-void __bound_never_fatal (int no_check);
-DLL_EXPORT void * __bound_ptr_add(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir1(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir2(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir4(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir8(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir12(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir16(void *p, size_t offset);
-DLL_EXPORT void FASTCALL __bound_local_new(void *p1);
-DLL_EXPORT void FASTCALL __bound_local_delete(void *p1);
-void __bound_init(size_t *, int);
-void __bound_main_arg(int argc, char **argv, char **envp);
-void __bound_exit(void);
-void __bound_exit_dll(size_t *);
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot, int flags, int fd,
+শূন্য __bounds_checking (পূর্ণসংখ্যা no_check);
+শূন্য __bound_checking_lock (শূন্য);
+শূন্য __bound_checking_unlock (শূন্য);
+শূন্য __bound_never_fatal (পূর্ণসংখ্যা no_check);
+DLL_EXPORT শূন্য * __bound_ptr_add(শূন্য *p, আকার_t offset);
+DLL_EXPORT শূন্য * __bound_ptr_indir1(শূন্য *p, আকার_t offset);
+DLL_EXPORT শূন্য * __bound_ptr_indir2(শূন্য *p, আকার_t offset);
+DLL_EXPORT শূন্য * __bound_ptr_indir4(শূন্য *p, আকার_t offset);
+DLL_EXPORT শূন্য * __bound_ptr_indir8(শূন্য *p, আকার_t offset);
+DLL_EXPORT শূন্য * __bound_ptr_indir12(শূন্য *p, আকার_t offset);
+DLL_EXPORT শূন্য * __bound_ptr_indir16(শূন্য *p, আকার_t offset);
+DLL_EXPORT শূন্য FASTCALL __bound_local_new(শূন্য *p1);
+DLL_EXPORT শূন্য FASTCALL __bound_local_delete(শূন্য *p1);
+শূন্য __bound_init(আকার_t *, পূর্ণসংখ্যা);
+শূন্য __bound_main_arg(পূর্ণসংখ্যা argc, অক্ষর **argv, অক্ষর **envp);
+শূন্য __bound_exit(শূন্য);
+শূন্য __bound_exit_dll(আকার_t *);
+#যদি !defined(_WIN32)
+শূন্য *__bound_mmap (শূন্য *start, আকার_t আকার_2, পূর্ণসংখ্যা prot, পূর্ণসংখ্যা flags, পূর্ণসংখ্যা fd,
                     off_t offset);
-int __bound_munmap (void *start, size_t size);
-DLL_EXPORT void __bound_siglongjmp(jmp_buf env, int val);
+পূর্ণসংখ্যা __bound_munmap (শূন্য *start, আকার_t আকার_2);
+DLL_EXPORT শূন্য __bound_siglongjmp(jmp_buf env, পূর্ণসংখ্যা val);
 #endif
-DLL_EXPORT void __bound_new_region(void *p, size_t size);
-DLL_EXPORT void __bound_setjmp(jmp_buf env);
-DLL_EXPORT void __bound_longjmp(jmp_buf env, int val);
-DLL_EXPORT void *__bound_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT int __bound_memcmp(const void *s1, const void *s2, size_t size);
-DLL_EXPORT void *__bound_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound_memset(void *dst, int c, size_t size);
-DLL_EXPORT int __bound_strlen(const char *s);
-DLL_EXPORT char *__bound_strcpy(char *dst, const char *src);
-DLL_EXPORT char *__bound_strncpy(char *dst, const char *src, size_t n);
-DLL_EXPORT int __bound_strcmp(const char *s1, const char *s2);
-DLL_EXPORT int __bound_strncmp(const char *s1, const char *s2, size_t n);
-DLL_EXPORT char *__bound_strcat(char *dest, const char *src);
-DLL_EXPORT char *__bound_strncat(char *dest, const char *src, size_t n);
-DLL_EXPORT char *__bound_strchr(const char *string, int ch);
-DLL_EXPORT char *__bound_strrchr(const char *string, int ch);
-DLL_EXPORT char *__bound_strdup(const char *s);
+DLL_EXPORT শূন্য __bound_new_region(শূন্য *p, আকার_t আকার_2);
+DLL_EXPORT শূন্য __bound_setjmp(jmp_buf env);
+DLL_EXPORT শূন্য __bound_longjmp(jmp_buf env, পূর্ণসংখ্যা val);
+DLL_EXPORT শূন্য *__bound_memcpy(শূন্য *dst, ধ্রুবক শূন্য *src, আকার_t আকার_2);
+DLL_EXPORT পূর্ণসংখ্যা __bound_memcmp(ধ্রুবক শূন্য *s1, ধ্রুবক শূন্য *s2, আকার_t আকার_2);
+DLL_EXPORT শূন্য *__bound_memmove(শূন্য *dst, ধ্রুবক শূন্য *src, আকার_t আকার_2);
+DLL_EXPORT শূন্য *__bound_memset(শূন্য *dst, পূর্ণসংখ্যা c, আকার_t আকার_2);
+DLL_EXPORT পূর্ণসংখ্যা __bound_strlen(ধ্রুবক অক্ষর *s);
+DLL_EXPORT অক্ষর *__bound_strcpy(অক্ষর *dst, ধ্রুবক অক্ষর *src);
+DLL_EXPORT অক্ষর *__bound_strncpy(অক্ষর *dst, ধ্রুবক অক্ষর *src, আকার_t n);
+DLL_EXPORT পূর্ণসংখ্যা __bound_strcmp(ধ্রুবক অক্ষর *s1, ধ্রুবক অক্ষর *s2);
+DLL_EXPORT পূর্ণসংখ্যা __bound_strncmp(ধ্রুবক অক্ষর *s1, ধ্রুবক অক্ষর *s2, আকার_t n);
+DLL_EXPORT অক্ষর *__bound_strcat(অক্ষর *dest, ধ্রুবক অক্ষর *src);
+DLL_EXPORT অক্ষর *__bound_strncat(অক্ষর *dest, ধ্রুবক অক্ষর *src, আকার_t n);
+DLL_EXPORT অক্ষর *__bound_strchr(ধ্রুবক অক্ষর *string, পূর্ণসংখ্যা ch);
+DLL_EXPORT অক্ষর *__bound_strrchr(ধ্রুবক অক্ষর *string, পূর্ণসংখ্যা ch);
+DLL_EXPORT অক্ষর *__bound_strdup(ধ্রুবক অক্ষর *s);
 
-#if defined(__arm__) && defined(__ARM_EABI__)
-DLL_EXPORT void *__bound___aeabi_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove4(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memset(void *dst, int c, size_t size);
-DLL_EXPORT void *__aeabi_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove4(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memset(void *dst, int c, size_t size);
+#যদি defined(__arm__) && defined(__ARM_EABI__)
+DLL_EXPORT শূন্য *__bound___aeabi_memcpy(শূন্য *dst, ধ্রুবক শূন্য *src, আকার_t আকার_2);
+DLL_EXPORT শূন্য *__bound___aeabi_memmove(শূন্য *dst, ধ্রুবক শূন্য *src, আকার_t আকার_2);
+DLL_EXPORT শূন্য *__bound___aeabi_memmove4(শূন্য *dst, ধ্রুবক শূন্য *src, আকার_t আকার_2);
+DLL_EXPORT শূন্য *__bound___aeabi_memmove8(শূন্য *dst, ধ্রুবক শূন্য *src, আকার_t আকার_2);
+DLL_EXPORT শূন্য *__bound___aeabi_memset(শূন্য *dst, পূর্ণসংখ্যা c, আকার_t আকার_2);
+DLL_EXPORT শূন্য *__aeabi_memcpy(শূন্য *dst, ধ্রুবক শূন্য *src, আকার_t আকার_2);
+DLL_EXPORT শূন্য *__aeabi_memmove(শূন্য *dst, ধ্রুবক শূন্য *src, আকার_t আকার_2);
+DLL_EXPORT শূন্য *__aeabi_memmove4(শূন্য *dst, ধ্রুবক শূন্য *src, আকার_t আকার_2);
+DLL_EXPORT শূন্য *__aeabi_memmove8(শূন্য *dst, ধ্রুবক শূন্য *src, আকার_t আকার_2);
+DLL_EXPORT শূন্য *__aeabi_memset(শূন্য *dst, পূর্ণসংখ্যা c, আকার_t আকার_2);
 #endif
 
-#if MALLOC_REDIR
+#যদি MALLOC_REDIR
 #define BOUND_MALLOC(a)          malloc_redir(a)
 #define BOUND_MEMALIGN(a,b)      memalign_redir(a,b)
 #define BOUND_FREE(a)            free_redir(a)
 #define BOUND_REALLOC(a,b)       realloc_redir(a,b)
 #define BOUND_CALLOC(a,b)        calloc_redir(a,b)
-#else
+#অন্যথা
 #define BOUND_MALLOC(a)          malloc(a)
 #define BOUND_MEMALIGN(a,b)      memalign(a,b)
-#define BOUND_FREE(a)            free(a)
+#define BOUND_FREE(a)            মুক্ত(a)
 #define BOUND_REALLOC(a,b)       realloc(a,b)
 #define BOUND_CALLOC(a,b)        calloc(a,b)
-DLL_EXPORT void *__bound_malloc(size_t size, const void *caller);
-DLL_EXPORT void *__bound_memalign(size_t align, size_t size, const void *caller);
-DLL_EXPORT void __bound_free(void *ptr, const void *caller);
-DLL_EXPORT void *__bound_realloc(void *ptr, size_t size, const void *caller);
-DLL_EXPORT void *__bound_calloc(size_t nmemb, size_t size);
+DLL_EXPORT শূন্য *__bound_malloc(আকার_t আকার_2, ধ্রুবক শূন্য *caller);
+DLL_EXPORT শূন্য *__bound_memalign(আকার_t align, আকার_t আকার_2, ধ্রুবক শূন্য *caller);
+DLL_EXPORT শূন্য __bound_free(শূন্য *ptr, ধ্রুবক শূন্য *caller);
+DLL_EXPORT শূন্য *__bound_realloc(শূন্য *ptr, আকার_t আকার_2, ধ্রুবক শূন্য *caller);
+DLL_EXPORT শূন্য *__bound_calloc(আকার_t nmemb, আকার_t আকার_2);
 #endif
 
-#define FREE_REUSE_SIZE (100)
-static unsigned int free_reuse_index;
-static void *free_reuse_list[FREE_REUSE_SIZE];
+#define FREE_REUSE_আকার (100)
+স্থির unsigned পূর্ণসংখ্যা free_reuse_সূচক;
+স্থির শূন্য *free_reuse_list[FREE_REUSE_আকার];
 
-static Tree *tree = NULL;
-#define TREE_REUSE      (1)
-#if TREE_REUSE
-static Tree *tree_free_list;
+স্থির বৃক্ষ *বৃক্ষ_2 = ফাঁকা;
+#define বৃক্ষ_REUSE      (1)
+#যদি বৃক্ষ_REUSE
+স্থির বৃক্ষ *বৃক্ষ_free_list;
 #endif
-static alloca_list_type *alloca_list;
-static jmp_list_type *jmp_list;
+স্থির alloca_list_type *alloca_list;
+স্থির jmp_list_type *jmp_list;
 
-static unsigned char inited;
-static unsigned char print_warn_ptr_add;
-static unsigned char print_calls;
-static unsigned char print_heap;
-static unsigned char print_statistic;
-static unsigned char no_strdup;
-static unsigned char use_sem;
-static _Atomic int never_fatal;
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-static int no_checking = 0;
-static DWORD no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) LocalAlloc(LPTR, sizeof(int));  \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+স্থির unsigned অক্ষর inited;
+স্থির unsigned অক্ষর print_warn_ptr_add;
+স্থির unsigned অক্ষর print_calls;
+স্থির unsigned অক্ষর print_heap;
+স্থির unsigned অক্ষর print_statistic;
+স্থির unsigned অক্ষর no_strdup;
+স্থির unsigned অক্ষর use_sem;
+স্থির _Atomic পূর্ণসংখ্যা never_fatal;
+#যদি HAVE_TLS_FUNC
+#যদি defined(_WIN32)
+স্থির পূর্ণসংখ্যা no_checking = 0;
+স্থির DWORD no_checking_চাবি;
+#define NO_CHECKING_CHECK() যদি (!p) {                                         \
+                                  p = (পূর্ণসংখ্যা *) LocalAlloc(LPTR, আকার(পূর্ণসংখ্যা));  \
+                                  যদি (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  TlsSetValue(no_checking_key, p);            \
+                                  Tls_Set_মান(no_checking_চাবি, p);            \
                             }
-#define NO_CHECKING_GET()   ({ int *p = TlsGetValue(no_checking_key);         \
+#define NO_CHECKING_GET()   ({ পূর্ণসংখ্যা *p = Tls_Get_মান(no_checking_চাবি);         \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = TlsGetValue(no_checking_key);          \
+#define NO_CHECKING_SET(v)  { পূর্ণসংখ্যা *p = Tls_Get_মান(no_checking_চাবি);          \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
-#else
-static int no_checking = 0;
-static pthread_key_t no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) BOUND_MALLOC(sizeof(int));      \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+#অন্যথা
+স্থির পূর্ণসংখ্যা no_checking = 0;
+স্থির pthread_key_t no_checking_চাবি;
+#define NO_CHECKING_CHECK() যদি (!p) {                                         \
+                                  p = (পূর্ণসংখ্যা *) BOUND_MALLOC(আকার(পূর্ণসংখ্যা));      \
+                                  যদি (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  pthread_setspecific(no_checking_key, p);    \
+                                  pthread_setspecific(no_checking_চাবি, p);    \
                             }
-#define NO_CHECKING_GET()   ({ int *p = pthread_getspecific(no_checking_key); \
+#define NO_CHECKING_GET()   ({ পূর্ণসংখ্যা *p = pthread_getspecific(no_checking_চাবি); \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = pthread_getspecific(no_checking_key);  \
+#define NO_CHECKING_SET(v)  { পূর্ণসংখ্যা *p = pthread_getspecific(no_checking_চাবি);  \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
 #endif
-#elif HAVE_TLS_VAR
-static __thread int no_checking = 0;
+#নতুবা_যদি HAVE_TLS_VAR
+স্থির __thread পূর্ণসংখ্যা no_checking = 0;
 #define NO_CHECKING_GET()  no_checking
 #define NO_CHECKING_SET(v) no_checking = v 
-#else
-static _Atomic int no_checking = 0;
+#অন্যথা
+স্থির _Atomic পূর্ণসংখ্যা no_checking = 0;
 #define NO_CHECKING_GET()  no_checking
 #define NO_CHECKING_SET(v) no_checking = v 
 #endif
-static char exec[100];
+স্থির অক্ষর exec[100];
 
-#if BOUND_STATISTIC
-static unsigned long long bound_ptr_add_count;
-static unsigned long long bound_ptr_indir1_count;
-static unsigned long long bound_ptr_indir2_count;
-static unsigned long long bound_ptr_indir4_count;
-static unsigned long long bound_ptr_indir8_count;
-static unsigned long long bound_ptr_indir12_count;
-static unsigned long long bound_ptr_indir16_count;
-static unsigned long long bound_local_new_count;
-static unsigned long long bound_local_delete_count;
-static unsigned long long bound_malloc_count;
-static unsigned long long bound_calloc_count;
-static unsigned long long bound_realloc_count;
-static unsigned long long bound_free_count;
-static unsigned long long bound_memalign_count;
-static unsigned long long bound_mmap_count;
-static unsigned long long bound_munmap_count;
-static unsigned long long bound_alloca_count;
-static unsigned long long bound_setjmp_count;
-static unsigned long long bound_longjmp_count;
-static unsigned long long bound_mempcy_count;
-static unsigned long long bound_memcmp_count;
-static unsigned long long bound_memmove_count;
-static unsigned long long bound_memset_count;
-static unsigned long long bound_strlen_count;
-static unsigned long long bound_strcpy_count;
-static unsigned long long bound_strncpy_count;
-static unsigned long long bound_strcmp_count;
-static unsigned long long bound_strncmp_count;
-static unsigned long long bound_strcat_count;
-static unsigned long long bound_strncat_count;
-static unsigned long long bound_strchr_count;
-static unsigned long long bound_strrchr_count;
-static unsigned long long bound_strdup_count;
-static unsigned long long bound_not_found;
-#define INCR_COUNT(x)          ++x
-#else
-#define INCR_COUNT(x)
+#যদি BOUND_STATISTIC
+স্থির unsigned long long bound_ptr_add_গুনতি;
+স্থির unsigned long long bound_ptr_indir1_গুনতি;
+স্থির unsigned long long bound_ptr_indir2_গুনতি;
+স্থির unsigned long long bound_ptr_indir4_গুনতি;
+স্থির unsigned long long bound_ptr_indir8_গুনতি;
+স্থির unsigned long long bound_ptr_indir12_গুনতি;
+স্থির unsigned long long bound_ptr_indir16_গুনতি;
+স্থির unsigned long long bound_local_new_গুনতি;
+স্থির unsigned long long bound_local_delete_গুনতি;
+স্থির unsigned long long bound_malloc_গুনতি;
+স্থির unsigned long long bound_calloc_গুনতি;
+স্থির unsigned long long bound_realloc_গুনতি;
+স্থির unsigned long long bound_free_গুনতি;
+স্থির unsigned long long bound_memalign_গুনতি;
+স্থির unsigned long long bound_mmap_গুনতি;
+স্থির unsigned long long bound_munmap_গুনতি;
+স্থির unsigned long long bound_alloca_গুনতি;
+স্থির unsigned long long bound_setjmp_গুনতি;
+স্থির unsigned long long bound_longjmp_গুনতি;
+স্থির unsigned long long bound_mempcy_গুনতি;
+স্থির unsigned long long bound_memcmp_গুনতি;
+স্থির unsigned long long bound_memmove_গুনতি;
+স্থির unsigned long long bound_memset_গুনতি;
+স্থির unsigned long long bound_strlen_গুনতি;
+স্থির unsigned long long bound_strcpy_গুনতি;
+স্থির unsigned long long bound_strncpy_গুনতি;
+স্থির unsigned long long bound_strcmp_গুনতি;
+স্থির unsigned long long bound_strncmp_গুনতি;
+স্থির unsigned long long bound_strcat_গুনতি;
+স্থির unsigned long long bound_strncat_গুনতি;
+স্থির unsigned long long bound_strchr_গুনতি;
+স্থির unsigned long long bound_strrchr_গুনতি;
+স্থির unsigned long long bound_strdup_গুনতি;
+স্থির unsigned long long bound_not_found;
+#define INCR_গুনতি(x)          ++x
+#অন্যথা
+#define INCR_গুনতি(x)
 #endif
-#if BOUND_STATISTIC_SPLAY
-static unsigned long long bound_splay;
-static unsigned long long bound_splay_end;
-static unsigned long long bound_splay_insert;
-static unsigned long long bound_splay_delete;
-#define INCR_COUNT_SPLAY(x)    ++x
-#else
-#define INCR_COUNT_SPLAY(x)
+#যদি BOUND_STATISTIC_SPLAY
+স্থির unsigned long long bound_splay;
+স্থির unsigned long long bound_splay_end;
+স্থির unsigned long long bound_splay_ঢোকাও;
+স্থির unsigned long long bound_splay_delete;
+#define INCR_গুনতি_SPLAY(x)    ++x
+#অন্যথা
+#define INCR_গুনতি_SPLAY(x)
 #endif
 
-int tcc_backtrace(const char *fmt, ...);
+পূর্ণসংখ্যা tcc_backtrace(ধ্রুবক অক্ষর *fmt, ...);
 
 /* print a bound error message */
 #define bound_warning(...) \
-    do {                                                 \
+    করো {                                                 \
         WAIT_SEM ();                                     \
         tcc_backtrace("^bcheck.c^BCHECK: " __VA_ARGS__); \
         POST_SEM ();                                     \
-    } while (0)
+    } যখন (0)
 
 #define bound_error(...)            \
-    do {                            \
+    করো {                            \
         bound_warning(__VA_ARGS__); \
-        if (never_fatal == 0)       \
+        যদি (never_fatal == 0)       \
             exit(255);              \
-    } while (0)
+    } যখন (0)
 
 #define bounds_loc(fp, ...) \
-    do {                            \
+    করো {                            \
         WAIT_SEM (); \
         tcc_backtrace("^bcheck.c^\001" __VA_ARGS__); \
         POST_SEM (); \
-    } while (0)
+    } যখন (0)
 
-static void bound_alloc_error(const char *s)
+স্থির শূন্য bound_alloc_error(ধ্রুবক অক্ষর *s)
 {
     fprintf(stderr,"FATAL: %s\n",s);
     exit (1);
 }
 
-static void bound_not_found_warning(const char *file, const char *function,
-                                    void *ptr)
+স্থির শূন্য bound_not_found_warning(ধ্রুবক অক্ষর *file, ধ্রুবক অক্ষর *function,
+                                    শূন্য *ptr)
 {
     dprintf(stderr, "%s%s, %s(): Not found %p\n", exec, file, function, ptr);
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bounds_checking (int no_check)
+শূন্য __bounds_checking (পূর্ণসংখ্যা no_check)
 {
-#if HAVE_TLS_FUNC || HAVE_TLS_VAR
+#যদি HAVE_TLS_FUNC || HAVE_TLS_VAR
     NO_CHECKING_SET(NO_CHECKING_GET() + no_check);
-#else
+#অন্যথা
     atomic_fetch_add (&no_checking, no_check);
 #endif
 }
 
-void __bound_checking_lock(void)
+শূন্য __bound_checking_lock(শূন্য)
 {
     WAIT_SEM ();
 }
 
-void __bound_checking_unlock(void)
+শূন্য __bound_checking_unlock(শূন্য)
 {
     POST_SEM ();
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bound_never_fatal (int neverfatal)
+শূন্য __bound_never_fatal (পূর্ণসংখ্যা neverfatal)
 {
     atomic_fetch_add (&never_fatal, neverfatal);
 }
 
 /* return '(p + offset)' for pointer arithmetic (a pointer can reach
    the end of a region in this case */
-void * __bound_ptr_add(void *p, size_t offset)
+শূন্য * __bound_ptr_add(শূন্য *p, আকার_t offset)
 {
-    size_t addr = (size_t)p;
+    আকার_t addr = (আকার_t)p;
 
-    if (NO_CHECKING_GET())
-        return p + offset;
+    যদি (NO_CHECKING_GET())
+        ফেরত p + offset;
 
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",
             __FILE__, __FUNCTION__, p, (unsigned long)offset);
 
     WAIT_SEM ();
-    INCR_COUNT(bound_ptr_add_count);
-    if (tree) {
-        addr -= tree->start;
-        if (addr >= tree->size) {
-            addr = (size_t)p;
-            tree = splay (addr, tree);
-            addr -= tree->start;
+    INCR_গুনতি(bound_ptr_add_গুনতি);
+    যদি (বৃক্ষ_2) {
+        addr -= বৃক্ষ_2->start;
+        যদি (addr >= বৃক্ষ_2->আকার_2) {
+            addr = (আকার_t)p;
+            বৃক্ষ_2 = splay (addr, বৃক্ষ_2);
+            addr -= বৃক্ষ_2->start;
         }
-        if (addr >= tree->size) {
-            addr = (size_t)p;
-            tree = splay_end (addr, tree);
-            addr -= tree->start;
+        যদি (addr >= বৃক্ষ_2->আকার_2) {
+            addr = (আকার_t)p;
+            বৃক্ষ_2 = splay_end (addr, বৃক্ষ_2);
+            addr -= বৃক্ষ_2->start;
         }
-        if (addr <= tree->size) {
-            if (tree->is_invalid || addr + offset > tree->size) {
+        যদি (addr <= বৃক্ষ_2->আকার_2) {
+            যদি (বৃক্ষ_2->is_invalid || addr + offset > বৃক্ষ_2->আকার_2) {
                 POST_SEM ();
-                if (print_warn_ptr_add)
+                যদি (print_warn_ptr_add)
                     bound_warning("%p is outside of the region (0x%lx..0x%lx)",
-                                  p + offset, (long)tree->start,
-                                  (long)(tree->start + tree->size - 1));
-                if (never_fatal <= 0)
-                    return INVALID_POINTER; /* return an invalid pointer */
-                return p + offset;
+                                  p + offset, (long)বৃক্ষ_2->start,
+                                  (long)(বৃক্ষ_2->start + বৃক্ষ_2->আকার_2 - 1));
+                যদি (never_fatal <= 0)
+                    ফেরত INVALID_POINTER; /* return an invalid pointer */
+                ফেরত p + offset;
             }
         }
-        else if (p) { /* Allow NULL + offset. offsetoff is using it. */
-            INCR_COUNT(bound_not_found);
+        অন্যথা যদি (p) { /* Allow NULL + offset. offsetoff is using it. */
+            INCR_গুনতি(bound_not_found);
             POST_SEM ();
             bound_not_found_warning (__FILE__, __FUNCTION__, p);
-            return p + offset;
+            ফেরত p + offset;
         }
     }
     POST_SEM ();
-    return p + offset;
+    ফেরত p + offset;
 }
 
 /* return '(p + offset)' for pointer indirection (the resulting must
    be strictly inside the region */
 #define BOUND_PTR_INDIR(dsize)                                                 \
-void * __bound_ptr_indir ## dsize (void *p, size_t offset)                     \
+শূন্য * __bound_ptr_indir ## dsize (শূন্য *p, আকার_t offset)                     \
 {                                                                              \
-    size_t addr = (size_t)p;                                                   \
+    আকার_t addr = (আকার_t)p;                                                   \
                                                                                \
-    if (NO_CHECKING_GET())                                                     \
-        return p + offset;                                                     \
+    যদি (NO_CHECKING_GET())                                                     \
+        ফেরত p + offset;                                                     \
                                                                                \
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",                                    \
             __FILE__, __FUNCTION__, p, (unsigned long)offset);                 \
     WAIT_SEM ();                                                               \
-    INCR_COUNT(bound_ptr_indir ## dsize ## _count);                            \
-    if (tree) {                                                                \
-        addr -= tree->start;                                                   \
-        if (addr >= tree->size) {                                              \
-            addr = (size_t)p;                                                  \
-            tree = splay (addr, tree);                                         \
-            addr -= tree->start;                                               \
+    INCR_গুনতি(bound_ptr_indir ## dsize ## গুনতি);                            \
+    যদি (বৃক্ষ_2) {                                                                \
+        addr -= বৃক্ষ_2->start;                                                   \
+        যদি (addr >= বৃক্ষ_2->আকার_2) {                                              \
+            addr = (আকার_t)p;                                                  \
+            বৃক্ষ_2 = splay (addr, বৃক্ষ_2);                                         \
+            addr -= বৃক্ষ_2->start;                                               \
         }                                                                      \
-        if (addr >= tree->size) {                                              \
-            addr = (size_t)p;                                                  \
-            tree = splay_end (addr, tree);                                     \
-            addr -= tree->start;                                               \
+        যদি (addr >= বৃক্ষ_2->আকার_2) {                                              \
+            addr = (আকার_t)p;                                                  \
+            বৃক্ষ_2 = splay_end (addr, বৃক্ষ_2);                                     \
+            addr -= বৃক্ষ_2->start;                                               \
         }                                                                      \
-        if (addr <= tree->size) {                                              \
-            if (tree->is_invalid || addr + offset + dsize > tree->size) {      \
+        যদি (addr <= বৃক্ষ_2->আকার_2) {                                              \
+            যদি (বৃক্ষ_2->is_invalid || addr + offset + dsize > বৃক্ষ_2->আকার_2) {      \
                 POST_SEM ();                                                   \
                 bound_warning("%p (size %d) is outside of the region "         \
                               "(0x%lx..0x%lx)",                                \
-                              p + offset, dsize, (long)tree->start,            \
-                              (long)(tree->start + tree->size - 1));           \
-                if (never_fatal <= 0)                                          \
-                    return INVALID_POINTER; /* return an invalid pointer */    \
-                return p + offset;                                             \
+                              p + offset, dsize, (long)বৃক্ষ_2->start,            \
+                              (long)(বৃক্ষ_2->start + বৃক্ষ_2->আকার_2 - 1));           \
+                যদি (never_fatal <= 0)                                          \
+                    ফেরত INVALID_POINTER; /* return an invalid pointer */    \
+                ফেরত p + offset;                                             \
             }                                                                  \
         }                                                                      \
-        else {                                                                 \
-            INCR_COUNT(bound_not_found);                                       \
+        অন্যথা {                                                                 \
+            INCR_গুনতি(bound_not_found);                                       \
             POST_SEM ();                                                       \
             bound_not_found_warning (__FILE__, __FUNCTION__, p);               \
-            return p + offset;                                                 \
+            ফেরত p + offset;                                                 \
         }                                                                      \
     }                                                                          \
     POST_SEM ();                                                               \
-    return p + offset;                                                         \
+    ফেরত p + offset;                                                         \
 }
 
 BOUND_PTR_INDIR(1)
@@ -620,45 +620,45 @@ BOUND_PTR_INDIR(12)
 BOUND_PTR_INDIR(16)
 
 /* Needed when using ...libtcc1-usegcc=yes in lib/Makefile */
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#যদি (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
 /*
  * At least gcc 6.2 complains when __builtin_frame_address is used with
  * nonzero argument.
  */
-#pragma GCC diagnostic push
+#pragma GCC diagnostic ঠেলো
 #pragma GCC diagnostic ignored "-Wframe-address"
 #endif
 
 /* return the frame pointer of the caller */
 #define GET_CALLER_FP(fp)\
 {\
-    fp = (size_t)__builtin_frame_address(1);\
+    fp = (আকার_t)__builtin_frame_address(1);\
 }
 
 /* called when entering a function to add all the local regions */
-void FASTCALL __bound_local_new(void *p1) 
+শূন্য FASTCALL __bound_local_new(শূন্য *p1) 
 {
-    size_t addr, fp, *p = p1;
+    আকার_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    যদি (NO_CHECKING_GET())
+         ফেরত;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
-            __FILE__, __FUNCTION__, p, (void *)fp);
+            __FILE__, __FUNCTION__, p, (শূন্য *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
-        INCR_COUNT(bound_local_new_count);
-        tree = splay_insert(addr + fp, p[1], tree);
+    যখন ((addr = p[0])) {
+        INCR_গুনতি(bound_local_new_গুনতি);
+        বৃক্ষ_2 = splay_ঢোকাও(addr + fp, p[1], বৃক্ষ_2);
         p += 2;
     }
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#যদি BOUND_DEBUG
+    যদি (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
+        যখন ((addr = p[0])) {
             dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                     __FILE__, __FUNCTION__,
-                    (void *) (addr + fp), (unsigned long) p[1]);
+                    (শূন্য *) (addr + fp), (unsigned long) p[1]);
             p += 2;
         }
     }
@@ -666,74 +666,74 @@ void FASTCALL __bound_local_new(void *p1)
 }
 
 /* called when leaving a function to delete all the local regions */
-void FASTCALL __bound_local_delete(void *p1) 
+শূন্য FASTCALL __bound_local_delete(শূন্য *p1) 
 {
-    size_t addr, fp, *p = p1;
+    আকার_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    যদি (NO_CHECKING_GET())
+         ফেরত;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
-            __FILE__, __FUNCTION__, p, (void *)fp);
+            __FILE__, __FUNCTION__, p, (শূন্য *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
-        INCR_COUNT(bound_local_delete_count);
-        tree = splay_delete(addr + fp, tree);
+    যখন ((addr = p[0])) {
+        INCR_গুনতি(bound_local_delete_গুনতি);
+        বৃক্ষ_2 = splay_delete(addr + fp, বৃক্ষ_2);
         p += 2;
     }
-    if (alloca_list) {
-        alloca_list_type *last = NULL;
+    যদি (alloca_list) {
+        alloca_list_type *last = ফাঁকা;
         alloca_list_type *cur = alloca_list;
 
-        do {
-            if (cur->fp == fp) {
-                if (last)
-                    last->next = cur->next;
-                else
-                    alloca_list = cur->next;
-                tree = splay_delete ((size_t) cur->p, tree);
+        করো {
+            যদি (cur->fp == fp) {
+                যদি (last)
+                    last->পরবর্তী = cur->পরবর্তী;
+                অন্যথা
+                    alloca_list = cur->পরবর্তী;
+                বৃক্ষ_2 = splay_delete ((আকার_t) cur->p, বৃক্ষ_2);
                 dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                         __FILE__, __FUNCTION__, cur->p);
                 BOUND_FREE (cur);
-                cur = last ? last->next : alloca_list;
+                cur = last ? last->পরবর্তী : alloca_list;
              }
-             else {
+             অন্যথা {
                  last = cur;
-                 cur = cur->next;
+                 cur = cur->পরবর্তী;
              }
-        } while (cur);
+        } যখন (cur);
     }
-    if (jmp_list) {
-        jmp_list_type *last = NULL;
+    যদি (jmp_list) {
+        jmp_list_type *last = ফাঁকা;
         jmp_list_type *cur = jmp_list;
 
-        do {
-            if (cur->fp == fp) {
-                if (last)
-                    last->next = cur->next;
-                else
-                    jmp_list = cur->next;
+        করো {
+            যদি (cur->fp == fp) {
+                যদি (last)
+                    last->পরবর্তী = cur->পরবর্তী;
+                অন্যথা
+                    jmp_list = cur->পরবর্তী;
                 dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                        __FILE__, __FUNCTION__, cur->penv);
                 BOUND_FREE (cur);
-                cur = last ? last->next : jmp_list;
+                cur = last ? last->পরবর্তী : jmp_list;
             }
-            else {
+            অন্যথা {
                 last = cur;
-                cur = cur->next;
+                cur = cur->পরবর্তী;
             }
-        } while (cur);
+        } যখন (cur);
     }
 
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#যদি BOUND_DEBUG
+    যদি (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
-            if (addr != 1) {
+        যখন ((addr = p[0])) {
+            যদি (addr != 1) {
                 dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        (void *) (addr + fp), (unsigned long) p[1]);
+                        (শূন্য *) (addr + fp), (unsigned long) p[1]);
             }
             p+= 2;
         }
@@ -742,242 +742,242 @@ void FASTCALL __bound_local_delete(void *p1)
 }
 
 /* used by alloca */
-void __bound_new_region(void *p, size_t size)
+শূন্য __bound_new_region(শূন্য *p, আকার_t আকার_2)
 {
-    size_t fp;
+    আকার_t fp;
     alloca_list_type *last;
     alloca_list_type *cur;
     alloca_list_type *new;
 
-    if (NO_CHECKING_GET())
-        return;
+    যদি (NO_CHECKING_GET())
+        ফেরত;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, p, (unsigned long)size);
+            __FILE__, __FUNCTION__, p, (unsigned long)আকার_2);
     GET_CALLER_FP (fp);
-    new = BOUND_MALLOC (sizeof (alloca_list_type));
+    new = BOUND_MALLOC (আকার (alloca_list_type));
     WAIT_SEM ();
-    INCR_COUNT(bound_alloca_count);
-    last = NULL;
+    INCR_গুনতি(bound_alloca_গুনতি);
+    last = ফাঁকা;
     cur = alloca_list;
-    while (cur) {
-#if defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
-        int align = 4;
-#elif defined(__arm__)
-        int align = 8;
-#else
-        int align = 16;
+    যখন (cur) {
+#যদি defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
+        পূর্ণসংখ্যা align = 4;
+#নতুবা_যদি defined(__arm__)
+        পূর্ণসংখ্যা align = 8;
+#অন্যথা
+        পূর্ণসংখ্যা align = 16;
 #endif
-        void *cure = (void *)((char *)cur->p + ((cur->size + align) & -align));
-        void *pe = (void *)((char *)p + ((size + align) & -align));
-        if (cur->fp == fp && ((cur->p <= p && cure > p) ||
+        শূন্য *cure = (শূন্য *)((অক্ষর *)cur->p + ((cur->আকার_2 + align) & -align));
+        শূন্য *pe = (শূন্য *)((অক্ষর *)p + ((আকার_2 + align) & -align));
+        যদি (cur->fp == fp && ((cur->p <= p && cure > p) ||
                               (p <= cur->p && pe > cur->p))) {
-            if (last)
-                last->next = cur->next;
-            else
-                alloca_list = cur->next;
-            tree = splay_delete((size_t)cur->p, tree);
-            break;
+            যদি (last)
+                last->পরবর্তী = cur->পরবর্তী;
+            অন্যথা
+                alloca_list = cur->পরবর্তী;
+            বৃক্ষ_2 = splay_delete((আকার_t)cur->p, বৃক্ষ_2);
+            বিরতি;
         }
         last = cur;
-        cur = cur->next;
+        cur = cur->পরবর্তী;
     }
-    tree = splay_insert((size_t)p, size, tree);
-    if (new) {
+    বৃক্ষ_2 = splay_ঢোকাও((আকার_t)p, আকার_2, বৃক্ষ_2);
+    যদি (new) {
         new->fp = fp;
         new->p = p;
-        new->size = size;
-        new->next = alloca_list;
+        new->আকার_2 = আকার_2;
+        new->পরবর্তী = alloca_list;
         alloca_list = new;
     }
     POST_SEM ();
-    if (cur) {
+    যদি (cur) {
         dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                 __FILE__, __FUNCTION__, cur->p);
         BOUND_FREE (cur);
     }
 }
 
-void __bound_setjmp(jmp_buf env)
+শূন্য __bound_setjmp(jmp_buf env)
 {
     jmp_list_type *jl;
-    void *e = (void *) env;
+    শূন্য *e = (শূন্য *) env;
 
-    if (NO_CHECKING_GET() == 0) {
+    যদি (NO_CHECKING_GET() == 0) {
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, e);
         WAIT_SEM ();
-        INCR_COUNT(bound_setjmp_count);
+        INCR_গুনতি(bound_setjmp_গুনতি);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e)
-                break;
-            jl = jl->next;
+        যখন (jl) {
+            যদি (jl->penv == e)
+                বিরতি;
+            jl = jl->পরবর্তী;
         }
-        if (jl == NULL) {
-            jl = BOUND_MALLOC (sizeof (jmp_list_type));
-            if (jl) {
+        যদি (jl == ফাঁকা) {
+            jl = BOUND_MALLOC (আকার (jmp_list_type));
+            যদি (jl) {
                 jl->penv = e;
-                jl->next = jmp_list;
+                jl->পরবর্তী = jmp_list;
                 jmp_list = jl;
             }
         }
-        if (jl) {
-            size_t fp;
+        যদি (jl) {
+            আকার_t fp;
 
             GET_CALLER_FP (fp);
             jl->fp = fp;
-            jl->end_fp = (size_t)__builtin_frame_address(0);
+            jl->end_fp = (আকার_t)__builtin_frame_address(0);
             BOUND_GET_TID(jl->tid);
         }
         POST_SEM ();
     }
 }
 
-static void __bound_long_jump(jmp_buf env, int val, int sig, const char *func)
+স্থির শূন্য __bound_long_jump(jmp_buf env, পূর্ণসংখ্যা val, পূর্ণসংখ্যা sig, ধ্রুবক অক্ষর *func)
 {
     jmp_list_type *jl;
-    void *e;
+    শূন্য *e;
     BOUND_TID_TYPE tid;
 
-    if (NO_CHECKING_GET() == 0) {
-        e = (void *)env;
+    যদি (NO_CHECKING_GET() == 0) {
+        e = (শূন্য *)env;
         BOUND_GET_TID(tid);
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, func, e);
         WAIT_SEM();
-        INCR_COUNT(bound_longjmp_count);
+        INCR_গুনতি(bound_longjmp_গুনতি);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e && jl->tid == tid) {
-                size_t start_fp = (size_t)__builtin_frame_address(0);
-                size_t end_fp = jl->end_fp;
+        যখন (jl) {
+            যদি (jl->penv == e && jl->tid == tid) {
+                আকার_t start_fp = (আকার_t)__builtin_frame_address(0);
+                আকার_t end_fp = jl->end_fp;
                 jmp_list_type *cur = jmp_list;
-                jmp_list_type *last = NULL;
+                jmp_list_type *last = ফাঁকা;
 
-                while (cur->penv != e || cur->tid != tid) {
-                    if (cur->tid == tid) {
+                যখন (cur->penv != e || cur->tid != tid) {
+                    যদি (cur->tid == tid) {
                         dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                                 __FILE__, func, cur->penv);
-                        if (last)
-                            last->next = cur->next;
-                        else
-                            jmp_list = cur->next;
+                        যদি (last)
+                            last->পরবর্তী = cur->পরবর্তী;
+                        অন্যথা
+                            jmp_list = cur->পরবর্তী;
                         BOUND_FREE (cur);
-                        cur = last ? last->next : jmp_list;
+                        cur = last ? last->পরবর্তী : jmp_list;
                     }
-                    else {
+                    অন্যথা {
                         last = cur;
-                        cur = cur->next;
+                        cur = cur->পরবর্তী;
                     }
                 }
-                for (;;) {
-                    Tree *t = tree;
+                জন্য (;;) {
+                    বৃক্ষ *t = বৃক্ষ_2;
                     alloca_list_type *last;
                     alloca_list_type *cur;
 
-                    while (t && (t->start < start_fp || t->start > end_fp))
-                        if (t->start < start_fp)
-                            t = t->right;
-                        else
-                            t = t->left;
-                    if (t == NULL)
-                        break;
-                    last = NULL;
+                    যখন (t && (t->start < start_fp || t->start > end_fp))
+                        যদি (t->start < start_fp)
+                            t = t->ডান;
+                        অন্যথা
+                            t = t->বাম;
+                    যদি (t == ফাঁকা)
+                        বিরতি;
+                    last = ফাঁকা;
                     cur = alloca_list;
-                    while (cur) {
-                         if ((size_t) cur->p == t->start) {
+                    যখন (cur) {
+                         যদি ((আকার_t) cur->p == t->start) {
                              dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                                      __FILE__, func, cur->p);
-                             if (last)
-                                 last->next = cur->next;
-                             else
-                                 alloca_list = cur->next;
+                             যদি (last)
+                                 last->পরবর্তী = cur->পরবর্তী;
+                             অন্যথা
+                                 alloca_list = cur->পরবর্তী;
                              BOUND_FREE (cur);
-                             break;
+                             বিরতি;
                          }
                          last = cur;
-                         cur = cur->next;
+                         cur = cur->পরবর্তী;
                     }
                     dprintf(stderr, "%s, %s(): delete %p\n",
-                            __FILE__, func, (void *) t->start);
-                    tree = splay_delete(t->start, tree);
+                            __FILE__, func, (শূন্য *) t->start);
+                    বৃক্ষ_2 = splay_delete(t->start, বৃক্ষ_2);
                 }
-                break;
+                বিরতি;
             }
-            jl = jl->next;
+            jl = jl->পরবর্তী;
         }
         POST_SEM();
     }
-#if !defined(_WIN32)
+#যদি !defined(_WIN32)
     sig ? siglongjmp(env, val) :
 #endif
     longjmp (env, val);
 }
 
-void __bound_longjmp(jmp_buf env, int val)
+শূন্য __bound_longjmp(jmp_buf env, পূর্ণসংখ্যা val)
 {
     __bound_long_jump(env,val, 0, __FUNCTION__);
 }
 
-#if !defined(_WIN32)
-void __bound_siglongjmp(jmp_buf env, int val)
+#যদি !defined(_WIN32)
+শূন্য __bound_siglongjmp(jmp_buf env, পূর্ণসংখ্যা val)
 {
     __bound_long_jump(env,val, 1, __FUNCTION__);
 }
 #endif
 
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic pop
+#যদি (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#pragma GCC diagnostic বের_করো
 #endif
 
-void __bound_init(size_t *p, int mode)
+শূন্য __bound_init(আকার_t *p, পূর্ণসংখ্যা mode)
 {
     dprintf(stderr, "%s, %s(): start %s\n", __FILE__, __FUNCTION__,
             mode < 0 ? "lazy" : mode == 0 ? "normal use" : "for -run");
 
-    if (inited) {
+    যদি (inited) {
         WAIT_SEM();
-        goto add_bounds;
+        যাও add_bounds;
     }
     inited = 1;
 
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-    no_checking_key = TlsAlloc();
-    TlsSetValue(no_checking_key, &no_checking);
-#else
-    pthread_key_create(&no_checking_key, NULL);
-    pthread_setspecific(no_checking_key, &no_checking);
+#যদি HAVE_TLS_FUNC
+#যদি defined(_WIN32)
+    no_checking_চাবি = TlsAlloc();
+    Tls_Set_মান(no_checking_চাবি, &no_checking);
+#অন্যথা
+    pthread_key_create(&no_checking_চাবি, ফাঁকা);
+    pthread_setspecific(no_checking_চাবি, &no_checking);
 #endif
 #endif
     NO_CHECKING_SET(1);
 
-    print_warn_ptr_add = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != NULL;
-    print_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != NULL;
-    print_heap = getenv ("TCC_BOUNDS_PRINT_HEAP") != NULL;
-    print_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != NULL;
-    never_fatal = getenv ("TCC_BOUNDS_NEVER_FATAL") != NULL;
+    print_warn_ptr_add = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != ফাঁকা;
+    print_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != ফাঁকা;
+    print_heap = getenv ("TCC_BOUNDS_PRINT_HEAP") != ফাঁকা;
+    print_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != ফাঁকা;
+    never_fatal = getenv ("TCC_BOUNDS_NEVER_FATAL") != ফাঁকা;
 
     INIT_SEM ();
 
-#if MALLOC_REDIR
+#যদি MALLOC_REDIR
     {
-        void *addr = mode > 0 ? RTLD_DEFAULT : RTLD_NEXT;
+        শূন্য *addr = mode > 0 ? RTLD_DEFAULT : RTLD_পরবর্তী;
 
         /* tcc -run required RTLD_DEFAULT. Normal usage requires RTLD_NEXT,
            but using RTLD_NEXT with -run segfaults on MacOS in dyld as the
            generated code segment isn't registered with dyld and hence the
            caller image of dlsym isn't known to it */
-        *(void **) (&malloc_redir) = dlsym (addr, "malloc");
-        if (malloc_redir == NULL) {
+        *(শূন্য **) (&malloc_redir) = dlsym (addr, "malloc");
+        যদি (malloc_redir == ফাঁকা) {
             dprintf(stderr, "%s, %s(): use RTLD_DEFAULT\n",
                     __FILE__, __FUNCTION__);
             addr = RTLD_DEFAULT;
-            *(void **) (&malloc_redir) = dlsym (addr, "malloc");
+            *(শূন্য **) (&malloc_redir) = dlsym (addr, "malloc");
         }
-        *(void **) (&calloc_redir) = dlsym (addr, "calloc");
-        *(void **) (&free_redir) = dlsym (addr, "free");
-        *(void **) (&realloc_redir) = dlsym (addr, "realloc");
-        *(void **) (&memalign_redir) = dlsym (addr, "memalign");
+        *(শূন্য **) (&calloc_redir) = dlsym (addr, "calloc");
+        *(শূন্য **) (&free_redir) = dlsym (addr, "free");
+        *(শূন্য **) (&realloc_redir) = dlsym (addr, "realloc");
+        *(শূন্য **) (&memalign_redir) = dlsym (addr, "memalign");
         dprintf(stderr, "%s, %s(): malloc_redir %p\n",
                 __FILE__, __FUNCTION__, malloc_redir);
         dprintf(stderr, "%s, %s(): free_redir %p\n",
@@ -986,34 +986,34 @@ void __bound_init(size_t *p, int mode)
                 __FILE__, __FUNCTION__, realloc_redir);
         dprintf(stderr, "%s, %s(): memalign_redir %p\n",
                 __FILE__, __FUNCTION__, memalign_redir);
-        if (malloc_redir == NULL || free_redir == NULL)
+        যদি (malloc_redir == ফাঁকা || free_redir == ফাঁকা)
             bound_alloc_error ("Cannot redirect malloc/free");
-#if HAVE_PTHREAD_CREATE
-        *(void **) (&pthread_create_redir) = dlsym (addr, "pthread_create");
+#যদি HAVE_PTHREAD_CREATE
+        *(শূন্য **) (&pthread_create_redir) = dlsym (addr, "pthread_create");
         dprintf(stderr, "%s, %s(): pthread_create_redir %p\n",
                 __FILE__, __FUNCTION__, pthread_create_redir);
-        if (pthread_create_redir == NULL)
+        যদি (pthread_create_redir == ফাঁকা)
             bound_alloc_error ("Cannot redirect pthread_create");
 #endif
-#if HAVE_SIGNAL
-        *(void **) (&signal_redir) = dlsym (addr, "signal");
+#যদি HAVE_SIGNAL
+        *(শূন্য **) (&signal_redir) = dlsym (addr, "signal");
         dprintf(stderr, "%s, %s(): signal_redir %p\n",
                 __FILE__, __FUNCTION__, signal_redir);
-        if (signal_redir == NULL)
+        যদি (signal_redir == ফাঁকা)
             bound_alloc_error ("Cannot redirect signal");
 #endif
-#if HAVE_SIGACTION
-        *(void **) (&sigaction_redir) = dlsym (addr, "sigaction");
+#যদি HAVE_SIGACTION
+        *(শূন্য **) (&sigaction_redir) = dlsym (addr, "sigaction");
         dprintf(stderr, "%s, %s(): sigaction_redir %p\n",
                 __FILE__, __FUNCTION__, sigaction_redir);
-        if (sigaction_redir == NULL)
+        যদি (sigaction_redir == ফাঁকা)
             bound_alloc_error ("Cannot redirect sigaction");
 #endif
-#if HAVE_FORK
-        *(void **) (&fork_redir) = dlsym (addr, "fork");
+#যদি HAVE_FORK
+        *(শূন্য **) (&fork_redir) = dlsym (addr, "fork");
         dprintf(stderr, "%s, %s(): fork_redir %p\n",
                 __FILE__, __FUNCTION__, fork_redir);
-        if (fork_redir == NULL)
+        যদি (fork_redir == ফাঁকা)
             bound_alloc_error ("Cannot redirect fork");
 #endif
     }
@@ -1022,19 +1022,19 @@ void __bound_init(size_t *p, int mode)
 #ifdef __linux__
     {
         FILE *fp;
-        unsigned char found;
+        unsigned অক্ষর found;
         unsigned long start;
         unsigned long end;
         unsigned long ad =
             (unsigned long) __builtin_return_address(0);
-        char line[1000];
+        অক্ষর সারি[1000];
 
         /* Display exec name. Usefull when a lot of code is compiled with tcc */
         fp = fopen ("/proc/self/comm", "r");
-        if (fp) {
-            memset (exec, 0, sizeof(exec));
-            fread (exec, 1, sizeof(exec) - 2, fp);
-            if (strchr(exec,'\n'))
+        যদি (fp) {
+            memset (exec, 0, আকার(exec));
+            fread (exec, 1, আকার(exec) - 2, fp);
+            যদি (strchr(exec,'\n'))
                 *strchr(exec,'\n') = '\0';
             strcat (exec, ":");
             fclose (fp);
@@ -1042,19 +1042,19 @@ void __bound_init(size_t *p, int mode)
         /* check if dlopen is used (is threre a better way?) */ 
         found = 0;
         fp = fopen ("/proc/self/maps", "r");
-        if (fp) {
-            while (fgets (line, sizeof(line), fp)) {
-                if (sscanf (line, "%lx-%lx", &start, &end) == 2 &&
+        যদি (fp) {
+            যখন (fgets (সারি, আকার(সারি), fp)) {
+                যদি (sscanf (সারি, "%lx-%lx", &start, &end) == 2 &&
                             ad >= start && ad < end) {
                     found = 1;
-                    break;
+                    বিরতি;
                 }
-                if (strstr (line,"[heap]"))
-                    break;
+                যদি (strstr (সারি,"[heap]"))
+                    বিরতি;
             }
             fclose (fp);
         }
-        if (found == 0) {
+        যদি (found == 0) {
             use_sem = 1;
             no_strdup = 1;
         }
@@ -1063,41 +1063,41 @@ void __bound_init(size_t *p, int mode)
 
     WAIT_SEM ();
 
-#if HAVE_CTYPE
+#যদি HAVE_CTYPE
 #ifdef __APPLE__
-    tree = splay_insert((size_t) &_DefaultRuneLocale,
-                        sizeof (_DefaultRuneLocale), tree);
-#else
+    বৃক্ষ_2 = splay_ঢোকাও((আকার_t) &_DefaultRuneLocale,
+                        আকার (_DefaultRuneLocale), বৃক্ষ_2);
+#অন্যথা
     /* XXX: Does not work if locale is changed */
-    tree = splay_insert((size_t) __ctype_b_loc(),
-                        sizeof (unsigned short *), tree);
-    tree = splay_insert((size_t) (*__ctype_b_loc() - 128),
-                        384 * sizeof (unsigned short), tree);
-    tree = splay_insert((size_t) __ctype_tolower_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_tolower_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
-    tree = splay_insert((size_t) __ctype_toupper_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_toupper_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
+    বৃক্ষ_2 = splay_ঢোকাও((আকার_t) __ctype_b_loc(),
+                        আকার (unsigned short *), বৃক্ষ_2);
+    বৃক্ষ_2 = splay_ঢোকাও((আকার_t) (*__ctype_b_loc() - 128),
+                        384 * আকার (unsigned short), বৃক্ষ_2);
+    বৃক্ষ_2 = splay_ঢোকাও((আকার_t) __ctype_tolower_loc(),
+                        আকার (__int32_t *), বৃক্ষ_2);
+    বৃক্ষ_2 = splay_ঢোকাও((আকার_t) (*__ctype_tolower_loc() - 128),
+                        384 * আকার (__int32_t), বৃক্ষ_2);
+    বৃক্ষ_2 = splay_ঢোকাও((আকার_t) __ctype_toupper_loc(),
+                        আকার (__int32_t *), বৃক্ষ_2);
+    বৃক্ষ_2 = splay_ঢোকাও((আকার_t) (*__ctype_toupper_loc() - 128),
+                        384 * আকার (__int32_t), বৃক্ষ_2);
 #endif
 #endif
-#if HAVE_ERRNO
-    tree = splay_insert((size_t) (&errno), sizeof (int), tree);
+#যদি HAVE_ERRNO
+    বৃক্ষ_2 = splay_ঢোকাও((আকার_t) (&errno), আকার (পূর্ণসংখ্যা), বৃক্ষ_2);
 #endif
 
 add_bounds:
-    if (!p)
-        goto no_bounds;
+    যদি (!p)
+        যাও no_bounds;
 
     /* add all static bound check values */
-    while (p[0] != 0) {
-        tree = splay_insert(p[0], p[1], tree);
-#if BOUND_DEBUG
+    যখন (p[0] != 0) {
+        বৃক্ষ_2 = splay_ঢোকাও(p[0], p[1], বৃক্ষ_2);
+#যদি BOUND_DEBUG
         dprintf(stderr, "%s, %s(): static var %p 0x%lx\n",
                 __FILE__, __FUNCTION__,
-                (void *) p[0], (unsigned long) p[1]);
+                (শূন্য *) p[0], (unsigned long) p[1]);
 #endif
         p += 2;
     }
@@ -1108,48 +1108,48 @@ no_bounds:
     dprintf(stderr, "%s, %s(): end\n\n", __FILE__, __FUNCTION__);
 }
 
-void
-#if (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
+শূন্য
+#যদি (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
 __attribute__((constructor))
 #endif
-__bound_main_arg(int argc, char **argv, char **envp)
+__bound_main_arg(পূর্ণসংখ্যা argc, অক্ষর **argv, অক্ষর **envp)
 {
     __bound_init (0, -1);
-    if (argc && argv) {
-        int i;
+    যদি (argc && argv) {
+        পূর্ণসংখ্যা i;
 
         WAIT_SEM ();
-        for (i = 0; i < argc; i++)
-            tree = splay_insert((size_t) argv[i], strlen (argv[i]) + 1, tree);
-        tree = splay_insert((size_t) argv, (argc + 1) * sizeof(char *), tree);
+        জন্য (i = 0; i < argc; i++)
+            বৃক্ষ_2 = splay_ঢোকাও((আকার_t) argv[i], strlen (argv[i]) + 1, বৃক্ষ_2);
+        বৃক্ষ_2 = splay_ঢোকাও((আকার_t) argv, (argc + 1) * আকার(অক্ষর *), বৃক্ষ_2);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
-            for (i = 0; i < argc; i++)
+#যদি BOUND_DEBUG
+        যদি (print_calls) {
+            জন্য (i = 0; i < argc; i++)
                 dprintf(stderr, "%s, %s(): arg %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
                         argv[i], (unsigned long)(strlen (argv[i]) + 1));
             dprintf(stderr, "%s, %s(): argv %p %d\n",
                     __FILE__, __FUNCTION__, argv,
-                    (int)((argc + 1) * sizeof(char *)));
+                    (পূর্ণসংখ্যা)((argc + 1) * আকার(অক্ষর *)));
         }
 #endif
     }
 
-    if (envp && *envp) {
-        char **p = envp;
+    যদি (envp && *envp) {
+        অক্ষর **p = envp;
 
         WAIT_SEM ();
-        while (*p) {
-            tree = splay_insert((size_t) *p, strlen (*p) + 1, tree);
+        যখন (*p) {
+            বৃক্ষ_2 = splay_ঢোকাও((আকার_t) *p, strlen (*p) + 1, বৃক্ষ_2);
             ++p;
         }
-        tree = splay_insert((size_t) envp, (++p - envp) * sizeof(char *), tree);
+        বৃক্ষ_2 = splay_ঢোকাও((আকার_t) envp, (++p - envp) * আকার(অক্ষর *), বৃক্ষ_2);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
+#যদি BOUND_DEBUG
+        যদি (print_calls) {
             p = envp;
-            while (*p) {
+            যখন (*p) {
                 dprintf(stderr, "%s, %s(): env %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
                         *p, (unsigned long)(strlen (*p) + 1));
@@ -1157,27 +1157,27 @@ __bound_main_arg(int argc, char **argv, char **envp)
             }
             dprintf(stderr, "%s, %s(): environ %p %d\n",
                     __FILE__, __FUNCTION__, envp,
-                    (int)((++p - envp) * sizeof(char *)));
+                    (পূর্ণসংখ্যা)((++p - envp) * আকার(অক্ষর *)));
         }
 #endif
     }
 }
 
-void __attribute__((destructor)) __bound_exit(void)
+শূন্য __attribute__((destructor)) __bound_exit(শূন্য)
 {
-    int i;
-    static const char * const alloc_type[] = {
+    পূর্ণসংখ্যা i;
+    স্থির ধ্রুবক অক্ষর * ধ্রুবক alloc_type[] = {
         "", "malloc", "calloc", "realloc", "memalign", "strdup"
     };
 
     dprintf(stderr, "%s, %s():\n", __FILE__, __FUNCTION__);
 
-    if (inited) {
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
+    যদি (inited) {
+#যদি !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
     !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__NetBSD__) && \
     !defined(__ANDROID__)
-        if (print_heap) {
-            extern void __libc_freeres (void);
+        যদি (print_heap) {
+            বাহ্যিক শূন্য __libc_freeres (শূন্য);
             __libc_freeres ();
         }
 #endif
@@ -1185,109 +1185,109 @@ void __attribute__((destructor)) __bound_exit(void)
         NO_CHECKING_SET(1);
 
         TRY_SEM ();
-        while (alloca_list) {
-            alloca_list_type *next = alloca_list->next;
+        যখন (alloca_list) {
+            alloca_list_type *পরবর্তী = alloca_list->পরবর্তী;
 
-            tree = splay_delete ((size_t) alloca_list->p, tree);
+            বৃক্ষ_2 = splay_delete ((আকার_t) alloca_list->p, বৃক্ষ_2);
             BOUND_FREE (alloca_list);
-            alloca_list = next;
+            alloca_list = পরবর্তী;
         }
-        while (jmp_list) {
-           jmp_list_type *next  = jmp_list->next;
+        যখন (jmp_list) {
+           jmp_list_type *পরবর্তী  = jmp_list->পরবর্তী;
 
            BOUND_FREE (jmp_list);
-           jmp_list = next;
+           jmp_list = পরবর্তী;
         }
-        for (i = 0; i < FREE_REUSE_SIZE; i++) {
-            if (free_reuse_list[i]) {
-                tree = splay_delete ((size_t) free_reuse_list[i], tree);
+        জন্য (i = 0; i < FREE_REUSE_আকার; i++) {
+            যদি (free_reuse_list[i]) {
+                বৃক্ষ_2 = splay_delete ((আকার_t) free_reuse_list[i], বৃক্ষ_2);
                 BOUND_FREE (free_reuse_list[i]);
              }
         }
-        while (tree) {
-            if (print_heap && tree->type != 0)
+        যখন (বৃক্ষ_2) {
+            যদি (print_heap && বৃক্ষ_2->type != 0)
                 fprintf (stderr, "%s, %s(): %s found size %lu\n",
-                         __FILE__, __FUNCTION__, alloc_type[tree->type],
-                         (unsigned long) tree->size);
-            tree = splay_delete (tree->start, tree);
+                         __FILE__, __FUNCTION__, alloc_type[বৃক্ষ_2->type],
+                         (unsigned long) বৃক্ষ_2->আকার_2);
+            বৃক্ষ_2 = splay_delete (বৃক্ষ_2->start, বৃক্ষ_2);
         }
-#if TREE_REUSE
-        while (tree_free_list) {
-            Tree *next = tree_free_list->left;
-            BOUND_FREE (tree_free_list);
-            tree_free_list = next;
+#যদি বৃক্ষ_REUSE
+        যখন (বৃক্ষ_free_list) {
+            বৃক্ষ *পরবর্তী = বৃক্ষ_free_list->বাম;
+            BOUND_FREE (বৃক্ষ_free_list);
+            বৃক্ষ_free_list = পরবর্তী;
         }
 #endif
         POST_SEM ();
         EXIT_SEM ();
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-        TlsFree(no_checking_key);
-#else
-        pthread_key_delete(no_checking_key);
+#যদি HAVE_TLS_FUNC
+#যদি defined(_WIN32)
+        TlsFree(no_checking_চাবি);
+#অন্যথা
+        pthread_key_delete(no_checking_চাবি);
 #endif
 #endif
         inited = 0;
-        if (print_statistic) {
-#if BOUND_STATISTIC
-            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_add_count);
-            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_count);
-            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_count);
-            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_count);
-            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_count);
-            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_count);
-            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_count);
-            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_count);
-            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_count);
-            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_count);
-            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_count);
-            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_count);
-            fprintf (stderr, "bound_free_count         %llu\n", bound_free_count);
-            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_count);
-            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_count);
-            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_count);
-            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_count);
-            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_count);
-            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_count);
-            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_count);
-            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_count);
-            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_count);
-            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_count);
-            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_count);
-            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_count);
-            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_count);
-            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_count);
-            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_count);
-            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_count);
-            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_count);
-            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_count);
-            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_count);
-            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_count);
+        যদি (print_statistic) {
+#যদি BOUND_STATISTIC
+            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_add_গুনতি);
+            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_গুনতি);
+            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_গুনতি);
+            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_গুনতি);
+            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_গুনতি);
+            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_গুনতি);
+            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_গুনতি);
+            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_গুনতি);
+            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_গুনতি);
+            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_গুনতি);
+            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_গুনতি);
+            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_গুনতি);
+            fprintf (stderr, "bound_free_count         %llu\n", bound_free_গুনতি);
+            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_গুনতি);
+            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_গুনতি);
+            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_গুনতি);
+            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_গুনতি);
+            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_গুনতি);
+            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_গুনতি);
+            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_গুনতি);
+            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_গুনতি);
+            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_গুনতি);
+            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_গুনতি);
+            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_গুনতি);
+            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_গুনতি);
+            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_গুনতি);
+            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_গুনতি);
+            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_গুনতি);
+            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_গুনতি);
+            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_গুনতি);
+            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_গুনতি);
+            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_গুনতি);
+            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_গুনতি);
             fprintf (stderr, "bound_not_found          %llu\n", bound_not_found);
 #endif
-#if BOUND_STATISTIC_SPLAY
+#যদি BOUND_STATISTIC_SPLAY
             fprintf (stderr, "bound_splay              %llu\n", bound_splay);
             fprintf (stderr, "bound_splay_end          %llu\n", bound_splay_end);
-            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_insert);
+            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_ঢোকাও);
             fprintf (stderr, "bound_splay_delete       %llu\n", bound_splay_delete);
 #endif
         }
     }
 }
 
-void __bound_exit_dll(size_t *p)
+শূন্য __bound_exit_dll(আকার_t *p)
 {
     dprintf(stderr, "%s, %s()\n", __FILE__, __FUNCTION__);
 
-    if (p) {
+    যদি (p) {
         WAIT_SEM ();
-	while (p[0] != 0) {
-	    tree = splay_delete(p[0], tree);
-#if BOUND_DEBUG
-            if (print_calls) {
+	যখন (p[0] != 0) {
+	    বৃক্ষ_2 = splay_delete(p[0], বৃক্ষ_2);
+#যদি BOUND_DEBUG
+            যদি (print_calls) {
                 dprintf(stderr, "%s, %s(): remove static var %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        (void *) p[0], (unsigned long) p[1]);
+                        (শূন্য *) p[0], (unsigned long) p[1]);
             }
 #endif
 	    p += 2;
@@ -1296,39 +1296,39 @@ void __bound_exit_dll(size_t *p)
     }
 }
 
-#if HAVE_PTHREAD_CREATE
-typedef struct {
-    void *(*start_routine) (void *);
-    void *arg;
+#যদি HAVE_PTHREAD_CREATE
+প্রকারলেখ কাঠামো {
+    শূন্য *(*start_routine) (শূন্য *);
+    শূন্য *arg;
     sigset_t old_mask;
 } bound_thread_create_type;
 
-static void *bound_thread_create(void *bdata)
+স্থির শূন্য *bound_thread_create(শূন্য *bdata)
 {
-    bound_thread_create_type *data = (bound_thread_create_type *) bdata;
-    void *retval;
-#if HAVE_TLS_FUNC
-    int *p = (int *) BOUND_MALLOC(sizeof(int));
+    bound_thread_create_type *তথ্য = (bound_thread_create_type *) bdata;
+    শূন্য *retval;
+#যদি HAVE_TLS_FUNC
+    পূর্ণসংখ্যা *p = (পূর্ণসংখ্যা *) BOUND_MALLOC(আকার(পূর্ণসংখ্যা));
   
-    if (!p) bound_alloc_error("bound_thread_create malloc");
+    যদি (!p) bound_alloc_error("bound_thread_create malloc");
     *p = 0;
-    pthread_setspecific(no_checking_key, p);
+    pthread_setspecific(no_checking_চাবি, p);
 #endif
-    pthread_sigmask(SIG_SETMASK, &data->old_mask, NULL);
-    retval = data->start_routine(data->arg);
-#if HAVE_TLS_FUNC
-    pthread_setspecific(no_checking_key, NULL);
+    pthread_sigmask(SIG_SETMASK, &তথ্য->old_mask, ফাঁকা);
+    retval = তথ্য->start_routine(তথ্য->arg);
+#যদি HAVE_TLS_FUNC
+    pthread_setspecific(no_checking_চাবি, ফাঁকা);
     BOUND_FREE (p);
 #endif
-    BOUND_FREE (data);
-    return retval;
+    BOUND_FREE (তথ্য);
+    ফেরত retval;
 }
 
-int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
-                   void *(*start_routine) (void *), void *arg)
+পূর্ণসংখ্যা pthread_create(pthread_t *thread, ধ্রুবক pthread_attr_t *attr,
+                   শূন্য *(*start_routine) (শূন্য *), শূন্য *arg)
 {
-    int retval;
-    bound_thread_create_type *data;
+    পূর্ণসংখ্যা retval;
+    bound_thread_create_type *তথ্য;
     sigset_t mask;
     sigset_t old_mask;
   
@@ -1336,251 +1336,251 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
     dprintf (stderr, "%s, %s()\n", __FILE__, __FUNCTION__);
     sigfillset(&mask);
     pthread_sigmask(SIG_SETMASK, &mask, &old_mask);
-    data = (bound_thread_create_type *) BOUND_MALLOC(sizeof(bound_thread_create_type));
-    if (!data) bound_alloc_error("bound_thread_create malloc");
-    data->start_routine = start_routine;
-    data->arg = arg;
-    data->old_mask = old_mask;
-    retval = pthread_create_redir(thread, attr, bound_thread_create, data);
-    pthread_sigmask(SIG_SETMASK, &old_mask, NULL);
-    return retval;
+    তথ্য = (bound_thread_create_type *) BOUND_MALLOC(আকার(bound_thread_create_type));
+    যদি (!তথ্য) bound_alloc_error("bound_thread_create malloc");
+    তথ্য->start_routine = start_routine;
+    তথ্য->arg = arg;
+    তথ্য->old_mask = old_mask;
+    retval = pthread_create_redir(thread, attr, bound_thread_create, তথ্য);
+    pthread_sigmask(SIG_SETMASK, &old_mask, ফাঁকা);
+    ফেরত retval;
 }
 #endif
 
-#if HAVE_SIGNAL || HAVE_SIGACTION
-typedef union {
-#if HAVE_SIGNAL
+#যদি HAVE_SIGNAL || HAVE_SIGACTION
+প্রকারলেখ সংঘ {
+#যদি HAVE_SIGNAL
     bound_sig signal_handler;
 #endif
-#if HAVE_SIGACTION
-    void (*sig_handler)(int);
-    void (*sig_sigaction)(int, siginfo_t *, void *);
+#যদি HAVE_SIGACTION
+    শূন্য (*sig_handler)(পূর্ণসংখ্যা);
+    শূন্য (*sig_sigaction)(পূর্ণসংখ্যা, siginfo_t *, শূন্য *);
 #endif
 } bound_sig_type;
 
-static unsigned char bound_sig_used[NSIG];
-static bound_sig_type bound_sig_data[NSIG];
+স্থির unsigned অক্ষর bound_sig_used[NSIG];
+স্থির bound_sig_type bound_sig_তথ্য[NSIG];
 #endif
 
-#if HAVE_SIGNAL
-static void signal_handler(int sig)
+#যদি HAVE_SIGNAL
+স্থির শূন্য signal_handler(পূর্ণসংখ্যা sig)
 {
    __bounds_checking(1);
-   bound_sig_data[sig].signal_handler(sig);
+   bound_sig_তথ্য[sig].signal_handler(sig);
    __bounds_checking(-1);
 }
 
-bound_sig signal(int signum, bound_sig handler)
+bound_sig সংকেত(পূর্ণসংখ্যা signum, bound_sig handler)
 {
     bound_sig retval;
 
     dprintf (stderr, "%s, %s() %d %p\n", __FILE__, __FUNCTION__,
              signum, handler);
     retval = signal_redir(signum, handler ? signal_handler : handler);
-    if (retval != SIG_ERR) {
-        if (bound_sig_used[signum])
-            retval = bound_sig_data[signum].signal_handler;
-        if (handler) {
+    যদি (retval != SIG_ERR) {
+        যদি (bound_sig_used[signum])
+            retval = bound_sig_তথ্য[signum].signal_handler;
+        যদি (handler) {
             bound_sig_used[signum] = 1;
-            bound_sig_data[signum].signal_handler = handler;
+            bound_sig_তথ্য[signum].signal_handler = handler;
         }
     }
-    return retval;
+    ফেরত retval;
 }
 #endif
 
-#if HAVE_SIGACTION
-static void sig_handler(int sig)
+#যদি HAVE_SIGACTION
+স্থির শূন্য sig_handler(পূর্ণসংখ্যা sig)
 {
    __bounds_checking(1);
-   bound_sig_data[sig].sig_handler(sig);
+   bound_sig_তথ্য[sig].sig_handler(sig);
    __bounds_checking(-1);
 }
 
-static void sig_sigaction(int sig, siginfo_t *info, void *ucontext)
+স্থির শূন্য sig_sigaction(পূর্ণসংখ্যা sig, siginfo_t *info, শূন্য *ucontext)
 {
    __bounds_checking(1);
-   bound_sig_data[sig].sig_sigaction(sig, info, ucontext);
+   bound_sig_তথ্য[sig].sig_sigaction(sig, info, ucontext);
    __bounds_checking(-1);
 }
 
-int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)
+পূর্ণসংখ্যা sigaction(পূর্ণসংখ্যা signum, ধ্রুবক কাঠামো sigaction *act, কাঠামো sigaction *oldact)
 {
-    int retval;
-    struct sigaction nact, oact;
+    পূর্ণসংখ্যা retval;
+    কাঠামো sigaction nact, oact;
 
     dprintf (stderr, "%s, %s() %d %p %p\n", __FILE__, __FUNCTION__,
              signum, act, oldact);
 
-    if (sigaction_redir == NULL)
+    যদি (sigaction_redir == ফাঁকা)
         __bound_init(0,-1);
 
-    if (act) {
+    যদি (act) {
         nact = *act;
-        if (nact.sa_flags & SA_SIGINFO)
+        যদি (nact.sa_flags & SA_SIGINFO)
             nact.sa_sigaction = sig_sigaction;
-        else
+        অন্যথা
             nact.sa_handler = sig_handler;
         retval = sigaction_redir(signum, &nact, &oact);
     }
-    else
+    অন্যথা
         retval = sigaction_redir(signum, act, &oact);
-    if (retval >= 0) {
-        if (bound_sig_used[signum]) {
-            if (oact.sa_flags & SA_SIGINFO)
-                oact.sa_sigaction = bound_sig_data[signum].sig_sigaction;
-            else
-                oact.sa_handler = bound_sig_data[signum].sig_handler;
+    যদি (retval >= 0) {
+        যদি (bound_sig_used[signum]) {
+            যদি (oact.sa_flags & SA_SIGINFO)
+                oact.sa_sigaction = bound_sig_তথ্য[signum].sig_sigaction;
+            অন্যথা
+                oact.sa_handler = bound_sig_তথ্য[signum].sig_handler;
         }
-        if (oldact) {
+        যদি (oldact) {
             *oldact = oact;
         }
-        if (act) {
+        যদি (act) {
             bound_sig_used[signum] = 1;
-            if (act->sa_flags & SA_SIGINFO)
-                bound_sig_data[signum].sig_sigaction = act->sa_sigaction;
-            else
-                bound_sig_data[signum].sig_handler = act->sa_handler;
+            যদি (act->sa_flags & SA_SIGINFO)
+                bound_sig_তথ্য[signum].sig_sigaction = act->sa_sigaction;
+            অন্যথা
+                bound_sig_তথ্য[signum].sig_handler = act->sa_handler;
         }
     }
-    return retval;
+    ফেরত retval;
 }
 #endif
 
-#if HAVE_FORK
-pid_t fork(void)
+#যদি HAVE_FORK
+pid_t fork(শূন্য)
 {
     pid_t retval;
 
     WAIT_SEM();
     retval = (*fork_redir)();
-    if (retval == 0)
+    যদি (retval == 0)
         INIT_SEM();
-    else
+    অন্যথা
         POST_SEM();
-    return retval;
+    ফেরত retval;
 }
 #endif
 
-#if MALLOC_REDIR
-void *malloc(size_t size)
-#else
-void *__bound_malloc(size_t size, const void *caller)
+#যদি MALLOC_REDIR
+শূন্য *malloc(আকার_t আকার_2)
+#অন্যথা
+শূন্য *__bound_malloc(আকার_t আকার_2, ধ্রুবক শূন্য *caller)
 #endif
 {
-    void *ptr;
+    শূন্য *ptr;
     
-#if MALLOC_REDIR
+#যদি MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    যদি (malloc_redir == ফাঁকা) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
-            ptr = &initial_pool[pool_index];
-            pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+        যদি (malloc_redir == ফাঁকা) {
+            ptr = &initial_pool[pool_সূচক];
+            pool_সূচক = (pool_সূচক + আকার_2 + 15) & ~15;
+            যদি (pool_সূচক >= আকার (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
-                     __FILE__, __FUNCTION__, ptr, (unsigned long)size);
-            return ptr;
+                     __FILE__, __FUNCTION__, ptr, (unsigned long)আকার_2);
+            ফেরত ptr;
         }
     }
 #endif
     /* we allocate one more byte to ensure the regions will be
        separated by at least one byte. With the glibc malloc, it may
        be in fact not necessary */
-    ptr = BOUND_MALLOC (size + 1);
+    ptr = BOUND_MALLOC (আকার_2 + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, ptr, (unsigned long)size);
+            __FILE__, __FUNCTION__, ptr, (unsigned long)আকার_2);
     
-    if (inited && NO_CHECKING_GET() == 0) {
+    যদি (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_malloc_count);
+        INCR_গুনতি(bound_malloc_গুনতি);
 
-        if (ptr) {
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MALLOC;
+        যদি (ptr) {
+            বৃক্ষ_2 = splay_ঢোকাও ((আকার_t) ptr, আকার_2 ? আকার_2 : আকার_2 + 1, বৃক্ষ_2);
+            যদি (বৃক্ষ_2 && বৃক্ষ_2->start == (আকার_t) ptr)
+                বৃক্ষ_2->type = TCC_TYPE_MALLOC;
         }
         POST_SEM ();
     }
-    return ptr;
+    ফেরত ptr;
 }
 
-#if MALLOC_REDIR
-void *memalign(size_t align, size_t size)
-#else
-void *__bound_memalign(size_t align, size_t size, const void *caller)
+#যদি MALLOC_REDIR
+শূন্য *memalign(আকার_t align, আকার_t আকার_2)
+#অন্যথা
+শূন্য *__bound_memalign(আকার_t align, আকার_t আকার_2, ধ্রুবক শূন্য *caller)
 #endif
 {
-    void *ptr;
+    শূন্য *ptr;
 
-#if HAVE_MEMALIGN
+#যদি HAVE_MEMALIGN
     /* we allocate one more byte to ensure the regions will be
        separated by at least one byte. With the glibc malloc, it may
        be in fact not necessary */
-    ptr = BOUND_MEMALIGN(align, size + 1);
-#else
-    if (align > 4) {
+    ptr = BOUND_MEMALIGN(align, আকার_2 + 1);
+#অন্যথা
+    যদি (align > 4) {
         /* XXX: handle it ? */
-        ptr = NULL;
-    } else {
+        ptr = ফাঁকা;
+    } অন্যথা {
         /* we suppose that malloc aligns to at least four bytes */
-        ptr = BOUND_MALLOC(size + 1);
+        ptr = BOUND_MALLOC(আকার_2 + 1);
     }
 #endif
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, ptr, (unsigned long)size);
+            __FILE__, __FUNCTION__, ptr, (unsigned long)আকার_2);
 
-    if (NO_CHECKING_GET() == 0) {
+    যদি (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_memalign_count);
+        INCR_গুনতি(bound_memalign_গুনতি);
 
-        if (ptr) {
-            tree = splay_insert((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MEMALIGN;
+        যদি (ptr) {
+            বৃক্ষ_2 = splay_ঢোকাও((আকার_t) ptr, আকার_2 ? আকার_2 : আকার_2 + 1, বৃক্ষ_2);
+            যদি (বৃক্ষ_2 && বৃক্ষ_2->start == (আকার_t) ptr)
+                বৃক্ষ_2->type = TCC_TYPE_MEMALIGN;
         }
         POST_SEM ();
     }
-    return ptr;
+    ফেরত ptr;
 }
 
-#if MALLOC_REDIR
-void free(void *ptr)
-#else
-void __bound_free(void *ptr, const void *caller)
+#যদি MALLOC_REDIR
+শূন্য মুক্ত(শূন্য *ptr)
+#অন্যথা
+শূন্য __bound_free(শূন্য *ptr, ধ্রুবক শূন্য *caller)
 #endif
 {
-    size_t addr = (size_t) ptr;
-    void *p;
+    আকার_t addr = (আকার_t) ptr;
+    শূন্য *p;
 
-    if (ptr == NULL || tree == NULL
-#if MALLOC_REDIR
-        || ((unsigned char *) ptr >= &initial_pool[0] &&
-            (unsigned char *) ptr < &initial_pool[sizeof(initial_pool)])
+    যদি (ptr == ফাঁকা || বৃক্ষ_2 == ফাঁকা
+#যদি MALLOC_REDIR
+        || ((unsigned অক্ষর *) ptr >= &initial_pool[0] &&
+            (unsigned অক্ষর *) ptr < &initial_pool[আকার(initial_pool)])
 #endif
         )
-        return;
+        ফেরত;
 
     dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, ptr);
 
-    if (inited && NO_CHECKING_GET() == 0) {
+    যদি (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_free_count);
-        tree = splay (addr, tree);
-        if (tree->start == addr) {
-            if (tree->is_invalid) {
+        INCR_গুনতি(bound_free_গুনতি);
+        বৃক্ষ_2 = splay (addr, বৃক্ষ_2);
+        যদি (বৃক্ষ_2->start == addr) {
+            যদি (বৃক্ষ_2->is_invalid) {
                 POST_SEM ();
                 bound_error("freeing invalid region");
-                return;
+                ফেরত;
             }
-            tree->is_invalid = 1;
-            memset (ptr, 0x5a, tree->size);
-            p = free_reuse_list[free_reuse_index];
-            free_reuse_list[free_reuse_index] = ptr;
-            free_reuse_index = (free_reuse_index + 1) % FREE_REUSE_SIZE;
-            if (p)
-                tree = splay_delete((size_t)p, tree);
+            বৃক্ষ_2->is_invalid = 1;
+            memset (ptr, 0x5a, বৃক্ষ_2->আকার_2);
+            p = free_reuse_list[free_reuse_সূচক];
+            free_reuse_list[free_reuse_সূচক] = ptr;
+            free_reuse_সূচক = (free_reuse_সূচক + 1) % FREE_REUSE_আকার;
+            যদি (p)
+                বৃক্ষ_2 = splay_delete((আকার_t)p, বৃক্ষ_2);
             ptr = p;
         }
         POST_SEM ();
@@ -1588,435 +1588,435 @@ void __bound_free(void *ptr, const void *caller)
     BOUND_FREE (ptr);
 }
 
-#if MALLOC_REDIR
-void *realloc(void *ptr, size_t size)
-#else
-void *__bound_realloc(void *ptr, size_t size, const void *caller)
+#যদি MALLOC_REDIR
+শূন্য *realloc(শূন্য *ptr, আকার_t আকার_2)
+#অন্যথা
+শূন্য *__bound_realloc(শূন্য *ptr, আকার_t আকার_2, ধ্রুবক শূন্য *caller)
 #endif
 {
-    void *new_ptr;
+    শূন্য *new_ptr;
 
-    if (size == 0) {
-#if MALLOC_REDIR
-        free(ptr);
-#else
+    যদি (আকার_2 == 0) {
+#যদি MALLOC_REDIR
+        মুক্ত(ptr);
+#অন্যথা
         __bound_free(ptr, caller);
 #endif
-        return NULL;
+        ফেরত ফাঁকা;
     }
 
-    new_ptr = BOUND_REALLOC (ptr, size + 1);
+    new_ptr = BOUND_REALLOC (ptr, আকার_2 + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, new_ptr, (unsigned long)size);
+            __FILE__, __FUNCTION__, new_ptr, (unsigned long)আকার_2);
 
-    if (NO_CHECKING_GET() == 0) {
+    যদি (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_realloc_count);
+        INCR_গুনতি(bound_realloc_গুনতি);
 
-        if (ptr)
-            tree = splay_delete ((size_t) ptr, tree);
-        if (new_ptr) {
-            tree = splay_insert ((size_t) new_ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) new_ptr)
-                tree->type = TCC_TYPE_REALLOC;
+        যদি (ptr)
+            বৃক্ষ_2 = splay_delete ((আকার_t) ptr, বৃক্ষ_2);
+        যদি (new_ptr) {
+            বৃক্ষ_2 = splay_ঢোকাও ((আকার_t) new_ptr, আকার_2 ? আকার_2 : আকার_2 + 1, বৃক্ষ_2);
+            যদি (বৃক্ষ_2 && বৃক্ষ_2->start == (আকার_t) new_ptr)
+                বৃক্ষ_2->type = TCC_TYPE_REALLOC;
         }
         POST_SEM ();
     }
-    return new_ptr;
+    ফেরত new_ptr;
 }
 
-#if MALLOC_REDIR
-void *calloc(size_t nmemb, size_t size)
-#else
-void *__bound_calloc(size_t nmemb, size_t size)
+#যদি MALLOC_REDIR
+শূন্য *calloc(আকার_t nmemb, আকার_t আকার_2)
+#অন্যথা
+শূন্য *__bound_calloc(আকার_t nmemb, আকার_t আকার_2)
 #endif
 {
-    void *ptr;
+    শূন্য *ptr;
 
-    size *= nmemb;
-#if MALLOC_REDIR
+    আকার_2 *= nmemb;
+#যদি MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    যদি (malloc_redir == ফাঁকা) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
-            ptr = &initial_pool[pool_index];
-            pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+        যদি (malloc_redir == ফাঁকা) {
+            ptr = &initial_pool[pool_সূচক];
+            pool_সূচক = (pool_সূচক + আকার_2 + 15) & ~15;
+            যদি (pool_সূচক >= আকার (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
-                     __FILE__, __FUNCTION__, ptr, (unsigned long)size);
-            memset (ptr, 0, size);
-            return ptr;
+                     __FILE__, __FUNCTION__, ptr, (unsigned long)আকার_2);
+            memset (ptr, 0, আকার_2);
+            ফেরত ptr;
         }
     }
 #endif
-    ptr = BOUND_MALLOC(size + 1);
+    ptr = BOUND_MALLOC(আকার_2 + 1);
     dprintf (stderr, "%s, %s(): %p, 0x%lx\n",
-             __FILE__, __FUNCTION__, ptr, (unsigned long)size);
+             __FILE__, __FUNCTION__, ptr, (unsigned long)আকার_2);
 
-    if (ptr) {
-        memset (ptr, 0, size);
-        if (NO_CHECKING_GET() == 0) {
+    যদি (ptr) {
+        memset (ptr, 0, আকার_2);
+        যদি (NO_CHECKING_GET() == 0) {
             WAIT_SEM ();
-            INCR_COUNT(bound_calloc_count);
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_CALLOC;
+            INCR_গুনতি(bound_calloc_গুনতি);
+            বৃক্ষ_2 = splay_ঢোকাও ((আকার_t) ptr, আকার_2 ? আকার_2 : আকার_2 + 1, বৃক্ষ_2);
+            যদি (বৃক্ষ_2 && বৃক্ষ_2->start == (আকার_t) ptr)
+                বৃক্ষ_2->type = TCC_TYPE_CALLOC;
             POST_SEM ();
         }
     }
-    return ptr;
+    ফেরত ptr;
 }
 
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot,
-                    int flags, int fd, off_t offset)
+#যদি !defined(_WIN32)
+শূন্য *__bound_mmap (শূন্য *start, আকার_t আকার_2, পূর্ণসংখ্যা prot,
+                    পূর্ণসংখ্যা flags, পূর্ণসংখ্যা fd, off_t offset)
 {
-    void *result;
+    শূন্য *ফলাফল;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, start, (unsigned long)size);
-    result = mmap (start, size, prot, flags, fd, offset);
-    if (result && NO_CHECKING_GET() == 0) {
+            __FILE__, __FUNCTION__, start, (unsigned long)আকার_2);
+    ফলাফল = mmap (start, আকার_2, prot, flags, fd, offset);
+    যদি (ফলাফল && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_mmap_count);
-        tree = splay_insert((size_t)result, size, tree);
+        INCR_গুনতি(bound_mmap_গুনতি);
+        বৃক্ষ_2 = splay_ঢোকাও((আকার_t)ফলাফল, আকার_2, বৃক্ষ_2);
         POST_SEM ();
     }
-    return result;
+    ফেরত ফলাফল;
 }
 
-int __bound_munmap (void *start, size_t size)
+পূর্ণসংখ্যা __bound_munmap (শূন্য *start, আকার_t আকার_2)
 {
-    int result;
+    পূর্ণসংখ্যা ফলাফল;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, start, (unsigned long)size);
-    if (start && NO_CHECKING_GET() == 0) {
+            __FILE__, __FUNCTION__, start, (unsigned long)আকার_2);
+    যদি (start && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_munmap_count);
-        tree = splay_delete ((size_t) start, tree);
+        INCR_গুনতি(bound_munmap_গুনতি);
+        বৃক্ষ_2 = splay_delete ((আকার_t) start, বৃক্ষ_2);
         POST_SEM ();
     }
-    result = munmap (start, size);
-    return result;
+    ফলাফল = munmap (start, আকার_2);
+    ফেরত ফলাফল;
 }
 #endif
 
 /* some useful checked functions */
 
 /* check that (p ... p + size - 1) lies inside 'p' region, if any */
-static void __bound_check(const void *p, size_t size, const char *function)
+স্থির শূন্য __bound_check(ধ্রুবক শূন্য *p, আকার_t আকার_2, ধ্রুবক অক্ষর *function)
 {
-    if (size != 0 && __bound_ptr_add((void *)p, size) == INVALID_POINTER) {
+    যদি (আকার_2 != 0 && __bound_ptr_add((শূন্য *)p, আকার_2) == INVALID_POINTER) {
         bound_error("invalid pointer %p, size 0x%lx in %s",
-                p, (unsigned long)size, function);
+                p, (unsigned long)আকার_2, function);
     }
 }
 
-static int check_overlap (const void *p1, size_t n1,
-                          const void *p2, size_t n2,
-                          const char *function)
+স্থির পূর্ণসংখ্যা check_overlap (ধ্রুবক শূন্য *p1, আকার_t n1,
+                          ধ্রুবক শূন্য *p2, আকার_t n2,
+                          ধ্রুবক অক্ষর *function)
 {
-    const void *p1e = (const void *) ((const char *) p1 + n1);
-    const void *p2e = (const void *) ((const char *) p2 + n2);
+    ধ্রুবক শূন্য *p1e = (ধ্রুবক শূন্য *) ((ধ্রুবক অক্ষর *) p1 + n1);
+    ধ্রুবক শূন্য *p2e = (ধ্রুবক শূন্য *) ((ধ্রুবক অক্ষর *) p2 + n2);
 
-    if (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
+    যদি (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
         ((p1 <= p2 && p1e > p2) ||     /* p1----p2====p1e----p2e */
          (p2 <= p1 && p2e > p1))) {    /* p2----p1====p2e----p1e */
         bound_error("overlapping regions %p(0x%lx), %p(0x%lx) in %s",
                 p1, (unsigned long)n1, p2, (unsigned long)n2, function);
-        return never_fatal < 0;
+        ফেরত never_fatal < 0;
     }
-    return 0;
+    ফেরত 0;
 }
 
-void *__bound_memcpy(void *dest, const void *src, size_t n)
+শূন্য *__bound_memcpy(শূন্য *dest, ধ্রুবক শূন্য *src, আকার_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+    INCR_গুনতি(bound_mempcy_গুনতি);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return memcpy(dest, src, n);
+    যদি (check_overlap(dest, n, src, n, "memcpy"))
+        ফেরত dest;
+    ফেরত memcpy(dest, src, n);
 }
 
-int __bound_memcmp(const void *s1, const void *s2, size_t n)
+পূর্ণসংখ্যা __bound_memcmp(ধ্রুবক শূন্য *s1, ধ্রুবক শূন্য *s2, আকার_t n)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    ধ্রুবক unsigned অক্ষর *u1 = (ধ্রুবক unsigned অক্ষর *) s1;
+    ধ্রুবক unsigned অক্ষর *u2 = (ধ্রুবক unsigned অক্ষর *) s2;
+    পূর্ণসংখ্যা retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_memcmp_count);
-    for (;;) {
-        if ((ssize_t) --n == -1)
-            break;
-        else if (*u1 != *u2) {
+    INCR_গুনতি(bound_memcmp_গুনতি);
+    জন্য (;;) {
+        যদি ((ssize_t) --n == -1)
+            বিরতি;
+        অন্যথা যদি (*u1 != *u2) {
             retval = *u1++ - *u2++;
-            break;
+            বিরতি;
         }
         ++u1;
         ++u2;
     }
-    __bound_check(s1, (const void *)u1 - s1, "memcmp s1");
-    __bound_check(s2, (const void *)u2 - s2, "memcmp s2");
-    return retval;
+    __bound_check(s1, (ধ্রুবক শূন্য *)u1 - s1, "memcmp s1");
+    __bound_check(s2, (ধ্রুবক শূন্য *)u2 - s2, "memcmp s2");
+    ফেরত retval;
 }
 
-void *__bound_memmove(void *dest, const void *src, size_t n)
+শূন্য *__bound_memmove(শূন্য *dest, ধ্রুবক শূন্য *src, আকার_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_গুনতি(bound_memmove_গুনতি);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return memmove(dest, src, n);
+    ফেরত memmove(dest, src, n);
 }
 
-void *__bound_memset(void *s, int c, size_t n)
+শূন্য *__bound_memset(শূন্য *s, পূর্ণসংখ্যা c, আকার_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
             __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+    INCR_গুনতি(bound_memset_গুনতি);
     __bound_check(s, n, "memset");
-    return memset(s, c, n);
+    ফেরত memset(s, c, n);
 }
 
-#if defined(__arm__) && defined(__ARM_EABI__)
-void *__bound___aeabi_memcpy(void *dest, const void *src, size_t n)
+#যদি defined(__arm__) && defined(__ARM_EABI__)
+শূন্য *__bound___aeabi_memcpy(শূন্য *dest, ধ্রুবক শূন্য *src, আকার_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+    INCR_গুনতি(bound_mempcy_গুনতি);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return __aeabi_memcpy(dest, src, n);
+    যদি (check_overlap(dest, n, src, n, "memcpy"))
+        ফেরত dest;
+    ফেরত __aeabi_memcpy(dest, src, n);
 }
 
-void *__bound___aeabi_memmove(void *dest, const void *src, size_t n)
+শূন্য *__bound___aeabi_memmove(শূন্য *dest, ধ্রুবক শূন্য *src, আকার_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_গুনতি(bound_memmove_গুনতি);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove(dest, src, n);
+    ফেরত __aeabi_memmove(dest, src, n);
 }
 
-void *__bound___aeabi_memmove4(void *dest, const void *src, size_t n)
+শূন্য *__bound___aeabi_memmove4(শূন্য *dest, ধ্রুবক শূন্য *src, আকার_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_গুনতি(bound_memmove_গুনতি);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove4(dest, src, n);
+    ফেরত __aeabi_memmove4(dest, src, n);
 }
 
-void *__bound___aeabi_memmove8(void *dest, const void *src, size_t n)
+শূন্য *__bound___aeabi_memmove8(শূন্য *dest, ধ্রুবক শূন্য *src, আকার_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_গুনতি(bound_memmove_গুনতি);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove8(dest, src, n);
+    ফেরত __aeabi_memmove8(dest, src, n);
 }
 
-void *__bound___aeabi_memset(void *s, int c, size_t n)
+শূন্য *__bound___aeabi_memset(শূন্য *s, পূর্ণসংখ্যা c, আকার_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
             __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+    INCR_গুনতি(bound_memset_গুনতি);
     __bound_check(s, n, "memset");
-    return __aeabi_memset(s, c, n);
+    ফেরত __aeabi_memset(s, c, n);
 }
 #endif
 
-int __bound_strlen(const char *s)
+পূর্ণসংখ্যা __bound_strlen(ধ্রুবক অক্ষর *s)
 {
-    const char *p = s;
+    ধ্রুবক অক্ষর *p = s;
 
     dprintf(stderr, "%s, %s(): %p\n",
             __FILE__, __FUNCTION__, s);
-    INCR_COUNT(bound_strlen_count);
-    while (*p++);
+    INCR_গুনতি(bound_strlen_গুনতি);
+    যখন (*p++);
     __bound_check(s, p - s, "strlen");
-    return (p - s) - 1;
+    ফেরত (p - s) - 1;
 }
 
-char *__bound_strcpy(char *dest, const char *src)
+অক্ষর *__bound_strcpy(অক্ষর *dest, ধ্রুবক অক্ষর *src)
 {
-    size_t len;
-    const char *p = src;
+    আকার_t len;
+    ধ্রুবক অক্ষর *p = src;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcpy_count);
-    while (*p++);
+    INCR_গুনতি(bound_strcpy_গুনতি);
+    যখন (*p++);
     len = p - src;
     __bound_check(dest, len, "strcpy dest");
     __bound_check(src, len, "strcpy src");
-    if (check_overlap(dest, len, src, len, "strcpy"))
-        return dest;
-    return strcpy (dest, src);
+    যদি (check_overlap(dest, len, src, len, "strcpy"))
+        ফেরত dest;
+    ফেরত strcpy (dest, src);
 }
 
-char *__bound_strncpy(char *dest, const char *src, size_t n)
+অক্ষর *__bound_strncpy(অক্ষর *dest, ধ্রুবক অক্ষর *src, আকার_t n)
 {
-    size_t len = n;
-    const char *p = src;
+    আকার_t len = n;
+    ধ্রুবক অক্ষর *p = src;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncpy_count);
-    while (len-- && *p++);
+    INCR_গুনতি(bound_strncpy_গুনতি);
+    যখন (len-- && *p++);
     len = p - src;
     __bound_check(dest, len, "strncpy dest");
     __bound_check(src, len, "strncpy src");
-    if (check_overlap(dest, len, src, len, "strncpy"))
-        return dest;
-    return strncpy(dest, src, n);
+    যদি (check_overlap(dest, len, src, len, "strncpy"))
+        ফেরত dest;
+    ফেরত strncpy(dest, src, n);
 }
 
-int __bound_strcmp(const char *s1, const char *s2)
+পূর্ণসংখ্যা __bound_strcmp(ধ্রুবক অক্ষর *s1, ধ্রুবক অক্ষর *s2)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
+    ধ্রুবক unsigned অক্ষর *u1 = (ধ্রুবক unsigned অক্ষর *) s1;
+    ধ্রুবক unsigned অক্ষর *u2 = (ধ্রুবক unsigned অক্ষর *) s2;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, s1, s2);
-    INCR_COUNT(bound_strcmp_count);
-    while (*u1 && *u1 == *u2) {
+    INCR_গুনতি(bound_strcmp_গুনতি);
+    যখন (*u1 && *u1 == *u2) {
         ++u1;
         ++u2;
     }
-    __bound_check(s1, ((const char *)u1 - s1) + 1, "strcmp s1");
-    __bound_check(s2, ((const char *)u2 - s2) + 1, "strcmp s2");
-    return *u1 - *u2;
+    __bound_check(s1, ((ধ্রুবক অক্ষর *)u1 - s1) + 1, "strcmp s1");
+    __bound_check(s2, ((ধ্রুবক অক্ষর *)u2 - s2) + 1, "strcmp s2");
+    ফেরত *u1 - *u2;
 }
 
-int __bound_strncmp(const char *s1, const char *s2, size_t n)
+পূর্ণসংখ্যা __bound_strncmp(ধ্রুবক অক্ষর *s1, ধ্রুবক অক্ষর *s2, আকার_t n)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    ধ্রুবক unsigned অক্ষর *u1 = (ধ্রুবক unsigned অক্ষর *) s1;
+    ধ্রুবক unsigned অক্ষর *u2 = (ধ্রুবক unsigned অক্ষর *) s2;
+    পূর্ণসংখ্যা retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_strncmp_count);
-    do {
-        if ((ssize_t) --n == -1)
-            break;
-        else if (*u1 != *u2) {
+    INCR_গুনতি(bound_strncmp_গুনতি);
+    করো {
+        যদি ((ssize_t) --n == -1)
+            বিরতি;
+        অন্যথা যদি (*u1 != *u2) {
             retval = *u1++ - *u2++;
-            break;
+            বিরতি;
         }
         ++u2;
-    } while (*u1++);
-    __bound_check(s1, (const char *)u1 - s1, "strncmp s1");
-    __bound_check(s2, (const char *)u2 - s2, "strncmp s2");
-    return retval;
+    } যখন (*u1++);
+    __bound_check(s1, (ধ্রুবক অক্ষর *)u1 - s1, "strncmp s1");
+    __bound_check(s2, (ধ্রুবক অক্ষর *)u2 - s2, "strncmp s2");
+    ফেরত retval;
 }
 
-char *__bound_strcat(char *dest, const char *src)
+অক্ষর *__bound_strcat(অক্ষর *dest, ধ্রুবক অক্ষর *src)
 {
-    char *r = dest;
-    const char *s = src;
+    অক্ষর *r = dest;
+    ধ্রুবক অক্ষর *s = src;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcat_count);
-    while (*dest++);
-    while (*src++);
+    INCR_গুনতি(bound_strcat_গুনতি);
+    যখন (*dest++);
+    যখন (*src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strcat dest");
     __bound_check(s, src - s, "strcat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
-        return dest;
-    return strcat(r, s);
+    যদি (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
+        ফেরত dest;
+    ফেরত strcat(r, s);
 }
 
-char *__bound_strncat(char *dest, const char *src, size_t n)
+অক্ষর *__bound_strncat(অক্ষর *dest, ধ্রুবক অক্ষর *src, আকার_t n)
 {
-    char *r = dest;
-    const char *s = src;
-    size_t len = n;
+    অক্ষর *r = dest;
+    ধ্রুবক অক্ষর *s = src;
+    আকার_t len = n;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncat_count);
-    while (*dest++);
-    while (len-- && *src++);
+    INCR_গুনতি(bound_strncat_গুনতি);
+    যখন (*dest++);
+    যখন (len-- && *src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strncat dest");
     __bound_check(s, src - s, "strncat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
-        return dest;
-    return strncat(r, s, n);
+    যদি (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
+        ফেরত dest;
+    ফেরত strncat(r, s, n);
 }
 
-char *__bound_strchr(const char *s, int c)
+অক্ষর *__bound_strchr(ধ্রুবক অক্ষর *s, পূর্ণসংখ্যা c)
 {
-    const unsigned char *str = (const unsigned char *) s;
-    unsigned char ch = c;
+    ধ্রুবক unsigned অক্ষর *str = (ধ্রুবক unsigned অক্ষর *) s;
+    unsigned অক্ষর ch = c;
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strchr_count);
-    while (*str) {
-        if (*str == ch)
-            break;
+    INCR_গুনতি(bound_strchr_গুনতি);
+    যখন (*str) {
+        যদি (*str == ch)
+            বিরতি;
         ++str;
     }
-    __bound_check(s, ((const char *)str - s) + 1, "strchr");
-    return *str == ch ? (char *) str : NULL;
+    __bound_check(s, ((ধ্রুবক অক্ষর *)str - s) + 1, "strchr");
+    ফেরত *str == ch ? (অক্ষর *) str : ফাঁকা;
 }
 
-char *__bound_strrchr(const char *s, int c)
+অক্ষর *__bound_strrchr(ধ্রুবক অক্ষর *s, পূর্ণসংখ্যা c)
 {
-    const unsigned char *str = (const unsigned char *) s;
-    unsigned char ch = c;
+    ধ্রুবক unsigned অক্ষর *str = (ধ্রুবক unsigned অক্ষর *) s;
+    unsigned অক্ষর ch = c;
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strrchr_count);
-    while (*str++);
-    __bound_check(s, (const char *)str - s, "strrchr");
-    while (str != (const unsigned char *)s) {
-        if (*--str == ch)
-            break;
+    INCR_গুনতি(bound_strrchr_গুনতি);
+    যখন (*str++);
+    __bound_check(s, (ধ্রুবক অক্ষর *)str - s, "strrchr");
+    যখন (str != (ধ্রুবক unsigned অক্ষর *)s) {
+        যদি (*--str == ch)
+            বিরতি;
     }
-    __bound_check(s, (const char *)str - s, "strrchr");
-    return *str == ch ? (char *) str : NULL;
+    __bound_check(s, (ধ্রুবক অক্ষর *)str - s, "strrchr");
+    ফেরত *str == ch ? (অক্ষর *) str : ফাঁকা;
 }
 
-char *__bound_strdup(const char *s)
+অক্ষর *__bound_strdup(ধ্রুবক অক্ষর *s)
 {
-    const char *p = s;
-    char *new;
+    ধ্রুবক অক্ষর *p = s;
+    অক্ষর *new;
 
-    INCR_COUNT(bound_strdup_count);
-    while (*p++);
+    INCR_গুনতি(bound_strdup_গুনতি);
+    যখন (*p++);
     __bound_check(s, p - s, "strdup");
     new = BOUND_MALLOC ((p - s) + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, new, (unsigned long)(p -s));
-    if (new) {
-        if (NO_CHECKING_GET() == 0 && no_strdup == 0) {
+    যদি (new) {
+        যদি (NO_CHECKING_GET() == 0 && no_strdup == 0) {
             WAIT_SEM ();
-            tree = splay_insert((size_t)new, p - s, tree);
-            if (tree && tree->start == (size_t) new)
-                tree->type = TCC_TYPE_STRDUP;
+            বৃক্ষ_2 = splay_ঢোকাও((আকার_t)new, p - s, বৃক্ষ_2);
+            যদি (বৃক্ষ_2 && বৃক্ষ_2->start == (আকার_t) new)
+                বৃক্ষ_2->type = TCC_TYPE_STRDUP;
             POST_SEM ();
         }
         memcpy (new, s, p - s);
     }
-    return new;
+    ফেরত new;
 }
 
 /*
@@ -2072,194 +2072,194 @@ char *__bound_strdup(const char *s)
 #define compare(start,tstart,tsize) (start < tstart ? -1 : \
                                      start >= tstart+tsize  ? 1 : 0)
 
-static Tree * splay (size_t addr, Tree *t)
+স্থির বৃক্ষ * splay (আকার_t addr, বৃক্ষ *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat      */
 {
-    Tree N, *l, *r, *y;
-    int comp;
+    বৃক্ষ N, *l, *r, *y;
+    পূর্ণসংখ্যা comp;
     
-    INCR_COUNT_SPLAY(bound_splay);
-    if (t == NULL) return t;
-    N.left = N.right = NULL;
+    INCR_গুনতি_SPLAY(bound_splay);
+    যদি (t == ফাঁকা) ফেরত t;
+    N.বাম = N.ডান = ফাঁকা;
     l = r = &N;
  
-    for (;;) {
-        comp = compare(addr, t->start, t->size);
-        if (comp < 0) {
-            y = t->left;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+    জন্য (;;) {
+        comp = compare(addr, t->start, t->আকার_2);
+        যদি (comp < 0) {
+            y = t->বাম;
+            যদি (y == ফাঁকা) বিরতি;
+            যদি (compare(addr, y->start, y->আকার_2) < 0) {
+                t->বাম = y->ডান;                    /* rotate right */
+                y->ডান = t;
                 t = y;
-                if (t->left == NULL) break;
+                যদি (t->বাম == ফাঁকা) বিরতি;
             }
-            r->left = t;                               /* link right */
+            r->বাম = t;                               /* link right */
             r = t;
-            t = t->left;
-        } else if (comp > 0) {
-            y = t->right;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+            t = t->বাম;
+        } অন্যথা যদি (comp > 0) {
+            y = t->ডান;
+            যদি (y == ফাঁকা) বিরতি;
+            যদি (compare(addr, y->start, y->আকার_2) > 0) {
+                t->ডান = y->বাম;                    /* rotate left */
+                y->বাম = t;
                 t = y;
-                if (t->right == NULL) break;
+                যদি (t->ডান == ফাঁকা) বিরতি;
             }
-            l->right = t;                              /* link left */
+            l->ডান = t;                              /* link left */
             l = t;
-            t = t->right;
-        } else {
-            break;
+            t = t->ডান;
+        } অন্যথা {
+            বিরতি;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->ডান = t->বাম;                                /* assemble */
+    r->বাম = t->ডান;
+    t->বাম = N.ডান;
+    t->ডান = N.বাম;
 
-    return t;
+    ফেরত t;
 }
 
 #define compare_end(start,tend) (start < tend ? -1 : \
                                  start > tend  ? 1 : 0)
 
-static Tree * splay_end (size_t addr, Tree *t)
+স্থির বৃক্ষ * splay_end (আকার_t addr, বৃক্ষ *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat  */
 {
-    Tree N, *l, *r, *y;
-    int comp;
+    বৃক্ষ N, *l, *r, *y;
+    পূর্ণসংখ্যা comp;
     
-    INCR_COUNT_SPLAY(bound_splay_end);
-    if (t == NULL) return t;
-    N.left = N.right = NULL;
+    INCR_গুনতি_SPLAY(bound_splay_end);
+    যদি (t == ফাঁকা) ফেরত t;
+    N.বাম = N.ডান = ফাঁকা;
     l = r = &N;
  
-    for (;;) {
-        comp = compare_end(addr, t->start + t->size);
-        if (comp < 0) {
-            y = t->left;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+    জন্য (;;) {
+        comp = compare_end(addr, t->start + t->আকার_2);
+        যদি (comp < 0) {
+            y = t->বাম;
+            যদি (y == ফাঁকা) বিরতি;
+            যদি (compare_end(addr, y->start + y->আকার_2) < 0) {
+                t->বাম = y->ডান;                    /* rotate right */
+                y->ডান = t;
                 t = y;
-                if (t->left == NULL) break;
+                যদি (t->বাম == ফাঁকা) বিরতি;
             }
-            r->left = t;                               /* link right */
+            r->বাম = t;                               /* link right */
             r = t;
-            t = t->left;
-        } else if (comp > 0) {
-            y = t->right;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+            t = t->বাম;
+        } অন্যথা যদি (comp > 0) {
+            y = t->ডান;
+            যদি (y == ফাঁকা) বিরতি;
+            যদি (compare_end(addr, y->start + y->আকার_2) > 0) {
+                t->ডান = y->বাম;                    /* rotate left */
+                y->বাম = t;
                 t = y;
-                if (t->right == NULL) break;
+                যদি (t->ডান == ফাঁকা) বিরতি;
             }
-            l->right = t;                              /* link left */
+            l->ডান = t;                              /* link left */
             l = t;
-            t = t->right;
-        } else {
-            break;
+            t = t->ডান;
+        } অন্যথা {
+            বিরতি;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->ডান = t->বাম;                                /* assemble */
+    r->বাম = t->ডান;
+    t->বাম = N.ডান;
+    t->ডান = N.বাম;
 
-    return t;
+    ফেরত t;
 }
 
-static Tree * splay_insert(size_t addr, size_t size, Tree * t)
+স্থির বৃক্ষ * splay_ঢোকাও(আকার_t addr, আকার_t আকার_2, বৃক্ষ * t)
 /* Insert key start into the tree t, if it is not already there. */
 /* Return a pointer to the resulting tree.                       */
 {
-    Tree * new;
+    বৃক্ষ * new;
 
-    INCR_COUNT_SPLAY(bound_splay_insert);
-    if (t != NULL) {
+    INCR_গুনতি_SPLAY(bound_splay_ঢোকাও);
+    যদি (t != ফাঁকা) {
         t = splay(addr,t);
-        if (compare(addr, t->start, t->size)==0) {
-            return t;  /* it's already there */
+        যদি (compare(addr, t->start, t->আকার_2)==0) {
+            ফেরত t;  /* it's already there */
         }
     }
-#if TREE_REUSE
-    if (tree_free_list) {
-          new = tree_free_list;
-          tree_free_list = new->left;
+#যদি বৃক্ষ_REUSE
+    যদি (বৃক্ষ_free_list) {
+          new = বৃক্ষ_free_list;
+          বৃক্ষ_free_list = new->বাম;
     }
-    else
+    অন্যথা
 #endif
     {
-        new = (Tree *) BOUND_MALLOC (sizeof (Tree));
+        new = (বৃক্ষ *) BOUND_MALLOC (আকার (বৃক্ষ));
     }
-    if (new == NULL) {
+    যদি (new == ফাঁকা) {
         bound_alloc_error("not enough memory for bound checking code");
     }
-    else {
-        if (t == NULL) {
-            new->left = new->right = NULL;
-        } else if (compare(addr, t->start, t->size) < 0) {
-            new->left = t->left;
-            new->right = t;
-            t->left = NULL;
-        } else {
-            new->right = t->right;
-            new->left = t;
-            t->right = NULL;
+    অন্যথা {
+        যদি (t == ফাঁকা) {
+            new->বাম = new->ডান = ফাঁকা;
+        } অন্যথা যদি (compare(addr, t->start, t->আকার_2) < 0) {
+            new->বাম = t->বাম;
+            new->ডান = t;
+            t->বাম = ফাঁকা;
+        } অন্যথা {
+            new->ডান = t->ডান;
+            new->বাম = t;
+            t->ডান = ফাঁকা;
         }
         new->start = addr;
-        new->size = size;
+        new->আকার_2 = আকার_2;
         new->type = TCC_TYPE_NONE;
         new->is_invalid = 0;
     }
-    return new;
+    ফেরত new;
 }
 
 #define compare_destroy(start,tstart) (start < tstart ? -1 : \
                                        start > tstart  ? 1 : 0)
 
-static Tree * splay_delete(size_t addr, Tree *t)
+স্থির বৃক্ষ * splay_delete(আকার_t addr, বৃক্ষ *t)
 /* Deletes addr from the tree if it's there.               */
 /* Return a pointer to the resulting tree.                 */
 {
-    Tree * x;
+    বৃক্ষ * x;
 
-    INCR_COUNT_SPLAY(bound_splay_delete);
-    if (t==NULL) return NULL;
+    INCR_গুনতি_SPLAY(bound_splay_delete);
+    যদি (t==ফাঁকা) ফেরত ফাঁকা;
     t = splay(addr,t);
-    if (compare_destroy(addr, t->start) == 0) {        /* found it */
-        if (t->left == NULL) {
-            x = t->right;
-        } else {
-            x = splay(addr, t->left);
-            x->right = t->right;
+    যদি (compare_destroy(addr, t->start) == 0) {        /* found it */
+        যদি (t->বাম == ফাঁকা) {
+            x = t->ডান;
+        } অন্যথা {
+            x = splay(addr, t->বাম);
+            x->ডান = t->ডান;
         }
-#if TREE_REUSE
-        t->left = tree_free_list;
-        tree_free_list = t;
-#else
+#যদি বৃক্ষ_REUSE
+        t->বাম = বৃক্ষ_free_list;
+        বৃক্ষ_free_list = t;
+#অন্যথা
         BOUND_FREE(t);
 #endif
-        return x;
-    } else {
-        return t;                                      /* It wasn't there */
+        ফেরত x;
+    } অন্যথা {
+        ফেরত t;                                      /* It wasn't there */
     }
 }
 
-void splay_printtree(Tree * t, int d)
+শূন্য splay_printtree(বৃক্ষ * t, পূর্ণসংখ্যা d)
 {
-    int i;
-    if (t == NULL) return;
-    splay_printtree(t->right, d+1);
-    for (i=0; i<d; i++) fprintf(stderr," ");
+    পূর্ণসংখ্যা i;
+    যদি (t == ফাঁকা) ফেরত;
+    splay_printtree(t->ডান, d+1);
+    জন্য (i=0; i<d; i++) fprintf(stderr," ");
     fprintf(stderr,"%p(0x%lx:%u:%u)\n",
-            (void *) t->start, (unsigned long) t->size,
+            (শূন্য *) t->start, (unsigned long) t->আকার_2,
             (unsigned)t->type, (unsigned)t->is_invalid);
-    splay_printtree(t->left, d+1);
+    splay_printtree(t->বাম, d+1);
 }

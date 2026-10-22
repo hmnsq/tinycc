@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#অন্তর্ভাব <stdlib.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
     printf("Hello World\n");
-    return 0;
+    ফেরত 0;
 }

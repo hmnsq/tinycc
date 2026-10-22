@@ -1,15 +1,15 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main() 
+পূর্ণসংখ্যা প্রধান() 
 {
-   int Count;
+   পূর্ণসংখ্যা গুনতি_3;
 
-   for (Count = 1; Count <= 10; Count++)
+   জন্য (গুনতি_3 = 1; গুনতি_3 <= 10; গুনতি_3++)
    {
-      printf("%d\n", Count);
+      printf("%d\n", গুনতি_3);
    }
 
-   return 0;
+   ফেরত 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

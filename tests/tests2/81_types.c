@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+গণনা E *e;
+ধ্রুবক গণনা E *e1;
+গণনা E ধ্রুবক *e2;
+কাঠামো S *s;
+ধ্রুবক কাঠামো S *s1;
+কাঠামো S ধ্রুবক *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+প্রকারলেখ পূর্ণসংখ্যা (*fptr1)();
+পূর্ণসংখ্যা f1 (পূর্ণসংখ্যা (), পূর্ণসংখ্যা);
+প্রকারলেখ পূর্ণসংখ্যা (*fptr2)(পূর্ণসংখ্যা x);
+পূর্ণসংখ্যা f2 (পূর্ণসংখ্যা (পূর্ণসংখ্যা x), পূর্ণসংখ্যা);
+প্রকারলেখ পূর্ণসংখ্যা (*fptr3)(পূর্ণসংখ্যা);
+পূর্ণসংখ্যা f3 (পূর্ণসংখ্যা (পূর্ণসংখ্যা), পূর্ণসংখ্যা);
+প্রকারলেখ পূর্ণসংখ্যা (*fptr4[4])(পূর্ণসংখ্যা);
+পূর্ণসংখ্যা f4 (পূর্ণসংখ্যা (*[4])(পূর্ণসংখ্যা), পূর্ণসংখ্যা);
+প্রকারলেখ পূর্ণসংখ্যা (*fptr5)(fptr1);
+পূর্ণসংখ্যা f5 (পূর্ণসংখ্যা (পূর্ণসংখ্যা()), fptr1);
+পূর্ণসংখ্যা f1 (fptr1 fp, পূর্ণসংখ্যা i)
 {
-  return (*fp)(i);
+  ফেরত (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+পূর্ণসংখ্যা f2 (fptr2 fp, পূর্ণসংখ্যা i)
 {
-  return (*fp)(i);
+  ফেরত (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+পূর্ণসংখ্যা f3 (fptr3 fp, পূর্ণসংখ্যা i)
 {
-  return (*fp)(i);
+  ফেরত (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+পূর্ণসংখ্যা f4 (fptr4 fp, পূর্ণসংখ্যা i)
 {
-  return (*fp[i])(i);
+  ফেরত (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+পূর্ণসংখ্যা f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  ফেরত fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+প্রকারলেখ পূর্ণসংখ্যা intx4[4];
+পূর্ণসংখ্যা f8 (intx4, পূর্ণসংখ্যা);
+পূর্ণসংখ্যা f8 (পূর্ণসংখ্যা ([4]), পূর্ণসংখ্যা);
+পূর্ণসংখ্যা f8 (পূর্ণসংখ্যা y[4], পূর্ণসংখ্যা i)
 {
-  return y[i];
+  ফেরত y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+পূর্ণসংখ্যা f9 (পূর্ণসংখ্যা (*)(পূর্ণসংখ্যা), পূর্ণসংখ্যা);
+পূর্ণসংখ্যা f9 (পূর্ণসংখ্যা ((পূর্ণসংখ্যা)), পূর্ণসংখ্যা);
+পূর্ণসংখ্যা f9 (পূর্ণসংখ্যা f(পূর্ণসংখ্যা), পূর্ণসংখ্যা i)
 {
-  return f(i);
+  ফেরত f(i);
 }
-int main () { return 0; }
+পূর্ণসংখ্যা প্রধান () { ফেরত 0; }

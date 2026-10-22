@@ -41,16 +41,16 @@
 #define M_EMPTY_P(...)              M_AND(M_EMPTYI_P_C1(__VA_ARGS__), M_INV(M_OR(M_OR(M_EMPTYI_P_C2(__VA_ARGS__), M_COMMA_P(__VA_ARGS__)),M_EMPTYI_P_C3(__VA_ARGS__))))
 #define M_APPLY_FUNC2B(func, arg1, arg2)        \
   M_IF(M_EMPTY_P(arg2))(,func(arg1, arg2))
-#define M_MAP2B_0(func, data, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z,...) \
-  M_APPLY_FUNC2B(func, data, a) M_APPLY_FUNC2B(func, data, b) M_APPLY_FUNC2B(func, data, c) \
-  M_APPLY_FUNC2B(func, data, d) M_APPLY_FUNC2B(func, data, e) M_APPLY_FUNC2B(func, data, f) \
-  M_APPLY_FUNC2B(func, data, g) M_APPLY_FUNC2B(func, data, h) M_APPLY_FUNC2B(func, data, i) \
-  M_APPLY_FUNC2B(func, data, j) M_APPLY_FUNC2B(func, data, k) M_APPLY_FUNC2B(func, data, l) \
-  M_APPLY_FUNC2B(func, data, m) M_APPLY_FUNC2B(func, data, n) M_APPLY_FUNC2B(func, data, o) \
-  M_APPLY_FUNC2B(func, data, p) M_APPLY_FUNC2B(func, data, q) M_APPLY_FUNC2B(func, data, r) \
-  M_APPLY_FUNC2B(func, data, s) M_APPLY_FUNC2B(func, data, t) M_APPLY_FUNC2B(func, data, u) \
-  M_APPLY_FUNC2B(func, data, v) M_APPLY_FUNC2B(func, data, w) M_APPLY_FUNC2B(func, data, x) \
-  M_APPLY_FUNC2B(func, data, y) M_APPLY_FUNC2B(func, data, z)
+#define M_MAP2B_0(func, তথ্য, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z,...) \
+  M_APPLY_FUNC2B(func, তথ্য, a) M_APPLY_FUNC2B(func, তথ্য, b) M_APPLY_FUNC2B(func, তথ্য, c) \
+  M_APPLY_FUNC2B(func, তথ্য, d) M_APPLY_FUNC2B(func, তথ্য, e) M_APPLY_FUNC2B(func, তথ্য, f) \
+  M_APPLY_FUNC2B(func, তথ্য, g) M_APPLY_FUNC2B(func, তথ্য, h) M_APPLY_FUNC2B(func, তথ্য, i) \
+  M_APPLY_FUNC2B(func, তথ্য, j) M_APPLY_FUNC2B(func, তথ্য, k) M_APPLY_FUNC2B(func, তথ্য, l) \
+  M_APPLY_FUNC2B(func, তথ্য, m) M_APPLY_FUNC2B(func, তথ্য, n) M_APPLY_FUNC2B(func, তথ্য, o) \
+  M_APPLY_FUNC2B(func, তথ্য, p) M_APPLY_FUNC2B(func, তথ্য, q) M_APPLY_FUNC2B(func, তথ্য, r) \
+  M_APPLY_FUNC2B(func, তথ্য, s) M_APPLY_FUNC2B(func, তথ্য, t) M_APPLY_FUNC2B(func, তথ্য, u) \
+  M_APPLY_FUNC2B(func, তথ্য, v) M_APPLY_FUNC2B(func, তথ্য, w) M_APPLY_FUNC2B(func, তথ্য, x) \
+  M_APPLY_FUNC2B(func, তথ্য, y) M_APPLY_FUNC2B(func, তথ্য, z)
 #define M_MAP2B(f, ...) M_MAP2B_0(f, __VA_ARGS__, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , )
 #define M_INIT_INIT(a)           ,a,
 
@@ -69,7 +69,7 @@
   M_IF(M_TEST_METHOD_P(INIT, op))(ok, nok)
 #define TEST4(op) \
   TEST1(TEST2(op))
-#define KO(a) ((void)1)
+#define KO(a) ((শূন্য)1)
 
 /* This checks that the various expansions that ultimately lead to
    something like 'KO(arg,arg)', where 'KO' comes from a macro

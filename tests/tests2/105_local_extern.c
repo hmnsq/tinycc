@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+বাহ্যিক পূর্ণসংখ্যা printf(ধ্রুবক অক্ষর *, ...);
+শূন্য f(শূন্য);
+শূন্য bar(শূন্য) { শূন্য f(শূন্য); f(); }
+শূন্য foo(শূন্য) { বাহ্যিক শূন্য f(শূন্য); f(); }
+শূন্য f(শূন্য) { printf("f\n"); }
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
   bar();
   foo();
-  return 0;
+  ফেরত 0;
 }

@@ -3,119 +3,119 @@
 #define EM_TCC_TARGET EM_X86_64
 
 /* relocation type for 32 bit data relocation */
-#define R_DATA_32   R_X86_64_32S
-#define R_DATA_PTR  R_X86_64_64
+#define R_তথ্য_32   R_X86_64_32S
+#define R_তথ্য_PTR  R_X86_64_64
 #define R_JMP_SLOT  R_X86_64_JUMP_SLOT
 #define R_GLOB_DAT  R_X86_64_GLOB_DAT
 #define R_COPY      R_X86_64_COPY
 #define R_RELATIVE  R_X86_64_RELATIVE
 
-#define R_NUM       R_X86_64_NUM
+#define R_অঙ্ক       R_X86_64_অঙ্ক
 
 #define ELF_START_ADDR 0x400000
-#define ELF_PAGE_SIZE  0x1000
+#define ELF_PAGE_আকার  0x1000
 
 #define PCRELATIVE_DLLPLT 1
 #define RELOCATE_DLLPLT 1
 
-#else /* !TARGET_DEFS_ONLY */
+#অন্যথা /* !TARGET_DEFS_ONLY */
 
-#include "tcc.h"
+#অন্তর্ভাব "tcc.h"
 
 #ifdef NEED_RELOC_TYPE
 /* Returns 1 for a code relocation, 0 for a data relocation. For unknown
    relocations, returns -1. */
-ST_FUNC int code_reloc (int reloc_type)
+ST_FUNC পূর্ণসংখ্যা code_reloc (পূর্ণসংখ্যা reloc_type)
 {
-    switch (reloc_type) {
-        case R_X86_64_32:
-        case R_X86_64_32S:
-        case R_X86_64_64:
-        case R_X86_64_GOTPC32:
-        case R_X86_64_GOTPC64:
-        case R_X86_64_GOTPCREL:
-        case R_X86_64_GOTPCRELX:
-        case R_X86_64_REX_GOTPCRELX:
-        case R_X86_64_GOTTPOFF:
-        case R_X86_64_GOT32:
-        case R_X86_64_GOT64:
-        case R_X86_64_GLOB_DAT:
-        case R_X86_64_COPY:
-        case R_X86_64_RELATIVE:
-        case R_X86_64_GOTOFF64:
-        case R_X86_64_TLSGD:
-        case R_X86_64_TLSLD:
-        case R_X86_64_DTPOFF32:
-        case R_X86_64_TPOFF32:
-        case R_X86_64_DTPOFF64:
-        case R_X86_64_TPOFF64:
-            return 0;
+    নির্বাচন (reloc_type) {
+        ক্ষেত্র R_X86_64_32:
+        ক্ষেত্র R_X86_64_32S:
+        ক্ষেত্র R_X86_64_64:
+        ক্ষেত্র R_X86_64_GOTPC32:
+        ক্ষেত্র R_X86_64_GOTPC64:
+        ক্ষেত্র R_X86_64_GOTPCREL:
+        ক্ষেত্র R_X86_64_GOTPCRELX:
+        ক্ষেত্র R_X86_64_REX_GOTPCRELX:
+        ক্ষেত্র R_X86_64_GOTTPOFF:
+        ক্ষেত্র R_X86_64_GOT32:
+        ক্ষেত্র R_X86_64_GOT64:
+        ক্ষেত্র R_X86_64_GLOB_DAT:
+        ক্ষেত্র R_X86_64_COPY:
+        ক্ষেত্র R_X86_64_RELATIVE:
+        ক্ষেত্র R_X86_64_GOTOFF64:
+        ক্ষেত্র R_X86_64_TLSGD:
+        ক্ষেত্র R_X86_64_TLSLD:
+        ক্ষেত্র R_X86_64_DTPOFF32:
+        ক্ষেত্র R_X86_64_TPOFF32:
+        ক্ষেত্র R_X86_64_DTPOFF64:
+        ক্ষেত্র R_X86_64_TPOFF64:
+            ফেরত 0;
 
-        case R_X86_64_PC32:
-        case R_X86_64_PC64:
-        case R_X86_64_PLT32:
-        case R_X86_64_PLTOFF64:
-        case R_X86_64_JUMP_SLOT:
-            return 1;
+        ক্ষেত্র R_X86_64_PC32:
+        ক্ষেত্র R_X86_64_PC64:
+        ক্ষেত্র R_X86_64_PLT32:
+        ক্ষেত্র R_X86_64_PLTOFF64:
+        ক্ষেত্র R_X86_64_JUMP_SLOT:
+            ফেরত 1;
     }
-    return -1;
+    ফেরত -1;
 }
 
 /* Returns an enumerator to describe whether and when the relocation needs a
    GOT and/or PLT entry to be created. See tcc.h for a description of the
    different values. */
-ST_FUNC int gotplt_entry_type (int reloc_type)
+ST_FUNC পূর্ণসংখ্যা gotplt_entry_type (পূর্ণসংখ্যা reloc_type)
 {
-    switch (reloc_type) {
-        case R_X86_64_GLOB_DAT:
-        case R_X86_64_JUMP_SLOT:
-        case R_X86_64_COPY:
-        case R_X86_64_RELATIVE:
-            return NO_GOTPLT_ENTRY;
+    নির্বাচন (reloc_type) {
+        ক্ষেত্র R_X86_64_GLOB_DAT:
+        ক্ষেত্র R_X86_64_JUMP_SLOT:
+        ক্ষেত্র R_X86_64_COPY:
+        ক্ষেত্র R_X86_64_RELATIVE:
+            ফেরত NO_GOTPLT_ENTRY;
 
 	/* The following relocs wouldn't normally need GOT or PLT
 	   slots, but we need them for simplicity in the link
 	   editor part.  See our caller for comments.  */
-        case R_X86_64_32:
-        case R_X86_64_32S:
-        case R_X86_64_64:
-        case R_X86_64_PC32:
-        case R_X86_64_PC64:
-            return AUTO_GOTPLT_ENTRY;
+        ক্ষেত্র R_X86_64_32:
+        ক্ষেত্র R_X86_64_32S:
+        ক্ষেত্র R_X86_64_64:
+        ক্ষেত্র R_X86_64_PC32:
+        ক্ষেত্র R_X86_64_PC64:
+            ফেরত AUTO_GOTPLT_ENTRY;
 
-        case R_X86_64_GOTTPOFF:
-            return BUILD_GOT_ONLY;
+        ক্ষেত্র R_X86_64_GOTTPOFF:
+            ফেরত BUILD_GOT_ONLY;
 
-        case R_X86_64_GOT32:
-        case R_X86_64_GOT64:
-        case R_X86_64_GOTPC32:
-        case R_X86_64_GOTPC64:
-        case R_X86_64_GOTOFF64:
-        case R_X86_64_GOTPCREL:
-        case R_X86_64_GOTPCRELX:
-        case R_X86_64_TLSGD:
-        case R_X86_64_TLSLD:
-        case R_X86_64_DTPOFF32:
-        case R_X86_64_DTPOFF64:
-        case R_X86_64_REX_GOTPCRELX:
-        case R_X86_64_PLT32:
-        case R_X86_64_PLTOFF64:
-            return ALWAYS_GOTPLT_ENTRY;
+        ক্ষেত্র R_X86_64_GOT32:
+        ক্ষেত্র R_X86_64_GOT64:
+        ক্ষেত্র R_X86_64_GOTPC32:
+        ক্ষেত্র R_X86_64_GOTPC64:
+        ক্ষেত্র R_X86_64_GOTOFF64:
+        ক্ষেত্র R_X86_64_GOTPCREL:
+        ক্ষেত্র R_X86_64_GOTPCRELX:
+        ক্ষেত্র R_X86_64_TLSGD:
+        ক্ষেত্র R_X86_64_TLSLD:
+        ক্ষেত্র R_X86_64_DTPOFF32:
+        ক্ষেত্র R_X86_64_DTPOFF64:
+        ক্ষেত্র R_X86_64_REX_GOTPCRELX:
+        ক্ষেত্র R_X86_64_PLT32:
+        ক্ষেত্র R_X86_64_PLTOFF64:
+            ফেরত ALWAYS_GOTPLT_ENTRY;
 
-        case R_X86_64_TPOFF32:
-        case R_X86_64_TPOFF64:
-            return NO_GOTPLT_ENTRY;
+        ক্ষেত্র R_X86_64_TPOFF32:
+        ক্ষেত্র R_X86_64_TPOFF64:
+            ফেরত NO_GOTPLT_ENTRY;
     }
 
-    return -1;
+    ফেরত -1;
 }
 
 #ifdef NEED_BUILD_GOT
-ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr)
+ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, কাঠামো sym_attr *attr)
 {
     Section *plt = s1->plt;
     uint8_t *p;
-    int modrm;
+    পূর্ণসংখ্যা modrm;
     unsigned plt_offset, relofs;
 
     modrm = 0x25;
@@ -123,21 +123,21 @@ ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_
     /* empty PLT: create PLT0 entry that pushes the library identifier
        (GOT + PTR_SIZE) and jumps to ld.so resolution routine
        (GOT + 2 * PTR_SIZE) */
-    if (plt->data_offset == 0) {
+    যদি (plt->তথ্য_offset == 0) {
         p = section_ptr_add(plt, 16);
         p[0] = 0xff; /* pushl got + PTR_SIZE */
         p[1] = modrm + 0x10;
-        write32le(p + 2, PTR_SIZE);
+        write32le(p + 2, PTR_আকার);
         p[6] = 0xff; /* jmp *(got + PTR_SIZE * 2) */
         p[7] = modrm;
-        write32le(p + 8, PTR_SIZE * 2);
+        write32le(p + 8, PTR_আকার * 2);
     }
-    plt_offset = plt->data_offset;
+    plt_offset = plt->তথ্য_offset;
 
     /* The PLT slot refers to the relocation entry it needs via offset.
        The reloc entry is created below, so its offset is the current
        data_offset */
-    relofs = s1->plt->reloc ? s1->plt->reloc->data_offset : 0;
+    relofs = s1->plt->reloc ? s1->plt->reloc->তথ্য_offset : 0;
 
     /* Jump to GOT entry where ld.so initially put the address of ip + 4 */
     p = section_ptr_add(plt, 16);
@@ -146,39 +146,39 @@ ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_
     write32le(p + 2, got_offset);
     p[6] = 0x68; /* push $xxx */
     /* On x86-64, the relocation is referred to by _index_ */
-    write32le(p + 7, relofs / sizeof (ElfW_Rel) - 1);
+    write32le(p + 7, relofs / আকার (ElfW_Rel) - 1);
     p[11] = 0xe9; /* jmp plt_start */
-    write32le(p + 12, -(plt->data_offset));
-    return plt_offset;
+    write32le(p + 12, -(plt->তথ্য_offset));
+    ফেরত plt_offset;
 }
 
 /* relocate the PLT: compute addresses and offsets in the PLT now that final
    address for PLT and GOT are known (see fill_program_header) */
-ST_FUNC void relocate_plt(TCCState *s1)
+ST_FUNC শূন্য relocate_plt(TCCState *s1)
 {
     uint8_t *p, *p_end;
 
-    if (!s1->plt)
-      return;
+    যদি (!s1->plt)
+      ফেরত;
 
-    p = s1->plt->data;
-    p_end = p + s1->plt->data_offset;
+    p = s1->plt->তথ্য;
+    p_end = p + s1->plt->তথ্য_offset;
 
-    if (p < p_end) {
-        int x = s1->got->sh_addr - s1->plt->sh_addr - 6;
+    যদি (p < p_end) {
+        পূর্ণসংখ্যা x = s1->got->sh_addr - s1->plt->sh_addr - 6;
         add32le(p + 2, x);
         add32le(p + 8, x - 6);
         p += 16;
-        while (p < p_end) {
-            add32le(p + 2, x + (s1->plt->data - p));
+        যখন (p < p_end) {
+            add32le(p + 2, x + (s1->plt->তথ্য - p));
             p += 16;
         }
     }
 
-    if (s1->plt->reloc) {
+    যদি (s1->plt->reloc) {
         ElfW_Rel *rel;
-        int x = s1->plt->sh_addr + 16 + 6;
-        p = s1->got->data;
+        পূর্ণসংখ্যা x = s1->plt->sh_addr + 16 + 6;
+        p = s1->got->তথ্য;
         for_each_elem(s1->plt->reloc, 0, rel, ElfW_Rel) {
             write64le(p + rel->r_offset, x);
             x += 16;
@@ -188,223 +188,223 @@ ST_FUNC void relocate_plt(TCCState *s1)
 #endif
 #endif
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr, addr_t addr, addr_t val)
+ST_FUNC শূন্য relocate(TCCState *s1, ElfW_Rel *rel, পূর্ণসংখ্যা type, unsigned অক্ষর *ptr, addr_t addr, addr_t val)
 {
-    int sym_index, esym_index;
+    পূর্ণসংখ্যা sym_সূচক, esym_সূচক;
 
-    sym_index = ELFW(R_SYM)(rel->r_info);
+    sym_সূচক = ELFW(R_SYM)(rel->r_info);
 
-    switch (type) {
-        case R_X86_64_64:
-            if (s1->output_type & TCC_OUTPUT_DYN) {
-                esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
+    নির্বাচন (type) {
+        ক্ষেত্র R_X86_64_64:
+            যদি (s1->output_type & TCC_OUTPUT_DYN) {
+                esym_সূচক = get_sym_attr(s1, sym_সূচক, 0)->dyn_সূচক;
                 qrel->r_offset = rel->r_offset;
-                if (esym_index) {
-                    qrel->r_info = ELFW(R_INFO)(esym_index, R_X86_64_64);
+                যদি (esym_সূচক) {
+                    qrel->r_info = ELFW(R_INFO)(esym_সূচক, R_X86_64_64);
                     qrel->r_addend = rel->r_addend;
                     qrel++;
-                    break;
-                } else {
+                    বিরতি;
+                } অন্যথা {
                     qrel->r_info = ELFW(R_INFO)(0, R_X86_64_RELATIVE);
                     qrel->r_addend = read64le(ptr) + val;
                     qrel++;
                 }
             }
             add64le(ptr, val);
-            break;
-        case R_X86_64_32:
-        case R_X86_64_32S:
-            if (s1->output_type & TCC_OUTPUT_DYN) {
+            বিরতি;
+        ক্ষেত্র R_X86_64_32:
+        ক্ষেত্র R_X86_64_32S:
+            যদি (s1->output_type & TCC_OUTPUT_DYN) {
                 /* XXX: this logic may depend on TCC's codegen
                    now TCC uses R_X86_64_32 even for a 64bit pointer */
                 qrel->r_offset = rel->r_offset;
                 qrel->r_info = ELFW(R_INFO)(0, R_X86_64_RELATIVE);
                 /* Use sign extension! */
-                qrel->r_addend = (int)read32le(ptr) + val;
+                qrel->r_addend = (পূর্ণসংখ্যা)read32le(ptr) + val;
                 qrel++;
             }
-            if ((type == R_X86_64_32 ? val != (unsigned)val : val != (int)val)
+            যদি ((type == R_X86_64_32 ? val != (unsigned)val : val != (পূর্ণসংখ্যা)val)
                 /* ignore relocation check for stab section */
-                && (stab_section == NULL ||
+                && (stab_section == ফাঁকা ||
                     addr < stab_section->sh_addr ||
-                    addr >= (stab_section->sh_addr + stab_section->data_offset))) {
+                    addr >= (stab_section->sh_addr + stab_section->তথ্য_offset))) {
                 tcc_error_noabort("relocation 'R_X86_64_32[S]' out of range");
             }
             add32le(ptr, val);
-            break;
+            বিরতি;
 
-        case R_X86_64_PC32:
-            if (s1->output_type == TCC_OUTPUT_DLL) {
+        ক্ষেত্র R_X86_64_PC32:
+            যদি (s1->output_type == TCC_OUTPUT_DLL) {
                 /* DLL relocation */
-                esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
-                if (esym_index) {
+                esym_সূচক = get_sym_attr(s1, sym_সূচক, 0)->dyn_সূচক;
+                যদি (esym_সূচক) {
                     qrel->r_offset = rel->r_offset;
-                    qrel->r_info = ELFW(R_INFO)(esym_index, R_X86_64_PC32);
+                    qrel->r_info = ELFW(R_INFO)(esym_সূচক, R_X86_64_PC32);
                     /* Use sign extension! */
-                    qrel->r_addend = (int)read32le(ptr) + rel->r_addend;
+                    qrel->r_addend = (পূর্ণসংখ্যা)read32le(ptr) + rel->r_addend;
                     qrel++;
-                    break;
+                    বিরতি;
                 }
             }
-            goto plt32pc32;
+            যাও plt32pc32;
 
-        case R_X86_64_PLT32:
+        ক্ষেত্র R_X86_64_PLT32:
             /* fallthrough: val already holds the PLT slot address */
 
         plt32pc32:
         {
             long long diff;
             diff = (long long)val - addr;
-            if (diff < -2147483648LL || diff > 2147483647LL) {
+            যদি (diff < -2147483648LL || diff > 2147483647LL) {
 #ifdef TCC_TARGET_PE
               /* ignore overflow with undefined weak symbols */
-              if (((ElfW(Sym)*)symtab_section->data)[sym_index].st_shndx != SHN_UNDEF)
+              যদি (((ElfW(Sym)*)symtab_section->তথ্য)[sym_সূচক].st_shndx != SHN_UNDEF)
 #endif
                 tcc_error_noabort("relocation '%d' out of range", type);
             }
             add32le(ptr, diff);
         }
-            break;
+            বিরতি;
 
-        case R_X86_64_COPY:
-	    break;
+        ক্ষেত্র R_X86_64_COPY:
+	    বিরতি;
 
-        case R_X86_64_PLTOFF64:
+        ক্ষেত্র R_X86_64_PLTOFF64:
             add64le(ptr, val - s1->got->sh_addr + rel->r_addend);
-            break;
+            বিরতি;
 
-        case R_X86_64_PC64:
-            if (s1->output_type == TCC_OUTPUT_DLL) {
+        ক্ষেত্র R_X86_64_PC64:
+            যদি (s1->output_type == TCC_OUTPUT_DLL) {
                 /* DLL relocation */
-                esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
-                if (esym_index) {
+                esym_সূচক = get_sym_attr(s1, sym_সূচক, 0)->dyn_সূচক;
+                যদি (esym_সূচক) {
                     qrel->r_offset = rel->r_offset;
-                    qrel->r_info = ELFW(R_INFO)(esym_index, R_X86_64_PC64);
+                    qrel->r_info = ELFW(R_INFO)(esym_সূচক, R_X86_64_PC64);
                     qrel->r_addend = read64le(ptr) + rel->r_addend;
                     qrel++;
-                    break;
+                    বিরতি;
                 }
             }
             add64le(ptr, val - addr);
-            break;
+            বিরতি;
 
-        case R_X86_64_GLOB_DAT:
-        case R_X86_64_JUMP_SLOT:
+        ক্ষেত্র R_X86_64_GLOB_DAT:
+        ক্ষেত্র R_X86_64_JUMP_SLOT:
             /* They don't need addend */
             write64le(ptr, val - rel->r_addend);
-            break;
-        case R_X86_64_GOTPCREL:
-        case R_X86_64_GOTPCRELX:
-        case R_X86_64_REX_GOTPCRELX:
+            বিরতি;
+        ক্ষেত্র R_X86_64_GOTPCREL:
+        ক্ষেত্র R_X86_64_GOTPCRELX:
+        ক্ষেত্র R_X86_64_REX_GOTPCRELX:
             add32le(ptr, s1->got->sh_addr - addr +
-                         get_sym_attr(s1, sym_index, 0)->got_offset - 4);
-            break;
-        case R_X86_64_GOTPC32:
+                         get_sym_attr(s1, sym_সূচক, 0)->got_offset - 4);
+            বিরতি;
+        ক্ষেত্র R_X86_64_GOTPC32:
             add32le(ptr, s1->got->sh_addr - addr + rel->r_addend);
-            break;
-        case R_X86_64_GOTPC64:
+            বিরতি;
+        ক্ষেত্র R_X86_64_GOTPC64:
             add64le(ptr, s1->got->sh_addr - addr + rel->r_addend);
-            break;
-        case R_X86_64_GOTTPOFF:
+            বিরতি;
+        ক্ষেত্র R_X86_64_GOTTPOFF:
             add32le(ptr, val - s1->got->sh_addr);
-            break;
-        case R_X86_64_GOT32:
+            বিরতি;
+        ক্ষেত্র R_X86_64_GOT32:
             /* we load the got offset */
-            add32le(ptr, get_sym_attr(s1, sym_index, 0)->got_offset);
-            break;
-        case R_X86_64_GOT64:
+            add32le(ptr, get_sym_attr(s1, sym_সূচক, 0)->got_offset);
+            বিরতি;
+        ক্ষেত্র R_X86_64_GOT64:
             /* we load the got offset */
-            add64le(ptr, get_sym_attr(s1, sym_index, 0)->got_offset);
-            break;
-        case R_X86_64_GOTOFF64:
+            add64le(ptr, get_sym_attr(s1, sym_সূচক, 0)->got_offset);
+            বিরতি;
+        ক্ষেত্র R_X86_64_GOTOFF64:
             add64le(ptr, val - s1->got->sh_addr);
-            break;
-        case R_X86_64_TLSGD:
+            বিরতি;
+        ক্ষেত্র R_X86_64_TLSGD:
             {
-                static const unsigned char expect[] = {
+                স্থির ধ্রুবক unsigned অক্ষর expect[] = {
                     /* .byte 0x66; lea 0(%rip),%rdi */
                     0x66, 0x48, 0x8d, 0x3d, 0x00, 0x00, 0x00, 0x00,
                     /* .word 0x6666; rex64; call __tls_get_addr@PLT */
                     0x66, 0x66, 0x48, 0xe8, 0x00, 0x00, 0x00, 0x00 };
-                static const unsigned char replace[] = {
+                স্থির ধ্রুবক unsigned অক্ষর replace[] = {
                     /* mov %fs:0,%rax */
                     0x64, 0x48, 0x8b, 0x04, 0x25, 0x00, 0x00, 0x00, 0x00,
                     /* lea -4(%rax),%rax */
                     0x48, 0x8d, 0x80, 0x00, 0x00, 0x00, 0x00 };
 
-                if (memcmp (ptr-4, expect, sizeof(expect)) == 0) {
+                যদি (memcmp (ptr-4, expect, আকার(expect)) == 0) {
                     ElfW(Sym) *sym;
                     Section *sec;
                     int32_t x;
 
-                    memcpy(ptr-4, replace, sizeof(replace));
+                    memcpy(ptr-4, replace, আকার(replace));
                     rel[1].r_info = ELFW(R_INFO)(0, R_X86_64_NONE);
-                    sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+                    sym = &((ElfW(Sym) *)symtab_section->তথ্য)[sym_সূচক];
                     sec = s1->sections[sym->st_shndx];
-                    x = sym->st_value - sec->sh_addr - sec->data_offset;
+                    x = sym->st_মান - sec->sh_addr - sec->তথ্য_offset;
                     add32le(ptr + 8, x);
                 }
-                else
+                অন্যথা
                     tcc_error_noabort("unexpected R_X86_64_TLSGD pattern");
             }
-            break;
-        case R_X86_64_TLSLD:
+            বিরতি;
+        ক্ষেত্র R_X86_64_TLSLD:
             {
-                static const unsigned char expect[] = {
+                স্থির ধ্রুবক unsigned অক্ষর expect[] = {
                     /* lea 0(%rip),%rdi */
                     0x48, 0x8d, 0x3d, 0x00, 0x00, 0x00, 0x00,
                     /* call __tls_get_addr@PLT */
                     0xe8, 0x00, 0x00, 0x00, 0x00 };
-                static const unsigned char replace[] = {
+                স্থির ধ্রুবক unsigned অক্ষর replace[] = {
                     /* data16 data16 data16 mov %fs:0,%rax */
                     0x66, 0x66, 0x66, 0x64, 0x48, 0x8b, 0x04, 0x25,
                     0x00, 0x00, 0x00, 0x00 };
 
-                if (memcmp (ptr-3, expect, sizeof(expect)) == 0) {
-                    memcpy(ptr-3, replace, sizeof(replace));
+                যদি (memcmp (ptr-3, expect, আকার(expect)) == 0) {
+                    memcpy(ptr-3, replace, আকার(replace));
                     rel[1].r_info = ELFW(R_INFO)(0, R_X86_64_NONE);
                 }
-                else
+                অন্যথা
                     tcc_error_noabort("unexpected R_X86_64_TLSLD pattern");
             }
-            break;
+            বিরতি;
 
-        case R_X86_64_DTPOFF32:
-        case R_X86_64_TPOFF32:
-        case R_X86_64_DTPOFF64:
-        case R_X86_64_TPOFF64:
+        ক্ষেত্র R_X86_64_DTPOFF32:
+        ক্ষেত্র R_X86_64_TPOFF32:
+        ক্ষেত্র R_X86_64_DTPOFF64:
+        ক্ষেত্র R_X86_64_TPOFF64:
             {
                 int32_t x;
-                if (s1->tls_end) {
+                যদি (s1->tls_end) {
                     x = val - s1->tls_end;
-                } else {
-                    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+                } অন্যথা {
+                    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->তথ্য)[sym_সূচক];
                     Section *sec = s1->sections[sym->st_shndx];
-                    x = val - sec->sh_addr - sec->data_offset;
+                    x = val - sec->sh_addr - sec->তথ্য_offset;
                 }
-                switch (type) {
-                case R_X86_64_DTPOFF64:
-                case R_X86_64_TPOFF64:
+                নির্বাচন (type) {
+                ক্ষেত্র R_X86_64_DTPOFF64:
+                ক্ষেত্র R_X86_64_TPOFF64:
                     add64le(ptr, x);
-                    break;
-                default:
+                    বিরতি;
+                পূর্বনির্ধারিত:
                     add32le(ptr, x);
-                    break;
+                    বিরতি;
                 }
             }
-            break;
-        case R_X86_64_NONE:
-            break;
-        case R_X86_64_RELATIVE:
+            বিরতি;
+        ক্ষেত্র R_X86_64_NONE:
+            বিরতি;
+        ক্ষেত্র R_X86_64_RELATIVE:
 #ifdef TCC_TARGET_PE
             add32le(ptr, val - s1->pe_imagebase);
 #endif
             /* do nothing */
-            break;
-        default:
+            বিরতি;
+        পূর্বনির্ধারিত:
             fprintf(stderr,"FIXME: handle reloc type %d at %x [%p] to %x\n",
                 type, (unsigned)addr, ptr, (unsigned)val);
-            break;
+            বিরতি;
     }
 }
 

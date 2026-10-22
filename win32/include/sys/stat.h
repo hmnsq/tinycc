@@ -10,56 +10,56 @@
 #error Only Win32 target is supported!
 #endif
 
-#include <_mingw.h>
-#include <io.h>
+#অন্তর্ভাব <_mingw.h>
+#অন্তর্ভাব <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ঠেলো,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্যিক "C" {
 #endif
 
 #ifndef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
 #endif
 
-#include <sys/types.h>
+#অন্তর্ভাব <sys/types.h>
 
 #ifndef __TINYC__ /* gr */
 #ifdef _USE_32BIT_TIME_T
 #ifdef _WIN64
 #undef _USE_32BIT_TIME_T
 #endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
+#অন্যথা
+#যদি _INTEGRAL_MAX_BITS < 64
 #define _USE_32BIT_TIME_T
 #endif
 #endif
 #endif
 
 #ifndef _TIME32_T_DEFINED
-  typedef long __time32_t;
+  প্রকারলেখ long __time32_t;
 #define _TIME32_T_DEFINED
 #endif
 
 #ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
+#যদি _INTEGRAL_MAX_BITS >= 64
+  প্রকারলেখ __int64 __time64_t;
 #endif
 #define _TIME64_T_DEFINED
 #endif
 
 #ifndef _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
+  প্রকারলেখ __time32_t time_t;
+#অন্যথা
+  প্রকারলেখ __time64_t time_t;
 #endif
 #define _TIME_T_DEFINED
 #endif
 
 #ifndef _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
+  প্রকারলেখ unsigned short wchar_t;
 #define _WCHAR_T_DEFINED
 #endif
 
@@ -70,7 +70,7 @@ extern "C" {
 #define _fstat32 _fstat
 #define _stat32 _stat
 #define _wstat32 _wstat
-#else
+#অন্যথা
 #define _fstat _fstat32
 #define _stat _stat32
 #define _wstat _wstat32
@@ -78,7 +78,7 @@ extern "C" {
 #define _fstati64 _fstat32i64
 #define _stati64 _stat32i64
 #define _wstati64 _wstat32i64
-#else
+#অন্যথা
 #define _fstat _fstat64i32
 #define _fstati64 _fstat64
 #define _stat _stat64
@@ -87,7 +87,7 @@ extern "C" {
 #define _wstati64 _wstat64
 #endif
 
-  struct _stat32 {
+  কাঠামো _stat32 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -95,14 +95,14 @@ extern "C" {
     short st_uid;
     short st_gid;
     _dev_t st_rdev;
-    _off_t st_size;
+    _off_t st_আকার;
     __time32_t st_atime;
     __time32_t st_mtime;
     __time32_t st_ctime;
   };
 
 #ifndef	NO_OLDNAMES
-  struct stat {
+  কাঠামো stat {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -110,15 +110,15 @@ extern "C" {
     short st_uid;
     short st_gid;
     _dev_t st_rdev;
-    _off_t st_size;
+    _off_t st_আকার;
     time_t st_atime;
     time_t st_mtime;
     time_t st_ctime;
   };
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct _stat32i64 {
+#যদি _INTEGRAL_MAX_BITS >= 64
+  কাঠামো _stat32i64 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -126,13 +126,13 @@ extern "C" {
     short st_uid;
     short st_gid;
     _dev_t st_rdev;
-    __int64 st_size;
+    __int64 st_আকার;
     __time32_t st_atime;
     __time32_t st_mtime;
     __time32_t st_ctime;
   };
 
-  struct _stat64i32 {
+  কাঠামো _stat64i32 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -140,13 +140,13 @@ extern "C" {
     short st_uid;
     short st_gid;
     _dev_t st_rdev;
-    _off_t st_size;
+    _off_t st_আকার;
     __time64_t st_atime;
     __time64_t st_mtime;
     __time64_t st_ctime;
   };
 
-  struct _stat64 {
+  কাঠামো _stat64 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -154,7 +154,7 @@ extern "C" {
     short st_uid;
     short st_gid;
     _dev_t st_rdev;
-    __int64 st_size;
+    __int64 st_আকার;
     __time64_t st_atime;
     __time64_t st_mtime;
     __time64_t st_ctime;
@@ -175,16 +175,16 @@ extern "C" {
 #define _S_IWRITE 0x0080
 #define _S_IEXEC 0x0040
 
-  _CRTIMP int __cdecl _fstat32(int _FileDes,struct _stat32 *_Stat);
-  _CRTIMP int __cdecl _stat32(const char *_Name,struct _stat32 *_Stat);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _fstat64(int _FileDes,struct _stat64 *_Stat);
-  _CRTIMP int __cdecl _fstat32i64(int _FileDes,struct _stat32i64 *_Stat);
-  int __cdecl _fstat64i32(int _FileDes,struct _stat64i32 *_Stat);
-  __CRT_INLINE int __cdecl _fstat64i32(int _FileDes,struct _stat64i32 *_Stat)
+  _CRTIMP পূর্ণসংখ্যা __cdecl _fstat32(পূর্ণসংখ্যা _FileDes,কাঠামো _stat32 *_Stat);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _stat32(ধ্রুবক অক্ষর *_Name,কাঠামো _stat32 *_Stat);
+#যদি _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP পূর্ণসংখ্যা __cdecl _fstat64(পূর্ণসংখ্যা _FileDes,কাঠামো _stat64 *_Stat);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _fstat32i64(পূর্ণসংখ্যা _FileDes,কাঠামো _stat32i64 *_Stat);
+  পূর্ণসংখ্যা __cdecl _fstat64i32(পূর্ণসংখ্যা _FileDes,কাঠামো _stat64i32 *_Stat);
+  __CRT_INLINE পূর্ণসংখ্যা __cdecl _fstat64i32(পূর্ণসংখ্যা _FileDes,কাঠামো _stat64i32 *_Stat)
   {
-    struct _stat64 st;
-    int ret=_fstat64(_FileDes,&st);
+    কাঠামো _stat64 st;
+    পূর্ণসংখ্যা ret=_fstat64(_FileDes,&st);
     _Stat->st_dev=st.st_dev;
     _Stat->st_ino=st.st_ino;
     _Stat->st_mode=st.st_mode;
@@ -192,19 +192,19 @@ extern "C" {
     _Stat->st_uid=st.st_uid;
     _Stat->st_gid=st.st_gid;
     _Stat->st_rdev=st.st_rdev;
-    _Stat->st_size=(_off_t) st.st_size;
+    _Stat->st_আকার=(_off_t) st.st_আকার;
     _Stat->st_atime=st.st_atime;
     _Stat->st_mtime=st.st_mtime;
     _Stat->st_ctime=st.st_ctime;
-    return ret;
+    ফেরত ret;
   }
-  _CRTIMP int __cdecl _stat64(const char *_Name,struct _stat64 *_Stat);
-  _CRTIMP int __cdecl _stat32i64(const char *_Name,struct _stat32i64 *_Stat);
-  int __cdecl _stat64i32(const char *_Name,struct _stat64i32 *_Stat);
-  __CRT_INLINE int __cdecl _stat64i32(const char *_Name,struct _stat64i32 *_Stat)
+  _CRTIMP পূর্ণসংখ্যা __cdecl _stat64(ধ্রুবক অক্ষর *_Name,কাঠামো _stat64 *_Stat);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _stat32i64(ধ্রুবক অক্ষর *_Name,কাঠামো _stat32i64 *_Stat);
+  পূর্ণসংখ্যা __cdecl _stat64i32(ধ্রুবক অক্ষর *_Name,কাঠামো _stat64i32 *_Stat);
+  __CRT_INLINE পূর্ণসংখ্যা __cdecl _stat64i32(ধ্রুবক অক্ষর *_Name,কাঠামো _stat64i32 *_Stat)
   {
-    struct _stat64 st;
-    int ret=_stat64(_Name,&st);
+    কাঠামো _stat64 st;
+    পূর্ণসংখ্যা ret=_stat64(_Name,&st);
     _Stat->st_dev=st.st_dev;
     _Stat->st_ino=st.st_ino;
     _Stat->st_mode=st.st_mode;
@@ -212,21 +212,21 @@ extern "C" {
     _Stat->st_uid=st.st_uid;
     _Stat->st_gid=st.st_gid;
     _Stat->st_rdev=st.st_rdev;
-    _Stat->st_size=(_off_t) st.st_size;
+    _Stat->st_আকার=(_off_t) st.st_আকার;
     _Stat->st_atime=st.st_atime;
     _Stat->st_mtime=st.st_mtime;
     _Stat->st_ctime=st.st_ctime;
-    return ret;
+    ফেরত ret;
   }
 #endif
 
 #ifndef _WSTAT_DEFINED
 #define _WSTAT_DEFINED
-  _CRTIMP int __cdecl _wstat32(const wchar_t *_Name,struct _stat32 *_Stat);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _wstat32i64(const wchar_t *_Name,struct _stat32i64 *_Stat);
-  int __cdecl _wstat64i32(const wchar_t *_Name,struct _stat64i32 *_Stat);
-  _CRTIMP int __cdecl _wstat64(const wchar_t *_Name,struct _stat64 *_Stat);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _wstat32(ধ্রুবক wchar_t *_Name,কাঠামো _stat32 *_Stat);
+#যদি _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP পূর্ণসংখ্যা __cdecl _wstat32i64(ধ্রুবক wchar_t *_Name,কাঠামো _stat32i64 *_Stat);
+  পূর্ণসংখ্যা __cdecl _wstat64i32(ধ্রুবক wchar_t *_Name,কাঠামো _stat64i32 *_Stat);
+  _CRTIMP পূর্ণসংখ্যা __cdecl _wstat64(ধ্রুবক wchar_t *_Name,কাঠামো _stat64 *_Stat);
 #endif
 #endif
 
@@ -261,23 +261,23 @@ extern "C" {
 
 #endif
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
-int __cdecl stat(const char *_Filename,struct stat *_Stat);
-int __cdecl fstat(int _Desc,struct stat *_Stat);
-int __cdecl wstat(const wchar_t *_Filename,struct stat *_Stat);
+#যদি !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+পূর্ণসংখ্যা __cdecl stat(ধ্রুবক অক্ষর *_Filename,কাঠামো stat *_Stat);
+পূর্ণসংখ্যা __cdecl fstat(পূর্ণসংখ্যা _Desc,কাঠামো stat *_Stat);
+পূর্ণসংখ্যা __cdecl wstat(ধ্রুবক wchar_t *_Filename,কাঠামো stat *_Stat);
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl fstat(int _Desc,struct stat *_Stat) {
-  return _fstat32(_Desc,(struct _stat32 *)_Stat);
+__CRT_INLINE পূর্ণসংখ্যা __cdecl fstat(পূর্ণসংখ্যা _Desc,কাঠামো stat *_Stat) {
+  ফেরত _fstat32(_Desc,(কাঠামো _stat32 *)_Stat);
 }
-__CRT_INLINE int __cdecl stat(const char *_Filename,struct stat *_Stat) {
-  return _stat32(_Filename,(struct _stat32 *)_Stat);
+__CRT_INLINE পূর্ণসংখ্যা __cdecl stat(ধ্রুবক অক্ষর *_Filename,কাঠামো stat *_Stat) {
+  ফেরত _stat32(_Filename,(কাঠামো _stat32 *)_Stat);
 }
-#else
-__CRT_INLINE int __cdecl fstat(int _Desc,struct stat *_Stat) {
-  return _fstat64i32(_Desc,(struct _stat64i32 *)_Stat);
+#অন্যথা
+__CRT_INLINE পূর্ণসংখ্যা __cdecl fstat(পূর্ণসংখ্যা _Desc,কাঠামো stat *_Stat) {
+  ফেরত _fstat64i32(_Desc,(কাঠামো _stat64i32 *)_Stat);
 }
-__CRT_INLINE int __cdecl stat(const char *_Filename,struct stat *_Stat) {
-  return _stat64i32(_Filename,(struct _stat64i32 *)_Stat);
+__CRT_INLINE পূর্ণসংখ্যা __cdecl stat(ধ্রুবক অক্ষর *_Filename,কাঠামো stat *_Stat) {
+  ফেরত _stat64i32(_Filename,(কাঠামো _stat64i32 *)_Stat);
 }
 #endif
 #endif
@@ -286,5 +286,5 @@ __CRT_INLINE int __cdecl stat(const char *_Filename,struct stat *_Stat) {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(বের_করো)
 #endif

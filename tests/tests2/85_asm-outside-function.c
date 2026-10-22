@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#অন্যথা
 # define _
 #endif
 
-extern int printf (const char *, ...);
-extern void vide(void);
+বাহ্যিক পূর্ণসংখ্যা printf (ধ্রুবক অক্ষর *, ...);
+বাহ্যিক শূন্য vide(শূন্য);
 __asm__(_"vide: ret");
 
-int main() {
+পূর্ণসংখ্যা প্রধান() {
     vide();
     printf ("okay\n");
-    return 0;
+    ফেরত 0;
 }

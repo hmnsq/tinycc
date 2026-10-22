@@ -1,17 +1,17 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-   char Buf[100];
-   int Count;
+   অক্ষর Buf[100];
+   পূর্ণসংখ্যা গুনতি_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   জন্য (গুনতি_3 = 1; গুনতি_3 <= 20; গুনতি_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
+      sprintf(Buf, "->%02d<-\n", গুনতি_3);
       printf("%s", Buf);
    }
 
-   return 0;
+   ফেরত 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

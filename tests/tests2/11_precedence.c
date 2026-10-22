@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+বাহ্যিক পূর্ণসংখ্যা printf(ধ্রুবক অক্ষর *, ...);
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   পূর্ণসংখ্যা a;
+   পূর্ণসংখ্যা b;
+   পূর্ণসংখ্যা c;
+   পূর্ণসংখ্যা d;
+   পূর্ণসংখ্যা e;
+   পূর্ণসংখ্যা f;
+   পূর্ণসংখ্যা x;
+   পূর্ণসংখ্যা y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   ফেরত 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

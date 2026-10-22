@@ -1,38 +1,38 @@
-#include <stdatomic.h>
-#include <stdio.h>
+#অন্তর্ভাব <stdatomic.h>
+#অন্তর্ভাব <stdio.h>
 
-static int value_calls;
-static int order_calls;
+স্থির পূর্ণসংখ্যা মান_calls;
+স্থির পূর্ণসংখ্যা order_calls;
 
-static int next_value(void)
+স্থির পূর্ণসংখ্যা পরবর্তী_মান(শূন্য)
 {
-    ++value_calls;
-    return 42;
+    ++মান_calls;
+    ফেরত 42;
 }
 
-static int next_order(void)
+স্থির পূর্ণসংখ্যা পরবর্তী_order(শূন্য)
 {
     ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    ফেরত __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+পূর্ণসংখ্যা প্রধান(শূন্য)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
-    void (*signal_fence)(memory_order) = &atomic_signal_fence;
+    পূর্ণসংখ্যা মানসমূহ[2] = {7, 8};
+    পূর্ণসংখ্যা সূচক = 0;
+    পূর্ণসংখ্যা মান = 1;
+    অস্থির পূর্ণসংখ্যা vol = 0;
+    পূর্ণসংখ্যা *pointer = &মান;
+    শূন্য (*signal_fence)(memory_order) = &atomic_signal_fence;
 
-    __atomic_store_n(&values[index++], next_value(), next_order());
-    printf("%d %d %d %d %d\n", index, value_calls, order_calls,
-           values[0], values[1]);
-    __atomic_store_n(&value, value + 1, __ATOMIC_RELAXED);
-    printf("%d\n", value);
+    __atomic_store_n(&মানসমূহ[সূচক++], পরবর্তী_মান(), পরবর্তী_order());
+    printf("%d %d %d %d %d\n", সূচক, মান_calls, order_calls,
+           মানসমূহ[0], মানসমূহ[1]);
+    __atomic_store_n(&মান, মান + 1, __ATOMIC_RELAXED);
+    printf("%d\n", মান);
     __atomic_store_n(&vol, 13, __ATOMIC_RELEASE);
     printf("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
-    __atomic_store_n(&pointer, &values[0], __ATOMIC_RELEASE);
+    __atomic_store_n(&pointer, &মানসমূহ[0], __ATOMIC_RELEASE);
     printf("%d\n", *__atomic_load_n(&pointer, __ATOMIC_ACQUIRE));
 
     atomic_signal_fence(memory_order_acquire);
@@ -41,5 +41,5 @@ int main(void)
     atomic_thread_fence(memory_order_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
     puts("ok");
-    return 0;
+    ফেরত 0;
 }

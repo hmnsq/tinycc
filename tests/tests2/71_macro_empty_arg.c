@@ -1,9 +1,9 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
 #define T(a,b,c) a b c
 
-int main(void)
+পূর্ণসংখ্যা প্রধান(শূন্য)
 {
     printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    ফেরত 0;
 }

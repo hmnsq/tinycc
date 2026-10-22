@@ -1,29 +1,29 @@
-#include <stdio.h>
+#অন্তর্ভাব <stdio.h>
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-   int Count;
+   পূর্ণসংখ্যা গুনতি_3;
 
-   for (Count = 0; Count < 4; Count++)
+   জন্য (গুনতি_3 = 0; গুনতি_3 < 4; গুনতি_3++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      printf("%d\n", গুনতি_3);
+      নির্বাচন (গুনতি_3)
       {
-         case 1:
+         ক্ষেত্র 1:
             printf("%d\n", 1);
-            break;
+            বিরতি;
 
-         case 2:
+         ক্ষেত্র 2:
             printf("%d\n", 2);
-            break;
+            বিরতি;
 
-         default:
+         পূর্বনির্ধারিত:
             printf("%d\n", 0);
-            break;
+            বিরতি;
       }
    }
 
-   return 0;
+   ফেরত 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

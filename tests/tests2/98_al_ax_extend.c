@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#অন্তর্ভাব <stdio.h>
+#অন্তর্ভাব <stdlib.h>
 asm (
     ".text;"
     ".globl _us;.globl _ss;.globl _uc;.globl _sc;"
@@ -15,17 +15,17 @@ asm (
 #define sc _sc
 #endif
 
-int main()
+পূর্ণসংখ্যা প্রধান()
 {
-    unsigned short us(void);
-    short ss(void);
-    unsigned char uc(void);
-    signed char sc(void);
+    unsigned short us(শূন্য);
+    short ss(শূন্য);
+    unsigned অক্ষর uc(শূন্য);
+    signed অক্ষর sc(শূন্য);
 
-    unsigned short (*fpus)(void) = us;
-    short (*fpss)(void) = ss;
-    unsigned char (*fpuc)(void) = uc;
-    signed char (*fpsc)(void) = sc;
+    unsigned short (*fpus)(শূন্য) = us;
+    short (*fpss)(শূন্য) = ss;
+    unsigned অক্ষর (*fpuc)(শূন্য) = uc;
+    signed অক্ষর (*fpsc)(শূন্য) = sc;
 
     printf("%08X %08X\n", us() + 1, fpus() + 1);
     printf("%08X %08X\n", ss() + 1, fpss() + 1);
@@ -37,5 +37,5 @@ int main()
     printf("%08X %08X\n", fpuc() + 1, uc() + 1);
     printf("%08X %08X\n", fpsc() + 1, sc() + 1);
 
-    return 0;
+    ফেরত 0;
 }

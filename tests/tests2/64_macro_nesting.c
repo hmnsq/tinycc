@@ -1,12 +1,12 @@
-#include <stdio.h>	// printf()
+#অন্তর্ভাব <stdio.h>	// printf()
 
 #define CAT2(a,b) a##b
 #define CAT(a,b) CAT2(a,b)
 #define AB(x) CAT(x,y)
 
-int main(void)
+পূর্ণসংখ্যা প্রধান(শূন্য)
 {
-  int xy = 42;
+  পূর্ণসংখ্যা xy = 42;
   printf("%d\n", CAT(A,B)(x));
-  return 0;
+  ফেরত 0;
 }
