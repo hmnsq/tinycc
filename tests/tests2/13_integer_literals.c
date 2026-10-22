@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
-   int a = 24680;
-   int b = 01234567;
-   int c = 0x2468ac;
-   int d = 0x2468AC;
-   int e = 0b010101010101;
+   puur_naa_nka a = 24680;
+   puur_naa_nka b = 01234567;
+   puur_naa_nka c = 0x2468ac;
+   puur_naa_nka d = 0x2468AC;
+   puur_naa_nka e = 0b010101010101;
 
    printf("%d\n", a);
    printf("%d\n", b);
@@ -14,7 +14,7 @@ int main()
    printf("%d\n", d);
    printf("%d\n", e);
 
-   return 0;
+   ꦮꦭꦶ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

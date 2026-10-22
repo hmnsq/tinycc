@@ -1,56 +1,56 @@
 #include <stdio.h>
 
-int f(void)
+puur_naa_nka f(void)
 {
-  return 5;
+  ꦮꦭꦶ 5;
 }
 
 void test1()
 {
-  int count = 10;
+  puur_naa_nka count = 10;
   void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  ꦏꦁꦒꦺꦴ(;count--;) {
+    puur_naa_nka a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  ꦪꦼꦤ꧀(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ꦭꦶꦪ {
     printf("NOT OK\n");
   }
 }
 
 void test2()
 {
-  int count = 10;
+  puur_naa_nka count = 10;
   void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  ꦏꦁꦒꦺꦴ(;count--;) {
+    puur_naa_nka a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  ꦪꦼꦤ꧀(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ꦭꦶꦪ {
     printf("NOT OK\n");
   }
 }
 
 void test3()
 {
-  int count = 10;
+  puur_naa_nka count = 10;
   void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  ꦱꦼꦢꦼꦭ(count--) {
+      puur_naa_nka b[f()];
+      ꦪꦼꦤ꧀ (count >= 0) {
+          puur_naa_nka a[f()];
 
           addr[count] = a;
 
@@ -58,56 +58,56 @@ void test3()
       }
   }
 
-  if(addr[9] == addr[0]) {
+  ꦪꦼꦤ꧀(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ꦭꦶꦪ {
     printf("NOT OK\n");
   }
 }
 
 void test4()
 {
-  int count = 10;
+  puur_naa_nka count = 10;
   void *addr[count];
   do {
-    int a[f()];
+    puur_naa_nka a[f()];
 
     addr[--count] = a;
 
     continue;
-  } while (count);
+  } ꦱꦼꦢꦼꦭ (count);
 
-  if(addr[9] == addr[0]) {
+  ꦪꦼꦤ꧀(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ꦭꦶꦪ {
     printf("NOT OK\n");
   }
 }
 
 void test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  puur_naa_nka count = 10;
+  puur_naa_nka a[f()];
+  puur_naa_nka c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
+  ꦏꦁꦒꦺꦴ(;count--;) {
+    puur_naa_nka b[f()];
+    puur_naa_nka i;
+    ꦏꦁꦒꦺꦴ (i=0; i<f(); i++) {
       b[i] = count;
     }
   }
 
-  if (c[0] == 42) {
+  ꦪꦼꦤ꧀ (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } ꦭꦶꦪ {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+puur_naa_nka main(void)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  ꦮꦭꦶ 0;
 }

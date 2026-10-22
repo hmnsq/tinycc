@@ -1,23 +1,23 @@
 #include <stdio.h>
 
-typedef int MyInt;
+typedef puur_naa_nka MyInt;
 
-struct FunStruct
+sa_nracanaa FunStruct
 {
-   int i;
-   int j;
+   puur_naa_nka i;
+   puur_naa_nka j;
 };
 
-typedef struct FunStruct MyFunStruct;
+typedef sa_nracanaa FunStruct MyFunStruct;
 
 typedef MyFunStruct *MoreFunThanEver;
 
-typedef int t[];
-int tints[];
+typedef puur_naa_nka t[];
+puur_naa_nka tints[];
 
-int main()
+puur_naa_nka main()
 {
-   int i, *p;
+   puur_naa_nka i, *p;
    MyInt a = 1;
    printf("%d\n", a);
 
@@ -30,55 +30,55 @@ int main()
    printf("%d,%d\n", c->i, c->j);
 
    p = (t){1,2,3};
-   for (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
+   ꦏꦁꦒꦺꦴ (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
    p = (t){1,2,3,4};
-   for (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   ꦏꦁꦒꦺꦴ (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
 
-   printf("%d\n", (int)sizeof((t){1,2,3}));
-   printf("%d\n", (int)sizeof((t){1,2,3,4}));
+   printf("%d\n", (puur_naa_nka)parimaa_na((t){1,2,3}));
+   printf("%d\n", (puur_naa_nka)parimaa_na((t){1,2,3,4}));
 
    /* two arrays derived from same base type */
    t t3 = { 1,2,3 }, t4 = { 4,5,6,7 };
-   for (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   ꦏꦁꦒꦺꦴ (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
+   ꦏꦁꦒꦺꦴ (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
    typeof(tints) t5 = { 1,2,3 }, t6 = { 4,5,6,7 };
-   for (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   ꦏꦁꦒꦺꦴ (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
+   ꦏꦁꦒꦺꦴ (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
 
-   return 0;
+   ꦮꦭꦶ 0;
 }
 
 /* "If the specification of an array type includes any type qualifiers,
    the element type is so-qualified, not the array type." */
 
-typedef int A[3];
+typedef puur_naa_nka A[3];
 extern A const ca;
 extern const A ca;
-extern const int ca[3];
+extern const puur_naa_nka ca[3];
 
 typedef A B[1][2];
 extern B const cb;
 extern const B cb;
-extern const int cb[1][2][3];
+extern const puur_naa_nka cb[1][2][3];
 
 extern B b;
-extern int b[1][2][3];
+extern puur_naa_nka b[1][2][3];
 
 /* Funny but valid function declaration.  */
-typedef int functype (int);
+typedef puur_naa_nka functype (puur_naa_nka);
 extern functype func;
-int func(int i)
+puur_naa_nka func(puur_naa_nka i)
 {
-   return i + 1;
+   ꦮꦭꦶ i + 1;
 }
 
 /* Even funnier function decl and definition using typeof.  */
-int set_anon_super(void);
-int set_anon_super(void)
+puur_naa_nka set_anon_super(void);
+puur_naa_nka set_anon_super(void)
 {
-   return 42;
+   ꦮꦭꦶ 42;
 }
-typedef int sas_type (void);
+typedef puur_naa_nka sas_type (void);
 extern typeof(set_anon_super) set_anon_super;
 extern sas_type set_anon_super;
 

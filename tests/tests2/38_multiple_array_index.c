@@ -1,32 +1,32 @@
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   puur_naa_nka a[4][4];
+   puur_naa_nka b = 0;
+   puur_naa_nka x;
+   puur_naa_nka y;
 
-   for (x = 0; x < 4; x++)
+   ꦏꦁꦒꦺꦴ (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      ꦏꦁꦒꦺꦴ (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   ꦏꦁꦒꦺꦴ (x = 0; x < 4; x++)
    {
       printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      ꦏꦁꦒꦺꦴ (y = 0; y < 4; y++)
       {
          printf("%d ", a[x][y]);
       }
       printf("\n");
    }
 
-   return 0;
+   ꦮꦭꦶ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

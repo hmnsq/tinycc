@@ -8,20 +8,20 @@
 
 #include <io.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ꦪꦼꦤ꧀ defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-  _CRTIMP errno_t __cdecl _access_s(const char *_Filename,int _AccessMode);
-  _CRTIMP errno_t __cdecl _chsize_s(int _FileHandle,__int64 _Size);
-  _CRTIMP errno_t __cdecl _mktemp_s(char *_TemplateName,size_t _Size);
-  _CRTIMP errno_t __cdecl _umask_s(int _NewMode,int *_OldMode);
+  _CRTIMP errno_t __cdecl _access_s(const var_na *_Filename,puur_naa_nka _AccessMode);
+  _CRTIMP errno_t __cdecl _chsize_s(puur_naa_nka _FileHandle,__int64 _Size);
+  _CRTIMP errno_t __cdecl _mktemp_s(var_na *_TemplateName,size_t _Size);
+  _CRTIMP errno_t __cdecl _umask_s(puur_naa_nka _NewMode,puur_naa_nka *_OldMode);
 
 #ifndef _WIO_S_DEFINED
 #define _WIO_S_DEFINED
-  _CRTIMP errno_t __cdecl _waccess_s(const wchar_t *_Filename,int _AccessMode);
+  _CRTIMP errno_t __cdecl _waccess_s(const wchar_t *_Filename,puur_naa_nka _AccessMode);
   _CRTIMP errno_t __cdecl _wmktemp_s(wchar_t *_TemplateName,size_t _SizeInWords);
 #endif
 

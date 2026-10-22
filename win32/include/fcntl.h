@@ -32,7 +32,7 @@
 #define _O_SEQUENTIAL 0x0020
 #define _O_RANDOM 0x0010
 
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
+#ꦪꦼꦤ꧀ !defined(NO_OLDNAMES) || defined(_POSIX)
 #define O_RDONLY _O_RDONLY
 #define O_WRONLY _O_WRONLY
 #define O_RDWR _O_RDWR
