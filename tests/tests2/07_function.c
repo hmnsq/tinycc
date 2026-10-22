@@ -1,26 +1,26 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-int myfunc(int x)
+পূর্ণাঙ্ক myfunc(পূর্ণাঙ্ক x)
 {
-   return x * x;
+   ঘূৰাই x * x;
 }
 
-void vfunc(int a)
+শূন্য vfunc(পূর্ণাঙ্ক a)
 {
    printf("a=%d\n", a);
 }
 
-void qfunc()
+শূন্য qfunc()
 {
    printf("qfunc()\n");
 }
 
-void zfunc()
+শূন্য zfunc()
 {
-	((void (*)(void))0) ();
+	((শূন্য (*)(শূন্য))0) ();
 }
 
-int main()
+পূর্ণাঙ্ক main()
 {
    printf("%d\n", myfunc(3));
    printf("%d\n", myfunc(4));
@@ -29,7 +29,7 @@ int main()
 
    qfunc();
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

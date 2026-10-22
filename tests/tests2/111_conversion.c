@@ -1,24 +1,24 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-union u {
+সঙ্ঘ u {
     unsigned long ul;
-    long double ld;
+    long দ্ৱিগুণ ld;
 };
 
-void
-conv (union u *p)
+শূন্য
+conv (সঙ্ঘ u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (unsigned পূর্ণাঙ্ক) p->ld;
 }
 
-int main (void)
+পূর্ণাঙ্ক main (শূন্য)
 {
-    union u v;
-    double d = 1234567890.0;
+    সঙ্ঘ u v;
+    দ্ৱিগুণ d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
     printf ("%lu\n", v.ul);
     printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    ঘূৰাই 0;
 }

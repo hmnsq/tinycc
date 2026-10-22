@@ -14,9 +14,9 @@
  * included and reference made to  the  fact  that  reproduction
  * privileges were granted by DECUS.
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>	// tolower()
+#অন্তর্ভাৱ <stdio.h>
+#অন্তর্ভাৱ <stdlib.h>
+#অন্তর্ভাৱ <ctype.h>	// tolower()
 
 /*
  * grep
@@ -27,7 +27,7 @@
  * See below for more information.
  */
 
-char    *documentation[] = {
+ৱর্ণ    *documentation[] = {
    "grep searches a file for a given pattern.  Execute by",
    "   grep [flags] regular_expression file_list\n",
    "Flags are single characters preceded by '-':",
@@ -40,7 +40,7 @@ char    *documentation[] = {
    "The -f flag reverses this action (print name no file, not if more).\n",
    0 };
 
-char    *patdoc[] = {
+ৱর্ণ    *patdoc[] = {
    "The regular_expression defines the pattern to search for.  Upper- and",
    "lower-case are always ignored.  Blank lines never match.  The expression",
    "should be quoted to prevent file-name translation.",
@@ -91,41 +91,41 @@ char    *patdoc[] = {
 #define RANGE   14
 #define ENDPAT  15
 
-int cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
+পূর্ণাঙ্ক cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
 
-char *pp, lbuf[LMAX], pbuf[PMAX];
+ৱর্ণ *pp, lbuf[LMAX], pbuf[PMAX];
 
-char *cclass();
-char *pmatch();
-void store(int);
-void error(char *);
-void badpat(char *, char *, char *);
-int match(void);
+ৱর্ণ *cclass();
+ৱর্ণ *pmatch();
+শূন্য store(পূর্ণাঙ্ক);
+শূন্য error(ৱর্ণ *);
+শূন্য badpat(ৱর্ণ *, ৱর্ণ *, ৱর্ণ *);
+পূর্ণাঙ্ক match(শূন্য);
 
 
 /*** Display a file name *******************************/
-void file(char *s)
+শূন্য file(ৱর্ণ *s)
 {
    printf("File %s:\n", s);
 }
 
 /*** Report unopenable file ****************************/
-void cant(char *s)
+শূন্য cant(ৱর্ণ *s)
 {
    fprintf(stderr, "%s: cannot open\n", s);
 }
 
 /*** Give good help ************************************/
-void help(char **hp)
+শূন্য help(ৱর্ণ **hp)
 {
-   char   **dp;
+   ৱর্ণ   **dp;
 
-   for (dp = hp; *dp; ++dp)
+   বাবে (dp = hp; *dp; ++dp)
       printf("%s\n", *dp);
 }
 
 /*** Display usage summary *****************************/
-void usage(char *s)
+শূন্য usage(ৱর্ণ *s)
 {
    fprintf(stderr, "?GREP-E-%s\n", s);
    fprintf(stderr,
@@ -134,24 +134,24 @@ void usage(char *s)
 }
 
 /*** Compile the pattern into global pbuf[] ************/
-void compile(char *source)
+শূন্য compile(ৱর্ণ *source)
 {
-   char  *s;         /* Source string pointer     */
-   char  *lp;        /* Last pattern pointer      */
-   int   c;          /* Current character         */
-   int            o;          /* Temp                      */
-   char           *spp;       /* Save beginning of pattern */
+   ৱর্ণ  *s;         /* Source string pointer     */
+   ৱর্ণ  *lp;        /* Last pattern pointer      */
+   পূর্ণাঙ্ক   c;          /* Current character         */
+   পূর্ণাঙ্ক            o;          /* Temp                      */
+   ৱর্ণ           *spp;       /* Save beginning of pattern */
 
    s = source;
-   if (debug)
+   যদি (debug)
       printf("Pattern = \"%s\"\n", s);
    pp = pbuf;
-   while (c = *s++) {
+   যেতিয়ালৈ (c = *s++) {
       /*
        * STAR, PLUS and MINUS are special.
        */
-      if (c == '*' || c == '+' || c == '-') {
-         if (pp == pbuf ||
+      যদি (c == '*' || c == '+' || c == '-') {
+         যদি (pp == pbuf ||
                (o=pp[-1]) == BOL ||
                o == EOL ||
                o == STAR ||
@@ -161,113 +161,113 @@ void compile(char *source)
          store(ENDPAT);
          store(ENDPAT);
          spp = pp;               /* Save pattern end     */
-         while (--pp > lp)       /* Move pattern down    */
+         যেতিয়ালৈ (--pp > lp)       /* Move pattern down    */
             *pp = pp[-1];        /* one byte             */
          *pp =   (c == '*') ? STAR :
             (c == '-') ? MINUS : PLUS;
          pp = spp;               /* Restore pattern end  */
-         continue;
+         অনুৱর্ত;
       }
       /*
        * All the rest.
        */
       lp = pp;         /* Remember start       */
-      switch(c) {
+      ৱিকল্প(c) {
 
-         case '^':
+         পক্ষ '^':
             store(BOL);
-            break;
+            ভঙ্গ;
 
-         case '$':
+         পক্ষ '$':
             store(EOL);
-            break;
+            ভঙ্গ;
 
-         case '.':
+         পক্ষ '.':
             store(ANY);
-            break;
+            ভঙ্গ;
 
-         case '[':
+         পক্ষ '[':
             s = cclass(source, s);
-            break;
+            ভঙ্গ;
 
-         case ':':
-            if (*s) {
-               switch(tolower(c = *s++)) {
+         পক্ষ ':':
+            যদি (*s) {
+               ৱিকল্প(tolower(c = *s++)) {
 
-                  case 'a':
-                  case 'A':
+                  পক্ষ 'a':
+                  পক্ষ 'A':
                      store(ALPHA);
-                     break;
+                     ভঙ্গ;
 
-                  case 'd':
-                  case 'D':
+                  পক্ষ 'd':
+                  পক্ষ 'D':
                      store(DIGIT);
-                     break;
+                     ভঙ্গ;
 
-                  case 'n':
-                  case 'N':
+                  পক্ষ 'n':
+                  পক্ষ 'N':
                      store(NALPHA);
-                     break;
+                     ভঙ্গ;
 
-                  case ' ':
+                  পক্ষ ' ':
                      store(PUNCT);
-                     break;
+                     ভঙ্গ;
 
-                  default:
+                  স্ৱভাৱ:
                      badpat("Unknown : type", source, s);
 
                }
-               break;
+               ভঙ্গ;
             }
-            else    badpat("No : type", source, s);
+            অন্যথা    badpat("No : type", source, s);
 
-         case '\\':
-            if (*s)
+         পক্ষ '\\':
+            যদি (*s)
                c = *s++;
 
-         default:
+         স্ৱভাৱ:
             store(CHAR);
             store(tolower(c));
       }
    }
    store(ENDPAT);
    store(0);                /* Terminate string     */
-   if (debug) {
-      for (lp = pbuf; lp < pp;) {
-         if ((c = (*lp++ & 0377)) < ' ')
+   যদি (debug) {
+      বাবে (lp = pbuf; lp < pp;) {
+         যদি ((c = (*lp++ & 0377)) < ' ')
             printf("\\%o ", c);
-         else    printf("%c ", c);
+         অন্যথা    printf("%c ", c);
       }
       printf("\n");
    }
 }
 
 /*** Compile a class (within []) ***********************/
-char *cclass(char *source, char *src)
+ৱর্ণ *cclass(ৱর্ণ *source, ৱর্ণ *src)
    /* char       *source;   // Pattern start -- for error msg. */
    /* char       *src;      // Class start */
 {
-   char   *s;        /* Source pointer    */
-   char   *cp;       /* Pattern start     */
-   int    c;         /* Current character */
-   int             o;         /* Temp              */
+   ৱর্ণ   *s;        /* Source pointer    */
+   ৱর্ণ   *cp;       /* Pattern start     */
+   পূর্ণাঙ্ক    c;         /* Current character */
+   পূর্ণাঙ্ক             o;         /* Temp              */
 
    s = src;
    o = CLASS;
-   if (*s == '^') {
+   যদি (*s == '^') {
       ++s;
       o = NCLASS;
    }
    store(o);
    cp = pp;
    store(0);                          /* Byte count      */
-   while ((c = *s++) && c!=']') {
-      if (c == '\\') {                /* Store quoted char    */
-         if ((c = *s++) == '\0')      /* Gotta get something  */
+   যেতিয়ালৈ ((c = *s++) && c!=']') {
+      যদি (c == '\\') {                /* Store quoted char    */
+         যদি ((c = *s++) == '\0')      /* Gotta get something  */
             badpat("Class terminates badly", source, s);
-         else    store(tolower(c));
+         অন্যথা    store(tolower(c));
       }
-      else if (c == '-' &&
+      অন্যথা যদি (c == '-' &&
             (pp - cp) > 1 && *s != ']' && *s != '\0') {
          c = pp[-1];             /* Range start     */
          pp[-1] = RANGE;         /* Range signal    */
@@ -275,30 +275,30 @@ char *cclass(char *source, char *src)
          c = *s++;               /* Get end char and*/
          store(tolower(c));      /* Store it        */
       }
-      else {
+      অন্যথা {
          store(tolower(c));      /* Store normal char */
       }
    }
-   if (c != ']')
+   যদি (c != ']')
       badpat("Unterminated class", source, s);
-   if ((c = (pp - cp)) >= 256)
+   যদি ((c = (pp - cp)) >= 256)
       badpat("Class too large", source, s);
-   if (c == 0)
+   যদি (c == 0)
       badpat("Empty class", source, s);
    *cp = c;
-   return(s);
+   ঘূৰাই(s);
 }
 
 /*** Store an entry in the pattern buffer **************/
-void store(int op)
+শূন্য store(পূর্ণাঙ্ক op)
 {
-   if (pp >= &pbuf[PMAX])
+   যদি (pp >= &pbuf[PMAX])
       error("Pattern too complex\n");
    *pp++ = op;
 }
 
 /*** Report a bad pattern specification ****************/
-void badpat(char *message, char *source, char *stop)
+শূন্য badpat(ৱর্ণ *message, ৱর্ণ *source, ৱর্ণ *stop)
    /* char  *message;       // Error message */
    /* char  *source;        // Pattern start */
    /* char  *stop;          // Pattern end   */
@@ -310,261 +310,261 @@ void badpat(char *message, char *source, char *stop)
 }
 
 /*** Scan the file for the pattern in pbuf[] ***********/
-void grep(FILE *fp, char *fn)
+শূন্য grep(FILE *fp, ৱর্ণ *fn)
    /* FILE       *fp;       // File to process            */
    /* char       *fn;       // File name (for -f option)  */
 {
-   int lno, count, m;
+   পূর্ণাঙ্ক lno, গুনতি_2, m;
 
    lno = 0;
-   count = 0;
-   while (fgets(lbuf, LMAX, fp)) {
+   গুনতি_2 = 0;
+   যেতিয়ালৈ (fgets(lbuf, LMAX, fp)) {
       ++lno;
       m = match();
-      if ((m && !vflag) || (!m && vflag)) {
-         ++count;
-         if (!cflag) {
-            if (fflag && fn) {
+      যদি ((m && !vflag) || (!m && vflag)) {
+         ++গুনতি_2;
+         যদি (!cflag) {
+            যদি (fflag && fn) {
                file(fn);
                fn = 0;
             }
-            if (nflag)
+            যদি (nflag)
                printf("%d\t", lno);
             printf("%s\n", lbuf);
          }
       }
    }
-   if (cflag) {
-      if (fflag && fn)
+   যদি (cflag) {
+      যদি (fflag && fn)
          file(fn);
-      printf("%d\n", count);
+      printf("%d\n", গুনতি_2);
    }
 }
 
 /*** Match line (lbuf) with pattern (pbuf) return 1 if match ***/
-int match()
+পূর্ণাঙ্ক match()
 {
-   char   *l;        /* Line pointer       */
+   ৱর্ণ   *l;        /* Line pointer       */
 
-   for (l = lbuf; *l; ++l) {
-      if (pmatch(l, pbuf))
-         return(1);
+   বাবে (l = lbuf; *l; ++l) {
+      যদি (pmatch(l, pbuf))
+         ঘূৰাই(1);
    }
-   return(0);
+   ঘূৰাই(0);
 }
 
 /*** Match partial line with pattern *******************/
-char *pmatch(char *line, char *pattern)
+ৱর্ণ *pmatch(ৱর্ণ *সাৰি, ৱর্ণ *pattern)
    /* char               *line;     // (partial) line to match      */
    /* char               *pattern;  // (partial) pattern to match   */
 {
-   char   *l;        /* Current line pointer         */
-   char   *p;        /* Current pattern pointer      */
-   char   c;         /* Current character            */
-   char            *e;        /* End for STAR and PLUS match  */
-   int             op;        /* Pattern operation            */
-   int             n;         /* Class counter                */
-   char            *are;      /* Start of STAR match          */
+   ৱর্ণ   *l;        /* Current line pointer         */
+   ৱর্ণ   *p;        /* Current pattern pointer      */
+   ৱর্ণ   c;         /* Current character            */
+   ৱর্ণ            *e;        /* End for STAR and PLUS match  */
+   পূর্ণাঙ্ক             op;        /* Pattern operation            */
+   পূর্ণাঙ্ক             n;         /* Class counter                */
+   ৱর্ণ            *are;      /* Start of STAR match          */
 
-   l = line;
-   if (debug > 1)
-      printf("pmatch(\"%s\")\n", line);
+   l = সাৰি;
+   যদি (debug > 1)
+      printf("pmatch(\"%s\")\n", সাৰি);
    p = pattern;
-   while ((op = *p++) != ENDPAT) {
-      if (debug > 1)
+   যেতিয়ালৈ ((op = *p++) != ENDPAT) {
+      যদি (debug > 1)
          printf("byte[%ld] = 0%o, '%c', op = 0%o\n",
-               l-line, *l, *l, op);
-      switch(op) {
+               l-সাৰি, *l, *l, op);
+      ৱিকল্প(op) {
 
-         case CHAR:
-            if (tolower(*l++) != *p++)
-               return(0);
-            break;
+         পক্ষ CHAR:
+            যদি (tolower(*l++) != *p++)
+               ঘূৰাই(0);
+            ভঙ্গ;
 
-         case BOL:
-            if (l != lbuf)
-               return(0);
-            break;
+         পক্ষ BOL:
+            যদি (l != lbuf)
+               ঘূৰাই(0);
+            ভঙ্গ;
 
-         case EOL:
-            if (*l != '\0')
-               return(0);
-            break;
+         পক্ষ EOL:
+            যদি (*l != '\0')
+               ঘূৰাই(0);
+            ভঙ্গ;
 
-         case ANY:
-            if (*l++ == '\0')
-               return(0);
-            break;
+         পক্ষ ANY:
+            যদি (*l++ == '\0')
+               ঘূৰাই(0);
+            ভঙ্গ;
 
-         case DIGIT:
-            if ((c = *l++) < '0' || (c > '9'))
-               return(0);
-            break;
+         পক্ষ DIGIT:
+            যদি ((c = *l++) < '0' || (c > '9'))
+               ঘূৰাই(0);
+            ভঙ্গ;
 
-         case ALPHA:
+         পক্ষ ALPHA:
             c = tolower(*l++);
-            if (c < 'a' || c > 'z')
-               return(0);
-            break;
+            যদি (c < 'a' || c > 'z')
+               ঘূৰাই(0);
+            ভঙ্গ;
 
-         case NALPHA:
+         পক্ষ NALPHA:
             c = tolower(*l++);
-            if (c >= 'a' && c <= 'z')
-               break;
-            else if (c < '0' || c > '9')
-               return(0);
-            break;
+            যদি (c >= 'a' && c <= 'z')
+               ভঙ্গ;
+            অন্যথা যদি (c < '0' || c > '9')
+               ঘূৰাই(0);
+            ভঙ্গ;
 
-         case PUNCT:
+         পক্ষ PUNCT:
             c = *l++;
-            if (c == 0 || c > ' ')
-               return(0);
-            break;
+            যদি (c == 0 || c > ' ')
+               ঘূৰাই(0);
+            ভঙ্গ;
 
-         case CLASS:
-         case NCLASS:
+         পক্ষ CLASS:
+         পক্ষ NCLASS:
             c = tolower(*l++);
             n = *p++ & 0377;
-            do {
-               if (*p == RANGE) {
+            কৰা {
+               যদি (*p == RANGE) {
                   p += 3;
                   n -= 2;
-                  if (c >= p[-2] && c <= p[-1])
-                     break;
+                  যদি (c >= p[-2] && c <= p[-1])
+                     ভঙ্গ;
                }
-               else if (c == *p++)
-                  break;
-            } while (--n > 1);
-            if ((op == CLASS) == (n <= 1))
-               return(0);
-            if (op == CLASS)
+               অন্যথা যদি (c == *p++)
+                  ভঙ্গ;
+            } যেতিয়ালৈ (--n > 1);
+            যদি ((op == CLASS) == (n <= 1))
+               ঘূৰাই(0);
+            যদি (op == CLASS)
                p += n - 2;
-            break;
+            ভঙ্গ;
 
-         case MINUS:
+         পক্ষ MINUS:
             e = pmatch(l, p);       /* Look for a match    */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            if (e)                  /* Got a match?        */
+            যেতিয়ালৈ (*p++ != ENDPAT); /* Skip over pattern   */
+            যদি (e)                  /* Got a match?        */
                l = e;               /* Yes, update string  */
-            break;                  /* Always succeeds     */
+            ভঙ্গ;                  /* Always succeeds     */
 
-         case PLUS:                 /* One or more ...     */
-            if ((l = pmatch(l, p)) == 0)
-               return(0);           /* Gotta have a match  */
-         case STAR:                 /* Zero or more ...    */
+         পক্ষ PLUS:                 /* One or more ...     */
+            যদি ((l = pmatch(l, p)) == 0)
+               ঘূৰাই(0);           /* Gotta have a match  */
+         পক্ষ STAR:                 /* Zero or more ...    */
             are = l;                /* Remember line start */
-            while (*l && (e = pmatch(l, p)))
+            যেতিয়ালৈ (*l && (e = pmatch(l, p)))
                l = e;               /* Get longest match   */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            while (l > are) {       /* Try to match rest   */
-               if (e = pmatch(l, p))
-                  return(e);
+            যেতিয়ালৈ (*p++ != ENDPAT); /* Skip over pattern   */
+            যেতিয়ালৈ (l > are) {       /* Try to match rest   */
+               যদি (e = pmatch(l, p))
+                  ঘূৰাই(e);
                --l;                 /* Nope, try earlier   */
             }
-            if (e = pmatch(l, p))
-               return(e);
-            return(0);              /* Nothing else worked */
+            যদি (e = pmatch(l, p))
+               ঘূৰাই(e);
+            ঘূৰাই(0);              /* Nothing else worked */
 
-         default:
+         স্ৱভাৱ:
             printf("Bad op code %d\n", op);
             error("Cannot happen -- match\n");
       }
    }
-   return(l);
+   ঘূৰাই(l);
 }
 
 /*** Report an error ***********************************/
-void error(char *s)
+শূন্য error(ৱর্ণ *s)
 {
    fprintf(stderr, "%s", s);
    exit(1);
 }
 
 /*** Main program - parse arguments & grep *************/
-int main(int argc, char **argv)
+পূর্ণাঙ্ক main(পূর্ণাঙ্ক argc, ৱর্ণ **argv)
 {
-   char   *p;
-   int    c, i;
-   int             gotpattern;
+   ৱর্ণ   *p;
+   পূর্ণাঙ্ক    c, i;
+   পূর্ণাঙ্ক             gotpattern;
 
    FILE            *f;
 
-   if (argc <= 1)
+   যদি (argc <= 1)
       usage("No arguments");
-   if (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
+   যদি (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
       help(documentation);
       help(patdoc);
-      return 0;
+      ঘূৰাই 0;
    }
    nfile = argc-1;
    gotpattern = 0;
-   for (i=1; i < argc; ++i) {
+   বাবে (i=1; i < argc; ++i) {
       p = argv[i];
-      if (*p == '-') {
+      যদি (*p == '-') {
          ++p;
-         while (c = *p++) {
-            switch(tolower(c)) {
+         যেতিয়ালৈ (c = *p++) {
+            ৱিকল্প(tolower(c)) {
 
-               case '?':
+               পক্ষ '?':
                   help(documentation);
-                  break;
+                  ভঙ্গ;
 
-               case 'C':
-               case 'c':
+               পক্ষ 'C':
+               পক্ষ 'c':
                   ++cflag;
-                  break;
+                  ভঙ্গ;
 
-               case 'D':
-               case 'd':
+               পক্ষ 'D':
+               পক্ষ 'd':
                   ++debug;
-                  break;
+                  ভঙ্গ;
 
-               case 'F':
-               case 'f':
+               পক্ষ 'F':
+               পক্ষ 'f':
                   ++fflag;
-                  break;
+                  ভঙ্গ;
 
-               case 'n':
-               case 'N':
+               পক্ষ 'n':
+               পক্ষ 'N':
                   ++nflag;
-                  break;
+                  ভঙ্গ;
 
-               case 'v':
-               case 'V':
+               পক্ষ 'v':
+               পক্ষ 'V':
                   ++vflag;
-                  break;
+                  ভঙ্গ;
 
-               default:
+               স্ৱভাৱ:
                   usage("Unknown flag");
             }
          }
          argv[i] = 0;
          --nfile;
-      } else if (!gotpattern) {
+      } অন্যথা যদি (!gotpattern) {
          compile(p);
          argv[i] = 0;
          ++gotpattern;
          --nfile;
       }
    }
-   if (!gotpattern)
+   যদি (!gotpattern)
       usage("No pattern");
-   if (nfile == 0)
+   যদি (nfile == 0)
       grep(stdin, 0);
-   else {
+   অন্যথা {
       fflag = fflag ^ (nfile > 0);
-      for (i=1; i < argc; ++i) {
-         if (p = argv[i]) {
-            if ((f=fopen(p, "r")) == NULL)
+      বাবে (i=1; i < argc; ++i) {
+         যদি (p = argv[i]) {
+            যদি ((f=fopen(p, "r")) == রিক্ত)
                cant(p);
-            else {
+            অন্যথা {
                grep(f, p);
                fclose(f);
             }
          }
       }
    }
-   return 0;
+   ঘূৰাই 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

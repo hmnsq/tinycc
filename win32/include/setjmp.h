@@ -6,20 +6,20 @@
 #ifndef _INC_SETJMP
 #define _INC_SETJMP
 
-#include <_mingw.h>
+#অন্তর্ভাৱ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ঠেলো,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+বাহ্য "C" {
 #endif
 
-#if (defined(_X86_) && !defined(__x86_64))
+#যদি (defined(_X86_) && !defined(__x86_64))
 
 #define _JBLEN 16
-#define _JBTYPE int
+#define _JBTYPE পূর্ণাঙ্ক
 
-  typedef struct __JUMP_BUFFER {
+  প্রকারনির্দেশ সংরচনা __JUMP_BUFFER {
     unsigned long Ebp;
     unsigned long Ebx;
     unsigned long Edi;
@@ -32,16 +32,16 @@ extern "C" {
     unsigned long UnwindFunc;
     unsigned long UnwindData[6];
   } _JUMP_BUFFER;
-#elif defined(__ia64__)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    __int64 LowPart;
-    __int64 HighPart;
+#নোচেদ্যদি defined(__ia64__)
+  প্রকারনির্দেশ _CRT_ALIGN(16) সংরচনা _SETJMP_FLOAT128 {
+    __int64 নিচেৰ_Part;
+    __int64 উপৰেৰ_Part;
   } SETJMP_FLOAT128;
 
 #define _JBLEN 33
-  typedef SETJMP_FLOAT128 _JBTYPE;
+  প্রকারনির্দেশ SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct __JUMP_BUFFER {
+  প্রকারনির্দেশ সংরচনা __JUMP_BUFFER {
 
     unsigned long iAReserved[6];
 
@@ -92,15 +92,15 @@ extern "C" {
     __int64 Preds;
 
   } _JUMP_BUFFER;
-#elif defined(__x86_64)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
+#নোচেদ্যদি defined(__x86_64)
+  প্রকারনির্দেশ _CRT_ALIGN(16) সংরচনা _SETJMP_FLOAT128 {
     unsigned __int64 Part[2];
   } SETJMP_FLOAT128;
 
 #define _JBLEN 16
-  typedef SETJMP_FLOAT128 _JBTYPE;
+  প্রকারনির্দেশ SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct _JUMP_BUFFER {
+  প্রকারনির্দেশ সংরচনা _JUMP_BUFFER {
     unsigned __int64 Frame;
     unsigned __int64 Rbx;
     unsigned __int64 Rsp;
@@ -124,12 +124,12 @@ extern "C" {
     SETJMP_FLOAT128 Xmm14;
     SETJMP_FLOAT128 Xmm15;
   } _JUMP_BUFFER;
-#elif defined(_ARM_)
+#নোচেদ্যদি defined(_ARM_)
 
 #define _JBLEN 28
-#define _JBTYPE int
+#define _JBTYPE পূর্ণাঙ্ক
 
-  typedef struct __JUMP_BUFFER {
+  প্রকারনির্দেশ সংরচনা __JUMP_BUFFER {
     unsigned long Frame;
     unsigned long R4;
     unsigned long R5;
@@ -144,12 +144,12 @@ extern "C" {
     unsigned long Fpscr;
     unsigned long long D[8];
   } _JUMP_BUFFER;
-#elif defined(_ARM64_)
+#নোচেদ্যদি defined(_ARM64_)
 
 #define _JBLEN 24
 #define _JBTYPE unsigned __int64
 
-  typedef struct __JUMP_BUFFER {
+  প্রকারনির্দেশ সংরচনা __JUMP_BUFFER {
     unsigned __int64 Frame;
     unsigned __int64 Reserved;
     unsigned __int64 X19;
@@ -167,31 +167,31 @@ extern "C" {
     unsigned __int64 Sp;
     unsigned long Fpcr;
     unsigned long Fpsr;
-    double D[8];
+    দ্ৱিগুণ D[8];
   } _JUMP_BUFFER;
-#else
+#অন্যথা
 #define _JBLEN 1
-#define _JBTYPE int
+#define _JBTYPE পূর্ণাঙ্ক
 #endif
 #ifndef _JMP_BUF_DEFINED
-  typedef _JBTYPE jmp_buf[_JBLEN];
+  প্রকারনির্দেশ _JBTYPE jmp_buf[_JBLEN];
 #define _JMP_BUF_DEFINED
 #endif
 
-#pragma pack(pop)
+#pragma pack(বেৰ_কৰো)
 
-#if defined __aarch64__
-  int _setjmpex(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmpex((BUF), (char*)__builtin_frame_address(0) + 224)
-#elif defined __x86_64__
-  int _setjmp(jmp_buf _Buf, void *frame);
+#যদি defined __aarch64__
+  পূর্ণাঙ্ক _setjmpex(jmp_buf _Buf, শূন্য *frame);
+  #define setjmp(BUF) _setjmpex((BUF), (ৱর্ণ*)__builtin_frame_address(0) + 224)
+#নোচেদ্যদি defined __x86_64__
+  পূর্ণাঙ্ক _setjmp(jmp_buf _Buf, শূন্য *frame);
   #define setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
-#else /* __i386__ */
-  int _setjmp(jmp_buf _Buf);
+#অন্যথা /* __i386__ */
+  পূর্ণাঙ্ক _setjmp(jmp_buf _Buf);
   #define setjmp _setjmp
 #endif
 
-__declspec(noreturn) void longjmp(jmp_buf _Buf,int _Value);
+__declspec(noreturn) শূন্য longjmp(jmp_buf _Buf,পূর্ণাঙ্ক মান_2);
 
 #ifdef __cplusplus
 }

@@ -1,200 +1,200 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#অন্তর্ভাৱ <stdlib.h>
+#অন্তর্ভাৱ <stdio.h>
+#অন্তর্ভাৱ <string.h>
 
 #define NB_ITS 1000000
 //#define NB_ITS 1
 #define TAB_SIZE 100
 
-int tab[TAB_SIZE];
-int ret_sum;
-char tab3[256];
+পূর্ণাঙ্ক tab[TAB_SIZE];
+পূর্ণাঙ্ক ret_sum;
+ৱর্ণ tab3[256];
 
-int test1(void)
+পূর্ণাঙ্ক test1(শূন্য)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE;i++) {
+    পূর্ণাঙ্ক i, sum = 0;
+    বাবে(i=0;i<TAB_SIZE;i++) {
         sum += tab[i];
     }
-    return sum;
+    ঘূৰাই sum;
 }
 
 /* error */
-int test2(void)
+পূর্ণাঙ্ক test2(শূন্য)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    পূর্ণাঙ্ক i, sum = 0;
+    বাবে(i=0;i<TAB_SIZE + 1;i++) {
         sum += tab[i];
     }
-    return sum;
+    ঘূৰাই sum;
 }
 
 /* actually, profiling test */
-int test3(void)
+পূর্ণাঙ্ক test3(শূন্য)
 {
-    int sum;
-    int i, it;
+    পূর্ণাঙ্ক sum;
+    পূর্ণাঙ্ক i, it;
 
     sum = 0;
-    for(it=0;it<NB_ITS;it++) {
-        for(i=0;i<TAB_SIZE;i++) {
+    বাবে(it=0;it<NB_ITS;it++) {
+        বাবে(i=0;i<TAB_SIZE;i++) {
             sum += tab[i];
         }
     }
-    return sum;
+    ঘূৰাই sum;
 }
 
 /* ok */
-int test4(void)
+পূর্ণাঙ্ক test4(শূন্য)
 {
-    int i, sum = 0;
-    int *tab4;
+    পূর্ণাঙ্ক i, sum = 0;
+    পূর্ণাঙ্ক *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<20;i++) {
+    tab4 = malloc(20 * পরিমাণ(পূর্ণাঙ্ক));
+    বাবে(i=0;i<20;i++) {
         sum += tab4[i];
     }
-    free(tab4);
+    মুক্ত(tab4);
 
-    return sum;
+    ঘূৰাই sum;
 }
 
 /* error */
-int test5(void)
+পূর্ণাঙ্ক test5(শূন্য)
 {
-    int i, sum = 0;
-    int *tab4;
+    পূর্ণাঙ্ক i, sum = 0;
+    পূর্ণাঙ্ক *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<21;i++) {
+    tab4 = malloc(20 * পরিমাণ(পূর্ণাঙ্ক));
+    বাবে(i=0;i<21;i++) {
         sum += tab4[i];
     }
-    free(tab4);
+    মুক্ত(tab4);
 
-    return sum;
+    ঘূৰাই sum;
 }
 
 /* error */
-int test6(void)
+পূর্ণাঙ্ক test6(শূন্য)
 {
-    int i, sum = 0;
-    int *tab4;
+    পূর্ণাঙ্ক i, sum = 0;
+    পূর্ণাঙ্ক *tab4;
     
-    tab4 = malloc(20 * sizeof(int));
-    free(tab4);
-    for(i=0;i<21;i++) {
+    tab4 = malloc(20 * পরিমাণ(পূর্ণাঙ্ক));
+    মুক্ত(tab4);
+    বাবে(i=0;i<21;i++) {
         sum += tab4[i];
     }
 
-    return sum;
+    ঘূৰাই sum;
 }
 
 /* error */
-int test7(void)
+পূর্ণাঙ্ক test7(শূন্য)
 {
-    int i, sum = 0;
-    int *p;
+    পূর্ণাঙ্ক i, sum = 0;
+    পূর্ণাঙ্ক *p;
 
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    বাবে(i=0;i<TAB_SIZE + 1;i++) {
         p = &tab[i];
-        if (i == TAB_SIZE)
+        যদি (i == TAB_SIZE)
             printf("i=%d %x\n", i, p);
         sum += *p;
     }
-    return sum;
+    ঘূৰাই sum;
 }
 
 /* ok */
-int test8(void)
+পূর্ণাঙ্ক test8(শূন্য)
 {
-    int i, sum = 0;
-    int tab[10];
+    পূর্ণাঙ্ক i, sum = 0;
+    পূর্ণাঙ্ক tab[10];
 
-    for(i=0;i<10;i++) {
+    বাবে(i=0;i<10;i++) {
         sum += tab[i];
     }
-    return sum;
+    ঘূৰাই sum;
 }
 
 /* error */
-int test9(void)
+পূর্ণাঙ্ক test9(শূন্য)
 {
-    int i, sum = 0;
-    char tab[10];
+    পূর্ণাঙ্ক i, sum = 0;
+    ৱর্ণ tab[10];
 
-    for(i=0;i<11;i++) {
+    বাবে(i=0;i<11;i++) {
         sum += tab[i];
     }
-    return sum;
+    ঘূৰাই sum;
 }
 
 /* ok */
-int test10(void)
+পূর্ণাঙ্ক test10(শূন্য)
 {
-    char tab[10];
-    char tab1[10];
+    ৱর্ণ tab[10];
+    ৱর্ণ tab1[10];
 
     memset(tab, 0, 10);
     memcpy(tab, tab1, 10);
     memmove(tab, tab1, 10);
-    return 0;
+    ঘূৰাই 0;
 }
 
 /* error */
-int test11(void)
+পূর্ণাঙ্ক test11(শূন্য)
 {
-    char tab[10];
+    ৱর্ণ tab[10];
 
     memset(tab, 0, 11);
-    return 0;
+    ঘূৰাই 0;
 }
 
 /* error */
-int test12(void)
+পূর্ণাঙ্ক test12(শূন্য)
 {
-    void *ptr;
+    শূন্য *ptr;
     ptr = malloc(10);
-    free(ptr);
-    free(ptr);
-    return 0;
+    মুক্ত(ptr);
+    মুক্ত(ptr);
+    ঘূৰাই 0;
 }
 
 /* error */
-int test13(void)
+পূর্ণাঙ্ক test13(শূন্য)
 {
-    char pad1 = 0;
-    char tab[10];
-    char pad2 = 0;
-    memset(tab, 'a', sizeof(tab));
-    return strlen(tab);
+    ৱর্ণ pad1 = 0;
+    ৱর্ণ tab[10];
+    ৱর্ণ pad2 = 0;
+    memset(tab, 'a', পরিমাণ(tab));
+    ঘূৰাই strlen(tab);
 }
 
-int test14(void)
+পূর্ণাঙ্ক test14(শূন্য)
 {
-    char *p = alloca(TAB_SIZE);
+    ৱর্ণ *p = alloca(TAB_SIZE);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    ঘূৰাই ret;
 }
 
 /* error */
-int test15(void)
+পূর্ণাঙ্ক test15(শূন্য)
 {
-    char *p = alloca(TAB_SIZE-1);
+    ৱর্ণ *p = alloca(TAB_SIZE-1);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    ঘূৰাই ret;
 }
 
 /* ok */
-int test16()
+পূর্ণাঙ্ক test16()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    ৱর্ণ *demo = "This is only a test.";
+    ৱর্ণ *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
@@ -202,14 +202,14 @@ int test16()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)+1),demo) );
 
-    return 0;
+    ঘূৰাই 0;
 }
 
 /* error */
-int test17()
+পূর্ণাঙ্ক test17()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    ৱর্ণ *demo = "This is only a test.";
+    ৱর্ণ *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
@@ -217,20 +217,20 @@ int test17()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)),demo) );
 
-    return 0;
+    ঘূৰাই 0;
 }
 
-int test18(void)
+পূর্ণাঙ্ক test18(শূন্য)
 {
-    int i, sum = 0, n = TAB_SIZE;
-    int tab[n];
-    for(i=0;i<TAB_SIZE+1;i++) {
+    পূর্ণাঙ্ক i, sum = 0, n = TAB_SIZE;
+    পূর্ণাঙ্ক tab[n];
+    বাবে(i=0;i<TAB_SIZE+1;i++) {
         sum += tab[i];
     }
-    return sum;
+    ঘূৰাই sum;
 }
 
-int (*table_test[])(void) = {
+পূর্ণাঙ্ক (*table_test[])(শূন্য) = {
     test1,
     test2,
     test3,
@@ -251,23 +251,23 @@ int (*table_test[])(void) = {
     test18
 };
 
-int main(int argc, char **argv)
+পূর্ণাঙ্ক main(পূর্ণাঙ্ক argc, ৱর্ণ **argv)
 {
-    int i;
-    char *cp;
-    int index;
-    int (*ftest)(void);
-    int index_max = sizeof(table_test)/sizeof(table_test[0]);
+    পূর্ণাঙ্ক i;
+    ৱর্ণ *cp;
+    পূর্ণাঙ্ক index;
+    পূর্ণাঙ্ক (*ftest)(শূন্য);
+    পূর্ণাঙ্ক index_max = পরিমাণ(table_test)/পরিমাণ(table_test[0]);
 
     /* check bounds checking main arg */
-    for (i = 0; i < argc; i++) {
+    বাবে (i = 0; i < argc; i++) {
         cp = argv[i];
-        while (*cp) {
+        যেতিয়ালৈ (*cp) {
             cp++;
         }
     }
 
-    if (argc < 2) {
+    যদি (argc < 2) {
         printf(
     	    "test TCC bound checking system\n"
 	    "usage: boundtest N\n"
@@ -276,10 +276,10 @@ int main(int argc, char **argv)
     }
 
     index = 0;
-    if (argc >= 2)
+    যদি (argc >= 2)
         index = atoi(argv[1]) - 1;
 
-    if ((index < 0) || (index >= index_max)) {
+    যদি ((index < 0) || (index >= index_max)) {
         printf("N is outside of the valid range (%d)\n", index);
         exit(2);
     }
@@ -288,7 +288,7 @@ int main(int argc, char **argv)
     ftest = table_test[index];
     ftest();
 
-    return 0;
+    ঘূৰাই 0;
 }
 
 /*

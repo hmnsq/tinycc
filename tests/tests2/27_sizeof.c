@@ -1,18 +1,18 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   char a;
-   int b;
-   double c;
+   ৱর্ণ a;
+   পূর্ণাঙ্ক b;
+   দ্ৱিগুণ c;
 
-   printf("%d\n", sizeof(a));
-   printf("%d\n", sizeof(b));
-   printf("%d\n", sizeof(c));
+   printf("%d\n", পরিমাণ(a));
+   printf("%d\n", পরিমাণ(b));
+   printf("%d\n", পরিমাণ(c));
 
-   printf("%d\n", sizeof(!a));
+   printf("%d\n", পরিমাণ(!a));
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

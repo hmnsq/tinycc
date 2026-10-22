@@ -1,24 +1,24 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-void fred(int x)
+শূন্য fred(পূর্ণাঙ্ক x)
 {
-   switch (x)
+   ৱিকল্প (x)
    {
-      case 1: printf("1\n"); return;
-      case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      পক্ষ 1: printf("1\n"); ঘূৰাই;
+      পক্ষ 2: printf("2\n"); ভঙ্গ;
+      পক্ষ 3: printf("3\n"); ঘূৰাই;
    }
 
    printf("out\n");
 }
 
-int main()
+পূর্ণাঙ্ক main()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   ঘূৰাই 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

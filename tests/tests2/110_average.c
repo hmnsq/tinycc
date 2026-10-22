@@ -1,27 +1,27 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-typedef struct
+প্রকারনির্দেশ সংরচনা
 {
-    double average;
-    int count;
+    দ্ৱিগুণ average;
+    পূর্ণাঙ্ক গুনতি_2;
 }
 stats_type;
 
-static void
+স্থির শূন্য
 testc (stats_type *s, long long data)
 {
-    s->average = (s->average * s->count + data) / (s->count + 1);
-    s->count++;
+    s->average = (s->average * s->গুনতি_2 + data) / (s->গুনতি_2 + 1);
+    s->গুনতি_2++;
 }
 
-int main (void)
+পূর্ণাঙ্ক main (শূন্য)
 {
     stats_type s;
 
     s.average = 0;
-    s.count = 0;
+    s.গুনতি_2 = 0;
     testc (&s, 10);
     testc (&s, 20);
-    printf ("%g %d\n", s.average, s.count);
-    return 0;
+    printf ("%g %d\n", s.average, s.গুনতি_2);
+    ঘূৰাই 0;
 }

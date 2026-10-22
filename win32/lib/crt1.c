@@ -2,11 +2,11 @@
 // crt1.c
 
 // _UNICODE for tchar.h, UNICODE for API
-#include <tchar.h>
+#অন্তর্ভাৱ <tchar.h>
 
-#include <windows.h>
-#include <stdio.h>
-#include <stdlib.h>
+#অন্তর্ভাৱ <windows.h>
+#অন্তর্ভাৱ <stdio.h>
+#অন্তর্ভাৱ <stdlib.h>
 
 #define _UNKNOWN_APP    0
 #define _CONSOLE_APP    1
@@ -22,32 +22,32 @@
 #define _tstart _wstart
 #define _tmain wmain
 #define _runtmain _runwmain
-#else
+#অন্যথা
 #define __tgetmainargs __getmainargs
 #define _tstart _start
 #define _tmain main
 #define _runtmain _runmain
 #endif
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
-void __cdecl __set_app_type(int apptype);
-unsigned int __cdecl _controlfp(unsigned int new_value, unsigned int mask);
-extern int _tmain(int argc, _TCHAR * argv[], _TCHAR * env[]);
+প্রকারনির্দেশ সংরচনা { পূর্ণাঙ্ক newmode; } _startupinfo;
+পূর্ণাঙ্ক __cdecl __tgetmainargs(পূর্ণাঙ্ক *pargc, _TCHAR ***pargv, _TCHAR ***penv, পূর্ণাঙ্ক globb, _startupinfo*);
+শূন্য __cdecl __set_app_type(পূর্ণাঙ্ক apptype);
+unsigned পূর্ণাঙ্ক __cdecl _controlfp(unsigned পূর্ণাঙ্ক new_মান, unsigned পূর্ণাঙ্ক mask);
+বাহ্য পূর্ণাঙ্ক _tmain(পূর্ণাঙ্ক argc, _TCHAR * argv[], _TCHAR * env[]);
 
-#include "crtinit.c"
+#অন্তর্ভাৱ "crtinit.c"
 
 /* Allow command-line globbing with "int _dowildcard = 1;" in the user source */
-int _dowildcard;
+পূর্ণাঙ্ক _dowildcard;
 
-static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
+স্থির LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  ঘূৰাই _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
 }
 
-void _tstart(void)
+শূন্য _tstart(শূন্য)
 {
-    int ret;
+    পূর্ণাঙ্ক ret;
 
     _startupinfo start_info = {0};
     SetUnhandledExceptionFilter(catch_sig);
@@ -56,7 +56,7 @@ void _tstart(void)
 
     // Set default FP precision to 53 bits (8-byte double)
     // _MCW_PC (Precision control) is not supported on ARM
-#if defined __i386__ || defined __x86_64__
+#যদি defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
 #endif
 
@@ -70,26 +70,26 @@ void _tstart(void)
 // =============================================
 // for 'tcc -run ,,,'
 
-__attribute__((weak)) extern int __run_on_exit();
+__attribute__((weak)) বাহ্য পূর্ণাঙ্ক __run_on_exit();
 
-int _runtmain(int argc, /* as tcc passed in */ char **argv)
+পূর্ণাঙ্ক _runtmain(পূর্ণাঙ্ক argc, /* as tcc passed in */ ৱর্ণ **argv)
 {
-    int ret;
-#if defined UNICODE || defined __aarch64__
+    পূর্ণাঙ্ক ret;
+#যদি defined UNICODE || defined __aarch64__
     _startupinfo start_info = {0};
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
 #endif
 #ifdef UNICODE
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc) {
+    যদি (argc < __argc) {
         __targv += __argc - argc;
         __argc = argc;
     }
-#else
+#অন্যথা
     __argc = argc;
     __targv = argv;
 #endif
-#if defined __i386__ || defined __x86_64__
+#যদি defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
 #endif
     run_ctors(__argc, __targv, _tenviron);
@@ -98,7 +98,7 @@ int _runtmain(int argc, /* as tcc passed in */ char **argv)
     fflush(stderr);
     run_dtors();
     __run_on_exit(ret);
-    return ret;
+    ঘূৰাই ret;
 }
 
 // =============================================

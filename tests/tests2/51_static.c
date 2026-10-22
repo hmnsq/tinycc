@@ -1,17 +1,17 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-static int fred = 1234;
-static int joe;
+স্থির পূর্ণাঙ্ক fred = 1234;
+স্থির পূর্ণাঙ্ক joe;
 
-void henry()
+শূন্য henry()
 {
-   static int fred = 4567;
+   স্থির পূর্ণাঙ্ক fred = 4567;
 
    printf("%d\n", fred);
    fred++;
 }
 
-int main()
+পূর্ণাঙ্ক main()
 {
    printf("%d\n", fred);
    henry();
@@ -24,7 +24,7 @@ int main()
    printf("%d\n", fred);
    printf("%d\n", joe);
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

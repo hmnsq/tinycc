@@ -1,9 +1,9 @@
-#include <stdio.h>
-double привет=0.1;
-int Lefèvre=2;
-int main(){
+#অন্তর্ভাৱ <stdio.h>
+দ্ৱিগুণ привет=0.1;
+পূর্ণাঙ্ক Lefèvre=2;
+পূর্ণাঙ্ক main(){
     printf("привет=%g\n",привет);
     printf("Lefèvre=%d\n",Lefèvre);
-    return 0;
+    ঘূৰাই 0;
 }
 // pcc & tcc only

@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#অন্যথা
 # define _
 #endif
 
-extern int printf (const char *, ...);
-extern void vide(void);
+বাহ্য পূর্ণাঙ্ক printf (ধ্রুৱ ৱর্ণ *, ...);
+বাহ্য শূন্য vide(শূন্য);
 __asm__(_"vide: ret");
 
-int main() {
+পূর্ণাঙ্ক main() {
     vide();
     printf ("okay\n");
-    return 0;
+    ঘূৰাই 0;
 }

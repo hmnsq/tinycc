@@ -1,24 +1,24 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
 /* PROMOTE_RET test: verify char/short return values are properly
    zero/sign-extended to 64-bit per the RISC-V integer calling convention.
    Without PROMOTE_RET, upper bits of the return register may contain
    garbage, causing incorrect results when assigned to a wider type.  */
 
-unsigned char get_uc(void) { return 0x80; }
-signed char get_sc(void) { return 0x80; }
-unsigned short get_us(void) { return 0x8000; }
-signed short get_ss(void) { return 0x8000; }
+unsigned ৱর্ণ get_uc(শূন্য) { ঘূৰাই 0x80; }
+signed ৱর্ণ get_sc(শূন্য) { ঘূৰাই 0x80; }
+unsigned short get_us(শূন্য) { ঘূৰাই 0x8000; }
+signed short get_ss(শূন্য) { ঘূৰাই 0x8000; }
 
 /* Prevent inlining to force ABI-compliant calling.  */
-unsigned char (* volatile fp_uc)(void) = get_uc;
-signed char (* volatile fp_sc)(void) = get_sc;
-unsigned short (* volatile fp_us)(void) = get_us;
-signed short (* volatile fp_ss)(void) = get_ss;
+unsigned ৱর্ণ (* চঞ্চল fp_uc)(শূন্য) = get_uc;
+signed ৱর্ণ (* চঞ্চল fp_sc)(শূন্য) = get_sc;
+unsigned short (* চঞ্চল fp_us)(শূন্য) = get_us;
+signed short (* চঞ্চল fp_ss)(শূন্য) = get_ss;
 
-int promote_main(void)
+পূর্ণাঙ্ক promote_main(শূন্য)
 {
-    int ok = 1;
+    পূর্ণাঙ্ক ok = 1;
     unsigned long long uc = fp_uc();
     signed long long sc = fp_sc();
     unsigned long long us = fp_us();
@@ -30,25 +30,25 @@ int promote_main(void)
            (unsigned long long)us,
            (unsigned long long)ss);
 
-    if (uc != 0x80) {
+    যদি (uc != 0x80) {
         printf("FAIL: uc not zero-extended\n");
         ok = 0;
     }
-    if (sc != 0xffffffffffffff80LL) {
+    যদি (sc != 0xffffffffffffff80LL) {
         printf("FAIL: sc not sign-extended\n");
         ok = 0;
     }
-    if (us != 0x8000) {
+    যদি (us != 0x8000) {
         printf("FAIL: us not zero-extended\n");
         ok = 0;
     }
-    if (ss != 0xffffffffffff8000LL) {
+    যদি (ss != 0xffffffffffff8000LL) {
         printf("FAIL: ss not sign-extended\n");
         ok = 0;
     }
 
     printf("%s\n", ok ? "PASS" : "FAIL");
-    return ok ? 0 : 1;
+    ঘূৰাই ok ? 0 : 1;
 }
 
 /* gen_cvt_csti test: verify narrow-type conversions in expressions.
@@ -56,40 +56,40 @@ int promote_main(void)
    step when promoting a narrow result back to int, producing wrong
    values (e.g., treating a char as still 32-bit).  */
 
-int cast_main(void)
+পূর্ণাঙ্ক cast_main(শূন্য)
 {
-    int ok = 1;
-    int x = 0x12345678;
+    পূর্ণাঙ্ক ok = 1;
+    পূর্ণাঙ্ক x = 0x12345678;
 
     /* Cast to char then add 1 — result must be 8-bit.  */
-    char c = (char)x + 1;
-    unsigned char uc = (unsigned char)x + 1;
+    ৱর্ণ c = (ৱর্ণ)x + 1;
+    unsigned ৱর্ণ uc = (unsigned ৱর্ণ)x + 1;
     short s = (short)x + 1;
     unsigned short us = (unsigned short)x + 1;
 
     printf("c=%x uc=%x s=%x us=%x\n",
-           (unsigned char)c, (unsigned)uc,
+           (unsigned ৱর্ণ)c, (unsigned)uc,
            (unsigned short)s, (unsigned)us);
 
-    if (c != (char)0x78 + 1) {
+    যদি (c != (ৱর্ণ)0x78 + 1) {
         printf("FAIL: char conversion\n");
         ok = 0;
     }
-    if (uc != (unsigned char)0x78 + 1) {
+    যদি (uc != (unsigned ৱর্ণ)0x78 + 1) {
         printf("FAIL: unsigned char conversion\n");
         ok = 0;
     }
-    if (s != (short)0x5678 + 1) {
+    যদি (s != (short)0x5678 + 1) {
         printf("FAIL: short conversion\n");
         ok = 0;
     }
-    if (us != (unsigned short)0x5678 + 1) {
+    যদি (us != (unsigned short)0x5678 + 1) {
         printf("FAIL: unsigned short conversion\n");
         ok = 0;
     }
 
     printf("%s\n", ok ? "PASS" : "FAIL");
-    return ok ? 0 : 1;
+    ঘূৰাই ok ? 0 : 1;
 }
 
 /* gen_cvt_sxtw test: verify sign-extension from 32-bit int to 64-bit long long.
@@ -97,15 +97,15 @@ int cast_main(void)
    leaving upper 32 bits unmodified (containing whatever was in the register
    before), so (long long)(int)x produced wrong results for negative values.  */
 
-int sign_main(void)
+পূর্ণাঙ্ক sign_main(শূন্য)
 {
-    int ok = 1;
-    int x = 0x80000000;
+    পূর্ণাঙ্ক ok = 1;
+    পূর্ণাঙ্ক x = 0x80000000;
     long long y = (long long)x;
 
     printf("y=%llx\n", (unsigned long long)y);
 
-    if (y != 0xffffffff80000000LL) {
+    যদি (y != 0xffffffff80000000LL) {
         printf("FAIL: int→long long sign-extension\n");
         ok = 0;
     }
@@ -115,28 +115,28 @@ int sign_main(void)
     y = (long long)x;
     printf("y=%llx\n", (unsigned long long)y);
 
-    if (y != 0x40000000LL) {
+    যদি (y != 0x40000000LL) {
         printf("FAIL: int→long long positive value\n");
         ok = 0;
     }
 
     /* Test via unsigned int to catch zero-extension vs sign-extension.  */
-    unsigned int ux = 0x80000000;
-    long long uy = (long long)(int)ux;
+    unsigned পূর্ণাঙ্ক ux = 0x80000000;
+    long long uy = (long long)(পূর্ণাঙ্ক)ux;
     printf("uy=%llx\n", (unsigned long long)uy);
 
-    if (uy != 0xffffffff80000000LL) {
+    যদি (uy != 0xffffffff80000000LL) {
         printf("FAIL: unsigned→int→long long sign-extension\n");
         ok = 0;
     }
 
     printf("%s\n", ok ? "PASS" : "FAIL");
-    return ok ? 0 : 1;
+    ঘূৰাই ok ? 0 : 1;
 }
 
-int main()
+পূর্ণাঙ্ক main()
 {
-    return
+    ঘূৰাই
         promote_main()
         | cast_main()
         | sign_main();

@@ -1,86 +1,86 @@
 //+---------------------------------------------------------------------------
 
 // _UNICODE for tchar.h, UNICODE for API
-#include <tchar.h>
+#অন্তর্ভাৱ <tchar.h>
 
-#include <windows.h>
-#include <stdlib.h>
+#অন্তর্ভাৱ <windows.h>
+#অন্তর্ভাৱ <stdlib.h>
 
 #define __UNKNOWN_APP    0
 #define __CONSOLE_APP    1
 #define __GUI_APP        2
-void __set_app_type(int);
-void _controlfp(unsigned a, unsigned b);
+শূন্য __set_app_type(পূর্ণাঙ্ক);
+শূন্য _controlfp(unsigned a, unsigned b);
 
 #ifdef _UNICODE
 #define __tgetmainargs __wgetmainargs
 #define _twinstart _wwinstart
 #define _runtwinmain _runwwinmain
-int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int);
-#else
+পূর্ণাঙ্ক APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, পূর্ণাঙ্ক);
+#অন্যথা
 #define __tgetmainargs __getmainargs
 #define _twinstart _winstart
 #define _runtwinmain _runwinmain
 #endif
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
+প্রকারনির্দেশ সংরচনা { পূর্ণাঙ্ক newmode; } _startupinfo;
+পূর্ণাঙ্ক __cdecl __tgetmainargs(পূর্ণাঙ্ক *pargc, _TCHAR ***pargv, _TCHAR ***penv, পূর্ণাঙ্ক globb, _startupinfo*);
 
-#include "crtinit.c"
+#অন্তর্ভাৱ "crtinit.c"
 
-static int go_winmain(TCHAR *arg1)
+স্থির পূর্ণাঙ্ক go_winmain(TCHAR *arg1)
 {
     STARTUPINFO si;
     _TCHAR *szCmd, *p;
-    int fShow;
-    int retval;
+    পূর্ণাঙ্ক fShow;
+    পূর্ণাঙ্ক retval;
 
     GetStartupInfo(&si);
-    if (si.dwFlags & STARTF_USESHOWWINDOW)
+    যদি (si.dwFlags & STARTF_USESHOWWINDOW)
         fShow = si.wShowWindow;
-    else
+    অন্যথা
         fShow = SW_SHOWDEFAULT;
 
-    szCmd = NULL, p = GetCommandLine();
-    if (arg1)
+    szCmd = রিক্ত, p = Get_Command_সাৰি();
+    যদি (arg1)
         szCmd = _tcsstr(p, arg1);
-    if (NULL == szCmd)
+    যদি (রিক্ত == szCmd)
         szCmd = _tcsdup(__T(""));
-    else if (szCmd > p && szCmd[-1] == __T('"'))
+    অন্যথা যদি (szCmd > p && szCmd[-1] == __T('"'))
         --szCmd;
-#if defined __i386__ || defined __x86_64__
+#যদি defined __i386__ || defined __x86_64__
     _controlfp(0x10000, 0x30000);
 #endif
     run_ctors(__argc, __targv, _tenviron);
-    retval = _tWinMain(GetModuleHandle(NULL), NULL, szCmd, fShow);
+    retval = _tWinMain(GetModuleHandle(রিক্ত), রিক্ত, szCmd, fShow);
     run_dtors();
-    return retval;
+    ঘূৰাই retval;
 }
 
-static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
+স্থির LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  ঘূৰাই _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
 }
 
-int _twinstart(void)
+পূর্ণাঙ্ক _twinstart(শূন্য)
 {
     _startupinfo start_info_con = {0};
     SetUnhandledExceptionFilter(catch_sig);
     __set_app_type(__GUI_APP);
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info_con);
-    exit(go_winmain(__argc > 1 ? __targv[1] : NULL));
+    exit(go_winmain(__argc > 1 ? __targv[1] : রিক্ত));
 }
 
-int _runtwinmain(int argc, /* as tcc passed in */ char **argv)
+পূর্ণাঙ্ক _runtwinmain(পূর্ণাঙ্ক argc, /* as tcc passed in */ ৱর্ণ **argv)
 {
 #ifdef UNICODE
     _startupinfo start_info = {0};
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc)
+    যদি (argc < __argc)
         __targv += __argc - argc, __argc = argc;
-#else
+#অন্যথা
     __argc = argc, __targv = argv;
 #endif
-    return go_winmain(__argc > 1 ? __targv[1] : NULL);
+    ঘূৰাই go_winmain(__argc > 1 ? __targv[1] : রিক্ত);
 }

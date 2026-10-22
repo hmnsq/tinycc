@@ -1,18 +1,18 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   int a;
-   char b;
+   পূর্ণাঙ্ক a;
+   ৱর্ণ b;
 
    a = 0;
-   while (a < 2)
+   যেতিয়ালৈ (a < 2)
    {
       printf("%d", a++);
-      break;
+      ভঙ্গ;
 
       b = 'A';
-      while (b < 'C')
+      যেতিয়ালৈ (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

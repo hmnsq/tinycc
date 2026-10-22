@@ -1,33 +1,33 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   int x = 'a';
-   char y = x;
+   পূর্ণাঙ্ক x = 'a';
+   ৱর্ণ y = x;
 
-   char *a = "hello";
+   ৱর্ণ *a = "hello";
 
    printf("%s\n", a);
 
-   int c;
+   পূর্ণাঙ্ক c;
    c = *a;
 
-   char *b;
-   for (b = a; *b != 0; b++)
+   ৱর্ণ *b;
+   বাবে (b = a; *b != 0; b++)
       printf("%c: %d\n", *b, *b);
 
-   char destarray[10];
-   char *dest = &destarray[0];
-   char *src = a;
+   ৱর্ণ destarray[10];
+   ৱর্ণ *dest = &destarray[0];
+   ৱর্ণ *src = a;
 
-   while (*src != 0)
+   যেতিয়ালৈ (*src != 0)
       *dest++ = *src++;
 
    *dest = 0;
 
    printf("copied string is %s\n", destarray);
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

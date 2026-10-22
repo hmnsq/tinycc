@@ -1,9 +1,9 @@
 #define _ISOC99_SOURCE 1
 
-#include <stdio.h>
-#include <math.h>
+#অন্তর্ভাৱ <stdio.h>
+#অন্তর্ভাৱ <math.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
    printf("%f\n", sin(0.12));
    printf("%f\n", cos(0.12));
@@ -24,7 +24,7 @@ int main()
    printf("%f\n", ceil(12.34));
    printf("%f\n", floor(12.34));
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

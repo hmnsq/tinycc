@@ -1,24 +1,24 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
 /* This test used to fail on x86_64 on linux with sse registers */
 
-struct Point {
-   float x;
-   float y;
+সংরচনা Point {
+   ভিন্ন x;
+   ভিন্ন y;
 };
 
-struct Rect {
-   struct Point top_left;
-   struct Point size;
+সংরচনা Rect {
+   সংরচনা Point শীৰ্ষ_বাম;
+   সংরচনা Point size;
 };
 
-float foo(struct Point p, struct Rect r) {
-   return r.size.x;
+ভিন্ন foo(সংরচনা Point p, সংরচনা Rect r) {
+   ঘূৰাই r.size.x;
 }
 
-int main(int argc, char **argv) {
-   struct Point p = {1, 2};
-   struct Rect r = {{3, 4}, {5, 6}};
+পূর্ণাঙ্ক main(পূর্ণাঙ্ক argc, ৱর্ণ **argv) {
+   সংরচনা Point p = {1, 2};
+   সংরচনা Rect r = {{3, 4}, {5, 6}};
    printf("%f\n", foo(p, r));
-   return 0;
+   ঘূৰাই 0;
 }

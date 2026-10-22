@@ -1,17 +1,17 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-struct ziggy
+সংরচনা ziggy
 {
-   int a;
-   int b;
-   int c;
+   পূর্ণাঙ্ক a;
+   পূর্ণাঙ্ক b;
+   পূর্ণাঙ্ক c;
 } bolshevic;
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   int a;
-   int *b;
-   int c;
+   পূর্ণাঙ্ক a;
+   পূর্ণাঙ্ক *b;
+   পূর্ণাঙ্ক c;
 
    a = 42;
    b = &a;
@@ -25,7 +25,7 @@ int main()
    printf("bolshevic.b = %d\n", bolshevic.b);
    printf("bolshevic.c = %d\n", bolshevic.c);
 
-   struct ziggy *tsar = &bolshevic;
+   সংরচনা ziggy *tsar = &bolshevic;
 
    printf("tsar->a = %d\n", tsar->a);
    printf("tsar->b = %d\n", tsar->b);
@@ -34,7 +34,7 @@ int main()
    b = &(bolshevic.b);
    printf("bolshevic.b = %d\n", *b);
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -1,15 +1,15 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-void fred(void)
+শূন্য fred(শূন্য)
 {
    printf("yo\n");
 }
 
-int main()
+পূর্ণাঙ্ক main()
 {
    fred();
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

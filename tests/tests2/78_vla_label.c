@@ -1,25 +1,25 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+শূন্য f1(পূর্ণাঙ্ক argc)
 {
-  char test[argc];
-  if(0)
+  ৱর্ণ test[argc];
+  যদি(0)
   label:
     printf("boom!\n");
-  if(argc-- == 0)
-    return;
-  goto label;
+  যদি(argc-- == 0)
+    ঘূৰাই;
+  গচ্ছ label;
 }
 
 /* This segfaulted on 2015-11-19. */
-void f2(void)
+শূন্য f2(শূন্য)
 {
-    goto start;
+    গচ্ছ start;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
+        পূর্ণাঙ্ক a[1 && 1]; /* not a variable-length array */
+        পূর্ণাঙ্ক b[1 || 1]; /* not a variable-length array */
+        পূর্ণাঙ্ক c[1 ? 1 : 1]; /* not a variable-length array */
     start:
         a[0] = 0;
         b[0] = 0;
@@ -27,7 +27,7 @@ void f2(void)
     }
 }
 
-void f3(void)
+শূন্য f3(শূন্য)
 {
     printf("%d\n", 0 ? printf("x1\n") : 11);
     printf("%d\n", 1 ? 12 : printf("x2\n"));
@@ -35,11 +35,11 @@ void f3(void)
     printf("%d\n", 1 || printf("x4\n"));
 }
 
-int main()
+পূর্ণাঙ্ক main()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  ঘূৰাই 0;
 }

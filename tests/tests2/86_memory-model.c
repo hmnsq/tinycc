@@ -1,38 +1,38 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-int
+পূর্ণাঙ্ক
 main()
 {
-#if defined(__LLP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LLP64__\n");
+#যদি defined(__LLP64__)
+	যদি (পরিমাণ(short) == 2
+	    && পরিমাণ(পূর্ণাঙ্ক) == 4
+	    && পরিমাণ(long পূর্ণাঙ্ক) == 4
+	    && পরিমাণ(long long পূর্ণাঙ্ক) == 8
+	    && পরিমাণ(শূন্য*) == 8) {
+		(শূন্য)printf("Ok\n");
+	} অন্যথা {
+		(শূন্য)printf("KO __LLP64__\n");
 	}
-#elif defined(__LP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 8
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LP64__\n");
+#নোচেদ্যদি defined(__LP64__)
+	যদি (পরিমাণ(short) == 2
+	    && পরিমাণ(পূর্ণাঙ্ক) == 4
+	    && পরিমাণ(long পূর্ণাঙ্ক) == 8
+	    && পরিমাণ(long long পূর্ণাঙ্ক) == 8
+	    && পরিমাণ(শূন্য*) == 8) {
+		(শূন্য)printf("Ok\n");
+	} অন্যথা {
+		(শূন্য)printf("KO __LP64__\n");
 	}
-#elif defined(__ILP32__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(void*) == 4) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __ILP32__\n");
+#নোচেদ্যদি defined(__ILP32__)
+	যদি (পরিমাণ(short) == 2
+	    && পরিমাণ(পূর্ণাঙ্ক) == 4
+	    && পরিমাণ(long পূর্ণাঙ্ক) == 4
+	    && পরিমাণ(শূন্য*) == 4) {
+		(শূন্য)printf("Ok\n");
+	} অন্যথা {
+		(শূন্য)printf("KO __ILP32__\n");
 	}
-#else
-	(void)printf("KO no __*LP*__ defined.\n");
+#অন্যথা
+	(শূন্য)printf("KO no __*LP*__ defined.\n");
 #endif
 }

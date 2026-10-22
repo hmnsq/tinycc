@@ -1,19 +1,19 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
-    long long int res = 0;
+    long long পূর্ণাঙ্ক res = 0;
 
-    if (res < -2147483648LL) {
+    যদি (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        ঘূৰাই 1;
     }
-    else
-    if (2147483647LL < res) {
+    অন্যথা
+    যদি (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        ঘূৰাই 2;
     }
-    else
+    অন্যথা
         printf("long long constant test ok.\n");
-    return 0;
+    ঘূৰাই 0;
 }

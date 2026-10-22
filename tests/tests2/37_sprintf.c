@@ -1,17 +1,17 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   char Buf[100];
-   int Count;
+   ৱর্ণ Buf[100];
+   পূর্ণাঙ্ক গুনতি_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   বাবে (গুনতি_3 = 1; গুনতি_3 <= 20; গুনতি_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
+      sprintf(Buf, "->%02d<-\n", গুনতি_3);
       printf("%s", Buf);
    }
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

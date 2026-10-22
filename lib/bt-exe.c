@@ -5,38 +5,38 @@
 #define CONFIG_TCC_BACKTRACE_ONLY
 #define ONE_SOURCE 0
 #define pstrcpy tcc_pstrcpy
-#include "../tccrun.c"
+#অন্তর্ভাৱ "../tccrun.c"
 
 #ifndef _WIN32
 # define __declspec(n)
 #endif
 
 #ifdef _WIN64
-static void bt_init_pe_prog_base(rt_context *p)
+স্থির শূন্য bt_init_pe_prog_base(rt_context *p)
 {
     MEMORY_BASIC_INFORMATION mbi;
     addr_t imagebase;
 
-    if (!p->prog_base)
-        return;
-    if (!VirtualQuery(p, &mbi, sizeof(mbi)) || !mbi.AllocationBase)
-        return;
+    যদি (!p->prog_base)
+        ঘূৰাই;
+    যদি (!VirtualQuery(p, &mbi, পরিমাণ(mbi)) || !mbi.AllocationBase)
+        ঘূৰাই;
     imagebase = (addr_t)mbi.AllocationBase - p->prog_base;
     p->prog_base = (addr_t)mbi.AllocationBase - (imagebase & 0xffffffffu);
 }
 #endif
 
 __declspec(dllexport)
-void __bt_init(rt_context *p, int is_exe)
+শূন্য __bt_init(rt_context *p, পূর্ণাঙ্ক is_exe)
 {
-    __attribute__((weak)) int main();
-    __attribute__((weak)) void __bound_init(void*, int);
+    __attribute__((weak)) পূর্ণাঙ্ক main();
+    __attribute__((weak)) শূন্য __bound_init(শূন্য*, পূর্ণাঙ্ক);
 
     //fprintf(stderr, "__bt_init %d %p %p %p\n", is_exe, p, p->stab_sym, p->bounds_start), fflush(stderr);
 
     /* call __bound_init here due to redirection of sigaction */
     /* needed to add global symbols */
-    if (p->bounds_start)
+    যদি (p->bounds_start)
 	__bound_init(p->bounds_start, -1);
 
 #ifdef _WIN64
@@ -47,41 +47,41 @@ void __bt_init(rt_context *p, int is_exe)
     rt_wait_sem();
     p->next = g_rc, g_rc = p;
     rt_post_sem();
-    if (is_exe) {
+    যদি (is_exe) {
         /* we are the executable (not a dll) */
-        p->top_func = main;
+        p->শীৰ্ষ_func = main;
         set_exception_handler();
     }
 }
 
 __declspec(dllexport)
-void __bt_exit(rt_context *p)
+শূন্য __bt_exit(rt_context *p)
 {
-    struct rt_context *rc, **pp;
-    __attribute__((weak)) void __bound_exit_dll(void*);
+    সংরচনা rt_context *rc, **pp;
+    __attribute__((weak)) শূন্য __bound_exit_dll(শূন্য*);
 
     //fprintf(stderr, "__bt_exit %d %p\n", !!p->top_func, p);
 
-    if (p->bounds_start)
+    যদি (p->bounds_start)
 	__bound_exit_dll(p->bounds_start);
 
     /* remove from chain */
     rt_wait_sem();
-    for (pp = &g_rc; rc = *pp, rc; pp = &rc->next)
-        if (rc == p) {
+    বাবে (pp = &g_rc; rc = *pp, rc; pp = &rc->next)
+        যদি (rc == p) {
             *pp = rc->next;
-            break;
+            ভঙ্গ;
         }
     rt_post_sem();
 }
 
 /* copy a string and truncate it. */
-ST_FUNC char *pstrcpy(char *buf, size_t buf_size, const char *s)
+ST_FUNC ৱর্ণ *pstrcpy(ৱর্ণ *buf, size_t buf_size, ধ্রুৱ ৱর্ণ *s)
 {
-    int l = strlen(s);
-    if (l >= buf_size)
+    পূর্ণাঙ্ক l = strlen(s);
+    যদি (l >= buf_size)
         l = buf_size - 1;
     memcpy(buf, s, l);
     buf[l] = 0;
-    return buf;
+    ঘূৰাই buf;
 }

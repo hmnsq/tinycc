@@ -3,26 +3,26 @@
  *
  * libtcc can be useful to use tcc as a "backend" for a code generator.
  */
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "libtcc.h"
+#অন্তর্ভাৱ <stdlib.h>
+#অন্তর্ভাৱ <stdio.h>
+#অন্তর্ভাৱ <string.h>
+#অন্তর্ভাৱ "libtcc.h"
 
-void handle_error(void *opaque, const char *msg)
+শূন্য handle_error(শূন্য *opaque, ধ্রুৱ ৱর্ণ *বাৰ্তা)
 {
-    fprintf(opaque, "%s\n", msg);
+    fprintf(opaque, "%s\n", বাৰ্তা);
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+পূর্ণাঙ্ক add(পূর্ণাঙ্ক a, পূর্ণাঙ্ক b)
 {
-    return a + b;
+    ঘূৰাই a + b;
 }
 
 /* this strinc is referenced by the generated code */
-const char hello[] = "Hello World!";
+ধ্রুৱ ৱর্ণ hello[] = "Hello World!";
 
-char my_program[] =
+ৱর্ণ my_program[] =
 "#include <tcclib.h>\n" /* include the "Simple libc header for TCC" */
 "extern int add(int a, int b);\n"
 "#ifdef _WIN32\n" /* dynamically linked data needs 'dllimport' */
@@ -45,14 +45,14 @@ char my_program[] =
 "    return 0;\n"
 "}\n";
 
-int main(int argc, char **argv)
+পূর্ণাঙ্ক main(পূর্ণাঙ্ক argc, ৱর্ণ **argv)
 {
     TCCState *s;
-    int i;
-    int (*func)(int);
+    পূর্ণাঙ্ক i;
+    পূর্ণাঙ্ক (*func)(পূর্ণাঙ্ক);
 
     s = tcc_new();
-    if (!s) {
+    যদি (!s) {
         fprintf(stderr, "Could not create tcc state\n");
         exit(1);
     }
@@ -61,14 +61,14 @@ int main(int argc, char **argv)
     tcc_set_error_func(s, stderr, handle_error);
 
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-    for (i = 1; i < argc; ++i) {
-        char *a = argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
+    বাবে (i = 1; i < argc; ++i) {
+        ৱর্ণ *a = argv[i];
+        যদি (a[0] == '-') {
+            যদি (a[1] == 'B')
                 tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
+            অন্যথা যদি (a[1] == 'I')
                 tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
+            অন্যথা যদি (a[1] == 'L')
                 tcc_add_library_path(s, a+2);
         }
     }
@@ -76,22 +76,22 @@ int main(int argc, char **argv)
     /* MUST BE CALLED before any compilation */
     tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
 
-    if (tcc_compile_string(s, my_program) == -1)
-        return 1;
+    যদি (tcc_compile_string(s, my_program) == -1)
+        ঘূৰাই 1;
 
     /* as a test, we add symbols that the compiled program can use.
        You may also open a dll with tcc_add_dll() and use symbols from that */
-    tcc_add_symbol(s, "add", add);
-    tcc_add_symbol(s, "hello", hello);
+    tcc_add_প্ৰতীক(s, "add", add);
+    tcc_add_প্ৰতীক(s, "hello", hello);
 
     /* relocate the code */
-    if (tcc_relocate(s) < 0)
-        return 1;
+    যদি (tcc_relocate(s) < 0)
+        ঘূৰাই 1;
 
     /* get entry symbol */
-    func = tcc_get_symbol(s, "foo");
-    if (!func)
-        return 1;
+    func = tcc_get_প্ৰতীক(s, "foo");
+    যদি (!func)
+        ঘূৰাই 1;
 
     /* run the code */
     func(32);
@@ -99,5 +99,5 @@ int main(int argc, char **argv)
     /* delete the state */
     tcc_delete(s);
 
-    return 0;
+    ঘূৰাই 0;
 }

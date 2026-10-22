@@ -1,30 +1,30 @@
-int printf(const char*, ...);
+পূর্ণাঙ্ক printf(ধ্রুৱ ৱর্ণ*, ...);
 
-int main()
+পূর্ণাঙ্ক main()
 {
-    char a;
+    ৱর্ণ a;
     short b;
 
-    printf("sizeof a : %d %d\n", sizeof(char), sizeof(a));
-    printf("sizeof b : %d %d\n", sizeof(short), sizeof(b));
+    printf("sizeof a : %d %d\n", পরিমাণ(ৱর্ণ), পরিমাণ(a));
+    printf("sizeof b : %d %d\n", পরিমাণ(short), পরিমাণ(b));
 
-    int ii[] = {}; /* gnu extension, size = 0 */
-    printf("sizeof ii : %d\n", sizeof ii);
+    পূর্ণাঙ্ক ii[] = {}; /* gnu extension, size = 0 */
+    printf("sizeof ii : %d\n", পরিমাণ ii);
 
-    int kk[] = { 1 };
-    printf("sizeof kk : %d\n", sizeof kk);
+    পূর্ণাঙ্ক kk[] = { 1 };
+    printf("sizeof kk : %d\n", পরিমাণ kk);
 
-    char cc[] = "12";
-    printf("sizeof cc : %d\n", sizeof cc);
+    ৱর্ণ cc[] = "12";
+    printf("sizeof cc : %d\n", পরিমাণ cc);
 
     __WCHAR_TYPE__ ll[] = L"12345";
-    printf("len-of ll : %d\n", sizeof ll / sizeof ll[0]);
+    printf("len-of ll : %d\n", পরিমাণ ll / পরিমাণ ll[0]);
 
-    static struct {
-        int a,b,c;
-        int d[];
+    স্থির সংরচনা {
+        পূর্ণাঙ্ক a,b,c;
+        পূর্ণাঙ্ক d[];
     } ss[] = {{ 1, 2, 3, {} }};
-    printf("sizeof ss : %d\n", sizeof ss);
+    printf("sizeof ss : %d\n", পরিমাণ ss);
 
-    return 0;
+    ঘূৰাই 0;
 }

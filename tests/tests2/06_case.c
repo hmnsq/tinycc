@@ -1,29 +1,29 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   int Count;
+   পূর্ণাঙ্ক গুনতি_3;
 
-   for (Count = 0; Count < 4; Count++)
+   বাবে (গুনতি_3 = 0; গুনতি_3 < 4; গুনতি_3++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      printf("%d\n", গুনতি_3);
+      ৱিকল্প (গুনতি_3)
       {
-         case 1:
+         পক্ষ 1:
             printf("%d\n", 1);
-            break;
+            ভঙ্গ;
 
-         case 2:
+         পক্ষ 2:
             printf("%d\n", 2);
-            break;
+            ভঙ্গ;
 
-         default:
+         স্ৱভাৱ:
             printf("%d\n", 0);
-            break;
+            ভঙ্গ;
       }
    }
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

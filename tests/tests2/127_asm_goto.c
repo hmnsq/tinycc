@@ -1,15 +1,15 @@
-static int simple_jump(void)
+স্থির পূর্ণাঙ্ক simple_jump(শূন্য)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 0;
+  asm গচ্ছ ("jmp %l[label]" : : : : label);
+  ঘূৰাই 0;
 label:
-  return 1;
+  ঘূৰাই 1;
 }
 
-static int three_way_jump(int val, int *addr)
+স্থির পূর্ণাঙ্ক three_way_jump(পূর্ণাঙ্ক val, পূর্ণাঙ্ক *addr)
 {
   *addr = 42;
-  asm goto ("cmp $0, %1\n\t"
+  asm গচ্ছ ("cmp $0, %1\n\t"
             "jg %l[larger]\n\t"
             "jl %l[smaller]\n\t"
             "incl %0\n\t"
@@ -17,46 +17,46 @@ static int three_way_jump(int val, int *addr)
             : "r" (val)
             :
             : smaller, larger);
-  return 1;
+  ঘূৰাই 1;
 smaller:
-  return 2;
+  ঘূৰাই 2;
 larger:
-  return 3;
+  ঘূৰাই 3;
 }
 
-static int another_jump(void)
+স্থির পূর্ণাঙ্ক another_jump(শূন্য)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 70;
+  asm গচ্ছ ("jmp %l[label]" : : : : label);
+  ঘূৰাই 70;
   /* Use the same label name as in simple_jump to check that
      that doesn't confuse our C/ASM symbol tables */
 label:
-  return 71;
+  ঘূৰাই 71;
 }
 
-extern int printf (const char *, ...);
-int main(void)
+বাহ্য পূর্ণাঙ্ক printf (ধ্রুৱ ৱর্ণ *, ...);
+পূর্ণাঙ্ক main(শূন্য)
 {
-  int i;
-  if (simple_jump () == 1)
+  পূর্ণাঙ্ক i;
+  যদি (simple_jump () == 1)
     printf ("simple_jump: okay\n");
-  else
+  অন্যথা
     printf ("simple_jump: wrong\n");
-  if (another_jump () == 71)
+  যদি (another_jump () == 71)
     printf ("another_jump: okay\n");
-  else
+  অন্যথা
     printf ("another_jump: wrong\n");
-  if (three_way_jump(0, &i) == 1 && i == 43)
+  যদি (three_way_jump(0, &i) == 1 && i == 43)
     printf ("three_way_jump(0): okay\n");
-  else
+  অন্যথা
     printf ("three_way_jump(0): wrong (i=%d)\n", i);
-  if (three_way_jump(1, &i) == 3 && i == 42)
+  যদি (three_way_jump(1, &i) == 3 && i == 42)
     printf ("three_way_jump(1): okay\n");
-  else
+  অন্যথা
     printf ("three_way_jump(1): wrong (i=%d)\n", i);
-  if (three_way_jump(-1, &i) == 2 && i == 42)
+  যদি (three_way_jump(-1, &i) == 2 && i == 42)
     printf ("three_way_jump(-1): okay\n");
-  else
+  অন্যথা
     printf ("three_way_jump(-1): wrong (i=%d)\n", i);
-  return 0;
+  ঘূৰাই 0;
 }

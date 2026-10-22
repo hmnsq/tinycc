@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <string.h>
+#অন্তর্ভাৱ <stdio.h>
+#অন্তর্ভাৱ <string.h>
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   char a[10];
+   ৱর্ণ a[10];
    strcpy(a, "abcdef");
    printf("%s\n", &a[1]);
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

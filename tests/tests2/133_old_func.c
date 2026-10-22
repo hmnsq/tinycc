@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+পূর্ণাঙ্ক printf(ধ্রুৱ ৱর্ণ *s, ...);
 
-float fx(x)
-float x;
+ভিন্ন fx(x)
+ভিন্ন x;
 {
-    return 2.0 * x;
+    ঘূৰাই 2.0 * x;
 }
 
-void func(float a);
+শূন্য func(ভিন্ন a);
 
-void func3(struct p { int a; int b; } *q) {
+শূন্য func3(সংরচনা p { পূর্ণাঙ্ক a; পূর্ণাঙ্ক b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+শূন্য func4(q)
+ সংরচনা p { পূর্ণাঙ্ক a; পূর্ণাঙ্ক b; পূর্ণাঙ্ক c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+সংরচনা p { পূর্ণাঙ্ক a; পূর্ণাঙ্ক b; পূর্ণাঙ্ক c; পূর্ণাঙ্ক d; };
 
-int
-main(void)
+পূর্ণাঙ্ক
+main(শূন্য)
 {
-    float fy();
+    ভিন্ন fy();
 
     printf("%g %g\n", fx(2.0), fy(10.0));
     printf("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+ভিন্ন fy(x)
+ভিন্ন x;
 {
-    return 3.0 * x;
+    ঘূৰাই 3.0 * x;
 }
 
-void func(a)
-float a;
+শূন্য func(a)
+ভিন্ন a;
 {
     printf("%g\n", a);
 }

@@ -10,7 +10,7 @@
 #define R_COPY      R_ARM_COPY
 #define R_RELATIVE  R_ARM_RELATIVE
 
-#define R_NUM       R_ARM_NUM
+#define R_অঙ্ক       R_ARM_অঙ্ক
 
 #define ELF_START_ADDR 0x00010000
 #define ELF_PAGE_SIZE  0x10000
@@ -18,94 +18,94 @@
 #define PCRELATIVE_DLLPLT 1
 #define RELOCATE_DLLPLT 1
 
-#else /* !TARGET_DEFS_ONLY */
+#অন্যথা /* !TARGET_DEFS_ONLY */
 
-#include "tcc.h"
+#অন্তর্ভাৱ "tcc.h"
 
 #ifdef NEED_RELOC_TYPE
 /* Returns 1 for a code relocation, 0 for a data relocation. For unknown
    relocations, returns -1. */
-ST_FUNC int code_reloc (int reloc_type)
+ST_FUNC পূর্ণাঙ্ক code_reloc (পূর্ণাঙ্ক reloc_type)
 {
-    switch (reloc_type) {
-	case R_ARM_MOVT_ABS:
-	case R_ARM_MOVW_ABS_NC:
-	case R_ARM_THM_MOVT_ABS:
-	case R_ARM_THM_MOVW_ABS_NC:
-	case R_ARM_ABS32:
-	case R_ARM_REL32:
-	case R_ARM_GOTPC:
-	case R_ARM_GOTOFF:
-	case R_ARM_GOT32:
-	case R_ARM_GOT_PREL:
-	case R_ARM_COPY:
-	case R_ARM_GLOB_DAT:
-	case R_ARM_NONE:
-	case R_ARM_TARGET1:
-	case R_ARM_MOVT_PREL:
-	case R_ARM_MOVW_PREL_NC:
-	case R_ARM_TLS_LE32:
-            return 0;
+    ৱিকল্প (reloc_type) {
+	পক্ষ R_ARM_MOVT_ABS:
+	পক্ষ R_ARM_MOVW_ABS_NC:
+	পক্ষ R_ARM_THM_MOVT_ABS:
+	পক্ষ R_ARM_THM_MOVW_ABS_NC:
+	পক্ষ R_ARM_ABS32:
+	পক্ষ R_ARM_REL32:
+	পক্ষ R_ARM_GOTPC:
+	পক্ষ R_ARM_GOTOFF:
+	পক্ষ R_ARM_GOT32:
+	পক্ষ R_ARM_GOT_PREL:
+	পক্ষ R_ARM_COPY:
+	পক্ষ R_ARM_GLOB_DAT:
+	পক্ষ R_ARM_NONE:
+	পক্ষ R_ARM_TARGET1:
+	পক্ষ R_ARM_MOVT_PREL:
+	পক্ষ R_ARM_MOVW_PREL_NC:
+	পক্ষ R_ARM_TLS_LE32:
+            ঘূৰাই 0;
 
-        case R_ARM_PC24:
-        case R_ARM_CALL:
-	case R_ARM_JUMP24:
-	case R_ARM_PLT32:
-	case R_ARM_THM_PC22:
-	case R_ARM_THM_JUMP24:
-	case R_ARM_PREL31:
-	case R_ARM_V4BX:
-	case R_ARM_JUMP_SLOT:
-            return 1;
+        পক্ষ R_ARM_PC24:
+        পক্ষ R_ARM_CALL:
+	পক্ষ R_ARM_JUMP24:
+	পক্ষ R_ARM_PLT32:
+	পক্ষ R_ARM_THM_PC22:
+	পক্ষ R_ARM_THM_JUMP24:
+	পক্ষ R_ARM_PREL31:
+	পক্ষ R_ARM_V4BX:
+	পক্ষ R_ARM_JUMP_SLOT:
+            ঘূৰাই 1;
     }
-    return -1;
+    ঘূৰাই -1;
 }
 
 /* Returns an enumerator to describe whether and when the relocation needs a
    GOT and/or PLT entry to be created. See tcc.h for a description of the
    different values. */
-ST_FUNC int gotplt_entry_type (int reloc_type)
+ST_FUNC পূর্ণাঙ্ক gotplt_entry_type (পূর্ণাঙ্ক reloc_type)
 {
-    switch (reloc_type) {
-	case R_ARM_NONE:
-	case R_ARM_COPY:
-	case R_ARM_GLOB_DAT:
-	case R_ARM_JUMP_SLOT:
-	case R_ARM_TLS_LE32:
-            return NO_GOTPLT_ENTRY;
+    ৱিকল্প (reloc_type) {
+	পক্ষ R_ARM_NONE:
+	পক্ষ R_ARM_COPY:
+	পক্ষ R_ARM_GLOB_DAT:
+	পক্ষ R_ARM_JUMP_SLOT:
+	পক্ষ R_ARM_TLS_LE32:
+            ঘূৰাই NO_GOTPLT_ENTRY;
 
-        case R_ARM_PC24:
-        case R_ARM_CALL:
-	case R_ARM_JUMP24:
-	case R_ARM_PLT32:
-	case R_ARM_THM_PC22:
-	case R_ARM_THM_JUMP24:
-	case R_ARM_MOVT_ABS:
-	case R_ARM_MOVW_ABS_NC:
-	case R_ARM_THM_MOVT_ABS:
-	case R_ARM_THM_MOVW_ABS_NC:
-	case R_ARM_PREL31:
-	case R_ARM_ABS32:
-	case R_ARM_REL32:
-	case R_ARM_V4BX:
-	case R_ARM_TARGET1:
-	case R_ARM_MOVT_PREL:
-	case R_ARM_MOVW_PREL_NC:
-            return AUTO_GOTPLT_ENTRY;
+        পক্ষ R_ARM_PC24:
+        পক্ষ R_ARM_CALL:
+	পক্ষ R_ARM_JUMP24:
+	পক্ষ R_ARM_PLT32:
+	পক্ষ R_ARM_THM_PC22:
+	পক্ষ R_ARM_THM_JUMP24:
+	পক্ষ R_ARM_MOVT_ABS:
+	পক্ষ R_ARM_MOVW_ABS_NC:
+	পক্ষ R_ARM_THM_MOVT_ABS:
+	পক্ষ R_ARM_THM_MOVW_ABS_NC:
+	পক্ষ R_ARM_PREL31:
+	পক্ষ R_ARM_ABS32:
+	পক্ষ R_ARM_REL32:
+	পক্ষ R_ARM_V4BX:
+	পক্ষ R_ARM_TARGET1:
+	পক্ষ R_ARM_MOVT_PREL:
+	পক্ষ R_ARM_MOVW_PREL_NC:
+            ঘূৰাই AUTO_GOTPLT_ENTRY;
 
-	case R_ARM_GOTPC:
-	case R_ARM_GOTOFF:
-            return BUILD_GOT_ONLY;
+	পক্ষ R_ARM_GOTPC:
+	পক্ষ R_ARM_GOTOFF:
+            ঘূৰাই BUILD_GOT_ONLY;
 
-	case R_ARM_GOT32:
-	case R_ARM_GOT_PREL:
-            return ALWAYS_GOTPLT_ENTRY;
+	পক্ষ R_ARM_GOT32:
+	পক্ষ R_ARM_GOT_PREL:
+            ঘূৰাই ALWAYS_GOTPLT_ENTRY;
     }
-    return -1;
+    ঘূৰাই -1;
 }
 
 #ifdef NEED_BUILD_GOT
-ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr)
+ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, সংরচনা sym_attr *attr)
 {
     Section *plt = s1->plt;
     uint8_t *p;
@@ -116,7 +116,7 @@ ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_
 
     /* empty PLT: create PLT0 entry that push address of call site and
        jump to ld.so resolution routine (GOT + 8) */
-    if (plt->data_offset == 0) {
+    যদি (plt->data_offset == 0) {
         p = section_ptr_add(plt, 20);
         write32le(p,    0xe52de004); /* push {lr}         */
         write32le(p+4,  0xe59fe004); /* ldr lr, [pc, #4] */
@@ -126,7 +126,7 @@ ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_
     }
     plt_offset = plt->data_offset;
 
-    if (attr->plt_thumb_stub) {
+    যদি (attr->plt_thumb_stub) {
         p = section_ptr_add(plt, 4);
         write32le(p,   0x4778); /* bx pc */
         write32le(p+2, 0x46c0); /* nop   */
@@ -134,28 +134,28 @@ ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_
     p = section_ptr_add(plt, 16);
     /* save GOT offset for relocate_plt */
     write32le(p + 4, got_offset);
-    return plt_offset;
+    ঘূৰাই plt_offset;
 }
 
 /* relocate the PLT: compute addresses and offsets in the PLT now that final
    address for PLT and GOT are known (see fill_program_header) */
-ST_FUNC void relocate_plt(TCCState *s1)
+ST_FUNC শূন্য relocate_plt(TCCState *s1)
 {
     uint8_t *p, *p_end;
 
-    if (!s1->plt)
-      return;
+    যদি (!s1->plt)
+      ঘূৰাই;
 
     p = s1->plt->data;
     p_end = p + s1->plt->data_offset;
 
-    if (p < p_end) {
-        int x = s1->got->sh_addr - s1->plt->sh_addr - 12;
+    যদি (p < p_end) {
+        পূর্ণাঙ্ক x = s1->got->sh_addr - s1->plt->sh_addr - 12;
         write32le(s1->plt->data + 16, x - 4);
         p += 20;
-        while (p < p_end) {
+        যেতিয়ালৈ (p < p_end) {
 	    unsigned off = x  + read32le(p + 4) + (s1->plt->data - p) + 4;
-            if (read32le(p) == 0x46c04778) /* PLT Thumb stub present */
+            যদি (read32le(p) == 0x46c04778) /* PLT Thumb stub present */
                 p += 4;
             write32le(p, 0xe28fc200 | ((off >> 28) & 0xf));      // add ip, pc, #0xN0000000
             write32le(p + 4, 0xe28cc600 | ((off >> 20) & 0xff)); // add ip, pc, #0xNN00000
@@ -165,7 +165,7 @@ ST_FUNC void relocate_plt(TCCState *s1)
         }
     }
 
-    if (s1->plt->reloc) {
+    যদি (s1->plt->reloc) {
         ElfW_Rel *rel;
         p = s1->got->data;
         for_each_elem(s1->plt->reloc, 0, rel, ElfW_Rel) {
@@ -176,21 +176,21 @@ ST_FUNC void relocate_plt(TCCState *s1)
 #endif
 #endif
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr, addr_t addr, addr_t val)
+ST_FUNC শূন্য relocate(TCCState *s1, ElfW_Rel *rel, পূর্ণাঙ্ক type, unsigned ৱর্ণ *ptr, addr_t addr, addr_t val)
 {
     ElfW(Sym) *sym;
-    int sym_index, esym_index;
+    পূর্ণাঙ্ক sym_index, esym_index;
 
     sym_index = ELFW(R_SYM)(rel->r_info);
     sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
 
-    switch(type) {
-        case R_ARM_PC24:
-        case R_ARM_CALL:
-        case R_ARM_JUMP24:
-        case R_ARM_PLT32:
+    ৱিকল্প(type) {
+        পক্ষ R_ARM_PC24:
+        পক্ষ R_ARM_CALL:
+        পক্ষ R_ARM_JUMP24:
+        পক্ষ R_ARM_PLT32:
             {
-                int x, is_thumb, is_call, h, blx_avail, is_bl, th_ko;
+                পূর্ণাঙ্ক x, is_thumb, is_call, h, blx_avail, is_bl, th_ko;
                 unsigned code = read32le(ptr);
                 x = code & 0x00ffffff;
 #ifdef DEBUG_RELOC
@@ -198,7 +198,7 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
 #endif
                 code &= 0xff000000;
                 x <<= 2;
-                if (x & 0x2000000)
+                যদি (x & 0x2000000)
                     x -= 0x4000000;
                 blx_avail = (CONFIG_TCC_CPUVER >= 5);
                 is_thumb = val & 1;
@@ -207,36 +207,36 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                 x += val - addr;
 #ifdef DEBUG_RELOC
 		printf (" newx=0x%x name=%s\n", x,
-			(char *) symtab_section->link->data + sym->st_name);
+			(ৱর্ণ *) symtab_section->link->data + sym->st_name);
 #endif
                 h = x & 2;
                 th_ko = (x & 3) && (!blx_avail || !is_call);
-                if (th_ko || x >= 0x2000000 || x < -0x2000000)
+                যদি (th_ko || x >= 0x2000000 || x < -0x2000000)
                     tcc_error_noabort("can't relocate value at %x,%d",addr, type);
                 x >>= 2;
                 x &= 0xffffff;
                 /* Only reached if blx is avail and it is a call */
-                if (is_thumb) {
+                যদি (is_thumb) {
                     x |= h << 24;
                     code = 0xfa000000; /* bl -> blx */
                 }
                 write32le(ptr, code | x);
             }
-            return;
+            ঘূৰাই;
         /* Since these relocations only concern Thumb-2 and blx instruction was
            introduced before Thumb-2, we can assume blx is available and not
            guard its use */
-        case R_ARM_THM_PC22:
-        case R_ARM_THM_JUMP24:
+        পক্ষ R_ARM_THM_PC22:
+        পক্ষ R_ARM_THM_JUMP24:
             {
-                int x, hi, lo, s, j1, j2, i1, i2, imm10, imm11;
-                int to_thumb, is_call, to_plt, blx_bit = 1 << 12;
+                পূর্ণাঙ্ক x, hi, lo, s, j1, j2, i1, i2, imm10, imm11;
+                পূর্ণাঙ্ক to_thumb, is_call, to_plt, blx_bit = 1 << 12;
                 Section *plt;
 
                 /* weak reference */
-                if (sym->st_shndx == SHN_UNDEF &&
+                যদি (sym->st_shndx == SHN_UNDEF &&
                     ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
-                    return;
+                    ঘূৰাই;
 
                 /* Get initial offset */
                 hi = read16le(ptr);
@@ -250,7 +250,7 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                 imm11 = lo & 0x7ff;
                 x = (s << 24) | (i1 << 23) | (i2 << 22) |
                     (imm10 << 12) | (imm11 << 1);
-                if (x & 0x01000000)
+                যদি (x & 0x01000000)
                     x -= 0x02000000;
 
                 /* Relocation infos */
@@ -260,16 +260,16 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                          (val < plt->sh_addr + plt->data_offset);
                 is_call = (type == R_ARM_THM_PC22);
 
-                if (!to_thumb && !to_plt && !is_call) {
-                    int index;
+                যদি (!to_thumb && !to_plt && !is_call) {
+                    পূর্ণাঙ্ক index;
                     uint8_t *p;
-                    char *name, buf[1024];
+                    ৱর্ণ *name, buf[1024];
                     Section *text;
 
-                    name = (char *) symtab_section->link->data + sym->st_name;
+                    name = (ৱর্ণ *) symtab_section->link->data + sym->st_name;
                     text = s1->sections[sym->st_shndx];
                     /* Modify reloc to target a thumb stub to switch to ARM */
-                    snprintf(buf, sizeof(buf), "%s_from_thumb", name);
+                    snprintf(buf, পরিমাণ(buf), "%s_from_thumb", name);
                     index = put_elf_sym(symtab_section,
                                         text->data_offset + 1,
                                         sym->st_size, sym->st_info, 0,
@@ -289,7 +289,7 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
 
                 /* Compute final offset */
                 x += val - addr;
-                if (!to_thumb && is_call) {
+                যদি (!to_thumb && is_call) {
                     blx_bit = 0; /* bl -> blx */
                     x = (x + 3) & -4; /* Compute offset from aligned PC */
                 }
@@ -299,8 +299,8 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                    * if target is to be entered in arm mode:
                      - bit 1 must not set
                      - instruction must be a call (bl) or a jump to PLT */
-                if (!to_thumb || x >= 0x1000000 || x < -0x1000000)
-                    if (to_thumb || (val & 2) || (!is_call && !to_plt))
+                যদি (!to_thumb || x >= 0x1000000 || x < -0x1000000)
+                    যদি (to_thumb || (val & 2) || (!is_call && !to_plt))
                         tcc_error_noabort("can't relocate value at %x,%d",addr, type);
 
                 /* Compute and store final offset */
@@ -317,138 +317,138 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                                  (j1 << 13) | blx_bit | (j2 << 11) |
                                  imm11);
             }
-            return;
-        case R_ARM_MOVT_ABS:
-        case R_ARM_MOVW_ABS_NC:
+            ঘূৰাই;
+        পক্ষ R_ARM_MOVT_ABS:
+        পক্ষ R_ARM_MOVW_ABS_NC:
             {
-                int x, imm4, imm12;
-                if (type == R_ARM_MOVT_ABS)
+                পূর্ণাঙ্ক x, imm4, imm12;
+                যদি (type == R_ARM_MOVT_ABS)
                     val >>= 16;
                 imm12 = val & 0xfff;
                 imm4 = (val >> 12) & 0xf;
                 x = (imm4 << 16) | imm12;
-                if (type == R_ARM_THM_MOVT_ABS)
+                যদি (type == R_ARM_THM_MOVT_ABS)
                     write32le(ptr, read32le(ptr) | x);
-                else
+                অন্যথা
                     add32le(ptr, x);
             }
-            return;
-        case R_ARM_MOVT_PREL:
-        case R_ARM_MOVW_PREL_NC:
+            ঘূৰাই;
+        পক্ষ R_ARM_MOVT_PREL:
+        পক্ষ R_ARM_MOVW_PREL_NC:
             {
-		int insn = read32le(ptr);
-                int addend = ((insn >> 4) & 0xf000) | (insn & 0xfff);
+		পূর্ণাঙ্ক insn = read32le(ptr);
+                পূর্ণাঙ্ক addend = ((insn >> 4) & 0xf000) | (insn & 0xfff);
 
 		addend = (addend ^ 0x8000) - 0x8000;
 		val += addend - addr;
-		if (type == R_ARM_MOVT_PREL)
+		যদি (type == R_ARM_MOVT_PREL)
 		    val >>= 16;
 		write32le(ptr, (insn & 0xfff0f000) |
 			       ((val & 0xf000) << 4) | (val & 0xfff));
             }
-            return;
-        case R_ARM_THM_MOVT_ABS:
-        case R_ARM_THM_MOVW_ABS_NC:
+            ঘূৰাই;
+        পক্ষ R_ARM_THM_MOVT_ABS:
+        পক্ষ R_ARM_THM_MOVW_ABS_NC:
             {
-                int x, i, imm4, imm3, imm8;
-                if (type == R_ARM_THM_MOVT_ABS)
+                পূর্ণাঙ্ক x, i, imm4, imm3, imm8;
+                যদি (type == R_ARM_THM_MOVT_ABS)
                     val >>= 16;
                 imm8 = val & 0xff;
                 imm3 = (val >> 8) & 0x7;
                 i = (val >> 11) & 1;
                 imm4 = (val >> 12) & 0xf;
                 x = (imm3 << 28) | (imm8 << 16) | (i << 10) | imm4;
-                if (type == R_ARM_THM_MOVT_ABS)
+                যদি (type == R_ARM_THM_MOVT_ABS)
                     write32le(ptr, read32le(ptr) | x);
-                else
+                অন্যথা
                     add32le(ptr, x);
             }
-            return;
-        case R_ARM_PREL31:
+            ঘূৰাই;
+        পক্ষ R_ARM_PREL31:
             {
-                int x;
+                পূর্ণাঙ্ক x;
                 x = read32le(ptr) & 0x7fffffff;
                 write32le(ptr, read32le(ptr) & 0x80000000);
                 x = (x * 2) / 2;
                 x += val - addr;
-                if((x^(x>>1))&0x40000000)
+                যদি((x^(x>>1))&0x40000000)
                     tcc_error_noabort("can't relocate value at %x,%d",addr, type);
                 write32le(ptr, read32le(ptr) | (x & 0x7fffffff));
             }
-            return;
-        case R_ARM_ABS32:
-        case R_ARM_TARGET1:
-            if (s1->output_type & TCC_OUTPUT_DYN) {
+            ঘূৰাই;
+        পক্ষ R_ARM_ABS32:
+        পক্ষ R_ARM_TARGET1:
+            যদি (s1->output_type & TCC_OUTPUT_DYN) {
                 esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
                 qrel->r_offset = rel->r_offset;
-                if (esym_index) {
+                যদি (esym_index) {
                     qrel->r_info = ELFW(R_INFO)(esym_index, R_ARM_ABS32);
                     qrel++;
-                    return;
-                } else {
+                    ঘূৰাই;
+                } অন্যথা {
                     qrel->r_info = ELFW(R_INFO)(0, R_ARM_RELATIVE);
                     qrel++;
                 }
             }
             add32le(ptr, val);
-            return;
-        case R_ARM_REL32:
+            ঘূৰাই;
+        পক্ষ R_ARM_REL32:
             add32le(ptr, val - addr);
-            return;
-        case R_ARM_GOTPC:
+            ঘূৰাই;
+        পক্ষ R_ARM_GOTPC:
             add32le(ptr, s1->got->sh_addr - addr);
-            return;
-        case R_ARM_GOTOFF:
+            ঘূৰাই;
+        পক্ষ R_ARM_GOTOFF:
             add32le(ptr, val - s1->got->sh_addr);
-            return;
-        case R_ARM_GOT32:
+            ঘূৰাই;
+        পক্ষ R_ARM_GOT32:
             /* we load the got offset */
             add32le(ptr, get_sym_attr(s1, sym_index, 0)->got_offset);
-            return;
-	case R_ARM_GOT_PREL:
+            ঘূৰাই;
+	পক্ষ R_ARM_GOT_PREL:
             /* we load the pc relative got offset */
             add32le(ptr, s1->got->sh_addr +
 			 get_sym_attr(s1, sym_index, 0)->got_offset -
 			 addr);
-            return;
-        case R_ARM_COPY:
-            return;
-        case R_ARM_V4BX:
+            ঘূৰাই;
+        পক্ষ R_ARM_COPY:
+            ঘূৰাই;
+        পক্ষ R_ARM_V4BX:
             /* trade Thumb support for ARMv4 support */
-            if ((0x0ffffff0 & read32le(ptr)) == 0x012FFF10)
+            যদি ((0x0ffffff0 & read32le(ptr)) == 0x012FFF10)
                 write32le(ptr, read32le(ptr) ^ 0xE12FFF10 ^ 0xE1A0F000); /* BX Rm -> MOV PC, Rm */
-            return;
-        case R_ARM_GLOB_DAT:
-        case R_ARM_JUMP_SLOT:
+            ঘূৰাই;
+        পক্ষ R_ARM_GLOB_DAT:
+        পক্ষ R_ARM_JUMP_SLOT:
             write32le(ptr, val);
-            return;
-        case R_ARM_NONE:
+            ঘূৰাই;
+        পক্ষ R_ARM_NONE:
             /* Nothing to do.  Normally used to indicate a dependency
                on a certain symbol (like for exception handling under EABI).  */
-            return;
-        case R_ARM_RELATIVE:
+            ঘূৰাই;
+        পক্ষ R_ARM_RELATIVE:
 #ifdef TCC_TARGET_PE
             add32le(ptr, val - s1->pe_imagebase);
 #endif
             /* do nothing */
-            return;
-        case R_ARM_TLS_LE32:
+            ঘূৰাই;
+        পক্ষ R_ARM_TLS_LE32:
             {
                 int32_t x;
-                if (s1->tls_end) {
+                যদি (s1->tls_end) {
                     x = val - s1->tls_start + 8;
-                } else {
+                } অন্যথা {
                     ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
                     Section *sec = s1->sections[sym->st_shndx];
                     x = val - sec->sh_addr - sec->data_offset + 8;
                 }
                 add32le(ptr, x);
             }
-            return;
-        default:
+            ঘূৰাই;
+        স্ৱভাৱ:
             fprintf(stderr,"FIXME: handle reloc type %d at %x [%p] to %x\n",
                 type, (unsigned)addr, ptr, (unsigned)val);
-            return;
+            ঘূৰাই;
     }
 }
 

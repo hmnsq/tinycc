@@ -1,23 +1,23 @@
-#include <stdio.h>
+#অন্তর্ভাৱ <stdio.h>
 
-struct point
+সংরচনা point
 {
-   double x;
-   double y;
+   দ্ৱিগুণ x;
+   দ্ৱিগুণ y;
 };
 
-struct point point_array[100];
+সংরচনা point point_array[100];
 
-int main()
+পূর্ণাঙ্ক main()
 {
-   int my_point = 10;
+   পূর্ণাঙ্ক my_point = 10;
 
    point_array[my_point].x = 12.34;
    point_array[my_point].y = 56.78;
 
    printf("%f, %f\n", point_array[my_point].x, point_array[my_point].y);
 
-   return 0;
+   ঘূৰাই 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
