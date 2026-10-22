@@ -1,28 +1,28 @@
 #include <stdio.h>
 
-int array[16];
+ཧྲིལ array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+void swap(ཧྲིལ a, ཧྲིལ b)
 {
-   int tmp  = array[a];
+   ཧྲིལ tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+ཧྲིལ partition(ཧྲིལ left, ཧྲིལ right)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   ཧྲིལ pivotIndex = left;
+   ཧྲིལ pivotValue = array[pivotIndex];
+   ཧྲིལ index = left;
+   ཧྲིལ i;
 
    swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   ཆེད་དུ(i = left; i < right; i++)
    {
-      if(array[i] < pivotValue)
+      གལ་ཏེ(array[i] < pivotValue)
       {
          swap(i, index);
          index += 1;
@@ -30,23 +30,23 @@ int partition(int left, int right)
    }
    swap(right, index);
 
-   return index;
+   ཕྱིར index;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+void quicksort(ཧྲིལ left, ཧྲིལ right)
 {
-   if(left >= right)
-      return;
+   གལ་ཏེ(left >= right)
+      ཕྱིར;
 
-   int index = partition(left, right);
+   ཧྲིལ index = partition(left, right);
    quicksort(left, index - 1);
    quicksort(index + 1, right);
 }
 
-int main()
+ཧྲིལ གཙོ()
 {
-   int i;
+   ཧྲིལ i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
+   ཆེད་དུ (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
+   ཆེད་དུ (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
-   return 0;
+   ཕྱིར 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

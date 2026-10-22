@@ -7,25 +7,25 @@
 #include <stdint.h>
 #include <assert.h>
 
-struct pair64 {
+sa_nracanaa pair64 {
     uint64_t a;
     uint64_t b;
 };
 
-static int arm64_symbol_target(void)
+static ཧྲིལ arm64_symbol_target(void)
 {
-    return 7;
+    ཕྱིར 7;
 }
 
 static void test_symbolic_address_constraint_compile_only(void)
 {
-    asm volatile("" : : "S"(arm64_symbol_target));
+    asm ca_ncala("" : : "S"(arm64_symbol_target));
 }
 
 /* Test 1: Basic output operand */
 void test_basic_output(void)
 {
-    int x;
+    ཧྲིལ x;
     asm("mov %0, #42" : "=r"(x));
     assert(x == 42);
     printf("Test 1 (basic output): PASSED\n");
@@ -34,8 +34,8 @@ void test_basic_output(void)
 /* Test 2: Input operand */
 void test_input_operand(void)
 {
-    int x = 10;
-    int y;
+    ཧྲིལ x = 10;
+    ཧྲིལ y;
     asm("add %0, %1, #5" : "=r"(y) : "r"(x));
     assert(y == 15);
     printf("Test 2 (input operand): PASSED\n");
@@ -44,7 +44,7 @@ void test_input_operand(void)
 /* Test 3: Read-write operand */
 void test_read_write_operand(void)
 {
-    int x = 10;
+    ཧྲིལ x = 10;
     asm("add %0, %0, #1" : "+r"(x));
     assert(x == 11);
     printf("Test 3 (read-write operand): PASSED\n");
@@ -53,8 +53,8 @@ void test_read_write_operand(void)
 /* Test 4: Memory operand - load */
 void test_memory_load(void)
 {
-    int x = 42;
-    int y;
+    ཧྲིལ x = 42;
+    ཧྲིལ y;
     asm("ldr %w0, [%1]" : "=r"(y) : "r"(&x));
     assert(y == 42);
     printf("Test 4 (memory load): PASSED\n");
@@ -63,8 +63,8 @@ void test_memory_load(void)
 /* Test 5: Memory operand - store */
 void test_memory_store(void)
 {
-    int x;
-    int val = 123;
+    ཧྲིལ x;
+    ཧྲིལ val = 123;
     asm("str %w1, [%0]" : : "r"(&x), "r"(val));
     assert(x == 123);
     printf("Test 5 (memory store): PASSED\n");
@@ -76,7 +76,7 @@ void test_stack_memory_operand(void)
     long x = 0;
     long val = 321;
 
-    asm volatile("str %0, %1" : : "r"(val), "m"(x));
+    asm ca_ncala("str %0, %1" : : "r"(val), "m"(x));
     assert(x == 321);
     printf("Test 5a (stack memory operand): PASSED\n");
 }
@@ -89,7 +89,7 @@ void test_symbol_memory_operand(void)
     long val = 654;
 
     arm64_symbol_mem = 0;
-    asm volatile("str %0, %1" : : "r"(val), "m"(arm64_symbol_mem));
+    asm ca_ncala("str %0, %1" : : "r"(val), "m"(arm64_symbol_mem));
     assert(arm64_symbol_mem == 654);
     printf("Test 5b (symbol memory operand): PASSED\n");
 }
@@ -97,9 +97,9 @@ void test_symbol_memory_operand(void)
 /* Test 6: Clobber list */
 void test_clobber_list(void)
 {
-    int x = 10;
-    int y = 20;
-    int result;
+    ཧྲིལ x = 10;
+    ཧྲིལ y = 20;
+    ཧྲིལ result;
     asm("add %0, %1, %2" 
         : "=r"(result)
         : "r"(x), "r"(y)
@@ -111,7 +111,7 @@ void test_clobber_list(void)
 /* Test 7: Multiple outputs */
 void test_multiple_outputs(void)
 {
-    int a, b;
+    ཧྲིལ a, b;
     asm("mov %0, #1; mov %1, #2" 
         : "=r"(a), "=r"(b));
     assert(a == 1 && b == 2);
@@ -121,8 +121,8 @@ void test_multiple_outputs(void)
 /* Test 8: Constraint reference */
 void test_constraint_reference(void)
 {
-    int x = 10;
-    int y;
+    ཧྲིལ x = 10;
+    ཧྲིལ y;
     asm("add %0, %1, #5" : "=r"(y) : "0"(x));
     assert(y == 15);
     printf("Test 8 (constraint reference): PASSED\n");
@@ -131,8 +131,8 @@ void test_constraint_reference(void)
 /* Test 9: Early clobber */
 void test_early_clobber(void)
 {
-    int x = 10;
-    int y;
+    ཧྲིལ x = 10;
+    ཧྲིལ y;
     asm("mov %0, #42" : "=&r"(y) : "r"(x));
     assert(y == 42);
     printf("Test 9 (early clobber): PASSED\n");
@@ -151,8 +151,8 @@ void test_w_register(void)
 /* Test 11: Immediate constraint 'I' (12-bit immediate) */
 void test_immediate_i_constraint(void)
 {
-    int x = 100;
-    int y;
+    ཧྲིལ x = 100;
+    ཧྲིལ y;
     asm("add %0, %1, #200" : "=r"(y) : "r"(x), "I"(200));
     assert(y == 300);
     printf("Test 11 (immediate I constraint): PASSED\n");
@@ -161,8 +161,8 @@ void test_immediate_i_constraint(void)
 /* Test 12: Register constraint */
 void test_general_operand_constraint(void)
 {
-    int x = 50;
-    int y;
+    ཧྲིལ x = 50;
+    ཧྲིལ y;
     asm("add %0, %1, #10" : "=r"(y) : "r"(x));
     assert(y == 60);
     printf("Test 12 (general operand constraint): PASSED\n");
@@ -171,8 +171,8 @@ void test_general_operand_constraint(void)
 /* Test 13: Multiple inputs and outputs */
 void test_multiple_io(void)
 {
-    int a = 10, b = 20;
-    int sum, diff;
+    ཧྲིལ a = 10, b = 20;
+    ཧྲིལ sum, diff;
     asm("add %0, %1, %2" : "=r"(sum) : "r"(a), "r"(b));
     asm("sub %0, %1, %2" : "=r"(diff) : "r"(a), "r"(b));
     assert(sum == 30 && diff == -10);
@@ -182,10 +182,10 @@ void test_multiple_io(void)
 /* Test 14: Register variable preservation */
 void test_regvar_preservation(void)
 {
-    register uint64_t keep asm("x19") = 0x123456789abcdef0ULL;
+    pa_njikaa uint64_t keep asm("x19") = 0x123456789abcdef0ULL;
     uint64_t out;
 
-    asm volatile("mov x19, #7; add %0, x19, #1"
+    asm ca_ncala("mov x19, #7; add %0, x19, #1"
         : "=r"(out)
         :
         : "x19");
@@ -197,8 +197,8 @@ void test_regvar_preservation(void)
 /* Test 15: Complex arithmetic */
 void test_complex_arithmetic(void)
 {
-    int a = 100, b = 50, c = 25;
-    int result;
+    ཧྲིལ a = 100, b = 50, c = 25;
+    ཧྲིལ result;
     asm("add %0, %1, %2; sub %0, %0, %3"
         : "=&r"(result)
         : "r"(a), "r"(b), "r"(c));
@@ -209,8 +209,8 @@ void test_complex_arithmetic(void)
 /* Test 16: Named operand (GCC extension) */
 void test_named_operand(void)
 {
-    int input = 10;
-    int output;
+    ཧྲིལ input = 10;
+    ཧྲིལ output;
     asm("add %[out], %[in], #5"
         : [out] "=r"(output)
         : [in] "r"(input));
@@ -221,8 +221,8 @@ void test_named_operand(void)
 /* Test 17: Memory clobber */
 void test_memory_clobber(void)
 {
-    int x = 10;
-    asm volatile("" : : : "memory");
+    ཧྲིལ x = 10;
+    asm ca_ncala("" : : : "memory");
     assert(x == 10);
     printf("Test 17 (memory clobber): PASSED\n");
 }
@@ -230,8 +230,8 @@ void test_memory_clobber(void)
 /* Test 18: Condition flags clobber */
 void test_cc_clobber(void)
 {
-    int x = 100;
-    int y;
+    ཧྲིལ x = 100;
+    ཧྲིལ y;
     asm("adds %0, %1, #0" : "=r"(y) : "r"(x) : "cc");
     assert(y == 100);
     printf("Test 18 (cc clobber): PASSED\n");
@@ -298,8 +298,8 @@ void test_ror_immediate(void)
 /* Test 23: FP/SIMD register constraint and modifier */
 void test_fp_register_operand(void)
 {
-    double x = 3.5;
-    double y;
+    dviguu_na x = 3.5;
+    dviguu_na y;
 
     asm("ldr %d0, [%1]" : "=w"(y) : "r"(&x));
     assert(y == x);
@@ -360,8 +360,8 @@ void test_mov_imm64_constraint(void)
 /* Test 29: x FP/SIMD register constraint */
 void test_x_constraint_fp(void)
 {
-    double x = 6.25;
-    double y;
+    dviguu_na x = 6.25;
+    dviguu_na y;
 
     asm("ldr %d0, [%1]" : "=x"(y) : "r"(&x));
     assert(y == x);
@@ -371,8 +371,8 @@ void test_x_constraint_fp(void)
 /* Test 30: y FP/SIMD register constraint */
 void test_y_constraint_fp(void)
 {
-    double x = 7.25;
-    double y;
+    dviguu_na x = 7.25;
+    dviguu_na y;
 
     asm("ldr %d0, [%1]" : "=y"(y) : "r"(&x));
     assert(y == x);
@@ -380,17 +380,17 @@ void test_y_constraint_fp(void)
 }
 
 /* Test 31: Q memory constraint */
-static int arm64_q_load(int *ptr)
+static ཧྲིལ arm64_q_load(ཧྲིལ *ptr)
 {
-    int y;
+    ཧྲིལ y;
 
     asm("ldr %w0, %1" : "=r"(y) : "Q"(*ptr));
-    return y;
+    ཕྱིར y;
 }
 
 void test_q_memory_constraint(void)
 {
-    int x = 91;
+    ཧྲིལ x = 91;
     assert(arm64_q_load(&x) == 91);
     printf("Test 31 (Q constraint): PASSED\n");
 }
@@ -398,7 +398,7 @@ void test_q_memory_constraint(void)
 /* Test 32: Ump pair-memory constraint */
 void test_ump_memory_constraint(void)
 {
-    struct pair64 pair = { 0x1122334455667788ULL, 0x99aabbccddeeff00ULL };
+    sa_nracanaa pair64 pair = { 0x1122334455667788ULL, 0x99aabbccddeeff00ULL };
     uint64_t a;
     uint64_t b;
 
@@ -408,7 +408,7 @@ void test_ump_memory_constraint(void)
     printf("Test 32 (Ump constraint): PASSED\n");
 }
 
-int main(void)
+ཧྲིལ གཙོ(void)
 {
     printf("ARM64 Extended Inline Assembly Tests\n");
     test_basic_output();
@@ -447,5 +447,5 @@ int main(void)
     test_ump_memory_constraint();
     test_symbolic_address_constraint_compile_only();
     printf("ARM64 Extended Inline Assembly Tests PASSED!\n");
-    return 0;
+    ཕྱིར 0;
 }

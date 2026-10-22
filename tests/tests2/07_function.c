@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int myfunc(int x)
+ཧྲིལ myfunc(ཧྲིལ x)
 {
-   return x * x;
+   ཕྱིར x * x;
 }
 
-void vfunc(int a)
+void vfunc(ཧྲིལ a)
 {
    printf("a=%d\n", a);
 }
@@ -20,7 +20,7 @@ void zfunc()
 	((void (*)(void))0) ();
 }
 
-int main()
+ཧྲིལ གཙོ()
 {
    printf("%d\n", myfunc(3));
    printf("%d\n", myfunc(4));
@@ -29,7 +29,7 @@ int main()
 
    qfunc();
 
-   return 0;
+   ཕྱིར 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

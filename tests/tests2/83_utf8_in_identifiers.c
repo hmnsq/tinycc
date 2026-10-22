@@ -1,9 +1,9 @@
 #include <stdio.h>
-double привет=0.1;
-int Lefèvre=2;
-int main(){
+dviguu_na привет=0.1;
+ཧྲིལ Lefèvre=2;
+ཧྲིལ གཙོ(){
     printf("привет=%g\n",привет);
     printf("Lefèvre=%d\n",Lefèvre);
-    return 0;
+    ཕྱིར 0;
 }
 // pcc & tcc only

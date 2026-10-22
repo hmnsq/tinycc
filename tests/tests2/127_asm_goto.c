@@ -1,12 +1,12 @@
-static int simple_jump(void)
+static ཧྲིལ simple_jump(void)
 {
   asm goto ("jmp %l[label]" : : : : label);
-  return 0;
+  ཕྱིར 0;
 label:
-  return 1;
+  ཕྱིར 1;
 }
 
-static int three_way_jump(int val, int *addr)
+static ཧྲིལ three_way_jump(ཧྲིལ val, ཧྲིལ *addr)
 {
   *addr = 42;
   asm goto ("cmp $0, %1\n\t"
@@ -17,46 +17,46 @@ static int three_way_jump(int val, int *addr)
             : "r" (val)
             :
             : smaller, larger);
-  return 1;
+  ཕྱིར 1;
 smaller:
-  return 2;
+  ཕྱིར 2;
 larger:
-  return 3;
+  ཕྱིར 3;
 }
 
-static int another_jump(void)
+static ཧྲིལ another_jump(void)
 {
   asm goto ("jmp %l[label]" : : : : label);
-  return 70;
+  ཕྱིར 70;
   /* Use the same label name as in simple_jump to check that
      that doesn't confuse our C/ASM symbol tables */
 label:
-  return 71;
+  ཕྱིར 71;
 }
 
-extern int printf (const char *, ...);
-int main(void)
+extern ཧྲིལ printf (const var_na *, ...);
+ཧྲིལ གཙོ(void)
 {
-  int i;
-  if (simple_jump () == 1)
+  ཧྲིལ i;
+  གལ་ཏེ (simple_jump () == 1)
     printf ("simple_jump: okay\n");
-  else
+  དེ་མིན
     printf ("simple_jump: wrong\n");
-  if (another_jump () == 71)
+  གལ་ཏེ (another_jump () == 71)
     printf ("another_jump: okay\n");
-  else
+  དེ་མིན
     printf ("another_jump: wrong\n");
-  if (three_way_jump(0, &i) == 1 && i == 43)
+  གལ་ཏེ (three_way_jump(0, &i) == 1 && i == 43)
     printf ("three_way_jump(0): okay\n");
-  else
+  དེ་མིན
     printf ("three_way_jump(0): wrong (i=%d)\n", i);
-  if (three_way_jump(1, &i) == 3 && i == 42)
+  གལ་ཏེ (three_way_jump(1, &i) == 3 && i == 42)
     printf ("three_way_jump(1): okay\n");
-  else
+  དེ་མིན
     printf ("three_way_jump(1): wrong (i=%d)\n", i);
-  if (three_way_jump(-1, &i) == 2 && i == 42)
+  གལ་ཏེ (three_way_jump(-1, &i) == 2 && i == 42)
     printf ("three_way_jump(-1): okay\n");
-  else
+  དེ་མིན
     printf ("three_way_jump(-1): wrong (i=%d)\n", i);
-  return 0;
+  ཕྱིར 0;
 }

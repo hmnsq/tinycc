@@ -3,9 +3,9 @@
 A rettrue(bla) B
 TRACE(
       ARG_1,
-#if rettrue(bla)
+#གལ་ཏེ rettrue(bla)
       ARG_2,
-#else
+#དེ་མིན
       ARG_2_wrong,
 #endif
       ARG_3

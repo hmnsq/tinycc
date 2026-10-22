@@ -1,32 +1,32 @@
 #include <stdio.h>
 
-int main()
+ཧྲིལ གཙོ()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   ཧྲིལ a[4][4];
+   ཧྲིལ b = 0;
+   ཧྲིལ x;
+   ཧྲིལ y;
 
-   for (x = 0; x < 4; x++)
+   ཆེད་དུ (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      ཆེད་དུ (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   ཆེད་དུ (x = 0; x < 4; x++)
    {
       printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      ཆེད་དུ (y = 0; y < 4; y++)
       {
          printf("%d ", a[x][y]);
       }
       printf("\n");
    }
 
-   return 0;
+   ཕྱིར 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

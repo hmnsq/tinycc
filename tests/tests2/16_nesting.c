@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+ཧྲིལ གཙོ()
 {
-   int x, y, z;
+   ཧྲིལ x, y, z;
 
-   for (x = 0; x < 2; x++)
+   ཆེད་དུ (x = 0; x < 2; x++)
    {
-      for (y = 0; y < 3; y++)
+      ཆེད་དུ (y = 0; y < 3; y++)
       {
-         for (z = 0; z < 3; z++)
+         ཆེད་དུ (z = 0; z < 3; z++)
          {
             printf("%d %d %d\n", x, y, z);
          }
       }
    }
 
-   return 0;
+   ཕྱིར 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

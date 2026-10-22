@@ -4,9 +4,9 @@
 #define CAT(a,b) CAT2(a,b)
 #define AB(x) CAT(x,y)
 
-int main(void)
+ཧྲིལ གཙོ(void)
 {
-  int xy = 42;
+  ཧྲིལ xy = 42;
   printf("%d\n", CAT(A,B)(x));
-  return 0;
+  ཕྱིར 0;
 }

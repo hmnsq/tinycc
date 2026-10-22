@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+ཧྲིལ གཙོ()
 {
-   int Count = 0;
+   ཧྲིལ Count = 0;
 
-   for (;;)
+   ཆེད་དུ (;;)
    {
       Count++;
       printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      གལ་ཏེ (Count >= 10)
+         bha_nga;
    }
 
-   return 0;
+   ཕྱིར 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

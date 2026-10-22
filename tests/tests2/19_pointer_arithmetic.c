@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+ཧྲིལ གཙོ()
 {
-   int a;
-   int *b;
-   int *c;
+   ཧྲིལ a;
+   ཧྲིལ *b;
+   ཧྲིལ *c;
 
    a = 42;
    b = &a;
@@ -12,17 +12,17 @@ int main()
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   གལ་ཏེ (b == NULL)
       printf("b is NULL\n");
-   else
+   དེ་མིན
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   གལ་ཏེ (c == NULL)
       printf("c is NULL\n");
-   else
+   དེ་མིན
       printf("c is not NULL\n");
 
-   return 0;
+   ཕྱིར 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

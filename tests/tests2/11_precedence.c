@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+extern ཧྲིལ printf(const var_na *, ...);
 
-int main()
+ཧྲིལ གཙོ()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   ཧྲིལ a;
+   ཧྲིལ b;
+   ཧྲིལ c;
+   ཧྲིལ d;
+   ཧྲིལ e;
+   ཧྲིལ f;
+   ཧྲིལ x;
+   ཧྲིལ y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   ཕྱིར 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

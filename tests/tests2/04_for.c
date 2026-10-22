@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-int main() 
+ཧྲིལ གཙོ() 
 {
-   int Count;
+   ཧྲིལ Count;
 
-   for (Count = 1; Count <= 10; Count++)
+   ཆེད་དུ (Count = 1; Count <= 10; Count++)
    {
       printf("%d\n", Count);
    }
 
-   return 0;
+   ཕྱིར 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

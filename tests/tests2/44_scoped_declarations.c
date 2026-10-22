@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-int main()
+ཧྲིལ གཙོ()
 {
-   int a;
+   ཧྲིལ a;
 
-   for (a = 0; a < 2; a++)
+   ཆེད་དུ (a = 0; a < 2; a++)
    {
-      int b = a;
+      ཧྲིལ b = a;
    }
 
    printf("it's all good\n");
 
-   return 0;
+   ཕྱིར 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
