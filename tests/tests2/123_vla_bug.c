@@ -1,40 +1,40 @@
-typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
-extern size_t strlen(const char*);
-char str[] = "blabla";
-int g;
-int main()
+تعريفنوع __SIZE_TYPE__ size_t;
+خارجي صحيح printf(ثابت حرف*, ...);
+خارجي size_t strlen(ثابت حرف*);
+حرف str[] = "blabla";
+صحيح g;
+صحيح main()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
-      char buf[strlen(str) + 10];
+  صحيح i = 0;
+#𐤀𐤌 0
+  𐤀𐤌 (g) {
+      حرف buf[strlen(str) + 10];
       buf[0] = 0;
   }
 alabel:
   printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
-      switch (i) {
-      case 10:
-          if (g) {
-              char buf[strlen(str) + 10];
+#وإلا
+  لكل (i = 0; i < 5; i++) {
+      بدل (i) {
+      حالة 10:
+          𐤀𐤌 (g) {
+              حرف buf[strlen(str) + 10];
               buf[0] = 0;
-              goto do_cmd;
+              اذهب do_cmd;
           }
-          break;
-      case 1:
+          اكسر;
+      حالة 1:
           printf("reached 3\n");
     do_cmd:
           printf("after do_cmd");
-          break;
-      default:
+          اكسر;
+      افتراضي:
           g++;
           printf("default: i = %d\n", i);
-          break;
+          اكسر;
       }
   }
 #endif
-  return 0;
+  أرجع 0;
 }

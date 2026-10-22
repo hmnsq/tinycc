@@ -1,15 +1,15 @@
-static int simple_jump(void)
+ساكن صحيح simple_jump(فراغ)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 0;
+  asm اذهب ("jmp %l[label]" : : : : label);
+  أرجع 0;
 label:
-  return 1;
+  أرجع 1;
 }
 
-static int three_way_jump(int val, int *addr)
+ساكن صحيح three_way_jump(صحيح val, صحيح *addr)
 {
   *addr = 42;
-  asm goto ("cmp $0, %1\n\t"
+  asm اذهب ("cmp $0, %1\n\t"
             "jg %l[larger]\n\t"
             "jl %l[smaller]\n\t"
             "incl %0\n\t"
@@ -17,46 +17,46 @@ static int three_way_jump(int val, int *addr)
             : "r" (val)
             :
             : smaller, larger);
-  return 1;
+  أرجع 1;
 smaller:
-  return 2;
+  أرجع 2;
 larger:
-  return 3;
+  أرجع 3;
 }
 
-static int another_jump(void)
+ساكن صحيح another_jump(فراغ)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 70;
+  asm اذهب ("jmp %l[label]" : : : : label);
+  أرجع 70;
   /* Use the same label name as in simple_jump to check that
      that doesn't confuse our C/ASM symbol tables */
 label:
-  return 71;
+  أرجع 71;
 }
 
-extern int printf (const char *, ...);
-int main(void)
+خارجي صحيح printf (ثابت حرف *, ...);
+صحيح main(فراغ)
 {
-  int i;
-  if (simple_jump () == 1)
+  صحيح i;
+  𐤀𐤌 (simple_jump () == 1)
     printf ("simple_jump: okay\n");
-  else
+  وإلا
     printf ("simple_jump: wrong\n");
-  if (another_jump () == 71)
+  𐤀𐤌 (another_jump () == 71)
     printf ("another_jump: okay\n");
-  else
+  وإلا
     printf ("another_jump: wrong\n");
-  if (three_way_jump(0, &i) == 1 && i == 43)
+  𐤀𐤌 (three_way_jump(0, &i) == 1 && i == 43)
     printf ("three_way_jump(0): okay\n");
-  else
+  وإلا
     printf ("three_way_jump(0): wrong (i=%d)\n", i);
-  if (three_way_jump(1, &i) == 3 && i == 42)
+  𐤀𐤌 (three_way_jump(1, &i) == 3 && i == 42)
     printf ("three_way_jump(1): okay\n");
-  else
+  وإلا
     printf ("three_way_jump(1): wrong (i=%d)\n", i);
-  if (three_way_jump(-1, &i) == 2 && i == 42)
+  𐤀𐤌 (three_way_jump(-1, &i) == 2 && i == 42)
     printf ("three_way_jump(-1): okay\n");
-  else
+  وإلا
     printf ("three_way_jump(-1): wrong (i=%d)\n", i);
-  return 0;
+  أرجع 0;
 }

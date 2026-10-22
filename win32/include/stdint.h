@@ -25,54 +25,54 @@
 #ifndef _STDINT_H
 #define _STDINT_H
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
 #define __need_wint_t
 #define __need_wchar_t
-#include "stddef.h"
+#ضمن "stddef.h"
 
 #ifndef __int8_t_defined
 #define __int8_t_defined
 /* 7.18.1.1  Exact-width integer types */
-typedef signed char int8_t;
-typedef unsigned char   uint8_t;
-typedef short  int16_t;
-typedef unsigned short  uint16_t;
-typedef int  int32_t;
-typedef unsigned   uint32_t;
-typedef long long  int64_t;
-typedef unsigned long long   uint64_t;
+تعريفنوع signed حرف int8_t;
+تعريفنوع unsigned حرف   uint8_t;
+تعريفنوع short  int16_t;
+تعريفنوع unsigned short  uint16_t;
+تعريفنوع صحيح  int32_t;
+تعريفنوع unsigned   uint32_t;
+تعريفنوع long long  int64_t;
+تعريفنوع unsigned long long   uint64_t;
 #endif
 
 /* 7.18.1.2  Minimum-width integer types */
-typedef signed char int_least8_t;
-typedef unsigned char   uint_least8_t;
-typedef short  int_least16_t;
-typedef unsigned short  uint_least16_t;
-typedef int  int_least32_t;
-typedef unsigned   uint_least32_t;
-typedef long long  int_least64_t;
-typedef unsigned long long   uint_least64_t;
+تعريفنوع signed حرف int_least8_t;
+تعريفنوع unsigned حرف   uint_least8_t;
+تعريفنوع short  int_least16_t;
+تعريفنوع unsigned short  uint_least16_t;
+تعريفنوع صحيح  int_least32_t;
+تعريفنوع unsigned   uint_least32_t;
+تعريفنوع long long  int_least64_t;
+تعريفنوع unsigned long long   uint_least64_t;
 
 /*  7.18.1.3  Fastest minimum-width integer types
  *  Not actually guaranteed to be fastest for all purposes
  *  Here we use the exact-width types for 8 and 16-bit ints.
  */
-typedef char int_fast8_t;
-typedef unsigned char uint_fast8_t;
-typedef short  int_fast16_t;
-typedef unsigned short  uint_fast16_t;
-typedef int  int_fast32_t;
-typedef unsigned  int  uint_fast32_t;
-typedef long long  int_fast64_t;
-typedef unsigned long long   uint_fast64_t;
+تعريفنوع حرف int_fast8_t;
+تعريفنوع unsigned حرف uint_fast8_t;
+تعريفنوع short  int_fast16_t;
+تعريفنوع unsigned short  uint_fast16_t;
+تعريفنوع صحيح  int_fast32_t;
+تعريفنوع unsigned  صحيح  uint_fast32_t;
+تعريفنوع long long  int_fast64_t;
+تعريفنوع unsigned long long   uint_fast64_t;
 
 /* 7.18.1.5  Greatest-width integer types */
-typedef long long  intmax_t;
-typedef unsigned long long   uintmax_t;
+تعريفنوع long long  intmax_t;
+تعريفنوع unsigned long long   uintmax_t;
 
 /* 7.18.2  Limits of specified-width integer types */
-#if !defined ( __cplusplus) || defined (__STDC_LIMIT_MACROS)
+#𐤀𐤌 !defined ( __cplusplus) || defined (__STDC_LIMIT_MACROS)
 
 /* 7.18.2.1  Limits of exact-width integer types */
 #define INT8_MIN (-128)
@@ -128,7 +128,7 @@ typedef unsigned long long   uintmax_t;
 #define INTPTR_MIN INT64_MIN
 #define INTPTR_MAX INT64_MAX
 #define UINTPTR_MAX UINT64_MAX
-#else
+#وإلا
 #define INTPTR_MIN INT32_MIN
 #define INTPTR_MAX INT32_MAX
 #define UINTPTR_MAX UINT32_MAX
@@ -143,7 +143,7 @@ typedef unsigned long long   uintmax_t;
 #ifdef _WIN64
 #define PTRDIFF_MIN INT64_MIN
 #define PTRDIFF_MAX INT64_MAX
-#else
+#وإلا
 #define PTRDIFF_MIN INT32_MIN
 #define PTRDIFF_MAX INT32_MAX
 #endif
@@ -154,7 +154,7 @@ typedef unsigned long long   uintmax_t;
 #ifndef SIZE_MAX
 #ifdef _WIN64
 #define SIZE_MAX UINT64_MAX
-#else
+#وإلا
 #define SIZE_MAX UINT32_MAX
 #endif
 #endif
@@ -174,7 +174,7 @@ typedef unsigned long long   uintmax_t;
 
 
 /* 7.18.4  Macros for integer constants */
-#if !defined ( __cplusplus) || defined (__STDC_CONSTANT_MACROS)
+#𐤀𐤌 !defined ( __cplusplus) || defined (__STDC_CONSTANT_MACROS)
 
 /* 7.18.4.1  Macros for minimum-width integer constants
 

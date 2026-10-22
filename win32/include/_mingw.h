@@ -24,12 +24,12 @@
 #undef WIN32
 /* <-- */
 
-#include <stddef.h>
-#include <stdarg.h>
+#ضمن <stddef.h>
+#ضمن <stdarg.h>
 
-#define __int8 char
+#define __int8 حرف
 #define __int16 short
-#define __int32 int
+#define __int32 صحيح
 #define __int64 long long
 #define _HAVE_INT64
 
@@ -40,7 +40,7 @@
 
 #define __MSVCRT__ 1
 #undef _MSVCRT_
-#define __MINGW_IMPORT extern __declspec(dllimport)
+#define __MINGW_IMPORT خارجي __declspec(dllimport)
 #define __MINGW_ATTRIB_NORETURN __declspec(noreturn)
 #define __MINGW_ATTRIB_CONST
 #define __MINGW_ATTRIB_DEPRECATED
@@ -50,8 +50,8 @@
 #define __MINGW_NOTHROW
 #define __GNUC_VA_LIST
 
-#define _CRTIMP extern
-#define __CRT_INLINE static __inline__
+#define _CRTIMP خارجي
+#define __CRT_INLINE ساكن __inline__
 
 #define _CRT_ALIGN(x) __attribute__((aligned(x)))
 #define DECLSPEC_ALIGN(x) __attribute__((aligned(x)))
@@ -70,16 +70,16 @@
 
 #ifdef _WIN64
 #define __stdcall
-#if defined(__aarch64__)
+#𐤀𐤌 defined(__aarch64__)
 #define _M_ARM64 1
 #define _ARM64_ 1
-#else
+#وإلا
 #define _AMD64_ 1
 #define __x86_64 1
 #define _M_X64 100 /* Visual Studio */
 #define _M_AMD64 100 /* Visual Studio */
 #endif
-#else
+#وإلا
 #define __stdcall __attribute__((__stdcall__))
 #define _X86_ 1
 #define _M_IX86 300 /* Visual Studio */
@@ -101,39 +101,39 @@
 
 #ifndef _TIME32_T_DEFINED
 #define _TIME32_T_DEFINED
-typedef long __time32_t;
+تعريفنوع long __time32_t;
 #endif
 
 #ifndef _TIME64_T_DEFINED
 #define _TIME64_T_DEFINED
-typedef long long __time64_t;
+تعريفنوع long long __time64_t;
 #endif
 
 #ifndef _TIME_T_DEFINED
 #define _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
-typedef __time32_t time_t;
-#else
-typedef __time64_t time_t;
+تعريفنوع __time32_t time_t;
+#وإلا
+تعريفنوع __time64_t time_t;
 #endif
 #endif
 
 #ifndef _WCTYPE_T_DEFINED
 #define _WCTYPE_T_DEFINED
-typedef wchar_t wctype_t;
+تعريفنوع wchar_t wctype_t;
 #endif
 
 #ifndef _WINT_T
 #define _WINT_T
-typedef __WINT_TYPE__ wint_t;
+تعريفنوع __WINT_TYPE__ wint_t;
 #endif
 
-typedef int errno_t;
+تعريفنوع صحيح errno_t;
 #define _ERRCODE_DEFINED
 
-typedef struct threadlocaleinfostruct *pthreadlocinfo;
-typedef struct threadmbcinfostruct *pthreadmbcinfo;
-typedef struct localeinfo_struct _locale_tstruct,*_locale_t;
+تعريفنوع بنية threadlocaleinfostruct *pthreadlocinfo;
+تعريفنوع بنية threadmbcinfostruct *pthreadmbcinfo;
+تعريفنوع بنية localeinfo_struct _locale_tstruct,*_locale_t;
 
 /* for winapi */
 #define _ANONYMOUS_UNION
