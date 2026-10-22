@@ -1,21 +1,21 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-void charfunc(char a)
+शून्य charfunc(वर्ण a)
 {
    printf("char: %c\n", a);
 }
 
-void intfunc(int a)
+शून्य intfunc(पूर्णाङ्क a)
 {
    printf("int: %d\n", a);
 }
 
-void floatfunc(float a)
+शून्य floatfunc(भिन्न a)
 {
    printf("float: %f\n", a);
 }
 
-int main()
+पूर्णाङ्क main()
 {
    charfunc('a');
    charfunc(98);
@@ -33,22 +33,22 @@ int main()
    /* printf("%c %d %f\n", 97, 98, 99); */
    /* printf("%c %d %f\n", 97.0, 98.0, 99.0); */
 
-   char b = 97;
-   char c = 97.0;
+   वर्ण b = 97;
+   वर्ण c = 97.0;
 
    printf("%d %d\n", b, c);
 
-   int d = 'a';
-   int e = 97.0;
+   पूर्णाङ्क d = 'a';
+   पूर्णाङ्क e = 97.0;
 
    printf("%d %d\n", d, e);
 
-   float f = 'a';
-   float g = 97;
+   भिन्न f = 'a';
+   भिन्न g = 97;
 
    printf("%f %f\n", f, g);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

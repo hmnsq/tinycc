@@ -1,16 +1,16 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   int a;
-   int p;
-   int t;
+   पूर्णाङ्क a;
+   पूर्णाङ्क p;
+   पूर्णाङ्क t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   while (a < 100)
+   यावत् (a < 100)
    {
       printf("%d\n", a);
       t = a;
@@ -18,7 +18,7 @@ int main()
       p = t;
    }
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :
