@@ -1,35 +1,35 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-int compile_errors(void)
+ຈຳນວນເຕັມ compile_errors(void)
 {
-#if TEST == 1
+#ຖ້າ TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    static ຈຳນວນເຕັມ i = (&"Foobar"[1] - &"Foobar"[0]);
   }
 #endif
-#if TEST == 2
+#ຖ້າ TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
-    static long i=((char*)&(v.c)-(char*)&v);
+    sa_nracanaa{ຈຳນວນເຕັມ c;}v;
+    static long i=((var_na*)&(v.c)-(var_na*)&v);
   }
 #endif
-#if TEST == 3
+#ຖ້າ TEST == 3
   {
     /* Not constant */
     static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
     void *p = &&l1 + ar[0];
     goto *p;
-   l1: return 1;
-   l2: return 2;
+   l1: ສົ່ງຄືນ 1;
+   l2: ສົ່ງຄືນ 2;
   }
 #endif
-  return 0;
+  ສົ່ງຄືນ 0;
 }
 
-int
+ຈຳນວນເຕັມ
 main(void)
 {
 }

@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+extern ຈຳນວນເຕັມ printf(const var_na *, ...);
 
-int main()
+ຈຳນວນເຕັມ main()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   ຈຳນວນເຕັມ a;
+   ຈຳນວນເຕັມ b;
+   ຈຳນວນເຕັມ c;
+   ຈຳນວນເຕັມ d;
+   ຈຳນວນເຕັມ e;
+   ຈຳນວນເຕັມ f;
+   ຈຳນວນເຕັມ x;
+   ຈຳນວນເຕັມ y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   ສົ່ງຄືນ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

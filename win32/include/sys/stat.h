@@ -30,8 +30,8 @@ extern "C" {
 #ifdef _WIN64
 #undef _USE_32BIT_TIME_T
 #endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
+#ບໍ່ດັ່ງນັ້ນ
+#ຖ້າ _INTEGRAL_MAX_BITS < 64
 #define _USE_32BIT_TIME_T
 #endif
 #endif
@@ -43,7 +43,7 @@ extern "C" {
 #endif
 
 #ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
+#ຖ້າ _INTEGRAL_MAX_BITS >= 64
   typedef __int64 __time64_t;
 #endif
 #define _TIME64_T_DEFINED
@@ -52,7 +52,7 @@ extern "C" {
 #ifndef _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
   typedef __time32_t time_t;
-#else
+#ບໍ່ດັ່ງນັ້ນ
   typedef __time64_t time_t;
 #endif
 #define _TIME_T_DEFINED
@@ -70,7 +70,7 @@ extern "C" {
 #define _fstat32 _fstat
 #define _stat32 _stat
 #define _wstat32 _wstat
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #define _fstat _fstat32
 #define _stat _stat32
 #define _wstat _wstat32
@@ -78,7 +78,7 @@ extern "C" {
 #define _fstati64 _fstat32i64
 #define _stati64 _stat32i64
 #define _wstati64 _wstat32i64
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #define _fstat _fstat64i32
 #define _fstati64 _fstat64
 #define _stat _stat64
@@ -87,7 +87,7 @@ extern "C" {
 #define _wstati64 _wstat64
 #endif
 
-  struct _stat32 {
+  sa_nracanaa _stat32 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -102,7 +102,7 @@ extern "C" {
   };
 
 #ifndef	NO_OLDNAMES
-  struct stat {
+  sa_nracanaa stat {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -117,8 +117,8 @@ extern "C" {
   };
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct _stat32i64 {
+#ຖ້າ _INTEGRAL_MAX_BITS >= 64
+  sa_nracanaa _stat32i64 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -132,7 +132,7 @@ extern "C" {
     __time32_t st_ctime;
   };
 
-  struct _stat64i32 {
+  sa_nracanaa _stat64i32 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -146,7 +146,7 @@ extern "C" {
     __time64_t st_ctime;
   };
 
-  struct _stat64 {
+  sa_nracanaa _stat64 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -175,16 +175,16 @@ extern "C" {
 #define _S_IWRITE 0x0080
 #define _S_IEXEC 0x0040
 
-  _CRTIMP int __cdecl _fstat32(int _FileDes,struct _stat32 *_Stat);
-  _CRTIMP int __cdecl _stat32(const char *_Name,struct _stat32 *_Stat);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _fstat64(int _FileDes,struct _stat64 *_Stat);
-  _CRTIMP int __cdecl _fstat32i64(int _FileDes,struct _stat32i64 *_Stat);
-  int __cdecl _fstat64i32(int _FileDes,struct _stat64i32 *_Stat);
-  __CRT_INLINE int __cdecl _fstat64i32(int _FileDes,struct _stat64i32 *_Stat)
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _fstat32(ຈຳນວນເຕັມ _FileDes,sa_nracanaa _stat32 *_Stat);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _stat32(const var_na *_Name,sa_nracanaa _stat32 *_Stat);
+#ຖ້າ _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _fstat64(ຈຳນວນເຕັມ _FileDes,sa_nracanaa _stat64 *_Stat);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _fstat32i64(ຈຳນວນເຕັມ _FileDes,sa_nracanaa _stat32i64 *_Stat);
+  ຈຳນວນເຕັມ __cdecl _fstat64i32(ຈຳນວນເຕັມ _FileDes,sa_nracanaa _stat64i32 *_Stat);
+  __CRT_INLINE ຈຳນວນເຕັມ __cdecl _fstat64i32(ຈຳນວນເຕັມ _FileDes,sa_nracanaa _stat64i32 *_Stat)
   {
-    struct _stat64 st;
-    int ret=_fstat64(_FileDes,&st);
+    sa_nracanaa _stat64 st;
+    ຈຳນວນເຕັມ ret=_fstat64(_FileDes,&st);
     _Stat->st_dev=st.st_dev;
     _Stat->st_ino=st.st_ino;
     _Stat->st_mode=st.st_mode;
@@ -196,15 +196,15 @@ extern "C" {
     _Stat->st_atime=st.st_atime;
     _Stat->st_mtime=st.st_mtime;
     _Stat->st_ctime=st.st_ctime;
-    return ret;
+    ສົ່ງຄືນ ret;
   }
-  _CRTIMP int __cdecl _stat64(const char *_Name,struct _stat64 *_Stat);
-  _CRTIMP int __cdecl _stat32i64(const char *_Name,struct _stat32i64 *_Stat);
-  int __cdecl _stat64i32(const char *_Name,struct _stat64i32 *_Stat);
-  __CRT_INLINE int __cdecl _stat64i32(const char *_Name,struct _stat64i32 *_Stat)
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _stat64(const var_na *_Name,sa_nracanaa _stat64 *_Stat);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _stat32i64(const var_na *_Name,sa_nracanaa _stat32i64 *_Stat);
+  ຈຳນວນເຕັມ __cdecl _stat64i32(const var_na *_Name,sa_nracanaa _stat64i32 *_Stat);
+  __CRT_INLINE ຈຳນວນເຕັມ __cdecl _stat64i32(const var_na *_Name,sa_nracanaa _stat64i32 *_Stat)
   {
-    struct _stat64 st;
-    int ret=_stat64(_Name,&st);
+    sa_nracanaa _stat64 st;
+    ຈຳນວນເຕັມ ret=_stat64(_Name,&st);
     _Stat->st_dev=st.st_dev;
     _Stat->st_ino=st.st_ino;
     _Stat->st_mode=st.st_mode;
@@ -216,17 +216,17 @@ extern "C" {
     _Stat->st_atime=st.st_atime;
     _Stat->st_mtime=st.st_mtime;
     _Stat->st_ctime=st.st_ctime;
-    return ret;
+    ສົ່ງຄືນ ret;
   }
 #endif
 
 #ifndef _WSTAT_DEFINED
 #define _WSTAT_DEFINED
-  _CRTIMP int __cdecl _wstat32(const wchar_t *_Name,struct _stat32 *_Stat);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _wstat32i64(const wchar_t *_Name,struct _stat32i64 *_Stat);
-  int __cdecl _wstat64i32(const wchar_t *_Name,struct _stat64i32 *_Stat);
-  _CRTIMP int __cdecl _wstat64(const wchar_t *_Name,struct _stat64 *_Stat);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _wstat32(const wchar_t *_Name,sa_nracanaa _stat32 *_Stat);
+#ຖ້າ _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _wstat32i64(const wchar_t *_Name,sa_nracanaa _stat32i64 *_Stat);
+  ຈຳນວນເຕັມ __cdecl _wstat64i32(const wchar_t *_Name,sa_nracanaa _stat64i32 *_Stat);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _wstat64(const wchar_t *_Name,sa_nracanaa _stat64 *_Stat);
 #endif
 #endif
 
@@ -261,23 +261,23 @@ extern "C" {
 
 #endif
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
-int __cdecl stat(const char *_Filename,struct stat *_Stat);
-int __cdecl fstat(int _Desc,struct stat *_Stat);
-int __cdecl wstat(const wchar_t *_Filename,struct stat *_Stat);
+#ຖ້າ !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+ຈຳນວນເຕັມ __cdecl stat(const var_na *_Filename,sa_nracanaa stat *_Stat);
+ຈຳນວນເຕັມ __cdecl fstat(ຈຳນວນເຕັມ _Desc,sa_nracanaa stat *_Stat);
+ຈຳນວນເຕັມ __cdecl wstat(const wchar_t *_Filename,sa_nracanaa stat *_Stat);
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl fstat(int _Desc,struct stat *_Stat) {
-  return _fstat32(_Desc,(struct _stat32 *)_Stat);
+__CRT_INLINE ຈຳນວນເຕັມ __cdecl fstat(ຈຳນວນເຕັມ _Desc,sa_nracanaa stat *_Stat) {
+  ສົ່ງຄືນ _fstat32(_Desc,(sa_nracanaa _stat32 *)_Stat);
 }
-__CRT_INLINE int __cdecl stat(const char *_Filename,struct stat *_Stat) {
-  return _stat32(_Filename,(struct _stat32 *)_Stat);
+__CRT_INLINE ຈຳນວນເຕັມ __cdecl stat(const var_na *_Filename,sa_nracanaa stat *_Stat) {
+  ສົ່ງຄືນ _stat32(_Filename,(sa_nracanaa _stat32 *)_Stat);
 }
-#else
-__CRT_INLINE int __cdecl fstat(int _Desc,struct stat *_Stat) {
-  return _fstat64i32(_Desc,(struct _stat64i32 *)_Stat);
+#ບໍ່ດັ່ງນັ້ນ
+__CRT_INLINE ຈຳນວນເຕັມ __cdecl fstat(ຈຳນວນເຕັມ _Desc,sa_nracanaa stat *_Stat) {
+  ສົ່ງຄືນ _fstat64i32(_Desc,(sa_nracanaa _stat64i32 *)_Stat);
 }
-__CRT_INLINE int __cdecl stat(const char *_Filename,struct stat *_Stat) {
-  return _stat64i32(_Filename,(struct _stat64i32 *)_Stat);
+__CRT_INLINE ຈຳນວນເຕັມ __cdecl stat(const var_na *_Filename,sa_nracanaa stat *_Stat) {
+  ສົ່ງຄືນ _stat64i32(_Filename,(sa_nracanaa _stat64i32 *)_Stat);
 }
 #endif
 #endif

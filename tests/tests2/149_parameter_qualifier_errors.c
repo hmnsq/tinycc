@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+void defined_const(ຈຳນວນເຕັມ *pointer);
 
-void defined_const(int *const pointer)
+void defined_const(ຈຳນວນເຕັມ *const pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+ຈຳນວນເຕັມ main(void)
 {
-    return 0;
+    ສົ່ງຄືນ 0;
 }

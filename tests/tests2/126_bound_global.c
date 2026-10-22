@@ -1,13 +1,13 @@
 /* test bound checking code without -run */
 
-int arr[10];
+ຈຳນວນເຕັມ arr[10];
 
-int
-main(int argc, char **argv)
+ຈຳນວນເຕັມ
+main(ຈຳນວນເຕັມ argc, var_na **argv)
 {
-  int i;
+  ຈຳນວນເຕັມ i;
 
-  for (i = 0; i <= sizeof(arr)/sizeof(arr[0]); i++)
+  ສຳລັບ (i = 0; i <= parimaa_na(arr)/parimaa_na(arr[0]); i++)
         arr[i] = 0;
-  return 0;
+  ສົ່ງຄືນ 0;
 }

@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int myfunc(int x)
+ຈຳນວນເຕັມ myfunc(ຈຳນວນເຕັມ x)
 {
-   return x * x;
+   ສົ່ງຄືນ x * x;
 }
 
-void vfunc(int a)
+void vfunc(ຈຳນວນເຕັມ a)
 {
    printf("a=%d\n", a);
 }
@@ -20,7 +20,7 @@ void zfunc()
 	((void (*)(void))0) ();
 }
 
-int main()
+ຈຳນວນເຕັມ main()
 {
    printf("%d\n", myfunc(3));
    printf("%d\n", myfunc(4));
@@ -29,7 +29,7 @@ int main()
 
    qfunc();
 
-   return 0;
+   ສົ່ງຄືນ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

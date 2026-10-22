@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+const ຈຳນວນເຕັມ const_return(void);
+ca_ncala ຈຳນວນເຕັມ volatile_return(void);
+ຈຳນວນເຕັມ *restrict restrict_return(void);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, ຈຳນວນເຕັມ *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, ຈຳນວນເຕັມ *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, ຈຳນວນເຕັມ **),
                "restrict is removed from a return type");
 
-int const_return(void)
+ຈຳນວນເຕັມ const_return(void)
 {
-   return 0;
+   ສົ່ງຄືນ 0;
 }
 
-int volatile_return(void)
+ຈຳນວນເຕັມ volatile_return(void)
 {
-   return 0;
+   ສົ່ງຄືນ 0;
 }
 
-int *restrict_return(void)
+ຈຳນວນເຕັມ *restrict_return(void)
 {
-   return 0;
+   ສົ່ງຄືນ 0;
 }
 
-int main(void)
+ຈຳນວນເຕັມ main(void)
 {
-   return 0;
+   ສົ່ງຄືນ 0;
 }

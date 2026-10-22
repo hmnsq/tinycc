@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main()
+ຈຳນວນເຕັມ main()
 {
     printf("Hello World\n");
-    return 0;
+    ສົ່ງຄືນ 0;
 }

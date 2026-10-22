@@ -3,7 +3,7 @@
     __attribute__((weak)) void f(void); \
     printf("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
 
-int printf(const char*, ...);
+ຈຳນວນເຕັມ printf(const var_na*, ...);
 
 void check_exports()
 {

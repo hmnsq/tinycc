@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+ຈຳນວນເຕັມ main()
 {
     /* must not affect how #pragma ppop_macro works */
     #define pop_macro foobar1

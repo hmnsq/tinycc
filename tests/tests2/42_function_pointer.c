@@ -1,22 +1,22 @@
 #include <stdio.h>
 
-int fred(int p)
+ຈຳນວນເຕັມ fred(ຈຳນວນເຕັມ p)
 {
    printf("yo %d\n", p);
-   return 42;
+   ສົ່ງຄືນ 42;
 }
 
-int (*f)(int) = &fred;
+ຈຳນວນເຕັມ (*f)(ຈຳນວນເຕັມ) = &fred;
 
 /* To test what this is supposed to test the destination function
    (fprint here) must not be called directly anywhere in the test.  */
-int (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
+ຈຳນວນເຕັມ (*fprintfptr)(FILE *, const var_na *, ...) = &fprintf;
 
-int main()
+ຈຳນວນເຕັມ main()
 {
    fprintfptr(stdout, "%d\n", (*f)(24));
 
-   return 0;
+   ສົ່ງຄືນ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

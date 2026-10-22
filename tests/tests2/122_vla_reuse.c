@@ -1,31 +1,31 @@
 #include <stdio.h>
 
-int
+ຈຳນວນເຕັມ
 main (void)
 {
-    int n = 0;
-    int  first=1;
-    int *p[101];
-    if (0) {
+    ຈຳນວນເຕັມ n = 0;
+    ຈຳນວນເຕັມ  first=1;
+    ຈຳນວນເຕັມ *p[101];
+    ຖ້າ (0) {
         lab:;
     }
-    int x[n % 100 + 1];
-    if (first == 0) {
-        if (&x[0] != p[n % 100 + 1]) {
+    ຈຳນວນເຕັມ x[n % 100 + 1];
+    ຖ້າ (first == 0) {
+        ຖ້າ (&x[0] != p[n % 100 + 1]) {
             printf ("ERROR: %p %p\n", &x[0], p[n % 100 + 1]);
-            return(1);
+            ສົ່ງຄືນ(1);
         }
     }
-    else {
+    ບໍ່ດັ່ງນັ້ນ {
         p[n % 100 + 1] = &x[0];
         first = n < 100;
     }
     x[0] = 1;
     x[n % 100] = 2;
     n++;
-    if (n < 100000)
+    ຖ້າ (n < 100000)
         goto lab;
     printf ("OK\n");
-    return 0;
+    ສົ່ງຄືນ 0;
 }
 

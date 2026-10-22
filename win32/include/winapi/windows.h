@@ -19,10 +19,10 @@
 #ifndef _INC_WINDOWS
 #define _INC_WINDOWS
 
-#if defined(RC_INVOKED) && !defined(NOWINRES)
+#ຖ້າ defined(RC_INVOKED) && !defined(NOWINRES)
 
 #include <winresrc.h>
-#else
+#ບໍ່ດັ່ງນັ້ນ
 
 #ifdef RC_INVOKED
 #define NOATOM
@@ -44,16 +44,16 @@
 #define NOMCX
 #endif
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
+#ຖ້າ !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
 #define I_X86_
 #endif
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
+#ຖ້າ !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
 #define _AMD64_
 #endif
 
-#if !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
-#if !defined(_IA64_)
+#ຖ້າ !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
+#ຖ້າ !defined(_IA64_)
 #define _IA64_
 #endif
 #endif
@@ -96,7 +96,7 @@
 #include <winspool.h>
 #ifdef INC_OLE1
 #include <ole.h>
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #include <ole2.h>
 #endif
 #include <commdlg.h>

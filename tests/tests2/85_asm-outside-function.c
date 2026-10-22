@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#ບໍ່ດັ່ງນັ້ນ
 # define _
 #endif
 
-extern int printf (const char *, ...);
+extern ຈຳນວນເຕັມ printf (const var_na *, ...);
 extern void vide(void);
 __asm__(_"vide: ret");
 
-int main() {
+ຈຳນວນເຕັມ main() {
     vide();
     printf ("okay\n");
-    return 0;
+    ສົ່ງຄືນ 0;
 }

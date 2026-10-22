@@ -3,55 +3,55 @@
 
 #define N 20
 
-int nb_num;
-int tab[N];
-int stack_ptr;
-int stack_op[N];
-int stack_res[60];
-int result;
+ຈຳນວນເຕັມ nb_num;
+ຈຳນວນເຕັມ tab[N];
+ຈຳນວນເຕັມ stack_ptr;
+ຈຳນວນເຕັມ stack_op[N];
+ຈຳນວນເຕັມ stack_res[60];
+ຈຳນວນເຕັມ result;
 
-int find(int n, int i1, int a, int b, int op)
+ຈຳນວນເຕັມ find(ຈຳນວນເຕັມ n, ຈຳນວນເຕັມ i1, ຈຳນວນເຕັມ a, ຈຳນວນເຕັມ b, ຈຳນວນເຕັມ op)
 {
-    int i, j;
-    int c;
+    ຈຳນວນເຕັມ i, j;
+    ຈຳນວນເຕັມ c;
 
-    if (stack_ptr >= 0) {
+    ຖ້າ (stack_ptr >= 0) {
         stack_res[3*stack_ptr] = a;
         stack_op[stack_ptr] = op;
         stack_res[3*stack_ptr+1] = b;
         stack_res[3*stack_ptr+2] = n;
-        if (n == result)
-            return 1;
+        ຖ້າ (n == result)
+            ສົ່ງຄືນ 1;
         tab[i1] = n;
     }
 
-    for(i=0;i<nb_num;i++) {
-        for(j=i+1;j<nb_num;j++) {
+    ສຳລັບ(i=0;i<nb_num;i++) {
+        ສຳລັບ(j=i+1;j<nb_num;j++) {
             a = tab[i];
             b = tab[j];
-            if (a != 0 && b != 0) {
+            ຖ້າ (a != 0 && b != 0) {
 
                 tab[j] = 0;
                 stack_ptr++;
 
-                if (find(a + b, i, a, b, '+'))
-                    return 1;
-                if (find(a - b, i, a, b, '-'))
-                    return 1;
-                if (find(b - a, i, b, a, '-'))
-                    return 1;
-                if (find(a * b, i, a, b, '*'))
-                    return 1;
-                if (b != 0) {
+                ຖ້າ (find(a + b, i, a, b, '+'))
+                    ສົ່ງຄືນ 1;
+                ຖ້າ (find(a - b, i, a, b, '-'))
+                    ສົ່ງຄືນ 1;
+                ຖ້າ (find(b - a, i, b, a, '-'))
+                    ສົ່ງຄືນ 1;
+                ຖ້າ (find(a * b, i, a, b, '*'))
+                    ສົ່ງຄືນ 1;
+                ຖ້າ (b != 0) {
                     c = a / b;
-                    if (find(c, i, a, b, '/'))
-                        return 1;
+                    ຖ້າ (find(c, i, a, b, '/'))
+                        ສົ່ງຄືນ 1;
                 }
 
-                if (a != 0) {
+                ຖ້າ (a != 0) {
                     c = b / a;
-                    if (find(c, i, b, a, '/'))
-                        return 1;
+                    ຖ້າ (find(c, i, b, a, '/'))
+                        ສົ່ງຄືນ 1;
                 }
 
                 stack_ptr--;
@@ -61,14 +61,14 @@ int find(int n, int i1, int a, int b, int op)
         }
     }
 
-    return 0;
+    ສົ່ງຄືນ 0;
 }
 
-int main(int argc, char **argv)
+ຈຳນວນເຕັມ main(ຈຳນວນເຕັມ argc, var_na **argv)
 {
-    int i, res, p;
+    ຈຳນວນເຕັມ i, res, p;
 
-    if (argc < 3) {
+    ຖ້າ (argc < 3) {
         printf("usage: %s: result numbers...\n"
                "Try to find result from numbers with the 4 basic operations.\n", argv[0]);
         exit(1);
@@ -78,21 +78,21 @@ int main(int argc, char **argv)
     result = atoi(argv[p]);
     printf("result=%d\n", result);
     nb_num = 0;
-    for(i=p+1;i<argc;i++) {
+    ສຳລັບ(i=p+1;i<argc;i++) {
         tab[nb_num++] = atoi(argv[i]);
     }
 
     stack_ptr = -1;
     res = find(0, 0, 0, 0, ' ');
-    if (res) {
-        for(i=0;i<=stack_ptr;i++) {
+    ຖ້າ (res) {
+        ສຳລັບ(i=0;i<=stack_ptr;i++) {
             printf("%d %c %d = %d\n",
                    stack_res[3*i], stack_op[i],
                    stack_res[3*i+1], stack_res[3*i+2]);
         }
-        return 0;
-    } else {
+        ສົ່ງຄືນ 0;
+    } ບໍ່ດັ່ງນັ້ນ {
         printf("Impossible\n");
-        return 1;
+        ສົ່ງຄືນ 1;
     }
 }

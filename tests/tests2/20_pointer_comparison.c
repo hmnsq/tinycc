@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int main()
+ຈຳນວນເຕັມ main()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   ຈຳນວນເຕັມ a;
+   ຈຳນວນເຕັມ b;
+   ຈຳນວນເຕັມ *d;
+   ຈຳນວນເຕັມ *e;
    d = &a;
    e = &b;
    a = 12;
@@ -18,7 +18,7 @@ int main()
    printf("%d\n", d == e);
    printf("%d\n", d != e);
 
-   return 0;
+   ສົ່ງຄືນ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

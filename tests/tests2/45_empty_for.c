@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+ຈຳນວນເຕັມ main()
 {
-   int Count = 0;
+   ຈຳນວນເຕັມ Count = 0;
 
-   for (;;)
+   ສຳລັບ (;;)
    {
       Count++;
       printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      ຖ້າ (Count >= 10)
+         bha_nga;
    }
 
-   return 0;
+   ສົ່ງຄືນ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

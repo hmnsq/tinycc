@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+ga_nanaa E *e;
+const ga_nanaa E *e1;
+ga_nanaa E const *e2;
+sa_nracanaa S *s;
+const sa_nracanaa S *s1;
+sa_nracanaa S const *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+typedef ຈຳນວນເຕັມ (*fptr1)();
+ຈຳນວນເຕັມ f1 (ຈຳນວນເຕັມ (), ຈຳນວນເຕັມ);
+typedef ຈຳນວນເຕັມ (*fptr2)(ຈຳນວນເຕັມ x);
+ຈຳນວນເຕັມ f2 (ຈຳນວນເຕັມ (ຈຳນວນເຕັມ x), ຈຳນວນເຕັມ);
+typedef ຈຳນວນເຕັມ (*fptr3)(ຈຳນວນເຕັມ);
+ຈຳນວນເຕັມ f3 (ຈຳນວນເຕັມ (ຈຳນວນເຕັມ), ຈຳນວນເຕັມ);
+typedef ຈຳນວນເຕັມ (*fptr4[4])(ຈຳນວນເຕັມ);
+ຈຳນວນເຕັມ f4 (ຈຳນວນເຕັມ (*[4])(ຈຳນວນເຕັມ), ຈຳນວນເຕັມ);
+typedef ຈຳນວນເຕັມ (*fptr5)(fptr1);
+ຈຳນວນເຕັມ f5 (ຈຳນວນເຕັມ (ຈຳນວນເຕັມ()), fptr1);
+ຈຳນວນເຕັມ f1 (fptr1 fp, ຈຳນວນເຕັມ i)
 {
-  return (*fp)(i);
+  ສົ່ງຄືນ (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+ຈຳນວນເຕັມ f2 (fptr2 fp, ຈຳນວນເຕັມ i)
 {
-  return (*fp)(i);
+  ສົ່ງຄືນ (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+ຈຳນວນເຕັມ f3 (fptr3 fp, ຈຳນວນເຕັມ i)
 {
-  return (*fp)(i);
+  ສົ່ງຄືນ (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+ຈຳນວນເຕັມ f4 (fptr4 fp, ຈຳນວນເຕັມ i)
 {
-  return (*fp[i])(i);
+  ສົ່ງຄືນ (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+ຈຳນວນເຕັມ f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  ສົ່ງຄືນ fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+typedef ຈຳນວນເຕັມ intx4[4];
+ຈຳນວນເຕັມ f8 (intx4, ຈຳນວນເຕັມ);
+ຈຳນວນເຕັມ f8 (ຈຳນວນເຕັມ ([4]), ຈຳນວນເຕັມ);
+ຈຳນວນເຕັມ f8 (ຈຳນວນເຕັມ y[4], ຈຳນວນເຕັມ i)
 {
-  return y[i];
+  ສົ່ງຄືນ y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+ຈຳນວນເຕັມ f9 (ຈຳນວນເຕັມ (*)(ຈຳນວນເຕັມ), ຈຳນວນເຕັມ);
+ຈຳນວນເຕັມ f9 (ຈຳນວນເຕັມ ((ຈຳນວນເຕັມ)), ຈຳນວນເຕັມ);
+ຈຳນວນເຕັມ f9 (ຈຳນວນເຕັມ f(ຈຳນວນເຕັມ), ຈຳນວນເຕັມ i)
 {
-  return f(i);
+  ສົ່ງຄືນ f(i);
 }
-int main () { return 0; }
+ຈຳນວນເຕັມ main () { ສົ່ງຄືນ 0; }

@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-int main() 
+ຈຳນວນເຕັມ main() 
 {
-   int Count;
+   ຈຳນວນເຕັມ Count;
 
-   for (Count = 1; Count <= 10; Count++)
+   ສຳລັບ (Count = 1; Count <= 10; Count++)
    {
       printf("%d\n", Count);
    }
 
-   return 0;
+   ສົ່ງຄືນ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

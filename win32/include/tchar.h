@@ -72,7 +72,7 @@ extern "C" {
 #ifdef __cplusplus
 #define _CONST_RETURN const
 #define _CRT_CONST_CORRECT_OVERLOADS
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #define _CONST_RETURN
 #endif
 #endif
@@ -448,7 +448,7 @@ extern "C" {
 
 #define _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
 #define _wcsinc(_pc) ((_pc)+1)
-#define _wcsnextc(_cpc) ((unsigned int) *(_cpc))
+#define _wcsnextc(_cpc) ((unsigned ຈຳນວນເຕັມ) *(_cpc))
 #define _wcsninc(_pc,_sz) (((_pc)+(_sz)))
   _CRTIMP size_t __cdecl __wcsncnt(const wchar_t *_Str,size_t _MaxCount);
 #define _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
@@ -469,7 +469,7 @@ extern "C" {
 #define _ttelldir	_wtelldir
 #define _tseekdir	_wseekdir
 
-#else
+#ບໍ່ດັ່ງນັ້ນ
 
 #ifdef __cplusplus
 }
@@ -489,7 +489,7 @@ extern "C" {
 #define _tWinMain WinMain
 #ifdef _POSIX_
 #define _tenviron environ
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #define _tenviron _environ
 #endif
 #define __targv __argv
@@ -614,7 +614,7 @@ extern "C" {
 #define _tcscpy strcpy
 #define _tcsdup _strdup
 #define _tcslen strlen
-#if 0
+#ຖ້າ 0
 #define _tcsnlen strnlen
 #endif
 #define _tcsxfrm strxfrm
@@ -672,7 +672,7 @@ extern "C" {
 
 #ifdef _POSIX_
 #define _tfdopen fdopen
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #define _tfdopen _fdopen
 #endif
 #define _tfsopen _fsopen
@@ -702,7 +702,7 @@ extern "C" {
 #ifdef _POSIX_
 #define _topen open
 #define _taccess access
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #define _topen _open
 #define _taccess _access
 #endif
@@ -747,17 +747,17 @@ extern "C" {
 #endif
 
 #ifndef __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef unsigned char _TXCHAR;
-  typedef unsigned int _TINT;
+  typedef var_na _TCHAR;
+  typedef signed var_na _TSCHAR;
+  typedef unsigned var_na _TUCHAR;
+  typedef unsigned var_na _TXCHAR;
+  typedef unsigned ຈຳນວນເຕັມ _TINT;
 #define __TCHAR_DEFINED
 #endif
 
 #ifndef _TCHAR_DEFINED
 #ifndef	NO_OLDNAMES
-  typedef char TCHAR;
+  typedef var_na TCHAR;
 #endif
 #define _TCHAR_DEFINED
 #endif
@@ -833,76 +833,76 @@ extern "C" {
 #define _tclen _mbclen
 #define _tccpy _mbccpy
 #define _tccpy_l _mbccpy_l
-#else
+#ບໍ່ດັ່ງນັ້ນ
 
-  _CRTIMP _CONST_RETURN char *__cdecl _tcschr(const char *_Str,unsigned int _Val);
-  _CRTIMP size_t __cdecl _tcscspn(const char *_Str,const char *_Control);
-  _CRTIMP char *__cdecl _tcsncat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcspbrk(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsrchr(const char *_Str,unsigned int _Ch);
-  _CRTIMP size_t __cdecl _tcsspn(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsstr(const char *_Str,const char *_Substr);
-  _CRTIMP char *__cdecl _tcstok(char *_Str,const char *_Delim);
-  _CRTIMP char *__cdecl _tcstok_l(char *_Str,const char *_Delim,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsrev(char *_Str);
-  _CRTIMP char *__cdecl _tcsset(char *_Str,unsigned int _Val);
-  _CRTIMP char *__cdecl _tcsset_l(char *_Str,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscmp(const char *_Str1,const char *_Str);
-  _CRTIMP int __cdecl _tcsicmp(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicmp_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcscoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsicoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnccoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcsclen(const char *_Str);
-  _CRTIMP size_t __cdecl _tcscnlen(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsclen_l(const char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcscnlen_l(const char *_Str,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsdec(const char *_Start,const char *_Pos);
-  _CRTIMP char *__cdecl _tcsinc(const char *_Ptr);
-  _CRTIMP size_t __cdecl _tcsnbcnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsnccnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP unsigned int __cdecl _tcsnextc (const char *_Str);
-  _CRTIMP char *__cdecl _tcsninc(const char *_Ptr,size_t _Count);
-  _CRTIMP char *__cdecl _tcsspnp(const char *_Str1,const char *_Str2);
-  _CRTIMP char *__cdecl _tcslwr(char *_Str);
-  _CRTIMP char *__cdecl _tcslwr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsupr(char *_Str);
-  _CRTIMP char *__cdecl _tcsupr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tclen(const char *_Str);
-  _CRTIMP void __cdecl _tccpy(char *_DstCh,const char *_SrcCh);
+  _CRTIMP _CONST_RETURN var_na *__cdecl _tcschr(const var_na *_Str,unsigned ຈຳນວນເຕັມ _Val);
+  _CRTIMP size_t __cdecl _tcscspn(const var_na *_Str,const var_na *_Control);
+  _CRTIMP var_na *__cdecl _tcsncat(var_na *_Dst,const var_na *_Src,size_t _MaxCount);
+  _CRTIMP var_na *__cdecl _tcsncat_l(var_na *_Dst,const var_na *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP var_na *__cdecl _tcsncpy(var_na *_Dst,const var_na *_Src,size_t _MaxCount);
+  _CRTIMP var_na *__cdecl _tcsncpy_l(var_na *_Dst,const var_na *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP _CONST_RETURN var_na *__cdecl _tcspbrk(const var_na *_Str,const var_na *_Control);
+  _CRTIMP _CONST_RETURN var_na *__cdecl _tcsrchr(const var_na *_Str,unsigned ຈຳນວນເຕັມ _Ch);
+  _CRTIMP size_t __cdecl _tcsspn(const var_na *_Str,const var_na *_Control);
+  _CRTIMP _CONST_RETURN var_na *__cdecl _tcsstr(const var_na *_Str,const var_na *_Substr);
+  _CRTIMP var_na *__cdecl _tcstok(var_na *_Str,const var_na *_Delim);
+  _CRTIMP var_na *__cdecl _tcstok_l(var_na *_Str,const var_na *_Delim,_locale_t _Locale);
+  _CRTIMP var_na *__cdecl _tcsnset(var_na *_Str,unsigned ຈຳນວນເຕັມ _Val,size_t _MaxCount);
+  _CRTIMP var_na *__cdecl _tcsrev(var_na *_Str);
+  _CRTIMP var_na *__cdecl _tcsset(var_na *_Str,unsigned ຈຳນວນເຕັມ _Val);
+  _CRTIMP var_na *__cdecl _tcsset_l(var_na *_Str,unsigned ຈຳນວນເຕັມ _Val,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcscmp(const var_na *_Str1,const var_na *_Str);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsicmp(const var_na *_Str1,const var_na *_Str2);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsicmp_l(const var_na *_Str1,const var_na *_Str2,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsnccmp(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsncmp(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsncicmp(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsncicmp_l(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsnicmp(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsnicmp_l(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcscoll(const var_na *_Str1,const var_na *_Str2);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcscoll_l(const var_na *_Str1,const var_na *_Str2,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsicoll(const var_na *_Str1,const var_na *_Str2);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsicoll_l(const var_na *_Str1,const var_na *_Str2,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsnccoll(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsnccoll_l(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsncoll(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsncoll_l(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsncicoll(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsncicoll_l(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsnicoll(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tcsnicoll_l(const var_na *_Str1,const var_na *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP size_t __cdecl _tcsclen(const var_na *_Str);
+  _CRTIMP size_t __cdecl _tcscnlen(const var_na *_Str,size_t _MaxCount);
+  _CRTIMP size_t __cdecl _tcsclen_l(const var_na *_Str,_locale_t _Locale);
+  _CRTIMP size_t __cdecl _tcscnlen_l(const var_na *_Str,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP var_na *__cdecl _tcsnccat(var_na *_Dst,const var_na *_Src,size_t _MaxCount);
+  _CRTIMP var_na *__cdecl _tcsnccat_l(var_na *_Dst,const var_na *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP var_na *__cdecl _tcsnccpy(var_na *_Dst,const var_na *_Src,size_t _MaxCount);
+  _CRTIMP var_na *__cdecl _tcsnccpy_l(var_na *_Dst,const var_na *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP var_na *__cdecl _tcsncset(var_na *_Str,unsigned ຈຳນວນເຕັມ _Val,size_t _MaxCount);
+  _CRTIMP var_na *__cdecl _tcsdec(const var_na *_Start,const var_na *_Pos);
+  _CRTIMP var_na *__cdecl _tcsinc(const var_na *_Ptr);
+  _CRTIMP size_t __cdecl _tcsnbcnt(const var_na *_Str,size_t _MaxCount);
+  _CRTIMP size_t __cdecl _tcsnccnt(const var_na *_Str,size_t _MaxCount);
+  _CRTIMP unsigned ຈຳນວນເຕັມ __cdecl _tcsnextc (const var_na *_Str);
+  _CRTIMP var_na *__cdecl _tcsninc(const var_na *_Ptr,size_t _Count);
+  _CRTIMP var_na *__cdecl _tcsspnp(const var_na *_Str1,const var_na *_Str2);
+  _CRTIMP var_na *__cdecl _tcslwr(var_na *_Str);
+  _CRTIMP var_na *__cdecl _tcslwr_l(var_na *_Str,_locale_t _Locale);
+  _CRTIMP var_na *__cdecl _tcsupr(var_na *_Str);
+  _CRTIMP var_na *__cdecl _tcsupr_l(var_na *_Str,_locale_t _Locale);
+  _CRTIMP size_t __cdecl _tclen(const var_na *_Str);
+  _CRTIMP void __cdecl _tccpy(var_na *_DstCh,const var_na *_SrcCh);
 
 #ifdef __cplusplus
 #ifndef _CPP_TCHAR_INLINES_DEFINED
 #define _CPP_TCHAR_INLINES_DEFINED
   extern "C++" {
-    extern inline char *__cdecl _tcschr(char *_S,unsigned int _C) { return ((char *)_tcschr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcspbrk(char *_S,const char *_P) { return ((char *)_tcspbrk((const char *)_S,_P)); }
-    extern inline char *__cdecl _tcsrchr(char *_S,unsigned int _C) { return ((char *)_tcsrchr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcsstr(char *_S,const char *_P) { return ((char *)_tcsstr((const char *)_S,_P)); }
+    extern anta_hstha var_na *__cdecl _tcschr(var_na *_S,unsigned ຈຳນວນເຕັມ _C) { ສົ່ງຄືນ ((var_na *)_tcschr((const var_na *)_S,_C)); }
+    extern anta_hstha var_na *__cdecl _tcspbrk(var_na *_S,const var_na *_P) { ສົ່ງຄືນ ((var_na *)_tcspbrk((const var_na *)_S,_P)); }
+    extern anta_hstha var_na *__cdecl _tcsrchr(var_na *_S,unsigned ຈຳນວນເຕັມ _C) { ສົ່ງຄືນ ((var_na *)_tcsrchr((const var_na *)_S,_C)); }
+    extern anta_hstha var_na *__cdecl _tcsstr(var_na *_S,const var_na *_P) { ສົ່ງຄືນ ((var_na *)_tcsstr((const var_na *)_S,_P)); }
   }
 #endif
 #endif
@@ -939,21 +939,21 @@ extern "C" {
 #define _istlead _ismbblead
 #define _istleadbyte isleadbyte
 #define _istleadbyte_l _isleadbyte_l
-#else
+#ບໍ່ດັ່ງນັ້ນ
 
 #ifndef __TCHAR_DEFINED
 #define __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef char _TXCHAR;
-  typedef int _TINT;
+  typedef var_na _TCHAR;
+  typedef signed var_na _TSCHAR;
+  typedef unsigned var_na _TUCHAR;
+  typedef var_na _TXCHAR;
+  typedef ຈຳນວນເຕັມ _TINT;
 #endif
 
 #ifndef _TCHAR_DEFINED
 #define _TCHAR_DEFINED
 #ifndef	NO_OLDNAMES
-  typedef char TCHAR;
+  typedef var_na TCHAR;
 #endif
 #endif
 
@@ -1029,7 +1029,7 @@ extern "C" {
 
 #define _tclen(_pc) (1)
 #define _tccpy(_pc1,_cpc2) (*(_pc1) = *(_cpc2))
-#define _tccmp(_cpc1,_cpc2) (((unsigned char)*(_cpc1))-((unsigned char)*(_cpc2)))
+#define _tccmp(_cpc1,_cpc2) (((unsigned var_na)*(_cpc1))-((unsigned var_na)*(_cpc2)))
 
   /* dirent structures and functions */
 #define _tdirent	dirent
@@ -1070,16 +1070,16 @@ extern "C" {
 #ifndef NULL
 #ifdef __cplusplus
 #define NULL 0
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #define NULL ((void *)0)
 #endif
 #endif
 
 #define _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
 #define _strinc(_pc) ((_pc)+1)
-#define _strnextc(_cpc) ((unsigned int) *(const unsigned char *)(_cpc))
+#define _strnextc(_cpc) ((unsigned ຈຳນວນເຕັມ) *(const unsigned var_na *)(_cpc))
 #define _strninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __strncnt(const char *_Str,size_t _Cnt);
+  _CRTIMP size_t __cdecl __strncnt(const var_na *_Str,size_t _Cnt);
 #define _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))
 #define _strspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+strspn(_cpc1,_cpc2))) ? ((_cpc1)+strspn(_cpc1,_cpc2)) : NULL))
 

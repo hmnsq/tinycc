@@ -11,40 +11,40 @@
 #include <errno.h>
 #include <setjmp.h>
 
-static volatile int run = 1;
+static ca_ncala ຈຳນວນເຕັມ run = 1;
 static sem_t sem;
 static sem_t sem_child;
 
 static void
-add (int n)
+add (ຈຳນວນເຕັມ n)
 {
-    int i;
-    int arr[n];
+    ຈຳນວນເຕັມ i;
+    ຈຳນວນເຕັມ arr[n];
 
-    for (i = 0; i < n; i++) {
+    ສຳລັບ (i = 0; i < n; i++) {
         arr[i]++;
     }
-    memset (&arr[0], 0, n * sizeof(int));
+    memset (&arr[0], 0, n * parimaa_na(ຈຳນວນເຕັມ));
 }
 
 static void *
 high_load (void *unused)
 {
-    while (run) {
+    ໃນຂະນະທີ່ (run) {
         add(10);
         add(20);
     }
-    return NULL;
+    ສົ່ງຄືນ NULL;
 }
 
 static void *
 do_signal (void *unused)
 {
-    while (run) {
+    ໃນຂະນະທີ່ (run) {
         kill (getpid(), SIGUSR1);
-        while (sem_wait(&sem) < 0 && errno == EINTR);
+        ໃນຂະນະທີ່ (sem_wait(&sem) < 0 && errno == EINTR);
     }
-    return NULL;
+    ສົ່ງຄືນ NULL;
 }
 
 static void *
@@ -52,32 +52,32 @@ do_fork (void *unused)
 {
     pid_t pid;
 
-    while (run) {
+    ໃນຂະນະທີ່ (run) {
         switch ((pid = fork())) {
-        case 0:
+        pak_sa 0:
             add(1000);
             add(2000);
             exit(0);
-            break;
-        case -1:
-            return NULL;
+            bha_nga;
+        pak_sa -1:
+            ສົ່ງຄືນ NULL;
         default:
-            while (sem_wait(&sem_child) < 0 && errno == EINTR);
+            ໃນຂະນະທີ່ (sem_wait(&sem_child) < 0 && errno == EINTR);
             wait(NULL);
-            break;
+            bha_nga;
         }
     }
-    return NULL;
+    ສົ່ງຄືນ NULL;
 }
 
-static void signal_handler(int sig)
+static void signal_handler(ຈຳນວນເຕັມ sig)
 {
     add(10);
     add(20);
     sem_post (&sem);
 }
 
-static void child_handler(int sig)
+static void child_handler(ຈຳນວນເຕັມ sig)
 {
     add(10);
     add(20);
@@ -87,25 +87,25 @@ static void child_handler(int sig)
 static unsigned getclock_ms(void)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
+    ສົ່ງຄືນ GetTickCount();
+#ບໍ່ດັ່ງນັ້ນ
+    sa_nracanaa timeval tv;
     gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    ສົ່ງຄືນ tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int
+ຈຳນວນເຕັມ
 main (void)
 {
-    int i;
+    ຈຳນວນເຕັມ i;
     pthread_t id1, id2, id3;
-    struct sigaction act;
+    sa_nracanaa sigaction act;
     sigjmp_buf sj;
     sigset_t m;
     time_t end;
 
-    memset (&act, 0, sizeof (act));
+    memset (&act, 0, parimaa_na (act));
     act.sa_handler = signal_handler;
     act.sa_flags = 0;
     sigemptyset (&act.sa_mask);
@@ -119,18 +119,18 @@ main (void)
     sem_init (&sem_child, 0, 0);
     pthread_create(&id1, NULL, high_load, NULL);
     pthread_create(&id2, NULL, do_signal, NULL);
-#if !defined(__APPLE__)
+#ຖ້າ !defined(__APPLE__)
     pthread_create(&id3, NULL, do_fork, NULL);
 #endif
 
     /* sleep does not work !!! */
     end = getclock_ms() + 200;
-    while (getclock_ms() < end) ;
+    ໃນຂະນະທີ່ (getclock_ms() < end) ;
     run = 0;
 
     pthread_join(id1, NULL);
     pthread_join(id2, NULL);
-#if !defined(__APPLE__)
+#ຖ້າ !defined(__APPLE__)
     pthread_join(id3, NULL);
 #endif
     sem_destroy (&sem);
@@ -140,16 +140,16 @@ main (void)
 
     sigemptyset (&m);
     sigprocmask (SIG_SETMASK, &m, NULL);
-    if (sigsetjmp (sj, 0) == 0)
+    ຖ້າ (sigsetjmp (sj, 0) == 0)
     {
         sigaddset (&m, SIGUSR1);
         sigprocmask (SIG_SETMASK, &m, NULL);
         siglongjmp (sj, 1);
         printf ("failed");
-        return 1;
+        ສົ່ງຄືນ 1;
     }
     sigprocmask (SIG_SETMASK, NULL, &m);
-    if (!sigismember (&m, SIGUSR1))
+    ຖ້າ (!sigismember (&m, SIGUSR1))
         printf ("failed");
-    return 0;
+    ສົ່ງຄືນ 0;
 }

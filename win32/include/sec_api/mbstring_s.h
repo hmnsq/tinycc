@@ -8,7 +8,7 @@
 
 #include <mbstring.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ຖ້າ defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
 extern "C" {
@@ -16,32 +16,32 @@ extern "C" {
 
 #ifndef _MBSTRING_S_DEFINED
 #define _MBSTRING_S_DEFINED
-  _CRTIMP errno_t __cdecl _mbscat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbscat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbscpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbscpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbslwr_s(unsigned char *_Str,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _mbslwr_s_l(unsigned char *_Str,size_t _SizeInBytes,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbcat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbcat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbcpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbcpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Ch,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Ch,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsncat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsncat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsncpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsncpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val);
-  _CRTIMP errno_t __cdecl _mbsset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP unsigned char *__cdecl _mbstok_s(unsigned char *_Str,const unsigned char *_Delim,unsigned char **_Context);
-  _CRTIMP unsigned char *__cdecl _mbstok_s_l(unsigned char *_Str,const unsigned char *_Delim,unsigned char **_Context,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsupr_s(unsigned char *_Str,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _mbsupr_s_l(unsigned char *_Str,size_t _SizeInBytes,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbccpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,int *_PCopied,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbccpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,int *_PCopied,const unsigned char *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbscat_s(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src);
+  _CRTIMP errno_t __cdecl _mbscat_s_l(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbscpy_s(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src);
+  _CRTIMP errno_t __cdecl _mbscpy_s_l(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbslwr_s(unsigned var_na *_Str,size_t _SizeInBytes);
+  _CRTIMP errno_t __cdecl _mbslwr_s_l(unsigned var_na *_Str,size_t _SizeInBytes,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbcat_s(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src,size_t _MaxCount);
+  _CRTIMP errno_t __cdecl _mbsnbcat_s_l(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbcpy_s(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src,size_t _MaxCount);
+  _CRTIMP errno_t __cdecl _mbsnbcpy_s_l(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbset_s(unsigned var_na *_Dst,size_t _DstSizeInBytes,unsigned ຈຳນວນເຕັມ _Ch,size_t _MaxCount);
+  _CRTIMP errno_t __cdecl _mbsnbset_s_l(unsigned var_na *_Dst,size_t _DstSizeInBytes,unsigned ຈຳນວນເຕັມ _Ch,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsncat_s(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src,size_t _MaxCount);
+  _CRTIMP errno_t __cdecl _mbsncat_s_l(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsncpy_s(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src,size_t _MaxCount);
+  _CRTIMP errno_t __cdecl _mbsncpy_s_l(unsigned var_na *_Dst,size_t _DstSizeInBytes,const unsigned var_na *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnset_s(unsigned var_na *_Dst,size_t _DstSizeInBytes,unsigned ຈຳນວນເຕັມ _Val,size_t _MaxCount);
+  _CRTIMP errno_t __cdecl _mbsnset_s_l(unsigned var_na *_Dst,size_t _DstSizeInBytes,unsigned ຈຳນວນເຕັມ _Val,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsset_s(unsigned var_na *_Dst,size_t _DstSizeInBytes,unsigned ຈຳນວນເຕັມ _Val);
+  _CRTIMP errno_t __cdecl _mbsset_s_l(unsigned var_na *_Dst,size_t _DstSizeInBytes,unsigned ຈຳນວນເຕັມ _Val,_locale_t _Locale);
+  _CRTIMP unsigned var_na *__cdecl _mbstok_s(unsigned var_na *_Str,const unsigned var_na *_Delim,unsigned var_na **_Context);
+  _CRTIMP unsigned var_na *__cdecl _mbstok_s_l(unsigned var_na *_Str,const unsigned var_na *_Delim,unsigned var_na **_Context,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsupr_s(unsigned var_na *_Str,size_t _SizeInBytes);
+  _CRTIMP errno_t __cdecl _mbsupr_s_l(unsigned var_na *_Str,size_t _SizeInBytes,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbccpy_s(unsigned var_na *_Dst,size_t _DstSizeInBytes,ຈຳນວນເຕັມ *_PCopied,const unsigned var_na *_Src);
+  _CRTIMP errno_t __cdecl _mbccpy_s_l(unsigned var_na *_Dst,size_t _DstSizeInBytes,ຈຳນວນເຕັມ *_PCopied,const unsigned var_na *_Src,_locale_t _Locale);
 #endif
 
 #ifdef __cplusplus

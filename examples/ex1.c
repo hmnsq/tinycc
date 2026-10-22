@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
 #include <tcclib.h>
 
-int main()
+ຈຳນວນເຕັມ main()
 {
     printf("Hello World\n");
-    return 0;
+    ສົ່ງຄືນ 0;
 }

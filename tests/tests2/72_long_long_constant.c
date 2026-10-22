@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-int main()
+ຈຳນວນເຕັມ main()
 {
-    long long int res = 0;
+    long long ຈຳນວນເຕັມ res = 0;
 
-    if (res < -2147483648LL) {
+    ຖ້າ (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        ສົ່ງຄືນ 1;
     }
-    else
-    if (2147483647LL < res) {
+    ບໍ່ດັ່ງນັ້ນ
+    ຖ້າ (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        ສົ່ງຄືນ 2;
     }
-    else
+    ບໍ່ດັ່ງນັ້ນ
         printf("long long constant test ok.\n");
-    return 0;
+    ສົ່ງຄືນ 0;
 }

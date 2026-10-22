@@ -1,33 +1,33 @@
 #include <stdio.h>
 
-int main()
+ຈຳນວນເຕັມ main()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#ຖ້າ 1
+#ຖ້າ 0
    printf("a\n");
-#else
+#ບໍ່ດັ່ງນັ້ນ
    printf("b\n");
 #endif
-#else
-#if 0
+#ບໍ່ດັ່ງນັ້ນ
+#ຖ້າ 0
    printf("c\n");
-#else
+#ບໍ່ດັ່ງນັ້ນ
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#ຖ້າ 0
+#ຖ້າ 1
    printf("e\n");
-#else
+#ບໍ່ດັ່ງນັ້ນ
    printf("f\n");
 #endif
-#else
-#if 1
+#ບໍ່ດັ່ງນັ້ນ
+#ຖ້າ 1
    printf("g\n");
-#else
+#ບໍ່ດັ່ງນັ້ນ
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#ບໍ່ດັ່ງນັ້ນ
    printf("j\n");
 #endif
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #ifdef DEF
    printf("k\n");
-#else
+#ບໍ່ດັ່ງນັ້ນ
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#ບໍ່ດັ່ງນັ້ນ
    printf("n\n");
 #endif
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #ifndef DEF
    printf("o\n");
-#else
+#ບໍ່ດັ່ງນັ້ນ
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#ຖ້າ ONE
+#ຖ້າ ZERO
    printf("q\n");
-#else
+#ບໍ່ດັ່ງນັ້ນ
    printf("r\n");
 #endif
-#else
-#if ZERO
+#ບໍ່ດັ່ງນັ້ນ
+#ຖ້າ ZERO
    printf("s\n");
-#else
+#ບໍ່ດັ່ງນັ້ນ
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   ສົ່ງຄືນ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,56 +1,56 @@
 #include <stdio.h>
 
-int f(void)
+ຈຳນວນເຕັມ f(void)
 {
-  return 5;
+  ສົ່ງຄືນ 5;
 }
 
 void test1()
 {
-  int count = 10;
+  ຈຳນວນເຕັມ count = 10;
   void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  ສຳລັບ(;count--;) {
+    ຈຳນວນເຕັມ a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  ຖ້າ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ບໍ່ດັ່ງນັ້ນ {
     printf("NOT OK\n");
   }
 }
 
 void test2()
 {
-  int count = 10;
+  ຈຳນວນເຕັມ count = 10;
   void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  ສຳລັບ(;count--;) {
+    ຈຳນວນເຕັມ a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  ຖ້າ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ບໍ່ດັ່ງນັ້ນ {
     printf("NOT OK\n");
   }
 }
 
 void test3()
 {
-  int count = 10;
+  ຈຳນວນເຕັມ count = 10;
   void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  ໃນຂະນະທີ່(count--) {
+      ຈຳນວນເຕັມ b[f()];
+      ຖ້າ (count >= 0) {
+          ຈຳນວນເຕັມ a[f()];
 
           addr[count] = a;
 
@@ -58,56 +58,56 @@ void test3()
       }
   }
 
-  if(addr[9] == addr[0]) {
+  ຖ້າ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ບໍ່ດັ່ງນັ້ນ {
     printf("NOT OK\n");
   }
 }
 
 void test4()
 {
-  int count = 10;
+  ຈຳນວນເຕັມ count = 10;
   void *addr[count];
   do {
-    int a[f()];
+    ຈຳນວນເຕັມ a[f()];
 
     addr[--count] = a;
 
     continue;
-  } while (count);
+  } ໃນຂະນະທີ່ (count);
 
-  if(addr[9] == addr[0]) {
+  ຖ້າ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ບໍ່ດັ່ງນັ້ນ {
     printf("NOT OK\n");
   }
 }
 
 void test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  ຈຳນວນເຕັມ count = 10;
+  ຈຳນວນເຕັມ a[f()];
+  ຈຳນວນເຕັມ c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
+  ສຳລັບ(;count--;) {
+    ຈຳນວນເຕັມ b[f()];
+    ຈຳນວນເຕັມ i;
+    ສຳລັບ (i=0; i<f(); i++) {
       b[i] = count;
     }
   }
 
-  if (c[0] == 42) {
+  ຖ້າ (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } ບໍ່ດັ່ງນັ້ນ {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+ຈຳນວນເຕັມ main(void)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  ສົ່ງຄືນ 0;
 }

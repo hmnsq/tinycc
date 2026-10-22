@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+ຈຳນວນເຕັມ main()
 {
-   int a;
-   int *b;
-   int *c;
+   ຈຳນວນເຕັມ a;
+   ຈຳນວນເຕັມ *b;
+   ຈຳນວນເຕັມ *c;
 
    a = 42;
    b = &a;
@@ -12,17 +12,17 @@ int main()
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   ຖ້າ (b == NULL)
       printf("b is NULL\n");
-   else
+   ບໍ່ດັ່ງນັ້ນ
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   ຖ້າ (c == NULL)
       printf("c is NULL\n");
-   else
+   ບໍ່ດັ່ງນັ້ນ
       printf("c is not NULL\n");
 
-   return 0;
+   ສົ່ງຄືນ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

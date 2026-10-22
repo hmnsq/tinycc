@@ -33,60 +33,60 @@ SCNHDR section_header[MAXNSCNS];
 #define MAX_FUNCS 1000
 #define MAX_FUNC_NAME_LENGTH 128
 
-int nFuncs;
-char Func[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
-char AssociatedFile[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
-int LineNoFilePtr[MAX_FUNCS];
-int EndAddress[MAX_FUNCS];
-int LastLineNo[MAX_FUNCS];
-int FuncEntries[MAX_FUNCS];
+ຈຳນວນເຕັມ nFuncs;
+var_na Func[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
+var_na AssociatedFile[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
+ຈຳນວນເຕັມ LineNoFilePtr[MAX_FUNCS];
+ຈຳນວນເຕັມ EndAddress[MAX_FUNCS];
+ຈຳນວນເຕັມ LastLineNo[MAX_FUNCS];
+ຈຳນວນເຕັມ FuncEntries[MAX_FUNCS];
 
-int OutputTheSection(Section * sect);
-short int GetCoffFlags(const char *s);
+ຈຳນວນເຕັມ OutputTheSection(Section * sect);
+short ຈຳນວນເຕັມ GetCoffFlags(const var_na *s);
 void SortSymbolTable(TCCState *s1);
-Section *FindSection(TCCState * s1, const char *sname);
+Section *FindSection(TCCState * s1, const var_na *sname);
 
-int C67_main_entry_point;
+ຈຳນວນເຕັມ C67_main_entry_point;
 
-int FindCoffSymbolIndex(TCCState * s1, const char *func_name);
-int nb_syms;
+ຈຳນວນເຕັມ FindCoffSymbolIndex(TCCState * s1, const var_na *func_name);
+ຈຳນວນເຕັມ nb_syms;
 
-typedef struct {
+typedef sa_nracanaa {
     long tag;
     long size;
     long fileptr;
     long nextsym;
-    short int dummy;
+    short ຈຳນວນເຕັມ dummy;
 } AUXFUNC;
 
-typedef struct {
+typedef sa_nracanaa {
     long regmask;
     unsigned short lineno;
     unsigned short nentries;
-    int localframe;
-    int nextentry;
-    short int dummy;
+    ຈຳນວນເຕັມ localframe;
+    ຈຳນວນເຕັມ nextentry;
+    short ຈຳນວນເຕັມ dummy;
 } AUXBF;
 
-typedef struct {
+typedef sa_nracanaa {
     long dummy;
     unsigned short lineno;
     unsigned short dummy1;
-    int dummy2;
-    int dummy3;
+    ຈຳນວນເຕັມ dummy2;
+    ຈຳນວນເຕັມ dummy3;
     unsigned short dummy4;
 } AUXEF;
 
-ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
+ST_FUNC ຈຳນວນເຕັມ tcc_output_coff(TCCState *s1, FILE *f)
 {
     Section *tcc_sect;
     SCNHDR *coff_sec;
-    int file_pointer;
-    char *Coff_str_table, *pCoff_str_table;
-    int CoffTextSectionNo, coff_nb_syms;
+    ຈຳນວນເຕັມ file_pointer;
+    var_na *Coff_str_table, *pCoff_str_table;
+    ຈຳນວນເຕັມ CoffTextSectionNo, coff_nb_syms;
     FILHDR file_hdr;		/* FILE HEADER STRUCTURE              */
     Section *stext, *sdata, *sbss;
-    int i, NSectionsToOutput = 0;
+    ຈຳນວນເຕັມ i, NSectionsToOutput = 0;
 
     Coff_str_table = pCoff_str_table = NULL;
 
@@ -94,12 +94,12 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     sdata = FindSection(s1, ".data");
     sbss = FindSection(s1, ".bss");
 
-    nb_syms = symtab_section->data_offset / sizeof(Elf32_Sym);
+    nb_syms = symtab_section->data_offset / parimaa_na(Elf32_Sym);
     coff_nb_syms = FindCoffSymbolIndex(s1, "XXXXXXXXXX1");
 
     file_hdr.f_magic = COFF_C67_MAGIC;	/* magic number */
     file_hdr.f_timdat = 0;	/* time & date stamp */
-    file_hdr.f_opthdr = sizeof(AOUTHDR);	/* sizeof(optional hdr) */
+    file_hdr.f_opthdr = parimaa_na(AOUTHDR);	/* sizeof(optional hdr) */
     file_hdr.f_flags = 0x1143;	/* flags (copied from what code composer does) */
     file_hdr.f_TargetID = 0x99;	/* for C6x = 0x0099 */
 
@@ -115,18 +115,18 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
     // create all the section headers
 
-    file_pointer = FILHSZ + sizeof(AOUTHDR);
+    file_pointer = FILHSZ + parimaa_na(AOUTHDR);
 
     CoffTextSectionNo = -1;
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    ສຳລັບ (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	ຖ້າ (OutputTheSection(tcc_sect)) {
 	    NSectionsToOutput++;
 
-	    if (CoffTextSectionNo == -1 && tcc_sect == stext)
+	    ຖ້າ (CoffTextSectionNo == -1 && tcc_sect == stext)
 		CoffTextSectionNo = NSectionsToOutput;	// rem which coff sect number the .text sect is
 
 	    strcpy(coff_sec->s_name, tcc_sect->name);	/* section name */
@@ -142,7 +142,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	    coff_sec->s_reserved = 0;	/* reserved byte */
 	    coff_sec->s_page = 0;	/* memory page id */
 
-	    file_pointer += sizeof(SCNHDR);
+	    file_pointer += parimaa_na(SCNHDR);
 	}
     }
 
@@ -152,11 +152,11 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // for the raw data
 
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    ສຳລັບ (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	ຖ້າ (OutputTheSection(tcc_sect)) {
 	    // put raw data
 	    coff_sec->s_scnptr = file_pointer;	/* file ptr to raw data for section */
 	    file_pointer += coff_sec->s_size;
@@ -166,15 +166,15 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // now loop through and determine file pointer locations
     // for the relocation data
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    ສຳລັບ (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	ຖ້າ (OutputTheSection(tcc_sect)) {
 	    // put relocations data
-	    if (coff_sec->s_nreloc > 0) {
+	    ຖ້າ (coff_sec->s_nreloc > 0) {
 		coff_sec->s_relptr = file_pointer;	/* file ptr to relocation */
-		file_pointer += coff_sec->s_nreloc * sizeof(struct reloc);
+		file_pointer += coff_sec->s_nreloc * parimaa_na(sa_nracanaa reloc);
 	    }
 	}
     }
@@ -182,14 +182,14 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // now loop through and determine file pointer locations
     // for the line number data
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    ສຳລັບ (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
 	coff_sec->s_nlnno = 0;
 	coff_sec->s_lnnoptr = 0;
 
-	if (s1->do_debug && tcc_sect == stext) {
+	ຖ້າ (s1->do_debug && tcc_sect == stext) {
 	    // count how many line nos data
 
 	    // also find association between source file name and function
@@ -197,12 +197,12 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 
 	    Stab_Sym *sym, *sym_end;
-	    char func_name[MAX_FUNC_NAME_LENGTH],
+	    var_na func_name[MAX_FUNC_NAME_LENGTH],
 		last_func_name[MAX_FUNC_NAME_LENGTH];
 	    unsigned long func_addr, last_pc, pc;
-	    const char *incl_files[INCLUDE_STACK_SIZE];
-	    int incl_index, len, last_line_num;
-	    const char *str, *p;
+	    const var_na *incl_files[INCLUDE_STACK_SIZE];
+	    ຈຳນວນເຕັມ incl_index, len, last_line_num;
+	    const var_na *str, *p;
 
 	    coff_sec->s_lnnoptr = file_pointer;	/* file ptr to linno */
 
@@ -219,11 +219,11 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 			      stab_section->data_offset);
 
 	    nFuncs = 0;
-	    while (sym < sym_end) {
+	    ໃນຂະນະທີ່ (sym < sym_end) {
 		switch (sym->n_type) {
 		    /* function start or end */
-		case N_FUN:
-		    if (sym->n_strx == 0) {
+		pak_sa N_FUN:
+		    ຖ້າ (sym->n_strx == 0) {
 			// end of function
 
 			coff_sec->s_nlnno++;
@@ -237,7 +237,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 			    (file_pointer -
 			     LineNoFilePtr[nFuncs]) / LINESZ - 1;
 			LastLineNo[nFuncs++] = last_line_num + 1;
-		    } else {
+		    } ບໍ່ດັ່ງນັ້ນ {
 			// beginning of function
 
 			LineNoFilePtr[nFuncs] = file_pointer;
@@ -245,32 +245,32 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 			file_pointer += LINESZ;
 
 			str =
-			    (const char *) stabstr_section->data +
+			    (const var_na *) stabstr_section->data +
 			    sym->n_strx;
 
 			p = strchr(str, ':');
-			if (!p) {
-			    pstrcpy(func_name, sizeof(func_name), str);
-			    pstrcpy(Func[nFuncs], sizeof(func_name), str);
-			} else {
+			ຖ້າ (!p) {
+			    pstrcpy(func_name, parimaa_na(func_name), str);
+			    pstrcpy(Func[nFuncs], parimaa_na(func_name), str);
+			} ບໍ່ດັ່ງນັ້ນ {
 			    len = p - str;
-			    if (len > sizeof(func_name) - 1)
-				len = sizeof(func_name) - 1;
+			    ຖ້າ (len > parimaa_na(func_name) - 1)
+				len = parimaa_na(func_name) - 1;
 			    memcpy(func_name, str, len);
 			    memcpy(Func[nFuncs], str, len);
 			    func_name[len] = '\0';
 			}
 
 			// save the file that it came in so we can sort later
-			pstrcpy(AssociatedFile[nFuncs], sizeof(func_name),
+			pstrcpy(AssociatedFile[nFuncs], parimaa_na(func_name),
 				incl_files[incl_index - 1]);
 
 			func_addr = sym->n_value;
 		    }
-		    break;
+		    bha_nga;
 
 		    /* line number info */
-		case N_SLINE:
+		pak_sa N_SLINE:
 		    pc = sym->n_value + func_addr;
 
 		    last_pc = pc;
@@ -281,33 +281,33 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 		    coff_sec->s_nlnno++;
 		    file_pointer += LINESZ;
-		    break;
+		    bha_nga;
 		    /* include files */
-		case N_BINCL:
+		pak_sa N_BINCL:
 		    str =
-			(const char *) stabstr_section->data + sym->n_strx;
+			(const var_na *) stabstr_section->data + sym->n_strx;
 		  add_incl:
-		    if (incl_index < INCLUDE_STACK_SIZE) {
+		    ຖ້າ (incl_index < INCLUDE_STACK_SIZE) {
 			incl_files[incl_index++] = str;
 		    }
-		    break;
-		case N_EINCL:
-		    if (incl_index > 1)
+		    bha_nga;
+		pak_sa N_EINCL:
+		    ຖ້າ (incl_index > 1)
 			incl_index--;
-		    break;
-		case N_SO:
-		    if (sym->n_strx == 0) {
+		    bha_nga;
+		pak_sa N_SO:
+		    ຖ້າ (sym->n_strx == 0) {
 			incl_index = 0;	/* end of translation unit */
-		    } else {
+		    } ບໍ່ດັ່ງນັ້ນ {
 			str =
-			    (const char *) stabstr_section->data +
+			    (const var_na *) stabstr_section->data +
 			    sym->n_strx;
 			/* do not add path */
 			len = strlen(str);
-			if (len > 0 && str[len - 1] != '/')
+			ຖ້າ (len > 0 && str[len - 1] != '/')
 			    goto add_incl;
 		    }
-		    break;
+		    bha_nga;
 		}
 		sym++;
 	    }
@@ -317,9 +317,9 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
     file_hdr.f_symptr = file_pointer;	/* file pointer to symtab */
 
-    if (s1->do_debug)
+    ຖ້າ (s1->do_debug)
 	file_hdr.f_nsyms = coff_nb_syms;	/* number of symtab entries */
-    else
+    ບໍ່ດັ່ງນັ້ນ
 	file_hdr.f_nsyms = 0;
 
     file_pointer += file_hdr.f_nsyms * SYMNMLEN;
@@ -328,38 +328,38 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 
     fwrite(&file_hdr, FILHSZ, 1, f);
-    fwrite(&o_filehdr, sizeof(o_filehdr), 1, f);
+    fwrite(&o_filehdr, parimaa_na(o_filehdr), 1, f);
 
     // write section headers
-    for (i = 1; i < s1->nb_sections; i++) {
+    ສຳລັບ (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
-	    fwrite(coff_sec, sizeof(SCNHDR), 1, f);
+	ຖ້າ (OutputTheSection(tcc_sect)) {
+	    fwrite(coff_sec, parimaa_na(SCNHDR), 1, f);
 	}
     }
 
     // write raw data
-    for (i = 1; i < s1->nb_sections; i++) {
+    ສຳລັບ (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	ຖ້າ (OutputTheSection(tcc_sect)) {
 	    fwrite(tcc_sect->data, tcc_sect->data_offset, 1, f);
 	}
     }
 
     // write relocation data
-    for (i = 1; i < s1->nb_sections; i++) {
+    ສຳລັບ (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	ຖ້າ (OutputTheSection(tcc_sect)) {
 	    // put relocations data
-	    if (coff_sec->s_nreloc > 0) {
+	    ຖ້າ (coff_sec->s_nreloc > 0) {
 		fwrite(tcc_sect->reloc,
-		       coff_sec->s_nreloc * sizeof(struct reloc), 1, f);
+		       coff_sec->s_nreloc * parimaa_na(sa_nracanaa reloc), 1, f);
 	    }
 	}
     }
@@ -368,25 +368,25 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // group the symbols in order of filename, func1, func2, etc
     // finally global symbols
 
-    if (s1->do_debug)
+    ຖ້າ (s1->do_debug)
 	SortSymbolTable(s1);
 
     // write line no data
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    ສຳລັບ (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (s1->do_debug && tcc_sect == stext) {
+	ຖ້າ (s1->do_debug && tcc_sect == stext) {
 	    // count how many line nos data
 
 
 	    Stab_Sym *sym, *sym_end;
-	    char func_name[128], last_func_name[128];
+	    var_na func_name[128], last_func_name[128];
 	    unsigned long func_addr, last_pc, pc;
-	    const char *incl_files[INCLUDE_STACK_SIZE];
-	    int incl_index, len, last_line_num;
-	    const char *str, *p;
+	    const var_na *incl_files[INCLUDE_STACK_SIZE];
+	    ຈຳນວນເຕັມ incl_index, len, last_line_num;
+	    const var_na *str, *p;
 
 	    LINENO CoffLineNo;
 
@@ -401,11 +401,11 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		(Stab_Sym *) (stab_section->data +
 			      stab_section->data_offset);
 
-	    while (sym < sym_end) {
+	    ໃນຂະນະທີ່ (sym < sym_end) {
 		switch (sym->n_type) {
 		    /* function start or end */
-		case N_FUN:
-		    if (sym->n_strx == 0) {
+		pak_sa N_FUN:
+		    ຖ້າ (sym->n_strx == 0) {
 			// end of function
 
 			CoffLineNo.l_addr.l_paddr = last_pc;
@@ -415,21 +415,21 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 			pc = sym->n_value + func_addr;
 			func_name[0] = '\0';
 			func_addr = 0;
-		    } else {
+		    } ບໍ່ດັ່ງນັ້ນ {
 			// beginning of function
 
 			str =
-			    (const char *) stabstr_section->data +
+			    (const var_na *) stabstr_section->data +
 			    sym->n_strx;
 
 
 			p = strchr(str, ':');
-			if (!p) {
-			    pstrcpy(func_name, sizeof(func_name), str);
-			} else {
+			ຖ້າ (!p) {
+			    pstrcpy(func_name, parimaa_na(func_name), str);
+			} ບໍ່ດັ່ງນັ້ນ {
 			    len = p - str;
-			    if (len > sizeof(func_name) - 1)
-				len = sizeof(func_name) - 1;
+			    ຖ້າ (len > parimaa_na(func_name) - 1)
+				len = parimaa_na(func_name) - 1;
 			    memcpy(func_name, str, len);
 			    func_name[len] = '\0';
 			}
@@ -445,10 +445,10 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 			fwrite(&CoffLineNo, 6, 1, f);
 		    }
-		    break;
+		    bha_nga;
 
 		    /* line number info */
-		case N_SLINE:
+		pak_sa N_SLINE:
 		    pc = sym->n_value + func_addr;
 
 
@@ -459,9 +459,9 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 		    CoffLineNo.l_addr.l_paddr = last_pc;
 
-		    if (last_line_num == -1) {
+		    ຖ້າ (last_line_num == -1) {
 			CoffLineNo.l_lnno = sym->n_desc;
-		    } else {
+		    } ບໍ່ດັ່ງນັ້ນ {
 			CoffLineNo.l_lnno = last_line_num + 1;
 		    }
 
@@ -470,34 +470,34 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		    last_pc = pc;
 		    last_line_num = sym->n_desc;
 
-		    break;
+		    bha_nga;
 
 		    /* include files */
-		case N_BINCL:
+		pak_sa N_BINCL:
 		    str =
-			(const char *) stabstr_section->data + sym->n_strx;
+			(const var_na *) stabstr_section->data + sym->n_strx;
 		  add_incl2:
-		    if (incl_index < INCLUDE_STACK_SIZE) {
+		    ຖ້າ (incl_index < INCLUDE_STACK_SIZE) {
 			incl_files[incl_index++] = str;
 		    }
-		    break;
-		case N_EINCL:
-		    if (incl_index > 1)
+		    bha_nga;
+		pak_sa N_EINCL:
+		    ຖ້າ (incl_index > 1)
 			incl_index--;
-		    break;
-		case N_SO:
-		    if (sym->n_strx == 0) {
+		    bha_nga;
+		pak_sa N_SO:
+		    ຖ້າ (sym->n_strx == 0) {
 			incl_index = 0;	/* end of translation unit */
-		    } else {
+		    } ບໍ່ດັ່ງນັ້ນ {
 			str =
-			    (const char *) stabstr_section->data +
+			    (const var_na *) stabstr_section->data +
 			    sym->n_strx;
 			/* do not add path */
 			len = strlen(str);
-			if (len > 0 && str[len - 1] != '/')
+			ຖ້າ (len > 0 && str[len - 1] != '/')
 			    goto add_incl2;
 		    }
-		    break;
+		    bha_nga;
 		}
 		sym++;
 	    }
@@ -505,36 +505,36 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     }
 
     // write symbol table
-    if (s1->do_debug) {
-	int k;
-	struct syment csym;
+    ຖ້າ (s1->do_debug) {
+	ຈຳນວນເຕັມ k;
+	sa_nracanaa syment csym;
 	AUXFUNC auxfunc;
 	AUXBF auxbf;
 	AUXEF auxef;
-	int i;
+	ຈຳນວນເຕັມ i;
 	Elf32_Sym *p;
-	const char *name;
-	int nstr;
-	int n = 0;
+	const var_na *name;
+	ຈຳນວນເຕັມ nstr;
+	ຈຳນວນເຕັມ n = 0;
 
-	Coff_str_table = (char *) tcc_malloc(MAX_STR_TABLE);
+	Coff_str_table = (var_na *) tcc_malloc(MAX_STR_TABLE);
 	pCoff_str_table = Coff_str_table;
 	nstr = 0;
 
 	p = (Elf32_Sym *) symtab_section->data;
 
 
-	for (i = 0; i < nb_syms; i++) {
+	ສຳລັບ (i = 0; i < nb_syms; i++) {
 
 	    name = symtab_section->link->data + p->st_name;
 
-	    for (k = 0; k < 8; k++)
+	    ສຳລັບ (k = 0; k < 8; k++)
 		csym._n._n_name[k] = 0;
 
-	    if (strlen(name) <= 8) {
+	    ຖ້າ (strlen(name) <= 8) {
 		strcpy(csym._n._n_name, name);
-	    } else {
-		if (pCoff_str_table - Coff_str_table + strlen(name) >
+	    } ບໍ່ດັ່ງນັ້ນ {
+		ຖ້າ (pCoff_str_table - Coff_str_table + strlen(name) >
 		    MAX_STR_TABLE - 1)
 		    tcc_error("String table too large");
 
@@ -547,7 +547,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		nstr++;
 	    }
 
-	    if (p->st_info == 4) {
+	    ຖ້າ (p->st_info == 4) {
 		// put a filename symbol
 		csym.n_value = 33;	// ?????
 		csym.n_scnum = N_DEBUG;
@@ -557,15 +557,15 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		fwrite(&csym, 18, 1, f);
 		n++;
 
-	    } else if (p->st_info == 0x12) {
+	    } ບໍ່ດັ່ງນັ້ນ ຖ້າ (p->st_info == 0x12) {
 		// find the function data
 
-		for (k = 0; k < nFuncs; k++) {
-		    if (strcmp(name, Func[k]) == 0)
-			break;
+		ສຳລັບ (k = 0; k < nFuncs; k++) {
+		    ຖ້າ (strcmp(name, Func[k]) == 0)
+			bha_nga;
 		}
 
-		if (k >= nFuncs) {
+		ຖ້າ (k >= nFuncs) {
 		    tcc_error("debug info can't find function: %s", name);
 		}
 		// put a Function Name
@@ -628,25 +628,25 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 		n += 6;
 
-	    } else {
+	    } ບໍ່ດັ່ງນັ້ນ {
 		// try an put some type info
 
-		if ((p->st_other & VT_BTYPE) == VT_DOUBLE) {
+		ຖ້າ ((p->st_other & VT_BTYPE) == VT_DOUBLE) {
 		    csym.n_type = T_DOUBLE;	// int
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_FLOAT) {
+		} ບໍ່ດັ່ງນັ້ນ ຖ້າ ((p->st_other & VT_BTYPE) == VT_FLOAT) {
 		    csym.n_type = T_FLOAT;
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_INT) {
+		} ບໍ່ດັ່ງນັ້ນ ຖ້າ ((p->st_other & VT_BTYPE) == VT_INT) {
 		    csym.n_type = T_INT;	// int
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_SHORT) {
+		} ບໍ່ດັ່ງນັ້ນ ຖ້າ ((p->st_other & VT_BTYPE) == VT_SHORT) {
 		    csym.n_type = T_SHORT;
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_BYTE) {
+		} ບໍ່ດັ່ງນັ້ນ ຖ້າ ((p->st_other & VT_BTYPE) == VT_BYTE) {
 		    csym.n_type = T_CHAR;
 		    csym.n_sclass = C_EXT;
-		} else {
+		} ບໍ່ດັ່ງນັ້ນ {
 		    csym.n_type = T_INT;	// just mark as a label
 		    csym.n_sclass = C_LABEL;
 		}
@@ -672,7 +672,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	}
     }
 
-    if (s1->do_debug) {
+    ຖ້າ (s1->do_debug) {
 	// write string table
 
 	// first write the size
@@ -685,7 +685,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	tcc_free(Coff_str_table);
     }
 
-    return 0;
+    ສົ່ງຄືນ 0;
 }
 
 
@@ -695,11 +695,11 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 void SortSymbolTable(TCCState *s1)
 {
-    int i, j, k, n = 0;
+    ຈຳນວນເຕັມ i, j, k, n = 0;
     Elf32_Sym *p, *p2, *NewTable;
-    char *name, *name2;
+    var_na *name, *name2;
 
-    NewTable = (Elf32_Sym *) tcc_malloc(nb_syms * sizeof(Elf32_Sym));
+    NewTable = (Elf32_Sym *) tcc_malloc(nb_syms * parimaa_na(Elf32_Sym));
 
     p = (Elf32_Sym *) symtab_section->data;
 
@@ -708,9 +708,9 @@ void SortSymbolTable(TCCState *s1)
     // then scan the whole symbol list and copy any function
     // symbols that match the file association
 
-    for (i = 0; i < nb_syms; i++) {
-	if (p->st_info == 4) {
-	    name = (char *) symtab_section->link->data + p->st_name;
+    ສຳລັບ (i = 0; i < nb_syms; i++) {
+	ຖ້າ (p->st_info == 4) {
+	    name = (var_na *) symtab_section->link->data + p->st_name;
 
 	    // this is a file symbol, copy it over
 
@@ -718,25 +718,25 @@ void SortSymbolTable(TCCState *s1)
 
 	    p2 = (Elf32_Sym *) symtab_section->data;
 
-	    for (j = 0; j < nb_syms; j++) {
-		if (p2->st_info == 0x12) {
+	    ສຳລັບ (j = 0; j < nb_syms; j++) {
+		ຖ້າ (p2->st_info == 0x12) {
 		    // this is a func symbol
 
 		    name2 =
-			(char *) symtab_section->link->data + p2->st_name;
+			(var_na *) symtab_section->link->data + p2->st_name;
 
 		    // find the function data index
 
-		    for (k = 0; k < nFuncs; k++) {
-			if (strcmp(name2, Func[k]) == 0)
-			    break;
+		    ສຳລັບ (k = 0; k < nFuncs; k++) {
+			ຖ້າ (strcmp(name2, Func[k]) == 0)
+			    bha_nga;
 		    }
 
-		    if (k >= nFuncs) {
+		    ຖ້າ (k >= nFuncs) {
                         tcc_error("debug (sort) info can't find function: %s", name2);
 		    }
 
-		    if (strcmp(AssociatedFile[k], name) == 0) {
+		    ຖ້າ (strcmp(AssociatedFile[k], name) == 0) {
 			// yes they match copy it over
 
 			NewTable[n++] = *p2;
@@ -752,20 +752,20 @@ void SortSymbolTable(TCCState *s1)
     // copy all the rest over (all except file and funcs)
 
     p = (Elf32_Sym *) symtab_section->data;
-    for (i = 0; i < nb_syms; i++) {
-	if (p->st_info != 4 && p->st_info != 0x12) {
+    ສຳລັບ (i = 0; i < nb_syms; i++) {
+	ຖ້າ (p->st_info != 4 && p->st_info != 0x12) {
 	    NewTable[n++] = *p;
 	}
 	p++;
     }
 
-    if (n != nb_syms)
+    ຖ້າ (n != nb_syms)
 	tcc_error("Internal Compiler error, debug info");
 
     // copy it all back
 
     p = (Elf32_Sym *) symtab_section->data;
-    for (i = 0; i < nb_syms; i++) {
+    ສຳລັບ (i = 0; i < nb_syms; i++) {
 	*p++ = NewTable[i];
     }
 
@@ -773,25 +773,25 @@ void SortSymbolTable(TCCState *s1)
 }
 
 
-int FindCoffSymbolIndex(TCCState *s1, const char *func_name)
+ຈຳນວນເຕັມ FindCoffSymbolIndex(TCCState *s1, const var_na *func_name)
 {
-    int i, n = 0;
+    ຈຳນວນເຕັມ i, n = 0;
     Elf32_Sym *p;
-    char *name;
+    var_na *name;
 
     p = (Elf32_Sym *) symtab_section->data;
 
-    for (i = 0; i < nb_syms; i++) {
+    ສຳລັບ (i = 0; i < nb_syms; i++) {
 
-	name = (char *) symtab_section->link->data + p->st_name;
+	name = (var_na *) symtab_section->link->data + p->st_name;
 
-	if (p->st_info == 4) {
+	ຖ້າ (p->st_info == 4) {
 	    // put a filename symbol
 	    n++;
-	} else if (p->st_info == 0x12) {
+	} ບໍ່ດັ່ງນັ້ນ ຖ້າ (p->st_info == 0x12) {
 
-	    if (strcmp(func_name, name) == 0)
-		return n;
+	    ຖ້າ (strcmp(func_name, name) == 0)
+		ສົ່ງຄືນ n;
 
 	    n += 6;
 
@@ -807,115 +807,115 @@ int FindCoffSymbolIndex(TCCState *s1, const char *func_name)
 
 	    // now put aux info
 
-	} else {
+	} ບໍ່ດັ່ງນັ້ນ {
 	    n += 2;
 	}
 
 	p++;
     }
 
-    return n;			// total number of symbols
+    ສົ່ງຄືນ n;			// total number of symbols
 }
 
-int OutputTheSection(Section * sect)
+ຈຳນວນເຕັມ OutputTheSection(Section * sect)
 {
-    const char *s = sect->name;
+    const var_na *s = sect->name;
 
-    if (!strcmp(s, ".text"))
-	return 1;
-    else if (!strcmp(s, ".data"))
-	return 1;
-    else
-	return 0;
+    ຖ້າ (!strcmp(s, ".text"))
+	ສົ່ງຄືນ 1;
+    ບໍ່ດັ່ງນັ້ນ ຖ້າ (!strcmp(s, ".data"))
+	ສົ່ງຄືນ 1;
+    ບໍ່ດັ່ງນັ້ນ
+	ສົ່ງຄືນ 0;
 }
 
-short int GetCoffFlags(const char *s)
+short ຈຳນວນເຕັມ GetCoffFlags(const var_na *s)
 {
-    if (!strcmp(s, ".text"))
-	return STYP_TEXT | STYP_DATA | STYP_ALIGN | 0x400;
-    else if (!strcmp(s, ".data"))
-	return STYP_DATA;
-    else if (!strcmp(s, ".bss"))
-	return STYP_BSS;
-    else if (!strcmp(s, ".stack"))
-	return STYP_BSS | STYP_ALIGN | 0x200;
-    else if (!strcmp(s, ".cinit"))
-	return STYP_COPY | STYP_DATA | STYP_ALIGN | 0x200;
-    else
-	return 0;
+    ຖ້າ (!strcmp(s, ".text"))
+	ສົ່ງຄືນ STYP_TEXT | STYP_DATA | STYP_ALIGN | 0x400;
+    ບໍ່ດັ່ງນັ້ນ ຖ້າ (!strcmp(s, ".data"))
+	ສົ່ງຄືນ STYP_DATA;
+    ບໍ່ດັ່ງນັ້ນ ຖ້າ (!strcmp(s, ".bss"))
+	ສົ່ງຄືນ STYP_BSS;
+    ບໍ່ດັ່ງນັ້ນ ຖ້າ (!strcmp(s, ".stack"))
+	ສົ່ງຄືນ STYP_BSS | STYP_ALIGN | 0x200;
+    ບໍ່ດັ່ງນັ້ນ ຖ້າ (!strcmp(s, ".cinit"))
+	ສົ່ງຄືນ STYP_COPY | STYP_DATA | STYP_ALIGN | 0x200;
+    ບໍ່ດັ່ງນັ້ນ
+	ສົ່ງຄືນ 0;
 }
 
-Section *FindSection(TCCState * s1, const char *sname)
+Section *FindSection(TCCState * s1, const var_na *sname)
 {
     Section *s;
-    int i;
+    ຈຳນວນເຕັມ i;
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    ສຳລັບ (i = 1; i < s1->nb_sections; i++) {
 	s = s1->sections[i];
 
-	if (!strcmp(sname, s->name))
-	    return s;
+	ຖ້າ (!strcmp(sname, s->name))
+	    ສົ່ງຄືນ s;
     }
 
     tcc_error("could not find section %s", sname);
-    return 0;
+    ສົ່ງຄືນ 0;
 }
 
-ST_FUNC int tcc_load_coff(TCCState * s1, int fd)
+ST_FUNC ຈຳນວນເຕັມ tcc_load_coff(TCCState * s1, ຈຳນວນເຕັມ fd)
 {
 // tktk TokenSym *ts;
 
     FILE *f;
-    unsigned int str_size;
-    char *Coff_str_table, *name;
-    int i, k;
-    struct syment csym;
-    char name2[9];
+    unsigned ຈຳນວນເຕັມ str_size;
+    var_na *Coff_str_table, *name;
+    ຈຳນວນເຕັມ i, k;
+    sa_nracanaa syment csym;
+    var_na name2[9];
     FILHDR file_hdr;		/* FILE HEADER STRUCTURE              */
 
     f = fdopen(fd, "rb");
-    if (!f) {
+    ຖ້າ (!f) {
 	tcc_error("Unable to open .out file for input");
     }
 
-    if (fread(&file_hdr, FILHSZ, 1, f) != 1)
+    ຖ້າ (fread(&file_hdr, FILHSZ, 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
-    if (fread(&o_filehdr, sizeof(o_filehdr), 1, f) != 1)
+    ຖ້າ (fread(&o_filehdr, parimaa_na(o_filehdr), 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
     // first read the string table
 
-    if (fseek(f, file_hdr.f_symptr + file_hdr.f_nsyms * SYMESZ, SEEK_SET))
+    ຖ້າ (fseek(f, file_hdr.f_symptr + file_hdr.f_nsyms * SYMESZ, SEEK_SET))
 	tcc_error("error reading .out file for input");
 
-    if (fread(&str_size, sizeof(int), 1, f) != 1)
+    ຖ້າ (fread(&str_size, parimaa_na(ຈຳນວນເຕັມ), 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
 
-    Coff_str_table = (char *) tcc_malloc(str_size);
+    Coff_str_table = (var_na *) tcc_malloc(str_size);
 
-    if (fread(Coff_str_table, str_size - 4, 1, f) != 1)
+    ຖ້າ (fread(Coff_str_table, str_size - 4, 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
     // read/process all the symbols
 
     // seek back to symbols
 
-    if (fseek(f, file_hdr.f_symptr, SEEK_SET))
+    ຖ້າ (fseek(f, file_hdr.f_symptr, SEEK_SET))
 	tcc_error("error reading .out file for input");
 
-    for (i = 0; i < file_hdr.f_nsyms; i++) {
-	if (fread(&csym, SYMESZ, 1, f) != 1)
+    ສຳລັບ (i = 0; i < file_hdr.f_nsyms; i++) {
+	ຖ້າ (fread(&csym, SYMESZ, 1, f) != 1)
 	    tcc_error("error reading .out file for input");
 
-	if (csym._n._n_n._n_zeroes == 0) {
+	ຖ້າ (csym._n._n_n._n_zeroes == 0) {
 	    name = Coff_str_table + csym._n._n_n._n_offset - 4;
-	} else {
+	} ບໍ່ດັ່ງນັ້ນ {
 	    name = csym._n._n_name;
 
-	    if (name[7] != 0) {
-		for (k = 0; k < 8; k++)
+	    ຖ້າ (name[7] != 0) {
+		ສຳລັບ (k = 0; k < 8; k++)
 		    name2[k] = name[k];
 
 		name2[8] = 0;
@@ -926,26 +926,26 @@ ST_FUNC int tcc_load_coff(TCCState * s1, int fd)
 //              if (strcmp("_DAC_Buffer",name)==0)  // tktk
 //                      name[0]=0;
 
-	if (((csym.n_type & 0x30) == 0x20 && csym.n_sclass == 0x2) || ((csym.n_type & 0x30) == 0x30 && csym.n_sclass == 0x2) || (csym.n_type == 0x4 && csym.n_sclass == 0x2) || (csym.n_type == 0x8 && csym.n_sclass == 0x2) ||	// structures
+	ຖ້າ (((csym.n_type & 0x30) == 0x20 && csym.n_sclass == 0x2) || ((csym.n_type & 0x30) == 0x30 && csym.n_sclass == 0x2) || (csym.n_type == 0x4 && csym.n_sclass == 0x2) || (csym.n_type == 0x8 && csym.n_sclass == 0x2) ||	// structures
 	    (csym.n_type == 0x18 && csym.n_sclass == 0x2) ||	// pointer to structure
 	    (csym.n_type == 0x7 && csym.n_sclass == 0x2) ||	// doubles
 	    (csym.n_type == 0x6 && csym.n_sclass == 0x2))	// floats
 	{
 	    // strip off any leading underscore (except for other main routine)
 
-	    if (name[0] == '_' && strcmp(name, "_main") != 0)
+	    ຖ້າ (name[0] == '_' && strcmp(name, "_main") != 0)
 		name++;
 
 	    tcc_add_symbol(s1, name, (void*)(uintptr_t)csym.n_value);
 	}
 	// skip any aux records
 
-	if (csym.n_numaux == 1) {
-	    if (fread(&csym, SYMESZ, 1, f) != 1)
+	ຖ້າ (csym.n_numaux == 1) {
+	    ຖ້າ (fread(&csym, SYMESZ, 1, f) != 1)
 		tcc_error("error reading .out file for input");
 	    i++;
 	}
     }
 
-    return 0;
+    ສົ່ງຄືນ 0;
 }

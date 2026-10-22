@@ -1,40 +1,40 @@
 typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
-extern size_t strlen(const char*);
-char str[] = "blabla";
-int g;
-int main()
+extern ຈຳນວນເຕັມ printf(const var_na*, ...);
+extern size_t strlen(const var_na*);
+var_na str[] = "blabla";
+ຈຳນວນເຕັມ g;
+ຈຳນວນເຕັມ main()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
-      char buf[strlen(str) + 10];
+  ຈຳນວນເຕັມ i = 0;
+#ຖ້າ 0
+  ຖ້າ (g) {
+      var_na buf[strlen(str) + 10];
       buf[0] = 0;
   }
 alabel:
   printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
+#ບໍ່ດັ່ງນັ້ນ
+  ສຳລັບ (i = 0; i < 5; i++) {
       switch (i) {
-      case 10:
-          if (g) {
-              char buf[strlen(str) + 10];
+      pak_sa 10:
+          ຖ້າ (g) {
+              var_na buf[strlen(str) + 10];
               buf[0] = 0;
               goto do_cmd;
           }
-          break;
-      case 1:
+          bha_nga;
+      pak_sa 1:
           printf("reached 3\n");
     do_cmd:
           printf("after do_cmd");
-          break;
+          bha_nga;
       default:
           g++;
           printf("default: i = %d\n", i);
-          break;
+          bha_nga;
       }
   }
 #endif
-  return 0;
+  ສົ່ງຄືນ 0;
 }

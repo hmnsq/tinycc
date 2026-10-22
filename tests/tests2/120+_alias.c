@@ -1,8 +1,8 @@
-extern int printf (const char *, ...);
+extern ຈຳນວນເຕັມ printf (const var_na *, ...);
 extern void target(void);
 extern void alias_for_target(void);
 extern void asm_for_target(void);
-extern int g_int, alias_int;
+extern ຈຳນວນເຕັມ g_int, alias_int;
 
 void inunit2(void);
 

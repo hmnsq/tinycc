@@ -24,7 +24,7 @@ extern "C" {
 #define __PCTYPE_FUNC __pctype_func()
 #ifdef _MSVCRT_
 #define __pctype_func()	(_pctype)
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #define __pctype_func()	(*_imp___pctype)
 #endif
 #endif
@@ -32,7 +32,7 @@ extern "C" {
 #ifndef _pctype
 #ifdef _MSVCRT_
   extern unsigned short *_pctype;
-#else
+#ບໍ່ດັ່ງນັ້ນ
   extern unsigned short **_imp___pctype;
 #define _pctype (*_imp___pctype)
 #endif
@@ -47,7 +47,7 @@ extern "C" {
 #ifndef _wctype
 #ifdef _MSVCRT_
   extern unsigned short *_wctype;
-#else
+#ບໍ່ດັ່ງນັ້ນ
   extern unsigned short **_imp___wctype;
 #define _wctype (*_imp___wctype)
 #endif
@@ -57,7 +57,7 @@ extern "C" {
 #ifndef _pwctype
   extern unsigned short *_pwctype;
 #endif
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #define __pwctype_func() (*_imp___pwctype)
 #ifndef _pwctype
   extern unsigned short **_imp___pwctype;
@@ -68,14 +68,14 @@ extern "C" {
 #endif
 
   /* CRT stuff */
-#if 1
-  extern const unsigned char __newclmap[];
-  extern const unsigned char __newcumap[];
+#ຖ້າ 1
+  extern const unsigned var_na __newclmap[];
+  extern const unsigned var_na __newcumap[];
   extern pthreadlocinfo __ptlocinfo;
   extern pthreadmbcinfo __ptmbcinfo;
-  extern int __globallocalestatus;
-  extern int __locale_changed;
-  extern struct threadlocaleinfostruct __initiallocinfo;
+  extern ຈຳນວນເຕັມ __globallocalestatus;
+  extern ຈຳນວນເຕັມ __locale_changed;
+  extern sa_nracanaa threadlocaleinfostruct __initiallocinfo;
   extern _locale_tstruct __initiallocalestructinfo;
   pthreadlocinfo __cdecl __updatetlocinfo(void);
   pthreadmbcinfo __cdecl __updatetmbcinfo(void);
@@ -97,88 +97,88 @@ extern "C" {
 #ifndef _CTYPE_DEFINED
 #define _CTYPE_DEFINED
 
-  _CRTIMP int __cdecl _isctype(int _C,int _Type);
-  _CRTIMP int __cdecl _isctype_l(int _C,int _Type,_locale_t _Locale);
-  _CRTIMP int __cdecl isalpha(int _C);
-  _CRTIMP int __cdecl _isalpha_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isupper(int _C);
-  _CRTIMP int __cdecl _isupper_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl islower(int _C);
-  _CRTIMP int __cdecl _islower_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isdigit(int _C);
-  _CRTIMP int __cdecl _isdigit_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isxdigit(int _C);
-  _CRTIMP int __cdecl _isxdigit_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isspace(int _C);
-  _CRTIMP int __cdecl _isspace_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl ispunct(int _C);
-  _CRTIMP int __cdecl _ispunct_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isalnum(int _C);
-  _CRTIMP int __cdecl _isalnum_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isprint(int _C);
-  _CRTIMP int __cdecl _isprint_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl isgraph(int _C);
-  _CRTIMP int __cdecl _isgraph_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl iscntrl(int _C);
-  _CRTIMP int __cdecl _iscntrl_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl toupper(int _C);
-  _CRTIMP int __cdecl tolower(int _C);
-  _CRTIMP int __cdecl _tolower(int _C);
-  _CRTIMP int __cdecl _tolower_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl _toupper(int _C);
-  _CRTIMP int __cdecl _toupper_l(int _C,_locale_t _Locale);
-  _CRTIMP int __cdecl __isascii(int _C);
-  _CRTIMP int __cdecl __toascii(int _C);
-  _CRTIMP int __cdecl __iscsymf(int _C);
-  _CRTIMP int __cdecl __iscsym(int _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _isctype(ຈຳນວນເຕັມ _C,ຈຳນວນເຕັມ _Type);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _isctype_l(ຈຳນວນເຕັມ _C,ຈຳນວນເຕັມ _Type,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl isalpha(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _isalpha_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl isupper(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _isupper_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl islower(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _islower_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl isdigit(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _isdigit_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl isxdigit(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _isxdigit_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl isspace(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _isspace_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl ispunct(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _ispunct_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl isalnum(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _isalnum_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl isprint(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _isprint_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl isgraph(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _isgraph_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl iscntrl(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iscntrl_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl toupper(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl tolower(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tolower(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _tolower_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _toupper(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _toupper_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl __isascii(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl __toascii(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl __iscsymf(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl __iscsym(ຈຳນວນເຕັມ _C);
 
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl isblank(int _C);
+#ຖ້າ (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+ຈຳນວນເຕັມ __cdecl isblank(ຈຳນວນເຕັມ _C);
 #endif
 #endif
 
 #ifndef _WCTYPE_DEFINED
 #define _WCTYPE_DEFINED
 
-  int __cdecl iswalpha(wint_t _C);
-  _CRTIMP int __cdecl _iswalpha_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswupper(wint_t _C);
-  _CRTIMP int __cdecl _iswupper_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswlower(wint_t _C);
-  _CRTIMP int __cdecl _iswlower_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswdigit(wint_t _C);
-  _CRTIMP int __cdecl _iswdigit_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswxdigit(wint_t _C);
-  _CRTIMP int __cdecl _iswxdigit_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswspace(wint_t _C);
-  _CRTIMP int __cdecl _iswspace_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswpunct(wint_t _C);
-  _CRTIMP int __cdecl _iswpunct_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswalnum(wint_t _C);
-  _CRTIMP int __cdecl _iswalnum_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswprint(wint_t _C);
-  _CRTIMP int __cdecl _iswprint_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswgraph(wint_t _C);
-  _CRTIMP int __cdecl _iswgraph_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswcntrl(wint_t _C);
-  _CRTIMP int __cdecl _iswcntrl_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswascii(wint_t _C);
-  int __cdecl isleadbyte(int _C);
-  _CRTIMP int __cdecl _isleadbyte_l(int _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswalpha(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswalpha_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswupper(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswupper_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswlower(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswlower_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswdigit(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswdigit_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswxdigit(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswxdigit_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswspace(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswspace_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswpunct(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswpunct_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswalnum(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswalnum_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswprint(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswprint_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswgraph(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswgraph_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswcntrl(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswcntrl_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl iswascii(wint_t _C);
+  ຈຳນວນເຕັມ __cdecl isleadbyte(ຈຳນວນເຕັມ _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _isleadbyte_l(ຈຳນວນເຕັມ _C,_locale_t _Locale);
   wint_t __cdecl towupper(wint_t _C);
   _CRTIMP wint_t __cdecl _towupper_l(wint_t _C,_locale_t _Locale);
   wint_t __cdecl towlower(wint_t _C);
   _CRTIMP wint_t __cdecl _towlower_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswctype(wint_t _C,wctype_t _Type);
-  _CRTIMP int __cdecl _iswctype_l(wint_t _C,wctype_t _Type,_locale_t _Locale);
-  _CRTIMP int __cdecl __iswcsymf(wint_t _C);
-  _CRTIMP int __cdecl _iswcsymf_l(wint_t _C,_locale_t _Locale);
-  _CRTIMP int __cdecl __iswcsym(wint_t _C);
-  _CRTIMP int __cdecl _iswcsym_l(wint_t _C,_locale_t _Locale);
-  int __cdecl is_wctype(wint_t _C,wctype_t _Type);
+  ຈຳນວນເຕັມ __cdecl iswctype(wint_t _C,wctype_t _Type);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswctype_l(wint_t _C,wctype_t _Type,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl __iswcsymf(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswcsymf_l(wint_t _C,_locale_t _Locale);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl __iswcsym(wint_t _C);
+  _CRTIMP ຈຳນວນເຕັມ __cdecl _iswcsym_l(wint_t _C,_locale_t _Locale);
+  ຈຳນວນເຕັມ __cdecl is_wctype(wint_t _C,wctype_t _Type);
 
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl iswblank(wint_t _C);
+#ຖ້າ (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+ຈຳນວນເຕັມ __cdecl iswblank(wint_t _C);
 #endif
 #endif
 
@@ -188,15 +188,15 @@ int __cdecl iswblank(wint_t _C);
 #define MB_CUR_MAX ___mb_cur_max_func()
 #ifndef __mb_cur_max
 #ifdef _MSVCRT_
-  extern int __mb_cur_max;
-#else
+  extern ຈຳນວນເຕັມ __mb_cur_max;
+#ບໍ່ດັ່ງນັ້ນ
 #define __mb_cur_max	(*_imp____mb_cur_max)
-  extern int *_imp____mb_cur_max;
+  extern ຈຳນວນເຕັມ *_imp____mb_cur_max;
 #endif
 #endif
 #ifdef _MSVCRT_
 #define ___mb_cur_max_func() (__mb_cur_max)
-#else
+#ບໍ່ດັ່ງນັ້ນ
 #define ___mb_cur_max_func() (*_imp____mb_cur_max)
 #endif
 #endif
@@ -263,11 +263,11 @@ int __cdecl iswblank(wint_t _C);
 
 #ifndef	NO_OLDNAMES
 #ifndef _CTYPE_DEFINED
-  int __cdecl isascii(int _C);
-  int __cdecl toascii(int _C);
-  int __cdecl iscsymf(int _C);
-  int __cdecl iscsym(int _C);
-#else
+  ຈຳນວນເຕັມ __cdecl isascii(ຈຳນວນເຕັມ _C);
+  ຈຳນວນເຕັມ __cdecl toascii(ຈຳນວນເຕັມ _C);
+  ຈຳນວນເຕັມ __cdecl iscsymf(ຈຳນວນເຕັມ _C);
+  ຈຳນວນເຕັມ __cdecl iscsym(ຈຳນວນເຕັມ _C);
+#ບໍ່ດັ່ງນັ້ນ
 #define isascii __isascii
 #define toascii __toascii
 #define iscsymf __iscsymf
