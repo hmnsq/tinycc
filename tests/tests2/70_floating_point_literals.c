@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+整数 主要()
 {
     /* decimal floating constant */
     float fa0 = .123f;
@@ -75,5 +75,5 @@ int main()
     printf("%Lf\n%Lf\n%Lf\n\n", ld0, ld1, ld2);
 #endif
 
-    return 0;
+    返回 0;
 }

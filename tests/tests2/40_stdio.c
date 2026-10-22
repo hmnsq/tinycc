@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+整数 主要()
 {
    FILE *f = fopen("fred.txt", "w");
    fwrite("hello\nhello\n", 1, 12, f);
@@ -8,7 +8,7 @@ int main()
 
    char freddy[7];
    f = fopen("fred.txt", "r");
-   if (fread(freddy, 1, 6, f) != 6)
+   如果 (fread(freddy, 1, 6, f) != 6)
       printf("couldn't read fred.txt\n");
 
    freddy[6] = '\0';
@@ -16,13 +16,13 @@ int main()
 
    printf("%s", freddy);
 
-   int InChar;
+   整数 InChar;
    char ShowChar;
    f = fopen("fred.txt", "r");
-   while ( (InChar = fgetc(f)) != EOF)
+   当 ( (InChar = fgetc(f)) != EOF)
    {
       ShowChar = InChar;
-      if (ShowChar < ' ')
+      如果 (ShowChar < ' ')
          ShowChar = '.';
 
       printf("ch: %d '%c'\n", InChar, ShowChar);
@@ -30,10 +30,10 @@ int main()
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while ( (InChar = getc(f)) != EOF)
+   当 ( (InChar = getc(f)) != EOF)
    {
       ShowChar = InChar;
-      if (ShowChar < ' ')
+      如果 (ShowChar < ' ')
          ShowChar = '.';
 
       printf("ch: %d '%c'\n", InChar, ShowChar);
@@ -41,12 +41,12 @@ int main()
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while (fgets(freddy, sizeof(freddy), f) != NULL)
+   当 (fgets(freddy, sizeof(freddy), f) != NULL)
       printf("x: %s", freddy);
 
    fclose(f);
 
-   return 0;
+   返回 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

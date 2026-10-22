@@ -8,13 +8,13 @@
 void hello_func (void);
 __declspec(dllimport) extern const char *hello_data;
 
-int WINAPI WinMain(
+整数 WINAPI WinMain(
     HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
     LPSTR     lpCmdLine,
-    int       nCmdShow)
+    整数       nCmdShow)
 {
     hello_data = "Hello World!";
     hello_func();
-    return 0;
+    返回 0;
 }

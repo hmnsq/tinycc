@@ -11,40 +11,40 @@
 #include <errno.h>
 #include <setjmp.h>
 
-static volatile int run = 1;
+static volatile 整数 run = 1;
 static sem_t sem;
 static sem_t sem_child;
 
 static void
-add (int n)
+add (整数 n)
 {
-    int i;
-    int arr[n];
+    整数 i;
+    整数 arr[n];
 
-    for (i = 0; i < n; i++) {
+    为 (i = 0; i < n; i++) {
         arr[i]++;
     }
-    memset (&arr[0], 0, n * sizeof(int));
+    memset (&arr[0], 0, n * sizeof(整数));
 }
 
 static void *
 high_load (void *unused)
 {
-    while (run) {
+    当 (run) {
         add(10);
         add(20);
     }
-    return NULL;
+    返回 NULL;
 }
 
 static void *
 do_signal (void *unused)
 {
-    while (run) {
+    当 (run) {
         kill (getpid(), SIGUSR1);
-        while (sem_wait(&sem) < 0 && errno == EINTR);
+        当 (sem_wait(&sem) < 0 && errno == EINTR);
     }
-    return NULL;
+    返回 NULL;
 }
 
 static void *
@@ -52,7 +52,7 @@ do_fork (void *unused)
 {
     pid_t pid;
 
-    while (run) {
+    当 (run) {
         switch ((pid = fork())) {
         case 0:
             add(1000);
@@ -60,24 +60,24 @@ do_fork (void *unused)
             exit(0);
             break;
         case -1:
-            return NULL;
+            返回 NULL;
         default:
-            while (sem_wait(&sem_child) < 0 && errno == EINTR);
+            当 (sem_wait(&sem_child) < 0 && errno == EINTR);
             wait(NULL);
             break;
         }
     }
-    return NULL;
+    返回 NULL;
 }
 
-static void signal_handler(int sig)
+static void signal_handler(整数 sig)
 {
     add(10);
     add(20);
     sem_post (&sem);
 }
 
-static void child_handler(int sig)
+static void child_handler(整数 sig)
 {
     add(10);
     add(20);
@@ -87,18 +87,18 @@ static void child_handler(int sig)
 static unsigned getclock_ms(void)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
+    返回 GetTickCount();
+#否则
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    返回 tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int
-main (void)
+整数
+主要 (void)
 {
-    int i;
+    整数 i;
     pthread_t id1, id2, id3;
     struct sigaction act;
     sigjmp_buf sj;
@@ -119,18 +119,18 @@ main (void)
     sem_init (&sem_child, 0, 0);
     pthread_create(&id1, NULL, high_load, NULL);
     pthread_create(&id2, NULL, do_signal, NULL);
-#if !defined(__APPLE__)
+#如果 !defined(__APPLE__)
     pthread_create(&id3, NULL, do_fork, NULL);
 #endif
 
     /* sleep does not work !!! */
     end = getclock_ms() + 200;
-    while (getclock_ms() < end) ;
+    当 (getclock_ms() < end) ;
     run = 0;
 
     pthread_join(id1, NULL);
     pthread_join(id2, NULL);
-#if !defined(__APPLE__)
+#如果 !defined(__APPLE__)
     pthread_join(id3, NULL);
 #endif
     sem_destroy (&sem);
@@ -140,16 +140,16 @@ main (void)
 
     sigemptyset (&m);
     sigprocmask (SIG_SETMASK, &m, NULL);
-    if (sigsetjmp (sj, 0) == 0)
+    如果 (sigsetjmp (sj, 0) == 0)
     {
         sigaddset (&m, SIGUSR1);
         sigprocmask (SIG_SETMASK, &m, NULL);
         siglongjmp (sj, 1);
         printf ("failed");
-        return 1;
+        返回 1;
     }
     sigprocmask (SIG_SETMASK, NULL, &m);
-    if (!sigismember (&m, SIGUSR1))
+    如果 (!sigismember (&m, SIGUSR1))
         printf ("failed");
-    return 0;
+    返回 0;
 }

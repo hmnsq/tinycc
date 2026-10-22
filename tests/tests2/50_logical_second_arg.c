@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int fred()
+整数 fred()
 {
    printf("fred\n");
-   return 0;
+   返回 0;
 }
 
-int joe()
+整数 joe()
 {
    printf("joe\n");
-   return 1;
+   返回 1;
 }
 
-int main()
+整数 主要()
 {
    printf("%d\n", fred() && joe());
    printf("%d\n", fred() || joe());
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", joe() && (0 + fred()));
    printf("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   返回 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

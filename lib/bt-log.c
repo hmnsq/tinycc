@@ -8,12 +8,12 @@
 
 #ifdef _WIN32
 # define DLL_EXPORT __declspec(dllexport)
-#else
+#否则
 # define DLL_EXPORT
 #endif
 
 /* Needed when using ...libtcc1-usegcc=yes in lib/Makefile */
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#如果 (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wframe-address"
 #endif
@@ -23,34 +23,34 @@ typedef struct rt_frame {
 } rt_frame;
 
 __attribute__((weak))
-int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap);
+整数 _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap);
 
-DLL_EXPORT int tcc_backtrace(const char *fmt, ...)
+DLL_EXPORT 整数 tcc_backtrace(const char *fmt, ...)
 {
     va_list ap;
-    int ret;
+    整数 ret;
 
-    if (_tcc_backtrace) {
+    如果 (_tcc_backtrace) {
         rt_frame f;
         f.fp = __builtin_frame_address(1);
         f.ip = __builtin_return_address(0);
         va_start(ap, fmt);
         ret = _tcc_backtrace(&f, fmt, ap);
         va_end(ap);
-    } else {
+    } 否则 {
         const char *p, *nl = "\n";
-        if (fmt[0] == '^' && (p = strchr(fmt + 1, fmt[0])))
+        如果 (fmt[0] == '^' && (p = strchr(fmt + 1, fmt[0])))
             fmt = p + 1;
-        if (fmt[0] == '\001')
+        如果 (fmt[0] == '\001')
             ++fmt, nl = "";
         va_start(ap, fmt);
         ret = vfprintf(stderr, fmt, ap);
         va_end(ap);
         fprintf(stderr, "%s", nl), fflush(stderr);
     }
-    return ret;
+    返回 ret;
 }
 
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#如果 (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
 #pragma GCC diagnostic pop
 #endif

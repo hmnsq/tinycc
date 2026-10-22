@@ -18,7 +18,7 @@
 extern "C" {
 #endif
 
-_CRTIMP char* __cdecl _getcwd (char*, int);
+_CRTIMP char* __cdecl _getcwd (char*, 整数);
 #ifndef _FSIZE_T_DEFINED
   typedef unsigned long _fsize_t;
 #define _FSIZE_T_DEFINED
@@ -72,13 +72,13 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #ifdef _WIN64
 #define _findfirst _findfirst32
 #define _findnext _findnext32
-#else
+#否则
 #define _findfirst32 _findfirst
 #define _findnext32 _findnext
 #endif
 #define _findfirsti64 _findfirst32i64
 #define _findnexti64 _findnext32i64
-#else
+#否则
 #define _finddata_t _finddata64i32_t
 #define _finddatai64_t __finddata64_t
 
@@ -140,7 +140,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define _wfindnext _wfindnext32
 #define _wfindfirsti64 _wfindfirst32i64
 #define _wfindnexti64 _wfindnext32i64
-#else
+#否则
 #define _wfinddata_t _wfinddata64i32_t
 #define _wfinddatai64_t _wfinddata64_t
 
@@ -164,13 +164,13 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define _SIZE_T_DEFINED
 #undef size_t
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
+#如果 defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef unsigned 整数 size_t __attribute__ ((mode (DI)));
+#否则
   typedef unsigned __int64 size_t;
 #endif
-#else
-  typedef unsigned int size_t;
+#否则
+  typedef unsigned 整数 size_t;
 #endif
 #endif
 
@@ -178,13 +178,13 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define _SSIZE_T_DEFINED
 #undef ssize_t
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
+#如果 defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef 整数 ssize_t __attribute__ ((mode (DI)));
+#否则
   typedef __int64 ssize_t;
 #endif
-#else
-  typedef int ssize_t;
+#否则
+  typedef 整数 ssize_t;
 #endif
 #endif
 
@@ -193,7 +193,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #ifndef _OFF_T_
 #define _OFF_T_
   typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
+#如果 !defined(NO_OLDNAMES) || defined(_POSIX)
   typedef long off_t;
 #endif
 #endif
@@ -201,14 +201,14 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 
 #ifndef _OFF64_T_DEFINED
 #define _OFF64_T_DEFINED
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int _off64_t __attribute__ ((mode (DI)));
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef int off64_t __attribute__ ((mode (DI)));
+#如果 defined(__GNUC__) && defined(__STRICT_ANSI__)
+  typedef 整数 _off64_t __attribute__ ((mode (DI)));
+#如果 !defined(NO_OLDNAMES) || defined(_POSIX)
+  typedef 整数 off64_t __attribute__ ((mode (DI)));
 #endif
-#else
+#否则
   typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
+#如果 !defined(NO_OLDNAMES) || defined(_POSIX)
   typedef long long off64_t;
 #endif
 #endif
@@ -221,44 +221,44 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define	W_OK	2	/* Check for write permission */
 #define	R_OK	4	/* Check for read permission */
 
-  _CRTIMP int __cdecl _access(const char *_Filename,int _AccessMode);
-  _CRTIMP int __cdecl _chmod(const char *_Filename,int _Mode);
-  _CRTIMP int __cdecl _chsize(int _FileHandle,long _Size);
-  _CRTIMP int __cdecl _close(int _FileHandle);
-  _CRTIMP int __cdecl _commit(int _FileHandle);
-  _CRTIMP int __cdecl _creat(const char *_Filename,int _PermissionMode);
-  _CRTIMP int __cdecl _dup(int _FileHandle);
-  _CRTIMP int __cdecl _dup2(int _FileHandleSrc,int _FileHandleDst);
-  _CRTIMP int __cdecl _eof(int _FileHandle);
-  _CRTIMP long __cdecl _filelength(int _FileHandle);
+  _CRTIMP 整数 __cdecl _access(const char *_Filename,整数 _AccessMode);
+  _CRTIMP 整数 __cdecl _chmod(const char *_Filename,整数 _Mode);
+  _CRTIMP 整数 __cdecl _chsize(整数 _FileHandle,long _Size);
+  _CRTIMP 整数 __cdecl _close(整数 _FileHandle);
+  _CRTIMP 整数 __cdecl _commit(整数 _FileHandle);
+  _CRTIMP 整数 __cdecl _creat(const char *_Filename,整数 _PermissionMode);
+  _CRTIMP 整数 __cdecl _dup(整数 _FileHandle);
+  _CRTIMP 整数 __cdecl _dup2(整数 _FileHandleSrc,整数 _FileHandleDst);
+  _CRTIMP 整数 __cdecl _eof(整数 _FileHandle);
+  _CRTIMP long __cdecl _filelength(整数 _FileHandle);
   _CRTIMP intptr_t __cdecl _findfirst32(const char *_Filename,struct _finddata32_t *_FindData);
-  _CRTIMP int __cdecl _findnext32(intptr_t _FindHandle,struct _finddata32_t *_FindData);
-  _CRTIMP int __cdecl _findclose(intptr_t _FindHandle);
-  _CRTIMP int __cdecl _isatty(int _FileHandle);
-  _CRTIMP int __cdecl _locking(int _FileHandle,int _LockMode,long _NumOfBytes);
-  _CRTIMP long __cdecl _lseek(int _FileHandle,long _Offset,int _Origin);
-  _off64_t lseek64(int fd,_off64_t offset, int whence);
+  _CRTIMP 整数 __cdecl _findnext32(intptr_t _FindHandle,struct _finddata32_t *_FindData);
+  _CRTIMP 整数 __cdecl _findclose(intptr_t _FindHandle);
+  _CRTIMP 整数 __cdecl _isatty(整数 _FileHandle);
+  _CRTIMP 整数 __cdecl _locking(整数 _FileHandle,整数 _LockMode,long _NumOfBytes);
+  _CRTIMP long __cdecl _lseek(整数 _FileHandle,long _Offset,整数 _Origin);
+  _off64_t lseek64(整数 fd,_off64_t offset, 整数 whence);
   _CRTIMP char *__cdecl _mktemp(char *_TemplateName);
-  _CRTIMP int __cdecl _pipe(int *_PtHandles,unsigned int _PipeSize,int _TextMode);
-  _CRTIMP int __cdecl _read(int _FileHandle,void *_DstBuf,unsigned int _MaxCharCount);
+  _CRTIMP 整数 __cdecl _pipe(整数 *_PtHandles,unsigned 整数 _PipeSize,整数 _TextMode);
+  _CRTIMP 整数 __cdecl _read(整数 _FileHandle,void *_DstBuf,unsigned 整数 _MaxCharCount);
 
 #ifndef _CRT_DIRECTORY_DEFINED
 #define _CRT_DIRECTORY_DEFINED
-  int __cdecl remove(const char *_Filename);
-  int __cdecl rename(const char *_OldFilename,const char *_NewFilename);
-  _CRTIMP int __cdecl _unlink(const char *_Filename);
+  整数 __cdecl remove(const char *_Filename);
+  整数 __cdecl rename(const char *_OldFilename,const char *_NewFilename);
+  _CRTIMP 整数 __cdecl _unlink(const char *_Filename);
 #ifndef	NO_OLDNAMES
-  int __cdecl unlink(const char *_Filename);
+  整数 __cdecl unlink(const char *_Filename);
 #endif
 #endif
 
-  _CRTIMP int __cdecl _setmode(int _FileHandle,int _Mode);
-  _CRTIMP long __cdecl _tell(int _FileHandle);
-  _CRTIMP int __cdecl _umask(int _Mode);
-  _CRTIMP int __cdecl _write(int _FileHandle,const void *_Buf,unsigned int _MaxCharCount);
+  _CRTIMP 整数 __cdecl _setmode(整数 _FileHandle,整数 _Mode);
+  _CRTIMP long __cdecl _tell(整数 _FileHandle);
+  _CRTIMP 整数 __cdecl _umask(整数 _Mode);
+  _CRTIMP 整数 __cdecl _write(整数 _FileHandle,const void *_Buf,unsigned 整数 _MaxCharCount);
 
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP __int64 __cdecl _filelengthi64(int _FileHandle);
+#如果 _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP __int64 __cdecl _filelengthi64(整数 _FileHandle);
   _CRTIMP intptr_t __cdecl _findfirst32i64(const char *_Filename,struct _finddata32i64_t *_FindData);
   _CRTIMP intptr_t __cdecl _findfirst64(const char *_Filename,struct __finddata64_t *_FindData);
 #ifdef __cplusplus
@@ -275,107 +275,107 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
     _FindData->time_write=fd.time_write;
     _FindData->size=(_fsize_t) fd.size;
     strncpy(_FindData->name,fd.name,260);
-    return ret;
+    返回 ret;
   }
-  _CRTIMP int __cdecl _findnext32i64(intptr_t _FindHandle,struct _finddata32i64_t *_FindData);
-  _CRTIMP int __cdecl _findnext64(intptr_t _FindHandle,struct __finddata64_t *_FindData);
-  int __cdecl _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t *_FindData);
-  __CRT_INLINE int __cdecl _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t *_FindData)
+  _CRTIMP 整数 __cdecl _findnext32i64(intptr_t _FindHandle,struct _finddata32i64_t *_FindData);
+  _CRTIMP 整数 __cdecl _findnext64(intptr_t _FindHandle,struct __finddata64_t *_FindData);
+  整数 __cdecl _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t *_FindData);
+  __CRT_INLINE 整数 __cdecl _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t *_FindData)
   {
     struct __finddata64_t fd;
-    int ret = _findnext64(_FindHandle,&fd);
+    整数 ret = _findnext64(_FindHandle,&fd);
     _FindData->attrib=fd.attrib;
     _FindData->time_create=fd.time_create;
     _FindData->time_access=fd.time_access;
     _FindData->time_write=fd.time_write;
     _FindData->size=(_fsize_t) fd.size;
     strncpy(_FindData->name,fd.name,260);
-    return ret;
+    返回 ret;
   }
-  __int64 __cdecl _lseeki64(int _FileHandle,__int64 _Offset,int _Origin);
-  __int64 __cdecl _telli64(int _FileHandle);
+  __int64 __cdecl _lseeki64(整数 _FileHandle,__int64 _Offset,整数 _Origin);
+  __int64 __cdecl _telli64(整数 _FileHandle);
 #endif
 #ifndef NO_OLDNAMES
 
 #ifndef _UWIN
-  int __cdecl chdir (const char *);
-  char *__cdecl getcwd (char *, int);
-  int __cdecl mkdir (const char *);
+  整数 __cdecl chdir (const char *);
+  char *__cdecl getcwd (char *, 整数);
+  整数 __cdecl mkdir (const char *);
   char *__cdecl mktemp(char *);
-  int __cdecl rmdir (const char*);
-  int __cdecl chmod (const char *, int);
+  整数 __cdecl rmdir (const char*);
+  整数 __cdecl chmod (const char *, 整数);
 #endif /* _UWIN */
 
 #endif /* Not NO_OLDNAMES */
 
-  _CRTIMP errno_t __cdecl _sopen_s(int *_FileHandle,const char *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionMode);
+  _CRTIMP errno_t __cdecl _sopen_s(整数 *_FileHandle,const char *_Filename,整数 _OpenFlag,整数 _ShareFlag,整数 _PermissionMode);
 
 #ifndef __cplusplus
-  _CRTIMP int __cdecl _open(const char *_Filename,int _OpenFlag,...);
-  _CRTIMP int __cdecl _sopen(const char *_Filename,int _OpenFlag,int _ShareFlag,...);
-#else
-  extern "C++" _CRTIMP int __cdecl _open(const char *_Filename,int _Openflag,int _PermissionMode = 0);
-  extern "C++" _CRTIMP int __cdecl _sopen(const char *_Filename,int _Openflag,int _ShareFlag,int _PermissionMode = 0);
+  _CRTIMP 整数 __cdecl _open(const char *_Filename,整数 _OpenFlag,...);
+  _CRTIMP 整数 __cdecl _sopen(const char *_Filename,整数 _OpenFlag,整数 _ShareFlag,...);
+#否则
+  extern "C++" _CRTIMP 整数 __cdecl _open(const char *_Filename,整数 _Openflag,整数 _PermissionMode = 0);
+  extern "C++" _CRTIMP 整数 __cdecl _sopen(const char *_Filename,整数 _Openflag,整数 _ShareFlag,整数 _PermissionMode = 0);
 #endif
 
 #ifndef _WIO_DEFINED
 #define _WIO_DEFINED
-  _CRTIMP int __cdecl _waccess(const wchar_t *_Filename,int _AccessMode);
-  _CRTIMP int __cdecl _wchmod(const wchar_t *_Filename,int _Mode);
-  _CRTIMP int __cdecl _wcreat(const wchar_t *_Filename,int _PermissionMode);
+  _CRTIMP 整数 __cdecl _waccess(const wchar_t *_Filename,整数 _AccessMode);
+  _CRTIMP 整数 __cdecl _wchmod(const wchar_t *_Filename,整数 _Mode);
+  _CRTIMP 整数 __cdecl _wcreat(const wchar_t *_Filename,整数 _PermissionMode);
   _CRTIMP intptr_t __cdecl _wfindfirst32(const wchar_t *_Filename,struct _wfinddata32_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext32(intptr_t _FindHandle,struct _wfinddata32_t *_FindData);
-  _CRTIMP int __cdecl _wunlink(const wchar_t *_Filename);
-  _CRTIMP int __cdecl _wrename(const wchar_t *_NewFilename,const wchar_t *_OldFilename);
+  _CRTIMP 整数 __cdecl _wfindnext32(intptr_t _FindHandle,struct _wfinddata32_t *_FindData);
+  _CRTIMP 整数 __cdecl _wunlink(const wchar_t *_Filename);
+  _CRTIMP 整数 __cdecl _wrename(const wchar_t *_NewFilename,const wchar_t *_OldFilename);
   _CRTIMP wchar_t *__cdecl _wmktemp(wchar_t *_TemplateName);
 
-#if _INTEGRAL_MAX_BITS >= 64
+#如果 _INTEGRAL_MAX_BITS >= 64
   _CRTIMP intptr_t __cdecl _wfindfirst32i64(const wchar_t *_Filename,struct _wfinddata32i64_t *_FindData);
   intptr_t __cdecl _wfindfirst64i32(const wchar_t *_Filename,struct _wfinddata64i32_t *_FindData);
   _CRTIMP intptr_t __cdecl _wfindfirst64(const wchar_t *_Filename,struct _wfinddata64_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext32i64(intptr_t _FindHandle,struct _wfinddata32i64_t *_FindData);
-  int __cdecl _wfindnext64i32(intptr_t _FindHandle,struct _wfinddata64i32_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext64(intptr_t _FindHandle,struct _wfinddata64_t *_FindData);
+  _CRTIMP 整数 __cdecl _wfindnext32i64(intptr_t _FindHandle,struct _wfinddata32i64_t *_FindData);
+  整数 __cdecl _wfindnext64i32(intptr_t _FindHandle,struct _wfinddata64i32_t *_FindData);
+  _CRTIMP 整数 __cdecl _wfindnext64(intptr_t _FindHandle,struct _wfinddata64_t *_FindData);
 #endif
 
-  _CRTIMP errno_t __cdecl _wsopen_s(int *_FileHandle,const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionFlag);
+  _CRTIMP errno_t __cdecl _wsopen_s(整数 *_FileHandle,const wchar_t *_Filename,整数 _OpenFlag,整数 _ShareFlag,整数 _PermissionFlag);
 
-#if !defined(__cplusplus) || !(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _wopen(const wchar_t *_Filename,int _OpenFlag,...);
-  _CRTIMP int __cdecl _wsopen(const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,...);
-#else
-  extern "C++" _CRTIMP int __cdecl _wopen(const wchar_t *_Filename,int _OpenFlag,int _PermissionMode = 0);
-  extern "C++" _CRTIMP int __cdecl _wsopen(const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionMode = 0);
+#如果 !defined(__cplusplus) || !(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP 整数 __cdecl _wopen(const wchar_t *_Filename,整数 _OpenFlag,...);
+  _CRTIMP 整数 __cdecl _wsopen(const wchar_t *_Filename,整数 _OpenFlag,整数 _ShareFlag,...);
+#否则
+  extern "C++" _CRTIMP 整数 __cdecl _wopen(const wchar_t *_Filename,整数 _OpenFlag,整数 _PermissionMode = 0);
+  extern "C++" _CRTIMP 整数 __cdecl _wsopen(const wchar_t *_Filename,整数 _OpenFlag,整数 _ShareFlag,整数 _PermissionMode = 0);
 #endif
 
 #endif
 
-  int __cdecl __lock_fhandle(int _Filehandle);
-  void __cdecl _unlock_fhandle(int _Filehandle);
-  _CRTIMP intptr_t __cdecl _get_osfhandle(int _FileHandle);
-  _CRTIMP int __cdecl _open_osfhandle(intptr_t _OSFileHandle,int _Flags);
+  整数 __cdecl __lock_fhandle(整数 _Filehandle);
+  void __cdecl _unlock_fhandle(整数 _Filehandle);
+  _CRTIMP intptr_t __cdecl _get_osfhandle(整数 _FileHandle);
+  _CRTIMP 整数 __cdecl _open_osfhandle(intptr_t _OSFileHandle,整数 _Flags);
 
 #ifndef	NO_OLDNAMES
-  int __cdecl access(const char *_Filename,int _AccessMode);
-  int __cdecl chmod(const char *_Filename,int _AccessMode);
-  int __cdecl chsize(int _FileHandle,long _Size);
-  int __cdecl close(int _FileHandle);
-  int __cdecl creat(const char *_Filename,int _PermissionMode);
-  int __cdecl dup(int _FileHandle);
-  int __cdecl dup2(int _FileHandleSrc,int _FileHandleDst);
-  int __cdecl eof(int _FileHandle);
-  long __cdecl filelength(int _FileHandle);
-  int __cdecl isatty(int _FileHandle);
-  int __cdecl locking(int _FileHandle,int _LockMode,long _NumOfBytes);
-  long __cdecl lseek(int _FileHandle,long _Offset,int _Origin);
+  整数 __cdecl access(const char *_Filename,整数 _AccessMode);
+  整数 __cdecl chmod(const char *_Filename,整数 _AccessMode);
+  整数 __cdecl chsize(整数 _FileHandle,long _Size);
+  整数 __cdecl close(整数 _FileHandle);
+  整数 __cdecl creat(const char *_Filename,整数 _PermissionMode);
+  整数 __cdecl dup(整数 _FileHandle);
+  整数 __cdecl dup2(整数 _FileHandleSrc,整数 _FileHandleDst);
+  整数 __cdecl eof(整数 _FileHandle);
+  long __cdecl filelength(整数 _FileHandle);
+  整数 __cdecl isatty(整数 _FileHandle);
+  整数 __cdecl locking(整数 _FileHandle,整数 _LockMode,long _NumOfBytes);
+  long __cdecl lseek(整数 _FileHandle,long _Offset,整数 _Origin);
   char *__cdecl mktemp(char *_TemplateName);
-  int __cdecl open(const char *_Filename,int _OpenFlag,...);
-  int __cdecl read(int _FileHandle,void *_DstBuf,unsigned int _MaxCharCount);
-  int __cdecl setmode(int _FileHandle,int _Mode);
-  int __cdecl sopen(const char *_Filename,int _OpenFlag,int _ShareFlag,...);
-  long __cdecl tell(int _FileHandle);
-  int __cdecl umask(int _Mode);
-  int __cdecl write(int _Filehandle,const void *_Buf,unsigned int _MaxCharCount);
+  整数 __cdecl open(const char *_Filename,整数 _OpenFlag,...);
+  整数 __cdecl read(整数 _FileHandle,void *_DstBuf,unsigned 整数 _MaxCharCount);
+  整数 __cdecl setmode(整数 _FileHandle,整数 _Mode);
+  整数 __cdecl sopen(const char *_Filename,整数 _OpenFlag,整数 _ShareFlag,...);
+  long __cdecl tell(整数 _FileHandle);
+  整数 __cdecl umask(整数 _Mode);
+  整数 __cdecl write(整数 _Filehandle,const void *_Buf,unsigned 整数 _MaxCharCount);
 #endif
 
 #ifdef __cplusplus
@@ -390,15 +390,15 @@ extern "C" {
 /* Misc stuff */
 char *getlogin(void);
 #ifdef __USE_MINGW_ALARM
-unsigned int alarm(unsigned int seconds);
+unsigned 整数 alarm(unsigned 整数 seconds);
 #endif
 
 #ifdef __USE_MINGW_ACCESS
 /*  Old versions of MSVCRT access() just ignored X_OK, while the version
     shipped with Vista, returns an error code.  This will restore the
     old behaviour  */
-static inline int __mingw_access (const char *__fname, int __mode) {
-  return  _access (__fname, __mode & ~X_OK);
+static inline 整数 __mingw_access (const char *__fname, 整数 __mode) {
+  返回  _access (__fname, __mode & ~X_OK);
 }
 
 #define access(__f,__m)  __mingw_access (__f, __m)

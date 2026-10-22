@@ -1,9 +1,9 @@
 static inline const char *get_basefile_from_header(void)
 {
-  return __BASE_FILE__;
+  返回 __BASE_FILE__;
 }
 
 static inline const char *get_file_from_header(void)
 {
-  return __FILE__;
+  返回 __FILE__;
 }

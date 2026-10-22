@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+整数 主要()
 {
-   int Count = 0;
+   整数 Count = 0;
 
-   for (;;)
+   为 (;;)
    {
       Count++;
       printf("%d\n", Count);
-      if (Count >= 10)
+      如果 (Count >= 10)
          break;
    }
 
-   return 0;
+   返回 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

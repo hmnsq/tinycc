@@ -117,7 +117,7 @@ void static_func(void) { }
 inline void noinst_extern_inline_func(void);
 void noinst_extern_inline_func(void) { }
 
-int main()
+整数 主要()
 {
         inline_inline_undeclared(); inline_inline_predeclared(); inline_inline_postdeclared();
         inline_inline_undeclared2(); inline_inline_predeclared2(); inline_inline_postdeclared2();
@@ -128,5 +128,5 @@ int main()
 
         void check_exports();
         check_exports();
-        return 0;
+        返回 0;
 }

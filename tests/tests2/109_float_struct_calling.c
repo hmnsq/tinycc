@@ -13,12 +13,12 @@ struct Rect {
 };
 
 float foo(struct Point p, struct Rect r) {
-   return r.size.x;
+   返回 r.size.x;
 }
 
-int main(int argc, char **argv) {
+整数 主要(整数 argc, char **argv) {
    struct Point p = {1, 2};
    struct Rect r = {{3, 4}, {5, 6}};
    printf("%f\n", foo(p, r));
-   return 0;
+   返回 0;
 }

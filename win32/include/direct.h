@@ -25,14 +25,14 @@ extern "C" {
   };
 #endif
 
-  _CRTIMP char *__cdecl _getcwd(char *_DstBuf,int _SizeInBytes);
-  _CRTIMP char *__cdecl _getdcwd(int _Drive,char *_DstBuf,int _SizeInBytes);
-  char *__cdecl _getdcwd_nolock(int _Drive,char *_DstBuf,int _SizeInBytes);
-  _CRTIMP int __cdecl _chdir(const char *_Path);
-  _CRTIMP int __cdecl _mkdir(const char *_Path);
-  _CRTIMP int __cdecl _rmdir(const char *_Path);
-  _CRTIMP int __cdecl _chdrive(int _Drive);
-  _CRTIMP int __cdecl _getdrive(void);
+  _CRTIMP char *__cdecl _getcwd(char *_DstBuf,整数 _SizeInBytes);
+  _CRTIMP char *__cdecl _getdcwd(整数 _Drive,char *_DstBuf,整数 _SizeInBytes);
+  char *__cdecl _getdcwd_nolock(整数 _Drive,char *_DstBuf,整数 _SizeInBytes);
+  _CRTIMP 整数 __cdecl _chdir(const char *_Path);
+  _CRTIMP 整数 __cdecl _mkdir(const char *_Path);
+  _CRTIMP 整数 __cdecl _rmdir(const char *_Path);
+  _CRTIMP 整数 __cdecl _chdrive(整数 _Drive);
+  _CRTIMP 整数 __cdecl _getdrive(void);
   _CRTIMP unsigned long __cdecl _getdrives(void);
 
 #ifndef _GETDISKFREE_DEFINED
@@ -42,22 +42,22 @@ extern "C" {
 
 #ifndef _WDIRECT_DEFINED
 #define _WDIRECT_DEFINED
-  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP wchar_t *__cdecl _wgetdcwd(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  wchar_t *__cdecl _wgetdcwd_nolock(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP int __cdecl _wchdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wmkdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wrmdir(const wchar_t *_Path);
+  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,整数 _SizeInWords);
+  _CRTIMP wchar_t *__cdecl _wgetdcwd(整数 _Drive,wchar_t *_DstBuf,整数 _SizeInWords);
+  wchar_t *__cdecl _wgetdcwd_nolock(整数 _Drive,wchar_t *_DstBuf,整数 _SizeInWords);
+  _CRTIMP 整数 __cdecl _wchdir(const wchar_t *_Path);
+  _CRTIMP 整数 __cdecl _wmkdir(const wchar_t *_Path);
+  _CRTIMP 整数 __cdecl _wrmdir(const wchar_t *_Path);
 #endif
 
 #ifndef	NO_OLDNAMES
 
 #define diskfree_t _diskfree_t
 
-  char *__cdecl getcwd(char *_DstBuf,int _SizeInBytes);
-  int __cdecl chdir(const char *_Path);
-  int __cdecl mkdir(const char *_Path);
-  int __cdecl rmdir(const char *_Path);
+  char *__cdecl getcwd(char *_DstBuf,整数 _SizeInBytes);
+  整数 __cdecl chdir(const char *_Path);
+  整数 __cdecl mkdir(const char *_Path);
+  整数 __cdecl rmdir(const char *_Path);
 #endif
 
 #ifdef __cplusplus

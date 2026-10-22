@@ -4,9 +4,9 @@
 #define CAT(a,b) CAT2(a,b)
 #define AB(x) CAT(x,y)
 
-int main(void)
+整数 主要(void)
 {
-  int xy = 42;
+  整数 xy = 42;
   printf("%d\n", CAT(A,B)(x));
-  return 0;
+  返回 0;
 }

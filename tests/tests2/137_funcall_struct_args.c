@@ -11,10 +11,10 @@ void bug(float x, float y) {
 }
 
 float dot(struct vec v) {
-    return 999.5;
+    返回 999.5;
 }
 
-void main(void) {
+void 主要(void) {
         struct vec a;
         a.x = 33.0f;
         a.y = 77.0f;

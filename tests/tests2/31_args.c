@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-int main(int argc, char **argv)
+整数 主要(整数 argc, char **argv)
 {
-   int Count;
+   整数 Count;
 
    printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
+   为 (Count = 1; Count < argc; Count++)
       printf("arg %d: %s\n", Count, argv[Count]);
 
-   return 0;
+   返回 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

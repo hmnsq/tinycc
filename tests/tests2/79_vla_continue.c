@@ -1,56 +1,56 @@
 #include <stdio.h>
 
-int f(void)
+整数 f(void)
 {
-  return 5;
+  返回 5;
 }
 
 void test1()
 {
-  int count = 10;
+  整数 count = 10;
   void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  为(;count--;) {
+    整数 a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  如果(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 否则 {
     printf("NOT OK\n");
   }
 }
 
 void test2()
 {
-  int count = 10;
+  整数 count = 10;
   void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  为(;count--;) {
+    整数 a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  如果(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 否则 {
     printf("NOT OK\n");
   }
 }
 
 void test3()
 {
-  int count = 10;
+  整数 count = 10;
   void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  当(count--) {
+      整数 b[f()];
+      如果 (count >= 0) {
+          整数 a[f()];
 
           addr[count] = a;
 
@@ -58,56 +58,56 @@ void test3()
       }
   }
 
-  if(addr[9] == addr[0]) {
+  如果(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 否则 {
     printf("NOT OK\n");
   }
 }
 
 void test4()
 {
-  int count = 10;
+  整数 count = 10;
   void *addr[count];
   do {
-    int a[f()];
+    整数 a[f()];
 
     addr[--count] = a;
 
     continue;
-  } while (count);
+  } 当 (count);
 
-  if(addr[9] == addr[0]) {
+  如果(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } 否则 {
     printf("NOT OK\n");
   }
 }
 
 void test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  整数 count = 10;
+  整数 a[f()];
+  整数 c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
+  为(;count--;) {
+    整数 b[f()];
+    整数 i;
+    为 (i=0; i<f(); i++) {
       b[i] = count;
     }
   }
 
-  if (c[0] == 42) {
+  如果 (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } 否则 {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+整数 主要(void)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  返回 0;
 }

@@ -1,9 +1,9 @@
 /* integer promotion */
 
-int printf(const char*, ...);
+整数 printf(const char*, ...);
 #define promote(s) printf(" %ssigned : %s\n", (s) - 100 < 0 ? "  " : "un", #s);
 
-int main (void)
+整数 主要 (void)
 {
     struct {
         unsigned u3:3;
@@ -107,5 +107,5 @@ int main (void)
     promote(~(unsigned)s.u3);
     promote(!(unsigned)s.u3);
 
-    return 0;
+    返回 0;
 }

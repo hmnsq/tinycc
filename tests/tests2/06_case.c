@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+整数 主要()
 {
-   int Count;
+   整数 Count;
 
-   for (Count = 0; Count < 4; Count++)
+   为 (Count = 0; Count < 4; Count++)
    {
       printf("%d\n", Count);
       switch (Count)
@@ -23,7 +23,7 @@ int main()
       }
    }
 
-   return 0;
+   返回 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

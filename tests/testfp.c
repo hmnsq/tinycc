@@ -17,7 +17,7 @@
 
 #define check(x) ((x) ? (void)0 : check_fail(#x, __FILE__, __LINE__))
 
-void check_fail(const char *assertion, const char *file, unsigned int line)
+void check_fail(const char *assertion, const char *file, unsigned 整数 line)
 {
     printf("%s:%d: Check (%s) failed.", file, line, assertion);
     exit(1);
@@ -31,63 +31,63 @@ float copy_fi(uint32_t x)
 {
     float f;
     memcpy(&f, &x, 4);
-    return f;
+    返回 f;
 }
 
 double copy_di(uint64_t x)
 {
     double f;
     memcpy(&f, &x, 8);
-    return f;
+    返回 f;
 }
 
 long double copy_ldi(u128_t x)
 {
     long double f;
     memcpy(&f, &x, 16);
-    return f;
+    返回 f;
 }
 
 uint32_t copy_if(float f)
 {
     uint32_t x;
     memcpy(&x, &f, 4);
-    return x;
+    返回 x;
 }
 
 uint64_t copy_id(double f)
 {
     uint64_t x;
     memcpy(&x, &f, 8);
-    return x;
+    返回 x;
 }
 
 u128_t copy_ild(long double f)
 {
     u128_t x;
     memcpy(&x, &f, 16);
-    return x;
+    返回 x;
 }
 
-long double make(int sgn, int exp, uint64_t high, uint64_t low)
+long double make(整数 sgn, 整数 exp, uint64_t high, uint64_t low)
 {
     u128_t x = { low,
                  (0x0000ffffffffffff & high) |
                  (0x7fff000000000000 & (uint64_t)exp << 48) |
                  (0x8000000000000000 & (uint64_t)sgn << 63) };
-    return copy_ldi(x);
+    返回 copy_ldi(x);
 }
 
 void cmp(long double a, long double b)
 {
     u128_t ax = copy_ild(a);
     u128_t bx = copy_ild(b);
-    int eq = (a == b);
-    int ne = (a != b);
-    int lt = (a < b);
-    int le = (a <= b);
-    int gt = (a > b);
-    int ge = (a >= b);
+    整数 eq = (a == b);
+    整数 ne = (a != b);
+    整数 lt = (a < b);
+    整数 le = (a <= b);
+    整数 gt = (a > b);
+    整数 ge = (a >= b);
 
     check(eq == 0 || eq == 1);
     check(lt == 0 || lt == 1);
@@ -101,14 +101,14 @@ void cmp(long double a, long double b)
 
 void cmps(void)
 {
-    int i, j;
+    整数 i, j;
 
-    for (i = 0; i < 2; i++)
-        for (j = 0; j < 2; j++)
+    为 (i = 0; i < 2; i++)
+        为 (j = 0; j < 2; j++)
             cmp(make(i, 0, 0, 0), make(j, 0, 0, 0));
 
-    for (i = 0; i < 2; i++) {
-        for (j = 0; j < 64; j++) {
+    为 (i = 0; i < 2; i++) {
+        为 (j = 0; j < 64; j++) {
             long double f1 = make(i, 32767, (uint64_t)1 << j, 0);
             long double f2 = make(i, 32767, 0, (uint64_t)1 << j);
             cmp(f1, 0);
@@ -118,16 +118,16 @@ void cmps(void)
         }
     }
 
-    for (i = 0; i < 6; i++)
-        for (j = 0; j < 6; j++)
+    为 (i = 0; i < 6; i++)
+        为 (j = 0; j < 6; j++)
             cmp(make(i & 1, i >> 1, 0, 0),
                 make(j & 1, j >> 1, 0, 0));
 
-    for (i = 0; i < 2; i++) {
-        for (j = 0; j < 2; j++) {
-            int a, b;
-            for (a = 0; a < 2; a++) {
-                for (b = 0; b < 2; b++) {
+    为 (i = 0; i < 2; i++) {
+        为 (j = 0; j < 2; j++) {
+            整数 a, b;
+            为 (a = 0; a < 2; a++) {
+                为 (b = 0; b < 2; b++) {
                     cmp(make(i, j, a, b), make(i, j, 0, 0));
                     cmp(make(i, j, 0, 0), make(i, j, a, b));
                 }
@@ -170,7 +170,7 @@ void nanz(void)
     // Check NaNs:
     {
         long double x[7];
-        int i, j, n = 0;
+        整数 i, j, n = 0;
         x[n++] = make(0, 32000, 0x95132b76effc, 0xd79035214b4f8d53);
         x[n++] = make(1, 32001, 0xbe71d7a51587, 0x30601c6815d6c3ac);
         x[n++] = make(0, 32767, 0, 1);
@@ -179,8 +179,8 @@ void nanz(void)
         x[n++] = make(1, 32767, 0x7596c7099ad5, 0xe25fed2c58f73fc9);
         x[n++] = make(0, 32767, 0x835d143360f9, 0x5e315efb35630666);
         check(n == sizeof(x) / sizeof(*x));
-        for (i = 0; i < n; i++) {
-            for (j = 0; j < n; j++) {
+        为 (i = 0; i < n; i++) {
+            为 (j = 0; j < n; j++) {
                 fadd(x[i], x[j]);
                 fsub(x[i], x[j]);
                 fmul(x[i], x[j]);
@@ -192,7 +192,7 @@ void nanz(void)
     // Check infinities and zeroes:
     {
         long double x[6];
-        int i, j, n = 0;
+        整数 i, j, n = 0;
         x[n++] = make(1, 32000, 0x62acda85f700, 0x47b6c9f35edc4044);
         x[n++] = make(0, 32001, 0x94b7abf55af7, 0x9f425fe354428e19);
         x[n++] = make(0, 32767, 0, 0);
@@ -200,8 +200,8 @@ void nanz(void)
         x[n++] = make(0, 0, 0, 0);
         x[n++] = make(1, 0, 0, 0);
         check(n == sizeof(x) / sizeof(*x));
-        for (i = 0; i < n; i++) {
-            for (j = 0; j < n; j++) {
+        为 (i = 0; i < n; i++) {
+            为 (j = 0; j < n; j++) {
                 fadd(x[i], x[j]);
                 fsub(x[i], x[j]);
                 fmul(x[i], x[j]);
@@ -215,10 +215,10 @@ void adds(void)
 {
     // Check shifting and add/sub:
     {
-        int i;
-        for (i = -130; i <= 130; i++) {
-            int s1 = (uint32_t)i % 3 < 1;
-            int s2 = (uint32_t)i % 5 < 2;
+        整数 i;
+        为 (i = -130; i <= 130; i++) {
+            整数 s1 = (uint32_t)i % 3 < 1;
+            整数 s2 = (uint32_t)i % 5 < 2;
             fadd(make(s1, 16384    , 0x502c065e4f71a65d, 0xd2f9bdb031f4f031),
                  make(s2, 16384 + i, 0xae267395a9bc1033, 0xb56b5800da1ba448));
         }
@@ -228,15 +228,15 @@ void adds(void)
     {
         uint64_t a0 = 0xc6bab0a6afbef5ed;
         uint64_t a1 = 0x4f84136c4a2e9b52;
-        int ee[] = { 0, 1, 10000 };
-        int e, i;
-        for (e = 0; e < sizeof(ee) / sizeof(*ee); e++) {
-            int exp = ee[e];
+        整数 ee[] = { 0, 1, 10000 };
+        整数 e, i;
+        为 (e = 0; e < sizeof(ee) / sizeof(*ee); e++) {
+            整数 exp = ee[e];
             fsub(make(0, exp, a1, a0), make(0, 0, 0, 0));
-            for (i = 63; i >= 0; i--)
+            为 (i = 63; i >= 0; i--)
                 fsub(make(0, exp, a1 | (uint64_t)1 << i >> 1, a0),
                      make(0, exp, a1 >> i << i, 0));
-            for (i = 63; i >=0; i--)
+            为 (i = 63; i >=0; i--)
                 fsub(make(0, exp, a1, a0 | (uint64_t)1 << i >> 1),
                      make(0, exp, a1, a0 >> i << i));
         }
@@ -252,7 +252,7 @@ void adds(void)
 
 void muls(void)
 {
-    int i, j;
+    整数 i, j;
 
     {
         long double max = make(0, 32766, -1, -1);
@@ -262,7 +262,7 @@ void muls(void)
         fmul(min, min);
     }
 
-    for (i = 117; i > 0; i--)
+    为 (i = 117; i > 0; i--)
         fmul(make(0, 16268, 0x643dcea76edc, 0xe0877a598403627a),
              make(i & 1, i, 0, 0));
 
@@ -272,8 +272,8 @@ void muls(void)
     // Round from subnormal to normal:
     fmul(make(0, 1, -1, -1), make(0, 16382, 0, 0));
 
-    for (i = 0; i < 2; i++)
-        for (j = 0; j < 112; j++)
+    为 (i = 0; i < 2; i++)
+        为 (j = 0; j < 112; j++)
             fmul(make(0, 16383, (uint64_t)1 << i, 0),
                  make(0, 16383,
                       j < 64 ? 0 : (uint64_t)1 << (j - 64),
@@ -282,7 +282,7 @@ void muls(void)
 
 void divs(void)
 {
-    int i;
+    整数 i;
 
     {
         long double max = make(0, 32766, -1, -1);
@@ -293,9 +293,9 @@ void divs(void)
         fdiv(min, min);
     }
 
-    for (i = 0; i < 64; i++)
+    为 (i = 0; i < 64; i++)
         fdiv(make(0, 16383, -1, -1), make(0, 16383, -1, -(uint64_t)1 << i));
-    for (i = 0; i < 48; i++)
+    为 (i = 0; i < 48; i++)
         fdiv(make(0, 16383, -1, -1), make(0, 16383, -(uint64_t)1 << i, 0));
 }
 
@@ -379,40 +379,40 @@ void cvtdl(long double a)
 
 void cvts(void)
 {
-    int i, j;
+    整数 i, j;
 
     {
         uint32_t x = 0xad040c5b;
         cvtlsw(0);
-        for (i = 0; i < 31; i++)
+        为 (i = 0; i < 31; i++)
             cvtlsw(x >> (31 - i));
-        for (i = 0; i < 31; i++)
+        为 (i = 0; i < 31; i++)
             cvtlsw(-(x >> (31 - i)));
         cvtlsw(0x80000000);
     }
     {
         uint64_t x = 0xb630a248cad9afd2;
         cvtlsx(0);
-        for (i = 0; i < 63; i++)
+        为 (i = 0; i < 63; i++)
             cvtlsx(x >> (63 - i));
-        for (i = 0; i < 63; i++)
+        为 (i = 0; i < 63; i++)
             cvtlsx(-(x >> (63 - i)));
         cvtlsx(0x8000000000000000);
     }
     {
         uint32_t x = 0xad040c5b;
         cvtluw(0);
-        for (i = 0; i < 32; i++)
+        为 (i = 0; i < 32; i++)
             cvtluw(x >> (31 - i));
     }
     {
         uint64_t x = 0xb630a248cad9afd2;
         cvtlux(0);
-        for (i = 0; i < 64; i++)
+        为 (i = 0; i < 64; i++)
             cvtlux(x >> (63 - i));
     }
 
-    for (i = 0; i < 2; i++) {
+    为 (i = 0; i < 2; i++) {
         cvtil(make(i, 32767, 0, 1));
         cvtil(make(i, 32767, (uint64_t)1 << 47, 0));
         cvtil(make(i, 32767, 123, 456));
@@ -421,7 +421,7 @@ void cvts(void)
         cvtil(make(i, 16383, -1, -1));
         cvtil(make(i, 16384, 0x7fffffffffff, -1));
         cvtil(make(i, 16384, 0x800000000000, 0));
-        for (j = 0; j < 68; j++)
+        为 (j = 0; j < 68; j++)
             cvtil(make(i, 16381 + j, 0xd4822c0a10ec, 0x1fe2f8b2669f5c9d));
     }
 
@@ -447,7 +447,7 @@ void cvts(void)
     cvtld(copy_di(0xfff123456789abcd));
     cvtld(copy_di(0xfffabcdef1234567));
 
-    for (i = 0; i < 2; i++) {                   \
+    为 (i = 0; i < 2; i++) {                   \
         cvtfl(make(i, 0, 0, 0));
         cvtfl(make(i, 16232, -1, -1));
         cvtfl(make(i, 16233, 0, 0));
@@ -467,7 +467,7 @@ void cvts(void)
         cvtfl(make(i, 32767, 0xa11caaaf6a52, 0x696033e871eab099));
     }
 
-    for (i = 0; i < 2; i++) {
+    为 (i = 0; i < 2; i++) {
         cvtdl(make(i, 0, 0, 0));
         cvtdl(make(i, 15307, -1, -1));
         cvtdl(make(i, 15308, 0, 0));
@@ -498,13 +498,13 @@ void tests(void)
     cvts();
 }
 
-int main()
+整数 主要()
 {
 #ifdef __aarch64__
     tests();
-#else
+#否则
     printf("This test program is intended for a little-endian architecture\n"
            "with an IEEE-standard 128-bit long double.\n");
 #endif
-    return 0;
+    返回 0;
 }

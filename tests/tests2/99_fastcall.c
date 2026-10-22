@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <assert.h>
 
-#if !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
+#如果 !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
 #define __fastcall __attribute((fastcall))
 #endif
 
 #ifndef __leading_underscore
 #define SYMBOL(x) _##x
-#else
+#否则
 #define SYMBOL(x) x
 #endif
 
@@ -62,7 +62,7 @@ struct trapframe {
 #define RETN(x) do { \
     M_DWORD(R_ESP + (x)) = M_DWORD(R_ESP); \
     R_ESP += (x); \
-} while (0)
+} 当 (0)
 
 #define DUMP() do { \
     unsigned i; \
@@ -76,10 +76,10 @@ struct trapframe {
     printf("EDI: %08X\n", R_EDI); \
     printf("\n"); \
     printf("[RETADDR]: %08X\n", M_DWORD(R_ESP)); \
-    for (i = 1; i <= 8; i++) { \
+    为 (i = 1; i <= 8; i++) { \
         printf("[ARG%4d]: %08X\n", i, ARG(i)); \
     } \
-} while (0)
+} 当 (0)
 
 #define SET_TRAP_HANDLER(x) ((SYMBOL(trap_handler)) = (x))
 #define TRAP ((void *) &SYMBOL(trap))
@@ -194,39 +194,39 @@ void test_fastcall_invoke()
 //////////                TEST FUNCTION CODE GENERATION
 /////////////////////////////////////////////////////////////////////////
 
-int __fastcall check_fastcall_espdiff_0(void)
+整数 __fastcall check_fastcall_espdiff_0(void)
 {
-    return 0;
+    返回 0;
 }
 
-int __fastcall check_fastcall_espdiff_1(int a)
+整数 __fastcall check_fastcall_espdiff_1(整数 a)
 {
-    return a;
+    返回 a;
 }
 
-int __fastcall check_fastcall_espdiff_2(int a, int b)
+整数 __fastcall check_fastcall_espdiff_2(整数 a, 整数 b)
 {
-    return a + b;
+    返回 a + b;
 }
 
-int __fastcall check_fastcall_espdiff_3(int a, int b, int c)
+整数 __fastcall check_fastcall_espdiff_3(整数 a, 整数 b, 整数 c)
 {
-    return a + b + c;
+    返回 a + b + c;
 }
 
-int __fastcall check_fastcall_espdiff_4(int a, int b, int c, int d)
+整数 __fastcall check_fastcall_espdiff_4(整数 a, 整数 b, 整数 c, 整数 d)
 {
-    return a + b + c + d;
+    返回 a + b + c + d;
 }
 
-int __fastcall check_fastcall_espdiff_5(int a, int b, int c, int d, int e)
+整数 __fastcall check_fastcall_espdiff_5(整数 a, 整数 b, 整数 c, 整数 d, 整数 e)
 {
-    return a + b + c + d + e;
+    返回 a + b + c + d + e;
 }
 
 void test_fastcall_espdiff()
 {
-    int x;
+    整数 x;
     SET_SAFECALL_TARGET(check_fastcall_espdiff_0);
     x = ((typeof(&check_fastcall_espdiff_0))SAFECALL)();
     assert(x == 0);
@@ -258,19 +258,19 @@ void test_fastcall_espdiff()
     assert(ESPDIFF == 3*4);
 }
 
-int main()
+整数 主要()
 {
 #define N 10000
-    int i;
+    整数 i;
 
-    for (i = 1; i <= N; i++) {
+    为 (i = 1; i <= N; i++) {
         test_fastcall_espdiff();
     }
 
-    for (i = 1; i <= N; i++) {
+    为 (i = 1; i <= N; i++) {
         test_fastcall_invoke();
     }
 
     puts("TEST OK");
-    return 0;
+    返回 0;
 }

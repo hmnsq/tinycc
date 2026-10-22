@@ -1,4 +1,4 @@
-extern int printf(const char*, ...);
+extern 整数 printf(const char*, ...);
 
 struct fred;
 
@@ -9,11 +9,11 @@ void fred$(struct fred* this)
 
 struct __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   整数 boris;
+   整数 natasha;
 };
 
-int main()
+整数 主要()
 {
     struct fred  __attribute__((__cleanup__(fred$))) bloggs;
 
@@ -34,5 +34,5 @@ int main()
    printf("%d\n", jones[1].boris);
    printf("%d\n", jones[1].natasha);
 
-   return 0;
+   返回 0;
 }

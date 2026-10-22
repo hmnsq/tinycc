@@ -1,33 +1,33 @@
 #include <stdio.h>
 
-int main()
+整数 主要()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#如果 1
+#如果 0
    printf("a\n");
-#else
+#否则
    printf("b\n");
 #endif
-#else
-#if 0
+#否则
+#如果 0
    printf("c\n");
-#else
+#否则
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#如果 0
+#如果 1
    printf("e\n");
-#else
+#否则
    printf("f\n");
 #endif
-#else
-#if 1
+#否则
+#如果 1
    printf("g\n");
-#else
+#否则
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#否则
    printf("j\n");
 #endif
-#else
+#否则
 #ifdef DEF
    printf("k\n");
-#else
+#否则
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#否则
    printf("n\n");
 #endif
-#else
+#否则
 #ifndef DEF
    printf("o\n");
-#else
+#否则
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#如果 ONE
+#如果 ZERO
    printf("q\n");
-#else
+#否则
    printf("r\n");
 #endif
-#else
-#if ZERO
+#否则
+#如果 ZERO
    printf("s\n");
-#else
+#否则
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   返回 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

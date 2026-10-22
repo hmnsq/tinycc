@@ -1,4 +1,4 @@
-int tcc_backtrace(const char*, ...);
+整数 tcc_backtrace(const char*, ...);
 #define hello() \
     tcc_backtrace("hello from %s() / %s:%d",__FUNCTION__,__FILE__,__LINE__)
 
@@ -6,38 +6,38 @@ int tcc_backtrace(const char*, ...);
 # define __declspec(n)
 #endif
 
-#if DLL==1
-__declspec(dllexport) int f_1()
+#如果 DLL==1
+__declspec(dllexport) 整数 f_1()
 {
     hello();
-    return 0;
+    返回 0;
 }
 
 
 #elif DLL==2
-__declspec(dllexport) int f_2()
+__declspec(dllexport) 整数 f_2()
 {
     hello();
-    return 0;
+    返回 0;
 }
 
 
-#else
+#否则
 
-int f_1();
-int f_2();
-int f_main()
+整数 f_1();
+整数 f_2();
+整数 f_main()
 {
     hello();
-    return 0;
+    返回 0;
 }
 
-int main ()
+整数 主要 ()
 {
     f_1();
     f_2();
     f_main();
-    return 0;
+    返回 0;
 }
 
 #endif

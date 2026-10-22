@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#否则
 # define _
 #endif
 
-extern int printf (const char *, ...);
+extern 整数 printf (const char *, ...);
 extern void vide(void);
 __asm__(_"vide: ret");
 
-int main() {
+整数 主要() {
     vide();
     printf ("okay\n");
-    return 0;
+    返回 0;
 }

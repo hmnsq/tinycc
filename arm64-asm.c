@@ -13,12 +13,12 @@
 /* 32 general purpose + 32 SIMD/FP registers */
 #define NB_ASM_REGS 64
 
-ST_FUNC void g(int c);
-ST_FUNC void gen_le16(int c);
-ST_FUNC void gen_le32(int c);
+ST_FUNC void g(整数 c);
+ST_FUNC void gen_le16(整数 c);
+ST_FUNC void gen_le32(整数 c);
 
 /*************************************************************/
-#else
+#否则
 /*************************************************************/
 
 #define USING_GLOBALS
@@ -96,7 +96,7 @@ typedef struct Operand {
     uint8_t reg_type;
     uint8_t shift;
     uint8_t addr_mode;
-    int reg_tok;
+    整数 reg_tok;
     ExprValue e;
 } Operand;
 
@@ -110,25 +110,25 @@ enum {
 static void parse_addr_operand(TCCState *s1, Operand *op);
 
 /* XXX: make it faster ? */
-ST_FUNC void g(int c)
+ST_FUNC void g(整数 c)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    整数 ind1;
+    如果 (nocode_wanted)
+        返回;
     ind1 = ind + 1;
-    if (ind1 > cur_text_section->data_allocated)
+    如果 (ind1 > cur_text_section->data_allocated)
         section_realloc(cur_text_section, ind1);
     cur_text_section->data[ind] = c;
     ind = ind1;
 }
 
-ST_FUNC void gen_le16(int c)
+ST_FUNC void gen_le16(整数 c)
 {
     g(c);
     g(c >> 8);
 }
 
-ST_FUNC void gen_le32(int c)
+ST_FUNC void gen_le32(整数 c)
 {
     gen_le16(c);
     gen_le16(c >> 16);
@@ -142,137 +142,137 @@ ST_FUNC void gen_expr32(ExprValue *pe)
 /* Emit 32-bit instruction */
 static void emit_instr32(uint32_t val)
 {
-    if (nocode_wanted)
-        return;
-    if (ind + 4 > cur_text_section->data_allocated)
+    如果 (nocode_wanted)
+        返回;
+    如果 (ind + 4 > cur_text_section->data_allocated)
         section_realloc(cur_text_section, ind + 4);
     write32le(cur_text_section->data + ind, val);
     ind += 4;
 }
 
 /* Parse ARM64 register token for assembler syntax. */
-static int arm64_parse_asm_reg(int t)
+static 整数 arm64_parse_asm_reg(整数 t)
 {
     /* X registers (64-bit) */
-    if (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
-        return t - TOK_ASM_x0;
+    如果 (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
+        返回 t - TOK_ASM_x0;
     /* W registers (32-bit) */
-    if (t >= TOK_ASM_w0 && t <= TOK_ASM_w30)
-        return t - TOK_ASM_w0;
+    如果 (t >= TOK_ASM_w0 && t <= TOK_ASM_w30)
+        返回 t - TOK_ASM_w0;
     /* V registers (128-bit SIMD) */
-    if (t >= TOK_ASM_v0 && t <= TOK_ASM_v31)
-        return (t - TOK_ASM_v0) + 32;
+    如果 (t >= TOK_ASM_v0 && t <= TOK_ASM_v31)
+        返回 (t - TOK_ASM_v0) + 32;
     /* D registers (64-bit FP) */
-    if (t >= TOK_ASM_d0 && t <= TOK_ASM_d31)
-        return (t - TOK_ASM_d0) + 32;
+    如果 (t >= TOK_ASM_d0 && t <= TOK_ASM_d31)
+        返回 (t - TOK_ASM_d0) + 32;
     /* S registers (32-bit FP) */
-    if (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
-        return (t - TOK_ASM_s0) + 32;
+    如果 (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
+        返回 (t - TOK_ASM_s0) + 32;
     /* H registers (16-bit FP) */
-    if (t >= TOK_ASM_h0 && t <= TOK_ASM_h31)
-        return (t - TOK_ASM_h0) + 32;
+    如果 (t >= TOK_ASM_h0 && t <= TOK_ASM_h31)
+        返回 (t - TOK_ASM_h0) + 32;
     /* B registers (8-bit SIMD) */
-    if (t >= TOK_ASM_b0 && t <= TOK_ASM_b31)
-        return (t - TOK_ASM_b0) + 32;
+    如果 (t >= TOK_ASM_b0 && t <= TOK_ASM_b31)
+        返回 (t - TOK_ASM_b0) + 32;
     /* Special registers */
-    if (t == TOK_ASM_sp || t == TOK_ASM_xzr || t == TOK_ASM_wzr)
-        return 31;  /* SP/ZR encoded as 31 */
-    return -1;
+    如果 (t == TOK_ASM_sp || t == TOK_ASM_xzr || t == TOK_ASM_wzr)
+        返回 31;  /* SP/ZR encoded as 31 */
+    返回 -1;
 }
 
 /* Get register type from token */
-static uint8_t get_reg_type(int t)
+static uint8_t get_reg_type(整数 t)
 {
-    if (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
-        return REG_X;
-    if (t >= TOK_ASM_w0 && t <= TOK_ASM_w30)
-        return REG_W;
-    if (t >= TOK_ASM_v0 && t <= TOK_ASM_v31)
-        return REG_V;
-    if (t >= TOK_ASM_d0 && t <= TOK_ASM_d31)
-        return REG_D;
-    if (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
-        return REG_S;
-    if (t >= TOK_ASM_h0 && t <= TOK_ASM_h31)
-        return REG_H;
-    if (t >= TOK_ASM_b0 && t <= TOK_ASM_b31)
-        return REG_B;
+    如果 (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
+        返回 REG_X;
+    如果 (t >= TOK_ASM_w0 && t <= TOK_ASM_w30)
+        返回 REG_W;
+    如果 (t >= TOK_ASM_v0 && t <= TOK_ASM_v31)
+        返回 REG_V;
+    如果 (t >= TOK_ASM_d0 && t <= TOK_ASM_d31)
+        返回 REG_D;
+    如果 (t >= TOK_ASM_s0 && t <= TOK_ASM_s31)
+        返回 REG_S;
+    如果 (t >= TOK_ASM_h0 && t <= TOK_ASM_h31)
+        返回 REG_H;
+    如果 (t >= TOK_ASM_b0 && t <= TOK_ASM_b31)
+        返回 REG_B;
     /* Special registers - sp is 64-bit, xzr is 64-bit, wzr is 32-bit */
-    if (t == TOK_ASM_sp || t == TOK_ASM_xzr)
-        return REG_X;
-    if (t == TOK_ASM_wzr)
-        return REG_W;
-    return REG_X;
+    如果 (t == TOK_ASM_sp || t == TOK_ASM_xzr)
+        返回 REG_X;
+    如果 (t == TOK_ASM_wzr)
+        返回 REG_W;
+    返回 REG_X;
 }
 
 /* Parse condition code */
-static int parse_condition(int t)
+static 整数 parse_condition(整数 t)
 {
     switch (t) {
-        case TOK_ASM_eq: return 0;
-        case TOK_ASM_ne: return 1;
+        case TOK_ASM_eq: 返回 0;
+        case TOK_ASM_ne: 返回 1;
         case TOK_ASM_cs:
-        case TOK_ASM_hs: return 2;
+        case TOK_ASM_hs: 返回 2;
         case TOK_ASM_cc:
-        case TOK_ASM_lo: return 3;
-        case TOK_ASM_mi: return 4;
-        case TOK_ASM_pl: return 5;
-        case TOK_ASM_vs: return 6;
-        case TOK_ASM_vc: return 7;
-        case TOK_ASM_hi: return 8;
-        case TOK_ASM_ls: return 9;
-        case TOK_ASM_ge: return 10;
-        case TOK_ASM_lt: return 11;
-        case TOK_ASM_gt: return 12;
-        case TOK_ASM_le: return 13;
-        case TOK_ASM_al: return 14;
-        default: return -1;
+        case TOK_ASM_lo: 返回 3;
+        case TOK_ASM_mi: 返回 4;
+        case TOK_ASM_pl: 返回 5;
+        case TOK_ASM_vs: 返回 6;
+        case TOK_ASM_vc: 返回 7;
+        case TOK_ASM_hi: 返回 8;
+        case TOK_ASM_ls: 返回 9;
+        case TOK_ASM_ge: 返回 10;
+        case TOK_ASM_lt: 返回 11;
+        case TOK_ASM_gt: 返回 12;
+        case TOK_ASM_le: 返回 13;
+        case TOK_ASM_al: 返回 14;
+        default: 返回 -1;
     }
 }
 
-static int parse_barrier_option_name(int t)
+static 整数 parse_barrier_option_name(整数 t)
 {
     const char *name;
 
-    if (t < TOK_IDENT)
-        return -1;
+    如果 (t < TOK_IDENT)
+        返回 -1;
     name = get_tok_str(t, NULL);
-    if (!strcmp(name, "oshld")) return 0x1;
-    if (!strcmp(name, "oshst")) return 0x2;
-    if (!strcmp(name, "osh"))   return 0x3;
-    if (!strcmp(name, "nshld")) return 0x5;
-    if (!strcmp(name, "nshst")) return 0x6;
-    if (!strcmp(name, "nsh"))   return 0x7;
-    if (!strcmp(name, "ishld")) return 0x9;
-    if (!strcmp(name, "ishst")) return 0xA;
-    if (!strcmp(name, "ish"))   return 0xB;
-    if (!strcmp(name, "ld"))    return 0xD;
-    if (!strcmp(name, "st"))    return 0xE;
-    if (!strcmp(name, "sy"))    return 0xF;
-    return -1;
+    如果 (!strcmp(name, "oshld")) 返回 0x1;
+    如果 (!strcmp(name, "oshst")) 返回 0x2;
+    如果 (!strcmp(name, "osh"))   返回 0x3;
+    如果 (!strcmp(name, "nshld")) 返回 0x5;
+    如果 (!strcmp(name, "nshst")) 返回 0x6;
+    如果 (!strcmp(name, "nsh"))   返回 0x7;
+    如果 (!strcmp(name, "ishld")) 返回 0x9;
+    如果 (!strcmp(name, "ishst")) 返回 0xA;
+    如果 (!strcmp(name, "ish"))   返回 0xB;
+    如果 (!strcmp(name, "ld"))    返回 0xD;
+    如果 (!strcmp(name, "st"))    返回 0xE;
+    如果 (!strcmp(name, "sy"))    返回 0xF;
+    返回 -1;
 }
 
-static int arm64_parse_regvar(int t)
+static 整数 arm64_parse_regvar(整数 t)
 {
-    if (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
-        return t - TOK_ASM_x0;
-    if (t >= TOK_ASM_v0 && t <= TOK_ASM_v7)
-        return ARM64_FREG_BASE + (t - TOK_ASM_v0);
-    if (t >= TOK_ASM_d0 && t <= TOK_ASM_d7)
-        return ARM64_FREG_BASE + (t - TOK_ASM_d0);
-    if (t >= TOK_ASM_s0 && t <= TOK_ASM_s7)
-        return ARM64_FREG_BASE + (t - TOK_ASM_s0);
-    if (t >= TOK_ASM_h0 && t <= TOK_ASM_h7)
-        return ARM64_FREG_BASE + (t - TOK_ASM_h0);
-    if (t >= TOK_ASM_b0 && t <= TOK_ASM_b7)
-        return ARM64_FREG_BASE + (t - TOK_ASM_b0);
-    return -1;
+    如果 (t >= TOK_ASM_x0 && t <= TOK_ASM_x30)
+        返回 t - TOK_ASM_x0;
+    如果 (t >= TOK_ASM_v0 && t <= TOK_ASM_v7)
+        返回 ARM64_FREG_BASE + (t - TOK_ASM_v0);
+    如果 (t >= TOK_ASM_d0 && t <= TOK_ASM_d7)
+        返回 ARM64_FREG_BASE + (t - TOK_ASM_d0);
+    如果 (t >= TOK_ASM_s0 && t <= TOK_ASM_s7)
+        返回 ARM64_FREG_BASE + (t - TOK_ASM_s0);
+    如果 (t >= TOK_ASM_h0 && t <= TOK_ASM_h7)
+        返回 ARM64_FREG_BASE + (t - TOK_ASM_h0);
+    如果 (t >= TOK_ASM_b0 && t <= TOK_ASM_b7)
+        返回 ARM64_FREG_BASE + (t - TOK_ASM_b0);
+    返回 -1;
 }
 
 /* Parse a single operand */
 static void parse_operand(TCCState *s1, Operand *op)
 {
-    int reg;
+    整数 reg;
 
     op->type = 0;
     op->reg = -1;
@@ -283,40 +283,40 @@ static void parse_operand(TCCState *s1, Operand *op)
     op->reg_tok = 0;
 
     /* Address operand in brackets [xn, ...] */
-    if (tok == '[') {
+    如果 (tok == '[') {
         parse_addr_operand(s1, op);
-        return;
+        返回;
     }
 
     /* Register */
     reg = arm64_parse_asm_reg(tok);
-    if (reg >= 0) {
+    如果 (reg >= 0) {
         op->type = OP_REG;
         op->reg = reg;
         op->reg_type = get_reg_type(tok);
         op->reg_tok = tok;
         next();
-        return;
+        返回;
     }
 
     /* Condition code */
     reg = parse_condition(tok);
-    if (reg >= 0) {
+    如果 (reg >= 0) {
         op->type = OP_COND;
         op->reg = reg;
         next();
-        return;
+        返回;
     }
 
     /* Immediate or address expression */
-    if (tok == '#' || tok == ':' || tok == '@' || tok == '$') {
+    如果 (tok == '#' || tok == ':' || tok == '@' || tok == '$') {
         next();
         asm_expr(s1, &op->e);
         op->type = OP_IM;
-    } else if (tok >= TOK_IDENT) {
+    } 否则 如果 (tok >= TOK_IDENT) {
         tcc_error("invalid operand '%s'", get_tok_str(tok, &tokc));
         op->type = OP_IM;
-    } else {
+    } 否则 {
         asm_expr(s1, &op->e);
         op->type = OP_IM;
     }
@@ -333,7 +333,7 @@ static void parse_expr_operand(TCCState *s1, Operand *op)
     op->addr_mode = ADDR_OFF;
     op->reg_tok = 0;
 
-    if (tok == '#' || tok == ':' || tok == '@' || tok == '$')
+    如果 (tok == '#' || tok == ':' || tok == '@' || tok == '$')
         next();
     asm_expr(s1, &op->e);
 }
@@ -341,7 +341,7 @@ static void parse_expr_operand(TCCState *s1, Operand *op)
 /* Parse address operand in brackets [xn, ...] */
 static void parse_addr_operand(TCCState *s1, Operand *op)
 {
-    int reg;
+    整数 reg;
 
     op->type = OP_ADDR;
     op->reg = -1;
@@ -353,79 +353,79 @@ static void parse_addr_operand(TCCState *s1, Operand *op)
 
     skip('[');
     reg = arm64_parse_asm_reg(tok);
-    if (reg < 0 || reg >= 32) {
+    如果 (reg < 0 || reg >= 32) {
         tcc_error("invalid register in address operand");
-        return;
+        返回;
     }
     op->reg = reg;
     op->reg_tok = tok;
     next();
     /* Check for offset */
-    if (tok == ',') {
+    如果 (tok == ',') {
         next();
-        if (tok == '#' || tok == '@' || tok == '$')
+        如果 (tok == '#' || tok == '@' || tok == '$')
             next();
         asm_expr(s1, &op->e);
     }
     skip(']');
-    if (tok == '!') {
+    如果 (tok == '!') {
         op->addr_mode = ADDR_PRE;
         next();
-    } else if (tok == ',') {
+    } 否则 如果 (tok == ',') {
         op->addr_mode = ADDR_POST;
         next();
-        if (tok == '#' || tok == '@' || tok == '$')
+        如果 (tok == '#' || tok == '@' || tok == '$')
             next();
         asm_expr(s1, &op->e);
     }
 }
 
 /* Generate MOVZ/MOVN/MOVK with base opcode */
-static void gen_mov_with_base(int rd, uint16_t imm, int shift,
-                              int is_64bit, uint32_t base_opcode)
+static void gen_mov_with_base(整数 rd, uint16_t imm, 整数 shift,
+                              整数 is_64bit, uint32_t base_opcode)
 {
     uint32_t instr = base_opcode;
-    if (is_64bit) instr |= ARM64_SF(1);
+    如果 (is_64bit) instr |= ARM64_SF(1);
     /* shift is halfword index (0-3), encode as LSL #0/16/32/48 */
     instr |= ARM64_IMM_HW(imm, shift);
     instr |= ARM64_RD(rd);
     emit_instr32(instr);
 }
 
-static void gen_movz(int rd, uint16_t imm, int shift, int is_64bit)
+static void gen_movz(整数 rd, uint16_t imm, 整数 shift, 整数 is_64bit)
 {
     gen_mov_with_base(rd, imm, shift, is_64bit, ARM64_MOVZ);
 }
 
 /* Generate MOVN instruction */
-static void gen_movn(int rd, uint16_t imm, int shift, int is_64bit)
+static void gen_movn(整数 rd, uint16_t imm, 整数 shift, 整数 is_64bit)
 {
     gen_mov_with_base(rd, imm, shift, is_64bit, ARM64_MOVN);
 }
 
 /* Generate MOVK instruction */
-static void gen_movk(int rd, uint16_t imm, int shift, int is_64bit)
+static void gen_movk(整数 rd, uint16_t imm, 整数 shift, 整数 is_64bit)
 {
     gen_mov_with_base(rd, imm, shift, is_64bit, ARM64_MOVK);
 }
 
 /* Generate ADD (immediate) */
-static void gen_add_imm(int rd, int rn, uint32_t imm, int is_64bit, int setflags)
+static void gen_add_imm(整数 rd, 整数 rn, uint32_t imm, 整数 is_64bit, 整数 setflags)
 {
     uint32_t instr = ARM64_ADD_IMM;
     uint32_t imm12;
 
-    if (is_64bit) instr |= ARM64_SF(1);
-    if (setflags) instr |= ARM64_S(1);
+    如果 (is_64bit) instr |= ARM64_SF(1);
+    如果 (setflags) instr |= ARM64_S(1);
 
-    if (imm <= 0xFFF) {
+    如果 (imm <= 0xFFF) {
         imm12 = imm;
-    } else if (!(imm & 0xFFF) && (imm >> 12) <= 0xFFF) {
+    } 否则 如果 (!(imm & 0xFFF) && (imm >> 12) <= 0xFFF) {
         instr |= ARM64_SH(1);
         imm12 = imm >> 12;
-    } else {
+    } 否则 {
         tcc_error("add immediate out of range");
-        return;
+        返回;
     }
 
     instr |= ARM64_IMM12(imm12);
@@ -435,22 +435,22 @@ static void gen_add_imm(int rd, int rn, uint32_t imm, int is_64bit, int setflags
 }
 
 /* Generate SUB (immediate) */
-static void gen_sub_imm(int rd, int rn, uint32_t imm, int is_64bit, int setflags)
+static void gen_sub_imm(整数 rd, 整数 rn, uint32_t imm, 整数 is_64bit, 整数 setflags)
 {
     uint32_t instr = ARM64_SUB_IMM;
     uint32_t imm12;
 
-    if (is_64bit) instr |= ARM64_SF(1);
-    if (setflags) instr |= ARM64_S(1);
+    如果 (is_64bit) instr |= ARM64_SF(1);
+    如果 (setflags) instr |= ARM64_S(1);
 
-    if (imm <= 0xFFF) {
+    如果 (imm <= 0xFFF) {
         imm12 = imm;
-    } else if (!(imm & 0xFFF) && (imm >> 12) <= 0xFFF) {
+    } 否则 如果 (!(imm & 0xFFF) && (imm >> 12) <= 0xFFF) {
         instr |= ARM64_SH(1);
         imm12 = imm >> 12;
-    } else {
+    } 否则 {
         tcc_error("sub immediate out of range");
-        return;
+        返回;
     }
 
     instr |= ARM64_IMM12(imm12);
@@ -460,10 +460,10 @@ static void gen_sub_imm(int rd, int rn, uint32_t imm, int is_64bit, int setflags
 }
 
 /* Generate data processing register instruction */
-static void gen_dp_reg(uint32_t opcode, int rd, int rn, int rm, int is_64bit)
+static void gen_dp_reg(uint32_t opcode, 整数 rd, 整数 rn, 整数 rm, 整数 is_64bit)
 {
     uint32_t instr = opcode;
-    if (is_64bit) instr |= ARM64_SF(1);
+    如果 (is_64bit) instr |= ARM64_SF(1);
     instr |= ARM64_RM(rm);
     instr |= ARM64_RN(rn);
     instr |= ARM64_RD(rd);
@@ -471,21 +471,21 @@ static void gen_dp_reg(uint32_t opcode, int rd, int rn, int rm, int is_64bit)
 }
 
 /* Generate LDR/STR (unsigned immediate) */
-static void gen_ldst_imm(uint32_t base_opcode, int rt, int rn,
-                         int32_t offset, int size_log2)
+static void gen_ldst_imm(uint32_t base_opcode, 整数 rt, 整数 rn,
+                         int32_t offset, 整数 size_log2)
 {
     uint32_t instr = base_opcode;
     uint32_t unscaled_opcode = 0;
     uint32_t imm12;
 
-    if (offset >= 0 && !(offset & ((1 << size_log2) - 1))) {
+    如果 (offset >= 0 && !(offset & ((1 << size_log2) - 1))) {
     imm12 = offset >> size_log2;
-        if (imm12 <= 0xFFF) {
+        如果 (imm12 <= 0xFFF) {
     instr |= ARM64_IMM12(imm12);
     instr |= ARM64_RN(rn);
     instr |= ARM64_RT(rt);
     emit_instr32(instr);
-            return;
+            返回;
         }
     }
 
@@ -502,31 +502,31 @@ static void gen_ldst_imm(uint32_t base_opcode, int rt, int rn,
     case ARM64_STR_D: unscaled_opcode = ARM64_STUR_D_SIMD; break;
     }
 
-    if (unscaled_opcode && offset >= -256 && offset <= 255) {
+    如果 (unscaled_opcode && offset >= -256 && offset <= 255) {
         instr = unscaled_opcode;
         instr |= ((uint32_t)offset & 0x1FFU) << 12;
         instr |= ARM64_RN(rn);
         instr |= ARM64_RT(rt);
         emit_instr32(instr);
-        return;
+        返回;
     }
 
-    if (offset & ((1 << size_log2) - 1))
+    如果 (offset & ((1 << size_log2) - 1))
         tcc_error("invalid load/store offset");
     tcc_error("load/store offset out of range");
 }
 
 /* Generate STP/LDP (signed immediate) */
-static void gen_ldst_pair(uint32_t base_opcode, int rt, int rt2, int rn,
-                          int32_t offset, int size_log2)
+static void gen_ldst_pair(uint32_t base_opcode, 整数 rt, 整数 rt2, 整数 rn,
+                          int32_t offset, 整数 size_log2)
 {
     int32_t imm7;
     uint32_t instr = base_opcode;
 
-    if (offset & ((1 << size_log2) - 1))
+    如果 (offset & ((1 << size_log2) - 1))
         tcc_error("invalid pair load/store offset");
     imm7 = offset >> size_log2;
-    if (imm7 < -64 || imm7 > 63)
+    如果 (imm7 < -64 || imm7 > 63)
         tcc_error("pair load/store offset out of range");
 
     instr |= ARM64_IMM7(imm7);
@@ -557,7 +557,7 @@ static void gen_bl(int32_t offset)
 }
 
 /* Generate BR (branch to register) */
-static void gen_br(int rn)
+static void gen_br(整数 rn)
 {
     uint32_t instr = ARM64_BR;
     instr |= ARM64_RN(rn);
@@ -565,7 +565,7 @@ static void gen_br(int rn)
 }
 
 /* Generate BLR (branch with link to register) */
-static void gen_blr(int rn)
+static void gen_blr(整数 rn)
 {
     uint32_t instr = ARM64_BLR;
     instr |= ARM64_RN(rn);
@@ -573,7 +573,7 @@ static void gen_blr(int rn)
 }
 
 /* Generate RET */
-static void gen_ret(int rn)
+static void gen_ret(整数 rn)
 {
     uint32_t instr = ARM64_RET;
     instr |= ARM64_RN(rn);
@@ -581,7 +581,7 @@ static void gen_ret(int rn)
 }
 
 /* Generate conditional branch */
-static void gen_b_cond(int cond, int32_t offset)
+static void gen_b_cond(整数 cond, int32_t offset)
 {
     uint32_t instr = ARM64_B_COND;
     instr |= ARM64_OFFSET19(offset);
@@ -591,119 +591,119 @@ static void gen_b_cond(int cond, int32_t offset)
 
 /* Generate CBZ */
 /* Generate CBZ/CBNZ with base opcode */
-static void gen_cbz_or_cbnz(int rt, int32_t offset, int is_64bit, uint32_t base_opcode)
+static void gen_cbz_or_cbnz(整数 rt, int32_t offset, 整数 is_64bit, uint32_t base_opcode)
 {
     uint32_t instr = base_opcode;
-    if (is_64bit) instr |= ARM64_SF(1);
+    如果 (is_64bit) instr |= ARM64_SF(1);
     instr |= ARM64_OFFSET19(offset);
     instr |= ARM64_RT(rt);
     emit_instr32(instr);
 }
 
-static void gen_cbz(int rt, int32_t offset, int is_64bit)
+static void gen_cbz(整数 rt, int32_t offset, 整数 is_64bit)
 {
     gen_cbz_or_cbnz(rt, offset, is_64bit, ARM64_CBZ);
 }
 
 /* Generate CBNZ */
-static void gen_cbnz(int rt, int32_t offset, int is_64bit)
+static void gen_cbnz(整数 rt, int32_t offset, 整数 is_64bit)
 {
     gen_cbz_or_cbnz(rt, offset, is_64bit, ARM64_CBNZ);
 }
 
 /* Generate MOV (register) - ORR with zero register */
-static void gen_mov_reg(int rd, int rm, int is_64bit)
+static void gen_mov_reg(整数 rd, 整数 rm, 整数 is_64bit)
 {
     uint32_t instr = ARM64_MOV_REG;
-    if (is_64bit) instr |= ARM64_SF(1);
+    如果 (is_64bit) instr |= ARM64_SF(1);
     instr |= ARM64_RM(rm);
     instr |= ARM64_RD(rd);
     emit_instr32(instr);
 }
 
-static int arm64_asm_encode_bimm64(uint64_t x)
+static 整数 arm64_asm_encode_bimm64(uint64_t x)
 {
-    int neg, rep, pos, len;
+    整数 neg, rep, pos, len;
 
     neg = x & 1;
-    if (neg)
+    如果 (neg)
         x = ~x;
-    if (!x)
-        return -1;
+    如果 (!x)
+        返回 -1;
 
-    if (x >> 2 == (x & ((((uint64_t)1) << (64 - 2)) - 1)))
+    如果 (x >> 2 == (x & ((((uint64_t)1) << (64 - 2)) - 1)))
         rep = 2, x &= (((uint64_t)1) << 2) - 1;
-    else if (x >> 4 == (x & ((((uint64_t)1) << (64 - 4)) - 1)))
+    否则 如果 (x >> 4 == (x & ((((uint64_t)1) << (64 - 4)) - 1)))
         rep = 4, x &= (((uint64_t)1) << 4) - 1;
-    else if (x >> 8 == (x & ((((uint64_t)1) << (64 - 8)) - 1)))
+    否则 如果 (x >> 8 == (x & ((((uint64_t)1) << (64 - 8)) - 1)))
         rep = 8, x &= (((uint64_t)1) << 8) - 1;
-    else if (x >> 16 == (x & ((((uint64_t)1) << (64 - 16)) - 1)))
+    否则 如果 (x >> 16 == (x & ((((uint64_t)1) << (64 - 16)) - 1)))
         rep = 16, x &= (((uint64_t)1) << 16) - 1;
-    else if (x >> 32 == (x & ((((uint64_t)1) << (64 - 32)) - 1)))
+    否则 如果 (x >> 32 == (x & ((((uint64_t)1) << (64 - 32)) - 1)))
         rep = 32, x &= (((uint64_t)1) << 32) - 1;
-    else
+    否则
         rep = 64;
 
     pos = 0;
-    if (!(x & ((((uint64_t)1) << 32) - 1)))
+    如果 (!(x & ((((uint64_t)1) << 32) - 1)))
         x >>= 32, pos += 32;
-    if (!(x & ((((uint64_t)1) << 16) - 1)))
+    如果 (!(x & ((((uint64_t)1) << 16) - 1)))
         x >>= 16, pos += 16;
-    if (!(x & ((((uint64_t)1) << 8) - 1)))
+    如果 (!(x & ((((uint64_t)1) << 8) - 1)))
         x >>= 8, pos += 8;
-    if (!(x & ((((uint64_t)1) << 4) - 1)))
+    如果 (!(x & ((((uint64_t)1) << 4) - 1)))
         x >>= 4, pos += 4;
-    if (!(x & ((((uint64_t)1) << 2) - 1)))
+    如果 (!(x & ((((uint64_t)1) << 2) - 1)))
         x >>= 2, pos += 2;
-    if (!(x & ((((uint64_t)1) << 1) - 1)))
+    如果 (!(x & ((((uint64_t)1) << 1) - 1)))
         x >>= 1, pos += 1;
 
     len = 0;
-    if (!(~x & ((((uint64_t)1) << 32) - 1)))
+    如果 (!(~x & ((((uint64_t)1) << 32) - 1)))
         x >>= 32, len += 32;
-    if (!(~x & ((((uint64_t)1) << 16) - 1)))
+    如果 (!(~x & ((((uint64_t)1) << 16) - 1)))
         x >>= 16, len += 16;
-    if (!(~x & ((((uint64_t)1) << 8) - 1)))
+    如果 (!(~x & ((((uint64_t)1) << 8) - 1)))
         x >>= 8, len += 8;
-    if (!(~x & ((((uint64_t)1) << 4) - 1)))
+    如果 (!(~x & ((((uint64_t)1) << 4) - 1)))
         x >>= 4, len += 4;
-    if (!(~x & ((((uint64_t)1) << 2) - 1)))
+    如果 (!(~x & ((((uint64_t)1) << 2) - 1)))
         x >>= 2, len += 2;
-    if (!(~x & ((((uint64_t)1) << 1) - 1)))
+    如果 (!(~x & ((((uint64_t)1) << 1) - 1)))
         x >>= 1, len += 1;
 
-    if (x)
-        return -1;
-    if (neg) {
+    如果 (x)
+        返回 -1;
+    如果 (neg) {
         pos = (pos + len) & (rep - 1);
         len = rep - len;
     }
-    return ((0x1000 & rep << 6) | (((rep - 1) ^ 31) << 1 & 63) |
+    返回 ((0x1000 & rep << 6) | (((rep - 1) ^ 31) << 1 & 63) |
             ((rep - pos) & (rep - 1)) << 6 | (len - 1));
 }
 
-static void gen_logical_imm(uint32_t opcode, int rd, int rn,
-                            uint64_t imm, int is_64bit)
+static void gen_logical_imm(uint32_t opcode, 整数 rd, 整数 rn,
+                            uint64_t imm, 整数 is_64bit)
 {
     uint32_t instr;
     uint64_t val;
-    int enc;
+    整数 enc;
 
-    if (is_64bit)
+    如果 (is_64bit)
         val = imm;
-    else {
+    否则 {
         val = (uint32_t)imm;
         val |= val << 32;
     }
 
     enc = arm64_asm_encode_bimm64(val);
-    if (enc < 0) {
+    如果 (enc < 0) {
         tcc_error("logical immediate out of range");
-        return;
+        返回;
     }
 
     instr = opcode;
-    if (is_64bit)
+    如果 (is_64bit)
         instr |= ARM64_SF(1);
     instr |= ARM64_N(enc >> 12);
     instr |= ARM64_IMM_R(enc >> 6);
@@ -715,14 +715,14 @@ static void gen_logical_imm(uint32_t opcode, int rd, int rn,
 
 /* return the constraint priority (we allocate first the lowest
    numbered constraints) */
-static inline int constraint_priority(const char *str)
+static inline 整数 constraint_priority(const char *str)
 {
-    int priority, c, pr;
+    整数 priority, c, pr;
 
     priority = 0;
-    for (;;) {
+    为 (;;) {
         c = *str++;
-        if (c == '\0')
+        如果 (c == '\0')
             break;
         switch (c) {
         case '=':
@@ -747,7 +747,7 @@ static inline int constraint_priority(const char *str)
             pr = 5;
             break;
         case 'U':
-            if (str[0] == 'm' && str[1] == 'p') {
+            如果 (str[0] == 'm' && str[1] == 'p') {
                 str += 2;
                 pr = 4;
                 break;
@@ -775,172 +775,172 @@ static inline int constraint_priority(const char *str)
             pr = 0;
             break;
         }
-        if (pr > priority)
+        如果 (pr > priority)
             priority = pr;
     }
-    return priority;
+    返回 priority;
 }
 
 static const char *skip_constraint_modifiers(const char *p)
 {
-    while (*p == '=' || *p == '&' || *p == '+' || *p == '%')
+    当 (*p == '=' || *p == '&' || *p == '+' || *p == '%')
         p++;
-    return p;
+    返回 p;
 }
 
-static int is_valid_add_imm(int64_t val)
+static 整数 is_valid_add_imm(int64_t val)
 {
-    return val >= 0 && val <= 4095;
+    返回 val >= 0 && val <= 4095;
 }
 
-static int is_valid_logical_imm(int64_t val, int bits)
+static 整数 is_valid_logical_imm(int64_t val, 整数 bits)
 {
     uint64_t uval;
 
     uval = (uint64_t)val;
-    if (bits == 32) {
+    如果 (bits == 32) {
         uval = (uint32_t)uval;
         uval |= uval << 32;
     }
-    return arm64_asm_encode_bimm64(uval) >= 0;
+    返回 arm64_asm_encode_bimm64(uval) >= 0;
 }
 
-static int is_valid_movw_imm(int64_t val)
+static 整数 is_valid_movw_imm(int64_t val)
 {
     uint64_t uval = (uint64_t)val;
 
-    if (uval <= 0xFFFF)
-        return 1;
-    if (uval >= 0xFFFF0000 && (uval & 0xFFFF) == 0)
-        return 1;
-    if (uval >= 0xFFFF00000000ULL && (uval & 0xFFFFFFFFULL) == 0)
-        return 1;
-    if ((uval & 0xFFFFFFFF00000000ULL) == 0)
-        return 1;
+    如果 (uval <= 0xFFFF)
+        返回 1;
+    如果 (uval >= 0xFFFF0000 && (uval & 0xFFFF) == 0)
+        返回 1;
+    如果 (uval >= 0xFFFF00000000ULL && (uval & 0xFFFFFFFFULL) == 0)
+        返回 1;
+    如果 ((uval & 0xFFFFFFFF00000000ULL) == 0)
+        返回 1;
 
-    return 0;
+    返回 0;
 }
 
-static int is_valid_movw_shift(int shift, int is_64bit)
+static 整数 is_valid_movw_shift(整数 shift, 整数 is_64bit)
 {
-    if (shift < 0 || (shift & 15))
-        return 0;
-    if (shift > (is_64bit ? 48 : 16))
-        return 0;
-    return 1;
+    如果 (shift < 0 || (shift & 15))
+        返回 0;
+    如果 (shift > (is_64bit ? 48 : 16))
+        返回 0;
+    返回 1;
 }
 
-static int arm64_memory_is_base_only(const SValue *sv)
+static 整数 arm64_memory_is_base_only(const SValue *sv)
 {
-    int r;
+    整数 r;
 
     r = sv->r;
-    if ((r & VT_VALMASK) == VT_CONST)
-        return 0;
-    if ((r & VT_VALMASK) == VT_LOCAL)
-        return 0;
-    if ((r & VT_VALMASK) == VT_LLOCAL)
-        return 1;
-    if (r & VT_LVAL)
-        return (r & VT_VALMASK) < VT_CONST;
-    return 0;
+    如果 ((r & VT_VALMASK) == VT_CONST)
+        返回 0;
+    如果 ((r & VT_VALMASK) == VT_LOCAL)
+        返回 0;
+    如果 ((r & VT_VALMASK) == VT_LLOCAL)
+        返回 1;
+    如果 (r & VT_LVAL)
+        返回 (r & VT_VALMASK) < VT_CONST;
+    返回 0;
 }
 
-static int arm64_memory_is_pair_suitable(const SValue *sv)
+static 整数 arm64_memory_is_pair_suitable(const SValue *sv)
 {
     int64_t offset;
 
-    if (arm64_memory_is_base_only(sv))
-        return 1;
-    if ((sv->r & VT_VALMASK) != VT_LOCAL)
-        return 0;
+    如果 (arm64_memory_is_base_only(sv))
+        返回 1;
+    如果 ((sv->r & VT_VALMASK) != VT_LOCAL)
+        返回 0;
 
     offset = (int64_t)sv->c.i;
-    return (offset & 7) == 0 && offset >= -512 && offset <= 504;
+    返回 (offset & 7) == 0 && offset >= -512 && offset <= 504;
 }
 
-static int arm64_int_reg_is_allocatable(int reg)
+static 整数 arm64_int_reg_is_allocatable(整数 reg)
 {
 #ifdef TCC_TARGET_PE
-    return reg >= TREG_X0 && reg <= TREG_X17;
-#else
-    return reg >= TREG_X0 && reg <= TREG_X30;
+    返回 reg >= TREG_X0 && reg <= TREG_X17;
+#否则
+    返回 reg >= TREG_X0 && reg <= TREG_X30;
 #endif
 }
 
-static int arm64_memory_needs_address_reg(const SValue *sv)
+static 整数 arm64_memory_needs_address_reg(const SValue *sv)
 {
-    int r;
+    整数 r;
 
     r = sv->r & ~(VT_BOUNDED | VT_NONCONST);
-    if (!(r & VT_LVAL))
-        return 0;
+    如果 (!(r & VT_LVAL))
+        返回 0;
     switch (r & VT_VALMASK) {
     case VT_LOCAL:
     case VT_LLOCAL:
     case VT_CONST:
-        return 1;
+        返回 1;
     }
-    return 0;
+    返回 0;
 }
 
-static int arm64_prepare_memory_operand(ASMOperand *op, uint8_t *regs_allocated)
+static 整数 arm64_prepare_memory_operand(ASMOperand *op, uint8_t *regs_allocated)
 {
-    int reg;
+    整数 reg;
 
-    if (!arm64_memory_needs_address_reg(op->vt))
-        return 1;
+    如果 (!arm64_memory_needs_address_reg(op->vt))
+        返回 1;
 
-    for (reg = 0; reg < 31; reg++) {
-        if (arm64_int_reg_is_allocatable(reg)
+    为 (reg = 0; reg < 31; reg++) {
+        如果 (arm64_int_reg_is_allocatable(reg)
             && !(regs_allocated[reg] & REG_IN_MASK)) {
             regs_allocated[reg] |= REG_IN_MASK;
             op->reg = reg;
             op->is_memory = 1;
-            return 1;
+            返回 1;
         }
     }
-    return 0;
+    返回 0;
 }
 
-static void arm64_load_memory_operand_base(int reg, SValue *sv)
+static void arm64_load_memory_operand_base(整数 reg, SValue *sv)
 {
     SValue base;
-    int rval;
+    整数 rval;
 
     base = *sv;
     base.type.t = VT_PTR;
     rval = base.r & VT_VALMASK;
-    if (rval == VT_LLOCAL) {
+    如果 (rval == VT_LLOCAL) {
         base.r = (base.r & ~VT_VALMASK) | VT_LOCAL | VT_LVAL;
-    } else if (rval == VT_CONST || rval == VT_LOCAL) {
+    } 否则 如果 (rval == VT_CONST || rval == VT_LOCAL) {
         base.r &= ~VT_LVAL;
-    } else {
+    } 否则 {
         tcc_internal_error("unsupported ARM64 memory operand base");
     }
     load(reg, &base);
 }
 
-static int operand_is_sp(const Operand *op)
+static 整数 operand_is_sp(const Operand *op)
 {
-    return op->reg_tok == TOK_ASM_sp;
+    返回 op->reg_tok == TOK_ASM_sp;
 }
 
-static int parse_sysreg_name(int t)
+static 整数 parse_sysreg_name(整数 t)
 {
     const char *name;
 
-    if (t < TOK_IDENT)
-        return -1;
+    如果 (t < TOK_IDENT)
+        返回 -1;
     name = get_tok_str(t, NULL);
-    if (!strcmp(name, "FPCR") || !strcmp(name, "fpcr"))
-        return 0;
-    if (!strcmp(name, "FPSR") || !strcmp(name, "fpsr"))
-        return 1;
-    return -1;
+    如果 (!strcmp(name, "FPCR") || !strcmp(name, "fpcr"))
+        返回 0;
+    如果 (!strcmp(name, "FPSR") || !strcmp(name, "fpsr"))
+        返回 1;
+    返回 -1;
 }
 
-static void gen_mrs(int rt, int sysreg)
+static void gen_mrs(整数 rt, 整数 sysreg)
 {
     uint32_t instr;
 
@@ -953,12 +953,12 @@ static void gen_mrs(int rt, int sysreg)
             break;
         default:
             tcc_error("unsupported system register");
-            return;
+            返回;
     }
     emit_instr32(instr | ARM64_RD(rt));
 }
 
-static void gen_msr(int rt, int sysreg)
+static void gen_msr(整数 rt, 整数 sysreg)
 {
     uint32_t instr;
 
@@ -971,7 +971,7 @@ static void gen_msr(int rt, int sysreg)
             break;
         default:
             tcc_error("unsupported system register");
-            return;
+            返回;
     }
     emit_instr32(instr | ARM64_RD(rt));
 }
@@ -983,45 +983,45 @@ static void gen_nop(void)
 }
 
 /* Generate shift operations (LSL, LSR, ASR, ROR) */
-static void gen_shift(int rd, int rn, int rm_or_imm, int shift_type, int is_imm, int is_64bit)
+static void gen_shift(整数 rd, 整数 rn, 整数 rm_or_imm, 整数 shift_type, 整数 is_imm, 整数 is_64bit)
 {
     uint32_t instr;
-    int width = is_64bit ? 64 : 32;
+    整数 width = is_64bit ? 64 : 32;
 
-    if (is_imm) {
+    如果 (is_imm) {
         /* Shift by immediate */
         switch (shift_type) {
             case 0: /* LSL - UBFM alias */
-                if (rm_or_imm < 0 || rm_or_imm >= width) {
+                如果 (rm_or_imm < 0 || rm_or_imm >= width) {
                     tcc_error("shift immediate out of range");
-                    return;
+                    返回;
                 }
                 instr = is_64bit ? ARM64_LSL_IMM : ARM64_LSR_IMM_32;
                 instr |= ARM64_IMM_R((width - rm_or_imm) & (width - 1));
                 instr |= ARM64_IMM_S(width - rm_or_imm - 1);
                 break;
             case 1: /* LSR - UBFM alias: immr = shift, imms = width - 1 */
-                if (rm_or_imm < 0 || rm_or_imm >= width) {
+                如果 (rm_or_imm < 0 || rm_or_imm >= width) {
                     tcc_error("shift immediate out of range");
-                    return;
+                    返回;
                 }
                 instr = is_64bit ? ARM64_LSL_IMM : ARM64_LSR_IMM_32;
                 instr |= ARM64_IMM_R(rm_or_imm);
                 instr |= ARM64_IMM_S(width - 1);
                 break;
             case 2: /* ASR - SBFM alias: immr = shift, imms = width - 1 */
-                if (rm_or_imm < 0 || rm_or_imm >= width) {
+                如果 (rm_or_imm < 0 || rm_or_imm >= width) {
                     tcc_error("shift immediate out of range");
-                    return;
+                    返回;
                 }
                 instr = is_64bit ? ARM64_ASR_IMM : (ARM64_ASR_IMM & ~(1U << 31));
                 instr |= ARM64_IMM_R(rm_or_imm);
                 instr |= ARM64_IMM_S(width - 1);
                 break;
             case 3: /* ROR - EXTR alias: Rm = source, Rn = source, imms = shift */
-                if (rm_or_imm < 0 || rm_or_imm >= width) {
+                如果 (rm_or_imm < 0 || rm_or_imm >= width) {
                     tcc_error("shift immediate out of range");
-                    return;
+                    返回;
                 }
                 instr = is_64bit ? ARM64_EXTR64 : ARM64_EXTR;
                 instr |= ARM64_RM(rn);
@@ -1029,14 +1029,14 @@ static void gen_shift(int rd, int rn, int rm_or_imm, int shift_type, int is_imm,
                 instr |= ARM64_RN(rn);
                 instr |= ARM64_RD(rd);
                 emit_instr32(instr);
-                return;
+                返回;
             default:
                 tcc_error("unknown shift type");
-                return;
+                返回;
         }
         instr |= ARM64_RN(rn);
         instr |= ARM64_RD(rd);
-    } else {
+    } 否则 {
         /* Shift by register */
         switch (shift_type) {
             case 0: /* LSL */
@@ -1053,9 +1053,9 @@ static void gen_shift(int rd, int rn, int rm_or_imm, int shift_type, int is_imm,
                 break;
             default:
                 tcc_error("unknown shift type");
-                return;
+                返回;
         }
-        if (is_64bit)
+        如果 (is_64bit)
             instr |= ARM64_SF(1);
         instr |= ARM64_RM(rm_or_imm);
         instr |= ARM64_RN(rn);
@@ -1065,12 +1065,12 @@ static void gen_shift(int rd, int rn, int rm_or_imm, int shift_type, int is_imm,
 }
 
 /* Handle shift instructions */
-static void asm_shift(TCCState *s1, int token)
+static void asm_shift(TCCState *s1, 整数 token)
 {
     Operand op1, op2, op3;
-    int rd, rn, shift_amount;
-    int shift_type;
-    int is_64bit = 1;
+    整数 rd, rn, shift_amount;
+    整数 shift_type;
+    整数 is_64bit = 1;
 
     switch (token) {
         case TOK_ASM_lsl:
@@ -1087,53 +1087,53 @@ static void asm_shift(TCCState *s1, int token)
             break;
         default:
             tcc_error("unknown shift instruction");
-            return;
+            返回;
     }
 
     parse_operand(s1, &op1);
-    if (tok == ',') next();
+    如果 (tok == ',') next();
     parse_operand(s1, &op2);
 
-    if (!(op1.type & OP_REG)) {
+    如果 (!(op1.type & OP_REG)) {
         tcc_error("expected register in first operand");
-        return;
+        返回;
     }
-    if (!(op2.type & OP_REG)) {
+    如果 (!(op2.type & OP_REG)) {
         tcc_error("expected register in second operand");
-        return;
+        返回;
     }
 
     rd = op1.reg;
     rn = op2.reg;
 
-    if (tok == ',') {
+    如果 (tok == ',') {
         next();
         parse_operand(s1, &op3);
         is_64bit = (op1.reg_type & REG_X);
-        if (is_64bit != !!(op2.reg_type & REG_X)) {
+        如果 (is_64bit != !!(op2.reg_type & REG_X)) {
             tcc_error("mismatched register widths");
-            return;
+            返回;
         }
-        if (op3.type & OP_REG) {
-            if (is_64bit != !!(op3.reg_type & REG_X)) {
+        如果 (op3.type & OP_REG) {
+            如果 (is_64bit != !!(op3.reg_type & REG_X)) {
                 tcc_error("mismatched register widths");
-                return;
+                返回;
             }
             gen_shift(rd, rn, op3.reg, shift_type, 0, is_64bit);
-        } else if (op3.type & OP_IM) {
+        } 否则 如果 (op3.type & OP_IM) {
             shift_amount = op3.e.v;
             gen_shift(rd, rn, shift_amount, shift_type, 1, is_64bit);
-        } else {
+        } 否则 {
             tcc_error("shift requires immediate or register operand");
         }
-    } else {
+    } 否则 {
         tcc_error("shift requires immediate or register operand");
-        return;
+        返回;
     }
 }
 
 /* Generate barrier instructions (ISB, DSB, DMB) */
-static void gen_barrier(int barrier_type, int option)
+static void gen_barrier(整数 barrier_type, 整数 option)
 {
     uint32_t instr;
 
@@ -1149,16 +1149,16 @@ static void gen_barrier(int barrier_type, int option)
             break;
         default:
             tcc_error("unknown barrier type");
-            return;
+            返回;
     }
     instr |= ARM64_ISB_OPTION(option);
     emit_instr32(instr);
 }
 
 /* Handle barrier instructions */
-static void asm_barrier(TCCState *s1, int token)
+static void asm_barrier(TCCState *s1, 整数 token)
 {
-    int barrier_type, option;
+    整数 barrier_type, option;
     Operand op;
 
     switch (token) {
@@ -1173,26 +1173,26 @@ static void asm_barrier(TCCState *s1, int token)
             break;
         default:
             tcc_error("unknown barrier instruction");
-            return;
+            返回;
     }
 
     /* Default option = sy/full system. */
     option = 0xF;
 
     /* Check for an optional named or numeric barrier scope. */
-    if (tok != TOK_LINEFEED) {
+    如果 (tok != TOK_LINEFEED) {
         option = parse_barrier_option_name(tok);
-        if (option >= 0) {
+        如果 (option >= 0) {
             next();
-        } else {
+        } 否则 {
             parse_operand(s1, &op);
-            if (!(op.type & OP_IM) || op.e.sym) {
+            如果 (!(op.type & OP_IM) || op.e.sym) {
                 tcc_error("barrier option must be an immediate or scope name");
-                return;
+                返回;
             }
-            if (op.e.v > 0xF) {
+            如果 (op.e.v > 0xF) {
                 tcc_error("barrier option out of range");
-                return;
+                返回;
             }
             option = op.e.v;
         }
@@ -1202,22 +1202,22 @@ static void asm_barrier(TCCState *s1, int token)
 }
 
 /* Generate immediate move sequence */
-static void gen_mov_imm(int rd, uint64_t imm, int is_64bit)
+static void gen_mov_imm(整数 rd, uint64_t imm, 整数 is_64bit)
 {
     uint16_t hw;
-    int i, first = 1;
+    整数 i, first = 1;
 
-    for (i = 0; i < (is_64bit ? 4 : 2); i++) {
+    为 (i = 0; i < (is_64bit ? 4 : 2); i++) {
         hw = (imm >> (i * 16)) & 0xFFFF;
-        if (hw != 0 || i == 0) {
-            if (first) {
+        如果 (hw != 0 || i == 0) {
+            如果 (first) {
                 /* Pass halfword index (0-3), not bit count */
                 gen_movz(rd, hw, i, is_64bit);
                 first = 0;
-            } else {
+            } 否则 {
                 gen_movk(rd, hw, i, is_64bit);
             }
-        } else if (!first) {
+        } 否则 如果 (!first) {
             gen_movk(rd, hw, i, is_64bit);
         }
     }
@@ -1227,40 +1227,40 @@ static void gen_mov_imm(int rd, uint64_t imm, int is_64bit)
 static void asm_mov(TCCState *s1)
 {
     Operand op1, op2;
-    int rd, rn;
-    int is_64bit;
+    整数 rd, rn;
+    整数 is_64bit;
 
     parse_operand(s1, &op1);
-    if (tok == ',') next();
+    如果 (tok == ',') next();
     parse_operand(s1, &op2);
     rd = op1.reg;
     is_64bit = (op1.reg_type & REG_X);
 
-    if (op2.type & OP_IM) {
+    如果 (op2.type & OP_IM) {
         /* Handle immediate: mov x0, #123 */
-        if (operand_is_sp(&op1)) {
+        如果 (operand_is_sp(&op1)) {
             tcc_error("cannot move an immediate into sp");
-            return;
+            返回;
         }
         gen_mov_imm(rd, op2.e.v, is_64bit);
-    } else if (op2.type & OP_REG) {
+    } 否则 如果 (op2.type & OP_REG) {
         /* Handle register: mov x0, x1 */
         rn = op2.reg;
-        if (operand_is_sp(&op1) || operand_is_sp(&op2))
+        如果 (operand_is_sp(&op1) || operand_is_sp(&op2))
             gen_add_imm(rd, rn, 0, 1, 0);
-        else
+        否则
             gen_mov_reg(rd, rn, is_64bit);
-    } else {
+    } 否则 {
         tcc_error("invalid operand for mov");
     }
 }
 
 /* Handle data processing instructions */
-static void asm_data_proc(TCCState *s1, int token)
+static void asm_data_proc(TCCState *s1, 整数 token)
 {
     Operand op1, op2, op3;
-    int rd, rn, rm;
-    int is_64bit = 1;
+    整数 rd, rn, rm;
+    整数 is_64bit = 1;
     uint32_t opcode;
 
     switch (token) {
@@ -1287,89 +1287,89 @@ static void asm_data_proc(TCCState *s1, int token)
             break;
         default:
             tcc_error("unsupported data processing instruction");
-            return;
+            返回;
     }
 
     parse_operand(s1, &op1);
-    if (tok == ',') next();
+    如果 (tok == ',') next();
     parse_operand(s1, &op2);
 
-    if (!(op1.type & OP_REG)) {
+    如果 (!(op1.type & OP_REG)) {
         tcc_error("expected register in first operand");
-        return;
+        返回;
     }
-    if (!(op2.type & OP_REG)) {
+    如果 (!(op2.type & OP_REG)) {
         tcc_error("expected register in second operand");
-        return;
+        返回;
     }
 
     rd = op1.reg;
     rn = op2.reg;
 
-    if (tok == ',') {
+    如果 (tok == ',') {
         next();
         parse_operand(s1, &op3);
         is_64bit = (op1.reg_type & REG_X);
-        if (is_64bit != !!(op2.reg_type & REG_X)) {
+        如果 (is_64bit != !!(op2.reg_type & REG_X)) {
             tcc_error("mismatched register widths");
-            return;
+            返回;
         }
-        if (op3.type & OP_IM) {
-            if (token == TOK_ASM_add || token == TOK_ASM_adds)
+        如果 (op3.type & OP_IM) {
+            如果 (token == TOK_ASM_add || token == TOK_ASM_adds)
                 gen_add_imm(rd, rn, op3.e.v, is_64bit,
                             token == TOK_ASM_adds);
-            else if (token == TOK_ASM_sub || token == TOK_ASM_subs)
+            否则 如果 (token == TOK_ASM_sub || token == TOK_ASM_subs)
                 gen_sub_imm(rd, rn, op3.e.v, is_64bit,
                             token == TOK_ASM_subs);
-            else if (token == TOK_ASM_and)
+            否则 如果 (token == TOK_ASM_and)
                 gen_logical_imm(ARM64_AND_IMM, rd, rn, op3.e.v, is_64bit);
-            else if (token == TOK_ASM_ands)
+            否则 如果 (token == TOK_ASM_ands)
                 gen_logical_imm(ARM64_ANDS_IMM, rd, rn, op3.e.v, is_64bit);
-            else if (token == TOK_ASM_orr)
+            否则 如果 (token == TOK_ASM_orr)
                 gen_logical_imm(ARM64_ORR_IMM_BASE, rd, rn, op3.e.v, is_64bit);
-            else if (token == TOK_ASM_eor)
+            否则 如果 (token == TOK_ASM_eor)
                 gen_logical_imm(ARM64_EOR_IMM, rd, rn, op3.e.v, is_64bit);
-            else
+            否则
                 tcc_error("immediate operand not valid for this instruction");
-        } else {
-            if (!(op3.type & OP_REG)) {
+        } 否则 {
+            如果 (!(op3.type & OP_REG)) {
                 tcc_error("expected register in third operand");
-                return;
+                返回;
             }
             rm = op3.reg;
-            if (is_64bit != !!(op2.reg_type & REG_X) || is_64bit != !!(op3.reg_type & REG_X)) {
+            如果 (is_64bit != !!(op2.reg_type & REG_X) || is_64bit != !!(op3.reg_type & REG_X)) {
                 tcc_error("mismatched register widths");
-                return;
+                返回;
             }
             gen_dp_reg(opcode, rd, rn, rm, is_64bit);
         }
-    } else if (op2.type & OP_IM) {
+    } 否则 如果 (op2.type & OP_IM) {
         tcc_error("missing source register for immediate form");
-    } else {
+    } 否则 {
         tcc_error("missing third operand");
     }
 }
 
 /* Handle load/store instructions */
-static void asm_ldst(TCCState *s1, int token)
+static void asm_ldst(TCCState *s1, 整数 token)
 {
     Operand op1, op2;
-    int rt, rn;
+    整数 rt, rn;
     int32_t offset = 0;
-    int size_log2 = 3;
+    整数 size_log2 = 3;
     uint32_t base_opcode;
 
     parse_operand(s1, &op1);
-    if (tok == ',') next();
+    如果 (tok == ',') next();
     parse_operand(s1, &op2);
 
-    if (!(op1.type & OP_REG)) {
+    如果 (!(op1.type & OP_REG)) {
         tcc_error("expected register in first operand");
-        return;
+        返回;
     }
-    if (op2.type != OP_ADDR) {
+    如果 (op2.type != OP_ADDR) {
         tcc_error("expected address operand in second operand");
-        return;
+        返回;
     }
 
     rt = op1.reg;
@@ -1378,18 +1378,18 @@ static void asm_ldst(TCCState *s1, int token)
 
     switch (token) {
         case TOK_ASM_ldr:
-            if (op1.reg_type & REG_X) {
+            如果 (op1.reg_type & REG_X) {
                 base_opcode = ARM64_LDR_X;
                 size_log2 = 3;
-            } else if (op1.reg_type & REG_W) {
+            } 否则 如果 (op1.reg_type & REG_W) {
                 base_opcode = ARM64_LDR_W;
                 size_log2 = 2;
-            } else if (op1.reg_type & REG_D) {
+            } 否则 如果 (op1.reg_type & REG_D) {
                 base_opcode = ARM64_LDR_D;
                 size_log2 = 3;
-            } else {
+            } 否则 {
                 tcc_error("ldr requires a w, x, or d register");
-                return;
+                返回;
             }
             break;
         case TOK_ASM_ldrb:
@@ -1401,18 +1401,18 @@ static void asm_ldst(TCCState *s1, int token)
             size_log2 = 1;
             break;
         case TOK_ASM_str:
-            if (op1.reg_type & REG_X) {
+            如果 (op1.reg_type & REG_X) {
                 base_opcode = ARM64_STR_X;
                 size_log2 = 3;
-            } else if (op1.reg_type & REG_W) {
+            } 否则 如果 (op1.reg_type & REG_W) {
                 base_opcode = ARM64_STR_W;
                 size_log2 = 2;
-            } else if (op1.reg_type & REG_D) {
+            } 否则 如果 (op1.reg_type & REG_D) {
                 base_opcode = ARM64_STR_D;
                 size_log2 = 3;
-            } else {
+            } 否则 {
                 tcc_error("str requires a w, x, or d register");
-                return;
+                返回;
             }
             break;
         case TOK_ASM_strb:
@@ -1425,98 +1425,98 @@ static void asm_ldst(TCCState *s1, int token)
             break;
         default:
             tcc_error("unsupported load/store instruction");
-            return;
+            返回;
     }
 
-    if (op2.addr_mode != ADDR_OFF)
+    如果 (op2.addr_mode != ADDR_OFF)
         tcc_error("only offset addressing is implemented for ldr/str");
     gen_ldst_imm(base_opcode, rt, rn, offset, size_log2);
 }
 
-static void asm_ldst_pair(TCCState *s1, int token)
+static void asm_ldst_pair(TCCState *s1, 整数 token)
 {
     Operand op1, op2, op3;
     uint32_t base_opcode;
-    int size_log2 = 3;
+    整数 size_log2 = 3;
 
     parse_operand(s1, &op1);
-    if (tok == ',')
+    如果 (tok == ',')
         next();
     parse_operand(s1, &op2);
-    if (tok == ',')
+    如果 (tok == ',')
         next();
     parse_operand(s1, &op3);
 
-    if (!(op1.type & OP_REG)) {
+    如果 (!(op1.type & OP_REG)) {
         tcc_error("expected register in first operand");
-        return;
+        返回;
     }
-    if (!(op2.type & OP_REG)) {
+    如果 (!(op2.type & OP_REG)) {
         tcc_error("expected register in second operand");
-        return;
+        返回;
     }
-    if (!(op3.type & OP_ADDR))
+    如果 (!(op3.type & OP_ADDR))
         tcc_error("pair load/store requires an address operand");
 
-    if ((op1.reg_type & REG_X) && (op2.reg_type & REG_X)) {
-        if (token == TOK_ASM_stp) {
+    如果 ((op1.reg_type & REG_X) && (op2.reg_type & REG_X)) {
+        如果 (token == TOK_ASM_stp) {
             base_opcode = op3.addr_mode == ADDR_PRE ? ARM64_STP_X_PRE :
                           op3.addr_mode == ADDR_POST ? ARM64_STP_X_POST :
                           ARM64_STP_X;
-        } else {
+        } 否则 {
             base_opcode = op3.addr_mode == ADDR_PRE ? ARM64_LDP_X_PRE :
                           op3.addr_mode == ADDR_POST ? ARM64_LDP_X_POST :
                           ARM64_LDP_X;
         }
-    } else if ((op1.reg_type & REG_D) && (op2.reg_type & REG_D)) {
-        if (token == TOK_ASM_stp) {
+    } 否则 如果 ((op1.reg_type & REG_D) && (op2.reg_type & REG_D)) {
+        如果 (token == TOK_ASM_stp) {
             base_opcode = op3.addr_mode == ADDR_PRE ? ARM64_STP_D_PRE :
                           op3.addr_mode == ADDR_POST ? ARM64_STP_D_POST :
                           ARM64_STP_D;
-        } else {
+        } 否则 {
             base_opcode = op3.addr_mode == ADDR_PRE ? ARM64_LDP_D_PRE :
                           op3.addr_mode == ADDR_POST ? ARM64_LDP_D_POST :
                           ARM64_LDP_D;
         }
-    } else {
+    } 否则 {
         tcc_error("stp/ldp requires matching x or d registers");
-        return;
+        返回;
     }
 
     gen_ldst_pair(base_opcode, op1.reg, op2.reg, op3.reg, op3.e.v, size_log2);
 }
 
-static void asm_sysreg(TCCState *s1, int token)
+static void asm_sysreg(TCCState *s1, 整数 token)
 {
     Operand op;
-    int sysreg;
+    整数 sysreg;
 
-    if (token == TOK_ASM_mrs) {
+    如果 (token == TOK_ASM_mrs) {
         parse_operand(s1, &op);
-        if (tok == ',')
+        如果 (tok == ',')
             next();
         sysreg = parse_sysreg_name(tok);
-        if (sysreg < 0)
+        如果 (sysreg < 0)
             tcc_error("unsupported system register");
         next();
         gen_mrs(op.reg, sysreg);
-        return;
+        返回;
     }
 
     sysreg = parse_sysreg_name(tok);
-    if (sysreg < 0)
+    如果 (sysreg < 0)
         tcc_error("unsupported system register");
     next();
-    if (tok == ',')
+    如果 (tok == ',')
         next();
     parse_operand(s1, &op);
     gen_msr(op.reg, sysreg);
 }
 
 /* Get condition code from branch instruction token */
-static int get_branch_condition(int branch_token)
+static 整数 get_branch_condition(整数 branch_token)
 {
-    int cond_token;
+    整数 cond_token;
 
     /* Map branch token to condition token (strip 'b' prefix) */
     switch (branch_token) {
@@ -1536,43 +1536,43 @@ static int get_branch_condition(int branch_token)
         case TOK_ASM_blt: cond_token = TOK_ASM_lt; break;
         case TOK_ASM_bgt: cond_token = TOK_ASM_gt; break;
         case TOK_ASM_ble: cond_token = TOK_ASM_le; break;
-        default: return -1;
+        default: 返回 -1;
     }
 
-    return parse_condition(cond_token);
+    返回 parse_condition(cond_token);
 }
 
 /* Handle branch instructions */
-static void asm_branch(TCCState *s1, int token)
+static void asm_branch(TCCState *s1, 整数 token)
 {
     Operand op;
-    int cond;
+    整数 cond;
     Sym *sym;
     int32_t offset;
 
     /* ret can be used without operand */
-    if (token == TOK_ASM_ret && (tok == TOK_LINEFEED || tok == ';' || tok == TOK_EOF)) {
+    如果 (token == TOK_ASM_ret && (tok == TOK_LINEFEED || tok == ';' || tok == TOK_EOF)) {
         gen_ret(30);  /* x30 is the link register */
-        return;
+        返回;
     }
 
-    if (token == TOK_ASM_br || token == TOK_ASM_blr || token == TOK_ASM_ret)
+    如果 (token == TOK_ASM_br || token == TOK_ASM_blr || token == TOK_ASM_ret)
         parse_operand(s1, &op);
-    else
+    否则
         parse_expr_operand(s1, &op);
 
-    if (op.type & OP_IM) {
+    如果 (op.type & OP_IM) {
         sym = op.e.sym;
-        if (sym) {
+        如果 (sym) {
             /* Symbolic address - emit relocation */
             offset = 0;
 
             cond = get_branch_condition(token);
-            if (cond >= 0) {
+            如果 (cond >= 0) {
                 /* Conditional branch - use CONDBR19 relocation */
                 gen_b_cond(cond, 0);
                 greloca(cur_text_section, sym, ind - 4, R_AARCH64_CONDBR19, 0);
-            } else {
+            } 否则 {
                 switch (token) {
                     case TOK_ASM_b:
                         gen_b(0);
@@ -1586,13 +1586,13 @@ static void asm_branch(TCCState *s1, int token)
                         tcc_error("unsupported branch");
                 }
             }
-        } else {
+        } 否则 {
             offset = (int32_t)op.e.v - ind;
 
             cond = get_branch_condition(token);
-            if (cond >= 0) {
+            如果 (cond >= 0) {
                 gen_b_cond(cond, offset);
-            } else {
+            } 否则 {
                 switch (token) {
                     case TOK_ASM_b:
                         gen_b(offset);
@@ -1605,7 +1605,7 @@ static void asm_branch(TCCState *s1, int token)
                 }
             }
         }
-    } else if (op.type & OP_REG) {
+    } 否则 如果 (op.type & OP_REG) {
         switch (token) {
             case TOK_ASM_br:
                 gen_br(op.reg);
@@ -1623,83 +1623,83 @@ static void asm_branch(TCCState *s1, int token)
 }
 
 /* Handle CBZ/CBNZ */
-static void asm_cb(TCCState *s1, int token)
+static void asm_cb(TCCState *s1, 整数 token)
 {
     Operand op1, op2;
-    int rt, is_64bit;
+    整数 rt, is_64bit;
     int32_t offset;
     Sym *sym;
 
     parse_operand(s1, &op1);
-    if (tok == ',') next();
+    如果 (tok == ',') next();
     parse_expr_operand(s1, &op2);
 
     rt = op1.reg;
     is_64bit = (op1.reg_type & REG_X);
     sym = op2.e.sym;
 
-    if (sym) {
+    如果 (sym) {
         /* Symbolic address - emit relocation */
         offset = 0;
-        if (token == TOK_ASM_cbz) {
+        如果 (token == TOK_ASM_cbz) {
             gen_cbz(rt, offset, is_64bit);
             greloca(cur_text_section, sym, ind - 4, R_AARCH64_CONDBR19, 0);
-        } else {
+        } 否则 {
             gen_cbnz(rt, offset, is_64bit);
             greloca(cur_text_section, sym, ind - 4, R_AARCH64_CONDBR19, 0);
         }
-    } else {
+    } 否则 {
         offset = (int32_t)op2.e.v - ind;
-        if (token == TOK_ASM_cbz)
+        如果 (token == TOK_ASM_cbz)
             gen_cbz(rt, offset, is_64bit);
-        else
+        否则
             gen_cbnz(rt, offset, is_64bit);
     }
 }
 
 /* Handle MOVZ/MOVN/MOVK */
-static void asm_move_wide(TCCState *s1, int token)
+static void asm_move_wide(TCCState *s1, 整数 token)
 {
     Operand op1, op2;
-    int rd, is_64bit = 1;
+    整数 rd, is_64bit = 1;
     uint16_t imm;
-    int shift = 0;
+    整数 shift = 0;
 
     parse_operand(s1, &op1);
-    if (tok == ',') next();
+    如果 (tok == ',') next();
     parse_operand(s1, &op2);
 
-    if (!(op1.type & OP_REG)) {
+    如果 (!(op1.type & OP_REG)) {
         tcc_error("expected register in first operand");
-        return;
+        返回;
     }
-    if (!(op2.type & OP_IM) || op2.e.sym) {
+    如果 (!(op2.type & OP_IM) || op2.e.sym) {
         tcc_error("expected immediate in second operand");
-        return;
+        返回;
     }
 
     rd = op1.reg;
     is_64bit = (op1.reg_type & REG_X);
-    if ((uint64_t)op2.e.v > 0xFFFF) {
+    如果 ((uint64_t)op2.e.v > 0xFFFF) {
         tcc_error("move wide immediate out of range");
-        return;
+        返回;
     }
     imm = op2.e.v;
 
-    if (tok == ',') {
+    如果 (tok == ',') {
         next();
-        if (tok != TOK_ASM_lsl) {
+        如果 (tok != TOK_ASM_lsl) {
             tcc_error("move wide shift must use lsl");
-            return;
+            返回;
         }
             next();
-            if (tok == '#') next();
+            如果 (tok == '#') next();
             asm_expr(s1, &op2.e);
-        if (op2.e.sym || !is_valid_movw_shift((int)op2.e.v, is_64bit)) {
+        如果 (op2.e.sym || !is_valid_movw_shift((整数)op2.e.v, is_64bit)) {
             tcc_error("move wide shift out of range");
-            return;
+            返回;
         }
-            shift = (int)op2.e.v / 16;
+            shift = (整数)op2.e.v / 16;
         }
 
     switch (token) {
@@ -1718,7 +1718,7 @@ static void asm_move_wide(TCCState *s1, int token)
 }
 
 /* Main assembler opcode dispatcher */
-ST_FUNC void asm_opcode(TCCState *s1, int opcode)
+ST_FUNC void asm_opcode(TCCState *s1, 整数 opcode)
 {
     switch (opcode) {
         case TOK_ASM_add:
@@ -1817,62 +1817,62 @@ ST_FUNC void asm_opcode(TCCState *s1, int opcode)
 }
 
 /* Substitute assembler operand */
-ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
+ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, 整数 modifier)
 {
-    int r, reg, size, fp_reg, align;
+    整数 r, reg, size, fp_reg, align;
     int64_t val;
     uint64_t uval;
 
     r = sv->r;
-    if ((r & VT_VALMASK) == VT_CONST) {
-        if ((modifier == 'w' || modifier == 'x') && !(r & VT_LVAL)
+    如果 ((r & VT_VALMASK) == VT_CONST) {
+        如果 ((modifier == 'w' || modifier == 'x') && !(r & VT_LVAL)
             && !(r & VT_SYM) && sv->c.i == 0) {
             cstr_cat(add_str, modifier == 'w' ? "wzr" : "xzr", -1);
-            return;
+            返回;
         }
-        if (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
+        如果 (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
             modifier != 'P')
             cstr_ccat(add_str, '#');
-        if (r & VT_SYM) {
+        如果 (r & VT_SYM) {
             const char *name = get_tok_str(sv->sym->v, NULL);
-            if (sv->sym->v >= SYM_FIRST_ANOM)
+            如果 (sv->sym->v >= SYM_FIRST_ANOM)
                 get_asm_sym(tok_alloc(name, strlen(name))->tok, sv->sym);
-            if (tcc_state->leading_underscore)
+            如果 (tcc_state->leading_underscore)
                 cstr_ccat(add_str, '_');
             cstr_cat(add_str, name, -1);
-            if ((uint32_t) sv->c.i == 0)
+            如果 ((uint32_t) sv->c.i == 0)
                 goto no_offset;
             cstr_ccat(add_str, '+');
         }
         uval = sv->c.i;
-        if (modifier == 'n') {
+        如果 (modifier == 'n') {
             val = -(int64_t)uval;
             cstr_printf(add_str, "%lld", (long long)val);
-        } else if (uval > 0x7fffffffffffffffULL) {
+        } 否则 如果 (uval > 0x7fffffffffffffffULL) {
             cstr_printf(add_str, "0x%llx", (unsigned long long)uval);
-        } else {
+        } 否则 {
             val = (int64_t)uval;
             cstr_printf(add_str, "%lld", (long long)val);
         }
       no_offset:;
-    } else if ((r & VT_VALMASK) == VT_LOCAL) {
-        cstr_printf(add_str, "[x29,#%d]", (int) sv->c.i);
-    } else if (r & VT_LVAL) {
+    } 否则 如果 ((r & VT_VALMASK) == VT_LOCAL) {
+        cstr_printf(add_str, "[x29,#%d]", (整数) sv->c.i);
+    } 否则 如果 (r & VT_LVAL) {
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
+        如果 (reg >= VT_CONST)
             tcc_internal_error("");
         cstr_printf(add_str, "[x%d]", reg);
-    } else {
+    } 否则 {
         /* register case */
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
+        如果 (reg >= VT_CONST)
             tcc_internal_error("");
 
-        if (ARM64_FREG_BASE <= reg && reg <= ARM64_FREG_LAST) {
+        如果 (ARM64_FREG_BASE <= reg && reg <= ARM64_FREG_LAST) {
             fp_reg = reg - ARM64_FREG_BASE;
             size = type_size(&sv->type, &align);
 
-            if (modifier == 0)
+            如果 (modifier == 0)
                 modifier = size <= 4 ? 's'
                          : size == 8 ? 'd'
                          : 'q';
@@ -1886,85 +1886,85 @@ ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
             case 'Z':
                 cstr_printf(add_str, "%c%d", modifier == 'Z' ? 'z' : modifier,
                             fp_reg);
-                return;
+                返回;
             default:
                 tcc_error("invalid operand modifier for SIMD/FP register");
-                return;
+                返回;
             }
         }
 
         /* choose register operand size */
-        if ((sv->type.t & VT_BTYPE) == VT_BYTE ||
+        如果 ((sv->type.t & VT_BTYPE) == VT_BYTE ||
             (sv->type.t & VT_BTYPE) == VT_BOOL)
             size = 1;
-        else if ((sv->type.t & VT_BTYPE) == VT_SHORT)
+        否则 如果 ((sv->type.t & VT_BTYPE) == VT_SHORT)
             size = 2;
-        else if ((sv->type.t & VT_BTYPE) == VT_LLONG ||
+        否则 如果 ((sv->type.t & VT_BTYPE) == VT_LLONG ||
                  (sv->type.t & VT_BTYPE) == VT_PTR)
             size = 8;
-        else
+        否则
             size = 4;
 
-        if (modifier == 'x') {
+        如果 (modifier == 'x') {
             size = 8;
-        } else if (modifier == 'w' || modifier == 'k') {
+        } 否则 如果 (modifier == 'w' || modifier == 'k') {
             size = 4;
-        } else if (modifier == 'b') {
+        } 否则 如果 (modifier == 'b') {
             size = 1;
-        } else if (modifier == 'h') {
+        } 否则 如果 (modifier == 'h') {
             size = 2;
-        } else if (modifier == 'q') {
+        } 否则 如果 (modifier == 'q') {
             size = 8;
         }
 
-        if (size <= 4) {
+        如果 (size <= 4) {
             cstr_printf(add_str, "w%d", reg);
-        } else {
+        } 否则 {
             cstr_printf(add_str, "x%d", reg);
         }
     }
 }
 
-ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
-                          int nb_outputs, int is_output,
+ST_FUNC void asm_gen_code(ASMOperand *operands, 整数 nb_operands,
+                          整数 nb_outputs, 整数 is_output,
                           uint8_t *clobber_regs,
-                          int out_reg)
+                          整数 out_reg)
 {
     uint8_t regs_allocated[NB_ASM_REGS];
     ASMOperand *op;
-    int i, reg, saved_count, stack_size, stack_off;
-    int saved_regs[12];
+    整数 i, reg, saved_count, stack_size, stack_off;
+    整数 saved_regs[12];
     static const uint8_t reg_saved[] = {
         19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
         29, 30
     };
 
     memcpy(regs_allocated, clobber_regs, sizeof(regs_allocated));
-    for (i = 0; i < nb_operands; i++) {
+    为 (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        if (op->reg >= 0)
+        如果 (op->reg >= 0)
             regs_allocated[op->reg] = 1;
     }
 
     saved_count = 0;
-    for (i = 0; i < sizeof(reg_saved) / sizeof(reg_saved[0]); i++) {
+    为 (i = 0; i < sizeof(reg_saved) / sizeof(reg_saved[0]); i++) {
         reg = reg_saved[i];
-        if (regs_allocated[reg])
+        如果 (regs_allocated[reg])
             saved_regs[saved_count++] = reg;
     }
     stack_size = ((saved_count + 1) / 2) * 16;
 
-    if (!is_output) {
-        if (saved_count > 0) {
+    如果 (!is_output) {
+        如果 (saved_count > 0) {
             gen_sub_imm(31, 31, stack_size, 1, 0);
 
-            for (i = stack_off = 0; i < saved_count; ) {
-                if (i + 1 < saved_count) {
+            为 (i = stack_off = 0; i < saved_count; ) {
+                如果 (i + 1 < saved_count) {
                     gen_ldst_pair(ARM64_STP_X, saved_regs[i], saved_regs[i + 1],
                                   TREG_SP, stack_off, 3);
                     stack_off += 16;
                     i += 2;
-                } else {
+                } 否则 {
                     gen_ldst_imm(ARM64_STR_X, saved_regs[i], TREG_SP,
                                  stack_off, 3);
                     i++;
@@ -1972,24 +1972,24 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
             }
         }
 
-        for (i = 0; i < nb_operands; i++) {
+        为 (i = 0; i < nb_operands; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if (op->is_memory) {
+            如果 (op->reg >= 0) {
+                如果 (op->is_memory) {
                     arm64_load_memory_operand_base(op->reg, op->vt);
-                } else if (i >= nb_outputs || op->is_rw) {
+                } 否则 如果 (i >= nb_outputs || op->is_rw) {
                     load(op->reg, op->vt);
                 }
             }
         }
-    } else {
-        for (i = 0; i < nb_outputs; i++) {
+    } 否则 {
+        为 (i = 0; i < nb_outputs; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if (op->is_memory)
+            如果 (op->reg >= 0) {
+                如果 (op->is_memory)
                     continue;
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
-                    if (!op->is_memory) {
+                如果 ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+                    如果 (!op->is_memory) {
                         SValue sv;
                         sv = *op->vt;
                         sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL;
@@ -2000,20 +2000,20 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                         sv.r = (sv.r & ~VT_VALMASK) | out_reg;
                         store(op->reg, &sv);
                     }
-                } else {
+                } 否则 {
                     store(op->reg, op->vt);
                 }
             }
         }
 
-        if (saved_count > 0) {
-            for (i = stack_off = 0; i < saved_count; ) {
-                if (i + 1 < saved_count) {
+        如果 (saved_count > 0) {
+            为 (i = stack_off = 0; i < saved_count; ) {
+                如果 (i + 1 < saved_count) {
                     gen_ldst_pair(ARM64_LDP_X, saved_regs[i], saved_regs[i + 1],
                                   TREG_SP, stack_off, 3);
                     stack_off += 16;
                     i += 2;
-                } else {
+                } 否则 {
                     gen_ldst_imm(ARM64_LDR_X, saved_regs[i], TREG_SP,
                                  stack_off, 3);
                     i++;
@@ -2025,17 +2025,17 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
 }
 
 ST_FUNC void asm_compute_constraints(ASMOperand *operands,
-                                    int nb_operands, int nb_outputs,
+                                    整数 nb_operands, 整数 nb_outputs,
                                     const uint8_t *clobber_regs,
-                                    int *pout_reg)
+                                    整数 *pout_reg)
 {
     ASMOperand *op;
-    int sorted_op[MAX_ASM_OPERANDS];
-    int i, j, k, p1, p2, tmp, reg, c, reg_mask;
+    整数 sorted_op[MAX_ASM_OPERANDS];
+    整数 i, j, k, p1, p2, tmp, reg, c, reg_mask;
     const char *str;
     uint8_t regs_allocated[NB_ASM_REGS];
 
-    for (i = 0; i < nb_operands; i++) {
+    为 (i = 0; i < nb_operands; i++) {
         op = &operands[i];
         op->input_index = -1;
         op->ref_index = -1;
@@ -2045,36 +2045,36 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         op->is_llong = 0;
     }
 
-    for (i = 0; i < nb_operands; i++) {
+    为 (i = 0; i < nb_operands; i++) {
         op = &operands[i];
         str = op->constraint;
         str = skip_constraint_modifiers(str);
-        if (isnum(*str) || *str == '[') {
+        如果 (isnum(*str) || *str == '[') {
             k = find_constraint(operands, nb_operands, str, NULL);
-            if ((unsigned)k >= i || i < nb_outputs)
+            如果 ((unsigned)k >= i || i < nb_outputs)
                 tcc_error("invalid reference in constraint %d ('%s')", i, str);
             op->ref_index = k;
-            if (operands[k].input_index >= 0)
+            如果 (operands[k].input_index >= 0)
                 tcc_error("cannot reference twice the same operand");
             operands[k].input_index = i;
             op->priority = 5;
-        } else if ((op->vt->r & VT_VALMASK) == VT_LOCAL
+        } 否则 如果 ((op->vt->r & VT_VALMASK) == VT_LOCAL
                    && op->vt->sym
                    && (reg = op->vt->sym->r & VT_VALMASK) < VT_CONST) {
             op->priority = 1;
             op->reg = reg;
-        } else {
+        } 否则 {
             op->priority = constraint_priority(str);
         }
     }
 
-    for (i = 0; i < nb_operands; i++)
+    为 (i = 0; i < nb_operands; i++)
         sorted_op[i] = i;
-    for (i = 0; i < nb_operands - 1; i++) {
-        for (j = i + 1; j < nb_operands; j++) {
+    为 (i = 0; i < nb_operands - 1; i++) {
+        为 (j = i + 1; j < nb_operands; j++) {
             p1 = operands[sorted_op[i]].priority;
             p2 = operands[sorted_op[j]].priority;
-            if (p2 < p1) {
+            如果 (p2 < p1) {
                 tmp = sorted_op[i];
                 sorted_op[i] = sorted_op[j];
                 sorted_op[j] = tmp;
@@ -2082,28 +2082,28 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         }
     }
 
-    for (i = 0; i < NB_ASM_REGS; i++) {
-        if (clobber_regs[i])
+    为 (i = 0; i < NB_ASM_REGS; i++) {
+        如果 (clobber_regs[i])
             regs_allocated[i] = REG_IN_MASK | REG_OUT_MASK;
-        else
+        否则
             regs_allocated[i] = 0;
     }
 
-    for (i = 0; i < nb_operands; i++) {
+    为 (i = 0; i < nb_operands; i++) {
         j = sorted_op[i];
         op = &operands[j];
         str = op->constraint;
-        if (op->ref_index >= 0)
+        如果 (op->ref_index >= 0)
             continue;
-        if (op->input_index >= 0) {
+        如果 (op->input_index >= 0) {
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
-        } else if (j < nb_outputs) {
+        } 否则 如果 (j < nb_outputs) {
             reg_mask = REG_OUT_MASK;
-        } else {
+        } 否则 {
             reg_mask = REG_IN_MASK;
         }
-        if (op->reg >= 0) {
-            if (is_reg_allocated(op->reg))
+        如果 (op->reg >= 0) {
+            如果 (is_reg_allocated(op->reg))
                 tcc_error("asm regvar requests register that's taken already");
             reg = op->reg;
             goto reg_found;
@@ -2116,100 +2116,100 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         case '+':
             op->is_rw = 1;
         case '&':
-            if (j >= nb_outputs)
+            如果 (j >= nb_outputs)
                 tcc_error("'%c' modifier can only be applied to outputs", c);
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
             goto try_next;
         case 'r':
-            for (reg = 0; reg < 31; reg++) {
-                if (arm64_int_reg_is_allocatable(reg)
+            为 (reg = 0; reg < 31; reg++) {
+                如果 (arm64_int_reg_is_allocatable(reg)
                     && !is_reg_allocated(reg))
                     goto reg_found;
             }
             goto try_next;
         case 'w':
         case 'f':
-            for (reg = ARM64_FREG_BASE; reg <= ARM64_FREG_LAST; reg++) {
-                if (!is_reg_allocated(reg))
+            为 (reg = ARM64_FREG_BASE; reg <= ARM64_FREG_LAST; reg++) {
+                如果 (!is_reg_allocated(reg))
                     goto reg_found;
             }
             goto try_next;
         case 'x':
         case 'y':
-            for (reg = ARM64_FREG_BASE; reg <= ARM64_FREG_LAST; reg++) {
-                if (!is_reg_allocated(reg))
+            为 (reg = ARM64_FREG_BASE; reg <= ARM64_FREG_LAST; reg++) {
+                如果 (!is_reg_allocated(reg))
                     goto reg_found;
             }
             goto try_next;
         case 'm':
         case 'g':
-            if (j < nb_outputs || c == 'm') {
-                if (!arm64_prepare_memory_operand(op, regs_allocated))
+            如果 (j < nb_outputs || c == 'm') {
+                如果 (!arm64_prepare_memory_operand(op, regs_allocated))
                     goto try_next;
             }
             break;
         case 'Q':
-            if (!arm64_memory_is_base_only(op->vt))
+            如果 (!arm64_memory_is_base_only(op->vt))
                 goto try_next;
-            if (!arm64_prepare_memory_operand(op, regs_allocated))
+            如果 (!arm64_prepare_memory_operand(op, regs_allocated))
                 goto try_next;
             break;
         case 'S':
-            if ((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) != (VT_CONST | VT_SYM))
+            如果 ((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) != (VT_CONST | VT_SYM))
                 goto try_next;
             break;
         case 'U':
-            if (str[0] != 'm' || str[1] != 'p')
+            如果 (str[0] != 'm' || str[1] != 'p')
                 goto try_next;
             str += 2;
-            if (!arm64_memory_is_pair_suitable(op->vt))
+            如果 (!arm64_memory_is_pair_suitable(op->vt))
                 goto try_next;
-            if (!arm64_prepare_memory_operand(op, regs_allocated))
+            如果 (!arm64_prepare_memory_operand(op, regs_allocated))
                 goto try_next;
             break;
         case 'i':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
+            如果 (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
                 goto try_next;
             break;
         case 'I':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+            如果 (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
                 goto try_next;
-            if (!is_valid_add_imm(op->vt->c.i))
+            如果 (!is_valid_add_imm(op->vt->c.i))
                 goto try_next;
             break;
         case 'J':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+            如果 (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
                 goto try_next;
-            if (!is_valid_add_imm(-op->vt->c.i))
+            如果 (!is_valid_add_imm(-op->vt->c.i))
                 goto try_next;
             break;
         case 'K':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+            如果 (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
                 goto try_next;
-            if (!is_valid_logical_imm(op->vt->c.i, 32))
+            如果 (!is_valid_logical_imm(op->vt->c.i, 32))
                 goto try_next;
             break;
         case 'L':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+            如果 (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
                 goto try_next;
-            if (!is_valid_logical_imm(op->vt->c.i, 64))
+            如果 (!is_valid_logical_imm(op->vt->c.i, 64))
                 goto try_next;
             break;
         case 'M':
         case 'N':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+            如果 (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
                 goto try_next;
-            if (!is_valid_movw_imm(op->vt->c.i))
+            如果 (!is_valid_movw_imm(op->vt->c.i))
                 goto try_next;
             break;
         case 'Z':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
+            如果 (!((op->vt->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST))
                 goto try_next;
-            if (op->vt->c.i != 0)
+            如果 (op->vt->c.i != 0)
                 goto try_next;
             break;
         case 'n':
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
+            如果 (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
                 goto try_next;
             break;
         default:
@@ -2217,7 +2217,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                        j, op->constraint);
             break;
         }
-        if (op->input_index >= 0) {
+        如果 (op->input_index >= 0) {
             operands[op->input_index].reg = op->reg;
             operands[op->input_index].is_llong = op->is_llong;
         }
@@ -2226,20 +2226,20 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         op->is_llong = 0;
         op->reg = reg;
         regs_allocated[reg] |= reg_mask;
-        if (op->input_index >= 0) {
+        如果 (op->input_index >= 0) {
             operands[op->input_index].reg = op->reg;
             operands[op->input_index].is_llong = op->is_llong;
         }
     }
 
     *pout_reg = -1;
-    for (i = 0; i < nb_operands; i++) {
+    为 (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        if (op->reg >= 0 &&
+        如果 (op->reg >= 0 &&
             (op->vt->r & VT_VALMASK) == VT_LLOCAL &&
             !op->is_memory) {
-            for (reg = 0; reg < 31; reg++) {
-                if (!(regs_allocated[reg] & REG_OUT_MASK))
+            为 (reg = 0; reg < 31; reg++) {
+                如果 (!(regs_allocated[reg] & REG_OUT_MASK))
                     goto reg_found2;
             }
             tcc_error("could not find free output register for reloading");
@@ -2253,23 +2253,23 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
 /* Handle clobber list */
 ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str)
 {
-    int reg;
+    整数 reg;
 
-    if (!strcmp(str, "memory") ||
+    如果 (!strcmp(str, "memory") ||
         !strcmp(str, "cc") ||
         !strcmp(str, "flags"))
-        return;
+        返回;
 
     reg = arm64_parse_regvar(tok_alloc_const(str));
-    if (reg == -1)
+    如果 (reg == -1)
         tcc_error("invalid clobber register '%s'", str);
     clobber_regs[reg] = 1;
 }
 
 /* Parse register variable - this is the ST_FUNC that tcc.h expects */
-ST_FUNC int asm_parse_regvar(int t)
+ST_FUNC 整数 asm_parse_regvar(整数 t)
 {
-    return arm64_parse_regvar(t);
+    返回 arm64_parse_regvar(t);
 }
 
 /*************************************************************/

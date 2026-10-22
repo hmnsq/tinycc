@@ -52,13 +52,13 @@ typedef struct
   unsigned short __unused1;
   unsigned short __tag_word;
   unsigned short __unused2;  
-  unsigned int	 __ip_offset;    /* instruction pointer offset */
+  unsigned 整数	 __ip_offset;    /* instruction pointer offset */
   unsigned short __ip_selector;  
   unsigned short __opcode;
-  unsigned int	 __data_offset;
+  unsigned 整数	 __data_offset;
   unsigned short __data_selector;  
   unsigned short __unused3;
-  unsigned int   __mxcsr; /* contents of the MXCSR register  */
+  unsigned 整数   __mxcsr; /* contents of the MXCSR register  */
 } fenv_t;
 
 
@@ -82,23 +82,23 @@ extern "C" {
 /*TODO: Some of these could be inlined */
 /* 7.6.2 Exception */
 
-extern int __cdecl feclearexcept (int);
-extern int __cdecl fegetexceptflag (fexcept_t * flagp, int excepts);
-extern int __cdecl feraiseexcept (int excepts );
-extern int __cdecl fesetexceptflag (const fexcept_t *, int);
-extern int __cdecl fetestexcept (int excepts);
+extern 整数 __cdecl feclearexcept (整数);
+extern 整数 __cdecl fegetexceptflag (fexcept_t * flagp, 整数 excepts);
+extern 整数 __cdecl feraiseexcept (整数 excepts );
+extern 整数 __cdecl fesetexceptflag (const fexcept_t *, 整数);
+extern 整数 __cdecl fetestexcept (整数 excepts);
 
 /* 7.6.3 Rounding */
 
-extern int __cdecl fegetround (void);
-extern int __cdecl fesetround (int mode);
+extern 整数 __cdecl fegetround (void);
+extern 整数 __cdecl fesetround (整数 mode);
 
 /* 7.6.4 Environment */
 
-extern int __cdecl fegetenv(fenv_t * envp);
-extern int __cdecl fesetenv(const fenv_t * );
-extern int __cdecl feupdateenv(const fenv_t *);
-extern int __cdecl feholdexcept(fenv_t *);
+extern 整数 __cdecl fegetenv(fenv_t * envp);
+extern 整数 __cdecl fesetenv(const fenv_t * );
+extern 整数 __cdecl feupdateenv(const fenv_t *);
+extern 整数 __cdecl feholdexcept(fenv_t *);
 
 #ifdef __cplusplus
 }

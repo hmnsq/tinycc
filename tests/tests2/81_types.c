@@ -9,47 +9,47 @@ struct S const *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+typedef 整数 (*fptr1)();
+整数 f1 (整数 (), 整数);
+typedef 整数 (*fptr2)(整数 x);
+整数 f2 (整数 (整数 x), 整数);
+typedef 整数 (*fptr3)(整数);
+整数 f3 (整数 (整数), 整数);
+typedef 整数 (*fptr4[4])(整数);
+整数 f4 (整数 (*[4])(整数), 整数);
+typedef 整数 (*fptr5)(fptr1);
+整数 f5 (整数 (整数()), fptr1);
+整数 f1 (fptr1 fp, 整数 i)
 {
-  return (*fp)(i);
+  返回 (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+整数 f2 (fptr2 fp, 整数 i)
 {
-  return (*fp)(i);
+  返回 (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+整数 f3 (fptr3 fp, 整数 i)
 {
-  return (*fp)(i);
+  返回 (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+整数 f4 (fptr4 fp, 整数 i)
 {
-  return (*fp[i])(i);
+  返回 (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+整数 f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  返回 fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+typedef 整数 intx4[4];
+整数 f8 (intx4, 整数);
+整数 f8 (整数 ([4]), 整数);
+整数 f8 (整数 y[4], 整数 i)
 {
-  return y[i];
+  返回 y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+整数 f9 (整数 (*)(整数), 整数);
+整数 f9 (整数 ((整数)), 整数);
+整数 f9 (整数 f(整数), 整数 i)
 {
-  return f(i);
+  返回 f(i);
 }
-int main () { return 0; }
+整数 主要 () { 返回 0; }

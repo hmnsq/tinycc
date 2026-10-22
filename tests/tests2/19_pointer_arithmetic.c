@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+整数 主要()
 {
-   int a;
-   int *b;
-   int *c;
+   整数 a;
+   整数 *b;
+   整数 *c;
 
    a = 42;
    b = &a;
@@ -12,17 +12,17 @@ int main()
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   如果 (b == NULL)
       printf("b is NULL\n");
-   else
+   否则
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   如果 (c == NULL)
       printf("c is NULL\n");
-   else
+   否则
       printf("c is not NULL\n");
 
-   return 0;
+   返回 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

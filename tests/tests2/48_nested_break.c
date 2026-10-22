@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+整数 主要()
 {
-   int a;
+   整数 a;
    char b;
 
    a = 0;
-   while (a < 2)
+   当 (a < 2)
    {
       printf("%d", a++);
       break;
 
       b = 'A';
-      while (b < 'C')
+      当 (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   返回 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

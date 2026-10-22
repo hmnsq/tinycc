@@ -35,11 +35,11 @@ struct timeval {
    of struct timezone. */
 struct timezone
 {
-  int tz_minuteswest; /* of Greenwich */
-  int tz_dsttime;     /* type of dst correction to apply */
+  整数 tz_minuteswest; /* of Greenwich */
+  整数 tz_dsttime;     /* type of dst correction to apply */
 };
 
-  extern int __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
+  extern 整数 __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
 
 #endif
 
@@ -52,7 +52,7 @@ struct timezone
 */
 #ifndef _GETTIMEOFDAY_DEFINED
 #define _GETTIMEOFDAY_DEFINED
-int __cdecl gettimeofday(struct timeval *__restrict__,
+整数 __cdecl gettimeofday(struct timeval *__restrict__,
                          void *__restrict__  /* tzp (unused) */);
 #endif
 

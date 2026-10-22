@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int factorial(int i) 
+整数 factorial(整数 i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   如果 (i < 2)
+      返回 i;
+   否则
+      返回 i * factorial(i - 1);
 }
 
-int main()
+整数 主要()
 {
-   int Count;
+   整数 Count;
 
-   for (Count = 1; Count <= 10; Count++)
+   为 (Count = 1; Count <= 10; Count++)
       printf("%d\n", factorial(Count));
 
-   return 0;
+   返回 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

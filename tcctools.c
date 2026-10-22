@@ -44,17 +44,17 @@ typedef struct {
 } ArHdr;
 
 static unsigned long le2belong(unsigned long ul) {
-    return ((ul & 0xFF0000)>>8)+((ul & 0xFF000000)>>24) +
+    返回 ((ul & 0xFF0000)>>8)+((ul & 0xFF000000)>>24) +
         ((ul & 0xFF)<<24)+((ul & 0xFF00)<<8);
 }
 
-static int ar_usage(int ret) {
+static 整数 ar_usage(整数 ret) {
     fprintf(stderr, "usage: tcc -ar [crstvx] lib [files]\n");
     fprintf(stderr, "create library ([abdiopN] not supported).\n");
-    return ret;
+    返回 ret;
 }
 
-ST_FUNC int tcc_tool_ar(int argc, char **argv)
+ST_FUNC 整数 tcc_tool_ar(整数 argc, char **argv)
 {
     static const ArHdr arhdr_init = {
         "/               ",
@@ -74,83 +74,83 @@ ST_FUNC int tcc_tool_ar(int argc, char **argv)
     ElfW(Ehdr) *ehdr;
     ElfW(Shdr) *shdr;
     ElfW(Sym) *sym;
-    int i, fsize, i_lib, i_obj;
+    整数 i, fsize, i_lib, i_obj;
     char *buf, *shstr, *symtab, *strtab;
-    int symtabsize = 0;//, strtabsize = 0;
+    整数 symtabsize = 0;//, strtabsize = 0;
     char *anames = NULL;
-    int *afpos = NULL;
-    int istrlen, strpos = 0, fpos = 0, funccnt = 0, funcmax, hofs;
+    整数 *afpos = NULL;
+    整数 istrlen, strpos = 0, fpos = 0, funccnt = 0, funcmax, hofs;
     char tfile[260], stmp[20];
     char *file, *name;
-    int ret = 2;
+    整数 ret = 2;
     const char *ops_conflict = "habdiopN";  // unsupported but destructive if ignored.
-    int extract = 0;
-    int table = 0;
-    int verbose = 0;
+    整数 extract = 0;
+    整数 table = 0;
+    整数 verbose = 0;
 
     i_lib = 0; i_obj = 0;  // will hold the index of the lib and first obj
-    for (i = 1; i < argc; i++) {
+    为 (i = 1; i < argc; i++) {
         const char *a = argv[i];
-        if (*a == '-' && strchr(a, '.'))
+        如果 (*a == '-' && strchr(a, '.'))
             ret = 1; // -x.y is always invalid (same as gnu ar)
-        if ((*a == '-') || (i == 1 && !strchr(a, '.'))) {  // options argument
-            if (strpbrk(a, ops_conflict))
+        如果 ((*a == '-') || (i == 1 && !strchr(a, '.'))) {  // options argument
+            如果 (strpbrk(a, ops_conflict))
                 ret = 1;
-            if (strchr(a, 'x'))
+            如果 (strchr(a, 'x'))
                 extract = 1;
-            if (strchr(a, 't'))
+            如果 (strchr(a, 't'))
                 table = 1;
-            if (strchr(a, 'v'))
+            如果 (strchr(a, 'v'))
                 verbose = 1;
-        } else {  // lib or obj files: don't abort - keep validating all args.
-            if (!i_lib)  // first file is the lib
+        } 否则 {  // lib or obj files: don't abort - keep validating all args.
+            如果 (!i_lib)  // first file is the lib
                 i_lib = i;
-            else if (!i_obj)  // second file is the first obj
+            否则 如果 (!i_obj)  // second file is the first obj
                 i_obj = i;
         }
     }
 
-    if (!i_lib)  // i_obj implies also i_lib.
+    如果 (!i_lib)  // i_obj implies also i_lib.
         ret = 1;
     i_obj = i_obj ? i_obj : argc;  // An empty archive will be generated if no input file is given
 
-    if (ret == 1)
-        return ar_usage(ret);
+    如果 (ret == 1)
+        返回 ar_usage(ret);
 
-    if (extract || table) {
-        if ((fh = fopen(argv[i_lib], "rb")) == NULL)
+    如果 (extract || table) {
+        如果 ((fh = fopen(argv[i_lib], "rb")) == NULL)
         {
             fprintf(stderr, "tcc: ar: can't open file %s\n", argv[i_lib]);
             goto finish;
         }
         fread(stmp, 1, 8, fh);
-	if (memcmp(stmp,ARMAG,8))
+	如果 (memcmp(stmp,ARMAG,8))
 	{
 no_ar:
             fprintf(stderr, "tcc: ar: not an ar archive %s\n", argv[i_lib]);
             goto finish;
 	}
-	while (fread(&arhdr, 1, sizeof(arhdr), fh) == sizeof(arhdr)) {
+	当 (fread(&arhdr, 1, sizeof(arhdr), fh) == sizeof(arhdr)) {
 	    char *p, *e;
 
-	    if (memcmp(arhdr.ar_fmag, ARFMAG, 2))
+	    如果 (memcmp(arhdr.ar_fmag, ARFMAG, 2))
 		goto no_ar;
 	    p = arhdr.ar_name;
-	    for (e = p + sizeof arhdr.ar_name; e > p && e[-1] == ' ';)
+	    为 (e = p + sizeof arhdr.ar_name; e > p && e[-1] == ' ';)
 		e--;
 	    *e = '\0';
 	    arhdr.ar_size[sizeof arhdr.ar_size-1] = 0;
 	    fsize = atoi(arhdr.ar_size);
 	    buf = tcc_malloc(fsize + 1);
 	    fread(buf, fsize, 1, fh);
-	    if (strcmp(arhdr.ar_name,"/") && strcmp(arhdr.ar_name,"/SYM64/")) {
-		if (e > p && e[-1] == '/')
+	    如果 (strcmp(arhdr.ar_name,"/") && strcmp(arhdr.ar_name,"/SYM64/")) {
+		如果 (e > p && e[-1] == '/')
 		    e[-1] = '\0';
 		/* tv not implemented */
-	        if (table || verbose)
+	        如果 (table || verbose)
 		    printf("%s%s\n", extract ? "x - " : "", arhdr.ar_name);
-		if (extract) {
-		    if ((fo = fopen(arhdr.ar_name, "wb")) == NULL)
+		如果 (extract) {
+		    如果 ((fo = fopen(arhdr.ar_name, "wb")) == NULL)
 		    {
 			fprintf(stderr, "tcc: ar: can't create file %s\n",
 				arhdr.ar_name);
@@ -162,18 +162,18 @@ no_ar:
 		    /* ignore date/uid/gid/mode */
 		}
 	    }
-            if (fsize & 1)
+            如果 (fsize & 1)
                 fgetc(fh);
             tcc_free(buf);
 	}
 	ret = 0;
 finish:
-	if (fh)
+	如果 (fh)
 		fclose(fh);
-	return ret;
+	返回 ret;
     }
 
-    if ((fh = fopen(argv[i_lib], "wb")) == NULL)
+    如果 ((fh = fopen(argv[i_lib], "wb")) == NULL)
     {
         fprintf(stderr, "tcc: ar: can't create file %s\n", argv[i_lib]);
         goto the_end;
@@ -181,7 +181,7 @@ finish:
     created_file = argv[i_lib];
 
     sprintf(tfile, "%s.tmp", argv[i_lib]);
-    if ((fo = fopen(tfile, "wb+")) == NULL)
+    如果 ((fo = fopen(tfile, "wb+")) == NULL)
     {
         fprintf(stderr, "tcc: ar: can't create temporary file %s\n", tfile);
         goto the_end;
@@ -192,17 +192,17 @@ finish:
     memcpy(&arhdro.ar_mode, "100644", 6);
 
     // i_obj = first input object file
-    while (i_obj < argc)
+    当 (i_obj < argc)
     {
-        if (*argv[i_obj] == '-') {  // by now, all options start with '-'
+        如果 (*argv[i_obj] == '-') {  // by now, all options start with '-'
             i_obj++;
             continue;
         }
-        if ((fi = fopen(argv[i_obj], "rb")) == NULL) {
+        如果 ((fi = fopen(argv[i_obj], "rb")) == NULL) {
             fprintf(stderr, "tcc: ar: can't open file %s \n", argv[i_obj]);
             goto the_end;
         }
-        if (verbose)
+        如果 (verbose)
             printf("a - %s\n", argv[i_obj]);
 
         fseek(fi, 0, SEEK_END);
@@ -214,7 +214,7 @@ finish:
 
         // elf header
         ehdr = (ElfW(Ehdr) *)buf;
-        if (ehdr->e_ident[4] != ELFCLASSW)
+        如果 (ehdr->e_ident[4] != ELFCLASSW)
         {
             fprintf(stderr, "tcc: ar: Unsupported Elf Class: %s\n", argv[i_obj]);
             goto the_end;
@@ -223,19 +223,19 @@ finish:
         shdr = (ElfW(Shdr) *) (buf + ehdr->e_shoff + ehdr->e_shstrndx * ehdr->e_shentsize);
         shstr = (char *)(buf + shdr->sh_offset);
         symtab = strtab = NULL;
-        for (i = 0; i < ehdr->e_shnum; i++)
+        为 (i = 0; i < ehdr->e_shnum; i++)
         {
             shdr = (ElfW(Shdr) *) (buf + ehdr->e_shoff + i * ehdr->e_shentsize);
-            if (!shdr->sh_offset)
+            如果 (!shdr->sh_offset)
                 continue;
-            if (shdr->sh_type == SHT_SYMTAB)
+            如果 (shdr->sh_type == SHT_SYMTAB)
             {
                 symtab = (char *)(buf + shdr->sh_offset);
                 symtabsize = shdr->sh_size;
             }
-            if (shdr->sh_type == SHT_STRTAB)
+            如果 (shdr->sh_type == SHT_STRTAB)
             {
-                if (!strcmp(shstr + shdr->sh_name, ".strtab"))
+                如果 (!strcmp(shstr + shdr->sh_name, ".strtab"))
                 {
                     strtab = (char *)(buf + shdr->sh_offset);
                     //strtabsize = shdr->sh_size;
@@ -243,14 +243,14 @@ finish:
             }
         }
 
-        if (symtab && strtab)
+        如果 (symtab && strtab)
         {
-            int nsym = symtabsize / sizeof(ElfW(Sym));
+            整数 nsym = symtabsize / sizeof(ElfW(Sym));
             //printf("symtab: info size shndx name\n");
-            for (i = 1; i < nsym; i++)
+            为 (i = 1; i < nsym; i++)
             {
                 sym = (ElfW(Sym) *) (symtab + i * sizeof(ElfW(Sym)));
-                if (sym->st_shndx &&
+                如果 (sym->st_shndx &&
                     (sym->st_info == 0x10
                     || sym->st_info == 0x11
                     || sym->st_info == 0x12
@@ -263,7 +263,7 @@ finish:
                     anames = tcc_realloc(anames, strpos+istrlen);
                     strcpy(anames + strpos, strtab + sym->st_name);
                     strpos += istrlen;
-                    if (++funccnt >= funcmax) {
+                    如果 (++funccnt >= funcmax) {
                         funcmax += 250;
                         afpos = tcc_realloc(afpos, funcmax * sizeof *afpos); // 250 func more
                     }
@@ -273,11 +273,11 @@ finish:
         }
 
         file = argv[i_obj];
-        for (name = strchr(file, 0);
+        为 (name = strchr(file, 0);
              name > file && name[-1] != '/' && name[-1] != '\\';
              --name);
         istrlen = strlen(name);
-        if (istrlen >= sizeof(arhdro.ar_name))
+        如果 (istrlen >= sizeof(arhdro.ar_name))
             istrlen = sizeof(arhdro.ar_name) - 1;
         memset(arhdro.ar_name, ' ', sizeof(arhdro.ar_name));
         memcpy(arhdro.ar_name, name, istrlen);
@@ -289,29 +289,29 @@ finish:
         tcc_free(buf);
         i_obj++;
         fpos += (fsize + sizeof(arhdro));
-        if (fpos & 1)
+        如果 (fpos & 1)
             fputc(0, fo), ++fpos;
     }
-    hofs = 8 + sizeof(arhdr) + strpos + (funccnt+1) * sizeof(int);
+    hofs = 8 + sizeof(arhdr) + strpos + (funccnt+1) * sizeof(整数);
     fpos = 0;
-    if ((hofs & 1)) // align
+    如果 ((hofs & 1)) // align
         hofs++, fpos = 1;
     // write header
     fwrite(ARMAG, 8, 1, fh);
     // create an empty archive
-    if (!funccnt) {
+    如果 (!funccnt) {
         ret = 0;
         goto the_end;
     }
-    sprintf(stmp, "%-10d", (int)(strpos + (funccnt+1) * sizeof(int)) + fpos);
+    sprintf(stmp, "%-10d", (整数)(strpos + (funccnt+1) * sizeof(整数)) + fpos);
     memcpy(&arhdr.ar_size, stmp, 10);
     fwrite(&arhdr, sizeof(arhdr), 1, fh);
     afpos[0] = le2belong(funccnt);
-    for (i=1; i<=funccnt; i++)
+    为 (i=1; i<=funccnt; i++)
         afpos[i] = le2belong(afpos[i] + hofs);
-    fwrite(afpos, (funccnt+1) * sizeof(int), 1, fh);
+    fwrite(afpos, (funccnt+1) * sizeof(整数), 1, fh);
     fwrite(anames, strpos, 1, fh);
-    if (fpos)
+    如果 (fpos)
         fwrite("", 1, 1, fh);
     // write objects
     fseek(fo, 0, SEEK_END);
@@ -323,17 +323,17 @@ finish:
     tcc_free(buf);
     ret = 0;
 the_end:
-    if (anames)
+    如果 (anames)
         tcc_free(anames);
-    if (afpos)
+    如果 (afpos)
         tcc_free(afpos);
-    if (fh)
+    如果 (fh)
         fclose(fh);
-    if (created_file && ret != 0)
+    如果 (created_file && ret != 0)
         remove(created_file);
-    if (fo)
+    如果 (fo)
         fclose(fo), remove(tfile);
-    return ret;
+    返回 ret;
 }
 
 /* -------------------------------------------------------------- */
@@ -360,9 +360,9 @@ the_end:
 
 #ifdef TCC_TARGET_PE
 
-ST_FUNC int tcc_tool_impdef(int argc, char **argv)
+ST_FUNC 整数 tcc_tool_impdef(整数 argc, char **argv)
 {
-    int ret, v, i;
+    整数 ret, v, i;
     char infile[260];
     char outfile[260];
 
@@ -380,24 +380,24 @@ ST_FUNC int tcc_tool_impdef(int argc, char **argv)
     p = NULL;
     v = 0;
 
-    for (i = 1; i < argc; ++i) {
+    为 (i = 1; i < argc; ++i) {
         const char *a = argv[i];
-        if ('-' == a[0]) {
-            if (0 == strcmp(a, "-v")) {
+        如果 ('-' == a[0]) {
+            如果 (0 == strcmp(a, "-v")) {
                 v = 1;
-            } else if (0 == strcmp(a, "-o")) {
-                if (++i == argc)
+            } 否则 如果 (0 == strcmp(a, "-o")) {
+                如果 (++i == argc)
                     goto usage;
                 strcpy(outfile, argv[i]);
-            } else
+            } 否则
                 goto usage;
-        } else if (0 == infile[0])
+        } 否则 如果 (0 == infile[0])
             strcpy(infile, a);
-        else
+        否则
             goto usage;
     }
 
-    if (0 == infile[0]) {
+    如果 (0 == infile[0]) {
 usage:
         fprintf(stderr,
             "usage: tcc -impdef library.dll [-v] [-o outputfile]\n"
@@ -406,21 +406,21 @@ usage:
         goto the_end;
     }
 
-    if (0 == outfile[0]) {
+    如果 (0 == outfile[0]) {
         strcpy(outfile, tcc_basename(infile));
         q = strrchr(outfile, '.');
-        if (NULL == q)
+        如果 (NULL == q)
             q = strchr(outfile, 0);
         strcpy(q, ".def");
     }
 
     file = infile;
 #ifdef _WIN32
-    if (SearchPath(NULL, file, ".dll", sizeof path, path, NULL))
+    如果 (SearchPath(NULL, file, ".dll", sizeof path, path, NULL))
         file = path;
 #endif
     ret = tcc_get_dllexports(file, &p);
-    if (ret || !p) {
+    如果 (ret || !p) {
         fprintf(stderr, "tcc: impdef: %s '%s'\n",
             ret == -1 ? "can't find file" :
             ret ==  1 ? "can't read symbols" :
@@ -430,34 +430,34 @@ usage:
         goto the_end;
     }
 
-    if (v)
+    如果 (v)
         printf("-> %s\n", file);
 
     op = fopen(outfile, "wb");
-    if (NULL == op) {
+    如果 (NULL == op) {
         fprintf(stderr, "tcc: impdef: could not create output file: %s\n", outfile);
         goto the_end;
     }
 
     fprintf(op, "LIBRARY %s\n\nEXPORTS\n", tcc_basename(file));
-    for (q = p, i = 0; *q; ++i) {
+    为 (q = p, i = 0; *q; ++i) {
         fprintf(op, "%s\n", q);
         q += strlen(q) + 1;
     }
 
-    if (v)
+    如果 (v)
         printf("<- %s (%d symbol%s)\n", outfile, i, &"s"[i<2]);
 
     ret = 0;
 
 the_end:
-    if (p)
+    如果 (p)
         tcc_free(p);
-    if (fp)
+    如果 (fp)
         fclose(fp);
-    if (op)
+    如果 (op)
         fclose(op);
-    return ret;
+    返回 ret;
 }
 
 #endif /* TCC_TARGET_PE */
@@ -485,15 +485,15 @@ the_end:
 
 /* re-execute the i386/x86_64 cross-compilers with tcc -m32/-m64: */
 
-#if !defined TCC_TARGET_I386 && !defined TCC_TARGET_X86_64
+#如果 !defined TCC_TARGET_I386 && !defined TCC_TARGET_X86_64
 
-ST_FUNC int tcc_tool_cross(char **argv, int option)
+ST_FUNC 整数 tcc_tool_cross(char **argv, 整数 option)
 {
     fprintf(stderr, "tcc -m%d not implemented\n", option);
-    return 1;
+    返回 1;
 }
 
-#else
+#否则
 #ifdef _WIN32
 #include <process.h>
 
@@ -510,47 +510,47 @@ ST_FUNC int tcc_tool_cross(char **argv, int option)
 static char *quote_win32(const char *s)
 {
     char *o, *r = tcc_malloc(2 * strlen(s) + 3);   /* max-esc, quotes, \0 */
-    int cbs = 0, quoted = !*s;  /* consecutive backslashes before current */
+    整数 cbs = 0, quoted = !*s;  /* consecutive backslashes before current */
 
-    for (o = r; *s; *o++ = *s++) {
+    为 (o = r; *s; *o++ = *s++) {
         quoted |= *s == ' ' || *s == '\t';
-        if (*s == '\\' || *s == '"')
+        如果 (*s == '\\' || *s == '"')
             *o++ = '\\';
-        else
+        否则
             o -= cbs;  /* undo cbs escapes, if any (not followed by DQ) */
         cbs = *s == '\\' ? cbs + 1 : 0;
     }
-    if (quoted) {
+    如果 (quoted) {
         memmove(r + 1, r, o++ - r);
         *r = *o++ = '"';
-    } else {
+    } 否则 {
         o -= cbs;
     }
 
     *o = 0;
-    return r; /* don't bother with realloc(r, o-r+1) */
+    返回 r; /* don't bother with realloc(r, o-r+1) */
 }
 
-static int execvp_win32(const char *prog, char **argv)
+static 整数 execvp_win32(const char *prog, char **argv)
 {
-    int ret; char **p;
+    整数 ret; char **p;
     /* replace all " by \" */
-    for (p = argv; *p; ++p)
+    为 (p = argv; *p; ++p)
         *p = quote_win32(*p);
     ret = _spawnvp(P_NOWAIT, prog, (const char *const*)argv);
-    if (-1 == ret)
-        return ret;
+    如果 (-1 == ret)
+        返回 ret;
     _cwait(&ret, ret, WAIT_CHILD);
     exit(ret);
 }
 #define execvp execvp_win32
 #endif /* _WIN32 */
 
-ST_FUNC int tcc_tool_cross(char **argv, int target)
+ST_FUNC 整数 tcc_tool_cross(char **argv, 整数 target)
 {
     char program[4096];
     char *a0 = argv[0];
-    int prefix = tcc_basename(a0) - a0;
+    整数 prefix = tcc_basename(a0) - a0;
 
     snprintf(program, sizeof program,
         "%.*s%s"
@@ -563,10 +563,10 @@ ST_FUNC int tcc_tool_cross(char **argv, int target)
 #endif
         , prefix, a0, target == 64 ? "x86_64" : "i386");
 
-    if (strcmp(a0, program))
+    如果 (strcmp(a0, program))
         execvp(argv[0] = program, argv);
     fprintf(stderr, "tcc: could not run '%s'\n", program);
-    return 1;
+    返回 1;
 }
 
 #endif /* TCC_TARGET_I386 && TCC_TARGET_X86_64 */
@@ -574,9 +574,9 @@ ST_FUNC int tcc_tool_cross(char **argv, int target)
 /* enable commandline wildcard expansion (tcc -o x.exe *.c) */
 
 #ifdef _WIN32
-const int _CRT_glob = 1;
+const 整数 _CRT_glob = 1;
 #ifndef _CRT_glob
-const int _dowildcard = 1;
+const 整数 _dowildcard = 1;
 #endif
 #endif
 
@@ -585,67 +585,67 @@ const int _dowildcard = 1;
 
 static char *escape_target_dep(const char *s) {
     char *res = tcc_malloc(strlen(s) * 2 + 1);
-    int j;
-    for (j = 0; *s; s++, j++) {
-        if (is_space(*s)) {
+    整数 j;
+    为 (j = 0; *s; s++, j++) {
+        如果 (is_space(*s)) {
             res[j++] = '\\';
         }
         res[j] = *s;
     }
     res[j] = '\0';
-    return res;
+    返回 res;
 }
 
-ST_FUNC int gen_makedeps(TCCState *s1, const char *target, const char *filename)
+ST_FUNC 整数 gen_makedeps(TCCState *s1, const char *target, const char *filename)
 {
     FILE *depout;
     char buf[1024];
     char **escaped_targets;
-    int i, k, num_targets;
+    整数 i, k, num_targets;
 
-    if (!filename) {
+    如果 (!filename) {
         /* compute filename automatically: dir/file.o -> dir/file.d */
         snprintf(buf, sizeof buf, "%.*s.d",
-            (int)(tcc_fileextension(target) - target), target);
+            (整数)(tcc_fileextension(target) - target), target);
         filename = buf;
     }
 
-    if(!strcmp(filename, "-"))
+    如果(!strcmp(filename, "-"))
         depout = fdopen(1, "w");
-    else
+    否则
         /* XXX return err codes instead of error() ? */
         depout = fopen(filename, "w");
-    if (!depout)
-        return tcc_error_noabort("could not open '%s'", filename);
-    if (s1->verbose)
+    如果 (!depout)
+        返回 tcc_error_noabort("could not open '%s'", filename);
+    如果 (s1->verbose)
         printf("<- %s\n", filename);
 
     escaped_targets = tcc_malloc(s1->nb_target_deps * sizeof(*escaped_targets));
     num_targets = 0;
-    for (i = 0; i<s1->nb_target_deps; ++i) {
-        for (k = 0; k < i; ++k)
-            if (0 == strcmp(s1->target_deps[i], s1->target_deps[k]))
+    为 (i = 0; i<s1->nb_target_deps; ++i) {
+        为 (k = 0; k < i; ++k)
+            如果 (0 == strcmp(s1->target_deps[i], s1->target_deps[k]))
                 goto next;
         escaped_targets[num_targets++] = escape_target_dep(s1->target_deps[i]);
     next:;
     }
 
     fprintf(depout, "%s:", target);
-    for (i = 0; i < num_targets; ++i)
+    为 (i = 0; i < num_targets; ++i)
         fprintf(depout, " \\\n  %s", escaped_targets[i]);
     fprintf(depout, "\n");
-    if (s1->gen_phony_deps) {
+    如果 (s1->gen_phony_deps) {
         /* Skip first file, which is the c file.
          * Only works for single file give on command-line,
          * but other compilers have the same limitation */
-        for (i = 1; i < num_targets; ++i)
+        为 (i = 1; i < num_targets; ++i)
             fprintf(depout, "%s:\n", escaped_targets[i]);
     }
-    for (i = 0; i < num_targets; ++i)
+    为 (i = 0; i < num_targets; ++i)
         tcc_free(escaped_targets[i]);
     tcc_free(escaped_targets);
     fclose(depout);
-    return 0;
+    返回 0;
 }
 
 /* -------------------------------------------------------------- */

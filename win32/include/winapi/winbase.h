@@ -195,7 +195,7 @@ extern "C" {
 
 #ifdef I_X86_
   typedef PLDT_ENTRY LPLDT_ENTRY;
-#else
+#否则
   typedef LPVOID LPLDT_ENTRY;
 #endif
 
@@ -764,7 +764,7 @@ extern "C" {
 
 #ifndef _NTOS_
 
-#if defined(__ia64__) && !defined(RC_INVOKED)
+#如果 defined(__ia64__) && !defined(RC_INVOKED)
 
 #define InterlockedIncrement _InterlockedIncrement
 #define InterlockedIncrementAcquire _InterlockedIncrement_acq
@@ -824,8 +824,8 @@ extern "C" {
     do {
       i = j;
       j = InterlockedCompareExchange(Target,i & Set,i);
-    } while(i!=j);
-    return j;
+    } 当(i!=j);
+    返回 j;
   }
 #endif
 
@@ -839,8 +839,8 @@ extern "C" {
     do {
       i = j;
       j = InterlockedCompareExchange(Target,i | Set,i);
-    } while(i!=j);
-    return j;
+    } 当(i!=j);
+    返回 j;
   }
 #endif
 
@@ -854,8 +854,8 @@ extern "C" {
     do {
       i = j;
       j = InterlockedCompareExchange(Target,i ^ Set,i);
-    } while(i!=j);
-    return j;
+    } 当(i!=j);
+    返回 j;
   }
 #endif
 
@@ -866,8 +866,8 @@ extern "C" {
     LONGLONG Old;
     do {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old & Value,Old)!=Old);
-    return Old;
+    } 当(InterlockedCompareExchange64(Destination,Old & Value,Old)!=Old);
+    返回 Old;
   }
 #endif
 
@@ -878,8 +878,8 @@ extern "C" {
     LONGLONG Old;
     do {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old | Value,Old)!=Old);
-    return Old;
+    } 当(InterlockedCompareExchange64(Destination,Old | Value,Old)!=Old);
+    返回 Old;
   }
 #endif
 
@@ -890,8 +890,8 @@ extern "C" {
     LONGLONG Old;
     do {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old ^ Value,Old)!=Old);
-    return Old;
+    } 当(InterlockedCompareExchange64(Destination,Old ^ Value,Old)!=Old);
+    返回 Old;
   }
 #endif
 
@@ -901,7 +901,7 @@ extern "C" {
   __CRT_INLINE BOOLEAN InterlockedBitTestAndSet_Inline(LONG *Base,LONG Bit) {
     LONG tBit;
     tBit = 1<<(Bit & (sizeof (*Base)*8-1));
-    return (BOOLEAN)((InterlockedOr(&Base[Bit/(sizeof(*Base)*8)],tBit)&tBit)!=0);
+    返回 (BOOLEAN)((InterlockedOr(&Base[Bit/(sizeof(*Base)*8)],tBit)&tBit)!=0);
   }
 #endif
 
@@ -911,7 +911,7 @@ extern "C" {
   __CRT_INLINE BOOLEAN InterlockedBitTestAndReset_Inline(LONG *Base,LONG Bit) {
     LONG tBit;
     tBit = 1<<(Bit & (sizeof (*Base)*8-1));
-    return (BOOLEAN)((InterlockedAnd(&Base[Bit/(sizeof(*Base)*8)],~tBit)&tBit)!=0);
+    返回 (BOOLEAN)((InterlockedAnd(&Base[Bit/(sizeof(*Base)*8)],~tBit)&tBit)!=0);
   }
 #endif
 
@@ -921,7 +921,7 @@ extern "C" {
   __CRT_INLINE BOOLEAN InterlockedBitTestAndComplement_Inline(LONG *Base,LONG Bit) {
     LONG tBit;
     tBit = 1<<(Bit & (sizeof (*Base)*8-1));
-    return (BOOLEAN)((InterlockedXor(&Base[Bit/(sizeof(*Base)*8)],tBit)&tBit)!=0);
+    返回 (BOOLEAN)((InterlockedXor(&Base[Bit/(sizeof(*Base)*8)],tBit)&tBit)!=0);
   }
 #endif
 #elif defined(__x86_64) && !defined(RC_INVOKED)
@@ -967,7 +967,7 @@ extern "C" {
   LONG64 InterlockedExchange64(LONG64 volatile *Target,LONG64 Value);
   LONG64 InterlockedExchangeAdd64(LONG64 volatile *Addend,LONG64 Value);
   LONG64 InterlockedCompareExchange64(LONG64 volatile *Destination,LONG64 ExChange,LONG64 Comperand);
-#else
+#否则
   LONG WINAPI InterlockedIncrement(LONG volatile *lpAddend);
   LONG WINAPI InterlockedDecrement(LONG volatile *lpAddend);
   LONG WINAPI InterlockedExchange(LONG volatile *Target,LONG Value);
@@ -984,66 +984,66 @@ extern "C" {
     LONGLONG Old;
     do {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old & Value,Old)!=Old);
-    return Old;
+    } 当(InterlockedCompareExchange64(Destination,Old & Value,Old)!=Old);
+    返回 Old;
   }
 
   __CRT_INLINE LONGLONG InterlockedOr64 (LONGLONG volatile *Destination,LONGLONG Value) {
     LONGLONG Old;
     do {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old | Value,Old)!=Old);
-    return Old;
+    } 当(InterlockedCompareExchange64(Destination,Old | Value,Old)!=Old);
+    返回 Old;
   }
 
   __CRT_INLINE LONGLONG InterlockedXor64 (LONGLONG volatile *Destination,LONGLONG Value) {
     LONGLONG Old;
     do {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old ^ Value,Old)!=Old);
+    } 当(InterlockedCompareExchange64(Destination,Old ^ Value,Old)!=Old);
 
-    return Old;
+    返回 Old;
   }
 
   __CRT_INLINE LONGLONG InterlockedIncrement64(LONGLONG volatile *Addend) {
     LONGLONG Old;
     do {
       Old = *Addend;
-    } while(InterlockedCompareExchange64(Addend,Old + 1,Old)!=Old);
-    return Old + 1;
+    } 当(InterlockedCompareExchange64(Addend,Old + 1,Old)!=Old);
+    返回 Old + 1;
   }
 
   __CRT_INLINE LONGLONG InterlockedDecrement64(LONGLONG volatile *Addend) {
     LONGLONG Old;
     do {
       Old = *Addend;
-    } while(InterlockedCompareExchange64(Addend,Old - 1,Old)!=Old);
-    return Old - 1;
+    } 当(InterlockedCompareExchange64(Addend,Old - 1,Old)!=Old);
+    返回 Old - 1;
   }
 
   __CRT_INLINE LONGLONG InterlockedExchange64(LONGLONG volatile *Target,LONGLONG Value) {
     LONGLONG Old;
     do {
       Old = *Target;
-    } while(InterlockedCompareExchange64(Target,Value,Old)!=Old);
-    return Old;
+    } 当(InterlockedCompareExchange64(Target,Value,Old)!=Old);
+    返回 Old;
   }
 
   __CRT_INLINE LONGLONG InterlockedExchangeAdd64(LONGLONG volatile *Addend,LONGLONG Value) {
     LONGLONG Old;
     do {
       Old = *Addend;
-    } while(InterlockedCompareExchange64(Addend,Old + Value,Old)!=Old);
-    return Old;
+    } 当(InterlockedCompareExchange64(Addend,Old + Value,Old)!=Old);
+    返回 Old;
   }
 
 #ifndef InterlockedCompareExchangePointer
 #ifdef __cplusplus
   __CRT_INLINE PVOID __cdecl __InlineInterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID ExChange,PVOID Comperand) {
-    return((PVOID)(LONG_PTR)InterlockedCompareExchange((LONG volatile *)Destination,(LONG)(LONG_PTR)ExChange,(LONG)(LONG_PTR)Comperand));
+    返回((PVOID)(LONG_PTR)InterlockedCompareExchange((LONG volatile *)Destination,(LONG)(LONG_PTR)ExChange,(LONG)(LONG_PTR)Comperand));
   }
 #define InterlockedCompareExchangePointer __InlineInterlockedCompareExchangePointer
-#else
+#否则
 #define InterlockedCompareExchangePointer(Destination,ExChange,Comperand)(PVOID)(LONG_PTR)InterlockedCompareExchange((LONG volatile *)(Destination),(LONG)(LONG_PTR)(ExChange),(LONG)(LONG_PTR)(Comperand))
 #endif
 #endif
@@ -1066,7 +1066,7 @@ extern "C" {
 #endif
 #endif
 
-#if defined(_SLIST_HEADER_) && !defined(_NTOSP_)
+#如果 defined(_SLIST_HEADER_) && !defined(_NTOSP_)
   WINBASEAPI VOID WINAPI InitializeSListHead(PSLIST_HEADER ListHead);
   WINBASEAPI PSLIST_ENTRY WINAPI InterlockedPopEntrySList(PSLIST_HEADER ListHead);
   WINBASEAPI PSLIST_ENTRY WINAPI InterlockedPushEntrySList(PSLIST_HEADER ListHead,PSLIST_ENTRY ListEntry);
@@ -1084,7 +1084,7 @@ extern "C" {
 #define MAKEINTATOM(i) (LPTSTR)((ULONG_PTR)((WORD)(i)))
 #define INVALID_ATOM ((ATOM)0)
 
-  int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd);
+  整数 WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,整数 nShowCmd);
   WINBASEAPI WINBOOL WINAPI FreeLibrary(HMODULE hLibModule);
   WINBASEAPI DECLSPEC_NORETURN VOID WINAPI FreeLibraryAndExitThread(HMODULE hLibModule,DWORD dwExitCode);
   WINBASEAPI WINBOOL WINAPI DisableThreadLibraryCalls(HMODULE hLibModule);
@@ -1200,7 +1200,7 @@ extern "C" {
 #define GetEnvironmentStrings GetEnvironmentStringsW
 #define SetEnvironmentStrings SetEnvironmentStringsW
 #define FreeEnvironmentStrings FreeEnvironmentStringsW
-#else
+#否则
 #define GetBinaryType GetBinaryTypeA
 #define GetShortPathName GetShortPathNameA
 #define GetLongPathName GetLongPathNameA
@@ -1211,7 +1211,7 @@ extern "C" {
 
 #ifdef _WIN64
 #define SCS_THIS_PLATFORM_BINARY SCS_64BIT_BINARY
-#else
+#否则
 #define SCS_THIS_PLATFORM_BINARY SCS_32BIT_BINARY
 #endif
 
@@ -1236,7 +1236,7 @@ extern "C" {
   WINBASEAPI DECLSPEC_NORETURN VOID WINAPI ExitProcess(UINT uExitCode);
   WINBASEAPI WINBOOL WINAPI TerminateProcess(HANDLE hProcess,UINT uExitCode);
   WINBASEAPI WINBOOL WINAPI GetExitCodeProcess(HANDLE hProcess,LPDWORD lpExitCode);
-  WINBASEAPI VOID WINAPI FatalExit(int ExitCode);
+  WINBASEAPI VOID WINAPI FatalExit(整数 ExitCode);
   /*	WINBASEAPI LPCH WINAPI GetEnvironmentStrings(VOID); */
   WINBASEAPI LPWCH WINAPI GetEnvironmentStringsW(VOID);
   WINBASEAPI WINBOOL WINAPI SetEnvironmentStringsA(LPCH NewEnvironment);
@@ -1277,10 +1277,10 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI RequestWakeupLatency(LATENCY_TIME latency);
   WINBASEAPI WINBOOL WINAPI IsSystemResumeAutomatic(VOID);
   WINBASEAPI HANDLE WINAPI OpenThread(DWORD dwDesiredAccess,WINBOOL bInheritHandle,DWORD dwThreadId);
-  WINBASEAPI WINBOOL WINAPI SetThreadPriority(HANDLE hThread,int nPriority);
+  WINBASEAPI WINBOOL WINAPI SetThreadPriority(HANDLE hThread,整数 nPriority);
   WINBASEAPI WINBOOL WINAPI SetThreadPriorityBoost(HANDLE hThread,WINBOOL bDisablePriorityBoost);
   WINBASEAPI WINBOOL WINAPI GetThreadPriorityBoost(HANDLE hThread,PBOOL pDisablePriorityBoost);
-  WINBASEAPI int WINAPI GetThreadPriority(HANDLE hThread);
+  WINBASEAPI 整数 WINAPI GetThreadPriority(HANDLE hThread);
   WINBASEAPI WINBOOL WINAPI GetThreadTimes(HANDLE hThread,LPFILETIME lpCreationTime,LPFILETIME lpExitTime,LPFILETIME lpKernelTime,LPFILETIME lpUserTime);
   WINBASEAPI WINBOOL WINAPI GetThreadIOPendingFlag(HANDLE hThread,PBOOL lpIOIsPending);
   WINBASEAPI DECLSPEC_NORETURN VOID WINAPI ExitThread(DWORD dwExitCode);
@@ -1381,7 +1381,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define SetFileShortName SetFileShortNameW
-#else
+#否则
 #define SetFileShortName SetFileShortNameA
 #endif
 
@@ -1456,7 +1456,7 @@ extern "C" {
 #define SET_TAPE_DRIVE_INFORMATION 1
 
   WINBASEAPI WINBOOL WINAPI Beep(DWORD dwFreq,DWORD dwDuration);
-  WINBASEAPI int WINAPI MulDiv(int nNumber,int nNumerator,int nDenominator);
+  WINBASEAPI 整数 WINAPI MulDiv(整数 nNumber,整数 nNumerator,整数 nDenominator);
   WINBASEAPI VOID WINAPI GetSystemTime(LPSYSTEMTIME lpSystemTime);
   WINBASEAPI VOID WINAPI GetSystemTimeAsFileTime(LPFILETIME lpSystemTimeAsFileTime);
   WINBASEAPI WINBOOL WINAPI SetSystemTime(CONST SYSTEMTIME *lpSystemTime);
@@ -1482,7 +1482,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define FormatMessage FormatMessageW
-#else
+#否则
 #define FormatMessage FormatMessageA
 #endif
 
@@ -1516,7 +1516,7 @@ extern "C" {
 #define EncryptFile EncryptFileW
 #define DecryptFile DecryptFileW
 #define FileEncryptionStatus FileEncryptionStatusW
-#else
+#否则
 #define CreateMailslot CreateMailslotA
 #define EncryptFile EncryptFileA
 #define DecryptFile DecryptFileA
@@ -1573,7 +1573,7 @@ extern "C" {
 #define lstrcpy lstrcpyW
 #define lstrcat lstrcatW
 #define lstrlen lstrlenW
-#else
+#否则
 #define OpenEncryptedFileRaw OpenEncryptedFileRawA
 #define lstrcmp lstrcmpA
 #define lstrcmpi lstrcmpiA
@@ -1588,28 +1588,28 @@ extern "C" {
   WINADVAPI DWORD WINAPI ReadEncryptedFileRaw(PFE_EXPORT_FUNC pfExportCallback,PVOID pvCallbackContext,PVOID pvContext);
   WINADVAPI DWORD WINAPI WriteEncryptedFileRaw(PFE_IMPORT_FUNC pfImportCallback,PVOID pvCallbackContext,PVOID pvContext);
   WINADVAPI VOID WINAPI CloseEncryptedFileRaw(PVOID pvContext);
-  WINBASEAPI int WINAPI lstrcmpA(LPCSTR lpString1,LPCSTR lpString2);
-  WINBASEAPI int WINAPI lstrcmpW(LPCWSTR lpString1,LPCWSTR lpString2);
-  WINBASEAPI int WINAPI lstrcmpiA(LPCSTR lpString1,LPCSTR lpString2);
-  WINBASEAPI int WINAPI lstrcmpiW(LPCWSTR lpString1,LPCWSTR lpString2);
-  WINBASEAPI LPSTR WINAPI lstrcpynA(LPSTR lpString1,LPCSTR lpString2,int iMaxLength);
-  WINBASEAPI LPWSTR WINAPI lstrcpynW(LPWSTR lpString1,LPCWSTR lpString2,int iMaxLength);
+  WINBASEAPI 整数 WINAPI lstrcmpA(LPCSTR lpString1,LPCSTR lpString2);
+  WINBASEAPI 整数 WINAPI lstrcmpW(LPCWSTR lpString1,LPCWSTR lpString2);
+  WINBASEAPI 整数 WINAPI lstrcmpiA(LPCSTR lpString1,LPCSTR lpString2);
+  WINBASEAPI 整数 WINAPI lstrcmpiW(LPCWSTR lpString1,LPCWSTR lpString2);
+  WINBASEAPI LPSTR WINAPI lstrcpynA(LPSTR lpString1,LPCSTR lpString2,整数 iMaxLength);
+  WINBASEAPI LPWSTR WINAPI lstrcpynW(LPWSTR lpString1,LPCWSTR lpString2,整数 iMaxLength);
   WINBASEAPI LPSTR WINAPI lstrcpyA(LPSTR lpString1,LPCSTR lpString2);
   WINBASEAPI LPWSTR WINAPI lstrcpyW(LPWSTR lpString1,LPCWSTR lpString2);
   WINBASEAPI LPSTR WINAPI lstrcatA(LPSTR lpString1,LPCSTR lpString2);
   WINBASEAPI LPWSTR WINAPI lstrcatW(LPWSTR lpString1,LPCWSTR lpString2);
-  WINBASEAPI int WINAPI lstrlenA(LPCSTR lpString);
-  WINBASEAPI int WINAPI lstrlenW(LPCWSTR lpString);
+  WINBASEAPI 整数 WINAPI lstrlenA(LPCSTR lpString);
+  WINBASEAPI 整数 WINAPI lstrlenW(LPCWSTR lpString);
   WINBASEAPI HFILE WINAPI OpenFile(LPCSTR lpFileName,LPOFSTRUCT lpReOpenBuff,UINT uStyle);
-  WINBASEAPI HFILE WINAPI _lopen(LPCSTR lpPathName,int iReadWrite);
-  WINBASEAPI HFILE WINAPI _lcreat(LPCSTR lpPathName,int iAttribute);
+  WINBASEAPI HFILE WINAPI _lopen(LPCSTR lpPathName,整数 iReadWrite);
+  WINBASEAPI HFILE WINAPI _lcreat(LPCSTR lpPathName,整数 iAttribute);
   WINBASEAPI UINT WINAPI _lread(HFILE hFile,LPVOID lpBuffer,UINT uBytes);
   WINBASEAPI UINT WINAPI _lwrite(HFILE hFile,LPCCH lpBuffer,UINT uBytes);
   WINBASEAPI long WINAPI _hread(HFILE hFile,LPVOID lpBuffer,long lBytes);
   WINBASEAPI long WINAPI _hwrite(HFILE hFile,LPCCH lpBuffer,long lBytes);
   WINBASEAPI HFILE WINAPI _lclose(HFILE hFile);
-  WINBASEAPI LONG WINAPI _llseek(HFILE hFile,LONG lOffset,int iOrigin);
-  WINADVAPI WINBOOL WINAPI IsTextUnicode(CONST VOID *lpv,int iSize,LPINT lpiResult);
+  WINBASEAPI LONG WINAPI _llseek(HFILE hFile,LONG lOffset,整数 iOrigin);
+  WINADVAPI WINBOOL WINAPI IsTextUnicode(CONST VOID *lpv,整数 iSize,LPINT lpiResult);
 
 #define FLS_OUT_OF_INDEXES ((DWORD)0xffffffff)
 
@@ -1722,7 +1722,7 @@ extern "C" {
 #ifdef UNICODE
   typedef STARTUPINFOW STARTUPINFO;
   typedef LPSTARTUPINFOW LPSTARTUPINFO;
-#else
+#否则
   typedef STARTUPINFOA STARTUPINFO;
   typedef LPSTARTUPINFOA LPSTARTUPINFO;
 #endif
@@ -1759,7 +1759,7 @@ extern "C" {
   typedef WIN32_FIND_DATAW WIN32_FIND_DATA;
   typedef PWIN32_FIND_DATAW PWIN32_FIND_DATA;
   typedef LPWIN32_FIND_DATAW LPWIN32_FIND_DATA;
-#else
+#否则
   typedef WIN32_FIND_DATAA WIN32_FIND_DATA;
   typedef PWIN32_FIND_DATAA PWIN32_FIND_DATA;
   typedef LPWIN32_FIND_DATAA LPWIN32_FIND_DATA;
@@ -1781,7 +1781,7 @@ extern "C" {
 #define OpenEvent OpenEventW
 #define CreateSemaphore CreateSemaphoreW
 #define OpenSemaphore OpenSemaphoreW
-#else
+#否则
 #define CreateMutex CreateMutexA
 #define OpenMutex OpenMutexA
 #define CreateEvent CreateEventA
@@ -1815,7 +1815,7 @@ extern "C" {
 #define LoadLibraryEx LoadLibraryExW
 #define GetModuleFileName GetModuleFileNameW
 #define GetModuleHandle GetModuleHandleW
-#else
+#否则
 #define CreateWaitableTimer CreateWaitableTimerA
 #define OpenWaitableTimer OpenWaitableTimerA
 #define CreateFileMapping CreateFileMappingA
@@ -1881,7 +1881,7 @@ extern "C" {
 #ifdef UNICODE
 #define PGET_MODULE_HANDLE_EX PGET_MODULE_HANDLE_EXW
 #define GetModuleHandleEx GetModuleHandleExW
-#else
+#否则
 #define PGET_MODULE_HANDLE_EX PGET_MODULE_HANDLE_EXA
 #define GetModuleHandleEx GetModuleHandleExA
 #endif
@@ -1904,7 +1904,7 @@ extern "C" {
 #define OutputDebugString OutputDebugStringW
 #define FindResource FindResourceW
 #define FindResourceEx FindResourceExW
-#else
+#否则
 #define NeedCurrentDirectoryForExePath NeedCurrentDirectoryForExePathA
 #define CreateProcess CreateProcessA
 #define FatalAppExit FatalAppExitA
@@ -1988,7 +1988,7 @@ extern "C" {
 #define GetWindowsDirectory GetWindowsDirectoryW
 #define GetSystemWindowsDirectory GetSystemWindowsDirectoryW
 #define AddLocalAlternateComputerName AddLocalAlternateComputerNameW
-#else
+#否则
 #define ENUMRESTYPEPROC ENUMRESTYPEPROCA
 #define ENUMRESNAMEPROC ENUMRESNAMEPROCA
 #define ENUMRESLANGPROC ENUMRESLANGPROCA
@@ -2049,14 +2049,14 @@ extern "C" {
   WINBASEAPI ATOM WINAPI GlobalAddAtomW(LPCWSTR lpString);
   WINBASEAPI ATOM WINAPI GlobalFindAtomA(LPCSTR lpString);
   WINBASEAPI ATOM WINAPI GlobalFindAtomW(LPCWSTR lpString);
-  WINBASEAPI UINT WINAPI GlobalGetAtomNameA(ATOM nAtom,LPSTR lpBuffer,int nSize);
-  WINBASEAPI UINT WINAPI GlobalGetAtomNameW(ATOM nAtom,LPWSTR lpBuffer,int nSize);
+  WINBASEAPI UINT WINAPI GlobalGetAtomNameA(ATOM nAtom,LPSTR lpBuffer,整数 nSize);
+  WINBASEAPI UINT WINAPI GlobalGetAtomNameW(ATOM nAtom,LPWSTR lpBuffer,整数 nSize);
   WINBASEAPI ATOM WINAPI AddAtomA(LPCSTR lpString);
   WINBASEAPI ATOM WINAPI AddAtomW(LPCWSTR lpString);
   WINBASEAPI ATOM WINAPI FindAtomA(LPCSTR lpString);
   WINBASEAPI ATOM WINAPI FindAtomW(LPCWSTR lpString);
-  WINBASEAPI UINT WINAPI GetAtomNameA(ATOM nAtom,LPSTR lpBuffer,int nSize);
-  WINBASEAPI UINT WINAPI GetAtomNameW(ATOM nAtom,LPWSTR lpBuffer,int nSize);
+  WINBASEAPI UINT WINAPI GetAtomNameA(ATOM nAtom,LPSTR lpBuffer,整数 nSize);
+  WINBASEAPI UINT WINAPI GetAtomNameW(ATOM nAtom,LPWSTR lpBuffer,整数 nSize);
   WINBASEAPI UINT WINAPI GetProfileIntA(LPCSTR lpAppName,LPCSTR lpKeyName,INT nDefault);
   WINBASEAPI UINT WINAPI GetProfileIntW(LPCWSTR lpAppName,LPCWSTR lpKeyName,INT nDefault);
   WINBASEAPI DWORD WINAPI GetProfileStringA(LPCSTR lpAppName,LPCSTR lpKeyName,LPCSTR lpDefault,LPSTR lpReturnedString,DWORD nSize);
@@ -2099,7 +2099,7 @@ extern "C" {
 #ifndef RC_INVOKED
 #ifdef UNICODE
 #define GetSystemWow64Directory GetSystemWow64DirectoryW
-#else
+#否则
 #define GetSystemWow64Directory GetSystemWow64DirectoryA
 #endif
 
@@ -2123,7 +2123,7 @@ extern "C" {
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T
-#else
+#否则
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T
@@ -2146,7 +2146,7 @@ extern "C" {
 #define CreateFile CreateFileW
 #define SetFileAttributes SetFileAttributesW
 #define GetFileAttributes GetFileAttributesW
-#else
+#否则
 #define SetCurrentDirectory SetCurrentDirectoryA
 #define GetCurrentDirectory GetCurrentDirectoryA
 #define SetDllDirectory SetDllDirectoryA
@@ -2215,7 +2215,7 @@ extern "C" {
 #define GetCompressedFileSize GetCompressedFileSizeW
 #define DeleteFile DeleteFileW
 #define CheckNameLegalDOS8Dot3 CheckNameLegalDOS8Dot3W
-#else
+#否则
 #define GetFileAttributesEx GetFileAttributesExA
 #define GetCompressedFileSize GetCompressedFileSizeA
 #define DeleteFile DeleteFileA
@@ -2295,7 +2295,7 @@ extern "C" {
 #define SetComputerNameEx SetComputerNameExW
 #define DnsHostnameToComputerName DnsHostnameToComputerNameW
 #define GetUserName GetUserNameW
-#else
+#否则
 #define FindFirstFileEx FindFirstFileExA
 #define FindFirstFile FindFirstFileA
 #define FindNextFile FindNextFileA
@@ -2616,7 +2616,7 @@ extern "C" {
 #define LogonUser LogonUserW
 #define LogonUserEx LogonUserExW
 #define CreateProcessAsUser CreateProcessAsUserW
-#else
+#否则
 #define LogonUser LogonUserA
 #define LogonUserEx LogonUserExA
 #define CreateProcessAsUser CreateProcessAsUserA
@@ -2684,7 +2684,7 @@ extern "C" {
 #ifdef UNICODE
   typedef HW_PROFILE_INFOW HW_PROFILE_INFO;
   typedef LPHW_PROFILE_INFOW LPHW_PROFILE_INFO;
-#else
+#否则
   typedef HW_PROFILE_INFOA HW_PROFILE_INFO;
   typedef LPHW_PROFILE_INFOA LPHW_PROFILE_INFO;
 #endif
@@ -2693,7 +2693,7 @@ extern "C" {
 #define GetCurrentHwProfile GetCurrentHwProfileW
 #define GetVersionEx GetVersionExW
 #define VerifyVersionInfo VerifyVersionInfoW
-#else
+#否则
 #define GetCurrentHwProfile GetCurrentHwProfileA
 #define GetVersionEx GetVersionExA
 #define VerifyVersionInfo VerifyVersionInfoA
@@ -2752,7 +2752,7 @@ extern "C" {
 #define GetVolumeNameForVolumeMountPoint GetVolumeNameForVolumeMountPointW
 #define GetVolumePathName GetVolumePathNameW
 #define GetVolumePathNamesForVolumeName GetVolumePathNamesForVolumeNameW
-#else
+#否则
 #define CreateJobObject CreateJobObjectA
 #define OpenJobObject OpenJobObjectA
 #define FindFirstVolume FindFirstVolumeA
@@ -2847,7 +2847,7 @@ extern "C" {
   typedef ACTCTXW ACTCTX;
   typedef PACTCTXW PACTCTX;
   typedef PCACTCTXW PCACTCTX;
-#else
+#否则
   typedef ACTCTXA ACTCTX;
   typedef PACTCTXA PACTCTX;
   typedef PCACTCTXA PCACTCTX;
@@ -2855,7 +2855,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define CreateActCtx CreateActCtxW
-#else
+#否则
 #define CreateActCtx CreateActCtxA
 #endif
 
@@ -2920,7 +2920,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define FindActCtxSectionString FindActCtxSectionStringW
-#else
+#否则
 #define FindActCtxSectionString FindActCtxSectionStringA
 #endif
 

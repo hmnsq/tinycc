@@ -1,7 +1,7 @@
 /* This checks various ways of dead code inside if statements
    where there are non-obvious ways of how the code is actually
    not dead due to reachable by labels.  */
-extern int printf (const char *, ...);
+extern 整数 printf (const char *, ...);
 static void kb_wait_1(void)
 {
   unsigned long timeout = 2;
@@ -15,82 +15,82 @@ static void kb_wait_1(void)
       (1 ? 
        printf("timeout=%ld\n", timeout) :
        ({
-	int i = 1;
-	while (1)
-	  while (i--)
+	整数 i = 1;
+	当 (1)
+	  当 (i--)
 	    some_label:
 	      printf("error\n");
 	goto some_label;
 	})
       );
       timeout--;
-  } while (timeout);
+  } 当 (timeout);
 }
 
-static int global;
+static 整数 global;
 
-static void foo(int i)
+static void foo(整数 i)
 {
   global+=i;
   printf ("g=%d\n", global);
 }
 
-static int check(void)
+static 整数 check(void)
 {
   printf ("check %d\n", global);
-  return 1;
+  返回 1;
 }
 
 static void dowhile(void)
 {
   do {
       foo(1);
-      if (global == 1) {
+      如果 (global == 1) {
 	  continue;
-      } else if (global == 2) {
+      } 否则 如果 (global == 2) {
 	  continue;
       }
       /* The following break shouldn't disable the check() call,
          as it's reachable by the continues above.  */
       break;
-  } while (check());
+  } 当 (check());
 }
 
 static void nondead_after_dead_return(void)
 {
   /* This statement expr is not entered, and hence that fact that it
      doesn't fall-through should not influence the surrounding code.  */
-  0 && ({ return; 0;});
+  0 && ({ 返回; 0;});
   printf ("nondead works\n");
-  return;
+  返回;
 }
 
-int main (void)
+整数 主要 (void)
 {
-  int i = 1;
+  整数 i = 1;
   kb_wait_1();
 
   /* Simple test of dead code at first sight which isn't actually dead. */
-  if (0) {
+  如果 (0) {
 yeah:
       printf ("yeah\n");
-  } else {
+  } 否则 {
       printf ("boo\n");
   }
-  if (i--)
+  如果 (i--)
     goto yeah;
 
   /* Some more non-obvious uses where the problems are loops, so that even
      the first loop statements aren't actually dead.  */
   i = 1;
-  if (0) {
-      while (i--) {
+  如果 (0) {
+      当 (i--) {
 	  printf ("once\n");
 enterloop:
 	  printf ("twice\n");
       }
   }
-  if (i >= 0)
+  如果 (i >= 0)
     goto enterloop;
 
   /* The same with statement expressions.  One might be tempted to
@@ -98,46 +98,46 @@ enterloop:
      not unsuppressing code at loops at all then.
      See kb_wait_1 for the other side of the medal where that wouldn't work.  */
   i = ({
-      int j = 1;
-      if (0) {
-	  while (j--) {
+      整数 j = 1;
+      如果 (0) {
+	  当 (j--) {
 	      printf ("SEonce\n");
     enterexprloop:
 	      printf ("SEtwice\n");
 	  }
       }
-      if (j >= 0)
+      如果 (j >= 0)
 	goto enterexprloop;
       j; });
 
   /* The other two loop forms: */
   i = 1;
-  if (0) {
-      for (i = 1; i--;) {
+  如果 (0) {
+      为 (i = 1; i--;) {
 	  printf ("once2\n");
 enterloop2:
 	  printf ("twice2\n");
       }
   }
-  if (i > 0)
+  如果 (i > 0)
     goto enterloop2;
 
   i = 1;
-  if (0) {
+  如果 (0) {
       do {
 	  printf ("once3\n");
 enterloop3:
 	  printf ("twice3\n");
-      } while (i--);
+      } 当 (i--);
   }
-  if (i > 0)
+  如果 (i > 0)
     goto enterloop3;
 
   /* And check that case and default labels have the same effect
      of disabling code suppression.  */
   i = 41;
   switch (i) {
-      if (0) {
+      如果 (0) {
 	  printf ("error\n");
       case 42:
 	  printf ("error2\n");
@@ -148,7 +148,7 @@ enterloop3:
 
   i = 41;
   switch (i) {
-      if (0) {
+      如果 (0) {
 	  printf ("error3\n");
       default:
 	  printf ("caseok2\n");
@@ -161,5 +161,5 @@ enterloop3:
   dowhile();
   nondead_after_dead_return();
 
-  return 0;
+  返回 0;
 }
