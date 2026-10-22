@@ -1,14 +1,14 @@
 #include <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+void f1(puur_naa_nka argc)
 {
-  char test[argc];
-  if(0)
+  var_na test[argc];
+  ᬬᬾᬦ᭄(0)
   label:
     printf("boom!\n");
-  if(argc-- == 0)
-    return;
+  ᬬᬾᬦ᭄(argc-- == 0)
+    ᬯᬮᬶ;
   goto label;
 }
 
@@ -17,9 +17,9 @@ void f2(void)
 {
     goto start;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
+        puur_naa_nka a[1 && 1]; /* not a variable-length array */
+        puur_naa_nka b[1 || 1]; /* not a variable-length array */
+        puur_naa_nka c[1 ? 1 : 1]; /* not a variable-length array */
     start:
         a[0] = 0;
         b[0] = 0;
@@ -35,11 +35,11 @@ void f3(void)
     printf("%d\n", 1 || printf("x4\n"));
 }
 
-int main()
+puur_naa_nka main()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  ᬯᬮᬶ 0;
 }

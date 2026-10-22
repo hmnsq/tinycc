@@ -1,35 +1,35 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-int compile_errors(void)
+puur_naa_nka compile_errors(void)
 {
-#if TEST == 1
+#ᬬᬾᬦ᭄ TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    static puur_naa_nka i = (&"Foobar"[1] - &"Foobar"[0]);
   }
 #endif
-#if TEST == 2
+#ᬬᬾᬦ᭄ TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
-    static long i=((char*)&(v.c)-(char*)&v);
+    sa_nracanaa{puur_naa_nka c;}v;
+    static long i=((var_na*)&(v.c)-(var_na*)&v);
   }
 #endif
-#if TEST == 3
+#ᬬᬾᬦ᭄ TEST == 3
   {
     /* Not constant */
     static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
     void *p = &&l1 + ar[0];
     goto *p;
-   l1: return 1;
-   l2: return 2;
+   l1: ᬯᬮᬶ 1;
+   l2: ᬯᬮᬶ 2;
   }
 #endif
-  return 0;
+  ᬯᬮᬶ 0;
 }
 
-int
+puur_naa_nka
 main(void)
 {
 }

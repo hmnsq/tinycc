@@ -3,12 +3,12 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#if !defined(_BASETYPS_H_)
+#ᬬᬾᬦ᭄ !defined(_BASETYPS_H_)
 #define _BASETYPS_H_
 
 #ifdef __cplusplus
 #define EXTERN_C extern "C"
-#else
+#ᬮᬶᬬ
 #define EXTERN_C extern
 #endif
 
@@ -30,9 +30,9 @@
 #define STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
 #define STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
 
-#if defined(__cplusplus) && !defined(CINTERFACE)
+#ᬬᬾᬦ᭄ defined(__cplusplus) && !defined(CINTERFACE)
 
-#define __STRUCT__ struct
+#define __STRUCT__ sa_nracanaa
 #define STDMETHOD(method) virtual HRESULT WINAPI method
 #define STDMETHOD_(type,method) virtual type WINAPI method
 #define STDMETHODV(method) virtual HRESULT STDMETHODVCALLTYPE method
@@ -42,10 +42,10 @@
 #define THIS void
 #define DECLARE_INTERFACE(iface) __STRUCT__ iface
 #define DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : public baseiface
-#else
+#ᬮᬶᬬ
 
 #ifndef __OBJC__
-#define interface struct
+#define interface sa_nracanaa
 #endif
 
 #define STDMETHOD(method) HRESULT (WINAPI *method)
@@ -57,16 +57,16 @@
 #define THIS_ INTERFACE *This,
 #define THIS INTERFACE *This
 #ifdef CONST_VTABLE
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-  const struct iface##Vtbl *lpVtbl; } iface; \
-  typedef const struct iface##Vtbl iface##Vtbl; \
-  const struct iface##Vtbl
-#else
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-    struct iface##Vtbl *lpVtbl; \
+#define DECLARE_INTERFACE(iface) typedef sa_nracanaa iface { \
+  const sa_nracanaa iface##Vtbl *lpVtbl; } iface; \
+  typedef const sa_nracanaa iface##Vtbl iface##Vtbl; \
+  const sa_nracanaa iface##Vtbl
+#ᬮᬶᬬ
+#define DECLARE_INTERFACE(iface) typedef sa_nracanaa iface { \
+    sa_nracanaa iface##Vtbl *lpVtbl; \
   } iface; \
-  typedef struct iface##Vtbl iface##Vtbl; \
-  struct iface##Vtbl
+  typedef sa_nracanaa iface##Vtbl iface##Vtbl; \
+  sa_nracanaa iface##Vtbl
 #endif
 #define DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
 #endif

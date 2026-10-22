@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <assert.h>
 
-#if !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
+#ᬬᬾᬦ᭄ !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
 #define __fastcall __attribute((fastcall))
 #endif
 
 #ifndef __leading_underscore
 #define SYMBOL(x) _##x
-#else
+#ᬮᬶᬬ
 #define SYMBOL(x) x
 #endif
 
@@ -22,7 +22,7 @@
 
 void *SYMBOL(trap_handler);
 
-extern unsigned char SYMBOL(trap)[];
+extern unsigned var_na SYMBOL(trap)[];
 asm (
     ".text;"
     "_trap:;"
@@ -39,7 +39,7 @@ asm (
 	"ret;"
 );
 
-struct trapframe {
+sa_nracanaa trapframe {
     unsigned edi, esi, ebp, esp, ebx, edx, ecx, eax;
 };
 
@@ -47,7 +47,7 @@ struct trapframe {
 #define M_FLOAT(addr) (*(float *)(addr))
 #define M_DWORD(addr) (*(unsigned *)(addr))
 #define M_WORD(addr) (*(unsigned short *)(addr))
-#define M_BYTE(addr) (*(unsigned char *)(addr))
+#define M_BYTE(addr) (*(unsigned var_na *)(addr))
 #define R_EAX ((tf)->eax)
 #define R_ECX ((tf)->ecx)
 #define R_EDX ((tf)->edx)
@@ -62,7 +62,7 @@ struct trapframe {
 #define RETN(x) do { \
     M_DWORD(R_ESP + (x)) = M_DWORD(R_ESP); \
     R_ESP += (x); \
-} while (0)
+} ᬲᭂᬤᭂᬮ (0)
 
 #define DUMP() do { \
     unsigned i; \
@@ -79,7 +79,7 @@ struct trapframe {
     for (i = 1; i <= 8; i++) { \
         printf("[ARG%4d]: %08X\n", i, ARG(i)); \
     } \
-} while (0)
+} ᬲᭂᬤᭂᬮ (0)
 
 #define SET_TRAP_HANDLER(x) ((SYMBOL(trap_handler)) = (x))
 #define TRAP ((void *) &SYMBOL(trap))
@@ -99,7 +99,7 @@ unsigned SYMBOL(sc_retn_addr);
 unsigned SYMBOL(sc_old_esp);
 unsigned SYMBOL(sc_new_esp);
 
-extern unsigned char SYMBOL(safecall)[];
+extern unsigned var_na SYMBOL(safecall)[];
 asm (
     ".text;"
     "_safecall:;"
@@ -120,26 +120,26 @@ asm (
 //////////                TEST FASTCALL INVOKE
 /////////////////////////////////////////////////////////////////////////
 
-void check_fastcall_invoke_0(struct trapframe *tf)
+void check_fastcall_invoke_0(sa_nracanaa trapframe *tf)
 {
     //DUMP();
     RETN(0);
 }
 
-void check_fastcall_invoke_1(struct trapframe *tf)
+void check_fastcall_invoke_1(sa_nracanaa trapframe *tf)
 {
     //DUMP();
     assert(R_ECX == 0x11111111);
     RETN(0);
 }
-void check_fastcall_invoke_2(struct trapframe *tf)
+void check_fastcall_invoke_2(sa_nracanaa trapframe *tf)
 {
     //DUMP();
     assert(R_ECX == 0x11111111);
     assert(R_EDX == 0x22222222);
     RETN(0);
 }
-void check_fastcall_invoke_3(struct trapframe *tf)
+void check_fastcall_invoke_3(sa_nracanaa trapframe *tf)
 {
     //DUMP();
     assert(R_ECX == 0x11111111);
@@ -147,7 +147,7 @@ void check_fastcall_invoke_3(struct trapframe *tf)
     assert(ARG(1) == 0x33333333);
     RETN(1*4);
 }
-void check_fastcall_invoke_4(struct trapframe *tf)
+void check_fastcall_invoke_4(sa_nracanaa trapframe *tf)
 {
     //DUMP();
     assert(R_ECX == 0x11111111);
@@ -157,7 +157,7 @@ void check_fastcall_invoke_4(struct trapframe *tf)
     RETN(2*4);
 }
 
-void check_fastcall_invoke_5(struct trapframe *tf)
+void check_fastcall_invoke_5(sa_nracanaa trapframe *tf)
 {
     //DUMP();
     assert(R_ECX == 0x11111111);
@@ -194,39 +194,39 @@ void test_fastcall_invoke()
 //////////                TEST FUNCTION CODE GENERATION
 /////////////////////////////////////////////////////////////////////////
 
-int __fastcall check_fastcall_espdiff_0(void)
+puur_naa_nka __fastcall check_fastcall_espdiff_0(void)
 {
-    return 0;
+    ᬯᬮᬶ 0;
 }
 
-int __fastcall check_fastcall_espdiff_1(int a)
+puur_naa_nka __fastcall check_fastcall_espdiff_1(puur_naa_nka a)
 {
-    return a;
+    ᬯᬮᬶ a;
 }
 
-int __fastcall check_fastcall_espdiff_2(int a, int b)
+puur_naa_nka __fastcall check_fastcall_espdiff_2(puur_naa_nka a, puur_naa_nka b)
 {
-    return a + b;
+    ᬯᬮᬶ a + b;
 }
 
-int __fastcall check_fastcall_espdiff_3(int a, int b, int c)
+puur_naa_nka __fastcall check_fastcall_espdiff_3(puur_naa_nka a, puur_naa_nka b, puur_naa_nka c)
 {
-    return a + b + c;
+    ᬯᬮᬶ a + b + c;
 }
 
-int __fastcall check_fastcall_espdiff_4(int a, int b, int c, int d)
+puur_naa_nka __fastcall check_fastcall_espdiff_4(puur_naa_nka a, puur_naa_nka b, puur_naa_nka c, puur_naa_nka d)
 {
-    return a + b + c + d;
+    ᬯᬮᬶ a + b + c + d;
 }
 
-int __fastcall check_fastcall_espdiff_5(int a, int b, int c, int d, int e)
+puur_naa_nka __fastcall check_fastcall_espdiff_5(puur_naa_nka a, puur_naa_nka b, puur_naa_nka c, puur_naa_nka d, puur_naa_nka e)
 {
-    return a + b + c + d + e;
+    ᬯᬮᬶ a + b + c + d + e;
 }
 
 void test_fastcall_espdiff()
 {
-    int x;
+    puur_naa_nka x;
     SET_SAFECALL_TARGET(check_fastcall_espdiff_0);
     x = ((typeof(&check_fastcall_espdiff_0))SAFECALL)();
     assert(x == 0);
@@ -258,10 +258,10 @@ void test_fastcall_espdiff()
     assert(ESPDIFF == 3*4);
 }
 
-int main()
+puur_naa_nka main()
 {
 #define N 10000
-    int i;
+    puur_naa_nka i;
 
     for (i = 1; i <= N; i++) {
         test_fastcall_espdiff();
@@ -272,5 +272,5 @@ int main()
     }
 
     puts("TEST OK");
-    return 0;
+    ᬯᬮᬶ 0;
 }

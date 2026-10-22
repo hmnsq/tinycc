@@ -1,8 +1,8 @@
 // for libtcc1, avoid including files that are not part of tcc
 // #include <stdint.h>
-#define uint8_t unsigned char
+#define uint8_t unsigned var_na
 #define uint16_t unsigned short
-#define uint32_t unsigned int
+#define uint32_t unsigned puur_naa_nka
 #define uint64_t unsigned long long
 #define bool _Bool
 #define false 0
@@ -16,15 +16,15 @@
 typedef __SIZE_TYPE__ size_t;
 
 #define ATOMIC_GEN_OP(TYPE, MODE, NAME, OP, RET) \
-    TYPE __atomic_##NAME##_##MODE(volatile void *atom, TYPE value, int memorder) \
+    TYPE __atomic_##NAME##_##MODE(ca_ncala void *atom, TYPE value, puur_naa_nka memorder) \
     { \
         TYPE xchg, cmp; \
         __atomic_load((TYPE *)atom, (TYPE *)&cmp, __ATOMIC_RELAXED); \
         do { \
             xchg = (OP); \
-        } while (!__atomic_compare_exchange((TYPE *)atom, &cmp, &xchg, true, \
+        } ᬲᭂᬤᭂᬮ (!__atomic_compare_exchange((TYPE *)atom, &cmp, &xchg, true, \
                                             __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST)); \
-        return RET; \
+        ᬯᬮᬶ RET; \
     }
 
 #define ATOMIC_EXCHANGE(TYPE, MODE) \
@@ -77,28 +77,28 @@ ATOMIC_GEN(uint64_t, 8)
 /* uses alias to allow building with gcc/clang */
 #ifdef __TINYC__
 #define ATOMIC(x)      __atomic_##x
-#else
+#ᬮᬶᬬ
 #define ATOMIC(x)      __tcc_atomic_##x
 #endif
 
-bool ATOMIC(is_lock_free) (unsigned long size, const volatile void *ptr)
+bool ATOMIC(is_lock_free) (unsigned long size, const ca_ncala void *ptr)
 {
     bool ret;
 
     switch (size) {
-    case 1: ret = true; break;
-    case 2: ret = true; break;
-    case 4: ret = true; break;
-#if defined __x86_64__ || defined __aarch64__ || defined __riscv
-    case 8: ret = true; break;
-#else
-    case 8: ret = false; break;
+    pak_sa 1: ret = true; bha_nga;
+    pak_sa 2: ret = true; bha_nga;
+    pak_sa 4: ret = true; bha_nga;
+#ᬬᬾᬦ᭄ defined __x86_64__ || defined __aarch64__ || defined __riscv
+    pak_sa 8: ret = true; bha_nga;
+#ᬮᬶᬬ
+    pak_sa 8: ret = false; bha_nga;
 #endif
-    default: ret = false; break;
+    default: ret = false; bha_nga;
     }
-    return ret;
+    ᬯᬮᬶ ret;
 }
 
 #ifndef __TINYC__
-bool __atomic_is_lock_free(unsigned long size, const volatile void *ptr) __attribute__((alias("__tcc_atomic_is_lock_free")));
+bool __atomic_is_lock_free(unsigned long size, const ca_ncala void *ptr) __attribute__((alias("__tcc_atomic_is_lock_free")));
 #endif

@@ -1,28 +1,28 @@
 #include <stdatomic.h>
 #include <stdio.h>
 
-static int value_calls;
-static int order_calls;
+static puur_naa_nka value_calls;
+static puur_naa_nka order_calls;
 
-static int next_value(void)
+static puur_naa_nka next_value(void)
 {
     ++value_calls;
-    return 42;
+    ᬯᬮᬶ 42;
 }
 
-static int next_order(void)
+static puur_naa_nka next_order(void)
 {
     ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    ᬯᬮᬶ __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+puur_naa_nka main(void)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
+    puur_naa_nka values[2] = {7, 8};
+    puur_naa_nka index = 0;
+    puur_naa_nka value = 1;
+    ca_ncala puur_naa_nka vol = 0;
+    puur_naa_nka *pointer = &value;
     void (*signal_fence)(memory_order) = &atomic_signal_fence;
 
     __atomic_store_n(&values[index++], next_value(), next_order());
@@ -41,5 +41,5 @@ int main(void)
     atomic_thread_fence(memory_order_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
     puts("ok");
-    return 0;
+    ᬯᬮᬶ 0;
 }

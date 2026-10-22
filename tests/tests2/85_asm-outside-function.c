@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#ᬮᬶᬬ
 # define _
 #endif
 
-extern int printf (const char *, ...);
+extern puur_naa_nka printf (const var_na *, ...);
 extern void vide(void);
 __asm__(_"vide: ret");
 
-int main() {
+puur_naa_nka main() {
     vide();
     printf ("okay\n");
-    return 0;
+    ᬯᬮᬶ 0;
 }

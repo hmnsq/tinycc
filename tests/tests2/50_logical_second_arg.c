@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int fred()
+puur_naa_nka fred()
 {
    printf("fred\n");
-   return 0;
+   ᬯᬮᬶ 0;
 }
 
-int joe()
+puur_naa_nka joe()
 {
    printf("joe\n");
-   return 1;
+   ᬯᬮᬶ 1;
 }
 
-int main()
+puur_naa_nka main()
 {
    printf("%d\n", fred() && joe());
    printf("%d\n", fred() || joe());
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", joe() && (0 + fred()));
    printf("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   ᬯᬮᬶ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

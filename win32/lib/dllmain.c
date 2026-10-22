@@ -4,6 +4,6 @@
 
 BOOL WINAPI DllMain (HINSTANCE hDll, DWORD dwReason, LPVOID lpReserved)
 {
-	return TRUE;
+	ᬯᬮᬶ TRUE;
 }
 

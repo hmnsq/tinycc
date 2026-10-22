@@ -10,24 +10,24 @@
 extern "C" {
 #endif
 
-  typedef struct _COORD {
+  typedef sa_nracanaa _COORD {
     SHORT X;
     SHORT Y;
   } COORD,*PCOORD;
 
-  typedef struct _SMALL_RECT {
+  typedef sa_nracanaa _SMALL_RECT {
     SHORT Left;
     SHORT Top;
     SHORT Right;
     SHORT Bottom;
   } SMALL_RECT,*PSMALL_RECT;
 
-  typedef struct _KEY_EVENT_RECORD {
+  typedef sa_nracanaa _KEY_EVENT_RECORD {
     WINBOOL bKeyDown;
     WORD wRepeatCount;
     WORD wVirtualKeyCode;
     WORD wVirtualScanCode;
-    union {
+    sa_ngha {
       WCHAR UnicodeChar;
       CHAR AsciiChar;
     } uChar;
@@ -51,7 +51,7 @@ extern "C" {
 #define NLS_IME_CONVERSION 0x800000
 #define NLS_IME_DISABLE 0x20000000
 
-  typedef struct _MOUSE_EVENT_RECORD {
+  typedef sa_nracanaa _MOUSE_EVENT_RECORD {
     COORD dwMousePosition;
     DWORD dwButtonState;
     DWORD dwControlKeyState;
@@ -68,21 +68,21 @@ extern "C" {
 #define DOUBLE_CLICK 0x2
 #define MOUSE_WHEELED 0x4
 
-  typedef struct _WINDOW_BUFFER_SIZE_RECORD {
+  typedef sa_nracanaa _WINDOW_BUFFER_SIZE_RECORD {
     COORD dwSize;
   } WINDOW_BUFFER_SIZE_RECORD,*PWINDOW_BUFFER_SIZE_RECORD;
 
-  typedef struct _MENU_EVENT_RECORD {
+  typedef sa_nracanaa _MENU_EVENT_RECORD {
     UINT dwCommandId;
   } MENU_EVENT_RECORD,*PMENU_EVENT_RECORD;
 
-  typedef struct _FOCUS_EVENT_RECORD {
+  typedef sa_nracanaa _FOCUS_EVENT_RECORD {
     WINBOOL bSetFocus;
   } FOCUS_EVENT_RECORD,*PFOCUS_EVENT_RECORD;
 
-  typedef struct _INPUT_RECORD {
+  typedef sa_nracanaa _INPUT_RECORD {
     WORD EventType;
-    union {
+    sa_ngha {
       KEY_EVENT_RECORD KeyEvent;
       MOUSE_EVENT_RECORD MouseEvent;
       WINDOW_BUFFER_SIZE_RECORD WindowBufferSizeEvent;
@@ -97,8 +97,8 @@ extern "C" {
 #define MENU_EVENT 0x8
 #define FOCUS_EVENT 0x10
 
-  typedef struct _CHAR_INFO {
-    union {
+  typedef sa_nracanaa _CHAR_INFO {
+    sa_ngha {
       WCHAR UnicodeChar;
       CHAR AsciiChar;
     } Char;
@@ -123,7 +123,7 @@ extern "C" {
 
 #define COMMON_LVB_SBCSDBCS 0x300
 
-  typedef struct _CONSOLE_SCREEN_BUFFER_INFO {
+  typedef sa_nracanaa _CONSOLE_SCREEN_BUFFER_INFO {
     COORD dwSize;
     COORD dwCursorPosition;
     WORD wAttributes;
@@ -131,17 +131,17 @@ extern "C" {
     COORD dwMaximumWindowSize;
   } CONSOLE_SCREEN_BUFFER_INFO,*PCONSOLE_SCREEN_BUFFER_INFO;
 
-  typedef struct _CONSOLE_CURSOR_INFO {
+  typedef sa_nracanaa _CONSOLE_CURSOR_INFO {
     DWORD dwSize;
     WINBOOL bVisible;
   } CONSOLE_CURSOR_INFO,*PCONSOLE_CURSOR_INFO;
 
-  typedef struct _CONSOLE_FONT_INFO {
+  typedef sa_nracanaa _CONSOLE_FONT_INFO {
     DWORD nFont;
     COORD dwFontSize;
   } CONSOLE_FONT_INFO,*PCONSOLE_FONT_INFO;
 
-  typedef struct _CONSOLE_SELECTION_INFO {
+  typedef sa_nracanaa _CONSOLE_SELECTION_INFO {
     DWORD dwFlags;
     COORD dwSelectionAnchor;
     SMALL_RECT srSelection;
@@ -199,7 +199,7 @@ extern "C" {
 #define GetConsoleAliasExesLength GetConsoleAliasExesLengthW
 #define GetConsoleAliases GetConsoleAliasesW
 #define GetConsoleAliasExes GetConsoleAliasExesW
-#else
+#ᬮᬶᬬ
 #define PeekConsoleInput PeekConsoleInputA
 #define ReadConsoleInput ReadConsoleInputA
 #define WriteConsoleInput WriteConsoleInputA
