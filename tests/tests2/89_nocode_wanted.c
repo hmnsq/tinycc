@@ -1,104 +1,104 @@
-extern int printf(const char *format, ...);
-static void kb_wait_1(void)
+خارجي صحيح printf(ثابت حرف *format, ...);
+ساكن فراغ kb_wait_1(فراغ)
 {
     unsigned long timeout = 2;
-    do {
+    افعل {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                while (1)
+                طالما (1)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } طالما (timeout);
 }
-static void kb_wait_2(void)
+ساكن فراغ kb_wait_2(فراغ)
 {
     unsigned long timeout = 2;
-    do {
+    افعل {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                for (;;)
+                لكل (;;)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } طالما (timeout);
 }
-static void kb_wait_2_1(void)
+ساكن فراغ kb_wait_2_1(فراغ)
 {
     unsigned long timeout = 2;
-    do {
+    افعل {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                do {
+                افعل {
                     printf("error\n");
-		} while (1);
+		} طالما (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } طالما (timeout);
 }
-static void kb_wait_2_2(void)
+ساكن فراغ kb_wait_2_2(فراغ)
 {
     unsigned long timeout = 2;
-    do {
+    افعل {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
                 label:
                     printf("error\n");
-		goto label;
+		اذهب label;
             })
         );
         timeout--;
-    } while (timeout);
+    } طالما (timeout);
 }
-static void kb_wait_3(void)
+ساكن فراغ kb_wait_3(فراغ)
 {
     unsigned long timeout = 2;
-    do {
+    افعل {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
-                goto label;
+                صحيح i = 1;
+                اذهب label;
                 i = i + 2;
             label:
                 i = i + 3;
             })
         );
         timeout--;
-    } while (timeout);
+    } طالما (timeout);
 }
-static void kb_wait_4(void)
+ساكن فراغ kb_wait_4(فراغ)
 {
     unsigned long timeout = 2;
-    do {
+    افعل {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                switch(timeout) {
-                    case 2:
+                بدل(timeout) {
+                    حالة 2:
                         printf("timeout is 2");
-                        break;
-                    case 1:
+                        اكسر;
+                    حالة 1:
                         printf("timeout is 1");
-                        break;
-                    default:
+                        اكسر;
+                    افتراضي:
                         printf("timeout is 0?");
-                        break;
+                        اكسر;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } طالما (timeout);
 }
-int main()
+صحيح main()
 {
     printf("begin\n");
     kb_wait_1();
@@ -108,5 +108,5 @@ int main()
     kb_wait_3();
     kb_wait_4();
     printf("end\n");
-    return 0;
+    أرجع 0;
 }

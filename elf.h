@@ -20,63 +20,63 @@
 #define	_ELF_H 1
 
 #ifndef _WIN32
-#include <inttypes.h>
-#else
+#ضمن <inttypes.h>
+#وإلا
 #ifndef __int8_t_defined
 #define __int8_t_defined
-typedef signed char int8_t;
-typedef short int int16_t;
-typedef int int32_t;
-typedef long long int int64_t;
-typedef unsigned char           uint8_t;
-typedef unsigned short int      uint16_t;
-typedef unsigned int            uint32_t;
-typedef unsigned long long int  uint64_t;
+تعريفنوع signed حرف int8_t;
+تعريفنوع short صحيح int16_t;
+تعريفنوع صحيح int32_t;
+تعريفنوع long long صحيح int64_t;
+تعريفنوع unsigned حرف           uint8_t;
+تعريفنوع unsigned short صحيح      uint16_t;
+تعريفنوع unsigned صحيح            uint32_t;
+تعريفنوع unsigned long long صحيح  uint64_t;
 #endif
 #endif
 
 /* Standard ELF types.  */
 
 /* Type for a 16-bit quantity.  */
-typedef uint16_t Elf32_Half;
-typedef uint16_t Elf64_Half;
+تعريفنوع uint16_t Elf32_Half;
+تعريفنوع uint16_t Elf64_Half;
 
 /* Types for signed and unsigned 32-bit quantities.  */
-typedef uint32_t Elf32_Word;
-typedef	int32_t  Elf32_Sword;
-typedef uint32_t Elf64_Word;
-typedef	int32_t  Elf64_Sword;
+تعريفنوع uint32_t Elf32_Word;
+تعريفنوع	int32_t  Elf32_Sword;
+تعريفنوع uint32_t Elf64_Word;
+تعريفنوع	int32_t  Elf64_Sword;
 
 /* Types for signed and unsigned 64-bit quantities.  */
-typedef uint64_t Elf32_Xword;
-typedef	int64_t  Elf32_Sxword;
-typedef uint64_t Elf64_Xword;
-typedef	int64_t  Elf64_Sxword;
+تعريفنوع uint64_t Elf32_Xword;
+تعريفنوع	int64_t  Elf32_Sxword;
+تعريفنوع uint64_t Elf64_Xword;
+تعريفنوع	int64_t  Elf64_Sxword;
 
 /* Type of addresses.  */
-typedef uint32_t Elf32_Addr;
-typedef uint64_t Elf64_Addr;
+تعريفنوع uint32_t Elf32_Addr;
+تعريفنوع uint64_t Elf64_Addr;
 
 /* Type of file offsets.  */
-typedef uint32_t Elf32_Off;
-typedef uint64_t Elf64_Off;
+تعريفنوع uint32_t Elf32_Off;
+تعريفنوع uint64_t Elf64_Off;
 
 /* Type for section indices, which are 16-bit quantities.  */
-typedef uint16_t Elf32_Section;
-typedef uint16_t Elf64_Section;
+تعريفنوع uint16_t Elf32_Section;
+تعريفنوع uint16_t Elf64_Section;
 
 /* Type for version symbol information.  */
-typedef Elf32_Half Elf32_Versym;
-typedef Elf64_Half Elf64_Versym;
+تعريفنوع Elf32_Half Elf32_Versym;
+تعريفنوع Elf64_Half Elf64_Versym;
 
 
 /* The ELF file header.  This appears at the start of every ELF file.  */
 
 #define EI_NIDENT (16)
 
-typedef struct
+تعريفنوع بنية
 {
-  unsigned char	e_ident[EI_NIDENT];	/* Magic number and other info */
+  unsigned حرف	e_ident[EI_NIDENT];	/* Magic number and other info */
   Elf32_Half	e_type;			/* Object file type */
   Elf32_Half	e_machine;		/* Architecture */
   Elf32_Word	e_version;		/* Object file version */
@@ -92,9 +92,9 @@ typedef struct
   Elf32_Half	e_shstrndx;		/* Section header string table index */
 } Elf32_Ehdr;
 
-typedef struct
+تعريفنوع بنية
 {
-  unsigned char	e_ident[EI_NIDENT];	/* Magic number and other info */
+  unsigned حرف	e_ident[EI_NIDENT];	/* Magic number and other info */
   Elf64_Half	e_type;			/* Object file type */
   Elf64_Half	e_machine;		/* Architecture */
   Elf64_Word	e_version;		/* Object file version */
@@ -179,7 +179,7 @@ typedef struct
 #define ET_EXEC		2		/* Executable file */
 #define ET_DYN		3		/* Shared object file */
 #define ET_CORE		4		/* Core file */
-#define	ET_NUM		5		/* Number of defined types */
+#define	ET_لمب		5		/* Number of defined types */
 #define ET_LOOS		0xfe00		/* OS-specific range start */
 #define ET_HIOS		0xfeff		/* OS-specific range end */
 #define ET_LOPROC	0xff00		/* Processor-specific range start */
@@ -268,7 +268,7 @@ typedef struct
 #define EM_TILEPRO	188		/* Tilera TILEPro */
 #define EM_TILEGX	191		/* Tilera TILE-Gx */
 #define EM_RISCV	243	        /* RISC-V */
-#define EM_NUM		253
+#define EM_لمب		253
 
 /* If it is necessary to assign new unofficial EM_* values, please
    pick large random numbers (0x8523, 0xa7f2, etc.) to minimize the
@@ -281,11 +281,11 @@ typedef struct
 
 #define EV_NONE		0		/* Invalid ELF version */
 #define EV_CURRENT	1		/* Current version */
-#define EV_NUM		2
+#define EV_لمب		2
 
 /* Section header.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	sh_name;		/* Section name (string tbl index) */
   Elf32_Word	sh_type;		/* Section type */
@@ -299,7 +299,7 @@ typedef struct
   Elf32_Word	sh_entsize;		/* Entry size if section holds table */
 } Elf32_Shdr;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word	sh_name;		/* Section name (string tbl index) */
   Elf64_Word	sh_type;		/* Section type */
@@ -349,7 +349,7 @@ typedef struct
 #define SHT_PREINIT_ARRAY 16		/* Array of pre-constructors */
 #define SHT_GROUP	  17		/* Section group */
 #define SHT_SYMTAB_SHNDX  18		/* Extended section indices */
-#define	SHT_NUM		  19		/* Number of defined types.  */
+#define	SHT_لمب		  19		/* Number of defined types.  */
 #define SHT_LOOS	  0x60000000	/* Start OS-specific.  */
 #define SHT_GNU_ATTRIBUTES 0x6ffffff5	/* Object attributes.  */
 #define SHT_GNU_HASH	  0x6ffffff6	/* GNU-style hash table.  */
@@ -395,36 +395,36 @@ typedef struct
 
 /* Symbol table entry.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	st_name;		/* Symbol name (string tbl index) */
-  Elf32_Addr	st_value;		/* Symbol value */
+  Elf32_Addr	st_درج;		/* Symbol value */
   Elf32_Word	st_size;		/* Symbol size */
-  unsigned char	st_info;		/* Symbol type and binding */
-  unsigned char	st_other;		/* Symbol visibility */
+  unsigned حرف	st_info;		/* Symbol type and binding */
+  unsigned حرف	st_other;		/* Symbol visibility */
   Elf32_Section	st_shndx;		/* Section index */
 } Elf32_Sym;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word	st_name;		/* Symbol name (string tbl index) */
-  unsigned char	st_info;		/* Symbol type and binding */
-  unsigned char st_other;		/* Symbol visibility */
+  unsigned حرف	st_info;		/* Symbol type and binding */
+  unsigned حرف st_other;		/* Symbol visibility */
   Elf64_Section	st_shndx;		/* Section index */
-  Elf64_Addr	st_value;		/* Symbol value */
+  Elf64_Addr	st_درج;		/* Symbol value */
   Elf64_Xword	st_size;		/* Symbol size */
 } Elf64_Sym;
 
 /* The syminfo section if available contains additional information about
    every dynamic symbol.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Half si_boundto;		/* Direct bindings, symbol bound to */
   Elf32_Half si_flags;			/* Per symbol flags */
 } Elf32_Syminfo;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Half si_boundto;		/* Direct bindings, symbol bound to */
   Elf64_Half si_flags;			/* Per symbol flags */
@@ -444,12 +444,12 @@ typedef struct
 /* Syminfo version values.  */
 #define SYMINFO_NONE		0
 #define SYMINFO_CURRENT		1
-#define SYMINFO_NUM		2
+#define SYMINFO_لمب		2
 
 
 /* How to extract and insert information held in the st_info field.  */
 
-#define ELF32_ST_BIND(val)		(((unsigned char) (val)) >> 4)
+#define ELF32_ST_BIND(val)		(((unsigned حرف) (val)) >> 4)
 #define ELF32_ST_TYPE(val)		((val) & 0xf)
 #define ELF32_ST_INFO(bind, type)	(((bind) << 4) + ((type) & 0xf))
 
@@ -463,7 +463,7 @@ typedef struct
 #define STB_LOCAL	0		/* Local symbol */
 #define STB_GLOBAL	1		/* Global symbol */
 #define STB_WEAK	2		/* Weak symbol */
-#define	STB_NUM		3		/* Number of defined types.  */
+#define	STB_لمب		3		/* Number of defined types.  */
 #define STB_LOOS	10		/* Start of OS-specific */
 #define STB_GNU_UNIQUE	10		/* Unique symbol.  */
 #define STB_HIOS	12		/* End of OS-specific */
@@ -479,7 +479,7 @@ typedef struct
 #define STT_FILE	4		/* Symbol's name is file name */
 #define STT_COMMON	5		/* Symbol is a common data object */
 #define STT_TLS		6		/* Symbol is thread-local data object*/
-#define	STT_NUM		7		/* Number of defined types.  */
+#define	STT_لمب		7		/* Number of defined types.  */
 #define STT_LOOS	10		/* Start of OS-specific */
 #define STT_GNU_IFUNC	10		/* Symbol is indirect code object */
 #define STT_HIOS	12		/* End of OS-specific */
@@ -510,7 +510,7 @@ typedef struct
 
 /* Relocation table entry without addend (in section of type SHT_REL).  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Addr	r_offset;		/* Address */
   Elf32_Word	r_info;			/* Relocation type and symbol index */
@@ -521,7 +521,7 @@ typedef struct
    whoever) gets their act together.  */
 /* The following, at least, is used on Sparc v9, MIPS, and Alpha.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Addr	r_offset;		/* Address */
   Elf64_Xword	r_info;			/* Relocation type and symbol index */
@@ -529,14 +529,14 @@ typedef struct
 
 /* Relocation table entry with addend (in section of type SHT_RELA).  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Addr	r_offset;		/* Address */
   Elf32_Word	r_info;			/* Relocation type and symbol index */
   Elf32_Sword	r_addend;		/* Addend */
 } Elf32_Rela;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Addr	r_offset;		/* Address */
   Elf64_Xword	r_info;			/* Relocation type and symbol index */
@@ -555,7 +555,7 @@ typedef struct
 
 /* Program segment header.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	p_type;			/* Segment type */
   Elf32_Off	p_offset;		/* Segment file offset */
@@ -567,7 +567,7 @@ typedef struct
   Elf32_Word	p_align;		/* Segment alignment */
 } Elf32_Phdr;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word	p_type;			/* Segment type */
   Elf64_Word	p_flags;		/* Segment flags */
@@ -595,10 +595,10 @@ typedef struct
 #define PT_SHLIB	5		/* Reserved */
 #define PT_PHDR		6		/* Entry for header table itself */
 #define PT_TLS		7		/* Thread-local storage segment */
-#define	PT_NUM		8		/* Number of defined types */
+#define	PT_لمب		8		/* Number of defined types */
 #define PT_LOOS		0x60000000	/* Start of OS-specific */
 #define PT_GNU_EH_FRAME	0x6474e550	/* GCC .eh_frame_hdr segment */
-#define PT_GNU_STACK	0x6474e551	/* Indicates stack executability */
+#define PT_GNU_تر	0x6474e551	/* Indicates stack executability */
 #define PT_GNU_RELRO	0x6474e552	/* Read-only after relocation */
 #define PT_LOSUNW	0x6ffffffa
 #define PT_SUNWBSS	0x6ffffffa	/* Sun Specific segment */
@@ -641,7 +641,7 @@ typedef struct
 #define NT_386_TLS	0x200		/* i386 TLS slots (struct user_desc) */
 #define NT_386_IOPERM	0x201		/* x86 io permission bitmap (1=deny) */
 #define NT_X86_XSTATE	0x202		/* x86 extended state using xsave */
-#define NT_S390_HIGH_GPRS	0x300	/* s390 upper register halves */
+#define NT_S390_سم_GPRS	0x300	/* s390 upper register halves */
 #define NT_S390_TIMER	0x301		/* s390 timer register */
 #define NT_S390_TODCMP	0x302		/* s390 TOD clock comparator register */
 #define NT_S390_TODPREG	0x303		/* s390 TOD programmable register */
@@ -661,20 +661,20 @@ typedef struct
 
 /* Dynamic section entry.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Sword	d_tag;			/* Dynamic entry type */
-  union
+  اتحاد
     {
       Elf32_Word d_val;			/* Integer value */
       Elf32_Addr d_ptr;			/* Address value */
     } d_un;
 } Elf32_Dyn;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Sxword	d_tag;			/* Dynamic entry type */
-  union
+  اتحاد
     {
       Elf64_Xword d_val;		/* Integer value */
       Elf64_Addr d_ptr;			/* Address value */
@@ -717,12 +717,12 @@ typedef struct
 #define DT_ENCODING	32		/* Start of encoded range */
 #define DT_PREINIT_ARRAY 32		/* Array with addresses of preinit fct*/
 #define DT_PREINIT_ARRAYSZ 33		/* size in bytes of DT_PREINIT_ARRAY */
-#define	DT_NUM		34		/* Number used */
+#define	DT_لمب		34		/* Number used */
 #define DT_LOOS		0x6000000d	/* Start of OS-specific */
 #define DT_HIOS		0x6ffff000	/* End of OS-specific */
 #define DT_LOPROC	0x70000000	/* Start of processor-specific */
 #define DT_HIPROC	0x7fffffff	/* End of processor-specific */
-#define	DT_PROCNUM	DT_MIPS_NUM	/* Most used by any processor */
+#define	DT_PROCNUM	DT_MIPS_لمب	/* Most used by any processor */
 
 /* DT_* entries which fall between DT_VALRNGHI & DT_VALRNGLO use the
    Dyn.d_un.d_val field of the Elf*_Dyn structure.  This follows Sun's
@@ -838,7 +838,7 @@ typedef struct
 
 /* Version definition sections.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Half	vd_version;		/* Version revision */
   Elf32_Half	vd_flags;		/* Version information */
@@ -850,7 +850,7 @@ typedef struct
 					   entry */
 } Elf32_Verdef;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Half	vd_version;		/* Version revision */
   Elf64_Half	vd_flags;		/* Version information */
@@ -866,7 +866,7 @@ typedef struct
 /* Legal values for vd_version (version revision).  */
 #define VER_DEF_NONE	0		/* No version */
 #define VER_DEF_CURRENT	1		/* Current version */
-#define VER_DEF_NUM	2		/* Given version number */
+#define VER_DEF_لمب	2		/* Given version number */
 
 /* Legal values for vd_flags (version information flags).  */
 #define VER_FLG_BASE	0x1		/* Version definition of file itself */
@@ -880,14 +880,14 @@ typedef struct
 
 /* Auxiliary version information.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	vda_name;		/* Version or dependency names */
   Elf32_Word	vda_next;		/* Offset in bytes to next verdaux
 					   entry */
 } Elf32_Verdaux;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word	vda_name;		/* Version or dependency names */
   Elf64_Word	vda_next;		/* Offset in bytes to next verdaux
@@ -897,7 +897,7 @@ typedef struct
 
 /* Version dependency section.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Half	vn_version;		/* Version of structure */
   Elf32_Half	vn_cnt;			/* Number of associated aux entries */
@@ -908,7 +908,7 @@ typedef struct
 					   entry */
 } Elf32_Verneed;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Half	vn_version;		/* Version of structure */
   Elf64_Half	vn_cnt;			/* Number of associated aux entries */
@@ -923,11 +923,11 @@ typedef struct
 /* Legal values for vn_version (version revision).  */
 #define VER_NEED_NONE	 0		/* No version */
 #define VER_NEED_CURRENT 1		/* Current version */
-#define VER_NEED_NUM	 2		/* Given version number */
+#define VER_NEED_لمب	 2		/* Given version number */
 
 /* Auxiliary needed version information.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	vna_hash;		/* Hash value of dependency name */
   Elf32_Half	vna_flags;		/* Dependency specific information */
@@ -937,7 +937,7 @@ typedef struct
 					   entry */
 } Elf32_Vernaux;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word	vna_hash;		/* Hash value of dependency name */
   Elf64_Half	vna_flags;		/* Dependency specific information */
@@ -961,10 +961,10 @@ typedef struct
    types are an arrangement between the exec server and the program
    interpreter, so we don't fully specify them here.  */
 
-typedef struct
+تعريفنوع بنية
 {
   uint32_t a_type;		/* Entry type */
-  union
+  اتحاد
     {
       uint32_t a_val;		/* Integer value */
       /* We use to have pointer elements added here.  We cannot do that,
@@ -973,10 +973,10 @@ typedef struct
     } a_un;
 } Elf32_auxv_t;
 
-typedef struct
+تعريفنوع بنية
 {
   uint64_t a_type;		/* Entry type */
-  union
+  اتحاد
     {
       uint64_t a_val;		/* Integer value */
       /* We use to have pointer elements added here.  We cannot do that,
@@ -1045,14 +1045,14 @@ typedef struct
 /* Note section contents.  Each entry in the note section begins with
    a header of a fixed form.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word n_namesz;			/* Length of the note's name.  */
   Elf32_Word n_descsz;			/* Length of the note's descriptor.  */
   Elf32_Word n_type;			/* Type of the note.  */
 } Elf32_Nhdr;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word n_namesz;			/* Length of the note's name.  */
   Elf64_Word n_descsz;			/* Length of the note's descriptor.  */
@@ -1109,18 +1109,18 @@ typedef struct
 
 
 /* Move records.  */
-typedef struct
+تعريفنوع بنية
 {
-  Elf32_Xword m_value;		/* Symbol value.  */
+  Elf32_Xword m_درج;		/* Symbol value.  */
   Elf32_Word m_info;		/* Size and index.  */
   Elf32_Word m_poffset;		/* Symbol offset.  */
   Elf32_Half m_repeat;		/* Repeat count.  */
   Elf32_Half m_stride;		/* Stride info.  */
 } Elf32_Move;
 
-typedef struct
+تعريفنوع بنية
 {
-  Elf64_Xword m_value;		/* Symbol value.  */
+  Elf64_Xword m_درج;		/* Symbol value.  */
   Elf64_Xword m_info;		/* Size and index.  */
   Elf64_Xword m_poffset;	/* Symbol offset.  */
   Elf64_Half m_repeat;		/* Repeat count.  */
@@ -1129,8 +1129,8 @@ typedef struct
 
 /* Macro to construct move records.  */
 #define ELF32_M_SYM(info)	((info) >> 8)
-#define ELF32_M_SIZE(info)	((unsigned char) (info))
-#define ELF32_M_INFO(sym, size)	(((sym) << 8) + (unsigned char) (size))
+#define ELF32_M_SIZE(info)	((unsigned حرف) (info))
+#define ELF32_M_INFO(sym, size)	(((sym) << 8) + (unsigned حرف) (size))
 
 #define ELF64_M_SYM(info)	ELF32_M_SYM (info)
 #define ELF64_M_SIZE(info)	ELF32_M_SIZE (info)
@@ -1189,7 +1189,7 @@ typedef struct
 #define R_68K_TLS_DTPREL32  41          /* 32 bit module-relative offset */
 #define R_68K_TLS_TPREL32   42          /* 32 bit TP-relative offset */
 /* Keep this the last entry.  */
-#define R_68K_NUM	43
+#define R_68_K_لمب	43
 
 /* Intel 80386 specific definitions.  */
 
@@ -1225,16 +1225,16 @@ typedef struct
 #define R_386_PC8	   23
 #define R_386_TLS_GD_32	   24		/* Direct 32 bit for general dynamic
 					   thread local data */
-#define R_386_TLS_GD_PUSH  25		/* Tag for pushl in GD TLS code */
+#define R_386_TLS_GD_تور  25		/* Tag for pushl in GD TLS code */
 #define R_386_TLS_GD_CALL  26		/* Relocation for call to
 					   __tls_get_addr() */
-#define R_386_TLS_GD_POP   27		/* Tag for popl in GD TLS code */
+#define R_386_TLS_GD_چرو   27		/* Tag for popl in GD TLS code */
 #define R_386_TLS_LDM_32   28		/* Direct 32 bit for local dynamic
 					   thread local data in LE code */
-#define R_386_TLS_LDM_PUSH 29		/* Tag for pushl in LDM TLS code */
+#define R_386_TLS_LDM_تور 29		/* Tag for pushl in LDM TLS code */
 #define R_386_TLS_LDM_CALL 30		/* Relocation for call to
 					   __tls_get_addr() in LDM code */
-#define R_386_TLS_LDM_POP  31		/* Tag for popl in LDM TLS code */
+#define R_386_TLS_LDM_چرو  31		/* Tag for popl in LDM TLS code */
 #define R_386_TLS_LDO_32   32		/* Offset relative to TLS block */
 #define R_386_TLS_IE_32	   33		/* GOT entry for negated static TLS
 					   block offset */
@@ -1255,7 +1255,7 @@ typedef struct
 #define R_386_IRELATIVE	   42		/* Adjust indirectly by program base */
 #define R_386_GOT32X       43		/* 32 bit GOT entry, relaxable */
 /* Keep this the last entry.  */
-#define R_386_NUM	   44
+#define R_386_لمب	   44
 
 /* SUN SPARC specific definitions.  */
 
@@ -1376,12 +1376,12 @@ typedef struct
 #define R_SPARC_GNU_VTENTRY	251
 #define R_SPARC_REV32		252
 /* Keep this the last entry.  */
-#define R_SPARC_NUM		253
+#define R_SPARC_لمب		253
 
 /* For Sparc64, legal values for d_tag of Elf64_Dyn.  */
 
 #define DT_SPARC_REGISTER 0x70000001
-#define DT_SPARC_NUM	2
+#define DT_SPARC_لمب	2
 
 /* MIPS R3000 specific definitions.  */
 
@@ -1448,14 +1448,14 @@ typedef struct
 #define SHT_MIPS_AUXSYM	       0x70000016
 #define SHT_MIPS_OPTSYM	       0x70000017
 #define SHT_MIPS_LOCSTR	       0x70000018
-#define SHT_MIPS_LINE	       0x70000019
+#define SHT_MIPS_لي	       0x70000019
 #define SHT_MIPS_RFDESC	       0x7000001a
 #define SHT_MIPS_DELTASYM      0x7000001b
 #define SHT_MIPS_DELTAINST     0x7000001c
 #define SHT_MIPS_DELTACLASS    0x7000001d
 #define SHT_MIPS_DWARF         0x7000001e /* DWARF debugging information.  */
 #define SHT_MIPS_DELTADECL     0x7000001f
-#define SHT_MIPS_SYMBOL_LIB    0x70000020
+#define SHT_MIPS_علام_LIB    0x70000020
 #define SHT_MIPS_EVENTS	       0x70000021 /* Event section.  */
 #define SHT_MIPS_TRANSLATE     0x70000022
 #define SHT_MIPS_PIXIE	       0x70000023
@@ -1493,36 +1493,36 @@ typedef struct
 
 /* Entries found in sections of type SHT_MIPS_GPTAB.  */
 
-typedef union
+تعريفنوع اتحاد
 {
-  struct
+  بنية
     {
-      Elf32_Word gt_current_g_value;	/* -G value used for compilation */
+      Elf32_Word gt_current_g_درج;	/* -G value used for compilation */
       Elf32_Word gt_unused;		/* Not used */
     } gt_header;			/* First entry in section */
-  struct
+  بنية
     {
-      Elf32_Word gt_g_value;		/* If this value were used for -G */
+      Elf32_Word gt_g_درج;		/* If this value were used for -G */
       Elf32_Word gt_bytes;		/* This many bytes would be used */
     } gt_entry;				/* Subsequent entries in section */
 } Elf32_gptab;
 
 /* Entry found in sections of type SHT_MIPS_REGINFO.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	ri_gprmask;		/* General registers used */
   Elf32_Word	ri_cprmask[4];		/* Coprocessor registers used */
-  Elf32_Sword	ri_gp_value;		/* $gp register value */
+  Elf32_Sword	ri_gp_درج;		/* $gp register value */
 } Elf32_RegInfo;
 
 /* Entries found in sections of type SHT_MIPS_OPTIONS.  */
 
-typedef struct
+تعريفنوع بنية
 {
-  unsigned char kind;		/* Determines interpretation of the
+  unsigned حرف kind;		/* Determines interpretation of the
 				   variable part of descriptor.  */
-  unsigned char size;		/* Size of descriptor, including header.  */
+  unsigned حرف size;		/* Size of descriptor, including header.  */
   Elf32_Section section;	/* Section header index of section affected,
 				   0 for global options.  */
   Elf32_Word info;		/* Kind-specific information.  */
@@ -1565,11 +1565,11 @@ typedef struct
 
 #define OPAD_PREFIX	0x1
 #define OPAD_POSTFIX	0x2
-#define OPAD_SYMBOL	0x4
+#define OPAD_علام	0x4
 
 /* Entry found in `.options' section.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word hwp_flags1;	/* Extra flags.  */
   Elf32_Word hwp_flags2;	/* Extra flags.  */
@@ -1605,8 +1605,8 @@ typedef struct
 #define R_MIPS_GOT_HI16		22
 #define R_MIPS_GOT_LO16		23
 #define R_MIPS_SUB		24
-#define R_MIPS_INSERT_A		25
-#define R_MIPS_INSERT_B		26
+#define R_MIPS_سك_A		25
+#define R_MIPS_سك_B		26
 #define R_MIPS_DELETE		27
 #define R_MIPS_HIGHER		28
 #define R_MIPS_HIGHEST		29
@@ -1635,7 +1635,7 @@ typedef struct
 #define R_MIPS_COPY		126
 #define R_MIPS_JUMP_SLOT        127
 /* Keep this the last entry.  */
-#define R_MIPS_NUM		128
+#define R_MIPS_لمب		128
 
 /* Legal values for p_type field of Elf32_Phdr.  */
 
@@ -1685,7 +1685,7 @@ typedef struct
 						DT_MIPS_DELTA_CLASSSYM.  */
 #define DT_MIPS_CXX_FLAGS    0x70000022 /* Flags indicating for C++ flavor.  */
 #define DT_MIPS_PIXIE_INIT   0x70000023
-#define DT_MIPS_SYMBOL_LIB   0x70000024
+#define DT_MIPS_علام_LIB   0x70000024
 #define DT_MIPS_LOCALPAGE_GOTIDX 0x70000025
 #define DT_MIPS_LOCAL_GOTIDX 0x70000026
 #define DT_MIPS_HIDDEN_GOTIDX 0x70000027
@@ -1699,7 +1699,7 @@ typedef struct
 #define DT_MIPS_PERF_SUFFIX  0x7000002e /* Default suffix of dso to be added
 					   by rld on dlopen() calls.  */
 #define DT_MIPS_COMPACT_SIZE 0x7000002f /* (O32)Size of compact rel section. */
-#define DT_MIPS_GP_VALUE     0x70000030 /* GP value for aux GOTs.  */
+#define DT_MIPS_GP_درج     0x70000030 /* GP value for aux GOTs.  */
 #define DT_MIPS_AUX_DYNAMIC  0x70000031 /* Address of aux .dynamic.  */
 /* The address of .got.plt in an executable using the new non-PIC ABI.  */
 #define DT_MIPS_PLTGOT	     0x70000032
@@ -1707,7 +1707,7 @@ typedef struct
    PLT is writable.  For a non-writable PLT, this is omitted or has a zero
    value.  */
 #define DT_MIPS_RWPLT        0x70000034
-#define DT_MIPS_NUM	     0x35
+#define DT_MIPS_لمب	     0x35
 
 /* Legal values for DT_MIPS_FLAGS Elf32_Dyn entry.  */
 
@@ -1730,7 +1730,7 @@ typedef struct
 
 /* Entries found in sections of type SHT_MIPS_LIBLIST.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word l_name;		/* Name (string table index) */
   Elf32_Word l_time_stamp;	/* Timestamp */
@@ -1739,7 +1739,7 @@ typedef struct
   Elf32_Word l_flags;		/* Flags */
 } Elf32_Lib;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word l_name;		/* Name (string table index) */
   Elf64_Word l_time_stamp;	/* Timestamp */
@@ -1761,7 +1761,7 @@ typedef struct
 
 /* Entries found in sections of type SHT_MIPS_CONFLICT.  */
 
-typedef Elf32_Addr Elf32_Conflict;
+تعريفنوع Elf32_Addr Elf32_Conflict;
 
 
 /* HPPA specific definitions.  */
@@ -1930,14 +1930,14 @@ typedef Elf32_Addr Elf32_Conflict;
 #define PT_HP_CORE_COMM		(PT_LOOS + 0x4)
 #define PT_HP_CORE_PROC		(PT_LOOS + 0x5)
 #define PT_HP_CORE_LOADABLE	(PT_LOOS + 0x6)
-#define PT_HP_CORE_STACK	(PT_LOOS + 0x7)
+#define PT_HP_CORE_تر	(PT_LOOS + 0x7)
 #define PT_HP_CORE_SHM		(PT_LOOS + 0x8)
 #define PT_HP_CORE_MMF		(PT_LOOS + 0x9)
 #define PT_HP_PARALLEL		(PT_LOOS + 0x10)
 #define PT_HP_FASTBIND		(PT_LOOS + 0x11)
 #define PT_HP_OPT_ANNOT		(PT_LOOS + 0x12)
 #define PT_HP_HSL_ANNOT		(PT_LOOS + 0x13)
-#define PT_HP_STACK		(PT_LOOS + 0x14)
+#define PT_HP_تر		(PT_LOOS + 0x14)
 
 #define PT_PARISC_ARCHEXT	0x70000000
 #define PT_PARISC_UNWIND	0x70000001
@@ -2012,7 +2012,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_ALPHA_TPRELLO		40
 #define R_ALPHA_TPREL16		41
 /* Keep this the last entry.  */
-#define R_ALPHA_NUM		46
+#define R_ALPHA_لمب		46
 
 /* Magic values of the LITUSE relocation addend.  */
 #define LITUSE_ALPHA_ADDR	0
@@ -2024,7 +2024,7 @@ typedef Elf32_Addr Elf32_Conflict;
 
 /* Legal values for d_tag of Elf64_Dyn.  */
 #define DT_ALPHA_PLTRO		(DT_LOPROC + 0)
-#define DT_ALPHA_NUM		1
+#define DT_ALPHA_لمب		1
 
 /* PowerPC specific declarations */
 
@@ -2147,7 +2147,7 @@ typedef Elf32_Addr Elf32_Conflict;
 
 /* PowerPC specific values for the Dyn d_tag field.  */
 #define DT_PPC_GOT		(DT_LOPROC + 0)
-#define DT_PPC_NUM		1
+#define DT_PPC_لمب		1
 
 /* PowerPC64 relocations defined by the ABIs */
 #define R_PPC64_NONE		R_PPC_NONE
@@ -2273,7 +2273,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define DT_PPC64_GLINK  (DT_LOPROC + 0)
 #define DT_PPC64_OPD	(DT_LOPROC + 1)
 #define DT_PPC64_OPDSZ	(DT_LOPROC + 2)
-#define DT_PPC64_NUM    3
+#define DT_PPC64_لمب    3
 
 
 /* ARM specific declarations */
@@ -2466,7 +2466,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_AARCH64_TLSDESC      1031	/* TLS Descriptor.  */
 #define R_AARCH64_IRELATIVE    1032	/* STT_GNU_IFUNC relocation.  */
 /* Keep this the last entry.  */
-#define R_AARCH64_NUM          1033
+#define R_AARCH64_لمب          1033
 
 /* ARM relocs.  */
 
@@ -2550,7 +2550,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_ARM_RPC24		254
 #define R_ARM_RBASE		255
 /* Keep this the last entry.  */
-#define R_ARM_NUM		256
+#define R_ARM_لمب		256
 
 /* TMS320C67xx specific declarations */
 
@@ -2570,7 +2570,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_C60LO16      0x54       /* low 16 bit MVKL embedded */
 #define R_C60HI16      0x55       /* high 16 bit MVKH embedded */
 /* Keep this the last entry.  */
-#define R_C60_NUM      0x56
+#define R_C60_لمب      0x56
 
 /* IA-64 specific declarations.  */
 
@@ -2584,7 +2584,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define PT_IA_64_UNWIND		(PT_LOPROC + 1)	/* ia64 unwind bits */
 #define PT_IA_64_HP_OPT_ANOT	(PT_LOOS + 0x12)
 #define PT_IA_64_HP_HSL_ANOT	(PT_LOOS + 0x13)
-#define PT_IA_64_HP_STACK	(PT_LOOS + 0x14)
+#define PT_IA_64_HP_تر	(PT_LOOS + 0x14)
 
 /* Processor specific flags for the Phdr p_flags field.  */
 #define PF_IA_64_NORECOV	0x80000000	/* spec insns w/o recovery */
@@ -2599,7 +2599,7 @@ typedef Elf32_Addr Elf32_Conflict;
 
 /* Processor specific values for the Dyn d_tag field.  */
 #define DT_IA_64_PLT_RESERVE	(DT_LOPROC + 0)
-#define DT_IA_64_NUM		1
+#define DT_IA_64_لمب		1
 
 /* IA-64 relocations.  */
 #define R_IA64_NONE		0x00	/* none */
@@ -2724,7 +2724,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define	R_SH_SWITCH16		25
 #define	R_SH_SWITCH32		26
 #define	R_SH_USES		27
-#define	R_SH_COUNT		28
+#define	R_SH_كدي		28
 #define	R_SH_ALIGN		29
 #define	R_SH_CODE		30
 #define	R_SH_DATA		31
@@ -2749,13 +2749,13 @@ typedef Elf32_Addr Elf32_Conflict;
 #define	R_SH_GOTOFF		166
 #define	R_SH_GOTPC		167
 /* Keep this the last entry.  */
-#define	R_SH_NUM		256
+#define	R_SH_لمب		256
 
 /* S/390 specific definitions.  */
 
 /* Valid values for the e_flags field.  */
 
-#define EF_S390_HIGH_GPRS    0x00000001  /* High GPRs kernel facility needed.  */
+#define EF_S390_سم_GPRS    0x00000001  /* High GPRs kernel facility needed.  */
 
 /* Additional s390 relocs */
 
@@ -2840,7 +2840,7 @@ typedef Elf32_Addr Elf32_Conflict;
 					   block offset.  */
 #define R_390_IRELATIVE         61      /* STT_GNU_IFUNC relocation.  */
 /* Keep this the last entry.  */
-#define R_390_NUM		62
+#define R_390_لمب		62
 
 
 /* CRIS relocations.  */
@@ -2865,7 +2865,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_CRIS_32_PLT_GOTREL	18
 #define R_CRIS_32_PLT_PCREL	19
 
-#define R_CRIS_NUM		20
+#define R_CRIS_لمب		20
 
 
 /* AMD x86-64 relocations.  */
@@ -2921,7 +2921,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_X86_64_REX_GOTPCRELX	42      /* like GOTPCRELX, but a REX prefix
 					   is present */
 
-#define R_X86_64_NUM		43
+#define R_X86_64_لمب		43
 
 /* x86-64 sh_type values.  */
 #define SHT_X86_64_UNWIND       0x70000001 /* Unwind information.  */
@@ -2967,7 +2967,7 @@ typedef Elf32_Addr Elf32_Conflict;
 					   by linker relaxation.  */
 #define R_MN10300_ALIGN		34	/* Alignment requirement for linker
 					   relaxation.  */
-#define R_MN10300_NUM		35
+#define R_MN10300_لمب		35
 
 
 /* M32R relocs.  */
@@ -3008,9 +3008,9 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_M32R_GOTOFF		54	/* 24 bit offset to GOT */
 #define R_M32R_GOTPC24		55	/* 24 bit PC relative offset to GOT */
 #define R_M32R_GOT16_HI_ULO	56	/* High 16 bit GOT entry with unsigned
-					   low */
+كس*/
 #define R_M32R_GOT16_HI_SLO	57	/* High 16 bit GOT entry with signed
-					   low */
+كس*/
 #define R_M32R_GOT16_LO		58	/* Low 16 bit GOT entry */
 #define R_M32R_GOTPC_HI_ULO	59	/* High 16 bit PC relative offset to
 					   GOT with unsigned low */
@@ -3023,7 +3023,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_M32R_GOTOFF_HI_SLO	63	/* High 16 bit offset to GOT
 					   with signed low */
 #define R_M32R_GOTOFF_LO	64	/* Low 16 bit offset to GOT */
-#define R_M32R_NUM		256	/* Keep this the last entry. */
+#define R_M32_R_لمب		256	/* Keep this the last entry. */
 
 
 /* TILEPro relocations.  */
@@ -3121,7 +3121,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_TILEPRO_GNU_VTINHERIT	128	/* GNU C++ vtable hierarchy */
 #define R_TILEPRO_GNU_VTENTRY	129	/* GNU C++ vtable member usage */
 
-#define R_TILEPRO_NUM		130
+#define R_TILEPRO_لمب		130
 
 
 /* TILE-Gx relocations.  */
@@ -3249,7 +3249,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_TILEGX_GNU_VTINHERIT	128	/* GNU C++ vtable hierarchy */
 #define R_TILEGX_GNU_VTENTRY	129	/* GNU C++ vtable member usage */
 
-#define R_TILEGX_NUM		130
+#define R_TILEGX_لمب		130
 
 /* RISC-V ELF Flags */
 #define EF_RISCV_RVC 			0x0001
@@ -3319,7 +3319,7 @@ typedef Elf32_Addr Elf32_Conflict;
 #define R_RISCV_SET_ULEB128	60
 #define R_RISCV_SUB_ULEB128	61
 
-#define R_RISCV_NUM		62
+#define R_RISCV_لمب		62
 
 
 #endif	/* elf.h */

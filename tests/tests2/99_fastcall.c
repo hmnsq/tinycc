@@ -1,14 +1,14 @@
-#include <stdio.h>
-#include <assert.h>
+#ضمن <stdio.h>
+#ضمن <assert.h>
 
-#if !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
+#إذا !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
 #define __fastcall __attribute((fastcall))
 #endif
 
 #ifndef __leading_underscore
-#define SYMBOL(x) _##x
-#else
-#define SYMBOL(x) x
+#define علام_2(x) _##x
+#وإلا
+#define علام_2(x) x
 #endif
 
 /////////////////////////////////////////////////////////////////////////
@@ -20,9 +20,9 @@
 //   in C-code you can pop DWORDs from stack and modify registers
 //
 
-void *SYMBOL(trap_handler);
+فراغ *علام_2(trap_handler);
 
-extern unsigned char SYMBOL(trap)[];
+خارجي unsigned حرف علام_2(trap)[];
 asm (
     ".text;"
     "_trap:;"
@@ -39,15 +39,15 @@ asm (
 	"ret;"
 );
 
-struct trapframe {
+بنية trapframe {
     unsigned edi, esi, ebp, esp, ebx, edx, ecx, eax;
 };
 
 
-#define M_FLOAT(addr) (*(float *)(addr))
+#define M_FLOAT(addr) (*(عائم *)(addr))
 #define M_DWORD(addr) (*(unsigned *)(addr))
 #define M_WORD(addr) (*(unsigned short *)(addr))
-#define M_BYTE(addr) (*(unsigned char *)(addr))
+#define M_BYTE(addr) (*(unsigned حرف *)(addr))
 #define R_EAX ((tf)->eax)
 #define R_ECX ((tf)->ecx)
 #define R_EDX ((tf)->edx)
@@ -59,12 +59,12 @@ struct trapframe {
 
 #define ARG(x) (M_DWORD(R_ESP + (x) * 4))
 
-#define RETN(x) do { \
+#define RETN(x) افعل { \
     M_DWORD(R_ESP + (x)) = M_DWORD(R_ESP); \
     R_ESP += (x); \
-} while (0)
+} طالما (0)
 
-#define DUMP() do { \
+#define DUMP() افعل { \
     unsigned i; \
     printf("EAX: %08X\n", R_EAX); \
     printf("ECX: %08X\n", R_ECX); \
@@ -76,13 +76,13 @@ struct trapframe {
     printf("EDI: %08X\n", R_EDI); \
     printf("\n"); \
     printf("[RETADDR]: %08X\n", M_DWORD(R_ESP)); \
-    for (i = 1; i <= 8; i++) { \
+    لكل (i = 1; i <= 8; i++) { \
         printf("[ARG%4d]: %08X\n", i, ARG(i)); \
     } \
-} while (0)
+} طالما (0)
 
-#define SET_TRAP_HANDLER(x) ((SYMBOL(trap_handler)) = (x))
-#define TRAP ((void *) &SYMBOL(trap))
+#define SET_TRAP_HANDLER(x) ((علام_2(trap_handler)) = (x))
+#define TRAP ((فراغ *) &علام_2(trap))
 
 
 
@@ -94,12 +94,12 @@ struct trapframe {
 //        then cast 'SAFECALL' to target function pointer type and invoke it
 //        after calling, 'ESPDIFF' is the difference of old and new esp
 
-void *SYMBOL(sc_call_target);
-unsigned SYMBOL(sc_retn_addr);
-unsigned SYMBOL(sc_old_esp);
-unsigned SYMBOL(sc_new_esp);
+فراغ *علام_2(sc_call_target);
+unsigned علام_2(sc_retn_addr);
+unsigned علام_2(sc_old_esp);
+unsigned علام_2(sc_new_esp);
 
-extern unsigned char SYMBOL(safecall)[];
+خارجي unsigned حرف علام_2(safecall)[];
 asm (
     ".text;"
     "_safecall:;"
@@ -111,82 +111,82 @@ asm (
 	"jmp *_sc_retn_addr;"
 );
 
-#define SET_SAFECALL_TARGET(x) ((SYMBOL(sc_call_target)) = (x))
-#define SAFECALL ((void *) &SYMBOL(safecall))
-#define ESPDIFF (SYMBOL(sc_new_esp) - SYMBOL(sc_old_esp))
+#define SET_SAFECALL_TARGET(x) ((علام_2(sc_call_target)) = (x))
+#define SAFECALL ((فراغ *) &علام_2(safecall))
+#define ESPDIFF (علام_2(sc_new_esp) - علام_2(sc_old_esp))
 
 
 /////////////////////////////////////////////////////////////////////////
 //////////                TEST FASTCALL INVOKE
 /////////////////////////////////////////////////////////////////////////
 
-void check_fastcall_invoke_0(struct trapframe *tf)
+فراغ check_fastcall_invoke_0(بنية trapframe *tf)
 {
     //DUMP();
     RETN(0);
 }
 
-void check_fastcall_invoke_1(struct trapframe *tf)
+فراغ check_fastcall_invoke_1(بنية trapframe *tf)
 {
     //DUMP();
-    assert(R_ECX == 0x11111111);
+    أكد(R_ECX == 0x11111111);
     RETN(0);
 }
-void check_fastcall_invoke_2(struct trapframe *tf)
+فراغ check_fastcall_invoke_2(بنية trapframe *tf)
 {
     //DUMP();
-    assert(R_ECX == 0x11111111);
-    assert(R_EDX == 0x22222222);
+    أكد(R_ECX == 0x11111111);
+    أكد(R_EDX == 0x22222222);
     RETN(0);
 }
-void check_fastcall_invoke_3(struct trapframe *tf)
+فراغ check_fastcall_invoke_3(بنية trapframe *tf)
 {
     //DUMP();
-    assert(R_ECX == 0x11111111);
-    assert(R_EDX == 0x22222222);
-    assert(ARG(1) == 0x33333333);
+    أكد(R_ECX == 0x11111111);
+    أكد(R_EDX == 0x22222222);
+    أكد(ARG(1) == 0x33333333);
     RETN(1*4);
 }
-void check_fastcall_invoke_4(struct trapframe *tf)
+فراغ check_fastcall_invoke_4(بنية trapframe *tf)
 {
     //DUMP();
-    assert(R_ECX == 0x11111111);
-    assert(R_EDX == 0x22222222);
-    assert(ARG(1) == 0x33333333);
-    assert(ARG(2) == 0x44444444);
+    أكد(R_ECX == 0x11111111);
+    أكد(R_EDX == 0x22222222);
+    أكد(ARG(1) == 0x33333333);
+    أكد(ARG(2) == 0x44444444);
     RETN(2*4);
 }
 
-void check_fastcall_invoke_5(struct trapframe *tf)
+فراغ check_fastcall_invoke_5(بنية trapframe *tf)
 {
     //DUMP();
-    assert(R_ECX == 0x11111111);
-    assert(R_EDX == 0x22222222);
-    assert(ARG(1) == 0x33333333);
-    assert(ARG(2) == 0x44444444);
-    assert(ARG(3) == 0x55555555);
+    أكد(R_ECX == 0x11111111);
+    أكد(R_EDX == 0x22222222);
+    أكد(ARG(1) == 0x33333333);
+    أكد(ARG(2) == 0x44444444);
+    أكد(ARG(3) == 0x55555555);
     RETN(3*4);
 }
 
-void test_fastcall_invoke()
+فراغ test_fastcall_invoke()
 {
     SET_TRAP_HANDLER(check_fastcall_invoke_0);
-    ((void __fastcall (*)(void)) TRAP)();
+    ((فراغ __fastcall (*)(فراغ)) TRAP)();
 
     SET_TRAP_HANDLER(check_fastcall_invoke_1);
-    ((void __fastcall (*)(unsigned)) TRAP)(0x11111111);
+    ((فراغ __fastcall (*)(unsigned)) TRAP)(0x11111111);
 
     SET_TRAP_HANDLER(check_fastcall_invoke_2);
-    ((void __fastcall (*)(unsigned, unsigned)) TRAP)(0x11111111, 0x22222222);
+    ((فراغ __fastcall (*)(unsigned, unsigned)) TRAP)(0x11111111, 0x22222222);
 
     SET_TRAP_HANDLER(check_fastcall_invoke_3);
-    ((void __fastcall (*)(unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333);
+    ((فراغ __fastcall (*)(unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333);
 
     SET_TRAP_HANDLER(check_fastcall_invoke_4);
-    ((void __fastcall (*)(unsigned, unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333, 0x44444444);
+    ((فراغ __fastcall (*)(unsigned, unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333, 0x44444444);
 
     SET_TRAP_HANDLER(check_fastcall_invoke_5);
-    ((void __fastcall (*)(unsigned, unsigned, unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333, 0x44444444, 0x55555555);
+    ((فراغ __fastcall (*)(unsigned, unsigned, unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333, 0x44444444, 0x55555555);
 }
 
 
@@ -194,83 +194,83 @@ void test_fastcall_invoke()
 //////////                TEST FUNCTION CODE GENERATION
 /////////////////////////////////////////////////////////////////////////
 
-int __fastcall check_fastcall_espdiff_0(void)
+صحيح __fastcall check_fastcall_espdiff_0(فراغ)
 {
-    return 0;
+    أرجع 0;
 }
 
-int __fastcall check_fastcall_espdiff_1(int a)
+صحيح __fastcall check_fastcall_espdiff_1(صحيح a)
 {
-    return a;
+    أرجع a;
 }
 
-int __fastcall check_fastcall_espdiff_2(int a, int b)
+صحيح __fastcall check_fastcall_espdiff_2(صحيح a, صحيح b)
 {
-    return a + b;
+    أرجع a + b;
 }
 
-int __fastcall check_fastcall_espdiff_3(int a, int b, int c)
+صحيح __fastcall check_fastcall_espdiff_3(صحيح a, صحيح b, صحيح c)
 {
-    return a + b + c;
+    أرجع a + b + c;
 }
 
-int __fastcall check_fastcall_espdiff_4(int a, int b, int c, int d)
+صحيح __fastcall check_fastcall_espdiff_4(صحيح a, صحيح b, صحيح c, صحيح d)
 {
-    return a + b + c + d;
+    أرجع a + b + c + d;
 }
 
-int __fastcall check_fastcall_espdiff_5(int a, int b, int c, int d, int e)
+صحيح __fastcall check_fastcall_espdiff_5(صحيح a, صحيح b, صحيح c, صحيح d, صحيح e)
 {
-    return a + b + c + d + e;
+    أرجع a + b + c + d + e;
 }
 
-void test_fastcall_espdiff()
+فراغ test_fastcall_espdiff()
 {
-    int x;
+    صحيح x;
     SET_SAFECALL_TARGET(check_fastcall_espdiff_0);
     x = ((typeof(&check_fastcall_espdiff_0))SAFECALL)();
-    assert(x == 0);
-    assert(ESPDIFF == 0);
+    أكد(x == 0);
+    أكد(ESPDIFF == 0);
 
     SET_SAFECALL_TARGET(check_fastcall_espdiff_1);
     x = ((typeof(&check_fastcall_espdiff_1))SAFECALL)(1);
-    assert(x == 1);
-    assert(ESPDIFF == 0);
+    أكد(x == 1);
+    أكد(ESPDIFF == 0);
 
     SET_SAFECALL_TARGET(check_fastcall_espdiff_2);
     x = ((typeof(&check_fastcall_espdiff_2))SAFECALL)(1, 2);
-    assert(x == 1 + 2);
-    assert(ESPDIFF == 0);
+    أكد(x == 1 + 2);
+    أكد(ESPDIFF == 0);
 
     SET_SAFECALL_TARGET(check_fastcall_espdiff_3);
     x = ((typeof(&check_fastcall_espdiff_3))SAFECALL)(1, 2, 3);
-    assert(x == 1 + 2 + 3);
-    assert(ESPDIFF == 1*4);
+    أكد(x == 1 + 2 + 3);
+    أكد(ESPDIFF == 1*4);
 
     SET_SAFECALL_TARGET(check_fastcall_espdiff_4);
     x = ((typeof(&check_fastcall_espdiff_4))SAFECALL)(1, 2, 3, 4);
-    assert(x == 1 + 2 + 3 + 4);
-    assert(ESPDIFF == 2*4);
+    أكد(x == 1 + 2 + 3 + 4);
+    أكد(ESPDIFF == 2*4);
 
     SET_SAFECALL_TARGET(check_fastcall_espdiff_5);
     x = ((typeof(&check_fastcall_espdiff_5))SAFECALL)(1, 2, 3, 4, 5);
-    assert(x == 1 + 2 + 3 + 4 + 5);
-    assert(ESPDIFF == 3*4);
+    أكد(x == 1 + 2 + 3 + 4 + 5);
+    أكد(ESPDIFF == 3*4);
 }
 
-int main()
+صحيح main()
 {
 #define N 10000
-    int i;
+    صحيح i;
 
-    for (i = 1; i <= N; i++) {
+    لكل (i = 1; i <= N; i++) {
         test_fastcall_espdiff();
     }
 
-    for (i = 1; i <= N; i++) {
+    لكل (i = 1; i <= N; i++) {
         test_fastcall_invoke();
     }
 
     puts("TEST OK");
-    return 0;
+    أرجع 0;
 }

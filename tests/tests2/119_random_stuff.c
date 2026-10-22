@@ -1,133 +1,133 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-struct big_struct { char a[262144]; };
+بنية big_struct { حرف a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+ساكن ثابت حرف str[] = "abcdefghijklmnopqrstuvwxyz";
 
-void tst_branch(void)
+فراغ tst_branch(فراغ)
 {
   printf("tst_branch --");
-  goto *&&a; 
+  اذهب *&&a; 
   printf (" dummy");
 a: ;
   printf(" --\n");
 }
 
-void tst_void_ptr(void *pv, int i) 
+فراغ tst_void_ptr(فراغ *pv, صحيح i) 
 {
   i ? *pv : *pv; // dr106
 }
 
-void tst_shift(void)
+فراغ tst_shift(فراغ)
 {
-  int i = 1;
+  صحيح i = 1;
   long long l = 1;
   i = i << 32; // illegal. just test
   l = l << 64; // illegal. just test
 }
 
-#if !defined(_WIN32)
-#include <sys/mman.h>
+#إذا !defined(_WIN32)
+#ضمن <sys/mman.h>
 
-void tst_const_addr(void)
+فراغ tst_const_addr(فراغ)
 {
-  void *addr = mmap ((void *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
-  if (addr != (void *) -1) {
-    *(int *)0x20000000 += 42;
+  فراغ *addr = mmap ((فراغ *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
+  إذا (addr != (فراغ *) -1) {
+    *(صحيح *)0x20000000 += 42;
     munmap (addr, 4096);
   }
 }
 #endif
 
-struct zero_struct {};
+بنية zero_struct {};
 
-struct zero_struct tst_zero_struct(void)
+بنية zero_struct tst_zero_struct(فراغ)
 {
-  struct zero_struct ret;
-  return ret;
+  بنية zero_struct ret;
+  أرجع ret;
 }
 
-struct big_struct tst_big(struct big_struct tst)
+بنية big_struct tst_big(بنية big_struct tst)
 {
-   return tst;
+   أرجع tst;
 }
 
-void tst_adr (int (*fp)(char *, const char *, ...))
+فراغ tst_adr (صحيح (*fp)(حرف *, ثابت حرف *, ...))
 {
-  char buf[10];
+  حرف buf[10];
   (*fp)(buf, "%.0f", 5.0);
   printf("tst_adr %s\n", buf);
 }
 
-int tst(void)
+صحيح tst(فراغ)
 {
-  long long value = 3;
-  return -value;
+  long long درج = 3;
+  أرجع -درج;
 }
 
-void tst_compare(void)
+فراغ tst_compare(فراغ)
 {
   /* This failed on risc64 */
   printf ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
 }
 
 #pragma pack(1)
-struct S { int d:24; int f:14; } i, j;
+بنية S { صحيح d:24; صحيح f:14; } i, j;
 #pragma pack()
 
-void tst_pack (void)
+فراغ tst_pack (فراغ)
 {
   i.f = 5; j.f = 5;
   printf("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
 }
 
-void tst_cast(void)
+فراغ tst_cast(فراغ)
 {
-  signed char c = (signed char) 0xaaaaaaaa;
-  int r = (unsigned short) c ^ (signed char) 0x99999999;
+  signed حرف c = (signed حرف) 0xaaaaaaaa;
+  صحيح r = (unsigned short) c ^ (signed حرف) 0x99999999;
   printf ("schar to ushort cast: %x\n", r);
 }
 
-struct {
-    int (*print)(const char *format, ...);
+بنية {
+    صحيح (*بغ)(ثابت حرف *format, ...);
 } tst_indir = {
     printf
 };
 
-void tst_indir_func(void)
+فراغ tst_indir_func(فراغ)
 {
-    tst_indir.print("tst_indir_func %d\n", 10);
+    tst_indir.بغ("tst_indir_func %d\n", 10);
 }
 
-struct V {
-  int x, y, z;
+بنية V {
+  صحيح x, y, z;
 };
 
-struct V vec(void)
+بنية V vec(فراغ)
 {
-  return (struct V) { 1, 2, 3 };
+  أرجع (بنية V) { 1, 2, 3 };
 }
 
-void func(float f, struct V v)
+فراغ func(عائم f, بنية V v)
 {
   printf("%g\n", f);
 }
 
-void tst_struct_return_align(void)
+فراغ tst_struct_return_align(فراغ)
 {
-  float d = 5.0f;
+  عائم d = 5.0f;
   func(d, vec());
 }
 
-int
-main (void)
+صحيح
+main (فراغ)
 {
-  struct big_struct big;
+  بنية big_struct big;
 
   tst_branch();
   tst_shift();
   tst_void_ptr(&big.a[0], 0);
-#if !defined(_WIN32)
+#إذا !defined(_WIN32)
   tst_const_addr();
 #endif
   tst_zero_struct();

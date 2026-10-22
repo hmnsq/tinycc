@@ -307,15 +307,15 @@ shrd %cl, %eax, %edx
 shrd %eax, %edx
 
 L4:
-call 0x1000
-call L4
+نادي 0x1000
+نادي L4
 #ifdef __i386__
-call *%eax
+نادي *%eax
 #else
-call *%rax
+نادي *%rax
 #endif
-call *0x1000
-call func1
+نادي *0x1000
+نادي func1
 
 .global L5,L6
 
