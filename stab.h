@@ -1,17 +1,17 @@
-#ifndef __GNU_STAB__
+#اگر_غیر_تعریف_شدہ __GNU_STAB__
 
 /* Indicate the GNU stab.h is in use.  */
 
-#define __GNU_STAB__
+#تعریف_کرو __GNU_STAB__
 
-#define __define_stab(NAME, CODE, STRING) NAME=CODE,
+#تعریف_کرو __define_stab(NAME, رمز_2, STRING) NAME=رمز_2,
 
-enum __stab_debug_code
+شمار __stab_debug_code
 {
-#include "stab.def"
-LAST_UNUSED_STAB_CODE
+#شامل "stab.def"
+آخری_غیر_مستعمل_STAB_رمز
 };
 
-#undef __define_stab
+#تعریف_منسوخ __define_stab
 
-#endif /* __GNU_STAB_ */
+#اگر_ختم /* __GNU_STAB_ */

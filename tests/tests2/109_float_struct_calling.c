@@ -1,24 +1,24 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
 /* This test used to fail on x86_64 on linux with sse registers */
 
-struct Point {
-   float x;
-   float y;
+ساخت نقطہ_2 {
+   اعشاری x;
+   اعشاری y;
 };
 
-struct Rect {
-   struct Point top_left;
-   struct Point size;
+ساخت Rect {
+   ساخت نقطہ_2 چوٹی_بایاں;
+   ساخت نقطہ_2 سائز;
 };
 
-float foo(struct Point p, struct Rect r) {
-   return r.size.x;
+اعشاری foo(ساخت نقطہ_2 p, ساخت Rect r) {
+   واپس r.سائز.x;
 }
 
-int main(int argc, char **argv) {
-   struct Point p = {1, 2};
-   struct Rect r = {{3, 4}, {5, 6}};
-   printf("%f\n", foo(p, r));
-   return 0;
+صحیح مین(صحیح argc, حرف **argv) {
+   ساخت نقطہ_2 p = {1, 2};
+   ساخت Rect r = {{3, 4}, {5, 6}};
+   لکھو("%f\n", foo(p, r));
+   واپس 0;
 }

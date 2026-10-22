@@ -1,30 +1,30 @@
-int printf(const char*, ...);
+صحیح لکھو(ثابت حرف*, ...);
 
-int main()
+صحیح مین()
 {
-    char a;
-    short b;
+    حرف a;
+    مختصر b;
 
-    printf("sizeof a : %d %d\n", sizeof(char), sizeof(a));
-    printf("sizeof b : %d %d\n", sizeof(short), sizeof(b));
+    لکھو("sizeof a : %d %d\n", حجم(حرف), حجم(a));
+    لکھو("sizeof b : %d %d\n", حجم(مختصر), حجم(b));
 
-    int ii[] = {}; /* gnu extension, size = 0 */
-    printf("sizeof ii : %d\n", sizeof ii);
+    صحیح ii[] = {}; /* gnu extension, size = 0 */
+    لکھو("sizeof ii : %d\n", حجم ii);
 
-    int kk[] = { 1 };
-    printf("sizeof kk : %d\n", sizeof kk);
+    صحیح kk[] = { 1 };
+    لکھو("sizeof kk : %d\n", حجم kk);
 
-    char cc[] = "12";
-    printf("sizeof cc : %d\n", sizeof cc);
+    حرف cc[] = "12";
+    لکھو("sizeof cc : %d\n", حجم cc);
 
     __WCHAR_TYPE__ ll[] = L"12345";
-    printf("len-of ll : %d\n", sizeof ll / sizeof ll[0]);
+    لکھو("len-of ll : %d\n", حجم ll / حجم ll[0]);
 
-    static struct {
-        int a,b,c;
-        int d[];
+    ساکن ساخت {
+        صحیح a,b,c;
+        صحیح d[];
     } ss[] = {{ 1, 2, 3, {} }};
-    printf("sizeof ss : %d\n", sizeof ss);
+    لکھو("sizeof ss : %d\n", حجم ss);
 
-    return 0;
+    واپس 0;
 }

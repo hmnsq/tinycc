@@ -1,179 +1,179 @@
-int printf(const char*, ...);
+صحیح لکھو(ثابت حرف*, ...);
 
-#define myassert(x) \
-    printf("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
+#تعریف_کرو myassert(x) \
+    لکھو("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
 
-enum{ in = 0};
+شمار{ اندر = 0};
 
-int main_1(){
+صحیح main_1(){
     {
-        myassert(!in);
-        if(sizeof(enum{in=1})) myassert(in);
-        myassert(!in); //OOPS
+        myassert(!اندر);
+        اگر(حجم(شمار{اندر=1})) myassert(اندر);
+        myassert(!اندر); //OOPS
     }
     {
-        myassert(!in);
-        switch(sizeof(enum{in=1})) { default: myassert(in); }
-        myassert(!in); //OOPS
+        myassert(!اندر);
+        انتخاب(حجم(شمار{اندر=1})) { طےشدہ: myassert(اندر); }
+        myassert(!اندر); //OOPS
     }
     {
-        myassert(!in);
-        while(sizeof(enum{in=1})) { myassert(in); break; }
-        myassert(!in); //OOPS
+        myassert(!اندر);
+        جب(حجم(شمار{اندر=1})) { myassert(اندر); توڑو; }
+        myassert(!اندر); //OOPS
     }
     {
-        myassert(!in);
-        do{ myassert(!in);}while(0*sizeof(enum{in=1}));
-        myassert(!in); //OOPS
+        myassert(!اندر);
+        کرو{ myassert(!اندر);}جب(0*حجم(شمار{اندر=1}));
+        myassert(!اندر); //OOPS
     }
 
     {
-        myassert(!in);
-        for(sizeof(enum{in=1});;){ myassert(in); break; }
-        myassert(!in); //OK
+        myassert(!اندر);
+        برائے(حجم(شمار{اندر=1});;){ myassert(اندر); توڑو; }
+        myassert(!اندر); //OK
     }
     {
-        myassert(!in);
-        for(;;sizeof(enum{in=1})){ myassert(in); break; }
-        myassert(!in); //OK
+        myassert(!اندر);
+        برائے(;;حجم(شمار{اندر=1})){ myassert(اندر); توڑو; }
+        myassert(!اندر); //OK
     }
     {
-        myassert(!in);
-        for(;sizeof(enum{in=1});){ myassert(in); break; }
-        myassert(!in); //OK
+        myassert(!اندر);
+        برائے(;حجم(شمار{اندر=1});){ myassert(اندر); توڑو; }
+        myassert(!اندر); //OK
     }
-    return 0;
+    واپس 0;
 }
 
 /* --------------------------------------------- */
-int main_2()
+صحیح main_2()
 {
-  char c = 'a';
-  void func1(char c); /* param 'c' must not shadow local 'c' */
+  حرف c = 'a';
+  خالی func1(حرف c); /* param 'c' must not shadow local 'c' */
   func1(c);
-  return 0;
+  واپس 0;
 }
 
-void func1(char c)
+خالی func1(حرف c)
 {
     myassert(c == 'a');
 }
 
-struct st { int a; };
+ساخت st { صحیح a; };
 
 /* --------------------------------------------- */
-int main_3()
+صحیح main_3()
 {
-  struct st func(void);
-  struct st st = func(); /* not an 'incompatible redefinition' */
+  ساخت st func(خالی);
+  ساخت st st = func(); /* not an 'incompatible redefinition' */
   myassert(st.a == 10);
-  return 0;
+  واپس 0;
 }
 
-struct st func(void)
+ساخت st func(خالی)
 {
-  struct st st = { 10 };
-  return st;
+  ساخت st st = { 10 };
+  واپس st;
 }
 
 /* --------------------------------------------- */
 /* func* 'md' must not be shadowed by param 'md' */
-static void f4(char *(*md)(char *md))
+ساکن خالی f4(حرف *(*md)(حرف *md))
 {
    (*md)("test");
 }
-static char *a4(char *a)
+ساکن حرف *a4(حرف *a)
 {
-    int strcmp();
+    صحیح strcmp();
     myassert(!strcmp(a, "test"));
-    return a;
+    واپس a;
 }
 
-int main_4()
+صحیح main_4()
 {
     f4(a4);
-    return 0;
+    واپس 0;
 }
 
 /* --------------------------------------------- */
-int a5[3], b5[];
-int f5(void);
-int main_5()
+صحیح a5[3], b5[];
+صحیح f5(خالی);
+صحیح main_5()
 {
-    extern int a5[3], b5[3];
+    خارجی صحیح a5[3], b5[3];
     a5[2]=10, b5[2]=4;
     myassert(f5() == 10 + 4);
-    return 0;
+    واپس 0;
 }
-int f5(void)
+صحیح f5(خالی)
 {
-    return a5[2]+b5[2];
+    واپس a5[2]+b5[2];
 }
-int b5[3];
+صحیح b5[3];
 
 /* --------------------------------------------- */
-static int f6(int);
-int i6 = 11;
+ساکن صحیح f6(صحیح);
+صحیح i6 = 11;
 
-int main_6()
+صحیح main_6()
 {
     {
-        int i6 = 33, f6 = 44;
+        صحیح i6 = 33, f6 = 44;
         myassert(i6 == 33 && f6 == 44);
         {
-            int f6(int);
-            extern int i6;
+            صحیح f6(صحیح);
+            خارجی صحیح i6;
             myassert(i6 == 11 && f6(22) == 22);
         }
         myassert(i6 == 33 && f6 == 44);
     }
     myassert(i6 == 11 && f6(22) == 22);
-    return 0;
+    واپس 0;
 }
 
-int f6(int x)
+صحیح f6(صحیح x)
 {
-    return x;
+    واپس x;
 }
 
 /* --------------------------------------------- */
 
-#if defined __TINYC__ \
+#اگر defined __TINYC__ \
     ? !defined __leading_underscore \
     : !(defined __APPLE__ || defined _WIN32)
 # define _
-#else
+#ورنہ
 # define _ "_"
-#endif
+#اگر_ختم
 
-struct xx7 { int a, b; };
+ساخت xx7 { صحیح a, b; };
 
-void f7()
+خالی f7()
 {
-    struct xx7 { int c; } x;
+    ساخت xx7 { صحیح c; } x;
     {
-        extern struct xx7 { int a, b; } x __asm__(_"z7");
+        خارجی ساخت xx7 { صحیح a, b; } x __asm__(_"z7");
         x.a = 12;
-        struct xx7 y = { 0,0 };
+        ساخت xx7 y = { 0,0 };
     }
-    struct xx7 y = { 90 };
+    ساخت xx7 y = { 90 };
     x.c = 78;
-    printf("xx7 (1) : %d %d\n", x.c, y.c);
+    لکھو("xx7 (1) : %d %d\n", x.c, y.c);
 }
 
-int main_7()
+صحیح main_7()
 {
     f7();
-    extern struct xx7 y __asm__(_"z7");
-    printf("xx7 (2) : %d %d\n", y.a, y.b);
-    return 0;
+    خارجی ساخت xx7 y __asm__(_"z7");
+    لکھو("xx7 (2) : %d %d\n", y.a, y.b);
+    واپس 0;
 }
 
 
-struct xx7 z7 = { 0, 34 };
+ساخت xx7 z7 = { 0, 34 };
 
 /* --------------------------------------------- */
-int main()
+صحیح مین()
 {
     main_1();
     main_2();
@@ -182,5 +182,5 @@ int main()
     main_5();
     main_6();
     main_7();
-    return 0;
+    واپس 0;
 }

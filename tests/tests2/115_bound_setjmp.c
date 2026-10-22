@@ -1,20 +1,20 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
+#شامل <stdio.h>
+#شامل <string.h>
+#شامل <setjmp.h>
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#تعریف_کرو TST   صحیح i, a[2], b[2];                \
+              برائے (i = 0; i < 2; i++) a[i] = 0; \
+              برائے (i = 0; i < 2; i++) b[i] = 0
 
-static jmp_buf jmp;
+ساکن jmp_buf jmp;
 
-static void tst1 (void)
+ساکن خالی tst1 (خالی)
 {
     TST;
     longjmp(jmp, 1);
 }
 
-static void tst2(void)
+ساکن خالی tst2(خالی)
 {
     jmp_buf jmp;
 
@@ -23,13 +23,13 @@ static void tst2(void)
     tst1();
 }
 
-static void tst3 (jmp_buf loc)
+ساکن خالی tst3 (jmp_buf loc)
 {
     TST;
     longjmp(loc, 1);
 }
 
-static void tst4(jmp_buf loc)
+ساکن خالی tst4(jmp_buf loc)
 {
     jmp_buf jmp;
 
@@ -38,55 +38,55 @@ static void tst4(jmp_buf loc)
     tst3(loc);
 }
 
-static void tst (void)
+ساکن خالی tst (خالی)
 {
     jmp_buf loc;
-    static int cnt;
+    ساکن صحیح cnt;
 
     cnt = 0;
-    if (setjmp (jmp) == 0) {
+    اگر (setjmp (jmp) == 0) {
         TST;
         tst2();
     }
-    else {
+    ورنہ {
         cnt++;
     }
-    if (setjmp (loc) == 0) {
+    اگر (setjmp (loc) == 0) {
         TST;
         tst4(loc);
     }
-    else {
+    ورنہ {
         cnt++;
     }
-    if (cnt != 2)
-        printf ("incorrect cnt %d\n", cnt);
+    اگر (cnt != 2)
+        لکھو ("incorrect cnt %d\n", cnt);
 }
 
-static jmp_buf buf1;
-static jmp_buf buf2;
-static int *p;
-static int n_x = 6;
-static int g_counter;
+ساکن jmp_buf buf1;
+ساکن jmp_buf buf2;
+ساکن صحیح *p;
+ساکن صحیح n_x = 6;
+ساکن صحیح g_شمار;
 
-static void stack (void)
+ساکن خالی ڈھیر (خالی)
 {
-    static int counter;
-    static int way_point1;
-    static int way_point2;
+    ساکن صحیح شمار_2;
+    ساکن صحیح way_point1;
+    ساکن صحیح way_point2;
 
-    counter = 0;
+    شمار_2 = 0;
     way_point1 = 3;
     way_point2 = 2;
-    g_counter = 0;
-    if (setjmp (buf1) != 101) {
-        int a[n_x];
-        g_counter++;
+    g_شمار = 0;
+    اگر (setjmp (buf1) != 101) {
+        صحیح a[n_x];
+        g_شمار++;
         p = &a[0];
-        if (g_counter < 5)
+        اگر (g_شمار < 5)
             longjmp (buf1, 2);
-        else if (g_counter == 5)
+        ورنہ اگر (g_شمار == 5)
             longjmp (buf1, 101);
-        else {
+        ورنہ {
             setjmp (buf2); 
             longjmp (buf1, 101);
         }
@@ -94,17 +94,17 @@ static void stack (void)
     
     way_point1--;
 
-    if (counter == 0) {
-        counter++;
+    اگر (شمار_2 == 0) {
+        شمار_2++;
         {
-            int a[n_x];
-            g_counter++;
+            صحیح a[n_x];
+            g_شمار++;
             p = &a[0];
-            if (g_counter < 5)
+            اگر (g_شمار < 5)
                 longjmp (buf1, 2);
-            else if (g_counter == 5)
+            ورنہ اگر (g_شمار == 5)
                 longjmp (buf1, 101);
-            else {
+            ورنہ {
                 setjmp (buf2);
                 longjmp (buf1, 101);
             }
@@ -113,60 +113,60 @@ static void stack (void)
 
     way_point2--;
 
-    if (counter == 1) {
-        counter++;
+    اگر (شمار_2 == 1) {
+        شمار_2++;
         longjmp (buf2, 2);
     }
 
-    if (!(way_point1 == 0 && way_point2 == 0 &&
-          g_counter == 6 && counter == 2))
-        printf ("Failed %d %d %d %d\n",
-                way_point1, way_point2, g_counter, counter);
+    اگر (!(way_point1 == 0 && way_point2 == 0 &&
+          g_شمار == 6 && شمار_2 == 2))
+        لکھو ("Failed %d %d %d %d\n",
+                way_point1, way_point2, g_شمار, شمار_2);
 }
 
-static jmp_buf env;
-static int last_value;
+ساکن jmp_buf env;
+ساکن صحیح آخری_قدر;
 
-static void jump (int val)
+ساکن خالی jump (صحیح val)
 {
     longjmp (env, val);
 }
 
-static void check (void)
+ساکن خالی check (خالی)
 {
-    int value;
+    صحیح قدر;
 
-    last_value = -1;
-    value = setjmp (env);
-    if (value != last_value + 1) {
-        printf ("incorrect value %d %d\n",
-                value, last_value + 1);
-        return;
+    آخری_قدر = -1;
+    قدر = setjmp (env);
+    اگر (قدر != آخری_قدر + 1) {
+        لکھو ("incorrect value %d %d\n",
+                قدر, آخری_قدر + 1);
+        واپس;
     }
-    last_value = value;
-    switch (value) {
-#if !(defined(__FreeBSD__) || defined(__NetBSD__))
+    آخری_قدر = قدر;
+    انتخاب (قدر) {
+#اگر !(defined(__FreeBSD__) || defined(__NetBSD__))
     /* longjmp(jmp_buf, 0) not supported */
-    case 0:
+    حالت 0:
         jump (0);
-#endif
-    default:
-        if (value < 10)
-          jump (value + 1);
+#اگر_ختم
+    طےشدہ:
+        اگر (قدر < 10)
+          jump (قدر + 1);
     }
 }
 
-int
-main (void)
+صحیح
+مین (خالی)
 {
-    int i;
+    صحیح i;
 
-    for (i = 0; i < 10;  i++) {
+    برائے (i = 0; i < 10;  i++) {
         tst();
-        stack();
+        ڈھیر();
         check();
     }
-    return 0;
+    واپس 0;
 }
 
 

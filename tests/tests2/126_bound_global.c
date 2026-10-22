@@ -1,13 +1,13 @@
 /* test bound checking code without -run */
 
-int arr[10];
+صحیح arr[10];
 
-int
-main(int argc, char **argv)
+صحیح
+مین(صحیح argc, حرف **argv)
 {
-  int i;
+  صحیح i;
 
-  for (i = 0; i <= sizeof(arr)/sizeof(arr[0]); i++)
+  برائے (i = 0; i <= حجم(arr)/حجم(arr[0]); i++)
         arr[i] = 0;
-  return 0;
+  واپس 0;
 }

@@ -1,411 +1,411 @@
-#ifdef TARGET_DEFS_ONLY
+#اگر_تعریف_شدہ ہدف_DEFS_ONLY
 
-#define EM_TCC_TARGET EM_X86_64
+#تعریف_کرو EM_TCC_ہدف EM_X86_64
 
 /* relocation type for 32 bit data relocation */
-#define R_DATA_32   R_X86_64_32S
-#define R_DATA_PTR  R_X86_64_64
-#define R_JMP_SLOT  R_X86_64_JUMP_SLOT
-#define R_GLOB_DAT  R_X86_64_GLOB_DAT
-#define R_COPY      R_X86_64_COPY
-#define R_RELATIVE  R_X86_64_RELATIVE
+#تعریف_کرو R_ڈیٹا_32   R_X86_64_32S
+#تعریف_کرو R_ڈیٹا_PTR  R_X86_64_64
+#تعریف_کرو R_JMP_خانہ  R_X86_64_JUMP_خانہ
+#تعریف_کرو R_GLOB_DAT  R_X86_64_GLOB_DAT
+#تعریف_کرو R_COPY      R_X86_64_COPY
+#تعریف_کرو R_RELATIVE  R_X86_64_RELATIVE
 
-#define R_NUM       R_X86_64_NUM
+#تعریف_کرو R_عدد       R_X86_64_عدد
 
-#define ELF_START_ADDR 0x400000
-#define ELF_PAGE_SIZE  0x1000
+#تعریف_کرو ELF_آغاز_ADDR 0x400000
+#تعریف_کرو ELF_صفحہ_سائز  0x1000
 
-#define PCRELATIVE_DLLPLT 1
-#define RELOCATE_DLLPLT 1
+#تعریف_کرو PCRELATIVE_DLLPLT 1
+#تعریف_کرو RELOCATE_DLLPLT 1
 
-#else /* !TARGET_DEFS_ONLY */
+#ورنہ /* !TARGET_DEFS_ONLY */
 
-#include "tcc.h"
+#شامل "tcc.h"
 
-#ifdef NEED_RELOC_TYPE
+#اگر_تعریف_شدہ NEED_RELOC_TYPE
 /* Returns 1 for a code relocation, 0 for a data relocation. For unknown
    relocations, returns -1. */
-ST_FUNC int code_reloc (int reloc_type)
+ST_FUNC صحیح رمز_reloc (صحیح reloc_type)
 {
-    switch (reloc_type) {
-        case R_X86_64_32:
-        case R_X86_64_32S:
-        case R_X86_64_64:
-        case R_X86_64_GOTPC32:
-        case R_X86_64_GOTPC64:
-        case R_X86_64_GOTPCREL:
-        case R_X86_64_GOTPCRELX:
-        case R_X86_64_REX_GOTPCRELX:
-        case R_X86_64_GOTTPOFF:
-        case R_X86_64_GOT32:
-        case R_X86_64_GOT64:
-        case R_X86_64_GLOB_DAT:
-        case R_X86_64_COPY:
-        case R_X86_64_RELATIVE:
-        case R_X86_64_GOTOFF64:
-        case R_X86_64_TLSGD:
-        case R_X86_64_TLSLD:
-        case R_X86_64_DTPOFF32:
-        case R_X86_64_TPOFF32:
-        case R_X86_64_DTPOFF64:
-        case R_X86_64_TPOFF64:
-            return 0;
+    انتخاب (reloc_type) {
+        حالت R_X86_64_32:
+        حالت R_X86_64_32S:
+        حالت R_X86_64_64:
+        حالت R_X86_64_GOTPC32:
+        حالت R_X86_64_GOTPC64:
+        حالت R_X86_64_GOTPCREL:
+        حالت R_X86_64_GOTPCRELX:
+        حالت R_X86_64_REX_GOTPCRELX:
+        حالت R_X86_64_GOTTPOFF:
+        حالت R_X86_64_GOT32:
+        حالت R_X86_64_GOT64:
+        حالت R_X86_64_GLOB_DAT:
+        حالت R_X86_64_COPY:
+        حالت R_X86_64_RELATIVE:
+        حالت R_X86_64_GOTOFF64:
+        حالت R_X86_64_TLSGD:
+        حالت R_X86_64_TLSLD:
+        حالت R_X86_64_DTPOFF32:
+        حالت R_X86_64_TPOFF32:
+        حالت R_X86_64_DTPOFF64:
+        حالت R_X86_64_TPOFF64:
+            واپس 0;
 
-        case R_X86_64_PC32:
-        case R_X86_64_PC64:
-        case R_X86_64_PLT32:
-        case R_X86_64_PLTOFF64:
-        case R_X86_64_JUMP_SLOT:
-            return 1;
+        حالت R_X86_64_PC32:
+        حالت R_X86_64_PC64:
+        حالت R_X86_64_PLT32:
+        حالت R_X86_64_PLTOFF64:
+        حالت R_X86_64_JUMP_خانہ:
+            واپس 1;
     }
-    return -1;
+    واپس -1;
 }
 
 /* Returns an enumerator to describe whether and when the relocation needs a
    GOT and/or PLT entry to be created. See tcc.h for a description of the
    different values. */
-ST_FUNC int gotplt_entry_type (int reloc_type)
+ST_FUNC صحیح gotplt_اندراج_type (صحیح reloc_type)
 {
-    switch (reloc_type) {
-        case R_X86_64_GLOB_DAT:
-        case R_X86_64_JUMP_SLOT:
-        case R_X86_64_COPY:
-        case R_X86_64_RELATIVE:
-            return NO_GOTPLT_ENTRY;
+    انتخاب (reloc_type) {
+        حالت R_X86_64_GLOB_DAT:
+        حالت R_X86_64_JUMP_خانہ:
+        حالت R_X86_64_COPY:
+        حالت R_X86_64_RELATIVE:
+            واپس NO_GOTPLT_اندراج;
 
 	/* The following relocs wouldn't normally need GOT or PLT
 	   slots, but we need them for simplicity in the link
 	   editor part.  See our caller for comments.  */
-        case R_X86_64_32:
-        case R_X86_64_32S:
-        case R_X86_64_64:
-        case R_X86_64_PC32:
-        case R_X86_64_PC64:
-            return AUTO_GOTPLT_ENTRY;
+        حالت R_X86_64_32:
+        حالت R_X86_64_32S:
+        حالت R_X86_64_64:
+        حالت R_X86_64_PC32:
+        حالت R_X86_64_PC64:
+            واپس AUTO_GOTPLT_اندراج;
 
-        case R_X86_64_GOTTPOFF:
-            return BUILD_GOT_ONLY;
+        حالت R_X86_64_GOTTPOFF:
+            واپس BUILD_GOT_ONLY;
 
-        case R_X86_64_GOT32:
-        case R_X86_64_GOT64:
-        case R_X86_64_GOTPC32:
-        case R_X86_64_GOTPC64:
-        case R_X86_64_GOTOFF64:
-        case R_X86_64_GOTPCREL:
-        case R_X86_64_GOTPCRELX:
-        case R_X86_64_TLSGD:
-        case R_X86_64_TLSLD:
-        case R_X86_64_DTPOFF32:
-        case R_X86_64_DTPOFF64:
-        case R_X86_64_REX_GOTPCRELX:
-        case R_X86_64_PLT32:
-        case R_X86_64_PLTOFF64:
-            return ALWAYS_GOTPLT_ENTRY;
+        حالت R_X86_64_GOT32:
+        حالت R_X86_64_GOT64:
+        حالت R_X86_64_GOTPC32:
+        حالت R_X86_64_GOTPC64:
+        حالت R_X86_64_GOTOFF64:
+        حالت R_X86_64_GOTPCREL:
+        حالت R_X86_64_GOTPCRELX:
+        حالت R_X86_64_TLSGD:
+        حالت R_X86_64_TLSLD:
+        حالت R_X86_64_DTPOFF32:
+        حالت R_X86_64_DTPOFF64:
+        حالت R_X86_64_REX_GOTPCRELX:
+        حالت R_X86_64_PLT32:
+        حالت R_X86_64_PLTOFF64:
+            واپس ALWAYS_GOTPLT_اندراج;
 
-        case R_X86_64_TPOFF32:
-        case R_X86_64_TPOFF64:
-            return NO_GOTPLT_ENTRY;
+        حالت R_X86_64_TPOFF32:
+        حالت R_X86_64_TPOFF64:
+            واپس NO_GOTPLT_اندراج;
     }
 
-    return -1;
+    واپس -1;
 }
 
-#ifdef NEED_BUILD_GOT
-ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr)
+#اگر_تعریف_شدہ NEED_BUILD_GOT
+ST_FUNC غیرعلامتی create_plt_اندراج(TCCState *s1, غیرعلامتی got_انحراف, ساخت sym_attr *attr)
 {
     Section *plt = s1->plt;
     uint8_t *p;
-    int modrm;
-    unsigned plt_offset, relofs;
+    صحیح modrm;
+    غیرعلامتی plt_انحراف, relofs;
 
     modrm = 0x25;
 
     /* empty PLT: create PLT0 entry that pushes the library identifier
        (GOT + PTR_SIZE) and jumps to ld.so resolution routine
        (GOT + 2 * PTR_SIZE) */
-    if (plt->data_offset == 0) {
-        p = section_ptr_add(plt, 16);
+    اگر (plt->ڈیٹا_انحراف == 0) {
+        p = section_ptr_جوڑو(plt, 16);
         p[0] = 0xff; /* pushl got + PTR_SIZE */
         p[1] = modrm + 0x10;
-        write32le(p + 2, PTR_SIZE);
+        write32le(p + 2, PTR_سائز);
         p[6] = 0xff; /* jmp *(got + PTR_SIZE * 2) */
         p[7] = modrm;
-        write32le(p + 8, PTR_SIZE * 2);
+        write32le(p + 8, PTR_سائز * 2);
     }
-    plt_offset = plt->data_offset;
+    plt_انحراف = plt->ڈیٹا_انحراف;
 
     /* The PLT slot refers to the relocation entry it needs via offset.
        The reloc entry is created below, so its offset is the current
        data_offset */
-    relofs = s1->plt->reloc ? s1->plt->reloc->data_offset : 0;
+    relofs = s1->plt->reloc ? s1->plt->reloc->ڈیٹا_انحراف : 0;
 
     /* Jump to GOT entry where ld.so initially put the address of ip + 4 */
-    p = section_ptr_add(plt, 16);
+    p = section_ptr_جوڑو(plt, 16);
     p[0] = 0xff; /* jmp *(got + x) */
     p[1] = modrm;
-    write32le(p + 2, got_offset);
+    write32le(p + 2, got_انحراف);
     p[6] = 0x68; /* push $xxx */
     /* On x86-64, the relocation is referred to by _index_ */
-    write32le(p + 7, relofs / sizeof (ElfW_Rel) - 1);
+    write32le(p + 7, relofs / حجم (ElfW_Rel) - 1);
     p[11] = 0xe9; /* jmp plt_start */
-    write32le(p + 12, -(plt->data_offset));
-    return plt_offset;
+    write32le(p + 12, -(plt->ڈیٹا_انحراف));
+    واپس plt_انحراف;
 }
 
 /* relocate the PLT: compute addresses and offsets in the PLT now that final
    address for PLT and GOT are known (see fill_program_header) */
-ST_FUNC void relocate_plt(TCCState *s1)
+ST_FUNC خالی relocate_plt(TCCState *s1)
 {
-    uint8_t *p, *p_end;
+    uint8_t *p, *p_انتہا;
 
-    if (!s1->plt)
-      return;
+    اگر (!s1->plt)
+      واپس;
 
-    p = s1->plt->data;
-    p_end = p + s1->plt->data_offset;
+    p = s1->plt->ڈیٹا;
+    p_انتہا = p + s1->plt->ڈیٹا_انحراف;
 
-    if (p < p_end) {
-        int x = s1->got->sh_addr - s1->plt->sh_addr - 6;
+    اگر (p < p_انتہا) {
+        صحیح x = s1->got->sh_addr - s1->plt->sh_addr - 6;
         add32le(p + 2, x);
         add32le(p + 8, x - 6);
         p += 16;
-        while (p < p_end) {
-            add32le(p + 2, x + (s1->plt->data - p));
+        جب (p < p_انتہا) {
+            add32le(p + 2, x + (s1->plt->ڈیٹا - p));
             p += 16;
         }
     }
 
-    if (s1->plt->reloc) {
+    اگر (s1->plt->reloc) {
         ElfW_Rel *rel;
-        int x = s1->plt->sh_addr + 16 + 6;
-        p = s1->got->data;
+        صحیح x = s1->plt->sh_addr + 16 + 6;
+        p = s1->got->ڈیٹا;
         for_each_elem(s1->plt->reloc, 0, rel, ElfW_Rel) {
-            write64le(p + rel->r_offset, x);
+            write64le(p + rel->r_انحراف, x);
             x += 16;
         }
     }
 }
-#endif
-#endif
+#اگر_ختم
+#اگر_ختم
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr, addr_t addr, addr_t val)
+ST_FUNC خالی relocate(TCCState *s1, ElfW_Rel *rel, صحیح type, غیرعلامتی حرف *ptr, addr_t addr, addr_t val)
 {
-    int sym_index, esym_index;
+    صحیح sym_اشاریہ, esym_اشاریہ;
 
-    sym_index = ELFW(R_SYM)(rel->r_info);
+    sym_اشاریہ = ELFW(R_SYM)(rel->r_info);
 
-    switch (type) {
-        case R_X86_64_64:
-            if (s1->output_type & TCC_OUTPUT_DYN) {
-                esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
-                qrel->r_offset = rel->r_offset;
-                if (esym_index) {
-                    qrel->r_info = ELFW(R_INFO)(esym_index, R_X86_64_64);
+    انتخاب (type) {
+        حالت R_X86_64_64:
+            اگر (s1->output_type & TCC_OUTPUT_DYN) {
+                esym_اشاریہ = get_sym_attr(s1, sym_اشاریہ, 0)->dyn_اشاریہ;
+                qrel->r_انحراف = rel->r_انحراف;
+                اگر (esym_اشاریہ) {
+                    qrel->r_info = ELFW(R_INFO)(esym_اشاریہ, R_X86_64_64);
                     qrel->r_addend = rel->r_addend;
                     qrel++;
-                    break;
-                } else {
+                    توڑو;
+                } ورنہ {
                     qrel->r_info = ELFW(R_INFO)(0, R_X86_64_RELATIVE);
                     qrel->r_addend = read64le(ptr) + val;
                     qrel++;
                 }
             }
             add64le(ptr, val);
-            break;
-        case R_X86_64_32:
-        case R_X86_64_32S:
-            if (s1->output_type & TCC_OUTPUT_DYN) {
+            توڑو;
+        حالت R_X86_64_32:
+        حالت R_X86_64_32S:
+            اگر (s1->output_type & TCC_OUTPUT_DYN) {
                 /* XXX: this logic may depend on TCC's codegen
                    now TCC uses R_X86_64_32 even for a 64bit pointer */
-                qrel->r_offset = rel->r_offset;
+                qrel->r_انحراف = rel->r_انحراف;
                 qrel->r_info = ELFW(R_INFO)(0, R_X86_64_RELATIVE);
                 /* Use sign extension! */
-                qrel->r_addend = (int)read32le(ptr) + val;
+                qrel->r_addend = (صحیح)read32le(ptr) + val;
                 qrel++;
             }
-            if ((type == R_X86_64_32 ? val != (unsigned)val : val != (int)val)
+            اگر ((type == R_X86_64_32 ? val != (غیرعلامتی)val : val != (صحیح)val)
                 /* ignore relocation check for stab section */
-                && (stab_section == NULL ||
+                && (stab_section == تہی ||
                     addr < stab_section->sh_addr ||
-                    addr >= (stab_section->sh_addr + stab_section->data_offset))) {
+                    addr >= (stab_section->sh_addr + stab_section->ڈیٹا_انحراف))) {
                 tcc_error_noabort("relocation 'R_X86_64_32[S]' out of range");
             }
             add32le(ptr, val);
-            break;
+            توڑو;
 
-        case R_X86_64_PC32:
-            if (s1->output_type == TCC_OUTPUT_DLL) {
+        حالت R_X86_64_PC32:
+            اگر (s1->output_type == TCC_OUTPUT_DLL) {
                 /* DLL relocation */
-                esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
-                if (esym_index) {
-                    qrel->r_offset = rel->r_offset;
-                    qrel->r_info = ELFW(R_INFO)(esym_index, R_X86_64_PC32);
+                esym_اشاریہ = get_sym_attr(s1, sym_اشاریہ, 0)->dyn_اشاریہ;
+                اگر (esym_اشاریہ) {
+                    qrel->r_انحراف = rel->r_انحراف;
+                    qrel->r_info = ELFW(R_INFO)(esym_اشاریہ, R_X86_64_PC32);
                     /* Use sign extension! */
-                    qrel->r_addend = (int)read32le(ptr) + rel->r_addend;
+                    qrel->r_addend = (صحیح)read32le(ptr) + rel->r_addend;
                     qrel++;
-                    break;
+                    توڑو;
                 }
             }
-            goto plt32pc32;
+            جاؤ plt32pc32;
 
-        case R_X86_64_PLT32:
+        حالت R_X86_64_PLT32:
             /* fallthrough: val already holds the PLT slot address */
 
         plt32pc32:
         {
-            long long diff;
-            diff = (long long)val - addr;
-            if (diff < -2147483648LL || diff > 2147483647LL) {
-#ifdef TCC_TARGET_PE
+            طویل طویل diff;
+            diff = (طویل طویل)val - addr;
+            اگر (diff < -2147483648LL || diff > 2147483647LL) {
+#اگر_تعریف_شدہ TCC_ہدف_PE
               /* ignore overflow with undefined weak symbols */
-              if (((ElfW(Sym)*)symtab_section->data)[sym_index].st_shndx != SHN_UNDEF)
-#endif
+              اگر (((ElfW(Sym)*)symtab_section->ڈیٹا)[sym_اشاریہ].st_shndx != SHN_UNDEF)
+#اگر_ختم
                 tcc_error_noabort("relocation '%d' out of range", type);
             }
             add32le(ptr, diff);
         }
-            break;
+            توڑو;
 
-        case R_X86_64_COPY:
-	    break;
+        حالت R_X86_64_COPY:
+	    توڑو;
 
-        case R_X86_64_PLTOFF64:
+        حالت R_X86_64_PLTOFF64:
             add64le(ptr, val - s1->got->sh_addr + rel->r_addend);
-            break;
+            توڑو;
 
-        case R_X86_64_PC64:
-            if (s1->output_type == TCC_OUTPUT_DLL) {
+        حالت R_X86_64_PC64:
+            اگر (s1->output_type == TCC_OUTPUT_DLL) {
                 /* DLL relocation */
-                esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
-                if (esym_index) {
-                    qrel->r_offset = rel->r_offset;
-                    qrel->r_info = ELFW(R_INFO)(esym_index, R_X86_64_PC64);
+                esym_اشاریہ = get_sym_attr(s1, sym_اشاریہ, 0)->dyn_اشاریہ;
+                اگر (esym_اشاریہ) {
+                    qrel->r_انحراف = rel->r_انحراف;
+                    qrel->r_info = ELFW(R_INFO)(esym_اشاریہ, R_X86_64_PC64);
                     qrel->r_addend = read64le(ptr) + rel->r_addend;
                     qrel++;
-                    break;
+                    توڑو;
                 }
             }
             add64le(ptr, val - addr);
-            break;
+            توڑو;
 
-        case R_X86_64_GLOB_DAT:
-        case R_X86_64_JUMP_SLOT:
+        حالت R_X86_64_GLOB_DAT:
+        حالت R_X86_64_JUMP_خانہ:
             /* They don't need addend */
             write64le(ptr, val - rel->r_addend);
-            break;
-        case R_X86_64_GOTPCREL:
-        case R_X86_64_GOTPCRELX:
-        case R_X86_64_REX_GOTPCRELX:
+            توڑو;
+        حالت R_X86_64_GOTPCREL:
+        حالت R_X86_64_GOTPCRELX:
+        حالت R_X86_64_REX_GOTPCRELX:
             add32le(ptr, s1->got->sh_addr - addr +
-                         get_sym_attr(s1, sym_index, 0)->got_offset - 4);
-            break;
-        case R_X86_64_GOTPC32:
+                         get_sym_attr(s1, sym_اشاریہ, 0)->got_انحراف - 4);
+            توڑو;
+        حالت R_X86_64_GOTPC32:
             add32le(ptr, s1->got->sh_addr - addr + rel->r_addend);
-            break;
-        case R_X86_64_GOTPC64:
+            توڑو;
+        حالت R_X86_64_GOTPC64:
             add64le(ptr, s1->got->sh_addr - addr + rel->r_addend);
-            break;
-        case R_X86_64_GOTTPOFF:
+            توڑو;
+        حالت R_X86_64_GOTTPOFF:
             add32le(ptr, val - s1->got->sh_addr);
-            break;
-        case R_X86_64_GOT32:
+            توڑو;
+        حالت R_X86_64_GOT32:
             /* we load the got offset */
-            add32le(ptr, get_sym_attr(s1, sym_index, 0)->got_offset);
-            break;
-        case R_X86_64_GOT64:
+            add32le(ptr, get_sym_attr(s1, sym_اشاریہ, 0)->got_انحراف);
+            توڑو;
+        حالت R_X86_64_GOT64:
             /* we load the got offset */
-            add64le(ptr, get_sym_attr(s1, sym_index, 0)->got_offset);
-            break;
-        case R_X86_64_GOTOFF64:
+            add64le(ptr, get_sym_attr(s1, sym_اشاریہ, 0)->got_انحراف);
+            توڑو;
+        حالت R_X86_64_GOTOFF64:
             add64le(ptr, val - s1->got->sh_addr);
-            break;
-        case R_X86_64_TLSGD:
+            توڑو;
+        حالت R_X86_64_TLSGD:
             {
-                static const unsigned char expect[] = {
+                ساکن ثابت غیرعلامتی حرف expect[] = {
                     /* .byte 0x66; lea 0(%rip),%rdi */
                     0x66, 0x48, 0x8d, 0x3d, 0x00, 0x00, 0x00, 0x00,
                     /* .word 0x6666; rex64; call __tls_get_addr@PLT */
                     0x66, 0x66, 0x48, 0xe8, 0x00, 0x00, 0x00, 0x00 };
-                static const unsigned char replace[] = {
+                ساکن ثابت غیرعلامتی حرف replace[] = {
                     /* mov %fs:0,%rax */
                     0x64, 0x48, 0x8b, 0x04, 0x25, 0x00, 0x00, 0x00, 0x00,
                     /* lea -4(%rax),%rax */
                     0x48, 0x8d, 0x80, 0x00, 0x00, 0x00, 0x00 };
 
-                if (memcmp (ptr-4, expect, sizeof(expect)) == 0) {
+                اگر (memcmp (ptr-4, expect, حجم(expect)) == 0) {
                     ElfW(Sym) *sym;
                     Section *sec;
                     int32_t x;
 
-                    memcpy(ptr-4, replace, sizeof(replace));
+                    حافظہ_نقل(ptr-4, replace, حجم(replace));
                     rel[1].r_info = ELFW(R_INFO)(0, R_X86_64_NONE);
-                    sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+                    sym = &((ElfW(Sym) *)symtab_section->ڈیٹا)[sym_اشاریہ];
                     sec = s1->sections[sym->st_shndx];
-                    x = sym->st_value - sec->sh_addr - sec->data_offset;
+                    x = sym->st_قدر - sec->sh_addr - sec->ڈیٹا_انحراف;
                     add32le(ptr + 8, x);
                 }
-                else
+                ورنہ
                     tcc_error_noabort("unexpected R_X86_64_TLSGD pattern");
             }
-            break;
-        case R_X86_64_TLSLD:
+            توڑو;
+        حالت R_X86_64_TLSLD:
             {
-                static const unsigned char expect[] = {
+                ساکن ثابت غیرعلامتی حرف expect[] = {
                     /* lea 0(%rip),%rdi */
                     0x48, 0x8d, 0x3d, 0x00, 0x00, 0x00, 0x00,
                     /* call __tls_get_addr@PLT */
                     0xe8, 0x00, 0x00, 0x00, 0x00 };
-                static const unsigned char replace[] = {
+                ساکن ثابت غیرعلامتی حرف replace[] = {
                     /* data16 data16 data16 mov %fs:0,%rax */
                     0x66, 0x66, 0x66, 0x64, 0x48, 0x8b, 0x04, 0x25,
                     0x00, 0x00, 0x00, 0x00 };
 
-                if (memcmp (ptr-3, expect, sizeof(expect)) == 0) {
-                    memcpy(ptr-3, replace, sizeof(replace));
+                اگر (memcmp (ptr-3, expect, حجم(expect)) == 0) {
+                    حافظہ_نقل(ptr-3, replace, حجم(replace));
                     rel[1].r_info = ELFW(R_INFO)(0, R_X86_64_NONE);
                 }
-                else
+                ورنہ
                     tcc_error_noabort("unexpected R_X86_64_TLSLD pattern");
             }
-            break;
+            توڑو;
 
-        case R_X86_64_DTPOFF32:
-        case R_X86_64_TPOFF32:
-        case R_X86_64_DTPOFF64:
-        case R_X86_64_TPOFF64:
+        حالت R_X86_64_DTPOFF32:
+        حالت R_X86_64_TPOFF32:
+        حالت R_X86_64_DTPOFF64:
+        حالت R_X86_64_TPOFF64:
             {
                 int32_t x;
-                if (s1->tls_end) {
-                    x = val - s1->tls_end;
-                } else {
-                    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+                اگر (s1->tls_انتہا) {
+                    x = val - s1->tls_انتہا;
+                } ورنہ {
+                    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->ڈیٹا)[sym_اشاریہ];
                     Section *sec = s1->sections[sym->st_shndx];
-                    x = val - sec->sh_addr - sec->data_offset;
+                    x = val - sec->sh_addr - sec->ڈیٹا_انحراف;
                 }
-                switch (type) {
-                case R_X86_64_DTPOFF64:
-                case R_X86_64_TPOFF64:
+                انتخاب (type) {
+                حالت R_X86_64_DTPOFF64:
+                حالت R_X86_64_TPOFF64:
                     add64le(ptr, x);
-                    break;
-                default:
+                    توڑو;
+                طےشدہ:
                     add32le(ptr, x);
-                    break;
+                    توڑو;
                 }
             }
-            break;
-        case R_X86_64_NONE:
-            break;
-        case R_X86_64_RELATIVE:
-#ifdef TCC_TARGET_PE
+            توڑو;
+        حالت R_X86_64_NONE:
+            توڑو;
+        حالت R_X86_64_RELATIVE:
+#اگر_تعریف_شدہ TCC_ہدف_PE
             add32le(ptr, val - s1->pe_imagebase);
-#endif
+#اگر_ختم
             /* do nothing */
-            break;
-        default:
+            توڑو;
+        طےشدہ:
             fprintf(stderr,"FIXME: handle reloc type %d at %x [%p] to %x\n",
-                type, (unsigned)addr, ptr, (unsigned)val);
-            break;
+                type, (غیرعلامتی)addr, ptr, (غیرعلامتی)val);
+            توڑو;
     }
 }
 
-#endif /* !TARGET_DEFS_ONLY */
+#اگر_ختم /* !TARGET_DEFS_ONLY */

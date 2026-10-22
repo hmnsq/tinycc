@@ -4,79 +4,79 @@
  * only for your convenience so that you do not need to put the whole
  * glibc include files on your floppy disk 
  */
-#ifndef _TCCLIB_H
-#define _TCCLIB_H
+#اگر_غیر_تعریف_شدہ _TCCLIB_H
+#تعریف_کرو _TCCLIB_H
 
-#include <stddef.h>
-#include <stdarg.h>
+#شامل <stddef.h>
+#شامل <stdarg.h>
 
 /* stdlib.h */
-void *calloc(size_t nmemb, size_t size);
-void *malloc(size_t size);
-void free(void *ptr);
-void *realloc(void *ptr, size_t size);
-int atoi(const char *nptr);
-long int strtol(const char *nptr, char **endptr, int base);
-unsigned long int strtoul(const char *nptr, char **endptr, int base);
-void exit(int);
-void *alloca(size_t);
+خالی *صفر_حافظہ_دو(سائز_t nmemb, سائز_t سائز);
+خالی *حافظہ_دو(سائز_t سائز);
+خالی آزاد(خالی *ptr);
+خالی *realloc(خالی *ptr, سائز_t سائز);
+صحیح atoi(ثابت حرف *nptr);
+طویل صحیح strtol(ثابت حرف *nptr, حرف **endptr, صحیح بنیاد);
+غیرعلامتی طویل صحیح strtoul(ثابت حرف *nptr, حرف **endptr, صحیح بنیاد);
+خالی باہر_نکلو(صحیح);
+خالی *alloca(سائز_t);
 
 /* stdio.h */
-typedef struct __FILE FILE;
-#define EOF (-1)
-extern FILE *stdin;
-extern FILE *stdout;
-extern FILE *stderr;
-FILE *fopen(const char *path, const char *mode);
-FILE *fdopen(int fildes, const char *mode);
-FILE *freopen(const  char *path, const char *mode, FILE *stream);
-int fclose(FILE *stream);
-size_t  fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
-size_t  fwrite(void *ptr, size_t size, size_t nmemb, FILE *stream);
-int fgetc(FILE *stream);
-char *fgets(char *s, int size, FILE *stream);
-int getc(FILE *stream);
-int getchar(void);
-char *gets(char *s);
-int ungetc(int c, FILE *stream);
-int fflush(FILE *stream);
-int puts(const char *s);
-int putchar (int c);
+قسمتعریف ساخت __FILE FILE;
+#تعریف_کرو EOF (-1)
+خارجی FILE *stdin;
+خارجی FILE *stdout;
+خارجی FILE *stderr;
+FILE *fopen(ثابت حرف *راستہ, ثابت حرف *منوال);
+FILE *fdopen(صحیح fildes, ثابت حرف *منوال);
+FILE *freopen(ثابت  حرف *راستہ, ثابت حرف *منوال, FILE *دھارا);
+صحیح fclose(FILE *دھارا);
+سائز_t  fread(خالی *ptr, سائز_t سائز, سائز_t nmemb, FILE *دھارا);
+سائز_t  fwrite(خالی *ptr, سائز_t سائز, سائز_t nmemb, FILE *دھارا);
+صحیح fgetc(FILE *دھارا);
+حرف *fgets(حرف *s, صحیح سائز, FILE *دھارا);
+صحیح getc(FILE *دھارا);
+صحیح getchar(خالی);
+حرف *gets(حرف *s);
+صحیح ungetc(صحیح c, FILE *دھارا);
+صحیح fflush(FILE *دھارا);
+صحیح puts(ثابت حرف *s);
+صحیح حرف_لکھو (صحیح c);
 
-int printf(const char *format, ...);
-int fprintf(FILE *stream, const char *format, ...);
-int sprintf(char *str, const char *format, ...);
-int snprintf(char *str, size_t size, const  char  *format, ...);
-int asprintf(char **strp, const char *format, ...);
-int dprintf(int fd, const char *format, ...);
-int vprintf(const char *format, va_list ap);
-int vfprintf(FILE  *stream,  const  char *format, va_list ap);
-int vsprintf(char *str, const char *format, va_list ap);
-int vsnprintf(char *str, size_t size, const char  *format, va_list ap);
-int vasprintf(char  **strp,  const  char *format, va_list ap);
-int vdprintf(int fd, const char *format, va_list ap);
+صحیح لکھو(ثابت حرف *format, ...);
+صحیح fprintf(FILE *دھارا, ثابت حرف *format, ...);
+صحیح sprintf(حرف *str, ثابت حرف *format, ...);
+صحیح snprintf(حرف *str, سائز_t سائز, ثابت  حرف  *format, ...);
+صحیح asprintf(حرف **strp, ثابت حرف *format, ...);
+صحیح dprintf(صحیح fd, ثابت حرف *format, ...);
+صحیح vprintf(ثابت حرف *format, va_list ap);
+صحیح vfprintf(FILE  *دھارا,  ثابت  حرف *format, va_list ap);
+صحیح vsprintf(حرف *str, ثابت حرف *format, va_list ap);
+صحیح vsnprintf(حرف *str, سائز_t سائز, ثابت حرف  *format, va_list ap);
+صحیح vasprintf(حرف  **strp,  ثابت  حرف *format, va_list ap);
+صحیح vdprintf(صحیح fd, ثابت حرف *format, va_list ap);
 
-void perror(const char *s);
+خالی perror(ثابت حرف *s);
 
 /* string.h */
-char *strcat(char *dest, const char *src);
-char *strchr(const char *s, int c);
-char *strrchr(const char *s, int c);
-char *strcpy(char *dest, const char *src);
-void *memcpy(void *dest, const void *src, size_t n);
-void *memmove(void *dest, const void *src, size_t n);
-void *memset(void *s, int c, size_t n);
-char *strdup(const char *s);
-size_t strlen(const char *s);
+حرف *strcat(حرف *dest, ثابت حرف *src);
+حرف *strchr(ثابت حرف *s, صحیح c);
+حرف *strrchr(ثابت حرف *s, صحیح c);
+حرف *strcpy(حرف *dest, ثابت حرف *src);
+خالی *حافظہ_نقل(خالی *dest, ثابت خالی *src, سائز_t n);
+خالی *memmove(خالی *dest, ثابت خالی *src, سائز_t n);
+خالی *memset(خالی *s, صحیح c, سائز_t n);
+حرف *strdup(ثابت حرف *s);
+سائز_t لڑی_لمبائی(ثابت حرف *s);
 
 /* dlfcn.h */
-#define RTLD_LAZY       0x001
-#define RTLD_NOW        0x002
-#define RTLD_GLOBAL     0x100
+#تعریف_کرو RTLD_LAZY       0x001
+#تعریف_کرو RTLD_NOW        0x002
+#تعریف_کرو RTLD_GLOBAL     0x100
 
-void *dlopen(const char *filename, int flag);
-const char *dlerror(void);
-void *dlsym(void *handle, char *symbol);
-int dlclose(void *handle);
+خالی *dlopen(ثابت حرف *filename, صحیح flag);
+ثابت حرف *dlerror(خالی);
+خالی *dlsym(خالی *handle, حرف *علامت);
+صحیح dlclose(خالی *handle);
 
-#endif /* _TCCLIB_H */
+#اگر_ختم /* _TCCLIB_H */

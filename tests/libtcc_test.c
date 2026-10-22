@@ -3,26 +3,26 @@
  *
  * libtcc can be useful to use tcc as a "backend" for a code generator.
  */
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "libtcc.h"
+#شامل <stdlib.h>
+#شامل <stdio.h>
+#شامل <string.h>
+#شامل "libtcc.h"
 
-void handle_error(void *opaque, const char *msg)
+خالی handle_error(خالی *opaque, ثابت حرف *پیغام)
 {
-    fprintf(opaque, "%s\n", msg);
+    fprintf(opaque, "%s\n", پیغام);
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+صحیح جوڑو(صحیح a, صحیح b)
 {
-    return a + b;
+    واپس a + b;
 }
 
 /* this strinc is referenced by the generated code */
-const char hello[] = "Hello World!";
+ثابت حرف hello[] = "Hello World!";
 
-char my_program[] =
+حرف my_پروگرام[] =
 "#include <tcclib.h>\n" /* include the "Simple libc header for TCC" */
 "extern int add(int a, int b);\n"
 "#ifdef _WIN32\n" /* dynamically linked data needs 'dllimport' */
@@ -45,53 +45,53 @@ char my_program[] =
 "    return 0;\n"
 "}\n";
 
-int main(int argc, char **argv)
+صحیح مین(صحیح argc, حرف **argv)
 {
     TCCState *s;
-    int i;
-    int (*func)(int);
+    صحیح i;
+    صحیح (*func)(صحیح);
 
     s = tcc_new();
-    if (!s) {
+    اگر (!s) {
         fprintf(stderr, "Could not create tcc state\n");
-        exit(1);
+        باہر_نکلو(1);
     }
 
     /* set custom error/warning printer */
-    tcc_set_error_func(s, stderr, handle_error);
+    tcc_سیٹ_error_func(s, stderr, handle_error);
 
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-    for (i = 1; i < argc; ++i) {
-        char *a = argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
-                tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
-                tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
-                tcc_add_library_path(s, a+2);
+    برائے (i = 1; i < argc; ++i) {
+        حرف *a = argv[i];
+        اگر (a[0] == '-') {
+            اگر (a[1] == 'B')
+                tcc_سیٹ_lib_راستہ(s, a+2);
+            ورنہ اگر (a[1] == 'I')
+                tcc_جوڑو_include_راستہ(s, a+2);
+            ورنہ اگر (a[1] == 'L')
+                tcc_جوڑو_library_راستہ(s, a+2);
         }
     }
 
     /* MUST BE CALLED before any compilation */
-    tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
+    tcc_سیٹ_output_type(s, TCC_OUTPUT_حافظہ);
 
-    if (tcc_compile_string(s, my_program) == -1)
-        return 1;
+    اگر (tcc_compile_string(s, my_پروگرام) == -1)
+        واپس 1;
 
     /* as a test, we add symbols that the compiled program can use.
        You may also open a dll with tcc_add_dll() and use symbols from that */
-    tcc_add_symbol(s, "add", add);
-    tcc_add_symbol(s, "hello", hello);
+    tcc_جوڑو_علامت(s, "add", جوڑو);
+    tcc_جوڑو_علامت(s, "hello", hello);
 
     /* relocate the code */
-    if (tcc_relocate(s) < 0)
-        return 1;
+    اگر (tcc_relocate(s) < 0)
+        واپس 1;
 
     /* get entry symbol */
-    func = tcc_get_symbol(s, "foo");
-    if (!func)
-        return 1;
+    func = tcc_get_علامت(s, "foo");
+    اگر (!func)
+        واپس 1;
 
     /* run the code */
     func(32);
@@ -99,5 +99,5 @@ int main(int argc, char **argv)
     /* delete the state */
     tcc_delete(s);
 
-    return 0;
+    واپس 0;
 }

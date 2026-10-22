@@ -1,4 +1,4 @@
-#define C(a,b,c) a##b##c
-#define N(x,y) C(x,_,y)
-#define A_O aaaaoooo
+#تعریف_کرو C(a,b,c) a##b##c
+#تعریف_کرو N(x,y) C(x,_,y)
+#تعریف_کرو A_O aaaaoooo
 N(A,O)

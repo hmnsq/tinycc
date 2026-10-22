@@ -1,24 +1,24 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-union u {
-    unsigned long ul;
-    long double ld;
+اتحاد u {
+    غیرعلامتی طویل ul;
+    طویل دوہرا ld;
 };
 
-void
-conv (union u *p)
+خالی
+conv (اتحاد u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (غیرعلامتی صحیح) p->ld;
 }
 
-int main (void)
+صحیح مین (خالی)
 {
-    union u v;
-    double d = 1234567890.0;
+    اتحاد u v;
+    دوہرا d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
-    printf ("%lu\n", v.ul);
-    printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    لکھو ("%lu\n", v.ul);
+    لکھو ("%llu\n", (غیرعلامتی طویل طویل)d);
+    واپس 0;
 }

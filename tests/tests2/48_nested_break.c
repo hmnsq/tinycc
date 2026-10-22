@@ -1,26 +1,26 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح مین()
 {
-   int a;
-   char b;
+   صحیح a;
+   حرف b;
 
    a = 0;
-   while (a < 2)
+   جب (a < 2)
    {
-      printf("%d", a++);
-      break;
+      لکھو("%d", a++);
+      توڑو;
 
       b = 'A';
-      while (b < 'C')
+      جب (b < 'C')
       {
-         printf("%c", b++);
+         لکھو("%c", b++);
       }
-      printf("e");
+      لکھو("e");
    }
-   printf("\n");
+   لکھو("\n");
 
-   return 0;
+   واپس 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

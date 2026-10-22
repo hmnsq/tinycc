@@ -18,41 +18,41 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#error this code has bit-rotted since 2003
+#غلطی this رمز has ثنائی_ہندسہ-rotted since 2003
 
 /* number of available registers */
-#define NB_REGS             3
+#تعریف_کرو NB_REGS             3
 
 /* a register can belong to several classes. The classes must be
    sorted from more general to more precise (see gv2() code which does
    assumptions on it). */
-#define RC_ST      0x0001  /* any stack entry */
-#define RC_ST0     0x0002  /* top of stack */
-#define RC_ST1     0x0004  /* top - 1 */
+#تعریف_کرو RC_ST      0x0001  /* any stack entry */
+#تعریف_کرو RC_ST0     0x0002  /* top of stack */
+#تعریف_کرو RC_ST1     0x0004  /* top - 1 */
 
-#define RC_INT     RC_ST
-#define RC_FLOAT   RC_ST
-#define RC_IRET    RC_ST0 /* function return: integer register */
-#define RC_LRET    RC_ST0 /* function return: second integer register */
-#define RC_FRET    RC_ST0 /* function return: float register */
+#تعریف_کرو RC_INT     RC_ST
+#تعریف_کرو RC_FLOAT   RC_ST
+#تعریف_کرو RC_IRET    RC_ST0 /* function return: integer register */
+#تعریف_کرو RC_LRET    RC_ST0 /* function return: second integer register */
+#تعریف_کرو RC_FRET    RC_ST0 /* function return: float register */
 
 /* pretty names for the registers */
-enum {
+شمار {
     REG_ST0 = 0,
     REG_ST1,
     REG_ST2,
 };
 
-const int reg_classes[NB_REGS] = {
+ثابت صحیح reg_classes[NB_REGS] = {
     /* ST0 */ RC_ST | RC_ST0,
     /* ST1 */ RC_ST | RC_ST1,
     /* ST2 */ RC_ST,
 };
 
 /* return registers for function */
-#define REG_IRET REG_ST0 /* single word int return register */
-#define REG_LRET REG_ST0 /* second word return register (for long long) */
-#define REG_FRET REG_ST0 /* float return register */
+#تعریف_کرو REG_IRET REG_ST0 /* single word int return register */
+#تعریف_کرو REG_LRET REG_ST0 /* second word return register (for long long) */
+#تعریف_کرو REG_FRET REG_ST0 /* float return register */
 
 /* defined if function parameters must be evaluated in reverse order */
 /* #define INVERT_FUNC_PARAMS */
@@ -62,57 +62,57 @@ const int reg_classes[NB_REGS] = {
 /* #define FUNC_STRUCT_PARAM_AS_PTR */
 
 /* pointer size, in bytes */
-#define PTR_SIZE 4
+#تعریف_کرو PTR_سائز 4
 
 /* long double size and alignment, in bytes */
-#define LDOUBLE_SIZE  8
-#define LDOUBLE_ALIGN 8
+#تعریف_کرو LDOUBLE_سائز  8
+#تعریف_کرو LDOUBLE_ALIGN 8
 
 /* function call context */
-typedef struct GFuncContext {
-    int func_call; /* func call type (FUNC_STDCALL or FUNC_CDECL) */
+قسمتعریف ساخت GFuncContext {
+    صحیح func_call; /* func call type (FUNC_STDCALL or FUNC_CDECL) */
 } GFuncContext;
 
 /******************************************************/
 /* opcode definitions */
 
-#define IL_OP_PREFIX 0xFE
+#تعریف_کرو IL_OP_سابقہ 0xFE
 
-enum ILOPCodes {
-#define OP(name, str, n) IL_OP_ ## name = n,
-#include "il-opcodes.h"
-#undef OP
+شمار ILOPCodes {
+#تعریف_کرو OP(name, str, n) IL_OP_ ## name = n,
+#شامل "il-opcodes.h"
+#تعریف_منسوخ OP
 };
 
-char *il_opcodes_str[] = {
-#define OP(name, str, n) [n] = str,
-#include "il-opcodes.h"
-#undef OP
+حرف *il_opcodes_str[] = {
+#تعریف_کرو OP(name, str, n) [n] = str,
+#شامل "il-opcodes.h"
+#تعریف_منسوخ OP
 };
 
 /******************************************************/
 
 /* arguments variable numbers start from there */
-#define ARG_BASE 0x70000000
+#تعریف_کرو ARG_بنیاد 0x70000000
 
-static FILE *il_outfile;
+ساکن FILE *il_outfile;
 
-static void out_byte(int c)
+ساکن خالی برآمد_byte(صحیح c)
 {
-    *(char *)ind++ = c;
+    *(حرف *)ind++ = c;
 }
 
-static void out_le32(int c)
+ساکن خالی برآمد_le32(صحیح c)
 {
-    out_byte(c);
-    out_byte(c >> 8);
-    out_byte(c >> 16);
-    out_byte(c >> 24);
+    برآمد_byte(c);
+    برآمد_byte(c >> 8);
+    برآمد_byte(c >> 16);
+    برآمد_byte(c >> 24);
 }
 
-static void init_outfile(void)
+ساکن خالی init_outfile(خالی)
 {
-    if (!il_outfile) {
+    اگر (!il_outfile) {
         il_outfile = stdout;
         fprintf(il_outfile, 
                 ".assembly extern mscorlib\n"
@@ -122,275 +122,275 @@ static void init_outfile(void)
     }
 }
 
-static void out_op1(int op)
+ساکن خالی برآمد_op1(صحیح op)
 {
-    if (op & 0x100)
-        out_byte(IL_OP_PREFIX);
-    out_byte(op & 0xff);
+    اگر (op & 0x100)
+        برآمد_byte(IL_OP_سابقہ);
+    برآمد_byte(op & 0xff);
 }
 
 /* output an opcode with prefix */
-static void out_op(int op)
+ساکن خالی برآمد_op(صحیح op)
 {
-    out_op1(op);
+    برآمد_op1(op);
     fprintf(il_outfile, " %s\n", il_opcodes_str[op]);
 }
 
-static void out_opb(int op, int c)
+ساکن خالی برآمد_opb(صحیح op, صحیح c)
 {
-    out_op1(op);
-    out_byte(c);
+    برآمد_op1(op);
+    برآمد_byte(c);
     fprintf(il_outfile, " %s %d\n", il_opcodes_str[op], c);
 }
 
-static void out_opi(int op, int c)
+ساکن خالی برآمد_opi(صحیح op, صحیح c)
 {
-    out_op1(op);
-    out_le32(c);
+    برآمد_op1(op);
+    برآمد_le32(c);
     fprintf(il_outfile, " %s 0x%x\n", il_opcodes_str[op], c);
 }
 
 /* XXX: not complete */
-static void il_type_to_str(char *buf, int buf_size, 
-                           int t, const char *varstr)
+ساکن خالی il_type_مقصد_str(حرف *buf, صحیح buf_سائز, 
+                           صحیح t, ثابت حرف *varstr)
 {
-    int bt;
+    صحیح bt;
     Sym *s, *sa;
-    char buf1[256];
-    const char *tstr;
+    حرف buf1[256];
+    ثابت حرف *tstr;
 
     t = t & VT_TYPE;
     bt = t & VT_BTYPE;
     buf[0] = '\0';
-    if (t & VT_UNSIGNED)
-        pstrcat(buf, buf_size, "unsigned ");
-    switch(bt) {
-    case VT_VOID:
+    اگر (t & VT_UNSIGNED)
+        pstrcat(buf, buf_سائز, "unsigned ");
+    انتخاب(bt) {
+    حالت VT_VOID:
         tstr = "void";
-        goto add_tstr;
-    case VT_BOOL:
+        جاؤ جوڑو_tstr;
+    حالت VT_BOOL:
         tstr = "bool";
-        goto add_tstr;
-    case VT_BYTE:
+        جاؤ جوڑو_tstr;
+    حالت VT_BYTE:
         tstr = "int8";
-        goto add_tstr;
-    case VT_SHORT:
+        جاؤ جوڑو_tstr;
+    حالت VT_SHORT:
         tstr = "int16";
-        goto add_tstr;
-    case VT_ENUM:
-    case VT_INT:
-    case VT_LONG:
+        جاؤ جوڑو_tstr;
+    حالت VT_ENUM:
+    حالت VT_INT:
+    حالت VT_LONG:
         tstr = "int32";
-        goto add_tstr;
-    case VT_LLONG:
+        جاؤ جوڑو_tstr;
+    حالت VT_LLONG:
         tstr = "int64";
-        goto add_tstr;
-    case VT_FLOAT:
+        جاؤ جوڑو_tstr;
+    حالت VT_FLOAT:
         tstr = "float32";
-        goto add_tstr;
-    case VT_DOUBLE:
-    case VT_LDOUBLE:
+        جاؤ جوڑو_tstr;
+    حالت VT_DOUBLE:
+    حالت VT_LDOUBLE:
         tstr = "float64";
-    add_tstr:
-        pstrcat(buf, buf_size, tstr);
-        break;
-    case VT_STRUCT:
+    جوڑو_tstr:
+        pstrcat(buf, buf_سائز, tstr);
+        توڑو;
+    حالت VT_STRUCT:
         tcc_error("structures not handled yet");
-        break;
-    case VT_FUNC:
-        s = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
-        il_type_to_str(buf, buf_size, s->t, varstr);
-        pstrcat(buf, buf_size, "(");
-        sa = s->next;
-        while (sa != NULL) {
-            il_type_to_str(buf1, sizeof(buf1), sa->t, NULL);
-            pstrcat(buf, buf_size, buf1);
-            sa = sa->next;
-            if (sa)
-                pstrcat(buf, buf_size, ", ");
+        توڑو;
+    حالت VT_FUNC:
+        s = sym_ڈھونڈو((غیرعلامتی)t >> VT_STRUCT_سرکاؤ);
+        il_type_مقصد_str(buf, buf_سائز, s->t, varstr);
+        pstrcat(buf, buf_سائز, "(");
+        sa = s->اگلا;
+        جب (sa != تہی) {
+            il_type_مقصد_str(buf1, حجم(buf1), sa->t, تہی);
+            pstrcat(buf, buf_سائز, buf1);
+            sa = sa->اگلا;
+            اگر (sa)
+                pstrcat(buf, buf_سائز, ", ");
         }
-        pstrcat(buf, buf_size, ")");
-        goto no_var;
-    case VT_PTR:
-        s = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
-        pstrcpy(buf1, sizeof(buf1), "*");
-        if (varstr)
-            pstrcat(buf1, sizeof(buf1), varstr);
-        il_type_to_str(buf, buf_size, s->t, buf1);
-        goto no_var;
+        pstrcat(buf, buf_سائز, ")");
+        جاؤ no_var;
+    حالت VT_PTR:
+        s = sym_ڈھونڈو((غیرعلامتی)t >> VT_STRUCT_سرکاؤ);
+        pstrcpy(buf1, حجم(buf1), "*");
+        اگر (varstr)
+            pstrcat(buf1, حجم(buf1), varstr);
+        il_type_مقصد_str(buf, buf_سائز, s->t, buf1);
+        جاؤ no_var;
     }
-    if (varstr) {
-        pstrcat(buf, buf_size, " ");
-        pstrcat(buf, buf_size, varstr);
+    اگر (varstr) {
+        pstrcat(buf, buf_سائز, " ");
+        pstrcat(buf, buf_سائز, varstr);
     }
  no_var: ;
 }
 
 
 /* patch relocation entry with value 'val' */
-void greloc_patch1(Reloc *p, int val)
+خالی greloc_patch1(Reloc *p, صحیح val)
 {
 }
 
 /* output a symbol and patch all calls to it */
-void gsym_addr(t, a)
+خالی gsym_addr(t, a)
 {
 }
 
 /* output jump and return symbol */
-static int out_opj(int op, int c)
+ساکن صحیح برآمد_opj(صحیح op, صحیح c)
 {
-    out_op1(op);
-    out_le32(0);
-    if (c == 0) {
-        c = ind - (int)cur_text_section->data;
+    برآمد_op1(op);
+    برآمد_le32(0);
+    اگر (c == 0) {
+        c = ind - (صحیح)cur_متن_section->ڈیٹا;
     }
     fprintf(il_outfile, " %s L%d\n", il_opcodes_str[op], c);
-    return c;
+    واپس c;
 }
 
-void gsym(int t)
+خالی gsym(صحیح t)
 {
     fprintf(il_outfile, "L%d:\n", t);
 }
 
 /* load 'r' from value 'sv' */
-void load(int r, SValue *sv)
+خالی بھرو(صحیح r, SValue *sv)
 {
-    int v, fc, ft;
+    صحیح v, fc, ft;
 
     v = sv->r & VT_VALMASK;
     fc = sv->c.i;
     ft = sv->t;
 
-    if (sv->r & VT_LVAL) {
-        if (v == VT_LOCAL) {
-            if (fc >= ARG_BASE) {
-                fc -= ARG_BASE;
-                if (fc >= 0 && fc <= 4) {
-                    out_op(IL_OP_LDARG_0 + fc);
-                } else if (fc <= 0xff) {
-                    out_opb(IL_OP_LDARG_S, fc);
-                } else {
-                    out_opi(IL_OP_LDARG, fc);
+    اگر (sv->r & VT_LVAL) {
+        اگر (v == VT_LOCAL) {
+            اگر (fc >= ARG_بنیاد) {
+                fc -= ARG_بنیاد;
+                اگر (fc >= 0 && fc <= 4) {
+                    برآمد_op(IL_OP_LDARG_0 + fc);
+                } ورنہ اگر (fc <= 0xff) {
+                    برآمد_opb(IL_OP_LDARG_S, fc);
+                } ورنہ {
+                    برآمد_opi(IL_OP_LDARG, fc);
                 }
-            } else {
-                if (fc >= 0 && fc <= 4) {
-                    out_op(IL_OP_LDLOC_0 + fc);
-                } else if (fc <= 0xff) {
-                    out_opb(IL_OP_LDLOC_S, fc);
-                } else {
-                    out_opi(IL_OP_LDLOC, fc);
+            } ورنہ {
+                اگر (fc >= 0 && fc <= 4) {
+                    برآمد_op(IL_OP_LDLOC_0 + fc);
+                } ورنہ اگر (fc <= 0xff) {
+                    برآمد_opb(IL_OP_LDLOC_S, fc);
+                } ورنہ {
+                    برآمد_opi(IL_OP_LDLOC, fc);
                 }
             }
-        } else if (v == VT_CONST) {
+        } ورنہ اگر (v == VT_CONST) {
                 /* XXX: handle globals */
-                out_opi(IL_OP_LDSFLD, 0);
-        } else {
-            if ((ft & VT_BTYPE) == VT_FLOAT) {
-                out_op(IL_OP_LDIND_R4);
-            } else if ((ft & VT_BTYPE) == VT_DOUBLE) {
-                out_op(IL_OP_LDIND_R8);
-            } else if ((ft & VT_BTYPE) == VT_LDOUBLE) {
-                out_op(IL_OP_LDIND_R8);
-            } else if ((ft & VT_TYPE) == VT_BYTE)
-                out_op(IL_OP_LDIND_I1);
-            else if ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED))
-                out_op(IL_OP_LDIND_U1);
-            else if ((ft & VT_TYPE) == VT_SHORT)
-                out_op(IL_OP_LDIND_I2);
-            else if ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED))
-                out_op(IL_OP_LDIND_U2);
-            else
-                out_op(IL_OP_LDIND_I4);
+                برآمد_opi(IL_OP_LDSFLD, 0);
+        } ورنہ {
+            اگر ((ft & VT_BTYPE) == VT_FLOAT) {
+                برآمد_op(IL_OP_LDIND_R4);
+            } ورنہ اگر ((ft & VT_BTYPE) == VT_DOUBLE) {
+                برآمد_op(IL_OP_LDIND_R8);
+            } ورنہ اگر ((ft & VT_BTYPE) == VT_LDOUBLE) {
+                برآمد_op(IL_OP_LDIND_R8);
+            } ورنہ اگر ((ft & VT_TYPE) == VT_BYTE)
+                برآمد_op(IL_OP_LDIND_I1);
+            ورنہ اگر ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED))
+                برآمد_op(IL_OP_LDIND_U1);
+            ورنہ اگر ((ft & VT_TYPE) == VT_SHORT)
+                برآمد_op(IL_OP_LDIND_I2);
+            ورنہ اگر ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED))
+                برآمد_op(IL_OP_LDIND_U2);
+            ورنہ
+                برآمد_op(IL_OP_LDIND_I4);
         } 
-    } else {
-        if (v == VT_CONST) {
+    } ورنہ {
+        اگر (v == VT_CONST) {
             /* XXX: handle globals */
-            if (fc >= -1 && fc <= 8) {
-                out_op(IL_OP_LDC_I4_M1 + fc + 1); 
-            } else {
-                out_opi(IL_OP_LDC_I4, fc);
+            اگر (fc >= -1 && fc <= 8) {
+                برآمد_op(IL_OP_LDC_I4_M1 + fc + 1); 
+            } ورنہ {
+                برآمد_opi(IL_OP_LDC_I4, fc);
             }
-        } else if (v == VT_LOCAL) {
-            if (fc >= ARG_BASE) {
-                fc -= ARG_BASE;
-                if (fc <= 0xff) {
-                    out_opb(IL_OP_LDARGA_S, fc);
-                } else {
-                    out_opi(IL_OP_LDARGA, fc);
+        } ورنہ اگر (v == VT_LOCAL) {
+            اگر (fc >= ARG_بنیاد) {
+                fc -= ARG_بنیاد;
+                اگر (fc <= 0xff) {
+                    برآمد_opb(IL_OP_LDARGA_S, fc);
+                } ورنہ {
+                    برآمد_opi(IL_OP_LDARGA, fc);
                 }
-            } else {
-                if (fc <= 0xff) {
-                    out_opb(IL_OP_LDLOCA_S, fc);
-                } else {
-                    out_opi(IL_OP_LDLOCA, fc);
+            } ورنہ {
+                اگر (fc <= 0xff) {
+                    برآمد_opb(IL_OP_LDLOCA_S, fc);
+                } ورنہ {
+                    برآمد_opi(IL_OP_LDLOCA, fc);
                 }
             }
-        } else {
+        } ورنہ {
             /* XXX: do it */
         }
     }
 }
 
 /* store register 'r' in lvalue 'v' */
-void store(int r, SValue *sv)
+خالی store(صحیح r, SValue *sv)
 {
-    int v, fc, ft;
+    صحیح v, fc, ft;
 
     v = sv->r & VT_VALMASK;
     fc = sv->c.i;
     ft = sv->t;
-    if (v == VT_LOCAL) {
-        if (fc >= ARG_BASE) {
-            fc -= ARG_BASE;
+    اگر (v == VT_LOCAL) {
+        اگر (fc >= ARG_بنیاد) {
+            fc -= ARG_بنیاد;
             /* XXX: check IL arg store semantics */
-            if (fc <= 0xff) {
-                out_opb(IL_OP_STARG_S, fc);
-            } else {
-                out_opi(IL_OP_STARG, fc);
+            اگر (fc <= 0xff) {
+                برآمد_opb(IL_OP_STARG_S, fc);
+            } ورنہ {
+                برآمد_opi(IL_OP_STARG, fc);
             }
-        } else {
-            if (fc >= 0 && fc <= 4) {
-                out_op(IL_OP_STLOC_0 + fc);
-            } else if (fc <= 0xff) {
-                out_opb(IL_OP_STLOC_S, fc);
-            } else {
-                out_opi(IL_OP_STLOC, fc);
+        } ورنہ {
+            اگر (fc >= 0 && fc <= 4) {
+                برآمد_op(IL_OP_STLOC_0 + fc);
+            } ورنہ اگر (fc <= 0xff) {
+                برآمد_opb(IL_OP_STLOC_S, fc);
+            } ورنہ {
+                برآمد_opi(IL_OP_STLOC, fc);
             }
         }
-    } else if (v == VT_CONST) {
+    } ورنہ اگر (v == VT_CONST) {
         /* XXX: handle globals */
-        out_opi(IL_OP_STSFLD, 0);
-    } else {
-        if ((ft & VT_BTYPE) == VT_FLOAT)
-            out_op(IL_OP_STIND_R4);
-        else if ((ft & VT_BTYPE) == VT_DOUBLE)
-            out_op(IL_OP_STIND_R8);
-        else if ((ft & VT_BTYPE) == VT_LDOUBLE)
-            out_op(IL_OP_STIND_R8);
-        else if ((ft & VT_BTYPE) == VT_BYTE)
-            out_op(IL_OP_STIND_I1);
-        else if ((ft & VT_BTYPE) == VT_SHORT)
-            out_op(IL_OP_STIND_I2);
-        else
-            out_op(IL_OP_STIND_I4);
+        برآمد_opi(IL_OP_STSFLD, 0);
+    } ورنہ {
+        اگر ((ft & VT_BTYPE) == VT_FLOAT)
+            برآمد_op(IL_OP_STIND_R4);
+        ورنہ اگر ((ft & VT_BTYPE) == VT_DOUBLE)
+            برآمد_op(IL_OP_STIND_R8);
+        ورنہ اگر ((ft & VT_BTYPE) == VT_LDOUBLE)
+            برآمد_op(IL_OP_STIND_R8);
+        ورنہ اگر ((ft & VT_BTYPE) == VT_BYTE)
+            برآمد_op(IL_OP_STIND_I1);
+        ورنہ اگر ((ft & VT_BTYPE) == VT_SHORT)
+            برآمد_op(IL_OP_STIND_I2);
+        ورنہ
+            برآمد_op(IL_OP_STIND_I4);
     }
 }
 
 /* start function call and return function call context */
-void gfunc_start(GFuncContext *c, int func_call)
+خالی gfunc_آغاز(GFuncContext *c, صحیح func_call)
 {
     c->func_call = func_call;
 }
 
 /* push function parameter which is in (vtop->t, vtop->c). Stack entry
    is then popped. */
-void gfunc_param(GFuncContext *c)
+خالی gfunc_param(GFuncContext *c)
 {
-    if ((vtop->t & VT_BTYPE) == VT_STRUCT) {
+    اگر ((vtop->t & VT_BTYPE) == VT_STRUCT) {
         tcc_error("structures passed as value not handled yet");
-    } else {
+    } ورنہ {
         /* simply push on stack */
         gv(RC_ST0);
     }
@@ -399,211 +399,211 @@ void gfunc_param(GFuncContext *c)
 
 /* generate function call with address in (vtop->t, vtop->c) and free function
    context. Stack entry is popped */
-void gfunc_call(GFuncContext *c)
+خالی gfunc_call(GFuncContext *c)
 {
-    char buf[1024];
+    حرف buf[1024];
 
-    if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+    اگر ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
         /* XXX: more info needed from tcc */
-        il_type_to_str(buf, sizeof(buf), vtop->t, "xxx");
+        il_type_مقصد_str(buf, حجم(buf), vtop->t, "xxx");
         fprintf(il_outfile, " call %s\n", buf);
-    } else {
+    } ورنہ {
         /* indirect call */
         gv(RC_INT);
-        il_type_to_str(buf, sizeof(buf), vtop->t, NULL);
+        il_type_مقصد_str(buf, حجم(buf), vtop->t, تہی);
         fprintf(il_outfile, " calli %s\n", buf);
     }
     vtop--;
 }
 
 /* generate function prolog of type 't' */
-void gfunc_prolog(int t)
+خالی gfunc_prolog(صحیح t)
 {
-    int addr, u, func_call;
+    صحیح addr, u, func_call;
     Sym *sym;
-    char buf[1024];
+    حرف buf[1024];
 
     init_outfile();
 
     /* XXX: pass function name to gfunc_prolog */
-    il_type_to_str(buf, sizeof(buf), t, funcname);
+    il_type_مقصد_str(buf, حجم(buf), t, funcname);
     fprintf(il_outfile, ".method static %s il managed\n", buf);
     fprintf(il_outfile, "{\n");
     /* XXX: cannot do better now */
     fprintf(il_outfile, " .maxstack %d\n", NB_REGS);
     fprintf(il_outfile, " .locals (int32, int32, int32, int32, int32, int32, int32, int32)\n");
     
-    if (!strcmp(funcname, "main"))
+    اگر (!strcmp(funcname, "main"))
         fprintf(il_outfile, " .entrypoint\n");
         
-    sym = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
+    sym = sym_ڈھونڈو((غیرعلامتی)t >> VT_STRUCT_سرکاؤ);
     func_call = sym->r;
 
-    addr = ARG_BASE;
+    addr = ARG_بنیاد;
     /* if the function returns a structure, then add an
        implicit pointer parameter */
     func_vt = sym->t;
     func_var = (sym->c == FUNC_ELLIPSIS);
-    if ((func_vt & VT_BTYPE) == VT_STRUCT) {
+    اگر ((func_vt & VT_BTYPE) == VT_STRUCT) {
         func_vc = addr;
         addr++;
     }
     /* define parameters */
-    while ((sym = sym->next) != NULL) {
+    جب ((sym = sym->اگلا) != تہی) {
         u = sym->t;
-        sym_push(sym->v & ~SYM_FIELD, u,
+        sym_ڈالو(sym->v & ~SYM_میدان, u,
                  VT_LOCAL | lvalue_type(sym->type.t), addr);
         addr++;
     }
 }
 
 /* generate function epilog */
-void gfunc_epilog(void)
+خالی gfunc_epilog(خالی)
 {
-    out_op(IL_OP_RET);
+    برآمد_op(IL_OP_RET);
     fprintf(il_outfile, "}\n\n");
 }
 
 /* generate a jump to a label */
-int gjmp(int t)
+صحیح gjmp(صحیح t)
 {
-    return out_opj(IL_OP_BR, t);
+    واپس برآمد_opj(IL_OP_BR, t);
 }
 
 /* generate a jump to a fixed address */
-void gjmp_addr(int a)
+خالی gjmp_addr(صحیح a)
 {
     /* XXX: handle syms */
-    out_opi(IL_OP_BR, a);
+    برآمد_opi(IL_OP_BR, a);
 }
 
 /* generate a test. set 'inv' to invert test. Stack entry is popped */
-int gtst(int inv, int t)
+صحیح gtst(صحیح inv, صحیح t)
 {
-    int v, *p, c;
+    صحیح v, *p, c;
 
     v = vtop->r & VT_VALMASK;
-    if (v == VT_CMP) {
+    اگر (v == VT_CMP) {
         c = vtop->c.i ^ inv;
-        switch(c) {
-        case TOK_EQ:
+        انتخاب(c) {
+        حالت TOK_EQ:
             c = IL_OP_BEQ;
-            break;
-        case TOK_NE:
+            توڑو;
+        حالت TOK_NE:
             c = IL_OP_BNE_UN;
-            break;
-        case TOK_LT:
+            توڑو;
+        حالت TOK_LT:
             c = IL_OP_BLT;
-            break;
-        case TOK_LE:
+            توڑو;
+        حالت TOK_LE:
             c = IL_OP_BLE;
-            break;
-        case TOK_GT:
+            توڑو;
+        حالت TOK_GT:
             c = IL_OP_BGT;
-            break;
-        case TOK_GE:
+            توڑو;
+        حالت TOK_GE:
             c = IL_OP_BGE;
-            break;
-        case TOK_ULT:
+            توڑو;
+        حالت TOK_ULT:
             c = IL_OP_BLT_UN;
-            break;
-        case TOK_ULE:
+            توڑو;
+        حالت TOK_ULE:
             c = IL_OP_BLE_UN;
-            break;
-        case TOK_UGT:
+            توڑو;
+        حالت TOK_UGT:
             c = IL_OP_BGT_UN;
-            break;
-        case TOK_UGE:
+            توڑو;
+        حالت TOK_UGE:
             c = IL_OP_BGE_UN;
-            break;
+            توڑو;
         }
-        t = out_opj(c, t);
-    } else if (v == VT_JMP || v == VT_JMPI) {
+        t = برآمد_opj(c, t);
+    } ورنہ اگر (v == VT_JMP || v == VT_JMPI) {
         /* && or || optimization */
-        if ((v & 1) == inv) {
+        اگر ((v & 1) == inv) {
             /* insert vtop->c jump list in t */
             p = &vtop->c.i;
-            while (*p != 0)
-                p = (int *)*p;
+            جب (*p != 0)
+                p = (صحیح *)*p;
             *p = t;
             t = vtop->c.i;
-        } else {
+        } ورنہ {
             t = gjmp(t);
             gsym(vtop->c.i);
         }
     }
     vtop--;
-    return t;
+    واپس t;
 }
 
 /* generate an integer binary operation */
-void gen_opi(int op)
+خالی gen_opi(صحیح op)
 {
     gv2(RC_ST1, RC_ST0);
-    switch(op) {
-    case '+':
-        out_op(IL_OP_ADD);
-        goto std_op;
-    case '-':
-        out_op(IL_OP_SUB);
-        goto std_op;
-    case '&':
-        out_op(IL_OP_AND);
-        goto std_op;
-    case '^':
-        out_op(IL_OP_XOR);
-        goto std_op;
-    case '|':
-        out_op(IL_OP_OR);
-        goto std_op;
-    case '*':
-        out_op(IL_OP_MUL);
-        goto std_op;
-    case TOK_SHL:
-        out_op(IL_OP_SHL);
-        goto std_op;
-    case TOK_SHR:
-        out_op(IL_OP_SHR_UN);
-        goto std_op;
-    case TOK_SAR:
-        out_op(IL_OP_SHR);
-        goto std_op;
-    case '/':
-    case TOK_PDIV:
-        out_op(IL_OP_DIV);
-        goto std_op;
-    case TOK_UDIV:
-        out_op(IL_OP_DIV_UN);
-        goto std_op;
-    case '%':
-        out_op(IL_OP_REM);
-        goto std_op;
-    case TOK_UMOD:
-        out_op(IL_OP_REM_UN);
+    انتخاب(op) {
+    حالت '+':
+        برآمد_op(IL_OP_جوڑو);
+        جاؤ std_op;
+    حالت '-':
+        برآمد_op(IL_OP_SUB);
+        جاؤ std_op;
+    حالت '&':
+        برآمد_op(IL_OP_AND);
+        جاؤ std_op;
+    حالت '^':
+        برآمد_op(IL_OP_XOR);
+        جاؤ std_op;
+    حالت '|':
+        برآمد_op(IL_OP_OR);
+        جاؤ std_op;
+    حالت '*':
+        برآمد_op(IL_OP_MUL);
+        جاؤ std_op;
+    حالت TOK_SHL:
+        برآمد_op(IL_OP_SHL);
+        جاؤ std_op;
+    حالت TOK_SHR:
+        برآمد_op(IL_OP_SHR_UN);
+        جاؤ std_op;
+    حالت TOK_SAR:
+        برآمد_op(IL_OP_SHR);
+        جاؤ std_op;
+    حالت '/':
+    حالت TOK_PDIV:
+        برآمد_op(IL_OP_DIV);
+        جاؤ std_op;
+    حالت TOK_UDIV:
+        برآمد_op(IL_OP_DIV_UN);
+        جاؤ std_op;
+    حالت '%':
+        برآمد_op(IL_OP_REM);
+        جاؤ std_op;
+    حالت TOK_UMOD:
+        برآمد_op(IL_OP_REM_UN);
     std_op:
         vtop--;
         vtop[0].r = REG_ST0;
-        break;
-    case TOK_EQ:
-    case TOK_NE:
-    case TOK_LT:
-    case TOK_LE:
-    case TOK_GT:
-    case TOK_GE:
-    case TOK_ULT:
-    case TOK_ULE:
-    case TOK_UGT:
-    case TOK_UGE:
+        توڑو;
+    حالت TOK_EQ:
+    حالت TOK_NE:
+    حالت TOK_LT:
+    حالت TOK_LE:
+    حالت TOK_GT:
+    حالت TOK_GE:
+    حالت TOK_ULT:
+    حالت TOK_ULE:
+    حالت TOK_UGT:
+    حالت TOK_UGE:
         vtop--;
         vtop[0].r = VT_CMP;
         vtop[0].c.i = op;
-        break;
+        توڑو;
     }
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
    two operands are guaranteed to have the same floating point type */
-void gen_opf(int op)
+خالی gen_opf(صحیح op)
 {
     /* same as integer */
     gen_opi(op);
@@ -611,44 +611,44 @@ void gen_opf(int op)
 
 /* convert integers to fp 't' type. Must handle 'int', 'unsigned int'
    and 'long long' cases. */
-void gen_cvt_itof(int t)
+خالی gen_cvt_itof(صحیح t)
 {
     gv(RC_ST0);
-    if (t == VT_FLOAT)
-        out_op(IL_OP_CONV_R4);
-    else
-        out_op(IL_OP_CONV_R8);
+    اگر (t == VT_FLOAT)
+        برآمد_op(IL_OP_CONV_R4);
+    ورنہ
+        برآمد_op(IL_OP_CONV_R8);
 }
 
 /* convert fp to int 't' type */
 /* XXX: handle long long case */
-void gen_cvt_ftoi(int t)
+خالی gen_cvt_ftoi(صحیح t)
 {
     gv(RC_ST0);
-    switch(t) {
-    case VT_INT | VT_UNSIGNED:
-        out_op(IL_OP_CONV_U4);
-        break;
-    case VT_LLONG:
-        out_op(IL_OP_CONV_I8);
-        break;
-    case VT_LLONG | VT_UNSIGNED:
-        out_op(IL_OP_CONV_U8);
-        break;
-    default:
-        out_op(IL_OP_CONV_I4);
-        break;
+    انتخاب(t) {
+    حالت VT_INT | VT_UNSIGNED:
+        برآمد_op(IL_OP_CONV_U4);
+        توڑو;
+    حالت VT_LLONG:
+        برآمد_op(IL_OP_CONV_I8);
+        توڑو;
+    حالت VT_LLONG | VT_UNSIGNED:
+        برآمد_op(IL_OP_CONV_U8);
+        توڑو;
+    طےشدہ:
+        برآمد_op(IL_OP_CONV_I4);
+        توڑو;
     }
 }
 
 /* convert from one floating point type to another */
-void gen_cvt_ftof(int t)
+خالی gen_cvt_ftof(صحیح t)
 {
     gv(RC_ST0);
-    if (t == VT_FLOAT) {
-        out_op(IL_OP_CONV_R4);
-    } else {
-        out_op(IL_OP_CONV_R8);
+    اگر (t == VT_FLOAT) {
+        برآمد_op(IL_OP_CONV_R4);
+    } ورنہ {
+        برآمد_op(IL_OP_CONV_R8);
     }
 }
 

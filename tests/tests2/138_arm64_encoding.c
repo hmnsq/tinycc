@@ -2,39 +2,39 @@
    Exercises shift-by-immediate, load/store addressing modes,
    conditional branches, and system register access. */
 
-#include <stdio.h>
-#include <stdint.h>
+#شامل <stdio.h>
+#شامل <stdint.h>
 
 /* ---- shift-by-immediate helpers ---- */
 
-static uint32_t lsl32(uint32_t x, int n) { return x << n; }
-static uint32_t lsr32(uint32_t x, int n) { return x >> n; }
-static int32_t  asr32(int32_t  x, int n) { return x >> n; }
-static uint64_t lsl64(uint64_t x, int n) { return x << n; }
-static uint64_t lsr64(uint64_t x, int n) { return x >> n; }
-static int64_t  asr64(int64_t  x, int n) { return x >> n; }
+ساکن uint32_t lsl32(uint32_t x, صحیح n) { واپس x << n; }
+ساکن uint32_t lsr32(uint32_t x, صحیح n) { واپس x >> n; }
+ساکن int32_t  asr32(int32_t  x, صحیح n) { واپس x >> n; }
+ساکن uint64_t lsl64(uint64_t x, صحیح n) { واپس x << n; }
+ساکن uint64_t lsr64(uint64_t x, صحیح n) { واپس x >> n; }
+ساکن int64_t  asr64(int64_t  x, صحیح n) { واپس x >> n; }
 
-static void test_shifts(void)
+ساکن خالی test_shifts(خالی)
 {
-    printf("shift-imm:\n");
-    printf("%x\n", lsl32(1, 0));
-    printf("%x\n", lsl32(1, 15));
-    printf("%x\n", lsl32(1, 31));
-    printf("%x\n", lsr32(0x80000000U, 31));
-    printf("%x\n", lsr32(0x80000000U, 16));
-    printf("%x\n", asr32(-1, 1));
-    printf("%x\n", asr32(-256, 4));
-    printf("%llx\n", (unsigned long long)lsl64(1ULL, 0));
-    printf("%llx\n", (unsigned long long)lsl64(1ULL, 32));
-    printf("%llx\n", (unsigned long long)lsl64(1ULL, 63));
-    printf("%llx\n", (unsigned long long)lsr64(0x8000000000000000ULL, 63));
-    printf("%llx\n", (unsigned long long)asr64(-1LL, 1));
-    printf("%llx\n", (unsigned long long)asr64(-256LL, 4));
+    لکھو("shift-imm:\n");
+    لکھو("%x\n", lsl32(1, 0));
+    لکھو("%x\n", lsl32(1, 15));
+    لکھو("%x\n", lsl32(1, 31));
+    لکھو("%x\n", lsr32(0x80000000U, 31));
+    لکھو("%x\n", lsr32(0x80000000U, 16));
+    لکھو("%x\n", asr32(-1, 1));
+    لکھو("%x\n", asr32(-256, 4));
+    لکھو("%llx\n", (غیرعلامتی طویل طویل)lsl64(1ULL, 0));
+    لکھو("%llx\n", (غیرعلامتی طویل طویل)lsl64(1ULL, 32));
+    لکھو("%llx\n", (غیرعلامتی طویل طویل)lsl64(1ULL, 63));
+    لکھو("%llx\n", (غیرعلامتی طویل طویل)lsr64(0x8000000000000000ULL, 63));
+    لکھو("%llx\n", (غیرعلامتی طویل طویل)asr64(-1LL, 1));
+    لکھو("%llx\n", (غیرعلامتی طویل طویل)asr64(-256LL, 4));
 }
 
 /* ---- load/store with various addressing modes ---- */
 
-static void test_ldr_str(void)
+ساکن خالی test_ldr_str(خالی)
 {
     int64_t buf[4] = { 0x1122334455667788LL, 0x99AABBCCDDEEFF00LL,
                        0x0F1E2D3C4B5A6978LL, 0x0000000000000001LL };
@@ -42,34 +42,34 @@ static void test_ldr_str(void)
     int32_t wval;
     int64_t *p;
 
-    printf("ldr-str:\n");
+    لکھو("ldr-str:\n");
 
     /* LDR X, [Xn, #offset] */
     val = buf[0];
-    printf("%llx\n", (unsigned long long)val);
+    لکھو("%llx\n", (غیرعلامتی طویل طویل)val);
     val = buf[1];
-    printf("%llx\n", (unsigned long long)val);
+    لکھو("%llx\n", (غیرعلامتی طویل طویل)val);
 
     /* LDR W, [Xn, #offset] (32-bit load) */
     wval = *(int32_t*)&buf[0];
-    printf("%x\n", (unsigned)wval);
+    لکھو("%x\n", (غیرعلامتی)wval);
 
     /* Pre-indexed: store pointer, modify */
     p = &buf[0];
     val = *(p + 2);
-    printf("%llx\n", (unsigned long long)val);
+    لکھو("%llx\n", (غیرعلامتی طویل طویل)val);
 
     /* Post-indexed simulation via pointer arithmetic */
     p = &buf[0];
     val = *p;
     p++;
-    printf("%llx %llx\n", (unsigned long long)val,
-           (unsigned long long)*p);
+    لکھو("%llx %llx\n", (غیرعلامتی طویل طویل)val,
+           (غیرعلامتی طویل طویل)*p);
 }
 
 /* ---- STP/LDP (store/load pair) ---- */
 
-static void test_ldp_stp(void)
+ساکن خالی test_ldp_stp(خالی)
 {
     int64_t src[2] = { 0xAAAABBBBCCCCDDDDLL, 0x1111222233334444LL };
     int64_t dst[2];
@@ -78,192 +78,192 @@ static void test_ldp_stp(void)
     dst[0] = src[0];
     dst[1] = src[1];
 
-    printf("ldp-stp:\n");
-    printf("%llx %llx\n",
-           (unsigned long long)dst[0],
-           (unsigned long long)dst[1]);
+    لکھو("ldp-stp:\n");
+    لکھو("%llx %llx\n",
+           (غیرعلامتی طویل طویل)dst[0],
+           (غیرعلامتی طویل طویل)dst[1]);
 }
 
 /* ---- CBZ / CBNZ via C patterns ---- */
 
-static const char *cbz_test(int x)
+ساکن ثابت حرف *cbz_test(صحیح x)
 {
-    if (x == 0)
-        return "zero";
-    return "nonzero";
+    اگر (x == 0)
+        واپس "zero";
+    واپس "nonzero";
 }
 
-static const char *cbnz_test(int x)
+ساکن ثابت حرف *cbnz_test(صحیح x)
 {
-    if (x != 0)
-        return "nonzero";
-    return "zero";
+    اگر (x != 0)
+        واپس "nonzero";
+    واپس "zero";
 }
 
-static void test_cond_branches(void)
+ساکن خالی test_cond_branches(خالی)
 {
-    printf("cbz-cbnz:\n");
-    printf("%s\n", cbz_test(0));
-    printf("%s\n", cbz_test(42));
-    printf("%s\n", cbnz_test(0));
-    printf("%s\n", cbnz_test(42));
+    لکھو("cbz-cbnz:\n");
+    لکھو("%s\n", cbz_test(0));
+    لکھو("%s\n", cbz_test(42));
+    لکھو("%s\n", cbnz_test(0));
+    لکھو("%s\n", cbnz_test(42));
 }
 
 /* ---- conditional compare patterns (CCMP/CCMN) ---- */
 
-static int cond_select(int a, int b)
+ساکن صحیح cond_select(صحیح a, صحیح b)
 {
     /* TCC should generate csel or equivalent */
-    return a > b ? a : b;
+    واپس a > b ? a : b;
 }
 
-static void test_cond_select(void)
+ساکن خالی test_cond_select(خالی)
 {
-    printf("csel:\n");
-    printf("%d\n", cond_select(5, 10));
-    printf("%d\n", cond_select(10, 5));
-    printf("%d\n", cond_select(0, 0));
-    printf("%d\n", cond_select(-1, 1));
+    لکھو("csel:\n");
+    لکھو("%d\n", cond_select(5, 10));
+    لکھو("%d\n", cond_select(10, 5));
+    لکھو("%d\n", cond_select(0, 0));
+    لکھو("%d\n", cond_select(-1, 1));
 }
 
 /* ---- MRS/MSR system registers (FPCR/FPSR) ---- */
 
-static void test_sysregs(void)
+ساکن خالی test_sysregs(خالی)
 {
-    unsigned int fpcr, fpsr;
+    غیرعلامتی صحیح fpcr, fpsr;
 
-    printf("sysregs:\n");
+    لکھو("sysregs:\n");
 
     /* Read FPCR */
-    __asm__ volatile ("mrs %0, fpcr" : "=r"(fpcr));
-    printf("%u\n", fpcr & 0x0F);
+    __asm__ متلون ("mrs %0, fpcr" : "=r"(fpcr));
+    لکھو("%u\n", fpcr & 0x0F);
 
     /* Read FPSR */
-    __asm__ volatile ("mrs %0, fpsr" : "=r"(fpsr));
-    printf("%u\n", fpsr);
+    __asm__ متلون ("mrs %0, fpsr" : "=r"(fpsr));
+    لکھو("%u\n", fpsr);
 
     /* Write/restore FPCR (should be same value) */
-    __asm__ volatile ("msr fpcr, %0" : : "r"(fpcr));
+    __asm__ متلون ("msr fpcr, %0" : : "r"(fpcr));
 
     /* Read back and verify */
     {
-        unsigned int check;
-        __asm__ volatile ("mrs %0, fpcr" : "=r"(check));
-        printf("%s\n", check == fpcr ? "ok" : "fail");
+        غیرعلامتی صحیح check;
+        __asm__ متلون ("mrs %0, fpcr" : "=r"(check));
+        لکھو("%s\n", check == fpcr ? "ok" : "fail");
     }
 }
 
 /* ---- NOP encoding (should not crash) ---- */
 
-static void test_nop(void)
+ساکن خالی test_nop(خالی)
 {
-    printf("nop:\n");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    printf("ok\n");
+    لکھو("nop:\n");
+    __asm__ متلون ("nop");
+    __asm__ متلون ("nop");
+    __asm__ متلون ("nop");
+    لکھو("ok\n");
 }
 
 /* ---- barrier instructions ---- */
 
-static void test_barriers(void)
+ساکن خالی test_barriers(خالی)
 {
-    printf("barriers:\n");
-    __asm__ volatile ("dmb sy");
-    __asm__ volatile ("dsb sy");
-    __asm__ volatile ("isb");
-    printf("ok\n");
+    لکھو("barriers:\n");
+    __asm__ متلون ("dmb sy");
+    __asm__ متلون ("dsb sy");
+    __asm__ متلون ("isb");
+    لکھو("ok\n");
 }
 
 /* ---- MOV (register) patterns ---- */
 
-static int64_t mov_x0_x1(int64_t x)
+ساکن int64_t mov_x0_x1(int64_t x)
 {
-    register int64_t r __asm__("x0") = x;
-    __asm__ volatile ("" : "=r"(r) : "0"(r));
-    return r;
+    اندراج int64_t r __asm__("x0") = x;
+    __asm__ متلون ("" : "=r"(r) : "0"(r));
+    واپس r;
 }
 
-static void test_mov_reg(void)
+ساکن خالی test_mov_reg(خالی)
 {
-    printf("mov-reg:\n");
-    printf("%lld\n", (long long)mov_x0_x1(42));
-    printf("%lld\n", (long long)mov_x0_x1(-1));
+    لکھو("mov-reg:\n");
+    لکھو("%lld\n", (طویل طویل)mov_x0_x1(42));
+    لکھو("%lld\n", (طویل طویل)mov_x0_x1(-1));
 }
 
 /* ---- large struct passing (reference semantics) ---- */
 
-struct large { int64_t a, b, c, d; };
+ساخت large { int64_t a, b, c, d; };
 
-static int64_t sum_large(struct large s)
+ساکن int64_t مجموع_large(ساخت large s)
 {
-    return s.a + s.b + s.c + s.d;
+    واپس s.a + s.b + s.c + s.d;
 }
 
-static struct large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
+ساکن ساخت large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
 {
-    struct large s = { a, b, c, d };
-    return s;
+    ساخت large s = { a, b, c, d };
+    واپس s;
 }
 
-static void test_large_structs(void)
+ساکن خالی test_large_structs(خالی)
 {
-    struct large s = { 1, 2, 3, 4 };
-    struct large t;
+    ساخت large s = { 1, 2, 3, 4 };
+    ساخت large t;
 
-    printf("large-struct:\n");
-    printf("%lld\n", (long long)sum_large(s));
+    لکھو("large-struct:\n");
+    لکھو("%lld\n", (طویل طویل)مجموع_large(s));
 
     t = make_large(10, 20, 30, 40);
-    printf("%lld %lld %lld %lld\n",
-           (long long)t.a, (long long)t.b,
-           (long long)t.c, (long long)t.d);
+    لکھو("%lld %lld %lld %lld\n",
+           (طویل طویل)t.a, (طویل طویل)t.b,
+           (طویل طویل)t.c, (طویل طویل)t.d);
 }
 
 /* ---- boundary-sized structs ---- */
 
-struct s18 { char x[18]; };
-struct s24 { char x[24]; };
-struct s32 { char x[32]; };
+ساخت s18 { حرف x[18]; };
+ساخت s24 { حرف x[24]; };
+ساخت s32 { حرف x[32]; };
 
-static void print_s18(struct s18 s) { printf("%.18s\n", s.x); }
-static void print_s24(struct s24 s) { printf("%.24s\n", s.x); }
-static void print_s32(struct s32 s) { printf("%.32s\n", s.x); }
+ساکن خالی print_s18(ساخت s18 s) { لکھو("%.18s\n", s.x); }
+ساکن خالی print_s24(ساخت s24 s) { لکھو("%.24s\n", s.x); }
+ساکن خالی print_s32(ساخت s32 s) { لکھو("%.32s\n", s.x); }
 
-static struct s18 ret_s18(void)
+ساکن ساخت s18 ret_s18(خالی)
 {
-    struct s18 s = { "123456789012345678" };
-    return s;
+    ساخت s18 s = { "123456789012345678" };
+    واپس s;
 }
 
-static struct s24 ret_s24(void)
+ساکن ساخت s24 ret_s24(خالی)
 {
-    struct s24 s = { "123456789012345678901234" };
-    return s;
+    ساخت s24 s = { "123456789012345678901234" };
+    واپس s;
 }
 
-static struct s32 ret_s32(void)
+ساکن ساخت s32 ret_s32(خالی)
 {
-    struct s32 s = { "12345678901234567890123456789012" };
-    return s;
+    ساخت s32 s = { "12345678901234567890123456789012" };
+    واپس s;
 }
 
-static void test_boundary_structs(void)
+ساکن خالی test_boundary_structs(خالی)
 {
-    struct s18 a;
-    struct s24 b;
-    struct s32 c;
+    ساخت s18 a;
+    ساخت s24 b;
+    ساخت s32 c;
 
-    printf("boundary-structs:\n");
+    لکھو("boundary-structs:\n");
     a = ret_s18();
-    printf("%.18s\n", a.x);
+    لکھو("%.18s\n", a.x);
     b = ret_s24();
-    printf("%.24s\n", b.x);
+    لکھو("%.24s\n", b.x);
     c = ret_s32();
-    printf("%.32s\n", c.x);
+    لکھو("%.32s\n", c.x);
 }
 
-int main(void)
+صحیح مین(خالی)
 {
     test_shifts();
     test_ldr_str();
@@ -276,5 +276,5 @@ int main(void)
     test_mov_reg();
     test_large_structs();
     test_boundary_structs();
-    return 0;
+    واپس 0;
 }

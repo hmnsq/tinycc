@@ -3,170 +3,170 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_WCTYPE
-#define _INC_WCTYPE
+#اگر_غیر_تعریف_شدہ _INC_WCTYPE
+#تعریف_کرو _INC_WCTYPE
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#اگر_غیر_تعریف_شدہ _WIN32
+#غلطی Only Win32 ہدف is supported!
+#اگر_ختم
 
-#include <_mingw.h>
+#شامل <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ہدایت pack(ڈالو,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#اگر_غیر_تعریف_شدہ _CRTIMP
+#تعریف_کرو _CRTIMP __declspec(dllimport)
+#اگر_ختم
 
-#ifndef _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
+#اگر_غیر_تعریف_شدہ _WCHAR_T_DEFINED
+  قسمتعریف غیرعلامتی مختصر wchar_t;
+#تعریف_کرو _WCHAR_T_DEFINED
+#اگر_ختم
 
-#ifndef _WCTYPE_T_DEFINED
-  typedef unsigned short wint_t;
-  typedef unsigned short wctype_t;
-#define _WCTYPE_T_DEFINED
-#endif
+#اگر_غیر_تعریف_شدہ _WCTYPE_T_DEFINED
+  قسمتعریف غیرعلامتی مختصر wint_t;
+  قسمتعریف غیرعلامتی مختصر wctype_t;
+#تعریف_کرو _WCTYPE_T_DEFINED
+#اگر_ختم
 
-#ifndef WEOF
-#define WEOF (wint_t)(0xFFFF)
-#endif
+#اگر_غیر_تعریف_شدہ WEOF
+#تعریف_کرو WEOF (wint_t)(0xFFFF)
+#اگر_ختم
 
-#ifndef _CRT_CTYPEDATA_DEFINED
-#define _CRT_CTYPEDATA_DEFINED
-#ifndef _CTYPE_DISABLE_MACROS
+#اگر_غیر_تعریف_شدہ _CRT_CTYPEDATA_DEFINED
+#تعریف_کرو _CRT_CTYPEDATA_DEFINED
+#اگر_غیر_تعریف_شدہ _CTYPE_DISABLE_MACROS
 
-#ifndef __PCTYPE_FUNC
-#define __PCTYPE_FUNC __pctype_func()
-#ifdef _MSVCRT_
-#define __pctype_func() (_pctype)
-#else
-#define __pctype_func() (*_imp___pctype)
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ __PCTYPE_FUNC
+#تعریف_کرو __PCTYPE_FUNC __pctype_func()
+#اگر_تعریف_شدہ _MSVCRT_
+#تعریف_کرو __pctype_func() (_pctype)
+#ورنہ
+#تعریف_کرو __pctype_func() (*_imp___pctype)
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _pctype
-#ifdef _MSVCRT_
-  extern unsigned short *_pctype;
-#else
-  extern unsigned short **_imp___pctype;
-#define _pctype (*_imp___pctype)
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _pctype
+#اگر_تعریف_شدہ _MSVCRT_
+  خارجی غیرعلامتی مختصر *_pctype;
+#ورنہ
+  خارجی غیرعلامتی مختصر **_imp___pctype;
+#تعریف_کرو _pctype (*_imp___pctype)
+#اگر_ختم
+#اگر_ختم
 
-#endif
-#endif
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _CRT_WCTYPEDATA_DEFINED
-#define _CRT_WCTYPEDATA_DEFINED
-#ifndef _CTYPE_DISABLE_MACROS
-#ifndef _wctype
-#ifdef _MSVCRT_
-  extern unsigned short *_wctype;
-#else
-  extern unsigned short **_imp___wctype;
-#define _wctype (*_imp___wctype)
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _CRT_WCTYPEDATA_DEFINED
+#تعریف_کرو _CRT_WCTYPEDATA_DEFINED
+#اگر_غیر_تعریف_شدہ _CTYPE_DISABLE_MACROS
+#اگر_غیر_تعریف_شدہ _wctype
+#اگر_تعریف_شدہ _MSVCRT_
+  خارجی غیرعلامتی مختصر *_wctype;
+#ورنہ
+  خارجی غیرعلامتی مختصر **_imp___wctype;
+#تعریف_کرو _wctype (*_imp___wctype)
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _pwctype
-#ifdef _MSVCRT_
-  extern unsigned short *_pwctype;
-#else
-  extern unsigned short **_imp___pwctype;
-#define _pwctype (*_imp___pwctype)
-#define __pwctype_func() (*_imp___pwctype)
-#endif
-#endif
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _pwctype
+#اگر_تعریف_شدہ _MSVCRT_
+  خارجی غیرعلامتی مختصر *_pwctype;
+#ورنہ
+  خارجی غیرعلامتی مختصر **_imp___pwctype;
+#تعریف_کرو _pwctype (*_imp___pwctype)
+#تعریف_کرو __pwctype_func() (*_imp___pwctype)
+#اگر_ختم
+#اگر_ختم
+#اگر_ختم
+#اگر_ختم
 
-#define _UPPER 0x1
-#define _LOWER 0x2
-#define _DIGIT 0x4
-#define _SPACE 0x8
+#تعریف_کرو بالائی_3 0x1
+#تعریف_کرو زیریں_2 0x2
+#تعریف_کرو _DIGIT 0x4
+#تعریف_کرو _SPACE 0x8
 
-#define _PUNCT 0x10
-#define _CONTROL 0x20
-#define _BLANK 0x40
-#define _HEX 0x80
+#تعریف_کرو _PUNCT 0x10
+#تعریف_کرو _CONTROL 0x20
+#تعریف_کرو _BLANK 0x40
+#تعریف_کرو _HEX 0x80
 
-#define _LEADBYTE 0x8000
-#define _ALPHA (0x0100|_UPPER|_LOWER)
+#تعریف_کرو _LEADBYTE 0x8000
+#تعریف_کرو _ALPHA (0x0100|بالائی_3|زیریں_2)
 
-#ifndef _WCTYPE_DEFINED
-#define _WCTYPE_DEFINED
+#اگر_غیر_تعریف_شدہ _WCTYPE_DEFINED
+#تعریف_کرو _WCTYPE_DEFINED
 
-  int __cdecl iswalpha(wint_t);
-  int __cdecl iswupper(wint_t);
-  int __cdecl iswlower(wint_t);
-  int __cdecl iswdigit(wint_t);
-  int __cdecl iswxdigit(wint_t);
-  int __cdecl iswspace(wint_t);
-  int __cdecl iswpunct(wint_t);
-  int __cdecl iswalnum(wint_t);
-  int __cdecl iswprint(wint_t);
-  int __cdecl iswgraph(wint_t);
-  int __cdecl iswcntrl(wint_t);
-  int __cdecl iswascii(wint_t);
-  int __cdecl isleadbyte(int);
+  صحیح __cdecl iswalpha(wint_t);
+  صحیح __cdecl iswupper(wint_t);
+  صحیح __cdecl iswlower(wint_t);
+  صحیح __cdecl iswdigit(wint_t);
+  صحیح __cdecl iswxdigit(wint_t);
+  صحیح __cdecl iswspace(wint_t);
+  صحیح __cdecl iswpunct(wint_t);
+  صحیح __cdecl iswalnum(wint_t);
+  صحیح __cdecl iswprint(wint_t);
+  صحیح __cdecl iswgraph(wint_t);
+  صحیح __cdecl iswcntrl(wint_t);
+  صحیح __cdecl iswascii(wint_t);
+  صحیح __cdecl isleadbyte(صحیح);
   wint_t __cdecl towupper(wint_t);
   wint_t __cdecl towlower(wint_t);
-  int __cdecl iswctype(wint_t,wctype_t);
-  _CRTIMP int __cdecl __iswcsymf(wint_t);
-  _CRTIMP int __cdecl __iswcsym(wint_t);
-  int __cdecl is_wctype(wint_t,wctype_t);
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl isblank(int _C);
-#endif
-#endif
+  صحیح __cdecl iswctype(wint_t,wctype_t);
+  _CRTIMP صحیح __cdecl __iswcsymf(wint_t);
+  _CRTIMP صحیح __cdecl __iswcsym(wint_t);
+  صحیح __cdecl is_wctype(wint_t,wctype_t);
+#اگر (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+صحیح __cdecl isblank(صحیح _C);
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _WCTYPE_INLINE_DEFINED
-#define _WCTYPE_INLINE_DEFINED
-#ifndef __cplusplus
-#define iswalpha(_c) (iswctype(_c,_ALPHA))
-#define iswupper(_c) (iswctype(_c,_UPPER))
-#define iswlower(_c) (iswctype(_c,_LOWER))
-#define iswdigit(_c) (iswctype(_c,_DIGIT))
-#define iswxdigit(_c) (iswctype(_c,_HEX))
-#define iswspace(_c) (iswctype(_c,_SPACE))
-#define iswpunct(_c) (iswctype(_c,_PUNCT))
-#define iswalnum(_c) (iswctype(_c,_ALPHA|_DIGIT))
-#define iswprint(_c) (iswctype(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT))
-#define iswgraph(_c) (iswctype(_c,_PUNCT|_ALPHA|_DIGIT))
-#define iswcntrl(_c) (iswctype(_c,_CONTROL))
-#define iswascii(_c) ((unsigned)(_c) < 0x80)
-#define isleadbyte(c) (__pctype_func()[(unsigned char)(c)] & _LEADBYTE)
-#else
-  __CRT_INLINE int __cdecl iswalpha(wint_t _C) {return (iswctype(_C,_ALPHA)); }
-  __CRT_INLINE int __cdecl iswupper(wint_t _C) {return (iswctype(_C,_UPPER)); }
-  __CRT_INLINE int __cdecl iswlower(wint_t _C) {return (iswctype(_C,_LOWER)); }
-  __CRT_INLINE int __cdecl iswdigit(wint_t _C) {return (iswctype(_C,_DIGIT)); }
-  __CRT_INLINE int __cdecl iswxdigit(wint_t _C) {return (iswctype(_C,_HEX)); }
-  __CRT_INLINE int __cdecl iswspace(wint_t _C) {return (iswctype(_C,_SPACE)); }
-  __CRT_INLINE int __cdecl iswpunct(wint_t _C) {return (iswctype(_C,_PUNCT)); }
-  __CRT_INLINE int __cdecl iswalnum(wint_t _C) {return (iswctype(_C,_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswprint(wint_t _C) {return (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswgraph(wint_t _C) {return (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswcntrl(wint_t _C) {return (iswctype(_C,_CONTROL)); }
-  __CRT_INLINE int __cdecl iswascii(wint_t _C) {return ((unsigned)(_C) < 0x80); }
-  __CRT_INLINE int __cdecl isleadbyte(int _C) {return (__pctype_func()[(unsigned char)(_C)] & _LEADBYTE); }
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _WCTYPE_INLINE_DEFINED
+#تعریف_کرو _WCTYPE_INLINE_DEFINED
+#اگر_غیر_تعریف_شدہ __cplusplus
+#تعریف_کرو iswalpha(_c) (iswctype(_c,_ALPHA))
+#تعریف_کرو iswupper(_c) (iswctype(_c,بالائی_3))
+#تعریف_کرو iswlower(_c) (iswctype(_c,زیریں_2))
+#تعریف_کرو iswdigit(_c) (iswctype(_c,_DIGIT))
+#تعریف_کرو iswxdigit(_c) (iswctype(_c,_HEX))
+#تعریف_کرو iswspace(_c) (iswctype(_c,_SPACE))
+#تعریف_کرو iswpunct(_c) (iswctype(_c,_PUNCT))
+#تعریف_کرو iswalnum(_c) (iswctype(_c,_ALPHA|_DIGIT))
+#تعریف_کرو iswprint(_c) (iswctype(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT))
+#تعریف_کرو iswgraph(_c) (iswctype(_c,_PUNCT|_ALPHA|_DIGIT))
+#تعریف_کرو iswcntrl(_c) (iswctype(_c,_CONTROL))
+#تعریف_کرو iswascii(_c) ((غیرعلامتی)(_c) < 0x80)
+#تعریف_کرو isleadbyte(c) (__pctype_func()[(غیرعلامتی حرف)(c)] & _LEADBYTE)
+#ورنہ
+  __CRT_INLINE صحیح __cdecl iswalpha(wint_t _C) {واپس (iswctype(_C,_ALPHA)); }
+  __CRT_INLINE صحیح __cdecl iswupper(wint_t _C) {واپس (iswctype(_C,بالائی_3)); }
+  __CRT_INLINE صحیح __cdecl iswlower(wint_t _C) {واپس (iswctype(_C,زیریں_2)); }
+  __CRT_INLINE صحیح __cdecl iswdigit(wint_t _C) {واپس (iswctype(_C,_DIGIT)); }
+  __CRT_INLINE صحیح __cdecl iswxdigit(wint_t _C) {واپس (iswctype(_C,_HEX)); }
+  __CRT_INLINE صحیح __cdecl iswspace(wint_t _C) {واپس (iswctype(_C,_SPACE)); }
+  __CRT_INLINE صحیح __cdecl iswpunct(wint_t _C) {واپس (iswctype(_C,_PUNCT)); }
+  __CRT_INLINE صحیح __cdecl iswalnum(wint_t _C) {واپس (iswctype(_C,_ALPHA|_DIGIT)); }
+  __CRT_INLINE صحیح __cdecl iswprint(wint_t _C) {واپس (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE صحیح __cdecl iswgraph(wint_t _C) {واپس (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE صحیح __cdecl iswcntrl(wint_t _C) {واپس (iswctype(_C,_CONTROL)); }
+  __CRT_INLINE صحیح __cdecl iswascii(wint_t _C) {واپس ((غیرعلامتی)(_C) < 0x80); }
+  __CRT_INLINE صحیح __cdecl isleadbyte(صحیح _C) {واپس (__pctype_func()[(غیرعلامتی حرف)(_C)] & _LEADBYTE); }
+#اگر_ختم
+#اگر_ختم
 
-  typedef wchar_t wctrans_t;
+  قسمتعریف wchar_t wctrans_t;
   wint_t __cdecl towctrans(wint_t,wctrans_t);
-  wctrans_t __cdecl wctrans(const char *);
-  wctype_t __cdecl wctype(const char *);
+  wctrans_t __cdecl wctrans(ثابت حرف *);
+  wctype_t __cdecl wctype(ثابت حرف *);
 
-#ifdef __cplusplus
+#اگر_تعریف_شدہ __cplusplus
 }
-#endif
+#اگر_ختم
 
-#pragma pack(pop)
-#endif
+#ہدایت pack(نکالو)
+#اگر_ختم

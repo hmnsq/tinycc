@@ -1,132 +1,132 @@
-#include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "threads.h"
-#include <stdatomic.h>
+#شامل <stddef.h>
+#شامل <stdint.h>
+#شامل <stdlib.h>
+#شامل <stdio.h>
+#شامل "threads.h"
+#شامل <stdatomic.h>
 
-#define NR_THREADS 16
-#define NR_STEPS 10000
+#تعریف_کرو NR_دھاگے 16
+#تعریف_کرو NR_اقدام 10000
 
-#define BUG_ON(COND) \
-    do { \
-        if (!!(COND)) \
+#تعریف_کرو BUG_ON(COND) \
+    کرو { \
+        اگر (!!(COND)) \
             abort(); \
-    } while (0)
+    } جب (0)
 
-typedef struct {
+قسمتعریف ساخت {
     atomic_flag flag;
     atomic_uchar uc;
     atomic_ushort us;
     atomic_uint ui;
     atomic_size_t ul;
-} counter_type;
+} شمار_type;
 
-static
-void *adder_simple(void *arg)
+ساکن
+خالی *adder_simple(خالی *arg)
 {
-    size_t step;
-    counter_type *counter = arg;
+    سائز_t قدم;
+    شمار_type *شمار_2 = arg;
 
-    for (step = 0; step < NR_STEPS; ++step) {
-        atomic_fetch_add_explicit(&counter->uc, 1, memory_order_relaxed);
-        atomic_fetch_add_explicit(&counter->us, 1, memory_order_relaxed);
-        atomic_fetch_add_explicit(&counter->ui, 1, memory_order_relaxed);
-        atomic_fetch_add_explicit(&counter->ul, 1, memory_order_relaxed);
+    برائے (قدم = 0; قدم < NR_اقدام; ++قدم) {
+        atomic_fetch_add_explicit(&شمار_2->uc, 1, memory_order_relaxed);
+        atomic_fetch_add_explicit(&شمار_2->us, 1, memory_order_relaxed);
+        atomic_fetch_add_explicit(&شمار_2->ui, 1, memory_order_relaxed);
+        atomic_fetch_add_explicit(&شمار_2->ul, 1, memory_order_relaxed);
     }
 
-    return NULL;
+    واپس تہی;
 }
 
-static
-void *adder_cmpxchg(void *arg)
+ساکن
+خالی *adder_cmpxchg(خالی *arg)
 {
-    size_t step;
-    counter_type *counter = arg;
+    سائز_t قدم;
+    شمار_type *شمار_2 = arg;
 
-    for (step = 0; step < NR_STEPS; ++step) {
-        unsigned char xchgc;
-        unsigned short xchgs;
-        unsigned int xchgi;
-        size_t xchgl;
-        unsigned char cmpc = atomic_load_explicit(&counter->uc, memory_order_relaxed);
-        unsigned short cmps = atomic_load_explicit(&counter->us, memory_order_relaxed);
-        unsigned int cmpi = atomic_load_explicit(&counter->ui, memory_order_relaxed);
-        size_t cmpl = atomic_load_explicit(&counter->ul, memory_order_relaxed);
+    برائے (قدم = 0; قدم < NR_اقدام; ++قدم) {
+        غیرعلامتی حرف xchgc;
+        غیرعلامتی مختصر xchgs;
+        غیرعلامتی صحیح xchgi;
+        سائز_t xchgl;
+        غیرعلامتی حرف cmpc = atomic_load_explicit(&شمار_2->uc, memory_order_relaxed);
+        غیرعلامتی مختصر cmps = atomic_load_explicit(&شمار_2->us, memory_order_relaxed);
+        غیرعلامتی صحیح cmpi = atomic_load_explicit(&شمار_2->ui, memory_order_relaxed);
+        سائز_t cmpl = atomic_load_explicit(&شمار_2->ul, memory_order_relaxed);
 
-        do {
+        کرو {
             xchgc = (cmpc + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->uc,
+        } جب (!atomic_compare_exchange_strong_explicit(&شمار_2->uc,
             &cmpc, xchgc, memory_order_relaxed, memory_order_relaxed));
-        do {
+        کرو {
             xchgs = (cmps + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->us,
+        } جب (!atomic_compare_exchange_strong_explicit(&شمار_2->us,
             &cmps, xchgs, memory_order_relaxed, memory_order_relaxed));
-        do {
+        کرو {
             xchgi = (cmpi + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->ui,
+        } جب (!atomic_compare_exchange_strong_explicit(&شمار_2->ui,
             &cmpi, xchgi, memory_order_relaxed, memory_order_relaxed));
-        do {
+        کرو {
             xchgl = (cmpl + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->ul,
+        } جب (!atomic_compare_exchange_strong_explicit(&شمار_2->ul,
             &cmpl, xchgl, memory_order_relaxed, memory_order_relaxed));
     }
 
-    return NULL;
+    واپس تہی;
 }
 
-static
-void *adder_test_and_set(void *arg)
+ساکن
+خالی *adder_test_and_سیٹ(خالی *arg)
 {
-    size_t step;
-    counter_type *counter = arg;
+    سائز_t قدم;
+    شمار_type *شمار_2 = arg;
 
-    for (step = 0; step < NR_STEPS; ++step) {
-        while (atomic_flag_test_and_set(&counter->flag));
-        ++counter->uc;
-        ++counter->us;
-        ++counter->ui;
-        ++counter->ul;
-        atomic_flag_clear(&counter->flag);
+    برائے (قدم = 0; قدم < NR_اقدام; ++قدم) {
+        جب (atomic_flag_test_and_set(&شمار_2->flag));
+        ++شمار_2->uc;
+        ++شمار_2->us;
+        ++شمار_2->ui;
+        ++شمار_2->ul;
+        atomic_flag_clear(&شمار_2->flag);
     }
 
-    return NULL;
+    واپس تہی;
 }
 
-static
-void atomic_counter_test(void *(*adder)(void *arg))
+ساکن
+خالی atomic_شمار_test(خالی *(*adder)(خالی *arg))
 {
-    size_t index;
-    counter_type counter;
-    pthread_t thread[NR_THREADS];
+    سائز_t اشاریہ;
+    شمار_type شمار_2;
+    pthread_t thread[NR_دھاگے];
 
-    atomic_flag_clear(&counter.flag);
-    atomic_init(&counter.uc, 0);
-    atomic_init(&counter.us, 0);
-    atomic_init(&counter.ui, 0);
-    atomic_init(&counter.ul, 0);
+    atomic_flag_clear(&شمار_2.flag);
+    atomic_init(&شمار_2.uc, 0);
+    atomic_init(&شمار_2.us, 0);
+    atomic_init(&شمار_2.ui, 0);
+    atomic_init(&شمار_2.ul, 0);
 
-    for (index = 0; index < NR_THREADS; ++index)
-        BUG_ON(pthread_create(&thread[index], NULL, adder, (void *)&counter));
+    برائے (اشاریہ = 0; اشاریہ < NR_دھاگے; ++اشاریہ)
+        BUG_ON(pthread_create(&thread[اشاریہ], تہی, adder, (خالی *)&شمار_2));
 
-    for (index = 0; index < NR_THREADS; ++index)
-        BUG_ON(pthread_join(thread[index], NULL));
+    برائے (اشاریہ = 0; اشاریہ < NR_دھاگے; ++اشاریہ)
+        BUG_ON(pthread_join(thread[اشاریہ], تہی));
 
-    if (atomic_load(&counter.uc) == ((NR_THREADS * NR_STEPS) & 0xffu)
-        && atomic_load(&counter.us) == ((NR_THREADS * NR_STEPS) & 0xffffu)
-        && atomic_load(&counter.ui) == (NR_THREADS * NR_STEPS)
-        && atomic_load(&counter.ul) == (NR_THREADS * NR_STEPS)
+    اگر (atomic_load(&شمار_2.uc) == ((NR_دھاگے * NR_اقدام) & 0xffu)
+        && atomic_load(&شمار_2.us) == ((NR_دھاگے * NR_اقدام) & 0xffffu)
+        && atomic_load(&شمار_2.ui) == (NR_دھاگے * NR_اقدام)
+        && atomic_load(&شمار_2.ul) == (NR_دھاگے * NR_اقدام)
         )
-        printf("SUCCESS\n");
-    else
-        printf("FAILURE\n");
+        لکھو("SUCCESS\n");
+    ورنہ
+        لکھو("FAILURE\n");
 }
 
-int main(void)
+صحیح مین(خالی)
 {
-    atomic_counter_test(adder_simple);
-    atomic_counter_test(adder_cmpxchg);
-    atomic_counter_test(adder_test_and_set);
+    atomic_شمار_test(adder_simple);
+    atomic_شمار_test(adder_cmpxchg);
+    atomic_شمار_test(adder_test_and_سیٹ);
 
-    return 0;
+    واپس 0;
 }

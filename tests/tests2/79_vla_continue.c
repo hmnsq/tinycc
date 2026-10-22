@@ -1,113 +1,113 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int f(void)
+صحیح f(خالی)
 {
-  return 5;
+  واپس 5;
 }
 
-void test1()
+خالی test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  صحیح گنتی_2 = 10;
+  خالی *addr[10];
+  برائے(;گنتی_2--;) {
+    صحیح a[f()];
 
-    addr[count] = a;
+    addr[گنتی_2] = a;
 
-    continue;
+    جاری;
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
-  }
-}
-
-void test2()
-{
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
-
-    addr[count] = a;
-
-    continue;
-  }
-
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  اگر(addr[9] == addr[0]) {
+    لکھو("OK\n");
+  } ورنہ {
+    لکھو("NOT OK\n");
   }
 }
 
-void test3()
+خالی test2()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  صحیح گنتی_2 = 10;
+  خالی *addr[گنتی_2];
+  برائے(;گنتی_2--;) {
+    صحیح a[f()];
 
-          addr[count] = a;
+    addr[گنتی_2] = a;
 
-          continue;
+    جاری;
+  }
+
+  اگر(addr[9] == addr[0]) {
+    لکھو("OK\n");
+  } ورنہ {
+    لکھو("NOT OK\n");
+  }
+}
+
+خالی test3()
+{
+  صحیح گنتی_2 = 10;
+  خالی *addr[گنتی_2];
+  جب(گنتی_2--) {
+      صحیح b[f()];
+      اگر (گنتی_2 >= 0) {
+          صحیح a[f()];
+
+          addr[گنتی_2] = a;
+
+          جاری;
       }
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  اگر(addr[9] == addr[0]) {
+    لکھو("OK\n");
+  } ورنہ {
+    لکھو("NOT OK\n");
   }
 }
 
-void test4()
+خالی test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  صحیح گنتی_2 = 10;
+  خالی *addr[گنتی_2];
+  کرو {
+    صحیح a[f()];
 
-    addr[--count] = a;
+    addr[--گنتی_2] = a;
 
-    continue;
-  } while (count);
+    جاری;
+  } جب (گنتی_2);
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  اگر(addr[9] == addr[0]) {
+    لکھو("OK\n");
+  } ورنہ {
+    لکھو("NOT OK\n");
   }
 }
 
-void test5()
+خالی test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  صحیح گنتی_2 = 10;
+  صحیح a[f()];
+  صحیح c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  برائے(;گنتی_2--;) {
+    صحیح b[f()];
+    صحیح i;
+    برائے (i=0; i<f(); i++) {
+      b[i] = گنتی_2;
     }
   }
 
-  if (c[0] == 42) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  اگر (c[0] == 42) {
+    لکھو("OK\n");
+  } ورنہ {
+    لکھو("NOT OK\n");
   }
 }
 
-int main(void)
+صحیح مین(خالی)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  واپس 0;
 }

@@ -1,98 +1,98 @@
-typedef unsigned char u8;
-typedef struct {} empty_s;
-struct contains_empty {
+قسمتعریف غیرعلامتی حرف u8;
+قسمتعریف ساخت {} خالی_خانے_s;
+ساخت شامل_ہے_خالی_خانے {
     u8 a;
-    empty_s empty;
+    خالی_خانے_s خالی_خانے;
     u8 b;
 };
-struct contains_empty ce = { { (1) }, (empty_s){}, 022, };
+ساخت شامل_ہے_خالی_خانے ce = { { (1) }, (خالی_خانے_s){}, 022, };
 /* The following decl of 'q' would demonstrate the TCC bug in init_putv when
    handling copying compound literals.  (Compound literals
    aren't acceptable constant initializers in isoc99, but
    we accept them like gcc, except for this case)
 //char *q = (char *){ "trara" }; */
-struct SS {u8 a[3], b; };
-struct SS sinit16[] = { { 1 }, 2 };
-struct S
+ساخت SS {u8 a[3], b; };
+ساخت SS sinit16[] = { { 1 }, 2 };
+ساخت S
 {
   u8 a,b;
   u8 c[2];
 };
 
-struct T
+ساخت T
 {
   u8 s[16];
   u8 a;
 };
 
-struct U
+ساخت U
 {
   u8 a;
-  struct S s;
+  ساخت S s;
   u8 b;
-  struct T t;
+  ساخت T t;
 };
 
-struct V
+ساخت V
 {
-  struct S s;
-  struct T t;
+  ساخت S s;
+  ساخت T t;
   u8 a;
 };
 
-struct W
+ساخت W
 {
-  struct V t;
-  struct S s[];
+  ساخت V t;
+  ساخت S s[];
 };
 
-struct S gs = ((struct S){1, 2, 3, 4});
-struct S gs2 = {1, 2, {3, 4}};
-struct T gt = {"hello", 42};
-struct U gu = {3, 5,6,7,8, 4, "huhu", 43};
-struct U gu2 = {3, {5,6,7,8}, 4, {"huhu", 43}};
+ساخت S gs = ((ساخت S){1, 2, 3, 4});
+ساخت S gs2 = {1, 2, {3, 4}};
+ساخت T gt = {"hello", 42};
+ساخت U gu = {3, 5,6,7,8, 4, "huhu", 43};
+ساخت U gu2 = {3, {5,6,7,8}, 4, {"huhu", 43}};
 /* Optional braces around scalar initializers.  Accepted, but with
    a warning.  */
-struct U gu3 = { {3}, {5,6,7,8,}, 4, {"huhu", 43}};
+ساخت U gu3 = { {3}, {5,6,7,8,}, 4, {"huhu", 43}};
 /* Many superfluous braces and leaving out one initializer for U.s.c[1] */
-struct U gu4 = { 3, {5,6,7,},  5, { "bla", {44}} };
+ساخت U gu4 = { 3, {5,6,7,},  5, { "bla", {44}} };
 /* Superfluous braces and useless parens around values */
-struct S gs3 = { (1), {(2)}, {(((3))), {4}}};
+ساخت S gs3 = { (1), {(2)}, {(((3))), {4}}};
 /* Superfluous braces, and leaving out braces for V.t, plus cast */
-struct V gv = {{{3},4,{5,6}}, "haha", (u8)45, 46};
+ساخت V gv = {{{3},4,{5,6}}, "haha", (u8)45, 46};
 /* Compound literal */
-struct V gv2 = {(struct S){7,8,{9,10}}, {"hihi", 47}, 48};
+ساخت V gv2 = {(ساخت S){7,8,{9,10}}, {"hihi", 47}, 48};
 /* Parens around compound literal */
-struct V gv3 = {((struct S){7,8,{9,10}}), {"hoho", 49}, 50};
+ساخت V gv3 = {((ساخت S){7,8,{9,10}}), {"hoho", 49}, 50};
 /* Initialization of a flex array member (warns in GCC) */
-struct W gw = {{1,2,3,4}, {1,2,3,4,5}};
+ساخت W gw = {{1,2,3,4}, {1,2,3,4,5}};
 
-union UU {
+اتحاد UU {
     u8 a;
     u8 b;
 };
-struct SU {
-    union UU u;
+ساخت SU {
+    اتحاد UU u;
     u8 c;
 };
-struct SU gsu = {5,6};
+ساخت SU gsu = {5,6};
 
 /* Unnamed struct/union members aren't ISO C, but it's a widely accepted
    extension.  See below for further extensions to that under -fms-extension.*/
-union UV {
-    struct {u8 a,b;};
-    struct S s;
+اتحاد UV {
+    ساخت {u8 a,b;};
+    ساخت S s;
 };
-union UV guv = {{6,5}};
-union UV guv2 = {{.b = 7, .a = 8}};
-union UV guv3 = {.b = 8, .a = 7};
+اتحاد UV guv = {{6,5}};
+اتحاد UV guv2 = {{.b = 7, .a = 8}};
+اتحاد UV guv3 = {.b = 8, .a = 7};
 
-struct SSU {
-    int y;
-    struct { int x; };
+ساخت SSU {
+    صحیح y;
+    ساخت { صحیح x; };
 };
-struct SSU gssu1 = { .y = 5, .x = 3 };
-struct SSU gssu2 = { 5, 3 };
+ساخت SSU gssu1 = { .y = 5, .x = 3 };
+ساخت SSU gssu2 = { 5, 3 };
 
 /* Under -fms-extensions also the following is valid:
 union UV2 {
@@ -103,84 +103,84 @@ struct Anon gan = { 10, 11 }; // ... which makes it available here.
 union UV2 guv4 = {{4,3}};     // and the other inits from above as well
 */
 
-struct in6_addr {
-    union {
+ساخت in6_addr {
+    اتحاد {
 	u8 u6_addr8[16];
-	unsigned short u6_addr16[8];
+	غیرعلامتی مختصر u6_addr16[8];
     } u;
 };
-struct flowi6 {
-    struct in6_addr saddr, daddr;
+ساخت flowi6 {
+    ساخت in6_addr saddr, daddr;
 };
-struct pkthdr {
-    struct in6_addr daddr, saddr;
+ساخت pkthdr {
+    ساخت in6_addr daddr, saddr;
 };
-struct pkthdr phdr = { { { 6,5,4,3 } }, { { 9,8,7,6 } } };
+ساخت pkthdr phdr = { { { 6,5,4,3 } }, { { 9,8,7,6 } } };
 
-struct Wrap {
-    void *func;
+ساخت Wrap {
+    خالی *func;
 };
-int global;
-void inc_global (void)
+صحیح global;
+خالی inc_global (خالی)
 {
   global++;
 }
 
-struct Wrap global_wrap[] = {
-    ((struct Wrap) {inc_global}),
+ساخت Wrap global_wrap[] = {
+    ((ساخت Wrap) {inc_global}),
     inc_global,
 };
 
-#include <stdio.h>
-void print_ (const char *name, const u8 *p, long size)
+#شامل <stdio.h>
+خالی print_ (ثابت حرف *name, ثابت u8 *p, طویل سائز)
 {
-  printf ("%s:", name);
-  while (size--) {
-      printf (" %x", *p++);
+  لکھو ("%s:", name);
+  جب (سائز--) {
+      لکھو (" %x", *p++);
   }
-  printf ("\n");
+  لکھو ("\n");
 }
-#define print(x) print_(#x, (u8*)&x, sizeof (x))
-#if 1
-void foo (struct W *w, struct pkthdr *phdr_)
+#تعریف_کرو print(x) print_(#x, (u8*)&x, حجم (x))
+#اگر 1
+خالی foo (ساخت W *w, ساخت pkthdr *phdr_)
 {
-  struct S ls = {1, 2, 3, 4};
-  struct S ls2 = {1, 2, {3, 4}};
-  struct T lt = {"hello", 42};
-  struct U lu = {3, 5,6,7,8, 4, "huhu", 43};
-  struct U lu1 = {3, ls, 4, {"huhu", 43}};
-  struct U lu2 = {3, (ls), 4, {"huhu", 43}};
-  const struct S *pls = &ls;
-  struct S ls21 = *pls;
-  struct U lu22 = {3, *pls, 4, {"huhu", 43}};
+  ساخت S ls = {1, 2, 3, 4};
+  ساخت S ls2 = {1, 2, {3, 4}};
+  ساخت T lt = {"hello", 42};
+  ساخت U lu = {3, 5,6,7,8, 4, "huhu", 43};
+  ساخت U lu1 = {3, ls, 4, {"huhu", 43}};
+  ساخت U lu2 = {3, (ls), 4, {"huhu", 43}};
+  ثابت ساخت S *pls = &ls;
+  ساخت S ls21 = *pls;
+  ساخت U lu22 = {3, *pls, 4, {"huhu", 43}};
   /* Incomplete bracing.  */
-  struct U lu21 = {3, ls, 4, "huhu", 43};
+  ساخت U lu21 = {3, ls, 4, "huhu", 43};
   /* Optional braces around scalar initializers.  Accepted, but with
      a warning.  */
-  struct U lu3 = { 3, {5,6,7,8,}, 4, {"huhu", 43}};
+  ساخت U lu3 = { 3, {5,6,7,8,}, 4, {"huhu", 43}};
   /* Many superfluous braces and leaving out one initializer for U.s.c[1] */
-  struct U lu4 = { 3, {5,6,7,},  5, { "bla", 44} };
+  ساخت U lu4 = { 3, {5,6,7,},  5, { "bla", 44} };
   /* Superfluous braces and useless parens around values */
-  struct S ls3 = { (1), (2), {(((3))), 4}};
+  ساخت S ls3 = { (1), (2), {(((3))), 4}};
   /* Superfluous braces, and leaving out braces for V.t, plus cast */
-  struct V lv = {{3,4,{5,6}}, "haha", (u8)45, 46};
+  ساخت V lv = {{3,4,{5,6}}, "haha", (u8)45, 46};
   /* Compound literal */
-  struct V lv2 = {(struct S)w->t.s, {"hihi", 47}, 48};
+  ساخت V lv2 = {(ساخت S)w->t.s, {"hihi", 47}, 48};
   /* Parens around compound literal */
-  struct V lv3 = {((struct S){7,8,{9,10}}), ((const struct W *)w)->t.t, 50};
-  const struct pkthdr *phdr = phdr_;
-  struct flowi6 flow = { .daddr = phdr->daddr, .saddr = phdr->saddr };
-  int elt = 0x42;
+  ساخت V lv3 = {((ساخت S){7,8,{9,10}}), ((ثابت ساخت W *)w)->t.t, 50};
+  ثابت ساخت pkthdr *phdr = phdr_;
+  ساخت flowi6 flow = { .daddr = phdr->daddr, .saddr = phdr->saddr };
+  صحیح elt = 0x42;
   /* Range init, overlapping */
-  struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
-  struct SSU lssu1 = { 5, 3 };
-  struct SSU lssu2 = { .y = 5, .x = 3 };
+  ساخت T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+  ساخت SSU lssu1 = { 5, 3 };
+  ساخت SSU lssu2 = { .y = 5, .x = 3 };
   /* designated initializers in GNU form */
-#if defined(__GNUC__) || defined(__TINYC__)
-  struct S ls4 = {a: 1, b: 2, c: {3, 4}};
-#else
-  struct S ls4 = {.a = 1, .b = 2, .c = {3, 4}};
-#endif
+#اگر defined(__GNUC__) || defined(__TINYC__)
+  ساخت S ls4 = {a: 1, b: 2, c: {3, 4}};
+#ورنہ
+  ساخت S ls4 = {.a = 1, .b = 2, .c = {3, 4}};
+#اگر_ختم
   print(ls);
   print(ls2);
   print(lt);
@@ -202,35 +202,35 @@ void foo (struct W *w, struct pkthdr *phdr_)
   print(flow);
   print(ls4);
 }
-#endif
+#اگر_ختم
 
-void test_compound_with_relocs (void)
+خالی test_compound_with_relocs (خالی)
 {
-  struct Wrap local_wrap[] = {
-      ((struct Wrap) {inc_global}),
+  ساخت Wrap local_wrap[] = {
+      ((ساخت Wrap) {inc_global}),
       inc_global,
   };
-  void (*p)(void);
+  خالی (*p)(خالی);
   p = global_wrap[0].func; p();
   p = global_wrap[1].func; p();
   p = local_wrap[0].func; p();
   p = local_wrap[1].func; p();
 }
 
-void sys_ni(void) { printf("ni\n"); }
-void sys_one(void) { printf("one\n"); }
-void sys_two(void) { printf("two\n"); }
-void sys_three(void) { printf("three\n"); }
-void sys_four(void) { printf("four\n"); }
-typedef void (*fptr)(void);
+خالی sys_ni(خالی) { لکھو("ni\n"); }
+خالی sys_one(خالی) { لکھو("one\n"); }
+خالی sys_two(خالی) { لکھو("two\n"); }
+خالی sys_three(خالی) { لکھو("three\n"); }
+خالی sys_four(خالی) { لکھو("four\n"); }
+قسمتعریف خالی (*fptr)(خالی);
 
-#define array_size(a) (sizeof a / sizeof a[0])
+#تعریف_کرو array_سائز(a) (حجم a / حجم a[0])
 
-void test_multi_relocs(void)
+خالی test_multi_relocs(خالی)
 {
-  int i;
+  صحیح i;
 
-  static const fptr tabl1[4] = {
+  ساکن ثابت fptr tabl1[4] = {
       [0 ... 3] = &sys_ni,
       [0] = sys_one,
       [1] = sys_two,
@@ -239,13 +239,13 @@ void test_multi_relocs(void)
       [1 ... 2] = &sys_ni,
       [1] = 0,
   };
-  for (i = 0; i < array_size(tabl1); i++)
-    if (tabl1[i])
+  برائے (i = 0; i < array_سائز(tabl1); i++)
+    اگر (tabl1[i])
       tabl1[i]();
-    else
-      printf("(0)\n");
+    ورنہ
+      لکھو("(0)\n");
 
-  const fptr tabl2[4] = {
+  ثابت fptr tabl2[4] = {
       [0 ... 3] = &sys_ni,
       [0] = sys_one,
       [1] = sys_two,
@@ -254,38 +254,38 @@ void test_multi_relocs(void)
       [1 ... 2] = &sys_ni,
       [1] = 0,
   };
-  for (i = 0; i < array_size(tabl2); i++)
-    if (tabl2[i])
+  برائے (i = 0; i < array_سائز(tabl2); i++)
+    اگر (tabl2[i])
       tabl2[i]();
-    else
-      printf("(0)\n");
+    ورنہ
+      لکھو("(0)\n");
 
-  int c = 0;
-  int dd[] = {
+  صحیح c = 0;
+  صحیح dd[] = {
     [0 ... 1] = ++c,
     [2 ... 3] = ++c
   };
-  for (i = 0; i < array_size(dd); i++)
-    printf(" %d", dd[i]);
-  printf("\n");
+  برائے (i = 0; i < array_سائز(dd); i++)
+    لکھو(" %d", dd[i]);
+  لکھو("\n");
 
   /* multi-dimensional flex array with range initializers */
-  static char m1[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
-  char        m2[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
-  int g, j, k;
-  for (g = 2; g-- > 0;) {
-    printf("mdfa %s: %d -", "locl\0glob" + g * 5, sizeof m1);
-    for (i = 0; i < array_size(m1); i++)
-    for (j = 0; j < array_size(m1[0]); j++)
-    for (k = 0; k < array_size(m1[0][0]); k++)
-      printf(" %d", (g ? m1:m2)[i][j][k]);
-    printf("\n");
+  ساکن حرف m1[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
+  حرف        m2[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
+  صحیح g, j, k;
+  برائے (g = 2; g-- > 0;) {
+    لکھو("mdfa %s: %d -", "locl\0glob" + g * 5, حجم m1);
+    برائے (i = 0; i < array_سائز(m1); i++)
+    برائے (j = 0; j < array_سائز(m1[0]); j++)
+    برائے (k = 0; k < array_سائز(m1[0][0]); k++)
+      لکھو(" %d", (g ? m1:m2)[i][j][k]);
+    لکھو("\n");
   }
 }
 
-void test_init_ranges(void) {
-    int i,c=0;
-    static void *gostring[] = {
+خالی test_init_ranges(خالی) {
+    صحیح i,c=0;
+    ساکن خالی *gostring[] = {
         [0 ... 31] = &&l_bad, [127] = &&l_bad,
         [32 ... 126] = &&l_loop,
         ['\\'] = &&l_esc, ['"'] = &&l_qdown,
@@ -296,8 +296,8 @@ void test_init_ranges(void) {
         [248 ... 255] = &&l_bad
     };
 
-    for (i = 0; i < 256; i++) {
-        goto *gostring[i];
+    برائے (i = 0; i < 256; i++) {
+        جاؤ *gostring[i];
         l_bad: c++;
         l_loop: c++;
         l_esc: c++;
@@ -306,55 +306,55 @@ void test_init_ranges(void) {
         l_utf8_3: c++;
         l_utf8_4: c++;
     }
-    printf ("%d\n", c);
+    لکھو ("%d\n", c);
 }
 
 
 /* Following is from GCC gcc.c-torture/execute/20050613-1.c.  */
 
-struct SEA { int i; int j; int k; int l; };
-struct SEB { struct SEA a; int r[1]; };
-struct SEC { struct SEA a; int r[0]; };
-struct SED { struct SEA a; int r[]; };
+ساخت SEA { صحیح i; صحیح j; صحیح k; صحیح l; };
+ساخت SEB { ساخت SEA a; صحیح r[1]; };
+ساخت SEC { ساخت SEA a; صحیح r[0]; };
+ساخت SED { ساخت SEA a; صحیح r[]; };
 
-static void
-test_correct_filling (struct SEA *x)
+ساکن خالی
+test_correct_filling (ساخت SEA *x)
 {
-  static int i;
-  if (x->i != 0 || x->j != 5 || x->k != 0 || x->l != 0)
-    printf("sea_fill%d: wrong\n", i);
-  else
-    printf("sea_fill%d: okay\n", i);
+  ساکن صحیح i;
+  اگر (x->i != 0 || x->j != 5 || x->k != 0 || x->l != 0)
+    لکھو("sea_fill%d: wrong\n", i);
+  ورنہ
+    لکھو("sea_fill%d: okay\n", i);
   i++;
 }
 
-int
-test_zero_init (void)
+صحیح
+test_zero_init (خالی)
 {
   /* The peculiarity here is that only a.j is initialized.  That
      means that all other members must be zero initialized.  TCC
      once didn't do that for sub-level designators.  */
-  struct SEB b = { .a.j = 5 };
-  struct SEC c = { .a.j = 5 };
-  struct SED d = { .a.j = 5 };
+  ساخت SEB b = { .a.j = 5 };
+  ساخت SEC c = { .a.j = 5 };
+  ساخت SED d = { .a.j = 5 };
   test_correct_filling (&b.a);
   test_correct_filling (&c.a);
   test_correct_filling (&d.a);
-  return 0;
+  واپس 0;
 }
 
-void test_init_struct_from_struct(void)
+خالی test_init_struct_from_struct(خالی)
 {
-    int i = 0;
-    struct S {int x,y;}
+    صحیح i = 0;
+    ساخت S {صحیح x,y;}
         a = {1,2},
         b = {3,4},
         c[] = {a,b},
         d[] = {++i, ++i, ++i, ++i},
-        e[] = {b, (struct S){5,6}}
+        e[] = {b, (ساخت S){5,6}}
         ;
 
-    printf("%s: %d %d %d %d - %d %d %d %d - %d %d %d %d\n",
+    لکھو("%s: %d %d %d %d - %d %d %d %d - %d %d %d %d\n",
         __FUNCTION__,
         c[0].x,
         c[0].y,
@@ -371,24 +371,24 @@ void test_init_struct_from_struct(void)
         );
 }
 
-typedef struct {
-    unsigned int a;
-    unsigned int : 32;
-    unsigned int b;
-    unsigned long long : 64;
-    unsigned int c;
+قسمتعریف ساخت {
+    غیرعلامتی صحیح a;
+    غیرعلامتی صحیح : 32;
+    غیرعلامتی صحیح b;
+    غیرعلامتی طویل طویل : 64;
+    غیرعلامتی صحیح c;
 } tst_bf;
 
 tst_bf arr[] = { { 1, 2, 3 } };
 
-void
-test_init_bf(void)
+خالی
+test_init_bf(خالی)
 {
-    printf ("%s: %d %d %d\n", __FUNCTION__, arr[0].a, arr[0].b, arr[0].c);
+    لکھو ("%s: %d %d %d\n", __FUNCTION__, arr[0].a, arr[0].b, arr[0].c);
 }
 
 
-int main()
+صحیح مین()
 {
   print(ce);
   print(gs);
@@ -420,5 +420,5 @@ int main()
   test_init_ranges();
   test_init_struct_from_struct();
   test_init_bf();
-  return 0;
+  واپس 0;
 }

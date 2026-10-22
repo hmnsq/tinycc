@@ -1,19 +1,19 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح مین()
 {
-    long long int res = 0;
+    طویل طویل صحیح res = 0;
 
-    if (res < -2147483648LL) {
-        printf("Error: 0 < -2147483648\n");
-        return 1;
+    اگر (res < -2147483648LL) {
+        لکھو("Error: 0 < -2147483648\n");
+        واپس 1;
     }
-    else
-    if (2147483647LL < res) {
-        printf("Error: 2147483647 < 0\n");
-        return 2;
+    ورنہ
+    اگر (2147483647LL < res) {
+        لکھو("Error: 2147483647 < 0\n");
+        واپس 2;
     }
-    else
-        printf("long long constant test ok.\n");
-    return 0;
+    ورنہ
+        لکھو("long long constant test ok.\n");
+    واپس 0;
 }

@@ -1,15 +1,15 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+صحیح لکھو(ثابت حرف *, ...);
+حرف t[] = "012345678";
 
-int main(void)
+صحیح مین(خالی)
 {
-    char *data = t;
-    unsigned long long r = 4;
-    unsigned a = 5;
-    unsigned long long b = 12;
+    حرف *ڈیٹا = t;
+    غیرعلامتی طویل طویل r = 4;
+    غیرعلامتی a = 5;
+    غیرعلامتی طویل طویل b = 12;
 
-    *(unsigned*)(data + r) += a - b;
+    *(غیرعلامتی*)(ڈیٹا + r) += a - b;
 
-    printf("data = \"%s\"\n", data);
-    return 0;
+    لکھو("data = \"%s\"\n", ڈیٹا);
+    واپس 0;
 }

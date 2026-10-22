@@ -3,147 +3,147 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _BASETSD_H_
-#define _BASETSD_H_
+#اگر_غیر_تعریف_شدہ _BASETSD_H_
+#تعریف_کرو _BASETSD_H_
 
-#if (defined(__x86_64) || defined(__ia64__)) && !defined(RC_INVOKED)
-typedef unsigned __int64 POINTER_64_INT;
-#else
-typedef unsigned long POINTER_64_INT;
-#endif
+#اگر (defined(__x86_64) || defined(__ia64__)) && !defined(RC_INVOKED)
+قسمتعریف غیرعلامتی __int64 اشارہ_گر_64_INT;
+#ورنہ
+قسمتعریف غیرعلامتی طویل اشارہ_گر_64_INT;
+#اگر_ختم
 
-#define POINTER_32
-#define POINTER_64
-#define FIRMWARE_PTR
+#تعریف_کرو اشارہ_گر_32
+#تعریف_کرو اشارہ_گر_64
+#تعریف_کرو FIRMWARE_PTR
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
-  typedef signed char INT8,*PINT8;
-  typedef signed short INT16,*PINT16;
-  typedef signed int INT32,*PINT32;
-  typedef signed __int64 INT64,*PINT64;
-  typedef unsigned char UINT8,*PUINT8;
-  typedef unsigned short UINT16,*PUINT16;
-  typedef unsigned int UINT32,*PUINT32;
-  typedef unsigned __int64 UINT64,*PUINT64;
-  typedef signed int LONG32,*PLONG32;
-  typedef unsigned int ULONG32,*PULONG32;
-  typedef unsigned int DWORD32,*PDWORD32;
+  قسمتعریف علامتی حرف INT8,*PINT8;
+  قسمتعریف علامتی مختصر INT16,*PINT16;
+  قسمتعریف علامتی صحیح INT32,*PINT32;
+  قسمتعریف علامتی __int64 INT64,*PINT64;
+  قسمتعریف غیرعلامتی حرف UINT8,*PUINT8;
+  قسمتعریف غیرعلامتی مختصر UINT16,*PUINT16;
+  قسمتعریف غیرعلامتی صحیح UINT32,*PUINT32;
+  قسمتعریف غیرعلامتی __int64 UINT64,*PUINT64;
+  قسمتعریف علامتی صحیح LONG32,*PLONG32;
+  قسمتعریف غیرعلامتی صحیح ULONG32,*PULONG32;
+  قسمتعریف غیرعلامتی صحیح DWORD32,*PDWORD32;
 
-#ifndef _W64
-#define _W64
-#endif
+#اگر_غیر_تعریف_شدہ _W64
+#تعریف_کرو _W64
+#اگر_ختم
 
-#ifdef _WIN64
-  typedef __int64 INT_PTR,*PINT_PTR;
-  typedef unsigned __int64 UINT_PTR,*PUINT_PTR;
-  typedef __int64 LONG_PTR,*PLONG_PTR;
-  typedef unsigned __int64 ULONG_PTR,*PULONG_PTR;
-#define __int3264 __int64
-#else
-  typedef int INT_PTR,*PINT_PTR;
-  typedef unsigned int UINT_PTR,*PUINT_PTR;
-  typedef long LONG_PTR,*PLONG_PTR;
-  typedef unsigned long ULONG_PTR,*PULONG_PTR;
-#define __int3264 __int32
-#endif
+#اگر_تعریف_شدہ _WIN64
+  قسمتعریف __int64 INT_PTR,*PINT_PTR;
+  قسمتعریف غیرعلامتی __int64 UINT_PTR,*PUINT_PTR;
+  قسمتعریف __int64 LONG_PTR,*PLONG_PTR;
+  قسمتعریف غیرعلامتی __int64 ULONG_PTR,*PULONG_PTR;
+#تعریف_کرو __int3264 __int64
+#ورنہ
+  قسمتعریف صحیح INT_PTR,*PINT_PTR;
+  قسمتعریف غیرعلامتی صحیح UINT_PTR,*PUINT_PTR;
+  قسمتعریف طویل LONG_PTR,*PLONG_PTR;
+  قسمتعریف غیرعلامتی طویل ULONG_PTR,*PULONG_PTR;
+#تعریف_کرو __int3264 __int32
+#اگر_ختم
 
-#ifdef _WIN64
-#define ADDRESS_TAG_BIT 0x40000000000ULL
-  typedef __int64 SHANDLE_PTR;
-  typedef unsigned __int64 HANDLE_PTR;
-  typedef unsigned int UHALF_PTR,*PUHALF_PTR;
-  typedef int HALF_PTR,*PHALF_PTR;
+#اگر_تعریف_شدہ _WIN64
+#تعریف_کرو پتہ_لیبل_ثنائی_ہندسہ 0x40000000000ULL
+  قسمتعریف __int64 SHANDLE_PTR;
+  قسمتعریف غیرعلامتی __int64 HANDLE_PTR;
+  قسمتعریف غیرعلامتی صحیح UHALF_PTR,*PUHALF_PTR;
+  قسمتعریف صحیح HALF_PTR,*PHALF_PTR;
 
-  static __inline unsigned long HandleToULong(const void *h) { return((unsigned long) (ULONG_PTR) h); }
-  static __inline long HandleToLong(const void *h) { return((long) (LONG_PTR) h); }
-  static __inline void *ULongToHandle(const unsigned long h) { return((void *) (UINT_PTR) h); }
-  static __inline void *LongToHandle(const long h) { return((void *) (INT_PTR) h); }
-  static __inline unsigned long PtrToUlong(const void *p) { return((unsigned long) (ULONG_PTR) p); }
-  static __inline unsigned int PtrToUint(const void *p) { return((unsigned int) (UINT_PTR) p); }
-  static __inline unsigned short PtrToUshort(const void *p) { return((unsigned short) (unsigned long) (ULONG_PTR) p); }
-  static __inline long PtrToLong(const void *p) { return((long) (LONG_PTR) p); }
-  static __inline int PtrToInt(const void *p) { return((int) (INT_PTR) p); }
-  static __inline short PtrToShort(const void *p) { return((short) (long) (LONG_PTR) p); }
-  static __inline void *IntToPtr(const int i) { return((void *)(INT_PTR)i); }
-  static __inline void *UIntToPtr(const unsigned int ui) { return((void *)(UINT_PTR)ui); }
-  static __inline void *LongToPtr(const long l) { return((void *)(LONG_PTR)l); }
-  static __inline void *ULongToPtr(const unsigned long ul) { return((void *)(ULONG_PTR)ul); }
+  ساکن __inline غیرعلامتی طویل Handle_مقصد_ULong(ثابت خالی *h) { واپس((غیرعلامتی طویل) (ULONG_PTR) h); }
+  ساکن __inline طویل Handle_مقصد_Long(ثابت خالی *h) { واپس((طویل) (LONG_PTR) h); }
+  ساکن __inline خالی *ULong_مقصد_Handle(ثابت غیرعلامتی طویل h) { واپس((خالی *) (UINT_PTR) h); }
+  ساکن __inline خالی *Long_مقصد_Handle(ثابت طویل h) { واپس((خالی *) (INT_PTR) h); }
+  ساکن __inline غیرعلامتی طویل Ptr_مقصد_Ulong(ثابت خالی *p) { واپس((غیرعلامتی طویل) (ULONG_PTR) p); }
+  ساکن __inline غیرعلامتی صحیح Ptr_مقصد_Uint(ثابت خالی *p) { واپس((غیرعلامتی صحیح) (UINT_PTR) p); }
+  ساکن __inline غیرعلامتی مختصر Ptr_مقصد_Ushort(ثابت خالی *p) { واپس((غیرعلامتی مختصر) (غیرعلامتی طویل) (ULONG_PTR) p); }
+  ساکن __inline طویل Ptr_مقصد_Long(ثابت خالی *p) { واپس((طویل) (LONG_PTR) p); }
+  ساکن __inline صحیح Ptr_مقصد_Int(ثابت خالی *p) { واپس((صحیح) (INT_PTR) p); }
+  ساکن __inline مختصر Ptr_مقصد_Short(ثابت خالی *p) { واپس((مختصر) (طویل) (LONG_PTR) p); }
+  ساکن __inline خالی *Int_مقصد_Ptr(ثابت صحیح i) { واپس((خالی *)(INT_PTR)i); }
+  ساکن __inline خالی *UInt_مقصد_Ptr(ثابت غیرعلامتی صحیح ui) { واپس((خالی *)(UINT_PTR)ui); }
+  ساکن __inline خالی *Long_مقصد_Ptr(ثابت طویل l) { واپس((خالی *)(LONG_PTR)l); }
+  ساکن __inline خالی *ULong_مقصد_Ptr(ثابت غیرعلامتی طویل ul) { واپس((خالی *)(ULONG_PTR)ul); }
 
-#define PtrToPtr64(p) ((void *) p)
-#define Ptr64ToPtr(p) ((void *) p)
-#define HandleToHandle64(h) (PtrToPtr64(h))
-#define Handle64ToHandle(h) (Ptr64ToPtr(h))
+#تعریف_کرو Ptr_مقصد_Ptr64(p) ((خالی *) p)
+#تعریف_کرو Ptr64_مقصد_Ptr(p) ((خالی *) p)
+#تعریف_کرو Handle_مقصد_Handle64(h) (Ptr_مقصد_Ptr64(h))
+#تعریف_کرو Handle64_مقصد_Handle(h) (Ptr64_مقصد_Ptr(h))
 
-  static __inline void *Ptr32ToPtr(const void *p) { return (void *)p; }
-  static __inline void *Handle32ToHandle(const void *h) { return((void *) h); }
-  static __inline void *PtrToPtr32(const void *p) { return((void *) (ULONG_PTR) p); }
+  ساکن __inline خالی *Ptr32_مقصد_Ptr(ثابت خالی *p) { واپس (خالی *)p; }
+  ساکن __inline خالی *Handle32_مقصد_Handle(ثابت خالی *h) { واپس((خالی *) h); }
+  ساکن __inline خالی *Ptr_مقصد_Ptr32(ثابت خالی *p) { واپس((خالی *) (ULONG_PTR) p); }
 
-#define HandleToHandle32(h) (PtrToPtr32(h))
-#else
+#تعریف_کرو Handle_مقصد_Handle32(h) (Ptr_مقصد_Ptr32(h))
+#ورنہ
 
-#define ADDRESS_TAG_BIT 0x80000000UL
+#تعریف_کرو پتہ_لیبل_ثنائی_ہندسہ 0x80000000UL
 
-  typedef unsigned short UHALF_PTR,*PUHALF_PTR;
-  typedef short HALF_PTR,*PHALF_PTR;
-  typedef long SHANDLE_PTR;
-  typedef unsigned long HANDLE_PTR;
+  قسمتعریف غیرعلامتی مختصر UHALF_PTR,*PUHALF_PTR;
+  قسمتعریف مختصر HALF_PTR,*PHALF_PTR;
+  قسمتعریف طویل SHANDLE_PTR;
+  قسمتعریف غیرعلامتی طویل HANDLE_PTR;
 
-#define HandleToULong(h) ((ULONG)(ULONG_PTR)(h))
-#define HandleToLong(h) ((LONG)(LONG_PTR) (h))
-#define ULongToHandle(ul) ((HANDLE)(ULONG_PTR) (ul))
-#define LongToHandle(h) ((HANDLE)(LONG_PTR) (h))
-#define PtrToUlong(p) ((ULONG)(ULONG_PTR) (p))
-#define PtrToLong(p) ((LONG)(LONG_PTR) (p))
-#define PtrToUint(p) ((UINT)(UINT_PTR) (p))
-#define PtrToInt(p) ((INT)(INT_PTR) (p))
-#define PtrToUshort(p) ((unsigned short)(ULONG_PTR)(p))
-#define PtrToShort(p) ((short)(LONG_PTR)(p))
-#define IntToPtr(i) ((VOID *)(INT_PTR)((int)i))
-#define UIntToPtr(ui) ((VOID *)(UINT_PTR)((unsigned int)ui))
-#define LongToPtr(l) ((VOID *)(LONG_PTR)((long)l))
-#define ULongToPtr(ul) ((VOID *)(ULONG_PTR)((unsigned long)ul))
+#تعریف_کرو Handle_مقصد_ULong(h) ((ULONG)(ULONG_PTR)(h))
+#تعریف_کرو Handle_مقصد_Long(h) ((LONG)(LONG_PTR) (h))
+#تعریف_کرو ULong_مقصد_Handle(ul) ((HANDLE)(ULONG_PTR) (ul))
+#تعریف_کرو Long_مقصد_Handle(h) ((HANDLE)(LONG_PTR) (h))
+#تعریف_کرو Ptr_مقصد_Ulong(p) ((ULONG)(ULONG_PTR) (p))
+#تعریف_کرو Ptr_مقصد_Long(p) ((LONG)(LONG_PTR) (p))
+#تعریف_کرو Ptr_مقصد_Uint(p) ((UINT)(UINT_PTR) (p))
+#تعریف_کرو Ptr_مقصد_Int(p) ((INT)(INT_PTR) (p))
+#تعریف_کرو Ptr_مقصد_Ushort(p) ((غیرعلامتی مختصر)(ULONG_PTR)(p))
+#تعریف_کرو Ptr_مقصد_Short(p) ((مختصر)(LONG_PTR)(p))
+#تعریف_کرو Int_مقصد_Ptr(i) ((VOID *)(INT_PTR)((صحیح)i))
+#تعریف_کرو UInt_مقصد_Ptr(ui) ((VOID *)(UINT_PTR)((غیرعلامتی صحیح)ui))
+#تعریف_کرو Long_مقصد_Ptr(l) ((VOID *)(LONG_PTR)((طویل)l))
+#تعریف_کرو ULong_مقصد_Ptr(ul) ((VOID *)(ULONG_PTR)((غیرعلامتی طویل)ul))
 
-  static __inline void *PtrToPtr64(const void *p) { return((void *) (ULONG_PTR)p); }
-  static __inline void *Ptr64ToPtr(const void *p) { return((void *) (ULONG_PTR) p); }
-  static __inline void *HandleToHandle64(const void *h) { return((void *) h); }
-  static __inline void *Handle64ToHandle(const void *h) { return((void *) (ULONG_PTR) h); }
+  ساکن __inline خالی *Ptr_مقصد_Ptr64(ثابت خالی *p) { واپس((خالی *) (ULONG_PTR)p); }
+  ساکن __inline خالی *Ptr64_مقصد_Ptr(ثابت خالی *p) { واپس((خالی *) (ULONG_PTR) p); }
+  ساکن __inline خالی *Handle_مقصد_Handle64(ثابت خالی *h) { واپس((خالی *) h); }
+  ساکن __inline خالی *Handle64_مقصد_Handle(ثابت خالی *h) { واپس((خالی *) (ULONG_PTR) h); }
 
-#define Ptr32ToPtr(p) ((void *) p)
-#define Handle32ToHandle(h) (Ptr32ToPtr(h))
-#define PtrToPtr32(p) ((void *) p)
-#define HandleToHandle32(h) (PtrToPtr32(h))
-#endif
+#تعریف_کرو Ptr32_مقصد_Ptr(p) ((خالی *) p)
+#تعریف_کرو Handle32_مقصد_Handle(h) (Ptr32_مقصد_Ptr(h))
+#تعریف_کرو Ptr_مقصد_Ptr32(p) ((خالی *) p)
+#تعریف_کرو Handle_مقصد_Handle32(h) (Ptr_مقصد_Ptr32(h))
+#اگر_ختم
 
-#define HandleToUlong(h) HandleToULong(h)
-#define UlongToHandle(ul) ULongToHandle(ul)
-#define UlongToPtr(ul) ULongToPtr(ul)
-#define UintToPtr(ui) UIntToPtr(ui)
+#تعریف_کرو Handle_مقصد_Ulong(h) Handle_مقصد_ULong(h)
+#تعریف_کرو Ulong_مقصد_Handle(ul) ULong_مقصد_Handle(ul)
+#تعریف_کرو Ulong_مقصد_Ptr(ul) ULong_مقصد_Ptr(ul)
+#تعریف_کرو Uint_مقصد_Ptr(ui) UInt_مقصد_Ptr(ui)
 
-#define MAXUINT_PTR (~((UINT_PTR)0))
-#define MAXINT_PTR ((INT_PTR)(MAXUINT_PTR >> 1))
-#define MININT_PTR (~MAXINT_PTR)
+#تعریف_کرو MAXUINT_PTR (~((UINT_PTR)0))
+#تعریف_کرو MAXINT_PTR ((INT_PTR)(MAXUINT_PTR >> 1))
+#تعریف_کرو MININT_PTR (~MAXINT_PTR)
 
-#define MAXULONG_PTR (~((ULONG_PTR)0))
-#define MAXLONG_PTR ((LONG_PTR)(MAXULONG_PTR >> 1))
-#define MINLONG_PTR (~MAXLONG_PTR)
+#تعریف_کرو MAXULONG_PTR (~((ULONG_PTR)0))
+#تعریف_کرو MAXLONG_PTR ((LONG_PTR)(MAXULONG_PTR >> 1))
+#تعریف_کرو MINLONG_PTR (~MAXLONG_PTR)
 
-#define MAXUHALF_PTR ((UHALF_PTR)~0)
-#define MAXHALF_PTR ((HALF_PTR)(MAXUHALF_PTR >> 1))
-#define MINHALF_PTR (~MAXHALF_PTR)
+#تعریف_کرو MAXUHALF_PTR ((UHALF_PTR)~0)
+#تعریف_کرو MAXHALF_PTR ((HALF_PTR)(MAXUHALF_PTR >> 1))
+#تعریف_کرو MINHALF_PTR (~MAXHALF_PTR)
 
-  typedef ULONG_PTR SIZE_T,*PSIZE_T;
-  typedef LONG_PTR SSIZE_T,*PSSIZE_T;
-  typedef ULONG_PTR DWORD_PTR,*PDWORD_PTR;
-  typedef __int64 LONG64,*PLONG64;
-  typedef unsigned __int64 ULONG64,*PULONG64;
-  typedef unsigned __int64 DWORD64,*PDWORD64;
-  typedef ULONG_PTR KAFFINITY;
-  typedef KAFFINITY *PKAFFINITY;
+  قسمتعریف ULONG_PTR سائز_T,*PSIZE_T;
+  قسمتعریف LONG_PTR SSIZE_T,*PSSIZE_T;
+  قسمتعریف ULONG_PTR DWORD_PTR,*PDWORD_PTR;
+  قسمتعریف __int64 LONG64,*PLONG64;
+  قسمتعریف غیرعلامتی __int64 ULONG64,*PULONG64;
+  قسمتعریف غیرعلامتی __int64 DWORD64,*PDWORD64;
+  قسمتعریف ULONG_PTR KAFFINITY;
+  قسمتعریف KAFFINITY *PKAFFINITY;
 
-#ifdef __cplusplus
+#اگر_تعریف_شدہ __cplusplus
 }
-#endif
-#endif
+#اگر_ختم
+#اگر_ختم

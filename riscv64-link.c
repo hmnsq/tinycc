@@ -1,149 +1,149 @@
-#ifdef TARGET_DEFS_ONLY
+#اگر_تعریف_شدہ ہدف_DEFS_ONLY
 
-#define EM_TCC_TARGET EM_RISCV
+#تعریف_کرو EM_TCC_ہدف EM_RISCV
 
-#define R_DATA_32  R_RISCV_32
-#define R_DATA_PTR R_RISCV_64
-#define R_JMP_SLOT R_RISCV_JUMP_SLOT
-#define R_GLOB_DAT R_RISCV_64
-#define R_COPY     R_RISCV_COPY
-#define R_RELATIVE R_RISCV_RELATIVE
+#تعریف_کرو R_ڈیٹا_32  R_RISCV_32
+#تعریف_کرو R_ڈیٹا_PTR R_RISCV_64
+#تعریف_کرو R_JMP_خانہ R_RISCV_JUMP_خانہ
+#تعریف_کرو R_GLOB_DAT R_RISCV_64
+#تعریف_کرو R_COPY     R_RISCV_COPY
+#تعریف_کرو R_RELATIVE R_RISCV_RELATIVE
 
-#define R_NUM      R_RISCV_NUM
+#تعریف_کرو R_عدد      R_RISCV_عدد
 
-#define ELF_START_ADDR 0x00010000
-#define ELF_PAGE_SIZE 0x1000
+#تعریف_کرو ELF_آغاز_ADDR 0x00010000
+#تعریف_کرو ELF_صفحہ_سائز 0x1000
 
-#define PCRELATIVE_DLLPLT 1
-#define RELOCATE_DLLPLT 1
+#تعریف_کرو PCRELATIVE_DLLPLT 1
+#تعریف_کرو RELOCATE_DLLPLT 1
 
-#else /* !TARGET_DEFS_ONLY */
+#ورنہ /* !TARGET_DEFS_ONLY */
 
 //#define DEBUG_RELOC
-#include "tcc.h"
+#شامل "tcc.h"
 
 /* Returns 1 for a code relocation, 0 for a data relocation. For unknown
    relocations, returns -1. */
-ST_FUNC int code_reloc (int reloc_type)
+ST_FUNC صحیح رمز_reloc (صحیح reloc_type)
 {
-    switch (reloc_type) {
+    انتخاب (reloc_type) {
 
-    case R_RISCV_BRANCH:
-    case R_RISCV_CALL:
-    case R_RISCV_JAL:
-        return 1;
+    حالت R_RISCV_BRANCH:
+    حالت R_RISCV_CALL:
+    حالت R_RISCV_JAL:
+        واپس 1;
 
-    case R_RISCV_GOT_HI20:
-    case R_RISCV_PCREL_HI20:
-    case R_RISCV_PCREL_LO12_I:
-    case R_RISCV_PCREL_LO12_S:
-    case R_RISCV_32_PCREL:
-    case R_RISCV_SET6:
-    case R_RISCV_SET8:
-    case R_RISCV_SET16:
-    case R_RISCV_SUB6:
-    case R_RISCV_ADD16:
-    case R_RISCV_ADD32:
-    case R_RISCV_ADD64:
-    case R_RISCV_SUB8:
-    case R_RISCV_SUB16:
-    case R_RISCV_SUB32:
-    case R_RISCV_SUB64:
-    case R_RISCV_32:
-    case R_RISCV_64:
-    case R_RISCV_SET_ULEB128:
-    case R_RISCV_SUB_ULEB128:
-    case R_RISCV_TPREL_HI20:
-    case R_RISCV_TPREL_LO12_I:
-        return 0;
+    حالت R_RISCV_GOT_HI20:
+    حالت R_RISCV_PCREL_HI20:
+    حالت R_RISCV_PCREL_LO12_I:
+    حالت R_RISCV_PCREL_LO12_S:
+    حالت R_RISCV_32_PCREL:
+    حالت R_RISCV_SET6:
+    حالت R_RISCV_SET8:
+    حالت R_RISCV_SET16:
+    حالت R_RISCV_SUB6:
+    حالت R_RISCV_ADD16:
+    حالت R_RISCV_ADD32:
+    حالت R_RISCV_ADD64:
+    حالت R_RISCV_SUB8:
+    حالت R_RISCV_SUB16:
+    حالت R_RISCV_SUB32:
+    حالت R_RISCV_SUB64:
+    حالت R_RISCV_32:
+    حالت R_RISCV_64:
+    حالت R_RISCV_سیٹ_ULEB128:
+    حالت R_RISCV_SUB_ULEB128:
+    حالت R_RISCV_TPREL_HI20:
+    حالت R_RISCV_TPREL_LO12_I:
+        واپس 0;
 
-    case R_RISCV_CALL_PLT:
-        return 1;
+    حالت R_RISCV_CALL_PLT:
+        واپس 1;
     }
-    return -1;
+    واپس -1;
 }
 
 /* Returns an enumerator to describe whether and when the relocation needs a
    GOT and/or PLT entry to be created. See tcc.h for a description of the
    different values. */
-ST_FUNC int gotplt_entry_type (int reloc_type)
+ST_FUNC صحیح gotplt_اندراج_type (صحیح reloc_type)
 {
-    switch (reloc_type) {
-    case R_RISCV_ALIGN:
-    case R_RISCV_RELAX:
-    case R_RISCV_RVC_BRANCH:
-    case R_RISCV_RVC_JUMP:
-    case R_RISCV_JUMP_SLOT:
-    case R_RISCV_SET6:
-    case R_RISCV_SET8:
-    case R_RISCV_SET16:
-    case R_RISCV_SUB6:
-    case R_RISCV_ADD16:
-    case R_RISCV_SUB8:
-    case R_RISCV_SUB16:
-    case R_RISCV_SET_ULEB128:
-    case R_RISCV_SUB_ULEB128:
-        return NO_GOTPLT_ENTRY;
+    انتخاب (reloc_type) {
+    حالت R_RISCV_ALIGN:
+    حالت R_RISCV_RELAX:
+    حالت R_RISCV_RVC_BRANCH:
+    حالت R_RISCV_RVC_JUMP:
+    حالت R_RISCV_JUMP_خانہ:
+    حالت R_RISCV_SET6:
+    حالت R_RISCV_SET8:
+    حالت R_RISCV_SET16:
+    حالت R_RISCV_SUB6:
+    حالت R_RISCV_ADD16:
+    حالت R_RISCV_SUB8:
+    حالت R_RISCV_SUB16:
+    حالت R_RISCV_سیٹ_ULEB128:
+    حالت R_RISCV_SUB_ULEB128:
+        واپس NO_GOTPLT_اندراج;
 
-    case R_RISCV_BRANCH:
-    case R_RISCV_CALL:
-    case R_RISCV_PCREL_HI20:
-    case R_RISCV_PCREL_LO12_I:
-    case R_RISCV_PCREL_LO12_S:
-    case R_RISCV_32_PCREL:
-    case R_RISCV_ADD32:
-    case R_RISCV_ADD64:
-    case R_RISCV_SUB32:
-    case R_RISCV_SUB64:
-    case R_RISCV_32:
-    case R_RISCV_64:
-    case R_RISCV_JAL:
-    case R_RISCV_CALL_PLT:
-        return AUTO_GOTPLT_ENTRY;
+    حالت R_RISCV_BRANCH:
+    حالت R_RISCV_CALL:
+    حالت R_RISCV_PCREL_HI20:
+    حالت R_RISCV_PCREL_LO12_I:
+    حالت R_RISCV_PCREL_LO12_S:
+    حالت R_RISCV_32_PCREL:
+    حالت R_RISCV_ADD32:
+    حالت R_RISCV_ADD64:
+    حالت R_RISCV_SUB32:
+    حالت R_RISCV_SUB64:
+    حالت R_RISCV_32:
+    حالت R_RISCV_64:
+    حالت R_RISCV_JAL:
+    حالت R_RISCV_CALL_PLT:
+        واپس AUTO_GOTPLT_اندراج;
 
-    case R_RISCV_GOT_HI20:
-        return ALWAYS_GOTPLT_ENTRY;
+    حالت R_RISCV_GOT_HI20:
+        واپس ALWAYS_GOTPLT_اندراج;
 
-    case R_RISCV_TPREL_HI20:
-    case R_RISCV_TPREL_LO12_I:
-        return NO_GOTPLT_ENTRY;
+    حالت R_RISCV_TPREL_HI20:
+    حالت R_RISCV_TPREL_LO12_I:
+        واپس NO_GOTPLT_اندراج;
     }
-    return -1;
+    واپس -1;
 }
 
-ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr)
+ST_FUNC غیرعلامتی create_plt_اندراج(TCCState *s1, غیرعلامتی got_انحراف, ساخت sym_attr *attr)
 {
     Section *plt = s1->plt;
     uint8_t *p;
-    unsigned plt_offset;
+    غیرعلامتی plt_انحراف;
 
-    if (plt->data_offset == 0)
-        section_ptr_add(plt, 32);
-    plt_offset = plt->data_offset;
+    اگر (plt->ڈیٹا_انحراف == 0)
+        section_ptr_جوڑو(plt, 32);
+    plt_انحراف = plt->ڈیٹا_انحراف;
 
-    p = section_ptr_add(plt, 16);
-    write64le(p, got_offset);
-    return plt_offset;
+    p = section_ptr_جوڑو(plt, 16);
+    write64le(p, got_انحراف);
+    واپس plt_انحراف;
 }
 
 /* relocate the PLT: compute addresses and offsets in the PLT now that final
    address for PLT and GOT are known (see fill_program_header) */
-ST_FUNC void relocate_plt(TCCState *s1)
+ST_FUNC خالی relocate_plt(TCCState *s1)
 {
-    uint8_t *p, *p_end;
+    uint8_t *p, *p_انتہا;
 
-    if (!s1->plt)
-      return;
+    اگر (!s1->plt)
+      واپس;
 
-    p = s1->plt->data;
-    p_end = p + s1->plt->data_offset;
+    p = s1->plt->ڈیٹا;
+    p_انتہا = p + s1->plt->ڈیٹا_انحراف;
 
-    if (p < p_end) {
+    اگر (p < p_انتہا) {
         uint64_t plt = s1->plt->sh_addr;
         uint64_t got = s1->got->sh_addr;
         uint64_t off = (got - plt + 0x800) >> 12;
-        if ((off + ((uint32_t)1 << 20)) >> 21)
-            tcc_error_noabort("Failed relocating PLT (off=0x%lx, got=0x%lx, plt=0x%lx)", (long)off, (long)got, (long)plt);
+        اگر ((off + ((uint32_t)1 << 20)) >> 21)
+            tcc_error_noabort("Failed relocating PLT (off=0x%lx, got=0x%lx, plt=0x%lx)", (طویل)off, (طویل)got, (طویل)plt);
         write32le(p, 0x397 | (off << 12)); // auipc t2, %pcrel_hi(got)
         write32le(p + 4, 0x41c30333); // sub t1, t1, t3
         write32le(p + 8, 0x0003be03   // ld t3, %pcrel_lo(got)(t2)
@@ -155,12 +155,12 @@ ST_FUNC void relocate_plt(TCCState *s1)
         write32le(p + 24, 0x0082b283); // ld t0, PTRSIZE(t0)
         write32le(p + 28, 0x000e0067); // jr t3
         p += 32;
-        while (p < p_end) {
-            uint64_t pc = plt + (p - s1->plt->data);
+        جب (p < p_انتہا) {
+            uint64_t pc = plt + (p - s1->plt->ڈیٹا);
             uint64_t addr = got + read64le(p);
             uint64_t off = (addr - pc + 0x800) >> 12;
-            if ((off + ((uint32_t)1 << 20)) >> 21)
-                tcc_error_noabort("Failed relocating PLT (off=0x%lx, addr=0x%lx, pc=0x%lx)", (long)off, (long)addr, (long)pc);
+            اگر ((off + ((uint32_t)1 << 20)) >> 21)
+                tcc_error_noabort("Failed relocating PLT (off=0x%lx, addr=0x%lx, pc=0x%lx)", (طویل)off, (طویل)addr, (طویل)pc);
             write32le(p, 0xe17 | (off << 12)); // auipc t3, %pcrel_hi(func@got)
             write32le(p + 4, 0x000e3e03 // ld t3, %pcrel_lo(func@got)(t3)
                              | (((addr - pc) & 0xfff) << 20));
@@ -170,125 +170,125 @@ ST_FUNC void relocate_plt(TCCState *s1)
         }
     }
 
-    if (s1->plt->reloc) {
+    اگر (s1->plt->reloc) {
         ElfW_Rel *rel;
-        p = s1->got->data;
+        p = s1->got->ڈیٹا;
         for_each_elem(s1->plt->reloc, 0, rel, ElfW_Rel) {
-            write64le(p + rel->r_offset, s1->plt->sh_addr);
+            write64le(p + rel->r_انحراف, s1->plt->sh_addr);
 	}
     }
 }
 
-static void riscv64_record_pcrel_hi(TCCState *s1, addr_t addr, addr_t val)
+ساکن خالی riscv64_ریکارڈ_pcrel_hi(TCCState *s1, addr_t addr, addr_t val)
 {
-    struct pcrel_hi *entry = tcc_malloc(sizeof *entry);
+    ساخت pcrel_hi *entry = tcc_malloc(حجم *entry);
     entry->addr = addr;
     entry->val = val;
-    dynarray_add(&s1->pcrel_hi_entries, &s1->nb_pcrel_hi_entries, entry);
+    dynarray_جوڑو(&s1->pcrel_hi_entries, &s1->nb_pcrel_hi_entries, entry);
 }
 
-static int riscv64_lookup_pcrel_hi(TCCState *s1, addr_t hi_addr, addr_t *hi_val)
+ساکن صحیح riscv64_lookup_pcrel_hi(TCCState *s1, addr_t hi_addr, addr_t *hi_val)
 {
-    int i;
-    for (i = s1->nb_pcrel_hi_entries; i > 0; ) {
-        struct pcrel_hi *entry = s1->pcrel_hi_entries[--i];
-        if (entry->addr == hi_addr) {
+    صحیح i;
+    برائے (i = s1->nb_pcrel_hi_entries; i > 0; ) {
+        ساخت pcrel_hi *entry = s1->pcrel_hi_entries[--i];
+        اگر (entry->addr == hi_addr) {
             *hi_val = entry->val;
-            return 0;
+            واپس 0;
         }
     }
-    return tcc_error_noabort("unsupported hi/lo pcrel reloc scheme");
+    واپس tcc_error_noabort("unsupported hi/lo pcrel reloc scheme");
 }
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
+ST_FUNC خالی relocate(TCCState *s1, ElfW_Rel *rel, صحیح type, غیرعلامتی حرف *ptr,
               addr_t addr, addr_t val)
 {
     uint64_t off64;
     uint32_t off32;
-    int sym_index = ELFW(R_SYM)(rel->r_info), esym_index;
-    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+    صحیح sym_اشاریہ = ELFW(R_SYM)(rel->r_info), esym_اشاریہ;
+    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->ڈیٹا)[sym_اشاریہ];
 
-    switch(type) {
-    case R_RISCV_ALIGN:
-    case R_RISCV_RELAX:
-        return;
+    انتخاب(type) {
+    حالت R_RISCV_ALIGN:
+    حالت R_RISCV_RELAX:
+        واپس;
 
-    case R_RISCV_BRANCH:
+    حالت R_RISCV_BRANCH:
         off64 = val - addr;
-        if ((off64 + (1 << 12)) & ~(uint64_t)0x1ffe)
+        اگر ((off64 + (1 << 12)) & ~(uint64_t)0x1ffe)
           tcc_error_noabort("R_RISCV_BRANCH relocation failed"
-                    " (val=%lx, addr=%lx)", (long)val, (long)addr);
+                    " (val=%lx, addr=%lx)", (طویل)val, (طویل)addr);
         off32 = off64 >> 1;
         write32le(ptr, (read32le(ptr) & ~0xfe000f80)
                        | ((off32 & 0x800) << 20)
                        | ((off32 & 0x3f0) << 21)
                        | ((off32 & 0x00f) << 8)
                        | ((off32 & 0x400) >> 3));
-        return;
-    case R_RISCV_JAL:
+        واپس;
+    حالت R_RISCV_JAL:
         off64 = val - addr;
-        if ((off64 + (1 << 21)) & ~(((uint64_t)1 << 22) - 2))
+        اگر ((off64 + (1 << 21)) & ~(((uint64_t)1 << 22) - 2))
           tcc_error_noabort("R_RISCV_JAL relocation failed"
-                    " (val=%lx, addr=%lx)", (long)val, (long)addr);
+                    " (val=%lx, addr=%lx)", (طویل)val, (طویل)addr);
         off32 = off64;
         write32le(ptr, (read32le(ptr) & 0xfff)
                        | (((off32 >> 12) &  0xff) << 12)
                        | (((off32 >> 11) &     1) << 20)
                        | (((off32 >>  1) & 0x3ff) << 21)
                        | (((off32 >> 20) &     1) << 31));
-        return;
-    case R_RISCV_CALL:
-    case R_RISCV_CALL_PLT:
+        واپس;
+    حالت R_RISCV_CALL:
+    حالت R_RISCV_CALL_PLT:
         write32le(ptr, (read32le(ptr) & 0xfff)
                        | ((val - addr + 0x800) & ~0xfff));
         write32le(ptr + 4, (read32le(ptr + 4) & 0xfffff)
                            | (((val - addr) & 0xfff) << 20));
-        return;
-    case R_RISCV_PCREL_HI20:
-#ifdef DEBUG_RELOC
-        printf("PCREL_HI20: val=%lx addr=%lx\n", (long)val, (long)addr);
-#endif
+        واپس;
+    حالت R_RISCV_PCREL_HI20:
+#اگر_تعریف_شدہ DEBUG_RELOC
+        لکھو("PCREL_HI20: val=%lx addr=%lx\n", (طویل)val, (طویل)addr);
+#اگر_ختم
         off64 = (int64_t)(val - addr + 0x800) >> 12;
-        if ((off64 + ((uint64_t)1 << 20)) >> 21)
+        اگر ((off64 + ((uint64_t)1 << 20)) >> 21)
           tcc_error_noabort("R_RISCV_PCREL_HI20 relocation failed: off=%lx cond=%lx sym=%s",
-                    (long)off64, (long)((int64_t)(off64 + ((uint64_t)1 << 20)) >> 21),
-                    symtab_section->link->data + sym->st_name);
+                    (طویل)off64, (طویل)((int64_t)(off64 + ((uint64_t)1 << 20)) >> 21),
+                    symtab_section->link->ڈیٹا + sym->st_name);
         write32le(ptr, (read32le(ptr) & 0xfff)
                        | ((off64 & 0xfffff) << 12));
-        riscv64_record_pcrel_hi(s1, addr, val);
-        return;
-    case R_RISCV_GOT_HI20:
-        val = s1->got->sh_addr + get_sym_attr(s1, sym_index, 0)->got_offset;
+        riscv64_ریکارڈ_pcrel_hi(s1, addr, val);
+        واپس;
+    حالت R_RISCV_GOT_HI20:
+        val = s1->got->sh_addr + get_sym_attr(s1, sym_اشاریہ, 0)->got_انحراف;
         off64 = (int64_t)(val - addr + 0x800) >> 12;
-        if ((off64 + ((uint64_t)1 << 20)) >> 21)
+        اگر ((off64 + ((uint64_t)1 << 20)) >> 21)
           tcc_error_noabort("R_RISCV_GOT_HI20 relocation failed");
         write32le(ptr, (read32le(ptr) & 0xfff)
                        | ((off64 & 0xfffff) << 12));
-        riscv64_record_pcrel_hi(s1, addr, val);
-        return;
-    case R_RISCV_PCREL_LO12_I:
-#ifdef DEBUG_RELOC
-        printf("PCREL_LO12_I: val=%lx addr=%lx\n", (long)val, (long)addr);
-#endif
+        riscv64_ریکارڈ_pcrel_hi(s1, addr, val);
+        واپس;
+    حالت R_RISCV_PCREL_LO12_I:
+#اگر_تعریف_شدہ DEBUG_RELOC
+        لکھو("PCREL_LO12_I: val=%lx addr=%lx\n", (طویل)val, (طویل)addr);
+#اگر_ختم
         addr = val;
         riscv64_lookup_pcrel_hi(s1, addr, &val);
         write32le(ptr, (read32le(ptr) & 0xfffff)
                        | (((val - addr) & 0xfff) << 20));
-        return;
-    case R_RISCV_PCREL_LO12_S:
+        واپس;
+    حالت R_RISCV_PCREL_LO12_S:
         addr = val;
         riscv64_lookup_pcrel_hi(s1, addr, &val);
         off32 = val - addr;
         write32le(ptr, (read32le(ptr) & ~0xfe000f80)
                        | ((off32 & 0xfe0) << 20)
                        | ((off32 & 0x01f) << 7));
-        return;
+        واپس;
 
-    case R_RISCV_RVC_BRANCH:
+    حالت R_RISCV_RVC_BRANCH:
         off64 = (val - addr);
-        if ((off64 + (1 << 8)) & ~(uint64_t)0x1fe)
+        اگر ((off64 + (1 << 8)) & ~(uint64_t)0x1fe)
           tcc_error_noabort("R_RISCV_RVC_BRANCH relocation failed"
-                    " (val=%lx, addr=%lx)", (long)val, (long)addr);
+                    " (val=%lx, addr=%lx)", (طویل)val, (طویل)addr);
         off32 = off64;
         write16le(ptr, (read16le(ptr) & 0xe383)
                        | (((off32 >> 5) & 1) << 2)
@@ -296,12 +296,12 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                        | (((off32 >> 6) & 3) << 5)
                        | (((off32 >> 3) & 3) << 10)
                        | (((off32 >> 8) & 1) << 12));
-        return;
-    case R_RISCV_RVC_JUMP:
+        واپس;
+    حالت R_RISCV_RVC_JUMP:
         off64 = (val - addr);
-        if ((off64 + (1 << 11)) & ~(uint64_t)0xffe)
+        اگر ((off64 + (1 << 11)) & ~(uint64_t)0xffe)
           tcc_error_noabort("R_RISCV_RVC_BRANCH relocation failed"
-                    " (val=%lx, addr=%lx)", (long)val, (long)addr);
+                    " (val=%lx, addr=%lx)", (طویل)val, (طویل)addr);
         off32 = off64;
         write16le(ptr, (read16le(ptr) & 0xe003)
                        | (((off32 >>  5) & 1) << 2)
@@ -312,119 +312,119 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                        | (((off32 >>  8) & 3) << 9)
                        | (((off32 >>  4) & 1) << 11)
                        | (((off32 >> 11) & 1) << 12));
-        return;
+        واپس;
 
-    case R_RISCV_32:
-        if (s1->output_type & TCC_OUTPUT_DYN) {
+    حالت R_RISCV_32:
+        اگر (s1->output_type & TCC_OUTPUT_DYN) {
             /* XXX: this logic may depend on TCC's codegen
                now TCC uses R_RISCV_RELATIVE even for a 64bit pointer */
-            qrel->r_offset = rel->r_offset;
+            qrel->r_انحراف = rel->r_انحراف;
             qrel->r_info = ELFW(R_INFO)(0, R_RISCV_RELATIVE);
             /* Use sign extension! */
-            qrel->r_addend = (int)read32le(ptr) + val;
+            qrel->r_addend = (صحیح)read32le(ptr) + val;
             qrel++;
         }
         add32le(ptr, val);
-        return;
-    case R_RISCV_64:
-        if (s1->output_type & TCC_OUTPUT_DYN) {
-            esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
-            qrel->r_offset = rel->r_offset;
-            if (esym_index) {
-                qrel->r_info = ELFW(R_INFO)(esym_index, R_RISCV_64);
+        واپس;
+    حالت R_RISCV_64:
+        اگر (s1->output_type & TCC_OUTPUT_DYN) {
+            esym_اشاریہ = get_sym_attr(s1, sym_اشاریہ, 0)->dyn_اشاریہ;
+            qrel->r_انحراف = rel->r_انحراف;
+            اگر (esym_اشاریہ) {
+                qrel->r_info = ELFW(R_INFO)(esym_اشاریہ, R_RISCV_64);
                 qrel->r_addend = rel->r_addend;
                 qrel++;
-                break;
-            } else {
+                توڑو;
+            } ورنہ {
                 qrel->r_info = ELFW(R_INFO)(0, R_RISCV_RELATIVE);
                 qrel->r_addend = read64le(ptr) + val;
                 qrel++;
             }
         }
-    case R_RISCV_JUMP_SLOT:
+    حالت R_RISCV_JUMP_خانہ:
         add64le(ptr, val);
-        return;
-    case R_RISCV_ADD64:
+        واپس;
+    حالت R_RISCV_ADD64:
         write64le(ptr, read64le(ptr) + val);
-        return;
-    case R_RISCV_ADD32:
+        واپس;
+    حالت R_RISCV_ADD32:
         write32le(ptr, read32le(ptr) + val);
-        return;
-    case R_RISCV_SUB64:
+        واپس;
+    حالت R_RISCV_SUB64:
         write64le(ptr, read64le(ptr) - val);
-        return;
-    case R_RISCV_SUB32:
+        واپس;
+    حالت R_RISCV_SUB32:
         write32le(ptr, read32le(ptr) - val);
-        return;
-    case R_RISCV_ADD16:
+        واپس;
+    حالت R_RISCV_ADD16:
         write16le(ptr, read16le(ptr) + val);
-        return;
-    case R_RISCV_SUB8:
+        واپس;
+    حالت R_RISCV_SUB8:
         *ptr -= val;
-        return;
-    case R_RISCV_SUB16:
+        واپس;
+    حالت R_RISCV_SUB16:
         write16le(ptr, read16le(ptr) - val);
-        return;
-    case R_RISCV_SET6:
+        واپس;
+    حالت R_RISCV_SET6:
         *ptr = (*ptr & ~0x3f) | (val & 0x3f);
-        return;
-    case R_RISCV_SET8:
+        واپس;
+    حالت R_RISCV_SET8:
         *ptr = (*ptr & ~0xff) | (val & 0xff);
-        return;
-    case R_RISCV_SET16:
+        واپس;
+    حالت R_RISCV_SET16:
         write16le(ptr, val);
-        return;
-    case R_RISCV_SUB6:
+        واپس;
+    حالت R_RISCV_SUB6:
         *ptr = (*ptr & ~0x3f) | ((*ptr - val) & 0x3f);
-        return;
-    case R_RISCV_32_PCREL:
-        if (s1->output_type & TCC_OUTPUT_DYN) {
+        واپس;
+    حالت R_RISCV_32_PCREL:
+        اگر (s1->output_type & TCC_OUTPUT_DYN) {
 	    /* DLL relocation */
-	    esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
-	    if (esym_index) {
-                qrel->r_offset = rel->r_offset;
-                qrel->r_info = ELFW(R_INFO)(esym_index, R_RISCV_32_PCREL);
+	    esym_اشاریہ = get_sym_attr(s1, sym_اشاریہ, 0)->dyn_اشاریہ;
+	    اگر (esym_اشاریہ) {
+                qrel->r_انحراف = rel->r_انحراف;
+                qrel->r_info = ELFW(R_INFO)(esym_اشاریہ, R_RISCV_32_PCREL);
                 /* Use sign extension! */
-                qrel->r_addend = (int)read32le(ptr) + rel->r_addend;
+                qrel->r_addend = (صحیح)read32le(ptr) + rel->r_addend;
                 qrel++;
-		break;
+		توڑو;
 	    }
         }
 	add32le(ptr, val - addr);
-        return;
-    case R_RISCV_SET_ULEB128:
-    case R_RISCV_SUB_ULEB128:
+        واپس;
+    حالت R_RISCV_سیٹ_ULEB128:
+    حالت R_RISCV_SUB_ULEB128:
 	/* ignore. used in section .debug_loclists */
-        return;
-    case R_RISCV_COPY:
+        واپس;
+    حالت R_RISCV_COPY:
         /* XXX */
-        return;
-    case R_RISCV_RELATIVE:
+        واپس;
+    حالت R_RISCV_RELATIVE:
         /* R_RISCV_RELATIVE value is already applied in R_RISCV_32/64
            dynamic output paths, but we need this case for incoming
            RELATIVE relocations from object files. */
-        return;
+        واپس;
 
-    case R_RISCV_TPREL_HI20:
-    case R_RISCV_TPREL_LO12_I: {
-        int64_t tp_offset = val - s1->tls_start;
-        if (type == R_RISCV_TPREL_HI20) {
-            off64 = (int64_t)(tp_offset + 0x800) >> 12;
-            if ((off64 + ((uint64_t)1 << 20)) >> 21)
+    حالت R_RISCV_TPREL_HI20:
+    حالت R_RISCV_TPREL_LO12_I: {
+        int64_t tp_انحراف = val - s1->tls_آغاز;
+        اگر (type == R_RISCV_TPREL_HI20) {
+            off64 = (int64_t)(tp_انحراف + 0x800) >> 12;
+            اگر ((off64 + ((uint64_t)1 << 20)) >> 21)
                 tcc_error_noabort("R_RISCV_TPREL_HI20 relocation failed");
             write32le(ptr, (read32le(ptr) & 0xfff)
                            | ((off64 & 0xfffff) << 12));
-        } else {
+        } ورنہ {
             write32le(ptr, (read32le(ptr) & 0xfffff)
-                           | (((tp_offset) & 0xfff) << 20));
+                           | (((tp_انحراف) & 0xfff) << 20));
         }
-        return;
+        واپس;
     }
 
-    default:
+    طےشدہ:
         fprintf(stderr, "FIXME: handle reloc type %x at %x [%p] to %x\n",
-                type, (unsigned)addr, ptr, (unsigned)val);
-        return;
+                type, (غیرعلامتی)addr, ptr, (غیرعلامتی)val);
+        واپس;
     }
 }
-#endif
+#اگر_ختم

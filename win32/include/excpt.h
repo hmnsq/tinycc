@@ -3,121 +3,121 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_EXCPT
-#define _INC_EXCPT
+#اگر_غیر_تعریف_شدہ _INC_EXCPT
+#تعریف_کرو _INC_EXCPT
 
-#include <_mingw.h>
+#شامل <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ہدایت pack(ڈالو,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
-  struct _EXCEPTION_POINTERS;
+  ساخت EXCEPTION_اشارے_2;
 
-#ifndef EXCEPTION_DISPOSITION
-#define EXCEPTION_DISPOSITION   int
-#endif
-#define ExceptionContinueExecution 0
-#define ExceptionContinueSearch 1
-#define ExceptionNestedException 2
-#define ExceptionCollidedUnwind 3
+#اگر_غیر_تعریف_شدہ EXCEPTION_DISPOSITION
+#تعریف_کرو EXCEPTION_DISPOSITION   صحیح
+#اگر_ختم
+#تعریف_کرو ExceptionContinueExecution 0
+#تعریف_کرو Exception_Continue_تلاش 1
+#تعریف_کرو ExceptionNestedException 2
+#تعریف_کرو ExceptionCollidedUnwind 3
 
-#if (defined(_X86_) && !defined(__x86_64))
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
+#اگر (defined(_X86_) && !defined(__x86_64))
+  ساخت EXCEPTION_ریکارڈ;
+  ساخت _CONTEXT;
 
-  EXCEPTION_DISPOSITION __cdecl _except_handler(struct _EXCEPTION_RECORD *_ExceptionRecord,void *_EstablisherFrame,struct _CONTEXT *_ContextRecord,void *_DispatcherContext);
-#elif defined(__ia64__)
+  EXCEPTION_DISPOSITION __cdecl _except_handler(ساخت EXCEPTION_ریکارڈ *Exception_ریکارڈ_2,خالی *Establisher_چوکھٹا,ساخت _CONTEXT *Context_ریکارڈ_2,خالی *_DispatcherContext);
+#وگرنہ_اگر defined(__ia64__)
 
-  typedef struct _EXCEPTION_POINTERS *Exception_info_ptr;
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
-  struct _DISPATCHER_CONTEXT;
+  قسمتعریف ساخت EXCEPTION_اشارے_2 *Exception_info_ptr;
+  ساخت EXCEPTION_ریکارڈ;
+  ساخت _CONTEXT;
+  ساخت _DISPATCHER_CONTEXT;
 
-  _CRTIMP EXCEPTION_DISPOSITION __cdecl __C_specific_handler (struct _EXCEPTION_RECORD *_ExceptionRecord,unsigned __int64 _MemoryStackFp,unsigned __int64 _BackingStoreFp,struct _CONTEXT *_ContextRecord,struct _DISPATCHER_CONTEXT *_DispatcherContext,unsigned __int64 _GlobalPointer);
-#elif defined(__x86_64)
+  _CRTIMP EXCEPTION_DISPOSITION __cdecl __C_specific_handler (ساخت EXCEPTION_ریکارڈ *Exception_ریکارڈ_2,غیرعلامتی __int64 حافظہ_ڈھیر_Fp,غیرعلامتی __int64 _BackingStoreFp,ساخت _CONTEXT *Context_ریکارڈ_2,ساخت _DISPATCHER_CONTEXT *_DispatcherContext,غیرعلامتی __int64 Global_اشارہ_گر);
+#وگرنہ_اگر defined(__x86_64)
 
-  struct _EXCEPTION_RECORD;
-  struct _CONTEXT;
-#endif
+  ساخت EXCEPTION_ریکارڈ;
+  ساخت _CONTEXT;
+#اگر_ختم
 
-#define GetExceptionCode _exception_code
-#define exception_code _exception_code
-#define GetExceptionInformation (struct _EXCEPTION_POINTERS *)_exception_info
-#define exception_info (struct _EXCEPTION_POINTERS *)_exception_info
-#define AbnormalTermination _abnormal_termination
-#define abnormal_termination _abnormal_termination
+#تعریف_کرو Get_Exception_رمز exception_رمز
+#تعریف_کرو exception_رمز_2 exception_رمز
+#تعریف_کرو GetExceptionInformation (ساخت EXCEPTION_اشارے_2 *)_exception_info
+#تعریف_کرو exception_info (ساخت EXCEPTION_اشارے_2 *)_exception_info
+#تعریف_کرو AbnormalTermination _abnormal_termination
+#تعریف_کرو abnormal_termination _abnormal_termination
 
-  unsigned long __cdecl _exception_code(void);
-  void *__cdecl _exception_info(void);
-  int __cdecl _abnormal_termination(void);
+  غیرعلامتی طویل __cdecl exception_رمز(خالی);
+  خالی *__cdecl _exception_info(خالی);
+  صحیح __cdecl _abnormal_termination(خالی);
 
-#define EXCEPTION_EXECUTE_HANDLER 1
-#define EXCEPTION_CONTINUE_SEARCH 0
-#define EXCEPTION_CONTINUE_EXECUTION -1
+#تعریف_کرو EXCEPTION_EXECUTE_HANDLER 1
+#تعریف_کرو EXCEPTION_CONTINUE_تلاش 0
+#تعریف_کرو EXCEPTION_CONTINUE_EXECUTION -1
 
   /* CRT stuff */
-  typedef void (__cdecl * _PHNDLR)(int);
+  قسمتعریف خالی (__cdecl * _PHNDLR)(صحیح);
 
-  struct _XCPT_ACTION {
-    unsigned long XcptNum;
-    int SigNum;
+  ساخت _XCPT_ACTION {
+    غیرعلامتی طویل Xcpt_عدد;
+    صحیح Sig_عدد;
     _PHNDLR XcptAction;
   };
 
-  extern struct _XCPT_ACTION _XcptActTab[];
-  extern int _XcptActTabCount;
-  extern int _XcptActTabSize;
-  extern int _First_FPE_Indx;
-  extern int _Num_FPE;
+  خارجی ساخت _XCPT_ACTION _XcptActTab[];
+  خارجی صحیح Xcpt_Act_Tab_گنتی;
+  خارجی صحیح Xcpt_Act_Tab_سائز;
+  خارجی صحیح پہلا_FPE_Indx;
+  خارجی صحیح عدد_FPE;
 
-  int __cdecl __CppXcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
-  int __cdecl _XcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
+  صحیح __cdecl __CppXcptFilter(غیرعلامتی طویل Exception_عدد,ساخت EXCEPTION_اشارے_2 * _ExceptionPtr);
+  صحیح __cdecl _XcptFilter(غیرعلامتی طویل Exception_عدد,ساخت EXCEPTION_اشارے_2 * _ExceptionPtr);
 
   /*
   * The type of function that is expected as an exception handler to be
   * installed with _try1.
   */
-  typedef EXCEPTION_DISPOSITION (*PEXCEPTION_HANDLER)(struct _EXCEPTION_RECORD*, void*, struct _CONTEXT*, void*);
+  قسمتعریف EXCEPTION_DISPOSITION (*PEXCEPTION_HANDLER)(ساخت EXCEPTION_ریکارڈ*, خالی*, ساخت _CONTEXT*, خالی*);
 
-#ifndef HAVE_NO_SEH
+#اگر_غیر_تعریف_شدہ HAVE_NO_SEH
   /*
   * This is not entirely necessary, but it is the structure installed by
   * the _try1 primitive below.
   */
-  typedef struct _EXCEPTION_REGISTRATION {
-    struct _EXCEPTION_REGISTRATION *prev;
-    EXCEPTION_DISPOSITION (*handler)(struct _EXCEPTION_RECORD*, void*, struct _CONTEXT*, void*);
+  قسمتعریف ساخت _EXCEPTION_REGISTRATION {
+    ساخت _EXCEPTION_REGISTRATION *پچھلا;
+    EXCEPTION_DISPOSITION (*handler)(ساخت EXCEPTION_ریکارڈ*, خالی*, ساخت _CONTEXT*, خالی*);
   } EXCEPTION_REGISTRATION, *PEXCEPTION_REGISTRATION;
 
-  typedef EXCEPTION_REGISTRATION EXCEPTION_REGISTRATION_RECORD;
-  typedef PEXCEPTION_REGISTRATION PEXCEPTION_REGISTRATION_RECORD;
-#endif
+  قسمتعریف EXCEPTION_REGISTRATION EXCEPTION_REGISTRATION_ریکارڈ;
+  قسمتعریف PEXCEPTION_REGISTRATION PEXCEPTION_REGISTRATION_ریکارڈ;
+#اگر_ختم
 
-#if (defined(_X86_) && !defined(__x86_64))
-#define __try1(pHandler) \
+#اگر (defined(_X86_) && !defined(__x86_64))
+#تعریف_کرو __try1(pHandler) \
   __asm__ ("pushl %0;pushl %%fs:0;movl %%esp,%%fs:0;" : : "g" (pHandler));
 
-#define	__except1	\
+#تعریف_کرو	__except1	\
   __asm__ ("movl (%%esp),%%eax;movl %%eax,%%fs:0;addl $8,%%esp;" \
   : : : "%eax");
-#elif defined(__x86_64)
-#define __try1(pHandler) \
+#وگرنہ_اگر defined(__x86_64)
+#تعریف_کرو __try1(pHandler) \
   __asm__ ("pushq %0;pushq %%gs:0;movq %%rsp,%%gs:0;" : : "g" (pHandler));
 
-#define	__except1	\
+#تعریف_کرو	__except1	\
   __asm__ ("movq (%%rsp),%%rax;movq %%rax,%%gs:0;addq $16,%%rsp;" \
   : : : "%rax");
-#else
-#define __try1(pHandler)
-#define __except1
-#endif
+#ورنہ
+#تعریف_کرو __try1(pHandler)
+#تعریف_کرو __except1
+#اگر_ختم
 
-#ifdef __cplusplus
+#اگر_تعریف_شدہ __cplusplus
 }
-#endif
+#اگر_ختم
 
-#pragma pack(pop)
-#endif
+#ہدایت pack(نکالو)
+#اگر_ختم

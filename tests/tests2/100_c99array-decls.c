@@ -1,54 +1,54 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+خالی foo(صحیح [5]);
+خالی fooc(صحیح x[ثابت 5]);
+خالی foos(صحیح x[ساکن 5]);
+خالی foov(صحیح x[متلون 5]);
+خالی foor(صحیح x[محدود 5]);
+خالی fooc(صحیح [ثابت 5]);
+خالی foos(صحیح [ساکن 5]);
+خالی foov(صحیح [متلون 5]);
+خالی foor(صحیح [محدود 5]);
+خالی fooc(صحیح (* ثابت x));
+خالی foos(صحیح *x);
+خالی foov(صحیح * متلون x);
+خالی foor(صحیح * محدود x);
+خالی fooc(صحیح x[متلون 5])
 {
   x[3] = 42;
-#ifdef INVALID
+#اگر_تعریف_شدہ INVALID
   x = 0;
-#endif
+#اگر_ختم
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+خالی foovm(صحیح x[ثابت *]);
+خالی foovm(صحیح * ثابت x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
-typedef restrict pointer_array restricted_pointer_array;
+قسمتعریف صحیح *اشارہ_گر_array[2];
+قسمتعریف صحیح *محدود restricted_اشارہ_گر;
+قسمتعریف محدود اشارہ_گر_array restricted_اشارہ_گر_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
-                                             restricted_pointer *),
+_Static_assert(!__builtin_types_compatible_p(صحیح **,
+                                             restricted_اشارہ_گر *),
                "nested restrict qualifier is retained");
-_Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
-                                            restricted_pointer[2]),
+_Static_assert(__builtin_types_compatible_p(restricted_اشارہ_گر_array,
+                                            restricted_اشارہ_گر[2]),
                "restrict can qualify an array of pointer types");
 
-restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+restricted_اشارہ_گر *restricted_pp;
+صحیح **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
-                   restricted_pointer *),
+                   restricted_اشارہ_گر *),
                "conditional expression combines restrict qualifiers");
 
-#ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+#اگر_تعریف_شدہ INVALID
+خالی wrongc(صحیح x[3][ثابت 4]);
+خالی wrongvm(صحیح x[ساکن *]);
+خالی foovm(صحیح x[ثابت *])
 {
   x[2] = 1;
 }
-#endif
-int main()
+#اگر_ختم
+صحیح مین()
 {
-  return 0;
+  واپس 0;
 }

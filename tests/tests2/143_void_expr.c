@@ -1,17 +1,17 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-static void f(int x)
+ساکن خالی f(صحیح x)
 {
-     printf("f(%d)\n", x);
+     لکھو("f(%d)\n", x);
 }
 
-int main(void)
+صحیح مین(خالی)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
-         printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+     صحیح گنتی_2 = 0, i = 0;
+     برائے (; i < 3; ++i) {
+         لکھو("%d\n", i);
+         (خالی)(i || (f(i), ++گنتی_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     لکھو("count %d\n", گنتی_2);
+     واپس گنتی_2 == 1 ? 0 : 1;
 }

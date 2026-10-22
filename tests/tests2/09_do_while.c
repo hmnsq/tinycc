@@ -1,24 +1,24 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح مین()
 {
-   int a;
-   int p;
-   int t;
+   صحیح a;
+   صحیح p;
+   صحیح t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   do
+   کرو
    {
-      printf("%d\n", a);
+      لکھو("%d\n", a);
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } جب (a < 100);
 
-   return 0;
+   واپس 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

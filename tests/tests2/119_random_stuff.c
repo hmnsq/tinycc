@@ -1,135 +1,135 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-struct big_struct { char a[262144]; };
+ساخت big_struct { حرف a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+ساکن ثابت حرف str[] = "abcdefghijklmnopqrstuvwxyz";
 
-void tst_branch(void)
+خالی tst_branch(خالی)
 {
-  printf("tst_branch --");
-  goto *&&a; 
-  printf (" dummy");
+  لکھو("tst_branch --");
+  جاؤ *&&a; 
+  لکھو (" dummy");
 a: ;
-  printf(" --\n");
+  لکھو(" --\n");
 }
 
-void tst_void_ptr(void *pv, int i) 
+خالی tst_void_ptr(خالی *pv, صحیح i) 
 {
   i ? *pv : *pv; // dr106
 }
 
-void tst_shift(void)
+خالی tst_سرکاؤ(خالی)
 {
-  int i = 1;
-  long long l = 1;
+  صحیح i = 1;
+  طویل طویل l = 1;
   i = i << 32; // illegal. just test
   l = l << 64; // illegal. just test
 }
 
-#if !defined(_WIN32)
-#include <sys/mman.h>
+#اگر !defined(_WIN32)
+#شامل <sys/mman.h>
 
-void tst_const_addr(void)
+خالی tst_const_addr(خالی)
 {
-  void *addr = mmap ((void *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
-  if (addr != (void *) -1) {
-    *(int *)0x20000000 += 42;
+  خالی *addr = mmap ((خالی *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
+  اگر (addr != (خالی *) -1) {
+    *(صحیح *)0x20000000 += 42;
     munmap (addr, 4096);
   }
 }
-#endif
+#اگر_ختم
 
-struct zero_struct {};
+ساخت zero_struct {};
 
-struct zero_struct tst_zero_struct(void)
+ساخت zero_struct tst_zero_struct(خالی)
 {
-  struct zero_struct ret;
-  return ret;
+  ساخت zero_struct ret;
+  واپس ret;
 }
 
-struct big_struct tst_big(struct big_struct tst)
+ساخت big_struct tst_big(ساخت big_struct tst)
 {
-   return tst;
+   واپس tst;
 }
 
-void tst_adr (int (*fp)(char *, const char *, ...))
+خالی tst_adr (صحیح (*fp)(حرف *, ثابت حرف *, ...))
 {
-  char buf[10];
+  حرف buf[10];
   (*fp)(buf, "%.0f", 5.0);
-  printf("tst_adr %s\n", buf);
+  لکھو("tst_adr %s\n", buf);
 }
 
-int tst(void)
+صحیح tst(خالی)
 {
-  long long value = 3;
-  return -value;
+  طویل طویل قدر = 3;
+  واپس -قدر;
 }
 
-void tst_compare(void)
+خالی tst_compare(خالی)
 {
   /* This failed on risc64 */
-  printf ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
+  لکھو ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
 }
 
-#pragma pack(1)
-struct S { int d:24; int f:14; } i, j;
-#pragma pack()
+#ہدایت pack(1)
+ساخت S { صحیح d:24; صحیح f:14; } i, j;
+#ہدایت pack()
 
-void tst_pack (void)
+خالی tst_pack (خالی)
 {
   i.f = 5; j.f = 5;
-  printf("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
+  لکھو("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
 }
 
-void tst_cast(void)
+خالی tst_cast(خالی)
 {
-  signed char c = (signed char) 0xaaaaaaaa;
-  int r = (unsigned short) c ^ (signed char) 0x99999999;
-  printf ("schar to ushort cast: %x\n", r);
+  علامتی حرف c = (علامتی حرف) 0xaaaaaaaa;
+  صحیح r = (غیرعلامتی مختصر) c ^ (علامتی حرف) 0x99999999;
+  لکھو ("schar to ushort cast: %x\n", r);
 }
 
-struct {
-    int (*print)(const char *format, ...);
+ساخت {
+    صحیح (*print)(ثابت حرف *format, ...);
 } tst_indir = {
-    printf
+    لکھو
 };
 
-void tst_indir_func(void)
+خالی tst_indir_func(خالی)
 {
     tst_indir.print("tst_indir_func %d\n", 10);
 }
 
-struct V {
-  int x, y, z;
+ساخت V {
+  صحیح x, y, z;
 };
 
-struct V vec(void)
+ساخت V vec(خالی)
 {
-  return (struct V) { 1, 2, 3 };
+  واپس (ساخت V) { 1, 2, 3 };
 }
 
-void func(float f, struct V v)
+خالی func(اعشاری f, ساخت V v)
 {
-  printf("%g\n", f);
+  لکھو("%g\n", f);
 }
 
-void tst_struct_return_align(void)
+خالی tst_struct_return_align(خالی)
 {
-  float d = 5.0f;
+  اعشاری d = 5.0f;
   func(d, vec());
 }
 
-int
-main (void)
+صحیح
+مین (خالی)
 {
-  struct big_struct big;
+  ساخت big_struct big;
 
   tst_branch();
-  tst_shift();
+  tst_سرکاؤ();
   tst_void_ptr(&big.a[0], 0);
-#if !defined(_WIN32)
+#اگر !defined(_WIN32)
   tst_const_addr();
-#endif
+#اگر_ختم
   tst_zero_struct();
   tst_big(big);
   tst_adr(&sprintf);

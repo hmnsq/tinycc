@@ -1,27 +1,27 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-enum fred { a, b, c };
+شمار fred { a, b, c };
 
-int main()
+صحیح مین()
 {
-   printf("a=%d\n", a);
-   printf("b=%d\n", b);
-   printf("c=%d\n", c);
+   لکھو("a=%d\n", a);
+   لکھو("b=%d\n", b);
+   لکھو("c=%d\n", c);
 
-   enum fred d;
+   شمار fred d;
 
-   typedef enum { e, f, g } h;
-   typedef enum { i, j, k } m;
+   قسمتعریف شمار { e, f, g } h;
+   قسمتعریف شمار { i, j, k } m;
 
-   printf("e=%d\n", e);
-   printf("f=%d\n", f);
-   printf("g=%d\n", g);
+   لکھو("e=%d\n", e);
+   لکھو("f=%d\n", f);
+   لکھو("g=%d\n", g);
 
-   printf("i=%d\n", i);
-   printf("j=%d\n", j);
-   printf("k=%d\n", k);
+   لکھو("i=%d\n", i);
+   لکھو("j=%d\n", j);
+   لکھو("k=%d\n", k);
 
-   return 0;
+   واپس 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

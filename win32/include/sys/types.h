@@ -3,121 +3,121 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_TYPES
-#define _INC_TYPES
+#اگر_غیر_تعریف_شدہ _INC_TYPES
+#تعریف_کرو _INC_TYPES
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#اگر_غیر_تعریف_شدہ _WIN32
+#غلطی Only Win32 ہدف is supported!
+#اگر_ختم
 
-#include <_mingw.h>
+#شامل <_mingw.h>
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ __TINYC__ /* gr */
+#اگر_تعریف_شدہ USE_32_ثنائی_ہندسہ_وقت_T
+#اگر_تعریف_شدہ _WIN64
+#تعریف_منسوخ USE_32_ثنائی_ہندسہ_وقت_T
+#اگر_ختم
+#ورنہ
+#اگر INTEGRAL_MAX_بٹ < 64
+#تعریف_کرو USE_32_ثنائی_ہندسہ_وقت_T
+#اگر_ختم
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-typedef long __time32_t;
-#endif
+#اگر_غیر_تعریف_شدہ _TIME32_T_DEFINED
+#تعریف_کرو _TIME32_T_DEFINED
+قسمتعریف طویل __time32_t;
+#اگر_ختم
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-typedef __int64 __time64_t;
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _TIME64_T_DEFINED
+#تعریف_کرو _TIME64_T_DEFINED
+#اگر INTEGRAL_MAX_بٹ >= 64
+قسمتعریف __int64 __time64_t;
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-typedef __time32_t time_t;
-#else
-typedef __time64_t time_t;
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ وقت_T_DEFINED
+#تعریف_کرو وقت_T_DEFINED
+#اگر_تعریف_شدہ USE_32_ثنائی_ہندسہ_وقت_T
+قسمتعریف __time32_t time_t;
+#ورنہ
+قسمتعریف __time64_t time_t;
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _INO_T_DEFINED
-#define _INO_T_DEFINED
-typedef unsigned short _ino_t;
-#ifndef	NO_OLDNAMES
-typedef unsigned short ino_t;
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _INO_T_DEFINED
+#تعریف_کرو _INO_T_DEFINED
+قسمتعریف غیرعلامتی مختصر _ino_t;
+#اگر_غیر_تعریف_شدہ	NO_OLDNAMES
+قسمتعریف غیرعلامتی مختصر ino_t;
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _DEV_T_DEFINED
-#define _DEV_T_DEFINED
-typedef unsigned int _dev_t;
-#ifndef	NO_OLDNAMES
-typedef unsigned int dev_t;
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _DEV_T_DEFINED
+#تعریف_کرو _DEV_T_DEFINED
+قسمتعریف غیرعلامتی صحیح _dev_t;
+#اگر_غیر_تعریف_شدہ	NO_OLDNAMES
+قسمتعریف غیرعلامتی صحیح dev_t;
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _PID_T_
-#define	_PID_T_
-#ifndef _WIN64
-typedef int	_pid_t;
-#else
-typedef __int64	_pid_t;
-#endif
+#اگر_غیر_تعریف_شدہ _PID_T_
+#تعریف_کرو	_PID_T_
+#اگر_غیر_تعریف_شدہ _WIN64
+قسمتعریف صحیح	_pid_t;
+#ورنہ
+قسمتعریف __int64	_pid_t;
+#اگر_ختم
 
-#ifndef	NO_OLDNAMES
-typedef _pid_t	pid_t;
-#endif
-#endif	/* Not _PID_T_ */
+#اگر_غیر_تعریف_شدہ	NO_OLDNAMES
+قسمتعریف _pid_t	pid_t;
+#اگر_ختم
+#اگر_ختم	/* Not _PID_T_ */
 
-#ifndef _MODE_T_
-#define	_MODE_T_
-typedef unsigned short _mode_t;
+#اگر_غیر_تعریف_شدہ منوال_T
+#تعریف_کرو	منوال_T
+قسمتعریف غیرعلامتی مختصر منوال_t;
 
-#ifndef	NO_OLDNAMES
-typedef _mode_t	mode_t;
-#endif
-#endif	/* Not _MODE_T_ */
+#اگر_غیر_تعریف_شدہ	NO_OLDNAMES
+قسمتعریف منوال_t	mode_t;
+#اگر_ختم
+#اگر_ختم	/* Not _MODE_T_ */
 
-#ifndef _OFF_T_DEFINED
-#define _OFF_T_DEFINED
-#ifndef _OFF_T_
-#define _OFF_T_
-  typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long off_t;
-#endif
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _OFF_T_DEFINED
+#تعریف_کرو _OFF_T_DEFINED
+#اگر_غیر_تعریف_شدہ _OFF_T_
+#تعریف_کرو _OFF_T_
+  قسمتعریف طویل _off_t;
+#اگر !defined(NO_OLDNAMES) || defined(_POSIX)
+  قسمتعریف طویل off_t;
+#اگر_ختم
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _OFF64_T_DEFINED
-#define _OFF64_T_DEFINED
-  typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long long off64_t;
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _OFF64_T_DEFINED
+#تعریف_کرو _OFF64_T_DEFINED
+  قسمتعریف طویل طویل _off64_t;
+#اگر !defined(NO_OLDNAMES) || defined(_POSIX)
+  قسمتعریف طویل طویل off64_t;
+#اگر_ختم
+#اگر_ختم
 
 /* required by (unbundled) unistd.h for usleep arg type */
-#ifndef __NO_ISOCEXT
-typedef unsigned int useconds_t;
-#endif
+#اگر_غیر_تعریف_شدہ __NO_ISOCEXT
+قسمتعریف غیرعلامتی صحیح useconds_t;
+#اگر_ختم
 
-#ifndef _TIMESPEC_DEFINED
-#define _TIMESPEC_DEFINED
-struct timespec {
+#اگر_غیر_تعریف_شدہ _TIMESPEC_DEFINED
+#تعریف_کرو _TIMESPEC_DEFINED
+ساخت timespec {
   time_t  tv_sec;   /* Seconds */
-  long    tv_nsec;  /* Nanoseconds */
+  طویل    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+ساخت itimerspec {
+  ساخت timespec  it_interval;  /* Timer period */
+  ساخت timespec  it_value;     /* Timer expiration */
 };
-#endif
+#اگر_ختم
 
-#endif
+#اگر_ختم

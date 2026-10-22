@@ -1,52 +1,52 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح مین()
 {
    FILE *f = fopen("fred.txt", "w");
    fwrite("hello\nhello\n", 1, 12, f);
    fclose(f);
 
-   char freddy[7];
+   حرف freddy[7];
    f = fopen("fred.txt", "r");
-   if (fread(freddy, 1, 6, f) != 6)
-      printf("couldn't read fred.txt\n");
+   اگر (fread(freddy, 1, 6, f) != 6)
+      لکھو("couldn't read fred.txt\n");
 
    freddy[6] = '\0';
    fclose(f);
 
-   printf("%s", freddy);
+   لکھو("%s", freddy);
 
-   int InChar;
-   char ShowChar;
+   صحیح اندر_Char;
+   حرف ShowChar;
    f = fopen("fred.txt", "r");
-   while ( (InChar = fgetc(f)) != EOF)
+   جب ( (اندر_Char = fgetc(f)) != EOF)
    {
-      ShowChar = InChar;
-      if (ShowChar < ' ')
+      ShowChar = اندر_Char;
+      اگر (ShowChar < ' ')
          ShowChar = '.';
 
-      printf("ch: %d '%c'\n", InChar, ShowChar);
+      لکھو("ch: %d '%c'\n", اندر_Char, ShowChar);
    }
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while ( (InChar = getc(f)) != EOF)
+   جب ( (اندر_Char = getc(f)) != EOF)
    {
-      ShowChar = InChar;
-      if (ShowChar < ' ')
+      ShowChar = اندر_Char;
+      اگر (ShowChar < ' ')
          ShowChar = '.';
 
-      printf("ch: %d '%c'\n", InChar, ShowChar);
+      لکھو("ch: %d '%c'\n", اندر_Char, ShowChar);
    }
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while (fgets(freddy, sizeof(freddy), f) != NULL)
-      printf("x: %s", freddy);
+   جب (fgets(freddy, حجم(freddy), f) != تہی)
+      لکھو("x: %s", freddy);
 
    fclose(f);
 
-   return 0;
+   واپس 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

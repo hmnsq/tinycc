@@ -4,30 +4,30 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 /* All the headers include this file. */
-#include <_mingw.h>
+#شامل <_mingw.h>
 
-#ifndef	__STRICT_ANSI__
+#اگر_غیر_تعریف_شدہ	__STRICT_ANSI__
 
-#ifndef _DIRENT_H_
-#define _DIRENT_H_
+#اگر_غیر_تعریف_شدہ _DIRENT_H_
+#تعریف_کرو _DIRENT_H_
 
 
-#pragma pack(push,_CRT_PACKING)
+#ہدایت pack(ڈالو,_CRT_PACKING)
 
-#include <io.h>
+#شامل <io.h>
 
-#ifndef RC_INVOKED
+#اگر_غیر_تعریف_شدہ RC_INVOKED
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
-  struct dirent
+  ساخت dirent
   {
-    long		d_ino;		/* Always zero. */
-    unsigned short	d_reclen;	/* Always zero. */
-    unsigned short	d_namlen;	/* Length of name in d_name. */
-    char*		d_name;		/* File name. */
+    طویل		d_ino;		/* Always zero. */
+    غیرعلامتی مختصر	d_reclen;	/* Always zero. */
+    غیرعلامتی مختصر	d_namlen;	/* Length of name in d_name. */
+    حرف*		d_name;		/* File name. */
     /* NOTE: The name in the dirent structure points to the name in the
     *       finddata_t structure in the DIR. */
   };
@@ -37,18 +37,18 @@ extern "C" {
   * except as an argument to one of the functions below.
   * dd_stat field is now int (was short in older versions).
   */
-  typedef struct
+  قسمتعریف ساخت
   {
     /* disk transfer area for this dir */
-    struct _finddata_t	dd_dta;
+    ساخت _finddata_t	dd_dta;
 
     /* dirent struct to return from dir (NOTE: this makes this thread
     * safe as long as only one thread uses a particular DIR struct at
     * a time) */
-    struct dirent		dd_dir;
+    ساخت dirent		dd_dir;
 
     /* _findnext handle */
-    long			dd_handle;
+    طویل			dd_handle;
 
     /*
     * Status of search:
@@ -56,27 +56,27 @@ extern "C" {
     *  -1 = off the end
     *   positive = 0 based index of next entry
     */
-    int			dd_stat;
+    صحیح			dd_stat;
 
     /* given path for dir with search pattern (struct is extended) */
-    char			dd_name[1];
+    حرف			dd_name[1];
   } DIR;
 
-  DIR* __cdecl opendir (const char*);
-  struct dirent* __cdecl readdir (DIR*);
-  int __cdecl closedir (DIR*);
-  void __cdecl rewinddir (DIR*);
-  long __cdecl telldir (DIR*);
-  void __cdecl seekdir (DIR*, long);
+  DIR* __cdecl opendir (ثابت حرف*);
+  ساخت dirent* __cdecl readdir (DIR*);
+  صحیح __cdecl closedir (DIR*);
+  خالی __cdecl rewinddir (DIR*);
+  طویل __cdecl telldir (DIR*);
+  خالی __cdecl seekdir (DIR*, طویل);
 
 
   /* wide char versions */
 
-  struct _wdirent
+  ساخت _wdirent
   {
-    long		d_ino;		/* Always zero. */
-    unsigned short	d_reclen;	/* Always zero. */
-    unsigned short	d_namlen;	/* Length of name in d_name. */
+    طویل		d_ino;		/* Always zero. */
+    غیرعلامتی مختصر	d_reclen;	/* Always zero. */
+    غیرعلامتی مختصر	d_namlen;	/* Length of name in d_name. */
     wchar_t*	d_name;		/* File name. */
     /* NOTE: The name in the dirent structure points to the name in the	 *       wfinddata_t structure in the _WDIR. */
   };
@@ -85,18 +85,18 @@ extern "C" {
   * This is an internal data structure. Good programmers will not use it
   * except as an argument to one of the functions below.
   */
-  typedef struct
+  قسمتعریف ساخت
   {
     /* disk transfer area for this dir */
-    struct _wfinddata_t	dd_dta;
+    ساخت _wfinddata_t	dd_dta;
 
     /* dirent struct to return from dir (NOTE: this makes this thread
     * safe as long as only one thread uses a particular DIR struct at
     * a time) */
-    struct _wdirent		dd_dir;
+    ساخت _wdirent		dd_dir;
 
     /* _findnext handle */
-    long			dd_handle;
+    طویل			dd_handle;
 
     /*
     * Status of search:
@@ -104,7 +104,7 @@ extern "C" {
     *  -1 = off the end
     *   positive = 0 based index of next entry
     */
-    int			dd_stat;
+    صحیح			dd_stat;
 
     /* given path for dir with search pattern (struct is extended) */
     wchar_t			dd_name[1];
@@ -112,24 +112,24 @@ extern "C" {
 
 
 
-  _WDIR* __cdecl _wopendir (const wchar_t*);
-  struct _wdirent*  __cdecl _wreaddir (_WDIR*);
-  int __cdecl _wclosedir (_WDIR*);
-  void __cdecl _wrewinddir (_WDIR*);
-  long __cdecl _wtelldir (_WDIR*);
-  void __cdecl _wseekdir (_WDIR*, long);
+  _WDIR* __cdecl _wopendir (ثابت wchar_t*);
+  ساخت _wdirent*  __cdecl _wreaddir (_WDIR*);
+  صحیح __cdecl _wclosedir (_WDIR*);
+  خالی __cdecl _wrewinddir (_WDIR*);
+  طویل __cdecl _wtelldir (_WDIR*);
+  خالی __cdecl _wseekdir (_WDIR*, طویل);
 
 
-#ifdef	__cplusplus
+#اگر_تعریف_شدہ	__cplusplus
 }
-#endif
+#اگر_ختم
 
-#endif	/* Not RC_INVOKED */
+#اگر_ختم	/* Not RC_INVOKED */
 
-#pragma pack(pop)
+#ہدایت pack(نکالو)
 
-#endif	/* Not _DIRENT_H_ */
+#اگر_ختم	/* Not _DIRENT_H_ */
 
 
-#endif	/* Not __STRICT_ANSI__ */
+#اگر_ختم	/* Not __STRICT_ANSI__ */
 

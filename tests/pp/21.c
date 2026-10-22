@@ -1,62 +1,62 @@
 /* accept 'defined' as result of substitution */
 
 ----- 1 ------
-#define AAA 2
-#define BBB
-#define CCC (defined ( AAA ) && AAA > 1 && !defined BBB)
-#if !CCC
+#تعریف_کرو AAA 2
+#تعریف_کرو BBB
+#تعریف_کرو CCC (defined ( AAA ) && AAA > 1 && !defined BBB)
+#اگر !CCC
 OK
-#else
+#ورنہ
 NOT OK
-#endif
+#اگر_ختم
 
 ----- 2 ------
-#undef BBB
-#if CCC
+#تعریف_منسوخ BBB
+#اگر CCC
 OK
-#else
+#ورنہ
 NOT OK
-#endif
+#اگر_ختم
 
 ----- 3 ------
-#define DEFINED defined
-#define DDD (DEFINED ( AAA ) && AAA > 1 && !DEFINED BBB)
-#if (DDD)
+#تعریف_کرو DEFINED defined
+#تعریف_کرو DDD (DEFINED ( AAA ) && AAA > 1 && !DEFINED BBB)
+#اگر (DDD)
 OK
-#else
+#ورنہ
 NOT OK
-#endif
+#اگر_ختم
 
 ----- 4 ------
-#undef AAA
-#if !(DDD)
+#تعریف_منسوخ AAA
+#اگر !(DDD)
 OK
-#else
+#ورنہ
 NOT OK
-#endif
+#اگر_ختم
 
 ----- 5 ------
-line __LINE__
-#define __LINE__ # ## #
-line __LINE__
+سطر __LINE__
+#تعریف_کرو __LINE__ # ## #
+سطر __LINE__
 
 ----- 10 ------
 /* preprocessor numbers are (u)intmax_t */
-#if -2147483648 < 0
+#اگر -2147483648 < 0
 1 true
-#endif
-#if -0x80000000 < 0
+#اگر_ختم
+#اگر -0x80000000 < 0
 2 true
-#endif
-#if -9223372036854775808U > 0
+#اگر_ختم
+#اگر -9223372036854775808U > 0
 3 true
-#endif
-#if -0x8000000000000000 > 0 // unsigned by overflow
+#اگر_ختم
+#اگر -0x8000000000000000 > 0 // unsigned by overflow
 4 true
-#endif
-#if 1 << 31 > 2 && 1 << 32 > 2 && 1 << 63 < 2 && 1U << 63 > 2
+#اگر_ختم
+#اگر 1 << 31 > 2 && 1 << 32 > 2 && 1 << 63 < 2 && 1U << 63 > 2
 5 true
-#endif
-#if (1<<29) * 11 >= 1<<32 && defined DDD << 63 < 0
+#اگر_ختم
+#اگر (1<<29) * 11 >= 1<<32 && defined DDD << 63 < 0
 6 true
-#endif
+#اگر_ختم

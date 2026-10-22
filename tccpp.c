@@ -18,57 +18,57 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#define USING_GLOBALS
-#include "tcc.h"
+#تعریف_کرو USING_GLOBALS
+#شامل "tcc.h"
 
 /* #define to 1 to enable (see parse_pp_string()) */
-#define ACCEPT_LF_IN_STRINGS 0
+#تعریف_کرو ACCEPT_LF_اندر_لڑیاں 0
 
 /********************************************************/
 /* global variables */
 
-ST_DATA int tok_flags;
-ST_DATA int parse_flags;
+ST_ڈیٹا صحیح tok_flags;
+ST_ڈیٹا صحیح parse_flags;
 
-ST_DATA struct BufferedFile *file;
-ST_DATA int tok;
-ST_DATA CValue tokc;
-ST_DATA const int *macro_ptr;
-ST_DATA CString tokcstr; /* current parsed string, if any */
+ST_ڈیٹا ساخت BufferedFile *file;
+ST_ڈیٹا صحیح tok;
+ST_ڈیٹا CValue tokc;
+ST_ڈیٹا ثابت صحیح *macro_ptr;
+ST_ڈیٹا CString tokcstr; /* current parsed string, if any */
 
 /* display benchmark infos */
-ST_DATA int tok_ident;
-ST_DATA TokenSym **table_ident;
-ST_DATA int pp_expr;
+ST_ڈیٹا صحیح tok_ident;
+ST_ڈیٹا TokenSym **جدول_ident;
+ST_ڈیٹا صحیح pp_اظہاریہ;
 
 /* ------------------------------------------------------------------------- */
 
-static TokenSym *hash_ident[TOK_HASH_SIZE];
-static char token_buf[STRING_MAX_SIZE + 1];
-static CString cstr_buf;
-static TokenString tokstr_buf;
-static TokenString unget_buf;
-static unsigned char isidnum_table[256 - CH_EOF];
-static int pp_debug_tok, pp_debug_symv;
-static int pp_counter;
-static void tok_print(const int *str, const char *msg, ...);
-static void next_nomacro(void);
-static void parse_number(const char *p);
-static void parse_string(const char *p, int len);
+ساکن TokenSym *hash_ident[TOK_HASH_سائز];
+ساکن حرف token_buf[STRING_MAX_سائز + 1];
+ساکن CString cstr_buf;
+ساکن TokenString tokstr_buf;
+ساکن TokenString unget_buf;
+ساکن غیرعلامتی حرف isidnum_جدول[256 - CH_EOF];
+ساکن صحیح pp_debug_tok, pp_debug_symv;
+ساکن صحیح pp_شمار;
+ساکن خالی tok_print(ثابت صحیح *str, ثابت حرف *پیغام, ...);
+ساکن خالی اگلا_nomacro(خالی);
+ساکن خالی parse_نمبر(ثابت حرف *p);
+ساکن خالی parse_string(ثابت حرف *p, صحیح len);
 
-static struct TinyAlloc *toksym_alloc;
-static struct TinyAlloc *tokstr_alloc;
+ساکن ساخت TinyAlloc *toksym_alloc;
+ساکن ساخت TinyAlloc *tokstr_alloc;
 
-static TokenString *macro_stack;
+ساکن TokenString *macro_ڈھیر;
 
-static const char tcc_keywords[] = 
-#define DEF(id, str) str "\0"
-#include "tcctok.h"
-#undef DEF
+ساکن ثابت حرف tcc_keywords[] = 
+#تعریف_کرو DEF(id, str) str "\0"
+#شامل "tcctok.h"
+#تعریف_منسوخ DEF
 ;
 
 /* WARNING: the content of this string encodes token numbers */
-static const unsigned char tok_two_chars[] =
+ساکن ثابت غیرعلامتی حرف tok_two_chars[] =
 /* outdated -- gr
     "<=\236>=\235!=\225&&\240||\241++\244--\242==\224<<\1>>\2+=\253"
     "-=\255*=\252/=\257%=\245&=\246^=\336|=\374->\313..\250##\266";
@@ -83,7 +83,7 @@ static const unsigned char tok_two_chars[] =
     '=','=', TOK_EQ,
     '<','<', TOK_SHL,
     '>','>', TOK_SAR,
-    '+','=', TOK_A_ADD,
+    '+','=', TOK_A_جوڑو,
     '-','=', TOK_A_SUB,
     '*','=', TOK_A_MUL,
     '/','=', TOK_A_DIV,
@@ -97,360 +97,360 @@ static const unsigned char tok_two_chars[] =
     0
 };
 
-ST_FUNC void skip(int c)
+ST_FUNC خالی skip(صحیح c)
 {
-    if (tok != c) {
-        char tmp[40];
-        pstrcpy(tmp, sizeof tmp, get_tok_str(c, &tokc));
+    اگر (tok != c) {
+        حرف tmp[40];
+        pstrcpy(tmp, حجم tmp, get_tok_str(c, &tokc));
         tcc_error("'%s' expected (got '%s')", tmp, get_tok_str(tok, &tokc));
 	}
-    next();
+    اگلا();
 }
 
-ST_FUNC void expect(const char *msg)
+ST_FUNC خالی expect(ثابت حرف *پیغام)
 {
-    tcc_error("%s expected", msg);
+    tcc_error("%s expected", پیغام);
 }
 
 /* ------------------------------------------------------------------------- */
 /* Custom allocator for tiny objects */
 
-#define USE_TAL
+#تعریف_کرو USE_TAL
 
-#ifndef USE_TAL /* may cause memory leaks after errors */
-#define tal_free(al, p) tcc_free(p)
-#define tal_realloc(al, p, size) tcc_realloc(p, size)
-#define tal_new(a,b)
-#define tal_delete(a)
-#else
-#if !defined(MEM_DEBUG)
-#define tal_free(al, p) tal_free_impl(al, p)
-#define tal_realloc(al, p, size) tal_realloc_impl(al, p, size)
-#define TAL_DEBUG_PARAMS
-#else
-#define TAL_DEBUG MEM_DEBUG
+#اگر_غیر_تعریف_شدہ USE_TAL /* may cause memory leaks after errors */
+#تعریف_کرو tal_free(al, p) tcc_free(p)
+#تعریف_کرو tal_realloc(al, p, سائز) tcc_realloc(p, سائز)
+#تعریف_کرو tal_new(a,b)
+#تعریف_کرو tal_delete(a)
+#ورنہ
+#اگر !defined(MEM_DEBUG)
+#تعریف_کرو tal_free(al, p) tal_free_impl(al, p)
+#تعریف_کرو tal_realloc(al, p, سائز) tal_realloc_impl(al, p, سائز)
+#تعریف_کرو TAL_DEBUG_PARAMS
+#ورنہ
+#تعریف_کرو TAL_DEBUG MEM_DEBUG
 //#define TAL_INFO 1 /* collect and dump allocators stats */
-#define tal_free(al, p) tal_free_impl(al, p, __FILE__, __LINE__)
-#define tal_realloc(al, p, size) tal_realloc_impl(al, p, size, __FILE__, __LINE__)
-#define TAL_DEBUG_PARAMS , const char *sfile, int sline
-#endif
+#تعریف_کرو tal_free(al, p) tal_free_impl(al, p, __FILE__, __LINE__)
+#تعریف_کرو tal_realloc(al, p, سائز) tal_realloc_impl(al, p, سائز, __FILE__, __LINE__)
+#تعریف_کرو TAL_DEBUG_PARAMS , ثابت حرف *sfile, صحیح sline
+#اگر_ختم
 
-#define TOKSYM_TAL_SIZE (256 * 1024) /* allocator for TokenSym in table_ident */
-#define TOKSTR_TAL_SIZE (256 * 1024) /* allocator for TokenString instances */
+#تعریف_کرو TOKSYM_TAL_سائز (256 * 1024) /* allocator for TokenSym in table_ident */
+#تعریف_کرو TOKSTR_TAL_سائز (256 * 1024) /* allocator for TokenString instances */
 
-typedef struct TinyAlloc {
+قسمتعریف ساخت TinyAlloc {
     uint8_t *p;
     uint8_t *bufend;
-    struct TinyAlloc *next;
-    unsigned nb_allocs;
-    unsigned size;
-#if TAL_INFO
-    unsigned nb_peak;
-    unsigned nb_total;
+    ساخت TinyAlloc *اگلا;
+    غیرعلامتی nb_allocs;
+    غیرعلامتی سائز;
+#اگر TAL_INFO
+    غیرعلامتی nb_peak;
+    غیرعلامتی nb_کل;
     uint8_t *peak_p;
-#endif
-    union {
-        uint8_t buffer[1];
-        size_t _aligner_;
+#اگر_ختم
+    اتحاد {
+        uint8_t بفر[1];
+        سائز_t _aligner_;
     };
 } TinyAlloc;
 
-typedef struct tal_header_t {
-    size_t  size; /* word align */
-#if TAL_DEBUG
-    int     line_num; /* negative line_num used for double free check */
-    char    file_name[40];
-#endif
-} tal_header_t;
+قسمتعریف ساخت tal_سرخی_t {
+    سائز_t  سائز; /* word align */
+#اگر TAL_DEBUG
+    صحیح     سطر_عدد; /* negative line_num used for double free check */
+    حرف    file_name[40];
+#اگر_ختم
+} tal_سرخی_t;
 
-#define TAL_ALIGN(size) \
-    (((size) + (sizeof (size_t) - 1)) & ~(sizeof (size_t) - 1))
+#تعریف_کرو TAL_ALIGN(سائز) \
+    (((سائز) + (حجم (سائز_t) - 1)) & ~(حجم (سائز_t) - 1))
 
 /* ------------------------------------------------------------------------- */
 
-static TinyAlloc *tal_new(TinyAlloc **pal, unsigned size)
+ساکن TinyAlloc *tal_new(TinyAlloc **pal, غیرعلامتی سائز)
 {
-    TinyAlloc *al = tcc_malloc(sizeof(TinyAlloc) - sizeof (size_t) + size);
-    al->p = al->buffer;
-    al->bufend = al->buffer + size;
+    TinyAlloc *al = tcc_malloc(حجم(TinyAlloc) - حجم (سائز_t) + سائز);
+    al->p = al->بفر;
+    al->bufend = al->بفر + سائز;
     al->nb_allocs = 0;
-    al->next = *pal, *pal = al;
-    al->size = al->next ? al->next->size : size;
-#if TAL_INFO
+    al->اگلا = *pal, *pal = al;
+    al->سائز = al->اگلا ? al->اگلا->سائز : سائز;
+#اگر TAL_INFO
     al->nb_peak = 0;
-    al->nb_total = 0;
+    al->nb_کل = 0;
     al->peak_p = al->p;
-#endif
-    return al;
+#اگر_ختم
+    واپس al;
 }
 
-static void tal_delete(TinyAlloc **pal)
+ساکن خالی tal_delete(TinyAlloc **pal)
 {
-    TinyAlloc *al = *pal, *next;
+    TinyAlloc *al = *pal, *اگلا;
 
-#if TAL_INFO
+#اگر TAL_INFO
     fprintf(stderr, "tal_delete (&tok%s_alloc):\n", pal == &toksym_alloc ? "sym" : "str");
-#endif
-tail_call:
-#if TAL_DEBUG && TAL_DEBUG != 3 /* do not check TAL leaks with -DMEM_DEBUG=3 */
-#if TAL_INFO
+#اگر_ختم
+دم_call:
+#اگر TAL_DEBUG && TAL_DEBUG != 3 /* do not check TAL leaks with -DMEM_DEBUG=3 */
+#اگر TAL_INFO
     fprintf(stderr, "  size %7d  nb_peak %5d  nb_total %6d  usage %5.1f%%\n",
-            al->bufend - al->buffer, al->nb_peak, al->nb_total,
-            (al->peak_p - al->buffer) * 100.0 / (al->bufend - al->buffer));
-#endif
-    if (al->nb_allocs > 0) {
+            al->bufend - al->بفر, al->nb_peak, al->nb_کل,
+            (al->peak_p - al->بفر) * 100.0 / (al->bufend - al->بفر));
+#اگر_ختم
+    اگر (al->nb_allocs > 0) {
         uint8_t *p;
         fprintf(stderr, "TAL_DEBUG: memory leak %d chunk(s)\n", al->nb_allocs);
-        p = al->buffer;
-        while (p < al->p) {
-            tal_header_t *header = (tal_header_t *)p;
-            if (header->line_num > 0) {
+        p = al->بفر;
+        جب (p < al->p) {
+            tal_سرخی_t *سرخی = (tal_سرخی_t *)p;
+            اگر (سرخی->سطر_عدد > 0) {
                 fprintf(stderr, "%s:%d: chunk of %d bytes leaked\n",
-                        header->file_name, header->line_num, (int)header->size);
+                        سرخی->file_name, سرخی->سطر_عدد, (صحیح)سرخی->سائز);
             }
-            p += header->size + sizeof(tal_header_t);
+            p += سرخی->سائز + حجم(tal_سرخی_t);
         }
-#if TAL_DEBUG == 2
-        exit(2);
-#endif
+#اگر TAL_DEBUG == 2
+        باہر_نکلو(2);
+#اگر_ختم
     }
-#endif
-    next = al->next;
+#اگر_ختم
+    اگلا = al->اگلا;
     tcc_free(al);
-    al = next;
-    if (al)
-        goto tail_call;
+    al = اگلا;
+    اگر (al)
+        جاؤ دم_call;
     *pal = al;
 }
 
-static void tal_free_impl(TinyAlloc **pal, void *p TAL_DEBUG_PARAMS)
+ساکن خالی tal_free_impl(TinyAlloc **pal, خالی *p TAL_DEBUG_PARAMS)
 {
-    TinyAlloc *al, **top = pal;
-    tal_header_t *header;
+    TinyAlloc *al, **چوٹی = pal;
+    tal_سرخی_t *سرخی;
 
-    if (!p)
-        return;
-    header = (tal_header_t *)p - 1;
-#if TAL_DEBUG
-    if (header->line_num < 0) {
+    اگر (!p)
+        واپس;
+    سرخی = (tal_سرخی_t *)p - 1;
+#اگر TAL_DEBUG
+    اگر (سرخی->سطر_عدد < 0) {
         fprintf(stderr, "%s:%d: TAL_DEBUG: double frees chunk from\n",
                 sfile, sline);
         fprintf(stderr, "%s:%d: %d bytes\n",
-                header->file_name, (int)-header->line_num, (int)header->size);
-    } else
-        header->line_num = -header->line_num;
-#endif
+                سرخی->file_name, (صحیح)-سرخی->سطر_عدد, (صحیح)سرخی->سائز);
+    } ورنہ
+        سرخی->سطر_عدد = -سرخی->سطر_عدد;
+#اگر_ختم
     al = *pal;
-    while ((uint8_t*)p < al->buffer || (uint8_t*)p > al->bufend)
-        al = *(pal = &al->next);
-    if (0 == --al->nb_allocs) {
-        *pal = al->next;
-        if ((al->bufend - al->buffer) > al->size) {
+    جب ((uint8_t*)p < al->بفر || (uint8_t*)p > al->bufend)
+        al = *(pal = &al->اگلا);
+    اگر (0 == --al->nb_allocs) {
+        *pal = al->اگلا;
+        اگر ((al->bufend - al->بفر) > al->سائز) {
             //fprintf(stderr, "free big tal: %u\n", header->size);
             tcc_free(al);
-        } else {
+        } ورنہ {
             /* reset and move to front */
-            al->p = al->buffer;
-            al->next = *top, *top = al;
+            al->p = al->بفر;
+            al->اگلا = *چوٹی, *چوٹی = al;
         }
-    } else if ((uint8_t*)p + header->size == al->p) {
-        al->p = (uint8_t*)header;
+    } ورنہ اگر ((uint8_t*)p + سرخی->سائز == al->p) {
+        al->p = (uint8_t*)سرخی;
     }
 }
 
-static void *tal_realloc_impl(TinyAlloc **pal, void *p, unsigned size TAL_DEBUG_PARAMS)
+ساکن خالی *tal_realloc_impl(TinyAlloc **pal, خالی *p, غیرعلامتی سائز TAL_DEBUG_PARAMS)
 {
-    tal_header_t *header;
-    void *ret;
-    unsigned adj_size = TAL_ALIGN(size) + sizeof(tal_header_t);
+    tal_سرخی_t *سرخی;
+    خالی *ret;
+    غیرعلامتی adj_سائز = TAL_ALIGN(سائز) + حجم(tal_سرخی_t);
     TinyAlloc *al = *pal;
 
-    if (p) {
+    اگر (p) {
         /* reallpc case */
-        while ((uint8_t*)p < al->buffer || (uint8_t*)p > al->bufend)
-            al = al->next;
-        header = (tal_header_t *)p - 1;
-        if ((uint8_t*)p + header->size == al->p)
-            al->p = (uint8_t*)header; /* maybe reuse */
-        if (al->p + adj_size > al->bufend) {
-            ret = tal_realloc(pal, 0, size);
-            memcpy(ret, p, header->size);
+        جب ((uint8_t*)p < al->بفر || (uint8_t*)p > al->bufend)
+            al = al->اگلا;
+        سرخی = (tal_سرخی_t *)p - 1;
+        اگر ((uint8_t*)p + سرخی->سائز == al->p)
+            al->p = (uint8_t*)سرخی; /* maybe reuse */
+        اگر (al->p + adj_سائز > al->bufend) {
+            ret = tal_realloc(pal, 0, سائز);
+            حافظہ_نقل(ret, p, سرخی->سائز);
             tal_free(pal, p);
-            return ret;
-        } else if (al->p != (uint8_t*)header) {
-            memcpy((tal_header_t*)al->p + 1, p, header->size);
-#if TAL_DEBUG
-            header->line_num = -header->line_num;
-#endif
+            واپس ret;
+        } ورنہ اگر (al->p != (uint8_t*)سرخی) {
+            حافظہ_نقل((tal_سرخی_t*)al->p + 1, p, سرخی->سائز);
+#اگر TAL_DEBUG
+            سرخی->سطر_عدد = -سرخی->سطر_عدد;
+#اگر_ختم
         }
-    } else {
+    } ورنہ {
         /* new alloc case */
-        while (al->p + adj_size > al->bufend) {
-            al = al->next;
-            if (!al) {
-                unsigned new_size = (*pal)->size;
-                if (adj_size > new_size) {
-                    new_size = adj_size;
+        جب (al->p + adj_سائز > al->bufend) {
+            al = al->اگلا;
+            اگر (!al) {
+                غیرعلامتی new_سائز = (*pal)->سائز;
+                اگر (adj_سائز > new_سائز) {
+                    new_سائز = adj_سائز;
                     //fprintf(stderr, "%s:%d: alloc big tal: %u\n", file->filename, file->line_num, adj_size - sizeof(tal_header_t));
                 }
-                al = tal_new(pal, new_size);
-                break;
+                al = tal_new(pal, new_سائز);
+                توڑو;
             }
         }
         al->nb_allocs++;
     }
-    header = (tal_header_t *)al->p;
-    header->size = adj_size - sizeof(tal_header_t);
-    al->p += adj_size;
-    ret = header + 1;
-#if  TAL_DEBUG
+    سرخی = (tal_سرخی_t *)al->p;
+    سرخی->سائز = adj_سائز - حجم(tal_سرخی_t);
+    al->p += adj_سائز;
+    ret = سرخی + 1;
+#اگر  TAL_DEBUG
     {
-        int ofs = strlen(sfile) + 1 - sizeof header->file_name;
-        strcpy(header->file_name, sfile + (ofs > 0 ? ofs : 0));
-        header->line_num = sline;
-#if TAL_INFO
-        if (al->nb_peak < al->nb_allocs)
+        صحیح ofs = لڑی_لمبائی(sfile) + 1 - حجم سرخی->file_name;
+        strcpy(سرخی->file_name, sfile + (ofs > 0 ? ofs : 0));
+        سرخی->سطر_عدد = sline;
+#اگر TAL_INFO
+        اگر (al->nb_peak < al->nb_allocs)
             al->nb_peak = al->nb_allocs;
-        if (al->peak_p < al->p)
+        اگر (al->peak_p < al->p)
             al->peak_p = al->p;
-        al->nb_total++;
-#endif
+        al->nb_کل++;
+#اگر_ختم
     }
-#endif
-    return ret;
+#اگر_ختم
+    واپس ret;
 }
 
-#endif /* USE_TAL */
+#اگر_ختم /* USE_TAL */
 
 /* ------------------------------------------------------------------------- */
 /* CString handling */
-static void cstr_realloc(CString *cstr, int new_size)
+ساکن خالی cstr_realloc(CString *cstr, صحیح new_سائز)
 {
-    int size;
+    صحیح سائز;
 
-    size = cstr->size_allocated;
-    if (size < 8)
-        size = 8; /* no need to allocate a too small first string */
-    while (size < new_size)
-        size = size * 2;
-    cstr->data = tcc_realloc(cstr->data, size);
-    cstr->size_allocated = size;
+    سائز = cstr->سائز_allocated;
+    اگر (سائز < 8)
+        سائز = 8; /* no need to allocate a too small first string */
+    جب (سائز < new_سائز)
+        سائز = سائز * 2;
+    cstr->ڈیٹا = tcc_realloc(cstr->ڈیٹا, سائز);
+    cstr->سائز_allocated = سائز;
 }
 
 /* add a byte */
-ST_INLN void cstr_ccat(CString *cstr, int ch)
+ST_INLN خالی cstr_ccat(CString *cstr, صحیح ch)
 {
-    int size;
-    size = cstr->size + 1;
-    if (size > cstr->size_allocated)
-        cstr_realloc(cstr, size);
-    cstr->data[size - 1] = ch;
-    cstr->size = size;
+    صحیح سائز;
+    سائز = cstr->سائز + 1;
+    اگر (سائز > cstr->سائز_allocated)
+        cstr_realloc(cstr, سائز);
+    cstr->ڈیٹا[سائز - 1] = ch;
+    cstr->سائز = سائز;
 }
 
-ST_INLN char *unicode_to_utf8 (char *b, uint32_t Uc)
+ST_INLN حرف *unicode_مقصد_utf8 (حرف *b, uint32_t Uc)
 {
-    if (Uc<0x80) *b++=Uc;
-    else if (Uc<0x800) *b++=192+Uc/64, *b++=128+Uc%64;
-    else if (Uc-0xd800u<0x800) goto error;
-    else if (Uc<0x10000) *b++=224+Uc/4096, *b++=128+Uc/64%64, *b++=128+Uc%64;
-    else if (Uc<0x110000) *b++=240+Uc/262144, *b++=128+Uc/4096%64, *b++=128+Uc/64%64, *b++=128+Uc%64;
-    else error: tcc_error("0x%x is not a valid universal character", Uc);
-    return b;
+    اگر (Uc<0x80) *b++=Uc;
+    ورنہ اگر (Uc<0x800) *b++=192+Uc/64, *b++=128+Uc%64;
+    ورنہ اگر (Uc-0xd800u<0x800) جاؤ error;
+    ورنہ اگر (Uc<0x10000) *b++=224+Uc/4096, *b++=128+Uc/64%64, *b++=128+Uc%64;
+    ورنہ اگر (Uc<0x110000) *b++=240+Uc/262144, *b++=128+Uc/4096%64, *b++=128+Uc/64%64, *b++=128+Uc%64;
+    ورنہ error: tcc_error("0x%x is not a valid universal character", Uc);
+    واپس b;
 }
 
 /* add a unicode character expanded into utf8 */
-ST_INLN void cstr_u8cat(CString *cstr, int ch)
+ST_INLN خالی cstr_u8cat(CString *cstr, صحیح ch)
 {
-    char buf[4], *e;
-    e = unicode_to_utf8(buf, (uint32_t)ch);
+    حرف buf[4], *e;
+    e = unicode_مقصد_utf8(buf, (uint32_t)ch);
     cstr_cat(cstr, buf, e - buf);
 }
 
 /* add string of 'len', or of its len/len+1 when 'len' == -1/0 */
-ST_FUNC void cstr_cat(CString *cstr, const char *str, int len)
+ST_FUNC خالی cstr_cat(CString *cstr, ثابت حرف *str, صحیح len)
 {
-    int size;
-    if (len <= 0)
-        len = strlen(str) + 1 + len;
-    size = cstr->size + len;
-    if (size > cstr->size_allocated)
-        cstr_realloc(cstr, size);
-    memmove(cstr->data + cstr->size, str, len);
-    cstr->size = size;
+    صحیح سائز;
+    اگر (len <= 0)
+        len = لڑی_لمبائی(str) + 1 + len;
+    سائز = cstr->سائز + len;
+    اگر (سائز > cstr->سائز_allocated)
+        cstr_realloc(cstr, سائز);
+    memmove(cstr->ڈیٹا + cstr->سائز, str, len);
+    cstr->سائز = سائز;
 }
 
 /* add a wide char */
-ST_FUNC void cstr_wccat(CString *cstr, int ch)
+ST_FUNC خالی cstr_wccat(CString *cstr, صحیح ch)
 {
-    int size;
-    size = cstr->size + sizeof(nwchar_t);
-    if (size > cstr->size_allocated)
-        cstr_realloc(cstr, size);
-    *(nwchar_t *)(cstr->data + size - sizeof(nwchar_t)) = ch;
-    cstr->size = size;
+    صحیح سائز;
+    سائز = cstr->سائز + حجم(nwchar_t);
+    اگر (سائز > cstr->سائز_allocated)
+        cstr_realloc(cstr, سائز);
+    *(nwchar_t *)(cstr->ڈیٹا + سائز - حجم(nwchar_t)) = ch;
+    cstr->سائز = سائز;
 }
 
-ST_FUNC void cstr_new(CString *cstr)
+ST_FUNC خالی cstr_new(CString *cstr)
 {
-    memset(cstr, 0, sizeof(CString));
+    memset(cstr, 0, حجم(CString));
 }
 
 /* free string and reset it to NULL */
-ST_FUNC void cstr_free(CString *cstr)
+ST_FUNC خالی cstr_free(CString *cstr)
 {
-    tcc_free(cstr->data);
+    tcc_free(cstr->ڈیٹا);
 }
 
 /* reset string to empty */
-ST_FUNC void cstr_reset(CString *cstr)
+ST_FUNC خالی cstr_reset(CString *cstr)
 {
-    cstr->size = 0;
+    cstr->سائز = 0;
 }
 
-ST_FUNC int cstr_vprintf(CString *cstr, const char *fmt, va_list ap)
+ST_FUNC صحیح cstr_vprintf(CString *cstr, ثابت حرف *fmt, va_list ap)
 {
     va_list v;
-    int len, size = 80;
-    for (;;) {
-        size += cstr->size;
-        if (size > cstr->size_allocated)
-            cstr_realloc(cstr, size);
-        size = cstr->size_allocated - cstr->size;
+    صحیح len, سائز = 80;
+    برائے (;;) {
+        سائز += cstr->سائز;
+        اگر (سائز > cstr->سائز_allocated)
+            cstr_realloc(cstr, سائز);
+        سائز = cstr->سائز_allocated - cstr->سائز;
         va_copy(v, ap);
-        len = vsnprintf(cstr->data + cstr->size, size, fmt, v);
+        len = vsnprintf(cstr->ڈیٹا + cstr->سائز, سائز, fmt, v);
         va_end(v);
-        if (len >= 0 && len < size)
-            break;
-        size *= 2;
+        اگر (len >= 0 && len < سائز)
+            توڑو;
+        سائز *= 2;
     }
-    cstr->size += len;
-    return len;
+    cstr->سائز += len;
+    واپس len;
 }
 
-ST_FUNC int cstr_printf(CString *cstr, const char *fmt, ...)
+ST_FUNC صحیح cstr_printf(CString *cstr, ثابت حرف *fmt, ...)
 {
-    va_list ap; int len;
+    va_list ap; صحیح len;
     va_start(ap, fmt);
     len = cstr_vprintf(cstr, fmt, ap);
     va_end(ap);
-    return len;
+    واپس len;
 }
 
 /* XXX: unicode ? */
-static void add_char(CString *cstr, int c)
+ساکن خالی جوڑو_char(CString *cstr, صحیح c)
 {
-    if (c == '\'' || c == '\"' || c == '\\') {
+    اگر (c == '\'' || c == '\"' || c == '\\') {
         /* XXX: could be more precise if char or string */
         cstr_ccat(cstr, '\\');
     }
-    if (c >= 32 && c <= 126) {
+    اگر (c >= 32 && c <= 126) {
         cstr_ccat(cstr, c);
-    } else {
+    } ورنہ {
         cstr_ccat(cstr, '\\');
-        if (c == '\n') {
+        اگر (c == '\n') {
             cstr_ccat(cstr, 'n');
-        } else {
+        } ورنہ {
             cstr_ccat(cstr, '0' + ((c >> 6) & 7));
             cstr_ccat(cstr, '0' + ((c >> 3) & 7));
             cstr_ccat(cstr, '0' + (c & 7));
@@ -460,1073 +460,1073 @@ static void add_char(CString *cstr, int c)
 
 /* ------------------------------------------------------------------------- */
 /* allocate a new token */
-static TokenSym *tok_alloc_new(TokenSym **pts, const char *str, int len)
+ساکن TokenSym *tok_alloc_new(TokenSym **pts, ثابت حرف *str, صحیح len)
 {
     TokenSym *ts, **ptable;
-    int i;
+    صحیح i;
 
-    if (tok_ident >= SYM_FIRST_ANOM) 
+    اگر (tok_ident >= SYM_پہلا_ANOM) 
         tcc_error("memory full (symbols)");
 
     /* expand token table if needed */
     i = tok_ident - TOK_IDENT;
-    if ((i % TOK_ALLOC_INCR) == 0) {
-        ptable = tcc_realloc(table_ident, (i + TOK_ALLOC_INCR) * sizeof(TokenSym *));
-        table_ident = ptable;
+    اگر ((i % TOK_ALLOC_INCR) == 0) {
+        ptable = tcc_realloc(جدول_ident, (i + TOK_ALLOC_INCR) * حجم(TokenSym *));
+        جدول_ident = ptable;
     }
 
-    ts = tal_realloc(&toksym_alloc, 0, sizeof(TokenSym) + len);
-    table_ident[i] = ts;
+    ts = tal_realloc(&toksym_alloc, 0, حجم(TokenSym) + len);
+    جدول_ident[i] = ts;
     ts->tok = tok_ident++;
-    ts->sym_define = NULL;
-    ts->sym_label = NULL;
-    ts->sym_struct = NULL;
-    ts->sym_identifier = NULL;
+    ts->sym_define = تہی;
+    ts->sym_label = تہی;
+    ts->sym_struct = تہی;
+    ts->sym_identifier = تہی;
     ts->len = len;
-    ts->hash_next = NULL;
-    memcpy(ts->str, str, len);
+    ts->hash_اگلا = تہی;
+    حافظہ_نقل(ts->str, str, len);
     ts->str[len] = '\0';
     *pts = ts;
-    return ts;
+    واپس ts;
 }
 
-#define TOK_HASH_INIT 1
-#define TOK_HASH_FUNC(h, c) ((h) + ((h) << 5) + ((h) >> 27) + (c))
+#تعریف_کرو TOK_HASH_INIT 1
+#تعریف_کرو TOK_HASH_FUNC(h, c) ((h) + ((h) << 5) + ((h) >> 27) + (c))
 
 
 /* find a token and add it if not found */
-ST_FUNC TokenSym *tok_alloc(const char *str, int len)
+ST_FUNC TokenSym *tok_alloc(ثابت حرف *str, صحیح len)
 {
     TokenSym *ts, **pts;
-    int i;
-    unsigned int h;
+    صحیح i;
+    غیرعلامتی صحیح h;
     
     h = TOK_HASH_INIT;
-    for(i=0;i<len;i++)
-        h = TOK_HASH_FUNC(h, ((unsigned char *)str)[i]);
-    h &= (TOK_HASH_SIZE - 1);
+    برائے(i=0;i<len;i++)
+        h = TOK_HASH_FUNC(h, ((غیرعلامتی حرف *)str)[i]);
+    h &= (TOK_HASH_سائز - 1);
 
     pts = &hash_ident[h];
-    for(;;) {
+    برائے(;;) {
         ts = *pts;
-        if (!ts)
-            break;
-        if (ts->len == len && !memcmp(ts->str, str, len))
-            return ts;
-        pts = &(ts->hash_next);
+        اگر (!ts)
+            توڑو;
+        اگر (ts->len == len && !memcmp(ts->str, str, len))
+            واپس ts;
+        pts = &(ts->hash_اگلا);
     }
-    return tok_alloc_new(pts, str, len);
+    واپس tok_alloc_new(pts, str, len);
 }
 
-ST_FUNC int tok_alloc_const(const char *str)
+ST_FUNC صحیح tok_alloc_const(ثابت حرف *str)
 {
-    return tok_alloc(str, strlen(str))->tok;
+    واپس tok_alloc(str, لڑی_لمبائی(str))->tok;
 }
 
 
 /* XXX: buffer overflow */
 /* XXX: float tokens */
-ST_FUNC const char *get_tok_str(int v, CValue *cv)
+ST_FUNC ثابت حرف *get_tok_str(صحیح v, CValue *cv)
 {
-    char *p;
-    int i, len;
+    حرف *p;
+    صحیح i, len;
 
     cstr_reset(&cstr_buf);
-    p = cstr_buf.data;
+    p = cstr_buf.ڈیٹا;
 
-    switch(v) {
-    case TOK_CINT:
-    case TOK_CUINT:
-    case TOK_CLONG:
-    case TOK_CULONG:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
+    انتخاب(v) {
+    حالت TOK_CINT:
+    حالت TOK_CUINT:
+    حالت TOK_CLONG:
+    حالت TOK_CULONG:
+    حالت TOK_CLLONG:
+    حالت TOK_CULLONG:
         /* XXX: not quite exact, but only useful for testing  */
-        sprintf(p, "%llu", (unsigned long long)cv->i);
-        break;
-    case TOK_LCHAR:
+        sprintf(p, "%llu", (غیرعلامتی طویل طویل)cv->i);
+        توڑو;
+    حالت TOK_LCHAR:
         cstr_ccat(&cstr_buf, 'L');
-    case TOK_CCHAR:
+    حالت TOK_CCHAR:
         cstr_ccat(&cstr_buf, '\'');
-        add_char(&cstr_buf, cv->i);
+        جوڑو_char(&cstr_buf, cv->i);
         cstr_ccat(&cstr_buf, '\'');
         cstr_ccat(&cstr_buf, '\0');
-        break;
-    case TOK_PPNUM:
-    case TOK_PPSTR:
-        return (char*)cv->str.data;
-    case TOK_LSTR:
+        توڑو;
+    حالت TOK_PPNUM:
+    حالت TOK_PPSTR:
+        واپس (حرف*)cv->str.ڈیٹا;
+    حالت TOK_LSTR:
         cstr_ccat(&cstr_buf, 'L');
-    case TOK_STR:
+    حالت TOK_STR:
         cstr_ccat(&cstr_buf, '\"');
-        if (v == TOK_STR) {
-            len = cv->str.size - 1;
-            for(i=0;i<len;i++)
-                add_char(&cstr_buf, ((unsigned char *)cv->str.data)[i]);
-        } else {
-            len = (cv->str.size / sizeof(nwchar_t)) - 1;
-            for(i=0;i<len;i++)
-                add_char(&cstr_buf, ((nwchar_t *)cv->str.data)[i]);
+        اگر (v == TOK_STR) {
+            len = cv->str.سائز - 1;
+            برائے(i=0;i<len;i++)
+                جوڑو_char(&cstr_buf, ((غیرعلامتی حرف *)cv->str.ڈیٹا)[i]);
+        } ورنہ {
+            len = (cv->str.سائز / حجم(nwchar_t)) - 1;
+            برائے(i=0;i<len;i++)
+                جوڑو_char(&cstr_buf, ((nwchar_t *)cv->str.ڈیٹا)[i]);
         }
         cstr_ccat(&cstr_buf, '\"');
         cstr_ccat(&cstr_buf, '\0');
-        break;
+        توڑو;
 
-    case TOK_CFLOAT:
-        return strcpy(p, "<float>");
-    case TOK_CDOUBLE:
-        return strcpy(p, "<double>");
-    case TOK_CLDOUBLE:
-        return strcpy(p, "<long double>");
-    case TOK_LINENUM:
-        return strcpy(p, "<linenumber>");
+    حالت TOK_CFLOAT:
+        واپس strcpy(p, "<float>");
+    حالت TOK_CDOUBLE:
+        واپس strcpy(p, "<double>");
+    حالت TOK_CLDOUBLE:
+        واپس strcpy(p, "<long double>");
+    حالت TOK_LINENUM:
+        واپس strcpy(p, "<linenumber>");
 
     /* above tokens have value, the ones below don't */
-    case TOK_LT:
+    حالت TOK_LT:
         v = '<';
-        goto addv;
-    case TOK_GT:
+        جاؤ addv;
+    حالت TOK_GT:
         v = '>';
-        goto addv;
-    case TOK_DOTS:
-        return strcpy(p, "...");
-    case TOK_A_SHL:
-        return strcpy(p, "<<=");
-    case TOK_A_SAR:
-        return strcpy(p, ">>=");
-    case TOK_EOF:
-        return strcpy(p, "<eof>");
-    case 0: /* anonymous nameless symbols */
-        return strcpy(p, "<no name>");
-    default:
-        v &= ~(SYM_FIELD | SYM_STRUCT);
-        if (v < TOK_IDENT) {
+        جاؤ addv;
+    حالت TOK_DOTS:
+        واپس strcpy(p, "...");
+    حالت TOK_A_SHL:
+        واپس strcpy(p, "<<=");
+    حالت TOK_A_SAR:
+        واپس strcpy(p, ">>=");
+    حالت TOK_EOF:
+        واپس strcpy(p, "<eof>");
+    حالت 0: /* anonymous nameless symbols */
+        واپس strcpy(p, "<no name>");
+    طےشدہ:
+        v &= ~(SYM_میدان | SYM_STRUCT);
+        اگر (v < TOK_IDENT) {
             /* search in two bytes table */
-            const unsigned char *q = tok_two_chars;
-            while (*q) {
-                if (q[2] == v) {
+            ثابت غیرعلامتی حرف *q = tok_two_chars;
+            جب (*q) {
+                اگر (q[2] == v) {
                     *p++ = q[0];
                     *p++ = q[1];
                     *p = '\0';
-                    return cstr_buf.data;
+                    واپس cstr_buf.ڈیٹا;
                 }
                 q += 3;
             }
-            if (v >= 127 || (v < 32 && !is_space(v) && v != '\n')) {
+            اگر (v >= 127 || (v < 32 && !is_space(v) && v != '\n')) {
                 sprintf(p, "<\\x%02x>", v);
-                break;
+                توڑو;
             }
     addv:
             *p++ = v;
             *p = '\0';
-        } else if (v < tok_ident) {
-            return table_ident[v - TOK_IDENT]->str;
-        } else if (v >= SYM_FIRST_ANOM) {
+        } ورنہ اگر (v < tok_ident) {
+            واپس جدول_ident[v - TOK_IDENT]->str;
+        } ورنہ اگر (v >= SYM_پہلا_ANOM) {
             /* special name for anonymous symbol */
-            sprintf(p, "L.%u", v - SYM_FIRST_ANOM);
-        } else {
+            sprintf(p, "L.%u", v - SYM_پہلا_ANOM);
+        } ورنہ {
             /* should never happen */
-            return NULL;
+            واپس تہی;
         }
-        break;
+        توڑو;
     }
-    return cstr_buf.data;
+    واپس cstr_buf.ڈیٹا;
 }
 
 /* return the current character, handling end of block if necessary
    (but not stray) */
-static int handle_eob(void)
+ساکن صحیح handle_eob(خالی)
 {
     BufferedFile *bf = file;
-    int len;
+    صحیح len;
 
     /* only tries to read if really end of buffer */
-    if (bf->buf_ptr >= bf->buf_end) {
-        if (bf->fd >= 0) {
-#if defined(PARSE_DEBUG)
+    اگر (bf->buf_ptr >= bf->buf_انتہا) {
+        اگر (bf->fd >= 0) {
+#اگر defined(PARSE_DEBUG)
             len = 1;
-#else
-            len = IO_BUF_SIZE;
-#endif
-            len = read(bf->fd, bf->buffer, len);
-            if (len < 0)
+#ورنہ
+            len = IO_BUF_سائز;
+#اگر_ختم
+            len = اقرأ(bf->fd, bf->بفر, len);
+            اگر (len < 0)
                 len = 0;
-        } else {
+        } ورنہ {
             len = 0;
         }
-        total_bytes += len;
-        bf->buf_ptr = bf->buffer;
-        bf->buf_end = bf->buffer + len;
-        *bf->buf_end = CH_EOB;
+        کل_بائٹیں += len;
+        bf->buf_ptr = bf->بفر;
+        bf->buf_انتہا = bf->بفر + len;
+        *bf->buf_انتہا = CH_EOB;
     }
-    if (bf->buf_ptr < bf->buf_end) {
-        return bf->buf_ptr[0];
-    } else {
-        bf->buf_ptr = bf->buf_end;
-        return CH_EOF;
+    اگر (bf->buf_ptr < bf->buf_انتہا) {
+        واپس bf->buf_ptr[0];
+    } ورنہ {
+        bf->buf_ptr = bf->buf_انتہا;
+        واپس CH_EOF;
     }
 }
 
 /* read next char from current input file and handle end of input buffer */
-static int next_c(void)
+ساکن صحیح اگلا_c(خالی)
 {
-    int ch = *++file->buf_ptr;
+    صحیح ch = *++file->buf_ptr;
     /* end of buffer/file handling */
-    if (ch == CH_EOB && file->buf_ptr >= file->buf_end)
+    اگر (ch == CH_EOB && file->buf_ptr >= file->buf_انتہا)
         ch = handle_eob();
-    return ch;
+    واپس ch;
 }
 
 /* input with '\[\r]\n' handling. */
-static int handle_stray_noerror(int err)
+ساکن صحیح handle_stray_noerror(صحیح err)
 {
-    int ch;
-    while ((ch = next_c()) == '\\') {
-        ch = next_c();
-        if (ch == '\n') {
+    صحیح ch;
+    جب ((ch = اگلا_c()) == '\\') {
+        ch = اگلا_c();
+        اگر (ch == '\n') {
     newl:
-            file->line_num++;
-        } else {
-            if (ch == '\r') {
-                ch = next_c();
-                if (ch == '\n')
-                    goto newl;
+            file->سطر_عدد++;
+        } ورنہ {
+            اگر (ch == '\r') {
+                ch = اگلا_c();
+                اگر (ch == '\n')
+                    جاؤ newl;
                 *--file->buf_ptr = '\r';
             }
-            if (err)
+            اگر (err)
                 tcc_error("stray '\\' in program");
             /* may take advantage of 'BufferedFile.unget[4}' */
-            return *--file->buf_ptr = '\\';
+            واپس *--file->buf_ptr = '\\';
         }
     }
-    return ch;
+    واپس ch;
 }
 
-#define ninp() handle_stray_noerror(0)
+#تعریف_کرو ninp() handle_stray_noerror(0)
 
 /* handle '\\' in strings, comments and skipped regions */
-static int handle_bs(uint8_t **p)
+ساکن صحیح handle_bs(uint8_t **p)
 {
-    int c;
+    صحیح c;
     file->buf_ptr = *p - 1;
     c = ninp();
     *p = file->buf_ptr;
-    return c;
+    واپس c;
 }
 
 /* skip the stray and handle the \\n case. Output an error if
    incorrect char after the stray */
-static int handle_stray(uint8_t **p)
+ساکن صحیح handle_stray(uint8_t **p)
 {
-    int c;
+    صحیح c;
     file->buf_ptr = *p - 1;
     c = handle_stray_noerror(!(parse_flags & PARSE_FLAG_ACCEPT_STRAYS));
     *p = file->buf_ptr;
-    return c;
+    واپس c;
 }
 
 /* handle the complicated stray case */
-#define PEEKC(c, p)\
+#تعریف_کرو PEEKC(c, p)\
 {\
     c = *++p;\
-    if (c == '\\')\
+    اگر (c == '\\')\
         c = handle_stray(&p); \
 }
 
-static int skip_spaces(void)
+ساکن صحیح skip_spaces(خالی)
 {
-    int ch;
+    صحیح ch;
     --file->buf_ptr;
-    do {
+    کرو {
         ch = ninp();
-    } while (isidnum_table[ch - CH_EOF] & IS_SPC);
-    return ch;
+    } جب (isidnum_جدول[ch - CH_EOF] & IS_SPC);
+    واپس ch;
 }
 
 /* single line C++ comments */
-static uint8_t *parse_line_comment(uint8_t *p)
+ساکن uint8_t *parse_سطر_comment(uint8_t *p)
 {
-    int c;
-    for(;;) {
-        for (;;) {
+    صحیح c;
+    برائے(;;) {
+        برائے (;;) {
             c = *++p;
     redo:
-            if (c == '\n' || c == '\\')
-                break;
+            اگر (c == '\n' || c == '\\')
+                توڑو;
             c = *++p;
-            if (c == '\n' || c == '\\')
-                break;
+            اگر (c == '\n' || c == '\\')
+                توڑو;
         }
-        if (c == '\n')
-            break;
+        اگر (c == '\n')
+            توڑو;
         c = handle_bs(&p);
-        if (c == CH_EOF)
-            break;
-        if (c != '\\')
-            goto redo;
+        اگر (c == CH_EOF)
+            توڑو;
+        اگر (c != '\\')
+            جاؤ redo;
     }
-    return p;
+    واپس p;
 }
 
 /* C comments */
-static uint8_t *parse_comment(uint8_t *p)
+ساکن uint8_t *parse_comment(uint8_t *p)
 {
-    int c;
-    for(;;) {
+    صحیح c;
+    برائے(;;) {
         /* fast skip loop */
-        for(;;) {
+        برائے(;;) {
             c = *++p;
         redo:
-            if (c == '\n' || c == '*' || c == '\\')
-                break;
+            اگر (c == '\n' || c == '*' || c == '\\')
+                توڑو;
             c = *++p;
-            if (c == '\n' || c == '*' || c == '\\')
-                break;
+            اگر (c == '\n' || c == '*' || c == '\\')
+                توڑو;
         }
         /* now we can handle all the cases */
-        if (c == '\n') {
-            file->line_num++;
-        } else if (c == '*') {
-            do {
+        اگر (c == '\n') {
+            file->سطر_عدد++;
+        } ورنہ اگر (c == '*') {
+            کرو {
                 c = *++p;
-            } while (c == '*');
-            if (c == '\\')
+            } جب (c == '*');
+            اگر (c == '\\')
                 c = handle_bs(&p);
-            if (c == '/')
-                break;
-            goto check_eof;
-        } else {
+            اگر (c == '/')
+                توڑو;
+            جاؤ check_eof;
+        } ورنہ {
             c = handle_bs(&p);
         check_eof:
-            if (c == CH_EOF)
+            اگر (c == CH_EOF)
                 tcc_error("unexpected end of file in comment");
-            if (c != '\\')
-                goto redo;
+            اگر (c != '\\')
+                جاؤ redo;
         }
     }
-    return p + 1;
+    واپس p + 1;
 }
 
 /* parse a string without interpreting escapes */
-static uint8_t *parse_pp_string(uint8_t *p, int sep, CString *str)
+ساکن uint8_t *parse_pp_string(uint8_t *p, صحیح sep, CString *str)
 {
-    int c;
-    for(;;) {
+    صحیح c;
+    برائے(;;) {
         c = *++p;
     redo:
-        if (c == sep) {
-            break;
-        } else if (c == '\\') {
+        اگر (c == sep) {
+            توڑو;
+        } ورنہ اگر (c == '\\') {
             c = handle_bs(&p);
-            if (c == CH_EOF) {
+            اگر (c == CH_EOF) {
         unterminated_string:
                 /* XXX: indicate line number of start of string */
                 tok_flags &= ~TOK_FLAG_BOL;
                 tcc_error("missing terminating %c character", sep);
-            } else if (c == '\\') {
-                if (str)
+            } ورنہ اگر (c == '\\') {
+                اگر (str)
                     cstr_ccat(str, c);
                 c = *++p;
                 /* add char after '\\' unconditionally */
-                if (c == '\\') {
+                اگر (c == '\\') {
                     c = handle_bs(&p);
-                    if (c == CH_EOF)
-                        goto unterminated_string;
+                    اگر (c == CH_EOF)
+                        جاؤ unterminated_string;
                 }
-                goto add_char;
-            } else {
-                goto redo;
+                جاؤ جوڑو_char;
+            } ورنہ {
+                جاؤ redo;
             }
-        } else if (c == '\n') {
-        add_lf:
-            if (ACCEPT_LF_IN_STRINGS) {
-                file->line_num++;
-                goto add_char;
-            } else if (str) { /* not skipping */
-                goto unterminated_string;
-            } else {
+        } ورنہ اگر (c == '\n') {
+        جوڑو_lf:
+            اگر (ACCEPT_LF_اندر_لڑیاں) {
+                file->سطر_عدد++;
+                جاؤ جوڑو_char;
+            } ورنہ اگر (str) { /* not skipping */
+                جاؤ unterminated_string;
+            } ورنہ {
                 //tcc_warning("missing terminating %c character", sep);
-                return p;
+                واپس p;
             }
-        } else if (c == '\r') {
+        } ورنہ اگر (c == '\r') {
             c = *++p;
-            if (c == '\\')
+            اگر (c == '\\')
                 c = handle_bs(&p);
-            if (c == '\n')
-                goto add_lf;
-            if (c == CH_EOF)
-                goto unterminated_string;
-            if (str)
+            اگر (c == '\n')
+                جاؤ جوڑو_lf;
+            اگر (c == CH_EOF)
+                جاؤ unterminated_string;
+            اگر (str)
                 cstr_ccat(str, '\r');
-            goto redo;
-        } else {
-        add_char:
-            if (str)
+            جاؤ redo;
+        } ورنہ {
+        جوڑو_char:
+            اگر (str)
                 cstr_ccat(str, c);
         }
     }
     p++;
-    return p;
+    واپس p;
 }
 
 /* skip block of text until #else, #elif or #endif. skip also pairs of
    #if/#endif */
-static void preprocess_skip(void)
+ساکن خالی preprocess_skip(خالی)
 {
-    int a, start_of_line, c, in_warn_or_error;
+    صحیح a, آغاز_کا_سطر, c, اندر_warn_or_error;
     uint8_t *p;
 
     p = file->buf_ptr;
     a = 0;
-redo_start:
-    start_of_line = 1;
-    in_warn_or_error = 0;
-    for(;;) {
+redo_آغاز:
+    آغاز_کا_سطر = 1;
+    اندر_warn_or_error = 0;
+    برائے(;;) {
         c = *p;
-        switch(c) {
-        case ' ':
-        case '\t':
-        case '\f':
-        case '\v':
-        case '\r':
+        انتخاب(c) {
+        حالت ' ':
+        حالت '\t':
+        حالت '\f':
+        حالت '\v':
+        حالت '\r':
             p++;
-            continue;
-        case '\n':
-            file->line_num++;
+            جاری;
+        حالت '\n':
+            file->سطر_عدد++;
             p++;
-            goto redo_start;
-        case '\\':
+            جاؤ redo_آغاز;
+        حالت '\\':
             c = handle_bs(&p);
-            if (c == CH_EOF)
+            اگر (c == CH_EOF)
                 expect("#endif");
-            if (c == '\\')
+            اگر (c == '\\')
                 ++p;
-            continue;
+            جاری;
         /* skip strings */
-        case '\"':
-        case '\'':
-            if (in_warn_or_error)
-                goto _default;
+        حالت '\"':
+        حالت '\'':
+            اگر (اندر_warn_or_error)
+                جاؤ _default;
             tok_flags &= ~TOK_FLAG_BOL;
-            p = parse_pp_string(p, c, NULL);
-            break;
+            p = parse_pp_string(p, c, تہی);
+            توڑو;
         /* skip comments */
-        case '/':
-            if (in_warn_or_error)
-                goto _default;
+        حالت '/':
+            اگر (اندر_warn_or_error)
+                جاؤ _default;
             ++p;
             c = handle_bs(&p);
-            if (c == '*') {
+            اگر (c == '*') {
                 p = parse_comment(p);
-            } else if (c == '/') {
-                p = parse_line_comment(p);
+            } ورنہ اگر (c == '/') {
+                p = parse_سطر_comment(p);
             }
-            continue;
-        case '#':
+            جاری;
+        حالت '#':
             p++;
-            if (start_of_line) {
+            اگر (آغاز_کا_سطر) {
                 file->buf_ptr = p;
-                next_nomacro();
+                اگلا_nomacro();
                 p = file->buf_ptr;
-                if (a == 0 && 
+                اگر (a == 0 && 
                     (tok == TOK_ELSE || tok == TOK_ELIF || tok == TOK_ENDIF))
-                    goto the_end;
-                if (tok == TOK_IF || tok == TOK_IFDEF || tok == TOK_IFNDEF)
+                    جاؤ the_انتہا;
+                اگر (tok == TOK_IF || tok == TOK_IFDEF || tok == TOK_IFNDEF)
                     a++;
-                else if (tok == TOK_ENDIF)
+                ورنہ اگر (tok == TOK_ENDIF)
                     a--;
-                else if( tok == TOK_ERROR || tok == TOK_WARNING)
-                    in_warn_or_error = 1;
-                else if (tok == TOK_LINEFEED)
-                    goto redo_start;
-                else if (parse_flags & PARSE_FLAG_ASM_FILE)
-                    p = parse_line_comment(p - 1);
+                ورنہ اگر( tok == TOK_ERROR || tok == TOK_WARNING)
+                    اندر_warn_or_error = 1;
+                ورنہ اگر (tok == TOK_LINEFEED)
+                    جاؤ redo_آغاز;
+                ورنہ اگر (parse_flags & PARSE_FLAG_ASM_FILE)
+                    p = parse_سطر_comment(p - 1);
             }
-#if !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64)
-            else if (parse_flags & PARSE_FLAG_ASM_FILE)
-                p = parse_line_comment(p - 1);
-#else
+#اگر !defined(TCC_ہدف_ARM) && !defined(TCC_ہدف_ARM64)
+            ورنہ اگر (parse_flags & PARSE_FLAG_ASM_FILE)
+                p = parse_سطر_comment(p - 1);
+#ورنہ
             /* ARM/ARM64 assembly uses '#' for constants */
-#endif
-            break;
+#اگر_ختم
+            توڑو;
 _default:
-        default:
+        طےشدہ:
             p++;
-            break;
+            توڑو;
         }
-        start_of_line = 0;
+        آغاز_کا_سطر = 0;
     }
- the_end: ;
+ the_انتہا: ;
     file->buf_ptr = p;
 }
 
-#if 0
+#اگر 0
 /* return the number of additional 'ints' necessary to store the
    token */
-static inline int tok_size(const int *p)
+ساکن اندرونی صحیح tok_سائز(ثابت صحیح *p)
 {
-    switch(*p) {
+    انتخاب(*p) {
         /* 4 bytes */
-    case TOK_CINT:
-    case TOK_CUINT:
-    case TOK_CCHAR:
-    case TOK_LCHAR:
-    case TOK_CFLOAT:
-    case TOK_LINENUM:
-        return 1 + 1;
-    case TOK_STR:
-    case TOK_LSTR:
-    case TOK_PPNUM:
-    case TOK_PPSTR:
-        return 1 + 1 + (p[1] + 3) / 4;
-    case TOK_CLONG:
-    case TOK_CULONG:
-	return 1 + LONG_SIZE / 4;
-    case TOK_CDOUBLE:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
-        return 1 + 2;
-    case TOK_CLDOUBLE:
-        return 1 + LDOUBLE_WORDS;
-    default:
-        return 1 + 0;
+    حالت TOK_CINT:
+    حالت TOK_CUINT:
+    حالت TOK_CCHAR:
+    حالت TOK_LCHAR:
+    حالت TOK_CFLOAT:
+    حالت TOK_LINENUM:
+        واپس 1 + 1;
+    حالت TOK_STR:
+    حالت TOK_LSTR:
+    حالت TOK_PPNUM:
+    حالت TOK_PPSTR:
+        واپس 1 + 1 + (p[1] + 3) / 4;
+    حالت TOK_CLONG:
+    حالت TOK_CULONG:
+	واپس 1 + LONG_سائز / 4;
+    حالت TOK_CDOUBLE:
+    حالت TOK_CLLONG:
+    حالت TOK_CULLONG:
+        واپس 1 + 2;
+    حالت TOK_CLDOUBLE:
+        واپس 1 + LDOUBLE_الفاظ;
+    طےشدہ:
+        واپس 1 + 0;
     }
 }
-#endif
+#اگر_ختم
 
 /* token string handling */
-ST_INLN void tok_str_new(TokenString *s)
+ST_INLN خالی tok_str_new(TokenString *s)
 {
-    s->str = NULL;
+    s->str = تہی;
     s->len = s->need_spc = 0;
     s->allocated_len = 0;
-    s->last_line_num = -1;
+    s->آخری_سطر_عدد = -1;
 }
 
-ST_FUNC TokenString *tok_str_alloc(void)
+ST_FUNC TokenString *tok_str_alloc(خالی)
 {
-    TokenString *str = tal_realloc(&tokstr_alloc, 0, sizeof *str);
+    TokenString *str = tal_realloc(&tokstr_alloc, 0, حجم *str);
     tok_str_new(str);
-    return str;
+    واپس str;
 }
 
-ST_FUNC void tok_str_free_str(int *str)
+ST_FUNC خالی tok_str_free_str(صحیح *str)
 {
     tal_free(&tokstr_alloc, str);
 }
 
-ST_FUNC void tok_str_free(TokenString *str)
+ST_FUNC خالی tok_str_free(TokenString *str)
 {
     tok_str_free_str(str->str);
     tal_free(&tokstr_alloc, str);
 }
 
-ST_FUNC int *tok_str_realloc(TokenString *s, int new_size)
+ST_FUNC صحیح *tok_str_realloc(TokenString *s, صحیح new_سائز)
 {
-    int *str, size;
+    صحیح *str, سائز;
 
-    size = s->allocated_len;
-    if (size < 16)
-        size = 16;
-    while (size < new_size)
-        size = size * 2;
-    if (size > s->allocated_len) {
-        str = tal_realloc(&tokstr_alloc, s->str, size * sizeof(int));
-        s->allocated_len = size;
+    سائز = s->allocated_len;
+    اگر (سائز < 16)
+        سائز = 16;
+    جب (سائز < new_سائز)
+        سائز = سائز * 2;
+    اگر (سائز > s->allocated_len) {
+        str = tal_realloc(&tokstr_alloc, s->str, سائز * حجم(صحیح));
+        s->allocated_len = سائز;
         s->str = str;
     }
-    return s->str;
+    واپس s->str;
 }
 
-ST_FUNC void tok_str_add(TokenString *s, int t)
+ST_FUNC خالی tok_str_جوڑو(TokenString *s, صحیح t)
 {
-    int len, *str;
+    صحیح len, *str;
 
     len = s->len;
     str = s->str;
-    if (len >= s->allocated_len)
+    اگر (len >= s->allocated_len)
         str = tok_str_realloc(s, len + 1);
     str[len++] = t;
     s->len = len;
 }
 
-ST_FUNC void begin_macro(TokenString *str, int alloc)
+ST_FUNC خالی begin_macro(TokenString *str, صحیح alloc)
 {
     str->alloc = alloc;
-    str->prev = macro_stack;
-    str->prev_ptr = macro_ptr;
-    str->save_line_num = file->line_num;
+    str->پچھلا = macro_ڈھیر;
+    str->پچھلا_ptr = macro_ptr;
+    str->save_سطر_عدد = file->سطر_عدد;
     macro_ptr = str->str;
-    macro_stack = str;
+    macro_ڈھیر = str;
 }
 
-ST_FUNC void end_macro(void)
+ST_FUNC خالی انتہا_macro(خالی)
 {
-    TokenString *str = macro_stack;
-    macro_stack = str->prev;
-    macro_ptr = str->prev_ptr;
-    file->line_num = str->save_line_num;
-    if (str->alloc == 0) {
+    TokenString *str = macro_ڈھیر;
+    macro_ڈھیر = str->پچھلا;
+    macro_ptr = str->پچھلا_ptr;
+    file->سطر_عدد = str->save_سطر_عدد;
+    اگر (str->alloc == 0) {
         /* matters if str not alloced, may be tokstr_buf */
         str->len = str->need_spc = 0;
-    } else {
-        if (str->alloc == 2)
-            str->str = NULL; /* don't free */
+    } ورنہ {
+        اگر (str->alloc == 2)
+            str->str = تہی; /* don't free */
         tok_str_free(str);
     }
 }
 
-static void tok_str_add2(TokenString *s, int t, CValue *cv)
+ساکن خالی tok_str_add2(TokenString *s, صحیح t, CValue *cv)
 {
-    int len, *str;
+    صحیح len, *str;
 
     len = s->len;
     str = s->str;
 
     /* allocate space for worst case */
-    if (len + TOK_MAX_SIZE >= s->allocated_len)
-        str = tok_str_realloc(s, len + TOK_MAX_SIZE + 1);
+    اگر (len + TOK_MAX_سائز >= s->allocated_len)
+        str = tok_str_realloc(s, len + TOK_MAX_سائز + 1);
     str[len++] = t;
-    switch(t) {
-    case TOK_CINT:
-    case TOK_CUINT:
-    case TOK_CCHAR:
-    case TOK_LCHAR:
-    case TOK_CFLOAT:
-    case TOK_LINENUM:
-#if LONG_SIZE == 4
-    case TOK_CLONG:
-    case TOK_CULONG:
-#endif
+    انتخاب(t) {
+    حالت TOK_CINT:
+    حالت TOK_CUINT:
+    حالت TOK_CCHAR:
+    حالت TOK_LCHAR:
+    حالت TOK_CFLOAT:
+    حالت TOK_LINENUM:
+#اگر LONG_سائز == 4
+    حالت TOK_CLONG:
+    حالت TOK_CULONG:
+#اگر_ختم
         str[len++] = cv->tab[0];
-        break;
-    case TOK_PPNUM:
-    case TOK_PPSTR:
-    case TOK_STR:
-    case TOK_LSTR:
+        توڑو;
+    حالت TOK_PPNUM:
+    حالت TOK_PPSTR:
+    حالت TOK_STR:
+    حالت TOK_LSTR:
         {
             /* Insert the string into the int array. */
-            size_t nb_words =
-                1 + (cv->str.size + sizeof(int) - 1) / sizeof(int);
-            if (len + nb_words >= s->allocated_len)
-                str = tok_str_realloc(s, len + nb_words + 1);
-            str[len] = cv->str.size;
-            memcpy(&str[len + 1], cv->str.data, cv->str.size);
-            len += nb_words;
+            سائز_t nb_الفاظ =
+                1 + (cv->str.سائز + حجم(صحیح) - 1) / حجم(صحیح);
+            اگر (len + nb_الفاظ >= s->allocated_len)
+                str = tok_str_realloc(s, len + nb_الفاظ + 1);
+            str[len] = cv->str.سائز;
+            حافظہ_نقل(&str[len + 1], cv->str.ڈیٹا, cv->str.سائز);
+            len += nb_الفاظ;
         }
-        break;
-    case TOK_CDOUBLE:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
-#if LONG_SIZE == 8
-    case TOK_CLONG:
-    case TOK_CULONG:
-#endif
+        توڑو;
+    حالت TOK_CDOUBLE:
+    حالت TOK_CLLONG:
+    حالت TOK_CULLONG:
+#اگر LONG_سائز == 8
+    حالت TOK_CLONG:
+    حالت TOK_CULONG:
+#اگر_ختم
         str[len++] = cv->tab[0];
         str[len++] = cv->tab[1];
-        break;
-    case TOK_CLDOUBLE:
+        توڑو;
+    حالت TOK_CLDOUBLE:
         str[len++] = cv->tab[0];
         str[len++] = cv->tab[1];
-        if (LDOUBLE_WORDS >= 3)
+        اگر (LDOUBLE_الفاظ >= 3)
         str[len++] = cv->tab[2];
-        if (LDOUBLE_WORDS >= 4)
+        اگر (LDOUBLE_الفاظ >= 4)
         str[len++] = cv->tab[3];
-    default:
-        break;
+    طےشدہ:
+        توڑو;
     }
     s->len = len;
 }
 
 /* add the current parse token in token string 's' */
-ST_FUNC void tok_str_add_tok(TokenString *s)
+ST_FUNC خالی tok_str_جوڑو_tok(TokenString *s)
 {
     CValue cval;
 
     /* save line number info */
-    if (file->line_num != s->last_line_num) {
-        s->last_line_num = file->line_num;
-        cval.i = s->last_line_num;
+    اگر (file->سطر_عدد != s->آخری_سطر_عدد) {
+        s->آخری_سطر_عدد = file->سطر_عدد;
+        cval.i = s->آخری_سطر_عدد;
         tok_str_add2(s, TOK_LINENUM, &cval);
     }
     tok_str_add2(s, tok, &tokc);
 }
 
 /* like tok_str_add2(), add a space if needed */
-static void tok_str_add2_spc(TokenString *s, int t, CValue *cv)
+ساکن خالی tok_str_add2_spc(TokenString *s, صحیح t, CValue *cv)
 {
-    if (s->need_spc == 3)
-        tok_str_add(s, ' ');
+    اگر (s->need_spc == 3)
+        tok_str_جوڑو(s, ' ');
     s->need_spc = 2;
     tok_str_add2(s, t, cv);
 }
 
 /* get a token from an integer array and increment pointer. */
-static inline void tok_get(int *t, const int **pp, CValue *cv)
+ساکن اندرونی خالی tok_get(صحیح *t, ثابت صحیح **pp, CValue *cv)
 {
-    const int *p = *pp;
-    int n, *tab;
+    ثابت صحیح *p = *pp;
+    صحیح n, *tab;
 
     tab = cv->tab;
-    switch(*t = *p++) {
-#if LONG_SIZE == 4
-    case TOK_CLONG:
-#endif
-    case TOK_CINT:
-    case TOK_CCHAR:
-    case TOK_LCHAR:
-    case TOK_LINENUM:
+    انتخاب(*t = *p++) {
+#اگر LONG_سائز == 4
+    حالت TOK_CLONG:
+#اگر_ختم
+    حالت TOK_CINT:
+    حالت TOK_CCHAR:
+    حالت TOK_LCHAR:
+    حالت TOK_LINENUM:
         cv->i = *p++;
-        break;
-#if LONG_SIZE == 4
-    case TOK_CULONG:
-#endif
-    case TOK_CUINT:
-        cv->i = (unsigned)*p++;
-        break;
-    case TOK_CFLOAT:
+        توڑو;
+#اگر LONG_سائز == 4
+    حالت TOK_CULONG:
+#اگر_ختم
+    حالت TOK_CUINT:
+        cv->i = (غیرعلامتی)*p++;
+        توڑو;
+    حالت TOK_CFLOAT:
 	tab[0] = *p++;
-	break;
-    case TOK_STR:
-    case TOK_LSTR:
-    case TOK_PPNUM:
-    case TOK_PPSTR:
-        cv->str.size = *p++;
-        cv->str.data = (char*)p;
-        p += (cv->str.size + sizeof(int) - 1) / sizeof(int);
-        break;
-    case TOK_CDOUBLE:
-    case TOK_CLLONG:
-    case TOK_CULLONG:
-#if LONG_SIZE == 8
-    case TOK_CLONG:
-    case TOK_CULONG:
-#endif
+	توڑو;
+    حالت TOK_STR:
+    حالت TOK_LSTR:
+    حالت TOK_PPNUM:
+    حالت TOK_PPSTR:
+        cv->str.سائز = *p++;
+        cv->str.ڈیٹا = (حرف*)p;
+        p += (cv->str.سائز + حجم(صحیح) - 1) / حجم(صحیح);
+        توڑو;
+    حالت TOK_CDOUBLE:
+    حالت TOK_CLLONG:
+    حالت TOK_CULLONG:
+#اگر LONG_سائز == 8
+    حالت TOK_CLONG:
+    حالت TOK_CULONG:
+#اگر_ختم
         n = 2;
-        goto copy;
-    case TOK_CLDOUBLE:
-        n = LDOUBLE_WORDS;
+        جاؤ copy;
+    حالت TOK_CLDOUBLE:
+        n = LDOUBLE_الفاظ;
     copy:
-        do
+        کرو
             *tab++ = *p++;
-        while (--n);
-        break;
-    default:
-        break;
+        جب (--n);
+        توڑو;
+    طےشدہ:
+        توڑو;
     }
     *pp = p;
 }
 
-#if 0
+#اگر 0
 # define TOK_GET(t,p,c) tok_get(t,p,c)
-#else
-# define TOK_GET(t,p,c) do { \
-    int _t = **(p); \
-    if (TOK_HAS_VALUE(_t)) \
+#ورنہ
+# define TOK_GET(t,p,c) کرو { \
+    صحیح _t = **(p); \
+    اگر (TOK_HAS_قدر(_t)) \
         tok_get(t, p, c); \
-    else \
+    ورنہ \
         *(t) = _t, ++*(p); \
-    } while (0)
-#endif
+    } جب (0)
+#اگر_ختم
 
-static int macro_is_equal(const int *a, const int *b)
+ساکن صحیح macro_is_equal(ثابت صحیح *a, ثابت صحیح *b)
 {
     CValue cv;
-    int t;
+    صحیح t;
 
-    if (!a || !b)
-        return 1;
+    اگر (!a || !b)
+        واپس 1;
 
-    while (*a && *b) {
+    جب (*a && *b) {
         cstr_reset(&tokcstr);
         TOK_GET(&t, &a, &cv);
         cstr_cat(&tokcstr, get_tok_str(t, &cv), 0);
         TOK_GET(&t, &b, &cv);
-        if (strcmp(tokcstr.data, get_tok_str(t, &cv)))
-            return 0;
+        اگر (strcmp(tokcstr.ڈیٹا, get_tok_str(t, &cv)))
+            واپس 0;
     }
-    return !(*a || *b);
+    واپس !(*a || *b);
 }
 
 /* defines handling */
-ST_INLN void define_push(int v, int macro_type, int *str, Sym *first_arg)
+ST_INLN خالی define_ڈالو(صحیح v, صحیح macro_type, صحیح *str, Sym *پہلا_arg)
 {
     Sym *s, *o;
 
-    o = define_find(v);
-    s = sym_push2(&define_stack, v, macro_type, 0);
+    o = define_ڈھونڈو(v);
+    s = sym_push2(&define_ڈھیر, v, macro_type, 0);
     s->d = str;
-    s->next = first_arg;
-    table_ident[v - TOK_IDENT]->sym_define = s;
+    s->اگلا = پہلا_arg;
+    جدول_ident[v - TOK_IDENT]->sym_define = s;
 
-    if (o && !macro_is_equal(o->d, s->d))
-	tcc_warning("%s redefined", get_tok_str(v, NULL));
+    اگر (o && !macro_is_equal(o->d, s->d))
+	tcc_warning("%s redefined", get_tok_str(v, تہی));
 }
 
 /* undefined a define symbol. Its name is just set to zero */
-ST_FUNC void define_undef(Sym *s)
+ST_FUNC خالی define_undef(Sym *s)
 {
-    int v = s->v;
-    if (v >= TOK_IDENT && v < tok_ident)
-        table_ident[v - TOK_IDENT]->sym_define = NULL;
+    صحیح v = s->v;
+    اگر (v >= TOK_IDENT && v < tok_ident)
+        جدول_ident[v - TOK_IDENT]->sym_define = تہی;
 }
 
-ST_INLN Sym *define_find(int v)
+ST_INLN Sym *define_ڈھونڈو(صحیح v)
 {
     v -= TOK_IDENT;
-    if ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
-        return NULL;
-    return table_ident[v]->sym_define;
+    اگر ((غیرعلامتی)v >= (غیرعلامتی)(tok_ident - TOK_IDENT))
+        واپس تہی;
+    واپس جدول_ident[v]->sym_define;
 }
 
 /* free define stack until top reaches 'b' */
-ST_FUNC void free_defines(Sym *b)
+ST_FUNC خالی free_متعین_کرتا(Sym *b)
 {
-    while (define_stack != b) {
-        Sym *top = define_stack;
-        define_stack = top->prev;
-        tok_str_free_str(top->d);
-        define_undef(top);
-        sym_free(top);
+    جب (define_ڈھیر != b) {
+        Sym *چوٹی = define_ڈھیر;
+        define_ڈھیر = چوٹی->پچھلا;
+        tok_str_free_str(چوٹی->d);
+        define_undef(چوٹی);
+        sym_free(چوٹی);
     }
 }
 
 /* fake the nth "#if defined test_..." for tcc -dt -run */
-static void maybe_run_test(TCCState *s)
+ساکن خالی maybe_تسلسل_test(TCCState *s)
 {
-    const char *p;
-    if (s->include_stack_ptr != s->include_stack)
-        return;
-    p = get_tok_str(tok, NULL);
-    if (0 != memcmp(p, "test_", 5))
-        return;
-    if (0 != --s->run_test)
-        return;
+    ثابت حرف *p;
+    اگر (s->include_ڈھیر_ptr != s->include_ڈھیر)
+        واپس;
+    p = get_tok_str(tok, تہی);
+    اگر (0 != memcmp(p, "test_", 5))
+        واپس;
+    اگر (0 != --s->تسلسل_test)
+        واپس;
     fprintf(s->ppfp, &"\n[%s]\n"[!(s->dflag & 32)], p), fflush(s->ppfp);
-    define_push(tok, MACRO_OBJ, NULL, NULL);
+    define_ڈالو(tok, MACRO_OBJ, تہی, تہی);
 }
 
-ST_FUNC void skip_to_eol(int warn)
+ST_FUNC خالی skip_مقصد_eol(صحیح warn)
 {
-    if (tok == TOK_LINEFEED)
-        return;
-    if (warn)
+    اگر (tok == TOK_LINEFEED)
+        واپس;
+    اگر (warn)
         tcc_warning("extra tokens after directive");
-    while (macro_stack)
-        end_macro();
-    file->buf_ptr = parse_line_comment(file->buf_ptr - 1);
-    next_nomacro();
+    جب (macro_ڈھیر)
+        انتہا_macro();
+    file->buf_ptr = parse_سطر_comment(file->buf_ptr - 1);
+    اگلا_nomacro();
 }
 
-static CachedInclude *
-search_cached_include(TCCState *s1, const char *filename, int add);
+ساکن CachedInclude *
+تلاش_cached_include(TCCState *s1, ثابت حرف *filename, صحیح جوڑو);
 
-static int parse_include(TCCState *s1, int do_next, int test)
+ساکن صحیح parse_include(TCCState *s1, صحیح do_اگلا, صحیح test)
 {
-    int c, i;
-    char name[1024], buf[1024], *p;
+    صحیح c, i;
+    حرف name[1024], buf[1024], *p;
     CachedInclude *e;
 
     c = skip_spaces();
-    if (c == '<' || c == '\"') {
+    اگر (c == '<' || c == '\"') {
         cstr_reset(&tokcstr);
         file->buf_ptr = parse_pp_string(file->buf_ptr, c == '<' ? '>' : c, &tokcstr);
-        i = tokcstr.size;
-        pstrncpy(name, sizeof name, tokcstr.data, i);
-        next_nomacro();
-    } else {
+        i = tokcstr.سائز;
+        pstrncpy(name, حجم name, tokcstr.ڈیٹا, i);
+        اگلا_nomacro();
+    } ورنہ {
         /* computed #include : concatenate tokens until result is one of
            the two accepted forms.  Don't convert pp-tokens to tokens here. */
 	parse_flags = PARSE_FLAG_PREPROCESS
                     | PARSE_FLAG_LINEFEED
                     | (parse_flags & PARSE_FLAG_ASM_FILE);
         name[0] = 0;
-        for (;;) {
-            next();
-            p = name, i = strlen(p) - 1;
-            if (i > 0
+        برائے (;;) {
+            اگلا();
+            p = name, i = لڑی_لمبائی(p) - 1;
+            اگر (i > 0
                 && ((p[0] == '"' && p[i] == '"')
                  || (p[0] == '<' && p[i] == '>')))
-                break;
-            if (tok == TOK_LINEFEED)
+                توڑو;
+            اگر (tok == TOK_LINEFEED)
                 tcc_error("'#include' expects \"FILENAME\" or <FILENAME>");
-            pstrcat(name, sizeof name, get_tok_str(tok, &tokc));
+            pstrcat(name, حجم name, get_tok_str(tok, &tokc));
 	}
         c = p[0];
         /* remove '<>|""' */
         memmove(p, p + 1, i - 1), p[i - 1] = 0;
     }
 
-    if (!test)
-        skip_to_eol(1);
+    اگر (!test)
+        skip_مقصد_eol(1);
 
-    i = do_next ? file->include_next_index : -1;
-    for (;;) {
+    i = do_اگلا ? file->include_اگلا_اشاریہ : -1;
+    برائے (;;) {
         ++i;
-        if (i == 0) {
+        اگر (i == 0) {
             /* check absolute include path */
-            if (!IS_ABSPATH(name))
-                continue;
+            اگر (!IS_ABSPATH(name))
+                جاری;
             buf[0] = '\0';
-        } else if (i == 1) {
+        } ورنہ اگر (i == 1) {
             /* search in file's dir if "header.h" */
-            if (c != '\"')
-                continue;
+            اگر (c != '\"')
+                جاری;
             p = file->true_filename;
-            pstrncpy(buf, sizeof buf, p, tcc_basename(p) - p);
-        } else {
-            int j = i - 2, k = j - s1->nb_include_paths;
-            if (k < 0)
+            pstrncpy(buf, حجم buf, p, tcc_basename(p) - p);
+        } ورنہ {
+            صحیح j = i - 2, k = j - s1->nb_include_paths;
+            اگر (k < 0)
                 p = s1->include_paths[j];
-            else if (k < s1->nb_sysinclude_paths)
+            ورنہ اگر (k < s1->nb_sysinclude_paths)
                 p = s1->sysinclude_paths[k];
-            else if (test)
-                return 0;
-            else
+            ورنہ اگر (test)
+                واپس 0;
+            ورنہ
                 tcc_error("include file '%s' not found", name);
-            pstrcpy(buf, sizeof buf, p);
-            pstrcat(buf, sizeof buf, "/");
+            pstrcpy(buf, حجم buf, p);
+            pstrcat(buf, حجم buf, "/");
         }
-        pstrcat(buf, sizeof buf, name);
-        e = search_cached_include(s1, buf, 0);
-        if (e && (define_find(e->ifndef_macro) || e->once)) {
+        pstrcat(buf, حجم buf, name);
+        e = تلاش_cached_include(s1, buf, 0);
+        اگر (e && (define_ڈھونڈو(e->ifndef_macro) || e->once)) {
             /* no need to parse the include because the 'ifndef macro'
                is defined (or had #pragma once) */
-#ifdef INC_DEBUG
-            printf("%s: skipping cached %s\n", file->filename, buf);
-#endif
-            if ((s1->verbose | 1) == 3) /* -vv[v] */
-                printf("=> %*s%s\n",
-                   (int)(s1->include_stack_ptr - s1->include_stack), "", buf);
-            return 1;
+#اگر_تعریف_شدہ INC_DEBUG
+            لکھو("%s: skipping cached %s\n", file->filename, buf);
+#اگر_ختم
+            اگر ((s1->verbose | 1) == 3) /* -vv[v] */
+                لکھو("=> %*s%s\n",
+                   (صحیح)(s1->include_ڈھیر_ptr - s1->include_ڈھیر), "", buf);
+            واپس 1;
         }
-        if (tcc_open(s1, buf) >= 0)
-            break;
+        اگر (tcc_open(s1, buf) >= 0)
+            توڑو;
     }
 
-    if (test) {
+    اگر (test) {
         tcc_close();
-    } else {
-        if (s1->include_stack_ptr >= s1->include_stack + INCLUDE_STACK_SIZE)
+    } ورنہ {
+        اگر (s1->include_ڈھیر_ptr >= s1->include_ڈھیر + INCLUDE_ڈھیر_سائز)
             tcc_error("#include recursion too deep");
         /* push previous file on stack */
-        *s1->include_stack_ptr++ = file->prev;
-        file->include_next_index = i;
-#ifdef INC_DEBUG
-        printf("%s: including %s\n", file->prev->filename, file->filename);
-#endif
+        *s1->include_ڈھیر_ptr++ = file->پچھلا;
+        file->include_اگلا_اشاریہ = i;
+#اگر_تعریف_شدہ INC_DEBUG
+        لکھو("%s: including %s\n", file->پچھلا->filename, file->filename);
+#اگر_ختم
         /* update target deps */
-        if (s1->gen_deps) {
+        اگر (s1->gen_deps) {
             BufferedFile *bf = file;
-            while (i == 1 && (bf = bf->prev))
-                i = bf->include_next_index;
+            جب (i == 1 && (bf = bf->پچھلا))
+                i = bf->include_اگلا_اشاریہ;
             /* skip system include files */
-            if (s1->include_sys_deps || i - 2 < s1->nb_include_paths)
-                dynarray_add(&s1->target_deps, &s1->nb_target_deps,
+            اگر (s1->include_sys_deps || i - 2 < s1->nb_include_paths)
+                dynarray_جوڑو(&s1->ہدف_deps, &s1->nb_ہدف_deps,
                     tcc_strdup(buf));
         }
         /* add include file debug info */
         tcc_debug_bincl(s1);
     }
-    return 1;
+    واپس 1;
 }
 
 /* eval an expression for #if/#elif */
-static int expr_preprocess(TCCState *s1)
+ساکن صحیح اظہاریہ_preprocess(TCCState *s1)
 {
-    int c, t;
-    int t0 = tok;
+    صحیح c, t;
+    صحیح t0 = tok;
     TokenString *str;
     
     str = tok_str_alloc();
-    pp_expr = 1;
-    while (1) {
-        next(); /* do macro subst */
+    pp_اظہاریہ = 1;
+    جب (1) {
+        اگلا(); /* do macro subst */
         t = tok;
-        if (tok < TOK_IDENT) {
-            if (tok == TOK_LINEFEED || tok == TOK_EOF)
-                break;
-            if (tok >= TOK_STR && tok <= TOK_CLDOUBLE)
+        اگر (tok < TOK_IDENT) {
+            اگر (tok == TOK_LINEFEED || tok == TOK_EOF)
+                توڑو;
+            اگر (tok >= TOK_STR && tok <= TOK_CLDOUBLE)
                 tcc_error("invalid constant in preprocessor expression");
 
-        } else if (tok == TOK_DEFINED) {
+        } ورنہ اگر (tok == TOK_DEFINED) {
             parse_flags &= ~PARSE_FLAG_PREPROCESS; /* no macro subst */
-            next();
+            اگلا();
             t = tok;
-            if (t == '(') 
-                next();
+            اگر (t == '(') 
+                اگلا();
             parse_flags |= PARSE_FLAG_PREPROCESS;
-            if (tok < TOK_IDENT)
+            اگر (tok < TOK_IDENT)
                 expect("identifier after 'defined'");
-            if (s1->run_test)
-                maybe_run_test(s1);
+            اگر (s1->تسلسل_test)
+                maybe_تسلسل_test(s1);
             c = 0;
-            if (define_find(tok)
+            اگر (define_ڈھونڈو(tok)
                 || tok == TOK___HAS_INCLUDE
-                || tok == TOK___HAS_INCLUDE_NEXT)
+                || tok == TOK_HAS_INCLUDE_اگلا)
                 c = 1;
-            if (t == '(') {
-                next();
-                if (tok != ')')
+            اگر (t == '(') {
+                اگلا();
+                اگر (tok != ')')
                     expect("')'");
             }
-            goto c_number;
-        } else if (tok == TOK___HAS_INCLUDE ||
-                   tok == TOK___HAS_INCLUDE_NEXT) {
+            جاؤ c_نمبر;
+        } ورنہ اگر (tok == TOK___HAS_INCLUDE ||
+                   tok == TOK_HAS_INCLUDE_اگلا) {
             t = tok;
-            next();
-	    if (tok != '(')
+            اگلا();
+	    اگر (tok != '(')
 		expect("'('");
             c = parse_include(s1, t - TOK___HAS_INCLUDE, 1);
-            if (tok != ')')
+            اگر (tok != ')')
                 expect("')'");
-            goto c_number;
-        } else {
+            جاؤ c_نمبر;
+        } ورنہ {
             /* if undefined macro, replace with zero */
             c = 0;
-        c_number:
+        c_نمبر:
             tok = TOK_CLLONG; /* type intmax_t */
             tokc.i = c;
         }
-        tok_str_add_tok(str);
+        tok_str_جوڑو_tok(str);
     }
-    if (0 == str->len)
+    اگر (0 == str->len)
         tcc_error("#%s with no expression", get_tok_str(t0, 0));
-    tok_str_add(str, TOK_EOF); /* simulate end of file */
-    pp_expr = t0; /* redirect pre-processor expression error messages */
+    tok_str_جوڑو(str, TOK_EOF); /* simulate end of file */
+    pp_اظہاریہ = t0; /* redirect pre-processor expression error messages */
     t = tok;
     /* now evaluate C constant expression */
     begin_macro(str, 1);
-    next();
-    c = expr_const();
-    if (tok != TOK_EOF)
+    اگلا();
+    c = اظہاریہ_const();
+    اگر (tok != TOK_EOF)
         tcc_error("...");
-    pp_expr = 0;
-    end_macro();
+    pp_اظہاریہ = 0;
+    انتہا_macro();
     tok = t; /* restore LF or EOF */
-    return c != 0;
+    واپس c != 0;
 }
 
-ST_FUNC void pp_error(CString *cs)
+ST_FUNC خالی pp_error(CString *cs)
 {
-    cstr_printf(cs, "bad preprocessor expression: #%s", get_tok_str(pp_expr, 0));
-    macro_ptr = macro_stack->str;
-    while (next(), tok != TOK_EOF)
+    cstr_printf(cs, "bad preprocessor expression: #%s", get_tok_str(pp_اظہاریہ, 0));
+    macro_ptr = macro_ڈھیر->str;
+    جب (اگلا(), tok != TOK_EOF)
         cstr_printf(cs, " %s", get_tok_str(tok, &tokc));
 }
 
 /* parse after #define */
-ST_FUNC void parse_define(void)
+ST_FUNC خالی parse_define(خالی)
 {
-    Sym *s, *first, **ps;
-    int v, t, varg, is_vaargs, t0;
-    int saved_parse_flags = parse_flags;
+    Sym *s, *پہلا, **ps;
+    صحیح v, t, varg, is_vaargs, t0;
+    صحیح saved_parse_flags = parse_flags;
     TokenString str;
 
     v = tok;
-    if (v < TOK_IDENT || v == TOK_DEFINED)
+    اگر (v < TOK_IDENT || v == TOK_DEFINED)
         tcc_error("invalid macro name '%s'", get_tok_str(tok, &tokc));
-    first = NULL;
+    پہلا = تہی;
     t = MACRO_OBJ;
     /* We have to parse the whole define as if not in asm mode, in particular
        no line comment with '#' must be ignored.  Also for function
@@ -1534,40 +1534,40 @@ ST_FUNC void parse_define(void)
        character.  */
     parse_flags = ((parse_flags & ~PARSE_FLAG_ASM_FILE) | PARSE_FLAG_SPACES);
     /* '(' must be just after macro definition for MACRO_FUNC */
-    next_nomacro();
+    اگلا_nomacro();
     parse_flags &= ~PARSE_FLAG_SPACES;
     is_vaargs = 0;
-    if (tok == '(') {
-        int dotid = set_idnum('.', 0);
-        next_nomacro();
-        ps = &first;
-        if (tok != ')') for (;;) {
+    اگر (tok == '(') {
+        صحیح dotid = سیٹ_idnum('.', 0);
+        اگلا_nomacro();
+        ps = &پہلا;
+        اگر (tok != ')') برائے (;;) {
             varg = tok;
-            next_nomacro();
+            اگلا_nomacro();
             is_vaargs = 0;
-            if (varg == TOK_DOTS) {
-                varg = TOK___VA_ARGS__;
+            اگر (varg == TOK_DOTS) {
+                varg = TOK_VA_دلائل;
                 is_vaargs = 1;
-            } else if (tok == TOK_DOTS && gnu_ext) {
+            } ورنہ اگر (tok == TOK_DOTS && gnu_ext) {
                 is_vaargs = 1;
-                next_nomacro();
+                اگلا_nomacro();
             }
-            if (varg < TOK_IDENT)
+            اگر (varg < TOK_IDENT)
         bad_list:
                 tcc_error("bad macro parameter list");
-            s = sym_push2(&define_stack, varg | SYM_FIELD, is_vaargs, 0);
+            s = sym_push2(&define_ڈھیر, varg | SYM_میدان, is_vaargs, 0);
             *ps = s;
-            ps = &s->next;
-            if (tok == ')')
-                break;
-            if (tok != ',' || is_vaargs)
-                goto bad_list;
-            next_nomacro();
+            ps = &s->اگلا;
+            اگر (tok == ')')
+                توڑو;
+            اگر (tok != ',' || is_vaargs)
+                جاؤ bad_list;
+            اگلا_nomacro();
         }
         parse_flags |= PARSE_FLAG_SPACES;
-        next_nomacro();
+        اگلا_nomacro();
         t = MACRO_FUNC;
-        set_idnum('.', dotid);
+        سیٹ_idnum('.', dotid);
     }
 
     /* The body of a macro definition should be parsed such that identifiers
@@ -1578,548 +1578,548 @@ ST_FUNC void parse_define(void)
     parse_flags |= PARSE_FLAG_ACCEPT_STRAYS | PARSE_FLAG_SPACES | PARSE_FLAG_LINEFEED;
     tok_str_new(&str);
     t0 = 0;
-    while (tok != TOK_LINEFEED && tok != TOK_EOF) {
-        if (is_space(tok)) {
+    جب (tok != TOK_LINEFEED && tok != TOK_EOF) {
+        اگر (is_space(tok)) {
             str.need_spc |= 1;
-        } else {
-            if (TOK_TWOSHARPS == tok) {
-                if (0 == t0)
-                    goto bad_twosharp;
+        } ورنہ {
+            اگر (TOK_TWOSHARPS == tok) {
+                اگر (0 == t0)
+                    جاؤ bad_twosharp;
                 tok = TOK_PPJOIN;
                 t |= MACRO_JOIN;
             }
             tok_str_add2_spc(&str, tok, &tokc);
             t0 = tok;
         }
-        next_nomacro();
+        اگلا_nomacro();
     }
     parse_flags = saved_parse_flags;
-    tok_str_add(&str, 0);
-    if (t0 == TOK_PPJOIN)
+    tok_str_جوڑو(&str, 0);
+    اگر (t0 == TOK_PPJOIN)
 bad_twosharp:
         tcc_error("'##' cannot appear at either end of macro");
-    define_push(v, t, str.str, first);
+    define_ڈالو(v, t, str.str, پہلا);
     //tok_print(str.str, "#define (%d) %s %d:", t | is_vaargs * 4, get_tok_str(v, 0));
 }
 
-static CachedInclude *search_cached_include(TCCState *s1, const char *filename, int add)
+ساکن CachedInclude *تلاش_cached_include(TCCState *s1, ثابت حرف *filename, صحیح جوڑو)
 {
-    const char *s, *basename;
-    unsigned int h;
+    ثابت حرف *s, *basename;
+    غیرعلامتی صحیح h;
     CachedInclude *e;
-    int c, i, len;
+    صحیح c, i, len;
 
     s = basename = tcc_basename(filename);
     h = TOK_HASH_INIT;
-    while ((c = (unsigned char)*s) != 0) {
-#ifdef _WIN32
+    جب ((c = (غیرعلامتی حرف)*s) != 0) {
+#اگر_تعریف_شدہ _WIN32
         h = TOK_HASH_FUNC(h, toup(c));
-#else
+#ورنہ
         h = TOK_HASH_FUNC(h, c);
-#endif
+#اگر_ختم
         s++;
     }
-    h &= (CACHED_INCLUDES_HASH_SIZE - 1);
+    h &= (CACHED_INCLUDES_HASH_سائز - 1);
 
     i = s1->cached_includes_hash[h];
-    for(;;) {
-        if (i == 0)
-            break;
+    برائے(;;) {
+        اگر (i == 0)
+            توڑو;
         e = s1->cached_includes[i - 1];
-        if (0 == PATHCMP(filename, e->filename))
-            return e;
-        if (e->once
+        اگر (0 == PATHCMP(filename, e->filename))
+            واپس e;
+        اگر (e->once
             && 0 == PATHCMP(basename, tcc_basename(e->filename))
             && 0 == normalized_PATHCMP(filename, e->filename)
             )
-            return e;
-        i = e->hash_next;
+            واپس e;
+        i = e->hash_اگلا;
     }
-    if (!add)
-        return NULL;
+    اگر (!جوڑو)
+        واپس تہی;
 
-    e = tcc_malloc(sizeof(CachedInclude) + (len = strlen(filename)));
-    memcpy(e->filename, filename, len + 1);
+    e = tcc_malloc(حجم(CachedInclude) + (len = لڑی_لمبائی(filename)));
+    حافظہ_نقل(e->filename, filename, len + 1);
     e->ifndef_macro = e->once = 0;
-    dynarray_add(&s1->cached_includes, &s1->nb_cached_includes, e);
+    dynarray_جوڑو(&s1->cached_includes, &s1->nb_cached_includes, e);
     /* add in hash table */
-    e->hash_next = s1->cached_includes_hash[h];
+    e->hash_اگلا = s1->cached_includes_hash[h];
     s1->cached_includes_hash[h] = s1->nb_cached_includes;
-#ifdef INC_DEBUG
-    printf("adding cached '%s'\n", filename);
-#endif
-    return e;
+#اگر_تعریف_شدہ INC_DEBUG
+    لکھو("adding cached '%s'\n", filename);
+#اگر_ختم
+    واپس e;
 }
 
-static int pragma_parse(TCCState *s1)
+ساکن صحیح pragma_parse(TCCState *s1)
 {
-    next_nomacro();
-    if (tok == TOK_push_macro || tok == TOK_pop_macro) {
-        int t = tok, v;
+    اگلا_nomacro();
+    اگر (tok == TOK_ڈالو_macro || tok == TOK_نکالو_macro) {
+        صحیح t = tok, v;
         Sym *s;
 
-        if (next(), tok != '(')
-            goto pragma_err;
-        if (next(), tok != TOK_STR)
-            goto pragma_err;
-        v = tok_alloc(tokc.str.data, tokc.str.size - 1)->tok;
-        if (next(), tok != ')')
-            goto pragma_err;
-        if (t == TOK_push_macro) {
-            while (NULL == (s = define_find(v)))
-                define_push(v, 0, NULL, NULL);
+        اگر (اگلا(), tok != '(')
+            جاؤ pragma_err;
+        اگر (اگلا(), tok != TOK_STR)
+            جاؤ pragma_err;
+        v = tok_alloc(tokc.str.ڈیٹا, tokc.str.سائز - 1)->tok;
+        اگر (اگلا(), tok != ')')
+            جاؤ pragma_err;
+        اگر (t == TOK_ڈالو_macro) {
+            جب (تہی == (s = define_ڈھونڈو(v)))
+                define_ڈالو(v, 0, تہی, تہی);
             s->type.ref = s; /* set push boundary */
-        } else {
-            for (s = define_stack; s; s = s->prev)
-                if (s->v == v && s->type.ref == s) {
-                    s->type.ref = NULL;
-                    break;
+        } ورنہ {
+            برائے (s = define_ڈھیر; s; s = s->پچھلا)
+                اگر (s->v == v && s->type.ref == s) {
+                    s->type.ref = تہی;
+                    توڑو;
                 }
         }
-        if (s)
-            table_ident[v - TOK_IDENT]->sym_define = s->d ? s : NULL;
-        else
+        اگر (s)
+            جدول_ident[v - TOK_IDENT]->sym_define = s->d ? s : تہی;
+        ورنہ
             tcc_warning("unbalanced #pragma pop_macro");
         pp_debug_tok = t, pp_debug_symv = v;
 
-    } else if (tok == TOK_once) {
-        search_cached_include(s1, file->true_filename, 1)->once = 1;
+    } ورنہ اگر (tok == TOK_once) {
+        تلاش_cached_include(s1, file->true_filename, 1)->once = 1;
 
-    } else if (s1->output_type == TCC_OUTPUT_PREPROCESS) {
+    } ورنہ اگر (s1->output_type == TCC_OUTPUT_PREPROCESS) {
         /* tcc -E: keep pragmas below unchanged */
         unget_tok(' ');
         unget_tok(TOK_PRAGMA);
         unget_tok('#');
         unget_tok(TOK_LINEFEED);
-        return 1;
+        واپس 1;
 
-    } else if (tok == TOK_pack) {
+    } ورنہ اگر (tok == TOK_pack) {
         /* This may be:
            #pragma pack(1) // set
            #pragma pack() // reset to default
            #pragma pack(push) // push current
            #pragma pack(push,1) // push & set
            #pragma pack(pop) // restore previous */
-        next();
+        اگلا();
         skip('(');
-        if (tok == TOK_ASM_pop) {
-            next();
-            if (s1->pack_stack_ptr <= s1->pack_stack) {
+        اگر (tok == TOK_ASM_نکالو) {
+            اگلا();
+            اگر (s1->pack_ڈھیر_ptr <= s1->pack_ڈھیر) {
             stk_error:
                 tcc_error("out of pack stack");
             }
-            s1->pack_stack_ptr--;
-        } else {
-            int val = 0;
-            if (tok != ')') {
-                if (tok == TOK_ASM_push) {
-                    next();
-                    if (s1->pack_stack_ptr >= s1->pack_stack + PACK_STACK_SIZE - 1)
-                        goto stk_error;
-                    val = *s1->pack_stack_ptr++;
-                    if (tok != ',')
-                        goto pack_set;
-                    next();
+            s1->pack_ڈھیر_ptr--;
+        } ورنہ {
+            صحیح val = 0;
+            اگر (tok != ')') {
+                اگر (tok == TOK_ASM_ڈالو) {
+                    اگلا();
+                    اگر (s1->pack_ڈھیر_ptr >= s1->pack_ڈھیر + PACK_ڈھیر_سائز - 1)
+                        جاؤ stk_error;
+                    val = *s1->pack_ڈھیر_ptr++;
+                    اگر (tok != ',')
+                        جاؤ pack_سیٹ;
+                    اگلا();
                 }
-                if (tok != TOK_CINT)
-                    goto pragma_err;
+                اگر (tok != TOK_CINT)
+                    جاؤ pragma_err;
                 val = tokc.i;
-                if (val < 1 || val > 16 || (val & (val - 1)) != 0)
-                    goto pragma_err;
-                next();
+                اگر (val < 1 || val > 16 || (val & (val - 1)) != 0)
+                    جاؤ pragma_err;
+                اگلا();
             }
-        pack_set:
-            *s1->pack_stack_ptr = val;
+        pack_سیٹ:
+            *s1->pack_ڈھیر_ptr = val;
         }
-        if (tok != ')')
-            goto pragma_err;
+        اگر (tok != ')')
+            جاؤ pragma_err;
 
-    } else if (tok == TOK_comment) {
-        char *p; int t;
-        next();
+    } ورنہ اگر (tok == TOK_comment) {
+        حرف *p; صحیح t;
+        اگلا();
         skip('(');
         t = tok;
-        next();
+        اگلا();
         skip(',');
-        if (tok != TOK_STR)
-            goto pragma_err;
-        p = tcc_strdup(tokc.str.data);
-        next();
-        if (tok != ')')
-            goto pragma_err;
-        if (t == TOK_lib) {
-            dynarray_add(&s1->pragma_libs, &s1->nb_pragma_libs, p);
-        } else {
-            if (t == TOK_option)
-                tcc_set_options(s1, p);
+        اگر (tok != TOK_STR)
+            جاؤ pragma_err;
+        p = tcc_strdup(tokc.str.ڈیٹا);
+        اگلا();
+        اگر (tok != ')')
+            جاؤ pragma_err;
+        اگر (t == TOK_lib) {
+            dynarray_جوڑو(&s1->pragma_libs, &s1->nb_pragma_libs, p);
+        } ورنہ {
+            اگر (t == TOK_option)
+                tcc_سیٹ_options(s1, p);
             tcc_free(p);
         }
 
-    } else {
+    } ورنہ {
         tcc_warning_c(warn_all)("#pragma %s ignored", get_tok_str(tok, &tokc));
-        return 0;
+        واپس 0;
     }
-    next();
-    return 1;
+    اگلا();
+    واپس 1;
 pragma_err:
     tcc_error("malformed #pragma directive");
 }
 
 /* put alternative filename */
-ST_FUNC void tccpp_putfile(const char *filename)
+ST_FUNC خالی tccpp_putfile(ثابت حرف *filename)
 {
-    char buf[1024];
+    حرف buf[1024];
     buf[0] = 0;
-    if (!IS_ABSPATH(filename)) {
+    اگر (!IS_ABSPATH(filename)) {
         /* prepend directory from real file */
-        pstrcpy(buf, sizeof buf, file->true_filename);
+        pstrcpy(buf, حجم buf, file->true_filename);
         *tcc_basename(buf) = 0;
     }
-    pstrcat(buf, sizeof buf, filename);
-#ifdef _WIN32
+    pstrcat(buf, حجم buf, filename);
+#اگر_تعریف_شدہ _WIN32
     normalize_slashes(buf);
-#endif
-    if (0 == strcmp(file->filename, buf))
-        return;
+#اگر_ختم
+    اگر (0 == strcmp(file->filename, buf))
+        واپس;
     //printf("new file '%s'\n", buf);
-    if (file->true_filename == file->filename)
+    اگر (file->true_filename == file->filename)
         file->true_filename = tcc_strdup(file->filename);
-    pstrcpy(file->filename, sizeof file->filename, buf);
+    pstrcpy(file->filename, حجم file->filename, buf);
     tcc_debug_newfile(tcc_state);
 }
 
 /* is_bof is true if first non space token at beginning of file */
-ST_FUNC void preprocess(int is_bof)
+ST_FUNC خالی preprocess(صحیح is_bof)
 {
     TCCState *s1 = tcc_state;
-    int c, n, saved_parse_flags;
-    char buf[1024], *q;
+    صحیح c, n, saved_parse_flags;
+    حرف buf[1024], *q;
     Sym *s;
 
     saved_parse_flags = parse_flags;
     parse_flags = PARSE_FLAG_PREPROCESS
-        | PARSE_FLAG_TOK_NUM
+        | PARSE_FLAG_TOK_عدد
         | PARSE_FLAG_TOK_STR
         | PARSE_FLAG_LINEFEED
         | (parse_flags & PARSE_FLAG_ASM_FILE)
         ;
 
-    next_nomacro();
+    اگلا_nomacro();
  redo:
-    switch(tok) {
-    case TOK_DEFINE:
+    انتخاب(tok) {
+    حالت TOK_DEFINE:
         pp_debug_tok = tok;
-        next_nomacro();
+        اگلا_nomacro();
         pp_debug_symv = tok;
         parse_define();
-        break;
-    case TOK_UNDEF:
+        توڑو;
+    حالت TOK_UNDEF:
         pp_debug_tok = tok;
-        next_nomacro();
+        اگلا_nomacro();
         pp_debug_symv = tok;
-        s = define_find(tok);
+        s = define_ڈھونڈو(tok);
         /* undefine symbol by putting an invalid name */
-        if (s)
+        اگر (s)
             define_undef(s);
-        next_nomacro();
-        break;
-    case TOK_INCLUDE:
-    case TOK_INCLUDE_NEXT:
+        اگلا_nomacro();
+        توڑو;
+    حالت TOK_INCLUDE:
+    حالت TOK_INCLUDE_اگلا:
         parse_include(s1, tok - TOK_INCLUDE, 0);
-        goto the_end;
-    case TOK_IFNDEF:
+        جاؤ the_انتہا;
+    حالت TOK_IFNDEF:
         c = 1;
-        goto do_ifdef;
-    case TOK_IF:
-        c = expr_preprocess(s1);
-        goto do_if;
-    case TOK_IFDEF:
+        جاؤ do_ifdef;
+    حالت TOK_IF:
+        c = اظہاریہ_preprocess(s1);
+        جاؤ do_if;
+    حالت TOK_IFDEF:
         c = 0;
     do_ifdef:
-        next_nomacro();
-        if (tok < TOK_IDENT)
+        اگلا_nomacro();
+        اگر (tok < TOK_IDENT)
             tcc_error("invalid argument for '#if%sdef'", c ? "n" : "");
-        if (is_bof) {
-            if (c) {
-#ifdef INC_DEBUG
-                printf("#ifndef %s\n", get_tok_str(tok, NULL));
-#endif
+        اگر (is_bof) {
+            اگر (c) {
+#اگر_تعریف_شدہ INC_DEBUG
+                لکھو("#ifndef %s\n", get_tok_str(tok, تہی));
+#اگر_ختم
                 file->ifndef_macro = tok;
             }
         }
-        if (define_find(tok)
+        اگر (define_ڈھونڈو(tok)
             || tok == TOK___HAS_INCLUDE
-            || tok == TOK___HAS_INCLUDE_NEXT)
+            || tok == TOK_HAS_INCLUDE_اگلا)
             c ^= 1;
-        next_nomacro();
+        اگلا_nomacro();
     do_if:
-        if (s1->ifdef_stack_ptr >= s1->ifdef_stack + IFDEF_STACK_SIZE)
+        اگر (s1->ifdef_ڈھیر_ptr >= s1->ifdef_ڈھیر + IFDEF_ڈھیر_سائز)
             tcc_error("memory full (ifdef)");
-        *s1->ifdef_stack_ptr++ = c;
-        goto test_skip;
-    case TOK_ELSE:
-        next_nomacro();
-        if (s1->ifdef_stack_ptr == s1->ifdef_stack)
+        *s1->ifdef_ڈھیر_ptr++ = c;
+        جاؤ test_skip;
+    حالت TOK_ELSE:
+        اگلا_nomacro();
+        اگر (s1->ifdef_ڈھیر_ptr == s1->ifdef_ڈھیر)
             tcc_error("#else without matching #if");
-        if (s1->ifdef_stack_ptr[-1] & 2)
+        اگر (s1->ifdef_ڈھیر_ptr[-1] & 2)
             tcc_error("#else after #else");
-        c = (s1->ifdef_stack_ptr[-1] ^= 3);
-        goto test_else;
-    case TOK_ELIF:
-        if (s1->ifdef_stack_ptr == s1->ifdef_stack)
+        c = (s1->ifdef_ڈھیر_ptr[-1] ^= 3);
+        جاؤ test_else;
+    حالت TOK_ELIF:
+        اگر (s1->ifdef_ڈھیر_ptr == s1->ifdef_ڈھیر)
             tcc_error("#elif without matching #if");
-        c = s1->ifdef_stack_ptr[-1];
-        if (c > 1)
+        c = s1->ifdef_ڈھیر_ptr[-1];
+        اگر (c > 1)
             tcc_error("#elif after #else");
         /* last #if/#elif expression was true: we skip */
-        if (c == 1) {
-            skip_to_eol(0);
+        اگر (c == 1) {
+            skip_مقصد_eol(0);
             c = 0;
-        } else {
-            c = expr_preprocess(s1);
-            s1->ifdef_stack_ptr[-1] = c;
+        } ورنہ {
+            c = اظہاریہ_preprocess(s1);
+            s1->ifdef_ڈھیر_ptr[-1] = c;
         }
     test_else:
-        if (s1->ifdef_stack_ptr == file->ifdef_stack_ptr + 1)
+        اگر (s1->ifdef_ڈھیر_ptr == file->ifdef_ڈھیر_ptr + 1)
             file->ifndef_macro = 0;
     test_skip:
-        if (!(c & 1)) {
-            skip_to_eol(1);
+        اگر (!(c & 1)) {
+            skip_مقصد_eol(1);
             preprocess_skip();
             is_bof = 0;
-            goto redo;
+            جاؤ redo;
         }
-        break;
-    case TOK_ENDIF:
-        next_nomacro();
-        if (s1->ifdef_stack_ptr <= file->ifdef_stack_ptr)
+        توڑو;
+    حالت TOK_ENDIF:
+        اگلا_nomacro();
+        اگر (s1->ifdef_ڈھیر_ptr <= file->ifdef_ڈھیر_ptr)
             tcc_error("#endif without matching #if");
-        s1->ifdef_stack_ptr--;
+        s1->ifdef_ڈھیر_ptr--;
         /* '#ifndef macro' was at the start of file. Now we check if
            an '#endif' is exactly at the end of file */
-        if (file->ifndef_macro &&
-            s1->ifdef_stack_ptr == file->ifdef_stack_ptr) {
+        اگر (file->ifndef_macro &&
+            s1->ifdef_ڈھیر_ptr == file->ifdef_ڈھیر_ptr) {
             file->ifndef_macro_saved = file->ifndef_macro;
             /* need to set to zero to avoid false matches if another
                #ifndef at middle of file */
             file->ifndef_macro = 0;
             tok_flags |= TOK_FLAG_ENDIF;
         }
-        break;
+        توڑو;
 
-    case TOK_LINE:
-        parse_flags &= ~PARSE_FLAG_TOK_NUM;
-        next();
-        if (tok != TOK_PPNUM) {
-    _line_err:
+    حالت TOK_سطر:
+        parse_flags &= ~PARSE_FLAG_TOK_عدد;
+        اگلا();
+        اگر (tok != TOK_PPNUM) {
+    سطر_err:
             tcc_error("wrong #line format");
         }
         c = 1;
-        goto _line_num;
-    case TOK_PPNUM:
-        if (parse_flags & PARSE_FLAG_ASM_FILE)
-            goto ignore;
+        جاؤ سطر_عدد_2;
+    حالت TOK_PPNUM:
+        اگر (parse_flags & PARSE_FLAG_ASM_FILE)
+            جاؤ ignore;
         c = 0; /* no error with extra tokens */
-    _line_num:
-        for (n = 0, q = tokc.str.data; *q; ++q) {
-            if (!isnum(*q))
-                goto _line_err;
+    سطر_عدد_2:
+        برائے (n = 0, q = tokc.str.ڈیٹا; *q; ++q) {
+            اگر (!isnum(*q))
+                جاؤ سطر_err;
             n = n * 10 + *q - '0';
         }
         parse_flags &= ~PARSE_FLAG_TOK_STR; /* don't parse escape sequences */
-        next();
-        if (tok != TOK_LINEFEED) {
-            if (tok != TOK_PPSTR || tokc.str.data[0] != '"')
-                goto _line_err;
-            tokc.str.data[tokc.str.size - 2] = 0;
-            tccpp_putfile(tokc.str.data + 1);
-            next();
+        اگلا();
+        اگر (tok != TOK_LINEFEED) {
+            اگر (tok != TOK_PPSTR || tokc.str.ڈیٹا[0] != '"')
+                جاؤ سطر_err;
+            tokc.str.ڈیٹا[tokc.str.سائز - 2] = 0;
+            tccpp_putfile(tokc.str.ڈیٹا + 1);
+            اگلا();
             /* skip optional level number & advance to next line */
-            skip_to_eol(c);
+            skip_مقصد_eol(c);
         }
-        if (file->fd > 0)
-            total_lines += file->line_num - n;
-        file->line_num = n;
-        break;
+        اگر (file->fd > 0)
+            کل_سطریں += file->سطر_عدد - n;
+        file->سطر_عدد = n;
+        توڑو;
 
-    case TOK_ERROR:
-    case TOK_WARNING:
+    حالت TOK_ERROR:
+    حالت TOK_WARNING:
     {
         q = buf;
         c = skip_spaces();
-        while (c != '\n' && c != CH_EOF) {
-            if ((q - buf) < sizeof(buf) - 1)
+        جب (c != '\n' && c != CH_EOF) {
+            اگر ((q - buf) < حجم(buf) - 1)
                 *q++ = c;
             c = ninp();
         }
         *q = '\0';
-        if (tok == TOK_ERROR)
+        اگر (tok == TOK_ERROR)
             tcc_error("#error %s", buf);
-        else
+        ورنہ
             tcc_warning("#warning %s", buf);
-        next_nomacro();
-        break;
+        اگلا_nomacro();
+        توڑو;
     }
-    case TOK_PRAGMA:
-        if (!pragma_parse(s1))
-            goto ignore;
-        break;
-    case TOK_LINEFEED:
-        goto the_end;
-    default:
+    حالت TOK_PRAGMA:
+        اگر (!pragma_parse(s1))
+            جاؤ ignore;
+        توڑو;
+    حالت TOK_LINEFEED:
+        جاؤ the_انتہا;
+    طےشدہ:
         /* ignore gas line comment in an 'S' file. */
-        if (saved_parse_flags & PARSE_FLAG_ASM_FILE)
-            goto ignore;
-        if (tok == '!' && is_bof)
+        اگر (saved_parse_flags & PARSE_FLAG_ASM_FILE)
+            جاؤ ignore;
+        اگر (tok == '!' && is_bof)
             /* '#!' is ignored at beginning to allow C scripts. */
-            goto ignore;
+            جاؤ ignore;
         tcc_warning("ignoring unknown preprocessing directive #%s", get_tok_str(tok, &tokc));
     ignore:
-        skip_to_eol(0);
-        goto the_end;
+        skip_مقصد_eol(0);
+        جاؤ the_انتہا;
     }
-    skip_to_eol(1);
- the_end:
+    skip_مقصد_eol(1);
+ the_انتہا:
     parse_flags = saved_parse_flags;
 }
 
 /* evaluate escape codes in a string. */
-static void parse_escape_string(CString *outstr, const uint8_t *buf, int is_long)
+ساکن خالی parse_escape_string(CString *outstr, ثابت uint8_t *buf, صحیح is_long)
 {
-    int c, n, i;
-    const uint8_t *p;
+    صحیح c, n, i;
+    ثابت uint8_t *p;
 
     p = buf;
-    for(;;) {
+    برائے(;;) {
         c = *p;
-        if (c == '\0')
-            break;
-        if (c == '\\') {
+        اگر (c == '\0')
+            توڑو;
+        اگر (c == '\\') {
             p++;
             /* escape */
             c = *p;
-            switch(c) {
-            case '0': case '1': case '2': case '3':
-            case '4': case '5': case '6': case '7':
+            انتخاب(c) {
+            حالت '0': حالت '1': حالت '2': حالت '3':
+            حالت '4': حالت '5': حالت '6': حالت '7':
                 /* at most three octal digits */
                 n = c - '0';
                 p++;
                 c = *p;
-                if (isoct(c)) {
+                اگر (isoct(c)) {
                     n = n * 8 + c - '0';
                     p++;
                     c = *p;
-                    if (isoct(c)) {
+                    اگر (isoct(c)) {
                         n = n * 8 + c - '0';
                         p++;
                     }
                 }
                 c = n;
-                goto add_char_nonext;
-            case 'x': i = 0; goto parse_hex_or_ucn;
-            case 'u': i = 4; goto parse_hex_or_ucn;
-            case 'U': i = 8; goto parse_hex_or_ucn;
+                جاؤ جوڑو_char_nonext;
+            حالت 'x': i = 0; جاؤ parse_hex_or_ucn;
+            حالت 'u': i = 4; جاؤ parse_hex_or_ucn;
+            حالت 'U': i = 8; جاؤ parse_hex_or_ucn;
     parse_hex_or_ucn:
                 p++;
                 n = 0;
-                do {
+                کرو {
                     c = *p;
-                    if (c >= 'a' && c <= 'f')
+                    اگر (c >= 'a' && c <= 'f')
                         c = c - 'a' + 10;
-                    else if (c >= 'A' && c <= 'F')
+                    ورنہ اگر (c >= 'A' && c <= 'F')
                         c = c - 'A' + 10;
-                    else if (isnum(c))
+                    ورنہ اگر (isnum(c))
                         c = c - '0';
-                    else if (i >= 0)
+                    ورنہ اگر (i >= 0)
                         expect("more hex digits in universal-character-name");
-                    else
-                        goto add_hex_or_ucn;
-                    n = (unsigned) n * 16 + c;
+                    ورنہ
+                        جاؤ جوڑو_hex_or_ucn;
+                    n = (غیرعلامتی) n * 16 + c;
                     p++;
-                } while (--i);
-		if (is_long) {
-    add_hex_or_ucn:
+                } جب (--i);
+		اگر (is_long) {
+    جوڑو_hex_or_ucn:
                     c = n;
-		    goto add_char_nonext;
+		    جاؤ جوڑو_char_nonext;
 		}
                 cstr_u8cat(outstr, n);
-                continue;
-            case 'a':
+                جاری;
+            حالت 'a':
                 c = '\a';
-                break;
-            case 'b':
+                توڑو;
+            حالت 'b':
                 c = '\b';
-                break;
-            case 'f':
+                توڑو;
+            حالت 'f':
                 c = '\f';
-                break;
-            case 'n':
+                توڑو;
+            حالت 'n':
                 c = '\n';
-                break;
-            case 'r':
+                توڑو;
+            حالت 'r':
                 c = '\r';
-                break;
-            case 't':
+                توڑو;
+            حالت 't':
                 c = '\t';
-                break;
-            case 'v':
+                توڑو;
+            حالت 'v':
                 c = '\v';
-                break;
-            case 'e':
-                if (!gnu_ext)
-                    goto invalid_escape;
+                توڑو;
+            حالت 'e':
+                اگر (!gnu_ext)
+                    جاؤ invalid_escape;
                 c = 27;
-                break;
-            case '\'':
-            case '\"':
-            case '\\': 
-            case '?':
-                break;
-            default:
+                توڑو;
+            حالت '\'':
+            حالت '\"':
+            حالت '\\': 
+            حالت '?':
+                توڑو;
+            طےشدہ:
             invalid_escape:
-                if (c >= '!' && c <= '~')
+                اگر (c >= '!' && c <= '~')
                     tcc_warning("unknown escape sequence: \'\\%c\'", c);
-                else
+                ورنہ
                     tcc_warning("unknown escape sequence: \'\\x%x\'", c);
-                break;
+                توڑو;
             }
-        } else if (is_long && c >= 0x80) {
+        } ورنہ اگر (is_long && c >= 0x80) {
             /* assume we are processing UTF-8 sequence */
             /* reference: The Unicode Standard, Version 10.0, ch3.9 */
 
-            int cont; /* count of continuation bytes */
-            int skip; /* how many bytes should skip when error occurred */
-            int i;
+            صحیح cont; /* count of continuation bytes */
+            صحیح skip; /* how many bytes should skip when error occurred */
+            صحیح i;
 
             /* decode leading byte */
-            if (c < 0xC2) {
-	            skip = 1; goto invalid_utf8_sequence;
-            } else if (c <= 0xDF) {
+            اگر (c < 0xC2) {
+	            skip = 1; جاؤ invalid_utf8_sequence;
+            } ورنہ اگر (c <= 0xDF) {
 	            cont = 1; n = c & 0x1f;
-            } else if (c <= 0xEF) {
+            } ورنہ اگر (c <= 0xEF) {
 	            cont = 2; n = c & 0xf;
-            } else if (c <= 0xF4) {
+            } ورنہ اگر (c <= 0xF4) {
 	            cont = 3; n = c & 0x7;
-            } else {
-	            skip = 1; goto invalid_utf8_sequence;
+            } ورنہ {
+	            skip = 1; جاؤ invalid_utf8_sequence;
             }
 
             /* decode continuation bytes */
-            for (i = 1; i <= cont; i++) {
-                int l = 0x80, h = 0xBF;
+            برائے (i = 1; i <= cont; i++) {
+                صحیح l = 0x80, h = 0xBF;
 
                 /* adjust limit for second byte */
-                if (i == 1) {
-                    switch (c) {
-                    case 0xE0: l = 0xA0; break;
-                    case 0xED: h = 0x9F; break;
-                    case 0xF0: l = 0x90; break;
-                    case 0xF4: h = 0x8F; break;
+                اگر (i == 1) {
+                    انتخاب (c) {
+                    حالت 0xE0: l = 0xA0; توڑو;
+                    حالت 0xED: h = 0x9F; توڑو;
+                    حالت 0xF0: l = 0x90; توڑو;
+                    حالت 0xF4: h = 0x8F; توڑو;
                     }
                 }
 
-                if (p[i] < l || p[i] > h) {
-                    skip = i; goto invalid_utf8_sequence;
+                اگر (p[i] < l || p[i] > h) {
+                    skip = i; جاؤ invalid_utf8_sequence;
                 }
 
                 n = (n << 6) | (p[i] & 0x3f);
@@ -2128,140 +2128,140 @@ static void parse_escape_string(CString *outstr, const uint8_t *buf, int is_long
             /* advance pointer */
             p += 1 + cont;
             c = n;
-            goto add_char_nonext;
+            جاؤ جوڑو_char_nonext;
 
             /* error handling */
         invalid_utf8_sequence:
             tcc_warning("ill-formed UTF-8 subsequence starting with: \'\\x%x\'", c);
             c = 0xFFFD;
             p += skip;
-            goto add_char_nonext;
+            جاؤ جوڑو_char_nonext;
 
         }
         p++;
-    add_char_nonext:
-        if (!is_long)
+    جوڑو_char_nonext:
+        اگر (!is_long)
             cstr_ccat(outstr, c);
-        else {
-#ifdef TCC_TARGET_PE
+        ورنہ {
+#اگر_تعریف_شدہ TCC_ہدف_PE
             /* store as UTF-16 */
-            if (c < 0x10000) {
+            اگر (c < 0x10000) {
                 cstr_wccat(outstr, c);
-            } else {
+            } ورنہ {
                 c -= 0x10000;
                 cstr_wccat(outstr, (c >> 10) + 0xD800);
                 cstr_wccat(outstr, (c & 0x3FF) + 0xDC00);
             }
-#else
+#ورنہ
             cstr_wccat(outstr, c);
-#endif
+#اگر_ختم
         }
     }
     /* add a trailing '\0' */
-    if (!is_long)
+    اگر (!is_long)
         cstr_ccat(outstr, '\0');
-    else
+    ورنہ
         cstr_wccat(outstr, '\0');
 }
 
-static void parse_string(const char *s, int len)
+ساکن خالی parse_string(ثابت حرف *s, صحیح len)
 {
     uint8_t buf[1000], *p = buf;
-    int is_long, sep;
+    صحیح is_long, sep;
 
-    if ((is_long = *s == 'L'))
+    اگر ((is_long = *s == 'L'))
         ++s, --len;
     sep = *s++;
     len -= 2;
-    if (len >= sizeof buf)
+    اگر (len >= حجم buf)
         p = tcc_malloc(len + 1);
-    memcpy(p, s, len);
+    حافظہ_نقل(p, s, len);
     p[len] = 0;
 
     cstr_reset(&tokcstr);
     parse_escape_string(&tokcstr, p, is_long);
-    if (p != buf)
+    اگر (p != buf)
         tcc_free(p);
 
-    if (sep == '\'') {
-        int char_size, i, n, c;
+    اگر (sep == '\'') {
+        صحیح char_سائز, i, n, c;
         /* XXX: make it portable */
-        if (!is_long)
-            tok = TOK_CCHAR, char_size = 1;
-        else
-            tok = TOK_LCHAR, char_size = sizeof(nwchar_t);
-        n = tokcstr.size / char_size - 1;
-        if (n < 1)
+        اگر (!is_long)
+            tok = TOK_CCHAR, char_سائز = 1;
+        ورنہ
+            tok = TOK_LCHAR, char_سائز = حجم(nwchar_t);
+        n = tokcstr.سائز / char_سائز - 1;
+        اگر (n < 1)
             tcc_error("empty character constant");
-        if (n > 1)
+        اگر (n > 1)
             tcc_warning_c(warn_all)("multi-character character constant");
-        for (c = i = 0; i < n; ++i) {
-            if (is_long)
-                c = ((nwchar_t *)tokcstr.data)[i];
-            else
-                c = (c << 8) | ((char *)tokcstr.data)[i];
+        برائے (c = i = 0; i < n; ++i) {
+            اگر (is_long)
+                c = ((nwchar_t *)tokcstr.ڈیٹا)[i];
+            ورنہ
+                c = (c << 8) | ((حرف *)tokcstr.ڈیٹا)[i];
         }
         tokc.i = c;
-    } else {
-        tokc.str.size = tokcstr.size;
-        tokc.str.data = tokcstr.data;
-        if (!is_long)
+    } ورنہ {
+        tokc.str.سائز = tokcstr.سائز;
+        tokc.str.ڈیٹا = tokcstr.ڈیٹا;
+        اگر (!is_long)
             tok = TOK_STR;
-        else
+        ورنہ
             tok = TOK_LSTR;
     }
 }
 
 /* we use 128 bit (64/112 needed) numbers */
-#define BN_SIZE 4
+#تعریف_کرو BN_سائز 4
 
 /* bn = (bn << shift) | or_val */
-static int bn_lshift(unsigned int *bn, int shift, int or_val)
+ساکن صحیح bn_lshift(غیرعلامتی صحیح *bn, صحیح سرکاؤ, صحیح or_val)
 {
-    int i;
-    unsigned int v;
-    if (bn[BN_SIZE - 1] >> (32 - shift))
-	return shift;
-    for(i=0;i<BN_SIZE;i++) {
+    صحیح i;
+    غیرعلامتی صحیح v;
+    اگر (bn[BN_سائز - 1] >> (32 - سرکاؤ))
+	واپس سرکاؤ;
+    برائے(i=0;i<BN_سائز;i++) {
         v = bn[i];
-        bn[i] = (v << shift) | or_val;
-        or_val = v >> (32 - shift);
+        bn[i] = (v << سرکاؤ) | or_val;
+        or_val = v >> (32 - سرکاؤ);
     }
-    return 0;
+    واپس 0;
 }
 
-static void bn_zero(unsigned int *bn)
+ساکن خالی bn_zero(غیرعلامتی صحیح *bn)
 {
-    int i;
-    for(i=0;i<BN_SIZE;i++) {
+    صحیح i;
+    برائے(i=0;i<BN_سائز;i++) {
         bn[i] = 0;
     }
 }
 
 /* parse number in null terminated string 'p' and return it in the
    current token */
-static void parse_number(const char *p)
+ساکن خالی parse_نمبر(ثابت حرف *p)
 {
-    int b, t, shift, frac_bits, s, exp_val, ch;
-    char *q;
-    unsigned int bn[BN_SIZE];
-    long double d;
+    صحیح b, t, سرکاؤ, frac_بٹ, s, exp_val, ch;
+    حرف *q;
+    غیرعلامتی صحیح bn[BN_سائز];
+    طویل دوہرا d;
 
-    /* number */
+    /*نمبر*/
     q = token_buf;
     ch = *p++;
     t = ch;
     ch = *p++;
     *q++ = t;
     b = 10;
-    if (t == '.') {
-        goto float_frac_parse;
-    } else if (t == '0') {
-        if (ch == 'x' || ch == 'X') {
+    اگر (t == '.') {
+        جاؤ float_frac_parse;
+    } ورنہ اگر (t == '0') {
+        اگر (ch == 'x' || ch == 'X') {
             q--;
             ch = *p++;
             b = 16;
-        } else if (tcc_state->tcc_ext && (ch == 'b' || ch == 'B')) {
+        } ورنہ اگر (tcc_state->tcc_ext && (ch == 'b' || ch == 'B')) {
             q--;
             ch = *p++;
             b = 2;
@@ -2269,90 +2269,90 @@ static void parse_number(const char *p)
     }
     /* parse all digits. cannot check octal numbers at this stage
        because of floating point constants */
-    while (1) {
-        if (ch >= 'a' && ch <= 'f')
+    جب (1) {
+        اگر (ch >= 'a' && ch <= 'f')
             t = ch - 'a' + 10;
-        else if (ch >= 'A' && ch <= 'F')
+        ورنہ اگر (ch >= 'A' && ch <= 'F')
             t = ch - 'A' + 10;
-        else if (isnum(ch))
+        ورنہ اگر (isnum(ch))
             t = ch - '0';
-        else
-            break;
-        if (t >= b)
-            break;
-        if (q >= token_buf + STRING_MAX_SIZE) {
-        num_too_long:
+        ورنہ
+            توڑو;
+        اگر (t >= b)
+            توڑو;
+        اگر (q >= token_buf + STRING_MAX_سائز) {
+        عدد_too_long:
             tcc_error("number too long");
         }
         *q++ = ch;
         ch = *p++;
     }
-    if (ch == '.' ||
+    اگر (ch == '.' ||
         ((ch == 'e' || ch == 'E') && b == 10) ||
         ((ch == 'p' || ch == 'P') && (b == 16 || b == 2))) {
-        if (b != 10) {
+        اگر (b != 10) {
             /* NOTE: strtox should support that for hexa numbers, but
                non ISOC99 libcs do not support it, so we prefer to do
                it by hand */
             /* hexadecimal or binary floats */
             /* XXX: handle overflows */
-            frac_bits = 0;
+            frac_بٹ = 0;
             *q = '\0';
-            if (b == 16)
-                shift = 4;
-            else 
-                shift = 1;
+            اگر (b == 16)
+                سرکاؤ = 4;
+            ورنہ 
+                سرکاؤ = 1;
             bn_zero(bn);
             q = token_buf;
-            while (1) {
+            جب (1) {
                 t = *q++;
-                if (t == '\0') {
-                    break;
-                } else if (t >= 'a') {
+                اگر (t == '\0') {
+                    توڑو;
+                } ورنہ اگر (t >= 'a') {
                     t = t - 'a' + 10;
-                } else if (t >= 'A') {
+                } ورنہ اگر (t >= 'A') {
                     t = t - 'A' + 10;
-                } else {
+                } ورنہ {
                     t = t - '0';
                 }
-                frac_bits -= bn_lshift(bn, shift, t);
+                frac_بٹ -= bn_lshift(bn, سرکاؤ, t);
             }
-            if (ch == '.') {
+            اگر (ch == '.') {
                 ch = *p++;
-                while (1) {
+                جب (1) {
                     t = ch;
-                    if (t >= 'a' && t <= 'f') {
+                    اگر (t >= 'a' && t <= 'f') {
                         t = t - 'a' + 10;
-                    } else if (t >= 'A' && t <= 'F') {
+                    } ورنہ اگر (t >= 'A' && t <= 'F') {
                         t = t - 'A' + 10;
-                    } else if (t >= '0' && t <= '9') {
+                    } ورنہ اگر (t >= '0' && t <= '9') {
                         t = t - '0';
-                    } else {
-                        break;
+                    } ورنہ {
+                        توڑو;
                     }
-                    if (t >= b)
+                    اگر (t >= b)
                         tcc_error("invalid digit");
-                    frac_bits -= bn_lshift(bn, shift, t);
-                    frac_bits += shift;
+                    frac_بٹ -= bn_lshift(bn, سرکاؤ, t);
+                    frac_بٹ += سرکاؤ;
                     ch = *p++;
                 }
             }
-            if (ch != 'p' && ch != 'P')
+            اگر (ch != 'p' && ch != 'P')
                 expect("exponent");
             ch = *p++;
             s = 1;
             exp_val = 0;
-            if (ch == '+') {
+            اگر (ch == '+') {
                 ch = *p++;
-            } else if (ch == '-') {
+            } ورنہ اگر (ch == '-') {
                 s = -1;
                 ch = *p++;
             }
-            if (ch < '0' || ch > '9')
+            اگر (ch < '0' || ch > '9')
                 expect("exponent digits");
-            while (ch >= '0' && ch <= '9') {
+            جب (ch >= '0' && ch <= '9') {
 		/* If exp_val is this large ldexp will return HUGE_VAL */
-		if (exp_val < 100000000)
+		اگر (exp_val < 100000000)
                     exp_val = exp_val * 10 + ch - '0';
                 ch = *p++;
             }
@@ -2360,56 +2360,56 @@ static void parse_number(const char *p)
 
             /* now we can generate the number */
             /* XXX: should patch directly float number */
-            d = (long double)bn[3] * 79228162514264337593543950336.0L +
-	        (long double)bn[2] * 18446744073709551616.0L +
-	        (long double)bn[1] * 4294967296.0L +
-	        (long double)bn[0];
-            d = ldexpl(d, exp_val - frac_bits);
+            d = (طویل دوہرا)bn[3] * 79228162514264337593543950336.0L +
+	        (طویل دوہرا)bn[2] * 18446744073709551616.0L +
+	        (طویل دوہرا)bn[1] * 4294967296.0L +
+	        (طویل دوہرا)bn[0];
+            d = ldexpl(d, exp_val - frac_بٹ);
             t = toup(ch);
-            if (t == 'F') {
+            اگر (t == 'F') {
                 ch = *p++;
                 tok = TOK_CFLOAT;
                 /* float : should handle overflow */
-                tokc.f = (float)d;
-            } else if (t == 'L') {
+                tokc.f = (اعشاری)d;
+            } ورنہ اگر (t == 'L') {
                 ch = *p++;
                 tok = TOK_CLDOUBLE;
                 tokc.ld = d;
-            } else {
+            } ورنہ {
                 tok = TOK_CDOUBLE;
-                tokc.d = (double)d;
+                tokc.d = (دوہرا)d;
             }
-        } else {
+        } ورنہ {
             /* decimal floats */
-            if (ch == '.') {
-                if (q >= token_buf + STRING_MAX_SIZE)
-                    goto num_too_long;
+            اگر (ch == '.') {
+                اگر (q >= token_buf + STRING_MAX_سائز)
+                    جاؤ عدد_too_long;
                 *q++ = ch;
                 ch = *p++;
             float_frac_parse:
-                while (ch >= '0' && ch <= '9') {
-                    if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                جب (ch >= '0' && ch <= '9') {
+                    اگر (q >= token_buf + STRING_MAX_سائز)
+                        جاؤ عدد_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
             }
-            if (ch == 'e' || ch == 'E') {
-                if (q >= token_buf + STRING_MAX_SIZE)
-                    goto num_too_long;
+            اگر (ch == 'e' || ch == 'E') {
+                اگر (q >= token_buf + STRING_MAX_سائز)
+                    جاؤ عدد_too_long;
                 *q++ = ch;
                 ch = *p++;
-                if (ch == '-' || ch == '+') {
-                    if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                اگر (ch == '-' || ch == '+') {
+                    اگر (q >= token_buf + STRING_MAX_سائز)
+                        جاؤ عدد_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
-                if (ch < '0' || ch > '9')
+                اگر (ch < '0' || ch > '9')
                     expect("exponent digits");
-                while (ch >= '0' && ch <= '9') {
-                    if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                جب (ch >= '0' && ch <= '9') {
+                    اگر (q >= token_buf + STRING_MAX_سائز)
+                        جاؤ عدد_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
@@ -2417,49 +2417,49 @@ static void parse_number(const char *p)
             *q = '\0';
             t = toup(ch);
             errno = 0;
-            if (t == 'F') {
+            اگر (t == 'F') {
                 ch = *p++;
                 tok = TOK_CFLOAT;
-                tokc.f = strtof(token_buf, NULL);
-            } else if (t == 'L') {
+                tokc.f = strtof(token_buf, تہی);
+            } ورنہ اگر (t == 'L') {
                 ch = *p++;
                 tok = TOK_CLDOUBLE;
-                tokc.ld = strtold(token_buf, NULL);
-            } else {
+                tokc.ld = strtold(token_buf, تہی);
+            } ورنہ {
                 tok = TOK_CDOUBLE;
-                tokc.d = strtod(token_buf, NULL);
+                tokc.d = strtod(token_buf, تہی);
             }
         }
-    } else {
-        unsigned long long n, n1;
-        int lcount, ucount, ov = 0;
-        const char *p1;
+    } ورنہ {
+        غیرعلامتی طویل طویل n, n1;
+        صحیح lcount, ucount, ov = 0;
+        ثابت حرف *p1;
 
         /* integer number */
         *q = '\0';
         q = token_buf;
-        if (b == 10 && *q == '0') {
+        اگر (b == 10 && *q == '0') {
             b = 8;
             q++;
         }
         n = 0;
-        while(1) {
+        جب(1) {
             t = *q++;
             /* no need for checks except for base 10 / 8 errors */
-            if (t == '\0')
-                break;
-            else if (t >= 'a')
+            اگر (t == '\0')
+                توڑو;
+            ورنہ اگر (t >= 'a')
                 t = t - 'a' + 10;
-            else if (t >= 'A')
+            ورنہ اگر (t >= 'A')
                 t = t - 'A' + 10;
-            else
+            ورنہ
                 t = t - '0';
-            if (t >= b)
+            اگر (t >= b)
                 tcc_error("invalid digit");
             n1 = n;
             n = n * b + t;
             /* detect overflow */
-            if (n1 >= 0x1000000000000000ULL && n / b != n1)
+            اگر (n1 >= 0x1000000000000000ULL && n / b != n1)
                 ov = 1;
         }
 
@@ -2467,131 +2467,131 @@ static void parse_number(const char *p)
            the constant must have according to the constant suffix(es) */
         lcount = ucount = 0;
         p1 = p;
-        for(;;) {
+        برائے(;;) {
             t = toup(ch);
-            if (t == 'L') {
-                if (lcount >= 2)
+            اگر (t == 'L') {
+                اگر (lcount >= 2)
                     tcc_error("three 'l's in integer constant");
-                if (lcount && *(p - 1) != ch)
+                اگر (lcount && *(p - 1) != ch)
                     tcc_error("incorrect integer suffix: %s", p1);
                 lcount++;
                 ch = *p++;
-            } else if (t == 'U') {
-                if (ucount >= 1)
+            } ورنہ اگر (t == 'U') {
+                اگر (ucount >= 1)
                     tcc_error("two 'u's in integer constant");
                 ucount++;
                 ch = *p++;
-            } else {
-                break;
+            } ورنہ {
+                توڑو;
             }
         }
 
         /* in #if/#elif expressions, all numbers have type (u)intmax_t anyway */
-        if (pp_expr)
+        اگر (pp_اظہاریہ)
             lcount = 2;
 
         /* Determine if it needs 64 bits and/or unsigned in order to fit */
-        if (ucount == 0 && b == 10) {
-            if (lcount <= (LONG_SIZE == 4)) {
-                if (n >= 0x80000000U)
-                    lcount = (LONG_SIZE == 4) + 1;
+        اگر (ucount == 0 && b == 10) {
+            اگر (lcount <= (LONG_سائز == 4)) {
+                اگر (n >= 0x80000000U)
+                    lcount = (LONG_سائز == 4) + 1;
             }
-            if (n >= 0x8000000000000000ULL)
+            اگر (n >= 0x8000000000000000ULL)
                 ov = 1, ucount = 1;
-        } else {
-            if (lcount <= (LONG_SIZE == 4)) {
-                if (n >= 0x100000000ULL)
-                    lcount = (LONG_SIZE == 4) + 1;
-                else if (n >= 0x80000000U)
+        } ورنہ {
+            اگر (lcount <= (LONG_سائز == 4)) {
+                اگر (n >= 0x100000000ULL)
+                    lcount = (LONG_سائز == 4) + 1;
+                ورنہ اگر (n >= 0x80000000U)
                     ucount = 1;
             }
-            if (n >= 0x8000000000000000ULL)
+            اگر (n >= 0x8000000000000000ULL)
                 ucount = 1;
         }
 
-        if (ov)
+        اگر (ov)
             tcc_warning("integer constant overflow");
 
         tok = TOK_CINT;
-	if (lcount) {
+	اگر (lcount) {
             tok = TOK_CLONG;
-            if (lcount == 2)
+            اگر (lcount == 2)
                 tok = TOK_CLLONG;
 	}
-	if (ucount)
+	اگر (ucount)
 	    ++tok; /* TOK_CU... */
         tokc.i = n;
     }
-    if (ch)
+    اگر (ch)
         tcc_error("invalid number");
 }
 
 
-#define PARSE2(c1, tok1, c2, tok2)              \
-    case c1:                                    \
+#تعریف_کرو PARSE2(c1, tok1, c2, tok2)              \
+    حالت c1:                                    \
         PEEKC(c, p);                            \
-        if (c == c2) {                          \
+        اگر (c == c2) {                          \
             p++;                                \
             tok = tok2;                         \
-        } else {                                \
+        } ورنہ {                                \
             tok = tok1;                         \
         }                                       \
-        break;
+        توڑو;
 
 /* return next token without macro substitution */
-static void next_nomacro(void)
+ساکن خالی اگلا_nomacro(خالی)
 {
-    int t, c, is_long, len;
+    صحیح t, c, is_long, len;
     TokenSym *ts;
     uint8_t *p, *p1;
-    unsigned int h;
+    غیرعلامتی صحیح h;
 
     p = file->buf_ptr;
- redo_no_start:
+ redo_no_آغاز:
     c = *p;
-    switch(c) {
-    case ' ':
-    case '\t':
+    انتخاب(c) {
+    حالت ' ':
+    حالت '\t':
         tok = c;
         p++;
  maybe_space:
-        if (parse_flags & PARSE_FLAG_SPACES)
-            goto keep_tok_flags;
-        while (isidnum_table[*p - CH_EOF] & IS_SPC)
+        اگر (parse_flags & PARSE_FLAG_SPACES)
+            جاؤ keep_tok_flags;
+        جب (isidnum_جدول[*p - CH_EOF] & IS_SPC)
             ++p;
-        goto redo_no_start;
-    case '\f':
-    case '\v':
-    case '\r':
+        جاؤ redo_no_آغاز;
+    حالت '\f':
+    حالت '\v':
+    حالت '\r':
         p++;
-        goto redo_no_start;
-    case '\\':
+        جاؤ redo_no_آغاز;
+    حالت '\\':
         /* first look if it is in fact an end of buffer */
         c = handle_stray(&p);
-        if (c == '\\')
-            goto parse_simple;
-        if (c == CH_EOF) {
+        اگر (c == '\\')
+            جاؤ parse_simple;
+        اگر (c == CH_EOF) {
             TCCState *s1 = tcc_state;
-            if (!(tok_flags & TOK_FLAG_BOL)) {
+            اگر (!(tok_flags & TOK_FLAG_BOL)) {
                 /* add implicit newline */
-                goto maybe_newline;
-            } else if (!(parse_flags & PARSE_FLAG_PREPROCESS)) {
+                جاؤ maybe_newline;
+            } ورنہ اگر (!(parse_flags & PARSE_FLAG_PREPROCESS)) {
                 tok = TOK_EOF;
-            } else if (s1->ifdef_stack_ptr != file->ifdef_stack_ptr) {
+            } ورنہ اگر (s1->ifdef_ڈھیر_ptr != file->ifdef_ڈھیر_ptr) {
                 tcc_error("missing #endif");
-            } else if (s1->include_stack_ptr == s1->include_stack) {
+            } ورنہ اگر (s1->include_ڈھیر_ptr == s1->include_ڈھیر) {
                 /* no include left : end of file. */
                 tok = TOK_EOF;
-            } else {
+            } ورنہ {
                 /* pop include file */
 
                 /* test if previous '#endif' was after a #ifdef at
                    start of file */
-                if (tok_flags & TOK_FLAG_ENDIF) {
-#ifdef INC_DEBUG
-                    printf("#endif %s\n", get_tok_str(file->ifndef_macro_saved, NULL));
-#endif
-                    search_cached_include(s1, file->true_filename, 1)
+                اگر (tok_flags & TOK_FLAG_ENDIF) {
+#اگر_تعریف_شدہ INC_DEBUG
+                    لکھو("#endif %s\n", get_tok_str(file->ifndef_macro_saved, تہی));
+#اگر_ختم
+                    تلاش_cached_include(s1, file->true_filename, 1)
                         ->ifndef_macro = file->ifndef_macro_saved;
                     tok_flags &= ~TOK_FLAG_ENDIF;
                 }
@@ -2600,284 +2600,284 @@ static void next_nomacro(void)
                 tcc_debug_eincl(tcc_state);
                 /* pop include stack */
                 tcc_close();
-                s1->include_stack_ptr--;
+                s1->include_ڈھیر_ptr--;
                 p = file->buf_ptr;
-                goto maybe_newline;
+                جاؤ maybe_newline;
             }
-        } else {
-            goto redo_no_start;
+        } ورنہ {
+            جاؤ redo_no_آغاز;
         }
-        break;
+        توڑو;
 
-    case '\n':
-        file->line_num++;
+    حالت '\n':
+        file->سطر_عدد++;
         p++;
 maybe_newline:
         tok_flags |= TOK_FLAG_BOL;
-        if (0 == (parse_flags & PARSE_FLAG_LINEFEED))
-            goto redo_no_start;
+        اگر (0 == (parse_flags & PARSE_FLAG_LINEFEED))
+            جاؤ redo_no_آغاز;
         tok = TOK_LINEFEED;
-        goto keep_tok_flags;
+        جاؤ keep_tok_flags;
 
-    case '#':
+    حالت '#':
         /* XXX: simplify */
         PEEKC(c, p);
-        if ((tok_flags & TOK_FLAG_BOL) && 
+        اگر ((tok_flags & TOK_FLAG_BOL) && 
             (parse_flags & PARSE_FLAG_PREPROCESS)) {
             tok_flags &= ~TOK_FLAG_BOL;
             file->buf_ptr = p;
             preprocess(tok_flags & TOK_FLAG_BOF);
             p = file->buf_ptr;
-            goto maybe_newline;
-        } else {
-            if (c == '#') {
+            جاؤ maybe_newline;
+        } ورنہ {
+            اگر (c == '#') {
                 p++;
                 tok = TOK_TWOSHARPS;
-            } else {
-#if !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64)
-                if (parse_flags & PARSE_FLAG_ASM_FILE) {
-                    p = parse_line_comment(p - 1);
-                    goto redo_no_start;
-                } else
-#endif
+            } ورنہ {
+#اگر !defined(TCC_ہدف_ARM) && !defined(TCC_ہدف_ARM64)
+                اگر (parse_flags & PARSE_FLAG_ASM_FILE) {
+                    p = parse_سطر_comment(p - 1);
+                    جاؤ redo_no_آغاز;
+                } ورنہ
+#اگر_ختم
                 {
                     tok = '#';
                 }
             }
         }
-        break;
+        توڑو;
     
     /* dollar is allowed to start identifiers when not parsing asm */
-    case '$':
-        if (!(isidnum_table['$' - CH_EOF] & IS_ID)
+    حالت '$':
+        اگر (!(isidnum_جدول['$' - CH_EOF] & IS_ID)
          || (parse_flags & PARSE_FLAG_ASM_FILE))
-            goto parse_simple;
+            جاؤ parse_simple;
 
-    case 'a': case 'b': case 'c': case 'd':
-    case 'e': case 'f': case 'g': case 'h':
-    case 'i': case 'j': case 'k': case 'l':
-    case 'm': case 'n': case 'o': case 'p':
-    case 'q': case 'r': case 's': case 't':
-    case 'u': case 'v': case 'w': case 'x':
-    case 'y': case 'z': 
-    case 'A': case 'B': case 'C': case 'D':
-    case 'E': case 'F': case 'G': case 'H':
-    case 'I': case 'J': case 'K': 
-    case 'M': case 'N': case 'O': case 'P':
-    case 'Q': case 'R': case 'S': case 'T':
-    case 'U': case 'V': case 'W': case 'X':
-    case 'Y': case 'Z': 
-    case '_':
+    حالت 'a': حالت 'b': حالت 'c': حالت 'd':
+    حالت 'e': حالت 'f': حالت 'g': حالت 'h':
+    حالت 'i': حالت 'j': حالت 'k': حالت 'l':
+    حالت 'm': حالت 'n': حالت 'o': حالت 'p':
+    حالت 'q': حالت 'r': حالت 's': حالت 't':
+    حالت 'u': حالت 'v': حالت 'w': حالت 'x':
+    حالت 'y': حالت 'z': 
+    حالت 'A': حالت 'B': حالت 'C': حالت 'D':
+    حالت 'E': حالت 'F': حالت 'G': حالت 'H':
+    حالت 'I': حالت 'J': حالت 'K': 
+    حالت 'M': حالت 'N': حالت 'O': حالت 'P':
+    حالت 'Q': حالت 'R': حالت 'S': حالت 'T':
+    حالت 'U': حالت 'V': حالت 'W': حالت 'X':
+    حالت 'Y': حالت 'Z': 
+    حالت '_':
     parse_ident_fast:
         p1 = p;
         h = TOK_HASH_INIT;
         h = TOK_HASH_FUNC(h, c);
-        while (c = *++p, isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+        جب (c = *++p, isidnum_جدول[c - CH_EOF] & (IS_ID|IS_عدد))
             h = TOK_HASH_FUNC(h, c);
         len = p - p1;
-        if (c != '\\') {
+        اگر (c != '\\') {
             TokenSym **pts;
 
             /* fast case : no stray found, so we have the full token
                and we have already hashed it */
-            h &= (TOK_HASH_SIZE - 1);
+            h &= (TOK_HASH_سائز - 1);
             pts = &hash_ident[h];
-            for(;;) {
+            برائے(;;) {
                 ts = *pts;
-                if (!ts)
-                    break;
-                if (ts->len == len && !memcmp(ts->str, p1, len))
-                    goto token_found;
-                pts = &(ts->hash_next);
+                اگر (!ts)
+                    توڑو;
+                اگر (ts->len == len && !memcmp(ts->str, p1, len))
+                    جاؤ token_ملا;
+                pts = &(ts->hash_اگلا);
             }
-            ts = tok_alloc_new(pts, (char *) p1, len);
-        token_found: ;
-        } else {
+            ts = tok_alloc_new(pts, (حرف *) p1, len);
+        token_ملا: ;
+        } ورنہ {
             /* slower case */
             cstr_reset(&tokcstr);
-            cstr_cat(&tokcstr, (char *) p1, len);
+            cstr_cat(&tokcstr, (حرف *) p1, len);
             p--;
             PEEKC(c, p);
-            while (isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+            جب (isidnum_جدول[c - CH_EOF] & (IS_ID|IS_عدد))
             {
                 cstr_ccat(&tokcstr, c);
                 PEEKC(c, p);
             }
-            ts = tok_alloc(tokcstr.data, tokcstr.size);
+            ts = tok_alloc(tokcstr.ڈیٹا, tokcstr.سائز);
         }
         tok = ts->tok;
-        break;
-    case 'L':
+        توڑو;
+    حالت 'L':
         t = p[1];
-        if (t == '\'' || t == '\"' || t == '\\') {
+        اگر (t == '\'' || t == '\"' || t == '\\') {
             PEEKC(c, p);
-            if (c == '\'' || c == '\"') {
+            اگر (c == '\'' || c == '\"') {
                 is_long = 1;
-                goto str_const;
+                جاؤ str_const;
             }
             *--p = c = 'L';
         }
-        goto parse_ident_fast;
+        جاؤ parse_ident_fast;
 
-    case '0': case '1': case '2': case '3':
-    case '4': case '5': case '6': case '7':
-    case '8': case '9':
+    حالت '0': حالت '1': حالت '2': حالت '3':
+    حالت '4': حالت '5': حالت '6': حالت '7':
+    حالت '8': حالت '9':
         t = c;
         PEEKC(c, p);
         /* after the first digit, accept digits, alpha, '.' or sign if
            prefixed by 'eEpP' */
-    parse_num:
+    parse_عدد:
         cstr_reset(&tokcstr);
-        for(;;) {
+        برائے(;;) {
             cstr_ccat(&tokcstr, t);
-            if (!((isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+            اگر (!((isidnum_جدول[c - CH_EOF] & (IS_ID|IS_عدد))
                   || c == '.'
                   || ((c == '+' || c == '-')
                       && (((t == 'e' || t == 'E')
                             && !(parse_flags & PARSE_FLAG_ASM_FILE
                                 /* 0xe+1 is 3 tokens in asm */
-                                && ((char*)tokcstr.data)[0] == '0'
-                                && toup(((char*)tokcstr.data)[1]) == 'X'))
+                                && ((حرف*)tokcstr.ڈیٹا)[0] == '0'
+                                && toup(((حرف*)tokcstr.ڈیٹا)[1]) == 'X'))
                           || t == 'p' || t == 'P'))))
-                break;
+                توڑو;
             t = c;
             PEEKC(c, p);
         }
         /* We add a trailing '\0' to ease parsing */
         cstr_ccat(&tokcstr, '\0');
-        tokc.str.size = tokcstr.size;
-        tokc.str.data = tokcstr.data;
+        tokc.str.سائز = tokcstr.سائز;
+        tokc.str.ڈیٹا = tokcstr.ڈیٹا;
         tok = TOK_PPNUM;
-        break;
+        توڑو;
 
-    case '.':
+    حالت '.':
         /* special dot handling because it can also start a number */
         PEEKC(c, p);
-        if (isnum(c)) {
+        اگر (isnum(c)) {
             t = '.';
-            goto parse_num;
-        } else if ((isidnum_table['.' - CH_EOF] & IS_ID)
-                   && (isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))) {
+            جاؤ parse_عدد;
+        } ورنہ اگر ((isidnum_جدول['.' - CH_EOF] & IS_ID)
+                   && (isidnum_جدول[c - CH_EOF] & (IS_ID|IS_عدد))) {
             *--p = c = '.';
-            goto parse_ident_fast;
-        } else if (c == '.') {
+            جاؤ parse_ident_fast;
+        } ورنہ اگر (c == '.') {
             PEEKC(c, p);
-            if (c == '.') {
+            اگر (c == '.') {
                 p++;
                 tok = TOK_DOTS;
-            } else {
+            } ورنہ {
                 *--p = '.'; /* may underflow into file->unget[] */
                 tok = '.';
             }
-        } else {
+        } ورنہ {
             tok = '.';
         }
-        break;
-    case '\'':
-    case '\"':
+        توڑو;
+    حالت '\'':
+    حالت '\"':
         is_long = 0;
     str_const:
         cstr_reset(&tokcstr);
-        if (is_long)
+        اگر (is_long)
             cstr_ccat(&tokcstr, 'L');
         cstr_ccat(&tokcstr, c);
         p = parse_pp_string(p, c, &tokcstr);
         cstr_ccat(&tokcstr, c);
         cstr_ccat(&tokcstr, '\0');
-        tokc.str.size = tokcstr.size;
-        tokc.str.data = tokcstr.data;
+        tokc.str.سائز = tokcstr.سائز;
+        tokc.str.ڈیٹا = tokcstr.ڈیٹا;
         tok = TOK_PPSTR;
-        break;
+        توڑو;
 
-    case '<':
+    حالت '<':
         PEEKC(c, p);
-        if (c == '=') {
+        اگر (c == '=') {
             p++;
             tok = TOK_LE;
-        } else if (c == '<') {
+        } ورنہ اگر (c == '<') {
             PEEKC(c, p);
-            if (c == '=') {
+            اگر (c == '=') {
                 p++;
                 tok = TOK_A_SHL;
-            } else {
+            } ورنہ {
                 tok = TOK_SHL;
             }
-        } else {
+        } ورنہ {
             tok = TOK_LT;
         }
-        break;
-    case '>':
+        توڑو;
+    حالت '>':
         PEEKC(c, p);
-        if (c == '=') {
+        اگر (c == '=') {
             p++;
             tok = TOK_GE;
-        } else if (c == '>') {
+        } ورنہ اگر (c == '>') {
             PEEKC(c, p);
-            if (c == '=') {
+            اگر (c == '=') {
                 p++;
                 tok = TOK_A_SAR;
-            } else {
+            } ورنہ {
                 tok = TOK_SAR;
             }
-        } else {
+        } ورنہ {
             tok = TOK_GT;
         }
-        break;
+        توڑو;
         
-    case '&':
+    حالت '&':
         PEEKC(c, p);
-        if (c == '&') {
+        اگر (c == '&') {
             p++;
             tok = TOK_LAND;
-        } else if (c == '=') {
+        } ورنہ اگر (c == '=') {
             p++;
             tok = TOK_A_AND;
-        } else {
+        } ورنہ {
             tok = '&';
         }
-        break;
+        توڑو;
         
-    case '|':
+    حالت '|':
         PEEKC(c, p);
-        if (c == '|') {
+        اگر (c == '|') {
             p++;
             tok = TOK_LOR;
-        } else if (c == '=') {
+        } ورنہ اگر (c == '=') {
             p++;
             tok = TOK_A_OR;
-        } else {
+        } ورنہ {
             tok = '|';
         }
-        break;
+        توڑو;
 
-    case '+':
+    حالت '+':
         PEEKC(c, p);
-        if (c == '+') {
+        اگر (c == '+') {
             p++;
             tok = TOK_INC;
-        } else if (c == '=') {
+        } ورنہ اگر (c == '=') {
             p++;
-            tok = TOK_A_ADD;
-        } else {
+            tok = TOK_A_جوڑو;
+        } ورنہ {
             tok = '+';
         }
-        break;
+        توڑو;
         
-    case '-':
+    حالت '-':
         PEEKC(c, p);
-        if (c == '-') {
+        اگر (c == '-') {
             p++;
             tok = TOK_DEC;
-        } else if (c == '=') {
+        } ورنہ اگر (c == '=') {
             p++;
             tok = TOK_A_SUB;
-        } else if (c == '>') {
+        } ورنہ اگر (c == '>') {
             p++;
             tok = TOK_ARROW;
-        } else {
+        } ورنہ {
             tok = '-';
         }
-        break;
+        توڑو;
 
     PARSE2('!', '!', '=', TOK_NE)
     PARSE2('=', '=', '=', TOK_EQ)
@@ -2886,142 +2886,142 @@ maybe_newline:
     PARSE2('^', '^', '=', TOK_A_XOR)
         
         /* comments or operator */
-    case '/':
+    حالت '/':
         PEEKC(c, p);
-        if (c == '*') {
+        اگر (c == '*') {
             p = parse_comment(p);
             /* comments replaced by a blank */
             tok = ' ';
-            goto maybe_space;
-        } else if (c == '/') {
-            p = parse_line_comment(p);
+            جاؤ maybe_space;
+        } ورنہ اگر (c == '/') {
+            p = parse_سطر_comment(p);
             tok = ' ';
-            goto maybe_space;
-        } else if (c == '=') {
+            جاؤ maybe_space;
+        } ورنہ اگر (c == '=') {
             p++;
             tok = TOK_A_DIV;
-        } else {
+        } ورنہ {
             tok = '/';
         }
-        break;
+        توڑو;
         
         /* simple tokens */
-    case '@': /* only used in assembler */
-#ifdef TCC_TARGET_ARM /* comment on arm asm */
-        if (parse_flags & PARSE_FLAG_ASM_FILE) {
-            p = parse_line_comment(p);
-            goto redo_no_start;
+    حالت '@': /* only used in assembler */
+#اگر_تعریف_شدہ TCC_ہدف_ARM /* comment on arm asm */
+        اگر (parse_flags & PARSE_FLAG_ASM_FILE) {
+            p = parse_سطر_comment(p);
+            جاؤ redo_no_آغاز;
         }
-#endif
-    case '(':
-    case ')':
-    case '[':
-    case ']':
-    case '{':
-    case '}':
-    case ',':
-    case ';':
-    case ':':
-    case '?':
-    case '~':
+#اگر_ختم
+    حالت '(':
+    حالت ')':
+    حالت '[':
+    حالت ']':
+    حالت '{':
+    حالت '}':
+    حالت ',':
+    حالت ';':
+    حالت ':':
+    حالت '?':
+    حالت '~':
     parse_simple:
         tok = c;
         p++;
-        break;
-    case 0xEF: /* UTF8 BOM ? */
-        if (p[1] == 0xBB && p[2] == 0xBF && p == file->buffer) {
+        توڑو;
+    حالت 0xEF: /* UTF8 BOM ? */
+        اگر (p[1] == 0xBB && p[2] == 0xBF && p == file->بفر) {
             p += 3;
-            goto redo_no_start;
+            جاؤ redo_no_آغاز;
         }
-    default:
-        if (c >= 0x80 && c <= 0xFF) /* utf8 identifiers */
-	    goto parse_ident_fast;
-        if (parse_flags & PARSE_FLAG_ASM_FILE)
-            goto parse_simple;
+    طےشدہ:
+        اگر (c >= 0x80 && c <= 0xFF) /* utf8 identifiers */
+	    جاؤ parse_ident_fast;
+        اگر (parse_flags & PARSE_FLAG_ASM_FILE)
+            جاؤ parse_simple;
         tcc_error("unrecognized character \\x%02x", c);
-        break;
+        توڑو;
     }
     tok_flags = 0;
 keep_tok_flags:
     file->buf_ptr = p;
-#if defined(PARSE_DEBUG)
-    printf("token = %d %s\n", tok, get_tok_str(tok, &tokc));
-#endif
+#اگر defined(PARSE_DEBUG)
+    لکھو("token = %d %s\n", tok, get_tok_str(tok, &tokc));
+#اگر_ختم
 }
 
-#ifdef PP_DEBUG
-static int indent;
-static void define_print(TCCState *s1, int v);
-static void pp_print(const char *msg, int v, const int *str)
+#اگر_تعریف_شدہ PP_DEBUG
+ساکن صحیح indent;
+ساکن خالی define_print(TCCState *s1, صحیح v);
+ساکن خالی pp_print(ثابت حرف *پیغام, صحیح v, ثابت صحیح *str)
 {
     FILE *fp = tcc_state->ppfp;
 
-    if (msg[0] == '#' && indent == 0)
+    اگر (پیغام[0] == '#' && indent == 0)
         fprintf(fp, "\n");
-    else if (msg[0] == '+')
-         ++indent, ++msg;
-    else if (msg[0] == '-')
-        --indent, ++msg;
+    ورنہ اگر (پیغام[0] == '+')
+         ++indent, ++پیغام;
+    ورنہ اگر (پیغام[0] == '-')
+        --indent, ++پیغام;
 
     fprintf(fp, "%*s", indent, "");
-    if (msg[0] == '#') {
+    اگر (پیغام[0] == '#') {
         define_print(tcc_state, v);
-    } else {
-        tok_print(str, v ? "%s %s" : "%s", msg, get_tok_str(v, 0));
+    } ورنہ {
+        tok_print(str, v ? "%s %s" : "%s", پیغام, get_tok_str(v, 0));
     }
 }
-#define PP_PRINT(x) pp_print x
-#else
-#define PP_PRINT(x)
-#endif
+#تعریف_کرو PP_PRINT(x) pp_print x
+#ورنہ
+#تعریف_کرو PP_PRINT(x)
+#اگر_ختم
 
-static int macro_subst(
+ساکن صحیح macro_subst(
     TokenString *tok_str,
     Sym **nested_list,
-    const int *macro_str
+    ثابت صحیح *macro_str
     );
 
 /* substitute arguments in replacement lists in macro_str by the values in
    args (field d) and return allocated string */
-static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
+ساکن صحیح *macro_arg_subst(Sym **nested_list, ثابت صحیح *macro_str, Sym *دلائل)
 {
-    int t, t0, t1, t2, n;
-    const int *st;
+    صحیح t, t0, t1, t2, n;
+    ثابت صحیح *st;
     Sym *s;
     CValue cval;
     TokenString str;
 
-#ifdef PP_DEBUG
+#اگر_تعریف_شدہ PP_DEBUG
     PP_PRINT(("asubst:", 0, macro_str));
-    for (s = args, n = 0; s; s = s->prev, ++n);
-    while (n--) {
-        for (s = args, t = 0; t < n; s = s->prev, ++t);
+    برائے (s = دلائل, n = 0; s; s = s->پچھلا, ++n);
+    جب (n--) {
+        برائے (s = دلائل, t = 0; t < n; s = s->پچھلا, ++t);
         tok_print(s->d, "%*s - arg: %s:", indent, "", get_tok_str(s->v, 0));
     }
-#endif
+#اگر_ختم
 
     tok_str_new(&str);
     t0 = t1 = 0;
-    while(1) {
+    جب(1) {
         TOK_GET(&t, &macro_str, &cval);
-        if (!t)
-            break;
-        if (t == '#') {
+        اگر (!t)
+            توڑو;
+        اگر (t == '#') {
             /* stringize */
-            do t = *macro_str++; while (t == ' ');
-            s = sym_find2(args, t);
-            if (s) {
+            کرو t = *macro_str++; جب (t == ' ');
+            s = sym_find2(دلائل, t);
+            اگر (s) {
                 cstr_reset(&tokcstr);
                 cstr_ccat(&tokcstr, '\"');
                 st = s->d;
-                while (*st != TOK_EOF) {
-                    const char *s;
+                جب (*st != TOK_EOF) {
+                    ثابت حرف *s;
                     TOK_GET(&t, &st, &cval);
                     s = get_tok_str(t, &cval);
-                    while (*s) {
-                        if (t == TOK_PPSTR && *s != '\'')
-                            add_char(&tokcstr, *s);
-                        else
+                    جب (*s) {
+                        اگر (t == TOK_PPSTR && *s != '\'')
+                            جوڑو_char(&tokcstr, *s);
+                        ورنہ
                             cstr_ccat(&tokcstr, *s);
                         ++s;
                     }
@@ -3030,48 +3030,48 @@ static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
                 cstr_ccat(&tokcstr, '\0');
                 //printf("\nstringize: <%s>\n", (char *)tokcstr.data);
                 /* add string */
-                cval.str.size = tokcstr.size;
-                cval.str.data = tokcstr.data;
+                cval.str.سائز = tokcstr.سائز;
+                cval.str.ڈیٹا = tokcstr.ڈیٹا;
                 tok_str_add2(&str, TOK_PPSTR, &cval);
-#ifdef TCC_TARGET_ARM
-            } else if ((parse_flags & PARSE_FLAG_ASM_FILE) && t == TOK_PPNUM) {
+#اگر_تعریف_شدہ TCC_ہدف_ARM
+            } ورنہ اگر ((parse_flags & PARSE_FLAG_ASM_FILE) && t == TOK_PPNUM) {
                 /* for example: mov r1,#0 */
-                --macro_str, tok_str_add(&str, '#');
-#endif
-            } else {
+                --macro_str, tok_str_جوڑو(&str, '#');
+#اگر_ختم
+            } ورنہ {
                 expect("macro parameter after '#'");
             }
-        } else if (t >= TOK_IDENT) {
-            s = sym_find2(args, t);
-            if (s) {
+        } ورنہ اگر (t >= TOK_IDENT) {
+            s = sym_find2(دلائل, t);
+            اگر (s) {
                 st = s->d;
                 n = 0;
-                while ((t2 = macro_str[n]) == ' ')
+                جب ((t2 = macro_str[n]) == ' ')
                     ++n;
                 /* if '##' is present before or after, no arg substitution */
-                if (t2 == TOK_PPJOIN || t1 == TOK_PPJOIN) {
+                اگر (t2 == TOK_PPJOIN || t1 == TOK_PPJOIN) {
                     /* special case for var arg macros : ## eats the ','
                        if empty VA_ARGS variable. */
-                    if (t1 == TOK_PPJOIN && t0 == ',' && gnu_ext && s->type.t) {
-                        int c = str.str[str.len - 1];
-                        while (str.str[--str.len] != ',')
+                    اگر (t1 == TOK_PPJOIN && t0 == ',' && gnu_ext && s->type.t) {
+                        صحیح c = str.str[str.len - 1];
+                        جب (str.str[--str.len] != ',')
                             ;
-                        if (*st == TOK_EOF) {
+                        اگر (*st == TOK_EOF) {
                             /* suppress ',' '##' */
-                        } else {
+                        } ورنہ {
                             /* suppress '##' and add variable */
                             str.len++;
-                            if (c == ' ')
+                            اگر (c == ' ')
                                 str.str[str.len++] = c;
-                            goto add_var;
+                            جاؤ جوڑو_var;
                         }
-                    } else {
-                        if (*st == TOK_EOF)
-                            tok_str_add(&str, TOK_PLCHLDR);
+                    } ورنہ {
+                        اگر (*st == TOK_EOF)
+                            tok_str_جوڑو(&str, TOK_PLCHLDR);
                     }
-                } else {
-            add_var:
-		    if (!s->e) {
+                } ورنہ {
+            جوڑو_var:
+		    اگر (!s->e) {
 			/* Expand arguments tokens and store them.  In most
 			   cases we could also re-expand each argument if
 			   used multiple times, but not if the argument
@@ -3079,154 +3079,154 @@ static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
 			TokenString str2;
 			tok_str_new(&str2);
 			macro_subst(&str2, nested_list, st);
-			tok_str_add(&str2, TOK_EOF);
+			tok_str_جوڑو(&str2, TOK_EOF);
 			s->e = str2.str;
 		    }
 		    st = s->e;
                 }
-                while (*st != TOK_EOF) {
+                جب (*st != TOK_EOF) {
                     TOK_GET(&t2, &st, &cval);
                     tok_str_add2(&str, t2, &cval);
                 }
-            } else {
-                tok_str_add(&str, t);
+            } ورنہ {
+                tok_str_جوڑو(&str, t);
             }
-        } else {
+        } ورنہ {
             tok_str_add2(&str, t, &cval);
         }
-        if (t != ' ')
+        اگر (t != ' ')
             t0 = t1, t1 = t;
     }
-    tok_str_add(&str, 0);
+    tok_str_جوڑو(&str, 0);
     PP_PRINT(("areslt:", 0, str.str));
-    return str.str;
+    واپس str.str;
 }
 
 /* handle the '##' operator. return the resulting string (which must be freed). */
-static inline int *macro_twosharps(const int *ptr0)
+ساکن اندرونی صحیح *macro_twosharps(ثابت صحیح *ptr0)
 {
-    int t1, t2, n, l;
+    صحیح t1, t2, n, l;
     CValue cv1, cv2;
     TokenString macro_str1;
-    const int *ptr;
+    ثابت صحیح *ptr;
 
     tok_str_new(&macro_str1);
     cstr_reset(&tokcstr);
-    for (ptr = ptr0;;) {
+    برائے (ptr = ptr0;;) {
         TOK_GET(&t1, &ptr, &cv1);
-        if (t1 == 0)
-            break;
-        for (;;) {
+        اگر (t1 == 0)
+            توڑو;
+        برائے (;;) {
             n = 0;
-            while ((t2 = ptr[n]) == ' ')
+            جب ((t2 = ptr[n]) == ' ')
                 ++n;
-            if (t2 != TOK_PPJOIN)
-                break;
+            اگر (t2 != TOK_PPJOIN)
+                توڑو;
             ptr += n;
-            while ((t2 = *++ptr) == ' ' || t2 == TOK_PPJOIN)
+            جب ((t2 = *++ptr) == ' ' || t2 == TOK_PPJOIN)
                 ;
             TOK_GET(&t2, &ptr, &cv2);
-            if (t2 == TOK_PLCHLDR)
-                continue;
-            if (t1 != TOK_PLCHLDR) {
+            اگر (t2 == TOK_PLCHLDR)
+                جاری;
+            اگر (t1 != TOK_PLCHLDR) {
                 cstr_cat(&tokcstr, get_tok_str(t1, &cv1), -1);
                 t1 = TOK_PLCHLDR;
             }
             cstr_cat(&tokcstr, get_tok_str(t2, &cv2), -1);
         }
-        if (tokcstr.size) {
+        اگر (tokcstr.سائز) {
             cstr_ccat(&tokcstr, 0);
-            tcc_open_bf(tcc_state, ":paste:", tokcstr.size);
-            memcpy(file->buffer, tokcstr.data, tokcstr.size);
+            tcc_open_bf(tcc_state, ":paste:", tokcstr.سائز);
+            حافظہ_نقل(file->بفر, tokcstr.ڈیٹا, tokcstr.سائز);
             tok_flags = 0; /* don't interpret '#' */
-            for (n = 0;;n = l) {
-                next_nomacro();
+            برائے (n = 0;;n = l) {
+                اگلا_nomacro();
                 tok_str_add2(&macro_str1, tok, &tokc);
-                if (*file->buf_ptr == 0)
-                    break;
-                tok_str_add(&macro_str1, ' ');
-                l = file->buf_ptr - file->buffer;
+                اگر (*file->buf_ptr == 0)
+                    توڑو;
+                tok_str_جوڑو(&macro_str1, ' ');
+                l = file->buf_ptr - file->بفر;
                 tcc_warning("pasting \"%.*s\" and \"%s\" does not give a valid"
-                    " preprocessing token", l - n, file->buffer + n, file->buf_ptr);
+                    " preprocessing token", l - n, file->بفر + n, file->buf_ptr);
             }
             tcc_close();
             cstr_reset(&tokcstr);
         }
-        if (t1 != TOK_PLCHLDR)
+        اگر (t1 != TOK_PLCHLDR)
             tok_str_add2(&macro_str1, t1, &cv1);
     }
-    tok_str_add(&macro_str1, 0);
+    tok_str_جوڑو(&macro_str1, 0);
     PP_PRINT(("pasted:", 0, macro_str1.str));
-    return macro_str1.str;
+    واپس macro_str1.str;
 }
 
-static int peek_file (TokenString *ws_str)
+ساکن صحیح peek_file (TokenString *ws_str)
 {
     uint8_t *p = file->buf_ptr - 1;
-    int c;
-    for (;;) {
+    صحیح c;
+    برائے (;;) {
         PEEKC(c, p);
-        switch (c) {
-        case '/':
+        انتخاب (c) {
+        حالت '/':
             PEEKC(c, p);
-            if (c == '*')
+            اگر (c == '*')
                 p = parse_comment(p);
-            else if (c == '/')
-                p = parse_line_comment(p);
-            else {
+            ورنہ اگر (c == '/')
+                p = parse_سطر_comment(p);
+            ورنہ {
                 c = *--p = '/';
-                goto leave;
+                جاؤ leave;
             }
             --p, c = ' ';
-            break;
-        case ' ': case '\t':
-            break;
-        case '\f': case '\v': case '\r':
-            continue;
-        case '\n':
-            file->line_num++, tok_flags |= TOK_FLAG_BOL;
-            break;
-        default: leave:
+            توڑو;
+        حالت ' ': حالت '\t':
+            توڑو;
+        حالت '\f': حالت '\v': حالت '\r':
+            جاری;
+        حالت '\n':
+            file->سطر_عدد++, tok_flags |= TOK_FLAG_BOL;
+            توڑو;
+        طےشدہ: leave:
             file->buf_ptr = p;
-            return c;
+            واپس c;
         }
-        if (ws_str)
-            tok_str_add(ws_str, c);
+        اگر (ws_str)
+            tok_str_جوڑو(ws_str, c);
     }
 }
 
 /* peek or read [ws_str == NULL] next token from function macro call,
    walking up macro levels up to the file if necessary */
-static int next_argstream(Sym **nested_list, TokenString *ws_str)
+ساکن صحیح اگلا_argstream(Sym **nested_list, TokenString *ws_str)
 {
-    int t;
+    صحیح t;
     Sym *sa;
 
-    while (macro_ptr) {
-        const int *m = macro_ptr;
-        while ((t = *m) != 0) {
-            if (ws_str) {
-                if (t != ' ')
-                    return t;
+    جب (macro_ptr) {
+        ثابت صحیح *m = macro_ptr;
+        جب ((t = *m) != 0) {
+            اگر (ws_str) {
+                اگر (t != ' ')
+                    واپس t;
                 ++m;
-            } else {
+            } ورنہ {
                 TOK_GET(&tok, &macro_ptr, &tokc);
-                return tok;
+                واپس tok;
             }
         }
-        end_macro();
+        انتہا_macro();
         /* also, end of scope for nested defined symbol */
         sa = *nested_list;
-        if (sa)
-            *nested_list = sa->prev, sym_free(sa);
+        اگر (sa)
+            *nested_list = sa->پچھلا, sym_free(sa);
     }
-    if (ws_str) {
-        return peek_file(ws_str);
-    } else {
-        next_nomacro();
-        if (tok == '\t' || tok == TOK_LINEFEED)
+    اگر (ws_str) {
+        واپس peek_file(ws_str);
+    } ورنہ {
+        اگلا_nomacro();
+        اگر (tok == '\t' || tok == TOK_LINEFEED)
             tok = ' ';
-        return tok;
+        واپس tok;
     }
 }
 
@@ -3234,95 +3234,95 @@ static int next_argstream(Sym **nested_list, TokenString *ws_str)
    result to (tok_str,tok_len). 'nested_list' is the list of all
    macros we got inside to avoid recursing. Return non zero if no
    substitution needs to be done */
-static int macro_subst_tok(
+ساکن صحیح macro_subst_tok(
     TokenString *tok_str,
     Sym **nested_list,
     Sym *s)
 {
-    int t;
-    int v = s->v;
+    صحیح t;
+    صحیح v = s->v;
 
     PP_PRINT(("#", v, s->d));
-    if (s->d) {
-        int *mstr = s->d;
-        int *jstr;
+    اگر (s->d) {
+        صحیح *mstr = s->d;
+        صحیح *jstr;
         Sym *sa;
-        int ret;
+        صحیح ret;
 
-        if (s->type.t & MACRO_FUNC) {
-            int saved_parse_flags = parse_flags;
+        اگر (s->type.t & MACRO_FUNC) {
+            صحیح saved_parse_flags = parse_flags;
             TokenString str;
-            int parlevel, i;
-            Sym *sa1, *args;
+            صحیح parlevel, i;
+            Sym *sa1, *دلائل;
 
             parse_flags |= PARSE_FLAG_SPACES | PARSE_FLAG_LINEFEED
                 | PARSE_FLAG_ACCEPT_STRAYS;
 
             tok_str_new(&str);
             /* peek next token from argument stream */
-            t = next_argstream(nested_list, &str);
-            if (t != '(') {
+            t = اگلا_argstream(nested_list, &str);
+            اگر (t != '(') {
                 /* not a macro substitution after all, restore the
                  * macro token plus all whitespace we've read.
                  * whitespace is intentionally not merged to preserve
                  * newlines. */
                 parse_flags = saved_parse_flags;
                 tok_str_add2_spc(tok_str, v, 0);
-                if (parse_flags & PARSE_FLAG_SPACES)
-                    for (i = 0; i < str.len; i++)
-                        tok_str_add(tok_str, str.str[i]);
+                اگر (parse_flags & PARSE_FLAG_SPACES)
+                    برائے (i = 0; i < str.len; i++)
+                        tok_str_جوڑو(tok_str, str.str[i]);
                 tok_str_free_str(str.str);
-                return 0;
-            } else {
+                واپس 0;
+            } ورنہ {
                 tok_str_free_str(str.str);
             }
 
             /* argument macro */
-            args = NULL;
-            sa = s->next;
+            دلائل = تہی;
+            sa = s->اگلا;
             /* NOTE: empty args are allowed, except if no args */
             i = 2; /* eat '(' */
-            for(;;) {
-                do {
-                    t = next_argstream(nested_list, NULL);
-                } while (t == ' ' || --i);
+            برائے(;;) {
+                کرو {
+                    t = اگلا_argstream(nested_list, تہی);
+                } جب (t == ' ' || --i);
 
-                if (!sa) {
-                    if (t == ')') /* handle '()' case */
-                        break;
+                اگر (!sa) {
+                    اگر (t == ')') /* handle '()' case */
+                        توڑو;
                     tcc_error("macro '%s' used with too many args",
                         get_tok_str(v, 0));
                 }
-            empty_arg:
+            خالی_خانے_arg:
                 tok_str_new(&str);
                 parlevel = 0;
                 /* NOTE: non zero sa->type.t indicates VA_ARGS */
-                while (parlevel > 0
+                جب (parlevel > 0
                         || (t != ')' && (t != ',' || sa->type.t))) {
-                    if (t == TOK_EOF)
+                    اگر (t == TOK_EOF)
                         tcc_error("EOF in invocation of macro '%s'",
                             get_tok_str(v, 0));
-                    if (t == '(')
+                    اگر (t == '(')
                         parlevel++;
-                    if (t == ')')
+                    اگر (t == ')')
                         parlevel--;
-                    if (t == ' ')
+                    اگر (t == ' ')
                         str.need_spc |= 1;
-                    else
+                    ورنہ
                         tok_str_add2_spc(&str, t, &tokc);
-                    t = next_argstream(nested_list, NULL);
+                    t = اگلا_argstream(nested_list, تہی);
                 }
-                tok_str_add(&str, TOK_EOF);
-                sa1 = sym_push2(&args, sa->v & ~SYM_FIELD, sa->type.t, 0);
+                tok_str_جوڑو(&str, TOK_EOF);
+                sa1 = sym_push2(&دلائل, sa->v & ~SYM_میدان, sa->type.t, 0);
                 sa1->d = str.str;
-                sa = sa->next;
-                if (t == ')') {
-                    if (!sa)
-                        break;
+                sa = sa->اگلا;
+                اگر (t == ')') {
+                    اگر (!sa)
+                        توڑو;
                     /* special case for gcc var args: add an empty
                        var arg argument if it is omitted */
-                    if (sa->type.t && gnu_ext)
-                        goto empty_arg;
+                    اگر (sa->type.t && gnu_ext)
+                        جاؤ خالی_خانے_arg;
                     tcc_error("macro '%s' used with too few args",
                         get_tok_str(v, 0));
                 }
@@ -3330,11 +3330,11 @@ static int macro_subst_tok(
             }
 
             /* now subst each arg */
-            mstr = macro_arg_subst(nested_list, mstr, args);
+            mstr = macro_arg_subst(nested_list, mstr, دلائل);
             /* free memory */
-            sa = args;
-            while (sa) {
-                sa1 = sa->prev;
+            sa = دلائل;
+            جب (sa) {
+                sa1 = sa->پچھلا;
                 tok_str_free_str(sa->d);
                 tok_str_free_str(sa->e);
                 sym_free(sa);
@@ -3345,211 +3345,211 @@ static int macro_subst_tok(
 
         /* process '##'s (if present) */
         jstr = mstr;
-        if (s->type.t & MACRO_JOIN)
+        اگر (s->type.t & MACRO_JOIN)
             jstr = macro_twosharps(mstr);
 
         sa = sym_push2(nested_list, v, 0, 0);
         ret = macro_subst(tok_str, nested_list, jstr);
         /* pop nested defined symbol */
-        if (sa == *nested_list)
-            *nested_list = sa->prev, sym_free(sa);
+        اگر (sa == *nested_list)
+            *nested_list = sa->پچھلا, sym_free(sa);
 
-        if (jstr != mstr)
+        اگر (jstr != mstr)
             tok_str_free_str(jstr);
-        if (mstr != s->d)
+        اگر (mstr != s->d)
             tok_str_free_str(mstr);
-        return ret;
+        واپس ret;
 
-    } else {
+    } ورنہ {
         CValue cval;
-        char buf[32], *cstrval = buf;
+        حرف buf[32], *cstrval = buf;
 
         /* special macros */
-        if (v == TOK___LINE__ || v == TOK___COUNTER__) {
-            t = v == TOK___LINE__ ? file->line_num : pp_counter++;
-            snprintf(buf, sizeof(buf), "%d", t);
+        اگر (v == TOK_سطر_2 || v == TOK_شمار) {
+            t = v == TOK_سطر_2 ? file->سطر_عدد : pp_شمار++;
+            snprintf(buf, حجم(buf), "%d", t);
             t = TOK_PPNUM;
-            goto add_cstr1;
+            جاؤ جوڑو_cstr1;
 
-        } else if (v == TOK___FILE__) {
+        } ورنہ اگر (v == TOK___FILE__) {
             cstrval = file->filename;
-            goto add_cstr;
+            جاؤ جوڑو_cstr;
 
-        } else if (v == TOK___DATE__ || v == TOK___TIME__) {
+        } ورنہ اگر (v == TOK___DATE__ || v == TOK_وقت) {
             time_t ti;
-            struct tm *tm;
-            time(&ti);
+            ساخت tm *tm;
+            وقت(&ti);
             tm = localtime(&ti);
-            if (v == TOK___DATE__) {
-                static char const ab_month_name[12][4] = {
+            اگر (v == TOK___DATE__) {
+                ساکن حرف ثابت ab_month_name[12][4] = {
                     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
                 };
-                snprintf(buf, sizeof(buf), "%s %2d %d",
+                snprintf(buf, حجم(buf), "%s %2d %d",
                     ab_month_name[tm->tm_mon], tm->tm_mday, tm->tm_year + 1900);
-            } else {
-                snprintf(buf, sizeof(buf), "%02d:%02d:%02d",
+            } ورنہ {
+                snprintf(buf, حجم(buf), "%02d:%02d:%02d",
                     tm->tm_hour, tm->tm_min, tm->tm_sec);
             }
-        add_cstr:
+        جوڑو_cstr:
             t = TOK_STR;
-        add_cstr1:
-            cval.str.size = strlen(cstrval) + 1;
-            cval.str.data = cstrval;
+        جوڑو_cstr1:
+            cval.str.سائز = لڑی_لمبائی(cstrval) + 1;
+            cval.str.ڈیٹا = cstrval;
             tok_str_add2_spc(tok_str, t, &cval);
         }
-        return 0;
+        واپس 0;
     }
 }
 
 /* do macro substitution of macro_str and add result to
    (tok_str,tok_len). 'nested_list' is the list of all macros we got
    inside to avoid recursing. */
-static int macro_subst(
+ساکن صحیح macro_subst(
     TokenString *tok_str,
     Sym **nested_list,
-    const int *macro_str
+    ثابت صحیح *macro_str
     )
 {
     Sym *s;
-    int t, nosubst = 0;
+    صحیح t, nosubst = 0;
     CValue cval;
     TokenString *str;
 
-#ifdef PP_DEBUG
-    int tlen = tok_str->len;
+#اگر_تعریف_شدہ PP_DEBUG
+    صحیح tlen = tok_str->len;
     PP_PRINT(("+expand:", 0, macro_str));
-#endif
+#اگر_ختم
 
-    while (1) {
+    جب (1) {
         TOK_GET(&t, &macro_str, &cval);
-        if (t == 0 || t == TOK_EOF)
-            break;
-        if (t >= TOK_IDENT) {
-            s = define_find(t);
-            if (s == NULL || nosubst)
-                goto no_subst;
+        اگر (t == 0 || t == TOK_EOF)
+            توڑو;
+        اگر (t >= TOK_IDENT) {
+            s = define_ڈھونڈو(t);
+            اگر (s == تہی || nosubst)
+                جاؤ no_subst;
             /* if nested substitution, do nothing */
-            if (sym_find2(*nested_list, t)) {
+            اگر (sym_find2(*nested_list, t)) {
                 /* and mark so it doesn't get subst'd again */
-                t |= SYM_FIELD;
-                goto no_subst;
+                t |= SYM_میدان;
+                جاؤ no_subst;
             }
             str = tok_str_alloc();
-            str->str = (int*)macro_str; /* setup stream for possible arguments */
+            str->str = (صحیح*)macro_str; /* setup stream for possible arguments */
             begin_macro(str, 2);
             nosubst = macro_subst_tok(tok_str, nested_list, s);
-            if (macro_stack != str) {
+            اگر (macro_ڈھیر != str) {
                 /* already finished by reading function macro arguments */
-                break;
+                توڑو;
             }
             macro_str = macro_ptr;
-            end_macro ();
-        } else if (t == ' ') {
-            if (parse_flags & PARSE_FLAG_SPACES)
+            انتہا_macro ();
+        } ورنہ اگر (t == ' ') {
+            اگر (parse_flags & PARSE_FLAG_SPACES)
                 tok_str->need_spc |= 1;
-        } else {
+        } ورنہ {
     no_subst:
             tok_str_add2_spc(tok_str, t, &cval);
-            if (nosubst && t != '(')
+            اگر (nosubst && t != '(')
                 nosubst = 0;
             /* GCC supports 'defined' as result of a macro substitution */
-            if (t == TOK_DEFINED && pp_expr)
+            اگر (t == TOK_DEFINED && pp_اظہاریہ)
                 nosubst = 1;
         }
     }
 
-#ifdef PP_DEBUG
-    tok_str_add(tok_str, 0), --tok_str->len;
+#اگر_تعریف_شدہ PP_DEBUG
+    tok_str_جوڑو(tok_str, 0), --tok_str->len;
     PP_PRINT(("-result:", 0, tok_str->str + tlen));
-#endif
-    return nosubst;
+#اگر_ختم
+    واپس nosubst;
 }
 
 /* return next token with macro substitution */
-ST_FUNC void next(void)
+ST_FUNC خالی اگلا(خالی)
 {
-    int t;
-    while (macro_ptr) {
+    صحیح t;
+    جب (macro_ptr) {
 redo:
         t = *macro_ptr;
-        if (TOK_HAS_VALUE(t)) {
+        اگر (TOK_HAS_قدر(t)) {
             tok_get(&tok, &macro_ptr, &tokc);
-            if (t == TOK_LINENUM) {
-                file->line_num = tokc.i;
-                goto redo;
+            اگر (t == TOK_LINENUM) {
+                file->سطر_عدد = tokc.i;
+                جاؤ redo;
             }
-            goto convert;
-        } else if (t == 0) {
+            جاؤ convert;
+        } ورنہ اگر (t == 0) {
             /* end of macro or unget token string */
-            end_macro();
-            continue;
-        } else if (t == TOK_EOF) {
+            انتہا_macro();
+            جاری;
+        } ورنہ اگر (t == TOK_EOF) {
             /* do nothing */
-        } else {
+        } ورنہ {
             ++macro_ptr;
-            t &= ~SYM_FIELD; /* remove 'nosubst' marker */
-            if (t == '\\') {
-                if (!(parse_flags & PARSE_FLAG_ACCEPT_STRAYS))
+            t &= ~SYM_میدان; /* remove 'nosubst' marker */
+            اگر (t == '\\') {
+                اگر (!(parse_flags & PARSE_FLAG_ACCEPT_STRAYS))
                     tcc_error("stray '\\' in program");
             }
         }
         tok = t;
-        return;
+        واپس;
     }
 
-    next_nomacro();
+    اگلا_nomacro();
     t = tok;
-    if (t >= TOK_IDENT && (parse_flags & PARSE_FLAG_PREPROCESS)) {
+    اگر (t >= TOK_IDENT && (parse_flags & PARSE_FLAG_PREPROCESS)) {
         /* if reading from file, try to substitute macros */
-        Sym *s = define_find(t);
-        if (s) {
-            Sym *nested_list = NULL;
+        Sym *s = define_ڈھونڈو(t);
+        اگر (s) {
+            Sym *nested_list = تہی;
             macro_subst_tok(&tokstr_buf, &nested_list, s);
-            tok_str_add(&tokstr_buf, 0);
+            tok_str_جوڑو(&tokstr_buf, 0);
             begin_macro(&tokstr_buf, 0);
-            goto redo;
+            جاؤ redo;
         }
-        return;
+        واپس;
     }
 
 convert:
     /* convert preprocessor tokens into C tokens */
-    if (t == TOK_PPNUM) {
-        if  (parse_flags & PARSE_FLAG_TOK_NUM)
-            parse_number(tokc.str.data);
-    } else if (t == TOK_PPSTR) {
-        if (parse_flags & PARSE_FLAG_TOK_STR)
-            parse_string(tokc.str.data, tokc.str.size - 1);
+    اگر (t == TOK_PPNUM) {
+        اگر  (parse_flags & PARSE_FLAG_TOK_عدد)
+            parse_نمبر(tokc.str.ڈیٹا);
+    } ورنہ اگر (t == TOK_PPSTR) {
+        اگر (parse_flags & PARSE_FLAG_TOK_STR)
+            parse_string(tokc.str.ڈیٹا, tokc.str.سائز - 1);
     }
 }
 
 /* push back current token and set current token to 'last_tok'. Only
    identifier case handled for labels. */
-ST_INLN void unget_tok(int last_tok)
+ST_INLN خالی unget_tok(صحیح آخری_tok)
 {
     TokenString *str = &unget_buf;
-    int alloc = 0;
-    if (str->len) /* use static buffer except if already in use */
+    صحیح alloc = 0;
+    اگر (str->len) /* use static buffer except if already in use */
         str = tok_str_alloc(), alloc = 1;
-    if (tok != TOK_EOF)
+    اگر (tok != TOK_EOF)
         tok_str_add2(str, tok, &tokc);
-    tok_str_add(str, 0);
+    tok_str_جوڑو(str, 0);
     begin_macro(str, alloc);
-    tok = last_tok;
+    tok = آخری_tok;
 }
 
 /* ------------------------------------------------------------------------- */
 /* init preprocessor */
 
-static const char * const target_os_defs =
-#ifdef TCC_TARGET_PE
+ساکن ثابت حرف * ثابت ہدف_os_defs =
+#اگر_تعریف_شدہ TCC_ہدف_PE
     "_WIN32\0"
-# if PTR_SIZE == 8
+# اگر PTR_سائز == 8
     "_WIN64\0"
 # endif
-#else
-# if defined TCC_TARGET_MACHO
+#ورنہ
+# اگر defined TCC_ہدف_MACHO
     "__APPLE__\0"
 # elif TARGETOS_FreeBSD
     "__FreeBSD__ 12\0"
@@ -3559,171 +3559,171 @@ static const char * const target_os_defs =
     "__NetBSD__\0"
 # elif TARGETOS_OpenBSD
     "__OpenBSD__\0"
-# else
+# ورنہ
     "__linux__\0"
     "__linux\0"
-#  if TARGETOS_ANDROID
+#  اگر TARGETOS_ANDROID
     "__ANDROID__\0"
 #  endif
 # endif
     "__unix__\0"
     "__unix\0"
-#endif
+#اگر_ختم
     ;
 
-static void putdef(CString *cs, const char *p)
+ساکن خالی putdef(CString *cs, ثابت حرف *p)
 {
     cstr_printf(cs, "#define %s%s\n", p, &" 1"[!!strchr(p, ' ')*2]);
 }
 
-static void putdefs(CString *cs, const char *p)
+ساکن خالی putdefs(CString *cs, ثابت حرف *p)
 {
-    while (*p)
+    جب (*p)
         putdef(cs, p), p = strchr(p, 0) + 1;
 }
 
-static void tcc_predefs(TCCState *s1, CString *cs, int is_asm)
+ساکن خالی tcc_predefs(TCCState *s1, CString *cs, صحیح is_asm)
 {
-    cstr_printf(cs, "#define __TINYC__ 9%.2s\n", &TCC_VERSION[4]);
-    putdefs(cs, target_machine_defs);
-    putdefs(cs, target_os_defs);
+    cstr_printf(cs, "#define __TINYC__ 9%.2s\n", &TCC_نسخہ[4]);
+    putdefs(cs, ہدف_machine_defs);
+    putdefs(cs, ہدف_os_defs);
 
-#ifdef TCC_TARGET_ARM
-    if (s1->float_abi == ARM_HARD_FLOAT)
+#اگر_تعریف_شدہ TCC_ہدف_ARM
+    اگر (s1->float_abi == ARM_HARD_FLOAT)
       putdef(cs, "__ARM_PCS_VFP");
-#endif
-    if (is_asm)
+#اگر_ختم
+    اگر (is_asm)
       putdef(cs, "__ASSEMBLER__");
-    if (s1->output_type == TCC_OUTPUT_PREPROCESS)
+    اگر (s1->output_type == TCC_OUTPUT_PREPROCESS)
       putdef(cs, "__TCC_PP__");
-    if (s1->output_type == TCC_OUTPUT_MEMORY)
+    اگر (s1->output_type == TCC_OUTPUT_حافظہ)
       putdef(cs, "__TCC_RUN__");
-#ifdef CONFIG_TCC_BACKTRACE
-    if (s1->do_backtrace)
+#اگر_تعریف_شدہ CONFIG_TCC_BACKTRACE
+    اگر (s1->do_backtrace)
       putdef(cs, "__TCC_BACKTRACE__");
-#endif
-#ifdef CONFIG_TCC_BCHECK
-    if (s1->do_bounds_check)
+#اگر_ختم
+#اگر_تعریف_شدہ CONFIG_TCC_BCHECK
+    اگر (s1->do_bounds_check)
       putdef(cs, "__TCC_BCHECK__");
-#endif
-    if (s1->char_is_unsigned)
+#اگر_ختم
+    اگر (s1->char_is_unsigned)
       putdef(cs, "__CHAR_UNSIGNED__");
-    if (s1->optimize > 0)
+    اگر (s1->optimize > 0)
       putdef(cs, "__OPTIMIZE__");
-    if (s1->option_pthread)
+    اگر (s1->option_pthread)
       putdef(cs, "_REENTRANT");
-    if (s1->leading_underscore)
+    اگر (s1->leading_underscore)
       putdef(cs, "__leading_underscore");
-    cstr_printf(cs, "#define __SIZEOF_POINTER__ %d\n", PTR_SIZE);
-    cstr_printf(cs, "#define __SIZEOF_LONG__ %d\n", LONG_SIZE);
-    if (!is_asm) {
+    cstr_printf(cs, "#define __SIZEOF_POINTER__ %d\n", PTR_سائز);
+    cstr_printf(cs, "#define __SIZEOF_LONG__ %d\n", LONG_سائز);
+    اگر (!is_asm) {
       putdef(cs, "__STDC__");
       cstr_printf(cs, "#define __STDC_HOSTED__ %d\n", s1->nostdlib ? 0 : 1);
       cstr_printf(cs, "#define __STDC_VERSION__ %dL\n", s1->cversion);
       cstr_cat(cs,
         /* load more predefs and __builtins */
-#if CONFIG_TCC_PREDEFS
-        #include "tccdefs_.h" /* include as strings */
-#else
+#اگر CONFIG_TCC_PREDEFS
+        #شامل "tccdefs_.h" /* include as strings */
+#ورنہ
         "#include <tccdefs.h>\n" /* load at runtime */
-#endif
+#اگر_ختم
         , -1);
     }
     cstr_printf(cs, "#define __BASE_FILE__ \"%s\"\n", file->filename);
 }
 
-ST_FUNC void preprocess_start(TCCState *s1, int filetype)
+ST_FUNC خالی preprocess_آغاز(TCCState *s1, صحیح filetype)
 {
-    int is_asm = !!(filetype & (AFF_TYPE_ASM|AFF_TYPE_ASMPP));
+    صحیح is_asm = !!(filetype & (AFF_TYPE_ASM|AFF_TYPE_ASMPP));
 
     tccpp_new(s1);
 
-    s1->include_stack_ptr = s1->include_stack;
-    s1->ifdef_stack_ptr = s1->ifdef_stack;
-    file->ifdef_stack_ptr = s1->ifdef_stack_ptr;
-    pp_expr = 0;
-    pp_counter = 0;
+    s1->include_ڈھیر_ptr = s1->include_ڈھیر;
+    s1->ifdef_ڈھیر_ptr = s1->ifdef_ڈھیر;
+    file->ifdef_ڈھیر_ptr = s1->ifdef_ڈھیر_ptr;
+    pp_اظہاریہ = 0;
+    pp_شمار = 0;
     pp_debug_tok = pp_debug_symv = 0;
-    s1->pack_stack[0] = 0;
-    s1->pack_stack_ptr = s1->pack_stack;
+    s1->pack_ڈھیر[0] = 0;
+    s1->pack_ڈھیر_ptr = s1->pack_ڈھیر;
 
-    set_idnum('$', s1->dollars_in_identifiers ? IS_ID : 0);
-    set_idnum('.', is_asm ? IS_ID : 0);
+    سیٹ_idnum('$', s1->dollars_اندر_identifiers ? IS_ID : 0);
+    سیٹ_idnum('.', is_asm ? IS_ID : 0);
 
-    if (!(filetype & AFF_TYPE_ASM)) {
+    اگر (!(filetype & AFF_TYPE_ASM)) {
         CString cstr;
         cstr_new(&cstr);
         tcc_predefs(s1, &cstr, is_asm);
-        if (s1->cmdline_defs.size)
-          cstr_cat(&cstr, s1->cmdline_defs.data, s1->cmdline_defs.size);
-        if (s1->cmdline_incl.size)
-          cstr_cat(&cstr, s1->cmdline_incl.data, s1->cmdline_incl.size);
+        اگر (s1->cmdline_defs.سائز)
+          cstr_cat(&cstr, s1->cmdline_defs.ڈیٹا, s1->cmdline_defs.سائز);
+        اگر (s1->cmdline_incl.سائز)
+          cstr_cat(&cstr, s1->cmdline_incl.ڈیٹا, s1->cmdline_incl.سائز);
         //printf("%.*s\n", cstr.size, (char*)cstr.data);
-        *s1->include_stack_ptr++ = file;
-        tcc_open_bf(s1, "<command line>", cstr.size);
-        memcpy(file->buffer, cstr.data, cstr.size);
+        *s1->include_ڈھیر_ptr++ = file;
+        tcc_open_bf(s1, "<command line>", cstr.سائز);
+        حافظہ_نقل(file->بفر, cstr.ڈیٹا, cstr.سائز);
         cstr_free(&cstr);
     }
     parse_flags = is_asm ? PARSE_FLAG_ASM_FILE : 0;
 }
 
 /* cleanup from error/setjmp */
-ST_FUNC void preprocess_end(TCCState *s1)
+ST_FUNC خالی preprocess_انتہا(TCCState *s1)
 {
-    while (macro_stack)
-        end_macro();
-    macro_ptr = NULL;
-    while (file)
+    جب (macro_ڈھیر)
+        انتہا_macro();
+    macro_ptr = تہی;
+    جب (file)
         tcc_close();
     tccpp_delete(s1);
 }
 
-ST_FUNC int set_idnum(int c, int val)
+ST_FUNC صحیح سیٹ_idnum(صحیح c, صحیح val)
 {
-    int prev = isidnum_table[c - CH_EOF];
-    isidnum_table[c - CH_EOF] = val;
-    return prev;
+    صحیح پچھلا = isidnum_جدول[c - CH_EOF];
+    isidnum_جدول[c - CH_EOF] = val;
+    واپس پچھلا;
 }
 
-ST_FUNC void tccpp_new(TCCState *s)
+ST_FUNC خالی tccpp_new(TCCState *s)
 {
-    int i, c;
-    const char *p, *r;
+    صحیح i, c;
+    ثابت حرف *p, *r;
 
     /* init isid table */
-    for(i = CH_EOF; i<128; i++)
-        set_idnum(i,
+    برائے(i = CH_EOF; i<128; i++)
+        سیٹ_idnum(i,
             is_space(i) ? IS_SPC
             : isid(i) ? IS_ID
-            : isnum(i) ? IS_NUM
+            : isnum(i) ? IS_عدد
             : 0);
 
-    for(i = 128; i<256; i++)
-        set_idnum(i, IS_ID);
+    برائے(i = 128; i<256; i++)
+        سیٹ_idnum(i, IS_ID);
 
     /* init allocators */
-    tal_new(&toksym_alloc, TOKSYM_TAL_SIZE);
-    tal_new(&tokstr_alloc, TOKSTR_TAL_SIZE);
+    tal_new(&toksym_alloc, TOKSYM_TAL_سائز);
+    tal_new(&tokstr_alloc, TOKSTR_TAL_سائز);
 
-    memset(hash_ident, 0, TOK_HASH_SIZE * sizeof(TokenSym *));
-    memset(s->cached_includes_hash, 0, sizeof s->cached_includes_hash);
+    memset(hash_ident, 0, TOK_HASH_سائز * حجم(TokenSym *));
+    memset(s->cached_includes_hash, 0, حجم s->cached_includes_hash);
 
     cstr_new(&tokcstr);
     cstr_new(&cstr_buf);
-    cstr_realloc(&cstr_buf, STRING_MAX_SIZE);
+    cstr_realloc(&cstr_buf, STRING_MAX_سائز);
     tok_str_new(&unget_buf);
-    tok_str_realloc(&unget_buf, TOKSTR_MAX_SIZE);
+    tok_str_realloc(&unget_buf, TOKSTR_MAX_سائز);
     tok_str_new(&tokstr_buf);
-    tok_str_realloc(&tokstr_buf, TOKSTR_MAX_SIZE);
+    tok_str_realloc(&tokstr_buf, TOKSTR_MAX_سائز);
 
     tok_ident = TOK_IDENT;
     p = tcc_keywords;
-    while (*p) {
+    جب (*p) {
         r = p;
-        for(;;) {
+        برائے(;;) {
             c = *r++;
-            if (c == '\0')
-                break;
+            اگر (c == '\0')
+                توڑو;
         }
         tok_alloc(p, r - p - 1);
         p = r;
@@ -3731,27 +3731,27 @@ ST_FUNC void tccpp_new(TCCState *s)
 
     /* we add dummy defines for some special macros to speed up tests
        and to have working defined() */
-    define_push(TOK___LINE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___FILE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___DATE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___TIME__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___COUNTER__, MACRO_OBJ, NULL, NULL);
+    define_ڈالو(TOK_سطر_2, MACRO_OBJ, تہی, تہی);
+    define_ڈالو(TOK___FILE__, MACRO_OBJ, تہی, تہی);
+    define_ڈالو(TOK___DATE__, MACRO_OBJ, تہی, تہی);
+    define_ڈالو(TOK_وقت, MACRO_OBJ, تہی, تہی);
+    define_ڈالو(TOK_شمار, MACRO_OBJ, تہی, تہی);
 }
 
-ST_FUNC void tccpp_delete(TCCState *s)
+ST_FUNC خالی tccpp_delete(TCCState *s)
 {
-    int i, n;
+    صحیح i, n;
 
     dynarray_reset(&s->cached_includes, &s->nb_cached_includes);
 
     /* free tokens */
     n = tok_ident - TOK_IDENT;
-    if (n > total_idents)
-        total_idents = n;
-    for (i = n; --i >= 0;)
-        tal_free(&toksym_alloc, table_ident[i]);
-    tcc_free(table_ident);
-    table_ident = NULL;
+    اگر (n > کل_idents)
+        کل_idents = n;
+    برائے (i = n; --i >= 0;)
+        tal_free(&toksym_alloc, جدول_ident[i]);
+    tcc_free(جدول_ident);
+    جدول_ident = تہی;
 
     /* free static buffers */
     cstr_free(&tokcstr);
@@ -3767,25 +3767,25 @@ ST_FUNC void tccpp_delete(TCCState *s)
 /* ------------------------------------------------------------------------- */
 /* tcc -E [-P[1]] [-dD} support */
 
-static int pp_need_space(int a, int b);
+ساکن صحیح pp_need_space(صحیح a, صحیح b);
 
-static void tok_print(const int *str, const char *msg, ...)
+ساکن خالی tok_print(ثابت صحیح *str, ثابت حرف *پیغام, ...)
 {
     FILE *fp = tcc_state->ppfp;
     va_list ap;
-    int t, t0, s;
+    صحیح t, t0, s;
     CValue cval;
 
-    va_start(ap, msg);
-    vfprintf(fp, msg, ap);
+    va_start(ap, پیغام);
+    vfprintf(fp, پیغام, ap);
     va_end(ap);
 
     s = t0 = 0;
-    while (str) {
+    جب (str) {
 	TOK_GET(&t, &str, &cval);
-	if (t == 0 || t == TOK_EOF)
-	    break;
-        if (pp_need_space(t0, t))
+	اگر (t == 0 || t == TOK_EOF)
+	    توڑو;
+        اگر (pp_need_space(t0, t))
             s = 0;
 	fprintf(fp, &" %s"[s], t == TOK_PLCHLDR ? "<>" : get_tok_str(t, &cval));
         s = 1, t0 = t;
@@ -3793,46 +3793,46 @@ static void tok_print(const int *str, const char *msg, ...)
     fprintf(fp, "\n");
 }
 
-static void pp_line(TCCState *s1, BufferedFile *f, int level)
+ساکن خالی pp_سطر(TCCState *s1, BufferedFile *f, صحیح level)
 {
-    int d = f->line_num - f->line_ref;
+    صحیح d = f->سطر_عدد - f->سطر_ref;
 
-    if (s1->dflag & 4)
-	return;
+    اگر (s1->dflag & 4)
+	واپس;
 
-    if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_NONE) {
+    اگر (s1->Pflag == سطر_MACRO_OUTPUT_FORMAT_NONE) {
         ;
-    } else if (level == 0 && f->line_ref && d < 8) {
-	while (d > 0)
+    } ورنہ اگر (level == 0 && f->سطر_ref && d < 8) {
+	جب (d > 0)
 	    fputs("\n", s1->ppfp), --d;
-    } else if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_STD) {
-	fprintf(s1->ppfp, "#line %d \"%s\"\n", f->line_num, f->filename);
-    } else {
-	fprintf(s1->ppfp, "# %d \"%s\"%s\n", f->line_num, f->filename,
+    } ورنہ اگر (s1->Pflag == سطر_MACRO_OUTPUT_FORMAT_STD) {
+	fprintf(s1->ppfp, "#line %d \"%s\"\n", f->سطر_عدد, f->filename);
+    } ورنہ {
+	fprintf(s1->ppfp, "# %d \"%s\"%s\n", f->سطر_عدد, f->filename,
 	    level > 0 ? " 1" : level < 0 ? " 2" : "");
     }
-    f->line_ref = f->line_num;
+    f->سطر_ref = f->سطر_عدد;
 }
 
-static void define_print(TCCState *s1, int v)
+ساکن خالی define_print(TCCState *s1, صحیح v)
 {
     FILE *fp;
     Sym *s;
 
-    s = define_find(v);
-    if (NULL == s || NULL == s->d)
-        return;
+    s = define_ڈھونڈو(v);
+    اگر (تہی == s || تہی == s->d)
+        واپس;
 
     fp = s1->ppfp;
-    fprintf(fp, "#define %s", get_tok_str(v, NULL));
-    if (s->type.t & MACRO_FUNC) {
-        Sym *a = s->next;
+    fprintf(fp, "#define %s", get_tok_str(v, تہی));
+    اگر (s->type.t & MACRO_FUNC) {
+        Sym *a = s->اگلا;
         fprintf(fp,"(");
-        if (a)
-            for (;;) {
-                fprintf(fp,"%s", get_tok_str(a->v, NULL));
-                if (!(a = a->next))
-                    break;
+        اگر (a)
+            برائے (;;) {
+                fprintf(fp,"%s", get_tok_str(a->v, تہی));
+                اگر (!(a = a->اگلا))
+                    توڑو;
                 fprintf(fp,",");
             }
         fprintf(fp,")");
@@ -3840,39 +3840,39 @@ static void define_print(TCCState *s1, int v)
     tok_print(s->d, "");
 }
 
-static void pp_debug_defines(TCCState *s1)
+ساکن خالی pp_debug_متعین_کرتا(TCCState *s1)
 {
-    int v, t;
-    const char *vs;
+    صحیح v, t;
+    ثابت حرف *vs;
     FILE *fp;
 
     t = pp_debug_tok;
-    if (t == 0)
-        return;
+    اگر (t == 0)
+        واپس;
 
-    file->line_num--;
-    pp_line(s1, file, 0);
-    file->line_ref = ++file->line_num;
+    file->سطر_عدد--;
+    pp_سطر(s1, file, 0);
+    file->سطر_ref = ++file->سطر_عدد;
 
     fp = s1->ppfp;
     v = pp_debug_symv;
-    vs = get_tok_str(v, NULL);
-    if (t == TOK_DEFINE) {
+    vs = get_tok_str(v, تہی);
+    اگر (t == TOK_DEFINE) {
         define_print(s1, v);
-    } else if (t == TOK_UNDEF) {
+    } ورنہ اگر (t == TOK_UNDEF) {
         fprintf(fp, "#undef %s\n", vs);
-    } else if (t == TOK_push_macro) {
+    } ورنہ اگر (t == TOK_ڈالو_macro) {
         fprintf(fp, "#pragma push_macro(\"%s\")\n", vs);
-    } else if (t == TOK_pop_macro) {
+    } ورنہ اگر (t == TOK_نکالو_macro) {
         fprintf(fp, "#pragma pop_macro(\"%s\")\n", vs);
     }
     pp_debug_tok = 0;
 }
 
 /* Add a space between tokens a and b to avoid unwanted textual pasting */
-static int pp_need_space(int a, int b)
+ساکن صحیح pp_need_space(صحیح a, صحیح b)
 {
-    return 'E' == a ? '+' == b || '-' == b
+    واپس 'E' == a ? '+' == b || '-' == b
         : '+' == a ? TOK_INC == b || '+' == b
         : '-' == a ? TOK_DEC == b || '-' == b
         : a >= TOK_IDENT || a == TOK_PPNUM ? b >= TOK_IDENT || b == TOK_PPNUM
@@ -3880,20 +3880,20 @@ static int pp_need_space(int a, int b)
 }
 
 /* maybe hex like 0x1e */
-static int pp_check_he0xE(int t, const char *p)
+ساکن صحیح pp_check_he0xE(صحیح t, ثابت حرف *p)
 {
-    if (t == TOK_PPNUM && toup(strchr(p, 0)[-1]) == 'E')
-        return 'E';
-    return t;
+    اگر (t == TOK_PPNUM && toup(strchr(p, 0)[-1]) == 'E')
+        واپس 'E';
+    واپس t;
 }
 
 /* Preprocess the current file */
-ST_FUNC int tcc_preprocess(TCCState *s1)
+ST_FUNC صحیح tcc_preprocess(TCCState *s1)
 {
     BufferedFile **iptr;
-    int token_seen, spcs, level;
-    const char *p;
-    char white[400];
+    صحیح token_نظر_آیا, spcs, level;
+    ثابت حرف *p;
+    حرف white[400];
 
     parse_flags = PARSE_FLAG_PREPROCESS
                 | (parse_flags & PARSE_FLAG_ASM_FILE)
@@ -3904,58 +3904,58 @@ ST_FUNC int tcc_preprocess(TCCState *s1)
     /* Credits to Fabrice Bellard's initial revision to demonstrate its
        capability to compile and run itself, provided all numbers are
        given as decimals. tcc -E -P10 will do. */
-    if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_P10)
-        parse_flags |= PARSE_FLAG_TOK_NUM, s1->Pflag = 1;
+    اگر (s1->Pflag == سطر_MACRO_OUTPUT_FORMAT_P10)
+        parse_flags |= PARSE_FLAG_TOK_عدد, s1->Pflag = 1;
 
-    if (s1->do_bench) {
+    اگر (s1->do_bench) {
 	/* for PP benchmarks */
-	do next(); while (tok != TOK_EOF);
-	return 0;
+	کرو اگلا(); جب (tok != TOK_EOF);
+	واپس 0;
     }
 
-    token_seen = TOK_LINEFEED, spcs = 0, level = 0;
-    if (file->prev)
-        pp_line(s1, file->prev, level++);
-    pp_line(s1, file, level);
+    token_نظر_آیا = TOK_LINEFEED, spcs = 0, level = 0;
+    اگر (file->پچھلا)
+        pp_سطر(s1, file->پچھلا, level++);
+    pp_سطر(s1, file, level);
 
-    for (;;) {
-        iptr = s1->include_stack_ptr;
-        next();
-        if (tok == TOK_EOF)
-            break;
+    برائے (;;) {
+        iptr = s1->include_ڈھیر_ptr;
+        اگلا();
+        اگر (tok == TOK_EOF)
+            توڑو;
 
-        level = s1->include_stack_ptr - iptr;
-        if (level) {
-            if (level > 0)
-                pp_line(s1, *iptr, 0);
-            pp_line(s1, file, level);
+        level = s1->include_ڈھیر_ptr - iptr;
+        اگر (level) {
+            اگر (level > 0)
+                pp_سطر(s1, *iptr, 0);
+            pp_سطر(s1, file, level);
         }
-        if (s1->dflag & 7) {
-            pp_debug_defines(s1);
-            if (s1->dflag & 4)
-                continue;
+        اگر (s1->dflag & 7) {
+            pp_debug_متعین_کرتا(s1);
+            اگر (s1->dflag & 4)
+                جاری;
         }
 
-        if (is_space(tok)) {
-            if (spcs < sizeof white - 1)
+        اگر (is_space(tok)) {
+            اگر (spcs < حجم white - 1)
                 white[spcs++] = tok;
-            continue;
-        } else if (tok == TOK_LINEFEED) {
+            جاری;
+        } ورنہ اگر (tok == TOK_LINEFEED) {
             spcs = 0;
-            if (token_seen == TOK_LINEFEED)
-                continue;
-            ++file->line_ref;
-        } else if (token_seen == TOK_LINEFEED) {
-            pp_line(s1, file, 0);
-        } else if (spcs == 0 && pp_need_space(token_seen, tok)) {
+            اگر (token_نظر_آیا == TOK_LINEFEED)
+                جاری;
+            ++file->سطر_ref;
+        } ورنہ اگر (token_نظر_آیا == TOK_LINEFEED) {
+            pp_سطر(s1, file, 0);
+        } ورنہ اگر (spcs == 0 && pp_need_space(token_نظر_آیا, tok)) {
             white[spcs++] = ' ';
         }
 
         white[spcs] = 0, fputs(white, s1->ppfp), spcs = 0;
         fputs(p = get_tok_str(tok, &tokc), s1->ppfp);
-        token_seen = pp_check_he0xE(tok, p);
+        token_نظر_آیا = pp_check_he0xE(tok, p);
     }
-    return 0;
+    واپس 0;
 }
 
 /* ------------------------------------------------------------------------- */

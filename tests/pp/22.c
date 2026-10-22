@@ -1,12 +1,12 @@
-#define TRACE(a,b,c) X a X b X c X
-#define rettrue(x) 1
+#تعریف_کرو TRACE(a,b,c) X a X b X c X
+#تعریف_کرو rettrue(x) 1
 A rettrue(bla) B
 TRACE(
       ARG_1,
-#if rettrue(bla)
+#اگر rettrue(bla)
       ARG_2,
-#else
+#ورنہ
       ARG_2_wrong,
-#endif
+#اگر_ختم
       ARG_3
 );

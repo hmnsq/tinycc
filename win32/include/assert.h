@@ -3,60 +3,60 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef __ASSERT_H_
-#define __ASSERT_H_
+#اگر_غیر_تعریف_شدہ __ASSERT_H_
+#تعریف_کرو __ASSERT_H_
 
-#include <_mingw.h>
-#ifdef __cplusplus
-#include <stdlib.h>
-#endif
+#شامل <_mingw.h>
+#اگر_تعریف_شدہ __cplusplus
+#شامل <stdlib.h>
+#اگر_ختم
 
-#ifdef NDEBUG
-#ifndef assert
-#define assert(_Expression) ((void)0)
-#endif
-#else
+#اگر_تعریف_شدہ NDEBUG
+#اگر_غیر_تعریف_شدہ أكد
+#تعریف_کرو أكد(عبارت) ((خالی)0)
+#اگر_ختم
+#ورنہ
 
-#ifndef _CRT_TERMINATE_DEFINED
-#define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
- _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+#اگر_غیر_تعریف_شدہ _CRT_TERMINATE_DEFINED
+#تعریف_کرو _CRT_TERMINATE_DEFINED
+  خالی __cdecl __MINGW_NOTHROW باہر_نکلو(صحیح رمز_3) __MINGW_ATTRIB_NORETURN;
+ _CRTIMP خالی __cdecl __MINGW_NOTHROW _exit(صحیح رمز_3) __MINGW_ATTRIB_NORETURN;
+#اگر !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
 /* C99 function name */
-void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-__CRT_INLINE __MINGW_ATTRIB_NORETURN void __cdecl _Exit(int status)
-{  _exit(status); }
-#endif
+خالی __cdecl _Exit(صحیح) __MINGW_ATTRIB_NORETURN;
+__CRT_INLINE __MINGW_ATTRIB_NORETURN خالی __cdecl _Exit(صحیح حالت_2)
+{  _exit(حالت_2); }
+#اگر_ختم
 
-#pragma push_macro("abort")
-#undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#ہدایت ڈالو_macro("abort")
+#تعریف_منسوخ abort
+  خالی __cdecl __declspec(noreturn) abort(خالی);
+#ہدایت نکالو_macro("abort")
 
-#endif
+#اگر_ختم
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
 
-extern void __cdecl _wassert(const wchar_t *_Message,const wchar_t *_File,unsigned _Line);
-extern void __cdecl _assert(const char *, const char *, unsigned);
+خارجی خالی __cdecl _wassert(ثابت wchar_t *پیغام_4,ثابت wchar_t *_File,غیرعلامتی سطر_2);
+خارجی خالی __cdecl _assert(ثابت حرف *, ثابت حرف *, غیرعلامتی);
 
-#ifdef __cplusplus
+#اگر_تعریف_شدہ __cplusplus
 }
-#endif
+#اگر_ختم
 
-#ifndef assert
+#اگر_غیر_تعریف_شدہ أكد
 //#define assert(_Expression) (void)((!!(_Expression)) || (_wassert(_CRT_WIDE(#_Expression),_CRT_WIDE(__FILE__),__LINE__),0))
-#define assert(e) ((e) ? (void)0 : _assert(#e, __FILE__, __LINE__))
-#endif
+#تعریف_کرو أكد(e) ((e) ? (خالی)0 : _assert(#e, __FILE__, __LINE__))
+#اگر_ختم
 
-#endif
+#اگر_ختم
 
-#if (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
+#اگر (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
 /* C11, section 7.2: The macro static_assert expands to _Static_assert. */
-#define static_assert(exp, str) _Static_assert(exp, str) 
-#endif
+#تعریف_کرو static_assert(قوت_نما, str) _Static_assert(قوت_نما, str) 
+#اگر_ختم
 
-#endif
+#اگر_ختم

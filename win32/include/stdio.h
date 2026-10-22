@@ -3,271 +3,271 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_STDIO
-#define _INC_STDIO
+#اگر_غیر_تعریف_شدہ _INC_STDIO
+#تعریف_کرو _INC_STDIO
 
-#include <_mingw.h>
+#شامل <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ہدایت pack(ڈالو,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
-#define BUFSIZ 512
-#define _NFILE _NSTREAM_
-#define _NSTREAM_ 512
-#define _IOB_ENTRIES 20
-#define EOF (-1)
+#تعریف_کرو BUFSIZ 512
+#تعریف_کرو _NFILE _NSTREAM_
+#تعریف_کرو _NSTREAM_ 512
+#تعریف_کرو _IOB_ENTRIES 20
+#تعریف_کرو EOF (-1)
 
-#ifndef _FILE_DEFINED
-  struct _iobuf {
-    char *_ptr;
-    int _cnt;
-    char *_base;
-    int _flag;
-    int _file;
-    int _charbuf;
-    int _bufsiz;
-    char *_tmpfname;
+#اگر_غیر_تعریف_شدہ _FILE_DEFINED
+  ساخت _iobuf {
+    حرف *_ptr;
+    صحیح _cnt;
+    حرف *بنیاد_4;
+    صحیح _flag;
+    صحیح _file;
+    صحیح _charbuf;
+    صحیح _bufsiz;
+    حرف *_tmpfname;
   };
-  typedef struct _iobuf FILE;
-#define _FILE_DEFINED
-#endif
+  قسمتعریف ساخت _iobuf FILE;
+#تعریف_کرو _FILE_DEFINED
+#اگر_ختم
 
-#ifdef _POSIX_
-#define _P_tmpdir "/"
-#define _wP_tmpdir L"/"
-#else
-#define _P_tmpdir "\\"
-#define _wP_tmpdir L"\\"
-#endif
+#اگر_تعریف_شدہ _POSIX_
+#تعریف_کرو _P_tmpdir "/"
+#تعریف_کرو _wP_tmpdir L"/"
+#ورنہ
+#تعریف_کرو _P_tmpdir "\\"
+#تعریف_کرو _wP_tmpdir L"\\"
+#اگر_ختم
 
-#define L_tmpnam (sizeof(_P_tmpdir) + 12)
+#تعریف_کرو L_tmpnam (حجم(_P_tmpdir) + 12)
 
-#ifdef _POSIX_
-#define L_ctermid 9
-#define L_cuserid 32
-#endif
+#اگر_تعریف_شدہ _POSIX_
+#تعریف_کرو L_ctermid 9
+#تعریف_کرو L_cuserid 32
+#اگر_ختم
 
-#define SEEK_CUR 1
-#define SEEK_END 2
-#define SEEK_SET 0
+#تعریف_کرو SEEK_CUR 1
+#تعریف_کرو SEEK_END 2
+#تعریف_کرو SEEK_SET 0
 
-#define STDIN_FILENO    0
-#define STDOUT_FILENO   1
-#define STDERR_FILENO   2
+#تعریف_کرو STDIN_FILENO    0
+#تعریف_کرو STDOUT_FILENO   1
+#تعریف_کرو STDERR_FILENO   2
 
-#define FILENAME_MAX 260
-#define FOPEN_MAX 20
-#define _SYS_OPEN 20
-#define TMP_MAX 32767
+#تعریف_کرو FILENAME_MAX 260
+#تعریف_کرو FOPEN_MAX 20
+#تعریف_کرو _SYS_OPEN 20
+#تعریف_کرو TMP_MAX 32767
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ تہی
+#اگر_تعریف_شدہ __cplusplus
+#تعریف_کرو تہی 0
+#ورنہ
+#تعریف_کرو تہی ((خالی *)0)
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _OFF_T_DEFINED
-#define _OFF_T_DEFINED
-#ifndef _OFF_T_
-#define _OFF_T_
-  typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long off_t;
-#endif
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _OFF_T_DEFINED
+#تعریف_کرو _OFF_T_DEFINED
+#اگر_غیر_تعریف_شدہ _OFF_T_
+#تعریف_کرو _OFF_T_
+  قسمتعریف طویل _off_t;
+#اگر !defined(NO_OLDNAMES) || defined(_POSIX)
+  قسمتعریف طویل off_t;
+#اگر_ختم
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _OFF64_T_DEFINED
-#define _OFF64_T_DEFINED
-  typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long long off64_t;
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _OFF64_T_DEFINED
+#تعریف_کرو _OFF64_T_DEFINED
+  قسمتعریف طویل طویل _off64_t;
+#اگر !defined(NO_OLDNAMES) || defined(_POSIX)
+  قسمتعریف طویل طویل off64_t;
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _STDIO_DEFINED
-#ifdef _WIN64
-  _CRTIMP FILE *__cdecl __iob_func(void);
-#else
-#ifdef _MSVCRT_
-extern FILE _iob[];     /* A pointer to an array of FILE */
-#define __iob_func()    (_iob)
-#else
-extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
-#define __iob_func()    (*_imp___iob)
-#define _iob __iob_func()
-#endif
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ _STDIO_DEFINED
+#اگر_تعریف_شدہ _WIN64
+  _CRTIMP FILE *__cdecl __iob_func(خالی);
+#ورنہ
+#اگر_تعریف_شدہ _MSVCRT_
+خارجی FILE _iob[];     /* A pointer to an array of FILE */
+#تعریف_کرو __iob_func()    (_iob)
+#ورنہ
+خارجی FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
+#تعریف_کرو __iob_func()    (*_imp___iob)
+#تعریف_کرو _iob __iob_func()
+#اگر_ختم
+#اگر_ختم
+#اگر_ختم
 
-#ifndef _FPOS_T_DEFINED
-#define _FPOS_T_DEFINED
-#undef _FPOSOFF
+#اگر_غیر_تعریف_شدہ _FPOS_T_DEFINED
+#تعریف_کرو _FPOS_T_DEFINED
+#تعریف_منسوخ _FPOSOFF
 
-#if (!defined(NO_OLDNAMES) || defined(__GNUC__)) && _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 fpos_t;
-#define _FPOSOFF(fp) ((long)(fp))
-#else
-  typedef long long fpos_t;
-#define _FPOSOFF(fp) ((long)(fp))
-#endif
+#اگر (!defined(NO_OLDNAMES) || defined(__GNUC__)) && INTEGRAL_MAX_بٹ >= 64
+  قسمتعریف __int64 fpos_t;
+#تعریف_کرو _FPOSOFF(fp) ((طویل)(fp))
+#ورنہ
+  قسمتعریف طویل طویل fpos_t;
+#تعریف_کرو _FPOSOFF(fp) ((طویل)(fp))
+#اگر_ختم
 
-#endif
+#اگر_ختم
 
-#ifndef _STDSTREAM_DEFINED
-#define _STDSTREAM_DEFINED
+#اگر_غیر_تعریف_شدہ _STDSTREAM_DEFINED
+#تعریف_کرو _STDSTREAM_DEFINED
 
-#define stdin (&__iob_func()[0])
-#define stdout (&__iob_func()[1])
-#define stderr (&__iob_func()[2])
-#endif
+#تعریف_کرو stdin (&__iob_func()[0])
+#تعریف_کرو stdout (&__iob_func()[1])
+#تعریف_کرو stderr (&__iob_func()[2])
+#اگر_ختم
 
-#define _IOREAD 0x0001
-#define _IOWRT 0x0002
+#تعریف_کرو _IOREAD 0x0001
+#تعریف_کرو _IOWRT 0x0002
 
-#define _IOFBF 0x0000
-#define _IOLBF 0x0040
-#define _IONBF 0x0004
+#تعریف_کرو _IOFBF 0x0000
+#تعریف_کرو _IOLBF 0x0040
+#تعریف_کرو _IONBF 0x0004
 
-#define _IOMYBUF 0x0008
-#define _IOEOF 0x0010
-#define _IOERR 0x0020
-#define _IOSTRG 0x0040
-#define _IORW 0x0080
-#ifdef _POSIX_
-#define _IOAPPEND 0x0200
-#endif
+#تعریف_کرو _IOMYBUF 0x0008
+#تعریف_کرو _IOEOF 0x0010
+#تعریف_کرو _IOERR 0x0020
+#تعریف_کرو _IOSTRG 0x0040
+#تعریف_کرو _IORW 0x0080
+#اگر_تعریف_شدہ _POSIX_
+#تعریف_کرو _IOAPPEND 0x0200
+#اگر_ختم
 
-#define _TWO_DIGIT_EXPONENT 0x1
+#تعریف_کرو _TWO_DIGIT_EXPONENT 0x1
 
-#ifndef _STDIO_DEFINED
+#اگر_غیر_تعریف_شدہ _STDIO_DEFINED
 
-  _CRTIMP int __cdecl _filbuf(FILE *_File);
-  _CRTIMP int __cdecl _flsbuf(int _Ch,FILE *_File);
-#ifdef _POSIX_
-  _CRTIMP FILE *__cdecl _fsopen(const char *_Filename,const char *_Mode);
-#else
-  _CRTIMP FILE *__cdecl _fsopen(const char *_Filename,const char *_Mode,int _ShFlag);
-#endif
-  void __cdecl clearerr(FILE *_File);
-  int __cdecl fclose(FILE *_File);
-  _CRTIMP int __cdecl _fcloseall(void);
-#ifdef _POSIX_
-  FILE *__cdecl fdopen(int _FileHandle,const char *_Mode);
-#else
-  _CRTIMP FILE *__cdecl _fdopen(int _FileHandle,const char *_Mode);
-#endif
-  int __cdecl feof(FILE *_File);
-  int __cdecl ferror(FILE *_File);
-  int __cdecl fflush(FILE *_File);
-  int __cdecl fgetc(FILE *_File);
-  _CRTIMP int __cdecl _fgetchar(void);
-  int __cdecl fgetpos(FILE *_File ,fpos_t *_Pos);
-  char *__cdecl fgets(char *_Buf,int _MaxCount,FILE *_File);
-#ifdef _POSIX_
-  int __cdecl fileno(FILE *_File);
-#else
-  _CRTIMP int __cdecl _fileno(FILE *_File);
-#endif
-  _CRTIMP char *__cdecl _tempnam(const char *_DirName,const char *_FilePrefix);
-  _CRTIMP int __cdecl _flushall(void);
-  FILE *__cdecl fopen(const char *_Filename,const char *_Mode);
-  FILE *fopen64(const char *filename,const char *mode);
-  int __cdecl fprintf(FILE *_File,const char *_Format,...);
-  int __cdecl fputc(int _Ch,FILE *_File);
-  _CRTIMP int __cdecl _fputchar(int _Ch);
-  int __cdecl fputs(const char *_Str,FILE *_File);
-  size_t __cdecl fread(void *_DstBuf,size_t _ElementSize,size_t _Count,FILE *_File);
-  FILE *__cdecl freopen(const char *_Filename,const char *_Mode,FILE *_File);
-  int __cdecl fscanf(FILE *_File,const char *_Format,...);
-  int __cdecl fsetpos(FILE *_File,const fpos_t *_Pos);
-  int __cdecl fseek(FILE *_File,long _Offset,int _Origin);
-   int fseeko64(FILE* stream, _off64_t offset, int whence);
-  long __cdecl ftell(FILE *_File);
-  _off64_t ftello64(FILE * stream);
-  int __cdecl _fseeki64(FILE *_File,__int64 _Offset,int _Origin);
+  _CRTIMP صحیح __cdecl _filbuf(FILE *_File);
+  _CRTIMP صحیح __cdecl _flsbuf(صحیح _Ch,FILE *_File);
+#اگر_تعریف_شدہ _POSIX_
+  _CRTIMP FILE *__cdecl _fsopen(ثابت حرف *_Filename,ثابت حرف *منوال_3);
+#ورنہ
+  _CRTIMP FILE *__cdecl _fsopen(ثابت حرف *_Filename,ثابت حرف *منوال_3,صحیح _ShFlag);
+#اگر_ختم
+  خالی __cdecl clearerr(FILE *_File);
+  صحیح __cdecl fclose(FILE *_File);
+  _CRTIMP صحیح __cdecl _fcloseall(خالی);
+#اگر_تعریف_شدہ _POSIX_
+  FILE *__cdecl fdopen(صحیح _FileHandle,ثابت حرف *منوال_3);
+#ورنہ
+  _CRTIMP FILE *__cdecl _fdopen(صحیح _FileHandle,ثابت حرف *منوال_3);
+#اگر_ختم
+  صحیح __cdecl feof(FILE *_File);
+  صحیح __cdecl ferror(FILE *_File);
+  صحیح __cdecl fflush(FILE *_File);
+  صحیح __cdecl fgetc(FILE *_File);
+  _CRTIMP صحیح __cdecl _fgetchar(خالی);
+  صحیح __cdecl fgetpos(FILE *_File ,fpos_t *_Pos);
+  حرف *__cdecl fgets(حرف *_Buf,صحیح Max_گنتی,FILE *_File);
+#اگر_تعریف_شدہ _POSIX_
+  صحیح __cdecl fileno(FILE *_File);
+#ورنہ
+  _CRTIMP صحیح __cdecl _fileno(FILE *_File);
+#اگر_ختم
+  _CRTIMP حرف *__cdecl _tempnam(ثابت حرف *_DirName,ثابت حرف *File_سابقہ);
+  _CRTIMP صحیح __cdecl _flushall(خالی);
+  FILE *__cdecl fopen(ثابت حرف *_Filename,ثابت حرف *منوال_3);
+  FILE *fopen64(ثابت حرف *filename,ثابت حرف *منوال);
+  صحیح __cdecl fprintf(FILE *_File,ثابت حرف *_Format,...);
+  صحیح __cdecl fputc(صحیح _Ch,FILE *_File);
+  _CRTIMP صحیح __cdecl _fputchar(صحیح _Ch);
+  صحیح __cdecl fputs(ثابت حرف *_Str,FILE *_File);
+  سائز_t __cdecl fread(خالی *_DstBuf,سائز_t Element_سائز,سائز_t گنتی_5,FILE *_File);
+  FILE *__cdecl freopen(ثابت حرف *_Filename,ثابت حرف *منوال_3,FILE *_File);
+  صحیح __cdecl fscanf(FILE *_File,ثابت حرف *_Format,...);
+  صحیح __cdecl fsetpos(FILE *_File,ثابت fpos_t *_Pos);
+  صحیح __cdecl fseek(FILE *_File,طویل انحراف_2,صحیح _Origin);
+   صحیح fseeko64(FILE* دھارا, _off64_t انحراف, صحیح whence);
+  طویل __cdecl ftell(FILE *_File);
+  _off64_t ftello64(FILE * دھارا);
+  صحیح __cdecl _fseeki64(FILE *_File,__int64 انحراف_2,صحیح _Origin);
   __int64 __cdecl _ftelli64(FILE *_File);
-  size_t __cdecl fwrite(const void *_Str,size_t _Size,size_t _Count,FILE *_File);
-  int __cdecl getc(FILE *_File);
-  int __cdecl getchar(void);
-  _CRTIMP int __cdecl _getmaxstdio(void);
-  char *__cdecl gets(char *_Buffer);
-  int __cdecl _getw(FILE *_File);
-#ifndef _CRT_PERROR_DEFINED
-#define _CRT_PERROR_DEFINED
-  void __cdecl perror(const char *_ErrMsg);
-#endif
-  _CRTIMP int __cdecl _pclose(FILE *_File);
-  _CRTIMP FILE *__cdecl _popen(const char *_Command,const char *_Mode);
-#if !defined(NO_OLDNAMES) && !defined(popen)
-#define popen   _popen
-#define pclose  _pclose
-#endif
-  int __cdecl printf(const char *_Format,...);
-  int __cdecl putc(int _Ch,FILE *_File);
-  int __cdecl putchar(int _Ch);
-  int __cdecl puts(const char *_Str);
-  _CRTIMP int __cdecl _putw(int _Word,FILE *_File);
-#ifndef _CRT_DIRECTORY_DEFINED
-#define _CRT_DIRECTORY_DEFINED
-  int __cdecl remove(const char *_Filename);
-  int __cdecl rename(const char *_OldFilename,const char *_NewFilename);
-  _CRTIMP int __cdecl _unlink(const char *_Filename);
-#ifndef NO_OLDNAMES
-  int __cdecl unlink(const char *_Filename);
-#endif
-#endif
-  void __cdecl rewind(FILE *_File);
-  _CRTIMP int __cdecl _rmtmp(void);
-  int __cdecl scanf(const char *_Format,...);
-  void __cdecl setbuf(FILE *_File,char *_Buffer);
-  _CRTIMP int __cdecl _setmaxstdio(int _Max);
-  _CRTIMP unsigned int __cdecl _set_output_format(unsigned int _Format);
-  _CRTIMP unsigned int __cdecl _get_output_format(void);
-  int __cdecl setvbuf(FILE *_File,char *_Buf,int _Mode,size_t _Size);
-  _CRTIMP int __cdecl _scprintf(const char *_Format,...);
-  int __cdecl sscanf(const char *_Src,const char *_Format,...);
-  _CRTIMP int __cdecl _snscanf(const char *_Src,size_t _MaxCount,const char *_Format,...);
-  FILE *__cdecl tmpfile(void);
-  char *__cdecl tmpnam(char *_Buffer);
-  int __cdecl ungetc(int _Ch,FILE *_File);
-  int __cdecl vfprintf(FILE *_File,const char *_Format,va_list _ArgList);
-  int __cdecl vprintf(const char *_Format,va_list _ArgList);
+  سائز_t __cdecl fwrite(ثابت خالی *_Str,سائز_t سائز_4,سائز_t گنتی_5,FILE *_File);
+  صحیح __cdecl getc(FILE *_File);
+  صحیح __cdecl getchar(خالی);
+  _CRTIMP صحیح __cdecl _getmaxstdio(خالی);
+  حرف *__cdecl gets(حرف *بفر_2);
+  صحیح __cdecl _getw(FILE *_File);
+#اگر_غیر_تعریف_شدہ _CRT_PERROR_DEFINED
+#تعریف_کرو _CRT_PERROR_DEFINED
+  خالی __cdecl perror(ثابت حرف *Err_پیغام);
+#اگر_ختم
+  _CRTIMP صحیح __cdecl _pclose(FILE *_File);
+  _CRTIMP FILE *__cdecl _popen(ثابت حرف *_Command,ثابت حرف *منوال_3);
+#اگر !defined(NO_OLDNAMES) && !defined(popen)
+#تعریف_کرو popen   _popen
+#تعریف_کرو pclose  _pclose
+#اگر_ختم
+  صحیح __cdecl لکھو(ثابت حرف *_Format,...);
+  صحیح __cdecl putc(صحیح _Ch,FILE *_File);
+  صحیح __cdecl حرف_لکھو(صحیح _Ch);
+  صحیح __cdecl puts(ثابت حرف *_Str);
+  _CRTIMP صحیح __cdecl _putw(صحیح لفظ_4,FILE *_File);
+#اگر_غیر_تعریف_شدہ _CRT_DIRECTORY_DEFINED
+#تعریف_کرو _CRT_DIRECTORY_DEFINED
+  صحیح __cdecl remove(ثابت حرف *_Filename);
+  صحیح __cdecl rename(ثابت حرف *_OldFilename,ثابت حرف *_NewFilename);
+  _CRTIMP صحیح __cdecl _unlink(ثابت حرف *_Filename);
+#اگر_غیر_تعریف_شدہ NO_OLDNAMES
+  صحیح __cdecl unlink(ثابت حرف *_Filename);
+#اگر_ختم
+#اگر_ختم
+  خالی __cdecl rewind(FILE *_File);
+  _CRTIMP صحیح __cdecl _rmtmp(خالی);
+  صحیح __cdecl scanf(ثابت حرف *_Format,...);
+  خالی __cdecl setbuf(FILE *_File,حرف *بفر_2);
+  _CRTIMP صحیح __cdecl _setmaxstdio(صحیح _Max);
+  _CRTIMP غیرعلامتی صحیح __cdecl سیٹ_output_format(غیرعلامتی صحیح _Format);
+  _CRTIMP غیرعلامتی صحیح __cdecl _get_output_format(خالی);
+  صحیح __cdecl setvbuf(FILE *_File,حرف *_Buf,صحیح منوال_3,سائز_t سائز_4);
+  _CRTIMP صحیح __cdecl _scprintf(ثابت حرف *_Format,...);
+  صحیح __cdecl لڑی_سے_پڑھو(ثابت حرف *_Src,ثابت حرف *_Format,...);
+  _CRTIMP صحیح __cdecl _snscanf(ثابت حرف *_Src,سائز_t Max_گنتی,ثابت حرف *_Format,...);
+  FILE *__cdecl tmpfile(خالی);
+  حرف *__cdecl tmpnam(حرف *بفر_2);
+  صحیح __cdecl ungetc(صحیح _Ch,FILE *_File);
+  صحیح __cdecl vfprintf(FILE *_File,ثابت حرف *_Format,va_list _ArgList);
+  صحیح __cdecl vprintf(ثابت حرف *_Format,va_list _ArgList);
   /* Make sure macros are not defined.  */
-#pragma push_macro("vsnprintf")
-#pragma push_macro("snprintf")
+#ہدایت ڈالو_macro("vsnprintf")
+#ہدایت ڈالو_macro("snprintf")
 # undef vsnprintf
 # undef snprintf
-  extern
+  خارجی
   __attribute__((format(gnu_printf, 3, 0))) __attribute__((nonnull (3)))
-  int __mingw_vsnprintf(char *_DstBuf,size_t _MaxCount,const char *_Format,va_list _ArgList);
-  extern
+  صحیح __mingw_vsnprintf(حرف *_DstBuf,سائز_t Max_گنتی,ثابت حرف *_Format,va_list _ArgList);
+  خارجی
   __attribute__((format(gnu_printf, 3, 4))) __attribute__((nonnull (3)))
-  int __mingw_snprintf(char* s, size_t n, const char*  format, ...);
-  int __cdecl vsnprintf(char *_DstBuf,size_t _MaxCount,const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _snprintf(char *_Dest,size_t _Count,const char *_Format,...);
-  _CRTIMP int __cdecl _vsnprintf(char *_Dest,size_t _Count,const char *_Format,va_list _Args);
-  int __cdecl sprintf(char *_Dest,const char *_Format,...);
-  int __cdecl vsprintf(char *_Dest,const char *_Format,va_list _Args);
-#ifndef __NO_ISOCEXT  /* externs in libmingwex.a */
-  int __cdecl snprintf(char* s, size_t n, const char*  format, ...);
-  __CRT_INLINE int __cdecl vsnprintf (char* s, size_t n, const char* format,va_list arg) {
-    return _vsnprintf ( s, n, format, arg);
+  صحیح __mingw_snprintf(حرف* s, سائز_t n, ثابت حرف*  format, ...);
+  صحیح __cdecl vsnprintf(حرف *_DstBuf,سائز_t Max_گنتی,ثابت حرف *_Format,va_list _ArgList);
+  _CRTIMP صحیح __cdecl _snprintf(حرف *_Dest,سائز_t گنتی_5,ثابت حرف *_Format,...);
+  _CRTIMP صحیح __cdecl _vsnprintf(حرف *_Dest,سائز_t گنتی_5,ثابت حرف *_Format,va_list دلائل_2);
+  صحیح __cdecl sprintf(حرف *_Dest,ثابت حرف *_Format,...);
+  صحیح __cdecl vsprintf(حرف *_Dest,ثابت حرف *_Format,va_list دلائل_2);
+#اگر_غیر_تعریف_شدہ __NO_ISOCEXT  /* externs in libmingwex.a */
+  صحیح __cdecl snprintf(حرف* s, سائز_t n, ثابت حرف*  format, ...);
+  __CRT_INLINE صحیح __cdecl vsnprintf (حرف* s, سائز_t n, ثابت حرف* format,va_list arg) {
+    واپس _vsnprintf ( s, n, format, arg);
   }
-  int __cdecl vscanf(const char * Format, va_list argp);
-  int __cdecl vfscanf (FILE * fp, const char * Format,va_list argp);
-  int __cdecl vsscanf (const char * _Str,const char * Format,va_list argp);
-#endif
+  صحیح __cdecl vscanf(ثابت حرف * Format, va_list argp);
+  صحیح __cdecl vfscanf (FILE * fp, ثابت حرف * Format,va_list argp);
+  صحیح __cdecl vsscanf (ثابت حرف * _Str,ثابت حرف * Format,va_list argp);
+#اگر_ختم
 /* Restore may prior defined macros snprintf/vsnprintf.  */
-#pragma pop_macro("snprintf")
-#pragma pop_macro("vsnprintf")
+#ہدایت نکالو_macro("snprintf")
+#ہدایت نکالو_macro("vsnprintf")
 /* Check if vsnprintf and snprintf are defaulting to gnu-style.  */
-# if defined(USE_MINGW_GNU_SNPRINTF) && USE_MINGW_GNU_SNPRINTF
+# اگر defined(USE_MINGW_GNU_SNPRINTF) && USE_MINGW_GNU_SNPRINTF
 # ifndef vsnprint
 # define vsnprintf __mingw_vsnprintf
 # endif
@@ -275,155 +275,155 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 # define snprintf __mingw_snprintf
 # endif
 # endif
-  _CRTIMP int __cdecl _vscprintf(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _set_printf_count_output(int _Value);
-  _CRTIMP int __cdecl _get_printf_count_output(void);
+  _CRTIMP صحیح __cdecl _vscprintf(ثابت حرف *_Format,va_list _ArgList);
+  _CRTIMP صحیح __cdecl سیٹ_printf_گنتی_output(صحیح قدر_2);
+  _CRTIMP صحیح __cdecl get_printf_گنتی_output(خالی);
 
-#ifndef _WSTDIO_DEFINED
+#اگر_غیر_تعریف_شدہ _WSTDIO_DEFINED
 
-#ifndef WEOF
-#define WEOF (wint_t)(0xFFFF)
-#endif
+#اگر_غیر_تعریف_شدہ WEOF
+#تعریف_کرو WEOF (wint_t)(0xFFFF)
+#اگر_ختم
 
-#ifdef _POSIX_
-  _CRTIMP FILE *__cdecl _wfsopen(const wchar_t *_Filename,const wchar_t *_Mode);
-#else
-  _CRTIMP FILE *__cdecl _wfsopen(const wchar_t *_Filename,const wchar_t *_Mode,int _ShFlag);
-#endif
+#اگر_تعریف_شدہ _POSIX_
+  _CRTIMP FILE *__cdecl _wfsopen(ثابت wchar_t *_Filename,ثابت wchar_t *منوال_3);
+#ورنہ
+  _CRTIMP FILE *__cdecl _wfsopen(ثابت wchar_t *_Filename,ثابت wchar_t *منوال_3,صحیح _ShFlag);
+#اگر_ختم
   wint_t __cdecl fgetwc(FILE *_File);
-  _CRTIMP wint_t __cdecl _fgetwchar(void);
+  _CRTIMP wint_t __cdecl _fgetwchar(خالی);
   wint_t __cdecl fputwc(wchar_t _Ch,FILE *_File);
   _CRTIMP wint_t __cdecl _fputwchar(wchar_t _Ch);
   wint_t __cdecl getwc(FILE *_File);
-  wint_t __cdecl getwchar(void);
+  wint_t __cdecl getwchar(خالی);
   wint_t __cdecl putwc(wchar_t _Ch,FILE *_File);
   wint_t __cdecl putwchar(wchar_t _Ch);
   wint_t __cdecl ungetwc(wint_t _Ch,FILE *_File);
-  wchar_t *__cdecl fgetws(wchar_t *_Dst,int _SizeInWords,FILE *_File);
-  int __cdecl fputws(const wchar_t *_Str,FILE *_File);
+  wchar_t *__cdecl fgetws(wchar_t *_Dst,صحیح سائز_اندر_الفاظ,FILE *_File);
+  صحیح __cdecl fputws(ثابت wchar_t *_Str,FILE *_File);
   _CRTIMP wchar_t *__cdecl _getws(wchar_t *_String);
-  _CRTIMP int __cdecl _putws(const wchar_t *_Str);
-  int __cdecl fwprintf(FILE *_File,const wchar_t *_Format,...);
-  int __cdecl wprintf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _scwprintf(const wchar_t *_Format,...);
-  int __cdecl vfwprintf(FILE *_File,const wchar_t *_Format,va_list _ArgList);
-  int __cdecl vwprintf(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl swprintf(wchar_t*, const wchar_t*, ...);
-  _CRTIMP int __cdecl vswprintf(wchar_t*, const wchar_t*,va_list);
-  _CRTIMP int __cdecl _swprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _snwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vsnwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,va_list _Args);
-#ifndef __NO_ISOCEXT  /* externs in libmingwex.a */
-  int __cdecl snwprintf (wchar_t* s, size_t n, const wchar_t*  format, ...);
-  __CRT_INLINE int __cdecl vsnwprintf (wchar_t* s, size_t n, const wchar_t* format, va_list arg) { return _vsnwprintf(s,n,format,arg); }
-  int __cdecl vwscanf (const wchar_t *, va_list);
-  int __cdecl vfwscanf (FILE *,const wchar_t *,va_list);
-  int __cdecl vswscanf (const wchar_t *,const wchar_t *,va_list);
-#endif
-  _CRTIMP int __cdecl _swprintf(wchar_t *_Dest,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf(wchar_t *_Dest,const wchar_t *_Format,va_list _Args);
+  _CRTIMP صحیح __cdecl _putws(ثابت wchar_t *_Str);
+  صحیح __cdecl fwprintf(FILE *_File,ثابت wchar_t *_Format,...);
+  صحیح __cdecl wprintf(ثابت wchar_t *_Format,...);
+  _CRTIMP صحیح __cdecl _scwprintf(ثابت wchar_t *_Format,...);
+  صحیح __cdecl vfwprintf(FILE *_File,ثابت wchar_t *_Format,va_list _ArgList);
+  صحیح __cdecl vwprintf(ثابت wchar_t *_Format,va_list _ArgList);
+  _CRTIMP صحیح __cdecl swprintf(wchar_t*, ثابت wchar_t*, ...);
+  _CRTIMP صحیح __cdecl vswprintf(wchar_t*, ثابت wchar_t*,va_list);
+  _CRTIMP صحیح __cdecl _swprintf_c(wchar_t *_DstBuf,سائز_t سائز_اندر_الفاظ,ثابت wchar_t *_Format,...);
+  _CRTIMP صحیح __cdecl _vswprintf_c(wchar_t *_DstBuf,سائز_t سائز_اندر_الفاظ,ثابت wchar_t *_Format,va_list _ArgList);
+  _CRTIMP صحیح __cdecl _snwprintf(wchar_t *_Dest,سائز_t گنتی_5,ثابت wchar_t *_Format,...);
+  _CRTIMP صحیح __cdecl _vsnwprintf(wchar_t *_Dest,سائز_t گنتی_5,ثابت wchar_t *_Format,va_list دلائل_2);
+#اگر_غیر_تعریف_شدہ __NO_ISOCEXT  /* externs in libmingwex.a */
+  صحیح __cdecl snwprintf (wchar_t* s, سائز_t n, ثابت wchar_t*  format, ...);
+  __CRT_INLINE صحیح __cdecl vsnwprintf (wchar_t* s, سائز_t n, ثابت wchar_t* format, va_list arg) { واپس _vsnwprintf(s,n,format,arg); }
+  صحیح __cdecl vwscanf (ثابت wchar_t *, va_list);
+  صحیح __cdecl vfwscanf (FILE *,ثابت wchar_t *,va_list);
+  صحیح __cdecl vswscanf (ثابت wchar_t *,ثابت wchar_t *,va_list);
+#اگر_ختم
+  _CRTIMP صحیح __cdecl _swprintf(wchar_t *_Dest,ثابت wchar_t *_Format,...);
+  _CRTIMP صحیح __cdecl _vswprintf(wchar_t *_Dest,ثابت wchar_t *_Format,va_list دلائل_2);
 
-#ifndef RC_INVOKED
-#include <vadefs.h>
-#endif
+#اگر_غیر_تعریف_شدہ RC_INVOKED
+#شامل <vadefs.h>
+#اگر_ختم
 
-#ifdef _CRT_NON_CONFORMING_SWPRINTFS
-#ifndef __cplusplus
-#define swprintf _swprintf
-#define vswprintf _vswprintf
-#define _swprintf_l __swprintf_l
-#define _vswprintf_l __vswprintf_l
-#endif
-#endif
+#اگر_تعریف_شدہ _CRT_NON_CONFORMING_SWPRINTFS
+#اگر_غیر_تعریف_شدہ __cplusplus
+#تعریف_کرو swprintf _swprintf
+#تعریف_کرو vswprintf _vswprintf
+#تعریف_کرو _swprintf_l __swprintf_l
+#تعریف_کرو _vswprintf_l __vswprintf_l
+#اگر_ختم
+#اگر_ختم
 
-  _CRTIMP wchar_t *__cdecl _wtempnam(const wchar_t *_Directory,const wchar_t *_FilePrefix);
-  _CRTIMP int __cdecl _vscwprintf(const wchar_t *_Format,va_list _ArgList);
-  int __cdecl fwscanf(FILE *_File,const wchar_t *_Format,...);
-  int __cdecl swscanf(const wchar_t *_Src,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _snwscanf(const wchar_t *_Src,size_t _MaxCount,const wchar_t *_Format,...);
-  int __cdecl wscanf(const wchar_t *_Format,...);
-  _CRTIMP FILE *__cdecl _wfdopen(int _FileHandle ,const wchar_t *_Mode);
-  _CRTIMP FILE *__cdecl _wfopen(const wchar_t *_Filename,const wchar_t *_Mode);
-  _CRTIMP FILE *__cdecl _wfreopen(const wchar_t *_Filename,const wchar_t *_Mode,FILE *_OldFile);
-#ifndef _CRT_WPERROR_DEFINED
-#define _CRT_WPERROR_DEFINED
-  _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
-#endif
-  _CRTIMP FILE *__cdecl _wpopen(const wchar_t *_Command,const wchar_t *_Mode);
-#if !defined(NO_OLDNAMES) && !defined(wpopen)
-#define wpopen  _wpopen
-#endif
-  _CRTIMP int __cdecl _wremove(const wchar_t *_Filename);
-  _CRTIMP wchar_t *__cdecl _wtmpnam(wchar_t *_Buffer);
+  _CRTIMP wchar_t *__cdecl _wtempnam(ثابت wchar_t *_Directory,ثابت wchar_t *File_سابقہ);
+  _CRTIMP صحیح __cdecl _vscwprintf(ثابت wchar_t *_Format,va_list _ArgList);
+  صحیح __cdecl fwscanf(FILE *_File,ثابت wchar_t *_Format,...);
+  صحیح __cdecl swscanf(ثابت wchar_t *_Src,ثابت wchar_t *_Format,...);
+  _CRTIMP صحیح __cdecl _snwscanf(ثابت wchar_t *_Src,سائز_t Max_گنتی,ثابت wchar_t *_Format,...);
+  صحیح __cdecl wscanf(ثابت wchar_t *_Format,...);
+  _CRTIMP FILE *__cdecl _wfdopen(صحیح _FileHandle ,ثابت wchar_t *منوال_3);
+  _CRTIMP FILE *__cdecl _wfopen(ثابت wchar_t *_Filename,ثابت wchar_t *منوال_3);
+  _CRTIMP FILE *__cdecl _wfreopen(ثابت wchar_t *_Filename,ثابت wchar_t *منوال_3,FILE *_OldFile);
+#اگر_غیر_تعریف_شدہ _CRT_WPERROR_DEFINED
+#تعریف_کرو _CRT_WPERROR_DEFINED
+  _CRTIMP خالی __cdecl _wperror(ثابت wchar_t *Err_پیغام);
+#اگر_ختم
+  _CRTIMP FILE *__cdecl _wpopen(ثابت wchar_t *_Command,ثابت wchar_t *منوال_3);
+#اگر !defined(NO_OLDNAMES) && !defined(wpopen)
+#تعریف_کرو wpopen  _wpopen
+#اگر_ختم
+  _CRTIMP صحیح __cdecl _wremove(ثابت wchar_t *_Filename);
+  _CRTIMP wchar_t *__cdecl _wtmpnam(wchar_t *بفر_2);
   _CRTIMP wint_t __cdecl _fgetwc_nolock(FILE *_File);
   _CRTIMP wint_t __cdecl _fputwc_nolock(wchar_t _Ch,FILE *_File);
   _CRTIMP wint_t __cdecl _ungetwc_nolock(wint_t _Ch,FILE *_File);
 
-#undef _CRT_GETPUTWCHAR_NOINLINE
+#تعریف_منسوخ _CRT_GETPUTWCHAR_NOINLINE
 
-#if !defined(__cplusplus) || defined(_CRT_GETPUTWCHAR_NOINLINE)
-#define getwchar() fgetwc(stdin)
-#define putwchar(_c) fputwc((_c),stdout)
-#else
-  __CRT_INLINE wint_t __cdecl getwchar() { return (fgetwc(stdin)); }
-  __CRT_INLINE wint_t __cdecl putwchar(wchar_t _C) { return (fputwc(_C,stdout)); }
-#endif
+#اگر !defined(__cplusplus) || defined(_CRT_GETPUTWCHAR_NOINLINE)
+#تعریف_کرو getwchar() fgetwc(stdin)
+#تعریف_کرو putwchar(_c) fputwc((_c),stdout)
+#ورنہ
+  __CRT_INLINE wint_t __cdecl getwchar() { واپس (fgetwc(stdin)); }
+  __CRT_INLINE wint_t __cdecl putwchar(wchar_t _C) { واپس (fputwc(_C,stdout)); }
+#اگر_ختم
 
-#define getwc(_stm) fgetwc(_stm)
-#define putwc(_c,_stm) fputwc(_c,_stm)
-#define _putwc_nolock(_c,_stm) _fputwc_nolock(_c,_stm)
-#define _getwc_nolock(_stm) _fgetwc_nolock(_stm)
+#تعریف_کرو getwc(_stm) fgetwc(_stm)
+#تعریف_کرو putwc(_c,_stm) fputwc(_c,_stm)
+#تعریف_کرو _putwc_nolock(_c,_stm) _fputwc_nolock(_c,_stm)
+#تعریف_کرو _getwc_nolock(_stm) _fgetwc_nolock(_stm)
 
-#define _WSTDIO_DEFINED
-#endif
+#تعریف_کرو _WSTDIO_DEFINED
+#اگر_ختم
 
-#define _STDIO_DEFINED
-#endif
+#تعریف_کرو _STDIO_DEFINED
+#اگر_ختم
 
-#define _fgetc_nolock(_stream) (--(_stream)->_cnt >= 0 ? 0xff & *(_stream)->_ptr++ : _filbuf(_stream))
-#define _fputc_nolock(_c,_stream) (--(_stream)->_cnt >= 0 ? 0xff & (*(_stream)->_ptr++ = (char)(_c)) : _flsbuf((_c),(_stream)))
-#define _getc_nolock(_stream) _fgetc_nolock(_stream)
-#define _putc_nolock(_c,_stream) _fputc_nolock(_c,_stream)
-#define _getchar_nolock() _getc_nolock(stdin)
-#define _putchar_nolock(_c) _putc_nolock((_c),stdout)
-#define _getwchar_nolock() _getwc_nolock(stdin)
-#define _putwchar_nolock(_c) _putwc_nolock((_c),stdout)
+#تعریف_کرو _fgetc_nolock(دھارا_2) (--(دھارا_2)->_cnt >= 0 ? 0xff & *(دھارا_2)->_ptr++ : _filbuf(دھارا_2))
+#تعریف_کرو _fputc_nolock(_c,دھارا_2) (--(دھارا_2)->_cnt >= 0 ? 0xff & (*(دھارا_2)->_ptr++ = (حرف)(_c)) : _flsbuf((_c),(دھارا_2)))
+#تعریف_کرو _getc_nolock(دھارا_2) _fgetc_nolock(دھارا_2)
+#تعریف_کرو _putc_nolock(_c,دھارا_2) _fputc_nolock(_c,دھارا_2)
+#تعریف_کرو _getchar_nolock() _getc_nolock(stdin)
+#تعریف_کرو _putchar_nolock(_c) _putc_nolock((_c),stdout)
+#تعریف_کرو _getwchar_nolock() _getwc_nolock(stdin)
+#تعریف_کرو _putwchar_nolock(_c) _putwc_nolock((_c),stdout)
 
-  _CRTIMP void __cdecl _lock_file(FILE *_File);
-  _CRTIMP void __cdecl _unlock_file(FILE *_File);
-  _CRTIMP int __cdecl _fclose_nolock(FILE *_File);
-  _CRTIMP int __cdecl _fflush_nolock(FILE *_File);
-  _CRTIMP size_t __cdecl _fread_nolock(void *_DstBuf,size_t _ElementSize,size_t _Count,FILE *_File);
-  _CRTIMP int __cdecl _fseek_nolock(FILE *_File,long _Offset,int _Origin);
-  _CRTIMP long __cdecl _ftell_nolock(FILE *_File);
-  _CRTIMP int __cdecl _fseeki64_nolock(FILE *_File,__int64 _Offset,int _Origin);
+  _CRTIMP خالی __cdecl تالا_file(FILE *_File);
+  _CRTIMP خالی __cdecl _unlock_file(FILE *_File);
+  _CRTIMP صحیح __cdecl _fclose_nolock(FILE *_File);
+  _CRTIMP صحیح __cdecl _fflush_nolock(FILE *_File);
+  _CRTIMP سائز_t __cdecl _fread_nolock(خالی *_DstBuf,سائز_t Element_سائز,سائز_t گنتی_5,FILE *_File);
+  _CRTIMP صحیح __cdecl _fseek_nolock(FILE *_File,طویل انحراف_2,صحیح _Origin);
+  _CRTIMP طویل __cdecl _ftell_nolock(FILE *_File);
+  _CRTIMP صحیح __cdecl _fseeki64_nolock(FILE *_File,__int64 انحراف_2,صحیح _Origin);
   _CRTIMP __int64 __cdecl _ftelli64_nolock(FILE *_File);
-  _CRTIMP size_t __cdecl _fwrite_nolock(const void *_DstBuf,size_t _Size,size_t _Count,FILE *_File);
-  _CRTIMP int __cdecl _ungetc_nolock(int _Ch,FILE *_File);
+  _CRTIMP سائز_t __cdecl _fwrite_nolock(ثابت خالی *_DstBuf,سائز_t سائز_4,سائز_t گنتی_5,FILE *_File);
+  _CRTIMP صحیح __cdecl _ungetc_nolock(صحیح _Ch,FILE *_File);
 
-#if !defined(NO_OLDNAMES) || !defined(_POSIX)
-#define P_tmpdir _P_tmpdir
-#define SYS_OPEN _SYS_OPEN
+#اگر !defined(NO_OLDNAMES) || !defined(_POSIX)
+#تعریف_کرو P_tmpdir _P_tmpdir
+#تعریف_کرو SYS_OPEN _SYS_OPEN
 
-  char *__cdecl tempnam(const char *_Directory,const char *_FilePrefix);
-  int __cdecl fcloseall(void);
-  FILE *__cdecl fdopen(int _FileHandle,const char *_Format);
-  int __cdecl fgetchar(void);
-  int __cdecl fileno(FILE *_File);
-  int __cdecl flushall(void);
-  int __cdecl fputchar(int _Ch);
-  int __cdecl getw(FILE *_File);
-  int __cdecl putw(int _Ch,FILE *_File);
-  int __cdecl rmtmp(void);
-#endif
+  حرف *__cdecl tempnam(ثابت حرف *_Directory,ثابت حرف *File_سابقہ);
+  صحیح __cdecl fcloseall(خالی);
+  FILE *__cdecl fdopen(صحیح _FileHandle,ثابت حرف *_Format);
+  صحیح __cdecl fgetchar(خالی);
+  صحیح __cdecl fileno(FILE *_File);
+  صحیح __cdecl flushall(خالی);
+  صحیح __cdecl fputchar(صحیح _Ch);
+  صحیح __cdecl getw(FILE *_File);
+  صحیح __cdecl putw(صحیح _Ch,FILE *_File);
+  صحیح __cdecl rmtmp(خالی);
+#اگر_ختم
 
-#ifdef __cplusplus
+#اگر_تعریف_شدہ __cplusplus
 }
-#endif
+#اگر_ختم
 
-#pragma pack(pop)
+#ہدایت pack(نکالو)
 
-#include <sec_api/stdio_s.h>
+#شامل <sec_api/stdio_s.h>
 
-#endif
+#اگر_ختم

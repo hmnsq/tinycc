@@ -3,23 +3,23 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SEARCH_S
-#define _INC_SEARCH_S
+#اگر_غیر_تعریف_شدہ INC_تلاش_S
+#تعریف_کرو INC_تلاش_S
 
-#include <search.h>
+#شامل <search.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#اگر defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
-  _CRTIMP void *__cdecl _lfind_s(const void *_Key,const void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
-  _CRTIMP void *__cdecl _lsearch_s(const void *_Key,void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
+  _CRTIMP خالی *__cdecl _lfind_s(ثابت خالی *کلید_2,ثابت خالی *بنیاد_3,غیرعلامتی صحیح *عدد_کا_Elements,سائز_t سائز_کا_Elements,صحیح (__cdecl *_PtFuncCompare)(خالی *,ثابت خالی *,ثابت خالی *),خالی *_Context);
+  _CRTIMP خالی *__cdecl _lsearch_s(ثابت خالی *کلید_2,خالی *بنیاد_3,غیرعلامتی صحیح *عدد_کا_Elements,سائز_t سائز_کا_Elements,صحیح (__cdecl *_PtFuncCompare)(خالی *,ثابت خالی *,ثابت خالی *),خالی *_Context);
 
-#ifdef __cplusplus
+#اگر_تعریف_شدہ __cplusplus
 }
-#endif
+#اگر_ختم
 
-#endif
-#endif
+#اگر_ختم
+#اگر_ختم

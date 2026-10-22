@@ -5,12 +5,12 @@
    itself needs this function */
 
 /* ------------------------------------------------------------- */
-#if defined __arm__
+#اگر defined __arm__
 
-#ifdef __TINYC__
+#اگر_تعریف_شدہ __TINYC__
 
 /* syscall wrapper */
-unsigned _tccsyscall(unsigned syscall_nr, ...);
+غیرعلامتی _tccsyscall(غیرعلامتی syscall_nr, ...);
 
 /* arm-tcc supports only fake asm currently */
 __asm__(
@@ -26,45 +26,45 @@ __asm__(
     );
 
 /* from unistd.h: */
-#if defined(__thumb__) || defined(__ARM_EABI__)
+#اگر defined(__thumb__) || defined(__ARM_EABI__)
 # define __NR_SYSCALL_BASE      0x0
-#else
+#ورنہ
 # define __NR_SYSCALL_BASE      0x900000
-#endif
-#define __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
-#define __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
+#اگر_ختم
+#تعریف_کرو __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
+#تعریف_کرو __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
 
-#define syscall _tccsyscall
+#تعریف_کرو syscall _tccsyscall
 
-#else
+#ورنہ
 
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <stdio.h>
+#تعریف_کرو GNU_ماخذ
+#شامل <unistd.h>
+#شامل <sys/syscall.h>
+#شامل <stdio.h>
 
-#endif
+#اگر_ختم
 
 /* Flushing for tccrun */
-void __clear_cache(void *beginning, void *end)
+خالی __clear_cache(خالی *beginning, خالی *انتہا)
 {
 /* __ARM_NR_cacheflush is kernel private and should not be used in user space.
  * However, there is no ARM asm parser in tcc so we use it for now */
-    syscall(__ARM_NR_cacheflush, beginning, end, 0);
+    syscall(__ARM_NR_cacheflush, beginning, انتہا, 0);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __aarch64__
-void __clear_cache(void *beg, void *end)
+#وگرنہ_اگر defined __aarch64__
+خالی __clear_cache(خالی *beg, خالی *انتہا)
 {
-    __arm64_clear_cache(beg, end);
+    __arm64_clear_cache(beg, انتہا);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __riscv
-void __clear_cache(void *beg, void *end)
+#وگرنہ_اگر defined __riscv
+خالی __clear_cache(خالی *beg, خالی *انتہا)
 {
-    __riscv64_clear_cache(beg, end);
+    __riscv64_clear_cache(beg, انتہا);
 }
 
-#endif
+#اگر_ختم

@@ -1,80 +1,80 @@
 /* Check some way in where code suppression caused various
    miscompilations.  */
-extern int printf (const char *, ...);
-typedef __SIZE_TYPE__ size_t;
+خارجی صحیح لکھو (ثابت حرف *, ...);
+قسمتعریف __SIZE_TYPE__ سائز_t;
 
-size_t _brk_start, _brk_end;
-void * extend_brk(size_t size, size_t align)
+سائز_t brk_آغاز, brk_انتہا;
+خالی * extend_brk(سائز_t سائز, سائز_t align)
 {
-    size_t mask = align - 1;
-    void *ret = 0;
+    سائز_t نقاب = align - 1;
+    خالی *ret = 0;
 
-     do {
-	 if (__builtin_expect(!!(_brk_start == 0), 0))
-	   do {
-	       printf("wrong1\n");
-	   } while (0);
-     } while (0);
-     _brk_end = (_brk_end + mask) & ~mask;
-     ret = (void *)_brk_end;
-     _brk_end += size;
+     کرو {
+	 اگر (__builtin_expect(!!(brk_آغاز == 0), 0))
+	   کرو {
+	       لکھو("wrong1\n");
+	   } جب (0);
+     } جب (0);
+     brk_انتہا = (brk_انتہا + نقاب) & ~نقاب;
+     ret = (خالی *)brk_انتہا;
+     brk_انتہا += سائز;
 
-     return ret;
+     واپس ret;
 }
 
-static void get_args (int a, int b)
+ساکن خالی get_دلائل (صحیح a, صحیح b)
 {
-  if (a != 1)
-    printf("wrong2\n");
-  else
-    printf("okay\n");
+  اگر (a != 1)
+    لکھو("wrong2\n");
+  ورنہ
+    لکھو("okay\n");
 }
 
-void bla(void)
+خالی bla(خالی)
 {
-  int __ret = 42;
+  صحیح __ret = 42;
   ({
-    if (__builtin_expect(!!(0), 0)) {
-      if (__builtin_expect(!!__ret, 0))
-        printf("wrong3\n");
-      int x = !!(__ret);
+    اگر (__builtin_expect(!!(0), 0)) {
+      اگر (__builtin_expect(!!__ret, 0))
+        لکھو("wrong3\n");
+      صحیح x = !!(__ret);
     }
     __ret;
   });
-  get_args(!!__ret, sizeof(__ret));
+  get_دلائل(!!__ret, حجم(__ret));
 }
 
-int ext;
+صحیح ext;
 
-void broken_jumpopt (int xxx)
+خالی broken_jumpopt (صحیح xxx)
 {
   /* This was broken in 8227db3a2 by code suppression during suppressed
      code :) */
   ext = (xxx || 1) || ((xxx && 1) || 1);
-  printf("okay: %d %d\n", xxx, ext);
+  لکھو("okay: %d %d\n", xxx, ext);
 }
 
-_Bool chk(unsigned long addr, unsigned long limit, unsigned long size)
+_Bool chk(غیرعلامتی طویل addr, غیرعلامتی طویل حد_بندی, غیرعلامتی طویل سائز)
 {
   _Bool ret;
   /* This just needs to compile, no runtime test.  (And it doesn't compile
      only with certain internal checking added that's not committed).  */
-  if (0)
-    ret = 0 != (!!(addr > limit - size));
-  return 0;
+  اگر (0)
+    ret = 0 != (!!(addr > حد_بندی - سائز));
+  واپس 0;
 }
 
-int main()
+صحیح مین()
 {
-  void *r;
-  _brk_start = 1024;
-  _brk_end = 1024;
+  خالی *r;
+  brk_آغاز = 1024;
+  brk_انتہا = 1024;
   r = extend_brk (4096, 16);
-  if (!r)
-    printf("wrong4\n");
-  else
-    printf("okay\n");
+  اگر (!r)
+    لکھو("wrong4\n");
+  ورنہ
+    لکھو("okay\n");
   bla();
   broken_jumpopt(42);
-  return 0;
+  واپس 0;
 }

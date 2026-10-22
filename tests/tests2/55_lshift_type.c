@@ -7,46 +7,46 @@ each of the operands. The type of the result is that of the promoted
 left operand."
 */
 
-#include <stdio.h>
+#شامل <stdio.h>
 
-#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (int) sizeof((M)+0)
-#define CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
-#define TEST1(X,T) do { CHECK(X,T); CHECK(X,unsigned T); } while (0)
-#define TEST2(X)                 \
-  do                             \
+#تعریف_کرو PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (صحیح) حجم((M)+0)
+#تعریف_کرو CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
+#تعریف_کرو TEST1(X,T) کرو { CHECK(X,T); CHECK(X,غیرعلامتی T); } جب (0)
+#تعریف_کرو TEST2(X)                 \
+  کرو                             \
     {                            \
-      TEST1((X),short);          \
-      TEST1((X),int);            \
-      TEST1((X),long);           \
-      TEST1((X),long long);      \
+      TEST1((X),مختصر);          \
+      TEST1((X),صحیح);            \
+      TEST1((X),طویل);           \
+      TEST1((X),طویل طویل);      \
     }                            \
-  while (0)
-#define TEST3(X,T) do { TEST2((T)(X)); TEST2((unsigned T)(X)); } while (0)
-#define TEST4(X)                 \
-  do                             \
+  جب (0)
+#تعریف_کرو TEST3(X,T) کرو { TEST2((T)(X)); TEST2((غیرعلامتی T)(X)); } جب (0)
+#تعریف_کرو TEST4(X)                 \
+  کرو                             \
     {                            \
-      TEST3((X),short);          \
-      TEST3((X),int);            \
-      TEST3((X),long);           \
-      TEST3((X),long long);      \
+      TEST3((X),مختصر);          \
+      TEST3((X),صحیح);            \
+      TEST3((X),طویل);           \
+      TEST3((X),طویل طویل);      \
     }                            \
- while (0)
+ جب (0)
 
-static int debug, nfailed = 0;
+ساکن صحیح debug, nfailed = 0;
 
-static void check (const char *s, int arg1, int shift)
+ساکن خالی check (ثابت حرف *s, صحیح arg1, صحیح سرکاؤ)
 {
-  int failed = arg1 != shift;
-  if (debug || failed)
-    printf ("%s %d %d\n", s, arg1, shift);
+  صحیح failed = arg1 != سرکاؤ;
+  اگر (debug || failed)
+    لکھو ("%s %d %d\n", s, arg1, سرکاؤ);
   nfailed += failed;
 }
 
-int main (int argc, char **argv)
+صحیح مین (صحیح argc, حرف **argv)
 {
   debug = argc > 1;
   TEST4(1);
   TEST4(-1);
-  printf ("%d test(s) failed\n", nfailed);
-  return nfailed != 0;
+  لکھو ("%d test(s) failed\n", nfailed);
+  واپس nfailed != 0;
 }

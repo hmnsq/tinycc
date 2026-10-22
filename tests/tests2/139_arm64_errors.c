@@ -2,90 +2,90 @@
    Verify that invalid assembly produces proper error messages.
    Run with -dt; skipped on non-arm64 architectures. */
 
-#include <stdio.h>
+#شامل <stdio.h>
 
-#if defined test_unknown_instruction
-int main(void)
+#اگر defined test_unknown_instruction
+صحیح مین(خالی)
 {
     __asm__("fubar x0, x1, x2");
-    return 0;
+    واپس 0;
 }
 
-#elif defined test_shift_imm_range_32
-int main(void)
+#وگرنہ_اگر defined test_سرکاؤ_imm_range_32
+صحیح مین(خالی)
 {
     /* LSL by 32 is out of range for 32-bit operand */
     __asm__("lsl w0, w1, #32");
-    return 0;
+    واپس 0;
 }
 
-#elif defined test_shift_imm_range_64
-int main(void)
+#وگرنہ_اگر defined test_سرکاؤ_imm_range_64
+صحیح مین(خالی)
 {
     /* LSL by 64 is out of range for 64-bit operand */
     __asm__("lsl x0, x1, #64");
-    return 0;
+    واپس 0;
 }
 
-#elif defined test_invalid_sysreg
-int main(void)
+#وگرنہ_اگر defined test_invalid_sysreg
+صحیح مین(خالی)
 {
     /* Bogus system register name */
     __asm__("mrs x0, bogusreg");
-    return 0;
+    واپس 0;
 }
 
-#elif defined test_invalid_barrier_option
-int main(void)
+#وگرنہ_اگر defined test_invalid_barrier_option
+صحیح مین(خالی)
 {
     /* Invalid barrier scope name */
     __asm__("dmb xyz");
-    return 0;
+    واپس 0;
 }
 
-#elif defined test_missing_third_operand
-int main(void)
+#وگرنہ_اگر defined test_missing_تیسرا_عملیہ
+صحیح مین(خالی)
 {
     __asm__("add x0, x1");
-    return 0;
+    واپس 0;
 }
 
-#elif defined test_movz_imm_range
-int main(void)
+#وگرنہ_اگر defined test_movz_imm_range
+صحیح مین(خالی)
 {
     __asm__("movz x0, #0x10000");
-    return 0;
+    واپس 0;
 }
 
-#elif defined test_movz_shift_range
-int main(void)
+#وگرنہ_اگر defined test_movz_سرکاؤ_range
+صحیح مین(خالی)
 {
     __asm__("movz x0, #1, lsl #8");
-    return 0;
+    واپس 0;
 }
 
-#elif defined test_invalid_muls
-int main(void)
+#وگرنہ_اگر defined test_invalid_muls
+صحیح مین(خالی)
 {
     __asm__("muls x0, x1, x2");
-    return 0;
+    واپس 0;
 }
 
-#elif defined test_extended_inline_asm
-int main(void)
+#وگرنہ_اگر defined test_extended_inline_asm
+صحیح مین(خالی)
 {
-    int x = 1;
+    صحیح x = 1;
     /* Invalid operand reference in extended inline asm */
     __asm__("add %0, %1, #1" : "=r"(x) : "2"(x));
-    return 0;
+    واپس 0;
 }
 
-#elif defined test_extended_inline_clobber
-int main(void)
+#وگرنہ_اگر defined test_extended_inline_clobber
+صحیح مین(خالی)
 {
     /* Invalid clobber register name */
-    __asm__ volatile ("nop" : : : "bogus");
-    return 0;
+    __asm__ متلون ("nop" : : : "bogus");
+    واپس 0;
 }
 
-#endif
+#اگر_ختم

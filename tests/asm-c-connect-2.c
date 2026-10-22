@@ -1,48 +1,48 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#اگر (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#ورنہ
 # define _
-#endif
+#اگر_ختم
 
-#ifdef __clang__
+#اگر_تعریف_شدہ __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
-#define __USED __attribute__((__used__))
-#else
-#define __USED
-#endif
+#تعریف_کرو __USED __attribute__((__used__))
+#ورنہ
+#تعریف_کرو __USED
+#اگر_ختم
 
-int x3(void)
+صحیح x3(خالی)
 {
-    printf(" x3");
-    return 3;
+    لکھو(" x3");
+    واپس 3;
 }
 
 /* That callx4 is defined globally (as if ".globl callx4")
    is a TCC extension.  GCC doesn't behave like this.  */
-void callx4(void);
-#if __i386__
+خالی callx4(خالی);
+#اگر __i386__
 __asm__(_"callx4: call "_"x4; ret;"
-#else
+#ورنہ
 /* Keep stack aligned */
 __asm__(_"callx4: sub $8,%rsp; call "_"x4; add $8,%rsp; ret;"
-#endif
-#ifndef __TINYC__
+#اگر_ختم
+#اگر_غیر_تعریف_شدہ __TINYC__
     " .global "_"callx4"
-#endif
+#اگر_ختم
 );
 
-extern void x5(void);
+خارجی خالی x5(خالی);
 
-void callx5_again(void);
-void callx5_again(void)
+خالی callx5_again(خالی);
+خالی callx5_again(خالی)
 {
     x5();
     asm("call "_"x6");
 }
 
-static void __USED x6()
+ساکن خالی __USED x6()
 {
-    printf(" x6-2");
+    لکھو(" x6-2");
 }

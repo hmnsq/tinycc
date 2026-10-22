@@ -3,31 +3,31 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_IO_S
-#define _INC_IO_S
+#اگر_غیر_تعریف_شدہ _INC_IO_S
+#تعریف_کرو _INC_IO_S
 
-#include <io.h>
+#شامل <io.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#اگر defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
-  _CRTIMP errno_t __cdecl _access_s(const char *_Filename,int _AccessMode);
-  _CRTIMP errno_t __cdecl _chsize_s(int _FileHandle,__int64 _Size);
-  _CRTIMP errno_t __cdecl _mktemp_s(char *_TemplateName,size_t _Size);
-  _CRTIMP errno_t __cdecl _umask_s(int _NewMode,int *_OldMode);
+  _CRTIMP errno_t __cdecl _access_s(ثابت حرف *_Filename,صحیح Access_منوال);
+  _CRTIMP errno_t __cdecl _chsize_s(صحیح _FileHandle,__int64 سائز_4);
+  _CRTIMP errno_t __cdecl _mktemp_s(حرف *_TemplateName,سائز_t سائز_4);
+  _CRTIMP errno_t __cdecl _umask_s(صحیح New_منوال,صحیح *Old_منوال);
 
-#ifndef _WIO_S_DEFINED
-#define _WIO_S_DEFINED
-  _CRTIMP errno_t __cdecl _waccess_s(const wchar_t *_Filename,int _AccessMode);
-  _CRTIMP errno_t __cdecl _wmktemp_s(wchar_t *_TemplateName,size_t _SizeInWords);
-#endif
+#اگر_غیر_تعریف_شدہ _WIO_S_DEFINED
+#تعریف_کرو _WIO_S_DEFINED
+  _CRTIMP errno_t __cdecl _waccess_s(ثابت wchar_t *_Filename,صحیح Access_منوال);
+  _CRTIMP errno_t __cdecl _wmktemp_s(wchar_t *_TemplateName,سائز_t سائز_اندر_الفاظ);
+#اگر_ختم
 
-#ifdef __cplusplus
+#اگر_تعریف_شدہ __cplusplus
 }
-#endif
+#اگر_ختم
 
-#endif
-#endif
+#اگر_ختم
+#اگر_ختم

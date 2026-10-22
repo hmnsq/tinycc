@@ -3,50 +3,50 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#include <_mingw.h>
+#شامل <_mingw.h>
 
-#include <io.h>
+#شامل <io.h>
 
-#ifndef _INC_FCNTL
-#define _INC_FCNTL
+#اگر_غیر_تعریف_شدہ _INC_FCNTL
+#تعریف_کرو _INC_FCNTL
 
-#define _O_RDONLY 0x0000
-#define _O_WRONLY 0x0001
-#define _O_RDWR 0x0002
-#define _O_APPEND 0x0008
-#define _O_CREAT 0x0100
-#define _O_TRUNC 0x0200
-#define _O_EXCL 0x0400
-#define _O_TEXT 0x4000
-#define _O_BINARY 0x8000
-#define _O_WTEXT 0x10000
-#define _O_U16TEXT 0x20000
-#define _O_U8TEXT 0x40000
-#define _O_ACCMODE (_O_RDONLY|_O_WRONLY|_O_RDWR)
+#تعریف_کرو _O_RDONLY 0x0000
+#تعریف_کرو _O_WRONLY 0x0001
+#تعریف_کرو _O_RDWR 0x0002
+#تعریف_کرو _O_APPEND 0x0008
+#تعریف_کرو _O_CREAT 0x0100
+#تعریف_کرو _O_TRUNC 0x0200
+#تعریف_کرو _O_EXCL 0x0400
+#تعریف_کرو O_متن 0x4000
+#تعریف_کرو O_ثنائی 0x8000
+#تعریف_کرو _O_WTEXT 0x10000
+#تعریف_کرو O_U16_متن 0x20000
+#تعریف_کرو O_U8_متن 0x40000
+#تعریف_کرو _O_ACCMODE (_O_RDONLY|_O_WRONLY|_O_RDWR)
 
-#define _O_RAW _O_BINARY
-#define _O_NOINHERIT 0x0080
-#define _O_TEMPORARY 0x0040
-#define _O_SHORT_LIVED 0x1000
+#تعریف_کرو _O_RAW O_ثنائی
+#تعریف_کرو _O_NOINHERIT 0x0080
+#تعریف_کرو _O_TEMPORARY 0x0040
+#تعریف_کرو _O_SHORT_LIVED 0x1000
 
-#define _O_SEQUENTIAL 0x0020
-#define _O_RANDOM 0x0010
+#تعریف_کرو _O_SEQUENTIAL 0x0020
+#تعریف_کرو _O_RANDOM 0x0010
 
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-#define O_RDONLY _O_RDONLY
-#define O_WRONLY _O_WRONLY
-#define O_RDWR _O_RDWR
-#define O_APPEND _O_APPEND
-#define O_CREAT _O_CREAT
-#define O_TRUNC _O_TRUNC
-#define O_EXCL _O_EXCL
-#define O_TEXT _O_TEXT
-#define O_BINARY _O_BINARY
-#define O_RAW _O_BINARY
-#define O_TEMPORARY _O_TEMPORARY
-#define O_NOINHERIT _O_NOINHERIT
-#define O_SEQUENTIAL _O_SEQUENTIAL
-#define O_RANDOM _O_RANDOM
-#define O_ACCMODE _O_ACCMODE
-#endif
-#endif
+#اگر !defined(NO_OLDNAMES) || defined(_POSIX)
+#تعریف_کرو O_RDONLY _O_RDONLY
+#تعریف_کرو O_WRONLY _O_WRONLY
+#تعریف_کرو O_RDWR _O_RDWR
+#تعریف_کرو O_APPEND _O_APPEND
+#تعریف_کرو O_CREAT _O_CREAT
+#تعریف_کرو O_TRUNC _O_TRUNC
+#تعریف_کرو O_EXCL _O_EXCL
+#تعریف_کرو O_متن_2 O_متن
+#تعریف_کرو O_ثنائی_2 O_ثنائی
+#تعریف_کرو O_RAW O_ثنائی
+#تعریف_کرو O_TEMPORARY _O_TEMPORARY
+#تعریف_کرو O_NOINHERIT _O_NOINHERIT
+#تعریف_کرو O_SEQUENTIAL _O_SEQUENTIAL
+#تعریف_کرو O_RANDOM _O_RANDOM
+#تعریف_کرو O_ACCMODE _O_ACCMODE
+#اگر_ختم
+#اگر_ختم

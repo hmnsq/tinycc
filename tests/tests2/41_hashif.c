@@ -1,85 +1,85 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح مین()
 {
-   printf("#include test\n");
+   لکھو("#include test\n");
 
-#if 1
-#if 0
-   printf("a\n");
-#else
-   printf("b\n");
-#endif
-#else
-#if 0
-   printf("c\n");
-#else
-   printf("d\n");
-#endif
-#endif
+#اگر 1
+#اگر 0
+   لکھو("a\n");
+#ورنہ
+   لکھو("b\n");
+#اگر_ختم
+#ورنہ
+#اگر 0
+   لکھو("c\n");
+#ورنہ
+   لکھو("d\n");
+#اگر_ختم
+#اگر_ختم
 
-#if 0
-#if 1
-   printf("e\n");
-#else
-   printf("f\n");
-#endif
-#else
-#if 1
-   printf("g\n");
-#else
-   printf("h\n");
-#endif
-#endif
+#اگر 0
+#اگر 1
+   لکھو("e\n");
+#ورنہ
+   لکھو("f\n");
+#اگر_ختم
+#ورنہ
+#اگر 1
+   لکھو("g\n");
+#ورنہ
+   لکھو("h\n");
+#اگر_ختم
+#اگر_ختم
 
-#define DEF
+#تعریف_کرو DEF
 
-#ifdef DEF
-#ifdef DEF
-   printf("i\n");
-#else
-   printf("j\n");
-#endif
-#else
-#ifdef DEF
-   printf("k\n");
-#else
-   printf("l\n");
-#endif
-#endif
+#اگر_تعریف_شدہ DEF
+#اگر_تعریف_شدہ DEF
+   لکھو("i\n");
+#ورنہ
+   لکھو("j\n");
+#اگر_ختم
+#ورنہ
+#اگر_تعریف_شدہ DEF
+   لکھو("k\n");
+#ورنہ
+   لکھو("l\n");
+#اگر_ختم
+#اگر_ختم
 
-#ifndef DEF
-#ifndef DEF
-   printf("m\n");
-#else
-   printf("n\n");
-#endif
-#else
-#ifndef DEF
-   printf("o\n");
-#else
-   printf("p\n");
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ DEF
+#اگر_غیر_تعریف_شدہ DEF
+   لکھو("m\n");
+#ورنہ
+   لکھو("n\n");
+#اگر_ختم
+#ورنہ
+#اگر_غیر_تعریف_شدہ DEF
+   لکھو("o\n");
+#ورنہ
+   لکھو("p\n");
+#اگر_ختم
+#اگر_ختم
 
-#define ONE 1
-#define ZERO 0
+#تعریف_کرو ONE 1
+#تعریف_کرو ZERO 0
 
-#if ONE
-#if ZERO
-   printf("q\n");
-#else
-   printf("r\n");
-#endif
-#else
-#if ZERO
-   printf("s\n");
-#else
-   printf("t\n");
-#endif
-#endif
+#اگر ONE
+#اگر ZERO
+   لکھو("q\n");
+#ورنہ
+   لکھو("r\n");
+#اگر_ختم
+#ورنہ
+#اگر ZERO
+   لکھو("s\n");
+#ورنہ
+   لکھو("t\n");
+#اگر_ختم
+#اگر_ختم
 
-   return 0;
+   واپس 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,5 +1,5 @@
-printf("included\n");
+لکھو("included\n");
 /* test file with missing newline */
-#ifndef INCLUDE
-#define INCLUDE
-#endif /* INCLUDE */
+#اگر_غیر_تعریف_شدہ INCLUDE
+#تعریف_کرو INCLUDE
+#اگر_ختم /* INCLUDE */

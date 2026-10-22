@@ -1,155 +1,155 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <semaphore.h>
-#include <signal.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <setjmp.h>
+#شامل <stdio.h>
+#شامل <pthread.h>
+#شامل <semaphore.h>
+#شامل <signal.h>
+#شامل <string.h>
+#شامل <sys/types.h>
+#شامل <sys/wait.h>
+#شامل <sys/time.h>
+#شامل <unistd.h>
+#شامل <stdlib.h>
+#شامل <errno.h>
+#شامل <setjmp.h>
 
-static volatile int run = 1;
-static sem_t sem;
-static sem_t sem_child;
+ساکن متلون صحیح تسلسل = 1;
+ساکن sem_t sem;
+ساکن sem_t sem_بچہ;
 
-static void
-add (int n)
+ساکن خالی
+جوڑو (صحیح n)
 {
-    int i;
-    int arr[n];
+    صحیح i;
+    صحیح arr[n];
 
-    for (i = 0; i < n; i++) {
+    برائے (i = 0; i < n; i++) {
         arr[i]++;
     }
-    memset (&arr[0], 0, n * sizeof(int));
+    memset (&arr[0], 0, n * حجم(صحیح));
 }
 
-static void *
-high_load (void *unused)
+ساکن خالی *
+بلند_بھرو (خالی *غیر_مستعمل)
 {
-    while (run) {
-        add(10);
-        add(20);
+    جب (تسلسل) {
+        جوڑو(10);
+        جوڑو(20);
     }
-    return NULL;
+    واپس تہی;
 }
 
-static void *
-do_signal (void *unused)
+ساکن خالی *
+do_signal (خالی *غیر_مستعمل)
 {
-    while (run) {
+    جب (تسلسل) {
         kill (getpid(), SIGUSR1);
-        while (sem_wait(&sem) < 0 && errno == EINTR);
+        جب (sem_wait(&sem) < 0 && errno == EINTR);
     }
-    return NULL;
+    واپس تہی;
 }
 
-static void *
-do_fork (void *unused)
+ساکن خالی *
+do_fork (خالی *غیر_مستعمل)
 {
     pid_t pid;
 
-    while (run) {
-        switch ((pid = fork())) {
-        case 0:
-            add(1000);
-            add(2000);
-            exit(0);
-            break;
-        case -1:
-            return NULL;
-        default:
-            while (sem_wait(&sem_child) < 0 && errno == EINTR);
-            wait(NULL);
-            break;
+    جب (تسلسل) {
+        انتخاب ((pid = fork())) {
+        حالت 0:
+            جوڑو(1000);
+            جوڑو(2000);
+            باہر_نکلو(0);
+            توڑو;
+        حالت -1:
+            واپس تہی;
+        طےشدہ:
+            جب (sem_wait(&sem_بچہ) < 0 && errno == EINTR);
+            wait(تہی);
+            توڑو;
         }
     }
-    return NULL;
+    واپس تہی;
 }
 
-static void signal_handler(int sig)
+ساکن خالی signal_handler(صحیح sig)
 {
-    add(10);
-    add(20);
+    جوڑو(10);
+    جوڑو(20);
     sem_post (&sem);
 }
 
-static void child_handler(int sig)
+ساکن خالی بچہ_handler(صحیح sig)
 {
-    add(10);
-    add(20);
-    sem_post (&sem_child);
+    جوڑو(10);
+    جوڑو(20);
+    sem_post (&sem_بچہ);
 }
 
-static unsigned getclock_ms(void)
+ساکن غیرعلامتی getclock_ms(خالی)
 {
-#ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
-#endif
+#اگر_تعریف_شدہ _WIN32
+    واپس Get_Tick_گنتی();
+#ورنہ
+    ساخت timeval tv;
+    gettimeofday(&tv, تہی);
+    واپس tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+#اگر_ختم
 }
 
-int
-main (void)
+صحیح
+مین (خالی)
 {
-    int i;
+    صحیح i;
     pthread_t id1, id2, id3;
-    struct sigaction act;
+    ساخت sigaction act;
     sigjmp_buf sj;
     sigset_t m;
-    time_t end;
+    time_t انتہا;
 
-    memset (&act, 0, sizeof (act));
+    memset (&act, 0, حجم (act));
     act.sa_handler = signal_handler;
     act.sa_flags = 0;
     sigemptyset (&act.sa_mask);
-    sigaction (SIGUSR1, &act, NULL);
-    act.sa_handler = child_handler;
-    sigaction (SIGCHLD, &act, NULL);
+    sigaction (SIGUSR1, &act, تہی);
+    act.sa_handler = بچہ_handler;
+    sigaction (SIGCHLD, &act, تہی);
 
-    printf ("start\n"); fflush(stdout);
+    لکھو ("start\n"); fflush(stdout);
 
     sem_init (&sem, 0, 0);
-    sem_init (&sem_child, 0, 0);
-    pthread_create(&id1, NULL, high_load, NULL);
-    pthread_create(&id2, NULL, do_signal, NULL);
-#if !defined(__APPLE__)
-    pthread_create(&id3, NULL, do_fork, NULL);
-#endif
+    sem_init (&sem_بچہ, 0, 0);
+    pthread_create(&id1, تہی, بلند_بھرو, تہی);
+    pthread_create(&id2, تہی, do_signal, تہی);
+#اگر !defined(__APPLE__)
+    pthread_create(&id3, تہی, do_fork, تہی);
+#اگر_ختم
 
     /* sleep does not work !!! */
-    end = getclock_ms() + 200;
-    while (getclock_ms() < end) ;
-    run = 0;
+    انتہا = getclock_ms() + 200;
+    جب (getclock_ms() < انتہا) ;
+    تسلسل = 0;
 
-    pthread_join(id1, NULL);
-    pthread_join(id2, NULL);
-#if !defined(__APPLE__)
-    pthread_join(id3, NULL);
-#endif
+    pthread_join(id1, تہی);
+    pthread_join(id2, تہی);
+#اگر !defined(__APPLE__)
+    pthread_join(id3, تہی);
+#اگر_ختم
     sem_destroy (&sem);
-    sem_destroy (&sem_child);
+    sem_destroy (&sem_بچہ);
 
-    printf ("end\n"); fflush(stdout);
+    لکھو ("end\n"); fflush(stdout);
 
     sigemptyset (&m);
-    sigprocmask (SIG_SETMASK, &m, NULL);
-    if (sigsetjmp (sj, 0) == 0)
+    sigprocmask (SIG_SETMASK, &m, تہی);
+    اگر (sigsetjmp (sj, 0) == 0)
     {
         sigaddset (&m, SIGUSR1);
-        sigprocmask (SIG_SETMASK, &m, NULL);
+        sigprocmask (SIG_SETMASK, &m, تہی);
         siglongjmp (sj, 1);
-        printf ("failed");
-        return 1;
+        لکھو ("failed");
+        واپس 1;
     }
-    sigprocmask (SIG_SETMASK, NULL, &m);
-    if (!sigismember (&m, SIGUSR1))
-        printf ("failed");
-    return 0;
+    sigprocmask (SIG_SETMASK, تہی, &m);
+    اگر (!sigismember (&m, SIGUSR1))
+        لکھو ("failed");
+    واپس 0;
 }

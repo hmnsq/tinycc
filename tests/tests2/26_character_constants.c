@@ -1,17 +1,17 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح مین()
 {
-   printf("%d\n", '\1');
-   printf("%d\n", '\10');
-   printf("%d\n", '\100');
-   printf("%d\n", '\x01');
-   printf("%d\n", '\x0e');
-   printf("%d\n", '\x10');
-   printf("%d\n", '\x40');
-   printf("test \x40\n");
+   لکھو("%d\n", '\1');
+   لکھو("%d\n", '\10');
+   لکھو("%d\n", '\100');
+   لکھو("%d\n", '\x01');
+   لکھو("%d\n", '\x0e');
+   لکھو("%d\n", '\x10');
+   لکھو("%d\n", '\x40');
+   لکھو("test \x40\n");
 
-   return 0;
+   واپس 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

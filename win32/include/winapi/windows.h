@@ -3,125 +3,125 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINDOWS_
-#define _WINDOWS_
+#اگر_غیر_تعریف_شدہ _WINDOWS_
+#تعریف_کرو _WINDOWS_
 
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN 1
-#endif
+#اگر_غیر_تعریف_شدہ WIN32_LEAN_AND_اوسط
+#تعریف_کرو WIN32_LEAN_AND_اوسط 1
+#اگر_ختم
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#اگر_غیر_تعریف_شدہ WINVER
+#تعریف_کرو WINVER 0x0502
+#اگر_ختم
 
-#include <_mingw.h>
+#شامل <_mingw.h>
 
-#ifndef _INC_WINDOWS
-#define _INC_WINDOWS
+#اگر_غیر_تعریف_شدہ _INC_WINDOWS
+#تعریف_کرو _INC_WINDOWS
 
-#if defined(RC_INVOKED) && !defined(NOWINRES)
+#اگر defined(RC_INVOKED) && !defined(NOWINRES)
 
-#include <winresrc.h>
-#else
+#شامل <winresrc.h>
+#ورنہ
 
-#ifdef RC_INVOKED
-#define NOATOM
-#define NOGDI
-#define NOGDICAPMASKS
-#define NOMETAFILE
-#define NOMINMAX
-#define NOMSG
-#define NOOPENFILE
-#define NORASTEROPS
-#define NOSCROLL
-#define NOSOUND
-#define NOSYSMETRICS
-#define NOTEXTMETRIC
-#define NOWH
-#define NOCOMM
-#define NOKANJI
-#define NOCRYPT
-#define NOMCX
-#endif
+#اگر_تعریف_شدہ RC_INVOKED
+#تعریف_کرو NOATOM
+#تعریف_کرو NOGDI
+#تعریف_کرو NOGDICAPMASKS
+#تعریف_کرو NOMETAFILE
+#تعریف_کرو NOMINMAX
+#تعریف_کرو NOMSG
+#تعریف_کرو NOOPENFILE
+#تعریف_کرو NORASTEROPS
+#تعریف_کرو NOSCROLL
+#تعریف_کرو NOSOUND
+#تعریف_کرو NOSYSMETRICS
+#تعریف_کرو NOTEXTMETRIC
+#تعریف_کرو NOWH
+#تعریف_کرو NOCOMM
+#تعریف_کرو NOKANJI
+#تعریف_کرو NOCRYPT
+#تعریف_کرو NOMCX
+#اگر_ختم
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
-#define I_X86_
-#endif
+#اگر !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
+#تعریف_کرو I_X86_
+#اگر_ختم
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
-#define _AMD64_
-#endif
+#اگر !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
+#تعریف_کرو _AMD64_
+#اگر_ختم
 
-#if !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
-#if !defined(_IA64_)
-#define _IA64_
-#endif
-#endif
+#اگر !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
+#اگر !defined(_IA64_)
+#تعریف_کرو _IA64_
+#اگر_ختم
+#اگر_ختم
 
-#ifndef RC_INVOKED
-#include <excpt.h>
-#include <stdarg.h>
-#endif
+#اگر_غیر_تعریف_شدہ RC_INVOKED
+#شامل <excpt.h>
+#شامل <stdarg.h>
+#اگر_ختم
 
-#include <windef.h>
-#include <winbase.h>
-#include <wingdi.h>
-#include <winuser.h>
-#include <winnls.h>
-#include <wincon.h>
-#include <winver.h>
-#include <winreg.h>
+#شامل <windef.h>
+#شامل <winbase.h>
+#شامل <wingdi.h>
+#شامل <winuser.h>
+#شامل <winnls.h>
+#شامل <wincon.h>
+#شامل <winver.h>
+#شامل <winreg.h>
 //gr #include <winnetwk.h>
 
-#ifndef WIN32_LEAN_AND_MEAN
-#include <cderr.h>
-#include <dde.h>
-#include <ddeml.h>
-#include <dlgs.h>
-#include <lzexpand.h>
-#include <mmsystem.h>
-#include <nb30.h>
-#include <rpc.h>
-#include <shellapi.h>
-#include <winperf.h>
-#include <winsock.h>
-#ifndef NOCRYPT
-#include <wincrypt.h>
-#include <winefs.h>
-#include <winscard.h>
-#endif
+#اگر_غیر_تعریف_شدہ WIN32_LEAN_AND_اوسط
+#شامل <cderr.h>
+#شامل <dde.h>
+#شامل <ddeml.h>
+#شامل <dlgs.h>
+#شامل <lzexpand.h>
+#شامل <mmsystem.h>
+#شامل <nb30.h>
+#شامل <rpc.h>
+#شامل <shellapi.h>
+#شامل <winperf.h>
+#شامل <winsock.h>
+#اگر_غیر_تعریف_شدہ NOCRYPT
+#شامل <wincrypt.h>
+#شامل <winefs.h>
+#شامل <winscard.h>
+#اگر_ختم
 
-#ifndef NOUSER
-#ifndef NOGDI
-#include <winspool.h>
-#ifdef INC_OLE1
-#include <ole.h>
-#else
-#include <ole2.h>
-#endif
-#include <commdlg.h>
-#endif
-#endif
-#endif
+#اگر_غیر_تعریف_شدہ NOUSER
+#اگر_غیر_تعریف_شدہ NOGDI
+#شامل <winspool.h>
+#اگر_تعریف_شدہ INC_OLE1
+#شامل <ole.h>
+#ورنہ
+#شامل <ole2.h>
+#اگر_ختم
+#شامل <commdlg.h>
+#اگر_ختم
+#اگر_ختم
+#اگر_ختم
 
 //gr #include <stralign.h>
 
-#ifdef INC_OLE2
-#include <ole2.h>
-#endif
+#اگر_تعریف_شدہ INC_OLE2
+#شامل <ole2.h>
+#اگر_ختم
 
-#ifndef NOSERVICE
-#include <winsvc.h>
-#endif
+#اگر_غیر_تعریف_شدہ NOSERVICE
+#شامل <winsvc.h>
+#اگر_ختم
 
-#ifndef NOMCX
-#include <mcx.h>
-#endif
+#اگر_غیر_تعریف_شدہ NOMCX
+#شامل <mcx.h>
+#اگر_ختم
 
-#ifndef NOIME
-#include <imm.h>
-#endif
+#اگر_غیر_تعریف_شدہ NOIME
+#شامل <imm.h>
+#اگر_ختم
 
-#endif
-#endif
-#endif
+#اگر_ختم
+#اگر_ختم
+#اگر_ختم

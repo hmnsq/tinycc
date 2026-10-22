@@ -1,76 +1,76 @@
-#include <stdatomic.h>
-int printf(const char*,...);
+#شامل <stdatomic.h>
+صحیح لکھو(ثابت حرف*,...);
 
-#if defined test_atomic_compare_exchange
-int main()
+#اگر defined test_atomic_compare_exchange
+صحیح مین()
 {
-    _Atomic int a = 12;
-    int b = 77;
-    int r;
+    _Atomic صحیح a = 12;
+    صحیح b = 77;
+    صحیح r;
 
     atomic_store(&a, b + 0);
     r = atomic_compare_exchange_strong(&a, &b, 99);
-    printf("%d %d %d\n", r, a, b);
+    لکھو("%d %d %d\n", r, a, b);
 
     atomic_store(&a, b + 3);
     r = atomic_compare_exchange_strong(&a, &b, 99);
-    printf("%d %d %d\n", r, a, b);
+    لکھو("%d %d %d\n", r, a, b);
 
     atomic_store(&a, b + 5);
     r = atomic_exchange(&a,  33);
-    printf("%d %d %d\n", r, a, b);
+    لکھو("%d %d %d\n", r, a, b);
 
     atomic_store(&a, b + 10);
     r = atomic_exchange(&a, 66);
-    printf("%d %d %d\n", r, a, b);
+    لکھو("%d %d %d\n", r, a, b);
 
-    return 0;
+    واپس 0;
 }
 
-#elif defined test_atomic_store
-int main()
+#وگرنہ_اگر defined test_atomic_store
+صحیح مین()
 {
-    int _Atomic i;
-    int r;
+    صحیح _Atomic i;
+    صحیح r;
     atomic_store(&i, 12);
     r = atomic_fetch_add(&i, i);
-    printf("r = %d, i = %d\n", r, i);
+    لکھو("r = %d, i = %d\n", r, i);
 }
 
-#elif defined test_atomic_store_pointer
-typedef struct { char c[4]; } c4;
-int main()
+#وگرنہ_اگر defined test_atomic_store_اشارہ_گر
+قسمتعریف ساخت { حرف c[4]; } c4;
+صحیح مین()
 {
-    int i = 1;
-    int _Atomic *p = &i;
-    int k = 2;
+    صحیح i = 1;
+    صحیح _Atomic *p = &i;
+    صحیح k = 2;
     atomic_store(&p, &k);
-    printf("*p = %d\n", *p);
+    لکھو("*p = %d\n", *p);
 }
 
-#elif defined test_atomic_store_struct
-typedef struct { char c[4]; } c4;
-int main()
+#وگرنہ_اگر defined test_atomic_store_struct
+قسمتعریف ساخت { حرف c[4]; } c4;
+صحیح مین()
 {
     c4 _Atomic p;
     c4 v = { 1,2,3,4 };
     atomic_store(&p, v);
-    printf("%d %d %d %d\n", p.c[0], p.c[1], p.c[2], p.c[3]);
+    لکھو("%d %d %d %d\n", p.c[0], p.c[1], p.c[2], p.c[3]);
 }
 
-#elif defined test_atomic_op
+#وگرنہ_اگر defined test_atomic_op
 
-#define OP1(func, v, e1, e2) atomic_##func(&c, v) == e1 && c == e2
-#define OP2(func, v, e1, e2) atomic_##func(&s, v) == e1 && s == e2
-#define OP4(func, v, e1, e2) atomic_##func(&i, v) == e1 && i == e2
-#define OP8(func, v, e1, e2) atomic_##func(&l, v) == e1 && l == e2
+#تعریف_کرو OP1(func, v, e1, e2) atomic_##func(&c, v) == e1 && c == e2
+#تعریف_کرو OP2(func, v, e1, e2) atomic_##func(&s, v) == e1 && s == e2
+#تعریف_کرو OP4(func, v, e1, e2) atomic_##func(&i, v) == e1 && i == e2
+#تعریف_کرو OP8(func, v, e1, e2) atomic_##func(&l, v) == e1 && l == e2
 
-#define OP(func, v, e1, e2) printf ("%s: %s\n", #func,                        \
+#تعریف_کرو OP(func, v, e1, e2) لکھو ("%s: %s\n", #func,                        \
                                     OP1(func,v,e1,e2) && OP2(func,v,e1,e2) && \
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
  
-int main()
+صحیح مین()
 {
     atomic_char c;
     atomic_short s;
@@ -82,36 +82,36 @@ int main()
     atomic_init(&i, 0);
     atomic_init(&l, 0);
 
-    OP(fetch_add, 10, 0, 10);
+    OP(fetch_جوڑو, 10, 0, 10);
     OP(fetch_sub, 5, 10, 5);
     OP(fetch_or, 0x10, 5, 21);
     OP(fetch_xor, 0x20, 21, 53);
     OP(fetch_and, 0x0f, 53, 5);
 }
 
-#elif defined test_atomic_op2
+#وگرنہ_اگر defined test_atomic_op2
 
-typedef __SIZE_TYPE__ size64_t;
+قسمتعریف __SIZE_TYPE__ size64_t;
 
-#define OP1(func, v, e1, e2) \
+#تعریف_کرو OP1(func, v, e1, e2) \
     __atomic_##func(&c, v, __ATOMIC_SEQ_CST) == e1 && c == e2
-#define OP2(func, v, e1, e2)\
+#تعریف_کرو OP2(func, v, e1, e2)\
     __atomic_##func(&s, v, __ATOMIC_SEQ_CST) == e1 && s == e2
-#define OP4(func, v, e1, e2)\
+#تعریف_کرو OP4(func, v, e1, e2)\
     __atomic_##func(&i, v, __ATOMIC_SEQ_CST) == e1 && i == e2
-#define OP8(func, v, e1, e2)\
+#تعریف_کرو OP8(func, v, e1, e2)\
     __atomic_##func(&l, v, __ATOMIC_SEQ_CST) == e1 && l == e2
 
-#define OP(func, v, e1, e2) printf ("%s: %s\n", #func,                        \
+#تعریف_کرو OP(func, v, e1, e2) لکھو ("%s: %s\n", #func,                        \
                                     OP1(func,v,e1,e2) && OP2(func,v,e1,e2) && \
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
 
-int main()
+صحیح مین()
 {
-    signed char c;
-    short s;
-    int i;
+    علامتی حرف c;
+    مختصر s;
+    صحیح i;
     size64_t l;
 
     atomic_init(&c, 0);
@@ -119,7 +119,7 @@ int main()
     atomic_init(&i, 0);
     atomic_init(&l, 0);
 
-    OP(fetch_add, 10, 0, 10);
+    OP(fetch_جوڑو, 10, 0, 10);
     OP(fetch_sub, 5, 10, 5);
     OP(fetch_or, 0x10, 5, 21);
     OP(fetch_xor, 0x20, 21, 53);
@@ -131,7 +131,7 @@ int main()
     atomic_init(&i, 0);
     atomic_init(&l, 0);
 
-    OP(add_fetch, 10, 10, 10);
+    OP(جوڑو_fetch, 10, 10, 10);
     OP(sub_fetch, 5, 5, 5);
     OP(or_fetch, 0x10, 21, 21);
     OP(xor_fetch, 0x20, 53, 53);
@@ -139,69 +139,69 @@ int main()
     OP(nand_fetch, 0x01, -2, -2);
 }
 
-#elif defined test_atomic_thread_signal
-int main()
+#وگرنہ_اگر defined test_atomic_thread_signal
+صحیح مین()
 {
-    int c;
+    صحیح c;
 
     atomic_thread_fence(__ATOMIC_SEQ_CST);
     atomic_signal_fence(__ATOMIC_SEQ_CST);
-    printf ("%d\n", atomic_is_lock_free(&c));
+    لکھو ("%d\n", atomic_is_lock_free(&c));
 }
 
-#elif defined test_atomic_error_1
-int main()
+#وگرنہ_اگر defined test_atomic_error_1
+صحیح مین()
 {
-    int _Atomic i;
+    صحیح _Atomic i;
     atomic_load(i);
 }
 
-#elif defined test_atomic_error_2
-int main()
+#وگرنہ_اگر defined test_atomic_error_2
+صحیح مین()
 {
-    struct { char c[3]; } _Atomic c3;
+    ساخت { حرف c[3]; } _Atomic c3;
     atomic_load(&c3);
 }
 
-#elif defined test_atomic_error_3
-int main()
+#وگرنہ_اگر defined test_atomic_error_3
+صحیح مین()
 {
-    _Atomic int *p = 0;
+    _Atomic صحیح *p = 0;
     atomic_fetch_add(&p, 1);
 }
 
-#elif defined test_atomic_error_4
-int main()
+#وگرنہ_اگر defined test_atomic_error_4
+صحیح مین()
 {
-    int _Atomic i = 1;
-    char c = 2;
+    صحیح _Atomic i = 1;
+    حرف c = 2;
     atomic_compare_exchange_strong(&i, &c, 0);
 }
 
-#elif defined test_atomic_warn_1
-int main()
+#وگرنہ_اگر defined test_atomic_warn_1
+صحیح مین()
 {
-    size_t _Atomic i = 1;
+    سائز_t _Atomic i = 1;
     /* assignment to integer from pointer */
     atomic_store(&i, &i);
 }
 
-#elif defined test_atomic_warn_2
-int main()
+#وگرنہ_اگر defined test_atomic_warn_2
+صحیح مین()
 {
-    int i = 1;
-    char c = 2;
-    int _Atomic *p = &i;
+    صحیح i = 1;
+    حرف c = 2;
+    صحیح _Atomic *p = &i;
     /* assignment from incompatible pointer */
     atomic_store(&p, &c);
 }
 
-#elif defined test_atomic_warn_3
-int main()
+#وگرنہ_اگر defined test_atomic_warn_3
+صحیح مین()
 {
-    int const i = 1;
+    صحیح ثابت i = 1;
     /* assignment to read-only -location */
     atomic_fetch_add(&i, 2);
 }
 
-#endif
+#اگر_ختم

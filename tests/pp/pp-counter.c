@@ -1,18 +1,18 @@
 X1 __COUNTER__
 X2 __COUNTER__
-#if __COUNTER__
+#اگر __COUNTER__
 X3 __COUNTER__
-#endif
-#define pass(x) x
-#define a x __COUNTER__ y
-#define a2 pass(__COUNTER__)
-#define f(c) c __COUNTER__
-#define apply(d) d d __COUNTER__ x2 f(d) y2 __COUNTER__
-#define _paste(a,b) a ## b
-#define paste(a,b) _paste(a,b)
-#define _paste3(a,b,c) a ## b ## c
-#define doublepaste(a,b) _paste3(a,b,b)
-#define str(x) #x
+#اگر_ختم
+#تعریف_کرو pass(x) x
+#تعریف_کرو a x __COUNTER__ y
+#تعریف_کرو a2 pass(__COUNTER__)
+#تعریف_کرو f(c) c __COUNTER__
+#تعریف_کرو apply(d) d d __COUNTER__ x2 f(d) y2 __COUNTER__
+#تعریف_کرو _paste(a,b) a ## b
+#تعریف_کرو paste(a,b) _paste(a,b)
+#تعریف_کرو _paste3(a,b,c) a ## b ## c
+#تعریف_کرو doublepaste(a,b) _paste3(a,b,b)
+#تعریف_کرو str(x) #x
 X4 a
 X5 f(a)
 X6 f(b)

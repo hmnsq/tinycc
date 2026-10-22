@@ -1,18 +1,18 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح مین()
 {
-   int Count = 0;
+   صحیح گنتی_3 = 0;
 
-   for (;;)
+   برائے (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      گنتی_3++;
+      لکھو("%d\n", گنتی_3);
+      اگر (گنتی_3 >= 10)
+         توڑو;
    }
 
-   return 0;
+   واپس 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

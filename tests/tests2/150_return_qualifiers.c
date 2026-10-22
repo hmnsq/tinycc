@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+ثابت صحیح const_return(خالی);
+متلون صحیح volatile_return(خالی);
+صحیح *محدود restrict_return(خالی);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, صحیح *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, صحیح *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, صحیح **),
                "restrict is removed from a return type");
 
-int const_return(void)
+صحیح const_return(خالی)
 {
-   return 0;
+   واپس 0;
 }
 
-int volatile_return(void)
+صحیح volatile_return(خالی)
 {
-   return 0;
+   واپس 0;
 }
 
-int *restrict_return(void)
+صحیح *restrict_return(خالی)
 {
-   return 0;
+   واپس 0;
 }
 
-int main(void)
+صحیح مین(خالی)
 {
-   return 0;
+   واپس 0;
 }

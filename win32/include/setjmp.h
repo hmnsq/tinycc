@@ -3,54 +3,54 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SETJMP
-#define _INC_SETJMP
+#اگر_غیر_تعریف_شدہ _INC_SETJMP
+#تعریف_کرو _INC_SETJMP
 
-#include <_mingw.h>
+#شامل <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ہدایت pack(ڈالو,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
-#if (defined(_X86_) && !defined(__x86_64))
+#اگر (defined(_X86_) && !defined(__x86_64))
 
-#define _JBLEN 16
-#define _JBTYPE int
+#تعریف_کرو _JBLEN 16
+#تعریف_کرو _JBTYPE صحیح
 
-  typedef struct __JUMP_BUFFER {
-    unsigned long Ebp;
-    unsigned long Ebx;
-    unsigned long Edi;
-    unsigned long Esi;
-    unsigned long Esp;
-    unsigned long Eip;
-    unsigned long Registration;
-    unsigned long TryLevel;
-    unsigned long Cookie;
-    unsigned long UnwindFunc;
-    unsigned long UnwindData[6];
-  } _JUMP_BUFFER;
-#elif defined(__ia64__)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    __int64 LowPart;
-    __int64 HighPart;
+  قسمتعریف ساخت __JUMP_BUFFER {
+    غیرعلامتی طویل Ebp;
+    غیرعلامتی طویل Ebx;
+    غیرعلامتی طویل Edi;
+    غیرعلامتی طویل Esi;
+    غیرعلامتی طویل Esp;
+    غیرعلامتی طویل Eip;
+    غیرعلامتی طویل Registration;
+    غیرعلامتی طویل TryLevel;
+    غیرعلامتی طویل Cookie;
+    غیرعلامتی طویل UnwindFunc;
+    غیرعلامتی طویل Unwind_ڈیٹا[6];
+  } JUMP_بفر;
+#وگرنہ_اگر defined(__ia64__)
+  قسمتعریف _CRT_ALIGN(16) ساخت _SETJMP_FLOAT128 {
+    __int64 کم_Part;
+    __int64 بلند_Part;
   } SETJMP_FLOAT128;
 
-#define _JBLEN 33
-  typedef SETJMP_FLOAT128 _JBTYPE;
+#تعریف_کرو _JBLEN 33
+  قسمتعریف SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct __JUMP_BUFFER {
+  قسمتعریف ساخت __JUMP_BUFFER {
 
-    unsigned long iAReserved[6];
+    غیرعلامتی طویل iAReserved[6];
 
-    unsigned long Registration;
-    unsigned long TryLevel;
-    unsigned long Cookie;
-    unsigned long UnwindFunc;
+    غیرعلامتی طویل Registration;
+    غیرعلامتی طویل TryLevel;
+    غیرعلامتی طویل Cookie;
+    غیرعلامتی طویل UnwindFunc;
 
-    unsigned long UnwindData[6];
+    غیرعلامتی طویل Unwind_ڈیٹا[6];
 
     SETJMP_FLOAT128 FltS0;
     SETJMP_FLOAT128 FltS1;
@@ -91,28 +91,28 @@ extern "C" {
     __int64 IntNats;
     __int64 Preds;
 
-  } _JUMP_BUFFER;
-#elif defined(__x86_64)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    unsigned __int64 Part[2];
+  } JUMP_بفر;
+#وگرنہ_اگر defined(__x86_64)
+  قسمتعریف _CRT_ALIGN(16) ساخت _SETJMP_FLOAT128 {
+    غیرعلامتی __int64 Part[2];
   } SETJMP_FLOAT128;
 
-#define _JBLEN 16
-  typedef SETJMP_FLOAT128 _JBTYPE;
+#تعریف_کرو _JBLEN 16
+  قسمتعریف SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct _JUMP_BUFFER {
-    unsigned __int64 Frame;
-    unsigned __int64 Rbx;
-    unsigned __int64 Rsp;
-    unsigned __int64 Rbp;
-    unsigned __int64 Rsi;
-    unsigned __int64 Rdi;
-    unsigned __int64 R12;
-    unsigned __int64 R13;
-    unsigned __int64 R14;
-    unsigned __int64 R15;
-    unsigned __int64 Rip;
-    unsigned __int64 Spare;
+  قسمتعریف ساخت JUMP_بفر {
+    غیرعلامتی __int64 چوکھٹا;
+    غیرعلامتی __int64 Rbx;
+    غیرعلامتی __int64 Rsp;
+    غیرعلامتی __int64 Rbp;
+    غیرعلامتی __int64 Rsi;
+    غیرعلامتی __int64 Rdi;
+    غیرعلامتی __int64 R12;
+    غیرعلامتی __int64 R13;
+    غیرعلامتی __int64 R14;
+    غیرعلامتی __int64 R15;
+    غیرعلامتی __int64 Rip;
+    غیرعلامتی __int64 فالتو_2;
     SETJMP_FLOAT128 Xmm6;
     SETJMP_FLOAT128 Xmm7;
     SETJMP_FLOAT128 Xmm8;
@@ -123,77 +123,77 @@ extern "C" {
     SETJMP_FLOAT128 Xmm13;
     SETJMP_FLOAT128 Xmm14;
     SETJMP_FLOAT128 Xmm15;
-  } _JUMP_BUFFER;
-#elif defined(_ARM_)
+  } JUMP_بفر;
+#وگرنہ_اگر defined(_ARM_)
 
-#define _JBLEN 28
-#define _JBTYPE int
+#تعریف_کرو _JBLEN 28
+#تعریف_کرو _JBTYPE صحیح
 
-  typedef struct __JUMP_BUFFER {
-    unsigned long Frame;
-    unsigned long R4;
-    unsigned long R5;
-    unsigned long R6;
-    unsigned long R7;
-    unsigned long R8;
-    unsigned long R9;
-    unsigned long R10;
-    unsigned long R11;
-    unsigned long Sp;
-    unsigned long Pc;
-    unsigned long Fpscr;
-    unsigned long long D[8];
-  } _JUMP_BUFFER;
-#elif defined(_ARM64_)
+  قسمتعریف ساخت __JUMP_BUFFER {
+    غیرعلامتی طویل چوکھٹا;
+    غیرعلامتی طویل R4;
+    غیرعلامتی طویل R5;
+    غیرعلامتی طویل R6;
+    غیرعلامتی طویل R7;
+    غیرعلامتی طویل R8;
+    غیرعلامتی طویل R9;
+    غیرعلامتی طویل R10;
+    غیرعلامتی طویل R11;
+    غیرعلامتی طویل Sp;
+    غیرعلامتی طویل Pc;
+    غیرعلامتی طویل Fpscr;
+    غیرعلامتی طویل طویل D[8];
+  } JUMP_بفر;
+#وگرنہ_اگر defined(_ARM64_)
 
-#define _JBLEN 24
-#define _JBTYPE unsigned __int64
+#تعریف_کرو _JBLEN 24
+#تعریف_کرو _JBTYPE غیرعلامتی __int64
 
-  typedef struct __JUMP_BUFFER {
-    unsigned __int64 Frame;
-    unsigned __int64 Reserved;
-    unsigned __int64 X19;
-    unsigned __int64 X20;
-    unsigned __int64 X21;
-    unsigned __int64 X22;
-    unsigned __int64 X23;
-    unsigned __int64 X24;
-    unsigned __int64 X25;
-    unsigned __int64 X26;
-    unsigned __int64 X27;
-    unsigned __int64 X28;
-    unsigned __int64 Fp;
-    unsigned __int64 Lr;
-    unsigned __int64 Sp;
-    unsigned long Fpcr;
-    unsigned long Fpsr;
-    double D[8];
-  } _JUMP_BUFFER;
-#else
-#define _JBLEN 1
-#define _JBTYPE int
-#endif
-#ifndef _JMP_BUF_DEFINED
-  typedef _JBTYPE jmp_buf[_JBLEN];
-#define _JMP_BUF_DEFINED
-#endif
+  قسمتعریف ساخت __JUMP_BUFFER {
+    غیرعلامتی __int64 چوکھٹا;
+    غیرعلامتی __int64 Reserved;
+    غیرعلامتی __int64 X19;
+    غیرعلامتی __int64 X20;
+    غیرعلامتی __int64 X21;
+    غیرعلامتی __int64 X22;
+    غیرعلامتی __int64 X23;
+    غیرعلامتی __int64 X24;
+    غیرعلامتی __int64 X25;
+    غیرعلامتی __int64 X26;
+    غیرعلامتی __int64 X27;
+    غیرعلامتی __int64 X28;
+    غیرعلامتی __int64 Fp;
+    غیرعلامتی __int64 Lr;
+    غیرعلامتی __int64 Sp;
+    غیرعلامتی طویل Fpcr;
+    غیرعلامتی طویل Fpsr;
+    دوہرا D[8];
+  } JUMP_بفر;
+#ورنہ
+#تعریف_کرو _JBLEN 1
+#تعریف_کرو _JBTYPE صحیح
+#اگر_ختم
+#اگر_غیر_تعریف_شدہ _JMP_BUF_DEFINED
+  قسمتعریف _JBTYPE jmp_buf[_JBLEN];
+#تعریف_کرو _JMP_BUF_DEFINED
+#اگر_ختم
 
-#pragma pack(pop)
+#ہدایت pack(نکالو)
 
-#if defined __aarch64__
-  int _setjmpex(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmpex((BUF), (char*)__builtin_frame_address(0) + 224)
-#elif defined __x86_64__
-  int _setjmp(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
-#else /* __i386__ */
-  int _setjmp(jmp_buf _Buf);
-  #define setjmp _setjmp
-#endif
+#اگر defined __aarch64__
+  صحیح _setjmpex(jmp_buf _Buf, خالی *چوکھٹا_2);
+  #تعریف_کرو setjmp(BUF) _setjmpex((BUF), (حرف*)__builtin_frame_address(0) + 224)
+#وگرنہ_اگر defined __x86_64__
+  صحیح _setjmp(jmp_buf _Buf, خالی *چوکھٹا_2);
+  #تعریف_کرو setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
+#ورنہ /* __i386__ */
+  صحیح _setjmp(jmp_buf _Buf);
+  #تعریف_کرو setjmp _setjmp
+#اگر_ختم
 
-__declspec(noreturn) void longjmp(jmp_buf _Buf,int _Value);
+__declspec(noreturn) خالی longjmp(jmp_buf _Buf,صحیح قدر_2);
 
-#ifdef __cplusplus
+#اگر_تعریف_شدہ __cplusplus
 }
-#endif
-#endif
+#اگر_ختم
+#اگر_ختم

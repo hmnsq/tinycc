@@ -1,18 +1,18 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main() 
+صحیح مین() 
 {
-   printf("Hello world\n");
+   لکھو("Hello world\n");
 
-   int Count;
-   for (Count = -5; Count <= 5; Count++)
-      printf("Count = %d\n", Count);
+   صحیح گنتی_3;
+   برائے (گنتی_3 = -5; گنتی_3 <= 5; گنتی_3++)
+      لکھو("Count = %d\n", گنتی_3);
 
-   printf("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
-   printf("Character 'A' is '%c'\n", 65);
-   printf("Character 'a' is '%c'\n", 'a');
+   لکھو("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
+   لکھو("Character 'A' is '%c'\n", 65);
+   لکھو("Character 'a' is '%c'\n", 'a');
 
-   return 0;
+   واپس 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

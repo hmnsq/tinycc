@@ -1,27 +1,27 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-typedef struct
+قسمتعریف ساخت
 {
-    double average;
-    int count;
+    دوہرا اوسط_قدر;
+    صحیح گنتی_2;
 }
 stats_type;
 
-static void
-testc (stats_type *s, long long data)
+ساکن خالی
+testc (stats_type *s, طویل طویل ڈیٹا)
 {
-    s->average = (s->average * s->count + data) / (s->count + 1);
-    s->count++;
+    s->اوسط_قدر = (s->اوسط_قدر * s->گنتی_2 + ڈیٹا) / (s->گنتی_2 + 1);
+    s->گنتی_2++;
 }
 
-int main (void)
+صحیح مین (خالی)
 {
     stats_type s;
 
-    s.average = 0;
-    s.count = 0;
+    s.اوسط_قدر = 0;
+    s.گنتی_2 = 0;
     testc (&s, 10);
     testc (&s, 20);
-    printf ("%g %d\n", s.average, s.count);
-    return 0;
+    لکھو ("%g %d\n", s.اوسط_قدر, s.گنتی_2);
+    واپس 0;
 }

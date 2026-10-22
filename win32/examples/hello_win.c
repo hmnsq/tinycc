@@ -4,15 +4,15 @@
 //
 //+---------------------------------------------------------------------------
 
-#include <windows.h>
+#شامل <windows.h>
 
-#define APPNAME "HELLO_WIN"
+#تعریف_کرو APPNAME "HELLO_WIN"
 
-char szAppName[] = APPNAME; // The name of this application
-char szTitle[]   = APPNAME; // The title bar text
-const char *pWindowText;
+حرف szAppName[] = APPNAME; // The name of this application
+حرف szTitle[]   = APPNAME; // The title bar text
+ثابت حرف *p_کھڑکی_متن;
 
-void CenterWindow(HWND hWnd);
+خالی Center_کھڑکی(HWND hWnd);
 
 //+---------------------------------------------------------------------------
 //
@@ -24,31 +24,31 @@ void CenterWindow(HWND hWnd);
 //  Arguments:  same as always.
 //----------------------------------------------------------------------------
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT پیغام_2, WPARAM wParam, LPARAM lParam)
 {
-    switch (message) {
+    انتخاب (پیغام_2) {
 
         // ----------------------- first and last
-        case WM_CREATE:
-            CenterWindow(hwnd);
-            break;
+        حالت WM_CREATE:
+            Center_کھڑکی(hwnd);
+            توڑو;
 
-        case WM_DESTROY:
-            PostQuitMessage(0);
-            break;
+        حالت WM_DESTROY:
+            Post_Quit_پیغام(0);
+            توڑو;
 
         // ----------------------- get out of it...
-        case WM_RBUTTONUP:
-            DestroyWindow(hwnd);
-            break;
+        حالت WM_RBUTTONUP:
+            Destroy_کھڑکی(hwnd);
+            توڑو;
 
-        case WM_KEYDOWN:
-            if (VK_ESCAPE == wParam)
-                DestroyWindow(hwnd);
-            break;
+        حالت WM_KEYDOWN:
+            اگر (VK_ESCAPE == wParam)
+                Destroy_کھڑکی(hwnd);
+            توڑو;
 
         // ----------------------- display our minimal info
-        case WM_PAINT:
+        حالت WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC         hdc;
@@ -56,19 +56,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
             hdc = BeginPaint(hwnd, &ps);
 
             GetClientRect(hwnd, &rc);
-            SetTextColor(hdc, RGB(240,240,96));
-            SetBkMode(hdc, TRANSPARENT);
-            DrawText(hdc, pWindowText, -1, &rc, DT_CENTER|DT_SINGLELINE|DT_VCENTER);
+            سیٹ_متن_Color(hdc, RGB(240,240,96));
+            سیٹ_Bk_منوال(hdc, TRANSPARENT);
+            Draw_متن(hdc, p_کھڑکی_متن, -1, &rc, DT_CENTER|DT_SINGLELINE|DT_VCENTER);
 
-            EndPaint(hwnd, &ps);
-            break;
+            انتہا_Paint(hwnd, &ps);
+            توڑو;
         }
 
         // ----------------------- let windows do all other stuff
-        default:
-            return DefWindowProc(hwnd, message, wParam, lParam);
+        طےشدہ:
+            واپس Def_کھڑکی_Proc(hwnd, پیغام_2, wParam, lParam);
     }
-    return 0;
+    واپس 0;
 }
 
 //+---------------------------------------------------------------------------
@@ -78,36 +78,36 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 //  Synopsis:   standard entrypoint for GUI Win32 apps
 //
 //----------------------------------------------------------------------------
-int APIENTRY WinMain(
+صحیح APIENTRY WinMain(
         HINSTANCE hInstance,
-        HINSTANCE hPrevInstance,
-        LPSTR lpCmdLine,
-        int nCmdShow
+        HINSTANCE h_پچھلا_Instance,
+        LPSTR lp_Cmd_سطر,
+        صحیح nCmdShow
         )
 {
-    MSG msg;
+    پیغام_3 پیغام;
     WNDCLASS wc;
     HWND hwnd;
 
-    pWindowText = lpCmdLine[0] ? lpCmdLine : "Hello Windows!";
+    p_کھڑکی_متن = lp_Cmd_سطر[0] ? lp_Cmd_سطر : "Hello Windows!";
 
     // Fill in window class structure with parameters that describe
     // the main window.
 
-    ZeroMemory(&wc, sizeof wc);
+    Zero_حافظہ(&wc, حجم wc);
     wc.hInstance     = hInstance;
     wc.lpszClassName = szAppName;
     wc.lpfnWndProc   = (WNDPROC)WndProc;
     wc.style         = CS_DBLCLKS|CS_VREDRAW|CS_HREDRAW;
     wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-    wc.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
-    wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
+    wc.hIcon         = بھرو_Icon(تہی, IDI_APPLICATION);
+    wc.hCursor       = بھرو_Cursor(تہی, IDC_ARROW);
 
-    if (FALSE == RegisterClass(&wc))
-        return 0;
+    اگر (FALSE == رجسٹر_Class(&wc))
+        واپس 0;
 
     // create the browser
-    hwnd = CreateWindow(
+    hwnd = Create_کھڑکی(
         szAppName,
         szTitle,
         WS_OVERLAPPEDWINDOW|WS_VISIBLE,
@@ -120,41 +120,41 @@ int APIENTRY WinMain(
         hInstance,
         0);
 
-    if (NULL == hwnd)
-        return 0;
+    اگر (تہی == hwnd)
+        واپس 0;
 
     // Main message loop:
-    while (GetMessage(&msg, NULL, 0, 0) > 0) {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+    جب (Get_پیغام(&پیغام, تہی, 0, 0) > 0) {
+        Translate_پیغام(&پیغام);
+        Dispatch_پیغام(&پیغام);
     }
 
-    return msg.wParam;
+    واپس پیغام.wParam;
 }
 
 //+---------------------------------------------------------------------------
 
 //+---------------------------------------------------------------------------
 
-void CenterWindow(HWND hwnd_self)
+خالی Center_کھڑکی(HWND hwnd_self)
 {
-    HWND hwnd_parent;
-    RECT rw_self, rc_parent, rw_parent;
-    int xpos, ypos;
+    HWND hwnd_والد;
+    RECT rw_self, rc_والد, rw_والد;
+    صحیح xpos, ypos;
 
-    hwnd_parent = GetParent(hwnd_self);
-    if (NULL == hwnd_parent)
-        hwnd_parent = GetDesktopWindow();
+    hwnd_والد = Get_والد(hwnd_self);
+    اگر (تہی == hwnd_والد)
+        hwnd_والد = Get_Desktop_کھڑکی();
 
-    GetWindowRect(hwnd_parent, &rw_parent);
-    GetClientRect(hwnd_parent, &rc_parent);
-    GetWindowRect(hwnd_self, &rw_self);
+    Get_کھڑکی_Rect(hwnd_والد, &rw_والد);
+    GetClientRect(hwnd_والد, &rc_والد);
+    Get_کھڑکی_Rect(hwnd_self, &rw_self);
 
-    xpos = rw_parent.left + (rc_parent.right + rw_self.left - rw_self.right) / 2;
-    ypos = rw_parent.top + (rc_parent.bottom + rw_self.top - rw_self.bottom) / 2;
+    xpos = rw_والد.بایاں + (rc_والد.دایاں + rw_self.بایاں - rw_self.دایاں) / 2;
+    ypos = rw_والد.چوٹی + (rc_والد.bottom + rw_self.چوٹی - rw_self.bottom) / 2;
 
-    SetWindowPos(
-        hwnd_self, NULL,
+    سیٹ_کھڑکی_Pos(
+        hwnd_self, تہی,
         xpos, ypos, 0, 0,
         SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE
         );

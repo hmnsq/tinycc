@@ -8,6 +8,6 @@
  *
  * This fcntl.h maps to the root fcntl.h
  */
-#ifndef __STRICT_ANSI__
-#include <fcntl.h>
-#endif
+#اگر_غیر_تعریف_شدہ __STRICT_ANSI__
+#شامل <fcntl.h>
+#اگر_ختم

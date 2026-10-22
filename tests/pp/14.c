@@ -1,13 +1,13 @@
-#define W Z
-#define Z(X) W(X,2)
-#define Y(X) Z(X)
-#define X Y
-return X(X(1));
+#تعریف_کرو W Z
+#تعریف_کرو Z(X) W(X,2)
+#تعریف_کرو Y(X) Z(X)
+#تعریف_کرو X Y
+واپس X(X(1));
 
-#define P Q
-#define Q(n) P(n,2)
-return P(1);
+#تعریف_کرو P Q
+#تعریف_کرو Q(n) P(n,2)
+واپس P(1);
 
-#define A (B * B)
-#define B (A + A)
-return A + B;
+#تعریف_کرو A (B * B)
+#تعریف_کرو B (A + A)
+واپس A + B;

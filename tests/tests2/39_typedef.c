@@ -1,85 +1,85 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-typedef int MyInt;
+قسمتعریف صحیح MyInt;
 
-struct FunStruct
+ساخت FunStruct
 {
-   int i;
-   int j;
+   صحیح i;
+   صحیح j;
 };
 
-typedef struct FunStruct MyFunStruct;
+قسمتعریف ساخت FunStruct MyFunStruct;
 
-typedef MyFunStruct *MoreFunThanEver;
+قسمتعریف MyFunStruct *مزید_Fun_Than_Ever;
 
-typedef int t[];
-int tints[];
+قسمتعریف صحیح t[];
+صحیح tints[];
 
-int main()
+صحیح مین()
 {
-   int i, *p;
+   صحیح i, *p;
    MyInt a = 1;
-   printf("%d\n", a);
+   لکھو("%d\n", a);
 
    MyFunStruct b;
    b.i = 12;
    b.j = 34;
-   printf("%d,%d\n", b.i, b.j);
+   لکھو("%d,%d\n", b.i, b.j);
 
-   MoreFunThanEver c = &b;
-   printf("%d,%d\n", c->i, c->j);
+   مزید_Fun_Than_Ever c = &b;
+   لکھو("%d,%d\n", c->i, c->j);
 
    p = (t){1,2,3};
-   for (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
+   برائے (i = 0; i < 3 ; i++) لکھو("%d ", *p++); لکھو("\n");
    p = (t){1,2,3,4};
-   for (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   برائے (i = 0; i < 4 ; i++) لکھو("%d ", *p++); لکھو("\n");
 
-   printf("%d\n", (int)sizeof((t){1,2,3}));
-   printf("%d\n", (int)sizeof((t){1,2,3,4}));
+   لکھو("%d\n", (صحیح)حجم((t){1,2,3}));
+   لکھو("%d\n", (صحیح)حجم((t){1,2,3,4}));
 
    /* two arrays derived from same base type */
    t t3 = { 1,2,3 }, t4 = { 4,5,6,7 };
-   for (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   برائے (p = t3, i = 0; i < 3 ; i++) لکھو("%d ", *p++);
+   برائے (p = t4, i = 0; i < 4 ; i++) لکھو("%d ", *p++); لکھو("\n");
    typeof(tints) t5 = { 1,2,3 }, t6 = { 4,5,6,7 };
-   for (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   برائے (p = t5, i = 0; i < 3 ; i++) لکھو("%d ", *p++);
+   برائے (p = t6, i = 0; i < 4 ; i++) لکھو("%d ", *p++); لکھو("\n");
 
-   return 0;
+   واپس 0;
 }
 
 /* "If the specification of an array type includes any type qualifiers,
    the element type is so-qualified, not the array type." */
 
-typedef int A[3];
-extern A const ca;
-extern const A ca;
-extern const int ca[3];
+قسمتعریف صحیح A[3];
+خارجی A ثابت ca;
+خارجی ثابت A ca;
+خارجی ثابت صحیح ca[3];
 
-typedef A B[1][2];
-extern B const cb;
-extern const B cb;
-extern const int cb[1][2][3];
+قسمتعریف A B[1][2];
+خارجی B ثابت cb;
+خارجی ثابت B cb;
+خارجی ثابت صحیح cb[1][2][3];
 
-extern B b;
-extern int b[1][2][3];
+خارجی B b;
+خارجی صحیح b[1][2][3];
 
 /* Funny but valid function declaration.  */
-typedef int functype (int);
-extern functype func;
-int func(int i)
+قسمتعریف صحیح functype (صحیح);
+خارجی functype func;
+صحیح func(صحیح i)
 {
-   return i + 1;
+   واپس i + 1;
 }
 
 /* Even funnier function decl and definition using typeof.  */
-int set_anon_super(void);
-int set_anon_super(void)
+صحیح سیٹ_anon_super(خالی);
+صحیح سیٹ_anon_super(خالی)
 {
-   return 42;
+   واپس 42;
 }
-typedef int sas_type (void);
-extern typeof(set_anon_super) set_anon_super;
-extern sas_type set_anon_super;
+قسمتعریف صحیح sas_type (خالی);
+خارجی typeof(سیٹ_anon_super) سیٹ_anon_super;
+خارجی sas_type سیٹ_anon_super;
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

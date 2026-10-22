@@ -3,82 +3,82 @@
  * does not use up a linear amount of memory
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#شامل <stdlib.h>
+#شامل <stdio.h>
+#شامل <string.h>
 
-#define LOOP_COUNT 1000
-#define ARRAY_SIZE 100
+#تعریف_کرو LOOP_گنتی 1000
+#تعریف_کرو ARRAY_سائز 100
 
 /* Overwrite a VLA. This will overwrite the return address if SP is incorrect */
-void smash(char *p, int n) {
+خالی smash(حرف *p, صحیح n) {
   memset(p, 0, n);
 }
 
-int test1(int n) {
-  int i;
-  char *array_ptrs[LOOP_COUNT];
+صحیح test1(صحیح n) {
+  صحیح i;
+  حرف *array_ptrs[LOOP_گنتی];
   
-  for (i = 0; i < LOOP_COUNT; ++i) {
-    char test[n];
+  برائے (i = 0; i < LOOP_گنتی; ++i) {
+    حرف test[n];
     smash(test, n);
     array_ptrs[i] = test;
   }
   
-  return (array_ptrs[0]-array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  واپس (array_ptrs[0]-array_ptrs[LOOP_گنتی-1] < n) ? 0 : 1;
 }
 
 /* ensure goto does not circumvent array free */
-int test2(int n) {
-  char *array_ptrs[LOOP_COUNT];
+صحیح test2(صحیح n) {
+  حرف *array_ptrs[LOOP_گنتی];
 
-  int i = 0;
+  صحیح i = 0;
 loop:;
-  char test[n];
+  حرف test[n];
   smash(test, n);
-  if (i >= LOOP_COUNT)
-    goto end;
+  اگر (i >= LOOP_گنتی)
+    جاؤ انتہا;
   array_ptrs[i] = test;
   ++i;
-  goto loop;
+  جاؤ loop;
 
-end:
+انتہا:
   smash(test, n);
-  char test2[n];
+  حرف test2[n];
   smash(test2, n);
-  return (array_ptrs[0] - array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  واپس (array_ptrs[0] - array_ptrs[LOOP_گنتی-1] < n) ? 0 : 1;
 }
 
-int test3(int n) {
-  char test[n];
+صحیح test3(صحیح n) {
+  حرف test[n];
   smash(test, n);
-  goto label;
+  جاؤ label;
 label:
   smash(test, n);
-  char test2[n];
+  حرف test2[n];
   smash(test2, n);
-  return (test-test2 >= n) ? 0 : 1;
+  واپس (test-test2 >= n) ? 0 : 1;
 }
 
-#define RUN_TEST(t) \
-  if (!testname || (strcmp(#t, testname) == 0)) { \
+#تعریف_کرو تسلسل_TEST(t) \
+  اگر (!testname || (strcmp(#t, testname) == 0)) { \
     fputs(#t "... ", stdout); \
     fflush(stdout); \
-    if (t(ARRAY_SIZE) == 0) { \
+    اگر (t(ARRAY_سائز) == 0) { \
       fputs("success\n", stdout); \
-    } else { \
+    } ورنہ { \
       fputs("failure\n", stdout); \
       retval = EXIT_FAILURE; \
     } \
   }
 
-int main(int argc, char **argv) {
-  const char *testname = NULL;
-  int retval = EXIT_SUCCESS;
-  if (argc > 1)
+صحیح مین(صحیح argc, حرف **argv) {
+  ثابت حرف *testname = تہی;
+  صحیح retval = EXIT_SUCCESS;
+  اگر (argc > 1)
     testname = argv[1];
-  RUN_TEST(test1)
-  RUN_TEST(test2)
-  RUN_TEST(test3)
-  return retval;
+  تسلسل_TEST(test1)
+  تسلسل_TEST(test2)
+  تسلسل_TEST(test3)
+  واپس retval;
 }

@@ -4,31 +4,31 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _TIMEB_H_S
-#define _TIMEB_H_S
+#اگر_غیر_تعریف_شدہ _TIMEB_H_S
+#تعریف_کرو _TIMEB_H_S
 
-#include <sys/timeb.h>
+#شامل <sys/timeb.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
-#if defined(MINGW_HAS_SECURE_API)
+#اگر defined(MINGW_HAS_SECURE_API)
 
-#ifdef _USE_32BIT_TIME_T
-#define _ftime_s _ftime32_s
-#else
-#define _ftime_s _ftime64_s
-#endif
+#اگر_تعریف_شدہ USE_32_ثنائی_ہندسہ_وقت_T
+#تعریف_کرو _ftime_s _ftime32_s
+#ورنہ
+#تعریف_کرو _ftime_s _ftime64_s
+#اگر_ختم
 
-  _CRTIMP errno_t __cdecl _ftime32_s(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _ftime64_s(struct __timeb64 *_Time);
-#endif
-#endif
+  _CRTIMP errno_t __cdecl _ftime32_s(ساخت __timeb32 *وقت_2);
+#اگر INTEGRAL_MAX_بٹ >= 64
+  _CRTIMP errno_t __cdecl _ftime64_s(ساخت __timeb64 *وقت_2);
+#اگر_ختم
+#اگر_ختم
 
-#ifdef __cplusplus
+#اگر_تعریف_شدہ __cplusplus
 }
-#endif
+#اگر_ختم
 
-#endif
+#اگر_ختم

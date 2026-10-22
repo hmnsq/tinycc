@@ -2,86 +2,86 @@
 /* for linking rt_printline and the signal/exception handler
    from tccrun.c into executables. */
 
-#define CONFIG_TCC_BACKTRACE_ONLY
-#define ONE_SOURCE 0
-#define pstrcpy tcc_pstrcpy
-#include "../tccrun.c"
+#تعریف_کرو CONFIG_TCC_BACKTRACE_ONLY
+#تعریف_کرو ONE_ماخذ 0
+#تعریف_کرو pstrcpy tcc_pstrcpy
+#شامل "../tccrun.c"
 
-#ifndef _WIN32
+#اگر_غیر_تعریف_شدہ _WIN32
 # define __declspec(n)
-#endif
+#اگر_ختم
 
-#ifdef _WIN64
-static void bt_init_pe_prog_base(rt_context *p)
+#اگر_تعریف_شدہ _WIN64
+ساکن خالی bt_init_pe_prog_بنیاد(rt_context *p)
 {
-    MEMORY_BASIC_INFORMATION mbi;
+    حافظہ_BASIC_INFORMATION mbi;
     addr_t imagebase;
 
-    if (!p->prog_base)
-        return;
-    if (!VirtualQuery(p, &mbi, sizeof(mbi)) || !mbi.AllocationBase)
-        return;
-    imagebase = (addr_t)mbi.AllocationBase - p->prog_base;
-    p->prog_base = (addr_t)mbi.AllocationBase - (imagebase & 0xffffffffu);
+    اگر (!p->prog_بنیاد)
+        واپس;
+    اگر (!VirtualQuery(p, &mbi, حجم(mbi)) || !mbi.تخصیص_بنیاد)
+        واپس;
+    imagebase = (addr_t)mbi.تخصیص_بنیاد - p->prog_بنیاد;
+    p->prog_بنیاد = (addr_t)mbi.تخصیص_بنیاد - (imagebase & 0xffffffffu);
 }
-#endif
+#اگر_ختم
 
 __declspec(dllexport)
-void __bt_init(rt_context *p, int is_exe)
+خالی __bt_init(rt_context *p, صحیح is_exe)
 {
-    __attribute__((weak)) int main();
-    __attribute__((weak)) void __bound_init(void*, int);
+    __attribute__((weak)) صحیح مین();
+    __attribute__((weak)) خالی __bound_init(خالی*, صحیح);
 
     //fprintf(stderr, "__bt_init %d %p %p %p\n", is_exe, p, p->stab_sym, p->bounds_start), fflush(stderr);
 
     /* call __bound_init here due to redirection of sigaction */
     /* needed to add global symbols */
-    if (p->bounds_start)
-	__bound_init(p->bounds_start, -1);
+    اگر (p->bounds_آغاز)
+	__bound_init(p->bounds_آغاز, -1);
 
-#ifdef _WIN64
-    bt_init_pe_prog_base(p);
-#endif
+#اگر_تعریف_شدہ _WIN64
+    bt_init_pe_prog_بنیاد(p);
+#اگر_ختم
 
     /* add to chain */
     rt_wait_sem();
-    p->next = g_rc, g_rc = p;
+    p->اگلا = g_rc, g_rc = p;
     rt_post_sem();
-    if (is_exe) {
+    اگر (is_exe) {
         /* we are the executable (not a dll) */
-        p->top_func = main;
-        set_exception_handler();
+        p->چوٹی_func = مین;
+        سیٹ_exception_handler();
     }
 }
 
 __declspec(dllexport)
-void __bt_exit(rt_context *p)
+خالی __bt_exit(rt_context *p)
 {
-    struct rt_context *rc, **pp;
-    __attribute__((weak)) void __bound_exit_dll(void*);
+    ساخت rt_context *rc, **pp;
+    __attribute__((weak)) خالی __bound_exit_dll(خالی*);
 
     //fprintf(stderr, "__bt_exit %d %p\n", !!p->top_func, p);
 
-    if (p->bounds_start)
-	__bound_exit_dll(p->bounds_start);
+    اگر (p->bounds_آغاز)
+	__bound_exit_dll(p->bounds_آغاز);
 
     /* remove from chain */
     rt_wait_sem();
-    for (pp = &g_rc; rc = *pp, rc; pp = &rc->next)
-        if (rc == p) {
-            *pp = rc->next;
-            break;
+    برائے (pp = &g_rc; rc = *pp, rc; pp = &rc->اگلا)
+        اگر (rc == p) {
+            *pp = rc->اگلا;
+            توڑو;
         }
     rt_post_sem();
 }
 
 /* copy a string and truncate it. */
-ST_FUNC char *pstrcpy(char *buf, size_t buf_size, const char *s)
+ST_FUNC حرف *pstrcpy(حرف *buf, سائز_t buf_سائز, ثابت حرف *s)
 {
-    int l = strlen(s);
-    if (l >= buf_size)
-        l = buf_size - 1;
-    memcpy(buf, s, l);
+    صحیح l = لڑی_لمبائی(s);
+    اگر (l >= buf_سائز)
+        l = buf_سائز - 1;
+    حافظہ_نقل(buf, s, l);
     buf[l] = 0;
-    return buf;
+    واپس buf;
 }

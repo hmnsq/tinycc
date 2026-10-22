@@ -1,7 +1,7 @@
-#ifndef _STDNORETURN_H
-#define _STDNORETURN_H
+#اگر_غیر_تعریف_شدہ _STDNORETURN_H
+#تعریف_کرو _STDNORETURN_H
 
 /* ISOC11 noreturn */
-#define noreturn _Noreturn
+#تعریف_کرو noreturn _Noreturn
 
-#endif /* _STDNORETURN_H */
+#اگر_ختم /* _STDNORETURN_H */

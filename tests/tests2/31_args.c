@@ -1,14 +1,14 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main(int argc, char **argv)
+صحیح مین(صحیح argc, حرف **argv)
 {
-   int Count;
+   صحیح گنتی_3;
 
-   printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   لکھو("hello world %d\n", argc);
+   برائے (گنتی_3 = 1; گنتی_3 < argc; گنتی_3++)
+      لکھو("arg %d: %s\n", گنتی_3, argv[گنتی_3]);
 
-   return 0;
+   واپس 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

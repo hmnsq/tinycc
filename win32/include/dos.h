@@ -3,53 +3,53 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_DOS
-#define _INC_DOS
+#اگر_غیر_تعریف_شدہ _INC_DOS
+#تعریف_کرو _INC_DOS
 
-#include <_mingw.h>
-#include <io.h>
+#شامل <_mingw.h>
+#شامل <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ہدایت pack(ڈالو,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
-#ifndef _DISKFREE_T_DEFINED
-#define _DISKFREE_T_DEFINED
+#اگر_غیر_تعریف_شدہ _DISKFREE_T_DEFINED
+#تعریف_کرو _DISKFREE_T_DEFINED
 
-  struct _diskfree_t {
-    unsigned total_clusters;
-    unsigned avail_clusters;
-    unsigned sectors_per_cluster;
-    unsigned bytes_per_sector;
+  ساخت _diskfree_t {
+    غیرعلامتی کل_clusters;
+    غیرعلامتی avail_clusters;
+    غیرعلامتی sectors_فی_cluster;
+    غیرعلامتی بائٹیں_فی_sector;
   };
-#endif
+#اگر_ختم
 
-#define _A_NORMAL 0x00
-#define _A_RDONLY 0x01
-#define _A_HIDDEN 0x02
-#define _A_SYSTEM 0x04
-#define _A_SUBDIR 0x10
-#define _A_ARCH 0x20
+#تعریف_کرو A_معمول 0x00
+#تعریف_کرو _A_RDONLY 0x01
+#تعریف_کرو _A_HIDDEN 0x02
+#تعریف_کرو _A_SYSTEM 0x04
+#تعریف_کرو _A_SUBDIR 0x10
+#تعریف_کرو _A_ARCH 0x20
 
-#ifndef _GETDISKFREE_DEFINED
-#define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
-#endif
+#اگر_غیر_تعریف_شدہ _GETDISKFREE_DEFINED
+#تعریف_کرو _GETDISKFREE_DEFINED
+  _CRTIMP غیرعلامتی __cdecl _getdiskfree(غیرعلامتی _Drive,ساخت _diskfree_t *_DiskFree);
+#اگر_ختم
 
-#if (defined(_X86_) && !defined(__x86_64))
-  void __cdecl _disable(void);
-  void __cdecl _enable(void);
-#endif
+#اگر (defined(_X86_) && !defined(__x86_64))
+  خالی __cdecl _disable(خالی);
+  خالی __cdecl _enable(خالی);
+#اگر_ختم
 
-#ifndef	NO_OLDNAMES
-#define diskfree_t _diskfree_t
-#endif
+#اگر_غیر_تعریف_شدہ	NO_OLDNAMES
+#تعریف_کرو diskfree_t _diskfree_t
+#اگر_ختم
 
-#ifdef __cplusplus
+#اگر_تعریف_شدہ __cplusplus
 }
-#endif
+#اگر_ختم
 
-#pragma pack(pop)
-#endif
+#ہدایت pack(نکالو)
+#اگر_ختم

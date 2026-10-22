@@ -3,28 +3,28 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef __STRALIGN_H_S_
-#define __STRALIGN_H_S_
+#اگر_غیر_تعریف_شدہ __STRALIGN_H_S_
+#تعریف_کرو __STRALIGN_H_S_
 
-#include <stralign.h>
+#شامل <stralign.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#اگر defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شدہ __cplusplus
+خارجی "C" {
+#اگر_ختم
 
-#if !defined(I_X86_) && defined(_WSTRING_S_DEFINED)
-#if defined(__cplusplus) && defined(_WConst_Return)
-  static __inline PUWSTR ua_wcscpy_s(PUWSTR Destination,size_t DestinationSize,PCUWSTR Source) {
-    if(WSTR_ALIGNED(Source) && WSTR_ALIGNED(Destination)) return (wcscpy_s((PWSTR)Destination,DestinationSize,(PCWSTR)Source)==0 ? Destination : NULL);
-    return uaw_wcscpy((PCUWSTR)String,Character);
+#اگر !defined(I_X86_) && defined(_WSTRING_S_DEFINED)
+#اگر defined(__cplusplus) && defined(_WConst_Return)
+  ساکن __inline PUWSTR ua_wcscpy_s(PUWSTR Destination,سائز_t Destination_سائز,PCUWSTR ماخذ_2) {
+    اگر(WSTR_ALIGNED(ماخذ_2) && WSTR_ALIGNED(Destination)) واپس (wcscpy_s((PWSTR)Destination,Destination_سائز,(PCWSTR)ماخذ_2)==0 ? Destination : تہی);
+    واپس uaw_wcscpy((PCUWSTR)String,Character);
   }
-#endif
-#endif
+#اگر_ختم
+#اگر_ختم
 
-#ifdef __cplusplus
+#اگر_تعریف_شدہ __cplusplus
 }
-#endif
-#endif
-#endif
+#اگر_ختم
+#اگر_ختم
+#اگر_ختم

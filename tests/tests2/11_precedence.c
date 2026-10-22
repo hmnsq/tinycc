@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+خارجی صحیح لکھو(ثابت حرف *, ...);
 
-int main()
+صحیح مین()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   صحیح a;
+   صحیح b;
+   صحیح c;
+   صحیح d;
+   صحیح e;
+   صحیح f;
+   صحیح x;
+   صحیح y;
 
    a = 12;
    b = 34;
@@ -19,23 +19,23 @@ int main()
    e = 0;
    f = 1;
 
-   printf("%d\n", c + d);
-   printf("%d\n", (y = c + d));
-   printf("%d\n", e || e && f);
-   printf("%d\n", e || f && f);
-   printf("%d\n", e && e || f);
-   printf("%d\n", e && f || f);
-   printf("%d\n", a && f | f);
-   printf("%d\n", a | b ^ c & d);
-   printf("%d, %d\n", a == a, a == b);
-   printf("%d, %d\n", a != a, a != b);
-   printf("%d\n", a != b && c != d);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", (4 << 4));
-   printf("%d\n", (64 >> 4));
+   لکھو("%d\n", c + d);
+   لکھو("%d\n", (y = c + d));
+   لکھو("%d\n", e || e && f);
+   لکھو("%d\n", e || f && f);
+   لکھو("%d\n", e && e || f);
+   لکھو("%d\n", e && f || f);
+   لکھو("%d\n", a && f | f);
+   لکھو("%d\n", a | b ^ c & d);
+   لکھو("%d, %d\n", a == a, a == b);
+   لکھو("%d, %d\n", a != a, a != b);
+   لکھو("%d\n", a != b && c != d);
+   لکھو("%d\n", a + b * c / f);
+   لکھو("%d\n", a + b * c / f);
+   لکھو("%d\n", (4 << 4));
+   لکھو("%d\n", (64 >> 4));
 
-   return 0;
+   واپس 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

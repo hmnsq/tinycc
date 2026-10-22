@@ -1,90 +1,90 @@
-#include <libtcc.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdarg.h>
+#شامل <libtcc.h>
+#شامل <stdlib.h>
+#شامل <stdio.h>
+#شامل <string.h>
+#شامل <stdarg.h>
 
 // MinGW has 80-bit rather than 64-bit long double which isn't compatible with TCC or MSVC
-#if defined(_WIN32) && defined(__GNUC__)
-#define LONG_DOUBLE double
-#define LONG_DOUBLE_LITERAL(x) x
-#else
-#define LONG_DOUBLE long double
-#define LONG_DOUBLE_LITERAL(x) x ## L
-#endif
+#اگر defined(_WIN32) && defined(__GNUC__)
+#تعریف_کرو LONG_DOUBLE دوہرا
+#تعریف_کرو LONG_DOUBLE_LITERAL(x) x
+#ورنہ
+#تعریف_کرو LONG_DOUBLE طویل دوہرا
+#تعریف_کرو LONG_DOUBLE_LITERAL(x) x ## L
+#اگر_ختم
 
-static int g_argc;
-static char **g_argv;
+ساکن صحیح g_argc;
+ساکن حرف **g_argv;
 
-static void set_options(TCCState *s, int argc, char **argv)
+ساکن خالی سیٹ_options(TCCState *s, صحیح argc, حرف **argv)
 {
-    int i;
-    for (i = 1; i < argc; ++i) {
-        char *a = argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
-                tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
-                tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
-                tcc_add_library_path(s, a+2);
+    صحیح i;
+    برائے (i = 1; i < argc; ++i) {
+        حرف *a = argv[i];
+        اگر (a[0] == '-') {
+            اگر (a[1] == 'B')
+                tcc_سیٹ_lib_راستہ(s, a+2);
+            ورنہ اگر (a[1] == 'I')
+                tcc_جوڑو_include_راستہ(s, a+2);
+            ورنہ اگر (a[1] == 'L')
+                tcc_جوڑو_library_راستہ(s, a+2);
         }
     }
 }
 
-typedef int (*callback_type) (void*);
+قسمتعریف صحیح (*callback_type) (خالی*);
 
 /*
  * Compile source code and call a callback with a pointer to the symbol "f".
  */
-static int run_callback(const char *src, callback_type callback) {
+ساکن صحیح تسلسل_callback(ثابت حرف *src, callback_type callback) {
   TCCState *s;
-  int result;
-  void *ptr;
+  صحیح نتیجہ;
+  خالی *ptr;
   
   s = tcc_new();
-  if (!s)
-    return -1;
+  اگر (!s)
+    واپس -1;
 
-  set_options(s, g_argc, g_argv);
+  سیٹ_options(s, g_argc, g_argv);
 
-  if (tcc_set_output_type(s, TCC_OUTPUT_MEMORY) == -1)
-    return -1;
-  if (tcc_compile_string(s, src) == -1)
-    return -1;
-  if (tcc_relocate(s) == -1)
-    return -1;
+  اگر (tcc_سیٹ_output_type(s, TCC_OUTPUT_حافظہ) == -1)
+    واپس -1;
+  اگر (tcc_compile_string(s, src) == -1)
+    واپس -1;
+  اگر (tcc_relocate(s) == -1)
+    واپس -1;
   
-  ptr = tcc_get_symbol(s, "f");
-  if (!ptr)
-    return -1;
-  result = callback(ptr);
+  ptr = tcc_get_علامت(s, "f");
+  اگر (!ptr)
+    واپس -1;
+  نتیجہ = callback(ptr);
   
   tcc_delete(s);
   
-  return result;
+  واپس نتیجہ;
 }
 
-#define STR2(x) #x
-#define STR(x) STR2(x)
+#تعریف_کرو STR2(x) #x
+#تعریف_کرو STR(x) STR2(x)
 
-#define RET_PRIMITIVE_TEST(name, type, val) \
-  static int ret_ ## name ## _test_callback(void *ptr) { \
+#تعریف_کرو RET_PRIMITIVE_TEST(name, type, val) \
+  ساکن صحیح ret_ ## name ## _test_callback(خالی *ptr) { \
     type (*callback) (type) = (type(*)(type))ptr; \
     type x = val; \
     type y = callback(x); \
-    return (y == x+x) ? 0 : -1; \
+    واپس (y == x+x) ? 0 : -1; \
   } \
   \
-  static int ret_ ## name ## _test(void) { \
-    const char *src = STR(type) " f(" STR(type) " x) {return x+x;}"; \
-    return run_callback(src, ret_ ## name ## _test_callback); \
+  ساکن صحیح ret_ ## name ## _test(خالی) { \
+    ثابت حرف *src = STR(type) " f(" STR(type) " x) {return x+x;}"; \
+    واپس تسلسل_callback(src, ret_ ## name ## _test_callback); \
   }
 
-RET_PRIMITIVE_TEST(int, int, 70000)
-RET_PRIMITIVE_TEST(longlong, long long, 4333369356528LL)
-RET_PRIMITIVE_TEST(float, float, 63.0)
-RET_PRIMITIVE_TEST(double, double, 14789798.0)
+RET_PRIMITIVE_TEST(صحیح, صحیح, 70000)
+RET_PRIMITIVE_TEST(longlong, طویل طویل, 4333369356528LL)
+RET_PRIMITIVE_TEST(اعشاری, اعشاری, 63.0)
+RET_PRIMITIVE_TEST(دوہرا, دوہرا, 14789798.0)
 RET_PRIMITIVE_TEST(longdouble, LONG_DOUBLE, LONG_DOUBLE_LITERAL(378943892.0))
 
 /*
@@ -93,26 +93,26 @@ RET_PRIMITIVE_TEST(longdouble, LONG_DOUBLE, LONG_DOUBLE_LITERAL(378943892.0))
  * On x86-64, a struct with 2 floats should be packed into a single
  * SSE register (VT_DOUBLE is used for this purpose).
  */
-typedef struct ret_2float_test_type_s {float x, y;} ret_2float_test_type;
-typedef ret_2float_test_type (*ret_2float_test_function_type) (ret_2float_test_type);
+قسمتعریف ساخت ret_2float_test_type_s {اعشاری x, y;} ret_2float_test_type;
+قسمتعریف ret_2float_test_type (*ret_2float_test_function_type) (ret_2float_test_type);
 
-static int ret_2float_test_callback(void *ptr) {
+ساکن صحیح ret_2float_test_callback(خالی *ptr) {
   ret_2float_test_function_type f = (ret_2float_test_function_type)ptr;
   ret_2float_test_type a = {10, 35};
   ret_2float_test_type r;
   r = f(a);
-  return ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
+  واپس ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
 }
 
-static int ret_2float_test(void) {
-  const char *src =
+ساکن صحیح ret_2float_test(خالی) {
+  ثابت حرف *src =
   "typedef struct ret_2float_test_type_s {float x, y;} ret_2float_test_type;"
   "ret_2float_test_type f(ret_2float_test_type a) {\n"
   "  ret_2float_test_type r = {a.x*5, a.y*3};\n"
   "  return r;\n"
   "}\n";
 
-  return run_callback(src, ret_2float_test_callback);
+  واپس تسلسل_callback(src, ret_2float_test_callback);
 }
 
 /*
@@ -121,26 +121,26 @@ static int ret_2float_test(void) {
  * On x86-64, a struct with 2 doubles should be passed in two SSE
  * registers.
  */
-typedef struct ret_2double_test_type_s {double x, y;} ret_2double_test_type;
-typedef ret_2double_test_type (*ret_2double_test_function_type) (ret_2double_test_type);
+قسمتعریف ساخت ret_2double_test_type_s {دوہرا x, y;} ret_2double_test_type;
+قسمتعریف ret_2double_test_type (*ret_2double_test_function_type) (ret_2double_test_type);
 
-static int ret_2double_test_callback(void *ptr) {
+ساکن صحیح ret_2double_test_callback(خالی *ptr) {
   ret_2double_test_function_type f = (ret_2double_test_function_type)ptr;
   ret_2double_test_type a = {10, 35};
   ret_2double_test_type r;
   r = f(a);
-  return ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
+  واپس ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
 }
 
-static int ret_2double_test(void) {
-  const char *src =
+ساکن صحیح ret_2double_test(خالی) {
+  ثابت حرف *src =
   "typedef struct ret_2double_test_type_s {double x, y;} ret_2double_test_type;"
   "ret_2double_test_type f(ret_2double_test_type a) {\n"
   "  ret_2double_test_type r = {a.x*5, a.y*3};\n"
   "  return r;\n"
   "}\n";
 
-  return run_callback(src, ret_2double_test_callback);
+  واپس تسلسل_callback(src, ret_2double_test_callback);
 }
 
 /*
@@ -155,25 +155,25 @@ static int ret_2double_test(void) {
  * address, thus causing a success message even though TCC actually
  * generated incorrect code.
  */
-typedef ret_2double_test_type (*ret_8plus2double_test_function_type) (double, double, double, double, double, double, double, ret_2double_test_type, double, double);
+قسمتعریف ret_2double_test_type (*ret_8plus2double_test_function_type) (دوہرا, دوہرا, دوہرا, دوہرا, دوہرا, دوہرا, دوہرا, ret_2double_test_type, دوہرا, دوہرا);
 
-static int ret_8plus2double_test_callback(void *ptr) {
+ساکن صحیح ret_8plus2double_test_callback(خالی *ptr) {
   ret_8plus2double_test_function_type f = (ret_8plus2double_test_function_type)ptr;
   ret_2double_test_type a = {10, 35};
   ret_2double_test_type r;
   r = f(0, 0, 0, 0, 0, 0, 0, a, 37, 38);
-  return ((r.x == 37) && (r.y == 37)) ? 0 : -1;
+  واپس ((r.x == 37) && (r.y == 37)) ? 0 : -1;
 }
 
-static int ret_8plus2double_test(void) {
-  const char *src =
+ساکن صحیح ret_8plus2double_test(خالی) {
+  ثابت حرف *src =
   "typedef struct ret_2double_test_type_s {double x, y;} ret_2double_test_type;"
   "ret_2double_test_type f(double x1, double x2, double x3, double x4, double x5, double x6, double x7, ret_2double_test_type a, double x8, double x9) {\n"
   "  ret_2double_test_type r = { x8, x8 };\n"
   "  return r;\n"
   "}\n";
 
-  return run_callback(src, ret_8plus2double_test_callback);
+  واپس تسلسل_callback(src, ret_8plus2double_test_callback);
 }
 
 /*
@@ -182,26 +182,26 @@ static int ret_8plus2double_test(void) {
  * On x86-64, a struct with a double and a 64-bit integer should be
  * passed in one SSE register and one integer register.
  */
-typedef struct ret_mixed_test_type_s {double x; long long y;} ret_mixed_test_type;
-typedef ret_mixed_test_type (*ret_mixed_test_function_type) (ret_mixed_test_type);
+قسمتعریف ساخت ret_mixed_test_type_s {دوہرا x; طویل طویل y;} ret_mixed_test_type;
+قسمتعریف ret_mixed_test_type (*ret_mixed_test_function_type) (ret_mixed_test_type);
 
-static int ret_mixed_test_callback(void *ptr) {
+ساکن صحیح ret_mixed_test_callback(خالی *ptr) {
   ret_mixed_test_function_type f = (ret_mixed_test_function_type)ptr;
   ret_mixed_test_type a = {10, 35};
   ret_mixed_test_type r;
   r = f(a);
-  return ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
+  واپس ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
 }
 
-static int ret_mixed_test(void) {
-  const char *src =
+ساکن صحیح ret_mixed_test(خالی) {
+  ثابت حرف *src =
   "typedef struct ret_mixed_test_type_s {double x; long long y;} ret_mixed_test_type;"
   "ret_mixed_test_type f(ret_mixed_test_type a) {\n"
   "  ret_mixed_test_type r = {a.x*5, a.y*3};\n"
   "  return r;\n"
   "}\n";
 
-  return run_callback(src, ret_mixed_test_callback);
+  واپس تسلسل_callback(src, ret_mixed_test_callback);
 }
 
 /*
@@ -210,26 +210,26 @@ static int ret_mixed_test(void) {
  * On x86-64, a struct with two floats and two 32-bit integers should
  * be passed in one SSE register and one integer register.
  */
-typedef struct ret_mixed2_test_type_s {float x,x2; int y,y2;} ret_mixed2_test_type;
-typedef ret_mixed2_test_type (*ret_mixed2_test_function_type) (ret_mixed2_test_type);
+قسمتعریف ساخت ret_mixed2_test_type_s {اعشاری x,x2; صحیح y,y2;} ret_mixed2_test_type;
+قسمتعریف ret_mixed2_test_type (*ret_mixed2_test_function_type) (ret_mixed2_test_type);
 
-static int ret_mixed2_test_callback(void *ptr) {
+ساکن صحیح ret_mixed2_test_callback(خالی *ptr) {
   ret_mixed2_test_function_type f = (ret_mixed2_test_function_type)ptr;
   ret_mixed2_test_type a = {10, 5, 35, 7 };
   ret_mixed2_test_type r;
   r = f(a);
-  return ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
+  واپس ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
 }
 
-static int ret_mixed2_test(void) {
-  const char *src =
+ساکن صحیح ret_mixed2_test(خالی) {
+  ثابت حرف *src =
   "typedef struct ret_mixed2_test_type_s {float x, x2; int y,y2;} ret_mixed2_test_type;"
   "ret_mixed2_test_type f(ret_mixed2_test_type a) {\n"
   "  ret_mixed2_test_type r = {a.x*5, 0, a.y*3, 0};\n"
   "  return r;\n"
   "}\n";
 
-  return run_callback(src, ret_mixed2_test_callback);
+  واپس تسلسل_callback(src, ret_mixed2_test_callback);
 }
 
 /*
@@ -237,78 +237,78 @@ static int ret_mixed2_test(void) {
  *
  * On x86-64, this struct should be passed in two integer registers.
  */
-typedef struct ret_mixed3_test_type_s {float x; int y; float x2; int y2;} ret_mixed3_test_type;
-typedef ret_mixed3_test_type (*ret_mixed3_test_function_type) (ret_mixed3_test_type);
+قسمتعریف ساخت ret_mixed3_test_type_s {اعشاری x; صحیح y; اعشاری x2; صحیح y2;} ret_mixed3_test_type;
+قسمتعریف ret_mixed3_test_type (*ret_mixed3_test_function_type) (ret_mixed3_test_type);
 
-static int ret_mixed3_test_callback(void *ptr) {
+ساکن صحیح ret_mixed3_test_callback(خالی *ptr) {
   ret_mixed3_test_function_type f = (ret_mixed3_test_function_type)ptr;
   ret_mixed3_test_type a = {10, 5, 35, 7 };
   ret_mixed3_test_type r;
   r = f(a);
-  return ((r.x == a.x*5) && (r.y2 == a.y*3)) ? 0 : -1;
+  واپس ((r.x == a.x*5) && (r.y2 == a.y*3)) ? 0 : -1;
 }
 
-static int ret_mixed3_test(void) {
-  const char *src =
+ساکن صحیح ret_mixed3_test(خالی) {
+  ثابت حرف *src =
   "typedef struct ret_mixed3_test_type_s {float x; int y; float x2; int y2;} ret_mixed3_test_type;"
   "ret_mixed3_test_type f(ret_mixed3_test_type a) {\n"
   "  ret_mixed3_test_type r = {a.x*5, 0, 0, a.y*3};\n"
   "  return r;\n"
   "}\n";
 
-  return run_callback(src, ret_mixed3_test_callback);
+  واپس تسلسل_callback(src, ret_mixed3_test_callback);
 }
 
 /*
  * reg_pack_test: return a small struct which should be packed into
  * registers (Win32) during return.
  */
-typedef struct reg_pack_test_type_s {int x, y;} reg_pack_test_type;
-typedef reg_pack_test_type (*reg_pack_test_function_type) (reg_pack_test_type);
+قسمتعریف ساخت reg_pack_test_type_s {صحیح x, y;} reg_pack_test_type;
+قسمتعریف reg_pack_test_type (*reg_pack_test_function_type) (reg_pack_test_type);
 
-static int reg_pack_test_callback(void *ptr) {
+ساکن صحیح reg_pack_test_callback(خالی *ptr) {
   reg_pack_test_function_type f = (reg_pack_test_function_type)ptr;
   reg_pack_test_type a = {10, 35};
   reg_pack_test_type r;
   r = f(a);
-  return ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
+  واپس ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
 }
 
-static int reg_pack_test(void) {
-  const char *src =
+ساکن صحیح reg_pack_test(خالی) {
+  ثابت حرف *src =
   "typedef struct reg_pack_test_type_s {int x, y;} reg_pack_test_type;"
   "reg_pack_test_type f(reg_pack_test_type a) {\n"
   "  reg_pack_test_type r = {a.x*5, a.y*3};\n"
   "  return r;\n"
   "}\n";
   
-  return run_callback(src, reg_pack_test_callback);
+  واپس تسلسل_callback(src, reg_pack_test_callback);
 }
 
 /*
  * reg_pack_longlong_test: return a small struct which should be packed into
  * registers (x86-64) during return.
  */
-typedef struct reg_pack_longlong_test_type_s {long long x, y;} reg_pack_longlong_test_type;
-typedef reg_pack_longlong_test_type (*reg_pack_longlong_test_function_type) (reg_pack_longlong_test_type);
+قسمتعریف ساخت reg_pack_longlong_test_type_s {طویل طویل x, y;} reg_pack_longlong_test_type;
+قسمتعریف reg_pack_longlong_test_type (*reg_pack_longlong_test_function_type) (reg_pack_longlong_test_type);
 
-static int reg_pack_longlong_test_callback(void *ptr) {
+ساکن صحیح reg_pack_longlong_test_callback(خالی *ptr) {
   reg_pack_longlong_test_function_type f = (reg_pack_longlong_test_function_type)ptr;
   reg_pack_longlong_test_type a = {10, 35};
   reg_pack_longlong_test_type r;
   r = f(a);
-  return ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
+  واپس ((r.x == a.x*5) && (r.y == a.y*3)) ? 0 : -1;
 }
 
-static int reg_pack_longlong_test(void) {
-  const char *src =
+ساکن صحیح reg_pack_longlong_test(خالی) {
+  ثابت حرف *src =
   "typedef struct reg_pack_longlong_test_type_s {long long x, y;} reg_pack_longlong_test_type;"
   "reg_pack_longlong_test_type f(reg_pack_longlong_test_type a) {\n"
   "  reg_pack_longlong_test_type r = {a.x*5, a.y*3};\n"
   "  return r;\n"
   "}\n";
   
-  return run_callback(src, reg_pack_longlong_test_callback);
+  واپس تسلسل_callback(src, reg_pack_longlong_test_callback);
 }
 
 /*
@@ -323,50 +323,50 @@ static int reg_pack_longlong_test(void) {
  * address, thus causing a success message even though TCC actually
  * generated incorrect code.
  */
-typedef reg_pack_longlong_test_type (*ret_6plus2longlong_test_function_type) (long long, long long, long long, long long, long long, reg_pack_longlong_test_type, long long, long long);
+قسمتعریف reg_pack_longlong_test_type (*ret_6plus2longlong_test_function_type) (طویل طویل, طویل طویل, طویل طویل, طویل طویل, طویل طویل, reg_pack_longlong_test_type, طویل طویل, طویل طویل);
 
-static int ret_6plus2longlong_test_callback(void *ptr) {
+ساکن صحیح ret_6plus2longlong_test_callback(خالی *ptr) {
   ret_6plus2longlong_test_function_type f = (ret_6plus2longlong_test_function_type)ptr;
   reg_pack_longlong_test_type a = {10, 35};
   reg_pack_longlong_test_type r;
   r = f(0, 0, 0, 0, 0, a, 37, 38);
-  return ((r.x == 37) && (r.y == 37)) ? 0 : -1;
+  واپس ((r.x == 37) && (r.y == 37)) ? 0 : -1;
 }
 
-static int ret_6plus2longlong_test(void) {
-  const char *src =
+ساکن صحیح ret_6plus2longlong_test(خالی) {
+  ثابت حرف *src =
   "typedef struct reg_pack_longlong_test_type_s {long long x, y;} reg_pack_longlong_test_type;"
   "reg_pack_longlong_test_type f(long long x1, long long x2, long long x3, long long x4, long long x5, reg_pack_longlong_test_type a, long long x8, long long x9) {\n"
   "  reg_pack_longlong_test_type r = { x8, x8 };\n"
   "  return r;\n"
   "}\n";
 
-  return run_callback(src, ret_6plus2longlong_test_callback);
+  واپس تسلسل_callback(src, ret_6plus2longlong_test_callback);
 }
 
 /*
  * sret_test: Create a struct large enough to be returned via sret
  * (hidden pointer as first function argument)
  */
-typedef struct sret_test_type_s {long long a, b, c;} sret_test_type;
-typedef sret_test_type (*sret_test_function_type) (sret_test_type);
+قسمتعریف ساخت sret_test_type_s {طویل طویل a, b, c;} sret_test_type;
+قسمتعریف sret_test_type (*sret_test_function_type) (sret_test_type);
 
-static int sret_test_callback(void *ptr) {
+ساکن صحیح sret_test_callback(خالی *ptr) {
   sret_test_function_type f = (sret_test_function_type)(ptr);
   sret_test_type x = {5436LL, 658277698LL, 43878957LL};
   sret_test_type r = f(x);
-  return ((r.a==x.a*35)&&(r.b==x.b*19)&&(r.c==x.c*21)) ? 0 : -1;
+  واپس ((r.a==x.a*35)&&(r.b==x.b*19)&&(r.c==x.c*21)) ? 0 : -1;
 }
 
-static int sret_test(void) {
-  const char *src =
+ساکن صحیح sret_test(خالی) {
+  ثابت حرف *src =
   "typedef struct sret_test_type_s {long long a, b, c;} sret_test_type;\n"
   "sret_test_type f(sret_test_type x) {\n"
   "  sret_test_type r = {x.a*35, x.b*19, x.c*21};\n"
   "  return r;\n"
   "}\n";
   
-  return run_callback(src, sret_test_callback);
+  واپس تسلسل_callback(src, sret_test_callback);
 }
 
 /*
@@ -375,26 +375,26 @@ static int sret_test(void) {
  * In the x86-64 ABI a union should always be passed on the stack. However
  * it appears that a single member union is treated by GCC as its member.
  */
-typedef union one_member_union_test_type_u {int x;} one_member_union_test_type;
-typedef one_member_union_test_type (*one_member_union_test_function_type) (one_member_union_test_type);
+قسمتعریف اتحاد one_member_union_test_type_u {صحیح x;} one_member_union_test_type;
+قسمتعریف one_member_union_test_type (*one_member_union_test_function_type) (one_member_union_test_type);
 
-static int one_member_union_test_callback(void *ptr) {
+ساکن صحیح one_member_union_test_callback(خالی *ptr) {
   one_member_union_test_function_type f = (one_member_union_test_function_type)ptr;
   one_member_union_test_type a, b;
   a.x = 34;
   b = f(a);
-  return (b.x == a.x*2) ? 0 : -1;
+  واپس (b.x == a.x*2) ? 0 : -1;
 }
 
-static int one_member_union_test(void) {
-  const char *src =
+ساکن صحیح one_member_union_test(خالی) {
+  ثابت حرف *src =
   "typedef union one_member_union_test_type_u {int x;} one_member_union_test_type;\n"
   "one_member_union_test_type f(one_member_union_test_type a) {\n"
   "  one_member_union_test_type b;\n"
   "  b.x = a.x * 2;\n"
   "  return b;\n"
   "}\n";
-  return run_callback(src, one_member_union_test_callback);
+  واپس تسلسل_callback(src, one_member_union_test_callback);
 }
 
 /*
@@ -402,44 +402,44 @@ static int one_member_union_test(void) {
  * 
  * In the x86-64 ABI a union should always be passed on the stack.
  */
-typedef union two_member_union_test_type_u {int x; long y;} two_member_union_test_type;
-typedef two_member_union_test_type (*two_member_union_test_function_type) (two_member_union_test_type);
+قسمتعریف اتحاد two_member_union_test_type_u {صحیح x; طویل y;} two_member_union_test_type;
+قسمتعریف two_member_union_test_type (*two_member_union_test_function_type) (two_member_union_test_type);
 
-static int two_member_union_test_callback(void *ptr) {
+ساکن صحیح two_member_union_test_callback(خالی *ptr) {
   two_member_union_test_function_type f = (two_member_union_test_function_type)ptr;
   two_member_union_test_type a, b;
   a.x = 34;
   b = f(a);
-  return (b.x == a.x*2) ? 0 : -1;
+  واپس (b.x == a.x*2) ? 0 : -1;
 }
 
-static int two_member_union_test(void) {
-  const char *src =
+ساکن صحیح two_member_union_test(خالی) {
+  ثابت حرف *src =
   "typedef union two_member_union_test_type_u {int x; long y;} two_member_union_test_type;\n"
   "two_member_union_test_type f(two_member_union_test_type a) {\n"
   "  two_member_union_test_type b;\n"
   "  b.x = a.x * 2;\n"
   "  return b;\n"
   "}\n";
-  return run_callback(src, two_member_union_test_callback);
+  واپس تسلسل_callback(src, two_member_union_test_callback);
 }
 
 /*
  * Win64 calling convention test.
  */
 
-typedef struct many_struct_test_type_s {long long a, b, c;} many_struct_test_type;
-typedef many_struct_test_type (*many_struct_test_function_type) (many_struct_test_type,many_struct_test_type,many_struct_test_type,many_struct_test_type,many_struct_test_type,many_struct_test_type);
+قسمتعریف ساخت many_struct_test_type_s {طویل طویل a, b, c;} many_struct_test_type;
+قسمتعریف many_struct_test_type (*many_struct_test_function_type) (many_struct_test_type,many_struct_test_type,many_struct_test_type,many_struct_test_type,many_struct_test_type,many_struct_test_type);
  
-static int many_struct_test_callback(void *ptr) {
+ساکن صحیح many_struct_test_callback(خالی *ptr) {
   many_struct_test_function_type f = (many_struct_test_function_type)ptr;
   many_struct_test_type v = {1, 2, 3};
   many_struct_test_type r = f(v,v,v,v,v,v);
-  return ((r.a == 6) && (r.b == 12) && (r.c == 18))?0:-1;
+  واپس ((r.a == 6) && (r.b == 12) && (r.c == 18))?0:-1;
 }
 
-static int many_struct_test(void) {
-  const char *src =
+ساکن صحیح many_struct_test(خالی) {
+  ثابت حرف *src =
   "typedef struct many_struct_test_type_s {long long a, b, c;} many_struct_test_type;\n"
   "many_struct_test_type f(many_struct_test_type x1, many_struct_test_type x2, many_struct_test_type x3, many_struct_test_type x4, many_struct_test_type x5, many_struct_test_type x6) {\n"
   "  many_struct_test_type y;\n"
@@ -448,25 +448,25 @@ static int many_struct_test(void) {
   "  y.c = x1.c + x2.c + x3.c + x4.c + x5.c + x6.c;\n"
   "  return y;\n"
   "}\n";
-  return run_callback(src, many_struct_test_callback);
+  واپس تسلسل_callback(src, many_struct_test_callback);
 }
 
 /*
  * Win64 calling convention test.
  */
 
-typedef struct many_struct_test_2_type_s {int a, b;} many_struct_test_2_type;
-typedef many_struct_test_2_type (*many_struct_test_2_function_type) (many_struct_test_2_type,many_struct_test_2_type,many_struct_test_2_type,many_struct_test_2_type,many_struct_test_2_type,many_struct_test_2_type);
+قسمتعریف ساخت many_struct_test_2_type_s {صحیح a, b;} many_struct_test_2_type;
+قسمتعریف many_struct_test_2_type (*many_struct_test_2_function_type) (many_struct_test_2_type,many_struct_test_2_type,many_struct_test_2_type,many_struct_test_2_type,many_struct_test_2_type,many_struct_test_2_type);
  
-static int many_struct_test_2_callback(void *ptr) {
+ساکن صحیح many_struct_test_2_callback(خالی *ptr) {
   many_struct_test_2_function_type f = (many_struct_test_2_function_type)ptr;
   many_struct_test_2_type v = {1,2};
   many_struct_test_2_type r = f(v,v,v,v,v,v);
-  return ((r.a == 6) && (r.b == 12))?0:-1;
+  واپس ((r.a == 6) && (r.b == 12))?0:-1;
 }
 
-static int many_struct_test_2(void) {
-  const char *src =
+ساکن صحیح many_struct_test_2(خالی) {
+  ثابت حرف *src =
   "typedef struct many_struct_test_2_type_s {int a, b;} many_struct_test_2_type;\n"
   "many_struct_test_2_type f(many_struct_test_2_type x1, many_struct_test_2_type x2, many_struct_test_2_type x3, many_struct_test_2_type x4, many_struct_test_2_type x5, many_struct_test_2_type x6) {\n"
   "  many_struct_test_2_type y;\n"
@@ -474,23 +474,23 @@ static int many_struct_test_2(void) {
   "  y.b = x1.b + x2.b + x3.b + x4.b + x5.b + x6.b;\n"
   "  return y;\n"
   "}\n";
-  return run_callback(src, many_struct_test_2_callback);
+  واپس تسلسل_callback(src, many_struct_test_2_callback);
 }
 
 /*
  * Win64 calling convention test.
  */
 
-typedef struct many_struct_test_3_type_s {int a, b;} many_struct_test_3_type;
-typedef many_struct_test_3_type (*many_struct_test_3_function_type) (many_struct_test_3_type,many_struct_test_3_type,many_struct_test_3_type,many_struct_test_3_type,many_struct_test_3_type,many_struct_test_3_type, ...);
-typedef struct many_struct_test_3_struct_type { many_struct_test_3_function_type f; many_struct_test_3_function_type *f2; } many_struct_test_3_struct_type;
+قسمتعریف ساخت many_struct_test_3_type_s {صحیح a, b;} many_struct_test_3_type;
+قسمتعریف many_struct_test_3_type (*many_struct_test_3_function_type) (many_struct_test_3_type,many_struct_test_3_type,many_struct_test_3_type,many_struct_test_3_type,many_struct_test_3_type,many_struct_test_3_type, ...);
+قسمتعریف ساخت many_struct_test_3_struct_type { many_struct_test_3_function_type f; many_struct_test_3_function_type *f2; } many_struct_test_3_struct_type;
 
-static void many_struct_test_3_dummy(double d, ...)
+ساکن خالی many_struct_test_3_dummy(دوہرا d, ...)
 {
-  volatile double x = d;
+  متلون دوہرا x = d;
 }
 
-static int many_struct_test_3_callback(void *ptr) {
+ساکن صحیح many_struct_test_3_callback(خالی *ptr) {
   many_struct_test_3_struct_type s = { ptr, };
   many_struct_test_3_struct_type *s2 = &s;
   s2->f2 = &s2->f;
@@ -498,11 +498,11 @@ static int many_struct_test_3_callback(void *ptr) {
   many_struct_test_3_function_type f = *(s2->f2);
   many_struct_test_3_type v = {1,2};
   many_struct_test_3_type r = (*((s2->f2=&f)+0))(v,v,v,v,v,v,1.0);
-  return ((r.a == 6) && (r.b == 12))?0:-1;
+  واپس ((r.a == 6) && (r.b == 12))?0:-1;
 }
 
-static int many_struct_test_3(void) {
-  const char *src =
+ساکن صحیح many_struct_test_3(خالی) {
+  ثابت حرف *src =
   "typedef struct many_struct_test_3_type_s {int a, b;} many_struct_test_3_type;\n"
   "many_struct_test_3_type f(many_struct_test_3_type x1, many_struct_test_3_type x2, many_struct_test_3_type x3, many_struct_test_3_type x4, many_struct_test_3_type x5, many_struct_test_3_type x6, ...) {\n"
   "  many_struct_test_3_type y;\n"
@@ -510,30 +510,30 @@ static int many_struct_test_3(void) {
   "  y.b = x1.b + x2.b + x3.b + x4.b + x5.b + x6.b;\n"
   "  return y;\n"
   "}\n";
-  return run_callback(src, many_struct_test_3_callback);
+  واپس تسلسل_callback(src, many_struct_test_3_callback);
 }
 
 /*
  * stdarg_test: Test variable argument list ABI
  */
 
-typedef struct {long long a, b, c;} stdarg_test_struct_type;
-typedef void (*stdarg_test_function_type) (int,int,int,...);
+قسمتعریف ساخت {طویل طویل a, b, c;} stdarg_test_struct_type;
+قسمتعریف خالی (*stdarg_test_function_type) (صحیح,صحیح,صحیح,...);
 
-static int stdarg_test_callback(void *ptr) {
+ساکن صحیح stdarg_test_callback(خالی *ptr) {
   stdarg_test_function_type f = (stdarg_test_function_type)ptr;
-  int x;
-  double y;
+  صحیح x;
+  دوہرا y;
   stdarg_test_struct_type z = {1, 2, 3}, w;
   f(10, 10, 5,
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, &x,
     1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, &y,
     z, z, z, z, z, &w);
-  return ((x == 55) && (y == 55) && (w.a == 5) && (w.b == 10) && (w.c == 15)) ? 0 : -1;
+  واپس ((x == 55) && (y == 55) && (w.a == 5) && (w.b == 10) && (w.c == 15)) ? 0 : -1;
 }
 
-static int stdarg_test(void) {
-  const char *src =
+ساکن صحیح stdarg_test(خالی) {
+  ثابت حرف *src =
   "#include <stdarg.h>\n"
   "typedef struct {long long a, b, c;} stdarg_test_struct_type;\n"
   "void f(int n_int, int n_float, int n_struct, ...) {\n"
@@ -555,26 +555,26 @@ static int stdarg_test(void) {
   "  *va_arg(ap, stdarg_test_struct_type*) = ts;\n"
   "  va_end(ap);"
   "}\n";
-  return run_callback(src, stdarg_test_callback);
+  واپس تسلسل_callback(src, stdarg_test_callback);
 }
 
-typedef struct {long long a, b;} stdarg_many_test_struct_type;
-typedef void (*stdarg_many_test_function_type) (int, int, int, int, int,
+قسمتعریف ساخت {طویل طویل a, b;} stdarg_many_test_struct_type;
+قسمتعریف خالی (*stdarg_many_test_function_type) (صحیح, صحیح, صحیح, صحیح, صحیح,
 						stdarg_many_test_struct_type,
-						int, int, ...);
+						صحیح, صحیح, ...);
 
-static int stdarg_many_test_callback(void *ptr)
+ساکن صحیح stdarg_many_test_callback(خالی *ptr)
 {
   stdarg_many_test_function_type f = (stdarg_many_test_function_type)ptr;
-  int x;
+  صحیح x;
   stdarg_many_test_struct_type l = {10, 11};
   f(1, 2, 3, 4, 5, l, 6, 7, &x, 44);
-  return x == 44 ? 0 : -1;
+  واپس x == 44 ? 0 : -1;
 }
 
-static int stdarg_many_test(void)
+ساکن صحیح stdarg_many_test(خالی)
 {
-  const char *src =
+  ثابت حرف *src =
   "#include <stdarg.h>\n"
   "typedef struct {long long a, b;} stdarg_many_test_struct_type;\n"
   "void f (int a, int b, int c, int d, int e, stdarg_many_test_struct_type l, int f, int g, ...){\n"
@@ -585,7 +585,7 @@ static int stdarg_many_test(void)
   "  *p = va_arg(ap, int);\n"
   "  va_end (ap);\n"
   "}\n";
-  return run_callback(src, stdarg_many_test_callback);
+  واپس تسلسل_callback(src, stdarg_many_test_callback);
 }
 
 /*
@@ -593,18 +593,18 @@ static int stdarg_many_test(void)
  * to the struct and the stdarg pointer must point to that pointer initially.
  */
 
-typedef struct {long long a, b, c;} stdarg_struct_test_struct_type;
-typedef int (*stdarg_struct_test_function_type) (stdarg_struct_test_struct_type a, ...);
+قسمتعریف ساخت {طویل طویل a, b, c;} stdarg_struct_test_struct_type;
+قسمتعریف صحیح (*stdarg_struct_test_function_type) (stdarg_struct_test_struct_type a, ...);
 
-static int stdarg_struct_test_callback(void *ptr) {
+ساکن صحیح stdarg_struct_test_callback(خالی *ptr) {
   stdarg_struct_test_function_type f = (stdarg_struct_test_function_type)ptr;
   stdarg_struct_test_struct_type v = {10, 35, 99};
-  int x = f(v, 234);
-  return (x == 378) ? 0 : -1;
+  صحیح x = f(v, 234);
+  واپس (x == 378) ? 0 : -1;
 }
 
-static int stdarg_struct_test(void) {
-  const char *src =
+ساکن صحیح stdarg_struct_test(خالی) {
+  ثابت حرف *src =
   "#include <stdarg.h>\n"
   "typedef struct {long long a, b, c;} stdarg_struct_test_struct_type;\n"
   "int f(stdarg_struct_test_struct_type a, ...) {\n"
@@ -614,78 +614,78 @@ static int stdarg_struct_test(void) {
   "  va_end(ap);\n"
   "  return z + a.a + a.b + a.c;\n"
   "}\n";
-  return run_callback(src, stdarg_struct_test_callback);
+  واپس تسلسل_callback(src, stdarg_struct_test_callback);
 }
 
 /* Test that x86-64 arranges the stack correctly for arguments with alignment >8 bytes */
 
-typedef LONG_DOUBLE (*arg_align_test_callback_type) (LONG_DOUBLE,int,LONG_DOUBLE,int,LONG_DOUBLE);
+قسمتعریف LONG_DOUBLE (*arg_align_test_callback_type) (LONG_DOUBLE,صحیح,LONG_DOUBLE,صحیح,LONG_DOUBLE);
 
-static int arg_align_test_callback(void *ptr) {
+ساکن صحیح arg_align_test_callback(خالی *ptr) {
   arg_align_test_callback_type f = (arg_align_test_callback_type)ptr;
-  long double x = f(12, 0, 25, 0, 37);
-  return (x == 74) ? 0 : -1;
+  طویل دوہرا x = f(12, 0, 25, 0, 37);
+  واپس (x == 74) ? 0 : -1;
 }
 
-static int arg_align_test(void) {
-  const char *src = 
+ساکن صحیح arg_align_test(خالی) {
+  ثابت حرف *src = 
   "long double f(long double a, int b, long double c, int d, long double e) {\n"
   "  return a + c + e;\n"
   "}\n";
-  return run_callback(src, arg_align_test_callback);
+  واپس تسلسل_callback(src, arg_align_test_callback);
 }
 
-#define RUN_TEST(t) \
-  if (!testname || (strcmp(#t, testname) == 0)) { \
+#تعریف_کرو تسلسل_TEST(t) \
+  اگر (!testname || (strcmp(#t, testname) == 0)) { \
     fputs(#t "... ", stdout); \
     fflush(stdout); \
-    if (t() == 0) { \
+    اگر (t() == 0) { \
       fputs("success\n", stdout); \
-    } else { \
+    } ورنہ { \
       fputs("failure\n", stdout); \
       retval = EXIT_FAILURE; \
     } \
   }
 
-int main(int argc, char **argv) {
-  int i;
-  const char *testname = NULL;
-  int retval = EXIT_SUCCESS;
+صحیح مین(صحیح argc, حرف **argv) {
+  صحیح i;
+  ثابت حرف *testname = تہی;
+  صحیح retval = EXIT_SUCCESS;
   
   /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-  for (i = 1; i < argc; ++i) {
-    if (!memcmp(argv[i], "run_test=", 9))
+  برائے (i = 1; i < argc; ++i) {
+    اگر (!memcmp(argv[i], "run_test=", 9))
       testname = argv[i] + 9;
   }
 
   g_argv = argv, g_argc = argc;
 
-  RUN_TEST(ret_int_test);
-  RUN_TEST(ret_longlong_test);
-  RUN_TEST(ret_float_test);
-  RUN_TEST(ret_double_test);
-  RUN_TEST(ret_longdouble_test);
-  RUN_TEST(ret_2float_test);
-  RUN_TEST(ret_2double_test);
-  RUN_TEST(ret_8plus2double_test);
-  RUN_TEST(ret_6plus2longlong_test);
-#if !defined __x86_64__ || defined _WIN32
+  تسلسل_TEST(ret_int_test);
+  تسلسل_TEST(ret_longlong_test);
+  تسلسل_TEST(ret_float_test);
+  تسلسل_TEST(ret_double_test);
+  تسلسل_TEST(ret_longdouble_test);
+  تسلسل_TEST(ret_2float_test);
+  تسلسل_TEST(ret_2double_test);
+  تسلسل_TEST(ret_8plus2double_test);
+  تسلسل_TEST(ret_6plus2longlong_test);
+#اگر !defined __x86_64__ || defined _WIN32
   /* currently broken on x86_64 linux */
-  RUN_TEST(ret_mixed_test);
-  RUN_TEST(ret_mixed2_test);
-#endif
-  RUN_TEST(ret_mixed3_test);
-  RUN_TEST(reg_pack_test);
-  RUN_TEST(reg_pack_longlong_test);
-  RUN_TEST(sret_test);
-  RUN_TEST(one_member_union_test);
-  RUN_TEST(two_member_union_test);
-  RUN_TEST(many_struct_test);
-  RUN_TEST(many_struct_test_2);
-  RUN_TEST(many_struct_test_3);
-  RUN_TEST(stdarg_test);
-  RUN_TEST(stdarg_many_test);
-  RUN_TEST(stdarg_struct_test);
-  RUN_TEST(arg_align_test);
-  return retval;
+  تسلسل_TEST(ret_mixed_test);
+  تسلسل_TEST(ret_mixed2_test);
+#اگر_ختم
+  تسلسل_TEST(ret_mixed3_test);
+  تسلسل_TEST(reg_pack_test);
+  تسلسل_TEST(reg_pack_longlong_test);
+  تسلسل_TEST(sret_test);
+  تسلسل_TEST(one_member_union_test);
+  تسلسل_TEST(two_member_union_test);
+  تسلسل_TEST(many_struct_test);
+  تسلسل_TEST(many_struct_test_2);
+  تسلسل_TEST(many_struct_test_3);
+  تسلسل_TEST(stdarg_test);
+  تسلسل_TEST(stdarg_many_test);
+  تسلسل_TEST(stdarg_struct_test);
+  تسلسل_TEST(arg_align_test);
+  واپس retval;
 }

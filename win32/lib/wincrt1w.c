@@ -1,3 +1,3 @@
-#define _UNICODE 1
-#define UNICODE 1
-#include "wincrt1.c"
+#تعریف_کرو _UNICODE 1
+#تعریف_کرو UNICODE 1
+#شامل "wincrt1.c"

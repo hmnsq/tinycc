@@ -1,20 +1,20 @@
-extern int write (int fd, void *buf, int len);
+خارجی صحیح اكتب (صحیح fd, خالی *buf, صحیح len);
 
-static void __attribute__ ((constructor))
-testc (void)
+ساکن خالی __attribute__ ((constructor))
+testc (خالی)
 {
-  write (1, "constructor\n", 12);
+  اكتب (1, "constructor\n", 12);
 }
 
-static void __attribute__ ((destructor))
-testd (void)
+ساکن خالی __attribute__ ((destructor))
+testd (خالی)
 {
-  write (1, "destructor\n", 11);
+  اكتب (1, "destructor\n", 11);
 }
 
-int
-main (void)
+صحیح
+مین (خالی)
 {
-  write (1, "main\n", 5);
-  return 0;
+  اكتب (1, "main\n", 5);
+  واپس 0;
 }

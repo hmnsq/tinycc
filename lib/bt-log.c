@@ -1,56 +1,56 @@
 /* ------------------------------------------------------------- */
 /* function to get a stack backtrace on demand with a message */
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
-#undef __attribute__
+#شامل <stdarg.h>
+#شامل <stdio.h>
+#شامل <string.h>
+#تعریف_منسوخ __attribute__
 
-#ifdef _WIN32
+#اگر_تعریف_شدہ _WIN32
 # define DLL_EXPORT __declspec(dllexport)
-#else
+#ورنہ
 # define DLL_EXPORT
-#endif
+#اگر_ختم
 
 /* Needed when using ...libtcc1-usegcc=yes in lib/Makefile */
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wframe-address"
-#endif
+#اگر (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#ہدایت GCC diagnostic ڈالو
+#ہدایت GCC diagnostic ignored "-Wframe-address"
+#اگر_ختم
 
-typedef struct rt_frame {
-    void *ip, *fp, *sp;
-} rt_frame;
+قسمتعریف ساخت rt_چوکھٹا {
+    خالی *ip, *fp, *sp;
+} rt_چوکھٹا;
 
 __attribute__((weak))
-int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap);
+صحیح _tcc_backtrace(rt_چوکھٹا *f, ثابت حرف *fmt, va_list ap);
 
-DLL_EXPORT int tcc_backtrace(const char *fmt, ...)
+DLL_EXPORT صحیح tcc_backtrace(ثابت حرف *fmt, ...)
 {
     va_list ap;
-    int ret;
+    صحیح ret;
 
-    if (_tcc_backtrace) {
-        rt_frame f;
+    اگر (_tcc_backtrace) {
+        rt_چوکھٹا f;
         f.fp = __builtin_frame_address(1);
         f.ip = __builtin_return_address(0);
         va_start(ap, fmt);
         ret = _tcc_backtrace(&f, fmt, ap);
         va_end(ap);
-    } else {
-        const char *p, *nl = "\n";
-        if (fmt[0] == '^' && (p = strchr(fmt + 1, fmt[0])))
+    } ورنہ {
+        ثابت حرف *p, *nl = "\n";
+        اگر (fmt[0] == '^' && (p = strchr(fmt + 1, fmt[0])))
             fmt = p + 1;
-        if (fmt[0] == '\001')
+        اگر (fmt[0] == '\001')
             ++fmt, nl = "";
         va_start(ap, fmt);
         ret = vfprintf(stderr, fmt, ap);
         va_end(ap);
         fprintf(stderr, "%s", nl), fflush(stderr);
     }
-    return ret;
+    واپس ret;
 }
 
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic pop
-#endif
+#اگر (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#ہدایت GCC diagnostic نکالو
+#اگر_ختم

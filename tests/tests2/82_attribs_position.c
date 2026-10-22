@@ -1,71 +1,71 @@
-typedef unsigned short uint16_t;
-typedef unsigned char uint8_t;
+قسمتعریف غیرعلامتی مختصر uint16_t;
+قسمتعریف غیرعلامتی حرف uint8_t;
 
-typedef union Unaligned16a {
+قسمتعریف اتحاد Unaligned16a {
   uint16_t u;
   uint8_t b[2];
 } __attribute__((packed)) Unaligned16a;
 
-typedef union __attribute__((packed)) Unaligned16b {
+قسمتعریف اتحاد __attribute__((packed)) Unaligned16b {
   uint16_t u;
   uint8_t b[2];
 } Unaligned16b;
 
-extern void foo (void) __attribute__((stdcall));
-void __attribute__((stdcall)) foo (void)
+خارجی خالی foo (خالی) __attribute__((stdcall));
+خالی __attribute__((stdcall)) foo (خالی)
 {
 }
 
-#define __stdcall __attribute__((stdcall))
-extern int some_stdcall_func (int, int, int) __stdcall;
-__stdcall int __stdcall some_stdcall_func(int foo, int bar, int baz) {
+#تعریف_کرو __stdcall __attribute__((stdcall))
+خارجی صحیح some_stdcall_func (صحیح, صحیح, صحیح) __stdcall;
+__stdcall صحیح __stdcall some_stdcall_func(صحیح foo, صحیح bar, صحیح baz) {
 	//printf("Hello from stdcall: %i %i %i\n", foo, bar, baz);
-	return 43;
+	واپس 43;
 }
 
 /* The actual attribute isn't important, must just be
    parsable.  */
-#define ATTR __attribute__((__noinline__))
-int ATTR actual_function() {
-  return 42;
+#تعریف_کرو ATTR __attribute__((__noinline__))
+صحیح ATTR actual_function() {
+  واپس 42;
 }
 
-int label_attribute (void)
+صحیح label_attribute (خالی)
 {
 lab1: __attribute__((__unused__));
-  return 0;
+  واپس 0;
 }
 
-extern int printf (const char *, ...);
-static int globalvar;
-int main()
+خارجی صحیح لکھو (ثابت حرف *, ...);
+ساکن صحیح globalvar;
+صحیح مین()
 {
-    void *function_pointer = &actual_function;
-    int localvar = 42, i;
+    خالی *function_اشارہ_گر = &actual_function;
+    صحیح localvar = 42, i;
 
-    int a = ((ATTR int(*) (void)) function_pointer)();
-    printf("%i\n", a);
+    صحیح a = ((ATTR صحیح(*) (خالی)) function_اشارہ_گر)();
+    لکھو("%i\n", a);
 
     /* In the following we once misparsed 'ATTR *' is a btype
        and hence the whole type was garbled.  */
-    int b = ( (int(ATTR *)(void))  function_pointer)();
-    printf("%i\n", b);
+    صحیح b = ( (صحیح(ATTR *)(خالی))  function_اشارہ_گر)();
+    لکھو("%i\n", b);
 
     /* All these should work and leave the stack pointer in its original
        position.  */
     some_stdcall_func(1, 10, 100);
-    ((int __stdcall (*)(int, int, int))some_stdcall_func) (2, 20, 200);
-    ((int(*__stdcall)(int, int, int))some_stdcall_func) (3, 30, 300);
-    for (i = 0; i < 1024; i++) {
+    ((صحیح __stdcall (*)(صحیح, صحیح, صحیح))some_stdcall_func) (2, 20, 200);
+    ((صحیح(*__stdcall)(صحیح, صحیح, صحیح))some_stdcall_func) (3, 30, 300);
+    برائے (i = 0; i < 1024; i++) {
 	globalvar = i;
 	/* This was once misparsed at <= gitrev 325241c0, forgetting
 	   the stdcall attribute on the function pointer leading to
 	   stack increment being done twice (in callee and caller).
 	   This will clobber 'i' and 'localvar' which is how we detect
 	   this.  */
-	((int(__stdcall*)(int, int, int))some_stdcall_func) (4, 40, 400);
-	if (localvar != 42 || globalvar != i)
-	  printf("error, localvar=%d i=%d globalvar=%d\n", localvar, i, globalvar);
+	((صحیح(__stdcall*)(صحیح, صحیح, صحیح))some_stdcall_func) (4, 40, 400);
+	اگر (localvar != 42 || globalvar != i)
+	  لکھو("error, localvar=%d i=%d globalvar=%d\n", localvar, i, globalvar);
     }
-    return 0;
+    واپس 0;
 }

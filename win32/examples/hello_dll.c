@@ -3,18 +3,18 @@
 //  HELLO_DLL.C - Windows DLL example - main application part
 //
 
-#include <windows.h>
+#شامل <windows.h>
 
-void hello_func (void);
-__declspec(dllimport) extern const char *hello_data;
+خالی hello_func (خالی);
+__declspec(dllimport) خارجی ثابت حرف *hello_ڈیٹا;
 
-int WINAPI WinMain(
+صحیح WINAPI WinMain(
     HINSTANCE hInstance,
-    HINSTANCE hPrevInstance,
-    LPSTR     lpCmdLine,
-    int       nCmdShow)
+    HINSTANCE h_پچھلا_Instance,
+    LPSTR     lp_Cmd_سطر,
+    صحیح       nCmdShow)
 {
-    hello_data = "Hello World!";
+    hello_ڈیٹا = "Hello World!";
     hello_func();
-    return 0;
+    واپس 0;
 }

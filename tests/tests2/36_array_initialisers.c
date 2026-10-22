@@ -1,25 +1,25 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-extern int Array3[10];
-int Array3[] = { 12, 34, };
-int main()
+خارجی صحیح Array3[10];
+صحیح Array3[] = { 12, 34, };
+صحیح مین()
 {
-   int Count;
+   صحیح گنتی_3;
 
-   int Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
+   صحیح Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array[Count]);
+   برائے (گنتی_3 = 0; گنتی_3 < 10; گنتی_3++)
+      لکھو("%d: %d\n", گنتی_3, Array[گنتی_3]);
 
-   int Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
+   صحیح Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array2[Count]);
+   برائے (گنتی_3 = 0; گنتی_3 < 10; گنتی_3++)
+      لکھو("%d: %d\n", گنتی_3, Array2[گنتی_3]);
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array3[Count]);
+   برائے (گنتی_3 = 0; گنتی_3 < 10; گنتی_3++)
+      لکھو("%d: %d\n", گنتی_3, Array3[گنتی_3]);
 
-   return 0;
+   واپس 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

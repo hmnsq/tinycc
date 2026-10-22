@@ -18,19 +18,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "tcc.h"
+#شامل "tcc.h"
 
-#define PE_MERGE_DATA 1
-#define PE_PRINT_SECTIONS 0
+#تعریف_کرو PE_ملاؤ_ڈیٹا 1
+#تعریف_کرو PE_PRINT_SECTIONS 0
 
-#ifndef _WIN32
-#define stricmp strcasecmp
-#define strnicmp strncasecmp
-#include <sys/stat.h> /* chmod() */
-#endif
+#اگر_غیر_تعریف_شدہ _WIN32
+#تعریف_کرو stricmp strcasecmp
+#تعریف_کرو strnicmp strncasecmp
+#شامل <sys/stat.h> /* chmod() */
+#اگر_ختم
 
-#if defined TCC_TARGET_X86_64
-# define REL_TYPE_DIRECT R_X86_64_64
+#اگر defined TCC_ہدف_X86_64
+# define REL_TYPE_براہ_راست R_X86_64_64
 # define R_XXX_THUNKFIX R_X86_64_PC32
 # define R_XXX_RELATIVE R_X86_64_RELATIVE
 # define R_XXX_FUNCCALL R_X86_64_PLT32
@@ -38,13 +38,13 @@
 # define IMAGE_FILE_MACHINE 0x8664
 # define CHARACTERISTICS_EXE 0x022F
 # define CHARACTERISTICS_DLL 0x222E
-# define IMAGE_BASE_EXE 0x00400000
-# define IMAGE_BASE_DLL 0x10000000
+# define IMAGE_بنیاد_EXE 0x00400000
+# define IMAGE_بنیاد_DLL 0x10000000
 # define DLLCHARACTERISTICS 0
 # define OS_VER 0x0400
 
-#elif defined TCC_TARGET_ARM
-# define REL_TYPE_DIRECT R_ARM_ABS32
+#وگرنہ_اگر defined TCC_ہدف_ARM
+# define REL_TYPE_براہ_راست R_ARM_ABS32
 # define R_XXX_THUNKFIX R_ARM_ABS32
 # define R_XXX_RELATIVE R_ARM_RELATIVE
 # define R_XXX_FUNCCALL R_ARM_PC24
@@ -53,13 +53,13 @@
 # define IMAGE_FILE_MACHINE 0x01C0
 # define CHARACTERISTICS_EXE 0x010F
 # define CHARACTERISTICS_DLL 0x230F
-# define IMAGE_BASE_EXE 0x00100000
-# define IMAGE_BASE_DLL 0x10000000
+# define IMAGE_بنیاد_EXE 0x00100000
+# define IMAGE_بنیاد_DLL 0x10000000
 # define DLLCHARACTERISTICS 0
 # define OS_VER 0x0400
 
-#elif defined TCC_TARGET_ARM64
-# define REL_TYPE_DIRECT R_AARCH64_ABS64
+#وگرنہ_اگر defined TCC_ہدف_ARM64
+# define REL_TYPE_براہ_راست R_AARCH64_ABS64
 # define R_XXX_THUNKFIX R_AARCH64_ABS64
 # define R_XXX_RELATIVE R_AARCH64_RELATIVE
 # define R_XXX_FUNCCALL R_AARCH64_CALL26
@@ -67,13 +67,13 @@
 # define IMAGE_FILE_MACHINE 0xAA64
 # define CHARACTERISTICS_EXE 0x0022
 # define CHARACTERISTICS_DLL 0x2022
-# define IMAGE_BASE_EXE 0x140000000ULL
-# define IMAGE_BASE_DLL 0x180000000ULL
+# define IMAGE_بنیاد_EXE 0x140000000ULL
+# define IMAGE_بنیاد_DLL 0x180000000ULL
 # define OS_VER 0x0602
 # define DLLCHARACTERISTICS 0x8160
 
-#elif defined TCC_TARGET_I386
-# define REL_TYPE_DIRECT R_386_32
+#وگرنہ_اگر defined TCC_ہدف_I386
+# define REL_TYPE_براہ_راست R_386_32
 # define R_XXX_THUNKFIX R_386_32
 # define R_XXX_RELATIVE R_386_RELATIVE
 # define R_XXX_FUNCCALL R_386_PC32
@@ -81,273 +81,273 @@
 # define IMAGE_FILE_MACHINE 0x014C
 # define CHARACTERISTICS_EXE 0x030F
 # define CHARACTERISTICS_DLL 0x230E
-# define IMAGE_BASE_EXE 0x00400000
-# define IMAGE_BASE_DLL 0x10000000
+# define IMAGE_بنیاد_EXE 0x00400000
+# define IMAGE_بنیاد_DLL 0x10000000
 # define OS_VER 0x0400
 # define DLLCHARACTERISTICS 0
-#endif
+#اگر_ختم
 
-#if PTR_SIZE == 8
+#اگر PTR_سائز == 8
 # define ADDR3264 ULONGLONG
 # define PE_MAGIC 0x020B
 # define PE_IMAGE_REL IMAGE_REL_BASED_DIR64
-#else
+#ورنہ
 # define ADDR3264 DWORD
 # define PE_MAGIC 0x010B
 # define PE_IMAGE_REL IMAGE_REL_BASED_HIGHLOW
-#endif
+#اگر_ختم
 
-#ifndef IMAGE_NT_SIGNATURE
+#اگر_غیر_تعریف_شدہ IMAGE_NT_SIGNATURE
 /* cross compiler: windows.h was not included */
 /* ----------------------------------------------------------- */
 /* definitions below are from winnt.h */
 
-typedef unsigned char BYTE;
-typedef unsigned short WORD;
-typedef unsigned int DWORD;
-typedef unsigned long long ULONGLONG;
-#pragma pack(push, 1)
+قسمتعریف غیرعلامتی حرف BYTE;
+قسمتعریف غیرعلامتی مختصر لفظ_3;
+قسمتعریف غیرعلامتی صحیح DWORD;
+قسمتعریف غیرعلامتی طویل طویل ULONGLONG;
+#ہدایت pack(ڈالو, 1)
 
-typedef struct _IMAGE_DOS_HEADER {  /* DOS .EXE header */
-    WORD e_magic;         /* Magic number */
-    WORD e_cblp;          /* Bytes on last page of file */
-    WORD e_cp;            /* Pages in file */
-    WORD e_crlc;          /* Relocations */
-    WORD e_cparhdr;       /* Size of header in paragraphs */
-    WORD e_minalloc;      /* Minimum extra paragraphs needed */
-    WORD e_maxalloc;      /* Maximum extra paragraphs needed */
-    WORD e_ss;            /* Initial (relative) SS value */
-    WORD e_sp;            /* Initial SP value */
-    WORD e_csum;          /* Checksum */
-    WORD e_ip;            /* Initial IP value */
-    WORD e_cs;            /* Initial (relative) CS value */
-    WORD e_lfarlc;        /* File address of relocation table */
-    WORD e_ovno;          /* Overlay number */
-    WORD e_res[4];        /* Reserved words */
-    WORD e_oemid;         /* OEM identifier (for e_oeminfo) */
-    WORD e_oeminfo;       /* OEM information; e_oemid specific */
-    WORD e_res2[10];      /* Reserved words */
+قسمتعریف ساخت IMAGE_DOS_سرخی {  /* DOS .EXE header */
+    لفظ_3 e_magic;         /* Magic number */
+    لفظ_3 e_cblp;          /* Bytes on last page of file */
+    لفظ_3 e_cp;            /* Pages in file */
+    لفظ_3 e_crlc;          /* Relocations */
+    لفظ_3 e_cparhdr;       /* Size of header in paragraphs */
+    لفظ_3 e_minalloc;      /* Minimum extra paragraphs needed */
+    لفظ_3 e_maxalloc;      /* Maximum extra paragraphs needed */
+    لفظ_3 e_ss;            /* Initial (relative) SS value */
+    لفظ_3 e_sp;            /* Initial SP value */
+    لفظ_3 e_csum;          /* Checksum */
+    لفظ_3 e_ip;            /* Initial IP value */
+    لفظ_3 e_cs;            /* Initial (relative) CS value */
+    لفظ_3 e_lfarlc;        /* File address of relocation table */
+    لفظ_3 e_ovno;          /* Overlay number */
+    لفظ_3 e_res[4];        /* Reserved words */
+    لفظ_3 e_oemid;         /* OEM identifier (for e_oeminfo) */
+    لفظ_3 e_oeminfo;       /* OEM information; e_oemid specific */
+    لفظ_3 e_res2[10];      /* Reserved words */
     DWORD e_lfanew;        /* File address of new exe header */
-} IMAGE_DOS_HEADER, *PIMAGE_DOS_HEADER;
+} IMAGE_DOS_سرخی_2, *PIMAGE_DOS_سرخی;
 
-#define IMAGE_NT_SIGNATURE  0x00004550  /* PE00 */
+#تعریف_کرو IMAGE_NT_SIGNATURE  0x00004550  /* PE00 */
 
-typedef struct _IMAGE_FILE_HEADER {
-    WORD    Machine;
-    WORD    NumberOfSections;
-    DWORD   TimeDateStamp;
-    DWORD   PointerToSymbolTable;
-    DWORD   NumberOfSymbols;
-    WORD    SizeOfOptionalHeader;
-    WORD    Characteristics;
-} IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
-
-
-#define IMAGE_SIZEOF_FILE_HEADER 20
-
-typedef struct _IMAGE_DATA_DIRECTORY {
-    DWORD   VirtualAddress;
-    DWORD   Size;
-} IMAGE_DATA_DIRECTORY, *PIMAGE_DATA_DIRECTORY;
+قسمتعریف ساخت IMAGE_FILE_سرخی {
+    لفظ_3    Machine;
+    لفظ_3    نمبر_کا_Sections;
+    DWORD   وقت_Date_Stamp;
+    DWORD   اشارہ_گر_مقصد_علامت_جدول;
+    DWORD   نمبر_کا_Symbols;
+    لفظ_3    سائز_کا_Optional_سرخی;
+    لفظ_3    Characteristics;
+} IMAGE_FILE_سرخی_2, *PIMAGE_FILE_سرخی;
 
 
-typedef struct _IMAGE_OPTIONAL_HEADER {
+#تعریف_کرو IMAGE_SIZEOF_FILE_سرخی 20
+
+قسمتعریف ساخت IMAGE_ڈیٹا_DIRECTORY {
+    DWORD   Virtual_پتہ;
+    DWORD   سائز_3;
+} IMAGE_ڈیٹا_DIRECTORY_2, *PIMAGE_ڈیٹا_DIRECTORY;
+
+
+قسمتعریف ساخت IMAGE_OPTIONAL_سرخی {
     /* Standard fields. */
-    WORD    Magic;
-    BYTE    MajorLinkerVersion;
-    BYTE    MinorLinkerVersion;
-    DWORD   SizeOfCode;
-    DWORD   SizeOfInitializedData;
-    DWORD   SizeOfUninitializedData;
-    DWORD   AddressOfEntryPoint;
-    DWORD   BaseOfCode;
-#if PTR_SIZE == 4
-    DWORD   BaseOfData;
-#endif
+    لفظ_3    Magic;
+    BYTE    Major_Linker_نسخہ;
+    BYTE    Minor_Linker_نسخہ;
+    DWORD   سائز_کا_رمز;
+    DWORD   سائز_کا_Initialized_ڈیٹا;
+    DWORD   سائز_کا_Uninitialized_ڈیٹا;
+    DWORD   پتہ_کا_اندراج_نقطہ;
+    DWORD   بنیاد_کا_رمز;
+#اگر PTR_سائز == 4
+    DWORD   بنیاد_کا_ڈیٹا;
+#اگر_ختم
     /* NT additional fields. */
-    ADDR3264 ImageBase;
+    ADDR3264 Image_بنیاد;
     DWORD   SectionAlignment;
     DWORD   FileAlignment;
-    WORD    MajorOperatingSystemVersion;
-    WORD    MinorOperatingSystemVersion;
-    WORD    MajorImageVersion;
-    WORD    MinorImageVersion;
-    WORD    MajorSubsystemVersion;
-    WORD    MinorSubsystemVersion;
-    DWORD   Win32VersionValue;
-    DWORD   SizeOfImage;
-    DWORD   SizeOfHeaders;
-    DWORD   CheckSum;
-    WORD    Subsystem;
-    WORD    DllCharacteristics;
-    ADDR3264 SizeOfStackReserve;
-    ADDR3264 SizeOfStackCommit;
-    ADDR3264 SizeOfHeapReserve;
-    ADDR3264 SizeOfHeapCommit;
+    لفظ_3    Major_Operating_System_نسخہ;
+    لفظ_3    Minor_Operating_System_نسخہ;
+    لفظ_3    Major_Image_نسخہ;
+    لفظ_3    Minor_Image_نسخہ;
+    لفظ_3    Major_Subsystem_نسخہ;
+    لفظ_3    Minor_Subsystem_نسخہ;
+    DWORD   Win32_نسخہ_قدر;
+    DWORD   سائز_کا_Image;
+    DWORD   سائز_کا_سرخیاں;
+    DWORD   Check_مجموع;
+    لفظ_3    Subsystem;
+    لفظ_3    DllCharacteristics;
+    ADDR3264 سائز_کا_ڈھیر_Reserve;
+    ADDR3264 سائز_کا_ڈھیر_Commit;
+    ADDR3264 سائز_کا_ڈھیر_Reserve_2;
+    ADDR3264 سائز_کا_ڈھیر_Commit_2;
     DWORD   LoaderFlags;
-    DWORD   NumberOfRvaAndSizes;
-    IMAGE_DATA_DIRECTORY DataDirectory[16];
-} IMAGE_OPTIONAL_HEADER32, IMAGE_OPTIONAL_HEADER64, IMAGE_OPTIONAL_HEADER;
+    DWORD   نمبر_کا_Rva_And_Sizes;
+    IMAGE_ڈیٹا_DIRECTORY_2 ڈیٹا_Directory[16];
+} IMAGE_OPTIONAL_HEADER32, IMAGE_OPTIONAL_HEADER64, IMAGE_OPTIONAL_سرخی_2;
 
-#define IMAGE_DIRECTORY_ENTRY_EXPORT          0   /* Export Directory */
-#define IMAGE_DIRECTORY_ENTRY_IMPORT          1   /* Import Directory */
-#define IMAGE_DIRECTORY_ENTRY_RESOURCE        2   /* Resource Directory */
-#define IMAGE_DIRECTORY_ENTRY_EXCEPTION       3   /* Exception Directory */
-#define IMAGE_DIRECTORY_ENTRY_SECURITY        4   /* Security Directory */
-#define IMAGE_DIRECTORY_ENTRY_BASERELOC       5   /* Base Relocation Table */
-#define IMAGE_DIRECTORY_ENTRY_DEBUG           6   /* Debug Directory */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_EXPORT          0   /* Export Directory */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_IMPORT          1   /* Import Directory */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_RESOURCE        2   /* Resource Directory */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_EXCEPTION       3   /* Exception Directory */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_SECURITY        4   /* Security Directory */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_BASERELOC       5   /* Base Relocation Table */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_DEBUG           6   /* Debug Directory */
 /*      IMAGE_DIRECTORY_ENTRY_COPYRIGHT       7      (X86 usage) */
-#define IMAGE_DIRECTORY_ENTRY_ARCHITECTURE    7   /* Architecture Specific Data */
-#define IMAGE_DIRECTORY_ENTRY_GLOBALPTR       8   /* RVA of GP */
-#define IMAGE_DIRECTORY_ENTRY_TLS             9   /* TLS Directory */
-#define IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG    10   /* Load Configuration Directory */
-#define IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT   11   /* Bound Import Directory in headers */
-#define IMAGE_DIRECTORY_ENTRY_IAT            12   /* Import Address Table */
-#define IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT   13   /* Delay Load Import Descriptors */
-#define IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR 14   /* COM Runtime descriptor */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_ARCHITECTURE    7   /* Architecture Specific Data */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_GLOBALPTR       8   /* RVA of GP */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_TLS             9   /* TLS Directory */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_بھرو_CONFIG    10   /* Load Configuration Directory */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_BOUND_IMPORT   11   /* Bound Import Directory in headers */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_IAT            12   /* Import Address Table */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_DELAY_IMPORT   13   /* Delay Load Import Descriptors */
+#تعریف_کرو IMAGE_DIRECTORY_اندراج_COM_DESCRIPTOR 14   /* COM Runtime descriptor */
 
 /* Section header format. */
-#define IMAGE_SIZEOF_SHORT_NAME         8
+#تعریف_کرو IMAGE_SIZEOF_SHORT_NAME         8
 
-typedef struct _IMAGE_SECTION_HEADER {
+قسمتعریف ساخت IMAGE_SECTION_سرخی {
     BYTE    Name[IMAGE_SIZEOF_SHORT_NAME];
-    union {
-            DWORD   PhysicalAddress;
-            DWORD   VirtualSize;
+    اتحاد {
+            DWORD   Physical_پتہ;
+            DWORD   Virtual_سائز;
     } Misc;
-    DWORD   VirtualAddress;
-    DWORD   SizeOfRawData;
-    DWORD   PointerToRawData;
-    DWORD   PointerToRelocations;
-    DWORD   PointerToLinenumbers;
-    WORD    NumberOfRelocations;
-    WORD    NumberOfLinenumbers;
+    DWORD   Virtual_پتہ;
+    DWORD   سائز_کا_Raw_ڈیٹا;
+    DWORD   اشارہ_گر_مقصد_Raw_ڈیٹا;
+    DWORD   اشارہ_گر_مقصد_Relocations;
+    DWORD   اشارہ_گر_مقصد_Linenumbers;
+    لفظ_3    نمبر_کا_Relocations;
+    لفظ_3    نمبر_کا_Linenumbers;
     DWORD   Characteristics;
-} IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
+} IMAGE_SECTION_سرخی_2, *PIMAGE_SECTION_سرخی;
 
-#define IMAGE_SIZEOF_SECTION_HEADER     40
+#تعریف_کرو IMAGE_SIZEOF_SECTION_سرخی     40
 
-typedef struct _IMAGE_EXPORT_DIRECTORY {
+قسمتعریف ساخت _IMAGE_EXPORT_DIRECTORY {
     DWORD Characteristics;
-    DWORD TimeDateStamp;
-    WORD MajorVersion;
-    WORD MinorVersion;
+    DWORD وقت_Date_Stamp;
+    لفظ_3 Major_نسخہ;
+    لفظ_3 Minor_نسخہ;
     DWORD Name;
-    DWORD Base;
-    DWORD NumberOfFunctions;
-    DWORD NumberOfNames;
-    DWORD AddressOfFunctions;
-    DWORD AddressOfNames;
-    DWORD AddressOfNameOrdinals;
+    DWORD بنیاد_2;
+    DWORD نمبر_کا_Functions;
+    DWORD نمبر_کا_نام;
+    DWORD پتہ_کا_Functions;
+    DWORD پتہ_کا_نام;
+    DWORD پتہ_کا_Name_Ordinals;
 } IMAGE_EXPORT_DIRECTORY,*PIMAGE_EXPORT_DIRECTORY;
 
-typedef struct _IMAGE_TLS_DIRECTORY {
-    ADDR3264 StartAddressOfRawData;
-    ADDR3264 EndAddressOfRawData;
-    ADDR3264 AddressOfIndex;
-    ADDR3264 AddressOfCallBacks;
-    DWORD SizeOfZeroFill;
+قسمتعریف ساخت _IMAGE_TLS_DIRECTORY {
+    ADDR3264 آغاز_پتہ_کا_Raw_ڈیٹا;
+    ADDR3264 انتہا_پتہ_کا_Raw_ڈیٹا;
+    ADDR3264 پتہ_کا_اشاریہ;
+    ADDR3264 پتہ_کا_Call_Backs;
+    DWORD سائز_کا_Zero_Fill;
     DWORD Characteristics;
 } IMAGE_TLS_DIRECTORY;
 
-typedef struct _IMAGE_IMPORT_DESCRIPTOR {
-    union {
+قسمتعریف ساخت _IMAGE_IMPORT_DESCRIPTOR {
+    اتحاد {
         DWORD Characteristics;
-        DWORD OriginalFirstThunk;
+        DWORD Original_پہلا_Thunk;
     };
-    DWORD TimeDateStamp;
+    DWORD وقت_Date_Stamp;
     DWORD ForwarderChain;
     DWORD Name;
-    DWORD FirstThunk;
+    DWORD پہلا_Thunk;
 } IMAGE_IMPORT_DESCRIPTOR;
 
-typedef struct _IMAGE_BASE_RELOCATION {
-    DWORD   VirtualAddress;
-    DWORD   SizeOfBlock;
+قسمتعریف ساخت IMAGE_بنیاد_RELOCATION {
+    DWORD   Virtual_پتہ;
+    DWORD   سائز_کا_بلاک;
 //  WORD    TypeOffset[1];
-} IMAGE_BASE_RELOCATION;
+} IMAGE_بنیاد_RELOCATION_2;
 
-#define IMAGE_SIZEOF_BASE_RELOCATION     8
+#تعریف_کرو IMAGE_SIZEOF_بنیاد_RELOCATION     8
 
-#define IMAGE_REL_BASED_ABSOLUTE         0
-#define IMAGE_REL_BASED_HIGH             1
-#define IMAGE_REL_BASED_LOW              2
-#define IMAGE_REL_BASED_HIGHLOW          3
-#define IMAGE_REL_BASED_HIGHADJ          4
-#define IMAGE_REL_BASED_MIPS_JMPADDR     5
-#define IMAGE_REL_BASED_SECTION          6
-#define IMAGE_REL_BASED_REL32            7
-#define IMAGE_REL_BASED_DIR64           10
+#تعریف_کرو IMAGE_REL_BASED_ABSOLUTE         0
+#تعریف_کرو IMAGE_REL_BASED_بلند             1
+#تعریف_کرو IMAGE_REL_BASED_کم              2
+#تعریف_کرو IMAGE_REL_BASED_HIGHLOW          3
+#تعریف_کرو IMAGE_REL_BASED_HIGHADJ          4
+#تعریف_کرو IMAGE_REL_BASED_MIPS_JMPADDR     5
+#تعریف_کرو IMAGE_REL_BASED_SECTION          6
+#تعریف_کرو IMAGE_REL_BASED_REL32            7
+#تعریف_کرو IMAGE_REL_BASED_DIR64           10
 
-#define IMAGE_SCN_CNT_CODE                  0x00000020
-#define IMAGE_SCN_CNT_INITIALIZED_DATA      0x00000040
-#define IMAGE_SCN_CNT_UNINITIALIZED_DATA    0x00000080
-#define IMAGE_SCN_MEM_DISCARDABLE           0x02000000
-#define IMAGE_SCN_MEM_SHARED                0x10000000
-#define IMAGE_SCN_MEM_EXECUTE               0x20000000
-#define IMAGE_SCN_MEM_READ                  0x40000000
-#define IMAGE_SCN_MEM_WRITE                 0x80000000
+#تعریف_کرو IMAGE_SCN_CNT_رمز                  0x00000020
+#تعریف_کرو IMAGE_SCN_CNT_INITIALIZED_ڈیٹا      0x00000040
+#تعریف_کرو IMAGE_SCN_CNT_UNINITIALIZED_ڈیٹا    0x00000080
+#تعریف_کرو IMAGE_SCN_MEM_DISCARDABLE           0x02000000
+#تعریف_کرو IMAGE_SCN_MEM_SHARED                0x10000000
+#تعریف_کرو IMAGE_SCN_MEM_EXECUTE               0x20000000
+#تعریف_کرو IMAGE_SCN_MEM_READ                  0x40000000
+#تعریف_کرو IMAGE_SCN_MEM_WRITE                 0x80000000
 
-#define IMAGE_DLLCHARACTERISTICS_HIGH_ENTROPY_VA 0x0020
-#define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 0x0040
-#define IMAGE_DLLCHARACTERISTICS_NX_COMPAT 0x0100
-#define IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE 0x8000
+#تعریف_کرو IMAGE_DLLCHARACTERISTICS_بلند_ENTROPY_VA 0x0020
+#تعریف_کرو IMAGE_DLLCHARACTERISTICS_DYNAMIC_بنیاد 0x0040
+#تعریف_کرو IMAGE_DLLCHARACTERISTICS_NX_COMPAT 0x0100
+#تعریف_کرو IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE 0x8000
 
-#define IMAGE_FILE_RELOCS_STRIPPED 0x0001
+#تعریف_کرو IMAGE_FILE_RELOCS_STRIPPED 0x0001
 
-#pragma pack(pop)
+#ہدایت pack(نکالو)
 
 /* ----------------------------------------------------------- */
-#endif /* ndef IMAGE_NT_SIGNATURE */
+#اگر_ختم /* ndef IMAGE_NT_SIGNATURE */
 /* ----------------------------------------------------------- */
 
-#ifndef IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE
+#اگر_غیر_تعریف_شدہ IMAGE_DLLCHARACTERISTICS_DYNAMIC_بنیاد
   /* allow self-host build with tcc 0.9.27 - doesn't have this in winnt.h */
-  #define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 0x0040
-#endif
+  #تعریف_کرو IMAGE_DLLCHARACTERISTICS_DYNAMIC_بنیاد 0x0040
+#اگر_ختم
 
-#pragma pack(push, 1)
-struct pe_header
+#ہدایت pack(ڈالو, 1)
+ساخت pe_سرخی
 {
-    IMAGE_DOS_HEADER doshdr;
+    IMAGE_DOS_سرخی_2 doshdr;
     BYTE dosstub[0x40];
     DWORD nt_sig;
-    IMAGE_FILE_HEADER filehdr;
-#if PTR_SIZE == 8
+    IMAGE_FILE_سرخی_2 filehdr;
+#اگر PTR_سائز == 8
     IMAGE_OPTIONAL_HEADER64 opthdr;
-#else
-#ifdef _WIN64
+#ورنہ
+#اگر_تعریف_شدہ _WIN64
     IMAGE_OPTIONAL_HEADER32 opthdr;
-#else
-    IMAGE_OPTIONAL_HEADER opthdr;
-#endif
-#endif
+#ورنہ
+    IMAGE_OPTIONAL_سرخی_2 opthdr;
+#اگر_ختم
+#اگر_ختم
 };
 
-struct pe_reloc_header {
-    DWORD offset;
-    DWORD size;
+ساخت pe_reloc_سرخی {
+    DWORD انحراف;
+    DWORD سائز;
 };
 
-struct pe_rsrc_header {
-    struct _IMAGE_FILE_HEADER filehdr;
-    struct _IMAGE_SECTION_HEADER sectionhdr;
+ساخت pe_rsrc_سرخی {
+    ساخت IMAGE_FILE_سرخی filehdr;
+    ساخت IMAGE_SECTION_سرخی sectionhdr;
 };
 
-struct pe_rsrc_reloc {
-    DWORD offset;
-    DWORD size;
-    WORD type;
+ساخت pe_rsrc_reloc {
+    DWORD انحراف;
+    DWORD سائز;
+    لفظ_3 type;
 };
-#pragma pack(pop)
+#ہدایت pack(نکالو)
 
 /* ------------------------------------------------------------- */
 /* internal temporary structures */
 
-enum {
-    sec_text = 0,
+شمار {
+    sec_متن = 0,
     sec_rdata ,
-    sec_data ,
+    sec_ڈیٹا ,
     sec_bss ,
     sec_idata ,
     sec_pdata ,
@@ -357,11 +357,11 @@ enum {
     sec_rsrc ,
     sec_debug ,
     sec_reloc ,
-    sec_last
+    sec_آخری
 };
 
-#if 0
-static const DWORD pe_sec_flags[] = {
+#اگر 0
+ساکن ثابت DWORD pe_sec_flags[] = {
     0x60000020, /* ".text"     , */
     0xC0000040, /* ".data"     , */
     0xC0000080, /* ".bss"      , */
@@ -372,146 +372,146 @@ static const DWORD pe_sec_flags[] = {
     0x42000802, /* ".stab"     , */
     0x42000040, /* ".reloc"    , */
 };
-#endif
+#اگر_ختم
 
-struct section_info {
-    int cls;
-    char name[32];
+ساخت section_info {
+    صحیح cls;
+    حرف name[32];
     ADDR3264 sh_addr;
-    DWORD sh_size;
+    DWORD sh_سائز;
     DWORD pe_flags;
     Section *sec;
-    DWORD data_size;
-    IMAGE_SECTION_HEADER ish;
+    DWORD ڈیٹا_سائز;
+    IMAGE_SECTION_سرخی_2 ish;
 };
 
-struct import_symbol {
-    int sym_index;
-    int iat_index;
-    int thk_offset;
+ساخت import_علامت {
+    صحیح sym_اشاریہ;
+    صحیح iat_اشاریہ;
+    صحیح thk_انحراف;
 };
 
-struct pe_import_info {
-    int dll_index;
-    int sym_count;
-    struct import_symbol **symbols;
+ساخت pe_import_info {
+    صحیح dll_اشاریہ;
+    صحیح sym_گنتی;
+    ساخت import_علامت **symbols;
 };
 
-struct pe_info {
+ساخت pe_info {
     TCCState *s1;
     Section *reloc;
     Section *thunk;
     Section *coffsym;
     Section *coffstr;
-    const char *filename;
-    int type;
+    ثابت حرف *filename;
+    صحیح type;
     DWORD sizeofheaders;
     ADDR3264 imagebase;
-    const char *start_symbol;
-    DWORD start_addr;
+    ثابت حرف *آغاز_علامت;
+    DWORD آغاز_addr;
     DWORD imp_offs;
-    DWORD imp_size;
+    DWORD imp_سائز;
     DWORD iat_offs;
-    DWORD iat_size;
+    DWORD iat_سائز;
     DWORD exp_offs;
-    DWORD exp_size;
+    DWORD exp_سائز;
     DWORD tls_dir;
-    DWORD tls_data;
-    DWORD tls_size;
-    int subsystem;
+    DWORD tls_ڈیٹا;
+    DWORD tls_سائز;
+    صحیح subsystem;
     DWORD section_align;
     DWORD file_align;
-    struct section_info **sec_info;
-    int sec_count;
-    struct pe_import_info **imp_info;
-    int imp_count;
+    ساخت section_info **sec_info;
+    صحیح sec_گنتی;
+    ساخت pe_import_info **imp_info;
+    صحیح imp_گنتی;
     /* output */
     FILE *op;
-    DWORD sum;
-    unsigned pos;
+    DWORD مجموع;
+    غیرعلامتی pos;
 };
 
-#define PE_NUL 0
-#define PE_DLL 1
-#define PE_GUI 2
-#define PE_EXE 3
-#define PE_RUN 4
+#تعریف_کرو PE_NUL 0
+#تعریف_کرو PE_DLL 1
+#تعریف_کرو PE_GUI 2
+#تعریف_کرو PE_EXE 3
+#تعریف_کرو PE_تسلسل 4
 
 /* --------------------------------------------*/
 
-static const char *pe_export_name(TCCState *s1, ElfW(Sym) *sym)
+ساکن ثابت حرف *pe_export_name(TCCState *s1, ElfW(Sym) *sym)
 {
-    const char *name = (char*)symtab_section->link->data + sym->st_name;
-    if (s1->leading_underscore && name[0] == '_' && !(sym->st_other & ST_PE_STDCALL))
-        return name + 1;
-    return name;
+    ثابت حرف *name = (حرف*)symtab_section->link->ڈیٹا + sym->st_name;
+    اگر (s1->leading_underscore && name[0] == '_' && !(sym->st_other & ST_PE_STDCALL))
+        واپس name + 1;
+    واپس name;
 }
 
 
-static int dynarray_assoc(void **pp, int n, int key)
+ساکن صحیح dynarray_assoc(خالی **pp, صحیح n, صحیح کلید)
 {
-    int i;
-    for (i = 0; i < n; ++i, ++pp)
-    if (key == **(int **) pp)
-        return i;
-    return -1;
+    صحیح i;
+    برائے (i = 0; i < n; ++i, ++pp)
+    اگر (کلید == **(صحیح **) pp)
+        واپس i;
+    واپس -1;
 }
 
-static DWORD umin(DWORD a, DWORD b)
+ساکن DWORD umin(DWORD a, DWORD b)
 {
-    return a < b ? a : b;
+    واپس a < b ? a : b;
 }
 
-static DWORD umax(DWORD a, DWORD b)
+ساکن DWORD umax(DWORD a, DWORD b)
 {
-    return a < b ? b : a;
+    واپس a < b ? b : a;
 }
 
-static DWORD pe_file_align(struct pe_info *pe, DWORD n)
+ساکن DWORD pe_file_align(ساخت pe_info *pe, DWORD n)
 {
-    return (n + (pe->file_align - 1)) & ~(pe->file_align - 1);
+    واپس (n + (pe->file_align - 1)) & ~(pe->file_align - 1);
 }
 
-static ADDR3264 pe_virtual_align(struct pe_info *pe, ADDR3264 n)
+ساکن ADDR3264 pe_virtual_align(ساخت pe_info *pe, ADDR3264 n)
 {
-    return (n + (pe->section_align - 1)) & ~(ADDR3264)(pe->section_align - 1);
+    واپس (n + (pe->section_align - 1)) & ~(ADDR3264)(pe->section_align - 1);
 }
 
-static void pe_align_section(Section *s, int a)
+ساکن خالی pe_align_section(Section *s, صحیح a)
 {
-    int i = s->data_offset & (a-1);
-    if (i)
-        section_ptr_add(s, a - i);
+    صحیح i = s->ڈیٹا_انحراف & (a-1);
+    اگر (i)
+        section_ptr_جوڑو(s, a - i);
 }
 
-static void pe_set_datadir(struct pe_header *hdr, int dir, DWORD addr, DWORD size)
+ساکن خالی pe_سیٹ_datadir(ساخت pe_سرخی *hdr, صحیح dir, DWORD addr, DWORD سائز)
 {
-    hdr->opthdr.DataDirectory[dir].VirtualAddress = addr;
-    hdr->opthdr.DataDirectory[dir].Size = size;
+    hdr->opthdr.ڈیٹا_Directory[dir].Virtual_پتہ = addr;
+    hdr->opthdr.ڈیٹا_Directory[dir].سائز_3 = سائز;
 }
 
-static int pe_fwrite(struct pe_info *pe, const void *data, int len)
+ساکن صحیح pe_fwrite(ساخت pe_info *pe, ثابت خالی *ڈیٹا, صحیح len)
 {
-    const WORD *p = data;
-    DWORD sum;
-    int ret, i;
-    pe->pos += (ret = fwrite(data, 1, len, pe->op));
-    sum = pe->sum;
-    for (i = len; i > 0; i -= 2) {
-        sum += (i >= 2) ? *p++ : *(BYTE*)p;
-        sum = (sum + (sum >> 16)) & 0xFFFF;
+    ثابت لفظ_3 *p = ڈیٹا;
+    DWORD مجموع;
+    صحیح ret, i;
+    pe->pos += (ret = fwrite(ڈیٹا, 1, len, pe->op));
+    مجموع = pe->مجموع;
+    برائے (i = len; i > 0; i -= 2) {
+        مجموع += (i >= 2) ? *p++ : *(BYTE*)p;
+        مجموع = (مجموع + (مجموع >> 16)) & 0xFFFF;
     }
-    pe->sum = sum;
-    return len == ret ? 0 : -1;
+    pe->مجموع = مجموع;
+    واپس len == ret ? 0 : -1;
 }
 
-static void pe_fpad(struct pe_info *pe, DWORD new_pos)
+ساکن خالی pe_fpad(ساخت pe_info *pe, DWORD new_pos)
 {
-    char buf[256];
-    int n, diff = new_pos - pe->pos;
-    memset(buf, 0, sizeof buf);
-    while (diff > 0) {
-        diff -= n = umin(diff, sizeof buf);
+    حرف buf[256];
+    صحیح n, diff = new_pos - pe->pos;
+    memset(buf, 0, حجم buf);
+    جب (diff > 0) {
+        diff -= n = umin(diff, حجم buf);
         fwrite(buf, n, 1, pe->op);
     }
     pe->pos = new_pos;
@@ -520,97 +520,97 @@ static void pe_fpad(struct pe_info *pe, DWORD new_pos)
 /*----------------------------------------------------------------------------*/
 /* some DWARF support with COFF symbol/string table for gdb */
 
-#pragma pack(push, 1)
-struct syment
+#ہدایت pack(ڈالو, 1)
+ساخت syment
 {
-    union {
-        char        n_name[8];     /* old COFF version */
-        struct {
+    اتحاد {
+        حرف        n_name[8];     /* old COFF version */
+        ساخت {
             int32_t n_zeroes;      /* new == 0 */
-            int32_t n_offset;      /* offset into string table */
+            int32_t n_انحراف_2;      /* offset into string table */
         };
     };
-    int32_t         n_value;        /* value of symbol */
-    short           n_scnum;        /* section number */
-    unsigned short  n_type;         /* type and derived type */
-    char            n_sclass;       /* storage class */
-    char            n_numaux;       /* number of aux. entries */
+    int32_t         n_قدر;        /* value of symbol */
+    مختصر           n_scnum;        /* section number */
+    غیرعلامتی مختصر  n_type;         /* type and derived type */
+    حرف            n_sclass;       /* storage class */
+    حرف            n_numaux;       /* number of aux. entries */
 };
-#pragma pack(pop)
+#ہدایت pack(نکالو)
 
-#define SHF_PRIVATE 0x80000000
+#تعریف_کرو SHF_نجی 0x80000000
 
-static void pe_add_coffsym(struct pe_info *pe)
+ساکن خالی pe_جوڑو_coffsym(ساخت pe_info *pe)
 {
     TCCState *s1 = pe->s1;
     ElfSym *esym;
-    struct syment *se;
-    int n;
+    ساخت syment *se;
+    صحیح n;
 
-    if (NULL == pe->coffsym) {
-        pe->coffsym = new_section(s1, ".coffsym", SHT_PROGBITS, SHF_PRIVATE);
-        pe->coffstr = new_section(s1, ".coffstr", SHT_PROGBITS, SHF_PRIVATE);
-        section_ptr_add(pe->coffstr, 4); /* coff string table size */
-        return;
+    اگر (تہی == pe->coffsym) {
+        pe->coffsym = new_section(s1, ".coffsym", SHT_PROGBITS, SHF_نجی);
+        pe->coffstr = new_section(s1, ".coffstr", SHT_PROGBITS, SHF_نجی);
+        section_ptr_جوڑو(pe->coffstr, 4); /* coff string table size */
+        واپس;
     }
 
-#if 0
-    se = section_ptr_add(pe->coffsym, sizeof *se);
+#اگر 0
+    se = section_ptr_جوڑو(pe->coffsym, حجم *se);
     strcpy(se->n_name, ".file");
     se->n_scnum = -2;
     se->n_sclass = 0x67;
     se->n_numaux = 1;
-    se = section_ptr_add(pe->coffsym, sizeof *se);
-    strcpy((char*)se, "no-file");
-#endif
+    se = section_ptr_جوڑو(pe->coffsym, حجم *se);
+    strcpy((حرف*)se, "no-file");
+#اگر_ختم
 
-#if 1
-    esym = (ElfSym*)s1->symtab->data;
-    for (n = s1->symtab->data_offset / sizeof *esym; ++esym, --n;) {
-        int sym_bind = ELFW(ST_BIND)(esym->st_info);
-        if (sym_bind == STB_GLOBAL) {
-            char *name = esym->st_name + (char*)s1->symtab->link->data;
-            int nl = strlen(name);
-            addr_t value = esym->st_value;
-            int shnum = esym->st_shndx;
-            if (shnum != SHN_UNDEF && shnum < s1->nb_sections) {
+#اگر 1
+    esym = (ElfSym*)s1->symtab->ڈیٹا;
+    برائے (n = s1->symtab->ڈیٹا_انحراف / حجم *esym; ++esym, --n;) {
+        صحیح sym_bind = ELFW(ST_BIND)(esym->st_info);
+        اگر (sym_bind == STB_GLOBAL) {
+            حرف *name = esym->st_name + (حرف*)s1->symtab->link->ڈیٹا;
+            صحیح nl = لڑی_لمبائی(name);
+            addr_t قدر = esym->st_قدر;
+            صحیح shnum = esym->st_shndx;
+            اگر (shnum != SHN_UNDEF && shnum < s1->nb_sections) {
                 Section *s = s1->sections[shnum];
                 shnum = s->sh_info;
-                value = value - s->sh_addr;
+                قدر = قدر - s->sh_addr;
             }
-            se = section_ptr_add(pe->coffsym, sizeof *se);
-            se->n_value = value;
+            se = section_ptr_جوڑو(pe->coffsym, حجم *se);
+            se->n_قدر = قدر;
             se->n_scnum = shnum;
             se->n_sclass = 2; // C_EXT
-            if (nl <= 8)
-                memcpy(se->n_name, name, nl);
-            else
-                se->n_offset = put_elf_str(pe->coffstr, name);
+            اگر (nl <= 8)
+                حافظہ_نقل(se->n_name, name, nl);
+            ورنہ
+                se->n_انحراف_2 = put_elf_str(pe->coffstr, name);
         }
     }
-#endif
-    write32le(pe->coffstr->data, pe->coffstr->data_offset); /* coff string table size */
+#اگر_ختم
+    write32le(pe->coffstr->ڈیٹا, pe->coffstr->ڈیٹا_انحراف); /* coff string table size */
 }
 
 /* Run cv2pdb, available at https://github.com/rainers/cv2pdb.  It reads
    and strips the dwarf info and creates a <exename>.pdb file instead */
-static void pe_create_pdb(TCCState *s1, const char *exename)
+ساکن خالی pe_create_pdb(TCCState *s1, ثابت حرف *exename)
 {
-    char buf[300]; int r;
-    snprintf(buf, sizeof buf, "cv2pdb.exe \"%s\"", exename);
+    حرف buf[300]; صحیح r;
+    snprintf(buf, حجم buf, "cv2pdb.exe \"%s\"", exename);
     r = system(buf);
     strcpy(tcc_fileextension(strcpy(buf, exename)), ".pdb");
-    if (r) {
+    اگر (r) {
         tcc_error_noabort("could not create '%s'\n(need working cv2pdb from https://github.com/rainers/cv2pdb)", buf);
-    } else if (s1->verbose) {
-        printf("<- %s\n", buf);
+    } ورنہ اگر (s1->verbose) {
+        لکھو("<- %s\n", buf);
     }
 }
 
 /*----------------------------------------------------------------------------*/
-static int pe_write(struct pe_info *pe)
+ساکن صحیح pe_write(ساخت pe_info *pe)
 {
-    static const struct pe_header pe_template = {
+    ساکن ثابت ساخت pe_سرخی pe_template = {
     {
     /* IMAGE_DOS_HEADER doshdr */
     0x5A4D, /*WORD e_magic;         Magic number */
@@ -650,7 +650,7 @@ static int pe_write(struct pe_info *pe)
     0x00000000, /*DWORD   TimeDateStamp; */
     0x00000000, /*DWORD   PointerToSymbolTable; */
     0x00000000, /*DWORD   NumberOfSymbols; */
-    0x00E0 + (PTR_SIZE-4)*4, /*WORD    SizeOfOptionalHeader; */
+    0x00E0 + (PTR_سائز-4)*4, /*WORD    SizeOfOptionalHeader; */
     CHARACTERISTICS_EXE, /*WORD    Characteristics; */
     },{
     /* IMAGE_OPTIONAL_HEADER opthdr */
@@ -663,9 +663,9 @@ static int pe_write(struct pe_info *pe)
     0x00000000, /*DWORD   SizeOfUninitializedData; */
     0x00000000, /*DWORD   AddressOfEntryPoint; */
     0x00000000, /*DWORD   BaseOfCode; */
-#if PTR_SIZE == 4
+#اگر PTR_سائز == 4
     0x00000000, /*DWORD   BaseOfData; */
-#endif
+#اگر_ختم
     /* NT additional fields. */
     0x00000000,	/*ADDR3264   ImageBase; */
     0x00001000, /*DWORD   SectionAlignment; */
@@ -694,679 +694,679 @@ static int pe_write(struct pe_info *pe)
      {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}}
     }};
 
-    struct pe_header pe_header = pe_template;
+    ساخت pe_سرخی pe_سرخی = pe_template;
 
-    int i;
-    DWORD file_offset;
-    struct section_info *si;
-    IMAGE_SECTION_HEADER *psh;
+    صحیح i;
+    DWORD file_انحراف;
+    ساخت section_info *si;
+    IMAGE_SECTION_سرخی_2 *psh;
     TCCState *s1 = pe->s1;
 
-    if (s1->do_debug)
-        pe_add_coffsym(pe);
+    اگر (s1->do_debug)
+        pe_جوڑو_coffsym(pe);
 
     pe->op = fopen(pe->filename, "wb");
-    if (NULL == pe->op)
-        return tcc_error_noabort("could not write '%s': %s", pe->filename, strerror(errno));
+    اگر (تہی == pe->op)
+        واپس tcc_error_noabort("could not write '%s': %s", pe->filename, strerror(errno));
 
     pe->sizeofheaders = pe_file_align(pe,
-        sizeof (struct pe_header)
-        + pe->sec_count * sizeof (IMAGE_SECTION_HEADER)
+        حجم (ساخت pe_سرخی)
+        + pe->sec_گنتی * حجم (IMAGE_SECTION_سرخی_2)
         );
 
-    file_offset = pe->sizeofheaders;
+    file_انحراف = pe->sizeofheaders;
 
-    if (2 == s1->verbose)
-        printf("-------------------------------"
+    اگر (2 == s1->verbose)
+        لکھو("-------------------------------"
                "\n  virt   file   size  section" "\n");
-    for (i = 0; i < pe->sec_count; ++i) {
-        DWORD addr, size;
-        const char *sh_name;
+    برائے (i = 0; i < pe->sec_گنتی; ++i) {
+        DWORD addr, سائز;
+        ثابت حرف *sh_name;
 
         si = pe->sec_info[i];
         sh_name = si->name;
         addr = si->sh_addr - pe->imagebase;
-        size = si->sh_size;
+        سائز = si->sh_سائز;
         psh = &si->ish;
 
-        if (2 == s1->verbose)
-            printf("%6x %6x %6x  %s\n",
-                (unsigned)addr, (unsigned)file_offset, (unsigned)size, sh_name);
+        اگر (2 == s1->verbose)
+            لکھو("%6x %6x %6x  %s\n",
+                (غیرعلامتی)addr, (غیرعلامتی)file_انحراف, (غیرعلامتی)سائز, sh_name);
 
-        switch (si->cls) {
-            case sec_text:
-                if (!pe_header.opthdr.BaseOfCode)
-                    pe_header.opthdr.BaseOfCode = addr;
-                break;
+        انتخاب (si->cls) {
+            حالت sec_متن:
+                اگر (!pe_سرخی.opthdr.بنیاد_کا_رمز)
+                    pe_سرخی.opthdr.بنیاد_کا_رمز = addr;
+                توڑو;
 
-            case sec_data:
-#if PTR_SIZE == 4
-                if (!pe_header.opthdr.BaseOfData)
-                    pe_header.opthdr.BaseOfData = addr;
-#endif
-                break;
+            حالت sec_ڈیٹا:
+#اگر PTR_سائز == 4
+                اگر (!pe_سرخی.opthdr.بنیاد_کا_ڈیٹا)
+                    pe_سرخی.opthdr.بنیاد_کا_ڈیٹا = addr;
+#اگر_ختم
+                توڑو;
 
-            case sec_bss:
-                break;
+            حالت sec_bss:
+                توڑو;
 
-            case sec_reloc:
-                pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_BASERELOC, addr, size);
-                break;
+            حالت sec_reloc:
+                pe_سیٹ_datadir(&pe_سرخی, IMAGE_DIRECTORY_اندراج_BASERELOC, addr, سائز);
+                توڑو;
 
-            case sec_rsrc:
-                pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_RESOURCE, addr, size);
-                break;
+            حالت sec_rsrc:
+                pe_سیٹ_datadir(&pe_سرخی, IMAGE_DIRECTORY_اندراج_RESOURCE, addr, سائز);
+                توڑو;
 
-            case sec_pdata:
-                pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_EXCEPTION, addr, size);
-                break;
+            حالت sec_pdata:
+                pe_سیٹ_datadir(&pe_سرخی, IMAGE_DIRECTORY_اندراج_EXCEPTION, addr, سائز);
+                توڑو;
         }
 
-        if (pe->imp_size) {
-            pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_IMPORT,
-                pe->imp_offs, pe->imp_size);
-            pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_IAT,
-                pe->iat_offs, pe->iat_size);
+        اگر (pe->imp_سائز) {
+            pe_سیٹ_datadir(&pe_سرخی, IMAGE_DIRECTORY_اندراج_IMPORT,
+                pe->imp_offs, pe->imp_سائز);
+            pe_سیٹ_datadir(&pe_سرخی, IMAGE_DIRECTORY_اندراج_IAT,
+                pe->iat_offs, pe->iat_سائز);
         }
-        if (pe->exp_size) {
-            pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_EXPORT,
-                pe->exp_offs, pe->exp_size);
+        اگر (pe->exp_سائز) {
+            pe_سیٹ_datadir(&pe_سرخی, IMAGE_DIRECTORY_اندراج_EXPORT,
+                pe->exp_offs, pe->exp_سائز);
         }
-        if (pe->tls_size) {
-            pe_set_datadir(&pe_header, IMAGE_DIRECTORY_ENTRY_TLS,
-                pe->tls_dir + (pe->thunk->sh_addr - pe->imagebase), pe->tls_size);
+        اگر (pe->tls_سائز) {
+            pe_سیٹ_datadir(&pe_سرخی, IMAGE_DIRECTORY_اندراج_TLS,
+                pe->tls_dir + (pe->thunk->sh_addr - pe->imagebase), pe->tls_سائز);
         }
 
-        memcpy(psh->Name, sh_name, umin(strlen(sh_name), sizeof psh->Name));
-        if (pe->coffstr && strlen(sh_name) > 8) {
+        حافظہ_نقل(psh->Name, sh_name, umin(لڑی_لمبائی(sh_name), حجم psh->Name));
+        اگر (pe->coffstr && لڑی_لمبائی(sh_name) > 8) {
             /* long section name, for example ".debug_info" */
-            snprintf((char*)psh->Name, 8, "/%d", put_elf_str(pe->coffstr, sh_name));
+            snprintf((حرف*)psh->Name, 8, "/%d", put_elf_str(pe->coffstr, sh_name));
         }
 
         psh->Characteristics = si->pe_flags;
-        psh->VirtualAddress = addr;
-        psh->Misc.VirtualSize = size;
-        pe_header.opthdr.SizeOfImage =
-            umax(pe_virtual_align(pe, size + addr), pe_header.opthdr.SizeOfImage);
+        psh->Virtual_پتہ = addr;
+        psh->Misc.Virtual_سائز = سائز;
+        pe_سرخی.opthdr.سائز_کا_Image =
+            umax(pe_virtual_align(pe, سائز + addr), pe_سرخی.opthdr.سائز_کا_Image);
 
-        if (si->data_size) {
-            psh->PointerToRawData = file_offset;
-            file_offset = pe_file_align(pe, file_offset + si->data_size);
-            psh->SizeOfRawData = file_offset - psh->PointerToRawData;
-            if (si->cls == sec_text)
-                pe_header.opthdr.SizeOfCode += psh->SizeOfRawData;
-            else
-                pe_header.opthdr.SizeOfInitializedData += psh->SizeOfRawData;
+        اگر (si->ڈیٹا_سائز) {
+            psh->اشارہ_گر_مقصد_Raw_ڈیٹا = file_انحراف;
+            file_انحراف = pe_file_align(pe, file_انحراف + si->ڈیٹا_سائز);
+            psh->سائز_کا_Raw_ڈیٹا = file_انحراف - psh->اشارہ_گر_مقصد_Raw_ڈیٹا;
+            اگر (si->cls == sec_متن)
+                pe_سرخی.opthdr.سائز_کا_رمز += psh->سائز_کا_Raw_ڈیٹا;
+            ورنہ
+                pe_سرخی.opthdr.سائز_کا_Initialized_ڈیٹا += psh->سائز_کا_Raw_ڈیٹا;
         }
     }
 
     //pe_header.filehdr.TimeDateStamp = time(NULL);
-    pe_header.filehdr.NumberOfSections = pe->sec_count;
-    pe_header.opthdr.AddressOfEntryPoint = pe->start_addr;
-    pe_header.opthdr.SizeOfHeaders = pe->sizeofheaders;
-    pe_header.opthdr.ImageBase = pe->imagebase;
-    pe_header.opthdr.Subsystem = pe->subsystem;
-    pe_header.opthdr.DllCharacteristics = s1->pe_dll_characteristics;
-    if (s1->pe_stack_size)
-        pe_header.opthdr.SizeOfStackReserve = s1->pe_stack_size;
-    if (PE_DLL == pe->type)
-        pe_header.filehdr.Characteristics = CHARACTERISTICS_DLL;
-    pe_header.filehdr.Characteristics |= s1->pe_characteristics;
-    if (pe->reloc)
-        pe_header.filehdr.Characteristics &= ~IMAGE_FILE_RELOCS_STRIPPED;
+    pe_سرخی.filehdr.نمبر_کا_Sections = pe->sec_گنتی;
+    pe_سرخی.opthdr.پتہ_کا_اندراج_نقطہ = pe->آغاز_addr;
+    pe_سرخی.opthdr.سائز_کا_سرخیاں = pe->sizeofheaders;
+    pe_سرخی.opthdr.Image_بنیاد = pe->imagebase;
+    pe_سرخی.opthdr.Subsystem = pe->subsystem;
+    pe_سرخی.opthdr.DllCharacteristics = s1->pe_dll_characteristics;
+    اگر (s1->pe_ڈھیر_سائز)
+        pe_سرخی.opthdr.سائز_کا_ڈھیر_Reserve = s1->pe_ڈھیر_سائز;
+    اگر (PE_DLL == pe->type)
+        pe_سرخی.filehdr.Characteristics = CHARACTERISTICS_DLL;
+    pe_سرخی.filehdr.Characteristics |= s1->pe_characteristics;
+    اگر (pe->reloc)
+        pe_سرخی.filehdr.Characteristics &= ~IMAGE_FILE_RELOCS_STRIPPED;
 
-    if (pe->coffsym) {
-        pe_add_coffsym(pe);
-        pe_header.filehdr.PointerToSymbolTable = file_offset;
-        pe_header.filehdr.NumberOfSymbols
-            = pe->coffsym->data_offset / sizeof (struct syment);
+    اگر (pe->coffsym) {
+        pe_جوڑو_coffsym(pe);
+        pe_سرخی.filehdr.اشارہ_گر_مقصد_علامت_جدول = file_انحراف;
+        pe_سرخی.filehdr.نمبر_کا_Symbols
+            = pe->coffsym->ڈیٹا_انحراف / حجم (ساخت syment);
     }
 
-    pe_fwrite(pe, &pe_header, sizeof pe_header);
-    for (i = 0; i < pe->sec_count; ++i)
-        pe_fwrite(pe, &pe->sec_info[i]->ish, sizeof(IMAGE_SECTION_HEADER));
+    pe_fwrite(pe, &pe_سرخی, حجم pe_سرخی);
+    برائے (i = 0; i < pe->sec_گنتی; ++i)
+        pe_fwrite(pe, &pe->sec_info[i]->ish, حجم(IMAGE_SECTION_سرخی_2));
 
-    file_offset = pe->sizeofheaders;
-    for (i = 0; i < pe->sec_count; ++i) {
+    file_انحراف = pe->sizeofheaders;
+    برائے (i = 0; i < pe->sec_گنتی; ++i) {
         Section *s;
         si = pe->sec_info[i];
-        if (!si->data_size)
-            continue;
-        for (s = si->sec; s; s = s->prev) {
-            pe_fpad(pe, file_offset);
-            pe_fwrite(pe, s->data, s->data_offset);
-            if (s->prev)
-                file_offset += s->prev->sh_addr - s->sh_addr;
+        اگر (!si->ڈیٹا_سائز)
+            جاری;
+        برائے (s = si->sec; s; s = s->پچھلا) {
+            pe_fpad(pe, file_انحراف);
+            pe_fwrite(pe, s->ڈیٹا, s->ڈیٹا_انحراف);
+            اگر (s->پچھلا)
+                file_انحراف += s->پچھلا->sh_addr - s->sh_addr;
         }
-        file_offset = si->ish.PointerToRawData + si->ish.SizeOfRawData;
-        pe_fpad(pe, file_offset);
+        file_انحراف = si->ish.اشارہ_گر_مقصد_Raw_ڈیٹا + si->ish.سائز_کا_Raw_ڈیٹا;
+        pe_fpad(pe, file_انحراف);
     }
 
-    if (pe->coffsym) {
-        pe_fwrite(pe, pe->coffsym->data, pe->coffsym->data_offset);
-        pe_fwrite(pe, pe->coffstr->data, pe->coffstr->data_offset);
-        file_offset = pe->pos;
+    اگر (pe->coffsym) {
+        pe_fwrite(pe, pe->coffsym->ڈیٹا, pe->coffsym->ڈیٹا_انحراف);
+        pe_fwrite(pe, pe->coffstr->ڈیٹا, pe->coffstr->ڈیٹا_انحراف);
+        file_انحراف = pe->pos;
     }
 
-    pe->sum += file_offset;
-    fseek(pe->op, offsetof(struct pe_header, opthdr.CheckSum), SEEK_SET);
-    pe_fwrite(pe, &pe->sum, sizeof (DWORD));
+    pe->مجموع += file_انحراف;
+    fseek(pe->op, offsetof(ساخت pe_سرخی, opthdr.Check_مجموع), SEEK_SET);
+    pe_fwrite(pe, &pe->مجموع, حجم (DWORD));
 
     fclose (pe->op);
-#ifndef _WIN32
+#اگر_غیر_تعریف_شدہ _WIN32
     chmod(pe->filename, 0777);
-#endif
+#اگر_ختم
 
-    if (2 == s1->verbose)
-        printf("-------------------------------\n");
-    if (s1->verbose)
-        printf("<- %s (%u bytes)\n", pe->filename, (unsigned)file_offset);
+    اگر (2 == s1->verbose)
+        لکھو("-------------------------------\n");
+    اگر (s1->verbose)
+        لکھو("<- %s (%u bytes)\n", pe->filename, (غیرعلامتی)file_انحراف);
 
-    if (s1->do_debug & 16)
+    اگر (s1->do_debug & 16)
         pe_create_pdb(s1, pe->filename);
-    return 0;
+    واپس 0;
 }
 
 /*----------------------------------------------------------------------------*/
 
-static struct import_symbol *pe_add_import(struct pe_info *pe, int sym_index)
+ساکن ساخت import_علامت *pe_جوڑو_import(ساخت pe_info *pe, صحیح sym_اشاریہ)
 {
-    int i;
-    int dll_index;
-    struct pe_import_info *p;
-    struct import_symbol *s;
+    صحیح i;
+    صحیح dll_اشاریہ;
+    ساخت pe_import_info *p;
+    ساخت import_علامت *s;
     ElfW(Sym) *isym;
 
-    isym = (ElfW(Sym) *)pe->s1->dynsymtab_section->data + sym_index;
-    dll_index = isym->st_size;
+    isym = (ElfW(Sym) *)pe->s1->dynsymtab_section->ڈیٹا + sym_اشاریہ;
+    dll_اشاریہ = isym->st_سائز;
 
-    i = dynarray_assoc ((void**)pe->imp_info, pe->imp_count, dll_index);
-    if (-1 != i) {
+    i = dynarray_assoc ((خالی**)pe->imp_info, pe->imp_گنتی, dll_اشاریہ);
+    اگر (-1 != i) {
         p = pe->imp_info[i];
-        goto found_dll;
+        جاؤ ملا_dll;
     }
-    p = tcc_mallocz(sizeof *p);
-    p->dll_index = dll_index;
-    dynarray_add(&pe->imp_info, &pe->imp_count, p);
+    p = tcc_mallocz(حجم *p);
+    p->dll_اشاریہ = dll_اشاریہ;
+    dynarray_جوڑو(&pe->imp_info, &pe->imp_گنتی, p);
 
-found_dll:
-    i = dynarray_assoc ((void**)p->symbols, p->sym_count, sym_index);
-    if (-1 != i)
-        return p->symbols[i];
+ملا_dll:
+    i = dynarray_assoc ((خالی**)p->symbols, p->sym_گنتی, sym_اشاریہ);
+    اگر (-1 != i)
+        واپس p->symbols[i];
 
-    s = tcc_mallocz(sizeof *s);
-    dynarray_add(&p->symbols, &p->sym_count, s);
-    s->sym_index = sym_index;
-    return s;
+    s = tcc_mallocz(حجم *s);
+    dynarray_جوڑو(&p->symbols, &p->sym_گنتی, s);
+    s->sym_اشاریہ = sym_اشاریہ;
+    واپس s;
 }
 
-static void pe_free_imports(struct pe_info *pe)
+ساکن خالی pe_free_imports(ساخت pe_info *pe)
 {
-    int i;
-    for (i = 0; i < pe->imp_count; ++i) {
-        struct pe_import_info *p = pe->imp_info[i];
-        dynarray_reset(&p->symbols, &p->sym_count);
+    صحیح i;
+    برائے (i = 0; i < pe->imp_گنتی; ++i) {
+        ساخت pe_import_info *p = pe->imp_info[i];
+        dynarray_reset(&p->symbols, &p->sym_گنتی);
     }
-    dynarray_reset(&pe->imp_info, &pe->imp_count);
+    dynarray_reset(&pe->imp_info, &pe->imp_گنتی);
 }
 
 /*----------------------------------------------------------------------------*/
-static void pe_build_imports(struct pe_info *pe)
+ساکن خالی pe_build_imports(ساخت pe_info *pe)
 {
-    int thk_ptr, ent_ptr, dll_ptr, sym_cnt, i;
-    DWORD rva_base = pe->thunk->sh_addr - pe->imagebase;
-    int ndlls = pe->imp_count;
+    صحیح thk_ptr, ent_ptr, dll_ptr, sym_cnt, i;
+    DWORD rva_بنیاد = pe->thunk->sh_addr - pe->imagebase;
+    صحیح ndlls = pe->imp_گنتی;
     TCCState *s1 = pe->s1;
 
-    for (sym_cnt = i = 0; i < ndlls; ++i)
-        sym_cnt += pe->imp_info[i]->sym_count;
+    برائے (sym_cnt = i = 0; i < ndlls; ++i)
+        sym_cnt += pe->imp_info[i]->sym_گنتی;
 
-    if (0 == sym_cnt)
-        return;
+    اگر (0 == sym_cnt)
+        واپس;
 
     pe_align_section(pe->thunk, 16);
-    pe->imp_size = (ndlls + 1) * sizeof(IMAGE_IMPORT_DESCRIPTOR);
-    pe->iat_size = (sym_cnt + ndlls) * sizeof(ADDR3264);
-    dll_ptr = pe->thunk->data_offset;
-    thk_ptr = dll_ptr + pe->imp_size;
-    ent_ptr = thk_ptr + pe->iat_size;
-    pe->imp_offs = dll_ptr + rva_base;
-    pe->iat_offs = thk_ptr + rva_base;
-    section_ptr_add(pe->thunk, pe->imp_size + 2*pe->iat_size);
+    pe->imp_سائز = (ndlls + 1) * حجم(IMAGE_IMPORT_DESCRIPTOR);
+    pe->iat_سائز = (sym_cnt + ndlls) * حجم(ADDR3264);
+    dll_ptr = pe->thunk->ڈیٹا_انحراف;
+    thk_ptr = dll_ptr + pe->imp_سائز;
+    ent_ptr = thk_ptr + pe->iat_سائز;
+    pe->imp_offs = dll_ptr + rva_بنیاد;
+    pe->iat_offs = thk_ptr + rva_بنیاد;
+    section_ptr_جوڑو(pe->thunk, pe->imp_سائز + 2*pe->iat_سائز);
 
-    for (i = 0; i < pe->imp_count; ++i) {
+    برائے (i = 0; i < pe->imp_گنتی; ++i) {
         IMAGE_IMPORT_DESCRIPTOR *hdr;
-        int k, n, dllindex;
+        صحیح k, n, dllindex;
         ADDR3264 v;
-        struct pe_import_info *p = pe->imp_info[i];
-        const char *name;
+        ساخت pe_import_info *p = pe->imp_info[i];
+        ثابت حرف *name;
         DLLReference *dllref;
 
-        dllindex = p->dll_index;
-        if (dllindex)
+        dllindex = p->dll_اشاریہ;
+        اگر (dllindex)
             name = tcc_basename((dllref = s1->loaded_dlls[dllindex-1])->name);
-        else
-            name = "", dllref = NULL;
+        ورنہ
+            name = "", dllref = تہی;
 
         /* put the dll name into the import header */
         v = put_elf_str(pe->thunk, name);
-        hdr = (IMAGE_IMPORT_DESCRIPTOR*)(pe->thunk->data + dll_ptr);
-        hdr->FirstThunk = thk_ptr + rva_base;
-        hdr->OriginalFirstThunk = ent_ptr + rva_base;
-        hdr->Name = v + rva_base;
+        hdr = (IMAGE_IMPORT_DESCRIPTOR*)(pe->thunk->ڈیٹا + dll_ptr);
+        hdr->پہلا_Thunk = thk_ptr + rva_بنیاد;
+        hdr->Original_پہلا_Thunk = ent_ptr + rva_بنیاد;
+        hdr->Name = v + rva_بنیاد;
 
-        for (k = 0, n = p->sym_count; k <= n; ++k) {
-            if (k < n) {
-                int iat_index = p->symbols[k]->iat_index;
-                int sym_index = p->symbols[k]->sym_index;
-                ElfW(Sym) *imp_sym = (ElfW(Sym) *)s1->dynsymtab_section->data + sym_index;
-                const char *name = (char*)s1->dynsymtab_section->link->data + imp_sym->st_name;
-                int ordinal;
+        برائے (k = 0, n = p->sym_گنتی; k <= n; ++k) {
+            اگر (k < n) {
+                صحیح iat_اشاریہ = p->symbols[k]->iat_اشاریہ;
+                صحیح sym_اشاریہ = p->symbols[k]->sym_اشاریہ;
+                ElfW(Sym) *imp_sym = (ElfW(Sym) *)s1->dynsymtab_section->ڈیٹا + sym_اشاریہ;
+                ثابت حرف *name = (حرف*)s1->dynsymtab_section->link->ڈیٹا + imp_sym->st_name;
+                صحیح ordinal;
 
                 /* patch symbol (and possibly its underscored alias) */
-                do {
-                    ElfW(Sym) *esym = (ElfW(Sym) *)symtab_section->data + iat_index;
-                    iat_index = esym->st_value;
-                    esym->st_value = thk_ptr;
-                    esym->st_shndx = pe->thunk->sh_num;
-                } while (iat_index);
+                کرو {
+                    ElfW(Sym) *esym = (ElfW(Sym) *)symtab_section->ڈیٹا + iat_اشاریہ;
+                    iat_اشاریہ = esym->st_قدر;
+                    esym->st_قدر = thk_ptr;
+                    esym->st_shndx = pe->thunk->sh_عدد;
+                } جب (iat_اشاریہ);
 
-                if (dllref)
-                    v = 0, ordinal = imp_sym->st_value; /* ordinal from pe_load_def */
-                else
-                    ordinal = 0, v = imp_sym->st_value; /* address from tcc_add_symbol() */
+                اگر (dllref)
+                    v = 0, ordinal = imp_sym->st_قدر; /* ordinal from pe_load_def */
+                ورنہ
+                    ordinal = 0, v = imp_sym->st_قدر; /* address from tcc_add_symbol() */
 
-#ifdef TCC_IS_NATIVE
-                if (pe->type == PE_RUN) {
-                    if (dllref) {
-                        if ( !dllref->handle )
-                            dllref->handle = LoadLibraryA(dllref->name);
-                        v = (ADDR3264)GetProcAddress(dllref->handle, ordinal?(char*)0+ordinal:name);
+#اگر_تعریف_شدہ TCC_IS_NATIVE
+                اگر (pe->type == PE_تسلسل) {
+                    اگر (dllref) {
+                        اگر ( !dllref->handle )
+                            dllref->handle = بھرو_Library_A(dllref->name);
+                        v = (ADDR3264)Get_Proc_پتہ(dllref->handle, ordinal?(حرف*)0+ordinal:name);
                     }
-                    if (!v)
+                    اگر (!v)
                         tcc_error_noabort("could not resolve symbol '%s'", name);
-                } else
-#endif
-                if (ordinal) {
-                    v = ordinal | (ADDR3264)1 << (sizeof(ADDR3264)*8 - 1);
-                } else {
-                    v = pe->thunk->data_offset + rva_base;
-                    section_ptr_add(pe->thunk, sizeof(WORD)); /* hint, not used */
+                } ورنہ
+#اگر_ختم
+                اگر (ordinal) {
+                    v = ordinal | (ADDR3264)1 << (حجم(ADDR3264)*8 - 1);
+                } ورنہ {
+                    v = pe->thunk->ڈیٹا_انحراف + rva_بنیاد;
+                    section_ptr_جوڑو(pe->thunk, حجم(لفظ_3)); /* hint, not used */
                     put_elf_str(pe->thunk, name);
                 }
 
-            } else {
+            } ورنہ {
                 v = 0; /* last entry is zero */
             }
 
-            *(ADDR3264*)(pe->thunk->data+thk_ptr) =
-            *(ADDR3264*)(pe->thunk->data+ent_ptr) = v;
-            thk_ptr += sizeof (ADDR3264);
-            ent_ptr += sizeof (ADDR3264);
+            *(ADDR3264*)(pe->thunk->ڈیٹا+thk_ptr) =
+            *(ADDR3264*)(pe->thunk->ڈیٹا+ent_ptr) = v;
+            thk_ptr += حجم (ADDR3264);
+            ent_ptr += حجم (ADDR3264);
         }
-        dll_ptr += sizeof(IMAGE_IMPORT_DESCRIPTOR);
+        dll_ptr += حجم(IMAGE_IMPORT_DESCRIPTOR);
     }
 }
 
 /* ------------------------------------------------------------- */
 
-struct pe_sort_sym
+ساخت pe_ترتیب_دو_sym
 {
-    int index;
-    const char *name;
+    صحیح اشاریہ;
+    ثابت حرف *name;
 };
 
-static int sym_cmp(const void *va, const void *vb)
+ساکن صحیح sym_cmp(ثابت خالی *va, ثابت خالی *vb)
 {
-    const char *ca = (*(struct pe_sort_sym**)va)->name;
-    const char *cb = (*(struct pe_sort_sym**)vb)->name;
-    return strcmp(ca, cb);
+    ثابت حرف *ca = (*(ساخت pe_ترتیب_دو_sym**)va)->name;
+    ثابت حرف *cb = (*(ساخت pe_ترتیب_دو_sym**)vb)->name;
+    واپس strcmp(ca, cb);
 }
 
-static void pe_build_exports(struct pe_info *pe)
+ساکن خالی pe_build_exports(ساخت pe_info *pe)
 {
     ElfW(Sym) *sym;
-    int sym_index, sym_end;
-    DWORD rva_base, base_o, func_o, name_o, ord_o, str_o;
+    صحیح sym_اشاریہ, sym_انتہا;
+    DWORD rva_بنیاد, بنیاد_o, func_o, name_o, ord_o, str_o;
     IMAGE_EXPORT_DIRECTORY *hdr;
-    int sym_count, ord;
-    struct pe_sort_sym **sorted, *p;
+    صحیح sym_گنتی, ord;
+    ساخت pe_ترتیب_دو_sym **sorted, *p;
     TCCState *s1 = pe->s1;
 
     FILE *op;
-    char buf[260];
-    const char *dllname;
-    const char *name;
+    حرف buf[260];
+    ثابت حرف *dllname;
+    ثابت حرف *name;
 
-    rva_base = pe->thunk->sh_addr - pe->imagebase;
-    sym_count = 0, sorted = NULL, op = NULL;
+    rva_بنیاد = pe->thunk->sh_addr - pe->imagebase;
+    sym_گنتی = 0, sorted = تہی, op = تہی;
 
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        sym = (ElfW(Sym)*)symtab_section->data + sym_index;
+    sym_انتہا = symtab_section->ڈیٹا_انحراف / حجم(ElfW(Sym));
+    برائے (sym_اشاریہ = 1; sym_اشاریہ < sym_انتہا; ++sym_اشاریہ) {
+        sym = (ElfW(Sym)*)symtab_section->ڈیٹا + sym_اشاریہ;
         name = pe_export_name(s1, sym);
-        if (sym->st_other & ST_PE_EXPORT) {
-            p = tcc_malloc(sizeof *p);
-            p->index = sym_index;
+        اگر (sym->st_other & ST_PE_EXPORT) {
+            p = tcc_malloc(حجم *p);
+            p->اشاریہ = sym_اشاریہ;
             p->name = name;
-            dynarray_add(&sorted, &sym_count, p);
+            dynarray_جوڑو(&sorted, &sym_گنتی, p);
         }
-#if 0
-        if (sym->st_other & ST_PE_EXPORT)
-            printf("export: %s\n", name);
-        if (sym->st_other & ST_PE_STDCALL)
-            printf("stdcall: %s\n", name);
-#endif
+#اگر 0
+        اگر (sym->st_other & ST_PE_EXPORT)
+            لکھو("export: %s\n", name);
+        اگر (sym->st_other & ST_PE_STDCALL)
+            لکھو("stdcall: %s\n", name);
+#اگر_ختم
     }
 
-    if (0 == sym_count)
-        return;
+    اگر (0 == sym_گنتی)
+        واپس;
 
-    qsort (sorted, sym_count, sizeof *sorted, sym_cmp);
+    qsort (sorted, sym_گنتی, حجم *sorted, sym_cmp);
 
     pe_align_section(pe->thunk, 16);
     dllname = tcc_basename(pe->filename);
 
-    base_o = pe->thunk->data_offset;
-    func_o = base_o + sizeof(IMAGE_EXPORT_DIRECTORY);
-    name_o = func_o + sym_count * sizeof (DWORD);
-    ord_o = name_o + sym_count * sizeof (DWORD);
-    str_o = ord_o + sym_count * sizeof(WORD);
+    بنیاد_o = pe->thunk->ڈیٹا_انحراف;
+    func_o = بنیاد_o + حجم(IMAGE_EXPORT_DIRECTORY);
+    name_o = func_o + sym_گنتی * حجم (DWORD);
+    ord_o = name_o + sym_گنتی * حجم (DWORD);
+    str_o = ord_o + sym_گنتی * حجم(لفظ_3);
 
-    hdr = section_ptr_add(pe->thunk, str_o - base_o);
+    hdr = section_ptr_جوڑو(pe->thunk, str_o - بنیاد_o);
     hdr->Characteristics        = 0;
-    hdr->Base                   = 1;
-    hdr->NumberOfFunctions      = sym_count;
-    hdr->NumberOfNames          = sym_count;
-    hdr->AddressOfFunctions     = func_o + rva_base;
-    hdr->AddressOfNames         = name_o + rva_base;
-    hdr->AddressOfNameOrdinals  = ord_o + rva_base;
-    hdr->Name                   = str_o + rva_base;
+    hdr->بنیاد_2                   = 1;
+    hdr->نمبر_کا_Functions      = sym_گنتی;
+    hdr->نمبر_کا_نام          = sym_گنتی;
+    hdr->پتہ_کا_Functions     = func_o + rva_بنیاد;
+    hdr->پتہ_کا_نام         = name_o + rva_بنیاد;
+    hdr->پتہ_کا_Name_Ordinals  = ord_o + rva_بنیاد;
+    hdr->Name                   = str_o + rva_بنیاد;
     put_elf_str(pe->thunk, dllname);
 
-#if 1
+#اگر 1
     /* automatically write exports to <output-filename>.def */
-    pstrcpy(buf, sizeof buf, pe->filename);
+    pstrcpy(buf, حجم buf, pe->filename);
     strcpy(tcc_fileextension(buf), ".def");
     op = fopen(buf, "wb");
-    if (NULL == op) {
+    اگر (تہی == op) {
         tcc_error_noabort("could not create '%s': %s", buf, strerror(errno));
-    } else {
+    } ورنہ {
         fprintf(op, "LIBRARY %s\n\nEXPORTS\n", dllname);
-        if (s1->verbose)
-            printf("<- %s (%d symbol%s)\n", buf, sym_count, &"s"[sym_count < 2]);
+        اگر (s1->verbose)
+            لکھو("<- %s (%d symbol%s)\n", buf, sym_گنتی, &"s"[sym_گنتی < 2]);
     }
-#endif
+#اگر_ختم
 
-    for (ord = 0; ord < sym_count; ++ord)
+    برائے (ord = 0; ord < sym_گنتی; ++ord)
     {
-        p = sorted[ord], sym_index = p->index, name = p->name;
+        p = sorted[ord], sym_اشاریہ = p->اشاریہ, name = p->name;
         /* insert actual address later in relocate_sections() */
         put_elf_reloc(symtab_section, pe->thunk,
-            func_o, R_XXX_RELATIVE, sym_index);
-        *(DWORD*)(pe->thunk->data + name_o)
-            = pe->thunk->data_offset + rva_base;
-        *(WORD*)(pe->thunk->data + ord_o)
+            func_o, R_XXX_RELATIVE, sym_اشاریہ);
+        *(DWORD*)(pe->thunk->ڈیٹا + name_o)
+            = pe->thunk->ڈیٹا_انحراف + rva_بنیاد;
+        *(لفظ_3*)(pe->thunk->ڈیٹا + ord_o)
             = ord;
         put_elf_str(pe->thunk, name);
-        func_o += sizeof (DWORD);
-        name_o += sizeof (DWORD);
-        ord_o += sizeof (WORD);
-        if (op)
+        func_o += حجم (DWORD);
+        name_o += حجم (DWORD);
+        ord_o += حجم (لفظ_3);
+        اگر (op)
             fprintf(op, "%s\n", name);
     }
 
-    pe->exp_offs = base_o + rva_base;
-    pe->exp_size = pe->thunk->data_offset - base_o;
-    dynarray_reset(&sorted, &sym_count);
-    if (op)
+    pe->exp_offs = بنیاد_o + rva_بنیاد;
+    pe->exp_سائز = pe->thunk->ڈیٹا_انحراف - بنیاد_o;
+    dynarray_reset(&sorted, &sym_گنتی);
+    اگر (op)
         fclose(op);
 }
 
 /* ------------------------------------------------------------- */
-static void pe_build_reloc (struct pe_info *pe)
+ساکن خالی pe_build_reloc (ساخت pe_info *pe)
 {
-    DWORD offset, block_ptr, sh_addr, addr;
-    int count, i;
-    ElfW_Rel *rel, *rel_end;
-    Section *s = NULL, *sr;
-    struct pe_reloc_header *hdr;
+    DWORD انحراف, بلاک_ptr, sh_addr, addr;
+    صحیح گنتی_2, i;
+    ElfW_Rel *rel, *rel_انتہا;
+    Section *s = تہی, *sr;
+    ساخت pe_reloc_سرخی *hdr;
     TCCState *s1 = pe->s1;
-    int dwarf = 0, n;
+    صحیح dwarf = 0, n;
 
-    sh_addr = offset = block_ptr = count = i = 0;
-    rel = rel_end = NULL;
+    sh_addr = انحراف = بلاک_ptr = گنتی_2 = i = 0;
+    rel = rel_انتہا = تہی;
 
-    for(;;) {
-        if (rel < rel_end) {
-            int type = ELFW(R_TYPE)(rel->r_info);
-            addr = rel->r_offset + sh_addr;
+    برائے(;;) {
+        اگر (rel < rel_انتہا) {
+            صحیح type = ELFW(R_TYPE)(rel->r_info);
+            addr = rel->r_انحراف + sh_addr;
             ++ rel;
-            if (type != REL_TYPE_DIRECT)
-                continue;
-            if (dwarf) { /* don't runtime-relocate dwarf-to-dwarf */
-                n = ((ElfSym *)s1->symtab->data + ELFW(R_SYM)(rel[-1].r_info))->st_shndx;
-                if (n >= s1->dwlo && n < s1->dwhi)
-                    continue;
+            اگر (type != REL_TYPE_براہ_راست)
+                جاری;
+            اگر (dwarf) { /* don't runtime-relocate dwarf-to-dwarf */
+                n = ((ElfSym *)s1->symtab->ڈیٹا + ELFW(R_SYM)(rel[-1].r_info))->st_shndx;
+                اگر (n >= s1->dwlo && n < s1->dwhi)
+                    جاری;
             }
-            if (count == 0) { /* new block */
-                block_ptr = pe->reloc->data_offset;
-                section_ptr_add(pe->reloc, sizeof(struct pe_reloc_header));
-                offset = addr & 0xFFFFFFFF<<12;
+            اگر (گنتی_2 == 0) { /* new block */
+                بلاک_ptr = pe->reloc->ڈیٹا_انحراف;
+                section_ptr_جوڑو(pe->reloc, حجم(ساخت pe_reloc_سرخی));
+                انحراف = addr & 0xFFFFFFFF<<12;
             }
-            if ((addr -= offset)  < (1<<12)) { /* one block spans 4k addresses */
-                WORD *wp = section_ptr_add(pe->reloc, sizeof (WORD));
+            اگر ((addr -= انحراف)  < (1<<12)) { /* one block spans 4k addresses */
+                لفظ_3 *wp = section_ptr_جوڑو(pe->reloc, حجم (لفظ_3));
                 *wp = addr | PE_IMAGE_REL<<12;
-                ++count;
-                continue;
+                ++گنتی_2;
+                جاری;
             }
             -- rel;
 
-        } else if (s) {
+        } ورنہ اگر (s) {
             sr = s->reloc;
-            if (sr) {
-                rel = (ElfW_Rel *)sr->data;
-                rel_end = (ElfW_Rel *)(sr->data + sr->data_offset);
+            اگر (sr) {
+                rel = (ElfW_Rel *)sr->ڈیٹا;
+                rel_انتہا = (ElfW_Rel *)(sr->ڈیٹا + sr->ڈیٹا_انحراف);
                 sh_addr = s->sh_addr;
-                dwarf = s->sh_num >= s1->dwlo && s->sh_num < s1->dwhi;
+                dwarf = s->sh_عدد >= s1->dwlo && s->sh_عدد < s1->dwhi;
             }
-            s = s->prev;
-            continue;
+            s = s->پچھلا;
+            جاری;
 
-        } else if (i < pe->sec_count) {
+        } ورنہ اگر (i < pe->sec_گنتی) {
             s = pe->sec_info[i]->sec, ++i;
-            continue;
+            جاری;
 
-        } else if (!count)
-            break;
+        } ورنہ اگر (!گنتی_2)
+            توڑو;
 
         /* fill the last block and ready for a new one */
-        if (count & 1) /* align for DWORDS */
-            section_ptr_add(pe->reloc, sizeof(WORD)), ++count;
-        hdr = (struct pe_reloc_header *)(pe->reloc->data + block_ptr);
-        hdr -> offset = offset - pe->imagebase;
-        hdr -> size = count * sizeof(WORD) + sizeof(struct pe_reloc_header);
-        count = 0;
+        اگر (گنتی_2 & 1) /* align for DWORDS */
+            section_ptr_جوڑو(pe->reloc, حجم(لفظ_3)), ++گنتی_2;
+        hdr = (ساخت pe_reloc_سرخی *)(pe->reloc->ڈیٹا + بلاک_ptr);
+        hdr -> انحراف = انحراف - pe->imagebase;
+        hdr -> سائز = گنتی_2 * حجم(لفظ_3) + حجم(ساخت pe_reloc_سرخی);
+        گنتی_2 = 0;
     }
 }
 
 /* ------------------------------------------------------------- */
-static void pe_build_tls(struct pe_info *pe, Section *s)
+ساکن خالی pe_build_tls(ساخت pe_info *pe, Section *s)
 {
     TCCState *s1 = pe->s1;
     IMAGE_TLS_DIRECTORY *d;
-    int c, n;
+    صحیح c, n;
 
-    if (0 == s) {
-        pe->tls_size = sizeof (IMAGE_TLS_DIRECTORY);
-        pe->tls_dir = section_add(pe->thunk, pe->tls_size, 16);
-        pe->tls_data = section_add(data_section, PTR_SIZE * (1+3), 16);
+    اگر (0 == s) {
+        pe->tls_سائز = حجم (IMAGE_TLS_DIRECTORY);
+        pe->tls_dir = section_جوڑو(pe->thunk, pe->tls_سائز, 16);
+        pe->tls_ڈیٹا = section_جوڑو(ڈیٹا_section, PTR_سائز * (1+3), 16);
         /* put relocations on entries */
-        c = put_elf_sym(symtab_section, 0, 0, 0, 0, data_section->sh_num, 0);
-        for (n = 0; n < 4; ++n)
-            put_elf_reloc(symtab_section, pe->thunk, pe->tls_dir + PTR_SIZE*n, REL_TYPE_DIRECT, c);
+        c = put_elf_sym(symtab_section, 0, 0, 0, 0, ڈیٹا_section->sh_عدد, 0);
+        برائے (n = 0; n < 4; ++n)
+            put_elf_reloc(symtab_section, pe->thunk, pe->tls_dir + PTR_سائز*n, REL_TYPE_براہ_راست, c);
         /* for generators */
-        set_elf_sym(symtab_section, pe->tls_data, PTR_SIZE * 4,
+        سیٹ_elf_sym(symtab_section, pe->tls_ڈیٹا, PTR_سائز * 4,
                 ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT),
-                0, data_section->sh_num, "__tls_index");
-        return;
+                0, ڈیٹا_section->sh_عدد, "__tls_index");
+        واپس;
     }
 
-    if (0 == s1->tls_start)
-        s1->tls_start = s->sh_addr;
-    d = (void*)(pe->thunk->data + pe->tls_dir);
-    d->StartAddressOfRawData = s1->tls_start - data_section->sh_addr;
-    d->EndAddressOfRawData = s->sh_addr + s->data_offset - data_section->sh_addr;
-    d->AddressOfIndex = pe->tls_data;
-    d->AddressOfCallBacks = pe->tls_data + PTR_SIZE;
-    d->SizeOfZeroFill = 0;
+    اگر (0 == s1->tls_آغاز)
+        s1->tls_آغاز = s->sh_addr;
+    d = (خالی*)(pe->thunk->ڈیٹا + pe->tls_dir);
+    d->آغاز_پتہ_کا_Raw_ڈیٹا = s1->tls_آغاز - ڈیٹا_section->sh_addr;
+    d->انتہا_پتہ_کا_Raw_ڈیٹا = s->sh_addr + s->ڈیٹا_انحراف - ڈیٹا_section->sh_addr;
+    d->پتہ_کا_اشاریہ = pe->tls_ڈیٹا;
+    d->پتہ_کا_Call_Backs = pe->tls_ڈیٹا + PTR_سائز;
+    d->سائز_کا_Zero_Fill = 0;
     d->Characteristics = 0;
     /* to reuse logic from linux in xxx-link.c */
-    s1->tls_end = s1->tls_start;
+    s1->tls_انتہا = s1->tls_آغاز;
 }
 
 /* ------------------------------------------------------------- */
-static int pe_section_class(Section *s)
+ساکن صحیح pe_section_class(Section *s)
 {
-    int type, flags;
-    const char *name;
+    صحیح type, flags;
+    ثابت حرف *name;
     type = s->sh_type;
     flags = s->sh_flags;
     name = s->name;
 
-    if (0 == memcmp(name, ".stab", 5) || 0 == memcmp(name, ".debug_", 7)) {
-        return sec_debug;
-    } else if (flags & SHF_ALLOC) {
-        if (flags & SHF_TLS)
-            return sec_tdata + (type == SHT_NOBITS);
-        if (type == SHT_PROGBITS
+    اگر (0 == memcmp(name, ".stab", 5) || 0 == memcmp(name, ".debug_", 7)) {
+        واپس sec_debug;
+    } ورنہ اگر (flags & SHF_ALLOC) {
+        اگر (flags & SHF_TLS)
+            واپس sec_tdata + (type == SHT_NOBITS);
+        اگر (type == SHT_PROGBITS
          || type == SHT_INIT_ARRAY
          || type == SHT_FINI_ARRAY) {
-            if (flags & SHF_EXECINSTR)
-                return sec_text;
-            if (flags & SHF_WRITE)
-                return sec_data;
-            if (0 == strcmp(name, ".rsrc"))
-                return sec_rsrc;
-            if (0 == strcmp(name, ".iedat"))
-                return sec_idata;
-            if (0 == strcmp(name, ".pdata"))
-                return sec_pdata;
-            return sec_rdata;
-        } else if (type == SHT_NOBITS) {
-            return sec_bss;
+            اگر (flags & SHF_EXECINSTR)
+                واپس sec_متن;
+            اگر (flags & SHF_WRITE)
+                واپس sec_ڈیٹا;
+            اگر (0 == strcmp(name, ".rsrc"))
+                واپس sec_rsrc;
+            اگر (0 == strcmp(name, ".iedat"))
+                واپس sec_idata;
+            اگر (0 == strcmp(name, ".pdata"))
+                واپس sec_pdata;
+            واپس sec_rdata;
+        } ورنہ اگر (type == SHT_NOBITS) {
+            واپس sec_bss;
         }
-        return sec_other;
-    } else {
-        if (0 == strcmp(name, ".reloc"))
-            return sec_reloc;
+        واپس sec_other;
+    } ورنہ {
+        اگر (0 == strcmp(name, ".reloc"))
+            واپس sec_reloc;
     }
-    return sec_last;
+    واپس sec_آخری;
 }
 
-static int pe_assign_addresses (struct pe_info *pe)
+ساکن صحیح pe_تفویض_پتے (ساخت pe_info *pe)
 {
-    int i, k, n, c, nbs;
+    صحیح i, k, n, c, nbs;
     ADDR3264 addr;
-    int *sec_order, *sec_cls;
-    struct section_info *si;
+    صحیح *sec_ترتیب, *sec_cls;
+    ساخت section_info *si;
     Section *s;
     TCCState *s1 = pe->s1;
 
-    if (PE_DLL == pe->type
-        || (s1->pe_dll_characteristics & IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE))
+    اگر (PE_DLL == pe->type
+        || (s1->pe_dll_characteristics & IMAGE_DLLCHARACTERISTICS_DYNAMIC_بنیاد))
         pe->reloc = new_section(s1, ".reloc", SHT_PROGBITS, 0);
     pe->thunk = rodata_section;
     //pe->thunk = new_section(s1, ".iedat", SHT_PROGBITS, SHF_ALLOC);
 
     nbs = s1->nb_sections;
-    sec_order = tcc_mallocz(2 * sizeof (int) * nbs);
-    sec_cls = sec_order + nbs;
-    for (i = 1; i < nbs; ++i) {
+    sec_ترتیب = tcc_mallocz(2 * حجم (صحیح) * nbs);
+    sec_cls = sec_ترتیب + nbs;
+    برائے (i = 1; i < nbs; ++i) {
         s = s1->sections[i];
         k = pe_section_class(s);
-        for (n = i; n > 1 && k < (c = sec_cls[n - 1]); --n)
-            sec_cls[n] = c, sec_order[n] = sec_order[n - 1];
-        sec_cls[n] = k, sec_order[n] = i;
-        if ((s->sh_flags & SHF_TLS) && 0 == pe->tls_size)
-            pe_build_tls(pe, NULL);
+        برائے (n = i; n > 1 && k < (c = sec_cls[n - 1]); --n)
+            sec_cls[n] = c, sec_ترتیب[n] = sec_ترتیب[n - 1];
+        sec_cls[n] = k, sec_ترتیب[n] = i;
+        اگر ((s->sh_flags & SHF_TLS) && 0 == pe->tls_سائز)
+            pe_build_tls(pe, تہی);
     }
-    si = NULL;
+    si = تہی;
     addr = pe->imagebase + 1;
-    for (i = 1; (c = sec_cls[i]) < sec_last; ++i) {
-        s = s1->sections[sec_order[i]];
+    برائے (i = 1; (c = sec_cls[i]) < sec_آخری; ++i) {
+        s = s1->sections[sec_ترتیب[i]];
 
-        if (PE_MERGE_DATA && c == sec_bss)
-            c = sec_data;
-        if (c == sec_tbss)
+        اگر (PE_ملاؤ_ڈیٹا && c == sec_bss)
+            c = sec_ڈیٹا;
+        اگر (c == sec_tbss)
             c = sec_tdata;
 
-        if (si && c == si->cls && c != sec_debug) {
+        اگر (si && c == si->cls && c != sec_debug) {
             /* merge with previous section */
             s->sh_addr = addr = ((addr - 1) | (s->sh_addralign - 1)) + 1;
-        } else {
-            si = NULL;
+        } ورنہ {
+            si = تہی;
             s->sh_addr = addr = pe_virtual_align(pe, addr);
         }
 
-        if (s == pe->thunk) {
+        اگر (s == pe->thunk) {
             pe_build_imports(pe);
             pe_build_exports(pe);
         }
 
-        if (s == pe->reloc)
+        اگر (s == pe->reloc)
             pe_build_reloc (pe);
 
-        if (0 == s->data_offset)
-            continue;
+        اگر (0 == s->ڈیٹا_انحراف)
+            جاری;
 
-        if (si)
-            goto add_section;
+        اگر (si)
+            جاؤ جوڑو_section;
 
-        si = tcc_mallocz(sizeof *si);
-        dynarray_add(&pe->sec_info, &pe->sec_count, si);
+        si = tcc_mallocz(حجم *si);
+        dynarray_جوڑو(&pe->sec_info, &pe->sec_گنتی, si);
 
         strcpy(si->name, s->name);
         si->cls = c;
         si->sh_addr = addr;
 
         si->pe_flags = IMAGE_SCN_MEM_READ;
-        if (s->sh_flags & SHF_EXECINSTR)
-            si->pe_flags |= IMAGE_SCN_MEM_EXECUTE | IMAGE_SCN_CNT_CODE;
-        else if (s->sh_type == SHT_NOBITS && !(s->sh_flags & SHF_TLS))
-            si->pe_flags |= IMAGE_SCN_CNT_UNINITIALIZED_DATA;
-        else
-            si->pe_flags |= IMAGE_SCN_CNT_INITIALIZED_DATA;
-        if (s->sh_flags & SHF_WRITE)
+        اگر (s->sh_flags & SHF_EXECINSTR)
+            si->pe_flags |= IMAGE_SCN_MEM_EXECUTE | IMAGE_SCN_CNT_رمز;
+        ورنہ اگر (s->sh_type == SHT_NOBITS && !(s->sh_flags & SHF_TLS))
+            si->pe_flags |= IMAGE_SCN_CNT_UNINITIALIZED_ڈیٹا;
+        ورنہ
+            si->pe_flags |= IMAGE_SCN_CNT_INITIALIZED_ڈیٹا;
+        اگر (s->sh_flags & SHF_WRITE)
             si->pe_flags |= IMAGE_SCN_MEM_WRITE;
-        if (0 == (s->sh_flags & SHF_ALLOC))
+        اگر (0 == (s->sh_flags & SHF_ALLOC))
             si->pe_flags |= IMAGE_SCN_MEM_DISCARDABLE;
 
-add_section:
-        s->sh_info = pe->sec_count; /* section number for coff syms */
-        addr += s->data_offset;
-        si->sh_size = addr - si->sh_addr;
-        if (s->sh_type != SHT_NOBITS) {
+جوڑو_section:
+        s->sh_info = pe->sec_گنتی; /* section number for coff syms */
+        addr += s->ڈیٹا_انحراف;
+        si->sh_سائز = addr - si->sh_addr;
+        اگر (s->sh_type != SHT_NOBITS) {
             Section **ps = &si->sec;
-            while (*ps)
-                ps = &(*ps)->prev;
-            *ps = s, s->prev = NULL;
-            si->data_size = si->sh_size;
+            جب (*ps)
+                ps = &(*ps)->پچھلا;
+            *ps = s, s->پچھلا = تہی;
+            si->ڈیٹا_سائز = si->sh_سائز;
         }
 
-        if (s->sh_flags & SHF_TLS) {
+        اگر (s->sh_flags & SHF_TLS) {
             strcpy(si->name, ".tls");
             pe_build_tls(pe, s);
         }
 
         //printf("%08x %05x %08x %s\n", si->sh_addr, si->sh_size, si->pe_flags, s->name);
     }
-#if 0
-    for (i = 1; i < nbs; ++i) {
-        Section *s = s1->sections[sec_order[i]];
-        int type = s->sh_type;
-        int flags = s->sh_flags;
-        printf("section %-16s %-10s %p %04x %2d %s,%s,%s\n",
+#اگر 0
+    برائے (i = 1; i < nbs; ++i) {
+        Section *s = s1->sections[sec_ترتیب[i]];
+        صحیح type = s->sh_type;
+        صحیح flags = s->sh_flags;
+        لکھو("section %-16s %-10s %p %04x %2d %s,%s,%s\n",
             s->name,
             type == SHT_PROGBITS ? "progbits" :
             type == SHT_INIT_ARRAY ? "initarr" :
@@ -1376,7 +1376,7 @@ add_section:
             type == SHT_STRTAB ? "strtab" :
             type == SHT_RELX ? "rel" : "???",
             s->sh_addr,
-            (unsigned)s->data_offset,
+            (غیرعلامتی)s->ڈیٹا_انحراف,
             s->sh_addralign,
             flags & SHF_ALLOC ? "alloc" : "",
             flags & SHF_WRITE ? "write" : "",
@@ -1385,174 +1385,174 @@ add_section:
         fflush(stdout);
     }
     s1->verbose = 2;
-#endif
-    tcc_free(sec_order);
-    return 0;
+#اگر_ختم
+    tcc_free(sec_ترتیب);
+    واپس 0;
 }
 
 /*----------------------------------------------------------------------------*/
-static int pe_check_symbols(struct pe_info *pe)
+ساکن صحیح pe_check_symbols(ساخت pe_info *pe)
 {
-    int sym_index, sym_end;
-    int ret = 0;
+    صحیح sym_اشاریہ, sym_انتہا;
+    صحیح ret = 0;
     TCCState *s1 = pe->s1;
 
-    pe_align_section(text_section, 8);
+    pe_align_section(متن_section, 8);
 
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + sym_index;
-        if (sym->st_shndx == SHN_UNDEF) {
-            const char *name = (char*)symtab_section->link->data + sym->st_name;
-            unsigned type = ELFW(ST_TYPE)(sym->st_info);
-            int imp_sym = 0;
-            struct import_symbol *is;
+    sym_انتہا = symtab_section->ڈیٹا_انحراف / حجم(ElfW(Sym));
+    برائے (sym_اشاریہ = 1; sym_اشاریہ < sym_انتہا; ++sym_اشاریہ) {
+        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->ڈیٹا + sym_اشاریہ;
+        اگر (sym->st_shndx == SHN_UNDEF) {
+            ثابت حرف *name = (حرف*)symtab_section->link->ڈیٹا + sym->st_name;
+            غیرعلامتی type = ELFW(ST_TYPE)(sym->st_info);
+            صحیح imp_sym = 0;
+            ساخت import_علامت *is;
 
-            int _imp_, n;
-            char buffer[200];
-            const char *s, *p;
+            صحیح _imp_, n;
+            حرف بفر[200];
+            ثابت حرف *s, *p;
 
             n = _imp_ = 0;
-            if (sym->st_other & ST_PE_IMPORT)
+            اگر (sym->st_other & ST_PE_IMPORT)
                 _imp_ = 1;
-            do {
+            کرو {
                 s = pe_export_name(s1, sym);
-                if (n) {
+                اگر (n) {
                     /* second try: */
-                    if (sym->st_other & ST_PE_STDCALL) {
+                    اگر (sym->st_other & ST_PE_STDCALL) {
                         /* try w/0 stdcall deco (windows API convention) */
                         p = strrchr(s, '@');
-                        if (!p || s[0] != '_')
-                            break;
-                        strcpy(buffer, s+1)[p-s-1] = 0, s = buffer;
-                    } else if (s[0] != '_') { /* try non-ansi function */
-                        buffer[0] = '_', strcpy(buffer + 1, s), s = buffer;
-                    } else if (0 == memcmp(s, "_imp__", 6)) { /* mingw 3.7 */
+                        اگر (!p || s[0] != '_')
+                            توڑو;
+                        strcpy(بفر, s+1)[p-s-1] = 0, s = بفر;
+                    } ورنہ اگر (s[0] != '_') { /* try non-ansi function */
+                        بفر[0] = '_', strcpy(بفر + 1, s), s = بفر;
+                    } ورنہ اگر (0 == memcmp(s, "_imp__", 6)) { /* mingw 3.7 */
                         s += 6, _imp_ = 1;
-                    } else if (0 == memcmp(s, "__imp_", 6)) { /* mingw 2.0 */
+                    } ورنہ اگر (0 == memcmp(s, "__imp_", 6)) { /* mingw 2.0 */
                         s += 6, _imp_ = 1;
-                    } else {
-                        break;
+                    } ورنہ {
+                        توڑو;
                     }
                 }
-                imp_sym = find_elf_sym(s1->dynsymtab_section, s);
-            } while (0 == imp_sym && ++n < 2);
+                imp_sym = ڈھونڈو_elf_sym(s1->dynsymtab_section, s);
+            } جب (0 == imp_sym && ++n < 2);
 
             //printf("pe_find_export (%d) %4x %s\n", n, imp_sym, name);
-            if (0 == imp_sym)
-                continue; /* will throw the 'undefined' error in relocate_syms() */
+            اگر (0 == imp_sym)
+                جاری; /* will throw the 'undefined' error in relocate_syms() */
 
-            is = pe_add_import(pe, imp_sym);
+            is = pe_جوڑو_import(pe, imp_sym);
 
-            if (type == STT_FUNC
+            اگر (type == STT_FUNC
                 /* symbols from assembler often have no type */
                 || (type == STT_NOTYPE && 0 == _imp_)) {
-                unsigned offset = is->thk_offset;
-                if (offset) {
+                غیرعلامتی انحراف = is->thk_انحراف;
+                اگر (انحراف) {
                     /* got aliased symbol, like stricmp and _stricmp */
-                } else {
-                    unsigned char *p;
+                } ورنہ {
+                    غیرعلامتی حرف *p;
 
                     /* add a helper symbol, will be patched later in
                        pe_build_imports */
-                    sprintf(buffer, "IAT.%s", name);
-                    is->iat_index = put_elf_sym(
-                        symtab_section, 0, sizeof(DWORD),
+                    sprintf(بفر, "IAT.%s", name);
+                    is->iat_اشاریہ = put_elf_sym(
+                        symtab_section, 0, حجم(DWORD),
                         ELFW(ST_INFO)(STB_LOCAL, STT_OBJECT),
-                        0, SHN_UNDEF, buffer);
+                        0, SHN_UNDEF, بفر);
 
-                    offset = text_section->data_offset;
-                    is->thk_offset = offset;
+                    انحراف = متن_section->ڈیٹا_انحراف;
+                    is->thk_انحراف = انحراف;
 
                     /* add the 'jmp IAT[x]' instruction */
-#ifdef TCC_TARGET_ARM
-                    p = section_ptr_add(text_section, 8+4); // room for code and address
+#اگر_تعریف_شدہ TCC_ہدف_ARM
+                    p = section_ptr_جوڑو(متن_section, 8+4); // room for code and address
                     write32le(p + 0, 0xE59FC000); // arm code ldr ip, [pc] ; PC+8+0 = 0001xxxx
                     write32le(p + 4, 0xE59CF000); // arm code ldr pc, [ip]
-                    put_elf_reloc(symtab_section, text_section,
-                        offset + 8, R_XXX_THUNKFIX, is->iat_index); // offset to IAT position
-#elif defined(TCC_TARGET_ARM64)
-                    p = section_ptr_add(text_section, 24);
+                    put_elf_reloc(symtab_section, متن_section,
+                        انحراف + 8, R_XXX_THUNKFIX, is->iat_اشاریہ); // offset to IAT position
+#وگرنہ_اگر defined(TCC_ہدف_ARM64)
+                    p = section_ptr_جوڑو(متن_section, 24);
                     write32le(p + 0, 0x58000090); /* ldr x16, [pc, #16] */
                     write32le(p + 4, 0xf9400210); /* ldr x16, [x16] */
                     write32le(p + 8, 0xd61f0200); /* br x16 */
                     write32le(p + 12, 0xd503201f); /* nop for alignment */
-                    put_elf_reloc(symtab_section, text_section,
-                        offset + 16, R_XXX_THUNKFIX, is->iat_index);
-#else
-                    p = section_ptr_add(text_section, 8);
+                    put_elf_reloc(symtab_section, متن_section,
+                        انحراف + 16, R_XXX_THUNKFIX, is->iat_اشاریہ);
+#ورنہ
+                    p = section_ptr_جوڑو(متن_section, 8);
                     write16le(p, 0x25FF);
-#ifdef TCC_TARGET_X86_64
+#اگر_تعریف_شدہ TCC_ہدف_X86_64
                     write32le(p + 2, (DWORD)-4);
-#endif
-                    put_elf_reloc(symtab_section, text_section, 
-                        offset + 2, R_XXX_THUNKFIX, is->iat_index);
-#endif
+#اگر_ختم
+                    put_elf_reloc(symtab_section, متن_section, 
+                        انحراف + 2, R_XXX_THUNKFIX, is->iat_اشاریہ);
+#اگر_ختم
                 }
                 /* tcc_realloc might have altered sym's address */
-                sym = (ElfW(Sym) *)symtab_section->data + sym_index;
+                sym = (ElfW(Sym) *)symtab_section->ڈیٹا + sym_اشاریہ;
                 /* patch the original symbol */
-                sym->st_value = offset;
-                sym->st_shndx = text_section->sh_num;
+                sym->st_قدر = انحراف;
+                sym->st_shndx = متن_section->sh_عدد;
                 sym->st_other &= ~ST_PE_EXPORT; /* do not export */
 
-            } else { /* STT_OBJECT */
-                if (0 == _imp_)
+            } ورنہ { /* STT_OBJECT */
+                اگر (0 == _imp_)
                     ret = tcc_error_noabort("symbol '%s' is missing __declspec(dllimport)", name);
                 /* original symbol will be patched later in pe_build_imports */
-                sym->st_value = is->iat_index; /* chain potential alias */
-                is->iat_index = sym_index;
+                sym->st_قدر = is->iat_اشاریہ; /* chain potential alias */
+                is->iat_اشاریہ = sym_اشاریہ;
             }
 
-        } else if (s1->rdynamic
+        } ورنہ اگر (s1->rdynamic
                    && ELFW(ST_BIND)(sym->st_info) != STB_LOCAL) {
             /* if -rdynamic option, then export all non local symbols */
             sym->st_other |= ST_PE_EXPORT;
         }
     }
-    return ret;
+    واپس ret;
 }
 
 /*----------------------------------------------------------------------------*/
-#if PE_PRINT_SECTIONS
-static void pe_print_section(FILE * f, Section * s)
+#اگر PE_PRINT_SECTIONS
+ساکن خالی pe_print_section(FILE * f, Section * s)
 {
     /* just if you're curious */
     BYTE *p, *e, b;
-    int i, n, l, m;
-    p = s->data;
-    e = s->data + s->data_offset;
+    صحیح i, n, l, m;
+    p = s->ڈیٹا;
+    e = s->ڈیٹا + s->ڈیٹا_انحراف;
     l = e - p;
 
     fprintf(f, "section  \"%s\"", s->name);
-    if (s->link)
+    اگر (s->link)
         fprintf(f, "\nlink     \"%s\"", s->link->name);
-    if (s->reloc)
+    اگر (s->reloc)
         fprintf(f, "\nreloc    \"%s\"", s->reloc->name);
-    fprintf(f, "\nv_addr   %08X", (unsigned)s->sh_addr);
-    fprintf(f, "\ncontents %08X", (unsigned)l);
+    fprintf(f, "\nv_addr   %08X", (غیرعلامتی)s->sh_addr);
+    fprintf(f, "\ncontents %08X", (غیرعلامتی)l);
     fprintf(f, "\n\n");
 
-    if (s->sh_type == SHT_NOBITS)
-        return;
+    اگر (s->sh_type == SHT_NOBITS)
+        واپس;
 
-    if (0 == l)
-        return;
+    اگر (0 == l)
+        واپس;
 
-    if (s->sh_type == SHT_SYMTAB)
-        m = sizeof(ElfW(Sym));
-    else if (s->sh_type == SHT_RELX)
-        m = sizeof(ElfW_Rel);
-    else
+    اگر (s->sh_type == SHT_SYMTAB)
+        m = حجم(ElfW(Sym));
+    ورنہ اگر (s->sh_type == SHT_RELX)
+        m = حجم(ElfW_Rel);
+    ورنہ
         m = 16;
 
     fprintf(f, "%-8s", "offset");
-    for (i = 0; i < m; ++i)
+    برائے (i = 0; i < m; ++i)
         fprintf(f, " %02x", i);
     n = 56;
 
-    if (s->sh_type == SHT_SYMTAB || s->sh_type == SHT_RELX) {
-        const char *fields1[] = {
+    اگر (s->sh_type == SHT_SYMTAB || s->sh_type == SHT_RELX) {
+        ثابت حرف *fields1[] = {
             "name",
             "value",
             "size",
@@ -1560,72 +1560,72 @@ static void pe_print_section(FILE * f, Section * s)
             "type",
             "other",
             "shndx",
-            NULL
+            تہی
         };
 
-        const char *fields2[] = {
+        ثابت حرف *fields2[] = {
             "offs",
             "type",
             "symb",
-            NULL
+            تہی
         };
 
-        const char **p;
+        ثابت حرف **p;
 
-        if (s->sh_type == SHT_SYMTAB)
+        اگر (s->sh_type == SHT_SYMTAB)
             p = fields1, n = 106;
-        else
+        ورنہ
             p = fields2, n = 58;
 
-        for (i = 0; p[i]; ++i)
+        برائے (i = 0; p[i]; ++i)
             fprintf(f, "%6s", p[i]);
         fprintf(f, "  symbol");
     }
 
     fprintf(f, "\n");
-    for (i = 0; i < n; ++i)
+    برائے (i = 0; i < n; ++i)
         fprintf(f, "-");
     fprintf(f, "\n");
 
-    for (i = 0; i < l;)
+    برائے (i = 0; i < l;)
     {
         fprintf(f, "%08X", i);
-        for (n = 0; n < m; ++n) {
-            if (n + i < l)
+        برائے (n = 0; n < m; ++n) {
+            اگر (n + i < l)
                 fprintf(f, " %02X", p[i + n]);
-            else
+            ورنہ
                 fprintf(f, "   ");
         }
 
-        if (s->sh_type == SHT_SYMTAB) {
+        اگر (s->sh_type == SHT_SYMTAB) {
             ElfW(Sym) *sym = (ElfW(Sym) *) (p + i);
-            const char *name = s->link->data + sym->st_name;
+            ثابت حرف *name = s->link->ڈیٹا + sym->st_name;
             fprintf(f, "  %04X  %04X  %04X   %02X    %02X    %02X   %04X  \"%s\"",
-                    (unsigned)sym->st_name,
-                    (unsigned)sym->st_value,
-                    (unsigned)sym->st_size,
-                    (unsigned)ELFW(ST_BIND)(sym->st_info),
-                    (unsigned)ELFW(ST_TYPE)(sym->st_info),
-                    (unsigned)sym->st_other,
-                    (unsigned)sym->st_shndx,
+                    (غیرعلامتی)sym->st_name,
+                    (غیرعلامتی)sym->st_قدر,
+                    (غیرعلامتی)sym->st_سائز,
+                    (غیرعلامتی)ELFW(ST_BIND)(sym->st_info),
+                    (غیرعلامتی)ELFW(ST_TYPE)(sym->st_info),
+                    (غیرعلامتی)sym->st_other,
+                    (غیرعلامتی)sym->st_shndx,
                     name);
 
-        } else if (s->sh_type == SHT_RELX) {
+        } ورنہ اگر (s->sh_type == SHT_RELX) {
             ElfW_Rel *rel = (ElfW_Rel *) (p + i);
             ElfW(Sym) *sym =
-                (ElfW(Sym) *) s->link->data + ELFW(R_SYM)(rel->r_info);
-            const char *name = s->link->link->data + sym->st_name;
+                (ElfW(Sym) *) s->link->ڈیٹا + ELFW(R_SYM)(rel->r_info);
+            ثابت حرف *name = s->link->link->ڈیٹا + sym->st_name;
             fprintf(f, "  %04X   %02X   %04X  \"%s\"",
-                    (unsigned)rel->r_offset,
-                    (unsigned)ELFW(R_TYPE)(rel->r_info),
-                    (unsigned)ELFW(R_SYM)(rel->r_info),
+                    (غیرعلامتی)rel->r_انحراف,
+                    (غیرعلامتی)ELFW(R_TYPE)(rel->r_info),
+                    (غیرعلامتی)ELFW(R_SYM)(rel->r_info),
                     name);
-        } else {
+        } ورنہ {
             fprintf(f, "   ");
-            for (n = 0; n < m; ++n) {
-                if (n + i < l) {
+            برائے (n = 0; n < m; ++n) {
+                اگر (n + i < l) {
                     b = p[i + n];
-                    if (b < 32 || b >= 127)
+                    اگر (b < 32 || b >= 127)
                         b = '.';
                     fprintf(f, "%c", b);
                 }
@@ -1637,132 +1637,132 @@ static void pe_print_section(FILE * f, Section * s)
     fprintf(f, "\n\n");
 }
 
-static void pe_print_sections(TCCState *s1, const char *fname)
+ساکن خالی pe_print_sections(TCCState *s1, ثابت حرف *fname)
 {
     Section *s;
     FILE *f;
-    int i;
+    صحیح i;
     f = fopen(fname, "w");
-    for (i = 1; i < s1->nb_sections; ++i) {
+    برائے (i = 1; i < s1->nb_sections; ++i) {
         s = s1->sections[i];
         pe_print_section(f, s);
     }
     pe_print_section(f, s1->dynsymtab_section);
     fclose(f);
 }
-#endif
+#اگر_ختم
 
 /* ------------------------------------------------------------- */
 
-ST_FUNC int pe_putimport(TCCState *s1, int dllindex, const char *name, addr_t value)
+ST_FUNC صحیح pe_putimport(TCCState *s1, صحیح dllindex, ثابت حرف *name, addr_t قدر)
 {
-    return set_elf_sym(
+    واپس سیٹ_elf_sym(
         s1->dynsymtab_section,
-        value,
+        قدر,
         dllindex, /* st_size */
         ELFW(ST_INFO)(STB_GLOBAL, STT_NOTYPE),
         0,
-        value ? SHN_ABS : SHN_UNDEF,
+        قدر ? SHN_ABS : SHN_UNDEF,
         name
         );
 }
 
-static int read_mem(int fd, unsigned offset, void *buffer, unsigned len)
+ساکن صحیح read_mem(صحیح fd, غیرعلامتی انحراف, خالی *بفر, غیرعلامتی len)
 {
-    lseek(fd, offset, SEEK_SET);
-    return len == read(fd, buffer, len);
+    lseek(fd, انحراف, SEEK_SET);
+    واپس len == اقرأ(fd, بفر, len);
 }
 
 /* ------------------------------------------------------------- */
 
-static int get_dllexports(int fd, char **pp)
+ساکن صحیح get_dllexports(صحیح fd, حرف **pp)
 {
-    int i, k, l, n, n0, ret;
-    char *p;
+    صحیح i, k, l, n, n0, ret;
+    حرف *p;
 
-    IMAGE_SECTION_HEADER ish;
+    IMAGE_SECTION_سرخی_2 ish;
     IMAGE_EXPORT_DIRECTORY ied;
-    IMAGE_DOS_HEADER dh;
-    IMAGE_FILE_HEADER ih;
+    IMAGE_DOS_سرخی_2 dh;
+    IMAGE_FILE_سرخی_2 ih;
     DWORD sig, ref, addr;
-    DWORD *namep = NULL, p0 = 0, p1;
+    DWORD *namep = تہی, p0 = 0, p1;
 
-    int pef_hdroffset, opt_hdroffset, sec_hdroffset;
+    صحیح pef_hdroffset, opt_hdroffset, sec_hdroffset;
 
     n = n0 = 0;
-    p = NULL;
+    p = تہی;
     ret = 1;
-    if (!read_mem(fd, 0, &dh, sizeof dh))
-        goto the_end;
-    if (!read_mem(fd, dh.e_lfanew, &sig, sizeof sig))
-        goto the_end;
-    if (sig != 0x00004550)
-        goto the_end;
-    pef_hdroffset = dh.e_lfanew + sizeof sig;
-    if (!read_mem(fd, pef_hdroffset, &ih, sizeof ih))
-        goto the_end;
-    opt_hdroffset = pef_hdroffset + sizeof ih;
-    if (ih.Machine == 0x014C || ih.Machine == 0x01C0) {
+    اگر (!read_mem(fd, 0, &dh, حجم dh))
+        جاؤ the_انتہا;
+    اگر (!read_mem(fd, dh.e_lfanew, &sig, حجم sig))
+        جاؤ the_انتہا;
+    اگر (sig != 0x00004550)
+        جاؤ the_انتہا;
+    pef_hdroffset = dh.e_lfanew + حجم sig;
+    اگر (!read_mem(fd, pef_hdroffset, &ih, حجم ih))
+        جاؤ the_انتہا;
+    opt_hdroffset = pef_hdroffset + حجم ih;
+    اگر (ih.Machine == 0x014C || ih.Machine == 0x01C0) {
         IMAGE_OPTIONAL_HEADER32 oh;
-        sec_hdroffset = opt_hdroffset + sizeof oh;
-        if (!read_mem(fd, opt_hdroffset, &oh, sizeof oh))
-            goto the_end;
-        if (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.NumberOfRvaAndSizes)
-            goto the_end_0;
-        addr = oh.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress;
-    } else if (ih.Machine == 0x8664 || ih.Machine == 0xAA64) {
+        sec_hdroffset = opt_hdroffset + حجم oh;
+        اگر (!read_mem(fd, opt_hdroffset, &oh, حجم oh))
+            جاؤ the_انتہا;
+        اگر (IMAGE_DIRECTORY_اندراج_EXPORT >= oh.نمبر_کا_Rva_And_Sizes)
+            جاؤ the_انتہا_0;
+        addr = oh.ڈیٹا_Directory[IMAGE_DIRECTORY_اندراج_EXPORT].Virtual_پتہ;
+    } ورنہ اگر (ih.Machine == 0x8664 || ih.Machine == 0xAA64) {
         IMAGE_OPTIONAL_HEADER64 oh;
-        sec_hdroffset = opt_hdroffset + sizeof oh;
-        if (!read_mem(fd, opt_hdroffset, &oh, sizeof oh))
-            goto the_end;
-        if (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.NumberOfRvaAndSizes)
-            goto the_end_0;
-        addr = oh.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress;
-    } else
-        goto the_end;
+        sec_hdroffset = opt_hdroffset + حجم oh;
+        اگر (!read_mem(fd, opt_hdroffset, &oh, حجم oh))
+            جاؤ the_انتہا;
+        اگر (IMAGE_DIRECTORY_اندراج_EXPORT >= oh.نمبر_کا_Rva_And_Sizes)
+            جاؤ the_انتہا_0;
+        addr = oh.ڈیٹا_Directory[IMAGE_DIRECTORY_اندراج_EXPORT].Virtual_پتہ;
+    } ورنہ
+        جاؤ the_انتہا;
 
     //printf("addr: %08x\n", addr);
-    for (i = 0; i < ih.NumberOfSections; ++i) {
-        if (!read_mem(fd, sec_hdroffset + i * sizeof ish, &ish, sizeof ish))
-            goto the_end;
+    برائے (i = 0; i < ih.نمبر_کا_Sections; ++i) {
+        اگر (!read_mem(fd, sec_hdroffset + i * حجم ish, &ish, حجم ish))
+            جاؤ the_انتہا;
         //printf("vaddr: %08x\n", ish.VirtualAddress);
-        if (addr >= ish.VirtualAddress && addr < ish.VirtualAddress + ish.SizeOfRawData)
-            goto found;
+        اگر (addr >= ish.Virtual_پتہ && addr < ish.Virtual_پتہ + ish.سائز_کا_Raw_ڈیٹا)
+            جاؤ ملا;
     }
-    goto the_end_0;
-found:
-    ref = ish.VirtualAddress - ish.PointerToRawData;
-    if (!read_mem(fd, addr - ref, &ied, sizeof ied))
-        goto the_end;
-    k = ied.NumberOfNames;
-    if (k) {
-        namep = tcc_malloc(l = k * sizeof *namep);
-        if (!read_mem(fd, ied.AddressOfNames - ref, namep, l))
-            goto the_end;
-        for (i = l = 0; i < k; ++i) {
+    جاؤ the_انتہا_0;
+ملا:
+    ref = ish.Virtual_پتہ - ish.اشارہ_گر_مقصد_Raw_ڈیٹا;
+    اگر (!read_mem(fd, addr - ref, &ied, حجم ied))
+        جاؤ the_انتہا;
+    k = ied.نمبر_کا_نام;
+    اگر (k) {
+        namep = tcc_malloc(l = k * حجم *namep);
+        اگر (!read_mem(fd, ied.پتہ_کا_نام - ref, namep, l))
+            جاؤ the_انتہا;
+        برائے (i = l = 0; i < k; ++i) {
             p1 = namep[i] - ref;
-            if (p1 != p0)
+            اگر (p1 != p0)
                 lseek(fd, p0 = p1, SEEK_SET), l = 0;
-            do {
-                if (0 == l) {
-                    if (n + 1000 >= n0)
+            کرو {
+                اگر (0 == l) {
+                    اگر (n + 1000 >= n0)
                         p = tcc_realloc(p, n0 += 1000);
-                    if ((l = read(fd, p + n, 1000 - 1)) <= 0)
-                        goto the_end;
+                    اگر ((l = اقرأ(fd, p + n, 1000 - 1)) <= 0)
+                        جاؤ the_انتہا;
                 }
                 --l, ++p0;
-            } while (p[n++]);
+            } جب (p[n++]);
         }
         p[n] = 0;
     }
-the_end_0:
+the_انتہا_0:
     ret = 0;
-the_end:
+the_انتہا:
     tcc_free(namep);
-    if (ret && p)
-        tcc_free(p), p = NULL;
+    اگر (ret && p)
+        tcc_free(p), p = تہی;
     *pp = p;
-    return ret;
+    واپس ret;
 }
 
 /* -------------------------------------------------------------
@@ -1770,52 +1770,52 @@ the_end:
  *  as generated by 'windres.exe -O coff ...'.
  */
 
-static int pe_load_res(TCCState *s1, int fd)
+ساکن صحیح pe_بھرو_res(TCCState *s1, صحیح fd)
 {
-    struct pe_rsrc_header hdr;
+    ساخت pe_rsrc_سرخی hdr;
     Section *rsrc_section;
-    int i, ret = -1, sym_index;
+    صحیح i, ret = -1, sym_اشاریہ;
     BYTE *ptr;
-    unsigned offs;
+    غیرعلامتی offs;
 
-    if (!read_mem(fd, 0, &hdr, sizeof hdr))
-        goto quit;
+    اگر (!read_mem(fd, 0, &hdr, حجم hdr))
+        جاؤ quit;
 
-    if (hdr.filehdr.Machine != IMAGE_FILE_MACHINE
-        || hdr.filehdr.NumberOfSections != 1
-        || strcmp((char*)hdr.sectionhdr.Name, ".rsrc") != 0)
-        goto quit;
+    اگر (hdr.filehdr.Machine != IMAGE_FILE_MACHINE
+        || hdr.filehdr.نمبر_کا_Sections != 1
+        || strcmp((حرف*)hdr.sectionhdr.Name, ".rsrc") != 0)
+        جاؤ quit;
 
     rsrc_section = new_section(s1, ".rsrc", SHT_PROGBITS, SHF_ALLOC);
-    ptr = section_ptr_add(rsrc_section, hdr.sectionhdr.SizeOfRawData);
-    offs = hdr.sectionhdr.PointerToRawData;
-    if (!read_mem(fd, offs, ptr, hdr.sectionhdr.SizeOfRawData))
-        goto quit;
-    offs = hdr.sectionhdr.PointerToRelocations;
-    sym_index = put_elf_sym(symtab_section, 0, 0, 0, 0, rsrc_section->sh_num, ".rsrc");
-    for (i = 0; i < hdr.sectionhdr.NumberOfRelocations; ++i) {
-        struct pe_rsrc_reloc rel;
-        if (!read_mem(fd, offs, &rel, sizeof rel))
-            goto quit;
+    ptr = section_ptr_جوڑو(rsrc_section, hdr.sectionhdr.سائز_کا_Raw_ڈیٹا);
+    offs = hdr.sectionhdr.اشارہ_گر_مقصد_Raw_ڈیٹا;
+    اگر (!read_mem(fd, offs, ptr, hdr.sectionhdr.سائز_کا_Raw_ڈیٹا))
+        جاؤ quit;
+    offs = hdr.sectionhdr.اشارہ_گر_مقصد_Relocations;
+    sym_اشاریہ = put_elf_sym(symtab_section, 0, 0, 0, 0, rsrc_section->sh_عدد, ".rsrc");
+    برائے (i = 0; i < hdr.sectionhdr.نمبر_کا_Relocations; ++i) {
+        ساخت pe_rsrc_reloc rel;
+        اگر (!read_mem(fd, offs, &rel, حجم rel))
+            جاؤ quit;
         // printf("rsrc_reloc: %x %x %x\n", rel.offset, rel.size, rel.type);
-        if (rel.type != RSRC_RELTYPE)
-            goto quit;
+        اگر (rel.type != RSRC_RELTYPE)
+            جاؤ quit;
         put_elf_reloc(symtab_section, rsrc_section,
-            rel.offset, R_XXX_RELATIVE, sym_index);
-        offs += sizeof rel;
+            rel.انحراف, R_XXX_RELATIVE, sym_اشاریہ);
+        offs += حجم rel;
     }
     ret = 0;
 quit:
-    return ret;
+    واپس ret;
 }
 
 /* ------------------------------------------------------------- */
 
-static char *trimfront(char *p)
+ساکن حرف *trimfront(حرف *p)
 {
-    while ((unsigned char)*p <= ' ' && *p && *p != '\n')
+    جب ((غیرعلامتی حرف)*p <= ' ' && *p && *p != '\n')
 	++p;
-    return p;
+    واپس p;
 }
 
 /*
@@ -1827,134 +1827,134 @@ static char *trimback(char *a, char *e)
     return a;
 }*/
 
-static char *get_token(char **s, char *f)
+ساکن حرف *get_token(حرف **s, حرف *f)
 {
-    char *p, *e;
-    int q;
+    حرف *p, *e;
+    صحیح q;
 
     p = trimfront(*s);
     q = *p;
-    if (q == '"') /* support quoted LIBRARY "xyz.dll" */
+    اگر (q == '"') /* support quoted LIBRARY "xyz.dll" */
         ++p;
-    else
+    ورنہ
         q = ' ';
-    for (e = p; (unsigned char)*e >= ' ' && *e != q; ++e)
+    برائے (e = p; (غیرعلامتی حرف)*e >= ' ' && *e != q; ++e)
         ;
-    if (*e == '"')
+    اگر (*e == '"')
         *e++ = 0;
     *s = trimfront(e);
     *f = **s, *e = 0;
-    return p;
+    واپس p;
 }
 
-static int pe_load_def(TCCState *s1, int fd)
+ساکن صحیح pe_بھرو_def(TCCState *s1, صحیح fd)
 {
-    int state = 0, ret = -1, dllindex = 0, ord;
-    char dllname[80], *buf, *line, *p, *x, next;
+    صحیح state = 0, ret = -1, dllindex = 0, ord;
+    حرف dllname[80], *buf, *سطر, *p, *x, اگلا;
 
-    buf = tcc_load_text(fd);
-    if (!buf)
-        return ret;
+    buf = tcc_بھرو_متن(fd);
+    اگر (!buf)
+        واپس ret;
 
-    for (line = buf;; ++line)  {
-        p = get_token(&line, &next);
-        if (!(*p && *p != ';'))
-            goto skip;
-        switch (state) {
-        case 0:
-            if (0 != stricmp(p, "LIBRARY") || next == '\n')
-                goto quit;
-            pstrcpy(dllname, sizeof dllname, get_token(&line, &next));
-            if (!*tcc_fileextension(dllname))
-                pstrcat(dllname, sizeof dllname, ".dll");
+    برائے (سطر = buf;; ++سطر)  {
+        p = get_token(&سطر, &اگلا);
+        اگر (!(*p && *p != ';'))
+            جاؤ skip;
+        انتخاب (state) {
+        حالت 0:
+            اگر (0 != stricmp(p, "LIBRARY") || اگلا == '\n')
+                جاؤ quit;
+            pstrcpy(dllname, حجم dllname, get_token(&سطر, &اگلا));
+            اگر (!*tcc_fileextension(dllname))
+                pstrcat(dllname, حجم dllname, ".dll");
             ++state;
-            break;
-        case 1:
-            if (0 != stricmp(p, "EXPORTS"))
-                goto quit;
+            توڑو;
+        حالت 1:
+            اگر (0 != stricmp(p, "EXPORTS"))
+                جاؤ quit;
             ++state;
-            break;
-        case 2:
-            dllindex = tcc_add_dllref(s1, dllname, 0)->index;
+            توڑو;
+        حالت 2:
+            dllindex = tcc_جوڑو_dllref(s1, dllname, 0)->اشاریہ;
             ++state;
             /* fall through */
-        default:
+        طےشدہ:
             /* get ordinal and will store in sym->st_value */
             ord = 0;
-            if (next == '@') {
-                x = get_token(&line, &next);
-                ord = (int)strtol(x + 1, &x, 10);
+            اگر (اگلا == '@') {
+                x = get_token(&سطر, &اگلا);
+                ord = (صحیح)strtol(x + 1, &x, 10);
             }
             //printf("token %s ; %s : %d\n", dllname, p, ord);
             pe_putimport(s1, dllindex, p, ord);
-            break;
+            توڑو;
         }
 skip:
-        while ((unsigned char)next > ' ')
-            get_token(&line, &next);
-        if (next != '\n')
-            break;
+        جب ((غیرعلامتی حرف)اگلا > ' ')
+            get_token(&سطر, &اگلا);
+        اگر (اگلا != '\n')
+            توڑو;
     }
     ret = 0;
 quit:
     tcc_free(buf);
-    return ret;
+    واپس ret;
 }
 
 /* ------------------------------------------------------------- */
 
-static int pe_load_dll(TCCState *s1, int fd, const char *filename)
+ساکن صحیح pe_بھرو_dll(TCCState *s1, صحیح fd, ثابت حرف *filename)
 {
-    char *p, *q;
-    DLLReference *ref = tcc_add_dllref(s1, filename, 0);
-    if (ref->found)
-        return 0;
-    if (get_dllexports(fd, &p))
-        return -1;
-    if (p) {
-        for (q = p; *q; q += 1 + strlen(q))
-            pe_putimport(s1, ref->index, q, 0);
+    حرف *p, *q;
+    DLLReference *ref = tcc_جوڑو_dllref(s1, filename, 0);
+    اگر (ref->ملا)
+        واپس 0;
+    اگر (get_dllexports(fd, &p))
+        واپس -1;
+    اگر (p) {
+        برائے (q = p; *q; q += 1 + لڑی_لمبائی(q))
+            pe_putimport(s1, ref->اشاریہ, q, 0);
         tcc_free(p);
     }
-    return 0;
+    واپس 0;
 }
 
-ST_FUNC int pe_load_file(struct TCCState *s1, int fd, const char *filename)
+ST_FUNC صحیح pe_بھرو_file(ساخت TCCState *s1, صحیح fd, ثابت حرف *filename)
 {
-    int ret = -1;
-    char buf[10];
-    if (0 == strcmp(tcc_fileextension(filename), ".def"))
-        ret = pe_load_def(s1, fd);
-    else if (pe_load_res(s1, fd) == 0)
+    صحیح ret = -1;
+    حرف buf[10];
+    اگر (0 == strcmp(tcc_fileextension(filename), ".def"))
+        ret = pe_بھرو_def(s1, fd);
+    ورنہ اگر (pe_بھرو_res(s1, fd) == 0)
         ret = 0;
-    else if (read_mem(fd, 0, buf, 4) && 0 == memcmp(buf, "MZ", 2))
-        ret = pe_load_dll(s1, fd, filename);
-    return ret;
+    ورنہ اگر (read_mem(fd, 0, buf, 4) && 0 == memcmp(buf, "MZ", 2))
+        ret = pe_بھرو_dll(s1, fd, filename);
+    واپس ret;
 }
 
-PUB_FUNC int tcc_get_dllexports(const char *filename, char **pp)
+PUB_FUNC صحیح tcc_get_dllexports(ثابت حرف *filename, حرف **pp)
 {
-    int ret, fd = open(filename, O_RDONLY | O_BINARY);
-    if (fd < 0)
-        return -1;
+    صحیح ret, fd = open(filename, O_RDONLY | O_ثنائی_2);
+    اگر (fd < 0)
+        واپس -1;
     ret = get_dllexports(fd, pp);
     close(fd);
-    return ret;
+    واپس ret;
 }
 
 /* ------------------------------------------------------------- */
-#ifdef TCC_TARGET_X86_64
-static unsigned pe_add_unwind_info(TCCState *s1)
+#اگر_تعریف_شدہ TCC_ہدف_X86_64
+ساکن غیرعلامتی pe_جوڑو_unwind_info(TCCState *s1)
 {
-    if (NULL == s1->uw_pdata) {
-        s1->uw_pdata = find_section(s1, ".pdata");
+    اگر (تہی == s1->uw_pdata) {
+        s1->uw_pdata = ڈھونڈو_section(s1, ".pdata");
         s1->uw_pdata->sh_addralign = 4;
     }
-    if (0 == s1->uw_sym)
-        s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0, text_section->sh_num, ".uw_base");
-    if (0 == s1->uw_offs) {
+    اگر (0 == s1->uw_sym)
+        s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0, متن_section->sh_عدد, ".uw_base");
+    اگر (0 == s1->uw_offs) {
         /* As our functions all have the same stackframe, we use one entry for all */
-        static const unsigned char uw_info[] = {
+        ساکن ثابت غیرعلامتی حرف uw_info[] = {
             0x01, // UBYTE: 3 Version , UBYTE: 5 Flags
             0x04, // UBYTE Size of prolog
             0x02, // UBYTE Count of unwind codes
@@ -1966,45 +1966,45 @@ static unsigned pe_add_unwind_info(TCCState *s1)
             0x01, 0x50, // 0:5 UWOP_PUSH_NONVOL (push rbp)
         };
 
-        Section *s = text_section;
-        unsigned char *p;
+        Section *s = متن_section;
+        غیرعلامتی حرف *p;
 
-        section_ptr_add(s, -s->data_offset & 3); /* align */
-        s1->uw_offs = s->data_offset;
-        p = section_ptr_add(s, sizeof uw_info);
-        memcpy(p, uw_info, sizeof uw_info);
+        section_ptr_جوڑو(s, -s->ڈیٹا_انحراف & 3); /* align */
+        s1->uw_offs = s->ڈیٹا_انحراف;
+        p = section_ptr_جوڑو(s, حجم uw_info);
+        حافظہ_نقل(p, uw_info, حجم uw_info);
     }
 
-    return s1->uw_offs;
+    واپس s1->uw_offs;
 }
 
-ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
+ST_FUNC خالی pe_جوڑو_unwind_ڈیٹا(غیرعلامتی آغاز, غیرعلامتی انتہا, غیرعلامتی ڈھیر)
 {
     TCCState *s1 = tcc_state;
     Section *pd;
-    unsigned o, n, d;
-    struct /* _RUNTIME_FUNCTION */ {
-      DWORD BeginAddress;
-      DWORD EndAddress;
-      DWORD UnwindData;
+    غیرعلامتی o, n, d;
+    ساخت /* _RUNTIME_FUNCTION */ {
+      DWORD Begin_پتہ;
+      DWORD انتہا_پتہ;
+      DWORD Unwind_ڈیٹا;
     } *p;
 
-    d = pe_add_unwind_info(s1);
+    d = pe_جوڑو_unwind_info(s1);
     pd = s1->uw_pdata;
-    o = pd->data_offset;
-    p = section_ptr_add(pd, sizeof *p);
+    o = pd->ڈیٹا_انحراف;
+    p = section_ptr_جوڑو(pd, حجم *p);
 
     /* record this function */
-    p->BeginAddress = start;
-    p->EndAddress = end;
-    p->UnwindData = d;
+    p->Begin_پتہ = آغاز;
+    p->انتہا_پتہ = انتہا;
+    p->Unwind_ڈیٹا = d;
 
     /* put relocations on it */
-    for (n = o + sizeof *p; o < n; o += sizeof p->BeginAddress)
+    برائے (n = o + حجم *p; o < n; o += حجم p->Begin_پتہ)
         put_elf_reloc(symtab_section, pd, o, R_XXX_RELATIVE, s1->uw_sym);
 }
 
-#elif defined(TCC_TARGET_ARM64)
+#وگرنہ_اگر defined(TCC_ہدف_ARM64)
 /* ARM64 unwind codes:
    save_fplr_x: 10iiiiii  - stp x29,lr,[sp,#-(i+1)*8]!
    set_fp:      11100001  - mov x29,sp
@@ -2012,176 +2012,176 @@ ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
    alloc_m:     11000iii xxxxxxxx - sub sp,sp,#X*16 (up to 32KB)
    end:         11100100  - end of unwind codes
 */
-static Section *pe_add_unwind_info(TCCState *s1)
+ساکن Section *pe_جوڑو_unwind_info(TCCState *s1)
 {
     Section *s;
 
-    if (NULL == s1->uw_pdata) {
-        s1->uw_pdata = find_section(s1, ".pdata");
+    اگر (تہی == s1->uw_pdata) {
+        s1->uw_pdata = ڈھونڈو_section(s1, ".pdata");
         s1->uw_pdata->sh_addralign = 4;
     }
-    s = find_section(s1, ".xdata");
+    s = ڈھونڈو_section(s1, ".xdata");
     s->sh_addralign = 4;
-    if (0 == s1->uw_sym)
+    اگر (0 == s1->uw_sym)
         s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0,
-                                  text_section->sh_num, ".uw_text_base");
-    if (0 == s1->uw_xsym)
+                                  متن_section->sh_عدد, ".uw_text_base");
+    اگر (0 == s1->uw_xsym)
         s1->uw_xsym = put_elf_sym(symtab_section, 0, 0, 0, 0,
-                                  s->sh_num, ".uw_base");
-    return s;
+                                  s->sh_عدد, ".uw_base");
+    واپس s;
 }
 
-ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
+ST_FUNC خالی pe_جوڑو_unwind_ڈیٹا(غیرعلامتی آغاز, غیرعلامتی انتہا, غیرعلامتی ڈھیر)
 {
     TCCState *s1 = tcc_state;
     Section *pd, *xd;
-    unsigned o, d, code_bytes, func_len;
-    unsigned char *q;
-    uint32_t header;
-    struct /* _RUNTIME_FUNCTION */ {
-        DWORD BeginAddress;
-        DWORD UnwindData;
+    غیرعلامتی o, d, رمز_بائٹیں, func_len;
+    غیرعلامتی حرف *q;
+    uint32_t سرخی;
+    ساخت /* _RUNTIME_FUNCTION */ {
+        DWORD Begin_پتہ;
+        DWORD Unwind_ڈیٹا;
     } *p;
 
-    int epilog;
+    صحیح epilog;
 
-    xd = pe_add_unwind_info(s1);
+    xd = pe_جوڑو_unwind_info(s1);
     pd = s1->uw_pdata;
 
-    func_len = (end - start) >> 2;
-    code_bytes = 0;
-    epilog = code_bytes;
-    code_bytes += 3; /* set_fp, save_fplr_x, end */
-    code_bytes = (code_bytes + 3) & ~3;
+    func_len = (انتہا - آغاز) >> 2;
+    رمز_بائٹیں = 0;
+    epilog = رمز_بائٹیں;
+    رمز_بائٹیں += 3; /* set_fp, save_fplr_x, end */
+    رمز_بائٹیں = (رمز_بائٹیں + 3) & ~3;
 
-    section_ptr_add(xd, -xd->data_offset & 3);
-    d = xd->data_offset;
-    q = section_ptr_add(xd, 4 + code_bytes);
+    section_ptr_جوڑو(xd, -xd->ڈیٹا_انحراف & 3);
+    d = xd->ڈیٹا_انحراف;
+    q = section_ptr_جوڑو(xd, 4 + رمز_بائٹیں);
 
     /* Full ARM64 xdata header: E=1 with one epilog and no exception handler. */
-    header = (func_len & 0x3ffff)
+    سرخی = (func_len & 0x3ffff)
         | 1 << 21
         | (epilog & 0x1F) << 22
-        | (code_bytes >> 2) << 27
+        | (رمز_بائٹیں >> 2) << 27
         ;
-    write32le(q, header);
+    write32le(q, سرخی);
     q += 4;
     *q++ = 0xE1; /* set_fp */
     *q++ = 0x9B; /* save_fplr_x: stp x29,lr,[sp,#-224]! */
-    *q++ = 0xE4; /* end */
-    while ((unsigned)(q - (xd->data + d + 4)) < code_bytes)
+    *q++ = 0xE4; /*انتہا*/
+    جب ((غیرعلامتی)(q - (xd->ڈیٹا + d + 4)) < رمز_بائٹیں)
         *q++ = 0xE3; /* nop padding */
 
-    o = pd->data_offset;
-    p = section_ptr_add(pd, sizeof *p);
-    p->BeginAddress = start;
-    p->UnwindData = d;
+    o = pd->ڈیٹا_انحراف;
+    p = section_ptr_جوڑو(pd, حجم *p);
+    p->Begin_پتہ = آغاز;
+    p->Unwind_ڈیٹا = d;
     put_elf_reloc(symtab_section, pd, o, R_XXX_RELATIVE, s1->uw_sym);
     put_elf_reloc(symtab_section, pd, o + 4, R_XXX_RELATIVE, s1->uw_xsym);
 }
-#endif
+#اگر_ختم
 /* ------------------------------------------------------------- */
-#if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
-#define PE_STDSYM(n,s) n
-#else
-#define PE_STDSYM(n,s) "_" n s
-#endif
+#اگر defined(TCC_ہدف_X86_64) || defined(TCC_ہدف_ARM64)
+#تعریف_کرو PE_STDSYM(n,s) n
+#ورنہ
+#تعریف_کرو PE_STDSYM(n,s) "_" n s
+#اگر_ختم
 
-static void pe_add_runtime(TCCState *s1, struct pe_info *pe)
+ساکن خالی pe_جوڑو_runtime(TCCState *s1, ساخت pe_info *pe)
 {
-    const char *start_symbol;
-    int pe_type;
+    ثابت حرف *آغاز_علامت;
+    صحیح pe_type;
 
-    if (TCC_OUTPUT_DLL == s1->output_type) {
+    اگر (TCC_OUTPUT_DLL == s1->output_type) {
         pe_type = PE_DLL;
-        start_symbol = PE_STDSYM("__dllstart","@12");
-    } else {
-        const char *run_symbol;
-        if (find_elf_sym(symtab_section, PE_STDSYM("WinMain","@16"))) {
-            start_symbol = "__winstart";
-            run_symbol = "__runwinmain";
+        آغاز_علامت = PE_STDSYM("__dllstart","@12");
+    } ورنہ {
+        ثابت حرف *تسلسل_علامت;
+        اگر (ڈھونڈو_elf_sym(symtab_section, PE_STDSYM("WinMain","@16"))) {
+            آغاز_علامت = "__winstart";
+            تسلسل_علامت = "__runwinmain";
             pe_type = PE_GUI;
-        } else if (find_elf_sym(symtab_section, PE_STDSYM("wWinMain","@16"))) {
-            start_symbol = "__wwinstart";
-            run_symbol = "__runwwinmain";
+        } ورنہ اگر (ڈھونڈو_elf_sym(symtab_section, PE_STDSYM("wWinMain","@16"))) {
+            آغاز_علامت = "__wwinstart";
+            تسلسل_علامت = "__runwwinmain";
             pe_type = PE_GUI;
-        } else if (find_elf_sym(symtab_section, "wmain")) {
-            start_symbol = "__wstart";
-            run_symbol = "__runwmain";
+        } ورنہ اگر (ڈھونڈو_elf_sym(symtab_section, "wmain")) {
+            آغاز_علامت = "__wstart";
+            تسلسل_علامت = "__runwmain";
             pe_type = PE_EXE;
-        } else {
-            start_symbol =  "__start";
-            run_symbol = "__runmain";
+        } ورنہ {
+            آغاز_علامت =  "__start";
+            تسلسل_علامت = "__runmain";
             pe_type = PE_EXE;
-            if (s1->pe_subsystem == 2)
+            اگر (s1->pe_subsystem == 2)
                 pe_type = PE_GUI;
         }
 
-        if (TCC_OUTPUT_MEMORY == s1->output_type && !s1->nostdlib)
-            start_symbol = run_symbol;
+        اگر (TCC_OUTPUT_حافظہ == s1->output_type && !s1->nostdlib)
+            آغاز_علامت = تسلسل_علامت;
     }
-    if (s1->elf_entryname) {
-        pe->start_symbol = start_symbol = s1->elf_entryname;
-    } else {
-        pe->start_symbol = start_symbol + 1;
-        if (!s1->leading_underscore || strchr(start_symbol, '@'))
-            ++start_symbol;
+    اگر (s1->elf_entryname) {
+        pe->آغاز_علامت = آغاز_علامت = s1->elf_entryname;
+    } ورنہ {
+        pe->آغاز_علامت = آغاز_علامت + 1;
+        اگر (!s1->leading_underscore || strchr(آغاز_علامت, '@'))
+            ++آغاز_علامت;
     }
 
-#ifdef CONFIG_TCC_BACKTRACE
-    if (s1->do_backtrace) {
-#ifdef CONFIG_TCC_BCHECK
-        if (s1->do_bounds_check && s1->output_type != TCC_OUTPUT_DLL) {
-	    if (s1->output_type == TCC_OUTPUT_MEMORY)
-                tcc_add_support(s1, "bcheck_run.o");
-	    else
-                tcc_add_support(s1, "bcheck.o");
+#اگر_تعریف_شدہ CONFIG_TCC_BACKTRACE
+    اگر (s1->do_backtrace) {
+#اگر_تعریف_شدہ CONFIG_TCC_BCHECK
+        اگر (s1->do_bounds_check && s1->output_type != TCC_OUTPUT_DLL) {
+	    اگر (s1->output_type == TCC_OUTPUT_حافظہ)
+                tcc_جوڑو_support(s1, "bcheck_run.o");
+	    ورنہ
+                tcc_جوڑو_support(s1, "bcheck.o");
 	}
-#endif
-        if (s1->output_type == TCC_OUTPUT_EXE)
-            tcc_add_support(s1, "bt-exe.o");
-        if (s1->output_type == TCC_OUTPUT_DLL)
-            tcc_add_support(s1, "bt-dll.o");
-        if (s1->output_type != TCC_OUTPUT_DLL)
-            tcc_add_support(s1, "bt-log.o");
-        tcc_add_btstub(s1);
+#اگر_ختم
+        اگر (s1->output_type == TCC_OUTPUT_EXE)
+            tcc_جوڑو_support(s1, "bt-exe.o");
+        اگر (s1->output_type == TCC_OUTPUT_DLL)
+            tcc_جوڑو_support(s1, "bt-dll.o");
+        اگر (s1->output_type != TCC_OUTPUT_DLL)
+            tcc_جوڑو_support(s1, "bt-log.o");
+        tcc_جوڑو_btstub(s1);
     }
-#endif
+#اگر_ختم
 
     /* grab the startup code from libtcc1.a */
-#ifdef TCC_IS_NATIVE
-    if (TCC_OUTPUT_MEMORY != s1->output_type || s1->run_main)
-#endif
-    set_global_sym(s1, start_symbol, NULL, 0);
+#اگر_تعریف_شدہ TCC_IS_NATIVE
+    اگر (TCC_OUTPUT_حافظہ != s1->output_type || s1->تسلسل_main)
+#اگر_ختم
+    سیٹ_global_sym(s1, آغاز_علامت, تہی, 0);
 
-    if (0 == s1->nostdlib) {
-        static const char * const libs[] = {
-            "msvcrt", "kernel32", "", "user32", "gdi32", NULL
+    اگر (0 == s1->nostdlib) {
+        ساکن ثابت حرف * ثابت libs[] = {
+            "msvcrt", "kernel32", "", "user32", "gdi32", تہی
         };
-        const char * const *pp, *p;
-        if (TCC_LIBTCC1[0])
-            tcc_add_support(s1, TCC_LIBTCC1);
+        ثابت حرف * ثابت *pp, *p;
+        اگر (TCC_LIBTCC1[0])
+            tcc_جوڑو_support(s1, TCC_LIBTCC1);
         s1->static_link = 0; /* no static crt for tcc */
-        for (pp = libs; 0 != (p = *pp); ++pp) {
-            if (*p)
-                tcc_add_library(s1, p);
-            else if (PE_DLL != pe_type && PE_GUI != pe_type)
-                break;
+        برائے (pp = libs; 0 != (p = *pp); ++pp) {
+            اگر (*p)
+                tcc_جوڑو_library(s1, p);
+            ورنہ اگر (PE_DLL != pe_type && PE_GUI != pe_type)
+                توڑو;
         }
     }
 
     /* need this for 'tccelf.c:relocate_sections()' */
-    if (TCC_OUTPUT_DLL == s1->output_type)
+    اگر (TCC_OUTPUT_DLL == s1->output_type)
         s1->output_type = TCC_OUTPUT_EXE;
-    if (TCC_OUTPUT_MEMORY == s1->output_type)
-        pe_type = PE_RUN;
+    اگر (TCC_OUTPUT_حافظہ == s1->output_type)
+        pe_type = PE_تسلسل;
     pe->type = pe_type;
 }
 
-ST_FUNC int pe_setsubsy(TCCState *s1, const char *arg)
+ST_FUNC صحیح pe_setsubsy(TCCState *s1, ثابت حرف *arg)
 {
-    static const struct subsy { const char* p; int v; } x[] = {
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
+    ساکن ثابت ساخت subsy { ثابت حرف* p; صحیح v; } x[] = {
+#اگر defined(TCC_ہدف_I386) || defined(TCC_ہدف_X86_64) || defined(TCC_ہدف_ARM64)
         { "native", 1 },
         { "gui", 2 },
         { "windows", 2 },
@@ -2191,114 +2191,114 @@ ST_FUNC int pe_setsubsy(TCCState *s1, const char *arg)
         { "efiboot", 11 },
         { "efiruntime", 12 },
         { "efirom", 13 },
-#elif defined(TCC_TARGET_ARM)
+#وگرنہ_اگر defined(TCC_ہدف_ARM)
         { "wince", 9 },
-#endif
+#اگر_ختم
         { 0, -1 }};
-    const struct subsy *y;
-    for (y = x;; ++y) {
-        if (!y->p)
-            return -1;
-        if (0 == strcmp(y->p, arg)) {
+    ثابت ساخت subsy *y;
+    برائے (y = x;; ++y) {
+        اگر (!y->p)
+            واپس -1;
+        اگر (0 == strcmp(y->p, arg)) {
             s1->pe_subsystem = y->v;
-            return 0;
+            واپس 0;
         }
     }
 }
 
-static void pe_set_options(TCCState * s1, struct pe_info *pe)
+ساکن خالی pe_سیٹ_options(TCCState * s1, ساخت pe_info *pe)
 {
-    if (PE_DLL == pe->type) {
+    اگر (PE_DLL == pe->type) {
         /* XXX: check if is correct for arm-pe target */
-        pe->imagebase = IMAGE_BASE_DLL;
-    } else {
-        pe->imagebase = IMAGE_BASE_EXE;
+        pe->imagebase = IMAGE_بنیاد_DLL;
+    } ورنہ {
+        pe->imagebase = IMAGE_بنیاد_EXE;
     }
 
-#if defined(TCC_TARGET_ARM)
+#اگر defined(TCC_ہدف_ARM)
     /* we use "console" subsystem by default */
     pe->subsystem = 9;
-#else
-    if (PE_DLL == pe->type || PE_GUI == pe->type)
+#ورنہ
+    اگر (PE_DLL == pe->type || PE_GUI == pe->type)
         pe->subsystem = 2;
-    else
+    ورنہ
         pe->subsystem = 3;
-#endif
+#اگر_ختم
     /* Allow override via -Wl,-subsystem=... option */
-    if (s1->pe_subsystem != 0)
+    اگر (s1->pe_subsystem != 0)
         pe->subsystem = s1->pe_subsystem;
 
     /* set default file/section alignment */
-    if (pe->subsystem == 1) {
+    اگر (pe->subsystem == 1) {
         pe->section_align = 0x20;
         pe->file_align = 0x20;
-    } else {
+    } ورنہ {
         pe->section_align = 0x1000;
         pe->file_align = 0x200;
     }
 
-    if (s1->section_align != 0)
+    اگر (s1->section_align != 0)
         pe->section_align = s1->section_align;
-    if (s1->pe_file_align != 0)
+    اگر (s1->pe_file_align != 0)
         pe->file_align = s1->pe_file_align;
 
-    if ((pe->subsystem >= 10) && (pe->subsystem <= 12))
+    اگر ((pe->subsystem >= 10) && (pe->subsystem <= 12))
         pe->imagebase = 0;
 
-    if (s1->has_text_addr)
-        pe->imagebase = s1->text_addr;
+    اگر (s1->has_متن_addr)
+        pe->imagebase = s1->متن_addr;
 }
 
-ST_FUNC int pe_output_file(TCCState *s1, const char *filename)
+ST_FUNC صحیح pe_output_file(TCCState *s1, ثابت حرف *filename)
 {
-    struct pe_info pe;
+    ساخت pe_info pe;
 
-    memset(&pe, 0, sizeof pe);
+    memset(&pe, 0, حجم pe);
     pe.filename = filename;
     pe.s1 = s1;
     s1->filetype = 0;
 
-#ifdef CONFIG_TCC_BCHECK
-    tcc_add_bcheck(s1);
-#endif
-    tcc_add_pragma_libs(s1);
-    pe_add_runtime(s1, &pe);
+#اگر_تعریف_شدہ CONFIG_TCC_BCHECK
+    tcc_جوڑو_bcheck(s1);
+#اگر_ختم
+    tcc_جوڑو_pragma_libs(s1);
+    pe_جوڑو_runtime(s1, &pe);
     resolve_common_syms(s1);
-    pe_set_options(s1, &pe);
+    pe_سیٹ_options(s1, &pe);
     pe_check_symbols(&pe);
-    if (s1->nb_errors)
-        goto done;
-    if (filename) {
-        pe_assign_addresses(&pe);
+    اگر (s1->nb_errors)
+        جاؤ مکمل;
+    اگر (filename) {
+        pe_تفویض_پتے(&pe);
         relocate_syms(s1, s1->symtab, 0);
-        if (s1->nb_errors)
-            goto done;
+        اگر (s1->nb_errors)
+            جاؤ مکمل;
         s1->pe_imagebase = pe.imagebase;
         relocate_sections(s1);
-        pe.start_addr = (DWORD)
-            (get_sym_addr(s1, pe.start_symbol, 1, 1) - pe.imagebase);
-        if (s1->nb_errors)
-            goto done;
+        pe.آغاز_addr = (DWORD)
+            (get_sym_addr(s1, pe.آغاز_علامت, 1, 1) - pe.imagebase);
+        اگر (s1->nb_errors)
+            جاؤ مکمل;
         pe_write(&pe);
-    } else {
+    } ورنہ {
         /* -run */
-#ifdef TCC_IS_NATIVE
-        pe.thunk = data_section;
+#اگر_تعریف_شدہ TCC_IS_NATIVE
+        pe.thunk = ڈیٹا_section;
         pe_build_imports(&pe);
-        s1->run_main = pe.start_symbol;
-#if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
-        s1->uw_pdata = find_section(s1, ".pdata");
-#endif
-#endif
+        s1->تسلسل_main = pe.آغاز_علامت;
+#اگر defined(TCC_ہدف_X86_64) || defined(TCC_ہدف_ARM64)
+        s1->uw_pdata = ڈھونڈو_section(s1, ".pdata");
+#اگر_ختم
+#اگر_ختم
     }
-done:
-    dynarray_reset(&pe.sec_info, &pe.sec_count);
+مکمل:
+    dynarray_reset(&pe.sec_info, &pe.sec_گنتی);
     pe_free_imports(&pe);
-#if PE_PRINT_SECTIONS
-    if (g_debug & 8)
+#اگر PE_PRINT_SECTIONS
+    اگر (g_debug & 8)
         pe_print_sections(s1, "tcc.log");
-#endif
-    return s1->nb_errors ? -1 : 0;
+#اگر_ختم
+    واپس s1->nb_errors ? -1 : 0;
 }
 
 /* ------------------------------------------------------------- */

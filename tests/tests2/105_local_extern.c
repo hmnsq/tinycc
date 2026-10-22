@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+خارجی صحیح لکھو(ثابت حرف *, ...);
+خالی f(خالی);
+خالی bar(خالی) { خالی f(خالی); f(); }
+خالی foo(خالی) { خارجی خالی f(خالی); f(); }
+خالی f(خالی) { لکھو("f\n"); }
 
-int main()
+صحیح مین()
 {
   bar();
   foo();
-  return 0;
+  واپس 0;
 }

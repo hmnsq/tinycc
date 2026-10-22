@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#شامل <stdlib.h>
+#شامل <stdio.h>
 
-int main()
+صحیح مین()
 {
-    printf("Hello World\n");
-    return 0;
+    لکھو("Hello World\n");
+    واپس 0;
 }

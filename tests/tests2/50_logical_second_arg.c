@@ -1,29 +1,29 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int fred()
+صحیح fred()
 {
-   printf("fred\n");
-   return 0;
+   لکھو("fred\n");
+   واپس 0;
 }
 
-int joe()
+صحیح joe()
 {
-   printf("joe\n");
-   return 1;
+   لکھو("joe\n");
+   واپس 1;
 }
 
-int main()
+صحیح مین()
 {
-   printf("%d\n", fred() && joe());
-   printf("%d\n", fred() || joe());
-   printf("%d\n", joe() && fred());
-   printf("%d\n", joe() || fred());
-   printf("%d\n", fred() && (1 + joe()));
-   printf("%d\n", fred() || (0 + joe()));
-   printf("%d\n", joe() && (0 + fred()));
-   printf("%d\n", joe() || (1 + fred()));
+   لکھو("%d\n", fred() && joe());
+   لکھو("%d\n", fred() || joe());
+   لکھو("%d\n", joe() && fred());
+   لکھو("%d\n", joe() || fred());
+   لکھو("%d\n", fred() && (1 + joe()));
+   لکھو("%d\n", fred() || (0 + joe()));
+   لکھو("%d\n", joe() && (0 + fred()));
+   لکھو("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   واپس 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

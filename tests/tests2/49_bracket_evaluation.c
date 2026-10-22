@@ -1,23 +1,23 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-struct point
+ساخت نقطہ
 {
-   double x;
-   double y;
+   دوہرا x;
+   دوہرا y;
 };
 
-struct point point_array[100];
+ساخت نقطہ نقطہ_array[100];
 
-int main()
+صحیح مین()
 {
-   int my_point = 10;
+   صحیح my_نقطہ = 10;
 
-   point_array[my_point].x = 12.34;
-   point_array[my_point].y = 56.78;
+   نقطہ_array[my_نقطہ].x = 12.34;
+   نقطہ_array[my_نقطہ].y = 56.78;
 
-   printf("%f, %f\n", point_array[my_point].x, point_array[my_point].y);
+   لکھو("%f, %f\n", نقطہ_array[my_نقطہ].x, نقطہ_array[my_نقطہ].y);
 
-   return 0;
+   واپس 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

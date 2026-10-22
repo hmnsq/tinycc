@@ -3,6 +3,6 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#if !(defined(lint) || defined(RC_INVOKED))
-#pragma pack(push,2)
-#endif
+#اگر !(defined(lint) || defined(RC_INVOKED))
+#ہدایت pack(ڈالو,2)
+#اگر_ختم

@@ -28,89 +28,89 @@ the Free Software Foundation, 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.  
 */
 
-#define W_TYPE_SIZE   32
-#define BITS_PER_UNIT 8
+#تعریف_کرو W_TYPE_سائز   32
+#تعریف_کرو بٹ_فی_UNIT 8
 
-typedef int Wtype;
-typedef unsigned int UWtype;
-typedef unsigned int USItype;
-typedef long long DWtype;
-typedef unsigned long long UDWtype;
+قسمتعریف صحیح Wtype;
+قسمتعریف غیرعلامتی صحیح UWtype;
+قسمتعریف غیرعلامتی صحیح USItype;
+قسمتعریف طویل طویل DWtype;
+قسمتعریف غیرعلامتی طویل طویل UDWtype;
 
-struct DWstruct {
-    Wtype low, high;
+ساخت DWstruct {
+    Wtype کم, بلند;
 };
 
-typedef union
+قسمتعریف اتحاد
 {
-  struct DWstruct s;
+  ساخت DWstruct s;
   DWtype ll;
 } DWunion;
 
-typedef long double XFtype;
-#define WORD_SIZE (sizeof (Wtype) * BITS_PER_UNIT)
-#define HIGH_WORD_COEFF (((UDWtype) 1) << WORD_SIZE)
+قسمتعریف طویل دوہرا XFtype;
+#تعریف_کرو لفظ_سائز (حجم (Wtype) * بٹ_فی_UNIT)
+#تعریف_کرو بلند_لفظ_COEFF (((UDWtype) 1) << لفظ_سائز)
 
 /* the following deal with IEEE single-precision numbers */
-#define EXCESS		126
-#define SIGNBIT		0x80000000
-#define HIDDEN		(1 << 23)
-#define SIGN(fp)	((fp) & SIGNBIT)
-#define EXP(fp)		(((fp) >> 23) & 0xFF)
-#define MANT(fp)	(((fp) & 0x7FFFFF) | HIDDEN)
-#define PACK(s,e,m)	((s) | ((e) << 23) | (m))
+#تعریف_کرو EXCESS		126
+#تعریف_کرو SIGNBIT		0x80000000
+#تعریف_کرو HIDDEN		(1 << 23)
+#تعریف_کرو SIGN(fp)	((fp) & SIGNBIT)
+#تعریف_کرو EXP(fp)		(((fp) >> 23) & 0xFF)
+#تعریف_کرو MANT(fp)	(((fp) & 0x7FFFFF) | HIDDEN)
+#تعریف_کرو PACK(s,e,m)	((s) | ((e) << 23) | (m))
 
 /* the following deal with IEEE double-precision numbers */
-#define EXCESSD		1022
-#define HIDDEND		(1 << 20)
-#define EXPD(fp)	(((fp.l.upper) >> 20) & 0x7FF)
-#define SIGND(fp)	((fp.l.upper) & SIGNBIT)
-#define MANTD(fp)	(((((fp.l.upper) & 0xFFFFF) | HIDDEND) << 10) | \
-				(fp.l.lower >> 22))
-#define HIDDEND_LL	((long long)1 << 52)
-#define MANTD_LL(fp)	((fp.ll & (HIDDEND_LL-1)) | HIDDEND_LL)
-#define PACKD_LL(s,e,m)	(((long long)((s)+((e)<<20))<<32)|(m))
+#تعریف_کرو EXCESSD		1022
+#تعریف_کرو HIDDEND		(1 << 20)
+#تعریف_کرو EXPD(fp)	(((fp.l.بالائی) >> 20) & 0x7FF)
+#تعریف_کرو SIGND(fp)	((fp.l.بالائی) & SIGNBIT)
+#تعریف_کرو MANTD(fp)	(((((fp.l.بالائی) & 0xFFFFF) | HIDDEND) << 10) | \
+				(fp.l.زیریں >> 22))
+#تعریف_کرو HIDDEND_LL	((طویل طویل)1 << 52)
+#تعریف_کرو MANTD_LL(fp)	((fp.ll & (HIDDEND_LL-1)) | HIDDEND_LL)
+#تعریف_کرو PACKD_LL(s,e,m)	(((طویل طویل)((s)+((e)<<20))<<32)|(m))
 
 /* the following deal with x86 long double-precision numbers */
-#define EXCESSLD	16382
-#define EXPLD(fp)	(fp.l.upper & 0x7fff)
-#define SIGNLD(fp)	((fp.l.upper) & 0x8000)
+#تعریف_کرو EXCESSLD	16382
+#تعریف_کرو EXPLD(fp)	(fp.l.بالائی & 0x7fff)
+#تعریف_کرو SIGNLD(fp)	((fp.l.بالائی) & 0x8000)
 
 /* only for x86 */
-union ldouble_long {
-    long double ld;
-    struct {
-        unsigned long long lower;
-        unsigned short upper;
+اتحاد ldouble_long {
+    طویل دوہرا ld;
+    ساخت {
+        غیرعلامتی طویل طویل زیریں;
+        غیرعلامتی مختصر بالائی;
     } l;
 };
 
-union double_long {
-    double d;
-#if 1
-    struct {
-        unsigned int lower;
-        int upper;
+اتحاد double_long {
+    دوہرا d;
+#اگر 1
+    ساخت {
+        غیرعلامتی صحیح زیریں;
+        صحیح بالائی;
     } l;
-#else
-    struct {
-        int upper;
-        unsigned int lower;
+#ورنہ
+    ساخت {
+        صحیح بالائی;
+        غیرعلامتی صحیح زیریں;
     } l;
-#endif
-    long long ll;
+#اگر_ختم
+    طویل طویل ll;
 };
 
-union float_long {
-    float f;
-    unsigned int l;
+اتحاد float_long {
+    اعشاری f;
+    غیرعلامتی صحیح l;
 };
 
 /* XXX: we don't support several builtin supports for now */
-#if defined __i386__
+#اگر defined __i386__
 
 /* XXX: use gcc/tcc intrinsic ? */
-#define sub_ddmmss(sh, sl, ah, al, bh, bl) \
+#تعریف_کرو sub_ddmmss(sh, sl, ah, al, bh, bl) \
   __asm__ ("subl %5,%1\n\tsbbl %3,%0"					\
 	   : "=r" ((USItype) (sh)),					\
 	     "=&r" ((USItype) (sl))					\
@@ -118,30 +118,30 @@ union float_long {
 	     "g" ((USItype) (bh)),					\
 	     "1" ((USItype) (al)),					\
 	     "g" ((USItype) (bl)))
-#define umul_ppmm(w1, w0, u, v) \
+#تعریف_کرو umul_ppmm(w1, w0, u, v) \
   __asm__ ("mull %3"							\
 	   : "=a" ((USItype) (w0)),					\
 	     "=d" ((USItype) (w1))					\
 	   : "%0" ((USItype) (u)),					\
 	     "rm" ((USItype) (v)))
-#define udiv_qrnnd(q, r, n1, n0, dv) \
+#تعریف_کرو udiv_qrnnd(q, r, n1, n0, dv) \
   __asm__ ("divl %4"							\
 	   : "=a" ((USItype) (q)),					\
 	     "=d" ((USItype) (r))					\
 	   : "0" ((USItype) (n0)),					\
 	     "1" ((USItype) (n1)),					\
 	     "rm" ((USItype) (dv)))
-#define count_leading_zeros(count, x) \
-  do {									\
+#تعریف_کرو گنتی_leading_zeros(گنتی_2, x) \
+  کرو {									\
     USItype __cbtmp;							\
     __asm__ ("bsrl %1,%0"						\
 	     : "=r" (__cbtmp) : "rm" ((USItype) (x)));			\
-    (count) = __cbtmp ^ 31;						\
-  } while (0)
+    (گنتی_2) = __cbtmp ^ 31;						\
+  } جب (0)
 
 /* most of this code is taken from libgcc2.c from gcc */
 
-static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
+ساکن UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 {
   DWunion ww;
   DWunion nn, dd;
@@ -153,15 +153,15 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
   nn.ll = n;
   dd.ll = d;
 
-  d0 = dd.s.low;
-  d1 = dd.s.high;
-  n0 = nn.s.low;
-  n1 = nn.s.high;
+  d0 = dd.s.کم;
+  d1 = dd.s.بلند;
+  n0 = nn.s.کم;
+  n1 = nn.s.بلند;
 
-#if !defined(UDIV_NEEDS_NORMALIZATION)
-  if (d1 == 0)
+#اگر !defined(UDIV_NEEDS_NORMALIZATION)
+  اگر (d1 == 0)
     {
-      if (d0 > n1)
+      اگر (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
@@ -170,11 +170,11 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0.  */
 	}
-      else
+      ورنہ
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  اگر (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
 	  udiv_qrnnd (q1, n1, 0, n1, d0);
@@ -183,31 +183,31 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0.  */
 	}
 
-      if (rp != 0)
+      اگر (rp != 0)
 	{
-	  rr.s.low = n0;
-	  rr.s.high = 0;
+	  rr.s.کم = n0;
+	  rr.s.بلند = 0;
 	  *rp = rr.ll;
 	}
     }
 
-#else /* UDIV_NEEDS_NORMALIZATION */
+#ورنہ /* UDIV_NEEDS_NORMALIZATION */
 
-  if (d1 == 0)
+  اگر (d1 == 0)
     {
-      if (d0 > n1)
+      اگر (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
-	  count_leading_zeros (bm, d0);
+	  گنتی_leading_zeros (bm, d0);
 
-	  if (bm != 0)
+	  اگر (bm != 0)
 	    {
 	      /* Normalize, i.e. make the most significant bit of the
 		 denominator set.  */
 
 	      d0 = d0 << bm;
-	      n1 = (n1 << bm) | (n0 >> (W_TYPE_SIZE - bm));
+	      n1 = (n1 << bm) | (n0 >> (W_TYPE_سائز - bm));
 	      n0 = n0 << bm;
 	    }
 
@@ -216,16 +216,16 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0 >> bm.  */
 	}
-      else
+      ورنہ
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  اگر (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
-	  count_leading_zeros (bm, d0);
+	  گنتی_leading_zeros (bm, d0);
 
-	  if (bm == 0)
+	  اگر (bm == 0)
 	    {
 	      /* From (n1 >= d0) /\ (the most significant bit of d0 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -237,11 +237,11 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      n1 -= d0;
 	      q1 = 1;
 	    }
-	  else
+	  ورنہ
 	    {
 	      /* Normalize.  */
 
-	      b = W_TYPE_SIZE - bm;
+	      b = W_TYPE_سائز - bm;
 
 	      d0 = d0 << bm;
 	      n2 = n1 >> b;
@@ -258,18 +258,18 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0 >> bm.  */
 	}
 
-      if (rp != 0)
+      اگر (rp != 0)
 	{
-	  rr.s.low = n0 >> bm;
-	  rr.s.high = 0;
+	  rr.s.کم = n0 >> bm;
+	  rr.s.بلند = 0;
 	  *rp = rr.ll;
 	}
     }
-#endif /* UDIV_NEEDS_NORMALIZATION */
+#اگر_ختم /* UDIV_NEEDS_NORMALIZATION */
 
-  else
+  ورنہ
     {
-      if (d1 > n1)
+      اگر (d1 > n1)
 	{
 	  /* 00 = nn / DD */
 
@@ -277,19 +277,19 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  q1 = 0;
 
 	  /* Remainder in n1n0.  */
-	  if (rp != 0)
+	  اگر (rp != 0)
 	    {
-	      rr.s.low = n0;
-	      rr.s.high = n1;
+	      rr.s.کم = n0;
+	      rr.s.بلند = n1;
 	      *rp = rr.ll;
 	    }
 	}
-      else
+      ورنہ
 	{
 	  /* 0q = NN / dd */
 
-	  count_leading_zeros (bm, d1);
-	  if (bm == 0)
+	  گنتی_leading_zeros (bm, d1);
+	  اگر (bm == 0)
 	    {
 	      /* From (n1 >= d1) /\ (the most significant bit of d1 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -299,29 +299,29 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	      /* The condition on the next line takes advantage of that
 		 n1 >= d1 (true due to program flow).  */
-	      if (n1 > d1 || n0 >= d0)
+	      اگر (n1 > d1 || n0 >= d0)
 		{
 		  q0 = 1;
 		  sub_ddmmss (n1, n0, n1, n0, d1, d0);
 		}
-	      else
+	      ورنہ
 		q0 = 0;
 
 	      q1 = 0;
 
-	      if (rp != 0)
+	      اگر (rp != 0)
 		{
-		  rr.s.low = n0;
-		  rr.s.high = n1;
+		  rr.s.کم = n0;
+		  rr.s.بلند = n1;
 		  *rp = rr.ll;
 		}
 	    }
-	  else
+	  ورنہ
 	    {
 	      UWtype m1, m0;
 	      /* Normalize.  */
 
-	      b = W_TYPE_SIZE - bm;
+	      b = W_TYPE_سائز - bm;
 
 	      d1 = (d1 << bm) | (d0 >> b);
 	      d0 = d0 << bm;
@@ -332,7 +332,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      udiv_qrnnd (q0, n1, n2, n1, d1);
 	      umul_ppmm (m1, m0, q0, d0);
 
-	      if (m1 > n1 || (m1 == n1 && m0 > n0))
+	      اگر (m1 > n1 || (m1 == n1 && m0 > n0))
 		{
 		  q0--;
 		  sub_ddmmss (m1, m0, m1, m0, d1, d0);
@@ -341,283 +341,283 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      q1 = 0;
 
 	      /* Remainder in (n1n0 - m1m0) >> bm.  */
-	      if (rp != 0)
+	      اگر (rp != 0)
 		{
 		  sub_ddmmss (n1, n0, n1, n0, m1, m0);
-		  rr.s.low = (n1 << b) | (n0 >> bm);
-		  rr.s.high = n1 >> bm;
+		  rr.s.کم = (n1 << b) | (n0 >> bm);
+		  rr.s.بلند = n1 >> bm;
 		  *rp = rr.ll;
 		}
 	    }
 	}
     }
 
-  ww.s.low = q0;
-  ww.s.high = q1;
-  return ww.ll;
+  ww.s.کم = q0;
+  ww.s.بلند = q1;
+  واپس ww.ll;
 }
 
-#define __negdi2(a) (-(a))
+#تعریف_کرو __negdi2(a) (-(a))
 
-long long __divdi3(long long u, long long v)
+طویل طویل __divdi3(طویل طویل u, طویل طویل v)
 {
-    int c = 0;
+    صحیح c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    اگر (uu.s.بلند < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0) {
+    اگر (vv.s.بلند < 0) {
         c = ~c;
         vv.ll = __negdi2 (vv.ll);
     }
     w = __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) 0);
-    if (c)
+    اگر (c)
         w = __negdi2 (w);
-    return w;
+    واپس w;
 }
 
-long long __moddi3(long long u, long long v)
+طویل طویل __moddi3(طویل طویل u, طویل طویل v)
 {
-    int c = 0;
+    صحیح c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    اگر (uu.s.بلند < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0)
+    اگر (vv.s.بلند < 0)
         vv.ll = __negdi2 (vv.ll);
     
     __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) &w);
-    if (c)
+    اگر (c)
         w = __negdi2 (w);
-    return w;
+    واپس w;
 }
 
-unsigned long long __udivdi3(unsigned long long u, unsigned long long v)
+غیرعلامتی طویل طویل __udivdi3(غیرعلامتی طویل طویل u, غیرعلامتی طویل طویل v)
 {
-    return __udivmoddi4 (u, v, (UDWtype *) 0);
+    واپس __udivmoddi4 (u, v, (UDWtype *) 0);
 }
 
-unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
+غیرعلامتی طویل طویل __umoddi3(غیرعلامتی طویل طویل u, غیرعلامتی طویل طویل v)
 {
     UDWtype w;
     
     __udivmoddi4 (u, v, &w);
-    return w;
+    واپس w;
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashrdi3(long long a, int b)
+طویل طویل __ashrdi3(طویل طویل a, صحیح b)
 {
-#ifdef __TINYC__
+#اگر_تعریف_شدہ __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.low = u.s.high >> (b - 32);
-        u.s.high = u.s.high >> 31;
-    } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = u.s.high >> b;
+    اگر (b >= 32) {
+        u.s.کم = u.s.بلند >> (b - 32);
+        u.s.بلند = u.s.بلند >> 31;
+    } ورنہ اگر (b != 0) {
+        u.s.کم = ((غیرعلامتی)u.s.کم >> b) | (u.s.بلند << (32 - b));
+        u.s.بلند = u.s.بلند >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
-#endif
+    واپس u.ll;
+#ورنہ
+    واپس a >> b;
+#اگر_ختم
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-unsigned long long __lshrdi3(unsigned long long a, int b)
+غیرعلامتی طویل طویل __lshrdi3(غیرعلامتی طویل طویل a, صحیح b)
 {
-#ifdef __TINYC__
+#اگر_تعریف_شدہ __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.low = (unsigned)u.s.high >> (b - 32);
-        u.s.high = 0;
-    } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = (unsigned)u.s.high >> b;
+    اگر (b >= 32) {
+        u.s.کم = (غیرعلامتی)u.s.بلند >> (b - 32);
+        u.s.بلند = 0;
+    } ورنہ اگر (b != 0) {
+        u.s.کم = ((غیرعلامتی)u.s.کم >> b) | (u.s.بلند << (32 - b));
+        u.s.بلند = (غیرعلامتی)u.s.بلند >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
-#endif
+    واپس u.ll;
+#ورنہ
+    واپس a >> b;
+#اگر_ختم
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashldi3(long long a, int b)
+طویل طویل __ashldi3(طویل طویل a, صحیح b)
 {
-#ifdef __TINYC__
+#اگر_تعریف_شدہ __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.high = (unsigned)u.s.low << (b - 32);
-        u.s.low = 0;
-    } else if (b != 0) {
-        u.s.high = ((unsigned)u.s.high << b) | ((unsigned)u.s.low >> (32 - b));
-        u.s.low = (unsigned)u.s.low << b;
+    اگر (b >= 32) {
+        u.s.بلند = (غیرعلامتی)u.s.کم << (b - 32);
+        u.s.کم = 0;
+    } ورنہ اگر (b != 0) {
+        u.s.بلند = ((غیرعلامتی)u.s.بلند << b) | ((غیرعلامتی)u.s.کم >> (32 - b));
+        u.s.کم = (غیرعلامتی)u.s.کم << b;
     }
-    return u.ll;
-#else
-    return a << b;
-#endif
+    واپس u.ll;
+#ورنہ
+    واپس a << b;
+#اگر_ختم
 }
 
-#endif /* __i386__ */
+#اگر_ختم /* __i386__ */
 
 /* XXX: fix tcc's code generator to do this instead */
-float __floatundisf(unsigned long long a)
+اعشاری __floatundisf(غیرعلامتی طویل طویل a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (float)uu.ll;
-    } else {
+    اگر (uu.s.بلند >= 0) {
+        واپس (اعشاری)uu.ll;
+    } ورنہ {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (float)r;
+        واپس (اعشاری)r;
     }
 }
 
-double __floatundidf(unsigned long long a)
+دوہرا __floatundidf(غیرعلامتی طویل طویل a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (double)uu.ll;
-    } else {
+    اگر (uu.s.بلند >= 0) {
+        واپس (دوہرا)uu.ll;
+    } ورنہ {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (double)r;
+        واپس (دوہرا)r;
     }
 }
 
-long double __floatundixf(unsigned long long a)
+طویل دوہرا __floatundixf(غیرعلامتی طویل طویل a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (long double)uu.ll;
-    } else {
+    اگر (uu.s.بلند >= 0) {
+        واپس (طویل دوہرا)uu.ll;
+    } ورنہ {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (long double)r;
+        واپس (طویل دوہرا)r;
     }
 }
 
-unsigned long long __fixunssfdi (float a1)
+غیرعلامتی طویل طویل __fixunssfdi (اعشاری a1)
 {
-    register union float_long fl1;
-    register int exp;
-    register unsigned long long l;
+    اندراج اتحاد float_long fl1;
+    اندراج صحیح قوت_نما;
+    اندراج غیرعلامتی طویل طویل l;
 
     fl1.f = a1;
 
-    if (fl1.l == 0)
-	return (0);
+    اگر (fl1.l == 0)
+	واپس (0);
 
-    exp = EXP (fl1.l) - EXCESS - 24;
+    قوت_نما = EXP (fl1.l) - EXCESS - 24;
     l = MANT(fl1.l);
 
-    if (exp >= 41)
-        return 1ULL << 63;
-    else if (exp >= 0)
-        l <<= exp;
-    else if (exp >= -23)
-        l >>= -exp;
-    else
-	return 0;
-    if (SIGN(fl1.l))
-        l = (unsigned long long)-l;
-    return l;
+    اگر (قوت_نما >= 41)
+        واپس 1ULL << 63;
+    ورنہ اگر (قوت_نما >= 0)
+        l <<= قوت_نما;
+    ورنہ اگر (قوت_نما >= -23)
+        l >>= -قوت_نما;
+    ورنہ
+	واپس 0;
+    اگر (SIGN(fl1.l))
+        l = (غیرعلامتی طویل طویل)-l;
+    واپس l;
 }
 
-long long __fixsfdi (float a1)
+طویل طویل __fixsfdi (اعشاری a1)
 {
-    long long ret; int s;
+    طویل طویل ret; صحیح s;
     ret = __fixunssfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    واپس s ? ret : -ret;
 }
 
-unsigned long long __fixunsdfdi (double a1)
+غیرعلامتی طویل طویل __fixunsdfdi (دوہرا a1)
 {
-    register union double_long dl1;
-    register int exp;
-    register unsigned long long l;
+    اندراج اتحاد double_long dl1;
+    اندراج صحیح قوت_نما;
+    اندراج غیرعلامتی طویل طویل l;
 
     dl1.d = a1;
 
-    if (dl1.ll == 0)
-	return (0);
+    اگر (dl1.ll == 0)
+	واپس (0);
 
-    exp = EXPD (dl1) - EXCESSD - 53;
+    قوت_نما = EXPD (dl1) - EXCESSD - 53;
     l = MANTD_LL(dl1);
 
-    if (exp >= 12)
-        return 1ULL << 63; /* overflow result (like gcc, somewhat) */
-    else if (exp >= 0)
-        l <<= exp;
-    else if (exp >= -52)
-        l >>= -exp;
-    else
-        return 0;
-    if (SIGND(dl1))
-        l = (unsigned long long)-l;
-    return l;
+    اگر (قوت_نما >= 12)
+        واپس 1ULL << 63; /* overflow result (like gcc, somewhat) */
+    ورنہ اگر (قوت_نما >= 0)
+        l <<= قوت_نما;
+    ورنہ اگر (قوت_نما >= -52)
+        l >>= -قوت_نما;
+    ورنہ
+        واپس 0;
+    اگر (SIGND(dl1))
+        l = (غیرعلامتی طویل طویل)-l;
+    واپس l;
 }
 
-long long __fixdfdi (double a1)
+طویل طویل __fixdfdi (دوہرا a1)
 {
-    long long ret; int s;
+    طویل طویل ret; صحیح s;
     ret = __fixunsdfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    واپس s ? ret : -ret;
 }
 
-#ifndef __arm__
-unsigned long long __fixunsxfdi (long double a1)
+#اگر_غیر_تعریف_شدہ __arm__
+غیرعلامتی طویل طویل __fixunsxfdi (طویل دوہرا a1)
 {
-    register union ldouble_long dl1;
-    register int exp;
-    register unsigned long long l;
+    اندراج اتحاد ldouble_long dl1;
+    اندراج صحیح قوت_نما;
+    اندراج غیرعلامتی طویل طویل l;
 
     dl1.ld = a1;
 
-    if (dl1.l.lower == 0 && dl1.l.upper == 0)
-	return (0);
+    اگر (dl1.l.زیریں == 0 && dl1.l.بالائی == 0)
+	واپس (0);
 
-    exp = EXPLD (dl1) - EXCESSLD - 64;
-    l = dl1.l.lower;
-    if (exp > 0)
-	return 1ULL << 63;
-    if (exp < -63)
-        return 0;
-    l >>= -exp;
-    if (SIGNLD(dl1))
-        l = (unsigned long long)-l;
-    return l;
+    قوت_نما = EXPLD (dl1) - EXCESSLD - 64;
+    l = dl1.l.زیریں;
+    اگر (قوت_نما > 0)
+	واپس 1ULL << 63;
+    اگر (قوت_نما < -63)
+        واپس 0;
+    l >>= -قوت_نما;
+    اگر (SIGNLD(dl1))
+        l = (غیرعلامتی طویل طویل)-l;
+    واپس l;
 }
 
-long long __fixxfdi (long double a1)
+طویل طویل __fixxfdi (طویل دوہرا a1)
 {
-    long long ret; int s;
+    طویل طویل ret; صحیح s;
     ret = __fixunsxfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    واپس s ? ret : -ret;
 }
-#endif /* !ARM */
+#اگر_ختم /* !ARM */

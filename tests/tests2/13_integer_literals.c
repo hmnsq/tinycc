@@ -1,20 +1,20 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح مین()
 {
-   int a = 24680;
-   int b = 01234567;
-   int c = 0x2468ac;
-   int d = 0x2468AC;
-   int e = 0b010101010101;
+   صحیح a = 24680;
+   صحیح b = 01234567;
+   صحیح c = 0x2468ac;
+   صحیح d = 0x2468AC;
+   صحیح e = 0b010101010101;
 
-   printf("%d\n", a);
-   printf("%d\n", b);
-   printf("%d\n", c);
-   printf("%d\n", d);
-   printf("%d\n", e);
+   لکھو("%d\n", a);
+   لکھو("%d\n", b);
+   لکھو("%d\n", c);
+   لکھو("%d\n", d);
+   لکھو("%d\n", e);
 
-   return 0;
+   واپس 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

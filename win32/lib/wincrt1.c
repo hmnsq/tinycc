@@ -1,86 +1,86 @@
 //+---------------------------------------------------------------------------
 
 // _UNICODE for tchar.h, UNICODE for API
-#include <tchar.h>
+#شامل <tchar.h>
 
-#include <windows.h>
-#include <stdlib.h>
+#شامل <windows.h>
+#شامل <stdlib.h>
 
-#define __UNKNOWN_APP    0
-#define __CONSOLE_APP    1
-#define __GUI_APP        2
-void __set_app_type(int);
-void _controlfp(unsigned a, unsigned b);
+#تعریف_کرو __UNKNOWN_APP    0
+#تعریف_کرو __CONSOLE_APP    1
+#تعریف_کرو __GUI_APP        2
+خالی __set_app_type(صحیح);
+خالی _controlfp(غیرعلامتی a, غیرعلامتی b);
 
-#ifdef _UNICODE
-#define __tgetmainargs __wgetmainargs
-#define _twinstart _wwinstart
-#define _runtwinmain _runwwinmain
-int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int);
-#else
-#define __tgetmainargs __getmainargs
-#define _twinstart _winstart
-#define _runtwinmain _runwinmain
-#endif
+#اگر_تعریف_شدہ _UNICODE
+#تعریف_کرو __tgetmainargs __wgetmainargs
+#تعریف_کرو _twinstart _wwinstart
+#تعریف_کرو _runtwinmain _runwwinmain
+صحیح APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, صحیح);
+#ورنہ
+#تعریف_کرو __tgetmainargs __getmainargs
+#تعریف_کرو _twinstart _winstart
+#تعریف_کرو _runtwinmain _runwinmain
+#اگر_ختم
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
+قسمتعریف ساخت { صحیح newmode; } _startupinfo;
+صحیح __cdecl __tgetmainargs(صحیح *pargc, _TCHAR ***pargv, _TCHAR ***penv, صحیح globb, _startupinfo*);
 
-#include "crtinit.c"
+#شامل "crtinit.c"
 
-static int go_winmain(TCHAR *arg1)
+ساکن صحیح go_winmain(TCHAR *arg1)
 {
     STARTUPINFO si;
     _TCHAR *szCmd, *p;
-    int fShow;
-    int retval;
+    صحیح fShow;
+    صحیح retval;
 
     GetStartupInfo(&si);
-    if (si.dwFlags & STARTF_USESHOWWINDOW)
-        fShow = si.wShowWindow;
-    else
+    اگر (si.dwFlags & STARTF_USESHOWWINDOW)
+        fShow = si.w_Show_کھڑکی;
+    ورنہ
         fShow = SW_SHOWDEFAULT;
 
-    szCmd = NULL, p = GetCommandLine();
-    if (arg1)
+    szCmd = تہی, p = Get_Command_سطر();
+    اگر (arg1)
         szCmd = _tcsstr(p, arg1);
-    if (NULL == szCmd)
+    اگر (تہی == szCmd)
         szCmd = _tcsdup(__T(""));
-    else if (szCmd > p && szCmd[-1] == __T('"'))
+    ورنہ اگر (szCmd > p && szCmd[-1] == __T('"'))
         --szCmd;
-#if defined __i386__ || defined __x86_64__
+#اگر defined __i386__ || defined __x86_64__
     _controlfp(0x10000, 0x30000);
-#endif
-    run_ctors(__argc, __targv, _tenviron);
-    retval = _tWinMain(GetModuleHandle(NULL), NULL, szCmd, fShow);
-    run_dtors();
-    return retval;
+#اگر_ختم
+    تسلسل_ctors(__argc, __targv, _tenviron);
+    retval = _tWinMain(GetModuleHandle(تہی), تہی, szCmd, fShow);
+    تسلسل_dtors();
+    واپس retval;
 }
 
-static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
+ساکن LONG WINAPI catch_sig(EXCEPTION_اشارے *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  واپس _XcptFilter(ex->Exception_ریکارڈ->Exception_رمز, ex);
 }
 
-int _twinstart(void)
+صحیح _twinstart(خالی)
 {
-    _startupinfo start_info_con = {0};
-    SetUnhandledExceptionFilter(catch_sig);
+    _startupinfo آغاز_info_con = {0};
+    سیٹ_Unhandled_Exception_Filter(catch_sig);
     __set_app_type(__GUI_APP);
-    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info_con);
-    exit(go_winmain(__argc > 1 ? __targv[1] : NULL));
+    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &آغاز_info_con);
+    باہر_نکلو(go_winmain(__argc > 1 ? __targv[1] : تہی));
 }
 
-int _runtwinmain(int argc, /* as tcc passed in */ char **argv)
+صحیح _runtwinmain(صحیح argc, /* as tcc passed in */ حرف **argv)
 {
-#ifdef UNICODE
-    _startupinfo start_info = {0};
-    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
+#اگر_تعریف_شدہ UNICODE
+    _startupinfo آغاز_info = {0};
+    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &آغاز_info);
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc)
+    اگر (argc < __argc)
         __targv += __argc - argc, __argc = argc;
-#else
+#ورنہ
     __argc = argc, __targv = argv;
-#endif
-    return go_winmain(__argc > 1 ? __targv[1] : NULL);
+#اگر_ختم
+    واپس go_winmain(__argc > 1 ? __targv[1] : تہی);
 }

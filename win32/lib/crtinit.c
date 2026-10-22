@@ -1,26 +1,26 @@
 //+---------------------------------------------------------------------------
 
-#ifdef __leading_underscore
+#اگر_تعریف_شدہ __leading_underscore
 # define _(s) s
-#else
+#ورنہ
 # define _(s) _##s
-#endif
+#اگر_ختم
 
-extern void (*_(_init_array_start)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_init_array_end)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
+خارجی خالی (*_(init_array_آغاز)[]) (صحیح argc, _TCHAR **argv, _TCHAR **envp);
+خارجی خالی (*_(init_array_انتہا)[]) (صحیح argc, _TCHAR **argv, _TCHAR **envp);
+خارجی خالی (*_(fini_array_آغاز)[]) (خالی);
+خارجی خالی (*_(fini_array_انتہا)[]) (خالی);
 
-static void run_ctors(int argc, _TCHAR **argv, _TCHAR **env)
+ساکن خالی تسلسل_ctors(صحیح argc, _TCHAR **argv, _TCHAR **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
-        (*_(_init_array_start)[i++])(argc, argv, env);
+    صحیح i = 0;
+    جب (&_(init_array_آغاز)[i] != _(init_array_انتہا))
+        (*_(init_array_آغاز)[i++])(argc, argv, env);
 }
 
-static void run_dtors(void)
+ساکن خالی تسلسل_dtors(خالی)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
-        (*_(_fini_array_end)[--i])();
+    صحیح i = 0;
+    جب (&_(fini_array_انتہا)[i] != _(fini_array_آغاز))
+        (*_(fini_array_انتہا)[--i])();
 }

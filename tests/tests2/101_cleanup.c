@@ -1,308 +1,308 @@
-extern int printf(const char*, ...);
-static int glob_i = 0;
+خارجی صحیح لکھو(ثابت حرف*, ...);
+ساکن صحیح glob_i = 0;
 
-typedef struct { int a; int b; int c; int d; int e; int f; int g; int h; } tstl;
-typedef struct { int a; int b; int c; int d; } tsti;
-typedef struct { double a; double b; } tstd;
-typedef struct { long double a; } tstld;
-typedef struct { int a; double b; } tstm;
-typedef struct { float a; float b; float c; float d; } tstf;
+قسمتعریف ساخت { صحیح a; صحیح b; صحیح c; صحیح d; صحیح e; صحیح f; صحیح g; صحیح h; } tstl;
+قسمتعریف ساخت { صحیح a; صحیح b; صحیح c; صحیح d; } tsti;
+قسمتعریف ساخت { دوہرا a; دوہرا b; } tstd;
+قسمتعریف ساخت { طویل دوہرا a; } tstld;
+قسمتعریف ساخت { صحیح a; دوہرا b; } tstm;
+قسمتعریف ساخت { اعشاری a; اعشاری b; اعشاری c; اعشاری d; } tstf;
 
-void incr_glob_i(int *i)
+خالی incr_glob_i(صحیح *i)
 {
   glob_i += *i;
   *i = -1;
 }
 
-#define INCR_GI {						\
-    int i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
+#تعریف_کرو INCR_GI {						\
+    صحیح i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
   }
 
-#define INCR_GI0 INCR_GI INCR_GI INCR_GI INCR_GI
-#define INCR_GI1 INCR_GI0 INCR_GI0 INCR_GI0 INCR_GI0
-#define INCR_GI2 INCR_GI1 INCR_GI1 INCR_GI1 INCR_GI1
-#define INCR_GI3 INCR_GI2 INCR_GI2 INCR_GI2 INCR_GI2
-#define INCR_GI4 INCR_GI3 INCR_GI3 INCR_GI3 INCR_GI3
-#define INCR_GI5 INCR_GI4 INCR_GI4 INCR_GI4 INCR_GI4
-#define INCR_GI6 INCR_GI5 INCR_GI5 INCR_GI5 INCR_GI5
-#define INCR_GI7 INCR_GI6 INCR_GI6 INCR_GI6 INCR_GI6
+#تعریف_کرو INCR_GI0 INCR_GI INCR_GI INCR_GI INCR_GI
+#تعریف_کرو INCR_GI1 INCR_GI0 INCR_GI0 INCR_GI0 INCR_GI0
+#تعریف_کرو INCR_GI2 INCR_GI1 INCR_GI1 INCR_GI1 INCR_GI1
+#تعریف_کرو INCR_GI3 INCR_GI2 INCR_GI2 INCR_GI2 INCR_GI2
+#تعریف_کرو INCR_GI4 INCR_GI3 INCR_GI3 INCR_GI3 INCR_GI3
+#تعریف_کرو INCR_GI5 INCR_GI4 INCR_GI4 INCR_GI4 INCR_GI4
+#تعریف_کرو INCR_GI6 INCR_GI5 INCR_GI5 INCR_GI5 INCR_GI5
+#تعریف_کرو INCR_GI7 INCR_GI6 INCR_GI6 INCR_GI6 INCR_GI6
 
 
-void check2(char **hum);
+خالی check2(حرف **hum);
 
-void check(int *j)
+خالی check(صحیح *j)
 {
-    char * __attribute__ ((cleanup(check2))) stop_that = "wololo";
-    int chk = 0;
+    حرف * __attribute__ ((cleanup(check2))) stop_that = "wololo";
+    صحیح chk = 0;
 
     {
-	char * __attribute__ ((cleanup(check2))) stop_that = "plop";
+	حرف * __attribute__ ((cleanup(check2))) stop_that = "plop";
 
 	{
 	  non_plopage:
-	    printf("---- %d\n", chk);
+	    لکھو("---- %d\n", chk);
 	}
-	if (!chk) {
+	اگر (!chk) {
 	    chk = 1;
-	    goto non_plopage;
+	    جاؤ non_plopage;
 	}
     }
 
     {
-	char * __attribute__ ((cleanup(check2))) stop_that = "tata !";
+	حرف * __attribute__ ((cleanup(check2))) stop_that = "tata !";
 
-	goto out;
+	جاؤ برآمد;
 	stop_that = "titi";
     }
   again:
     chk = 2;
     {
-	char * __attribute__ ((cleanup(check2))) cascade1 = "1";
+	حرف * __attribute__ ((cleanup(check2))) cascade1 = "1";
 	{
-	    char * __attribute__ ((cleanup(check2))) cascade2 = "2";
+	    حرف * __attribute__ ((cleanup(check2))) cascade2 = "2";
 	    {
-		char * __attribute__ ((cleanup(check2))) cascade3 = "3";
+		حرف * __attribute__ ((cleanup(check2))) cascade3 = "3";
 
-		goto out;
+		جاؤ برآمد;
 		cascade3 = "nope";
 	    }
 	}
     }
-  out:
-    if (chk != 2)
-	goto again;
+  برآمد:
+    اگر (chk != 2)
+	جاؤ again;
     {
 	{
-	    char * __attribute__ ((cleanup(check2))) out = "last goto out";
+	    حرف * __attribute__ ((cleanup(check2))) برآمد = "last goto out";
 	    ++chk;
-	    if (chk != 3)
-		goto out;
+	    اگر (chk != 3)
+		جاؤ برآمد;
 	}
     }
     *j = -1;
-    return;
+    واپس;
 }
 
-void check_oh_i(char *oh_i)
+خالی check_oh_i(حرف *oh_i)
 {
-    printf("c: %c\n", *oh_i);
+    لکھو("c: %c\n", *oh_i);
     *oh_i = '0';
 }
 
-void goto_hell(double *f)
+خالی goto_hell(دوہرا *f)
 {
-    printf("oo: %f\n", *f);
+    لکھو("oo: %f\n", *f);
     *f = -1.0;
 }
 
-char *test()
+حرف *test()
 {
-    char *__attribute__ ((cleanup(check2))) str = "I don't think this should be print(but gcc got it wrong too)";
+    حرف *__attribute__ ((cleanup(check2))) str = "I don't think this should be print(but gcc got it wrong too)";
 
-    return str;
+    واپس str;
 }
 
-void test_ret_subcall(char *that)
+خالی test_ret_subcall(حرف *that)
 {
-    printf("should be print before\n");
+    لکھو("should be print before\n");
 }
 
-void test_ret()
+خالی test_ret()
 {
-    char *__attribute__ ((cleanup(check2))) that = "that";
-    return test_ret_subcall(that);
+    حرف *__attribute__ ((cleanup(check2))) that = "that";
+    واپس test_ret_subcall(that);
 }
 
-void test_ret2()
+خالی test_ret2()
 {
-  char *__attribute__ ((cleanup(check2))) that = "-that";
+  حرف *__attribute__ ((cleanup(check2))) that = "-that";
   {
-    char *__attribute__ ((cleanup(check2))) that = "this should appear only once";
+    حرف *__attribute__ ((cleanup(check2))) that = "this should appear only once";
   }
   {
-    char *__attribute__ ((cleanup(check2))) that = "-that2";
-    return;
+    حرف *__attribute__ ((cleanup(check2))) that = "-that2";
+    واپس;
   }
 }
 
-void test2(void) {
-    int chk = 0;
+خالی test2(خالی) {
+    صحیح chk = 0;
 again:
-    if (!chk) {
-        char * __attribute__ ((cleanup(check2))) stop_that = "test2";
+    اگر (!chk) {
+        حرف * __attribute__ ((cleanup(check2))) stop_that = "test2";
         chk++;
-        goto again;
+        جاؤ again;
     }
 }
 
-int test3(void) {
-    char * __attribute__ ((cleanup(check2))) stop_that = "three";
-    int chk = 0;
+صحیح test3(خالی) {
+    حرف * __attribute__ ((cleanup(check2))) stop_that = "three";
+    صحیح chk = 0;
 
-    if (chk) {
+    اگر (chk) {
         {
           outside:
 	    {
-            char * __attribute__ ((cleanup(check2))) stop_that = "two";
-            printf("---- %d\n", chk);
+            حرف * __attribute__ ((cleanup(check2))) stop_that = "two";
+            لکھو("---- %d\n", chk);
 	    }
         }
     }
-    if (!chk)
+    اگر (!chk)
     {
-        char * __attribute__ ((cleanup(check2))) stop_that = "one";
+        حرف * __attribute__ ((cleanup(check2))) stop_that = "one";
 
-        if (!chk) {
+        اگر (!chk) {
             chk = 1;
-            goto outside;
+            جاؤ outside;
         }
     }
-    return 0;
+    واپس 0;
 }
 
-void cl(int *ip)
+خالی cl(صحیح *ip)
 {
-    printf("%d\n", *ip);
+    لکھو("%d\n", *ip);
     *ip = -1;
 }
 
-void loop_cleanups(void)
+خالی loop_cleanups(خالی)
 {
-    __attribute__((cleanup(cl))) int l = 1000;
+    __attribute__((cleanup(cl))) صحیح l = 1000;
 
-    printf("-- loop 0 --\n");
-    for ( __attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 100;
+    لکھو("-- loop 0 --\n");
+    برائے ( __attribute__((cleanup(cl))) صحیح i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) صحیح j = 100;
     }
 
-    printf("-- loop 1 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl)))  int j = 200;
-        continue;
+    لکھو("-- loop 1 --\n");
+    برائے (__attribute__((cleanup(cl))) صحیح i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl)))  صحیح j = 200;
+        جاری;
     }
 
-    printf("-- loop 2 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 300;
-        break;
+    لکھو("-- loop 2 --\n");
+    برائے (__attribute__((cleanup(cl))) صحیح i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) صحیح j = 300;
+        توڑو;
     }
 
-    printf("-- loop 3 --\n");
-    for (int i = 0; i < 2; ++i) {
-	__attribute__((cleanup(cl))) int j = 400;
-	switch (i) {
-	case 0:
-	    continue;
-	default:
+    لکھو("-- loop 3 --\n");
+    برائے (صحیح i = 0; i < 2; ++i) {
+	__attribute__((cleanup(cl))) صحیح j = 400;
+	انتخاب (i) {
+	حالت 0:
+	    جاری;
+	طےشدہ:
 	{
-	    __attribute__((cleanup(cl))) int jj = 500;
-	    break;
+	    __attribute__((cleanup(cl))) صحیح jj = 500;
+	    توڑو;
 	}
 	}
     }
-    printf("after break\n");
+    لکھو("after break\n");
 }
 
-void my_cleanup1(int *p) {
-    printf("%d\n", *p);
+خالی my_cleanup1(صحیح *p) {
+    لکھو("%d\n", *p);
     *p = 0x90;
 }
 
-int test_cleanup1(void) {
-    int __attribute__((cleanup(my_cleanup1))) n = 42;
-    return n;
+صحیح test_cleanup1(خالی) {
+    صحیح __attribute__((cleanup(my_cleanup1))) n = 42;
+    واپس n;
 }
 
-void my_cleanup2(tstl *p) {
-    printf("%d %d %d %d %d %d %d %d\n", p->a, p->b, p->c, p->d,
+خالی my_cleanup2(tstl *p) {
+    لکھو("%d %d %d %d %d %d %d %d\n", p->a, p->b, p->c, p->d,
 			                p->e, p->f, p->g, p->h);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
     p->e = 0x94; p->f = 0x95; p->g = 0x96; p->h = 0x97;
 }
 
-tstl test_cleanup2(void) {
+tstl test_cleanup2(خالی) {
     tstl __attribute__((cleanup(my_cleanup2))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
     n.e = 46; n.f = 47; n.g = 48; n.h = 49;
-    return n;
+    واپس n;
 }
 
-void my_cleanup3(tsti *p) {
-    printf("%d %d %d %d\n", p->a, p->b, p->c, p->d);
+خالی my_cleanup3(tsti *p) {
+    لکھو("%d %d %d %d\n", p->a, p->b, p->c, p->d);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
 }
 
-tsti test_cleanup3(void) {
+tsti test_cleanup3(خالی) {
     tsti __attribute__((cleanup(my_cleanup3))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    واپس n;
 }
 
-void my_cleanup4(tstd *p) {
-    printf("%g %g\n", p->a, p->b);
+خالی my_cleanup4(tstd *p) {
+    لکھو("%g %g\n", p->a, p->b);
     p->a = 90.0; p->b = 91.0;
 }
 
-tstd test_cleanup4(void) {
+tstd test_cleanup4(خالی) {
     tstd __attribute__((cleanup(my_cleanup4))) n;
     n.a = 42.0; n.b = 43.0;
-    return n;
+    واپس n;
 }
 
-void my_cleanup5(tstld *p) {
-    printf("%Lf\n", p->a);
+خالی my_cleanup5(tstld *p) {
+    لکھو("%Lf\n", p->a);
     p->a = 90.0;
 }
 
-tstld test_cleanup5(void) {
+tstld test_cleanup5(خالی) {
     tstld __attribute__((cleanup(my_cleanup5))) n;
     n.a = 42.0;
-    return n;
+    واپس n;
 }
 
-void my_cleanup6(tstm *p) {
-    printf("%d %g\n", p->a, p->b);
+خالی my_cleanup6(tstm *p) {
+    لکھو("%d %g\n", p->a, p->b);
     p->a = 90;
     p->b = 91.0;
 }
 
-tstm test_cleanup6(void) {
+tstm test_cleanup6(خالی) {
     tstm __attribute__((cleanup(my_cleanup6))) n;
     n.a = 42;
     n.b = 43.0;
-    return n;
+    واپس n;
 }
 
-void my_cleanup7(tstf *p) {
-    printf("%f %f %f %f\n", p->a, p->b, p->c, p->d);
+خالی my_cleanup7(tstf *p) {
+    لکھو("%f %f %f %f\n", p->a, p->b, p->c, p->d);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
 }
 
-tstf test_cleanup7(void) {
+tstf test_cleanup7(خالی) {
     tstf __attribute__((cleanup(my_cleanup7))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    واپس n;
 }
 
-void my_cleanup8(int **p) {
+خالی my_cleanup8(صحیح **p) {
     **p = 0x90;
 }
 
-int test_cleanup8(void) {
-    int n = 42;
-    int __attribute__((cleanup(my_cleanup8))) *p = &n;
-    return n;
+صحیح test_cleanup8(خالی) {
+    صحیح n = 42;
+    صحیح __attribute__((cleanup(my_cleanup8))) *p = &n;
+    واپس n;
 }
 
-static void my_cleanupe(int *p) {
+ساکن خالی my_cleanupe(صحیح *p) {
     *p = 0x90;
 }
 
-int main()
+صحیح مین()
 {
-    int i __attribute__ ((__cleanup__(check))) = 0, not_i;
-    int chk = 0;
-    (void)not_i;
+    صحیح i __attribute__ ((__cleanup__(check))) = 0, not_i;
+    صحیح chk = 0;
+    (خالی)not_i;
     tstl tl;
     tsti ti;
     tstd td;
@@ -311,49 +311,49 @@ int main()
     tstf tf;
 
     {
-	__attribute__ ((__cleanup__(check_oh_i))) char oh_i = 'o', o = 'a';
+	__attribute__ ((__cleanup__(check_oh_i))) حرف oh_i = 'o', o = 'a';
     }
 
     INCR_GI7;
-    printf("glob_i: %d\n", glob_i);
+    لکھو("glob_i: %d\n", glob_i);
  naaaaaaaa:
-    if (!chk) {
-	__attribute__ ((__cleanup__(check_oh_i))) char oh_i = 'f';
-	double __attribute__ ((__cleanup__(goto_hell))) f = 2.6;
+    اگر (!chk) {
+	__attribute__ ((__cleanup__(check_oh_i))) حرف oh_i = 'f';
+	دوہرا __attribute__ ((__cleanup__(goto_hell))) f = 2.6;
 
 	chk = 1;
-	goto naaaaaaaa;
+	جاؤ naaaaaaaa;
     }
     i = 105;
-    printf("because what if free was call inside cleanup function %s\n", test());
+    لکھو("because what if free was call inside cleanup function %s\n", test());
     test_ret();
     test_ret2();
     test2();
     test3();
     loop_cleanups();
-    printf("%d\n", test_cleanup1());
+    لکھو("%d\n", test_cleanup1());
     tl = test_cleanup2();
-    printf("%d %d %d %d %d %d %d %d\n", tl.a, tl.b, tl.c, tl.d,
+    لکھو("%d %d %d %d %d %d %d %d\n", tl.a, tl.b, tl.c, tl.d,
 					tl.e, tl.f, tl.g, tl.h);
     ti = test_cleanup3();
-    printf("%d %d %d %d\n", ti.a, ti.b, ti.c, ti.d);
+    لکھو("%d %d %d %d\n", ti.a, ti.b, ti.c, ti.d);
     td = test_cleanup4();
-    printf("%g %g\n", td.a, td.b);
+    لکھو("%g %g\n", td.a, td.b);
     tld = test_cleanup5();
-    printf("%Lf\n", tld.a);
+    لکھو("%Lf\n", tld.a);
     tm = test_cleanup6();
-    printf("%d %g\n", tm.a, tm.b);
+    لکھو("%d %g\n", tm.a, tm.b);
     tf = test_cleanup7();
-    printf("%f %f %f %f\n", tf.a, tf.b, tf.c, tf.d);
-    printf("%d\n", test_cleanup8());
-    printf("%d\n", ({
-            int __attribute__ ((cleanup(my_cleanupe))) n = 42;
+    لکھو("%f %f %f %f\n", tf.a, tf.b, tf.c, tf.d);
+    لکھو("%d\n", test_cleanup8());
+    لکھو("%d\n", ({
+            صحیح __attribute__ ((cleanup(my_cleanupe))) n = 42;
             n; }));
-    return i;
+    واپس i;
 }
 
-void check2(char **hum)
+خالی check2(حرف **hum)
 {
-    printf("str: %s\n", *hum);
+    لکھو("str: %s\n", *hum);
     *hum = "fail";
 }
